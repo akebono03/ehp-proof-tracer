@@ -59,6 +59,9 @@ class Subgroup:
   def order(self) -> int:
     return len(self.elements)
 
+  def structure(self) -> tuple[int, ...]:
+    return subgroup_structure(self)
+  
   def __eq__(self, other) -> bool:
     if not isinstance(other, Subgroup):
       return NotImplemented
@@ -92,6 +95,116 @@ def add_elements(x: GroupElement, y: GroupElement) -> GroupElement:
     tuple(coefficients),
   )
 
+def multiply_element(
+  n: int,
+  x: GroupElement,
+) -> GroupElement:
+  coefficients = []
+
+  for coefficient, order in zip(
+    x.coefficients,
+    x.group.orders,
+  ):
+    value = n * coefficient
+
+    if order != 0:
+      value %= order
+
+    coefficients.append(value)
+
+  return GroupElement(
+    x.group,
+    tuple(coefficients),
+  )
+
+
+def prime_factors(n: int) -> list[int]:
+  factors = []
+  p = 2
+
+  while p * p <= n:
+    if n % p == 0:
+      factors.append(p)
+
+      while n % p == 0:
+        n //= p
+
+    p += 1
+
+  if n > 1:
+    factors.append(n)
+
+  return factors
+
+
+def subgroup_structure(
+  subgroup: Subgroup,
+) -> tuple[int, ...]:
+  if subgroup.order == 1:
+    return ()
+
+  prime_parts = []
+
+  for p in prime_factors(subgroup.order):
+    powers = []
+    pk = p
+    previous_rank = 0
+
+    while pk <= subgroup.order:
+      killed = sum(
+        multiply_element(pk, x).is_zero()
+        for x in subgroup.elements
+      )
+
+      rank = 0
+      value = killed
+
+      while value > 1:
+        value //= p
+        rank += 1
+
+      count_at_least_k = rank - previous_rank
+      powers.append(count_at_least_k)
+      previous_rank = rank
+
+      if killed == subgroup.order:
+        break
+
+      pk *= p
+
+    elementary = []
+
+    for k in range(len(powers)):
+      current = powers[k]
+      following = (
+        powers[k + 1]
+        if k + 1 < len(powers)
+        else 0
+      )
+
+      count_exact = current - following
+
+      elementary.extend(
+        [p ** (k + 1)] * count_exact
+      )
+
+    elementary.sort()
+    prime_parts.append(elementary)
+
+  rank = max(
+    len(part)
+    for part in prime_parts
+  )
+
+  invariant_factors = [1] * rank
+
+  for part in prime_parts:
+    offset = rank - len(part)
+
+    for i, value in enumerate(part):
+      invariant_factors[offset + i] *= value
+
+  return tuple(invariant_factors)
 
 def generated_subgroup_elements(
   ambient_group: AbelianGroup,

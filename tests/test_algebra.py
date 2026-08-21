@@ -202,4 +202,35 @@ def test_noncyclic_subgroup_generators():
     (0, 1),
     (1, 0),
   }
+
+def test_subgroup_structure_cyclic_order_4():
+  group = make_cyclic_group(4, "a")
+
+  f = GroupMap(
+    name="id",
+    source=group,
+    target=group,
+    matrix=[[1]],
+  )
+
+  assert f.image_subgroup().structure() == (4,)
+
+
+def test_subgroup_structure_z2_z2():
+  group = make_product_group(
+    [2, 2],
+    ["a", "b"],
+  )
+
+  f = GroupMap(
+    name="id",
+    source=group,
+    target=group,
+    matrix=[
+      [1, 0],
+      [0, 1],
+    ],
+  )
+
+  assert f.image_subgroup().structure() == (2, 2)
   
