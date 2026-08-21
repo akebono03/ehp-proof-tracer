@@ -152,3 +152,54 @@ def test_subgroup_equality():
   )
 
   assert f.image_subgroup() == g.kernel_subgroup()
+
+def make_product_group(orders, generators):
+  return AbelianGroup(
+    n=0,
+    k=0,
+    components=[
+      GroupComponent(
+        id=i,
+        order=order,
+        generator=generator,
+        element=[],
+        gen_coe=[],
+      )
+      for i, (order, generator) in enumerate(
+        zip(orders, generators)
+      )
+    ],
+  )
+
+
+def test_noncyclic_subgroup_generators():
+  group = make_product_group(
+    [2, 2],
+    ["a", "b"],
+  )
+
+  f = GroupMap(
+    name="id",
+    source=group,
+    target=group,
+    matrix=[
+      [1, 0],
+      [0, 1],
+    ],
+  )
+
+  im = f.image_subgroup()
+
+  assert im.order == 4
+  assert len(im.generators) == 2
+
+  generated = {
+    x.coefficients
+    for x in im.generators
+  }
+
+  assert generated == {
+    (0, 1),
+    (1, 0),
+  }
+  
