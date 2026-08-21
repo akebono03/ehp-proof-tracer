@@ -233,4 +233,55 @@ def test_subgroup_structure_z2_z2():
   )
 
   assert f.image_subgroup().structure() == (2, 2)
-  
+
+def test_subgroup_structure_z2_z4():
+  group = make_product_group(
+    [2, 4],
+    ["a", "b"],
+  )
+
+  f = GroupMap(
+    name="id",
+    source=group,
+    target=group,
+    matrix=[
+      [1, 0],
+      [0, 1],
+    ],
+  )
+
+  assert f.image_subgroup().structure() == (2, 4)
+
+
+def test_subgroup_structure_z4_z12():
+  group = make_product_group(
+    [4, 12],
+    ["a", "b"],
+  )
+
+  f = GroupMap(
+    name="id",
+    source=group,
+    target=group,
+    matrix=[
+      [1, 0],
+      [0, 1],
+    ],
+  )
+
+  assert f.image_subgroup().structure() == (4, 12)
+
+
+def test_subgroup_structure_trivial():
+  group = make_cyclic_group(4, "a")
+  zero = make_cyclic_group(1, "0")
+
+  f = GroupMap(
+    name="0",
+    source=group,
+    target=zero,
+    matrix=[[0]],
+  )
+
+  assert f.image_subgroup().structure() == ()
+
