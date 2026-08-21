@@ -1,0 +1,221 @@
+from dataclasses import dataclass
+from itertools import product
+
+from models import AbelianGroup
+
+
+@dataclass(frozen=True)
+class GroupElement:
+  group: AbelianGroup
+  coefficients: tuple[int, ...]
+
+  def __post_init__(self):
+    if len(self.coefficients) != self.group.direct_sum:
+      raise ValueError("係数の数と群の直和成分数が一致しません")
+
+  def normalized(self):
+    coefficients = []
+
+    for coefficient, order in zip(
+      self.coefficients,
+      self.group.orders
+    ):
+      if order == 0:
+        coefficients.append(0)
+      else:
+        coefficients.append(coefficient % order)
+
+    return GroupElement(
+      self.group,
+      tuple(coefficients),
+    )
+
+  def is_zero(self):
+    return all(
+      coefficient == 0
+      for coefficient in self.normalized().coefficients
+    )
+
+
+@dataclass(frozen=True)
+class Subgroup:
+  ambient_group: AbelianGroup
+  elements: frozenset[GroupElement]
+  generators: tuple[GroupElement, ...]
+
+  def __contains__(self, x: GroupElement) -> bool:
+    return x in self.elements
+
+  def __len__(self) -> int:
+    return len(self.elements)
+
+  @property
+  def order(self) -> int:
+    return len(self.elements)
+
+  def __eq__(self, other) -> bool:
+    if not isinstance(other, Subgroup):
+      return NotImplemented
+
+    return (
+      self.ambient_group == other.ambient_group
+      and self.elements == other.elements
+    )
+
+
+def add_elements(x: GroupElement, y: GroupElement) -> GroupElement:
+  if x.group != y.group:
+    raise ValueError("異なる群の元は加算できません")
+
+  coefficients = []
+
+  for a, b, order in zip(
+    x.coefficients,
+    y.coefficients,
+    x.group.orders,
+  ):
+    value = a + b
+
+    if order != 0:
+      value %= order
+
+    coefficients.append(value)
+
+  return GroupElement(
+    x.group,
+    tuple(coefficients),
+  )
+
+
+def generated_subgroup_elements(
+  ambient_group: AbelianGroup,
+  generators: tuple[GroupElement, ...],
+) -> frozenset[GroupElement]:
+  zero = GroupElement(
+    ambient_group,
+    tuple(0 for _ in ambient_group.orders),
+  )
+
+  generated = {zero}
+  frontier = [zero]
+
+  while frontier:
+    x = frontier.pop()
+
+    for generator in generators:
+      y = add_elements(x, generator).normalized()
+
+      if y not in generated:
+        generated.add(y)
+        frontier.append(y)
+
+  return frozenset(generated)
+
+
+def find_generators(
+  ambient_group: AbelianGroup,
+  elements: frozenset[GroupElement],
+) -> tuple[GroupElement, ...]:
+  generators = ()
+  generated = generated_subgroup_elements(
+    ambient_group,
+    generators,
+  )
+
+  for x in sorted(
+    elements,
+    key=lambda element: element.coefficients,
+  ):
+    if x in generated:
+      continue
+
+    generators += (x,)
+    generated = generated_subgroup_elements(
+      ambient_group,
+      generators,
+    )
+
+    if generated == elements:
+      break
+
+  return generators
+
+
+@dataclass
+class GroupMap:
+  name: str
+  source: AbelianGroup
+  target: AbelianGroup
+  matrix: list[list[int]]
+
+  def apply(self, element):
+    x = element.normalized().coefficients
+
+    result = []
+
+    for i, order in enumerate(self.target.orders):
+      value = 0
+
+      for j in range(self.source.direct_sum):
+        value += self.matrix[i][j] * x[j]
+
+      if order != 0:
+        value %= order
+
+      result.append(value)
+
+    return GroupElement(
+      self.target,
+      tuple(result),
+    )
+
+  def source_elements(self):
+    ranges = [
+      range(order)
+      for order in self.source.orders
+    ]
+
+    return [
+      GroupElement(self.source, tuple(x))
+      for x in product(*ranges)
+    ]
+
+  def kernel(self):
+    return [
+      x
+      for x in self.source_elements()
+      if self.apply(x).is_zero()
+    ]
+
+  def image(self):
+    result = {}
+
+    for x in self.source_elements():
+      y = self.apply(x).normalized()
+      result[y.coefficients] = y
+
+    return list(result.values())
+
+  def kernel_subgroup(self) -> Subgroup:
+    elements = frozenset(self.kernel())
+
+    return Subgroup(
+      ambient_group=self.source,
+      elements=elements,
+      generators=find_generators(
+        self.source,
+        elements,
+      ),
+    )
+
+  def image_subgroup(self) -> Subgroup:
+    elements = frozenset(self.image())
+
+    return Subgroup(
+      ambient_group=self.target,
+      elements=elements,
+      generators=find_generators(
+        self.target,
+        elements,
+      ),
+    )

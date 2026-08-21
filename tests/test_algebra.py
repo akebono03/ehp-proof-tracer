@@ -82,4 +82,73 @@ def test_image():
     (2,),
     (4,),
   }
-  
+
+
+def test_kernel_subgroup():
+  source = make_cyclic_group(6, "a")
+  target = make_cyclic_group(6, "b")
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[[2]],
+  )
+
+  ker = f.kernel_subgroup()
+
+  assert ker.elements == frozenset(f.kernel())
+  assert ker.ambient_group == f.source
+  assert ker.order == 2
+  assert {
+    x.coefficients
+    for x in ker.generators
+  } == {
+    (3,),
+  }
+
+
+def test_image_subgroup():
+  source = make_cyclic_group(6, "a")
+  target = make_cyclic_group(6, "b")
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[[2]],
+  )
+
+  im = f.image_subgroup()
+
+  assert im.elements == frozenset(f.image())
+  assert im.ambient_group == f.target
+  assert im.order == 3
+  assert {
+    x.coefficients
+    for x in im.generators
+  } == {
+    (2,),
+  }
+
+
+def test_subgroup_equality():
+  a = make_cyclic_group(6, "a")
+  b = make_cyclic_group(6, "b")
+  c = make_cyclic_group(6, "c")
+
+  f = GroupMap(
+    name="f",
+    source=a,
+    target=b,
+    matrix=[[2]],
+  )
+
+  g = GroupMap(
+    name="g",
+    source=b,
+    target=c,
+    matrix=[[3]],
+  )
+
+  assert f.image_subgroup() == g.kernel_subgroup()
