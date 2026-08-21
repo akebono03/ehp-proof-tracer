@@ -11,20 +11,21 @@ class ExactnessResult:
     return self.left_map.target
 
   def image(self):
-    return {
-      x.coefficients
-      for x in self.left_map.image()
-    }
+    return self.left_map.image_subgroup()
 
   def kernel(self):
-    return {
-      x.coefficients
-      for x in self.right_map.kernel()
-    }
+    return self.right_map.kernel_subgroup()
+
+  @property
+  def image_structure(self):
+    return self.image().structure()
+
+  @property
+  def kernel_structure(self):
+    return self.kernel().structure()
 
   def is_exact(self):
     return self.image() == self.kernel()
-
 
 class EHPSegment:
   def __init__(self, repository, n, k):
