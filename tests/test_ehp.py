@@ -13,6 +13,13 @@ def make_repository():
   )
 
 
+def coefficients(subgroup):
+  return {
+    x.coefficients
+    for x in subgroup.elements
+  }
+
+
 def test_ehp_exactness_at_sphere():
   repo = make_repository()
 
@@ -24,13 +31,16 @@ def test_ehp_exactness_at_sphere():
 
   result = segment.exactness_at_sphere()
 
-  assert result.image() == {
+  assert coefficients(result.image()) == {
     (0,),
   }
 
-  assert result.kernel() == {
+  assert coefficients(result.kernel()) == {
     (0,),
   }
+
+  assert result.image_structure == ()
+  assert result.kernel_structure == ()
 
   assert result.is_exact()
 
@@ -46,17 +56,21 @@ def test_ehp_exactness_at_hopf_target():
 
   result = segment.exactness_at_hopf_target()
 
-  assert result.image() == {
+  assert coefficients(result.image()) == {
     (0,),
     (4,),
   }
 
-  assert result.kernel() == {
+  assert coefficients(result.kernel()) == {
     (0,),
     (4,),
   }
+
+  assert result.image_structure == (2,)
+  assert result.kernel_structure == (2,)
 
   assert result.is_exact()
+
 
 def test_ehp_n3_k5_groups():
   repo = make_repository()
@@ -68,17 +82,24 @@ def test_ehp_n3_k5_groups():
   )
 
   sphere = segment.exactness_at_sphere().middle_group
-  hopf_target = segment.exactness_at_hopf_target().middle_group
+  hopf_target = (
+    segment.exactness_at_hopf_target().middle_group
+  )
 
   assert sphere.n == 3
   assert sphere.k == 5
   assert sphere.orders == [2]
-  assert sphere.generators == ["ν'η6^2"]
+  assert sphere.generators == [
+    "ν'η6^2",
+  ]
 
   assert hopf_target.n == 5
   assert hopf_target.k == 3
   assert hopf_target.orders == [8]
-  assert hopf_target.generators == ["ν5"]
+  assert hopf_target.generators == [
+    "ν5",
+  ]
+
 
 def test_ehp_n11_k18_at_sphere():
   repo = make_repository()
@@ -110,8 +131,12 @@ def test_ehp_n11_k18_at_sphere():
     (6,2,1),
   }
 
-  assert result.image() == expected
-  assert result.kernel() == expected
+  assert coefficients(result.image()) == expected
+  assert coefficients(result.kernel()) == expected
+
+  assert result.image_structure == (2,2,4)
+  assert result.kernel_structure == (2,2,4)
+
   assert result.is_exact()
 
 
@@ -133,9 +158,14 @@ def test_ehp_n11_k18_at_hopf_target():
     (1,1),
   }
 
-  assert result.image() == expected
-  assert result.kernel() == expected
+  assert coefficients(result.image()) == expected
+  assert coefficients(result.kernel()) == expected
+
+  assert result.image_structure == (2,2)
+  assert result.kernel_structure == (2,2)
+
   assert result.is_exact()
+
 
 def test_ehp_n11_k18_groups():
   repo = make_repository()
@@ -153,7 +183,12 @@ def test_ehp_n11_k18_groups():
 
   assert sphere.n == 11
   assert sphere.k == 18
-  assert sphere.orders == [8,4,2]
+  assert sphere.orders == [
+    8,
+    4,
+    2,
+  ]
+
   assert sphere.generators == [
     "ξ'",
     "ξ'+λ'",
@@ -162,7 +197,11 @@ def test_ehp_n11_k18_groups():
 
   assert hopf_target.n == 21
   assert hopf_target.k == 8
-  assert hopf_target.orders == [2,2]
+  assert hopf_target.orders == [
+    2,
+    2,
+  ]
+
   assert hopf_target.generators == [
     r"\bar{\nu}10",
     "ε10",
