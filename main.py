@@ -12,8 +12,8 @@ repo = SphereRepository(
 
 segment = EHPSegment(
   repo,
-  n=3,
-  k=5,
+  n=11,
+  k=18,
 )
 
 for result in segment.check():
