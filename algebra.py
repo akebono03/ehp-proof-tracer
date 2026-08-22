@@ -71,6 +71,109 @@ class Subgroup:
       and self.elements == other.elements
     )
 
+@dataclass(frozen=True)
+class QuotientGroup:
+  ambient_group: AbelianGroup
+  subgroup: Subgroup
+
+  def __post_init__(self):
+    if self.subgroup.ambient_group != self.ambient_group:
+      raise ValueError(
+        "部分群の ambient_group が一致しません"
+      )
+
+    if any(order == 0 for order in self.ambient_group.orders):
+      raise NotImplementedError(
+        "自由部分を含む群の商群はまだ実装されていません"
+      )
+
+  def coset(
+    self,
+    element: GroupElement,
+  ) -> frozenset[GroupElement]:
+    if element.group != self.ambient_group:
+      raise ValueError(
+        "商群の ambient_group と元の群が一致しません"
+      )
+
+    x = element.normalized()
+
+    return frozenset(
+      add_elements(x, h).normalized()
+      for h in self.subgroup.elements
+    )
+
+  @property
+  def cosets(
+    self,
+  ) -> tuple[frozenset[GroupElement], ...]:
+    remaining = set(
+      group_elements(self.ambient_group)
+    )
+    result = []
+
+    while remaining:
+      representative = min(
+        remaining,
+        key=lambda x: x.coefficients,
+      )
+
+      coset = self.coset(representative)
+
+      result.append(coset)
+      remaining -= coset
+
+    return tuple(result)
+
+  @property
+  def order(self) -> int:
+    return len(self.cosets)
+
+  def add_cosets(
+    self,
+    left: frozenset[GroupElement],
+    right: frozenset[GroupElement],
+  ) -> frozenset[GroupElement]:
+    if left not in self.cosets:
+      raise ValueError(
+        "left はこの商群の剰余類ではありません"
+      )
+
+    if right not in self.cosets:
+      raise ValueError(
+        "right はこの商群の剰余類ではありません"
+      )
+
+    x = min(
+      left,
+      key=lambda element: element.coefficients,
+    )
+    y = min(
+      right,
+      key=lambda element: element.coefficients,
+    )
+
+    return self.coset(
+      add_elements(x, y)
+    )
+
+def group_elements(
+  group: AbelianGroup,
+) -> list[GroupElement]:
+  if any(order == 0 for order in group.orders):
+    raise NotImplementedError(
+      "自由部分を含む群の全元列挙はまだ実装されていません"
+    )
+
+  ranges = [
+    range(order)
+    for order in group.orders
+  ]
+
+  return [
+    GroupElement(group, tuple(x))
+    for x in product(*ranges)
+  ]
 
 def add_elements(x: GroupElement, y: GroupElement) -> GroupElement:
   if x.group != y.group:
@@ -289,15 +392,7 @@ class GroupMap:
     )
 
   def source_elements(self):
-    ranges = [
-      range(order)
-      for order in self.source.orders
-    ]
-
-    return [
-      GroupElement(self.source, tuple(x))
-      for x in product(*ranges)
-    ]
+    return group_elements(self.source)
 
   def kernel(self):
     return [

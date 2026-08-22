@@ -1,6 +1,13 @@
-from algebra import GroupElement, GroupMap
+from algebra import (
+  GroupElement,
+  GroupMap,
+  QuotientGroup,
+  Subgroup,
+  generated_subgroup_elements,
+)
 from models import AbelianGroup, GroupComponent
 
+import pytest
 
 def make_cyclic_group(order, generator):
   return AbelianGroup(
@@ -17,6 +24,25 @@ def make_cyclic_group(order, generator):
     ],
   )
 
+def make_subgroup(
+  group,
+  generators,
+):
+  generators = tuple(
+    GroupElement(group, coefficients)
+    for coefficients in generators
+  )
+
+  elements = generated_subgroup_elements(
+    group,
+    generators,
+  )
+
+  return Subgroup(
+    ambient_group=group,
+    elements=elements,
+    generators=generators,
+  )
 
 def test_apply():
   source = make_cyclic_group(6, "a")
@@ -284,4 +310,169 @@ def test_subgroup_structure_trivial():
   )
 
   assert f.image_subgroup().structure() == ()
+
+def test_quotient_group_z4_by_2():
+  group = make_cyclic_group(4, "a")
+
+  subgroup = make_subgroup(
+    group,
+    [(2,)],
+  )
+
+  quotient = QuotientGroup(
+    ambient_group=group,
+    subgroup=subgroup,
+  )
+
+  cosets = {
+    frozenset(
+      x.coefficients
+      for x in coset
+    )
+    for coset in quotient.cosets
+  }
+
+  assert cosets == {
+    frozenset({
+      (0,),
+      (2,),
+    }),
+    frozenset({
+      (1,),
+      (3,),
+    }),
+  }
+
+  assert quotient.order == 2
+
+def test_quotient_group_same_coset():
+  group = make_cyclic_group(4, "a")
+
+  subgroup = make_subgroup(
+    group,
+    [(2,)],
+  )
+
+  quotient = QuotientGroup(
+    ambient_group=group,
+    subgroup=subgroup,
+  )
+
+  zero = GroupElement(group, (0,))
+  one = GroupElement(group, (1,))
+  two = GroupElement(group, (2,))
+  three = GroupElement(group, (3,))
+
+  assert quotient.coset(zero) == quotient.coset(two)
+  assert quotient.coset(one) == quotient.coset(three)
+  assert quotient.coset(zero) != quotient.coset(one)
+
+def test_quotient_group_addition():
+  group = make_cyclic_group(4, "a")
+
+  subgroup = make_subgroup(
+    group,
+    [(2,)],
+  )
+
+  quotient = QuotientGroup(
+    ambient_group=group,
+    subgroup=subgroup,
+  )
+
+  zero_coset = quotient.coset(
+    GroupElement(group, (0,))
+  )
+
+  one_coset = quotient.coset(
+    GroupElement(group, (1,))
+  )
+
+  result = quotient.add_cosets(
+    one_coset,
+    one_coset,
+  )
+
+  assert result == zero_coset
+
+def test_quotient_by_trivial_subgroup():
+  group = make_cyclic_group(4, "a")
+
+  subgroup = make_subgroup(
+    group,
+    [],
+  )
+
+  quotient = QuotientGroup(
+    ambient_group=group,
+    subgroup=subgroup,
+  )
+
+  assert quotient.order == 4
+
+def test_quotient_by_whole_group():
+  group = make_cyclic_group(4, "a")
+
+  subgroup = make_subgroup(
+    group,
+    [(1,)],
+  )
+
+  quotient = QuotientGroup(
+    ambient_group=group,
+    subgroup=subgroup,
+  )
+
+  assert quotient.order == 1
+
+def make_group(orders):
+  return AbelianGroup(
+    n=0,
+    k=0,
+    components=[
+      GroupComponent(
+        id=i,
+        order=order,
+        generator=f"a{i}",
+        element=[],
+        gen_coe=[],
+      )
+      for i, order in enumerate(orders)
+    ],
+  )
+
+def test_quotient_group_noncyclic():
+  group = make_group(
+    (2,4),
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [(0,2)],
+  )
+
+  quotient = QuotientGroup(
+    ambient_group=group,
+    subgroup=subgroup,
+  )
+
+  assert subgroup.order == 2
+  assert quotient.order == 4
+
+def test_quotient_group_wrong_ambient_group():
+  group1 = make_cyclic_group(4, "a")
+  group2 = make_cyclic_group(4, "b")
+
+  subgroup = make_subgroup(
+    group1,
+    [(2,)],
+  )
+
+  with pytest.raises(ValueError):
+    QuotientGroup(
+      ambient_group=group2,
+      subgroup=subgroup,
+    )
+
+
 
