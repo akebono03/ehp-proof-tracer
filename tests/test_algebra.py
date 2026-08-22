@@ -474,5 +474,88 @@ def test_quotient_group_wrong_ambient_group():
       subgroup=subgroup,
     )
 
+def test_quotient_structure_z4_by_2():
+  group = make_cyclic_group(4, "a")
+
+  subgroup = make_subgroup(
+    group,
+    [(2,)],
+  )
+
+  quotient = QuotientGroup(
+    ambient_group=group,
+    subgroup=subgroup,
+  )
+
+  assert quotient.structure() == (2,)
+
+def test_quotient_structure_by_trivial():
+  group = make_cyclic_group(4, "a")
+
+  subgroup = make_subgroup(
+    group,
+    [],
+  )
+
+  quotient = QuotientGroup(
+    ambient_group=group,
+    subgroup=subgroup,
+  )
+
+  assert quotient.structure() == (4,)
+
+def test_quotient_structure_by_whole_group():
+  group = make_cyclic_group(4, "a")
+
+  subgroup = make_subgroup(
+    group,
+    [(1,)],
+  )
+
+  quotient = QuotientGroup(
+    ambient_group=group,
+    subgroup=subgroup,
+  )
+
+  assert quotient.structure() == ()
+
+def test_quotient_structure_z2_z2():
+  group = make_group(
+    (4,2),
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [(2,0)],
+  )
+
+  quotient = QuotientGroup(
+    ambient_group=group,
+    subgroup=subgroup,
+  )
+
+  assert quotient.order == 4
+  assert quotient.structure() == (2,2)
+
+def test_quotient_structure_z4():
+  group = make_group(
+    (4,2),
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [(0,1)],
+  )
+
+  quotient = QuotientGroup(
+    ambient_group=group,
+    subgroup=subgroup,
+  )
+
+  assert quotient.order == 4
+  assert quotient.structure() == (4,)
+
+
+
 
 

@@ -60,7 +60,19 @@ class Subgroup:
     return len(self.elements)
 
   def structure(self) -> tuple[int, ...]:
-    return subgroup_structure(self)
+    zero = GroupElement(
+      self.ambient_group,
+      tuple(
+        0
+        for _ in self.ambient_group.orders
+      ),
+    )
+
+    return finite_abelian_structure(
+      elements=self.elements,
+      zero=zero,
+      add=add_elements,
+    )
   
   def __eq__(self, other) -> bool:
     if not isinstance(other, Subgroup):
@@ -157,6 +169,25 @@ class QuotientGroup:
       add_elements(x, y)
     )
 
+  def structure(self) -> tuple[int, ...]:
+    cosets = self.cosets
+
+    zero = self.coset(
+      GroupElement(
+        self.ambient_group,
+        tuple(
+          0
+          for _ in self.ambient_group.orders
+        ),
+      )
+    )
+
+    return finite_abelian_structure(
+      elements=cosets,
+      zero=zero,
+      add=self.add_cosets,
+    )
+
 def group_elements(
   group: AbelianGroup,
 ) -> list[GroupElement]:
@@ -197,6 +228,145 @@ def add_elements(x: GroupElement, y: GroupElement) -> GroupElement:
     x.group,
     tuple(coefficients),
   )
+
+def prime_factors(n: int) -> list[int]:
+  factors = []
+  p = 2
+
+  while p * p <= n:
+    if n % p == 0:
+      factors.append(p)
+
+      while n % p == 0:
+        n //= p
+
+    p += 1
+
+  if n > 1:
+    factors.append(n)
+
+  return factors
+
+
+def scalar_multiple(
+  x,
+  n: int,
+  zero,
+  add,
+):
+  result = zero
+  current = x
+
+  while n > 0:
+    if n % 2 == 1:
+      result = add(result, current)
+
+    current = add(current, current)
+    n //= 2
+
+  return result
+
+def finite_abelian_structure(
+  elements,
+  zero,
+  add,
+) -> tuple[int, ...]:
+  elements = tuple(elements)
+  order = len(elements)
+
+  if order == 1:
+    return ()
+
+  prime_parts = []
+
+  for p in prime_factors(order):
+    p_part_order = 1
+    temp = order
+
+    while temp % p == 0:
+      p_part_order *= p
+      temp //= p
+
+    killed_sizes = [1]
+    power = p
+
+    while True:
+      killed_size = sum(
+        scalar_multiple(
+          x,
+          power,
+          zero,
+          add,
+        ) == zero
+        for x in elements
+      )
+
+      killed_sizes.append(killed_size)
+
+      if killed_size == p_part_order:
+        break
+
+      power *= p
+
+    dimensions = []
+
+    for k in range(
+      1,
+      len(killed_sizes),
+    ):
+      ratio = (
+        killed_sizes[k]
+        // killed_sizes[k - 1]
+      )
+
+      dimension = 0
+
+      while ratio > 1:
+        ratio //= p
+        dimension += 1
+
+      dimensions.append(dimension)
+
+    factors = []
+
+    for k in range(
+      len(dimensions),
+      0,
+      -1,
+    ):
+      current = dimensions[k - 1]
+
+      if k < len(dimensions):
+        next_value = dimensions[k]
+      else:
+        next_value = 0
+
+      count = current - next_value
+
+      factors.extend(
+        [p ** k] * count
+      )
+
+    factors.sort()
+    prime_parts.append(factors)
+
+  rank = max(
+    len(part)
+    for part in prime_parts
+  )
+
+  result = [1] * rank
+
+  for part in prime_parts:
+    padded = (
+      [1] * (rank - len(part))
+      + part
+    )
+
+    for i, value in enumerate(padded):
+      result[i] *= value
+
+  return tuple(result)
 
 def multiply_element(
   n: int,
