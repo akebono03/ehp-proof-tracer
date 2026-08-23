@@ -344,8 +344,145 @@ def test_ehp_n3_k5_hopf_target_group_candidates():
     in candidates
   )
 
+def test_ehp_general_structure_api_at_sphere():
+  repo = make_repository()
 
+  segment = EHPSegment(
+    repo,
+    n=3,
+    k=5,
+  )
 
+  result = (
+    segment.exactness_at_sphere()
+  )
+
+  assert result.is_exact()
+
+  assert str(
+    result.image_abelian_structure
+  ) == "0"
+
+  assert str(
+    result.kernel_abelian_structure
+  ) == "0"
+
+  assert str(
+    result.quotient_abelian_structure
+  ) == "Z/2"
+
+  assert str(
+    result.right_image_abelian_structure
+  ) == "Z/2"
+
+  assert (
+    result.verifies_quotient_image_structure_isomorphism()
+  )
+
+def test_ehp_general_structure_api_at_hopf_target():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=3,
+    k=5,
+  )
+
+  result = (
+    segment.exactness_at_hopf_target()
+  )
+
+  assert result.is_exact()
+
+  assert str(
+    result.image_abelian_structure
+  ) == "Z/2"
+
+  assert str(
+    result.kernel_abelian_structure
+  ) == "Z/2"
+
+  assert str(
+    result.quotient_abelian_structure
+  ) == "Z/4"
+
+  assert str(
+    result.right_image_abelian_structure
+  ) == "Z/4"
+
+  assert (
+    result.verifies_quotient_image_structure_isomorphism()
+  )
+
+def test_ehp_general_structure_api_noncyclic():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=11,
+    k=18,
+  )
+
+  result = (
+    segment.exactness_at_sphere()
+  )
+
+  assert result.is_exact()
+
+  assert str(
+    result.image_abelian_structure
+  ) == "Z/2 ⊕ Z/2 ⊕ Z/4"
+
+  assert str(
+    result.kernel_abelian_structure
+  ) == "Z/2 ⊕ Z/2 ⊕ Z/4"
+
+  assert str(
+    result.quotient_abelian_structure
+  ) == "Z/2 ⊕ Z/2"
+
+  assert str(
+    result.right_image_abelian_structure
+  ) == "Z/2 ⊕ Z/2"
+
+  assert (
+    result.verifies_quotient_image_structure_isomorphism()
+  )
+  
+def test_ehp_general_structure_api_noncyclic():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=11,
+    k=18,
+  )
+
+  result = (
+    segment.exactness_at_sphere()
+  )
+
+  assert result.is_exact()
+
+  assert str(
+    result.image_abelian_structure
+  ) == "Z/2 ⊕ Z/2 ⊕ Z/4"
+
+  assert str(
+    result.kernel_abelian_structure
+  ) == "Z/2 ⊕ Z/2 ⊕ Z/4"
+
+  assert str(
+    result.quotient_abelian_structure
+  ) == "Z/2 ⊕ Z/2"
+
+  assert str(
+    result.right_image_abelian_structure
+  ) == "Z/2 ⊕ Z/2"
+
+  assert (
+    result.verifies_quotient_image_structure_isomorphism()
+  )
 
 
 

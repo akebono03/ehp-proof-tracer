@@ -10,6 +10,13 @@ class ExactnessResult:
   def middle_group(self):
     return self.left_map.target
 
+  @property
+  def exact_step(self):
+    return ExactSequenceStep(
+      first_map=self.left_map,
+      second_map=self.right_map,
+    )
+
   def image(self):
     return self.left_map.image_subgroup()
 
@@ -24,8 +31,47 @@ class ExactnessResult:
   def kernel_structure(self):
     return self.kernel().structure()
 
+  @property
+  def image_abelian_structure(self):
+    return (
+      self.exact_step
+      .image_of_first_structure
+    )
+
+  @property
+  def kernel_abelian_structure(self):
+    return (
+      self.exact_step
+      .kernel_of_second_structure
+    )
+
+  @property
+  def quotient_abelian_structure(self):
+    return (
+      self.exact_step
+      .quotient_structure
+    )
+
+  @property
+  def right_image_abelian_structure(self):
+    return (
+      self.exact_step
+      .image_structure
+    )
+
   def is_exact(self):
-    return self.image() == self.kernel()
+    return (
+      self.exact_step
+      .is_exact()
+    )
+
+  def verifies_quotient_image_structure_isomorphism(
+    self,
+  ):
+    return (
+      self.exact_step
+      .verifies_quotient_image_structure_isomorphism()
+    )
 
 class EHPSegment:
   def __init__(self, repository, n, k):
