@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-
+from algebra import ExactSequenceStep
 
 @dataclass
 class ExactnessResult:
@@ -66,6 +66,18 @@ class EHPSegment:
     return ExactnessResult(
       self.H,
       self.P,
+    )
+
+  def exact_step_at_sphere(self):
+    return ExactSequenceStep(
+      first_map=self.E,
+      second_map=self.H,
+    )
+
+  def exact_step_at_hopf_target(self):
+    return ExactSequenceStep(
+      first_map=self.H,
+      second_map=self.P,
     )
 
   def check(self):

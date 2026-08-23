@@ -206,4 +206,84 @@ def test_ehp_n11_k18_groups():
     r"\bar{\nu}10",
     "ε10",
   ]
-  
+
+def test_ehp_n3_k5_exact_step_at_sphere():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=3,
+    k=5,
+  )
+
+  step = segment.exact_step_at_sphere()
+
+  assert step.first_map == segment.E
+  assert step.second_map == segment.H
+
+  assert step.is_exact()
+  assert step.verifies_quotient_image_isomorphism()
+
+  assert step.quotient.structure() == (2,)
+  assert step.image.structure() == (2,)
+
+def test_ehp_n3_k5_exact_step_at_hopf_target():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=3,
+    k=5,
+  )
+
+  step = segment.exact_step_at_hopf_target()
+
+  assert step.first_map == segment.H
+  assert step.second_map == segment.P
+
+  assert step.is_exact()
+  assert step.verifies_quotient_image_isomorphism()
+
+  assert step.quotient.structure() == (4,)
+  assert step.image.structure() == (4,)
+
+def test_ehp_n11_k18_exact_step_at_sphere():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=11,
+    k=18,
+  )
+
+  step = segment.exact_step_at_sphere()
+
+  assert step.is_exact()
+  assert step.verifies_quotient_image_isomorphism()
+
+  assert step.quotient.order == 4
+  assert step.quotient.structure() == (2,2)
+
+  assert step.image.order == 4
+  assert step.image.structure() == (2,2)
+
+def test_ehp_n11_k18_exact_step_at_hopf_target():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=11,
+    k=18,
+  )
+
+  step = segment.exact_step_at_hopf_target()
+
+  assert step.is_exact()
+  assert step.verifies_quotient_image_isomorphism()
+
+  assert step.quotient.structure() == ()
+  assert step.image.structure() == ()
+
+
+
+
