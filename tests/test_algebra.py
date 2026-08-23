@@ -1753,6 +1753,179 @@ def test_cokernel_z_to_z_z4():
   assert structure.torsion_orders == (2,4)
   assert str(structure) == "Z/2 ⊕ Z/4"
 
+def test_kernel_z_to_z2():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    2,
+    "b",
+  )
+
+  f = GroupMap(
+    name="mod2",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  structure = (
+    f.kernel_structure()
+  )
+
+  assert structure.free_rank == 1
+  assert structure.torsion_orders == ()
+  assert str(structure) == "Z"
+
+
+def test_image_z_to_z2():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    2,
+    "b",
+  )
+
+  f = GroupMap(
+    name="mod2",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  structure = (
+    f.image_structure()
+  )
+
+  assert structure.free_rank == 0
+  assert structure.torsion_orders == (2,)
+  assert str(structure) == "Z/2"
+
+def test_kernel_z_to_z4_times2():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  structure = (
+    f.kernel_structure()
+  )
+
+  assert structure.free_rank == 1
+  assert structure.torsion_orders == ()
+  assert str(structure) == "Z"
+
+
+def test_image_z_to_z4_times2():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  structure = (
+    f.image_structure()
+  )
+
+  assert structure.free_rank == 0
+  assert structure.torsion_orders == (2,)
+  assert str(structure) == "Z/2"
+
+def test_image_z_to_z4_surjective():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="mod4",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  structure = (
+    f.image_structure()
+  )
+
+  assert structure.free_rank == 0
+  assert structure.torsion_orders == (4,)
+  assert str(structure) == "Z/4"
+
+def test_image_z_to_z4_zero():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="zero",
+    source=source,
+    target=target,
+    matrix=[
+      [0],
+    ],
+  )
+
+  image = f.image_structure()
+  kernel = f.kernel_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(image) == "0"
+  assert str(kernel) == "Z"
+  assert str(cokernel) == "Z/4"
+
+
+
+
 
 
 

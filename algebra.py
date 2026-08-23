@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from itertools import product
-from math import inf
+from math import gcd, inf
 
 from sympy import Matrix
 from sympy.matrices.normalforms import smith_normal_form
@@ -276,6 +276,19 @@ class GroupMap:
       ),
     )
 
+  def is_free_cyclic_to_finite_cyclic(
+    self,
+  ) -> bool:
+    return (
+      self.source.direct_sum == 1
+      and self.source.orders == [inf]
+      and self.target.direct_sum == 1
+      and self.target.orders[0] not in {
+        inf,
+        0,
+      }
+    )
+
   def integer_matrix(self) -> Matrix:
     if not (
       is_free_abelian_group(self.source)
@@ -301,26 +314,92 @@ class GroupMap:
   def kernel_structure(
     self,
   ) -> AbelianGroupStructure:
-    rank = self.free_map_rank()
+    if (
+      is_free_abelian_group(self.source)
+      and is_free_abelian_group(self.target)
+    ):
+      rank = self.free_map_rank()
 
-    free_rank = (
-      self.source.direct_sum
-      - rank
-    )
+      free_rank = (
+        self.source.direct_sum
+        - rank
+      )
 
-    return AbelianGroupStructure(
-      free_rank=free_rank,
-      torsion_orders=(),
+      return AbelianGroupStructure(
+        free_rank=free_rank,
+        torsion_orders=(),
+      )
+
+    if self.is_free_cyclic_to_finite_cyclic():
+      if not (
+        self.is_well_defined_homomorphism()
+      ):
+        raise ValueError(
+          "well-defined な群準同型ではありません"
+        )
+
+      return AbelianGroupStructure(
+        free_rank=1,
+        torsion_orders=(),
+      )
+
+    raise NotImplementedError(
+      "この型の写像の kernel はまだ実装されていません"
     )
 
   def image_structure(
     self,
   ) -> AbelianGroupStructure:
-    rank = self.free_map_rank()
+    if (
+      is_free_abelian_group(self.source)
+      and is_free_abelian_group(self.target)
+    ):
+      rank = self.free_map_rank()
 
-    return AbelianGroupStructure(
-      free_rank=rank,
-      torsion_orders=(),
+      return AbelianGroupStructure(
+        free_rank=rank,
+        torsion_orders=(),
+      )
+
+    if self.is_free_cyclic_to_finite_cyclic():
+      if not (
+        self.is_well_defined_homomorphism()
+      ):
+        raise ValueError(
+          "well-defined な群準同型ではありません"
+        )
+
+      target_order = int(
+        self.target.orders[0]
+      )
+
+      coefficient = (
+        self.matrix[0][0]
+      )
+
+      image_order = (
+        target_order
+        // gcd(
+          abs(coefficient),
+          target_order,
+        )
+      )
+
+      if image_order == 1:
+        return AbelianGroupStructure(
+          free_rank=0,
+          torsion_orders=(),
+        )
+
+      return AbelianGroupStructure(
+        free_rank=0,
+        torsion_orders=(
+          image_order,
+        ),
+      )
+
+    raise NotImplementedError(
+      "この型の写像の image はまだ実装されていません"
     )
 
   def cokernel_structure(
