@@ -326,41 +326,81 @@ class GroupMap:
   def cokernel_structure(
     self,
   ) -> AbelianGroupStructure:
-    matrix = self.smith_normal_form()
-    rank = self.free_map_rank()
-
-    torsion_orders = []
-
-    diagonal_size = min(
-      matrix.rows,
-      matrix.cols,
-    )
-
-    for i in range(diagonal_size):
-      value = abs(
-        int(matrix[i,i])
+    if not (
+      self.is_well_defined_homomorphism()
+    ):
+      raise ValueError(
+        "well-defined な群準同型ではありません"
       )
 
-      if value > 1:
-        torsion_orders.append(
-          value
-        )
-
-    free_rank = (
-      self.target.direct_sum
-      - rank
+    target_relations = (
+      relation_matrix(
+        self.target
+      )
     )
 
-    return AbelianGroupStructure(
-      free_rank=free_rank,
-      torsion_orders=tuple(
-        torsion_orders
-      ),
+    map_matrix = Matrix(
+      self.matrix
+    )
+
+    relations = (
+      target_relations.row_join(
+        map_matrix
+      )
+    )
+
+    return structure_from_presentation(
+      relations
     )
 
   def induced_quotient_map(self):
     return InducedMap(self)
 
+  def is_well_defined_homomorphism(
+    self,
+  ) -> bool:
+    if len(
+      self.matrix
+    ) != self.target.direct_sum:
+      return False
+
+    if any(
+      len(row)
+      != self.source.direct_sum
+      for row in self.matrix
+    ):
+      return False
+
+    for j, source_order in enumerate(
+      self.source.orders
+    ):
+      if (
+        source_order == inf
+        or source_order == 0
+      ):
+        continue
+
+      for i, target_order in enumerate(
+        self.target.orders
+      ):
+        value = (
+          int(source_order)
+          * self.matrix[i][j]
+        )
+
+        if target_order == inf:
+          if value != 0:
+            return False
+
+        elif target_order == 0:
+          continue
+
+        elif value % int(
+          target_order
+        ) != 0:
+          return False
+
+    return True
 
 @dataclass(frozen=True)
 class InducedMap:
@@ -1163,6 +1203,89 @@ def abelian_group_structure(
   return AbelianGroupStructure(
     free_rank=free_rank,
     torsion_orders=torsion_orders,
+  )
+
+def relation_matrix(
+  group: AbelianGroup,
+) -> Matrix:
+  if group.is_zero():
+    return Matrix([
+      [1],
+    ])
+
+  columns = []
+
+  for i, order in enumerate(
+    group.orders
+  ):
+    if order == inf:
+      continue
+
+    if order == 0:
+      continue
+
+    column = [
+      0
+      for _ in range(
+        group.direct_sum
+      )
+    ]
+
+    column[i] = int(order)
+
+    columns.append(column)
+
+  if not columns:
+    return Matrix.zeros(
+      group.direct_sum,
+      0,
+    )
+
+  return Matrix(
+    group.direct_sum,
+    len(columns),
+    lambda i, j: columns[j][i],
+  )
+
+def structure_from_presentation(
+  relations: Matrix,
+) -> AbelianGroupStructure:
+  smith = smith_normal_form(
+    relations,
+    domain=ZZ,
+  )
+
+  rank = smith.rank()
+
+  torsion_orders = []
+
+  diagonal_size = min(
+    smith.rows,
+    smith.cols,
+  )
+
+  for i in range(
+    diagonal_size
+  ):
+    value = abs(
+      int(smith[i,i])
+    )
+
+    if value > 1:
+      torsion_orders.append(
+        value
+      )
+
+  free_rank = (
+    relations.rows
+    - rank
+  )
+
+  return AbelianGroupStructure(
+    free_rank=free_rank,
+    torsion_orders=tuple(
+      torsion_orders
+    ),
   )
 
 def is_free_abelian_group(

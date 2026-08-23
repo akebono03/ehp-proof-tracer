@@ -15,6 +15,8 @@ from algebra import (
   finite_abelian_structures,
   finite_group_order,
   abelian_group_structure,
+  relation_matrix,
+  structure_from_presentation,
 )
 from models import AbelianGroup, GroupComponent
 import pytest
@@ -1503,6 +1505,253 @@ def test_free_map_z2_to_z2_structure():
   assert cokernel.free_rank == 1
   assert cokernel.torsion_orders == (2,)
   assert str(cokernel) == "Z ⊕ Z/2"
+
+def test_relation_matrix_z():
+  group = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  relations = relation_matrix(
+    group
+  )
+
+  assert relations.shape == (1,0)
+
+
+def test_relation_matrix_z2():
+  group = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  relations = relation_matrix(
+    group
+  )
+
+  assert relations.shape == (1,1)
+  assert int(relations[0,0]) == 2
+
+
+def test_relation_matrix_z_z2():
+  group = make_group(
+    (inf,2),
+  )
+
+  relations = relation_matrix(
+    group
+  )
+
+  assert relations.shape == (2,1)
+
+  assert list(
+    relations[:,0]
+  ) == [
+    0,
+    2,
+  ]
+
+
+def test_structure_from_presentation_z_z2():
+  group = make_group(
+    (inf,2),
+  )
+
+  structure = (
+    structure_from_presentation(
+      relation_matrix(group)
+    )
+  )
+
+  assert structure.free_rank == 1
+  assert structure.torsion_orders == (2,)
+  assert str(structure) == "Z ⊕ Z/2"
+
+def test_homomorphism_z_to_z2_is_well_defined():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    2,
+    "b",
+  )
+
+  f = GroupMap(
+    name="mod2",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  assert (
+    f.is_well_defined_homomorphism()
+  )
+
+
+def test_homomorphism_z2_to_z_nonzero_is_not_well_defined():
+  source = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  f = GroupMap(
+    name="invalid",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  assert not (
+    f.is_well_defined_homomorphism()
+  )
+
+
+def test_homomorphism_z2_to_z_zero_is_well_defined():
+  source = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  f = GroupMap(
+    name="zero",
+    source=source,
+    target=target,
+    matrix=[
+      [0],
+    ],
+  )
+
+  assert (
+    f.is_well_defined_homomorphism()
+  )
+
+def test_cokernel_z_to_z2():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    2,
+    "b",
+  )
+
+  f = GroupMap(
+    name="mod2",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  structure = (
+    f.cokernel_structure()
+  )
+
+  assert structure.free_rank == 0
+  assert structure.torsion_orders == ()
+  assert str(structure) == "0"
+
+def test_cokernel_z_to_z4_times2():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  structure = (
+    f.cokernel_structure()
+  )
+
+  assert structure.free_rank == 0
+  assert structure.torsion_orders == (2,)
+  assert str(structure) == "Z/2"
+
+def test_cokernel_z2_to_z_zero():
+  source = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  f = GroupMap(
+    name="zero",
+    source=source,
+    target=target,
+    matrix=[
+      [0],
+    ],
+  )
+
+  structure = (
+    f.cokernel_structure()
+  )
+
+  assert structure.free_rank == 1
+  assert structure.torsion_orders == ()
+  assert str(structure) == "Z"
+
+def test_cokernel_z_to_z_z4():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_group(
+    (inf,4),
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+      [2],
+    ],
+  )
+
+  structure = (
+    f.cokernel_structure()
+  )
+
+  assert structure.free_rank == 0
+  assert structure.torsion_orders == (2,4)
+  assert str(structure) == "Z/2 ⊕ Z/4"
 
 
 
