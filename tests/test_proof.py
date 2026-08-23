@@ -1,6 +1,7 @@
 import pytest
 from proof import (
   CokernelStatement,
+  ExactnessStatement,
   ImageStatement,
   KernelStatement,
   Proof,
@@ -9,13 +10,17 @@ from proof import (
   Relation,
   RelationType,
   cokernel_proof_step,
+  exactness_proof_step,
   image_proof_step,
   kernel_proof_step,
   relation_proof_step,
 )
 from expression import Multiple, Zero, eta
 from repository import RelationRepository
-from algebra import GroupMap
+from algebra import (
+  ExactSequenceStep,
+  GroupMap,
+)
 from models import AbelianGroup, GroupComponent
 
 
@@ -286,6 +291,222 @@ def test_group_map_calculation_proof_steps():
     cokernel_step.conclusion.structure
     == group_map.cokernel_structure()
   )
+
+
+def exact_z2_z4_z2_maps():
+  left = cyclic_group(
+    2,
+    "a",
+  )
+
+  middle = cyclic_group(
+    4,
+    "b",
+  )
+
+  right = cyclic_group(
+    2,
+    "c",
+  )
+
+  first_map = GroupMap(
+    name="f",
+    source=left,
+    target=middle,
+    matrix=[
+      [2],
+    ],
+  )
+
+  second_map = GroupMap(
+    name="g",
+    source=middle,
+    target=right,
+    matrix=[
+      [1],
+    ],
+  )
+
+  return first_map, second_map
+
+
+def test_exactness_proof_step():
+  first_map, second_map = (
+    exact_z2_z4_z2_maps()
+  )
+
+  exact_step = ExactSequenceStep(
+    first_map=first_map,
+    second_map=second_map,
+  )
+
+  image_step = image_proof_step(
+    first_map
+  )
+
+  kernel_step = kernel_proof_step(
+    second_map
+  )
+
+  step = exactness_proof_step(
+    exact_step,
+    image_step,
+    kernel_step,
+  )
+
+  assert isinstance(
+    step.conclusion,
+    ExactnessStatement,
+  )
+
+  assert (
+    step.conclusion.first_map
+    is first_map
+  )
+
+  assert (
+    step.conclusion.second_map
+    is second_map
+  )
+
+  assert step.conclusion.is_exact
+
+  assert step.premises == (
+    image_step,
+    kernel_step,
+  )
+
+  assert (
+    step.rule
+    == ProofRule.EXACTNESS
+  )
+
+
+def test_nonexactness_proof_step():
+  left = cyclic_group(
+    2,
+    "a",
+  )
+
+  middle = cyclic_group(
+    4,
+    "b",
+  )
+
+  right = cyclic_group(
+    2,
+    "c",
+  )
+
+  first_map = GroupMap(
+    name="f",
+    source=left,
+    target=middle,
+    matrix=[
+      [0],
+    ],
+  )
+
+  second_map = GroupMap(
+    name="g",
+    source=middle,
+    target=right,
+    matrix=[
+      [1],
+    ],
+  )
+
+  exact_step = ExactSequenceStep(
+    first_map=first_map,
+    second_map=second_map,
+  )
+
+  image_step = image_proof_step(
+    first_map
+  )
+
+  kernel_step = kernel_proof_step(
+    second_map
+  )
+
+  step = exactness_proof_step(
+    exact_step,
+    image_step,
+    kernel_step,
+  )
+
+  assert not step.conclusion.is_exact
+
+
+def test_exactness_proof_step_rejects_wrong_image():
+  first_map, second_map = (
+    exact_z2_z4_z2_maps()
+  )
+
+  other_map = z4_to_z2_map()
+
+  exact_step = ExactSequenceStep(
+    first_map=first_map,
+    second_map=second_map,
+  )
+
+  image_step = image_proof_step(
+    other_map
+  )
+
+  kernel_step = kernel_proof_step(
+    second_map
+  )
+
+  with pytest.raises(ValueError):
+    exactness_proof_step(
+      exact_step,
+      image_step,
+      kernel_step,
+    )
+
+
+def test_exactness_proof():
+  first_map, second_map = (
+    exact_z2_z4_z2_maps()
+  )
+
+  exact_step = ExactSequenceStep(
+    first_map=first_map,
+    second_map=second_map,
+  )
+
+  image_step = image_proof_step(
+    first_map
+  )
+
+  kernel_step = kernel_proof_step(
+    second_map
+  )
+
+  exactness_step = exactness_proof_step(
+    exact_step,
+    image_step,
+    kernel_step,
+  )
+
+  proof = Proof(
+    conclusion=exactness_step.conclusion,
+    steps=[
+      image_step,
+      kernel_step,
+      exactness_step,
+    ],
+  )
+
+  assert proof.conclusion.is_exact
+
+  assert proof.steps == [
+    image_step,
+    kernel_step,
+    exactness_step,
+  ]
+
 
 
 

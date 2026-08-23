@@ -21,6 +21,7 @@ class Relation:
 class ProofRule(Enum):
   GIVEN = "given"
   RELATION = "relation"
+  EXACTNESS = "exactness"
   EHP_EXACTNESS = "ehp_exactness"
   KERNEL_COMPUTATION = "kernel_computation"
   IMAGE_COMPUTATION = "image_computation"
@@ -109,6 +110,71 @@ def cokernel_proof_step(group_map):
     premises=(),
     rule=ProofRule.COKERNEL_COMPUTATION,
   )
+
+
+@dataclass(frozen=True)
+class ExactnessStatement:
+  first_map: Any
+  second_map: Any
+  is_exact: bool
+
+
+def exactness_proof_step(
+  exact_step,
+  image_step,
+  kernel_step,
+):
+  if not isinstance(
+    image_step.conclusion,
+    ImageStatement,
+  ):
+    raise TypeError(
+      "image_step must conclude "
+      "an ImageStatement"
+    )
+
+  if not isinstance(
+    kernel_step.conclusion,
+    KernelStatement,
+  ):
+    raise TypeError(
+      "kernel_step must conclude "
+      "a KernelStatement"
+    )
+
+  if (
+    image_step.conclusion.group_map
+    is not exact_step.first_map
+  ):
+    raise ValueError(
+      "image_step must refer to first_map"
+    )
+
+  if (
+    kernel_step.conclusion.group_map
+    is not exact_step.second_map
+  ):
+    raise ValueError(
+      "kernel_step must refer to second_map"
+    )
+
+  statement = ExactnessStatement(
+    first_map=exact_step.first_map,
+    second_map=exact_step.second_map,
+    is_exact=exact_step.is_exact(),
+  )
+
+  return ProofStep(
+    conclusion=statement,
+    premises=(
+      image_step,
+      kernel_step,
+    ),
+    rule=ProofRule.EXACTNESS,
+  )
+
+
+
 
 
 
