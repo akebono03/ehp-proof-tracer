@@ -22,6 +22,7 @@ from models import AbelianGroup, GroupComponent
 import pytest
 from math import inf
 from sympy import Matrix
+from itertools import product
 
 def make_cyclic_group(order, generator):
   return AbelianGroup(
@@ -2500,6 +2501,295 @@ def test_presentation_matches_mixed_to_finite():
     f.presentation_image_structure()
   ) == "Z/2"
 
+def test_zero_source_nonzero_matrix_is_invalid():
+  source = make_cyclic_group(
+    0,
+    "0",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="invalid",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  assert not (
+    f.is_well_defined_homomorphism()
+  )
+
+  with pytest.raises(ValueError):
+    f.kernel_structure()
+
+  with pytest.raises(ValueError):
+    f.image_structure()
+
+  with pytest.raises(ValueError):
+    f.cokernel_structure()
+
+def test_zero_source_to_z4():
+  source = make_cyclic_group(
+    0,
+    "0",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="zero",
+    source=source,
+    target=target,
+    matrix=[
+      [0],
+    ],
+  )
+
+  assert (
+    f.is_well_defined_homomorphism()
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "0"
+  assert str(image) == "0"
+  assert str(cokernel) == "Z/4"
+
+def test_zero_source_to_z4_relation_multiple():
+  source = make_cyclic_group(
+    0,
+    "0",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="zero",
+    source=source,
+    target=target,
+    matrix=[
+      [4],
+    ],
+  )
+
+  assert (
+    f.is_well_defined_homomorphism()
+  )
+
+  assert str(
+    f.kernel_structure()
+  ) == "0"
+
+  assert str(
+    f.image_structure()
+  ) == "0"
+
+  assert str(
+    f.cokernel_structure()
+  ) == "Z/4"
+
+def test_general_free_nondiagonal():
+  source = make_group(
+    (inf,inf),
+  )
+
+  target = make_group(
+    (inf,inf),
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [2,1],
+      [0,2],
+    ],
+  )
+
+  assert (
+    f.is_well_defined_homomorphism()
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "0"
+  assert str(image) == "Z^2"
+  assert str(cokernel) == "Z/4"
+
+def test_general_mixed_nondiagonal_to_finite():
+  source = make_group(
+    (inf,4),
+  )
+
+  target = make_cyclic_group(
+    6,
+    "b",
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [2,3],
+    ],
+  )
+
+  assert (
+    f.is_well_defined_homomorphism()
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "Z ⊕ Z/2"
+  assert str(image) == "Z/6"
+  assert str(cokernel) == "0"
+
+def test_finite_presentation_crosscheck():
+  groups = [
+    make_cyclic_group(
+      0,
+      "0",
+    ),
+    make_cyclic_group(
+      2,
+      "a",
+    ),
+    make_cyclic_group(
+      3,
+      "a",
+    ),
+    make_cyclic_group(
+      4,
+      "a",
+    ),
+    make_group(
+      (2,2),
+    ),
+    make_group(
+      (2,4),
+    ),
+    make_group(
+      (3,3),
+    ),
+  ]
+
+  checked = 0
+
+  for source in groups:
+    for target in groups:
+      rows = target.direct_sum
+      cols = source.direct_sum
+
+      for entries in product(
+        range(4),
+        repeat=rows * cols,
+      ):
+        matrix = [
+          list(
+            entries[
+              i * cols:
+              (i + 1) * cols
+            ]
+          )
+          for i in range(rows)
+        ]
+
+        f = GroupMap(
+          name="crosscheck",
+          source=source,
+          target=target,
+          matrix=matrix,
+        )
+
+        if not (
+          f.is_well_defined_homomorphism()
+        ):
+          continue
+
+        enumerated_kernel = (
+          f.kernel_subgroup()
+          .structure()
+        )
+
+        enumerated_image = (
+          f.image_subgroup()
+          .structure()
+        )
+
+        quotient = QuotientGroup(
+          ambient_group=target,
+          subgroup=f.image_subgroup(),
+        )
+
+        enumerated_cokernel = (
+          quotient.structure()
+        )
+
+        presentation_kernel = (
+          f.kernel_structure()
+        )
+
+        presentation_image = (
+          f.image_structure()
+        )
+
+        presentation_cokernel = (
+          f.cokernel_structure()
+        )
+
+        assert (
+          presentation_kernel.free_rank
+          == 0
+        )
+
+        assert (
+          presentation_image.free_rank
+          == 0
+        )
+
+        assert (
+          presentation_cokernel.free_rank
+          == 0
+        )
+
+        assert (
+          presentation_kernel.torsion_orders
+          == enumerated_kernel
+        )
+
+        assert (
+          presentation_image.torsion_orders
+          == enumerated_image
+        )
+
+        assert (
+          presentation_cokernel.torsion_orders
+          == enumerated_cokernel
+        )
+
+        checked += 1
+
+  assert checked > 500
 
 
 

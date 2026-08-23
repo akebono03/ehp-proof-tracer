@@ -370,17 +370,21 @@ class GroupMap:
     for j, source_order in enumerate(
       self.source.orders
     ):
-      if (
-        source_order == inf
-        or source_order == 0
-      ):
+      if source_order == inf:
         continue
+
+      if source_order == 0:
+        relation_order = 1
+      else:
+        relation_order = int(
+          source_order
+        )
 
       for i, target_order in enumerate(
         self.target.orders
       ):
         value = (
-          int(source_order)
+          relation_order
           * self.matrix[i][j]
         )
 
