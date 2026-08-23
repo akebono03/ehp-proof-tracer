@@ -1,6 +1,24 @@
-from algebra import GroupElement, GroupMap
+from algebra import (
+  ExactSequenceStep,
+  ExtensionCandidate,
+  GroupElement,
+  GroupMap,
+  InducedMap,
+  QuotientGroup,
+  Subgroup,
+  all_subgroups,
+  generated_subgroup_elements,
+  group_structure,
+  valid_extension_candidates,
+  abstract_abelian_group,
+  extension_candidates,
+  finite_abelian_structures,
+  finite_group_order,
+)
+
 from models import AbelianGroup, GroupComponent
 
+import pytest
 
 def make_cyclic_group(order, generator):
   return AbelianGroup(
@@ -17,6 +35,25 @@ def make_cyclic_group(order, generator):
     ],
   )
 
+def make_subgroup(
+  group,
+  generators,
+):
+  generators = tuple(
+    GroupElement(group, coefficients)
+    for coefficients in generators
+  )
+
+  elements = generated_subgroup_elements(
+    group,
+    generators,
+  )
+
+  return Subgroup(
+    ambient_group=group,
+    elements=elements,
+    generators=generators,
+  )
 
 def test_apply():
   source = make_cyclic_group(6, "a")
@@ -284,4 +321,963 @@ def test_subgroup_structure_trivial():
   )
 
   assert f.image_subgroup().structure() == ()
+
+def test_quotient_group_z4_by_2():
+  group = make_cyclic_group(4, "a")
+
+  subgroup = make_subgroup(
+    group,
+    [(2,)],
+  )
+
+  quotient = QuotientGroup(
+    ambient_group=group,
+    subgroup=subgroup,
+  )
+
+  cosets = {
+    frozenset(
+      x.coefficients
+      for x in coset
+    )
+    for coset in quotient.cosets
+  }
+
+  assert cosets == {
+    frozenset({
+      (0,),
+      (2,),
+    }),
+    frozenset({
+      (1,),
+      (3,),
+    }),
+  }
+
+  assert quotient.order == 2
+
+def test_quotient_group_same_coset():
+  group = make_cyclic_group(4, "a")
+
+  subgroup = make_subgroup(
+    group,
+    [(2,)],
+  )
+
+  quotient = QuotientGroup(
+    ambient_group=group,
+    subgroup=subgroup,
+  )
+
+  zero = GroupElement(group, (0,))
+  one = GroupElement(group, (1,))
+  two = GroupElement(group, (2,))
+  three = GroupElement(group, (3,))
+
+  assert quotient.coset(zero) == quotient.coset(two)
+  assert quotient.coset(one) == quotient.coset(three)
+  assert quotient.coset(zero) != quotient.coset(one)
+
+def test_quotient_group_addition():
+  group = make_cyclic_group(4, "a")
+
+  subgroup = make_subgroup(
+    group,
+    [(2,)],
+  )
+
+  quotient = QuotientGroup(
+    ambient_group=group,
+    subgroup=subgroup,
+  )
+
+  zero_coset = quotient.coset(
+    GroupElement(group, (0,))
+  )
+
+  one_coset = quotient.coset(
+    GroupElement(group, (1,))
+  )
+
+  result = quotient.add_cosets(
+    one_coset,
+    one_coset,
+  )
+
+  assert result == zero_coset
+
+def test_quotient_by_trivial_subgroup():
+  group = make_cyclic_group(4, "a")
+
+  subgroup = make_subgroup(
+    group,
+    [],
+  )
+
+  quotient = QuotientGroup(
+    ambient_group=group,
+    subgroup=subgroup,
+  )
+
+  assert quotient.order == 4
+
+def test_quotient_by_whole_group():
+  group = make_cyclic_group(4, "a")
+
+  subgroup = make_subgroup(
+    group,
+    [(1,)],
+  )
+
+  quotient = QuotientGroup(
+    ambient_group=group,
+    subgroup=subgroup,
+  )
+
+  assert quotient.order == 1
+
+def make_group(orders):
+  return AbelianGroup(
+    n=0,
+    k=0,
+    components=[
+      GroupComponent(
+        id=i,
+        order=order,
+        generator=f"a{i}",
+        element=[],
+        gen_coe=[],
+      )
+      for i, order in enumerate(orders)
+    ],
+  )
+
+def test_quotient_group_noncyclic():
+  group = make_group(
+    (2,4),
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [(0,2)],
+  )
+
+  quotient = QuotientGroup(
+    ambient_group=group,
+    subgroup=subgroup,
+  )
+
+  assert subgroup.order == 2
+  assert quotient.order == 4
+
+def test_quotient_group_wrong_ambient_group():
+  group1 = make_cyclic_group(4, "a")
+  group2 = make_cyclic_group(4, "b")
+
+  subgroup = make_subgroup(
+    group1,
+    [(2,)],
+  )
+
+  with pytest.raises(ValueError):
+    QuotientGroup(
+      ambient_group=group2,
+      subgroup=subgroup,
+    )
+
+def test_quotient_structure_z4_by_2():
+  group = make_cyclic_group(4, "a")
+
+  subgroup = make_subgroup(
+    group,
+    [(2,)],
+  )
+
+  quotient = QuotientGroup(
+    ambient_group=group,
+    subgroup=subgroup,
+  )
+
+  assert quotient.structure() == (2,)
+
+def test_quotient_structure_by_trivial():
+  group = make_cyclic_group(4, "a")
+
+  subgroup = make_subgroup(
+    group,
+    [],
+  )
+
+  quotient = QuotientGroup(
+    ambient_group=group,
+    subgroup=subgroup,
+  )
+
+  assert quotient.structure() == (4,)
+
+def test_quotient_structure_by_whole_group():
+  group = make_cyclic_group(4, "a")
+
+  subgroup = make_subgroup(
+    group,
+    [(1,)],
+  )
+
+  quotient = QuotientGroup(
+    ambient_group=group,
+    subgroup=subgroup,
+  )
+
+  assert quotient.structure() == ()
+
+def test_quotient_structure_z2_z2():
+  group = make_group(
+    (4,2),
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [(2,0)],
+  )
+
+  quotient = QuotientGroup(
+    ambient_group=group,
+    subgroup=subgroup,
+  )
+
+  assert quotient.order == 4
+  assert quotient.structure() == (2,2)
+
+def test_quotient_structure_z4():
+  group = make_group(
+    (4,2),
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [(0,1)],
+  )
+
+  quotient = QuotientGroup(
+    ambient_group=group,
+    subgroup=subgroup,
+  )
+
+  assert quotient.order == 4
+  assert quotient.structure() == (4,)
+
+def test_induced_map_z4_to_z2():
+  source = make_cyclic_group(4, "a")
+  target = make_cyclic_group(2, "b")
+
+  f = GroupMap(
+    name="mod2",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  induced = InducedMap(f)
+
+  assert induced.source.structure() == (2,)
+  assert induced.target.structure() == (2,)
+
+  assert induced.is_well_defined()
+  assert induced.is_injective()
+  assert induced.is_surjective()
+  assert induced.is_isomorphism()
+
+def test_induced_map_apply():
+  source = make_cyclic_group(4, "a")
+  target = make_cyclic_group(2, "b")
+
+  f = GroupMap(
+    name="mod2",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  induced = InducedMap(f)
+
+  zero_coset = induced.source.coset(
+    GroupElement(source, (0,))
+  )
+
+  one_coset = induced.source.coset(
+    GroupElement(source, (1,))
+  )
+
+  assert induced.apply(
+    zero_coset
+  ) == GroupElement(
+    target,
+    (0,),
+  )
+
+  assert induced.apply(
+    one_coset
+  ) == GroupElement(
+    target,
+    (1,),
+  )
+
+def test_induced_map_non_surjective_original_map():
+  group = make_cyclic_group(4, "a")
+
+  f = GroupMap(
+    name="times2",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  induced = InducedMap(f)
+
+  assert induced.source.structure() == (2,)
+  assert induced.target.structure() == (2,)
+
+  assert induced.is_well_defined()
+  assert induced.is_injective()
+  assert induced.is_surjective()
+  assert induced.is_isomorphism()
+
+def test_induced_map_noncyclic_source():
+  source = make_group(
+    (4,2),
+  )
+
+  target = make_cyclic_group(
+    2,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [1,0],
+    ],
+  )
+
+  induced = InducedMap(f)
+
+  assert induced.source.structure() == (2,)
+  assert induced.target.structure() == (2,)
+
+  assert induced.is_well_defined()
+  assert induced.is_injective()
+  assert induced.is_surjective()
+  assert induced.is_isomorphism()  
+
+def test_group_map_induced_quotient_map():
+  source = make_cyclic_group(4, "a")
+  target = make_cyclic_group(2, "b")
+
+  f = GroupMap(
+    name="mod2",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  induced = f.induced_quotient_map()
+
+  assert isinstance(
+    induced,
+    InducedMap,
+  )
+  assert induced.is_isomorphism()
+
+def test_exact_sequence_step():
+  a = make_cyclic_group(2, "a")
+  b = make_cyclic_group(4, "b")
+  c = make_cyclic_group(2, "c")
+
+  f = GroupMap(
+    name="times2",
+    source=a,
+    target=b,
+    matrix=[
+      [2],
+    ],
+  )
+
+  g = GroupMap(
+    name="mod2",
+    source=b,
+    target=c,
+    matrix=[
+      [1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  assert step.is_exact()
+
+  assert step.image_of_first.structure() == (2,)
+  assert step.kernel_of_second.structure() == (2,)
+
+  assert step.quotient.structure() == (2,)
+  assert step.image.structure() == (2,)
+
+  induced = step.induced_map
+
+  assert induced.is_isomorphism()
+  assert step.quotient == induced.source
+  assert step.image == induced.target
+
+def test_exact_sequence_quotient_image_isomorphism():
+  a = make_cyclic_group(2, "a")
+  b = make_cyclic_group(4, "b")
+  c = make_cyclic_group(2, "c")
+
+  f = GroupMap(
+    name="times2",
+    source=a,
+    target=b,
+    matrix=[
+      [2],
+    ],
+  )
+
+  g = GroupMap(
+    name="mod2",
+    source=b,
+    target=c,
+    matrix=[
+      [1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  assert step.verifies_quotient_image_isomorphism()
+
+def test_nonexact_sequence_step():
+  a = make_cyclic_group(2, "a")
+  b = make_cyclic_group(4, "b")
+  c = make_cyclic_group(2, "c")
+
+  f = GroupMap(
+    name="zero",
+    source=a,
+    target=b,
+    matrix=[
+      [0],
+    ],
+  )
+
+  g = GroupMap(
+    name="mod2",
+    source=b,
+    target=c,
+    matrix=[
+      [1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  assert not step.is_exact()
+  assert not step.verifies_quotient_image_isomorphism()
+
+  with pytest.raises(ValueError):
+    _ = step.induced_map
+
+def test_exact_sequence_step_incompatible_maps():
+  a = make_cyclic_group(2, "a")
+  b = make_cyclic_group(4, "b")
+  d = make_cyclic_group(6, "d")
+  c = make_cyclic_group(2, "c")
+
+  f = GroupMap(
+    name="f",
+    source=a,
+    target=b,
+    matrix=[
+      [2],
+    ],
+  )
+
+  g = GroupMap(
+    name="g",
+    source=d,
+    target=c,
+    matrix=[
+      [1],
+    ],
+  )
+
+  with pytest.raises(ValueError):
+    ExactSequenceStep(
+      first_map=f,
+      second_map=g,
+    )
+
+def test_exact_sequence_trivial_quotient():
+  a = make_cyclic_group(4, "a")
+  b = make_cyclic_group(4, "b")
+  c = make_cyclic_group(2, "c")
+
+  f = GroupMap(
+    name="id",
+    source=a,
+    target=b,
+    matrix=[
+      [1],
+    ],
+  )
+
+  g = GroupMap(
+    name="zero",
+    source=b,
+    target=c,
+    matrix=[
+      [0],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  assert step.is_exact()
+  assert step.quotient.structure() == ()
+  assert step.image.structure() == ()
+  assert step.verifies_quotient_image_isomorphism()
+
+def test_group_structure():
+  z4 = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  z2_z2 = make_group(
+    (2,2),
+  )
+
+  assert group_structure(
+    z4
+  ) == (4,)
+
+  assert group_structure(
+    z2_z2
+  ) == (2,2)
+
+def test_all_subgroups_z4():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroups = all_subgroups(
+    group
+  )
+
+  structures = [
+    subgroup.structure()
+    for subgroup in subgroups
+  ]
+
+  assert len(subgroups) == 3
+
+  assert structures == [
+    (),
+    (2,),
+    (4,),
+  ]
+
+def test_extension_candidate_z4():
+  a = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  b = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  c = make_cyclic_group(
+    2,
+    "c",
+  )
+
+  candidate = ExtensionCandidate(
+    left_group=a,
+    middle_group=b,
+    right_group=c,
+  )
+
+  assert candidate.is_valid()
+
+  assert (
+    candidate.left_structure
+    == (2,)
+  )
+
+  assert (
+    candidate.middle_structure
+    == (4,)
+  )
+
+  assert (
+    candidate.right_structure
+    == (2,)
+  )
+
+  assert len(
+    candidate.matching_subgroups
+  ) == 1
+
+def test_extension_candidate_z2_z2():
+  a = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  b = make_group(
+    (2,2),
+  )
+
+  c = make_cyclic_group(
+    2,
+    "c",
+  )
+
+  candidate = ExtensionCandidate(
+    left_group=a,
+    middle_group=b,
+    right_group=c,
+  )
+
+  assert candidate.is_valid()
+
+  assert (
+    candidate.middle_structure
+    == (2,2)
+  )
+
+  assert len(
+    candidate.matching_subgroups
+  ) == 3
+
+def test_invalid_extension_candidate():
+  a = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  b = make_cyclic_group(
+    8,
+    "b",
+  )
+
+  c = make_cyclic_group(
+    2,
+    "c",
+  )
+
+  candidate = ExtensionCandidate(
+    left_group=a,
+    middle_group=b,
+    right_group=c,
+  )
+
+  assert not candidate.is_valid()
+  assert candidate.matching_subgroups == ()
+
+def test_extension_multiple_candidates():
+  a = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  c = make_cyclic_group(
+    2,
+    "c",
+  )
+
+  z4 = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  z2_z2 = make_group(
+    (2,2),
+  )
+
+  z8 = make_cyclic_group(
+    8,
+    "d",
+  )
+
+  candidates = valid_extension_candidates(
+    a,
+    c,
+    [
+      z4,
+      z2_z2,
+      z8,
+    ],
+  )
+
+  structures = {
+    candidate.middle_structure
+    for candidate in candidates
+  }
+
+  assert structures == {
+    (4,),
+    (2,2),
+  }
+
+def test_finite_abelian_structures_order_4():
+  assert finite_abelian_structures(
+    4
+  ) == (
+    (4,),
+    (2,2),
+  )
+
+def test_finite_abelian_structures_order_8():
+  assert finite_abelian_structures(
+    8
+  ) == (
+    (8,),
+    (2,4),
+    (2,2,2),
+  )
+
+def test_finite_abelian_structures_order_6():
+  assert finite_abelian_structures(
+    6
+  ) == (
+    (6,),
+  )
+
+def test_abstract_abelian_group():
+  group = abstract_abelian_group(
+    (2,4),
+  )
+
+  assert group.orders == [
+    2,
+    4,
+  ]
+
+  assert group_structure(
+    group
+  ) == (2,4)
+
+  assert finite_group_order(
+    group
+  ) == 8
+
+def test_automatic_extension_candidates_z2_z2():
+  a = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  c = make_cyclic_group(
+    2,
+    "c",
+  )
+
+  candidates = extension_candidates(
+    a,
+    c,
+  )
+
+  structures = {
+    candidate.middle_structure
+    for candidate in candidates
+  }
+
+  assert structures == {
+    (4,),
+    (2,2),
+  }
+
+def test_automatic_extension_candidates_z4_z2():
+  a = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  c = make_cyclic_group(
+    2,
+    "c",
+  )
+
+  candidates = extension_candidates(
+    a,
+    c,
+  )
+
+  structures = {
+    candidate.middle_structure
+    for candidate in candidates
+  }
+
+  assert structures == {
+    (8,),
+    (2,4),
+  }
+
+def test_finite_group_order_zero_group():
+  zero = make_cyclic_group(
+    0,
+    "0",
+  )
+
+  assert finite_group_order(
+    zero
+  ) == 1
+
+  assert group_structure(
+    zero
+  ) == ()
+
+def test_exact_sequence_middle_group_candidates():
+  a = make_cyclic_group(2, "a")
+  b = make_cyclic_group(4, "b")
+  c = make_cyclic_group(2, "c")
+
+  f = GroupMap(
+    name="times2",
+    source=a,
+    target=b,
+    matrix=[
+      [2],
+    ],
+  )
+
+  g = GroupMap(
+    name="mod2",
+    source=b,
+    target=c,
+    matrix=[
+      [1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  assert (
+    step.extension_left_group.orders
+    == [2]
+  )
+
+  assert (
+    step.extension_right_group.orders
+    == [2]
+  )
+
+  assert set(
+    step.middle_group_candidate_structures()
+  ) == {
+    (4,),
+    (2,2),
+  }
+
+def test_exact_sequence_actual_middle_is_candidate():
+  a = make_cyclic_group(2, "a")
+  b = make_cyclic_group(4, "b")
+  c = make_cyclic_group(2, "c")
+
+  f = GroupMap(
+    name="times2",
+    source=a,
+    target=b,
+    matrix=[
+      [2],
+    ],
+  )
+
+  g = GroupMap(
+    name="mod2",
+    source=b,
+    target=c,
+    matrix=[
+      [1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  actual_structure = group_structure(
+    step.middle_group
+  )
+
+  candidates = set(
+    step.middle_group_candidate_structures()
+  )
+
+  assert actual_structure == (4,)
+  assert actual_structure in candidates
+
+def test_nonexact_sequence_has_no_middle_candidates():
+  a = make_cyclic_group(2, "a")
+  b = make_cyclic_group(4, "b")
+  c = make_cyclic_group(2, "c")
+
+  f = GroupMap(
+    name="zero",
+    source=a,
+    target=b,
+    matrix=[
+      [0],
+    ],
+  )
+
+  g = GroupMap(
+    name="mod2",
+    source=b,
+    target=c,
+    matrix=[
+      [1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  with pytest.raises(ValueError):
+    step.middle_group_candidates()
+
+
+
+
+
 

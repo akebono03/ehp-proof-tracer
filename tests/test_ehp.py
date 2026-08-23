@@ -2,6 +2,7 @@ from pathlib import Path
 
 from ehp import EHPSegment
 from repository import SphereRepository
+from algebra import group_structure
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -206,4 +207,147 @@ def test_ehp_n11_k18_groups():
     r"\bar{\nu}10",
     "ε10",
   ]
-  
+
+def test_ehp_n3_k5_exact_step_at_sphere():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=3,
+    k=5,
+  )
+
+  step = segment.exact_step_at_sphere()
+
+  assert step.first_map == segment.E
+  assert step.second_map == segment.H
+
+  assert step.is_exact()
+  assert step.verifies_quotient_image_isomorphism()
+
+  assert step.quotient.structure() == (2,)
+  assert step.image.structure() == (2,)
+
+def test_ehp_n3_k5_exact_step_at_hopf_target():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=3,
+    k=5,
+  )
+
+  step = segment.exact_step_at_hopf_target()
+
+  assert step.first_map == segment.H
+  assert step.second_map == segment.P
+
+  assert step.is_exact()
+  assert step.verifies_quotient_image_isomorphism()
+
+  assert step.quotient.structure() == (4,)
+  assert step.image.structure() == (4,)
+
+def test_ehp_n11_k18_exact_step_at_sphere():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=11,
+    k=18,
+  )
+
+  step = segment.exact_step_at_sphere()
+
+  assert step.is_exact()
+  assert step.verifies_quotient_image_isomorphism()
+
+  assert step.quotient.order == 4
+  assert step.quotient.structure() == (2,2)
+
+  assert step.image.order == 4
+  assert step.image.structure() == (2,2)
+
+def test_ehp_n11_k18_exact_step_at_hopf_target():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=11,
+    k=18,
+  )
+
+  step = segment.exact_step_at_hopf_target()
+
+  assert step.is_exact()
+  assert step.verifies_quotient_image_isomorphism()
+
+  assert step.quotient.structure() == ()
+  assert step.image.structure() == ()
+
+def test_ehp_n3_k5_sphere_group_candidates():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=3,
+    k=5,
+  )
+
+  candidates = (
+    segment.sphere_group_candidate_structures()
+  )
+
+  assert candidates == (
+    (2,),
+  )
+
+  actual = (
+    segment
+    .exact_step_at_sphere()
+    .middle_group
+    .orders
+  )
+
+  assert actual == [2]
+
+def test_ehp_n3_k5_hopf_target_group_candidates():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=3,
+    k=5,
+  )
+
+  candidates = set(
+    segment.hopf_target_group_candidate_structures()
+  )
+
+  assert candidates == {
+    (8,),
+    (2,4),
+  }
+
+  actual = (
+    segment
+    .exact_step_at_hopf_target()
+    .middle_group
+  )
+
+  assert group_structure(
+    actual
+  ) == (8,)
+
+  assert (
+    group_structure(actual)
+    in candidates
+  )
+
+
+
+
+
+
+
+
