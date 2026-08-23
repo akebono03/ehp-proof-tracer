@@ -1,11 +1,15 @@
+import pytest
 from proof import (
   Proof,
   ProofRule,
   ProofStep,
   Relation,
   RelationType,
+  relation_proof_step,
 )
 from expression import Multiple, Zero, eta
+from repository import RelationRepository
+
 
 def test_relation():
   relation = Relation(
@@ -69,6 +73,53 @@ def test_relation_with_expression():
 
   assert relation.lhs == Multiple(2, eta(3))
   assert relation.rhs == Zero()
+
+def test_relation_proof_step():
+  relation = Relation(
+    lhs=Multiple(2, eta(3)),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+    source="Toda",
+  )
+
+  step = relation_proof_step(
+    relation
+  )
+
+  assert step.conclusion == relation
+  assert step.premises == ()
+  assert step.rule == ProofRule.RELATION
+
+def test_relation_proof_step_rejects_non_relation():
+  with pytest.raises(TypeError):
+    relation_proof_step(
+      "2η3 = 0"
+    )
+
+def test_relation_repository_to_proof_step():
+  relation = Relation(
+    lhs=Multiple(2, eta(3)),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+    source="Toda",
+  )
+
+  repository = RelationRepository([
+    relation,
+  ])
+
+  relations = repository.find_relations(
+    lhs=Multiple(2, eta(3)),
+  )
+
+  step = relation_proof_step(
+    relations[0]
+  )
+
+  assert step.conclusion == relation
+  assert step.premises == ()
+  assert step.rule == ProofRule.RELATION
+
 
 
 

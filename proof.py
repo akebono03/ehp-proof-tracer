@@ -41,6 +41,19 @@ class Proof:
   steps: list[ProofStep]
 
 
+def relation_proof_step(relation):
+  if not isinstance(relation, Relation):
+    raise TypeError(
+      "relation must be a Relation"
+    )
+
+  return ProofStep(
+    conclusion=relation,
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+
 
 
 
