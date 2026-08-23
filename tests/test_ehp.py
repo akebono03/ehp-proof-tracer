@@ -740,6 +740,160 @@ def test_ehp_n6_k5_exact_step_at_hopf_target_general():
     step.verifies_quotient_image_structure_isomorphism()
   )
 
+def test_ehp_n4_k3_repository_groups_mixed():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=4,
+    k=3,
+  )
+
+  assert segment.E.source.orders == [
+    4,
+  ]
+
+  assert segment.E.target.orders == [
+    inf,
+    4,
+  ]
+
+  assert segment.H.source.orders == [
+    inf,
+    4,
+  ]
+
+  assert segment.H.target.orders == [
+    inf,
+  ]
+
+  assert segment.P.source.orders == [
+    inf,
+  ]
+
+  assert segment.P.target.orders == [
+    2,
+  ]
+
+
+def test_ehp_n4_k3_repository_maps_mixed():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=4,
+    k=3,
+  )
+
+  assert segment.E.matrix == [
+    [0],
+    [1],
+  ]
+
+  assert segment.H.matrix == [
+    [1,0],
+  ]
+
+  assert segment.P.matrix == [
+    [0],
+  ]
+
+
+def test_ehp_n4_k3_repository_generators_mixed():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=4,
+    k=3,
+  )
+
+  assert segment.E.source.generators == [
+    "ν'",
+  ]
+
+  assert segment.E.target.generators == [
+    "ν4",
+    "E ν'",
+  ]
+
+  assert segment.H.target.generators == [
+    "ι7",
+  ]
+
+  assert segment.P.target.generators == [
+    "η3^2",
+  ]
+
+
+def test_ehp_n4_k3_exactness_at_sphere_mixed():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=4,
+    k=3,
+  )
+
+  result = segment.exactness_at_sphere()
+
+  assert result.is_exact()
+
+  assert str(
+    result.image_abelian_structure
+  ) == "Z/4"
+
+  assert str(
+    result.kernel_abelian_structure
+  ) == "Z/4"
+
+  assert str(
+    result.quotient_abelian_structure
+  ) == "Z"
+
+  assert str(
+    result.right_image_abelian_structure
+  ) == "Z"
+
+  assert (
+    result.verifies_quotient_image_structure_isomorphism()
+  )
+
+
+def test_ehp_n4_k3_exactness_at_hopf_target_mixed():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=4,
+    k=3,
+  )
+
+  result = segment.exactness_at_hopf_target()
+
+  assert result.is_exact()
+
+  assert str(
+    result.image_abelian_structure
+  ) == "Z"
+
+  assert str(
+    result.kernel_abelian_structure
+  ) == "Z"
+
+  assert str(
+    result.quotient_abelian_structure
+  ) == "0"
+
+  assert str(
+    result.right_image_abelian_structure
+  ) == "0"
+
+  assert (
+    result.verifies_quotient_image_structure_isomorphism()
+  )
+
+
 
 
 
