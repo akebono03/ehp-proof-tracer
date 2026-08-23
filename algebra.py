@@ -343,6 +343,32 @@ class GroupMap:
         torsion_orders=(),
       )
 
+    if (
+      is_finite_abelian_group(
+        self.source
+      )
+      and is_finite_abelian_group(
+        self.target
+      )
+    ):
+      if not (
+        self.is_well_defined_homomorphism()
+      ):
+        raise ValueError(
+          "well-defined な群準同型ではありません"
+        )
+
+      structure = (
+        self.kernel_subgroup()
+        .structure()
+      )
+
+      return (
+        finite_structure_to_abelian_structure(
+          structure
+        )
+      )
+
     raise NotImplementedError(
       "この型の写像の kernel はまだ実装されていません"
     )
@@ -396,6 +422,32 @@ class GroupMap:
         torsion_orders=(
           image_order,
         ),
+      )
+
+    if (
+      is_finite_abelian_group(
+        self.source
+      )
+      and is_finite_abelian_group(
+        self.target
+      )
+    ):
+      if not (
+        self.is_well_defined_homomorphism()
+      ):
+        raise ValueError(
+          "well-defined な群準同型ではありません"
+        )
+
+      structure = (
+        self.image_subgroup()
+        .structure()
+      )
+
+      return (
+        finite_structure_to_abelian_structure(
+          structure
+        )
       )
 
     raise NotImplementedError(
@@ -1377,6 +1429,23 @@ def is_free_abelian_group(
     order == inf
     for order in group.orders
   )
+
+def is_finite_abelian_group(
+  group: AbelianGroup,
+) -> bool:
+  return not any(
+    order == inf
+    for order in group.orders
+  )
+
+def finite_structure_to_abelian_structure(
+  structure: tuple[int, ...],
+) -> AbelianGroupStructure:
+  return AbelianGroupStructure(
+    free_rank=0,
+    torsion_orders=structure,
+  )
+
 
 
 

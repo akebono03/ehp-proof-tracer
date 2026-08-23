@@ -1923,6 +1923,131 @@ def test_image_z_to_z4_zero():
   assert str(kernel) == "Z"
   assert str(cokernel) == "Z/4"
 
+def test_structure_z2_to_z4_times2():
+  source = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "0"
+  assert str(image) == "Z/2"
+  assert str(cokernel) == "Z/2"
+
+def test_structure_z2_to_z4_zero():
+  source = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="zero",
+    source=source,
+    target=target,
+    matrix=[
+      [0],
+    ],
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "Z/2"
+  assert str(image) == "0"
+  assert str(cokernel) == "Z/4"
+
+def test_structure_z4_to_z2_mod2():
+  source = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    2,
+    "b",
+  )
+
+  f = GroupMap(
+    name="mod2",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "Z/2"
+  assert str(image) == "Z/2"
+  assert str(cokernel) == "0"
+
+def test_structure_rejects_invalid_z2_to_z4():
+  source = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="invalid",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  assert not (
+    f.is_well_defined_homomorphism()
+  )
+
+  with pytest.raises(ValueError):
+    f.kernel_structure()
+
+  with pytest.raises(ValueError):
+    f.image_structure()
+
+  with pytest.raises(ValueError):
+    f.cokernel_structure()
+
+
+
+
+
+
+
+
+
 
 
 
