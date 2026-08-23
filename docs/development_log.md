@@ -819,6 +819,838 @@ Phase 4-4 の変更による既存機能への regression は確認されなか�
 
 Phase 4-4 完了
 
+## 4-5 presentation による完全列計算の一般化
+
+Phase 4-4 までに、
+
+```text
+kernel_structure()
+image_structure()
+cokernel_structure()
+```
+
+を presentation ベースで計算できるようになり、
+
+```text
+Z^r ⊕ finite torsion
+```
+
+という一般の有限生成アーベル群に対する
+準同型の kernel / image / cokernel の抽象群構造を
+扱えるようになった。
+
+Phase 4-5 ではこの仕組みを完全列計算へ接続し、
+
+```text
+A --f--> B --g--> C
+```
+
+について、有限群の全元列挙に依存せず、
+
+```text
+Im(f)
+Ker(g)
+B / Im(f)
+Im(g)
+```
+
+の構造を presentation から計算し、
+完全性および第一同型定理から得られる構造関係を
+一般の有限生成アーベル群に対して扱えるようにした。
+
+---
+
+### presentation による完全性判定
+
+連続する準同型
+
+```text
+A --f--> B --g--> C
+```
+
+について、
+
+```text
+Im(f) = Ker(g)
+```
+
+を presentation / lattice ベースで判定できるようにした。
+
+これにより、中間群 `B` に自由部分が含まれる場合でも
+完全性を判定できる。
+
+基本例として、
+
+```text
+Z --×2--> Z --mod 2--> Z/2
+```
+
+を確認した。
+
+このとき、
+
+```text
+Im(×2) = 2Z
+Ker(mod 2) = 2Z
+```
+
+なので完全であり、
+
+```text
+is_exact() = True
+```
+
+となる。
+
+一方、
+
+```text
+Z --×2--> Z --mod 4--> Z/4
+```
+
+では、
+
+```text
+Im(×2) = 2Z
+Ker(mod 4) = 4Z
+```
+
+であるため、
+
+```text
+Im(×2) != Ker(mod 4)
+```
+
+となり、完全ではないことを正しく判定する。
+
+これにより、
+
+```text
+free group
+→ free group
+→ finite group
+```
+
+という、従来の有限群全元列挙方式では扱えなかった
+完全列についても判定可能になった。
+
+---
+
+### mixed group を含む完全列
+
+自由部分と torsion 部分を同時に含む
+mixed group に対しても完全性判定を確認した。
+
+これにより、
+
+```text
+Z^r ⊕ finite torsion
+```
+
+を中間群とする完全列についても、
+
+```text
+Im(f)
+Ker(g)
+```
+
+を presentation から計算し、
+両者が一致するかを判定できるようになった。
+
+Phase 4-4 で実装した一般準同型計算が、
+単独の kernel / image / cokernel 計算だけでなく、
+完全列という複数の写像を組み合わせた計算でも
+利用できることを確認した。
+
+---
+
+### 有限群での完全性 cross-check
+
+presentation ベースの完全性判定についても、
+有限アーベル群では既存の全元列挙方式との
+cross-check を追加した。
+
+有限群の場合は従来通り、
+
+```text
+Im(f)
+Ker(g)
+```
+
+を実際の部分群として全元列挙できる。
+
+そこで、
+
+```text
+従来方式:
+Subgroup の実際の元を比較
+
+presentation 方式:
+integer lattice / presentation から比較
+```
+
+という独立した2通りの計算を行い、
+判定結果が一致することを確認した。
+
+これにより、自由部分を扱うために導入した
+presentation ベースの完全性判定が、
+既存の有限群計算とも整合していることを確認した。
+
+---
+
+### ExactSequenceStep の一般構造 API
+
+`ExactSequenceStep` から、
+完全列の各部分に現れる抽象アーベル群構造を
+一般形式で取得できるようにした。
+
+対象は、
+
+```text
+A --f--> B --g--> C
+```
+
+に対する
+
+```text
+Im(f)
+Ker(g)
+B / Im(f)
+Im(g)
+```
+
+である。
+
+一般構造として、
+
+```text
+image_of_first_structure
+kernel_of_second_structure
+quotient_structure
+image_structure
+```
+
+を扱えるようにした。
+
+これらは従来の有限群専用の
+
+```text
+()
+(2,)
+(2,4)
+```
+
+のような tuple 表現ではなく、
+自由階数と torsion 部分を保持できる
+一般のアーベル群構造として扱われる。
+
+そのため、例えば
+
+```text
+Z
+Z ⊕ Z/2
+Z^2
+Z/2 ⊕ Z/4
+```
+
+などを同じ API で表現できる。
+
+---
+
+### quotient / image の構造比較
+
+完全列
+
+```text
+A --f--> B --g--> C
+```
+
+が完全なら、
+
+```text
+Ker(g) = Im(f)
+```
+
+なので第一同型定理から、
+
+```text
+B / Im(f) ≅ Im(g)
+```
+
+となる。
+
+この関係を、有限群の coset 列挙だけに依存せず、
+一般のアーベル群構造として比較できるようにした。
+
+追加された一般構造 API により、
+
+```text
+quotient_structure
+```
+
+と
+
+```text
+image_structure
+```
+
+を比較し、
+
+```text
+B / Im(f) ≅ Im(g)
+```
+
+という構造上の同型関係を確認できる。
+
+これにより自由部分を含む場合でも、
+完全列から得られる quotient / image の関係を
+追跡できるようになった。
+
+---
+
+### 完全性と「構造が同型」の区別
+
+Phase 4-5 では、
+
+```text
+Im(f) = Ker(g)
+```
+
+という部分群としての一致と、
+
+```text
+B / Im(f) ≅ Im(g)
+```
+
+という抽象群構造としての同型を
+別の条件として扱うことも確認した。
+
+抽象群構造が同じであることだけから
+完全性を判定するのではなく、
+完全性そのものは
+
+```text
+Im(f) = Ker(g)
+```
+
+で判定する。
+
+一方、
+
+```text
+quotient_structure
+image_structure
+```
+
+は完全列から導かれる構造関係を確認するための
+別の情報として保持する。
+
+これにより、
+
+```text
+部分群として等しい
+```
+
+ことと、
+
+```text
+抽象アーベル群として同型
+```
+
+であることを混同しない設計とした。
+
+---
+
+### EHP 層への一般構造 API の接続
+
+presentation ベースの完全列計算を
+EHP 層にも接続した。
+
+`ExactnessResult` に、
+
+```text
+image_abelian_structure
+kernel_abelian_structure
+quotient_abelian_structure
+right_image_abelian_structure
+```
+
+を追加した。
+
+例えば、
+
+```text
+result = segment.exactness_at_sphere()
+```
+
+に対して、
+
+```text
+result.image_abelian_structure
+result.kernel_abelian_structure
+result.quotient_abelian_structure
+result.right_image_abelian_structure
+```
+
+から、
+
+```text
+Im(E)
+Ker(H)
+π / Im(E)
+Im(H)
+```
+
+の一般アーベル群構造を取得できる。
+
+同様に Hopf target 側では、
+
+```text
+Im(H)
+Ker(P)
+π / Im(H)
+Im(P)
+```
+
+を同じ API で扱える。
+
+---
+
+### ExactnessResult と ExactSequenceStep の統合
+
+EHP 層で完全列計算のロジックを重複して持たないように、
+`ExactnessResult` から `ExactSequenceStep` を利用する形に整理した。
+
+`ExactnessResult` に
+
+```text
+exact_step
+```
+
+を持たせ、
+
+```text
+ExactSequenceStep(
+  first_map=left_map,
+  second_map=right_map,
+)
+```
+
+を生成する。
+
+一般構造 API はこの `ExactSequenceStep` に委譲する。
+
+具体的には、
+
+```text
+image_abelian_structure
+```
+
+は
+
+```text
+exact_step.image_of_first_structure
+```
+
+に、
+
+```text
+kernel_abelian_structure
+```
+
+は
+
+```text
+exact_step.kernel_of_second_structure
+```
+
+に、
+
+```text
+quotient_abelian_structure
+```
+
+は
+
+```text
+exact_step.quotient_structure
+```
+
+に、
+
+```text
+right_image_abelian_structure
+```
+
+は
+
+```text
+exact_step.image_structure
+```
+
+に対応する。
+
+また、
+
+```text
+is_exact()
+```
+
+も `ExactSequenceStep.is_exact()` に委譲するようにした。
+
+これにより、
+
+```text
+algebra layer
+↓
+ExactSequenceStep
+↓
+EHP ExactnessResult
+```
+
+という依存関係が明確になり、
+完全列計算の中心ロジックを algebra 層へ集約できた。
+
+---
+
+### EHP での確認例
+
+既存の有限 EHP データについて、
+新しい一般構造 API が従来結果と一致することを確認した。
+
+#### n = 3, k = 5 の sphere 側
+
+```text
+π_7(S^2)
+  --E-->
+π_8(S^3)
+  --H-->
+π_8(S^5)
+```
+
+について、
+
+```text
+Im(E) = 0
+Ker(H) = 0
+```
+
+なので、
+
+```text
+image_abelian_structure
+= 0
+
+kernel_abelian_structure
+= 0
+```
+
+となる。
+
+さらに、
+
+```text
+π_8(S^3) / Im(E)
+≅ Im(H)
+≅ Z/2
+```
+
+なので、
+
+```text
+quotient_abelian_structure
+= Z/2
+
+right_image_abelian_structure
+= Z/2
+```
+
+となることを確認した。
+
+---
+
+#### n = 3, k = 5 の Hopf target 側
+
+```text
+π_8(S^3)
+  --H-->
+π_8(S^5)
+  --P-->
+π_6(S^2)
+```
+
+では、
+
+```text
+Im(H) = Ker(P) ≅ Z/2
+```
+
+となり、
+
+```text
+image_abelian_structure
+= Z/2
+
+kernel_abelian_structure
+= Z/2
+```
+
+を確認した。
+
+また、
+
+```text
+π_8(S^5) / Im(H)
+≅ Im(P)
+≅ Z/4
+```
+
+なので、
+
+```text
+quotient_abelian_structure
+= Z/4
+
+right_image_abelian_structure
+= Z/4
+```
+
+となる。
+
+---
+
+#### n = 11, k = 18 の非巡回例
+
+非巡回有限アーベル群を含む既存例でも、
+
+```text
+image_abelian_structure
+= Z/2 ⊕ Z/2 ⊕ Z/4
+
+kernel_abelian_structure
+= Z/2 ⊕ Z/2 ⊕ Z/4
+```
+
+となり、
+
+```text
+Im(E) = Ker(H)
+```
+
+の構造が一致する。
+
+さらに、
+
+```text
+quotient_abelian_structure
+= Z/2 ⊕ Z/2
+
+right_image_abelian_structure
+= Z/2 ⊕ Z/2
+```
+
+となり、
+
+```text
+B / Im(E) ≅ Im(H)
+```
+
+も一般構造 API で確認できた。
+
+---
+
+### 旧 API との後方互換性
+
+既存の有限群用 API は削除せず残した。
+
+従来は、
+
+```text
+image_structure
+kernel_structure
+```
+
+によって、
+
+```text
+()
+(2,)
+(2,2,4)
+```
+
+のような有限群の torsion structure を取得していた。
+
+新しい一般構造 API では、
+同じ有限群について自由階数が
+
+```text
+free_rank = 0
+```
+
+となり、
+
+```text
+torsion_orders
+```
+
+が従来の
+
+```text
+image_structure
+kernel_structure
+```
+
+と一致することをテストした。
+
+つまり有限群に対しては、
+
+```text
+旧 API
+```
+
+と
+
+```text
+新しい presentation ベースの一般 API
+```
+
+が同じ結果を返す。
+
+これにより既存コードを維持しながら、
+今後 `Z` を含む EHP データへ段階的に移行できる設計となった。
+
+---
+
+### Phase 4-5 の到達点
+
+Phase 4-5 により、
+
+```text
+A --f--> B --g--> C
+```
+
+という完全列について、
+
+```text
+presentation of A, B, C
+↓
+presentation of f, g
+↓
+Im(f)
+Ker(g)
+↓
+exactness
+↓
+B / Im(f)
+Im(g)
+↓
+quotient / image structure comparison
+```
+
+という計算経路を、
+有限群だけでなく自由部分を含む
+有限生成アーベル群へ一般化できた。
+
+Phase 4-4 まででは、
+
+```text
+1つの準同型
+↓
+kernel / image / cokernel
+```
+
+を一般化した段階だったが、
+
+Phase 4-5 では、
+
+```text
+複数の準同型
+↓
+完全列
+↓
+quotient / image relation
+```
+
+まで一般化された。
+
+さらに EHP 層も `ExactSequenceStep` を通じて
+この一般計算を利用するようになったため、
+
+```text
+finite-only EHP calculation
+```
+
+から
+
+```text
+finitely generated abelian group
+を対象とする EHP calculation
+```
+
+へ移行するための基盤ができた。
+
+現在の推論経路は、
+
+```text
+group presentation
+↓
+homomorphism matrix
+↓
+integer lattice
+↓
+kernel / image / cokernel
+↓
+exact sequence
+↓
+quotient / image structure
+↓
+EHP exactness result
+```
+
+となっている。
+
+---
+
+### テスト
+
+2026-08-23
+
+追加・確認した主なテスト:
+
+```text
+test_presentation_exact_z_times2_mod2
+test_presentation_nonexact_z_times2_mod4
+test_presentation_exact_mixed_group
+test_finite_exactness_presentation_crosscheck
+test_exact_sequence_general_structures_free
+test_exact_sequence_general_structures_mixed
+test_nonexact_sequence_general_structure_isomorphism
+test_ehp_general_structure_api_at_sphere
+test_ehp_general_structure_api_at_hopf_target
+test_ehp_general_structure_api_noncyclic
+test_ehp_old_new_structure_api_agree
+test_ehp_exactness_result_delegates_to_exact_step
+```
+
+全テスト:
+
+```text
+126 passed in 58.91s
+```
+
+既存の有限群計算、
+Subgroup、
+QuotientGroup、
+extension candidate、
+EHP 完全列計算を含め、
+すべてのテストが成功した。
+
+Phase 4-5 の一般化による regression は確認されなかった。
+
+### 状態
+
+Phase 4-5 完了
+
 
 
 

@@ -448,41 +448,99 @@ def test_ehp_general_structure_api_noncyclic():
   assert (
     result.verifies_quotient_image_structure_isomorphism()
   )
-  
-def test_ehp_general_structure_api_noncyclic():
+
+def test_ehp_old_new_structure_api_agree():
+  repo = make_repository()
+
+  segments = [
+    EHPSegment(
+      repo,
+      n=3,
+      k=5,
+    ),
+    EHPSegment(
+      repo,
+      n=11,
+      k=18,
+    ),
+  ]
+
+  for segment in segments:
+    results = [
+      segment.exactness_at_sphere(),
+      segment.exactness_at_hopf_target(),
+    ]
+
+    for result in results:
+      assert (
+        result.image_abelian_structure
+        .free_rank
+        == 0
+      )
+
+      assert (
+        result.kernel_abelian_structure
+        .free_rank
+        == 0
+      )
+
+      assert (
+        result.image_abelian_structure
+        .torsion_orders
+        == result.image_structure
+      )
+
+      assert (
+        result.kernel_abelian_structure
+        .torsion_orders
+        == result.kernel_structure
+      )
+
+def test_ehp_exactness_result_delegates_to_exact_step():
   repo = make_repository()
 
   segment = EHPSegment(
     repo,
-    n=11,
-    k=18,
+    n=3,
+    k=5,
   )
 
   result = (
     segment.exactness_at_sphere()
   )
 
-  assert result.is_exact()
-
-  assert str(
-    result.image_abelian_structure
-  ) == "Z/2 ⊕ Z/2 ⊕ Z/4"
-
-  assert str(
-    result.kernel_abelian_structure
-  ) == "Z/2 ⊕ Z/2 ⊕ Z/4"
-
-  assert str(
-    result.quotient_abelian_structure
-  ) == "Z/2 ⊕ Z/2"
-
-  assert str(
-    result.right_image_abelian_structure
-  ) == "Z/2 ⊕ Z/2"
+  step = (
+    segment.exact_step_at_sphere()
+  )
 
   assert (
-    result.verifies_quotient_image_structure_isomorphism()
+    result.is_exact()
+    == step.is_exact()
   )
+
+  assert (
+    result.image_abelian_structure
+    == step.image_of_first_structure
+  )
+
+  assert (
+    result.kernel_abelian_structure
+    == step.kernel_of_second_structure
+  )
+
+  assert (
+    result.quotient_abelian_structure
+    == step.quotient_structure
+  )
+
+  assert (
+    result.right_image_abelian_structure
+    == step.image_structure
+  )
+
+
+
+
 
 
 
