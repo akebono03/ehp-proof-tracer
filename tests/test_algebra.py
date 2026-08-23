@@ -2319,6 +2319,187 @@ def test_general_mixed_to_mixed_invalid():
   with pytest.raises(ValueError):
     f.cokernel_structure()
 
+def test_presentation_matches_free_times2():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  assert (
+    f.presentation_kernel_structure()
+    == f.kernel_structure()
+  )
+
+  assert (
+    f.presentation_image_structure()
+    == f.image_structure()
+  )
+
+def test_presentation_matches_z_to_z4():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  assert (
+    f.presentation_kernel_structure()
+    == f.kernel_structure()
+  )
+
+  assert (
+    f.presentation_image_structure()
+    == f.image_structure()
+  )
+
+  assert str(
+    f.presentation_kernel_structure()
+  ) == "Z"
+
+  assert str(
+    f.presentation_image_structure()
+  ) == "Z/2"
+
+def test_presentation_matches_z2_to_z4():
+  source = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  assert (
+    f.presentation_kernel_structure()
+    == f.kernel_structure()
+  )
+
+  assert (
+    f.presentation_image_structure()
+    == f.image_structure()
+  )
+
+  assert str(
+    f.presentation_kernel_structure()
+  ) == "0"
+
+  assert str(
+    f.presentation_image_structure()
+  ) == "Z/2"
+
+def test_presentation_matches_z4_to_z2():
+  source = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    2,
+    "b",
+  )
+
+  f = GroupMap(
+    name="mod2",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  assert (
+    f.presentation_kernel_structure()
+    == f.kernel_structure()
+  )
+
+  assert (
+    f.presentation_image_structure()
+    == f.image_structure()
+  )
+
+  assert str(
+    f.presentation_kernel_structure()
+  ) == "Z/2"
+
+  assert str(
+    f.presentation_image_structure()
+  ) == "Z/2"
+
+def test_presentation_matches_mixed_to_finite():
+  source = make_group(
+    (inf,2),
+  )
+
+  target = make_cyclic_group(
+    4,
+    "c",
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [2,0],
+    ],
+  )
+
+  assert (
+    f.presentation_kernel_structure()
+    == f.kernel_structure()
+  )
+
+  assert (
+    f.presentation_image_structure()
+    == f.image_structure()
+  )
+
+  assert str(
+    f.presentation_kernel_structure()
+  ) == "Z ⊕ Z/2"
+
+  assert str(
+    f.presentation_image_structure()
+  ) == "Z/2"
+
 
 
 
