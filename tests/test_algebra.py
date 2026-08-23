@@ -4,6 +4,7 @@ from algebra import (
   QuotientGroup,
   Subgroup,
   generated_subgroup_elements,
+  InducedMap,
 )
 from models import AbelianGroup, GroupComponent
 
@@ -555,7 +556,136 @@ def test_quotient_structure_z4():
   assert quotient.order == 4
   assert quotient.structure() == (4,)
 
+def test_induced_map_z4_to_z2():
+  source = make_cyclic_group(4, "a")
+  target = make_cyclic_group(2, "b")
 
+  f = GroupMap(
+    name="mod2",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
 
+  induced = InducedMap(f)
+
+  assert induced.source.structure() == (2,)
+  assert induced.target.structure() == (2,)
+
+  assert induced.is_well_defined()
+  assert induced.is_injective()
+  assert induced.is_surjective()
+  assert induced.is_isomorphism()
+
+def test_induced_map_apply():
+  source = make_cyclic_group(4, "a")
+  target = make_cyclic_group(2, "b")
+
+  f = GroupMap(
+    name="mod2",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  induced = InducedMap(f)
+
+  zero_coset = induced.source.coset(
+    GroupElement(source, (0,))
+  )
+
+  one_coset = induced.source.coset(
+    GroupElement(source, (1,))
+  )
+
+  assert induced.apply(
+    zero_coset
+  ) == GroupElement(
+    target,
+    (0,),
+  )
+
+  assert induced.apply(
+    one_coset
+  ) == GroupElement(
+    target,
+    (1,),
+  )
+
+def test_induced_map_non_surjective_original_map():
+  group = make_cyclic_group(4, "a")
+
+  f = GroupMap(
+    name="times2",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  induced = InducedMap(f)
+
+  assert induced.source.structure() == (2,)
+  assert induced.target.structure() == (2,)
+
+  assert induced.is_well_defined()
+  assert induced.is_injective()
+  assert induced.is_surjective()
+  assert induced.is_isomorphism()
+
+def test_induced_map_noncyclic_source():
+  source = make_group(
+    (4,2),
+  )
+
+  target = make_cyclic_group(
+    2,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [1,0],
+    ],
+  )
+
+  induced = InducedMap(f)
+
+  assert induced.source.structure() == (2,)
+  assert induced.target.structure() == (2,)
+
+  assert induced.is_well_defined()
+  assert induced.is_injective()
+  assert induced.is_surjective()
+  assert induced.is_isomorphism()  
+
+def test_group_map_induced_quotient_map():
+  source = make_cyclic_group(4, "a")
+  target = make_cyclic_group(2, "b")
+
+  f = GroupMap(
+    name="mod2",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  induced = f.induced_quotient_map()
+
+  assert isinstance(
+    induced,
+    InducedMap,
+  )
+  assert induced.is_isomorphism()
 
 

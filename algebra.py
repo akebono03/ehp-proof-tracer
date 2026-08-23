@@ -188,6 +188,153 @@ class QuotientGroup:
       add=self.add_cosets,
     )
 
+@dataclass
+class GroupMap:
+  name: str
+  source: AbelianGroup
+  target: AbelianGroup
+  matrix: list[list[int]]
+
+  def apply(self, element):
+    x = element.normalized().coefficients
+
+    result = []
+
+    for i, order in enumerate(self.target.orders):
+      value = 0
+
+      for j in range(self.source.direct_sum):
+        value += self.matrix[i][j] * x[j]
+
+      if order != 0:
+        value %= order
+
+      result.append(value)
+
+    return GroupElement(
+      self.target,
+      tuple(result),
+    )
+
+  def source_elements(self):
+    return group_elements(self.source)
+
+  def kernel(self):
+    return [
+      x
+      for x in self.source_elements()
+      if self.apply(x).is_zero()
+    ]
+
+  def image(self):
+    result = {}
+
+    for x in self.source_elements():
+      y = self.apply(x).normalized()
+      result[y.coefficients] = y
+
+    return list(result.values())
+
+  def kernel_subgroup(self) -> Subgroup:
+    elements = frozenset(self.kernel())
+
+    return Subgroup(
+      ambient_group=self.source,
+      elements=elements,
+      generators=find_generators(
+        self.source,
+        elements,
+      ),
+    )
+
+  def image_subgroup(self) -> Subgroup:
+    elements = frozenset(self.image())
+
+    return Subgroup(
+      ambient_group=self.target,
+      elements=elements,
+      generators=find_generators(
+        self.target,
+        elements,
+      ),
+    )
+
+  def induced_quotient_map(self):
+    return InducedMap(self)
+
+
+@dataclass(frozen=True)
+class InducedMap:
+  original_map: GroupMap
+
+  @property
+  def source(self) -> QuotientGroup:
+    return QuotientGroup(
+      ambient_group=self.original_map.source,
+      subgroup=self.original_map.kernel_subgroup(),
+    )
+
+  @property
+  def target(self) -> Subgroup:
+    return self.original_map.image_subgroup()
+
+  def apply(
+    self,
+    coset: frozenset[GroupElement],
+  ) -> GroupElement:
+    if coset not in self.source.cosets:
+      raise ValueError(
+        "この商群の剰余類ではありません"
+      )
+
+    representative = min(
+      coset,
+      key=lambda x: x.coefficients,
+    )
+
+    return self.original_map.apply(
+      representative
+    ).normalized()
+
+  def is_well_defined(self) -> bool:
+    for coset in self.source.cosets:
+      images = {
+        self.original_map.apply(
+          x
+        ).normalized()
+        for x in coset
+      }
+
+      if len(images) != 1:
+        return False
+
+    return True
+
+  def is_injective(self) -> bool:
+    images = [
+      self.apply(coset)
+      for coset in self.source.cosets
+    ]
+
+    return len(images) == len(set(images))
+
+  def is_surjective(self) -> bool:
+    images = {
+      self.apply(coset)
+      for coset in self.source.cosets
+    }
+
+    return images == set(
+      self.target.elements
+    )
+
+  def is_isomorphism(self) -> bool:
+    return (
+      self.is_well_defined()
+      and self.is_injective()
+      and self.is_surjective()
+    )
+
 def group_elements(
   group: AbelianGroup,
 ) -> list[GroupElement]:
@@ -228,24 +375,6 @@ def add_elements(x: GroupElement, y: GroupElement) -> GroupElement:
     x.group,
     tuple(coefficients),
   )
-
-def prime_factors(n: int) -> list[int]:
-  factors = []
-  p = 2
-
-  while p * p <= n:
-    if n % p == 0:
-      factors.append(p)
-
-      while n % p == 0:
-        n //= p
-
-    p += 1
-
-  if n > 1:
-    factors.append(n)
-
-  return factors
 
 
 def scalar_multiple(
@@ -368,29 +497,6 @@ def finite_abelian_structure(
 
   return tuple(result)
 
-def multiply_element(
-  n: int,
-  x: GroupElement,
-) -> GroupElement:
-  coefficients = []
-
-  for coefficient, order in zip(
-    x.coefficients,
-    x.group.orders,
-  ):
-    value = n * coefficient
-
-    if order != 0:
-      value %= order
-
-    coefficients.append(value)
-
-  return GroupElement(
-    x.group,
-    tuple(coefficients),
-  )
-
-
 def prime_factors(n: int) -> list[int]:
   factors = []
   p = 2
@@ -408,76 +514,6 @@ def prime_factors(n: int) -> list[int]:
     factors.append(n)
 
   return factors
-
-
-def subgroup_structure(
-  subgroup: Subgroup,
-) -> tuple[int, ...]:
-  if subgroup.order == 1:
-    return ()
-
-  prime_parts = []
-
-  for p in prime_factors(subgroup.order):
-    powers = []
-    pk = p
-    previous_rank = 0
-
-    while pk <= subgroup.order:
-      killed = sum(
-        multiply_element(pk, x).is_zero()
-        for x in subgroup.elements
-      )
-
-      rank = 0
-      value = killed
-
-      while value > 1:
-        value //= p
-        rank += 1
-
-      count_at_least_k = rank - previous_rank
-      powers.append(count_at_least_k)
-      previous_rank = rank
-
-      if killed == subgroup.order:
-        break
-
-      pk *= p
-
-    elementary = []
-
-    for k in range(len(powers)):
-      current = powers[k]
-      following = (
-        powers[k + 1]
-        if k + 1 < len(powers)
-        else 0
-      )
-
-      count_exact = current - following
-
-      elementary.extend(
-        [p ** (k + 1)] * count_exact
-      )
-
-    elementary.sort()
-    prime_parts.append(elementary)
-
-  rank = max(
-    len(part)
-    for part in prime_parts
-  )
-
-  invariant_factors = [1] * rank
-
-  for part in prime_parts:
-    offset = rank - len(part)
-
-    for i, value in enumerate(part):
-      invariant_factors[offset + i] *= value
-
-  return tuple(invariant_factors)
 
 def generated_subgroup_elements(
   ambient_group: AbelianGroup,
@@ -533,73 +569,8 @@ def find_generators(
   return generators
 
 
-@dataclass
-class GroupMap:
-  name: str
-  source: AbelianGroup
-  target: AbelianGroup
-  matrix: list[list[int]]
 
-  def apply(self, element):
-    x = element.normalized().coefficients
 
-    result = []
 
-    for i, order in enumerate(self.target.orders):
-      value = 0
 
-      for j in range(self.source.direct_sum):
-        value += self.matrix[i][j] * x[j]
 
-      if order != 0:
-        value %= order
-
-      result.append(value)
-
-    return GroupElement(
-      self.target,
-      tuple(result),
-    )
-
-  def source_elements(self):
-    return group_elements(self.source)
-
-  def kernel(self):
-    return [
-      x
-      for x in self.source_elements()
-      if self.apply(x).is_zero()
-    ]
-
-  def image(self):
-    result = {}
-
-    for x in self.source_elements():
-      y = self.apply(x).normalized()
-      result[y.coefficients] = y
-
-    return list(result.values())
-
-  def kernel_subgroup(self) -> Subgroup:
-    elements = frozenset(self.kernel())
-
-    return Subgroup(
-      ambient_group=self.source,
-      elements=elements,
-      generators=find_generators(
-        self.source,
-        elements,
-      ),
-    )
-
-  def image_subgroup(self) -> Subgroup:
-    elements = frozenset(self.image())
-
-    return Subgroup(
-      ambient_group=self.target,
-      elements=elements,
-      generators=find_generators(
-        self.target,
-        elements,
-      ),
-    )
