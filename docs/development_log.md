@@ -1651,6 +1651,23 @@ Phase 4-5 の一般化による regression は確認されなかった。
 
 Phase 4-5 完了
 
+Phase 4-6a では、自由部分を含む最初の実 EHP 例として
+(n,k) = (6,5) を採用する。
+
+EHP segment は
+
+π10(S5) --E--> π11(S6) --H--> π11(S11) --P--> π9(S5)
+
+であり、現在の sphere.csv のデータから
+
+Z/2 --0--> Z --×2--> Z --mod 2--> Z/2
+
+となる。
+
+これは finite → free、free → free、free → finite を
+一つの完全列で含み、Phase 4 で導入した presentation ベースの
+一般アーベル群計算を実 EHP データで検証する最初の例として適している。
+
 
 
 

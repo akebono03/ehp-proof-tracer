@@ -6,6 +6,7 @@ from models import AbelianGroup, GroupComponent, MapImage
 
 from algebra import GroupMap
 
+
 class SphereRepository:
   def __init__(self, csv_path):
     self.df = pd.read_csv(csv_path)
@@ -20,6 +21,14 @@ class SphereRepository:
     return k + 2
 
   def _rows(self, n, k):
+    rows = self.df[
+      (self.df["n"] == n)
+      & (self.df["k"] == k)
+    ]
+
+    if not rows.empty:
+      return rows.sort_values("id")
+
     data_n = self._resolve_n(n, k)
 
     rows = self.df[
@@ -109,9 +118,14 @@ class SphereRepository:
 
   def get_group_map(self, map_name, source_n, source_k):
     if map_name not in {"P", "E", "H"}:
-      raise ValueError("map_name must be P, E, or H")
+      raise ValueError(
+        "map_name must be P, E, or H"
+      )
 
-    source = self.get_group(source_n, source_k)
+    source = self.get_group(
+      source_n,
+      source_k
+    )
 
     if map_name == "E":
       target_n = source_n + 1
@@ -119,15 +133,23 @@ class SphereRepository:
 
     elif map_name == "H":
       target_n = 2 * source_n - 1
-      target_k = source_k - source_n + 1
+      target_k = (
+        source_k
+        - source_n
+        + 1
+      )
 
     elif map_name == "P":
       if source_n % 2 == 0:
         raise ValueError(
-          "EHP の P の source sphere は奇数次元である必要があります"
+          "EHP の P の source sphere は"
+          "奇数次元である必要があります"
         )
 
-      target_n = (source_n - 1) // 2
+      target_n = (
+        source_n - 1
+      ) // 2
+
       target_k = (
         source_k
         + source_n
@@ -148,7 +170,9 @@ class SphereRepository:
 
     matrix = [
       [0] * source.direct_sum
-      for _ in range(target.direct_sum)
+      for _ in range(
+        target.direct_sum
+      )
     ]
 
     for image in images:
@@ -160,8 +184,12 @@ class SphereRepository:
         if target_id < len(
           image.coefficients
         ):
-          matrix[target_id][source_id] = (
-            image.coefficients[target_id]
+          matrix[target_id][
+            source_id
+          ] = (
+            image.coefficients[
+              target_id
+            ]
           )
 
     return GroupMap(
@@ -170,4 +198,6 @@ class SphereRepository:
       target=target,
       matrix=matrix,
     )
+
+
   

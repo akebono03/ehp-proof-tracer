@@ -204,8 +204,8 @@ def test_ehp_n11_k18_groups():
   ]
 
   assert hopf_target.generators == [
-    r"\bar{\nu}10",
-    "ε10",
+    r"\bar{\nu}21",
+    "ε21",
   ]
 
 def test_ehp_n3_k5_exact_step_at_sphere():
@@ -537,6 +537,75 @@ def test_ehp_exactness_result_delegates_to_exact_step():
     result.right_image_abelian_structure
     == step.image_structure
   )
+
+from math import inf
+
+
+def test_ehp_n6_k5_repository_groups():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=6,
+    k=5,
+  )
+
+  assert segment.E.source.orders == [2]
+  assert segment.E.target.orders == [inf]
+
+  assert segment.H.source.orders == [inf]
+  assert segment.H.target.orders == [inf]
+
+  assert segment.P.source.orders == [inf]
+  assert segment.P.target.orders == [2]
+
+
+def test_ehp_n6_k5_repository_maps():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=6,
+    k=5,
+  )
+
+  assert segment.E.matrix == [
+    [0],
+  ]
+
+  assert segment.H.matrix == [
+    [2],
+  ]
+
+  assert segment.P.matrix == [
+    [1],
+  ]
+
+def test_ehp_n6_k5_repository_generators():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=6,
+    k=5,
+  )
+
+  assert segment.E.source.generators == [
+    "ν5η8^2",
+  ]
+
+  assert segment.E.target.generators == [
+    r"\Delta(ι13)",
+  ]
+
+  assert segment.H.target.generators == [
+    "ι11",
+  ]
+
+  assert segment.P.target.generators == [
+    "ν5η8",
+  ]
+
 
 
 
