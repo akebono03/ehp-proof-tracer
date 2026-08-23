@@ -14,11 +14,11 @@ from algebra import (
   extension_candidates,
   finite_abelian_structures,
   finite_group_order,
+  abelian_group_structure,
 )
-
 from models import AbelianGroup, GroupComponent
-
 import pytest
+from math import inf
 
 def make_cyclic_group(order, generator):
   return AbelianGroup(
@@ -1275,6 +1275,70 @@ def test_nonexact_sequence_has_no_middle_candidates():
 
   with pytest.raises(ValueError):
     step.middle_group_candidates()
+
+def test_abelian_group_structure_z():
+  group = make_cyclic_group(
+    inf,
+    "ι",
+  )
+
+  structure = abelian_group_structure(
+    group
+  )
+
+  assert structure.free_rank == 1
+  assert structure.torsion_orders == ()
+  assert structure.is_free
+  assert not structure.is_finite
+  assert str(structure) == "Z"
+
+
+def test_abelian_group_structure_z_z2():
+  group = make_group(
+    (inf,2),
+  )
+
+  structure = abelian_group_structure(
+    group
+  )
+
+  assert structure.free_rank == 1
+  assert structure.torsion_orders == (2,)
+  assert not structure.is_free
+  assert not structure.is_finite
+  assert str(structure) == "Z ⊕ Z/2"
+
+
+def test_abelian_group_structure_z2_z4():
+  group = make_group(
+    (2,4),
+  )
+
+  structure = abelian_group_structure(
+    group
+  )
+
+  assert structure.free_rank == 0
+  assert structure.torsion_orders == (2,4)
+  assert structure.is_finite
+  assert not structure.is_free
+  assert str(structure) == "Z/2 ⊕ Z/4"
+
+
+def test_abelian_group_structure_zero():
+  group = make_cyclic_group(
+    0,
+    "0",
+  )
+
+  structure = abelian_group_structure(
+    group
+  )
+
+  assert structure.free_rank == 0
+  assert structure.torsion_orders == ()
+  assert structure.is_finite
+  assert str(structure) == "0"
 
 
 

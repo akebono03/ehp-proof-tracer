@@ -71,4 +71,39 @@ class MapImage:
   source_id: int
   coefficients: list[int]
   reference: str | None
-  
+
+@dataclass(frozen=True)
+class AbelianGroupStructure:
+  free_rank: int
+  torsion_orders: tuple[int, ...]
+
+  @property
+  def is_finite(self):
+    return self.free_rank == 0
+
+  @property
+  def is_free(self):
+    return (
+      self.free_rank > 0
+      and not self.torsion_orders
+    )
+
+  def __str__(self):
+    parts = []
+
+    if self.free_rank == 1:
+      parts.append("Z")
+    elif self.free_rank > 1:
+      parts.append(f"Z^{self.free_rank}")
+
+    for order in self.torsion_orders:
+      parts.append(f"Z/{order}")
+
+    if not parts:
+      return "0"
+
+    return " ⊕ ".join(parts)
+
+
+
+

@@ -2,8 +2,11 @@ from dataclasses import dataclass
 from itertools import product
 from math import inf
 
-from models import AbelianGroup, GroupComponent
-
+from models import (
+  AbelianGroup,
+  AbelianGroupStructure,
+  GroupComponent,
+)
 
 @dataclass(frozen=True)
 class GroupElement:
@@ -1048,6 +1051,33 @@ def extension_candidates(
     middle_groups,
   )
 
+def abelian_group_structure(
+  group: AbelianGroup,
+) -> AbelianGroupStructure:
+  if group.is_zero():
+    return AbelianGroupStructure(
+      free_rank=0,
+      torsion_orders=(),
+    )
+
+  free_rank = sum(
+    order == inf
+    for order in group.orders
+  )
+
+  torsion_orders = tuple(
+    int(order)
+    for order in group.orders
+    if (
+      order != inf
+      and order != 0
+    )
+  )
+
+  return AbelianGroupStructure(
+    free_rank=free_rank,
+    torsion_orders=torsion_orders,
+  )
 
 
 
