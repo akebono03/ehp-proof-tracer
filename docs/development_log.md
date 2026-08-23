@@ -1962,6 +1962,854 @@ Phase 4 の成果・責務・完了条件の文書化完了。
 コード変更なし。
 
 
+# Phase 5：Proof / Inference 基盤
+
+## Phase 5-1：Proof / Relation 基盤
+
+Phase 4 までで、
+
+```text
+既知の群
++
+既知の準同型
+↓
+kernel / image / cokernel
+↓
+exactness
+↓
+quotient / extension
+```
+
+という代数計算基盤が整った。
+
+Phase 5 ではその上に、
+「なぜその結果が得られたのか」を記録・追跡するための
+proof / inference 層を導入する。
+
+Phase 5-1 では、
+証明追跡の最小データモデルとして、
+
+```text
+Relation
+ProofStep
+Proof
+```
+
+を導入した。
+
+---
+
+### Relation
+
+既知の数学的事実や関係式を表すため、
+`Relation` を導入した。
+
+基本構造:
+
+```text
+lhs
+rhs
+relation_type
+source
+note
+```
+
+例えば、
+
+```text
+2η3 = 0
+```
+
+のような既知 relation を、
+
+```python
+Relation(
+  lhs="2η3",
+  rhs="0",
+  relation_type=RelationType.ZERO,
+  source="Toda",
+)
+```
+
+として保持できる。
+
+現段階では `lhs`、`rhs` の型を特定の式クラスに限定せず、
+汎用的な値を保持できる設計とした。
+
+これは将来的に、
+
+```text
+ord(α) = 2
+Ker(H) = ...
+Im(E) = ...
+π_n(S^m) ≅ ...
+```
+
+など、
+単純なホモトピー元の式以外の命題も扱う可能性があるためである。
+
+---
+
+### RelationType
+
+relation の種類を区別するため、
+`RelationType` を導入した。
+
+Phase 5-1 では最小限として、
+
+```text
+EQUALITY
+ZERO
+ORDER
+```
+
+を定義した。
+
+現段階では relation の分類を細かくしすぎず、
+必要になった段階で、
+
+```text
+composition
+suspension
+Hopf invariant
+Toda bracket
+Whitehead product
+```
+
+などへ拡張する方針とする。
+
+---
+
+### ProofStep
+
+1回の推論または計算を表すため、
+`ProofStep` を導入した。
+
+基本構造は、
+
+```text
+premises
+↓
+rule
+↓
+conclusion
+```
+
+とする。
+
+保持する情報:
+
+```text
+conclusion
+premises
+rule
+note
+```
+
+例えば、
+
+```text
+Ker(H) = ...
+```
+
+という algebra 層による計算や、
+
+```text
+Im(E) = Ker(H)
+```
+
+という EHP 完全性の適用を、
+独立した ProofStep として記録できる。
+
+---
+
+### ProofRule
+
+ProofStep がどの種類の処理から得られたかを区別するため、
+`ProofRule` を導入した。
+
+Phase 5-1 では、
+
+```text
+GIVEN
+RELATION
+EHP_EXACTNESS
+KERNEL_COMPUTATION
+IMAGE_COMPUTATION
+COKERNEL_COMPUTATION
+```
+
+を定義した。
+
+これにより、
+
+```text
+既知事実
+relation の利用
+EHP 完全性
+kernel 計算
+image 計算
+cokernel 計算
+```
+
+を区別して記録できる。
+
+---
+
+### Proof
+
+特定の結論へ至る一連の ProofStep を保持するため、
+`Proof` を導入した。
+
+基本構造:
+
+```text
+conclusion
+steps
+```
+
+Phase 5-1 では、
+ProofStep の順序付きリストとして保持する。
+
+例えば、
+
+```text
+step 1
+Ker(H) を計算
+
+step 2
+Im(E) を計算
+
+step 3
+EHP 完全性を適用
+```
+
+という推論過程を、
+1つの Proof としてまとめられる。
+
+将来的には、
+複数の推論が同じ中間結果を共有する場合を考慮して
+依存関係グラフへの拡張を想定する。
+
+ただし Phase 5-1 では DAG は導入しない。
+
+---
+
+### Relation と ProofStep の区別
+
+Phase 5-1 では、
+数学的入力と計算・推論結果を明確に分離した。
+
+```text
+Relation
+= 既知の数学的事実
+
+ProofStep
+= Relation や計算結果を使った1回の推論
+
+Proof
+= 特定の結論へ至る ProofStep の集合
+```
+
+例えば、
+
+```text
+2η_n = 0
+```
+
+が文献から既知である場合は `Relation` とする。
+
+一方、
+
+```text
+Ker(H) ≅ Z/2
+```
+
+が `algebra.py` の kernel 計算によって得られた場合は
+`ProofStep` として扱う。
+
+---
+
+### algebra 層との境界
+
+Phase 5-1 では、
+既存の algebra 層に proof の概念を追加していない。
+
+依存方向は、
+
+```text
+proof / inference layer
+↓
+homotopy / EHP data layer
+↓
+algebra layer
+↓
+integer linear algebra
+```
+
+とする。
+
+`algebra.py` は引き続き、
+
+```text
+kernel
+image
+cokernel
+quotient
+exactness
+extension
+```
+
+などの純粋な代数計算だけを担当する。
+
+---
+
+### Phase 5-1 の到達点
+
+Phase 5-1 により、
+
+```text
+数学的入力
+↓
+Relation
+
+計算・推論
+↓
+ProofStep
+
+証明全体
+↓
+Proof
+```
+
+という proof tracking の基本構造を導入できた。
+
+ただしこの段階では、
+ホモトピー元や式を構造化する仕組みはまだ持たず、
+文字列などの汎用値を relation に格納する形としている。
+
+---
+
+### テスト
+
+確認した主な内容:
+
+```text
+Relation の生成
+RelationType の保持
+ProofStep の生成
+premises の保持
+ProofRule の保持
+Proof の step 順序保持
+```
+
+既存の algebra / EHP 計算には変更を加えていない。
+
+### 状態
+
+Phase 5-1 完了
+
+---
+
+## Phase 5-2：Expression / HomotopyElement
+
+Phase 5-1 では Relation の `lhs` / `rhs` に
+文字列などを格納していた。
+
+Phase 5-2 では、
+
+```text
+η_n
+ν_n
+σ_n
+2η_n
+η_nη_{n+1}
+0
+```
+
+などのホモトピー論的な式を、
+文字列ではなく構造化されたオブジェクトとして
+保持するための最小 Expression モデルを導入した。
+
+---
+
+### Expression
+
+ホモトピー論的な式の基底として、
+`Expression` を導入した。
+
+Phase 5-2 では、
+
+```text
+Expression
+├── Zero
+├── HomotopyElement
+├── Multiple
+└── Composition
+```
+
+という最小構成とした。
+
+Expression 層は、
+式の数学的構造を保持することだけを責務とし、
+
+```text
+評価
+簡約
+relation 適用
+dimension check
+```
+
+などは行わない。
+
+---
+
+### Zero
+
+零元を文字列 `"0"` ではなく、
+`Zero` オブジェクトとして表現できるようにした。
+
+例えば、
+
+```text
+2η3 = 0
+```
+
+の右辺を、
+
+```python
+Zero()
+```
+
+として保持できる。
+
+これにより将来的に、
+文字列解析をせずに零元かどうかを判定できる。
+
+---
+
+### HomotopyElement
+
+基本的なホモトピー元を表すため、
+`HomotopyElement` を導入した。
+
+保持する情報:
+
+```text
+name
+dimension
+```
+
+例えば、
+
+```text
+η3
+ν4
+σ8
+```
+
+を、
+
+```python
+HomotopyElement("η", 3)
+HomotopyElement("ν", 4)
+HomotopyElement("σ", 8)
+```
+
+として表現できる。
+
+現段階では、
+
+```text
+どのホモトピー群に属するか
+source / target dimension
+stable element との対応
+```
+
+などの意味論は持たせていない。
+
+---
+
+### generator factory
+
+基本 generator を簡潔に生成するため、
+
+```text
+eta(n)
+nu(n)
+sigma(n)
+```
+
+を導入した。
+
+例えば、
+
+```python
+eta(3)
+```
+
+は、
+
+```python
+HomotopyElement("η", 3)
+```
+
+を生成する。
+
+これにより relation データを記述するときの
+可読性を高めた。
+
+---
+
+### Multiple
+
+整数倍を表すため、
+`Multiple` を導入した。
+
+保持する情報:
+
+```text
+coefficient
+expression
+```
+
+例えば、
+
+```text
+2η3
+```
+
+を、
+
+```python
+Multiple(
+  2,
+  eta(3),
+)
+```
+
+として構造的に保持できる。
+
+Phase 5-2 では、
+
+```text
+1α = α
+0α = 0
+```
+
+などの式簡約はまだ行わない。
+
+---
+
+### Composition
+
+合成を表すため、
+`Composition` を導入した。
+
+保持する情報:
+
+```text
+left
+right
+```
+
+例えば、
+
+```text
+η3η4
+```
+
+を、
+
+```python
+Composition(
+  eta(3),
+  eta(4),
+)
+```
+
+として保持できる。
+
+現段階では、
+composition が dimension 上定義可能かどうかの検査は行わない。
+
+---
+
+### Expression の構造的 equality
+
+各 Expression クラスは frozen dataclass として実装した。
+
+このため、
+
+```python
+eta(3) == eta(3)
+```
+
+や、
+
+```python
+Multiple(
+  2,
+  eta(3),
+) == Multiple(
+  2,
+  eta(3),
+)
+```
+
+のような構造的 equality が利用できる。
+
+これは後続の relation repository で、
+式を文字列へ変換せず検索するための基礎となる。
+
+---
+
+### Relation と Expression の接続
+
+Phase 5-1 で導入した `Relation` の `lhs` / `rhs` に、
+Expression オブジェクトを格納できることを確認した。
+
+例えば、
+
+```text
+2η3 = 0
+```
+
+を、
+
+```python
+Relation(
+  lhs=Multiple(
+    2,
+    eta(3),
+  ),
+  rhs=Zero(),
+  relation_type=RelationType.ZERO,
+)
+```
+
+として表現できる。
+
+これにより、
+
+```text
+文字列としての relation
+```
+
+から、
+
+```text
+構造化された数学的 relation
+```
+
+へ進む基盤ができた。
+
+---
+
+### Relation の型はまだ Expression に限定しない
+
+Phase 5-2 では、
+`Relation.lhs` / `Relation.rhs` を
+`Expression` 型へ限定する変更は行っていない。
+
+将来的に、
+
+```text
+ord(α) = 2
+Ker(H) = ...
+Im(E) = ...
+π_n(S^m) ≅ ...
+```
+
+など、
+単純な Expression より広い命題を扱う可能性があるためである。
+
+より一般的な `Statement` モデルが必要かどうかは、
+実際に proof engine を構築する段階で判断する。
+
+---
+
+### GroupElement との区別
+
+`HomotopyElement` と、
+algebra 層の `GroupElement` は別概念として扱う。
+
+```text
+HomotopyElement
+= η_n, ν_n, σ_n などの数学的 generator
+
+GroupElement
+= 抽象アーベル群内の具体的な座標
+```
+
+したがって、
+
+```text
+HomotopyElement
+≠
+GroupElement
+```
+
+とする。
+
+将来的には homotopy data 層で両者を対応付ける可能性はあるが、
+同一クラスにはしない。
+
+---
+
+### Expression と表示処理の分離
+
+Phase 5-2 では、
+Expression 自体に表示形式を持たせていない。
+
+例えば `eta(3)` を、
+
+```text
+η3
+η₃
+\eta_3
+```
+
+のどの形式で表示するかは、
+数学的な式構造とは別の責務とする。
+
+将来的には、
+
+```text
+Expression
+↓
+formatter
+├── plain text
+├── Unicode
+└── TeX
+```
+
+という表示層を追加できる構造を想定する。
+
+---
+
+### Phase 5-2 の到達点
+
+Phase 5-2 により、
+
+```text
+HomotopyElement
+↓
+Multiple / Composition
+↓
+Expression
+↓
+Relation
+```
+
+という構造ができた。
+
+これにより既知の数学的 relation を、
+
+```text
+文字列
+```
+
+ではなく、
+
+```text
+構造化された式
+```
+
+として保持できるようになった。
+
+ただし、
+
+```text
+relation の検索
+relation の適用
+式変形
+pattern matching
+自動推論
+```
+
+はまだ行わない。
+
+これらは後続フェーズの責務とする。
+
+---
+
+### テスト
+
+確認した主な内容:
+
+```text
+HomotopyElement
+eta()
+nu()
+sigma()
+Zero
+Multiple
+Composition
+Expression の構造的 equality
+Relation への Expression 格納
+```
+
+既存の algebra / EHP / repository の仕様には変更を加えていない。
+
+### 状態
+
+Phase 5-2 完了
+
+
+## Phase 5-3：Relation Repository
+
+既知の数学的 relation を保存・検索するため、
+`RelationRepository` を導入した。
+
+実装:
+
+- `add_relation()`
+- `all_relations()`
+- `find_relations()`
+
+検索条件:
+
+- `lhs`
+- `rhs`
+- `relation_type`
+- `source`
+
+複数条件は AND として扱う。
+
+Expression は frozen dataclass として構造的 equality を持つため、
+
+Multiple(2, eta(3))
+
+などを文字列へ変換することなく検索キーとして使用できる。
+
+`SphereRepository` とは責務を分離し、
+既存の EHP / sphere.csv データ取得機能には変更を加えていない。
+
+現段階では relation の検索のみを担当し、
+
+- relation の適用
+- 式変形
+- pattern matching
+- 自動推論
+
+は行わない。
+
+これらは後続の proof / inference layer の責務とする。
+
+### テスト
+
+2026-08-24
+
+164 passed in 54.81s
+
+既存の algebra / EHP / proof / expression を含め、
+すべてのテストが成功した。
+
+### 状態
+
+Phase 5-3 完了
+
 
 
 
