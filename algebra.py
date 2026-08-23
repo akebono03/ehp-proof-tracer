@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 from itertools import product
+from math import inf
 
-from models import AbelianGroup
+from models import AbelianGroup, GroupComponent
 
 
 @dataclass(frozen=True)
@@ -26,7 +27,9 @@ class GroupElement:
       self.coefficients,
       self.group.orders
     ):
-      if order == 0:
+      if order == inf:
+        coefficients.append(coefficient)
+      elif order == 0:
         coefficients.append(0)
       else:
         coefficients.append(coefficient % order)
@@ -94,7 +97,10 @@ class QuotientGroup:
         "部分群の ambient_group が一致しません"
       )
 
-    if any(order == 0 for order in self.ambient_group.orders):
+    if any(
+      order == inf
+      for order in self.ambient_group.orders
+    ):
       raise NotImplementedError(
         "自由部分を含む群の商群はまだ実装されていません"
       )
@@ -401,7 +407,18 @@ class ExactSequenceStep:
 def group_elements(
   group: AbelianGroup,
 ) -> list[GroupElement]:
-  if any(order == 0 for order in group.orders):
+  if group.is_zero():
+    return [
+      GroupElement(
+        group,
+        (0,),
+      )
+    ]
+
+  if any(
+    order == inf
+    for order in group.orders
+  ):
     raise NotImplementedError(
       "自由部分を含む群の全元列挙はまだ実装されていません"
     )
@@ -760,22 +777,16 @@ class ExtensionCandidate:
   def matching_subgroups(
     self,
   ) -> tuple[Subgroup, ...]:
-    left_order = len(
-      group_elements(
-        self.left_group
-      )
+    left_order = finite_group_order(
+      self.left_group
     )
 
-    middle_order = len(
-      group_elements(
-        self.middle_group
-      )
+    middle_order = finite_group_order(
+      self.middle_group
     )
 
-    right_order = len(
-      group_elements(
-        self.right_group
-      )
+    right_order = finite_group_order(
+      self.right_group
     )
 
     if middle_order != (
@@ -832,6 +843,157 @@ def valid_extension_candidates(
       result.append(candidate)
 
   return tuple(result)
+
+def finite_group_order(
+  group: AbelianGroup,
+) -> int:
+  if group.is_zero():
+    return 1
+
+  if any(
+    order == inf
+    for order in group.orders
+  ):
+    raise NotImplementedError(
+      "自由部分を含む群の位数は有限ではありません"
+    )
+
+  result = 1
+
+  for order in group.orders:
+    result *= order
+
+  return result
+
+def finite_abelian_structures(
+  order: int,
+) -> tuple[tuple[int, ...], ...]:
+  if order < 1:
+    raise ValueError(
+      "群の位数は1以上である必要があります"
+    )
+
+  if order == 1:
+    return ((),)
+
+  result = set()
+
+  def search(
+    remaining: int,
+    prefix: tuple[int, ...],
+  ):
+    if remaining == 1:
+      result.add(prefix)
+      return
+
+    previous = (
+      prefix[-1]
+      if prefix
+      else 1
+    )
+
+    for divisor in range(
+      2,
+      remaining + 1,
+    ):
+      if remaining % divisor != 0:
+        continue
+
+      if divisor % previous != 0:
+        continue
+
+      search(
+        remaining // divisor,
+        prefix + (divisor,),
+      )
+
+  search(
+    order,
+    (),
+  )
+
+  return tuple(
+    sorted(
+      result,
+      key=lambda structure: (
+        len(structure),
+        structure,
+      ),
+    )
+  )
+
+def abstract_abelian_group(
+  structure: tuple[int, ...],
+  generator_prefix: str = "x",
+) -> AbelianGroup:
+  if not structure:
+    return AbelianGroup(
+      n=0,
+      k=0,
+      components=[
+        GroupComponent(
+          id=0,
+          order=0,
+          generator="",
+          element=[],
+          gen_coe=[],
+        )
+      ],
+    )
+
+  return AbelianGroup(
+    n=0,
+    k=0,
+    components=[
+      GroupComponent(
+        id=i,
+        order=order,
+        generator=f"{generator_prefix}{i + 1}",
+        element=[],
+        gen_coe=[],
+      )
+      for i, order in enumerate(
+        structure
+      )
+    ],
+  )
+
+def extension_candidates(
+  left_group: AbelianGroup,
+  right_group: AbelianGroup,
+) -> tuple[ExtensionCandidate, ...]:
+  left_order = finite_group_order(
+    left_group
+  )
+
+  right_order = finite_group_order(
+    right_group
+  )
+
+  middle_order = (
+    left_order
+    * right_order
+  )
+
+  structures = finite_abelian_structures(
+    middle_order
+  )
+
+  middle_groups = [
+    abstract_abelian_group(
+      structure,
+      generator_prefix=f"b{i + 1}_",
+    )
+    for i, structure in enumerate(
+      structures
+    )
+  ]
+
+  return valid_extension_candidates(
+    left_group,
+    right_group,
+    middle_groups,
+  )
 
 
 

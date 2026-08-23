@@ -10,6 +10,10 @@ from algebra import (
   generated_subgroup_elements,
   group_structure,
   valid_extension_candidates,
+  abstract_abelian_group,
+  extension_candidates,
+  finite_abelian_structures,
+  finite_group_order,
 )
 
 from models import AbelianGroup, GroupComponent
@@ -1049,6 +1053,113 @@ def test_extension_multiple_candidates():
     (2,2),
   }
 
+def test_finite_abelian_structures_order_4():
+  assert finite_abelian_structures(
+    4
+  ) == (
+    (4,),
+    (2,2),
+  )
+
+def test_finite_abelian_structures_order_8():
+  assert finite_abelian_structures(
+    8
+  ) == (
+    (8,),
+    (2,4),
+    (2,2,2),
+  )
+
+def test_finite_abelian_structures_order_6():
+  assert finite_abelian_structures(
+    6
+  ) == (
+    (6,),
+  )
+
+def test_abstract_abelian_group():
+  group = abstract_abelian_group(
+    (2,4),
+  )
+
+  assert group.orders == [
+    2,
+    4,
+  ]
+
+  assert group_structure(
+    group
+  ) == (2,4)
+
+  assert finite_group_order(
+    group
+  ) == 8
+
+def test_automatic_extension_candidates_z2_z2():
+  a = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  c = make_cyclic_group(
+    2,
+    "c",
+  )
+
+  candidates = extension_candidates(
+    a,
+    c,
+  )
+
+  structures = {
+    candidate.middle_structure
+    for candidate in candidates
+  }
+
+  assert structures == {
+    (4,),
+    (2,2),
+  }
+
+def test_automatic_extension_candidates_z4_z2():
+  a = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  c = make_cyclic_group(
+    2,
+    "c",
+  )
+
+  candidates = extension_candidates(
+    a,
+    c,
+  )
+
+  structures = {
+    candidate.middle_structure
+    for candidate in candidates
+  }
+
+  assert structures == {
+    (8,),
+    (2,4),
+  }
+
+def test_finite_group_order_zero_group():
+  zero = make_cyclic_group(
+    0,
+    "0",
+  )
+
+  assert finite_group_order(
+    zero
+  ) == 1
+
+  assert group_structure(
+    zero
+  ) == ()
 
 
 
