@@ -893,6 +893,178 @@ def test_ehp_n4_k3_exactness_at_hopf_target_mixed():
     result.verifies_quotient_image_structure_isomorphism()
   )
 
+def test_ehp_n10_k9_repository_groups_mixed_noncyclic():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=10,
+    k=9,
+  )
+
+  assert segment.E.source.orders == [
+    2,
+    2,
+    2,
+    2,
+  ]
+
+  assert segment.E.target.orders == [
+    inf,
+    2,
+    2,
+    2,
+  ]
+
+  assert segment.H.source.orders == [
+    inf,
+    2,
+    2,
+    2,
+  ]
+
+  assert segment.H.target.orders == [
+    inf,
+  ]
+
+  assert segment.P.source.orders == [
+    inf,
+  ]
+
+  assert segment.P.target.orders == [
+    2,
+    2,
+    2,
+  ]
+
+
+def test_ehp_n10_k9_repository_maps_mixed_noncyclic():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=10,
+    k=9,
+  )
+
+  assert segment.E.matrix == [
+    [0,0,0,0],
+    [1,1,0,0],
+    [0,0,1,0],
+    [1,0,0,1],
+  ]
+
+  assert segment.H.matrix == [
+    [2,0,0,0],
+  ]
+
+  assert segment.P.matrix == [
+    [1],
+    [1],
+    [1],
+  ]
+
+
+def test_ehp_n10_k9_repository_generators_mixed_noncyclic():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=10,
+    k=9,
+  )
+
+  assert segment.E.source.generators == [
+    "σ9η16^2",
+    "ν9^3",
+    "μ9",
+    "η9ε10",
+  ]
+
+  assert segment.E.target.generators == [
+    r"\Delta(ι21)",
+    "ν10^3",
+    "μ10",
+    "η10ε11",
+  ]
+
+  assert segment.H.target.generators == [
+    "ι19",
+  ]
+
+  assert segment.P.target.generators == [
+    "σ9η16",
+    r"\bar{\nu}9",
+    "ε9",
+  ]
+
+
+def test_ehp_n10_k9_exactness_at_sphere_mixed_noncyclic():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=10,
+    k=9,
+  )
+
+  result = segment.exactness_at_sphere()
+
+  assert result.is_exact()
+
+  assert str(
+    result.image_abelian_structure
+  ) == "Z/2 ⊕ Z/2 ⊕ Z/2"
+
+  assert str(
+    result.kernel_abelian_structure
+  ) == "Z/2 ⊕ Z/2 ⊕ Z/2"
+
+  assert str(
+    result.quotient_abelian_structure
+  ) == "Z"
+
+  assert str(
+    result.right_image_abelian_structure
+  ) == "Z"
+
+  assert (
+    result.verifies_quotient_image_structure_isomorphism()
+  )
+
+
+def test_ehp_n10_k9_exactness_at_hopf_target_mixed_noncyclic():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=10,
+    k=9,
+  )
+
+  result = segment.exactness_at_hopf_target()
+
+  assert result.is_exact()
+
+  assert str(
+    result.image_abelian_structure
+  ) == "Z"
+
+  assert str(
+    result.kernel_abelian_structure
+  ) == "Z"
+
+  assert str(
+    result.quotient_abelian_structure
+  ) == "Z/2"
+
+  assert str(
+    result.right_image_abelian_structure
+  ) == "Z/2"
+
+  assert (
+    result.verifies_quotient_image_structure_isomorphism()
+  )
 
 
 
