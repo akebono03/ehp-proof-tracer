@@ -1340,6 +1340,174 @@ def test_abelian_group_structure_zero():
   assert structure.is_finite
   assert str(structure) == "0"
 
+def test_free_map_times2_rank():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  assert f.free_map_rank() == 1
+
+
+def test_free_map_times2_smith_normal_form():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  smith = f.smith_normal_form()
+
+  assert smith.shape == (1,1)
+  assert abs(int(smith[0,0])) == 2
+
+
+def test_free_map_times2_kernel_structure():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  structure = f.kernel_structure()
+
+  assert structure.free_rank == 0
+  assert structure.torsion_orders == ()
+  assert str(structure) == "0"
+
+
+def test_free_map_times2_image_structure():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  structure = f.image_structure()
+
+  assert structure.free_rank == 1
+  assert structure.torsion_orders == ()
+  assert str(structure) == "Z"
+
+
+def test_free_map_times2_cokernel_structure():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  structure = f.cokernel_structure()
+
+  assert structure.free_rank == 0
+  assert structure.torsion_orders == (2,)
+  assert str(structure) == "Z/2"
+
+def test_free_map_z2_to_z2_structure():
+  source = make_group(
+    (inf,inf),
+  )
+
+  target = make_group(
+    (inf,inf),
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [2,0],
+      [0,0],
+    ],
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert kernel.free_rank == 1
+  assert kernel.torsion_orders == ()
+  assert str(kernel) == "Z"
+
+  assert image.free_rank == 1
+  assert image.torsion_orders == ()
+  assert str(image) == "Z"
+
+  assert cokernel.free_rank == 1
+  assert cokernel.torsion_orders == (2,)
+  assert str(cokernel) == "Z ⊕ Z/2"
+
+
+
+
+
 
 
 

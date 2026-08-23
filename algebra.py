@@ -2,6 +2,10 @@ from dataclasses import dataclass
 from itertools import product
 from math import inf
 
+from sympy import Matrix
+from sympy.matrices.normalforms import smith_normal_form
+from sympy.polys.domains import ZZ
+
 from models import (
   AbelianGroup,
   AbelianGroupStructure,
@@ -269,6 +273,88 @@ class GroupMap:
       generators=find_generators(
         self.target,
         elements,
+      ),
+    )
+
+  def integer_matrix(self) -> Matrix:
+    if not (
+      is_free_abelian_group(self.source)
+      and is_free_abelian_group(self.target)
+    ):
+      raise NotImplementedError(
+        "現在は自由アーベル群間の写像のみ対応しています"
+      )
+
+    return Matrix(
+      self.matrix
+    )
+
+  def smith_normal_form(self) -> Matrix:
+    return smith_normal_form(
+      self.integer_matrix(),
+      domain=ZZ,
+    )
+
+  def free_map_rank(self) -> int:
+    return self.integer_matrix().rank()
+
+  def kernel_structure(
+    self,
+  ) -> AbelianGroupStructure:
+    rank = self.free_map_rank()
+
+    free_rank = (
+      self.source.direct_sum
+      - rank
+    )
+
+    return AbelianGroupStructure(
+      free_rank=free_rank,
+      torsion_orders=(),
+    )
+
+  def image_structure(
+    self,
+  ) -> AbelianGroupStructure:
+    rank = self.free_map_rank()
+
+    return AbelianGroupStructure(
+      free_rank=rank,
+      torsion_orders=(),
+    )
+
+  def cokernel_structure(
+    self,
+  ) -> AbelianGroupStructure:
+    matrix = self.smith_normal_form()
+    rank = self.free_map_rank()
+
+    torsion_orders = []
+
+    diagonal_size = min(
+      matrix.rows,
+      matrix.cols,
+    )
+
+    for i in range(diagonal_size):
+      value = abs(
+        int(matrix[i,i])
+      )
+
+      if value > 1:
+        torsion_orders.append(
+          value
+        )
+
+    free_rank = (
+      self.target.direct_sum
+      - rank
+    )
+
+    return AbelianGroupStructure(
+      free_rank=free_rank,
+      torsion_orders=tuple(
+        torsion_orders
       ),
     )
 
@@ -1078,6 +1164,19 @@ def abelian_group_structure(
     free_rank=free_rank,
     torsion_orders=torsion_orders,
   )
+
+def is_free_abelian_group(
+  group: AbelianGroup,
+) -> bool:
+  if group.is_zero():
+    return True
+
+  return all(
+    order == inf
+    for order in group.orders
+  )
+
+
 
 
 
