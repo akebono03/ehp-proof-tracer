@@ -1,15 +1,46 @@
 from dataclasses import dataclass
+from enum import Enum
+from typing import Any
 
 
-@dataclass
-class ProofFact:
-  statement: str
-  reference: str | None = None
+class RelationType(Enum):
+  EQUALITY = "equality"
+  ZERO = "zero"
+  ORDER = "order"
 
 
-@dataclass
+@dataclass(frozen=True)
+class Relation:
+  lhs: Any
+  rhs: Any
+  relation_type: RelationType = RelationType.EQUALITY
+  source: str | None = None
+  note: str | None = None
+
+
+class ProofRule(Enum):
+  GIVEN = "given"
+  RELATION = "relation"
+  EHP_EXACTNESS = "ehp_exactness"
+  KERNEL_COMPUTATION = "kernel_computation"
+  IMAGE_COMPUTATION = "image_computation"
+  COKERNEL_COMPUTATION = "cokernel_computation"
+
+
+@dataclass(frozen=True)
 class ProofStep:
-  conclusion: str
-  rule: str
-  premises: list[ProofFact]
-  
+  conclusion: Any
+  premises: tuple[Any, ...]
+  rule: ProofRule
+  note: str | None = None
+
+
+@dataclass
+class Proof:
+  conclusion: Any
+  steps: list[ProofStep]
+
+
+
+
+

@@ -790,5 +790,351 @@ Phase 4 以降は、次の原則を維持する。
 将来 Toda の計算を拡張した場合にも、
 algebra 基盤を作り直さずに利用できる構造を目指す。
 
+# Proof / Relation 層
+
+Phase 5 では、algebra 層および EHP 層の上に、
+証明過程を追跡するための proof / inference 層を導入する。
+
+---
+
+## Relation の設計
+
+`Relation` は、
+既知の数学的事実や関係式を表す。
+
+例えば、
+
+```text
+2η_n = 0
+E(ν_n) = ν_{n+1}
+```
+
+のような関係や、
+
+* 元の位数に関する関係
+* composition relation
+* suspension に関する関係
+* 文献から与えられる既知関係
+
+などを扱う。
+
+`Relation` は数学的な入力データであり、
+algebra 層による計算結果そのものではない。
+
+例えば、
+
+```text
+2η_n = 0
+```
+
+が既知の関係式として与えられている場合は
+`Relation` として扱う。
+
+一方、
+
+```text
+Ker(f) ≅ Z/2
+```
+
+が実際の kernel 計算から得られた場合は、
+`Relation` ではなく計算によって得られた
+`ProofStep` として扱う。
+
+---
+
+## RelationType の設計
+
+関係式の種類を区別するため、
+`RelationType` を持たせる。
+
+Phase 5-1 では最小限として、
+
+```text
+EQUALITY
+ZERO
+ORDER
+```
+
+を定義する。
+
+現段階では関係式の種類を細かく分類しすぎず、
+必要になった段階で、
+
+* composition
+* suspension
+* Hopf invariant
+* Whitehead product
+* Toda bracket
+
+などへ拡張する。
+
+---
+
+## ProofStep の設計
+
+`ProofStep` は、
+1回の推論または計算を表す。
+
+基本構造は、
+
+```text
+premises
+↓
+rule
+↓
+conclusion
+```
+
+とする。
+
+`ProofStep` は、
+
+* `premises`
+* `rule`
+* `conclusion`
+* 必要に応じた補足情報
+
+を持つ。
+
+例えば、
+
+```text
+Ker(H) = ...
+Im(E) = ...
+```
+
+という計算結果や、
+
+```text
+Im(E) = Ker(H)
+```
+
+という EHP 完全性の適用を、
+それぞれ独立した `ProofStep` として記録する。
+
+---
+
+## ProofRule の設計
+
+`ProofStep` がどの種類の推論によって得られたかを
+`ProofRule` で表す。
+
+Phase 5-1 では、
+
+```text
+GIVEN
+RELATION
+EHP_EXACTNESS
+KERNEL_COMPUTATION
+IMAGE_COMPUTATION
+COKERNEL_COMPUTATION
+```
+
+を定義する。
+
+これにより、
+
+```text
+既知事実
+数学的 relation の適用
+EHP 完全性
+kernel 計算
+image 計算
+cokernel 計算
+```
+
+を区別して記録できるようにする。
+
+将来的には、
+
+* composition relation
+* Toda bracket
+* Steenrod operation
+* stable range
+* literature theorem
+
+などの推論規則を追加する。
+
+---
+
+## Proof の設計
+
+`Proof` は、
+ある特定の結論に対する導出全体を表す。
+
+Phase 5-1 では、
+
+```text
+conclusion
+steps
+```
+
+を持つ単純な構造とする。
+
+例えば、
+
+```text
+step 1:
+  Ker(H) を計算
+
+step 2:
+  Im(E) を計算
+
+step 3:
+  EHP 完全性を適用
+
+step 4:
+  群構造を決定
+```
+
+という一連の推論を
+1つの `Proof` として保持する。
+
+将来的には複数の推論が同じ中間結果を共有するため、
+Proof は依存関係グラフとして扱うことを想定する。
+
+ただし Phase 5-1 では、
+まず `ProofStep` の順序付きリストとして保持し、
+DAG 構造そのものはまだ実装しない。
+
+---
+
+## Relation と ProofStep の役割分担
+
+`Relation` と `ProofStep` は明確に区別する。
+
+```text
+Relation
+= 既知の数学的事実・関係式
+
+ProofStep
+= 既知事実や計算結果を使った1回の推論
+
+Proof
+= 特定の結論に至る ProofStep の集合
+```
+
+例えば、
+
+```text
+2η_n = 0
+```
+
+が文献から既知なら `Relation` である。
+
+一方、
+
+```text
+Ker(H) ≅ Z/2
+```
+
+を `algebra.py` の kernel 計算によって得た場合は
+`ProofStep` である。
+
+この区別により、
+
+```text
+数学的入力
+```
+
+と
+
+```text
+プログラムによる計算・推論
+```
+
+を混同しない。
+
+---
+
+## algebra 層との境界
+
+algebra 層は、
+Proof / Relation 層の存在を知らない。
+
+`algebra.py` は引き続き、
+
+* finitely generated abelian groups
+* homomorphisms
+* kernel
+* image
+* cokernel
+* quotient
+* exactness
+* extension
+
+などの純粋な代数計算だけを担当する。
+
+Proof 層は algebra 層の計算結果を利用できるが、
+algebra 層の数学的意味論を変更しない。
+
+依存方向は、
+
+```text
+proof / inference layer
+↓
+homotopy / EHP data layer
+↓
+algebra layer
+↓
+integer linear algebra
+```
+
+とする。
+
+`algebra.py` から proof 層への依存は作らない。
+
+---
+
+## ホモトピー論的対象との境界
+
+Phase 5-1 では、
+
+```text
+η_n
+ν_n
+σ_n
+```
+
+などのホモトピー元を
+専用クラスとしてまだ実装しない。
+
+また、
+
+```text
+2η_n
+η_n ○ η_{n+1}
+E(ν_n)
+```
+
+などを表す式構造もまだ導入しない。
+
+そのため Phase 5-1 の `Relation` や `ProofStep` では、
+`lhs`、`rhs`、`premises`、`conclusion` に
+一時的に汎用的な値を保持できる設計とする。
+
+ホモトピー元や式を構造化する仕組みは、
+Phase 5-2 以降で導入する。
+
+---
+
+## Phase 5-1 時点の設計原則
+
+Phase 5-1 では、次の原則を採用する。
+
+1. `Relation` は既知の数学的事実を表す。
+2. `ProofStep` は1回の推論または計算を表す。
+3. `Proof` は特定の結論に対する導出全体を表す。
+4. 数学的入力と計算結果を区別する。
+5. algebra 層に proof の概念を持ち込まない。
+6. Proof 層は algebra 層の計算結果を利用する側とする。
+7. Proof は将来的に依存関係グラフへ拡張可能な設計とする。
+8. Phase 5-1 では DAG を実装せず、順序付き `ProofStep` の集合として保持する。
+9. ホモトピー元や式の構造化は Phase 5-2 以降へ分離する。
+10. Phase 5-1 では既存の EHP / algebra 計算機能を変更しない。
+
+
+
+
 
 
