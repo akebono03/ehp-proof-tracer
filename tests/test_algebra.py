@@ -3042,6 +3042,174 @@ def test_finite_exactness_presentation_crosscheck():
 
   assert checked > 100
 
+def test_exact_sequence_general_structures_free():
+  a = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  b = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  c = make_cyclic_group(
+    2,
+    "c",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=a,
+    target=b,
+    matrix=[
+      [2],
+    ],
+  )
+
+  g = GroupMap(
+    name="mod2",
+    source=b,
+    target=c,
+    matrix=[
+      [1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  assert step.is_exact()
+
+  assert str(
+    step.image_of_first_structure
+  ) == "Z"
+
+  assert str(
+    step.kernel_of_second_structure
+  ) == "Z"
+
+  assert str(
+    step.quotient_structure
+  ) == "Z/2"
+
+  assert str(
+    step.image_structure
+  ) == "Z/2"
+
+  assert (
+    step.verifies_quotient_image_structure_isomorphism()
+  )
+
+def test_exact_sequence_general_structures_mixed():
+  a = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  b = make_group(
+    (inf,2),
+  )
+
+  c = make_cyclic_group(
+    2,
+    "c",
+  )
+
+  f = GroupMap(
+    name="f",
+    source=a,
+    target=b,
+    matrix=[
+      [1],
+      [0],
+    ],
+  )
+
+  g = GroupMap(
+    name="g",
+    source=b,
+    target=c,
+    matrix=[
+      [0,1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  assert step.is_exact()
+
+  assert str(
+    step.image_of_first_structure
+  ) == "Z"
+
+  assert str(
+    step.kernel_of_second_structure
+  ) == "Z"
+
+  assert str(
+    step.quotient_structure
+  ) == "Z/2"
+
+  assert str(
+    step.image_structure
+  ) == "Z/2"
+
+  assert (
+    step.verifies_quotient_image_structure_isomorphism()
+  )
+
+def test_nonexact_sequence_general_structure_isomorphism():
+  a = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  b = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  c = make_cyclic_group(
+    4,
+    "c",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=a,
+    target=b,
+    matrix=[
+      [2],
+    ],
+  )
+
+  g = GroupMap(
+    name="mod4",
+    source=b,
+    target=c,
+    matrix=[
+      [1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  assert not (
+    step.is_exact()
+  )
+
+  assert not (
+    step.verifies_quotient_image_structure_isomorphism()
+  )
 
 
 

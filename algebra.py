@@ -648,6 +648,53 @@ class ExactSequenceStep:
     return self.first_map.target
 
   @property
+  def image_of_first_structure(
+    self,
+  ) -> AbelianGroupStructure:
+    return (
+      self.first_map
+      .image_structure()
+    )
+
+  @property
+  def kernel_of_second_structure(
+    self,
+  ) -> AbelianGroupStructure:
+    return (
+      self.second_map
+      .kernel_structure()
+    )
+
+  @property
+  def quotient_structure(
+    self,
+  ) -> AbelianGroupStructure:
+    return (
+      self.first_map
+      .cokernel_structure()
+    )
+
+  @property
+  def image_structure(
+    self,
+  ) -> AbelianGroupStructure:
+    return (
+      self.second_map
+      .image_structure()
+    )
+
+  def verifies_quotient_image_structure_isomorphism(
+    self,
+  ) -> bool:
+    if not self.is_exact():
+      return False
+
+    return (
+      self.quotient_structure
+      == self.image_structure
+    )
+
+  @property
   def image_of_first(self) -> Subgroup:
     return self.first_map.image_subgroup()
 
