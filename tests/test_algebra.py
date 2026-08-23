@@ -2835,6 +2835,10 @@ def test_presentation_exact_z_times2_mod2():
     step.is_presentation_exact()
   )
 
+  assert (
+    step.is_exact()
+  )
+
 def test_presentation_nonexact_z_times2_mod4():
   a = make_cyclic_group(
     inf,
@@ -2876,6 +2880,10 @@ def test_presentation_nonexact_z_times2_mod4():
 
   assert not (
     step.is_presentation_exact()
+  )
+
+  assert not (
+    step.is_exact()
   )
 
 def test_presentation_exact_mixed_group():
@@ -2921,6 +2929,118 @@ def test_presentation_exact_mixed_group():
     step.is_presentation_exact()
   )
 
+  assert (
+    step.is_exact()
+  )
+
+def test_finite_exactness_presentation_crosscheck():
+  groups = [
+    make_cyclic_group(
+      0,
+      "0",
+    ),
+    make_cyclic_group(
+      2,
+      "a",
+    ),
+    make_cyclic_group(
+      3,
+      "a",
+    ),
+    make_cyclic_group(
+      4,
+      "a",
+    ),
+    make_group(
+      (2,2),
+    ),
+  ]
+
+  checked = 0
+
+  for a in groups:
+    for b in groups:
+      for c in groups:
+        rows_f = b.direct_sum
+        cols_f = a.direct_sum
+
+        rows_g = c.direct_sum
+        cols_g = b.direct_sum
+
+        for entries_f in product(
+          range(3),
+          repeat=rows_f * cols_f,
+        ):
+          matrix_f = [
+            list(
+              entries_f[
+                i * cols_f:
+                (i + 1) * cols_f
+              ]
+            )
+            for i in range(rows_f)
+          ]
+
+          f = GroupMap(
+            name="f",
+            source=a,
+            target=b,
+            matrix=matrix_f,
+          )
+
+          if not (
+            f.is_well_defined_homomorphism()
+          ):
+            continue
+
+          for entries_g in product(
+            range(3),
+            repeat=rows_g * cols_g,
+          ):
+            matrix_g = [
+              list(
+                entries_g[
+                  i * cols_g:
+                  (i + 1) * cols_g
+                ]
+              )
+              for i in range(rows_g)
+            ]
+
+            g = GroupMap(
+              name="g",
+              source=b,
+              target=c,
+              matrix=matrix_g,
+            )
+
+            if not (
+              g.is_well_defined_homomorphism()
+            ):
+              continue
+
+            step = ExactSequenceStep(
+              first_map=f,
+              second_map=g,
+            )
+
+            enumerated_exact = (
+              step.image_of_first
+              == step.kernel_of_second
+            )
+
+            presentation_exact = (
+              step.is_presentation_exact()
+            )
+
+            assert (
+              presentation_exact
+              == enumerated_exact
+            )
+
+            checked += 1
+
+  assert checked > 100
 
 
 

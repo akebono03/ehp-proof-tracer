@@ -657,8 +657,7 @@ class ExactSequenceStep:
 
   def is_exact(self) -> bool:
     return (
-      self.image_of_first
-      == self.kernel_of_second
+      self.is_presentation_exact()
     )
 
   @property
