@@ -631,6 +631,208 @@ def find_generators(
 
   return generators
 
+def group_structure(
+  group: AbelianGroup,
+) -> tuple[int, ...]:
+  elements = group_elements(group)
+
+  zero = GroupElement(
+    group,
+    tuple(
+      0
+      for _ in group.orders
+    ),
+  )
+
+  return finite_abelian_structure(
+    elements=elements,
+    zero=zero,
+    add=add_elements,
+  )
+
+def all_subgroups(
+  group: AbelianGroup,
+) -> tuple[Subgroup, ...]:
+  elements = group_elements(group)
+
+  zero = GroupElement(
+    group,
+    tuple(
+      0
+      for _ in group.orders
+    ),
+  )
+
+  trivial = frozenset({
+    zero,
+  })
+
+  seen = {
+    trivial,
+  }
+
+  frontier = [
+    trivial,
+  ]
+
+  while frontier:
+    subgroup_elements = frontier.pop()
+
+    generators = find_generators(
+      group,
+      subgroup_elements,
+    )
+
+    for x in elements:
+      if x in subgroup_elements:
+        continue
+
+      new_generators = (
+        generators
+        + (x,)
+      )
+
+      generated = generated_subgroup_elements(
+        group,
+        new_generators,
+      )
+
+      if generated in seen:
+        continue
+
+      seen.add(generated)
+      frontier.append(generated)
+
+  result = []
+
+  for elements_set in seen:
+    result.append(
+      Subgroup(
+        ambient_group=group,
+        elements=elements_set,
+        generators=find_generators(
+          group,
+          elements_set,
+        ),
+      )
+    )
+
+  return tuple(
+    sorted(
+      result,
+      key=lambda subgroup: (
+        subgroup.order,
+        tuple(
+          sorted(
+            x.coefficients
+            for x in subgroup.elements
+          )
+        ),
+      ),
+    )
+  )
+
+@dataclass(frozen=True)
+class ExtensionCandidate:
+  left_group: AbelianGroup
+  middle_group: AbelianGroup
+  right_group: AbelianGroup
+
+  @property
+  def left_structure(self) -> tuple[int, ...]:
+    return group_structure(
+      self.left_group
+    )
+
+  @property
+  def middle_structure(self) -> tuple[int, ...]:
+    return group_structure(
+      self.middle_group
+    )
+
+  @property
+  def right_structure(self) -> tuple[int, ...]:
+    return group_structure(
+      self.right_group
+    )
+
+  @property
+  def matching_subgroups(
+    self,
+  ) -> tuple[Subgroup, ...]:
+    left_order = len(
+      group_elements(
+        self.left_group
+      )
+    )
+
+    middle_order = len(
+      group_elements(
+        self.middle_group
+      )
+    )
+
+    right_order = len(
+      group_elements(
+        self.right_group
+      )
+    )
+
+    if middle_order != (
+      left_order * right_order
+    ):
+      return ()
+
+    result = []
+
+    for subgroup in all_subgroups(
+      self.middle_group
+    ):
+      if (
+        subgroup.structure()
+        != self.left_structure
+      ):
+        continue
+
+      quotient = QuotientGroup(
+        ambient_group=self.middle_group,
+        subgroup=subgroup,
+      )
+
+      if (
+        quotient.structure()
+        != self.right_structure
+      ):
+        continue
+
+      result.append(subgroup)
+
+    return tuple(result)
+
+  def is_valid(self) -> bool:
+    return bool(
+      self.matching_subgroups
+    )
+
+def valid_extension_candidates(
+  left_group: AbelianGroup,
+  right_group: AbelianGroup,
+  middle_groups,
+) -> tuple[ExtensionCandidate, ...]:
+  result = []
+
+  for middle_group in middle_groups:
+    candidate = ExtensionCandidate(
+      left_group=left_group,
+      middle_group=middle_group,
+      right_group=right_group,
+    )
+
+    if candidate.is_valid():
+      result.append(candidate)
+
+  return tuple(result)
+
 
 
 

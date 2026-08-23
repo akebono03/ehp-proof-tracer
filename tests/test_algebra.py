@@ -1,12 +1,17 @@
 from algebra import (
   ExactSequenceStep,
+  ExtensionCandidate,
   GroupElement,
   GroupMap,
+  InducedMap,
   QuotientGroup,
   Subgroup,
+  all_subgroups,
   generated_subgroup_elements,
-  InducedMap,
+  group_structure,
+  valid_extension_candidates,
 )
+
 from models import AbelianGroup, GroupComponent
 
 import pytest
@@ -857,6 +862,194 @@ def test_exact_sequence_trivial_quotient():
   assert step.quotient.structure() == ()
   assert step.image.structure() == ()
   assert step.verifies_quotient_image_isomorphism()
+
+def test_group_structure():
+  z4 = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  z2_z2 = make_group(
+    (2,2),
+  )
+
+  assert group_structure(
+    z4
+  ) == (4,)
+
+  assert group_structure(
+    z2_z2
+  ) == (2,2)
+
+def test_all_subgroups_z4():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroups = all_subgroups(
+    group
+  )
+
+  structures = [
+    subgroup.structure()
+    for subgroup in subgroups
+  ]
+
+  assert len(subgroups) == 3
+
+  assert structures == [
+    (),
+    (2,),
+    (4,),
+  ]
+
+def test_extension_candidate_z4():
+  a = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  b = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  c = make_cyclic_group(
+    2,
+    "c",
+  )
+
+  candidate = ExtensionCandidate(
+    left_group=a,
+    middle_group=b,
+    right_group=c,
+  )
+
+  assert candidate.is_valid()
+
+  assert (
+    candidate.left_structure
+    == (2,)
+  )
+
+  assert (
+    candidate.middle_structure
+    == (4,)
+  )
+
+  assert (
+    candidate.right_structure
+    == (2,)
+  )
+
+  assert len(
+    candidate.matching_subgroups
+  ) == 1
+
+def test_extension_candidate_z2_z2():
+  a = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  b = make_group(
+    (2,2),
+  )
+
+  c = make_cyclic_group(
+    2,
+    "c",
+  )
+
+  candidate = ExtensionCandidate(
+    left_group=a,
+    middle_group=b,
+    right_group=c,
+  )
+
+  assert candidate.is_valid()
+
+  assert (
+    candidate.middle_structure
+    == (2,2)
+  )
+
+  assert len(
+    candidate.matching_subgroups
+  ) == 3
+
+def test_invalid_extension_candidate():
+  a = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  b = make_cyclic_group(
+    8,
+    "b",
+  )
+
+  c = make_cyclic_group(
+    2,
+    "c",
+  )
+
+  candidate = ExtensionCandidate(
+    left_group=a,
+    middle_group=b,
+    right_group=c,
+  )
+
+  assert not candidate.is_valid()
+  assert candidate.matching_subgroups == ()
+
+def test_extension_multiple_candidates():
+  a = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  c = make_cyclic_group(
+    2,
+    "c",
+  )
+
+  z4 = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  z2_z2 = make_group(
+    (2,2),
+  )
+
+  z8 = make_cyclic_group(
+    8,
+    "d",
+  )
+
+  candidates = valid_extension_candidates(
+    a,
+    c,
+    [
+      z4,
+      z2_z2,
+      z8,
+    ],
+  )
+
+  structures = {
+    candidate.middle_structure
+    for candidate in candidates
+  }
+
+  assert structures == {
+    (4,),
+    (2,2),
+  }
+
+
 
 
 
