@@ -3,8 +3,15 @@ from itertools import product
 from math import gcd, inf
 
 from sympy import Matrix
-from sympy.matrices.normalforms import smith_normal_form
+from sympy.matrices.normalforms import (
+  hermite_normal_form,
+  smith_normal_form,
+)
 from sympy.polys.domains import ZZ
+from sympy.polys.matrices import DomainMatrix
+from sympy.polys.matrices.normalforms import (
+  smith_normal_decomp,
+)
 
 from models import (
   AbelianGroup,
@@ -431,8 +438,8 @@ class GroupMap:
         )
       )
 
-    raise NotImplementedError(
-      "この型の写像の kernel はまだ実装されていません"
+    return (
+      self.presentation_kernel_structure()
     )
 
   def image_structure(
@@ -554,8 +561,8 @@ class GroupMap:
         )
       )
 
-    raise NotImplementedError(
-      "この型の写像の image はまだ実装されていません"
+    return (
+      self.presentation_image_structure()
     )
 
   def cokernel_structure(
@@ -636,6 +643,58 @@ class GroupMap:
           return False
 
     return True
+
+  def kernel_lattice_basis(
+    self,
+  ) -> Matrix:
+    if not (
+      self.is_well_defined_homomorphism()
+    ):
+      raise ValueError(
+        "well-defined な群準同型ではありません"
+      )
+
+    return preimage_lattice_basis(
+      Matrix(self.matrix),
+      relation_matrix(
+        self.target
+      ),
+    )
+
+  def presentation_kernel_structure(
+    self,
+  ) -> AbelianGroupStructure:
+    kernel_basis = (
+      self.kernel_lattice_basis()
+    )
+
+    source_relations = (
+      relation_matrix(
+        self.source
+      )
+    )
+
+    kernel_relations = (
+      lattice_coordinates(
+        kernel_basis,
+        source_relations,
+      )
+    )
+
+    return structure_from_presentation(
+      kernel_relations
+    )
+
+  def presentation_image_structure(
+    self,
+  ) -> AbelianGroupStructure:
+    kernel_basis = (
+      self.kernel_lattice_basis()
+    )
+
+    return structure_from_presentation(
+      kernel_basis
+    )
 
 @dataclass(frozen=True)
 class InducedMap:
@@ -1480,6 +1539,123 @@ def relation_matrix(
     group.direct_sum,
     len(columns),
     lambda i, j: columns[j][i],
+  )
+
+def integer_kernel_basis(
+  matrix: Matrix,
+) -> Matrix:
+  if matrix.cols == 0:
+    return Matrix.zeros(
+      0,
+      0,
+    )
+
+  domain_matrix = (
+    DomainMatrix
+    .from_Matrix(matrix)
+    .convert_to(ZZ)
+  )
+
+  smith, _, right = (
+    smith_normal_decomp(
+      domain_matrix
+    )
+  )
+
+  rank = matrix.rank()
+
+  right_matrix = (
+    right.to_Matrix()
+  )
+
+  return right_matrix[
+    :,
+    rank:
+  ]
+
+def preimage_lattice_basis(
+  map_matrix: Matrix,
+  target_relations: Matrix,
+) -> Matrix:
+  equation_matrix = (
+    map_matrix.row_join(
+      -target_relations
+    )
+  )
+
+  solution_basis = (
+    integer_kernel_basis(
+      equation_matrix
+    )
+  )
+
+  source_rank = (
+    map_matrix.cols
+  )
+
+  projected = solution_basis[
+    :source_rank,
+    :
+  ]
+
+  return hermite_normal_form(
+    projected
+  )
+
+def lattice_coordinates(
+  basis: Matrix,
+  vectors: Matrix,
+) -> Matrix:
+  if vectors.cols == 0:
+    return Matrix.zeros(
+      basis.cols,
+      0,
+    )
+
+  if basis.cols == 0:
+    if vectors == Matrix.zeros(
+      vectors.rows,
+      vectors.cols,
+    ):
+      return Matrix.zeros(
+        0,
+        vectors.cols,
+      )
+
+    raise ValueError(
+      "格子基底に含まれないベクトルです"
+    )
+
+  columns = []
+
+  for j in range(
+    vectors.cols
+  ):
+    vector = vectors[:,j]
+
+    solution, parameters = (
+      basis.gauss_jordan_solve(
+        vector
+      )
+    )
+
+    if parameters.rows != 0:
+      raise ValueError(
+        "格子座標が一意ではありません"
+      )
+
+    for value in solution:
+      if not value.is_Integer:
+        raise ValueError(
+          "整数格子座標になっていません"
+        )
+
+    columns.append(
+      solution
+    )
+
+  return Matrix.hstack(
+    *columns
   )
 
 def structure_from_presentation(

@@ -21,6 +21,7 @@ from algebra import (
 from models import AbelianGroup, GroupComponent
 import pytest
 from math import inf
+from sympy import Matrix
 
 def make_cyclic_group(order, generator):
   return AbelianGroup(
@@ -2179,6 +2180,145 @@ def test_mixed_z_z2_to_z4_invalid():
 
   with pytest.raises(ValueError):
     f.cokernel_structure()
+
+def test_general_mixed_to_mixed():
+  source = make_group(
+    (inf,2),
+  )
+
+  target = make_group(
+    (inf,4),
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [2,0],
+      [0,2],
+    ],
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "0"
+  assert str(image) == "Z ⊕ Z/2"
+  assert str(cokernel) == "Z/2 ⊕ Z/2"
+
+def test_general_mixed_to_mixed_free_kernel():
+  source = make_group(
+    (inf,2),
+  )
+
+  target = make_group(
+    (inf,4),
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [0,0],
+      [0,2],
+    ],
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "Z"
+  assert str(image) == "Z/2"
+  assert str(cokernel) == "Z ⊕ Z/2"
+
+def test_general_mixed_to_mixed_inclusion():
+  source = make_group(
+    (inf,2),
+  )
+
+  target = make_group(
+    (inf,4),
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [1,0],
+      [0,2],
+    ],
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "0"
+  assert str(image) == "Z ⊕ Z/2"
+  assert str(cokernel) == "Z/2"
+
+def test_general_kernel_lattice_basis():
+  source = make_group(
+    (inf,2),
+  )
+
+  target = make_group(
+    (inf,4),
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [0,0],
+      [0,2],
+    ],
+  )
+
+  basis = f.kernel_lattice_basis()
+
+  assert basis.shape == (2,2)
+
+  assert basis == Matrix([
+    [1,0],
+    [0,2],
+  ])
+
+def test_general_mixed_to_mixed_invalid():
+  source = make_group(
+    (inf,2),
+  )
+
+  target = make_group(
+    (inf,4),
+  )
+
+  f = GroupMap(
+    name="invalid",
+    source=source,
+    target=target,
+    matrix=[
+      [1,1],
+      [0,0],
+    ],
+  )
+
+  assert not (
+    f.is_well_defined_homomorphism()
+  )
+
+  with pytest.raises(ValueError):
+    f.kernel_lattice_basis()
+
+  with pytest.raises(ValueError):
+    f.cokernel_structure()
+
 
 
 
