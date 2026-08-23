@@ -335,6 +335,69 @@ class InducedMap:
       and self.is_surjective()
     )
 
+@dataclass(frozen=True)
+class ExactSequenceStep:
+  first_map: GroupMap
+  second_map: GroupMap
+
+  def __post_init__(self):
+    if self.first_map.target != self.second_map.source:
+      raise ValueError(
+        "first_map の target と second_map の source が一致しません"
+      )
+
+  @property
+  def middle_group(self) -> AbelianGroup:
+    return self.first_map.target
+
+  @property
+  def image_of_first(self) -> Subgroup:
+    return self.first_map.image_subgroup()
+
+  @property
+  def kernel_of_second(self) -> Subgroup:
+    return self.second_map.kernel_subgroup()
+
+  def is_exact(self) -> bool:
+    return (
+      self.image_of_first
+      == self.kernel_of_second
+    )
+
+  @property
+  def quotient(self) -> QuotientGroup:
+    return QuotientGroup(
+      ambient_group=self.middle_group,
+      subgroup=self.image_of_first,
+    )
+
+  @property
+  def image(self) -> Subgroup:
+    return self.second_map.image_subgroup()
+
+  @property
+  def induced_map(self) -> InducedMap:
+    if not self.is_exact():
+      raise ValueError(
+        "完全でないため B / Im(f) → Im(g) の同型を構成できません"
+      )
+
+    return self.second_map.induced_quotient_map()
+
+  def verifies_quotient_image_isomorphism(
+    self,
+  ) -> bool:
+    if not self.is_exact():
+      return False
+
+    induced = self.induced_map
+
+    return (
+      self.quotient == induced.source
+      and self.image == induced.target
+      and induced.is_isomorphism()
+    )
+
 def group_elements(
   group: AbelianGroup,
 ) -> list[GroupElement]:

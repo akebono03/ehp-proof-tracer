@@ -1,4 +1,5 @@
 from algebra import (
+  ExactSequenceStep,
   GroupElement,
   GroupMap,
   QuotientGroup,
@@ -687,5 +688,178 @@ def test_group_map_induced_quotient_map():
     InducedMap,
   )
   assert induced.is_isomorphism()
+
+def test_exact_sequence_step():
+  a = make_cyclic_group(2, "a")
+  b = make_cyclic_group(4, "b")
+  c = make_cyclic_group(2, "c")
+
+  f = GroupMap(
+    name="times2",
+    source=a,
+    target=b,
+    matrix=[
+      [2],
+    ],
+  )
+
+  g = GroupMap(
+    name="mod2",
+    source=b,
+    target=c,
+    matrix=[
+      [1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  assert step.is_exact()
+
+  assert step.image_of_first.structure() == (2,)
+  assert step.kernel_of_second.structure() == (2,)
+
+  assert step.quotient.structure() == (2,)
+  assert step.image.structure() == (2,)
+
+  induced = step.induced_map
+
+  assert induced.is_isomorphism()
+  assert step.quotient == induced.source
+  assert step.image == induced.target
+
+def test_exact_sequence_quotient_image_isomorphism():
+  a = make_cyclic_group(2, "a")
+  b = make_cyclic_group(4, "b")
+  c = make_cyclic_group(2, "c")
+
+  f = GroupMap(
+    name="times2",
+    source=a,
+    target=b,
+    matrix=[
+      [2],
+    ],
+  )
+
+  g = GroupMap(
+    name="mod2",
+    source=b,
+    target=c,
+    matrix=[
+      [1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  assert step.verifies_quotient_image_isomorphism()
+
+def test_nonexact_sequence_step():
+  a = make_cyclic_group(2, "a")
+  b = make_cyclic_group(4, "b")
+  c = make_cyclic_group(2, "c")
+
+  f = GroupMap(
+    name="zero",
+    source=a,
+    target=b,
+    matrix=[
+      [0],
+    ],
+  )
+
+  g = GroupMap(
+    name="mod2",
+    source=b,
+    target=c,
+    matrix=[
+      [1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  assert not step.is_exact()
+  assert not step.verifies_quotient_image_isomorphism()
+
+  with pytest.raises(ValueError):
+    _ = step.induced_map
+
+def test_exact_sequence_step_incompatible_maps():
+  a = make_cyclic_group(2, "a")
+  b = make_cyclic_group(4, "b")
+  d = make_cyclic_group(6, "d")
+  c = make_cyclic_group(2, "c")
+
+  f = GroupMap(
+    name="f",
+    source=a,
+    target=b,
+    matrix=[
+      [2],
+    ],
+  )
+
+  g = GroupMap(
+    name="g",
+    source=d,
+    target=c,
+    matrix=[
+      [1],
+    ],
+  )
+
+  with pytest.raises(ValueError):
+    ExactSequenceStep(
+      first_map=f,
+      second_map=g,
+    )
+
+def test_exact_sequence_trivial_quotient():
+  a = make_cyclic_group(4, "a")
+  b = make_cyclic_group(4, "b")
+  c = make_cyclic_group(2, "c")
+
+  f = GroupMap(
+    name="id",
+    source=a,
+    target=b,
+    matrix=[
+      [1],
+    ],
+  )
+
+  g = GroupMap(
+    name="zero",
+    source=b,
+    target=c,
+    matrix=[
+      [0],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  assert step.is_exact()
+  assert step.quotient.structure() == ()
+  assert step.image.structure() == ()
+  assert step.verifies_quotient_image_isomorphism()
+
+
+
+
 
 
