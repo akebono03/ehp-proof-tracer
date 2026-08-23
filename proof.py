@@ -54,6 +54,68 @@ def relation_proof_step(relation):
   )
 
 
+@dataclass(frozen=True)
+class KernelStatement:
+  group_map: Any
+  structure: Any
+
+
+@dataclass(frozen=True)
+class ImageStatement:
+  group_map: Any
+  structure: Any
+
+
+@dataclass(frozen=True)
+class CokernelStatement:
+  group_map: Any
+  structure: Any
+
+
+def kernel_proof_step(group_map):
+  statement = KernelStatement(
+    group_map=group_map,
+    structure=group_map.kernel_structure(),
+  )
+
+  return ProofStep(
+    conclusion=statement,
+    premises=(),
+    rule=ProofRule.KERNEL_COMPUTATION,
+  )
+
+
+def image_proof_step(group_map):
+  statement = ImageStatement(
+    group_map=group_map,
+    structure=group_map.image_structure(),
+  )
+
+  return ProofStep(
+    conclusion=statement,
+    premises=(),
+    rule=ProofRule.IMAGE_COMPUTATION,
+  )
+
+
+def cokernel_proof_step(group_map):
+  statement = CokernelStatement(
+    group_map=group_map,
+    structure=group_map.cokernel_structure(),
+  )
+
+  return ProofStep(
+    conclusion=statement,
+    premises=(),
+    rule=ProofRule.COKERNEL_COMPUTATION,
+  )
+
+
+
+
+
+
+
 
 
 

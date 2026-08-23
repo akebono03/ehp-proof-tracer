@@ -1,14 +1,22 @@
 import pytest
 from proof import (
+  CokernelStatement,
+  ImageStatement,
+  KernelStatement,
   Proof,
   ProofRule,
   ProofStep,
   Relation,
   RelationType,
+  cokernel_proof_step,
+  image_proof_step,
+  kernel_proof_step,
   relation_proof_step,
 )
 from expression import Multiple, Zero, eta
 from repository import RelationRepository
+from algebra import GroupMap
+from models import AbelianGroup, GroupComponent
 
 
 def test_relation():
@@ -64,6 +72,7 @@ def test_proof():
   assert proof.conclusion == "desired result"
   assert proof.steps == [step1, step2]
 
+
 def test_relation_with_expression():
   relation = Relation(
     lhs=Multiple(2, eta(3)),
@@ -73,6 +82,7 @@ def test_relation_with_expression():
 
   assert relation.lhs == Multiple(2, eta(3))
   assert relation.rhs == Zero()
+
 
 def test_relation_proof_step():
   relation = Relation(
@@ -90,11 +100,13 @@ def test_relation_proof_step():
   assert step.premises == ()
   assert step.rule == ProofRule.RELATION
 
+
 def test_relation_proof_step_rejects_non_relation():
   with pytest.raises(TypeError):
     relation_proof_step(
       "2η3 = 0"
     )
+
 
 def test_relation_repository_to_proof_step():
   relation = Relation(
@@ -119,6 +131,164 @@ def test_relation_repository_to_proof_step():
   assert step.conclusion == relation
   assert step.premises == ()
   assert step.rule == ProofRule.RELATION
+
+
+def cyclic_group(order, generator):
+  return AbelianGroup(
+    n=0,
+    k=0,
+    components=[
+      GroupComponent(
+        id=0,
+        order=order,
+        generator=generator,
+        element=[1],
+        gen_coe=[1],
+      )
+    ],
+  )
+
+
+def z4_to_z2_map():
+  source = cyclic_group(
+    4,
+    "a",
+  )
+
+  target = cyclic_group(
+    2,
+    "b",
+  )
+
+  return GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+
+def test_kernel_proof_step():
+  group_map = z4_to_z2_map()
+
+  step = kernel_proof_step(
+    group_map
+  )
+
+  assert isinstance(
+    step.conclusion,
+    KernelStatement,
+  )
+
+  assert (
+    step.conclusion.group_map
+    is group_map
+  )
+
+  assert (
+    step.conclusion.structure
+    == group_map.kernel_structure()
+  )
+
+  assert step.premises == ()
+  assert (
+    step.rule
+    == ProofRule.KERNEL_COMPUTATION
+  )
+
+
+def test_image_proof_step():
+  group_map = z4_to_z2_map()
+
+  step = image_proof_step(
+    group_map
+  )
+
+  assert isinstance(
+    step.conclusion,
+    ImageStatement,
+  )
+
+  assert (
+    step.conclusion.group_map
+    is group_map
+  )
+
+  assert (
+    step.conclusion.structure
+    == group_map.image_structure()
+  )
+
+  assert step.premises == ()
+  assert (
+    step.rule
+    == ProofRule.IMAGE_COMPUTATION
+  )
+
+
+def test_cokernel_proof_step():
+  group_map = z4_to_z2_map()
+
+  step = cokernel_proof_step(
+    group_map
+  )
+
+  assert isinstance(
+    step.conclusion,
+    CokernelStatement,
+  )
+
+  assert (
+    step.conclusion.group_map
+    is group_map
+  )
+
+  assert (
+    step.conclusion.structure
+    == group_map.cokernel_structure()
+  )
+
+  assert step.premises == ()
+  assert (
+    step.rule
+    == ProofRule.COKERNEL_COMPUTATION
+  )
+
+
+def test_group_map_calculation_proof_steps():
+  group_map = z4_to_z2_map()
+
+  kernel_step = kernel_proof_step(
+    group_map
+  )
+
+  image_step = image_proof_step(
+    group_map
+  )
+
+  cokernel_step = cokernel_proof_step(
+    group_map
+  )
+
+  assert (
+    kernel_step.conclusion.structure
+    == group_map.kernel_structure()
+  )
+
+  assert (
+    image_step.conclusion.structure
+    == group_map.image_structure()
+  )
+
+  assert (
+    cokernel_step.conclusion.structure
+    == group_map.cokernel_structure()
+  )
+
+
+
 
 
 
