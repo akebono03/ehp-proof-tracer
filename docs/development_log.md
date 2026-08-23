@@ -1668,6 +1668,300 @@ Z/2 --0--> Z --×2--> Z --mod 2--> Z/2
 一つの完全列で含み、Phase 4 で導入した presentation ベースの
 一般アーベル群計算を実 EHP データで検証する最初の例として適している。
 
+# Phase 4-8：Phase 4 の成果と設計境界の整理
+
+## 4-8a Phase 4 の成果と設計境界
+
+Phase 4 で導入した presentation ベースの計算について、
+今後の実装で責務が混在しないように
+設計境界を整理した。
+
+Phase 4 の中心的な成果は、
+
+```text
+finite abelian group
+```
+
+を前提としていた代数計算を、
+
+```text
+Z^r ⊕ finite torsion
+```
+
+という一般の有限生成アーベル群へ拡張したことである。
+
+現在の一般計算経路は、
+
+```text
+finitely generated abelian group
+↓
+relation matrix
+↓
+integer lattice
+↓
+HNF / SNF
+↓
+kernel / image / cokernel
+↓
+exact sequence
+↓
+quotient / image structure
+↓
+EHP exactness
+```
+
+となっている。
+
+---
+
+### algebra 層と EHP 層の境界
+
+一般的な有限生成アーベル群計算は
+`algebra.py` の責務とする。
+
+対象には、
+
+```text
+kernel
+image
+cokernel
+subgroup
+quotient
+exact sequence
+extension
+```
+
+などを含む。
+
+一方、
+
+```text
+E
+H
+P
+```
+
+という写像のホモトピー論的意味や、
+どの generator がどの generator に写るかというデータは
+EHP / homotopy data 層の責務とする。
+
+依存方向は、
+
+```text
+EHP layer
+↓
+ExactSequenceStep / GroupMap
+↓
+algebra layer
+```
+
+とし、algebra 層から EHP 層には依存しない。
+
+---
+
+### 群構造と generator 名の分離
+
+algebra 層では、
+
+```text
+Z
+Z/2
+Z/8 ⊕ Z/4 ⊕ Z/2
+```
+
+などの抽象アーベル群構造を扱う。
+
+一方、
+
+```text
+η
+ν
+σ
+ξ'
+λ'
+```
+
+などの generator 名や、
+composition relation 上の意味は
+homotopy data / proof 層で扱う。
+
+この2つを分離することで、
+一般代数計算へ Toda 固有の知識を持ち込まない。
+
+---
+
+### finite enumeration の位置づけ
+
+有限群で使用してきた全元列挙方式は削除せず、
+
+```text
+reference implementation
+```
+
+として残す。
+
+一般計算では presentation / lattice / HNF / SNF を利用し、
+有限群については全元列挙方式との cross-check を行う。
+
+これにより、
+自由部分を含む一般計算を実現しながら、
+既存の有限群計算を独立した検証手段として利用する。
+
+---
+
+### primary component の境界
+
+algebra 層では、
+
+```text
+Z/2
+Z/3
+Z/4
+Z/9
+```
+
+などを区別せず、
+有限生成アーベル群として統一的に扱う。
+
+したがって、
+
+```text
+2-primary
+3-primary
+double EHP
+```
+
+などの区別は上位の homotopy / inference 層で扱う。
+
+これにより将来 odd-primary の計算を追加しても、
+algebra 層を変更せず再利用できる設計とする。
+
+---
+
+### 計算と数学的推論の境界
+
+Phase 4 までの基盤が担当するのは、
+
+```text
+既知の群
++
+既知の準同型
+↓
+代数計算
+```
+
+である。
+
+一方、
+
+```text
+なぜその E/H/P の値になるのか
+```
+
+を composition relation や Toda bracket などから導くことは、
+将来の proof / inference layer の責務とする。
+
+将来的な構造は、
+
+```text
+proof / inference
+↓
+homotopy / EHP data
+↓
+abelian group algebra
+↓
+integer linear algebra
+```
+
+を基本とする。
+
+### 状態
+
+設計境界の整理完了。
+
+コード変更なし。
+
+---
+
+## 4-8b ドキュメントへの反映
+
+Phase 4-8a で整理した設計方針を
+プロジェクトドキュメントへ反映する。
+
+対象:
+
+```text
+docs/design.md
+docs/development_log.md
+README.md
+```
+
+主な更新内容:
+
+* presentation ベース計算を現在の標準経路として明記
+* 有限群全列挙を reference implementation として位置づけ
+* algebra 層と EHP 層の責務を明確化
+* 群構造と generator 名を分離
+* primary decomposition を algebra 層から分離
+* algebra calculation と proof / inference の境界を明確化
+* Phase 4 で自由部分を扱えるようになったことを README に反映
+* Phase 3 時点の古い README 記述を更新
+
+### Phase 4 の設計上の到達点
+
+Phase 4 によって、
+
+```text
+finite-only algebra
+```
+
+から、
+
+```text
+finitely generated abelian group algebra
+```
+
+へ計算基盤を拡張できた。
+
+今後の EHP / Toda 関連の実装では、
+有限群・自由部分・mixed group ごとに
+別の代数エンジンを作るのではなく、
+
+```text
+AbelianGroup
+GroupMap
+presentation
+ExactSequenceStep
+```
+
+を共通基盤として利用する。
+
+### Phase 4 完了条件
+
+Phase 4 の完了条件を次のように定める。
+
+* 自由部分を含む有限生成アーベル群を表現できる
+* 一般の準同型について kernel / image / cokernel を計算できる
+* 自由部分を含む完全列の exactness を判定できる
+* quotient / image の抽象群構造を一般形式で比較できる
+* EHP 層が一般 presentation 計算を利用できる
+* finite enumeration と presentation 計算を明確に分離できる
+* algebra / EHP / proof 層の設計境界が文書化されている
+
+extension candidate の自由部分対応や、
+Toda relation そのものから準同型を導出する機構は、
+この完了条件には含めない。
+
+これらは Phase 4 の algebra 基盤の上に構築する
+後続フェーズの課題とする。
+
+### 状態
+
+Phase 4 の成果・責務・完了条件の文書化完了。
+
+コード変更なし。
+
+
 
 
 
