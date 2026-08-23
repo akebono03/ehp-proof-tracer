@@ -673,6 +673,74 @@ def test_ehp_n6_k5_exactness_at_hopf_target_general():
     result.verifies_quotient_image_structure_isomorphism()
   )
 
+def test_ehp_n6_k5_exact_step_at_sphere_general():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=6,
+    k=5,
+  )
+
+  step = segment.exact_step_at_sphere()
+
+  assert step.is_exact()
+
+  assert str(
+    step.image_of_first_structure
+  ) == "0"
+
+  assert str(
+    step.kernel_of_second_structure
+  ) == "0"
+
+  assert str(
+    step.quotient_structure
+  ) == "Z"
+
+  assert str(
+    step.image_structure
+  ) == "Z"
+
+  assert (
+    step.verifies_quotient_image_structure_isomorphism()
+  )
+
+
+def test_ehp_n6_k5_exact_step_at_hopf_target_general():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=6,
+    k=5,
+  )
+
+  step = segment.exact_step_at_hopf_target()
+
+  assert step.is_exact()
+
+  assert str(
+    step.image_of_first_structure
+  ) == "Z"
+
+  assert str(
+    step.kernel_of_second_structure
+  ) == "Z"
+
+  assert str(
+    step.quotient_structure
+  ) == "Z/2"
+
+  assert str(
+    step.image_structure
+  ) == "Z/2"
+
+  assert (
+    step.verifies_quotient_image_structure_isomorphism()
+  )
+
+
 
 
 
