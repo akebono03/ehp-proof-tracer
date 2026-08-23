@@ -85,4 +85,31 @@ class EHPSegment:
       self.exactness_at_sphere(),
       self.exactness_at_hopf_target(),
     ]
-  
+
+  def sphere_group_candidates(self):
+    return (
+      self.exact_step_at_sphere()
+      .middle_group_candidates()
+    )
+
+  def sphere_group_candidate_structures(self):
+    return (
+      self.exact_step_at_sphere()
+      .middle_group_candidate_structures()
+    )
+
+  def hopf_target_group_candidates(self):
+    return (
+      self.exact_step_at_hopf_target()
+      .middle_group_candidates()
+    )
+
+  def hopf_target_group_candidate_structures(self):
+    return (
+      self.exact_step_at_hopf_target()
+      .middle_group_candidate_structures()
+    )
+
+
+
+

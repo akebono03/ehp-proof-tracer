@@ -2,6 +2,7 @@ from pathlib import Path
 
 from ehp import EHPSegment
 from repository import SphereRepository
+from algebra import group_structure
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -283,6 +284,69 @@ def test_ehp_n11_k18_exact_step_at_hopf_target():
 
   assert step.quotient.structure() == ()
   assert step.image.structure() == ()
+
+def test_ehp_n3_k5_sphere_group_candidates():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=3,
+    k=5,
+  )
+
+  candidates = (
+    segment.sphere_group_candidate_structures()
+  )
+
+  assert candidates == (
+    (2,),
+  )
+
+  actual = (
+    segment
+    .exact_step_at_sphere()
+    .middle_group
+    .orders
+  )
+
+  assert actual == [2]
+
+def test_ehp_n3_k5_hopf_target_group_candidates():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=3,
+    k=5,
+  )
+
+  candidates = set(
+    segment.hopf_target_group_candidate_structures()
+  )
+
+  assert candidates == {
+    (8,),
+    (2,4),
+  }
+
+  actual = (
+    segment
+    .exact_step_at_hopf_target()
+    .middle_group
+  )
+
+  assert group_structure(
+    actual
+  ) == (8,)
+
+  assert (
+    group_structure(actual)
+    in candidates
+  )
+
+
+
+
 
 
 

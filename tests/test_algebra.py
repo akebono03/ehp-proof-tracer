@@ -1161,6 +1161,120 @@ def test_finite_group_order_zero_group():
     zero
   ) == ()
 
+def test_exact_sequence_middle_group_candidates():
+  a = make_cyclic_group(2, "a")
+  b = make_cyclic_group(4, "b")
+  c = make_cyclic_group(2, "c")
+
+  f = GroupMap(
+    name="times2",
+    source=a,
+    target=b,
+    matrix=[
+      [2],
+    ],
+  )
+
+  g = GroupMap(
+    name="mod2",
+    source=b,
+    target=c,
+    matrix=[
+      [1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  assert (
+    step.extension_left_group.orders
+    == [2]
+  )
+
+  assert (
+    step.extension_right_group.orders
+    == [2]
+  )
+
+  assert set(
+    step.middle_group_candidate_structures()
+  ) == {
+    (4,),
+    (2,2),
+  }
+
+def test_exact_sequence_actual_middle_is_candidate():
+  a = make_cyclic_group(2, "a")
+  b = make_cyclic_group(4, "b")
+  c = make_cyclic_group(2, "c")
+
+  f = GroupMap(
+    name="times2",
+    source=a,
+    target=b,
+    matrix=[
+      [2],
+    ],
+  )
+
+  g = GroupMap(
+    name="mod2",
+    source=b,
+    target=c,
+    matrix=[
+      [1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  actual_structure = group_structure(
+    step.middle_group
+  )
+
+  candidates = set(
+    step.middle_group_candidate_structures()
+  )
+
+  assert actual_structure == (4,)
+  assert actual_structure in candidates
+
+def test_nonexact_sequence_has_no_middle_candidates():
+  a = make_cyclic_group(2, "a")
+  b = make_cyclic_group(4, "b")
+  c = make_cyclic_group(2, "c")
+
+  f = GroupMap(
+    name="zero",
+    source=a,
+    target=b,
+    matrix=[
+      [0],
+    ],
+  )
+
+  g = GroupMap(
+    name="mod2",
+    source=b,
+    target=c,
+    matrix=[
+      [1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  with pytest.raises(ValueError):
+    step.middle_group_candidates()
 
 
 

@@ -212,7 +212,11 @@ class GroupMap:
       for j in range(self.source.direct_sum):
         value += self.matrix[i][j] * x[j]
 
-      if order != 0:
+      if order == inf:
+        pass
+      elif order == 0:
+        value = 0
+      else:
         value %= order
 
       result.append(value)
@@ -342,6 +346,82 @@ class InducedMap:
     )
 
 @dataclass(frozen=True)
+class ExtensionCandidate:
+  left_group: AbelianGroup
+  middle_group: AbelianGroup
+  right_group: AbelianGroup
+
+  @property
+  def left_structure(self) -> tuple[int, ...]:
+    return group_structure(
+      self.left_group
+    )
+
+  @property
+  def middle_structure(self) -> tuple[int, ...]:
+    return group_structure(
+      self.middle_group
+    )
+
+  @property
+  def right_structure(self) -> tuple[int, ...]:
+    return group_structure(
+      self.right_group
+    )
+
+  @property
+  def matching_subgroups(
+    self,
+  ) -> tuple[Subgroup, ...]:
+    left_order = finite_group_order(
+      self.left_group
+    )
+
+    middle_order = finite_group_order(
+      self.middle_group
+    )
+
+    right_order = finite_group_order(
+      self.right_group
+    )
+
+    if middle_order != (
+      left_order * right_order
+    ):
+      return ()
+
+    result = []
+
+    for subgroup in all_subgroups(
+      self.middle_group
+    ):
+      if (
+        subgroup.structure()
+        != self.left_structure
+      ):
+        continue
+
+      quotient = QuotientGroup(
+        ambient_group=self.middle_group,
+        subgroup=subgroup,
+      )
+
+      if (
+        quotient.structure()
+        != self.right_structure
+      ):
+        continue
+
+      result.append(subgroup)
+
+    return tuple(result)
+
+  def is_valid(self) -> bool:
+    return bool(
+      self.matching_subgroups
+    )
+
+@dataclass(frozen=True)
 class ExactSequenceStep:
   first_map: GroupMap
   second_map: GroupMap
@@ -404,6 +484,51 @@ class ExactSequenceStep:
       and induced.is_isomorphism()
     )
 
+  @property
+  def extension_left_group(self) -> AbelianGroup:
+    if not self.is_exact():
+      raise ValueError(
+        "完全でないため extension を構成できません"
+      )
+
+    return abstract_abelian_group(
+      self.image_of_first.structure(),
+      generator_prefix="a",
+    )
+
+  @property
+  def extension_right_group(self) -> AbelianGroup:
+    if not self.is_exact():
+      raise ValueError(
+        "完全でないため extension を構成できません"
+      )
+
+    return abstract_abelian_group(
+      self.image.structure(),
+      generator_prefix="c",
+    )
+
+  def middle_group_candidates(
+    self,
+  ) -> tuple[ExtensionCandidate, ...]:
+    if not self.is_exact():
+      raise ValueError(
+        "完全でないため中間群候補を推論できません"
+      )
+
+    return extension_candidates(
+      self.extension_left_group,
+      self.extension_right_group,
+    )
+
+  def middle_group_candidate_structures(
+    self,
+  ) -> tuple[tuple[int, ...], ...]:
+    return tuple(
+      candidate.middle_structure
+      for candidate in self.middle_group_candidates()
+    )
+
 def group_elements(
   group: AbelianGroup,
 ) -> list[GroupElement]:
@@ -446,7 +571,11 @@ def add_elements(x: GroupElement, y: GroupElement) -> GroupElement:
   ):
     value = a + b
 
-    if order != 0:
+    if order == inf:
+      pass
+    elif order == 0:
+      value = 0
+    else:
       value %= order
 
     coefficients.append(value)
@@ -748,82 +877,6 @@ def all_subgroups(
       ),
     )
   )
-
-@dataclass(frozen=True)
-class ExtensionCandidate:
-  left_group: AbelianGroup
-  middle_group: AbelianGroup
-  right_group: AbelianGroup
-
-  @property
-  def left_structure(self) -> tuple[int, ...]:
-    return group_structure(
-      self.left_group
-    )
-
-  @property
-  def middle_structure(self) -> tuple[int, ...]:
-    return group_structure(
-      self.middle_group
-    )
-
-  @property
-  def right_structure(self) -> tuple[int, ...]:
-    return group_structure(
-      self.right_group
-    )
-
-  @property
-  def matching_subgroups(
-    self,
-  ) -> tuple[Subgroup, ...]:
-    left_order = finite_group_order(
-      self.left_group
-    )
-
-    middle_order = finite_group_order(
-      self.middle_group
-    )
-
-    right_order = finite_group_order(
-      self.right_group
-    )
-
-    if middle_order != (
-      left_order * right_order
-    ):
-      return ()
-
-    result = []
-
-    for subgroup in all_subgroups(
-      self.middle_group
-    ):
-      if (
-        subgroup.structure()
-        != self.left_structure
-      ):
-        continue
-
-      quotient = QuotientGroup(
-        ambient_group=self.middle_group,
-        subgroup=subgroup,
-      )
-
-      if (
-        quotient.structure()
-        != self.right_structure
-      ):
-        continue
-
-      result.append(subgroup)
-
-    return tuple(result)
-
-  def is_valid(self) -> bool:
-    return bool(
-      self.matching_subgroups
-    )
 
 def valid_extension_candidates(
   left_group: AbelianGroup,
