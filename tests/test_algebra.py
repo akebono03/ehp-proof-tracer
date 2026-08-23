@@ -17,6 +17,7 @@ from algebra import (
   abelian_group_structure,
   relation_matrix,
   structure_from_presentation,
+  lattices_equal,
 )
 from models import AbelianGroup, GroupComponent
 import pytest
@@ -2791,8 +2792,134 @@ def test_finite_presentation_crosscheck():
 
   assert checked > 500
 
+def test_presentation_exact_z_times2_mod2():
+  a = make_cyclic_group(
+    inf,
+    "a",
+  )
 
+  b = make_cyclic_group(
+    inf,
+    "b",
+  )
 
+  c = make_cyclic_group(
+    2,
+    "c",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=a,
+    target=b,
+    matrix=[
+      [2],
+    ],
+  )
+
+  g = GroupMap(
+    name="mod2",
+    source=b,
+    target=c,
+    matrix=[
+      [1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  assert (
+    step.is_presentation_exact()
+  )
+
+def test_presentation_nonexact_z_times2_mod4():
+  a = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  b = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  c = make_cyclic_group(
+    4,
+    "c",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=a,
+    target=b,
+    matrix=[
+      [2],
+    ],
+  )
+
+  g = GroupMap(
+    name="mod4",
+    source=b,
+    target=c,
+    matrix=[
+      [1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  assert not (
+    step.is_presentation_exact()
+  )
+
+def test_presentation_exact_mixed_group():
+  a = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  b = make_group(
+    (inf,2),
+  )
+
+  c = make_cyclic_group(
+    2,
+    "c",
+  )
+
+  f = GroupMap(
+    name="f",
+    source=a,
+    target=b,
+    matrix=[
+      [1],
+      [0],
+    ],
+  )
+
+  g = GroupMap(
+    name="g",
+    source=b,
+    target=c,
+    matrix=[
+      [0,1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  assert (
+    step.is_presentation_exact()
+  )
 
 
 

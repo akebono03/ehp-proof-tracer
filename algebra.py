@@ -454,6 +454,36 @@ class GroupMap:
       kernel_basis
     )
 
+  def image_lattice_basis(
+    self,
+  ) -> Matrix:
+    if not (
+      self.is_well_defined_homomorphism()
+    ):
+      raise ValueError(
+        "well-defined な群準同型ではありません"
+      )
+
+    map_matrix = Matrix(
+      self.matrix
+    )
+
+    target_relations = (
+      relation_matrix(
+        self.target
+      )
+    )
+
+    generators = (
+      map_matrix.row_join(
+        target_relations
+      )
+    )
+
+    return hermite_normal_form(
+      generators
+    )
+
 @dataclass(frozen=True)
 class InducedMap:
   original_map: GroupMap
@@ -708,6 +738,36 @@ class ExactSequenceStep:
     return tuple(
       candidate.middle_structure
       for candidate in self.middle_group_candidates()
+    )
+
+  def is_presentation_exact(
+    self,
+  ) -> bool:
+    if not (
+      self.first_map
+      .is_well_defined_homomorphism()
+    ):
+      return False
+
+    if not (
+      self.second_map
+      .is_well_defined_homomorphism()
+    ):
+      return False
+
+    image_lattice = (
+      self.first_map
+      .image_lattice_basis()
+    )
+
+    kernel_lattice = (
+      self.second_map
+      .kernel_lattice_basis()
+    )
+
+    return lattices_equal(
+      image_lattice,
+      kernel_lattice,
     )
 
 def group_elements(
@@ -1468,7 +1528,22 @@ def is_free_abelian_group(
     for order in group.orders
   )
 
+def lattices_equal(
+  left: Matrix,
+  right: Matrix,
+) -> bool:
+  if left.rows != right.rows:
+    return False
 
+  left_hnf = hermite_normal_form(
+    left
+  )
+
+  right_hnf = hermite_normal_form(
+    right
+  )
+
+  return left_hnf == right_hnf
 
 
 

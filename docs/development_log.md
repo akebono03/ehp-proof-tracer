@@ -509,5 +509,316 @@ extension candidate を生成できるところまで実装。
 
 次は Phase 4 として自由部分 `Z` の扱いを検討する。
 
+## 4-4 一般 presentation 計算の堅牢化
+
+Phase 4-3 までに導入した presentation ベースの
+
+* `kernel_structure()`
+* `image_structure()`
+* `cokernel_structure()`
+
+について、自由部分・有限部分・mixed group を含む一般的なケースで
+安定して計算できることを確認した。
+
+### 零群 source の well-defined 判定修正
+
+零群を現在の内部表現では
+
+```text
+order = 0
+```
+
+として表している。
+
+これは presentation としては
+
+```text
+Z / <1> = 0
+```
+
+に対応するため、source 側の generator には
+1 倍で 0 になる relation がある。
+
+従来の `is_well_defined_homomorphism()` では
+`source_order == 0` をそのままスキップしていたため、
+
+```text
+0 → Z/4
+```
+
+に対する非零行列
+
+```text
+[1]
+```
+
+などを well-defined と誤判定する可能性があった。
+
+そこで `source_order == 0` の場合は
+
+```text
+relation_order = 1
+```
+
+として扱い、source relation が target relation に写るかを
+通常の presentation の条件として判定するよう修正した。
+
+確認:
+
+```text
+0 → Z/4
+matrix = [1]
+```
+
+は invalid。
+
+一方、
+
+```text
+0 → Z/4
+matrix = [0]
+```
+
+および
+
+```text
+0 → Z/4
+matrix = [4]
+```
+
+は同じ零写像を表す well-defined な準同型として扱える。
+
+このとき、
+
+```text
+Ker = 0
+Im = 0
+Coker = Z/4
+```
+
+となることを確認した。
+
+---
+
+### 非対角自由群写像の確認
+
+対角行列だけでなく、基底間の混合を含む一般行列について
+presentation 計算を確認した。
+
+例:
+
+```text
+f : Z^2 → Z^2
+```
+
+行列
+
+```text
+[2 1]
+[0 2]
+```
+
+に対して、
+
+```text
+Ker(f)   = 0
+Im(f)    = Z^2
+Coker(f) = Z/4
+```
+
+を正しく計算できることを確認した。
+
+これにより Smith normal form / lattice 計算が
+単純な対角写像だけに依存していないことを確認した。
+
+---
+
+### mixed group の非対角写像
+
+自由部分と torsion 部分を同時に含む例として、
+
+```text
+f : Z ⊕ Z/4 → Z/6
+```
+
+を
+
+```text
+f(x,y) = 2x + 3y
+```
+
+で定義した。
+
+行列表現:
+
+```text
+[2 3]
+```
+
+このとき、
+
+```text
+Ker(f)   = Z ⊕ Z/2
+Im(f)    = Z/6
+Coker(f) = 0
+```
+
+を正しく計算できることを確認した。
+
+これにより、
+
+```text
+free → torsion
+torsion → torsion
+```
+
+が同時に存在する非対角 mixed map についても
+presentation ベースの計算が機能することを確認した。
+
+---
+
+### 有限群との自動 cross-check
+
+presentation 計算の信頼性を高めるため、
+有限アーベル群について既存の全元列挙方式と
+presentation 方式を自動照合するテストを追加した。
+
+対象群:
+
+```text
+0
+Z/2
+Z/3
+Z/4
+Z/2 ⊕ Z/2
+Z/2 ⊕ Z/4
+Z/3 ⊕ Z/3
+```
+
+これらの source / target の組について、
+係数
+
+```text
+0, 1, 2, 3
+```
+
+からなる行列を生成し、
+well-defined な群準同型だけを抽出した。
+
+各準同型について、
+
+```text
+全元列挙方式
+```
+
+による
+
+```text
+kernel
+image
+cokernel
+```
+
+と、
+
+```text
+presentation / lattice / HNF / SNF
+```
+
+による
+
+```text
+kernel_structure()
+image_structure()
+cokernel_structure()
+```
+
+を比較した。
+
+有限群では全元を列挙できるため、
+既存の列挙方式を独立した参照計算として利用した。
+
+比較したすべてのケースで、
+
+```text
+Ker
+Im
+Coker
+```
+
+の抽象アーベル群構造が一致した。
+
+これにより presentation ベースの計算が、
+個別に用意した例だけでなく、
+多数の有限アーベル群準同型についても
+既存の列挙計算と整合することを確認した。
+
+---
+
+### Phase 4-4 の到達点
+
+一般アーベル群の準同型について、
+
+```text
+G = Z^r ⊕ finite torsion
+H = Z^s ⊕ finite torsion
+```
+
+という形の source / target に対して、
+
+```text
+relation matrix
+↓
+integer lattice
+↓
+Hermite normal form
+↓
+Smith normal form
+↓
+kernel / image / cokernel structure
+```
+
+という計算経路が安定して動作するところまで確認できた。
+
+確認したケースには、
+
+* 自由群
+* 有限群
+* 自由部分と torsion 部分を含む mixed group
+* 零群
+* 零写像
+* 非対角行列
+* 非全射
+* 全射
+* 非自明 kernel
+* 非自明 cokernel
+* invalid な準同型
+* presentation 上は異なるが同じ写像を表す行列
+
+が含まれる。
+
+また、有限群については
+全元列挙方式との大量 cross-check を導入したため、
+presentation 計算に対する回帰テストとしても利用できる。
+
+---
+
+### テスト
+
+2026-08-23
+
+```text
+114 passed
+```
+
+既存の EHP 関連テストを含め、すべて成功。
+
+Phase 4-4 の変更による既存機能への regression は確認されなかった。
+
+### 状態
+
+Phase 4-4 完了
+
+
 
 
