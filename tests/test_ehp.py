@@ -606,6 +606,75 @@ def test_ehp_n6_k5_repository_generators():
     "ν5η8",
   ]
 
+def test_ehp_n6_k5_exactness_at_sphere_general():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=6,
+    k=5,
+  )
+
+  result = segment.exactness_at_sphere()
+
+  assert result.is_exact()
+
+  assert str(
+    result.image_abelian_structure
+  ) == "0"
+
+  assert str(
+    result.kernel_abelian_structure
+  ) == "0"
+
+  assert str(
+    result.quotient_abelian_structure
+  ) == "Z"
+
+  assert str(
+    result.right_image_abelian_structure
+  ) == "Z"
+
+  assert (
+    result.verifies_quotient_image_structure_isomorphism()
+  )
+
+
+def test_ehp_n6_k5_exactness_at_hopf_target_general():
+  repo = make_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=6,
+    k=5,
+  )
+
+  result = segment.exactness_at_hopf_target()
+
+  assert result.is_exact()
+
+  assert str(
+    result.image_abelian_structure
+  ) == "Z"
+
+  assert str(
+    result.kernel_abelian_structure
+  ) == "Z"
+
+  assert str(
+    result.quotient_abelian_structure
+  ) == "Z/2"
+
+  assert str(
+    result.right_image_abelian_structure
+  ) == "Z/2"
+
+  assert (
+    result.verifies_quotient_image_structure_isomorphism()
+  )
+
+
+
 
 
 
