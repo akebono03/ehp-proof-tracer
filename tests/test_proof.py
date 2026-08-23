@@ -5,7 +5,7 @@ from proof import (
   Relation,
   RelationType,
 )
-
+from expression import Multiple, Zero, eta
 
 def test_relation():
   relation = Relation(
@@ -59,6 +59,18 @@ def test_proof():
 
   assert proof.conclusion == "desired result"
   assert proof.steps == [step1, step2]
+
+def test_relation_with_expression():
+  relation = Relation(
+    lhs=Multiple(2, eta(3)),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert relation.lhs == Multiple(2, eta(3))
+  assert relation.rhs == Zero()
+
+
 
 
 
