@@ -289,6 +289,23 @@ class GroupMap:
       }
     )
 
+  def is_mixed_rank1_to_finite_cyclic(
+    self,
+  ) -> bool:
+    return (
+      self.source.direct_sum == 2
+      and self.source.orders[0] == inf
+      and self.source.orders[1] not in {
+        inf,
+        0,
+      }
+      and self.target.direct_sum == 1
+      and self.target.orders[0] not in {
+        inf,
+        0,
+      }
+    )
+
   def integer_matrix(self) -> Matrix:
     if not (
       is_free_abelian_group(self.source)
@@ -341,6 +358,51 @@ class GroupMap:
       return AbelianGroupStructure(
         free_rank=1,
         torsion_orders=(),
+      )
+
+    if self.is_mixed_rank1_to_finite_cyclic():
+      if not (
+        self.is_well_defined_homomorphism()
+      ):
+        raise ValueError(
+          "well-defined な群準同型ではありません"
+        )
+
+      torsion_order = int(
+        self.source.orders[1]
+      )
+
+      target_order = int(
+        self.target.orders[0]
+      )
+
+      torsion_coefficient = (
+        self.matrix[0][1]
+      )
+
+      torsion_image_order = (
+        target_order
+        // gcd(
+          abs(torsion_coefficient),
+          target_order,
+        )
+      )
+
+      kernel_torsion_order = (
+        torsion_order
+        // torsion_image_order
+      )
+
+      if kernel_torsion_order == 1:
+        torsion_orders = ()
+      else:
+        torsion_orders = (
+          kernel_torsion_order,
+        )
+
+      return AbelianGroupStructure(
+        free_rank=1,
+        torsion_orders=torsion_orders,
       )
 
     if (
@@ -408,6 +470,48 @@ class GroupMap:
         // gcd(
           abs(coefficient),
           target_order,
+        )
+      )
+
+      if image_order == 1:
+        return AbelianGroupStructure(
+          free_rank=0,
+          torsion_orders=(),
+        )
+
+      return AbelianGroupStructure(
+        free_rank=0,
+        torsion_orders=(
+          image_order,
+        ),
+      )
+
+    if self.is_mixed_rank1_to_finite_cyclic():
+      if not (
+        self.is_well_defined_homomorphism()
+      ):
+        raise ValueError(
+          "well-defined な群準同型ではありません"
+        )
+
+      target_order = int(
+        self.target.orders[0]
+      )
+
+      free_coefficient = (
+        self.matrix[0][0]
+      )
+
+      torsion_coefficient = (
+        self.matrix[0][1]
+      )
+
+      image_order = (
+        target_order
+        // gcd(
+          target_order,
+          abs(free_coefficient),
+          abs(torsion_coefficient),
         )
       )
 

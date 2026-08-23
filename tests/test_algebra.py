@@ -2040,6 +2040,149 @@ def test_structure_rejects_invalid_z2_to_z4():
   with pytest.raises(ValueError):
     f.cokernel_structure()
 
+def test_mixed_z_z2_to_z4_surjective():
+  source = make_group(
+    (inf,2),
+  )
+
+  target = make_cyclic_group(
+    4,
+    "c",
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [1,2],
+    ],
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "Z"
+  assert str(image) == "Z/4"
+  assert str(cokernel) == "0"
+
+def test_mixed_z_z2_to_z4_free_times2():
+  source = make_group(
+    (inf,2),
+  )
+
+  target = make_cyclic_group(
+    4,
+    "c",
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [2,0],
+    ],
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "Z ⊕ Z/2"
+  assert str(image) == "Z/2"
+  assert str(cokernel) == "Z/2"
+
+def test_mixed_z_z2_to_z4_torsion_times2():
+  source = make_group(
+    (inf,2),
+  )
+
+  target = make_cyclic_group(
+    4,
+    "c",
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [0,2],
+    ],
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "Z"
+  assert str(image) == "Z/2"
+  assert str(cokernel) == "Z/2"
+
+def test_mixed_z_z2_to_z4_zero():
+  source = make_group(
+    (inf,2),
+  )
+
+  target = make_cyclic_group(
+    4,
+    "c",
+  )
+
+  f = GroupMap(
+    name="zero",
+    source=source,
+    target=target,
+    matrix=[
+      [0,0],
+    ],
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "Z ⊕ Z/2"
+  assert str(image) == "0"
+  assert str(cokernel) == "Z/4"
+
+def test_mixed_z_z2_to_z4_invalid():
+  source = make_group(
+    (inf,2),
+  )
+
+  target = make_cyclic_group(
+    4,
+    "c",
+  )
+
+  f = GroupMap(
+    name="invalid",
+    source=source,
+    target=target,
+    matrix=[
+      [1,1],
+    ],
+  )
+
+  assert not (
+    f.is_well_defined_homomorphism()
+  )
+
+  with pytest.raises(ValueError):
+    f.kernel_structure()
+
+  with pytest.raises(ValueError):
+    f.image_structure()
+
+  with pytest.raises(ValueError):
+    f.cokernel_structure()
+
+
+
+
 
 
 
