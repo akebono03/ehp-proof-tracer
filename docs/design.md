@@ -1133,6 +1133,586 @@ Phase 5-1 では、次の原則を採用する。
 9. ホモトピー元や式の構造化は Phase 5-2 以降へ分離する。
 10. Phase 5-1 では既存の EHP / algebra 計算機能を変更しない。
 
+# Expression / HomotopyElement 層
+
+Phase 5-2 では、
+`Relation` の左辺・右辺などに現れるホモトピー論的な式を、
+単なる文字列ではなく構造化されたオブジェクトとして扱うための
+最小 Expression モデルを導入する。
+
+Phase 5-1 では例えば、
+
+```text
+2η3 = 0
+```
+
+を文字列として保持していた。
+
+Phase 5-2 ではこれを、
+
+```text
+Multiple(2, eta(3))
+=
+Zero()
+```
+
+のような構造として表現できるようにする。
+
+これにより、
+後の proof / inference 層から式の内部構造を参照し、
+relation の適用や式変形を機械的に扱えるようにする。
+
+---
+
+## Expression の設計
+
+`Expression` は、
+ホモトピー論的な式を表すための基底クラスとする。
+
+Phase 5-2 では最小構成として、
+
+```text
+Expression
+├── Zero
+├── HomotopyElement
+├── Multiple
+└── Composition
+```
+
+を導入する。
+
+現段階では式の評価や簡約は行わず、
+数学的な構造を保持することだけを責務とする。
+
+例えば、
+
+```text
+2η_3
+```
+
+は、
+
+```text
+Multiple
+├── coefficient = 2
+└── expression = η_3
+```
+
+として保持する。
+
+また、
+
+```text
+η_3η_4
+```
+
+は、
+
+```text
+Composition
+├── left = η_3
+└── right = η_4
+```
+
+として保持する。
+
+---
+
+## Zero の設計
+
+零元を文字列 `"0"` ではなく、
+独立した `Zero` オブジェクトとして表す。
+
+例えば、
+
+```text
+2η_3 = 0
+```
+
+という relation は、
+
+```text
+lhs = Multiple(2, eta(3))
+rhs = Zero()
+```
+
+として保持する。
+
+零元を専用オブジェクトとして扱うことで、
+将来的に文字列表現に依存せず、
+
+```text
+式が零か
+零との relation か
+```
+
+などを判定できるようにする。
+
+---
+
+## HomotopyElement の設計
+
+`HomotopyElement` は、
+個々のホモトピー元の名前と添字を保持する。
+
+Phase 5-2 では、
+
+```text
+name
+dimension
+```
+
+を持つ最小構造とする。
+
+例えば、
+
+```text
+η_3
+ν_4
+σ_8
+```
+
+をそれぞれ、
+
+```text
+HomotopyElement("η", 3)
+HomotopyElement("ν", 4)
+HomotopyElement("σ", 8)
+```
+
+として表す。
+
+現段階では、
+その元が実際にどのホモトピー群に属するか、
+source / target dimension が何か、
+stable element との対応が何か、
+といった意味論までは持たせない。
+
+それらは必要になった段階で
+homotopy data 層として拡張する。
+
+---
+
+## generator factory の設計
+
+頻繁に使う基本 generator については、
+直接 `HomotopyElement` を構築する代わりに、
+
+```text
+eta(n)
+nu(n)
+sigma(n)
+```
+
+という factory function を用意する。
+
+例えば、
+
+```text
+eta(3)
+```
+
+は、
+
+```text
+HomotopyElement("η", 3)
+```
+
+を生成する。
+
+これにより、
+relation データを記述するときの可読性を高める。
+
+将来的に必要に応じて、
+
+```text
+mu(n)
+epsilon(n)
+xi(n)
+```
+
+などを追加する。
+
+factory function は数学的な新しい型を導入するものではなく、
+`HomotopyElement` を簡潔に生成するための補助とする。
+
+---
+
+## Multiple の設計
+
+整数倍を表すために `Multiple` を導入する。
+
+`Multiple` は、
+
+```text
+coefficient
+expression
+```
+
+を持つ。
+
+例えば、
+
+```text
+2η_3
+```
+
+を、
+
+```text
+Multiple(
+  2,
+  eta(3),
+)
+```
+
+として表す。
+
+これにより、
+
+```text
+係数が何か
+どの式の整数倍か
+```
+
+を文字列解析なしで取得できる。
+
+Phase 5-2 では、
+係数の正規化や、
+
+```text
+1α = α
+0α = 0
+(-1)α = -α
+```
+
+などの簡約は行わない。
+
+式の簡約は Expression のデータモデルとは別の責務として扱う。
+
+---
+
+## Composition の設計
+
+ホモトピー元の合成を表すために
+`Composition` を導入する。
+
+`Composition` は、
+
+```text
+left
+right
+```
+
+を持つ。
+
+例えば、
+
+```text
+η_3η_4
+```
+
+を、
+
+```text
+Composition(
+  eta(3),
+  eta(4),
+)
+```
+
+として保持する。
+
+Phase 5-2 では、
+composition が実際に定義可能かどうかの dimension check は行わない。
+
+また、
+
+```text
+Composition(alpha, beta)
+```
+
+を数学的にどちら向きの写像合成として解釈するかについても、
+現段階では式構造の保持に限定する。
+
+Toda の記法との対応や、
+source / target dimension に基づく妥当性検査は
+後の homotopy expression 層で追加する。
+
+---
+
+## Expression と文字列表現の分離
+
+Phase 5-2 では、
+`Expression` に表示処理を持たせない。
+
+例えば、
+
+```text
+eta(3)
+```
+
+を、
+
+```text
+η3
+η₃
+\eta_3
+```
+
+のどの形式で表示するかは、
+Expression 自体の数学的構造とは別の問題である。
+
+将来的には、
+
+```text
+Expression
+↓
+formatter
+├── plain text
+├── Unicode
+└── TeX
+```
+
+のように表示層を分離することを想定する。
+
+そのため Phase 5-2 では、
+`__str__` や TeX 出力などは導入しない。
+
+---
+
+## Expression と Relation の接続
+
+Phase 5-1 で導入した `Relation` は、
+
+```text
+lhs
+rhs
+```
+
+を持つ。
+
+Phase 5-2 では、
+これらに Expression オブジェクトを入れられることを確認する。
+
+例えば、
+
+```text
+2η_3 = 0
+```
+
+を、
+
+```text
+Relation(
+  lhs=Multiple(2, eta(3)),
+  rhs=Zero(),
+  relation_type=RelationType.ZERO,
+)
+```
+
+として保持できる。
+
+これにより、
+既知 relation を文字列ではなく
+構造化された数学データとして管理する基礎ができる。
+
+---
+
+## Relation の型をまだ Expression に限定しない
+
+Phase 5-2 時点では、
+`Relation` の、
+
+```text
+lhs
+rhs
+```
+
+の型を `Expression` に固定しない。
+
+今後、
+
+```text
+ord(α) = 2
+Ker(H) = ...
+Im(E) = ...
+π_n(S^m) ≅ Z/2
+```
+
+など、
+単純なホモトピー元の式とは異なる種類の命題を
+proof engine で扱う可能性があるためである。
+
+したがって現段階では、
+
+```text
+Expression
+```
+
+と、
+
+```text
+Statement
+```
+
+の責務をまだ統合しない。
+
+Phase 5-2 では、
+Relation の中に Expression を格納できることだけを保証する。
+
+より一般的な Statement モデルが必要かどうかは、
+実際の proof trace を構築する段階で判断する。
+
+---
+
+## EHP 層との境界
+
+Phase 5-2 では、
+`expression.py` と既存の `ehp.py` をまだ接続しない。
+
+現在の EHP 層では、
+repository から取得した generator 名などを利用して
+準同型を構築している。
+
+Phase 5-2 の目的は、
+これを直ちに置き換えることではない。
+
+まず、
+
+```text
+数学的な式を構造化して保持できる
+```
+
+という独立した基盤を作り、
+既存 EHP 計算を壊さないことを優先する。
+
+したがって、
+
+```text
+algebra.py
+ehp.py
+repository.py
+```
+
+の既存仕様は Phase 5-2 では変更しない。
+
+---
+
+## Expression 層の責務
+
+`expression.py` は、
+ホモトピー論で使用する式の構造だけを担当する。
+
+Phase 5-2 時点での責務は、
+
+* ホモトピー元の表現
+* 零元の表現
+* 整数倍の表現
+* composition の表現
+
+である。
+
+一方、
+
+* 群演算の実計算
+* kernel / image / cokernel
+* EHP 完全性
+* relation の検索
+* relation の適用
+* expression の簡約
+* dimension の整合性判定
+* Toda bracket
+* Steenrod operation
+* suspension
+* Hopf invariant
+
+などは担当しない。
+
+---
+
+## algebra 層との境界
+
+`Expression` は、
+`algebra.py` の `GroupElement` とは別の概念とする。
+
+`GroupElement` は、
+具体的な有限生成アーベル群内部の元として
+代数計算を行うためのオブジェクトである。
+
+一方 `HomotopyElement` は、
+
+```text
+η_n
+ν_n
+σ_n
+```
+
+などの数学的名称を持つホモトピー元を表す。
+
+したがって、
+
+```text
+HomotopyElement
+≠
+GroupElement
+```
+
+とする。
+
+将来的には homotopy data 層によって、
+
+```text
+HomotopyElement
+↓ 対応付け
+GroupElement
+```
+
+という関係を持たせる可能性があるが、
+両者を同一クラスにはしない。
+
+これにより、
+
+```text
+数学的 generator の意味
+```
+
+と、
+
+```text
+抽象アーベル群内での座標
+```
+
+を分離する。
+
+---
+
+## Phase 5-2 時点の設計原則
+
+Phase 5-2 では、次の原則を採用する。
+
+1. ホモトピー論的な式を文字列ではなく構造化して保持する。
+2. `Expression` を式構造の基底とする。
+3. 零元は `Zero` として独立して表現する。
+4. 基本 generator は `HomotopyElement` として表現する。
+5. 整数倍は `Multiple` として表現する。
+6. composition は `Composition` として表現する。
+7. `eta(n)`、`nu(n)`、`sigma(n)` は generator 生成の補助関数とする。
+8. Expression 層では式の評価や簡約を行わない。
+9. Expression 層では composition の dimension 妥当性をまだ検証しない。
+10. Expression と表示形式を分離する。
+11. `HomotopyElement` と algebra 層の `GroupElement` を混同しない。
+12. `Relation` は Expression を保持できるが、まだ Expression 専用にはしない。
+13. Expression より広い Statement モデルの必要性は後の proof engine 実装時に判断する。
+14. Phase 5-2 では既存の algebra / EHP / repository の仕様を変更しない。
+
+この境界を維持することで、
+今後 relation repository、
+proof trace、
+composition relations、
+Toda bracket などを追加する際にも、
+既存の algebra 基盤とホモトピー論的な式表現を分離したまま拡張できる構造を目指す。
+
 
 
 
