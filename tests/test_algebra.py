@@ -14,11 +14,16 @@ from algebra import (
   extension_candidates,
   finite_abelian_structures,
   finite_group_order,
+  abelian_group_structure,
+  relation_matrix,
+  structure_from_presentation,
+  lattices_equal,
 )
-
 from models import AbelianGroup, GroupComponent
-
 import pytest
+from math import inf
+from sympy import Matrix
+from itertools import product
 
 def make_cyclic_group(order, generator):
   return AbelianGroup(
@@ -1275,6 +1280,1949 @@ def test_nonexact_sequence_has_no_middle_candidates():
 
   with pytest.raises(ValueError):
     step.middle_group_candidates()
+
+def test_abelian_group_structure_z():
+  group = make_cyclic_group(
+    inf,
+    "ι",
+  )
+
+  structure = abelian_group_structure(
+    group
+  )
+
+  assert structure.free_rank == 1
+  assert structure.torsion_orders == ()
+  assert structure.is_free
+  assert not structure.is_finite
+  assert str(structure) == "Z"
+
+
+def test_abelian_group_structure_z_z2():
+  group = make_group(
+    (inf,2),
+  )
+
+  structure = abelian_group_structure(
+    group
+  )
+
+  assert structure.free_rank == 1
+  assert structure.torsion_orders == (2,)
+  assert not structure.is_free
+  assert not structure.is_finite
+  assert str(structure) == "Z ⊕ Z/2"
+
+
+def test_abelian_group_structure_z2_z4():
+  group = make_group(
+    (2,4),
+  )
+
+  structure = abelian_group_structure(
+    group
+  )
+
+  assert structure.free_rank == 0
+  assert structure.torsion_orders == (2,4)
+  assert structure.is_finite
+  assert not structure.is_free
+  assert str(structure) == "Z/2 ⊕ Z/4"
+
+
+def test_abelian_group_structure_zero():
+  group = make_cyclic_group(
+    0,
+    "0",
+  )
+
+  structure = abelian_group_structure(
+    group
+  )
+
+  assert structure.free_rank == 0
+  assert structure.torsion_orders == ()
+  assert structure.is_finite
+  assert str(structure) == "0"
+
+def test_free_map_times2_rank():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  assert f.free_map_rank() == 1
+
+
+def test_free_map_times2_smith_normal_form():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  smith = f.smith_normal_form()
+
+  assert smith.shape == (1,1)
+  assert abs(int(smith[0,0])) == 2
+
+
+def test_free_map_times2_kernel_structure():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  structure = f.kernel_structure()
+
+  assert structure.free_rank == 0
+  assert structure.torsion_orders == ()
+  assert str(structure) == "0"
+
+
+def test_free_map_times2_image_structure():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  structure = f.image_structure()
+
+  assert structure.free_rank == 1
+  assert structure.torsion_orders == ()
+  assert str(structure) == "Z"
+
+
+def test_free_map_times2_cokernel_structure():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  structure = f.cokernel_structure()
+
+  assert structure.free_rank == 0
+  assert structure.torsion_orders == (2,)
+  assert str(structure) == "Z/2"
+
+def test_free_map_z2_to_z2_structure():
+  source = make_group(
+    (inf,inf),
+  )
+
+  target = make_group(
+    (inf,inf),
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [2,0],
+      [0,0],
+    ],
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert kernel.free_rank == 1
+  assert kernel.torsion_orders == ()
+  assert str(kernel) == "Z"
+
+  assert image.free_rank == 1
+  assert image.torsion_orders == ()
+  assert str(image) == "Z"
+
+  assert cokernel.free_rank == 1
+  assert cokernel.torsion_orders == (2,)
+  assert str(cokernel) == "Z ⊕ Z/2"
+
+def test_relation_matrix_z():
+  group = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  relations = relation_matrix(
+    group
+  )
+
+  assert relations.shape == (1,0)
+
+
+def test_relation_matrix_z2():
+  group = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  relations = relation_matrix(
+    group
+  )
+
+  assert relations.shape == (1,1)
+  assert int(relations[0,0]) == 2
+
+
+def test_relation_matrix_z_z2():
+  group = make_group(
+    (inf,2),
+  )
+
+  relations = relation_matrix(
+    group
+  )
+
+  assert relations.shape == (2,1)
+
+  assert list(
+    relations[:,0]
+  ) == [
+    0,
+    2,
+  ]
+
+
+def test_structure_from_presentation_z_z2():
+  group = make_group(
+    (inf,2),
+  )
+
+  structure = (
+    structure_from_presentation(
+      relation_matrix(group)
+    )
+  )
+
+  assert structure.free_rank == 1
+  assert structure.torsion_orders == (2,)
+  assert str(structure) == "Z ⊕ Z/2"
+
+def test_homomorphism_z_to_z2_is_well_defined():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    2,
+    "b",
+  )
+
+  f = GroupMap(
+    name="mod2",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  assert (
+    f.is_well_defined_homomorphism()
+  )
+
+
+def test_homomorphism_z2_to_z_nonzero_is_not_well_defined():
+  source = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  f = GroupMap(
+    name="invalid",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  assert not (
+    f.is_well_defined_homomorphism()
+  )
+
+
+def test_homomorphism_z2_to_z_zero_is_well_defined():
+  source = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  f = GroupMap(
+    name="zero",
+    source=source,
+    target=target,
+    matrix=[
+      [0],
+    ],
+  )
+
+  assert (
+    f.is_well_defined_homomorphism()
+  )
+
+def test_cokernel_z_to_z2():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    2,
+    "b",
+  )
+
+  f = GroupMap(
+    name="mod2",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  structure = (
+    f.cokernel_structure()
+  )
+
+  assert structure.free_rank == 0
+  assert structure.torsion_orders == ()
+  assert str(structure) == "0"
+
+def test_cokernel_z_to_z4_times2():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  structure = (
+    f.cokernel_structure()
+  )
+
+  assert structure.free_rank == 0
+  assert structure.torsion_orders == (2,)
+  assert str(structure) == "Z/2"
+
+def test_cokernel_z2_to_z_zero():
+  source = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  f = GroupMap(
+    name="zero",
+    source=source,
+    target=target,
+    matrix=[
+      [0],
+    ],
+  )
+
+  structure = (
+    f.cokernel_structure()
+  )
+
+  assert structure.free_rank == 1
+  assert structure.torsion_orders == ()
+  assert str(structure) == "Z"
+
+def test_cokernel_z_to_z_z4():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_group(
+    (inf,4),
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+      [2],
+    ],
+  )
+
+  structure = (
+    f.cokernel_structure()
+  )
+
+  assert structure.free_rank == 0
+  assert structure.torsion_orders == (2,4)
+  assert str(structure) == "Z/2 ⊕ Z/4"
+
+def test_kernel_z_to_z2():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    2,
+    "b",
+  )
+
+  f = GroupMap(
+    name="mod2",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  structure = (
+    f.kernel_structure()
+  )
+
+  assert structure.free_rank == 1
+  assert structure.torsion_orders == ()
+  assert str(structure) == "Z"
+
+
+def test_image_z_to_z2():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    2,
+    "b",
+  )
+
+  f = GroupMap(
+    name="mod2",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  structure = (
+    f.image_structure()
+  )
+
+  assert structure.free_rank == 0
+  assert structure.torsion_orders == (2,)
+  assert str(structure) == "Z/2"
+
+def test_kernel_z_to_z4_times2():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  structure = (
+    f.kernel_structure()
+  )
+
+  assert structure.free_rank == 1
+  assert structure.torsion_orders == ()
+  assert str(structure) == "Z"
+
+
+def test_image_z_to_z4_times2():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  structure = (
+    f.image_structure()
+  )
+
+  assert structure.free_rank == 0
+  assert structure.torsion_orders == (2,)
+  assert str(structure) == "Z/2"
+
+def test_image_z_to_z4_surjective():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="mod4",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  structure = (
+    f.image_structure()
+  )
+
+  assert structure.free_rank == 0
+  assert structure.torsion_orders == (4,)
+  assert str(structure) == "Z/4"
+
+def test_image_z_to_z4_zero():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="zero",
+    source=source,
+    target=target,
+    matrix=[
+      [0],
+    ],
+  )
+
+  image = f.image_structure()
+  kernel = f.kernel_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(image) == "0"
+  assert str(kernel) == "Z"
+  assert str(cokernel) == "Z/4"
+
+def test_structure_z2_to_z4_times2():
+  source = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "0"
+  assert str(image) == "Z/2"
+  assert str(cokernel) == "Z/2"
+
+def test_structure_z2_to_z4_zero():
+  source = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="zero",
+    source=source,
+    target=target,
+    matrix=[
+      [0],
+    ],
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "Z/2"
+  assert str(image) == "0"
+  assert str(cokernel) == "Z/4"
+
+def test_structure_z4_to_z2_mod2():
+  source = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    2,
+    "b",
+  )
+
+  f = GroupMap(
+    name="mod2",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "Z/2"
+  assert str(image) == "Z/2"
+  assert str(cokernel) == "0"
+
+def test_structure_rejects_invalid_z2_to_z4():
+  source = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="invalid",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  assert not (
+    f.is_well_defined_homomorphism()
+  )
+
+  with pytest.raises(ValueError):
+    f.kernel_structure()
+
+  with pytest.raises(ValueError):
+    f.image_structure()
+
+  with pytest.raises(ValueError):
+    f.cokernel_structure()
+
+def test_mixed_z_z2_to_z4_surjective():
+  source = make_group(
+    (inf,2),
+  )
+
+  target = make_cyclic_group(
+    4,
+    "c",
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [1,2],
+    ],
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "Z"
+  assert str(image) == "Z/4"
+  assert str(cokernel) == "0"
+
+def test_mixed_z_z2_to_z4_free_times2():
+  source = make_group(
+    (inf,2),
+  )
+
+  target = make_cyclic_group(
+    4,
+    "c",
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [2,0],
+    ],
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "Z ⊕ Z/2"
+  assert str(image) == "Z/2"
+  assert str(cokernel) == "Z/2"
+
+def test_mixed_z_z2_to_z4_torsion_times2():
+  source = make_group(
+    (inf,2),
+  )
+
+  target = make_cyclic_group(
+    4,
+    "c",
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [0,2],
+    ],
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "Z"
+  assert str(image) == "Z/2"
+  assert str(cokernel) == "Z/2"
+
+def test_mixed_z_z2_to_z4_zero():
+  source = make_group(
+    (inf,2),
+  )
+
+  target = make_cyclic_group(
+    4,
+    "c",
+  )
+
+  f = GroupMap(
+    name="zero",
+    source=source,
+    target=target,
+    matrix=[
+      [0,0],
+    ],
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "Z ⊕ Z/2"
+  assert str(image) == "0"
+  assert str(cokernel) == "Z/4"
+
+def test_mixed_z_z2_to_z4_invalid():
+  source = make_group(
+    (inf,2),
+  )
+
+  target = make_cyclic_group(
+    4,
+    "c",
+  )
+
+  f = GroupMap(
+    name="invalid",
+    source=source,
+    target=target,
+    matrix=[
+      [1,1],
+    ],
+  )
+
+  assert not (
+    f.is_well_defined_homomorphism()
+  )
+
+  with pytest.raises(ValueError):
+    f.kernel_structure()
+
+  with pytest.raises(ValueError):
+    f.image_structure()
+
+  with pytest.raises(ValueError):
+    f.cokernel_structure()
+
+def test_general_mixed_to_mixed():
+  source = make_group(
+    (inf,2),
+  )
+
+  target = make_group(
+    (inf,4),
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [2,0],
+      [0,2],
+    ],
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "0"
+  assert str(image) == "Z ⊕ Z/2"
+  assert str(cokernel) == "Z/2 ⊕ Z/2"
+
+def test_general_mixed_to_mixed_free_kernel():
+  source = make_group(
+    (inf,2),
+  )
+
+  target = make_group(
+    (inf,4),
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [0,0],
+      [0,2],
+    ],
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "Z"
+  assert str(image) == "Z/2"
+  assert str(cokernel) == "Z ⊕ Z/2"
+
+def test_general_mixed_to_mixed_inclusion():
+  source = make_group(
+    (inf,2),
+  )
+
+  target = make_group(
+    (inf,4),
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [1,0],
+      [0,2],
+    ],
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "0"
+  assert str(image) == "Z ⊕ Z/2"
+  assert str(cokernel) == "Z/2"
+
+def test_general_kernel_lattice_basis():
+  source = make_group(
+    (inf,2),
+  )
+
+  target = make_group(
+    (inf,4),
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [0,0],
+      [0,2],
+    ],
+  )
+
+  basis = f.kernel_lattice_basis()
+
+  assert basis.shape == (2,2)
+
+  assert basis == Matrix([
+    [1,0],
+    [0,2],
+  ])
+
+def test_general_mixed_to_mixed_invalid():
+  source = make_group(
+    (inf,2),
+  )
+
+  target = make_group(
+    (inf,4),
+  )
+
+  f = GroupMap(
+    name="invalid",
+    source=source,
+    target=target,
+    matrix=[
+      [1,1],
+      [0,0],
+    ],
+  )
+
+  assert not (
+    f.is_well_defined_homomorphism()
+  )
+
+  with pytest.raises(ValueError):
+    f.kernel_lattice_basis()
+
+  with pytest.raises(ValueError):
+    f.cokernel_structure()
+
+def test_presentation_matches_free_times2():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  assert (
+    f.presentation_kernel_structure()
+    == f.kernel_structure()
+  )
+
+  assert (
+    f.presentation_image_structure()
+    == f.image_structure()
+  )
+
+def test_presentation_matches_z_to_z4():
+  source = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  assert (
+    f.presentation_kernel_structure()
+    == f.kernel_structure()
+  )
+
+  assert (
+    f.presentation_image_structure()
+    == f.image_structure()
+  )
+
+  assert str(
+    f.presentation_kernel_structure()
+  ) == "Z"
+
+  assert str(
+    f.presentation_image_structure()
+  ) == "Z/2"
+
+def test_presentation_matches_z2_to_z4():
+  source = make_cyclic_group(
+    2,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  assert (
+    f.presentation_kernel_structure()
+    == f.kernel_structure()
+  )
+
+  assert (
+    f.presentation_image_structure()
+    == f.image_structure()
+  )
+
+  assert str(
+    f.presentation_kernel_structure()
+  ) == "0"
+
+  assert str(
+    f.presentation_image_structure()
+  ) == "Z/2"
+
+def test_presentation_matches_z4_to_z2():
+  source = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    2,
+    "b",
+  )
+
+  f = GroupMap(
+    name="mod2",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  assert (
+    f.presentation_kernel_structure()
+    == f.kernel_structure()
+  )
+
+  assert (
+    f.presentation_image_structure()
+    == f.image_structure()
+  )
+
+  assert str(
+    f.presentation_kernel_structure()
+  ) == "Z/2"
+
+  assert str(
+    f.presentation_image_structure()
+  ) == "Z/2"
+
+def test_presentation_matches_mixed_to_finite():
+  source = make_group(
+    (inf,2),
+  )
+
+  target = make_cyclic_group(
+    4,
+    "c",
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [2,0],
+    ],
+  )
+
+  assert (
+    f.presentation_kernel_structure()
+    == f.kernel_structure()
+  )
+
+  assert (
+    f.presentation_image_structure()
+    == f.image_structure()
+  )
+
+  assert str(
+    f.presentation_kernel_structure()
+  ) == "Z ⊕ Z/2"
+
+  assert str(
+    f.presentation_image_structure()
+  ) == "Z/2"
+
+def test_zero_source_nonzero_matrix_is_invalid():
+  source = make_cyclic_group(
+    0,
+    "0",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="invalid",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  assert not (
+    f.is_well_defined_homomorphism()
+  )
+
+  with pytest.raises(ValueError):
+    f.kernel_structure()
+
+  with pytest.raises(ValueError):
+    f.image_structure()
+
+  with pytest.raises(ValueError):
+    f.cokernel_structure()
+
+def test_zero_source_to_z4():
+  source = make_cyclic_group(
+    0,
+    "0",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="zero",
+    source=source,
+    target=target,
+    matrix=[
+      [0],
+    ],
+  )
+
+  assert (
+    f.is_well_defined_homomorphism()
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "0"
+  assert str(image) == "0"
+  assert str(cokernel) == "Z/4"
+
+def test_zero_source_to_z4_relation_multiple():
+  source = make_cyclic_group(
+    0,
+    "0",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="zero",
+    source=source,
+    target=target,
+    matrix=[
+      [4],
+    ],
+  )
+
+  assert (
+    f.is_well_defined_homomorphism()
+  )
+
+  assert str(
+    f.kernel_structure()
+  ) == "0"
+
+  assert str(
+    f.image_structure()
+  ) == "0"
+
+  assert str(
+    f.cokernel_structure()
+  ) == "Z/4"
+
+def test_general_free_nondiagonal():
+  source = make_group(
+    (inf,inf),
+  )
+
+  target = make_group(
+    (inf,inf),
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [2,1],
+      [0,2],
+    ],
+  )
+
+  assert (
+    f.is_well_defined_homomorphism()
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "0"
+  assert str(image) == "Z^2"
+  assert str(cokernel) == "Z/4"
+
+def test_general_mixed_nondiagonal_to_finite():
+  source = make_group(
+    (inf,4),
+  )
+
+  target = make_cyclic_group(
+    6,
+    "b",
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [2,3],
+    ],
+  )
+
+  assert (
+    f.is_well_defined_homomorphism()
+  )
+
+  kernel = f.kernel_structure()
+  image = f.image_structure()
+  cokernel = f.cokernel_structure()
+
+  assert str(kernel) == "Z ⊕ Z/2"
+  assert str(image) == "Z/6"
+  assert str(cokernel) == "0"
+
+def test_finite_presentation_crosscheck():
+  groups = [
+    make_cyclic_group(
+      0,
+      "0",
+    ),
+    make_cyclic_group(
+      2,
+      "a",
+    ),
+    make_cyclic_group(
+      3,
+      "a",
+    ),
+    make_cyclic_group(
+      4,
+      "a",
+    ),
+    make_group(
+      (2,2),
+    ),
+    make_group(
+      (2,4),
+    ),
+    make_group(
+      (3,3),
+    ),
+  ]
+
+  checked = 0
+
+  for source in groups:
+    for target in groups:
+      rows = target.direct_sum
+      cols = source.direct_sum
+
+      for entries in product(
+        range(4),
+        repeat=rows * cols,
+      ):
+        matrix = [
+          list(
+            entries[
+              i * cols:
+              (i + 1) * cols
+            ]
+          )
+          for i in range(rows)
+        ]
+
+        f = GroupMap(
+          name="crosscheck",
+          source=source,
+          target=target,
+          matrix=matrix,
+        )
+
+        if not (
+          f.is_well_defined_homomorphism()
+        ):
+          continue
+
+        enumerated_kernel = (
+          f.kernel_subgroup()
+          .structure()
+        )
+
+        enumerated_image = (
+          f.image_subgroup()
+          .structure()
+        )
+
+        quotient = QuotientGroup(
+          ambient_group=target,
+          subgroup=f.image_subgroup(),
+        )
+
+        enumerated_cokernel = (
+          quotient.structure()
+        )
+
+        presentation_kernel = (
+          f.kernel_structure()
+        )
+
+        presentation_image = (
+          f.image_structure()
+        )
+
+        presentation_cokernel = (
+          f.cokernel_structure()
+        )
+
+        assert (
+          presentation_kernel.free_rank
+          == 0
+        )
+
+        assert (
+          presentation_image.free_rank
+          == 0
+        )
+
+        assert (
+          presentation_cokernel.free_rank
+          == 0
+        )
+
+        assert (
+          presentation_kernel.torsion_orders
+          == enumerated_kernel
+        )
+
+        assert (
+          presentation_image.torsion_orders
+          == enumerated_image
+        )
+
+        assert (
+          presentation_cokernel.torsion_orders
+          == enumerated_cokernel
+        )
+
+        checked += 1
+
+  assert checked > 500
+
+def test_presentation_exact_z_times2_mod2():
+  a = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  b = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  c = make_cyclic_group(
+    2,
+    "c",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=a,
+    target=b,
+    matrix=[
+      [2],
+    ],
+  )
+
+  g = GroupMap(
+    name="mod2",
+    source=b,
+    target=c,
+    matrix=[
+      [1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  assert (
+    step.is_presentation_exact()
+  )
+
+  assert (
+    step.is_exact()
+  )
+
+def test_presentation_nonexact_z_times2_mod4():
+  a = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  b = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  c = make_cyclic_group(
+    4,
+    "c",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=a,
+    target=b,
+    matrix=[
+      [2],
+    ],
+  )
+
+  g = GroupMap(
+    name="mod4",
+    source=b,
+    target=c,
+    matrix=[
+      [1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  assert not (
+    step.is_presentation_exact()
+  )
+
+  assert not (
+    step.is_exact()
+  )
+
+def test_presentation_exact_mixed_group():
+  a = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  b = make_group(
+    (inf,2),
+  )
+
+  c = make_cyclic_group(
+    2,
+    "c",
+  )
+
+  f = GroupMap(
+    name="f",
+    source=a,
+    target=b,
+    matrix=[
+      [1],
+      [0],
+    ],
+  )
+
+  g = GroupMap(
+    name="g",
+    source=b,
+    target=c,
+    matrix=[
+      [0,1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  assert (
+    step.is_presentation_exact()
+  )
+
+  assert (
+    step.is_exact()
+  )
+
+def test_finite_exactness_presentation_crosscheck():
+  groups = [
+    make_cyclic_group(
+      0,
+      "0",
+    ),
+    make_cyclic_group(
+      2,
+      "a",
+    ),
+    make_cyclic_group(
+      3,
+      "a",
+    ),
+    make_cyclic_group(
+      4,
+      "a",
+    ),
+    make_group(
+      (2,2),
+    ),
+  ]
+
+  checked = 0
+
+  for a in groups:
+    for b in groups:
+      for c in groups:
+        rows_f = b.direct_sum
+        cols_f = a.direct_sum
+
+        rows_g = c.direct_sum
+        cols_g = b.direct_sum
+
+        for entries_f in product(
+          range(3),
+          repeat=rows_f * cols_f,
+        ):
+          matrix_f = [
+            list(
+              entries_f[
+                i * cols_f:
+                (i + 1) * cols_f
+              ]
+            )
+            for i in range(rows_f)
+          ]
+
+          f = GroupMap(
+            name="f",
+            source=a,
+            target=b,
+            matrix=matrix_f,
+          )
+
+          if not (
+            f.is_well_defined_homomorphism()
+          ):
+            continue
+
+          for entries_g in product(
+            range(3),
+            repeat=rows_g * cols_g,
+          ):
+            matrix_g = [
+              list(
+                entries_g[
+                  i * cols_g:
+                  (i + 1) * cols_g
+                ]
+              )
+              for i in range(rows_g)
+            ]
+
+            g = GroupMap(
+              name="g",
+              source=b,
+              target=c,
+              matrix=matrix_g,
+            )
+
+            if not (
+              g.is_well_defined_homomorphism()
+            ):
+              continue
+
+            step = ExactSequenceStep(
+              first_map=f,
+              second_map=g,
+            )
+
+            enumerated_exact = (
+              step.image_of_first
+              == step.kernel_of_second
+            )
+
+            presentation_exact = (
+              step.is_presentation_exact()
+            )
+
+            assert (
+              presentation_exact
+              == enumerated_exact
+            )
+
+            checked += 1
+
+  assert checked > 100
+
+def test_exact_sequence_general_structures_free():
+  a = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  b = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  c = make_cyclic_group(
+    2,
+    "c",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=a,
+    target=b,
+    matrix=[
+      [2],
+    ],
+  )
+
+  g = GroupMap(
+    name="mod2",
+    source=b,
+    target=c,
+    matrix=[
+      [1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  assert step.is_exact()
+
+  assert str(
+    step.image_of_first_structure
+  ) == "Z"
+
+  assert str(
+    step.kernel_of_second_structure
+  ) == "Z"
+
+  assert str(
+    step.quotient_structure
+  ) == "Z/2"
+
+  assert str(
+    step.image_structure
+  ) == "Z/2"
+
+  assert (
+    step.verifies_quotient_image_structure_isomorphism()
+  )
+
+def test_exact_sequence_general_structures_mixed():
+  a = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  b = make_group(
+    (inf,2),
+  )
+
+  c = make_cyclic_group(
+    2,
+    "c",
+  )
+
+  f = GroupMap(
+    name="f",
+    source=a,
+    target=b,
+    matrix=[
+      [1],
+      [0],
+    ],
+  )
+
+  g = GroupMap(
+    name="g",
+    source=b,
+    target=c,
+    matrix=[
+      [0,1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  assert step.is_exact()
+
+  assert str(
+    step.image_of_first_structure
+  ) == "Z"
+
+  assert str(
+    step.kernel_of_second_structure
+  ) == "Z"
+
+  assert str(
+    step.quotient_structure
+  ) == "Z/2"
+
+  assert str(
+    step.image_structure
+  ) == "Z/2"
+
+  assert (
+    step.verifies_quotient_image_structure_isomorphism()
+  )
+
+def test_nonexact_sequence_general_structure_isomorphism():
+  a = make_cyclic_group(
+    inf,
+    "a",
+  )
+
+  b = make_cyclic_group(
+    inf,
+    "b",
+  )
+
+  c = make_cyclic_group(
+    4,
+    "c",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=a,
+    target=b,
+    matrix=[
+      [2],
+    ],
+  )
+
+  g = GroupMap(
+    name="mod4",
+    source=b,
+    target=c,
+    matrix=[
+      [1],
+    ],
+  )
+
+  step = ExactSequenceStep(
+    first_map=f,
+    second_map=g,
+  )
+
+  assert not (
+    step.is_exact()
+  )
+
+  assert not (
+    step.verifies_quotient_image_structure_isomorphism()
+  )
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

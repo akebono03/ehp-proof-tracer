@@ -397,56 +397,398 @@ EHP data
 
 ---
 
-## 有限群の全列挙について
+## presentation ベースの一般アーベル群計算
 
-現在の実装では一部の処理で、
+初期実装では、一部の群論処理について
 
-- 群の全元
-- 部分群の全列挙
-- quotient cosets
+* 群の全元
+* 部分群の全列挙
+* quotient cosets
 
-を実際に列挙する。
+を実際に列挙していた。
 
-これは小さな有限アーベル群については
-実装が単純で検証しやすいという利点がある。
+この方式は小さな有限アーベル群では実装が単純であり、
+結果を直接確認しやすいという利点がある。
 
-一方、大きな有限群では計算量が急激に増える。
-
-したがって現段階では、
-
-> 正しさを確認するための有限群プロトタイプ
-
-として利用する。
-
-将来的には必要に応じて、
-
-- Smith normal form
-- invariant factor による直接計算
-- 部分群分類
-- prime-primary decomposition
-
-などを利用して列挙を避ける。
-
----
-
-## 自由部分について
-
-現在の quotient / extension 推論は
-有限アーベル群を中心としている。
-
-将来は Toda の計算に合わせて、
+一方、
 
 ```text
 Z
 Z ⊕ Z/2
-Z ⊕ Z/4
+Z^2
 ```
 
-などの自由部分と torsion part を
-同じ代数層で扱うことを目標とする。
+など自由部分を含む群では全元列挙はできない。
 
-自由部分は有限群のように全元列挙できないため、
-Phase 4 では代数表現そのものを拡張する必要がある。
+そのため Phase 4 では、
+有限生成アーベル群を presentation として扱う計算経路を導入した。
+
+基本的な計算経路は、
+
+```text
+finitely generated abelian group
+↓
+relation matrix
+↓
+integer lattice
+↓
+Hermite normal form
+↓
+Smith normal form
+↓
+kernel / image / cokernel
+```
+
+とする。
+
+これにより、
+
+```text
+Z^r ⊕ finite torsion
+```
+
+という一般の有限生成アーベル群を
+同じ algebra 層で扱えるようにする。
+
+---
+
+## 有限群列挙方式の位置づけ
+
+presentation ベースの計算を一般的な計算経路とするが、
+有限群の全元列挙方式は削除しない。
+
+有限群では、
+
+```text
+全元列挙方式
+```
+
+と
+
+```text
+presentation / lattice / HNF / SNF
+```
+
+という独立した2通りの計算が可能である。
+
+したがって全元列挙方式は、
+
+> presentation 計算を検証するための reference implementation
+
+として利用する。
+
+有限群に対する
+
+```text
+kernel
+image
+cokernel
+exactness
+```
+
+について両方式を cross-check することで、
+presentation ベースの一般計算に対する
+回帰テストとして利用する。
+
+---
+
+## algebra 層の責務
+
+`algebra.py` は有限生成アーベル群とその準同型に関する
+一般的な代数計算を担当する。
+
+主な責務は、
+
+* finitely generated abelian groups
+* group homomorphisms
+* presentations
+* integer lattices
+* kernel
+* image
+* cokernel
+* subgroup
+* quotient
+* induced map
+* exact sequence
+* extension candidates
+* finite abelian group classification
+
+である。
+
+algebra 層は、
+
+```text
+E
+H
+P
+Toda bracket
+composition relation
+```
+
+などのホモトピー論的意味を知らない。
+
+例えば、
+
+```text
+f : G → H
+```
+
+が suspension homomorphism `E` であるかどうかに関係なく、
+単なる有限生成アーベル群の準同型として処理する。
+
+---
+
+## EHP 層の責務
+
+`ehp.py` は EHP 完全列に固有の情報を管理する。
+
+主な責務は、
+
+* 対象となるホモトピー群を選ぶ
+* E, H, P を構成する
+* source / target generators を対応させる
+* EHP データから準同型行列を構成する
+* algebra 層の完全列計算を呼び出す
+
+ことである。
+
+依存方向は、
+
+```text
+EHP layer
+↓
+GroupMap / ExactSequenceStep
+↓
+algebra layer
+```
+
+とする。
+
+`algebra.py` から `ehp.py` への依存は作らない。
+
+これにより将来、
+
+* double EHP
+* Toda bracket
+* composition relations
+* その他の完全列
+
+を導入した場合にも、
+同じ algebra 層を再利用できる。
+
+---
+
+## 群構造と generator の数学的名称の分離
+
+抽象アーベル群の構造と、
+ホモトピー群の generator の数学的意味は分離する。
+
+例えば、
+
+```text
+π ≅ Z/8 ⊕ Z/4 ⊕ Z/2
+```
+
+について algebra 層が必要とするのは、
+
+```text
+Z/8
+Z/4
+Z/2
+```
+
+という抽象群構造である。
+
+一方、
+
+```text
+ξ'
+ξ' + λ'
+η11 μ̄12
+```
+
+などの generator 名や、
+それらの Toda 的・ホモトピー論的意味は
+homotopy data 層で管理する。
+
+これにより、
+純粋なアーベル群計算と
+数学的 generator relation を混同しない。
+
+---
+
+## 完全性と抽象群同型の区別
+
+完全列
+
+```text
+A --f--> B --g--> C
+```
+
+における完全性は、
+
+```text
+Im(f) = Ker(g)
+```
+
+という `B` の部分群としての一致で判定する。
+
+一方、完全性から第一同型定理により得られる
+
+```text
+B / Im(f) ≅ Im(g)
+```
+
+は抽象アーベル群としての同型である。
+
+したがって、
+
+```text
+部分群として等しい
+```
+
+ことと、
+
+```text
+抽象群として同型
+```
+
+であることを別の概念として扱う。
+
+単に両者の抽象群構造が同じであることを理由に
+完全性を判定してはならない。
+
+---
+
+## primary decomposition の設計境界
+
+algebra 層では、
+
+```text
+Z/2
+Z/4
+Z/3
+Z/9
+Z/5
+```
+
+などをすべて同じ有限生成アーベル群として扱う。
+
+algebra 層自体には、
+
+```text
+2-primary
+3-primary
+p-primary
+```
+
+というホモトピー論上の区別を持ち込まない。
+
+将来的に、
+
+```text
+classical EHP
+double EHP
+2-primary data
+3-primary data
+```
+
+など異なる計算・データソースを導入しても、
+最終的には同じ `AbelianGroup` / `GroupMap` の計算基盤へ渡す。
+
+したがって primary decomposition は、
+必要に応じて homotopy data / inference 層で扱う。
+
+---
+
+## 計算エンジンと proof engine の境界
+
+現在の algebra / EHP 計算基盤が担当するのは、
+
+```text
+既知の群
++
+既知の準同型
+↓
+kernel / image / cokernel
+↓
+exactness
+↓
+quotient / extension
+↓
+群構造候補
+```
+
+という計算である。
+
+一方、
+
+```text
+E(α) = β
+H(γ) = δ
+P(ε) = ζ
+```
+
+などの準同型データそのものを
+数学的定理から導出することは別の責務とする。
+
+将来の proof / inference layer では、
+
+* composition relations
+* Toda brackets
+* Steenrod operations
+* Hopf invariant
+* stable range
+* literature references
+* 元の位数
+* 既知の定理
+
+などを用いて、
+
+```text
+数学的事実
+↓
+準同型・relation
+↓
+algebra layer
+```
+
+という推論を行う。
+
+つまり、
+
+```text
+proof / inference layer
+↓
+homotopy / EHP data layer
+↓
+abelian group algebra
+↓
+integer linear algebra
+```
+
+という層構造を基本とする。
+
+---
+
+## Phase 4 時点の設計原則
+
+Phase 4 以降は、次の原則を維持する。
+
+1. 有限生成アーベル群を統一的に扱う。
+2. 自由部分を特殊ケースとして別実装しない。
+3. kernel / image / cokernel の一般計算は presentation を中心とする。
+4. 有限群の全元列挙は reference implementation として残す。
+5. algebra 層は EHP や Toda の意味論を知らない。
+6. 群の抽象構造と generator の数学的名称を分離する。
+7. E/H/P の構築は EHP / homotopy data 層の責務とする。
+8. exactness は一般の群準同型に対する algebra の概念として扱う。
+9. 2-primary / odd-primary の区別を algebra 層へ持ち込まない。
+10. 既知データからの代数計算と、定理から事実を導く proof engine を分離する。
+
+この境界を維持することで、
+将来 Toda の計算を拡張した場合にも、
+algebra 基盤を作り直さずに利用できる構造を目指す。
 
 
 

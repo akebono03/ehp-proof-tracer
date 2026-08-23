@@ -1,2 +1,3 @@
 pandas
 pytest
+sympy==1.14.0

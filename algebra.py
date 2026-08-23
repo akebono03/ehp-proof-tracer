@@ -2,8 +2,22 @@ from dataclasses import dataclass
 from itertools import product
 from math import inf
 
-from models import AbelianGroup, GroupComponent
+from sympy import Matrix
+from sympy.matrices.normalforms import (
+  hermite_normal_form,
+  smith_normal_form,
+)
+from sympy.polys.domains import ZZ
+from sympy.polys.matrices import DomainMatrix
+from sympy.polys.matrices.normalforms import (
+  smith_normal_decomp,
+)
 
+from models import (
+  AbelianGroup,
+  AbelianGroupStructure,
+  GroupComponent,
+)
 
 @dataclass(frozen=True)
 class GroupElement:
@@ -269,9 +283,206 @@ class GroupMap:
       ),
     )
 
+  def integer_matrix(self) -> Matrix:
+    if not (
+      is_free_abelian_group(self.source)
+      and is_free_abelian_group(self.target)
+    ):
+      raise NotImplementedError(
+        "現在は自由アーベル群間の写像のみ対応しています"
+      )
+
+    return Matrix(
+      self.matrix
+    )
+
+  def smith_normal_form(self) -> Matrix:
+    return smith_normal_form(
+      self.integer_matrix(),
+      domain=ZZ,
+    )
+
+  def free_map_rank(self) -> int:
+    return self.integer_matrix().rank()
+
+  def kernel_structure(
+    self,
+  ) -> AbelianGroupStructure:
+    return (
+      self.presentation_kernel_structure()
+    )
+
+  def image_structure(
+    self,
+  ) -> AbelianGroupStructure:
+    return (
+      self.presentation_image_structure()
+    )
+
+  def cokernel_structure(
+    self,
+  ) -> AbelianGroupStructure:
+    if not (
+      self.is_well_defined_homomorphism()
+    ):
+      raise ValueError(
+        "well-defined な群準同型ではありません"
+      )
+
+    target_relations = (
+      relation_matrix(
+        self.target
+      )
+    )
+
+    map_matrix = Matrix(
+      self.matrix
+    )
+
+    relations = (
+      target_relations.row_join(
+        map_matrix
+      )
+    )
+
+    return structure_from_presentation(
+      relations
+    )
+
   def induced_quotient_map(self):
     return InducedMap(self)
 
+  def is_well_defined_homomorphism(
+    self,
+  ) -> bool:
+    if len(
+      self.matrix
+    ) != self.target.direct_sum:
+      return False
+
+    if any(
+      len(row)
+      != self.source.direct_sum
+      for row in self.matrix
+    ):
+      return False
+
+    for j, source_order in enumerate(
+      self.source.orders
+    ):
+      if source_order == inf:
+        continue
+
+      if source_order == 0:
+        relation_order = 1
+      else:
+        relation_order = int(
+          source_order
+        )
+
+      for i, target_order in enumerate(
+        self.target.orders
+      ):
+        value = (
+          relation_order
+          * self.matrix[i][j]
+        )
+
+        if target_order == inf:
+          if value != 0:
+            return False
+
+        elif target_order == 0:
+          continue
+
+        elif value % int(
+          target_order
+        ) != 0:
+          return False
+
+    return True
+
+  def kernel_lattice_basis(
+    self,
+  ) -> Matrix:
+    if not (
+      self.is_well_defined_homomorphism()
+    ):
+      raise ValueError(
+        "well-defined な群準同型ではありません"
+      )
+
+    return preimage_lattice_basis(
+      Matrix(self.matrix),
+      relation_matrix(
+        self.target
+      ),
+    )
+
+  def presentation_kernel_structure(
+    self,
+  ) -> AbelianGroupStructure:
+    kernel_basis = (
+      self.kernel_lattice_basis()
+    )
+
+    source_relations = (
+      relation_matrix(
+        self.source
+      )
+    )
+
+    kernel_relations = (
+      lattice_coordinates(
+        kernel_basis,
+        source_relations,
+      )
+    )
+
+    return structure_from_presentation(
+      kernel_relations
+    )
+
+  def presentation_image_structure(
+    self,
+  ) -> AbelianGroupStructure:
+    kernel_basis = (
+      self.kernel_lattice_basis()
+    )
+
+    return structure_from_presentation(
+      kernel_basis
+    )
+
+  def image_lattice_basis(
+    self,
+  ) -> Matrix:
+    if not (
+      self.is_well_defined_homomorphism()
+    ):
+      raise ValueError(
+        "well-defined な群準同型ではありません"
+      )
+
+    map_matrix = Matrix(
+      self.matrix
+    )
+
+    target_relations = (
+      relation_matrix(
+        self.target
+      )
+    )
+
+    generators = (
+      map_matrix.row_join(
+        target_relations
+      )
+    )
+
+    return hermite_normal_form(
+      generators
+    )
 
 @dataclass(frozen=True)
 class InducedMap:
@@ -437,6 +648,53 @@ class ExactSequenceStep:
     return self.first_map.target
 
   @property
+  def image_of_first_structure(
+    self,
+  ) -> AbelianGroupStructure:
+    return (
+      self.first_map
+      .image_structure()
+    )
+
+  @property
+  def kernel_of_second_structure(
+    self,
+  ) -> AbelianGroupStructure:
+    return (
+      self.second_map
+      .kernel_structure()
+    )
+
+  @property
+  def quotient_structure(
+    self,
+  ) -> AbelianGroupStructure:
+    return (
+      self.first_map
+      .cokernel_structure()
+    )
+
+  @property
+  def image_structure(
+    self,
+  ) -> AbelianGroupStructure:
+    return (
+      self.second_map
+      .image_structure()
+    )
+
+  def verifies_quotient_image_structure_isomorphism(
+    self,
+  ) -> bool:
+    if not self.is_exact():
+      return False
+
+    return (
+      self.quotient_structure
+      == self.image_structure
+    )
+
+  @property
   def image_of_first(self) -> Subgroup:
     return self.first_map.image_subgroup()
 
@@ -446,8 +704,7 @@ class ExactSequenceStep:
 
   def is_exact(self) -> bool:
     return (
-      self.image_of_first
-      == self.kernel_of_second
+      self.is_presentation_exact()
     )
 
   @property
@@ -527,6 +784,36 @@ class ExactSequenceStep:
     return tuple(
       candidate.middle_structure
       for candidate in self.middle_group_candidates()
+    )
+
+  def is_presentation_exact(
+    self,
+  ) -> bool:
+    if not (
+      self.first_map
+      .is_well_defined_homomorphism()
+    ):
+      return False
+
+    if not (
+      self.second_map
+      .is_well_defined_homomorphism()
+    ):
+      return False
+
+    image_lattice = (
+      self.first_map
+      .image_lattice_basis()
+    )
+
+    kernel_lattice = (
+      self.second_map
+      .kernel_lattice_basis()
+    )
+
+    return lattices_equal(
+      image_lattice,
+      kernel_lattice,
     )
 
 def group_elements(
@@ -1047,6 +1334,265 @@ def extension_candidates(
     right_group,
     middle_groups,
   )
+
+def abelian_group_structure(
+  group: AbelianGroup,
+) -> AbelianGroupStructure:
+  if group.is_zero():
+    return AbelianGroupStructure(
+      free_rank=0,
+      torsion_orders=(),
+    )
+
+  free_rank = sum(
+    order == inf
+    for order in group.orders
+  )
+
+  torsion_orders = tuple(
+    int(order)
+    for order in group.orders
+    if (
+      order != inf
+      and order != 0
+    )
+  )
+
+  return AbelianGroupStructure(
+    free_rank=free_rank,
+    torsion_orders=torsion_orders,
+  )
+
+def relation_matrix(
+  group: AbelianGroup,
+) -> Matrix:
+  if group.is_zero():
+    return Matrix([
+      [1],
+    ])
+
+  columns = []
+
+  for i, order in enumerate(
+    group.orders
+  ):
+    if order == inf:
+      continue
+
+    if order == 0:
+      continue
+
+    column = [
+      0
+      for _ in range(
+        group.direct_sum
+      )
+    ]
+
+    column[i] = int(order)
+
+    columns.append(column)
+
+  if not columns:
+    return Matrix.zeros(
+      group.direct_sum,
+      0,
+    )
+
+  return Matrix(
+    group.direct_sum,
+    len(columns),
+    lambda i, j: columns[j][i],
+  )
+
+def integer_kernel_basis(
+  matrix: Matrix,
+) -> Matrix:
+  if matrix.cols == 0:
+    return Matrix.zeros(
+      0,
+      0,
+    )
+
+  domain_matrix = (
+    DomainMatrix
+    .from_Matrix(matrix)
+    .convert_to(ZZ)
+  )
+
+  smith, _, right = (
+    smith_normal_decomp(
+      domain_matrix
+    )
+  )
+
+  rank = matrix.rank()
+
+  right_matrix = (
+    right.to_Matrix()
+  )
+
+  return right_matrix[
+    :,
+    rank:
+  ]
+
+def preimage_lattice_basis(
+  map_matrix: Matrix,
+  target_relations: Matrix,
+) -> Matrix:
+  equation_matrix = (
+    map_matrix.row_join(
+      -target_relations
+    )
+  )
+
+  solution_basis = (
+    integer_kernel_basis(
+      equation_matrix
+    )
+  )
+
+  source_rank = (
+    map_matrix.cols
+  )
+
+  projected = solution_basis[
+    :source_rank,
+    :
+  ]
+
+  return hermite_normal_form(
+    projected
+  )
+
+def lattice_coordinates(
+  basis: Matrix,
+  vectors: Matrix,
+) -> Matrix:
+  if vectors.cols == 0:
+    return Matrix.zeros(
+      basis.cols,
+      0,
+    )
+
+  if basis.cols == 0:
+    if vectors == Matrix.zeros(
+      vectors.rows,
+      vectors.cols,
+    ):
+      return Matrix.zeros(
+        0,
+        vectors.cols,
+      )
+
+    raise ValueError(
+      "格子基底に含まれないベクトルです"
+    )
+
+  columns = []
+
+  for j in range(
+    vectors.cols
+  ):
+    vector = vectors[:,j]
+
+    solution, parameters = (
+      basis.gauss_jordan_solve(
+        vector
+      )
+    )
+
+    if parameters.rows != 0:
+      raise ValueError(
+        "格子座標が一意ではありません"
+      )
+
+    for value in solution:
+      if not value.is_Integer:
+        raise ValueError(
+          "整数格子座標になっていません"
+        )
+
+    columns.append(
+      solution
+    )
+
+  return Matrix.hstack(
+    *columns
+  )
+
+def structure_from_presentation(
+  relations: Matrix,
+) -> AbelianGroupStructure:
+  smith = smith_normal_form(
+    relations,
+    domain=ZZ,
+  )
+
+  rank = smith.rank()
+
+  torsion_orders = []
+
+  diagonal_size = min(
+    smith.rows,
+    smith.cols,
+  )
+
+  for i in range(
+    diagonal_size
+  ):
+    value = abs(
+      int(smith[i,i])
+    )
+
+    if value > 1:
+      torsion_orders.append(
+        value
+      )
+
+  free_rank = (
+    relations.rows
+    - rank
+  )
+
+  return AbelianGroupStructure(
+    free_rank=free_rank,
+    torsion_orders=tuple(
+      torsion_orders
+    ),
+  )
+
+def is_free_abelian_group(
+  group: AbelianGroup,
+) -> bool:
+  if group.is_zero():
+    return True
+
+  return all(
+    order == inf
+    for order in group.orders
+  )
+
+def lattices_equal(
+  left: Matrix,
+  right: Matrix,
+) -> bool:
+  if left.rows != right.rows:
+    return False
+
+  left_hnf = hermite_normal_form(
+    left
+  )
+
+  right_hnf = hermite_normal_form(
+    right
+  )
+
+  return left_hnf == right_hnf
+
+
+
 
 
 
