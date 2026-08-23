@@ -16,8 +16,8 @@ def main():
 
   segment = EHPSegment(
     repo,
-    n=4,
-    k=3,
+    n=10,
+    k=9,
   )
 
   print(
