@@ -240,41 +240,132 @@ def ehp_hopf_target_proof(segment):
   )
 
 
-def relation_inference_proof_step(
-  conclusion,
-  relation_step,
-  note=None,
+def _normalize_proof_steps(
+  steps,
+  name,
 ):
-  if not isinstance(
-    relation_step,
+  if isinstance(
+    steps,
     ProofStep,
   ):
-    raise TypeError(
-      "relation_step must be a ProofStep"
-    )
-
-  if (
-    relation_step.rule
-    != ProofRule.RELATION
-  ):
-    raise ValueError(
-      "relation_step must use "
-      "ProofRule.RELATION"
+    return (
+      steps,
     )
 
   if not isinstance(
-    relation_step.conclusion,
+    steps,
+    (tuple, list),
+  ):
+    raise TypeError(
+      f"{name} must be a ProofStep "
+      "or a tuple/list of ProofStep"
+    )
+
+  normalized = tuple(
+    steps
+  )
+
+  for step in normalized:
+    if not isinstance(
+      step,
+      ProofStep,
+    ):
+      raise TypeError(
+        f"{name} must contain "
+        "only ProofStep objects"
+      )
+
+  return normalized
+
+
+def _normalize_relations(
+  relations,
+):
+  if isinstance(
+    relations,
     Relation,
   ):
-    raise ValueError(
-      "relation_step must conclude "
-      "a Relation"
+    return (
+      relations,
     )
+
+  if not isinstance(
+    relations,
+    (tuple, list),
+  ):
+    raise TypeError(
+      "relations must be a Relation "
+      "or a tuple/list of Relation"
+    )
+
+  normalized = tuple(
+    relations
+  )
+
+  for relation in normalized:
+    if not isinstance(
+      relation,
+      Relation,
+    ):
+      raise TypeError(
+        "relations must contain "
+        "only Relation objects"
+      )
+
+  return normalized
+
+
+def relation_inference_proof_step(
+  conclusion,
+  relation_steps,
+  premises=(),
+  note=None,
+):
+  normalized_relation_steps = (
+    _normalize_proof_steps(
+      relation_steps,
+      "relation_steps",
+    )
+  )
+
+  if not normalized_relation_steps:
+    raise ValueError(
+      "relation_steps must not be empty"
+    )
+
+  for relation_step in (
+    normalized_relation_steps
+  ):
+    if (
+      relation_step.rule
+      != ProofRule.RELATION
+    ):
+      raise ValueError(
+        "relation_steps must use "
+        "ProofRule.RELATION"
+      )
+
+    if not isinstance(
+      relation_step.conclusion,
+      Relation,
+    ):
+      raise ValueError(
+        "relation_steps must conclude "
+        "Relation objects"
+      )
+
+  normalized_premises = (
+    _normalize_proof_steps(
+      premises,
+      "premises",
+    )
+  )
 
   return ProofStep(
     conclusion=conclusion,
     premises=(
-      relation_step,
+      normalized_relation_steps
+      + normalized_premises
     ),
     rule=ProofRule.RELATION,
     note=note,
@@ -282,18 +373,42 @@ def relation_inference_proof_step(
 
 
 def relation_inference_proof(
-  relation,
+  relations,
   conclusion,
+  premises=(),
   note=None,
 ):
-  relation_step = relation_proof_step(
-    relation
+  normalized_relations = (
+    _normalize_relations(
+      relations
+    )
+  )
+
+  if not normalized_relations:
+    raise ValueError(
+      "relations must not be empty"
+    )
+
+  relation_steps = tuple(
+    relation_proof_step(
+      relation
+    )
+    for relation
+    in normalized_relations
+  )
+
+  normalized_premises = (
+    _normalize_proof_steps(
+      premises,
+      "premises",
+    )
   )
 
   inference_step = (
     relation_inference_proof_step(
       conclusion,
-      relation_step,
+      relation_steps,
+      premises=normalized_premises,
       note=note,
     )
   )
@@ -301,11 +416,11 @@ def relation_inference_proof(
   return Proof(
     conclusion=inference_step.conclusion,
     steps=[
-      relation_step,
+      *relation_steps,
+      *normalized_premises,
       inference_step,
     ],
   )
-
 
 
 

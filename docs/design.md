@@ -2669,6 +2669,484 @@ Proof trace
 12. テスト用 locator と実際の文献 locator を混同しない。
 
 
+# 複数 premise を用いる Relation inference
+
+## Phase 5-13：Relation inference の一般化
+
+Phase 5-12 までの relation inference は、
+
+```text
+1つの Relation
+↓
+relation ProofStep
+↓
+inference ProofStep
+```
+
+という形を基本としていた。
+
+しかし実際の数学的推論では、
+
+```text
+複数の既知 relation
++
+既に得られている計算結果
+↓
+新しい結論
+```
+
+という形が必要になる。
+
+Phase 5-13 では、
+relation inference が複数の ProofStep を
+premises として利用できるように一般化する。
+
+---
+
+## relation_steps と premises の区別
+
+`relation_inference_proof_step()` では、
+
+```text
+relation_steps
+premises
+```
+
+を別の引数として扱う。
+
+`relation_steps` は、
+
+```text
+ProofRule.RELATION
+```
+
+を持ち、
+conclusion が `Relation` である ProofStep に限定する。
+
+一方 `premises` は、
+既に得られている一般の ProofStep を受け取る。
+
+例えば、
+
+```text
+relation step 1
+relation step 2
+kernel computation step
+↓
+relation inference
+↓
+conclusion
+```
+
+のような推論を表現できる。
+
+この区別により、
+
+```text
+relation として利用する既知の数学的事実
+```
+
+と、
+
+```text
+既に得られている計算結果・推論結果
+```
+
+を API 上で区別できる。
+
+---
+
+## Proof dependency の単位
+
+Relation を直接 `premises` に格納するのではなく、
+
+```text
+Relation
+↓
+relation_proof_step()
+↓
+ProofStep
+```
+
+という変換を行った上で dependency に利用する。
+
+したがって proof trace における
+主要な依存関係の単位は `ProofStep` とする。
+
+これにより、
+
+```text
+既知 relation
+計算結果
+既に導出された中間結果
+```
+
+を同じ dependency model で扱える。
+
+例えば、
+
+```text
+Relation 1
+↓
+ProofStep 1
+
+Relation 2
+↓
+ProofStep 2
+
+kernel computation
+↓
+ProofStep 3
+
+ProofStep 1, 2, 3
+↓
+relation inference
+↓
+ProofStep 4
+```
+
+という構造を表現できる。
+
+---
+
+## 単一 Relation との後方互換性
+
+複数 relation へ一般化したが、
+従来の、
+
+```python
+relation_inference_proof_step(
+  conclusion,
+  relation_step,
+)
+```
+
+という単一 premise の形式も維持する。
+
+内部では単一 ProofStep を、
+
+```text
+(step,)
+```
+
+へ正規化して処理する。
+
+同様に `relation_inference_proof()` も、
+
+```text
+Relation
+```
+
+または、
+
+```text
+tuple/list of Relation
+```
+
+の両方を受け取る。
+
+これにより既存コードに breaking change を導入せず、
+複数 relation inference へ拡張する。
+
+---
+
+## normalize helper
+
+入力形式を統一するため、
+
+```text
+_normalize_proof_steps()
+_normalize_relations()
+```
+
+を導入する。
+
+`_normalize_proof_steps()` は、
+
+```text
+ProofStep
+```
+
+または、
+
+```text
+tuple/list of ProofStep
+```
+
+を受け取り、
+内部的には tuple に統一する。
+
+`_normalize_relations()` は、
+
+```text
+Relation
+```
+
+または、
+
+```text
+tuple/list of Relation
+```
+
+を受け取り、
+内部的には tuple に統一する。
+
+また、
+tuple / list 内に不正な型が含まれている場合は、
+早い段階で `TypeError` とする。
+
+これにより inference 本体では、
+単一入力と複数入力を個別に処理する必要がなくなる。
+
+---
+
+## relation_steps の検証
+
+`relation_inference_proof_step()` に渡される
+`relation_steps` は、
+単なる ProofStep であれば何でもよいわけではない。
+
+各 step は、
+
+```text
+ProofRule.RELATION
+```
+
+を持ち、
+さらに、
+
+```text
+step.conclusion
+```
+
+が `Relation` であることを要求する。
+
+したがって、
+
+```text
+kernel computation
+image computation
+given
+exactness
+```
+
+などの ProofStep を
+`relation_steps` として渡すことはできない。
+
+これらを推論の前提として利用する場合は、
+
+```text
+premises
+```
+
+として渡す。
+
+---
+
+## 追加 premises
+
+Phase 5-13 では、
+Relation 以外の既存 ProofStep を、
+
+```text
+premises
+```
+
+として追加できる。
+
+例えば、
+
+```text
+1. α = β
+   [relation]
+
+2. γ = δ
+   [relation]
+
+3. Ker(H) ≅ Z/2
+   [kernel computation]
+
+4. desired conclusion
+   [relation]
+   Premises: 1, 2, 3
+```
+
+のような proof dependency を構築できる。
+
+これにより、
+
+```text
+文献上の既知 relation
++
+algebra による計算結果
++
+以前に導出された結果
+```
+
+を組み合わせるための基礎ができる。
+
+---
+
+## 空 relation の禁止
+
+relation inference は、
+少なくとも1つの relation を使用するものとする。
+
+したがって、
+
+```text
+relation_steps = ()
+```
+
+または、
+
+```text
+relations = ()
+```
+
+は許可しない。
+
+この場合は `ValueError` とする。
+
+relation を使用しない一般的な推論については、
+将来的に別の inference rule / API を導入する。
+
+---
+
+## formatter との接続
+
+formatter は既に ProofStep の `premises` を走査し、
+
+```text
+Premises: 1, 2, ...
+```
+
+と表示できる。
+
+そのため Phase 5-13 では
+formatter 本体の変更は必要ない。
+
+例えば、
+
+```text
+1. 2η_3 = 0
+   [relation]
+
+2. 2η_4 = 0
+   [relation]
+
+3. combined result
+   [relation]
+   Premises: 1, 2
+```
+
+のように複数 dependency を表示できる。
+
+Phase 5-13 では integration test を追加し、
+複数 Relation を premises とする Proof が
+正しく番号表示されることを確認する。
+
+---
+
+## Phase 5-13 時点の inference pipeline
+
+現在、
+
+```text
+Relation 1
+     ↓
+ProofStep 1
+
+Relation 2
+     ↓
+ProofStep 2
+
+other ProofStep
+     ↓
+
+ProofStep 1
+ProofStep 2
+other ProofStep
+     ↓
+relation inference
+     ↓
+new ProofStep
+     ↓
+Proof
+     ↓
+formatter
+```
+
+という構造を表現できる。
+
+これにより、
+単一 relation に基づく例示的な推論から、
+
+```text
+複数の数学的事実
++
+計算結果
++
+既存の推論結果
+↓
+新しい結論
+```
+
+という、
+より一般的な proof construction へ進んだ。
+
+---
+
+## ProofStep.premises の型について
+
+`ProofStep` の型定義自体は現在、
+
+```python
+premises: tuple[Any, ...]
+```
+
+のままとする。
+
+Phase 5-13 の inference API では
+premises に ProofStep を要求するが、
+既存コードには Relation などを直接 premises に格納する
+初期段階の利用例も残っている。
+
+そのため Phase 5-13 では、
+`ProofStep.premises` 自体を
+
+```text
+tuple[ProofStep, ...]
+```
+
+へ変更することは行わない。
+
+Proof 全体で dependency の単位を
+ProofStep に統一するかどうかは、
+既存コードを整理する後続フェーズで検討する。
+
+---
+
+## Phase 5-13 時点の設計原則
+
+1. Relation は Proof に入る前に ProofStep 化する。
+2. Proof dependency の主要単位は ProofStep とする。
+3. relation inference は複数 relation を利用できる。
+4. relation inference は追加の一般 ProofStep も premise にできる。
+5. `relation_steps` と追加 `premises` は API 上区別する。
+6. `relation_steps` は `ProofRule.RELATION` を持つ必要がある。
+7. `relation_steps` の conclusion は Relation でなければならない。
+8. relation inference には少なくとも1つの Relation が必要である。
+9. 単一 Relation を利用する従来 API との後方互換性を維持する。
+10. 単一入力と複数入力は normalize helper によって統一する。
+11. formatter は既存の複数 premises 表示機能をそのまま利用する。
+12. `ProofStep.premises` 自体の型制限はまだ強化しない。
+13. premises の再帰的収集や DAG 自動構築はまだ行わない。
+14. relation の自動検索や pattern matching はまだ導入しない。
+15. relation を使用しない一般 inference rule は後続フェーズで検討する。
+
+
+
 
 
 

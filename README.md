@@ -548,6 +548,7 @@ engine.
 
 ---
 
+
 ## Development status
 
 * Phase 1: finite abelian group calculations — completed
@@ -567,6 +568,10 @@ Phase 5 currently supports:
 * explicit proof dependencies through premises
 * conversion of known relations into proof steps
 * relation-based inference steps
+* relation source and note metadata in formatted proofs
+* structured literature references with author, title, year, and locator
+* inference from multiple mathematical relations
+* inference combining relations with existing proof steps
 * human-readable proof formatting
 
 For example, an EHP exactness calculation can now be represented as:
@@ -595,6 +600,43 @@ dependencies:
    Premises: 1
 ```
 
+Multiple known relations can be combined in a single inference:
+
+```text
+1. 2η_3 = 0
+   [relation]
+
+2. 2η_4 = 0
+   [relation]
+
+3. combined result
+   [relation]
+   Premises: 1, 2
+```
+
+Relation sources can be represented as structured literature
+references.
+
+For example:
+
+```text
+Source: Toda — H. Toda, Composition Methods in Homotopy Groups of Spheres, 1962
+```
+
+The literature reference model can store:
+
+```text
+label
+author
+title
+year
+locator
+```
+
+while relation-specific mathematical notes and inference-step notes
+remain separate metadata.
+
+---
 
 ## Current limitations
 
@@ -609,7 +651,17 @@ homomorphisms, but it does not yet derive E/H/P formulas themselves
 from Toda relations, composition relations, or other homotopy-theoretic
 theorems.
 
-That belongs to the future proof/inference layer.
+The current proof / inference layer records explicitly constructed
+dependencies, but does not yet automatically:
+
+* select applicable relations
+* perform relation pattern matching
+* construct conclusions from inference rules
+* recursively collect proof dependencies
+* construct a proof DAG
+* derive E/H/P formulas from homotopy-theoretic relations
+
+These belong to later proof / inference phases.
 
 ---
 
@@ -630,6 +682,12 @@ Run the complete test suite with:
 python -m pytest -v
 ```
 
+At the completion of Phase 5-13:
+
+```text
+215 passed in 20.68s
+```
+
 The development log records test-suite results at each implementation
 checkpoint.
 
@@ -637,19 +695,38 @@ checkpoint.
 
 ## Next direction
 
-The immediate goal is to finish validating Phase 4 against actual EHP
-segments containing free components.
+The immediate goal is to continue generalizing the proof / inference
+layer from manually assembled proof dependencies toward reusable
+inference rules.
 
-After the general algebra foundation is stable, later phases can build
-higher-level proof and inference machinery for:
+The next design step is to distinguish:
 
+```text
+the mathematical premises used by an inference
+```
+
+from:
+
+```text
+the inference rule that transforms those premises into a conclusion
+```
+
+Possible later directions include:
+
+* structured inference rules
+* relation pattern matching
+* automatic relation selection
 * composition relations
 * Toda brackets
-* additional EHP variants
-* odd-primary information
-* literature-backed proof tracing
-* relation source and note metadata in formatted proofs
-* structured literature references with author, title, year, and locator
+* integration of derived homotopy relations with EHP map data
+* recursive proof dependency collection
+* proof dependency graph construction
+* literature-backed automatic proof tracing
+
+The algebra layer remains independent of these higher-level
+homotopy-theoretic inference mechanisms.
+
+
 
 
 

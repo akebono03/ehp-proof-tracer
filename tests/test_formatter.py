@@ -571,6 +571,69 @@ def test_format_relation_structured_source():
   )
 
 
+def test_format_multiple_relation_inference_proof():
+  relation1 = Relation(
+    lhs=Multiple(
+      2,
+      eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+    source="Toda",
+  )
+
+  relation2 = Relation(
+    lhs=Multiple(
+      2,
+      eta(4),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+    source="Toda",
+  )
+
+  proof = relation_inference_proof(
+    (
+      relation1,
+      relation2,
+    ),
+    "combined result",
+    note=(
+      "derived from two relations"
+    ),
+  )
+
+  text = format_proof(
+    proof
+  )
+
+  assert (
+    "1. 2η_3 = 0"
+    in text
+  )
+
+  assert (
+    "2. 2η_4 = 0"
+    in text
+  )
+
+  assert (
+    "3. combined result"
+    in text
+  )
+
+  assert (
+    "Premises: 1, 2"
+    in text
+  )
+
+  assert (
+    "Note: derived from two relations"
+    in text
+  )
+
+
+
 
 
 

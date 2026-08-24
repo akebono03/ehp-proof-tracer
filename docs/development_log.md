@@ -3564,6 +3564,347 @@ structured source 導入による regression は確認されなかった。
 Phase 5-12 完了。
 
 
+## Phase 5-13：複数 Relation / ProofStep を用いる inference
+
+Phase 5-12 までの relation inference は、
+基本的に1つの Relation ProofStep を premise としていた。
+
+Phase 5-13 では、
+複数の既知 relation および
+既存の ProofStep を同時に premise とできるように
+relation inference を一般化した。
+
+---
+
+### ProofStep 入力の正規化
+
+追加:
+
+```text
+_normalize_proof_steps()
+_normalize_relations()
+```
+
+単一の、
+
+```text
+ProofStep
+Relation
+```
+
+と、
+
+```text
+tuple / list
+```
+
+の両方を受け取り、
+内部では tuple に統一する。
+
+`_normalize_proof_steps()` は、
+ProofStep または ProofStep の tuple / list を受け取る。
+
+`_normalize_relations()` は、
+Relation または Relation の tuple / list を受け取る。
+
+不正な型が含まれている場合は
+`TypeError` とする。
+
+これにより既存の単一入力 API を維持したまま、
+複数入力へ拡張できるようになった。
+
+---
+
+### 複数 relation inference
+
+`relation_inference_proof_step()` を拡張し、
+
+```text
+relation_steps
+```
+
+として複数の Relation ProofStep を
+受け取れるようにした。
+
+例えば、
+
+```text
+1. 2η_3 = 0
+   [relation]
+
+2. 2η_4 = 0
+   [relation]
+
+3. combined result
+   [relation]
+   Premises: 1, 2
+```
+
+という Proof を構築できる。
+
+---
+
+### 追加 ProofStep の利用
+
+relation 以外の既存 ProofStep も、
+
+```text
+premises
+```
+
+として inference に追加できるようにした。
+
+これにより将来的に、
+
+```text
+文献 relation
++
+別の relation
++
+kernel / image 計算結果
++
+以前に導出した中間結果
+↓
+新しい結論
+```
+
+という推論を同じ Proof モデルで表現できる。
+
+`relation_steps` と追加の `premises` を分離したことで、
+
+```text
+既知の数学的 relation
+```
+
+と、
+
+```text
+既存の計算・推論結果
+```
+
+を API 上で区別できる。
+
+---
+
+### relation step の検証
+
+`relation_steps` に指定された ProofStep は、
+
+```text
+ProofRule.RELATION
+```
+
+を持ち、
+
+```text
+conclusion
+```
+
+が `Relation` であることを要求する。
+
+一般の ProofStep を利用する場合は、
+追加の `premises` として渡す。
+
+例えば `ProofRule.GIVEN` の step を
+`relation_steps` に渡した場合は
+`ValueError` とする。
+
+一方、
+
+```text
+premises
+```
+
+として渡す場合は、
+一般の ProofStep を利用できる。
+
+---
+
+### 空 relation の禁止
+
+relation inference には
+少なくとも1つの Relation が必要とした。
+
+したがって、
+
+```text
+relation_steps = ()
+```
+
+および、
+
+```text
+relations = ()
+```
+
+は `ValueError` とする。
+
+relation を使用しない一般的な inference は、
+今後別の API として設計する。
+
+---
+
+### 後方互換性
+
+従来の、
+
+```python
+relation_inference_proof_step(
+  conclusion,
+  relation_step,
+)
+```
+
+および、
+
+```python
+relation_inference_proof(
+  relation,
+  conclusion,
+)
+```
+
+もそのまま利用できる。
+
+単一 input は内部で tuple へ正規化する。
+
+既存コードへの breaking change は導入していない。
+
+---
+
+### formatter
+
+formatter は既に複数 premise の番号表示に対応していたため、
+Phase 5-13 では formatter 本体の変更は行わなかった。
+
+integration test により、
+
+```text
+Premises: 1, 2
+```
+
+が正しく表示されることを確認した。
+
+---
+
+### probe による確認
+
+複数の Relation を利用する probe を作成した。
+
+使用した relation:
+
+```text
+2η_3 = 0
+2η_4 = 0
+```
+
+出力:
+
+```text
+1. 2η_3 = 0
+   [relation]
+   Source: Toda — H. Toda, Composition Methods in Homotopy Groups of Spheres, 1962
+   Relation note: first example relation
+
+2. 2η_4 = 0
+   [relation]
+   Source: Toda — H. Toda, Composition Methods in Homotopy Groups of Spheres, 1962
+   Relation note: second example relation
+
+3. combined result
+   [relation]
+   Premises: 1, 2
+   Note: derived from two relations
+
+Conclusion:
+
+combined result
+```
+
+これにより、
+複数の Relation ProofStep が
+実際の proof dependency として利用されることを確認した。
+
+---
+
+### テスト
+
+追加した主なテスト:
+
+```text
+test_relation_inference_proof_step_multiple_relations
+test_relation_inference_proof_step_with_additional_premise
+test_relation_inference_proof_multiple_relations
+test_relation_inference_proof_with_additional_premise
+test_relation_inference_proof_step_rejects_empty_relations
+test_relation_inference_proof_rejects_empty_relations
+test_relation_inference_proof_step_rejects_invalid_additional_premise
+test_format_multiple_relation_inference_proof
+```
+
+2026-08-24:
+
+```text
+215 passed in 20.68s
+```
+
+既存の algebra / EHP / expression / proof / formatter /
+repository を含め、
+すべてのテストが成功した。
+
+Phase 5-13 の一般化による regression は確認されなかった。
+
+---
+
+### Phase 5-13 の到達点
+
+Phase 5-13 により、
+
+```text
+Relation
+↓
+ProofStep
+
+Relation
+↓
+ProofStep
+
+既存の計算・推論
+↓
+ProofStep
+
+複数 ProofStep
+↓
+relation inference
+↓
+新しい ProofStep
+```
+
+という推論構造を扱えるようになった。
+
+これにより、
+単一 relation を premise とする最小 proof から、
+複数の数学的事実や計算結果を組み合わせる
+一般的な proof dependency へ一段階進んだ。
+
+ただし、
+
+```text
+premise の再帰的収集
+Proof DAG の自動構築
+relation の pattern matching
+relation の自動選択
+結論の自動生成
+```
+
+はまだ実装していない。
+
+これらは後続フェーズの課題とする。
+
+### 状態
+
+Phase 5-13 完了。
+
 
 
 

@@ -872,6 +872,263 @@ def test_relation_with_literature_reference():
   )
 
 
+def test_relation_inference_proof_step_multiple_relations():
+  relation1 = Relation(
+    lhs=Multiple(
+      2,
+      eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+    source="Toda",
+  )
+
+  relation2 = Relation(
+    lhs=Multiple(
+      2,
+      eta(4),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+    source="Toda",
+  )
+
+  step1 = relation_proof_step(
+    relation1
+  )
+
+  step2 = relation_proof_step(
+    relation2
+  )
+
+  step = relation_inference_proof_step(
+    "combined result",
+    (
+      step1,
+      step2,
+    ),
+  )
+
+  assert (
+    step.conclusion
+    == "combined result"
+  )
+
+  assert step.premises == (
+    step1,
+    step2,
+  )
+
+  assert (
+    step.rule
+    == ProofRule.RELATION
+  )
+
+
+def test_relation_inference_proof_step_with_additional_premise():
+  relation = Relation(
+    lhs=Multiple(
+      2,
+      eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+    source="Toda",
+  )
+
+  relation_step = (
+    relation_proof_step(
+      relation
+    )
+  )
+
+  additional_step = ProofStep(
+    conclusion="additional fact",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  step = relation_inference_proof_step(
+    "combined result",
+    relation_step,
+    premises=(
+      additional_step,
+    ),
+  )
+
+  assert step.premises == (
+    relation_step,
+    additional_step,
+  )
+
+
+def test_relation_inference_proof_multiple_relations():
+  relation1 = Relation(
+    lhs=Multiple(
+      2,
+      eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+    source="Toda",
+  )
+
+  relation2 = Relation(
+    lhs=Multiple(
+      2,
+      eta(4),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+    source="Toda",
+  )
+
+  proof = relation_inference_proof(
+    (
+      relation1,
+      relation2,
+    ),
+    "combined result",
+  )
+
+  assert len(
+    proof.steps
+  ) == 3
+
+  relation_step1 = (
+    proof.steps[0]
+  )
+
+  relation_step2 = (
+    proof.steps[1]
+  )
+
+  inference_step = (
+    proof.steps[2]
+  )
+
+  assert (
+    relation_step1.conclusion
+    == relation1
+  )
+
+  assert (
+    relation_step2.conclusion
+    == relation2
+  )
+
+  assert (
+    inference_step.premises
+    == (
+      relation_step1,
+      relation_step2,
+    )
+  )
+
+  assert (
+    proof.conclusion
+    == "combined result"
+  )
+
+
+def test_relation_inference_proof_with_additional_premise():
+  relation = Relation(
+    lhs=Multiple(
+      2,
+      eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+    source="Toda",
+  )
+
+  additional_step = ProofStep(
+    conclusion="additional fact",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  proof = relation_inference_proof(
+    relation,
+    "combined result",
+    premises=(
+      additional_step,
+    ),
+  )
+
+  assert len(
+    proof.steps
+  ) == 3
+
+  relation_step = (
+    proof.steps[0]
+  )
+
+  assert (
+    proof.steps[1]
+    == additional_step
+  )
+
+  inference_step = (
+    proof.steps[2]
+  )
+
+  assert (
+    inference_step.premises
+    == (
+      relation_step,
+      additional_step,
+    )
+  )
+
+
+def test_relation_inference_proof_step_rejects_empty_relations():
+  with pytest.raises(
+    ValueError
+  ):
+    relation_inference_proof_step(
+      "result",
+      (),
+    )
+
+
+def test_relation_inference_proof_rejects_empty_relations():
+  with pytest.raises(
+    ValueError
+  ):
+    relation_inference_proof(
+      (),
+      "result",
+    )
+
+
+def test_relation_inference_proof_step_rejects_invalid_additional_premise():
+  relation = Relation(
+    lhs=Multiple(
+      2,
+      eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  relation_step = (
+    relation_proof_step(
+      relation
+    )
+  )
+
+  with pytest.raises(
+    TypeError
+  ):
+    relation_inference_proof_step(
+      "result",
+      relation_step,
+      premises=(
+        "not a ProofStep",
+      ),
+    )
+
 
 
 

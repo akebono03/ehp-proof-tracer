@@ -20,10 +20,9 @@ source = LiteratureReference(
     "Homotopy Groups of Spheres"
   ),
   year=1962,
-  locator="Proposition X",
 )
 
-relation = Relation(
+relation1 = Relation(
   lhs=Multiple(
     2,
     eta(3),
@@ -31,13 +30,29 @@ relation = Relation(
   rhs=Zero(),
   relation_type=RelationType.ZERO,
   source=source,
-  note="classical eta relation",
+  note="first example relation",
+)
+
+relation2 = Relation(
+  lhs=Multiple(
+    2,
+    eta(4),
+  ),
+  rhs=Zero(),
+  relation_type=RelationType.ZERO,
+  source=source,
+  note="second example relation",
 )
 
 proof = relation_inference_proof(
-  relation,
-  "η_3 has order dividing 2",
-  note="derived from the zero relation",
+  (
+    relation1,
+    relation2,
+  ),
+  "combined result",
+  note=(
+    "derived from two relations"
+  ),
 )
 
 print(
