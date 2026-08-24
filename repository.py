@@ -1,10 +1,8 @@
 from math import inf
-
 import pandas as pd
-
 from models import AbelianGroup, GroupComponent, MapImage
-
 from algebra import GroupMap
+from proof import Relation
 
 
 class SphereRepository:
@@ -198,6 +196,69 @@ class SphereRepository:
       target=target,
       matrix=matrix,
     )
+
+
+class RelationRepository:
+  def __init__(self, relations=None):
+    if relations is None:
+      relations = []
+
+    self._relations = list(relations)
+
+  def add_relation(self, relation):
+    if not isinstance(relation, Relation):
+      raise TypeError(
+        "relation must be a Relation"
+      )
+
+    self._relations.append(relation)
+
+  def all_relations(self):
+    return list(self._relations)
+
+  def find_relations(
+    self,
+    lhs=None,
+    rhs=None,
+    relation_type=None,
+    source=None,
+  ):
+    relations = self._relations
+
+    if lhs is not None:
+      relations = [
+        relation
+        for relation in relations
+        if relation.lhs == lhs
+      ]
+
+    if rhs is not None:
+      relations = [
+        relation
+        for relation in relations
+        if relation.rhs == rhs
+      ]
+
+    if relation_type is not None:
+      relations = [
+        relation
+        for relation in relations
+        if relation.relation_type
+        == relation_type
+      ]
+
+    if source is not None:
+      relations = [
+        relation
+        for relation in relations
+        if relation.source == source
+      ]
+
+    return list(relations)
+
+
+
+
 
 
   

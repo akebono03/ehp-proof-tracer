@@ -1962,6 +1962,7896 @@ Phase 4 の成果・責務・完了条件の文書化完了。
 コード変更なし。
 
 
+# Phase 5：Proof / Inference 基盤
+
+## Phase 5-1：Proof / Relation 基盤
+
+Phase 4 までで、
+
+```text
+既知の群
++
+既知の準同型
+↓
+kernel / image / cokernel
+↓
+exactness
+↓
+quotient / extension
+```
+
+という代数計算基盤が整った。
+
+Phase 5 ではその上に、
+「なぜその結果が得られたのか」を記録・追跡するための
+proof / inference 層を導入する。
+
+Phase 5-1 では、
+証明追跡の最小データモデルとして、
+
+```text
+Relation
+ProofStep
+Proof
+```
+
+を導入した。
+
+---
+
+### Relation
+
+既知の数学的事実や関係式を表すため、
+`Relation` を導入した。
+
+基本構造:
+
+```text
+lhs
+rhs
+relation_type
+source
+note
+```
+
+例えば、
+
+```text
+2η3 = 0
+```
+
+のような既知 relation を、
+
+```python
+Relation(
+  lhs="2η3",
+  rhs="0",
+  relation_type=RelationType.ZERO,
+  source="Toda",
+)
+```
+
+として保持できる。
+
+現段階では `lhs`、`rhs` の型を特定の式クラスに限定せず、
+汎用的な値を保持できる設計とした。
+
+これは将来的に、
+
+```text
+ord(α) = 2
+Ker(H) = ...
+Im(E) = ...
+π_n(S^m) ≅ ...
+```
+
+など、
+単純なホモトピー元の式以外の命題も扱う可能性があるためである。
+
+---
+
+### RelationType
+
+relation の種類を区別するため、
+`RelationType` を導入した。
+
+Phase 5-1 では最小限として、
+
+```text
+EQUALITY
+ZERO
+ORDER
+```
+
+を定義した。
+
+現段階では relation の分類を細かくしすぎず、
+必要になった段階で、
+
+```text
+composition
+suspension
+Hopf invariant
+Toda bracket
+Whitehead product
+```
+
+などへ拡張する方針とする。
+
+---
+
+### ProofStep
+
+1回の推論または計算を表すため、
+`ProofStep` を導入した。
+
+基本構造は、
+
+```text
+premises
+↓
+rule
+↓
+conclusion
+```
+
+とする。
+
+保持する情報:
+
+```text
+conclusion
+premises
+rule
+note
+```
+
+例えば、
+
+```text
+Ker(H) = ...
+```
+
+という algebra 層による計算や、
+
+```text
+Im(E) = Ker(H)
+```
+
+という EHP 完全性の適用を、
+独立した ProofStep として記録できる。
+
+---
+
+### ProofRule
+
+ProofStep がどの種類の処理から得られたかを区別するため、
+`ProofRule` を導入した。
+
+Phase 5-1 では、
+
+```text
+GIVEN
+RELATION
+EHP_EXACTNESS
+KERNEL_COMPUTATION
+IMAGE_COMPUTATION
+COKERNEL_COMPUTATION
+```
+
+を定義した。
+
+これにより、
+
+```text
+既知事実
+relation の利用
+EHP 完全性
+kernel 計算
+image 計算
+cokernel 計算
+```
+
+を区別して記録できる。
+
+---
+
+### Proof
+
+特定の結論へ至る一連の ProofStep を保持するため、
+`Proof` を導入した。
+
+基本構造:
+
+```text
+conclusion
+steps
+```
+
+Phase 5-1 では、
+ProofStep の順序付きリストとして保持する。
+
+例えば、
+
+```text
+step 1
+Ker(H) を計算
+
+step 2
+Im(E) を計算
+
+step 3
+EHP 完全性を適用
+```
+
+という推論過程を、
+1つの Proof としてまとめられる。
+
+将来的には、
+複数の推論が同じ中間結果を共有する場合を考慮して
+依存関係グラフへの拡張を想定する。
+
+ただし Phase 5-1 では DAG は導入しない。
+
+---
+
+### Relation と ProofStep の区別
+
+Phase 5-1 では、
+数学的入力と計算・推論結果を明確に分離した。
+
+```text
+Relation
+= 既知の数学的事実
+
+ProofStep
+= Relation や計算結果を使った1回の推論
+
+Proof
+= 特定の結論へ至る ProofStep の集合
+```
+
+例えば、
+
+```text
+2η_n = 0
+```
+
+が文献から既知である場合は `Relation` とする。
+
+一方、
+
+```text
+Ker(H) ≅ Z/2
+```
+
+が `algebra.py` の kernel 計算によって得られた場合は
+`ProofStep` として扱う。
+
+---
+
+### algebra 層との境界
+
+Phase 5-1 では、
+既存の algebra 層に proof の概念を追加していない。
+
+依存方向は、
+
+```text
+proof / inference layer
+↓
+homotopy / EHP data layer
+↓
+algebra layer
+↓
+integer linear algebra
+```
+
+とする。
+
+`algebra.py` は引き続き、
+
+```text
+kernel
+image
+cokernel
+quotient
+exactness
+extension
+```
+
+などの純粋な代数計算だけを担当する。
+
+---
+
+### Phase 5-1 の到達点
+
+Phase 5-1 により、
+
+```text
+数学的入力
+↓
+Relation
+
+計算・推論
+↓
+ProofStep
+
+証明全体
+↓
+Proof
+```
+
+という proof tracking の基本構造を導入できた。
+
+ただしこの段階では、
+ホモトピー元や式を構造化する仕組みはまだ持たず、
+文字列などの汎用値を relation に格納する形としている。
+
+---
+
+### テスト
+
+確認した主な内容:
+
+```text
+Relation の生成
+RelationType の保持
+ProofStep の生成
+premises の保持
+ProofRule の保持
+Proof の step 順序保持
+```
+
+既存の algebra / EHP 計算には変更を加えていない。
+
+### 状態
+
+Phase 5-1 完了
+
+---
+
+## Phase 5-2：Expression / HomotopyElement
+
+Phase 5-1 では Relation の `lhs` / `rhs` に
+文字列などを格納していた。
+
+Phase 5-2 では、
+
+```text
+η_n
+ν_n
+σ_n
+2η_n
+η_nη_{n+1}
+0
+```
+
+などのホモトピー論的な式を、
+文字列ではなく構造化されたオブジェクトとして
+保持するための最小 Expression モデルを導入した。
+
+---
+
+### Expression
+
+ホモトピー論的な式の基底として、
+`Expression` を導入した。
+
+Phase 5-2 では、
+
+```text
+Expression
+├── Zero
+├── HomotopyElement
+├── Multiple
+└── Composition
+```
+
+という最小構成とした。
+
+Expression 層は、
+式の数学的構造を保持することだけを責務とし、
+
+```text
+評価
+簡約
+relation 適用
+dimension check
+```
+
+などは行わない。
+
+---
+
+### Zero
+
+零元を文字列 `"0"` ではなく、
+`Zero` オブジェクトとして表現できるようにした。
+
+例えば、
+
+```text
+2η3 = 0
+```
+
+の右辺を、
+
+```python
+Zero()
+```
+
+として保持できる。
+
+これにより将来的に、
+文字列解析をせずに零元かどうかを判定できる。
+
+---
+
+### HomotopyElement
+
+基本的なホモトピー元を表すため、
+`HomotopyElement` を導入した。
+
+保持する情報:
+
+```text
+name
+dimension
+```
+
+例えば、
+
+```text
+η3
+ν4
+σ8
+```
+
+を、
+
+```python
+HomotopyElement("η", 3)
+HomotopyElement("ν", 4)
+HomotopyElement("σ", 8)
+```
+
+として表現できる。
+
+現段階では、
+
+```text
+どのホモトピー群に属するか
+source / target dimension
+stable element との対応
+```
+
+などの意味論は持たせていない。
+
+---
+
+### generator factory
+
+基本 generator を簡潔に生成するため、
+
+```text
+eta(n)
+nu(n)
+sigma(n)
+```
+
+を導入した。
+
+例えば、
+
+```python
+eta(3)
+```
+
+は、
+
+```python
+HomotopyElement("η", 3)
+```
+
+を生成する。
+
+これにより relation データを記述するときの
+可読性を高めた。
+
+---
+
+### Multiple
+
+整数倍を表すため、
+`Multiple` を導入した。
+
+保持する情報:
+
+```text
+coefficient
+expression
+```
+
+例えば、
+
+```text
+2η3
+```
+
+を、
+
+```python
+Multiple(
+  2,
+  eta(3),
+)
+```
+
+として構造的に保持できる。
+
+Phase 5-2 では、
+
+```text
+1α = α
+0α = 0
+```
+
+などの式簡約はまだ行わない。
+
+---
+
+### Composition
+
+合成を表すため、
+`Composition` を導入した。
+
+保持する情報:
+
+```text
+left
+right
+```
+
+例えば、
+
+```text
+η3η4
+```
+
+を、
+
+```python
+Composition(
+  eta(3),
+  eta(4),
+)
+```
+
+として保持できる。
+
+現段階では、
+composition が dimension 上定義可能かどうかの検査は行わない。
+
+---
+
+### Expression の構造的 equality
+
+各 Expression クラスは frozen dataclass として実装した。
+
+このため、
+
+```python
+eta(3) == eta(3)
+```
+
+や、
+
+```python
+Multiple(
+  2,
+  eta(3),
+) == Multiple(
+  2,
+  eta(3),
+)
+```
+
+のような構造的 equality が利用できる。
+
+これは後続の relation repository で、
+式を文字列へ変換せず検索するための基礎となる。
+
+---
+
+### Relation と Expression の接続
+
+Phase 5-1 で導入した `Relation` の `lhs` / `rhs` に、
+Expression オブジェクトを格納できることを確認した。
+
+例えば、
+
+```text
+2η3 = 0
+```
+
+を、
+
+```python
+Relation(
+  lhs=Multiple(
+    2,
+    eta(3),
+  ),
+  rhs=Zero(),
+  relation_type=RelationType.ZERO,
+)
+```
+
+として表現できる。
+
+これにより、
+
+```text
+文字列としての relation
+```
+
+から、
+
+```text
+構造化された数学的 relation
+```
+
+へ進む基盤ができた。
+
+---
+
+### Relation の型はまだ Expression に限定しない
+
+Phase 5-2 では、
+`Relation.lhs` / `Relation.rhs` を
+`Expression` 型へ限定する変更は行っていない。
+
+将来的に、
+
+```text
+ord(α) = 2
+Ker(H) = ...
+Im(E) = ...
+π_n(S^m) ≅ ...
+```
+
+など、
+単純な Expression より広い命題を扱う可能性があるためである。
+
+より一般的な `Statement` モデルが必要かどうかは、
+実際に proof engine を構築する段階で判断する。
+
+---
+
+### GroupElement との区別
+
+`HomotopyElement` と、
+algebra 層の `GroupElement` は別概念として扱う。
+
+```text
+HomotopyElement
+= η_n, ν_n, σ_n などの数学的 generator
+
+GroupElement
+= 抽象アーベル群内の具体的な座標
+```
+
+したがって、
+
+```text
+HomotopyElement
+≠
+GroupElement
+```
+
+とする。
+
+将来的には homotopy data 層で両者を対応付ける可能性はあるが、
+同一クラスにはしない。
+
+---
+
+### Expression と表示処理の分離
+
+Phase 5-2 では、
+Expression 自体に表示形式を持たせていない。
+
+例えば `eta(3)` を、
+
+```text
+η3
+η₃
+\eta_3
+```
+
+のどの形式で表示するかは、
+数学的な式構造とは別の責務とする。
+
+将来的には、
+
+```text
+Expression
+↓
+formatter
+├── plain text
+├── Unicode
+└── TeX
+```
+
+という表示層を追加できる構造を想定する。
+
+---
+
+### Phase 5-2 の到達点
+
+Phase 5-2 により、
+
+```text
+HomotopyElement
+↓
+Multiple / Composition
+↓
+Expression
+↓
+Relation
+```
+
+という構造ができた。
+
+これにより既知の数学的 relation を、
+
+```text
+文字列
+```
+
+ではなく、
+
+```text
+構造化された式
+```
+
+として保持できるようになった。
+
+ただし、
+
+```text
+relation の検索
+relation の適用
+式変形
+pattern matching
+自動推論
+```
+
+はまだ行わない。
+
+これらは後続フェーズの責務とする。
+
+---
+
+### テスト
+
+確認した主な内容:
+
+```text
+HomotopyElement
+eta()
+nu()
+sigma()
+Zero
+Multiple
+Composition
+Expression の構造的 equality
+Relation への Expression 格納
+```
+
+既存の algebra / EHP / repository の仕様には変更を加えていない。
+
+### 状態
+
+Phase 5-2 完了
+
+
+## Phase 5-3：Relation Repository
+
+既知の数学的 relation を保存・検索するため、
+`RelationRepository` を導入した。
+
+実装:
+
+- `add_relation()`
+- `all_relations()`
+- `find_relations()`
+
+検索条件:
+
+- `lhs`
+- `rhs`
+- `relation_type`
+- `source`
+
+複数条件は AND として扱う。
+
+Expression は frozen dataclass として構造的 equality を持つため、
+
+Multiple(2, eta(3))
+
+などを文字列へ変換することなく検索キーとして使用できる。
+
+`SphereRepository` とは責務を分離し、
+既存の EHP / sphere.csv データ取得機能には変更を加えていない。
+
+現段階では relation の検索のみを担当し、
+
+- relation の適用
+- 式変形
+- pattern matching
+- 自動推論
+
+は行わない。
+
+これらは後続の proof / inference layer の責務とする。
+
+### テスト
+
+2026-08-24
+
+164 passed in 54.81s
+
+既存の algebra / EHP / proof / expression を含め、
+すべてのテストが成功した。
+
+### 状態
+
+Phase 5-3 完了
+
+
+## Phase 5-4〜5-10：Proof 構築と依存関係の導入
+
+Relation Repository の導入後、
+既知 relation と algebra / EHP 計算結果を
+実際の Proof trace として構築する機能を段階的に追加した。
+
+---
+
+### algebra 計算結果の ProofStep 化
+
+以下の計算結果を ProofStep として保持できるようにした。
+
+```text
+Ker(f)
+Im(f)
+Coker(f)
+```
+
+追加:
+
+```text
+KernelStatement
+ImageStatement
+CokernelStatement
+
+kernel_proof_step()
+image_proof_step()
+cokernel_proof_step()
+```
+
+各 ProofStep は、
+既存の `GroupMap` の presentation ベース計算を利用して
+一般アーベル群構造を conclusion として保持する。
+
+algebra 層自体には proof の概念を追加していない。
+
+---
+
+### exactness の ProofStep 化
+
+連続する準同型、
+
+```text
+A --f--> B --g--> C
+```
+
+について、
+
+```text
+Im(f)
+Ker(g)
+```
+
+の ProofStep を premises とし、
+
+```text
+Im(f) = Ker(g)
+```
+
+を conclusion とする
+`ExactnessStatement` を導入した。
+
+追加:
+
+```text
+ExactnessStatement
+exactness_proof_step()
+```
+
+これにより完全性判定の結果だけでなく、
+
+```text
+どの image 計算と kernel 計算を使ったか
+```
+
+を ProofStep の依存関係として保持できるようになった。
+
+---
+
+### EHP exactness proof
+
+一般の exactness ProofStep を EHP 層へ接続した。
+
+追加:
+
+```text
+ehp_exactness_proof_step()
+ehp_exactness_proof()
+ehp_sphere_proof()
+ehp_hopf_target_proof()
+```
+
+例えば sphere 側では、
+
+```text
+Im(E)
+Ker(H)
+Im(E) = Ker(H)
+```
+
+という3 step の Proof を構築できる。
+
+Hopf target 側では、
+
+```text
+Im(H)
+Ker(P)
+Im(H) = Ker(P)
+```
+
+という Proof を構築できる。
+
+これにより、
+
+```text
+exact = True
+```
+
+だけではなく、
+完全性の計算過程を明示的に保持できるようになった。
+
+---
+
+### Proof formatter
+
+Proof の内部モデルと表示処理を分離するため、
+formatter を導入した。
+
+追加:
+
+```text
+format_expression()
+format_statement()
+format_proof_step()
+format_proof()
+```
+
+Expression について、
+
+```text
+0
+η_n
+2η_n
+η_nη_{n+1}
+```
+
+を人間が読める形式で表示できる。
+
+また、
+
+```text
+KernelStatement
+ImageStatement
+CokernelStatement
+ExactnessStatement
+Relation
+```
+
+も同じ formatter から表示できる。
+
+---
+
+### ProofStep の番号表示
+
+Proof 全体を表示するとき、
+各 ProofStep に通し番号を付けるようにした。
+
+例:
+
+```text
+1. Im(E) ≅ 0
+   [image computation]
+
+2. Ker(H) ≅ 0
+   [kernel computation]
+
+3. Im(E) = Ker(H)
+   [ehp exactness]
+```
+
+step number は Proof model に保持せず、
+formatter が Proof.steps の順序から生成する。
+
+---
+
+### premises の表示
+
+ProofStep の `premises` を
+Proof 表示へ反映するようにした。
+
+例えば、
+
+```text
+3. Im(E) = Ker(H)
+   [ehp exactness]
+   Premises: 1, 2
+```
+
+と表示される。
+
+ProofStep の内部では step object への参照を保持し、
+formatter がその参照を Proof 内の step number へ変換する。
+
+これにより Proof の依存関係を人間が確認できるようになった。
+
+---
+
+### Relation を ProofStep 化
+
+Repository から取得された既知 relation を
+proof の中で利用するため、
+
+```text
+relation_proof_step()
+```
+
+を導入した。
+
+例えば、
+
+```text
+2η_3 = 0
+```
+
+という Relation は、
+
+```text
+1. 2η_3 = 0
+   [relation]
+```
+
+という ProofStep として扱える。
+
+Relation 自体は数学的入力として維持し、
+Proof の依存関係には ProofStep を利用する。
+
+---
+
+### Relation を premise とする推論
+
+Relation を実際の推論の premise として利用する仕組みを追加した。
+
+追加:
+
+```text
+relation_inference_proof_step()
+relation_inference_proof()
+```
+
+例えば、
+
+```text
+2η_3 = 0
+```
+
+から、
+
+```text
+η_3 has order dividing 2
+```
+
+を導く Proof を、
+
+```text
+1. 2η_3 = 0
+   [relation]
+
+2. η_3 has order dividing 2
+   [relation]
+   Premises: 1
+```
+
+として構築できる。
+
+`relation_inference_proof_step()` は、
+premise が、
+
+```text
+ProofRule.RELATION
+```
+
+を持つ ProofStep であり、
+その conclusion が Relation であることを検証する。
+
+これにより Relation Repository の検索結果を、
+実際の proof dependency へ接続できた。
+
+---
+
+### Phase 5-10 の到達点
+
+現在、
+
+```text
+Expression
+↓
+Relation
+↓
+RelationRepository
+↓
+relation ProofStep
+↓
+inference ProofStep
+↓
+Proof
+↓
+formatter
+```
+
+という経路が動作している。
+
+また EHP 計算についても、
+
+```text
+GroupMap
+↓
+image / kernel calculation
+↓
+ProofStep
+↓
+EHP exactness
+↓
+Proof
+↓
+formatter
+```
+
+という trace を構築できる。
+
+したがって、
+既知 relation による数学的推論と、
+algebra / EHP による計算結果を、
+同じ Proof / ProofStep モデルで扱う基盤ができた。
+
+### 状態
+
+Phase 5-10 完了。
+
+次は Phase 5-11 として、
+
+```text
+Relation.source
+Relation.note
+ProofStep.note
+```
+
+などの metadata を
+Proof formatter に反映する。
+
+
+## Phase 5-11：Relation metadata の Proof 表示
+
+Relation および ProofStep が保持している metadata を
+Proof formatter に反映した。
+
+対象:
+
+```text
+Relation.source
+Relation.note
+ProofStep.note
+```
+
+---
+
+### Relation source の表示
+
+Relation が `source` を持つ場合、
+relation ProofStep に出典を表示するようにした。
+
+例:
+
+```text
+1. 2η_3 = 0
+   [relation]
+   Source: Toda
+```
+
+これにより、
+Proof trace 上で relation の数学的内容だけでなく、
+その relation がどの文献・データソースに由来するかを
+確認できるようになった。
+
+---
+
+### Relation note の表示
+
+Relation 自体に付随する補足情報を表示できるようにした。
+
+例:
+
+```text
+1. 2η_3 = 0
+   [relation]
+   Source: Toda
+   Relation note: classical eta relation
+```
+
+`Relation.note` は、
+relation そのものについての metadata とする。
+
+---
+
+### ProofStep note の表示
+
+ProofStep 自体に付随する補足情報も
+formatter に反映した。
+
+例:
+
+```text
+2. η_3 has order dividing 2
+   [relation]
+   Premises: 1
+   Note: derived from the zero relation
+```
+
+`ProofStep.note` は、
+relation 自体の metadata ではなく、
+その step における推論・利用方法についての補足とする。
+
+したがって、
+
+```text
+Relation.note
+```
+
+と、
+
+```text
+ProofStep.note
+```
+
+は別の意味として維持する。
+
+---
+
+### metadata を持たない場合
+
+`source` / `note` が `None` の場合には、
+対応する行を表示しない。
+
+これにより既存の EHP proof や
+metadata を持たない ProofStep の表示形式は維持される。
+
+---
+
+### 確認例
+
+```text
+1. 2η_3 = 0
+   [relation]
+   Source: Toda
+   Relation note: classical eta relation
+
+2. η_3 has order dividing 2
+   [relation]
+   Premises: 1
+   Note: derived from the zero relation
+
+Conclusion:
+
+η_3 has order dividing 2
+```
+
+これにより、
+
+```text
+数学的事実
++
+出典
++
+relation の補足
++
+その relation を使った推論
++
+proof dependency
+```
+
+を同じ Proof trace 上で確認できるようになった。
+
+---
+
+### テスト
+
+追加した主なテスト:
+
+```text
+test_format_relation_source
+test_format_relation_note
+test_format_proof_step_note
+test_format_relation_and_proof_step_notes
+```
+
+2026-08-24:
+
+```text
+200 passed in 24.79s
+```
+
+既存の algebra / EHP / expression / proof / repository を含め、
+すべてのテストが成功した。
+
+### 状態
+
+Phase 5-11 完了。
+
+
+## Phase 5-12：Relation source の構造化
+
+Phase 5-11 では、
+
+```text
+Relation.source
+```
+
+を Proof formatter に表示できるようにしたが、
+source 自体は、
+
+```python
+source="Toda"
+```
+
+のような単純な文字列だった。
+
+Phase 5-12 では、
+relation の出典をより詳細に追跡できるようにするため、
+構造化された文献参照を導入した。
+
+---
+
+### LiteratureReference
+
+追加:
+
+```text
+LiteratureReference
+```
+
+保持する情報:
+
+```text
+label
+author
+title
+year
+locator
+```
+
+例えば、
+
+```python
+LiteratureReference(
+  label="Toda",
+  author="H. Toda",
+  title=(
+    "Composition Methods in "
+    "Homotopy Groups of Spheres"
+  ),
+  year=1962,
+  locator="...",
+)
+```
+
+のように、
+relation の文献情報を構造として保持できる。
+
+`locator` は、
+relation が文献中のどこに記載されているかを表す。
+
+現段階では locator は文字列として保持し、
+theorem / proposition / page 等を専用型には分割しない。
+
+---
+
+### Relation.source の拡張
+
+Relation の `source` を、
+
+```text
+LiteratureReference | str | None
+```
+
+として扱えるようにした。
+
+これにより、
+
+```python
+source="Toda"
+```
+
+という既存形式を維持したまま、
+
+```python
+source=LiteratureReference(...)
+```
+
+という structured source へ段階的に移行できる。
+
+既存 Relation データに対する breaking change は導入していない。
+
+---
+
+### formatter の拡張
+
+追加:
+
+```text
+format_literature_reference()
+format_source()
+```
+
+structured source の場合には、
+
+```text
+label
+author
+title
+year
+locator
+```
+
+を組み合わせて表示する。
+
+例:
+
+```text
+Source: Toda — H. Toda, Composition Methods in Homotopy Groups of Spheres, 1962 — ...
+```
+
+一方、従来の、
+
+```python
+source="Toda"
+```
+
+については、
+
+```text
+Source: Toda
+```
+
+と従来通り表示される。
+
+---
+
+### Relation metadata との責務分離
+
+Phase 5-11 で導入した metadata の区別を維持した。
+
+```text
+LiteratureReference
+= relation の出典
+
+Relation.note
+= relation 自体の数学的補足
+
+ProofStep.note
+= その relation を利用した推論上の補足
+```
+
+文献上の theorem / proposition / page 等の情報は
+`Relation.note` ではなく、
+`LiteratureReference.locator` に保持する。
+
+---
+
+### RelationRepository との互換性
+
+`LiteratureReference` は frozen dataclass のため、
+構造的 equality を利用できる。
+
+既存の `RelationRepository.find_relations()` を変更せず、
+
+```python
+repository.find_relations(
+  source=reference,
+)
+```
+
+によって structured source を持つ Relation を検索できることを確認した。
+
+Phase 5-12 では source の、
+
+```text
+author
+title
+year
+locator
+```
+
+などによる部分検索は追加していない。
+
+---
+
+### Proof 表示確認
+
+structured source を持つ relation について、
+次の形式で Proof 表示できることを確認した。
+
+```text
+1. 2η_3 = 0
+   [relation]
+   Source: Toda — H. Toda, Composition Methods in Homotopy Groups of Spheres, 1962 — ...
+   Relation note: classical eta relation
+
+2. η_3 has order dividing 2
+   [relation]
+   Premises: 1
+   Note: derived from the zero relation
+
+Conclusion:
+
+η_3 has order dividing 2
+```
+
+probe で使用した locator は
+Phase 5-12 の structured source 表示を確認するための
+ダミー値であり、実際の Toda 文献上の proposition 番号を
+確定したものではない。
+
+---
+
+### テスト
+
+追加した主なテスト:
+
+```text
+test_literature_reference
+test_relation_with_literature_reference
+test_format_literature_reference
+test_format_source_string
+test_format_source_literature_reference
+test_format_relation_structured_source
+test_relation_repository_find_by_structured_source
+```
+
+2026-08-24:
+
+```text
+207 passed in 20.65s
+```
+
+既存の algebra / EHP / expression / proof / formatter /
+repository を含め、すべてのテストが成功した。
+
+structured source 導入による regression は確認されなかった。
+
+### 状態
+
+Phase 5-12 完了。
+
+
+## Phase 5-13：複数 Relation / ProofStep を用いる inference
+
+Phase 5-12 までの relation inference は、
+基本的に1つの Relation ProofStep を premise としていた。
+
+Phase 5-13 では、
+複数の既知 relation および
+既存の ProofStep を同時に premise とできるように
+relation inference を一般化した。
+
+---
+
+### ProofStep 入力の正規化
+
+追加:
+
+```text
+_normalize_proof_steps()
+_normalize_relations()
+```
+
+単一の、
+
+```text
+ProofStep
+Relation
+```
+
+と、
+
+```text
+tuple / list
+```
+
+の両方を受け取り、
+内部では tuple に統一する。
+
+`_normalize_proof_steps()` は、
+ProofStep または ProofStep の tuple / list を受け取る。
+
+`_normalize_relations()` は、
+Relation または Relation の tuple / list を受け取る。
+
+不正な型が含まれている場合は
+`TypeError` とする。
+
+これにより既存の単一入力 API を維持したまま、
+複数入力へ拡張できるようになった。
+
+---
+
+### 複数 relation inference
+
+`relation_inference_proof_step()` を拡張し、
+
+```text
+relation_steps
+```
+
+として複数の Relation ProofStep を
+受け取れるようにした。
+
+例えば、
+
+```text
+1. 2η_3 = 0
+   [relation]
+
+2. 2η_4 = 0
+   [relation]
+
+3. combined result
+   [relation]
+   Premises: 1, 2
+```
+
+という Proof を構築できる。
+
+---
+
+### 追加 ProofStep の利用
+
+relation 以外の既存 ProofStep も、
+
+```text
+premises
+```
+
+として inference に追加できるようにした。
+
+これにより将来的に、
+
+```text
+文献 relation
++
+別の relation
++
+kernel / image 計算結果
++
+以前に導出した中間結果
+↓
+新しい結論
+```
+
+という推論を同じ Proof モデルで表現できる。
+
+`relation_steps` と追加の `premises` を分離したことで、
+
+```text
+既知の数学的 relation
+```
+
+と、
+
+```text
+既存の計算・推論結果
+```
+
+を API 上で区別できる。
+
+---
+
+### relation step の検証
+
+`relation_steps` に指定された ProofStep は、
+
+```text
+ProofRule.RELATION
+```
+
+を持ち、
+
+```text
+conclusion
+```
+
+が `Relation` であることを要求する。
+
+一般の ProofStep を利用する場合は、
+追加の `premises` として渡す。
+
+例えば `ProofRule.GIVEN` の step を
+`relation_steps` に渡した場合は
+`ValueError` とする。
+
+一方、
+
+```text
+premises
+```
+
+として渡す場合は、
+一般の ProofStep を利用できる。
+
+---
+
+### 空 relation の禁止
+
+relation inference には
+少なくとも1つの Relation が必要とした。
+
+したがって、
+
+```text
+relation_steps = ()
+```
+
+および、
+
+```text
+relations = ()
+```
+
+は `ValueError` とする。
+
+relation を使用しない一般的な inference は、
+今後別の API として設計する。
+
+---
+
+### 後方互換性
+
+従来の、
+
+```python
+relation_inference_proof_step(
+  conclusion,
+  relation_step,
+)
+```
+
+および、
+
+```python
+relation_inference_proof(
+  relation,
+  conclusion,
+)
+```
+
+もそのまま利用できる。
+
+単一 input は内部で tuple へ正規化する。
+
+既存コードへの breaking change は導入していない。
+
+---
+
+### formatter
+
+formatter は既に複数 premise の番号表示に対応していたため、
+Phase 5-13 では formatter 本体の変更は行わなかった。
+
+integration test により、
+
+```text
+Premises: 1, 2
+```
+
+が正しく表示されることを確認した。
+
+---
+
+### probe による確認
+
+複数の Relation を利用する probe を作成した。
+
+使用した relation:
+
+```text
+2η_3 = 0
+2η_4 = 0
+```
+
+出力:
+
+```text
+1. 2η_3 = 0
+   [relation]
+   Source: Toda — H. Toda, Composition Methods in Homotopy Groups of Spheres, 1962
+   Relation note: first example relation
+
+2. 2η_4 = 0
+   [relation]
+   Source: Toda — H. Toda, Composition Methods in Homotopy Groups of Spheres, 1962
+   Relation note: second example relation
+
+3. combined result
+   [relation]
+   Premises: 1, 2
+   Note: derived from two relations
+
+Conclusion:
+
+combined result
+```
+
+これにより、
+複数の Relation ProofStep が
+実際の proof dependency として利用されることを確認した。
+
+---
+
+### テスト
+
+追加した主なテスト:
+
+```text
+test_relation_inference_proof_step_multiple_relations
+test_relation_inference_proof_step_with_additional_premise
+test_relation_inference_proof_multiple_relations
+test_relation_inference_proof_with_additional_premise
+test_relation_inference_proof_step_rejects_empty_relations
+test_relation_inference_proof_rejects_empty_relations
+test_relation_inference_proof_step_rejects_invalid_additional_premise
+test_format_multiple_relation_inference_proof
+```
+
+2026-08-24:
+
+```text
+215 passed in 20.68s
+```
+
+既存の algebra / EHP / expression / proof / formatter /
+repository を含め、
+すべてのテストが成功した。
+
+Phase 5-13 の一般化による regression は確認されなかった。
+
+---
+
+### Phase 5-13 の到達点
+
+Phase 5-13 により、
+
+```text
+Relation
+↓
+ProofStep
+
+Relation
+↓
+ProofStep
+
+既存の計算・推論
+↓
+ProofStep
+
+複数 ProofStep
+↓
+relation inference
+↓
+新しい ProofStep
+```
+
+という推論構造を扱えるようになった。
+
+これにより、
+単一 relation を premise とする最小 proof から、
+複数の数学的事実や計算結果を組み合わせる
+一般的な proof dependency へ一段階進んだ。
+
+ただし、
+
+```text
+premise の再帰的収集
+Proof DAG の自動構築
+relation の pattern matching
+relation の自動選択
+結論の自動生成
+```
+
+はまだ実装していない。
+
+これらは後続フェーズの課題とする。
+
+### 状態
+
+Phase 5-13 完了。
+
+
+## Phase 5-14：InferenceRule の導入
+
+Phase 5-13 までに、
+複数の Relation および既存 ProofStep を
+premises とする inference を構築できるようになった。
+
+しかし inference step は、
+
+```text
+ProofRule.RELATION
+```
+
+という大分類しか持たず、
+
+```text
+どの数学的規則を用いて
+premises から conclusion を導いたか
+```
+
+は構造化されていなかった。
+
+Phase 5-14 では、
+具体的な数学的推論規則を表すため、
+
+```text
+InferenceRule
+```
+
+を導入した。
+
+---
+
+### InferenceRule
+
+追加:
+
+```text
+InferenceRule
+```
+
+保持する情報:
+
+```text
+name
+description
+```
+
+例えば、
+
+```python
+InferenceRule(
+  name=(
+    "zero relation implies "
+    "order bound"
+  ),
+  description=(
+    "If m alpha = 0, "
+    "the order of alpha divides m."
+  ),
+)
+```
+
+のように推論規則を構造化できる。
+
+---
+
+### ProofStep への接続
+
+`ProofStep` に、
+
+```text
+inference_rule
+```
+
+を追加した。
+
+型は、
+
+```text
+InferenceRule | None
+```
+
+とした。
+
+これにより、
+
+```text
+premises
++
+InferenceRule
+↓
+conclusion
+```
+
+という推論構造を保持できる。
+
+既存の ProofStep との互換性を維持するため、
+`inference_rule` は optional とした。
+
+---
+
+### ProofRule との区別
+
+Phase 5-14 では、
+
+```text
+ProofRule
+```
+
+と、
+
+```text
+InferenceRule
+```
+
+を別概念として扱う。
+
+`ProofRule` は、
+
+```text
+RELATION
+EXACTNESS
+EHP_EXACTNESS
+KERNEL_COMPUTATION
+IMAGE_COMPUTATION
+COKERNEL_COMPUTATION
+```
+
+など、
+ProofStep の処理の大分類を表す。
+
+一方 `InferenceRule` は、
+
+```text
+zero relation implies order bound
+```
+
+など、
+具体的な数学的推論規則を表す。
+
+そのため relation inference step は、
+
+```text
+ProofRule.RELATION
+```
+
+を維持したまま、
+
+```text
+InferenceRule
+```
+
+も保持する。
+
+---
+
+### relation inference API の拡張
+
+以下に、
+
+```text
+inference_rule
+```
+
+引数を追加した。
+
+```text
+relation_inference_proof_step()
+relation_inference_proof()
+```
+
+これにより、
+
+```python
+relation_inference_proof(
+  relation,
+  conclusion,
+  inference_rule=rule,
+)
+```
+
+として推論規則を明示できる。
+
+従来形式も維持しているため、
+
+```python
+relation_inference_proof(
+  relation,
+  conclusion,
+)
+```
+
+も引き続き利用できる。
+
+---
+
+### inference_rule の型検証
+
+追加:
+
+```text
+_validate_inference_rule()
+```
+
+`inference_rule` は、
+
+```text
+InferenceRule
+```
+
+または、
+
+```text
+None
+```
+
+のみを受け付ける。
+
+文字列などの不正な値を渡した場合は、
+
+```text
+TypeError
+```
+
+とする。
+
+---
+
+### formatter の拡張
+
+追加:
+
+```text
+format_inference_rule()
+```
+
+ProofStep が InferenceRule を持つ場合、
+
+```text
+Inference rule: ...
+```
+
+を表示するようにした。
+
+確認例:
+
+```text
+1. 2η_3 = 0
+   [relation]
+   Source: Toda — H. Toda, Composition Methods in Homotopy Groups of Spheres, 1962
+   Relation note: example zero relation
+
+2. η_3 has order dividing 2
+   [relation]
+   Inference rule: zero relation implies order bound
+   Premises: 1
+   Note: derived from the zero relation
+
+Conclusion:
+
+η_3 has order dividing 2
+```
+
+これにより、
+
+```text
+relation の内容
+relation の出典
+relation の補足
+使用した inference rule
+premises
+inference step の補足
+```
+
+を同じ Proof trace 上で区別して確認できる。
+
+---
+
+### 後方互換性
+
+InferenceRule は optional としたため、
+既存の ProofStep や relation inference は
+変更せず利用できる。
+
+InferenceRule を指定しない場合、
+
+```text
+step.inference_rule is None
+```
+
+となる。
+
+既存の algebra / EHP proof にも
+InferenceRule の指定を強制していない。
+
+---
+
+### 実装整理
+
+Phase 5-14 実装時に、
+`proof.py` 内で重複していた、
+
+```text
+_normalize_proof_steps()
+_normalize_relations()
+```
+
+の定義を1つずつに整理した。
+
+動作上は後側の定義が使用されていたため
+テスト結果への影響はなかったが、
+同一 helper の重複定義を削除して
+実装を整理した。
+
+---
+
+### テスト
+
+追加した主なテスト:
+
+```text
+test_inference_rule
+test_relation_inference_proof_step_with_inference_rule
+test_relation_inference_proof_with_inference_rule
+test_relation_inference_without_inference_rule_is_backward_compatible
+test_relation_inference_rejects_invalid_inference_rule
+test_multiple_relation_inference_with_inference_rule
+test_format_inference_rule
+test_format_proof_step_inference_rule
+test_format_relation_inference_with_rule
+```
+
+2026-08-24:
+
+```text
+224 passed in 21.47s
+```
+
+既存の algebra / EHP / expression / proof / formatter /
+repository を含め、
+すべてのテストが成功した。
+
+InferenceRule 導入による regression は確認されなかった。
+
+---
+
+### Phase 5-14 の到達点
+
+Phase 5-14 により、
+
+```text
+premises
+↓
+InferenceRule
+↓
+conclusion
+```
+
+という推論規則そのものを
+ProofStep に明示できるようになった。
+
+Phase 5-13 では、
+
+```text
+何を premise として使ったか
+```
+
+まで追跡できる状態だった。
+
+Phase 5-14 ではさらに、
+
+```text
+どの規則で導いたか
+```
+
+まで追跡できるようになった。
+
+ただし現段階の InferenceRule は、
+推論規則の metadata を保持するだけであり、
+
+```text
+premise pattern
+pattern matching
+applicability 判定
+conclusion 自動生成
+rule 自動適用
+```
+
+はまだ行わない。
+
+これらは後続フェーズの課題とする。
+
+### 状態
+
+Phase 5-14 完了。
+
+
+## Phase 5-15：InferenceRule に premise pattern を持たせるための最小基盤
+
+Phase 5-14 では、
+具体的な数学的推論規則を表す
+
+```text
+InferenceRule
+```
+
+を導入し、
+
+```text
+premises
+↓
+InferenceRule
+↓
+conclusion
+```
+
+という構造を ProofStep に保持できるようになった。
+
+Phase 5-15 ではさらに、
+
+```text
+その InferenceRule が
+どのような premise を必要とするか
+```
+
+を構造化して保持するための
+最小基盤を導入した。
+
+---
+
+### PremisePattern
+
+追加:
+
+```text
+PremisePattern
+```
+
+保持する情報:
+
+```text
+proof_rule
+statement_type
+relation_type
+```
+
+定義:
+
+```python
+@dataclass(frozen=True)
+class PremisePattern:
+  proof_rule: ProofRule | None = None
+  statement_type: type | None = None
+  relation_type: RelationType | None = None
+```
+
+各項目は optional とし、
+必要な条件だけを指定できる。
+
+例えば、
+
+```python
+PremisePattern(
+  proof_rule=ProofRule.RELATION,
+  statement_type=Relation,
+  relation_type=RelationType.ZERO,
+)
+```
+
+によって、
+
+```text
+ProofRule.RELATION
++
+conclusion が Relation
++
+RelationType.ZERO
+```
+
+という premise の要求を表現できる。
+
+---
+
+### InferenceRule の拡張
+
+`InferenceRule` に、
+
+```text
+premise_patterns
+```
+
+を追加した。
+
+現在の構造:
+
+```python
+@dataclass(frozen=True)
+class InferenceRule:
+  name: str
+  description: str | None = None
+  premise_patterns: tuple[PremisePattern, ...] = ()
+```
+
+既存の InferenceRule との
+後方互換性を維持するため、
+
+```text
+premise_patterns = ()
+```
+
+をデフォルトとした。
+
+そのため従来の、
+
+```python
+InferenceRule(
+  name="example rule",
+)
+```
+
+も変更せず利用できる。
+
+---
+
+### ZERO relation を要求する rule
+
+例えば、
+
+```python
+InferenceRule(
+  name=(
+    "zero relation implies "
+    "order bound"
+  ),
+  description=(
+    "If m alpha = 0, "
+    "the order of alpha divides m."
+  ),
+  premise_patterns=(
+    PremisePattern(
+      proof_rule=ProofRule.RELATION,
+      statement_type=Relation,
+      relation_type=RelationType.ZERO,
+    ),
+  ),
+)
+```
+
+のように、
+
+```text
+ZERO relation を premise とする推論規則
+```
+
+を構造として記述できるようになった。
+
+Phase 5-14 では、
+
+```text
+zero relation implies order bound
+```
+
+という rule 名と説明だけを保持していたが、
+
+Phase 5-15 では、
+
+```text
+その rule が ZERO relation を要求する
+```
+
+こともデータとして保持できる。
+
+---
+
+### 複数 premise pattern
+
+`premise_patterns` は tuple としたため、
+複数の premise を要求する rule も表現できる。
+
+例えば、
+
+```text
+ZERO relation
++
+GIVEN ProofStep
+```
+
+を要求する rule を、
+
+```python
+InferenceRule(
+  name="combined rule",
+  premise_patterns=(
+    PremisePattern(
+      proof_rule=ProofRule.RELATION,
+      statement_type=Relation,
+      relation_type=RelationType.ZERO,
+    ),
+    PremisePattern(
+      proof_rule=ProofRule.GIVEN,
+    ),
+  ),
+)
+```
+
+として保持できる。
+
+現段階では、
+実際の premises と pattern の対応付けや
+matching は行わない。
+
+---
+
+### PremisePattern の構造的 equality
+
+`PremisePattern` は frozen dataclass とした。
+
+そのため、
+
+```python
+PremisePattern(
+  proof_rule=ProofRule.RELATION,
+  statement_type=Relation,
+  relation_type=RelationType.ZERO,
+)
+```
+
+同士は構造的 equality によって比較できる。
+
+これは後続フェーズで、
+
+```text
+pattern の比較
+rule definition のテスト
+matching の検証
+```
+
+を行うための基礎となる。
+
+---
+
+### 既存 inference API への影響
+
+Phase 5-15 では、
+
+```text
+relation_inference_proof_step()
+relation_inference_proof()
+```
+
+の挙動は変更していない。
+
+InferenceRule が `premise_patterns` を持っていても、
+
+```text
+実際に与えられた premises が
+その pattern に一致しているか
+```
+
+はまだ検証しない。
+
+したがって今回の変更は、
+
+```text
+InferenceRule の specification を拡張
+```
+
+するものであり、
+
+```text
+InferenceRule の自動適用
+```
+
+を導入するものではない。
+
+---
+
+### Expression pattern は未導入
+
+Phase 5-15 では、
+
+```text
+ProofRule
+statement type
+RelationType
+```
+
+までを pattern 条件として扱う。
+
+例えば、
+
+```text
+mα = 0
+```
+
+について、
+
+```text
+lhs が Multiple
+rhs が Zero
+coefficient を m として束縛
+expression を α として束縛
+```
+
+といった Expression 内部の pattern matching は
+まだ導入していない。
+
+また、
+
+```text
+pattern variable
+unification
+substitution
+```
+
+もまだ行わない。
+
+---
+
+### 実装整理
+
+Phase 5-14 時点で整理した
+`proof.py` の既存 helper 構造を維持したまま、
+
+```text
+PremisePattern
+```
+
+と、
+
+```text
+InferenceRule.premise_patterns
+```
+
+のみを追加した。
+
+既存の、
+
+```text
+Relation
+ProofStep
+Proof
+InferenceRule
+relation inference
+EHP proof
+formatter
+```
+
+の API には breaking change を導入していない。
+
+---
+
+### テスト
+
+新規追加:
+
+```text
+tests/test_inference_rule_pattern.py
+```
+
+追加したテスト:
+
+```text
+test_premise_pattern_defaults
+test_premise_pattern_relation
+test_inference_rule_without_premise_patterns
+test_inference_rule_with_premise_pattern
+test_inference_rule_multiple_premise_patterns
+test_premise_pattern_is_structurally_equal
+```
+
+確認内容:
+
+```text
+PremisePattern のデフォルト値
+proof_rule の保持
+statement_type の保持
+relation_type の保持
+InferenceRule の後方互換性
+単一 premise pattern
+複数 premise pattern
+PremisePattern の構造的 equality
+```
+
+2026-08-24:
+
+```text
+230 passed in 20.65s
+```
+
+既存の algebra / EHP / expression / proof / formatter /
+repository を含め、
+すべてのテストが成功した。
+
+PremisePattern 導入による regression は確認されなかった。
+
+---
+
+### Phase 5-15 の到達点
+
+Phase 5-14 では、
+
+```text
+どの数学的 inference rule を使ったか
+```
+
+を ProofStep に記録できるようになった。
+
+Phase 5-15 ではさらに、
+
+```text
+その inference rule が
+どの種類の premise を必要とするか
+```
+
+を構造化して保持できるようになった。
+
+現在、
+
+```text
+InferenceRule
+├── name
+├── description
+└── premise_patterns
+      ├── proof_rule
+      ├── statement_type
+      └── relation_type
+```
+
+という rule specification を表現できる。
+
+ただし現段階では、
+
+```text
+PremisePattern
++
+ProofStep
+↓
+match / no match
+```
+
+という判定はまだ行わない。
+
+また、
+
+```text
+Expression pattern
+pattern variable
+変数束縛
+InferenceRule applicability
+conclusion 自動生成
+relation 自動選択
+rule 自動適用
+```
+
+もまだ実装していない。
+
+これらは後続フェーズで段階的に追加する。
+
+### 状態
+
+Phase 5-15 完了。
+
+次は Phase 5-16 として、
+
+```text
+PremisePattern と ProofStep の match 判定
+```
+
+を導入し、
+
+```text
+rule が要求する premise
+```
+
+と、
+
+```text
+実際の ProofStep
+```
+
+を機械的に比較できる最小基盤へ進む。
+
+
+## Phase 5-16：PremisePattern と ProofStep の match 判定
+
+Phase 5-15 では、
+
+```text
+InferenceRule
+└── premise_patterns
+      ├── proof_rule
+      ├── statement_type
+      └── relation_type
+```
+
+という構造を導入し、
+
+```text
+InferenceRule が
+どのような premise を要求するか
+```
+
+を記述できるようにした。
+
+ただし Phase 5-15 時点では、
+PremisePattern は specification を保持するだけであり、
+
+```text
+実際の ProofStep が
+その pattern に一致するか
+```
+
+を判定する機能はまだ存在しなかった。
+
+Phase 5-16 では、
+1つの PremisePattern と
+1つの ProofStep を比較する
+最小 matching 基盤を追加した。
+
+---
+
+### matches_premise_pattern()
+
+追加:
+
+```text
+matches_premise_pattern()
+```
+
+基本形:
+
+```python
+matches_premise_pattern(
+  pattern,
+  step,
+)
+```
+
+`PremisePattern` と `ProofStep` を受け取り、
+
+```text
+True
+False
+```
+
+を返す。
+
+Phase 5-16 では、
+
+```text
+proof_rule
+statement_type
+relation_type
+```
+
+の3条件を判定対象とする。
+
+---
+
+### 空 pattern の matching
+
+条件を何も指定しない、
+
+```python
+PremisePattern()
+```
+
+は、
+任意の ProofStep に一致するようにした。
+
+つまり、
+
+```text
+None
+```
+
+になっている pattern field は、
+
+```text
+その項目について条件を設けない
+```
+
+という wildcard として扱う。
+
+例えば、
+
+```python
+pattern = PremisePattern()
+
+step = ProofStep(
+  conclusion="given fact",
+  premises=(),
+  rule=ProofRule.GIVEN,
+)
+```
+
+に対して、
+
+```python
+matches_premise_pattern(
+  pattern,
+  step,
+)
+```
+
+は `True` となる。
+
+---
+
+### proof_rule の matching
+
+pattern に、
+
+```text
+proof_rule
+```
+
+が指定されている場合、
+
+```text
+step.rule
+```
+
+と一致することを要求する。
+
+例えば、
+
+```python
+PremisePattern(
+  proof_rule=ProofRule.GIVEN,
+)
+```
+
+は `ProofRule.GIVEN` の step に一致する。
+
+一方、
+
+```python
+PremisePattern(
+  proof_rule=ProofRule.RELATION,
+)
+```
+
+に対して `ProofRule.GIVEN` の step を渡した場合は、
+
+```text
+False
+```
+
+となる。
+
+---
+
+### statement_type の matching
+
+pattern に、
+
+```text
+statement_type
+```
+
+が指定されている場合、
+
+```text
+step.conclusion
+```
+
+がその型であることを `isinstance()` で確認する。
+
+例えば、
+
+```python
+PremisePattern(
+  statement_type=Relation,
+)
+```
+
+は conclusion が Relation である ProofStep に一致する。
+
+conclusion が文字列など別の型である場合は、
+
+```text
+False
+```
+
+となる。
+
+---
+
+### relation_type の matching
+
+pattern に、
+
+```text
+relation_type
+```
+
+が指定されている場合、
+
+まず、
+
+```text
+step.conclusion
+```
+
+が Relation であることを確認する。
+
+Relation でなければ、
+
+```text
+False
+```
+
+とする。
+
+Relation である場合は、
+
+```text
+step.conclusion.relation_type
+```
+
+と、
+
+```text
+pattern.relation_type
+```
+
+を比較する。
+
+例えば、
+
+```python
+PremisePattern(
+  relation_type=RelationType.ZERO,
+)
+```
+
+は、
+
+```text
+RelationType.ZERO
+```
+
+の Relation を conclusion とする step に一致する。
+
+`RelationType.EQUALITY` などであれば一致しない。
+
+---
+
+### 複数条件の matching
+
+複数条件を指定した場合は、
+すべての条件を満たすことを要求する。
+
+例えば、
+
+```python
+PremisePattern(
+  proof_rule=ProofRule.RELATION,
+  statement_type=Relation,
+  relation_type=RelationType.ZERO,
+)
+```
+
+は、
+
+```text
+ProofRule.RELATION
++
+conclusion が Relation
++
+RelationType.ZERO
+```
+
+をすべて満たす ProofStep にのみ一致する。
+
+一部だけ一致する場合は、
+
+```text
+False
+```
+
+となる。
+
+これにより PremisePattern の各 field を、
+AND 条件として機械的に解釈できるようになった。
+
+---
+
+### 不正な入力型の検証
+
+`matches_premise_pattern()` に
+不正な型を渡した場合は、
+match failure ではなく `TypeError` とする。
+
+例えば、
+
+```python
+matches_premise_pattern(
+  "invalid",
+  step,
+)
+```
+
+は、
+
+```text
+TypeError
+```
+
+となる。
+
+同様に、
+
+```python
+matches_premise_pattern(
+  pattern,
+  "invalid",
+)
+```
+
+も `TypeError` とする。
+
+これにより、
+
+```text
+正しい pattern / step を比較して一致しなかった
+```
+
+場合の `False` と、
+
+```text
+API の入力自体が不正
+```
+
+な場合を区別できるようにした。
+
+---
+
+### InferenceRule との接続範囲
+
+Phase 5-16 では、
+
+```text
+InferenceRule.premise_patterns
+```
+
+全体の applicability 判定までは追加していない。
+
+今回追加したのは、
+
+```text
+1つの PremisePattern
++
+1つの ProofStep
+↓
+match / no match
+```
+
+という最小 primitive のみである。
+
+したがって、
+
+```text
+複数 premise pattern
++
+複数 ProofStep
+```
+
+について、
+
+```text
+どの step をどの pattern に対応させるか
+```
+
+はまだ自動判定しない。
+
+この部分は次の段階で扱う。
+
+---
+
+### Expression matching は未導入
+
+Phase 5-16 の matching は、
+
+```text
+ProofRule
+statement type
+RelationType
+```
+
+までに限定した。
+
+例えば、
+
+```text
+2η_3 = 0
+```
+
+と、
+
+```text
+3ν_4 = 0
+```
+
+がともに、
+
+```text
+ProofRule.RELATION
+Relation
+RelationType.ZERO
+```
+
+であれば、
+同じ PremisePattern に一致する。
+
+まだ、
+
+```text
+Multiple
+Zero
+coefficient
+HomotopyElement
+```
+
+など Expression 内部の構造は判定しない。
+
+また、
+
+```text
+pattern variable
+variable binding
+unification
+substitution
+```
+
+も導入していない。
+
+---
+
+### テスト
+
+`tests/test_inference_rule_pattern.py` に
+matching 関係のテストを追加した。
+
+新規追加した主なテスト:
+
+```text
+test_empty_premise_pattern_matches_any_step
+test_premise_pattern_matches_proof_rule
+test_premise_pattern_rejects_wrong_proof_rule
+test_premise_pattern_matches_statement_type
+test_premise_pattern_rejects_wrong_statement_type
+test_premise_pattern_matches_relation_type
+test_premise_pattern_rejects_wrong_relation_type
+test_relation_type_requires_relation_conclusion
+test_premise_pattern_matches_all_conditions
+test_premise_pattern_requires_all_conditions
+test_matches_premise_pattern_rejects_invalid_pattern
+test_matches_premise_pattern_rejects_invalid_step
+```
+
+確認内容:
+
+```text
+空 pattern が任意 step に一致すること
+proof_rule の一致
+proof_rule の不一致
+statement_type の一致
+statement_type の不一致
+relation_type の一致
+relation_type の不一致
+relation_type 指定時に Relation conclusion を要求すること
+複数条件の完全一致
+複数条件の一部不一致
+不正 pattern の拒否
+不正 ProofStep の拒否
+```
+
+Phase 5-15 までの PremisePattern 関係テストを含む
+`test_inference_rule_pattern.py` 全体について、
+
+```text
+18 passed
+```
+
+を確認した。
+
+Phase 5-15 完了時の全テスト数は、
+
+```text
+230 passed
+```
+
+であり、
+Phase 5-16 では12テストを追加している。
+
+プロジェクト全体の最新テスト結果は、
+全テストスイート実行時に改めて記録する。
+
+---
+
+### Phase 5-16 の到達点
+
+Phase 5-15 では、
+
+```text
+InferenceRule が
+どの種類の premise を要求するか
+```
+
+を specification として記述できるようになった。
+
+Phase 5-16 ではさらに、
+
+```text
+PremisePattern
++
+ProofStep
+↓
+matches_premise_pattern()
+↓
+True / False
+```
+
+という最小 matching 基盤ができた。
+
+これにより、
+
+```text
+rule requirement
+```
+
+と、
+
+```text
+実際の proof step
+```
+
+を機械的に比較する最初の機能が導入された。
+
+現在の matching は、
+
+```text
+proof_rule
+statement_type
+relation_type
+```
+
+という ProofStep レベルの条件だけを扱う。
+
+まだ、
+
+```text
+InferenceRule applicability
+複数 pattern と複数 premise の対応
+Expression pattern
+pattern variable
+変数束縛
+conclusion 自動生成
+relation 自動選択
+premise 自動選択
+rule 自動適用
+```
+
+は行わない。
+
+### 状態
+
+Phase 5-16 完了。
+
+次は、
+
+```text
+InferenceRule.premise_patterns
++
+実際の複数 ProofStep
+↓
+applicable / not applicable
+```
+
+という InferenceRule 全体の applicability 判定を
+導入する段階へ進む。
+
+
+## Phase 5-17：InferenceRule.premise_patterns 全体と複数 ProofStep の適合判定
+
+Phase 5-16 では、
+
+```text
+PremisePattern
++
+ProofStep
+↓
+matches_premise_pattern()
+↓
+True / False
+```
+
+という個別 premise matching を導入した。
+
+Phase 5-17 では、
+この個別 matcher を組み合わせ、
+
+```text
+InferenceRule.premise_patterns
++
+複数 ProofStep
+↓
+rule-level match / no match
+```
+
+を判定できるようにした。
+
+---
+
+### matches_inference_rule()
+
+追加:
+
+```text
+matches_inference_rule()
+```
+
+基本形:
+
+```python
+matches_inference_rule(
+  inference_rule,
+  steps,
+)
+```
+
+`InferenceRule` と、
+単一または複数の ProofStep を受け取り、
+
+```text
+True
+False
+```
+
+を返す。
+
+---
+
+### ProofStep の正規化
+
+`steps` は、
+
+```text
+ProofStep
+tuple of ProofStep
+list of ProofStep
+```
+
+を受け付ける。
+
+既存の、
+
+```text
+_normalize_proof_steps()
+```
+
+を利用して内部では tuple に統一する。
+
+これにより単一 premise の rule について、
+
+```python
+matches_inference_rule(
+  rule,
+  step,
+)
+```
+
+と、
+
+```python
+matches_inference_rule(
+  rule,
+  (step,),
+)
+```
+
+および、
+
+```python
+matches_inference_rule(
+  rule,
+  [step],
+)
+```
+
+を同じ意味で扱える。
+
+---
+
+### pattern と step の順序付き対応
+
+Phase 5-17 では、
+
+```text
+premise_patterns[0] ↔ steps[0]
+premise_patterns[1] ↔ steps[1]
+...
+```
+
+という位置対応を採用した。
+
+例えば、
+
+```text
+pattern 1 = RELATION
+pattern 2 = GIVEN
+```
+
+に対して、
+
+```text
+step 1 = RELATION
+step 2 = GIVEN
+```
+
+なら match する。
+
+一方、
+
+```text
+step 1 = GIVEN
+step 2 = RELATION
+```
+
+のように順序を逆にした場合は match しない。
+
+これにより Phase 5-15 以来未確定だった
+`premise_patterns` の tuple 順序について、
+
+```text
+premise の対応順を表す
+```
+
+という意味を Phase 5-17 で確定した。
+
+---
+
+### premise 数の完全一致
+
+InferenceRule が持つ、
+
+```text
+premise_patterns
+```
+
+の数と、
+実際に渡された ProofStep の数が
+一致することを要求する。
+
+数が異なる場合は、
+
+```text
+False
+```
+
+を返す。
+
+したがって、
+
+```text
+premise 不足
+```
+
+だけでなく、
+
+```text
+余分な premise
+```
+
+も不適合とする。
+
+---
+
+### 個別 matching の再利用
+
+各 pattern と step の適合判定には、
+Phase 5-16 で導入した、
+
+```text
+matches_premise_pattern()
+```
+
+をそのまま利用する。
+
+すべての対応する pattern / step が一致した場合のみ、
+
+```text
+True
+```
+
+となる。
+
+これにより、
+
+```text
+proof_rule
+statement_type
+relation_type
+```
+
+に関する個別 matching logic を
+`matches_inference_rule()` 側へ重複実装していない。
+
+---
+
+### 空 premise rule
+
+```python
+InferenceRule(
+  name="no premise rule",
+)
+```
+
+のように、
+
+```text
+premise_patterns = ()
+```
+
+である rule は、
+
+```text
+steps = ()
+```
+
+に一致する。
+
+一方、
+空 pattern の rule に非空の steps を渡した場合は
+一致しない。
+
+これにより、
+
+```text
+premise_patterns = ()
+```
+
+を、
+
+```text
+premise を必要としない rule
+```
+
+として一貫して扱える。
+
+---
+
+### 不正な入力
+
+第1引数が InferenceRule でない場合は、
+
+```text
+TypeError
+```
+
+とする。
+
+また steps が、
+
+```text
+ProofStep
+tuple/list of ProofStep
+```
+
+でない場合や、
+tuple / list 内に ProofStep 以外が含まれる場合も、
+
+```text
+TypeError
+```
+
+とする。
+
+これにより、
+
+```text
+正しい rule と steps を比較した結果の不一致
+```
+
+と、
+
+```text
+API への不正入力
+```
+
+を区別する。
+
+---
+
+### matching の設計境界
+
+Phase 5-17 では、
+
+```text
+明示的に与えられた ProofStep 列が
+InferenceRule.premise_patterns に一致するか
+```
+
+だけを判定する。
+
+まだ、
+
+```text
+多数の既存 ProofStep の中から
+rule に一致する premise の組を探す
+```
+
+ことは行わない。
+
+また、
+
+```text
+順序なし matching
+複数候補の探索
+Expression-level pattern
+pattern variable
+変数束縛
+conclusion 自動生成
+```
+
+も導入していない。
+
+---
+
+### テスト
+
+`tests/test_inference_rule_pattern.py` に
+Phase 5-17 のテストを追加した。
+
+追加した主なテスト:
+
+```text
+test_inference_rule_matches_single_premise
+test_inference_rule_rejects_single_wrong_premise
+test_inference_rule_matches_multiple_premises
+test_inference_rule_rejects_wrong_multiple_premise
+test_inference_rule_matching_is_ordered
+test_inference_rule_rejects_too_few_steps
+test_inference_rule_rejects_too_many_steps
+test_empty_inference_rule_matches_empty_steps
+test_empty_inference_rule_rejects_nonempty_steps
+test_matches_inference_rule_accepts_single_proof_step
+test_matches_inference_rule_accepts_tuple
+test_matches_inference_rule_accepts_list
+test_matches_inference_rule_rejects_invalid_rule
+test_matches_inference_rule_rejects_invalid_steps
+test_matches_inference_rule_rejects_invalid_step_in_list
+```
+
+確認内容:
+
+```text
+単一 premise の一致
+単一 premise の不一致
+複数 premise の一致
+複数 premise の一部不一致
+順序違いの拒否
+premise 不足の拒否
+余分な premise の拒否
+空 rule と空 steps の一致
+空 rule と非空 steps の不一致
+単一 ProofStep 入力
+tuple 入力
+list 入力
+不正 rule の拒否
+不正 steps の拒否
+list 内の不正 step の拒否
+```
+
+---
+
+### 全テスト
+
+2026-08-24:
+
+```text
+257 passed in 20.88s
+```
+
+既存の、
+
+```text
+algebra
+EHP
+expression
+formatter
+proof
+repository
+```
+
+を含め、
+全257テストが成功した。
+
+Phase 5-17 の rule-level matching 導入による
+regression は確認されなかった。
+
+---
+
+### Phase 5-17 の到達点
+
+Phase 5-16 では、
+
+```text
+1 pattern
++
+1 ProofStep
+↓
+match / no match
+```
+
+までを実装した。
+
+Phase 5-17 ではさらに、
+
+```text
+InferenceRule
+└── premise_patterns
+
+        +
+
+複数 ProofStep
+        ↓
+matches_inference_rule()
+        ↓
+True / False
+```
+
+という rule-level matching が可能になった。
+
+これにより、
+
+```text
+InferenceRule が要求する premise specification
+```
+
+と、
+
+```text
+実際に使用しようとしている ProofStep 群
+```
+
+を機械的に比較できるようになった。
+
+現段階では、
+premise は順序付き・完全一致で比較する。
+
+まだ、
+
+```text
+既存 ProofStep 群からの候補 premise 探索
+順序なし matching
+Expression pattern
+pattern variable
+変数束縛
+conclusion 自動生成
+rule 自動適用
+```
+
+は行わない。
+
+### 状態
+
+Phase 5-17 完了。
+
+次は、
+既存の ProofStep 集合から
+InferenceRule の premise_patterns に適合する
+premise 候補を探索する最小機構を検討する。
+
+
+## Phase 5-18：既存 ProofStep 集合から matching premise を探索
+
+Phase 5-17 では、
+
+```text
+InferenceRule.premise_patterns
++
+明示的に指定した ProofStep 列
+↓
+matches_inference_rule()
+↓
+True / False
+```
+
+という rule-level matching を導入した。
+
+Phase 5-18 では一段階進めて、
+利用可能な ProofStep 集合の中から、
+
+```text
+InferenceRule.premise_patterns
+```
+
+に適合する ProofStep を
+実際に探索する機能を追加した。
+
+---
+
+### find_matching_premises()
+
+追加:
+
+```text
+find_matching_premises()
+```
+
+基本形:
+
+```python
+find_matching_premises(
+  inference_rule,
+  available_steps,
+)
+```
+
+`InferenceRule` と、
+利用可能な ProofStep を受け取り、
+
+```text
+matching ProofStep tuple
+```
+
+または、
+
+```text
+None
+```
+
+を返す。
+
+これにより、
+
+```text
+この premises が rule に合うか
+```
+
+を確認するだけでなく、
+
+```text
+既存の ProofStep の中から
+rule に必要な premises を探す
+```
+
+ことが可能になった。
+
+---
+
+### available_steps の正規化
+
+`available_steps` には、
+
+```text
+ProofStep
+tuple of ProofStep
+list of ProofStep
+```
+
+を指定できる。
+
+既存の、
+
+```text
+_normalize_proof_steps()
+```
+
+を利用して内部では tuple に統一する。
+
+したがって、
+
+```python
+find_matching_premises(
+  rule,
+  step,
+)
+```
+
+と、
+
+```python
+find_matching_premises(
+  rule,
+  (step,),
+)
+```
+
+および、
+
+```python
+find_matching_premises(
+  rule,
+  [step],
+)
+```
+
+を同じ形式で扱える。
+
+---
+
+### available_steps 全体からの探索
+
+Phase 5-17 の `matches_inference_rule()` では、
+
+```text
+premise_patterns[0] ↔ steps[0]
+premise_patterns[1] ↔ steps[1]
+```
+
+という明示的な位置対応を利用していた。
+
+Phase 5-18 の `find_matching_premises()` では、
+各 premise pattern ごとに、
+
+```text
+available_steps
+```
+
+全体から一致する ProofStep を探索する。
+
+例えば、
+
+```text
+available steps:
+1. GIVEN
+2. RELATION
+```
+
+に対して、
+
+```text
+patterns:
+1. RELATION
+2. GIVEN
+```
+
+であれば、
+
+```text
+pattern 1 → available step 2
+pattern 2 → available step 1
+```
+
+として、
+
+```text
+(
+  relation_step,
+  given_step,
+)
+```
+
+を返すことができる。
+
+これにより、
+available_steps 自体を
+rule の premise 順に事前整列して渡す必要がなくなった。
+
+---
+
+### first-match selection
+
+1つの pattern に複数の ProofStep が一致する場合は、
+
+```text
+available_steps 内で
+最初に一致した ProofStep
+```
+
+を採用する。
+
+例えば、
+
+```text
+pattern = GIVEN
+```
+
+に対して、
+
+```text
+first_step  = GIVEN
+second_step = GIVEN
+```
+
+が存在する場合、
+
+```text
+first_step
+```
+
+を返すことを確認した。
+
+Phase 5-18 では、
+すべての候補や候補組合せを列挙せず、
+最初の一致を利用する最小実装とした。
+
+---
+
+### ProofStep の再利用禁止
+
+複数 premise pattern が同じ条件を要求していても、
+1つの ProofStep を複数 pattern に使い回さない。
+
+例えば、
+
+```text
+patterns:
+GIVEN
+GIVEN
+```
+
+に対して、
+利用可能な step が、
+
+```text
+GIVEN step
+```
+
+1つだけの場合は、
+
+```text
+None
+```
+
+を返す。
+
+一方、
+
+```text
+GIVEN step 1
+GIVEN step 2
+```
+
+の2つが存在すれば、
+
+```text
+(
+  step 1,
+  step 2,
+)
+```
+
+を返す。
+
+実装では、
+使用済みの available step index を記録して
+後続 pattern の探索から除外する。
+
+---
+
+### premise 不足
+
+必要な premise pattern の一部しか
+満たせない場合は、
+
+```text
+None
+```
+
+を返す。
+
+例えば、
+
+```text
+patterns:
+RELATION
+GIVEN
+```
+
+に対して、
+
+```text
+RELATION step
+```
+
+だけが存在する場合、
+最初の pattern は一致するが
+2つ目を満たせないため、
+探索全体を失敗とする。
+
+部分的に一致した tuple は返さない。
+
+---
+
+### premise を持たない rule
+
+```text
+premise_patterns = ()
+```
+
+の InferenceRule については、
+
+```text
+()
+```
+
+を返す。
+
+この場合、
+available_steps に ProofStep が存在していても
+それらは使用しない。
+
+これにより、
+
+```text
+()
+= premise を必要としない rule の探索成功
+
+None
+= 必要な premise が見つからなかった
+```
+
+を区別できる。
+
+---
+
+### RelationType を含む pattern search
+
+既存の `matches_premise_pattern()` を利用するため、
+
+```text
+proof_rule
+statement_type
+relation_type
+```
+
+を条件とする検索がそのまま利用できる。
+
+例えば、
+
+```python
+PremisePattern(
+  proof_rule=ProofRule.RELATION,
+  statement_type=Relation,
+  relation_type=RelationType.ZERO,
+)
+```
+
+を持つ rule に対して、
+
+```text
+EQUALITY relation
+ZERO relation
+```
+
+の順で available_steps が存在する場合、
+ZERO relation の ProofStep を正しく選択することを確認した。
+
+---
+
+### matching 処理の再利用
+
+`find_matching_premises()` 内で、
+PremisePattern の条件判定を再実装せず、
+
+```text
+matches_premise_pattern()
+```
+
+を利用する構造とした。
+
+現在の関係は、
+
+```text
+PremisePattern
++
+ProofStep
+↓
+matches_premise_pattern()
+```
+
+を最小単位として、
+
+```text
+InferenceRule
++
+explicit ProofSteps
+↓
+matches_inference_rule()
+```
+
+および、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+```
+
+の両方が構築されている。
+
+---
+
+### greedy search
+
+Phase 5-18 の探索は、
+各 premise pattern について、
+
+```text
+available_steps の先頭から探索
+↓
+最初に一致した未使用 step を採用
+↓
+次の pattern へ進む
+```
+
+という greedy な方式とした。
+
+現段階では、
+
+```text
+最初の選択を後から取り消す
+別の組合せを試す
+すべての candidate assignment を列挙する
+```
+
+といった backtracking は行わない。
+
+一般的な premise assignment は
+後続フェーズで検討する。
+
+---
+
+### 入力検証
+
+以下を確認した。
+
+```text
+不正な inference_rule
+不正な available_steps
+list 内の不正な ProofStep
+```
+
+これらについて、
+既存 API と同様に `TypeError` とする。
+
+---
+
+### 追加テスト
+
+追加した主なテスト:
+
+```text
+test_find_matching_premises_single_step
+test_find_matching_premises_searches_available_steps
+test_find_matching_premises_multiple_patterns
+test_find_matching_premises_returns_first_match
+test_find_matching_premises_does_not_reuse_step
+test_find_matching_premises_uses_distinct_steps
+test_find_matching_premises_returns_none_when_missing
+test_find_matching_premises_partial_failure
+test_find_matching_premises_empty_rule
+test_find_matching_premises_empty_rule_ignores_available_steps
+test_find_matching_premises_matches_relation_type
+test_find_matching_premises_accepts_single_step
+test_find_matching_premises_accepts_list
+test_find_matching_premises_rejects_invalid_rule
+test_find_matching_premises_rejects_invalid_steps
+test_find_matching_premises_rejects_invalid_step_in_list
+```
+
+Phase 5-18 では、
+`find_matching_premises()` に関する
+16個のテストを追加した。
+
+プロジェクト全体の最新テスト件数は、
+全テストスイート実行結果を確認した時点で
+改めて記録する。
+
+---
+
+### Phase 5-18 の到達点
+
+Phase 5-16 では、
+
+```text
+1 PremisePattern
++
+1 ProofStep
+↓
+match / no match
+```
+
+を実装した。
+
+Phase 5-17 では、
+
+```text
+InferenceRule
++
+明示的 ProofStep 列
+↓
+rule-level match / no match
+```
+
+まで進んだ。
+
+Phase 5-18 ではさらに、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+↓
+selected ProofSteps
+```
+
+という premise candidate search が可能になった。
+
+これにより、
+
+```text
+rule requirement の記述
+↓
+個別 matching
+↓
+rule 全体の matching
+↓
+existing ProofSteps からの premise search
+```
+
+という段階的な inference 基盤ができた。
+
+ただし現段階の探索は、
+
+```text
+premise_patterns の順に探索
+available_steps の先頭から first match
+同一 step の再利用なし
+greedy
+```
+
+という最小方式である。
+
+まだ、
+
+```text
+全 candidate の列挙
+backtracking
+複数 assignment
+Expression pattern
+pattern variable
+variable binding
+conclusion 自動生成
+RelationRepository からの自動 relation 選択
+InferenceRule の自動適用
+recursive proof construction
+proof DAG
+```
+
+は行わない。
+
+### 状態
+
+Phase 5-18 完了。
+
+次は、
+探索された premises を利用して、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+matching premises
+↓
+rule applicability
+↓
+inference step
+```
+
+へ接続する最小機構を検討する。
+
+
+## Phase 5-19：InferenceRule の applicability 判定
+
+Phase 5-18 では、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+↓
+matched premises / None
+```
+
+という premise search を追加した。
+
+Phase 5-19 では、
+この機能を利用して、
+
+```text
+現在利用できる ProofStep だけで
+InferenceRule を適用可能か
+```
+
+を直接判定する API を追加した。
+
+---
+
+### is_inference_rule_applicable()
+
+追加:
+
+```text
+is_inference_rule_applicable()
+```
+
+基本形:
+
+```python
+is_inference_rule_applicable(
+  inference_rule,
+  available_steps,
+)
+```
+
+返り値:
+
+```text
+True
+False
+```
+
+実装は、
+
+```python
+find_matching_premises(
+  inference_rule,
+  available_steps,
+) is not None
+```
+
+という形とした。
+
+これにより、
+premise search の matching logic を重複させず、
+
+```text
+matching premise が存在する
+→ applicable
+
+matching premise が存在しない
+→ not applicable
+```
+
+という判定だけを追加した。
+
+---
+
+### premise search への委譲
+
+`is_inference_rule_applicable()` 自体には、
+
+```text
+PremisePattern matching
+available_steps search
+used-step management
+input normalization
+RelationType matching
+```
+
+などを実装していない。
+
+これらは既存の、
+
+```text
+find_matching_premises()
+matches_premise_pattern()
+_normalize_proof_steps()
+```
+
+へ委譲する。
+
+そのため現在は、
+
+```text
+matches_premise_pattern()
+= individual premise matching
+
+matches_inference_rule()
+= explicit premise sequence matching
+
+find_matching_premises()
+= premise search
+
+is_inference_rule_applicable()
+= applicability query
+```
+
+という役割分担になった。
+
+---
+
+### applicable な基本例
+
+```text
+pattern:
+GIVEN
+
+available:
+GIVEN
+```
+
+の場合、
+
+```text
+find_matching_premises()
+→ (given_step,)
+```
+
+となるため、
+
+```text
+is_inference_rule_applicable()
+→ True
+```
+
+となることを確認した。
+
+一方、
+
+```text
+pattern:
+RELATION
+
+available:
+GIVEN
+```
+
+では、
+
+```text
+find_matching_premises()
+→ None
+```
+
+となり、
+
+```text
+is_inference_rule_applicable()
+→ False
+```
+
+となる。
+
+---
+
+### 複数 premise
+
+例えば、
+
+```text
+patterns:
+RELATION
+GIVEN
+```
+
+という rule に対して、
+
+```text
+available:
+GIVEN
+RELATION
+```
+
+という順で ProofStep が存在していても、
+Phase 5-18 の premise search が、
+
+```text
+RELATION → relation_step
+GIVEN    → given_step
+```
+
+と検索するため、
+
+```text
+is_inference_rule_applicable()
+→ True
+```
+
+となる。
+
+したがって applicability は、
+available_steps 自体が
+premise pattern 順に並んでいることを要求しない。
+
+---
+
+### premise 不足
+
+```text
+patterns:
+RELATION
+GIVEN
+```
+
+に対して、
+
+```text
+available:
+RELATION
+```
+
+しか存在しない場合は、
+
+```text
+find_matching_premises()
+→ None
+```
+
+となる。
+
+したがって、
+
+```text
+is_inference_rule_applicable()
+→ False
+```
+
+となることを確認した。
+
+---
+
+### premise を必要としない rule
+
+```text
+premise_patterns = ()
+```
+
+の InferenceRule については、
+
+```text
+find_matching_premises()
+→ ()
+```
+
+となる。
+
+`()` は `None` ではないため、
+
+```text
+is_inference_rule_applicable()
+→ True
+```
+
+となる。
+
+available_steps に無関係な ProofStep が存在していても、
+premise 不要 rule は applicable と判定される。
+
+---
+
+### ProofStep の再利用禁止
+
+Phase 5-18 の仕様をそのまま継承する。
+
+例えば、
+
+```text
+patterns:
+GIVEN
+GIVEN
+```
+
+に対して、
+GIVEN ProofStep が1つしかない場合、
+
+```text
+False
+```
+
+となる。
+
+同じ ProofStep を
+2つの premise pattern に再利用しないためである。
+
+一方、
+異なる GIVEN ProofStep が2つ存在すれば、
+
+```text
+True
+```
+
+となる。
+
+---
+
+### RelationType による applicability
+
+以下のような pattern:
+
+```python
+PremisePattern(
+  proof_rule=ProofRule.RELATION,
+  statement_type=Relation,
+  relation_type=RelationType.ZERO,
+)
+```
+
+について、
+
+```text
+EQUALITY relation
+ZERO relation
+```
+
+が available_steps に存在する場合、
+ZERO relation が検索されるため
+rule が applicable になることを確認した。
+
+一方、
+EQUALITY relation しか存在しなければ、
+not applicable となる。
+
+---
+
+### 入力形式
+
+`available_steps` には引き続き、
+
+```text
+single ProofStep
+tuple of ProofStep
+list of ProofStep
+```
+
+を指定できる。
+
+applicability API 側では
+独自に正規化せず、
+`find_matching_premises()` に処理を委譲した。
+
+---
+
+### 入力検証
+
+以下を確認した。
+
+```text
+不正な InferenceRule
+不正な available_steps
+list 内の不正な ProofStep
+```
+
+これらは、
+`find_matching_premises()` の既存 validation により
+`TypeError` となる。
+
+applicability API に同じ validation logic は追加していない。
+
+---
+
+### 追加テスト
+
+Phase 5-19 では、
+以下の applicability テストを追加した。
+
+```text
+test_inference_rule_is_applicable
+test_inference_rule_is_not_applicable
+test_inference_rule_applicable_with_multiple_patterns
+test_inference_rule_not_applicable_when_premise_missing
+test_empty_inference_rule_is_applicable
+test_empty_inference_rule_is_applicable_with_available_steps
+test_inference_rule_applicability_searches_available_steps
+test_inference_rule_applicability_does_not_reuse_step
+test_inference_rule_applicability_uses_distinct_steps
+test_inference_rule_applicability_matches_relation_type
+test_inference_rule_applicability_rejects_wrong_relation_type
+test_is_inference_rule_applicable_accepts_single_step
+test_is_inference_rule_applicable_accepts_list
+test_is_inference_rule_applicable_rejects_invalid_rule
+test_is_inference_rule_applicable_rejects_invalid_steps
+test_is_inference_rule_applicable_rejects_invalid_step_in_list
+```
+
+---
+
+### テスト
+
+2026-08-24:
+
+```text
+289 passed in 20.72s
+```
+
+既存の、
+
+```text
+algebra
+EHP
+expression
+formatter
+proof
+repository
+premise pattern matching
+inference-rule matching
+premise search
+```
+
+を含め、
+すべてのテストが成功した。
+
+Phase 5-19 の applicability API 導入による
+regression は確認されなかった。
+
+---
+
+### Phase 5-19 の到達点
+
+現在の inference matching pipeline は、
+
+```text
+PremisePattern
++
+ProofStep
+↓
+matches_premise_pattern()
+```
+
+から、
+
+```text
+InferenceRule
++
+explicit ProofSteps
+↓
+matches_inference_rule()
+```
+
+さらに、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+```
+
+へ進み、
+
+Phase 5-19 では、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+is_inference_rule_applicable()
+↓
+True / False
+```
+
+まで到達した。
+
+これにより proof / inference layer は、
+
+```text
+この rule が現在使えるか
+```
+
+を機械的に問い合わせられるようになった。
+
+ただし現段階では、
+
+```text
+applicable な rule を複数 rule から自動検索する
+matched premises と rule をまとめて保持する
+rule を適用して conclusion を生成する
+```
+
+ところまでは進んでいない。
+
+### 状態
+
+Phase 5-19 完了。
+
+次は Phase 5-20 として、
+
+```text
+複数の InferenceRule
++
+available ProofSteps
+↓
+applicable InferenceRule の検索
+```
+
+を行う最小機構を導入する。
+
+
+## Phase 5-20：複数の InferenceRule から applicable rule を検索
+
+Phase 5-19 までに、
+1つの `InferenceRule` と available ProofSteps について、
+
+```text
+必要な premises を検索
+↓
+rule が applicable か判定
+```
+
+できるようになった。
+
+Phase 5-20 では、
+複数の inference rule をまとめて調べ、
+
+```text
+現在の available ProofSteps で
+適用可能な rule の集合
+```
+
+を取得する機能を追加した。
+
+---
+
+### find_applicable_inference_rules()
+
+追加:
+
+```python
+find_applicable_inference_rules(
+  inference_rules,
+  available_steps,
+)
+```
+
+この関数は、
+複数の `InferenceRule` を入力順に調べ、
+
+```python
+is_inference_rule_applicable(
+  inference_rule,
+  available_steps,
+)
+```
+
+が `True` となる rule のみを tuple として返す。
+
+基本的な処理は、
+
+```text
+InferenceRule collection
+↓
+各 rule を入力順に走査
+↓
+is_inference_rule_applicable()
+↓
+applicable な rule のみ残す
+↓
+tuple で返す
+```
+
+とした。
+
+applicability 判定のロジックを新しく実装せず、
+Phase 5-19 までに作成した既存 API を再利用した。
+
+---
+
+### 単一 applicable rule
+
+例えば、
+
+```text
+given rule
+relation rule
+```
+
+という2つの rule があり、
+
+```text
+GIVEN
+```
+
+の ProofStep だけが available の場合、
+
+```python
+find_applicable_inference_rules(...)
+```
+
+は、
+
+```text
+(
+  given_rule,
+)
+```
+
+を返す。
+
+これにより、
+rule collection の中から
+現在利用可能な rule だけを抽出できるようになった。
+
+---
+
+### 複数 applicable rule
+
+複数の rule が同時に applicable な場合も、
+すべて返す。
+
+例えば、
+
+```text
+first given rule
+second given rule
+```
+
+がどちらも、
+
+```text
+GIVEN
+```
+
+を要求する場合、
+
+```text
+available:
+  GIVEN
+```
+
+に対して、
+
+```text
+(
+  first_given_rule,
+  second_given_rule,
+)
+```
+
+が返る。
+
+Phase 5-20 では、
+複数の rule の中から1つを選択する処理は行わない。
+
+---
+
+### rule order の保持
+
+applicable rule の返却順は、
+入力された rule collection の順序を維持する。
+
+例えば、
+
+```text
+input:
+  second_rule
+  first_rule
+```
+
+の順で渡した場合、
+両方 applicable なら結果も、
+
+```text
+(
+  second_rule,
+  first_rule,
+)
+```
+
+となる。
+
+priority や rule 名による並べ替えは行わない。
+
+---
+
+### applicable rule がない場合
+
+どの rule も applicable でない場合は、
+
+```text
+()
+```
+
+を返す。
+
+例えば、
+
+```text
+RELATION を要求する rule
+```
+
+に対して、
+
+```text
+GIVEN
+```
+
+しか available でない場合、
+検索結果は空 tuple になる。
+
+これは正常な検索結果として扱う。
+
+---
+
+### 空 rule collection
+
+```text
+inference_rules = ()
+```
+
+にも対応した。
+
+検索対象となる rule が存在しないため、
+
+```text
+()
+```
+
+を返す。
+
+呼び出し側で空 collection を特別処理する必要はない。
+
+---
+
+### premise-free rule
+
+```text
+premise_patterns = ()
+```
+
+を持つ rule は、
+Phase 5-19 までと同様に
+premise を必要としないため applicable となる。
+
+そのため available steps が空でも、
+premise-free rule は検索結果へ含まれる。
+
+確認例:
+
+```text
+rules:
+  relation rule
+  no premise rule
+
+available:
+  none
+```
+
+結果:
+
+```text
+(
+  no_premise_rule,
+)
+```
+
+---
+
+### 複数 premise pattern
+
+複数 premise pattern を要求する rule についても、
+既存の `is_inference_rule_applicable()` を通じて
+正しく検索できることを確認した。
+
+例えば、
+
+```text
+combined rule:
+  RELATION
+  GIVEN
+
+given rule:
+  GIVEN
+```
+
+に対して、
+
+```text
+available:
+  GIVEN
+  RELATION
+```
+
+が存在すれば、
+
+```text
+(
+  combined_rule,
+  given_rule,
+)
+```
+
+が返る。
+
+available steps の保存順と
+rule の premise pattern 順が一致している必要はない。
+
+---
+
+### relation type を使った rule search
+
+`RelationType` を条件に持つ rule についても確認した。
+
+例えば、
+
+```text
+zero relation rule
+```
+
+が、
+
+```text
+ProofRule.RELATION
+statement_type = Relation
+relation_type = RelationType.ZERO
+```
+
+を要求し、
+
+```text
+equality relation rule
+```
+
+が、
+
+```text
+RelationType.EQUALITY
+```
+
+を要求する場合を考える。
+
+available steps に、
+
+```text
+RelationType.ZERO
+```
+
+の Relation step だけが存在すると、
+
+```text
+zero relation rule
+```
+
+だけが検索結果に含まれる。
+
+これにより collection search でも、
+既存の PremisePattern 条件が維持されることを確認した。
+
+---
+
+### _normalize_inference_rules()
+
+rule collection の入力を正規化するため、
+
+```python
+_normalize_inference_rules()
+```
+
+を追加した。
+
+受け付ける入力:
+
+```text
+InferenceRule
+tuple of InferenceRule
+list of InferenceRule
+```
+
+単一 rule は、
+
+```text
+(rule,)
+```
+
+へ正規化する。
+
+tuple / list 内に `InferenceRule` 以外が含まれる場合は
+`TypeError` とする。
+
+これにより、
+
+```python
+find_applicable_inference_rules(
+  rule,
+  step,
+)
+```
+
+という単一入力と、
+
+```python
+find_applicable_inference_rules(
+  [rule],
+  [step],
+)
+```
+
+という collection 入力を
+同じ API で扱えるようになった。
+
+---
+
+### available steps の正規化
+
+available steps については、
+既存の、
+
+```python
+_normalize_proof_steps()
+```
+
+を再利用した。
+
+そのため、
+
+```text
+ProofStep
+tuple of ProofStep
+list of ProofStep
+```
+
+を受け取れる。
+
+不正な型や、
+collection 内に ProofStep 以外が含まれている場合は
+`TypeError` となる。
+
+rule collection 側と available-step 側で
+同じ形式の入力 validation を持つようになった。
+
+---
+
+### Phase 5-20 で追加したテスト
+
+主な追加テスト:
+
+```text
+test_find_applicable_inference_rules
+test_find_applicable_inference_rules_multiple_matches
+test_find_applicable_inference_rules_preserves_order
+test_find_applicable_inference_rules_returns_empty
+test_find_applicable_inference_rules_empty_rules
+test_find_applicable_inference_rules_includes_empty_rule
+test_find_applicable_inference_rules_multiple_patterns
+test_find_applicable_inference_rules_relation_type
+test_find_applicable_inference_rules_accepts_single_rule
+test_find_applicable_inference_rules_accepts_list
+test_find_applicable_inference_rules_rejects_invalid_rules
+test_find_applicable_inference_rules_rejects_invalid_rule_in_list
+test_find_applicable_inference_rules_rejects_invalid_steps
+test_find_applicable_inference_rules_rejects_invalid_step_in_list
+```
+
+確認した内容:
+
+```text
+単一 applicable rule
+複数 applicable rule
+入力順保持
+該当 rule なし
+空 rule collection
+premise-free rule
+複数 premise pattern
+relation type
+単一 InferenceRule 入力
+list 入力
+不正な rule collection
+不正な rule entry
+不正な available steps
+不正な ProofStep entry
+```
+
+---
+
+### テスト
+
+2026-08-24
+
+```text
+303 passed in 23.01s
+```
+
+既存の、
+
+```text
+algebra
+EHP
+expression
+formatter
+proof
+repository
+PremisePattern
+InferenceRule
+premise matching
+inference-rule matching
+premise search
+applicability
+```
+
+を含む全テストが成功した。
+
+Phase 5-20 の追加による regression は確認されなかった。
+
+---
+
+### Phase 5-20 の到達点
+
+Phase 5-20 により、
+inference rule の検索経路は、
+
+```text
+PremisePattern
++
+ProofStep
+↓
+matches_premise_pattern()
+```
+
+```text
+InferenceRule
++
+explicit ProofSteps
+↓
+matches_inference_rule()
+```
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+```
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+is_inference_rule_applicable()
+```
+
+から、
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_applicable_inference_rules()
+↓
+applicable InferenceRules
+```
+
+まで拡張された。
+
+これにより、
+
+```text
+1つの rule が使えるか
+```
+
+を確認するだけでなく、
+
+```text
+現在登録されている rule 群の中で
+どの rule が使えるか
+```
+
+を検索できるようになった。
+
+これは、
+将来的に proof engine が多数の数学的規則を保持し、
+現在得られている事実から
+次に使用可能な推論規則を発見するための基礎となる。
+
+ただし現段階では、
+
+```text
+applicable rule
+```
+
+だけを返しており、
+
+```text
+rule
++
+その rule に対応する matched premises
+```
+
+をまとめた構造はまだ持たない。
+
+また、
+
+```text
+rule の選択
+rule の適用
+conclusion の自動生成
+```
+
+もまだ行わない。
+
+### 状態
+
+Phase 5-20 完了。
+
+次は、
+
+```text
+applicable InferenceRule
++
+matched ProofSteps
+```
+
+を一体として保持する
+structured match の導入が自然な候補となる。
+
+例えば、
+
+```text
+InferenceMatch
+```
+
+のような型を導入し、
+
+```text
+どの rule が使えるか
+```
+
+だけでなく、
+
+```text
+その rule がどの premises によって使えるのか
+```
+
+まで1つの検索結果として保持できるようにすることを検討する。
+
+
+## Phase 5-21：InferenceMatch と structured premise match
+
+Phase 5-20 では、
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_applicable_inference_rules()
+↓
+applicable InferenceRules
+```
+
+を実装し、
+現在利用可能な inference rule を
+複数の rule から検索できるようにした。
+
+Phase 5-21 では、
+applicable rule だけでなく、
+
+```text
+その rule に対応して
+実際に選択された premises
+```
+
+も同時に保持するため、
+structured match を導入した。
+
+---
+
+### InferenceMatch
+
+追加:
+
+```python
+@dataclass(frozen=True)
+class InferenceMatch:
+  inference_rule: InferenceRule
+  premises: tuple[ProofStep, ...]
+```
+
+`InferenceMatch` は、
+
+```text
+利用可能な InferenceRule
++
+その rule に対応する matched ProofSteps
+```
+
+を1つの object として保持する。
+
+例えば、
+
+```text
+premise patterns:
+  RELATION
+  GIVEN
+```
+
+に対して、
+
+```text
+available:
+  given_step
+  relation_step
+```
+
+が存在する場合、
+
+```text
+InferenceMatch
+├── inference_rule = combined_rule
+└── premises
+    ├── relation_step
+    └── given_step
+```
+
+となる。
+
+---
+
+### find_inference_match()
+
+追加:
+
+```python
+find_inference_match(
+  inference_rule,
+  available_steps,
+)
+```
+
+1つの `InferenceRule` について、
+available ProofSteps から
+matched premises を検索し、
+
+```text
+InferenceMatch
+```
+
+または、
+
+```text
+None
+```
+
+を返す。
+
+内部では既存の、
+
+```python
+find_matching_premises()
+```
+
+をそのまま利用した。
+
+処理は、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+↓
+matched premises
+↓
+InferenceMatch
+```
+
+となる。
+
+必要な premises が見つからない場合は、
+
+```text
+None
+```
+
+を返す。
+
+matching algorithm 自体は追加せず、
+既存の premise search を再利用した。
+
+---
+
+### premise-pattern 順の保持
+
+`InferenceMatch.premises` が、
+available-step 順ではなく
+premise-pattern 順に保持されることを確認した。
+
+例えば、
+
+```text
+available:
+  GIVEN
+  RELATION
+```
+
+でも、
+
+```text
+patterns:
+  RELATION
+  GIVEN
+```
+
+なら、
+
+```text
+premises:
+  relation_step
+  given_step
+```
+
+となる。
+
+これは `find_matching_premises()` の
+既存仕様をそのまま利用している。
+
+---
+
+### premise-free rule
+
+premise を必要としない、
+
+```text
+premise_patterns = ()
+```
+
+の rule についても structured match を確認した。
+
+この場合、
+
+```python
+find_inference_match(
+  rule,
+  (),
+)
+```
+
+は、
+
+```python
+InferenceMatch(
+  inference_rule=rule,
+  premises=(),
+)
+```
+
+を返す。
+
+したがって、
+
+```text
+None
+```
+
+は、
+
+```text
+rule が match しなかった
+```
+
+ことを意味し、
+
+```text
+InferenceMatch(..., ())
+```
+
+は、
+
+```text
+premise-free rule が正常に match した
+```
+
+ことを意味する。
+
+この2つを明確に区別した。
+
+---
+
+### relation type 条件
+
+`RelationType` 条件を持つ premise pattern についても
+`InferenceMatch` に正しい step が格納されることを確認した。
+
+例えば、
+
+```text
+RelationType.EQUALITY
+RelationType.ZERO
+```
+
+の2種類の relation step がある場合に、
+
+```text
+RelationType.ZERO
+```
+
+を要求する rule では、
+zero relation step が選択される。
+
+これにより、
+
+```text
+rule が applicable
+```
+
+という情報だけでなく、
+
+```text
+実際にどの relation が選択されたか
+```
+
+を structured result として保持できるようになった。
+
+---
+
+### find_inference_matches()
+
+複数 rule をまとめて structured match へ変換するため、
+
+```python
+find_inference_matches(
+  inference_rules,
+  available_steps,
+)
+```
+
+を追加した。
+
+処理は、
+
+```text
+InferenceRule collection
+↓
+各 rule について find_inference_match()
+↓
+None を除外
+↓
+tuple of InferenceMatch
+```
+
+となる。
+
+例えば、
+
+```text
+rule A
+rule B
+```
+
+がそれぞれ異なる ProofStep に match する場合、
+
+```text
+(
+  InferenceMatch(rule A, premises A),
+  InferenceMatch(rule B, premises B),
+)
+```
+
+を返す。
+
+---
+
+### 複数 match
+
+複数の inference rule が同時に applicable な場合、
+それぞれの `InferenceMatch` を返すことを確認した。
+
+rule A が GIVEN を要求し、
+rule B が RELATION を要求する場合に、
+
+```text
+available:
+  GIVEN
+  RELATION
+```
+
+があれば、
+
+```text
+InferenceMatch(rule A, GIVEN)
+InferenceMatch(rule B, RELATION)
+```
+
+の両方を取得できる。
+
+---
+
+### rule input order
+
+`find_inference_matches()` が
+rule collection の入力順を維持することを確認した。
+
+例えば、
+
+```text
+input:
+  second_rule
+  first_rule
+```
+
+の両方が match する場合、
+結果も、
+
+```text
+second_rule
+first_rule
+```
+
+の順となる。
+
+Phase 5-21 では
+rule ranking や priority は導入していない。
+
+---
+
+### match がない場合
+
+どの rule にも matched premises が存在しない場合、
+
+```text
+()
+```
+
+を返す。
+
+空の rule collection に対しても、
+
+```text
+()
+```
+
+を返す。
+
+どちらも正常な検索結果として扱う。
+
+---
+
+### single input / list input
+
+既存 API と同様に、
+
+```text
+InferenceRule
+tuple/list of InferenceRule
+```
+
+を利用できることを確認した。
+
+available steps についても、
+
+```text
+ProofStep
+tuple/list of ProofStep
+```
+
+を利用できる。
+
+既存の normalization helper を再利用することで、
+Phase 5-20 までの API との一貫性を維持した。
+
+---
+
+### input validation
+
+以下の異常入力について
+`TypeError` になることを確認した。
+
+```text
+invalid InferenceRule input
+invalid rule entry in collection
+invalid available-steps input
+invalid ProofStep entry in collection
+```
+
+`find_inference_match()` は
+`find_matching_premises()` の validation を利用する。
+
+`find_inference_matches()` は、
+
+```text
+_normalize_inference_rules()
+_normalize_proof_steps()
+```
+
+を利用する。
+
+---
+
+### Phase 5-21 で追加した主なテスト
+
+追加した主なテスト:
+
+```text
+test_inference_match
+test_find_inference_match
+test_find_inference_match_returns_none
+test_find_inference_match_preserves_pattern_order
+test_find_inference_match_empty_rule
+test_find_inference_match_empty_rule_with_steps
+test_find_inference_match_relation_type
+test_find_inference_match_accepts_single_step
+test_find_inference_match_accepts_list
+test_find_inference_match_rejects_invalid_rule
+test_find_inference_match_rejects_invalid_steps
+test_find_inference_match_rejects_invalid_step_in_list
+
+test_find_inference_matches
+test_find_inference_matches_multiple
+test_find_inference_matches_preserves_rule_order
+test_find_inference_matches_returns_empty
+test_find_inference_matches_empty_rules
+test_find_inference_matches_includes_empty_rule
+test_find_inference_matches_multiple_patterns
+test_find_inference_matches_relation_type
+test_find_inference_matches_accepts_single_rule
+test_find_inference_matches_accepts_list
+test_find_inference_matches_rejects_invalid_rules
+test_find_inference_matches_rejects_invalid_rule_in_list
+test_find_inference_matches_rejects_invalid_steps
+test_find_inference_matches_rejects_invalid_step_in_list
+```
+
+確認した内容:
+
+```text
+InferenceMatch の構造
+single rule match
+non-applicable rule
+premise-pattern order
+premise-free rule
+relation type
+single ProofStep input
+list input
+multiple rule matches
+rule input order
+empty result
+empty rule collection
+multiple premise patterns
+input normalization
+invalid inputs
+```
+
+---
+
+### テスト
+
+2026-08-24
+
+```text
+329 passed in 21.71s
+```
+
+Phase 5-20 終了時は、
+
+```text
+303 passed
+```
+
+だったため、
+Phase 5-21 で26テストが追加された。
+
+既存の、
+
+```text
+algebra
+EHP
+expression
+formatter
+proof
+repository
+PremisePattern
+InferenceRule
+explicit premise matching
+premise search
+applicability
+applicable-rule search
+```
+
+を含む全テストが成功した。
+
+Phase 5-21 の変更による regression は確認されなかった。
+
+---
+
+### Phase 5-21 の到達点
+
+Phase 5-21 により、
+inference-rule search は、
+
+```text
+どの rule が applicable か
+```
+
+を返す段階から、
+
+```text
+どの rule が applicable で、
+その rule がどの premises を使うか
+```
+
+を structured data として返す段階へ進んだ。
+
+現在の pipeline は、
+
+```text
+PremisePattern
++
+ProofStep
+↓
+matches_premise_pattern()
+```
+
+```text
+InferenceRule
++
+explicit ProofSteps
+↓
+matches_inference_rule()
+```
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+```
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+is_inference_rule_applicable()
+```
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_applicable_inference_rules()
+```
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_inference_match()
+↓
+InferenceMatch / None
+```
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_inference_matches()
+↓
+tuple of InferenceMatch
+```
+
+となった。
+
+これにより、
+automatic proof inference に必要となる、
+
+```text
+rule discovery
++
+premise selection
+```
+
+までを1つの structured result として
+扱える基盤ができた。
+
+---
+
+### 現在の制限
+
+`InferenceMatch` は、
+rule と premises を保持するだけであり、
+
+```text
+conclusion
+```
+
+はまだ持たない。
+
+また、
+
+```text
+InferenceMatch
+↓
+ProofStep
+```
+
+への自動変換はまだ行わない。
+
+現在の `PremisePattern` も、
+
+```text
+proof_rule
+statement_type
+relation_type
+```
+
+の構造的条件だけを扱い、
+
+```text
+mα = 0
+```
+
+などの expression 内部の pattern は認識しない。
+
+したがって現在はまだ、
+
+```text
+variable binding
+substitution
+conclusion construction
+automatic rule application
+```
+
+は行えない。
+
+また premise search は引き続き greedy であり、
+alternative assignment の backtracking は行わない。
+
+---
+
+### 状態
+
+Phase 5-21 完了。
+
+次の自然な段階は、
+
+```text
+InferenceMatch
+↓
+inference application
+↓
+ProofStep
+```
+
+への接続を設計することである。
+
+ただし actual rule application に進む前に、
+
+```text
+InferenceRule が conclusion を
+どのように記述するか
+```
+
+を決める必要がある。
+
+今後、
+
+```text
+conclusion template
+conclusion builder
+expression pattern
+pattern variable
+binding
+substitution
+```
+
+などをどの順で導入するかを整理する。
+
+
+## Phase 5-22：InferenceMatch の適用と conclusion builder
+
+Phase 5-21 までに、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_inference_match()
+↓
+InferenceMatch
+```
+
+および、
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_inference_matches()
+↓
+InferenceMatch collection
+```
+
+という structured match search を実装した。
+
+これにより、
+
+```text
+どの rule が使えるか
+```
+
+だけでなく、
+
+```text
+どの concrete ProofStep を premises として
+その rule が使えるか
+```
+
+まで保持できるようになった。
+
+Phase 5-22 では、
+この `InferenceMatch` を実際に適用し、
+
+```text
+InferenceMatch
+↓
+new ProofStep
+```
+
+へ変換する最小 rule-application 機構を追加した。
+
+---
+
+### InferenceRule.conclusion_builder
+
+`InferenceRule` に、
+
+```text
+conclusion_builder
+```
+
+を追加した。
+
+現在の構造は、
+
+```python
+@dataclass(frozen=True)
+class InferenceRule:
+  name: str
+  description: str | None = None
+  premise_patterns: tuple[PremisePattern, ...] = ()
+  conclusion_builder: Any = None
+```
+
+となる。
+
+`conclusion_builder` は optional とし、
+default は、
+
+```text
+None
+```
+
+とした。
+
+これにより既存の InferenceRule は変更せず利用できる。
+
+---
+
+### matching と application の分離
+
+Phase 5-22 では、
+
+```text
+rule matching
+```
+
+と、
+
+```text
+rule application
+```
+
+を明確に分離した。
+
+以下の既存 API は、
+conclusion builder を持たない rule に対しても
+従来通り利用できる。
+
+```text
+matches_inference_rule()
+find_matching_premises()
+is_inference_rule_applicable()
+find_applicable_inference_rules()
+find_inference_match()
+find_inference_matches()
+```
+
+つまり、
+
+```text
+この rule が適用可能か
+```
+
+を調べる段階では、
+conclusion construction は要求しない。
+
+実際に rule を適用するときだけ
+conclusion builder を要求する。
+
+---
+
+### apply_inference_match()
+
+追加:
+
+```python
+apply_inference_match(
+  inference_match,
+)
+```
+
+この関数は、
+
+```text
+InferenceMatch
+↓
+matched InferenceRule
+↓
+conclusion_builder
+↓
+matched premises
+↓
+new conclusion
+↓
+ProofStep
+```
+
+という処理を行う。
+
+生成される ProofStep は、
+
+```text
+conclusion
+= builder の返り値
+
+premises
+= InferenceMatch.premises
+
+rule
+= ProofRule.INFERENCE
+
+inference_rule
+= InferenceMatch.inference_rule
+```
+
+を持つ。
+
+これにより、
+生成された step から、
+
+```text
+どの premises を使用したか
+どの InferenceRule を使用したか
+```
+
+の両方を追跡できる。
+
+---
+
+### conclusion_builder への premises の受け渡し
+
+conclusion builder には、
+
+```text
+InferenceMatch.premises
+```
+
+を tuple のまま渡す。
+
+例えば、
+
+```python
+def builder(premises):
+  return (
+    premises[0].conclusion,
+    premises[1].conclusion,
+  )
+```
+
+のように、
+具体的な matched ProofStep を利用して
+conclusion を構築できる。
+
+builder に渡される premises の順序は、
+InferenceMatch が保持する順序である。
+
+Phase 5-21 までに、
+InferenceMatch.premises は
+`premise_patterns` の順序を保持することを確認している。
+
+したがって、
+
+```text
+premise pattern order
+↓
+InferenceMatch.premises
+↓
+conclusion_builder
+↓
+derived ProofStep.premises
+```
+
+で順序が維持される。
+
+---
+
+### multiple premises
+
+複数 premise を必要とする rule についても、
+structured match からそのまま application できることを確認した。
+
+例えば、
+
+```text
+PremisePattern(
+  proof_rule=ProofRule.RELATION,
+)
+
+PremisePattern(
+  proof_rule=ProofRule.GIVEN,
+)
+```
+
+を要求する rule に対し、
+available steps が、
+
+```text
+given_step
+relation_step
+```
+
+の順であっても、
+
+```text
+InferenceMatch.premises
+=
+(
+  relation_step,
+  given_step,
+)
+```
+
+となる。
+
+builder はこの順序で premises を受け取り、
+derived ProofStep も同じ premises を保持する。
+
+---
+
+### premise-free rule
+
+premise pattern を持たない rule も
+apply できることを確認した。
+
+この場合、
+
+```text
+InferenceMatch.premises
+=
+()
+```
+
+となり、
+builder には空 tuple が渡される。
+
+builder が conclusion を返せば、
+
+```text
+ProofRule.INFERENCE
+```
+
+を持つ新しい ProofStep を生成する。
+
+これにより、
+premise-free rule についても、
+
+```text
+match
+↓
+application
+```
+
+を同じ API で扱える。
+
+---
+
+### builder result の型を制限しない
+
+Phase 5-22 では、
+conclusion builder の返り値を
+特定の Statement 型には限定していない。
+
+例えば、
+
+```text
+文字列
+Relation
+tuple
+その他の structured statement
+```
+
+を conclusion として返すことができる。
+
+これは現在の `ProofStep.conclusion` が
+汎用値を保持できる設計と整合する。
+
+Phase 5-22 の目的は、
+
+```text
+symbolic conclusion language を確定すること
+```
+
+ではなく、
+
+```text
+InferenceMatch
+↓
+conclusion construction
+↓
+ProofStep
+```
+
+という application boundary を確立することである。
+
+---
+
+### invalid application の validation
+
+`apply_inference_match()` に対し、
+InferenceMatch 以外を渡した場合は、
+
+```text
+TypeError
+```
+
+とする。
+
+また、
+InferenceRule に、
+
+```text
+conclusion_builder = None
+```
+
+しかない場合に application を行うと、
+
+```text
+ValueError
+```
+
+とする。
+
+これは、
+
+```text
+matching は可能
+application specification はない
+```
+
+という状態である。
+
+さらに、
+
+```text
+conclusion_builder
+```
+
+が `None` ではないが callable でない場合は、
+
+```text
+TypeError
+```
+
+とする。
+
+これにより、
+
+```text
+invalid match
+missing builder
+invalid builder
+```
+
+を区別した。
+
+---
+
+### matching-only rule の後方互換性
+
+conclusion builder を持たない InferenceRule について、
+
+```text
+find_inference_match()
+find_inference_matches()
+```
+
+が引き続き正常に動作することを確認した。
+
+したがって Phase 5-22 の追加によって、
+
+```text
+InferenceRule = rule specification
+```
+
+という既存用途は変更されない。
+
+builder は、
+
+```text
+rule application capability
+```
+
+を必要に応じて追加する optional field として扱われる。
+
+---
+
+### searched InferenceMatch の直接適用
+
+Phase 5-22 では、
+
+```text
+find_inference_match()
+↓
+InferenceMatch
+↓
+apply_inference_match()
+↓
+ProofStep
+```
+
+という一連の経路も確認した。
+
+例えば、
+
+```text
+given fact
+```
+
+を premise として検索し、
+
+```text
+derived from given fact
+```
+
+という conclusion を builder で構築できることを確認した。
+
+これにより、
+
+```text
+available ProofSteps
+↓
+premise search
+↓
+structured match
+↓
+rule application
+↓
+derived ProofStep
+```
+
+という最小 inference pipeline が実際に接続された。
+
+---
+
+### Phase 5-22 で追加した主なテスト
+
+追加した主なテスト:
+
+```text
+test_inference_rule_conclusion_builder_defaults_to_none
+test_inference_rule_conclusion_builder
+test_inference_rule_conclusion_builder_is_backward_compatible
+test_apply_inference_match
+test_apply_inference_match_builder_receives_premises
+test_apply_inference_match_builder_result_is_conclusion
+test_apply_inference_match_multiple_premises
+test_apply_inference_match_preserves_pattern_order
+test_apply_inference_match_premise_free_rule
+test_apply_inference_match_rejects_invalid_match
+test_apply_inference_match_requires_conclusion_builder
+test_apply_inference_match_rejects_non_callable_builder
+test_find_inference_match_does_not_require_builder
+test_find_inference_matches_do_not_require_builders
+test_apply_found_inference_match
+```
+
+確認内容:
+
+```text
+conclusion_builder の default が None
+builder の保持
+既存 InferenceRule との後方互換性
+InferenceMatch から ProofStep を生成
+builder への premises の受け渡し
+builder の返り値を conclusion として使用
+multiple premise application
+premise-pattern order の維持
+premise-free rule application
+invalid match の拒否
+builder 未定義時の application 拒否
+non-callable builder の拒否
+builder なしでの matching
+builder なし rule collection の matching
+search で得た InferenceMatch の直接 application
+```
+
+---
+
+### テスト
+
+2026-08-24:
+
+```text
+344 passed in 20.98s
+```
+
+既存の、
+
+```text
+algebra
+EHP
+expression
+formatter
+proof
+repository
+PremisePattern
+InferenceRule matching
+premise search
+applicability
+applicable-rule search
+structured InferenceMatch search
+```
+
+を含め、
+すべてのテストが成功した。
+
+Phase 5-22 の rule-application 機構導入による
+regression は確認されなかった。
+
+---
+
+### Phase 5-22 の到達点
+
+Phase 5-21 では、
+
+```text
+available ProofSteps
++
+InferenceRule
+↓
+InferenceMatch
+```
+
+まで進んでいた。
+
+Phase 5-22 では、
+
+```text
+InferenceMatch
+↓
+apply_inference_match()
+↓
+derived ProofStep
+```
+
+を追加した。
+
+したがって現在の inference pipeline は、
+
+```text
+PremisePattern
+↓
+ProofStep matching
+↓
+InferenceRule matching
+↓
+premise search
+↓
+rule applicability
+↓
+applicable-rule search
+↓
+InferenceMatch
+↓
+rule application
+↓
+derived ProofStep
+```
+
+まで到達した。
+
+これは、
+
+```text
+既存の proof facts
++
+推論規則
+↓
+新しい proof fact
+```
+
+を生成する最初の完全な最小経路である。
+
+ただし現在の conclusion construction は、
+
+```text
+explicit Python callable
+```
+
+に委譲している。
+
+まだ、
+
+```text
+Expression pattern
+pattern variable
+variable binding
+substitution
+conclusion template
+```
+
+による一般的な symbolic inference は行っていない。
+
+また、
+生成された ProofStep を自動的に、
+
+```text
+available ProofSteps
+```
+
+へ追加し、
+
+```text
+再検索
+↓
+再適用
+↓
+さらに新しい ProofStep
+```
+
+と反復する機構もまだない。
+
+### 状態
+
+Phase 5-22 完了。
+
+次の段階では、
+
+```text
+Expression-level pattern matching
+```
+
+または、
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+matches
+↓
+derived ProofSteps
+```
+
+という collection-level application のどちらを先に導入するかを検討する。
+
+一般的な数学的 inference rule を表現するためには、
+最終的に、
+
+```text
+expression pattern
+↓
+variable binding
+↓
+substitution
+↓
+conclusion
+```
+
+という機構が必要になる。
+
+
+## Phase 5-23：複数 InferenceMatch の一括 application
+
+Phase 5-22 では、
+
+```text
+InferenceMatch
+↓
+apply_inference_match()
+↓
+derived ProofStep
+```
+
+を実装し、
+1つの structured match を実際の推論結果へ変換できるようにした。
+
+Phase 5-23 では、
+複数の `InferenceMatch` をまとめて適用し、
+
+```text
+InferenceMatch collection
+↓
+derived ProofStep collection
+```
+
+へ変換する collection-level application を追加した。
+
+---
+
+### apply_inference_matches()
+
+追加:
+
+```python
+apply_inference_matches(
+  inference_matches,
+)
+```
+
+この関数は、
+複数の `InferenceMatch` を受け取り、
+各 match を `apply_inference_match()` へ渡す。
+
+基本構造:
+
+```text
+InferenceMatch collection
+↓
+normalize
+↓
+apply_inference_match() for each match
+↓
+derived ProofStep tuple
+```
+
+実装上は、
+
+```python
+return tuple(
+  apply_inference_match(
+    inference_match
+  )
+  for inference_match
+  in normalized_matches
+)
+```
+
+という薄い wrapper とした。
+
+これにより、
+Phase 5-22 で実装した single application logic を
+collection-level API で重複させていない。
+
+---
+
+### single application logic の再利用
+
+各 InferenceMatch の application は、
+既存の、
+
+```text
+apply_inference_match()
+```
+
+へ完全に委譲する。
+
+したがって、
+
+```text
+conclusion_builder の取得
+builder が存在するかの確認
+builder が callable かの確認
+conclusion の生成
+ProofRule.INFERENCE の設定
+premises の保存
+InferenceRule の保存
+```
+
+は Phase 5-22 の実装をそのまま利用する。
+
+Phase 5-23 で追加した責務は、
+
+```text
+複数 match の入力処理
++
+複数 application の orchestration
+```
+
+だけである。
+
+---
+
+### _normalize_inference_matches()
+
+追加:
+
+```python
+_normalize_inference_matches(
+  inference_matches,
+)
+```
+
+入力として、
+
+```text
+single InferenceMatch
+tuple of InferenceMatch
+list of InferenceMatch
+```
+
+を受け付ける。
+
+内部ではすべて、
+
+```text
+tuple
+```
+
+へ正規化する。
+
+例えば、
+
+```python
+apply_inference_matches(
+  match,
+)
+```
+
+も、
+
+```python
+apply_inference_matches(
+  (
+    match,
+  ),
+)
+```
+
+と同じ意味になる。
+
+---
+
+### 空 collection
+
+空 tuple に対して、
+
+```python
+apply_inference_matches(
+  (),
+)
+```
+
+は、
+
+```text
+()
+```
+
+を返す。
+
+これにより、
+
+```python
+matches = find_inference_matches(
+  rules,
+  available_steps,
+)
+
+derived_steps = apply_inference_matches(
+  matches,
+)
+```
+
+という経路で、
+match が0件の場合にも特別な分岐を必要としない。
+
+---
+
+### application order の維持
+
+複数の InferenceMatch を適用するとき、
+入力順を維持して derived ProofStep を返すことを確認した。
+
+例えば、
+
+```text
+(
+  second_match,
+  first_match,
+)
+```
+
+に対して、
+
+```text
+(
+  second derived step,
+  first derived step,
+)
+```
+
+となる。
+
+Phase 5-21 の `find_inference_matches()` も
+InferenceRule の入力順を維持するため、
+
+```text
+InferenceRule input order
+↓
+InferenceMatch order
+↓
+derived ProofStep order
+```
+
+が一貫して維持される。
+
+---
+
+### premises の保存
+
+collection-level application 後も、
+各 derived ProofStep が
+対応する InferenceMatch の premises を
+そのまま保持することを確認した。
+
+例えば、
+
+```text
+match_a.premises = (given_step,)
+```
+
+なら、
+
+```text
+derived_step_a.premises = (given_step,)
+```
+
+となる。
+
+複数 match をまとめて apply しても、
+異なる match の premises が混在しない。
+
+---
+
+### InferenceRule の保存
+
+各 derived ProofStep の、
+
+```text
+inference_rule
+```
+
+には、
+対応する InferenceMatch の `inference_rule` が保存される。
+
+例えば、
+
+```text
+match_a.inference_rule = rule_a
+match_b.inference_rule = rule_b
+```
+
+なら、
+
+```text
+derived_a.inference_rule = rule_a
+derived_b.inference_rule = rule_b
+```
+
+となる。
+
+これにより collection-level application 後も、
+各 derived fact がどの rule によって導かれたかを追跡できる。
+
+---
+
+### invalid input
+
+`apply_inference_matches()` に、
+
+```text
+InferenceMatch
+tuple/list of InferenceMatch
+```
+
+以外を渡した場合は `TypeError` とする。
+
+確認例:
+
+```text
+"invalid"
+```
+
+また、
+
+```text
+[
+  valid_match,
+  "invalid",
+]
+```
+
+のように、
+collection 内に InferenceMatch 以外が含まれる場合も
+`TypeError` とする。
+
+collection-level input validation は
+`_normalize_inference_matches()` が担当する。
+
+一方、
+
+```text
+missing conclusion_builder
+non-callable conclusion_builder
+```
+
+など individual application の validation は、
+引き続き `apply_inference_match()` が担当する。
+
+---
+
+### find_inference_matches() との接続
+
+Phase 5-23 では、
+
+```text
+find_inference_matches()
+↓
+apply_inference_matches()
+```
+
+という実際の collection-level pipeline を確認した。
+
+例えば、
+
+```text
+first rule
+requires GIVEN
+
+second rule
+requires RELATION
+```
+
+という2つの rule と、
+
+```text
+given_step
+relation_step
+```
+
+がある場合、
+
+```python
+matches = find_inference_matches(
+  (
+    first_rule,
+    second_rule,
+  ),
+  (
+    given_step,
+    relation_step,
+  ),
+)
+```
+
+から、
+
+```text
+(
+  InferenceMatch(
+    inference_rule=first_rule,
+    premises=(given_step,),
+  ),
+  InferenceMatch(
+    inference_rule=second_rule,
+    premises=(relation_step,),
+  ),
+)
+```
+
+を得る。
+
+これを、
+
+```python
+derived_steps = apply_inference_matches(
+  matches
+)
+```
+
+とすることで、
+
+```text
+(
+  first derived step,
+  second derived step,
+)
+```
+
+を生成できることを確認した。
+
+各 derived step は、
+それぞれ対応する premise を保持する。
+
+---
+
+### matching と application の分離
+
+Phase 5-23 でも、
+
+```text
+find_inference_matches()
+```
+
+と、
+
+```text
+apply_inference_matches()
+```
+
+は統合しなかった。
+
+現在の利用方法は、
+
+```python
+matches = find_inference_matches(
+  inference_rules,
+  available_steps,
+)
+
+derived_steps = apply_inference_matches(
+  matches,
+)
+```
+
+である。
+
+これにより、
+
+```text
+matching
+↓
+結果確認・選択
+↓
+application
+```
+
+という処理を可能にしている。
+
+Phase 5-23 の `apply_inference_matches()` は、
+rule collection や available steps を直接受け取らず、
+すでに確定した InferenceMatch だけを適用する。
+
+---
+
+### Phase 5-23 で追加した主なテスト
+
+追加したテスト:
+
+```text
+test_apply_inference_matches
+test_apply_inference_matches_preserves_order
+test_apply_inference_matches_preserves_premises
+test_apply_inference_matches_preserves_rules
+test_apply_inference_matches_empty
+test_apply_inference_matches_accepts_single_match
+test_apply_inference_matches_accepts_list
+test_apply_inference_matches_rejects_invalid_input
+test_apply_inference_matches_rejects_invalid_match_in_list
+test_apply_found_inference_matches
+```
+
+確認内容:
+
+```text
+複数 InferenceMatch の application
+複数 derived ProofStep の生成
+input order の維持
+premises の維持
+InferenceRule の維持
+空 collection
+single InferenceMatch input
+list input
+invalid top-level input
+invalid collection entry
+find_inference_matches() から apply_inference_matches() への接続
+```
+
+---
+
+### テスト
+
+2026-08-24:
+
+```text
+354 passed in 21.65s
+```
+
+Phase 5-22 完了時は、
+
+```text
+344 passed
+```
+
+だったため、
+Phase 5-23 では10テストを追加した。
+
+既存の、
+
+```text
+algebra
+EHP
+expression
+formatter
+proof
+repository
+PremisePattern
+InferenceRule matching
+premise search
+applicability
+applicable-rule search
+InferenceMatch search
+single InferenceMatch application
+```
+
+を含め、
+すべてのテストが成功した。
+
+Phase 5-23 の collection-level application 導入による
+regression は確認されなかった。
+
+---
+
+### Phase 5-23 の到達点
+
+Phase 5-22 までの inference pipeline は、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_inference_match()
+↓
+InferenceMatch
+↓
+apply_inference_match()
+↓
+derived ProofStep
+```
+
+だった。
+
+Phase 5-23 ではこれを collection level へ拡張し、
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_inference_matches()
+↓
+InferenceMatch collection
+↓
+apply_inference_matches()
+↓
+derived ProofStep collection
+```
+
+まで到達した。
+
+これにより、
+
+```text
+複数の applicable rule
+↓
+複数の structured match
+↓
+複数の derived fact
+```
+
+という処理が可能になった。
+
+現在も、
+
+```text
+matching
+```
+
+と、
+
+```text
+application
+```
+
+は別 API である。
+
+そのため caller は、
+InferenceMatch collection を確認・選択した上で
+application できる。
+
+---
+
+### 現在まだ行わないこと
+
+Phase 5-23 では、
+以下はまだ実装しない。
+
+```text
+match search と application の一体化
+derived step の available facts への自動追加
+derived conclusion の重複判定
+同じ rule の再適用制御
+inference round
+fixed-point iteration
+automatic rule priority
+automatic rule selection
+alternative premise assignment
+backtracking
+Expression-level matching
+pattern variable
+variable binding
+substitution
+structured conclusion template
+```
+
+特に、
+
+```text
+derived ProofSteps
+↓
+available ProofSteps に追加
+↓
+再度 find_inference_matches()
+```
+
+という反復処理はまだ行わない。
+
+この段階へ進む前に、
+duplicate conclusion や停止条件などの設計が必要になる。
+
+---
+
+### 状態
+
+Phase 5-23 完了。
+
+現在の collection-level pipeline:
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_inference_matches()
+↓
+InferenceMatch collection
+↓
+apply_inference_matches()
+↓
+derived ProofStep collection
+```
+
+次の自然な候補は、
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find
+↓
+apply
+↓
+derived ProofSteps
+```
+
+をまとめる high-level API の導入である。
+
+例えば、
+
+```text
+derive_inference_steps()
+```
+
+のような関数を用意し、
+
+```text
+find_inference_matches()
+↓
+apply_inference_matches()
+```
+
+を内部で組み合わせる。
+
+その後、
+
+```text
+derived ProofSteps
+↓
+available ProofSteps へ追加
+↓
+次の inference round
+```
+
+へ進むことで、
+iterative inference の基盤へ接続できる。
+
+一方、
+一般的な数学的 inference rule を表現するためには、
+別方向として、
+
+```text
+Expression pattern
+↓
+variable binding
+↓
+substitution
+↓
+conclusion
+```
+
+という symbolic inference 機構も必要になる。
+
+
+
+
+
+
+
+
 
 
 

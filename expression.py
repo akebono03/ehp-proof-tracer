@@ -1,0 +1,47 @@
+from dataclasses import dataclass
+
+
+class Expression:
+  pass
+
+
+@dataclass(frozen=True)
+class Zero(Expression):
+  pass
+
+
+@dataclass(frozen=True)
+class HomotopyElement(Expression):
+  name: str
+  dimension: int
+
+
+@dataclass(frozen=True)
+class Multiple(Expression):
+  coefficient: int
+  expression: Expression
+
+
+@dataclass(frozen=True)
+class Composition(Expression):
+  left: Expression
+  right: Expression
+
+
+def eta(n: int) -> HomotopyElement:
+  return HomotopyElement("η", n)
+
+
+def nu(n: int) -> HomotopyElement:
+  return HomotopyElement("ν", n)
+
+
+def sigma(n: int) -> HomotopyElement:
+  return HomotopyElement("σ", n)
+
+
+
+
+
+
+
