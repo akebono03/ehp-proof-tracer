@@ -6,6 +6,7 @@ from proof import (
   ProofStep,
   Relation,
   RelationType,
+  find_matching_premises,
   matches_inference_rule,
   matches_premise_pattern,
 )
@@ -737,6 +738,442 @@ def test_matches_inference_rule_rejects_invalid_step_in_list():
     )
 
 
+def test_find_matching_premises_single_step():
+  rule = InferenceRule(
+    name="given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="given fact",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = find_matching_premises(
+    rule,
+    (
+      step,
+    ),
+  )
+
+  assert result == (
+    step,
+  )
+
+
+def test_find_matching_premises_searches_available_steps():
+  rule = InferenceRule(
+    name="relation rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.RELATION,
+      ),
+    ),
+  )
+
+  given_step = ProofStep(
+    conclusion="given fact",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  relation_step = ProofStep(
+    conclusion="relation fact",
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = find_matching_premises(
+    rule,
+    (
+      given_step,
+      relation_step,
+    ),
+  )
+
+  assert result == (
+    relation_step,
+  )
+
+
+def test_find_matching_premises_multiple_patterns():
+  rule = InferenceRule(
+    name="combined rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.RELATION,
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  given_step = ProofStep(
+    conclusion="given fact",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  relation_step = ProofStep(
+    conclusion="relation fact",
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = find_matching_premises(
+    rule,
+    (
+      given_step,
+      relation_step,
+    ),
+  )
+
+  assert result == (
+    relation_step,
+    given_step,
+  )
+
+
+def test_find_matching_premises_returns_first_match():
+  rule = InferenceRule(
+    name="given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  first_step = ProofStep(
+    conclusion="first",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  second_step = ProofStep(
+    conclusion="second",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = find_matching_premises(
+    rule,
+    (
+      first_step,
+      second_step,
+    ),
+  )
+
+  assert result == (
+    first_step,
+  )
+
+
+def test_find_matching_premises_does_not_reuse_step():
+  rule = InferenceRule(
+    name="two given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="only step",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  assert (
+    find_matching_premises(
+      rule,
+      (
+        step,
+      ),
+    )
+    is None
+  )
+
+
+def test_find_matching_premises_uses_distinct_steps():
+  rule = InferenceRule(
+    name="two given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  first_step = ProofStep(
+    conclusion="first",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  second_step = ProofStep(
+    conclusion="second",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = find_matching_premises(
+    rule,
+    (
+      first_step,
+      second_step,
+    ),
+  )
+
+  assert result == (
+    first_step,
+    second_step,
+  )
+
+
+def test_find_matching_premises_returns_none_when_missing():
+  rule = InferenceRule(
+    name="relation rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.RELATION,
+      ),
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="given fact",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  assert (
+    find_matching_premises(
+      rule,
+      (
+        step,
+      ),
+    )
+    is None
+  )
+
+
+def test_find_matching_premises_partial_failure():
+  rule = InferenceRule(
+    name="combined rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.RELATION,
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  relation_step = ProofStep(
+    conclusion="relation fact",
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  assert (
+    find_matching_premises(
+      rule,
+      (
+        relation_step,
+      ),
+    )
+    is None
+  )
+
+
+def test_find_matching_premises_empty_rule():
+  rule = InferenceRule(
+    name="no premise rule",
+  )
+
+  result = find_matching_premises(
+    rule,
+    (),
+  )
+
+  assert result == ()
+
+
+def test_find_matching_premises_empty_rule_ignores_available_steps():
+  rule = InferenceRule(
+    name="no premise rule",
+  )
+
+  step = ProofStep(
+    conclusion="unused fact",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = find_matching_premises(
+    rule,
+    (
+      step,
+    ),
+  )
+
+  assert result == ()
+
+
+def test_find_matching_premises_matches_relation_type():
+  rule = InferenceRule(
+    name="zero relation rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.RELATION,
+        statement_type=Relation,
+        relation_type=RelationType.ZERO,
+      ),
+    ),
+  )
+
+  equality_relation = Relation(
+    lhs="alpha",
+    rhs="beta",
+    relation_type=RelationType.EQUALITY,
+  )
+
+  zero_relation = Relation(
+    lhs="alpha",
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  equality_step = ProofStep(
+    conclusion=equality_relation,
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  zero_step = ProofStep(
+    conclusion=zero_relation,
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = find_matching_premises(
+    rule,
+    (
+      equality_step,
+      zero_step,
+    ),
+  )
+
+  assert result == (
+    zero_step,
+  )
+
+
+def test_find_matching_premises_accepts_single_step():
+  rule = InferenceRule(
+    name="given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  assert find_matching_premises(
+    rule,
+    step,
+  ) == (
+    step,
+  )
+
+
+def test_find_matching_premises_accepts_list():
+  rule = InferenceRule(
+    name="given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  assert find_matching_premises(
+    rule,
+    [
+      step,
+    ],
+  ) == (
+    step,
+  )
+
+
+def test_find_matching_premises_rejects_invalid_rule():
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  with pytest.raises(TypeError):
+    find_matching_premises(
+      "invalid",
+      (
+        step,
+      ),
+    )
+
+
+def test_find_matching_premises_rejects_invalid_steps():
+  rule = InferenceRule(
+    name="given rule",
+  )
+
+  with pytest.raises(TypeError):
+    find_matching_premises(
+      rule,
+      "invalid",
+    )
+
+
+def test_find_matching_premises_rejects_invalid_step_in_list():
+  rule = InferenceRule(
+    name="given rule",
+  )
+
+  with pytest.raises(TypeError):
+    find_matching_premises(
+      rule,
+      [
+        "invalid",
+      ],
+    )
 
 
 

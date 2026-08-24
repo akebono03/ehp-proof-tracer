@@ -6290,6 +6290,938 @@ match / no match
 22. 次段階では、既存 ProofStep 集合から InferenceRule に適合する premise 候補を探索する仕組みを検討する。
 
 
+# InferenceRule に対する premise candidate search
+
+## Phase 5-18：既存 ProofStep 集合から matching premise を探索する
+
+Phase 5-17 では、
+
+```text
+InferenceRule.premise_patterns
++
+明示的に与えられた ProofStep 列
+↓
+matches_inference_rule()
+↓
+True / False
+```
+
+という rule-level matching を導入した。
+
+これにより、
+
+```text
+この ProofStep 列を
+この InferenceRule の premises として
+使用できるか
+```
+
+を機械的に判定できるようになった。
+
+ただし Phase 5-17 では、
+使用する ProofStep 自体は呼び出し側が
+明示的に選択する必要があった。
+
+Phase 5-18 では一段階進めて、
+
+```text
+InferenceRule
++
+利用可能な ProofStep 集合
+↓
+premise_patterns に適合する ProofStep を探索
+↓
+matching premise sequence
+```
+
+という最小 premise search を導入する。
+
+---
+
+## find_matching_premises() の設計
+
+InferenceRule が要求する premises を、
+既存の ProofStep 集合から探索するため、
+
+```text
+find_matching_premises()
+```
+
+を導入する。
+
+基本形は、
+
+```python
+find_matching_premises(
+  inference_rule,
+  available_steps,
+)
+```
+
+とする。
+
+入力は、
+
+```text
+InferenceRule
+ProofStep または ProofStep の tuple / list
+```
+
+である。
+
+適合する premises が見つかった場合は、
+
+```text
+tuple[ProofStep, ...]
+```
+
+を返す。
+
+必要な premise をすべて見つけられない場合は、
+
+```text
+None
+```
+
+を返す。
+
+これにより、
+
+```text
+match の成否だけを判定する
+```
+
+`matches_inference_rule()` と、
+
+```text
+実際に使用可能な premise を探索する
+```
+
+`find_matching_premises()` の責務を分離する。
+
+---
+
+## available_steps の正規化
+
+`available_steps` は、
+
+```text
+単一 ProofStep
+tuple of ProofStep
+list of ProofStep
+```
+
+を受け取る。
+
+内部では既存の、
+
+```text
+_normalize_proof_steps()
+```
+
+を利用し、
+
+```text
+tuple[ProofStep, ...]
+```
+
+へ正規化する。
+
+したがって、
+
+```python
+find_matching_premises(
+  rule,
+  step,
+)
+```
+
+と、
+
+```python
+find_matching_premises(
+  rule,
+  (step,),
+)
+```
+
+および、
+
+```python
+find_matching_premises(
+  rule,
+  [step],
+)
+```
+
+を同じ入力モデルで扱える。
+
+不正な型が与えられた場合は、
+既存の ProofStep 正規化ルールに従って
+`TypeError` とする。
+
+---
+
+## premise pattern の順序に従った探索
+
+Phase 5-18 では、
+
+```text
+InferenceRule.premise_patterns
+```
+
+の順序に従って premise を探索する。
+
+例えば、
+
+```text
+pattern 1 = RELATION
+pattern 2 = GIVEN
+```
+
+であり、
+利用可能な step が、
+
+```text
+step A = GIVEN
+step B = RELATION
+```
+
+という順序で保持されていても、
+
+```text
+pattern 1
+↓
+step B
+
+pattern 2
+↓
+step A
+```
+
+という対応を探索できる。
+
+したがって Phase 5-17 の、
+
+```text
+明示的な ProofStep 列に対する
+position-based matching
+```
+
+とは異なり、
+
+Phase 5-18 の premise search では、
+
+```text
+available_steps の位置
+```
+
+と、
+
+```text
+premise_patterns の位置
+```
+
+を直接対応させない。
+
+各 pattern ごとに、
+利用可能な ProofStep 全体から候補を探索する。
+
+ただし、
+
+```text
+どの pattern を先に処理するか
+```
+
+については、
+`premise_patterns` の順序を維持する。
+
+---
+
+## 最初に一致する ProofStep を採用する
+
+Phase 5-18 の最小実装では、
+1つの premise pattern に対して
+複数の ProofStep が一致する場合、
+
+```text
+available_steps の中で
+最初に一致した ProofStep
+```
+
+を採用する。
+
+例えば、
+
+```text
+pattern = GIVEN
+```
+
+に対して、
+
+```text
+step 1 = GIVEN
+step 2 = GIVEN
+```
+
+の両方が一致する場合は、
+
+```text
+step 1
+```
+
+を選択する。
+
+現段階では、
+
+```text
+すべての候補を返す
+全組合せを列挙する
+最適な premise を選ぶ
+backtracking する
+```
+
+といった処理は行わない。
+
+探索結果を決定的かつ単純にするため、
+
+```text
+first match
+```
+
+を採用する。
+
+---
+
+## 同じ ProofStep を複数 premise に再利用しない
+
+1つの ProofStep は、
+同じ `find_matching_premises()` 呼び出し内で
+複数の premise pattern に再利用しない。
+
+例えば、
+
+```text
+pattern 1 = GIVEN
+pattern 2 = GIVEN
+```
+
+という rule に対して、
+利用可能な ProofStep が、
+
+```text
+step A = GIVEN
+```
+
+1つしかない場合、
+
+```text
+step A
+```
+
+を2つの pattern の両方へ割り当てることはしない。
+
+この場合、
+
+```text
+find_matching_premises(...)
+```
+
+は、
+
+```text
+None
+```
+
+を返す。
+
+一方、
+
+```text
+step A = GIVEN
+step B = GIVEN
+```
+
+という2つの異なる ProofStep が存在すれば、
+
+```text
+(
+  step A,
+  step B,
+)
+```
+
+を返す。
+
+このため実装では、
+既に利用した ProofStep の index を記録し、
+後続 pattern の探索対象から除外する。
+
+---
+
+## ProofStep の識別
+
+Phase 5-18 では、
+同じ ProofStep を再利用したかどうかを、
+
+```text
+available_steps 内の index
+```
+
+によって管理する。
+
+これは、
+
+```text
+ProofStep の structural equality
+```
+
+と、
+
+```text
+premise candidate としての個々の出現
+```
+
+を不用意に混同しないためである。
+
+探索中に使用済みとなった
+`available_steps[index]` は、
+後続 pattern では利用しない。
+
+現段階では ProofStep に
+専用 ID を導入しない。
+
+ProofStep identity や proof graph node identity が
+必要になった段階で、
+別途設計を検討する。
+
+---
+
+## pattern matching 自体は既存機能を再利用する
+
+各 pattern と ProofStep の一致判定には、
+Phase 5-16 で導入した、
+
+```text
+matches_premise_pattern()
+```
+
+をそのまま利用する。
+
+したがって現在の premise search が利用する条件は、
+
+```text
+proof_rule
+statement_type
+relation_type
+```
+
+のみである。
+
+例えば、
+
+```python
+PremisePattern(
+  proof_rule=ProofRule.RELATION,
+  statement_type=Relation,
+  relation_type=RelationType.ZERO,
+)
+```
+
+に対しては、
+
+```text
+ProofRule.RELATION
++
+conclusion が Relation
++
+RelationType.ZERO
+```
+
+をすべて満たす ProofStep を探索する。
+
+Phase 5-18 では、
+新しい matching semantics を
+`find_matching_premises()` 内に重複実装しない。
+
+```text
+PremisePattern
+↓
+matches_premise_pattern()
+```
+
+を個別判定の唯一の基盤として再利用する。
+
+---
+
+## 一部だけ見つかった場合
+
+複数 premise を要求する rule について、
+途中まで適合する ProofStep が見つかっても、
+すべての premise pattern を満たせなければ
+探索全体を失敗とする。
+
+例えば、
+
+```text
+pattern 1 = RELATION
+pattern 2 = GIVEN
+```
+
+に対して、
+
+```text
+RELATION step
+```
+
+しか存在しない場合、
+
+pattern 1 は満たせるが
+pattern 2 は満たせない。
+
+この場合、
+
+```text
+None
+```
+
+を返す。
+
+部分的に見つかった premise tuple は返さない。
+
+したがって返り値は、
+
+```text
+すべての premise が見つかった
+→ tuple[ProofStep, ...]
+
+少なくとも1つ不足した
+→ None
+```
+
+とする。
+
+---
+
+## premise を必要としない rule
+
+InferenceRule が、
+
+```text
+premise_patterns = ()
+```
+
+を持つ場合、
+必要な premise は存在しない。
+
+したがって、
+
+```python
+find_matching_premises(
+  rule,
+  available_steps,
+)
+```
+
+は、
+`available_steps` の内容に関係なく、
+
+```text
+()
+```
+
+を返す。
+
+これは、
+
+```text
+premise を要求しない rule
+```
+
+に対して、
+
+```text
+premise search は成功しており、
+選択された premise は0個である
+```
+
+ことを表す。
+
+このため、
+
+```text
+()
+```
+
+と、
+
+```text
+None
+```
+
+は明確に区別する。
+
+```text
+()
+= premise を必要とせず、探索成功
+
+None
+= 必要な premise を満たせず、探索失敗
+```
+
+とする。
+
+---
+
+## matches_inference_rule() との役割分担
+
+Phase 5-18 時点では、
+
+```text
+matches_inference_rule()
+```
+
+と、
+
+```text
+find_matching_premises()
+```
+
+は異なる用途を持つ。
+
+`matches_inference_rule()` は、
+
+```text
+InferenceRule
++
+既に選択された ProofStep 列
+↓
+その列が rule 全体に適合するか
+```
+
+を判定する。
+
+一方、
+
+`find_matching_premises()` は、
+
+```text
+InferenceRule
++
+利用可能な ProofStep 集合
+↓
+rule に利用できる ProofStep 列を探す
+```
+
+ための関数である。
+
+概念的には、
+
+```text
+available ProofSteps
+↓
+find_matching_premises()
+↓
+selected premises
+↓
+matches_inference_rule()
+```
+
+という利用も可能である。
+
+ただし Phase 5-18 では、
+`find_matching_premises()` の結果に対して
+自動的に inference を適用する機構はまだ導入しない。
+
+---
+
+## greedy search と backtracking の境界
+
+Phase 5-18 の premise search は、
+各 premise pattern について、
+
+```text
+未使用の available_steps を先頭から調べる
+↓
+最初に一致した step を採用する
+↓
+次の pattern へ進む
+```
+
+という greedy search とする。
+
+例えば、
+ある ProofStep が複数の pattern に一致し得る場合でも、
+後の pattern のためにその step を残しておくべきかを考慮して
+選択をやり直すことはしない。
+
+したがって理論上、
+
+```text
+別の割り当てなら全 pattern を満たせる
+```
+
+場合でも、
+最初の greedy 選択によって
+`None` になる可能性は残る。
+
+これは Phase 5-18 では意図的な制限とする。
+
+一般的な premise assignment は、
+
+```text
+backtracking
+candidate enumeration
+unordered matching
+constraint solving
+```
+
+などを必要とする可能性があるため、
+後続フェーズとして分離する。
+
+---
+
+## RelationRepository とはまだ直接接続しない
+
+Phase 5-18 で探索対象とするのは、
+
+```text
+既に ProofStep になっているオブジェクト
+```
+
+である。
+
+したがって、
+
+```text
+RelationRepository
+↓
+Relation を検索
+↓
+relation_proof_step()
+↓
+premise candidate
+```
+
+という処理を
+`find_matching_premises()` 自体が行うことはない。
+
+RelationRepository からの relation 自動取得と、
+ProofStep 集合内からの premise search は
+別の責務として扱う。
+
+将来的には、
+
+```text
+RelationRepository
++
+existing ProofSteps
++
+InferenceRule
+↓
+candidate facts
+↓
+premise search
+```
+
+という上位 inference engine を構築できるが、
+Phase 5-18 ではまだ導入しない。
+
+---
+
+## Expression-level pattern matching はまだ行わない
+
+Phase 5-18 の探索は、
+Phase 5-16 以来の、
+
+```text
+proof_rule
+statement_type
+relation_type
+```
+
+だけを利用する。
+
+例えば、
+
+```text
+RelationType.ZERO
+```
+
+を持つ relation を探すことはできる。
+
+しかし、
+
+```text
+mα = 0
+```
+
+という Expression 内部構造を調べたり、
+
+```text
+m = 2
+α = η_3
+```
+
+のように値を束縛したりすることはできない。
+
+したがって、
+
+```text
+premise candidate search
+```
+
+と、
+
+```text
+expression pattern matching / unification
+```
+
+は引き続き分離する。
+
+---
+
+## Phase 5-18 時点の matching pipeline
+
+現在の inference-rule matching 基盤は、
+
+```text
+PremisePattern
++
+ProofStep
+↓
+matches_premise_pattern()
+↓
+True / False
+```
+
+から始まり、
+
+```text
+InferenceRule.premise_patterns
++
+明示的 ProofStep 列
+↓
+matches_inference_rule()
+↓
+True / False
+```
+
+まで拡張されている。
+
+Phase 5-18 ではさらに、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+↓
+matched ProofStep tuple
+or
+None
+```
+
+という探索経路が追加された。
+
+これにより、
+
+```text
+rule requirement を記述する
+↓
+個別 step と比較する
+↓
+明示的 premise 列を検証する
+↓
+既存 step 集合から premise を探す
+```
+
+という段階的な matching 基盤が成立した。
+
+---
+
+## Phase 5-18 ではまだ行わないこと
+
+Phase 5-18 では、
+premise candidate search の最小実装だけを扱う。
+
+まだ、
+
+```text
+すべての matching candidate の列挙
+複数の premise assignment の列挙
+backtracking
+最適な premise assignment の選択
+unordered rule matching
+Expression pattern
+pattern variable
+variable binding
+substitution
+conclusion の自動生成
+InferenceRule.apply()
+RelationRepository からの自動 relation 検索
+rule applicability の一括探索
+複数 InferenceRule の自動選択
+自動 inference
+recursive proof construction
+proof DAG construction
+```
+
+は行わない。
+
+特に、
+
+```text
+find_matching_premises()
+```
+
+は、
+
+```text
+premise を見つける
+```
+
+ところまでを責務とし、
+
+```text
+その rule を実際に適用して
+新しい ProofStep を作る
+```
+
+ところまでは担当しない。
+
+---
+
+## Phase 5-18 時点の設計原則
+
+1. `find_matching_premises()` は既存 ProofStep 集合から rule の premise を探索する。
+2. matching 条件自体は `matches_premise_pattern()` を再利用する。
+3. `available_steps` は単一 ProofStep、tuple、list を受け付ける。
+4. 入力は `_normalize_proof_steps()` で統一する。
+5. premise pattern は `InferenceRule.premise_patterns` の順に処理する。
+6. 各 pattern について available_steps の先頭から探索する。
+7. 複数候補がある場合は最初に一致した ProofStep を採用する。
+8. 同じ available step を複数 premise pattern に再利用しない。
+9. 使用済み step は available_steps 内の index で管理する。
+10. すべての pattern が満たされた場合のみ ProofStep tuple を返す。
+11. 1つでも必要な premise が見つからなければ `None` を返す。
+12. premise_patterns が空なら `()` を返す。
+13. `()` は premise 不要の成功、`None` は探索失敗として区別する。
+14. Phase 5-17 の `matches_inference_rule()` は明示的 premise 列の検証用として維持する。
+15. Phase 5-18 の `find_matching_premises()` は available steps からの探索用とする。
+16. premise search は greedy とし、backtracking はまだ行わない。
+17. available_steps の順序は first-match selection に影響する。
+18. RelationRepository から Relation を自動取得する処理はまだ行わない。
+19. Expression 内部の pattern matching はまだ行わない。
+20. pattern variable、変数束縛、substitution はまだ導入しない。
+21. conclusion の自動生成はまだ行わない。
+22. InferenceRule の自動適用はまだ行わない。
+23. premise search と rule application の責務を分離する。
+24. algebra 層には premise search の概念を持ち込まない。
+25. 次段階では、premise search の結果を用いた inference-rule applicability または rule application への接続を検討する。
+
+
 
 
 

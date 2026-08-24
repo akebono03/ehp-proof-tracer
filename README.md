@@ -582,8 +582,13 @@ Phase 5 currently supports:
 * matching by conclusion type
 * matching by relation type
 * ordered matching between all premise patterns of an `InferenceRule`
-  and multiple `ProofStep` objects
-* exact premise-count matching for inference rules
+  and an explicitly supplied sequence of `ProofStep` objects
+* exact premise-count matching for explicitly supplied inference-rule premises
+* premise candidate search over an existing collection of proof steps
+* first-match premise selection
+* distinct-step assignment for multiple premise patterns
+* detection of missing premise candidates
+* support for premise-free inference rules
 * human-readable proof formatting
 
 For example, an EHP exactness calculation can now be represented as:
@@ -737,11 +742,8 @@ when all three are specified.
 A `relation_type` requirement also requires the conclusion to be a
 `Relation`.
 
-This makes premise-pattern specifications machine-checkable at the
-individual proof-step level.
-
 The entire premise specification of an inference rule can also be
-checked against actual proof steps.
+checked against an explicitly supplied proof-step sequence.
 
 For example:
 
@@ -764,7 +766,15 @@ rule.premise_patterns[1] ↔ given_step
 
 using `matches_premise_pattern()` for each pair.
 
-Inference-rule premise matching is currently ordered.
+This explicit rule matching is:
+
+```text
+ordered
++
+position-based
++
+exact in premise count
+```
 
 Therefore:
 
@@ -788,23 +798,145 @@ steps:
 
 does not.
 
-The number of proof steps must also match the number of premise
-patterns exactly.
+The number of explicitly supplied proof steps must also match the
+number of premise patterns exactly.
 
-Therefore both missing and additional premise steps cause the rule
-match to fail.
+In addition to checking an explicitly supplied premise sequence,
+the proof layer can now search an existing collection of proof steps
+for suitable premises.
 
-A rule with:
+For example:
+
+```python
+find_matching_premises(
+  rule,
+  available_steps,
+)
+```
+
+searches the available proof steps for one matching step for each
+premise pattern.
+
+Conceptually:
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+↓
+matched ProofStep tuple
+```
+
+or, when the required premises cannot all be found:
+
+```text
+None
+```
+
+The premise patterns are processed in their declared rule order, but
+each pattern searches the available proof-step collection rather than
+requiring the collection itself to already be ordered like the rule.
+
+For example:
+
+```text
+premise patterns:
+  RELATION
+  GIVEN
+
+available steps:
+  GIVEN
+  RELATION
+```
+
+can produce:
+
+```text
+matched premises:
+  RELATION
+  GIVEN
+```
+
+because each pattern searches the available collection independently.
+
+When several available proof steps match the same pattern, the current
+implementation selects the first matching unused step.
+
+A proof step is not reused for multiple premise patterns within a
+single search.
+
+Therefore, a rule requiring:
+
+```text
+GIVEN
+GIVEN
+```
+
+requires two distinct available `ProofStep` entries satisfying the
+pattern.
+
+If only one such step is available, premise search returns:
+
+```text
+None
+```
+
+rather than reusing that step twice.
+
+If an inference rule has no premise patterns:
 
 ```text
 premise_patterns = ()
 ```
 
-matches only an empty proof-step sequence.
+then:
 
-This provides machine-checkable matching for a complete explicitly
-supplied inference-rule premise list, while keeping automatic premise
-search as a separate later concern.
+```python
+find_matching_premises(
+  rule,
+  available_steps,
+)
+```
+
+returns:
+
+```text
+()
+```
+
+regardless of unrelated available steps.
+
+Thus:
+
+```text
+()
+```
+
+means that premise search succeeded for a rule requiring no premises,
+while:
+
+```text
+None
+```
+
+means that at least one required premise could not be found.
+
+The current premise search is intentionally simple and greedy:
+
+```text
+process patterns in rule order
+↓
+scan available steps from the beginning
+↓
+select the first matching unused step
+↓
+continue with the next pattern
+```
+
+It does not yet backtrack if an earlier choice prevents a later pattern
+from being satisfied.
 
 Relation sources can be represented as structured literature
 references.
@@ -843,37 +975,37 @@ homomorphisms, but it does not yet derive E/H/P formulas themselves
 from Toda relations, composition relations, or other homotopy-theoretic
 theorems.
 
-The current proof / inference layer can compare all declared premise
-patterns of an `InferenceRule` with an explicitly supplied sequence of
-`ProofStep` objects.
-
-This matching is currently:
+The current proof / inference layer can:
 
 ```text
-ordered
-+
-position-based
-+
-exact in premise count
+describe premise requirements
+↓
+match an individual premise
+↓
+validate an explicitly supplied premise sequence
+↓
+search existing ProofSteps for a matching premise sequence
 ```
 
-The proof / inference layer does not yet automatically:
+but it does not yet automatically:
 
-* search an existing collection of proof steps for matching premises
-* assign proof steps to premise patterns in arbitrary order
-* enumerate alternative premise assignments
+* enumerate all possible premise assignments
+* backtrack when an earlier greedy match prevents a later match
+* choose among alternative premise assignments
 * match internal expression structures
 * bind pattern variables
+* substitute bound variables
 * construct conclusions from inference rules
-* select applicable relations
-* select premise proof steps automatically
+* search a `RelationRepository` automatically for required relations
+* select among multiple applicable inference rules
 * apply inference rules automatically
+* recursively construct proofs
 * recursively collect proof dependencies
 * construct a proof DAG
 * derive E/H/P formulas from homotopy-theoretic relations
 
 Expression-level matching is intentionally separate from the current
-proof-step-level matcher.
+proof-step-level premise search.
 
 For example, the current matcher can recognize that a step contains a
 
@@ -921,21 +1053,33 @@ At the completion of Phase 5-17:
 257 passed in 20.88s
 ```
 
-Phase 5-17 includes tests for:
+Phase 5-18 adds tests for:
 
 ```text
-single-premise rule matching
-multiple-premise rule matching
-ordered premise matching
-premise-count mismatch
+single-step premise search
+search across available proof steps
+multiple-pattern premise search
+first-match selection
+prevention of proof-step reuse
+distinct-step assignment
+missing-premise detection
+partial-search failure
 empty-premise rules
-single / tuple / list ProofStep input
-invalid rule input
-invalid ProofStep input
+ignoring unrelated available steps for empty rules
+relation-type-based premise search
+single ProofStep input
+list input
+invalid inference-rule input
+invalid available-steps input
+invalid ProofStep entries
 ```
 
-The complete test suite includes the existing algebra, EHP,
-expression, formatter, proof, repository, and inference-pattern tests.
+The complete Phase 5-18 test-suite total should be recorded after
+running:
+
+```powershell
+python -m pytest -v
+```
 
 The development log records test-suite results at each implementation
 checkpoint.
@@ -944,7 +1088,7 @@ checkpoint.
 
 ## Next direction
 
-The current matching pipeline is:
+The current proof-step matching and search pipeline is:
 
 ```text
 PremisePattern
@@ -956,7 +1100,7 @@ matches_premise_pattern()
 True / False
 ```
 
-and:
+then:
 
 ```text
 InferenceRule.premise_patterns
@@ -968,9 +1112,22 @@ matches_inference_rule()
 True / False
 ```
 
-The next useful step is to move from checking an explicitly supplied
-premise sequence to finding suitable premises from a collection of
-existing proof steps.
+and now:
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+↓
+matched premises
+or
+None
+```
+
+The next useful step is to connect premise search to inference-rule
+applicability and eventual rule application.
 
 Conceptually:
 
@@ -979,50 +1136,42 @@ InferenceRule
 +
 available ProofSteps
 ↓
-search for matching premises
+find matching premises
 ↓
-candidate premise sequence
+applicable / not applicable
+↓
+construct inference step
 ```
 
-This should remain separate from expression-level pattern matching.
+The first version should continue to keep premise search and conclusion
+construction separate.
 
-A minimal first version should continue to use only the information
-already available in `PremisePattern`:
+A useful next phase would be to introduce a small API such as:
 
 ```text
-proof_rule
-statement_type
-relation_type
+InferenceRule
++
+available ProofSteps
+↓
+applicability result
 ```
 
-and should not yet introduce expression unification.
+before attempting automatic conclusion construction.
 
-Questions for the next phase include:
-
-```text
-Should premise candidates initially be searched in rule order?
-
-Should the first matching ProofStep be returned, or all matches?
-
-Should one ProofStep be reusable for multiple premise patterns?
-
-How should multiple possible premise assignments be represented?
-```
-
-The simplest next step is to search existing ProofSteps in rule order
-and return an explicitly matched premise sequence without yet
-introducing general unordered matching.
+Expression-level matching should still remain separate at this stage.
 
 Possible later directions include:
 
-* premise candidate search
+* inference-rule applicability over available proof steps
+* connection between matched premises and inference-step construction
+* enumeration of alternative premise assignments
+* backtracking premise search
 * unordered multiple-premise matching
-* inference-rule applicability over a proof-step collection
 * expression-level relation patterns
 * pattern variables and variable binding
+* substitution
 * conclusion construction
 * automatic relation selection
-* automatic premise selection
 * automatic inference-rule application
 * composition relations
 * Toda brackets
@@ -1033,6 +1182,8 @@ Possible later directions include:
 
 The algebra layer remains independent of these higher-level
 homotopy-theoretic inference mechanisms.
+
+
 
 
 

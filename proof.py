@@ -158,6 +158,65 @@ def matches_inference_rule(
   )
 
 
+def find_matching_premises(
+  inference_rule,
+  available_steps,
+):
+  if not isinstance(
+    inference_rule,
+    InferenceRule,
+  ):
+    raise TypeError(
+      "inference_rule must be "
+      "an InferenceRule"
+    )
+
+  normalized_steps = (
+    _normalize_proof_steps(
+      available_steps,
+      "available_steps",
+    )
+  )
+
+  matched_steps = []
+  used_indices = set()
+
+  for pattern in (
+    inference_rule.premise_patterns
+  ):
+    matched_index = None
+
+    for index, step in enumerate(
+      normalized_steps
+    ):
+      if index in used_indices:
+        continue
+
+      if matches_premise_pattern(
+        pattern,
+        step,
+      ):
+        matched_index = index
+        break
+
+    if matched_index is None:
+      return None
+
+    used_indices.add(
+      matched_index
+    )
+
+    matched_steps.append(
+      normalized_steps[
+        matched_index
+      ]
+    )
+
+  return tuple(
+    matched_steps
+  )
+
+
 def relation_proof_step(relation):
   if not isinstance(relation, Relation):
     raise TypeError(
