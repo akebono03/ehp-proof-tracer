@@ -117,6 +117,47 @@ def matches_premise_pattern(
   return True
 
 
+def matches_inference_rule(
+  inference_rule,
+  steps,
+):
+  if not isinstance(
+    inference_rule,
+    InferenceRule,
+  ):
+    raise TypeError(
+      "inference_rule must be "
+      "an InferenceRule"
+    )
+
+  normalized_steps = (
+    _normalize_proof_steps(
+      steps,
+      "steps",
+    )
+  )
+
+  patterns = (
+    inference_rule.premise_patterns
+  )
+
+  if len(patterns) != len(
+    normalized_steps
+  ):
+    return False
+
+  return all(
+    matches_premise_pattern(
+      pattern,
+      step,
+    )
+    for pattern, step in zip(
+      patterns,
+      normalized_steps,
+    )
+  )
+
+
 def relation_proof_step(relation):
   if not isinstance(relation, Relation):
     raise TypeError(

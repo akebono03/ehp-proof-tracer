@@ -581,6 +581,9 @@ Phase 5 currently supports:
 * matching by proof-step category
 * matching by conclusion type
 * matching by relation type
+* ordered matching between all premise patterns of an `InferenceRule`
+  and multiple `ProofStep` objects
+* exact premise-count matching for inference rules
 * human-readable proof formatting
 
 For example, an EHP exactness calculation can now be represented as:
@@ -681,8 +684,7 @@ conclusion type = Relation
 RelationType.ZERO
 ```
 
-A premise pattern can now be compared directly with an actual proof
-step:
+A premise pattern can be compared directly with an actual proof step:
 
 ```python
 matches_premise_pattern(
@@ -691,7 +693,7 @@ matches_premise_pattern(
 )
 ```
 
-The matcher currently uses only the fields already represented by
+The matcher currently uses only the fields represented by
 `PremisePattern`:
 
 ```text
@@ -738,6 +740,72 @@ A `relation_type` requirement also requires the conclusion to be a
 This makes premise-pattern specifications machine-checkable at the
 individual proof-step level.
 
+The entire premise specification of an inference rule can also be
+checked against actual proof steps.
+
+For example:
+
+```python
+matches_inference_rule(
+  rule,
+  (
+    relation_step,
+    given_step,
+  ),
+)
+```
+
+compares:
+
+```text
+rule.premise_patterns[0] ↔ relation_step
+rule.premise_patterns[1] ↔ given_step
+```
+
+using `matches_premise_pattern()` for each pair.
+
+Inference-rule premise matching is currently ordered.
+
+Therefore:
+
+```text
+patterns:
+  RELATION
+  GIVEN
+
+steps:
+  RELATION
+  GIVEN
+```
+
+matches, while:
+
+```text
+steps:
+  GIVEN
+  RELATION
+```
+
+does not.
+
+The number of proof steps must also match the number of premise
+patterns exactly.
+
+Therefore both missing and additional premise steps cause the rule
+match to fail.
+
+A rule with:
+
+```text
+premise_patterns = ()
+```
+
+matches only an empty proof-step sequence.
+
+This provides machine-checkable matching for a complete explicitly
+supplied inference-rule premise list, while keeping automatic premise
+search as a separate later concern.
+
 Relation sources can be represented as structured literature
 references.
 
@@ -775,14 +843,25 @@ homomorphisms, but it does not yet derive E/H/P formulas themselves
 from Toda relations, composition relations, or other homotopy-theoretic
 theorems.
 
-The current proof / inference layer can compare an individual
-`PremisePattern` with an individual `ProofStep`, but it does not yet
-automatically:
+The current proof / inference layer can compare all declared premise
+patterns of an `InferenceRule` with an explicitly supplied sequence of
+`ProofStep` objects.
 
-* determine whether all premise patterns of an `InferenceRule` can be
-  satisfied simultaneously
-* assign multiple proof steps to multiple premise patterns
-* decide whether premise matching should be ordered or unordered
+This matching is currently:
+
+```text
+ordered
++
+position-based
++
+exact in premise count
+```
+
+The proof / inference layer does not yet automatically:
+
+* search an existing collection of proof steps for matching premises
+* assign proof steps to premise patterns in arbitrary order
+* enumerate alternative premise assignments
 * match internal expression structures
 * bind pattern variables
 * construct conclusions from inference rules
@@ -819,6 +898,15 @@ These belong to later proof / inference phases.
 
 ---
 
+## Project documentation
+
+More detailed development and design notes are kept separately:
+
+* `docs/development_log.md` — implementation history and Phase progress
+* `docs/design.md` — design decisions and mathematical/computational rationale
+
+---
+
 ## Tests
 
 Run the complete test suite with:
@@ -827,22 +915,27 @@ Run the complete test suite with:
 python -m pytest -v
 ```
 
-At the completion of Phase 5-15:
+At the completion of Phase 5-17:
 
 ```text
-230 passed in 20.65s
+257 passed in 20.88s
 ```
 
-Phase 5-16 adds 12 matching tests to
-`tests/test_inference_rule_pattern.py`.
-
-The Phase 5-15 and Phase 5-16 premise-pattern tests together contain:
+Phase 5-17 includes tests for:
 
 ```text
-18 tests
+single-premise rule matching
+multiple-premise rule matching
+ordered premise matching
+premise-count mismatch
+empty-premise rules
+single / tuple / list ProofStep input
+invalid rule input
+invalid ProofStep input
 ```
 
-and the Phase 5-16 implementation passes those tests.
+The complete test suite includes the existing algebra, EHP,
+expression, formatter, proof, repository, and inference-pattern tests.
 
 The development log records test-suite results at each implementation
 checkpoint.
@@ -851,73 +944,80 @@ checkpoint.
 
 ## Next direction
 
-The immediate next step is to move from matching one pattern against
-one proof step to checking an entire inference rule.
-
-The current primitive is:
+The current matching pipeline is:
 
 ```text
 PremisePattern
 +
 ProofStep
 ↓
-match / no match
+matches_premise_pattern()
+↓
+True / False
 ```
 
-The next layer can build on this to evaluate:
+and:
 
 ```text
 InferenceRule.premise_patterns
 +
-actual ProofSteps
+explicit ProofStep sequence
 ↓
-applicable / not applicable
+matches_inference_rule()
+↓
+True / False
 ```
 
-This requires deciding how multiple premise patterns correspond to
-multiple proof steps.
+The next useful step is to move from checking an explicitly supplied
+premise sequence to finding suitable premises from a collection of
+existing proof steps.
+
+Conceptually:
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+search for matching premises
+↓
+candidate premise sequence
+```
+
+This should remain separate from expression-level pattern matching.
+
+A minimal first version should continue to use only the information
+already available in `PremisePattern`:
+
+```text
+proof_rule
+statement_type
+relation_type
+```
+
+and should not yet introduce expression unification.
 
 Questions for the next phase include:
 
 ```text
-Are premise patterns matched by position?
+Should premise candidates initially be searched in rule order?
 
-Can premise patterns be matched in any order?
+Should the first matching ProofStep be returned, or all matches?
 
-Can one ProofStep satisfy more than one pattern?
+Should one ProofStep be reusable for multiple premise patterns?
 
-Must each pattern be matched by a distinct ProofStep?
-
-How should extra ProofSteps be handled?
+How should multiple possible premise assignments be represented?
 ```
 
-These questions should be resolved before automatic rule application is
-introduced.
-
-Expression-level matching remains a later concern.
-
-For example, the current matcher can identify:
-
-```text
-ProofRule.RELATION
-+
-conclusion type = Relation
-+
-RelationType.ZERO
-```
-
-but does not yet interpret:
-
-```text
-mα = 0
-```
-
-as an expression pattern.
+The simplest next step is to search existing ProofSteps in rule order
+and return an explicitly matched premise sequence without yet
+introducing general unordered matching.
 
 Possible later directions include:
 
-* inference-rule applicability checks
-* multiple-pattern / multiple-premise matching
+* premise candidate search
+* unordered multiple-premise matching
+* inference-rule applicability over a proof-step collection
 * expression-level relation patterns
 * pattern variables and variable binding
 * conclusion construction
@@ -933,9 +1033,6 @@ Possible later directions include:
 
 The algebra layer remains independent of these higher-level
 homotopy-theoretic inference mechanisms.
-
-
-
 
 
 

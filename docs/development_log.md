@@ -5392,6 +5392,498 @@ applicable / not applicable
 導入する段階へ進む。
 
 
+## Phase 5-17：InferenceRule.premise_patterns 全体と複数 ProofStep の適合判定
+
+Phase 5-16 では、
+
+```text
+PremisePattern
++
+ProofStep
+↓
+matches_premise_pattern()
+↓
+True / False
+```
+
+という個別 premise matching を導入した。
+
+Phase 5-17 では、
+この個別 matcher を組み合わせ、
+
+```text
+InferenceRule.premise_patterns
++
+複数 ProofStep
+↓
+rule-level match / no match
+```
+
+を判定できるようにした。
+
+---
+
+### matches_inference_rule()
+
+追加:
+
+```text
+matches_inference_rule()
+```
+
+基本形:
+
+```python
+matches_inference_rule(
+  inference_rule,
+  steps,
+)
+```
+
+`InferenceRule` と、
+単一または複数の ProofStep を受け取り、
+
+```text
+True
+False
+```
+
+を返す。
+
+---
+
+### ProofStep の正規化
+
+`steps` は、
+
+```text
+ProofStep
+tuple of ProofStep
+list of ProofStep
+```
+
+を受け付ける。
+
+既存の、
+
+```text
+_normalize_proof_steps()
+```
+
+を利用して内部では tuple に統一する。
+
+これにより単一 premise の rule について、
+
+```python
+matches_inference_rule(
+  rule,
+  step,
+)
+```
+
+と、
+
+```python
+matches_inference_rule(
+  rule,
+  (step,),
+)
+```
+
+および、
+
+```python
+matches_inference_rule(
+  rule,
+  [step],
+)
+```
+
+を同じ意味で扱える。
+
+---
+
+### pattern と step の順序付き対応
+
+Phase 5-17 では、
+
+```text
+premise_patterns[0] ↔ steps[0]
+premise_patterns[1] ↔ steps[1]
+...
+```
+
+という位置対応を採用した。
+
+例えば、
+
+```text
+pattern 1 = RELATION
+pattern 2 = GIVEN
+```
+
+に対して、
+
+```text
+step 1 = RELATION
+step 2 = GIVEN
+```
+
+なら match する。
+
+一方、
+
+```text
+step 1 = GIVEN
+step 2 = RELATION
+```
+
+のように順序を逆にした場合は match しない。
+
+これにより Phase 5-15 以来未確定だった
+`premise_patterns` の tuple 順序について、
+
+```text
+premise の対応順を表す
+```
+
+という意味を Phase 5-17 で確定した。
+
+---
+
+### premise 数の完全一致
+
+InferenceRule が持つ、
+
+```text
+premise_patterns
+```
+
+の数と、
+実際に渡された ProofStep の数が
+一致することを要求する。
+
+数が異なる場合は、
+
+```text
+False
+```
+
+を返す。
+
+したがって、
+
+```text
+premise 不足
+```
+
+だけでなく、
+
+```text
+余分な premise
+```
+
+も不適合とする。
+
+---
+
+### 個別 matching の再利用
+
+各 pattern と step の適合判定には、
+Phase 5-16 で導入した、
+
+```text
+matches_premise_pattern()
+```
+
+をそのまま利用する。
+
+すべての対応する pattern / step が一致した場合のみ、
+
+```text
+True
+```
+
+となる。
+
+これにより、
+
+```text
+proof_rule
+statement_type
+relation_type
+```
+
+に関する個別 matching logic を
+`matches_inference_rule()` 側へ重複実装していない。
+
+---
+
+### 空 premise rule
+
+```python
+InferenceRule(
+  name="no premise rule",
+)
+```
+
+のように、
+
+```text
+premise_patterns = ()
+```
+
+である rule は、
+
+```text
+steps = ()
+```
+
+に一致する。
+
+一方、
+空 pattern の rule に非空の steps を渡した場合は
+一致しない。
+
+これにより、
+
+```text
+premise_patterns = ()
+```
+
+を、
+
+```text
+premise を必要としない rule
+```
+
+として一貫して扱える。
+
+---
+
+### 不正な入力
+
+第1引数が InferenceRule でない場合は、
+
+```text
+TypeError
+```
+
+とする。
+
+また steps が、
+
+```text
+ProofStep
+tuple/list of ProofStep
+```
+
+でない場合や、
+tuple / list 内に ProofStep 以外が含まれる場合も、
+
+```text
+TypeError
+```
+
+とする。
+
+これにより、
+
+```text
+正しい rule と steps を比較した結果の不一致
+```
+
+と、
+
+```text
+API への不正入力
+```
+
+を区別する。
+
+---
+
+### matching の設計境界
+
+Phase 5-17 では、
+
+```text
+明示的に与えられた ProofStep 列が
+InferenceRule.premise_patterns に一致するか
+```
+
+だけを判定する。
+
+まだ、
+
+```text
+多数の既存 ProofStep の中から
+rule に一致する premise の組を探す
+```
+
+ことは行わない。
+
+また、
+
+```text
+順序なし matching
+複数候補の探索
+Expression-level pattern
+pattern variable
+変数束縛
+conclusion 自動生成
+```
+
+も導入していない。
+
+---
+
+### テスト
+
+`tests/test_inference_rule_pattern.py` に
+Phase 5-17 のテストを追加した。
+
+追加した主なテスト:
+
+```text
+test_inference_rule_matches_single_premise
+test_inference_rule_rejects_single_wrong_premise
+test_inference_rule_matches_multiple_premises
+test_inference_rule_rejects_wrong_multiple_premise
+test_inference_rule_matching_is_ordered
+test_inference_rule_rejects_too_few_steps
+test_inference_rule_rejects_too_many_steps
+test_empty_inference_rule_matches_empty_steps
+test_empty_inference_rule_rejects_nonempty_steps
+test_matches_inference_rule_accepts_single_proof_step
+test_matches_inference_rule_accepts_tuple
+test_matches_inference_rule_accepts_list
+test_matches_inference_rule_rejects_invalid_rule
+test_matches_inference_rule_rejects_invalid_steps
+test_matches_inference_rule_rejects_invalid_step_in_list
+```
+
+確認内容:
+
+```text
+単一 premise の一致
+単一 premise の不一致
+複数 premise の一致
+複数 premise の一部不一致
+順序違いの拒否
+premise 不足の拒否
+余分な premise の拒否
+空 rule と空 steps の一致
+空 rule と非空 steps の不一致
+単一 ProofStep 入力
+tuple 入力
+list 入力
+不正 rule の拒否
+不正 steps の拒否
+list 内の不正 step の拒否
+```
+
+---
+
+### 全テスト
+
+2026-08-24:
+
+```text
+257 passed in 20.88s
+```
+
+既存の、
+
+```text
+algebra
+EHP
+expression
+formatter
+proof
+repository
+```
+
+を含め、
+全257テストが成功した。
+
+Phase 5-17 の rule-level matching 導入による
+regression は確認されなかった。
+
+---
+
+### Phase 5-17 の到達点
+
+Phase 5-16 では、
+
+```text
+1 pattern
++
+1 ProofStep
+↓
+match / no match
+```
+
+までを実装した。
+
+Phase 5-17 ではさらに、
+
+```text
+InferenceRule
+└── premise_patterns
+
+        +
+
+複数 ProofStep
+        ↓
+matches_inference_rule()
+        ↓
+True / False
+```
+
+という rule-level matching が可能になった。
+
+これにより、
+
+```text
+InferenceRule が要求する premise specification
+```
+
+と、
+
+```text
+実際に使用しようとしている ProofStep 群
+```
+
+を機械的に比較できるようになった。
+
+現段階では、
+premise は順序付き・完全一致で比較する。
+
+まだ、
+
+```text
+既存 ProofStep 群からの候補 premise 探索
+順序なし matching
+Expression pattern
+pattern variable
+変数束縛
+conclusion 自動生成
+rule 自動適用
+```
+
+は行わない。
+
+### 状態
+
+Phase 5-17 完了。
+
+次は、
+既存の ProofStep 集合から
+InferenceRule の premise_patterns に適合する
+premise 候補を探索する最小機構を検討する。
+
+
 
 
 
