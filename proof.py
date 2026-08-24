@@ -174,6 +174,63 @@ def exactness_proof_step(
   )
 
 
+def ehp_exactness_proof_step(
+  exact_step,
+  image_step,
+  kernel_step,
+):
+  exactness_step = exactness_proof_step(
+    exact_step,
+    image_step,
+    kernel_step,
+  )
+
+  return ProofStep(
+    conclusion=exactness_step.conclusion,
+    premises=exactness_step.premises,
+    rule=ProofRule.EHP_EXACTNESS,
+  )
+
+
+def ehp_exactness_proof(exact_step):
+  image_step = image_proof_step(
+    exact_step.first_map
+  )
+
+  kernel_step = kernel_proof_step(
+    exact_step.second_map
+  )
+
+  exactness_step = (
+    ehp_exactness_proof_step(
+      exact_step,
+      image_step,
+      kernel_step,
+    )
+  )
+
+  return Proof(
+    conclusion=exactness_step.conclusion,
+    steps=[
+      image_step,
+      kernel_step,
+      exactness_step,
+    ],
+  )
+
+
+def ehp_sphere_proof(segment):
+  return ehp_exactness_proof(
+    segment.exact_step_at_sphere()
+  )
+
+
+def ehp_hopf_target_proof(segment):
+  return ehp_exactness_proof(
+    segment.exact_step_at_hopf_target()
+  )
+
+
 
 
 

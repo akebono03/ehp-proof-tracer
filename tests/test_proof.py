@@ -14,6 +14,10 @@ from proof import (
   image_proof_step,
   kernel_proof_step,
   relation_proof_step,
+  ehp_exactness_proof,
+  ehp_exactness_proof_step,
+  ehp_hopf_target_proof,
+  ehp_sphere_proof,
 )
 from expression import Multiple, Zero, eta
 from repository import RelationRepository
@@ -22,6 +26,13 @@ from algebra import (
   GroupMap,
 )
 from models import AbelianGroup, GroupComponent
+from pathlib import Path
+from ehp import EHPSegment
+from repository import (
+  RelationRepository,
+  SphereRepository,
+)
+
 
 
 def test_relation():
@@ -506,6 +517,203 @@ def test_exactness_proof():
     kernel_step,
     exactness_step,
   ]
+
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+def make_sphere_repository():
+  return SphereRepository(
+    BASE_DIR / "data" / "sphere.csv"
+  )
+
+
+def test_ehp_exactness_proof_step():
+  first_map, second_map = (
+    exact_z2_z4_z2_maps()
+  )
+
+  exact_step = ExactSequenceStep(
+    first_map=first_map,
+    second_map=second_map,
+  )
+
+  image_step = image_proof_step(
+    first_map
+  )
+
+  kernel_step = kernel_proof_step(
+    second_map
+  )
+
+  step = ehp_exactness_proof_step(
+    exact_step,
+    image_step,
+    kernel_step,
+  )
+
+  assert isinstance(
+    step.conclusion,
+    ExactnessStatement,
+  )
+
+  assert step.conclusion.is_exact
+
+  assert step.premises == (
+    image_step,
+    kernel_step,
+  )
+
+  assert (
+    step.rule
+    == ProofRule.EHP_EXACTNESS
+  )
+
+
+def test_ehp_exactness_proof():
+  first_map, second_map = (
+    exact_z2_z4_z2_maps()
+  )
+
+  exact_step = ExactSequenceStep(
+    first_map=first_map,
+    second_map=second_map,
+  )
+
+  proof = ehp_exactness_proof(
+    exact_step
+  )
+
+  assert len(proof.steps) == 3
+
+  image_step = proof.steps[0]
+  kernel_step = proof.steps[1]
+  exactness_step = proof.steps[2]
+
+  assert (
+    image_step.rule
+    == ProofRule.IMAGE_COMPUTATION
+  )
+
+  assert (
+    kernel_step.rule
+    == ProofRule.KERNEL_COMPUTATION
+  )
+
+  assert (
+    exactness_step.rule
+    == ProofRule.EHP_EXACTNESS
+  )
+
+  assert (
+    proof.conclusion
+    == exactness_step.conclusion
+  )
+
+
+def test_ehp_sphere_proof_from_segment():
+  repo = make_sphere_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=3,
+    k=5,
+  )
+
+  proof = ehp_sphere_proof(
+    segment
+  )
+
+  assert len(proof.steps) == 3
+
+  image_step = proof.steps[0]
+  kernel_step = proof.steps[1]
+  exactness_step = proof.steps[2]
+
+  assert (
+    image_step.conclusion.group_map
+    is segment.E
+  )
+
+  assert (
+    kernel_step.conclusion.group_map
+    is segment.H
+  )
+
+  assert (
+    exactness_step.conclusion.first_map
+    is segment.E
+  )
+
+  assert (
+    exactness_step.conclusion.second_map
+    is segment.H
+  )
+
+  assert (
+    exactness_step.conclusion.is_exact
+  )
+
+  assert (
+    exactness_step.rule
+    == ProofRule.EHP_EXACTNESS
+  )
+
+  assert (
+    proof.conclusion
+    == exactness_step.conclusion
+  )
+
+
+def test_ehp_hopf_target_proof_from_segment():
+  repo = make_sphere_repository()
+
+  segment = EHPSegment(
+    repo,
+    n=3,
+    k=5,
+  )
+
+  proof = ehp_hopf_target_proof(
+    segment
+  )
+
+  assert len(proof.steps) == 3
+
+  image_step = proof.steps[0]
+  kernel_step = proof.steps[1]
+  exactness_step = proof.steps[2]
+
+  assert (
+    image_step.conclusion.group_map
+    is segment.H
+  )
+
+  assert (
+    kernel_step.conclusion.group_map
+    is segment.P
+  )
+
+  assert (
+    exactness_step.conclusion.first_map
+    is segment.H
+  )
+
+  assert (
+    exactness_step.conclusion.second_map
+    is segment.P
+  )
+
+  assert (
+    exactness_step.conclusion.is_exact
+  )
+
+  assert (
+    exactness_step.rule
+    == ProofRule.EHP_EXACTNESS
+  )
+
+
 
 
 
