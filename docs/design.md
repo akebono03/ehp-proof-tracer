@@ -1714,6 +1714,604 @@ Toda bracket などを追加する際にも、
 既存の algebra 基盤とホモトピー論的な式表現を分離したまま拡張できる構造を目指す。
 
 
+# Relation Repository / Proof 構築 / Formatter
+
+Phase 5-3 以降では、
+Phase 5-1 で導入した `Relation` / `ProofStep` / `Proof` と、
+Phase 5-2 で導入した `Expression` を接続し、
+既知 relation の検索から proof trace の構築・表示までを
+段階的に実装する。
+
+---
+
+## RelationRepository の設計
+
+既知の数学的 relation を保存・検索するため、
+`RelationRepository` を導入する。
+
+`RelationRepository` は、
+
+```text
+Relation の保存
+Relation の検索
+```
+
+のみを責務とする。
+
+検索条件として、
+
+```text
+lhs
+rhs
+relation_type
+source
+```
+
+を利用できる。
+
+複数条件が指定された場合は AND 条件として扱う。
+
+Expression は構造的 equality を持つため、
+
+```python
+Multiple(
+  2,
+  eta(3),
+)
+```
+
+のような式を、
+文字列へ変換せずそのまま検索キーとして利用する。
+
+`RelationRepository` 自体は、
+
+```text
+relation の適用
+式変形
+proof の生成
+自動推論
+```
+
+を行わない。
+
+これらは proof / inference 層の責務とする。
+
+---
+
+## Relation から ProofStep への変換
+
+Repository から取得した `Relation` を
+証明の一部として扱うため、
+
+```python
+relation_proof_step()
+```
+
+を導入する。
+
+Relation は、
+
+```text
+既知の数学的事実
+```
+
+そのものであり、
+
+ProofStep は、
+
+```text
+証明の中でその事実を使用可能な形にしたもの
+```
+
+とする。
+
+したがって、
+
+```text
+Relation
+↓
+relation_proof_step()
+↓
+ProofStep
+```
+
+という変換を行う。
+
+Relation を直接 Proof の依存関係に置くのではなく、
+Proof の中では原則として ProofStep を依存単位とする。
+
+---
+
+## algebra 計算結果の ProofStep 化
+
+kernel / image / cokernel の計算結果についても、
+単なる返り値ではなく ProofStep として記録できるようにする。
+
+対応する関数は、
+
+```text
+kernel_proof_step()
+image_proof_step()
+cokernel_proof_step()
+```
+
+とする。
+
+それぞれ、
+
+```text
+Ker(f)
+Im(f)
+Coker(f)
+```
+
+の一般アーベル群構造を計算し、
+
+```text
+KernelStatement
+ImageStatement
+CokernelStatement
+```
+
+として conclusion に保持する。
+
+これらは algebra 層そのものを変更するのではなく、
+proof 層から既存 algebra API を呼び出して
+計算結果を ProofStep として包む構造とする。
+
+依存方向は引き続き、
+
+```text
+proof layer
+↓
+algebra layer
+```
+
+とする。
+
+---
+
+## Exactness の ProofStep 化
+
+連続する準同型
+
+```text
+A --f--> B --g--> C
+```
+
+について、
+
+```text
+Im(f)
+Ker(g)
+```
+
+の計算結果を premises とし、
+
+```text
+Im(f) = Ker(g)
+```
+
+を conclusion とする ProofStep を構成する。
+
+基本形は、
+
+```text
+image step
+kernel step
+↓
+exactness rule
+↓
+Im(f) = Ker(g)
+```
+
+とする。
+
+このため、
+
+```python
+exactness_proof_step()
+```
+
+は、
+
+```text
+image_step
+kernel_step
+```
+
+を明示的な premises として保持する。
+
+EHP 完全列については、
+
+```python
+ehp_exactness_proof_step()
+```
+
+を用い、
+
+```text
+ProofRule.EHP_EXACTNESS
+```
+
+として一般の exactness と区別する。
+
+---
+
+## EHP Proof の構築
+
+EHP 完全列の一部分について、
+
+```text
+Im(E)
+Ker(H)
+Im(E) = Ker(H)
+```
+
+または、
+
+```text
+Im(H)
+Ker(P)
+Im(H) = Ker(P)
+```
+
+という proof trace を自動構築する。
+
+例えば sphere 側では、
+
+```text
+step 1:
+Im(E) を計算
+
+step 2:
+Ker(H) を計算
+
+step 3:
+step 1, step 2 を前提として
+Im(E) = Ker(H)
+```
+
+という構造を持つ。
+
+この proof を、
+
+```python
+ehp_sphere_proof()
+```
+
+および、
+
+```python
+ehp_hopf_target_proof()
+```
+
+から取得できるようにする。
+
+これにより従来の、
+
+```text
+exactness = True
+```
+
+という結果だけでなく、
+
+```text
+なぜ exact と判定されたか
+```
+
+を Proof として保持できる。
+
+---
+
+## Proof の premises
+
+ProofStep の依存関係は `premises` に保持する。
+
+Phase 5 初期では `premises` に汎用値を入れられる設計としていたが、
+proof trace を構築する段階では、
+ProofStep 同士の依存関係を主要な利用方法とする。
+
+例えば、
+
+```text
+step 1
+Im(E) ≅ 0
+
+step 2
+Ker(H) ≅ 0
+
+step 3
+Im(E) = Ker(H)
+```
+
+では、
+
+```python
+step3.premises == (
+  step1,
+  step2,
+)
+```
+
+となる。
+
+これにより Proof の `steps` は順序付きリストのままでも、
+各 step がどの step に依存するかを追跡できる。
+
+Phase 5 では完全な DAG オブジェクトはまだ導入せず、
+ProofStep の参照によって依存関係を表現する。
+
+---
+
+## Relation を premise とする推論
+
+既知 Relation を使用した推論についても、
+Relation を ProofStep に変換した上で
+premise として保持する。
+
+基本形は、
+
+```text
+Relation
+↓
+relation_proof_step
+↓
+relation inference step
+```
+
+とする。
+
+例えば、
+
+```text
+2η_3 = 0
+```
+
+という Relation から、
+
+```text
+η_3 has order dividing 2
+```
+
+を導く場合、
+
+```text
+step 1:
+2η_3 = 0
+[relation]
+
+step 2:
+η_3 has order dividing 2
+[relation]
+premise = step 1
+```
+
+という Proof を構成する。
+
+このため、
+
+```python
+relation_inference_proof_step()
+```
+
+は `relation_step` を premise として受け取り、
+その step が、
+
+```text
+ProofRule.RELATION
+```
+
+を持ち、かつ conclusion が `Relation` であることを確認する。
+
+これにより、
+Repository から取得された既知 relation が、
+実際の proof dependency に組み込まれる。
+
+---
+
+## Proof Formatter の設計
+
+Proof の内部データ構造と表示処理を分離するため、
+formatter 層を導入する。
+
+formatter は、
+
+```text
+Expression
+Statement
+ProofStep
+Proof
+```
+
+を人間が読める文字列表現へ変換する。
+
+主な関数は、
+
+```text
+format_expression()
+format_statement()
+format_proof_step()
+format_proof()
+```
+
+とする。
+
+Expression や Proof 自体には
+表示形式を持たせない。
+
+これにより将来的に、
+
+```text
+plain text
+Unicode
+TeX
+Markdown
+HTML
+```
+
+など複数の表示形式へ拡張できる余地を残す。
+
+---
+
+## ProofStep の番号と依存関係表示
+
+Proof を表示するとき、
+各 ProofStep に通し番号を付ける。
+
+例えば、
+
+```text
+1. Im(E) ≅ 0
+2. Ker(H) ≅ 0
+3. Im(E) = Ker(H)
+```
+
+とする。
+
+さらに step 3 の premises が
+step 1 と step 2 である場合、
+
+```text
+Premises: 1, 2
+```
+
+と表示する。
+
+Proof 内部では ProofStep のオブジェクト参照を保持し、
+formatter が Proof 内での番号へ変換する。
+
+したがって proof model 自体は、
+表示用の step number を保持しない。
+
+step number は表示層だけの概念とする。
+
+---
+
+## Relation metadata と ProofStep metadata の区別
+
+`Relation` と `ProofStep` は、
+それぞれ独立した補足情報を持つことができる。
+
+Relation の、
+
+```text
+source
+note
+```
+
+は、
+既知の数学的事実そのものに関する metadata とする。
+
+例えば、
+
+```text
+source = "Toda"
+note = "stable range"
+```
+
+などである。
+
+一方 `ProofStep.note` は、
+その relation や計算結果を今回どのように使用したかという
+推論上の補足情報とする。
+
+したがって、
+
+```text
+Relation.note
+```
+
+と、
+
+```text
+ProofStep.note
+```
+
+は統合しない。
+
+将来的な proof formatter では、
+必要に応じて両方を表示できるようにする。
+
+---
+
+## Phase 5-10 時点の proof pipeline
+
+現在の proof / inference 基盤は、
+
+```text
+Expression
+↓
+Relation
+↓
+RelationRepository
+↓
+relation_proof_step
+↓
+ProofStep
+↓
+premises
+↓
+Proof
+↓
+formatter
+```
+
+という経路を持つ。
+
+また EHP 計算については、
+
+```text
+GroupMap
+↓
+kernel / image calculation
+↓
+ProofStep
+↓
+exactness ProofStep
+↓
+Proof
+↓
+formatter
+```
+
+という経路を持つ。
+
+これにより、
+
+```text
+既知 relation に基づく推論
+```
+
+と、
+
+```text
+algebra / EHP 計算に基づく推論
+```
+
+を同じ Proof / ProofStep モデルで表現できる基盤ができた。
+
+---
+
+## Phase 5-10 時点の設計原則
+
+1. Relation は既知の数学的事実として保持する。
+2. Repository は relation の保存・検索のみを担当する。
+3. Relation を proof で利用するときは ProofStep に変換する。
+4. kernel / image / cokernel の計算結果も ProofStep とする。
+5. exactness は image / kernel step を premises とする。
+6. EHP exactness は一般 exactness と同じ構造を利用する。
+7. ProofStep 同士の依存関係は premises で表現する。
+8. Proof の step number は formatter 側だけで付与する。
+9. Proof model と表示処理を分離する。
+10. Relation の metadata と ProofStep の metadata を区別する。
+11. algebra 層は proof 層を知らない。
+12. Proof はまだ専用 DAG 型へ変更せず、順序付き step と参照によって依存関係を表現する。
+13. Relation の適用は現段階では明示的に構築し、一般的な pattern matching や自動推論はまだ行わない。
+14. 既知 relation と algebra 計算の両方を同一の Proof モデルへ統合できる構造を維持する。
+
+
+
 
 
 

@@ -492,7 +492,7 @@ Responsible for:
 * construction of E, H, and P
 * translating EHP data into group homomorphisms
 
-### Future proof / inference layer
+### proof / inference layer
 
 The future proof layer will be responsible for deriving mathematical
 relations from sources such as:
@@ -553,10 +553,50 @@ engine.
 * Phase 1: finite abelian group calculations — completed
 * Phase 2: structured subgroup calculations — completed
 * Phase 3: quotient groups, exact sequences, extensions, and EHP inference — completed
-* Phase 4: presentation-based calculations with free components — in progress / finalization
+* Phase 4: presentation-based calculations with free components — completed
+* Phase 5: proof / inference foundation — in progress
 
-Phase 4 has established the general finitely generated abelian-group
-calculation layer and its boundary with the EHP layer.
+Phase 5 currently supports:
+
+* structured homotopy expressions
+* mathematical relations
+* relation repositories and structural relation search
+* proof steps and proofs
+* kernel / image / cokernel proof steps
+* exactness and EHP exactness proof construction
+* explicit proof dependencies through premises
+* conversion of known relations into proof steps
+* relation-based inference steps
+* human-readable proof formatting
+
+For example, an EHP exactness calculation can now be represented as:
+
+```text
+1. Im(E) ≅ 0
+   [image computation]
+
+2. Ker(H) ≅ 0
+   [kernel computation]
+
+3. Im(E) = Ker(H)
+   [ehp exactness]
+   Premises: 1, 2
+```
+
+Known mathematical relations can also participate directly in proof
+dependencies:
+
+```text
+1. 2η_3 = 0
+   [relation]
+
+2. η_3 has order dividing 2
+   [relation]
+   Premises: 1
+```
+
+The next step is to expose relation metadata such as literature sources
+and notes in formatted proof traces.
 
 ---
 

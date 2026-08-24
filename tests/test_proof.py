@@ -22,7 +22,6 @@ from proof import (
   relation_inference_proof_step,
 )
 from expression import Multiple, Zero, eta
-from repository import RelationRepository
 from algebra import (
   ExactSequenceStep,
   GroupMap,

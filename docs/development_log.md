@@ -2811,5 +2811,356 @@ Multiple(2, eta(3))
 Phase 5-3 完了
 
 
+## Phase 5-4〜5-10：Proof 構築と依存関係の導入
+
+Relation Repository の導入後、
+既知 relation と algebra / EHP 計算結果を
+実際の Proof trace として構築する機能を段階的に追加した。
+
+---
+
+### algebra 計算結果の ProofStep 化
+
+以下の計算結果を ProofStep として保持できるようにした。
+
+```text
+Ker(f)
+Im(f)
+Coker(f)
+```
+
+追加:
+
+```text
+KernelStatement
+ImageStatement
+CokernelStatement
+
+kernel_proof_step()
+image_proof_step()
+cokernel_proof_step()
+```
+
+各 ProofStep は、
+既存の `GroupMap` の presentation ベース計算を利用して
+一般アーベル群構造を conclusion として保持する。
+
+algebra 層自体には proof の概念を追加していない。
+
+---
+
+### exactness の ProofStep 化
+
+連続する準同型、
+
+```text
+A --f--> B --g--> C
+```
+
+について、
+
+```text
+Im(f)
+Ker(g)
+```
+
+の ProofStep を premises とし、
+
+```text
+Im(f) = Ker(g)
+```
+
+を conclusion とする
+`ExactnessStatement` を導入した。
+
+追加:
+
+```text
+ExactnessStatement
+exactness_proof_step()
+```
+
+これにより完全性判定の結果だけでなく、
+
+```text
+どの image 計算と kernel 計算を使ったか
+```
+
+を ProofStep の依存関係として保持できるようになった。
+
+---
+
+### EHP exactness proof
+
+一般の exactness ProofStep を EHP 層へ接続した。
+
+追加:
+
+```text
+ehp_exactness_proof_step()
+ehp_exactness_proof()
+ehp_sphere_proof()
+ehp_hopf_target_proof()
+```
+
+例えば sphere 側では、
+
+```text
+Im(E)
+Ker(H)
+Im(E) = Ker(H)
+```
+
+という3 step の Proof を構築できる。
+
+Hopf target 側では、
+
+```text
+Im(H)
+Ker(P)
+Im(H) = Ker(P)
+```
+
+という Proof を構築できる。
+
+これにより、
+
+```text
+exact = True
+```
+
+だけではなく、
+完全性の計算過程を明示的に保持できるようになった。
+
+---
+
+### Proof formatter
+
+Proof の内部モデルと表示処理を分離するため、
+formatter を導入した。
+
+追加:
+
+```text
+format_expression()
+format_statement()
+format_proof_step()
+format_proof()
+```
+
+Expression について、
+
+```text
+0
+η_n
+2η_n
+η_nη_{n+1}
+```
+
+を人間が読める形式で表示できる。
+
+また、
+
+```text
+KernelStatement
+ImageStatement
+CokernelStatement
+ExactnessStatement
+Relation
+```
+
+も同じ formatter から表示できる。
+
+---
+
+### ProofStep の番号表示
+
+Proof 全体を表示するとき、
+各 ProofStep に通し番号を付けるようにした。
+
+例:
+
+```text
+1. Im(E) ≅ 0
+   [image computation]
+
+2. Ker(H) ≅ 0
+   [kernel computation]
+
+3. Im(E) = Ker(H)
+   [ehp exactness]
+```
+
+step number は Proof model に保持せず、
+formatter が Proof.steps の順序から生成する。
+
+---
+
+### premises の表示
+
+ProofStep の `premises` を
+Proof 表示へ反映するようにした。
+
+例えば、
+
+```text
+3. Im(E) = Ker(H)
+   [ehp exactness]
+   Premises: 1, 2
+```
+
+と表示される。
+
+ProofStep の内部では step object への参照を保持し、
+formatter がその参照を Proof 内の step number へ変換する。
+
+これにより Proof の依存関係を人間が確認できるようになった。
+
+---
+
+### Relation を ProofStep 化
+
+Repository から取得された既知 relation を
+proof の中で利用するため、
+
+```text
+relation_proof_step()
+```
+
+を導入した。
+
+例えば、
+
+```text
+2η_3 = 0
+```
+
+という Relation は、
+
+```text
+1. 2η_3 = 0
+   [relation]
+```
+
+という ProofStep として扱える。
+
+Relation 自体は数学的入力として維持し、
+Proof の依存関係には ProofStep を利用する。
+
+---
+
+### Relation を premise とする推論
+
+Relation を実際の推論の premise として利用する仕組みを追加した。
+
+追加:
+
+```text
+relation_inference_proof_step()
+relation_inference_proof()
+```
+
+例えば、
+
+```text
+2η_3 = 0
+```
+
+から、
+
+```text
+η_3 has order dividing 2
+```
+
+を導く Proof を、
+
+```text
+1. 2η_3 = 0
+   [relation]
+
+2. η_3 has order dividing 2
+   [relation]
+   Premises: 1
+```
+
+として構築できる。
+
+`relation_inference_proof_step()` は、
+premise が、
+
+```text
+ProofRule.RELATION
+```
+
+を持つ ProofStep であり、
+その conclusion が Relation であることを検証する。
+
+これにより Relation Repository の検索結果を、
+実際の proof dependency へ接続できた。
+
+---
+
+### Phase 5-10 の到達点
+
+現在、
+
+```text
+Expression
+↓
+Relation
+↓
+RelationRepository
+↓
+relation ProofStep
+↓
+inference ProofStep
+↓
+Proof
+↓
+formatter
+```
+
+という経路が動作している。
+
+また EHP 計算についても、
+
+```text
+GroupMap
+↓
+image / kernel calculation
+↓
+ProofStep
+↓
+EHP exactness
+↓
+Proof
+↓
+formatter
+```
+
+という trace を構築できる。
+
+したがって、
+既知 relation による数学的推論と、
+algebra / EHP による計算結果を、
+同じ Proof / ProofStep モデルで扱う基盤ができた。
+
+### 状態
+
+Phase 5-10 完了。
+
+次は Phase 5-11 として、
+
+```text
+Relation.source
+Relation.note
+ProofStep.note
+```
+
+などの metadata を
+Proof formatter に反映する。
+
+
+
 
 
