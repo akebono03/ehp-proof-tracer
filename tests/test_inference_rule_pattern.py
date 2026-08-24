@@ -9,6 +9,7 @@ from proof import (
   RelationType,
   apply_inference_match,
   apply_inference_matches,
+  derive_inference_steps,
   find_applicable_inference_rules,
   find_inference_match,
   find_inference_matches,
@@ -3620,8 +3621,305 @@ def test_apply_found_inference_matches():
   )
 
 
+def test_derive_inference_steps():
+  rule = InferenceRule(
+    name="given inference",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = derive_inference_steps(
+    (
+      rule,
+    ),
+    (
+      step,
+    ),
+  )
+
+  assert len(result) == 1
+
+  assert (
+    result[0].conclusion
+    == "derived"
+  )
+
+  assert result[0].premises == (
+    step,
+  )
+
+  assert (
+    result[0].inference_rule
+    == rule
+  )
 
 
+def test_derive_inference_steps_multiple_rules():
+  first_rule = InferenceRule(
+    name="first rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "first derived"
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.RELATION,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "second derived"
+    ),
+  )
+
+  given_step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  relation_step = ProofStep(
+    conclusion="relation",
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = derive_inference_steps(
+    (
+      first_rule,
+      second_rule,
+    ),
+    (
+      given_step,
+      relation_step,
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in result
+  ) == (
+    "first derived",
+    "second derived",
+  )
+
+
+def test_derive_inference_steps_preserves_rule_order():
+  first_rule = InferenceRule(
+    name="first rule",
+    conclusion_builder=lambda premises: (
+      "first"
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    conclusion_builder=lambda premises: (
+      "second"
+    ),
+  )
+
+  result = derive_inference_steps(
+    (
+      second_rule,
+      first_rule,
+    ),
+    (),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in result
+  ) == (
+    "second",
+    "first",
+  )
+
+
+def test_derive_inference_steps_returns_empty():
+  rule = InferenceRule(
+    name="relation rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.RELATION,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  assert derive_inference_steps(
+    (
+      rule,
+    ),
+    (
+      step,
+    ),
+  ) == ()
+
+
+def test_derive_inference_steps_empty_rules():
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  assert derive_inference_steps(
+    (),
+    (
+      step,
+    ),
+  ) == ()
+
+
+def test_derive_inference_steps_accepts_single_rule_and_step():
+  rule = InferenceRule(
+    name="given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = derive_inference_steps(
+    rule,
+    step,
+  )
+
+  assert len(result) == 1
+
+  assert (
+    result[0].conclusion
+    == "derived"
+  )
+
+
+def test_derive_inference_steps_accepts_lists():
+  rule = InferenceRule(
+    name="given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = derive_inference_steps(
+    [
+      rule,
+    ],
+    [
+      step,
+    ],
+  )
+
+  assert len(result) == 1
+
+
+def test_derive_inference_steps_rejects_invalid_rules():
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  with pytest.raises(TypeError):
+    derive_inference_steps(
+      "invalid",
+      (
+        step,
+      ),
+    )
+
+
+def test_derive_inference_steps_rejects_invalid_steps():
+  rule = InferenceRule(
+    name="rule",
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  with pytest.raises(TypeError):
+    derive_inference_steps(
+      (
+        rule,
+      ),
+      "invalid",
+    )
+
+
+def test_derive_inference_steps_requires_builder_for_matched_rule():
+  rule = InferenceRule(
+    name="given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  with pytest.raises(ValueError):
+    derive_inference_steps(
+      (
+        rule,
+      ),
+      (
+        step,
+      ),
+    )
 
 
 

@@ -11739,6 +11739,1069 @@ available ProofSteps に追加
 iterative automatic inference の基盤へ接続できる。
 
 
+# Phase 5-24：match search と application をまとめる high-level inference API
+
+Phase 5-23 までに、
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_inference_matches()
+↓
+InferenceMatch collection
+↓
+apply_inference_matches()
+↓
+derived ProofStep collection
+```
+
+という collection-level pipeline が成立した。
+
+Phase 5-24 では、
+この既存 pipeline を一般的な利用側から簡潔に呼び出すため、
+
+```python
+derive_inference_steps(
+  inference_rules,
+  available_steps,
+)
+```
+
+を導入する。
+
+目的は新しい matching algorithm や application algorithm を
+追加することではない。
+
+既存の、
+
+```text
+find_inference_matches()
+```
+
+と、
+
+```text
+apply_inference_matches()
+```
+
+を薄く合成する high-level API を用意することである。
+
+---
+
+## derive_inference_steps() の責務
+
+`derive_inference_steps()` の責務は、
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+現在 applicable な rule と premises を検索
+↓
+それぞれを application
+↓
+derived ProofStep collection
+```
+
+を1回の呼び出しで実行することとする。
+
+実装は、
+
+```python
+def derive_inference_steps(
+  inference_rules,
+  available_steps,
+):
+  matches = find_inference_matches(
+    inference_rules,
+    available_steps,
+  )
+
+  return apply_inference_matches(
+    matches
+  )
+```
+
+という薄い composition とする。
+
+つまり、
+
+```text
+derive_inference_steps()
+↓
+find_inference_matches()
+↓
+apply_inference_matches()
+```
+
+である。
+
+---
+
+## high-level API に logic を再実装しない
+
+`derive_inference_steps()` 自身には、
+
+```text
+InferenceRule normalization
+ProofStep normalization
+premise-pattern matching
+premise candidate search
+distinct-step assignment
+InferenceMatch construction
+conclusion_builder validation
+conclusion construction
+ProofRule.INFERENCE assignment
+premise preservation
+InferenceRule preservation
+```
+
+を実装しない。
+
+これらはすでに、
+
+```text
+find_inference_matches()
+apply_inference_matches()
+apply_inference_match()
+```
+
+およびその下位関数に存在している。
+
+したがって Phase 5-24 の high-level API は、
+既存 primitive の orchestration だけを担当する。
+
+これにより、
+
+```text
+low-level behavior
+```
+
+と、
+
+```text
+high-level behavior
+```
+
+の意味が乖離することを防ぐ。
+
+---
+
+## low-level API は残す
+
+`derive_inference_steps()` を導入しても、
+
+```text
+find_inference_matches()
+```
+
+と、
+
+```text
+apply_inference_matches()
+```
+
+を統合・廃止しない。
+
+用途は異なる。
+
+単純に現在 derivable な step をすべて生成したい場合は、
+
+```python
+derived_steps = derive_inference_steps(
+  inference_rules,
+  available_steps,
+)
+```
+
+とできる。
+
+一方、
+matching result を application 前に確認したい場合は、
+
+```python
+matches = find_inference_matches(
+  inference_rules,
+  available_steps,
+)
+```
+
+を直接利用する。
+
+例えば将来的に、
+
+```text
+rule priority
+proof strategy
+search strategy
+user selection
+cost evaluation
+branch selection
+```
+
+などを導入する場合、
+
+```text
+find
+↓
+inspect
+↓
+select
+↓
+apply
+```
+
+という経路が必要になる。
+
+そのため high-level API は convenience function とし、
+lower-level API を隠さない。
+
+---
+
+## 1 inference round として扱う
+
+`derive_inference_steps()` は、
+
+```text
+現在の available ProofSteps
+```
+
+だけを対象にする。
+
+この呼び出し中に生成された derived steps を
+同じ呼び出しの available steps へ追加しない。
+
+したがって、
+
+```text
+rule A
+premise: GIVEN
+conclusion: intermediate
+```
+
+と、
+
+```text
+rule B
+premise: intermediate
+conclusion: final
+```
+
+が存在していても、
+`intermediate` が呼び出し開始時点の
+`available_steps` に存在しなければ、
+同一 `derive_inference_steps()` 呼び出しの中で
+rule B が新たに applicable になることはない。
+
+概念的には、
+
+```text
+available ProofSteps at start
+↓
+one match search
+↓
+one application stage
+↓
+derived ProofSteps
+```
+
+であり、
+
+```text
+derive
+↓
+add
+↓
+derive
+↓
+add
+↓
+...
+```
+
+ではない。
+
+この distinction を、
+iterative inference との境界として維持する。
+
+---
+
+## rule order の保持
+
+Phase 5-24 では、
+high-level API でも deterministic な順序を維持する。
+
+既存の、
+
+```text
+find_inference_matches()
+```
+
+は input の `InferenceRule` 順を保持する。
+
+また、
+
+```text
+apply_inference_matches()
+```
+
+は input の `InferenceMatch` 順を保持する。
+
+したがって、
+
+```text
+derive_inference_steps()
+```
+
+も自然に、
+
+```text
+InferenceRule input order
+↓
+InferenceMatch order
+↓
+derived ProofStep order
+```
+
+を保持する。
+
+例えば、
+
+```text
+(
+  second_rule,
+  first_rule,
+)
+```
+
+がともに applicable なら、
+derived step も、
+
+```text
+(
+  second derived,
+  first derived,
+)
+```
+
+の順となる。
+
+`derive_inference_steps()` 自体には
+追加の sorting や ranking を導入しない。
+
+---
+
+## applicable rule がない場合
+
+matching stage で、
+
+```text
+find_inference_matches()
+```
+
+が、
+
+```text
+()
+```
+
+を返した場合、
+
+```text
+apply_inference_matches(())
+```
+
+も、
+
+```text
+()
+```
+
+を返す。
+
+したがって、
+
+```python
+derive_inference_steps(
+  inference_rules,
+  available_steps,
+)
+```
+
+は applicable rule が存在しないことを
+例外ではなく、
+
+```text
+()
+```
+
+として表現する。
+
+これは、
+
+```text
+successful inference round
+but no new currently derivable steps
+```
+
+を自然に表現できる。
+
+将来 iterative inference を導入した場合には、
+この空 tuple を fixed-point 判定の一部として利用できる可能性がある。
+
+---
+
+## 空 rule collection
+
+`inference_rules=()` も有効な入力とする。
+
+この場合、
+
+```text
+find_inference_matches()
+↓
+()
+↓
+apply_inference_matches()
+↓
+()
+```
+
+となる。
+
+high-level API のためだけに
+空 collection を特殊なエラーとして扱わない。
+
+---
+
+## input normalization の委譲
+
+`derive_inference_steps()` 自身では input normalization を行わない。
+
+`find_inference_matches()` が既存の、
+
+```text
+_normalize_inference_rules()
+_normalize_proof_steps()
+```
+
+を利用するため、
+high-level API でも、
+
+```text
+single InferenceRule
+tuple of InferenceRule
+list of InferenceRule
+```
+
+および、
+
+```text
+single ProofStep
+tuple of ProofStep
+list of ProofStep
+```
+
+を利用できる。
+
+これは、
+
+```text
+derive_inference_steps()
+```
+
+専用の normalization logic を作らず、
+lower-level API の input contract をそのまま継承する設計である。
+
+---
+
+## invalid input の扱い
+
+不正な、
+
+```text
+inference_rules
+```
+
+または、
+
+```text
+available_steps
+```
+
+についても、
+`derive_inference_steps()` 独自の validation を追加しない。
+
+例えば、
+
+```text
+invalid rule collection
+```
+
+は `find_inference_matches()` 内の
+rule normalization によって `TypeError` となる。
+
+同様に、
+
+```text
+invalid ProofStep collection
+```
+
+も既存の ProofStep normalization によって
+`TypeError` となる。
+
+validation の責務を複製しない。
+
+---
+
+## conclusion_builder validation の委譲
+
+matching 自体には、
+
+```text
+conclusion_builder
+```
+
+は不要である。
+
+そのため、
+
+```text
+InferenceRule
+premise matches
+conclusion_builder=None
+```
+
+という rule は
+`InferenceMatch` までは生成できる。
+
+しかし application には conclusion の構築が必要であるため、
+`apply_inference_match()` は
+`conclusion_builder` が存在しない場合に `ValueError` を送出する。
+
+`derive_inference_steps()` でも
+この behavior をそのまま維持する。
+
+つまり、
+
+```text
+derive_inference_steps()
+↓
+find_inference_matches()
+↓
+matched
+↓
+apply_inference_matches()
+↓
+apply_inference_match()
+↓
+missing builder
+↓
+ValueError
+```
+
+となる。
+
+high-level API がこの例外を握りつぶしたり、
+別の default conclusion を生成したりはしない。
+
+---
+
+## find → apply pipeline の正式な high-level 化
+
+Phase 5-23 では caller が、
+
+```python
+matches = find_inference_matches(
+  inference_rules,
+  available_steps,
+)
+
+derived_steps = apply_inference_matches(
+  matches,
+)
+```
+
+と明示的に接続していた。
+
+Phase 5-24 では、
+
+```python
+derived_steps = derive_inference_steps(
+  inference_rules,
+  available_steps,
+)
+```
+
+を同じ処理の正式な high-level entry point とする。
+
+したがって現在の API は、
+
+```text
+low level:
+
+find_inference_match()
+apply_inference_match()
+
+collection level:
+
+find_inference_matches()
+apply_inference_matches()
+
+high level:
+
+derive_inference_steps()
+```
+
+という階層になる。
+
+---
+
+## 現在の inference API 階層
+
+Phase 5-24 時点では、
+inference pipeline を次の階層として整理する。
+
+### Pattern matching
+
+```text
+PremisePattern
++
+ProofStep
+↓
+matches_premise_pattern()
+```
+
+### Explicit rule matching
+
+```text
+InferenceRule
++
+explicit premises
+↓
+matches_inference_rule()
+```
+
+### Premise search
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+```
+
+### Applicability
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+is_inference_rule_applicable()
+```
+
+### Applicable rule collection
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_applicable_inference_rules()
+```
+
+### Structured match
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_inference_match()
+↓
+InferenceMatch
+```
+
+### Structured match collection
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_inference_matches()
+↓
+InferenceMatch collection
+```
+
+### Single application
+
+```text
+InferenceMatch
+↓
+apply_inference_match()
+↓
+ProofStep
+```
+
+### Collection application
+
+```text
+InferenceMatch collection
+↓
+apply_inference_matches()
+↓
+ProofStep collection
+```
+
+### High-level one-round derivation
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+derive_inference_steps()
+↓
+ProofStep collection
+```
+
+この階層では、
+上位 API は下位 API を組み合わせるだけとし、
+下位の意味論を再実装しない。
+
+---
+
+## derived ProofStep の意味
+
+`derive_inference_steps()` が返す各 `ProofStep` は、
+従来の `apply_inference_match()` と同じ意味を持つ。
+
+すなわち、
+
+```text
+conclusion
+= conclusion_builder(matched premises)
+
+premises
+= matched ProofSteps
+
+rule
+= ProofRule.INFERENCE
+
+inference_rule
+= applied InferenceRule
+```
+
+である。
+
+high-level API を経由したことによる
+特別な ProofStep type や metadata は追加しない。
+
+つまり derived result は、
+直接 `apply_inference_match()` で生成した result と同じ
+ProofStep model に収まる。
+
+---
+
+## iterative inference との境界
+
+Phase 5-24 は、
+high-level one-round inference までを責務とする。
+
+まだ、
+
+```text
+derived ProofSteps
+↓
+available ProofSteps へ追加
+```
+
+は行わない。
+
+そのため現在は、
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+derive_inference_steps()
+↓
+new ProofSteps
+```
+
+で停止する。
+
+次の段階では、
+
+```text
+available
++
+derived
+↓
+merge
+↓
+expanded available
+```
+
+という operation が必要になる。
+
+しかし単純な tuple concatenation だけでは、
+以下の問題が生じる。
+
+```text
+duplicate conclusion
+same conclusion from different proofs
+same rule repeated
+premise-free rule repeated
+cyclic derivation
+```
+
+したがって iterative inference を導入する前に、
+
+```text
+proof-step collection merge
+```
+
+または、
+
+```text
+new conclusion detection
+```
+
+の設計を明確にする。
+
+---
+
+## duplicate detection との境界
+
+Phase 5-24 では
+duplicate detection を `derive_inference_steps()` に含めない。
+
+例えば2つの rule が、
+同じ conclusion を生成した場合でも、
+
+```text
+derived_step_a
+derived_step_b
+```
+
+として両方返り得る。
+
+これは現段階では、
+
+```text
+same conclusion
+```
+
+と、
+
+```text
+same proof
+```
+
+を同一視する基準がまだ定義されていないためである。
+
+将来的には、
+
+```text
+ProofStep identity
+conclusion equality
+inference rule
+premises
+proof provenance
+```
+
+のどれを使って duplicate とみなすかを設計する必要がある。
+
+この責務は high-level one-round derivation とは分離する。
+
+---
+
+## premise-free rule と iterative inference
+
+現在の `InferenceRule` は、
+
+```text
+premise_patterns=()
+```
+
+を許している。
+
+そのため premise-free rule は、
+available steps の内容にかかわらず applicable となる。
+
+1 round の、
+
+```text
+derive_inference_steps()
+```
+
+では問題にならない。
+
+しかし iterative inference で同じ rule を毎 round 評価すると、
+
+```text
+same premise-free rule
+↓
+same conclusion
+↓
+again
+↓
+same conclusion
+↓
+...
+```
+
+となり得る。
+
+したがって iterative inference の前に、
+
+```text
+duplicate suppression
+applied-rule history
+new conclusion detection
+```
+
+のいずれかが必要になる。
+
+Phase 5-24 ではこの問題を解決せず、
+one-round API に限定することで境界を維持する。
+
+---
+
+## symbolic inference との境界
+
+Phase 5-24 でも、
+matching は ProofStep level に限定する。
+
+例えば、
+
+```text
+RelationType.ZERO
+```
+
+を持つ Relation の step は認識できるが、
+
+```text
+mα = 0
+```
+
+という expression structure から、
+
+```text
+m
+α
+```
+
+を variable として抽出することはできない。
+
+したがって現在は、
+
+```text
+PremisePattern
+↓
+ProofStep matching
+↓
+concrete matched premises
+↓
+Python conclusion_builder
+```
+
+である。
+
+まだ、
+
+```text
+ExpressionPattern
+↓
+bindings
+↓
+substitution
+↓
+structured conclusion template
+```
+
+ではない。
+
+high-level API はこの symbolic inference を隠す abstraction ではなく、
+現在存在する ProofStep-level inference pipeline を
+まとめて呼び出すための API とする。
+
+---
+
+## Phase 5-24 の設計原則
+
+Phase 5-24 では、次の原則を採用する。
+
+1. `derive_inference_steps()` を high-level inference API とする。
+2. `derive_inference_steps()` は `find_inference_matches()` と `apply_inference_matches()` の薄い composition とする。
+3. matching logic を high-level API に再実装しない。
+4. application logic を high-level API に再実装しない。
+5. input normalization は既存 lower-level API に委譲する。
+6. conclusion-builder validation も既存 application API に委譲する。
+7. lower-level の match / apply API は引き続き公開・利用可能とする。
+8. `derive_inference_steps()` は1 inference round だけを表す。
+9. derived ProofStep を同一呼び出し中に available steps へ追加しない。
+10. inference-rule input order を derived ProofStep order まで維持する。
+11. applicable rule がなければ空 tuple を返す。
+12. 空 rule collection も有効な入力とする。
+13. high-level API 独自の ProofStep 型は導入しない。
+14. duplicate detection はまだ行わない。
+15. iterative inference は Phase 5-24 の責務に含めない。
+16. premise-free rule の反復問題は iterative inference 側で扱う。
+17. expression-level variable binding は別の symbolic inference 課題として維持する。
+18. 高レベル機能は既存 primitive の composition として構築する設計方針を維持する。
+
+これにより、
+
+```text
+available mathematical facts
++
+InferenceRules
+↓
+derive_inference_steps()
+↓
+newly derived ProofSteps
+```
+
+という最初の high-level inference interface が成立した。
+
+次の主要な設計課題は、
+
+```text
+available ProofSteps
++
+derived ProofSteps
+↓
+重複を考慮した merge
+↓
+expanded ProofSteps
+```
+
+である。
+
+これを導入した後、
+
+```text
+derive
+↓
+merge
+↓
+derive
+↓
+merge
+```
+
+を繰り返すことで、
+fixed-point 型の iterative inference へ進むことができる。
+
 
 
 

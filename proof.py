@@ -863,6 +863,19 @@ def relation_inference_proof(
   )
 
 
+def derive_inference_steps(
+  inference_rules,
+  available_steps,
+):
+  matches = find_inference_matches(
+    inference_rules,
+    available_steps,
+  )
+
+  return apply_inference_matches(
+    matches
+  )
+
 
 
 
