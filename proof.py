@@ -60,6 +60,12 @@ class ProofStep:
   inference_rule: InferenceRule | None = None
 
 
+@dataclass(frozen=True)
+class InferenceMatch:
+  inference_rule: InferenceRule
+  premises: tuple[ProofStep, ...]
+
+
 @dataclass
 class Proof:
   conclusion: Any
@@ -255,6 +261,63 @@ def find_applicable_inference_rules(
       inference_rule,
       normalized_steps,
     )
+  )
+
+
+def find_inference_match(
+  inference_rule,
+  available_steps,
+):
+  matched_premises = (
+    find_matching_premises(
+      inference_rule,
+      available_steps,
+    )
+  )
+
+  if matched_premises is None:
+    return None
+
+  return InferenceMatch(
+    inference_rule=inference_rule,
+    premises=matched_premises,
+  )
+
+
+def find_inference_matches(
+  inference_rules,
+  available_steps,
+):
+  normalized_rules = (
+    _normalize_inference_rules(
+      inference_rules
+    )
+  )
+
+  normalized_steps = (
+    _normalize_proof_steps(
+      available_steps,
+      "available_steps",
+    )
+  )
+
+  matches = []
+
+  for inference_rule in (
+    normalized_rules
+  ):
+    match = find_inference_match(
+      inference_rule,
+      normalized_steps,
+    )
+
+    if match is not None:
+      matches.append(
+        match
+      )
+
+  return tuple(
+    matches
   )
 
 

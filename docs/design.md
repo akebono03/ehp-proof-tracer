@@ -8788,6 +8788,1077 @@ applicable rule とその premise assignment を
 構造化された検索結果として保持することである。
 
 
+# InferenceMatch / structured inference match
+
+## Phase 5-21：applicable rule と matched premises の構造化
+
+Phase 5-20 までに、
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_applicable_inference_rules()
+↓
+applicable InferenceRules
+```
+
+という rule collection search が可能になった。
+
+これにより、
+
+```text
+現在どの inference rule が利用可能か
+```
+
+を検索できるようになった。
+
+一方、`find_applicable_inference_rules()` が返すのは
+`InferenceRule` 自体だけであり、
+
+```text
+その rule が
+どの ProofStep を premise として利用して
+applicable になったか
+```
+
+という情報は保持していなかった。
+
+matched premises を取得するには、
+applicable rule を取得した後に改めて、
+
+```python
+find_matching_premises(
+  inference_rule,
+  available_steps,
+)
+```
+
+を呼び出す必要があった。
+
+Phase 5-21 では、
+
+```text
+applicable InferenceRule
++
+matched ProofSteps
+```
+
+を1つの構造として保持するため、
+
+```text
+InferenceMatch
+```
+
+を導入する。
+
+---
+
+## InferenceMatch の設計
+
+`InferenceMatch` は、
+
+```text
+どの inference rule が利用可能か
+```
+
+と、
+
+```text
+その rule に対応して
+どの premises が選択されたか
+```
+
+をまとめて保持する。
+
+基本構造は、
+
+```python
+@dataclass(frozen=True)
+class InferenceMatch:
+  inference_rule: InferenceRule
+  premises: tuple[ProofStep, ...]
+```
+
+とする。
+
+概念的には、
+
+```text
+InferenceMatch
+├── inference_rule
+└── premises
+```
+
+である。
+
+例えば、
+
+```text
+rule:
+  RELATION
+  GIVEN
+```
+
+という premise pattern を持つ rule があり、
+
+```text
+available:
+  given_step
+  relation_step
+```
+
+という ProofStep collection が存在する場合、
+
+```text
+InferenceMatch
+├── inference_rule = rule
+└── premises
+    ├── relation_step
+    └── given_step
+```
+
+という structured result を構築できる。
+
+---
+
+## premises の順序
+
+`InferenceMatch.premises` は、
+
+```text
+available_steps の保存順
+```
+
+ではなく、
+
+```text
+InferenceRule.premise_patterns の順序
+```
+
+で保持する。
+
+例えば、
+
+```text
+premise_patterns:
+  RELATION
+  GIVEN
+```
+
+に対して、
+
+```text
+available_steps:
+  GIVEN
+  RELATION
+```
+
+という順序で step が格納されていても、
+
+```text
+InferenceMatch.premises:
+  relation_step
+  given_step
+```
+
+となる。
+
+この挙動は新しく実装するのではなく、
+既存の、
+
+```python
+find_matching_premises()
+```
+
+の返却順をそのまま利用する。
+
+したがって Phase 5-21 でも、
+premise selection の意味論は
+`find_matching_premises()` に集約する。
+
+---
+
+## find_inference_match()
+
+1つの `InferenceRule` と
+available ProofSteps から
+structured match を取得するため、
+
+```python
+find_inference_match(
+  inference_rule,
+  available_steps,
+)
+```
+
+を導入する。
+
+基本的な処理は、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+↓
+matched premises / None
+↓
+InferenceMatch / None
+```
+
+となる。
+
+実装上は、
+
+```python
+matched_premises = find_matching_premises(
+  inference_rule,
+  available_steps,
+)
+```
+
+を利用し、
+
+```text
+matched_premises is None
+```
+
+なら、
+
+```text
+None
+```
+
+を返す。
+
+premises が見つかった場合は、
+
+```python
+InferenceMatch(
+  inference_rule=inference_rule,
+  premises=matched_premises,
+)
+```
+
+を返す。
+
+---
+
+## None と空 premises の区別
+
+Phase 5-21 では、
+
+```text
+None
+```
+
+と、
+
+```text
+InferenceMatch(
+  inference_rule=rule,
+  premises=(),
+)
+```
+
+を明確に区別する。
+
+`None` は、
+
+```text
+必要な premises が見つからず、
+rule が現在 applicable ではない
+```
+
+ことを表す。
+
+一方、
+
+```text
+premise_patterns = ()
+```
+
+を持つ premise-free rule は、
+premise を必要としないため正常に match する。
+
+この場合、
+
+```python
+find_matching_premises(
+  rule,
+  available_steps,
+)
+```
+
+は、
+
+```text
+()
+```
+
+を返す。
+
+したがって、
+
+```python
+find_inference_match(
+  rule,
+  available_steps,
+)
+```
+
+は、
+
+```python
+InferenceMatch(
+  inference_rule=rule,
+  premises=(),
+)
+```
+
+を返す。
+
+つまり、
+
+```text
+None
+```
+
+は match failure、
+
+```text
+InferenceMatch(..., premises=())
+```
+
+は premise-free rule の successful match
+
+を意味する。
+
+---
+
+## find_inference_matches()
+
+複数の `InferenceRule` について
+structured match を検索するため、
+
+```python
+find_inference_matches(
+  inference_rules,
+  available_steps,
+)
+```
+
+を導入する。
+
+基本的な流れは、
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+各 rule に find_inference_match()
+↓
+None を除外
+↓
+tuple[InferenceMatch, ...]
+```
+
+とする。
+
+例えば、
+
+```text
+rules:
+  rule A
+  rule B
+  rule C
+```
+
+について、
+
+```text
+rule A
+rule C
+```
+
+だけが applicable なら、
+
+```text
+(
+  InferenceMatch(
+    inference_rule=rule_a,
+    premises=(...),
+  ),
+  InferenceMatch(
+    inference_rule=rule_c,
+    premises=(...),
+  ),
+)
+```
+
+を返す。
+
+これにより、
+
+```text
+どの rule が使えるか
+```
+
+だけでなく、
+
+```text
+その rule がどの premises を使うか
+```
+
+まで一度の検索で取得できる。
+
+---
+
+## rule collection の順序
+
+`find_inference_matches()` は、
+入力された `InferenceRule` collection の順序を維持する。
+
+例えば、
+
+```text
+input:
+  rule B
+  rule A
+```
+
+の両方が match する場合、
+
+```text
+result:
+  InferenceMatch(rule B, ...)
+  InferenceMatch(rule A, ...)
+```
+
+となる。
+
+Phase 5-21 では、
+
+```text
+priority
+specificity
+cost
+proof strategy
+```
+
+などによる並べ替えは行わない。
+
+structured match を導入しても、
+rule selection policy は別の責務とする。
+
+---
+
+## 複数 rule 間での ProofStep の利用
+
+`find_inference_matches()` では、
+各 `InferenceRule` に対して
+独立に premise search を行う。
+
+したがって同じ ProofStep が、
+
+```text
+rule A の premise
+```
+
+と、
+
+```text
+rule B の premise
+```
+
+の両方に使われることは許容する。
+
+`find_matching_premises()` における
+step reuse prevention は、
+
+```text
+1つの InferenceRule の複数 premise pattern
+```
+
+に対して同じ ProofStep を重複利用しないためのものである。
+
+異なる inference rule 間で
+ProofStep を「消費」する概念は導入しない。
+
+---
+
+## relation type を含む structured match
+
+既存の `PremisePattern` が持つ、
+
+```text
+proof_rule
+statement_type
+relation_type
+```
+
+の条件は、
+`InferenceMatch` の検索でもそのまま利用される。
+
+例えば、
+
+```python
+PremisePattern(
+  proof_rule=ProofRule.RELATION,
+  statement_type=Relation,
+  relation_type=RelationType.ZERO,
+)
+```
+
+を要求する rule は、
+
+```text
+RelationType.ZERO
+```
+
+を持つ Relation step が存在するときだけ match する。
+
+その場合、
+
+```text
+InferenceMatch.premises
+```
+
+には実際に選ばれた zero relation step が格納される。
+
+これにより Phase 5-20 の applicable-rule search よりも、
+
+```text
+どの条件を満たしたか
+```
+
+を具体的な ProofStep として保持できるようになった。
+
+---
+
+## 複数 premise pattern と InferenceMatch
+
+複数 premise pattern を持つ rule についても、
+`InferenceMatch` は対応するすべての matched steps を保持する。
+
+例えば、
+
+```text
+premise_patterns:
+  RELATION
+  GIVEN
+```
+
+に対し、
+
+```text
+available_steps:
+  given_step
+  relation_step
+```
+
+が存在する場合、
+
+```python
+InferenceMatch(
+  inference_rule=rule,
+  premises=(
+    relation_step,
+    given_step,
+  ),
+)
+```
+
+となる。
+
+1つでも必要な premise が見つからない場合、
+`find_inference_match()` は `None` を返すため、
+不完全な `InferenceMatch` は生成しない。
+
+---
+
+## input normalization の再利用
+
+`find_inference_match()` は、
+内部で `find_matching_premises()` を利用するため、
+
+```text
+InferenceRule の型検証
+available ProofSteps の正規化
+ProofStep collection の要素検証
+```
+
+も既存処理を利用する。
+
+`find_inference_matches()` では、
+
+```python
+_normalize_inference_rules()
+```
+
+と、
+
+```python
+_normalize_proof_steps()
+```
+
+を利用する。
+
+したがって、
+
+```text
+InferenceRule
+tuple/list of InferenceRule
+```
+
+および、
+
+```text
+ProofStep
+tuple/list of ProofStep
+```
+
+という既存入力仕様を維持する。
+
+Phase 5-21 のために
+新しい collection normalization 規則は導入しない。
+
+---
+
+## 既存 API との役割分担
+
+Phase 5-21 では、
+既存 API を置き換えない。
+
+それぞれの責務は次のように分ける。
+
+```text
+matches_premise_pattern()
+```
+
+は、
+
+```text
+1つの PremisePattern と
+1つの ProofStep が一致するか
+```
+
+を判定する。
+
+```text
+matches_inference_rule()
+```
+
+は、
+
+```text
+明示的に与えられた ProofStep sequence が
+InferenceRule の premise patterns と一致するか
+```
+
+を判定する。
+
+```text
+find_matching_premises()
+```
+
+は、
+
+```text
+available ProofSteps から
+必要な premises を検索する
+```
+
+ために使う。
+
+```text
+is_inference_rule_applicable()
+```
+
+は、
+
+```text
+rule が applicable か
+```
+
+という boolean query を提供する。
+
+```text
+find_applicable_inference_rules()
+```
+
+は、
+
+```text
+複数 rule のうち
+どれが applicable か
+```
+
+を返す。
+
+```text
+find_inference_match()
+```
+
+は、
+
+```text
+1つの applicable rule
++
+matched premises
+```
+
+を structured result として返す。
+
+```text
+find_inference_matches()
+```
+
+は、
+
+```text
+複数 rule
++
+それぞれの matched premises
+```
+
+を structured result collection として返す。
+
+用途に応じて
+boolean、rule-only、structured match を
+使い分けられる設計とする。
+
+---
+
+## InferenceMatch と ProofStep の違い
+
+`InferenceMatch` はまだ推論結果そのものではない。
+
+例えば、
+
+```text
+InferenceMatch
+├── inference_rule
+└── premises
+```
+
+は、
+
+```text
+この rule は
+この premises を使って適用できる
+```
+
+ことを表すだけである。
+
+一方 `ProofStep` は、
+
+```text
+premises
+↓
+rule
+↓
+conclusion
+```
+
+という実際の推論結果を表す。
+
+したがって、
+
+```text
+InferenceMatch
+≠
+ProofStep
+```
+
+とする。
+
+Phase 5-21 では、
+
+```text
+match を見つける
+```
+
+ところまでとし、
+
+```text
+match を適用して conclusion を生成する
+```
+
+ことは行わない。
+
+---
+
+## InferenceMatch と InferenceRule application の境界
+
+将来的には、
+
+```text
+InferenceMatch
+↓
+rule application
+↓
+new ProofStep
+```
+
+という処理が必要になる。
+
+しかしそのためには、
+
+```text
+premise の内部構造を調べる
+pattern variable を bind する
+conclusion template に substitute する
+新しい conclusion を構築する
+```
+
+などの仕組みが必要になる。
+
+現在の `PremisePattern` は、
+
+```text
+proof_rule
+statement_type
+relation_type
+```
+
+という粗い structural conditions だけを保持しており、
+
+```text
+mα = 0
+```
+
+のような expression-level pattern はまだ扱わない。
+
+そのため Phase 5-21 では、
+`InferenceMatch` を rule application から明確に分離する。
+
+---
+
+## greedy premise search の制限
+
+`InferenceMatch` は、
+既存の `find_matching_premises()` の結果を保持する。
+
+したがって、
+現在の greedy premise-search algorithm の制限も
+そのまま引き継ぐ。
+
+現在は、
+
+```text
+各 premise pattern
+↓
+available steps を先頭から走査
+↓
+最初の matching unused step を選択
+↓
+次の pattern
+```
+
+という処理であり、
+backtracking は行わない。
+
+したがって `InferenceMatch` は、
+
+```text
+現在の greedy search が選択した premise assignment
+```
+
+を表す。
+
+すべての可能な premise assignment の中から
+唯一の正しいものを表すわけではない。
+
+将来的に alternative premise assignments や
+backtracking search を導入する場合には、
+`InferenceMatch` を複数生成する形へ拡張できる。
+
+---
+
+## Phase 5-21 時点の inference pipeline
+
+Phase 5-21 の完了により、
+現在の inference pipeline は、
+
+```text
+PremisePattern
++
+ProofStep
+↓
+matches_premise_pattern()
+↓
+True / False
+```
+
+```text
+InferenceRule
++
+explicit ProofSteps
+↓
+matches_inference_rule()
+↓
+True / False
+```
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+↓
+matched ProofSteps / None
+```
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+is_inference_rule_applicable()
+↓
+True / False
+```
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_applicable_inference_rules()
+↓
+applicable InferenceRules
+```
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_inference_match()
+↓
+InferenceMatch / None
+```
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_inference_matches()
+↓
+tuple[InferenceMatch, ...]
+```
+
+となった。
+
+rule matching の結果を、
+単なる boolean や rule object だけでなく、
+
+```text
+rule
++
+matched premises
+```
+
+という structured object として保持できる段階まで進んだ。
+
+---
+
+## Phase 5-21 時点の設計原則
+
+1. applicable rule と matched premises を `InferenceMatch` として一体で保持する。
+2. `InferenceMatch` は immutable な frozen dataclass とする。
+3. `InferenceMatch.premises` は premise-pattern 順で保持する。
+4. premise selection は `find_matching_premises()` に委譲する。
+5. matching logic を `find_inference_match()` 内で重複実装しない。
+6. match failure は `None` で表す。
+7. premise-free rule の successful match は `InferenceMatch(..., premises=())` で表す。
+8. `None` と空 premises を明確に区別する。
+9. collection search は `find_inference_matches()` で行う。
+10. collection search は inference-rule 入力順を維持する。
+11. 複数 applicable rule の structured match をすべて返す。
+12. 異なる rule 間で ProofStep を消費する概念は導入しない。
+13. single / tuple / list input の既存仕様を維持する。
+14. input normalization は既存 helper を再利用する。
+15. `find_applicable_inference_rules()` は削除せず rule-only query として残す。
+16. `InferenceMatch` と `ProofStep` を区別する。
+17. Phase 5-21 では conclusion を自動生成しない。
+18. Phase 5-21 では inference rule を実際に apply しない。
+19. expression-level pattern matching や variable binding はまだ導入しない。
+20. greedy premise-search の制限を明示的に維持する。
+21. algebra / EHP 層には変更を加えない。
+
+---
+
+## Phase 5-21 の到達点
+
+Phase 5-21 により、
+
+```text
+どの inference rule が使えるか
+```
+
+だけでなく、
+
+```text
+その inference rule が
+どの ProofStep を premise として使えるか
+```
+
+まで機械的に取得できるようになった。
+
+これは、
+
+```text
+rule discovery
+```
+
+から、
+
+```text
+rule application
+```
+
+へ進むための重要な中間表現となる。
+
+現在は、
+
+```text
+available facts
++
+InferenceRule collection
+↓
+InferenceMatch collection
+```
+
+まで構築できる。
+
+次の段階では、
+
+```text
+InferenceMatch
+↓
+inference application
+↓
+new ProofStep
+```
+
+という流れを検討できる。
+
+ただし実際の数学的な conclusion construction には、
+expression-level patterns、
+variable binding、
+substitution などが必要になるため、
+rule application の責務を段階的に設計する。
+
+
+
 
 
 
