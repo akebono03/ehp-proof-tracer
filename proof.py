@@ -230,6 +230,34 @@ def is_inference_rule_applicable(
   )
 
 
+def find_applicable_inference_rules(
+  inference_rules,
+  available_steps,
+):
+  normalized_rules = (
+    _normalize_inference_rules(
+      inference_rules
+    )
+  )
+
+  normalized_steps = (
+    _normalize_proof_steps(
+      available_steps,
+      "available_steps",
+    )
+  )
+
+  return tuple(
+    inference_rule
+    for inference_rule
+    in normalized_rules
+    if is_inference_rule_applicable(
+      inference_rule,
+      normalized_steps,
+    )
+  )
+
+
 def relation_proof_step(relation):
   if not isinstance(relation, Relation):
     raise TypeError(
@@ -452,6 +480,44 @@ def _normalize_proof_steps(
       raise TypeError(
         f"{name} must contain "
         "only ProofStep objects"
+      )
+
+  return normalized
+
+
+def _normalize_inference_rules(
+  inference_rules,
+):
+  if isinstance(
+    inference_rules,
+    InferenceRule,
+  ):
+    return (
+      inference_rules,
+    )
+
+  if not isinstance(
+    inference_rules,
+    (tuple, list),
+  ):
+    raise TypeError(
+      "inference_rules must be "
+      "an InferenceRule or a "
+      "tuple/list of InferenceRule"
+    )
+
+  normalized = tuple(
+    inference_rules
+  )
+
+  for inference_rule in normalized:
+    if not isinstance(
+      inference_rule,
+      InferenceRule,
+    ):
+      raise TypeError(
+        "inference_rules must contain "
+        "only InferenceRule objects"
       )
 
   return normalized

@@ -590,9 +590,13 @@ Phase 5 currently supports:
 * detection of missing premise candidates
 * support for premise-free inference rules
 * inference-rule applicability checks over available proof steps
+* applicable-rule search over a collection of inference rules
+* preservation of inference-rule input order during applicable-rule search
+* support for multiple simultaneously applicable inference rules
+* input normalization for single and multiple inference rules
 * human-readable proof formatting
 
-The current rule-matching pipeline has four levels.
+The current rule-matching pipeline has five levels.
 
 Individual premise matching:
 
@@ -642,6 +646,18 @@ available ProofSteps
 is_inference_rule_applicable()
 ↓
 True / False
+```
+
+Applicable-rule search:
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_applicable_inference_rules()
+↓
+applicable InferenceRule tuple
 ```
 
 For example, a rule requiring a relation and a given fact can be
@@ -695,7 +711,8 @@ The selected premises are returned in rule-pattern order:
 The current premise search selects the first matching unused step for
 each pattern.
 
-A single proof step is not reused for multiple premise patterns.
+A single proof step is not reused for multiple premise patterns within
+the same rule.
 
 Therefore a rule requiring:
 
@@ -775,6 +792,100 @@ input normalization
 
 and instead returns whether matching premises can be found.
 
+Multiple rules can now be searched at once.
+
+For example:
+
+```python
+find_applicable_inference_rules(
+  (
+    combined_rule,
+    given_rule,
+    relation_rule,
+  ),
+  available_steps,
+)
+```
+
+checks each rule against the same collection of available proof steps
+and returns only those that are currently applicable.
+
+Conceptually:
+
+```text
+rules:
+  rule A
+  rule B
+  rule C
+
+available ProofSteps
+↓
+applicability check for each rule
+↓
+applicable rules only
+```
+
+If rule A and rule C are applicable, the result is:
+
+```text
+(
+  rule_a,
+  rule_c,
+)
+```
+
+The input rule order is preserved.
+
+The search does not rank, prioritize, or choose among applicable rules.
+
+If multiple rules are applicable, all of them are returned.
+
+If no rules are applicable, the result is:
+
+```text
+()
+```
+
+An empty rule collection also returns:
+
+```text
+()
+```
+
+A premise-free rule remains applicable even when no proof steps are
+available.
+
+The rule collection can be supplied as:
+
+```text
+a single InferenceRule
+a tuple of InferenceRule
+a list of InferenceRule
+```
+
+and available steps can likewise be supplied as:
+
+```text
+a single ProofStep
+a tuple of ProofStep
+a list of ProofStep
+```
+
+The applicable-rule search intentionally reuses the existing
+applicability query:
+
+```text
+find_applicable_inference_rules()
+↓
+is_inference_rule_applicable()
+↓
+find_matching_premises()
+↓
+matches_premise_pattern()
+```
+
+so premise-matching behavior remains centralized.
+
 ---
 
 ## Current limitations
@@ -802,6 +913,8 @@ validate explicitly supplied premise sequences
 search available ProofSteps for matching premises
 ↓
 determine whether an InferenceRule is currently applicable
+↓
+search a collection for currently applicable InferenceRules
 ```
 
 The current premise search is greedy.
@@ -819,7 +932,7 @@ continues to the next pattern
 It does not backtrack when an earlier selection prevents a later
 pattern from matching.
 
-Therefore the current applicability check means:
+Therefore the current applicability and applicable-rule search mean:
 
 ```text
 applicable under the current greedy premise-search algorithm
@@ -832,14 +945,17 @@ The proof / inference layer does not yet automatically:
 * enumerate all possible premise assignments
 * backtrack over alternative premise assignments
 * select among multiple applicable premise assignments
-* find applicable rules from a collection of inference rules
 * pair an applicable rule with its matched premises as a structured result
+* rank or prioritize multiple applicable inference rules
+* choose which applicable inference rule to apply
 * match internal expression structures
 * bind pattern variables
 * substitute bound variables
 * construct conclusions from inference rules
 * search a `RelationRepository` automatically for required relations
 * apply inference rules automatically
+* add derived conclusions back into the available proof-step collection
+* iterate inference until no new conclusions are found
 * recursively construct proofs
 * recursively collect proof dependencies
 * construct a proof DAG
@@ -878,34 +994,34 @@ Run the complete test suite with:
 python -m pytest -v
 ```
 
-At the completion of Phase 5-19:
+At the completion of Phase 5-20:
 
 ```text
-289 passed in 20.72s
+303 passed in 23.01s
 ```
 
-Phase 5-19 includes applicability tests covering:
+Phase 5-20 includes applicable-rule-search tests covering:
 
 ```text
-applicable rules
-non-applicable rules
-multiple premise patterns
-missing premises
+single applicable rule
+multiple applicable rules
+input-order preservation
+no applicable rules
+empty rule collections
 premise-free rules
-available-step search
-proof-step reuse prevention
-distinct premise steps
+multiple premise patterns
 relation-type requirements
-single ProofStep input
+single InferenceRule input
 list input
 invalid rule input
+invalid rule entries
 invalid available-step input
 invalid ProofStep entries
 ```
 
 The complete test suite also includes the existing algebra, EHP,
 expression, formatter, proof, repository, premise-pattern,
-inference-rule matching, and premise-search tests.
+inference-rule matching, premise-search, and applicability tests.
 
 ---
 
@@ -914,78 +1030,95 @@ inference-rule matching, and premise-search tests.
 The current inference-rule pipeline is:
 
 ```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_applicable_inference_rules()
+↓
+applicable InferenceRules
+```
+
+At this point the engine can determine:
+
+```text
+which rules can currently be used
+```
+
+but the returned result contains only the `InferenceRule`.
+
+The next useful step is to retain the matched premises together with
+the applicable rule.
+
+Conceptually:
+
+```text
 InferenceRule
 +
 available ProofSteps
 ↓
 find_matching_premises()
 ↓
-matched premises
+rule + matched premises
 ```
 
-and:
+A possible structured result is:
 
-```text
-InferenceRule
-+
-available ProofSteps
-↓
-is_inference_rule_applicable()
-↓
-True / False
+```python
+@dataclass(frozen=True)
+class InferenceMatch:
+  inference_rule: InferenceRule
+  premises: tuple[ProofStep, ...]
 ```
 
-The next useful step is to move from checking one rule to searching
-a collection of rules.
-
-Conceptually:
+Then a collection search could conceptually produce:
 
 ```text
 InferenceRule collection
 +
 available ProofSteps
 ↓
-find applicable rules
+find inference matches
 ↓
-applicable InferenceRule sequence
-```
-
-A minimal next API could be:
-
-```python
-find_applicable_inference_rules(
-  inference_rules,
-  available_steps,
+(
+  InferenceMatch(...),
+  InferenceMatch(...),
+  ...
 )
 ```
 
-The first version should remain simple:
+This would preserve not only:
 
 ```text
-iterate rules in input order
-↓
-call is_inference_rule_applicable()
-↓
-return applicable rules in the same order
+which rule is applicable
 ```
 
-This should still remain separate from actual inference-rule
-application and conclusion construction.
+but also:
+
+```text
+which ProofSteps make that rule applicable
+```
+
+without requiring the caller to repeat premise search after finding
+applicable rules.
+
+This should still remain separate from actual conclusion construction.
 
 Possible later directions include:
 
-* applicable-rule search
 * structured rule-and-premise matches
 * `InferenceMatch`
 * alternative premise assignments
 * backtracking premise search
-* unordered premise matching
+* enumeration of all premise assignments
+* rule priority and rule selection
 * expression-level relation patterns
 * pattern variables and variable binding
 * substitution
 * conclusion construction
 * automatic relation selection
 * automatic inference-rule application
+* iterative inference over newly derived ProofSteps
 * composition relations
 * Toda brackets
 * integration of derived homotopy relations with EHP map data
@@ -995,6 +1128,8 @@ Possible later directions include:
 
 The algebra layer remains independent of these higher-level inference
 mechanisms.
+
+
 
 
 

@@ -6,6 +6,7 @@ from proof import (
   ProofStep,
   Relation,
   RelationType,
+  find_applicable_inference_rules,
   find_matching_premises,
   is_inference_rule_applicable,
   matches_inference_rule,
@@ -1574,6 +1575,440 @@ def test_is_inference_rule_applicable_rejects_invalid_step_in_list():
         "invalid",
       ],
     )
+
+
+def test_find_applicable_inference_rules():
+  given_rule = InferenceRule(
+    name="given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  relation_rule = InferenceRule(
+    name="relation rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.RELATION,
+      ),
+    ),
+  )
+
+  given_step = ProofStep(
+    conclusion="given fact",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    find_applicable_inference_rules(
+      (
+        given_rule,
+        relation_rule,
+      ),
+      (
+        given_step,
+      ),
+    )
+  )
+
+  assert result == (
+    given_rule,
+  )
+
+
+def test_find_applicable_inference_rules_multiple_matches():
+  first_rule = InferenceRule(
+    name="first given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  given_step = ProofStep(
+    conclusion="given fact",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    find_applicable_inference_rules(
+      (
+        first_rule,
+        second_rule,
+      ),
+      (
+        given_step,
+      ),
+    )
+  )
+
+  assert result == (
+    first_rule,
+    second_rule,
+  )
+
+
+def test_find_applicable_inference_rules_preserves_order():
+  first_rule = InferenceRule(
+    name="first rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  given_step = ProofStep(
+    conclusion="given fact",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    find_applicable_inference_rules(
+      (
+        second_rule,
+        first_rule,
+      ),
+      (
+        given_step,
+      ),
+    )
+  )
+
+  assert result == (
+    second_rule,
+    first_rule,
+  )
+
+
+def test_find_applicable_inference_rules_returns_empty():
+  relation_rule = InferenceRule(
+    name="relation rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.RELATION,
+      ),
+    ),
+  )
+
+  given_step = ProofStep(
+    conclusion="given fact",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    find_applicable_inference_rules(
+      (
+        relation_rule,
+      ),
+      (
+        given_step,
+      ),
+    )
+  )
+
+  assert result == ()
+
+
+def test_find_applicable_inference_rules_empty_rules():
+  given_step = ProofStep(
+    conclusion="given fact",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    find_applicable_inference_rules(
+      (),
+      (
+        given_step,
+      ),
+    )
+  )
+
+  assert result == ()
+
+
+def test_find_applicable_inference_rules_includes_empty_rule():
+  empty_rule = InferenceRule(
+    name="no premise rule",
+  )
+
+  relation_rule = InferenceRule(
+    name="relation rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.RELATION,
+      ),
+    ),
+  )
+
+  result = (
+    find_applicable_inference_rules(
+      (
+        relation_rule,
+        empty_rule,
+      ),
+      (),
+    )
+  )
+
+  assert result == (
+    empty_rule,
+  )
+
+
+def test_find_applicable_inference_rules_multiple_patterns():
+  combined_rule = InferenceRule(
+    name="combined rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.RELATION,
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  given_rule = InferenceRule(
+    name="given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  given_step = ProofStep(
+    conclusion="given fact",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  relation_step = ProofStep(
+    conclusion="relation fact",
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    find_applicable_inference_rules(
+      (
+        combined_rule,
+        given_rule,
+      ),
+      (
+        given_step,
+        relation_step,
+      ),
+    )
+  )
+
+  assert result == (
+    combined_rule,
+    given_rule,
+  )
+
+
+def test_find_applicable_inference_rules_relation_type():
+  zero_rule = InferenceRule(
+    name="zero relation rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.RELATION,
+        statement_type=Relation,
+        relation_type=RelationType.ZERO,
+      ),
+    ),
+  )
+
+  equality_rule = InferenceRule(
+    name="equality relation rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.RELATION,
+        statement_type=Relation,
+        relation_type=RelationType.EQUALITY,
+      ),
+    ),
+  )
+
+  zero_relation = Relation(
+    lhs="alpha",
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  zero_step = ProofStep(
+    conclusion=zero_relation,
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    find_applicable_inference_rules(
+      (
+        equality_rule,
+        zero_rule,
+      ),
+      (
+        zero_step,
+      ),
+    )
+  )
+
+  assert result == (
+    zero_rule,
+  )
+
+
+def test_find_applicable_inference_rules_accepts_single_rule():
+  rule = InferenceRule(
+    name="given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="given fact",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    find_applicable_inference_rules(
+      rule,
+      step,
+    )
+  )
+
+  assert result == (
+    rule,
+  )
+
+
+def test_find_applicable_inference_rules_accepts_list():
+  rule = InferenceRule(
+    name="given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="given fact",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    find_applicable_inference_rules(
+      [
+        rule,
+      ],
+      [
+        step,
+      ],
+    )
+  )
+
+  assert result == (
+    rule,
+  )
+
+
+def test_find_applicable_inference_rules_rejects_invalid_rules():
+  step = ProofStep(
+    conclusion="given fact",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  with pytest.raises(TypeError):
+    find_applicable_inference_rules(
+      "invalid",
+      (
+        step,
+      ),
+    )
+
+
+def test_find_applicable_inference_rules_rejects_invalid_rule_in_list():
+  rule = InferenceRule(
+    name="given rule",
+  )
+
+  with pytest.raises(TypeError):
+    find_applicable_inference_rules(
+      [
+        rule,
+        "invalid",
+      ],
+      (),
+    )
+
+
+def test_find_applicable_inference_rules_rejects_invalid_steps():
+  rule = InferenceRule(
+    name="given rule",
+  )
+
+  with pytest.raises(TypeError):
+    find_applicable_inference_rules(
+      (
+        rule,
+      ),
+      "invalid",
+    )
+
+
+def test_find_applicable_inference_rules_rejects_invalid_step_in_list():
+  rule = InferenceRule(
+    name="given rule",
+  )
+
+  with pytest.raises(TypeError):
+    find_applicable_inference_rules(
+      (
+        rule,
+      ),
+      [
+        "invalid",
+      ],
+    )
+
+
 
 
 

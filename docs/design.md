@@ -7879,6 +7879,915 @@ proof DAG construction
 19. 次段階では複数の InferenceRule から applicable rule を検索する機構を検討する。
 
 
+# 複数 InferenceRule から applicable rule を検索する
+
+## Phase 5-20：InferenceRule collection の検索
+
+Phase 5-19 までに、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+↓
+matched premises
+```
+
+および、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+is_inference_rule_applicable()
+↓
+True / False
+```
+
+という、
+1つの inference rule に対する premise search と
+applicability 判定が可能になった。
+
+Phase 5-20 ではこれを一段上へ拡張し、
+
+```text
+複数の InferenceRule
++
+available ProofSteps
+↓
+現在適用可能な rule の検索
+```
+
+を行えるようにする。
+
+このため、
+
+```python
+find_applicable_inference_rules(
+  inference_rules,
+  available_steps,
+)
+```
+
+を導入する。
+
+---
+
+## rule collection と available steps
+
+`find_applicable_inference_rules()` は、
+
+```text
+inference_rules
+available_steps
+```
+
+を受け取る。
+
+`inference_rules` は、
+
+```text
+InferenceRule
+```
+
+単体、または、
+
+```text
+tuple/list of InferenceRule
+```
+
+を受け取れる。
+
+`available_steps` は既存の premise search と同様に、
+
+```text
+ProofStep
+```
+
+単体、または、
+
+```text
+tuple/list of ProofStep
+```
+
+を受け取れる。
+
+内部では両者を tuple に正規化した上で処理する。
+
+---
+
+## applicable rule の意味
+
+各 `InferenceRule` について、
+
+```python
+is_inference_rule_applicable(
+  inference_rule,
+  available_steps,
+)
+```
+
+を呼び出し、
+結果が `True` の rule のみを返す。
+
+したがって Phase 5-20 では、
+
+```text
+applicable
+```
+
+の定義を新しく重複実装しない。
+
+applicability の判定責務は引き続き、
+
+```text
+find_matching_premises()
+↓
+is_inference_rule_applicable()
+```
+
+に置く。
+
+`find_applicable_inference_rules()` は、
+その判定を rule collection 全体へ適用する薄い検索層とする。
+
+現在の流れは、
+
+```text
+PremisePattern
++
+ProofStep
+↓
+matches_premise_pattern()
+```
+
+```text
+InferenceRule
++
+explicit ProofSteps
+↓
+matches_inference_rule()
+```
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+```
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+is_inference_rule_applicable()
+```
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_applicable_inference_rules()
+```
+
+となる。
+
+---
+
+## 入力順の保持
+
+`find_applicable_inference_rules()` は、
+適用可能な rule を
+入力された rule collection の順序のまま返す。
+
+例えば、
+
+```text
+rules:
+  rule A
+  rule B
+  rule C
+```
+
+のうち、
+
+```text
+rule A
+rule C
+```
+
+が applicable なら、
+
+```text
+(
+  rule A,
+  rule C,
+)
+```
+
+を返す。
+
+rule の priority や score による並べ替えは行わない。
+
+これは Phase 5-20 が、
+
+```text
+どの rule が利用可能か
+```
+
+を検索する段階であり、
+
+```text
+どの rule を優先して適用するか
+```
+
+を決定する段階ではないためである。
+
+---
+
+## 複数 applicable rule
+
+同じ available steps に対して、
+複数の rule が applicable であることを許容する。
+
+例えば、
+
+```text
+available:
+  GIVEN
+```
+
+に対して、
+
+```text
+rule A:
+  GIVEN を要求
+
+rule B:
+  GIVEN を要求
+```
+
+であれば、
+
+```python
+find_applicable_inference_rules(
+  (
+    rule_a,
+    rule_b,
+  ),
+  available_steps,
+)
+```
+
+は、
+
+```text
+(
+  rule_a,
+  rule_b,
+)
+```
+
+を返す。
+
+Phase 5-20 では、
+複数候補の中から1つを選択しない。
+
+これは将来的な、
+
+```text
+rule priority
+specificity
+cost
+proof strategy
+search strategy
+```
+
+などとは別の責務とする。
+
+---
+
+## applicable rule が存在しない場合
+
+どの rule も applicable でない場合は、
+
+```text
+()
+```
+
+を返す。
+
+これはエラーではない。
+
+例えば、
+
+```text
+available:
+  GIVEN
+```
+
+しか存在せず、
+
+```text
+rules:
+  RELATION を要求する rule
+```
+
+しか存在しない場合、
+
+```python
+find_applicable_inference_rules(...)
+```
+
+は、
+
+```text
+()
+```
+
+となる。
+
+したがって、
+
+```text
+()
+```
+
+は、
+
+```text
+検索は正常に行われたが、
+現在利用できる inference rule がない
+```
+
+ことを表す。
+
+---
+
+## 空の rule collection
+
+```text
+inference_rules = ()
+```
+
+も有効な入力とする。
+
+この場合、
+検索対象そのものがないため、
+
+```text
+()
+```
+
+を返す。
+
+空 collection を特別なエラーとはしない。
+
+これにより、
+呼び出し側で rule collection が空かどうかを
+事前に分岐する必要をなくす。
+
+---
+
+## premise-free rule
+
+Phase 5-19 までの設計では、
+
+```text
+premise_patterns = ()
+```
+
+を持つ rule は、
+premise を必要としないため常に applicable である。
+
+この性質は Phase 5-20 でもそのまま維持する。
+
+したがって、
+
+```python
+InferenceRule(
+  name="no premise rule",
+)
+```
+
+は available steps が空でも、
+
+```python
+find_applicable_inference_rules(
+  rules,
+  (),
+)
+```
+
+の結果に含まれる。
+
+これは `find_applicable_inference_rules()` が
+独自に premise-free rule を特別扱いしているのではなく、
+
+```text
+is_inference_rule_applicable()
+```
+
+の既存仕様をそのまま利用した結果である。
+
+---
+
+## relation type を含む rule 検索
+
+rule collection の検索でも、
+既存の `PremisePattern` の条件はすべて維持される。
+
+例えば、
+
+```python
+PremisePattern(
+  proof_rule=ProofRule.RELATION,
+  statement_type=Relation,
+  relation_type=RelationType.ZERO,
+)
+```
+
+を要求する rule は、
+
+```text
+RelationType.ZERO
+```
+
+の Relation を conclusion に持つ ProofStep が存在する場合だけ
+applicable になる。
+
+一方、
+
+```text
+RelationType.EQUALITY
+```
+
+のみが存在する場合は applicable にならない。
+
+したがって Phase 5-20 では、
+rule collection 検索のために
+新しい pattern matching 規則は導入しない。
+
+既存の、
+
+```text
+proof_rule
+statement_type
+relation_type
+```
+
+による判定をそのまま利用する。
+
+---
+
+## 複数 premise pattern を持つ rule
+
+複数の premise pattern を持つ rule も、
+そのまま collection search の対象になる。
+
+例えば、
+
+```text
+rule A:
+  RELATION
+  GIVEN
+
+rule B:
+  GIVEN
+```
+
+があり、
+
+```text
+available:
+  GIVEN
+  RELATION
+```
+
+であれば、
+
+```text
+rule A
+rule B
+```
+
+の両方が applicable になり得る。
+
+各 rule の premise search は独立して行う。
+
+ある rule が使用した ProofStep を、
+別の rule の検索から除外することはしない。
+
+つまり、
+
+```text
+used step
+```
+
+の概念は、
+1つの `InferenceRule` 内で
+複数 premise pattern に同じ step を再利用しないためのものであり、
+
+```text
+異なる rule 間
+```
+
+で ProofStep を消費する意味ではない。
+
+---
+
+## rule collection の正規化
+
+Phase 5-20 では、
+rule collection の入力形式を統一するため、
+
+```python
+_normalize_inference_rules()
+```
+
+を導入する。
+
+単一の、
+
+```text
+InferenceRule
+```
+
+を受け取った場合は、
+
+```text
+(rule,)
+```
+
+へ正規化する。
+
+tuple / list の場合は tuple に変換する。
+
+また collection 内に、
+
+```text
+InferenceRule
+```
+
+以外の値が含まれている場合は
+`TypeError` とする。
+
+これにより、
+
+```python
+find_applicable_inference_rules(
+  rule,
+  step,
+)
+```
+
+と、
+
+```python
+find_applicable_inference_rules(
+  [rule],
+  [step],
+)
+```
+
+を同じ内部処理で扱える。
+
+---
+
+## 入力検証
+
+Phase 5-20 では、
+rule collection と available steps の双方について
+早期に型を検証する。
+
+不正な、
+
+```text
+inference_rules
+```
+
+には `TypeError` を返す。
+
+また、
+
+```text
+tuple/list
+```
+
+の中に `InferenceRule` 以外が含まれる場合も
+`TypeError` とする。
+
+`available_steps` については、
+既存の、
+
+```python
+_normalize_proof_steps()
+```
+
+を利用する。
+
+したがって、
+
+```text
+ProofStep
+tuple/list of ProofStep
+```
+
+以外の入力や、
+collection 内の不正な要素は `TypeError` となる。
+
+入力 validation の責務を
+検索アルゴリズム本体と分離し、
+rule search の本体を単純に保つ。
+
+---
+
+## Phase 5-20 では matched premises を返さない
+
+`find_applicable_inference_rules()` の返り値は、
+
+```text
+tuple of InferenceRule
+```
+
+のみとする。
+
+つまり、
+
+```text
+どの rule が applicable か
+```
+
+は分かるが、
+
+```text
+その rule が具体的にどの ProofStep を使って
+applicable になったか
+```
+
+は返さない。
+
+matched premises が必要な場合は現在、
+
+```python
+find_matching_premises(
+  rule,
+  available_steps,
+)
+```
+
+を別途呼び出せる。
+
+ただし将来的には、
+
+```text
+rule
++
+matched premises
+```
+
+を1つの構造として返す方が便利になる。
+
+例えば、
+
+```python
+InferenceMatch(
+  inference_rule=rule,
+  premises=matched_steps,
+)
+```
+
+のような型を導入すれば、
+
+```text
+どの rule が applicable か
+```
+
+と、
+
+```text
+なぜ applicable なのか
+```
+
+を同時に保持できる。
+
+Phase 5-20 ではそこまで進めず、
+rule collection 検索そのものを独立して完成させる。
+
+---
+
+## greedy premise search の制限は維持される
+
+`find_applicable_inference_rules()` は
+内部で `is_inference_rule_applicable()` を利用する。
+
+そのため、
+Phase 5-18 / 5-19 から存在する
+greedy premise search の制限もそのまま引き継ぐ。
+
+現在の `find_matching_premises()` は、
+
+```text
+各 pattern について
+available steps を先頭から検索
+↓
+最初に一致した未使用 step を選択
+↓
+次の pattern へ進む
+```
+
+という greedy algorithm である。
+
+backtracking は行わない。
+
+したがって Phase 5-20 における、
+
+```text
+applicable rule
+```
+
+も正確には、
+
+```text
+現在の greedy premise-search algorithm の下で
+applicable と判定された rule
+```
+
+を意味する。
+
+rule collection search を導入しても、
+premise assignment search の完全性はまだ改善しない。
+
+---
+
+## rule search と rule application の分離
+
+Phase 5-20 で実装するのは、
+
+```text
+どの rule が現在 applicable か
+```
+
+の検索までである。
+
+まだ、
+
+```text
+rule を実際に適用する
+conclusion を構築する
+新しい ProofStep を生成する
+available steps に追加する
+次の rule を再検索する
+```
+
+ことは行わない。
+
+したがって現在の inference pipeline は、
+
+```text
+InferenceRule definitions
++
+available ProofSteps
+↓
+find applicable rules
+```
+
+までで止まる。
+
+将来的な automatic inference では、
+
+```text
+find applicable rules
+↓
+choose rule
+↓
+obtain matched premises
+↓
+bind variables
+↓
+construct conclusion
+↓
+create ProofStep
+↓
+add to available facts
+↓
+repeat
+```
+
+という流れが必要になる。
+
+Phase 5-20 は、
+その最初の rule-discovery 部分を実装した段階である。
+
+---
+
+## Phase 5-20 時点の設計原則
+
+1. 複数の `InferenceRule` から applicable rule を検索できる。
+2. applicable 判定そのものは `is_inference_rule_applicable()` に委譲する。
+3. premise search のロジックを rule collection search 内で重複実装しない。
+4. applicable rule は入力順を維持して返す。
+5. 複数の applicable rule をそのまま返す。
+6. applicable rule が存在しない場合は空 tuple を返す。
+7. 空の rule collection は有効な入力とする。
+8. premise-free rule は既存仕様どおり applicable とする。
+9. rule 間で ProofStep を消費する概念は導入しない。
+10. `InferenceRule` 単体と tuple/list を同じ API で扱う。
+11. rule collection の型検証は `_normalize_inference_rules()` に集約する。
+12. available steps の検証には既存の `_normalize_proof_steps()` を再利用する。
+13. Phase 5-20 では matched premises と rule を組にした構造はまだ導入しない。
+14. Phase 5-20 では rule priority や rule selection strategy を導入しない。
+15. 現在の applicability は greedy premise search の制限を引き継ぐ。
+16. applicable-rule search と actual rule application を分離する。
+17. expression-level matching や variable binding はまだ行わない。
+18. algebra 層および EHP 層には変更を加えない。
+
+---
+
+## Phase 5-20 の到達点
+
+Phase 5-20 により、
+inference-rule matching の流れは、
+
+```text
+PremisePattern
++
+ProofStep
+↓
+matches_premise_pattern()
+```
+
+から始まり、
+
+```text
+InferenceRule
++
+explicit ProofSteps
+↓
+matches_inference_rule()
+```
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+```
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+is_inference_rule_applicable()
+```
+
+を経て、
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_applicable_inference_rules()
+↓
+applicable InferenceRules
+```
+
+まで拡張された。
+
+これにより、
+proof engine が保持する複数の数学的 inference rule の中から、
+
+```text
+現在持っている事実だけで利用できる rule はどれか
+```
+
+を機械的に検索するための基盤ができた。
+
+ただし現在返されるのは
+`InferenceRule` 自体だけであり、
+
+```text
+rule
++
+matched premises
+```
+
+を一体として保持する仕組みはまだない。
+
+次の自然な拡張は、
+applicable rule とその premise assignment を
+構造化された検索結果として保持することである。
+
+
 
 
 
