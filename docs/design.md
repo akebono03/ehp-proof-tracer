@@ -9858,6 +9858,892 @@ substitution などが必要になるため、
 rule application の責務を段階的に設計する。
 
 
+# InferenceRule の conclusion builder と rule application
+
+## Phase 5-22：InferenceMatch から ProofStep を構築する最小 rule application
+
+Phase 5-21 では、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_inference_match()
+↓
+InferenceMatch
+```
+
+という structured match を導入した。
+
+`InferenceMatch` は、
+
+```text
+適用可能な InferenceRule
++
+その rule に対応して選択された ProofStep
+```
+
+をまとめて保持する。
+
+Phase 5-22 では、
+この structured match を実際の推論結果へ変換するため、
+
+```text
+InferenceMatch
+↓
+rule application
+↓
+ProofStep
+```
+
+という最小 application layer を導入する。
+
+---
+
+## conclusion_builder の設計
+
+`InferenceRule` に、
+
+```text
+conclusion_builder
+```
+
+を追加する。
+
+基本構造は、
+
+```python
+@dataclass(frozen=True)
+class InferenceRule:
+  name: str
+  description: str | None = None
+  premise_patterns: tuple[PremisePattern, ...] = ()
+  conclusion_builder: Any = None
+```
+
+とする。
+
+`conclusion_builder` は、
+matched premises を受け取り、
+新しい conclusion を構築する callable とする。
+
+概念的には、
+
+```text
+tuple of matched ProofSteps
+↓
+conclusion_builder
+↓
+conclusion
+```
+
+という責務を持つ。
+
+例えば、
+
+```python
+def builder(premises):
+  return (
+    premises[0].conclusion,
+    premises[1].conclusion,
+  )
+```
+
+のように、
+matched ProofStep の conclusion を利用して
+新しい conclusion を構築できる。
+
+---
+
+## conclusion_builder を optional とする理由
+
+`conclusion_builder` の default は、
+
+```text
+None
+```
+
+とする。
+
+これは、
+InferenceRule の、
+
+```text
+matching
+```
+
+と、
+
+```text
+application
+```
+
+を分離するためである。
+
+InferenceRule は conclusion builder を持たなくても、
+
+```text
+matches_inference_rule()
+find_matching_premises()
+is_inference_rule_applicable()
+find_applicable_inference_rules()
+find_inference_match()
+find_inference_matches()
+```
+
+に利用できる。
+
+したがって、
+
+```text
+この rule が使えるかを調べる
+```
+
+段階では、
+conclusion construction の仕様を要求しない。
+
+一方、
+
+```text
+実際に rule を適用する
+```
+
+段階では、
+conclusion を構築する方法が必要になる。
+
+そのため、
+
+```text
+matching:
+conclusion_builder 不要
+
+application:
+conclusion_builder 必須
+```
+
+という設計とする。
+
+これにより、
+Phase 5-21 以前に作成した InferenceRule との
+後方互換性も維持する。
+
+---
+
+## apply_inference_match() の設計
+
+InferenceMatch を実際の ProofStep へ変換するため、
+
+```python
+apply_inference_match(
+  inference_match,
+)
+```
+
+を導入する。
+
+処理は、
+
+```text
+InferenceMatch
+↓
+InferenceRule を取得
+↓
+conclusion_builder を取得
+↓
+matched premises を builder に渡す
+↓
+conclusion を構築
+↓
+ProofStep を構築
+```
+
+とする。
+
+返される ProofStep は概念的に、
+
+```python
+ProofStep(
+  conclusion=conclusion,
+  premises=inference_match.premises,
+  rule=ProofRule.INFERENCE,
+  inference_rule=inference_match.inference_rule,
+)
+```
+
+となる。
+
+---
+
+## ProofRule.INFERENCE
+
+Phase 5-22 では、
+InferenceMatch を適用して生成された ProofStep を、
+
+```text
+ProofRule.INFERENCE
+```
+
+として記録する。
+
+これにより、
+
+```text
+relation として与えられた既知事実
+```
+
+や、
+
+```text
+kernel / image computation
+```
+
+などと、
+
+```text
+InferenceRule を適用して新しく導いた結果
+```
+
+を区別できる。
+
+また、
+生成された ProofStep は、
+
+```text
+inference_rule
+```
+
+に実際に使用した `InferenceRule` を保持する。
+
+したがって derived step から、
+
+```text
+どの rule で導かれたか
+```
+
+を追跡できる。
+
+---
+
+## matched premises をそのまま依存関係とする
+
+`apply_inference_match()` によって生成される ProofStep の
+`premises` には、
+
+```text
+InferenceMatch.premises
+```
+
+をそのまま設定する。
+
+したがって、
+
+```text
+available ProofSteps
+↓
+matching
+↓
+InferenceMatch
+↓
+application
+↓
+derived ProofStep
+```
+
+と進んでも、
+matching 時に選択された concrete ProofStep との
+依存関係は失われない。
+
+例えば、
+
+```text
+PremisePattern 1 = RELATION
+PremisePattern 2 = GIVEN
+```
+
+に対し、
+available steps が、
+
+```text
+given_step
+relation_step
+```
+
+という順で保持されていても、
+InferenceMatch は pattern order に従って、
+
+```text
+(
+  relation_step,
+  given_step,
+)
+```
+
+を保持する。
+
+application 後も derived ProofStep の premises は、
+
+```text
+(
+  relation_step,
+  given_step,
+)
+```
+
+となる。
+
+conclusion builder に渡される順序も同じである。
+
+これにより、
+
+```text
+PremisePattern order
+↓
+InferenceMatch.premises order
+↓
+conclusion_builder input order
+↓
+derived ProofStep.premises order
+```
+
+を一貫して維持する。
+
+---
+
+## premise-free rule の application
+
+premise pattern を持たない rule、
+
+```text
+premise_patterns = ()
+```
+
+についても application を可能とする。
+
+この場合、
+
+```text
+InferenceMatch.premises = ()
+```
+
+であり、
+conclusion builder には、
+
+```text
+()
+```
+
+が渡される。
+
+例えば、
+
+```python
+def builder(premises):
+  assert premises == ()
+  return "axiomatic conclusion"
+```
+
+のような rule を適用できる。
+
+生成される ProofStep は、
+
+```text
+premises = ()
+rule = ProofRule.INFERENCE
+inference_rule = rule
+```
+
+を持つ。
+
+したがって、
+
+```text
+premise-free match
+```
+
+と、
+
+```text
+premise-free application
+```
+
+の両方を一貫して扱える。
+
+---
+
+## invalid input と application failure の区別
+
+`apply_inference_match()` では、
+異常入力を明示的に区別する。
+
+`InferenceMatch` 以外が渡された場合は、
+
+```text
+TypeError
+```
+
+とする。
+
+例えば、
+
+```python
+apply_inference_match(
+  "invalid"
+)
+```
+
+は API misuse である。
+
+一方、
+正しい InferenceMatch であっても、
+InferenceRule に conclusion builder がない場合は、
+
+```text
+ValueError
+```
+
+とする。
+
+これは、
+
+```text
+match 自体は有効
+```
+
+だが、
+
+```text
+application のための conclusion construction が未定義
+```
+
+という状態を表す。
+
+さらに、
+`conclusion_builder` が `None` ではないが
+callable でもない場合は、
+
+```text
+TypeError
+```
+
+とする。
+
+したがって、
+
+```text
+invalid match object
+missing application specification
+invalid builder object
+```
+
+を区別する。
+
+---
+
+## matching と application の分離
+
+Phase 5-22 の重要な設計原則は、
+
+```text
+matching
+```
+
+と、
+
+```text
+application
+```
+
+を同一処理にしないことである。
+
+matching pipeline は引き続き、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_inference_match()
+↓
+InferenceMatch / None
+```
+
+とする。
+
+application はその後に、
+
+```text
+InferenceMatch
+↓
+apply_inference_match()
+↓
+ProofStep
+```
+
+として独立して行う。
+
+したがって、
+
+```text
+find_inference_match()
+```
+
+や、
+
+```text
+find_inference_matches()
+```
+
+は conclusion builder の存在を要求しない。
+
+これにより、
+
+```text
+rule discovery
+rule applicability inspection
+premise assignment inspection
+```
+
+だけを行いたい場合には、
+rule application を発生させずに利用できる。
+
+---
+
+## conclusion_builder と symbolic inference の境界
+
+Phase 5-22 の conclusion builder は、
+一般的な Python callable とする。
+
+これは意図的な最小設計である。
+
+現在の `PremisePattern` が扱えるのは、
+
+```text
+proof_rule
+statement_type
+relation_type
+```
+
+という ProofStep レベルの structural condition である。
+
+例えば、
+
+```text
+RelationType.ZERO
+```
+
+を持つ step を探すことはできる。
+
+しかし、
+
+```text
+mα = 0
+```
+
+という expression の内部から、
+
+```text
+m
+α
+```
+
+を自動的に取り出すことはまだできない。
+
+そのため Phase 5-22 では、
+
+```text
+Expression pattern
+variable binding
+substitution
+conclusion template
+```
+
+を conclusion builder の中へ無理に組み込まない。
+
+代わりに、
+
+```text
+matched concrete ProofSteps
+↓
+explicit builder function
+↓
+conclusion
+```
+
+という最小機構だけを導入する。
+
+これにより、
+rule application pipeline を先に確立し、
+symbolic matching の設計を後続フェーズへ分離できる。
+
+---
+
+## InferenceMatch に bindings をまだ持たせない
+
+Phase 5-22 の `InferenceMatch` は引き続き、
+
+```text
+inference_rule
+premises
+```
+
+だけを保持する。
+
+例えば、
+
+```text
+mα = 0
+```
+
+に対して将来的に、
+
+```text
+m -> 2
+α -> η_3
+```
+
+という binding を得る場合でも、
+Phase 5-22 ではその情報をまだ保持しない。
+
+したがって current `InferenceMatch` は、
+
+```text
+rule
++
+matched ProofSteps
+```
+
+を表し、
+
+```text
+rule
++
+matched ProofSteps
++
+expression variable bindings
+```
+
+までは表さない。
+
+bindings の必要な形が明確になった段階で、
+InferenceMatch を拡張するか、
+別オブジェクトとして保持するかを検討する。
+
+---
+
+## Phase 5-22 時点の inference pipeline
+
+Phase 5-22 の完了により、
+現在の pipeline は、
+
+```text
+PremisePattern
++
+ProofStep
+↓
+matches_premise_pattern()
+```
+
+から、
+
+```text
+InferenceRule
++
+explicit ProofSteps
+↓
+matches_inference_rule()
+```
+
+さらに、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+```
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+is_inference_rule_applicable()
+```
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_applicable_inference_rules()
+```
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_inference_match()
+↓
+InferenceMatch
+```
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_inference_matches()
+↓
+InferenceMatch collection
+```
+
+そして、
+
+```text
+InferenceMatch
+↓
+apply_inference_match()
+↓
+derived ProofStep
+```
+
+まで到達した。
+
+よりまとめると、
+
+```text
+available ProofSteps
++
+InferenceRule
+↓
+premise search
+↓
+structured match
+↓
+conclusion construction
+↓
+derived ProofStep
+```
+
+という最小 inference application pipeline が成立した。
+
+---
+
+## Phase 5-22 時点の設計原則
+
+1. `InferenceRule` は optional な `conclusion_builder` を保持できる。
+2. `conclusion_builder` の default は `None` とする。
+3. premise matching に conclusion builder は要求しない。
+4. applicability 判定に conclusion builder は要求しない。
+5. structured match search に conclusion builder は要求しない。
+6. conclusion builder は rule application 時だけ必要とする。
+7. `InferenceMatch` と rule application を分離する。
+8. rule application は `apply_inference_match()` に集約する。
+9. conclusion builder には `InferenceMatch.premises` を渡す。
+10. builder が返した値を derived ProofStep の conclusion とする。
+11. derived ProofStep の premises は matched premises をそのまま保持する。
+12. derived ProofStep の rule は `ProofRule.INFERENCE` とする。
+13. derived ProofStep は使用した `InferenceRule` を保持する。
+14. premise-pattern order を builder input と derived step に維持する。
+15. premise-free rule も同じ application API で扱う。
+16. invalid InferenceMatch は `TypeError` とする。
+17. conclusion builder がない application は `ValueError` とする。
+18. non-callable builder は `TypeError` とする。
+19. Phase 5-21 以前の builder を持たない rule との後方互換性を維持する。
+20. conclusion builder は現段階では一般 callable とし、過剰に構造化しない。
+21. expression-level pattern matching はまだ導入しない。
+22. pattern variable はまだ導入しない。
+23. variable binding はまだ導入しない。
+24. substitution はまだ導入しない。
+25. structured conclusion template はまだ導入しない。
+26. `InferenceMatch` に bindings はまだ保持しない。
+27. automatic rule selection はまだ行わない。
+28. derived ProofStep の available-step collection への自動追加はまだ行わない。
+29. iterative inference はまだ行わない。
+30. algebra / EHP 層には変更を加えない。
+
+---
+
+## Phase 5-22 の到達点
+
+Phase 5-22 により、
+
+```text
+この rule が使える
+```
+
+という applicability 判定から、
+
+```text
+この premises で rule が使える
+```
+
+という structured match を経て、
+
+```text
+実際に rule を適用して
+新しい ProofStep を作る
+```
+
+ところまで進んだ。
+
+現在は、
+
+```text
+available facts
+↓
+matching
+↓
+InferenceMatch
+↓
+application
+↓
+derived fact
+```
+
+という最小 proof-engine cycle の一方向部分が成立している。
+
+ただし、
+derived fact はまだ available facts へ自動的に戻されない。
+
+したがって、
+
+```text
+derived ProofStep
+↓
+available ProofSteps に追加
+↓
+再度 matching
+↓
+さらに derived ProofStep
+```
+
+という iterative inference はまだ実装していない。
+
+また、
+数学的に一般的な inference rule を記述するには、
+
+```text
+Expression pattern
+↓
+variable binding
+↓
+substitution
+↓
+conclusion
+```
+
+が必要になる。
+
+Phase 5-22 の conclusion builder は、
+この symbolic inference machinery を導入する前に、
+rule application の責務と API 境界を確立するための
+最小 mechanism と位置づける。
+
+
 
 
 

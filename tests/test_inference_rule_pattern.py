@@ -7,6 +7,7 @@ from proof import (
   ProofStep,
   Relation,
   RelationType,
+  apply_inference_match,
   find_applicable_inference_rules,
   find_inference_match,
   find_inference_matches,
@@ -2783,6 +2784,488 @@ def test_find_inference_matches_rejects_invalid_step_in_list():
         "invalid",
       ],
     )
+
+
+def test_inference_rule_conclusion_builder_defaults_to_none():
+  rule = InferenceRule(
+    name="example rule",
+  )
+
+  assert (
+    rule.conclusion_builder
+    is None
+  )
+
+
+def test_inference_rule_conclusion_builder():
+  def builder(premises):
+    return "derived fact"
+
+  rule = InferenceRule(
+    name="example rule",
+    conclusion_builder=builder,
+  )
+
+  assert (
+    rule.conclusion_builder
+    is builder
+  )
+
+
+def test_inference_rule_conclusion_builder_is_backward_compatible():
+  rule = InferenceRule(
+    name="given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  assert (
+    rule.conclusion_builder
+    is None
+  )
+
+
+def test_apply_inference_match():
+  def builder(premises):
+    return "derived fact"
+
+  rule = InferenceRule(
+    name="given inference",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=builder,
+  )
+
+  premise_step = ProofStep(
+    conclusion="given fact",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(
+      premise_step,
+    ),
+  )
+
+  result = apply_inference_match(
+    match
+  )
+
+  assert result.conclusion == (
+    "derived fact"
+  )
+
+  assert result.premises == (
+    premise_step,
+  )
+
+  assert (
+    result.rule
+    == ProofRule.INFERENCE
+  )
+
+  assert (
+    result.inference_rule
+    == rule
+  )
+
+
+def test_apply_inference_match_builder_receives_premises():
+  received = []
+
+  def builder(premises):
+    received.extend(
+      premises
+    )
+    return "derived fact"
+
+  rule = InferenceRule(
+    name="given inference",
+    conclusion_builder=builder,
+  )
+
+  first_step = ProofStep(
+    conclusion="first",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  second_step = ProofStep(
+    conclusion="second",
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(
+      first_step,
+      second_step,
+    ),
+  )
+
+  apply_inference_match(
+    match
+  )
+
+  assert received == [
+    first_step,
+    second_step,
+  ]
+
+
+def test_apply_inference_match_builder_result_is_conclusion():
+  conclusion = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  def builder(premises):
+    return conclusion
+
+  rule = InferenceRule(
+    name="relation inference",
+    conclusion_builder=builder,
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+  )
+
+  result = apply_inference_match(
+    match
+  )
+
+  assert (
+    result.conclusion
+    == conclusion
+  )
+
+
+def test_apply_inference_match_multiple_premises():
+  def builder(premises):
+    return (
+      premises[0].conclusion,
+      premises[1].conclusion,
+    )
+
+  rule = InferenceRule(
+    name="combined inference",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.RELATION,
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=builder,
+  )
+
+  given_step = ProofStep(
+    conclusion="given fact",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  relation_step = ProofStep(
+    conclusion="relation fact",
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      given_step,
+      relation_step,
+    ),
+  )
+
+  result = apply_inference_match(
+    match
+  )
+
+  assert result.conclusion == (
+    "relation fact",
+    "given fact",
+  )
+
+  assert result.premises == (
+    relation_step,
+    given_step,
+  )
+
+
+def test_apply_inference_match_preserves_pattern_order():
+  received = []
+
+  def builder(premises):
+    received.extend(
+      step.rule
+      for step in premises
+    )
+    return "derived"
+
+  rule = InferenceRule(
+    name="ordered inference",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.RELATION,
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=builder,
+  )
+
+  given_step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  relation_step = ProofStep(
+    conclusion="relation",
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      given_step,
+      relation_step,
+    ),
+  )
+
+  apply_inference_match(
+    match
+  )
+
+  assert received == [
+    ProofRule.RELATION,
+    ProofRule.GIVEN,
+  ]
+
+
+def test_apply_inference_match_premise_free_rule():
+  def builder(premises):
+    assert premises == ()
+    return "axiomatic conclusion"
+
+  rule = InferenceRule(
+    name="premise free inference",
+    conclusion_builder=builder,
+  )
+
+  match = find_inference_match(
+    rule,
+    (),
+  )
+
+  result = apply_inference_match(
+    match
+  )
+
+  assert (
+    result.conclusion
+    == "axiomatic conclusion"
+  )
+
+  assert result.premises == ()
+
+  assert (
+    result.rule
+    == ProofRule.INFERENCE
+  )
+
+  assert (
+    result.inference_rule
+    == rule
+  )
+
+
+def test_apply_inference_match_rejects_invalid_match():
+  with pytest.raises(TypeError):
+    apply_inference_match(
+      "invalid"
+    )
+
+
+def test_apply_inference_match_requires_conclusion_builder():
+  rule = InferenceRule(
+    name="rule without builder",
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+  )
+
+  with pytest.raises(ValueError):
+    apply_inference_match(
+      match
+    )
+
+
+def test_apply_inference_match_rejects_non_callable_builder():
+  rule = InferenceRule(
+    name="invalid builder rule",
+    conclusion_builder="invalid",
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+  )
+
+  with pytest.raises(TypeError):
+    apply_inference_match(
+      match
+    )
+
+
+def test_find_inference_match_does_not_require_builder():
+  rule = InferenceRule(
+    name="matching only rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="given fact",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = find_inference_match(
+    rule,
+    (
+      step,
+    ),
+  )
+
+  assert result == InferenceMatch(
+    inference_rule=rule,
+    premises=(
+      step,
+    ),
+  )
+
+
+def test_find_inference_matches_do_not_require_builders():
+  first_rule = InferenceRule(
+    name="first rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="given fact",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = find_inference_matches(
+    (
+      first_rule,
+      second_rule,
+    ),
+    (
+      step,
+    ),
+  )
+
+  assert result == (
+    InferenceMatch(
+      inference_rule=first_rule,
+      premises=(
+        step,
+      ),
+    ),
+    InferenceMatch(
+      inference_rule=second_rule,
+      premises=(
+        step,
+      ),
+    ),
+  )
+
+
+def test_apply_found_inference_match():
+  def builder(premises):
+    return (
+      "derived from "
+      + premises[0].conclusion
+    )
+
+  rule = InferenceRule(
+    name="given inference",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=builder,
+  )
+
+  step = ProofStep(
+    conclusion="given fact",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      step,
+    ),
+  )
+
+  result = apply_inference_match(
+    match
+  )
+
+  assert (
+    result.conclusion
+    == "derived from given fact"
+  )
+
+  assert result.premises == (
+    step,
+  )
+
+  assert (
+    result.inference_rule
+    == rule
+  )
+
 
 
 

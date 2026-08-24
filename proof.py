@@ -30,6 +30,7 @@ class Relation:
 class ProofRule(Enum):
   GIVEN = "given"
   RELATION = "relation"
+  INFERENCE = "inference"
   EXACTNESS = "exactness"
   EHP_EXACTNESS = "ehp_exactness"
   KERNEL_COMPUTATION = "kernel_computation"
@@ -49,6 +50,7 @@ class InferenceRule:
   name: str
   description: str | None = None
   premise_patterns: tuple[PremisePattern, ...] = ()
+  conclusion_builder: Any = None
 
 
 @dataclass(frozen=True)
@@ -318,6 +320,52 @@ def find_inference_matches(
 
   return tuple(
     matches
+  )
+
+
+def apply_inference_match(
+  inference_match,
+):
+  if not isinstance(
+    inference_match,
+    InferenceMatch,
+  ):
+    raise TypeError(
+      "inference_match must be "
+      "an InferenceMatch"
+    )
+
+  inference_rule = (
+    inference_match.inference_rule
+  )
+
+  conclusion_builder = (
+    inference_rule.conclusion_builder
+  )
+
+  if conclusion_builder is None:
+    raise ValueError(
+      "inference rule must have "
+      "a conclusion builder"
+    )
+
+  if not callable(
+    conclusion_builder
+  ):
+    raise TypeError(
+      "conclusion_builder must be "
+      "callable"
+    )
+
+  conclusion = conclusion_builder(
+    inference_match.premises
+  )
+
+  return ProofStep(
+    conclusion=conclusion,
+    premises=inference_match.premises,
+    rule=ProofRule.INFERENCE,
+    inference_rule=inference_rule,
   )
 
 

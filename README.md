@@ -600,9 +600,15 @@ Phase 5 currently supports:
 * preservation of premise-pattern order in structured matches
 * explicit distinction between no match and a successful premise-free match
 * input normalization for single and multiple inference rules
+* optional conclusion builders attached to `InferenceRule`
+* separation of inference matching from inference application
+* conversion of an `InferenceMatch` into a derived `ProofStep`
+* preservation of matched premises as dependencies of the derived step
+* preservation of the applied `InferenceRule` on the derived step
+* support for premise-free inference-rule application
 * human-readable proof formatting
 
-The current rule-matching pipeline has seven levels.
+The current inference pipeline has now reached rule application.
 
 Individual premise matching:
 
@@ -692,6 +698,16 @@ find_inference_matches()
 InferenceMatch tuple
 ```
 
+Rule application:
+
+```text
+InferenceMatch
+↓
+apply_inference_match()
+↓
+new ProofStep
+```
+
 For example, a rule requiring a relation and a given fact can be
 defined as:
 
@@ -705,6 +721,10 @@ InferenceRule(
     PremisePattern(
       proof_rule=ProofRule.GIVEN,
     ),
+  ),
+  conclusion_builder=lambda premises: (
+    premises[0].conclusion,
+    premises[1].conclusion,
   ),
 )
 ```
@@ -729,7 +749,7 @@ The selected premises are returned in rule-pattern order:
 )
 ```
 
-The same result can now be retained together with the rule itself:
+The structured match records both the rule and the selected premises:
 
 ```python
 InferenceMatch(
@@ -741,79 +761,89 @@ InferenceMatch(
 )
 ```
 
-This makes an explicit distinction between:
+Phase 5-22 adds an optional:
 
 ```text
-which rule is applicable
+conclusion_builder
+```
+
+to `InferenceRule`.
+
+The builder receives the matched premise tuple:
+
+```text
+matched premises
+↓
+conclusion_builder
+↓
+conclusion
+```
+
+The resulting conclusion is then wrapped in a new `ProofStep`:
+
+```text
+ProofStep(
+  conclusion=constructed conclusion,
+  premises=matched premises,
+  rule=ProofRule.INFERENCE,
+  inference_rule=matched rule,
+)
+```
+
+Thus the full path is now:
+
+```text
+available ProofSteps
++
+InferenceRule
+↓
+find_inference_match()
+↓
+InferenceMatch
+↓
+apply_inference_match()
+↓
+derived ProofStep
+```
+
+Matching and application remain separate operations.
+
+An `InferenceRule` does not need a conclusion builder in order to
+participate in:
+
+```text
+premise matching
+applicability checking
+structured match search
+```
+
+Therefore existing inference rules remain valid with:
+
+```text
+conclusion_builder = None
+```
+
+A conclusion builder is required only when:
+
+```python
+apply_inference_match(...)
+```
+
+is called.
+
+This preserves the distinction between:
+
+```text
+can this rule be applied?
 ```
 
 and:
 
 ```text
-which concrete ProofSteps make it applicable
+actually apply this rule and construct a conclusion
 ```
 
-without requiring a second premise search by the caller.
-
-`find_inference_match()` is intentionally a thin wrapper over
-`find_matching_premises()`.
-
-Conceptually:
-
-```text
-find_inference_match()
-↓
-find_matching_premises()
-↓
-InferenceMatch / None
-```
-
-It does not duplicate premise matching, available-step search,
-step-reuse checks, or input normalization.
-
-Multiple rules can also be searched at once:
-
-```python
-find_inference_matches(
-  inference_rules,
-  available_steps,
-)
-```
-
-If two rules match, the result is conceptually:
-
-```text
-(
-  InferenceMatch(
-    inference_rule=rule_a,
-    premises=(...),
-  ),
-  InferenceMatch(
-    inference_rule=rule_b,
-    premises=(...),
-  ),
-)
-```
-
-The rule input order is preserved.
-
-A non-applicable rule produces no `InferenceMatch`.
-
-For a single rule:
-
-```python
-find_inference_match(...)
-```
-
-returns:
-
-```text
-None
-```
-
-when one or more required premises cannot be found.
-
-A premise-free rule behaves differently.
+A premise-free rule can also be applied.
 
 For:
 
@@ -821,67 +851,35 @@ For:
 premise_patterns = ()
 ```
 
-premise search succeeds with:
+the corresponding structured match contains:
 
 ```text
-()
+premises = ()
 ```
 
-and therefore:
+and the conclusion builder receives the empty tuple.
 
-```python
-find_inference_match(...)
-```
-
-returns:
-
-```python
-InferenceMatch(
-  inference_rule=rule,
-  premises=(),
-)
-```
-
-Thus:
+The resulting step still records:
 
 ```text
-None
+ProofRule.INFERENCE
 ```
 
-means no valid match was found, while:
+and the applied `InferenceRule`.
+
+The current conclusion builder is intentionally general.
+
+It is simply a callable receiving:
 
 ```text
-InferenceMatch(..., premises=())
+tuple[ProofStep, ...]
 ```
 
-means a premise-free rule matched successfully.
+conceptually, and returning the new conclusion object.
 
-The current premise search selects the first matching unused step for
-each pattern.
-
-A single proof step is not reused for multiple premise patterns within
-one rule.
-
-Different inference rules may independently use the same available
-ProofStep.
-
-`InferenceMatch` represents a match, not an inference result.
-
-It records:
-
-```text
-rule
-+
-selected premises
-```
-
-but does not yet construct:
-
-```text
-conclusion
-```
-
-or a new `ProofStep`.
+This permits Phase 5-22 to establish the rule-application pipeline
+without prematurely designing expression-level variable binding or
+substitution.
 
 ---
 
@@ -914,6 +912,10 @@ determine whether an InferenceRule is currently applicable
 search a collection for currently applicable InferenceRules
 ↓
 retain each applicable rule together with its matched premises
+↓
+apply a structured InferenceMatch
+↓
+construct a new ProofStep
 ```
 
 The current premise search is greedy.
@@ -949,12 +951,12 @@ The proof / inference layer does not yet automatically:
 * match internal expression structures
 * bind pattern variables
 * substitute bound variables
-* describe a conclusion template inside an inference rule
-* construct conclusions from an `InferenceMatch`
-* convert an `InferenceMatch` automatically into a new `ProofStep`
+* represent expression-level conclusion templates
+* derive mathematical variable bindings from matched premises
 * search a `RelationRepository` automatically for required relations
-* apply inference rules automatically
+* apply all applicable inference rules automatically
 * add derived conclusions back into the available proof-step collection
+* prevent duplicate derived conclusions
 * iterate inference until no new conclusions are found
 * recursively construct proofs
 * recursively collect proof dependencies
@@ -982,10 +984,26 @@ m = 2
 α = η_3
 ```
 
-An `InferenceMatch` therefore currently stores the matching
-`ProofStep` object itself, not a set of mathematical variable bindings.
+A Phase 5-22 conclusion builder can inspect the concrete matched
+`ProofStep` objects manually, but the inference engine does not yet
+derive a structured binding such as:
 
-These belong to later inference phases.
+```text
+m -> 2
+α -> η_3
+```
+
+automatically.
+
+Therefore the current application mechanism should be understood as:
+
+```text
+structured premise selection
++
+explicit Python conclusion builder
+```
+
+rather than a complete symbolic inference system.
 
 ---
 
@@ -997,39 +1015,36 @@ Run the complete test suite with:
 python -m pytest -v
 ```
 
-At the completion of Phase 5-21:
+At the completion of Phase 5-22:
 
 ```text
-329 passed in 21.71s
+344 passed in 20.98s
 ```
 
-Phase 5-21 adds structured-match tests covering:
+Phase 5-22 adds inference-application tests covering:
 
 ```text
-InferenceMatch construction
-single-rule matches
-non-applicable rules
-premise-pattern ordering
-premise-free rules
-relation-type requirements
-single ProofStep input
-list input
-multiple rule matches
-rule-order preservation
-empty match results
-empty rule collections
-multiple premise patterns
-single InferenceRule input
-invalid rule input
-invalid rule collection entries
-invalid available-step input
-invalid ProofStep entries
+default conclusion_builder value
+explicit conclusion_builder storage
+backward compatibility without a builder
+basic InferenceMatch application
+passing matched premises to the builder
+using the builder result as the conclusion
+multiple-premise application
+preservation of premise-pattern order
+premise-free rule application
+invalid InferenceMatch input
+missing conclusion builder
+non-callable conclusion builder
+matching without a conclusion builder
+collection match search without conclusion builders
+application of an InferenceMatch returned by search
 ```
 
 The complete test suite also includes the existing algebra, EHP,
 expression, formatter, proof, repository, premise-pattern,
-inference-rule matching, premise-search, applicability, and
-applicable-rule-search tests.
+inference-rule matching, premise-search, applicability,
+applicable-rule-search, and structured-match tests.
 
 ---
 
@@ -1038,37 +1053,37 @@ applicable-rule-search tests.
 The current inference pipeline now reaches:
 
 ```text
-InferenceRule collection
+InferenceRule
 +
 available ProofSteps
 ↓
-find_inference_matches()
+find_inference_match()
 ↓
-InferenceMatch collection
-```
-
-Each `InferenceMatch` records:
-
-```text
-an applicable inference rule
-+
-the concrete ProofSteps selected as its premises
-```
-
-The next major transition is:
-
-```text
 InferenceMatch
 ↓
-inference-rule application
+apply_inference_match()
 ↓
-new ProofStep
+derived ProofStep
 ```
 
-However, actual rule application requires a way to describe how the
-conclusion should be constructed.
+This is the first complete minimal path from:
 
-For example, a mathematical rule may conceptually say:
+```text
+available mathematical facts
+```
+
+to:
+
+```text
+a newly derived proof step
+```
+
+through a structured inference rule.
+
+However, Phase 5-22 conclusion construction is still explicit Python
+logic supplied by the rule author.
+
+For example, a rule may conceptually say:
 
 ```text
 mα = 0
@@ -1076,40 +1091,73 @@ mα = 0
 the order of α divides m
 ```
 
-The current `PremisePattern` can recognize only broad properties such
-as:
-
-```text
-ProofRule.RELATION
-Relation
-RelationType.ZERO
-```
-
-It cannot yet bind:
+The current matcher can locate a broad zero-relation premise, but it
+cannot automatically extract:
 
 ```text
 m
 α
 ```
 
-from the internal expression structure.
+from the internal expression.
 
-Therefore conclusion construction should remain separate until the
-required representation has been designed.
+Therefore a general symbolic rule engine still requires:
+
+```text
+expression-level pattern
+↓
+variable binding
+↓
+substitution
+↓
+conclusion construction
+```
+
+A natural next step is to introduce the first expression-level premise
+pattern or variable-binding mechanism.
+
+Another possible near-term step is to use the Phase 5-22 application
+primitive in a collection-level inference operation:
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_inference_matches()
+↓
+select / apply matches
+↓
+derived ProofSteps
+```
+
+Before iterative automatic inference is introduced, the following
+design questions remain important:
+
+* how expression variables should be represented
+* how bindings should be stored
+* whether bindings belong in `InferenceMatch`
+* how conclusion templates should consume those bindings
+* how duplicate conclusions should be detected
+* how alternative premise assignments should be represented
+* how multiple simultaneously applicable rules should be selected
+* when a derived step should be added back to the available fact set
 
 Possible next steps include:
 
-* an inference-rule conclusion specification
-* conclusion builders
 * expression-level premise patterns
 * pattern variables
 * variable bindings
 * substitution
-* conversion from `InferenceMatch` to a derived `ProofStep`
+* structured conclusion templates
+* extending `InferenceMatch` with bindings
+* collection-level rule application
 * alternative premise assignments
 * backtracking premise search
 * rule priority and rule selection
 * automatic relation selection
+* derived-step insertion
+* duplicate conclusion detection
 * iterative automatic inference
 * composition relations
 * Toda brackets
@@ -1118,19 +1166,10 @@ Possible next steps include:
 * proof dependency graph construction
 * literature-backed automatic proof tracing
 
-A useful immediate design question for Phase 5-22 is:
-
-```text
-Should InferenceRule itself describe how to build a conclusion,
-or should conclusion construction be delegated to a separate
-rule-application object/function?
-```
-
-This should be settled before introducing automatic inference-rule
-application.
-
 The algebra layer remains independent of these higher-level inference
 mechanisms.
+
+
 
 
 
