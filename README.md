@@ -2299,6 +2299,675 @@ why a matching inference did or did not change the knowledge state
 without changing the current mathematical inference semantics.
 
 
+## Phase 5-33: candidate and duplicate-rejection tracing
+
+Phase 5-33 extends the per-round execution trace introduced in
+Phase 5-31 and Phase 5-32.
+
+A round can now preserve all four major stages of one-round inference:
+
+```text
+InferenceMatch
+↓
+candidate ProofStep
+↓
+duplicate filtering
+├── accepted as genuinely new
+└── rejected as duplicate
+```
+
+`InferenceRoundResult` now has the structure:
+
+```python
+@dataclass(frozen=True)
+class InferenceRoundResult:
+  new_steps: tuple[ProofStep, ...]
+  matches: tuple[InferenceMatch, ...] = ()
+  candidate_steps: tuple[ProofStep, ...] = ()
+  duplicate_rejected_steps: tuple[ProofStep, ...] = ()
+```
+
+The fields have intentionally different meanings.
+
+```text
+matches
+=
+all InferenceMatch objects found for the round
+
+candidate_steps
+=
+all ProofSteps produced by applying those matches,
+before duplicate filtering
+
+new_steps
+=
+candidate ProofSteps accepted as genuinely new knowledge
+
+duplicate_rejected_steps
+=
+candidate ProofSteps rejected because their conclusions
+were already present or had already been accepted earlier
+in the same round
+```
+
+This makes the one-round execution pipeline directly inspectable:
+
+```text
+available ProofSteps
++
+InferenceRules
+↓
+find_inference_matches()
+↓
+matches
+↓
+apply_inference_matches()
+↓
+candidate_steps
+↓
+partition_new_and_duplicate_proof_steps()
+├── new_steps
+└── duplicate_rejected_steps
+```
+
+---
+
+## Candidate ProofSteps
+
+Before Phase 5-33, `InferenceRoundResult` recorded:
+
+```text
+matches
+new_steps
+```
+
+but did not preserve the actual ProofSteps produced by every match.
+
+This meant that if a match successfully produced a conclusion that was
+later rejected as a duplicate, the generated ProofStep itself was not
+available from the round result.
+
+Phase 5-33 adds:
+
+```python
+round_result.candidate_steps
+```
+
+which contains every derived ProofStep before duplicate filtering.
+
+For example:
+
+```text
+rule A
+↓
+candidate X
+
+rule B
+↓
+candidate X
+```
+
+produces:
+
+```python
+candidate_steps == (
+  candidate_from_rule_A,
+  candidate_from_rule_B,
+)
+```
+
+even though only one candidate can enter the knowledge state.
+
+Candidate order preserves inference-match order.
+
+Therefore the relationship between:
+
+```text
+matches[i]
+```
+
+and:
+
+```text
+candidate_steps[i]
+```
+
+corresponds to the application of that match.
+
+---
+
+## Duplicate-rejected ProofSteps
+
+Phase 5-33 also records candidate ProofSteps that were generated
+successfully but did not expand the knowledge state.
+
+These are available through:
+
+```python
+round_result.duplicate_rejected_steps
+```
+
+Duplicate rejection still uses the existing conclusion-equality
+semantics:
+
+```python
+step.conclusion == known_conclusion
+```
+
+A candidate is rejected when its conclusion is already:
+
+```text
+present in the knowledge state
+```
+
+or:
+
+```text
+accepted earlier in the same round
+```
+
+For example:
+
+```text
+available:
+A
+X
+
+rule:
+A → X
+```
+
+produces:
+
+```text
+matches:
+1 match
+
+candidate_steps:
+X
+
+new_steps:
+()
+
+duplicate_rejected_steps:
+X
+```
+
+The successful rule application is therefore no longer lost merely
+because its conclusion was already known.
+
+---
+
+## Same-round duplicate rejection
+
+Duplicate detection also applies between candidates generated in the
+same round.
+
+For example:
+
+```text
+rule A:
+given → X
+
+rule B:
+given → X
+```
+
+produces:
+
+```text
+candidate_steps:
+X from rule A
+X from rule B
+```
+
+The first candidate is accepted:
+
+```text
+new_steps:
+X from rule A
+```
+
+and the second is recorded as:
+
+```text
+duplicate_rejected_steps:
+X from rule B
+```
+
+This preserves both derivations at the execution-trace level while
+keeping the existing knowledge-state rule:
+
+```text
+only the first ProofStep for an equal conclusion is added
+```
+
+unchanged.
+
+Phase 5-33 therefore begins preserving information about alternative
+derivations even though alternative ProofSteps are still not stored in
+the accumulated knowledge state itself.
+
+---
+
+## partition_new_and_duplicate_proof_steps()
+
+The duplicate-partition logic is now available explicitly through:
+
+```python
+partition_new_and_duplicate_proof_steps(
+  available_steps,
+  candidate_steps,
+)
+```
+
+It returns:
+
+```python
+(
+  new_steps,
+  duplicate_rejected_steps,
+)
+```
+
+The function processes candidates in order.
+
+Conceptually:
+
+```text
+seen conclusions
+=
+conclusions already present in available_steps
+
+for each candidate:
+  if conclusion already seen:
+    reject as duplicate
+  else:
+    accept as new
+    add conclusion to seen conclusions
+```
+
+Adding accepted conclusions immediately to the seen set is what makes
+same-round duplicate detection possible.
+
+Both:
+
+```text
+accepted candidate order
+```
+
+and:
+
+```text
+duplicate-rejected candidate order
+```
+
+are preserved.
+
+---
+
+## Detailed one-round result
+
+`derive_inference_round_result()` now represents the complete currently
+supported one-round inference trace:
+
+```python
+round_result = derive_inference_round_result(
+  inference_rules,
+  available_steps,
+)
+```
+
+The result can be inspected through:
+
+```python
+round_result.matches
+round_result.candidate_steps
+round_result.new_steps
+round_result.duplicate_rejected_steps
+```
+
+Conceptually:
+
+```text
+InferenceRoundResult
+├── matches
+├── candidate_steps
+├── new_steps
+└── duplicate_rejected_steps
+```
+
+The simpler API:
+
+```python
+derive_new_inference_steps()
+```
+
+continues to return only:
+
+```python
+round_result.new_steps
+```
+
+so callers that do not require execution-trace information remain
+unaffected.
+
+---
+
+## Fixed-point inference
+
+Productive round results preserved by:
+
+```python
+run_inference_until_stable_with_history()
+```
+
+now also contain candidate and duplicate-rejection information.
+
+For example, suppose:
+
+```text
+round 1:
+rule A derives B
+
+round 2:
+rule A derives B again
+rule B derives C
+```
+
+Then round 2 can record:
+
+```text
+matches:
+rule A
+rule B
+
+candidate_steps:
+B
+C
+
+new_steps:
+C
+
+duplicate_rejected_steps:
+B
+```
+
+This makes it possible to distinguish:
+
+```text
+rule did not match
+```
+
+from:
+
+```text
+rule matched and produced a candidate,
+but the candidate was already known
+```
+
+which is important for diagnostics and proof tracing.
+
+As before, `InferenceRunResult.round_results` stores only productive
+rounds.
+
+The final empty fixed-point check is not appended to `round_results`.
+
+Therefore candidate or duplicate information from the final
+non-productive termination check is currently not retained.
+
+---
+
+## Backward compatibility
+
+The new `InferenceRoundResult` fields have empty-tuple defaults:
+
+```python
+candidate_steps: tuple[ProofStep, ...] = ()
+duplicate_rejected_steps: tuple[ProofStep, ...] = ()
+```
+
+Therefore constructions such as:
+
+```python
+InferenceRoundResult(
+  new_steps=(),
+)
+```
+
+remain valid.
+
+Existing APIs and semantics are preserved:
+
+```text
+round_history
+round_count
+termination_reason
+max_rounds
+derive_new_inference_steps()
+run_inference_round()
+run_inference_until_stable()
+```
+
+The knowledge state still contains only genuinely new ProofSteps.
+
+Phase 5-33 adds execution-trace information without changing the
+mathematical inference result.
+
+---
+
+## Tests
+
+Run the inference-rule tests with:
+
+```powershell
+python -m pytest tests/test_inference_rule_pattern.py -v
+```
+
+At the completion of Phase 5-33:
+
+```text
+242 passed
+```
+
+Phase 5-32 completed with:
+
+```text
+231 passed
+```
+
+so Phase 5-33 adds 11 tests.
+
+The Phase 5-33 tests cover:
+
+```text
+candidate_steps default value
+duplicate_rejected_steps default value
+partitioning new and duplicate candidates
+same-round duplicate rejection
+accepted-candidate order preservation
+duplicate-rejected order preservation
+candidate-step recording
+already-known candidate recording
+same-round duplicate candidate recording
+candidate order preservation
+per-round duplicate-rejection tracing during fixed-point inference
+```
+
+No regression was detected in the previously implemented:
+
+```text
+premise-pattern matching
+inference-rule matching
+premise search
+rule applicability
+InferenceMatch construction
+InferenceMatch application
+candidate derivation
+duplicate-aware merging
+one-round inference
+fixed-point inference
+round history
+max-round termination
+termination reasons
+structured round results
+per-round InferenceMatch tracing
+```
+
+---
+
+## Current Phase 5 inference trace
+
+After Phase 5-33, the inference trace is conceptually:
+
+```text
+InferenceRunResult
+├── steps
+├── round_results
+│   ├── round 1
+│   │   ├── matches
+│   │   ├── candidate_steps
+│   │   ├── new_steps
+│   │   └── duplicate_rejected_steps
+│   ├── round 2
+│   │   ├── matches
+│   │   ├── candidate_steps
+│   │   ├── new_steps
+│   │   └── duplicate_rejected_steps
+│   └── ...
+├── round_history
+├── round_count
+└── termination_reason
+```
+
+The one-round derivation path can now be inspected as:
+
+```text
+match
+↓
+candidate
+↓
+accepted or duplicate-rejected
+```
+
+This provides substantially more information than storing only the
+final accumulated knowledge state.
+
+---
+
+## Phase 5-24 through Phase 5-33
+
+The inference engine has now progressed through:
+
+```text
+Phase 5-24
+candidate derivation
+↓
+Phase 5-25
+one-round state expansion
+↓
+Phase 5-26
+duplicate-aware merge
+↓
+Phase 5-27
+one-round genuinely-new delta
+↓
+Phase 5-28
+automatic fixed-point iteration
+↓
+Phase 5-29
+per-round history and structured run result
+↓
+Phase 5-30
+bounded iteration and explicit termination reason
+↓
+Phase 5-31
+structured per-round result objects
+↓
+Phase 5-32
+per-round InferenceMatch tracing
+↓
+Phase 5-33
+candidate and duplicate-rejection tracing
+```
+
+The execution model can now answer:
+
+```text
+Which rules matched?
+Which ProofSteps did those matches generate?
+Which candidates entered the knowledge state?
+Which candidates were rejected as duplicates?
+In which productive round did this happen?
+Why did the overall inference run stop?
+```
+
+---
+
+## Next direction
+
+Phase 5-33 preserves:
+
+```text
+matches
+candidate_steps
+new_steps
+duplicate_rejected_steps
+```
+
+but the relationship is still represented by parallel ordered
+collections.
+
+For each match, it is possible to infer that:
+
+```text
+matches[i]
+↓
+candidate_steps[i]
+```
+
+but acceptance or rejection is not yet represented by a dedicated
+derivation-level object.
+
+A natural future extension is therefore something conceptually like:
+
+```text
+InferenceApplicationResult
+├── match
+├── candidate_step
+├── accepted
+└── rejection_reason
+```
+
+This would make:
+
+```text
+match
+→
+candidate
+→
+acceptance decision
+```
+
+a first-class object rather than reconstructing the relationship from
+multiple collections.
+
+Possible later extensions include:
+
+```text
+alternative premise assignments
+backtracking
+expression-level patterns
+pattern variables
+variable bindings
+substitution
+alternative proof preservation
+```
+
+The current greedy matching and conclusion-equality semantics remain
+unchanged.
+
+
 
 
 

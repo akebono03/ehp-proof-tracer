@@ -995,34 +995,54 @@ def partition_new_and_duplicate_proof_steps(
   available_steps,
   candidate_steps,
 ):
-  available_steps = _normalize_proof_steps(
-    available_steps,
+  normalized_available_steps = (
+    _normalize_proof_steps(
+      available_steps,
+      "available_steps",
+    )
   )
-  candidate_steps = _normalize_proof_steps(
-    candidate_steps,
+
+  normalized_candidate_steps = (
+    _normalize_proof_steps(
+      candidate_steps,
+      "candidate_steps",
+    )
   )
 
   seen_conclusions = [
     step.conclusion
-    for step in available_steps
+    for step
+    in normalized_available_steps
   ]
 
   new_steps = []
   duplicate_rejected_steps = []
 
-  for step in candidate_steps:
-    if step.conclusion in seen_conclusions:
-      duplicate_rejected_steps.append(step)
+  for step in normalized_candidate_steps:
+    if any(
+      step.conclusion
+      == seen_conclusion
+      for seen_conclusion
+      in seen_conclusions
+    ):
+      duplicate_rejected_steps.append(
+        step
+      )
       continue
+
+    new_steps.append(
+      step
+    )
 
     seen_conclusions.append(
       step.conclusion
     )
-    new_steps.append(step)
 
   return (
     tuple(new_steps),
-    tuple(duplicate_rejected_steps),
+    tuple(
+      duplicate_rejected_steps
+    ),
   )
 
 
@@ -1030,11 +1050,17 @@ def derive_inference_round_result(
   inference_rules,
   available_steps,
 ):
-  normalized_rules = _normalize_inference_rules(
-    inference_rules,
+  normalized_rules = (
+    _normalize_inference_rules(
+      inference_rules
+    )
   )
-  normalized_steps = _normalize_proof_steps(
-    available_steps,
+
+  normalized_steps = (
+    _normalize_proof_steps(
+      available_steps,
+      "available_steps",
+    )
   )
 
   matches = find_inference_matches(
@@ -1042,23 +1068,29 @@ def derive_inference_round_result(
     normalized_steps,
   )
 
-  candidate_steps = apply_inference_matches(
-    matches,
+  candidate_steps = (
+    apply_inference_matches(
+      matches
+    )
   )
 
   (
     new_steps,
     duplicate_rejected_steps,
-  ) = partition_new_and_duplicate_proof_steps(
-    normalized_steps,
-    candidate_steps,
+  ) = (
+    partition_new_and_duplicate_proof_steps(
+      normalized_steps,
+      candidate_steps,
+    )
   )
 
   return InferenceRoundResult(
     new_steps=new_steps,
     matches=matches,
     candidate_steps=candidate_steps,
-    duplicate_rejected_steps=duplicate_rejected_steps,
+    duplicate_rejected_steps=(
+      duplicate_rejected_steps
+    ),
   )
 
 

@@ -23,6 +23,7 @@ from proof import (
   matches_inference_rule,
   matches_premise_pattern,
   merge_proof_steps,
+  partition_new_and_duplicate_proof_steps,
   run_inference_round,
   run_inference_until_stable,
   run_inference_until_stable_with_history,
@@ -7229,8 +7230,506 @@ def test_derive_inference_round_result_keeps_match_when_conclusion_is_already_kn
   assert result.new_steps == ()
 
 
+def test_inference_round_result_candidate_steps_default_to_empty():
+  result = InferenceRoundResult(
+    new_steps=(),
+  )
+
+  assert result.candidate_steps == ()
 
 
+def test_inference_round_result_duplicate_rejected_steps_default_to_empty():
+  result = InferenceRoundResult(
+    new_steps=(),
+  )
+
+  assert (
+    result.duplicate_rejected_steps
+    == ()
+  )
+
+
+def test_partition_new_and_duplicate_proof_steps():
+  available = ProofStep(
+    conclusion="known",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  new_step = ProofStep(
+    conclusion="new",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  duplicate_step = ProofStep(
+    conclusion="known",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  (
+    new_steps,
+    duplicate_rejected_steps,
+  ) = (
+    partition_new_and_duplicate_proof_steps(
+      available,
+      (
+        new_step,
+        duplicate_step,
+      ),
+    )
+  )
+
+  assert new_steps == (
+    new_step,
+  )
+
+  assert (
+    duplicate_rejected_steps
+    == (
+      duplicate_step,
+    )
+  )
+
+
+def test_partition_new_and_duplicate_proof_steps_rejects_same_round_duplicate():
+  first = ProofStep(
+    conclusion="same",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  second = ProofStep(
+    conclusion="same",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  (
+    new_steps,
+    duplicate_rejected_steps,
+  ) = (
+    partition_new_and_duplicate_proof_steps(
+      (),
+      (
+        first,
+        second,
+      ),
+    )
+  )
+
+  assert new_steps == (
+    first,
+  )
+
+  assert (
+    duplicate_rejected_steps
+    == (
+      second,
+    )
+  )
+
+
+def test_partition_new_and_duplicate_proof_steps_preserves_order():
+  first = ProofStep(
+    conclusion="first",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  second = ProofStep(
+    conclusion="second",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  third = ProofStep(
+    conclusion="third",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  (
+    new_steps,
+    duplicate_rejected_steps,
+  ) = (
+    partition_new_and_duplicate_proof_steps(
+      (),
+      (
+        first,
+        second,
+        third,
+      ),
+    )
+  )
+
+  assert new_steps == (
+    first,
+    second,
+    third,
+  )
+
+  assert (
+    duplicate_rejected_steps
+    == ()
+  )
+
+
+def test_partition_new_and_duplicate_proof_steps_preserves_rejected_order():
+  known_a = ProofStep(
+    conclusion="a",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  known_b = ProofStep(
+    conclusion="b",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  duplicate_a = ProofStep(
+    conclusion="a",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  duplicate_b = ProofStep(
+    conclusion="b",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  (
+    new_steps,
+    duplicate_rejected_steps,
+  ) = (
+    partition_new_and_duplicate_proof_steps(
+      (
+        known_a,
+        known_b,
+      ),
+      (
+        duplicate_b,
+        duplicate_a,
+      ),
+    )
+  )
+
+  assert new_steps == ()
+
+  assert (
+    duplicate_rejected_steps
+    == (
+      duplicate_b,
+      duplicate_a,
+    )
+  )
+
+
+def test_derive_inference_round_result_records_candidate_steps():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = InferenceRule(
+    name="derive",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  result = derive_inference_round_result(
+    rule,
+    given,
+  )
+
+  assert len(
+    result.candidate_steps
+  ) == 1
+
+  assert (
+    result.candidate_steps[
+      0
+    ].conclusion
+    == "derived"
+  )
+
+  assert (
+    result.new_steps
+    == result.candidate_steps
+  )
+
+  assert (
+    result.duplicate_rejected_steps
+    == ()
+  )
+
+
+def test_derive_inference_round_result_records_existing_duplicate_candidate():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  known = ProofStep(
+    conclusion="known",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = InferenceRule(
+    name="derive known",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "known"
+    ),
+  )
+
+  result = derive_inference_round_result(
+    rule,
+    (
+      given,
+      known,
+    ),
+  )
+
+  assert len(
+    result.matches
+  ) == 1
+
+  assert len(
+    result.candidate_steps
+  ) == 1
+
+  assert (
+    result.candidate_steps[
+      0
+    ].conclusion
+    == "known"
+  )
+
+  assert result.new_steps == ()
+
+  assert (
+    result.duplicate_rejected_steps
+    == (
+      result.candidate_steps[0],
+    )
+  )
+
+
+def test_derive_inference_round_result_records_same_round_duplicate_candidate():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_rule = InferenceRule(
+    name="first rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "same"
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "same"
+    ),
+  )
+
+  result = derive_inference_round_result(
+    (
+      first_rule,
+      second_rule,
+    ),
+    given,
+  )
+
+  assert len(
+    result.matches
+  ) == 2
+
+  assert len(
+    result.candidate_steps
+  ) == 2
+
+  assert tuple(
+    step.conclusion
+    for step
+    in result.candidate_steps
+  ) == (
+    "same",
+    "same",
+  )
+
+  assert result.new_steps == (
+    result.candidate_steps[0],
+  )
+
+  assert (
+    result.duplicate_rejected_steps
+    == (
+      result.candidate_steps[1],
+    )
+  )
+
+
+def test_derive_inference_round_result_preserves_candidate_order():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_rule = InferenceRule(
+    name="first rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "first"
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "second"
+    ),
+  )
+
+  result = derive_inference_round_result(
+    (
+      first_rule,
+      second_rule,
+    ),
+    given,
+  )
+
+  assert tuple(
+    step.conclusion
+    for step
+    in result.candidate_steps
+  ) == (
+    "first",
+    "second",
+  )
+
+
+def test_run_inference_until_stable_records_duplicate_rejected_steps_per_round():
+  initial = ProofStep(
+    conclusion="initial",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  relation = Relation(
+    lhs="middle",
+    rhs="value",
+  )
+
+  first_rule = InferenceRule(
+    name="first rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      relation
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "final"
+    ),
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        first_rule,
+        second_rule,
+      ),
+      initial,
+    )
+  )
+
+  assert len(
+    result.round_results
+  ) == 2
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  second_round = (
+    result.round_results[1]
+  )
+
+  assert (
+    first_round.duplicate_rejected_steps
+    == ()
+  )
+
+  assert len(
+    second_round.duplicate_rejected_steps
+  ) == 1
+
+  assert (
+    second_round.duplicate_rejected_steps[
+      0
+    ].conclusion
+    == relation
+  )
+
+  assert (
+    second_round.duplicate_rejected_steps[
+      0
+    ].inference_rule
+    == first_rule
+  )
 
 
 

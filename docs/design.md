@@ -20824,6 +20824,1383 @@ new_steps
 という最小限の execution trace に留める。
 
 
+# Phase 5-33：candidate derived steps / duplicate-rejected candidate history
+
+Phase 5-32 までに、
+各 productive inference round について、
+
+```text
+どの InferenceMatch が成立したか
+```
+
+と、
+
+```text
+どの ProofStep が genuinely new として追加されたか
+```
+
+を、
+
+```python
+InferenceRoundResult
+```
+
+から取得できるようになった。
+
+Phase 5-32 時点の構造は、
+
+```python
+InferenceRoundResult(
+  new_steps=...,
+  matches=...,
+)
+```
+
+である。
+
+しかしこの2つだけでは、
+
+```text
+match
+↓
+candidate ProofStep
+↓
+duplicate filtering
+↓
+new ProofStep
+```
+
+という one-round inference の中間段階が失われている。
+
+特に、
+
+```text
+match は成立した
+```
+
+が、
+
+```text
+生成された conclusion がすでに known だった
+```
+
+場合、
+
+```text
+matches
+```
+
+には情報が残る一方、
+
+```text
+new_steps
+```
+
+には何も残らない。
+
+Phase 5-33 では、
+
+```text
+match
+candidate
+accept / reject
+```
+
+を round execution trace から観測できるようにする。
+
+---
+
+## InferenceRoundResult の拡張
+
+Phase 5-33 では、
+
+```python
+@dataclass(frozen=True)
+class InferenceRoundResult:
+  new_steps: tuple[ProofStep, ...]
+  matches: tuple[InferenceMatch, ...] = ()
+  candidate_steps: tuple[ProofStep, ...] = ()
+  duplicate_rejected_steps: tuple[ProofStep, ...] = ()
+```
+
+とする。
+
+各 field の責務は次の通り。
+
+```text
+matches
+=
+その round の current knowledge state に対して
+成立した InferenceMatch
+
+candidate_steps
+=
+matches を apply して生成された
+duplicate filtering 前の ProofStep
+
+new_steps
+=
+candidate_steps のうち knowledge state に
+本当に新しく追加される ProofStep
+
+duplicate_rejected_steps
+=
+candidate_steps のうち conclusion duplicate により
+knowledge state へ追加されなかった ProofStep
+```
+
+これにより one-round execution を、
+
+```text
+matching
+↓
+candidate generation
+↓
+duplicate partition
+```
+
+という3段階として明示的に扱う。
+
+---
+
+## candidate_steps の意味
+
+`candidate_steps` は、
+
+```python
+apply_inference_matches(
+  matches
+)
+```
+
+の返り値そのものを保存する。
+
+したがって、
+
+```text
+candidate_step
+=
+成功した InferenceMatch を実際に apply した結果
+```
+
+である。
+
+candidate は、
+
+```text
+knowledge state に追加されること
+```
+
+を意味しない。
+
+例えば、
+
+```text
+available:
+A
+X
+
+rule:
+A → X
+```
+
+の場合、
+
+```text
+match
+```
+
+は成立する。
+
+そのため、
+
+```text
+candidate_steps:
+X
+```
+
+が生成される。
+
+しかし X は already known なので、
+
+```text
+new_steps:
+()
+```
+
+となる。
+
+Phase 5-33 ではこの X を失わず、
+
+```text
+duplicate_rejected_steps:
+X
+```
+
+として保持する。
+
+---
+
+## matches と candidate_steps の対応
+
+現在の、
+
+```python
+apply_inference_matches()
+```
+
+は、
+
+```text
+InferenceMatch の順序
+```
+
+を維持して1件ずつ candidate を生成する。
+
+したがって Phase 5-33 では、
+
+```text
+matches[i]
+```
+
+と、
+
+```text
+candidate_steps[i]
+```
+
+が対応する。
+
+概念的には、
+
+```text
+matches[0]
+↓
+candidate_steps[0]
+
+matches[1]
+↓
+candidate_steps[1]
+```
+
+となる。
+
+ただしこの対応を専用 object としてはまだ表現しない。
+
+現段階では、
+
+```text
+ordered parallel collections
+```
+
+として保持する。
+
+将来的に、
+
+```text
+match
+candidate
+acceptance status
+rejection reason
+```
+
+を一つの object として保持する必要が出た場合に
+別の derivation-level result object を導入する。
+
+---
+
+## duplicate partition の明示化
+
+Phase 5-26 以降、
+duplicate filtering は inference engine の内部で行われていた。
+
+Phase 5-33 ではこの処理を、
+
+```python
+partition_new_and_duplicate_proof_steps(
+  available_steps,
+  candidate_steps,
+)
+```
+
+として明示的な関数へ分離する。
+
+返り値は、
+
+```python
+(
+  new_steps,
+  duplicate_rejected_steps,
+)
+```
+
+とする。
+
+これにより、
+
+```text
+candidate derivation
+```
+
+と、
+
+```text
+candidate acceptance decision
+```
+
+を別の処理として扱える。
+
+---
+
+## duplicate 判定の基準
+
+duplicate semantics 自体は変更しない。
+
+引き続き、
+
+```python
+step.conclusion == seen_conclusion
+```
+
+によって判定する。
+
+Phase 5-33 では、
+
+```text
+数学的同値性
+canonical form
+expression normalization
+semantic equivalence
+```
+
+などは導入しない。
+
+したがって duplicate とは、
+
+```text
+Python の conclusion equality が True
+```
+
+であることを意味する。
+
+---
+
+## seen_conclusions
+
+`partition_new_and_duplicate_proof_steps()` では、
+最初に、
+
+```text
+available_steps の全 conclusion
+```
+
+を、
+
+```text
+seen_conclusions
+```
+
+へ登録する。
+
+概念的には、
+
+```python
+seen_conclusions = [
+  step.conclusion
+  for step in available_steps
+]
+```
+
+とする。
+
+candidate を順番に処理し、
+
+```text
+candidate conclusion が seen
+```
+
+なら、
+
+```text
+duplicate_rejected_steps
+```
+
+へ入れる。
+
+まだ seen でなければ、
+
+```text
+new_steps
+```
+
+へ入れた直後に、
+その conclusion を `seen_conclusions` に追加する。
+
+---
+
+## same-round duplicate
+
+accepted candidate の conclusion を
+その場で `seen_conclusions` に追加することで、
+
+```text
+同じ round 内で後から生成された duplicate
+```
+
+も検出できる。
+
+例えば、
+
+```text
+candidate 1:
+X
+
+candidate 2:
+X
+```
+
+なら、
+
+candidate 1 は、
+
+```text
+new_steps
+```
+
+へ入る。
+
+その直後、
+
+```text
+X
+```
+
+が seen に追加される。
+
+したがって candidate 2 は、
+
+```text
+duplicate_rejected_steps
+```
+
+へ入る。
+
+結果:
+
+```text
+candidate_steps:
+candidate 1
+candidate 2
+
+new_steps:
+candidate 1
+
+duplicate_rejected_steps:
+candidate 2
+```
+
+となる。
+
+これは Phase 5-26 以降の duplicate semantics を
+明示的に partition result として取り出したものであり、
+新しい duplicate rule を導入したものではない。
+
+---
+
+## available-state duplicate と same-round duplicate の統一
+
+Phase 5-33 では、
+
+```text
+already-known duplicate
+```
+
+と、
+
+```text
+same-round duplicate
+```
+
+を同じ、
+
+```text
+duplicate_rejected_steps
+```
+
+へ記録する。
+
+### already-known duplicate
+
+```text
+available:
+X
+
+candidate:
+X
+```
+
+### same-round duplicate
+
+```text
+available:
+none
+
+candidate 1:
+X
+
+candidate 2:
+X
+```
+
+どちらも、
+
+```text
+candidate conclusion が処理時点ですでに seen
+```
+
+という同じ条件である。
+
+現段階では rejection reason を、
+
+```text
+already known
+same-round duplicate
+```
+
+のように分類しない。
+
+必要になった場合は後続 Phase で
+structured rejection reason を導入する。
+
+---
+
+## candidate order の保存
+
+`candidate_steps` は、
+
+```text
+InferenceMatch order
+```
+
+を維持する。
+
+これは、
+
+```text
+どの rule application がどの candidate を生成したか
+```
+
+を追跡するために重要である。
+
+Phase 5-33 では、
+candidate を set 等へ変換せず、
+
+```text
+tuple[ProofStep, ...]
+```
+
+として順序を保持する。
+
+---
+
+## new_steps order の保存
+
+`new_steps` も candidate order の部分列として保持する。
+
+例えば、
+
+```text
+candidate_steps:
+A
+B
+C
+```
+
+がすべて new なら、
+
+```text
+new_steps:
+A
+B
+C
+```
+
+となる。
+
+途中に duplicate があれば、
+
+```text
+candidate_steps:
+A
+X
+B
+X
+C
+```
+
+に対して、
+
+```text
+new_steps:
+A
+X
+B
+C
+```
+
+のように、
+採用された候補の相対順序を維持する。
+
+---
+
+## duplicate_rejected_steps order の保存
+
+`duplicate_rejected_steps` についても、
+candidate processing order を維持する。
+
+例えば、
+
+```text
+available:
+A
+B
+
+candidate_steps:
+B
+A
+```
+
+なら、
+
+```text
+duplicate_rejected_steps:
+B
+A
+```
+
+となる。
+
+これにより execution trace が
+rule application order と対応する。
+
+---
+
+## derive_inference_round_result() の更新
+
+Phase 5-32 の、
+
+```python
+derive_inference_round_result()
+```
+
+を Phase 5-33 では次の pipeline とする。
+
+```text
+normalize inference rules
+↓
+normalize available ProofSteps
+↓
+find_inference_matches()
+↓
+matches
+↓
+apply_inference_matches()
+↓
+candidate_steps
+↓
+partition_new_and_duplicate_proof_steps()
+├── new_steps
+└── duplicate_rejected_steps
+↓
+InferenceRoundResult
+```
+
+返り値:
+
+```python
+InferenceRoundResult(
+  new_steps=new_steps,
+  matches=matches,
+  candidate_steps=candidate_steps,
+  duplicate_rejected_steps=(
+    duplicate_rejected_steps
+  ),
+)
+```
+
+これにより、
+
+```text
+one-round inference logic
+```
+
+と、
+
+```text
+one-round trace construction
+```
+
+を同じ関数へ集約する。
+
+---
+
+## derive_new_inference_steps() との関係
+
+既存の、
+
+```python
+derive_new_inference_steps()
+```
+
+は引き続き、
+
+```python
+round_result = (
+  derive_inference_round_result(
+    inference_rules,
+    available_steps,
+  )
+)
+
+return round_result.new_steps
+```
+
+という simple projection とする。
+
+したがって、
+
+```text
+derive_inference_round_result()
+=
+detailed one-round API
+
+derive_new_inference_steps()
+=
+accepted delta only API
+```
+
+という Phase 5-32 の役割分担を維持する。
+
+---
+
+## merge_proof_steps() との関係
+
+既存の、
+
+```python
+merge_proof_steps()
+```
+
+は削除しない。
+
+`merge_proof_steps()` は、
+
+```text
+available state
++
+derived steps
+↓
+merged state
+```
+
+を必要とする既存 API として残す。
+
+一方 Phase 5-33 の、
+
+```python
+partition_new_and_duplicate_proof_steps()
+```
+
+は、
+
+```text
+candidate が採用されたか
+duplicate として rejected されたか
+```
+
+の両方を返すための execution-trace-oriented API である。
+
+両者は似た duplicate semantics を使用するが、
+返す情報の責務が異なる。
+
+---
+
+## fixed-point execution への保存
+
+`run_inference_until_stable_with_history()` は、
+Phase 5-32 から、
+
+```python
+round_result = (
+  derive_inference_round_result(...)
+)
+```
+
+を使用している。
+
+Phase 5-33 ではその `round_result` 自体が、
+
+```text
+matches
+candidate_steps
+new_steps
+duplicate_rejected_steps
+```
+
+を保持する。
+
+productive round の場合、
+
+```python
+round_results.append(
+  round_result
+)
+```
+
+となるため、
+fixed-point execution の後でも、
+
+```python
+result.round_results[n].candidate_steps
+```
+
+および、
+
+```python
+result.round_results[
+  n
+].duplicate_rejected_steps
+```
+
+を取得できる。
+
+---
+
+## productive round と duplicate history
+
+重要なのは、
+`InferenceRunResult.round_results` が引き続き、
+
+```text
+productive rounds only
+```
+
+を保存することである。
+
+例えばある round で、
+
+```text
+candidate A:
+duplicate
+
+candidate B:
+new
+```
+
+なら、
+
+```text
+new_steps != ()
+```
+
+なので productive round であり、
+
+```text
+candidate A
+```
+
+の duplicate rejection も round result に保存される。
+
+一方、
+termination check で、
+
+```text
+すべての candidate が duplicate
+```
+
+となり、
+
+```text
+new_steps == ()
+```
+
+の場合、
+その round result は `round_results` へ追加されない。
+
+したがって現在の run-level history は、
+
+```text
+productive round 内で発生した duplicate rejection
+```
+
+を保存するが、
+
+```text
+最終 non-productive fixed-point check 内の
+candidate / duplicate history
+```
+
+は保存しない。
+
+これは Phase 5-29 以降の、
+
+```text
+round_results stores productive rounds only
+```
+
+という semantics を維持した結果である。
+
+---
+
+## fixed point の意味
+
+Phase 5-33 でも fixed-point 判定は、
+
+```python
+if not new_steps:
+```
+
+で行う。
+
+したがって、
+
+```text
+matches が存在する
+candidate_steps が存在する
+duplicate_rejected_steps が存在する
+```
+
+場合でも、
+
+```text
+new_steps == ()
+```
+
+なら fixed point である。
+
+これは current knowledge-state semantics において、
+
+```text
+rule application は可能だが
+新しい conclusion は増えない
+```
+
+状態を fixed point とみなすことを意味する。
+
+この区別は Phase 5-33 の trace によって
+より明示的に観測できるようになった。
+
+---
+
+## InferenceRoundResult field defaults
+
+Phase 5-33 で追加する field は、
+
+```python
+candidate_steps: tuple[ProofStep, ...] = ()
+duplicate_rejected_steps: tuple[ProofStep, ...] = ()
+```
+
+とする。
+
+これにより、
+
+```python
+InferenceRoundResult(
+  new_steps=(),
+)
+```
+
+という Phase 5-31 の構築方法や、
+
+```python
+InferenceRoundResult(
+  new_steps=(),
+  matches=(),
+)
+```
+
+という Phase 5-32 の構築方法を維持する。
+
+Phase 5-33 は additive extension とする。
+
+---
+
+## Phase 5-33 で変更しない semantics
+
+以下は変更しない。
+
+```text
+PremisePattern matching
+greedy premise assignment
+distinct-step assignment
+InferenceRule applicability
+InferenceMatch construction
+InferenceMatch ordering
+InferenceMatch application
+candidate construction
+conclusion equality
+first-candidate-wins duplicate semantics
+knowledge-state accumulation
+productive-round semantics
+round_history compatibility view
+round_count semantics
+max_rounds semantics
+FIXED_POINT semantics
+MAX_ROUNDS semantics
+```
+
+Phase 5-33 の目的は、
+
+```text
+duplicate semantics を変更すること
+```
+
+ではなく、
+
+```text
+duplicate semantics の結果を
+execution trace に残すこと
+```
+
+である。
+
+---
+
+## Phase 5-33 時点の round structure
+
+現在の round result は、
+
+```text
+InferenceRoundResult
+├── matches
+├── candidate_steps
+├── new_steps
+└── duplicate_rejected_steps
+```
+
+となる。
+
+一つの round の概念的な流れは、
+
+```text
+InferenceRules
++
+current state
+↓
+matches
+↓
+candidate_steps
+↓
+duplicate partition
+├── new_steps
+└── duplicate_rejected_steps
+```
+
+である。
+
+これにより Phase 5-32 の、
+
+```text
+match
+vs
+new knowledge
+```
+
+という区別からさらに進み、
+
+```text
+match
+↓
+candidate
+↓
+accept / reject
+```
+
+まで観測可能になった。
+
+---
+
+## alternative proof との関係
+
+Phase 5-33 では、
+同じ conclusion を生成した複数 candidate を、
+
+```text
+candidate_steps
+```
+
+および、
+
+```text
+duplicate_rejected_steps
+```
+
+として round execution trace 内に残すことができる。
+
+これは将来の、
+
+```text
+alternative proof preservation
+```
+
+に必要な情報の一部である。
+
+ただし knowledge state 自体には引き続き、
+
+```text
+最初に採用された ProofStep
+```
+
+だけを追加する。
+
+したがって Phase 5-33 は、
+
+```text
+alternative proofs を knowledge state に保持する
+```
+
+段階ではない。
+
+現段階では、
+
+```text
+duplicate として捨てられた derivation を
+round trace から観測できる
+```
+
+ところまでである。
+
+---
+
+## 今後の derivation-level object
+
+Phase 5-33 では、
+
+```text
+matches
+candidate_steps
+new_steps
+duplicate_rejected_steps
+```
+
+を別々の ordered tuple として持つ。
+
+この構造から、
+
+```text
+matches[i]
+→
+candidate_steps[i]
+```
+
+は対応付けられる。
+
+しかし candidate の、
+
+```text
+accepted
+```
+
+または、
+
+```text
+rejected
+```
+
+という status は、
+`new_steps` と `duplicate_rejected_steps` を比較して判断する必要がある。
+
+より詳細な trace が必要になった場合、
+
+```python
+InferenceApplicationResult(
+  match=...,
+  candidate_step=...,
+  accepted=...,
+  rejection_reason=...,
+)
+```
+
+のような derivation-level object を導入する余地がある。
+
+その場合、
+
+```text
+InferenceRoundResult
+↓
+InferenceApplicationResult[]
+```
+
+という構造へ拡張できる。
+
+Phase 5-33 ではそこまで抽象化せず、
+現在の pipeline を直接反映する最小構造とする。
+
+---
+
+## Phase 5-33 の設計原則
+
+1. `InferenceRoundResult` に candidate history を追加する。
+2. candidate は duplicate filtering 前の derived `ProofStep` とする。
+3. candidate order は match order を維持する。
+4. `matches[i]` と `candidate_steps[i]` を対応させる。
+5. duplicate filtering の結果を明示的に partition する。
+6. accepted candidate を `new_steps` とする。
+7. rejected duplicate candidate を `duplicate_rejected_steps` とする。
+8. available-state duplicate を記録する。
+9. same-round duplicate も記録する。
+10. same-round では first candidate wins とする。
+11. accepted candidate の conclusion は直ちに seen とする。
+12. accepted order を維持する。
+13. rejected order を維持する。
+14. duplicate semantics は ordinary conclusion equality のままとする。
+15. mathematical equivalence はまだ導入しない。
+16. rejection reason の分類はまだ導入しない。
+17. `candidate_steps` の default は `()` とする。
+18. `duplicate_rejected_steps` の default は `()` とする。
+19. Phase 5-31 / 5-32 の construction compatibility を維持する。
+20. one-round trace construction は `derive_inference_round_result()` に集約する。
+21. `derive_new_inference_steps()` は `new_steps` の projection とする。
+22. `merge_proof_steps()` は既存 API として維持する。
+23. fixed-point runner は structured round result をそのまま保存する。
+24. run-level `round_results` は productive rounds のみ保存する。
+25. terminal non-productive check はまだ保存しない。
+26. productive round 内の duplicate rejection は保存する。
+27. knowledge state には genuinely new steps のみ追加する。
+28. alternative proof を knowledge state へ保存する機能はまだ導入しない。
+29. match/candidate/status をまとめる専用 object はまだ導入しない。
+30. greedy matching semantics は変更しない。
+31. max-round semantics は変更しない。
+32. algebra / EHP layer には変更を加えない。
+
+---
+
+## Phase 5-33 の到達点
+
+Phase 5-31 では、
+
+```text
+round
+↓
+new_steps
+```
+
+を構造化した。
+
+Phase 5-32 では、
+
+```text
+round
+├── matches
+└── new_steps
+```
+
+まで進んだ。
+
+Phase 5-33 では、
+
+```text
+round
+├── matches
+├── candidate_steps
+├── new_steps
+└── duplicate_rejected_steps
+```
+
+まで進んだ。
+
+これにより、
+
+```text
+どの rule が match したか
+↓
+何を candidate として生成したか
+↓
+どの candidate が新しい知識になったか
+↓
+どの candidate が duplicate として捨てられたか
+```
+
+という one-round inference の主要な処理段階を
+execution trace として保持できるようになった。
+
+これは今後、
+
+```text
+alternative proofs
+rule diagnostics
+search strategy
+rule priority
+proof explanation
+rejection reasons
+```
+
+を扱うための基礎となる。
+
+---
+
+## 次の課題
+
+現在は、
+
+```text
+matches
+candidate_steps
+new_steps
+duplicate_rejected_steps
+```
+
+という parallel collections によって trace を表している。
+
+次の自然な課題は、
+1回の rule application を一つの structured object として扱うことである。
+
+例えば、
+
+```text
+match
+↓
+candidate
+↓
+accepted / rejected
+↓
+rejection reason
+```
+
+を、
+
+```python
+InferenceApplicationResult
+```
+
+のような object として表せれば、
+
+```text
+なぜこの candidate は採用されたか
+なぜこの candidate は拒否されたか
+```
+
+をより直接的に説明できる。
+
+その後、
+
+```text
+alternative premise assignments
+backtracking
+expression-level patterns
+pattern variables
+variable bindings
+substitution
+```
+
+などの matching semantics の拡張へ進むことができる。
+
+
+
+
+
+
 
 
 
