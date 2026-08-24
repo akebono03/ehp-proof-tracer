@@ -231,6 +231,75 @@ def ehp_hopf_target_proof(segment):
   )
 
 
+def relation_inference_proof_step(
+  conclusion,
+  relation_step,
+  note=None,
+):
+  if not isinstance(
+    relation_step,
+    ProofStep,
+  ):
+    raise TypeError(
+      "relation_step must be a ProofStep"
+    )
+
+  if (
+    relation_step.rule
+    != ProofRule.RELATION
+  ):
+    raise ValueError(
+      "relation_step must use "
+      "ProofRule.RELATION"
+    )
+
+  if not isinstance(
+    relation_step.conclusion,
+    Relation,
+  ):
+    raise ValueError(
+      "relation_step must conclude "
+      "a Relation"
+    )
+
+  return ProofStep(
+    conclusion=conclusion,
+    premises=(
+      relation_step,
+    ),
+    rule=ProofRule.RELATION,
+    note=note,
+  )
+
+
+def relation_inference_proof(
+  relation,
+  conclusion,
+  note=None,
+):
+  relation_step = relation_proof_step(
+    relation
+  )
+
+  inference_step = (
+    relation_inference_proof_step(
+      conclusion,
+      relation_step,
+      note=note,
+    )
+  )
+
+  return Proof(
+    conclusion=inference_step.conclusion,
+    steps=[
+      relation_step,
+      inference_step,
+    ],
+  )
+
+
+
+
 
 
 

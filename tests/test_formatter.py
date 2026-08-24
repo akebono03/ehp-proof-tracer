@@ -18,12 +18,15 @@ from proof import (
   Relation,
   RelationType,
   ehp_sphere_proof,
+  relation_inference_proof,
 )
 from algebra import AbelianGroupStructure
 from ehp import EHPSegment
 from pathlib import Path
-from repository import SphereRepository
-
+from repository import (
+  RelationRepository,
+  SphereRepository,
+)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -240,6 +243,88 @@ def test_format_ehp_sphere_proof_premises():
     "Premises: 1, 2"
     in text
   )
+
+
+def test_format_relation_inference_proof():
+  relation = Relation(
+    lhs=Multiple(
+      2,
+      eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+    source="Toda",
+  )
+
+  proof = relation_inference_proof(
+    relation,
+    "η_3 has order dividing 2",
+  )
+
+  text = format_proof(
+    proof
+  )
+
+  assert (
+    "1. 2η_3 = 0"
+    in text
+  )
+
+  assert (
+    "[relation]"
+    in text
+  )
+
+  assert (
+    "2. η_3 has order dividing 2"
+    in text
+  )
+
+  assert (
+    "Premises: 1"
+    in text
+  )
+
+
+def test_relation_repository_to_inference_proof():
+  relation = Relation(
+    lhs=Multiple(
+      2,
+      eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+    source="Toda",
+  )
+
+  repository = RelationRepository([
+    relation,
+  ])
+
+  relations = repository.find_relations(
+    lhs=Multiple(
+      2,
+      eta(3),
+    ),
+  )
+
+  proof = relation_inference_proof(
+    relations[0],
+    "η_3 has order dividing 2",
+  )
+
+  assert (
+    proof.steps[0].conclusion
+    == relation
+  )
+
+  assert (
+    proof.steps[1].premises
+    == (
+      proof.steps[0],
+    )
+  )
+
 
 
 

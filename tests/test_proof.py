@@ -18,6 +18,8 @@ from proof import (
   ehp_exactness_proof_step,
   ehp_hopf_target_proof,
   ehp_sphere_proof,
+  relation_inference_proof,
+  relation_inference_proof_step,
 )
 from expression import Multiple, Zero, eta
 from repository import RelationRepository
@@ -712,6 +714,95 @@ def test_ehp_hopf_target_proof_from_segment():
     exactness_step.rule
     == ProofRule.EHP_EXACTNESS
   )
+
+
+def test_relation_inference_proof_step():
+  relation = Relation(
+    lhs=Multiple(
+      2,
+      eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+    source="Toda",
+  )
+
+  relation_step = relation_proof_step(
+    relation
+  )
+
+  step = relation_inference_proof_step(
+    "η_3 has order dividing 2",
+    relation_step,
+  )
+
+  assert (
+    step.conclusion
+    == "η_3 has order dividing 2"
+  )
+
+  assert step.premises == (
+    relation_step,
+  )
+
+  assert (
+    step.rule
+    == ProofRule.RELATION
+  )
+
+
+def test_relation_inference_proof_step_rejects_non_relation_step():
+  step = ProofStep(
+    conclusion="something",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  with pytest.raises(ValueError):
+    relation_inference_proof_step(
+      "result",
+      step,
+    )
+
+
+def test_relation_inference_proof():
+  relation = Relation(
+    lhs=Multiple(
+      2,
+      eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+    source="Toda",
+  )
+
+  proof = relation_inference_proof(
+    relation,
+    "η_3 has order dividing 2",
+  )
+
+  assert len(proof.steps) == 2
+
+  relation_step = proof.steps[0]
+  inference_step = proof.steps[1]
+
+  assert (
+    relation_step.conclusion
+    == relation
+  )
+
+  assert (
+    inference_step.premises
+    == (
+      relation_step,
+    )
+  )
+
+  assert (
+    proof.conclusion
+    == "η_3 has order dividing 2"
+  )
+
 
 
 
