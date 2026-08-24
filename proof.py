@@ -974,6 +974,39 @@ def run_inference_round(
   )
 
 
+def run_inference_until_stable(
+  inference_rules,
+  available_steps,
+):
+  normalized_rules = (
+    _normalize_inference_rules(
+      inference_rules
+    )
+  )
+
+  current_steps = (
+    _normalize_proof_steps(
+      available_steps,
+      "available_steps",
+    )
+  )
+
+  while True:
+    new_steps = (
+      derive_new_inference_steps(
+        normalized_rules,
+        current_steps,
+      )
+    )
+
+    if not new_steps:
+      return current_steps
+
+    current_steps = (
+      current_steps
+      + new_steps
+    )
+
 
 
 

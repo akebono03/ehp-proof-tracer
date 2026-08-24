@@ -16083,6 +16083,958 @@ delta empty?
 という fixed-point iterative inference の実装である。
 
 
+# Fixed-point iterative inference
+
+## Phase 5-28：new ProofStep がなくなるまで round を繰り返す
+
+Phase 5-27 では、
+
+```python
+derive_new_inference_steps(
+  inference_rules,
+  available_steps,
+)
+```
+
+によって、
+
+```text
+1 round で本当に新しく追加される ProofSteps
+```
+
+を直接取得できるようになった。
+
+これにより、
+
+```text
+delta == ()
+```
+
+を fixed-point termination condition として
+明示できるようになった。
+
+Phase 5-28 では、
+この条件を実際の automatic iteration へ接続する。
+
+新しい high-level API は、
+
+```python
+run_inference_until_stable(
+  inference_rules,
+  available_steps,
+)
+```
+
+とする。
+
+---
+
+## fixed-point iteration の基本構造
+
+Phase 5-28 の inference は、
+
+```text
+state_0
+=
+initial ProofSteps
+```
+
+から開始する。
+
+各 round で、
+
+```text
+delta_n
+=
+derive_new_inference_steps(
+  inference_rules,
+  state_n,
+)
+```
+
+を計算する。
+
+`delta_n` が空でなければ、
+
+```text
+state_{n+1}
+=
+state_n + delta_n
+```
+
+として次の round へ進む。
+
+一方、
+
+```text
+delta_n == ()
+```
+
+なら、
+
+```text
+state_n
+```
+
+を fixed point として返す。
+
+したがって基本遷移は、
+
+```text
+state_n
+↓
+derive candidate conclusions
+↓
+duplicate filtering
+↓
+delta_n
+↓
+delta_n empty?
+├── no
+│   ↓
+│   state_n + delta_n
+│   ↓
+│   state_{n+1}
+│   ↓
+│   repeat
+│
+└── yes
+    ↓
+    return state_n
+```
+
+となる。
+
+---
+
+## run_inference_until_stable()
+
+API:
+
+```python
+run_inference_until_stable(
+  inference_rules,
+  available_steps,
+)
+```
+
+返り値は、
+
+```text
+stable knowledge state
+```
+
+を表す `ProofStep` の tuple とする。
+
+Phase 5-28 では専用 result object は導入しない。
+
+つまり、
+
+```python
+result = run_inference_until_stable(
+  inference_rules,
+  initial_steps,
+)
+```
+
+に対する `result` は、
+
+```text
+initial steps
++
+all genuinely new steps discovered
+before reaching the fixed point
+```
+
+である。
+
+---
+
+## final state のみを返す
+
+Phase 5-28 では、
+fixed-point execution に関する情報を過剰に構造化しない。
+
+返すのは、
+
+```text
+最終 knowledge state
+```
+
+のみとする。
+
+まだ、
+
+```text
+round count
+round history
+per-round delta
+termination reason
+rule application history
+```
+
+は返さない。
+
+理由は、
+まず、
+
+```text
+fixed-point iteration 自体
+```
+
+の semantics を確立し、
+
+```text
+execution history
+```
+
+のデータモデル設計を別の課題として分離するためである。
+
+---
+
+## derive_new_inference_steps() を停止条件として再利用する
+
+Phase 5-28 では、
+新しい novelty detection や duplicate detection を導入しない。
+
+停止条件には Phase 5-27 の、
+
+```python
+derive_new_inference_steps()
+```
+
+をそのまま利用する。
+
+概念的な実装は、
+
+```python
+current_steps = initial_steps
+
+while True:
+  new_steps = derive_new_inference_steps(
+    inference_rules,
+    current_steps,
+  )
+
+  if not new_steps:
+    return current_steps
+
+  current_steps = (
+    current_steps
+    + new_steps
+  )
+```
+
+である。
+
+これにより、
+
+```text
+duplicate semantics
+```
+
+と、
+
+```text
+fixed-point termination semantics
+```
+
+の整合性を維持する。
+
+---
+
+## run_inference_round() との関係
+
+Phase 5-28 以降、
+
+```python
+run_inference_round()
+```
+
+と、
+
+```python
+run_inference_until_stable()
+```
+
+は明確に異なる責務を持つ。
+
+### run_inference_round()
+
+```text
+state_n
+↓
+one inference round
+↓
+state_{n+1}
+```
+
+を返す。
+
+### run_inference_until_stable()
+
+```text
+state_0
+↓
+state_1
+↓
+state_2
+↓
+...
+↓
+state_k
+```
+
+を繰り返し、
+
+```text
+state_{k+1} == state_k
+```
+
+に対応する、
+
+```text
+delta_k == ()
+```
+
+を検出した時点で `state_k` を返す。
+
+したがって、
+
+```text
+run_inference_round()
+=
+single state transition
+
+run_inference_until_stable()
+=
+repeated state transitions until fixed point
+```
+
+と整理する。
+
+---
+
+## state / delta / fixed point
+
+Phase 5-27 で導入した、
+
+```text
+state
+```
+
+と、
+
+```text
+delta
+```
+
+の区別を Phase 5-28 でも維持する。
+
+### state
+
+```text
+current ProofSteps
+```
+
+現在 knowledge state に存在する全 ProofSteps。
+
+### delta
+
+```text
+genuinely new ProofSteps
+```
+
+現在の1 round によって追加される ProofSteps。
+
+### fixed point
+
+```text
+delta == ()
+```
+
+となった state。
+
+したがって、
+
+```text
+state_n + delta_n = state_{n+1}
+```
+
+であり、
+
+```text
+delta_n == ()
+```
+
+なら、
+
+```text
+state_{n+1} = state_n
+```
+
+となる。
+
+これを inference engine 上の fixed point とする。
+
+---
+
+## multi-round dependency
+
+Phase 5-28 では、
+ある round で導出された ProofStep を、
+後続 round の premise として利用できる。
+
+例えば、
+
+```text
+A
+↓
+rule 1
+↓
+B
+↓
+rule 2
+↓
+C
+```
+
+について、
+
+初期 state:
+
+```text
+A
+```
+
+round 1:
+
+```text
+A
+B
+```
+
+round 2:
+
+```text
+A
+B
+C
+```
+
+round 3:
+
+```text
+new = ()
+```
+
+となる。
+
+このとき dependency は、
+
+```text
+B.premises = (A,)
+C.premises = (B,)
+```
+
+として保持される。
+
+したがって fixed-point iteration によって
+ProofStep の dependency model を変更しない。
+
+---
+
+## knowledge state の append-only semantics
+
+Phase 5-28 の knowledge state は、
+基本的に append-only とする。
+
+すなわち、
+
+```text
+既存 ProofStep を削除・置換する
+```
+
+ことは行わない。
+
+各 round では、
+
+```text
+current state
++
+genuinely new ProofSteps
+```
+
+として state を拡張する。
+
+したがって、
+
+```text
+state_0
+⊆
+state_1
+⊆
+state_2
+⊆
+...
+```
+
+という単調な knowledge accumulation を意図する。
+
+ただしここでの包含は、
+数学的集合論上の集合包含ではなく、
+
+```text
+既存 step prefix を保持し、
+新規 step を末尾へ追加する
+```
+
+という実装上の意味である。
+
+---
+
+## ordering semantics
+
+既存の順序 semantics を維持する。
+
+初期 step は入力順を保持する。
+
+各 round の new step は、
+
+```text
+InferenceRule input order
+↓
+InferenceMatch order
+↓
+candidate derivation order
+↓
+first genuinely new occurrence
+```
+
+の順に得られる。
+
+fixed-point iteration は各 round の delta を
+現在 state の末尾へ追加する。
+
+したがって最終 state は、
+
+```text
+initial step order
+↓
+round 1 new-step order
+↓
+round 2 new-step order
+↓
+...
+```
+
+となる。
+
+Phase 5-28 では、
+後から導出 step の順序を再ソートしない。
+
+---
+
+## premise-free rule
+
+premise-free inference rule も
+fixed-point iteration で引き続き利用できる。
+
+例えば、
+
+```text
+initial:
+()
+
+rule:
+→ A
+```
+
+なら、
+
+round 1:
+
+```text
+new:
+A
+```
+
+round 2:
+
+```text
+candidate:
+A
+
+new:
+()
+```
+
+となり停止する。
+
+premise-free rule が毎 round applicable であっても、
+同じ conclusion の再追加は duplicate semantics によって
+抑止される。
+
+---
+
+## duplicate semantics は変更しない
+
+Phase 5-28 でも duplicate 判定は、
+
+```python
+step.conclusion == known_conclusion
+```
+
+を利用する。
+
+したがって、
+
+```text
+同じ mathematical fact だが
+Python equality では異なる
+```
+
+conclusion は別 fact として扱われる可能性がある。
+
+逆に、
+
+```text
+異なる proof path から同じ conclusion が得られる
+```
+
+場合は、
+最初に knowledge state に入った ProofStep が保持される。
+
+Phase 5-28 では、
+
+```text
+alternative proof
+```
+
+を knowledge state 内に複数保存しない。
+
+これは fixed-point iteration とは独立した設計課題とする。
+
+---
+
+## fixed point と mathematical completeness
+
+Phase 5-28 で得られる fixed point は、
+
+```text
+現在登録されている inference rules
++
+現在の premise matching
++
+現在の duplicate semantics
+```
+
+に対する fixed point である。
+
+これは、
+
+```text
+数学的に閉じた完全な事実集合
+```
+
+を保証しない。
+
+例えば、
+
+```text
+必要な rule が未登録
+```
+
+の場合や、
+
+```text
+greedy premise matching が
+別の有効な premise assignment を見落とす
+```
+
+場合でも fixed point に到達する。
+
+したがって、
+
+```text
+inference-engine fixed point
+```
+
+と、
+
+```text
+mathematical completeness
+```
+
+を引き続き明確に区別する。
+
+---
+
+## termination について
+
+Phase 5-28 では、
+明示的な `max_rounds` は導入しない。
+
+termination は、
+
+```text
+ある round で genuinely new ProofStep がなくなる
+```
+
+ことに依存する。
+
+したがって、
+
+```text
+毎 round 異なる新しい conclusion を
+無限に生成できる rule system
+```
+
+については、
+理論上 iteration が停止しない可能性がある。
+
+現段階では conclusion builder や rule set は
+caller が明示的に構築するため、
+この問題に対する safeguard は別フェーズで扱う。
+
+Phase 5-28 では、
+
+```text
+fixed-point iteration の基本 semantics
+```
+
+だけを導入する。
+
+---
+
+## validation
+
+`run_inference_until_stable()` は最初に、
+
+```python
+_normalize_inference_rules()
+```
+
+と、
+
+```python
+_normalize_proof_steps()
+```
+
+を利用して入力を正規化する。
+
+その後の各 round は、
+
+```python
+derive_new_inference_steps()
+```
+
+の既存 validation semantics を利用する。
+
+したがって、
+
+```text
+invalid rule input
+invalid ProofStep input
+matched rule without conclusion builder
+```
+
+などについて、
+新しい例外体系は導入しない。
+
+matched rule に builder が存在しない場合は、
+従来どおり `ValueError` とする。
+
+---
+
+## Phase 5-28 時点の inference API 階層
+
+現在の high-level API は、
+
+```text
+matches_premise_pattern()
+↓
+matches_inference_rule()
+↓
+find_matching_premises()
+↓
+is_inference_rule_applicable()
+↓
+find_applicable_inference_rules()
+↓
+find_inference_match()
+↓
+find_inference_matches()
+↓
+apply_inference_match()
+↓
+apply_inference_matches()
+↓
+derive_inference_steps()
+↓
+merge_proof_steps()
+↓
+derive_new_inference_steps()
+↓
+run_inference_round()
+↓
+run_inference_until_stable()
+```
+
+という段階構造を持つ。
+
+それぞれ、
+
+```text
+individual matching
+rule matching
+premise search
+applicability
+applicable-rule collection search
+structured match
+structured match collection
+single application
+collection application
+candidate derivation
+duplicate-aware merge
+one-round delta
+one-round next state
+fixed-point final state
+```
+
+を担当する。
+
+責務を一つの巨大な inference function に統合しない。
+
+---
+
+## Phase 5-28 の設計原則
+
+1. fixed-point iteration は `run_inference_until_stable()` で行う。
+2. initial ProofSteps を最初の knowledge state とする。
+3. `derive_new_inference_steps()` の結果を round delta とする。
+4. delta が空なら iteration を終了する。
+5. delta が非空なら current state の末尾へ追加する。
+6. 新しく導出された ProofStep は次 round の premise として利用可能とする。
+7. ProofStep の premises は round を越えて保持する。
+8. 初期 ProofStep の順序を保持する。
+9. 各 round の genuinely new step 順序を保持する。
+10. duplicate semantics は Phase 5-26 / 5-27 のものを再利用する。
+11. conclusion equality を fixed-point novelty 判定の基礎とする。
+12. premise-free rule を引き続き許可する。
+13. fixed point と mathematical completeness を区別する。
+14. greedy premise search は変更しない。
+15. alternative proof の保持は導入しない。
+16. round count はまだ保持しない。
+17. round history はまだ保持しない。
+18. per-round delta history はまだ保持しない。
+19. fixed-point result object はまだ導入しない。
+20. maximum-round safeguard はまだ導入しない。
+21. cycle detection はまだ導入しない。
+22. mathematical equivalence / canonicalization は別課題とする。
+23. expression-level variable binding / substitution は別課題とする。
+24. algebra / EHP 層には変更を加えない。
+
+---
+
+## Phase 5-28 の到達点
+
+Phase 5-27 では、
+
+```text
+state_n
+↓
+derive
+↓
+delta_n
+↓
+state_{n+1}
+```
+
+という1 round の state transition と、
+
+```text
+delta_n == ()
+```
+
+という termination condition までだった。
+
+Phase 5-28 では、
+
+```text
+state_0
+↓
+delta_0
+↓
+state_1
+↓
+delta_1
+↓
+state_2
+↓
+...
+↓
+delta_k == ()
+↓
+state_k
+```
+
+まで自動化した。
+
+したがって inference engine は初めて、
+
+```text
+newly derived fact
+↓
+becomes available premise
+↓
+causes another derivation
+↓
+repeat
+```
+
+という chained inference を自動的に実行できる。
+
+現在の fixed-point pipeline は、
+
+```text
+InferenceRule collection
++
+initial ProofSteps
+↓
+normalize
+↓
+derive_new_inference_steps()
+↓
+round delta
+↓
+delta empty?
+├── no
+│   ↓
+│   append to knowledge state
+│   ↓
+│   repeat
+│
+└── yes
+    ↓
+    return stable knowledge state
+```
+
+である。
+
+次の設計課題は、
+この fixed-point execution に対して、
+
+```text
+何 round 実行したか
+各 round で何が増えたか
+どの状態を経由したか
+なぜ停止したか
+```
+
+をどの程度構造化して保持するかである。
+
+
 
 
 

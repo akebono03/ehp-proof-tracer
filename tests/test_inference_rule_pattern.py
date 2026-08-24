@@ -20,6 +20,7 @@ from proof import (
   matches_premise_pattern,
   merge_proof_steps,
   run_inference_round,
+  run_inference_until_stable,
 )
 
 
@@ -5263,7 +5264,486 @@ def test_derive_new_inference_steps_requires_builder_for_matched_rule():
     )
 
 
+def test_run_inference_until_stable():
+  first_rule = InferenceRule(
+    name="derive second",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "second"
+    ),
+  )
 
+  second_rule = InferenceRule(
+    name="derive third",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "third"
+    ),
+  )
+
+  initial_step = ProofStep(
+    conclusion="first",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = run_inference_until_stable(
+    (
+      first_rule,
+      second_rule,
+    ),
+    (
+      initial_step,
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in result
+  ) == (
+    "first",
+    "second",
+    "third",
+  )
+
+
+def test_run_inference_until_stable_requires_multiple_rounds():
+  first_rule = InferenceRule(
+    name="given to relation",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="relation to final",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "final"
+    ),
+  )
+
+  initial_step = ProofStep(
+    conclusion="initial",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = run_inference_until_stable(
+    (
+      first_rule,
+      second_rule,
+    ),
+    (
+      initial_step,
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in result
+  ) == (
+    "initial",
+    Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    "final",
+  )
+
+
+def test_run_inference_until_stable_returns_initial_steps_when_no_rule_matches():
+  rule = InferenceRule(
+    name="relation rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.RELATION,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  initial_step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = run_inference_until_stable(
+    (
+      rule,
+    ),
+    (
+      initial_step,
+    ),
+  )
+
+  assert result == (
+    initial_step,
+  )
+
+
+def test_run_inference_until_stable_empty_rules():
+  initial_step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = run_inference_until_stable(
+    (),
+    (
+      initial_step,
+    ),
+  )
+
+  assert result == (
+    initial_step,
+  )
+
+
+def test_run_inference_until_stable_empty_initial_steps():
+  rule = InferenceRule(
+    name="premise free rule",
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  result = run_inference_until_stable(
+    (
+      rule,
+    ),
+    (),
+  )
+
+  assert len(result) == 1
+
+  assert (
+    result[0].conclusion
+    == "derived"
+  )
+
+
+def test_run_inference_until_stable_preserves_initial_order():
+  first_step = ProofStep(
+    conclusion="first",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  second_step = ProofStep(
+    conclusion="second",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = run_inference_until_stable(
+    (),
+    (
+      second_step,
+      first_step,
+    ),
+  )
+
+  assert result == (
+    second_step,
+    first_step,
+  )
+
+
+def test_run_inference_until_stable_preserves_derivation_order():
+  first_rule = InferenceRule(
+    name="first rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "first derived"
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "second derived"
+    ),
+  )
+
+  initial_step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = run_inference_until_stable(
+    (
+      second_rule,
+      first_rule,
+    ),
+    (
+      initial_step,
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in result
+  ) == (
+    "given",
+    "second derived",
+    "first derived",
+  )
+
+
+def test_run_inference_until_stable_does_not_duplicate_conclusions():
+  rule = InferenceRule(
+    name="repeated rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  initial_step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = run_inference_until_stable(
+    (
+      rule,
+    ),
+    (
+      initial_step,
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in result
+  ) == (
+    "given",
+    "derived",
+  )
+
+
+def test_run_inference_until_stable_preserves_dependencies():
+  first_rule = InferenceRule(
+    name="derive second",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "second"
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="derive third",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "third"
+    ),
+  )
+
+  initial_step = ProofStep(
+    conclusion="first",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = run_inference_until_stable(
+    (
+      first_rule,
+      second_rule,
+    ),
+    (
+      initial_step,
+    ),
+  )
+
+  second_step = result[1]
+  third_step = result[2]
+
+  assert second_step.premises == (
+    initial_step,
+  )
+
+  assert third_step.premises == (
+    second_step,
+  )
+
+
+def test_run_inference_until_stable_accepts_single_rule_and_step():
+  rule = InferenceRule(
+    name="given inference",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  initial_step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = run_inference_until_stable(
+    rule,
+    initial_step,
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in result
+  ) == (
+    "given",
+    "derived",
+  )
+
+
+def test_run_inference_until_stable_accepts_lists():
+  rule = InferenceRule(
+    name="given inference",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  initial_step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = run_inference_until_stable(
+    [
+      rule,
+    ],
+    [
+      initial_step,
+    ],
+  )
+
+  assert isinstance(
+    result,
+    tuple,
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in result
+  ) == (
+    "given",
+    "derived",
+  )
+
+
+def test_run_inference_until_stable_rejects_invalid_rules():
+  initial_step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  with pytest.raises(TypeError):
+    run_inference_until_stable(
+      "invalid",
+      (
+        initial_step,
+      ),
+    )
+
+
+def test_run_inference_until_stable_rejects_invalid_steps():
+  rule = InferenceRule(
+    name="given rule",
+  )
+
+  with pytest.raises(TypeError):
+    run_inference_until_stable(
+      (
+        rule,
+      ),
+      "invalid",
+    )
+
+
+def test_run_inference_until_stable_requires_builder_for_matched_rule():
+  rule = InferenceRule(
+    name="given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  initial_step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  with pytest.raises(ValueError):
+    run_inference_until_stable(
+      (
+        rule,
+      ),
+      (
+        initial_step,
+      ),
+    )
 
 
 
