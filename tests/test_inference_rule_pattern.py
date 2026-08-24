@@ -1,6 +1,7 @@
 import pytest
 from proof import (
   InferenceMatch,
+  InferenceRoundResult,
   InferenceRule,
   InferenceRunResult,
   InferenceTerminationReason,
@@ -5760,7 +5761,7 @@ def test_inference_run_result():
     steps=(
       step,
     ),
-    round_history=(),
+    round_results=(),
     termination_reason=(
       InferenceTerminationReason.FIXED_POINT
     ),
@@ -5769,6 +5770,8 @@ def test_inference_run_result():
   assert result.steps == (
     step,
   )
+
+  assert result.round_results == ()
 
   assert result.round_history == ()
 
@@ -6605,6 +6608,224 @@ def test_run_inference_until_stable_respects_max_rounds():
     ),
   )
 
+
+def test_inference_round_result():
+  step = ProofStep(
+    conclusion="derived",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  result = InferenceRoundResult(
+    new_steps=(
+      step,
+    ),
+  )
+
+  assert result.new_steps == (
+    step,
+  )
+
+
+def test_inference_round_result_is_structurally_equal():
+  step = ProofStep(
+    conclusion="derived",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  first = InferenceRoundResult(
+    new_steps=(
+      step,
+    ),
+  )
+
+  second = InferenceRoundResult(
+    new_steps=(
+      step,
+    ),
+  )
+
+  assert first == second
+
+
+def test_run_inference_until_stable_with_round_results():
+  rule = InferenceRule(
+    name="given inference",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  initial_step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        rule,
+      ),
+      (
+        initial_step,
+      ),
+    )
+  )
+
+  assert len(
+    result.round_results
+  ) == 1
+
+  assert isinstance(
+    result.round_results[0],
+    InferenceRoundResult,
+  )
+
+  assert tuple(
+    step.conclusion
+    for step
+    in result.round_results[
+      0
+    ].new_steps
+  ) == (
+    "derived",
+  )
+
+
+def test_round_results_preserve_round_order():
+  first_rule = InferenceRule(
+    name="given to relation",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="relation to final",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "final"
+    ),
+  )
+
+  initial_step = ProofStep(
+    conclusion="initial",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        first_rule,
+        second_rule,
+      ),
+      (
+        initial_step,
+      ),
+    )
+  )
+
+  assert len(
+    result.round_results
+  ) == 2
+
+  assert isinstance(
+    result.round_results[0],
+    InferenceRoundResult,
+  )
+
+  assert isinstance(
+    result.round_results[1],
+    InferenceRoundResult,
+  )
+
+  assert isinstance(
+    result.round_results[
+      0
+    ].new_steps[
+      0
+    ].conclusion,
+    Relation,
+  )
+
+  assert (
+    result.round_results[
+      1
+    ].new_steps[
+      0
+    ].conclusion
+    == "final"
+  )
+
+
+def test_round_history_is_compatibility_view_of_round_results():
+  first_step = ProofStep(
+    conclusion="first",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  second_step = ProofStep(
+    conclusion="second",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  first_round = InferenceRoundResult(
+    new_steps=(
+      first_step,
+    ),
+  )
+
+  second_round = InferenceRoundResult(
+    new_steps=(
+      second_step,
+    ),
+  )
+
+  result = InferenceRunResult(
+    steps=(
+      first_step,
+      second_step,
+    ),
+    round_results=(
+      first_round,
+      second_round,
+    ),
+    termination_reason=(
+      InferenceTerminationReason.FIXED_POINT
+    ),
+  )
+
+  assert result.round_history == (
+    (
+      first_step,
+    ),
+    (
+      second_step,
+    ),
+  )
+
+  assert result.round_count == 2
 
 
 

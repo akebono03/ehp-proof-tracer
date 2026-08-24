@@ -74,18 +74,31 @@ class InferenceTerminationReason(Enum):
 
 
 @dataclass(frozen=True)
+class InferenceRoundResult:
+  new_steps: tuple[ProofStep, ...]
+
+
+@dataclass(frozen=True)
 class InferenceRunResult:
   steps: tuple[ProofStep, ...]
-  round_history: tuple[
-    tuple[ProofStep, ...],
+  round_results: tuple[
+    InferenceRoundResult,
     ...
   ]
   termination_reason: InferenceTerminationReason
 
   @property
+  def round_history(self):
+    return tuple(
+      round_result.new_steps
+      for round_result
+      in self.round_results
+    )
+
+  @property
   def round_count(self):
     return len(
-      self.round_history
+      self.round_results
     )
 
 
@@ -1045,19 +1058,19 @@ def run_inference_until_stable_with_history(
     max_rounds
   )
 
-  round_history = []
+  round_results = []
 
   while True:
     if (
       max_rounds is not None
       and len(
-        round_history
+        round_results
       ) >= max_rounds
     ):
       return InferenceRunResult(
         steps=current_steps,
-        round_history=tuple(
-          round_history
+        round_results=tuple(
+          round_results
         ),
         termination_reason=(
           InferenceTerminationReason.MAX_ROUNDS
@@ -1074,16 +1087,18 @@ def run_inference_until_stable_with_history(
     if not new_steps:
       return InferenceRunResult(
         steps=current_steps,
-        round_history=tuple(
-          round_history
+        round_results=tuple(
+          round_results
         ),
         termination_reason=(
           InferenceTerminationReason.FIXED_POINT
         ),
       )
 
-    round_history.append(
-      new_steps
+    round_results.append(
+      InferenceRoundResult(
+        new_steps=new_steps,
+      )
     )
 
     current_steps = (

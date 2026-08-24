@@ -1371,6 +1371,590 @@ substitution
 ```
 
 
+## Structured per-round inference results
+
+Phase 5-31 introduces a structured result object for each productive
+inference round.
+
+Previously, per-round history was represented directly as:
+
+```text
+tuple[ProofStep, ...]
+```
+
+inside:
+
+```text
+InferenceRunResult.round_history
+```
+
+This was sufficient to record the genuinely new proof steps produced
+in each round, but it provided no natural place to attach additional
+round-level execution metadata.
+
+Phase 5-31 introduces:
+
+```python
+@dataclass(frozen=True)
+class InferenceRoundResult:
+  new_steps: tuple[ProofStep, ...]
+```
+
+Each productive round is now represented explicitly by an
+`InferenceRoundResult`.
+
+The detailed execution result therefore stores:
+
+```python
+InferenceRunResult(
+  steps=...,
+  round_results=...,
+  termination_reason=...,
+)
+```
+
+where:
+
+```text
+steps
+=
+the final or round-limited knowledge state
+
+round_results
+=
+the structured results of all productive inference rounds
+
+termination_reason
+=
+why inference execution stopped
+```
+
+For example:
+
+```text
+initial:
+A
+
+round 1:
+B
+C
+
+round 2:
+D
+```
+
+is represented conceptually as:
+
+```python
+InferenceRunResult(
+  steps=(
+    A,
+    B,
+    C,
+    D,
+  ),
+  round_results=(
+    InferenceRoundResult(
+      new_steps=(
+        B,
+        C,
+      ),
+    ),
+    InferenceRoundResult(
+      new_steps=(
+        D,
+      ),
+    ),
+  ),
+  termination_reason=(
+    InferenceTerminationReason.FIXED_POINT
+  ),
+)
+```
+
+Only productive rounds are represented by `InferenceRoundResult`.
+
+The final empty check used to establish:
+
+```text
+FIXED_POINT
+```
+
+is still not recorded as a round result.
+
+---
+
+## round_results
+
+The structured per-round API is available through:
+
+```python
+result.round_results
+```
+
+For example:
+
+```python
+first_round = result.round_results[0]
+
+new_steps = first_round.new_steps
+```
+
+`round_results` preserves productive-round order.
+
+Therefore:
+
+```python
+result.round_results[0]
+```
+
+represents the first productive round,
+
+```python
+result.round_results[1]
+```
+
+represents the second productive round,
+
+and so on.
+
+At Phase 5-31, an `InferenceRoundResult` contains only:
+
+```text
+new_steps
+```
+
+This is intentionally minimal.
+
+The object provides a stable location for later round-level metadata
+such as:
+
+```text
+InferenceMatch history
+applicable-rule history
+candidate derived steps
+duplicate-rejected candidates
+rule-application information
+```
+
+without requiring another redesign of the top-level execution result.
+
+---
+
+## Backward-compatible round_history
+
+The previous API:
+
+```python
+result.round_history
+```
+
+is preserved.
+
+It is now exposed as a compatibility property derived from
+`round_results`:
+
+```python
+@property
+def round_history(self):
+  return tuple(
+    round_result.new_steps
+    for round_result
+    in self.round_results
+  )
+```
+
+Therefore existing code such as:
+
+```python
+result.round_history[0]
+```
+
+continues to return:
+
+```text
+tuple[ProofStep, ...]
+```
+
+for that productive round.
+
+Conceptually:
+
+```text
+round_results
+=
+structured execution representation
+
+round_history
+=
+compatibility view containing only new ProofSteps
+```
+
+For example:
+
+```python
+result.round_results == (
+  InferenceRoundResult(
+    new_steps=(
+      B,
+      C,
+    ),
+  ),
+  InferenceRoundResult(
+    new_steps=(
+      D,
+    ),
+  ),
+)
+```
+
+corresponds to:
+
+```python
+result.round_history == (
+  (
+    B,
+    C,
+  ),
+  (
+    D,
+  ),
+)
+```
+
+This preserves the Phase 5-29 / Phase 5-30 history API while allowing
+the internal execution trace to evolve.
+
+---
+
+## round_count
+
+`round_count` now counts structured productive-round results:
+
+```python
+@property
+def round_count(self):
+  return len(
+    self.round_results
+  )
+```
+
+Its semantics have not changed.
+
+It still means:
+
+```text
+number of productive inference rounds
+```
+
+and does not count:
+
+```text
+the initial state
+the final empty fixed-point check
+an unexecuted round after MAX_ROUNDS
+```
+
+For example:
+
+```text
+initial:
+A
+
+round 1:
+B
+
+round 2:
+C
+
+termination check:
+no new step
+```
+
+returns:
+
+```text
+round_count = 2
+```
+
+---
+
+## Interaction with max_rounds
+
+The Phase 5-30 `max_rounds` semantics are unchanged.
+
+The round-limit check now uses:
+
+```python
+len(
+  round_results
+)
+```
+
+rather than the old raw history list.
+
+For example:
+
+```python
+max_rounds=2
+```
+
+still means:
+
+```text
+allow at most two productive rounds
+```
+
+and:
+
+```text
+round_results length
+=
+productive round count
+```
+
+The termination reasons remain:
+
+```python
+InferenceTerminationReason.FIXED_POINT
+InferenceTerminationReason.MAX_ROUNDS
+```
+
+Phase 5-31 changes only the representation of productive-round
+history.
+
+It does not change:
+
+```text
+fixed-point semantics
+max-round semantics
+duplicate semantics
+premise matching semantics
+rule application order
+knowledge-state expansion semantics
+```
+
+---
+
+## Current execution-result structure
+
+After Phase 5-31, the detailed inference result is conceptually:
+
+```text
+InferenceRunResult
+├── steps
+├── round_results
+│   ├── InferenceRoundResult
+│   │   └── new_steps
+│   ├── InferenceRoundResult
+│   │   └── new_steps
+│   └── ...
+├── round_history
+│   └── compatibility view of new_steps
+├── round_count
+└── termination_reason
+```
+
+This separates:
+
+```text
+run-level information
+```
+
+from:
+
+```text
+round-level information
+```
+
+for the first time.
+
+The distinction will allow later inference phases to enrich individual
+round traces without continually expanding `InferenceRunResult`
+itself.
+
+---
+
+## Current limitations of round results
+
+`InferenceRoundResult` currently records only:
+
+```text
+new_steps
+```
+
+It does not yet record:
+
+```text
+state before the round
+state after the round
+applicable inference rules
+InferenceMatch objects
+all candidate derived steps
+candidates rejected as duplicates
+rule-application counts
+round index
+timing information
+performance information
+```
+
+In particular, it is not yet possible to inspect from the round result
+alone:
+
+```text
+which matches were considered
+which candidate conclusions were discarded
+why a particular candidate did not enter the knowledge state
+```
+
+The current object should therefore be understood as:
+
+```text
+a structured container for productive-round output
+```
+
+rather than a complete inference execution trace.
+
+---
+
+## Tests
+
+Run the inference-rule tests with:
+
+```powershell
+python -m pytest tests/test_inference_rule_pattern.py -v
+```
+
+At the completion of Phase 5-31:
+
+```text
+223 passed in 4.45s
+```
+
+Phase 5-30 completed with:
+
+```text
+218 passed
+```
+
+so Phase 5-31 adds 5 tests.
+
+The Phase 5-31 tests cover:
+
+```text
+InferenceRoundResult construction
+InferenceRoundResult structural equality
+structured round_results generation
+productive-round ordering
+round_history compatibility view
+```
+
+Existing Phase 5-29 / Phase 5-30 tests using:
+
+```text
+round_history
+round_count
+termination_reason
+max_rounds
+```
+
+continue to pass.
+
+---
+
+## Phase 5-24 through Phase 5-31
+
+The inference engine has now progressed through:
+
+```text
+Phase 5-24
+candidate derivation
+↓
+Phase 5-25
+one-round state expansion
+↓
+Phase 5-26
+duplicate-aware merge
+↓
+Phase 5-27
+one-round genuinely-new delta
+↓
+Phase 5-28
+automatic fixed-point iteration
+↓
+Phase 5-29
+per-round history and structured run result
+↓
+Phase 5-30
+bounded iteration and explicit termination reason
+↓
+Phase 5-31
+structured per-round result objects
+```
+
+The execution model can now answer:
+
+```text
+What was derived?
+In which productive round was it derived?
+How many productive rounds ran?
+Why did inference stop?
+What is the structured result of each productive round?
+```
+
+---
+
+## Next direction
+
+`InferenceRoundResult` now provides a dedicated place for richer
+execution-trace information.
+
+The next natural extension is to record:
+
+```text
+which InferenceMatch objects were applied in each round
+```
+
+so that a productive round can describe not only:
+
+```text
+what new ProofSteps were accepted
+```
+
+but also:
+
+```text
+which rule / premise matches produced them
+```
+
+A possible next structure is:
+
+```python
+InferenceRoundResult(
+  new_steps=...,
+  matches=...,
+)
+```
+
+After match history is available, later phases can distinguish:
+
+```text
+matched rules
+candidate derived steps
+accepted genuinely new steps
+duplicate-rejected candidates
+```
+
+before moving on to more powerful matching semantics such as:
+
+```text
+alternative premise assignments
+backtracking
+expression-level patterns
+pattern variables
+variable bindings
+substitution
+```
 
 
 

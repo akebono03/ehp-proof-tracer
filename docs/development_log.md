@@ -16092,6 +16092,850 @@ substitution
 inference matching 自体を強化することも候補となる。
 
 
+# Phase 5-31：structured per-round result object
+
+Phase 5-30 までに、
+fixed-point inference execution について、
+
+```text
+final / limited state
+per-round new-step history
+productive-round count
+termination reason
+max-round safeguard
+```
+
+を扱えるようになった。
+
+Phase 5-29 で導入した `round_history` は、
+各 productive round の、
+
+```text
+genuinely new ProofSteps
+```
+
+を、
+
+```text
+tuple[ProofStep, ...]
+```
+
+として保存していた。
+
+Phase 5-31 では、
+今後 round ごとの execution metadata を拡張できるように、
+各 productive round を独立した structured result object として
+表現するよう変更した。
+
+---
+
+## InferenceRoundResult の追加
+
+追加:
+
+```python
+@dataclass(frozen=True)
+class InferenceRoundResult:
+  new_steps: tuple[ProofStep, ...]
+```
+
+`InferenceRoundResult` は、
+
+```text
+1回の productive inference round の結果
+```
+
+を表す。
+
+Phase 5-31 時点では、
+
+```text
+new_steps
+```
+
+のみを保持する。
+
+ここには従来 `round_history` の各要素として保存していた、
+
+```text
+その round で本当に新しく追加された ProofSteps
+```
+
+を格納する。
+
+---
+
+## InferenceRunResult の変更
+
+従来:
+
+```python
+@dataclass(frozen=True)
+class InferenceRunResult:
+  steps: tuple[ProofStep, ...]
+  round_history: tuple[
+    tuple[ProofStep, ...],
+    ...
+  ]
+  termination_reason: InferenceTerminationReason
+```
+
+Phase 5-31:
+
+```python
+@dataclass(frozen=True)
+class InferenceRunResult:
+  steps: tuple[ProofStep, ...]
+  round_results: tuple[
+    InferenceRoundResult,
+    ...
+  ]
+  termination_reason: InferenceTerminationReason
+```
+
+これにより、
+run 全体の result と、
+個々の productive round の result を分離した。
+
+現在の構造は、
+
+```text
+InferenceRunResult
+├── steps
+├── round_results
+│   └── InferenceRoundResult
+│       └── new_steps
+└── termination_reason
+```
+
+となる。
+
+---
+
+## round_history の後方互換性
+
+既存コードでは、
+
+```python
+result.round_history
+```
+
+を使用しているため、
+Phase 5-31 ではこの API を削除しなかった。
+
+代わりに compatibility property とした。
+
+```python
+@property
+def round_history(self):
+  return tuple(
+    round_result.new_steps
+    for round_result
+    in self.round_results
+  )
+```
+
+これにより、
+
+```python
+result.round_history[0]
+```
+
+は従来通り、
+
+```text
+tuple[ProofStep, ...]
+```
+
+を返す。
+
+一方、
+structured representation は、
+
+```python
+result.round_results[0]
+```
+
+から取得できる。
+
+例えば、
+
+```python
+result.round_results[0].new_steps
+```
+
+により、
+第1 productive round の new steps を取得できる。
+
+---
+
+## single source of truth
+
+Phase 5-31 では、
+
+```text
+round_results
+round_history
+```
+
+の両方を stored field にはしなかった。
+
+canonical data は、
+
+```text
+round_results
+```
+
+だけに保存し、
+
+```text
+round_history
+```
+
+は property で導出する。
+
+これにより、
+
+```text
+round_results と round_history の不整合
+```
+
+が発生しないようにした。
+
+---
+
+## round_count の変更
+
+従来:
+
+```python
+@property
+def round_count(self):
+  return len(
+    self.round_history
+  )
+```
+
+Phase 5-31:
+
+```python
+@property
+def round_count(self):
+  return len(
+    self.round_results
+  )
+```
+
+semantics は変更していない。
+
+引き続き、
+
+```text
+round_count
+=
+number of productive rounds
+```
+
+である。
+
+---
+
+## fixed-point loop の変更
+
+`run_inference_until_stable_with_history()` では、
+従来の、
+
+```python
+round_history = []
+```
+
+を、
+
+```python
+round_results = []
+```
+
+へ変更した。
+
+productive round では、
+
+```python
+round_results.append(
+  InferenceRoundResult(
+    new_steps=new_steps,
+  )
+)
+```
+
+として structured object を保存する。
+
+fixed-point termination 時には、
+
+```python
+InferenceRunResult(
+  steps=current_steps,
+  round_results=tuple(
+    round_results
+  ),
+  termination_reason=(
+    InferenceTerminationReason.FIXED_POINT
+  ),
+)
+```
+
+を返す。
+
+max-round termination 時には、
+
+```python
+InferenceRunResult(
+  steps=current_steps,
+  round_results=tuple(
+    round_results
+  ),
+  termination_reason=(
+    InferenceTerminationReason.MAX_ROUNDS
+  ),
+)
+```
+
+を返す。
+
+---
+
+## max_rounds 判定
+
+Phase 5-30 では、
+productive-round history の長さによって
+round limit を判定していた。
+
+Phase 5-31 では canonical history が
+`round_results` に変わったため、
+
+```python
+if (
+  max_rounds is not None
+  and len(
+    round_results
+  ) >= max_rounds
+):
+```
+
+とした。
+
+意味は変更していない。
+
+```text
+max_rounds
+=
+maximum number of productive rounds allowed
+```
+
+である。
+
+---
+
+## productive-round semantics
+
+例えば、
+
+```text
+initial:
+A
+
+round 1:
+B
+
+round 2:
+C
+
+termination check:
+no new step
+```
+
+の場合、
+
+```python
+round_results == (
+  InferenceRoundResult(
+    new_steps=(
+      B,
+    ),
+  ),
+  InferenceRoundResult(
+    new_steps=(
+      C,
+    ),
+  ),
+)
+```
+
+となる。
+
+最後の empty termination check は
+`InferenceRoundResult` として保存しない。
+
+したがって、
+
+```text
+len(round_results)
+==
+round_count
+==
+2
+```
+
+となる。
+
+この semantics は Phase 5-29 から変更していない。
+
+---
+
+## 追加テスト
+
+Phase 5-31 では以下のテストを追加した。
+
+```text
+test_inference_round_result
+test_inference_round_result_is_structurally_equal
+test_run_inference_until_stable_with_round_results
+test_round_results_preserve_round_order
+test_round_history_is_compatibility_view_of_round_results
+```
+
+確認内容:
+
+```text
+InferenceRoundResult が new_steps を保持する
+InferenceRoundResult が structural equality を持つ
+fixed-point execution が round_results を生成する
+複数 productive round の順序が保持される
+round_history が round_results の compatibility view になる
+round_count が structured round results と一致する
+```
+
+---
+
+## 既存 test の調整
+
+`InferenceRunResult` の constructor が、
+
+```text
+round_history
+```
+
+から、
+
+```text
+round_results
+```
+
+へ変更されたため、
+直接 `InferenceRunResult` を構築する既存 test を更新した。
+
+一方、
+
+```python
+result.round_history
+```
+
+を利用する既存 fixed-point history tests は、
+compatibility property によってそのまま維持できた。
+
+これにより、
+Phase 5-29 / Phase 5-30 で導入した、
+
+```text
+round_history
+round_count
+termination_reason
+max_rounds
+```
+
+の外部 semantics を維持できた。
+
+---
+
+## 最終 test result
+
+実行:
+
+```powershell
+python -m pytest tests/test_inference_rule_pattern.py -v
+```
+
+結果:
+
+```text
+223 passed in 4.45s
+```
+
+Phase 5-30 完了時:
+
+```text
+218 passed in 3.90s
+```
+
+だったため、
+Phase 5-31 では5 tests が増加した。
+
+inference-rule pattern tests は
+全223件成功した。
+
+---
+
+## regression
+
+Phase 5-31 では、
+
+```text
+PremisePattern matching
+InferenceRule matching
+premise search
+rule applicability
+applicable-rule search
+InferenceMatch
+single / multiple InferenceMatch application
+derive_inference_steps()
+merge_proof_steps()
+derive_new_inference_steps()
+run_inference_round()
+run_inference_until_stable()
+run_inference_until_stable_with_history()
+InferenceRunResult
+round_history
+round_count
+InferenceTerminationReason
+max_rounds
+```
+
+を含む既存 tests がすべて成功した。
+
+structured round result 導入による
+既存 inference semantics への regression は確認されなかった。
+
+---
+
+## Phase 5-31 時点の fixed-point pipeline
+
+現在の pipeline:
+
+```text
+InferenceRules
++
+initial ProofSteps
+↓
+normalize
+↓
+validate max_rounds
+↓
+round-limit check
+├── reached
+│   ↓
+│   MAX_ROUNDS
+│
+└── not reached
+    ↓
+    find inference matches
+    ↓
+    apply matches
+    ↓
+    candidate derived ProofSteps
+    ↓
+    duplicate-aware merge
+    ↓
+    genuinely new ProofSteps
+    ↓
+    delta empty?
+    ├── yes
+    │   ↓
+    │   FIXED_POINT
+    │
+    └── no
+        ↓
+        InferenceRoundResult(
+          new_steps=delta
+        )
+        ↓
+        append to round_results
+        ↓
+        expand knowledge state
+        ↓
+        repeat
+```
+
+最終 result:
+
+```text
+InferenceRunResult
+├── steps
+├── round_results
+│   ├── InferenceRoundResult
+│   │   └── new_steps
+│   ├── InferenceRoundResult
+│   │   └── new_steps
+│   └── ...
+├── round_history
+│   └── compatibility view
+├── round_count
+└── termination_reason
+```
+
+となった。
+
+---
+
+## Phase 5-24 から Phase 5-31 までの進展
+
+Phase 5-24:
+
+```text
+candidate derivation
+```
+
+Phase 5-25:
+
+```text
+one-round state expansion
+```
+
+Phase 5-26:
+
+```text
+duplicate-aware merge
+```
+
+Phase 5-27:
+
+```text
+one-round genuinely-new delta
+```
+
+Phase 5-28:
+
+```text
+automatic fixed-point iteration
+```
+
+Phase 5-29:
+
+```text
+per-round history
++
+structured run result
+```
+
+Phase 5-30:
+
+```text
+bounded fixed-point iteration
++
+explicit termination reason
+```
+
+Phase 5-31:
+
+```text
+structured productive-round result
++
+round_history compatibility view
+```
+
+まで進んだ。
+
+---
+
+## Phase 5-31 の到達点
+
+Phase 5-29 では、
+
+```text
+What was derived?
+When was it derived?
+How many productive rounds ran?
+```
+
+を取得できるようになった。
+
+Phase 5-30 では、
+
+```text
+Why did inference stop?
+```
+
+を追加した。
+
+Phase 5-31 ではさらに、
+
+```text
+What is the structured result of each productive round?
+```
+
+を表現できるようになった。
+
+現在、
+
+```text
+run-level result
+```
+
+と、
+
+```text
+round-level result
+```
+
+を別の dataclass として扱える。
+
+これにより、
+今後 round trace に新しい情報を追加する場合でも、
+
+```text
+InferenceRunResult
+```
+
+へすべての metadata を直接追加する必要がなくなった。
+
+---
+
+## 現在まだ行わないこと
+
+Phase 5-31 では以下はまだ実装しない。
+
+```text
+round index
+per-round complete-state snapshot
+state-before / state-after recording
+applicable-rule history
+InferenceMatch history
+candidate derivation history
+duplicate-rejected candidate history
+rule-application count
+terminal empty-round object
+configured max_rounds in result
+cycle detection
+semantic loop detection
+timeout
+wall-clock execution limit
+memory limit
+alternative proofs
+multiple proofs for same conclusion
+mathematical-equivalence duplicate detection
+canonicalization
+alternative premise assignments
+backtracking
+expression-level matching
+pattern variables
+variable bindings
+substitution
+structured conclusion templates
+automatic relation selection
+```
+
+`InferenceRoundResult` は現段階では、
+
+```text
+productive round output の container
+```
+
+であり、
+完全な round execution trace ではない。
+
+---
+
+## 次の予定
+
+Phase 5-31 により、
+round-level metadata を追加する場所が確立した。
+
+次の自然な段階は、
+
+```text
+InferenceMatch history
+```
+
+を各 `InferenceRoundResult` に保持することである。
+
+概念的には、
+
+```text
+current state
+↓
+find InferenceMatches
+↓
+apply matches
+↓
+candidate ProofSteps
+↓
+duplicate filtering
+↓
+new ProofSteps
+```
+
+のうち、
+現在 round result に保存しているのは、
+
+```text
+new ProofSteps
+```
+
+だけである。
+
+次段階では、
+
+```text
+InferenceMatch objects
++
+new ProofSteps
+```
+
+を同じ round object に記録することで、
+
+```text
+何が導出されたか
+```
+
+だけでなく、
+
+```text
+どの rule / premises の組から導出されたか
+```
+
+を round execution の単位で追跡できるようにする。
+
+---
+
+## 状態
+
+Phase 5-31 完了。
+
+inference-rule pattern tests:
+
+```text
+223 passed in 4.45s
+```
+
+Phase 5-31 により、
+
+```text
+fixed-point inference
++
+history
++
+structured run result
++
+termination reason
++
+round limit
++
+structured round result
++
+backward-compatible round history
+```
+
+まで一つの inference execution model として扱えるようになった。
+
+
 
 
 
