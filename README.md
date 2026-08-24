@@ -577,6 +577,10 @@ Phase 5 currently supports:
 * premise-pattern metadata for inference rules
 * premise requirements based on proof-step category, statement type, and relation type
 * multiple premise patterns for a single inference rule
+* machine-checkable matching between a `PremisePattern` and a `ProofStep`
+* matching by proof-step category
+* matching by conclusion type
+* matching by relation type
 * human-readable proof formatting
 
 For example, an EHP exactness calculation can now be represented as:
@@ -647,7 +651,7 @@ InferenceRule
 which describes the specific mathematical rule used to derive a
 conclusion from its premises.
 
-An inference rule can also describe the kinds of premises it expects.
+An inference rule can describe the kinds of premises it expects.
 
 For example:
 
@@ -677,9 +681,62 @@ conclusion type = Relation
 RelationType.ZERO
 ```
 
-The premise-pattern model currently describes rule requirements only.
-It does not yet check whether an actual `ProofStep` matches a
-`PremisePattern`.
+A premise pattern can now be compared directly with an actual proof
+step:
+
+```python
+matches_premise_pattern(
+  pattern,
+  step,
+)
+```
+
+The matcher currently uses only the fields already represented by
+`PremisePattern`:
+
+```text
+proof_rule
+statement_type
+relation_type
+```
+
+Unspecified fields act as wildcards.
+
+For example:
+
+```python
+PremisePattern()
+```
+
+matches any `ProofStep`, while:
+
+```python
+PremisePattern(
+  proof_rule=ProofRule.RELATION,
+  statement_type=Relation,
+  relation_type=RelationType.ZERO,
+)
+```
+
+matches only a step satisfying all three conditions.
+
+The conditions are combined conjunctively:
+
+```text
+proof rule matches
+AND
+conclusion type matches
+AND
+relation type matches
+```
+
+when all three are specified.
+
+A `relation_type` requirement also requires the conclusion to be a
+`Relation`.
+
+This makes premise-pattern specifications machine-checkable at the
+individual proof-step level.
 
 Relation sources can be represented as structured literature
 references.
@@ -718,31 +775,47 @@ homomorphisms, but it does not yet derive E/H/P formulas themselves
 from Toda relations, composition relations, or other homotopy-theoretic
 theorems.
 
-The current proof / inference layer records explicitly constructed
-dependencies, inference-rule metadata, and premise-pattern
-specifications, but does not yet automatically:
+The current proof / inference layer can compare an individual
+`PremisePattern` with an individual `ProofStep`, but it does not yet
+automatically:
 
-* match a `ProofStep` against a `PremisePattern`
-* determine whether an inference rule is applicable
+* determine whether all premise patterns of an `InferenceRule` can be
+  satisfied simultaneously
+* assign multiple proof steps to multiple premise patterns
+* decide whether premise matching should be ordered or unordered
 * match internal expression structures
 * bind pattern variables
 * construct conclusions from inference rules
 * select applicable relations
 * select premise proof steps automatically
+* apply inference rules automatically
 * recursively collect proof dependencies
 * construct a proof DAG
 * derive E/H/P formulas from homotopy-theoretic relations
 
+Expression-level matching is intentionally separate from the current
+proof-step-level matcher.
+
+For example, the current matcher can recognize that a step contains a
+
+```text
+RelationType.ZERO
+```
+
+relation, but it does not yet recognize the internal pattern
+
+```text
+mα = 0
+```
+
+or bind values such as
+
+```text
+m = 2
+α = η_3.
+```
+
 These belong to later proof / inference phases.
-
----
-
-## Project documentation
-
-More detailed development and design notes are kept separately:
-
-* `docs/development_log.md` — implementation history and Phase progress
-* `docs/design.md` — design decisions and mathematical/computational rationale
 
 ---
 
@@ -760,6 +833,17 @@ At the completion of Phase 5-15:
 230 passed in 20.65s
 ```
 
+Phase 5-16 adds 12 matching tests to
+`tests/test_inference_rule_pattern.py`.
+
+The Phase 5-15 and Phase 5-16 premise-pattern tests together contain:
+
+```text
+18 tests
+```
+
+and the Phase 5-16 implementation passes those tests.
+
 The development log records test-suite results at each implementation
 checkpoint.
 
@@ -767,10 +851,10 @@ checkpoint.
 
 ## Next direction
 
-The immediate next step is to make premise-pattern specifications
-machine-checkable.
+The immediate next step is to move from matching one pattern against
+one proof step to checking an entire inference rule.
 
-Phase 5-16 will introduce the minimum mechanism for comparing:
+The current primitive is:
 
 ```text
 PremisePattern
@@ -780,19 +864,39 @@ ProofStep
 match / no match
 ```
 
-The first matching layer should remain intentionally small and use only
-the information already represented by `PremisePattern`:
+The next layer can build on this to evaluate:
 
 ```text
-proof_rule
-statement_type
-relation_type
+InferenceRule.premise_patterns
++
+actual ProofSteps
+↓
+applicable / not applicable
 ```
 
-Expression-level matching is a later concern.
+This requires deciding how multiple premise patterns correspond to
+multiple proof steps.
 
-For example, Phase 5-16 should be able to determine whether a proof
-step satisfies a pattern such as:
+Questions for the next phase include:
+
+```text
+Are premise patterns matched by position?
+
+Can premise patterns be matched in any order?
+
+Can one ProofStep satisfy more than one pattern?
+
+Must each pattern be matched by a distinct ProofStep?
+
+How should extra ProofSteps be handled?
+```
+
+These questions should be resolved before automatic rule application is
+introduced.
+
+Expression-level matching remains a later concern.
+
+For example, the current matcher can identify:
 
 ```text
 ProofRule.RELATION
@@ -802,22 +906,24 @@ conclusion type = Relation
 RelationType.ZERO
 ```
 
-without yet interpreting the internal expression structure of a
-relation such as:
+but does not yet interpret:
 
 ```text
-mα = 0.
+mα = 0
 ```
+
+as an expression pattern.
 
 Possible later directions include:
 
-* `PremisePattern` / `ProofStep` matching
 * inference-rule applicability checks
+* multiple-pattern / multiple-premise matching
 * expression-level relation patterns
 * pattern variables and variable binding
 * conclusion construction
 * automatic relation selection
 * automatic premise selection
+* automatic inference-rule application
 * composition relations
 * Toda brackets
 * integration of derived homotopy relations with EHP map data
@@ -827,6 +933,8 @@ Possible later directions include:
 
 The algebra layer remains independent of these higher-level
 homotopy-theoretic inference mechanisms.
+
+
 
 
 

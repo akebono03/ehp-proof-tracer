@@ -4515,6 +4515,992 @@ premise pattern の最小モデルを基礎として
 18. 次段階では ProofStep が PremisePattern に一致するかを判定する最小 matching 基盤を検討する。
 
 
+# PremisePattern と ProofStep の matching
+
+## Phase 5-16：PremisePattern と ProofStep の最小 matching 基盤
+
+Phase 5-15 では、
+`InferenceRule` が要求する premise の条件を表すため、
+
+```text
+PremisePattern
+```
+
+を導入した。
+
+これにより、
+
+```text
+proof_rule
+statement_type
+relation_type
+```
+
+を用いて、
+
+```text
+その inference rule が
+どのような ProofStep を premise として期待するか
+```
+
+を構造化して記述できるようになった。
+
+ただし Phase 5-15 では、
+PremisePattern は rule specification を保持するだけであり、
+
+```text
+PremisePattern
++
+ProofStep
+↓
+match / no match
+```
+
+という実際の一致判定は行っていなかった。
+
+Phase 5-16 では、
+この最小 matching 基盤として、
+
+```text
+matches_premise_pattern()
+```
+
+を導入する。
+
+---
+
+## matches_premise_pattern() の設計
+
+`matches_premise_pattern()` は、
+
+```text
+PremisePattern
+ProofStep
+```
+
+を受け取り、
+
+```text
+True
+False
+```
+
+を返す。
+
+基本形は、
+
+```python
+matches_premise_pattern(
+  pattern,
+  step,
+)
+```
+
+とする。
+
+この関数の責務は、
+
+```text
+1つの PremisePattern
+```
+
+と、
+
+```text
+1つの ProofStep
+```
+
+の一致判定だけとする。
+
+Phase 5-16 ではまだ、
+
+```text
+InferenceRule 全体の applicability
+複数 premise の割り当て
+premise の自動検索
+```
+
+などは扱わない。
+
+---
+
+## 空の PremisePattern
+
+すべての条件が `None` である、
+
+```python
+PremisePattern()
+```
+
+は、
+任意の ProofStep に一致するものとする。
+
+つまり、
+
+```text
+proof_rule = None
+statement_type = None
+relation_type = None
+```
+
+は、
+
+```text
+その条件について制約を設けない
+```
+
+という意味になる。
+
+例えば、
+
+```python
+pattern = PremisePattern()
+
+step = ProofStep(
+  conclusion="given fact",
+  premises=(),
+  rule=ProofRule.GIVEN,
+)
+```
+
+に対して、
+
+```python
+matches_premise_pattern(
+  pattern,
+  step,
+)
+```
+
+は、
+
+```text
+True
+```
+
+となる。
+
+この意味論により、
+PremisePattern の optional field が、
+
+```text
+未指定
+=
+wildcard
+```
+
+として機能する。
+
+---
+
+## proof_rule の matching
+
+`PremisePattern.proof_rule` が指定されている場合、
+
+```text
+step.rule
+```
+
+との一致を要求する。
+
+例えば、
+
+```python
+PremisePattern(
+  proof_rule=ProofRule.GIVEN,
+)
+```
+
+は、
+
+```text
+ProofRule.GIVEN
+```
+
+を持つ ProofStep に一致する。
+
+一方、
+
+```text
+ProofRule.RELATION
+```
+
+など異なる rule を持つ ProofStep には一致しない。
+
+判定は、
+
+```text
+step.rule == pattern.proof_rule
+```
+
+を基準とする。
+
+`proof_rule` が `None` の場合は、
+ProofStep の rule を条件にしない。
+
+---
+
+## statement_type の matching
+
+`PremisePattern.statement_type` が指定されている場合、
+
+```text
+step.conclusion
+```
+
+がその型であることを要求する。
+
+例えば、
+
+```python
+PremisePattern(
+  statement_type=Relation,
+)
+```
+
+は、
+
+```text
+conclusion が Relation
+```
+
+である ProofStep に一致する。
+
+判定には、
+
+```python
+isinstance(
+  step.conclusion,
+  pattern.statement_type,
+)
+```
+
+を使用する。
+
+したがって、
+単純な型の完全一致ではなく、
+Python の `isinstance()` の意味論に従う。
+
+`statement_type` が `None` の場合は、
+conclusion の型を条件にしない。
+
+---
+
+## relation_type の matching
+
+`PremisePattern.relation_type` が指定されている場合、
+
+```text
+step.conclusion
+```
+
+が `Relation` であり、
+さらに、
+
+```text
+step.conclusion.relation_type
+```
+
+が指定された RelationType と一致することを要求する。
+
+例えば、
+
+```python
+PremisePattern(
+  relation_type=RelationType.ZERO,
+)
+```
+
+は、
+
+```text
+conclusion が Relation
++
+RelationType.ZERO
+```
+
+である ProofStep に一致する。
+
+RelationType が異なる場合は一致しない。
+
+また、
+
+```text
+relation_type
+```
+
+が指定されていても、
+
+```text
+step.conclusion
+```
+
+が Relation でなければ、
+一致しない。
+
+つまり、
+
+```text
+relation_type を指定する
+```
+
+こと自体が暗黙に、
+
+```text
+conclusion は Relation である
+```
+
+という条件を含む。
+
+---
+
+## relation_type と statement_type の関係
+
+例えば、
+
+```python
+PremisePattern(
+  statement_type=Relation,
+  relation_type=RelationType.ZERO,
+)
+```
+
+では、
+
+```text
+conclusion が Relation
+```
+
+という条件と、
+
+```text
+その Relation が ZERO type
+```
+
+という条件の両方を検証する。
+
+一方、
+
+```python
+PremisePattern(
+  relation_type=RelationType.ZERO,
+)
+```
+
+だけでも、
+relation_type の判定時に conclusion が Relation であることを確認する。
+
+したがって、
+
+```text
+statement_type=Relation
+```
+
+の明示は必須ではない。
+
+ただし InferenceRule の specification を
+人間が読む際の明確さを重視する場合には、
+
+```python
+PremisePattern(
+  proof_rule=ProofRule.RELATION,
+  statement_type=Relation,
+  relation_type=RelationType.ZERO,
+)
+```
+
+のように、
+要求条件を明示的にすべて記述できる。
+
+---
+
+## 複数条件は AND として扱う
+
+PremisePattern に複数の条件が指定されている場合、
+すべての条件を満たしたときだけ一致する。
+
+例えば、
+
+```python
+PremisePattern(
+  proof_rule=ProofRule.RELATION,
+  statement_type=Relation,
+  relation_type=RelationType.ZERO,
+)
+```
+
+は、
+
+```text
+step.rule == ProofRule.RELATION
+AND
+step.conclusion is Relation
+AND
+step.conclusion.relation_type == RelationType.ZERO
+```
+
+を要求する。
+
+このうち1つでも満たさない場合は、
+
+```text
+False
+```
+
+を返す。
+
+したがって PremisePattern は、
+
+```text
+指定された条件の conjunction
+```
+
+として解釈する。
+
+---
+
+## matching の判定順序
+
+Phase 5-16 の実装では、
+概念的に次の順序で条件を確認する。
+
+```text
+proof_rule
+↓
+statement_type
+↓
+relation_type
+```
+
+条件に一致しないことが判明した時点で、
+
+```text
+False
+```
+
+を返す。
+
+すべての指定条件を通過した場合に、
+
+```text
+True
+```
+
+を返す。
+
+ただしこの順序自体を
+数学的意味として外部 API に依存させない。
+
+matching の意味はあくまで、
+
+```text
+指定されたすべての条件を満たすか
+```
+
+である。
+
+---
+
+## 型検証
+
+`matches_premise_pattern()` は、
+入力型を明示的に検証する。
+
+第1引数は、
+
+```text
+PremisePattern
+```
+
+でなければならない。
+
+それ以外を渡した場合は、
+
+```text
+TypeError
+```
+
+とする。
+
+同様に第2引数は、
+
+```text
+ProofStep
+```
+
+でなければならない。
+
+それ以外を渡した場合も、
+
+```text
+TypeError
+```
+
+とする。
+
+これにより、
+
+```text
+match しない
+```
+
+という数学的・論理的な結果と、
+
+```text
+API の利用方法自体が不正
+```
+
+というプログラム上のエラーを区別する。
+
+---
+
+## False と TypeError の区別
+
+Phase 5-16 では、
+
+```text
+正しい型の pattern と step を比較した結果、
+条件が一致しない
+```
+
+場合は、
+
+```text
+False
+```
+
+とする。
+
+一方、
+
+```text
+pattern 自体が PremisePattern ではない
+step 自体が ProofStep ではない
+```
+
+場合は、
+
+```text
+TypeError
+```
+
+とする。
+
+例えば、
+
+```python
+matches_premise_pattern(
+  PremisePattern(
+    proof_rule=ProofRule.RELATION,
+  ),
+  given_step,
+)
+```
+
+で `given_step.rule` が `ProofRule.GIVEN` なら、
+
+```text
+False
+```
+
+となる。
+
+一方、
+
+```python
+matches_premise_pattern(
+  "invalid",
+  given_step,
+)
+```
+
+は、
+
+```text
+TypeError
+```
+
+となる。
+
+この区別により、
+matching failure と API misuse を明確に分離する。
+
+---
+
+## InferenceRule との位置づけ
+
+Phase 5-16 で追加するのは、
+
+```text
+PremisePattern
++
+ProofStep
+↓
+match / no match
+```
+
+という1対1の判定だけである。
+
+まだ、
+
+```text
+InferenceRule.premise_patterns
++
+複数 ProofStep
+↓
+rule applicable / not applicable
+```
+
+という判定は行わない。
+
+例えば、
+
+```python
+rule = InferenceRule(
+  name="combined rule",
+  premise_patterns=(
+    pattern1,
+    pattern2,
+  ),
+)
+```
+
+があっても、
+
+```text
+2つの pattern に対して
+どの ProofStep を対応させるか
+```
+
+を自動判定する機能は Phase 5-16 には含めない。
+
+Phase 5-16 で得られるのは、
+その後の applicability 判定を実装するための
+最小 primitive である。
+
+---
+
+## premise_patterns の順序問題はまだ扱わない
+
+Phase 5-15 では、
+
+```text
+InferenceRule.premise_patterns
+```
+
+を tuple として保持した。
+
+Phase 5-16 では、
+1つの PremisePattern と
+1つの ProofStep の matching のみを扱うため、
+
+```text
+pattern1 ↔ step1
+pattern2 ↔ step2
+```
+
+のように、
+複数 pattern と複数 step を
+位置対応させるかどうかはまだ決めない。
+
+今後 applicability 判定を導入する段階で、
+
+```text
+順序付き matching
+順序なし matching
+重複利用の可否
+1つの step が複数 pattern を満たせるか
+```
+
+などを整理する。
+
+---
+
+## Expression 内部の matching はまだ行わない
+
+Phase 5-16 で判定する条件は、
+
+```text
+proof_rule
+statement_type
+relation_type
+```
+
+だけである。
+
+例えば、
+
+```text
+2η_3 = 0
+```
+
+と、
+
+```text
+3ν_4 = 0
+```
+
+は、
+どちらも、
+
+```text
+ProofRule.RELATION
+Relation
+RelationType.ZERO
+```
+
+であれば、
+同じ PremisePattern に一致し得る。
+
+まだ、
+
+```text
+lhs が Multiple か
+rhs が Zero か
+coefficient が何か
+expression が何か
+```
+
+などは判定しない。
+
+したがって、
+
+```text
+mα = 0
+```
+
+という数学的 pattern そのものを
+認識できる段階ではない。
+
+---
+
+## pattern variable と binding はまだ行わない
+
+Phase 5-16 では、
+
+```text
+m
+α
+β
+n
+```
+
+などを pattern variable として扱わない。
+
+したがって、
+
+```text
+mα = 0
+↓
+ord(α) divides m
+```
+
+という rule について、
+
+```text
+m = 2
+α = η_3
+```
+
+のような binding を生成することはできない。
+
+Phase 5-16 の matching は、
+
+```text
+ProofStep レベルの粗い分類条件
+```
+
+だけを扱う。
+
+Expression-level matching、
+変数束縛、
+unification、
+substitution は後続フェーズへ分離する。
+
+---
+
+## RelationRepository との接続はまだ行わない
+
+Phase 5-16 では、
+
+```text
+RelationRepository
+```
+
+から PremisePattern に一致する Relation を
+自動取得する機能は追加しない。
+
+現在の責務は、
+
+```text
+RelationRepository
+= Relation の保存・基本検索
+
+PremisePattern
+= premise requirement の specification
+
+matches_premise_pattern()
+= ProofStep との1対1 matching
+```
+
+とする。
+
+将来的には、
+
+```text
+InferenceRule
+↓
+PremisePattern
+↓
+existing ProofSteps / RelationRepository
+↓
+candidate premises
+```
+
+という自動選択機構を構築できる。
+
+---
+
+## Phase 5-16 時点の matching pipeline
+
+Phase 5-16 により、
+
+```text
+InferenceRule
+       │
+       ↓
+PremisePattern
+       │
+       │
+       ├──────────────┐
+       │              │
+       ↓              ↓
+pattern condition   ProofStep
+       │              │
+       └──────┬───────┘
+              ↓
+matches_premise_pattern()
+              ↓
+         True / False
+```
+
+という最小 matching 経路が成立した。
+
+Phase 5-15 まででは、
+
+```text
+rule が何を要求するか
+```
+
+を記述できるだけだった。
+
+Phase 5-16 ではさらに、
+
+```text
+実際の ProofStep が
+その要求を満たしているか
+```
+
+を機械的に判定できるようになった。
+
+---
+
+## rule specification と matching の分離
+
+現在の責務は、
+
+```text
+PremisePattern
+= 条件のデータ表現
+
+matches_premise_pattern()
+= 条件と ProofStep の照合
+```
+
+として分離する。
+
+PremisePattern 自体に、
+
+```text
+matches()
+```
+
+などの振る舞いを持たせず、
+matching は独立した関数として実装する。
+
+これにより、
+pattern のデータモデルと
+matching algorithm を分離した状態を維持する。
+
+今後 Expression pattern や binding を導入した際にも、
+PremisePattern の役割と
+matching engine の役割を整理しやすくする。
+
+---
+
+## Phase 5-16 ではまだ行わないこと
+
+Phase 5-16 では、以下は実装しない。
+
+```text
+InferenceRule 全体の applicability 判定
+複数 PremisePattern と複数 ProofStep の対応付け
+premise の順序・順序なし matching の決定
+既存 ProofStep からの自動 premise 選択
+RelationRepository からの自動 relation 選択
+Expression 内部の pattern matching
+Multiple / Zero 等の構造 pattern
+pattern variable
+変数束縛
+binding environment
+unification
+substitution
+conclusion の自動生成
+InferenceRule.apply()
+InferenceRule repository
+proof の自動構築
+Proof DAG の自動構築
+```
+
+まず、
+
+```text
+1 pattern
++
+1 ProofStep
+↓
+match / no match
+```
+
+という最小 primitive を安定させる。
+
+---
+
+## Phase 5-16 時点の設計原則
+
+1. `PremisePattern` と `ProofStep` の一致を機械的に判定できる。
+2. 一致判定は `matches_premise_pattern()` に分離する。
+3. `PremisePattern()` の未指定条件は wildcard として扱う。
+4. `proof_rule` が指定されている場合は `ProofStep.rule` と一致する必要がある。
+5. `statement_type` が指定されている場合は `isinstance()` によって conclusion の型を判定する。
+6. `relation_type` が指定されている場合は conclusion が Relation でなければならない。
+7. `relation_type` が指定されている場合は RelationType も一致する必要がある。
+8. 複数の指定条件は AND 条件として扱う。
+9. 条件不一致は `False` とする。
+10. pattern または step の入力型が不正な場合は `TypeError` とする。
+11. matching failure と API misuse を区別する。
+12. PremisePattern は specification、matching 関数は照合処理として責務を分離する。
+13. Phase 5-16 では1つの pattern と1つの ProofStep の matching のみを扱う。
+14. InferenceRule 全体の applicability 判定はまだ行わない。
+15. 複数 pattern と複数 premise の割り当てはまだ行わない。
+16. Expression 内部の pattern matching はまだ行わない。
+17. pattern variable や変数束縛はまだ導入しない。
+18. conclusion の自動生成はまだ行わない。
+19. RelationRepository からの自動 premise 選択はまだ行わない。
+20. algebra 層には matching の概念を持ち込まない。
+21. 次段階では `InferenceRule.premise_patterns` と実際の複数 ProofStep を用いた applicability 判定を検討する。
+
+
 
 
 

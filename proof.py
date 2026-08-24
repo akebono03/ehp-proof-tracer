@@ -66,6 +66,57 @@ class Proof:
   steps: list[ProofStep]
 
 
+def matches_premise_pattern(
+  pattern,
+  step,
+):
+  if not isinstance(
+    pattern,
+    PremisePattern,
+  ):
+    raise TypeError(
+      "pattern must be a PremisePattern"
+    )
+
+  if not isinstance(
+    step,
+    ProofStep,
+  ):
+    raise TypeError(
+      "step must be a ProofStep"
+    )
+
+  if (
+    pattern.proof_rule is not None
+    and step.rule != pattern.proof_rule
+  ):
+    return False
+
+  if (
+    pattern.statement_type is not None
+    and not isinstance(
+      step.conclusion,
+      pattern.statement_type,
+    )
+  ):
+    return False
+
+  if pattern.relation_type is not None:
+    if not isinstance(
+      step.conclusion,
+      Relation,
+    ):
+      return False
+
+    if (
+      step.conclusion.relation_type
+      != pattern.relation_type
+    ):
+      return False
+
+  return True
+
+
 def relation_proof_step(relation):
   if not isinstance(relation, Relation):
     raise TypeError(
@@ -464,7 +515,6 @@ def relation_inference_proof(
       inference_step,
     ],
   )
-
 
 
 
