@@ -5,11 +5,23 @@ from expression import (
 )
 from formatter import format_proof
 from proof import (
+  LiteratureReference,
   Relation,
   RelationType,
   relation_inference_proof,
 )
 
+
+source = LiteratureReference(
+  label="Toda",
+  author="H. Toda",
+  title=(
+    "Composition Methods in "
+    "Homotopy Groups of Spheres"
+  ),
+  year=1962,
+  locator="Proposition X",
+)
 
 relation = Relation(
   lhs=Multiple(
@@ -18,7 +30,7 @@ relation = Relation(
   ),
   rhs=Zero(),
   relation_type=RelationType.ZERO,
-  source="Toda",
+  source=source,
   note="classical eta relation",
 )
 
@@ -33,7 +45,6 @@ print(
     proof
   )
 )
-
 
 
 

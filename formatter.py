@@ -3,6 +3,7 @@ from proof import (
   ExactnessStatement,
   ImageStatement,
   KernelStatement,
+  LiteratureReference,
   Proof,
   ProofStep,
   Relation,
@@ -43,6 +44,55 @@ def format_abelian_structure(structure):
 
 def format_group_map(group_map):
   return group_map.name
+
+
+def format_literature_reference(reference):
+  parts = [
+    reference.label,
+  ]
+
+  bibliographic_parts = []
+
+  if reference.author:
+    bibliographic_parts.append(
+      reference.author
+    )
+
+  if reference.title:
+    bibliographic_parts.append(
+      reference.title
+    )
+
+  if reference.year is not None:
+    bibliographic_parts.append(
+      str(reference.year)
+    )
+
+  if bibliographic_parts:
+    parts.append(
+      ", ".join(
+        bibliographic_parts
+      )
+    )
+
+  if reference.locator:
+    parts.append(
+      reference.locator
+    )
+
+  return " — ".join(parts)
+
+
+def format_source(source):
+  if isinstance(
+    source,
+    LiteratureReference,
+  ):
+    return format_literature_reference(
+      source
+    )
+
+  return str(source)
 
 
 def format_statement(statement):
@@ -149,7 +199,10 @@ def format_proof_step(
 
     if relation.source:
       lines.append(
-        f"   Source: {relation.source}"
+        "   Source: "
+        + format_source(
+          relation.source
+        )
       )
 
     if relation.note:

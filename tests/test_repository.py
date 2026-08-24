@@ -1,6 +1,6 @@
 import pytest
 from expression import Multiple, Zero, eta, nu
-from proof import Relation, RelationType
+from proof import Relation, RelationType, LiteratureReference
 from repository import RelationRepository
 
 
@@ -229,6 +229,40 @@ def test_relation_repository_rejects_non_relation():
     repository.add_relation(
       "2η3 = 0"
     )
+
+
+def test_relation_repository_find_by_structured_source():
+  reference = LiteratureReference(
+    label="Toda",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+  )
+
+  relation = Relation(
+    lhs=Multiple(
+      2,
+      eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+    source=reference,
+  )
+
+  repository = RelationRepository([
+    relation,
+  ])
+
+  result = repository.find_relations(
+    source=reference,
+  )
+
+  assert result == [
+    relation
+  ]
 
 
 

@@ -494,8 +494,8 @@ Responsible for:
 
 ### proof / inference layer
 
-The future proof layer will be responsible for deriving mathematical
-relations from sources such as:
+The proof / inference layer is being developed to derive and trace
+mathematical relations from sources such as:
 
 * composition relations
 * Toda brackets
@@ -595,10 +595,6 @@ dependencies:
    Premises: 1
 ```
 
-The next step is to expose relation metadata such as literature sources
-and notes in formatted proof traces.
-
----
 
 ## Current limitations
 
@@ -652,4 +648,13 @@ higher-level proof and inference machinery for:
 * additional EHP variants
 * odd-primary information
 * literature-backed proof tracing
+* relation source and note metadata in formatted proofs
+* structured literature references with author, title, year, and locator
+
+
+
+
+
+
+
 

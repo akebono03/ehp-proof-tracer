@@ -3319,6 +3319,252 @@ test_format_relation_and_proof_step_notes
 Phase 5-11 完了。
 
 
+## Phase 5-12：Relation source の構造化
+
+Phase 5-11 では、
+
+```text
+Relation.source
+```
+
+を Proof formatter に表示できるようにしたが、
+source 自体は、
+
+```python
+source="Toda"
+```
+
+のような単純な文字列だった。
+
+Phase 5-12 では、
+relation の出典をより詳細に追跡できるようにするため、
+構造化された文献参照を導入した。
+
+---
+
+### LiteratureReference
+
+追加:
+
+```text
+LiteratureReference
+```
+
+保持する情報:
+
+```text
+label
+author
+title
+year
+locator
+```
+
+例えば、
+
+```python
+LiteratureReference(
+  label="Toda",
+  author="H. Toda",
+  title=(
+    "Composition Methods in "
+    "Homotopy Groups of Spheres"
+  ),
+  year=1962,
+  locator="...",
+)
+```
+
+のように、
+relation の文献情報を構造として保持できる。
+
+`locator` は、
+relation が文献中のどこに記載されているかを表す。
+
+現段階では locator は文字列として保持し、
+theorem / proposition / page 等を専用型には分割しない。
+
+---
+
+### Relation.source の拡張
+
+Relation の `source` を、
+
+```text
+LiteratureReference | str | None
+```
+
+として扱えるようにした。
+
+これにより、
+
+```python
+source="Toda"
+```
+
+という既存形式を維持したまま、
+
+```python
+source=LiteratureReference(...)
+```
+
+という structured source へ段階的に移行できる。
+
+既存 Relation データに対する breaking change は導入していない。
+
+---
+
+### formatter の拡張
+
+追加:
+
+```text
+format_literature_reference()
+format_source()
+```
+
+structured source の場合には、
+
+```text
+label
+author
+title
+year
+locator
+```
+
+を組み合わせて表示する。
+
+例:
+
+```text
+Source: Toda — H. Toda, Composition Methods in Homotopy Groups of Spheres, 1962 — ...
+```
+
+一方、従来の、
+
+```python
+source="Toda"
+```
+
+については、
+
+```text
+Source: Toda
+```
+
+と従来通り表示される。
+
+---
+
+### Relation metadata との責務分離
+
+Phase 5-11 で導入した metadata の区別を維持した。
+
+```text
+LiteratureReference
+= relation の出典
+
+Relation.note
+= relation 自体の数学的補足
+
+ProofStep.note
+= その relation を利用した推論上の補足
+```
+
+文献上の theorem / proposition / page 等の情報は
+`Relation.note` ではなく、
+`LiteratureReference.locator` に保持する。
+
+---
+
+### RelationRepository との互換性
+
+`LiteratureReference` は frozen dataclass のため、
+構造的 equality を利用できる。
+
+既存の `RelationRepository.find_relations()` を変更せず、
+
+```python
+repository.find_relations(
+  source=reference,
+)
+```
+
+によって structured source を持つ Relation を検索できることを確認した。
+
+Phase 5-12 では source の、
+
+```text
+author
+title
+year
+locator
+```
+
+などによる部分検索は追加していない。
+
+---
+
+### Proof 表示確認
+
+structured source を持つ relation について、
+次の形式で Proof 表示できることを確認した。
+
+```text
+1. 2η_3 = 0
+   [relation]
+   Source: Toda — H. Toda, Composition Methods in Homotopy Groups of Spheres, 1962 — ...
+   Relation note: classical eta relation
+
+2. η_3 has order dividing 2
+   [relation]
+   Premises: 1
+   Note: derived from the zero relation
+
+Conclusion:
+
+η_3 has order dividing 2
+```
+
+probe で使用した locator は
+Phase 5-12 の structured source 表示を確認するための
+ダミー値であり、実際の Toda 文献上の proposition 番号を
+確定したものではない。
+
+---
+
+### テスト
+
+追加した主なテスト:
+
+```text
+test_literature_reference
+test_relation_with_literature_reference
+test_format_literature_reference
+test_format_source_string
+test_format_source_literature_reference
+test_format_relation_structured_source
+test_relation_repository_find_by_structured_source
+```
+
+2026-08-24:
+
+```text
+207 passed in 20.65s
+```
+
+既存の algebra / EHP / expression / proof / formatter /
+repository を含め、すべてのテストが成功した。
+
+structured source 導入による regression は確認されなかった。
+
+### 状態
+
+Phase 5-12 完了。
+
+
+
 
 
 

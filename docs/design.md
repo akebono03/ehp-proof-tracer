@@ -2311,6 +2311,364 @@ algebra / EHP 計算に基づく推論
 14. 既知 relation と algebra 計算の両方を同一の Proof モデルへ統合できる構造を維持する。
 
 
+# Relation metadata / LiteratureReference
+
+## Relation metadata の表示
+
+Phase 5-11 では、
+Relation および ProofStep が保持している metadata を
+Proof formatter へ反映する。
+
+対象は、
+
+```text
+Relation.source
+Relation.note
+ProofStep.note
+```
+
+である。
+
+`Relation.source` は、
+その数学的 relation がどこから得られたかを表す。
+
+`Relation.note` は、
+relation 自体についての数学的補足情報を表す。
+
+一方、
+
+`ProofStep.note` は、
+その relation や計算結果を今回の推論で
+どのように利用したかについての補足とする。
+
+したがって、
+
+```text
+Relation.note
+```
+
+と、
+
+```text
+ProofStep.note
+```
+
+は統合しない。
+
+例えば、
+
+```text
+1. 2η_3 = 0
+   [relation]
+   Source: Toda
+   Relation note: classical eta relation
+
+2. η_3 has order dividing 2
+   [relation]
+   Premises: 1
+   Note: derived from the zero relation
+```
+
+のように、
+数学的事実そのものの metadata と
+推論 step の metadata を区別して表示する。
+
+---
+
+## LiteratureReference の設計
+
+Phase 5-12 では、
+Relation の出典を単なる文字列ではなく、
+構造化された文献参照として保持できるようにする。
+
+そのため、
+
+```text
+LiteratureReference
+```
+
+を導入する。
+
+基本構造は、
+
+```text
+label
+author
+title
+year
+locator
+```
+
+とする。
+
+例えば、
+
+```python
+LiteratureReference(
+  label="Toda",
+  author="H. Toda",
+  title=(
+    "Composition Methods in "
+    "Homotopy Groups of Spheres"
+  ),
+  year=1962,
+  locator="...",
+)
+```
+
+のように文献情報を保持できる。
+
+ここで、
+
+```text
+label
+```
+
+は Proof 表示や簡潔な識別に使用する名前、
+
+```text
+author
+title
+year
+```
+
+は書誌情報、
+
+```text
+locator
+```
+
+は relation が文献中のどこに記載されているかを表す
+位置情報とする。
+
+locator には将来的に、
+
+```text
+Theorem ...
+Proposition ...
+Lemma ...
+Chapter ...
+p. ...
+equation (...)
+```
+
+などを格納できる。
+
+現段階では locator の内部構造までは分解せず、
+文字列として保持する。
+
+---
+
+## Relation.source の後方互換性
+
+Phase 5-12 では、
+
+```text
+Relation.source
+```
+
+を完全に `LiteratureReference` 専用にはしない。
+
+型は、
+
+```text
+LiteratureReference | str | None
+```
+
+とする。
+
+これにより従来の、
+
+```python
+source="Toda"
+```
+
+も引き続き利用できる。
+
+新しく構造化された source を利用する場合は、
+
+```python
+source=LiteratureReference(...)
+```
+
+とする。
+
+この後方互換性によって、
+既存 Relation データを一度に書き換える必要をなくし、
+relation データの追加に合わせて段階的に
+structured source へ移行できる。
+
+---
+
+## LiteratureReference と Relation.note の区別
+
+文献情報と数学的補足は混在させない。
+
+例えば、
+
+```text
+Toda の Proposition ...
+```
+
+のような文献上の位置は、
+
+```text
+LiteratureReference.locator
+```
+
+に保持する。
+
+一方、
+
+```text
+stable range で成立
+classical eta relation
+```
+
+など relation 自体の数学的説明は、
+
+```text
+Relation.note
+```
+
+に保持する。
+
+したがって、
+
+```text
+LiteratureReference
+= relation の出典情報
+
+Relation.note
+= relation の数学的補足
+
+ProofStep.note
+= その relation を利用した推論上の補足
+```
+
+という3つの責務を分離する。
+
+---
+
+## LiteratureReference の表示
+
+formatter 層では、
+
+```text
+format_literature_reference()
+format_source()
+```
+
+によって source を表示する。
+
+structured source の例:
+
+```text
+Source: Toda — H. Toda, Composition Methods in Homotopy Groups of Spheres, 1962 — ...
+```
+
+従来の文字列 source:
+
+```text
+Source: Toda
+```
+
+も同じ formatter から表示できる。
+
+文献情報の表示方法は formatter 層の責務とし、
+`LiteratureReference` 自体に表示処理を持たせない。
+
+---
+
+## RelationRepository との接続
+
+`LiteratureReference` は frozen dataclass として
+構造的 equality を持つ。
+
+そのため既存の `RelationRepository` を変更せず、
+
+```python
+repository.find_relations(
+  source=reference,
+)
+```
+
+によって structured source を持つ relation を検索できる。
+
+Phase 5-12 では、
+
+```text
+author
+title
+year
+label
+locator
+```
+
+を個別条件として検索する機能は導入しない。
+
+RelationRepository は引き続き、
+Relation オブジェクトの保存と基本検索のみを責務とする。
+
+より高度な文献検索や文献データ管理が必要になった場合に、
+別途 literature repository 等の導入を検討する。
+
+---
+
+## Phase 5-12 時点の source pipeline
+
+現在、
+
+```text
+LiteratureReference
+        ↓
+Relation.source
+        ↓
+Relation
+        ↓
+relation_proof_step
+        ↓
+Proof
+        ↓
+format_source
+        ↓
+Proof trace
+```
+
+という経路が成立している。
+
+これにより Proof trace は、
+
+```text
+何を使ったか
+```
+
+だけでなく、
+
+```text
+その数学的事実はどこから得られたか
+```
+
+まで追跡できる基盤を持つ。
+
+---
+
+## Phase 5-12 時点の設計原則
+
+1. 文献情報は構造化された `LiteratureReference` として保持できる。
+2. `Relation.source` は当面 `LiteratureReference | str | None` とする。
+3. 既存の文字列 source との後方互換性を維持する。
+4. 書誌情報と relation の数学的 note を分離する。
+5. 文献中の位置は `locator` に保持する。
+6. locator は現段階では文字列とし、過剰に構造化しない。
+7. 文献の表示方法は formatter 層の責務とする。
+8. LiteratureReference 自体に表示処理を持たせない。
+9. RelationRepository は structured source でも既存 equality 検索を利用する。
+10. 文献検索専用 Repository はまだ導入しない。
+11. BibTeX / DOI / ISBN 等の管理は必要になった段階で追加する。
+12. テスト用 locator と実際の文献 locator を混同しない。
+
+
 
 
 

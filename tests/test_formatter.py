@@ -7,8 +7,10 @@ from expression import (
 from formatter import (
   format_abelian_structure,
   format_expression,
+  format_literature_reference,
   format_proof,
   format_proof_step,
+  format_source,
   format_statement,
 )
 from proof import (
@@ -19,6 +21,7 @@ from proof import (
   RelationType,
   ehp_sphere_proof,
   relation_inference_proof,
+  LiteratureReference,
 )
 from algebra import AbelianGroupStructure
 from ehp import EHPSegment
@@ -453,6 +456,119 @@ def test_format_relation_and_proof_step_notes():
     in text
   )
 
+
+def test_format_literature_reference():
+  reference = LiteratureReference(
+    label="Toda",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+    locator="Proposition X",
+  )
+
+  assert (
+    format_literature_reference(
+      reference
+    )
+    == (
+      "Toda — H. Toda, "
+      "Composition Methods in "
+      "Homotopy Groups of Spheres, "
+      "1962 — Proposition X"
+    )
+  )
+
+
+def test_format_source_string():
+  assert (
+    format_source("Toda")
+    == "Toda"
+  )
+
+
+def test_format_source_literature_reference():
+  reference = LiteratureReference(
+    label="Toda",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+  )
+
+  assert (
+    format_source(reference)
+    == (
+      "Toda — H. Toda, "
+      "Composition Methods in "
+      "Homotopy Groups of Spheres, "
+      "1962"
+    )
+  )
+
+
+def test_format_relation_structured_source():
+  reference = LiteratureReference(
+    label="Toda",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+    locator="Proposition X",
+  )
+
+  relation = Relation(
+    lhs=Multiple(
+      2,
+      eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+    source=reference,
+  )
+
+  step = ProofStep(
+    conclusion=relation,
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  text = format_proof_step(
+    step,
+    number=1,
+  )
+
+  assert (
+    "Source: Toda"
+    in text
+  )
+
+  assert (
+    "H. Toda"
+    in text
+  )
+
+  assert (
+    "Composition Methods in "
+    "Homotopy Groups of Spheres"
+    in text
+  )
+
+  assert (
+    "1962"
+    in text
+  )
+
+  assert (
+    "Proposition X"
+    in text
+  )
 
 
 

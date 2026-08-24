@@ -20,6 +20,7 @@ from proof import (
   ehp_sphere_proof,
   relation_inference_proof,
   relation_inference_proof_step,
+  LiteratureReference,
 )
 from expression import Multiple, Zero, eta
 from algebra import (
@@ -801,6 +802,75 @@ def test_relation_inference_proof():
     proof.conclusion
     == "η_3 has order dividing 2"
   )
+
+
+def test_literature_reference():
+  reference = LiteratureReference(
+    label="Toda",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+    locator="Proposition X",
+  )
+
+  assert (
+    reference.label
+    == "Toda"
+  )
+
+  assert (
+    reference.author
+    == "H. Toda"
+  )
+
+  assert (
+    reference.title
+    == (
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    )
+  )
+
+  assert (
+    reference.year
+    == 1962
+  )
+
+  assert (
+    reference.locator
+    == "Proposition X"
+  )
+
+
+def test_relation_with_literature_reference():
+  reference = LiteratureReference(
+    label="Toda",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+  )
+
+  relation = Relation(
+    lhs=Multiple(
+      2,
+      eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+    source=reference,
+  )
+
+  assert (
+    relation.source
+    == reference
+  )
+
 
 
 

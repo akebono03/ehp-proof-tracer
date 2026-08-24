@@ -10,11 +10,20 @@ class RelationType(Enum):
 
 
 @dataclass(frozen=True)
+class LiteratureReference:
+  label: str
+  author: str | None = None
+  title: str | None = None
+  year: int | None = None
+  locator: str | None = None
+
+
+@dataclass(frozen=True)
 class Relation:
   lhs: Any
   rhs: Any
   relation_type: RelationType = RelationType.EQUALITY
-  source: str | None = None
+  source: LiteratureReference | str | None = None
   note: str | None = None
 
 
