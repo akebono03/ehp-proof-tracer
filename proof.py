@@ -926,7 +926,7 @@ def merge_proof_steps(
   )
 
 
-def run_inference_round(
+def derive_new_inference_steps(
   inference_rules,
   available_steps,
 ):
@@ -942,11 +942,36 @@ def run_inference_round(
     normalized_steps,
   )
 
-  return merge_proof_steps(
+  merged_steps = merge_proof_steps(
     normalized_steps,
     derived_steps,
   )
 
+  return merged_steps[
+    len(normalized_steps):
+  ]
+
+
+def run_inference_round(
+  inference_rules,
+  available_steps,
+):
+  normalized_steps = (
+    _normalize_proof_steps(
+      available_steps,
+      "available_steps",
+    )
+  )
+
+  new_steps = derive_new_inference_steps(
+    inference_rules,
+    normalized_steps,
+  )
+
+  return (
+    normalized_steps
+    + new_steps
+  )
 
 
 

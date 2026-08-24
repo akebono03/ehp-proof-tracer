@@ -15101,6 +15101,988 @@ no new facts
 という fixed-point iterative inference へ進むことができる。
 
 
+# Phase 5-27：1 round で本当に新しく追加された ProofStep を取得する
+
+Phase 5-26 では、
+
+```text
+available ProofSteps
++
+candidate derived ProofSteps
+↓
+merge_proof_steps()
+↓
+duplicate-safe expanded ProofSteps
+```
+
+を導入した。
+
+これにより、
+already-known conclusion や、
+同じ round 内で複数回 derive された同一 conclusion を
+knowledge state へ重複追加しないようにできた。
+
+ただし Phase 5-26 時点では、
+
+```text
+round 後の merged knowledge state
+```
+
+は取得できても、
+
+```text
+今回の round で本当に追加された ProofSteps
+```
+
+を直接取得する API は存在しなかった。
+
+Phase 5-27 では、
+fixed-point iterative inference の終了条件を明示するため、
+
+```python
+derive_new_inference_steps(
+  inference_rules,
+  available_steps,
+)
+```
+
+を導入する。
+
+---
+
+## candidate と genuinely new の区別
+
+Phase 5-27 では、
+derived ProofStep を2種類に区別する。
+
+```text
+candidate derived ProofSteps
+```
+
+と、
+
+```text
+genuinely new ProofSteps
+```
+
+である。
+
+candidate derived ProofSteps は、
+
+```python
+derive_inference_steps()
+```
+
+が返す。
+
+これは、
+
+```text
+現在 applicable な rule が
+その premises に対して何を導くか
+```
+
+を表す。
+
+一方 genuinely new ProofSteps は、
+
+```python
+derive_new_inference_steps()
+```
+
+が返す。
+
+これは、
+
+```text
+candidate のうち
+現在の knowledge state に
+実際に新しく追加されるもの
+```
+
+を表す。
+
+例えば、
+
+```text
+available:
+A
+B
+
+rules:
+A → B
+A → C
+```
+
+なら、
+
+```text
+candidate:
+B
+C
+```
+
+だが、
+
+```text
+new:
+C
+```
+
+となる。
+
+---
+
+## derive_inference_steps() は変更しない
+
+Phase 5-27 では、
+既存の、
+
+```python
+derive_inference_steps()
+```
+
+の意味を変更しない。
+
+これは引き続き、
+
+```text
+matching
+↓
+application
+↓
+candidate derived steps
+```
+
+の high-level API とする。
+
+duplicate filtering や novelty detection を
+`derive_inference_steps()` の内部へ統合しない。
+
+理由は、
+caller によっては、
+
+```text
+複数の rule が同じ conclusion を導いた
+```
+
+という candidate-level information 自体を確認したい場合が
+あるためである。
+
+したがって、
+
+```text
+candidate derivation
+```
+
+と、
+
+```text
+knowledge-state novelty
+```
+
+を別責務として維持する。
+
+---
+
+## derive_new_inference_steps()
+
+Phase 5-27 の API は、
+
+```python
+derive_new_inference_steps(
+  inference_rules,
+  available_steps,
+)
+```
+
+とする。
+
+基本 pipeline:
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+normalize available ProofSteps
+↓
+derive_inference_steps()
+↓
+candidate derived ProofSteps
+↓
+merge_proof_steps()
+↓
+duplicate-safe merged ProofSteps
+↓
+remove original available prefix
+↓
+genuinely new ProofSteps
+```
+
+実装上、
+Phase 5-26 の duplicate semantics を再実装しない。
+
+`merge_proof_steps()` をそのまま利用する。
+
+---
+
+## novelty detection を重複実装しない
+
+Phase 5-26 ですでに、
+
+```text
+same conclusion
+=
+duplicate for knowledge-state merge
+```
+
+という semantics を定義した。
+
+Phase 5-27 で、
+
+```text
+known conclusion の集合を再構築して
+candidate を再度独自に filter する
+```
+
+実装にすると、
+duplicate semantics が複数箇所に分散する。
+
+そのため Phase 5-27 では、
+
+```text
+derive
+↓
+merge
+↓
+merged result から new suffix を取り出す
+```
+
+方式を採用する。
+
+これにより、
+
+```text
+duplicate criterion
+ordering
+first occurrence wins
+```
+
+という Phase 5-26 の semantics をそのまま再利用できる。
+
+---
+
+## merged collection の prefix property
+
+`merge_proof_steps()` は、
+available ProofSteps をそのまま result の先頭へ保持する。
+
+つまり、
+
+```text
+available:
+(
+  A,
+  B,
+)
+```
+
+なら、
+merge result は必ず、
+
+```text
+(
+  A,
+  B,
+  ...
+)
+```
+
+から始まる。
+
+この性質を利用して、
+
+```python
+merged_steps[
+  len(normalized_steps):
+]
+```
+
+を返せば、
+available prefix の後ろに追加された、
+
+```text
+genuinely new ProofSteps
+```
+
+だけを取得できる。
+
+Phase 5-27 では、
+この prefix property を
+`derive_new_inference_steps()` の設計前提とする。
+
+---
+
+## new-step order
+
+genuinely new steps は、
+candidate derived steps の first occurrence order を維持する。
+
+例えば、
+
+```text
+candidate:
+B
+C
+B
+D
+```
+
+で、
+B, C, D がすべて initially unknown なら、
+
+```text
+new:
+B
+C
+D
+```
+
+となる。
+
+つまり、
+
+```text
+first occurrence wins
+```
+
+という Phase 5-26 の ordering rule を
+そのまま引き継ぐ。
+
+---
+
+## already-known conclusion
+
+candidate derived step の conclusion が
+available collection にすでに存在する場合、
+
+```text
+new
+```
+
+には含めない。
+
+例えば、
+
+```text
+available:
+A
+B
+
+candidate:
+B
+```
+
+なら、
+
+```text
+new:
+()
+```
+
+となる。
+
+これにより、
+「rule は applicable だった」という事実と、
+
+```text
+knowledge state が増えたか
+```
+
+を区別できる。
+
+---
+
+## no applicable rules
+
+applicable rule が存在しない場合、
+
+```python
+derive_inference_steps()
+```
+
+は、
+
+```text
+()
+```
+
+を返す。
+
+したがって、
+
+```python
+derive_new_inference_steps()
+```
+
+も、
+
+```text
+()
+```
+
+を返す。
+
+これは、
+
+```text
+no candidate conclusions
+```
+
+と、
+
+```text
+all candidate conclusions already known
+```
+
+の両方が、
+knowledge-state progress の観点では、
+
+```text
+no new steps
+```
+
+になることを意味する。
+
+現段階では、
+この2つを戻り値だけから区別する必要はない。
+
+---
+
+## empty rules
+
+empty inference-rule collection は正常入力とする。
+
+```text
+rules:
+()
+
+available:
+A
+```
+
+なら、
+
+```text
+new:
+()
+```
+
+となる。
+
+---
+
+## empty available steps
+
+available collection が empty でも、
+premise-free rule が存在すれば
+new step を derive できる。
+
+例えば、
+
+```text
+available:
+()
+
+rule:
+() → A
+```
+
+なら、
+
+```text
+new:
+A
+```
+
+となる。
+
+---
+
+## repeated derivation
+
+Phase 5-27 により、
+same derivation を繰り返した場合に
+「新しいものがない」ことを直接取得できる。
+
+例えば、
+
+```text
+A → B
+```
+
+について、
+
+```text
+available:
+A
+```
+
+なら、
+
+```text
+new:
+B
+```
+
+となる。
+
+その `B` を knowledge state に追加した後は、
+
+```text
+available:
+A
+B
+```
+
+に対して、
+
+```text
+new:
+()
+```
+
+となる。
+
+この empty tuple が、
+fixed-point inference の termination condition の基礎となる。
+
+---
+
+## run_inference_round() との関係
+
+Phase 5-27 では、
+`run_inference_round()` を、
+
+```text
+existing knowledge state
++
+genuinely new steps
+```
+
+という意味で整理できる。
+
+Conceptually:
+
+```text
+available ProofSteps
+↓
+derive_new_inference_steps()
+↓
+new ProofSteps
+↓
+available + new
+↓
+next knowledge state
+```
+
+したがって、
+
+```text
+derive_new_inference_steps()
+```
+
+は round delta を返し、
+
+```text
+run_inference_round()
+```
+
+は round result を返す。
+
+この区別を明示する。
+
+---
+
+## delta と state の分離
+
+Phase 5-27 以降、
+inference の high-level API には、
+
+```text
+state
+```
+
+と、
+
+```text
+delta
+```
+
+という2種類の情報が存在する。
+
+### state
+
+```text
+available ProofSteps
+```
+
+は、
+現在 knowledge state に存在する全 ProofSteps を表す。
+
+### delta
+
+```text
+new ProofSteps
+```
+
+は、
+ある1 round によってその state に追加される ProofSteps を表す。
+
+つまり、
+
+```text
+state_n
++
+delta_n
+=
+state_{n+1}
+```
+
+という関係になる。
+
+この state / delta 分離は、
+fixed-point iteration を設計するための重要な基盤となる。
+
+---
+
+## fixed-point condition
+
+Phase 5-27 により、
+
+```text
+delta == ()
+```
+
+を直接判定できる。
+
+すなわち、
+
+```python
+new_steps = derive_new_inference_steps(
+  inference_rules,
+  available_steps,
+)
+
+if not new_steps:
+  ...
+```
+
+という形で、
+
+```text
+この round では knowledge state が増えなかった
+```
+
+ことを判定できる。
+
+これを、
+
+```text
+fixed-point candidate condition
+```
+
+とする。
+
+Phase 5-27 では、
+まだ自動で次 round を実行しない。
+
+---
+
+## fixed point と mathematical completeness の区別
+
+今後重要になる点として、
+
+```text
+no new steps
+```
+
+は、
+
+```text
+現在登録されている inference rules と
+現在の matching semantics の下で
+これ以上新しい conclusion が得られない
+```
+
+ことを意味する。
+
+これは必ずしも、
+
+```text
+数学的にすべての帰結を証明し尽くした
+```
+
+ことを意味しない。
+
+例えば、
+
+```text
+必要な inference rule が未登録
+```
+
+または、
+
+```text
+greedy premise search が
+別の有効な premise assignment を見落とす
+```
+
+場合でも、
+new steps が empty になる可能性がある。
+
+したがって将来の fixed point は、
+
+```text
+inference-engine fixed point
+```
+
+として理解する。
+
+---
+
+## validation
+
+`derive_new_inference_steps()` は、
+available steps の normalization を、
+
+```python
+_normalize_proof_steps()
+```
+
+へ委譲する。
+
+rule validation は、
+
+```text
+derive_inference_steps()
+↓
+find_inference_matches()
+↓
+_normalize_inference_rules()
+```
+
+の既存経路を利用する。
+
+したがって新しい validation mechanism は追加しない。
+
+matched rule に conclusion builder がない場合も、
+既存 application semantics に従って
+`ValueError` となる。
+
+---
+
+## Phase 5-27 時点の inference API 階層
+
+現在の inference API は、
+
+```text
+PremisePattern
++
+ProofStep
+↓
+matches_premise_pattern()
+```
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+```
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_inference_matches()
+↓
+InferenceMatch collection
+```
+
+```text
+InferenceMatch collection
+↓
+apply_inference_matches()
+↓
+derived ProofSteps
+```
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+derive_inference_steps()
+↓
+candidate derived ProofSteps
+```
+
+```text
+available ProofSteps
++
+candidate derived ProofSteps
+↓
+merge_proof_steps()
+↓
+duplicate-safe merged ProofSteps
+```
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+derive_new_inference_steps()
+↓
+genuinely new ProofSteps
+```
+
+そして、
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+run_inference_round()
+↓
+available ProofSteps
++
+genuinely new ProofSteps
+```
+
+まで到達した。
+
+---
+
+## Phase 5-27 時点の設計原則
+
+1. candidate derivation と genuinely new derivation を区別する。
+2. `derive_inference_steps()` の既存意味を変更しない。
+3. `derive_inference_steps()` は candidate derived ProofSteps を返す。
+4. `derive_new_inference_steps()` は genuinely new ProofSteps を返す。
+5. duplicate semantics を新 API 内で再実装しない。
+6. novelty detection は `merge_proof_steps()` の結果を利用する。
+7. `merge_proof_steps()` の available-prefix preservation を利用する。
+8. new steps は merged result の suffix として取得する。
+9. duplicate criterion は Phase 5-26 と同じ conclusion equality を使う。
+10. already-known conclusion は new steps に含めない。
+11. duplicate candidate conclusions は最初の1つだけ new steps に含める。
+12. new-step order は first occurrence order とする。
+13. no applicable rule の場合は empty tuple を返す。
+14. empty rules は正常入力とする。
+15. empty available steps も正常入力とする。
+16. premise-free rule は empty available state から new step を生成できる。
+17. repeated same derivation 後は empty new-step result を返せる。
+18. `run_inference_round()` は state + delta として理解する。
+19. available ProofSteps を state とする。
+20. genuinely new ProofSteps を round delta とする。
+21. `delta == ()` を fixed-point termination の基礎条件とする。
+22. automatic iteration はまだ実装しない。
+23. round count はまだ保持しない。
+24. round history はまだ保持しない。
+25. fixed point result object はまだ導入しない。
+26. mathematical completeness と inference-engine fixed point を区別する。
+27. alternative-proof storage は別課題とする。
+28. mathematical equivalence / canonicalization は別課題とする。
+29. greedy premise search は変更しない。
+30. expression-level binding / substitution は別課題とする。
+31. algebra / EHP 層には変更を加えない。
+
+---
+
+## Phase 5-27 の到達点
+
+Phase 5-26 では、
+
+```text
+available
++
+candidate derived
+↓
+merge
+↓
+expanded state
+```
+
+までだった。
+
+Phase 5-27 では、
+
+```text
+available
++
+candidate derived
+↓
+merge
+↓
+genuinely new steps
+```
+
+を直接取得できるようになった。
+
+現在は、
+
+```text
+state_n
+↓
+derive candidate
+↓
+filter duplicates
+↓
+delta_n
+↓
+state_n + delta_n
+↓
+state_{n+1}
+```
+
+という1 round の構造を明示できる。
+
+さらに、
+
+```text
+delta_n == ()
+```
+
+なら、
+
+```text
+現在の rule set と matching semantics の下で
+これ以上 knowledge state が増えない
+```
+
+ことを判定できる。
+
+したがって次の自然な段階は、
+
+```text
+state
+↓
+derive delta
+↓
+delta empty?
+├── no  → state += delta → repeat
+└── yes → terminate
+```
+
+という fixed-point iterative inference の実装である。
+
+
 
 
 
