@@ -582,40 +582,32 @@ Phase 5 currently supports:
 * matching by conclusion type
 * matching by relation type
 * ordered matching between all premise patterns of an `InferenceRule`
-  and an explicitly supplied sequence of `ProofStep` objects
-* exact premise-count matching for explicitly supplied inference-rule premises
-* premise candidate search over an existing collection of proof steps
-* first-match premise selection
+  and explicitly supplied `ProofStep` objects
+* premise candidate search over available proof steps
 * distinct-step assignment for multiple premise patterns
-* detection of missing premise candidates
-* support for premise-free inference rules
-* inference-rule applicability checks over available proof steps
-* applicable-rule search over a collection of inference rules
-* preservation of inference-rule input order during applicable-rule search
-* support for multiple simultaneously applicable inference rules
-* structured `InferenceMatch` objects containing an applicable rule and
-  its selected premises
-* single-rule structured match search
-* collection-level structured match search
-* preservation of premise-pattern order in structured matches
-* explicit distinction between no match and a successful premise-free match
-* application of a single `InferenceMatch`
-* application of multiple `InferenceMatch` objects
-* construction of derived `ProofStep` objects from matched inference rules
-* preservation of inference-rule and premise metadata in derived proof steps
-* high-level one-round inference through `derive_inference_steps()`
-* one-round knowledge-state expansion through `run_inference_round()`
-* duplicate-aware merging of proof steps by conclusion equality
+* inference-rule applicability checks
+* applicable-rule search
+* structured `InferenceMatch` objects
+* application of single and multiple inference matches
+* construction of derived `ProofStep` objects
+* preservation of rule and premise metadata in derived proof steps
+* one-round candidate derivation through `derive_inference_steps()`
+* duplicate-aware merging through `merge_proof_steps()`
 * extraction of genuinely new proof steps through `derive_new_inference_steps()`
+* one-round state expansion through `run_inference_round()`
 * automatic fixed-point iteration through `run_inference_until_stable()`
-* use of newly derived proof steps as premises in later inference rounds
-* termination when an inference round produces no genuinely new conclusions
-* preservation of proof dependencies across multiple inference rounds
+* use of newly derived steps as premises in later rounds
+* fixed-point termination when no genuinely new conclusion is produced
+* preservation of dependencies across inference rounds
 * structured fixed-point execution results through `InferenceRunResult`
 * per-round histories of genuinely new proof steps
 * productive-round counting through `round_count`
 * detailed fixed-point execution through `run_inference_until_stable_with_history()`
-* backward-compatible final-state-only fixed-point inference
+* explicit inference termination reasons
+* configurable maximum productive-round limits
+* distinction between fixed-point termination and round-limit termination
+* validation of `max_rounds`
+* backward-compatible final-state-only inference
 * input normalization for single and multiple inference rules
 * human-readable proof formatting
 
@@ -645,20 +637,6 @@ dependencies:
    Premises: 1
 ```
 
-Multiple known relations can be combined in a single inference:
-
-```text
-1. 2η_3 = 0
-   [relation]
-
-2. 2η_4 = 0
-   [relation]
-
-3. combined result
-   [relation]
-   Premises: 1, 2
-```
-
 An inference rule can describe its required premises structurally:
 
 ```python
@@ -675,9 +653,6 @@ rule = InferenceRule(
 )
 ```
 
-Available proof steps can then be searched automatically for matching
-premises.
-
 A successful match is represented explicitly:
 
 ```python
@@ -689,23 +664,7 @@ InferenceMatch(
 )
 ```
 
-The match can be converted into a derived proof step:
-
-```text
-available ProofSteps
-+
-InferenceRule
-↓
-premise matching
-↓
-InferenceMatch
-↓
-conclusion builder
-↓
-derived ProofStep
-```
-
-Multiple rules can be applied in one inference round:
+The high-level one-round pipeline is:
 
 ```text
 available ProofSteps
@@ -717,29 +676,13 @@ find_inference_matches()
 apply_inference_matches()
 ↓
 candidate derived ProofSteps
+↓
+merge_proof_steps()
+↓
+genuinely new ProofSteps
 ```
 
-Candidate proof steps are merged into the existing knowledge state
-using conclusion equality.
-
-Conceptually:
-
-```text
-available:
-A
-B
-
-derived:
-B
-C
-
-merged:
-A
-B
-C
-```
-
-The genuinely new part of a round can also be obtained directly:
+The genuinely new part of a round can be obtained directly:
 
 ```python
 new_steps = derive_new_inference_steps(
@@ -748,7 +691,7 @@ new_steps = derive_new_inference_steps(
 )
 ```
 
-This makes the state transition explicit:
+Conceptually:
 
 ```text
 state_n
@@ -770,7 +713,7 @@ delta_n
 genuinely new ProofSteps derived in the current round
 ```
 
-Phase 5-28 added automatic fixed-point inference:
+Fixed-point inference is available through:
 
 ```python
 stable_steps = run_inference_until_stable(
@@ -806,9 +749,7 @@ B
 C
 ```
 
-Phase 5-29 adds structured execution history for this process.
-
-The detailed fixed-point API is:
+Detailed fixed-point execution is available through:
 
 ```python
 result = run_inference_until_stable_with_history(
@@ -817,12 +758,13 @@ result = run_inference_until_stable_with_history(
 )
 ```
 
-It returns an `InferenceRunResult`:
+The result is represented by:
 
 ```python
 InferenceRunResult(
   steps=...,
   round_history=...,
+  termination_reason=...,
 )
 ```
 
@@ -831,7 +773,7 @@ where:
 ```text
 steps
 =
-the final stable knowledge state
+the knowledge state at termination
 
 round_history
 =
@@ -840,6 +782,10 @@ the genuinely new ProofSteps produced in each productive round
 round_count
 =
 the number of productive rounds
+
+termination_reason
+=
+why iterative inference stopped
 ```
 
 For example:
@@ -878,40 +824,335 @@ InferenceRunResult(
       D,
     ),
   ),
+  termination_reason=(
+    InferenceTerminationReason.FIXED_POINT
+  ),
 )
 ```
 
-and:
+The final empty termination check is not stored in `round_history`.
+
+Only productive rounds are counted:
 
 ```text
 round_count == 2
 ```
 
-The final empty termination check is intentionally not stored in
-`round_history`.
+---
 
-Only productive rounds are recorded.
+## Maximum-round safeguard
 
-The existing simple API remains available:
+Phase 5-30 adds an optional inference-round limit:
 
 ```python
-run_inference_until_stable(
+result = run_inference_until_stable_with_history(
   inference_rules,
   initial_steps,
+  max_rounds=10,
 )
 ```
 
-and continues to return only:
+`max_rounds` means:
 
 ```text
-tuple of final ProofSteps
+maximum number of productive rounds allowed
 ```
 
-Internally it delegates to the history-aware implementation and returns
-`result.steps`.
+The accepted values are:
 
-Therefore Phase 5-29 adds inspection metadata without changing the
-existing fixed-point API contract.
+```text
+None
+or
+a non-negative integer
+```
+
+`None` preserves the previous behavior:
+
+```text
+continue until a fixed point is detected
+```
+
+A non-negative integer limits knowledge-state expansion.
+
+For example:
+
+```python
+max_rounds=2
+```
+
+allows at most:
+
+```text
+round 1
+round 2
+```
+
+to add new proof steps.
+
+After two productive rounds, execution stops before attempting another
+derivation round.
+
+---
+
+## Termination reason
+
+Termination is represented explicitly by:
+
+```python
+class InferenceTerminationReason(Enum):
+  FIXED_POINT = "fixed_point"
+  MAX_ROUNDS = "max_rounds"
+```
+
+A normal fixed-point termination returns:
+
+```python
+result.termination_reason
+== InferenceTerminationReason.FIXED_POINT
+```
+
+A round-limit termination returns:
+
+```python
+result.termination_reason
+== InferenceTerminationReason.MAX_ROUNDS
+```
+
+This distinction is important because:
+
+```text
+MAX_ROUNDS
+```
+
+does not imply that the returned state is a fixed point.
+
+It only means that the configured number of productive rounds has been
+used.
+
+For example:
+
+```text
+max_rounds = 1
+
+initial:
+A
+
+round 1:
+B
+
+stop
+```
+
+returns:
+
+```text
+steps:
+A
+B
+
+round_count:
+1
+
+termination_reason:
+MAX_ROUNDS
+```
+
+without checking whether another round could derive additional facts.
+
+---
+
+## Exact-limit semantics
+
+Suppose a rule system requires exactly two productive rounds to produce
+all currently derivable facts:
+
+```text
+initial:
+A
+
+round 1:
+B
+
+round 2:
+C
+```
+
+and:
+
+```python
+max_rounds=2
+```
+
+is specified.
+
+The result is:
+
+```text
+round_count = 2
+termination_reason = MAX_ROUNDS
+```
+
+even if a subsequent inference check would find no new step.
+
+This is intentional.
+
+The engine has not performed the additional check required to prove
+that the current state is a fixed point.
+
+Therefore:
+
+```text
+FIXED_POINT
+```
+
+is returned only when:
+
+```python
+derive_new_inference_steps(...)
+```
+
+has actually returned:
+
+```python
+()
+```
+
+before the round limit is reached.
+
+---
+
+## max_rounds = 0
+
+A zero limit is valid:
+
+```python
+max_rounds=0
+```
+
+and means:
+
+```text
+perform zero productive rounds
+```
+
+The initial state is returned immediately with:
+
+```text
+round_count = 0
+termination_reason = MAX_ROUNDS
+```
+
+No inference rule is applied.
+
+---
+
+## Simple and detailed APIs
+
+Both fixed-point APIs accept `max_rounds`.
+
+Detailed API:
+
+```python
+result = run_inference_until_stable_with_history(
+  inference_rules,
+  available_steps,
+  max_rounds=10,
+)
+```
+
+This exposes:
+
+```text
+steps
+round_history
+round_count
+termination_reason
+```
+
+Simple API:
+
+```python
+steps = run_inference_until_stable(
+  inference_rules,
+  available_steps,
+  max_rounds=10,
+)
+```
+
+This returns only:
+
+```text
+tuple[ProofStep, ...]
+```
+
+The simple API delegates to the detailed API.
+
+Therefore both APIs use exactly the same:
+
+```text
+round-limit semantics
+duplicate semantics
+fixed-point semantics
+```
+
+Callers that need to distinguish:
+
+```text
+fixed point reached
+```
+
+from:
+
+```text
+round limit reached
+```
+
+should use:
+
+```python
+run_inference_until_stable_with_history()
+```
+
+---
+
+## max_rounds validation
+
+`max_rounds` accepts:
+
+```text
+None
+0
+1
+2
+...
+```
+
+Invalid types raise `TypeError`.
+
+For example:
+
+```text
+1.5
+"10"
+True
+False
+```
+
+are rejected.
+
+Although Python `bool` is a subclass of `int`, boolean values are
+explicitly rejected because they do not represent meaningful
+round-count configuration.
+
+Negative integers raise `ValueError`.
+
+For example:
+
+```text
+-1
+```
+
+is invalid.
 
 ---
 
@@ -928,8 +1169,8 @@ homomorphisms, but it does not yet derive E/H/P formulas themselves
 from Toda relations, composition relations, or other homotopy-theoretic
 theorems.
 
-The inference layer now supports repeated fixed-point inference, but
-its current semantics remain intentionally simple.
+The inference layer now supports safe bounded fixed-point execution, but
+its matching semantics remain intentionally simple.
 
 Premise search is currently greedy:
 
@@ -944,8 +1185,8 @@ It does not yet:
 ```text
 enumerate every valid premise assignment
 perform backtracking
-compare alternative matches
-rank alternative proofs
+rank alternative premise assignments
+compare alternative proofs
 ```
 
 Duplicate detection currently uses ordinary Python conclusion equality:
@@ -965,31 +1206,38 @@ normalization of homotopy expressions
 If two derivations produce the same conclusion, only the first
 `ProofStep` added to the knowledge state is retained.
 
-Alternative proofs of the same conclusion are not yet preserved as a
-proof repository.
+Alternative proofs of the same conclusion are not yet preserved.
 
-Fixed-point iteration currently has no explicit maximum-round limit.
+`max_rounds` protects against unrestricted repeated inference, but it is
+not cycle detection or a proof of termination.
 
-Therefore a rule system whose conclusion builders can continue to
-generate genuinely new conclusions indefinitely may fail to terminate.
+The inference engine does not yet detect:
+
+```text
+semantic cycles
+repeated state patterns beyond conclusion deduplication
+unbounded conclusion generation
+```
 
 `InferenceRunResult` currently stores:
 
 ```text
-final steps
+final or limited state
 per-round new-step history
 productive-round count
+termination reason
 ```
 
 but does not yet store:
 
 ```text
-termination reason
-maximum-round termination
+configured max_rounds
+terminal empty-round record
 per-round complete state snapshots
-candidate steps rejected as duplicates
 InferenceMatch history
-rule-application history
+applicable-rule history
+candidate steps rejected as duplicates
+rule-application counts
 timing or performance metadata
 ```
 
@@ -1028,10 +1276,10 @@ Run the inference-rule tests with:
 python -m pytest tests/test_inference_rule_pattern.py -v
 ```
 
-At the completion of Phase 5-29:
+At the completion of Phase 5-30:
 
 ```text
-208 passed in 4.30s
+218 passed in 3.90s
 ```
 
 for:
@@ -1040,42 +1288,34 @@ for:
 tests/test_inference_rule_pattern.py
 ```
 
-Phase 5-28 completed with:
+Phase 5-29 completed with:
 
 ```text
-194 inference-rule pattern tests passed
+208 inference-rule pattern tests passed
 ```
 
-so Phase 5-29 adds 14 inference-history tests.
+so Phase 5-30 adds 10 inference termination / round-limit tests.
 
-The added tests cover:
+The Phase 5-30 tests cover:
 
 ```text
-InferenceRunResult
-round_count
-single-round history
-multiple-round history
-exclusion of the empty terminal round
-zero productive rounds
-empty initial state
-multiple new ProofSteps in one round
-dependency preservation across rounds
-agreement between the simple and detailed fixed-point APIs
-single-rule / single-step input
-list input
-invalid-rule rejection
-invalid-step rejection
-missing conclusion builder
+InferenceTerminationReason values
+FIXED_POINT termination
+MAX_ROUNDS termination
+max_rounds = 0
+fixed point reached before the limit
+exact-limit semantics
+negative max_round rejection
+non-integer max_round rejection
+bool max_round rejection
+simple API max_round propagation
 ```
 
 ---
 
 ## Next direction
 
-Phase 5-29 makes the fixed-point inference process observable as a
-structured execution result.
-
-The current progression is:
+The Phase 5 inference engine has now progressed through:
 
 ```text
 Phase 5-24
@@ -1094,34 +1334,41 @@ Phase 5-28
 automatic fixed-point iteration
 ↓
 Phase 5-29
-per-round history and structured run result
+per-round history and structured result
+↓
+Phase 5-30
+bounded iteration and explicit termination reason
 ```
 
-The next natural problem is safe termination of iterative inference.
-
-A likely next phase is:
+The engine can now safely answer:
 
 ```text
-Phase 5-30:
-maximum-round safeguard
-+
-termination reason
+What was derived?
+In which productive round was it derived?
+How many productive rounds ran?
+Why did inference stop?
 ```
 
-This would allow the inference engine to distinguish:
+The next natural problem is to improve the structure of the execution
+trace itself.
+
+Possible next directions include:
 
 ```text
-reached a fixed point
+structured per-round result objects
+rule / match application history
+duplicate-rejected candidate history
 ```
 
-from:
+before moving on to more powerful premise matching such as:
 
 ```text
-stopped because a configured round limit was reached
+alternative premise assignments
+backtracking
+expression-level patterns
+variable bindings
+substitution
 ```
-
-without changing the mathematical inference rules themselves.
-
 
 
 

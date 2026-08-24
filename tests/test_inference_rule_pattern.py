@@ -3,6 +3,7 @@ from proof import (
   InferenceMatch,
   InferenceRule,
   InferenceRunResult,
+  InferenceTerminationReason,
   PremisePattern,
   ProofRule,
   ProofStep,
@@ -5760,6 +5761,9 @@ def test_inference_run_result():
       step,
     ),
     round_history=(),
+    termination_reason=(
+      InferenceTerminationReason.FIXED_POINT
+    ),
   )
 
   assert result.steps == (
@@ -5769,6 +5773,11 @@ def test_inference_run_result():
   assert result.round_history == ()
 
   assert result.round_count == 0
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
 
 
 def test_run_inference_until_stable_with_history():
@@ -6276,6 +6285,325 @@ def test_run_inference_until_stable_with_history_requires_builder_for_matched_ru
       ),
     )
 
+
+def test_inference_termination_reason_values():
+  assert (
+    InferenceTerminationReason.FIXED_POINT.value
+    == "fixed_point"
+  )
+
+  assert (
+    InferenceTerminationReason.MAX_ROUNDS.value
+    == "max_rounds"
+  )
+
+
+def test_run_inference_until_stable_with_history_reports_fixed_point():
+  initial_step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (),
+      (
+        initial_step,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+
+def test_run_inference_until_stable_with_history_stops_at_max_rounds():
+  first_rule = InferenceRule(
+    name="given to relation",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="relation to final",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "final"
+    ),
+  )
+
+  initial_step = ProofStep(
+    conclusion="initial",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        first_rule,
+        second_rule,
+      ),
+      (
+        initial_step,
+      ),
+      max_rounds=1,
+    )
+  )
+
+  assert result.round_count == 1
+
+  assert tuple(
+    step.conclusion
+    for step in result.steps
+  ) == (
+    "initial",
+    Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.MAX_ROUNDS
+  )
+
+
+def test_run_inference_until_stable_with_history_max_rounds_zero():
+  rule = InferenceRule(
+    name="given inference",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  initial_step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        rule,
+      ),
+      (
+        initial_step,
+      ),
+      max_rounds=0,
+    )
+  )
+
+  assert result.steps == (
+    initial_step,
+  )
+
+  assert result.round_history == ()
+
+  assert result.round_count == 0
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.MAX_ROUNDS
+  )
+
+
+def test_run_inference_until_stable_with_history_reaches_fixed_point_before_limit():
+  rule = InferenceRule(
+    name="given inference",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  initial_step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        rule,
+      ),
+      (
+        initial_step,
+      ),
+      max_rounds=10,
+    )
+  )
+
+  assert result.round_count == 1
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+
+def test_run_inference_until_stable_with_history_limit_equal_to_productive_rounds():
+  first_rule = InferenceRule(
+    name="derive relation",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="derive final",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "final"
+    ),
+  )
+
+  initial_step = ProofStep(
+    conclusion="initial",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        first_rule,
+        second_rule,
+      ),
+      (
+        initial_step,
+      ),
+      max_rounds=2,
+    )
+  )
+
+  assert result.round_count == 2
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.MAX_ROUNDS
+  )
+
+
+def test_run_inference_until_stable_with_history_rejects_negative_max_rounds():
+  with pytest.raises(ValueError):
+    run_inference_until_stable_with_history(
+      (),
+      (),
+      max_rounds=-1,
+    )
+
+
+def test_run_inference_until_stable_with_history_rejects_non_integer_max_rounds():
+  with pytest.raises(TypeError):
+    run_inference_until_stable_with_history(
+      (),
+      (),
+      max_rounds=1.5,
+    )
+
+
+def test_run_inference_until_stable_with_history_rejects_bool_max_rounds():
+  with pytest.raises(TypeError):
+    run_inference_until_stable_with_history(
+      (),
+      (),
+      max_rounds=True,
+    )
+
+
+def test_run_inference_until_stable_respects_max_rounds():
+  first_rule = InferenceRule(
+    name="given to relation",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="relation to final",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "final"
+    ),
+  )
+
+  initial_step = ProofStep(
+    conclusion="initial",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = run_inference_until_stable(
+    (
+      first_rule,
+      second_rule,
+    ),
+    (
+      initial_step,
+    ),
+    max_rounds=1,
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in result
+  ) == (
+    "initial",
+    Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+  )
 
 
 

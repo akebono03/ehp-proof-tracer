@@ -18036,6 +18036,958 @@ termination reason
 の導入が次の候補となる。
 
 
+---
+
+# Phase 5-30：max_rounds + termination reason
+
+Phase 5-29 では、
+fixed-point inference の実行結果を、
+
+```python
+InferenceRunResult
+```
+
+として構造化し、
+
+```text
+final steps
+round history
+productive round count
+```
+
+を取得できるようにした。
+
+しかし、
+
+```python
+run_inference_until_stable_with_history()
+```
+
+は、
+
+```text
+genuinely new ProofStep がなくなる
+```
+
+まで無制限に round を繰り返していた。
+
+通常の有限な inference system では問題ないが、
+`conclusion_builder` が毎回異なる conclusion を生成できる場合、
+
+```text
+delta_0 != ()
+delta_1 != ()
+delta_2 != ()
+...
+```
+
+が無限に続く可能性がある。
+
+Phase 5-30 では、
+fixed-point inference に安全な upper bound を与えるため、
+
+```text
+max_rounds
+```
+
+を導入する。
+
+また、
+
+```text
+fixed point に到達したため停止した
+```
+
+のか、
+
+```text
+round limit に到達したため停止した
+```
+
+のかを区別するため、
+
+```text
+termination reason
+```
+
+を structured result に追加する。
+
+---
+
+## InferenceTerminationReason
+
+termination reason は文字列ではなく Enum とする。
+
+```python
+class InferenceTerminationReason(Enum):
+  FIXED_POINT = "fixed_point"
+  MAX_ROUNDS = "max_rounds"
+```
+
+Phase 5-30 では、
+termination reason をこの2種類に限定する。
+
+### FIXED_POINT
+
+```text
+derive_new_inference_steps(...)
+```
+
+を実際に実行し、
+
+```python
+()
+```
+
+が返された場合に使用する。
+
+これは、
+
+```text
+current rule set
++
+current matching semantics
++
+current duplicate semantics
+```
+
+の下で knowledge state がこれ以上増えないことを意味する。
+
+### MAX_ROUNDS
+
+設定された productive-round limit に到達した場合に使用する。
+
+これは、
+
+```text
+fixed point である
+```
+
+ことを意味しない。
+
+単に、
+
+```text
+これ以上 inference round を実行しない
+```
+
+という execution-level termination である。
+
+---
+
+## InferenceRunResult の拡張
+
+Phase 5-29 の、
+
+```python
+@dataclass(frozen=True)
+class InferenceRunResult:
+  steps: tuple[ProofStep, ...]
+  round_history: tuple[
+    tuple[ProofStep, ...],
+    ...
+  ]
+
+  @property
+  def round_count(self):
+    return len(
+      self.round_history
+    )
+```
+
+を、
+
+```python
+@dataclass(frozen=True)
+class InferenceRunResult:
+  steps: tuple[ProofStep, ...]
+  round_history: tuple[
+    tuple[ProofStep, ...],
+    ...
+  ]
+  termination_reason: InferenceTerminationReason
+
+  @property
+  def round_count(self):
+    return len(
+      self.round_history
+    )
+```
+
+へ拡張する。
+
+これにより、
+同じ final state であっても、
+
+```text
+FIXED_POINT
+```
+
+と、
+
+```text
+MAX_ROUNDS
+```
+
+を区別できる。
+
+---
+
+## max_rounds の意味
+
+`max_rounds` は、
+
+```text
+許可する productive round の最大数
+```
+
+と定義する。
+
+Phase 5-29 で、
+
+```text
+round_count
+=
+productive round count
+```
+
+と定義したため、
+この semantics と直接対応する。
+
+したがって常に、
+
+```text
+round_count <= max_rounds
+```
+
+が成立する。
+
+`max_rounds=None` の場合は
+upper bound を設定しない。
+
+---
+
+## productive round と limit
+
+productive round は、
+
+```text
+1個以上の genuinely new ProofStep を
+knowledge state に追加した round
+```
+
+である。
+
+したがって、
+
+```python
+max_rounds=2
+```
+
+なら、
+
+```text
+round 1
+round 2
+```
+
+まで state expansion を許可する。
+
+2 round 終了時点で、
+
+```text
+round_count == 2
+```
+
+となるため、
+次の derivation attempt を実行せず、
+
+```text
+MAX_ROUNDS
+```
+
+で終了する。
+
+---
+
+## exact-limit semantics
+
+以下を考える。
+
+```text
+initial:
+A
+
+round 1:
+B
+
+round 2:
+C
+
+next round:
+new_steps = ()
+```
+
+`max_rounds=None` なら、
+next round の check まで実行し、
+
+```text
+FIXED_POINT
+```
+
+となる。
+
+しかし、
+
+```python
+max_rounds=2
+```
+
+なら、
+round 2 の終了直後に limit に到達する。
+
+この場合、
+次の、
+
+```python
+derive_new_inference_steps(...)
+```
+
+を実行していないため、
+
+```text
+現在の state が fixed point
+```
+
+とは判定できない。
+
+したがって結果は、
+
+```text
+MAX_ROUNDS
+```
+
+とする。
+
+これは意図的な semantics である。
+
+---
+
+## max_rounds = 0
+
+```python
+max_rounds=0
+```
+
+は有効値とする。
+
+意味は、
+
+```text
+productive round を1回も許可しない
+```
+
+である。
+
+したがって、
+
+```text
+initial state
+↓
+limit check
+↓
+MAX_ROUNDS
+```
+
+となる。
+
+この場合、
+
+```text
+round_history = ()
+round_count = 0
+```
+
+であり、
+`conclusion_builder` も実行しない。
+
+---
+
+## limit check の位置
+
+fixed-point loop は概念的に、
+
+```text
+current state
+↓
+round limit reached?
+├── yes
+│   ↓
+│   MAX_ROUNDS
+│
+└── no
+    ↓
+    derive new steps
+    ↓
+    new_steps == () ?
+    ├── yes
+    │   ↓
+    │   FIXED_POINT
+    │
+    └── no
+        ↓
+        record delta
+        ↓
+        expand state
+        ↓
+        repeat
+```
+
+とする。
+
+limit check は derivation より前に置く。
+
+これにより、
+
+```python
+max_rounds=0
+```
+
+が自然に実装できる。
+
+---
+
+## run_inference_until_stable_with_history()
+
+signature を、
+
+```python
+run_inference_until_stable_with_history(
+  inference_rules,
+  available_steps,
+  max_rounds=None,
+)
+```
+
+へ拡張する。
+
+基本実装:
+
+```python
+def run_inference_until_stable_with_history(
+  inference_rules,
+  available_steps,
+  max_rounds=None,
+):
+  normalized_rules = (
+    _normalize_inference_rules(
+      inference_rules
+    )
+  )
+
+  current_steps = (
+    _normalize_proof_steps(
+      available_steps,
+      "available_steps",
+    )
+  )
+
+  _validate_max_rounds(
+    max_rounds
+  )
+
+  round_history = []
+
+  while True:
+    if (
+      max_rounds is not None
+      and len(
+        round_history
+      ) >= max_rounds
+    ):
+      return InferenceRunResult(
+        steps=current_steps,
+        round_history=tuple(
+          round_history
+        ),
+        termination_reason=(
+          InferenceTerminationReason.MAX_ROUNDS
+        ),
+      )
+
+    new_steps = (
+      derive_new_inference_steps(
+        normalized_rules,
+        current_steps,
+      )
+    )
+
+    if not new_steps:
+      return InferenceRunResult(
+        steps=current_steps,
+        round_history=tuple(
+          round_history
+        ),
+        termination_reason=(
+          InferenceTerminationReason.FIXED_POINT
+        ),
+      )
+
+    round_history.append(
+      new_steps
+    )
+
+    current_steps = (
+      current_steps
+      + new_steps
+    )
+```
+
+---
+
+## simple API への max_rounds propagation
+
+Phase 5-29 では、
+
+```python
+run_inference_until_stable()
+```
+
+を detailed API の wrapper とした。
+
+Phase 5-30 でもこの構造を維持し、
+
+```python
+def run_inference_until_stable(
+  inference_rules,
+  available_steps,
+  max_rounds=None,
+):
+  result = (
+    run_inference_until_stable_with_history(
+      inference_rules,
+      available_steps,
+      max_rounds=max_rounds,
+    )
+  )
+
+  return result.steps
+```
+
+とする。
+
+これにより、
+
+```text
+simple API
+detailed API
+```
+
+で fixed-point execution semantics が分岐しない。
+
+---
+
+## simple API の意味
+
+simple API で、
+
+```python
+run_inference_until_stable(
+  rules,
+  steps,
+  max_rounds=3,
+)
+```
+
+を実行した場合、
+返るのは、
+
+```text
+termination 時点の ProofSteps
+```
+
+だけである。
+
+その termination が、
+
+```text
+FIXED_POINT
+```
+
+なのか、
+
+```text
+MAX_ROUNDS
+```
+
+なのかは返り値から直接判定できない。
+
+termination reason が必要な caller は、
+
+```python
+run_inference_until_stable_with_history()
+```
+
+を使用する。
+
+したがって、
+
+```text
+simple API
+=
+state-oriented API
+
+detailed API
+=
+execution-oriented API
+```
+
+という役割分担を維持する。
+
+---
+
+## max_rounds validation
+
+validation helper:
+
+```python
+def _validate_max_rounds(
+  max_rounds,
+):
+  if max_rounds is None:
+    return
+
+  if (
+    isinstance(
+      max_rounds,
+      bool,
+    )
+    or not isinstance(
+      max_rounds,
+      int,
+    )
+  ):
+    raise TypeError(
+      "max_rounds must be "
+      "an int or None"
+    )
+
+  if max_rounds < 0:
+    raise ValueError(
+      "max_rounds must be "
+      "non-negative"
+    )
+```
+
+有効値:
+
+```text
+None
+0
+1
+2
+...
+```
+
+無効値:
+
+```text
+negative integer
+float
+string
+bool
+```
+
+---
+
+## bool を拒否する理由
+
+Python では、
+
+```python
+isinstance(
+  True,
+  int,
+)
+```
+
+が `True` になる。
+
+しかし、
+
+```text
+True rounds
+False rounds
+```
+
+は inference API の configuration として意味が不明確である。
+
+したがって、
+
+```python
+isinstance(
+  max_rounds,
+  bool,
+)
+```
+
+を明示的に検査し、
+`TypeError` とする。
+
+---
+
+## termination reason と mathematical semantics
+
+`InferenceTerminationReason.FIXED_POINT` は、
+
+```text
+mathematical proof search が完全
+```
+
+であることを意味しない。
+
+意味するのは、
+
+```text
+現在登録されている InferenceRule
++
+現在の greedy matching
++
+現在の conclusion equality
+```
+
+の下で、
+
+```text
+derive_new_inference_steps() == ()
+```
+
+となったということだけである。
+
+したがって、
+
+```text
+inference-engine fixed point
+```
+
+と、
+
+```text
+mathematical completeness
+```
+
+は引き続き区別する。
+
+---
+
+## MAX_ROUNDS の意味
+
+`MAX_ROUNDS` も mathematical failure を意味しない。
+
+これは、
+
+```text
+proof could not be derived
+```
+
+でも、
+
+```text
+rule system is cyclic
+```
+
+でもない。
+
+単に、
+
+```text
+configured execution budget exhausted
+```
+
+という意味である。
+
+将来的に、
+
+```text
+cycle detection
+timeout
+resource limit
+```
+
+などを追加する場合でも、
+それぞれ別 termination reason として拡張可能である。
+
+Phase 5-30 ではそこまで実装しない。
+
+---
+
+## current fixed-point result semantics
+
+Phase 5-30 の、
+
+```python
+InferenceRunResult
+```
+
+は、
+
+```text
+steps
+=
+termination 時点の knowledge state
+
+round_history
+=
+productive round ごとの delta
+
+round_count
+=
+productive round 数
+
+termination_reason
+=
+execution が停止した理由
+```
+
+を表す。
+
+`steps` は、
+
+```text
+stable state
+```
+
+とは限らない。
+
+`termination_reason == FIXED_POINT`
+
+の場合のみ、
+
+```text
+current inference semantics の下で stable
+```
+
+と判定できる。
+
+---
+
+## Phase 5-30 の設計原則
+
+1. iterative inference に optional round limit を導入する。
+2. parameter 名は `max_rounds` とする。
+3. `max_rounds` は productive-round limit とする。
+4. `None` は unlimited execution を意味する。
+5. `0` は有効値とする。
+6. limit check は derivation より前に行う。
+7. `round_count <= max_rounds` を保証する。
+8. exact limit 到達時は `MAX_ROUNDS` とする。
+9. fixed point を実際に確認した場合のみ `FIXED_POINT` とする。
+10. termination reason は Enum とする。
+11. `FIXED_POINT` と `MAX_ROUNDS` の2値から開始する。
+12. `InferenceRunResult` に `termination_reason` を追加する。
+13. detailed API は termination reason を返す。
+14. simple API は steps だけを返す。
+15. simple API にも `max_rounds` を追加する。
+16. simple API は detailed API へ limit をそのまま渡す。
+17. fixed-point execution logic は detailed API に集約する。
+18. negative max_rounds は拒否する。
+19. non-integer max_rounds は拒否する。
+20. bool max_rounds は拒否する。
+21. greedy premise matching は変更しない。
+22. duplicate semantics は変更しない。
+23. productive-round history semantics は変更しない。
+24. terminal empty round は history に追加しない。
+25. cycle detection はまだ実装しない。
+26. timeout はまだ実装しない。
+27. rule-application history はまだ実装しない。
+28. candidate-rejection history はまだ実装しない。
+29. alternative-proof storage はまだ実装しない。
+30. mathematical completeness とは区別する。
+31. algebra / EHP 層には変更を加えない。
+
+---
+
+## Phase 5-30 の到達点
+
+Phase 5-29 では、
+
+```text
+initial state
+↓
+round 1
+↓
+round 2
+↓
+...
+↓
+fixed point
+↓
+history-aware result
+```
+
+までだった。
+
+Phase 5-30 では、
+
+```text
+initial state
+↓
+productive-round budget
+↓
+iterative inference
+↓
+termination
+├── FIXED_POINT
+└── MAX_ROUNDS
+↓
+InferenceRunResult
+```
+
+まで進んだ。
+
+これにより inference engine は、
+
+```text
+何が導出されたか
+どの round で導出されたか
+何 round 実行したか
+なぜ停止したか
+```
+
+を区別して扱える。
+
+また、
+potentially unbounded な rule system に対しても、
+
+```python
+max_rounds=N
+```
+
+を指定することで
+有限回の state expansion に制限できるようになった。
+
+次の設計課題は、
+
+```text
+各 round 内で
+何が起きたか
+```
+
+をより詳細に構造化すること、
+または inference matching 自体をより強力にすることである。
+
+候補:
+
+```text
+structured InferenceRound result
+InferenceMatch / rule-application history
+duplicate-rejected candidate history
+alternative premise assignments
+backtracking
+expression-level pattern matching
+variable binding
+substitution
+```
 
 
 

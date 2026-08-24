@@ -68,6 +68,11 @@ class InferenceMatch:
   premises: tuple[ProofStep, ...]
 
 
+class InferenceTerminationReason(Enum):
+  FIXED_POINT = "fixed_point"
+  MAX_ROUNDS = "max_rounds"
+
+
 @dataclass(frozen=True)
 class InferenceRunResult:
   steps: tuple[ProofStep, ...]
@@ -75,6 +80,7 @@ class InferenceRunResult:
     tuple[ProofStep, ...],
     ...
   ]
+  termination_reason: InferenceTerminationReason
 
   @property
   def round_count(self):
@@ -878,6 +884,34 @@ def relation_inference_proof(
   )
 
 
+def _validate_max_rounds(
+  max_rounds,
+):
+  if max_rounds is None:
+    return
+
+  if (
+    isinstance(
+      max_rounds,
+      bool,
+    )
+    or not isinstance(
+      max_rounds,
+      int,
+    )
+  ):
+    raise TypeError(
+      "max_rounds must be "
+      "an int or None"
+    )
+
+  if max_rounds < 0:
+    raise ValueError(
+      "max_rounds must be "
+      "non-negative"
+    )
+
+
 def derive_inference_steps(
   inference_rules,
   available_steps,
@@ -992,6 +1026,7 @@ def run_inference_round(
 def run_inference_until_stable_with_history(
   inference_rules,
   available_steps,
+  max_rounds=None,
 ):
   normalized_rules = (
     _normalize_inference_rules(
@@ -1006,9 +1041,29 @@ def run_inference_until_stable_with_history(
     )
   )
 
+  _validate_max_rounds(
+    max_rounds
+  )
+
   round_history = []
 
   while True:
+    if (
+      max_rounds is not None
+      and len(
+        round_history
+      ) >= max_rounds
+    ):
+      return InferenceRunResult(
+        steps=current_steps,
+        round_history=tuple(
+          round_history
+        ),
+        termination_reason=(
+          InferenceTerminationReason.MAX_ROUNDS
+        ),
+      )
+
     new_steps = (
       derive_new_inference_steps(
         normalized_rules,
@@ -1021,6 +1076,9 @@ def run_inference_until_stable_with_history(
         steps=current_steps,
         round_history=tuple(
           round_history
+        ),
+        termination_reason=(
+          InferenceTerminationReason.FIXED_POINT
         ),
       )
 
@@ -1037,11 +1095,13 @@ def run_inference_until_stable_with_history(
 def run_inference_until_stable(
   inference_rules,
   available_steps,
+  max_rounds=None,
 ):
   result = (
     run_inference_until_stable_with_history(
       inference_rules,
       available_steps,
+      max_rounds=max_rounds,
     )
   )
 
