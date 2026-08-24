@@ -326,6 +326,135 @@ def test_relation_repository_to_inference_proof():
   )
 
 
+def test_format_relation_source():
+  relation = Relation(
+    lhs=Multiple(
+      2,
+      eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+    source="Toda",
+  )
+
+  step = ProofStep(
+    conclusion=relation,
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  text = format_proof_step(
+    step,
+    number=1,
+  )
+
+  assert (
+    "Source: Toda"
+    in text
+  )
+
+
+def test_format_relation_note():
+  relation = Relation(
+    lhs=Multiple(
+      2,
+      eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+    note="classical eta relation",
+  )
+
+  step = ProofStep(
+    conclusion=relation,
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  text = format_proof_step(
+    step,
+    number=1,
+  )
+
+  assert (
+    "Relation note: classical eta relation"
+    in text
+  )
+
+
+def test_format_proof_step_note():
+  step = ProofStep(
+    conclusion="result",
+    premises=(),
+    rule=ProofRule.GIVEN,
+    note="derived by a test rule",
+  )
+
+  text = format_proof_step(
+    step,
+    number=1,
+  )
+
+  assert (
+    "Note: derived by a test rule"
+    in text
+  )
+
+
+def test_format_relation_and_proof_step_notes():
+  relation = Relation(
+    lhs=Multiple(
+      2,
+      eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+    source="Toda",
+    note="classical eta relation",
+  )
+
+  proof = relation_inference_proof(
+    relation,
+    "η_3 has order dividing 2",
+    note="derived from the zero relation",
+  )
+
+  text = format_proof(
+    proof
+  )
+
+  assert (
+    "1. 2η_3 = 0"
+    in text
+  )
+
+  assert (
+    "Source: Toda"
+    in text
+  )
+
+  assert (
+    "Relation note: classical eta relation"
+    in text
+  )
+
+  assert (
+    "2. η_3 has order dividing 2"
+    in text
+  )
+
+  assert (
+    "Premises: 1"
+    in text
+  )
+
+  assert (
+    "Note: derived from the zero relation"
+    in text
+  )
+
+
+
 
 
 

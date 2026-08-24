@@ -141,6 +141,22 @@ def format_proof_step(
     f"   [{rule}]",
   ]
 
+  if isinstance(
+    step.conclusion,
+    Relation,
+  ):
+    relation = step.conclusion
+
+    if relation.source:
+      lines.append(
+        f"   Source: {relation.source}"
+      )
+
+    if relation.note:
+      lines.append(
+        f"   Relation note: {relation.note}"
+      )
+
   if step.premises:
     premise_labels = []
 
@@ -168,6 +184,11 @@ def format_proof_step(
       + ", ".join(
         premise_labels
       )
+    )
+
+  if step.note:
+    lines.append(
+      f"   Note: {step.note}"
     )
 
   return "\n".join(lines)
@@ -201,7 +222,6 @@ def format_proof(proof):
       )
     )
 
-  lines.append("")
   lines.append("Conclusion:")
   lines.append(
     format_statement(
@@ -247,7 +267,6 @@ def format_expression(expression):
     )
 
   return str(expression)
-
 
 
 

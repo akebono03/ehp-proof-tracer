@@ -19,11 +19,13 @@ relation = Relation(
   rhs=Zero(),
   relation_type=RelationType.ZERO,
   source="Toda",
+  note="classical eta relation",
 )
 
 proof = relation_inference_proof(
   relation,
   "η_3 has order dividing 2",
+  note="derived from the zero relation",
 )
 
 print(
@@ -31,5 +33,7 @@ print(
     proof
   )
 )
+
+
 
 

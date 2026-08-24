@@ -3161,6 +3161,167 @@ ProofStep.note
 Proof formatter に反映する。
 
 
+## Phase 5-11：Relation metadata の Proof 表示
+
+Relation および ProofStep が保持している metadata を
+Proof formatter に反映した。
+
+対象:
+
+```text
+Relation.source
+Relation.note
+ProofStep.note
+```
+
+---
+
+### Relation source の表示
+
+Relation が `source` を持つ場合、
+relation ProofStep に出典を表示するようにした。
+
+例:
+
+```text
+1. 2η_3 = 0
+   [relation]
+   Source: Toda
+```
+
+これにより、
+Proof trace 上で relation の数学的内容だけでなく、
+その relation がどの文献・データソースに由来するかを
+確認できるようになった。
+
+---
+
+### Relation note の表示
+
+Relation 自体に付随する補足情報を表示できるようにした。
+
+例:
+
+```text
+1. 2η_3 = 0
+   [relation]
+   Source: Toda
+   Relation note: classical eta relation
+```
+
+`Relation.note` は、
+relation そのものについての metadata とする。
+
+---
+
+### ProofStep note の表示
+
+ProofStep 自体に付随する補足情報も
+formatter に反映した。
+
+例:
+
+```text
+2. η_3 has order dividing 2
+   [relation]
+   Premises: 1
+   Note: derived from the zero relation
+```
+
+`ProofStep.note` は、
+relation 自体の metadata ではなく、
+その step における推論・利用方法についての補足とする。
+
+したがって、
+
+```text
+Relation.note
+```
+
+と、
+
+```text
+ProofStep.note
+```
+
+は別の意味として維持する。
+
+---
+
+### metadata を持たない場合
+
+`source` / `note` が `None` の場合には、
+対応する行を表示しない。
+
+これにより既存の EHP proof や
+metadata を持たない ProofStep の表示形式は維持される。
+
+---
+
+### 確認例
+
+```text
+1. 2η_3 = 0
+   [relation]
+   Source: Toda
+   Relation note: classical eta relation
+
+2. η_3 has order dividing 2
+   [relation]
+   Premises: 1
+   Note: derived from the zero relation
+
+Conclusion:
+
+η_3 has order dividing 2
+```
+
+これにより、
+
+```text
+数学的事実
++
+出典
++
+relation の補足
++
+その relation を使った推論
++
+proof dependency
+```
+
+を同じ Proof trace 上で確認できるようになった。
+
+---
+
+### テスト
+
+追加した主なテスト:
+
+```text
+test_format_relation_source
+test_format_relation_note
+test_format_proof_step_note
+test_format_relation_and_proof_step_notes
+```
+
+2026-08-24:
+
+```text
+200 passed in 24.79s
+```
+
+既存の algebra / EHP / expression / proof / repository を含め、
+すべてのテストが成功した。
+
+### 状態
+
+Phase 5-11 完了。
+
+
+
+
+
 
 
 
