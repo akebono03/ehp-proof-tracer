@@ -1957,6 +1957,348 @@ substitution
 ```
 
 
+## Phase 5-32: per-round inference-match tracing
+
+Phase 5-32 extends the structured round result introduced in Phase
+5-31.
+
+`InferenceRoundResult` now records not only the genuinely new
+`ProofStep` objects produced by a round, but also the
+`InferenceMatch` objects found during that round.
+
+Conceptually:
+
+```text
+available ProofSteps
++
+InferenceRules
+↓
+find InferenceMatches
+↓
+apply matches
+↓
+candidate derived ProofSteps
+↓
+duplicate filtering
+↓
+genuinely new ProofSteps
+```
+
+is now represented by:
+
+```python
+InferenceRoundResult(
+  new_steps=...,
+  matches=...,
+)
+```
+
+The two fields have intentionally different meanings.
+
+```text
+matches
+=
+all inference matches found before duplicate filtering
+
+new_steps
+=
+only genuinely new ProofSteps added to the knowledge state
+```
+
+For example, two different inference rules may produce the same
+conclusion:
+
+```text
+rule A
++
+rule B
+↓
+same conclusion
+```
+
+In that case:
+
+```text
+matches = (
+  match_from_rule_A,
+  match_from_rule_B,
+)
+```
+
+while:
+
+```text
+new_steps = (
+  first_new_step,
+)
+```
+
+because duplicate conclusions are still added only once.
+
+Likewise, a rule may successfully match even when its generated
+conclusion is already known.
+
+In that case:
+
+```text
+matches != ()
+new_steps == ()
+```
+
+This distinction allows the inference engine to preserve information
+about:
+
+* which rules were applicable
+* which premises were selected
+* which inference opportunities existed
+* which matches actually contributed new knowledge
+
+without changing the existing duplicate semantics of the knowledge
+state.
+
+A one-round structured result can now be obtained directly with:
+
+```python
+round_result = derive_inference_round_result(
+  inference_rules,
+  available_steps,
+)
+```
+
+and inspected through:
+
+```python
+round_result.matches
+round_result.new_steps
+```
+
+`derive_new_inference_steps()` remains the simpler API and returns only:
+
+```python
+round_result.new_steps
+```
+
+so existing callers that only need newly derived facts do not need to
+handle match metadata.
+
+The fixed-point runner also preserves these structured round results.
+
+For example:
+
+```python
+result = run_inference_until_stable_with_history(
+  inference_rules,
+  initial_steps,
+)
+```
+
+provides:
+
+```python
+result.round_results
+```
+
+where every productive round contains both:
+
+```text
+InferenceRoundResult
+├── matches
+└── new_steps
+```
+
+Therefore a multi-round inference execution can now answer both:
+
+```text
+What new facts were added in this round?
+```
+
+and:
+
+```text
+Which inference rules matched in this round?
+```
+
+The existing compatibility view:
+
+```python
+result.round_history
+```
+
+continues to expose only the per-round `new_steps`.
+
+---
+
+## Tests
+
+Run the inference-rule tests with:
+
+```powershell
+python -m pytest tests/test_inference_rule_pattern.py -v
+```
+
+At the completion of Phase 5-32:
+
+```text
+231 passed in 5.67s
+```
+
+Phase 5-32 adds coverage for:
+
+```text
+InferenceRoundResult.matches default
+structured one-round derivation result
+compatibility between structured and simple one-round APIs
+no-match round result
+preservation of all matches before duplicate filtering
+per-round match recording in fixed-point inference
+match preservation across multiple rounds
+match preservation when the generated conclusion is already known
+```
+
+All 231 inference-rule pattern tests pass.
+
+No regression was detected in the previously implemented:
+
+```text
+premise-pattern matching
+inference-rule matching
+premise search
+rule applicability
+InferenceMatch construction
+InferenceMatch application
+candidate derivation
+duplicate-aware merging
+one-round inference
+fixed-point inference
+round history
+max-round termination
+termination reasons
+structured round results
+```
+
+---
+
+## Current Phase 5 inference result structure
+
+After Phase 5-32, the fixed-point inference result has the conceptual
+structure:
+
+```text
+InferenceRunResult
+├── steps
+├── round_results
+│   ├── round 1
+│   │   ├── matches
+│   │   └── new_steps
+│   ├── round 2
+│   │   ├── matches
+│   │   └── new_steps
+│   └── ...
+├── round_history
+├── round_count
+└── termination_reason
+```
+
+where:
+
+```text
+steps
+=
+final accumulated knowledge state
+
+round_results
+=
+structured information for productive rounds
+
+round_history
+=
+compatibility view containing only new_steps
+
+round_count
+=
+number of productive rounds
+
+termination_reason
+=
+FIXED_POINT or MAX_ROUNDS
+```
+
+This gives the inference engine a first explicit execution trace.
+
+It can now distinguish:
+
+```text
+rule matched
+```
+
+from:
+
+```text
+rule produced genuinely new knowledge
+```
+
+which will be important when later phases introduce more sophisticated
+rule selection, diagnostics, proof tracing, and search strategies.
+
+---
+
+## Next direction
+
+The round-level execution trace currently records:
+
+```text
+matches
+new_steps
+```
+
+The next natural extension is to make the relationship between these
+two layers more explicit.
+
+A future round result may need to distinguish:
+
+```text
+matched rule
+↓
+candidate derived ProofStep
+↓
+accepted as genuinely new
+```
+
+from:
+
+```text
+matched rule
+↓
+candidate derived ProofStep
+↓
+discarded because conclusion was already known
+```
+
+or:
+
+```text
+matched rule
+↓
+candidate derived ProofStep
+↓
+discarded because another match produced the same conclusion first
+```
+
+This will make it possible to explain not only:
+
+```text
+what was derived
+```
+
+but also:
+
+```text
+why a matching inference did or did not change the knowledge state
+```
+
+without changing the current mathematical inference semantics.
+
+
 
 
 

@@ -76,6 +76,9 @@ class InferenceTerminationReason(Enum):
 @dataclass(frozen=True)
 class InferenceRoundResult:
   new_steps: tuple[ProofStep, ...]
+  matches: tuple[InferenceMatch, ...] = ()
+  candidate_steps: tuple[ProofStep, ...] = ()
+  duplicate_rejected_steps: tuple[ProofStep, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -988,30 +991,89 @@ def merge_proof_steps(
   )
 
 
+def partition_new_and_duplicate_proof_steps(
+  available_steps,
+  candidate_steps,
+):
+  available_steps = _normalize_proof_steps(
+    available_steps,
+  )
+  candidate_steps = _normalize_proof_steps(
+    candidate_steps,
+  )
+
+  seen_conclusions = [
+    step.conclusion
+    for step in available_steps
+  ]
+
+  new_steps = []
+  duplicate_rejected_steps = []
+
+  for step in candidate_steps:
+    if step.conclusion in seen_conclusions:
+      duplicate_rejected_steps.append(step)
+      continue
+
+    seen_conclusions.append(
+      step.conclusion
+    )
+    new_steps.append(step)
+
+  return (
+    tuple(new_steps),
+    tuple(duplicate_rejected_steps),
+  )
+
+
+def derive_inference_round_result(
+  inference_rules,
+  available_steps,
+):
+  normalized_rules = _normalize_inference_rules(
+    inference_rules,
+  )
+  normalized_steps = _normalize_proof_steps(
+    available_steps,
+  )
+
+  matches = find_inference_matches(
+    normalized_rules,
+    normalized_steps,
+  )
+
+  candidate_steps = apply_inference_matches(
+    matches,
+  )
+
+  (
+    new_steps,
+    duplicate_rejected_steps,
+  ) = partition_new_and_duplicate_proof_steps(
+    normalized_steps,
+    candidate_steps,
+  )
+
+  return InferenceRoundResult(
+    new_steps=new_steps,
+    matches=matches,
+    candidate_steps=candidate_steps,
+    duplicate_rejected_steps=duplicate_rejected_steps,
+  )
+
+
 def derive_new_inference_steps(
   inference_rules,
   available_steps,
 ):
-  normalized_steps = (
-    _normalize_proof_steps(
+  round_result = (
+    derive_inference_round_result(
+      inference_rules,
       available_steps,
-      "available_steps",
     )
   )
 
-  derived_steps = derive_inference_steps(
-    inference_rules,
-    normalized_steps,
-  )
-
-  merged_steps = merge_proof_steps(
-    normalized_steps,
-    derived_steps,
-  )
-
-  return merged_steps[
-    len(normalized_steps):
-  ]
+  return round_result.new_steps
 
 
 def run_inference_round(
@@ -1077,11 +1139,15 @@ def run_inference_until_stable_with_history(
         ),
       )
 
-    new_steps = (
-      derive_new_inference_steps(
+    round_result = (
+      derive_inference_round_result(
         normalized_rules,
         current_steps,
       )
+    )
+
+    new_steps = (
+      round_result.new_steps
     )
 
     if not new_steps:
@@ -1096,9 +1162,7 @@ def run_inference_until_stable_with_history(
       )
 
     round_results.append(
-      InferenceRoundResult(
-        new_steps=new_steps,
-      )
+      round_result
     )
 
     current_steps = (

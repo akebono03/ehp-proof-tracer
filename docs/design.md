@@ -19961,6 +19961,867 @@ accepted new steps
 構造化できる。
 
 
+# Phase 5-32: per-round InferenceMatch trace
+
+## 目的
+
+Phase 5-31 では、
+
+```text
+1 round
+=
+InferenceRoundResult
+```
+
+という構造を導入し、
+
+```python
+InferenceRoundResult(
+  new_steps=...,
+)
+```
+
+によって、
+
+```text
+その round で実際に knowledge state へ追加された
+genuinely new ProofStep
+```
+
+を round 単位で表現できるようにした。
+
+しかしこの情報だけでは、
+
+```text
+どの InferenceRule が applicable だったか
+どの ProofStep が premise として選ばれたか
+```
+
+を round 実行後に復元できない。
+
+Phase 5-32 では `InferenceRoundResult` に
+
+```python
+matches: tuple[InferenceMatch, ...]
+```
+
+を追加し、
+
+```text
+rule matching
+```
+
+と
+
+```text
+knowledge-state expansion
+```
+
+の両方を1つの round result に保持する。
+
+---
+
+## InferenceRoundResult
+
+Phase 5-32 の基本構造は、
+
+```python
+@dataclass(frozen=True)
+class InferenceRoundResult:
+  new_steps: tuple[ProofStep, ...]
+  matches: tuple[InferenceMatch, ...] = ()
+```
+
+である。
+
+概念的には、
+
+```text
+InferenceRoundResult
+├── matches
+│   └── この round で成立した inference match
+└── new_steps
+    └── この round で実際に追加された ProofStep
+```
+
+を表す。
+
+`matches` に default として
+
+```python
+()
+```
+
+を与えることで、
+
+```python
+InferenceRoundResult(
+  new_steps=...,
+)
+```
+
+という Phase 5-31 までの構築方法との互換性を維持する。
+
+---
+
+## matches と new_steps は同じ個数である必要はない
+
+Phase 5-32 で重要なのは、
+
+```text
+matches
+```
+
+と
+
+```text
+new_steps
+```
+
+を一対一対応するものとして定義しないことである。
+
+例えば、
+
+```text
+InferenceRule A
+InferenceRule B
+```
+
+の両方が同じ premise に match し、
+
+両方の `conclusion_builder` が
+
+```text
+X
+```
+
+を生成するとする。
+
+この場合、
+
+```python
+matches = (
+  match_A,
+  match_B,
+)
+```
+
+である一方、
+
+duplicate filtering 後は、
+
+```python
+new_steps = (
+  proof_step_X,
+)
+```
+
+となる。
+
+したがって、
+
+```text
+len(matches) == len(new_steps)
+```
+
+は一般には成立しない。
+
+これは意図された semantics である。
+
+---
+
+## match は duplicate filtering より前の情報である
+
+Phase 5-32 の pipeline は、
+
+```text
+InferenceRules
++
+available ProofSteps
+↓
+find_inference_matches()
+↓
+InferenceMatch candidates
+↓
+apply_inference_matches()
+↓
+candidate derived ProofSteps
+↓
+merge_proof_steps()
+↓
+genuinely new ProofSteps
+```
+
+となる。
+
+`InferenceRoundResult.matches` が表すのは、
+
+```text
+duplicate filtering 前に成立した inference opportunities
+```
+
+である。
+
+一方、
+
+`InferenceRoundResult.new_steps` が表すのは、
+
+```text
+duplicate filtering 後に knowledge state を
+実際に拡張する delta
+```
+
+である。
+
+この2つを分離して保持する。
+
+---
+
+## 既知 conclusion に対する match
+
+次の状態を考える。
+
+```text
+available:
+A
+X
+
+rule:
+A → X
+```
+
+ここでは rule 自体は正常に match する。
+
+したがって、
+
+```python
+matches = (
+  match_A_to_X,
+)
+```
+
+となる。
+
+しかし `X` はすでに known conclusion なので、
+
+```python
+new_steps = ()
+```
+
+となる。
+
+つまり、
+
+```text
+match exists
+```
+
+と
+
+```text
+new knowledge exists
+```
+
+は異なる概念である。
+
+Phase 5-32 ではこの差を明示的に保存する。
+
+---
+
+## なぜ match を保持するのか
+
+将来の proof / inference engine では、
+
+単に
+
+```text
+最終的に何が証明されたか
+```
+
+だけでなく、
+
+```text
+どの rule が試されたか
+どの rule が match したか
+どの premises が選択されたか
+どの conclusion が重複として除外されたか
+```
+
+を説明できることが重要になる。
+
+特に、
+
+```text
+Toda relation
+EHP relation
+composition relation
+Hopf invariant
+Steenrod operation
+stable-range theorem
+```
+
+など多数の inference rule を扱う場合、
+
+同一 conclusion へ複数の証明経路が存在する可能性が高い。
+
+knowledge state では結論を1回だけ保存したとしても、
+
+```text
+alternative derivation existed
+```
+
+という情報自体には価値がある。
+
+そのため `matches` を duplicate filtering より前の段階で保持する。
+
+---
+
+## derive_inference_round_result()
+
+Phase 5-32 では1 round の中心処理を、
+
+```python
+derive_inference_round_result(
+  inference_rules,
+  available_steps,
+)
+```
+
+へ集約する。
+
+基本 pipeline:
+
+```text
+normalize rules
+↓
+normalize available steps
+↓
+find_inference_matches()
+↓
+matches
+↓
+apply_inference_matches()
+↓
+derived_steps
+↓
+merge_proof_steps()
+↓
+new_steps
+↓
+InferenceRoundResult(
+  matches=matches,
+  new_steps=new_steps,
+)
+```
+
+概念的な実装は、
+
+```python
+matches = find_inference_matches(
+  normalized_rules,
+  normalized_steps,
+)
+
+derived_steps = apply_inference_matches(
+  matches
+)
+
+merged_steps = merge_proof_steps(
+  normalized_steps,
+  derived_steps,
+)
+
+new_steps = merged_steps[
+  len(normalized_steps):
+]
+
+return InferenceRoundResult(
+  new_steps=new_steps,
+  matches=matches,
+)
+```
+
+となる。
+
+---
+
+## derive_new_inference_steps() との関係
+
+既存 API:
+
+```python
+derive_new_inference_steps(
+  inference_rules,
+  available_steps,
+)
+```
+
+は削除しない。
+
+Phase 5-32 では、
+
+```python
+round_result = derive_inference_round_result(
+  inference_rules,
+  available_steps,
+)
+
+return round_result.new_steps
+```
+
+という wrapper とする。
+
+したがって、
+
+```text
+derive_inference_round_result()
+=
+detailed one-round API
+
+derive_new_inference_steps()
+=
+simple one-round API
+```
+
+という役割分担になる。
+
+これにより、
+
+```text
+matching
+application
+duplicate filtering
+```
+
+の execution logic を複数箇所へ重複させない。
+
+---
+
+## one-round execution の single source of truth
+
+Phase 5-31 まで、
+
+```text
+derive_new_inference_steps()
+```
+
+が one-round delta derivation の中心だった。
+
+Phase 5-32 では、
+
+```text
+derive_inference_round_result()
+```
+
+をより低レベルの中心 API とする。
+
+つまり、
+
+```text
+derive_inference_round_result()
+↓
+derive_new_inference_steps()
+↓
+run_inference_round()
+```
+
+という依存方向にする。
+
+これにより、
+
+```text
+simple API
+detailed API
+fixed-point API
+```
+
+の間で、
+
+```text
+matching semantics
+duplicate semantics
+ordering semantics
+```
+
+がずれることを防ぐ。
+
+---
+
+## fixed-point inference への統合
+
+`run_inference_until_stable_with_history()` でも、
+
+各 round について直接、
+
+```python
+round_result = derive_inference_round_result(
+  normalized_rules,
+  current_steps,
+)
+```
+
+を取得する。
+
+その後、
+
+```python
+new_steps = round_result.new_steps
+```
+
+を termination 判定に使用する。
+
+```text
+new_steps == ()
+```
+
+なら fixed point であり、
+
+productive round ではないため、
+
+その `round_result` は `round_results` に追加しない。
+
+一方、
+
+```text
+new_steps != ()
+```
+
+なら productive round なので、
+
+```python
+round_results.append(
+  round_result
+)
+```
+
+した後、
+
+```text
+current_steps += new_steps
+```
+
+として次 round に進む。
+
+---
+
+## terminal empty round を記録しない semantics は維持する
+
+Phase 5-31 までと同じく、
+
+```text
+productive round
+=
+1個以上の genuinely new ProofStep が追加された round
+```
+
+とする。
+
+したがって、
+
+fixed point を確認した最後の round で、
+
+```text
+matches != ()
+new_steps == ()
+```
+
+となる可能性があっても、
+
+その terminal round 自体は
+
+```python
+result.round_results
+```
+
+へ保存しない。
+
+これは現在の、
+
+```python
+round_count == len(round_results)
+```
+
+という semantics を維持するためである。
+
+したがって Phase 5-32 の `round_results` は、
+
+```text
+all attempted rounds
+```
+
+ではなく、
+
+```text
+productive rounds の structured results
+```
+
+である。
+
+将来、
+
+```text
+terminal round diagnostics
+```
+
+も必要になった場合には、
+別途 execution-attempt history を設計する。
+
+---
+
+## per-round match order
+
+`matches` は既存の `find_inference_matches()` が返す順序をそのまま保持する。
+
+したがって基本 ordering は、
+
+```text
+InferenceRule input order
+↓
+InferenceMatch order
+```
+
+となる。
+
+その後、
+
+```text
+InferenceMatch order
+↓
+candidate ProofStep order
+↓
+first-new occurrence order
+↓
+new_steps order
+```
+
+という既存 semantics が続く。
+
+Phase 5-32 では match trace を追加するだけであり、
+既存 ordering semantics は変更しない。
+
+---
+
+## multi-round example
+
+例えば、
+
+```text
+initial:
+A
+
+rule 1:
+A → B
+
+rule 2:
+B → C
+```
+
+の場合、
+
+round 1:
+
+```text
+matches:
+  rule 1 with A
+
+new_steps:
+  B
+```
+
+round 2:
+
+```text
+matches:
+  rule 1 with A
+  rule 2 with B
+
+new_steps:
+  C
+```
+
+となり得る。
+
+つまり既知 premise が残り続けるため、
+
+以前の rule が後続 round でも再び match すること自体は許される。
+
+ただし、
+
+```text
+B
+```
+
+はすでに known conclusion なので、
+round 2 では再追加されない。
+
+したがって、
+
+```text
+matches
+=
+rule applicability history
+
+new_steps
+=
+knowledge growth history
+```
+
+として理解する。
+
+---
+
+## Phase 5-32 時点の result model
+
+最終的な概念構造は、
+
+```text
+InferenceRunResult
+├── steps
+│   └── final knowledge state
+│
+├── round_results
+│   ├── InferenceRoundResult
+│   │   ├── matches
+│   │   └── new_steps
+│   └── ...
+│
+├── round_history
+│   └── compatibility view of new_steps
+│
+├── round_count
+│   └── productive round count
+│
+└── termination_reason
+    ├── FIXED_POINT
+    └── MAX_ROUNDS
+```
+
+となる。
+
+---
+
+## 設計上の到達点
+
+Phase 5-24 以降、
+
+```text
+candidate ProofStep
+```
+
+から始まった inference execution は、
+
+```text
+candidate derivation
+↓
+state expansion
+↓
+duplicate filtering
+↓
+genuinely-new delta
+↓
+fixed-point iteration
+↓
+round history
+↓
+termination semantics
+↓
+structured round result
+↓
+per-round match trace
+```
+
+まで進んだ。
+
+これにより inference engine は、
+
+```text
+What rules matched?
+```
+
+と
+
+```text
+What new knowledge was actually added?
+```
+
+を区別して保持できる。
+
+これは将来の、
+
+```text
+proof explanation
+alternative derivation tracking
+rule diagnostics
+search strategy
+priority-based inference
+provenance tracing
+```
+
+の基盤となる。
+
+---
+
+## 次段階
+
+現在は、
+
+```text
+InferenceMatch
+```
+
+と
+
+```text
+new ProofStep
+```
+
+を同じ round に保持できるが、
+
+各 match が最終的に、
+
+```text
+accepted
+```
+
+されたのか、
+
+```text
+already known conclusion
+```
+
+として除外されたのか、
+
+```text
+same-round duplicate conclusion
+```
+
+として除外されたのかは、
+構造化された形では直接保持していない。
+
+次の自然な拡張候補は、
+
+```text
+match
+↓
+candidate derivation
+↓
+accept / reject
+↓
+reason
+```
+
+という対応関係を表現することである。
+
+ただし、
+Phase 5-32 ではそこまで進めず、
+
+```text
+matches
++
+new_steps
+```
+
+という最小限の execution trace に留める。
 
 
 

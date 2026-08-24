@@ -12,6 +12,7 @@ from proof import (
   RelationType,
   apply_inference_match,
   apply_inference_matches,
+  derive_inference_round_result,
   derive_inference_steps,
   derive_new_inference_steps,
   find_applicable_inference_rules,
@@ -6826,6 +6827,415 @@ def test_round_history_is_compatibility_view_of_round_results():
   )
 
   assert result.round_count == 2
+
+
+def test_inference_round_result_matches_default_to_empty():
+  step = ProofStep(
+    conclusion="derived",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  result = InferenceRoundResult(
+    new_steps=(
+      step,
+    ),
+  )
+
+  assert result.matches == ()
+
+
+def test_derive_inference_round_result():
+  rule = InferenceRule(
+    name="given inference",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    derive_inference_round_result(
+      (
+        rule,
+      ),
+      (
+        step,
+      ),
+    )
+  )
+
+  assert isinstance(
+    result,
+    InferenceRoundResult,
+  )
+
+  assert len(
+    result.matches
+  ) == 1
+
+  assert (
+    result.matches[0].inference_rule
+    == rule
+  )
+
+  assert result.matches[0].premises == (
+    step,
+  )
+
+  assert tuple(
+    derived_step.conclusion
+    for derived_step
+    in result.new_steps
+  ) == (
+    "derived",
+  )
+
+
+def test_derive_inference_round_result_new_steps_match_simple_api():
+  rule = InferenceRule(
+    name="given inference",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  round_result = (
+    derive_inference_round_result(
+      (
+        rule,
+      ),
+      (
+        step,
+      ),
+    )
+  )
+
+  new_steps = (
+    derive_new_inference_steps(
+      (
+        rule,
+      ),
+      (
+        step,
+      ),
+    )
+  )
+
+  assert (
+    round_result.new_steps
+    == new_steps
+  )
+
+
+def test_derive_inference_round_result_no_matches():
+  rule = InferenceRule(
+    name="relation inference",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.RELATION,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    derive_inference_round_result(
+      (
+        rule,
+      ),
+      (
+        step,
+      ),
+    )
+  )
+
+  assert result.matches == ()
+  assert result.new_steps == ()
+
+
+def test_derive_inference_round_result_keeps_all_matches_before_duplicate_filtering():
+  first_rule = InferenceRule(
+    name="first rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "same derived"
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "same derived"
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    derive_inference_round_result(
+      (
+        first_rule,
+        second_rule,
+      ),
+      (
+        step,
+      ),
+    )
+  )
+
+  assert len(
+    result.matches
+  ) == 2
+
+  assert tuple(
+    match.inference_rule
+    for match
+    in result.matches
+  ) == (
+    first_rule,
+    second_rule,
+  )
+
+  assert len(
+    result.new_steps
+  ) == 1
+
+  assert (
+    result.new_steps[0].conclusion
+    == "same derived"
+  )
+
+  assert (
+    result.new_steps[0].inference_rule
+    == first_rule
+  )
+
+
+def test_run_inference_until_stable_records_round_matches():
+  rule = InferenceRule(
+    name="given inference",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  initial_step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        rule,
+      ),
+      (
+        initial_step,
+      ),
+    )
+  )
+
+  assert result.round_count == 1
+
+  round_result = (
+    result.round_results[0]
+  )
+
+  assert len(
+    round_result.matches
+  ) == 1
+
+  assert (
+    round_result.matches[
+      0
+    ].inference_rule
+    == rule
+  )
+
+  assert (
+    round_result.matches[
+      0
+    ].premises
+    == (
+      initial_step,
+    )
+  )
+
+
+def test_run_inference_until_stable_preserves_per_round_matches():
+  first_rule = InferenceRule(
+    name="given to relation",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="relation to final",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "final"
+    ),
+  )
+
+  initial_step = ProofStep(
+    conclusion="initial",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        first_rule,
+        second_rule,
+      ),
+      (
+        initial_step,
+      ),
+    )
+  )
+
+  assert result.round_count == 2
+
+  assert tuple(
+    match.inference_rule
+    for match
+    in result.round_results[
+      0
+    ].matches
+  ) == (
+    first_rule,
+  )
+
+  assert tuple(
+    match.inference_rule
+    for match
+    in result.round_results[
+      1
+    ].matches
+  ) == (
+    first_rule,
+    second_rule,
+  )
+
+
+def test_derive_inference_round_result_keeps_match_when_conclusion_is_already_known():
+  rule = InferenceRule(
+    name="derive existing",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "already known"
+    ),
+  )
+
+  given_step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  existing_step = ProofStep(
+    conclusion="already known",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    derive_inference_round_result(
+      (
+        rule,
+      ),
+      (
+        given_step,
+        existing_step,
+      ),
+    )
+  )
+
+  assert len(
+    result.matches
+  ) == 1
+
+  assert (
+    result.matches[0].inference_rule
+    == rule
+  )
+
+  assert result.new_steps == ()
+
+
+
+
+
+
+
+
+
 
 
 
