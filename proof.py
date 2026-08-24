@@ -877,6 +877,29 @@ def derive_inference_steps(
   )
 
 
+def run_inference_round(
+  inference_rules,
+  available_steps,
+):
+  normalized_steps = (
+    _normalize_proof_steps(
+      available_steps,
+      "available_steps",
+    )
+  )
+
+  derived_steps = derive_inference_steps(
+    inference_rules,
+    normalized_steps,
+  )
+
+  return (
+    normalized_steps
+    + derived_steps
+  )
+
+
+
 
 
 

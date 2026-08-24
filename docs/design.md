@@ -12803,6 +12803,1040 @@ merge
 fixed-point 型の iterative inference へ進むことができる。
 
 
+# Phase 5-25：derived ProofStep を available ProofSteps に追加する1 round の inference
+
+Phase 5-24 では、
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+derive_inference_steps()
+↓
+derived ProofStep collection
+```
+
+という high-level derivation API を導入した。
+
+ただし返されるのは、
+
+```text
+新しく導出された ProofSteps
+```
+
+だけであり、
+
+```text
+既存 available ProofSteps
++
+derived ProofSteps
+```
+
+という次の inference に利用できる集合を構築する処理は
+caller 側に残されていた。
+
+Phase 5-25 では、
+
+```python
+run_inference_round(
+  inference_rules,
+  available_steps,
+)
+```
+
+を導入し、
+
+```text
+現在 available な ProofSteps を使って
+1回 inference を実行
+↓
+derived ProofSteps を生成
+↓
+既存 available ProofSteps の後ろへ追加
+↓
+expanded ProofStep collection を返す
+```
+
+という明示的な1 round の inference を定義する。
+
+---
+
+## run_inference_round() の責務
+
+基本 API は、
+
+```python
+run_inference_round(
+  inference_rules,
+  available_steps,
+)
+```
+
+とする。
+
+責務は、
+
+```text
+available ProofSteps の正規化
+↓
+derive_inference_steps()
+↓
+derived ProofSteps
+↓
+existing + derived
+```
+
+だけとする。
+
+実装は、
+
+```python
+normalized_steps = (
+  _normalize_proof_steps(
+    available_steps,
+    "available_steps",
+  )
+)
+
+derived_steps = derive_inference_steps(
+  inference_rules,
+  normalized_steps,
+)
+
+return (
+  normalized_steps
+  + derived_steps
+)
+```
+
+という薄い構造とする。
+
+---
+
+## derive と round の責務分離
+
+Phase 5-24 の、
+
+```python
+derive_inference_steps()
+```
+
+と Phase 5-25 の、
+
+```python
+run_inference_round()
+```
+
+は異なる責務を持つ。
+
+```text
+derive_inference_steps()
+↓
+新しく導出された ProofSteps のみ返す
+```
+
+一方、
+
+```text
+run_inference_round()
+↓
+既存 ProofSteps
++
+新しく導出された ProofSteps
+を返す
+```
+
+とする。
+
+すなわち、
+
+```text
+derivation
+```
+
+と、
+
+```text
+available fact collection の拡張
+```
+
+を別の API level として保持する。
+
+---
+
+## 1 round の定義
+
+Phase 5-25 では、
+inference round を次のように定義する。
+
+```text
+round 開始時点の available ProofSteps
+↓
+その collection だけを使って matching
+↓
+その collection だけを premises として derivation
+↓
+すべての derived ProofSteps をまとめて生成
+↓
+round 終了時に available ProofSteps の後ろへ追加
+```
+
+重要なのは、
+
+```text
+round 中に生成された derived ProofStep
+```
+
+を、
+
+```text
+同じ round の別 inference の premise
+```
+
+として使用しないことである。
+
+したがって Phase 5-25 の round は、
+
+```text
+snapshot-based one-round inference
+```
+
+として扱う。
+
+---
+
+## round 開始時点の snapshot
+
+例えば、
+
+```text
+available:
+A
+```
+
+で、
+
+```text
+rule 1:
+A → B
+
+rule 2:
+B → C
+```
+
+という rule がある場合、
+1回の、
+
+```python
+run_inference_round(
+  rules,
+  available,
+)
+```
+
+で生成されるのは、
+
+```text
+A
+B
+```
+
+までである。
+
+同じ round 内で、
+
+```text
+B
+```
+
+を利用して、
+
+```text
+C
+```
+
+までは導出しない。
+
+`C` を導出するには、
+返された expanded collection を使って
+次の round を明示的に実行する。
+
+```text
+round 1:
+A
+↓
+B
+
+available after round 1:
+A, B
+
+round 2:
+A, B
+↓
+B, C
+```
+
+ただし現段階では duplicate handling がないため、
+実際の round 2 では rule 1 が再び `B` を生成する可能性がある。
+
+このため自動 iterative inference はまだ導入しない。
+
+---
+
+## available-step order の維持
+
+`run_inference_round()` は、
+既存の ProofStep の順序を変更しない。
+
+例えば、
+
+```text
+available:
+(
+  step_a,
+  step_b,
+  step_c,
+)
+```
+
+なら、
+返り値の先頭は必ず、
+
+```text
+(
+  step_a,
+  step_b,
+  step_c,
+  ...
+)
+```
+
+となる。
+
+既存 ProofStep の並び替え、
+重複削除、
+priority sorting は行わない。
+
+---
+
+## derived-step order の維持
+
+Phase 5-24 までの、
+
+```text
+InferenceRule order
+↓
+find_inference_matches()
+↓
+InferenceMatch order
+↓
+apply_inference_matches()
+↓
+derived ProofStep order
+```
+
+という順序保存をそのまま利用する。
+
+したがって、
+
+```text
+available order
+↓
+derived order
+```
+
+を連結したものが
+`run_inference_round()` の返り値となる。
+
+例えば、
+
+```text
+rules:
+(
+  rule_b,
+  rule_a,
+)
+
+available:
+(
+  step_1,
+  step_2,
+)
+```
+
+から、
+
+```text
+derived:
+(
+  derived_from_rule_b,
+  derived_from_rule_a,
+)
+```
+
+が得られた場合、
+round result は、
+
+```text
+(
+  step_1,
+  step_2,
+  derived_from_rule_b,
+  derived_from_rule_a,
+)
+```
+
+となる。
+
+---
+
+## ProofStep の意味を変更しない
+
+`run_inference_round()` によって追加される derived step は、
+`derive_inference_steps()` が返す ProofStep そのものである。
+
+したがって、
+
+```text
+conclusion
+premises
+rule
+inference_rule
+```
+
+の意味は変更しない。
+
+derived step は、
+
+```text
+rule = ProofRule.INFERENCE
+```
+
+を持ち、
+
+```text
+premises = matched ProofSteps
+```
+
+を保持し、
+
+```text
+inference_rule = applied InferenceRule
+```
+
+を保持する。
+
+round のためだけの新しい ProofStep subtype や flag は
+導入しない。
+
+---
+
+## round metadata はまだ導入しない
+
+Phase 5-25 では、
+
+```text
+この ProofStep は round 1 で生成された
+この ProofStep は round 2 で生成された
+```
+
+という metadata は保持しない。
+
+`run_inference_round()` は
+単に ProofStep collection を返す。
+
+将来的に iterative inference を導入した際に、
+
+```text
+InferenceRound
+round index
+new steps
+existing steps
+applied matches
+```
+
+などの構造が必要かどうかを改めて判断する。
+
+---
+
+## input normalization
+
+`available_steps` は、
+まず、
+
+```python
+_normalize_proof_steps(
+  available_steps,
+  "available_steps",
+)
+```
+
+によって正規化する。
+
+これにより、
+
+```text
+single ProofStep
+tuple of ProofStep
+list of ProofStep
+```
+
+を同じ tuple representation として扱う。
+
+`inference_rules` の normalization は、
+`derive_inference_steps()` から既存の、
+
+```text
+find_inference_matches()
+↓
+_normalize_inference_rules()
+```
+
+へ委譲する。
+
+したがって `run_inference_round()` 自体で
+rule normalization を重複実装しない。
+
+---
+
+## validation の委譲
+
+Phase 5-25 では、
+既存の validation hierarchy を維持する。
+
+```text
+available-step validation
+↓
+_normalize_proof_steps()
+
+rule validation
+↓
+find_inference_matches()
+↓
+_normalize_inference_rules()
+
+conclusion-builder validation
+↓
+apply_inference_match()
+```
+
+したがって、
+
+```text
+invalid inference_rules
+invalid available_steps
+missing conclusion_builder
+non-callable conclusion_builder
+```
+
+などについて、
+round API 独自の別ルールを導入しない。
+
+---
+
+## no applicable rule
+
+現在 applicable な rule が存在しない場合、
+
+```text
+derive_inference_steps()
+↓
+()
+```
+
+となる。
+
+そのため、
+
+```text
+normalized_steps + ()
+```
+
+により、
+`run_inference_round()` は既存 collection をそのまま返す。
+
+これはエラーではなく、
+
+```text
+この round では新しい ProofStep が生成されなかった
+```
+
+という正常な結果とする。
+
+---
+
+## empty rules
+
+rule collection が空の場合も、
+
+```text
+derived_steps = ()
+```
+
+となるため、
+available steps をそのまま返す。
+
+```text
+rules:
+()
+
+available:
+(
+  step_a,
+)
+
+result:
+(
+  step_a,
+)
+```
+
+となる。
+
+---
+
+## empty available steps
+
+available steps が空でも、
+premise-free rule が存在すれば inference は可能である。
+
+例えば、
+
+```text
+rule:
+premise_patterns = ()
+```
+
+かつ有効な、
+
+```text
+conclusion_builder
+```
+
+を持つ場合、
+
+```text
+available:
+()
+
+↓ run_inference_round()
+
+result:
+(
+  derived_step,
+)
+```
+
+となる。
+
+この挙動は、
+既存の premise-free rule matching / application semantics を
+そのまま継承する。
+
+---
+
+## duplicate handling との境界
+
+Phase 5-25 で最も重要な設計境界は、
+duplicate detection をまだ行わないことである。
+
+例えば、
+
+```text
+available:
+A
+
+rule:
+A → B
+```
+
+に対して round 1 を行うと、
+
+```text
+A
+B
+```
+
+となる。
+
+この結果に対して再度同じ round を実行すると、
+現状では、
+
+```text
+A
+B
+B
+```
+
+となり得る。
+
+`run_inference_round()` は、
+
+```text
+B がすでに存在するか
+```
+
+を調べない。
+
+また、
+
+```text
+同じ conclusion だが premises が異なる
+```
+
+場合を同一 fact とみなすかどうかも判断しない。
+
+これらは次の duplicate-aware merge 層の責務とする。
+
+---
+
+## ProofStep equality と conclusion equality の区別
+
+iterative inference へ進む前に、
+少なくとも次の概念を区別する必要がある。
+
+```text
+ProofStep が等しい
+```
+
+```text
+conclusion が等しい
+```
+
+```text
+同じ conclusion に対する別 proof である
+```
+
+例えば、
+
+```text
+step 1:
+A, B → C
+
+step 2:
+D, E → C
+```
+
+は、
+conclusion は同じでも proof dependency は異なる。
+
+これを、
+
+```text
+duplicate として1つにする
+```
+
+のか、
+
+```text
+C の alternative proofs として両方保持する
+```
+
+のかは、
+Phase 5-25 では決めない。
+
+そのため round API は単純な tuple concatenation に限定する。
+
+---
+
+## premise-free rule と iteration
+
+premise-free rule は、
+
+```text
+available facts がなくても applicable
+```
+
+である。
+
+したがって iterative inference を単純に、
+
+```text
+repeat run_inference_round()
+```
+
+として実装すると、
+premise-free rule が同じ conclusion を毎 round 生成し続ける可能性がある。
+
+この問題も Phase 5-25 では解決しない。
+
+固定点 inference の前に、
+
+```text
+duplicate conclusion detection
+```
+
+または、
+
+```text
+rule + premises + conclusion
+の application history
+```
+
+のような再適用制御が必要になる。
+
+---
+
+## Phase 5-25 時点の inference API 階層
+
+現在の inference pipeline は、
+
+```text
+PremisePattern
++
+ProofStep
+↓
+matches_premise_pattern()
+```
+
+```text
+InferenceRule
++
+explicit ProofSteps
+↓
+matches_inference_rule()
+```
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+```
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+is_inference_rule_applicable()
+```
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_applicable_inference_rules()
+```
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_inference_match()
+↓
+InferenceMatch
+```
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_inference_matches()
+↓
+InferenceMatch collection
+```
+
+```text
+InferenceMatch
+↓
+apply_inference_match()
+↓
+derived ProofStep
+```
+
+```text
+InferenceMatch collection
+↓
+apply_inference_matches()
+↓
+derived ProofStep collection
+```
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+derive_inference_steps()
+↓
+derived ProofStep collection
+```
+
+そして Phase 5-25 で、
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+run_inference_round()
+↓
+available ProofSteps
++
+derived ProofSteps
+```
+
+まで到達した。
+
+---
+
+## Phase 5-25 時点の設計原則
+
+1. inference の1 round を `run_inference_round()` で表現する。
+2. round は開始時点の available ProofSteps を snapshot として扱う。
+3. round 中に生成された derived step は同じ round の matching には利用しない。
+4. derived step は round 終了時にまとめて追加する。
+5. `run_inference_round()` は `derive_inference_steps()` を再利用する。
+6. matching / application logic を round API に重複実装しない。
+7. existing ProofStep の入力順序を維持する。
+8. derived ProofStep の既存 ordering semantics を維持する。
+9. round result は existing steps の後ろに derived steps を追加した tuple とする。
+10. `derive_inference_steps()` は derived steps のみを返す API として残す。
+11. `run_inference_round()` は expanded available steps を返す API とする。
+12. derived ProofStep の構造や意味は変更しない。
+13. round 専用 ProofStep type は導入しない。
+14. round index や round metadata はまだ導入しない。
+15. single / tuple / list の既存 input normalization を維持する。
+16. invalid input validation は既存 normalization API に委譲する。
+17. conclusion-builder validation は既存 application API に委譲する。
+18. applicable rule がない場合は available steps をそのまま返す。
+19. empty rule collection は正常入力とする。
+20. empty available collection でも premise-free rule は適用可能とする。
+21. duplicate conclusion detection はまだ行わない。
+22. duplicate ProofStep detection はまだ行わない。
+23. alternative proofs の統合方針はまだ決めない。
+24. automatic repeated rounds はまだ行わない。
+25. fixed-point termination はまだ導入しない。
+26. repeated rule application の抑制はまだ行わない。
+27. premise-free rule の repeated application 制御はまだ行わない。
+28. cyclic inference detection はまだ行わない。
+29. inference history はまだ導入しない。
+30. expression-level pattern matching / bindings / substitution はまだ別課題とする。
+31. algebra / EHP 層には変更を加えない。
+
+---
+
+## Phase 5-25 の到達点
+
+Phase 5-24 では、
+
+```text
+available ProofSteps
++
+InferenceRules
+↓
+derived ProofSteps
+```
+
+まで到達していた。
+
+Phase 5-25 では、
+
+```text
+available ProofSteps
++
+InferenceRules
+↓
+derived ProofSteps
+↓
+available ProofSteps + derived ProofSteps
+```
+
+まで進んだ。
+
+これにより、
+proof engine は初めて、
+
+```text
+1 round 前の knowledge state
+↓
+inference
+↓
+1 round 後の expanded knowledge state
+```
+
+という形を直接表現できるようになった。
+
+現在の一方向 pipeline は、
+
+```text
+available facts
+↓
+matching
+↓
+InferenceMatch
+↓
+application
+↓
+derived facts
+↓
+available facts へ追加
+```
+
+まで成立している。
+
+残る大きな段階は、
+
+```text
+expanded facts
+↓
+次の round
+↓
+さらに expanded facts
+↓
+...
+```
+
+を安全に反復することである。
+
+その前に、
+
+```text
+duplicate detection
+new fact detection
+termination condition
+repeated application control
+```
+
+を設計する必要がある。
+
+したがって次の自然な段階は、
+単純な iterative loop を導入することではなく、
+
+```text
+existing ProofSteps
++
+derived ProofSteps
+↓
+duplicate-aware merge
+↓
+genuinely new ProofSteps
+```
+
+という merge semantics を定義することである。
+
+その後、
+
+```text
+run_inference_round()
+↓
+new-step detection
+↓
+new step が存在すれば repeat
+↓
+存在しなければ fixed point
+```
+
+という iterative inference へ進むことができる。
+
+
+
 
 
 

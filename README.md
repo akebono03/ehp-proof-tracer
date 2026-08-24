@@ -616,10 +616,15 @@ Phase 5 currently supports:
 * direct derivation of multiple `ProofStep` objects from inference rules and available proof steps
 * preservation of inference-rule order through the high-level derivation path
 * normalization of single, tuple, and list rule / proof-step input through existing lower-level APIs
+* one-round inference through `run_inference_round()`
+* expansion of the available proof-step collection with newly derived proof steps
+* preservation of existing available-step order during an inference round
+* preservation of derived-step order during an inference round
+* explicit separation between one-round inference and iterative inference
 * human-readable proof formatting
 
-The current inference pipeline now has both low-level and high-level
-entry points.
+The current inference pipeline has low-level matching and application
+APIs together with high-level derivation and one-round execution APIs.
 
 Individual premise matching:
 
@@ -741,6 +746,20 @@ derive_inference_steps()
 derived ProofStep tuple
 ```
 
+One inference round:
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+run_inference_round()
+↓
+available ProofSteps
++
+derived ProofSteps
+```
+
 For example, a rule requiring a given fact can be defined as:
 
 ```python
@@ -758,7 +777,7 @@ InferenceRule(
 )
 ```
 
-The lower-level path remains available:
+The lower-level search and application path remains available:
 
 ```python
 matches = find_inference_matches(
@@ -771,7 +790,7 @@ derived_steps = apply_inference_matches(
 )
 ```
 
-Phase 5-24 adds the equivalent high-level operation:
+The equivalent high-level derivation is:
 
 ```python
 derived_steps = derive_inference_steps(
@@ -876,7 +895,138 @@ derived_steps = derive_inference_steps(
 )
 ```
 
-The high-level API preserves inference-rule order.
+Phase 5-25 adds one more high-level operation:
+
+```python
+expanded_steps = run_inference_round(
+  inference_rules,
+  available_steps,
+)
+```
+
+Conceptually:
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+run_inference_round()
+↓
+normalize available ProofSteps
+↓
+derive_inference_steps()
+↓
+derived ProofSteps
+↓
+available ProofSteps + derived ProofSteps
+```
+
+Its implementation is intentionally thin:
+
+```python
+normalized_steps = (
+  _normalize_proof_steps(
+    available_steps,
+    "available_steps",
+  )
+)
+
+derived_steps = derive_inference_steps(
+  inference_rules,
+  normalized_steps,
+)
+
+return (
+  normalized_steps
+  + derived_steps
+)
+```
+
+The distinction between the two high-level APIs is:
+
+```text
+derive_inference_steps()
+= return only newly derived ProofSteps
+
+run_inference_round()
+= return the existing available ProofSteps
+  followed by newly derived ProofSteps
+```
+
+For example, if:
+
+```text
+available:
+(
+  given_step,
+)
+
+derived:
+(
+  derived_step,
+)
+```
+
+then:
+
+```python
+derive_inference_steps(
+  inference_rules,
+  available_steps,
+)
+```
+
+returns:
+
+```text
+(
+  derived_step,
+)
+```
+
+while:
+
+```python
+run_inference_round(
+  inference_rules,
+  available_steps,
+)
+```
+
+returns:
+
+```text
+(
+  given_step,
+  derived_step,
+)
+```
+
+The existing available-step order is preserved.
+
+For example:
+
+```text
+(
+  step_a,
+  step_b,
+  step_c,
+)
+```
+
+remains the prefix of the returned collection:
+
+```text
+(
+  step_a,
+  step_b,
+  step_c,
+  ...
+)
+```
+
+The derived-step order is also preserved.
 
 Because:
 
@@ -892,7 +1042,7 @@ apply_inference_matches()
 
 preserves `InferenceMatch` input order,
 
-the composed path also preserves order:
+the composed derivation path preserves:
 
 ```text
 InferenceRule order
@@ -902,19 +1052,36 @@ InferenceMatch order
 derived ProofStep order
 ```
 
+and `run_inference_round()` preserves:
+
+```text
+existing available-step order
+↓
+derived-step order
+```
+
 For example:
 
 ```text
+rules:
 (
   rule_b,
   rule_a,
 )
+
+available:
+(
+  step_1,
+  step_2,
+)
 ```
 
-produces derived steps in the corresponding order:
+can produce:
 
 ```text
 (
+  step_1,
+  step_2,
   derived_from_rule_b,
   derived_from_rule_a,
 )
@@ -935,16 +1102,47 @@ returns:
 ()
 ```
 
-Likewise an empty rule collection produces:
+and therefore:
 
-```text
-()
+```python
+run_inference_round(
+  inference_rules,
+  available_steps,
+)
 ```
 
-Input normalization continues to be delegated to the existing
-lower-level functions.
+returns the normalized existing steps unchanged.
 
-Therefore the high-level API supports the same forms such as:
+Likewise an empty rule collection leaves the available proof-step
+collection unchanged.
+
+Premise-free inference rules remain applicable even if the available
+proof-step collection is empty.
+
+For example:
+
+```text
+available:
+()
+
+premise-free rule
+↓
+derived ProofStep
+```
+
+produces:
+
+```text
+(
+  derived_step,
+)
+```
+
+when `run_inference_round()` is called.
+
+Input normalization continues to use the existing APIs.
+
+The high-level inference functions therefore support forms such as:
 
 ```text
 single InferenceRule
@@ -955,6 +1153,8 @@ single ProofStep
 tuple of ProofStep
 list of ProofStep
 ```
+
+and return tuples of `ProofStep` objects.
 
 Invalid rule or proof-step input is rejected by the existing
 normalization logic.
@@ -967,11 +1167,101 @@ For example, if an applicable rule has:
 conclusion_builder = None
 ```
 
-then application through `derive_inference_steps()` raises the same
-`ValueError` as direct `apply_inference_match()` application.
+then application through:
 
-This is intentional: the high-level function does not weaken or
+```text
+derive_inference_steps()
+```
+
+or:
+
+```text
+run_inference_round()
+```
+
+raises the same `ValueError` as direct
+`apply_inference_match()` application.
+
+This is intentional: the high-level functions do not weaken or
 duplicate application validation.
+
+An important semantic boundary is that `run_inference_round()`
+performs exactly one inference round.
+
+All matching for the round is performed against the proof steps that
+were available at the beginning of the round.
+
+Newly derived proof steps are appended only after derivation for that
+round has completed.
+
+Therefore the behavior is:
+
+```text
+available ProofSteps at start of round
+↓
+find matches
+↓
+derive all currently available conclusions
+↓
+append derived ProofSteps
+↓
+return expanded collection
+```
+
+and not:
+
+```text
+derive one ProofStep
+↓
+immediately add it
+↓
+search again inside the same round
+↓
+derive another ProofStep
+```
+
+For example, suppose:
+
+```text
+rule A:
+given fact
+→ intermediate fact
+
+rule B:
+intermediate fact
+→ final fact
+```
+
+and only the given fact is available at the beginning of the round.
+
+One call to:
+
+```python
+run_inference_round(
+  inference_rules,
+  available_steps,
+)
+```
+
+derives the intermediate fact, but does not use that newly derived fact
+to activate rule B during the same round.
+
+A second round is required:
+
+```python
+steps = run_inference_round(
+  inference_rules,
+  steps,
+)
+
+steps = run_inference_round(
+  inference_rules,
+  steps,
+)
+```
+
+This explicit round boundary is intentional and separates one-round
+inference from future iterative inference.
 
 ---
 
@@ -1016,6 +1306,10 @@ construct multiple derived ProofSteps
 compose collection-level match search and application
 ↓
 derive currently available ProofSteps in one high-level call
+↓
+perform one inference round
+↓
+append the derived ProofSteps to the available ProofStep collection
 ```
 
 The current premise search is greedy.
@@ -1041,9 +1335,62 @@ the premise assignment selected by the current greedy search
 
 rather than a complete enumeration of all possible premise assignments.
 
-The high-level `derive_inference_steps()` function inherits this
-matching behavior because it delegates matching to
+Both:
+
+```text
+derive_inference_steps()
+```
+
+and:
+
+```text
+run_inference_round()
+```
+
+inherit this matching behavior because they delegate matching to
 `find_inference_matches()`.
+
+The current inference-round implementation also performs simple tuple
+concatenation:
+
+```text
+existing ProofSteps
++
+derived ProofSteps
+```
+
+It does not detect whether a newly derived conclusion is already known.
+
+Therefore repeated calls can currently introduce duplicate conclusions.
+
+For example:
+
+```text
+A
+```
+
+together with:
+
+```text
+A → B
+```
+
+produces after one round:
+
+```text
+A
+B
+```
+
+but running the same round again may produce:
+
+```text
+A
+B
+B
+```
+
+because no duplicate handling is performed yet.
 
 The proof / inference layer does not yet automatically:
 
@@ -1052,12 +1399,17 @@ The proof / inference layer does not yet automatically:
 * return multiple alternative `InferenceMatch` objects for the same rule
 * rank or prioritize multiple applicable inference rules
 * choose a subset of matches when using the high-level derivation API
-* add derived conclusions back into the available proof-step collection
 * detect duplicate derived conclusions
+* detect duplicate `ProofStep` objects during round expansion
+* distinguish genuinely new facts from already-known facts
+* merge alternative proofs of the same conclusion
 * iterate inference until no new conclusions are found
+* detect a fixed point
 * prevent repeated premise-free inference across multiple rounds
+* prevent repeated application of the same rule to the same premises
 * detect cyclic inference
-* record inference-round boundaries
+* record inference-round boundaries or round numbers
+* retain explicit inference-round history
 * match internal expression structures
 * bind pattern variables
 * substitute bound variables
@@ -1103,7 +1455,9 @@ explicit Python conclusion builder
 +
 single / collection-level application
 +
-high-level one-round derivation
+high-level derivation
++
+single-round available-step expansion
 ```
 
 rather than a complete symbolic or iterative inference system.
@@ -1118,20 +1472,23 @@ Run the complete test suite with:
 python -m pytest -v
 ```
 
-At the completion of Phase 5-24:
+At the completion of Phase 5-25:
 
 ```text
-364 passed in 52.84s
+376 passed in 44.79s
 ```
 
-Phase 5-24 adds high-level inference-derivation tests covering:
+Phase 5-25 adds one-round inference tests covering:
 
 ```text
-single-rule derivation
-multiple-rule derivation
-rule-order preservation
+basic one-round inference
+multiple derived-step insertion
+available-step order preservation
+derived-step order preservation
 no applicable rule
 empty rule collection
+empty available-step collection
+premise-free inference with empty available steps
 single InferenceRule and ProofStep input
 list input
 invalid rule input
@@ -1143,109 +1500,160 @@ The complete test suite also includes the existing algebra, EHP,
 expression, formatter, proof, repository, premise-pattern,
 inference-rule matching, premise-search, applicability,
 applicable-rule-search, structured-match, single-match application,
-and collection-level application tests.
+collection-level application, and high-level derivation tests.
 
 ---
 
 ## Next direction
 
-The current inference pipeline now reaches a complete one-round
-derivation operation:
+The current inference pipeline now reaches a complete explicit
+one-round operation:
 
 ```text
 InferenceRule collection
 +
 available ProofSteps
 ↓
-derive_inference_steps()
+run_inference_round()
 ↓
-derived ProofStep collection
+available ProofSteps
++
+derived ProofSteps
 ```
 
-Internally this remains:
+Internally:
 
 ```text
+run_inference_round()
+↓
+derive_inference_steps()
+↓
 find_inference_matches()
 ↓
 apply_inference_matches()
 ```
 
-so the lower-level search and application APIs remain independently
-available.
+so the lower-level matching, application, and derivation APIs remain
+independently available.
 
-The next major transition is to make newly derived proof steps
-available to subsequent inference.
-
-Conceptually:
+The proof engine can therefore now represent:
 
 ```text
-available ProofSteps
-+
-InferenceRules
+knowledge state before one round
 ↓
-derive_inference_steps()
+inference
 ↓
-derived ProofSteps
-↓
-available ProofSteps + derived ProofSteps
-↓
-derive again
+expanded knowledge state after one round
 ```
 
-This would move the system from:
+The next major transition is not simply to repeat
+`run_inference_round()` automatically.
+
+Before iterative inference can be introduced safely, the system needs
+to define how existing and newly derived facts are merged.
+
+The central problem is duplicate handling.
+
+For example:
 
 ```text
-one inference round
+available:
+A
+
+rule:
+A → B
 ```
 
-toward:
+produces:
 
 ```text
-iterative inference
+A
+B
 ```
 
-Before repeatedly adding derived steps, the system should first define
-how already-known and newly derived conclusions are handled.
+after one round.
+
+A second round can currently produce:
+
+```text
+A
+B
+B
+```
+
+because `B` is not recognized as already known.
 
 Important questions include:
 
 * how equality or equivalence of conclusions should be determined
-* how duplicate derived conclusions should be detected
-* whether a duplicate conclusion with a different proof should be retained
-* whether a derived `ProofStep` itself or only its conclusion determines duplication
-* how premise-free rules should be prevented from generating the same result every round
+* whether duplicate detection should compare `ProofStep` objects or only conclusions
+* whether the same conclusion with different premises should be retained
+* whether multiple proofs of the same mathematical fact should be preserved
 * whether the same rule may derive the same conclusion from different premises
+* how repeated application of the same rule to the same premises should be handled
+* how premise-free rules should be prevented from generating the same result every round
+* how genuinely new facts should be distinguished from repeated facts
 * how inference history should be retained
-* how inference rounds should be represented
+* whether round numbers or round objects should be introduced
 * how termination should be detected
 
 A natural next step is therefore:
 
 ```text
-derived ProofSteps
-+
 available ProofSteps
++
+derived ProofSteps
 ↓
-merge
+duplicate-aware merge
 ↓
-expanded ProofStep collection
+expanded ProofSteps
++
+newly added ProofSteps
 ```
 
-with explicit duplicate handling.
-
-After that:
+Conceptually:
 
 ```text
-expanded ProofSteps
+existing ProofSteps
++
+derived ProofSteps
 ↓
-derive_inference_steps()
+compare conclusions
 ↓
-new ProofSteps
+retain genuinely new facts
 ↓
-repeat
+expanded available ProofSteps
 ```
 
-can provide fixed-point inference.
+Once this merge semantics is defined, iterative inference can proceed as:
+
+```text
+available ProofSteps
+↓
+run inference round
+↓
+derive candidate ProofSteps
+↓
+duplicate-aware merge
+↓
+new ProofSteps?
+├── yes → next round
+└── no  → fixed point
+```
+
+This would move the system from:
+
+```text
+single-round inference
+```
+
+to:
+
+```text
+fixed-point iterative inference
+```
+
+with an explicit termination condition.
 
 Separately, general mathematical rule representation still requires:
 
@@ -1261,13 +1669,17 @@ conclusion construction
 
 Possible next steps include:
 
-* derived-step insertion into available facts
 * duplicate conclusion detection
 * proof-step collection merge
-* inference rounds
+* new-fact detection
+* alternative-proof handling
+* inference-round representation
 * fixed-point iterative inference
 * termination detection
 * inference history
+* repeated-rule-application control
+* premise-free rule repetition control
+* cyclic-inference detection
 * expression-level premise patterns
 * pattern variables
 * variable bindings
@@ -1287,6 +1699,8 @@ Possible next steps include:
 
 The algebra layer remains independent of these higher-level inference
 mechanisms.
+
+
 
 
 
