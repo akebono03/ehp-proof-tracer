@@ -68,6 +68,21 @@ class InferenceMatch:
   premises: tuple[ProofStep, ...]
 
 
+@dataclass(frozen=True)
+class InferenceRunResult:
+  steps: tuple[ProofStep, ...]
+  round_history: tuple[
+    tuple[ProofStep, ...],
+    ...
+  ]
+
+  @property
+  def round_count(self):
+    return len(
+      self.round_history
+    )
+
+
 @dataclass
 class Proof:
   conclusion: Any
@@ -974,7 +989,7 @@ def run_inference_round(
   )
 
 
-def run_inference_until_stable(
+def run_inference_until_stable_with_history(
   inference_rules,
   available_steps,
 ):
@@ -991,6 +1006,8 @@ def run_inference_until_stable(
     )
   )
 
+  round_history = []
+
   while True:
     new_steps = (
       derive_new_inference_steps(
@@ -1000,12 +1017,35 @@ def run_inference_until_stable(
     )
 
     if not new_steps:
-      return current_steps
+      return InferenceRunResult(
+        steps=current_steps,
+        round_history=tuple(
+          round_history
+        ),
+      )
+
+    round_history.append(
+      new_steps
+    )
 
     current_steps = (
       current_steps
       + new_steps
     )
+
+
+def run_inference_until_stable(
+  inference_rules,
+  available_steps,
+):
+  result = (
+    run_inference_until_stable_with_history(
+      inference_rules,
+      available_steps,
+    )
+  )
+
+  return result.steps
 
 
 

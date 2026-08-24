@@ -14318,7 +14318,902 @@ round metadata
 を分離して保持する方向が考えられる。
 
 
+---
 
+# Phase 5-29：per-round history / result object
+
+Phase 5-28 では、
+
+```python
+run_inference_until_stable(
+  inference_rules,
+  available_steps,
+)
+```
+
+によって、
+new ProofStep がなくなるまで inference round を繰り返し、
+fixed point の final knowledge state を取得できるようになった。
+
+ただし返り値は、
+
+```text
+tuple of ProofStep
+```
+
+だけだった。
+
+そのため、
+
+```text
+round 1 で何が追加されたか
+round 2 で何が追加されたか
+何 round で fixed point に到達したか
+```
+
+という execution information を
+直接取得することはできなかった。
+
+Phase 5-29 では、
+fixed-point inference の per-round history を保持する
+structured result object を導入した。
+
+---
+
+## InferenceRunResult の追加
+
+追加:
+
+```python
+@dataclass(frozen=True)
+class InferenceRunResult:
+  steps: tuple[ProofStep, ...]
+  round_history: tuple[
+    tuple[ProofStep, ...],
+    ...
+  ]
+
+  @property
+  def round_count(self):
+    return len(
+      self.round_history
+    )
+```
+
+`steps` は、
+
+```text
+fixed point 到達時の final knowledge state
+```
+
+を表す。
+
+`round_history` は、
+
+```text
+各 productive round で
+genuinely new だった ProofSteps
+```
+
+を表す。
+
+`round_count` は、
+
+```text
+productive round 数
+```
+
+を表す。
+
+---
+
+## productive round
+
+Phase 5-29 では、
+
+```text
+1個以上の genuinely new ProofStep を
+knowledge state に追加した round
+```
+
+を productive round とした。
+
+したがって、
+fixed-point termination を確認する最後の、
+
+```text
+new_steps == ()
+```
+
+という iteration は
+`round_history` に含めない。
+
+例えば、
+
+```text
+initial:
+A
+
+round 1:
+B
+
+round 2:
+C
+
+termination check:
+()
+```
+
+なら、
+
+```python
+round_history = (
+  (
+    B,
+  ),
+  (
+    C,
+  ),
+)
+```
+
+であり、
+
+```text
+round_count == 2
+```
+
+となる。
+
+---
+
+## run_inference_until_stable_with_history()
+
+追加:
+
+```python
+run_inference_until_stable_with_history(
+  inference_rules,
+  available_steps,
+)
+```
+
+基本実装:
+
+```python
+def run_inference_until_stable_with_history(
+  inference_rules,
+  available_steps,
+):
+  normalized_rules = (
+    _normalize_inference_rules(
+      inference_rules
+    )
+  )
+
+  current_steps = (
+    _normalize_proof_steps(
+      available_steps,
+      "available_steps",
+    )
+  )
+
+  round_history = []
+
+  while True:
+    new_steps = (
+      derive_new_inference_steps(
+        normalized_rules,
+        current_steps,
+      )
+    )
+
+    if not new_steps:
+      return InferenceRunResult(
+        steps=current_steps,
+        round_history=tuple(
+          round_history
+        ),
+      )
+
+    round_history.append(
+      new_steps
+    )
+
+    current_steps = (
+      current_steps
+      + new_steps
+    )
+```
+
+---
+
+## per-round delta history
+
+history に保存するのは、
+各 round の complete state ではなく、
+
+```text
+new_steps
+```
+
+だけとした。
+
+例えば、
+
+```text
+initial:
+A
+
+round 1:
+B
+C
+
+round 2:
+D
+```
+
+なら、
+
+```python
+round_history = (
+  (
+    B,
+    C,
+  ),
+  (
+    D,
+  ),
+)
+```
+
+となる。
+
+final state は、
+
+```text
+A
+B
+C
+D
+```
+
+である。
+
+append-only knowledge state なので、
+
+```text
+initial state
++
+round_history
+```
+
+から各中間 state を復元できる。
+
+そのため各 round の complete state を
+重複して保存しない。
+
+---
+
+## simple API の後方互換性
+
+既存の、
+
+```python
+run_inference_until_stable()
+```
+
+の返り値を `InferenceRunResult` に変更すると、
+Phase 5-28 までの caller に対する breaking change となる。
+
+そのため既存 API は、
+
+```text
+final ProofSteps only
+```
+
+という contract を維持した。
+
+実装を、
+
+```python
+def run_inference_until_stable(
+  inference_rules,
+  available_steps,
+):
+  result = (
+    run_inference_until_stable_with_history(
+      inference_rules,
+      available_steps,
+    )
+  )
+
+  return result.steps
+```
+
+へ変更した。
+
+これにより、
+
+```text
+run_inference_until_stable()
+=
+simple final-state API
+```
+
+と、
+
+```text
+run_inference_until_stable_with_history()
+=
+detailed execution API
+```
+
+を分離した。
+
+---
+
+## fixed-point loop の一元化
+
+Phase 5-28 の fixed-point loop と
+Phase 5-29 の history-aware loop を
+別々に持たないようにした。
+
+fixed-point execution logic は、
+
+```python
+run_inference_until_stable_with_history()
+```
+
+へ集約し、
+
+```python
+run_inference_until_stable()
+```
+
+はその wrapper とした。
+
+したがって、
+将来 fixed-point semantics を変更する場合も、
+
+```text
+single execution implementation
+```
+
+だけを変更すればよい。
+
+---
+
+## round history と dependency
+
+history に格納されるのは、
+derived `ProofStep` object 自体である。
+
+例えば、
+
+```text
+A
+↓
+B
+↓
+C
+```
+
+が2 round で導出された場合、
+
+```text
+round 1:
+B
+
+round 2:
+C
+```
+
+であり、
+
+```text
+B.premises == (A,)
+C.premises == (B,)
+```
+
+をそのまま保持する。
+
+したがって per-round history を導入しても、
+ProofStep dependency graph の semantics は変化しない。
+
+---
+
+## multiple new steps in one round
+
+1 round で複数 rule が
+それぞれ genuinely new conclusion を生成した場合も、
+同じ history entry にまとめて保存する。
+
+例えば、
+
+```text
+round 1:
+B
+C
+```
+
+なら、
+
+```python
+round_history[0] == (
+  B,
+  C,
+)
+```
+
+となる。
+
+inner tuple の順序は、
+既存 derivation order を保持する。
+
+---
+
+## no-new-step case
+
+initial state の時点ですでに stable なら、
+
+```python
+InferenceRunResult(
+  steps=initial_steps,
+  round_history=(),
+)
+```
+
+となる。
+
+この場合、
+
+```text
+round_count == 0
+```
+
+である。
+
+empty rule collection も同様である。
+
+---
+
+## empty initial state
+
+empty initial state と empty rule collection では、
+
+```python
+InferenceRunResult(
+  steps=(),
+  round_history=(),
+)
+```
+
+となる。
+
+premise-free rule によって fact が生成される場合は、
+その生成 round が history に保存される。
+
+---
+
+## duplicate candidates は history に含めない
+
+`round_history` に追加する値は、
+
+```python
+derive_new_inference_steps()
+```
+
+の返り値そのものである。
+
+したがって、
+
+```text
+rule は applicable
+candidate ProofStep も生成された
+しかし conclusion は既知だった
+```
+
+という candidate は history には残らない。
+
+Phase 5-29 の history は、
+
+```text
+attempted inference history
+```
+
+ではなく、
+
+```text
+knowledge-state growth history
+```
+
+である。
+
+---
+
+## Phase 5-29 で追加した主なテスト
+
+追加:
+
+```text
+test_inference_run_result
+test_run_inference_until_stable_with_history
+test_run_inference_until_stable_with_history_multiple_rounds
+test_run_inference_until_stable_with_history_excludes_empty_terminal_round
+test_run_inference_until_stable_with_history_no_new_steps
+test_run_inference_until_stable_with_history_empty_initial_state
+test_run_inference_until_stable_with_history_records_multiple_new_steps_in_round
+test_run_inference_until_stable_with_history_preserves_dependencies
+test_run_inference_until_stable_with_history_final_steps_match_simple_api
+test_run_inference_until_stable_with_history_accepts_single_rule_and_step
+test_run_inference_until_stable_with_history_accepts_lists
+test_run_inference_until_stable_with_history_rejects_invalid_rules
+test_run_inference_until_stable_with_history_rejects_invalid_steps
+test_run_inference_until_stable_with_history_requires_builder_for_matched_rule
+```
+
+追加テスト数:
+
+```text
+14
+```
+
+確認内容:
+
+```text
+InferenceRunResult basic structure
+round_count
+single productive round
+multiple productive rounds
+terminal empty round exclusion
+zero productive rounds
+empty initial state
+multiple new ProofSteps in one round
+cross-round dependency preservation
+simple API / detailed API consistency
+single input normalization
+list input normalization
+invalid inference-rule rejection
+invalid ProofStep rejection
+missing conclusion builder
+```
+
+---
+
+## inference-rule pattern tests
+
+2026-08-25:
+
+```text
+208 passed in 4.30s
+```
+
+Phase 5-28 完了時:
+
+```text
+194 passed
+```
+
+だったため、
+Phase 5-29 では14テストを追加した。
+
+`tests/test_inference_rule_pattern.py` の
+全208 tests が成功した。
+
+---
+
+## regression
+
+Phase 5-29 では、
+既存の、
+
+```text
+PremisePattern
+InferenceRule
+InferenceMatch
+matching
+premise search
+applicability
+match search
+single-match application
+multiple-match application
+derive_inference_steps()
+merge_proof_steps()
+derive_new_inference_steps()
+run_inference_round()
+run_inference_until_stable()
+```
+
+に関する既存テストもすべて成功した。
+
+特に、
+
+```text
+run_inference_until_stable()
+```
+
+が detailed API へ委譲する実装に変更された後も、
+Phase 5-28 の既存 behavior が維持されていることを確認した。
+
+また、
+
+```text
+detailed_result.steps
+==
+run_inference_until_stable(...)
+```
+
+もテストした。
+
+Phase 5-29 の result-object 導入による regression は
+確認されなかった。
+
+---
+
+## Phase 5-29 時点の fixed-point pipeline
+
+現在の high-level inference pipeline は、
+
+```text
+InferenceRule collection
++
+initial ProofSteps
+↓
+find_inference_matches()
+↓
+InferenceMatch collection
+↓
+apply_inference_matches()
+↓
+candidate derived ProofSteps
+↓
+merge_proof_steps()
+↓
+derive_new_inference_steps()
+↓
+round delta
+↓
+round_history に記録
+↓
+knowledge state に追加
+↓
+repeat
+↓
+delta == ()
+↓
+InferenceRunResult
+├── final steps
+├── round history
+└── round count
+```
+
+となった。
+
+simple API ではさらに、
+
+```text
+InferenceRunResult
+↓
+.steps
+↓
+final stable ProofSteps
+```
+
+を返す。
+
+---
+
+## Phase 5-24 から Phase 5-29 までの進展
+
+Phase 5-24:
+
+```text
+InferenceRules
++
+available ProofSteps
+↓
+candidate derived ProofSteps
+```
+
+Phase 5-25:
+
+```text
+one-round knowledge-state expansion
+```
+
+Phase 5-26:
+
+```text
+duplicate-aware merge
+```
+
+Phase 5-27:
+
+```text
+genuinely new one-round delta
+```
+
+Phase 5-28:
+
+```text
+automatic fixed-point iteration
+```
+
+Phase 5-29:
+
+```text
+structured fixed-point result
++
+per-round delta history
++
+productive round count
+```
+
+まで進んだ。
+
+---
+
+## Phase 5-29 の到達点
+
+Phase 5-28 までは、
+
+```text
+What is known at the fixed point?
+```
+
+に答えられる状態だった。
+
+Phase 5-29 では、
+
+```text
+What became known in each round?
+```
+
+にも答えられるようになった。
+
+例えば、
+
+```text
+initial:
+A
+
+round 1:
+B
+C
+
+round 2:
+D
+
+fixed point
+```
+
+を、
+
+```text
+final:
+A B C D
+
+history:
+round 1 = B C
+round 2 = D
+
+round_count:
+2
+```
+
+として直接取得できる。
+
+これにより、
+fixed-point inference は単なる計算 API から、
+
+```text
+推論がどの段階で進んだか
+```
+
+を追跡できる execution model へ進んだ。
+
+---
+
+## 現在まだ行わないこと
+
+Phase 5-29 では、
+以下はまだ実装しない。
+
+```text
+max_rounds
+maximum-round termination
+termination reason
+termination enum
+terminal empty round history
+complete state snapshot per round
+InferenceMatch history
+applicable-rule history
+candidate derivation history
+duplicate-rejected candidate history
+rule application count
+cycle detection
+nontermination detection
+alternative-proof repository
+multiple proofs of the same conclusion
+mathematical equivalence based duplicate detection
+conclusion canonicalization
+all premise-assignment enumeration
+backtracking
+pattern variables
+variable binding
+expression substitution
+structured conclusion templates
+automatic relation selection
+```
+
+特に、
+現在の `InferenceRunResult` は、
+
+```text
+knowledge growth
+```
+
+だけを表す。
+
+```text
+何を試したが追加されなかったか
+```
+
+という execution trace はまだ扱わない。
+
+---
+
+## 状態
+
+Phase 5-29 完了。
+
+inference-rule pattern tests:
+
+```text
+208 passed in 4.30s
+```
+
+Phase 5-29 により、
+
+```text
+fixed-point execution
++
+final knowledge state
++
+per-round new knowledge
++
+productive round count
+```
+
+を一つの structured result として扱えるようになった。
+
+次の自然な課題は、
+fixed-point iteration が必ず停止するとは限らないことへの
+safeguard である。
+
+次の候補:
+
+```text
+Phase 5-30:
+max_rounds
++
+termination reason
+```
+
+これにより、
+
+```text
+fixed point reached
+```
+
+と、
+
+```text
+round limit reached
+```
+
+を明示的に区別できるようにする。
 
 
 
