@@ -95,6 +95,12 @@ def format_source(source):
   return str(source)
 
 
+def format_inference_rule(
+  inference_rule,
+):
+  return inference_rule.name
+
+
 def format_statement(statement):
   if isinstance(
     statement,
@@ -209,6 +215,14 @@ def format_proof_step(
       lines.append(
         f"   Relation note: {relation.note}"
       )
+
+  if step.inference_rule is not None:
+    lines.append(
+      "   Inference rule: "
+      + format_inference_rule(
+        step.inference_rule
+      )
+    )
 
   if step.premises:
     premise_labels = []

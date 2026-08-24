@@ -3146,6 +3146,585 @@ ProofStep に統一するかどうかは、
 15. relation を使用しない一般 inference rule は後続フェーズで検討する。
 
 
+# InferenceRule と推論規則の構造化
+
+## Phase 5-14：InferenceRule の導入
+
+Phase 5-13 までに、
+複数の Relation および既存の ProofStep を
+premises とする relation inference を構築できるようになった。
+
+しかし Phase 5-13 時点では、
+relation inference によって生成された ProofStep はすべて、
+
+```text
+ProofRule.RELATION
+```
+
+として扱われていた。
+
+このため、
+
+```text
+どの ProofStep を前提として使ったか
+```
+
+は `premises` から追跡できる一方、
+
+```text
+それらの premises から
+どの数学的推論規則を使って
+conclusion を導いたのか
+```
+
+は構造化されていなかった。
+
+Phase 5-14 では、
+この情報を明示的に保持するため、
+
+```text
+InferenceRule
+```
+
+を導入する。
+
+---
+
+## ProofRule と InferenceRule の区別
+
+`ProofRule` と `InferenceRule` は
+異なる責務を持つ。
+
+`ProofRule` は、
+ProofStep の処理の大分類を表す。
+
+例えば、
+
+```text
+GIVEN
+RELATION
+EXACTNESS
+EHP_EXACTNESS
+KERNEL_COMPUTATION
+IMAGE_COMPUTATION
+COKERNEL_COMPUTATION
+```
+
+などである。
+
+一方 `InferenceRule` は、
+premises から conclusion を導く際に使用した
+具体的な数学的推論規則を表す。
+
+例えば、
+
+```text
+zero relation implies order bound
+```
+
+という推論規則は、
+
+```text
+mα = 0
+↓
+ord(α) divides m
+```
+
+という数学的推論を表す。
+
+したがって、
+
+```text
+ProofRule
+= ProofStep の大分類
+
+InferenceRule
+= premises から conclusion を導く具体的規則
+```
+
+とする。
+
+---
+
+## InferenceRule の設計
+
+Phase 5-14 では、
+`InferenceRule` を最小構造として導入する。
+
+保持する情報は、
+
+```text
+name
+description
+```
+
+とする。
+
+例えば、
+
+```python
+InferenceRule(
+  name=(
+    "zero relation implies "
+    "order bound"
+  ),
+  description=(
+    "If m alpha = 0, "
+    "the order of alpha divides m."
+  ),
+)
+```
+
+のように表現する。
+
+`name` は Proof trace に表示する短い名称とする。
+
+`description` は、
+推論規則の数学的意味を説明する補足情報とする。
+
+Phase 5-14 では、
+`description` は保持するだけであり、
+Proof formatter にはまだ表示しない。
+
+---
+
+## ProofStep と InferenceRule の接続
+
+`ProofStep` に、
+
+```text
+inference_rule
+```
+
+を追加する。
+
+型は、
+
+```text
+InferenceRule | None
+```
+
+とする。
+
+これにより、
+
+```text
+premises
+↓
+InferenceRule
+↓
+conclusion
+```
+
+という構造を ProofStep 内に保持できる。
+
+例えば、
+
+```text
+1. 2η_3 = 0
+   [relation]
+
+2. η_3 has order dividing 2
+   [relation]
+   Inference rule: zero relation implies order bound
+   Premises: 1
+```
+
+という Proof trace を構築できる。
+
+内部構造としては、
+
+```text
+ProofStep
+├── conclusion
+├── premises
+├── rule
+├── note
+└── inference_rule
+```
+
+となる。
+
+---
+
+## inference_rule は optional とする
+
+既存の ProofStep には
+InferenceRule を持たないものが多数存在する。
+
+例えば、
+
+```text
+kernel computation
+image computation
+cokernel computation
+given
+```
+
+などについては、
+Phase 5-14 で新しい InferenceRule を強制しない。
+
+また既存の relation inference API との
+後方互換性も維持する。
+
+したがって、
+
+```text
+inference_rule = None
+```
+
+を許可する。
+
+従来の、
+
+```python
+relation_inference_proof(
+  relation,
+  conclusion,
+)
+```
+
+もそのまま動作する。
+
+必要な場合のみ、
+
+```python
+relation_inference_proof(
+  relation,
+  conclusion,
+  inference_rule=rule,
+)
+```
+
+とする。
+
+---
+
+## inference_rule の検証
+
+relation inference API に渡される
+`inference_rule` は、
+
+```text
+InferenceRule
+```
+
+または、
+
+```text
+None
+```
+
+に限定する。
+
+文字列などを直接渡すことは許可しない。
+
+例えば、
+
+```python
+inference_rule=(
+  "zero relation implies order bound"
+)
+```
+
+のような入力は使用しない。
+
+必ず、
+
+```python
+InferenceRule(
+  name=(
+    "zero relation implies "
+    "order bound"
+  ),
+)
+```
+
+として構造化する。
+
+これにより将来的に、
+
+```text
+rule name
+description
+premise pattern
+conclusion construction
+source
+```
+
+などへ拡張できる。
+
+---
+
+## relation inference との接続
+
+Phase 5-13 で一般化した、
+
+```text
+relation_inference_proof_step()
+relation_inference_proof()
+```
+
+に、
+
+```text
+inference_rule
+```
+
+引数を追加する。
+
+例えば、
+
+```python
+rule = InferenceRule(
+  name=(
+    "zero relation implies "
+    "order bound"
+  ),
+)
+
+proof = relation_inference_proof(
+  relation,
+  conclusion,
+  inference_rule=rule,
+)
+```
+
+とする。
+
+生成された inference ProofStep は、
+
+```text
+rule = ProofRule.RELATION
+```
+
+を維持しつつ、
+
+```text
+inference_rule = rule
+```
+
+として具体的な推論規則も保持する。
+
+このため、
+
+```text
+ProofRule.RELATION
+```
+
+を細かな数学的規則ごとに増やす必要はない。
+
+---
+
+## formatter との接続
+
+formatter に、
+
+```text
+format_inference_rule()
+```
+
+を追加する。
+
+Phase 5-14 では、
+InferenceRule の `name` を表示する。
+
+例えば、
+
+```text
+Inference rule: zero relation implies order bound
+```
+
+と表示する。
+
+Proof trace 全体では、
+
+```text
+1. 2η_3 = 0
+   [relation]
+   Source: Toda — H. Toda, Composition Methods in Homotopy Groups of Spheres, 1962
+   Relation note: example zero relation
+
+2. η_3 has order dividing 2
+   [relation]
+   Inference rule: zero relation implies order bound
+   Premises: 1
+   Note: derived from the zero relation
+```
+
+のようになる。
+
+これにより、
+
+```text
+使用した数学的事実
+使用した推論規則
+依存した ProofStep
+推論時の補足
+```
+
+をそれぞれ区別して表示できる。
+
+---
+
+## metadata の責務分離
+
+Phase 5-14 時点では、
+proof trace 上の情報を次のように区別する。
+
+```text
+LiteratureReference
+= Relation の文献出典
+
+Relation.note
+= Relation 自体の数学的補足
+
+ProofStep.note
+= その ProofStep における補足
+
+ProofRule
+= ProofStep の処理の大分類
+
+InferenceRule
+= premises から conclusion を導く具体的な数学的規則
+```
+
+これらを統合しない。
+
+例えば、
+
+```text
+Source
+```
+
+と、
+
+```text
+Inference rule
+```
+
+は異なる。
+
+Source は、
+
+```text
+その数学的事実をどこから得たか
+```
+
+を表す。
+
+InferenceRule は、
+
+```text
+その事実からどの規則を使って
+新しい結論を得たか
+```
+
+を表す。
+
+---
+
+## Phase 5-14 時点の inference pipeline
+
+現在の relation inference は、
+
+```text
+LiteratureReference
+        ↓
+Relation
+        ↓
+relation_proof_step
+        ↓
+ProofStep
+        │
+        ├──────────────┐
+        │              │
+        ↓              ↓
+    premises      InferenceRule
+        │              │
+        └──────┬───────┘
+               ↓
+       inference ProofStep
+               ↓
+             Proof
+               ↓
+           formatter
+```
+
+という構造を持つ。
+
+これにより、
+
+```text
+何を使ったか
+```
+
+だけでなく、
+
+```text
+どの推論規則を使ったか
+```
+
+も Proof trace に保持できるようになった。
+
+---
+
+## Phase 5-14 ではまだ行わないこと
+
+Phase 5-14 の `InferenceRule` は、
+推論規則の metadata を構造化する段階とする。
+
+まだ、
+
+```text
+premise pattern の定義
+pattern matching
+rule applicability 判定
+conclusion の自動生成
+InferenceRule の apply()
+InferenceRule repository
+自動 relation 検索
+自動 proof construction
+```
+
+は行わない。
+
+したがって現段階では、
+
+```text
+InferenceRule
+```
+
+を指定しても、
+その rule が本当に premises に適用可能かを
+機械的に判定するわけではない。
+
+conclusion も引き続き明示的に指定する。
+
+自動適用機構は後続フェーズで導入する。
+
+---
+
+## Phase 5-14 時点の設計原則
+
+1. `ProofRule` と `InferenceRule` を区別する。
+2. `ProofRule` は ProofStep の大分類とする。
+3. `InferenceRule` は具体的な数学的推論規則とする。
+4. `InferenceRule` は `name` と `description` を持つ。
+5. `ProofStep` は optional な `inference_rule` を保持できる。
+6. inference_rule を持たない既存 ProofStep との後方互換性を維持する。
+7. relation inference は InferenceRule を明示的に受け取れる。
+8. 不正な inference_rule 型は拒否する。
+9. formatter は InferenceRule の name を表示する。
+10. LiteratureReference と InferenceRule を混同しない。
+11. Relation.note と InferenceRule を混同しない。
+12. ProofStep.note と InferenceRule を混同しない。
+13. InferenceRule の pattern matching はまだ実装しない。
+14. InferenceRule の自動適用はまだ実装しない。
+15. conclusion は引き続き明示的に構築する。
+16. algebra 層には InferenceRule の概念を持ち込まない。
+
+
 
 
 

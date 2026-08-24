@@ -5,6 +5,7 @@ from expression import (
 )
 from formatter import format_proof
 from proof import (
+  InferenceRule,
   LiteratureReference,
   Relation,
   RelationType,
@@ -22,7 +23,7 @@ source = LiteratureReference(
   year=1962,
 )
 
-relation1 = Relation(
+relation = Relation(
   lhs=Multiple(
     2,
     eta(3),
@@ -30,28 +31,26 @@ relation1 = Relation(
   rhs=Zero(),
   relation_type=RelationType.ZERO,
   source=source,
-  note="first example relation",
+  note="example zero relation",
 )
 
-relation2 = Relation(
-  lhs=Multiple(
-    2,
-    eta(4),
+rule = InferenceRule(
+  name=(
+    "zero relation implies "
+    "order bound"
   ),
-  rhs=Zero(),
-  relation_type=RelationType.ZERO,
-  source=source,
-  note="second example relation",
+  description=(
+    "If m alpha = 0, "
+    "the order of alpha divides m."
+  ),
 )
 
 proof = relation_inference_proof(
-  (
-    relation1,
-    relation2,
-  ),
-  "combined result",
+  relation,
+  "η_3 has order dividing 2",
+  inference_rule=rule,
   note=(
-    "derived from two relations"
+    "derived from the zero relation"
   ),
 )
 
@@ -60,6 +59,5 @@ print(
     proof
   )
 )
-
 
 

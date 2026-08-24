@@ -38,12 +38,18 @@ class ProofRule(Enum):
 
 
 @dataclass(frozen=True)
+class InferenceRule:
+  name: str
+  description: str | None = None
+
+
+@dataclass(frozen=True)
 class ProofStep:
   conclusion: Any
   premises: tuple[Any, ...]
   rule: ProofRule
   note: str | None = None
-
+  inference_rule: InferenceRule | None = None
 
 @dataclass
 class Proof:
@@ -315,11 +321,28 @@ def _normalize_relations(
   return normalized
 
 
+def _validate_inference_rule(
+  inference_rule,
+):
+  if (
+    inference_rule is not None
+    and not isinstance(
+      inference_rule,
+      InferenceRule,
+    )
+  ):
+    raise TypeError(
+      "inference_rule must be "
+      "an InferenceRule or None"
+    )
+
+
 def relation_inference_proof_step(
   conclusion,
   relation_steps,
   premises=(),
   note=None,
+  inference_rule=None,
 ):
   normalized_relation_steps = (
     _normalize_proof_steps(
@@ -361,6 +384,10 @@ def relation_inference_proof_step(
     )
   )
 
+  _validate_inference_rule(
+    inference_rule
+  )
+
   return ProofStep(
     conclusion=conclusion,
     premises=(
@@ -369,6 +396,7 @@ def relation_inference_proof_step(
     ),
     rule=ProofRule.RELATION,
     note=note,
+    inference_rule=inference_rule,
   )
 
 
@@ -377,6 +405,7 @@ def relation_inference_proof(
   conclusion,
   premises=(),
   note=None,
+  inference_rule=None,
 ):
   normalized_relations = (
     _normalize_relations(
@@ -404,12 +433,17 @@ def relation_inference_proof(
     )
   )
 
+  _validate_inference_rule(
+    inference_rule
+  )
+
   inference_step = (
     relation_inference_proof_step(
       conclusion,
       relation_steps,
       premises=normalized_premises,
       note=note,
+      inference_rule=inference_rule,
     )
   )
 
@@ -421,7 +455,6 @@ def relation_inference_proof(
       inference_step,
     ],
   )
-
 
 
 

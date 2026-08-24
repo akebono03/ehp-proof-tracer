@@ -3906,6 +3906,406 @@ relation の自動選択
 Phase 5-13 完了。
 
 
+## Phase 5-14：InferenceRule の導入
+
+Phase 5-13 までに、
+複数の Relation および既存 ProofStep を
+premises とする inference を構築できるようになった。
+
+しかし inference step は、
+
+```text
+ProofRule.RELATION
+```
+
+という大分類しか持たず、
+
+```text
+どの数学的規則を用いて
+premises から conclusion を導いたか
+```
+
+は構造化されていなかった。
+
+Phase 5-14 では、
+具体的な数学的推論規則を表すため、
+
+```text
+InferenceRule
+```
+
+を導入した。
+
+---
+
+### InferenceRule
+
+追加:
+
+```text
+InferenceRule
+```
+
+保持する情報:
+
+```text
+name
+description
+```
+
+例えば、
+
+```python
+InferenceRule(
+  name=(
+    "zero relation implies "
+    "order bound"
+  ),
+  description=(
+    "If m alpha = 0, "
+    "the order of alpha divides m."
+  ),
+)
+```
+
+のように推論規則を構造化できる。
+
+---
+
+### ProofStep への接続
+
+`ProofStep` に、
+
+```text
+inference_rule
+```
+
+を追加した。
+
+型は、
+
+```text
+InferenceRule | None
+```
+
+とした。
+
+これにより、
+
+```text
+premises
++
+InferenceRule
+↓
+conclusion
+```
+
+という推論構造を保持できる。
+
+既存の ProofStep との互換性を維持するため、
+`inference_rule` は optional とした。
+
+---
+
+### ProofRule との区別
+
+Phase 5-14 では、
+
+```text
+ProofRule
+```
+
+と、
+
+```text
+InferenceRule
+```
+
+を別概念として扱う。
+
+`ProofRule` は、
+
+```text
+RELATION
+EXACTNESS
+EHP_EXACTNESS
+KERNEL_COMPUTATION
+IMAGE_COMPUTATION
+COKERNEL_COMPUTATION
+```
+
+など、
+ProofStep の処理の大分類を表す。
+
+一方 `InferenceRule` は、
+
+```text
+zero relation implies order bound
+```
+
+など、
+具体的な数学的推論規則を表す。
+
+そのため relation inference step は、
+
+```text
+ProofRule.RELATION
+```
+
+を維持したまま、
+
+```text
+InferenceRule
+```
+
+も保持する。
+
+---
+
+### relation inference API の拡張
+
+以下に、
+
+```text
+inference_rule
+```
+
+引数を追加した。
+
+```text
+relation_inference_proof_step()
+relation_inference_proof()
+```
+
+これにより、
+
+```python
+relation_inference_proof(
+  relation,
+  conclusion,
+  inference_rule=rule,
+)
+```
+
+として推論規則を明示できる。
+
+従来形式も維持しているため、
+
+```python
+relation_inference_proof(
+  relation,
+  conclusion,
+)
+```
+
+も引き続き利用できる。
+
+---
+
+### inference_rule の型検証
+
+追加:
+
+```text
+_validate_inference_rule()
+```
+
+`inference_rule` は、
+
+```text
+InferenceRule
+```
+
+または、
+
+```text
+None
+```
+
+のみを受け付ける。
+
+文字列などの不正な値を渡した場合は、
+
+```text
+TypeError
+```
+
+とする。
+
+---
+
+### formatter の拡張
+
+追加:
+
+```text
+format_inference_rule()
+```
+
+ProofStep が InferenceRule を持つ場合、
+
+```text
+Inference rule: ...
+```
+
+を表示するようにした。
+
+確認例:
+
+```text
+1. 2η_3 = 0
+   [relation]
+   Source: Toda — H. Toda, Composition Methods in Homotopy Groups of Spheres, 1962
+   Relation note: example zero relation
+
+2. η_3 has order dividing 2
+   [relation]
+   Inference rule: zero relation implies order bound
+   Premises: 1
+   Note: derived from the zero relation
+
+Conclusion:
+
+η_3 has order dividing 2
+```
+
+これにより、
+
+```text
+relation の内容
+relation の出典
+relation の補足
+使用した inference rule
+premises
+inference step の補足
+```
+
+を同じ Proof trace 上で区別して確認できる。
+
+---
+
+### 後方互換性
+
+InferenceRule は optional としたため、
+既存の ProofStep や relation inference は
+変更せず利用できる。
+
+InferenceRule を指定しない場合、
+
+```text
+step.inference_rule is None
+```
+
+となる。
+
+既存の algebra / EHP proof にも
+InferenceRule の指定を強制していない。
+
+---
+
+### 実装整理
+
+Phase 5-14 実装時に、
+`proof.py` 内で重複していた、
+
+```text
+_normalize_proof_steps()
+_normalize_relations()
+```
+
+の定義を1つずつに整理した。
+
+動作上は後側の定義が使用されていたため
+テスト結果への影響はなかったが、
+同一 helper の重複定義を削除して
+実装を整理した。
+
+---
+
+### テスト
+
+追加した主なテスト:
+
+```text
+test_inference_rule
+test_relation_inference_proof_step_with_inference_rule
+test_relation_inference_proof_with_inference_rule
+test_relation_inference_without_inference_rule_is_backward_compatible
+test_relation_inference_rejects_invalid_inference_rule
+test_multiple_relation_inference_with_inference_rule
+test_format_inference_rule
+test_format_proof_step_inference_rule
+test_format_relation_inference_with_rule
+```
+
+2026-08-24:
+
+```text
+224 passed in 21.47s
+```
+
+既存の algebra / EHP / expression / proof / formatter /
+repository を含め、
+すべてのテストが成功した。
+
+InferenceRule 導入による regression は確認されなかった。
+
+---
+
+### Phase 5-14 の到達点
+
+Phase 5-14 により、
+
+```text
+premises
+↓
+InferenceRule
+↓
+conclusion
+```
+
+という推論規則そのものを
+ProofStep に明示できるようになった。
+
+Phase 5-13 では、
+
+```text
+何を premise として使ったか
+```
+
+まで追跡できる状態だった。
+
+Phase 5-14 ではさらに、
+
+```text
+どの規則で導いたか
+```
+
+まで追跡できるようになった。
+
+ただし現段階の InferenceRule は、
+推論規則の metadata を保持するだけであり、
+
+```text
+premise pattern
+pattern matching
+applicability 判定
+conclusion 自動生成
+rule 自動適用
+```
+
+はまだ行わない。
+
+これらは後続フェーズの課題とする。
+
+### 状態
+
+Phase 5-14 完了。
+
+
+
+
+
 
 
 

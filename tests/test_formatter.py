@@ -7,6 +7,7 @@ from expression import (
 from formatter import (
   format_abelian_structure,
   format_expression,
+  format_inference_rule,
   format_literature_reference,
   format_proof,
   format_proof_step,
@@ -14,6 +15,8 @@ from formatter import (
   format_statement,
 )
 from proof import (
+  InferenceRule,
+  LiteratureReference,
   Proof,
   ProofRule,
   ProofStep,
@@ -21,7 +24,6 @@ from proof import (
   RelationType,
   ehp_sphere_proof,
   relation_inference_proof,
-  LiteratureReference,
 )
 from algebra import AbelianGroupStructure
 from ehp import EHPSegment
@@ -631,6 +633,108 @@ def test_format_multiple_relation_inference_proof():
     "Note: derived from two relations"
     in text
   )
+
+
+def test_format_inference_rule():
+  rule = InferenceRule(
+    name=(
+      "zero relation implies "
+      "order bound"
+    ),
+  )
+
+  assert (
+    format_inference_rule(
+      rule
+    )
+    == (
+      "zero relation implies "
+      "order bound"
+    )
+  )
+
+
+def test_format_proof_step_inference_rule():
+  rule = InferenceRule(
+    name=(
+      "zero relation implies "
+      "order bound"
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=(
+      "η_3 has order dividing 2"
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+    inference_rule=rule,
+  )
+
+  text = format_proof_step(
+    step,
+    number=1,
+  )
+
+  assert (
+    "Inference rule: "
+    "zero relation implies "
+    "order bound"
+    in text
+  )
+
+
+def test_format_relation_inference_with_rule():
+  relation = Relation(
+    lhs=Multiple(
+      2,
+      eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+    source="Toda",
+  )
+
+  rule = InferenceRule(
+    name=(
+      "zero relation implies "
+      "order bound"
+    ),
+  )
+
+  proof = relation_inference_proof(
+    relation,
+    "η_3 has order dividing 2",
+    inference_rule=rule,
+  )
+
+  text = format_proof(
+    proof
+  )
+
+  assert (
+    "1. 2η_3 = 0"
+    in text
+  )
+
+  assert (
+    "2. η_3 has order dividing 2"
+    in text
+  )
+
+  assert (
+    "Inference rule: "
+    "zero relation implies "
+    "order bound"
+    in text
+  )
+
+  assert (
+    "Premises: 1"
+    in text
+  )
+
+
 
 
 

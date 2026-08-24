@@ -3,6 +3,7 @@ from proof import (
   CokernelStatement,
   ExactnessStatement,
   ImageStatement,
+  InferenceRule,
   KernelStatement,
   Proof,
   ProofRule,
@@ -1128,6 +1129,215 @@ def test_relation_inference_proof_step_rejects_invalid_additional_premise():
         "not a ProofStep",
       ),
     )
+
+
+def test_inference_rule():
+  rule = InferenceRule(
+    name=(
+      "zero relation implies "
+      "order bound"
+    ),
+    description=(
+      "If m alpha = 0, "
+      "the order of alpha divides m."
+    ),
+  )
+
+  assert (
+    rule.name
+    == (
+      "zero relation implies "
+      "order bound"
+    )
+  )
+
+  assert (
+    rule.description
+    == (
+      "If m alpha = 0, "
+      "the order of alpha divides m."
+    )
+  )
+
+
+def test_relation_inference_proof_step_with_inference_rule():
+  relation = Relation(
+    lhs=Multiple(
+      2,
+      eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  relation_step = (
+    relation_proof_step(
+      relation
+    )
+  )
+
+  rule = InferenceRule(
+    name=(
+      "zero relation implies "
+      "order bound"
+    ),
+  )
+
+  step = relation_inference_proof_step(
+    "η_3 has order dividing 2",
+    relation_step,
+    inference_rule=rule,
+  )
+
+  assert (
+    step.inference_rule
+    == rule
+  )
+
+  assert (
+    step.premises
+    == (
+      relation_step,
+    )
+  )
+
+
+def test_relation_inference_proof_with_inference_rule():
+  relation = Relation(
+    lhs=Multiple(
+      2,
+      eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  rule = InferenceRule(
+    name=(
+      "zero relation implies "
+      "order bound"
+    ),
+  )
+
+  proof = relation_inference_proof(
+    relation,
+    "η_3 has order dividing 2",
+    inference_rule=rule,
+  )
+
+  inference_step = (
+    proof.steps[-1]
+  )
+
+  assert (
+    inference_step.inference_rule
+    == rule
+  )
+
+  assert (
+    proof.conclusion
+    == "η_3 has order dividing 2"
+  )
+
+
+def test_relation_inference_without_inference_rule_is_backward_compatible():
+  relation = Relation(
+    lhs=Multiple(
+      2,
+      eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  proof = relation_inference_proof(
+    relation,
+    "η_3 has order dividing 2",
+  )
+
+  inference_step = (
+    proof.steps[-1]
+  )
+
+  assert (
+    inference_step.inference_rule
+    is None
+  )
+
+
+def test_relation_inference_rejects_invalid_inference_rule():
+  relation = Relation(
+    lhs=Multiple(
+      2,
+      eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  with pytest.raises(
+    TypeError
+  ):
+    relation_inference_proof(
+      relation,
+      "η_3 has order dividing 2",
+      inference_rule=(
+        "not an InferenceRule"
+      ),
+    )
+
+
+def test_multiple_relation_inference_with_inference_rule():
+  relation1 = Relation(
+    lhs=Multiple(
+      2,
+      eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  relation2 = Relation(
+    lhs=Multiple(
+      2,
+      eta(4),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  rule = InferenceRule(
+    name="combined relation rule",
+  )
+
+  proof = relation_inference_proof(
+    (
+      relation1,
+      relation2,
+    ),
+    "combined result",
+    inference_rule=rule,
+  )
+
+  inference_step = (
+    proof.steps[-1]
+  )
+
+  assert (
+    inference_step.inference_rule
+    == rule
+  )
+
+  assert (
+    inference_step.premises
+    == (
+      proof.steps[0],
+      proof.steps[1],
+    )
+  )
+
+
+
 
 
 

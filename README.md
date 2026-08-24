@@ -572,6 +572,8 @@ Phase 5 currently supports:
 * structured literature references with author, title, year, and locator
 * inference from multiple mathematical relations
 * inference combining relations with existing proof steps
+* structured inference-rule metadata
+* explicit distinction between proof-step categories and mathematical inference rules
 * human-readable proof formatting
 
 For example, an EHP exactness calculation can now be represented as:
@@ -588,7 +590,7 @@ For example, an EHP exactness calculation can now be represented as:
    Premises: 1, 2
 ```
 
-Known mathematical relations can also participate directly in proof
+Known mathematical relations can participate directly in proof
 dependencies:
 
 ```text
@@ -614,6 +616,34 @@ Multiple known relations can be combined in a single inference:
    Premises: 1, 2
 ```
 
+The mathematical inference rule used by an inference step can also be
+recorded explicitly:
+
+```text
+1. 2η_3 = 0
+   [relation]
+
+2. η_3 has order dividing 2
+   [relation]
+   Inference rule: zero relation implies order bound
+   Premises: 1
+```
+
+This distinguishes:
+
+```text
+ProofRule
+```
+
+which describes the broad category of a proof step, from:
+
+```text
+InferenceRule
+```
+
+which describes the specific mathematical rule used to derive a
+conclusion from its premises.
+
 Relation sources can be represented as structured literature
 references.
 
@@ -633,8 +663,8 @@ year
 locator
 ```
 
-while relation-specific mathematical notes and inference-step notes
-remain separate metadata.
+while relation-specific mathematical notes, inference-step notes, and
+inference-rule metadata remain separate.
 
 ---
 
@@ -652,11 +682,13 @@ from Toda relations, composition relations, or other homotopy-theoretic
 theorems.
 
 The current proof / inference layer records explicitly constructed
-dependencies, but does not yet automatically:
+dependencies and inference-rule metadata, but does not yet
+automatically:
 
-* select applicable relations
-* perform relation pattern matching
+* determine whether an inference rule is applicable
+* match premise patterns
 * construct conclusions from inference rules
+* select applicable relations
 * recursively collect proof dependencies
 * construct a proof DAG
 * derive E/H/P formulas from homotopy-theoretic relations
@@ -682,10 +714,10 @@ Run the complete test suite with:
 python -m pytest -v
 ```
 
-At the completion of Phase 5-13:
+At the completion of Phase 5-14:
 
 ```text
-215 passed in 20.68s
+224 passed in 21.47s
 ```
 
 The development log records test-suite results at each implementation
@@ -695,26 +727,19 @@ checkpoint.
 
 ## Next direction
 
-The immediate goal is to continue generalizing the proof / inference
-layer from manually assembled proof dependencies toward reusable
-inference rules.
+The immediate goal is to move from inference-rule metadata toward
+machine-checkable inference rules.
 
-The next design step is to distinguish:
-
-```text
-the mathematical premises used by an inference
-```
-
-from:
-
-```text
-the inference rule that transforms those premises into a conclusion
-```
+The next design step is to represent what kind of premises an
+`InferenceRule` expects without yet building a full automatic theorem
+prover.
 
 Possible later directions include:
 
-* structured inference rules
+* premise patterns for inference rules
 * relation pattern matching
+* inference-rule applicability checks
+* conclusion construction
 * automatic relation selection
 * composition relations
 * Toda brackets
@@ -725,7 +750,6 @@ Possible later directions include:
 
 The algebra layer remains independent of these higher-level
 homotopy-theoretic inference mechanisms.
-
 
 
 
