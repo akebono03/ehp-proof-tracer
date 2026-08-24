@@ -118,6 +118,7 @@ def format_statement(statement):
 def format_proof_step(
   step,
   number=None,
+  step_numbers=None,
 ):
   conclusion = format_statement(
     step.conclusion
@@ -135,10 +136,41 @@ def format_proof_step(
       f"{number}. {conclusion}"
     )
 
-  return (
-    f"{first_line}\n"
-    f"   [{rule}]"
-  )
+  lines = [
+    first_line,
+    f"   [{rule}]",
+  ]
+
+  if step.premises:
+    premise_labels = []
+
+    for premise in step.premises:
+      if (
+        step_numbers is not None
+        and id(premise) in step_numbers
+      ):
+        premise_labels.append(
+          str(
+            step_numbers[
+              id(premise)
+            ]
+          )
+        )
+      else:
+        premise_labels.append(
+          format_statement(
+            premise
+          )
+        )
+
+    lines.append(
+      "   Premises: "
+      + ", ".join(
+        premise_labels
+      )
+    )
+
+  return "\n".join(lines)
 
 
 def format_proof(proof):
@@ -146,6 +178,14 @@ def format_proof(proof):
     raise TypeError(
       "proof must be a Proof"
     )
+
+  step_numbers = {
+    id(step): index
+    for index, step in enumerate(
+      proof.steps,
+      start=1,
+    )
+  }
 
   lines = []
 
@@ -157,6 +197,7 @@ def format_proof(proof):
       format_proof_step(
         step,
         number=index,
+        step_numbers=step_numbers,
       )
     )
 

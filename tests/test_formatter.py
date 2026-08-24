@@ -169,6 +169,81 @@ def test_format_ehp_sphere_proof():
   assert "[ehp exactness]" in text
 
 
+def test_format_proof_with_premises():
+  step1 = ProofStep(
+    conclusion="first result",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  step2 = ProofStep(
+    conclusion="second result",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  step3 = ProofStep(
+    conclusion="final result",
+    premises=(
+      step1,
+      step2,
+    ),
+    rule=ProofRule.EXACTNESS,
+  )
+
+  proof = Proof(
+    conclusion="final result",
+    steps=[
+      step1,
+      step2,
+      step3,
+    ],
+  )
+
+  text = format_proof(
+    proof
+  )
+
+  assert (
+    "Premises: 1, 2"
+    in text
+  )
+
+
+def test_format_ehp_sphere_proof_premises():
+  repo = SphereRepository(
+    BASE_DIR
+    / "data"
+    / "sphere.csv"
+  )
+
+  segment = EHPSegment(
+    repo,
+    n=3,
+    k=5,
+  )
+
+  proof = ehp_sphere_proof(
+    segment
+  )
+
+  text = format_proof(
+    proof
+  )
+
+  assert (
+    "3. Im(E) = Ker(H)"
+    in text
+  )
+
+  assert (
+    "Premises: 1, 2"
+    in text
+  )
+
+
+
+
 
 
 
