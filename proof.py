@@ -877,6 +877,55 @@ def derive_inference_steps(
   )
 
 
+def merge_proof_steps(
+  available_steps,
+  derived_steps,
+):
+  normalized_available_steps = (
+    _normalize_proof_steps(
+      available_steps,
+      "available_steps",
+    )
+  )
+
+  normalized_derived_steps = (
+    _normalize_proof_steps(
+      derived_steps,
+      "derived_steps",
+    )
+  )
+
+  merged_steps = list(
+    normalized_available_steps
+  )
+
+  known_conclusions = [
+    step.conclusion
+    for step in merged_steps
+  ]
+
+  for step in normalized_derived_steps:
+    if any(
+      step.conclusion
+      == known_conclusion
+      for known_conclusion
+      in known_conclusions
+    ):
+      continue
+
+    merged_steps.append(
+      step
+    )
+
+    known_conclusions.append(
+      step.conclusion
+    )
+
+  return tuple(
+    merged_steps
+  )
+
+
 def run_inference_round(
   inference_rules,
   available_steps,
@@ -893,11 +942,10 @@ def run_inference_round(
     normalized_steps,
   )
 
-  return (
-    normalized_steps
-    + derived_steps
+  return merge_proof_steps(
+    normalized_steps,
+    derived_steps,
   )
-
 
 
 

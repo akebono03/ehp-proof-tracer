@@ -17,6 +17,7 @@ from proof import (
   is_inference_rule_applicable,
   matches_inference_rule,
   matches_premise_pattern,
+  merge_proof_steps,
   run_inference_round,
 )
 
@@ -4338,6 +4339,435 @@ def test_run_inference_round_requires_builder_for_matched_rule():
         step,
       ),
     )
+
+
+def test_merge_proof_steps():
+  available_step = ProofStep(
+    conclusion="available",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  derived_step = ProofStep(
+    conclusion="derived",
+    premises=(
+      available_step,
+    ),
+    rule=ProofRule.INFERENCE,
+  )
+
+  result = merge_proof_steps(
+    (
+      available_step,
+    ),
+    (
+      derived_step,
+    ),
+  )
+
+  assert result == (
+    available_step,
+    derived_step,
+  )
+
+
+def test_merge_proof_steps_skips_existing_conclusion():
+  available_step = ProofStep(
+    conclusion="same conclusion",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  derived_step = ProofStep(
+    conclusion="same conclusion",
+    premises=(
+      available_step,
+    ),
+    rule=ProofRule.INFERENCE,
+  )
+
+  result = merge_proof_steps(
+    (
+      available_step,
+    ),
+    (
+      derived_step,
+    ),
+  )
+
+  assert result == (
+    available_step,
+  )
+
+
+def test_merge_proof_steps_skips_duplicate_derived_conclusion():
+  available_step = ProofStep(
+    conclusion="available",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_derived_step = ProofStep(
+    conclusion="derived",
+    premises=(
+      available_step,
+    ),
+    rule=ProofRule.INFERENCE,
+  )
+
+  second_derived_step = ProofStep(
+    conclusion="derived",
+    premises=(
+      available_step,
+    ),
+    rule=ProofRule.INFERENCE,
+  )
+
+  result = merge_proof_steps(
+    (
+      available_step,
+    ),
+    (
+      first_derived_step,
+      second_derived_step,
+    ),
+  )
+
+  assert result == (
+    available_step,
+    first_derived_step,
+  )
+
+
+def test_merge_proof_steps_preserves_available_order():
+  first_step = ProofStep(
+    conclusion="first",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  second_step = ProofStep(
+    conclusion="second",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  derived_step = ProofStep(
+    conclusion="derived",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  result = merge_proof_steps(
+    (
+      second_step,
+      first_step,
+    ),
+    (
+      derived_step,
+    ),
+  )
+
+  assert result == (
+    second_step,
+    first_step,
+    derived_step,
+  )
+
+
+def test_merge_proof_steps_preserves_first_new_step_order():
+  available_step = ProofStep(
+    conclusion="available",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_derived_step = ProofStep(
+    conclusion="first derived",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  second_derived_step = ProofStep(
+    conclusion="second derived",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  result = merge_proof_steps(
+    (
+      available_step,
+    ),
+    (
+      second_derived_step,
+      first_derived_step,
+    ),
+  )
+
+  assert result == (
+    available_step,
+    second_derived_step,
+    first_derived_step,
+  )
+
+
+def test_merge_proof_steps_empty_available():
+  derived_step = ProofStep(
+    conclusion="derived",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  result = merge_proof_steps(
+    (),
+    (
+      derived_step,
+    ),
+  )
+
+  assert result == (
+    derived_step,
+  )
+
+
+def test_merge_proof_steps_empty_derived():
+  available_step = ProofStep(
+    conclusion="available",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = merge_proof_steps(
+    (
+      available_step,
+    ),
+    (),
+  )
+
+  assert result == (
+    available_step,
+  )
+
+
+def test_merge_proof_steps_accepts_single_steps():
+  available_step = ProofStep(
+    conclusion="available",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  derived_step = ProofStep(
+    conclusion="derived",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  result = merge_proof_steps(
+    available_step,
+    derived_step,
+  )
+
+  assert result == (
+    available_step,
+    derived_step,
+  )
+
+
+def test_merge_proof_steps_accepts_lists():
+  available_step = ProofStep(
+    conclusion="available",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  derived_step = ProofStep(
+    conclusion="derived",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  result = merge_proof_steps(
+    [
+      available_step,
+    ],
+    [
+      derived_step,
+    ],
+  )
+
+  assert result == (
+    available_step,
+    derived_step,
+  )
+
+
+def test_merge_proof_steps_rejects_invalid_available_steps():
+  derived_step = ProofStep(
+    conclusion="derived",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  with pytest.raises(TypeError):
+    merge_proof_steps(
+      "invalid",
+      (
+        derived_step,
+      ),
+    )
+
+
+def test_merge_proof_steps_rejects_invalid_derived_steps():
+  available_step = ProofStep(
+    conclusion="available",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  with pytest.raises(TypeError):
+    merge_proof_steps(
+      (
+        available_step,
+      ),
+      "invalid",
+    )
+
+
+def test_run_inference_round_does_not_duplicate_existing_conclusion():
+  rule = InferenceRule(
+    name="derive existing",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "already known"
+    ),
+  )
+
+  given_step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  existing_step = ProofStep(
+    conclusion="already known",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = run_inference_round(
+    (
+      rule,
+    ),
+    (
+      given_step,
+      existing_step,
+    ),
+  )
+
+  assert result == (
+    given_step,
+    existing_step,
+  )
+
+
+def test_run_inference_round_does_not_duplicate_same_derived_conclusion():
+  first_rule = InferenceRule(
+    name="first rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "same derived"
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "same derived"
+    ),
+  )
+
+  given_step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = run_inference_round(
+    (
+      first_rule,
+      second_rule,
+    ),
+    (
+      given_step,
+    ),
+  )
+
+  assert len(result) == 2
+
+  assert result[0] == given_step
+
+  assert (
+    result[1].conclusion
+    == "same derived"
+  )
+
+  assert (
+    result[1].inference_rule
+    == first_rule
+  )
+
+
+def test_run_inference_round_is_idempotent_for_same_derivation():
+  rule = InferenceRule(
+    name="given inference",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  given_step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_result = run_inference_round(
+    (
+      rule,
+    ),
+    (
+      given_step,
+    ),
+  )
+
+  second_result = run_inference_round(
+    (
+      rule,
+    ),
+    first_result,
+  )
+
+  assert second_result == first_result
+
+
 
 
 

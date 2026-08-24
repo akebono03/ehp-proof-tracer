@@ -13836,6 +13836,1271 @@ new step が存在すれば repeat
 という iterative inference へ進むことができる。
 
 
+# Phase 5-26：derived ProofStep の duplicate-aware merge
+
+Phase 5-25 では、
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+run_inference_round()
+↓
+available ProofSteps
++
+derived ProofSteps
+```
+
+という1 round の inference を導入した。
+
+これにより、
+
+```text
+round 開始時の knowledge state
+↓
+inference
+↓
+round 終了時の expanded knowledge state
+```
+
+を直接表現できるようになった。
+
+ただし Phase 5-25 の `run_inference_round()` は、
+
+```text
+normalized available steps
++
+derived steps
+```
+
+という単純な tuple concatenation を行っていた。
+
+そのため、
+
+```text
+A → B
+```
+
+という rule を同じ knowledge state に対して繰り返し適用すると、
+
+```text
+A
+B
+B
+B
+...
+```
+
+のように同じ conclusion が重複して追加される可能性があった。
+
+Phase 5-26 では、
+iterative inference へ進む前提として、
+
+```text
+available ProofSteps
++
+derived ProofSteps
+↓
+duplicate-aware merge
+↓
+expanded ProofSteps
+```
+
+を導入する。
+
+---
+
+## merge_proof_steps()
+
+Phase 5-26 では、
+
+```python
+merge_proof_steps(
+  available_steps,
+  derived_steps,
+)
+```
+
+を導入する。
+
+責務は、
+
+```text
+existing available ProofSteps
++
+candidate derived ProofSteps
+↓
+duplicate conclusion detection
+↓
+new conclusion だけを追加
+↓
+merged ProofStep collection
+```
+
+である。
+
+`merge_proof_steps()` は inference rule の matching や
+conclusion construction を担当しない。
+
+それらは引き続き、
+
+```text
+find_inference_matches()
+apply_inference_matches()
+derive_inference_steps()
+```
+
+の責務とする。
+
+したがって、
+
+```text
+derive
+```
+
+と、
+
+```text
+merge
+```
+
+を別の操作として維持する。
+
+---
+
+## duplicate criterion
+
+Phase 5-26 では、
+duplicate の基準として、
+
+```text
+ProofStep equality
+```
+
+ではなく、
+
+```text
+ProofStep.conclusion equality
+```
+
+を採用する。
+
+判定は、
+
+```python
+step.conclusion == known_conclusion
+```
+
+とする。
+
+したがって、
+
+```text
+conclusion が同じ
+```
+
+なら、
+
+```text
+premises が異なる
+rule が異なる
+inference_rule が異なる
+note が異なる
+```
+
+場合でも、
+available knowledge state へは新しい fact として追加しない。
+
+これは、
+
+```text
+available ProofSteps
+```
+
+を、
+
+```text
+現在利用可能な数学的 conclusions の集合
+```
+
+として扱うための最小方針である。
+
+---
+
+## Proof identity と fact identity の分離
+
+Phase 5-26 では、
+次の2つを明確に区別する。
+
+```text
+ProofStep identity
+```
+
+と、
+
+```text
+fact / conclusion identity
+```
+
+である。
+
+例えば、
+
+```text
+A, B
+↓ rule 1
+C
+```
+
+と、
+
+```text
+D, E
+↓ rule 2
+C
+```
+
+は、
+ProofStep としては異なる。
+
+なぜなら、
+
+```text
+premises
+inference_rule
+```
+
+が異なるためである。
+
+一方、
+knowledge state の観点では、
+
+```text
+C
+```
+
+という conclusion はすでに known である。
+
+Phase 5-26 の `merge_proof_steps()` は、
+この knowledge-state 側の identity を採用する。
+
+つまり、
+
+```text
+同じ conclusion
+→ available facts としては1つ
+```
+
+とする。
+
+---
+
+## alternative proof との境界
+
+conclusion equality を duplicate criterion としたため、
+同じ conclusion に対する複数の proof が存在しても、
+
+```text
+merged available ProofSteps
+```
+
+には最初の1つだけが残る。
+
+例えば、
+
+```text
+derived:
+(
+  proof_of_C_from_AB,
+  proof_of_C_from_DE,
+)
+```
+
+の場合、
+
+```text
+proof_of_C_from_AB.conclusion
+==
+proof_of_C_from_DE.conclusion
+```
+
+なら、
+
+```text
+merged:
+(
+  ...,
+  proof_of_C_from_AB,
+)
+```
+
+となる。
+
+ただし、
+これは alternative proof 自体を無意味とみなすものではない。
+
+`derive_inference_steps()` は引き続き、
+candidate derived ProofSteps をそのまま返すため、
+
+```text
+複数 rule が同じ conclusion を導いた
+```
+
+という情報は merge 前には存在する。
+
+Phase 5-26 では、
+
+```text
+knowledge state の重複除去
+```
+
+だけを実装し、
+
+```text
+alternative proofs の保存・索引化
+```
+
+は別の責務として後の phase に残す。
+
+---
+
+## available steps の preservation
+
+`merge_proof_steps()` は、
+既存 available steps を削除・並べ替えしない。
+
+例えば、
+
+```text
+available:
+(
+  step_b,
+  step_a,
+)
+```
+
+なら、
+result の先頭も必ず、
+
+```text
+(
+  step_b,
+  step_a,
+  ...
+)
+```
+
+となる。
+
+つまり、
+
+```text
+existing order
+```
+
+は完全に保存する。
+
+Phase 5-26 では、
+既存 available collection 内にすでに duplicate conclusion が
+含まれていたとしても、
+それらを retroactive に削除することはしない。
+
+duplicate filtering の対象は、
+
+```text
+これから追加しようとする derived ProofSteps
+```
+
+である。
+
+---
+
+## derived step order
+
+derived ProofSteps についても、
+入力順を維持する。
+
+ただし、
+同じ conclusion を持つ derived steps が複数ある場合は、
+最初の1つだけを追加する。
+
+例えば、
+
+```text
+derived:
+(
+  B from rule 2,
+  C,
+  B from rule 1,
+  D,
+)
+```
+
+で、
+B がまだ available でなければ、
+
+```text
+added:
+(
+  B from rule 2,
+  C,
+  D,
+)
+```
+
+となる。
+
+したがって Phase 5-26 の ordering rule は、
+
+```text
+first occurrence wins
+```
+
+である。
+
+これは既存の inference-rule input order と
+derived-step order preservation の方針に整合する。
+
+---
+
+## derived collection 内の duplicate
+
+duplicate detection は、
+available collection との比較だけではない。
+
+derived collection 内で新しく追加された conclusion も、
+その場で known conclusion として扱う。
+
+実装上、
+
+```text
+known_conclusions
+```
+
+には最初に available conclusions を入れ、
+新しい derived step を追加するたびに
+その conclusion も追加する。
+
+したがって、
+
+```text
+available:
+A
+
+derived:
+B
+B
+```
+
+は、
+
+```text
+A
+B
+```
+
+になる。
+
+また、
+
+```text
+available:
+A
+B
+
+derived:
+B
+B
+C
+C
+```
+
+は、
+
+```text
+A
+B
+C
+```
+
+になる。
+
+---
+
+## input normalization
+
+`merge_proof_steps()` では、
+既存の、
+
+```python
+_normalize_proof_steps()
+```
+
+を再利用する。
+
+対象は、
+
+```text
+available_steps
+derived_steps
+```
+
+の両方である。
+
+したがって両入力について、
+
+```text
+single ProofStep
+tuple of ProofStep
+list of ProofStep
+```
+
+を受け付ける。
+
+内部表現は tuple に正規化する。
+
+invalid input についても、
+新しい validation mechanism は導入せず、
+既存 `_normalize_proof_steps()` に委譲する。
+
+---
+
+## empty input
+
+`merge_proof_steps()` は、
+empty collection を正常入力として扱う。
+
+### empty available
+
+```text
+available:
+()
+
+derived:
+(
+  B,
+)
+```
+
+なら、
+
+```text
+result:
+(
+  B,
+)
+```
+
+となる。
+
+### empty derived
+
+```text
+available:
+(
+  A,
+)
+
+derived:
+()
+```
+
+なら、
+
+```text
+result:
+(
+  A,
+)
+```
+
+となる。
+
+### both empty
+
+```text
+available:
+()
+
+derived:
+()
+```
+
+なら、
+
+```text
+result:
+()
+```
+
+となる。
+
+---
+
+## run_inference_round() への統合
+
+Phase 5-25 の `run_inference_round()` は、
+
+```python
+return (
+  normalized_steps
+  + derived_steps
+)
+```
+
+だった。
+
+Phase 5-26 では、
+これを、
+
+```python
+return merge_proof_steps(
+  normalized_steps,
+  derived_steps,
+)
+```
+
+へ変更する。
+
+したがって pipeline は、
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+run_inference_round()
+↓
+normalize available ProofSteps
+↓
+derive_inference_steps()
+↓
+candidate derived ProofSteps
+↓
+merge_proof_steps()
+↓
+duplicate-safe expanded ProofSteps
+```
+
+となる。
+
+---
+
+## round snapshot semantics は変更しない
+
+Phase 5-26 で変更するのは、
+round 終了時の merge semantics だけである。
+
+1 round の matching semantics は変更しない。
+
+つまり、
+
+```text
+round 開始時の available ProofSteps
+```
+
+だけを使って、
+その round のすべての `InferenceMatch` を決定する。
+
+例えば、
+
+```text
+A → B
+B → C
+```
+
+という2 rule があり、
+round 開始時に、
+
+```text
+A
+```
+
+だけが available なら、
+
+```text
+round 1:
+A
+B
+```
+
+となる。
+
+同じ round 内では newly derived `B` を再利用しないため、
+
+```text
+C
+```
+
+はまだ得られない。
+
+次の round で、
+
+```text
+A
+B
+```
+
+を available として matching することで、
+初めて `C` を derive できる。
+
+この snapshot semantics は Phase 5-25 から維持する。
+
+---
+
+## repeated round の idempotence
+
+Phase 5-26 により、
+同じ derivation しか存在しない場合、
+`run_inference_round()` の再実行は knowledge state を増やさない。
+
+例えば、
+
+```text
+available:
+A
+
+rule:
+A → B
+```
+
+に対して、
+
+```text
+round 1:
+A
+B
+```
+
+となる。
+
+次の round でも candidate として `B` は derive されるが、
+
+```text
+B == known conclusion
+```
+
+なので merge では追加されない。
+
+したがって、
+
+```text
+round 2:
+A
+B
+```
+
+のままとなる。
+
+つまりこの例では、
+
+```python
+second_result == first_result
+```
+
+となる。
+
+これは fixed-point inference の基礎となる性質である。
+
+---
+
+## premise-free rule の repeated application
+
+premise-free rule は、
+available steps に関係なく毎 round applicable になり得る。
+
+例えば、
+
+```text
+premise_patterns = ()
+```
+
+の rule が常に、
+
+```text
+B
+```
+
+を生成する場合、
+Phase 5-25 では、
+
+```text
+round 1:
+B
+
+round 2:
+B
+B
+
+round 3:
+B
+B
+B
+```
+
+となる可能性があった。
+
+Phase 5-26 では、
+conclusion equality により、
+
+```text
+round 1:
+B
+
+round 2:
+B
+
+round 3:
+B
+```
+
+となる。
+
+したがって、
+同じ conclusion を返す premise-free rule に対する
+単純な無限 duplicate growth は防止できる。
+
+ただし、
+
+```text
+毎回異なる conclusion を生成する builder
+```
+
+の場合は別であり、
+Phase 5-26 は rule application history 自体を管理しない。
+
+---
+
+## conclusion equality の意味
+
+Phase 5-26 では、
+duplicate detection に Python の、
+
+```python
+==
+```
+
+をそのまま使用する。
+
+したがって、
+構造的 equality を持つ frozen dataclass などでは、
+
+```text
+同じ構造
+```
+
+を duplicate と判定できる。
+
+一方、
+
+```text
+数学的には同値だが Python equality では異なる
+```
+
+conclusion は duplicate とみなされない。
+
+例えば将来的に、
+
+```text
+α + β
+```
+
+と、
+
+```text
+β + α
+```
+
+を数学的には同じと判断したい場合でも、
+Expression の canonicalization がなければ
+自動的には同一 fact にならない。
+
+したがって Phase 5-26 の duplicate detection は、
+
+```text
+mathematical equivalence
+```
+
+ではなく、
+
+```text
+current conclusion object equality
+```
+
+である。
+
+より高度な canonicalization や semantic equivalence は
+別課題とする。
+
+---
+
+## new-step detection との境界
+
+`merge_proof_steps()` は、
+
+```text
+merged collection
+```
+
+を返す。
+
+しかし、
+
+```text
+今回実際に追加された ProofSteps
+```
+
+を独立には返さない。
+
+例えば、
+
+```text
+available:
+A
+B
+
+derived:
+B
+C
+```
+
+に対して、
+
+```text
+merge_proof_steps()
+```
+
+は、
+
+```text
+A
+B
+C
+```
+
+を返すが、
+
+```text
+new:
+C
+```
+
+を直接返す API はまだない。
+
+fixed-point inference では、
+
+```text
+new steps == ()
+```
+
+を termination condition として利用したいため、
+次の段階では、
+
+```text
+genuinely new ProofSteps
+```
+
+を取得する mechanism が有用になる。
+
+Phase 5-26 では、
+まず duplicate-safe merge までを責務とする。
+
+---
+
+## Phase 5-26 時点の inference API 階層
+
+現在の inference pipeline は、
+
+```text
+PremisePattern
++
+ProofStep
+↓
+matches_premise_pattern()
+```
+
+```text
+InferenceRule
++
+explicit ProofSteps
+↓
+matches_inference_rule()
+```
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+```
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+is_inference_rule_applicable()
+```
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_applicable_inference_rules()
+```
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_inference_match()
+↓
+InferenceMatch
+```
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_inference_matches()
+↓
+InferenceMatch collection
+```
+
+```text
+InferenceMatch
+↓
+apply_inference_match()
+↓
+derived ProofStep
+```
+
+```text
+InferenceMatch collection
+↓
+apply_inference_matches()
+↓
+derived ProofStep collection
+```
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+derive_inference_steps()
+↓
+candidate derived ProofStep collection
+```
+
+```text
+available ProofSteps
++
+derived ProofSteps
+↓
+merge_proof_steps()
+↓
+duplicate-safe ProofStep collection
+```
+
+そして、
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+run_inference_round()
+↓
+derive_inference_steps()
+↓
+merge_proof_steps()
+↓
+duplicate-safe expanded ProofSteps
+```
+
+まで到達した。
+
+---
+
+## Phase 5-26 時点の設計原則
+
+1. duplicate-aware merge を inference derivation とは別責務とする。
+2. merge API は `merge_proof_steps()` とする。
+3. available steps と derived steps の両方を `_normalize_proof_steps()` で正規化する。
+4. duplicate 判定は `ProofStep` 全体ではなく `conclusion` equality を使う。
+5. knowledge state では同じ conclusion を複数回追加しない。
+6. available ProofSteps の既存順序を維持する。
+7. available collection の既存要素は削除しない。
+8. derived ProofSteps は入力順に走査する。
+9. duplicate derived conclusions では最初の ProofStep を保持する。
+10. derived step を追加した時点でその conclusion を known とする。
+11. derived collection 内の duplicate conclusion も除去する。
+12. `merge_proof_steps()` は tuple を返す。
+13. empty available / empty derived は正常入力とする。
+14. invalid input validation は既存 normalization に委譲する。
+15. `derive_inference_steps()` は candidate derived steps を返す API として変更しない。
+16. `run_inference_round()` は `merge_proof_steps()` を利用する。
+17. round の snapshot semantics は変更しない。
+18. newly derived steps は同じ round の premise search には利用しない。
+19. same derivation の repeated round で knowledge state が増えないようにする。
+20. premise-free rule の same-conclusion repeated growth を merge で抑制する。
+21. rule application history はまだ導入しない。
+22. alternative proofs の専用 storage はまだ導入しない。
+23. same conclusion の alternative proof は merged knowledge state では最初の1つだけ保持する。
+24. merge 前の candidate derived ProofSteps では alternative derivations を確認可能とする。
+25. conclusion の mathematical equivalence はまだ扱わない。
+26. duplicate 判定は Python equality に依存する。
+27. conclusion canonicalization はまだ導入しない。
+28. genuinely new ProofSteps を別返り値として取得する API はまだ導入しない。
+29. automatic repeated rounds はまだ行わない。
+30. fixed-point termination はまだ実装しない。
+31. cyclic inference detection はまだ実装しない。
+32. inference round metadata / history はまだ導入しない。
+33. expression-level pattern matching / binding / substitution は別課題とする。
+34. algebra / EHP 層には変更を加えない。
+
+---
+
+## Phase 5-26 の到達点
+
+Phase 5-25 では、
+
+```text
+available facts
+↓
+derive
+↓
+append
+```
+
+まで到達していた。
+
+Phase 5-26 では、
+
+```text
+available facts
+↓
+derive candidate facts
+↓
+duplicate-aware merge
+↓
+expanded knowledge state
+```
+
+まで進んだ。
+
+これにより、
+
+```text
+A
++
+A → B
+```
+
+から、
+
+```text
+round 1:
+A
+B
+```
+
+を得た後、
+同じ inference を再実行しても、
+
+```text
+round 2:
+A
+B
+```
+
+のまま維持できる。
+
+つまり、
+
+```text
+known conclusion
+```
+
+と、
+
+```text
+new conclusion
+```
+
+を merge 時に区別する基盤ができた。
+
+現在の pipeline は、
+
+```text
+available ProofSteps
+↓
+matching
+↓
+InferenceMatch
+↓
+application
+↓
+candidate derived ProofSteps
+↓
+conclusion equality
+↓
+duplicate filtering
+↓
+expanded available ProofSteps
+```
+
+となっている。
+
+次の自然な段階は、
+
+```text
+candidate derived ProofSteps
+↓
+duplicate filtering
+↓
+genuinely new ProofSteps
+```
+
+を独立に取得できるようにすることである。
+
+これにより、
+
+```text
+new ProofSteps が存在する
+→ next round
+
+new ProofSteps が存在しない
+→ fixed point
+```
+
+という termination semantics を明示できる。
+
+その後、
+
+```text
+round
+↓
+new facts
+↓
+round
+↓
+new facts
+↓
+...
+↓
+no new facts
+```
+
+という fixed-point iterative inference へ進むことができる。
+
+
 
 
 
