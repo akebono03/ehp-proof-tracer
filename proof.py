@@ -217,6 +217,19 @@ def find_matching_premises(
   )
 
 
+def is_inference_rule_applicable(
+  inference_rule,
+  available_steps,
+):
+  return (
+    find_matching_premises(
+      inference_rule,
+      available_steps,
+    )
+    is not None
+  )
+
+
 def relation_proof_step(relation):
   if not isinstance(relation, Relation):
     raise TypeError(

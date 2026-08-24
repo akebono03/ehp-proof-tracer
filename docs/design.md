@@ -7222,6 +7222,663 @@ premise を見つける
 25. 次段階では、premise search の結果を用いた inference-rule applicability または rule application への接続を検討する。
 
 
+# InferenceRule の applicability 判定
+
+## Phase 5-19：利用可能な ProofStep に対する InferenceRule の適用可能性
+
+Phase 5-18 では、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+↓
+matched premises / None
+```
+
+という premise search を導入した。
+
+これにより、
+InferenceRule が要求する premise を、
+既存の ProofStep 集合から探索できるようになった。
+
+Phase 5-19 では、
+この premise search を利用して、
+
+```text
+この InferenceRule は
+現在利用可能な ProofStep だけで
+適用可能か
+```
+
+を直接判定するため、
+
+```text
+is_inference_rule_applicable()
+```
+
+を導入する。
+
+---
+
+## is_inference_rule_applicable() の設計
+
+基本形は、
+
+```python
+is_inference_rule_applicable(
+  inference_rule,
+  available_steps,
+)
+```
+
+とする。
+
+返り値は、
+
+```text
+True
+False
+```
+
+である。
+
+内部では、
+
+```python
+find_matching_premises(
+  inference_rule,
+  available_steps,
+)
+```
+
+を利用し、
+
+```text
+matching premises が存在する
+→ True
+
+matching premises が存在しない
+→ False
+```
+
+と判定する。
+
+実装上は、
+
+```python
+find_matching_premises(...) is not None
+```
+
+という条件に集約する。
+
+---
+
+## premise search への委譲
+
+`is_inference_rule_applicable()` 自体には、
+
+```text
+PremisePattern の matching
+ProofStep の探索
+ProofStep の再利用判定
+RelationType の検査
+available_steps の正規化
+```
+
+などのロジックを持たせない。
+
+これらはすべて Phase 5-18 までに実装した、
+
+```text
+matches_premise_pattern()
+find_matching_premises()
+_normalize_proof_steps()
+```
+
+へ委譲する。
+
+したがって、
+
+```text
+matches_premise_pattern()
+= 1つの pattern と1つの step の一致判定
+
+matches_inference_rule()
+= 明示的に与えた premise 列全体の一致判定
+
+find_matching_premises()
+= available steps から premise を探索
+
+is_inference_rule_applicable()
+= premise が探索可能かを真偽値として判定
+```
+
+という責務分離とする。
+
+---
+
+## applicability と premise search の区別
+
+`find_matching_premises()` は、
+実際に選択された ProofStep を必要とする場合に利用する。
+
+例えば、
+
+```python
+premises = find_matching_premises(
+  rule,
+  available_steps,
+)
+```
+
+によって、
+
+```text
+(
+  relation_step,
+  given_step,
+)
+```
+
+のような具体的な premise sequence を取得できる。
+
+一方、
+
+```python
+is_inference_rule_applicable(
+  rule,
+  available_steps,
+)
+```
+
+は、
+
+```text
+その rule が使えるかどうか
+```
+
+だけを必要とする場合の API とする。
+
+したがって、
+
+```text
+premise search
+```
+
+と、
+
+```text
+applicability query
+```
+
+を別の公開 API として保持する。
+
+---
+
+## premise を必要としない rule
+
+InferenceRule が、
+
+```text
+premise_patterns = ()
+```
+
+を持つ場合、
+
+```text
+find_matching_premises()
+```
+
+は、
+
+```text
+()
+```
+
+を返す。
+
+`()` は `None` ではないため、
+
+```python
+is_inference_rule_applicable(
+  rule,
+  available_steps,
+)
+```
+
+は、
+
+```text
+True
+```
+
+となる。
+
+つまり、
+
+```text
+premise を必要としない rule
+```
+
+は常に premise requirement を満たしているとみなす。
+
+これは、
+
+```text
+()
+= premise 不要の探索成功
+
+None
+= 必要な premise の探索失敗
+```
+
+という Phase 5-18 の設計と整合する。
+
+---
+
+## available_steps の順序と applicability
+
+Phase 5-19 の applicability は、
+Phase 5-18 の `find_matching_premises()` の探索結果に依存する。
+
+現在の premise search は、
+
+```text
+premise_patterns の順に処理
++
+available_steps の先頭から検索
++
+最初に一致した未使用 step を採用
+```
+
+という greedy search である。
+
+したがって applicability も、
+現在の greedy search semantics に基づいて判定される。
+
+一般的な意味で、
+
+```text
+何らかの premise assignment が存在するか
+```
+
+を完全に探索する判定ではまだない。
+
+例えば、
+最初の greedy assignment が後続 pattern を妨げる場合、
+別の assignment が理論上存在していても
+現在の `find_matching_premises()` が `None` を返す可能性がある。
+
+その場合、
+
+```text
+is_inference_rule_applicable()
+```
+
+も `False` となる。
+
+この制限は Phase 5-19 では意図的に維持する。
+
+backtracking や全 assignment の探索は
+後続フェーズで扱う。
+
+---
+
+## step の再利用禁止との整合
+
+Phase 5-18 と同様、
+1つの available ProofStep は、
+同じ rule の複数 premise pattern に再利用しない。
+
+例えば、
+
+```text
+patterns:
+  GIVEN
+  GIVEN
+```
+
+に対して、
+
+```text
+available:
+  GIVEN step A
+```
+
+しかない場合、
+
+```text
+find_matching_premises()
+→ None
+```
+
+となるため、
+
+```text
+is_inference_rule_applicable()
+→ False
+```
+
+となる。
+
+一方、
+
+```text
+available:
+  GIVEN step A
+  GIVEN step B
+```
+
+なら、
+
+```text
+is_inference_rule_applicable()
+→ True
+```
+
+となる。
+
+したがって applicability は、
+単なる各 pattern の独立存在判定ではなく、
+
+```text
+異なる ProofStep を割り当てられるか
+```
+
+という現在の premise search の条件を反映する。
+
+---
+
+## RelationType を利用する applicability
+
+PremisePattern が、
+
+```python
+PremisePattern(
+  proof_rule=ProofRule.RELATION,
+  statement_type=Relation,
+  relation_type=RelationType.ZERO,
+)
+```
+
+のような条件を持つ場合、
+
+```text
+ZERO Relation
+```
+
+を conclusion とする適切な ProofStep が
+available_steps に存在するときだけ、
+rule は applicable となる。
+
+例えば、
+
+```text
+EQUALITY relation
+ZERO relation
+```
+
+が available_steps に存在すれば、
+ZERO relation が premise として選択されるため、
+
+```text
+is_inference_rule_applicable()
+→ True
+```
+
+となる。
+
+EQUALITY relation しか存在しない場合は、
+
+```text
+False
+```
+
+となる。
+
+---
+
+## input validation の責務
+
+`is_inference_rule_applicable()` では
+独自の型検証を追加しない。
+
+不正な、
+
+```text
+inference_rule
+available_steps
+available_steps 内の要素
+```
+
+については、
+
+```text
+find_matching_premises()
+↓
+_normalize_proof_steps()
+```
+
+が既存の `TypeError` を発生させる。
+
+これにより同じ validation logic の重複を避ける。
+
+---
+
+## applicability と rule application の分離
+
+Phase 5-19 で導入するのは、
+
+```text
+InferenceRule が使えるか
+```
+
+という判定までである。
+
+まだ、
+
+```text
+InferenceRule
++
+matched premises
+↓
+new conclusion
+```
+
+という実際の rule application は行わない。
+
+現在の InferenceRule は、
+
+```text
+name
+description
+premise_patterns
+```
+
+を保持するが、
+
+```text
+conclusion をどのように構成するか
+```
+
+という情報を持っていない。
+
+例えば、
+
+```text
+mα = 0
+↓
+ord(α) divides m
+```
+
+を自動適用するには、
+
+```text
+m
+α
+```
+
+を premise expression から取り出す必要がある。
+
+これは、
+
+```text
+Expression pattern
+pattern variable
+variable binding
+substitution
+conclusion construction
+```
+
+などの機構を必要とする。
+
+したがって、
+
+```text
+applicable
+```
+
+と、
+
+```text
+apply
+```
+
+は明確に分離する。
+
+---
+
+## Phase 5-19 時点の inference matching pipeline
+
+現在は、
+
+```text
+PremisePattern
++
+ProofStep
+↓
+matches_premise_pattern()
+↓
+True / False
+```
+
+から、
+
+```text
+InferenceRule
++
+explicit ProofStep sequence
+↓
+matches_inference_rule()
+↓
+True / False
+```
+
+へ進み、
+
+さらに、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+↓
+matched premises / None
+```
+
+という探索が可能になった。
+
+Phase 5-19 では、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+is_inference_rule_applicable()
+↓
+True / False
+```
+
+という applicability query が追加された。
+
+したがって現在の基盤は、
+
+```text
+rule requirement を記述
+↓
+個別 premise を検査
+↓
+明示的 premise sequence を検査
+↓
+available steps から premise を検索
+↓
+rule の applicability を判定
+```
+
+という段階まで進んだ。
+
+---
+
+## Phase 5-19 ではまだ行わないこと
+
+Phase 5-19 では、
+InferenceRule の applicability を
+bool として取得するところまでとする。
+
+まだ、
+
+```text
+複数 InferenceRule の一括 applicability 判定
+applicable rule の検索
+InferenceRule と matched premises の組の保持
+InferenceMatch のような結果型
+all premise assignments の列挙
+backtracking premise search
+unordered premise search
+Expression pattern
+pattern variable
+variable binding
+substitution
+conclusion builder
+InferenceRule.apply()
+自動 inference
+recursive proof construction
+proof DAG construction
+```
+
+は行わない。
+
+---
+
+## Phase 5-19 時点の設計原則
+
+1. `is_inference_rule_applicable()` は InferenceRule の適用可能性を bool で返す。
+2. applicability は matching premises が存在するかによって判定する。
+3. matching premise の探索は `find_matching_premises()` に委譲する。
+4. PremisePattern matching を applicability 関数内で再実装しない。
+5. ProofStep の正規化を applicability 関数内で再実装しない。
+6. 型検証も既存 premise search に委譲する。
+7. premise_patterns が空の rule は applicable とする。
+8. `()` と `None` の意味を区別する。
+9. ProofStep の再利用禁止は Phase 5-18 の仕様をそのまま継承する。
+10. RelationType などの pattern 条件も既存 matcher の仕様を継承する。
+11. applicability は現在の greedy premise search semantics に依存する。
+12. applicability は完全な組合せ探索ではまだない。
+13. applicability と actual rule application を分離する。
+14. Phase 5-19 では conclusion を自動生成しない。
+15. InferenceRule に conclusion builder はまだ持たせない。
+16. Expression pattern matching はまだ導入しない。
+17. pattern variable と variable binding はまだ導入しない。
+18. algebra 層には applicability の概念を持ち込まない。
+19. 次段階では複数の InferenceRule から applicable rule を検索する機構を検討する。
+
+
 
 
 

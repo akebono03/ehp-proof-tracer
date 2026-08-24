@@ -6490,6 +6490,526 @@ inference step
 へ接続する最小機構を検討する。
 
 
+## Phase 5-19：InferenceRule の applicability 判定
+
+Phase 5-18 では、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+↓
+matched premises / None
+```
+
+という premise search を追加した。
+
+Phase 5-19 では、
+この機能を利用して、
+
+```text
+現在利用できる ProofStep だけで
+InferenceRule を適用可能か
+```
+
+を直接判定する API を追加した。
+
+---
+
+### is_inference_rule_applicable()
+
+追加:
+
+```text
+is_inference_rule_applicable()
+```
+
+基本形:
+
+```python
+is_inference_rule_applicable(
+  inference_rule,
+  available_steps,
+)
+```
+
+返り値:
+
+```text
+True
+False
+```
+
+実装は、
+
+```python
+find_matching_premises(
+  inference_rule,
+  available_steps,
+) is not None
+```
+
+という形とした。
+
+これにより、
+premise search の matching logic を重複させず、
+
+```text
+matching premise が存在する
+→ applicable
+
+matching premise が存在しない
+→ not applicable
+```
+
+という判定だけを追加した。
+
+---
+
+### premise search への委譲
+
+`is_inference_rule_applicable()` 自体には、
+
+```text
+PremisePattern matching
+available_steps search
+used-step management
+input normalization
+RelationType matching
+```
+
+などを実装していない。
+
+これらは既存の、
+
+```text
+find_matching_premises()
+matches_premise_pattern()
+_normalize_proof_steps()
+```
+
+へ委譲する。
+
+そのため現在は、
+
+```text
+matches_premise_pattern()
+= individual premise matching
+
+matches_inference_rule()
+= explicit premise sequence matching
+
+find_matching_premises()
+= premise search
+
+is_inference_rule_applicable()
+= applicability query
+```
+
+という役割分担になった。
+
+---
+
+### applicable な基本例
+
+```text
+pattern:
+GIVEN
+
+available:
+GIVEN
+```
+
+の場合、
+
+```text
+find_matching_premises()
+→ (given_step,)
+```
+
+となるため、
+
+```text
+is_inference_rule_applicable()
+→ True
+```
+
+となることを確認した。
+
+一方、
+
+```text
+pattern:
+RELATION
+
+available:
+GIVEN
+```
+
+では、
+
+```text
+find_matching_premises()
+→ None
+```
+
+となり、
+
+```text
+is_inference_rule_applicable()
+→ False
+```
+
+となる。
+
+---
+
+### 複数 premise
+
+例えば、
+
+```text
+patterns:
+RELATION
+GIVEN
+```
+
+という rule に対して、
+
+```text
+available:
+GIVEN
+RELATION
+```
+
+という順で ProofStep が存在していても、
+Phase 5-18 の premise search が、
+
+```text
+RELATION → relation_step
+GIVEN    → given_step
+```
+
+と検索するため、
+
+```text
+is_inference_rule_applicable()
+→ True
+```
+
+となる。
+
+したがって applicability は、
+available_steps 自体が
+premise pattern 順に並んでいることを要求しない。
+
+---
+
+### premise 不足
+
+```text
+patterns:
+RELATION
+GIVEN
+```
+
+に対して、
+
+```text
+available:
+RELATION
+```
+
+しか存在しない場合は、
+
+```text
+find_matching_premises()
+→ None
+```
+
+となる。
+
+したがって、
+
+```text
+is_inference_rule_applicable()
+→ False
+```
+
+となることを確認した。
+
+---
+
+### premise を必要としない rule
+
+```text
+premise_patterns = ()
+```
+
+の InferenceRule については、
+
+```text
+find_matching_premises()
+→ ()
+```
+
+となる。
+
+`()` は `None` ではないため、
+
+```text
+is_inference_rule_applicable()
+→ True
+```
+
+となる。
+
+available_steps に無関係な ProofStep が存在していても、
+premise 不要 rule は applicable と判定される。
+
+---
+
+### ProofStep の再利用禁止
+
+Phase 5-18 の仕様をそのまま継承する。
+
+例えば、
+
+```text
+patterns:
+GIVEN
+GIVEN
+```
+
+に対して、
+GIVEN ProofStep が1つしかない場合、
+
+```text
+False
+```
+
+となる。
+
+同じ ProofStep を
+2つの premise pattern に再利用しないためである。
+
+一方、
+異なる GIVEN ProofStep が2つ存在すれば、
+
+```text
+True
+```
+
+となる。
+
+---
+
+### RelationType による applicability
+
+以下のような pattern:
+
+```python
+PremisePattern(
+  proof_rule=ProofRule.RELATION,
+  statement_type=Relation,
+  relation_type=RelationType.ZERO,
+)
+```
+
+について、
+
+```text
+EQUALITY relation
+ZERO relation
+```
+
+が available_steps に存在する場合、
+ZERO relation が検索されるため
+rule が applicable になることを確認した。
+
+一方、
+EQUALITY relation しか存在しなければ、
+not applicable となる。
+
+---
+
+### 入力形式
+
+`available_steps` には引き続き、
+
+```text
+single ProofStep
+tuple of ProofStep
+list of ProofStep
+```
+
+を指定できる。
+
+applicability API 側では
+独自に正規化せず、
+`find_matching_premises()` に処理を委譲した。
+
+---
+
+### 入力検証
+
+以下を確認した。
+
+```text
+不正な InferenceRule
+不正な available_steps
+list 内の不正な ProofStep
+```
+
+これらは、
+`find_matching_premises()` の既存 validation により
+`TypeError` となる。
+
+applicability API に同じ validation logic は追加していない。
+
+---
+
+### 追加テスト
+
+Phase 5-19 では、
+以下の applicability テストを追加した。
+
+```text
+test_inference_rule_is_applicable
+test_inference_rule_is_not_applicable
+test_inference_rule_applicable_with_multiple_patterns
+test_inference_rule_not_applicable_when_premise_missing
+test_empty_inference_rule_is_applicable
+test_empty_inference_rule_is_applicable_with_available_steps
+test_inference_rule_applicability_searches_available_steps
+test_inference_rule_applicability_does_not_reuse_step
+test_inference_rule_applicability_uses_distinct_steps
+test_inference_rule_applicability_matches_relation_type
+test_inference_rule_applicability_rejects_wrong_relation_type
+test_is_inference_rule_applicable_accepts_single_step
+test_is_inference_rule_applicable_accepts_list
+test_is_inference_rule_applicable_rejects_invalid_rule
+test_is_inference_rule_applicable_rejects_invalid_steps
+test_is_inference_rule_applicable_rejects_invalid_step_in_list
+```
+
+---
+
+### テスト
+
+2026-08-24:
+
+```text
+289 passed in 20.72s
+```
+
+既存の、
+
+```text
+algebra
+EHP
+expression
+formatter
+proof
+repository
+premise pattern matching
+inference-rule matching
+premise search
+```
+
+を含め、
+すべてのテストが成功した。
+
+Phase 5-19 の applicability API 導入による
+regression は確認されなかった。
+
+---
+
+### Phase 5-19 の到達点
+
+現在の inference matching pipeline は、
+
+```text
+PremisePattern
++
+ProofStep
+↓
+matches_premise_pattern()
+```
+
+から、
+
+```text
+InferenceRule
++
+explicit ProofSteps
+↓
+matches_inference_rule()
+```
+
+さらに、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_matching_premises()
+```
+
+へ進み、
+
+Phase 5-19 では、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+is_inference_rule_applicable()
+↓
+True / False
+```
+
+まで到達した。
+
+これにより proof / inference layer は、
+
+```text
+この rule が現在使えるか
+```
+
+を機械的に問い合わせられるようになった。
+
+ただし現段階では、
+
+```text
+applicable な rule を複数 rule から自動検索する
+matched premises と rule をまとめて保持する
+rule を適用して conclusion を生成する
+```
+
+ところまでは進んでいない。
+
+### 状態
+
+Phase 5-19 完了。
+
+次は Phase 5-20 として、
+
+```text
+複数の InferenceRule
++
+available ProofSteps
+↓
+applicable InferenceRule の検索
+```
+
+を行う最小機構を導入する。
+
+
 
 
 
