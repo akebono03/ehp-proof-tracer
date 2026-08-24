@@ -38,9 +38,17 @@ class ProofRule(Enum):
 
 
 @dataclass(frozen=True)
+class PremisePattern:
+  proof_rule: ProofRule | None = None
+  statement_type: type | None = None
+  relation_type: RelationType | None = None
+
+
+@dataclass(frozen=True)
 class InferenceRule:
   name: str
   description: str | None = None
+  premise_patterns: tuple[PremisePattern, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -50,6 +58,7 @@ class ProofStep:
   rule: ProofRule
   note: str | None = None
   inference_rule: InferenceRule | None = None
+
 
 @dataclass
 class Proof:
@@ -455,7 +464,6 @@ def relation_inference_proof(
       inference_step,
     ],
   )
-
 
 
 

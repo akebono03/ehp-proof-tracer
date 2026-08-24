@@ -4303,6 +4303,493 @@ rule 自動適用
 Phase 5-14 完了。
 
 
+## Phase 5-15：InferenceRule に premise pattern を持たせるための最小基盤
+
+Phase 5-14 では、
+具体的な数学的推論規則を表す
+
+```text
+InferenceRule
+```
+
+を導入し、
+
+```text
+premises
+↓
+InferenceRule
+↓
+conclusion
+```
+
+という構造を ProofStep に保持できるようになった。
+
+Phase 5-15 ではさらに、
+
+```text
+その InferenceRule が
+どのような premise を必要とするか
+```
+
+を構造化して保持するための
+最小基盤を導入した。
+
+---
+
+### PremisePattern
+
+追加:
+
+```text
+PremisePattern
+```
+
+保持する情報:
+
+```text
+proof_rule
+statement_type
+relation_type
+```
+
+定義:
+
+```python
+@dataclass(frozen=True)
+class PremisePattern:
+  proof_rule: ProofRule | None = None
+  statement_type: type | None = None
+  relation_type: RelationType | None = None
+```
+
+各項目は optional とし、
+必要な条件だけを指定できる。
+
+例えば、
+
+```python
+PremisePattern(
+  proof_rule=ProofRule.RELATION,
+  statement_type=Relation,
+  relation_type=RelationType.ZERO,
+)
+```
+
+によって、
+
+```text
+ProofRule.RELATION
++
+conclusion が Relation
++
+RelationType.ZERO
+```
+
+という premise の要求を表現できる。
+
+---
+
+### InferenceRule の拡張
+
+`InferenceRule` に、
+
+```text
+premise_patterns
+```
+
+を追加した。
+
+現在の構造:
+
+```python
+@dataclass(frozen=True)
+class InferenceRule:
+  name: str
+  description: str | None = None
+  premise_patterns: tuple[PremisePattern, ...] = ()
+```
+
+既存の InferenceRule との
+後方互換性を維持するため、
+
+```text
+premise_patterns = ()
+```
+
+をデフォルトとした。
+
+そのため従来の、
+
+```python
+InferenceRule(
+  name="example rule",
+)
+```
+
+も変更せず利用できる。
+
+---
+
+### ZERO relation を要求する rule
+
+例えば、
+
+```python
+InferenceRule(
+  name=(
+    "zero relation implies "
+    "order bound"
+  ),
+  description=(
+    "If m alpha = 0, "
+    "the order of alpha divides m."
+  ),
+  premise_patterns=(
+    PremisePattern(
+      proof_rule=ProofRule.RELATION,
+      statement_type=Relation,
+      relation_type=RelationType.ZERO,
+    ),
+  ),
+)
+```
+
+のように、
+
+```text
+ZERO relation を premise とする推論規則
+```
+
+を構造として記述できるようになった。
+
+Phase 5-14 では、
+
+```text
+zero relation implies order bound
+```
+
+という rule 名と説明だけを保持していたが、
+
+Phase 5-15 では、
+
+```text
+その rule が ZERO relation を要求する
+```
+
+こともデータとして保持できる。
+
+---
+
+### 複数 premise pattern
+
+`premise_patterns` は tuple としたため、
+複数の premise を要求する rule も表現できる。
+
+例えば、
+
+```text
+ZERO relation
++
+GIVEN ProofStep
+```
+
+を要求する rule を、
+
+```python
+InferenceRule(
+  name="combined rule",
+  premise_patterns=(
+    PremisePattern(
+      proof_rule=ProofRule.RELATION,
+      statement_type=Relation,
+      relation_type=RelationType.ZERO,
+    ),
+    PremisePattern(
+      proof_rule=ProofRule.GIVEN,
+    ),
+  ),
+)
+```
+
+として保持できる。
+
+現段階では、
+実際の premises と pattern の対応付けや
+matching は行わない。
+
+---
+
+### PremisePattern の構造的 equality
+
+`PremisePattern` は frozen dataclass とした。
+
+そのため、
+
+```python
+PremisePattern(
+  proof_rule=ProofRule.RELATION,
+  statement_type=Relation,
+  relation_type=RelationType.ZERO,
+)
+```
+
+同士は構造的 equality によって比較できる。
+
+これは後続フェーズで、
+
+```text
+pattern の比較
+rule definition のテスト
+matching の検証
+```
+
+を行うための基礎となる。
+
+---
+
+### 既存 inference API への影響
+
+Phase 5-15 では、
+
+```text
+relation_inference_proof_step()
+relation_inference_proof()
+```
+
+の挙動は変更していない。
+
+InferenceRule が `premise_patterns` を持っていても、
+
+```text
+実際に与えられた premises が
+その pattern に一致しているか
+```
+
+はまだ検証しない。
+
+したがって今回の変更は、
+
+```text
+InferenceRule の specification を拡張
+```
+
+するものであり、
+
+```text
+InferenceRule の自動適用
+```
+
+を導入するものではない。
+
+---
+
+### Expression pattern は未導入
+
+Phase 5-15 では、
+
+```text
+ProofRule
+statement type
+RelationType
+```
+
+までを pattern 条件として扱う。
+
+例えば、
+
+```text
+mα = 0
+```
+
+について、
+
+```text
+lhs が Multiple
+rhs が Zero
+coefficient を m として束縛
+expression を α として束縛
+```
+
+といった Expression 内部の pattern matching は
+まだ導入していない。
+
+また、
+
+```text
+pattern variable
+unification
+substitution
+```
+
+もまだ行わない。
+
+---
+
+### 実装整理
+
+Phase 5-14 時点で整理した
+`proof.py` の既存 helper 構造を維持したまま、
+
+```text
+PremisePattern
+```
+
+と、
+
+```text
+InferenceRule.premise_patterns
+```
+
+のみを追加した。
+
+既存の、
+
+```text
+Relation
+ProofStep
+Proof
+InferenceRule
+relation inference
+EHP proof
+formatter
+```
+
+の API には breaking change を導入していない。
+
+---
+
+### テスト
+
+新規追加:
+
+```text
+tests/test_inference_rule_pattern.py
+```
+
+追加したテスト:
+
+```text
+test_premise_pattern_defaults
+test_premise_pattern_relation
+test_inference_rule_without_premise_patterns
+test_inference_rule_with_premise_pattern
+test_inference_rule_multiple_premise_patterns
+test_premise_pattern_is_structurally_equal
+```
+
+確認内容:
+
+```text
+PremisePattern のデフォルト値
+proof_rule の保持
+statement_type の保持
+relation_type の保持
+InferenceRule の後方互換性
+単一 premise pattern
+複数 premise pattern
+PremisePattern の構造的 equality
+```
+
+2026-08-24:
+
+```text
+230 passed in 20.65s
+```
+
+既存の algebra / EHP / expression / proof / formatter /
+repository を含め、
+すべてのテストが成功した。
+
+PremisePattern 導入による regression は確認されなかった。
+
+---
+
+### Phase 5-15 の到達点
+
+Phase 5-14 では、
+
+```text
+どの数学的 inference rule を使ったか
+```
+
+を ProofStep に記録できるようになった。
+
+Phase 5-15 ではさらに、
+
+```text
+その inference rule が
+どの種類の premise を必要とするか
+```
+
+を構造化して保持できるようになった。
+
+現在、
+
+```text
+InferenceRule
+├── name
+├── description
+└── premise_patterns
+      ├── proof_rule
+      ├── statement_type
+      └── relation_type
+```
+
+という rule specification を表現できる。
+
+ただし現段階では、
+
+```text
+PremisePattern
++
+ProofStep
+↓
+match / no match
+```
+
+という判定はまだ行わない。
+
+また、
+
+```text
+Expression pattern
+pattern variable
+変数束縛
+InferenceRule applicability
+conclusion 自動生成
+relation 自動選択
+rule 自動適用
+```
+
+もまだ実装していない。
+
+これらは後続フェーズで段階的に追加する。
+
+### 状態
+
+Phase 5-15 完了。
+
+次は Phase 5-16 として、
+
+```text
+PremisePattern と ProofStep の match 判定
+```
+
+を導入し、
+
+```text
+rule が要求する premise
+```
+
+と、
+
+```text
+実際の ProofStep
+```
+
+を機械的に比較できる最小基盤へ進む。
+
+
 
 
 

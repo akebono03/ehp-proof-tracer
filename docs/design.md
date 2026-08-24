@@ -3725,6 +3725,796 @@ conclusion も引き続き明示的に指定する。
 16. algebra 層には InferenceRule の概念を持ち込まない。
 
 
+# InferenceRule の premise pattern
+
+## Phase 5-15：InferenceRule に premise pattern を持たせるための最小基盤
+
+Phase 5-14 では、
+具体的な数学的推論規則を表す
+
+```text
+InferenceRule
+```
+
+を導入した。
+
+これにより、
+
+```text
+premises
+↓
+InferenceRule
+↓
+conclusion
+```
+
+という推論構造を ProofStep に保持できるようになった。
+
+ただし Phase 5-14 の `InferenceRule` が持つ情報は、
+
+```text
+name
+description
+```
+
+だけであり、
+
+```text
+その inference rule が
+どのような premise を必要とするか
+```
+
+はまだ構造化されていなかった。
+
+Phase 5-15 では、
+InferenceRule が要求する premise の種類を記述するための
+最小構造として、
+
+```text
+PremisePattern
+```
+
+を導入する。
+
+---
+
+## PremisePattern の設計
+
+`PremisePattern` は、
+
+```text
+InferenceRule が要求する
+1つの premise の条件
+```
+
+を表す。
+
+Phase 5-15 では最小構造として、
+
+```text
+proof_rule
+statement_type
+relation_type
+```
+
+を保持する。
+
+定義は、
+
+```python
+@dataclass(frozen=True)
+class PremisePattern:
+  proof_rule: ProofRule | None = None
+  statement_type: type | None = None
+  relation_type: RelationType | None = None
+```
+
+とする。
+
+各項目を optional とすることで、
+必要な条件だけを指定できる。
+
+---
+
+## proof_rule
+
+`proof_rule` は、
+premise として要求する ProofStep の
+大分類を表す。
+
+例えば、
+
+```python
+PremisePattern(
+  proof_rule=ProofRule.RELATION,
+)
+```
+
+は、
+
+```text
+ProofRule.RELATION
+```
+
+を持つ ProofStep を要求する pattern を表す。
+
+将来的には、
+
+```text
+ProofRule.GIVEN
+ProofRule.EXACTNESS
+ProofRule.EHP_EXACTNESS
+ProofRule.KERNEL_COMPUTATION
+ProofRule.IMAGE_COMPUTATION
+ProofRule.COKERNEL_COMPUTATION
+```
+
+なども pattern 条件として利用できる。
+
+Phase 5-15 では、
+この条件を保持するだけであり、
+実際の ProofStep に対する一致判定はまだ行わない。
+
+---
+
+## statement_type
+
+`statement_type` は、
+ProofStep の、
+
+```text
+conclusion
+```
+
+に要求する型を表す。
+
+例えば、
+
+```python
+PremisePattern(
+  statement_type=Relation,
+)
+```
+
+は、
+
+```text
+conclusion が Relation
+```
+
+である ProofStep を要求する pattern を表す。
+
+将来的には、
+
+```text
+KernelStatement
+ImageStatement
+CokernelStatement
+ExactnessStatement
+```
+
+なども同じ仕組みで指定できる。
+
+これにより、
+
+```text
+ProofRule
+```
+
+だけでなく、
+
+```text
+どの種類の Statement を
+conclusion とする ProofStep か
+```
+
+という条件を rule 側に記述できる。
+
+---
+
+## relation_type
+
+`statement_type` が `Relation` である場合、
+さらに Relation の種類を限定できるように、
+
+```text
+relation_type
+```
+
+を持たせる。
+
+例えば、
+
+```python
+PremisePattern(
+  proof_rule=ProofRule.RELATION,
+  statement_type=Relation,
+  relation_type=RelationType.ZERO,
+)
+```
+
+は、
+
+```text
+ProofRule.RELATION
++
+conclusion が Relation
++
+RelationType.ZERO
+```
+
+という premise を要求する pattern を表す。
+
+これにより、
+
+```text
+ZERO relation
+ORDER relation
+EQUALITY relation
+```
+
+を rule の要求条件として区別できる。
+
+---
+
+## InferenceRule.premise_patterns
+
+`InferenceRule` に、
+
+```text
+premise_patterns
+```
+
+を追加する。
+
+型は、
+
+```text
+tuple[PremisePattern, ...]
+```
+
+とする。
+
+既存の InferenceRule との後方互換性を維持するため、
+
+```text
+()
+```
+
+をデフォルト値とする。
+
+したがって従来の、
+
+```python
+InferenceRule(
+  name="example rule",
+)
+```
+
+もそのまま利用できる。
+
+一方、
+premise pattern を持つ rule は、
+
+```python
+InferenceRule(
+  name=(
+    "zero relation implies "
+    "order bound"
+  ),
+  premise_patterns=(
+    PremisePattern(
+      proof_rule=ProofRule.RELATION,
+      statement_type=Relation,
+      relation_type=RelationType.ZERO,
+    ),
+  ),
+)
+```
+
+のように表現できる。
+
+この rule は構造上、
+
+```text
+ZERO relation を1つ premise として要求する
+```
+
+という情報を保持する。
+
+---
+
+## 複数 premise pattern
+
+`premise_patterns` は tuple とするため、
+複数の premise を要求する rule も表現できる。
+
+例えば、
+
+```python
+InferenceRule(
+  name="combined rule",
+  premise_patterns=(
+    PremisePattern(
+      proof_rule=ProofRule.RELATION,
+      statement_type=Relation,
+      relation_type=RelationType.ZERO,
+    ),
+    PremisePattern(
+      proof_rule=ProofRule.GIVEN,
+    ),
+  ),
+)
+```
+
+のように、
+
+```text
+ZERO relation
++
+GIVEN step
+```
+
+を必要とする rule を記述できる。
+
+Phase 5-15 では、
+tuple の順序を premise pattern の記述順として保持する。
+
+ただし、
+
+```text
+実際の premises と
+premise_patterns の順序を
+どのように対応させるか
+```
+
+についての意味論はまだ確定しない。
+
+実際の matching を実装する段階で整理する。
+
+---
+
+## PremisePattern を独立型とする理由
+
+InferenceRule に直接、
+
+```text
+required_proof_rules
+required_statement_types
+required_relation_types
+```
+
+などを個別に持たせるのではなく、
+
+```text
+1つの premise に対する条件
+```
+
+を `PremisePattern` としてまとめる。
+
+例えば、
+
+```text
+ProofRule.RELATION
++
+Relation
++
+RelationType.ZERO
+```
+
+は、
+すべて同じ1つの premise に対する条件である。
+
+これらを別々の tuple として保持すると、
+
+```text
+どの proof_rule と
+どの statement_type と
+どの relation_type が
+同じ premise を表しているか
+```
+
+が不明確になる。
+
+そのため、
+
+```text
+PremisePattern
+= 1つの premise に対する条件
+```
+
+として独立したデータ構造を採用する。
+
+---
+
+## optional field の意味
+
+Phase 5-15 では、
+各条件を、
+
+```text
+None
+```
+
+にできる。
+
+例えば、
+
+```python
+PremisePattern(
+  proof_rule=ProofRule.RELATION,
+)
+```
+
+は、
+
+```text
+ProofRule.RELATION であることだけを要求する
+```
+
+という意味になる。
+
+また、
+
+```python
+PremisePattern(
+  statement_type=ExactnessStatement,
+)
+```
+
+のように、
+
+```text
+ProofRule は問わず
+conclusion の型だけを要求する
+```
+
+という pattern も表現できる。
+
+この設計によって、
+pattern の条件を最初から過度に固定せず、
+必要な条件だけを段階的に追加できる。
+
+---
+
+## Phase 5-15 では matching を行わない
+
+Phase 5-15 の目的は、
+
+```text
+InferenceRule が
+どのような premise を必要とするかを
+データとして表現できる
+```
+
+ところまでとする。
+
+まだ、
+
+```text
+PremisePattern
++
+ProofStep
+↓
+match / no match
+```
+
+という判定は行わない。
+
+したがって、
+
+```python
+rule = InferenceRule(
+  name="example",
+  premise_patterns=(pattern,),
+)
+```
+
+を作成しても、
+
+```text
+実際に渡された ProofStep が
+pattern に一致しているか
+```
+
+は検証されない。
+
+既存の、
+
+```text
+relation_inference_proof_step()
+relation_inference_proof()
+```
+
+の挙動にも変更を加えない。
+
+---
+
+## Expression pattern はまだ導入しない
+
+Phase 5-15 では、
+
+```text
+ProofRule
+Statement type
+RelationType
+```
+
+までを premise pattern の条件とする。
+
+例えば、
+
+```text
+mα = 0
+```
+
+という relation に対して、
+
+```text
+lhs が Multiple
+rhs が Zero
+Multiple.coefficient を m として束縛
+Multiple.expression を α として束縛
+```
+
+といった Expression 内部の pattern matching はまだ行わない。
+
+したがって、
+
+```python
+PremisePattern(
+  relation_type=RelationType.ZERO,
+)
+```
+
+によって、
+
+```text
+ZERO relation
+```
+
+であることまでは表現できるが、
+
+```text
+mα = 0
+```
+
+という具体的な式構造までは記述しない。
+
+Expression pattern は、
+ProofStep レベルの matching が安定した後の
+後続フェーズで導入する。
+
+---
+
+## Pattern variable はまだ導入しない
+
+将来的には、
+
+```text
+m
+α
+β
+n
+```
+
+などを pattern variable として使い、
+
+```text
+mα = 0
+↓
+ord(α) divides m
+```
+
+のような rule を
+一般化する必要がある。
+
+しかし Phase 5-15 では、
+
+```text
+変数束縛
+unification
+substitution
+```
+
+は導入しない。
+
+まず、
+
+```text
+どの種類の ProofStep を premise とするか
+```
+
+という粗い構造を記述できるようにする。
+
+---
+
+## Repository との接続はまだ行わない
+
+`PremisePattern` を導入しても、
+
+```text
+RelationRepository
+```
+
+から pattern に一致する Relation を
+自動検索することはまだ行わない。
+
+Phase 5-15 時点では、
+
+```text
+RelationRepository
+= Relation の保存・基本検索
+
+InferenceRule
+= 推論規則と premise 要求の記述
+```
+
+として責務を分離する。
+
+将来的には、
+
+```text
+InferenceRule
+↓
+PremisePattern
+↓
+RelationRepository / existing ProofSteps
+↓
+candidate premises
+```
+
+という接続を検討する。
+
+---
+
+## Phase 5-15 時点の inference rule 構造
+
+Phase 5-15 により、
+
+```text
+InferenceRule
+├── name
+├── description
+└── premise_patterns
+      │
+      ├── PremisePattern
+      │     ├── proof_rule
+      │     ├── statement_type
+      │     └── relation_type
+      │
+      └── PremisePattern
+            └── ...
+```
+
+という構造を持つようになった。
+
+Phase 5-14 では、
+
+```text
+どの規則を使ったか
+```
+
+を記録できるようになった。
+
+Phase 5-15 ではさらに、
+
+```text
+その規則が
+どのような premise を期待するか
+```
+
+を記述できるようになった。
+
+ただしこれはまだ、
+
+```text
+rule specification
+```
+
+の段階であり、
+
+```text
+rule execution
+```
+
+ではない。
+
+---
+
+## Phase 5-15 時点の推論基盤
+
+現在の inference 層は、
+
+```text
+Expression
+↓
+Relation
+↓
+RelationRepository
+↓
+ProofStep
+↓
+premises
+        +
+InferenceRule
+        │
+        └── premise_patterns
+↓
+inference ProofStep
+↓
+Proof
+↓
+formatter
+```
+
+という構造を持つ。
+
+InferenceRule は、
+
+```text
+具体的な数学的規則
+```
+
+だけでなく、
+
+```text
+その規則が要求する premise の種類
+```
+
+も保持できるようになった。
+
+---
+
+## Phase 5-15 ではまだ行わないこと
+
+Phase 5-15 では、以下は実装しない。
+
+```text
+PremisePattern と ProofStep の matching
+InferenceRule applicability 判定
+Expression 内部の pattern matching
+pattern variable
+変数束縛
+unification
+substitution
+conclusion の自動生成
+InferenceRule.apply()
+InferenceRule repository
+RelationRepository からの自動 relation 選択
+既存 ProofStep からの自動 premise 選択
+proof の自動構築
+Proof DAG の自動構築
+```
+
+これらは、
+premise pattern の最小モデルを基礎として
+後続フェーズで段階的に追加する。
+
+---
+
+## Phase 5-15 時点の設計原則
+
+1. `InferenceRule` は要求する premise の pattern を保持できる。
+2. 1つの premise に対する条件は `PremisePattern` としてまとめる。
+3. `PremisePattern` は `proof_rule` を条件にできる。
+4. `PremisePattern` は conclusion の `statement_type` を条件にできる。
+5. Relation については `relation_type` も条件にできる。
+6. 各 pattern 条件は optional とし、必要な条件だけを指定できる。
+7. `InferenceRule.premise_patterns` は tuple とする。
+8. premise pattern を持たない既存 InferenceRule との後方互換性を維持する。
+9. 複数 premise を要求する rule を表現可能にする。
+10. Phase 5-15 では pattern の保持だけを行う。
+11. PremisePattern と ProofStep の一致判定はまだ行わない。
+12. Expression 内部の pattern matching はまだ行わない。
+13. pattern variable や変数束縛はまだ導入しない。
+14. conclusion の自動生成はまだ行わない。
+15. RelationRepository との自動接続はまだ行わない。
+16. algebra 層には premise pattern の概念を持ち込まない。
+17. InferenceRule の specification と rule の実行機構を分離する。
+18. 次段階では ProofStep が PremisePattern に一致するかを判定する最小 matching 基盤を検討する。
+
+
 
 
 

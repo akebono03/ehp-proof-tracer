@@ -574,6 +574,9 @@ Phase 5 currently supports:
 * inference combining relations with existing proof steps
 * structured inference-rule metadata
 * explicit distinction between proof-step categories and mathematical inference rules
+* premise-pattern metadata for inference rules
+* premise requirements based on proof-step category, statement type, and relation type
+* multiple premise patterns for a single inference rule
 * human-readable proof formatting
 
 For example, an EHP exactness calculation can now be represented as:
@@ -644,6 +647,40 @@ InferenceRule
 which describes the specific mathematical rule used to derive a
 conclusion from its premises.
 
+An inference rule can also describe the kinds of premises it expects.
+
+For example:
+
+```python
+InferenceRule(
+  name=(
+    "zero relation implies "
+    "order bound"
+  ),
+  premise_patterns=(
+    PremisePattern(
+      proof_rule=ProofRule.RELATION,
+      statement_type=Relation,
+      relation_type=RelationType.ZERO,
+    ),
+  ),
+)
+```
+
+describes a rule that expects a proof step satisfying:
+
+```text
+ProofRule.RELATION
++
+conclusion type = Relation
++
+RelationType.ZERO
+```
+
+The premise-pattern model currently describes rule requirements only.
+It does not yet check whether an actual `ProofStep` matches a
+`PremisePattern`.
+
 Relation sources can be represented as structured literature
 references.
 
@@ -682,13 +719,16 @@ from Toda relations, composition relations, or other homotopy-theoretic
 theorems.
 
 The current proof / inference layer records explicitly constructed
-dependencies and inference-rule metadata, but does not yet
-automatically:
+dependencies, inference-rule metadata, and premise-pattern
+specifications, but does not yet automatically:
 
+* match a `ProofStep` against a `PremisePattern`
 * determine whether an inference rule is applicable
-* match premise patterns
+* match internal expression structures
+* bind pattern variables
 * construct conclusions from inference rules
 * select applicable relations
+* select premise proof steps automatically
 * recursively collect proof dependencies
 * construct a proof DAG
 * derive E/H/P formulas from homotopy-theoretic relations
@@ -714,10 +754,10 @@ Run the complete test suite with:
 python -m pytest -v
 ```
 
-At the completion of Phase 5-14:
+At the completion of Phase 5-15:
 
 ```text
-224 passed in 21.47s
+230 passed in 20.65s
 ```
 
 The development log records test-suite results at each implementation
@@ -727,20 +767,57 @@ checkpoint.
 
 ## Next direction
 
-The immediate goal is to move from inference-rule metadata toward
-machine-checkable inference rules.
+The immediate next step is to make premise-pattern specifications
+machine-checkable.
 
-The next design step is to represent what kind of premises an
-`InferenceRule` expects without yet building a full automatic theorem
-prover.
+Phase 5-16 will introduce the minimum mechanism for comparing:
+
+```text
+PremisePattern
++
+ProofStep
+↓
+match / no match
+```
+
+The first matching layer should remain intentionally small and use only
+the information already represented by `PremisePattern`:
+
+```text
+proof_rule
+statement_type
+relation_type
+```
+
+Expression-level matching is a later concern.
+
+For example, Phase 5-16 should be able to determine whether a proof
+step satisfies a pattern such as:
+
+```text
+ProofRule.RELATION
++
+conclusion type = Relation
++
+RelationType.ZERO
+```
+
+without yet interpreting the internal expression structure of a
+relation such as:
+
+```text
+mα = 0.
+```
 
 Possible later directions include:
 
-* premise patterns for inference rules
-* relation pattern matching
+* `PremisePattern` / `ProofStep` matching
 * inference-rule applicability checks
+* expression-level relation patterns
+* pattern variables and variable binding
 * conclusion construction
 * automatic relation selection
+* automatic premise selection
 * composition relations
 * Toda brackets
 * integration of derived homotopy relations with EHP map data
