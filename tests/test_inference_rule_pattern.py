@@ -8,6 +8,7 @@ from proof import (
   Relation,
   RelationType,
   apply_inference_match,
+  apply_inference_matches,
   find_applicable_inference_rules,
   find_inference_match,
   find_inference_matches,
@@ -3265,6 +3266,359 @@ def test_apply_found_inference_match():
     result.inference_rule
     == rule
   )
+
+
+def test_apply_inference_matches():
+  first_rule = InferenceRule(
+    name="first rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "first derived"
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "second derived"
+    ),
+  )
+
+  first_step = ProofStep(
+    conclusion="first given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  second_step = ProofStep(
+    conclusion="second given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_match = InferenceMatch(
+    inference_rule=first_rule,
+    premises=(
+      first_step,
+    ),
+  )
+
+  second_match = InferenceMatch(
+    inference_rule=second_rule,
+    premises=(
+      second_step,
+    ),
+  )
+
+  result = apply_inference_matches(
+    (
+      first_match,
+      second_match,
+    ),
+  )
+
+  assert len(result) == 2
+
+  assert (
+    result[0].conclusion
+    == "first derived"
+  )
+
+  assert (
+    result[1].conclusion
+    == "second derived"
+  )
+
+
+def test_apply_inference_matches_preserves_order():
+  first_rule = InferenceRule(
+    name="first rule",
+    conclusion_builder=lambda premises: (
+      "first"
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    conclusion_builder=lambda premises: (
+      "second"
+    ),
+  )
+
+  first_match = InferenceMatch(
+    inference_rule=first_rule,
+    premises=(),
+  )
+
+  second_match = InferenceMatch(
+    inference_rule=second_rule,
+    premises=(),
+  )
+
+  result = apply_inference_matches(
+    (
+      second_match,
+      first_match,
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in result
+  ) == (
+    "second",
+    "first",
+  )
+
+
+def test_apply_inference_matches_preserves_premises():
+  rule = InferenceRule(
+    name="given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(
+      step,
+    ),
+  )
+
+  result = apply_inference_matches(
+    (
+      match,
+    ),
+  )
+
+  assert result[0].premises == (
+    step,
+  )
+
+
+def test_apply_inference_matches_preserves_rules():
+  first_rule = InferenceRule(
+    name="first rule",
+    conclusion_builder=lambda premises: (
+      "first"
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    conclusion_builder=lambda premises: (
+      "second"
+    ),
+  )
+
+  result = apply_inference_matches(
+    (
+      InferenceMatch(
+        inference_rule=first_rule,
+        premises=(),
+      ),
+      InferenceMatch(
+        inference_rule=second_rule,
+        premises=(),
+      ),
+    ),
+  )
+
+  assert (
+    result[0].inference_rule
+    == first_rule
+  )
+
+  assert (
+    result[1].inference_rule
+    == second_rule
+  )
+
+
+def test_apply_inference_matches_empty():
+  assert apply_inference_matches(
+    (),
+  ) == ()
+
+
+def test_apply_inference_matches_accepts_single_match():
+  rule = InferenceRule(
+    name="rule",
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+  )
+
+  result = apply_inference_matches(
+    match,
+  )
+
+  assert len(result) == 1
+
+  assert (
+    result[0].conclusion
+    == "derived"
+  )
+
+
+def test_apply_inference_matches_accepts_list():
+  rule = InferenceRule(
+    name="rule",
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+  )
+
+  result = apply_inference_matches(
+    [
+      match,
+    ],
+  )
+
+  assert len(result) == 1
+
+  assert (
+    result[0].conclusion
+    == "derived"
+  )
+
+
+def test_apply_inference_matches_rejects_invalid_input():
+  with pytest.raises(TypeError):
+    apply_inference_matches(
+      "invalid"
+    )
+
+
+def test_apply_inference_matches_rejects_invalid_match_in_list():
+  rule = InferenceRule(
+    name="rule",
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+  )
+
+  with pytest.raises(TypeError):
+    apply_inference_matches(
+      [
+        match,
+        "invalid",
+      ],
+    )
+
+
+def test_apply_found_inference_matches():
+  first_rule = InferenceRule(
+    name="first rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "first derived"
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.RELATION,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "second derived"
+    ),
+  )
+
+  given_step = ProofStep(
+    conclusion="given fact",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  relation_step = ProofStep(
+    conclusion="relation fact",
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  matches = find_inference_matches(
+    (
+      first_rule,
+      second_rule,
+    ),
+    (
+      given_step,
+      relation_step,
+    ),
+  )
+
+  derived_steps = (
+    apply_inference_matches(
+      matches
+    )
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in derived_steps
+  ) == (
+    "first derived",
+    "second derived",
+  )
+
+  assert (
+    derived_steps[0].premises
+    == (
+      given_step,
+    )
+  )
+
+  assert (
+    derived_steps[1].premises
+    == (
+      relation_step,
+    )
+  )
+
 
 
 

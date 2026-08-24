@@ -9102,6 +9102,750 @@ conclusion
 という機構が必要になる。
 
 
+## Phase 5-23：複数 InferenceMatch の一括 application
+
+Phase 5-22 では、
+
+```text
+InferenceMatch
+↓
+apply_inference_match()
+↓
+derived ProofStep
+```
+
+を実装し、
+1つの structured match を実際の推論結果へ変換できるようにした。
+
+Phase 5-23 では、
+複数の `InferenceMatch` をまとめて適用し、
+
+```text
+InferenceMatch collection
+↓
+derived ProofStep collection
+```
+
+へ変換する collection-level application を追加した。
+
+---
+
+### apply_inference_matches()
+
+追加:
+
+```python
+apply_inference_matches(
+  inference_matches,
+)
+```
+
+この関数は、
+複数の `InferenceMatch` を受け取り、
+各 match を `apply_inference_match()` へ渡す。
+
+基本構造:
+
+```text
+InferenceMatch collection
+↓
+normalize
+↓
+apply_inference_match() for each match
+↓
+derived ProofStep tuple
+```
+
+実装上は、
+
+```python
+return tuple(
+  apply_inference_match(
+    inference_match
+  )
+  for inference_match
+  in normalized_matches
+)
+```
+
+という薄い wrapper とした。
+
+これにより、
+Phase 5-22 で実装した single application logic を
+collection-level API で重複させていない。
+
+---
+
+### single application logic の再利用
+
+各 InferenceMatch の application は、
+既存の、
+
+```text
+apply_inference_match()
+```
+
+へ完全に委譲する。
+
+したがって、
+
+```text
+conclusion_builder の取得
+builder が存在するかの確認
+builder が callable かの確認
+conclusion の生成
+ProofRule.INFERENCE の設定
+premises の保存
+InferenceRule の保存
+```
+
+は Phase 5-22 の実装をそのまま利用する。
+
+Phase 5-23 で追加した責務は、
+
+```text
+複数 match の入力処理
++
+複数 application の orchestration
+```
+
+だけである。
+
+---
+
+### _normalize_inference_matches()
+
+追加:
+
+```python
+_normalize_inference_matches(
+  inference_matches,
+)
+```
+
+入力として、
+
+```text
+single InferenceMatch
+tuple of InferenceMatch
+list of InferenceMatch
+```
+
+を受け付ける。
+
+内部ではすべて、
+
+```text
+tuple
+```
+
+へ正規化する。
+
+例えば、
+
+```python
+apply_inference_matches(
+  match,
+)
+```
+
+も、
+
+```python
+apply_inference_matches(
+  (
+    match,
+  ),
+)
+```
+
+と同じ意味になる。
+
+---
+
+### 空 collection
+
+空 tuple に対して、
+
+```python
+apply_inference_matches(
+  (),
+)
+```
+
+は、
+
+```text
+()
+```
+
+を返す。
+
+これにより、
+
+```python
+matches = find_inference_matches(
+  rules,
+  available_steps,
+)
+
+derived_steps = apply_inference_matches(
+  matches,
+)
+```
+
+という経路で、
+match が0件の場合にも特別な分岐を必要としない。
+
+---
+
+### application order の維持
+
+複数の InferenceMatch を適用するとき、
+入力順を維持して derived ProofStep を返すことを確認した。
+
+例えば、
+
+```text
+(
+  second_match,
+  first_match,
+)
+```
+
+に対して、
+
+```text
+(
+  second derived step,
+  first derived step,
+)
+```
+
+となる。
+
+Phase 5-21 の `find_inference_matches()` も
+InferenceRule の入力順を維持するため、
+
+```text
+InferenceRule input order
+↓
+InferenceMatch order
+↓
+derived ProofStep order
+```
+
+が一貫して維持される。
+
+---
+
+### premises の保存
+
+collection-level application 後も、
+各 derived ProofStep が
+対応する InferenceMatch の premises を
+そのまま保持することを確認した。
+
+例えば、
+
+```text
+match_a.premises = (given_step,)
+```
+
+なら、
+
+```text
+derived_step_a.premises = (given_step,)
+```
+
+となる。
+
+複数 match をまとめて apply しても、
+異なる match の premises が混在しない。
+
+---
+
+### InferenceRule の保存
+
+各 derived ProofStep の、
+
+```text
+inference_rule
+```
+
+には、
+対応する InferenceMatch の `inference_rule` が保存される。
+
+例えば、
+
+```text
+match_a.inference_rule = rule_a
+match_b.inference_rule = rule_b
+```
+
+なら、
+
+```text
+derived_a.inference_rule = rule_a
+derived_b.inference_rule = rule_b
+```
+
+となる。
+
+これにより collection-level application 後も、
+各 derived fact がどの rule によって導かれたかを追跡できる。
+
+---
+
+### invalid input
+
+`apply_inference_matches()` に、
+
+```text
+InferenceMatch
+tuple/list of InferenceMatch
+```
+
+以外を渡した場合は `TypeError` とする。
+
+確認例:
+
+```text
+"invalid"
+```
+
+また、
+
+```text
+[
+  valid_match,
+  "invalid",
+]
+```
+
+のように、
+collection 内に InferenceMatch 以外が含まれる場合も
+`TypeError` とする。
+
+collection-level input validation は
+`_normalize_inference_matches()` が担当する。
+
+一方、
+
+```text
+missing conclusion_builder
+non-callable conclusion_builder
+```
+
+など individual application の validation は、
+引き続き `apply_inference_match()` が担当する。
+
+---
+
+### find_inference_matches() との接続
+
+Phase 5-23 では、
+
+```text
+find_inference_matches()
+↓
+apply_inference_matches()
+```
+
+という実際の collection-level pipeline を確認した。
+
+例えば、
+
+```text
+first rule
+requires GIVEN
+
+second rule
+requires RELATION
+```
+
+という2つの rule と、
+
+```text
+given_step
+relation_step
+```
+
+がある場合、
+
+```python
+matches = find_inference_matches(
+  (
+    first_rule,
+    second_rule,
+  ),
+  (
+    given_step,
+    relation_step,
+  ),
+)
+```
+
+から、
+
+```text
+(
+  InferenceMatch(
+    inference_rule=first_rule,
+    premises=(given_step,),
+  ),
+  InferenceMatch(
+    inference_rule=second_rule,
+    premises=(relation_step,),
+  ),
+)
+```
+
+を得る。
+
+これを、
+
+```python
+derived_steps = apply_inference_matches(
+  matches
+)
+```
+
+とすることで、
+
+```text
+(
+  first derived step,
+  second derived step,
+)
+```
+
+を生成できることを確認した。
+
+各 derived step は、
+それぞれ対応する premise を保持する。
+
+---
+
+### matching と application の分離
+
+Phase 5-23 でも、
+
+```text
+find_inference_matches()
+```
+
+と、
+
+```text
+apply_inference_matches()
+```
+
+は統合しなかった。
+
+現在の利用方法は、
+
+```python
+matches = find_inference_matches(
+  inference_rules,
+  available_steps,
+)
+
+derived_steps = apply_inference_matches(
+  matches,
+)
+```
+
+である。
+
+これにより、
+
+```text
+matching
+↓
+結果確認・選択
+↓
+application
+```
+
+という処理を可能にしている。
+
+Phase 5-23 の `apply_inference_matches()` は、
+rule collection や available steps を直接受け取らず、
+すでに確定した InferenceMatch だけを適用する。
+
+---
+
+### Phase 5-23 で追加した主なテスト
+
+追加したテスト:
+
+```text
+test_apply_inference_matches
+test_apply_inference_matches_preserves_order
+test_apply_inference_matches_preserves_premises
+test_apply_inference_matches_preserves_rules
+test_apply_inference_matches_empty
+test_apply_inference_matches_accepts_single_match
+test_apply_inference_matches_accepts_list
+test_apply_inference_matches_rejects_invalid_input
+test_apply_inference_matches_rejects_invalid_match_in_list
+test_apply_found_inference_matches
+```
+
+確認内容:
+
+```text
+複数 InferenceMatch の application
+複数 derived ProofStep の生成
+input order の維持
+premises の維持
+InferenceRule の維持
+空 collection
+single InferenceMatch input
+list input
+invalid top-level input
+invalid collection entry
+find_inference_matches() から apply_inference_matches() への接続
+```
+
+---
+
+### テスト
+
+2026-08-24:
+
+```text
+354 passed in 21.65s
+```
+
+Phase 5-22 完了時は、
+
+```text
+344 passed
+```
+
+だったため、
+Phase 5-23 では10テストを追加した。
+
+既存の、
+
+```text
+algebra
+EHP
+expression
+formatter
+proof
+repository
+PremisePattern
+InferenceRule matching
+premise search
+applicability
+applicable-rule search
+InferenceMatch search
+single InferenceMatch application
+```
+
+を含め、
+すべてのテストが成功した。
+
+Phase 5-23 の collection-level application 導入による
+regression は確認されなかった。
+
+---
+
+### Phase 5-23 の到達点
+
+Phase 5-22 までの inference pipeline は、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_inference_match()
+↓
+InferenceMatch
+↓
+apply_inference_match()
+↓
+derived ProofStep
+```
+
+だった。
+
+Phase 5-23 ではこれを collection level へ拡張し、
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_inference_matches()
+↓
+InferenceMatch collection
+↓
+apply_inference_matches()
+↓
+derived ProofStep collection
+```
+
+まで到達した。
+
+これにより、
+
+```text
+複数の applicable rule
+↓
+複数の structured match
+↓
+複数の derived fact
+```
+
+という処理が可能になった。
+
+現在も、
+
+```text
+matching
+```
+
+と、
+
+```text
+application
+```
+
+は別 API である。
+
+そのため caller は、
+InferenceMatch collection を確認・選択した上で
+application できる。
+
+---
+
+### 現在まだ行わないこと
+
+Phase 5-23 では、
+以下はまだ実装しない。
+
+```text
+match search と application の一体化
+derived step の available facts への自動追加
+derived conclusion の重複判定
+同じ rule の再適用制御
+inference round
+fixed-point iteration
+automatic rule priority
+automatic rule selection
+alternative premise assignment
+backtracking
+Expression-level matching
+pattern variable
+variable binding
+substitution
+structured conclusion template
+```
+
+特に、
+
+```text
+derived ProofSteps
+↓
+available ProofSteps に追加
+↓
+再度 find_inference_matches()
+```
+
+という反復処理はまだ行わない。
+
+この段階へ進む前に、
+duplicate conclusion や停止条件などの設計が必要になる。
+
+---
+
+### 状態
+
+Phase 5-23 完了。
+
+現在の collection-level pipeline:
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find_inference_matches()
+↓
+InferenceMatch collection
+↓
+apply_inference_matches()
+↓
+derived ProofStep collection
+```
+
+次の自然な候補は、
+
+```text
+InferenceRule collection
++
+available ProofSteps
+↓
+find
+↓
+apply
+↓
+derived ProofSteps
+```
+
+をまとめる high-level API の導入である。
+
+例えば、
+
+```text
+derive_inference_steps()
+```
+
+のような関数を用意し、
+
+```text
+find_inference_matches()
+↓
+apply_inference_matches()
+```
+
+を内部で組み合わせる。
+
+その後、
+
+```text
+derived ProofSteps
+↓
+available ProofSteps へ追加
+↓
+次の inference round
+```
+
+へ進むことで、
+iterative inference の基盤へ接続できる。
+
+一方、
+一般的な数学的 inference rule を表現するためには、
+別方向として、
+
+```text
+Expression pattern
+↓
+variable binding
+↓
+substitution
+↓
+conclusion
+```
+
+という symbolic inference 機構も必要になる。
+
+
 
 
 

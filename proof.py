@@ -369,6 +369,24 @@ def apply_inference_match(
   )
 
 
+def apply_inference_matches(
+  inference_matches,
+):
+  normalized_matches = (
+    _normalize_inference_matches(
+      inference_matches
+    )
+  )
+
+  return tuple(
+    apply_inference_match(
+      inference_match
+    )
+    for inference_match
+    in normalized_matches
+  )
+
+
 def relation_proof_step(relation):
   if not isinstance(relation, Relation):
     raise TypeError(
@@ -629,6 +647,44 @@ def _normalize_inference_rules(
       raise TypeError(
         "inference_rules must contain "
         "only InferenceRule objects"
+      )
+
+  return normalized
+
+
+def _normalize_inference_matches(
+  inference_matches,
+):
+  if isinstance(
+    inference_matches,
+    InferenceMatch,
+  ):
+    return (
+      inference_matches,
+    )
+
+  if not isinstance(
+    inference_matches,
+    (tuple, list),
+  ):
+    raise TypeError(
+      "inference_matches must be "
+      "an InferenceMatch or a "
+      "tuple/list of InferenceMatch"
+    )
+
+  normalized = tuple(
+    inference_matches
+  )
+
+  for inference_match in normalized:
+    if not isinstance(
+      inference_match,
+      InferenceMatch,
+    ):
+      raise TypeError(
+        "inference_matches must contain "
+        "only InferenceMatch objects"
       )
 
   return normalized
