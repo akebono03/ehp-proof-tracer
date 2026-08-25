@@ -88,6 +88,7 @@ missing capability.
 - Phase 4: presentation-based calculations with free components — completed
 - Phase 5: generic proof / inference engine foundation — completed
 - Phase 6-1: EHP exactness inference rule — completed
+- Phase 6-2: structured statement matching foundation — completed
 - Phase 6: EHP domain inference rules — in progress
 
 ---
@@ -855,6 +856,12 @@ objects for one conclusion.
 The generic pattern system currently has direct structured support for
 `Relation` patterns.
 
+Phase 6-2 also provides structured matching for dataclass-based statements.
+`PremisePattern.statement_pattern` can match statement fields using
+`PatternVariable` and literal values. The current EHP statement patterns can
+therefore bind `ImageStatement.group_map` and `KernelStatement.group_map`
+while preserving shared binding consistency across premises.
+
 It is not yet a general recursive unification engine over every possible
 expression / statement class.
 
@@ -1001,8 +1008,35 @@ Phase 6-1 does not introduce:
 
 - changes to `proof.py`,
 - new `ProofRule` values,
-- structured matching of statement internals,
 - automatic selection of arbitrary EHP segments.
+
+## Phase 6-2: structured statement matching foundation
+
+Phase 6-2 extends the generic matching layer with a domain-independent
+structured statement pattern:
+
+```python
+PremisePattern(
+        statement_pattern=ImageStatement(
+                group_map=PatternVariable("first_map"),
+                structure=PatternVariable("image_structure"),
+        ),
+)
+```
+
+`match_statement_pattern()` compares dataclass fields and delegates each
+field to the existing `match_pattern_value()` and
+`merge_variable_bindings()` mechanisms. This supports concrete field values,
+field bindings, repeated variables, and shared bindings between premises.
+
+The EHP exactness rule now accepts the existing
+`ehp_exactness_inference_rule(exact_step)` form and also supports an
+argument-free form that derives the exact sequence from the matched image and
+kernel maps. The rule remains in `ehp_rules.py`; no EHP-specific branch or
+new `ProofRule` was added to the generic engine.
+
+Phase 6-2 deliberately does not implement automatic exact-pair discovery,
+EHP sequence construction, or domain index arithmetic.
 
 ---
 
@@ -1036,6 +1070,14 @@ Phase 6-1 tests:
 ```text
 tests/test_ehp_rules.py: 1 passed
 full project test suite: 648 passed
+
+Phase 6-2 tests:
+
+```text
+focused inference and EHP tests: 428 passed
+full project test suite: 652 passed
+git diff --check: clean
+```
 ```
 
 ---

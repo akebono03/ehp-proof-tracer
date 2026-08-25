@@ -442,12 +442,17 @@ conclusion を生成できる。
 ```text
 proof_rule
 statement_type
+statement_pattern
 relation_type
 relation_pattern
 ```
 
 外側 category matching と、
 内部 `Relation` pattern matching を併用できる。
+
+`statement_pattern` は dataclass-based statement の内部 fields を
+structured に match するための domain-independent pattern である。
+各 field は literal または `PatternVariable` にできる。
 
 empty pattern は任意の step に match する。
 
@@ -499,6 +504,28 @@ relation_type
 
 同じ variable が lhs / rhs などに繰り返し現れる場合は、
 binding consistency を要求する。
+
+## 11.3 match_statement_pattern()
+
+`match_statement_pattern()` は dataclass instance の fields を順番に
+比較する。
+
+```text
+statement pattern
+        ↓
+dataclass fields
+        ↓
+match_pattern_value()
+        ↓
+merge_variable_bindings()
+```
+
+pattern と value の dataclass type が一致しない場合は match failure と
+する。各 field の `PatternVariable` は既存の `VariableBinding` に変換し、
+同じ variable の異なる値は reject する。
+
+この最小基盤は全 object tree を再帰的に unification するものではなく、
+statement dataclass の直接 fields を対象とする。
 
 ## 11.3 merge_variable_bindings()
 
@@ -1151,11 +1178,46 @@ algebra.py
 
 Phase 6-1 では次を導入しない。
 
-- structured statement matching
-- `ImageStatement.group_map` 等の内部 field matching
 - 任意 EHP segment の自動選択
 - 新しい `ProofRule` enum 値
 - generic engine の EHP-specific branch
+
+## 27.2 Phase 6-2：structured statement matching
+
+Phase 6-2 では、Phase 6-1 の premise matching を statement type だけから
+statement 内部 fields まで拡張した。
+
+`PremisePattern.statement_pattern` に `ImageStatement` や
+`KernelStatement` の dataclass instance を指定できる。例えば、
+
+```python
+first_map = PatternVariable("first_map")
+PremisePattern(
+        statement_type=ImageStatement,
+        statement_pattern=ImageStatement(
+                group_map=first_map,
+                structure=PatternVariable("image_structure"),
+        ),
+)
+```
+
+のように `group_map` を binding できる。
+
+複数 premise の matching では、各 premise の field bindings を既存の
+`merge_variable_bindings()` で統合する。したがって Image と Kernel の
+patterns で同じ variable を使用すれば、両者が同じ map を参照すること
+を generic engine の shared-binding semantics で保証できる。
+
+EHP rule は `ehp_rules.py` に保持し、argument-free factory では matched
+maps から `ExactSequenceStep` を構築する。Phase 6-1 の引数付き factory
+form と既存の direct proof-step API は維持する。
+
+Phase 6-2 の境界:
+
+- arbitrary EHP segment からの exact pair 自動探索は行わない
+- EHP sequence 全体の自動構築は行わない
+- E/H/P の index arithmetic は扱わない
+- generic engine に EHP-specific branch を追加しない
 
 # 28. Phase 6 candidates
 

@@ -6,7 +6,9 @@ from proof import (
   InferenceRoundResult,
   InferenceRule,
   InferenceRunResult,
+  ImageStatement,
   InferenceTerminationReason,
+  KernelStatement,
   PatternVariable,
   PremisePattern,
   ProofRule,
@@ -35,6 +37,7 @@ from proof import (
   matches_premise_pattern,
   match_pattern_value,
   match_relation_pattern,
+  match_statement_pattern,
   merge_proof_steps,
   merge_variable_bindings,
   partition_new_and_duplicate_proof_steps,
@@ -43,8 +46,99 @@ from proof import (
   run_inference_until_stable_with_history,
   substitute_inference_conclusion,
   substitute_pattern_value,
-  substitute_relation_pattern,  
+  substitute_relation_pattern,
 )
+
+
+def test_match_statement_pattern_binds_image_group_map():
+  group_map = PatternVariable(name="group_map")
+  structure = PatternVariable(name="structure")
+
+  result = match_statement_pattern(
+    ImageStatement(group_map, structure),
+    ImageStatement("f", "image"),
+  )
+
+  assert result == (
+    VariableBinding(group_map, "f"),
+    VariableBinding(structure, "image"),
+  )
+
+
+def test_match_statement_pattern_binds_kernel_group_map():
+  group_map = PatternVariable(name="group_map")
+
+  result = match_statement_pattern(
+    KernelStatement(group_map, PatternVariable(name="structure")),
+    KernelStatement("g", "kernel"),
+  )
+
+  assert result[0] == VariableBinding(group_map, "g")
+
+
+def test_statement_pattern_matches_concrete_fields_and_rejects_difference():
+  pattern = PremisePattern(
+    statement_type=ImageStatement,
+    statement_pattern=ImageStatement("f", "image"),
+  )
+  matching_step = ProofStep(
+    conclusion=ImageStatement("f", "image"),
+    premises=(),
+    rule=ProofRule.IMAGE_COMPUTATION,
+  )
+  different_step = ProofStep(
+    conclusion=ImageStatement("g", "image"),
+    premises=(),
+    rule=ProofRule.IMAGE_COMPUTATION,
+  )
+
+  assert matches_premise_pattern(pattern, matching_step)
+  assert not matches_premise_pattern(pattern, different_step)
+
+
+def test_statement_patterns_preserve_shared_binding_across_premises():
+  group_map = PatternVariable(name="group_map")
+  rule = InferenceRule(
+    name="shared statement map",
+    premise_patterns=(
+      PremisePattern(
+        statement_pattern=ImageStatement(
+          group_map,
+          PatternVariable(name="image_structure"),
+        ),
+      ),
+      PremisePattern(
+        statement_pattern=KernelStatement(
+          group_map,
+          PatternVariable(name="kernel_structure"),
+        ),
+      ),
+    ),
+  )
+  image_step = ProofStep(
+    conclusion=ImageStatement("f", "image"),
+    premises=(),
+    rule=ProofRule.IMAGE_COMPUTATION,
+  )
+  matching_kernel_step = ProofStep(
+    conclusion=KernelStatement("f", "kernel"),
+    premises=(),
+    rule=ProofRule.KERNEL_COMPUTATION,
+  )
+  conflicting_kernel_step = ProofStep(
+    conclusion=KernelStatement("g", "kernel"),
+    premises=(),
+    rule=ProofRule.KERNEL_COMPUTATION,
+  )
+
+  assert match_inference_rule_bindings(
+    rule,
+    (image_step, matching_kernel_step),
+  ) is not None
+  assert match_inference_rule_bindings(
+    rule,
+    (image_step, conflicting_kernel_step),
+  ) is None
 
 
 def test_premise_pattern_defaults():

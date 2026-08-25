@@ -1118,6 +1118,82 @@ Phase 6-1 では statement type と proof rule による premise matching
 ### 状態
 
 完了
+# Phase 6-2：structured statement matching
+
+Phase 6-2 では、Phase 6-1 の EHP exactness rule を特定の
+`ExactSequenceStep` に factory-bound した形から一般化するため、
+statement 内部 fields を pattern matching する最小基盤を追加した。
+
+## 実装
+
+`proof.py` に次を追加・拡張した。
+
+- `PremisePattern.statement_pattern`
+- `match_statement_pattern()`
+- dataclass fields を使った field-by-field matching
+
+structured matcher は各 field について既存の
+`match_pattern_value()` を呼び出し、生成された bindings を
+`merge_variable_bindings()` で統合する。これにより、literal matching、
+`PatternVariable` binding、同一 statement 内の repeated binding、複数
+premise 間の shared binding consistency を同じ generic mechanism で扱う。
+
+## EHP rule integration
+
+`ehp_rules.py` の `ehp_exactness_inference_rule()` は、既存の
+
+```python
+ehp_exactness_inference_rule(exact_step)
+```
+
+を維持しつつ、argument-free invocation にも対応した。
+
+argument-free rule は次の内部 patterns を使用する。
+
+```text
+ImageStatement(group_map=?first_map)
+KernelStatement(group_map=?second_map)
+```
+
+matching された maps から `ExactSequenceStep` を作り、既存の
+`ehp_exactness_proof_step()` を conclusion construction に再利用する。
+この変更でも EHP 固有の分岐や新しい `ProofRule` は generic engine に
+追加していない。
+
+## 設計境界
+
+Phase 6-2 では次を実装しない。
+
+- arbitrary EHP segment からの exact pair 自動探索
+- EHP sequence 全体の自動構築
+- 新しい数学的 EHP theorem
+- E/H/P の domain/codomain に基づく index arithmetic
+
+## テスト
+
+structured matching について次を追加・確認した。
+
+- ImageStatement の map binding
+- KernelStatement の map binding
+- concrete field matching と mismatch rejection
+- 既存 binding と矛盾しない場合の成功
+- 複数 premise 間の shared binding consistency
+- Phase 6-1 exactness inference regression
+
+結果:
+
+```text
+focused inference and EHP tests: 428 passed
+full project test suite: 652 passed
+exit code: 0
+git diff --check: clean
+```
+
+### 状態
+
+完了
+
+
 # 今後の記録方針
 
 今後は役割を明確に分ける。

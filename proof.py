@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, fields, is_dataclass
 from enum import Enum
 from typing import Any
 
@@ -42,6 +42,7 @@ class ProofRule(Enum):
 class PremisePattern:
   proof_rule: ProofRule | None = None
   statement_type: type | None = None
+  statement_pattern: Any | None = None
   relation_type: RelationType | None = None
   relation_pattern: Relation | None = None
 
@@ -304,6 +305,39 @@ def match_relation_pattern(
   )
 
 
+def match_statement_pattern(
+  pattern,
+  value,
+):
+  if not is_dataclass(pattern) or not is_dataclass(value):
+    raise TypeError(
+      "pattern and value must be dataclass instances"
+    )
+
+  if type(pattern) is not type(value):
+    return None
+
+  bindings = ()
+
+  for field in fields(pattern):
+    field_bindings = match_pattern_value(
+      getattr(pattern, field.name),
+      getattr(value, field.name),
+    )
+
+    if field_bindings is None:
+      return None
+
+    bindings = merge_variable_bindings(
+      bindings + field_bindings
+    )
+
+    if bindings is None:
+      return None
+
+  return bindings
+
+
 @dataclass(frozen=True)
 class InferenceRule:
   name: str
@@ -444,6 +478,21 @@ def match_premise_pattern(
     ):
       return None
 
+  bindings = ()
+
+  if pattern.statement_pattern is not None:
+    statement_bindings = match_statement_pattern(
+      pattern.statement_pattern,
+      step.conclusion,
+    )
+
+    if statement_bindings is None:
+      return None
+
+    bindings = merge_variable_bindings(
+      bindings + statement_bindings
+    )
+
   if (
     pattern.relation_pattern
     is not None
@@ -454,12 +503,19 @@ def match_premise_pattern(
     ):
       return None
 
-    return match_relation_pattern(
+    relation_bindings = match_relation_pattern(
       pattern.relation_pattern,
       step.conclusion,
     )
 
-  return ()
+    if relation_bindings is None:
+      return None
+
+    bindings = merge_variable_bindings(
+      bindings + relation_bindings
+    )
+
+  return bindings
 
 
 def matches_premise_pattern(
