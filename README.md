@@ -71,6 +71,8 @@ The next development stage is:
 Phase 6: EHP domain inference rules
 ```
 
+Phase 6-1, the first EHP domain inference rule integration, is completed.
+
 The main goal of Phase 6 is not to add speculative generic-engine features.
 It is to encode actual EHP / homotopy-theoretic rules using the Phase 5
 engine and extend the engine only when a real domain rule demonstrates a
@@ -85,7 +87,8 @@ missing capability.
 - Phase 3: quotient groups, exact sequences, extensions, and EHP inference — completed
 - Phase 4: presentation-based calculations with free components — completed
 - Phase 5: generic proof / inference engine foundation — completed
-- Phase 6: EHP domain inference rules — next
+- Phase 6-1: EHP exactness inference rule — completed
+- Phase 6: EHP domain inference rules — in progress
 
 ---
 
@@ -966,6 +969,41 @@ The generic engine should not contain EHP-specific branches.
 A new generic feature should be added only if an actual domain rule cannot
 be represented correctly with the current rule language.
 
+## Phase 6-1: EHP exactness inference rule
+
+Phase 6-1 adds the EHP-specific rule factory:
+
+```python
+ehp_exactness_inference_rule(exact_step)
+```
+
+The rule uses existing proof steps:
+
+```text
+ImageStatement(E)
+KernelStatement(H)
+```
+
+to infer an `ExactnessStatement` through the Phase 5 generic inference
+engine. The existing `ehp_exactness_proof_step()` constructs and validates
+the EHP exactness statement.
+
+The derived `ProofStep` uses:
+
+```text
+ProofRule.INFERENCE
+```
+
+The originating EHP rule remains available through
+`ProofStep.inference_rule`.
+
+Phase 6-1 does not introduce:
+
+- changes to `proof.py`,
+- new `ProofRule` values,
+- structured matching of statement internals,
+- automatic selection of arbitrary EHP segments.
+
 ---
 
 # Tests
@@ -992,6 +1030,13 @@ the documentation review:
 
 This number refers specifically to the inference-rule pattern test file, not
 to the complete project test suite.
+
+Phase 6-1 tests:
+
+```text
+tests/test_ehp_rules.py: 1 passed
+full project test suite: 648 passed
+```
 
 ---
 

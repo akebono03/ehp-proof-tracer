@@ -1026,6 +1026,98 @@ real EHP rule が current rule language で表現できないと
 
 ---
 
+# Phase 6-1：EHP exactness inference rule
+
+Phase 6-1 では、既存の EHP exactness の知識を
+Phase 5 の generic inference engine から実行できるようにした。
+
+## 実装
+
+新規ファイル:
+
+```text
+ehp_rules.py
+tests/test_ehp_rules.py
+```
+
+追加した factory:
+
+```python
+ehp_exactness_inference_rule(exact_step)
+```
+
+この rule は次の premise を要求する。
+
+```text
+ImageStatement(first_map)
+KernelStatement(second_map)
+```
+
+builder は既存の `ehp_exactness_proof_step()` を再利用し、生成された
+`ExactnessStatement` を conclusion とする。
+
+## ProofStep rule の判断
+
+generic engine の `apply_inference_match()` は derived step に常に、
+
+```text
+ProofRule.INFERENCE
+```
+
+を設定する。
+
+したがって、Phase 6-1 の rule を generic engine で適用した derived step
+も `ProofRule.INFERENCE` を使用する。EHP 固有 rule であることは、
+
+```text
+ProofStep.inference_rule
+```
+
+から確認できる。
+
+なお、`ehp_exactness_proof_step()` を直接呼び出す既存経路では、従来どおり
+`ProofRule.EHP_EXACTNESS` を使用する。
+
+## 設計判断
+
+Phase 5 の generic engine の境界を維持するため、
+
+- `proof.py` は変更しない
+- `ehp.py` は変更しない
+- 新しい `ProofRule` は追加しない
+- EHP-specific branch は generic engine に追加しない
+
+という方針にした。
+
+Phase 6-1 では statement type と proof rule による premise matching
+だけを使用する。structured statement matching や任意 EHP segment の
+自動選択は導入していない。
+
+## テスト
+
+`tests/test_ehp_rules.py` で次を確認した。
+
+- EHP segment から image step を作成
+- kernel step を作成
+- EHP rule が applicable
+- generic inference による exactness conclusion の生成
+- 元の image/kernel step の premise 参照
+- `inference_rule` の保持
+- `ProofRule.INFERENCE` の設定
+- 最初の round での導出
+- fixed-point 到達
+- duplicate の追加拒否
+
+結果:
+
+```text
+専用テスト: 1 passed
+全 pytest: 648 passed
+```
+
+### 状態
+
+完了
 # 今後の記録方針
 
 今後は役割を明確に分ける。
