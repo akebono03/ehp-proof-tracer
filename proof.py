@@ -848,23 +848,35 @@ def apply_inference_match(
     inference_rule.conclusion_builder
   )
 
-  if conclusion_builder is None:
+  if conclusion_builder is not None:
+    if not callable(
+      conclusion_builder
+    ):
+      raise TypeError(
+        "conclusion_builder must be "
+        "callable"
+      )
+
+    conclusion = (
+      conclusion_builder(
+        inference_match.premises
+      )
+    )
+  elif (
+    inference_rule.conclusion_pattern
+    is not None
+  ):
+    conclusion = (
+      substitute_inference_conclusion(
+        inference_match
+      )
+    )
+  else:
     raise ValueError(
       "inference rule must have "
-      "a conclusion builder"
+      "a conclusion builder or "
+      "a conclusion pattern"
     )
-
-  if not callable(
-    conclusion_builder
-  ):
-    raise TypeError(
-      "conclusion_builder must be "
-      "callable"
-    )
-
-  conclusion = conclusion_builder(
-    inference_match.premises
-  )
 
   return ProofStep(
     conclusion=conclusion,

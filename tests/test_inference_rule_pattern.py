@@ -3132,9 +3132,9 @@ def test_apply_inference_match_rejects_invalid_match():
     )
 
 
-def test_apply_inference_match_requires_conclusion_builder():
+def test_apply_inference_match_requires_conclusion_source():
   rule = InferenceRule(
-    name="rule without builder",
+    name="rule",
   )
 
   match = InferenceMatch(
@@ -12362,6 +12362,266 @@ def test_substitute_inference_conclusion_requires_conclusion_pattern():
     substitute_inference_conclusion(
       match
     )
+
+
+def test_apply_inference_match_uses_conclusion_pattern():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="pattern rule",
+    conclusion_pattern=Relation(
+      lhs=variable,
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+    bindings=(
+      VariableBinding(
+        variable=variable,
+        value="alpha",
+      ),
+    ),
+  )
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == Relation(
+    lhs="alpha",
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  assert step.premises == ()
+
+  assert (
+    step.rule
+    == ProofRule.INFERENCE
+  )
+
+  assert (
+    step.inference_rule
+    is rule
+  )
+
+
+def test_apply_inference_match_conclusion_pattern_preserves_premises():
+  variable = PatternVariable(
+    "x"
+  )
+
+  premise = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  rule = InferenceRule(
+    name="pattern rule",
+    conclusion_pattern=Relation(
+      lhs="derived",
+      rhs=variable,
+    ),
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(
+      premise,
+    ),
+    bindings=(
+      VariableBinding(
+        variable=variable,
+        value="alpha",
+      ),
+    ),
+  )
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == Relation(
+    lhs="derived",
+    rhs="alpha",
+  )
+
+  assert step.premises == (
+    premise,
+  )
+
+
+def test_apply_inference_match_prefers_builder_over_conclusion_pattern():
+  variable = PatternVariable(
+    "x"
+  )
+
+  builder = lambda premises: (
+    "builder result"
+  )
+
+  rule = InferenceRule(
+    name="rule",
+    conclusion_builder=builder,
+    conclusion_pattern=Relation(
+      lhs=variable,
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+    bindings=(
+      VariableBinding(
+        variable=variable,
+        value="alpha",
+      ),
+    ),
+  )
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert (
+    step.conclusion
+    == "builder result"
+  )
+
+
+def test_apply_inference_match_rejects_non_callable_builder_even_with_pattern():
+  rule = InferenceRule(
+    name="rule",
+    conclusion_builder="invalid",
+    conclusion_pattern=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+  )
+
+  with pytest.raises(TypeError):
+    apply_inference_match(
+      match
+    )
+
+
+def test_apply_found_inference_match_with_conclusion_pattern():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="pattern rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=variable,
+          rhs="0",
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="derived",
+      rhs=variable,
+    ),
+  )
+
+  premise = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  match = find_inference_match(
+    rule,
+    premise,
+  )
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == Relation(
+    lhs="derived",
+    rhs="alpha",
+  )
+
+  assert step.premises == (
+    premise,
+  )
+
+
+def test_derive_inference_steps_with_conclusion_pattern():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="pattern rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=variable,
+          rhs="0",
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="derived",
+      rhs=variable,
+    ),
+  )
+
+  premise = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  steps = derive_inference_steps(
+    rule,
+    premise,
+  )
+
+  assert len(steps) == 1
+
+  assert steps[0].conclusion == Relation(
+    lhs="derived",
+    rhs="alpha",
+  )
+
+  assert steps[0].premises == (
+    premise,
+  )
 
 
 
