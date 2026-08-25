@@ -10269,6 +10269,122 @@ def test_merge_variable_bindings_rejects_invalid_item():
     )
 
 
+def test_match_relation_pattern_merges_repeated_variable():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  pattern = Relation(
+    lhs=variable,
+    rhs=variable,
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="alpha",
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+
+def test_match_relation_pattern_rejects_conflicting_repeated_variable():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  pattern = Relation(
+    lhs=variable,
+    rhs=variable,
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert result is None
+
+
+def test_match_relation_pattern_repeated_structurally_equal_variable():
+  pattern = Relation(
+    lhs=PatternVariable(
+      name="x",
+    ),
+    rhs=PatternVariable(
+      name="x",
+    ),
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="alpha",
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=PatternVariable(
+        name="x",
+      ),
+      value="alpha",
+    ),
+  )
+
+
+def test_match_relation_pattern_distinct_variables_remain_distinct():
+  x = PatternVariable(
+    name="x",
+  )
+
+  y = PatternVariable(
+    name="y",
+  )
+
+  pattern = Relation(
+    lhs=x,
+    rhs=y,
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="alpha",
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=x,
+      value="alpha",
+    ),
+    VariableBinding(
+      variable=y,
+      value="alpha",
+    ),
+  )
+
 
 
 

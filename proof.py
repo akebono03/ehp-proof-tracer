@@ -218,7 +218,7 @@ def match_relation_pattern(
   if rhs_bindings is None:
     return None
 
-  return (
+  return merge_variable_bindings(
     lhs_bindings
     + rhs_bindings
   )
