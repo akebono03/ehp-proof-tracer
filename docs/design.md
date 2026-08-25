@@ -1103,6 +1103,60 @@ engine を変更するのは、
 
 ---
 
+## 27.1 Phase 6-1：EHP exactness inference rule
+
+EHP 固有の inference rule は、generic engine と分離して、
+
+```text
+ehp_rules.py
+```
+
+に置く。
+
+Phase 6-1 の factory:
+
+```python
+ehp_exactness_inference_rule(exact_step)
+```
+
+は対象の `ExactSequenceStep` を保持し、次の premise を順序付きで
+要求する。
+
+```text
+ImageStatement(first_map)
+KernelStatement(second_map)
+```
+
+premise matching には既存の `ProofRule` と statement type の matching
+を使用する。conclusion は既存の `ehp_exactness_proof_step()` を再利用
+して構築する。
+
+直接 `ehp_exactness_proof_step()` を呼び出した場合の step は
+`ProofRule.EHP_EXACTNESS` を持つ。一方、generic engine の
+`apply_inference_match()` を経由した derived step は、既存仕様により
+`ProofRule.INFERENCE` を持つ。EHP 固有 rule の情報は
+`ProofStep.inference_rule` から追跡できる。
+
+Phase 6-1 の依存方向は次のとおりである。
+
+```text
+ehp_rules.py
+        ↓
+proof.py
+ehp.py
+algebra.py
+```
+
+`proof.py` に EHP 固有分岐を追加しない。
+
+Phase 6-1 では次を導入しない。
+
+- structured statement matching
+- `ImageStatement.group_map` 等の内部 field matching
+- 任意 EHP segment の自動選択
+- 新しい `ProofRule` enum 値
+- generic engine の EHP-specific branch
+
 # 28. Phase 6 candidates
 
 候補:
