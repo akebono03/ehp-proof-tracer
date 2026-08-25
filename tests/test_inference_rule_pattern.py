@@ -1,5 +1,6 @@
 import pytest
 from proof import (
+  InferenceApplicationResult,
   InferenceMatch,
   InferenceRoundResult,
   InferenceRule,
@@ -12,6 +13,7 @@ from proof import (
   RelationType,
   apply_inference_match,
   apply_inference_matches,
+  apply_inference_matches_with_results,
   derive_inference_round_result,
   derive_inference_steps,
   derive_new_inference_steps,
@@ -7730,6 +7732,624 @@ def test_run_inference_until_stable_records_duplicate_rejected_steps_per_round()
     ].inference_rule
     == first_rule
   )
+
+
+def test_inference_application_result():
+  rule = InferenceRule(
+    name="given rule",
+  )
+
+  premise = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(
+      premise,
+    ),
+  )
+
+  candidate_step = ProofStep(
+    conclusion="derived",
+    premises=(
+      premise,
+    ),
+    rule=ProofRule.INFERENCE,
+    inference_rule=rule,
+  )
+
+  result = InferenceApplicationResult(
+    match=match,
+    candidate_step=candidate_step,
+  )
+
+  assert result.match == match
+
+  assert (
+    result.candidate_step
+    == candidate_step
+  )
+
+
+def test_inference_application_result_is_structurally_equal():
+  rule = InferenceRule(
+    name="given rule",
+  )
+
+  premise = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(
+      premise,
+    ),
+  )
+
+  candidate_step = ProofStep(
+    conclusion="derived",
+    premises=(
+      premise,
+    ),
+    rule=ProofRule.INFERENCE,
+    inference_rule=rule,
+  )
+
+  first_result = (
+    InferenceApplicationResult(
+      match=match,
+      candidate_step=candidate_step,
+    )
+  )
+
+  second_result = (
+    InferenceApplicationResult(
+      match=match,
+      candidate_step=candidate_step,
+    )
+  )
+
+  assert (
+    first_result
+    == second_result
+  )
+
+
+def test_inference_round_result_application_results_default_to_empty():
+  step = ProofStep(
+    conclusion="derived",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  result = InferenceRoundResult(
+    new_steps=(
+      step,
+    ),
+  )
+
+  assert (
+    result.application_results
+    == ()
+  )
+
+
+def test_apply_inference_matches_with_results():
+  rule = InferenceRule(
+    name="given inference",
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  premise = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(
+      premise,
+    ),
+  )
+
+  results = (
+    apply_inference_matches_with_results(
+      match
+    )
+  )
+
+  assert len(
+    results
+  ) == 1
+
+  assert isinstance(
+    results[0],
+    InferenceApplicationResult,
+  )
+
+  assert (
+    results[0].match
+    == match
+  )
+
+  assert (
+    results[0].candidate_step.conclusion
+    == "derived"
+  )
+
+  assert (
+    results[0].candidate_step.premises
+    == (
+      premise,
+    )
+  )
+
+  assert (
+    results[0].candidate_step.inference_rule
+    == rule
+  )
+
+
+def test_apply_inference_matches_with_results_multiple():
+  first_rule = InferenceRule(
+    name="first rule",
+    conclusion_builder=lambda premises: (
+      "first"
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    conclusion_builder=lambda premises: (
+      "second"
+    ),
+  )
+
+  premise = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_match = InferenceMatch(
+    inference_rule=first_rule,
+    premises=(
+      premise,
+    ),
+  )
+
+  second_match = InferenceMatch(
+    inference_rule=second_rule,
+    premises=(
+      premise,
+    ),
+  )
+
+  results = (
+    apply_inference_matches_with_results(
+      (
+        first_match,
+        second_match,
+      )
+    )
+  )
+
+  assert len(
+    results
+  ) == 2
+
+  assert tuple(
+    result.match
+    for result
+    in results
+  ) == (
+    first_match,
+    second_match,
+  )
+
+  assert tuple(
+    result.candidate_step.conclusion
+    for result
+    in results
+  ) == (
+    "first",
+    "second",
+  )
+
+
+def test_apply_inference_matches_with_results_preserves_order():
+  premise = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_rule = InferenceRule(
+    name="first rule",
+    conclusion_builder=lambda premises: (
+      "first"
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    conclusion_builder=lambda premises: (
+      "second"
+    ),
+  )
+
+  second_match = InferenceMatch(
+    inference_rule=second_rule,
+    premises=(
+      premise,
+    ),
+  )
+
+  first_match = InferenceMatch(
+    inference_rule=first_rule,
+    premises=(
+      premise,
+    ),
+  )
+
+  results = (
+    apply_inference_matches_with_results(
+      (
+        second_match,
+        first_match,
+      )
+    )
+  )
+
+  assert tuple(
+    result.match
+    for result
+    in results
+  ) == (
+    second_match,
+    first_match,
+  )
+
+  assert tuple(
+    result.candidate_step.conclusion
+    for result
+    in results
+  ) == (
+    "second",
+    "first",
+  )
+
+
+def test_apply_inference_matches_with_results_empty():
+  assert (
+    apply_inference_matches_with_results(
+      ()
+    )
+    == ()
+  )
+
+
+def test_apply_inference_matches_with_results_accepts_list():
+  rule = InferenceRule(
+    name="given inference",
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  premise = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(
+      premise,
+    ),
+  )
+
+  results = (
+    apply_inference_matches_with_results(
+      [
+        match,
+      ]
+    )
+  )
+
+  assert len(
+    results
+  ) == 1
+
+  assert (
+    results[0].match
+    == match
+  )
+
+
+def test_apply_inference_matches_with_results_rejects_invalid_matches():
+  with pytest.raises(TypeError):
+    apply_inference_matches_with_results(
+      "invalid"
+    )
+
+
+def test_derive_inference_round_result_records_application_results():
+  rule = InferenceRule(
+    name="given inference",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = derive_inference_round_result(
+    rule,
+    given,
+  )
+
+  assert len(
+    result.application_results
+  ) == 1
+
+  application_result = (
+    result.application_results[0]
+  )
+
+  assert (
+    application_result.match
+    == result.matches[0]
+  )
+
+  assert (
+    application_result.candidate_step
+    == result.candidate_steps[0]
+  )
+
+
+def test_derive_inference_round_result_application_results_match_existing_fields():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_rule = InferenceRule(
+    name="first rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "first"
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "second"
+    ),
+  )
+
+  result = derive_inference_round_result(
+    (
+      first_rule,
+      second_rule,
+    ),
+    given,
+  )
+
+  assert tuple(
+    application_result.match
+    for application_result
+    in result.application_results
+  ) == result.matches
+
+  assert tuple(
+    application_result.candidate_step
+    for application_result
+    in result.application_results
+  ) == result.candidate_steps
+
+
+def test_derive_inference_round_result_application_results_preserve_duplicate_candidates():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_rule = InferenceRule(
+    name="first rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "same"
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "same"
+    ),
+  )
+
+  result = derive_inference_round_result(
+    (
+      first_rule,
+      second_rule,
+    ),
+    given,
+  )
+
+  assert len(
+    result.application_results
+  ) == 2
+
+  assert len(
+    result.candidate_steps
+  ) == 2
+
+  assert len(
+    result.new_steps
+  ) == 1
+
+  assert len(
+    result.duplicate_rejected_steps
+  ) == 1
+
+  assert (
+    result.application_results[
+      0
+    ].candidate_step
+    == result.new_steps[0]
+  )
+
+  assert (
+    result.application_results[
+      1
+    ].candidate_step
+    == result.duplicate_rejected_steps[0]
+  )
+
+
+def test_run_inference_until_stable_records_application_results():
+  initial = ProofStep(
+    conclusion="initial",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  relation = Relation(
+    lhs="middle",
+    rhs="value",
+  )
+
+  first_rule = InferenceRule(
+    name="first rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      relation
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "final"
+    ),
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        first_rule,
+        second_rule,
+      ),
+      initial,
+    )
+  )
+
+  assert len(
+    result.round_results
+  ) == 2
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  second_round = (
+    result.round_results[1]
+  )
+
+  assert len(
+    first_round.application_results
+  ) == 1
+
+  assert (
+    first_round.application_results[
+      0
+    ].match.inference_rule
+    == first_rule
+  )
+
+  assert (
+    first_round.application_results[
+      0
+    ].candidate_step.conclusion
+    == relation
+  )
+
+  assert len(
+    second_round.application_results
+  ) == 2
+
+  assert tuple(
+    application_result.match.inference_rule
+    for application_result
+    in second_round.application_results
+  ) == (
+    first_rule,
+    second_rule,
+  )
+
+  assert tuple(
+    application_result.candidate_step.conclusion
+    for application_result
+    in second_round.application_results
+  ) == (
+    relation,
+    "final",
+  )
+
+
+
 
 
 

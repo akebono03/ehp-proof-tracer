@@ -68,6 +68,12 @@ class InferenceMatch:
   premises: tuple[ProofStep, ...]
 
 
+@dataclass(frozen=True)
+class InferenceApplicationResult:
+  match: InferenceMatch
+  candidate_step: ProofStep
+
+
 class InferenceTerminationReason(Enum):
   FIXED_POINT = "fixed_point"
   MAX_ROUNDS = "max_rounds"
@@ -79,6 +85,10 @@ class InferenceRoundResult:
   matches: tuple[InferenceMatch, ...] = ()
   candidate_steps: tuple[ProofStep, ...] = ()
   duplicate_rejected_steps: tuple[ProofStep, ...] = ()
+  application_results: tuple[
+    InferenceApplicationResult,
+    ...
+  ] = ()
 
 
 @dataclass(frozen=True)
@@ -421,6 +431,40 @@ def apply_inference_matches(
     )
     for inference_match
     in normalized_matches
+  )
+
+
+def apply_inference_matches_with_results(
+  inference_matches,
+):
+  normalized_matches = (
+    _normalize_inference_matches(
+      inference_matches
+    )
+  )
+
+  results = []
+
+  for inference_match in (
+    normalized_matches
+  ):
+    candidate_step = (
+      apply_inference_match(
+        inference_match
+      )
+    )
+
+    results.append(
+      InferenceApplicationResult(
+        match=inference_match,
+        candidate_step=(
+          candidate_step
+        ),
+      )
+    )
+
+  return tuple(
+    results
   )
 
 
@@ -1068,10 +1112,16 @@ def derive_inference_round_result(
     normalized_steps,
   )
 
-  candidate_steps = (
-    apply_inference_matches(
+  application_results = (
+    apply_inference_matches_with_results(
       matches
     )
+  )
+
+  candidate_steps = tuple(
+    application_result.candidate_step
+    for application_result
+    in application_results
   )
 
   (
@@ -1090,6 +1140,9 @@ def derive_inference_round_result(
     candidate_steps=candidate_steps,
     duplicate_rejected_steps=(
       duplicate_rejected_steps
+    ),
+    application_results=(
+      application_results
     ),
   )
 
