@@ -1,7 +1,9 @@
 from pathlib import Path
 from ehp import EHPSegment
 from ehp_rules import (
+  EHPZeroCompositionStatement,
   ehp_exactness_image_implies_kernel_inference_rule,
+  ehp_exactness_implies_zero_composition_inference_rule,
   ehp_exactness_inference_rule,
   ehp_exactness_kernel_implies_image_inference_rule,
 )
@@ -519,6 +521,218 @@ def test_ehp_exactness_rules_reach_fixed_point_together():
     for application_result
     in terminal_round.application_results
   )
+
+
+def test_ehp_exactness_implies_zero_composition():
+  segment = EHPSegment(
+    make_sphere_repository(),
+    n=3,
+    k=5,
+  )
+
+  exact_step = (
+    segment.exact_step_at_sphere()
+  )
+
+  exactness_step = ProofStep(
+    conclusion=ExactnessStatement(
+      first_map=exact_step.first_map,
+      second_map=exact_step.second_map,
+      is_exact=True,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    ehp_exactness_implies_zero_composition_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      exactness_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    EHPZeroCompositionStatement(
+      first_map=exact_step.first_map,
+      second_map=exact_step.second_map,
+    )
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    exactness_step,
+  )
+
+
+def test_ehp_exactness_zero_composition_rejects_nonexact_pair():
+  segment = EHPSegment(
+    make_sphere_repository(),
+    n=3,
+    k=5,
+  )
+
+  exact_step = (
+    segment.exact_step_at_sphere()
+  )
+
+  nonexact_step = ProofStep(
+    conclusion=ExactnessStatement(
+      first_map=exact_step.first_map,
+      second_map=exact_step.second_map,
+      is_exact=False,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    ehp_exactness_implies_zero_composition_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      nonexact_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_ehp_exactness_derives_zero_composition_over_two_rounds():
+  segment = EHPSegment(
+    make_sphere_repository(),
+    n=3,
+    k=5,
+  )
+
+  exact_step = (
+    segment.exact_step_at_sphere()
+  )
+
+  image_step = image_proof_step(
+    exact_step.first_map
+  )
+
+  kernel_step = kernel_proof_step(
+    exact_step.second_map
+  )
+
+  exactness_rule = (
+    ehp_exactness_inference_rule()
+  )
+
+  zero_composition_rule = (
+    ehp_exactness_implies_zero_composition_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        exactness_rule,
+        zero_composition_rule,
+      ),
+      (
+        image_step,
+        kernel_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 2
+
+  assert len(result.round_results) == 2
+
+  assert len(result.steps) == 4
+
+  first_round = result.round_results[0]
+
+  assert len(first_round.new_steps) == 1
+
+  exactness_step = (
+    first_round.new_steps[0]
+  )
+
+  assert exactness_step.conclusion == (
+    ExactnessStatement(
+      first_map=exact_step.first_map,
+      second_map=exact_step.second_map,
+      is_exact=True,
+    )
+  )
+
+  assert exactness_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    exactness_step.inference_rule
+    == exactness_rule
+  )
+
+  assert exactness_step.premises == (
+    image_step,
+    kernel_step,
+  )
+
+  second_round = result.round_results[1]
+
+  assert len(second_round.new_steps) == 1
+
+  zero_composition_step = (
+    second_round.new_steps[0]
+  )
+
+  assert zero_composition_step.conclusion == (
+    EHPZeroCompositionStatement(
+      first_map=exact_step.first_map,
+      second_map=exact_step.second_map,
+    )
+  )
+
+  assert zero_composition_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    zero_composition_step.inference_rule
+    == zero_composition_rule
+  )
+
+  assert zero_composition_step.premises == (
+    exactness_step,
+  )
+
+  assert result.steps == (
+    image_step,
+    kernel_step,
+    exactness_step,
+    zero_composition_step,
+  )
+
+
+
+
+
 
 
 

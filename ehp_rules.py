@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from proof import (
   ExactnessStatement,
   ImageStatement,
@@ -9,6 +10,12 @@ from proof import (
   ehp_exactness_proof_step,
   lookup_variable_binding,
 )
+
+
+@dataclass(frozen=True)
+class EHPZeroCompositionStatement:
+  first_map: object
+  second_map: object
 
 
 def ehp_exactness_inference_rule(
@@ -226,26 +233,23 @@ def ehp_exactness_kernel_implies_image_inference_rule():
   )
 
 
-def ehp_exactness_kernel_implies_image_inference_rule():
+def ehp_exactness_implies_zero_composition_inference_rule():
   first_map = PatternVariable(
     name="first_map",
   )
   second_map = PatternVariable(
     name="second_map",
   )
-  structure = PatternVariable(
-    name="structure",
-  )
 
   return InferenceRule(
     name=(
-      "EHP exactness transfers "
-      "kernel structure to image"
+      "EHP exactness implies "
+      "zero composition"
     ),
     description=(
       "If a consecutive map pair is exact, "
-      "the kernel of the second map equals "
-      "the image of the first map."
+      "the second map composed with "
+      "the first map is zero."
     ),
     premise_patterns=(
       PremisePattern(
@@ -258,19 +262,12 @@ def ehp_exactness_kernel_implies_image_inference_rule():
           )
         ),
       ),
-      PremisePattern(
-        statement_type=KernelStatement,
-        statement_pattern=(
-          KernelStatement(
-            group_map=second_map,
-            structure=structure,
-          )
-        ),
-      ),
     ),
-    conclusion_pattern=ImageStatement(
-      group_map=first_map,
-      structure=structure,
+    conclusion_pattern=(
+      EHPZeroCompositionStatement(
+        first_map=first_map,
+        second_map=second_map,
+      )
     ),
   )
 
