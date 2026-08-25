@@ -43,6 +43,265 @@ class PremisePattern:
   proof_rule: ProofRule | None = None
   statement_type: type | None = None
   relation_type: RelationType | None = None
+  relation_pattern: Relation | None = None
+
+
+@dataclass(frozen=True)
+class PatternVariable:
+  name: str
+
+  def __post_init__(self):
+    if not isinstance(
+      self.name,
+      str,
+    ):
+      raise TypeError(
+        "name must be a str"
+      )
+
+    if not self.name:
+      raise ValueError(
+        "name must not be empty"
+      )
+
+
+@dataclass(frozen=True)
+class VariableBinding:
+  variable: PatternVariable
+  value: Any
+
+  def __post_init__(self):
+    if not isinstance(
+      self.variable,
+      PatternVariable,
+    ):
+      raise TypeError(
+        "variable must be "
+        "a PatternVariable"
+      )
+
+
+def merge_variable_bindings(
+  bindings,
+):
+  if isinstance(
+    bindings,
+    VariableBinding,
+  ):
+    normalized_bindings = (
+      bindings,
+    )
+  elif isinstance(
+    bindings,
+    (tuple, list),
+  ):
+    normalized_bindings = tuple(
+      bindings
+    )
+  else:
+    raise TypeError(
+      "bindings must be "
+      "a VariableBinding or "
+      "a tuple/list of VariableBinding"
+    )
+
+  for binding in (
+    normalized_bindings
+  ):
+    if not isinstance(
+      binding,
+      VariableBinding,
+    ):
+      raise TypeError(
+        "bindings must contain only "
+        "VariableBinding objects"
+      )
+
+  merged = []
+
+  for binding in (
+    normalized_bindings
+  ):
+    existing = next(
+      (
+        existing_binding
+        for existing_binding
+        in merged
+        if (
+          existing_binding.variable
+          == binding.variable
+        )
+      ),
+      None,
+    )
+
+    if existing is None:
+      merged.append(
+        binding
+      )
+      continue
+
+    if (
+      existing.value
+      != binding.value
+    ):
+      return None
+
+  return tuple(
+    merged
+  )
+
+
+def lookup_variable_binding(
+  variable,
+  bindings,
+):
+  if not isinstance(
+    variable,
+    PatternVariable,
+  ):
+    raise TypeError(
+      "variable must be "
+      "a PatternVariable"
+    )
+
+  merged_bindings = (
+    merge_variable_bindings(
+      bindings
+    )
+  )
+
+  if merged_bindings is None:
+    raise ValueError(
+      "bindings must be consistent"
+    )
+
+  for binding in (
+    merged_bindings
+  ):
+    if (
+      binding.variable
+      == variable
+    ):
+      return binding.value
+
+  return None
+
+
+def substitute_pattern_value(
+  pattern,
+  bindings,
+):
+  if isinstance(
+    pattern,
+    PatternVariable,
+  ):
+    return lookup_variable_binding(
+      pattern,
+      bindings,
+    )
+
+  return pattern
+
+
+def substitute_relation_pattern(
+  pattern,
+  bindings,
+):
+  if not isinstance(
+    pattern,
+    Relation,
+  ):
+    raise TypeError(
+      "pattern must be a Relation"
+    )
+
+  return Relation(
+    lhs=substitute_pattern_value(
+      pattern.lhs,
+      bindings,
+    ),
+    rhs=substitute_pattern_value(
+      pattern.rhs,
+      bindings,
+    ),
+    relation_type=pattern.relation_type,
+    source=pattern.source,
+    note=pattern.note,
+  )
+
+
+def match_pattern_value(
+  pattern,
+  value,
+):
+  if isinstance(
+    pattern,
+    PatternVariable,
+  ):
+    return (
+      VariableBinding(
+        variable=pattern,
+        value=value,
+      ),
+    )
+
+  if pattern == value:
+    return ()
+
+  return None
+
+
+def match_relation_pattern(
+  pattern,
+  value,
+):
+  if not isinstance(
+    pattern,
+    Relation,
+  ):
+    raise TypeError(
+      "pattern must be a Relation"
+    )
+
+  if not isinstance(
+    value,
+    Relation,
+  ):
+    raise TypeError(
+      "value must be a Relation"
+    )
+
+  if (
+    pattern.relation_type
+    != value.relation_type
+  ):
+    return None
+
+  lhs_bindings = (
+    match_pattern_value(
+      pattern.lhs,
+      value.lhs,
+    )
+  )
+
+  if lhs_bindings is None:
+    return None
+
+  rhs_bindings = (
+    match_pattern_value(
+      pattern.rhs,
+      value.rhs,
+    )
+  )
+
+  if rhs_bindings is None:
+    return None
+
+  return merge_variable_bindings(
+    lhs_bindings
+    + rhs_bindings
+  )
 
 
 @dataclass(frozen=True)
@@ -51,6 +310,7 @@ class InferenceRule:
   description: str | None = None
   premise_patterns: tuple[PremisePattern, ...] = ()
   conclusion_builder: Any = None
+  conclusion_pattern: Relation | None = None
 
 
 @dataclass(frozen=True)
@@ -66,12 +326,27 @@ class ProofStep:
 class InferenceMatch:
   inference_rule: InferenceRule
   premises: tuple[ProofStep, ...]
+  bindings: tuple[
+    VariableBinding,
+    ...
+  ] = ()
+
+
+class InferenceRejectionReason(Enum):
+  ALREADY_KNOWN = "already_known"
+  SAME_ROUND_DUPLICATE = (
+    "same_round_duplicate"
+  )
 
 
 @dataclass(frozen=True)
 class InferenceApplicationResult:
   match: InferenceMatch
   candidate_step: ProofStep
+  accepted: bool | None = None
+  rejection_reason: (
+    InferenceRejectionReason | None
+  ) = None
 
 
 class InferenceTerminationReason(Enum):
@@ -121,7 +396,7 @@ class Proof:
   steps: list[ProofStep]
 
 
-def matches_premise_pattern(
+def match_premise_pattern(
   pattern,
   step,
 ):
@@ -145,7 +420,7 @@ def matches_premise_pattern(
     pattern.proof_rule is not None
     and step.rule != pattern.proof_rule
   ):
-    return False
+    return None
 
   if (
     pattern.statement_type is not None
@@ -154,25 +429,53 @@ def matches_premise_pattern(
       pattern.statement_type,
     )
   ):
-    return False
+    return None
 
   if pattern.relation_type is not None:
     if not isinstance(
       step.conclusion,
       Relation,
     ):
-      return False
+      return None
 
     if (
       step.conclusion.relation_type
       != pattern.relation_type
     ):
-      return False
+      return None
 
-  return True
+  if (
+    pattern.relation_pattern
+    is not None
+  ):
+    if not isinstance(
+      step.conclusion,
+      Relation,
+    ):
+      return None
+
+    return match_relation_pattern(
+      pattern.relation_pattern,
+      step.conclusion,
+    )
+
+  return ()
 
 
-def matches_inference_rule(
+def matches_premise_pattern(
+  pattern,
+  step,
+):
+  return (
+    match_premise_pattern(
+      pattern,
+      step,
+    )
+    is not None
+  )
+
+
+def match_inference_rule_bindings(
   inference_rule,
   steps,
 ):
@@ -199,21 +502,68 @@ def matches_inference_rule(
   if len(patterns) != len(
     normalized_steps
   ):
-    return False
+    return None
 
-  return all(
-    matches_premise_pattern(
-      pattern,
-      step,
+  bindings = ()
+
+  for pattern, step in zip(
+    patterns,
+    normalized_steps,
+  ):
+    premise_bindings = (
+      match_premise_pattern(
+        pattern,
+        step,
+      )
     )
-    for pattern, step in zip(
-      patterns,
-      normalized_steps,
+
+    if premise_bindings is None:
+      return None
+
+    bindings = (
+      merge_variable_bindings(
+        bindings
+        + premise_bindings
+      )
     )
+
+    if bindings is None:
+      return None
+
+  return bindings
+
+
+def matches_inference_rule(
+  inference_rule,
+  steps,
+):
+  return (
+    match_inference_rule_bindings(
+      inference_rule,
+      steps,
+    )
+    is not None
   )
 
 
 def find_matching_premises(
+  inference_rule,
+  available_steps,
+):
+  matches = (
+    find_all_matching_premises(
+      inference_rule,
+      available_steps,
+    )
+  )
+
+  if not matches:
+    return None
+
+  return matches[0]
+
+
+def find_all_matching_premises(
   inference_rule,
   available_steps,
 ):
@@ -233,13 +583,36 @@ def find_matching_premises(
     )
   )
 
-  matched_steps = []
-  used_indices = set()
-
-  for pattern in (
+  patterns = (
     inference_rule.premise_patterns
+  )
+
+  if not patterns:
+    return (
+      (),
+    )
+
+  results = []
+
+  def search(
+    pattern_index,
+    matched_steps,
+    used_indices,
+    bindings,
   ):
-    matched_index = None
+    if pattern_index == len(
+      patterns
+    ):
+      results.append(
+        tuple(
+          matched_steps
+        )
+      )
+      return
+
+    pattern = patterns[
+      pattern_index
+    ]
 
     for index, step in enumerate(
       normalized_steps
@@ -247,28 +620,47 @@ def find_matching_premises(
       if index in used_indices:
         continue
 
-      if matches_premise_pattern(
-        pattern,
-        step,
-      ):
-        matched_index = index
-        break
+      premise_bindings = (
+        match_premise_pattern(
+          pattern,
+          step,
+        )
+      )
 
-    if matched_index is None:
-      return None
+      if premise_bindings is None:
+        continue
 
-    used_indices.add(
-      matched_index
-    )
+      merged_bindings = (
+        merge_variable_bindings(
+          bindings
+          + premise_bindings
+        )
+      )
 
-    matched_steps.append(
-      normalized_steps[
-        matched_index
-      ]
-    )
+      if merged_bindings is None:
+        continue
+
+      search(
+        pattern_index + 1,
+        matched_steps + [
+          step,
+        ],
+        used_indices
+        | {
+          index,
+        },
+        merged_bindings,
+      )
+
+  search(
+    0,
+    [],
+    set(),
+    (),
+  )
 
   return tuple(
-    matched_steps
+    results
   )
 
 
@@ -317,20 +709,17 @@ def find_inference_match(
   inference_rule,
   available_steps,
 ):
-  matched_premises = (
-    find_matching_premises(
+  matches = (
+    find_inference_matches_for_rule(
       inference_rule,
       available_steps,
     )
   )
 
-  if matched_premises is None:
+  if not matches:
     return None
 
-  return InferenceMatch(
-    inference_rule=inference_rule,
-    premises=matched_premises,
-  )
+  return matches[0]
 
 
 def find_inference_matches(
@@ -355,18 +744,87 @@ def find_inference_matches(
   for inference_rule in (
     normalized_rules
   ):
-    match = find_inference_match(
-      inference_rule,
-      normalized_steps,
-    )
-
-    if match is not None:
-      matches.append(
-        match
+    matches.extend(
+      find_inference_matches_for_rule(
+        inference_rule,
+        normalized_steps,
       )
+    )
 
   return tuple(
     matches
+  )
+
+
+def find_inference_matches_for_rule(
+  inference_rule,
+  available_steps,
+):
+  premise_assignments = (
+    find_all_matching_premises(
+      inference_rule,
+      available_steps,
+    )
+  )
+
+  matches = []
+
+  for premises in (
+    premise_assignments
+  ):
+    bindings = (
+      match_inference_rule_bindings(
+        inference_rule,
+        premises,
+      )
+    )
+
+    if bindings is None:
+      raise RuntimeError(
+        "matching premises must have "
+        "consistent bindings"
+      )
+
+    matches.append(
+      InferenceMatch(
+        inference_rule=inference_rule,
+        premises=premises,
+        bindings=bindings,
+      )
+    )
+
+  return tuple(
+    matches
+  )
+
+
+def substitute_inference_conclusion(
+  inference_match,
+):
+  if not isinstance(
+    inference_match,
+    InferenceMatch,
+  ):
+    raise TypeError(
+      "inference_match must be "
+      "an InferenceMatch"
+    )
+
+  conclusion_pattern = (
+    inference_match
+    .inference_rule
+    .conclusion_pattern
+  )
+
+  if conclusion_pattern is None:
+    raise ValueError(
+      "inference rule must have "
+      "a conclusion pattern"
+    )
+
+  return substitute_relation_pattern(
+    conclusion_pattern,
+    inference_match.bindings,
   )
 
 
@@ -390,23 +848,35 @@ def apply_inference_match(
     inference_rule.conclusion_builder
   )
 
-  if conclusion_builder is None:
+  if conclusion_builder is not None:
+    if not callable(
+      conclusion_builder
+    ):
+      raise TypeError(
+        "conclusion_builder must be "
+        "callable"
+      )
+
+    conclusion = (
+      conclusion_builder(
+        inference_match.premises
+      )
+    )
+  elif (
+    inference_rule.conclusion_pattern
+    is not None
+  ):
+    conclusion = (
+      substitute_inference_conclusion(
+        inference_match
+      )
+    )
+  else:
     raise ValueError(
       "inference rule must have "
-      "a conclusion builder"
+      "a conclusion builder or "
+      "a conclusion pattern"
     )
-
-  if not callable(
-    conclusion_builder
-  ):
-    raise TypeError(
-      "conclusion_builder must be "
-      "callable"
-    )
-
-  conclusion = conclusion_builder(
-    inference_match.premises
-  )
 
   return ProofStep(
     conclusion=conclusion,
@@ -771,6 +1241,49 @@ def _normalize_inference_matches(
   return normalized
 
 
+def _normalize_inference_application_results(
+  application_results,
+):
+  if isinstance(
+    application_results,
+    InferenceApplicationResult,
+  ):
+    return (
+      application_results,
+    )
+
+  if not isinstance(
+    application_results,
+    (tuple, list),
+  ):
+    raise TypeError(
+      "application_results must be "
+      "an InferenceApplicationResult "
+      "or a tuple/list of "
+      "InferenceApplicationResult"
+    )
+
+  normalized = tuple(
+    application_results
+  )
+
+  for application_result in (
+    normalized
+  ):
+    if not isinstance(
+      application_result,
+      InferenceApplicationResult,
+    ):
+      raise TypeError(
+        "application_results must "
+        "contain only "
+        "InferenceApplicationResult "
+        "objects"
+      )
+
+  return normalized
+
+
 def _normalize_relations(
   relations,
 ):
@@ -1090,6 +1603,98 @@ def partition_new_and_duplicate_proof_steps(
   )
 
 
+def classify_inference_application_results(
+  available_steps,
+  application_results,
+):
+  normalized_available_steps = (
+    _normalize_proof_steps(
+      available_steps,
+      "available_steps",
+    )
+  )
+
+  normalized_application_results = (
+    _normalize_inference_application_results(
+      application_results
+    )
+  )
+
+  known_before_round = [
+    step.conclusion
+    for step
+    in normalized_available_steps
+  ]
+
+  accepted_in_round = []
+  classified_results = []
+
+  for application_result in (
+    normalized_application_results
+  ):
+    candidate_step = (
+      application_result.candidate_step
+    )
+
+    candidate_conclusion = (
+      candidate_step.conclusion
+    )
+
+    if any(
+      candidate_conclusion
+      == known_conclusion
+      for known_conclusion
+      in known_before_round
+    ):
+      classified_results.append(
+        InferenceApplicationResult(
+          match=application_result.match,
+          candidate_step=candidate_step,
+          accepted=False,
+          rejection_reason=(
+            InferenceRejectionReason.ALREADY_KNOWN
+          ),
+        )
+      )
+      continue
+
+    if any(
+      candidate_conclusion
+      == accepted_conclusion
+      for accepted_conclusion
+      in accepted_in_round
+    ):
+      classified_results.append(
+        InferenceApplicationResult(
+          match=application_result.match,
+          candidate_step=candidate_step,
+          accepted=False,
+          rejection_reason=(
+            InferenceRejectionReason
+            .SAME_ROUND_DUPLICATE
+          ),
+        )
+      )
+      continue
+
+    classified_results.append(
+      InferenceApplicationResult(
+        match=application_result.match,
+        candidate_step=candidate_step,
+        accepted=True,
+        rejection_reason=None,
+      )
+    )
+
+    accepted_in_round.append(
+      candidate_conclusion
+    )
+
+  return tuple(
+    classified_results
+  )
+
+
 def derive_inference_round_result(
   inference_rules,
   available_steps,
@@ -1112,9 +1717,16 @@ def derive_inference_round_result(
     normalized_steps,
   )
 
-  application_results = (
+  raw_application_results = (
     apply_inference_matches_with_results(
       matches
+    )
+  )
+
+  application_results = (
+    classify_inference_application_results(
+      normalized_steps,
+      raw_application_results,
     )
   )
 
@@ -1124,13 +1736,20 @@ def derive_inference_round_result(
     in application_results
   )
 
-  (
-    new_steps,
-    duplicate_rejected_steps,
-  ) = (
-    partition_new_and_duplicate_proof_steps(
-      normalized_steps,
-      candidate_steps,
+  new_steps = tuple(
+    application_result.candidate_step
+    for application_result
+    in application_results
+    if application_result.accepted
+  )
+
+  duplicate_rejected_steps = tuple(
+    application_result.candidate_step
+    for application_result
+    in application_results
+    if (
+      application_result.accepted
+      is False
     )
   )
 

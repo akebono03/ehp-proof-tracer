@@ -2,33 +2,48 @@ import pytest
 from proof import (
   InferenceApplicationResult,
   InferenceMatch,
+  InferenceRejectionReason,
   InferenceRoundResult,
   InferenceRule,
   InferenceRunResult,
   InferenceTerminationReason,
+  PatternVariable,
   PremisePattern,
   ProofRule,
   ProofStep,
   Relation,
   RelationType,
+  VariableBinding,
   apply_inference_match,
   apply_inference_matches,
   apply_inference_matches_with_results,
+  classify_inference_application_results,
   derive_inference_round_result,
   derive_inference_steps,
   derive_new_inference_steps,
   find_applicable_inference_rules,
   find_inference_match,
   find_inference_matches,
+  find_all_matching_premises,
+  find_inference_matches_for_rule,
   find_matching_premises,
   is_inference_rule_applicable,
+  lookup_variable_binding,
+  match_inference_rule_bindings,
   matches_inference_rule,
+  match_premise_pattern,
   matches_premise_pattern,
+  match_pattern_value,
+  match_relation_pattern,
   merge_proof_steps,
+  merge_variable_bindings,
   partition_new_and_duplicate_proof_steps,
   run_inference_round,
   run_inference_until_stable,
   run_inference_until_stable_with_history,
+  substitute_inference_conclusion,
+  substitute_pattern_value,
+  substitute_relation_pattern,  
 )
 
 
@@ -3117,9 +3132,9 @@ def test_apply_inference_match_rejects_invalid_match():
     )
 
 
-def test_apply_inference_match_requires_conclusion_builder():
+def test_apply_inference_match_requires_conclusion_source():
   rule = InferenceRule(
-    name="rule without builder",
+    name="rule",
   )
 
   match = InferenceMatch(
@@ -7222,11 +7237,28 @@ def test_derive_inference_round_result_keeps_match_when_conclusion_is_already_kn
 
   assert len(
     result.matches
-  ) == 1
+  ) == 2
 
-  assert (
-    result.matches[0].inference_rule
-    == rule
+  assert tuple(
+    match.inference_rule
+    for match
+    in result.matches
+  ) == (
+    rule,
+    rule,
+  )
+
+  assert tuple(
+    match.premises
+    for match
+    in result.matches
+  ) == (
+    (
+      given_step,
+    ),
+    (
+      existing_step,
+    ),
   )
 
   assert result.new_steps == ()
@@ -7476,7 +7508,7 @@ def test_derive_inference_round_result_records_candidate_steps():
   )
 
 
-def test_derive_inference_round_result_records_existing_duplicate_candidate():
+def test_derive_inference_round_result_marks_already_known_application():
   given = ProofStep(
     conclusion="given",
     premises=(),
@@ -7484,20 +7516,20 @@ def test_derive_inference_round_result_records_existing_duplicate_candidate():
   )
 
   known = ProofStep(
-    conclusion="known",
+    conclusion="derived",
     premises=(),
     rule=ProofRule.GIVEN,
   )
 
   rule = InferenceRule(
-    name="derive known",
+    name="rule",
     premise_patterns=(
       PremisePattern(
         proof_rule=ProofRule.GIVEN,
       ),
     ),
     conclusion_builder=lambda premises: (
-      "known"
+      "derived"
     ),
   )
 
@@ -7510,18 +7542,43 @@ def test_derive_inference_round_result_records_existing_duplicate_candidate():
   )
 
   assert len(
-    result.matches
-  ) == 1
+    result.application_results
+  ) == 2
 
-  assert len(
-    result.candidate_steps
-  ) == 1
+  first_result = (
+    result.application_results[0]
+  )
+
+  second_result = (
+    result.application_results[1]
+  )
+
+  assert first_result.match.premises == (
+    given,
+  )
+
+  assert second_result.match.premises == (
+    known,
+  )
 
   assert (
-    result.candidate_steps[
-      0
-    ].conclusion
-    == "known"
+    first_result.accepted
+    is False
+  )
+
+  assert (
+    second_result.accepted
+    is False
+  )
+
+  assert (
+    first_result.rejection_reason
+    == InferenceRejectionReason.ALREADY_KNOWN
+  )
+
+  assert (
+    second_result.rejection_reason
+    == InferenceRejectionReason.ALREADY_KNOWN
   )
 
   assert result.new_steps == ()
@@ -7529,7 +7586,8 @@ def test_derive_inference_round_result_records_existing_duplicate_candidate():
   assert (
     result.duplicate_rejected_steps
     == (
-      result.candidate_steps[0],
+      first_result.candidate_step,
+      second_result.candidate_step,
     )
   )
 
@@ -8349,9 +8407,7799 @@ def test_run_inference_until_stable_records_application_results():
   )
 
 
+def test_inference_rejection_reason_values():
+  assert (
+    InferenceRejectionReason
+    .ALREADY_KNOWN.value
+    == "already_known"
+  )
+
+  assert (
+    InferenceRejectionReason
+    .SAME_ROUND_DUPLICATE.value
+    == "same_round_duplicate"
+  )
 
 
+def test_inference_application_result_acceptance_defaults():
+  rule = InferenceRule(
+    name="rule",
+  )
 
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+  )
+
+  candidate_step = ProofStep(
+    conclusion="candidate",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+    inference_rule=rule,
+  )
+
+  result = InferenceApplicationResult(
+    match=match,
+    candidate_step=candidate_step,
+  )
+
+  assert result.accepted is None
+
+  assert (
+    result.rejection_reason
+    is None
+  )
+
+
+def test_classify_inference_application_result_accepts_new_candidate():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = InferenceRule(
+    name="rule",
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(
+      given,
+    ),
+  )
+
+  candidate = ProofStep(
+    conclusion="derived",
+    premises=(
+      given,
+    ),
+    rule=ProofRule.INFERENCE,
+    inference_rule=rule,
+  )
+
+  result = (
+    classify_inference_application_results(
+      (
+        given,
+      ),
+      InferenceApplicationResult(
+        match=match,
+        candidate_step=candidate,
+      ),
+    )
+  )
+
+  assert len(
+    result
+  ) == 1
+
+  assert result[0].accepted is True
+
+  assert (
+    result[0].rejection_reason
+    is None
+  )
+
+  assert (
+    result[0].candidate_step
+    == candidate
+  )
+
+
+def test_classify_inference_application_result_rejects_already_known():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  known = ProofStep(
+    conclusion="derived",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = InferenceRule(
+    name="rule",
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(
+      given,
+    ),
+  )
+
+  candidate = ProofStep(
+    conclusion="derived",
+    premises=(
+      given,
+    ),
+    rule=ProofRule.INFERENCE,
+    inference_rule=rule,
+  )
+
+  result = (
+    classify_inference_application_results(
+      (
+        given,
+        known,
+      ),
+      InferenceApplicationResult(
+        match=match,
+        candidate_step=candidate,
+      ),
+    )
+  )
+
+  assert result[0].accepted is False
+
+  assert (
+    result[0].rejection_reason
+    == InferenceRejectionReason.ALREADY_KNOWN
+  )
+
+
+def test_classify_inference_application_results_rejects_same_round_duplicate():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_rule = InferenceRule(
+    name="first rule",
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+  )
+
+  first_match = InferenceMatch(
+    inference_rule=first_rule,
+    premises=(
+      given,
+    ),
+  )
+
+  second_match = InferenceMatch(
+    inference_rule=second_rule,
+    premises=(
+      given,
+    ),
+  )
+
+  first_candidate = ProofStep(
+    conclusion="same",
+    premises=(
+      given,
+    ),
+    rule=ProofRule.INFERENCE,
+    inference_rule=first_rule,
+  )
+
+  second_candidate = ProofStep(
+    conclusion="same",
+    premises=(
+      given,
+    ),
+    rule=ProofRule.INFERENCE,
+    inference_rule=second_rule,
+  )
+
+  result = (
+    classify_inference_application_results(
+      given,
+      (
+        InferenceApplicationResult(
+          match=first_match,
+          candidate_step=(
+            first_candidate
+          ),
+        ),
+        InferenceApplicationResult(
+          match=second_match,
+          candidate_step=(
+            second_candidate
+          ),
+        ),
+      ),
+    )
+  )
+
+  assert result[0].accepted is True
+
+  assert (
+    result[0].rejection_reason
+    is None
+  )
+
+  assert result[1].accepted is False
+
+  assert (
+    result[1].rejection_reason
+    == (
+      InferenceRejectionReason
+      .SAME_ROUND_DUPLICATE
+    )
+  )
+
+
+def test_classify_inference_application_results_preserves_order():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_rule = InferenceRule(
+    name="first rule",
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+  )
+
+  first_match = InferenceMatch(
+    inference_rule=first_rule,
+    premises=(
+      given,
+    ),
+  )
+
+  second_match = InferenceMatch(
+    inference_rule=second_rule,
+    premises=(
+      given,
+    ),
+  )
+
+  first_candidate = ProofStep(
+    conclusion="first",
+    premises=(
+      given,
+    ),
+    rule=ProofRule.INFERENCE,
+    inference_rule=first_rule,
+  )
+
+  second_candidate = ProofStep(
+    conclusion="second",
+    premises=(
+      given,
+    ),
+    rule=ProofRule.INFERENCE,
+    inference_rule=second_rule,
+  )
+
+  result = (
+    classify_inference_application_results(
+      given,
+      (
+        InferenceApplicationResult(
+          match=first_match,
+          candidate_step=(
+            first_candidate
+          ),
+        ),
+        InferenceApplicationResult(
+          match=second_match,
+          candidate_step=(
+            second_candidate
+          ),
+        ),
+      ),
+    )
+  )
+
+  assert tuple(
+    application_result.candidate_step.conclusion
+    for application_result
+    in result
+  ) == (
+    "first",
+    "second",
+  )
+
+
+def test_classify_inference_application_results_empty():
+  result = (
+    classify_inference_application_results(
+      (),
+      (),
+    )
+  )
+
+  assert result == ()
+
+
+def test_classify_inference_application_results_accepts_list():
+  rule = InferenceRule(
+    name="rule",
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+  )
+
+  candidate = ProofStep(
+    conclusion="candidate",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+    inference_rule=rule,
+  )
+
+  result = (
+    classify_inference_application_results(
+      [],
+      [
+        InferenceApplicationResult(
+          match=match,
+          candidate_step=candidate,
+        ),
+      ],
+    )
+  )
+
+  assert result[0].accepted is True
+
+
+def test_classify_inference_application_results_rejects_invalid_input():
+  with pytest.raises(TypeError):
+    classify_inference_application_results(
+      (),
+      "invalid",
+    )
+
+
+def test_classify_inference_application_results_rejects_invalid_item():
+  with pytest.raises(TypeError):
+    classify_inference_application_results(
+      (),
+      [
+        "invalid",
+      ],
+    )
+
+
+def test_derive_inference_round_result_marks_accepted_application():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = InferenceRule(
+    name="rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  result = derive_inference_round_result(
+    rule,
+    given,
+  )
+
+  assert len(
+    result.application_results
+  ) == 1
+
+  application_result = (
+    result.application_results[0]
+  )
+
+  assert (
+    application_result.accepted
+    is True
+  )
+
+  assert (
+    application_result.rejection_reason
+    is None
+  )
+
+  assert result.new_steps == (
+    application_result.candidate_step,
+  )
+
+  assert (
+    result.duplicate_rejected_steps
+    == ()
+  )
+
+
+def test_derive_inference_round_result_marks_same_round_duplicate():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_rule = InferenceRule(
+    name="first rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "same"
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "same"
+    ),
+  )
+
+  result = derive_inference_round_result(
+    (
+      first_rule,
+      second_rule,
+    ),
+    given,
+  )
+
+  assert len(
+    result.application_results
+  ) == 2
+
+  first_result = (
+    result.application_results[0]
+  )
+
+  second_result = (
+    result.application_results[1]
+  )
+
+  assert first_result.accepted is True
+
+  assert (
+    first_result.rejection_reason
+    is None
+  )
+
+  assert second_result.accepted is False
+
+  assert (
+    second_result.rejection_reason
+    == (
+      InferenceRejectionReason
+      .SAME_ROUND_DUPLICATE
+    )
+  )
+
+  assert result.new_steps == (
+    first_result.candidate_step,
+  )
+
+  assert (
+    result.duplicate_rejected_steps
+    == (
+      second_result.candidate_step,
+    )
+  )
+
+
+def test_derive_inference_round_result_views_match_application_status():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  known = ProofStep(
+    conclusion="known",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_rule = InferenceRule(
+    name="accepted rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "new"
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="known rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "known"
+    ),
+  )
+
+  result = derive_inference_round_result(
+    (
+      first_rule,
+      second_rule,
+    ),
+    (
+      given,
+      known,
+    ),
+  )
+
+  accepted_steps = tuple(
+    application_result.candidate_step
+    for application_result
+    in result.application_results
+    if application_result.accepted
+  )
+
+  rejected_steps = tuple(
+    application_result.candidate_step
+    for application_result
+    in result.application_results
+    if (
+      application_result.accepted
+      is False
+    )
+  )
+
+  assert (
+    accepted_steps
+    == result.new_steps
+  )
+
+  assert (
+    rejected_steps
+    == result.duplicate_rejected_steps
+  )
+
+
+def test_run_inference_until_stable_preserves_application_acceptance_status():
+  initial = ProofStep(
+    conclusion="initial",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  relation = Relation(
+    lhs="middle",
+    rhs="value",
+  )
+
+  first_rule = InferenceRule(
+    name="first rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      relation
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "final"
+    ),
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        first_rule,
+        second_rule,
+      ),
+      initial,
+    )
+  )
+
+  assert result.round_count == 2
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  second_round = (
+    result.round_results[1]
+  )
+
+  assert (
+    first_round.application_results[
+      0
+    ].accepted
+    is True
+  )
+
+  assert (
+    second_round.application_results[
+      0
+    ].accepted
+    is False
+  )
+
+  assert (
+    second_round.application_results[
+      0
+    ].rejection_reason
+    == InferenceRejectionReason.ALREADY_KNOWN
+  )
+
+  assert (
+    second_round.application_results[
+      1
+    ].accepted
+    is True
+  )
+
+  assert (
+    second_round.application_results[
+      1
+    ].rejection_reason
+    is None
+  )
+
+
+def test_find_all_matching_premises_single_match():
+  rule = InferenceRule(
+    name="given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = find_all_matching_premises(
+    rule,
+    given,
+  )
+
+  assert result == (
+    (
+      given,
+    ),
+  )
+
+
+def test_find_all_matching_premises_multiple_single_pattern_matches():
+  first = ProofStep(
+    conclusion="first",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  second = ProofStep(
+    conclusion="second",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = InferenceRule(
+    name="given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  result = find_all_matching_premises(
+    rule,
+    (
+      first,
+      second,
+    ),
+  )
+
+  assert result == (
+    (
+      first,
+    ),
+    (
+      second,
+    ),
+  )
+
+
+def test_find_all_matching_premises_multiple_assignments():
+  first = ProofStep(
+    conclusion="first",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  second = ProofStep(
+    conclusion="second",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = InferenceRule(
+    name="two given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  result = find_all_matching_premises(
+    rule,
+    (
+      first,
+      second,
+    ),
+  )
+
+  assert result == (
+    (
+      first,
+      second,
+    ),
+    (
+      second,
+      first,
+    ),
+  )
+
+
+def test_find_all_matching_premises_does_not_reuse_step():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = InferenceRule(
+    name="two given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  result = find_all_matching_premises(
+    rule,
+    given,
+  )
+
+  assert result == ()
+
+
+def test_find_all_matching_premises_preserves_pattern_order():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  relation = ProofStep(
+    conclusion="relation",
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  rule = InferenceRule(
+    name="ordered rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.RELATION,
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  result = find_all_matching_premises(
+    rule,
+    (
+      given,
+      relation,
+    ),
+  )
+
+  assert result == (
+    (
+      relation,
+      given,
+    ),
+  )
+
+
+def test_find_all_matching_premises_empty_rule():
+  rule = InferenceRule(
+    name="empty rule",
+  )
+
+  result = find_all_matching_premises(
+    rule,
+    (),
+  )
+
+  assert result == (
+    (),
+  )
+
+
+def test_find_all_matching_premises_empty_rule_ignores_available_steps():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = InferenceRule(
+    name="empty rule",
+  )
+
+  result = find_all_matching_premises(
+    rule,
+    given,
+  )
+
+  assert result == (
+    (),
+  )
+
+
+def test_find_all_matching_premises_returns_empty_when_no_assignment():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = InferenceRule(
+    name="relation rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.RELATION,
+      ),
+    ),
+  )
+
+  result = find_all_matching_premises(
+    rule,
+    given,
+  )
+
+  assert result == ()
+
+
+def test_find_all_matching_premises_accepts_list():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = InferenceRule(
+    name="given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  result = find_all_matching_premises(
+    rule,
+    [
+      given,
+    ],
+  )
+
+  assert result == (
+    (
+      given,
+    ),
+  )
+
+
+def test_find_all_matching_premises_rejects_invalid_rule():
+  with pytest.raises(TypeError):
+    find_all_matching_premises(
+      "invalid",
+      (),
+    )
+
+
+def test_find_all_matching_premises_rejects_invalid_steps():
+  rule = InferenceRule(
+    name="rule",
+  )
+
+  with pytest.raises(TypeError):
+    find_all_matching_premises(
+      rule,
+      "invalid",
+    )
+
+
+def test_find_inference_matches_for_rule_multiple():
+  first = ProofStep(
+    conclusion="first",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  second = ProofStep(
+    conclusion="second",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = InferenceRule(
+    name="given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  result = find_inference_matches_for_rule(
+    rule,
+    (
+      first,
+      second,
+    ),
+  )
+
+  assert result == (
+    InferenceMatch(
+      inference_rule=rule,
+      premises=(
+        first,
+      ),
+    ),
+    InferenceMatch(
+      inference_rule=rule,
+      premises=(
+        second,
+      ),
+    ),
+  )
+
+
+def test_find_inference_matches_for_rule_returns_empty():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = InferenceRule(
+    name="relation rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.RELATION,
+      ),
+    ),
+  )
+
+  assert (
+    find_inference_matches_for_rule(
+      rule,
+      given,
+    )
+    == ()
+  )
+
+
+def test_find_inference_match_remains_first_match_view():
+  first = ProofStep(
+    conclusion="first",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  second = ProofStep(
+    conclusion="second",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = InferenceRule(
+    name="given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  result = find_inference_match(
+    rule,
+    (
+      first,
+      second,
+    ),
+  )
+
+  assert result == InferenceMatch(
+    inference_rule=rule,
+    premises=(
+      first,
+    ),
+  )
+
+
+def test_find_inference_matches_collects_all_matches_per_rule():
+  first = ProofStep(
+    conclusion="first",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  second = ProofStep(
+    conclusion="second",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = InferenceRule(
+    name="given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  result = find_inference_matches(
+    rule,
+    (
+      first,
+      second,
+    ),
+  )
+
+  assert tuple(
+    match.premises
+    for match in result
+  ) == (
+    (
+      first,
+    ),
+    (
+      second,
+    ),
+  )
+
+
+def test_find_inference_matches_preserves_rule_then_assignment_order():
+  first = ProofStep(
+    conclusion="first",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  second = ProofStep(
+    conclusion="second",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_rule = InferenceRule(
+    name="first rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  result = find_inference_matches(
+    (
+      first_rule,
+      second_rule,
+    ),
+    (
+      first,
+      second,
+    ),
+  )
+
+  assert tuple(
+    (
+      match.inference_rule,
+      match.premises,
+    )
+    for match
+    in result
+  ) == (
+    (
+      first_rule,
+      (
+        first,
+      ),
+    ),
+    (
+      first_rule,
+      (
+        second,
+      ),
+    ),
+    (
+      second_rule,
+      (
+        first,
+      ),
+    ),
+    (
+      second_rule,
+      (
+        second,
+      ),
+    ),
+  )
+
+
+def test_pattern_variable():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  assert variable.name == "x"
+
+
+def test_pattern_variable_is_structurally_equal():
+  first = PatternVariable(
+    name="x",
+  )
+
+  second = PatternVariable(
+    name="x",
+  )
+
+  assert first == second
+
+
+def test_pattern_variable_with_different_name_is_not_equal():
+  first = PatternVariable(
+    name="x",
+  )
+
+  second = PatternVariable(
+    name="y",
+  )
+
+  assert first != second
+
+
+def test_pattern_variable_rejects_non_string_name():
+  with pytest.raises(TypeError):
+    PatternVariable(
+      name=1,
+    )
+
+
+def test_pattern_variable_rejects_empty_name():
+  with pytest.raises(ValueError):
+    PatternVariable(
+      name="",
+    )
+
+
+def test_variable_binding():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  binding = VariableBinding(
+    variable=variable,
+    value="alpha",
+  )
+
+  assert binding.variable == variable
+  assert binding.value == "alpha"
+
+
+def test_variable_binding_is_structurally_equal():
+  first = VariableBinding(
+    variable=PatternVariable(
+      name="x",
+    ),
+    value="alpha",
+  )
+
+  second = VariableBinding(
+    variable=PatternVariable(
+      name="x",
+    ),
+    value="alpha",
+  )
+
+  assert first == second
+
+
+def test_variable_binding_with_different_variable_is_not_equal():
+  first = VariableBinding(
+    variable=PatternVariable(
+      name="x",
+    ),
+    value="alpha",
+  )
+
+  second = VariableBinding(
+    variable=PatternVariable(
+      name="y",
+    ),
+    value="alpha",
+  )
+
+  assert first != second
+
+
+def test_variable_binding_with_different_value_is_not_equal():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  first = VariableBinding(
+    variable=variable,
+    value="alpha",
+  )
+
+  second = VariableBinding(
+    variable=variable,
+    value="beta",
+  )
+
+  assert first != second
+
+
+def test_variable_binding_accepts_arbitrary_value():
+  relation = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  binding = VariableBinding(
+    variable=PatternVariable(
+      name="x",
+    ),
+    value=relation,
+  )
+
+  assert binding.value == relation
+
+
+def test_variable_binding_rejects_invalid_variable():
+  with pytest.raises(TypeError):
+    VariableBinding(
+      variable="x",
+      value="alpha",
+    )
+
+
+def test_match_pattern_value_binds_pattern_variable():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  result = match_pattern_value(
+    variable,
+    "alpha",
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+
+def test_match_pattern_value_variable_accepts_arbitrary_value():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  relation = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  result = match_pattern_value(
+    variable,
+    relation,
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=variable,
+      value=relation,
+    ),
+  )
+
+
+def test_match_pattern_value_equal_literal_matches_without_binding():
+  result = match_pattern_value(
+    "alpha",
+    "alpha",
+  )
+
+  assert result == ()
+
+
+def test_match_pattern_value_different_literal_does_not_match():
+  result = match_pattern_value(
+    "alpha",
+    "beta",
+  )
+
+  assert result is None
+
+
+def test_match_pattern_value_equal_relation_matches_without_binding():
+  relation = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  result = match_pattern_value(
+    relation,
+    Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+  )
+
+  assert result == ()
+
+
+def test_match_pattern_value_different_relation_does_not_match():
+  pattern = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="gamma",
+  )
+
+  result = match_pattern_value(
+    pattern,
+    value,
+  )
+
+  assert result is None
+
+
+def test_match_pattern_value_pattern_variable_can_bind_none():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  result = match_pattern_value(
+    variable,
+    None,
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=variable,
+      value=None,
+    ),
+  )
+
+
+def test_match_relation_pattern_binds_lhs_variable():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  pattern = Relation(
+    lhs=variable,
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+
+def test_match_relation_pattern_binds_rhs_variable():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  pattern = Relation(
+    lhs="alpha",
+    rhs=variable,
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=variable,
+      value="beta",
+    ),
+  )
+
+
+def test_match_relation_pattern_binds_both_sides():
+  lhs_variable = PatternVariable(
+    name="x",
+  )
+
+  rhs_variable = PatternVariable(
+    name="y",
+  )
+
+  pattern = Relation(
+    lhs=lhs_variable,
+    rhs=rhs_variable,
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=lhs_variable,
+      value="alpha",
+    ),
+    VariableBinding(
+      variable=rhs_variable,
+      value="beta",
+    ),
+  )
+
+
+def test_match_relation_pattern_equal_literals_matches_without_binding():
+  pattern = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert result == ()
+
+
+def test_match_relation_pattern_rejects_wrong_lhs():
+  pattern = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  value = Relation(
+    lhs="gamma",
+    rhs="beta",
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert result is None
+
+
+def test_match_relation_pattern_rejects_wrong_rhs():
+  pattern = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="gamma",
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert result is None
+
+
+def test_match_relation_pattern_rejects_wrong_relation_type():
+  pattern = Relation(
+    lhs=PatternVariable(
+      name="x",
+    ),
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="0",
+    relation_type=RelationType.EQUALITY,
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert result is None
+
+
+def test_match_relation_pattern_preserves_binding_order():
+  lhs_variable = PatternVariable(
+    name="x",
+  )
+
+  rhs_variable = PatternVariable(
+    name="y",
+  )
+
+  pattern = Relation(
+    lhs=lhs_variable,
+    rhs=rhs_variable,
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert tuple(
+    binding.variable
+    for binding in result
+  ) == (
+    lhs_variable,
+    rhs_variable,
+  )
+
+
+def test_match_relation_pattern_rejects_invalid_pattern():
+  value = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  with pytest.raises(TypeError):
+    match_relation_pattern(
+      "invalid",
+      value,
+    )
+
+
+def test_match_relation_pattern_rejects_invalid_value():
+  pattern = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  with pytest.raises(TypeError):
+    match_relation_pattern(
+      pattern,
+      "invalid",
+    )
+
+
+def test_merge_variable_bindings_empty():
+  result = merge_variable_bindings(
+    ()
+  )
+
+  assert result == ()
+
+
+def test_merge_variable_bindings_single():
+  binding = VariableBinding(
+    variable=PatternVariable(
+      name="x",
+    ),
+    value="alpha",
+  )
+
+  result = merge_variable_bindings(
+    binding
+  )
+
+  assert result == (
+    binding,
+  )
+
+
+def test_merge_variable_bindings_distinct_variables():
+  first = VariableBinding(
+    variable=PatternVariable(
+      name="x",
+    ),
+    value="alpha",
+  )
+
+  second = VariableBinding(
+    variable=PatternVariable(
+      name="y",
+    ),
+    value="beta",
+  )
+
+  result = merge_variable_bindings(
+    (
+      first,
+      second,
+    )
+  )
+
+  assert result == (
+    first,
+    second,
+  )
+
+
+def test_merge_variable_bindings_merges_same_variable_same_value():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  first = VariableBinding(
+    variable=variable,
+    value="alpha",
+  )
+
+  second = VariableBinding(
+    variable=variable,
+    value="alpha",
+  )
+
+  result = merge_variable_bindings(
+    (
+      first,
+      second,
+    )
+  )
+
+  assert result == (
+    first,
+  )
+
+
+def test_merge_variable_bindings_rejects_conflicting_values():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  first = VariableBinding(
+    variable=variable,
+    value="alpha",
+  )
+
+  second = VariableBinding(
+    variable=variable,
+    value="beta",
+  )
+
+  result = merge_variable_bindings(
+    (
+      first,
+      second,
+    )
+  )
+
+  assert result is None
+
+
+def test_merge_variable_bindings_preserves_first_binding_order():
+  x = PatternVariable(
+    name="x",
+  )
+
+  y = PatternVariable(
+    name="y",
+  )
+
+  first = VariableBinding(
+    variable=y,
+    value="beta",
+  )
+
+  second = VariableBinding(
+    variable=x,
+    value="alpha",
+  )
+
+  duplicate = VariableBinding(
+    variable=y,
+    value="beta",
+  )
+
+  result = merge_variable_bindings(
+    (
+      first,
+      second,
+      duplicate,
+    )
+  )
+
+  assert result == (
+    first,
+    second,
+  )
+
+
+def test_merge_variable_bindings_accepts_list():
+  binding = VariableBinding(
+    variable=PatternVariable(
+      name="x",
+    ),
+    value="alpha",
+  )
+
+  result = merge_variable_bindings(
+    [
+      binding,
+    ]
+  )
+
+  assert result == (
+    binding,
+  )
+
+
+def test_merge_variable_bindings_rejects_invalid_input():
+  with pytest.raises(TypeError):
+    merge_variable_bindings(
+      "invalid"
+    )
+
+
+def test_merge_variable_bindings_rejects_invalid_item():
+  binding = VariableBinding(
+    variable=PatternVariable(
+      name="x",
+    ),
+    value="alpha",
+  )
+
+  with pytest.raises(TypeError):
+    merge_variable_bindings(
+      (
+        binding,
+        "invalid",
+      )
+    )
+
+
+def test_match_relation_pattern_merges_repeated_variable():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  pattern = Relation(
+    lhs=variable,
+    rhs=variable,
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="alpha",
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+
+def test_match_relation_pattern_rejects_conflicting_repeated_variable():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  pattern = Relation(
+    lhs=variable,
+    rhs=variable,
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert result is None
+
+
+def test_match_relation_pattern_repeated_structurally_equal_variable():
+  pattern = Relation(
+    lhs=PatternVariable(
+      name="x",
+    ),
+    rhs=PatternVariable(
+      name="x",
+    ),
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="alpha",
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=PatternVariable(
+        name="x",
+      ),
+      value="alpha",
+    ),
+  )
+
+
+def test_match_relation_pattern_distinct_variables_remain_distinct():
+  x = PatternVariable(
+    name="x",
+  )
+
+  y = PatternVariable(
+    name="y",
+  )
+
+  pattern = Relation(
+    lhs=x,
+    rhs=y,
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="alpha",
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=x,
+      value="alpha",
+    ),
+    VariableBinding(
+      variable=y,
+      value="alpha",
+    ),
+  )
+
+
+def test_premise_pattern_relation_pattern_defaults_to_none():
+  pattern = PremisePattern()
+
+  assert (
+    pattern.relation_pattern
+    is None
+  )
+
+
+def test_premise_pattern_with_relation_pattern():
+  relation_pattern = Relation(
+    lhs=PatternVariable(
+      name="x",
+    ),
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  pattern = PremisePattern(
+    relation_pattern=relation_pattern,
+  )
+
+  assert (
+    pattern.relation_pattern
+    == relation_pattern
+  )
+
+
+def test_premise_pattern_matches_relation_pattern():
+  pattern = PremisePattern(
+    relation_pattern=Relation(
+      lhs=PatternVariable(
+        name="x",
+      ),
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  assert matches_premise_pattern(
+    pattern,
+    step,
+  )
+
+
+def test_premise_pattern_rejects_wrong_relation_pattern_lhs():
+  pattern = PremisePattern(
+    relation_pattern=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  assert not matches_premise_pattern(
+    pattern,
+    step,
+  )
+
+
+def test_premise_pattern_rejects_wrong_relation_pattern_rhs():
+  pattern = PremisePattern(
+    relation_pattern=Relation(
+      lhs=PatternVariable(
+        name="x",
+      ),
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  assert not matches_premise_pattern(
+    pattern,
+    step,
+  )
+
+
+def test_premise_pattern_rejects_wrong_relation_pattern_type():
+  pattern = PremisePattern(
+    relation_pattern=Relation(
+      lhs=PatternVariable(
+        name="x",
+      ),
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  assert not matches_premise_pattern(
+    pattern,
+    step,
+  )
+
+
+def test_relation_pattern_requires_relation_conclusion():
+  pattern = PremisePattern(
+    relation_pattern=Relation(
+      lhs=PatternVariable(
+        name="x",
+      ),
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="not a relation",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  assert not matches_premise_pattern(
+    pattern,
+    step,
+  )
+
+
+def test_premise_pattern_relation_pattern_respects_repeated_variable():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  pattern = PremisePattern(
+    relation_pattern=Relation(
+      lhs=variable,
+      rhs=variable,
+    ),
+  )
+
+  matching_step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  nonmatching_step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  assert matches_premise_pattern(
+    pattern,
+    matching_step,
+  )
+
+  assert not matches_premise_pattern(
+    pattern,
+    nonmatching_step,
+  )
+
+
+def test_match_premise_pattern_empty_pattern():
+  pattern = PremisePattern()
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = match_premise_pattern(
+    pattern,
+    step,
+  )
+
+  assert result == ()
+
+
+def test_match_premise_pattern_matches_without_binding():
+  pattern = PremisePattern(
+    proof_rule=ProofRule.GIVEN,
+  )
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = match_premise_pattern(
+    pattern,
+    step,
+  )
+
+  assert result == ()
+
+
+def test_match_premise_pattern_returns_relation_binding():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  pattern = PremisePattern(
+    relation_pattern=Relation(
+      lhs=variable,
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = match_premise_pattern(
+    pattern,
+    step,
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+
+def test_match_premise_pattern_returns_multiple_relation_bindings():
+  x = PatternVariable(
+    name="x",
+  )
+
+  y = PatternVariable(
+    name="y",
+  )
+
+  pattern = PremisePattern(
+    relation_pattern=Relation(
+      lhs=x,
+      rhs=y,
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = match_premise_pattern(
+    pattern,
+    step,
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=x,
+      value="alpha",
+    ),
+    VariableBinding(
+      variable=y,
+      value="beta",
+    ),
+  )
+
+
+def test_match_premise_pattern_rejects_wrong_proof_rule():
+  pattern = PremisePattern(
+    proof_rule=ProofRule.RELATION,
+  )
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  assert (
+    match_premise_pattern(
+      pattern,
+      step,
+    )
+    is None
+  )
+
+
+def test_match_premise_pattern_rejects_wrong_statement_type():
+  pattern = PremisePattern(
+    statement_type=Relation,
+  )
+
+  step = ProofStep(
+    conclusion="not a relation",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  assert (
+    match_premise_pattern(
+      pattern,
+      step,
+    )
+    is None
+  )
+
+
+def test_match_premise_pattern_rejects_wrong_relation_type():
+  pattern = PremisePattern(
+    relation_type=RelationType.ZERO,
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  assert (
+    match_premise_pattern(
+      pattern,
+      step,
+    )
+    is None
+  )
+
+
+def test_match_premise_pattern_rejects_wrong_relation_pattern():
+  pattern = PremisePattern(
+    relation_pattern=Relation(
+      lhs=PatternVariable(
+        name="x",
+      ),
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  assert (
+    match_premise_pattern(
+      pattern,
+      step,
+    )
+    is None
+  )
+
+
+def test_match_premise_pattern_respects_repeated_variable_consistency():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  pattern = PremisePattern(
+    relation_pattern=Relation(
+      lhs=variable,
+      rhs=variable,
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = match_premise_pattern(
+    pattern,
+    step,
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+
+def test_match_premise_pattern_rejects_repeated_variable_conflict():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  pattern = PremisePattern(
+    relation_pattern=Relation(
+      lhs=variable,
+      rhs=variable,
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  assert (
+    match_premise_pattern(
+      pattern,
+      step,
+    )
+    is None
+  )
+
+
+def test_match_premise_pattern_rejects_invalid_pattern():
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  with pytest.raises(TypeError):
+    match_premise_pattern(
+      "invalid",
+      step,
+    )
+
+
+def test_match_premise_pattern_rejects_invalid_step():
+  pattern = PremisePattern()
+
+  with pytest.raises(TypeError):
+    match_premise_pattern(
+      pattern,
+      "invalid",
+    )
+
+
+def test_match_inference_rule_bindings_empty_rule():
+  rule = InferenceRule(
+    name="empty rule",
+  )
+
+  result = (
+    match_inference_rule_bindings(
+      rule,
+      (),
+    )
+  )
+
+  assert result == ()
+
+
+def test_match_inference_rule_bindings_without_variables():
+  rule = InferenceRule(
+    name="given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    match_inference_rule_bindings(
+      rule,
+      step,
+    )
+  )
+
+  assert result == ()
+
+
+def test_match_inference_rule_bindings_single_premise_binding():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  rule = InferenceRule(
+    name="relation rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=variable,
+          rhs="0",
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    match_inference_rule_bindings(
+      rule,
+      step,
+    )
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+
+def test_match_inference_rule_bindings_merges_shared_variable():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  rule = InferenceRule(
+    name="shared variable rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=variable,
+          rhs="0",
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+  )
+
+  first_step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  second_step = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    match_inference_rule_bindings(
+      rule,
+      (
+        first_step,
+        second_step,
+      ),
+    )
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+
+def test_match_inference_rule_bindings_rejects_shared_variable_conflict():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  rule = InferenceRule(
+    name="shared variable rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=variable,
+          rhs="0",
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+  )
+
+  first_step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  second_step = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    match_inference_rule_bindings(
+      rule,
+      (
+        first_step,
+        second_step,
+      ),
+    )
+  )
+
+  assert result is None
+
+
+def test_match_inference_rule_bindings_preserves_distinct_variables():
+  x = PatternVariable(
+    name="x",
+  )
+
+  y = PatternVariable(
+    name="y",
+  )
+
+  rule = InferenceRule(
+    name="two variable rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs="0",
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=y,
+        ),
+      ),
+    ),
+  )
+
+  first_step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  second_step = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    match_inference_rule_bindings(
+      rule,
+      (
+        first_step,
+        second_step,
+      ),
+    )
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=x,
+      value="alpha",
+    ),
+    VariableBinding(
+      variable=y,
+      value="beta",
+    ),
+  )
+
+
+def test_match_inference_rule_bindings_rejects_premise_mismatch():
+  rule = InferenceRule(
+    name="relation rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="alpha",
+          rhs="0",
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  assert (
+    match_inference_rule_bindings(
+      rule,
+      step,
+    )
+    is None
+  )
+
+
+def test_match_inference_rule_bindings_rejects_wrong_step_count():
+  rule = InferenceRule(
+    name="two premise rule",
+    premise_patterns=(
+      PremisePattern(),
+      PremisePattern(),
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  assert (
+    match_inference_rule_bindings(
+      rule,
+      step,
+    )
+    is None
+  )
+
+
+def test_match_inference_rule_bindings_rejects_invalid_rule():
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  with pytest.raises(TypeError):
+    match_inference_rule_bindings(
+      "invalid",
+      step,
+    )
+
+
+def test_match_inference_rule_bindings_rejects_invalid_steps():
+  rule = InferenceRule(
+    name="rule",
+  )
+
+  with pytest.raises(TypeError):
+    match_inference_rule_bindings(
+      rule,
+      "invalid",
+    )
+
+
+def test_find_all_matching_premises_enforces_shared_binding_consistency():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  rule = InferenceRule(
+    name="shared variable rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=variable,
+          rhs="0",
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+  )
+
+  alpha_zero = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  source_alpha = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  source_beta = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = find_all_matching_premises(
+    rule,
+    (
+      alpha_zero,
+      source_beta,
+      source_alpha,
+    ),
+  )
+
+  assert result == (
+    (
+      alpha_zero,
+      source_alpha,
+    ),
+  )
+
+
+def test_find_all_matching_premises_backtracks_over_binding_conflict():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  rule = InferenceRule(
+    name="shared variable rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=variable,
+          rhs="0",
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+  )
+
+  alpha_zero = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  beta_zero = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  source_beta = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = find_all_matching_premises(
+    rule,
+    (
+      alpha_zero,
+      beta_zero,
+      source_beta,
+    ),
+  )
+
+  assert result == (
+    (
+      beta_zero,
+      source_beta,
+    ),
+  )
+
+
+def test_find_all_matching_premises_enumerates_only_binding_consistent_assignments():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  rule = InferenceRule(
+    name="shared variable rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=variable,
+          rhs="0",
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+  )
+
+  alpha_zero = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  beta_zero = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  source_alpha = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  source_beta = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = find_all_matching_premises(
+    rule,
+    (
+      alpha_zero,
+      beta_zero,
+      source_alpha,
+      source_beta,
+    ),
+  )
+
+  assert result == (
+    (
+      alpha_zero,
+      source_alpha,
+    ),
+    (
+      beta_zero,
+      source_beta,
+    ),
+  )
+
+
+def test_inference_match_bindings_default_to_empty():
+  rule = InferenceRule(
+    name="rule",
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+  )
+
+  assert match.bindings == ()
+
+
+def test_inference_match_accepts_bindings():
+  variable = PatternVariable(
+    "x"
+  )
+
+  binding = VariableBinding(
+    variable=variable,
+    value="alpha",
+  )
+
+  rule = InferenceRule(
+    name="rule",
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+    bindings=(
+      binding,
+    ),
+  )
+
+  assert match.bindings == (
+    binding,
+  )
+
+
+def test_find_inference_match_stores_binding():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="variable rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=variable,
+          rhs="0",
+          relation_type=(
+            RelationType.ZERO
+          ),
+        ),
+      ),
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=(
+        RelationType.ZERO
+      ),
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  match = find_inference_match(
+    rule,
+    step,
+  )
+
+  assert match.bindings == (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+
+def test_find_inference_match_stores_merged_shared_binding():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="shared variable rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=variable,
+          rhs="0",
+          relation_type=(
+            RelationType.ZERO
+          ),
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+  )
+
+  zero_step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=(
+        RelationType.ZERO
+      ),
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  source_step = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      zero_step,
+      source_step,
+    ),
+  )
+
+  assert match.premises == (
+    zero_step,
+    source_step,
+  )
+
+  assert match.bindings == (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+
+def test_find_inference_matches_for_rule_stores_distinct_bindings():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="variable rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=variable,
+          rhs="0",
+          relation_type=(
+            RelationType.ZERO
+          ),
+        ),
+      ),
+    ),
+  )
+
+  alpha_step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=(
+        RelationType.ZERO
+      ),
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  beta_step = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="0",
+      relation_type=(
+        RelationType.ZERO
+      ),
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  matches = (
+    find_inference_matches_for_rule(
+      rule,
+      (
+        alpha_step,
+        beta_step,
+      ),
+    )
+  )
+
+  assert len(matches) == 2
+
+  assert matches[0].premises == (
+    alpha_step,
+  )
+
+  assert matches[0].bindings == (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+  assert matches[1].premises == (
+    beta_step,
+  )
+
+  assert matches[1].bindings == (
+    VariableBinding(
+      variable=variable,
+      value="beta",
+    ),
+  )
+
+
+def test_lookup_variable_binding():
+  variable = PatternVariable(
+    "x"
+  )
+
+  bindings = (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+  assert lookup_variable_binding(
+    variable,
+    bindings,
+  ) == "alpha"
+
+
+def test_lookup_variable_binding_structurally_equal_variable():
+  bindings = (
+    VariableBinding(
+      variable=PatternVariable(
+        "x"
+      ),
+      value="alpha",
+    ),
+  )
+
+  assert lookup_variable_binding(
+    PatternVariable(
+      "x"
+    ),
+    bindings,
+  ) == "alpha"
+
+
+def test_lookup_variable_binding_returns_none_when_missing():
+  bindings = (
+    VariableBinding(
+      variable=PatternVariable(
+        "x"
+      ),
+      value="alpha",
+    ),
+  )
+
+  assert (
+    lookup_variable_binding(
+      PatternVariable(
+        "y"
+      ),
+      bindings,
+    )
+    is None
+  )
+
+
+def test_lookup_variable_binding_accepts_single_binding():
+  variable = PatternVariable(
+    "x"
+  )
+
+  binding = VariableBinding(
+    variable=variable,
+    value="alpha",
+  )
+
+  assert lookup_variable_binding(
+    variable,
+    binding,
+  ) == "alpha"
+
+
+def test_lookup_variable_binding_accepts_list():
+  variable = PatternVariable(
+    "x"
+  )
+
+  binding = VariableBinding(
+    variable=variable,
+    value="alpha",
+  )
+
+  assert lookup_variable_binding(
+    variable,
+    [
+      binding,
+    ],
+  ) == "alpha"
+
+
+def test_lookup_variable_binding_rejects_invalid_variable():
+  with pytest.raises(TypeError):
+    lookup_variable_binding(
+      "x",
+      (),
+    )
+
+
+def test_lookup_variable_binding_rejects_conflicting_bindings():
+  variable = PatternVariable(
+    "x"
+  )
+
+  with pytest.raises(ValueError):
+    lookup_variable_binding(
+      variable,
+      (
+        VariableBinding(
+          variable=variable,
+          value="alpha",
+        ),
+        VariableBinding(
+          variable=variable,
+          value="beta",
+        ),
+      ),
+    )
+
+
+def test_substitute_pattern_value_variable():
+  variable = PatternVariable(
+    "x"
+  )
+
+  bindings = (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+  assert substitute_pattern_value(
+    variable,
+    bindings,
+  ) == "alpha"
+
+
+def test_substitute_pattern_value_literal():
+  assert substitute_pattern_value(
+    "alpha",
+    (),
+  ) == "alpha"
+
+
+def test_substitute_pattern_value_unbound_variable_returns_none():
+  variable = PatternVariable(
+    "x"
+  )
+
+  assert (
+    substitute_pattern_value(
+      variable,
+      (),
+    )
+    is None
+  )
+
+
+def test_substitute_pattern_value_preserves_arbitrary_literal():
+  value = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  assert substitute_pattern_value(
+    value,
+    (),
+  ) == value
+
+
+def test_substitute_relation_pattern_lhs_variable():
+  variable = PatternVariable(
+    "x"
+  )
+
+  pattern = Relation(
+    lhs=variable,
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  bindings = (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+  result = substitute_relation_pattern(
+    pattern,
+    bindings,
+  )
+
+  assert result == Relation(
+    lhs="alpha",
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+
+def test_substitute_relation_pattern_rhs_variable():
+  variable = PatternVariable(
+    "x"
+  )
+
+  pattern = Relation(
+    lhs="source",
+    rhs=variable,
+  )
+
+  bindings = (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+  result = substitute_relation_pattern(
+    pattern,
+    bindings,
+  )
+
+  assert result == Relation(
+    lhs="source",
+    rhs="alpha",
+  )
+
+
+def test_substitute_relation_pattern_both_variables():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  pattern = Relation(
+    lhs=x,
+    rhs=y,
+  )
+
+  bindings = (
+    VariableBinding(
+      variable=x,
+      value="alpha",
+    ),
+    VariableBinding(
+      variable=y,
+      value="beta",
+    ),
+  )
+
+  result = substitute_relation_pattern(
+    pattern,
+    bindings,
+  )
+
+  assert result == Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+
+def test_substitute_relation_pattern_preserves_literals():
+  pattern = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  result = substitute_relation_pattern(
+    pattern,
+    (),
+  )
+
+  assert result == pattern
+
+
+def test_substitute_relation_pattern_preserves_metadata():
+  variable = PatternVariable(
+    "x"
+  )
+
+  source = "Toda"
+
+  pattern = Relation(
+    lhs=variable,
+    rhs="0",
+    relation_type=RelationType.ZERO,
+    source=source,
+    note="example note",
+  )
+
+  bindings = (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+  result = substitute_relation_pattern(
+    pattern,
+    bindings,
+  )
+
+  assert (
+    result.relation_type
+    == RelationType.ZERO
+  )
+
+  assert result.source == source
+
+  assert (
+    result.note
+    == "example note"
+  )
+
+
+def test_substitute_relation_pattern_unbound_variable_becomes_none():
+  variable = PatternVariable(
+    "x"
+  )
+
+  pattern = Relation(
+    lhs=variable,
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  result = substitute_relation_pattern(
+    pattern,
+    (),
+  )
+
+  assert result == Relation(
+    lhs=None,
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+
+def test_substitute_relation_pattern_rejects_invalid_pattern():
+  with pytest.raises(TypeError):
+    substitute_relation_pattern(
+      "invalid",
+      (),
+    )
+
+
+def test_inference_rule_conclusion_pattern_defaults_to_none():
+  rule = InferenceRule(
+    name="rule",
+  )
+
+  assert (
+    rule.conclusion_pattern
+    is None
+  )
+
+
+def test_inference_rule_with_conclusion_pattern():
+  conclusion_pattern = Relation(
+    lhs="alpha",
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  rule = InferenceRule(
+    name="rule",
+    conclusion_pattern=(
+      conclusion_pattern
+    ),
+  )
+
+  assert (
+    rule.conclusion_pattern
+    == conclusion_pattern
+  )
+
+
+def test_inference_rule_conclusion_pattern_with_variable():
+  variable = PatternVariable(
+    "x"
+  )
+
+  conclusion_pattern = Relation(
+    lhs=variable,
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  rule = InferenceRule(
+    name="rule",
+    conclusion_pattern=(
+      conclusion_pattern
+    ),
+  )
+
+  assert (
+    rule.conclusion_pattern
+    == Relation(
+      lhs=variable,
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+
+def test_inference_rule_conclusion_pattern_is_backward_compatible():
+  builder = lambda premises: (
+    "derived"
+  )
+
+  rule = InferenceRule(
+    name="rule",
+    conclusion_builder=builder,
+  )
+
+  assert (
+    rule.conclusion_builder
+    is builder
+  )
+
+  assert (
+    rule.conclusion_pattern
+    is None
+  )
+
+
+def test_inference_rule_can_hold_builder_and_conclusion_pattern():
+  builder = lambda premises: (
+    "derived"
+  )
+
+  conclusion_pattern = Relation(
+    lhs="alpha",
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  rule = InferenceRule(
+    name="rule",
+    conclusion_builder=builder,
+    conclusion_pattern=(
+      conclusion_pattern
+    ),
+  )
+
+  assert (
+    rule.conclusion_builder
+    is builder
+  )
+
+  assert (
+    rule.conclusion_pattern
+    == conclusion_pattern
+  )
+
+
+def test_substitute_inference_conclusion():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="rule",
+    conclusion_pattern=Relation(
+      lhs=variable,
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+    bindings=(
+      VariableBinding(
+        variable=variable,
+        value="alpha",
+      ),
+    ),
+  )
+
+  result = (
+    substitute_inference_conclusion(
+      match
+    )
+  )
+
+  assert result == Relation(
+    lhs="alpha",
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+
+def test_substitute_inference_conclusion_multiple_bindings():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  rule = InferenceRule(
+    name="rule",
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=y,
+    ),
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+    bindings=(
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+    ),
+  )
+
+  result = (
+    substitute_inference_conclusion(
+      match
+    )
+  )
+
+  assert result == Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+
+def test_substitute_inference_conclusion_preserves_metadata():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="rule",
+    conclusion_pattern=Relation(
+      lhs=variable,
+      rhs="0",
+      relation_type=RelationType.ZERO,
+      source="Toda",
+      note="derived relation",
+    ),
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+    bindings=(
+      VariableBinding(
+        variable=variable,
+        value="alpha",
+      ),
+    ),
+  )
+
+  result = (
+    substitute_inference_conclusion(
+      match
+    )
+  )
+
+  assert (
+    result.relation_type
+    == RelationType.ZERO
+  )
+
+  assert result.source == "Toda"
+
+  assert (
+    result.note
+    == "derived relation"
+  )
+
+
+def test_substitute_inference_conclusion_without_variables():
+  conclusion_pattern = Relation(
+    lhs="alpha",
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  rule = InferenceRule(
+    name="rule",
+    conclusion_pattern=(
+      conclusion_pattern
+    ),
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+  )
+
+  assert (
+    substitute_inference_conclusion(
+      match
+    )
+    == conclusion_pattern
+  )
+
+
+def test_substitute_inference_conclusion_unbound_variable_becomes_none():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="rule",
+    conclusion_pattern=Relation(
+      lhs=variable,
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+  )
+
+  result = (
+    substitute_inference_conclusion(
+      match
+    )
+  )
+
+  assert result == Relation(
+    lhs=None,
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+
+def test_substitute_inference_conclusion_rejects_invalid_match():
+  with pytest.raises(TypeError):
+    substitute_inference_conclusion(
+      "invalid"
+    )
+
+
+def test_substitute_inference_conclusion_requires_conclusion_pattern():
+  rule = InferenceRule(
+    name="rule",
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+  )
+
+  with pytest.raises(ValueError):
+    substitute_inference_conclusion(
+      match
+    )
+
+
+def test_apply_inference_match_uses_conclusion_pattern():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="pattern rule",
+    conclusion_pattern=Relation(
+      lhs=variable,
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+    bindings=(
+      VariableBinding(
+        variable=variable,
+        value="alpha",
+      ),
+    ),
+  )
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == Relation(
+    lhs="alpha",
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  assert step.premises == ()
+
+  assert (
+    step.rule
+    == ProofRule.INFERENCE
+  )
+
+  assert (
+    step.inference_rule
+    is rule
+  )
+
+
+def test_apply_inference_match_conclusion_pattern_preserves_premises():
+  variable = PatternVariable(
+    "x"
+  )
+
+  premise = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  rule = InferenceRule(
+    name="pattern rule",
+    conclusion_pattern=Relation(
+      lhs="derived",
+      rhs=variable,
+    ),
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(
+      premise,
+    ),
+    bindings=(
+      VariableBinding(
+        variable=variable,
+        value="alpha",
+      ),
+    ),
+  )
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == Relation(
+    lhs="derived",
+    rhs="alpha",
+  )
+
+  assert step.premises == (
+    premise,
+  )
+
+
+def test_apply_inference_match_prefers_builder_over_conclusion_pattern():
+  variable = PatternVariable(
+    "x"
+  )
+
+  builder = lambda premises: (
+    "builder result"
+  )
+
+  rule = InferenceRule(
+    name="rule",
+    conclusion_builder=builder,
+    conclusion_pattern=Relation(
+      lhs=variable,
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+    bindings=(
+      VariableBinding(
+        variable=variable,
+        value="alpha",
+      ),
+    ),
+  )
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert (
+    step.conclusion
+    == "builder result"
+  )
+
+
+def test_apply_inference_match_rejects_non_callable_builder_even_with_pattern():
+  rule = InferenceRule(
+    name="rule",
+    conclusion_builder="invalid",
+    conclusion_pattern=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+  )
+
+  with pytest.raises(TypeError):
+    apply_inference_match(
+      match
+    )
+
+
+def test_apply_found_inference_match_with_conclusion_pattern():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="pattern rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=variable,
+          rhs="0",
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="derived",
+      rhs=variable,
+    ),
+  )
+
+  premise = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  match = find_inference_match(
+    rule,
+    premise,
+  )
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == Relation(
+    lhs="derived",
+    rhs="alpha",
+  )
+
+  assert step.premises == (
+    premise,
+  )
+
+
+def test_derive_inference_steps_with_conclusion_pattern():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="pattern rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=variable,
+          rhs="0",
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="derived",
+      rhs=variable,
+    ),
+  )
+
+  premise = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  steps = derive_inference_steps(
+    rule,
+    premise,
+  )
+
+  assert len(steps) == 1
+
+  assert steps[0].conclusion == Relation(
+    lhs="derived",
+    rhs="alpha",
+  )
+
+  assert steps[0].premises == (
+    premise,
+  )
+
+
+def test_derive_inference_round_result_with_conclusion_pattern():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="pattern rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="derived",
+      rhs=variable,
+    ),
+  )
+
+  premise = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    derive_inference_round_result(
+      rule,
+      premise,
+    )
+  )
+
+  assert len(
+    result.new_steps
+  ) == 1
+
+  assert (
+    result.new_steps[0].conclusion
+    == Relation(
+      lhs="derived",
+      rhs="alpha",
+    )
+  )
+
+  assert len(
+    result.matches
+  ) == 1
+
+  assert result.matches[0].bindings == (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+  assert len(
+    result.application_results
+  ) == 1
+
+  assert (
+    result.application_results[0]
+    .accepted
+    is True
+  )
+
+
+def test_run_inference_round_with_conclusion_pattern():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="pattern rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="derived",
+      rhs=variable,
+    ),
+  )
+
+  premise = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  steps = run_inference_round(
+    rule,
+    premise,
+  )
+
+  assert len(steps) == 2
+
+  assert steps[0] is premise
+
+  assert steps[1].conclusion == Relation(
+    lhs="derived",
+    rhs="alpha",
+  )
+
+  assert steps[1].premises == (
+    premise,
+  )
+
+
+def test_run_inference_until_stable_with_conclusion_pattern():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="pattern rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="derived",
+      rhs=variable,
+    ),
+  )
+
+  premise = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  steps = (
+    run_inference_until_stable(
+      rule,
+      premise,
+    )
+  )
+
+  assert len(steps) == 2
+
+  assert steps[0] is premise
+
+  assert steps[1].conclusion == Relation(
+    lhs="derived",
+    rhs="alpha",
+  )
+
+
+def test_run_inference_until_stable_with_multiple_conclusion_pattern_rounds():
+  variable = PatternVariable(
+    "x"
+  )
+
+  first_rule = InferenceRule(
+    name="source to middle",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="middle",
+      rhs=variable,
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="middle to final",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="middle",
+          rhs=variable,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="final",
+      rhs=variable,
+    ),
+  )
+
+  premise = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  steps = (
+    run_inference_until_stable(
+      (
+        first_rule,
+        second_rule,
+      ),
+      premise,
+    )
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in steps
+  ) == (
+    Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    Relation(
+      lhs="middle",
+      rhs="alpha",
+    ),
+    Relation(
+      lhs="final",
+      rhs="alpha",
+    ),
+  )
+
+
+def test_run_inference_until_stable_with_history_and_conclusion_pattern():
+  variable = PatternVariable(
+    "x"
+  )
+
+  first_rule = InferenceRule(
+    name="source to middle",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="middle",
+      rhs=variable,
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="middle to final",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="middle",
+          rhs=variable,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="final",
+      rhs=variable,
+    ),
+  )
+
+  premise = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        first_rule,
+        second_rule,
+      ),
+      premise,
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 2
+
+  assert tuple(
+    step.conclusion
+    for step
+    in result.round_results[0].new_steps
+  ) == (
+    Relation(
+      lhs="middle",
+      rhs="alpha",
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step
+    in result.round_results[1].new_steps
+  ) == (
+    Relation(
+      lhs="final",
+      rhs="alpha",
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in result.steps
+  ) == (
+    Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    Relation(
+      lhs="middle",
+      rhs="alpha",
+    ),
+    Relation(
+      lhs="final",
+      rhs="alpha",
+    ),
+  )
+
+
+def test_conclusion_pattern_fixed_point_preserves_dependency_chain():
+  variable = PatternVariable(
+    "x"
+  )
+
+  first_rule = InferenceRule(
+    name="source to middle",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="middle",
+      rhs=variable,
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="middle to final",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="middle",
+          rhs=variable,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="final",
+      rhs=variable,
+    ),
+  )
+
+  premise = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  steps = (
+    run_inference_until_stable(
+      (
+        first_rule,
+        second_rule,
+      ),
+      premise,
+    )
+  )
+
+  middle_step = steps[1]
+  final_step = steps[2]
+
+  assert middle_step.premises == (
+    premise,
+  )
+
+  assert final_step.premises == (
+    middle_step,
+  )
+
+  assert (
+    middle_step.inference_rule
+    is first_rule
+  )
+
+  assert (
+    final_step.inference_rule
+    is second_rule
+  )
+
+
+def test_multiple_premises_shared_bindings_with_conclusion_pattern():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  rule = InferenceRule(
+    name="compose relations",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=z,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=z,
+    ),
+  )
+
+  first_premise = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  second_premise = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      first_premise,
+      second_premise,
+    ),
+  )
+
+  assert match is not None
+
+  assert match.premises == (
+    first_premise,
+    second_premise,
+  )
+
+  assert match.bindings == (
+    VariableBinding(
+      variable=x,
+      value="alpha",
+    ),
+    VariableBinding(
+      variable=y,
+      value="beta",
+    ),
+    VariableBinding(
+      variable=z,
+      value="gamma",
+    ),
+  )
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == Relation(
+    lhs="alpha",
+    rhs="gamma",
+  )
+
+  assert step.premises == (
+    first_premise,
+    second_premise,
+  )
+
+
+def test_multiple_premises_shared_bindings_reject_conflict_end_to_end():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  rule = InferenceRule(
+    name="compose relations",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=z,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=z,
+    ),
+  )
+
+  first_premise = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  conflicting_premise = ProofStep(
+    conclusion=Relation(
+      lhs="delta",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      first_premise,
+      conflicting_premise,
+    ),
+  )
+
+  assert match is None
+
+
+def test_multiple_premises_shared_bindings_backtracks_to_consistent_match():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  rule = InferenceRule(
+    name="compose relations",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=z,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=z,
+    ),
+  )
+
+  first_premise = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  conflicting_candidate = ProofStep(
+    conclusion=Relation(
+      lhs="delta",
+      rhs="wrong",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  matching_candidate = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      first_premise,
+      conflicting_candidate,
+      matching_candidate,
+    ),
+  )
+
+  assert match is not None
+
+  assert match.premises == (
+    first_premise,
+    matching_candidate,
+  )
+
+  assert match.bindings == (
+    VariableBinding(
+      variable=x,
+      value="alpha",
+    ),
+    VariableBinding(
+      variable=y,
+      value="beta",
+    ),
+    VariableBinding(
+      variable=z,
+      value="gamma",
+    ),
+  )
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == Relation(
+    lhs="alpha",
+    rhs="gamma",
+  )
+
+
+def test_derive_inference_round_result_with_multiple_premises_shared_bindings():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  rule = InferenceRule(
+    name="compose relations",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=z,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=z,
+    ),
+  )
+
+  first_premise = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  second_premise = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    derive_inference_round_result(
+      rule,
+      (
+        first_premise,
+        second_premise,
+      ),
+    )
+  )
+
+  assert len(
+    result.new_steps
+  ) == 1
+
+  assert (
+    result.new_steps[0].conclusion
+    == Relation(
+      lhs="alpha",
+      rhs="gamma",
+    )
+  )
+
+  assert result.new_steps[0].premises == (
+    first_premise,
+    second_premise,
+  )
+
+  assert len(
+    result.matches
+  ) == 1
+
+  assert result.matches[0].bindings == (
+    VariableBinding(
+      variable=x,
+      value="alpha",
+    ),
+    VariableBinding(
+      variable=y,
+      value="beta",
+    ),
+    VariableBinding(
+      variable=z,
+      value="gamma",
+    ),
+  )
+
+
+def test_run_inference_round_with_multiple_premises_shared_bindings():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  rule = InferenceRule(
+    name="compose relations",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=z,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=z,
+    ),
+  )
+
+  first_premise = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  second_premise = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  steps = run_inference_round(
+    rule,
+    (
+      first_premise,
+      second_premise,
+    ),
+  )
+
+  assert len(steps) == 3
+
+  assert steps[0] is first_premise
+
+  assert steps[1] is second_premise
+
+  assert steps[2].conclusion == Relation(
+    lhs="alpha",
+    rhs="gamma",
+  )
+
+  assert steps[2].premises == (
+    first_premise,
+    second_premise,
+  )
+
+
+def test_fixed_point_with_multiple_premises_shared_bindings():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  rule = InferenceRule(
+    name="compose relations",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=z,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=z,
+    ),
+  )
+
+  first_premise = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  second_premise = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        first_premise,
+        second_premise,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 1
+
+  assert tuple(
+    step.conclusion
+    for step in result.steps
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    Relation(
+      lhs="alpha",
+      rhs="gamma",
+    ),
+  )
+
+  assert (
+    result.steps[2].premises
+    == (
+      first_premise,
+      second_premise,
+    )
+  )
+
+
+def test_single_rule_multiple_binding_assignments_derive_distinct_conclusions_end_to_end():
+  x = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="source to derived",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=x,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="derived",
+      rhs=x,
+    ),
+  )
+
+  alpha_premise = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  beta_premise = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        alpha_premise,
+        beta_premise,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 1
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  assert len(
+    first_round.matches
+  ) == 2
+
+  assert tuple(
+    match.bindings
+    for match in first_round.matches
+  ) == (
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="beta",
+      ),
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.new_steps
+  ) == (
+    Relation(
+      lhs="derived",
+      rhs="alpha",
+    ),
+    Relation(
+      lhs="derived",
+      rhs="beta",
+    ),
+  )
+
+  assert first_round.new_steps[0].premises == (
+    alpha_premise,
+  )
+
+  assert first_round.new_steps[1].premises == (
+    beta_premise,
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in result.steps
+  ) == (
+    Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    Relation(
+      lhs="source",
+      rhs="beta",
+    ),
+    Relation(
+      lhs="derived",
+      rhs="alpha",
+    ),
+    Relation(
+      lhs="derived",
+      rhs="beta",
+    ),
+  )
+
+
+def test_multiple_premises_multiple_shared_binding_assignments_derive_distinct_conclusions_end_to_end():
+  x = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="paired source to derived",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="left",
+          rhs=x,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="right",
+          rhs=x,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="derived",
+      rhs=x,
+    ),
+  )
+
+  left_alpha = ProofStep(
+    conclusion=Relation(
+      lhs="left",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  right_alpha = ProofStep(
+    conclusion=Relation(
+      lhs="right",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  left_beta = ProofStep(
+    conclusion=Relation(
+      lhs="left",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  right_beta = ProofStep(
+    conclusion=Relation(
+      lhs="right",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        left_alpha,
+        right_alpha,
+        left_beta,
+        right_beta,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 1
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  assert len(
+    first_round.matches
+  ) == 2
+
+  assert tuple(
+    match.premises
+    for match in first_round.matches
+  ) == (
+    (
+      left_alpha,
+      right_alpha,
+    ),
+    (
+      left_beta,
+      right_beta,
+    ),
+  )
+
+  assert tuple(
+    match.bindings
+    for match in first_round.matches
+  ) == (
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="beta",
+      ),
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.new_steps
+  ) == (
+    Relation(
+      lhs="derived",
+      rhs="alpha",
+    ),
+    Relation(
+      lhs="derived",
+      rhs="beta",
+    ),
+  )
+
+  assert first_round.new_steps[0].premises == (
+    left_alpha,
+    right_alpha,
+  )
+
+  assert first_round.new_steps[1].premises == (
+    left_beta,
+    right_beta,
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in result.steps
+  ) == (
+    Relation(
+      lhs="left",
+      rhs="alpha",
+    ),
+    Relation(
+      lhs="right",
+      rhs="alpha",
+    ),
+    Relation(
+      lhs="left",
+      rhs="beta",
+    ),
+    Relation(
+      lhs="right",
+      rhs="beta",
+    ),
+    Relation(
+      lhs="derived",
+      rhs="alpha",
+    ),
+    Relation(
+      lhs="derived",
+      rhs="beta",
+    ),
+  )
+
+
+def test_multiple_premises_multiple_variables_multiple_assignments_derive_distinct_conclusions_end_to_end():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  rule = InferenceRule(
+    name="paired relation to derived relation",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=x,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=y,
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  alpha_beta = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  beta_alpha = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  gamma_delta = ProofStep(
+    conclusion=Relation(
+      lhs="gamma",
+      rhs="delta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  delta_gamma = ProofStep(
+    conclusion=Relation(
+      lhs="delta",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        alpha_beta,
+        beta_alpha,
+        gamma_delta,
+        delta_gamma,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 1
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  assert len(
+    first_round.matches
+  ) == 4
+
+  assert tuple(
+    match.premises
+    for match in first_round.matches
+  ) == (
+    (
+      alpha_beta,
+      beta_alpha,
+    ),
+    (
+      beta_alpha,
+      alpha_beta,
+    ),
+    (
+      gamma_delta,
+      delta_gamma,
+    ),
+    (
+      delta_gamma,
+      gamma_delta,
+    ),
+  )
+
+  assert tuple(
+    match.bindings
+    for match in first_round.matches
+  ) == (
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=y,
+        value="alpha",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="gamma",
+      ),
+      VariableBinding(
+        variable=y,
+        value="delta",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=y,
+        value="gamma",
+      ),
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.new_steps
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="beta",
+      relation_type=RelationType.ZERO,
+    ),
+    Relation(
+      lhs="beta",
+      rhs="alpha",
+      relation_type=RelationType.ZERO,
+    ),
+    Relation(
+      lhs="gamma",
+      rhs="delta",
+      relation_type=RelationType.ZERO,
+    ),
+    Relation(
+      lhs="delta",
+      rhs="gamma",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  assert first_round.new_steps[0].premises == (
+    alpha_beta,
+    beta_alpha,
+  )
+
+  assert first_round.new_steps[1].premises == (
+    beta_alpha,
+    alpha_beta,
+  )
+
+  assert first_round.new_steps[2].premises == (
+    gamma_delta,
+    delta_gamma,
+  )
+
+  assert first_round.new_steps[3].premises == (
+    delta_gamma,
+    gamma_delta,
+  )
+
+
+def test_partially_shared_variables_across_multiple_premises_end_to_end():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  rule = InferenceRule(
+    name="partially shared variable rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=z,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=y,
+      rhs=z,
+    ),
+  )
+
+  alpha_beta = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  alpha_gamma = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  delta_epsilon = ProofStep(
+    conclusion=Relation(
+      lhs="delta",
+      rhs="epsilon",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  delta_zeta = ProofStep(
+    conclusion=Relation(
+      lhs="delta",
+      rhs="zeta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        alpha_beta,
+        alpha_gamma,
+        delta_epsilon,
+        delta_zeta,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 1
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  assert len(
+    first_round.matches
+  ) == 4
+
+  assert tuple(
+    match.premises
+    for match in first_round.matches
+  ) == (
+    (
+      alpha_beta,
+      alpha_gamma,
+    ),
+    (
+      alpha_gamma,
+      alpha_beta,
+    ),
+    (
+      delta_epsilon,
+      delta_zeta,
+    ),
+    (
+      delta_zeta,
+      delta_epsilon,
+    ),
+  )
+
+  assert tuple(
+    match.bindings
+    for match in first_round.matches
+  ) == (
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="gamma",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="gamma",
+      ),
+      VariableBinding(
+        variable=z,
+        value="beta",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=y,
+        value="epsilon",
+      ),
+      VariableBinding(
+        variable=z,
+        value="zeta",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=y,
+        value="zeta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="epsilon",
+      ),
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.new_steps
+  ) == (
+    Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    Relation(
+      lhs="gamma",
+      rhs="beta",
+    ),
+    Relation(
+      lhs="epsilon",
+      rhs="zeta",
+    ),
+    Relation(
+      lhs="zeta",
+      rhs="epsilon",
+    ),
+  )
+
+  assert first_round.new_steps[0].premises == (
+    alpha_beta,
+    alpha_gamma,
+  )
+
+  assert first_round.new_steps[1].premises == (
+    alpha_gamma,
+    alpha_beta,
+  )
+
+  assert first_round.new_steps[2].premises == (
+    delta_epsilon,
+    delta_zeta,
+  )
+
+  assert first_round.new_steps[3].premises == (
+    delta_zeta,
+    delta_epsilon,
+  )
+
+
+def test_shared_variable_propagates_across_three_premises_end_to_end():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  w = PatternVariable(
+    "w"
+  )
+
+  rule = InferenceRule(
+    name="three premise shared variable rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=z,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=w,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=y,
+      rhs=w,
+    ),
+  )
+
+  alpha_beta = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  alpha_gamma = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  alpha_delta = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="delta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  epsilon_zeta = ProofStep(
+    conclusion=Relation(
+      lhs="epsilon",
+      rhs="zeta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        alpha_beta,
+        alpha_gamma,
+        alpha_delta,
+        epsilon_zeta,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 1
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  assert len(
+    first_round.matches
+  ) == 6
+
+  assert tuple(
+    match.bindings
+    for match in first_round.matches
+  ) == (
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="gamma",
+      ),
+      VariableBinding(
+        variable=w,
+        value="delta",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=w,
+        value="gamma",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="gamma",
+      ),
+      VariableBinding(
+        variable=z,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=w,
+        value="delta",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="gamma",
+      ),
+      VariableBinding(
+        variable=z,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=w,
+        value="beta",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=w,
+        value="gamma",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="gamma",
+      ),
+      VariableBinding(
+        variable=w,
+        value="beta",
+      ),
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.new_steps
+  ) == (
+    Relation(
+      lhs="beta",
+      rhs="delta",
+    ),
+    Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    Relation(
+      lhs="gamma",
+      rhs="delta",
+    ),
+    Relation(
+      lhs="gamma",
+      rhs="beta",
+    ),
+    Relation(
+      lhs="delta",
+      rhs="gamma",
+    ),
+    Relation(
+      lhs="delta",
+      rhs="beta",
+    ),
+  )
+
+
+def test_multiple_shared_variables_propagate_across_three_premises_end_to_end():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  w = PatternVariable(
+    "w"
+  )
+
+  rule = InferenceRule(
+    name="three premise chained shared variables",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=z,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=z,
+          rhs=w,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=w,
+    ),
+  )
+
+  alpha_beta = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  beta_gamma = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  gamma_delta = ProofStep(
+    conclusion=Relation(
+      lhs="gamma",
+      rhs="delta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  alpha_epsilon = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="epsilon",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  epsilon_zeta = ProofStep(
+    conclusion=Relation(
+      lhs="epsilon",
+      rhs="zeta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  zeta_eta = ProofStep(
+    conclusion=Relation(
+      lhs="zeta",
+      rhs="eta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        alpha_beta,
+        beta_gamma,
+        gamma_delta,
+        alpha_epsilon,
+        epsilon_zeta,
+        zeta_eta,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 1
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  assert len(
+    first_round.matches
+  ) == 2
+
+  assert tuple(
+    match.premises
+    for match in first_round.matches
+  ) == (
+    (
+      alpha_beta,
+      beta_gamma,
+      gamma_delta,
+    ),
+    (
+      alpha_epsilon,
+      epsilon_zeta,
+      zeta_eta,
+    ),
+  )
+
+  assert tuple(
+    match.bindings
+    for match in first_round.matches
+  ) == (
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="gamma",
+      ),
+      VariableBinding(
+        variable=w,
+        value="delta",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="epsilon",
+      ),
+      VariableBinding(
+        variable=z,
+        value="zeta",
+      ),
+      VariableBinding(
+        variable=w,
+        value="eta",
+      ),
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.new_steps
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="delta",
+    ),
+    Relation(
+      lhs="alpha",
+      rhs="eta",
+    ),
+  )
+
+  assert first_round.new_steps[0].premises == (
+    alpha_beta,
+    beta_gamma,
+    gamma_delta,
+  )
+
+  assert first_round.new_steps[1].premises == (
+    alpha_epsilon,
+    epsilon_zeta,
+    zeta_eta,
+  )
+
+
+def test_shared_binding_graph_branches_and_merges_end_to_end():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  w = PatternVariable(
+    "w"
+  )
+
+  v = PatternVariable(
+    "v"
+  )
+
+  rule = InferenceRule(
+    name="branching and merging shared binding graph",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=z,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=w,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=z,
+          rhs=v,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=w,
+          rhs=v,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=v,
+    ),
+  )
+
+  alpha_beta = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  beta_gamma = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  beta_delta = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="delta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  gamma_epsilon = ProofStep(
+    conclusion=Relation(
+      lhs="gamma",
+      rhs="epsilon",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  delta_epsilon = ProofStep(
+    conclusion=Relation(
+      lhs="delta",
+      rhs="epsilon",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  delta_zeta = ProofStep(
+    conclusion=Relation(
+      lhs="delta",
+      rhs="zeta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        alpha_beta,
+        beta_gamma,
+        beta_delta,
+        gamma_epsilon,
+        delta_epsilon,
+        delta_zeta,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 1
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  assert len(
+    first_round.matches
+  ) == 2
+
+  assert tuple(
+    match.premises
+    for match in first_round.matches
+  ) == (
+    (
+      alpha_beta,
+      beta_gamma,
+      beta_delta,
+      gamma_epsilon,
+      delta_epsilon,
+    ),
+    (
+      alpha_beta,
+      beta_delta,
+      beta_gamma,
+      delta_epsilon,
+      gamma_epsilon,
+    ),
+  )
+
+  assert tuple(
+    match.bindings
+    for match in first_round.matches
+  ) == (
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="gamma",
+      ),
+      VariableBinding(
+        variable=w,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=v,
+        value="epsilon",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=w,
+        value="gamma",
+      ),
+      VariableBinding(
+        variable=v,
+        value="epsilon",
+      ),
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.candidate_steps
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="epsilon",
+    ),
+    Relation(
+      lhs="alpha",
+      rhs="epsilon",
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.new_steps
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="epsilon",
+    ),
+  )
+
+  assert len(
+    first_round.duplicate_rejected_steps
+  ) == 1
+
+  assert (
+    first_round.duplicate_rejected_steps[0].conclusion
+    == Relation(
+      lhs="alpha",
+      rhs="epsilon",
+    )
+  )
+
+  assert first_round.new_steps[0].premises == (
+    alpha_beta,
+    beta_gamma,
+    beta_delta,
+    gamma_epsilon,
+    delta_epsilon,
+  )
+
+
+def test_branching_merging_graph_derives_multiple_distinct_final_bindings_end_to_end():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  w = PatternVariable(
+    "w"
+  )
+
+  v = PatternVariable(
+    "v"
+  )
+
+  rule = InferenceRule(
+    name="branching merging graph with multiple final bindings",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=z,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=w,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=z,
+          rhs=v,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=w,
+          rhs=v,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=v,
+    ),
+  )
+
+  alpha_beta = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  beta_gamma = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  beta_delta = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="delta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  gamma_epsilon = ProofStep(
+    conclusion=Relation(
+      lhs="gamma",
+      rhs="epsilon",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  delta_epsilon = ProofStep(
+    conclusion=Relation(
+      lhs="delta",
+      rhs="epsilon",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  gamma_zeta = ProofStep(
+    conclusion=Relation(
+      lhs="gamma",
+      rhs="zeta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  delta_zeta = ProofStep(
+    conclusion=Relation(
+      lhs="delta",
+      rhs="zeta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        alpha_beta,
+        beta_gamma,
+        beta_delta,
+        gamma_epsilon,
+        delta_epsilon,
+        gamma_zeta,
+        delta_zeta,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 1
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  assert len(
+    first_round.matches
+  ) == 4
+
+  assert tuple(
+    match.bindings
+    for match in first_round.matches
+  ) == (
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="gamma",
+      ),
+      VariableBinding(
+        variable=w,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=v,
+        value="epsilon",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="gamma",
+      ),
+      VariableBinding(
+        variable=w,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=v,
+        value="zeta",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=w,
+        value="gamma",
+      ),
+      VariableBinding(
+        variable=v,
+        value="epsilon",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=w,
+        value="gamma",
+      ),
+      VariableBinding(
+        variable=v,
+        value="zeta",
+      ),
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.candidate_steps
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="epsilon",
+    ),
+    Relation(
+      lhs="alpha",
+      rhs="zeta",
+    ),
+    Relation(
+      lhs="alpha",
+      rhs="epsilon",
+    ),
+    Relation(
+      lhs="alpha",
+      rhs="zeta",
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.new_steps
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="epsilon",
+    ),
+    Relation(
+      lhs="alpha",
+      rhs="zeta",
+    ),
+  )
+
+  assert len(
+    first_round.duplicate_rejected_steps
+  ) == 2
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.duplicate_rejected_steps
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="epsilon",
+    ),
+    Relation(
+      lhs="alpha",
+      rhs="zeta",
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in result.steps[-2:]
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="epsilon",
+    ),
+    Relation(
+      lhs="alpha",
+      rhs="zeta",
+    ),
+  )
+
+
+def test_multiple_rules_chain_through_derived_conclusions_fixed_point_end_to_end():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  first_rule = InferenceRule(
+    name="derive middle relation",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=z,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=z,
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="derive final relation",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="final",
+      rhs=y,
+    ),
+  )
+
+  alpha_beta = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  beta_gamma = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        first_rule,
+        second_rule,
+      ),
+      (
+        alpha_beta,
+        beta_gamma,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 2
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  second_round = (
+    result.round_results[1]
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.new_steps
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="gamma",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  middle_step = (
+    first_round.new_steps[0]
+  )
+
+  assert middle_step.premises == (
+    alpha_beta,
+    beta_gamma,
+  )
+
+  assert middle_step.rule == ProofRule.INFERENCE
+
+  assert tuple(
+    step.conclusion
+    for step in second_round.new_steps
+  ) == (
+    Relation(
+      lhs="final",
+      rhs="gamma",
+    ),
+  )
+
+  final_step = (
+    second_round.new_steps[0]
+  )
+
+  assert final_step.premises == (
+    middle_step,
+  )
+
+  assert final_step.rule == ProofRule.INFERENCE
+
+  assert tuple(
+    step.conclusion
+    for step in result.steps
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    Relation(
+      lhs="alpha",
+      rhs="gamma",
+      relation_type=RelationType.ZERO,
+    ),
+    Relation(
+      lhs="final",
+      rhs="gamma",
+    ),
+  )
+
+
+def test_multiple_rules_propagate_multiple_binding_branches_fixed_point_end_to_end():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  first_rule = InferenceRule(
+    name="derive multiple middle relations",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=z,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=z,
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="derive multiple final relations",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="final",
+      rhs=y,
+    ),
+  )
+
+  alpha_beta = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  beta_gamma = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  delta_epsilon = ProofStep(
+    conclusion=Relation(
+      lhs="delta",
+      rhs="epsilon",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  epsilon_zeta = ProofStep(
+    conclusion=Relation(
+      lhs="epsilon",
+      rhs="zeta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        first_rule,
+        second_rule,
+      ),
+      (
+        alpha_beta,
+        beta_gamma,
+        delta_epsilon,
+        epsilon_zeta,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 2
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  second_round = (
+    result.round_results[1]
+  )
+
+  assert len(
+    first_round.matches
+  ) == 2
+
+  assert tuple(
+    match.bindings
+    for match in first_round.matches
+  ) == (
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="gamma",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=y,
+        value="epsilon",
+      ),
+      VariableBinding(
+        variable=z,
+        value="zeta",
+      ),
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.new_steps
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="gamma",
+      relation_type=RelationType.ZERO,
+    ),
+    Relation(
+      lhs="delta",
+      rhs="zeta",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  first_middle_step = (
+    first_round.new_steps[0]
+  )
+
+  second_middle_step = (
+    first_round.new_steps[1]
+  )
+
+  assert first_middle_step.premises == (
+    alpha_beta,
+    beta_gamma,
+  )
+
+  assert second_middle_step.premises == (
+    delta_epsilon,
+    epsilon_zeta,
+  )
+
+  assert len(
+    second_round.matches
+  ) == 4
+
+  assert tuple(
+    match.inference_rule
+    for match in second_round.matches
+  ) == (
+    first_rule,
+    first_rule,
+    second_rule,
+    second_rule,
+  )
+
+  assert tuple(
+    match.premises
+    for match in second_round.matches
+    if match.inference_rule == second_rule
+  ) == (
+    (
+      first_middle_step,
+    ),
+    (
+      second_middle_step,
+    ),
+  )
+
+  assert tuple(
+    match.bindings
+    for match in second_round.matches
+    if match.inference_rule == second_rule
+  ) == (
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="gamma",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=y,
+        value="zeta",
+      ),
+    ),
+  )
+
+  assert tuple(
+    application_result.accepted
+    for application_result
+    in second_round.application_results
+  ) == (
+    False,
+    False,
+    True,
+    True,
+  )
+
+  assert tuple(
+    application_result.rejection_reason
+    for application_result
+    in second_round.application_results
+  ) == (
+    InferenceRejectionReason.ALREADY_KNOWN,
+    InferenceRejectionReason.ALREADY_KNOWN,
+    None,
+    None,
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in second_round.new_steps
+  ) == (
+    Relation(
+      lhs="final",
+      rhs="gamma",
+    ),
+    Relation(
+      lhs="final",
+      rhs="zeta",
+    ),
+  )
+
+  first_final_step = (
+    second_round.new_steps[0]
+  )
+
+  second_final_step = (
+    second_round.new_steps[1]
+  )
+
+  assert first_final_step.premises == (
+    first_middle_step,
+  )
+
+  assert second_final_step.premises == (
+    second_middle_step,
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in result.steps
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    Relation(
+      lhs="delta",
+      rhs="epsilon",
+    ),
+    Relation(
+      lhs="epsilon",
+      rhs="zeta",
+    ),
+    Relation(
+      lhs="alpha",
+      rhs="gamma",
+      relation_type=RelationType.ZERO,
+    ),
+    Relation(
+      lhs="delta",
+      rhs="zeta",
+      relation_type=RelationType.ZERO,
+    ),
+    Relation(
+      lhs="final",
+      rhs="gamma",
+    ),
+    Relation(
+      lhs="final",
+      rhs="zeta",
+    ),
+  )
+
+
+def test_multiple_branches_merge_into_multi_premise_rule_fixed_point_end_to_end():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  first_rule = InferenceRule(
+    name="derive branch middle relations",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=z,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=z,
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  left_value = PatternVariable(
+    "left_value"
+  )
+
+  right_value = PatternVariable(
+    "right_value"
+  )
+
+  merge_rule = InferenceRule(
+    name="merge branch middle relations",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="alpha",
+          rhs=left_value,
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="delta",
+          rhs=right_value,
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=left_value,
+      rhs=right_value,
+      relation_type=RelationType.ORDER,
+    ),
+  )
+
+  alpha_beta = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  beta_gamma = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  delta_epsilon = ProofStep(
+    conclusion=Relation(
+      lhs="delta",
+      rhs="epsilon",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  epsilon_zeta = ProofStep(
+    conclusion=Relation(
+      lhs="epsilon",
+      rhs="zeta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        first_rule,
+        merge_rule,
+      ),
+      (
+        alpha_beta,
+        beta_gamma,
+        delta_epsilon,
+        epsilon_zeta,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 2
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  second_round = (
+    result.round_results[1]
+  )
+
+  assert len(
+    first_round.matches
+  ) == 2
+
+  assert tuple(
+    match.inference_rule
+    for match in first_round.matches
+  ) == (
+    first_rule,
+    first_rule,
+  )
+
+  assert tuple(
+    match.bindings
+    for match in first_round.matches
+  ) == (
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="gamma",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=y,
+        value="epsilon",
+      ),
+      VariableBinding(
+        variable=z,
+        value="zeta",
+      ),
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.new_steps
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="gamma",
+      relation_type=RelationType.ZERO,
+    ),
+    Relation(
+      lhs="delta",
+      rhs="zeta",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  left_middle_step = (
+    first_round.new_steps[0]
+  )
+
+  right_middle_step = (
+    first_round.new_steps[1]
+  )
+
+  assert left_middle_step.premises == (
+    alpha_beta,
+    beta_gamma,
+  )
+
+  assert right_middle_step.premises == (
+    delta_epsilon,
+    epsilon_zeta,
+  )
+
+  assert len(
+    second_round.matches
+  ) == 3
+
+  assert tuple(
+    match.inference_rule
+    for match in second_round.matches
+  ) == (
+    first_rule,
+    first_rule,
+    merge_rule,
+  )
+
+  merge_match = (
+    second_round.matches[2]
+  )
+
+  assert merge_match.premises == (
+    left_middle_step,
+    right_middle_step,
+  )
+
+  assert merge_match.bindings == (
+    VariableBinding(
+      variable=left_value,
+      value="gamma",
+    ),
+    VariableBinding(
+      variable=right_value,
+      value="zeta",
+    ),
+  )
+
+  assert tuple(
+    application_result.accepted
+    for application_result
+    in second_round.application_results
+  ) == (
+    False,
+    False,
+    True,
+  )
+
+  assert tuple(
+    application_result.rejection_reason
+    for application_result
+    in second_round.application_results
+  ) == (
+    InferenceRejectionReason.ALREADY_KNOWN,
+    InferenceRejectionReason.ALREADY_KNOWN,
+    None,
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in second_round.new_steps
+  ) == (
+    Relation(
+      lhs="gamma",
+      rhs="zeta",
+      relation_type=RelationType.ORDER,
+    ),
+  )
+
+  final_step = (
+    second_round.new_steps[0]
+  )
+
+  assert final_step.premises == (
+    left_middle_step,
+    right_middle_step,
+  )
+
+  assert final_step.inference_rule == (
+    merge_rule
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in result.steps
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    Relation(
+      lhs="delta",
+      rhs="epsilon",
+    ),
+    Relation(
+      lhs="epsilon",
+      rhs="zeta",
+    ),
+    Relation(
+      lhs="alpha",
+      rhs="gamma",
+      relation_type=RelationType.ZERO,
+    ),
+    Relation(
+      lhs="delta",
+      rhs="zeta",
+      relation_type=RelationType.ZERO,
+    ),
+    Relation(
+      lhs="gamma",
+      rhs="zeta",
+      relation_type=RelationType.ORDER,
+    ),
+  )
 
 
 
