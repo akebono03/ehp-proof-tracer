@@ -68,6 +68,53 @@ class InferenceMatch:
   premises: tuple[ProofStep, ...]
 
 
+@dataclass(frozen=True)
+class InferenceApplicationResult:
+  match: InferenceMatch
+  candidate_step: ProofStep
+
+
+class InferenceTerminationReason(Enum):
+  FIXED_POINT = "fixed_point"
+  MAX_ROUNDS = "max_rounds"
+
+
+@dataclass(frozen=True)
+class InferenceRoundResult:
+  new_steps: tuple[ProofStep, ...]
+  matches: tuple[InferenceMatch, ...] = ()
+  candidate_steps: tuple[ProofStep, ...] = ()
+  duplicate_rejected_steps: tuple[ProofStep, ...] = ()
+  application_results: tuple[
+    InferenceApplicationResult,
+    ...
+  ] = ()
+
+
+@dataclass(frozen=True)
+class InferenceRunResult:
+  steps: tuple[ProofStep, ...]
+  round_results: tuple[
+    InferenceRoundResult,
+    ...
+  ]
+  termination_reason: InferenceTerminationReason
+
+  @property
+  def round_history(self):
+    return tuple(
+      round_result.new_steps
+      for round_result
+      in self.round_results
+    )
+
+  @property
+  def round_count(self):
+    return len(
+      self.round_results
+    )
+
+
 @dataclass
 class Proof:
   conclusion: Any
@@ -384,6 +431,40 @@ def apply_inference_matches(
     )
     for inference_match
     in normalized_matches
+  )
+
+
+def apply_inference_matches_with_results(
+  inference_matches,
+):
+  normalized_matches = (
+    _normalize_inference_matches(
+      inference_matches
+    )
+  )
+
+  results = []
+
+  for inference_match in (
+    normalized_matches
+  ):
+    candidate_step = (
+      apply_inference_match(
+        inference_match
+      )
+    )
+
+    results.append(
+      InferenceApplicationResult(
+        match=inference_match,
+        candidate_step=(
+          candidate_step
+        ),
+      )
+    )
+
+  return tuple(
+    results
   )
 
 
@@ -863,7 +944,332 @@ def relation_inference_proof(
   )
 
 
+def _validate_max_rounds(
+  max_rounds,
+):
+  if max_rounds is None:
+    return
 
+  if (
+    isinstance(
+      max_rounds,
+      bool,
+    )
+    or not isinstance(
+      max_rounds,
+      int,
+    )
+  ):
+    raise TypeError(
+      "max_rounds must be "
+      "an int or None"
+    )
+
+  if max_rounds < 0:
+    raise ValueError(
+      "max_rounds must be "
+      "non-negative"
+    )
+
+
+def derive_inference_steps(
+  inference_rules,
+  available_steps,
+):
+  matches = find_inference_matches(
+    inference_rules,
+    available_steps,
+  )
+
+  return apply_inference_matches(
+    matches
+  )
+
+
+def merge_proof_steps(
+  available_steps,
+  derived_steps,
+):
+  normalized_available_steps = (
+    _normalize_proof_steps(
+      available_steps,
+      "available_steps",
+    )
+  )
+
+  normalized_derived_steps = (
+    _normalize_proof_steps(
+      derived_steps,
+      "derived_steps",
+    )
+  )
+
+  merged_steps = list(
+    normalized_available_steps
+  )
+
+  known_conclusions = [
+    step.conclusion
+    for step in merged_steps
+  ]
+
+  for step in normalized_derived_steps:
+    if any(
+      step.conclusion
+      == known_conclusion
+      for known_conclusion
+      in known_conclusions
+    ):
+      continue
+
+    merged_steps.append(
+      step
+    )
+
+    known_conclusions.append(
+      step.conclusion
+    )
+
+  return tuple(
+    merged_steps
+  )
+
+
+def partition_new_and_duplicate_proof_steps(
+  available_steps,
+  candidate_steps,
+):
+  normalized_available_steps = (
+    _normalize_proof_steps(
+      available_steps,
+      "available_steps",
+    )
+  )
+
+  normalized_candidate_steps = (
+    _normalize_proof_steps(
+      candidate_steps,
+      "candidate_steps",
+    )
+  )
+
+  seen_conclusions = [
+    step.conclusion
+    for step
+    in normalized_available_steps
+  ]
+
+  new_steps = []
+  duplicate_rejected_steps = []
+
+  for step in normalized_candidate_steps:
+    if any(
+      step.conclusion
+      == seen_conclusion
+      for seen_conclusion
+      in seen_conclusions
+    ):
+      duplicate_rejected_steps.append(
+        step
+      )
+      continue
+
+    new_steps.append(
+      step
+    )
+
+    seen_conclusions.append(
+      step.conclusion
+    )
+
+  return (
+    tuple(new_steps),
+    tuple(
+      duplicate_rejected_steps
+    ),
+  )
+
+
+def derive_inference_round_result(
+  inference_rules,
+  available_steps,
+):
+  normalized_rules = (
+    _normalize_inference_rules(
+      inference_rules
+    )
+  )
+
+  normalized_steps = (
+    _normalize_proof_steps(
+      available_steps,
+      "available_steps",
+    )
+  )
+
+  matches = find_inference_matches(
+    normalized_rules,
+    normalized_steps,
+  )
+
+  application_results = (
+    apply_inference_matches_with_results(
+      matches
+    )
+  )
+
+  candidate_steps = tuple(
+    application_result.candidate_step
+    for application_result
+    in application_results
+  )
+
+  (
+    new_steps,
+    duplicate_rejected_steps,
+  ) = (
+    partition_new_and_duplicate_proof_steps(
+      normalized_steps,
+      candidate_steps,
+    )
+  )
+
+  return InferenceRoundResult(
+    new_steps=new_steps,
+    matches=matches,
+    candidate_steps=candidate_steps,
+    duplicate_rejected_steps=(
+      duplicate_rejected_steps
+    ),
+    application_results=(
+      application_results
+    ),
+  )
+
+
+def derive_new_inference_steps(
+  inference_rules,
+  available_steps,
+):
+  round_result = (
+    derive_inference_round_result(
+      inference_rules,
+      available_steps,
+    )
+  )
+
+  return round_result.new_steps
+
+
+def run_inference_round(
+  inference_rules,
+  available_steps,
+):
+  normalized_steps = (
+    _normalize_proof_steps(
+      available_steps,
+      "available_steps",
+    )
+  )
+
+  new_steps = derive_new_inference_steps(
+    inference_rules,
+    normalized_steps,
+  )
+
+  return (
+    normalized_steps
+    + new_steps
+  )
+
+
+def run_inference_until_stable_with_history(
+  inference_rules,
+  available_steps,
+  max_rounds=None,
+):
+  normalized_rules = (
+    _normalize_inference_rules(
+      inference_rules
+    )
+  )
+
+  current_steps = (
+    _normalize_proof_steps(
+      available_steps,
+      "available_steps",
+    )
+  )
+
+  _validate_max_rounds(
+    max_rounds
+  )
+
+  round_results = []
+
+  while True:
+    if (
+      max_rounds is not None
+      and len(
+        round_results
+      ) >= max_rounds
+    ):
+      return InferenceRunResult(
+        steps=current_steps,
+        round_results=tuple(
+          round_results
+        ),
+        termination_reason=(
+          InferenceTerminationReason.MAX_ROUNDS
+        ),
+      )
+
+    round_result = (
+      derive_inference_round_result(
+        normalized_rules,
+        current_steps,
+      )
+    )
+
+    new_steps = (
+      round_result.new_steps
+    )
+
+    if not new_steps:
+      return InferenceRunResult(
+        steps=current_steps,
+        round_results=tuple(
+          round_results
+        ),
+        termination_reason=(
+          InferenceTerminationReason.FIXED_POINT
+        ),
+      )
+
+    round_results.append(
+      round_result
+    )
+
+    current_steps = (
+      current_steps
+      + new_steps
+    )
+
+
+def run_inference_until_stable(
+  inference_rules,
+  available_steps,
+  max_rounds=None,
+):
+  result = (
+    run_inference_until_stable_with_history(
+      inference_rules,
+      available_steps,
+      max_rounds=max_rounds,
+    )
+  )
+
+  return result.steps
 
 
 
