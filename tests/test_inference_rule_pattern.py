@@ -13,6 +13,7 @@ from proof import (
   ProofStep,
   Relation,
   RelationType,
+  VariableBinding,
   apply_inference_match,
   apply_inference_matches,
   apply_inference_matches_with_results,
@@ -9641,6 +9642,96 @@ def test_pattern_variable_rejects_empty_name():
     )
 
 
+def test_variable_binding():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  binding = VariableBinding(
+    variable=variable,
+    value="alpha",
+  )
+
+  assert binding.variable == variable
+  assert binding.value == "alpha"
+
+
+def test_variable_binding_is_structurally_equal():
+  first = VariableBinding(
+    variable=PatternVariable(
+      name="x",
+    ),
+    value="alpha",
+  )
+
+  second = VariableBinding(
+    variable=PatternVariable(
+      name="x",
+    ),
+    value="alpha",
+  )
+
+  assert first == second
+
+
+def test_variable_binding_with_different_variable_is_not_equal():
+  first = VariableBinding(
+    variable=PatternVariable(
+      name="x",
+    ),
+    value="alpha",
+  )
+
+  second = VariableBinding(
+    variable=PatternVariable(
+      name="y",
+    ),
+    value="alpha",
+  )
+
+  assert first != second
+
+
+def test_variable_binding_with_different_value_is_not_equal():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  first = VariableBinding(
+    variable=variable,
+    value="alpha",
+  )
+
+  second = VariableBinding(
+    variable=variable,
+    value="beta",
+  )
+
+  assert first != second
+
+
+def test_variable_binding_accepts_arbitrary_value():
+  relation = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  binding = VariableBinding(
+    variable=PatternVariable(
+      name="x",
+    ),
+    value=relation,
+  )
+
+  assert binding.value == relation
+
+
+def test_variable_binding_rejects_invalid_variable():
+  with pytest.raises(TypeError):
+    VariableBinding(
+      variable="x",
+      value="alpha",
+    )
 
 
 

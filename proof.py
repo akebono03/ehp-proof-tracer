@@ -65,6 +65,22 @@ class PatternVariable:
 
 
 @dataclass(frozen=True)
+class VariableBinding:
+  variable: PatternVariable
+  value: Any
+
+  def __post_init__(self):
+    if not isinstance(
+      self.variable,
+      PatternVariable,
+    ):
+      raise TypeError(
+        "variable must be "
+        "a PatternVariable"
+      )
+
+
+@dataclass(frozen=True)
 class InferenceRule:
   name: str
   description: str | None = None
