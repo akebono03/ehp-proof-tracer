@@ -13048,6 +13048,545 @@ def test_conclusion_pattern_fixed_point_preserves_dependency_chain():
   )
 
 
+def test_multiple_premises_shared_bindings_with_conclusion_pattern():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  rule = InferenceRule(
+    name="compose relations",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=z,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=z,
+    ),
+  )
+
+  first_premise = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  second_premise = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      first_premise,
+      second_premise,
+    ),
+  )
+
+  assert match is not None
+
+  assert match.premises == (
+    first_premise,
+    second_premise,
+  )
+
+  assert match.bindings == (
+    VariableBinding(
+      variable=x,
+      value="alpha",
+    ),
+    VariableBinding(
+      variable=y,
+      value="beta",
+    ),
+    VariableBinding(
+      variable=z,
+      value="gamma",
+    ),
+  )
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == Relation(
+    lhs="alpha",
+    rhs="gamma",
+  )
+
+  assert step.premises == (
+    first_premise,
+    second_premise,
+  )
+
+
+def test_multiple_premises_shared_bindings_reject_conflict_end_to_end():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  rule = InferenceRule(
+    name="compose relations",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=z,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=z,
+    ),
+  )
+
+  first_premise = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  conflicting_premise = ProofStep(
+    conclusion=Relation(
+      lhs="delta",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      first_premise,
+      conflicting_premise,
+    ),
+  )
+
+  assert match is None
+
+
+def test_multiple_premises_shared_bindings_backtracks_to_consistent_match():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  rule = InferenceRule(
+    name="compose relations",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=z,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=z,
+    ),
+  )
+
+  first_premise = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  conflicting_candidate = ProofStep(
+    conclusion=Relation(
+      lhs="delta",
+      rhs="wrong",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  matching_candidate = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      first_premise,
+      conflicting_candidate,
+      matching_candidate,
+    ),
+  )
+
+  assert match is not None
+
+  assert match.premises == (
+    first_premise,
+    matching_candidate,
+  )
+
+  assert match.bindings == (
+    VariableBinding(
+      variable=x,
+      value="alpha",
+    ),
+    VariableBinding(
+      variable=y,
+      value="beta",
+    ),
+    VariableBinding(
+      variable=z,
+      value="gamma",
+    ),
+  )
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == Relation(
+    lhs="alpha",
+    rhs="gamma",
+  )
+
+
+def test_derive_inference_round_result_with_multiple_premises_shared_bindings():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  rule = InferenceRule(
+    name="compose relations",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=z,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=z,
+    ),
+  )
+
+  first_premise = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  second_premise = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    derive_inference_round_result(
+      rule,
+      (
+        first_premise,
+        second_premise,
+      ),
+    )
+  )
+
+  assert len(
+    result.new_steps
+  ) == 1
+
+  assert (
+    result.new_steps[0].conclusion
+    == Relation(
+      lhs="alpha",
+      rhs="gamma",
+    )
+  )
+
+  assert result.new_steps[0].premises == (
+    first_premise,
+    second_premise,
+  )
+
+  assert len(
+    result.matches
+  ) == 1
+
+  assert result.matches[0].bindings == (
+    VariableBinding(
+      variable=x,
+      value="alpha",
+    ),
+    VariableBinding(
+      variable=y,
+      value="beta",
+    ),
+    VariableBinding(
+      variable=z,
+      value="gamma",
+    ),
+  )
+
+
+def test_run_inference_round_with_multiple_premises_shared_bindings():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  rule = InferenceRule(
+    name="compose relations",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=z,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=z,
+    ),
+  )
+
+  first_premise = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  second_premise = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  steps = run_inference_round(
+    rule,
+    (
+      first_premise,
+      second_premise,
+    ),
+  )
+
+  assert len(steps) == 3
+
+  assert steps[0] is first_premise
+
+  assert steps[1] is second_premise
+
+  assert steps[2].conclusion == Relation(
+    lhs="alpha",
+    rhs="gamma",
+  )
+
+  assert steps[2].premises == (
+    first_premise,
+    second_premise,
+  )
+
+
+def test_fixed_point_with_multiple_premises_shared_bindings():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  rule = InferenceRule(
+    name="compose relations",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=z,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=z,
+    ),
+  )
+
+  first_premise = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  second_premise = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        first_premise,
+        second_premise,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 1
+
+  assert tuple(
+    step.conclusion
+    for step in result.steps
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    Relation(
+      lhs="alpha",
+      rhs="gamma",
+    ),
+  )
+
+  assert (
+    result.steps[2].premises
+    == (
+      first_premise,
+      second_premise,
+    )
+  )
+
 
 
 
