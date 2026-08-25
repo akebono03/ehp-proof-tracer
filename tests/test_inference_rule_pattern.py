@@ -41,6 +41,7 @@ from proof import (
   run_inference_round,
   run_inference_until_stable,
   run_inference_until_stable_with_history,
+  substitute_inference_conclusion,
   substitute_pattern_value,
   substitute_relation_pattern,  
 )
@@ -12152,6 +12153,215 @@ def test_inference_rule_can_hold_builder_and_conclusion_pattern():
     == conclusion_pattern
   )
 
+
+def test_substitute_inference_conclusion():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="rule",
+    conclusion_pattern=Relation(
+      lhs=variable,
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+    bindings=(
+      VariableBinding(
+        variable=variable,
+        value="alpha",
+      ),
+    ),
+  )
+
+  result = (
+    substitute_inference_conclusion(
+      match
+    )
+  )
+
+  assert result == Relation(
+    lhs="alpha",
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+
+def test_substitute_inference_conclusion_multiple_bindings():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  rule = InferenceRule(
+    name="rule",
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=y,
+    ),
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+    bindings=(
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+    ),
+  )
+
+  result = (
+    substitute_inference_conclusion(
+      match
+    )
+  )
+
+  assert result == Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+
+def test_substitute_inference_conclusion_preserves_metadata():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="rule",
+    conclusion_pattern=Relation(
+      lhs=variable,
+      rhs="0",
+      relation_type=RelationType.ZERO,
+      source="Toda",
+      note="derived relation",
+    ),
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+    bindings=(
+      VariableBinding(
+        variable=variable,
+        value="alpha",
+      ),
+    ),
+  )
+
+  result = (
+    substitute_inference_conclusion(
+      match
+    )
+  )
+
+  assert (
+    result.relation_type
+    == RelationType.ZERO
+  )
+
+  assert result.source == "Toda"
+
+  assert (
+    result.note
+    == "derived relation"
+  )
+
+
+def test_substitute_inference_conclusion_without_variables():
+  conclusion_pattern = Relation(
+    lhs="alpha",
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  rule = InferenceRule(
+    name="rule",
+    conclusion_pattern=(
+      conclusion_pattern
+    ),
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+  )
+
+  assert (
+    substitute_inference_conclusion(
+      match
+    )
+    == conclusion_pattern
+  )
+
+
+def test_substitute_inference_conclusion_unbound_variable_becomes_none():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="rule",
+    conclusion_pattern=Relation(
+      lhs=variable,
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+  )
+
+  result = (
+    substitute_inference_conclusion(
+      match
+    )
+  )
+
+  assert result == Relation(
+    lhs=None,
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+
+def test_substitute_inference_conclusion_rejects_invalid_match():
+  with pytest.raises(TypeError):
+    substitute_inference_conclusion(
+      "invalid"
+    )
+
+
+def test_substitute_inference_conclusion_requires_conclusion_pattern():
+  rule = InferenceRule(
+    name="rule",
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+  )
+
+  with pytest.raises(ValueError):
+    substitute_inference_conclusion(
+      match
+    )
 
 
 

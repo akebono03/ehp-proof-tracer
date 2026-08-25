@@ -798,6 +798,36 @@ def find_inference_matches_for_rule(
   )
 
 
+def substitute_inference_conclusion(
+  inference_match,
+):
+  if not isinstance(
+    inference_match,
+    InferenceMatch,
+  ):
+    raise TypeError(
+      "inference_match must be "
+      "an InferenceMatch"
+    )
+
+  conclusion_pattern = (
+    inference_match
+    .inference_rule
+    .conclusion_pattern
+  )
+
+  if conclusion_pattern is None:
+    raise ValueError(
+      "inference rule must have "
+      "a conclusion pattern"
+    )
+
+  return substitute_relation_pattern(
+    conclusion_pattern,
+    inference_match.bindings,
+  )
+
+
 def apply_inference_match(
   inference_match,
 ):
