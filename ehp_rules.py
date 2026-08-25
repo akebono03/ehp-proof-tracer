@@ -128,6 +128,55 @@ def ehp_exactness_inference_rule(
   )
 
 
+def ehp_exactness_image_implies_kernel_inference_rule():
+  first_map = PatternVariable(
+    name="first_map",
+  )
+  second_map = PatternVariable(
+    name="second_map",
+  )
+  structure = PatternVariable(
+    name="structure",
+  )
+
+  return InferenceRule(
+    name=(
+      "EHP exactness transfers "
+      "image structure to kernel"
+    ),
+    description=(
+      "If a consecutive map pair is exact, "
+      "the image of the first map equals "
+      "the kernel of the second map."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=ExactnessStatement,
+        statement_pattern=(
+          ExactnessStatement(
+            first_map=first_map,
+            second_map=second_map,
+            is_exact=True,
+          )
+        ),
+      ),
+      PremisePattern(
+        statement_type=ImageStatement,
+        statement_pattern=(
+          ImageStatement(
+            group_map=first_map,
+            structure=structure,
+          )
+        ),
+      ),
+    ),
+    conclusion_pattern=KernelStatement(
+      group_map=second_map,
+      structure=structure,
+    ),
+  )
+
+
 def ehp_maps_are_consecutive(
   first_map,
   second_map,
