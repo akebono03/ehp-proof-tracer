@@ -14327,6 +14327,260 @@ def test_partially_shared_variables_across_multiple_premises_end_to_end():
   )
 
 
+def test_shared_variable_propagates_across_three_premises_end_to_end():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  w = PatternVariable(
+    "w"
+  )
+
+  rule = InferenceRule(
+    name="three premise shared variable rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=z,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=w,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=y,
+      rhs=w,
+    ),
+  )
+
+  alpha_beta = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  alpha_gamma = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  alpha_delta = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="delta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  epsilon_zeta = ProofStep(
+    conclusion=Relation(
+      lhs="epsilon",
+      rhs="zeta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        alpha_beta,
+        alpha_gamma,
+        alpha_delta,
+        epsilon_zeta,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 1
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  assert len(
+    first_round.matches
+  ) == 6
+
+  assert tuple(
+    match.bindings
+    for match in first_round.matches
+  ) == (
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="gamma",
+      ),
+      VariableBinding(
+        variable=w,
+        value="delta",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=w,
+        value="gamma",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="gamma",
+      ),
+      VariableBinding(
+        variable=z,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=w,
+        value="delta",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="gamma",
+      ),
+      VariableBinding(
+        variable=z,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=w,
+        value="beta",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=w,
+        value="gamma",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="gamma",
+      ),
+      VariableBinding(
+        variable=w,
+        value="beta",
+      ),
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.new_steps
+  ) == (
+    Relation(
+      lhs="beta",
+      rhs="delta",
+    ),
+    Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    Relation(
+      lhs="gamma",
+      rhs="delta",
+    ),
+    Relation(
+      lhs="gamma",
+      rhs="beta",
+    ),
+    Relation(
+      lhs="delta",
+      rhs="gamma",
+    ),
+    Relation(
+      lhs="delta",
+      rhs="beta",
+    ),
+  )
+
+
+
 
 
 
