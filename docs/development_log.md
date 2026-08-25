@@ -19524,6 +19524,1092 @@ duplicate-rejected history
 まで一つの inference execution model として扱えるようになった。
 
 
+# Phase 5-35：application acceptance status / rejection reason
+
+Phase 5-34 では、
+1回の inference application を、
+
+```text
+InferenceMatch
+↓
+candidate ProofStep
+```
+
+として明示的に結び付けるため、
+
+```python
+InferenceApplicationResult
+```
+
+を導入した。
+
+Phase 5-34 時点では、
+
+```python
+InferenceApplicationResult(
+  match=...,
+  candidate_step=...,
+)
+```
+
+という構造であり、
+
+```text
+どの match が
+どの candidate を生成したか
+```
+
+を直接記録できるようになった。
+
+Phase 5-35 では、
+この application result に、
+
+```text
+candidate が knowledge state に採用されたか
+採用されなかった場合はなぜか
+```
+
+を追加した。
+
+---
+
+## InferenceRejectionReason を追加
+
+duplicate rejection の理由を明示するため、
+
+```python
+class InferenceRejectionReason(Enum):
+  ALREADY_KNOWN = "already_known"
+  SAME_ROUND_DUPLICATE = (
+    "same_round_duplicate"
+  )
+```
+
+を追加した。
+
+これにより、
+従来は同じ、
+
+```text
+duplicate_rejected_steps
+```
+
+として扱われていた rejection を、
+
+```text
+ALREADY_KNOWN
+```
+
+と、
+
+```text
+SAME_ROUND_DUPLICATE
+```
+
+に区別できるようになった。
+
+---
+
+## ALREADY_KNOWN
+
+candidate conclusion が、
+round 開始前の available ProofSteps に
+すでに存在する場合、
+
+```text
+accepted = False
+rejection_reason = ALREADY_KNOWN
+```
+
+とする。
+
+例えば、
+
+```text
+available:
+given
+derived
+```
+
+に対して、
+
+```text
+given
+↓ rule
+derived
+```
+
+を再度生成した場合、
+rule application 自体は成功する。
+
+しかし conclusion はすでに known なので、
+
+```text
+ALREADY_KNOWN
+```
+
+として reject する。
+
+---
+
+## SAME_ROUND_DUPLICATE
+
+同じ round 内で、
+earlier application が同じ conclusion を先に accepted した場合、
+
+```text
+accepted = False
+rejection_reason = SAME_ROUND_DUPLICATE
+```
+
+とする。
+
+例えば、
+
+```text
+rule 1:
+given → same
+
+rule 2:
+given → same
+```
+
+なら、
+
+```text
+rule 1:
+accepted = True
+
+rule 2:
+accepted = False
+rejection_reason = SAME_ROUND_DUPLICATE
+```
+
+となる。
+
+これにより、
+
+```text
+round 開始前から既知
+```
+
+と、
+
+```text
+同じ round 中に先に生成された
+```
+
+を区別できるようになった。
+
+---
+
+## InferenceApplicationResult の拡張
+
+`InferenceApplicationResult` を、
+
+```python
+@dataclass(frozen=True)
+class InferenceApplicationResult:
+  match: InferenceMatch
+  candidate_step: ProofStep
+  accepted: bool | None = None
+  rejection_reason: (
+    InferenceRejectionReason | None
+  ) = None
+```
+
+へ拡張した。
+
+新しい fields:
+
+```text
+accepted
+rejection_reason
+```
+
+を追加した。
+
+---
+
+## accepted の3状態
+
+`accepted` は、
+
+```text
+True
+False
+None
+```
+
+の3状態を持つ。
+
+意味は、
+
+```text
+None
+=
+まだ acceptance classification 前
+
+True
+=
+candidate accepted
+
+False
+=
+candidate rejected
+```
+
+とする。
+
+raw `InferenceApplicationResult` を生成する、
+
+```python
+apply_inference_matches_with_results()
+```
+
+の段階では、
+
+```text
+accepted = None
+rejection_reason = None
+```
+
+となる。
+
+これはこの段階では、
+candidate generation までしか行っていないためである。
+
+---
+
+## application-result normalizer を追加
+
+新しい classification API が、
+single / tuple / list を統一的に扱えるよう、
+
+```python
+_normalize_inference_application_results()
+```
+
+を追加した。
+
+対応入力:
+
+```text
+single InferenceApplicationResult
+tuple[InferenceApplicationResult, ...]
+list[InferenceApplicationResult]
+```
+
+invalid collection や invalid item は
+`TypeError` とする。
+
+既存の、
+
+```text
+_normalize_proof_steps()
+_normalize_inference_rules()
+_normalize_inference_matches()
+```
+
+と同じ normalization pattern を採用した。
+
+---
+
+## classify_inference_application_results() を追加
+
+application result の acceptance decision を行うため、
+
+```python
+classify_inference_application_results()
+```
+
+を追加した。
+
+基本処理:
+
+```text
+available_steps
++
+raw application_results
+↓
+known_before_round
+を構築
+↓
+accepted_in_round
+を空で開始
+↓
+各 candidate を順番に判定
+```
+
+とする。
+
+---
+
+## known_before_round
+
+round 開始前に存在していた conclusion を、
+
+```text
+known_before_round
+```
+
+として保持する。
+
+candidate conclusion がこれに含まれる場合、
+
+```text
+accepted = False
+rejection_reason = ALREADY_KNOWN
+```
+
+とする。
+
+---
+
+## accepted_in_round
+
+round 中ですでに accepted された conclusion を、
+
+```text
+accepted_in_round
+```
+
+として保持する。
+
+candidate conclusion が、
+
+```text
+known_before_round
+```
+
+には存在しないが、
+
+```text
+accepted_in_round
+```
+
+に存在する場合、
+
+```text
+accepted = False
+rejection_reason = SAME_ROUND_DUPLICATE
+```
+
+とする。
+
+---
+
+## new candidate
+
+candidate conclusion が、
+
+```text
+known_before_round
+```
+
+にも、
+
+```text
+accepted_in_round
+```
+
+にも存在しない場合、
+
+```text
+accepted = True
+rejection_reason = None
+```
+
+とする。
+
+その後 candidate conclusion を、
+
+```text
+accepted_in_round
+```
+
+へ追加する。
+
+この処理によって、
+existing first-candidate-wins semantics をそのまま再現する。
+
+---
+
+## classification order
+
+classification は、
+application result の input order を保持する。
+
+そのため、
+
+```text
+first application
+second application
+third application
+```
+
+の順で処理される。
+
+同じ conclusion を生成する場合、
+最初の application が accepted される。
+
+Phase 5-35 では、
+rule priority や proof quality comparison は導入していない。
+
+---
+
+## derive_inference_round_result() を変更
+
+Phase 5-34 では、
+
+```text
+matches
+↓
+application_results
+↓
+candidate_steps
+↓
+partition_new_and_duplicate_proof_steps()
+```
+
+としていた。
+
+Phase 5-35 では、
+
+```text
+matches
+↓
+raw_application_results
+↓
+classify_inference_application_results()
+↓
+application_results
+↓
+new_steps / rejected steps
+```
+
+へ変更した。
+
+実装上は、
+
+```python
+raw_application_results = (
+  apply_inference_matches_with_results(
+    matches
+  )
+)
+```
+
+で raw result を生成し、
+
+```python
+application_results = (
+  classify_inference_application_results(
+    normalized_steps,
+    raw_application_results,
+  )
+)
+```
+
+で acceptance classification を行う。
+
+---
+
+## candidate_steps
+
+`candidate_steps` は、
+
+```python
+tuple(
+  application_result.candidate_step
+  for application_result
+  in application_results
+)
+```
+
+として構築する。
+
+accepted / rejected に関係なく、
+すべての candidate を保持する。
+
+Phase 5-33 以降の candidate-history semantics は変更していない。
+
+---
+
+## new_steps
+
+`new_steps` は、
+
+```python
+tuple(
+  application_result.candidate_step
+  for application_result
+  in application_results
+  if application_result.accepted
+)
+```
+
+として構築するよう変更した。
+
+つまり、
+
+```text
+new_steps
+=
+accepted applications の candidate steps
+```
+
+となる。
+
+---
+
+## duplicate_rejected_steps
+
+`duplicate_rejected_steps` は、
+
+```python
+tuple(
+  application_result.candidate_step
+  for application_result
+  in application_results
+  if (
+    application_result.accepted
+    is False
+  )
+)
+```
+
+として構築する。
+
+したがって、
+
+```text
+duplicate_rejected_steps
+```
+
+には従来通り rejected candidate が入る。
+
+ただし rejection reason の詳細は、
+
+```python
+application_result.rejection_reason
+```
+
+から取得できる。
+
+---
+
+## partition_new_and_duplicate_proof_steps() は維持
+
+Phase 5-26 / Phase 5-33 で導入した、
+
+```python
+partition_new_and_duplicate_proof_steps()
+```
+
+は削除していない。
+
+この helper は、
+ProofStep collection の simple partition API として維持する。
+
+Phase 5-35 の detailed round inference では、
+より情報量の多い、
+
+```python
+classify_inference_application_results()
+```
+
+を使用する。
+
+これにより backward compatibility を維持した。
+
+---
+
+## round-level view との整合性
+
+テストでは、
+
+```text
+accepted application results
+```
+
+から抽出した candidate steps が、
+
+```text
+round_result.new_steps
+```
+
+と一致することを確認した。
+
+また、
+
+```text
+accepted = False
+```
+
+の application results から抽出した candidate steps が、
+
+```text
+round_result.duplicate_rejected_steps
+```
+
+と一致することを確認した。
+
+したがって、
+
+```text
+application_results
+```
+
+と、
+
+```text
+new_steps
+duplicate_rejected_steps
+```
+
+の間に矛盾がない。
+
+---
+
+## fixed-point inference での acceptance status
+
+multi-round inference についても acceptance status を確認した。
+
+例:
+
+```text
+initial
+↓ first rule
+relation
+↓ second rule
+final
+```
+
+round 1:
+
+```text
+first rule
+↓
+relation
+```
+
+は、
+
+```text
+accepted = True
+```
+
+となる。
+
+round 2 では first rule が再度適用され、
+
+```text
+relation
+```
+
+を再生成する。
+
+この時点では relation は round 開始前から存在するため、
+
+```text
+accepted = False
+rejection_reason = ALREADY_KNOWN
+```
+
+となる。
+
+同じ round の second rule は、
+
+```text
+relation
+↓
+final
+```
+
+を生成し、
+
+```text
+accepted = True
+```
+
+となることを確認した。
+
+---
+
+## Phase 5-35 で追加した主なテスト
+
+追加したテスト:
+
+```text
+test_inference_rejection_reason_values
+
+test_inference_application_result_acceptance_defaults
+
+test_classify_inference_application_result_accepts_new_candidate
+
+test_classify_inference_application_result_rejects_already_known
+
+test_classify_inference_application_results_rejects_same_round_duplicate
+
+test_classify_inference_application_results_preserves_order
+
+test_classify_inference_application_results_empty
+
+test_classify_inference_application_results_accepts_list
+
+test_classify_inference_application_results_rejects_invalid_input
+
+test_classify_inference_application_results_rejects_invalid_item
+
+test_derive_inference_round_result_marks_accepted_application
+
+test_derive_inference_round_result_marks_already_known_application
+
+test_derive_inference_round_result_marks_same_round_duplicate
+
+test_derive_inference_round_result_views_match_application_status
+
+test_run_inference_until_stable_preserves_application_acceptance_status
+```
+
+Phase 5-35 では15 tests を追加した。
+
+---
+
+## 最終 test result
+
+実行:
+
+```powershell
+python -m pytest tests/test_inference_rule_pattern.py -v
+```
+
+結果:
+
+```text
+270 passed in 0.93s
+```
+
+Phase 5-34 完了時は、
+
+```text
+255 passed
+```
+
+だったため、
+
+```text
+255
++
+15
+=
+270
+```
+
+となった。
+
+全270 inference-rule pattern tests が成功した。
+
+---
+
+## regression
+
+Phase 5-35 の変更後も、
+
+```text
+PremisePattern
+InferenceRule
+InferenceMatch
+apply_inference_match()
+apply_inference_matches()
+derive_inference_steps()
+merge_proof_steps()
+partition_new_and_duplicate_proof_steps()
+derive_new_inference_steps()
+run_inference_round()
+fixed-point inference
+InferenceRunResult
+max_rounds
+termination reasons
+InferenceRoundResult
+per-round matches
+candidate_steps
+duplicate_rejected_steps
+InferenceApplicationResult
+match-to-candidate tracing
+```
+
+を含む既存 tests はすべて成功した。
+
+既存 inference semantics への regression は確認されなかった。
+
+---
+
+## Phase 5-35 時点の inference pipeline
+
+現在の one-round pipeline は、
+
+```text
+InferenceRules
++
+available ProofSteps
+↓
+find_inference_matches()
+↓
+matches
+↓
+apply_inference_matches_with_results()
+↓
+raw InferenceApplicationResult
+├── match
+├── candidate_step
+├── accepted = None
+└── rejection_reason = None
+↓
+classify_inference_application_results()
+↓
+classified InferenceApplicationResult
+├── match
+├── candidate_step
+├── accepted
+└── rejection_reason
+↓
+InferenceRoundResult
+├── matches
+├── application_results
+├── candidate_steps
+├── new_steps
+└── duplicate_rejected_steps
+```
+
+となった。
+
+---
+
+## Phase 5-24 から Phase 5-35 まで
+
+Phase 5-24:
+
+```text
+candidate derivation
+```
+
+Phase 5-25:
+
+```text
+one-round state expansion
+```
+
+Phase 5-26:
+
+```text
+duplicate-aware merge
+```
+
+Phase 5-27:
+
+```text
+one-round genuinely-new delta
+```
+
+Phase 5-28:
+
+```text
+automatic fixed-point iteration
+```
+
+Phase 5-29:
+
+```text
+per-round history
++
+structured run result
+```
+
+Phase 5-30:
+
+```text
+bounded iteration
++
+explicit termination reason
+```
+
+Phase 5-31:
+
+```text
+structured round results
+```
+
+Phase 5-32:
+
+```text
+per-round InferenceMatch tracing
+```
+
+Phase 5-33:
+
+```text
+candidate tracing
++
+duplicate-rejection tracing
+```
+
+Phase 5-34:
+
+```text
+InferenceApplicationResult
++
+explicit match-to-candidate relationship
+```
+
+Phase 5-35:
+
+```text
+application acceptance status
++
+explicit duplicate rejection reasons
+```
+
+まで進んだ。
+
+---
+
+## Phase 5-35 の到達点
+
+現在は1回の inference application について、
+
+```text
+どの rule が match したか
+どの premises が選択されたか
+どの candidate が生成されたか
+candidate が accepted されたか
+rejected された場合はなぜか
+```
+
+を1つの structured execution trace から確認できる。
+
+特に duplicate rejection について、
+
+```text
+ALREADY_KNOWN
+```
+
+と、
+
+```text
+SAME_ROUND_DUPLICATE
+```
+
+を区別できるようになった。
+
+この結果、
+
+```text
+match
+↓
+application
+↓
+candidate
+↓
+acceptance decision
+↓
+knowledge-state expansion
+```
+
+までが明示的な inference execution model として整った。
+
+---
+
+## 次の課題
+
+Phase 5-35 までで、
+現在の greedy matching semantics に対する
+execution trace はかなり詳細になった。
+
+次の大きな制限は、
+
+```text
+1つの rule について
+最初に見つかった premise assignment しか使わない
+```
+
+ことである。
+
+現在の、
+
+```python
+find_matching_premises()
+```
+
+は各 `PremisePattern` に対して、
+
+```text
+first unused matching ProofStep
+```
+
+を選択する。
+
+そのため、
+
+```text
+同じ pattern に複数 ProofStep が適合する
+```
+
+場合でも、
+alternative match は探索しない。
+
+次 phase 以降では、
+
+```text
+multiple valid premise assignments
+multiple InferenceMatch objects per rule
+backtracking premise search
+```
+
+などを検討する。
+
+その上で、
+
+```text
+alternative proofs
+expression-level matching
+pattern variables
+variable bindings
+substitution
+```
+
+へ進む。
+
+---
+
+## 状態
+
+Phase 5-35 完了。
+
+inference-rule pattern tests:
+
+```text
+270 passed in 0.93s
+```
+
+Phase 5-35 により、
+
+```text
+InferenceMatch
+↓
+InferenceApplicationResult
+↓
+candidate
+↓
+accept / reject
+↓
+rejection reason
+```
+
+までを明示的に追跡できる inference execution 基盤が完成した。
+
+
 
 
 

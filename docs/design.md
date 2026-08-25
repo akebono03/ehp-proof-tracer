@@ -23198,6 +23198,1102 @@ match → candidate
 という最小単位だけを安定した structured object とする。
 
 
+# Phase 5-35：Inference application の採否状態と rejection reason
+
+Phase 5-34 では、
+
+```text
+InferenceMatch
+↓
+candidate ProofStep
+```
+
+という1回の rule application を、
+
+```python
+InferenceApplicationResult
+```
+
+として構造化した。
+
+Phase 5-34 時点の構造は、
+
+```text
+InferenceApplicationResult
+├── match
+└── candidate_step
+```
+
+であった。
+
+これにより、
+
+```text
+どの match が
+どの candidate を生成したか
+```
+
+は直接追跡できるようになった。
+
+一方、
+
+```text
+その candidate が knowledge state に入ったか
+```
+
+については、
+
+```text
+new_steps
+duplicate_rejected_steps
+```
+
+という round-level collection を別途確認する必要があった。
+
+Phase 5-35 では、
+application-level object 自体に
+acceptance decision を持たせる。
+
+---
+
+## InferenceApplicationResult の拡張
+
+Phase 5-35 では、
+
+```python
+@dataclass(frozen=True)
+class InferenceApplicationResult:
+  match: InferenceMatch
+  candidate_step: ProofStep
+  accepted: bool | None = None
+  rejection_reason: (
+    InferenceRejectionReason | None
+  ) = None
+```
+
+とする。
+
+これにより1 application が、
+
+```text
+match
+↓
+candidate
+↓
+acceptance decision
+```
+
+まで保持する。
+
+概念構造は、
+
+```text
+InferenceApplicationResult
+├── match
+│   ├── inference_rule
+│   └── premises
+├── candidate_step
+├── accepted
+└── rejection_reason
+```
+
+となる。
+
+---
+
+## accepted を bool | None とする理由
+
+`accepted` は単なる `bool` ではなく、
+
+```text
+bool | None
+```
+
+とする。
+
+理由は、
+
+```text
+candidate generation
+```
+
+と、
+
+```text
+knowledge-state acceptance
+```
+
+が異なる処理段階だからである。
+
+`apply_inference_matches_with_results()` は、
+
+```text
+InferenceMatch
+↓
+candidate generation
+```
+
+までを行う。
+
+この時点では、
+candidate が、
+
+```text
+既知 conclusion と重複するか
+同じ round の earlier candidate と重複するか
+```
+
+をまだ判定していない。
+
+したがって raw result は、
+
+```text
+accepted = None
+rejection_reason = None
+```
+
+とする。
+
+その後、
+
+```python
+classify_inference_application_results()
+```
+
+によって、
+
+```text
+accepted = True
+```
+
+または、
+
+```text
+accepted = False
+```
+
+へ確定する。
+
+この設計により、
+
+```text
+application succeeded
+```
+
+と、
+
+```text
+candidate accepted
+```
+
+を混同しない。
+
+---
+
+## InferenceRejectionReason の設計
+
+candidate が rejected された理由を表すため、
+
+```python
+class InferenceRejectionReason(Enum):
+  ALREADY_KNOWN = "already_known"
+  SAME_ROUND_DUPLICATE = (
+    "same_round_duplicate"
+  )
+```
+
+を導入する。
+
+Phase 5-35 では duplicate rejection の理由のみを扱う。
+
+現段階の rejection reason は、
+
+```text
+ALREADY_KNOWN
+SAME_ROUND_DUPLICATE
+```
+
+の2種類である。
+
+---
+
+## ALREADY_KNOWN
+
+`ALREADY_KNOWN` は、
+
+```text
+round 開始前の knowledge state に
+candidate conclusion がすでに存在した
+```
+
+ことを表す。
+
+例えば、
+
+```text
+available:
+A
+X
+```
+
+に対して、
+
+```text
+rule:
+A → X
+```
+
+を適用した場合、
+
+```text
+match
+=
+valid
+
+candidate
+=
+X
+```
+
+である。
+
+rule application 自体は成功しているが、
+
+```text
+X
+```
+
+は round 開始前から存在する。
+
+そのため、
+
+```text
+accepted = False
+rejection_reason = ALREADY_KNOWN
+```
+
+とする。
+
+---
+
+## SAME_ROUND_DUPLICATE
+
+`SAME_ROUND_DUPLICATE` は、
+
+```text
+round 開始時には candidate conclusion は存在しなかったが、
+earlier application が同じ conclusion を先に採用した
+```
+
+ことを表す。
+
+例えば、
+
+```text
+available:
+A
+
+rule 1:
+A → X
+
+rule 2:
+A → X
+```
+
+の場合、
+
+```text
+application 1
+candidate = X
+accepted = True
+```
+
+となり、
+
+その後、
+
+```text
+application 2
+candidate = X
+```
+
+は、
+
+```text
+accepted = False
+rejection_reason = SAME_ROUND_DUPLICATE
+```
+
+となる。
+
+この区別により、
+
+```text
+round 前から既知
+```
+
+と、
+
+```text
+この round で先に得られた
+```
+
+を execution trace 上で区別できる。
+
+---
+
+## first-candidate-wins semantics は維持する
+
+Phase 5-35 でも、
+同じ conclusion を複数 candidate が生成した場合は、
+
+```text
+最初の candidate を knowledge state に追加
+後続 candidate を duplicate reject
+```
+
+という既存 semantics を維持する。
+
+したがって、
+
+```text
+rule ordering
+```
+
+および、
+
+```text
+application ordering
+```
+
+は acceptance outcome に影響する。
+
+Phase 5-35 はこの semantics を変更せず、
+その結果を明示的に記録するだけである。
+
+---
+
+## classify_inference_application_results()
+
+acceptance classification のため、
+
+```python
+classify_inference_application_results(
+  available_steps,
+  application_results,
+)
+```
+
+を導入する。
+
+責務は、
+
+```text
+raw application result
+↓
+knowledge state と比較
+↓
+classified application result
+```
+
+である。
+
+内部ではまず、
+
+```text
+known_before_round
+```
+
+として、
+round 開始時点の conclusion を保持する。
+
+また、
+
+```text
+accepted_in_round
+```
+
+として、
+現在の round 中ですでに accepted された conclusion を保持する。
+
+各 candidate を順番に処理し、
+
+```text
+candidate conclusion ∈ known_before_round
+```
+
+なら、
+
+```text
+ALREADY_KNOWN
+```
+
+とする。
+
+そうでなく、
+
+```text
+candidate conclusion ∈ accepted_in_round
+```
+
+なら、
+
+```text
+SAME_ROUND_DUPLICATE
+```
+
+とする。
+
+どちらでもなければ、
+
+```text
+accepted = True
+```
+
+とし、
+candidate conclusion を `accepted_in_round` に追加する。
+
+---
+
+## classification order
+
+classification は application order を保持する。
+
+したがって、
+
+```text
+application_results[0]
+application_results[1]
+application_results[2]
+...
+```
+
+の順に判定する。
+
+同じ conclusion を持つ複数 candidate がある場合、
+
+```text
+最初に現れた candidate
+```
+
+が accepted される。
+
+この順序依存性は、
+Phase 5-26 以降の existing duplicate semantics と一致する。
+
+Phase 5-35 では新しい ranking policy は導入しない。
+
+---
+
+## raw application result と classified application result
+
+Phase 5-35 では、
+application result に2つの状態を認める。
+
+### raw result
+
+```text
+match
+candidate_step
+accepted = None
+rejection_reason = None
+```
+
+これは、
+
+```python
+apply_inference_matches_with_results()
+```
+
+が返す。
+
+### classified result
+
+accepted candidate:
+
+```text
+accepted = True
+rejection_reason = None
+```
+
+rejected candidate:
+
+```text
+accepted = False
+rejection_reason = ALREADY_KNOWN
+```
+
+または、
+
+```text
+accepted = False
+rejection_reason = SAME_ROUND_DUPLICATE
+```
+
+となる。
+
+これは、
+
+```python
+classify_inference_application_results()
+```
+
+を通した後の状態である。
+
+---
+
+## derive_inference_round_result() の変更
+
+Phase 5-34 の one-round pipeline は、
+
+```text
+find matches
+↓
+application results
+↓
+candidate_steps
+↓
+duplicate partition
+```
+
+だった。
+
+Phase 5-35 では、
+
+```text
+find matches
+↓
+raw application results
+↓
+classify application results
+↓
+classified application results
+↓
+derive round views
+```
+
+とする。
+
+具体的には、
+
+```text
+InferenceRules
++
+available ProofSteps
+↓
+find_inference_matches()
+↓
+matches
+↓
+apply_inference_matches_with_results()
+↓
+raw_application_results
+↓
+classify_inference_application_results()
+↓
+application_results
+↓
+candidate_steps
+new_steps
+duplicate_rejected_steps
+↓
+InferenceRoundResult
+```
+
+となる。
+
+---
+
+## new_steps の導出
+
+`new_steps` は classified application results から、
+
+```python
+tuple(
+  application_result.candidate_step
+  for application_result
+  in application_results
+  if application_result.accepted
+)
+```
+
+として導出する。
+
+したがって、
+
+```text
+new_steps
+```
+
+は、
+
+```text
+accepted application の candidate view
+```
+
+と位置づける。
+
+---
+
+## duplicate_rejected_steps の導出
+
+`duplicate_rejected_steps` は、
+
+```python
+tuple(
+  application_result.candidate_step
+  for application_result
+  in application_results
+  if (
+    application_result.accepted
+    is False
+  )
+)
+```
+
+として導出する。
+
+したがって、
+
+```text
+duplicate_rejected_steps
+```
+
+は、
+
+```text
+rejected application の candidate view
+```
+
+となる。
+
+rejection reason の詳細は、
+
+```text
+application_result.rejection_reason
+```
+
+を見ることで取得できる。
+
+---
+
+## existing partition helper の位置づけ
+
+既存の、
+
+```python
+partition_new_and_duplicate_proof_steps()
+```
+
+は削除しない。
+
+この helper は、
+
+```text
+ProofStep collection
+```
+
+だけを使って、
+
+```text
+new
+duplicate
+```
+
+へ分ける単純な API として残す。
+
+一方 Phase 5-35 の detailed inference pipeline では、
+
+```text
+InferenceApplicationResult
+```
+
+を classification の単位とする。
+
+したがって、
+
+```text
+partition_new_and_duplicate_proof_steps()
+=
+ProofStep-level compatibility / utility API
+
+classify_inference_application_results()
+=
+detailed inference-trace API
+```
+
+という役割分担とする。
+
+---
+
+## application_results を detailed source とする
+
+Phase 5-35 以降、
+
+```text
+application_results
+```
+
+は round acceptance decision の最も詳細な表現となる。
+
+一方、
+
+```text
+matches
+candidate_steps
+new_steps
+duplicate_rejected_steps
+```
+
+は、それぞれ用途別の round-level view として維持する。
+
+概念的には、
+
+```text
+application_results
+↓
+├── matches
+├── candidate_steps
+├── accepted candidates
+│   └── new_steps
+└── rejected candidates
+    └── duplicate_rejected_steps
+```
+
+と見ることができる。
+
+ただし backward compatibility のため、
+これらの fields は現段階ではすべて明示的に保持する。
+
+---
+
+## fixed-point execution との関係
+
+`run_inference_until_stable_with_history()` は、
+productive round の `InferenceRoundResult` を保持する。
+
+Phase 5-35 では、
+各 productive round の application result に、
+
+```text
+accepted
+rejection_reason
+```
+
+が保存される。
+
+例えば、
+
+```text
+round 1:
+A → B
+
+round 2:
+A → B
+B → C
+```
+
+なら、
+
+```text
+round 1:
+A → B
+accepted = True
+```
+
+round 2 の再適用は、
+
+```text
+A → B
+accepted = False
+rejection_reason = ALREADY_KNOWN
+```
+
+となる。
+
+一方、
+
+```text
+B → C
+```
+
+は、
+
+```text
+accepted = True
+```
+
+となる。
+
+これにより fixed-point execution 中の
+repeated rule application の意味を直接説明できる。
+
+---
+
+## non-productive terminal round は引き続き保存しない
+
+Phase 5-35 でも、
+
+```text
+FIXED_POINT
+```
+
+を確認する最終の non-productive inference check は、
+`round_results` に追加しない。
+
+したがって、
+
+```text
+productive round の application status
+```
+
+は保存されるが、
+
+```text
+terminal empty round の full application trace
+```
+
+はまだ保存されない。
+
+これは Phase 5-31 以降の existing round-history semantics を維持する。
+
+---
+
+## backward compatibility
+
+Phase 5-35 では、
+既存 API を削除しない。
+
+特に、
+
+```text
+matches
+candidate_steps
+new_steps
+duplicate_rejected_steps
+round_history
+round_count
+termination_reason
+```
+
+はそのまま利用できる。
+
+また、
+
+```text
+apply_inference_matches_with_results()
+```
+
+は raw application result を返すため、
+
+```text
+accepted = None
+```
+
+を default とする。
+
+既存の Phase 5-34 construction:
+
+```python
+InferenceApplicationResult(
+  match=match,
+  candidate_step=candidate,
+)
+```
+
+もそのまま有効である。
+
+---
+
+## Phase 5-35 で変更しない semantics
+
+以下は変更しない。
+
+```text
+PremisePattern semantics
+greedy premise search
+first unused matching ProofStep selection
+InferenceRule order
+InferenceMatch order
+candidate generation order
+conclusion equality
+first-candidate-wins semantics
+fixed-point semantics
+productive-round semantics
+max_rounds semantics
+termination reason semantics
+```
+
+Phase 5-35 は、
+
+```text
+acceptance decision をより詳細に記録する
+```
+
+ための phase であり、
+inference search strategy 自体は変更しない。
+
+---
+
+## Phase 5-35 時点の result hierarchy
+
+現在の detailed inference hierarchy は、
+
+```text
+InferenceRunResult
+├── steps
+├── round_results
+│   └── InferenceRoundResult
+│       ├── matches
+│       ├── application_results
+│       │   └── InferenceApplicationResult
+│       │       ├── match
+│       │       ├── candidate_step
+│       │       ├── accepted
+│       │       └── rejection_reason
+│       ├── candidate_steps
+│       ├── new_steps
+│       └── duplicate_rejected_steps
+├── round_history
+├── round_count
+└── termination_reason
+```
+
+となる。
+
+これにより、
+
+```text
+run
+↓
+round
+↓
+match
+↓
+application
+↓
+candidate
+↓
+decision
+```
+
+という execution hierarchy が明確になった。
+
+---
+
+## Phase 5-35 の設計上の到達点
+
+Phase 5-32:
+
+```text
+どの rule / premises が match したか
+```
+
+Phase 5-33:
+
+```text
+どの candidate が生成され、
+どれが duplicate reject されたか
+```
+
+Phase 5-34:
+
+```text
+どの match が
+どの candidate を生成したか
+```
+
+Phase 5-35:
+
+```text
+その application が accepted されたか
+rejected されたならなぜか
+```
+
+まで表現できるようになった。
+
+現在の inference trace は、
+
+```text
+matching
+↓
+application
+↓
+candidate generation
+↓
+acceptance classification
+↓
+knowledge-state expansion
+```
+
+という主要な段階を
+structured result として追跡できる。
+
+---
+
+## 次の設計候補
+
+現在の detailed execution trace は、
+current greedy matcher に対してかなり整った。
+
+次に残る大きな制限は、
+
+```text
+1つの InferenceRule に対して
+1つの premise assignment しか探索しない
+```
+
+ことである。
+
+現在、
+
+```python
+find_matching_premises()
+```
+
+は、
+
+```text
+各 PremisePattern に対して
+最初の unused matching ProofStep
+```
+
+を選択する。
+
+したがって複数の ProofStep が同じ pattern に適合しても、
+alternative premise assignment は生成されない。
+
+次の自然な方向は、
+
+```text
+all valid premise assignments
+```
+
+またはその基礎となる、
+
+```text
+複数の InferenceMatch
+```
+
+を1つの rule から生成する仕組みである。
+
+将来的には、
+
+```text
+backtracking
+alternative premise assignments
+multiple proofs
+expression-level patterns
+pattern variables
+bindings
+substitution
+```
+
+へ拡張する。
+
+Phase 5-35 では current greedy matching semantics は維持する。
+
+
 
 
 

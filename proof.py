@@ -68,10 +68,21 @@ class InferenceMatch:
   premises: tuple[ProofStep, ...]
 
 
+class InferenceRejectionReason(Enum):
+  ALREADY_KNOWN = "already_known"
+  SAME_ROUND_DUPLICATE = (
+    "same_round_duplicate"
+  )
+
+
 @dataclass(frozen=True)
 class InferenceApplicationResult:
   match: InferenceMatch
   candidate_step: ProofStep
+  accepted: bool | None = None
+  rejection_reason: (
+    InferenceRejectionReason | None
+  ) = None
 
 
 class InferenceTerminationReason(Enum):
@@ -771,6 +782,49 @@ def _normalize_inference_matches(
   return normalized
 
 
+def _normalize_inference_application_results(
+  application_results,
+):
+  if isinstance(
+    application_results,
+    InferenceApplicationResult,
+  ):
+    return (
+      application_results,
+    )
+
+  if not isinstance(
+    application_results,
+    (tuple, list),
+  ):
+    raise TypeError(
+      "application_results must be "
+      "an InferenceApplicationResult "
+      "or a tuple/list of "
+      "InferenceApplicationResult"
+    )
+
+  normalized = tuple(
+    application_results
+  )
+
+  for application_result in (
+    normalized
+  ):
+    if not isinstance(
+      application_result,
+      InferenceApplicationResult,
+    ):
+      raise TypeError(
+        "application_results must "
+        "contain only "
+        "InferenceApplicationResult "
+        "objects"
+      )
+
+  return normalized
+
+
 def _normalize_relations(
   relations,
 ):
@@ -1090,6 +1144,98 @@ def partition_new_and_duplicate_proof_steps(
   )
 
 
+def classify_inference_application_results(
+  available_steps,
+  application_results,
+):
+  normalized_available_steps = (
+    _normalize_proof_steps(
+      available_steps,
+      "available_steps",
+    )
+  )
+
+  normalized_application_results = (
+    _normalize_inference_application_results(
+      application_results
+    )
+  )
+
+  known_before_round = [
+    step.conclusion
+    for step
+    in normalized_available_steps
+  ]
+
+  accepted_in_round = []
+  classified_results = []
+
+  for application_result in (
+    normalized_application_results
+  ):
+    candidate_step = (
+      application_result.candidate_step
+    )
+
+    candidate_conclusion = (
+      candidate_step.conclusion
+    )
+
+    if any(
+      candidate_conclusion
+      == known_conclusion
+      for known_conclusion
+      in known_before_round
+    ):
+      classified_results.append(
+        InferenceApplicationResult(
+          match=application_result.match,
+          candidate_step=candidate_step,
+          accepted=False,
+          rejection_reason=(
+            InferenceRejectionReason.ALREADY_KNOWN
+          ),
+        )
+      )
+      continue
+
+    if any(
+      candidate_conclusion
+      == accepted_conclusion
+      for accepted_conclusion
+      in accepted_in_round
+    ):
+      classified_results.append(
+        InferenceApplicationResult(
+          match=application_result.match,
+          candidate_step=candidate_step,
+          accepted=False,
+          rejection_reason=(
+            InferenceRejectionReason
+            .SAME_ROUND_DUPLICATE
+          ),
+        )
+      )
+      continue
+
+    classified_results.append(
+      InferenceApplicationResult(
+        match=application_result.match,
+        candidate_step=candidate_step,
+        accepted=True,
+        rejection_reason=None,
+      )
+    )
+
+    accepted_in_round.append(
+      candidate_conclusion
+    )
+
+  return tuple(
+    classified_results
+  )
+
+
 def derive_inference_round_result(
   inference_rules,
   available_steps,
@@ -1112,9 +1258,16 @@ def derive_inference_round_result(
     normalized_steps,
   )
 
-  application_results = (
+  raw_application_results = (
     apply_inference_matches_with_results(
       matches
+    )
+  )
+
+  application_results = (
+    classify_inference_application_results(
+      normalized_steps,
+      raw_application_results,
     )
   )
 
@@ -1124,13 +1277,20 @@ def derive_inference_round_result(
     in application_results
   )
 
-  (
-    new_steps,
-    duplicate_rejected_steps,
-  ) = (
-    partition_new_and_duplicate_proof_steps(
-      normalized_steps,
-      candidate_steps,
+  new_steps = tuple(
+    application_result.candidate_step
+    for application_result
+    in application_results
+    if application_result.accepted
+  )
+
+  duplicate_rejected_steps = tuple(
+    application_result.candidate_step
+    for application_result
+    in application_results
+    if (
+      application_result.accepted
+      is False
     )
   )
 

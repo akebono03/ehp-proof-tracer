@@ -2,6 +2,7 @@ import pytest
 from proof import (
   InferenceApplicationResult,
   InferenceMatch,
+  InferenceRejectionReason,
   InferenceRoundResult,
   InferenceRule,
   InferenceRunResult,
@@ -14,6 +15,7 @@ from proof import (
   apply_inference_match,
   apply_inference_matches,
   apply_inference_matches_with_results,
+  classify_inference_application_results,
   derive_inference_round_result,
   derive_inference_steps,
   derive_new_inference_steps,
@@ -8348,6 +8350,744 @@ def test_run_inference_until_stable_records_application_results():
     "final",
   )
 
+
+def test_inference_rejection_reason_values():
+  assert (
+    InferenceRejectionReason
+    .ALREADY_KNOWN.value
+    == "already_known"
+  )
+
+  assert (
+    InferenceRejectionReason
+    .SAME_ROUND_DUPLICATE.value
+    == "same_round_duplicate"
+  )
+
+
+def test_inference_application_result_acceptance_defaults():
+  rule = InferenceRule(
+    name="rule",
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+  )
+
+  candidate_step = ProofStep(
+    conclusion="candidate",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+    inference_rule=rule,
+  )
+
+  result = InferenceApplicationResult(
+    match=match,
+    candidate_step=candidate_step,
+  )
+
+  assert result.accepted is None
+
+  assert (
+    result.rejection_reason
+    is None
+  )
+
+
+def test_classify_inference_application_result_accepts_new_candidate():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = InferenceRule(
+    name="rule",
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(
+      given,
+    ),
+  )
+
+  candidate = ProofStep(
+    conclusion="derived",
+    premises=(
+      given,
+    ),
+    rule=ProofRule.INFERENCE,
+    inference_rule=rule,
+  )
+
+  result = (
+    classify_inference_application_results(
+      (
+        given,
+      ),
+      InferenceApplicationResult(
+        match=match,
+        candidate_step=candidate,
+      ),
+    )
+  )
+
+  assert len(
+    result
+  ) == 1
+
+  assert result[0].accepted is True
+
+  assert (
+    result[0].rejection_reason
+    is None
+  )
+
+  assert (
+    result[0].candidate_step
+    == candidate
+  )
+
+
+def test_classify_inference_application_result_rejects_already_known():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  known = ProofStep(
+    conclusion="derived",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = InferenceRule(
+    name="rule",
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(
+      given,
+    ),
+  )
+
+  candidate = ProofStep(
+    conclusion="derived",
+    premises=(
+      given,
+    ),
+    rule=ProofRule.INFERENCE,
+    inference_rule=rule,
+  )
+
+  result = (
+    classify_inference_application_results(
+      (
+        given,
+        known,
+      ),
+      InferenceApplicationResult(
+        match=match,
+        candidate_step=candidate,
+      ),
+    )
+  )
+
+  assert result[0].accepted is False
+
+  assert (
+    result[0].rejection_reason
+    == InferenceRejectionReason.ALREADY_KNOWN
+  )
+
+
+def test_classify_inference_application_results_rejects_same_round_duplicate():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_rule = InferenceRule(
+    name="first rule",
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+  )
+
+  first_match = InferenceMatch(
+    inference_rule=first_rule,
+    premises=(
+      given,
+    ),
+  )
+
+  second_match = InferenceMatch(
+    inference_rule=second_rule,
+    premises=(
+      given,
+    ),
+  )
+
+  first_candidate = ProofStep(
+    conclusion="same",
+    premises=(
+      given,
+    ),
+    rule=ProofRule.INFERENCE,
+    inference_rule=first_rule,
+  )
+
+  second_candidate = ProofStep(
+    conclusion="same",
+    premises=(
+      given,
+    ),
+    rule=ProofRule.INFERENCE,
+    inference_rule=second_rule,
+  )
+
+  result = (
+    classify_inference_application_results(
+      given,
+      (
+        InferenceApplicationResult(
+          match=first_match,
+          candidate_step=(
+            first_candidate
+          ),
+        ),
+        InferenceApplicationResult(
+          match=second_match,
+          candidate_step=(
+            second_candidate
+          ),
+        ),
+      ),
+    )
+  )
+
+  assert result[0].accepted is True
+
+  assert (
+    result[0].rejection_reason
+    is None
+  )
+
+  assert result[1].accepted is False
+
+  assert (
+    result[1].rejection_reason
+    == (
+      InferenceRejectionReason
+      .SAME_ROUND_DUPLICATE
+    )
+  )
+
+
+def test_classify_inference_application_results_preserves_order():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_rule = InferenceRule(
+    name="first rule",
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+  )
+
+  first_match = InferenceMatch(
+    inference_rule=first_rule,
+    premises=(
+      given,
+    ),
+  )
+
+  second_match = InferenceMatch(
+    inference_rule=second_rule,
+    premises=(
+      given,
+    ),
+  )
+
+  first_candidate = ProofStep(
+    conclusion="first",
+    premises=(
+      given,
+    ),
+    rule=ProofRule.INFERENCE,
+    inference_rule=first_rule,
+  )
+
+  second_candidate = ProofStep(
+    conclusion="second",
+    premises=(
+      given,
+    ),
+    rule=ProofRule.INFERENCE,
+    inference_rule=second_rule,
+  )
+
+  result = (
+    classify_inference_application_results(
+      given,
+      (
+        InferenceApplicationResult(
+          match=first_match,
+          candidate_step=(
+            first_candidate
+          ),
+        ),
+        InferenceApplicationResult(
+          match=second_match,
+          candidate_step=(
+            second_candidate
+          ),
+        ),
+      ),
+    )
+  )
+
+  assert tuple(
+    application_result.candidate_step.conclusion
+    for application_result
+    in result
+  ) == (
+    "first",
+    "second",
+  )
+
+
+def test_classify_inference_application_results_empty():
+  result = (
+    classify_inference_application_results(
+      (),
+      (),
+    )
+  )
+
+  assert result == ()
+
+
+def test_classify_inference_application_results_accepts_list():
+  rule = InferenceRule(
+    name="rule",
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+  )
+
+  candidate = ProofStep(
+    conclusion="candidate",
+    premises=(),
+    rule=ProofRule.INFERENCE,
+    inference_rule=rule,
+  )
+
+  result = (
+    classify_inference_application_results(
+      [],
+      [
+        InferenceApplicationResult(
+          match=match,
+          candidate_step=candidate,
+        ),
+      ],
+    )
+  )
+
+  assert result[0].accepted is True
+
+
+def test_classify_inference_application_results_rejects_invalid_input():
+  with pytest.raises(TypeError):
+    classify_inference_application_results(
+      (),
+      "invalid",
+    )
+
+
+def test_classify_inference_application_results_rejects_invalid_item():
+  with pytest.raises(TypeError):
+    classify_inference_application_results(
+      (),
+      [
+        "invalid",
+      ],
+    )
+
+
+def test_derive_inference_round_result_marks_accepted_application():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = InferenceRule(
+    name="rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  result = derive_inference_round_result(
+    rule,
+    given,
+  )
+
+  assert len(
+    result.application_results
+  ) == 1
+
+  application_result = (
+    result.application_results[0]
+  )
+
+  assert (
+    application_result.accepted
+    is True
+  )
+
+  assert (
+    application_result.rejection_reason
+    is None
+  )
+
+  assert result.new_steps == (
+    application_result.candidate_step,
+  )
+
+  assert (
+    result.duplicate_rejected_steps
+    == ()
+  )
+
+
+def test_derive_inference_round_result_marks_already_known_application():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  known = ProofStep(
+    conclusion="derived",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = InferenceRule(
+    name="rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "derived"
+    ),
+  )
+
+  result = derive_inference_round_result(
+    rule,
+    (
+      given,
+      known,
+    ),
+  )
+
+  assert len(
+    result.application_results
+  ) == 1
+
+  application_result = (
+    result.application_results[0]
+  )
+
+  assert (
+    application_result.accepted
+    is False
+  )
+
+  assert (
+    application_result.rejection_reason
+    == InferenceRejectionReason.ALREADY_KNOWN
+  )
+
+  assert result.new_steps == ()
+
+  assert (
+    result.duplicate_rejected_steps
+    == (
+      application_result.candidate_step,
+    )
+  )
+
+
+def test_derive_inference_round_result_marks_same_round_duplicate():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_rule = InferenceRule(
+    name="first rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "same"
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "same"
+    ),
+  )
+
+  result = derive_inference_round_result(
+    (
+      first_rule,
+      second_rule,
+    ),
+    given,
+  )
+
+  assert len(
+    result.application_results
+  ) == 2
+
+  first_result = (
+    result.application_results[0]
+  )
+
+  second_result = (
+    result.application_results[1]
+  )
+
+  assert first_result.accepted is True
+
+  assert (
+    first_result.rejection_reason
+    is None
+  )
+
+  assert second_result.accepted is False
+
+  assert (
+    second_result.rejection_reason
+    == (
+      InferenceRejectionReason
+      .SAME_ROUND_DUPLICATE
+    )
+  )
+
+  assert result.new_steps == (
+    first_result.candidate_step,
+  )
+
+  assert (
+    result.duplicate_rejected_steps
+    == (
+      second_result.candidate_step,
+    )
+  )
+
+
+def test_derive_inference_round_result_views_match_application_status():
+  given = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  known = ProofStep(
+    conclusion="known",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_rule = InferenceRule(
+    name="accepted rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "new"
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="known rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "known"
+    ),
+  )
+
+  result = derive_inference_round_result(
+    (
+      first_rule,
+      second_rule,
+    ),
+    (
+      given,
+      known,
+    ),
+  )
+
+  accepted_steps = tuple(
+    application_result.candidate_step
+    for application_result
+    in result.application_results
+    if application_result.accepted
+  )
+
+  rejected_steps = tuple(
+    application_result.candidate_step
+    for application_result
+    in result.application_results
+    if (
+      application_result.accepted
+      is False
+    )
+  )
+
+  assert (
+    accepted_steps
+    == result.new_steps
+  )
+
+  assert (
+    rejected_steps
+    == result.duplicate_rejected_steps
+  )
+
+
+def test_run_inference_until_stable_preserves_application_acceptance_status():
+  initial = ProofStep(
+    conclusion="initial",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  relation = Relation(
+    lhs="middle",
+    rhs="value",
+  )
+
+  first_rule = InferenceRule(
+    name="first rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      relation
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="second rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+      ),
+    ),
+    conclusion_builder=lambda premises: (
+      "final"
+    ),
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        first_rule,
+        second_rule,
+      ),
+      initial,
+    )
+  )
+
+  assert result.round_count == 2
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  second_round = (
+    result.round_results[1]
+  )
+
+  assert (
+    first_round.application_results[
+      0
+    ].accepted
+    is True
+  )
+
+  assert (
+    second_round.application_results[
+      0
+    ].accepted
+    is False
+  )
+
+  assert (
+    second_round.application_results[
+      0
+    ].rejection_reason
+    == InferenceRejectionReason.ALREADY_KNOWN
+  )
+
+  assert (
+    second_round.application_results[
+      1
+    ].accepted
+    is True
+  )
+
+  assert (
+    second_round.application_results[
+      1
+    ].rejection_reason
+    is None
+  )
 
 
 
