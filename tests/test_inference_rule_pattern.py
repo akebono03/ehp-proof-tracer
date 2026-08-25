@@ -13588,6 +13588,132 @@ def test_fixed_point_with_multiple_premises_shared_bindings():
   )
 
 
+def test_single_rule_multiple_binding_assignments_derive_distinct_conclusions_end_to_end():
+  x = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="source to derived",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=x,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="derived",
+      rhs=x,
+    ),
+  )
+
+  alpha_premise = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  beta_premise = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        alpha_premise,
+        beta_premise,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 1
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  assert len(
+    first_round.matches
+  ) == 2
+
+  assert tuple(
+    match.bindings
+    for match in first_round.matches
+  ) == (
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="beta",
+      ),
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.new_steps
+  ) == (
+    Relation(
+      lhs="derived",
+      rhs="alpha",
+    ),
+    Relation(
+      lhs="derived",
+      rhs="beta",
+    ),
+  )
+
+  assert first_round.new_steps[0].premises == (
+    alpha_premise,
+  )
+
+  assert first_round.new_steps[1].premises == (
+    beta_premise,
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in result.steps
+  ) == (
+    Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    Relation(
+      lhs="source",
+      rhs="beta",
+    ),
+    Relation(
+      lhs="derived",
+      rhs="alpha",
+    ),
+    Relation(
+      lhs="derived",
+      rhs="beta",
+    ),
+  )
+
 
 
 
