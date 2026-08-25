@@ -6,6 +6,11 @@ from ehp_rules import (
   ehp_exactness_implies_zero_composition_inference_rule,
   ehp_exactness_inference_rule,
   ehp_exactness_kernel_implies_image_inference_rule,
+  ehp_zero_composition_implies_zero_relation_inference_rule,
+)
+from expression import (
+  Composition,
+  Zero,
 )
 from proof import (
   ProofStep,
@@ -14,6 +19,8 @@ from proof import (
   ExactnessStatement,
   InferenceTerminationReason,
   ProofRule,
+  Relation,
+  RelationType,
   apply_inference_match,
   derive_inference_round_result,
   find_inference_match,
@@ -728,6 +735,70 @@ def test_ehp_exactness_derives_zero_composition_over_two_rounds():
     exactness_step,
     zero_composition_step,
   )
+
+
+def test_ehp_zero_composition_implies_zero_relation():
+  segment = EHPSegment(
+    make_sphere_repository(),
+    n=3,
+    k=5,
+  )
+
+  exact_step = (
+    segment.exact_step_at_sphere()
+  )
+
+  zero_composition_step = ProofStep(
+    conclusion=(
+      EHPZeroCompositionStatement(
+        first_map=exact_step.first_map,
+        second_map=exact_step.second_map,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    ehp_zero_composition_implies_zero_relation_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      zero_composition_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    Relation(
+      lhs=Composition(
+        left=exact_step.second_map,
+        right=exact_step.first_map,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    zero_composition_step,
+  )
+
+
+
 
 
 

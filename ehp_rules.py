@@ -1,4 +1,8 @@
 from dataclasses import dataclass
+from expression import (
+  Composition,
+  Zero,
+)
 from proof import (
   ExactnessStatement,
   ImageStatement,
@@ -7,6 +11,8 @@ from proof import (
   PatternVariable,
   PremisePattern,
   ProofRule,
+  Relation,
+  RelationType,
   ehp_exactness_proof_step,
   lookup_variable_binding,
 )
@@ -268,6 +274,49 @@ def ehp_exactness_implies_zero_composition_inference_rule():
         first_map=first_map,
         second_map=second_map,
       )
+    ),
+  )
+
+
+def ehp_zero_composition_implies_zero_relation_inference_rule():
+  first_map = PatternVariable(
+    name="first_map",
+  )
+  second_map = PatternVariable(
+    name="second_map",
+  )
+
+  return InferenceRule(
+    name=(
+      "EHP zero composition implies "
+      "zero relation"
+    ),
+    description=(
+      "An EHP zero-composition statement "
+      "is represented as a generic "
+      "zero relation for the composition "
+      "of the two maps."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          EHPZeroCompositionStatement
+        ),
+        statement_pattern=(
+          EHPZeroCompositionStatement(
+            first_map=first_map,
+            second_map=second_map,
+          )
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=Composition(
+        left=second_map,
+        right=first_map,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
     ),
   )
 
