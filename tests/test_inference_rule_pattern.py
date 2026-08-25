@@ -11458,6 +11458,238 @@ def test_find_all_matching_premises_enumerates_only_binding_consistent_assignmen
   )
 
 
+def test_inference_match_bindings_default_to_empty():
+  rule = InferenceRule(
+    name="rule",
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+  )
+
+  assert match.bindings == ()
+
+
+def test_inference_match_accepts_bindings():
+  variable = PatternVariable(
+    "x"
+  )
+
+  binding = VariableBinding(
+    variable=variable,
+    value="alpha",
+  )
+
+  rule = InferenceRule(
+    name="rule",
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+    bindings=(
+      binding,
+    ),
+  )
+
+  assert match.bindings == (
+    binding,
+  )
+
+
+def test_find_inference_match_stores_binding():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="variable rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=variable,
+          rhs="0",
+          relation_type=(
+            RelationType.ZERO
+          ),
+        ),
+      ),
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=(
+        RelationType.ZERO
+      ),
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  match = find_inference_match(
+    rule,
+    step,
+  )
+
+  assert match.bindings == (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+
+def test_find_inference_match_stores_merged_shared_binding():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="shared variable rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=variable,
+          rhs="0",
+          relation_type=(
+            RelationType.ZERO
+          ),
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+  )
+
+  zero_step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=(
+        RelationType.ZERO
+      ),
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  source_step = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      zero_step,
+      source_step,
+    ),
+  )
+
+  assert match.premises == (
+    zero_step,
+    source_step,
+  )
+
+  assert match.bindings == (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+
+def test_find_inference_matches_for_rule_stores_distinct_bindings():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="variable rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=variable,
+          rhs="0",
+          relation_type=(
+            RelationType.ZERO
+          ),
+        ),
+      ),
+    ),
+  )
+
+  alpha_step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=(
+        RelationType.ZERO
+      ),
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  beta_step = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="0",
+      relation_type=(
+        RelationType.ZERO
+      ),
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  matches = (
+    find_inference_matches_for_rule(
+      rule,
+      (
+        alpha_step,
+        beta_step,
+      ),
+    )
+  )
+
+  assert len(matches) == 2
+
+  assert matches[0].premises == (
+    alpha_step,
+  )
+
+  assert matches[0].bindings == (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+  assert matches[1].premises == (
+    beta_step,
+  )
+
+  assert matches[1].bindings == (
+    VariableBinding(
+      variable=variable,
+      value="beta",
+    ),
+  )
+
+
 
 
 

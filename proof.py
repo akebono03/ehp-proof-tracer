@@ -246,6 +246,10 @@ class ProofStep:
 class InferenceMatch:
   inference_rule: InferenceRule
   premises: tuple[ProofStep, ...]
+  bindings: tuple[
+    VariableBinding,
+    ...
+  ] = ()
 
 
 class InferenceRejectionReason(Enum):
@@ -683,13 +687,34 @@ def find_inference_matches_for_rule(
     )
   )
 
-  return tuple(
-    InferenceMatch(
-      inference_rule=inference_rule,
-      premises=premises,
+  matches = []
+
+  for premises in (
+    premise_assignments
+  ):
+    bindings = (
+      match_inference_rule_bindings(
+        inference_rule,
+        premises,
+      )
     )
-    for premises
-    in premise_assignments
+
+    if bindings is None:
+      raise RuntimeError(
+        "matching premises must have "
+        "consistent bindings"
+      )
+
+    matches.append(
+      InferenceMatch(
+        inference_rule=inference_rule,
+        premises=premises,
+        bindings=bindings,
+      )
+    )
+
+  return tuple(
+    matches
   )
 
 
