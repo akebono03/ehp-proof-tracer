@@ -1,11 +1,14 @@
 from pathlib import Path
-
 from ehp import EHPSegment
 from ehp_rules import ehp_exactness_inference_rule
 from proof import (
+  ProofStep,
+  ImageStatement,
+  KernelStatement,
   ExactnessStatement,
   InferenceTerminationReason,
   ProofRule,
+  apply_inference_match,
   derive_inference_round_result,
   find_inference_match,
   image_proof_step,
@@ -82,3 +85,68 @@ def test_ehp_exactness_inference_rule_derives_exactness():
   assert duplicate_round.application_results[0].rejection_reason.value == (
     "already_known"
   )
+
+
+def test_ehp_exactness_argument_free_rule_uses_conclusion_pattern():
+  rule = ehp_exactness_inference_rule()
+
+  assert rule.conclusion_builder is None
+
+  assert isinstance(
+    rule.conclusion_pattern,
+    ExactnessStatement,
+  )
+
+
+def test_ehp_exactness_argument_free_rule_substitutes_maps_into_conclusion():
+  segment = EHPSegment(
+    make_sphere_repository(),
+    n=3,
+    k=5,
+  )
+
+  exact_step = (
+    segment.exact_step_at_sphere()
+  )
+
+  image_step = image_proof_step(
+    exact_step.first_map
+  )
+
+  kernel_step = kernel_proof_step(
+    exact_step.second_map
+  )
+
+  rule = ehp_exactness_inference_rule()
+
+  match = find_inference_match(
+    rule,
+    (
+      image_step,
+      kernel_step,
+    ),
+  )
+
+  assert match is not None
+
+  result = apply_inference_match(
+    match
+  )
+
+  assert result.conclusion == ExactnessStatement(
+    first_map=exact_step.first_map,
+    second_map=exact_step.second_map,
+    is_exact=True,
+  )
+
+  assert result.rule == ProofRule.INFERENCE
+  assert result.inference_rule == rule
+  assert result.premises == (
+    image_step,
+    kernel_step,
+  )
+
+
+
+
+

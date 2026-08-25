@@ -1,5 +1,6 @@
 import pytest
 from proof import (
+  ExactnessStatement,
   InferenceApplicationResult,
   InferenceMatch,
   InferenceRejectionReason,
@@ -46,6 +47,7 @@ from proof import (
   run_inference_until_stable_with_history,
   substitute_inference_conclusion,
   substitute_pattern_value,
+  substitute_statement_pattern,
   substitute_relation_pattern,
 )
 
@@ -16295,6 +16297,351 @@ def test_multiple_branches_merge_into_multi_premise_rule_fixed_point_end_to_end(
     ),
   )
 
+
+def test_substitute_pattern_value_substitutes_dataclass_fields():
+  first_map = PatternVariable(
+    name="first_map",
+  )
+  second_map = PatternVariable(
+    name="second_map",
+  )
+
+  pattern = ExactnessStatement(
+    first_map=first_map,
+    second_map=second_map,
+    is_exact=True,
+  )
+
+  bindings = (
+    VariableBinding(
+      variable=first_map,
+      value="f",
+    ),
+    VariableBinding(
+      variable=second_map,
+      value="g",
+    ),
+  )
+
+  result = substitute_pattern_value(
+    pattern,
+    bindings,
+  )
+
+  assert result == ExactnessStatement(
+    first_map="f",
+    second_map="g",
+    is_exact=True,
+  )
+
+
+def test_substitute_pattern_value_preserves_dataclass_literal_fields():
+  group_map = PatternVariable(
+    name="group_map",
+  )
+
+  pattern = ImageStatement(
+    group_map=group_map,
+    structure="known image",
+  )
+
+  bindings = (
+    VariableBinding(
+      variable=group_map,
+      value="f",
+    ),
+  )
+
+  result = substitute_pattern_value(
+    pattern,
+    bindings,
+  )
+
+  assert result == ImageStatement(
+    group_map="f",
+    structure="known image",
+  )
+
+
+def test_substitute_statement_pattern():
+  first_map = PatternVariable(
+    name="first_map",
+  )
+  second_map = PatternVariable(
+    name="second_map",
+  )
+
+  pattern = ExactnessStatement(
+    first_map=first_map,
+    second_map=second_map,
+    is_exact=True,
+  )
+
+  bindings = (
+    VariableBinding(
+      variable=first_map,
+      value="f",
+    ),
+    VariableBinding(
+      variable=second_map,
+      value="g",
+    ),
+  )
+
+  result = substitute_statement_pattern(
+    pattern,
+    bindings,
+  )
+
+  assert result == ExactnessStatement(
+    first_map="f",
+    second_map="g",
+    is_exact=True,
+  )
+
+
+def test_substitute_statement_pattern_rejects_non_dataclass():
+  with pytest.raises(TypeError):
+    substitute_statement_pattern(
+      "invalid",
+      (),
+    )
+
+
+def test_inference_rule_accepts_statement_conclusion_pattern():
+  conclusion_pattern = ExactnessStatement(
+    first_map=PatternVariable(
+      name="first_map",
+    ),
+    second_map=PatternVariable(
+      name="second_map",
+    ),
+    is_exact=True,
+  )
+
+  rule = InferenceRule(
+    name="statement conclusion",
+    conclusion_pattern=conclusion_pattern,
+  )
+
+  assert (
+    rule.conclusion_pattern
+    == conclusion_pattern
+  )
+
+
+def test_substitute_inference_conclusion_with_statement_pattern():
+  first_map = PatternVariable(
+    name="first_map",
+  )
+  second_map = PatternVariable(
+    name="second_map",
+  )
+
+  rule = InferenceRule(
+    name="statement conclusion",
+    conclusion_pattern=(
+      ExactnessStatement(
+        first_map=first_map,
+        second_map=second_map,
+        is_exact=True,
+      )
+    ),
+  )
+
+  match = InferenceMatch(
+    inference_rule=rule,
+    premises=(),
+    bindings=(
+      VariableBinding(
+        variable=first_map,
+        value="E",
+      ),
+      VariableBinding(
+        variable=second_map,
+        value="H",
+      ),
+    ),
+  )
+
+  result = (
+    substitute_inference_conclusion(
+      match
+    )
+  )
+
+  assert result == ExactnessStatement(
+    first_map="E",
+    second_map="H",
+    is_exact=True,
+  )
+
+
+def test_apply_inference_match_uses_statement_conclusion_pattern():
+  group_map = PatternVariable(
+    name="group_map",
+  )
+  structure = PatternVariable(
+    name="structure",
+  )
+
+  rule = InferenceRule(
+    name="statement conclusion",
+    premise_patterns=(
+      PremisePattern(
+        statement_pattern=(
+          ImageStatement(
+            group_map=group_map,
+            structure=structure,
+          )
+        ),
+      ),
+    ),
+    conclusion_pattern=(
+      KernelStatement(
+        group_map=group_map,
+        structure=structure,
+      )
+    ),
+  )
+
+  premise = ProofStep(
+    conclusion=ImageStatement(
+      group_map="f",
+      structure="A",
+    ),
+    premises=(),
+    rule=ProofRule.IMAGE_COMPUTATION,
+  )
+
+  match = find_inference_match(
+    rule,
+    premise,
+  )
+
+  result = apply_inference_match(
+    match
+  )
+
+  assert result.conclusion == KernelStatement(
+    group_map="f",
+    structure="A",
+  )
+
+  assert result.premises == (
+    premise,
+  )
+
+  assert result.rule == ProofRule.INFERENCE
+
+  assert result.inference_rule == rule
+
+
+def test_inference_rule_match_guard_defaults_to_none():
+  rule = InferenceRule(
+    name="rule",
+  )
+
+  assert rule.match_guard is None
+
+
+def test_inference_rule_match_guard_accepts_match():
+  rule = InferenceRule(
+    name="guarded rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    match_guard=lambda premises, bindings: True,
+  )
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  assert find_inference_match(
+    rule,
+    step,
+  ) is not None
+
+
+def test_inference_rule_match_guard_rejects_match():
+  rule = InferenceRule(
+    name="guarded rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+    match_guard=lambda premises, bindings: False,
+  )
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  assert find_inference_match(
+    rule,
+    step,
+  ) is None
+
+
+def test_inference_rule_match_guard_receives_bindings():
+  variable = PatternVariable(
+    name="value",
+  )
+
+  received = []
+
+  def guard(
+    premises,
+    bindings,
+  ):
+    received.extend(
+      bindings
+    )
+    return True
+
+  rule = InferenceRule(
+    name="guarded binding rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=variable,
+          rhs="0",
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+    ),
+    match_guard=guard,
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  find_inference_match(
+    rule,
+    step,
+  )
+
+  assert received == [
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  ]
 
 
 

@@ -1,6 +1,6 @@
 # ehp_proof 開発記録
 
-この文書は Phase 5-65 時点までの開発履歴を、
+この文書は Phase 6-3 時点までの開発履歴を、
 現在の実装と矛盾しない形に整理した改訂版である。
 
 重要な読み方:
@@ -1188,6 +1188,73 @@ full project test suite: 652 passed
 exit code: 0
 git diff --check: clean
 ```
+
+### 状態
+
+完了
+
+
+# Phase 6-3：statement conclusion と match guard
+
+Phase 6-3 では、Phase 6-2 で導入した structured statement matching を
+conclusion construction まで拡張し、premise の構造的一致だけでは表せない
+domain condition を guard として扱えるようにした。
+
+## 実装
+
+`proof.py` に次を追加・拡張した。
+
+- `InferenceRule.conclusion_pattern` に dataclass statement を許可
+- `substitute_statement_pattern()`
+- dataclass fields の substitution
+- `InferenceRule.match_guard`
+- premise matching 後の guard evaluation
+
+statement conclusion pattern は各 field を既存の
+`substitute_pattern_value()` で置換する。これにより
+`ExactnessStatement`、`ImageStatement`、`KernelStatement` などを generic
+inference rule の conclusion として扱える。
+
+`match_guard(premises, bindings)` は premise patterns の matching と
+binding consistency の後に評価される。guard が false を返す assignment
+は `InferenceMatch` から除外されるため、generic engine に domain-specific
+な条件分岐を追加せずに追加条件を表現できる。
+
+## EHP rule integration
+
+argument-free `ehp_exactness_inference_rule()` は、Image/Kernel の map を
+statement patterns から binding し、次の `ExactnessStatement` conclusion
+pattern を使用する。
+
+```text
+ExactnessStatement(
+  first_map=?first_map,
+  second_map=?second_map,
+  is_exact=True,
+)
+```
+
+さらに `ehp_maps_are_consecutive()` を guard から呼び出し、first map の
+target と second map の source が一致する map pair だけを受理する。
+既存の `ehp_exactness_inference_rule(exact_step)` factory form と direct
+proof-step API は維持した。
+
+## 設計境界
+
+Phase 6-3 では次を実装しない。
+
+- arbitrary EHP segment からの exact pair 自動探索
+- EHP sequence 全体の自動構築
+- 新しい数学的 EHP theorem
+- 複雑な E/H/P index arithmetic
+
+## テスト
+
+statement conclusion substitution、guard の accept/reject、guard への
+binding 受け渡し、Phase 6-2 structured matching、Phase 6-1 exactness
+inference regression を確認した。focused inference and EHP tests は
+`441 passed`、full project test suite は `665 passed`、pytest exit code は
+`0` だった。
 
 ### 状態
 

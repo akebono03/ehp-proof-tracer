@@ -1,6 +1,6 @@
 # ehp_proof 設計メモ
 
-この文書は Phase 5-65 完了時点の「現在の設計」を正本としてまとめる。
+この文書は Phase 6-3 完了時点の「現在の設計」を正本としてまとめる。
 
 過去の各 Phase で書かれた設計メモには、その当時は正しかった
 「未実装」「今後の課題」という記述が多数ある。
@@ -414,6 +414,7 @@ description
 premise_patterns
 conclusion_builder
 conclusion_pattern
+match_guard
 ```
 
 ## 8.1 conclusion_builder
@@ -424,14 +425,31 @@ conclusion_pattern
 
 ## 8.2 conclusion_pattern
 
-structured `Relation` pattern に bindings を代入して
-conclusion を生成できる。
+structured `Relation` または dataclass statement pattern に bindings を
+代入して conclusion を生成できる。
+
+statement pattern の field substitution は
+`substitute_statement_pattern()` を通じて行う。
 
 ## 8.3 builder と pattern の両立
 
 両方が指定された場合、現実装では builder が優先される。
 
 この precedence は current API semantics として明示する。
+
+## 8.4 match_guard
+
+`match_guard` は optional callable であり、次の引数を受け取る。
+
+```text
+matched premises
+bindings
+```
+
+premise pattern の構造的一致と binding merge が成功した後に評価され、
+false を返す assignment は `InferenceMatch` として採用しない。
+domain-specific な追加条件を generic engine の分岐なしに表現するために
+使用する。
 
 ---
 
@@ -527,7 +545,14 @@ pattern と value の dataclass type が一致しない場合は match failure �
 この最小基盤は全 object tree を再帰的に unification するものではなく、
 statement dataclass の直接 fields を対象とする。
 
-## 11.3 merge_variable_bindings()
+## 11.4 substitute_statement_pattern()
+
+`substitute_statement_pattern()` は dataclass statement の各 field に
+`substitute_pattern_value()` を適用し、同じ statement type の具体化された
+instance を返す。これにより `ExactnessStatement` などを
+`InferenceRule.conclusion_pattern` として利用できる。
+
+## 11.5 merge_variable_bindings()
 
 同一 variable に対して、
 
@@ -1025,7 +1050,10 @@ one conclusion → multiple ProofSteps
 
 ## 25.3 general recursive pattern language
 
-現在 direct structured pattern support がある中心 statement は `Relation`。
+Relation および dataclass statement の direct fields には
+structured pattern support があるが、
+任意の nested object tree に対する一般 recursive unification engine
+ではない。
 
 全 Expression / Statement tree を対象とした
 一般 recursive unification engine ではない。
@@ -1208,9 +1236,9 @@ PremisePattern(
 patterns で同じ variable を使用すれば、両者が同じ map を参照すること
 を generic engine の shared-binding semantics で保証できる。
 
-EHP rule は `ehp_rules.py` に保持し、argument-free factory では matched
-maps から `ExactSequenceStep` を構築する。Phase 6-1 の引数付き factory
-form と既存の direct proof-step API は維持する。
+EHP rule は `ehp_rules.py` に保持し、Phase 6-2 で argument-free factory を導入した。
+現在の実装では Phase 6-3 の拡張により、matched maps は conclusion_pattern の substitution に使用され、map pair の妥当性は match_guard で検証される。
+Phase 6-1 の引数付き factory form と既存の direct proof-step API は維持する。
 
 Phase 6-2 の境界:
 
@@ -1218,6 +1246,29 @@ Phase 6-2 の境界:
 - EHP sequence 全体の自動構築は行わない
 - E/H/P の index arithmetic は扱わない
 - generic engine に EHP-specific branch を追加しない
+
+## 27.3 Phase 6-3：statement conclusion と match guard
+
+Phase 6-3 では、structured statement support を premise matching だけで
+なく conclusion construction にも拡張した。
+
+`InferenceRule.conclusion_pattern` は `Relation` に加えて dataclass
+statement を保持できる。`substitute_pattern_value()` は dataclass fields
+を再帰的に置換し、`substitute_statement_pattern()` は statement pattern
+用の明示的 API として提供する。
+
+また `InferenceRule.match_guard` を追加した。guard は premise matching
+後の `premises` と `bindings` を受け取り、domain condition を検査する。
+guard が false の場合、その assignment は除外される。
+
+argument-free EHP exactness rule は `ExactnessStatement(first_map,
+second_map, True)` を conclusion pattern とし、Image/Kernel の maps が
+consecutive であることを guard で確認する。Phase 6-1 の factory-bound
+形式、direct proof-step API、既存の generic inference semantics は維持
+する。
+
+この phase でも arbitrary EHP segment discovery、full EHP sequence
+construction、複雑な index arithmetic は実装しない。
 
 # 28. Phase 6 candidates
 

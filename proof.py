@@ -202,7 +202,39 @@ def substitute_pattern_value(
       bindings,
     )
 
+  if is_dataclass(pattern):
+    return type(pattern)(
+      **{
+        field.name: (
+          substitute_pattern_value(
+            getattr(
+              pattern,
+              field.name,
+            ),
+            bindings,
+          )
+        )
+        for field in fields(pattern)
+      }
+    )
+
   return pattern
+
+
+def substitute_statement_pattern(
+  pattern,
+  bindings,
+):
+  if not is_dataclass(pattern):
+    raise TypeError(
+      "pattern must be "
+      "a dataclass instance"
+    )
+
+  return substitute_pattern_value(
+    pattern,
+    bindings,
+  )
 
 
 def substitute_relation_pattern(
@@ -344,7 +376,8 @@ class InferenceRule:
   description: str | None = None
   premise_patterns: tuple[PremisePattern, ...] = ()
   conclusion_builder: Any = None
-  conclusion_pattern: Relation | None = None
+  conclusion_pattern: Any = None
+  match_guard: Any = None
 
 
 @dataclass(frozen=True)
@@ -825,14 +858,10 @@ def find_inference_matches_for_rule(
 
   matches = []
 
-  for premises in (
-    premise_assignments
-  ):
-    bindings = (
-      match_inference_rule_bindings(
-        inference_rule,
-        premises,
-      )
+  for premises in premise_assignments:
+    bindings = match_inference_rule_bindings(
+      inference_rule,
+      premises,
     )
 
     if bindings is None:
@@ -840,6 +869,13 @@ def find_inference_matches_for_rule(
         "matching premises must have "
         "consistent bindings"
       )
+
+    if not inference_match_guard_accepts(
+      inference_rule,
+      premises,
+      bindings,
+    ):
+      continue
 
     matches.append(
       InferenceMatch(
@@ -878,7 +914,7 @@ def substitute_inference_conclusion(
       "a conclusion pattern"
     )
 
-  return substitute_relation_pattern(
+  return substitute_pattern_value(
     conclusion_pattern,
     inference_match.bindings,
   )
@@ -1945,6 +1981,29 @@ def run_inference_until_stable(
   )
 
   return result.steps
+
+
+def inference_match_guard_accepts(
+  inference_rule,
+  premises,
+  bindings,
+):
+  if inference_rule.match_guard is None:
+    return True
+
+  if not callable(
+    inference_rule.match_guard
+  ):
+    raise TypeError(
+      "match_guard must be callable"
+    )
+
+  return bool(
+    inference_rule.match_guard(
+      premises,
+      bindings,
+    )
+  )
 
 
 

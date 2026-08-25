@@ -71,7 +71,8 @@ The next development stage is:
 Phase 6: EHP domain inference rules
 ```
 
-Phase 6-1, the first EHP domain inference rule integration, is completed.
+Phase 6-1 through Phase 6-3, including the first EHP domain inference rule
+integration and its structured statement support, are completed.
 
 The main goal of Phase 6 is not to add speculative generic-engine features.
 It is to encode actual EHP / homotopy-theoretic rules using the Phase 5
@@ -89,6 +90,7 @@ missing capability.
 - Phase 5: generic proof / inference engine foundation — completed
 - Phase 6-1: EHP exactness inference rule — completed
 - Phase 6-2: structured statement matching foundation — completed
+- Phase 6-3: statement conclusions and match guards — completed
 - Phase 6: EHP domain inference rules — in progress
 
 ---
@@ -435,6 +437,7 @@ description
 premise_patterns
 conclusion_builder
 conclusion_pattern
+match_guard
 ```
 
 The conclusion may be produced either by:
@@ -458,6 +461,7 @@ A premise pattern can constrain:
 ```text
 proof_rule
 statement_type
+statement_pattern
 relation_type
 relation_pattern
 ```
@@ -613,7 +617,9 @@ which values were bound to the rule variables?
 
 ## Conclusion substitution
 
-Bindings can be substituted into `Relation` conclusion patterns.
+Bindings can be substituted into structured conclusion patterns,
+including Relation objects and dataclass-based statements such as
+ExactnessStatement.
 
 Conceptually:
 
@@ -825,7 +831,7 @@ intermediate steps as premises.
 
 # Current limitations
 
-The following are current limitations at the Phase 5-65 boundary.
+The following are current limitations after Phase 6-3.
 
 ## Conclusion equality
 
@@ -854,7 +860,7 @@ objects for one conclusion.
 ## Pattern language depth
 
 The generic pattern system currently has direct structured support for
-`Relation` patterns.
+`Relation` patterns and dataclass statement fields.
 
 Phase 6-2 also provides structured matching for dataclass-based statements.
 `PremisePattern.statement_pattern` can match statement fields using
@@ -1038,6 +1044,24 @@ new `ProofRule` was added to the generic engine.
 Phase 6-2 deliberately does not implement automatic exact-pair discovery,
 EHP sequence construction, or domain index arithmetic.
 
+## Phase 6-3: statement conclusions and match guards
+
+Phase 6-3 extends statement support from premise matching to conclusion
+construction. `InferenceRule.conclusion_pattern` can now contain a dataclass
+statement, and `substitute_statement_pattern()` replaces its fields using the
+existing bindings. The generic substitution path remains domain-independent.
+
+`InferenceRule.match_guard` provides an optional callable receiving the
+matched premises and bindings. It can reject a structurally valid assignment
+when an additional domain condition is required, without adding a
+domain-specific branch to the generic engine.
+
+The argument-free EHP exactness rule uses a statement conclusion pattern and a
+guard that accepts only consecutive maps. The existing factory-bound form and
+the direct `ehp_exactness_proof_step()` API remain compatible.
+
+Phase 6-3 does not implement automatic EHP segment discovery, full EHP
+sequence construction, or general theorem/index inference.
 ---
 
 # Tests
@@ -1070,6 +1094,7 @@ Phase 6-1 tests:
 ```text
 tests/test_ehp_rules.py: 1 passed
 full project test suite: 648 passed
+```
 
 Phase 6-2 tests:
 
@@ -1078,6 +1103,13 @@ focused inference and EHP tests: 428 passed
 full project test suite: 652 passed
 git diff --check: clean
 ```
+
+Phase 6-3 tests:
+
+```text
+focused inference and EHP tests: 441 passed
+full project test suite: 665 passed
+pytest exit code: 0
 ```
 
 ---
