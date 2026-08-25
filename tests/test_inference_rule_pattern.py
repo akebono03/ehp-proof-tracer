@@ -15052,6 +15052,323 @@ def test_shared_binding_graph_branches_and_merges_end_to_end():
   )
 
 
+def test_branching_merging_graph_derives_multiple_distinct_final_bindings_end_to_end():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  w = PatternVariable(
+    "w"
+  )
+
+  v = PatternVariable(
+    "v"
+  )
+
+  rule = InferenceRule(
+    name="branching merging graph with multiple final bindings",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=z,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=w,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=z,
+          rhs=v,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=w,
+          rhs=v,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=v,
+    ),
+  )
+
+  alpha_beta = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  beta_gamma = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  beta_delta = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="delta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  gamma_epsilon = ProofStep(
+    conclusion=Relation(
+      lhs="gamma",
+      rhs="epsilon",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  delta_epsilon = ProofStep(
+    conclusion=Relation(
+      lhs="delta",
+      rhs="epsilon",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  gamma_zeta = ProofStep(
+    conclusion=Relation(
+      lhs="gamma",
+      rhs="zeta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  delta_zeta = ProofStep(
+    conclusion=Relation(
+      lhs="delta",
+      rhs="zeta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        alpha_beta,
+        beta_gamma,
+        beta_delta,
+        gamma_epsilon,
+        delta_epsilon,
+        gamma_zeta,
+        delta_zeta,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 1
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  assert len(
+    first_round.matches
+  ) == 4
+
+  assert tuple(
+    match.bindings
+    for match in first_round.matches
+  ) == (
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="gamma",
+      ),
+      VariableBinding(
+        variable=w,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=v,
+        value="epsilon",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="gamma",
+      ),
+      VariableBinding(
+        variable=w,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=v,
+        value="zeta",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=w,
+        value="gamma",
+      ),
+      VariableBinding(
+        variable=v,
+        value="epsilon",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=w,
+        value="gamma",
+      ),
+      VariableBinding(
+        variable=v,
+        value="zeta",
+      ),
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.candidate_steps
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="epsilon",
+    ),
+    Relation(
+      lhs="alpha",
+      rhs="zeta",
+    ),
+    Relation(
+      lhs="alpha",
+      rhs="epsilon",
+    ),
+    Relation(
+      lhs="alpha",
+      rhs="zeta",
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.new_steps
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="epsilon",
+    ),
+    Relation(
+      lhs="alpha",
+      rhs="zeta",
+    ),
+  )
+
+  assert len(
+    first_round.duplicate_rejected_steps
+  ) == 2
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.duplicate_rejected_steps
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="epsilon",
+    ),
+    Relation(
+      lhs="alpha",
+      rhs="zeta",
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in result.steps[-2:]
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="epsilon",
+    ),
+    Relation(
+      lhs="alpha",
+      rhs="zeta",
+    ),
+  )
+
+
 
 
 
