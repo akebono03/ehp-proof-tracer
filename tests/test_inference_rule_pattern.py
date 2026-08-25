@@ -33,6 +33,7 @@ from proof import (
   match_pattern_value,
   match_relation_pattern,
   merge_proof_steps,
+  merge_variable_bindings,  
   partition_new_and_duplicate_proof_steps,
   run_inference_round,
   run_inference_until_stable,
@@ -10081,6 +10082,191 @@ def test_match_relation_pattern_rejects_invalid_value():
       "invalid",
     )
 
+
+def test_merge_variable_bindings_empty():
+  result = merge_variable_bindings(
+    ()
+  )
+
+  assert result == ()
+
+
+def test_merge_variable_bindings_single():
+  binding = VariableBinding(
+    variable=PatternVariable(
+      name="x",
+    ),
+    value="alpha",
+  )
+
+  result = merge_variable_bindings(
+    binding
+  )
+
+  assert result == (
+    binding,
+  )
+
+
+def test_merge_variable_bindings_distinct_variables():
+  first = VariableBinding(
+    variable=PatternVariable(
+      name="x",
+    ),
+    value="alpha",
+  )
+
+  second = VariableBinding(
+    variable=PatternVariable(
+      name="y",
+    ),
+    value="beta",
+  )
+
+  result = merge_variable_bindings(
+    (
+      first,
+      second,
+    )
+  )
+
+  assert result == (
+    first,
+    second,
+  )
+
+
+def test_merge_variable_bindings_merges_same_variable_same_value():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  first = VariableBinding(
+    variable=variable,
+    value="alpha",
+  )
+
+  second = VariableBinding(
+    variable=variable,
+    value="alpha",
+  )
+
+  result = merge_variable_bindings(
+    (
+      first,
+      second,
+    )
+  )
+
+  assert result == (
+    first,
+  )
+
+
+def test_merge_variable_bindings_rejects_conflicting_values():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  first = VariableBinding(
+    variable=variable,
+    value="alpha",
+  )
+
+  second = VariableBinding(
+    variable=variable,
+    value="beta",
+  )
+
+  result = merge_variable_bindings(
+    (
+      first,
+      second,
+    )
+  )
+
+  assert result is None
+
+
+def test_merge_variable_bindings_preserves_first_binding_order():
+  x = PatternVariable(
+    name="x",
+  )
+
+  y = PatternVariable(
+    name="y",
+  )
+
+  first = VariableBinding(
+    variable=y,
+    value="beta",
+  )
+
+  second = VariableBinding(
+    variable=x,
+    value="alpha",
+  )
+
+  duplicate = VariableBinding(
+    variable=y,
+    value="beta",
+  )
+
+  result = merge_variable_bindings(
+    (
+      first,
+      second,
+      duplicate,
+    )
+  )
+
+  assert result == (
+    first,
+    second,
+  )
+
+
+def test_merge_variable_bindings_accepts_list():
+  binding = VariableBinding(
+    variable=PatternVariable(
+      name="x",
+    ),
+    value="alpha",
+  )
+
+  result = merge_variable_bindings(
+    [
+      binding,
+    ]
+  )
+
+  assert result == (
+    binding,
+  )
+
+
+def test_merge_variable_bindings_rejects_invalid_input():
+  with pytest.raises(TypeError):
+    merge_variable_bindings(
+      "invalid"
+    )
+
+
+def test_merge_variable_bindings_rejects_invalid_item():
+  binding = VariableBinding(
+    variable=PatternVariable(
+      name="x",
+    ),
+    value="alpha",
+  )
+
+  with pytest.raises(TypeError):
+    merge_variable_bindings(
+      (
+        binding,
+        "invalid",
+      )
+    )
 
 
 

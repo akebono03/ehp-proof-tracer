@@ -80,6 +80,77 @@ class VariableBinding:
       )
 
 
+def merge_variable_bindings(
+  bindings,
+):
+  if isinstance(
+    bindings,
+    VariableBinding,
+  ):
+    normalized_bindings = (
+      bindings,
+    )
+  elif isinstance(
+    bindings,
+    (tuple, list),
+  ):
+    normalized_bindings = tuple(
+      bindings
+    )
+  else:
+    raise TypeError(
+      "bindings must be "
+      "a VariableBinding or "
+      "a tuple/list of VariableBinding"
+    )
+
+  for binding in (
+    normalized_bindings
+  ):
+    if not isinstance(
+      binding,
+      VariableBinding,
+    ):
+      raise TypeError(
+        "bindings must contain only "
+        "VariableBinding objects"
+      )
+
+  merged = []
+
+  for binding in (
+    normalized_bindings
+  ):
+    existing = next(
+      (
+        existing_binding
+        for existing_binding
+        in merged
+        if (
+          existing_binding.variable
+          == binding.variable
+        )
+      ),
+      None,
+    )
+
+    if existing is None:
+      merged.append(
+        binding
+      )
+      continue
+
+    if (
+      existing.value
+      != binding.value
+    ):
+      return None
+
+  return tuple(
+    merged
+  )
+
+
 def match_pattern_value(
   pattern,
   value,
