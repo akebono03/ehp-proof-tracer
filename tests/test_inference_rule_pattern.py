@@ -14102,6 +14102,232 @@ def test_multiple_premises_multiple_variables_multiple_assignments_derive_distin
   )
 
 
+def test_partially_shared_variables_across_multiple_premises_end_to_end():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  rule = InferenceRule(
+    name="partially shared variable rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=z,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=y,
+      rhs=z,
+    ),
+  )
+
+  alpha_beta = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  alpha_gamma = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  delta_epsilon = ProofStep(
+    conclusion=Relation(
+      lhs="delta",
+      rhs="epsilon",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  delta_zeta = ProofStep(
+    conclusion=Relation(
+      lhs="delta",
+      rhs="zeta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        alpha_beta,
+        alpha_gamma,
+        delta_epsilon,
+        delta_zeta,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 1
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  assert len(
+    first_round.matches
+  ) == 4
+
+  assert tuple(
+    match.premises
+    for match in first_round.matches
+  ) == (
+    (
+      alpha_beta,
+      alpha_gamma,
+    ),
+    (
+      alpha_gamma,
+      alpha_beta,
+    ),
+    (
+      delta_epsilon,
+      delta_zeta,
+    ),
+    (
+      delta_zeta,
+      delta_epsilon,
+    ),
+  )
+
+  assert tuple(
+    match.bindings
+    for match in first_round.matches
+  ) == (
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="gamma",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="gamma",
+      ),
+      VariableBinding(
+        variable=z,
+        value="beta",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=y,
+        value="epsilon",
+      ),
+      VariableBinding(
+        variable=z,
+        value="zeta",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=y,
+        value="zeta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="epsilon",
+      ),
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.new_steps
+  ) == (
+    Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    Relation(
+      lhs="gamma",
+      rhs="beta",
+    ),
+    Relation(
+      lhs="epsilon",
+      rhs="zeta",
+    ),
+    Relation(
+      lhs="zeta",
+      rhs="epsilon",
+    ),
+  )
+
+  assert first_round.new_steps[0].premises == (
+    alpha_beta,
+    alpha_gamma,
+  )
+
+  assert first_round.new_steps[1].premises == (
+    alpha_gamma,
+    alpha_beta,
+  )
+
+  assert first_round.new_steps[2].premises == (
+    delta_epsilon,
+    delta_zeta,
+  )
+
+  assert first_round.new_steps[3].premises == (
+    delta_zeta,
+    delta_epsilon,
+  )
+
+
+
 
 
 
