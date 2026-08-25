@@ -7,6 +7,7 @@ from proof import (
   InferenceRule,
   InferenceRunResult,
   InferenceTerminationReason,
+  PatternVariable,
   PremisePattern,
   ProofRule,
   ProofStep,
@@ -9592,6 +9593,52 @@ def test_find_inference_matches_preserves_rule_then_assignment_order():
       ),
     ),
   )
+
+
+def test_pattern_variable():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  assert variable.name == "x"
+
+
+def test_pattern_variable_is_structurally_equal():
+  first = PatternVariable(
+    name="x",
+  )
+
+  second = PatternVariable(
+    name="x",
+  )
+
+  assert first == second
+
+
+def test_pattern_variable_with_different_name_is_not_equal():
+  first = PatternVariable(
+    name="x",
+  )
+
+  second = PatternVariable(
+    name="y",
+  )
+
+  assert first != second
+
+
+def test_pattern_variable_rejects_non_string_name():
+  with pytest.raises(TypeError):
+    PatternVariable(
+      name=1,
+    )
+
+
+def test_pattern_variable_rejects_empty_name():
+  with pytest.raises(ValueError):
+    PatternVariable(
+      name="",
+    )
 
 
 

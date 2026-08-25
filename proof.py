@@ -46,6 +46,25 @@ class PremisePattern:
 
 
 @dataclass(frozen=True)
+class PatternVariable:
+  name: str
+
+  def __post_init__(self):
+    if not isinstance(
+      self.name,
+      str,
+    ):
+      raise TypeError(
+        "name must be a str"
+      )
+
+    if not self.name:
+      raise ValueError(
+        "name must not be empty"
+      )
+
+
+@dataclass(frozen=True)
 class InferenceRule:
   name: str
   description: str | None = None
