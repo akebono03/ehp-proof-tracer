@@ -798,6 +798,174 @@ def test_ehp_zero_composition_implies_zero_relation():
   )
 
 
+def test_ehp_exactness_derives_zero_relation_over_three_rounds():
+  segment = EHPSegment(
+    make_sphere_repository(),
+    n=3,
+    k=5,
+  )
+
+  exact_step = (
+    segment.exact_step_at_sphere()
+  )
+
+  image_step = image_proof_step(
+    exact_step.first_map
+  )
+
+  kernel_step = kernel_proof_step(
+    exact_step.second_map
+  )
+
+  exactness_rule = (
+    ehp_exactness_inference_rule()
+  )
+
+  zero_composition_rule = (
+    ehp_exactness_implies_zero_composition_inference_rule()
+  )
+
+  zero_relation_rule = (
+    ehp_zero_composition_implies_zero_relation_inference_rule()
+  )
+
+  rules = (
+    exactness_rule,
+    zero_composition_rule,
+    zero_relation_rule,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        image_step,
+        kernel_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 3
+
+  assert len(result.round_results) == 3
+
+  assert len(result.steps) == 5
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  assert len(
+    first_round.new_steps
+  ) == 1
+
+  exactness_step = (
+    first_round.new_steps[0]
+  )
+
+  assert exactness_step.conclusion == (
+    ExactnessStatement(
+      first_map=exact_step.first_map,
+      second_map=exact_step.second_map,
+      is_exact=True,
+    )
+  )
+
+  assert exactness_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    exactness_step.inference_rule
+    == exactness_rule
+  )
+
+  assert exactness_step.premises == (
+    image_step,
+    kernel_step,
+  )
+
+  second_round = (
+    result.round_results[1]
+  )
+
+  assert len(
+    second_round.new_steps
+  ) == 1
+
+  zero_composition_step = (
+    second_round.new_steps[0]
+  )
+
+  assert zero_composition_step.conclusion == (
+    EHPZeroCompositionStatement(
+      first_map=exact_step.first_map,
+      second_map=exact_step.second_map,
+    )
+  )
+
+  assert zero_composition_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    zero_composition_step.inference_rule
+    == zero_composition_rule
+  )
+
+  assert zero_composition_step.premises == (
+    exactness_step,
+  )
+
+  third_round = (
+    result.round_results[2]
+  )
+
+  assert len(
+    third_round.new_steps
+  ) == 1
+
+  zero_relation_step = (
+    third_round.new_steps[0]
+  )
+
+  assert zero_relation_step.conclusion == (
+    Relation(
+      lhs=Composition(
+        left=exact_step.second_map,
+        right=exact_step.first_map,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  assert zero_relation_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    zero_relation_step.inference_rule
+    == zero_relation_rule
+  )
+
+  assert zero_relation_step.premises == (
+    zero_composition_step,
+  )
+
+  assert result.steps == (
+    image_step,
+    kernel_step,
+    exactness_step,
+    zero_composition_step,
+    zero_relation_step,
+  )
+
+
 
 
 
