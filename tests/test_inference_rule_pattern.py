@@ -15872,6 +15872,339 @@ def test_multiple_rules_propagate_multiple_binding_branches_fixed_point_end_to_e
   )
 
 
+def test_multiple_branches_merge_into_multi_premise_rule_fixed_point_end_to_end():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  first_rule = InferenceRule(
+    name="derive branch middle relations",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=z,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=z,
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  left_value = PatternVariable(
+    "left_value"
+  )
+
+  right_value = PatternVariable(
+    "right_value"
+  )
+
+  merge_rule = InferenceRule(
+    name="merge branch middle relations",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="alpha",
+          rhs=left_value,
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="delta",
+          rhs=right_value,
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=left_value,
+      rhs=right_value,
+      relation_type=RelationType.ORDER,
+    ),
+  )
+
+  alpha_beta = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  beta_gamma = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  delta_epsilon = ProofStep(
+    conclusion=Relation(
+      lhs="delta",
+      rhs="epsilon",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  epsilon_zeta = ProofStep(
+    conclusion=Relation(
+      lhs="epsilon",
+      rhs="zeta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        first_rule,
+        merge_rule,
+      ),
+      (
+        alpha_beta,
+        beta_gamma,
+        delta_epsilon,
+        epsilon_zeta,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 2
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  second_round = (
+    result.round_results[1]
+  )
+
+  assert len(
+    first_round.matches
+  ) == 2
+
+  assert tuple(
+    match.inference_rule
+    for match in first_round.matches
+  ) == (
+    first_rule,
+    first_rule,
+  )
+
+  assert tuple(
+    match.bindings
+    for match in first_round.matches
+  ) == (
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=z,
+        value="gamma",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=y,
+        value="epsilon",
+      ),
+      VariableBinding(
+        variable=z,
+        value="zeta",
+      ),
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.new_steps
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="gamma",
+      relation_type=RelationType.ZERO,
+    ),
+    Relation(
+      lhs="delta",
+      rhs="zeta",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  left_middle_step = (
+    first_round.new_steps[0]
+  )
+
+  right_middle_step = (
+    first_round.new_steps[1]
+  )
+
+  assert left_middle_step.premises == (
+    alpha_beta,
+    beta_gamma,
+  )
+
+  assert right_middle_step.premises == (
+    delta_epsilon,
+    epsilon_zeta,
+  )
+
+  assert len(
+    second_round.matches
+  ) == 3
+
+  assert tuple(
+    match.inference_rule
+    for match in second_round.matches
+  ) == (
+    first_rule,
+    first_rule,
+    merge_rule,
+  )
+
+  merge_match = (
+    second_round.matches[2]
+  )
+
+  assert merge_match.premises == (
+    left_middle_step,
+    right_middle_step,
+  )
+
+  assert merge_match.bindings == (
+    VariableBinding(
+      variable=left_value,
+      value="gamma",
+    ),
+    VariableBinding(
+      variable=right_value,
+      value="zeta",
+    ),
+  )
+
+  assert tuple(
+    application_result.accepted
+    for application_result
+    in second_round.application_results
+  ) == (
+    False,
+    False,
+    True,
+  )
+
+  assert tuple(
+    application_result.rejection_reason
+    for application_result
+    in second_round.application_results
+  ) == (
+    InferenceRejectionReason.ALREADY_KNOWN,
+    InferenceRejectionReason.ALREADY_KNOWN,
+    None,
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in second_round.new_steps
+  ) == (
+    Relation(
+      lhs="gamma",
+      rhs="zeta",
+      relation_type=RelationType.ORDER,
+    ),
+  )
+
+  final_step = (
+    second_round.new_steps[0]
+  )
+
+  assert final_step.premises == (
+    left_middle_step,
+    right_middle_step,
+  )
+
+  assert final_step.inference_rule == (
+    merge_rule
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in result.steps
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    Relation(
+      lhs="delta",
+      rhs="epsilon",
+    ),
+    Relation(
+      lhs="epsilon",
+      rhs="zeta",
+    ),
+    Relation(
+      lhs="alpha",
+      rhs="gamma",
+      relation_type=RelationType.ZERO,
+    ),
+    Relation(
+      lhs="delta",
+      rhs="zeta",
+      relation_type=RelationType.ZERO,
+    ),
+    Relation(
+      lhs="gamma",
+      rhs="zeta",
+      relation_type=RelationType.ORDER,
+    ),
+  )
+
+
+
+
+
 
 
 
