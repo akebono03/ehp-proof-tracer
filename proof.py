@@ -204,6 +204,33 @@ def substitute_pattern_value(
   return pattern
 
 
+def substitute_relation_pattern(
+  pattern,
+  bindings,
+):
+  if not isinstance(
+    pattern,
+    Relation,
+  ):
+    raise TypeError(
+      "pattern must be a Relation"
+    )
+
+  return Relation(
+    lhs=substitute_pattern_value(
+      pattern.lhs,
+      bindings,
+    ),
+    rhs=substitute_pattern_value(
+      pattern.rhs,
+      bindings,
+    ),
+    relation_type=pattern.relation_type,
+    source=pattern.source,
+    note=pattern.note,
+  )
+
+
 def match_pattern_value(
   pattern,
   value,

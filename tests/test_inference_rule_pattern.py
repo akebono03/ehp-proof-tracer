@@ -42,6 +42,7 @@ from proof import (
   run_inference_until_stable,
   run_inference_until_stable_with_history,
   substitute_pattern_value,
+  substitute_relation_pattern,  
 )
 
 
@@ -11861,6 +11862,186 @@ def test_substitute_pattern_value_preserves_arbitrary_literal():
     value,
     (),
   ) == value
+
+
+def test_substitute_relation_pattern_lhs_variable():
+  variable = PatternVariable(
+    "x"
+  )
+
+  pattern = Relation(
+    lhs=variable,
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  bindings = (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+  result = substitute_relation_pattern(
+    pattern,
+    bindings,
+  )
+
+  assert result == Relation(
+    lhs="alpha",
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+
+def test_substitute_relation_pattern_rhs_variable():
+  variable = PatternVariable(
+    "x"
+  )
+
+  pattern = Relation(
+    lhs="source",
+    rhs=variable,
+  )
+
+  bindings = (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+  result = substitute_relation_pattern(
+    pattern,
+    bindings,
+  )
+
+  assert result == Relation(
+    lhs="source",
+    rhs="alpha",
+  )
+
+
+def test_substitute_relation_pattern_both_variables():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  pattern = Relation(
+    lhs=x,
+    rhs=y,
+  )
+
+  bindings = (
+    VariableBinding(
+      variable=x,
+      value="alpha",
+    ),
+    VariableBinding(
+      variable=y,
+      value="beta",
+    ),
+  )
+
+  result = substitute_relation_pattern(
+    pattern,
+    bindings,
+  )
+
+  assert result == Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+
+def test_substitute_relation_pattern_preserves_literals():
+  pattern = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  result = substitute_relation_pattern(
+    pattern,
+    (),
+  )
+
+  assert result == pattern
+
+
+def test_substitute_relation_pattern_preserves_metadata():
+  variable = PatternVariable(
+    "x"
+  )
+
+  source = "Toda"
+
+  pattern = Relation(
+    lhs=variable,
+    rhs="0",
+    relation_type=RelationType.ZERO,
+    source=source,
+    note="example note",
+  )
+
+  bindings = (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+  result = substitute_relation_pattern(
+    pattern,
+    bindings,
+  )
+
+  assert (
+    result.relation_type
+    == RelationType.ZERO
+  )
+
+  assert result.source == source
+
+  assert (
+    result.note
+    == "example note"
+  )
+
+
+def test_substitute_relation_pattern_unbound_variable_becomes_none():
+  variable = PatternVariable(
+    "x"
+  )
+
+  pattern = Relation(
+    lhs=variable,
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  result = substitute_relation_pattern(
+    pattern,
+    (),
+  )
+
+  assert result == Relation(
+    lhs=None,
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+
+def test_substitute_relation_pattern_rejects_invalid_pattern():
+  with pytest.raises(TypeError):
+    substitute_relation_pattern(
+      "invalid",
+      (),
+    )
+
 
 
 
