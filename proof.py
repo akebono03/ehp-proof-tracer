@@ -101,6 +101,58 @@ def match_pattern_value(
   return None
 
 
+def match_relation_pattern(
+  pattern,
+  value,
+):
+  if not isinstance(
+    pattern,
+    Relation,
+  ):
+    raise TypeError(
+      "pattern must be a Relation"
+    )
+
+  if not isinstance(
+    value,
+    Relation,
+  ):
+    raise TypeError(
+      "value must be a Relation"
+    )
+
+  if (
+    pattern.relation_type
+    != value.relation_type
+  ):
+    return None
+
+  lhs_bindings = (
+    match_pattern_value(
+      pattern.lhs,
+      value.lhs,
+    )
+  )
+
+  if lhs_bindings is None:
+    return None
+
+  rhs_bindings = (
+    match_pattern_value(
+      pattern.rhs,
+      value.rhs,
+    )
+  )
+
+  if rhs_bindings is None:
+    return None
+
+  return (
+    lhs_bindings
+    + rhs_bindings
+  )
+
+
 @dataclass(frozen=True)
 class InferenceRule:
   name: str

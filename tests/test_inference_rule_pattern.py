@@ -31,6 +31,7 @@ from proof import (
   matches_inference_rule,
   matches_premise_pattern,
   match_pattern_value,
+  match_relation_pattern,
   merge_proof_steps,
   partition_new_and_duplicate_proof_steps,
   run_inference_round,
@@ -9847,6 +9848,238 @@ def test_match_pattern_value_pattern_variable_can_bind_none():
     ),
   )
 
+
+def test_match_relation_pattern_binds_lhs_variable():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  pattern = Relation(
+    lhs=variable,
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+
+def test_match_relation_pattern_binds_rhs_variable():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  pattern = Relation(
+    lhs="alpha",
+    rhs=variable,
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=variable,
+      value="beta",
+    ),
+  )
+
+
+def test_match_relation_pattern_binds_both_sides():
+  lhs_variable = PatternVariable(
+    name="x",
+  )
+
+  rhs_variable = PatternVariable(
+    name="y",
+  )
+
+  pattern = Relation(
+    lhs=lhs_variable,
+    rhs=rhs_variable,
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=lhs_variable,
+      value="alpha",
+    ),
+    VariableBinding(
+      variable=rhs_variable,
+      value="beta",
+    ),
+  )
+
+
+def test_match_relation_pattern_equal_literals_matches_without_binding():
+  pattern = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert result == ()
+
+
+def test_match_relation_pattern_rejects_wrong_lhs():
+  pattern = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  value = Relation(
+    lhs="gamma",
+    rhs="beta",
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert result is None
+
+
+def test_match_relation_pattern_rejects_wrong_rhs():
+  pattern = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="gamma",
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert result is None
+
+
+def test_match_relation_pattern_rejects_wrong_relation_type():
+  pattern = Relation(
+    lhs=PatternVariable(
+      name="x",
+    ),
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="0",
+    relation_type=RelationType.EQUALITY,
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert result is None
+
+
+def test_match_relation_pattern_preserves_binding_order():
+  lhs_variable = PatternVariable(
+    name="x",
+  )
+
+  rhs_variable = PatternVariable(
+    name="y",
+  )
+
+  pattern = Relation(
+    lhs=lhs_variable,
+    rhs=rhs_variable,
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  result = match_relation_pattern(
+    pattern,
+    value,
+  )
+
+  assert tuple(
+    binding.variable
+    for binding in result
+  ) == (
+    lhs_variable,
+    rhs_variable,
+  )
+
+
+def test_match_relation_pattern_rejects_invalid_pattern():
+  value = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  with pytest.raises(TypeError):
+    match_relation_pattern(
+      "invalid",
+      value,
+    )
+
+
+def test_match_relation_pattern_rejects_invalid_value():
+  pattern = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  with pytest.raises(TypeError):
+    match_relation_pattern(
+      pattern,
+      "invalid",
+    )
 
 
 
