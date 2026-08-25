@@ -30,6 +30,7 @@ from proof import (
   is_inference_rule_applicable,
   matches_inference_rule,
   matches_premise_pattern,
+  match_pattern_value,
   merge_proof_steps,
   partition_new_and_duplicate_proof_steps,
   run_inference_round,
@@ -9732,6 +9733,119 @@ def test_variable_binding_rejects_invalid_variable():
       variable="x",
       value="alpha",
     )
+
+
+def test_match_pattern_value_binds_pattern_variable():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  result = match_pattern_value(
+    variable,
+    "alpha",
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+
+def test_match_pattern_value_variable_accepts_arbitrary_value():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  relation = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  result = match_pattern_value(
+    variable,
+    relation,
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=variable,
+      value=relation,
+    ),
+  )
+
+
+def test_match_pattern_value_equal_literal_matches_without_binding():
+  result = match_pattern_value(
+    "alpha",
+    "alpha",
+  )
+
+  assert result == ()
+
+
+def test_match_pattern_value_different_literal_does_not_match():
+  result = match_pattern_value(
+    "alpha",
+    "beta",
+  )
+
+  assert result is None
+
+
+def test_match_pattern_value_equal_relation_matches_without_binding():
+  relation = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  result = match_pattern_value(
+    relation,
+    Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+  )
+
+  assert result == ()
+
+
+def test_match_pattern_value_different_relation_does_not_match():
+  pattern = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  value = Relation(
+    lhs="alpha",
+    rhs="gamma",
+  )
+
+  result = match_pattern_value(
+    pattern,
+    value,
+  )
+
+  assert result is None
+
+
+def test_match_pattern_value_pattern_variable_can_bind_none():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  result = match_pattern_value(
+    variable,
+    None,
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=variable,
+      value=None,
+    ),
+  )
 
 
 

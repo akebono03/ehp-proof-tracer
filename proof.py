@@ -80,6 +80,27 @@ class VariableBinding:
       )
 
 
+def match_pattern_value(
+  pattern,
+  value,
+):
+  if isinstance(
+    pattern,
+    PatternVariable,
+  ):
+    return (
+      VariableBinding(
+        variable=pattern,
+        value=value,
+      ),
+    )
+
+  if pattern == value:
+    return ()
+
+  return None
+
+
 @dataclass(frozen=True)
 class InferenceRule:
   name: str
