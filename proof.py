@@ -228,6 +228,23 @@ def find_matching_premises(
   inference_rule,
   available_steps,
 ):
+  matches = (
+    find_all_matching_premises(
+      inference_rule,
+      available_steps,
+    )
+  )
+
+  if not matches:
+    return None
+
+  return matches[0]
+
+
+def find_all_matching_premises(
+  inference_rule,
+  available_steps,
+):
   if not isinstance(
     inference_rule,
     InferenceRule,
@@ -244,13 +261,35 @@ def find_matching_premises(
     )
   )
 
-  matched_steps = []
-  used_indices = set()
-
-  for pattern in (
+  patterns = (
     inference_rule.premise_patterns
+  )
+
+  if not patterns:
+    return (
+      (),
+    )
+
+  results = []
+
+  def search(
+    pattern_index,
+    matched_steps,
+    used_indices,
   ):
-    matched_index = None
+    if pattern_index == len(
+      patterns
+    ):
+      results.append(
+        tuple(
+          matched_steps
+        )
+      )
+      return
+
+    pattern = patterns[
+      pattern_index
+    ]
 
     for index, step in enumerate(
       normalized_steps
@@ -258,28 +297,31 @@ def find_matching_premises(
       if index in used_indices:
         continue
 
-      if matches_premise_pattern(
+      if not matches_premise_pattern(
         pattern,
         step,
       ):
-        matched_index = index
-        break
+        continue
 
-    if matched_index is None:
-      return None
+      search(
+        pattern_index + 1,
+        matched_steps + [
+          step,
+        ],
+        used_indices
+        | {
+          index,
+        },
+      )
 
-    used_indices.add(
-      matched_index
-    )
-
-    matched_steps.append(
-      normalized_steps[
-        matched_index
-      ]
-    )
+  search(
+    0,
+    [],
+    set(),
+  )
 
   return tuple(
-    matched_steps
+    results
   )
 
 
@@ -328,20 +370,17 @@ def find_inference_match(
   inference_rule,
   available_steps,
 ):
-  matched_premises = (
-    find_matching_premises(
+  matches = (
+    find_inference_matches_for_rule(
       inference_rule,
       available_steps,
     )
   )
 
-  if matched_premises is None:
+  if not matches:
     return None
 
-  return InferenceMatch(
-    inference_rule=inference_rule,
-    premises=matched_premises,
-  )
+  return matches[0]
 
 
 def find_inference_matches(
@@ -366,18 +405,36 @@ def find_inference_matches(
   for inference_rule in (
     normalized_rules
   ):
-    match = find_inference_match(
-      inference_rule,
-      normalized_steps,
-    )
-
-    if match is not None:
-      matches.append(
-        match
+    matches.extend(
+      find_inference_matches_for_rule(
+        inference_rule,
+        normalized_steps,
       )
+    )
 
   return tuple(
     matches
+  )
+
+
+def find_inference_matches_for_rule(
+  inference_rule,
+  available_steps,
+):
+  premise_assignments = (
+    find_all_matching_premises(
+      inference_rule,
+      available_steps,
+    )
+  )
+
+  return tuple(
+    InferenceMatch(
+      inference_rule=inference_rule,
+      premises=premises,
+    )
+    for premises
+    in premise_assignments
   )
 
 

@@ -24294,6 +24294,1130 @@ substitution
 Phase 5-35 では current greedy matching semantics は維持する。
 
 
+# Phase 5-36：複数 premise assignment の全列挙
+
+Phase 5-35 までの premise search は、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+各 PremisePattern に
+最初の unused matching ProofStep を割り当てる
+↓
+最大1つの premise assignment
+↓
+最大1つの InferenceMatch
+```
+
+という greedy semantics だった。
+
+Phase 5-36 では、
+この制限を外し、
+
+```text
+1つの InferenceRule
+↓
+すべての valid premise assignments
+↓
+複数の InferenceMatch
+```
+
+を生成できるようにする。
+
+---
+
+## 背景
+
+これまでの、
+
+```python
+find_matching_premises()
+```
+
+は、
+available ProofSteps を先頭から走査し、
+各 `PremisePattern` に対して最初に適合した unused step を選択していた。
+
+例えば、
+
+```text
+available:
+A
+B
+
+pattern:
+GIVEN
+```
+
+に対して、
+
+```text
+A
+```
+
+のみを選択していた。
+
+しかし数学的 inference engine では、
+
+```text
+A に rule を適用
+B に rule を適用
+```
+
+の両方を探索する必要がある。
+
+特に今後、
+
+```text
+複数 generator
+複数 relation
+複数 composition relation
+```
+
+を扱う場合、
+
+```text
+最初に見つかった候補だけ
+```
+
+では proof search の completeness が大きく制限される。
+
+そこで Phase 5-36 では、
+premise assignment search を、
+
+```text
+first solution search
+```
+
+から、
+
+```text
+all solutions search
+```
+
+へ変更する。
+
+---
+
+## find_all_matching_premises()
+
+新たに、
+
+```python
+find_all_matching_premises(
+  inference_rule,
+  available_steps,
+)
+```
+
+を導入する。
+
+返り値は、
+
+```text
+tuple[
+  tuple[ProofStep, ...],
+  ...
+]
+```
+
+とする。
+
+各 inner tuple は、
+
+```text
+1つの complete premise assignment
+```
+
+を表す。
+
+例えば、
+
+```text
+available:
+A
+B
+
+patterns:
+GIVEN
+```
+
+なら、
+
+```text
+(
+  (A,),
+  (B,),
+)
+```
+
+を返す。
+
+---
+
+## multiple-premise assignment
+
+例えば、
+
+```text
+available:
+A
+B
+
+patterns:
+GIVEN
+GIVEN
+```
+
+の場合、
+
+```text
+(A,B)
+(B,A)
+```
+
+の2 assignment を valid とする。
+
+premise position は ordered なので、
+
+```text
+(A,B)
+```
+
+と、
+
+```text
+(B,A)
+```
+
+は異なる assignment である。
+
+これは既存の、
+
+```text
+InferenceRule.premise_patterns
+```
+
+が ordered tuple である semantics と一致する。
+
+---
+
+## 同一 ProofStep の再利用禁止
+
+1つの premise assignment 内では、
+同じ `ProofStep` を複数 premise positions に割り当てない。
+
+例えば、
+
+```text
+available:
+A
+
+patterns:
+GIVEN
+GIVEN
+```
+
+に対して、
+
+```text
+(A,A)
+```
+
+は生成しない。
+
+したがって結果は、
+
+```text
+()
+```
+
+となる。
+
+available に、
+
+```text
+A
+B
+```
+
+があれば、
+
+```text
+(A,B)
+(B,A)
+```
+
+を生成する。
+
+これは Phase 5-18 以降の、
+
+```text
+distinct step assignment
+```
+
+semantics を維持したものである。
+
+---
+
+## backtracking search
+
+Phase 5-36 では、
+premise assignment の全列挙に recursive backtracking を使用する。
+
+search state は概念的に、
+
+```text
+pattern_index
+matched_steps
+used_indices
+```
+
+からなる。
+
+処理は、
+
+```text
+current PremisePattern
+↓
+available_steps を先頭から走査
+↓
+unused
+かつ
+matches_premise_pattern()
+↓
+candidate として追加
+↓
+next pattern
+```
+
+を再帰的に繰り返す。
+
+最後の pattern まで割り当てられた場合、
+
+```text
+complete assignment
+```
+
+として result に追加する。
+
+partial assignment が失敗した場合は、
+直前の pattern に戻り、
+次の matching ProofStep を探索する。
+
+---
+
+## index で step usage を管理する
+
+同一 step の利用判定には、
+
+```text
+ProofStep equality
+```
+
+ではなく、
+
+```text
+available_steps 内の index
+```
+
+を使用する。
+
+これは、
+
+```text
+構造的に equal な2個の ProofStep
+```
+
+が available collection に別々に存在する場合でも、
+collection 上の異なる要素として扱えるようにするためである。
+
+したがって、
+
+```text
+used_indices
+```
+
+を search state として保持する。
+
+---
+
+## empty-premise rule
+
+`premise_patterns == ()` の rule は、
+常に1つの complete assignment を持つ。
+
+その assignment は、
+
+```text
+()
+```
+
+である。
+
+したがって、
+
+```python
+find_all_matching_premises(
+  empty_rule,
+  available_steps,
+)
+```
+
+は、
+
+```text
+((),)
+```
+
+を返す。
+
+ここで、
+
+```text
+()
+```
+
+を返してしまうと、
+
+```text
+valid assignment が0件
+```
+
+という意味になってしまうため、
+empty-premise rule の semantics を表せない。
+
+したがって、
+
+```text
+((),)
+```
+
+を明示的に返す。
+
+---
+
+## assignment order
+
+探索順序は deterministic とする。
+
+基本順序は、
+
+```text
+PremisePattern order
+↓
+available_steps order
+```
+
+である。
+
+depth-first search により、
+
+```text
+available:
+A
+B
+C
+
+patterns:
+GIVEN
+GIVEN
+```
+
+なら、
+
+```text
+(A,B)
+(A,C)
+(B,A)
+(B,C)
+(C,A)
+(C,B)
+```
+
+となる。
+
+この ordering は単なる implementation detail ではない。
+
+Phase 5-35 の、
+
+```text
+first-candidate-wins
+```
+
+semantics により、
+candidate ordering は acceptance result に影響する。
+
+したがって、
+match enumeration order は deterministic contract として扱う。
+
+---
+
+## find_inference_matches_for_rule()
+
+1つの `InferenceRule` から
+すべての `InferenceMatch` を生成するため、
+
+```python
+find_inference_matches_for_rule(
+  inference_rule,
+  available_steps,
+)
+```
+
+を導入する。
+
+内部では、
+
+```text
+find_all_matching_premises()
+↓
+premise assignments
+↓
+InferenceMatch objects
+```
+
+へ変換する。
+
+概念的には、
+
+```text
+InferenceRule R
++
+available state
+↓
+assignment A
+assignment B
+assignment C
+↓
+InferenceMatch(R,A)
+InferenceMatch(R,B)
+InferenceMatch(R,C)
+```
+
+となる。
+
+---
+
+## single-match API と multi-match API の分離
+
+Phase 5-36 では、
+既存 API の compatibility を維持するため、
+
+```text
+first-match APIs
+```
+
+と、
+
+```text
+all-match APIs
+```
+
+を分離する。
+
+first-match APIs:
+
+```text
+find_matching_premises()
+find_inference_match()
+```
+
+all-match APIs:
+
+```text
+find_all_matching_premises()
+find_inference_matches_for_rule()
+find_inference_matches()
+```
+
+とする。
+
+これにより、
+既存 code は必要に応じて first match を利用し続けられる。
+
+一方、
+inference execution pipeline は all-match semantics を利用できる。
+
+---
+
+## find_matching_premises() の位置づけ変更
+
+Phase 5-36 以降、
+
+```python
+find_matching_premises()
+```
+
+は canonical search implementation ではない。
+
+canonical search は、
+
+```python
+find_all_matching_premises()
+```
+
+とする。
+
+`find_matching_premises()` は、
+
+```text
+all assignments
+↓
+first assignment
+```
+
+を返す compatibility projection と位置づける。
+
+したがって、
+
+```text
+no assignment
+```
+
+の場合だけ `None` を返す。
+
+---
+
+## find_inference_match() の位置づけ変更
+
+同様に、
+
+```python
+find_inference_match()
+```
+
+も、
+
+```text
+all matches for one rule
+↓
+first match
+```
+
+を返す compatibility API とする。
+
+canonical per-rule match search は、
+
+```python
+find_inference_matches_for_rule()
+```
+
+が担当する。
+
+---
+
+## find_inference_matches() の semantics 変更
+
+従来の、
+
+```python
+find_inference_matches()
+```
+
+は各 rule に対して、
+
+```text
+0 or 1 match
+```
+
+を生成していた。
+
+Phase 5-36 では、
+
+```text
+0..n matches
+```
+
+を生成する。
+
+処理は、
+
+```text
+normalized rules
+↓
+for each rule
+↓
+find_inference_matches_for_rule()
+↓
+matches.extend(...)
+```
+
+とする。
+
+したがって output は、
+
+```text
+rule order
++
+assignment order
+```
+
+を保持した flat tuple となる。
+
+---
+
+## rule applicability との区別
+
+`find_applicable_inference_rules()` は、
+Phase 5-36 でも、
+
+```text
+rule が少なくとも1 assignment を持つか
+```
+
+だけを判定する。
+
+例えば1つの rule が、
+
+```text
+5 valid assignments
+```
+
+を持っていても、
+
+```text
+find_applicable_inference_rules()
+```
+
+にはその rule を1回だけ含める。
+
+したがって、
+
+```text
+applicable rule count
+```
+
+と、
+
+```text
+InferenceMatch count
+```
+
+は異なる。
+
+この区別は維持する。
+
+---
+
+## Phase 5-35 との接続
+
+Phase 5-35 で、
+
+```text
+InferenceApplicationResult
+├── match
+├── candidate_step
+├── accepted
+└── rejection_reason
+```
+
+まで導入済みである。
+
+Phase 5-36 により、
+同じ rule から複数 match が生成されるため、
+
+```text
+one rule
+↓
+multiple matches
+↓
+multiple application results
+```
+
+が自然に発生する。
+
+例えば、
+
+```text
+A
+B
+
+rule:
+GIVEN → X
+```
+
+では、
+
+```text
+match(A)
+match(B)
+```
+
+が生成される。
+
+conclusion が両方とも `X` の場合、
+
+```text
+first application:
+accepted = True
+
+second application:
+accepted = False
+rejection_reason =
+SAME_ROUND_DUPLICATE
+```
+
+となる。
+
+したがって Phase 5-35 で application-level acceptance trace を
+先に導入した設計が、
+Phase 5-36 の multiple-match semantics と自然に接続する。
+
+---
+
+## ALREADY_KNOWN の priority
+
+candidate conclusion が round 開始前から存在する場合、
+複数の match が同じ conclusion を生成しても、
+すべて、
+
+```text
+ALREADY_KNOWN
+```
+
+とする。
+
+例えば、
+
+```text
+available:
+A
+X
+
+rule:
+GIVEN → X
+```
+
+で、
+
+```text
+A → X
+X → X
+```
+
+の2 application が生成されても、
+
+```text
+both:
+accepted = False
+rejection_reason = ALREADY_KNOWN
+```
+
+となる。
+
+これは Phase 5-35 で定義した、
+
+```text
+known_before_round
+```
+
+判定が、
+
+```text
+accepted_in_round
+```
+
+判定より先に行われる semantics を維持する。
+
+---
+
+## knowledge-state semantics は変更しない
+
+Phase 5-36 で増えるのは、
+
+```text
+matches
+applications
+candidate steps
+```
+
+である。
+
+knowledge state に追加されるのは引き続き、
+
+```text
+genuinely new conclusions
+```
+
+のみである。
+
+したがって、
+multiple matches が大量に生成されても、
+
+```text
+same conclusion
+```
+
+を持つ candidate が knowledge state に複数保存されることはない。
+
+first accepted candidate の `ProofStep` だけが knowledge state に入る。
+
+---
+
+## combinatorial growth
+
+Phase 5-36 では all assignments を列挙するため、
+matching candidate が増えると search space は組合せ的に増える。
+
+例えば、
+同じ pattern に適合する step が `n` 個あり、
+distinct step を要求する premise が `k` 個なら、
+最悪の場合の assignment 数は、
+
+```text
+n × (n - 1) × ... × (n - k + 1)
+```
+
+となる。
+
+Phase 5-36 では、
+まだ search pruning や indexing は導入しない。
+
+現段階では、
+
+```text
+correct exhaustive semantics
+```
+
+を先に確立する。
+
+performance optimization は、
+実際の homotopy inference rules を導入して search behavior を
+観測した後に検討する。
+
+---
+
+## Phase 5-36 で変更しないこと
+
+以下は変更しない。
+
+```text
+PremisePattern fields
+proof_rule matching
+statement_type matching
+relation_type matching
+matches_premise_pattern()
+matches_inference_rule()
+InferenceRule structure
+InferenceMatch structure
+InferenceApplicationResult structure
+conclusion_builder semantics
+application order
+candidate order
+ordinary conclusion equality
+first-candidate-wins
+ALREADY_KNOWN semantics
+SAME_ROUND_DUPLICATE semantics
+fixed-point iteration
+productive-round history
+max_rounds semantics
+termination reasons
+algebra layer
+EHP layer
+```
+
+---
+
+## Phase 5-36 の設計原則
+
+1. 1つの rule に対してすべての valid premise assignments を列挙する。
+2. premise assignment は ordered tuple とする。
+3. `PremisePattern` order を維持する。
+4. `available_steps` order を維持する。
+5. search order は deterministic とする。
+6. depth-first backtracking を使用する。
+7. 同一 assignment 内で同じ available-step index を再利用しない。
+8. structurally equal な別 entry は別 candidate として扱えるよう index で usage を管理する。
+9. empty-premise rule は1つの empty assignment を持つ。
+10. no valid assignment は empty tuple を返す。
+11. `find_all_matching_premises()` を canonical assignment search とする。
+12. `find_matching_premises()` は first-result compatibility view とする。
+13. `find_inference_matches_for_rule()` を per-rule all-match API とする。
+14. `find_inference_match()` は first-result compatibility view とする。
+15. `find_inference_matches()` は全 rules の全 matches を flatten する。
+16. rule order を assignment order より外側に置く。
+17. `find_applicable_inference_rules()` は同じ rule を重複して返さない。
+18. application pipeline は multiple matches をそのまま処理する。
+19. acceptance classification は Phase 5-35 semantics をそのまま利用する。
+20. duplicate conclusion は knowledge state に複数追加しない。
+21. alternative derivations は application trace には残す。
+22. alternative derivations を knowledge state の multiple proofs としてはまだ保存しない。
+23. expression-level pattern matching はまだ導入しない。
+24. pattern variables はまだ導入しない。
+25. shared bindings はまだ導入しない。
+26. substitution はまだ導入しない。
+27. search pruning はまだ導入しない。
+28. indexing optimization はまだ導入しない。
+29. mathematical-equivalence matching はまだ導入しない。
+30. algebra / EHP layer は変更しない。
+
+---
+
+## Phase 5-36 の到達点
+
+Phase 5-35 までは、
+
+```text
+InferenceRule
+↓
+first valid assignment
+↓
+one InferenceMatch
+↓
+one application
+```
+
+だった。
+
+Phase 5-36 では、
+
+```text
+InferenceRule
+↓
+all valid premise assignments
+↓
+multiple InferenceMatch
+↓
+multiple applications
+↓
+individual acceptance decisions
+```
+
+まで進んだ。
+
+したがって inference engine は初めて、
+
+```text
+同じ rule を
+異なる既知事実の組合せすべてに適用する
+```
+
+ことが可能になった。
+
+これは proof search を、
+
+```text
+greedy local choice
+```
+
+から、
+
+```text
+explicit alternative exploration
+```
+
+へ移行する最初の段階である。
+
+---
+
+## 現在の重要な制限
+
+現在の `PremisePattern` が表せる条件は、
+
+```text
+proof_rule
+statement_type
+relation_type
+```
+
+のみである。
+
+したがって複数 premise を列挙できても、
+
+```text
+premise 1 の α
+=
+premise 2 の α
+```
+
+のような、
+premise 間の内容上の consistency constraint はまだ表現できない。
+
+例えば、
+
+```text
+Relation(alpha, 0)
+Relation(beta, gamma)
+```
+
+が型条件だけを満たせば、
+数学的に意味のない組合せまで candidate assignment として
+列挙される可能性がある。
+
+Phase 5-36 は search space を完全に列挙する基盤であり、
+数学的な binding constraint はまだ導入していない。
+
+---
+
+## 次の設計候補
+
+次の自然な段階は、
+
+```text
+pattern variable
++
+binding
+```
+
+を導入することである。
+
+概念的には、
+
+```text
+PremisePattern:
+Relation(
+  lhs=?x,
+  rhs=0,
+)
+```
+
+を actual statement:
+
+```text
+Relation(
+  lhs=alpha,
+  rhs=0,
+)
+```
+
+へ match したとき、
+
+```text
+?x = alpha
+```
+
+という binding を生成する。
+
+さらに次の premise pattern が、
+
+```text
+some statement involving ?x
+```
+
+を要求すれば、
+同じ binding を共有して consistency を確認できる。
+
+その先で、
+
+```text
+bindings
+↓
+conclusion template
+↓
+substitution
+↓
+derived structured conclusion
+```
+
+へ拡張することができる。
+
+Phase 5-36 で導入した backtracking search は、
+この shared-binding search の土台として利用できる。
+
+
 
 
 

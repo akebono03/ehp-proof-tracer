@@ -20610,6 +20610,1084 @@ rejection reason
 までを明示的に追跡できる inference execution 基盤が完成した。
 
 
+# Phase 5-36：multiple premise assignments / multiple matches per rule
+
+Phase 5-35 までで、
+inference application について、
+
+```text
+InferenceMatch
+↓
+candidate
+↓
+accepted / rejected
+↓
+rejection reason
+```
+
+まで追跡できるようになった。
+
+一方 premise search 自体には、
+
+```text
+1つの InferenceRule
+↓
+最初の valid premise assignment
+↓
+最大1つの InferenceMatch
+```
+
+という greedy limitation が残っていた。
+
+Phase 5-36 では、
+この limitation を解消し、
+
+```text
+1つの InferenceRule
+↓
+すべての valid premise assignments
+↓
+複数の InferenceMatch
+```
+
+を生成できるようにした。
+
+---
+
+## find_all_matching_premises() を追加
+
+追加:
+
+```python
+find_all_matching_premises(
+  inference_rule,
+  available_steps,
+)
+```
+
+この API は、
+1つの `InferenceRule` に対して成立する
+すべての premise assignments を返す。
+
+返り値は、
+
+```text
+tuple[
+  tuple[ProofStep, ...],
+  ...
+]
+```
+
+とした。
+
+例えば、
+
+```text
+available:
+first
+second
+
+pattern:
+GIVEN
+```
+
+なら、
+
+```text
+(
+  (first,),
+  (second,),
+)
+```
+
+を返す。
+
+---
+
+## multiple premise patterns
+
+2つの同じ pattern がある場合も、
+すべての assignment を列挙する。
+
+例:
+
+```text
+available:
+first
+second
+
+patterns:
+GIVEN
+GIVEN
+```
+
+結果:
+
+```text
+(
+  (first,second),
+  (second,first),
+)
+```
+
+となる。
+
+premise positions は ordered なので、
+
+```text
+(first,second)
+```
+
+と、
+
+```text
+(second,first)
+```
+
+は別 assignment として扱う。
+
+---
+
+## ProofStep reuse を禁止
+
+1つの assignment の中で、
+同じ available step を複数回使用しない。
+
+例:
+
+```text
+available:
+given
+
+patterns:
+GIVEN
+GIVEN
+```
+
+に対して、
+
+```text
+(given,given)
+```
+
+は生成しない。
+
+結果は、
+
+```text
+()
+```
+
+となる。
+
+既存の greedy matcher にあった
+distinct-step semantics を維持した。
+
+---
+
+## backtracking search を導入
+
+`find_all_matching_premises()` では、
+recursive search を導入した。
+
+search state:
+
+```text
+pattern_index
+matched_steps
+used_indices
+```
+
+を持ち、
+
+```text
+current pattern
+↓
+available_steps を順に試す
+↓
+unused か
+↓
+pattern に match するか
+↓
+yes
+↓
+次 pattern へ再帰
+```
+
+という depth-first search を行う。
+
+complete assignment に到達すると、
+その assignment を results に追加する。
+
+これにより、
+最初の選択が後続 pattern で失敗した場合も、
+前の position に戻って別 candidate を試せるようになった。
+
+---
+
+## Phase 5 における最初の explicit backtracking
+
+これまで premise matching は、
+
+```text
+first matching unused step
+```
+
+を選択するだけだった。
+
+Phase 5-36 では、
+初めて明示的な backtracking search を導入した。
+
+ただし対象は、
+
+```text
+ProofStep assignment
+```
+
+だけである。
+
+まだ、
+
+```text
+Expression pattern
+unification
+pattern variables
+shared binding
+substitution
+```
+
+は扱っていない。
+
+---
+
+## empty-premise rule
+
+premise pattern を持たない rule は、
+1つの valid empty assignment を持つ。
+
+そのため、
+
+```python
+find_all_matching_premises(
+  rule,
+  (),
+)
+```
+
+は、
+
+```text
+((),)
+```
+
+を返す。
+
+available steps が存在しても同様に、
+
+```text
+((),)
+```
+
+を返すことを確認した。
+
+---
+
+## deterministic search order
+
+assignment enumeration は、
+
+```text
+pattern order
+available-step order
+```
+
+を維持する。
+
+例えば、
+
+```text
+A
+B
+C
+```
+
+がすべて同じ pattern に match し、
+2 premises が必要なら、
+
+```text
+(A,B)
+(A,C)
+(B,A)
+(B,C)
+(C,A)
+(C,B)
+```
+
+という depth-first order になる。
+
+この deterministic order は、
+Phase 5-35 の first-candidate-wins semantics と接続するため重要である。
+
+---
+
+## find_inference_matches_for_rule() を追加
+
+追加:
+
+```python
+find_inference_matches_for_rule(
+  inference_rule,
+  available_steps,
+)
+```
+
+この API は、
+
+```text
+find_all_matching_premises()
+↓
+all premise assignments
+↓
+InferenceMatch
+```
+
+へ変換する。
+
+これにより、
+1つの rule が、
+
+```text
+0..n InferenceMatch
+```
+
+を生成できるようになった。
+
+---
+
+## find_matching_premises() を compatibility view に変更
+
+既存の、
+
+```python
+find_matching_premises()
+```
+
+は削除しなかった。
+
+Phase 5-36 では、
+
+```text
+find_all_matching_premises()
+↓
+first result
+```
+
+という first-result API とした。
+
+したがって existing behavior:
+
+```text
+最初の valid assignment
+```
+
+を要求する code はそのまま利用できる。
+
+assignment がなければ、
+
+```text
+None
+```
+
+を返す。
+
+---
+
+## find_inference_match() を compatibility view に変更
+
+同様に、
+
+```python
+find_inference_match()
+```
+
+も、
+
+```text
+find_inference_matches_for_rule()
+↓
+first match
+```
+
+を返す compatibility API とした。
+
+これにより、
+Phase 5-21 以降の single-match API を壊さずに、
+new all-match API を導入できた。
+
+---
+
+## find_inference_matches() を all-match semantics に変更
+
+collection-level API:
+
+```python
+find_inference_matches()
+```
+
+は、
+各 rule について、
+
+```python
+find_inference_matches_for_rule()
+```
+
+を呼び、
+その結果を flatten するよう変更した。
+
+従来:
+
+```text
+rule 1 → 0 or 1 match
+rule 2 → 0 or 1 match
+```
+
+Phase 5-36:
+
+```text
+rule 1 → 0..n matches
+rule 2 → 0..m matches
+```
+
+となった。
+
+---
+
+## rule order / assignment order
+
+`find_inference_matches()` の result order は、
+
+```text
+rule order
+↓
+assignment order within each rule
+```
+
+とした。
+
+例えば、
+
+```text
+rules:
+first_rule
+second_rule
+
+available:
+first
+second
+```
+
+で両 rules が1つの `GIVEN` premise を要求する場合、
+
+```text
+first_rule(first)
+first_rule(second)
+second_rule(first)
+second_rule(second)
+```
+
+となる。
+
+この ordering を test で固定した。
+
+---
+
+## Phase 5-35 acceptance classification との接続
+
+multiple matches が生成されるため、
+同じ rule が同じ conclusion を複数回生成するケースが
+通常に発生するようになった。
+
+例えば、
+
+```text
+first
+second
+
+rule:
+GIVEN → derived
+```
+
+では、
+
+```text
+first → derived
+second → derived
+```
+
+の2 candidate が生成される。
+
+`derived` が新規なら、
+
+```text
+first application:
+accepted = True
+
+second application:
+accepted = False
+rejection_reason =
+SAME_ROUND_DUPLICATE
+```
+
+となる。
+
+Phase 5-35 で導入した application-level classification が、
+Phase 5-36 の exhaustive matching にそのまま利用できた。
+
+---
+
+## ALREADY_KNOWN case の既存 test を更新
+
+Phase 5-36 によって、
+available state 内に複数の `GIVEN` step が存在すると、
+同じ rule がそのすべてに match するようになった。
+
+そのため、
+Phase 5-35 以前に、
+
+```text
+1 rule
+=
+1 application
+```
+
+を前提としていた一部 tests の期待値が変化した。
+
+例えば、
+
+```text
+available:
+given
+derived
+
+rule:
+GIVEN → derived
+```
+
+では、
+Phase 5-36 以降、
+
+```text
+given → derived
+derived → derived
+```
+
+の2 applications が生成される。
+
+`derived` は round 開始前から known なので、
+両 application とも、
+
+```text
+accepted = False
+rejection_reason = ALREADY_KNOWN
+```
+
+となる。
+
+tests をこの semantics に更新した。
+
+---
+
+## test failure の確認と修正
+
+最初の Phase 5-36 test 実行では、
+旧 greedy semantics を前提とした tests が failure した。
+
+failure の原因は implementation regression ではなく、
+
+```text
+1 rule → 1 match
+```
+
+という旧 expectation が残っていたことであった。
+
+該当 tests を、
+
+```text
+1 rule
+↓
+multiple valid available steps
+↓
+multiple matches
+```
+
+の semantics に更新した。
+
+その後、
+同名の、
+
+```python
+test_derive_inference_round_result_marks_already_known_application()
+```
+
+が test file 内に2回定義されていることも確認した。
+
+Python では後の function definition が前の definition を
+上書きするため、
+旧 version が実行されていた。
+
+古い duplicate definition を削除し、
+Phase 5-36 対応版のみを残した。
+
+---
+
+## Phase 5-36 で追加・確認した test categories
+
+Phase 5-36 では主に以下を確認した。
+
+```text
+single valid premise assignment
+multiple matches for one pattern
+multiple ordered premise assignments
+same ProofStep reuse prohibition
+pattern order preservation
+empty-premise rule
+no valid assignment
+list input normalization
+invalid rule rejection
+invalid steps rejection
+multiple matches for one rule
+zero matches for one rule
+first-match compatibility
+all matches collection
+rule-order preservation
+assignment-order preservation
+multiple application behavior
+ALREADY_KNOWN behavior with multiple matches
+SAME_ROUND_DUPLICATE behavior with multiple matches
+```
+
+---
+
+## 最終 test result
+
+実行:
+
+```powershell
+python -m pytest tests/test_inference_rule_pattern.py -v
+```
+
+最終結果:
+
+```text
+285 passed in 0.93s
+```
+
+全285 inference-rule pattern tests が成功した。
+
+---
+
+## regression
+
+Phase 5-36 の変更後も、
+
+```text
+PremisePattern
+matches_premise_pattern()
+matches_inference_rule()
+find_matching_premises()
+is_inference_rule_applicable()
+find_applicable_inference_rules()
+InferenceMatch
+find_inference_match()
+apply_inference_match()
+apply_inference_matches()
+derive_inference_steps()
+merge_proof_steps()
+partition_new_and_duplicate_proof_steps()
+derive_new_inference_steps()
+run_inference_round()
+run_inference_until_stable()
+InferenceRunResult
+InferenceRoundResult
+max_rounds
+termination reasons
+candidate tracing
+duplicate-rejection tracing
+InferenceApplicationResult
+acceptance classification
+rejection reasons
+```
+
+を含む既存 tests はすべて成功した。
+
+Phase 5-36 の exhaustive premise assignment search 導入による
+unexpected regression は確認されなかった。
+
+---
+
+## Phase 5-36 時点の premise-search pipeline
+
+現在の premise search は、
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_all_matching_premises()
+↓
+all valid premise assignments
+↓
+find_inference_matches_for_rule()
+↓
+all InferenceMatch objects for one rule
+```
+
+となった。
+
+collection-level では、
+
+```text
+InferenceRules
++
+available ProofSteps
+↓
+for each rule
+↓
+all InferenceMatch objects
+↓
+flatten
+↓
+find_inference_matches()
+```
+
+となる。
+
+---
+
+## Phase 5-36 時点の one-round pipeline
+
+現在の one-round inference は、
+
+```text
+available ProofSteps
++
+InferenceRules
+↓
+all premise assignments
+↓
+all InferenceMatches
+↓
+all rule applications
+↓
+candidate ProofSteps
+↓
+acceptance classification
+↓
+new / rejected candidates
+↓
+InferenceRoundResult
+```
+
+となった。
+
+詳細には、
+
+```text
+InferenceRoundResult
+├── matches
+│   ├── same rule / assignment 1
+│   ├── same rule / assignment 2
+│   └── ...
+├── application_results
+│   └── InferenceApplicationResult
+│       ├── match
+│       ├── candidate_step
+│       ├── accepted
+│       └── rejection_reason
+├── candidate_steps
+├── new_steps
+└── duplicate_rejected_steps
+```
+
+となる。
+
+---
+
+## Phase 5-24 から Phase 5-36 まで
+
+Phase 5-24:
+
+```text
+candidate derivation
+```
+
+Phase 5-25:
+
+```text
+one-round state expansion
+```
+
+Phase 5-26:
+
+```text
+duplicate-aware merge
+```
+
+Phase 5-27:
+
+```text
+one-round genuinely-new delta
+```
+
+Phase 5-28:
+
+```text
+automatic fixed-point iteration
+```
+
+Phase 5-29:
+
+```text
+per-round history
++
+structured run result
+```
+
+Phase 5-30:
+
+```text
+bounded iteration
++
+explicit termination reason
+```
+
+Phase 5-31:
+
+```text
+structured per-round result
+```
+
+Phase 5-32:
+
+```text
+per-round InferenceMatch tracing
+```
+
+Phase 5-33:
+
+```text
+candidate tracing
++
+duplicate rejection tracing
+```
+
+Phase 5-34:
+
+```text
+structured match-to-candidate
+InferenceApplicationResult
+```
+
+Phase 5-35:
+
+```text
+application acceptance status
++
+rejection reason
+```
+
+Phase 5-36:
+
+```text
+all valid premise assignments
++
+multiple InferenceMatch objects per rule
+```
+
+まで進んだ。
+
+---
+
+## Phase 5-36 の到達点
+
+Phase 5-35 までの engine は、
+
+```text
+rule
+↓
+first premise assignment
+↓
+one match
+```
+
+という greedy proof search だった。
+
+Phase 5-36 では、
+
+```text
+rule
+↓
+all premise assignments
+↓
+multiple matches
+```
+
+へ進んだ。
+
+したがって現在は、
+
+```text
+同じ inference rule を
+すべての適用可能な既知事実の組合せに適用する
+```
+
+ことが可能になった。
+
+これは、
+将来の本格的な proof search に必要な、
+
+```text
+alternative exploration
+```
+
+の基礎となる。
+
+---
+
+## 現在の制限
+
+all premise assignments は列挙できるが、
+現在の pattern matching はまだ、
+
+```text
+proof_rule
+statement_type
+relation_type
+```
+
+だけを見る。
+
+そのため、
+複数 premise の数学的内容同士の関係、
+
+例えば、
+
+```text
+premise 1 に現れる α
+=
+premise 2 に現れる α
+```
+
+をまだ要求できない。
+
+したがって current search は、
+
+```text
+type-compatible assignments
+```
+
+を列挙する段階であり、
+
+```text
+mathematically consistent shared-variable assignments
+```
+
+を列挙する段階にはまだ達していない。
+
+---
+
+## 次の課題
+
+Phase 5-36 で backtracking infrastructure が導入されたため、
+次の自然な拡張は、
+
+```text
+pattern variables
+variable bindings
+```
+
+である。
+
+例えば、
+
+```text
+Relation(
+  lhs=?x,
+  rhs=0,
+)
+```
+
+を、
+
+```text
+Relation(
+  lhs=alpha,
+  rhs=0,
+)
+```
+
+へ match した際に、
+
+```text
+?x = alpha
+```
+
+を binding として取得する。
+
+複数 premise では、
+この binding を共有して、
+
+```text
+同じ variable が
+同じ Expression に対応する
+```
+
+ことを確認する。
+
+その後、
+
+```text
+bindings
+↓
+conclusion template
+↓
+substitution
+↓
+structured derived conclusion
+```
+
+へ進むことができる。
+
+---
+
+## 状態
+
+Phase 5-36 完了。
+
+inference-rule pattern tests:
+
+```text
+285 passed in 0.93s
+```
+
+Phase 5-36 により、
+
+```text
+InferenceRule
+↓
+all valid premise assignments
+↓
+multiple InferenceMatch
+↓
+multiple applications
+↓
+individual acceptance decisions
+```
+
+までを一つの inference execution model として扱えるようになった。
+
+
 
 
 

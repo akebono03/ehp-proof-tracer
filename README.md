@@ -4533,6 +4533,1038 @@ The current greedy premise-selection semantics remain unchanged in
 Phase 5-35.
 
 
+## Phase 5-36: multiple premise assignments per inference rule
+
+Phase 5-36 extends premise matching from:
+
+```text
+one InferenceRule
+↓
+first valid premise assignment
+↓
+one InferenceMatch
+```
+
+to:
+
+```text
+one InferenceRule
+↓
+all valid premise assignments
+↓
+multiple InferenceMatch objects
+```
+
+Until Phase 5-35, premise search used greedy first-match semantics.
+
+For each `PremisePattern`, the engine selected:
+
+```text
+the first unused ProofStep
+that matches the pattern
+```
+
+and therefore produced at most one `InferenceMatch` for each
+`InferenceRule`.
+
+Phase 5-36 introduces exhaustive premise-assignment enumeration while
+preserving the existing first-match APIs as compatibility views.
+
+---
+
+## Motivation
+
+Suppose the available knowledge state contains:
+
+```text
+A1  [GIVEN]
+A2  [GIVEN]
+```
+
+and an inference rule requires:
+
+```text
+GIVEN
+```
+
+as its only premise.
+
+Previously, the engine selected only:
+
+```text
+A1
+```
+
+and produced:
+
+```text
+InferenceMatch(
+  premises=(A1,),
+)
+```
+
+Phase 5-36 now produces both valid matches:
+
+```text
+InferenceMatch(
+  premises=(A1,),
+)
+
+InferenceMatch(
+  premises=(A2,),
+)
+```
+
+Therefore the same inference rule can now be applied to every
+compatible known fact instead of only the first one encountered.
+
+---
+
+## find_all_matching_premises()
+
+Phase 5-36 introduces:
+
+```python
+find_all_matching_premises(
+  inference_rule,
+  available_steps,
+)
+```
+
+This function returns:
+
+```text
+tuple[
+  tuple[ProofStep, ...],
+  ...
+]
+```
+
+containing every valid premise assignment for one inference rule.
+
+For example:
+
+```text
+available:
+A
+B
+
+patterns:
+GIVEN
+```
+
+produces:
+
+```text
+(A,)
+(B,)
+```
+
+For two matching premise patterns:
+
+```text
+available:
+A
+B
+
+patterns:
+GIVEN
+GIVEN
+```
+
+the valid assignments are:
+
+```text
+(A,B)
+(B,A)
+```
+
+The same `ProofStep` cannot be reused within one premise assignment.
+
+Therefore:
+
+```text
+(A,A)
+(B,B)
+```
+
+are not generated.
+
+---
+
+## Backtracking premise search
+
+`find_all_matching_premises()` uses a recursive search over:
+
+```text
+pattern index
++
+available ProofStep index
++
+already-used ProofStep indices
+```
+
+Conceptually:
+
+```text
+premise pattern 1
+↓
+try every matching unused ProofStep
+↓
+premise pattern 2
+↓
+try every matching unused ProofStep
+↓
+...
+↓
+complete assignment
+```
+
+If a partial assignment cannot be completed, the search returns to the
+previous premise position and tries the next candidate.
+
+This is the first explicit backtracking search in the inference engine.
+
+However, the backtracking is currently limited to:
+
+```text
+ProofStep-to-PremisePattern assignment
+```
+
+It does not yet perform:
+
+```text
+expression unification
+pattern-variable binding
+substitution
+semantic expression matching
+```
+
+---
+
+## ProofStep reuse is prohibited within one match
+
+One `ProofStep` cannot satisfy multiple premise positions in the same
+`InferenceMatch`.
+
+For example:
+
+```text
+available:
+A
+
+patterns:
+GIVEN
+GIVEN
+```
+
+has no valid premise assignment.
+
+The engine returns:
+
+```text
+()
+```
+
+rather than:
+
+```text
+(A,A)
+```
+
+With:
+
+```text
+available:
+A
+B
+```
+
+the valid assignments are:
+
+```text
+(A,B)
+(B,A)
+```
+
+This preserves the distinct-premise semantics already used by the
+previous greedy matcher.
+
+---
+
+## Empty-premise rules
+
+A rule with no premise patterns still has exactly one valid premise
+assignment:
+
+```text
+()
+```
+
+Therefore:
+
+```python
+find_all_matching_premises(
+  premise_free_rule,
+  available_steps,
+)
+```
+
+returns:
+
+```text
+((),)
+```
+
+regardless of whether `available_steps` is empty or non-empty.
+
+This preserves the previous semantics of premise-free inference rules.
+
+---
+
+## Deterministic assignment ordering
+
+Premise assignments are generated in deterministic depth-first order.
+
+The ordering is determined by:
+
+```text
+premise-pattern order
+↓
+available-step order
+```
+
+For example:
+
+```text
+available:
+A
+B
+C
+
+patterns:
+GIVEN
+GIVEN
+```
+
+produces:
+
+```text
+(A,B)
+(A,C)
+(B,A)
+(B,C)
+(C,A)
+(C,B)
+```
+
+This ordering is important because later duplicate acceptance uses
+first-candidate-wins semantics.
+
+Therefore deterministic premise enumeration also gives deterministic
+application and acceptance order.
+
+---
+
+## find_inference_matches_for_rule()
+
+Phase 5-36 introduces:
+
+```python
+find_inference_matches_for_rule(
+  inference_rule,
+  available_steps,
+)
+```
+
+This converts every valid premise assignment into an
+`InferenceMatch`.
+
+Conceptually:
+
+```text
+InferenceRule
++
+available ProofSteps
+↓
+find_all_matching_premises()
+↓
+premise assignment 1
+premise assignment 2
+premise assignment 3
+...
+↓
+InferenceMatch 1
+InferenceMatch 2
+InferenceMatch 3
+...
+```
+
+The result type is:
+
+```text
+tuple[InferenceMatch, ...]
+```
+
+A rule may therefore produce:
+
+```text
+zero matches
+one match
+multiple matches
+```
+
+depending on the available knowledge state.
+
+---
+
+## find_matching_premises() remains a first-match view
+
+The existing:
+
+```python
+find_matching_premises()
+```
+
+API is preserved.
+
+It now conceptually behaves as:
+
+```text
+find_all_matching_premises()
+↓
+first assignment
+```
+
+and returns:
+
+```text
+first valid assignment
+```
+
+or:
+
+```text
+None
+```
+
+when no assignment exists.
+
+Therefore existing callers that only require one premise assignment
+continue to work.
+
+---
+
+## find_inference_match() remains a first-match view
+
+The existing:
+
+```python
+find_inference_match()
+```
+
+API is also preserved.
+
+It now uses the complete per-rule match search and returns:
+
+```text
+first InferenceMatch
+```
+
+or:
+
+```text
+None
+```
+
+when no match exists.
+
+Therefore:
+
+```text
+find_inference_match()
+```
+
+continues to provide the original first-match behavior,
+
+while:
+
+```text
+find_inference_matches_for_rule()
+```
+
+provides all matches for one rule.
+
+---
+
+## find_inference_matches() now collects all matches
+
+The collection-level:
+
+```python
+find_inference_matches()
+```
+
+previously produced at most one match per rule.
+
+Phase 5-36 changes it to collect every match from every rule.
+
+Conceptually:
+
+```text
+rule 1
+↓
+all assignments for rule 1
+↓
+matches 1a, 1b, ...
+
+rule 2
+↓
+all assignments for rule 2
+↓
+matches 2a, 2b, ...
+
+↓
+flatten
+```
+
+The result order is:
+
+```text
+rule order
+↓
+assignment order within each rule
+```
+
+For example:
+
+```text
+rules:
+R1
+R2
+
+available:
+A
+B
+```
+
+where both rules require one `GIVEN` premise, the result is:
+
+```text
+R1(A)
+R1(B)
+R2(A)
+R2(B)
+```
+
+rather than:
+
+```text
+R1(A)
+R2(A)
+```
+
+as under the previous greedy semantics.
+
+---
+
+## Interaction with Phase 5-35 acceptance classification
+
+Phase 5-35 introduced:
+
+```text
+accepted
+rejection_reason
+```
+
+for each `InferenceApplicationResult`.
+
+Phase 5-36 makes this significantly more useful because one rule may
+now generate several applications.
+
+For example:
+
+```text
+available:
+A
+B
+
+rule:
+GIVEN → X
+```
+
+produces:
+
+```text
+match 1:
+A
+
+match 2:
+B
+```
+
+and therefore:
+
+```text
+application 1:
+A → X
+
+application 2:
+B → X
+```
+
+If `X` was not previously known:
+
+```text
+application 1
+accepted = True
+
+application 2
+accepted = False
+rejection_reason = SAME_ROUND_DUPLICATE
+```
+
+Thus the execution trace preserves both valid derivations even though
+only the first conclusion enters the knowledge state.
+
+---
+
+## Interaction with ALREADY_KNOWN
+
+If the conclusion already existed before the round, every application
+that derives it is classified as:
+
+```text
+accepted = False
+rejection_reason = ALREADY_KNOWN
+```
+
+For example:
+
+```text
+available:
+A
+X
+
+rule:
+GIVEN → X
+```
+
+Both:
+
+```text
+A → X
+X → X
+```
+
+may be valid applications if both available steps satisfy the premise
+pattern.
+
+Since `X` existed before the round, both applications are classified
+as:
+
+```text
+ALREADY_KNOWN
+```
+
+rather than treating the later one as a same-round duplicate.
+
+The distinction remains:
+
+```text
+ALREADY_KNOWN
+=
+conclusion existed before the round
+
+SAME_ROUND_DUPLICATE
+=
+conclusion was first accepted earlier in the same round
+```
+
+---
+
+## Current matching and application pipeline
+
+After Phase 5-36, the one-round inference path is:
+
+```text
+InferenceRules
++
+available ProofSteps
+↓
+for each rule
+↓
+find_all_matching_premises()
+↓
+all valid premise assignments
+↓
+find_inference_matches_for_rule()
+↓
+all InferenceMatch objects
+↓
+find_inference_matches()
+↓
+flatten in rule / assignment order
+↓
+apply_inference_matches_with_results()
+↓
+raw InferenceApplicationResult objects
+↓
+classify_inference_application_results()
+↓
+accepted / rejected applications
+↓
+InferenceRoundResult
+```
+
+The structured trace remains:
+
+```text
+InferenceRoundResult
+├── matches
+├── application_results
+│   └── InferenceApplicationResult
+│       ├── match
+│       ├── candidate_step
+│       ├── accepted
+│       └── rejection_reason
+├── candidate_steps
+├── new_steps
+└── duplicate_rejected_steps
+```
+
+The important change is that:
+
+```text
+matches
+```
+
+may now contain multiple matches from the same inference rule.
+
+---
+
+## Compatibility APIs
+
+Phase 5-36 intentionally separates:
+
+```text
+complete-search APIs
+```
+
+from:
+
+```text
+first-result compatibility APIs
+```
+
+Complete-search APIs:
+
+```text
+find_all_matching_premises()
+find_inference_matches_for_rule()
+find_inference_matches()
+```
+
+First-result compatibility APIs:
+
+```text
+find_matching_premises()
+find_inference_match()
+```
+
+This allows the inference engine to use exhaustive search internally
+without forcing every existing caller to handle collections of
+alternative assignments.
+
+---
+
+## Existing applicability semantics
+
+The existing:
+
+```python
+is_inference_rule_applicable()
+```
+
+continues to answer only:
+
+```text
+does at least one valid premise assignment exist?
+```
+
+Likewise:
+
+```python
+find_applicable_inference_rules()
+```
+
+continues to return each applicable rule once.
+
+It does not duplicate a rule merely because that rule has multiple
+valid assignments.
+
+Thus:
+
+```text
+rule applicability
+```
+
+and:
+
+```text
+number of rule matches
+```
+
+remain separate concepts.
+
+---
+
+## Tests
+
+Run the inference-rule tests with:
+
+```powershell
+python -m pytest tests/test_inference_rule_pattern.py -v
+```
+
+At the completion of Phase 5-36:
+
+```text
+285 passed in 0.93s
+```
+
+All inference-rule pattern tests pass.
+
+Phase 5-36 tests cover:
+
+```text
+single complete premise assignment
+multiple matches for one premise pattern
+multiple premise assignments
+no ProofStep reuse within one assignment
+pattern-order preservation
+empty-premise rule behavior
+no-assignment behavior
+list input
+invalid rule input
+invalid ProofStep input
+multiple InferenceMatch objects for one rule
+no matches for one rule
+first-match compatibility
+collection of all matches per rule
+rule-order then assignment-order preservation
+updated duplicate / already-known behavior under multiple matches
+```
+
+Existing tests affected by the previous:
+
+```text
+one rule → at most one match
+```
+
+assumption were updated to reflect the new intended semantics.
+
+No regression was detected in the existing:
+
+```text
+PremisePattern matching
+InferenceRule matching
+first-match premise search
+applicability checks
+applicable-rule search
+InferenceMatch application
+candidate derivation
+duplicate-aware merging
+one-round inference
+fixed-point inference
+round history
+max-round termination
+structured round results
+application tracing
+acceptance classification
+rejection-reason classification
+```
+
+behavior.
+
+---
+
+## Phase 5-24 through Phase 5-36
+
+The inference engine has progressed through:
+
+```text
+Phase 5-24
+candidate derivation
+↓
+Phase 5-25
+one-round state expansion
+↓
+Phase 5-26
+duplicate-aware merge
+↓
+Phase 5-27
+one-round genuinely-new delta
+↓
+Phase 5-28
+automatic fixed-point iteration
+↓
+Phase 5-29
+per-round history and structured run result
+↓
+Phase 5-30
+bounded iteration and explicit termination reason
+↓
+Phase 5-31
+structured per-round result objects
+↓
+Phase 5-32
+per-round InferenceMatch tracing
+↓
+Phase 5-33
+candidate and duplicate-rejection tracing
+↓
+Phase 5-34
+structured match-to-candidate application results
+↓
+Phase 5-35
+application acceptance status and rejection reasons
+↓
+Phase 5-36
+all valid premise assignments and multiple matches per rule
+```
+
+The matching path has therefore changed from:
+
+```text
+rule
+↓
+first usable premises
+↓
+one match
+```
+
+to:
+
+```text
+rule
+↓
+all valid premise assignments
+↓
+all matches
+↓
+all applications
+↓
+individual acceptance decisions
+```
+
+---
+
+## Current limitation
+
+Phase 5-36 enumerates every combination of `ProofStep` objects that
+independently satisfies the existing `PremisePattern` fields:
+
+```text
+proof_rule
+statement_type
+relation_type
+```
+
+However, it still cannot express relationships between premise
+contents.
+
+For example, a mathematical rule may require:
+
+```text
+premise 1:
+relation involving α
+
+premise 2:
+another relation involving the same α
+```
+
+The current matcher can check that both premises have the required
+types, but it cannot yet express:
+
+```text
+the α in premise 1
+must equal
+the α in premise 2
+```
+
+This requires shared pattern variables and bindings.
+
+---
+
+## Next direction
+
+With alternative premise assignments now available, the next major
+step is to make premise patterns depend on the mathematical content of
+statements rather than only their outer type.
+
+A natural next direction is:
+
+```text
+pattern variables
++
+variable bindings
+```
+
+Conceptually:
+
+```text
+pattern:
+Relation(
+  lhs=?x,
+  rhs=0,
+)
+
+↓ match
+
+actual:
+Relation(
+  lhs=alpha,
+  rhs=0,
+)
+
+↓ binding
+
+?x = alpha
+```
+
+For multiple premises, bindings must be shared:
+
+```text
+premise pattern 1
+binds ?x = alpha
+
+premise pattern 2
+requires the same ?x
+```
+
+This would allow the current backtracking premise search to become a
+mathematically meaningful unification-style search rather than only a
+type-based combinatorial search.
+
+Possible later extensions include:
+
+```text
+expression-level patterns
+shared variable bindings
+substitution into conclusions
+structured conclusion templates
+alternative proof preservation
+proof ranking
+search pruning
+canonicalization
+mathematical-equivalence duplicate detection
+```
+
+Phase 5-36 itself does not yet introduce expression-level bindings or
+substitution.
+
+
 
 
 
