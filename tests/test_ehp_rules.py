@@ -359,6 +359,168 @@ def test_ehp_exactness_kernel_implies_image_rejects_nonexact_pair():
   assert match is None
 
 
+def test_ehp_exactness_rules_reach_fixed_point_together():
+  segment = EHPSegment(
+    make_sphere_repository(),
+    n=3,
+    k=5,
+  )
+
+  exact_step = (
+    segment.exact_step_at_sphere()
+  )
+
+  image_step = image_proof_step(
+    exact_step.first_map
+  )
+
+  kernel_step = kernel_proof_step(
+    exact_step.second_map
+  )
+
+  exactness_rule = (
+    ehp_exactness_inference_rule()
+  )
+
+  image_implies_kernel_rule = (
+    ehp_exactness_image_implies_kernel_inference_rule()
+  )
+
+  kernel_implies_image_rule = (
+    ehp_exactness_kernel_implies_image_inference_rule()
+  )
+
+  rules = (
+    exactness_rule,
+    image_implies_kernel_rule,
+    kernel_implies_image_rule,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        image_step,
+        kernel_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 1
+
+  assert len(result.steps) == 3
+
+  assert len(
+    result.round_results
+  ) == 1
+
+  assert len(
+    result.round_results[0].new_steps
+  ) == 1
+
+  exactness_step = (
+    result.round_results[0]
+    .new_steps[0]
+  )
+
+  assert exactness_step.conclusion == (
+    ExactnessStatement(
+      first_map=exact_step.first_map,
+      second_map=exact_step.second_map,
+      is_exact=True,
+    )
+  )
+
+  assert exactness_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    exactness_step.inference_rule
+    == exactness_rule
+  )
+
+  assert exactness_step.premises == (
+    image_step,
+    kernel_step,
+  )
+
+  terminal_round = (
+    derive_inference_round_result(
+      rules,
+      result.steps,
+    )
+  )
+
+  assert terminal_round.new_steps == ()
+
+  assert len(
+    terminal_round.matches
+  ) == 3
+
+  assert len(
+    terminal_round.candidate_steps
+  ) == 3
+
+  assert len(
+    terminal_round.duplicate_rejected_steps
+  ) == 3
+
+  assert len(
+    terminal_round.application_results
+  ) == 3
+
+  assert tuple(
+    application_result
+    .candidate_step
+    .conclusion
+    for application_result
+    in terminal_round.application_results
+  ) == (
+    ExactnessStatement(
+      first_map=exact_step.first_map,
+      second_map=exact_step.second_map,
+      is_exact=True,
+    ),
+    KernelStatement(
+      group_map=exact_step.second_map,
+      structure=(
+        image_step.conclusion.structure
+      ),
+    ),
+    ImageStatement(
+      group_map=exact_step.first_map,
+      structure=(
+        kernel_step.conclusion.structure
+      ),
+    ),
+  )
+
+  assert all(
+    (
+      application_result.accepted
+      is False
+    )
+    for application_result
+    in terminal_round.application_results
+  )
+
+  assert all(
+    (
+      application_result
+      .rejection_reason
+      .value
+      == "already_known"
+    )
+    for application_result
+    in terminal_round.application_results
+  )
+
+
 
 
 
