@@ -11235,6 +11235,229 @@ def test_match_inference_rule_bindings_rejects_invalid_steps():
     )
 
 
+def test_find_all_matching_premises_enforces_shared_binding_consistency():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  rule = InferenceRule(
+    name="shared variable rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=variable,
+          rhs="0",
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+  )
+
+  alpha_zero = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  source_alpha = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  source_beta = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = find_all_matching_premises(
+    rule,
+    (
+      alpha_zero,
+      source_beta,
+      source_alpha,
+    ),
+  )
+
+  assert result == (
+    (
+      alpha_zero,
+      source_alpha,
+    ),
+  )
+
+
+def test_find_all_matching_premises_backtracks_over_binding_conflict():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  rule = InferenceRule(
+    name="shared variable rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=variable,
+          rhs="0",
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+  )
+
+  alpha_zero = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  beta_zero = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  source_beta = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = find_all_matching_premises(
+    rule,
+    (
+      alpha_zero,
+      beta_zero,
+      source_beta,
+    ),
+  )
+
+  assert result == (
+    (
+      beta_zero,
+      source_beta,
+    ),
+  )
+
+
+def test_find_all_matching_premises_enumerates_only_binding_consistent_assignments():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  rule = InferenceRule(
+    name="shared variable rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=variable,
+          rhs="0",
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+  )
+
+  alpha_zero = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  beta_zero = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  source_alpha = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  source_beta = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = find_all_matching_premises(
+    rule,
+    (
+      alpha_zero,
+      beta_zero,
+      source_alpha,
+      source_beta,
+    ),
+  )
+
+  assert result == (
+    (
+      alpha_zero,
+      source_alpha,
+    ),
+    (
+      beta_zero,
+      source_beta,
+    ),
+  )
+
+
 
 
 

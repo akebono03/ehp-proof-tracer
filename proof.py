@@ -514,6 +514,7 @@ def find_all_matching_premises(
     pattern_index,
     matched_steps,
     used_indices,
+    bindings,
   ):
     if pattern_index == len(
       patterns
@@ -535,10 +536,24 @@ def find_all_matching_premises(
       if index in used_indices:
         continue
 
-      if not matches_premise_pattern(
-        pattern,
-        step,
-      ):
+      premise_bindings = (
+        match_premise_pattern(
+          pattern,
+          step,
+        )
+      )
+
+      if premise_bindings is None:
+        continue
+
+      merged_bindings = (
+        merge_variable_bindings(
+          bindings
+          + premise_bindings
+        )
+      )
+
+      if merged_bindings is None:
         continue
 
       search(
@@ -550,12 +565,14 @@ def find_all_matching_premises(
         | {
           index,
         },
+        merged_bindings,
       )
 
   search(
     0,
     [],
     set(),
+    (),
   )
 
   return tuple(
