@@ -13715,6 +13715,391 @@ def test_single_rule_multiple_binding_assignments_derive_distinct_conclusions_en
   )
 
 
+def test_multiple_premises_multiple_shared_binding_assignments_derive_distinct_conclusions_end_to_end():
+  x = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="paired source to derived",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="left",
+          rhs=x,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="right",
+          rhs=x,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="derived",
+      rhs=x,
+    ),
+  )
+
+  left_alpha = ProofStep(
+    conclusion=Relation(
+      lhs="left",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  right_alpha = ProofStep(
+    conclusion=Relation(
+      lhs="right",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  left_beta = ProofStep(
+    conclusion=Relation(
+      lhs="left",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  right_beta = ProofStep(
+    conclusion=Relation(
+      lhs="right",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        left_alpha,
+        right_alpha,
+        left_beta,
+        right_beta,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 1
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  assert len(
+    first_round.matches
+  ) == 2
+
+  assert tuple(
+    match.premises
+    for match in first_round.matches
+  ) == (
+    (
+      left_alpha,
+      right_alpha,
+    ),
+    (
+      left_beta,
+      right_beta,
+    ),
+  )
+
+  assert tuple(
+    match.bindings
+    for match in first_round.matches
+  ) == (
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="beta",
+      ),
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.new_steps
+  ) == (
+    Relation(
+      lhs="derived",
+      rhs="alpha",
+    ),
+    Relation(
+      lhs="derived",
+      rhs="beta",
+    ),
+  )
+
+  assert first_round.new_steps[0].premises == (
+    left_alpha,
+    right_alpha,
+  )
+
+  assert first_round.new_steps[1].premises == (
+    left_beta,
+    right_beta,
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in result.steps
+  ) == (
+    Relation(
+      lhs="left",
+      rhs="alpha",
+    ),
+    Relation(
+      lhs="right",
+      rhs="alpha",
+    ),
+    Relation(
+      lhs="left",
+      rhs="beta",
+    ),
+    Relation(
+      lhs="right",
+      rhs="beta",
+    ),
+    Relation(
+      lhs="derived",
+      rhs="alpha",
+    ),
+    Relation(
+      lhs="derived",
+      rhs="beta",
+    ),
+  )
+
+
+def test_multiple_premises_multiple_variables_multiple_assignments_derive_distinct_conclusions_end_to_end():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  rule = InferenceRule(
+    name="paired relation to derived relation",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=x,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=y,
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  alpha_beta = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  beta_alpha = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  gamma_delta = ProofStep(
+    conclusion=Relation(
+      lhs="gamma",
+      rhs="delta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  delta_gamma = ProofStep(
+    conclusion=Relation(
+      lhs="delta",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        alpha_beta,
+        beta_alpha,
+        gamma_delta,
+        delta_gamma,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 1
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  assert len(
+    first_round.matches
+  ) == 4
+
+  assert tuple(
+    match.premises
+    for match in first_round.matches
+  ) == (
+    (
+      alpha_beta,
+      beta_alpha,
+    ),
+    (
+      beta_alpha,
+      alpha_beta,
+    ),
+    (
+      gamma_delta,
+      delta_gamma,
+    ),
+    (
+      delta_gamma,
+      gamma_delta,
+    ),
+  )
+
+  assert tuple(
+    match.bindings
+    for match in first_round.matches
+  ) == (
+    (
+      VariableBinding(
+        variable=x,
+        value="alpha",
+      ),
+      VariableBinding(
+        variable=y,
+        value="beta",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="beta",
+      ),
+      VariableBinding(
+        variable=y,
+        value="alpha",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="gamma",
+      ),
+      VariableBinding(
+        variable=y,
+        value="delta",
+      ),
+    ),
+    (
+      VariableBinding(
+        variable=x,
+        value="delta",
+      ),
+      VariableBinding(
+        variable=y,
+        value="gamma",
+      ),
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.new_steps
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="beta",
+      relation_type=RelationType.ZERO,
+    ),
+    Relation(
+      lhs="beta",
+      rhs="alpha",
+      relation_type=RelationType.ZERO,
+    ),
+    Relation(
+      lhs="gamma",
+      rhs="delta",
+      relation_type=RelationType.ZERO,
+    ),
+    Relation(
+      lhs="delta",
+      rhs="gamma",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  assert first_round.new_steps[0].premises == (
+    alpha_beta,
+    beta_alpha,
+  )
+
+  assert first_round.new_steps[1].premises == (
+    beta_alpha,
+    alpha_beta,
+  )
+
+  assert first_round.new_steps[2].premises == (
+    gamma_delta,
+    delta_gamma,
+  )
+
+  assert first_round.new_steps[3].premises == (
+    delta_gamma,
+    gamma_delta,
+  )
 
 
 
