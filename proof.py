@@ -152,6 +152,58 @@ def merge_variable_bindings(
   )
 
 
+def lookup_variable_binding(
+  variable,
+  bindings,
+):
+  if not isinstance(
+    variable,
+    PatternVariable,
+  ):
+    raise TypeError(
+      "variable must be "
+      "a PatternVariable"
+    )
+
+  merged_bindings = (
+    merge_variable_bindings(
+      bindings
+    )
+  )
+
+  if merged_bindings is None:
+    raise ValueError(
+      "bindings must be consistent"
+    )
+
+  for binding in (
+    merged_bindings
+  ):
+    if (
+      binding.variable
+      == variable
+    ):
+      return binding.value
+
+  return None
+
+
+def substitute_pattern_value(
+  pattern,
+  bindings,
+):
+  if isinstance(
+    pattern,
+    PatternVariable,
+  ):
+    return lookup_variable_binding(
+      pattern,
+      bindings,
+    )
+
+  return pattern
+
+
 def match_pattern_value(
   pattern,
   value,

@@ -28,6 +28,7 @@ from proof import (
   find_inference_matches_for_rule,
   find_matching_premises,
   is_inference_rule_applicable,
+  lookup_variable_binding,
   match_inference_rule_bindings,
   matches_inference_rule,
   match_premise_pattern,
@@ -35,11 +36,12 @@ from proof import (
   match_pattern_value,
   match_relation_pattern,
   merge_proof_steps,
-  merge_variable_bindings,  
+  merge_variable_bindings,
   partition_new_and_duplicate_proof_steps,
   run_inference_round,
   run_inference_until_stable,
   run_inference_until_stable_with_history,
+  substitute_pattern_value,
 )
 
 
@@ -11688,6 +11690,178 @@ def test_find_inference_matches_for_rule_stores_distinct_bindings():
       value="beta",
     ),
   )
+
+
+def test_lookup_variable_binding():
+  variable = PatternVariable(
+    "x"
+  )
+
+  bindings = (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+  assert lookup_variable_binding(
+    variable,
+    bindings,
+  ) == "alpha"
+
+
+def test_lookup_variable_binding_structurally_equal_variable():
+  bindings = (
+    VariableBinding(
+      variable=PatternVariable(
+        "x"
+      ),
+      value="alpha",
+    ),
+  )
+
+  assert lookup_variable_binding(
+    PatternVariable(
+      "x"
+    ),
+    bindings,
+  ) == "alpha"
+
+
+def test_lookup_variable_binding_returns_none_when_missing():
+  bindings = (
+    VariableBinding(
+      variable=PatternVariable(
+        "x"
+      ),
+      value="alpha",
+    ),
+  )
+
+  assert (
+    lookup_variable_binding(
+      PatternVariable(
+        "y"
+      ),
+      bindings,
+    )
+    is None
+  )
+
+
+def test_lookup_variable_binding_accepts_single_binding():
+  variable = PatternVariable(
+    "x"
+  )
+
+  binding = VariableBinding(
+    variable=variable,
+    value="alpha",
+  )
+
+  assert lookup_variable_binding(
+    variable,
+    binding,
+  ) == "alpha"
+
+
+def test_lookup_variable_binding_accepts_list():
+  variable = PatternVariable(
+    "x"
+  )
+
+  binding = VariableBinding(
+    variable=variable,
+    value="alpha",
+  )
+
+  assert lookup_variable_binding(
+    variable,
+    [
+      binding,
+    ],
+  ) == "alpha"
+
+
+def test_lookup_variable_binding_rejects_invalid_variable():
+  with pytest.raises(TypeError):
+    lookup_variable_binding(
+      "x",
+      (),
+    )
+
+
+def test_lookup_variable_binding_rejects_conflicting_bindings():
+  variable = PatternVariable(
+    "x"
+  )
+
+  with pytest.raises(ValueError):
+    lookup_variable_binding(
+      variable,
+      (
+        VariableBinding(
+          variable=variable,
+          value="alpha",
+        ),
+        VariableBinding(
+          variable=variable,
+          value="beta",
+        ),
+      ),
+    )
+
+
+def test_substitute_pattern_value_variable():
+  variable = PatternVariable(
+    "x"
+  )
+
+  bindings = (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+  assert substitute_pattern_value(
+    variable,
+    bindings,
+  ) == "alpha"
+
+
+def test_substitute_pattern_value_literal():
+  assert substitute_pattern_value(
+    "alpha",
+    (),
+  ) == "alpha"
+
+
+def test_substitute_pattern_value_unbound_variable_returns_none():
+  variable = PatternVariable(
+    "x"
+  )
+
+  assert (
+    substitute_pattern_value(
+      variable,
+      (),
+    )
+    is None
+  )
+
+
+def test_substitute_pattern_value_preserves_arbitrary_literal():
+  value = Relation(
+    lhs="alpha",
+    rhs="beta",
+  )
+
+  assert substitute_pattern_value(
+    value,
+    (),
+  ) == value
+
 
 
 
