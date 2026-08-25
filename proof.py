@@ -43,6 +43,7 @@ class PremisePattern:
   proof_rule: ProofRule | None = None
   statement_type: type | None = None
   relation_type: RelationType | None = None
+  relation_pattern: Relation | None = None
 
 
 @dataclass(frozen=True)
@@ -356,6 +357,25 @@ def matches_premise_pattern(
     if (
       step.conclusion.relation_type
       != pattern.relation_type
+    ):
+      return False
+
+  if (
+    pattern.relation_pattern
+    is not None
+  ):
+    if not isinstance(
+      step.conclusion,
+      Relation,
+    ):
+      return False
+
+    if (
+      match_relation_pattern(
+        pattern.relation_pattern,
+        step.conclusion,
+      )
+      is None
     ):
       return False
 

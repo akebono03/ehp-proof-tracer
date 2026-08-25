@@ -10386,6 +10386,204 @@ def test_match_relation_pattern_distinct_variables_remain_distinct():
   )
 
 
+def test_premise_pattern_relation_pattern_defaults_to_none():
+  pattern = PremisePattern()
+
+  assert (
+    pattern.relation_pattern
+    is None
+  )
+
+
+def test_premise_pattern_with_relation_pattern():
+  relation_pattern = Relation(
+    lhs=PatternVariable(
+      name="x",
+    ),
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  pattern = PremisePattern(
+    relation_pattern=relation_pattern,
+  )
+
+  assert (
+    pattern.relation_pattern
+    == relation_pattern
+  )
+
+
+def test_premise_pattern_matches_relation_pattern():
+  pattern = PremisePattern(
+    relation_pattern=Relation(
+      lhs=PatternVariable(
+        name="x",
+      ),
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  assert matches_premise_pattern(
+    pattern,
+    step,
+  )
+
+
+def test_premise_pattern_rejects_wrong_relation_pattern_lhs():
+  pattern = PremisePattern(
+    relation_pattern=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  assert not matches_premise_pattern(
+    pattern,
+    step,
+  )
+
+
+def test_premise_pattern_rejects_wrong_relation_pattern_rhs():
+  pattern = PremisePattern(
+    relation_pattern=Relation(
+      lhs=PatternVariable(
+        name="x",
+      ),
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  assert not matches_premise_pattern(
+    pattern,
+    step,
+  )
+
+
+def test_premise_pattern_rejects_wrong_relation_pattern_type():
+  pattern = PremisePattern(
+    relation_pattern=Relation(
+      lhs=PatternVariable(
+        name="x",
+      ),
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  assert not matches_premise_pattern(
+    pattern,
+    step,
+  )
+
+
+def test_relation_pattern_requires_relation_conclusion():
+  pattern = PremisePattern(
+    relation_pattern=Relation(
+      lhs=PatternVariable(
+        name="x",
+      ),
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="not a relation",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  assert not matches_premise_pattern(
+    pattern,
+    step,
+  )
+
+
+def test_premise_pattern_relation_pattern_respects_repeated_variable():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  pattern = PremisePattern(
+    relation_pattern=Relation(
+      lhs=variable,
+      rhs=variable,
+    ),
+  )
+
+  matching_step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  nonmatching_step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  assert matches_premise_pattern(
+    pattern,
+    matching_step,
+  )
+
+  assert not matches_premise_pattern(
+    pattern,
+    nonmatching_step,
+  )
+
+
 
 
 
