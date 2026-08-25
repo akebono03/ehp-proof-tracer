@@ -28,6 +28,7 @@ from proof import (
   find_inference_matches_for_rule,
   find_matching_premises,
   is_inference_rule_applicable,
+  match_inference_rule_bindings,
   matches_inference_rule,
   match_premise_pattern,
   matches_premise_pattern,
@@ -10879,6 +10880,360 @@ def test_match_premise_pattern_rejects_invalid_step():
       pattern,
       "invalid",
     )
+
+
+def test_match_inference_rule_bindings_empty_rule():
+  rule = InferenceRule(
+    name="empty rule",
+  )
+
+  result = (
+    match_inference_rule_bindings(
+      rule,
+      (),
+    )
+  )
+
+  assert result == ()
+
+
+def test_match_inference_rule_bindings_without_variables():
+  rule = InferenceRule(
+    name="given rule",
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    match_inference_rule_bindings(
+      rule,
+      step,
+    )
+  )
+
+  assert result == ()
+
+
+def test_match_inference_rule_bindings_single_premise_binding():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  rule = InferenceRule(
+    name="relation rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=variable,
+          rhs="0",
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    match_inference_rule_bindings(
+      rule,
+      step,
+    )
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+
+def test_match_inference_rule_bindings_merges_shared_variable():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  rule = InferenceRule(
+    name="shared variable rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=variable,
+          rhs="0",
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+  )
+
+  first_step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  second_step = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    match_inference_rule_bindings(
+      rule,
+      (
+        first_step,
+        second_step,
+      ),
+    )
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+
+def test_match_inference_rule_bindings_rejects_shared_variable_conflict():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  rule = InferenceRule(
+    name="shared variable rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=variable,
+          rhs="0",
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+  )
+
+  first_step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  second_step = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    match_inference_rule_bindings(
+      rule,
+      (
+        first_step,
+        second_step,
+      ),
+    )
+  )
+
+  assert result is None
+
+
+def test_match_inference_rule_bindings_preserves_distinct_variables():
+  x = PatternVariable(
+    name="x",
+  )
+
+  y = PatternVariable(
+    name="y",
+  )
+
+  rule = InferenceRule(
+    name="two variable rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs="0",
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=y,
+        ),
+      ),
+    ),
+  )
+
+  first_step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  second_step = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    match_inference_rule_bindings(
+      rule,
+      (
+        first_step,
+        second_step,
+      ),
+    )
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=x,
+      value="alpha",
+    ),
+    VariableBinding(
+      variable=y,
+      value="beta",
+    ),
+  )
+
+
+def test_match_inference_rule_bindings_rejects_premise_mismatch():
+  rule = InferenceRule(
+    name="relation rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="alpha",
+          rhs="0",
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  assert (
+    match_inference_rule_bindings(
+      rule,
+      step,
+    )
+    is None
+  )
+
+
+def test_match_inference_rule_bindings_rejects_wrong_step_count():
+  rule = InferenceRule(
+    name="two premise rule",
+    premise_patterns=(
+      PremisePattern(),
+      PremisePattern(),
+    ),
+  )
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  assert (
+    match_inference_rule_bindings(
+      rule,
+      step,
+    )
+    is None
+  )
+
+
+def test_match_inference_rule_bindings_rejects_invalid_rule():
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  with pytest.raises(TypeError):
+    match_inference_rule_bindings(
+      "invalid",
+      step,
+    )
+
+
+def test_match_inference_rule_bindings_rejects_invalid_steps():
+  rule = InferenceRule(
+    name="rule",
+  )
+
+  with pytest.raises(TypeError):
+    match_inference_rule_bindings(
+      rule,
+      "invalid",
+    )
+
 
 
 

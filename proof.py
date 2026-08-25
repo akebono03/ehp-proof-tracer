@@ -391,7 +391,7 @@ def matches_premise_pattern(
   )
 
 
-def matches_inference_rule(
+def match_inference_rule_bindings(
   inference_rule,
   steps,
 ):
@@ -418,17 +418,47 @@ def matches_inference_rule(
   if len(patterns) != len(
     normalized_steps
   ):
-    return False
+    return None
 
-  return all(
-    matches_premise_pattern(
-      pattern,
-      step,
+  bindings = ()
+
+  for pattern, step in zip(
+    patterns,
+    normalized_steps,
+  ):
+    premise_bindings = (
+      match_premise_pattern(
+        pattern,
+        step,
+      )
     )
-    for pattern, step in zip(
-      patterns,
-      normalized_steps,
+
+    if premise_bindings is None:
+      return None
+
+    bindings = (
+      merge_variable_bindings(
+        bindings
+        + premise_bindings
+      )
     )
+
+    if bindings is None:
+      return None
+
+  return bindings
+
+
+def matches_inference_rule(
+  inference_rule,
+  steps,
+):
+  return (
+    match_inference_rule_bindings(
+      inference_rule,
+      steps,
+    )
+    is not None
   )
 
 
