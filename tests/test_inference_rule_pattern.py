@@ -29,6 +29,7 @@ from proof import (
   find_matching_premises,
   is_inference_rule_applicable,
   matches_inference_rule,
+  match_premise_pattern,
   matches_premise_pattern,
   match_pattern_value,
   match_relation_pattern,
@@ -10582,6 +10583,303 @@ def test_premise_pattern_relation_pattern_respects_repeated_variable():
     pattern,
     nonmatching_step,
   )
+
+
+def test_match_premise_pattern_empty_pattern():
+  pattern = PremisePattern()
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = match_premise_pattern(
+    pattern,
+    step,
+  )
+
+  assert result == ()
+
+
+def test_match_premise_pattern_matches_without_binding():
+  pattern = PremisePattern(
+    proof_rule=ProofRule.GIVEN,
+  )
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = match_premise_pattern(
+    pattern,
+    step,
+  )
+
+  assert result == ()
+
+
+def test_match_premise_pattern_returns_relation_binding():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  pattern = PremisePattern(
+    relation_pattern=Relation(
+      lhs=variable,
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = match_premise_pattern(
+    pattern,
+    step,
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+
+def test_match_premise_pattern_returns_multiple_relation_bindings():
+  x = PatternVariable(
+    name="x",
+  )
+
+  y = PatternVariable(
+    name="y",
+  )
+
+  pattern = PremisePattern(
+    relation_pattern=Relation(
+      lhs=x,
+      rhs=y,
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = match_premise_pattern(
+    pattern,
+    step,
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=x,
+      value="alpha",
+    ),
+    VariableBinding(
+      variable=y,
+      value="beta",
+    ),
+  )
+
+
+def test_match_premise_pattern_rejects_wrong_proof_rule():
+  pattern = PremisePattern(
+    proof_rule=ProofRule.RELATION,
+  )
+
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  assert (
+    match_premise_pattern(
+      pattern,
+      step,
+    )
+    is None
+  )
+
+
+def test_match_premise_pattern_rejects_wrong_statement_type():
+  pattern = PremisePattern(
+    statement_type=Relation,
+  )
+
+  step = ProofStep(
+    conclusion="not a relation",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  assert (
+    match_premise_pattern(
+      pattern,
+      step,
+    )
+    is None
+  )
+
+
+def test_match_premise_pattern_rejects_wrong_relation_type():
+  pattern = PremisePattern(
+    relation_type=RelationType.ZERO,
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  assert (
+    match_premise_pattern(
+      pattern,
+      step,
+    )
+    is None
+  )
+
+
+def test_match_premise_pattern_rejects_wrong_relation_pattern():
+  pattern = PremisePattern(
+    relation_pattern=Relation(
+      lhs=PatternVariable(
+        name="x",
+      ),
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+      relation_type=RelationType.ZERO,
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  assert (
+    match_premise_pattern(
+      pattern,
+      step,
+    )
+    is None
+  )
+
+
+def test_match_premise_pattern_respects_repeated_variable_consistency():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  pattern = PremisePattern(
+    relation_pattern=Relation(
+      lhs=variable,
+      rhs=variable,
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = match_premise_pattern(
+    pattern,
+    step,
+  )
+
+  assert result == (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+
+def test_match_premise_pattern_rejects_repeated_variable_conflict():
+  variable = PatternVariable(
+    name="x",
+  )
+
+  pattern = PremisePattern(
+    relation_pattern=Relation(
+      lhs=variable,
+      rhs=variable,
+    ),
+  )
+
+  step = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  assert (
+    match_premise_pattern(
+      pattern,
+      step,
+    )
+    is None
+  )
+
+
+def test_match_premise_pattern_rejects_invalid_pattern():
+  step = ProofStep(
+    conclusion="given",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  with pytest.raises(TypeError):
+    match_premise_pattern(
+      "invalid",
+      step,
+    )
+
+
+def test_match_premise_pattern_rejects_invalid_step():
+  pattern = PremisePattern()
+
+  with pytest.raises(TypeError):
+    match_premise_pattern(
+      pattern,
+      "invalid",
+    )
+
 
 
 

@@ -312,7 +312,7 @@ class Proof:
   steps: list[ProofStep]
 
 
-def matches_premise_pattern(
+def match_premise_pattern(
   pattern,
   step,
 ):
@@ -336,7 +336,7 @@ def matches_premise_pattern(
     pattern.proof_rule is not None
     and step.rule != pattern.proof_rule
   ):
-    return False
+    return None
 
   if (
     pattern.statement_type is not None
@@ -345,20 +345,20 @@ def matches_premise_pattern(
       pattern.statement_type,
     )
   ):
-    return False
+    return None
 
   if pattern.relation_type is not None:
     if not isinstance(
       step.conclusion,
       Relation,
     ):
-      return False
+      return None
 
     if (
       step.conclusion.relation_type
       != pattern.relation_type
     ):
-      return False
+      return None
 
   if (
     pattern.relation_pattern
@@ -368,18 +368,27 @@ def matches_premise_pattern(
       step.conclusion,
       Relation,
     ):
-      return False
+      return None
 
-    if (
-      match_relation_pattern(
-        pattern.relation_pattern,
-        step.conclusion,
-      )
-      is None
-    ):
-      return False
+    return match_relation_pattern(
+      pattern.relation_pattern,
+      step.conclusion,
+    )
 
-  return True
+  return ()
+
+
+def matches_premise_pattern(
+  pattern,
+  step,
+):
+  return (
+    match_premise_pattern(
+      pattern,
+      step,
+    )
+    is not None
+  )
 
 
 def matches_inference_rule(
