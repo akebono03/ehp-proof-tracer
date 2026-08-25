@@ -15369,6 +15369,172 @@ def test_branching_merging_graph_derives_multiple_distinct_final_bindings_end_to
   )
 
 
+def test_multiple_rules_chain_through_derived_conclusions_fixed_point_end_to_end():
+  x = PatternVariable(
+    "x"
+  )
+
+  y = PatternVariable(
+    "y"
+  )
+
+  z = PatternVariable(
+    "z"
+  )
+
+  first_rule = InferenceRule(
+    name="derive middle relation",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+        ),
+      ),
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=y,
+          rhs=z,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=x,
+      rhs=z,
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="derive final relation",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs=x,
+          rhs=y,
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="final",
+      rhs=y,
+    ),
+  )
+
+  alpha_beta = ProofStep(
+    conclusion=Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  beta_gamma = ProofStep(
+    conclusion=Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        first_rule,
+        second_rule,
+      ),
+      (
+        alpha_beta,
+        beta_gamma,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 2
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  second_round = (
+    result.round_results[1]
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in first_round.new_steps
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="gamma",
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+  middle_step = (
+    first_round.new_steps[0]
+  )
+
+  assert middle_step.premises == (
+    alpha_beta,
+    beta_gamma,
+  )
+
+  assert middle_step.rule == ProofRule.INFERENCE
+
+  assert tuple(
+    step.conclusion
+    for step in second_round.new_steps
+  ) == (
+    Relation(
+      lhs="final",
+      rhs="gamma",
+    ),
+  )
+
+  final_step = (
+    second_round.new_steps[0]
+  )
+
+  assert final_step.premises == (
+    middle_step,
+  )
+
+  assert final_step.rule == ProofRule.INFERENCE
+
+  assert tuple(
+    step.conclusion
+    for step in result.steps
+  ) == (
+    Relation(
+      lhs="alpha",
+      rhs="beta",
+    ),
+    Relation(
+      lhs="beta",
+      rhs="gamma",
+    ),
+    Relation(
+      lhs="alpha",
+      rhs="gamma",
+      relation_type=RelationType.ZERO,
+    ),
+    Relation(
+      lhs="final",
+      rhs="gamma",
+    ),
+  )
+
+
+
 
 
 
