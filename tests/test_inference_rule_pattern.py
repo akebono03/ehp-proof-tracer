@@ -12043,6 +12043,116 @@ def test_substitute_relation_pattern_rejects_invalid_pattern():
     )
 
 
+def test_inference_rule_conclusion_pattern_defaults_to_none():
+  rule = InferenceRule(
+    name="rule",
+  )
+
+  assert (
+    rule.conclusion_pattern
+    is None
+  )
+
+
+def test_inference_rule_with_conclusion_pattern():
+  conclusion_pattern = Relation(
+    lhs="alpha",
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  rule = InferenceRule(
+    name="rule",
+    conclusion_pattern=(
+      conclusion_pattern
+    ),
+  )
+
+  assert (
+    rule.conclusion_pattern
+    == conclusion_pattern
+  )
+
+
+def test_inference_rule_conclusion_pattern_with_variable():
+  variable = PatternVariable(
+    "x"
+  )
+
+  conclusion_pattern = Relation(
+    lhs=variable,
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  rule = InferenceRule(
+    name="rule",
+    conclusion_pattern=(
+      conclusion_pattern
+    ),
+  )
+
+  assert (
+    rule.conclusion_pattern
+    == Relation(
+      lhs=variable,
+      rhs="0",
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+
+def test_inference_rule_conclusion_pattern_is_backward_compatible():
+  builder = lambda premises: (
+    "derived"
+  )
+
+  rule = InferenceRule(
+    name="rule",
+    conclusion_builder=builder,
+  )
+
+  assert (
+    rule.conclusion_builder
+    is builder
+  )
+
+  assert (
+    rule.conclusion_pattern
+    is None
+  )
+
+
+def test_inference_rule_can_hold_builder_and_conclusion_pattern():
+  builder = lambda premises: (
+    "derived"
+  )
+
+  conclusion_pattern = Relation(
+    lhs="alpha",
+    rhs="0",
+    relation_type=RelationType.ZERO,
+  )
+
+  rule = InferenceRule(
+    name="rule",
+    conclusion_builder=builder,
+    conclusion_pattern=(
+      conclusion_pattern
+    ),
+  )
+
+  assert (
+    rule.conclusion_builder
+    is builder
+  )
+
+  assert (
+    rule.conclusion_pattern
+    == conclusion_pattern
+  )
+
+
 
 
 

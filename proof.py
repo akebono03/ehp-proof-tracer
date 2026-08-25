@@ -310,6 +310,7 @@ class InferenceRule:
   description: str | None = None
   premise_patterns: tuple[PremisePattern, ...] = ()
   conclusion_builder: Any = None
+  conclusion_pattern: Relation | None = None
 
 
 @dataclass(frozen=True)
