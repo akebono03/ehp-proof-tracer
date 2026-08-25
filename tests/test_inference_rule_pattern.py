@@ -12624,6 +12624,429 @@ def test_derive_inference_steps_with_conclusion_pattern():
   )
 
 
+def test_derive_inference_round_result_with_conclusion_pattern():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="pattern rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="derived",
+      rhs=variable,
+    ),
+  )
+
+  premise = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    derive_inference_round_result(
+      rule,
+      premise,
+    )
+  )
+
+  assert len(
+    result.new_steps
+  ) == 1
+
+  assert (
+    result.new_steps[0].conclusion
+    == Relation(
+      lhs="derived",
+      rhs="alpha",
+    )
+  )
+
+  assert len(
+    result.matches
+  ) == 1
+
+  assert result.matches[0].bindings == (
+    VariableBinding(
+      variable=variable,
+      value="alpha",
+    ),
+  )
+
+  assert len(
+    result.application_results
+  ) == 1
+
+  assert (
+    result.application_results[0]
+    .accepted
+    is True
+  )
+
+
+def test_run_inference_round_with_conclusion_pattern():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="pattern rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="derived",
+      rhs=variable,
+    ),
+  )
+
+  premise = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  steps = run_inference_round(
+    rule,
+    premise,
+  )
+
+  assert len(steps) == 2
+
+  assert steps[0] is premise
+
+  assert steps[1].conclusion == Relation(
+    lhs="derived",
+    rhs="alpha",
+  )
+
+  assert steps[1].premises == (
+    premise,
+  )
+
+
+def test_run_inference_until_stable_with_conclusion_pattern():
+  variable = PatternVariable(
+    "x"
+  )
+
+  rule = InferenceRule(
+    name="pattern rule",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="derived",
+      rhs=variable,
+    ),
+  )
+
+  premise = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  steps = (
+    run_inference_until_stable(
+      rule,
+      premise,
+    )
+  )
+
+  assert len(steps) == 2
+
+  assert steps[0] is premise
+
+  assert steps[1].conclusion == Relation(
+    lhs="derived",
+    rhs="alpha",
+  )
+
+
+def test_run_inference_until_stable_with_multiple_conclusion_pattern_rounds():
+  variable = PatternVariable(
+    "x"
+  )
+
+  first_rule = InferenceRule(
+    name="source to middle",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="middle",
+      rhs=variable,
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="middle to final",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="middle",
+          rhs=variable,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="final",
+      rhs=variable,
+    ),
+  )
+
+  premise = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  steps = (
+    run_inference_until_stable(
+      (
+        first_rule,
+        second_rule,
+      ),
+      premise,
+    )
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in steps
+  ) == (
+    Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    Relation(
+      lhs="middle",
+      rhs="alpha",
+    ),
+    Relation(
+      lhs="final",
+      rhs="alpha",
+    ),
+  )
+
+
+def test_run_inference_until_stable_with_history_and_conclusion_pattern():
+  variable = PatternVariable(
+    "x"
+  )
+
+  first_rule = InferenceRule(
+    name="source to middle",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="middle",
+      rhs=variable,
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="middle to final",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="middle",
+          rhs=variable,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="final",
+      rhs=variable,
+    ),
+  )
+
+  premise = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        first_rule,
+        second_rule,
+      ),
+      premise,
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 2
+
+  assert tuple(
+    step.conclusion
+    for step
+    in result.round_results[0].new_steps
+  ) == (
+    Relation(
+      lhs="middle",
+      rhs="alpha",
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step
+    in result.round_results[1].new_steps
+  ) == (
+    Relation(
+      lhs="final",
+      rhs="alpha",
+    ),
+  )
+
+  assert tuple(
+    step.conclusion
+    for step in result.steps
+  ) == (
+    Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    Relation(
+      lhs="middle",
+      rhs="alpha",
+    ),
+    Relation(
+      lhs="final",
+      rhs="alpha",
+    ),
+  )
+
+
+def test_conclusion_pattern_fixed_point_preserves_dependency_chain():
+  variable = PatternVariable(
+    "x"
+  )
+
+  first_rule = InferenceRule(
+    name="source to middle",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="source",
+          rhs=variable,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="middle",
+      rhs=variable,
+    ),
+  )
+
+  second_rule = InferenceRule(
+    name="middle to final",
+    premise_patterns=(
+      PremisePattern(
+        relation_pattern=Relation(
+          lhs="middle",
+          rhs=variable,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs="final",
+      rhs=variable,
+    ),
+  )
+
+  premise = ProofStep(
+    conclusion=Relation(
+      lhs="source",
+      rhs="alpha",
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  steps = (
+    run_inference_until_stable(
+      (
+        first_rule,
+        second_rule,
+      ),
+      premise,
+    )
+  )
+
+  middle_step = steps[1]
+  final_step = steps[2]
+
+  assert middle_step.premises == (
+    premise,
+  )
+
+  assert final_step.premises == (
+    middle_step,
+  )
+
+  assert (
+    middle_step.inference_rule
+    is first_rule
+  )
+
+  assert (
+    final_step.inference_rule
+    is second_rule
+  )
+
 
 
 
