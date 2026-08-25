@@ -3,6 +3,7 @@ from ehp import EHPSegment
 from ehp_rules import (
   ehp_exactness_image_implies_kernel_inference_rule,
   ehp_exactness_inference_rule,
+  ehp_exactness_kernel_implies_image_inference_rule,
 )
 from proof import (
   ProofStep,
@@ -248,6 +249,110 @@ def test_ehp_exactness_image_implies_kernel_rejects_nonexact_pair():
     (
       nonexact_step,
       image_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_ehp_exactness_kernel_implies_image_structure():
+  segment = EHPSegment(
+    make_sphere_repository(),
+    n=3,
+    k=5,
+  )
+
+  exact_step = (
+    segment.exact_step_at_sphere()
+  )
+
+  exactness_step = ProofStep(
+    conclusion=ExactnessStatement(
+      first_map=exact_step.first_map,
+      second_map=exact_step.second_map,
+      is_exact=True,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  kernel_step = kernel_proof_step(
+    exact_step.second_map
+  )
+
+  rule = (
+    ehp_exactness_kernel_implies_image_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      exactness_step,
+      kernel_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    ImageStatement(
+      group_map=exact_step.first_map,
+      structure=(
+        kernel_step.conclusion.structure
+      ),
+    )
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    exactness_step,
+    kernel_step,
+  )
+
+
+def test_ehp_exactness_kernel_implies_image_rejects_nonexact_pair():
+  segment = EHPSegment(
+    make_sphere_repository(),
+    n=3,
+    k=5,
+  )
+
+  exact_step = (
+    segment.exact_step_at_sphere()
+  )
+
+  nonexact_step = ProofStep(
+    conclusion=ExactnessStatement(
+      first_map=exact_step.first_map,
+      second_map=exact_step.second_map,
+      is_exact=False,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  kernel_step = kernel_proof_step(
+    exact_step.second_map
+  )
+
+  rule = (
+    ehp_exactness_kernel_implies_image_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      nonexact_step,
+      kernel_step,
     ),
   )
 
