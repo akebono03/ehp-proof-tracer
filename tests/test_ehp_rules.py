@@ -31,6 +31,8 @@ from proof import (
   run_inference_until_stable_with_history,
 )
 from relation_rules import (
+  equality_symmetry_inference_rule,
+  equality_transitivity_inference_rule,
   zero_composition_equality_implies_zero_inference_rule,
 )
 from repository import SphereRepository
@@ -1193,7 +1195,189 @@ def test_ehp_inference_reaches_generic_zero_relation_over_four_rounds():
   )
 
 
+def test_ehp_inference_reaches_zero_through_equality_closure():
+  segment = EHPSegment(
+    make_sphere_repository(),
+    n=3,
+    k=5,
+  )
 
+  exact_step = (
+    segment.exact_step_at_sphere()
+  )
+
+  image_step = image_proof_step(
+    exact_step.first_map
+  )
+
+  kernel_step = kernel_proof_step(
+    exact_step.second_map
+  )
+
+  composition = Composition(
+    left=exact_step.second_map,
+    right=exact_step.first_map,
+  )
+
+  target_expression = eta(4)
+  intermediate_expression = eta(5)
+
+  first_equality_step = relation_proof_step(
+    Relation(
+      lhs=target_expression,
+      rhs=intermediate_expression,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  second_equality_step = relation_proof_step(
+    Relation(
+      lhs=composition,
+      rhs=intermediate_expression,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  exactness_rule = (
+    ehp_exactness_inference_rule()
+  )
+
+  zero_composition_rule = (
+    ehp_exactness_implies_zero_composition_inference_rule()
+  )
+
+  zero_relation_rule = (
+    ehp_zero_composition_implies_zero_relation_inference_rule()
+  )
+
+  symmetry_rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  transitivity_rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  zero_propagation_rule = (
+    zero_composition_equality_implies_zero_inference_rule()
+  )
+
+  rules = (
+    exactness_rule,
+    zero_composition_rule,
+    zero_relation_rule,
+    symmetry_rule,
+    transitivity_rule,
+    zero_propagation_rule,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        image_step,
+        kernel_step,
+        first_equality_step,
+        second_equality_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 4
+
+  assert len(result.round_results) == 4
+
+  first_round_conclusions = tuple(
+    step.conclusion
+    for step
+    in result.round_results[0].new_steps
+  )
+
+  assert ExactnessStatement(
+    first_map=exact_step.first_map,
+    second_map=exact_step.second_map,
+    is_exact=True,
+  ) in first_round_conclusions
+
+  assert Relation(
+    lhs=intermediate_expression,
+    rhs=composition,
+    relation_type=RelationType.EQUALITY,
+  ) in first_round_conclusions
+
+  second_round_conclusions = tuple(
+    step.conclusion
+    for step
+    in result.round_results[1].new_steps
+  )
+
+  assert EHPZeroCompositionStatement(
+    first_map=exact_step.first_map,
+    second_map=exact_step.second_map,
+  ) in second_round_conclusions
+
+  target_composition_relation = Relation(
+    lhs=target_expression,
+    rhs=composition,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert target_composition_relation in (
+    second_round_conclusions
+  )
+
+  third_round_conclusions = tuple(
+    step.conclusion
+    for step
+    in result.round_results[2].new_steps
+  )
+
+  zero_composition_relation = Relation(
+    lhs=composition,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert zero_composition_relation in (
+    third_round_conclusions
+  )
+
+  fourth_round_conclusions = tuple(
+    step.conclusion
+    for step
+    in result.round_results[3].new_steps
+  )
+
+  target_zero_relation = Relation(
+    lhs=target_expression,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert target_zero_relation in (
+    fourth_round_conclusions
+  )
+
+  final_conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert target_composition_relation in (
+    final_conclusions
+  )
+
+  assert zero_composition_relation in (
+    final_conclusions
+  )
+
+  assert target_zero_relation in (
+    final_conclusions
+  )
 
 
 
