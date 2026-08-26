@@ -898,6 +898,154 @@ def test_equality_symmetry_and_transitivity_close_connected_component():
   )
 
 
+def test_equality_closure_propagates_zero_over_multiple_rounds():
+  composition = Composition(
+    left=sigma(4),
+    right=eta(3),
+  )
+
+  zero_composition_step = relation_proof_step(
+    Relation(
+      lhs=composition,
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  first_equality_step = relation_proof_step(
+    Relation(
+      lhs=eta(4),
+      rhs=nu(4),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  second_equality_step = relation_proof_step(
+    Relation(
+      lhs=composition,
+      rhs=nu(4),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  symmetry_rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  transitivity_rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  zero_rule = (
+    zero_composition_equality_implies_zero_inference_rule()
+  )
+
+  rules = (
+    symmetry_rule,
+    transitivity_rule,
+    zero_rule,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        zero_composition_step,
+        first_equality_step,
+        second_equality_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 3
+
+  assert len(result.round_results) == 3
+
+  first_round_conclusions = {
+    step.conclusion
+    for step
+    in result.round_results[0].new_steps
+  }
+
+  assert first_round_conclusions == {
+    Relation(
+      lhs=nu(4),
+      rhs=eta(4),
+      relation_type=RelationType.EQUALITY,
+    ),
+    Relation(
+      lhs=nu(4),
+      rhs=composition,
+      relation_type=RelationType.EQUALITY,
+    ),
+  }
+
+  second_round_conclusions = {
+    step.conclusion
+    for step
+    in result.round_results[1].new_steps
+  }
+
+  assert Relation(
+    lhs=eta(4),
+    rhs=composition,
+    relation_type=RelationType.EQUALITY,
+  ) in second_round_conclusions
+
+  assert Relation(
+    lhs=nu(4),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  ) in second_round_conclusions
+
+  third_round_conclusions = {
+    step.conclusion
+    for step
+    in result.round_results[2].new_steps
+  }
+
+  expected_zero_relation = Relation(
+    lhs=eta(4),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert expected_zero_relation in (
+    third_round_conclusions
+  )
+
+  final_conclusions = {
+    step.conclusion
+    for step
+    in result.steps
+  }
+
+  assert Relation(
+    lhs=eta(4),
+    rhs=composition,
+    relation_type=RelationType.EQUALITY,
+  ) in final_conclusions
+
+  assert Relation(
+    lhs=nu(4),
+    rhs=composition,
+    relation_type=RelationType.EQUALITY,
+  ) in final_conclusions
+
+  assert Relation(
+    lhs=nu(4),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  ) in final_conclusions
+
+  assert expected_zero_relation in (
+    final_conclusions
+  )
+
 
 
 
