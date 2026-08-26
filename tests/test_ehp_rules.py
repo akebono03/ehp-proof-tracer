@@ -11,6 +11,7 @@ from ehp_rules import (
 from expression import (
   Composition,
   Zero,
+  eta,
 )
 from proof import (
   ProofStep,
@@ -26,7 +27,11 @@ from proof import (
   find_inference_match,
   image_proof_step,
   kernel_proof_step,
+  relation_proof_step,
   run_inference_until_stable_with_history,
+)
+from relation_rules import (
+  zero_composition_equality_implies_zero_inference_rule,
 )
 from repository import SphereRepository
 
@@ -965,6 +970,227 @@ def test_ehp_exactness_derives_zero_relation_over_three_rounds():
     zero_relation_step,
   )
 
+
+def test_ehp_inference_reaches_generic_zero_relation_over_four_rounds():
+  segment = EHPSegment(
+    make_sphere_repository(),
+    n=3,
+    k=5,
+  )
+
+  exact_step = (
+    segment.exact_step_at_sphere()
+  )
+
+  image_step = image_proof_step(
+    exact_step.first_map
+  )
+
+  kernel_step = kernel_proof_step(
+    exact_step.second_map
+  )
+
+  composition = Composition(
+    left=exact_step.second_map,
+    right=exact_step.first_map,
+  )
+
+  equivalent_expression = eta(4)
+
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=equivalent_expression,
+      rhs=composition,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  exactness_rule = (
+    ehp_exactness_inference_rule()
+  )
+
+  zero_composition_rule = (
+    ehp_exactness_implies_zero_composition_inference_rule()
+  )
+
+  zero_relation_rule = (
+    ehp_zero_composition_implies_zero_relation_inference_rule()
+  )
+
+  zero_propagation_rule = (
+    zero_composition_equality_implies_zero_inference_rule()
+  )
+
+  rules = (
+    exactness_rule,
+    zero_composition_rule,
+    zero_relation_rule,
+    zero_propagation_rule,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        image_step,
+        kernel_step,
+        equality_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 4
+
+  assert len(result.round_results) == 4
+
+  assert len(result.steps) == 7
+
+  first_round = (
+    result.round_results[0]
+  )
+
+  assert len(
+    first_round.new_steps
+  ) == 1
+
+  exactness_step = (
+    first_round.new_steps[0]
+  )
+
+  assert exactness_step.conclusion == (
+    ExactnessStatement(
+      first_map=exact_step.first_map,
+      second_map=exact_step.second_map,
+      is_exact=True,
+    )
+  )
+
+  assert exactness_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    exactness_step.inference_rule
+    == exactness_rule
+  )
+
+  assert exactness_step.premises == (
+    image_step,
+    kernel_step,
+  )
+
+  second_round = (
+    result.round_results[1]
+  )
+
+  assert len(
+    second_round.new_steps
+  ) == 1
+
+  zero_composition_step = (
+    second_round.new_steps[0]
+  )
+
+  assert zero_composition_step.conclusion == (
+    EHPZeroCompositionStatement(
+      first_map=exact_step.first_map,
+      second_map=exact_step.second_map,
+    )
+  )
+
+  assert zero_composition_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    zero_composition_step.inference_rule
+    == zero_composition_rule
+  )
+
+  assert zero_composition_step.premises == (
+    exactness_step,
+  )
+
+  third_round = (
+    result.round_results[2]
+  )
+
+  assert len(
+    third_round.new_steps
+  ) == 1
+
+  zero_relation_step = (
+    third_round.new_steps[0]
+  )
+
+  assert zero_relation_step.conclusion == (
+    Relation(
+      lhs=composition,
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  assert zero_relation_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    zero_relation_step.inference_rule
+    == zero_relation_rule
+  )
+
+  assert zero_relation_step.premises == (
+    zero_composition_step,
+  )
+
+  fourth_round = (
+    result.round_results[3]
+  )
+
+  assert len(
+    fourth_round.new_steps
+  ) == 1
+
+  propagated_zero_step = (
+    fourth_round.new_steps[0]
+  )
+
+  assert propagated_zero_step.conclusion == (
+    Relation(
+      lhs=equivalent_expression,
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  assert propagated_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    propagated_zero_step.inference_rule
+    == zero_propagation_rule
+  )
+
+  assert propagated_zero_step.premises == (
+    zero_relation_step,
+    equality_step,
+  )
+
+  assert result.steps == (
+    image_step,
+    kernel_step,
+    equality_step,
+    exactness_step,
+    zero_composition_step,
+    zero_relation_step,
+    propagated_zero_step,
+  )
 
 
 
