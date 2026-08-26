@@ -75,6 +75,51 @@ def order_implies_zero_multiple_inference_rule():
   )
 
 
+def zero_equality_implies_zero_inference_rule():
+  zero_expression = PatternVariable(
+    name="zero_expression",
+  )
+
+  equivalent_expression = PatternVariable(
+    name="equivalent_expression",
+  )
+
+  return InferenceRule(
+    name="zero equality implies zero",
+    description=(
+      "If an expression is zero and "
+      "another expression is equal to "
+      "that expression, the other "
+      "expression is also zero."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.ZERO,
+        relation_pattern=Relation(
+          lhs=zero_expression,
+          rhs=Zero(),
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.EQUALITY,
+        relation_pattern=Relation(
+          lhs=equivalent_expression,
+          rhs=zero_expression,
+          relation_type=RelationType.EQUALITY,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=equivalent_expression,
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+
 def zero_composition_equality_implies_zero_inference_rule():
   zero_expression = PatternVariable(
     name="zero_expression",

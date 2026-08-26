@@ -26,6 +26,7 @@ from relation_rules import (
   order_implies_zero_multiple_inference_rule,
   zero_composition_equality_implies_zero_inference_rule,
   zero_composition_reverse_equality_implies_zero_inference_rule,
+  zero_equality_implies_zero_inference_rule,
 )
 
 
@@ -120,6 +121,113 @@ def test_order_implies_zero_multiple_rejects_invalid_order():
   )
 
   assert match is None
+
+
+def test_order_derived_zero_propagates_through_equality():
+  element = eta(3)
+  equivalent_expression = nu(4)
+
+  order_step = relation_proof_step(
+    order_relation(
+      element,
+      2,
+    )
+  )
+
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=equivalent_expression,
+      rhs=Multiple(
+        coefficient=2,
+        expression=element,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  order_rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  zero_propagation_rule = (
+    zero_equality_implies_zero_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        order_rule,
+        zero_propagation_rule,
+      ),
+      (
+        order_step,
+        equality_step,
+      ),
+    )
+  )
+
+  order_derived_zero = Relation(
+    lhs=Multiple(
+      coefficient=2,
+      expression=element,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  propagated_zero = Relation(
+    lhs=equivalent_expression,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 2
+
+  assert order_derived_zero in tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert propagated_zero in tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  order_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == order_derived_zero
+  )
+
+  propagated_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == propagated_zero
+  )
+
+  assert order_zero_step.premises == (
+    order_step,
+  )
+
+  assert order_zero_step.inference_rule == (
+    order_rule
+  )
+
+  assert propagated_zero_step.premises == (
+    order_zero_step,
+    equality_step,
+  )
+
+  assert (
+    propagated_zero_step.inference_rule
+    == zero_propagation_rule
+  )
 
 
 def test_zero_composition_equality_implies_zero():
