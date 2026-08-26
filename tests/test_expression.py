@@ -2,6 +2,7 @@ from expression import (
   Composition,
   HomotopyElement,
   Multiple,
+  Suspension,
   Zero,
   eta,
   nu,
@@ -53,6 +54,33 @@ def test_composition():
 
   assert expression.left == eta(3)
   assert expression.right == eta(4)
+
+
+def test_suspension():
+  expression = Suspension(
+    eta(3),
+  )
+
+  assert expression.expression == eta(3)
+
+
+def test_nested_suspension():
+  expression = Suspension(
+    Suspension(
+      eta(3),
+    )
+  )
+
+  assert expression == Suspension(
+    Suspension(
+      eta(3),
+    )
+  )
+
+  assert expression.expression == Suspension(
+    eta(3),
+  )
+
 
 
 

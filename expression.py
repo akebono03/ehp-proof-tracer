@@ -28,6 +28,11 @@ class Composition(Expression):
   right: Expression
 
 
+@dataclass(frozen=True)
+class Suspension(Expression):
+  expression: Expression
+
+
 def eta(n: int) -> HomotopyElement:
   return HomotopyElement("η", n)
 
@@ -38,8 +43,6 @@ def nu(n: int) -> HomotopyElement:
 
 def sigma(n: int) -> HomotopyElement:
   return HomotopyElement("σ", n)
-
-
 
 
 
