@@ -1,6 +1,7 @@
 from expression import (
   Composition,
   Multiple,
+  Suspension,
   Zero,
 )
 from proof import (
@@ -247,6 +248,44 @@ def zero_composition_reverse_equality_implies_zero_inference_rule():
       relation_type=RelationType.ZERO,
     ),
     match_guard=guard,
+  )
+
+
+def suspension_preserves_equality_inference_rule():
+  left_expression = PatternVariable(
+    name="left_expression",
+  )
+
+  right_expression = PatternVariable(
+    name="right_expression",
+  )
+
+  return InferenceRule(
+    name="suspension preserves equality",
+    description=(
+      "If two expressions are equal, "
+      "their suspensions are also equal."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.EQUALITY,
+        relation_pattern=Relation(
+          lhs=left_expression,
+          rhs=right_expression,
+          relation_type=RelationType.EQUALITY,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=Suspension(
+        expression=left_expression,
+      ),
+      rhs=Suspension(
+        expression=right_expression,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
   )
 
 
