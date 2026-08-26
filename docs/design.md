@@ -1,6 +1,6 @@
 # ehp_proof 設計メモ
 
-この文書は Phase 5-65 完了時点の「現在の設計」を正本としてまとめる。
+この文書は Phase 6-21 完了、すなわち Phase 6 完了時点の「現在の設計」を正本としてまとめる。
 
 過去の各 Phase で書かれた設計メモには、その当時は正しかった
 「未実装」「今後の課題」という記述が多数ある。
@@ -414,6 +414,7 @@ description
 premise_patterns
 conclusion_builder
 conclusion_pattern
+match_guard
 ```
 
 ## 8.1 conclusion_builder
@@ -424,14 +425,31 @@ conclusion_pattern
 
 ## 8.2 conclusion_pattern
 
-structured `Relation` pattern に bindings を代入して
-conclusion を生成できる。
+structured `Relation` または dataclass statement pattern に bindings を
+代入して conclusion を生成できる。
+
+statement pattern の field substitution は
+`substitute_statement_pattern()` を通じて行う。
 
 ## 8.3 builder と pattern の両立
 
 両方が指定された場合、現実装では builder が優先される。
 
 この precedence は current API semantics として明示する。
+
+## 8.4 match_guard
+
+`match_guard` は optional callable であり、次の引数を受け取る。
+
+```text
+matched premises
+bindings
+```
+
+premise pattern の構造的一致と binding merge が成功した後に評価され、
+false を返す assignment は `InferenceMatch` として採用しない。
+domain-specific な追加条件を generic engine の分岐なしに表現するために
+使用する。
 
 ---
 
@@ -442,12 +460,17 @@ conclusion を生成できる。
 ```text
 proof_rule
 statement_type
+statement_pattern
 relation_type
 relation_pattern
 ```
 
 外側 category matching と、
 内部 `Relation` pattern matching を併用できる。
+
+`statement_pattern` は dataclass-based statement の内部 fields を
+structured に match するための domain-independent pattern である。
+各 field は literal または `PatternVariable` にできる。
 
 empty pattern は任意の step に match する。
 
@@ -500,7 +523,36 @@ relation_type
 同じ variable が lhs / rhs などに繰り返し現れる場合は、
 binding consistency を要求する。
 
-## 11.3 merge_variable_bindings()
+## 11.3 match_statement_pattern()
+
+`match_statement_pattern()` は dataclass instance の fields を順番に
+比較する。
+
+```text
+statement pattern
+        ↓
+dataclass fields
+        ↓
+match_pattern_value()
+        ↓
+merge_variable_bindings()
+```
+
+pattern と value の dataclass type が一致しない場合は match failure と
+する。各 field の `PatternVariable` は既存の `VariableBinding` に変換し、
+同じ variable の異なる値は reject する。
+
+この最小基盤は全 object tree を再帰的に unification するものではなく、
+statement dataclass の直接 fields を対象とする。
+
+## 11.4 substitute_statement_pattern()
+
+`substitute_statement_pattern()` は dataclass statement の各 field に
+`substitute_pattern_value()` を適用し、同じ statement type の具体化された
+instance を返す。これにより `ExactnessStatement` などを
+`InferenceRule.conclusion_pattern` として利用できる。
+
+## 11.5 merge_variable_bindings()
 
 同一 variable に対して、
 
@@ -998,7 +1050,10 @@ one conclusion → multiple ProofSteps
 
 ## 25.3 general recursive pattern language
 
-現在 direct structured pattern support がある中心 statement は `Relation`。
+Relation および dataclass statement の direct fields には
+structured pattern support があるが、
+任意の nested object tree に対する一般 recursive unification engine
+ではない。
 
 全 Expression / Statement tree を対象とした
 一般 recursive unification engine ではない。
@@ -1066,7 +1121,7 @@ Phase 5 は次を満たしたため generic-engine foundation completed とす�
 
 ---
 
-# 27. Phase 6 design principle
+# 27. Phase 6 design and completion
 
 Phase 6 は、
 
@@ -1077,7 +1132,8 @@ generic engine をさらに一般化する phase
 ではなく、
 
 ```text
-EHP domain inference rules を実装する phase
+EHP domain inference rules を実装し、
+実際の数学的推論を generic engine 上で接続する phase
 ```
 
 とする。
@@ -1090,100 +1146,284 @@ EHP domain inference rules を実装する phase
 新しい InferenceRule
 ```
 
-と考える。
+engine を変更するのは、実際の domain rule が current generic rule language
+では正しく表現できないと確認できた場合のみとする。
 
-engine を変更するのは、
+## 27.1 Phase 6-1：Image + Kernel → Exactness
 
-```text
-実際の EHP rule が
-現在の generic rule language では正しく表現できない
-```
+EHP 固有 rule は `ehp_rules.py` に置き、generic engine と分離する。
 
-と確認できた場合のみ。
-
----
-
-## 27.1 Phase 6-1：EHP exactness inference rule
-
-EHP 固有の inference rule は、generic engine と分離して、
-
-```text
-ehp_rules.py
-```
-
-に置く。
-
-Phase 6-1 の factory:
-
-```python
-ehp_exactness_inference_rule(exact_step)
-```
-
-は対象の `ExactSequenceStep` を保持し、次の premise を順序付きで
-要求する。
+基本推論:
 
 ```text
 ImageStatement(first_map)
++
 KernelStatement(second_map)
+↓
+ExactnessStatement(first_map, second_map, True)
 ```
 
-premise matching には既存の `ProofRule` と statement type の matching
-を使用する。conclusion は既存の `ehp_exactness_proof_step()` を再利用
-して構築する。
+argument-free rule は structured statement patterns で maps を bind し、
+`match_guard` で consecutive map condition を確認する。
 
-直接 `ehp_exactness_proof_step()` を呼び出した場合の step は
-`ProofRule.EHP_EXACTNESS` を持つ。一方、generic engine の
-`apply_inference_match()` を経由した derived step は、既存仕様により
-`ProofRule.INFERENCE` を持つ。EHP 固有 rule の情報は
-`ProofStep.inference_rule` から追跡できる。
+factory-bound API と direct EHP proof-step API は互換性のため維持する。
 
-Phase 6-1 の依存方向は次のとおりである。
+## 27.2 Phase 6-2/3：structured statement matching / conclusion / guard
+
+`PremisePattern.statement_pattern` によって dataclass statement の direct
+fields を match できる。
+
+`InferenceRule.conclusion_pattern` には dataclass statement を指定でき、
+`substitute_pattern_value()` / `substitute_statement_pattern()` により
+bindings を conclusion へ伝播できる。
+
+`InferenceRule.match_guard` は structural matching と binding merge の後に
+評価され、domain-specific validity を generic engine の分岐なしに表現する。
+
+## 27.3 Phase 6-4/5：Exactness と Image / Kernel の相互伝播
+
+exactness の数学的意味 `Im(first_map) = Ker(second_map)` を、structure
+statement の伝播 rule として表す。
 
 ```text
-ehp_rules.py
-        ↓
-proof.py
-ehp.py
-algebra.py
+Exactness + Image(first_map, S)
+↓
+Kernel(second_map, S)
 ```
 
-`proof.py` に EHP 固有分岐を追加しない。
+```text
+Exactness + Kernel(second_map, S)
+↓
+Image(first_map, S)
+```
 
-Phase 6-1 では次を導入しない。
+ここでも shared `PatternVariable` により map と structure の整合性を保つ。
 
-- structured statement matching
-- `ImageStatement.group_map` 等の内部 field matching
-- 任意 EHP segment の自動選択
-- 新しい `ProofRule` enum 値
-- generic engine の EHP-specific branch
+## 27.4 Phase 6-7：Exactness → EHP zero composition
 
-# 28. Phase 6 candidates
+exact sequence の consecutive maps について、
 
-候補:
+```text
+Exactness(first_map, second_map)
+↓
+EHPZeroCompositionStatement(first_map, second_map)
+```
 
-- E/H/P に関する既知 relation
-- EHP exactness consequences
-- suspension relations
+を導出する。
+
+`EHPZeroCompositionStatement` は domain-specific intermediate statement で
+あり、この段階では generic `Relation` に直接潰さない。
+
+## 27.5 Phase 6-9：EHP zero composition → generic ZERO relation
+
+EHP-specific statement を generic relation layer に接続する。
+
+```text
+EHPZeroCompositionStatement(first_map, second_map)
+↓
+Relation(
+  lhs=Composition(second_map, first_map),
+  rhs=Zero(),
+  relation_type=ZERO,
+)
+```
+
+この bridge により、EHP rule の結果を generic relation rules が premise と
+して利用できる。
+
+## 27.6 Phase 6-11/13：ZERO propagation
+
+ZERO fact と equality fact から equivalent expression の ZERO fact を導く。
+
+forward orientation:
+
+```text
+composition = 0
+x = composition
+↓
+x = 0
+```
+
+reverse orientation:
+
+```text
+composition = 0
+composition = x
+↓
+x = 0
+```
+
+現 rule は zero-side expression が `Composition` であることを guard で要求
+する。これは Phase 6 の rule scope であり、任意 expression の一般 ZERO
+置換 theorem まで拡張しない。
+
+## 27.7 Phase 6-14：equality symmetry
+
+```text
+x = y
+↓
+y = x
+```
+
+を generic `InferenceRule` として表現する。
+
+special-case graph mutation は導入しない。
+
+## 27.8 Phase 6-16：equality transitivity
+
+```text
+x = y
++
+y = z
+↓
+x = z
+```
+
+を generic multi-premise rule として表現する。
+
+shared middle expression は既存の binding-consistency mechanism によって
+保証される。
+
+## 27.9 Phase 6-18：equality equivalence closure
+
+symmetry と transitivity を fixed-point inference で同時実行することで、
+connected equality component の directed equivalence closure を構成する。
+
+この closure は独立した union-find / graph closure subsystem ではなく、
+既存 rule execution semantics から得られる。
+
+そのため proof provenance は各 derived equality の `premises` と
+`inference_rule` に保持される。
+
+## 27.10 Phase 6-19：equality closure → ZERO propagation
+
+ZERO propagation rule は initial equality だけでなく、earlier round で
+symmetry / transitivity から導かれた equality も premise として利用する。
+
+これにより、
+
+```text
+zero expression
+↓
+equality-connected component
+↓
+target expression
+```
+
+へ ZERO fact を複数 round で伝播できる。
+
+## 27.11 Phase 6-20：EHP → equality closure → ZERO propagation
+
+EHP domain rules と generic relation rules を同一 fixed-point run に投入し、
+
+```text
+Image / Kernel
+↓
+Exactness
+↓
+EHP zero composition
+↓
+generic composition = 0
+↓
+equality closure
+↓
+target = composition
+↓
+target = 0
+```
+
+が成立することを確認する。
+
+これは domain-specific fact が generic relation reasoning に接続される
+end-to-end integration point である。
+
+## 27.12 Phase 6-21：representative end-to-end completion
+
+Phase 6 の completion test は次の representative rule families を同時に
+実行する。
+
+```text
+Image + Kernel → Exactness
+Exactness + Image → Kernel
+Exactness + Kernel → Image
+Exactness → EHP zero composition
+EHP zero composition → generic ZERO
+ZERO propagation in both equality orientations
+equality symmetry
+equality transitivity
+```
+
+completion criterion は、最終 target ZERO relation の導出だけではない。
+最終 state に対して追加 round を評価し、
+
+```text
+new_steps == ()
+```
+
+となる genuine fixed point を確認する。
+
+exactness / image / kernel の相互伝播 rule も terminal state では match
+し得るが、equal conclusions は duplicate rejection によって再追加されない。
+
+したがって Phase 6 全体は、既存 generic fixed-point semantics の中で閉じる。
+
+## 27.13 Phase 6 completion boundary
+
+Phase 6 の完了は、すべての EHP / homotopy theorem の実装完了を意味しない。
+
+Phase 6 で完成したものは、
+
+```text
+EHP structural facts
+↓
+EHP-specific inference
+↓
+generic Relation
+↓
+generic equality reasoning
+↓
+ZERO propagation
+↓
+traceable derived relation
+↓
+fixed point
+```
+
+という最初の domain-inference vertical slice である。
+
+Phase 6 completion criteria:
+
+1. Image + Kernel から Exactness を導出できる。
+2. Exactness と Image / Kernel structure を相互伝播できる。
+3. Exactness から EHP zero composition を導出できる。
+4. EHP-specific zero composition を generic ZERO Relation に変換できる。
+5. equality の両向きを通じて ZERO を伝播できる。
+6. equality symmetry を rule として実行できる。
+7. equality transitivity を rule として実行できる。
+8. symmetry + transitivity から fixed-point equality closure を構成できる。
+9. equality closure を利用して ZERO を複数 round 伝播できる。
+10. EHP facts から final ZERO relation まで end-to-end に到達できる。
+11. derived steps が premises と inference_rule を保持する。
+12. representative Phase 6 rule set が genuine fixed point に到達する。
+13. generic engine に EHP-specific branch を追加せず実現できる。
+
+# 28. Future domain-rule candidates
+
+Phase 6 後の候補:
+
+- element-order relations
+- broader suspension relations
 - Hopf invariant relations
-- element order relations
-- composition relations
 - stable-range theorems
 - Toda relations
 - literature-backed theorem rules
+- Toda brackets
+- Steenrod operations
+- double EHP
+- odd-primary-specific theorem families
 
-将来、
-
-```text
-Toda bracket
-Steenrod operation
-double EHP
-odd-primary data
-```
-
-へ拡張しても、
-generic engine と algebra layer の境界は維持する。
-
----
+今後も、まず actual mathematical rule を `InferenceRule` として表現し、
+current generic language で不足が実証された場合のみ engine を拡張する。
 
 # 29. Documentation policy
 

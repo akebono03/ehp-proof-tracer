@@ -65,18 +65,31 @@ integer linear algebra
 At the completion of Phase 5-65, the generic inference engine is treated as
 a completed foundation.
 
-The next development stage is:
+Phase 6, the first EHP domain-inference vertical slice, is completed.
+
+The completed Phase 6 path connects domain-specific EHP facts to generic
+relation reasoning:
 
 ```text
-Phase 6: EHP domain inference rules
+Image / Kernel facts
+↓
+EHP exactness
+↓
+EHP zero composition
+↓
+generic ZERO relation
+↓
+equality symmetry / transitivity / closure
+↓
+ZERO propagation
+↓
+derived relation
 ```
 
-Phase 6-1, the first EHP domain inference rule integration, is completed.
-
-The main goal of Phase 6 is not to add speculative generic-engine features.
-It is to encode actual EHP / homotopy-theoretic rules using the Phase 5
-engine and extend the engine only when a real domain rule demonstrates a
-missing capability.
+Phase 6 completion does not mean that all EHP or unstable-homotopy theorems
+have been encoded. It means that the first representative domain rule family
+can be executed end-to-end by the Phase 5 generic fixed-point engine without
+adding EHP-specific branches to that engine.
 
 ---
 
@@ -87,8 +100,18 @@ missing capability.
 - Phase 3: quotient groups, exact sequences, extensions, and EHP inference — completed
 - Phase 4: presentation-based calculations with free components — completed
 - Phase 5: generic proof / inference engine foundation — completed
-- Phase 6-1: EHP exactness inference rule — completed
-- Phase 6: EHP domain inference rules — in progress
+- Phase 6-1: Image + Kernel → Exactness — completed
+- Phase 6-4/5: Exactness ↔ Image / Kernel structure propagation — completed
+- Phase 6-7: Exactness → EHP zero composition — completed
+- Phase 6-9: EHP zero composition → generic ZERO relation — completed
+- Phase 6-11/13: ZERO propagation through equality — completed
+- Phase 6-14: equality symmetry — completed
+- Phase 6-16: equality transitivity — completed
+- Phase 6-18: equality equivalence closure — completed
+- Phase 6-19: equality closure → ZERO propagation — completed
+- Phase 6-20: EHP → equality closure → ZERO propagation integration — completed
+- Phase 6-21: representative Phase 6 end-to-end completion test — completed
+- Phase 6: EHP domain-inference foundation — completed
 
 ---
 
@@ -434,6 +457,7 @@ description
 premise_patterns
 conclusion_builder
 conclusion_pattern
+match_guard
 ```
 
 The conclusion may be produced either by:
@@ -457,6 +481,7 @@ A premise pattern can constrain:
 ```text
 proof_rule
 statement_type
+statement_pattern
 relation_type
 relation_pattern
 ```
@@ -612,7 +637,9 @@ which values were bound to the rule variables?
 
 ## Conclusion substitution
 
-Bindings can be substituted into `Relation` conclusion patterns.
+Bindings can be substituted into structured conclusion patterns,
+including Relation objects and dataclass-based statements such as
+ExactnessStatement.
 
 Conceptually:
 
@@ -824,7 +851,7 @@ intermediate steps as premises.
 
 # Current limitations
 
-The following are current limitations at the Phase 5-65 boundary.
+The following are current limitations after Phase 6-3.
 
 ## Conclusion equality
 
@@ -853,7 +880,13 @@ objects for one conclusion.
 ## Pattern language depth
 
 The generic pattern system currently has direct structured support for
-`Relation` patterns.
+`Relation` patterns and dataclass statement fields.
+
+Phase 6-2 also provides structured matching for dataclass-based statements.
+`PremisePattern.statement_pattern` can match statement fields using
+`PatternVariable` and literal values. The current EHP statement patterns can
+therefore bind `ImageStatement.group_map` and `KernelStatement.group_map`
+while preserving shared binding consistency across premises.
 
 It is not yet a general recursive unification engine over every possible
 expression / statement class.
@@ -926,83 +959,249 @@ than by speculative generalization.
 
 # Phase 6: EHP domain inference rules
 
-Phase 6 moves from:
+Phase 6 moves from building generic inference machinery to encoding and
+executing actual EHP-domain mathematics.
+
+The governing rule remains:
 
 ```text
-building inference machinery
+new mathematical knowledge
+=
+new InferenceRule
 ```
 
-to:
+The generic engine is changed only when an actual mathematical rule cannot be
+represented correctly with the current rule language.
+
+## Phase 6-1 to 6-3: exactness rule and structured statement support
+
+The first EHP-specific rule derives exactness from image and kernel facts:
 
 ```text
-encoding and executing EHP mathematics
-```
-
-Candidate rule families include:
-
-- E/H/P relations,
-- EHP exactness consequences,
-- suspension relations,
-- Hopf invariant relations,
-- element-order relations,
-- composition relations,
-- stable-range results,
-- known Toda relations,
-- literature-backed relations.
-
-The intended pattern is:
-
-```text
-mathematical theorem / relation
+Image(first_map)
++
+Kernel(second_map)
 ↓
-InferenceRule
-↓
-Phase 5 generic engine
-↓
-derived ProofSteps
-↓
-proof trace
+Exactness(first_map, second_map)
 ```
 
-The generic engine should not contain EHP-specific branches.
+Structured dataclass statement matching, statement conclusion substitution,
+and `match_guard` allow the argument-free EHP rule to bind maps while keeping
+EHP-specific validity checks outside the generic engine.
 
-A new generic feature should be added only if an actual domain rule cannot
-be represented correctly with the current rule language.
+The original factory-bound form and direct EHP proof-step APIs remain
+compatible.
 
-## Phase 6-1: EHP exactness inference rule
+## Phase 6-4/5: exactness and Image / Kernel structure propagation
 
-Phase 6-1 adds the EHP-specific rule factory:
-
-```python
-ehp_exactness_inference_rule(exact_step)
-```
-
-The rule uses existing proof steps:
+Exactness can propagate subgroup structure in both directions:
 
 ```text
-ImageStatement(E)
-KernelStatement(H)
+Exactness(first_map, second_map)
++
+Image(first_map, structure)
+↓
+Kernel(second_map, structure)
 ```
 
-to infer an `ExactnessStatement` through the Phase 5 generic inference
-engine. The existing `ehp_exactness_proof_step()` constructs and validates
-the EHP exactness statement.
-
-The derived `ProofStep` uses:
+and:
 
 ```text
-ProofRule.INFERENCE
+Exactness(first_map, second_map)
++
+Kernel(second_map, structure)
+↓
+Image(first_map, structure)
 ```
 
-The originating EHP rule remains available through
-`ProofStep.inference_rule`.
+These rules reuse the same statement-pattern and shared-binding mechanism.
+No new generic-engine branch is required.
 
-Phase 6-1 does not introduce:
+## Phase 6-7: exactness implies EHP zero composition
 
-- changes to `proof.py`,
-- new `ProofRule` values,
-- structured matching of statement internals,
-- automatic selection of arbitrary EHP segments.
+A true EHP exactness statement implies that the consecutive maps compose to
+zero. The domain-specific intermediate statement is:
+
+```text
+EHPZeroCompositionStatement(
+  first_map,
+  second_map,
+)
+```
+
+The fixed-point tests verify that Image + Kernel can derive exactness in one
+productive round and the EHP zero-composition statement in the next.
+
+## Phase 6-9: EHP zero composition becomes a generic ZERO relation
+
+The EHP-specific zero-composition statement is translated into the generic
+relation layer:
+
+```text
+Relation(
+  lhs=Composition(second_map, first_map),
+  rhs=Zero(),
+  relation_type=RelationType.ZERO,
+)
+```
+
+This is the bridge from EHP-specific reasoning to reusable relation-level
+reasoning.
+
+## Phase 6-11/13: ZERO propagation through equality
+
+If a composition is known to be zero and another expression is equal to that
+composition, the ZERO fact can be transferred to the equivalent expression.
+Both equality orientations are supported:
+
+```text
+x = composition
+composition = 0
+↓
+x = 0
+```
+
+and:
+
+```text
+composition = x
+composition = 0
+↓
+x = 0
+```
+
+The ZERO rules deliberately require the known-zero expression to be a
+`Composition`.
+
+## Phase 6-14: equality symmetry
+
+Generic equality symmetry is represented as an inference rule:
+
+```text
+x = y
+↓
+y = x
+```
+
+Fixed-point execution rejects already-known reverse conclusions and therefore
+terminates under ordinary conclusion equality.
+
+## Phase 6-16: equality transitivity
+
+Generic equality transitivity is represented as:
+
+```text
+x = y
++
+y = z
+↓
+x = z
+```
+
+Multi-round tests verify closure across longer equality chains.
+
+## Phase 6-18: equality equivalence closure
+
+Symmetry and transitivity are run together under fixed-point inference.
+For a connected component of equality facts, the engine derives all directed
+pairwise equalities, including reflexive equalities that arise through the
+combination of symmetry and transitivity.
+
+The closure is not implemented as a special graph algorithm. It emerges from
+the generic rule engine plus duplicate rejection.
+
+## Phase 6-19: equality closure propagates ZERO
+
+ZERO propagation can consume equalities derived in earlier rounds. Therefore
+a ZERO fact attached to one expression can travel through a multi-link
+equality component and eventually derive ZERO for another expression.
+
+## Phase 6-20: EHP → equality closure → ZERO propagation integration
+
+The EHP rule chain and the generic relation rules are executed together:
+
+```text
+Image + Kernel
+↓
+Exactness
+↓
+EHP zero composition
+↓
+generic composition = 0
+
+external equality facts
+↓
+symmetry + transitivity
+↓
+target = composition
+
+composition = 0
++
+target = composition
+↓
+target = 0
+```
+
+This verifies that an EHP-domain fact can cross into generic equality
+reasoning and produce a new generic mathematical relation.
+
+## Phase 6-21: representative end-to-end completion scenario
+
+The Phase 6 completion test runs the representative rule set together:
+
+```text
+Image + Kernel → Exactness
+Exactness + Image → Kernel
+Exactness + Kernel → Image
+Exactness → EHP zero composition
+EHP zero composition → generic ZERO
+ZERO + equality → propagated ZERO
+equality symmetry
+equality transitivity
+```
+
+The test verifies that the final target ZERO relation is derived, that
+premise dependencies and source `InferenceRule` references are preserved,
+and that an additional inference round produces no new steps.
+
+Thus the whole representative Phase 6 rule set reaches a genuine fixed point.
+
+## Phase 6 completion boundary
+
+Phase 6 is complete because the project can now execute this vertical slice:
+
+```text
+EHP structural facts
+↓
+EHP-specific inference
+↓
+generic Relation
+↓
+generic equality reasoning
+↓
+ZERO propagation
+↓
+traceable derived relation
+↓
+fixed point
+```
+
+Phase 6 completion does not include every future homotopy-theoretic rule.
+In particular, the following remain future domain-rule families rather than
+Phase 6 completion requirements:
+
+- element-order reasoning,
+- broader suspension relations,
+- Hopf-invariant theorems,
+- stable-range theorems,
+- Toda relations,
+- Toda brackets,
+- Steenrod operations,
+- double EHP,
+- odd-primary-specific theorem families.
+
+The next phase should therefore start from a new mathematical rule family,
+not from speculative generic-engine refactoring.
 
 ---
 
@@ -1020,23 +1219,25 @@ Run the generic inference-rule tests with:
 python -m pytest tests/test_inference_rule_pattern.py -v
 ```
 
-For the Phase 5-65 uploaded `proof.py` and
-`test_inference_rule_pattern.py`, the inference-rule suite was re-run during
-the documentation review:
+Run the Phase 6 domain-rule tests with:
 
-```text
-423 passed
+```powershell
+python -m pytest tests/test_ehp_rules.py tests/test_relation_rules.py -v
 ```
 
-This number refers specifically to the inference-rule pattern test file, not
-to the complete project test suite.
+The Phase 6-21 representative completion test is:
 
-Phase 6-1 tests:
+```powershell
+python -m pytest tests/test_ehp_rules.py::test_phase6_representative_end_to_end_scenario_reaches_fixed_point -v
+```
+
+Latest verified full project result after Phase 6-21:
 
 ```text
-tests/test_ehp_rules.py: 1 passed
-full project test suite: 648 passed
+691 passed in 22.77s
 ```
+
+The run collected 691 tests and completed with no failures.
 
 ---
 

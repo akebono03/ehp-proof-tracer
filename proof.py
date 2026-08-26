@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, fields, is_dataclass
 from enum import Enum
 from typing import Any
 
@@ -42,6 +42,7 @@ class ProofRule(Enum):
 class PremisePattern:
   proof_rule: ProofRule | None = None
   statement_type: type | None = None
+  statement_pattern: Any | None = None
   relation_type: RelationType | None = None
   relation_pattern: Relation | None = None
 
@@ -201,7 +202,39 @@ def substitute_pattern_value(
       bindings,
     )
 
+  if is_dataclass(pattern):
+    return type(pattern)(
+      **{
+        field.name: (
+          substitute_pattern_value(
+            getattr(
+              pattern,
+              field.name,
+            ),
+            bindings,
+          )
+        )
+        for field in fields(pattern)
+      }
+    )
+
   return pattern
+
+
+def substitute_statement_pattern(
+  pattern,
+  bindings,
+):
+  if not is_dataclass(pattern):
+    raise TypeError(
+      "pattern must be "
+      "a dataclass instance"
+    )
+
+  return substitute_pattern_value(
+    pattern,
+    bindings,
+  )
 
 
 def substitute_relation_pattern(
@@ -304,13 +337,47 @@ def match_relation_pattern(
   )
 
 
+def match_statement_pattern(
+  pattern,
+  value,
+):
+  if not is_dataclass(pattern) or not is_dataclass(value):
+    raise TypeError(
+      "pattern and value must be dataclass instances"
+    )
+
+  if type(pattern) is not type(value):
+    return None
+
+  bindings = ()
+
+  for field in fields(pattern):
+    field_bindings = match_pattern_value(
+      getattr(pattern, field.name),
+      getattr(value, field.name),
+    )
+
+    if field_bindings is None:
+      return None
+
+    bindings = merge_variable_bindings(
+      bindings + field_bindings
+    )
+
+    if bindings is None:
+      return None
+
+  return bindings
+
+
 @dataclass(frozen=True)
 class InferenceRule:
   name: str
   description: str | None = None
   premise_patterns: tuple[PremisePattern, ...] = ()
   conclusion_builder: Any = None
-  conclusion_pattern: Relation | None = None
+  conclusion_pattern: Any = None
+  match_guard: Any = None
 
 
 @dataclass(frozen=True)
@@ -444,6 +511,21 @@ def match_premise_pattern(
     ):
       return None
 
+  bindings = ()
+
+  if pattern.statement_pattern is not None:
+    statement_bindings = match_statement_pattern(
+      pattern.statement_pattern,
+      step.conclusion,
+    )
+
+    if statement_bindings is None:
+      return None
+
+    bindings = merge_variable_bindings(
+      bindings + statement_bindings
+    )
+
   if (
     pattern.relation_pattern
     is not None
@@ -454,12 +536,19 @@ def match_premise_pattern(
     ):
       return None
 
-    return match_relation_pattern(
+    relation_bindings = match_relation_pattern(
       pattern.relation_pattern,
       step.conclusion,
     )
 
-  return ()
+    if relation_bindings is None:
+      return None
+
+    bindings = merge_variable_bindings(
+      bindings + relation_bindings
+    )
+
+  return bindings
 
 
 def matches_premise_pattern(
@@ -769,14 +858,10 @@ def find_inference_matches_for_rule(
 
   matches = []
 
-  for premises in (
-    premise_assignments
-  ):
-    bindings = (
-      match_inference_rule_bindings(
-        inference_rule,
-        premises,
-      )
+  for premises in premise_assignments:
+    bindings = match_inference_rule_bindings(
+      inference_rule,
+      premises,
     )
 
     if bindings is None:
@@ -784,6 +869,13 @@ def find_inference_matches_for_rule(
         "matching premises must have "
         "consistent bindings"
       )
+
+    if not inference_match_guard_accepts(
+      inference_rule,
+      premises,
+      bindings,
+    ):
+      continue
 
     matches.append(
       InferenceMatch(
@@ -822,7 +914,7 @@ def substitute_inference_conclusion(
       "a conclusion pattern"
     )
 
-  return substitute_relation_pattern(
+  return substitute_pattern_value(
     conclusion_pattern,
     inference_match.bindings,
   )
@@ -1889,6 +1981,29 @@ def run_inference_until_stable(
   )
 
   return result.steps
+
+
+def inference_match_guard_accepts(
+  inference_rule,
+  premises,
+  bindings,
+):
+  if inference_rule.match_guard is None:
+    return True
+
+  if not callable(
+    inference_rule.match_guard
+  ):
+    raise TypeError(
+      "match_guard must be callable"
+    )
+
+  return bool(
+    inference_rule.match_guard(
+      premises,
+      bindings,
+    )
+  )
 
 
 
