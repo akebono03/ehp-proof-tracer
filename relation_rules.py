@@ -142,6 +142,42 @@ def zero_composition_reverse_equality_implies_zero_inference_rule():
   )
 
 
+def equality_symmetry_inference_rule():
+  left_expression = PatternVariable(
+    name="left_expression",
+  )
+
+  right_expression = PatternVariable(
+    name="right_expression",
+  )
+
+  return InferenceRule(
+    name="equality symmetry",
+    description=(
+      "If one expression is equal to "
+      "another expression, the reverse "
+      "equality also holds."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.EQUALITY,
+        relation_pattern=Relation(
+          lhs=left_expression,
+          rhs=right_expression,
+          relation_type=RelationType.EQUALITY,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=right_expression,
+      rhs=left_expression,
+      relation_type=RelationType.EQUALITY,
+    ),
+  )
+
+
+
 
 
 
