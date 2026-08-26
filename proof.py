@@ -27,6 +27,34 @@ class Relation:
   note: str | None = None
 
 
+def order_relation(
+  element,
+  order,
+  source=None,
+  note=None,
+):
+  if (
+    isinstance(order, bool)
+    or not isinstance(order, int)
+  ):
+    raise TypeError(
+      "order must be an int"
+    )
+
+  if order <= 0:
+    raise ValueError(
+      "order must be positive"
+    )
+
+  return Relation(
+    lhs=element,
+    rhs=order,
+    relation_type=RelationType.ORDER,
+    source=source,
+    note=note,
+  )
+
+
 class ProofRule(Enum):
   GIVEN = "given"
   RELATION = "relation"
