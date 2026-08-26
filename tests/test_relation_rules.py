@@ -784,6 +784,121 @@ def test_equality_transitivity_closes_three_link_chain_over_two_rounds():
   )
 
 
+def test_equality_symmetry_and_transitivity_close_connected_component():
+  first_step = relation_proof_step(
+    Relation(
+      lhs=eta(4),
+      rhs=nu(4),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  second_step = relation_proof_step(
+    Relation(
+      lhs=nu(4),
+      rhs=sigma(4),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  symmetry_rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  transitivity_rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        symmetry_rule,
+        transitivity_rule,
+      ),
+      (
+        first_step,
+        second_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 2
+
+  assert len(result.round_results) == 2
+
+  assert len(
+    result.round_results[0].new_steps
+  ) == 3
+
+  assert len(
+    result.round_results[1].new_steps
+  ) == 4
+
+  assert len(result.steps) == 9
+
+  expected_conclusions = {
+    Relation(
+      lhs=eta(4),
+      rhs=eta(4),
+      relation_type=RelationType.EQUALITY,
+    ),
+    Relation(
+      lhs=eta(4),
+      rhs=nu(4),
+      relation_type=RelationType.EQUALITY,
+    ),
+    Relation(
+      lhs=eta(4),
+      rhs=sigma(4),
+      relation_type=RelationType.EQUALITY,
+    ),
+    Relation(
+      lhs=nu(4),
+      rhs=eta(4),
+      relation_type=RelationType.EQUALITY,
+    ),
+    Relation(
+      lhs=nu(4),
+      rhs=nu(4),
+      relation_type=RelationType.EQUALITY,
+    ),
+    Relation(
+      lhs=nu(4),
+      rhs=sigma(4),
+      relation_type=RelationType.EQUALITY,
+    ),
+    Relation(
+      lhs=sigma(4),
+      rhs=eta(4),
+      relation_type=RelationType.EQUALITY,
+    ),
+    Relation(
+      lhs=sigma(4),
+      rhs=nu(4),
+      relation_type=RelationType.EQUALITY,
+    ),
+    Relation(
+      lhs=sigma(4),
+      rhs=sigma(4),
+      relation_type=RelationType.EQUALITY,
+    ),
+  }
+
+  actual_conclusions = {
+    step.conclusion
+    for step in result.steps
+  }
+
+  assert actual_conclusions == (
+    expected_conclusions
+  )
+
+
+
 
 
 
