@@ -1,6 +1,6 @@
 # ehp_proof 開発記録
 
-この文書は Phase 6-3 時点までの開発履歴を、
+この文書は Phase 6-21、すなわち Phase 6 完了時点までの開発履歴を、
 現在の実装と矛盾しない形に整理した改訂版である。
 
 重要な読み方:
@@ -1260,6 +1260,435 @@ inference regression を確認した。focused inference and EHP tests は
 
 完了
 
+
+# Phase 6-4：Exactness + Image → Kernel structure
+
+Phase 6-4 では、EHP exactness と既知の image structure から second map の
+kernel structure を導く rule を追加した。
+
+```text
+Exactness(first_map, second_map)
++
+Image(first_map, structure)
+↓
+Kernel(second_map, structure)
+```
+
+既存の structured statement pattern と shared bindings のみで表現し、
+generic engine は変更していない。
+
+### 状態
+
+完了
+
+---
+
+# Phase 6-5：Exactness + Kernel → Image structure
+
+Phase 6-5 では Phase 6-4 の逆方向を追加した。
+
+```text
+Exactness(first_map, second_map)
++
+Kernel(second_map, structure)
+↓
+Image(first_map, structure)
+```
+
+Phase 6-4 / 6-5 により、exactness と Image / Kernel structure の相互伝播が
+可能になった。
+
+### 状態
+
+完了
+
+---
+
+# Phase 6-6：exactness rule family fixed-point integration
+
+Phase 6-1、6-4、6-5 を同一 fixed-point run に投入し、Image + Kernel から
+Exactness が導かれた後、相互伝播 rule が既知 conclusion を再生成しても
+duplicate rejection により fixed point に到達することを確認した。
+
+### 状態
+
+完了
+
+---
+
+# Phase 6-7：Exactness → EHP zero composition
+
+EHP exactness から consecutive maps の zero composition を表す
+`EHPZeroCompositionStatement` を導出する rule を追加した。
+
+```text
+Exactness(first_map, second_map)
+↓
+EHPZeroCompositionStatement(first_map, second_map)
+```
+
+non-exact statement は match しない。
+
+### 状態
+
+完了
+
+---
+
+# Phase 6-8：Image + Kernel → Exactness → zero composition integration
+
+Phase 6-1 と Phase 6-7 を fixed-point inference で接続し、
+
+```text
+round 1: Exactness
+round 2: EHP zero composition
+```
+
+という productive-round chain を確認した。
+
+### 状態
+
+完了
+
+---
+
+# Phase 6-9：EHP zero composition → generic ZERO relation
+
+`EHPZeroCompositionStatement` を generic `Relation` へ変換する bridge rule を
+追加した。
+
+```text
+EHPZeroCompositionStatement(first_map, second_map)
+↓
+Composition(second_map, first_map) = 0
+```
+
+conclusion は `RelationType.ZERO` を使用する。
+
+### 状態
+
+完了
+
+---
+
+# Phase 6-10：EHP exactness → generic ZERO integration
+
+Image / Kernel facts から、
+
+```text
+Exactness
+↓
+EHP zero composition
+↓
+generic ZERO relation
+```
+
+までを multi-round fixed-point inference で確認した。
+
+### 状態
+
+完了
+
+---
+
+# Phase 6-11：ZERO + equality → ZERO propagation
+
+composition の ZERO relation と、別 expression がその composition に等しい
+relation から、別 expression の ZERO relation を導く rule を追加した。
+
+```text
+composition = 0
+x = composition
+↓
+x = 0
+```
+
+zero-side expression が `Composition` であることを guard で確認する。
+
+### 状態
+
+完了
+
+---
+
+# Phase 6-12：EHP → generic ZERO → propagated ZERO integration
+
+EHP exactness chain から得られた generic ZERO relation を equality premise と
+接続し、generic expression の ZERO relation まで到達する multi-round test を
+追加した。
+
+### 状態
+
+完了
+
+---
+
+# Phase 6-13：reverse equality ZERO propagation
+
+ZERO expression が equality の lhs に現れる orientation も追加した。
+
+```text
+composition = 0
+composition = x
+↓
+x = 0
+```
+
+これにより ZERO propagation は equality の両 orientation を扱える。
+
+### 状態
+
+完了
+
+---
+
+# Phase 6-14：equality symmetry
+
+generic equality symmetry rule を追加した。
+
+```text
+x = y
+↓
+y = x
+```
+
+non-equality relation は reject する。
+
+### 状態
+
+完了
+
+---
+
+# Phase 6-15：equality symmetry fixed-point verification
+
+symmetry rule 単体を fixed-point execution に通し、reverse equality を1回だけ
+追加した後、元 equality / reverse equality の再生成が `ALREADY_KNOWN` として
+reject されることを確認した。
+
+### 状態
+
+完了
+
+---
+
+# Phase 6-16：equality transitivity
+
+generic equality transitivity rule を追加した。
+
+```text
+x = y
++
+y = z
+↓
+x = z
+```
+
+shared middle expression は existing binding consistency により一致を要求する。
+
+### 状態
+
+完了
+
+---
+
+# Phase 6-17：multi-round transitivity closure
+
+3-link equality chain に transitivity を反復し、1 round で得られた equality が
+次 round の premise となって chain endpoint equality を導くことを確認した。
+
+### 状態
+
+完了
+
+---
+
+# Phase 6-18：equality equivalence closure
+
+symmetry と transitivity を同じ fixed-point run で実行した。
+
+connected equality component について directed pairwise equalities と reflexive
+equalities が導かれ、ordinary conclusion equality と duplicate rejection により
+fixed point に到達することを確認した。
+
+独立した equality graph subsystem は導入していない。
+
+### 状態
+
+完了
+
+---
+
+# Phase 6-19：equality closure → ZERO propagation
+
+ZERO relation、複数 equality facts、symmetry、transitivity、ZERO propagation を
+同一 run に投入し、derived equality を経由して ZERO が複数 round 伝播する
+ことを確認した。
+
+### 状態
+
+完了
+
+---
+
+# Phase 6-20：EHP → equality closure → ZERO propagation integration
+
+EHP domain chain と generic equality closure を統合した。
+
+代表 scenario:
+
+```text
+Image(E)
++
+Kernel(H)
+↓
+Exactness(E,H)
+↓
+EHP zero composition
+↓
+H ∘ E = 0
+
+ target = intermediate
+ H ∘ E = intermediate
+↓ symmetry / transitivity
+ target = H ∘ E
+↓ ZERO propagation
+ target = 0
+```
+
+EHP-specific facts が generic relation layer に入り、generic reasoning によって
+新しい ZERO relation を導けることを end-to-end で確認した。
+
+### 状態
+
+完了
+
+---
+
+# Phase 6-21：Phase 6 representative end-to-end completion
+
+Phase 6 の最終 integration として、主要 rule family を1つの fixed-point
+scenario にまとめた。
+
+最終 rule set:
+
+```text
+Image + Kernel → Exactness
+Exactness + Image → Kernel
+Exactness + Kernel → Image
+Exactness → EHP zero composition
+EHP zero composition → generic ZERO relation
+ZERO + equality → propagated ZERO
+ZERO + reverse equality → propagated ZERO
+equality symmetry
+equality transitivity
+```
+
+representative test:
+
+```text
+test_phase6_representative_end_to_end_scenario_reaches_fixed_point
+```
+
+この test は次を確認する。
+
+1. Image + Kernel から Exactness が得られる。
+2. Exactness から EHP zero composition が得られる。
+3. EHP-specific statement から generic composition ZERO relation が得られる。
+4. symmetry / transitivity により target と composition の equality が得られる。
+5. ZERO propagation により target = 0 が得られる。
+6. target ZERO step が premise と source `InferenceRule` を保持する。
+7. final state への追加 inference round で `new_steps == ()` となる。
+8. exactness / image / kernel propagation を含む全 representative rule family が
+   terminal state で既知 conclusion の範囲に閉じる。
+
+Phase 6-21 では production inference code を追加していない。
+既存 Phase 5 generic engine と Phase 6 domain rules の組み合わせだけで
+completion scenario を表現できたためである。
+
+## Phase 6 completion criteria
+
+Phase 6 は次を満たしたため完了とする。
+
+1. Image + Kernel から Exactness を導出できる。
+2. Exactness と Image / Kernel structure を相互伝播できる。
+3. Exactness から EHP zero composition を導出できる。
+4. EHP zero composition を generic ZERO Relation に変換できる。
+5. ZERO を equality の両 orientation で伝播できる。
+6. equality symmetry を generic rule として実行できる。
+7. equality transitivity を generic rule として実行できる。
+8. symmetry + transitivity を fixed point まで反復して equality closure を構築できる。
+9. equality closure を利用して ZERO を複数 round 伝播できる。
+10. EHP facts から generic equality reasoning を経て final ZERO relation まで到達できる。
+11. derived `ProofStep` が premises と `inference_rule` を保持する。
+12. representative Phase 6 rule set が genuine fixed point に到達する。
+13. generic engine に EHP-specific branch を追加していない。
+
+## Phase 6 の到達点
+
+```text
+EHP data / structural facts
+↓
+EHP-specific inference
+↓
+generic Relation
+↓
+equality closure
+↓
+ZERO propagation
+↓
+traceable derived relation
+↓
+fixed point
+```
+
+これはすべての EHP / unstable homotopy theorem の実装完了を意味しない。
+Phase 6 で完成したのは最初の domain-inference vertical slice である。
+
+## テスト結果
+
+Phase 6-21 完了後に full project test suite を実行した。
+
+```powershell
+python -m pytest -v
+```
+
+結果:
+
+```text
+691 passed in 22.77s
+```
+
+691 tests を収集し、failure なしで完了した。
+
+### 状態
+
+完了
+
+---
+
+# Phase 6 完了後の境界
+
+次 Phase は generic engine の speculative refactoring から開始しない。
+
+候補は、実際の新しい mathematical rule family である。
+
+```text
+element order
+suspension relations
+Hopf invariant
+stable-range theorem
+Toda relations
+Toda bracket
+Steenrod operations
+double EHP
+odd-primary-specific rules
+```
+
+actual rule を current generic language で表現してみて、不足が実証された
+場合だけ generic engine を拡張する。
+
+---
 
 # 今後の記録方針
 
