@@ -1,5 +1,6 @@
 from expression import (
   Composition,
+  Multiple,
   Zero,
 )
 from proof import (
@@ -10,6 +11,68 @@ from proof import (
   RelationType,
   lookup_variable_binding,
 )
+
+
+def order_implies_zero_multiple_inference_rule():
+  element = PatternVariable(
+    name="element",
+  )
+
+  order = PatternVariable(
+    name="order",
+  )
+
+  def guard(
+    premises,
+    bindings,
+  ):
+    bound_order = (
+      lookup_variable_binding(
+        order,
+        bindings,
+      )
+    )
+
+    return (
+      not isinstance(
+        bound_order,
+        bool,
+      )
+      and isinstance(
+        bound_order,
+        int,
+      )
+      and bound_order > 0
+    )
+
+  return InferenceRule(
+    name="order implies zero multiple",
+    description=(
+      "If an element has exact additive "
+      "order n, then n times that element "
+      "is zero."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.ORDER,
+        relation_pattern=Relation(
+          lhs=element,
+          rhs=order,
+          relation_type=RelationType.ORDER,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=Multiple(
+        coefficient=order,
+        expression=element,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    ),
+    match_guard=guard,
+  )
 
 
 def zero_composition_equality_implies_zero_inference_rule():

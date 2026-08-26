@@ -1,5 +1,6 @@
 from expression import (
   Composition,
+  Multiple,
   Zero,
   eta,
   nu,
@@ -15,15 +16,110 @@ from proof import (
   apply_inference_match,
   derive_inference_round_result,
   find_inference_match,
+  order_relation,
   relation_proof_step,
   run_inference_until_stable_with_history,
 )
 from relation_rules import (
   equality_symmetry_inference_rule,
   equality_transitivity_inference_rule,
+  order_implies_zero_multiple_inference_rule,
   zero_composition_equality_implies_zero_inference_rule,
   zero_composition_reverse_equality_implies_zero_inference_rule,
 )
+
+
+def test_order_implies_zero_multiple():
+  order_step = relation_proof_step(
+    order_relation(
+      eta(3),
+      2,
+    )
+  )
+
+  rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      order_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=eta(3),
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    order_step,
+  )
+
+
+def test_order_implies_zero_multiple_rejects_non_order_relation():
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=eta(3),
+      rhs=2,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_order_implies_zero_multiple_rejects_invalid_order():
+  invalid_order_step = relation_proof_step(
+    Relation(
+      lhs=eta(3),
+      rhs=0,
+      relation_type=RelationType.ORDER,
+    )
+  )
+
+  rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      invalid_order_step,
+    ),
+  )
+
+  assert match is None
 
 
 def test_zero_composition_equality_implies_zero():
