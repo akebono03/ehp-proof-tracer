@@ -177,6 +177,57 @@ def equality_symmetry_inference_rule():
   )
 
 
+def equality_transitivity_inference_rule():
+  left_expression = PatternVariable(
+    name="left_expression",
+  )
+
+  middle_expression = PatternVariable(
+    name="middle_expression",
+  )
+
+  right_expression = PatternVariable(
+    name="right_expression",
+  )
+
+  return InferenceRule(
+    name="equality transitivity",
+    description=(
+      "If one expression is equal to "
+      "a second expression and the "
+      "second expression is equal to "
+      "a third expression, the first "
+      "expression is equal to the third."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.EQUALITY,
+        relation_pattern=Relation(
+          lhs=left_expression,
+          rhs=middle_expression,
+          relation_type=RelationType.EQUALITY,
+        ),
+      ),
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.EQUALITY,
+        relation_pattern=Relation(
+          lhs=middle_expression,
+          rhs=right_expression,
+          relation_type=RelationType.EQUALITY,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=left_expression,
+      rhs=right_expression,
+      relation_type=RelationType.EQUALITY,
+    ),
+  )
+
+
+
 
 
 

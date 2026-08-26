@@ -3,6 +3,7 @@ from expression import (
   Zero,
   eta,
   nu,
+  sigma,
 )
 from proof import (
   InferenceRejectionReason,
@@ -19,6 +20,7 @@ from proof import (
 )
 from relation_rules import (
   equality_symmetry_inference_rule,
+  equality_transitivity_inference_rule,
   zero_composition_equality_implies_zero_inference_rule,
   zero_composition_reverse_equality_implies_zero_inference_rule,
 )
@@ -403,6 +405,121 @@ def test_equality_symmetry_reaches_fixed_point_after_duplicate_rejection():
     .candidate_step
     .conclusion
   ) == initial_step.conclusion
+
+
+def test_equality_transitivity():
+  first_equality_step = relation_proof_step(
+    Relation(
+      lhs=eta(4),
+      rhs=nu(4),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  second_equality_step = relation_proof_step(
+    Relation(
+      lhs=nu(4),
+      rhs=sigma(4),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  rule = equality_transitivity_inference_rule()
+
+  match = find_inference_match(
+    rule,
+    (
+      first_equality_step,
+      second_equality_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    Relation(
+      lhs=eta(4),
+      rhs=sigma(4),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    first_equality_step,
+    second_equality_step,
+  )
+
+
+def test_equality_transitivity_rejects_mismatched_middle_expression():
+  first_equality_step = relation_proof_step(
+    Relation(
+      lhs=eta(4),
+      rhs=nu(4),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  second_equality_step = relation_proof_step(
+    Relation(
+      lhs=sigma(4),
+      rhs=eta(3),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  rule = equality_transitivity_inference_rule()
+
+  match = find_inference_match(
+    rule,
+    (
+      first_equality_step,
+      second_equality_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_equality_transitivity_rejects_non_equality_relation():
+  zero_step = relation_proof_step(
+    Relation(
+      lhs=eta(4),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=Zero(),
+      rhs=nu(4),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  rule = equality_transitivity_inference_rule()
+
+  match = find_inference_match(
+    rule,
+    (
+      zero_step,
+      equality_step,
+    ),
+  )
+
+  assert match is None
+
+
 
 
 
