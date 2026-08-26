@@ -10,8 +10,11 @@ from ehp_rules import (
 )
 from expression import (
   Composition,
+  Multiple,
   Zero,
   eta,
+  nu,
+  sigma,
 )
 from proof import (
   ProofStep,
@@ -27,14 +30,17 @@ from proof import (
   find_inference_match,
   image_proof_step,
   kernel_proof_step,
+  order_relation,
   relation_proof_step,
   run_inference_until_stable_with_history,
 )
 from relation_rules import (
   equality_symmetry_inference_rule,
   equality_transitivity_inference_rule,
+  order_implies_zero_multiple_inference_rule,
   zero_composition_equality_implies_zero_inference_rule,
   zero_composition_reverse_equality_implies_zero_inference_rule,
+  zero_equality_implies_zero_inference_rule,
 )
 from repository import SphereRepository
 
@@ -1616,6 +1622,612 @@ def test_phase6_representative_end_to_end_scenario_reaches_fixed_point():
   )
 
   assert terminal_round.new_steps == ()
+
+
+def test_ehp_and_order_derived_zero_coexist_in_same_fixed_point_run():
+  segment = EHPSegment(
+    make_sphere_repository(),
+    n=3,
+    k=5,
+  )
+
+  exact_step = (
+    segment.exact_step_at_sphere()
+  )
+
+  image_step = image_proof_step(
+    exact_step.first_map
+  )
+
+  kernel_step = kernel_proof_step(
+    exact_step.second_map
+  )
+
+  element = eta(3)
+
+  order_step = relation_proof_step(
+    order_relation(
+      element,
+      2,
+    )
+  )
+
+  composition = Composition(
+    left=exact_step.second_map,
+    right=exact_step.first_map,
+  )
+
+  order_multiple = Multiple(
+    coefficient=2,
+    expression=element,
+  )
+
+  ehp_zero_relation = Relation(
+    lhs=composition,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  order_zero_relation = Relation(
+    lhs=order_multiple,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  exactness_rule = (
+    ehp_exactness_inference_rule()
+  )
+
+  zero_composition_rule = (
+    ehp_exactness_implies_zero_composition_inference_rule()
+  )
+
+  ehp_zero_relation_rule = (
+    ehp_zero_composition_implies_zero_relation_inference_rule()
+  )
+
+  order_zero_rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  rules = (
+    exactness_rule,
+    zero_composition_rule,
+    ehp_zero_relation_rule,
+    order_zero_rule,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        image_step,
+        kernel_step,
+        order_step,
+      ),
+    )
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert ehp_zero_relation in conclusions
+  assert order_zero_relation in conclusions
+
+  ehp_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == ehp_zero_relation
+  )
+
+  order_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == order_zero_relation
+  )
+
+  assert ehp_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert ehp_zero_step.inference_rule == (
+    ehp_zero_relation_rule
+  )
+
+  assert order_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert order_zero_step.inference_rule == (
+    order_zero_rule
+  )
+
+  assert order_zero_step.premises == (
+    order_step,
+  )
+
+  terminal_round = (
+    derive_inference_round_result(
+      rules,
+      result.steps,
+    )
+  )
+
+  assert terminal_round.new_steps == ()
+
+
+def test_ehp_and_order_branches_preserve_provenance_end_to_end():
+  segment = EHPSegment(
+    make_sphere_repository(),
+    n=3,
+    k=5,
+  )
+
+  exact_step = (
+    segment.exact_step_at_sphere()
+  )
+
+  image_step = image_proof_step(
+    exact_step.first_map
+  )
+
+  kernel_step = kernel_proof_step(
+    exact_step.second_map
+  )
+
+  element = eta(3)
+
+  order_step = relation_proof_step(
+    order_relation(
+      element,
+      2,
+    )
+  )
+
+  composition = Composition(
+    left=exact_step.second_map,
+    right=exact_step.first_map,
+  )
+
+  order_multiple = Multiple(
+    coefficient=2,
+    expression=element,
+  )
+
+  exactness_statement = ExactnessStatement(
+    first_map=exact_step.first_map,
+    second_map=exact_step.second_map,
+    is_exact=True,
+  )
+
+  zero_composition_statement = (
+    EHPZeroCompositionStatement(
+      first_map=exact_step.first_map,
+      second_map=exact_step.second_map,
+    )
+  )
+
+  ehp_zero_relation = Relation(
+    lhs=composition,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  order_zero_relation = Relation(
+    lhs=order_multiple,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  exactness_rule = (
+    ehp_exactness_inference_rule()
+  )
+
+  zero_composition_rule = (
+    ehp_exactness_implies_zero_composition_inference_rule()
+  )
+
+  ehp_zero_relation_rule = (
+    ehp_zero_composition_implies_zero_relation_inference_rule()
+  )
+
+  order_zero_rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  rules = (
+    exactness_rule,
+    zero_composition_rule,
+    ehp_zero_relation_rule,
+    order_zero_rule,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        image_step,
+        kernel_step,
+        order_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  exactness_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == exactness_statement
+  )
+
+  zero_composition_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == zero_composition_statement
+  )
+
+  ehp_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == ehp_zero_relation
+  )
+
+  order_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == order_zero_relation
+  )
+
+  assert exactness_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert exactness_step.inference_rule == (
+    exactness_rule
+  )
+
+  assert exactness_step.premises == (
+    image_step,
+    kernel_step,
+  )
+
+  assert zero_composition_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    zero_composition_step.inference_rule
+    == zero_composition_rule
+  )
+
+  assert zero_composition_step.premises == (
+    exactness_step,
+  )
+
+  assert ehp_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert ehp_zero_step.inference_rule == (
+    ehp_zero_relation_rule
+  )
+
+  assert ehp_zero_step.premises == (
+    zero_composition_step,
+  )
+
+  assert order_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert order_zero_step.inference_rule == (
+    order_zero_rule
+  )
+
+  assert order_zero_step.premises == (
+    order_step,
+  )
+
+  assert exactness_step not in (
+    order_zero_step.premises
+  )
+
+  assert zero_composition_step not in (
+    order_zero_step.premises
+  )
+
+  assert order_step not in (
+    ehp_zero_step.premises
+  )
+
+
+def test_phase7_representative_end_to_end_scenario_reaches_fixed_point():
+  segment = EHPSegment(
+    make_sphere_repository(),
+    n=3,
+    k=5,
+  )
+
+  exact_step = (
+    segment.exact_step_at_sphere()
+  )
+
+  image_step = image_proof_step(
+    exact_step.first_map
+  )
+
+  kernel_step = kernel_proof_step(
+    exact_step.second_map
+  )
+
+  composition = Composition(
+    left=exact_step.second_map,
+    right=exact_step.first_map,
+  )
+
+  ehp_intermediate_expression = eta(5)
+  ehp_target_expression = eta(4)
+
+  ehp_first_equality_step = relation_proof_step(
+    Relation(
+      lhs=composition,
+      rhs=ehp_intermediate_expression,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  ehp_second_equality_step = relation_proof_step(
+    Relation(
+      lhs=ehp_target_expression,
+      rhs=ehp_intermediate_expression,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  order_element = eta(3)
+
+  order_multiple = Multiple(
+    coefficient=2,
+    expression=order_element,
+  )
+
+  order_step = relation_proof_step(
+    order_relation(
+      order_element,
+      2,
+    )
+  )
+
+  order_intermediate_expression = nu(4)
+  order_target_expression = sigma(5)
+
+  order_first_equality_step = relation_proof_step(
+    Relation(
+      lhs=order_multiple,
+      rhs=order_intermediate_expression,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  order_second_equality_step = relation_proof_step(
+    Relation(
+      lhs=order_target_expression,
+      rhs=order_intermediate_expression,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  exactness_rule = (
+    ehp_exactness_inference_rule()
+  )
+
+  image_implies_kernel_rule = (
+    ehp_exactness_image_implies_kernel_inference_rule()
+  )
+
+  kernel_implies_image_rule = (
+    ehp_exactness_kernel_implies_image_inference_rule()
+  )
+
+  zero_composition_rule = (
+    ehp_exactness_implies_zero_composition_inference_rule()
+  )
+
+  ehp_zero_relation_rule = (
+    ehp_zero_composition_implies_zero_relation_inference_rule()
+  )
+
+  order_zero_rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  symmetry_rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  transitivity_rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  zero_propagation_rule = (
+    zero_equality_implies_zero_inference_rule()
+  )
+
+  rules = (
+    exactness_rule,
+    image_implies_kernel_rule,
+    kernel_implies_image_rule,
+    zero_composition_rule,
+    ehp_zero_relation_rule,
+    order_zero_rule,
+    symmetry_rule,
+    transitivity_rule,
+    zero_propagation_rule,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        image_step,
+        kernel_step,
+        order_step,
+        ehp_first_equality_step,
+        ehp_second_equality_step,
+        order_first_equality_step,
+        order_second_equality_step,
+      ),
+    )
+  )
+
+  ehp_zero_relation = Relation(
+    lhs=composition,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  order_zero_relation = Relation(
+    lhs=order_multiple,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  ehp_target_equality = Relation(
+    lhs=ehp_target_expression,
+    rhs=composition,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  order_target_equality = Relation(
+    lhs=order_target_expression,
+    rhs=order_multiple,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  ehp_target_zero = Relation(
+    lhs=ehp_target_expression,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  order_target_zero = Relation(
+    lhs=order_target_expression,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert ehp_zero_relation in conclusions
+  assert order_zero_relation in conclusions
+
+  assert ehp_target_equality in conclusions
+  assert order_target_equality in conclusions
+
+  assert ehp_target_zero in conclusions
+  assert order_target_zero in conclusions
+
+  ehp_target_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == ehp_target_zero
+  )
+
+  order_target_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == order_target_zero
+  )
+
+  assert ehp_target_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert ehp_target_zero_step.inference_rule == (
+    zero_propagation_rule
+  )
+
+  assert order_target_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert order_target_zero_step.inference_rule == (
+    zero_propagation_rule
+  )
+
+  assert any(
+    isinstance(
+      premise.conclusion,
+      Relation,
+    )
+    and premise.conclusion.relation_type
+    == RelationType.ZERO
+    for premise in ehp_target_zero_step.premises
+  )
+
+  assert any(
+    isinstance(
+      premise.conclusion,
+      Relation,
+    )
+    and premise.conclusion.relation_type
+    == RelationType.EQUALITY
+    for premise in ehp_target_zero_step.premises
+  )
+
+  assert any(
+    isinstance(
+      premise.conclusion,
+      Relation,
+    )
+    and premise.conclusion.relation_type
+    == RelationType.ZERO
+    for premise in order_target_zero_step.premises
+  )
+
+  assert any(
+    isinstance(
+      premise.conclusion,
+      Relation,
+    )
+    and premise.conclusion.relation_type
+    == RelationType.EQUALITY
+    for premise in order_target_zero_step.premises
+  )
+
+  terminal_round = (
+    derive_inference_round_result(
+      rules,
+      result.steps,
+    )
+  )
+
+  assert terminal_round.new_steps == ()
+
 
 
 

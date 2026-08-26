@@ -1,6 +1,6 @@
 # ehp_proof 開発記録
 
-この文書は Phase 6-21、すなわち Phase 6 完了時点までの開発履歴を、
+この文書は Phase 7-8、すなわち Phase 7 完了時点までの開発履歴を、
 現在の実装と矛盾しない形に整理した改訂版である。
 
 重要な読み方:
@@ -62,11 +62,13 @@ Im(f) = Ker(g)
 
 # Phase 3：完全列から群構造を推論する
 
-## 3-1 QuotientGroup
+## 主な成果
+
+### QuotientGroup
 
 有限群について quotient coset と quotient structure を導入。
 
-## 3-2 InducedMap
+### InducedMap
 
 第一同型定理:
 
@@ -76,7 +78,7 @@ G / Ker(f) ≅ Im(f)
 
 を explicit finite-group object として検証可能にした。
 
-## 3-3 ExactSequenceStep
+### ExactSequenceStep
 
 ```text
 A --f--> B --g--> C
@@ -93,11 +95,11 @@ Im(g)
 
 をまとめて扱う。
 
-## 3-4 EHP integration
+### EHP integration
 
 EHP segment から general exact-sequence calculation へ接続。
 
-## 3-5〜3-7 Extension candidates
+### Extension candidates
 
 有限 short exact sequence:
 
@@ -107,8 +109,7 @@ EHP segment から general exact-sequence calculation へ接続。
 
 から finite abelian middle-group candidates を列挙・検証。
 
-EHP exactness から candidate middle-group structures を
-取得できるようにした。
+EHP exactness から candidate middle-group structures を取得できるようにした。
 
 ### 到達点
 
@@ -158,11 +159,6 @@ Z^r ⊕ finite torsion
 - EHP layer integration
 - finite-enumeration cross-check
 
-## 実 EHP data
-
-自由部分を含む EHP example を用い、
-presentation path を実 EHP calculation に接続した。
-
 ## 設計境界
 
 Phase 4 の終了時点で、
@@ -197,88 +193,31 @@ Phase 5 は、
 
 Phase 5-65 を generic inference engine foundation の完成点とする。
 
----
+## Phase 5 前半：Proof / Relation / Expression foundation
 
-# Phase 5-1〜5-10：Proof / Relation / Expression foundation
-
-## Phase 5-1
-
-`Relation` / `ProofStep` / `Proof` を導入。
+導入・整理した主な model:
 
 ```text
 Relation
-=
-known mathematical fact
-
 ProofStep
-=
-one calculation / inference
-
 Proof
-=
-derivation collection
-```
-
-という区別を設定。
-
-## Phase 5-2
-
-Expression model:
-
-```text
+LiteratureReference
+Expression
 Zero
 HomotopyElement
 Multiple
 Composition
-```
-
-を導入。
-
-## Phase 5-3 以降
-
-Relation repository、Relation → ProofStep、
-kernel/image/cokernel ProofStep、
-exactness ProofStep、
-EHP exactness Proof、
-formatter などを段階的に接続。
-
-## Phase 5-10 到達点
-
-```text
-Expression
-↓
-Relation
-↓
-Repository
-↓
-ProofStep
-↓
-Proof
-↓
+RelationRepository
 formatter
 ```
 
-および、
+relation と proof provenance、
+expression structure と表示、
+group calculation と theorem reasoning を分離した。
 
-```text
-GroupMap
-↓
-kernel / image calculation
-↓
-ProofStep
-↓
-exactness ProofStep
-↓
-Proof
-```
+## InferenceRule / PremisePattern 基盤
 
-を同じ proof model で表現可能になった。
-
----
-
-# Phase 5-11〜5-23：InferenceRule 基礎
-
-この区間では、
+段階的に、
 
 - structured `InferenceRule`
 - `PremisePattern`
@@ -291,9 +230,9 @@ Proof
 - derived `ProofStep`
 - multiple matches application
 
-などを段階的に構築した。
+を導入した。
 
-到達した基本 pipeline:
+基本 pipeline:
 
 ```text
 available ProofSteps
@@ -309,664 +248,120 @@ application
 candidate ProofStep
 ```
 
----
+## one-round / fixed-point execution
 
-# Phase 5-24：candidate derivation
+以下を段階的に導入した。
 
-high-level candidate derivation API を整備。
+- one-round state expansion
+- duplicate-aware merge
+- genuinely new delta
+- automatic fixed-point iteration
+- per-round history
+- structured `InferenceRunResult`
+- `max_rounds`
+- `FIXED_POINT` / `MAX_ROUNDS`
+- `InferenceRoundResult`
+- per-round matches
+- candidate / duplicate tracing
+- application result
+- acceptance status
+- rejection reason
 
-```text
-InferenceRules
-+
-available steps
-↓
-matches
-↓
-candidate derived ProofSteps
-```
-
-を1 API で取得可能にした。
-
----
-
-# Phase 5-25：one-round state expansion
-
-candidate derived steps を current state に追加する
-one-round inference を導入。
-
----
-
-# Phase 5-26：duplicate-aware merge
-
-equal conclusion を knowledge state に重複追加しない
-merge semantics を導入。
-
----
-
-# Phase 5-27：genuinely new delta
-
-1 round で本当に新規追加される `ProofStep` のみを取得する
-API を導入。
-
----
-
-# Phase 5-28：automatic fixed-point iteration
-
-新しい step がなくなるまで round を自動反復する
-fixed-point inference を導入。
-
-derived step を later round の premise として利用可能になった。
-
----
-
-# Phase 5-29：per-round history / structured run result
-
-`InferenceRunResult` を導入。
-
-```text
-final state
-round history
-productive round count
-```
-
-を構造化。
-
----
-
-# Phase 5-30：max_rounds / termination reason
-
-`max_rounds` と、
-
-```text
-FIXED_POINT
-MAX_ROUNDS
-```
-
-を導入。
-
-round limit termination と fixed-point termination を区別。
-
----
-
-# Phase 5-31：structured per-round result
-
-`InferenceRoundResult` を導入。
-
-run-level と round-level information を分離。
-
----
-
-# Phase 5-32：per-round InferenceMatch tracing
-
-各 productive round について、
-どの `InferenceMatch` が存在したかを保存。
-
----
-
-# Phase 5-33：candidate / duplicate-rejection tracing
-
-round result に、
-
-```text
-candidate_steps
-duplicate_rejected_steps
-```
-
-を追加。
-
-```text
-match
-↓
-candidate
-↓
-accepted / duplicate
-```
-
-を観測可能にした。
-
----
-
-# Phase 5-34：InferenceApplicationResult
-
-match と candidate の対応を、
-
-```text
-InferenceApplicationResult
-```
-
-という object-level relationship にした。
-
----
-
-# Phase 5-35：acceptance status / rejection reason
-
-`InferenceApplicationResult` に、
-
-```text
-accepted
-rejection_reason
-```
-
-を追加。
-
-rejection reason:
-
-```text
-ALREADY_KNOWN
-SAME_ROUND_DUPLICATE
-```
-
-を区別可能にした。
-
----
-
-# Phase 5-36：all valid premise assignments
+## exhaustive assignment
 
 greedy first assignment から、
 deterministic backtracking による exhaustive assignment search へ変更。
-
-導入:
 
 ```text
 find_all_matching_premises()
 find_inference_matches_for_rule()
 ```
 
-`find_matching_premises()` / `find_inference_match()` は
-first-result compatibility API として維持。
+を canonical all-match APIs とした。
 
-この時点では、assignment enumeration はまだ主に
-outer pattern condition に基づいていた。
+## PatternVariable / VariableBinding
 
----
-
-# Phase 5-37：PatternVariable
-
-`PatternVariable` を導入。
-
-pattern の可変部分を文字列 placeholder ではなく
-structured object として表現可能にした。
-
----
-
-# Phase 5-38：VariableBinding
-
-`VariableBinding` を導入。
+導入:
 
 ```text
 PatternVariable
-→
-actual value
+VariableBinding
+match_pattern_value()
+match_relation_pattern()
+merge_variable_bindings()
 ```
 
-を explicit object として保持。
+repeated variable consistency と
+shared binding consistency を実装。
 
----
+## multi-premise shared bindings
 
-# Phase 5-39：pattern value matching
+複数 premise をまたぐ shared variable の値を統合し、
+conflict branch を reject しながら backtrack 可能にした。
 
-`match_pattern_value()` を導入。
+## InferenceMatch.bindings
 
-- variable pattern → binding
-- equal literal → success / no binding
-- different literal → failure
+matching phase の bindings を application phase へ明示的に引き渡すようにした。
 
-という最小 pattern matching semantics を確立。
+## conclusion substitution
 
----
-
-# Phase 5-40：relation pattern matching
-
-`match_relation_pattern()` により、
-`Relation` の lhs / rhs / relation type を
-structured に match できるようにした。
-
----
-
-# Phase 5-41：binding merge / repeated-variable consistency
-
-`merge_variable_bindings()` を導入。
-
-同じ variable の、
+導入:
 
 ```text
-same value
+lookup_variable_binding()
+substitute_pattern_value()
+substitute_relation_pattern()
+substitute_statement_pattern()
+substitute_inference_conclusion()
 ```
 
-は統合、
+`conclusion_pattern` から structured conclusion を生成可能にした。
 
-```text
-different value
-```
+dataclass fields への substitution を可能にした。
 
-は conflict として reject。
+## multiple binding assignments / branch and merge
 
-1 relation pattern 内で同じ variable が複数回現れる場合も
-consistency を確認可能になった。
+一つの rule が複数 binding assignment を持ち、
+複数 conclusion を生成できることを end-to-end で確認。
 
----
-
-# Phase 5-42：match_relation_pattern() への binding consistency 統合
-
-relation pattern matching 自体が、
-lhs / rhs から生成された bindings を統合し、
-repeated variable conflict を reject するようになった。
-
----
-
-# Phase 5-43：PremisePattern に relation_pattern
-
-`PremisePattern.relation_pattern` を追加。
-
-outer condition:
-
-```text
-proof_rule
-statement_type
-relation_type
-```
-
-に加えて、
-conclusion の内容を structured `Relation` pattern で指定可能にした。
-
----
-
-# Phase 5-44：premise matching から binding を返す API
-
-`match_premise_pattern()` を導入・整理し、
-boolean ではなく binding tuple を返せるようにした。
-
-`matches_premise_pattern()` は compatibility boolean view とした。
-
----
-
-# Phase 5-45：複数 premise binding 統合 API
-
-`match_inference_rule_bindings()` により、
-明示的に与えた複数 steps について
-premise-level bindings を統合。
-
-shared variable conflict を rule-level mismatch として reject。
-
----
-
-# Phase 5-46：find_all_matching_premises() shared binding consistency
-
-backtracking premise search の途中で、
-shared bindings を逐次 merge するようにした。
-
-binding conflict branch は prune し、
-別 candidate へ backtrack。
-
-これにより exhaustive search が、
-
-```text
-type-compatible combinations
-```
-
-から、
-
-```text
-binding-consistent combinations
-```
-
-へ進んだ。
-
----
-
-# Phase 5-47：InferenceMatch.bindings
-
-`InferenceMatch` に bindings を保持。
-
-matching phase で得た variable assignment を
-application phase へ明示的に引き渡せるようにした。
-
----
-
-# Phase 5-48：binding lookup
-
-`lookup_variable_binding()` を導入。
-
-variable から actual bound value を取得可能にした。
-
----
-
-# Phase 5-49：pattern value substitution
-
-`substitute_pattern_value()` を導入。
-
-variable pattern を bound value へ置換。
-
-literal はそのまま保持。
-
----
-
-# Phase 5-50：Relation pattern substitution
-
-`substitute_relation_pattern()` を導入。
-
-Relation lhs / rhs へ bindings を適用し、
-relation metadata を保持。
-
----
-
-# Phase 5-51：InferenceMatch.bindings から conclusion_pattern を具体化
-
-`substitute_inference_conclusion()` により、
-rule の `conclusion_pattern` を match bindings で具体化。
-
----
-
-# Phase 5-52：apply_inference_match() conclusion_pattern 対応
-
-`apply_inference_match()` が、
-
-```text
-conclusion_builder
-```
-
-だけでなく、
-
-```text
-conclusion_pattern
-```
-
-からも candidate conclusion を生成可能になった。
-
-現実装では builder がある場合 builder を優先。
-
----
-
-# Phase 5-53：conclusion_pattern fixed-point integration
-
-`conclusion_pattern` のみを使う rule を、
-
-- derive
-- round
-- fixed-point
-- history
-
-まで end-to-end で通した。
-
-multi-round conclusion-pattern propagation と
-dependency chain preservation も確認。
-
----
-
-# Phase 5-54：multiple premises + shared bindings + conclusion_pattern
-
-複数 premise の shared bindings を使って
-structured conclusion を導く end-to-end integration を確認。
-
-conflicting assignment rejection と、
-backtracking による consistent match 発見も確認。
-
----
-
-# Phase 5-55：single rule / multiple binding assignments
-
-1つの rule が複数 valid bindings を持ち、
-それぞれから distinct conclusion を生成できることを確認。
-
----
-
-# Phase 5-56：multiple premises / multiple shared-binding assignments
-
-複数 premise rule で複数の shared-binding assignment を列挙し、
-それぞれ distinct conclusion を生成できることを確認。
-
----
-
-# Phase 5-57：multiple variables / multiple assignments
-
-1 rule 内の複数 variables が
-複数 assignments を通じて正しく独立に binding され、
-distinct conclusions を生成することを確認。
-
----
-
-# Phase 5-58：partially shared variables
-
-複数 premise の一部 variable だけを共有する rule を end-to-end 確認。
-
-shared variable consistency と、
-premise-specific variables の独立性を同時に扱えるようになった。
-
----
-
-# Phase 5-59：shared variable across three premises
-
-1つの shared variable が3 premise にまたがる場合も、
-全 premise で consistency が維持されることを確認。
-
----
-
-# Phase 5-60：multiple shared variables across three premises
-
-複数の shared variables を3 premise 間で伝播させる
-より一般的な consistency graph を確認。
-
----
-
-# Phase 5-61：shared binding graph branch / merge
-
-binding graph が途中で branch し、
-後で merge する形の end-to-end inference を確認。
-
-単純 linear chain ではなく、
-graph-shaped binding dependency を扱えることを示した。
-
----
-
-# Phase 5-62：branching / merging graph with multiple final bindings
-
-branch / merge graph から複数 distinct final bindings / conclusions が
-生成される場合を確認。
-
----
-
-# Phase 5-63：multiple rules chained through derived conclusions
-
-rule A が生成した derived conclusion を、
-later round で rule B が premise として利用する
-multi-rule fixed-point chain を end-to-end 確認。
-
----
-
-# Phase 5-64：multiple rules propagate multiple binding branches
-
-前段 rule が複数 binding assignments から
-複数 intermediate conclusions を生成し、
-それぞれが後段 rule に伝播する
-multi-branch fixed-point inference を確認。
-
----
-
-# Phase 5-65：multiple branches merge into a multi-premise rule
-
-Phase 5 の最終 integration test。
-
-複数の前段 branch から生成された intermediate conclusions を、
-後段 rule が複数 premises として再び合流させることを確認。
-
-概念的には:
-
-```text
-initial branch A
-↓
-middle A
-            \
-             merge rule
-            /
-middle B
-↑
-initial branch B
-```
-
-fixed-point execution の中で、
+さらに、
 
 ```text
 branch
-propagate
+↓
+several intermediate conclusions
+↓
+later rule
+↓
 merge
-derive
-terminate
 ```
 
-が成立することを確認した。
+まで fixed-point inference で処理可能にした。
 
-この Phase を、
+## Phase 5 completion boundary
+
+Phase 5-65 では、
 
 ```text
-generic inference engine の基盤完成点
-```
-
-とする。
-
----
-
-# Phase 5-65 時点の current inference pipeline
-
-```text
-initial ProofSteps
-+
-InferenceRules
-↓
-all premise assignments
-↓
-relation-pattern matching
-↓
-PatternVariable bindings
-↓
-shared binding consistency
-↓
-InferenceMatch(
-  rule,
-  premises,
-  bindings,
-)
-↓
-conclusion builder / conclusion-pattern substitution
-↓
-candidate ProofStep
-↓
-InferenceApplicationResult
-↓
-acceptance classification
-├── accepted
-├── ALREADY_KNOWN
-└── SAME_ROUND_DUPLICATE
-↓
-new steps
-↓
-next productive round
-↓
-branch / propagate / merge
-↓
-fixed point
-```
-
----
-
-# Phase 5-65 test verification
-
-今回の documentation review で、
-アップロードされた最新:
-
-```text
-proof.py
-test_inference_rule_pattern.py
-```
-
-を同じ isolated directory に置いて、
-次を実行した。
-
-```powershell
-python -m pytest test_inference_rule_pattern.py -q
-```
-
-結果:
-
-```text
-423 passed
-```
-
-これは inference-rule pattern test file の結果であり、
-project 全体の full test suite result ではない。
-
----
-
-# Phase 5 完了時点の重要な current limitations
-
-以下は Phase 5-36 以前の古い「未実装」記述ではなく、
-Phase 5-65 時点でも残る current limitations である。
-
-## ordinary conclusion equality
-
-duplicate identity は ordinary Python equality。
-
-未対応:
-
-```text
-canonicalization
-normalization
-mathematical equivalence
-```
-
-## alternative proof storage
-
-alternative applications は execution trace に残るが、
-knowledge state に equal conclusion の multiple ProofSteps を
-first-class に保持しない。
-
-## recursive general unification
-
-Relation pattern は structured matching できるが、
-あらゆる expression / statement type を再帰的に統一する
-general unification language ではない。
-
-## unbound conclusion variable
-
-未 binding variable を substitution すると現在は `None` になる。
-
-domain rule 側で必要 variables を premise により bind することを
-前提とする。
-
-## combinatorial search
-
-all assignments は combinatorial growth を持つ。
-
-indexing / pruning / agenda optimization はまだ導入しない。
-
-## semantic cycle detection
-
-`max_rounds` は safety bound であり semantic cycle detection ではない。
-
----
-
-# Phase 5 完了
-
-Phase 5 では最終的に、
-
-```text
-proof tracking
-+
-structured rule representation
-+
-exhaustive matching
-+
-shared variable bindings
-+
-structured conclusion generation
-+
-multi-round fixed-point inference
-+
-branching / merging
-+
+multiple premises
+all assignments
+pattern variables
+bindings
+shared-binding consistency
+structured conclusion substitution
+multiple conclusions
+multiple rules
+multi-round propagation
+branching
+merging
+fixed-point execution
 execution tracing
 ```
 
 を generic engine として統合した。
+
+generic engine はここで基盤完成とし、
+以後の engine 拡張は actual domain rule の必要性からのみ行う方針とした。
 
 ### 状態
 
@@ -976,15 +371,7 @@ execution tracing
 
 # Phase 6：EHP domain inference rules
 
-次 Phase は、
-
-```text
-Phase 6: EHP domain inference rules
-```
-
-とする。
-
-Phase 6 の主目的:
+Phase 6 では、
 
 ```text
 generic engine を作る
@@ -996,455 +383,95 @@ generic engine を作る
 実際の EHP mathematics を rule として投入する
 ```
 
-へ移る。
+へ移行した。
 
-候補 rule families:
+## Phase 6-1：Image + Kernel → Exactness
 
-- E/H/P relations
-- EHP exactness consequences
-- suspension relations
-- Hopf invariant relations
-- element-order relations
-- composition relations
-- stable-range results
-- Toda relations
-- literature-backed theorem rules
-
-基本原則:
+最初の EHP-specific rule:
 
 ```text
-new mathematical knowledge
-=
-new InferenceRule
-```
-
-とする。
-
-generic engine の変更は、
-real EHP rule が current rule language で表現できないと
-実証された場合にのみ行う。
-
----
-
-# Phase 6-1：EHP exactness inference rule
-
-Phase 6-1 では、既存の EHP exactness の知識を
-Phase 5 の generic inference engine から実行できるようにした。
-
-## 実装
-
-新規ファイル:
-
-```text
-ehp_rules.py
-tests/test_ehp_rules.py
-```
-
-追加した factory:
-
-```python
-ehp_exactness_inference_rule(exact_step)
-```
-
-この rule は次の premise を要求する。
-
-```text
-ImageStatement(first_map)
-KernelStatement(second_map)
-```
-
-builder は既存の `ehp_exactness_proof_step()` を再利用し、生成された
-`ExactnessStatement` を conclusion とする。
-
-## ProofStep rule の判断
-
-generic engine の `apply_inference_match()` は derived step に常に、
-
-```text
-ProofRule.INFERENCE
-```
-
-を設定する。
-
-したがって、Phase 6-1 の rule を generic engine で適用した derived step
-も `ProofRule.INFERENCE` を使用する。EHP 固有 rule であることは、
-
-```text
-ProofStep.inference_rule
-```
-
-から確認できる。
-
-なお、`ehp_exactness_proof_step()` を直接呼び出す既存経路では、従来どおり
-`ProofRule.EHP_EXACTNESS` を使用する。
-
-## 設計判断
-
-Phase 5 の generic engine の境界を維持するため、
-
-- `proof.py` は変更しない
-- `ehp.py` は変更しない
-- 新しい `ProofRule` は追加しない
-- EHP-specific branch は generic engine に追加しない
-
-という方針にした。
-
-Phase 6-1 では statement type と proof rule による premise matching
-だけを使用する。structured statement matching や任意 EHP segment の
-自動選択は導入していない。
-
-## テスト
-
-`tests/test_ehp_rules.py` で次を確認した。
-
-- EHP segment から image step を作成
-- kernel step を作成
-- EHP rule が applicable
-- generic inference による exactness conclusion の生成
-- 元の image/kernel step の premise 参照
-- `inference_rule` の保持
-- `ProofRule.INFERENCE` の設定
-- 最初の round での導出
-- fixed-point 到達
-- duplicate の追加拒否
-
-結果:
-
-```text
-専用テスト: 1 passed
-全 pytest: 648 passed
-```
-
-### 状態
-
-完了
-# Phase 6-2：structured statement matching
-
-Phase 6-2 では、Phase 6-1 の EHP exactness rule を特定の
-`ExactSequenceStep` に factory-bound した形から一般化するため、
-statement 内部 fields を pattern matching する最小基盤を追加した。
-
-## 実装
-
-`proof.py` に次を追加・拡張した。
-
-- `PremisePattern.statement_pattern`
-- `match_statement_pattern()`
-- dataclass fields を使った field-by-field matching
-
-structured matcher は各 field について既存の
-`match_pattern_value()` を呼び出し、生成された bindings を
-`merge_variable_bindings()` で統合する。これにより、literal matching、
-`PatternVariable` binding、同一 statement 内の repeated binding、複数
-premise 間の shared binding consistency を同じ generic mechanism で扱う。
-
-## EHP rule integration
-
-`ehp_rules.py` の `ehp_exactness_inference_rule()` は、既存の
-
-```python
-ehp_exactness_inference_rule(exact_step)
-```
-
-を維持しつつ、argument-free invocation にも対応した。
-
-argument-free rule は次の内部 patterns を使用する。
-
-```text
-ImageStatement(group_map=?first_map)
-KernelStatement(group_map=?second_map)
-```
-
-matching された maps から `ExactSequenceStep` を作り、既存の
-`ehp_exactness_proof_step()` を conclusion construction に再利用する。
-この変更でも EHP 固有の分岐や新しい `ProofRule` は generic engine に
-追加していない。
-
-## 設計境界
-
-Phase 6-2 では次を実装しない。
-
-- arbitrary EHP segment からの exact pair 自動探索
-- EHP sequence 全体の自動構築
-- 新しい数学的 EHP theorem
-- E/H/P の domain/codomain に基づく index arithmetic
-
-## テスト
-
-structured matching について次を追加・確認した。
-
-- ImageStatement の map binding
-- KernelStatement の map binding
-- concrete field matching と mismatch rejection
-- 既存 binding と矛盾しない場合の成功
-- 複数 premise 間の shared binding consistency
-- Phase 6-1 exactness inference regression
-
-結果:
-
-```text
-focused inference and EHP tests: 428 passed
-full project test suite: 652 passed
-exit code: 0
-git diff --check: clean
-```
-
-### 状態
-
-完了
-
-
-# Phase 6-3：statement conclusion と match guard
-
-Phase 6-3 では、Phase 6-2 で導入した structured statement matching を
-conclusion construction まで拡張し、premise の構造的一致だけでは表せない
-domain condition を guard として扱えるようにした。
-
-## 実装
-
-`proof.py` に次を追加・拡張した。
-
-- `InferenceRule.conclusion_pattern` に dataclass statement を許可
-- `substitute_statement_pattern()`
-- dataclass fields の substitution
-- `InferenceRule.match_guard`
-- premise matching 後の guard evaluation
-
-statement conclusion pattern は各 field を既存の
-`substitute_pattern_value()` で置換する。これにより
-`ExactnessStatement`、`ImageStatement`、`KernelStatement` などを generic
-inference rule の conclusion として扱える。
-
-`match_guard(premises, bindings)` は premise patterns の matching と
-binding consistency の後に評価される。guard が false を返す assignment
-は `InferenceMatch` から除外されるため、generic engine に domain-specific
-な条件分岐を追加せずに追加条件を表現できる。
-
-## EHP rule integration
-
-argument-free `ehp_exactness_inference_rule()` は、Image/Kernel の map を
-statement patterns から binding し、次の `ExactnessStatement` conclusion
-pattern を使用する。
-
-```text
-ExactnessStatement(
-  first_map=?first_map,
-  second_map=?second_map,
-  is_exact=True,
-)
-```
-
-さらに `ehp_maps_are_consecutive()` を guard から呼び出し、first map の
-target と second map の source が一致する map pair だけを受理する。
-既存の `ehp_exactness_inference_rule(exact_step)` factory form と direct
-proof-step API は維持した。
-
-## 設計境界
-
-Phase 6-3 では次を実装しない。
-
-- arbitrary EHP segment からの exact pair 自動探索
-- EHP sequence 全体の自動構築
-- 新しい数学的 EHP theorem
-- 複雑な E/H/P index arithmetic
-
-## テスト
-
-statement conclusion substitution、guard の accept/reject、guard への
-binding 受け渡し、Phase 6-2 structured matching、Phase 6-1 exactness
-inference regression を確認した。focused inference and EHP tests は
-`441 passed`、full project test suite は `665 passed`、pytest exit code は
-`0` だった。
-
-### 状態
-
-完了
-
-
-# Phase 6-4：Exactness + Image → Kernel structure
-
-Phase 6-4 では、EHP exactness と既知の image structure から second map の
-kernel structure を導く rule を追加した。
-
-```text
-Exactness(first_map, second_map)
+Image(first_map)
 +
-Image(first_map, structure)
+Kernel(second_map)
 ↓
-Kernel(second_map, structure)
-```
-
-既存の structured statement pattern と shared bindings のみで表現し、
-generic engine は変更していない。
-
-### 状態
-
-完了
-
----
-
-# Phase 6-5：Exactness + Kernel → Image structure
-
-Phase 6-5 では Phase 6-4 の逆方向を追加した。
-
-```text
 Exactness(first_map, second_map)
-+
-Kernel(second_map, structure)
-↓
-Image(first_map, structure)
 ```
 
-Phase 6-4 / 6-5 により、exactness と Image / Kernel structure の相互伝播が
-可能になった。
+を実装。
 
-### 状態
+## Phase 6-2 / 6-3：structured statement support
 
-完了
+dataclass-based statement pattern matching、
+statement conclusion substitution、
+`match_guard` を整備。
 
----
+EHP-specific validity check を generic engine の branch として書かず、
+rule の guard として表現できるようにした。
 
-# Phase 6-6：exactness rule family fixed-point integration
-
-Phase 6-1、6-4、6-5 を同一 fixed-point run に投入し、Image + Kernel から
-Exactness が導かれた後、相互伝播 rule が既知 conclusion を再生成しても
-duplicate rejection により fixed point に到達することを確認した。
-
-### 状態
-
-完了
-
----
-
-# Phase 6-7：Exactness → EHP zero composition
-
-EHP exactness から consecutive maps の zero composition を表す
-`EHPZeroCompositionStatement` を導出する rule を追加した。
-
-```text
-Exactness(first_map, second_map)
-↓
-EHPZeroCompositionStatement(first_map, second_map)
-```
-
-non-exact statement は match しない。
-
-### 状態
-
-完了
-
----
-
-# Phase 6-8：Image + Kernel → Exactness → zero composition integration
-
-Phase 6-1 と Phase 6-7 を fixed-point inference で接続し、
-
-```text
-round 1: Exactness
-round 2: EHP zero composition
-```
-
-という productive-round chain を確認した。
-
-### 状態
-
-完了
-
----
-
-# Phase 6-9：EHP zero composition → generic ZERO relation
-
-`EHPZeroCompositionStatement` を generic `Relation` へ変換する bridge rule を
-追加した。
-
-```text
-EHPZeroCompositionStatement(first_map, second_map)
-↓
-Composition(second_map, first_map) = 0
-```
-
-conclusion は `RelationType.ZERO` を使用する。
-
-### 状態
-
-完了
-
----
-
-# Phase 6-10：EHP exactness → generic ZERO integration
-
-Image / Kernel facts から、
+## Phase 6-4 / 6-5：Exactness と Image / Kernel propagation
 
 ```text
 Exactness
++
+Image
 ↓
-EHP zero composition
-↓
-generic ZERO relation
+Kernel
 ```
 
-までを multi-round fixed-point inference で確認した。
-
-### 状態
-
-完了
-
----
-
-# Phase 6-11：ZERO + equality → ZERO propagation
-
-composition の ZERO relation と、別 expression がその composition に等しい
-relation から、別 expression の ZERO relation を導く rule を追加した。
+および、
 
 ```text
-composition = 0
-x = composition
+Exactness
++
+Kernel
 ↓
-x = 0
+Image
 ```
 
-zero-side expression が `Composition` であることを guard で確認する。
+を実装。
 
-### 状態
+## Phase 6-6：fixed-point integration
 
-完了
+Phase 6-1 / 6-4 / 6-5 を同時に実行し、
+相互伝播が fixed point に到達することを確認。
 
----
-
-# Phase 6-12：EHP → generic ZERO → propagated ZERO integration
-
-EHP exactness chain から得られた generic ZERO relation を equality premise と
-接続し、generic expression の ZERO relation まで到達する multi-round test を
-追加した。
-
-### 状態
-
-完了
-
----
-
-# Phase 6-13：reverse equality ZERO propagation
-
-ZERO expression が equality の lhs に現れる orientation も追加した。
+## Phase 6-7：Exactness → EHP zero composition
 
 ```text
-composition = 0
-composition = x
+Exactness(first_map, second_map)
 ↓
-x = 0
+EHPZeroCompositionStatement(first_map, second_map)
 ```
 
-これにより ZERO propagation は equality の両 orientation を扱える。
+を実装。
 
-### 状態
+## Phase 6-8：multi-round integration
 
-完了
+Image + Kernel から Exactness、
+さらに zero composition まで multi-round に進むことを確認。
 
----
+## Phase 6-9：EHP zero composition → generic ZERO
 
-# Phase 6-14：equality symmetry
+EHP-specific statement を、
 
-generic equality symmetry rule を追加した。
+```text
+Relation(
+  lhs=Composition(second_map, first_map),
+  rhs=Zero(),
+  relation_type=ZERO,
+)
+```
+
+へ bridge。
+
+## Phase 6-11 / 6-13：composition ZERO propagation
+
+composition-specific ZERO fact を equality の両 orientation で伝播する
+relation rules を導入。
+
+known-zero expression は `Composition` に限定した。
+
+## Phase 6-14：equality symmetry
 
 ```text
 x = y
@@ -1452,179 +479,71 @@ x = y
 y = x
 ```
 
-non-equality relation は reject する。
+を generic rule として導入。
 
-### 状態
-
-完了
-
----
-
-# Phase 6-15：equality symmetry fixed-point verification
-
-symmetry rule 単体を fixed-point execution に通し、reverse equality を1回だけ
-追加した後、元 equality / reverse equality の再生成が `ALREADY_KNOWN` として
-reject されることを確認した。
-
-### 状態
-
-完了
-
----
-
-# Phase 6-16：equality transitivity
-
-generic equality transitivity rule を追加した。
+## Phase 6-16：equality transitivity
 
 ```text
 x = y
-+
 y = z
 ↓
 x = z
 ```
 
-shared middle expression は existing binding consistency により一致を要求する。
+を generic rule として導入。
 
-### 状態
+## Phase 6-18：equality closure
 
-完了
+symmetry + transitivity を fixed point まで実行し、
+connected equality component の closure を構築可能にした。
 
----
+## Phase 6-19：equality closure → ZERO propagation
 
-# Phase 6-17：multi-round transitivity closure
+direct equality ではなく、
+複数 round で生成された equality を ZERO propagation が利用できることを
+確認。
 
-3-link equality chain に transitivity を反復し、1 round で得られた equality が
-次 round の premise となって chain endpoint equality を導くことを確認した。
-
-### 状態
-
-完了
-
----
-
-# Phase 6-18：equality equivalence closure
-
-symmetry と transitivity を同じ fixed-point run で実行した。
-
-connected equality component について directed pairwise equalities と reflexive
-equalities が導かれ、ordinary conclusion equality と duplicate rejection により
-fixed point に到達することを確認した。
-
-独立した equality graph subsystem は導入していない。
-
-### 状態
-
-完了
-
----
-
-# Phase 6-19：equality closure → ZERO propagation
-
-ZERO relation、複数 equality facts、symmetry、transitivity、ZERO propagation を
-同一 run に投入し、derived equality を経由して ZERO が複数 round 伝播する
-ことを確認した。
-
-### 状態
-
-完了
-
----
-
-# Phase 6-20：EHP → equality closure → ZERO propagation integration
-
-EHP domain chain と generic equality closure を統合した。
-
-代表 scenario:
+## Phase 6-20：EHP → equality closure → ZERO
 
 ```text
-Image(E)
+EHP facts
+↓
+generic ZERO
 +
-Kernel(H)
+external equality chain
 ↓
-Exactness(E,H)
-↓
-EHP zero composition
-↓
-H ∘ E = 0
-
- target = intermediate
- H ∘ E = intermediate
-↓ symmetry / transitivity
- target = H ∘ E
-↓ ZERO propagation
- target = 0
+target = 0
 ```
 
-EHP-specific facts が generic relation layer に入り、generic reasoning によって
-新しい ZERO relation を導けることを end-to-end で確認した。
+まで end-to-end に接続。
 
-### 状態
+## Phase 6-21：Phase 6 representative completion
 
-完了
-
----
-
-# Phase 6-21：Phase 6 representative end-to-end completion
-
-Phase 6 の最終 integration として、主要 rule family を1つの fixed-point
-scenario にまとめた。
-
-最終 rule set:
+代表 rule set:
 
 ```text
 Image + Kernel → Exactness
 Exactness + Image → Kernel
 Exactness + Kernel → Image
 Exactness → EHP zero composition
-EHP zero composition → generic ZERO relation
-ZERO + equality → propagated ZERO
-ZERO + reverse equality → propagated ZERO
+EHP zero composition → generic ZERO
+ZERO propagation
 equality symmetry
 equality transitivity
 ```
 
-representative test:
+を同時に実行。
+
+final target ZERO を導出し、
+追加 round の:
 
 ```text
-test_phase6_representative_end_to_end_scenario_reaches_fixed_point
+new_steps == ()
 ```
 
-この test は次を確認する。
+まで確認して genuine fixed point を成立させた。
 
-1. Image + Kernel から Exactness が得られる。
-2. Exactness から EHP zero composition が得られる。
-3. EHP-specific statement から generic composition ZERO relation が得られる。
-4. symmetry / transitivity により target と composition の equality が得られる。
-5. ZERO propagation により target = 0 が得られる。
-6. target ZERO step が premise と source `InferenceRule` を保持する。
-7. final state への追加 inference round で `new_steps == ()` となる。
-8. exactness / image / kernel propagation を含む全 representative rule family が
-   terminal state で既知 conclusion の範囲に閉じる。
-
-Phase 6-21 では production inference code を追加していない。
-既存 Phase 5 generic engine と Phase 6 domain rules の組み合わせだけで
-completion scenario を表現できたためである。
-
-## Phase 6 completion criteria
-
-Phase 6 は次を満たしたため完了とする。
-
-1. Image + Kernel から Exactness を導出できる。
-2. Exactness と Image / Kernel structure を相互伝播できる。
-3. Exactness から EHP zero composition を導出できる。
-4. EHP zero composition を generic ZERO Relation に変換できる。
-5. ZERO を equality の両 orientation で伝播できる。
-6. equality symmetry を generic rule として実行できる。
-7. equality transitivity を generic rule として実行できる。
-8. symmetry + transitivity を fixed point まで反復して equality closure を構築できる。
-9. equality closure を利用して ZERO を複数 round 伝播できる。
-10. EHP facts から generic equality reasoning を経て final ZERO relation まで到達できる。
-11. derived `ProofStep` が premises と `inference_rule` を保持する。
-12. representative Phase 6 rule set が genuine fixed point に到達する。
-13. generic engine に EHP-specific branch を追加していない。
-
-## Phase 6 の到達点
+## Phase 6 到達点
 
 ```text
 EHP data / structural facts
@@ -1642,24 +561,7 @@ traceable derived relation
 fixed point
 ```
 
-これはすべての EHP / unstable homotopy theorem の実装完了を意味しない。
-Phase 6 で完成したのは最初の domain-inference vertical slice である。
-
-## テスト結果
-
-Phase 6-21 完了後に full project test suite を実行した。
-
-```powershell
-python -m pytest -v
-```
-
-結果:
-
-```text
-691 passed in 22.77s
-```
-
-691 tests を収集し、failure なしで完了した。
+generic engine に EHP-specific branch は追加しなかった。
 
 ### 状態
 
@@ -1667,32 +569,656 @@ python -m pytest -v
 
 ---
 
-# Phase 6 完了後の境界
+# Phase 7：Element-order relations
 
-次 Phase は generic engine の speculative refactoring から開始しない。
+Phase 7 では Phase 6 の次の actual mathematical rule family として
+element order を選択した。
 
-候補は、実際の新しい mathematical rule family である。
+基本目標:
 
 ```text
-element order
-suspension relations
-Hopf invariant
-stable-range theorem
-Toda relations
-Toda bracket
-Steenrod operations
-double EHP
-odd-primary-specific rules
+ord(α)=n
+↓
+nα=0
+↓
+generic equality reasoning
 ```
 
-actual rule を current generic language で表現してみて、不足が実証された
-場合だけ generic engine を拡張する。
+を Phase 5 / Phase 6 の既存 inference infrastructure へ載せる。
 
 ---
 
-# 今後の記録方針
+# Phase 7-1：ORDER semantics
 
-今後は役割を明確に分ける。
+`RelationType.ORDER` を concrete exact-order fact として明確化した。
+
+representation:
+
+```text
+Relation(
+  lhs=α,
+  rhs=n,
+  relation_type=RelationType.ORDER,
+)
+```
+
+semantics:
+
+```text
+ord(α) = n
+```
+
+`n` は exact positive finite additive order とする。
+
+## order_relation()
+
+concrete fact constructor:
+
+```text
+order_relation(element, order, source=None, note=None)
+```
+
+を導入。
+
+validation:
+
+- positive integer のみ許可
+- `bool` は reject
+- zero / negative は reject
+- float / string は reject
+
+`Relation.__post_init__` へ ORDER-specific validation は入れなかった。
+
+理由:
+
+```text
+inference pattern の Relation
+```
+
+では rhs に `PatternVariable` を置く必要があるため。
+
+## テスト
+
+- exact order representation
+- source / note preservation
+- nonpositive rejection
+- noninteger rejection
+
+を確認。
+
+当時 full suite:
+
+```text
+698 passed
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 7-2：ord(α)=n → nα=0
+
+新 rule:
+
+```text
+order_implies_zero_multiple_inference_rule()
+```
+
+を relation rule layer に追加。
+
+premise:
+
+```text
+ord(α)=n
+```
+
+conclusion:
+
+```text
+Multiple(n, α)=0
+```
+
+具体的には:
+
+```text
+Relation(
+  lhs=Multiple(
+    coefficient=n,
+    expression=α,
+  ),
+  rhs=Zero(),
+  relation_type=RelationType.ZERO,
+)
+```
+
+## 実装上の確認
+
+既存 `substitute_pattern_value()` が dataclass fields を recursive に
+substitution できるため、
+nested `Multiple` conclusion 専用 engine feature は不要だった。
+
+ORDER-specific theorem を generic engine に追加せず、
+`InferenceRule` と `conclusion_pattern` だけで表現できた。
+
+invalid bound order は rule guard で reject。
+
+## テスト
+
+- ORDER → ZERO
+- non-ORDER relation rejection
+- invalid order rejection
+
+を確認。
+
+full suite:
+
+```text
+701 passed
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 7-3：order-derived ZERO → equality propagation
+
+Phase 6 の ZERO propagation rules は
+known-zero expression を `Composition` に限定していた。
+
+そのため、
+
+```text
+Multiple(n, α)=0
+```
+
+を generic relation reasoning へ流すために、
+expression type に依存しない rule を追加した。
+
+新 rule:
+
+```text
+zero_equality_implies_zero_inference_rule()
+```
+
+semantics:
+
+```text
+x = 0
+y = x
+↓
+y = 0
+```
+
+## integration test
+
+```text
+ord(η3)=2
+↓
+2η3=0
+
+ν4=2η3
+↓
+ν4=0
+```
+
+を same fixed-point run で確認。
+
+Phase 6 composition-specific rules は削除せず維持。
+
+full suite:
+
+```text
+702 passed
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 7-4：order-derived ZERO → equality closure → ZERO
+
+direct equality ではなく、
+symmetry / transitivity で生成された equality を経由して
+ORDER-derived ZERO が伝播することを確認。
+
+代表 input:
+
+```text
+ord(α)=2
+2α=middle
+target=middle
+```
+
+derivation:
+
+```text
+ord(α)=2
+↓
+2α=0
+
+2α=middle
+target=middle
+↓ equality closure
+target=2α
+
+2α=0
+target=2α
+↓
+target=0
+```
+
+round count 自体は completion criterion としなかった。
+
+理由は equality closure の productive rounds が rule ordering や
+生成される closure facts に依存し得るため。
+
+重要 criterion は final relation と fixed point の成立。
+
+full suite:
+
+```text
+703 passed
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 7-5：EHP-derived ZERO と ORDER-derived ZERO の共存
+
+Phase 6 EHP branch と Phase 7 ORDER branch を
+同じ fixed-point run に投入。
+
+```text
+EHP branch                         ORDER branch
+
+Image + Kernel                    ord(α)=n
+      ↓                               ↓
+  Exactness                         nα=0
+      ↓
+EHP zero composition
+      ↓
+Composition(H,E)=0
+```
+
+両 ZERO relation が同じ final knowledge state に存在することを確認。
+
+さらにそれぞれが別 source `InferenceRule` を provenance として保持。
+
+## import regression
+
+Phase 7-5 実装時、
+`tests/test_ehp_rules.py` の `relation_rules` import を置換した際に、
+Phase 6 既存テストで必要な:
+
+```text
+equality_symmetry_inference_rule
+```
+
+などが一時的に import から落ちた。
+
+このため既存 Phase 6 テスト2件が `NameError` となった。
+
+production logic の failure ではなかった。
+
+既存 imports を復元し、
+Phase 7-5 用 import だけを追加する形へ修正。
+
+修正後:
+
+```text
+2 passed
+35 passed
+704 passed
+```
+
+を確認。
+
+### 状態
+
+完了
+
+---
+
+# Phase 7-6：EHP / ORDER provenance chain
+
+Phase 7-5 では2 branch の conclusion 共存を確認した。
+
+Phase 7-6 では dependency chain 自体を end-to-end に検証。
+
+EHP branch:
+
+```text
+image_step
+      \
+       exactness_step
+      /
+kernel_step
+       ↓
+zero_composition_step
+       ↓
+ehp_zero_step
+```
+
+確認内容:
+
+- Exactness step の premises = Image / Kernel
+- Exactness source rule が正しい
+- zero-composition step の premise = Exactness
+- EHP ZERO step の premise = zero-composition
+- 各 step が `ProofRule.INFERENCE`
+- 各 step が正しい `inference_rule` を保持
+
+ORDER branch:
+
+```text
+order_step
+↓
+order_zero_step
+```
+
+確認内容:
+
+- ORDER ZERO premise = original ORDER step
+- source rule = ORDER → ZERO rule
+
+さらに branch cross-contamination がないことを確認。
+
+same knowledge state を共有しても proof provenance は独立して保持される。
+
+full suite:
+
+```text
+705 passed
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 7-7：representative Phase 7 fixed-point scenario
+
+Phase 7 の最終 integration test として、
+主要 rule family を同じ run に投入。
+
+代表 rule set:
+
+```text
+EHP exactness inference
+Exactness + Image → Kernel
+Exactness + Kernel → Image
+Exactness → EHP zero composition
+EHP zero composition → generic ZERO
+ORDER → ZERO
+equality symmetry
+equality transitivity
+generic ZERO propagation
+```
+
+## EHP branch
+
+```text
+Image + Kernel
+↓
+Exactness
+↓
+EHP zero composition
+↓
+Composition(H,E)=0
+```
+
+さらに EHP equality chain から closure を作り、
+
+```text
+EHP target = Composition(H,E)
+```
+
+を導出。
+
+generic ZERO propagation により:
+
+```text
+EHP target = 0
+```
+
+へ到達。
+
+## ORDER branch
+
+```text
+ord(η3)=2
+↓
+2η3=0
+```
+
+ORDER equality chain から closure を作り、
+
+```text
+ORDER target = 2η3
+```
+
+を導出。
+
+generic ZERO propagation により:
+
+```text
+ORDER target = 0
+```
+
+へ到達。
+
+## genuine fixed point
+
+completion criterion は final ZERO conclusion だけではなく、
+final state に追加 round を適用して:
+
+```text
+new_steps == ()
+```
+
+となること。
+
+これにより representative Phase 7 rule set 全体が
+genuine fixed point に到達することを確認。
+
+## テスト結果
+
+Phase 7 representative focused test:
+
+```text
+1 passed
+```
+
+Phase 7 後半 integration tests:
+
+```text
+3 passed
+```
+
+EHP / relation rule combined suite:
+
+```text
+37 passed
+```
+
+full project suite:
+
+```text
+706 passed in 60.22s
+```
+
+failure なし。
+
+### 状態
+
+完了
+
+---
+
+# Phase 7-8：成果・設計境界・現状整理
+
+Phase 7-8 では新しい production feature を追加しない。
+
+README / design / development_log を Phase 7 完了状態へ更新し、
+Phase 7 を正式終了する。
+
+## Phase 7 の成果
+
+1. `ORDER` relation の exact finite additive order semantics を確立した。
+2. validated concrete constructor `order_relation()` を導入した。
+3. `ord(α)=n → nα=0` を domain `InferenceRule` として実装した。
+4. nested `Multiple` conclusion が既存 recursive dataclass substitution で
+   生成できることを確認した。
+5. expression type 非依存の generic ZERO propagation を追加した。
+6. ORDER-derived ZERO を direct equality で伝播できた。
+7. ORDER-derived ZERO を equality closure 経由で伝播できた。
+8. EHP-derived ZERO と ORDER-derived ZERO を同一 run に共存させた。
+9. 両 branch の ProofStep provenance / dependency chain を保持した。
+10. representative EHP + ORDER + equality rule set を genuine fixed point
+    まで実行した。
+11. Phase 7 のための generic engine 改造は不要だった。
+12. full regression suite 706 tests が pass した。
+
+## Phase 7 の設計境界
+
+Phase 7 は次を実装していない。
+
+```text
+automatic order computation
+order divisibility relation
+infinite order
+expression arithmetic normalization
+theorem-aware equality
+proof DAG traversal API
+branch identifiers
+all alternative proof collection
+suspension theorem family
+Hopf invariant theorem family
+stable-range theorem family
+Toda relations
+Toda brackets
+Steenrod operations
+double EHP
+odd-primary-specific theorem families
+```
+
+これらを Phase 7 の scope に先取りしない。
+
+## Phase 7 completion summary
+
+```text
+Phase 5
+generic inference engine foundation
+        ↓
+Phase 6
+EHP-derived generic ZERO
+        ↓
+Phase 7
+ORDER-derived generic ZERO
+        ↓
+shared equality closure / ZERO propagation
+        ↓
+multiple domain branches
+        ↓
+traceable provenance
+        ↓
+genuine fixed point
+```
+
+Phase 7 によって、
+
+```text
+異なる数学的 theorem family が
+同じ generic Relation を生成し、
+同じ fixed-point reasoning infrastructure を共有する
+```
+
+という architecture が実証された。
+
+### 状態
+
+完了
+
+---
+
+# Phase 7 完了後の境界
+
+次 Phase も speculative generic-engine refactoring から開始しない。
+
+actual mathematical rule family を選び、
+
+```text
+known facts
++
+new theorem rule
+↓
+existing generic engine
+```
+
+でまず表現を試す。
+
+current candidate directions:
+
+- suspension relations
+- Hopf invariant relations
+- stable-range theorems
+- Toda composition relations
+- literature-backed theorem rules
+- Toda brackets
+- Steenrod operations
+- double EHP
+- odd-primary-specific theorem families
+
+generic engine を変更するのは、
+
+```text
+actual rule が current rule language では
+正しく表現できない
+```
+
+と実証された場合のみ。
+
+---
+
+# Current verified status
+
+Phase 7-7 / Phase 7-8 boundary:
+
+```text
+python -m pytest -v
+```
+
+結果:
+
+```text
+706 passed in 60.22s
+```
+
+EHP / relation rules:
+
+```text
+python -m pytest tests/test_ehp_rules.py tests/test_relation_rules.py -v
+```
+
+結果:
+
+```text
+37 passed
+```
+
+---
+
+# 文書運用方針
 
 ```text
 README.md
@@ -1701,22 +1227,23 @@ current capabilities / current status
 
 docs/design.md
 =
-current design decisions
+current design decisions / semantics / boundaries
 
 docs/development_log.md
 =
-chronological history
+chronological implementation history
 ```
 
-development_log の historical limitation を、
+development_log の historical limitation を
 current limitation として再掲しない。
 
-Phase 6 以降の各作業では、
+今後の各 Phase では、
 
 1. mathematical rule の意味
 2. rule representation
 3. tests
 4. generic engine 変更の有無
 5. current limitation への影響
+6. next Phase との境界
 
 を記録する。

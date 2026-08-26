@@ -1,5 +1,6 @@
 from expression import (
   Composition,
+  Multiple,
   Zero,
   eta,
   nu,
@@ -15,15 +16,388 @@ from proof import (
   apply_inference_match,
   derive_inference_round_result,
   find_inference_match,
+  order_relation,
   relation_proof_step,
   run_inference_until_stable_with_history,
 )
 from relation_rules import (
   equality_symmetry_inference_rule,
   equality_transitivity_inference_rule,
+  order_implies_zero_multiple_inference_rule,
   zero_composition_equality_implies_zero_inference_rule,
   zero_composition_reverse_equality_implies_zero_inference_rule,
+  zero_equality_implies_zero_inference_rule,
 )
+
+
+def test_order_implies_zero_multiple():
+  order_step = relation_proof_step(
+    order_relation(
+      eta(3),
+      2,
+    )
+  )
+
+  rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      order_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=eta(3),
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    order_step,
+  )
+
+
+def test_order_implies_zero_multiple_rejects_non_order_relation():
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=eta(3),
+      rhs=2,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_order_implies_zero_multiple_rejects_invalid_order():
+  invalid_order_step = relation_proof_step(
+    Relation(
+      lhs=eta(3),
+      rhs=0,
+      relation_type=RelationType.ORDER,
+    )
+  )
+
+  rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      invalid_order_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_order_derived_zero_propagates_through_equality():
+  element = eta(3)
+  equivalent_expression = nu(4)
+
+  order_step = relation_proof_step(
+    order_relation(
+      element,
+      2,
+    )
+  )
+
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=equivalent_expression,
+      rhs=Multiple(
+        coefficient=2,
+        expression=element,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  order_rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  zero_propagation_rule = (
+    zero_equality_implies_zero_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        order_rule,
+        zero_propagation_rule,
+      ),
+      (
+        order_step,
+        equality_step,
+      ),
+    )
+  )
+
+  order_derived_zero = Relation(
+    lhs=Multiple(
+      coefficient=2,
+      expression=element,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  propagated_zero = Relation(
+    lhs=equivalent_expression,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 2
+
+  assert order_derived_zero in tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert propagated_zero in tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  order_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == order_derived_zero
+  )
+
+  propagated_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == propagated_zero
+  )
+
+  assert order_zero_step.premises == (
+    order_step,
+  )
+
+  assert order_zero_step.inference_rule == (
+    order_rule
+  )
+
+  assert propagated_zero_step.premises == (
+    order_zero_step,
+    equality_step,
+  )
+
+  assert (
+    propagated_zero_step.inference_rule
+    == zero_propagation_rule
+  )
+
+
+def test_order_derived_zero_propagates_through_equality_closure():
+  element = eta(3)
+
+  zero_expression = Multiple(
+    coefficient=2,
+    expression=element,
+  )
+
+  middle_expression = nu(4)
+  target_expression = sigma(5)
+
+  order_step = relation_proof_step(
+    order_relation(
+      element,
+      2,
+    )
+  )
+
+  first_equality_step = relation_proof_step(
+    Relation(
+      lhs=zero_expression,
+      rhs=middle_expression,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  second_equality_step = relation_proof_step(
+    Relation(
+      lhs=target_expression,
+      rhs=middle_expression,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  order_rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  zero_propagation_rule = (
+    zero_equality_implies_zero_inference_rule()
+  )
+
+  symmetry_rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  transitivity_rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        order_rule,
+        zero_propagation_rule,
+        symmetry_rule,
+        transitivity_rule,
+      ),
+      (
+        order_step,
+        first_equality_step,
+        second_equality_step,
+      ),
+    )
+  )
+
+  order_derived_zero = Relation(
+    lhs=zero_expression,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  target_to_zero_expression = Relation(
+    lhs=target_expression,
+    rhs=zero_expression,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  target_zero = Relation(
+    lhs=target_expression,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert order_derived_zero in conclusions
+
+  assert target_to_zero_expression in conclusions
+
+  assert target_zero in conclusions
+
+  order_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == order_derived_zero
+  )
+
+  target_equality_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == target_to_zero_expression
+  )
+
+  target_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == target_zero
+  )
+
+  assert order_zero_step.premises == (
+    order_step,
+  )
+
+  assert order_zero_step.inference_rule == (
+    order_rule
+  )
+
+  assert target_equality_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert target_equality_step.inference_rule in (
+    symmetry_rule,
+    transitivity_rule,
+  )
+
+  assert target_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert target_zero_step.inference_rule == (
+    zero_propagation_rule
+  )
+
+  assert any(
+    premise.conclusion
+    == order_derived_zero
+    or (
+      isinstance(
+        premise.conclusion,
+        Relation,
+      )
+      and premise.conclusion.relation_type
+      == RelationType.ZERO
+    )
+    for premise in target_zero_step.premises
+  )
+
+  assert any(
+    isinstance(
+      premise.conclusion,
+      Relation,
+    )
+    and premise.conclusion.relation_type
+    == RelationType.EQUALITY
+    for premise in target_zero_step.premises
+  )
 
 
 def test_zero_composition_equality_implies_zero():

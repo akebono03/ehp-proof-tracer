@@ -14,6 +14,7 @@ from proof import (
   exactness_proof_step,
   image_proof_step,
   kernel_proof_step,
+  order_relation,
   relation_proof_step,
   ehp_exactness_proof,
   ehp_exactness_proof_step,
@@ -101,6 +102,87 @@ def test_relation_with_expression():
 
   assert relation.lhs == Multiple(2, eta(3))
   assert relation.rhs == Zero()
+
+
+def test_order_relation_represents_exact_element_order():
+  relation = order_relation(
+    eta(3),
+    2,
+  )
+
+  assert relation == Relation(
+    lhs=eta(3),
+    rhs=2,
+    relation_type=RelationType.ORDER,
+  )
+
+  assert relation.lhs == eta(3)
+  assert relation.rhs == 2
+  assert (
+    relation.relation_type
+    == RelationType.ORDER
+  )
+
+
+def test_order_relation_preserves_source_and_note():
+  reference = LiteratureReference(
+    label="Toda",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+  )
+
+  relation = order_relation(
+    eta(3),
+    2,
+    source=reference,
+    note="exact order",
+  )
+
+  assert relation.source == reference
+  assert relation.note == "exact order"
+
+
+@pytest.mark.parametrize(
+  "invalid_order",
+  (
+    0,
+    -1,
+  ),
+)
+def test_order_relation_rejects_nonpositive_order(
+  invalid_order,
+):
+  with pytest.raises(
+    ValueError
+  ):
+    order_relation(
+      eta(3),
+      invalid_order,
+    )
+
+
+@pytest.mark.parametrize(
+  "invalid_order",
+  (
+    True,
+    2.0,
+    "2",
+  ),
+)
+def test_order_relation_rejects_noninteger_order(
+  invalid_order,
+):
+  with pytest.raises(
+    TypeError
+  ):
+    order_relation(
+      eta(3),
+      invalid_order,
+    )
 
 
 def test_relation_proof_step():

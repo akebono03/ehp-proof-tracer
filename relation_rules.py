@@ -1,5 +1,6 @@
 from expression import (
   Composition,
+  Multiple,
   Zero,
 )
 from proof import (
@@ -10,6 +11,113 @@ from proof import (
   RelationType,
   lookup_variable_binding,
 )
+
+
+def order_implies_zero_multiple_inference_rule():
+  element = PatternVariable(
+    name="element",
+  )
+
+  order = PatternVariable(
+    name="order",
+  )
+
+  def guard(
+    premises,
+    bindings,
+  ):
+    bound_order = (
+      lookup_variable_binding(
+        order,
+        bindings,
+      )
+    )
+
+    return (
+      not isinstance(
+        bound_order,
+        bool,
+      )
+      and isinstance(
+        bound_order,
+        int,
+      )
+      and bound_order > 0
+    )
+
+  return InferenceRule(
+    name="order implies zero multiple",
+    description=(
+      "If an element has exact additive "
+      "order n, then n times that element "
+      "is zero."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.ORDER,
+        relation_pattern=Relation(
+          lhs=element,
+          rhs=order,
+          relation_type=RelationType.ORDER,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=Multiple(
+        coefficient=order,
+        expression=element,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    ),
+    match_guard=guard,
+  )
+
+
+def zero_equality_implies_zero_inference_rule():
+  zero_expression = PatternVariable(
+    name="zero_expression",
+  )
+
+  equivalent_expression = PatternVariable(
+    name="equivalent_expression",
+  )
+
+  return InferenceRule(
+    name="zero equality implies zero",
+    description=(
+      "If an expression is zero and "
+      "another expression is equal to "
+      "that expression, the other "
+      "expression is also zero."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.ZERO,
+        relation_pattern=Relation(
+          lhs=zero_expression,
+          rhs=Zero(),
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.EQUALITY,
+        relation_pattern=Relation(
+          lhs=equivalent_expression,
+          rhs=zero_expression,
+          relation_type=RelationType.EQUALITY,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=equivalent_expression,
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    ),
+  )
 
 
 def zero_composition_equality_implies_zero_inference_rule():
