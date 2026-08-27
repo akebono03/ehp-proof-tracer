@@ -1387,6 +1387,290 @@ def test_phase9_representative_stable_reflection_generic_reasoning_scenario_reac
   )
 
 
+def test_phase9_inference_scope_termination_and_theorem_boundary():
+  stable_map = SuspensionMapStatement(
+    sphere_dimension=5,
+    stem=3,
+  )
+
+  boundary_map = SuspensionMapStatement(
+    sphere_dimension=5,
+    stem=4,
+  )
+
+  outside_map = SuspensionMapStatement(
+    sphere_dimension=5,
+    stem=5,
+  )
+
+  stable_lhs = eta(5)
+  stable_rhs = nu(5)
+
+  boundary_lhs = eta(6)
+  boundary_rhs = nu(6)
+
+  outside_lhs = eta(7)
+  outside_rhs = nu(7)
+
+  stable_map_step = ProofStep(
+    conclusion=stable_map,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  boundary_map_step = ProofStep(
+    conclusion=boundary_map,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  outside_map_step = ProofStep(
+    conclusion=outside_map,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  stable_equality_step = ProofStep(
+    conclusion=(
+      SuspensionMapEqualityStatement(
+        suspension_map=stable_map,
+        lhs=stable_lhs,
+        rhs=stable_rhs,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  stable_zero_step = ProofStep(
+    conclusion=(
+      SuspensionMapZeroStatement(
+        suspension_map=stable_map,
+        expression=stable_lhs,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  boundary_equality_step = ProofStep(
+    conclusion=(
+      SuspensionMapEqualityStatement(
+        suspension_map=boundary_map,
+        lhs=boundary_lhs,
+        rhs=boundary_rhs,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  boundary_zero_step = ProofStep(
+    conclusion=(
+      SuspensionMapZeroStatement(
+        suspension_map=boundary_map,
+        expression=boundary_lhs,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  outside_equality_step = ProofStep(
+    conclusion=(
+      SuspensionMapEqualityStatement(
+        suspension_map=outside_map,
+        lhs=outside_lhs,
+        rhs=outside_rhs,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  outside_zero_step = ProofStep(
+    conclusion=(
+      SuspensionMapZeroStatement(
+        suspension_map=outside_map,
+        expression=outside_lhs,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  isomorphism_rule = (
+    freudenthal_stable_isomorphism_inference_rule()
+  )
+
+  epimorphism_rule = (
+    freudenthal_boundary_epimorphism_inference_rule()
+  )
+
+  injectivity_rule = (
+    suspension_isomorphism_implies_injective_inference_rule()
+  )
+
+  equality_reflection_rule = (
+    suspension_injectivity_reflects_equality_inference_rule()
+  )
+
+  zero_reflection_rule = (
+    suspension_injectivity_reflects_zero_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        isomorphism_rule,
+        epimorphism_rule,
+        injectivity_rule,
+        equality_reflection_rule,
+        zero_reflection_rule,
+      ),
+      (
+        stable_map_step,
+        boundary_map_step,
+        outside_map_step,
+        stable_equality_step,
+        stable_zero_step,
+        boundary_equality_step,
+        boundary_zero_step,
+        outside_equality_step,
+        outside_zero_step,
+      ),
+    )
+  )
+
+  stable_isomorphism = (
+    SuspensionIsomorphismStatement(
+      suspension_map=stable_map,
+    )
+  )
+
+  stable_injective = (
+    SuspensionInjectiveStatement(
+      suspension_map=stable_map,
+    )
+  )
+
+  boundary_epimorphism = (
+    SuspensionEpimorphismStatement(
+      suspension_map=boundary_map,
+    )
+  )
+
+  stable_reflected_equality = Relation(
+    lhs=stable_lhs,
+    rhs=stable_rhs,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  stable_reflected_zero = Relation(
+    lhs=stable_lhs,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  boundary_reflected_equality = Relation(
+    lhs=boundary_lhs,
+    rhs=boundary_rhs,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  boundary_reflected_zero = Relation(
+    lhs=boundary_lhs,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  outside_reflected_equality = Relation(
+    lhs=outside_lhs,
+    rhs=outside_rhs,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  outside_reflected_zero = Relation(
+    lhs=outside_lhs,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert stable_isomorphism in conclusions
+  assert stable_injective in conclusions
+  assert stable_reflected_equality in conclusions
+  assert stable_reflected_zero in conclusions
+
+  assert boundary_epimorphism in conclusions
+
+  assert (
+    SuspensionIsomorphismStatement(
+      suspension_map=boundary_map,
+    )
+    not in conclusions
+  )
+
+  assert (
+    SuspensionInjectiveStatement(
+      suspension_map=boundary_map,
+    )
+    not in conclusions
+  )
+
+  assert (
+    boundary_reflected_equality
+    not in conclusions
+  )
+
+  assert (
+    boundary_reflected_zero
+    not in conclusions
+  )
+
+  assert (
+    SuspensionIsomorphismStatement(
+      suspension_map=outside_map,
+    )
+    not in conclusions
+  )
+
+  assert (
+    SuspensionEpimorphismStatement(
+      suspension_map=outside_map,
+    )
+    not in conclusions
+  )
+
+  assert (
+    SuspensionInjectiveStatement(
+      suspension_map=outside_map,
+    )
+    not in conclusions
+  )
+
+  assert (
+    outside_reflected_equality
+    not in conclusions
+  )
+
+  assert (
+    outside_reflected_zero
+    not in conclusions
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 3
+
+
 
 
 
