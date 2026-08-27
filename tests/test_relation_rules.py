@@ -481,6 +481,130 @@ def test_composition_equality_to_zero_rejects_noncomposition_equality():
   assert match is None
 
 
+def test_composition_equality_zero_propagates_over_fixed_point():
+  composition = Composition(
+    left=nu(4),
+    right=eta(3),
+  )
+
+  target_expression = sigma(5)
+
+  known_zero_composition_step = (
+    relation_proof_step(
+      Relation(
+        lhs=composition,
+        rhs=Zero(),
+        relation_type=RelationType.EQUALITY,
+        source="Toda",
+        note="known zero composition",
+      )
+    )
+  )
+
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=target_expression,
+      rhs=composition,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  composition_zero_rule = (
+    composition_equality_to_zero_inference_rule()
+  )
+
+  zero_propagation_rule = (
+    zero_equality_implies_zero_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        composition_zero_rule,
+        zero_propagation_rule,
+      ),
+      (
+        known_zero_composition_step,
+        equality_step,
+      ),
+    )
+  )
+
+  composition_zero_relation = Relation(
+    lhs=composition,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  propagated_zero_relation = Relation(
+    lhs=target_expression,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 2
+
+  assert (
+    composition_zero_relation
+    in conclusions
+  )
+
+  assert (
+    propagated_zero_relation
+    in conclusions
+  )
+
+  composition_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == composition_zero_relation
+  )
+
+  propagated_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == propagated_zero_relation
+  )
+
+  assert composition_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    composition_zero_step.inference_rule
+    == composition_zero_rule
+  )
+
+  assert composition_zero_step.premises == (
+    known_zero_composition_step,
+  )
+
+  assert propagated_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    propagated_zero_step.inference_rule
+    == zero_propagation_rule
+  )
+
+  assert propagated_zero_step.premises == (
+    composition_zero_step,
+    equality_step,
+  )
+
+
 def test_zero_composition_equality_implies_zero():
   composition = Composition(
     left=nu(4),
