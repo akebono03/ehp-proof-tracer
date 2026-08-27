@@ -121,6 +121,54 @@ def zero_equality_implies_zero_inference_rule():
   )
 
 
+def composition_equality_to_zero_inference_rule():
+  composition = PatternVariable(
+    name="composition",
+  )
+
+  def guard(
+    premises,
+    bindings,
+  ):
+    bound_composition = (
+      lookup_variable_binding(
+        composition,
+        bindings,
+      )
+    )
+
+    return isinstance(
+      bound_composition,
+      Composition,
+    )
+
+  return InferenceRule(
+    name="composition equality to zero",
+    description=(
+      "If a composition is equal to zero, "
+      "the composition is a generic zero "
+      "relation."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.EQUALITY,
+        relation_pattern=Relation(
+          lhs=composition,
+          rhs=Zero(),
+          relation_type=RelationType.EQUALITY,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=composition,
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    ),
+    match_guard=guard,
+  )
+
+
 def zero_composition_equality_implies_zero_inference_rule():
   zero_expression = PatternVariable(
     name="zero_expression",
