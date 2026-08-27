@@ -337,6 +337,81 @@ def suspension_preserves_equality_inference_rule():
   )
 
 
+def suspension_composition_functoriality_inference_rule():
+  composition_expression = PatternVariable(
+    name="composition_expression",
+  )
+
+  result_expression = PatternVariable(
+    name="result_expression",
+  )
+
+  def guard(
+    premises,
+    bindings,
+  ):
+    bound_composition = (
+      lookup_variable_binding(
+        composition_expression,
+        bindings,
+      )
+    )
+
+    return isinstance(
+      bound_composition,
+      Composition,
+    )
+
+  def conclusion_builder(
+    premises,
+  ):
+    premise_relation = (
+      premises[0].conclusion
+    )
+
+    composition = premise_relation.lhs
+
+    return Relation(
+      lhs=Suspension(
+        expression=composition,
+      ),
+      rhs=Composition(
+        left=Suspension(
+          expression=composition.left,
+        ),
+        right=Suspension(
+          expression=composition.right,
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "suspension composition "
+      "functoriality"
+    ),
+    description=(
+      "The suspension of a composition "
+      "is equal to the composition of "
+      "the suspended expressions."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.EQUALITY,
+        relation_pattern=Relation(
+          lhs=composition_expression,
+          rhs=result_expression,
+          relation_type=RelationType.EQUALITY,
+        ),
+      ),
+    ),
+    conclusion_builder=conclusion_builder,
+    match_guard=guard,
+  )
+
+
 def suspension_preserves_zero_inference_rule():
   expression = PatternVariable(
     name="expression",

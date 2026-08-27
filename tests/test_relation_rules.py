@@ -27,6 +27,7 @@ from relation_rules import (
   equality_symmetry_inference_rule,
   equality_transitivity_inference_rule,
   order_implies_zero_multiple_inference_rule,
+  suspension_composition_functoriality_inference_rule,
   suspension_preserves_equality_inference_rule,
   suspension_preserves_zero_inference_rule,
   suspension_preserves_zero_multiple_inference_rule,
@@ -898,6 +899,92 @@ def test_suspension_preserves_composition_equality():
   assert derived_step.premises == (
     equality_step,
   )
+
+
+def test_suspension_composition_functoriality():
+  composition = Composition(
+    left=nu(4),
+    right=eta(3),
+  )
+
+  composition_equality_step = (
+    relation_proof_step(
+      Relation(
+        lhs=composition,
+        rhs=eta(4),
+        relation_type=RelationType.EQUALITY,
+        source="Toda",
+        note="known composition equality",
+      )
+    )
+  )
+
+  rule = (
+    suspension_composition_functoriality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      composition_equality_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    Relation(
+      lhs=Suspension(
+        expression=composition,
+      ),
+      rhs=Composition(
+        left=Suspension(
+          expression=nu(4),
+        ),
+        right=Suspension(
+          expression=eta(3),
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    composition_equality_step,
+  )
+
+
+def test_suspension_composition_functoriality_rejects_noncomposition_equality():
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=nu(4),
+      rhs=eta(4),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  rule = (
+    suspension_composition_functoriality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+    ),
+  )
+
+  assert match is None
 
 
 def test_suspension_preserves_equality_rejects_non_equality_relation():
