@@ -1,13 +1,15 @@
 import pytest
 
 from expression import (
+  Multiple,
+  Zero,
   eta,
   nu,
 )
 from hopf_rules import (
-  HopfInvariantOneStatement,
+  HopfCompositionLawStatement,
   HopfInvariantStatement,
-  hopf_invariant_one_inference_rule,
+  hopf_composition_law_inference_rule,
   hopf_invariant_proof_step,
 )
 from proof import (
@@ -21,23 +23,23 @@ from proof import (
 
 def test_hopf_invariant_statement():
   statement = HopfInvariantStatement(
-    expression=eta(2),
-    value=1,
+    expression=nu(4),
+    value=eta(7),
   )
 
-  assert statement.expression == eta(2)
-  assert statement.value == 1
+  assert statement.expression == nu(4)
+  assert statement.value == eta(7)
 
 
 def test_hopf_invariant_statement_has_structural_equality():
   first = HopfInvariantStatement(
-    expression=eta(2),
-    value=1,
+    expression=nu(4),
+    value=eta(7),
   )
 
   second = HopfInvariantStatement(
-    expression=eta(2),
-    value=1,
+    expression=nu(4),
+    value=eta(7),
   )
 
   assert first == second
@@ -45,14 +47,14 @@ def test_hopf_invariant_statement_has_structural_equality():
 
 def test_hopf_invariant_statement_distinguishes_expression():
   first = HopfInvariantStatement(
-    expression=eta(2),
-    value=1,
+    expression=eta(4),
+    value=eta(7),
   )
 
   different_expression = (
     HopfInvariantStatement(
       expression=nu(4),
-      value=1,
+      value=eta(7),
     )
   )
 
@@ -61,18 +63,42 @@ def test_hopf_invariant_statement_distinguishes_expression():
 
 def test_hopf_invariant_statement_distinguishes_value():
   first = HopfInvariantStatement(
-    expression=eta(2),
-    value=1,
+    expression=nu(4),
+    value=eta(7),
   )
 
   different_value = (
     HopfInvariantStatement(
-      expression=eta(2),
-      value=0,
+      expression=nu(4),
+      value=Zero(),
     )
   )
 
   assert first != different_value
+
+
+def test_hopf_invariant_statement_supports_zero_value():
+  statement = HopfInvariantStatement(
+    expression=nu(4),
+    value=Zero(),
+  )
+
+  assert statement.value == Zero()
+
+
+def test_hopf_invariant_statement_supports_multiple_value():
+  statement = HopfInvariantStatement(
+    expression=nu(4),
+    value=Multiple(
+      coefficient=2,
+      expression=eta(7),
+    ),
+  )
+
+  assert statement.value == Multiple(
+    coefficient=2,
+    expression=eta(7),
+  )
 
 
 def test_hopf_invariant_statement_preserves_provenance():
@@ -88,23 +114,24 @@ def test_hopf_invariant_statement_preserves_provenance():
   )
 
   statement = HopfInvariantStatement(
-    expression=eta(2),
-    value=1,
+    expression=nu(4),
+    value=eta(7),
     source=reference,
-    note="known Hopf invariant fact",
+    note="known generalized Hopf invariant fact",
   )
 
   assert statement.source == reference
+
   assert (
     statement.note
-    == "known Hopf invariant fact"
+    == "known generalized Hopf invariant fact"
   )
 
 
 def test_hopf_invariant_proof_step():
   statement = HopfInvariantStatement(
-    expression=eta(2),
-    value=1,
+    expression=nu(4),
+    value=eta(7),
   )
 
   step = hopf_invariant_proof_step(
@@ -130,10 +157,10 @@ def test_hopf_invariant_proof_step_preserves_provenance():
   )
 
   statement = HopfInvariantStatement(
-    expression=eta(2),
-    value=1,
+    expression=nu(4),
+    value=eta(7),
     source=reference,
-    note="known Hopf invariant fact",
+    note="known generalized Hopf invariant fact",
   )
 
   step = hopf_invariant_proof_step(
@@ -149,7 +176,7 @@ def test_hopf_invariant_proof_step_preserves_provenance():
 
   assert (
     step.conclusion.note
-    == "known Hopf invariant fact"
+    == "known generalized Hopf invariant fact"
   )
 
   assert step.premises == ()
@@ -166,99 +193,57 @@ def test_hopf_invariant_proof_step_rejects_non_hopf_statement():
     )
 
 
-def test_hopf_invariant_one_rule():
-  statement = HopfInvariantStatement(
-    expression=eta(2),
-    value=1,
+def test_hopf_composition_law_statement():
+  statement = HopfCompositionLawStatement(
+    alpha=nu(4),
+    beta=eta(7),
   )
 
-  hopf_step = hopf_invariant_proof_step(
-    statement
+  assert statement.alpha == nu(4)
+  assert statement.beta == eta(7)
+
+
+def test_hopf_invariant_implies_hopf_composition_law_statement():
+  hopf_statement = HopfInvariantStatement(
+    expression=nu(4),
+    value=eta(7),
+  )
+
+  premise = hopf_invariant_proof_step(
+    hopf_statement
   )
 
   rule = (
-    hopf_invariant_one_inference_rule()
+    hopf_composition_law_inference_rule()
   )
 
   match = find_inference_match(
     rule,
-    (
-      hopf_step,
-    ),
+    premise,
   )
 
   assert match is not None
 
-  derived_step = apply_inference_match(
+  step = apply_inference_match(
     match
   )
 
-  assert derived_step.conclusion == (
-    HopfInvariantOneStatement(
-      expression=eta(2),
+  assert step.conclusion == (
+    HopfCompositionLawStatement(
+      alpha=nu(4),
+      beta=eta(7),
     )
   )
 
-  assert derived_step.rule == (
-    ProofRule.INFERENCE
+  assert step.premises == (
+    premise,
   )
 
-  assert derived_step.inference_rule == rule
-
-  assert derived_step.premises == (
-    hopf_step,
-  )
+  assert step.rule == ProofRule.INFERENCE
+  assert step.inference_rule == rule
 
 
-def test_hopf_invariant_one_rule_rejects_zero():
-  statement = HopfInvariantStatement(
-    expression=eta(2),
-    value=0,
-  )
-
-  hopf_step = hopf_invariant_proof_step(
-    statement
-  )
-
-  rule = (
-    hopf_invariant_one_inference_rule()
-  )
-
-  match = find_inference_match(
-    rule,
-    (
-      hopf_step,
-    ),
-  )
-
-  assert match is None
-
-
-def test_hopf_invariant_one_rule_rejects_other_value():
-  statement = HopfInvariantStatement(
-    expression=eta(2),
-    value=2,
-  )
-
-  hopf_step = hopf_invariant_proof_step(
-    statement
-  )
-
-  rule = (
-    hopf_invariant_one_inference_rule()
-  )
-
-  match = find_inference_match(
-    rule,
-    (
-      hopf_step,
-    ),
-  )
-
-  assert match is None
-
-
-def test_hopf_invariant_one_rule_preserves_provenance():
+def test_hopf_composition_law_inference_preserves_hopf_fact_provenance():
   reference = LiteratureReference(
     label="Toda",
     author="H. Toda",
@@ -270,65 +255,79 @@ def test_hopf_invariant_one_rule_preserves_provenance():
     locator="Hopf invariant fact",
   )
 
-  statement = HopfInvariantStatement(
-    expression=eta(2),
-    value=1,
+  hopf_statement = HopfInvariantStatement(
+    expression=nu(4),
+    value=eta(7),
     source=reference,
-    note="known Hopf invariant fact",
+    note=(
+      "known generalized "
+      "Hopf invariant fact"
+    ),
   )
 
-  hopf_step = hopf_invariant_proof_step(
-    statement
+  premise = hopf_invariant_proof_step(
+    hopf_statement
   )
 
   rule = (
-    hopf_invariant_one_inference_rule()
+    hopf_composition_law_inference_rule()
   )
 
   match = find_inference_match(
     rule,
-    (
-      hopf_step,
-    ),
+    premise,
   )
 
   assert match is not None
 
-  derived_step = apply_inference_match(
+  step = apply_inference_match(
     match
   )
 
-  assert derived_step.conclusion == (
-    HopfInvariantOneStatement(
-      expression=eta(2),
+  assert step.conclusion == (
+    HopfCompositionLawStatement(
+      alpha=nu(4),
+      beta=eta(7),
     )
   )
 
-  assert derived_step.rule == (
-    ProofRule.INFERENCE
-  )
-
-  assert derived_step.inference_rule == rule
-
-  assert derived_step.premises == (
-    hopf_step,
+  assert step.premises == (
+    premise,
   )
 
   assert (
-    derived_step
-    .premises[0]
-    .conclusion
-    .source
+    step.premises[0].conclusion.source
     == reference
   )
 
   assert (
-    derived_step
-    .premises[0]
-    .conclusion
-    .note
-    == "known Hopf invariant fact"
+    step.premises[0].conclusion.note
+    == (
+      "known generalized "
+      "Hopf invariant fact"
+    )
   )
+
+  assert step.inference_rule == rule
+
+
+def test_hopf_composition_law_inference_rejects_non_hopf_statement():
+  premise = ProofStep(
+    conclusion=eta(2),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    hopf_composition_law_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    premise,
+  )
+
+  assert match is None
 
 
 

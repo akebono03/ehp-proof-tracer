@@ -13,14 +13,15 @@ from proof import (
 @dataclass(frozen=True)
 class HopfInvariantStatement:
   expression: Expression
-  value: int
+  value: Expression
   source: LiteratureReference | str | None = None
   note: str | None = None
 
 
 @dataclass(frozen=True)
-class HopfInvariantOneStatement:
-  expression: Expression
+class HopfCompositionLawStatement:
+  alpha: Expression
+  beta: Expression
 
 
 def hopf_invariant_proof_step(
@@ -42,33 +43,29 @@ def hopf_invariant_proof_step(
   )
 
 
-def hopf_invariant_one_inference_rule():
-  def guard(
-    premises,
-    bindings,
-  ):
-    statement = premises[0].conclusion
-
-    return statement.value == 1
-
-  def build_conclusion(
+def hopf_composition_law_inference_rule():
+  def conclusion_builder(
     premises,
   ):
-    statement = premises[0].conclusion
+    statement = (
+      premises[0].conclusion
+    )
 
-    return HopfInvariantOneStatement(
-      expression=statement.expression,
+    return HopfCompositionLawStatement(
+      alpha=statement.expression,
+      beta=statement.value,
     )
 
   return InferenceRule(
     name=(
-      "Hopf invariant one fact "
-      "implies Hopf invariant one"
+      "generalized Hopf invariant "
+      "enables composition law"
     ),
     description=(
-      "An element whose known Hopf "
-      "invariant is one is recognized "
-      "as a Hopf-invariant-one element."
+      "A generalized Hopf invariant "
+      "fact H(alpha)=beta enables the "
+      "Hopf composition law for "
+      "alpha and beta."
     ),
     premise_patterns=(
       PremisePattern(
@@ -78,9 +75,8 @@ def hopf_invariant_one_inference_rule():
       ),
     ),
     conclusion_builder=(
-      build_conclusion
+      conclusion_builder
     ),
-    match_guard=guard,
   )
 
 
