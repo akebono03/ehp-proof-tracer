@@ -289,6 +289,38 @@ def suspension_preserves_equality_inference_rule():
   )
 
 
+def suspension_preserves_zero_inference_rule():
+  expression = PatternVariable(
+    name="expression",
+  )
+
+  return InferenceRule(
+    name="suspension preserves zero",
+    description=(
+      "If an expression is zero, "
+      "its suspension is also zero."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.ZERO,
+        relation_pattern=Relation(
+          lhs=expression,
+          rhs=Zero(),
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=Suspension(
+        expression=expression,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+
 def equality_symmetry_inference_rule():
   left_expression = PatternVariable(
     name="left_expression",
