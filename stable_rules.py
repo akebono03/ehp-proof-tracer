@@ -17,6 +17,11 @@ class SuspensionIsomorphismStatement:
   suspension_map: SuspensionMapStatement
 
 
+@dataclass(frozen=True)
+class SuspensionEpimorphismStatement:
+  suspension_map: SuspensionMapStatement
+
+
 def is_freudenthal_stable_range(
   statement,
 ):
@@ -78,6 +83,49 @@ def freudenthal_stable_isomorphism_inference_rule():
     match_guard=guard,
   )
 
+
+def freudenthal_boundary_epimorphism_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    statement = premises[0].conclusion
+
+    return is_freudenthal_boundary_range(
+      statement,
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return SuspensionEpimorphismStatement(
+      suspension_map=(
+        premises[0].conclusion
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Freudenthal boundary range "
+      "implies suspension epimorphism"
+    ),
+    description=(
+      "A suspension map in the "
+      "Freudenthal boundary range is "
+      "an epimorphism."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          SuspensionMapStatement
+        ),
+      ),
+    ),
+    conclusion_builder=(
+      build_conclusion
+    ),
+    match_guard=guard,
+  )
 
 
 
