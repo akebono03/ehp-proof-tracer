@@ -38,6 +38,7 @@ from proof import (
   run_inference_until_stable_with_history,
 )
 from relation_rules import (
+  composition_equality_to_zero_inference_rule,
   equality_symmetry_inference_rule,
   equality_transitivity_inference_rule,
   order_implies_zero_multiple_inference_rule,
@@ -1617,6 +1618,162 @@ def test_phase6_representative_end_to_end_scenario_reaches_fixed_point():
 
   assert zero_propagation_rule in (
     accepted_rules
+  )
+
+  terminal_round = (
+    derive_inference_round_result(
+      rules,
+      result.steps,
+    )
+  )
+
+  assert terminal_round.new_steps == ()
+
+
+def test_ehp_and_toda_composition_zero_coexist_in_same_fixed_point_run():
+  segment = EHPSegment(
+    make_sphere_repository(),
+    n=3,
+    k=5,
+  )
+
+  exact_step = (
+    segment.exact_step_at_sphere()
+  )
+
+  image_step = image_proof_step(
+    exact_step.first_map
+  )
+
+  kernel_step = kernel_proof_step(
+    exact_step.second_map
+  )
+
+  ehp_composition = Composition(
+    left=exact_step.second_map,
+    right=exact_step.first_map,
+  )
+
+  toda_composition = Composition(
+    left=nu(4),
+    right=eta(3),
+  )
+
+  toda_equality_step = relation_proof_step(
+    Relation(
+      lhs=toda_composition,
+      rhs=Zero(),
+      relation_type=RelationType.EQUALITY,
+      source="Toda",
+      note="known zero composition",
+    )
+  )
+
+  ehp_zero_relation = Relation(
+    lhs=ehp_composition,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  toda_zero_relation = Relation(
+    lhs=toda_composition,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  exactness_rule = (
+    ehp_exactness_inference_rule()
+  )
+
+  ehp_zero_composition_rule = (
+    ehp_exactness_implies_zero_composition_inference_rule()
+  )
+
+  ehp_zero_relation_rule = (
+    ehp_zero_composition_implies_zero_relation_inference_rule()
+  )
+
+  toda_zero_relation_rule = (
+    composition_equality_to_zero_inference_rule()
+  )
+
+  rules = (
+    exactness_rule,
+    ehp_zero_composition_rule,
+    ehp_zero_relation_rule,
+    toda_zero_relation_rule,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        image_step,
+        kernel_step,
+        toda_equality_step,
+      ),
+    )
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 3
+
+  assert ehp_zero_relation in conclusions
+  assert toda_zero_relation in conclusions
+
+  ehp_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == ehp_zero_relation
+  )
+
+  toda_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == toda_zero_relation
+  )
+
+  assert ehp_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert ehp_zero_step.inference_rule == (
+    ehp_zero_relation_rule
+  )
+
+  assert toda_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert toda_zero_step.inference_rule == (
+    toda_zero_relation_rule
+  )
+
+  assert toda_zero_step.premises == (
+    toda_equality_step,
+  )
+
+  ehp_zero_composition_step = next(
+    step
+    for step in result.steps
+    if isinstance(
+      step.conclusion,
+      EHPZeroCompositionStatement,
+    )
+  )
+
+  assert ehp_zero_step.premises == (
+    ehp_zero_composition_step,
   )
 
   terminal_round = (
