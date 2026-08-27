@@ -12,6 +12,11 @@ from proof import (
   run_inference_round,
   run_inference_until_stable_with_history,
 )
+from relation_rules import (
+  equality_symmetry_inference_rule,
+  equality_transitivity_inference_rule,
+  zero_equality_implies_zero_inference_rule,
+)
 from stable_rules import (
   SuspensionEpimorphismStatement,
   SuspensionInjectiveStatement,
@@ -1074,6 +1079,314 @@ def test_freudenthal_stable_range_reaches_zero_reflection_over_fixed_point():
     reflected_zero_step
     in result.steps
   )
+
+
+def test_phase9_representative_stable_reflection_generic_reasoning_scenario_reaches_fixed_point():
+  suspension_map = SuspensionMapStatement(
+    sphere_dimension=5,
+    stem=3,
+  )
+
+  left_element = eta(5)
+  right_element = nu(5)
+
+  map_step = ProofStep(
+    conclusion=suspension_map,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  suspended_equality_step = ProofStep(
+    conclusion=(
+      SuspensionMapEqualityStatement(
+        suspension_map=suspension_map,
+        lhs=left_element,
+        rhs=right_element,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  suspended_zero_step = ProofStep(
+    conclusion=(
+      SuspensionMapZeroStatement(
+        suspension_map=suspension_map,
+        expression=left_element,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  isomorphism_rule = (
+    freudenthal_stable_isomorphism_inference_rule()
+  )
+
+  injectivity_rule = (
+    suspension_isomorphism_implies_injective_inference_rule()
+  )
+
+  equality_reflection_rule = (
+    suspension_injectivity_reflects_equality_inference_rule()
+  )
+
+  zero_reflection_rule = (
+    suspension_injectivity_reflects_zero_inference_rule()
+  )
+
+  symmetry_rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  transitivity_rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  zero_propagation_rule = (
+    zero_equality_implies_zero_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        isomorphism_rule,
+        injectivity_rule,
+        equality_reflection_rule,
+        zero_reflection_rule,
+        symmetry_rule,
+        transitivity_rule,
+        zero_propagation_rule,
+      ),
+      (
+        map_step,
+        suspended_equality_step,
+        suspended_zero_step,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 5
+
+  isomorphism_conclusion = (
+    SuspensionIsomorphismStatement(
+      suspension_map=suspension_map,
+    )
+  )
+
+  injective_conclusion = (
+    SuspensionInjectiveStatement(
+      suspension_map=suspension_map,
+    )
+  )
+
+  reflected_equality = Relation(
+    lhs=left_element,
+    rhs=right_element,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  reflected_zero = Relation(
+    lhs=left_element,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  symmetric_equality = Relation(
+    lhs=right_element,
+    rhs=left_element,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  propagated_zero = Relation(
+    lhs=right_element,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert any(
+    step.conclusion
+    == isomorphism_conclusion
+    for step in result.steps
+  )
+
+  assert any(
+    step.conclusion
+    == injective_conclusion
+    for step in result.steps
+  )
+
+  assert any(
+    step.conclusion
+    == reflected_equality
+    for step in result.steps
+  )
+
+  assert any(
+    step.conclusion
+    == reflected_zero
+    for step in result.steps
+  )
+
+  assert any(
+    step.conclusion
+    == symmetric_equality
+    for step in result.steps
+  )
+
+  assert any(
+    step.conclusion
+    == propagated_zero
+    for step in result.steps
+  )
+
+  isomorphism_step = next(
+    step
+    for step in result.steps
+    if (
+      step.conclusion
+      == isomorphism_conclusion
+    )
+  )
+
+  injective_step = next(
+    step
+    for step in result.steps
+    if (
+      step.conclusion
+      == injective_conclusion
+    )
+  )
+
+  reflected_equality_step = next(
+    step
+    for step in result.steps
+    if (
+      step.conclusion
+      == reflected_equality
+    )
+  )
+
+  reflected_zero_step = next(
+    step
+    for step in result.steps
+    if (
+      step.conclusion
+      == reflected_zero
+    )
+  )
+
+  symmetric_equality_step = next(
+    step
+    for step in result.steps
+    if (
+      step.conclusion
+      == symmetric_equality
+    )
+  )
+
+  propagated_zero_step = next(
+    step
+    for step in result.steps
+    if (
+      step.conclusion
+      == propagated_zero
+    )
+  )
+
+  assert isomorphism_step.premises == (
+    map_step,
+  )
+
+  assert (
+    isomorphism_step.inference_rule
+    == isomorphism_rule
+  )
+
+  assert injective_step.premises == (
+    isomorphism_step,
+  )
+
+  assert (
+    injective_step.inference_rule
+    == injectivity_rule
+  )
+
+  assert reflected_equality_step.premises == (
+    injective_step,
+    suspended_equality_step,
+  )
+
+  assert (
+    reflected_equality_step.inference_rule
+    == equality_reflection_rule
+  )
+
+  assert reflected_zero_step.premises == (
+    injective_step,
+    suspended_zero_step,
+  )
+
+  assert (
+    reflected_zero_step.inference_rule
+    == zero_reflection_rule
+  )
+
+  assert symmetric_equality_step.premises == (
+    reflected_equality_step,
+  )
+
+  assert (
+    symmetric_equality_step.inference_rule
+    == symmetry_rule
+  )
+
+  assert propagated_zero_step.premises == (
+    reflected_zero_step,
+    symmetric_equality_step,
+  )
+
+  assert (
+    propagated_zero_step.inference_rule
+    == zero_propagation_rule
+  )
+
+  assert (
+    isomorphism_step.rule
+    == ProofRule.INFERENCE
+  )
+
+  assert (
+    injective_step.rule
+    == ProofRule.INFERENCE
+  )
+
+  assert (
+    reflected_equality_step.rule
+    == ProofRule.INFERENCE
+  )
+
+  assert (
+    reflected_zero_step.rule
+    == ProofRule.INFERENCE
+  )
+
+  assert (
+    symmetric_equality_step.rule
+    == ProofRule.INFERENCE
+  )
+
+  assert (
+    propagated_zero_step.rule
+    == ProofRule.INFERENCE
+  )
+
+
 
 
 
