@@ -1,6 +1,10 @@
 from dataclasses import dataclass
 
-from expression import Expression
+from expression import (
+  Composition,
+  Expression,
+  Suspension,
+)
 from proof import (
   InferenceRule,
   LiteratureReference,
@@ -72,6 +76,62 @@ def hopf_composition_law_inference_rule():
         statement_type=(
           HopfInvariantStatement
         ),
+      ),
+    ),
+    conclusion_builder=(
+      conclusion_builder
+    ),
+  )
+
+
+def hopf_composition_formula_inference_rule():
+  def conclusion_builder(
+    premises,
+  ):
+    law_statement = (
+      premises[0].conclusion
+    )
+
+    gamma = (
+      premises[1].conclusion
+    )
+
+    suspended_gamma = Suspension(
+      expression=gamma,
+    )
+
+    return HopfInvariantStatement(
+      expression=Composition(
+        left=law_statement.alpha,
+        right=suspended_gamma,
+      ),
+      value=Composition(
+        left=law_statement.beta,
+        right=suspended_gamma,
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "generalized Hopf "
+      "composition formula"
+    ),
+    description=(
+      "From the generalized Hopf "
+      "composition law for alpha and "
+      "beta, and an expression gamma, "
+      "derive "
+      "H(alpha o E gamma) "
+      "= beta o E gamma."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          HopfCompositionLawStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=Expression,
       ),
     ),
     conclusion_builder=(

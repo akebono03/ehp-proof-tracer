@@ -1,7 +1,9 @@
 import pytest
 
 from expression import (
+  Composition,
   Multiple,
+  Suspension,
   Zero,
   eta,
   nu,
@@ -9,6 +11,7 @@ from expression import (
 from hopf_rules import (
   HopfCompositionLawStatement,
   HopfInvariantStatement,
+  hopf_composition_formula_inference_rule,
   hopf_composition_law_inference_rule,
   hopf_invariant_proof_step,
 )
@@ -328,6 +331,179 @@ def test_hopf_composition_law_inference_rejects_non_hopf_statement():
   )
 
   assert match is None
+
+
+def test_hopf_composition_formula():
+  law_statement = (
+    HopfCompositionLawStatement(
+      alpha=nu(4),
+      beta=eta(7),
+    )
+  )
+
+  law_step = ProofStep(
+    conclusion=law_statement,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  gamma = eta(8)
+
+  gamma_step = ProofStep(
+    conclusion=gamma,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    hopf_composition_formula_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      law_step,
+      gamma_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == (
+    HopfInvariantStatement(
+      expression=Composition(
+        left=nu(4),
+        right=Suspension(
+          expression=eta(8),
+        ),
+      ),
+      value=Composition(
+        left=eta(7),
+        right=Suspension(
+          expression=eta(8),
+        ),
+      ),
+    )
+  )
+
+  assert step.premises == (
+    law_step,
+    gamma_step,
+  )
+
+  assert step.rule == ProofRule.INFERENCE
+  assert step.inference_rule == rule
+
+
+def test_hopf_invariant_reaches_hopf_composition_formula():
+  hopf_statement = HopfInvariantStatement(
+    expression=nu(4),
+    value=eta(7),
+  )
+
+  hopf_step = hopf_invariant_proof_step(
+    hopf_statement
+  )
+
+  law_rule = (
+    hopf_composition_law_inference_rule()
+  )
+
+  law_match = find_inference_match(
+    law_rule,
+    hopf_step,
+  )
+
+  assert law_match is not None
+
+  law_step = apply_inference_match(
+    law_match
+  )
+
+  gamma = eta(8)
+
+  gamma_step = ProofStep(
+    conclusion=gamma,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  formula_rule = (
+    hopf_composition_formula_inference_rule()
+  )
+
+  formula_match = find_inference_match(
+    formula_rule,
+    (
+      law_step,
+      gamma_step,
+    ),
+  )
+
+  assert formula_match is not None
+
+  formula_step = apply_inference_match(
+    formula_match
+  )
+
+  assert formula_step.conclusion == (
+    HopfInvariantStatement(
+      expression=Composition(
+        left=nu(4),
+        right=Suspension(
+          expression=eta(8),
+        ),
+      ),
+      value=Composition(
+        left=eta(7),
+        right=Suspension(
+          expression=eta(8),
+        ),
+      ),
+    )
+  )
+
+  assert formula_step.premises == (
+    law_step,
+    gamma_step,
+  )
+
+  assert law_step.premises == (
+    hopf_step,
+  )
+
+
+def test_hopf_composition_formula_rejects_missing_law_statement():
+  unrelated_step = ProofStep(
+    conclusion=nu(4),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  gamma_step = ProofStep(
+    conclusion=eta(8),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    hopf_composition_formula_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      unrelated_step,
+      gamma_step,
+    ),
+  )
+
+  assert match is None
+
 
 
 
