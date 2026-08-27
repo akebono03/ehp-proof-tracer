@@ -42,6 +42,7 @@ from relation_rules import (
   equality_transitivity_inference_rule,
   order_implies_zero_multiple_inference_rule,
   suspension_preserves_zero_inference_rule,
+  suspension_preserves_zero_multiple_inference_rule,
   zero_composition_equality_implies_zero_inference_rule,
   zero_composition_reverse_equality_implies_zero_inference_rule,
   zero_equality_implies_zero_inference_rule,
@@ -2412,6 +2413,292 @@ def test_ehp_derived_zero_suspends_over_four_rounds():
     suspended_zero_step.rule
     == ProofRule.INFERENCE
   )
+
+
+def test_phase8_representative_ehp_order_suspension_scenario():
+  segment = EHPSegment(
+    make_sphere_repository(),
+    n=3,
+    k=5,
+  )
+
+  exact_step = (
+    segment.exact_step_at_sphere()
+  )
+
+  image_step = image_proof_step(
+    exact_step.first_map
+  )
+
+  kernel_step = kernel_proof_step(
+    exact_step.second_map
+  )
+
+  order_element = eta(3)
+
+  order_step = relation_proof_step(
+    order_relation(
+      order_element,
+      2,
+    )
+  )
+
+  composition = Composition(
+    left=exact_step.second_map,
+    right=exact_step.first_map,
+  )
+
+  exactness_rule = (
+    ehp_exactness_inference_rule()
+  )
+
+  zero_composition_rule = (
+    ehp_exactness_implies_zero_composition_inference_rule()
+  )
+
+  ehp_zero_rule = (
+    ehp_zero_composition_implies_zero_relation_inference_rule()
+  )
+
+  order_zero_rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  suspension_zero_rule = (
+    suspension_preserves_zero_inference_rule()
+  )
+
+  suspension_multiple_rule = (
+    suspension_preserves_zero_multiple_inference_rule()
+  )
+
+  first_round_steps = run_inference_round(
+    (
+      exactness_rule,
+      order_zero_rule,
+    ),
+    (
+      image_step,
+      kernel_step,
+      order_step,
+    ),
+  )
+
+  exactness_relation = ExactnessStatement(
+    first_map=exact_step.first_map,
+    second_map=exact_step.second_map,
+    is_exact=True,
+  )
+
+  order_zero_relation = Relation(
+    lhs=Multiple(
+      coefficient=2,
+      expression=order_element,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  exactness_step = next(
+    step
+    for step in first_round_steps
+    if step.conclusion
+    == exactness_relation
+  )
+
+  order_zero_step = next(
+    step
+    for step in first_round_steps
+    if step.conclusion
+    == order_zero_relation
+  )
+
+  assert exactness_step.premises == (
+    image_step,
+    kernel_step,
+  )
+
+  assert (
+    exactness_step.inference_rule
+    is exactness_rule
+  )
+
+  assert exactness_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert order_zero_step.premises == (
+    order_step,
+  )
+
+  assert (
+    order_zero_step.inference_rule
+    is order_zero_rule
+  )
+
+  assert order_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  second_round_steps = run_inference_round(
+    (
+      zero_composition_rule,
+      suspension_multiple_rule,
+    ),
+    first_round_steps,
+  )
+
+  zero_composition_statement = (
+    EHPZeroCompositionStatement(
+      first_map=exact_step.first_map,
+      second_map=exact_step.second_map,
+    )
+  )
+
+  suspended_order_zero_relation = Relation(
+    lhs=Multiple(
+      coefficient=2,
+      expression=Suspension(
+        expression=order_element,
+      ),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  zero_composition_step = next(
+    step
+    for step in second_round_steps
+    if step.conclusion
+    == zero_composition_statement
+  )
+
+  suspended_order_zero_step = next(
+    step
+    for step in second_round_steps
+    if step.conclusion
+    == suspended_order_zero_relation
+  )
+
+  assert zero_composition_step.premises == (
+    exactness_step,
+  )
+
+  assert (
+    zero_composition_step.inference_rule
+    is zero_composition_rule
+  )
+
+  assert zero_composition_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert suspended_order_zero_step.premises == (
+    order_zero_step,
+  )
+
+  assert (
+    suspended_order_zero_step.inference_rule
+    is suspension_multiple_rule
+  )
+
+  assert suspended_order_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  third_round_steps = run_inference_round(
+    ehp_zero_rule,
+    second_round_steps,
+  )
+
+  ehp_zero_relation = Relation(
+    lhs=composition,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  ehp_zero_step = next(
+    step
+    for step in third_round_steps
+    if step.conclusion
+    == ehp_zero_relation
+  )
+
+  assert ehp_zero_step.premises == (
+    zero_composition_step,
+  )
+
+  assert (
+    ehp_zero_step.inference_rule
+    is ehp_zero_rule
+  )
+
+  assert ehp_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  fourth_round_steps = run_inference_round(
+    suspension_zero_rule,
+    third_round_steps,
+  )
+
+  suspended_ehp_zero_relation = Relation(
+    lhs=Suspension(
+      expression=composition,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  suspended_ehp_zero_step = next(
+    step
+    for step in fourth_round_steps
+    if step.conclusion
+    == suspended_ehp_zero_relation
+  )
+
+  assert suspended_ehp_zero_step.premises == (
+    ehp_zero_step,
+  )
+
+  assert (
+    suspended_ehp_zero_step.inference_rule
+    is suspension_zero_rule
+  )
+
+  assert suspended_ehp_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in fourth_round_steps
+  )
+
+  assert ehp_zero_relation in conclusions
+
+  assert order_zero_relation in conclusions
+
+  assert suspended_ehp_zero_relation in (
+    conclusions
+  )
+
+  assert suspended_order_zero_relation in (
+    conclusions
+  )
+
+  assert order_step not in (
+    suspended_ehp_zero_step.premises
+  )
+
+  assert exactness_step not in (
+    suspended_order_zero_step.premises
+  )
+
+  assert ehp_zero_step not in (
+    suspended_order_zero_step.premises
+  )
+
 
 
 
