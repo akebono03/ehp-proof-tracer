@@ -23,9 +23,11 @@ from proof import (
 )
 from relation_rules import (
   Suspension,
+  composition_equality_to_zero_inference_rule,
   equality_symmetry_inference_rule,
   equality_transitivity_inference_rule,
   order_implies_zero_multiple_inference_rule,
+  suspension_composition_functoriality_inference_rule,
   suspension_preserves_equality_inference_rule,
   suspension_preserves_zero_inference_rule,
   suspension_preserves_zero_multiple_inference_rule,
@@ -405,6 +407,205 @@ def test_order_derived_zero_propagates_through_equality_closure():
   )
 
 
+def test_composition_equality_to_zero():
+  composition = Composition(
+    left=nu(4),
+    right=eta(3),
+  )
+
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=composition,
+      rhs=Zero(),
+      relation_type=RelationType.EQUALITY,
+      source="Toda",
+      note="known zero composition",
+    )
+  )
+
+  rule = (
+    composition_equality_to_zero_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    Relation(
+      lhs=composition,
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    equality_step,
+  )
+
+
+def test_composition_equality_to_zero_rejects_noncomposition_equality():
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=eta(3),
+      rhs=Zero(),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  rule = (
+    composition_equality_to_zero_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_composition_equality_zero_propagates_over_fixed_point():
+  composition = Composition(
+    left=nu(4),
+    right=eta(3),
+  )
+
+  target_expression = sigma(5)
+
+  known_zero_composition_step = (
+    relation_proof_step(
+      Relation(
+        lhs=composition,
+        rhs=Zero(),
+        relation_type=RelationType.EQUALITY,
+        source="Toda",
+        note="known zero composition",
+      )
+    )
+  )
+
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=target_expression,
+      rhs=composition,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  composition_zero_rule = (
+    composition_equality_to_zero_inference_rule()
+  )
+
+  zero_propagation_rule = (
+    zero_equality_implies_zero_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        composition_zero_rule,
+        zero_propagation_rule,
+      ),
+      (
+        known_zero_composition_step,
+        equality_step,
+      ),
+    )
+  )
+
+  composition_zero_relation = Relation(
+    lhs=composition,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  propagated_zero_relation = Relation(
+    lhs=target_expression,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 2
+
+  assert (
+    composition_zero_relation
+    in conclusions
+  )
+
+  assert (
+    propagated_zero_relation
+    in conclusions
+  )
+
+  composition_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == composition_zero_relation
+  )
+
+  propagated_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == propagated_zero_relation
+  )
+
+  assert composition_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    composition_zero_step.inference_rule
+    == composition_zero_rule
+  )
+
+  assert composition_zero_step.premises == (
+    known_zero_composition_step,
+  )
+
+  assert propagated_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    propagated_zero_step.inference_rule
+    == zero_propagation_rule
+  )
+
+  assert propagated_zero_step.premises == (
+    composition_zero_step,
+    equality_step,
+  )
+
+
 def test_zero_composition_equality_implies_zero():
   composition = Composition(
     left=nu(4),
@@ -640,6 +841,319 @@ def test_suspension_preserves_equality():
   assert derived_step.inference_rule is rule
 
   assert derived_step.rule == ProofRule.INFERENCE
+
+
+def test_suspension_preserves_composition_equality():
+  composition = Composition(
+    left=nu(4),
+    right=eta(3),
+  )
+
+  target_expression = eta(4)
+
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=composition,
+      rhs=target_expression,
+      relation_type=RelationType.EQUALITY,
+      source="Toda",
+      note="known composition equality",
+    )
+  )
+
+  rule = (
+    suspension_preserves_equality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    Relation(
+      lhs=Suspension(
+        expression=composition,
+      ),
+      rhs=Suspension(
+        expression=target_expression,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    equality_step,
+  )
+
+
+def test_suspension_composition_functoriality():
+  composition = Composition(
+    left=nu(4),
+    right=eta(3),
+  )
+
+  composition_equality_step = (
+    relation_proof_step(
+      Relation(
+        lhs=composition,
+        rhs=eta(4),
+        relation_type=RelationType.EQUALITY,
+        source="Toda",
+        note="known composition equality",
+      )
+    )
+  )
+
+  rule = (
+    suspension_composition_functoriality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      composition_equality_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    Relation(
+      lhs=Suspension(
+        expression=composition,
+      ),
+      rhs=Composition(
+        left=Suspension(
+          expression=nu(4),
+        ),
+        right=Suspension(
+          expression=eta(3),
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    composition_equality_step,
+  )
+
+
+def test_suspension_composition_functoriality_rejects_noncomposition_equality():
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=nu(4),
+      rhs=eta(4),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  rule = (
+    suspension_composition_functoriality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_suspended_composition_equality_closes_through_functoriality():
+  composition = Composition(
+    left=nu(4),
+    right=eta(3),
+  )
+
+  result_expression = eta(4)
+
+  composition_equality_step = (
+    relation_proof_step(
+      Relation(
+        lhs=composition,
+        rhs=result_expression,
+        relation_type=RelationType.EQUALITY,
+        source="Toda",
+        note="known composition equality",
+      )
+    )
+  )
+
+  suspension_rule = (
+    suspension_preserves_equality_inference_rule()
+  )
+
+  functoriality_rule = (
+    suspension_composition_functoriality_inference_rule()
+  )
+
+  suspension_match = find_inference_match(
+    suspension_rule,
+    (
+      composition_equality_step,
+    ),
+  )
+
+  assert suspension_match is not None
+
+  suspended_equality_step = (
+    apply_inference_match(
+      suspension_match
+    )
+  )
+
+  functoriality_match = find_inference_match(
+    functoriality_rule,
+    (
+      composition_equality_step,
+    ),
+  )
+
+  assert functoriality_match is not None
+
+  functoriality_step = (
+    apply_inference_match(
+      functoriality_match
+    )
+  )
+
+  suspended_composition = Suspension(
+    expression=composition,
+  )
+
+  suspended_result = Suspension(
+    expression=result_expression,
+  )
+
+  componentwise_suspended_composition = (
+    Composition(
+      left=Suspension(
+        expression=nu(4),
+      ),
+      right=Suspension(
+        expression=eta(3),
+      ),
+    )
+  )
+
+  assert suspended_equality_step.conclusion == (
+    Relation(
+      lhs=suspended_composition,
+      rhs=suspended_result,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  assert functoriality_step.conclusion == (
+    Relation(
+      lhs=suspended_composition,
+      rhs=componentwise_suspended_composition,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  symmetry_rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  transitivity_rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        symmetry_rule,
+        transitivity_rule,
+      ),
+      (
+        suspended_equality_step,
+        functoriality_step,
+      ),
+    )
+  )
+
+  expected_relation = Relation(
+    lhs=componentwise_suspended_composition,
+    rhs=suspended_result,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 2
+
+  assert expected_relation in conclusions
+
+  expected_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == expected_relation
+  )
+
+  assert expected_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert expected_step.inference_rule == (
+    transitivity_rule
+  )
+
+  assert any(
+    premise.conclusion
+    == Relation(
+      lhs=componentwise_suspended_composition,
+      rhs=suspended_composition,
+      relation_type=RelationType.EQUALITY,
+    )
+    for premise in expected_step.premises
+  )
+
+  assert any(
+    premise.conclusion
+    == Relation(
+      lhs=suspended_composition,
+      rhs=suspended_result,
+      relation_type=RelationType.EQUALITY,
+    )
+    for premise in expected_step.premises
+  )
 
 
 def test_suspension_preserves_equality_rejects_non_equality_relation():

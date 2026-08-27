@@ -5,26 +5,32 @@ from proof import (
   ImageStatement,
   InferenceRule,
   KernelStatement,
+  LiteratureReference,
   Proof,
   ProofRule,
   ProofStep,
   Relation,
   RelationType,
   cokernel_proof_step,
-  exactness_proof_step,
-  image_proof_step,
-  kernel_proof_step,
-  order_relation,
-  relation_proof_step,
   ehp_exactness_proof,
   ehp_exactness_proof_step,
   ehp_hopf_target_proof,
   ehp_sphere_proof,
+  exactness_proof_step,
+  image_proof_step,
+  kernel_proof_step,
+  order_relation,
   relation_inference_proof,
   relation_inference_proof_step,
-  LiteratureReference,
+  relation_proof_step,
 )
-from expression import Multiple, Zero, eta
+from expression import (
+  Composition,
+  Multiple,
+  Zero,
+  eta,
+  nu,
+)
 from algebra import (
   ExactSequenceStep,
   GroupMap,
@@ -102,6 +108,101 @@ def test_relation_with_expression():
 
   assert relation.lhs == Multiple(2, eta(3))
   assert relation.rhs == Zero()
+
+
+def test_composition_equality_relation_representation():
+  composition = Composition(
+    left=nu(4),
+    right=eta(3),
+  )
+
+  relation = Relation(
+    lhs=composition,
+    rhs=eta(4),
+    relation_type=RelationType.EQUALITY,
+    source="Toda",
+    note="known composition equality",
+  )
+
+  assert relation.lhs == Composition(
+    left=nu(4),
+    right=eta(3),
+  )
+
+  assert relation.rhs == eta(4)
+
+  assert (
+    relation.relation_type
+    == RelationType.EQUALITY
+  )
+
+  assert relation.source == "Toda"
+
+  assert (
+    relation.note
+    == "known composition equality"
+  )
+
+
+def test_known_composition_equality_is_relation_fact():
+  reference = LiteratureReference(
+    label="Toda",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+    locator="known composition relation",
+  )
+
+  relation = Relation(
+    lhs=Composition(
+      left=nu(4),
+      right=eta(3),
+    ),
+    rhs=eta(4),
+    relation_type=RelationType.EQUALITY,
+    source=reference,
+    note="known composition equality",
+  )
+
+  step = relation_proof_step(
+    relation
+  )
+
+  assert step.conclusion == relation
+  assert step.premises == ()
+  assert step.rule == ProofRule.RELATION
+  assert step.inference_rule is None
+
+  assert (
+    step.conclusion.lhs
+    == Composition(
+      left=nu(4),
+      right=eta(3),
+    )
+  )
+
+  assert (
+    step.conclusion.rhs
+    == eta(4)
+  )
+
+  assert (
+    step.conclusion.relation_type
+    == RelationType.EQUALITY
+  )
+
+  assert (
+    step.conclusion.source
+    == reference
+  )
+
+  assert (
+    step.conclusion.note
+    == "known composition equality"
+  )
 
 
 def test_order_relation_represents_exact_element_order():

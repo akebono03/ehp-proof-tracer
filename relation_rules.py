@@ -121,6 +121,54 @@ def zero_equality_implies_zero_inference_rule():
   )
 
 
+def composition_equality_to_zero_inference_rule():
+  composition = PatternVariable(
+    name="composition",
+  )
+
+  def guard(
+    premises,
+    bindings,
+  ):
+    bound_composition = (
+      lookup_variable_binding(
+        composition,
+        bindings,
+      )
+    )
+
+    return isinstance(
+      bound_composition,
+      Composition,
+    )
+
+  return InferenceRule(
+    name="composition equality to zero",
+    description=(
+      "If a composition is equal to zero, "
+      "the composition is a generic zero "
+      "relation."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.EQUALITY,
+        relation_pattern=Relation(
+          lhs=composition,
+          rhs=Zero(),
+          relation_type=RelationType.EQUALITY,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=composition,
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    ),
+    match_guard=guard,
+  )
+
+
 def zero_composition_equality_implies_zero_inference_rule():
   zero_expression = PatternVariable(
     name="zero_expression",
@@ -286,6 +334,81 @@ def suspension_preserves_equality_inference_rule():
       ),
       relation_type=RelationType.EQUALITY,
     ),
+  )
+
+
+def suspension_composition_functoriality_inference_rule():
+  composition_expression = PatternVariable(
+    name="composition_expression",
+  )
+
+  result_expression = PatternVariable(
+    name="result_expression",
+  )
+
+  def guard(
+    premises,
+    bindings,
+  ):
+    bound_composition = (
+      lookup_variable_binding(
+        composition_expression,
+        bindings,
+      )
+    )
+
+    return isinstance(
+      bound_composition,
+      Composition,
+    )
+
+  def conclusion_builder(
+    premises,
+  ):
+    premise_relation = (
+      premises[0].conclusion
+    )
+
+    composition = premise_relation.lhs
+
+    return Relation(
+      lhs=Suspension(
+        expression=composition,
+      ),
+      rhs=Composition(
+        left=Suspension(
+          expression=composition.left,
+        ),
+        right=Suspension(
+          expression=composition.right,
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "suspension composition "
+      "functoriality"
+    ),
+    description=(
+      "The suspension of a composition "
+      "is equal to the composition of "
+      "the suspended expressions."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.EQUALITY,
+        relation_pattern=Relation(
+          lhs=composition_expression,
+          rhs=result_expression,
+          relation_type=RelationType.EQUALITY,
+        ),
+      ),
+    ),
+    conclusion_builder=conclusion_builder,
+    match_guard=guard,
   )
 
 
