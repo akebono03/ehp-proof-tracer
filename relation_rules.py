@@ -1,6 +1,7 @@
 from expression import (
   Composition,
   Multiple,
+  Suspension,
   Zero,
 )
 from proof import (
@@ -246,6 +247,140 @@ def zero_composition_reverse_equality_implies_zero_inference_rule():
       rhs=Zero(),
       relation_type=RelationType.ZERO,
     ),
+    match_guard=guard,
+  )
+
+
+def suspension_preserves_equality_inference_rule():
+  left_expression = PatternVariable(
+    name="left_expression",
+  )
+
+  right_expression = PatternVariable(
+    name="right_expression",
+  )
+
+  return InferenceRule(
+    name="suspension preserves equality",
+    description=(
+      "If two expressions are equal, "
+      "their suspensions are also equal."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.EQUALITY,
+        relation_pattern=Relation(
+          lhs=left_expression,
+          rhs=right_expression,
+          relation_type=RelationType.EQUALITY,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=Suspension(
+        expression=left_expression,
+      ),
+      rhs=Suspension(
+        expression=right_expression,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+  )
+
+
+def suspension_preserves_zero_inference_rule():
+  expression = PatternVariable(
+    name="expression",
+  )
+
+  return InferenceRule(
+    name="suspension preserves zero",
+    description=(
+      "If an expression is zero, "
+      "its suspension is also zero."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.ZERO,
+        relation_pattern=Relation(
+          lhs=expression,
+          rhs=Zero(),
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=Suspension(
+        expression=expression,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+
+def suspension_preserves_zero_multiple_inference_rule():
+  multiple_expression = PatternVariable(
+    name="multiple_expression",
+  )
+
+  def guard(
+    premises,
+    bindings,
+  ):
+    bound_multiple_expression = (
+      lookup_variable_binding(
+        multiple_expression,
+        bindings,
+      )
+    )
+
+    return isinstance(
+      bound_multiple_expression,
+      Multiple,
+    )
+
+  def conclusion_builder(
+    premises,
+  ):
+    premise_relation = (
+      premises[0].conclusion
+    )
+
+    multiple = premise_relation.lhs
+
+    return Relation(
+      lhs=Multiple(
+        coefficient=multiple.coefficient,
+        expression=Suspension(
+          expression=multiple.expression,
+        ),
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name="suspension preserves zero multiple",
+    description=(
+      "If a multiple of an expression "
+      "is zero, the same multiple of "
+      "its suspension is also zero."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.ZERO,
+        relation_pattern=Relation(
+          lhs=multiple_expression,
+          rhs=Zero(),
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+    ),
+    conclusion_builder=conclusion_builder,
     match_guard=guard,
   )
 

@@ -18,12 +18,17 @@ from proof import (
   find_inference_match,
   order_relation,
   relation_proof_step,
+  run_inference_round,
   run_inference_until_stable_with_history,
 )
 from relation_rules import (
+  Suspension,
   equality_symmetry_inference_rule,
   equality_transitivity_inference_rule,
   order_implies_zero_multiple_inference_rule,
+  suspension_preserves_equality_inference_rule,
+  suspension_preserves_zero_inference_rule,
+  suspension_preserves_zero_multiple_inference_rule,
   zero_composition_equality_implies_zero_inference_rule,
   zero_composition_reverse_equality_implies_zero_inference_rule,
   zero_equality_implies_zero_inference_rule,
@@ -582,6 +587,82 @@ def test_zero_composition_reverse_equality_rule_rejects_noncomposition_zero_rela
     (
       zero_step,
       equality_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_suspension_preserves_equality():
+  rule = (
+    suspension_preserves_equality_inference_rule()
+  )
+
+  premise_relation = Relation(
+    lhs=eta(3),
+    rhs=nu(4),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  premise_step = ProofStep(
+    conclusion=premise_relation,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      premise_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match,
+  )
+
+  assert derived_step.conclusion == Relation(
+    lhs=Suspension(
+      eta(3),
+    ),
+    rhs=Suspension(
+      nu(4),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert derived_step.premises == (
+    premise_step,
+  )
+
+  assert derived_step.inference_rule is rule
+
+  assert derived_step.rule == ProofRule.INFERENCE
+
+
+def test_suspension_preserves_equality_rejects_non_equality_relation():
+  rule = (
+    suspension_preserves_equality_inference_rule()
+  )
+
+  premise_relation = Relation(
+    lhs=eta(3),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  premise_step = ProofStep(
+    conclusion=premise_relation,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      premise_step,
     ),
   )
 
@@ -1292,6 +1373,615 @@ def test_equality_closure_propagates_zero_over_multiple_rounds():
   assert expected_zero_relation in (
     final_conclusions
   )
+
+
+def test_suspension_preserves_zero():
+  rule = (
+    suspension_preserves_zero_inference_rule()
+  )
+
+  premise_relation = Relation(
+    lhs=eta(3),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  premise_step = ProofStep(
+    conclusion=premise_relation,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      premise_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match,
+  )
+
+  assert derived_step.conclusion == Relation(
+    lhs=Suspension(
+      eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert derived_step.premises == (
+    premise_step,
+  )
+
+  assert derived_step.inference_rule is rule
+
+  assert derived_step.rule == ProofRule.INFERENCE
+
+
+def test_suspension_preserves_zero_rejects_non_zero_relation():
+  rule = (
+    suspension_preserves_zero_inference_rule()
+  )
+
+  premise_relation = Relation(
+    lhs=eta(3),
+    rhs=nu(4),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  premise_step = ProofStep(
+    conclusion=premise_relation,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      premise_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_suspension_preserves_zero_multiple():
+  rule = (
+    suspension_preserves_zero_multiple_inference_rule()
+  )
+
+  premise_relation = Relation(
+    lhs=Multiple(
+      coefficient=2,
+      expression=eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  premise_step = ProofStep(
+    conclusion=premise_relation,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      premise_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match,
+  )
+
+  assert derived_step.conclusion == Relation(
+    lhs=Multiple(
+      coefficient=2,
+      expression=Suspension(
+        expression=eta(3),
+      ),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert derived_step.premises == (
+    premise_step,
+  )
+
+  assert derived_step.inference_rule is rule
+
+  assert derived_step.rule == ProofRule.INFERENCE
+
+
+def test_suspension_preserves_zero_multiple_rejects_non_multiple_zero_relation():
+  rule = (
+    suspension_preserves_zero_multiple_inference_rule()
+  )
+
+  premise_relation = Relation(
+    lhs=eta(3),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  premise_step = ProofStep(
+    conclusion=premise_relation,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      premise_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_order_derived_zero_multiple_suspends_over_two_rounds():
+  element = eta(3)
+
+  order_step = ProofStep(
+    conclusion=order_relation(
+      element,
+      2,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  order_rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  suspension_rule = (
+    suspension_preserves_zero_multiple_inference_rule()
+  )
+
+  first_round_steps = run_inference_round(
+    (
+      order_rule,
+      suspension_rule,
+    ),
+    (
+      order_step,
+    ),
+  )
+
+  order_zero_relation = Relation(
+    lhs=Multiple(
+      coefficient=2,
+      expression=element,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  order_zero_step = next(
+    step
+    for step in first_round_steps
+    if step.conclusion == order_zero_relation
+  )
+
+  assert order_zero_step.premises == (
+    order_step,
+  )
+
+  assert order_zero_step.inference_rule is order_rule
+
+  assert order_zero_step.rule == ProofRule.INFERENCE
+
+  second_round_steps = run_inference_round(
+    (
+      order_rule,
+      suspension_rule,
+    ),
+    first_round_steps,
+  )
+
+  suspended_zero_relation = Relation(
+    lhs=Multiple(
+      coefficient=2,
+      expression=Suspension(
+        expression=element,
+      ),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  suspended_zero_step = next(
+    step
+    for step in second_round_steps
+    if step.conclusion == suspended_zero_relation
+  )
+
+  assert suspended_zero_step.premises == (
+    order_zero_step,
+  )
+
+  assert (
+    suspended_zero_step.inference_rule
+    is suspension_rule
+  )
+
+  assert (
+    suspended_zero_step.rule
+    == ProofRule.INFERENCE
+  )
+
+
+def test_suspension_derived_equality_reconnects_to_generic_zero_propagation():
+  left_expression = eta(3)
+  right_expression = nu(4)
+
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=left_expression,
+      rhs=right_expression,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  zero_step = relation_proof_step(
+    Relation(
+      lhs=right_expression,
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  suspension_equality_rule = (
+    suspension_preserves_equality_inference_rule()
+  )
+
+  suspension_zero_rule = (
+    suspension_preserves_zero_inference_rule()
+  )
+
+  zero_propagation_rule = (
+    zero_equality_implies_zero_inference_rule()
+  )
+
+  first_round_steps = run_inference_round(
+    (
+      suspension_equality_rule,
+      suspension_zero_rule,
+    ),
+    (
+      equality_step,
+      zero_step,
+    ),
+  )
+
+  suspended_equality_relation = Relation(
+    lhs=Suspension(
+      expression=left_expression,
+    ),
+    rhs=Suspension(
+      expression=right_expression,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  suspended_zero_relation = Relation(
+    lhs=Suspension(
+      expression=right_expression,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  suspended_equality_step = next(
+    step
+    for step in first_round_steps
+    if step.conclusion
+    == suspended_equality_relation
+  )
+
+  suspended_zero_step = next(
+    step
+    for step in first_round_steps
+    if step.conclusion
+    == suspended_zero_relation
+  )
+
+  assert suspended_equality_step.premises == (
+    equality_step,
+  )
+
+  assert (
+    suspended_equality_step.inference_rule
+    is suspension_equality_rule
+  )
+
+  assert suspended_equality_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert suspended_zero_step.premises == (
+    zero_step,
+  )
+
+  assert (
+    suspended_zero_step.inference_rule
+    is suspension_zero_rule
+  )
+
+  assert suspended_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  second_round_steps = run_inference_round(
+    zero_propagation_rule,
+    first_round_steps,
+  )
+
+  propagated_zero_relation = Relation(
+    lhs=Suspension(
+      expression=left_expression,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  propagated_zero_step = next(
+    step
+    for step in second_round_steps
+    if step.conclusion
+    == propagated_zero_relation
+  )
+
+  assert propagated_zero_step.premises == (
+    suspended_zero_step,
+    suspended_equality_step,
+  )
+
+  assert (
+    propagated_zero_step.inference_rule
+    is zero_propagation_rule
+  )
+
+  assert propagated_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+
+def test_suspension_preservation_rules_require_bounded_fixed_point_scope():
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=eta(3),
+      rhs=nu(4),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  zero_step = relation_proof_step(
+    Relation(
+      lhs=eta(3),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  zero_multiple_step = relation_proof_step(
+    Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=eta(3),
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  equality_rule = (
+    suspension_preserves_equality_inference_rule()
+  )
+
+  zero_rule = (
+    suspension_preserves_zero_inference_rule()
+  )
+
+  zero_multiple_rule = (
+    suspension_preserves_zero_multiple_inference_rule()
+  )
+
+  equality_result = (
+    run_inference_until_stable_with_history(
+      equality_rule,
+      (
+        equality_step,
+      ),
+      max_rounds=2,
+    )
+  )
+
+  zero_result = (
+    run_inference_until_stable_with_history(
+      zero_rule,
+      (
+        zero_step,
+      ),
+      max_rounds=2,
+    )
+  )
+
+  zero_multiple_result = (
+    run_inference_until_stable_with_history(
+      zero_multiple_rule,
+      (
+        zero_multiple_step,
+      ),
+      max_rounds=2,
+    )
+  )
+
+  assert equality_result.termination_reason == (
+    InferenceTerminationReason.MAX_ROUNDS
+  )
+
+  assert zero_result.termination_reason == (
+    InferenceTerminationReason.MAX_ROUNDS
+  )
+
+  assert zero_multiple_result.termination_reason == (
+    InferenceTerminationReason.MAX_ROUNDS
+  )
+
+  assert equality_result.round_count == 2
+  assert zero_result.round_count == 2
+  assert zero_multiple_result.round_count == 2
+
+  twice_suspended_equality = Relation(
+    lhs=Suspension(
+      expression=Suspension(
+        expression=eta(3),
+      ),
+    ),
+    rhs=Suspension(
+      expression=Suspension(
+        expression=nu(4),
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  twice_suspended_zero = Relation(
+    lhs=Suspension(
+      expression=Suspension(
+        expression=eta(3),
+      ),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  twice_suspended_zero_multiple = Relation(
+    lhs=Multiple(
+      coefficient=2,
+      expression=Suspension(
+        expression=Suspension(
+          expression=eta(3),
+        ),
+      ),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert twice_suspended_equality in tuple(
+    step.conclusion
+    for step in equality_result.steps
+  )
+
+  assert twice_suspended_zero in tuple(
+    step.conclusion
+    for step in zero_result.steps
+  )
+
+  assert twice_suspended_zero_multiple in tuple(
+    step.conclusion
+    for step in zero_multiple_result.steps
+  )
+
+
+def test_suspension_reasoning_scope_is_controlled_by_active_rule_set():
+  expression = eta(3)
+
+  zero_step = relation_proof_step(
+    Relation(
+      lhs=expression,
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  suspension_rule = (
+    suspension_preserves_zero_inference_rule()
+  )
+
+  first_round_steps = run_inference_round(
+    suspension_rule,
+    (
+      zero_step,
+    ),
+  )
+
+  suspended_zero_relation = Relation(
+    lhs=Suspension(
+      expression=expression,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  twice_suspended_zero_relation = Relation(
+    lhs=Suspension(
+      expression=Suspension(
+        expression=expression,
+      ),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  suspended_zero_step = next(
+    step
+    for step in first_round_steps
+    if step.conclusion
+    == suspended_zero_relation
+  )
+
+  assert suspended_zero_step.premises == (
+    zero_step,
+  )
+
+  assert suspended_zero_step.inference_rule is (
+    suspension_rule
+  )
+
+  assert suspended_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in first_round_steps
+  )
+
+  assert suspended_zero_relation in conclusions
+
+  assert twice_suspended_zero_relation not in (
+    conclusions
+  )
+
+  next_suspension_round = run_inference_round(
+    suspension_rule,
+    first_round_steps,
+  )
+
+  next_conclusions = tuple(
+    step.conclusion
+    for step in next_suspension_round
+  )
+
+  assert twice_suspended_zero_relation in (
+    next_conclusions
+  )
+
+
 
 
 
