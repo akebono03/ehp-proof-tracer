@@ -842,6 +842,64 @@ def test_suspension_preserves_equality():
   assert derived_step.rule == ProofRule.INFERENCE
 
 
+def test_suspension_preserves_composition_equality():
+  composition = Composition(
+    left=nu(4),
+    right=eta(3),
+  )
+
+  target_expression = eta(4)
+
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=composition,
+      rhs=target_expression,
+      relation_type=RelationType.EQUALITY,
+      source="Toda",
+      note="known composition equality",
+    )
+  )
+
+  rule = (
+    suspension_preserves_equality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    Relation(
+      lhs=Suspension(
+        expression=composition,
+      ),
+      rhs=Suspension(
+        expression=target_expression,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    equality_step,
+  )
+
+
 def test_suspension_preserves_equality_rejects_non_equality_relation():
   rule = (
     suspension_preserves_equality_inference_rule()
