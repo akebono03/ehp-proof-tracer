@@ -1199,6 +1199,259 @@ def test_ehp_exactness_reaches_suspended_hopf_zero():
   )
 
 
+def test_phase11_representative_hopf_and_ehp_scenario_reaches_fixed_point():
+  alpha = nu(4)
+  delta = eta(7)
+  gamma = eta(8)
+
+  beta = Suspension(
+    expression=delta,
+  )
+
+  hopf_step = hopf_invariant_proof_step(
+    HopfInvariantStatement(
+      expression=alpha,
+      value=beta,
+      source=LiteratureReference(
+        label="Phase 11 representative",
+        author="Toda",
+        title="Composition methods",
+        year=1962,
+        locator="representative Hopf fact",
+      ),
+    )
+  )
+
+  gamma_step = ProofStep(
+    conclusion=gamma,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  composition = Composition(
+    left=delta,
+    right=gamma,
+  )
+
+  zero_composition_fact = (
+    relation_proof_step(
+      Relation(
+        lhs=composition,
+        rhs=Zero(),
+        relation_type=RelationType.EQUALITY,
+        source="Toda",
+        note=(
+          "known zero composition "
+          "for Phase 11 representative "
+          "scenario"
+        ),
+      )
+    )
+  )
+
+  e_map = type(
+    "EMap",
+    (),
+    {
+      "name": "E",
+    },
+  )()
+
+  h_map = type(
+    "HMap",
+    (),
+    {
+      "name": "H",
+    },
+  )()
+
+  exactness_step = ProofStep(
+    conclusion=ExactnessStatement(
+      first_map=e_map,
+      second_map=h_map,
+      is_exact=True,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_round_steps = run_inference_round(
+    (
+      hopf_composition_law_inference_rule(),
+      composition_equality_to_zero_inference_rule(),
+      suspension_composition_functoriality_inference_rule(),
+      ehp_exactness_implies_zero_composition_inference_rule(),
+    ),
+    (
+      hopf_step,
+      gamma_step,
+      zero_composition_fact,
+      exactness_step,
+    ),
+  )
+
+  hopf_law = HopfCompositionLawStatement(
+    alpha=alpha,
+    beta=beta,
+  )
+
+  composition_zero = Relation(
+    lhs=composition,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  functoriality_equality = Relation(
+    lhs=Suspension(
+      expression=composition,
+    ),
+    rhs=Composition(
+      left=Suspension(
+        expression=delta,
+      ),
+      right=Suspension(
+        expression=gamma,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  ehp_zero_composition = (
+    EHPZeroCompositionStatement(
+      first_map=e_map,
+      second_map=h_map,
+    )
+  )
+
+  first_round_conclusions = tuple(
+    step.conclusion
+    for step in first_round_steps
+  )
+
+  assert hopf_law in first_round_conclusions
+  assert composition_zero in first_round_conclusions
+  assert (
+    functoriality_equality
+    in first_round_conclusions
+  )
+  assert (
+    ehp_zero_composition
+    in first_round_conclusions
+  )
+
+  second_round_steps = run_inference_round(
+    (
+      hopf_composition_formula_inference_rule(),
+      suspension_preserves_zero_inference_rule(),
+      equality_symmetry_inference_rule(),
+      ehp_zero_composition_implies_suspended_hopf_zero_inference_rule(),
+    ),
+    first_round_steps,
+  )
+
+  hopf_value = Composition(
+    left=Suspension(
+      expression=delta,
+    ),
+    right=Suspension(
+      expression=gamma,
+    ),
+  )
+
+  hopf_formula = HopfInvariantStatement(
+    expression=Composition(
+      left=alpha,
+      right=Suspension(
+        expression=gamma,
+      ),
+    ),
+    value=hopf_value,
+  )
+
+  suspended_composition_zero = Relation(
+    lhs=Suspension(
+      expression=composition,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  reversed_functoriality = Relation(
+    lhs=hopf_value,
+    rhs=Suspension(
+      expression=composition,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  ehp_hopf_zero = HopfInvariantStatement(
+    expression=Suspension(
+      expression=gamma,
+    ),
+    value=Zero(),
+  )
+
+  second_round_conclusions = tuple(
+    step.conclusion
+    for step in second_round_steps
+  )
+
+  assert hopf_formula in second_round_conclusions
+  assert (
+    suspended_composition_zero
+    in second_round_conclusions
+  )
+  assert (
+    reversed_functoriality
+    in second_round_conclusions
+  )
+  assert ehp_hopf_zero in second_round_conclusions
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        zero_equality_implies_zero_inference_rule(),
+        hopf_invariant_value_zero_inference_rule(),
+      ),
+      second_round_steps,
+    )
+  )
+
+  hopf_value_zero = Relation(
+    lhs=hopf_value,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  composition_hopf_zero = (
+    HopfInvariantStatement(
+      expression=Composition(
+        left=alpha,
+        right=Suspension(
+          expression=gamma,
+        ),
+      ),
+      value=Zero(),
+    )
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 2
+
+  assert hopf_value_zero in conclusions
+  assert composition_hopf_zero in conclusions
+  assert ehp_hopf_zero in conclusions
+
+
+
 
 
 
