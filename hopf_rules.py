@@ -1,5 +1,8 @@
 from dataclasses import dataclass
 
+from ehp_rules import (
+  EHPZeroCompositionStatement,
+)
 from expression import (
   Composition,
   Expression,
@@ -205,6 +208,72 @@ def hopf_invariant_value_zero_inference_rule():
     ),
     match_guard=guard,
   )
+
+
+def ehp_zero_composition_implies_suspended_hopf_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    ehp_statement = (
+      premises[0].conclusion
+    )
+
+    return (
+      getattr(
+        ehp_statement.first_map,
+        "name",
+        None,
+      )
+      == "E"
+      and getattr(
+        ehp_statement.second_map,
+        "name",
+        None,
+      )
+      == "H"
+    )
+
+  def conclusion_builder(
+    premises,
+  ):
+    expression = (
+      premises[1].conclusion
+    )
+
+    return HopfInvariantStatement(
+      expression=Suspension(
+        expression=expression,
+      ),
+      value=Zero(),
+    )
+
+  return InferenceRule(
+    name=(
+      "EHP E-H zero composition "
+      "implies suspended Hopf zero"
+    ),
+    description=(
+      "For the EHP map pair E followed "
+      "by H, the zero composition H o E "
+      "implies H(E alpha)=0."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          EHPZeroCompositionStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=Expression,
+      ),
+    ),
+    conclusion_builder=(
+      conclusion_builder
+    ),
+    match_guard=guard,
+  )
+
 
 
 

@@ -1,5 +1,9 @@
 import pytest
 
+from ehp_rules import (
+  EHPZeroCompositionStatement,
+  ehp_exactness_implies_zero_composition_inference_rule,
+)
 from expression import (
   Composition,
   Multiple,
@@ -11,12 +15,14 @@ from expression import (
 from hopf_rules import (
   HopfCompositionLawStatement,
   HopfInvariantStatement,
+  ehp_zero_composition_implies_suspended_hopf_zero_inference_rule,
   hopf_composition_formula_inference_rule,
   hopf_composition_law_inference_rule,
   hopf_invariant_proof_step,
   hopf_invariant_value_zero_inference_rule,
 )
 from proof import (
+  ExactnessStatement,
   InferenceTerminationReason,
   LiteratureReference,
   ProofRule,
@@ -955,6 +961,243 @@ def test_hopf_reasoning_connects_to_suspension_composition_functoriality():
     final_hopf_zero_step.rule
     == ProofRule.INFERENCE
   )
+
+
+def test_ehp_eh_zero_composition_implies_suspended_hopf_zero():
+  e_map = type(
+    "EMap",
+    (),
+    {
+      "name": "E",
+    },
+  )()
+
+  h_map = type(
+    "HMap",
+    (),
+    {
+      "name": "H",
+    },
+  )()
+
+  ehp_step = ProofStep(
+    conclusion=EHPZeroCompositionStatement(
+      first_map=e_map,
+      second_map=h_map,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  alpha = eta(7)
+
+  alpha_step = ProofStep(
+    conclusion=alpha,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    ehp_zero_composition_implies_suspended_hopf_zero_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      ehp_step,
+      alpha_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == (
+    HopfInvariantStatement(
+      expression=Suspension(
+        expression=alpha,
+      ),
+      value=Zero(),
+    )
+  )
+
+  assert step.premises == (
+    ehp_step,
+    alpha_step,
+  )
+
+  assert step.rule == ProofRule.INFERENCE
+  assert step.inference_rule == rule
+
+
+def test_ehp_h_p_zero_composition_does_not_imply_suspended_hopf_zero():
+  h_map = type(
+    "HMap",
+    (),
+    {
+      "name": "H",
+    },
+  )()
+
+  p_map = type(
+    "PMap",
+    (),
+    {
+      "name": "P",
+    },
+  )()
+
+  ehp_step = ProofStep(
+    conclusion=EHPZeroCompositionStatement(
+      first_map=h_map,
+      second_map=p_map,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  alpha_step = ProofStep(
+    conclusion=eta(7),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    ehp_zero_composition_implies_suspended_hopf_zero_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      ehp_step,
+      alpha_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_ehp_exactness_reaches_suspended_hopf_zero():
+  e_map = type(
+    "EMap",
+    (),
+    {
+      "name": "E",
+    },
+  )()
+
+  h_map = type(
+    "HMap",
+    (),
+    {
+      "name": "H",
+    },
+  )()
+
+  exactness_step = ProofStep(
+    conclusion=ExactnessStatement(
+      first_map=e_map,
+      second_map=h_map,
+      is_exact=True,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  alpha = eta(7)
+
+  alpha_step = ProofStep(
+    conclusion=alpha,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  zero_composition_rule = (
+    ehp_exactness_implies_zero_composition_inference_rule()
+  )
+
+  first_round_steps = run_inference_round(
+    zero_composition_rule,
+    (
+      exactness_step,
+      alpha_step,
+    ),
+  )
+
+  ehp_zero_composition = (
+    EHPZeroCompositionStatement(
+      first_map=e_map,
+      second_map=h_map,
+    )
+  )
+
+  assert ehp_zero_composition in tuple(
+    step.conclusion
+    for step in first_round_steps
+  )
+
+  hopf_zero_rule = (
+    ehp_zero_composition_implies_suspended_hopf_zero_inference_rule()
+  )
+
+  second_round_steps = run_inference_round(
+    hopf_zero_rule,
+    first_round_steps,
+  )
+
+  hopf_zero = HopfInvariantStatement(
+    expression=Suspension(
+      expression=alpha,
+    ),
+    value=Zero(),
+  )
+
+  assert hopf_zero in tuple(
+    step.conclusion
+    for step in second_round_steps
+  )
+
+  ehp_zero_step = next(
+    step
+    for step in second_round_steps
+    if step.conclusion
+    == ehp_zero_composition
+  )
+
+  hopf_zero_step = next(
+    step
+    for step in second_round_steps
+    if step.conclusion
+    == hopf_zero
+  )
+
+  assert ehp_zero_step.premises == (
+    exactness_step,
+  )
+
+  assert (
+    ehp_zero_step.inference_rule
+    == zero_composition_rule
+  )
+
+  assert hopf_zero_step.premises == (
+    ehp_zero_step,
+    alpha_step,
+  )
+
+  assert (
+    hopf_zero_step.inference_rule
+    == hopf_zero_rule
+  )
+
+  assert (
+    hopf_zero_step.rule
+    == ProofRule.INFERENCE
+  )
+
 
 
 
