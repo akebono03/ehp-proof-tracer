@@ -1,9 +1,16 @@
+import pytest
+
 from expression import (
   eta,
   nu,
 )
 from hopf_rules import (
   HopfInvariantStatement,
+  hopf_invariant_proof_step,
+)
+from proof import (
+  LiteratureReference,
+  ProofRule,
 )
 
 
@@ -62,6 +69,96 @@ def test_hopf_invariant_statement_distinguishes_value():
 
   assert first != different_value
 
+
+def test_hopf_invariant_statement_preserves_provenance():
+  reference = LiteratureReference(
+    label="Toda",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+    locator="Hopf invariant fact",
+  )
+
+  statement = HopfInvariantStatement(
+    expression=eta(2),
+    value=1,
+    source=reference,
+    note="known Hopf invariant fact",
+  )
+
+  assert statement.source == reference
+  assert (
+    statement.note
+    == "known Hopf invariant fact"
+  )
+
+
+def test_hopf_invariant_proof_step():
+  statement = HopfInvariantStatement(
+    expression=eta(2),
+    value=1,
+  )
+
+  step = hopf_invariant_proof_step(
+    statement
+  )
+
+  assert step.conclusion == statement
+  assert step.premises == ()
+  assert step.rule == ProofRule.GIVEN
+  assert step.inference_rule is None
+
+
+def test_hopf_invariant_proof_step_preserves_provenance():
+  reference = LiteratureReference(
+    label="Toda",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+    locator="Hopf invariant fact",
+  )
+
+  statement = HopfInvariantStatement(
+    expression=eta(2),
+    value=1,
+    source=reference,
+    note="known Hopf invariant fact",
+  )
+
+  step = hopf_invariant_proof_step(
+    statement
+  )
+
+  assert step.conclusion == statement
+
+  assert (
+    step.conclusion.source
+    == reference
+  )
+
+  assert (
+    step.conclusion.note
+    == "known Hopf invariant fact"
+  )
+
+  assert step.premises == ()
+  assert step.rule == ProofRule.GIVEN
+  assert step.inference_rule is None
+
+
+def test_hopf_invariant_proof_step_rejects_non_hopf_statement():
+  with pytest.raises(
+    TypeError
+  ):
+    hopf_invariant_proof_step(
+      eta(2)
+    )
 
 
 
