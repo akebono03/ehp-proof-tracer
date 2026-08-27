@@ -14,11 +14,14 @@ from hopf_rules import (
   hopf_composition_formula_inference_rule,
   hopf_composition_law_inference_rule,
   hopf_invariant_proof_step,
+  hopf_invariant_value_zero_inference_rule,
 )
 from proof import (
   LiteratureReference,
   ProofRule,
   ProofStep,
+  Relation,
+  RelationType,
   apply_inference_match,
   find_inference_match,
 )
@@ -503,6 +506,146 @@ def test_hopf_composition_formula_rejects_missing_law_statement():
   )
 
   assert match is None
+
+
+def test_hopf_invariant_value_zero():
+  value = Composition(
+    left=eta(7),
+    right=Suspension(
+      expression=eta(8),
+    ),
+  )
+
+  hopf_step = ProofStep(
+    conclusion=HopfInvariantStatement(
+      expression=nu(4),
+      value=value,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  zero_step = ProofStep(
+    conclusion=Relation(
+      lhs=value,
+      rhs=Zero(),
+      relation_type=(
+        RelationType.ZERO
+      ),
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  rule = (
+    hopf_invariant_value_zero_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      hopf_step,
+      zero_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == (
+    HopfInvariantStatement(
+      expression=nu(4),
+      value=Zero(),
+    )
+  )
+
+  assert step.premises == (
+    hopf_step,
+    zero_step,
+  )
+
+  assert step.rule == ProofRule.INFERENCE
+  assert step.inference_rule == rule
+
+
+def test_hopf_invariant_value_zero_rejects_unrelated_zero():
+  value = Composition(
+    left=eta(7),
+    right=Suspension(
+      expression=eta(8),
+    ),
+  )
+
+  unrelated_value = Composition(
+    left=nu(7),
+    right=Suspension(
+      expression=eta(8),
+    ),
+  )
+
+  hopf_step = ProofStep(
+    conclusion=HopfInvariantStatement(
+      expression=nu(4),
+      value=value,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  zero_step = ProofStep(
+    conclusion=Relation(
+      lhs=unrelated_value,
+      rhs=Zero(),
+      relation_type=(
+        RelationType.ZERO
+      ),
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  rule = (
+    hopf_invariant_value_zero_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      hopf_step,
+      zero_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_hopf_invariant_zero_does_not_mean_expression_zero():
+  hopf_step = ProofStep(
+    conclusion=HopfInvariantStatement(
+      expression=nu(4),
+      value=Zero(),
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    hopf_invariant_value_zero_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    hopf_step,
+  )
+
+  assert match is None
+
+
+
+
 
 
 

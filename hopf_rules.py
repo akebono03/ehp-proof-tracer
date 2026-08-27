@@ -4,6 +4,7 @@ from expression import (
   Composition,
   Expression,
   Suspension,
+  Zero,
 )
 from proof import (
   InferenceRule,
@@ -11,6 +12,8 @@ from proof import (
   PremisePattern,
   ProofRule,
   ProofStep,
+  Relation,
+  RelationType,
 )
 
 
@@ -138,6 +141,75 @@ def hopf_composition_formula_inference_rule():
       conclusion_builder
     ),
   )
+
+
+def hopf_invariant_value_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    hopf_statement = (
+      premises[0].conclusion
+    )
+
+    zero_relation = (
+      premises[1].conclusion
+    )
+
+    return (
+      zero_relation.lhs
+      == hopf_statement.value
+      and zero_relation.rhs
+      == Zero()
+    )
+
+  def conclusion_builder(
+    premises,
+  ):
+    hopf_statement = (
+      premises[0].conclusion
+    )
+
+    return HopfInvariantStatement(
+      expression=(
+        hopf_statement.expression
+      ),
+      value=Zero(),
+      source=hopf_statement.source,
+      note=hopf_statement.note,
+    )
+
+  return InferenceRule(
+    name=(
+      "generalized Hopf invariant "
+      "value is zero"
+    ),
+    description=(
+      "If H(x)=y and y is known "
+      "to be zero, derive H(x)=0."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          HopfInvariantStatement
+        ),
+      ),
+      PremisePattern(
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+    ),
+    conclusion_builder=(
+      conclusion_builder
+    ),
+    match_guard=guard,
+  )
+
+
+
+
+
 
 
 
