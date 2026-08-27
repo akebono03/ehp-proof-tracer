@@ -1,4 +1,5 @@
 from pathlib import Path
+
 from ehp import EHPSegment
 from ehp_rules import (
   EHPZeroCompositionStatement,
@@ -11,18 +12,19 @@ from ehp_rules import (
 from expression import (
   Composition,
   Multiple,
+  Suspension,
   Zero,
   eta,
   nu,
   sigma,
 )
 from proof import (
-  ProofStep,
-  ImageStatement,
-  KernelStatement,
   ExactnessStatement,
+  ImageStatement,
   InferenceTerminationReason,
+  KernelStatement,
   ProofRule,
+  ProofStep,
   Relation,
   RelationType,
   apply_inference_match,
@@ -32,12 +34,14 @@ from proof import (
   kernel_proof_step,
   order_relation,
   relation_proof_step,
+  run_inference_round,
   run_inference_until_stable_with_history,
 )
 from relation_rules import (
   equality_symmetry_inference_rule,
   equality_transitivity_inference_rule,
   order_implies_zero_multiple_inference_rule,
+  suspension_preserves_zero_inference_rule,
   zero_composition_equality_implies_zero_inference_rule,
   zero_composition_reverse_equality_implies_zero_inference_rule,
   zero_equality_implies_zero_inference_rule,
@@ -2227,6 +2231,189 @@ def test_phase7_representative_end_to_end_scenario_reaches_fixed_point():
   )
 
   assert terminal_round.new_steps == ()
+
+
+def test_ehp_derived_zero_suspends_over_four_rounds():
+  segment = EHPSegment(
+    make_sphere_repository(),
+    n=3,
+    k=5,
+  )
+
+  exact_step = (
+    segment.exact_step_at_sphere()
+  )
+
+  image_step = image_proof_step(
+    exact_step.first_map
+  )
+
+  kernel_step = kernel_proof_step(
+    exact_step.second_map
+  )
+
+  composition = Composition(
+    left=exact_step.second_map,
+    right=exact_step.first_map,
+  )
+
+  exactness_rule = (
+    ehp_exactness_inference_rule()
+  )
+
+  zero_composition_rule = (
+    ehp_exactness_implies_zero_composition_inference_rule()
+  )
+
+  zero_relation_rule = (
+    ehp_zero_composition_implies_zero_relation_inference_rule()
+  )
+
+  suspension_rule = (
+    suspension_preserves_zero_inference_rule()
+  )
+
+  rules = (
+    exactness_rule,
+    zero_composition_rule,
+    zero_relation_rule,
+    suspension_rule,
+  )
+
+  first_round_steps = run_inference_round(
+    rules,
+    (
+      image_step,
+      kernel_step,
+    ),
+  )
+
+  exactness_relation = ExactnessStatement(
+    first_map=exact_step.first_map,
+    second_map=exact_step.second_map,
+    is_exact=True,
+  )
+
+  exactness_step = next(
+    step
+    for step in first_round_steps
+    if step.conclusion == exactness_relation
+  )
+
+  assert exactness_step.premises == (
+    image_step,
+    kernel_step,
+  )
+
+  assert (
+    exactness_step.inference_rule
+    is exactness_rule
+  )
+
+  assert (
+    exactness_step.rule
+    == ProofRule.INFERENCE
+  )
+
+  second_round_steps = run_inference_round(
+    rules,
+    first_round_steps,
+  )
+
+  zero_composition_statement = (
+    EHPZeroCompositionStatement(
+      first_map=exact_step.first_map,
+      second_map=exact_step.second_map,
+    )
+  )
+
+  zero_composition_step = next(
+    step
+    for step in second_round_steps
+    if step.conclusion
+    == zero_composition_statement
+  )
+
+  assert zero_composition_step.premises == (
+    exactness_step,
+  )
+
+  assert (
+    zero_composition_step.inference_rule
+    is zero_composition_rule
+  )
+
+  assert (
+    zero_composition_step.rule
+    == ProofRule.INFERENCE
+  )
+
+  third_round_steps = run_inference_round(
+    rules,
+    second_round_steps,
+  )
+
+  ehp_zero_relation = Relation(
+    lhs=composition,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  ehp_zero_step = next(
+    step
+    for step in third_round_steps
+    if step.conclusion == ehp_zero_relation
+  )
+
+  assert ehp_zero_step.premises == (
+    zero_composition_step,
+  )
+
+  assert (
+    ehp_zero_step.inference_rule
+    is zero_relation_rule
+  )
+
+  assert (
+    ehp_zero_step.rule
+    == ProofRule.INFERENCE
+  )
+
+  fourth_round_steps = run_inference_round(
+    rules,
+    third_round_steps,
+  )
+
+  suspended_zero_relation = Relation(
+    lhs=Suspension(
+      expression=composition,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  suspended_zero_step = next(
+    step
+    for step in fourth_round_steps
+    if step.conclusion
+    == suspended_zero_relation
+  )
+
+  assert suspended_zero_step.premises == (
+    ehp_zero_step,
+  )
+
+  assert (
+    suspended_zero_step.inference_rule
+    is suspension_rule
+  )
+
+  assert (
+    suspended_zero_step.rule
+    == ProofRule.INFERENCE
+  )
+
+
 
 
 
