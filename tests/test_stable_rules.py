@@ -1,16 +1,26 @@
+from expression import (
+  eta,
+  nu,
+)
 from proof import (
   ProofRule,
   ProofStep,
+  Relation,
+  RelationType,
   run_inference_round,
 )
 from stable_rules import (
   SuspensionEpimorphismStatement,
+  SuspensionInjectiveStatement,
   SuspensionIsomorphismStatement,
+  SuspensionMapEqualityStatement,
   SuspensionMapStatement,
   freudenthal_boundary_epimorphism_inference_rule,
   freudenthal_stable_isomorphism_inference_rule,
   is_freudenthal_boundary_range,
   is_freudenthal_stable_range,
+  suspension_injectivity_reflects_equality_inference_rule,
+  suspension_isomorphism_implies_injective_inference_rule,
 )
 
 
@@ -472,6 +482,303 @@ def test_freudenthal_suspension_epimorphism_preserves_provenance():
     derived_step.inference_rule
     == inference_rule
   )
+
+
+def test_suspension_isomorphism_implies_injective():
+  suspension_map = SuspensionMapStatement(
+    sphere_dimension=5,
+    stem=3,
+  )
+
+  isomorphism_step = ProofStep(
+    conclusion=(
+      SuspensionIsomorphismStatement(
+        suspension_map=suspension_map,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  inference_rule = (
+    suspension_isomorphism_implies_injective_inference_rule()
+  )
+
+  result = run_inference_round(
+    inference_rule,
+    isomorphism_step,
+  )
+
+  assert len(result) == 2
+
+  assert result[1].conclusion == (
+    SuspensionInjectiveStatement(
+      suspension_map=suspension_map,
+    )
+  )
+
+
+def test_suspension_injectivity_preserves_provenance():
+  suspension_map = SuspensionMapStatement(
+    sphere_dimension=5,
+    stem=3,
+  )
+
+  isomorphism_step = ProofStep(
+    conclusion=(
+      SuspensionIsomorphismStatement(
+        suspension_map=suspension_map,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  inference_rule = (
+    suspension_isomorphism_implies_injective_inference_rule()
+  )
+
+  result = run_inference_round(
+    inference_rule,
+    isomorphism_step,
+  )
+
+  injective_step = result[1]
+
+  assert injective_step.premises == (
+    isomorphism_step,
+  )
+
+  assert (
+    injective_step.rule
+    == ProofRule.INFERENCE
+  )
+
+  assert (
+    injective_step.inference_rule
+    == inference_rule
+  )
+
+
+def test_suspension_injectivity_reflects_equality():
+  suspension_map = SuspensionMapStatement(
+    sphere_dimension=5,
+    stem=3,
+  )
+
+  lhs = eta(5)
+  rhs = nu(5)
+
+  injective_step = ProofStep(
+    conclusion=(
+      SuspensionInjectiveStatement(
+        suspension_map=suspension_map,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  suspended_equality_step = ProofStep(
+    conclusion=(
+      SuspensionMapEqualityStatement(
+        suspension_map=suspension_map,
+        lhs=lhs,
+        rhs=rhs,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  inference_rule = (
+    suspension_injectivity_reflects_equality_inference_rule()
+  )
+
+  result = run_inference_round(
+    inference_rule,
+    (
+      injective_step,
+      suspended_equality_step,
+    ),
+  )
+
+  assert len(result) == 3
+
+  assert result[2].conclusion == Relation(
+    lhs=lhs,
+    rhs=rhs,
+    relation_type=RelationType.EQUALITY,
+  )
+
+
+def test_suspension_injectivity_does_not_reflect_equality_from_different_map():
+  injective_map = SuspensionMapStatement(
+    sphere_dimension=5,
+    stem=3,
+  )
+
+  equality_map = SuspensionMapStatement(
+    sphere_dimension=6,
+    stem=3,
+  )
+
+  lhs = eta(5)
+  rhs = nu(5)
+
+  injective_step = ProofStep(
+    conclusion=(
+      SuspensionInjectiveStatement(
+        suspension_map=injective_map,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  suspended_equality_step = ProofStep(
+    conclusion=(
+      SuspensionMapEqualityStatement(
+        suspension_map=equality_map,
+        lhs=lhs,
+        rhs=rhs,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  inference_rule = (
+    suspension_injectivity_reflects_equality_inference_rule()
+  )
+
+  result = run_inference_round(
+    inference_rule,
+    (
+      injective_step,
+      suspended_equality_step,
+    ),
+  )
+
+  assert result == (
+    injective_step,
+    suspended_equality_step,
+  )
+
+
+def test_suspension_equality_reflection_preserves_provenance():
+  suspension_map = SuspensionMapStatement(
+    sphere_dimension=5,
+    stem=3,
+  )
+
+  lhs = eta(5)
+  rhs = nu(5)
+
+  injective_step = ProofStep(
+    conclusion=(
+      SuspensionInjectiveStatement(
+        suspension_map=suspension_map,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  suspended_equality_step = ProofStep(
+    conclusion=(
+      SuspensionMapEqualityStatement(
+        suspension_map=suspension_map,
+        lhs=lhs,
+        rhs=rhs,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  inference_rule = (
+    suspension_injectivity_reflects_equality_inference_rule()
+  )
+
+  result = run_inference_round(
+    inference_rule,
+    (
+      injective_step,
+      suspended_equality_step,
+    ),
+  )
+
+  reflected_step = result[2]
+
+  assert reflected_step.conclusion == Relation(
+    lhs=lhs,
+    rhs=rhs,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert reflected_step.premises == (
+    injective_step,
+    suspended_equality_step,
+  )
+
+  assert (
+    reflected_step.rule
+    == ProofRule.INFERENCE
+  )
+
+  assert (
+    reflected_step.inference_rule
+    == inference_rule
+  )
+
+
+def test_freudenthal_isomorphism_reaches_injectivity_over_two_rounds():
+  suspension_map = SuspensionMapStatement(
+    sphere_dimension=5,
+    stem=3,
+  )
+
+  map_step = ProofStep(
+    conclusion=suspension_map,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  isomorphism_rule = (
+    freudenthal_stable_isomorphism_inference_rule()
+  )
+
+  injectivity_rule = (
+    suspension_isomorphism_implies_injective_inference_rule()
+  )
+
+  first_round = run_inference_round(
+    isomorphism_rule,
+    map_step,
+  )
+
+  assert first_round[1].conclusion == (
+    SuspensionIsomorphismStatement(
+      suspension_map=suspension_map,
+    )
+  )
+
+  second_round = run_inference_round(
+    injectivity_rule,
+    first_round,
+  )
+
+  assert second_round[2].conclusion == (
+    SuspensionInjectiveStatement(
+      suspension_map=suspension_map,
+    )
+  )
+
+  assert second_round[2].premises == (
+    first_round[1],
+  )
+
 
 
 
