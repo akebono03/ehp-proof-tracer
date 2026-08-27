@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 from expression import (
   Expression,
+  Zero,
 )
 from proof import (
   InferenceRule,
@@ -37,6 +38,12 @@ class SuspensionMapEqualityStatement:
   suspension_map: SuspensionMapStatement
   lhs: Expression
   rhs: Expression
+
+
+@dataclass(frozen=True)
+class SuspensionMapZeroStatement:
+  suspension_map: SuspensionMapStatement
+  expression: Expression
 
 
 def is_freudenthal_stable_range(
@@ -238,6 +245,68 @@ def suspension_injectivity_reflects_equality_inference_rule():
     ),
     match_guard=guard,
   )
+
+
+def suspension_injectivity_reflects_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    injective_statement = (
+      premises[0].conclusion
+    )
+
+    zero_statement = (
+      premises[1].conclusion
+    )
+
+    return (
+      injective_statement.suspension_map
+      == zero_statement.suspension_map
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    zero_statement = (
+      premises[1].conclusion
+    )
+
+    return Relation(
+      lhs=zero_statement.expression,
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name=(
+      "Suspension injectivity "
+      "reflects zero"
+    ),
+    description=(
+      "If an injective suspension map "
+      "sends an element to zero, then "
+      "the original element is zero."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          SuspensionInjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          SuspensionMapZeroStatement
+        ),
+      ),
+    ),
+    conclusion_builder=(
+      build_conclusion
+    ),
+    match_guard=guard,
+  )
+
+
 
 
 

@@ -1,4 +1,5 @@
 from expression import (
+  Zero,
   eta,
   nu,
 )
@@ -15,11 +16,13 @@ from stable_rules import (
   SuspensionIsomorphismStatement,
   SuspensionMapEqualityStatement,
   SuspensionMapStatement,
+  SuspensionMapZeroStatement,
   freudenthal_boundary_epimorphism_inference_rule,
   freudenthal_stable_isomorphism_inference_rule,
   is_freudenthal_boundary_range,
   is_freudenthal_stable_range,
   suspension_injectivity_reflects_equality_inference_rule,
+  suspension_injectivity_reflects_zero_inference_rule,
   suspension_isomorphism_implies_injective_inference_rule,
 )
 
@@ -720,6 +723,173 @@ def test_suspension_equality_reflection_preserves_provenance():
   assert reflected_step.premises == (
     injective_step,
     suspended_equality_step,
+  )
+
+  assert (
+    reflected_step.rule
+    == ProofRule.INFERENCE
+  )
+
+  assert (
+    reflected_step.inference_rule
+    == inference_rule
+  )
+
+
+def test_suspension_injectivity_reflects_zero():
+  suspension_map = SuspensionMapStatement(
+    sphere_dimension=5,
+    stem=3,
+  )
+
+  element = eta(5)
+
+  injective_step = ProofStep(
+    conclusion=(
+      SuspensionInjectiveStatement(
+        suspension_map=suspension_map,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  suspended_zero_step = ProofStep(
+    conclusion=(
+      SuspensionMapZeroStatement(
+        suspension_map=suspension_map,
+        expression=element,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  inference_rule = (
+    suspension_injectivity_reflects_zero_inference_rule()
+  )
+
+  result = run_inference_round(
+    inference_rule,
+    (
+      injective_step,
+      suspended_zero_step,
+    ),
+  )
+
+  assert len(result) == 3
+
+  assert result[2].conclusion == Relation(
+    lhs=element,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+
+def test_suspension_injectivity_does_not_reflect_zero_from_different_map():
+  injective_map = SuspensionMapStatement(
+    sphere_dimension=5,
+    stem=3,
+  )
+
+  zero_map = SuspensionMapStatement(
+    sphere_dimension=6,
+    stem=3,
+  )
+
+  element = eta(5)
+
+  injective_step = ProofStep(
+    conclusion=(
+      SuspensionInjectiveStatement(
+        suspension_map=injective_map,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  suspended_zero_step = ProofStep(
+    conclusion=(
+      SuspensionMapZeroStatement(
+        suspension_map=zero_map,
+        expression=element,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  inference_rule = (
+    suspension_injectivity_reflects_zero_inference_rule()
+  )
+
+  result = run_inference_round(
+    inference_rule,
+    (
+      injective_step,
+      suspended_zero_step,
+    ),
+  )
+
+  assert result == (
+    injective_step,
+    suspended_zero_step,
+  )
+
+
+def test_suspension_zero_reflection_preserves_provenance():
+  suspension_map = SuspensionMapStatement(
+    sphere_dimension=5,
+    stem=3,
+  )
+
+  element = eta(5)
+
+  injective_step = ProofStep(
+    conclusion=(
+      SuspensionInjectiveStatement(
+        suspension_map=suspension_map,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  suspended_zero_step = ProofStep(
+    conclusion=(
+      SuspensionMapZeroStatement(
+        suspension_map=suspension_map,
+        expression=element,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  inference_rule = (
+    suspension_injectivity_reflects_zero_inference_rule()
+  )
+
+  result = run_inference_round(
+    inference_rule,
+    (
+      injective_step,
+      suspended_zero_step,
+    ),
+  )
+
+  reflected_step = result[2]
+
+  assert reflected_step.conclusion == Relation(
+    lhs=element,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert reflected_step.premises == (
+    injective_step,
+    suspended_zero_step,
   )
 
   assert (
