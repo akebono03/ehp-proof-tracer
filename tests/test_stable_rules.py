@@ -4,11 +4,13 @@ from expression import (
   nu,
 )
 from proof import (
+  InferenceTerminationReason,
   ProofRule,
   ProofStep,
   Relation,
   RelationType,
   run_inference_round,
+  run_inference_until_stable_with_history,
 )
 from stable_rules import (
   SuspensionEpimorphismStatement,
@@ -948,6 +950,132 @@ def test_freudenthal_isomorphism_reaches_injectivity_over_two_rounds():
   assert second_round[2].premises == (
     first_round[1],
   )
+
+
+def test_freudenthal_stable_range_reaches_zero_reflection_over_fixed_point():
+  suspension_map = SuspensionMapStatement(
+    sphere_dimension=5,
+    stem=3,
+  )
+
+  element = eta(5)
+
+  map_step = ProofStep(
+    conclusion=suspension_map,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  suspended_zero_step = ProofStep(
+    conclusion=(
+      SuspensionMapZeroStatement(
+        suspension_map=suspension_map,
+        expression=element,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  isomorphism_rule = (
+    freudenthal_stable_isomorphism_inference_rule()
+  )
+
+  injectivity_rule = (
+    suspension_isomorphism_implies_injective_inference_rule()
+  )
+
+  zero_reflection_rule = (
+    suspension_injectivity_reflects_zero_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        isomorphism_rule,
+        injectivity_rule,
+        zero_reflection_rule,
+      ),
+      (
+        map_step,
+        suspended_zero_step,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 3
+
+  assert len(result.round_history) == 3
+
+  isomorphism_step = (
+    result.round_history[0][0]
+  )
+
+  injective_step = (
+    result.round_history[1][0]
+  )
+
+  reflected_zero_step = (
+    result.round_history[2][0]
+  )
+
+  assert isomorphism_step.conclusion == (
+    SuspensionIsomorphismStatement(
+      suspension_map=suspension_map,
+    )
+  )
+
+  assert isomorphism_step.premises == (
+    map_step,
+  )
+
+  assert (
+    isomorphism_step.inference_rule
+    == isomorphism_rule
+  )
+
+  assert injective_step.conclusion == (
+    SuspensionInjectiveStatement(
+      suspension_map=suspension_map,
+    )
+  )
+
+  assert injective_step.premises == (
+    isomorphism_step,
+  )
+
+  assert (
+    injective_step.inference_rule
+    == injectivity_rule
+  )
+
+  assert reflected_zero_step.conclusion == Relation(
+    lhs=element,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert reflected_zero_step.premises == (
+    injective_step,
+    suspended_zero_step,
+  )
+
+  assert (
+    reflected_zero_step.inference_rule
+    == zero_reflection_rule
+  )
+
+  assert (
+    reflected_zero_step
+    in result.steps
+  )
+
+
 
 
 
