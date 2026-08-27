@@ -1,18 +1,16 @@
 # ehp_proof 設計メモ
 
-この文書は Phase 7-8、すなわち Phase 7 完了時点の
-「現在の設計」を正本としてまとめる。
+この文書は Phase 8 完了時点の current architecture / semantics /
+design boundary を正本としてまとめる。
 
-過去の各 Phase で書かれた設計メモには、その当時は正しかった
-「未実装」「今後の課題」という記述がある。
-
-現在の仕様判断では、本ファイルの最新記述を優先する。
+過去の development log にある「未実装」「今後の課題」は歴史的記述であり、
+current specification とは限らない。
 
 ---
 
 # 1. 全体アーキテクチャ
 
-基本の依存方向は次とする。
+依存方向:
 
 ```text
 homotopy / EHP domain inference rules
@@ -26,51 +24,62 @@ finitely generated abelian-group algebra
 integer linear algebra
 ```
 
-逆向き依存は作らない。
+逆向き依存を作らない。
 
-特に algebra 層は、
+generic inference engine は個別 theorem の意味を知らない。
+
+algebra layer も、
 
 ```text
 E
 H
 P
+Suspension
 Toda bracket
 Hopf invariant
-element order theorem
+element-order theorem
 ```
 
 などのホモトピー論的意味を知らない。
 
-generic inference engine も、
-個別の EHP theorem や element-order theorem の内容を知らない。
+基本原則:
+
+```text
+new mathematical knowledge
+=
+new domain InferenceRule
+```
+
+generic engine を変更するのは、
+
+```text
+actual mathematical rule が
+current generic rule language では
+正しく表現できない
+```
+
+と実証された場合のみとする。
 
 ---
 
-# 2. integer linear algebra / algebra 層
+# 2. Algebra layer
 
 ## 2.1 責務
 
-integer linear algebra / algebra 層は、
-
-- relation matrix
-- integer lattice
-- Hermite normal form
-- Smith normal form
-- finitely generated abelian group
-- group homomorphism
-- kernel
-- image
-- cokernel
+- finitely generated abelian groups
+- relation matrices
+- integer lattices
+- HNF / SNF
+- group homomorphisms
+- kernel / image / cokernel
 - subgroup
 - quotient
 - exact sequence
-- finite extension candidate
+- finite extension candidates
 
 を担当する。
 
-## 2.2 有限生成アーベル群
-
-一般形を、
+## 2.2 群の一般形
 
 ```text
 Z^r ⊕ finite torsion
@@ -78,101 +87,58 @@ Z^r ⊕ finite torsion
 
 として統一的に扱う。
 
-自由部分を別理論にしない。
-
-## 2.3 finite enumeration
-
-有限群については全元列挙方式を削除しない。
-
-その役割は presentation-based calculation に対する
-reference implementation / cross-check である。
-
-## 2.4 exactness
-
-完全性:
+## 2.3 exactness
 
 ```text
 Im(f) = Ker(g)
 ```
 
-は中間群内の部分群 / lattice の一致として判定する。
-
-一方、
+は subgroup / lattice equality。
 
 ```text
 B / Im(f) ≅ Im(g)
 ```
 
-は抽象群構造の同型である。
+は abstract group isomorphism。
 
-この2つを混同しない。
+両者を混同しない。
 
-## 2.5 primary decomposition
+## 2.4 primary decomposition
 
-algebra 層では、
+algebra layer は 2-primary / odd-primary の理論的意味を区別しない。
 
-```text
-Z/2
-Z/3
-Z/4
-Z/9
-```
-
-を同じ有限生成アーベル群として扱う。
-
-```text
-2-primary
-odd-primary
-double EHP
-```
-
-などの理論上の区別は上位 domain 層の責務とする。
+その区別が必要な theorem reasoning は domain layer の責務。
 
 ---
 
-# 3. homotopy / EHP data 層
+# 3. EHP data layer
 
-EHP 層は、
+EHP layer の責務:
 
-- 対象ホモトピー群の選択
-- generator 名
-- E/H/P の構築
-- source / target generator の対応
-- repository data から homomorphism matrix への変換
+- E/H/P maps の構築
+- repository data の読み込み
+- generator 対応
+- source / target group の選択
+- EHP segment の構築
 
-を担当する。
-
-一般群論計算は algebra 層へ委譲する。
-
-群の抽象構造と、
-
-```text
-η
-ν
-σ
-ξ
-λ
-```
-
-などの数学的 generator 名は分離する。
+一般群論計算は algebra layer へ委譲する。
 
 ---
 
-# 4. Expression 層
+# 4. Expression layer
 
-Expression は数学的式の構造を保持する。
-
-現在の基礎型:
+Current expression tree:
 
 ```text
 Expression
 ├── Zero
 ├── HomotopyElement
 ├── Multiple
-└── Composition
+├── Composition
+└── Suspension
 ```
 
-補助 generator factory:
+generator helpers:
 
 ```text
 eta(n)
@@ -180,37 +146,57 @@ nu(n)
 sigma(n)
 ```
 
-Expression 層は、
+## 4.1 Suspension
 
-- 式の簡約
-- dimension validity
-- theorem application
+`Suspension` は単項 expression constructor:
+
+```python
+Suspension(
+  expression=x,
+)
+```
+
+nested form を許可する:
+
+```python
+Suspension(
+  expression=Suspension(
+    expression=x,
+  ),
+)
+```
+
+これは expression structure の表現のみであり、
+
+- dimension shift の妥当性
+- stable range
+- Freudenthal theorem
+- theorem applicability
+- normalization
+
+を Expression 自身は判断しない。
+
+## 4.2 Expression layer の非責務
+
+Expression は、
+
 - algebra calculation
+- theorem application
+- zero 判定
+- equality 判定
 - order calculation
+- canonicalization
+- simplification
 
 を担当しない。
 
-例えば、
-
-```text
-Multiple(2, η)
-```
-
-を見ても Expression 層自身はそれが zero かどうかを判断しない。
-
-その判断は domain rule / relation reasoning の責務である。
-
-`HomotopyElement` と algebra 層の `GroupElement` は別概念とする。
-
 ---
 
-# 5. Relation / Proof 層
+# 5. Relation / Proof layer
 
 ## 5.1 Relation
 
-`Relation` は既知の数学的 relation / fact を表す。
-
-現在の fields:
+fields:
 
 ```text
 lhs
@@ -220,7 +206,7 @@ source
 note
 ```
 
-`RelationType`:
+Current `RelationType`:
 
 ```text
 EQUALITY
@@ -228,38 +214,22 @@ ZERO
 ORDER
 ```
 
-`lhs` / `rhs` は `Expression` に限定しない。
-
-理由は、
-
-```text
-ord(α)
-Ker(H)
-Im(E)
-π_n(S^m)
-```
-
-など、単純な expression equality 以外の fact を
-同じ relation model に載せるためである。
-
 ## 5.2 EQUALITY
 
-```text
-Relation(
-  lhs=x,
-  rhs=y,
-  relation_type=RelationType.EQUALITY,
-)
-```
+EQUALITY は structural fact として directed representation を保持する。
 
-は現在の relation layer では directed data representation として保持する。
-
-数学的な対称性・推移性は object の自動 canonicalization ではなく、
-明示的な inference rules によって導出する。
+symmetry / transitivity は object normalization ではなく explicit
+InferenceRule で導出する。
 
 ## 5.3 ZERO
 
 ```text
+x = 0
+```
+
+は:
+
+```python
 Relation(
   lhs=x,
   rhs=Zero(),
@@ -267,21 +237,23 @@ Relation(
 )
 ```
 
-は `x = 0` という fact を表す。
+で表す。
 
-ZERO は EHP 固有の概念ではない。
+ZERO は domain-independent shared representation。
 
-Phase 6 では EHP zero-composition が generic ZERO へ bridge し、
-Phase 7 では element-order fact からも generic ZERO が生成される。
-
-この shared representation により異なる theorem family の結果を
-同じ generic relation rule が利用できる。
+EHP / ORDER / Suspension の各 branch が同じ ZERO relation model を使用する。
 
 ## 5.4 ORDER
 
-具体的な exact finite order fact は、
+Concrete exact finite order:
 
 ```text
+ord(α) = n
+```
+
+を:
+
+```python
 Relation(
   lhs=α,
   rhs=n,
@@ -289,110 +261,16 @@ Relation(
 )
 ```
 
-で表し、
+で表す。
 
-```text
-ord(α) = n
-```
+`order_relation()` は positive integer validation を行う。
 
-を意味する。
+Current ORDER semantics は exact finite order であり、
+divisibility fact や infinite order はまだ表現しない。
 
-`n` は正の整数とする。
+## 5.5 ProofStep
 
-この semantics は exact order であり、
-
-```text
-ord(α) divides n
-```
-
-という weaker statement ではない。
-
-現時点では infinite order を `RelationType.ORDER` で表現しない。
-
-## 5.5 order_relation()
-
-concrete ORDER fact の生成には、
-
-```text
-order_relation(
-  element,
-  order,
-  source=None,
-  note=None,
-)
-```
-
-を利用する。
-
-`order` は positive `int` を要求する。
-
-以下は invalid:
-
-```text
-True
-0
--1
-2.0
-"2"
-```
-
-ORDER validation を `Relation.__post_init__` に入れない。
-
-理由は inference pattern として、
-
-```text
-rhs=PatternVariable("order")
-```
-
-を保持する必要があるためである。
-
-すなわち、
-
-```text
-Relation
-=
-permissive structural fact / pattern container
-```
-
-と、
-
-```text
-order_relation()
-=
-validated concrete exact-order constructor
-```
-
-を分離する。
-
-## 5.6 LiteratureReference
-
-文献 metadata:
-
-```text
-label
-author
-title
-year
-locator
-```
-
-を構造化する。
-
-relation の source と ProofStep の note / inference provenance を混同しない。
-
-## 5.7 ProofStep
-
-`ProofStep` は1回の計算・推論を表す。
-
-```text
-premises
-↓
-rule
-↓
-conclusion
-```
-
-現在の fields:
+fields:
 
 ```text
 conclusion
@@ -402,141 +280,69 @@ note
 inference_rule
 ```
 
-## 5.8 ProofRule と InferenceRule
+derived step の provenance は `premises` と `inference_rule` により保持する。
 
-両者は別概念である。
-
-```text
-ProofRule
-=
-ProofStep の大分類
-```
-
-```text
-InferenceRule
-=
-具体的な数学的推論規則
-```
-
-generic inference によって生成された step は、
-
-```text
-ProofRule.INFERENCE
-```
-
-を持ち、さらに具体的な source `InferenceRule` を保持する。
-
-## 5.9 provenance / dependency
-
-derived step の依存関係は、
-
-```text
-ProofStep.premises
-```
-
-で直接保持する。
-
-Phase 7-6 では、
-
-```text
-Image + Kernel
-↓
-Exactness
-↓
-EHPZeroCompositionStatement
-↓
-EHP-derived ZERO
-```
-
-と、
-
-```text
-ORDER fact
-↓
-ORDER-derived ZERO
-```
-
-の dependency chain を同一 fixed-point run 内で明示的に検証した。
-
-knowledge state を共有しても、
-各 ProofStep の premise chain は混線させない。
-
-独立 DAG class や branch identifier は現時点では導入しない。
+同じ knowledge state に複数 domain branch が存在しても、
+premise chain を共有させない限り provenance は混線しない。
 
 ---
 
-# 6. RelationRepository / formatter
+# 6. Generic inference engine
 
-RelationRepository は、
+Phase 5-65 を generic engine foundation completion point とする。
+
+Engine の責務:
 
 ```text
-known Relation の保存・検索
+rule の theorem semantics
 ```
 
-を担当する。
-
-theorem application や inference execution は担当しない。
-
-formatter は、
+ではなく:
 
 ```text
-Expression
-Statement
-ProofStep
-Proof
-```
-
-などの表示を担当する。
-
-model 自体に表示専用 state を持ち込まない。
-
----
-
-# 7. Generic inference engine
-
-Phase 5-65 を generic inference engine の基盤完成点とする。
-
-## 7.1 責務
-
-generic engine の責務は、
-
-```text
-どの数学 theorem が正しいか
-```
-
-ではなく、
-
-```text
-与えられた rule を
-どのように match / bind / apply / iterate するか
+match
+bind
+apply
+deduplicate
+iterate
+trace
 ```
 
 である。
 
-したがって engine に、
+Current pipeline:
 
-```python
-if rule_is_ehp:
-  ...
+```text
+available ProofSteps
++
+InferenceRules
+↓
+premise assignment search
+↓
+structured pattern matching
+↓
+variable bindings
+↓
+binding consistency
+↓
+match guard
+↓
+InferenceMatch
+↓
+conclusion construction
+↓
+candidate ProofStep
+↓
+application classification
+↓
+accepted new ProofSteps
 ```
-
-や、
-
-```python
-if relation_type_is_order:
-  ...
-```
-
-のような domain-specific theorem branch を入れない。
-
-Phase 7 でも generic engine 自体の変更なしに
-ORDER rule family を実装できたことを重要な設計確認とする。
 
 ---
 
-# 8. InferenceRule
+# 7. InferenceRule
 
-現在の主な構造:
+fields:
 
 ```text
 name
@@ -547,297 +353,84 @@ conclusion_pattern
 match_guard
 ```
 
-## 8.1 conclusion_builder
+## 7.1 conclusion_pattern
 
-任意 callable によって conclusion を構築できる。
+bindings を nested dataclass fields へ recursive substitution できる。
 
-互換性や、pattern substitution だけでは書きづらい特殊な construction
-のために残す。
+## 7.2 conclusion_builder
 
-## 8.2 conclusion_pattern
+pattern substitution だけでは表現しにくい conclusion construction に使う。
 
-structured Relation または dataclass statement pattern に bindings を
-代入して conclusion を生成できる。
+builder と conclusion_pattern が両方ある場合は builder を優先する。
 
-Phase 7 の ORDER rule では nested expression:
+## 7.3 match_guard
 
-```text
-Multiple(
-  coefficient=?order,
-  expression=?element,
-)
-```
+structural matching 後に domain-specific validity を追加する optional hook。
 
-を conclusion pattern の内部に置く。
-
-## 8.3 builder と pattern
-
-両方が指定された場合は現実装では builder を優先する。
-
-この precedence は current API semantics とする。
-
-## 8.4 match_guard
-
-`match_guard` は、
-
-```text
-matched premises
-bindings
-```
-
-を受け取る optional callable である。
-
-premise matching / binding consistency が成立した後に
-domain-specific validation を追加するために使う。
-
-例えば ORDER rule では pattern relation 自体は permissive なので、
-bound order が positive integer かどうかを guard で確認できる。
+generic engine に domain-specific `if` branch を追加しないために用いる。
 
 ---
 
-# 9. PremisePattern
+# 8. Matching / binding semantics
 
-現在の fields:
-
-```text
-proof_rule
-statement_type
-statement_pattern
-relation_type
-relation_pattern
-```
-
-outer category matching と、
-Relation / dataclass statement の structured matching を併用できる。
-
-empty pattern は任意の step に match する。
-
----
-
-# 10. PatternVariable / VariableBinding
-
-## 10.1 PatternVariable
+## 8.1 PatternVariable
 
 pattern 内の変数を表す。
 
-構造的 equality は name による。
-
-## 10.2 VariableBinding
+## 8.2 VariableBinding
 
 ```text
-PatternVariable
-→
-value
+PatternVariable → actual value
 ```
 
-を explicit object として保持する。
+を保持する。
 
-value は任意型を許す。
+## 8.3 Shared binding consistency
+
+複数 premise で同じ variable が現れる場合、
+同じ値へ bind されなければ match を reject する。
+
+## 8.4 Search
+
+`find_all_matching_premises()` は deterministic backtracking で
+valid assignments を列挙する。
+
+same available-step index を1 assignment 内で再利用しない。
 
 ---
 
-# 11. Matching semantics
+# 9. Fixed-point semantics
 
-## 11.1 match_pattern_value()
+Derived conclusion は knowledge state へ追加され、
+後続 round で premise として利用できる。
 
-pattern が `PatternVariable` なら binding を生成する。
+Equal conclusion は ordinary Python equality で duplicate reject される。
 
-literal なら ordinary Python equality を要求する。
+## 9.1 FIXED_POINT
 
-## 11.2 match_relation_pattern()
-
-`Relation` の、
-
-```text
-lhs
-rhs
-relation_type
-```
-
-を structured に match する。
-
-同じ variable が繰り返し現れる場合は binding consistency を要求する。
-
-現時点の matching は、
-任意の nested expression tree を完全再帰 unification する言語ではない。
-
-Phase 7 の ORDER premise は、
-
-```text
-lhs=?element
-rhs=?order
-```
-
-として element / order 全体を bind するため、
-この制限に抵触しない。
-
-## 11.3 match_statement_pattern()
-
-dataclass statement の直接 fields を match する。
-
-EHP の structured statement matching に利用する。
-
----
-
-# 12. Substitution semantics
-
-## 12.1 substitute_pattern_value()
-
-`PatternVariable` は bound value へ置換する。
-
-さらに dataclass instance であれば、
-各 field に対して再帰的に substitution を行う。
-
-これにより Phase 7 では、
-
-```text
-Relation(
-  lhs=Multiple(
-    coefficient=?order,
-    expression=?element,
-  ),
-  rhs=Zero(),
-  relation_type=ZERO,
-)
-```
-
-を、
-
-```text
-?order = 2
-?element = η3
-```
-
-から、
-
-```text
-2η3 = 0
-```
-
-へ具体化できる。
-
-このため nested `Multiple` substitution 専用の engine feature は追加しない。
-
-## 12.2 unbound variable
-
-unbound `PatternVariable` は現在 `None` へ substitution される。
-
-domain rule は conclusion に必要な variable を premise で bind する責任を持つ。
-
----
-
-# 13. 複数 premise と shared bindings
-
-複数 premise の matching では、
-同じ `PatternVariable` は同じ value へ bind されなければならない。
-
-binding conflict branch は reject し、
-backtracking は別 candidate を探索する。
-
-これにより relation theorem は、
-単なる statement type の組合せではなく、
-共有される数学的対象の整合性を要求できる。
-
----
-
-# 14. Exhaustive premise assignment
-
-canonical search API:
-
-```text
-find_all_matching_premises()
-```
-
-search semantics:
-
-- ordered assignment
-- premise pattern order を維持
-- available step order を維持
-- deterministic depth-first backtracking
-- 1 assignment 内では同じ available-step index を再利用しない
-- binding conflict branch は除外
-- valid assignment はすべて列挙
-
-first-result compatibility APIs は維持する。
-
----
-
-# 15. InferenceMatch / application
-
-`InferenceMatch` は、
-
-```text
-inference_rule
-premises
-bindings
-```
-
-を持つ。
-
-`apply_inference_match()` は、
-
-```text
-ProofRule.INFERENCE
-```
-
-の derived `ProofStep` を生成し、
-matched premises と source `InferenceRule` を保存する。
-
-この保存が Phase 7-6 の provenance test の基礎である。
-
----
-
-# 16. Duplicate semantics
-
-knowledge state の重複判定は、
-
-```python
-step.conclusion == known_conclusion
-```
-
-という ordinary Python equality に基づく。
-
-同じ conclusion が複数 derivation から得られた場合、
-final knowledge state には最初に accepted された ProofStep を保持する。
-
-別 derivation candidate は application / rejection trace には残り得る。
-
-現時点では theorem-aware equivalence や all-proof collection は行わない。
-
----
-
-# 17. Fixed-point semantics
-
-fixed-point execution は、
-各 productive round で genuinely new conclusions を追加する。
-
-新しい conclusion がなくなれば:
+productive round がなくなった場合:
 
 ```text
 InferenceTerminationReason.FIXED_POINT
 ```
 
-で終了する。
+## 9.2 MAX_ROUNDS
 
-`max_rounds` は safety bound であり、
-semantic cycle detector ではない。
-
-Phase completion の representative test では、
-termination reason の確認に加えて final state にもう一度 round を適用し、
+`max_rounds` に達した場合:
 
 ```text
-new_steps == ()
+InferenceTerminationReason.MAX_ROUNDS
 ```
 
-を確認する。
+これは safety-bound termination。
 
-これを genuine fixed-point confirmation とする。
+semantic nontermination proof や symbolic cycle detection ではない。
 
 ---
 
-# 18. Equality rules
+# 10. Generic equality / ZERO rules
 
-## 18.1 symmetry
+## 10.1 symmetry
 
 ```text
 x = y
@@ -845,7 +438,7 @@ x = y
 y = x
 ```
 
-## 18.2 transitivity
+## 10.2 transitivity
 
 ```text
 x = y
@@ -854,33 +447,7 @@ y = z
 x = z
 ```
 
-## 18.3 equality closure
-
-symmetry + transitivity を fixed point まで反復することで、
-connected component 内の directed equality closure が得られる。
-
-special graph algorithm は導入しない。
-
-closure は generic rule execution の結果として生成する。
-
-reflexive equality も symmetry / transitivity の組合せから
-derived conclusion として現れ得る。
-
----
-
-# 19. ZERO propagation rules
-
-## 19.1 Phase 6 composition-specific rules
-
-Phase 6 では EHP composition ZERO を対象として、
-known-zero lhs が `Composition` であることを guard する
-ZERO propagation rules を導入した。
-
-これらは既存 Phase 6 API / regression として維持する。
-
-## 19.2 Phase 7 generic ZERO propagation
-
-Phase 7 では、
+## 10.3 generic ZERO propagation
 
 ```text
 x = 0
@@ -889,33 +456,15 @@ y = x
 y = 0
 ```
 
-という expression-type-independent rule を追加する。
+known-zero expression type を限定しない。
 
-この rule は known-zero lhs が `Composition` であることを要求しない。
-
-そのため、
-
-```text
-Composition(H,E) = 0
-```
-
-だけでなく、
-
-```text
-Multiple(n, α) = 0
-```
-
-にも利用できる。
-
-この generic ZERO propagation が、
-異なる domain theorem family を共通 relation layer へ接続する重要な bridge
-となる。
+EHP-derived, ORDER-derived, Suspension-derived ZERO を同じ rule で扱える。
 
 ---
 
-# 20. Phase 6 EHP rule family
+# 11. Phase 6 EHP rule family
 
-Phase 6 の代表 rule family:
+Representative rules:
 
 ```text
 Image + Kernel → Exactness
@@ -923,265 +472,528 @@ Exactness + Image → Kernel
 Exactness + Kernel → Image
 Exactness → EHP zero composition
 EHP zero composition → generic ZERO
-equality symmetry
-equality transitivity
-ZERO propagation
 ```
 
-EHP-specific intermediate statement と generic Relation を分離する。
-
-EHP zero composition から generic ZERO へ移る点を
-domain / generic integration boundary とする。
-
----
-
-# 21. Phase 7 ORDER rule family
-
-## 21.1 mathematical semantics
-
-Phase 7 の中心 theorem:
+generic equality / ZERO rules と接続し:
 
 ```text
-ord(α) = n
+EHP structural facts
 ↓
-nα = 0
+EHP domain rules
+↓
+generic Relation
+↓
+generic relation reasoning
 ```
 
-ここで `ord(α)=n` は exact finite additive order を意味する。
+へ移行できる。
 
-## 21.2 representation
-
-premise:
-
-```text
-Relation(
-  lhs=?element,
-  rhs=?order,
-  relation_type=ORDER,
-)
-```
-
-conclusion:
-
-```text
-Relation(
-  lhs=Multiple(
-    coefficient=?order,
-    expression=?element,
-  ),
-  rhs=Zero(),
-  relation_type=ZERO,
-)
-```
-
-## 21.3 rule boundary
-
-ORDER rule は relation/domain rule layer に置く。
-
-generic engine に ORDER-specific branch を追加しない。
-
-## 21.4 validation
-
-concrete ORDER facts は `order_relation()` で validation する。
-
-pattern-side / match-side では positive integer constraint を
-`match_guard` で確認できる。
+generic engine に EHP-specific branch は置かない。
 
 ---
 
-# 22. EHP-derived ZERO と ORDER-derived ZERO の統合
+# 12. Phase 7 ORDER rule family
 
-Phase 7-5 以降では同一 run 内に、
-
-```text
-EHP branch
-```
-
-と、
+Concrete exact-order fact:
 
 ```text
-ORDER branch
+ord(α)=n
 ```
 
-を置く。
+から:
 
-例:
+```text
+nα=0
+```
+
+を導出する。
+
+Rule:
+
+```text
+order_implies_zero_multiple_inference_rule()
+```
+
+ORDER-derived ZERO は generic ZERO relation であるため、
+generic equality closure / ZERO propagation へそのまま接続する。
+
+---
+
+# 13. Phase 8 Suspension rule family
+
+Phase 8 の principal design goal:
+
+```text
+Suspension-specific theorem knowledge
+```
+
+を:
+
+```text
+existing Expression / Relation / InferenceRule infrastructure
+```
+
+に載せる。
+
+generic engine の変更は行わない。
+
+## 13.1 Suspension preserves equality
+
+Rule:
+
+```text
+suspension_preserves_equality_inference_rule()
+```
+
+Semantics:
+
+```text
+x = y
+↓
+E(x) = E(y)
+```
+
+conclusion は普通の `RelationType.EQUALITY`。
+
+したがって derived equality は symmetry / transitivity / ZERO propagation
+など既存 generic relation rules が利用できる。
+
+## 13.2 Suspension preserves zero
+
+Rule:
+
+```text
+suspension_preserves_zero_inference_rule()
+```
+
+Semantics:
+
+```text
+x = 0
+↓
+E(x) = 0
+```
+
+conclusion は普通の `RelationType.ZERO`。
+
+## 13.3 Suspension preserves zero multiple
+
+Rule:
+
+```text
+suspension_preserves_zero_multiple_inference_rule()
+```
+
+Semantics:
+
+```text
+nα = 0
+↓
+nE(α) = 0
+```
+
+Coefficient は保存し、underlying expression のみ Suspension する。
+
+Rule premise が `Multiple` であることは domain guard で確認する。
+
+## 13.4 Reconnection principle
+
+Suspension-derived facts を Suspension 専用 reasoning silo に閉じ込めない。
+
+Example:
+
+```text
+x = y
+y = 0
+↓
+E(x) = E(y)
+E(y) = 0
+↓
+generic ZERO propagation
+E(x) = 0
+```
+
+重要な boundary:
+
+```text
+Suspension creates ordinary Relation facts
+```
+
+であり:
+
+```text
+Suspension requires a new generic relation engine
+```
+
+ではない。
+
+---
+
+# 14. EHP + ORDER + Suspension integration
+
+Representative scenario:
 
 ```text
 EHP branch                         ORDER branch
 
 Image + Kernel                    ord(α)=n
       ↓                               ↓
-  Exactness                         nα=0
-      ↓
-EHP zero composition
+Exactness                           nα=0
+      ↓                               ↓
+EHP zero composition              nE(α)=0
       ↓
 Composition(H,E)=0
+      ↓
+E(Composition(H,E))=0
 ```
 
-両方とも generic `RelationType.ZERO` に到達するため、
-その後の equality reasoning は共通化できる。
+Both branches are accumulated in one proof-step state.
 
-domain theorem の由来は ProofStep provenance で区別する。
+## 14.1 Provenance requirements
+
+EHP suspended result:
+
+```text
+image_step
+kernel_step
+↓
+exactness_step
+↓
+zero_composition_step
+↓
+ehp_zero_step
+↓
+suspended_ehp_zero_step
+```
+
+ORDER suspended result:
+
+```text
+order_step
+↓
+order_zero_step
+↓
+suspended_order_zero_step
+```
+
+Required invariant:
+
+```text
+shared knowledge state
+does not imply
+shared provenance
+```
+
+EHP branch premises must not accidentally include ORDER steps.
+
+ORDER branch premises must not accidentally include EHP structural steps.
+
+No branch-id model is currently required because explicit `ProofStep.premises`
+already preserves these dependencies.
 
 ---
 
-# 23. provenance 設計
+# 15. Suspension termination semantics
 
-同じ knowledge state に複数 domain branch が存在しても、
-ProofStep の dependency は明示的に保持する。
+Phase 8-10 formalizes the key termination boundary.
 
-EHP branch:
+## 15.1 Mathematical repeatability
 
-```text
-Image / Kernel
-↓
-Exactness
-↓
-EHPZeroCompositionStatement
-↓
-ZERO
-```
-
-ORDER branch:
+Suspension preservation may be applied repeatedly:
 
 ```text
-ORDER
+x = 0
 ↓
-ZERO
+E(x) = 0
+↓
+E²(x) = 0
+↓
+E³(x) = 0
+↓
+...
 ```
 
-derived ZERO が同じ `RelationType.ZERO` であっても、
-source `InferenceRule` と premises によって理由を識別する。
+Similarly:
 
-現時点では追加の branch ID は導入しない。
+```text
+x = y
+↓
+E(x)=E(y)
+↓
+E²(x)=E²(y)
+↓
+...
+```
+
+and:
+
+```text
+nα=0
+↓
+nE(α)=0
+↓
+nE²(α)=0
+↓
+...
+```
+
+These conclusions are structurally distinct.
+
+## 15.2 Duplicate rejection is insufficient
+
+Duplicate detection uses:
+
+```python
+candidate.conclusion == known_conclusion
+```
+
+Nested Suspension depth changes the dataclass structure.
+
+Therefore:
+
+```text
+E(x)
+E²(x)
+E³(x)
+```
+
+are not duplicates.
+
+Hence unrestricted Suspension closure need not reach a finite fixed point.
+
+## 15.3 No artificial rule guard
+
+Do not add:
+
+```text
+if expression is already Suspension:
+  reject
+```
+
+to Suspension theorem rules.
+
+That would incorrectly change mathematical applicability in order to satisfy
+an execution concern.
+
+Current separation:
+
+```text
+theorem validity
+≠
+execution policy
+```
 
 ---
 
-# 24. Phase 7 representative fixed point
+# 16. Inference-scope policy for Suspension
 
-Phase 7 completion scenario の representative rule set:
+## 16.1 Staged one-round execution
 
-```text
-EHP exactness
-Exactness + Image → Kernel
-Exactness + Kernel → Image
-Exactness → EHP zero composition
-EHP zero composition → generic ZERO
-ORDER → ZERO
-equality symmetry
-equality transitivity
-generic ZERO propagation
+When the intended theorem application is exactly one Suspension level:
+
+```python
+run_inference_round(
+  suspension_rule,
+  available_steps,
+)
 ```
 
-代表 initial facts は、
+を使う。
+
+A single call only sees the state available at the start of that round.
+
+Therefore:
 
 ```text
-EHP Image / Kernel facts
-EHP equality chain
-ORDER fact
-ORDER equality chain
+x=0
 ```
 
-を含む。
-
-最終的に、
+からその round で生成されるのは:
 
 ```text
-EHP target = 0
-ORDER target = 0
+E(x)=0
 ```
 
-の双方を同じ fixed-point run で導出する。
+まで。
 
-final state に追加 round を適用して、
+`E²(x)=0` は次 Suspension round を明示的に実行しない限り生成しない。
+
+## 16.2 Bounded repeated execution
+
+Repeated Suspension を intentional に実行する場合:
+
+```python
+run_inference_until_stable_with_history(
+  suspension_rule,
+  steps,
+  max_rounds=n,
+)
+```
+
+を使える。
+
+新しい nested conclusions が続く場合:
 
 ```text
-new_steps == ()
+termination_reason == MAX_ROUNDS
 ```
 
-を確認する。
+を expected behavior とする。
+
+## 16.3 Generic engine boundary
+
+Phase 8 では generic engine に次を追加しない:
+
+- Suspension depth counter
+- theorem-specific cycle detector
+- expression-depth cap
+- "apply once" metadata
+- Suspension-specific termination state
+
+actual future requirement が生じた場合のみ別 Phase で検討する。
 
 ---
 
-# 25. Phase 7 completion criteria
+# 17. Phase 8 testing specification
 
-Phase 7 は次を満たしたため完了とする。
+Phase 8 tests are grouped conceptually as:
 
-1. exact finite ORDER fact を structured Relation で表現できる。
-2. concrete order constructor が positive integer validation を行う。
-3. `ord(α)=n → nα=0` を `InferenceRule` として実装できる。
-4. nested `Multiple` conclusion を既存 substitution で生成できる。
-5. ORDER-derived ZERO が generic equality reasoning に接続できる。
-6. equality closure を経て別 expression へ ZERO を伝播できる。
-7. EHP-derived ZERO と ORDER-derived ZERO を同じ run で扱える。
-8. 両 branch が同じ `RelationType.ZERO` representation を共有できる。
-9. branch ごとの ProofStep provenance を保持できる。
-10. EHP branch と ORDER branch の dependency が混線しない。
-11. representative Phase 7 rule set が genuine fixed point に到達する。
-12. generic engine に ORDER-specific branch を追加していない。
-13. generic engine に speculative refactoring を加えていない。
-14. full regression suite が通る。
+## 17.1 Expression
+
+- Suspension construction
+- nested Suspension representation
+
+## 17.2 Single-rule semantics
+
+- equality preservation
+- ZERO preservation
+- zero-multiple preservation
+- mismatched premise rejection
+
+## 17.3 Cross-rule integration
+
+- ORDER-derived ZERO multiple suspension
+- Suspension-derived equality → generic ZERO propagation
+- EHP-derived ZERO suspension
+
+## 17.4 Representative integration
+
+- EHP + ORDER + Suspension scenario
+- EHP and ORDER suspended conclusions coexist
+
+## 17.5 Provenance regression
+
+- exact premise chain
+- exact `inference_rule`
+- `ProofRule.INFERENCE`
+- no cross-branch premise contamination
+
+## 17.6 Termination regression
+
+Tests formalize:
+
+```text
+unrestricted repeated Suspension
+→ may remain productive
+→ MAX_ROUNDS is expected under bound
+```
+
+for:
+
+- EQUALITY
+- ZERO
+- zero multiple
+
+## 17.7 Scope regression
+
+One round derives one additional Suspension layer.
+
+A second explicit Suspension round derives the next layer.
 
 ---
 
-# 26. Phase 7 で実装しないもの
+# 18. Phase 8 completion criteria
 
-Phase 7 の責務を越えるため、以下は実装しない。
+Phase 8 is complete when all of the following hold:
 
-- element order の自動計算
-- group structure から generator order を自動推論
-- `ord(α) | n` のような divisibility relation
-- infinite-order representation
-- `Multiple` の算術簡約
-- nested multiple normalization
-- scalar arithmetic theorem rules
-- expression canonicalization
+1. `Suspension` is a first-class Expression.
+2. nested Suspension is structurally representable.
+3. equality preservation is an `InferenceRule`.
+4. ZERO preservation is an `InferenceRule`.
+5. zero-multiple preservation is an `InferenceRule`.
+6. ORDER-derived ZERO multiple can be suspended.
+7. Suspension-derived equality reconnects to generic ZERO propagation.
+8. EHP-derived ZERO can be suspended.
+9. EHP and ORDER branches coexist with Suspension reasoning.
+10. representative branch provenance is fixed by regression tests.
+11. repeated Suspension is recognized as potentially unbounded.
+12. bounded repeated execution returns `MAX_ROUNDS`.
+13. active rule scope controls explicit Suspension depth.
+14. no artificial "already suspended" theorem restriction is introduced.
+15. no Suspension-specific generic-engine branch is introduced.
+16. full regression suite passes.
+
+Current verified full suite:
+
+```text
+721 passed in 22.16s
+```
+
+---
+
+# 19. Phase 8 non-goals
+
+Phase 8 does not implement:
+
+- automatic dimension shift validation
+- domain/codomain tracking on Expression
+- Freudenthal suspension theorem
+- stable-range isomorphism rules
+- stable-range epimorphism rules
+- automatic stabilization detection
+- suspension depth planning
+- canonical `E^n` representation
+- expression normalization
 - theorem-aware equality
-- proof DAG traversal API
-- branch identifier
-- all alternative proof collection
-- suspension theorem family
-- Hopf-invariant theorem family
-- stable-range theorem family
-- Toda relation family
+- desuspension
+- automatic group-level order preservation
+- Hopf invariant theorem family
+- Toda composition theorem family
 - Toda bracket
 - Steenrod operations
 - double EHP
-- odd-primary-specific theorem family
-
-これらは将来 Phase で actual mathematical requirement が生じたときに扱う。
+- odd-primary theorem family
 
 ---
 
-# 27. Current limitations
+# 20. Current limitations
 
-## 27.1 conclusion equality
+## 20.1 Conclusion identity
 
-duplicate detection は ordinary Python equality。
+ordinary Python equality.
 
-数学的 canonical form / theorem-aware equivalence は未導入。
+No theorem-aware canonical equivalence.
 
-## 27.2 alternative proofs
+## 20.2 Alternative proofs
 
-same conclusion に対する複数 derivation candidate は execution trace に
-残り得るが、knowledge state は first accepted ProofStep を保持する。
+same conclusion の multiple candidate derivations は trace に残り得るが、
+knowledge state は first accepted step を保持する。
 
-## 27.3 pattern language
+## 20.3 Pattern language
 
-Relation と dataclass statement の structured matching は可能。
+structured Relation / dataclass statement matching は可能。
 
-ただし arbitrary expression AST 全体を対象にした fully recursive
-unification language ではない。
+arbitrary recursive symbolic unification は未導入。
 
-## 27.4 substitution
+## 20.4 Unbound substitution
 
-dataclass field substitution は recursive だが、
-unbound variable は `None` になる。
+unbound `PatternVariable` は `None` へ substitute される。
 
-## 27.5 performance
+domain rule design で必要 variable を bind する。
 
-exhaustive assignment は組合せ的に増加し得る。
+## 20.5 Search performance
+
+exhaustive assignment は combinatorial growth を持つ。
 
 未導入:
 
@@ -1192,96 +1004,88 @@ exhaustive assignment は組合せ的に増加し得る。
 - agenda / worklist optimization
 - rule priority
 
-## 27.6 termination
+## 20.6 Termination
+
+arbitrary symbolic rule family の termination proof は行わない。
 
 `max_rounds` は safety bound。
 
-arbitrary symbolic rule family の semantic termination proof は行わない。
+Phase 8 の Suspension family はこの limitation を具体的に示す最初の
+domain example である。
 
 ---
 
-# 28. Testing principle
+# 21. Phase 9 boundary
 
-domain rule を追加するときは、
+Phase 9 は speculative generic-engine refactoring ではなく、
+actual mathematical theorem family から開始する。
 
-1. single-rule semantic test
-2. invalid / mismatched premise test
-3. fixed-point integration
-4. provenance / premises confirmation
-5. representative scenario
-6. full regression
-
-の順で確認する。
-
-Phase 7-7 完了時 full suite:
+Phase 8 の Suspension representation を直接利用できる自然な候補:
 
 ```text
-706 passed
+Freudenthal / stable-range reasoning
 ```
 
-EHP / relation-rule combined suite:
+その他の候補:
 
-```text
-37 passed
-```
-
----
-
-# 29. Future domain-rule candidates
-
-Phase 7 後の候補:
-
-- broader suspension relations
-- Hopf invariant relations
-- stable-range theorems
+- Hopf-invariant relations
 - Toda composition relations
 - literature-backed theorem rules
 - Toda brackets
 - Steenrod operations
 - double EHP
-- odd-primary-specific theorem families
+- odd-primary-specific theorem rules
 
-今後も、
-
-```text
-new mathematical knowledge
-=
-new domain InferenceRule
-```
-
-を基本とする。
-
-generic engine を変更するのは、
+Phase 9 でも:
 
 ```text
-actual mathematical rule が
-current generic rule language では
-正しく表現できない
+domain theorem
+↓
+InferenceRule
+↓
+existing generic engine
 ```
 
-と確認できた場合のみ。
+を最初に試す。
+
+generic engine の拡張は必要性が実証された場合のみ行う。
 
 ---
 
-# 30. Documentation policy
+# 22. Testing principle
 
-文書の役割:
+domain rule family を追加するときは:
+
+1. expression / representation test
+2. single-rule semantic test
+3. invalid premise test
+4. multi-round integration
+5. generic-rule reconnection
+6. provenance test
+7. representative scenario
+8. termination / scope boundary if relevant
+9. full regression
+
+を基本順序とする。
+
+---
+
+# 23. Documentation policy
 
 ```text
 README.md
 =
-現在できること / current status
+current capabilities / current status
 
 docs/design.md
 =
-現在採用している architecture / semantics / boundaries
+current architecture / semantics / design boundaries
 
 docs/development_log.md
 =
 chronological implementation history
 ```
 
-過去の development log にある
-「未実装」「次の課題」は historical statement として読む。
+historical limitation は historical statement として保持する。
 
-current status は README / design の最新版を正とする。
+current specification は latest README / design を優先する。
