@@ -18,6 +18,7 @@ from proof import (
   find_inference_match,
   order_relation,
   relation_proof_step,
+  run_inference_round,
   run_inference_until_stable_with_history,
 )
 from relation_rules import (
@@ -1527,6 +1528,98 @@ def test_suspension_preserves_zero_multiple_rejects_non_multiple_zero_relation()
 
   assert match is None
 
+
+def test_order_derived_zero_multiple_suspends_over_two_rounds():
+  element = eta(3)
+
+  order_step = ProofStep(
+    conclusion=order_relation(
+      element,
+      2,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  order_rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  suspension_rule = (
+    suspension_preserves_zero_multiple_inference_rule()
+  )
+
+  first_round_steps = run_inference_round(
+    (
+      order_rule,
+      suspension_rule,
+    ),
+    (
+      order_step,
+    ),
+  )
+
+  order_zero_relation = Relation(
+    lhs=Multiple(
+      coefficient=2,
+      expression=element,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  order_zero_step = next(
+    step
+    for step in first_round_steps
+    if step.conclusion == order_zero_relation
+  )
+
+  assert order_zero_step.premises == (
+    order_step,
+  )
+
+  assert order_zero_step.inference_rule is order_rule
+
+  assert order_zero_step.rule == ProofRule.INFERENCE
+
+  second_round_steps = run_inference_round(
+    (
+      order_rule,
+      suspension_rule,
+    ),
+    first_round_steps,
+  )
+
+  suspended_zero_relation = Relation(
+    lhs=Multiple(
+      coefficient=2,
+      expression=Suspension(
+        expression=element,
+      ),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  suspended_zero_step = next(
+    step
+    for step in second_round_steps
+    if step.conclusion == suspended_zero_relation
+  )
+
+  assert suspended_zero_step.premises == (
+    order_zero_step,
+  )
+
+  assert (
+    suspended_zero_step.inference_rule
+    is suspension_rule
+  )
+
+  assert (
+    suspended_zero_step.rule
+    == ProofRule.INFERENCE
+  )
 
 
 
