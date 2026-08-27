@@ -12,12 +12,11 @@ groups of spheres are determined from mathematical input such as:
 - composition relations
 - element orders
 - suspension relations
-- Toda relations
-- Toda brackets
+- stable-range / Freudenthal theorems
+- Toda relations and Toda brackets
 - Steenrod operations
 - Hopf invariants
-- stable-range results
-- known literature-backed relations
+- literature-backed relations
 
 The project deliberately separates:
 
@@ -43,18 +42,20 @@ so that each layer can evolve independently.
 
 # Current status
 
-The project has completed the foundations of:
+Completed foundations:
 
 1. finitely generated abelian-group calculation,
 2. EHP exact-sequence calculation,
 3. proof / relation representation,
-4. a generic inference engine,
-5. the first EHP domain-inference vertical slice,
-6. exact finite element-order reasoning,
-7. the first Suspension domain-rule family,
-8. cross-domain EHP + ORDER + Suspension provenance tracing.
+4. generic fixed-point inference,
+5. EHP-domain inference,
+6. exact finite ORDER reasoning,
+7. Suspension preservation,
+8. Freudenthal stable-range reasoning,
+9. reconnection of theorem conclusions to generic equality / ZERO reasoning,
+10. provenance and explicit inference-scope / termination boundaries.
 
-The current architecture is:
+Current architecture:
 
 ```text
 homotopy / EHP domain rules
@@ -70,7 +71,7 @@ integer linear algebra
 
 Phase 5-65 is the completion point of the generic inference-engine foundation.
 
-Phase 6 established the first EHP-domain reasoning chain:
+Phase 6 established:
 
 ```text
 Image / Kernel facts
@@ -86,74 +87,64 @@ equality reasoning
 ZERO propagation
 ```
 
-Phase 7 added exact finite ORDER semantics:
+Phase 7 added:
 
 ```text
-ord(α) = n
+ord(α)=n
 ↓
-nα = 0
+nα=0
+↓
+generic relation reasoning
+```
+
+Phase 8 added explicit `Suspension` expressions and preservation rules:
+
+```text
+x=y  → E(x)=E(y)
+x=0  → E(x)=0
+nα=0 → nE(α)=0
+```
+
+Phase 8 also established that repeated Suspension can produce an unbounded
+family of distinct conclusions, so bounded / staged execution may be required.
+
+Phase 9 adds Freudenthal / stable-range theorem reasoning. The implemented
+boundary is:
+
+```text
+stem <= sphere_dimension - 2
+→ suspension isomorphism
+→ suspension injectivity
+→ equality / ZERO reflection
+
+stem == sphere_dimension - 1
+→ suspension epimorphism only
+
+stem >= sphere_dimension
+→ no Freudenthal-derived conclusion
+```
+
+The representative Phase 9 chain is:
+
+```text
+Freudenthal stable range
+↓
+Suspension isomorphism
+↓
+Suspension injectivity
+↓
+E(x)=E(y)  and  E(x)=0
+↓
+x=y        and  x=0
 ↓
 generic equality reasoning
 ↓
-equivalent expressions are zero
-```
-
-Phase 8 added explicit Suspension expressions and Suspension-preservation rules:
-
-```text
-x = y
+generic ZERO propagation
 ↓
-E(x) = E(y)
-```
-
-```text
-x = 0
+y=0
 ↓
-E(x) = 0
+FIXED_POINT
 ```
-
-and, for multiples,
-
-```text
-nα = 0
-↓
-nE(α) = 0
-```
-
-The Phase 8 representative scenario executes EHP-derived and ORDER-derived
-reasoning in the same knowledge state, applies Suspension to both branches,
-and verifies that their provenance chains remain independent.
-
-Phase 8 also formalizes an important execution boundary:
-
-```text
-Suspension preservation
-+
-unrestricted fixed-point iteration
-```
-
-can generate:
-
-```text
-E(x)
-E²(x)
-E³(x)
-...
-```
-
-as distinct conclusions.
-
-Therefore Suspension preservation is mathematically repeatable, but is not
-assumed to be fixed-point terminating under unrestricted execution.
-
-The current policy is:
-
-- use staged `run_inference_round()` execution when a specific Suspension
-  depth is intended,
-- use `max_rounds` when bounded repeated execution is intended,
-- treat `MAX_ROUNDS` as a valid safety termination result,
-- do not add artificial "only suspend once" guards to mathematical rules,
-- do not add Suspension-specific branches to the generic engine.
 
 ---
 
@@ -165,64 +156,32 @@ The current policy is:
 - Phase 4: presentation-based calculations with free components — completed
 - Phase 5: generic proof / inference engine foundation — completed
 - Phase 6: EHP domain-inference foundation — completed
-- Phase 7: element-order reasoning integrated with generic relation inference — completed
-- Phase 8-1: `Suspension` expression representation — completed
-- Phase 8-2: Suspension preserves equality — completed
-- Phase 8-3: Suspension preserves ZERO — completed
-- Phase 8-4: Suspension preserves zero multiples — completed
-- Phase 8-5: ORDER-derived ZERO multiple → Suspension integration — completed
-- Phase 8-6: Suspension-derived equality → generic ZERO propagation — completed
-- Phase 8-7: EHP-derived ZERO → Suspension integration — completed
-- Phase 8-8: representative EHP + ORDER + Suspension scenario — completed
-- Phase 8-9: representative provenance chain regression — completed
-- Phase 8-10: Suspension termination / inference-scope boundary — completed
+- Phase 7: element-order reasoning — completed
 - Phase 8: Suspension reasoning foundation — completed
+- Phase 9-1: `SuspensionMapStatement` — completed
+- Phase 9-2: stable / boundary range judgement — completed
+- Phase 9-3: stable range → suspension isomorphism — completed
+- Phase 9-4: boundary range → suspension epimorphism — completed
+- Phase 9-5: isomorphism → injectivity / equality reflection — completed
+- Phase 9-6: injectivity → ZERO reflection — completed
+- Phase 9-7: stable range → ZERO reflection fixed-point integration — completed
+- Phase 9-8: representative scenario + generic reasoning + provenance — completed
+- Phase 9-9: theorem boundary / inference scope / termination regression — completed
+- Phase 9: Freudenthal / stable-range reasoning — completed
 
 ---
 
 # Algebra layer
 
-## Finitely generated abelian groups
-
-The algebra layer is designed for groups of the form:
+The algebra layer handles finitely generated abelian groups of the form:
 
 ```text
 Z^r ⊕ finite torsion
 ```
 
-including:
-
-```text
-0
-Z
-Z^2
-Z/2
-Z/4
-Z/2 ⊕ Z/4
-Z ⊕ Z/2
-Z ⊕ Z/4
-```
-
-The general calculation path is presentation based:
-
-```text
-group presentation
-↓
-relation matrix
-↓
-integer lattice
-↓
-Hermite normal form
-↓
-Smith normal form
-↓
-kernel / image / cokernel
-```
-
-Finite-group enumeration is retained as an independent reference
-implementation for small finite examples.
-
-## Exact sequences
+The presentation-based path uses relation matrices, integer lattices, HNF / SNF,
+and computes kernel / image / cokernel. Finite-group enumeration remains as a
+reference implementation for small finite examples.
 
 For:
 
@@ -230,66 +189,21 @@ For:
 A --f--> B --g--> C
 ```
 
-exactness is determined through:
+exactness is represented by:
 
 ```text
-Im(f) = Ker(g)
+Im(f)=Ker(g)
 ```
 
-as equality of subgroups / lattices.
-
-The abstract relationship:
+and kept distinct from the abstract isomorphism:
 
 ```text
 B / Im(f) ≅ Im(g)
 ```
 
-is treated separately from exactness.
-
-## Extensions
-
-For finite short exact sequences:
-
-```text
-0 → A → B → C → 0
-```
-
-the project can enumerate finite abelian candidate structures for the middle
-group and test whether they can occur.
-
----
-
-# EHP layer
-
-For an EHP segment:
-
-```text
-π_{n+k-1}(S^{n-1})
-        --E-->
-π_{n+k}(S^n)
-        --H-->
-π_{n+k}(S^{2n-1})
-        --P-->
-π_{n+k-2}(S^{n-1})
-```
-
-the project can:
-
-- construct E, H, and P homomorphisms from data,
-- calculate images and kernels,
-- test exactness,
-- calculate general finitely generated abelian-group structures,
-- construct exact-sequence objects,
-- compare quotient and image structures,
-- infer finite middle-group candidates from extension data.
-
-The algebra layer does not know the homotopy-theoretic meaning of E, H, or P.
-
 ---
 
 # Proof / relation model
-
-## Relation
 
 `Relation` stores:
 
@@ -309,62 +223,27 @@ ZERO
 ORDER
 ```
 
-## ORDER semantics
+A ZERO fact is represented by:
 
-A concrete ORDER relation:
-
-```text
+```python
 Relation(
-  lhs=α,
-  rhs=n,
-  relation_type=RelationType.ORDER,
+  lhs=x,
+  rhs=Zero(),
+  relation_type=RelationType.ZERO,
 )
 ```
 
-means:
+A `ProofStep` preserves:
 
 ```text
-ord(α) = n
-```
-
-where `n` is the exact positive finite additive order.
-
-The helper:
-
-```text
-order_relation(element, order, source=None, note=None)
-```
-
-requires a positive `int`.
-
-The current ORDER model does not represent:
-
-- `ord(α) | n`,
-- infinite order,
-- automatic order calculation from group structure.
-
-## ProofStep
-
-A `ProofStep` records:
-
-```text
-premises
-↓
-rule
-↓
 conclusion
+premises
+rule
+note
+inference_rule
 ```
 
-and preserves:
-
-- its conclusion,
-- explicit premise `ProofStep` objects,
-- a `ProofRule`,
-- an optional note,
-- the concrete `InferenceRule` that generated it.
-
-Different domain branches may share one knowledge state without sharing
-premises.
+This is the basis for end-to-end provenance.
 
 ---
 
@@ -388,90 +267,38 @@ nu(n)
 sigma(n)
 ```
 
-`Suspension` is a structural expression:
-
-```text
-Suspension(expression=x)
-```
-
-and nested Suspension is allowed:
-
-```text
-Suspension(
-  Suspension(x)
-)
-```
-
-The expression layer does not itself decide:
-
-- whether an expression is zero,
-- whether two expressions are equal,
-- whether a Suspension theorem applies,
-- dimension validity,
-- stable range,
-- normalization or simplification.
-
-Those remain domain-rule responsibilities.
+`Suspension(expression)` represents expression structure only. It does not
+itself decide stable range, theorem applicability, dimension validity,
+normalization, or equality.
 
 ---
 
 # Generic inference engine
 
-The generic inference pipeline is:
+The generic pipeline is:
 
 ```text
 known ProofSteps
 +
 InferenceRules
 ↓
-premise-pattern search
-↓
-all valid premise assignments
+premise assignment search
 ↓
 structured matching
 ↓
-PatternVariable bindings
+bindings / shared-binding consistency
 ↓
-shared-binding consistency
+match guard
 ↓
-InferenceMatch
-↓
-conclusion construction / substitution
+conclusion construction
 ↓
 candidate ProofSteps
 ↓
-application classification
+duplicate classification
 ↓
 new ProofSteps
 ↓
 next round
-```
-
-## Rule representation
-
-`InferenceRule` can contain:
-
-```text
-name
-description
-premise_patterns
-conclusion_builder
-conclusion_pattern
-match_guard
-```
-
-## Fixed-point and bounded execution
-
-`run_inference_until_stable_with_history()` runs until either:
-
-```text
-no genuinely new conclusion is produced
-```
-
-or:
-
-```text
-max_rounds is reached
 ```
 
 Termination reasons:
@@ -481,530 +308,309 @@ FIXED_POINT
 MAX_ROUNDS
 ```
 
-`max_rounds` is a safety bound, not a proof that a symbolic rule family
-terminates.
+`round_count` counts productive rounds. `max_rounds` is a safety bound, not a
+semantic termination proof.
 
 ---
 
 # Generic relation rules
 
-## Equality symmetry
+Equality symmetry:
 
 ```text
-x = y
+x=y
 ↓
-y = x
+y=x
 ```
 
-## Equality transitivity
+Equality transitivity:
 
 ```text
-x = y
-y = z
+x=y
+y=z
 ↓
-x = z
+x=z
 ```
 
-## Generic ZERO propagation
+Generic ZERO propagation:
 
 ```text
-x = 0
-y = x
+x=0
+y=x
 ↓
-y = 0
+y=0
 ```
 
-This rule is expression-type independent.
-
-EHP-derived ZERO, ORDER-derived ZERO, and Suspension-derived ZERO can all
-participate in the same generic relation machinery.
-
----
-
-# Phase 6: EHP domain inference foundation
-
-Representative chain:
-
-```text
-Image + Kernel
-↓
-Exactness
-↓
-EHP zero composition
-↓
-Composition(H,E) = 0
-↓
-generic equality reasoning
-↓
-target = 0
-```
-
-The generic engine contains no EHP-specific theorem branch.
-
----
-
-# Phase 7: element-order reasoning
-
-Representative chain:
-
-```text
-ord(α) = n
-↓
-nα = 0
-↓
-equality closure
-↓
-target = nα
-↓
-target = 0
-```
-
-EHP-derived and ORDER-derived ZERO facts can coexist in one knowledge state
-while retaining independent premise chains.
+EHP-derived ZERO, ORDER-derived ZERO, Suspension-derived ZERO, and
+Freudenthal-reflected ZERO all use the same generic relation machinery.
 
 ---
 
 # Phase 8: Suspension reasoning
 
-## Suspension expression
-
-Phase 8 introduces:
+Phase 8 introduced:
 
 ```text
 Suspension(expression)
 ```
 
-as an explicit expression node.
-
-Nested Suspension is intentionally representable.
-
-## Suspension preserves equality
+and the rules:
 
 ```text
-x = y
-↓
-E(x) = E(y)
+x=y  → E(x)=E(y)
+x=0  → E(x)=0
+nα=0 → nE(α)=0
 ```
 
-implemented by:
+Suspension-derived facts remain ordinary generic `Relation` objects.
+
+Repeated Suspension may produce:
 
 ```text
-suspension_preserves_equality_inference_rule()
-```
-
-## Suspension preserves ZERO
-
-```text
-x = 0
-↓
-E(x) = 0
-```
-
-implemented by:
-
-```text
-suspension_preserves_zero_inference_rule()
-```
-
-## Suspension preserves zero multiple
-
-```text
-nα = 0
-↓
-nE(α) = 0
-```
-
-implemented by:
-
-```text
-suspension_preserves_zero_multiple_inference_rule()
-```
-
-The scalar coefficient is preserved while the underlying expression is
-suspended.
-
-## Reconnection to generic reasoning
-
-Suspension-derived EQUALITY and ZERO facts remain ordinary generic
-`Relation` objects.
-
-For example:
-
-```text
-x = y
-y = 0
-↓ Suspension rules
-E(x) = E(y)
-E(y) = 0
-↓ generic ZERO propagation
-E(x) = 0
-```
-
-No Suspension-specific ZERO propagation rule is required.
-
-## EHP integration
-
-An EHP-derived ZERO can be suspended:
-
-```text
-Image + Kernel
-↓
-Exactness
-↓
-EHP zero composition
-↓
-Composition(H,E) = 0
-↓
-E(Composition(H,E)) = 0
-```
-
-## ORDER integration
-
-An ORDER-derived zero multiple can be suspended:
-
-```text
-ord(α)=n
-↓
-nα=0
-↓
-nE(α)=0
-```
-
-## Representative Phase 8 scenario
-
-The representative Phase 8 scenario runs both branches:
-
-```text
-EHP branch                         ORDER branch
-
-Image + Kernel                    ord(α)=n
-      ↓                               ↓
-  Exactness                         nα=0
-      ↓                               ↓
-EHP zero composition             nE(α)=0
-      ↓
-Composition(H,E)=0
-      ↓
-E(Composition(H,E))=0
-```
-
-The final knowledge state contains both suspended results.
-
-## Provenance
-
-The representative provenance regression fixes the chains:
-
-```text
-image_step + kernel_step
-↓
-exactness_step
-↓
-zero_composition_step
-↓
-ehp_zero_step
-↓
-suspended_ehp_zero_step
-```
-
-and:
-
-```text
-order_step
-↓
-order_zero_step
-↓
-suspended_order_zero_step
-```
-
-The two chains share the inference infrastructure but do not contaminate each
-other's premise lists.
-
----
-
-# Suspension termination / inference-scope boundary
-
-Suspension preservation rules are mathematically repeatable.
-
-Therefore:
-
-```text
-x = 0
-↓
-E(x) = 0
-↓
-E²(x) = 0
-↓
-E³(x) = 0
-↓
+E(x)
+E²(x)
+E³(x)
 ...
 ```
 
-and analogous chains for EQUALITY and zero multiples are valid rule
-applications.
-
-Because every nested Suspension is a distinct Python conclusion, ordinary
-duplicate rejection does not force this process to stop.
-
-Consequently:
-
-```text
-Suspension preservation rules
-```
-
-are not classified as unrestricted fixed-point-safe rule families.
-
-Current execution policy:
-
-### Explicit one-round scope
-
-Use:
-
-```text
-run_inference_round()
-```
-
-when only the next Suspension level is intended.
-
-One round derives:
-
-```text
-x = 0
-→
-E(x) = 0
-```
-
-but not:
-
-```text
-E²(x) = 0
-```
-
-unless another Suspension round is explicitly run.
-
-### Bounded repeated scope
-
-Use:
-
-```text
-run_inference_until_stable_with_history(
-  ...,
-  max_rounds=n,
-)
-```
-
-when repeated Suspension is intentionally bounded.
-
-If new nested Suspension conclusions continue to appear, the expected
-termination reason is:
-
-```text
-InferenceTerminationReason.MAX_ROUNDS
-```
-
-This is a valid safety termination result, not an error.
-
-### No artificial domain restriction
-
-The mathematical rule is not changed to reject an already-suspended
-expression.
-
-In particular, the project does not impose:
-
-```text
-E(x) may be suspended only once
-```
-
-because that would incorrectly weaken the theorem.
-
-The separation is:
-
-```text
-mathematical applicability
-≠
-execution scope
-```
+so unrestricted fixed-point termination is not assumed for this rule family.
 
 ---
 
-# Phase 8 completion boundary
+# Phase 9: Freudenthal / stable-range reasoning
 
-Phase 8 is complete because the project can now represent and execute the
-first Suspension theorem family while preserving the existing architecture.
+## SuspensionMapStatement
 
-Completion means:
+Phase 9 introduces map-level theorem metadata:
 
-1. `Suspension` is a first-class structured expression.
-2. nested Suspension is representable.
-3. equality can be suspended.
-4. ZERO can be suspended.
-5. zero multiples can be suspended with coefficient preservation.
-6. ORDER-derived ZERO multiples can enter Suspension reasoning.
-7. Suspension-derived equalities reconnect to generic ZERO propagation.
-8. EHP-derived ZERO can enter Suspension reasoning.
-9. EHP + ORDER + Suspension can coexist in one representative scenario.
-10. both domain branches preserve independent provenance.
-11. unrestricted Suspension closure is recognized as potentially unbounded.
-12. `MAX_ROUNDS` behavior is fixed by regression tests.
-13. staged rule scope is fixed by regression tests.
-14. no Suspension-specific branch was added to the generic engine.
-15. the full regression suite passes.
+```text
+SuspensionMapStatement(
+  sphere_dimension,
+  stem,
+)
+```
 
-Phase 8 does not implement:
+This is deliberately separate from `Suspension(expression)`.
 
-- dimension validation for Suspension,
-- automatic source / target homotopy-group tracking for an expression,
-- Freudenthal suspension theorem,
-- stable-range isomorphism / epimorphism inference,
-- automatic suspension depth planning,
-- canonical `E^n` notation,
-- expression normalization,
-- theorem-aware equality,
-- inverse desuspension reasoning,
-- automatic order preservation theorems beyond the explicit zero-multiple rule,
-- Hopf-invariant theorem families,
-- Toda composition relations,
-- Toda brackets,
-- Steenrod operations,
-- double EHP,
-- odd-primary-specific theorem families.
+## Stable range
 
-These remain future phases.
+```text
+stem <= sphere_dimension - 2
+```
+
+derives:
+
+```text
+SuspensionIsomorphismStatement
+```
+
+## Boundary range
+
+```text
+stem == sphere_dimension - 1
+```
+
+derives:
+
+```text
+SuspensionEpimorphismStatement
+```
+
+Stable and boundary rules do not overlap.
+
+## Outside range
+
+```text
+stem >= sphere_dimension
+```
+
+produces no Freudenthal-derived isomorphism / epimorphism conclusion in the
+current Phase 9 rule family.
+
+## Isomorphism → injectivity
+
+```text
+SuspensionIsomorphismStatement(E)
+↓
+SuspensionInjectiveStatement(E)
+```
+
+Injectivity is explicit and reusable.
+
+## Equality reflection
+
+```text
+Injective(E)
++
+E(x)=E(y)
+↓
+x=y
+```
+
+`E(x)=E(y)` is represented by `SuspensionMapEqualityStatement` tied to the
+same suspension map. Different maps do not match.
+
+The conclusion is ordinary generic EQUALITY.
+
+## ZERO reflection
+
+```text
+Injective(E)
++
+E(x)=0
+↓
+x=0
+```
+
+`E(x)=0` is represented by `SuspensionMapZeroStatement` tied to the same map.
+The conclusion is ordinary generic ZERO.
+
+## Representative fixed-point scenario
+
+```text
+stable map E
++
+E(x)=E(y)
++
+E(x)=0
+↓
+isomorphism
+↓
+injectivity
+├───────────────┐
+↓               ↓
+x=y             x=0
+↓
+y=x
+└───────┬───────┘
+        ↓
+       y=0
+```
+
+The final conclusion is a generic `RelationType.ZERO`, and provenance is
+retained from the initial map statement to the final generic relation.
+
+## Theorem boundary
+
+Current formal inference scope:
+
+```text
+stable
+→ isomorphism
+→ injectivity
+→ equality / ZERO reflection
+
+boundary
+→ epimorphism only
+
+outside
+→ no Freudenthal-derived theorem conclusion
+```
+
+Boundary epimorphism does not imply injectivity in Phase 9, so boundary
+`E(x)=E(y)` / `E(x)=0` facts are not reflected.
+
+## Termination
+
+The current Phase 9 theorem family is a finite closure family:
+
+```text
+map
+→ isomorphism / epimorphism
+→ injectivity
+→ reflection
+```
+
+The scope regression reaches a genuine `FIXED_POINT` after three productive
+rounds.
 
 ---
 
 # Current limitations
 
-## Conclusion equality
-
-Duplicate identity still uses ordinary Python equality.
-
-There is no canonical mathematical normalization.
-
-## Alternative proofs
-
-The execution trace can record multiple applications, but the knowledge state
-keeps the first accepted `ProofStep` for an equal conclusion.
-
-## Pattern-language depth
-
-Structured relation and dataclass-statement matching is supported, but the
-engine is not a fully recursive unification system over arbitrary mathematical
-syntax trees.
-
-## Unbound conclusion variables
-
-An unbound `PatternVariable` substitutes to `None`.
-
-Domain rules must bind all conclusion variables needed for a valid result.
-
-## Search complexity
-
-Exhaustive premise assignment may grow combinatorially.
-
-The engine does not yet implement:
-
-- indexing,
-- pruning,
-- memoization,
-- semi-naive evaluation,
-- agenda / worklist optimization,
-- rule prioritization.
-
-## Termination
-
-Finite closure families such as equality symmetry / transitivity may terminate
-through conclusion duplicate rejection.
-
-Arbitrary rule families are not guaranteed to terminate.
-
-Phase 8 provides a concrete example: repeated Suspension can generate an
-unbounded family of distinct conclusions.
-
-`max_rounds` remains the safety mechanism for bounded execution.
+- Duplicate identity uses ordinary Python equality; there is no theorem-aware
+  canonical normalization.
+- The accumulated knowledge state keeps the first accepted `ProofStep` for an
+  equal conclusion; alternative applications remain in execution traces.
+- Pattern matching is structured but not a fully general unification system.
+- Exhaustive premise assignment can grow combinatorially; indexing / pruning /
+  semi-naive evaluation are not implemented.
+- Arbitrary symbolic rule families are not guaranteed to terminate.
+- `SuspensionMapStatement` metadata is currently supplied explicitly; it is not
+  automatically extracted from arbitrary homotopy-group objects.
+- `SuspensionEpimorphismStatement` is not yet connected to preimage / lifting
+  reasoning.
+- General inverse-map construction and unrestricted desuspension are not
+  implemented.
 
 ---
 
 # Tests
 
-Run the full project suite with:
+Full suite:
 
 ```powershell
 python -m pytest -v
 ```
 
-At Phase 8 completion:
+Phase 9 completion result:
 
 ```text
-721 passed in 22.16s
+750 passed in 22.66s
 ```
 
-Run the relation-rule suite with:
+Phase 9 suite:
 
 ```powershell
-python -m pytest tests/test_relation_rules.py -v
+python -m pytest tests/test_stable_rules.py -v
 ```
 
-Current verified result:
+Result:
 
 ```text
-28 passed
+29 passed in 0.11s
 ```
 
-Run the combined EHP / relation-rule suite with:
+Representative Phase 9 scenario:
 
 ```powershell
-python -m pytest tests/test_ehp_rules.py tests/test_relation_rules.py -v
+python -m pytest tests/test_stable_rules.py::test_phase9_representative_stable_reflection_generic_reasoning_scenario_reaches_fixed_point -v
 ```
 
-Current verified result:
-
-```text
-50 passed
-```
-
-Phase 8 termination / inference-scope regression tests:
+Inference-scope / termination / theorem-boundary regression:
 
 ```powershell
-python -m pytest tests/test_relation_rules.py::test_suspension_preservation_rules_require_bounded_fixed_point_scope tests/test_relation_rules.py::test_suspension_reasoning_scope_is_controlled_by_active_rule_set -v
-```
-
-Current verified result:
-
-```text
-2 passed
+python -m pytest tests/test_stable_rules.py::test_phase9_inference_scope_termination_and_theorem_boundary -v
 ```
 
 ---
 
 # Documentation
 
-- `README.md` — current project capabilities and current status
+- `README.md` — current capabilities and current status
 - `docs/design.md` — current architecture, semantics, and design boundaries
 - `docs/development_log.md` — chronological implementation history
 
-Historical statements in `development_log.md` describe the project state at
-that time.
-
-Current behavior and design boundaries are defined by the latest README and
-design documents.
+Historical statements in the development log describe the state at that time.
+Current behavior is defined by the latest README and design documents.
 
 ---
 
 # Next development boundary
 
-Phase 9 should again begin from an actual mathematical theorem family rather
+Phase 10 should again begin from an actual mathematical theorem family rather
 than speculative generic-engine refactoring.
 
-Natural candidates after Suspension foundation include:
+Candidate directions:
 
-- stable-range / Freudenthal reasoning,
-- Hopf-invariant relations,
-- Toda composition relations,
-- literature-backed theorem rules,
-- Toda brackets,
-- Steenrod operations,
-- double EHP,
-- odd-primary-specific rule families.
+- Hopf-invariant relations
+- Toda composition relations
+- literature-backed theorem rules
+- Toda brackets
+- Steenrod operations
+- double EHP
+- odd-primary-specific theorem families
+- future epimorphism / preimage reasoning
 
 The governing rule remains:
 
@@ -1014,11 +620,5 @@ new mathematical knowledge
 new domain InferenceRule
 ```
 
-and:
-
-```text
-change the generic engine
-only when an actual mathematical rule
-cannot be represented correctly
-with the current rule language
-```
+and the generic engine should change only when an actual mathematical rule
+cannot be represented correctly with the current rule language.
