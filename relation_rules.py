@@ -321,6 +321,70 @@ def suspension_preserves_zero_inference_rule():
   )
 
 
+def suspension_preserves_zero_multiple_inference_rule():
+  multiple_expression = PatternVariable(
+    name="multiple_expression",
+  )
+
+  def guard(
+    premises,
+    bindings,
+  ):
+    bound_multiple_expression = (
+      lookup_variable_binding(
+        multiple_expression,
+        bindings,
+      )
+    )
+
+    return isinstance(
+      bound_multiple_expression,
+      Multiple,
+    )
+
+  def conclusion_builder(
+    premises,
+  ):
+    premise_relation = (
+      premises[0].conclusion
+    )
+
+    multiple = premise_relation.lhs
+
+    return Relation(
+      lhs=Multiple(
+        coefficient=multiple.coefficient,
+        expression=Suspension(
+          expression=multiple.expression,
+        ),
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name="suspension preserves zero multiple",
+    description=(
+      "If a multiple of an expression "
+      "is zero, the same multiple of "
+      "its suspension is also zero."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.ZERO,
+        relation_pattern=Relation(
+          lhs=multiple_expression,
+          rhs=Zero(),
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+    ),
+    conclusion_builder=conclusion_builder,
+    match_guard=guard,
+  )
+
+
 def equality_symmetry_inference_rule():
   left_expression = PatternVariable(
     name="left_expression",

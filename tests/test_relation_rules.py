@@ -27,6 +27,7 @@ from relation_rules import (
   order_implies_zero_multiple_inference_rule,
   suspension_preserves_equality_inference_rule,
   suspension_preserves_zero_inference_rule,
+  suspension_preserves_zero_multiple_inference_rule,
   zero_composition_equality_implies_zero_inference_rule,
   zero_composition_reverse_equality_implies_zero_inference_rule,
   zero_equality_implies_zero_inference_rule,
@@ -1429,6 +1430,86 @@ def test_suspension_preserves_zero_rejects_non_zero_relation():
     lhs=eta(3),
     rhs=nu(4),
     relation_type=RelationType.EQUALITY,
+  )
+
+  premise_step = ProofStep(
+    conclusion=premise_relation,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      premise_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_suspension_preserves_zero_multiple():
+  rule = (
+    suspension_preserves_zero_multiple_inference_rule()
+  )
+
+  premise_relation = Relation(
+    lhs=Multiple(
+      coefficient=2,
+      expression=eta(3),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  premise_step = ProofStep(
+    conclusion=premise_relation,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      premise_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match,
+  )
+
+  assert derived_step.conclusion == Relation(
+    lhs=Multiple(
+      coefficient=2,
+      expression=Suspension(
+        expression=eta(3),
+      ),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert derived_step.premises == (
+    premise_step,
+  )
+
+  assert derived_step.inference_rule is rule
+
+  assert derived_step.rule == ProofRule.INFERENCE
+
+
+def test_suspension_preserves_zero_multiple_rejects_non_multiple_zero_relation():
+  rule = (
+    suspension_preserves_zero_multiple_inference_rule()
+  )
+
+  premise_relation = Relation(
+    lhs=eta(3),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
   )
 
   premise_step = ProofStep(
