@@ -42,6 +42,8 @@ from relation_rules import (
   equality_symmetry_inference_rule,
   equality_transitivity_inference_rule,
   order_implies_zero_multiple_inference_rule,
+  suspension_composition_functoriality_inference_rule,
+  suspension_preserves_equality_inference_rule,
   suspension_preserves_zero_inference_rule,
   suspension_preserves_zero_multiple_inference_rule,
   zero_composition_equality_implies_zero_inference_rule,
@@ -3156,6 +3158,479 @@ def test_phase8_representative_provenance_chain_is_preserved():
     suspended_ehp_zero_step.premises
   )
 
+
+def test_phase10_representative_ehp_toda_composition_suspension_scenario():
+  segment = EHPSegment(
+    make_sphere_repository(),
+    n=3,
+    k=5,
+  )
+
+  exact_step = (
+    segment.exact_step_at_sphere()
+  )
+
+  image_step = image_proof_step(
+    exact_step.first_map
+  )
+
+  kernel_step = kernel_proof_step(
+    exact_step.second_map
+  )
+
+  ehp_composition = Composition(
+    left=exact_step.second_map,
+    right=exact_step.first_map,
+  )
+
+  toda_zero_composition = Composition(
+    left=nu(4),
+    right=eta(3),
+  )
+
+  toda_zero_target = eta(4)
+
+  toda_zero_step = relation_proof_step(
+    Relation(
+      lhs=toda_zero_composition,
+      rhs=Zero(),
+      relation_type=RelationType.EQUALITY,
+      source="Toda",
+      note="known zero composition",
+    )
+  )
+
+  toda_zero_target_equality_step = (
+    relation_proof_step(
+      Relation(
+        lhs=toda_zero_target,
+        rhs=toda_zero_composition,
+        relation_type=RelationType.EQUALITY,
+      )
+    )
+  )
+
+  toda_nonzero_composition = Composition(
+    left=sigma(5),
+    right=eta(4),
+  )
+
+  toda_nonzero_result = nu(5)
+
+  toda_nonzero_step = relation_proof_step(
+    Relation(
+      lhs=toda_nonzero_composition,
+      rhs=toda_nonzero_result,
+      relation_type=RelationType.EQUALITY,
+      source="Toda",
+      note="known nonzero composition equality",
+    )
+  )
+
+  suspension_equality_rule = (
+    suspension_preserves_equality_inference_rule()
+  )
+
+  suspension_round_steps = (
+    run_inference_round(
+      suspension_equality_rule,
+      (
+        toda_nonzero_step,
+      ),
+    )
+  )
+
+  suspended_toda_equality = Relation(
+    lhs=Suspension(
+      expression=toda_nonzero_composition,
+    ),
+    rhs=Suspension(
+      expression=toda_nonzero_result,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  suspended_toda_equality_step = next(
+    step
+    for step in suspension_round_steps
+    if step.conclusion
+    == suspended_toda_equality
+  )
+
+  assert suspended_toda_equality_step.premises == (
+    toda_nonzero_step,
+  )
+
+  assert (
+    suspended_toda_equality_step.inference_rule
+    is suspension_equality_rule
+  )
+
+  assert suspended_toda_equality_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  functoriality_rule = (
+    suspension_composition_functoriality_inference_rule()
+  )
+
+  functoriality_round_steps = (
+    run_inference_round(
+      functoriality_rule,
+      (
+        toda_nonzero_step,
+      ),
+    )
+  )
+
+  componentwise_suspended_composition = (
+    Composition(
+      left=Suspension(
+        expression=toda_nonzero_composition.left,
+      ),
+      right=Suspension(
+        expression=toda_nonzero_composition.right,
+      ),
+    )
+  )
+
+  functoriality_relation = Relation(
+    lhs=Suspension(
+      expression=toda_nonzero_composition,
+    ),
+    rhs=componentwise_suspended_composition,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  functoriality_step = next(
+    step
+    for step in functoriality_round_steps
+    if step.conclusion
+    == functoriality_relation
+  )
+
+  assert functoriality_step.premises == (
+    toda_nonzero_step,
+  )
+
+  assert (
+    functoriality_step.inference_rule
+    is functoriality_rule
+  )
+
+  assert functoriality_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  exactness_rule = (
+    ehp_exactness_inference_rule()
+  )
+
+  ehp_zero_composition_rule = (
+    ehp_exactness_implies_zero_composition_inference_rule()
+  )
+
+  ehp_zero_relation_rule = (
+    ehp_zero_composition_implies_zero_relation_inference_rule()
+  )
+
+  toda_zero_rule = (
+    composition_equality_to_zero_inference_rule()
+  )
+
+  symmetry_rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  transitivity_rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  zero_propagation_rule = (
+    zero_equality_implies_zero_inference_rule()
+  )
+
+  rules = (
+    exactness_rule,
+    ehp_zero_composition_rule,
+    ehp_zero_relation_rule,
+    toda_zero_rule,
+    symmetry_rule,
+    transitivity_rule,
+    zero_propagation_rule,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        image_step,
+        kernel_step,
+        toda_zero_step,
+        toda_zero_target_equality_step,
+        toda_nonzero_step,
+        suspended_toda_equality_step,
+        functoriality_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  ehp_zero_composition_statement = (
+    EHPZeroCompositionStatement(
+      first_map=exact_step.first_map,
+      second_map=exact_step.second_map,
+    )
+  )
+
+  ehp_zero_relation = Relation(
+    lhs=ehp_composition,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  toda_zero_relation = Relation(
+    lhs=toda_zero_composition,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  toda_target_zero_relation = Relation(
+    lhs=toda_zero_target,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  componentwise_to_result_relation = Relation(
+    lhs=componentwise_suspended_composition,
+    rhs=Suspension(
+      expression=toda_nonzero_result,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert (
+    ehp_zero_composition_statement
+    in conclusions
+  )
+
+  assert ehp_zero_relation in conclusions
+
+  assert toda_zero_relation in conclusions
+
+  assert toda_target_zero_relation in (
+    conclusions
+  )
+
+  assert suspended_toda_equality in (
+    conclusions
+  )
+
+  assert functoriality_relation in (
+    conclusions
+  )
+
+  assert (
+    componentwise_to_result_relation
+    in conclusions
+  )
+
+  exactness_step = next(
+    step
+    for step in result.steps
+    if (
+      isinstance(
+        step.conclusion,
+        ExactnessStatement,
+      )
+      and step.conclusion.first_map
+      is exact_step.first_map
+      and step.conclusion.second_map
+      is exact_step.second_map
+      and step.conclusion.is_exact
+    )
+  )
+
+  ehp_zero_composition_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == ehp_zero_composition_statement
+  )
+
+  ehp_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == ehp_zero_relation
+  )
+
+  toda_zero_relation_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == toda_zero_relation
+  )
+
+  toda_target_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == toda_target_zero_relation
+  )
+
+  componentwise_result_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == componentwise_to_result_relation
+  )
+
+  assert exactness_step.premises == (
+    image_step,
+    kernel_step,
+  )
+
+  assert (
+    exactness_step.inference_rule
+    is exactness_rule
+  )
+
+  assert exactness_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert ehp_zero_composition_step.premises == (
+    exactness_step,
+  )
+
+  assert (
+    ehp_zero_composition_step.inference_rule
+    is ehp_zero_composition_rule
+  )
+
+  assert ehp_zero_composition_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert ehp_zero_step.premises == (
+    ehp_zero_composition_step,
+  )
+
+  assert (
+    ehp_zero_step.inference_rule
+    is ehp_zero_relation_rule
+  )
+
+  assert ehp_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert toda_zero_relation_step.premises == (
+    toda_zero_step,
+  )
+
+  assert (
+    toda_zero_relation_step.inference_rule
+    is toda_zero_rule
+  )
+
+  assert toda_zero_relation_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert toda_target_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    toda_target_zero_step.inference_rule
+    is zero_propagation_rule
+  )
+
+  assert any(
+    premise.conclusion
+    == toda_zero_relation
+    for premise
+    in toda_target_zero_step.premises
+  )
+
+  assert any(
+    premise.conclusion
+    == toda_zero_target_equality_step.conclusion
+    for premise
+    in toda_target_zero_step.premises
+  )
+
+  assert componentwise_result_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    componentwise_result_step.inference_rule
+    is transitivity_rule
+  )
+
+  assert any(
+    premise.conclusion
+    == Relation(
+      lhs=componentwise_suspended_composition,
+      rhs=Suspension(
+        expression=toda_nonzero_composition,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+    for premise
+    in componentwise_result_step.premises
+  )
+
+  assert any(
+    premise.conclusion
+    == suspended_toda_equality
+    for premise
+    in componentwise_result_step.premises
+  )
+
+  assert image_step not in (
+    functoriality_step.premises
+  )
+
+  assert kernel_step not in (
+    functoriality_step.premises
+  )
+
+  assert toda_zero_step not in (
+    functoriality_step.premises
+  )
+
+  assert toda_nonzero_step not in (
+    ehp_zero_step.premises
+  )
+
+  assert suspended_toda_equality_step not in (
+    ehp_zero_step.premises
+  )
+
+  assert functoriality_step not in (
+    ehp_zero_step.premises
+  )
+
+  terminal_round = (
+    derive_inference_round_result(
+      rules,
+      result.steps,
+    )
+  )
+
+  assert terminal_round.new_steps == ()
 
 
 
