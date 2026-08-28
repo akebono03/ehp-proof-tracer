@@ -29,6 +29,7 @@ from relation_rules import (
   equality_symmetry_inference_rule,
   equality_transitivity_inference_rule,
   order_implies_zero_multiple_inference_rule,
+  sum_associativity_inference_rule,
   sum_commutativity_inference_rule,
   suspension_composition_functoriality_inference_rule,
   suspension_preserves_equality_inference_rule,
@@ -107,6 +108,55 @@ def test_sum_commutativity():
     rhs=Sum(
       left=beta,
       right=alpha,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == ()
+
+
+def test_sum_associativity():
+  alpha = eta(3)
+  beta = nu(4)
+  gamma = sigma(8)
+
+  rule = sum_associativity_inference_rule(
+    alpha,
+    beta,
+    gamma,
+  )
+
+  match = find_inference_match(
+    rule,
+    (),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == Relation(
+    lhs=Sum(
+      left=Sum(
+        left=alpha,
+        right=beta,
+      ),
+      right=gamma,
+    ),
+    rhs=Sum(
+      left=alpha,
+      right=Sum(
+        left=beta,
+        right=gamma,
+      ),
     ),
     relation_type=RelationType.EQUALITY,
   )

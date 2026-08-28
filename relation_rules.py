@@ -62,6 +62,37 @@ def sum_commutativity_inference_rule(
   )
 
 
+def sum_associativity_inference_rule(
+  left,
+  middle,
+  right,
+):
+  return InferenceRule(
+    name="sum associativity",
+    description=(
+      "A nested sum is equal to the "
+      "corresponding reassociated sum."
+    ),
+    conclusion_pattern=Relation(
+      lhs=Sum(
+        left=Sum(
+          left=left,
+          right=middle,
+        ),
+        right=right,
+      ),
+      rhs=Sum(
+        left=left,
+        right=Sum(
+          left=middle,
+          right=right,
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+  )
+
+
 def order_implies_zero_multiple_inference_rule():
   element = PatternVariable(
     name="element",
