@@ -93,6 +93,67 @@ def test_nested_suspension():
   )
 
 
+def test_sum_has_structural_equality():
+  expression = Sum(
+    eta(3),
+    nu(4),
+  )
+
+  assert expression == Sum(
+    eta(3),
+    nu(4),
+  )
+
+
+def test_sum_distinguishes_operand_order():
+  left_right = Sum(
+    eta(3),
+    nu(4),
+  )
+
+  right_left = Sum(
+    nu(4),
+    eta(3),
+  )
+
+  assert left_right != right_left
+
+
+def test_nested_sum_preserves_structure():
+  alpha = eta(3)
+  beta = nu(4)
+  gamma = sigma(8)
+
+  left_nested = Sum(
+    Sum(
+      alpha,
+      beta,
+    ),
+    gamma,
+  )
+
+  right_nested = Sum(
+    alpha,
+    Sum(
+      beta,
+      gamma,
+    ),
+  )
+
+  assert left_nested.left == Sum(
+    alpha,
+    beta,
+  )
+  assert left_nested.right == gamma
+
+  assert right_nested.left == alpha
+  assert right_nested.right == Sum(
+    beta,
+    gamma,
+  )
+
+  assert left_nested != right_nested
+
 
 
 
