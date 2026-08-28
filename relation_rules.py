@@ -38,6 +38,30 @@ def additive_inverse_inference_rule(
   )
 
 
+def sum_commutativity_inference_rule(
+  left,
+  right,
+):
+  return InferenceRule(
+    name="sum commutativity",
+    description=(
+      "The sum of two expressions is equal "
+      "to the sum with operands reversed."
+    ),
+    conclusion_pattern=Relation(
+      lhs=Sum(
+        left=left,
+        right=right,
+      ),
+      rhs=Sum(
+        left=right,
+        right=left,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+  )
+
+
 def order_implies_zero_multiple_inference_rule():
   element = PatternVariable(
     name="element",
