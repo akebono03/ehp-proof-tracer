@@ -2,6 +2,7 @@ from expression import (
   Composition,
   HomotopyElement,
   Multiple,
+  Sum,
   Suspension,
   Zero,
   eta,
@@ -44,6 +45,16 @@ def test_multiple():
 
   assert expression.coefficient == 2
   assert expression.expression == eta(3)
+
+
+def test_sum():
+  expression = Sum(
+    eta(3),
+    nu(4),
+  )
+
+  assert expression.left == eta(3)
+  assert expression.right == nu(4)
 
 
 def test_composition():
