@@ -1906,6 +1906,340 @@ def test_phase11_representative_provenance_chain_is_preserved():
   )
 
 
+def test_phase11_theorem_scope_boundary():
+  alpha = nu(4)
+
+  hopf_zero_step = (
+    hopf_invariant_proof_step(
+      HopfInvariantStatement(
+        expression=alpha,
+        value=Zero(),
+      )
+    )
+  )
+
+  hopf_law_rule = (
+    hopf_composition_law_inference_rule()
+  )
+
+  hopf_scope_steps = run_inference_round(
+    hopf_law_rule,
+    (
+      hopf_zero_step,
+    ),
+  )
+
+  expression_zero = Relation(
+    lhs=alpha,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert expression_zero not in tuple(
+    step.conclusion
+    for step in hopf_scope_steps
+  )
+
+  beta = eta(7)
+  unrelated = eta(8)
+
+  hopf_value_step = (
+    hopf_invariant_proof_step(
+      HopfInvariantStatement(
+        expression=alpha,
+        value=beta,
+      )
+    )
+  )
+
+  unrelated_zero_step = (
+    relation_proof_step(
+      Relation(
+        lhs=unrelated,
+        rhs=Zero(),
+        relation_type=RelationType.ZERO,
+      )
+    )
+  )
+
+  hopf_value_zero_rule = (
+    hopf_invariant_value_zero_inference_rule()
+  )
+
+  unrelated_zero_match = (
+    find_inference_match(
+      hopf_value_zero_rule,
+      (
+        hopf_value_step,
+        unrelated_zero_step,
+      ),
+    )
+  )
+
+  assert unrelated_zero_match is None
+
+  h_map = type(
+    "HMap",
+    (),
+    {
+      "name": "H",
+    },
+  )()
+
+  p_map = type(
+    "PMap",
+    (),
+    {
+      "name": "P",
+    },
+  )()
+
+  ehp_hp_step = ProofStep(
+    conclusion=EHPZeroCompositionStatement(
+      first_map=h_map,
+      second_map=p_map,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  gamma = eta(8)
+
+  gamma_step = ProofStep(
+    conclusion=gamma,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  ehp_hopf_rule = (
+    ehp_zero_composition_implies_suspended_hopf_zero_inference_rule()
+  )
+
+  hp_match = find_inference_match(
+    ehp_hopf_rule,
+    (
+      ehp_hp_step,
+      gamma_step,
+    ),
+  )
+
+  assert hp_match is None
+
+
+def test_phase11_inference_scope_and_termination_boundary():
+  alpha = nu(4)
+  beta = eta(7)
+  gamma = eta(8)
+
+  hopf_step = (
+    hopf_invariant_proof_step(
+      HopfInvariantStatement(
+        expression=alpha,
+        value=beta,
+      )
+    )
+  )
+
+  gamma_step = ProofStep(
+    conclusion=gamma,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  hopf_law_rule = (
+    hopf_composition_law_inference_rule()
+  )
+
+  hopf_formula_rule = (
+    hopf_composition_formula_inference_rule()
+  )
+
+  unrestricted_result = (
+    run_inference_until_stable_with_history(
+      (
+        hopf_law_rule,
+        hopf_formula_rule,
+      ),
+      (
+        hopf_step,
+        gamma_step,
+      ),
+      max_rounds=4,
+    )
+  )
+
+  assert (
+    unrestricted_result.termination_reason
+    == InferenceTerminationReason.MAX_ROUNDS
+  )
+
+  assert unrestricted_result.round_count == 4
+
+  suspended_gamma = Suspension(
+    expression=gamma,
+  )
+
+  first_law = (
+    HopfCompositionLawStatement(
+      alpha=alpha,
+      beta=beta,
+    )
+  )
+
+  first_formula = (
+    HopfInvariantStatement(
+      expression=Composition(
+        left=alpha,
+        right=suspended_gamma,
+      ),
+      value=Composition(
+        left=beta,
+        right=suspended_gamma,
+      ),
+    )
+  )
+
+  second_law = (
+    HopfCompositionLawStatement(
+      alpha=first_formula.expression,
+      beta=first_formula.value,
+    )
+  )
+
+  second_formula = (
+    HopfInvariantStatement(
+      expression=Composition(
+        left=first_formula.expression,
+        right=suspended_gamma,
+      ),
+      value=Composition(
+        left=first_formula.value,
+        right=suspended_gamma,
+      ),
+    )
+  )
+
+  first_law_step = next(
+    step
+    for step in unrestricted_result.steps
+    if step.conclusion
+    == first_law
+  )
+
+  first_formula_step = next(
+    step
+    for step in unrestricted_result.steps
+    if step.conclusion
+    == first_formula
+  )
+
+  second_law_step = next(
+    step
+    for step in unrestricted_result.steps
+    if step.conclusion
+    == second_law
+  )
+
+  second_formula_step = next(
+    step
+    for step in unrestricted_result.steps
+    if step.conclusion
+    == second_formula
+  )
+
+  assert first_law_step.premises == (
+    hopf_step,
+  )
+
+  assert (
+    first_law_step.inference_rule
+    == hopf_law_rule
+  )
+
+  assert first_formula_step.premises == (
+    first_law_step,
+    gamma_step,
+  )
+
+  assert (
+    first_formula_step.inference_rule
+    == hopf_formula_rule
+  )
+
+  assert second_law_step.premises == (
+    first_formula_step,
+  )
+
+  assert (
+    second_law_step.inference_rule
+    == hopf_law_rule
+  )
+
+  assert second_formula_step.premises == (
+    second_law_step,
+    gamma_step,
+  )
+
+  assert (
+    second_formula_step.inference_rule
+    == hopf_formula_rule
+  )
+
+  staged_first_round = run_inference_round(
+    hopf_law_rule,
+    (
+      hopf_step,
+      gamma_step,
+    ),
+  )
+
+  staged_second_round = run_inference_round(
+    hopf_formula_rule,
+    staged_first_round,
+  )
+
+  hopf_value_zero_step = (
+    relation_proof_step(
+      Relation(
+        lhs=first_formula.value,
+        rhs=Zero(),
+        relation_type=RelationType.ZERO,
+      )
+    )
+  )
+
+  hopf_zero_rule = (
+    hopf_invariant_value_zero_inference_rule()
+  )
+
+  staged_result = (
+    run_inference_until_stable_with_history(
+      hopf_zero_rule,
+      (
+        *staged_second_round,
+        hopf_value_zero_step,
+      ),
+    )
+  )
+
+  final_hopf_zero = (
+    HopfInvariantStatement(
+      expression=first_formula.expression,
+      value=Zero(),
+    )
+  )
+
+  assert final_hopf_zero in tuple(
+    step.conclusion
+    for step in staged_result.steps
+  )
+
+  assert (
+    staged_result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+
 
 
 
