@@ -106,6 +106,32 @@ def test_sum():
   assert expression.right == nu(4)
 
 
+def test_sum_with_zero_preserves_right_zero_structure():
+  alpha = eta(3)
+
+  expression = Sum(
+    alpha,
+    Zero(),
+  )
+
+  assert expression.left == alpha
+  assert expression.right == Zero()
+  assert expression != alpha
+
+
+def test_sum_with_zero_preserves_left_zero_structure():
+  alpha = eta(3)
+
+  expression = Sum(
+    Zero(),
+    alpha,
+  )
+
+  assert expression.left == Zero()
+  assert expression.right == alpha
+  assert expression != alpha
+
+
 def test_composition():
   expression = Composition(
     eta(3),
