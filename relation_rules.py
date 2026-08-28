@@ -1,6 +1,7 @@
 from expression import (
   Composition,
   Multiple,
+  Sum,
   Suspension,
   Zero,
 )
@@ -12,6 +13,29 @@ from proof import (
   RelationType,
   lookup_variable_binding,
 )
+
+
+def additive_inverse_inference_rule(
+  expression,
+):
+  return InferenceRule(
+    name="additive inverse implies zero",
+    description=(
+      "An expression added to its "
+      "additive inverse is zero."
+    ),
+    conclusion_pattern=Relation(
+      lhs=Sum(
+        left=expression,
+        right=Multiple(
+          coefficient=-1,
+          expression=expression,
+        ),
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    ),
+  )
 
 
 def order_implies_zero_multiple_inference_rule():

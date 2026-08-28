@@ -1,6 +1,7 @@
 from expression import (
   Composition,
   Multiple,
+  Sum,
   Zero,
   eta,
   nu,
@@ -23,6 +24,7 @@ from proof import (
 )
 from relation_rules import (
   Suspension,
+  additive_inverse_inference_rule,
   composition_equality_to_zero_inference_rule,
   equality_symmetry_inference_rule,
   equality_transitivity_inference_rule,
@@ -35,6 +37,45 @@ from relation_rules import (
   zero_composition_reverse_equality_implies_zero_inference_rule,
   zero_equality_implies_zero_inference_rule,
 )
+
+
+def test_additive_inverse_implies_zero():
+  alpha = eta(3)
+
+  rule = additive_inverse_inference_rule(
+    alpha,
+  )
+
+  match = find_inference_match(
+    rule,
+    (),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == Relation(
+    lhs=Sum(
+      left=alpha,
+      right=Multiple(
+        coefficient=-1,
+        expression=alpha,
+      ),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == ()
 
 
 def test_order_implies_zero_multiple():
