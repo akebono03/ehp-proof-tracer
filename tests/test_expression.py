@@ -47,6 +47,39 @@ def test_multiple():
   assert expression.expression == eta(3)
 
 
+def test_multiple_remains_distinct_from_repeated_sum():
+  alpha = eta(3)
+
+  multiple = Multiple(
+    2,
+    alpha,
+  )
+
+  repeated_sum = Sum(
+    alpha,
+    alpha,
+  )
+
+  assert multiple != repeated_sum
+  assert multiple.coefficient == 2
+  assert multiple.expression == alpha
+
+
+def test_zero_remains_distinct_from_zero_multiple():
+  alpha = eta(3)
+
+  zero = Zero()
+
+  zero_multiple = Multiple(
+    0,
+    alpha,
+  )
+
+  assert zero_multiple != zero
+  assert zero_multiple.coefficient == 0
+  assert zero_multiple.expression == alpha
+
+
 def test_sum():
   expression = Sum(
     eta(3),
