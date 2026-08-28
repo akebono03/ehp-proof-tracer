@@ -1,6 +1,6 @@
 # ehp_proof 開発記録
 
-この文書は Phase 10 完了時点までの開発履歴を、現在の実装と矛盾しない
+この文書は Phase 11 完了時点までの開発履歴を、現在の実装と矛盾しない
 形で整理した改訂版である。
 
 ```text
@@ -270,10 +270,6 @@ SuspensionMapStatement(
 
 Phase 8 `Suspension(expression)` とは責務を分離。
 
-### 状態
-
-完了
-
 ## Phase 9-2：stable / boundary range judgement
 
 Stable:
@@ -296,147 +292,17 @@ stem >= sphere_dimension
 
 を区別。
 
-### 状態
+## Phase 9-3〜9-7
 
-完了
+Stable range から suspension isomorphism、injectivity、equality / ZERO
+reflection へ接続。
 
-## Phase 9-3：stable range → suspension isomorphism
+Boundary は epimorphism only。
 
-```text
-stable SuspensionMapStatement
-↓
-SuspensionIsomorphismStatement
-```
+## Phase 9-8〜9-9
 
-Boundary / outside は reject。
-
-### 状態
-
-完了
-
-## Phase 9-4：boundary range → suspension epimorphism
-
-```text
-boundary SuspensionMapStatement
-↓
-SuspensionEpimorphismStatement
-```
-
-stable / boundary rules の非重複も固定。
-
-### 状態
-
-完了
-
-## Phase 9-5：isomorphism → injectivity → equality reflection
-
-```text
-SuspensionIsomorphismStatement(E)
-↓
-SuspensionInjectiveStatement(E)
-```
-
-```text
-Injective(E)
-+
-SuspensionMapEqualityStatement(E,x,y)
-↓
-Relation(x,y,EQUALITY)
-```
-
-### 状態
-
-完了
-
-## Phase 9-6：injectivity → ZERO reflection
-
-```text
-Injective(E)
-+
-SuspensionMapZeroStatement(E,x)
-↓
-Relation(x,Zero(),ZERO)
-```
-
-### 状態
-
-完了
-
-## Phase 9-7：stable range → ZERO reflection fixed-point integration
-
-```text
-map
-↓
-isomorphism
-↓
-injectivity
-↓
-x=0
-↓
-FIXED_POINT
-```
-
-### 状態
-
-完了
-
-## Phase 9-8：representative scenario + generic reasoning + provenance
-
-```text
-stable map E
-+
-E(x)=E(y)
-+
-E(x)=0
-↓
-isomorphism
-↓
-injectivity
-├───────────────┐
-↓               ↓
-x=y             x=0
-↓
-y=x
-└───────┬───────┘
-        ↓
-       y=0
-```
-
-### 状態
-
-完了
-
-## Phase 9-9：inference-scope / termination / theorem-boundary
-
-Stable / boundary / outside maps を同一 run に投入。
-
-Stable:
-
-```text
-→ isomorphism
-→ injectivity
-→ equality / ZERO reflection
-```
-
-Boundary:
-
-```text
-→ epimorphism only
-```
-
-Outside:
-
-```text
-→ no Freudenthal-derived conclusion
-```
-
-Termination:
-
-```text
-3 productive rounds
-↓
-FIXED_POINT
-```
+Representative scenario、generic reasoning、provenance、theorem boundary、
+finite fixed-point termination を固定。
 
 Phase 9 completion:
 
@@ -450,46 +316,23 @@ Phase 9 completion:
 
 ---
 
-# Phase 10：Composition reasoning / Suspension–composition functoriality
+# Phase 10：Composition reasoning / Suspension-composition functoriality
 
 Phase 10 は Toda composition relations を current generic Relation /
 Expression infrastructure に接続する actual theorem / relation family として
 進めた。
 
-基本方針:
-
-```text
-Toda-specific engine
-```
-
-を作るのではなく、
-
-```text
-Composition
-+
-Relation(EQUALITY / ZERO)
-+
-Suspension
-+
-generic equality / ZERO rules
-```
-
-を組み合わせる。
-
 Generic engine の変更は行わない。
 
----
+## Phase 10-1〜10-5：composition relation foundation
 
-# Phase 10-1〜10-5：composition relation foundation
-
-Known composition relation:
+Known:
 
 ```text
 α∘β = γ
 ```
 
-を structured `Composition` を含む generic `RelationType.EQUALITY` として
-扱う。
+を structured `Composition` を含む generic equality として扱う。
 
 Known zero composition:
 
@@ -497,44 +340,11 @@ Known zero composition:
 α∘β = 0
 ```
 
-から generic ZERO relation:
+から generic ZERO へ bridge。
 
-```text
-Relation(
-  lhs=α∘β,
-  rhs=0,
-  relation_type=ZERO,
-)
-```
+EHP-derived ZERO と Toda-derived ZERO が coexist。
 
-へ bridge する rule を追加。
-
-EHP-derived zero composition と Toda zero composition が同じ fixed-point
-knowledge state で coexist できることを確認。
-
-### 状態
-
-完了
-
----
-
-# Phase 10-6：`E(α∘β)` と composition internal structure
-
-Phase 8 で導入した:
-
-```text
-Suspension(expression)
-```
-
-は `Composition` を nested expression としてそのまま保持できる。
-
-したがって:
-
-```text
-E(α∘β)
-```
-
-を別 class へ展開せず:
+## Phase 10-6：`E(α∘β)` internal structure
 
 ```python
 Suspension(
@@ -545,93 +355,30 @@ Suspension(
 )
 ```
 
-として表現する。
+として composition internal structure を lossless に保持。
 
-この representation により composition 内部構造を lossless に保持。
-
-### 状態
-
-完了
-
----
-
-# Phase 10-7：Suspension–composition functoriality
-
-Rule:
-
-```text
-suspension_composition_functoriality_inference_rule()
-```
-
-Known:
+## Phase 10-7：Suspension-composition functoriality
 
 ```text
 α∘β = γ
+↓
+E(α∘β)=Eα∘Eβ
 ```
-
-から:
-
-```text
-E(α∘β) = Eα∘Eβ
-```
-
-を導出。
-
-Applicability は lhs が `Composition` である equality に限定。
 
 Non-composition equality は reject。
 
-### 状態
-
-完了
-
----
-
-# Phase 10-8：Suspension equality closure
-
-Known composition equality:
+## Phase 10-8：generic equality closure
 
 ```text
-α∘β = γ
+E(α∘β)=Eγ
+E(α∘β)=Eα∘Eβ
+↓
+Eα∘Eβ=Eγ
 ```
-
-に対して2経路を作る。
-
-Path A:
-
-```text
-α∘β = γ
-↓ Suspension preserves equality
-E(α∘β) = Eγ
-```
-
-Path B:
-
-```text
-α∘β = γ
-↓ functoriality
-E(α∘β) = Eα∘Eβ
-```
-
-Generic equality symmetry / transitivity により:
-
-```text
-Eα∘Eβ = Eγ
-```
-
-を導出。
 
 Phase 10-specific transitivity rule は追加しない。
 
-### 状態
-
-完了
-
----
-
-# Phase 10-9：representative integration
-
-Representative scenario:
+## Phase 10-9：representative integration
 
 ```text
 EHP
@@ -645,236 +392,87 @@ Suspension / functoriality
 generic ZERO / equality reasoning
 ```
 
-を1つの integration scenario で確認。
+を1 scenario で確認。
 
-EHP branch:
+## Phase 10-10：provenance / termination boundary
 
-```text
-Image + Kernel
-↓
-Exactness
-↓
-EHP zero composition
-↓
-generic ZERO
-```
+`functoriality + symmetry` で structural depth が増え得ることを regression
+固定。
 
-Toda zero branch:
+Bounded side:
 
 ```text
-α∘β = 0
-↓
-generic ZERO
-↓
-generic ZERO propagation
+MAX_ROUNDS
 ```
 
-Toda nonzero / Suspension branch:
+Staged finite side:
 
 ```text
-γ∘δ = ε
-├─→ E(γ∘δ)=Eε
-└─→ E(γ∘δ)=Eγ∘Eδ
-          ↓
-    symmetry / transitivity
-          ↓
-      Eγ∘Eδ=Eε
+FIXED_POINT
 ```
 
-重要な実装境界:
-
-`Suspension` preservation と functoriality を unrestricted fixed-point rule
-set に同時投入しない。
-
-理由は structural expression depth が無制限に増え得るため。
-
-Phase 10-9 representative test は structural rules を explicit one-round
-stage として適用後、generic finite closure を fixed point まで実行。
-
-### 状態
-
-完了
-
----
-
-# Phase 10-10：representative provenance / termination boundary
-
-Phase 10-10 では新しい production rule は追加しない。
-
-追加した regression:
-
-```text
-test_phase10_representative_provenance_is_preserved
-```
-
-```text
-test_phase10_functoriality_scope_and_termination_boundary
-```
-
-## Provenance regression
-
-EHP branch:
-
-```text
-image_step + kernel_step
-↓
-exactness_step
-↓
-ehp_zero_composition_step
-↓
-ehp_zero_step
-```
-
-Toda zero branch:
-
-```text
-toda_zero_step
-↓
-toda_zero_relation_step
-```
-
-Toda nonzero / Suspension branch:
-
-```text
-toda_nonzero_step
-├─→ suspended_equality_step
-└─→ functoriality_step
-          ↓
-    generic equality closure
-          ↓
-componentwise_result_step
-```
-
-各 step の:
-
-```text
-ProofRule.INFERENCE
-premises
-inference_rule
-```
-
-を確認。
-
-さらに unrelated branch premise が direct dependency に混入しないことを
-regression 固定。
-
-## Termination / inference-scope regression
-
-当初:
-
-```text
-functoriality
-+
-symmetry
-```
-
-を `max_rounds=2` で実行し、second-level functoriality conclusion を期待した。
-
-しかし actual engine semantics では same-round newly derived step は同 round
-で次 rule の premise として逐次利用されないため、chain は:
-
-```text
-Round 1
-E(α∘β)=Eα∘Eβ
-
-Round 2
-Eα∘Eβ=E(α∘β)
-
-Round 3
-E(Eα∘Eβ)=E²α∘E²β
-```
-
-となる。
-
-この実際の round semantics に合わせて `max_rounds=3` に修正。
-
-Regression は:
-
-```text
-InferenceTerminationReason.MAX_ROUNDS
-round_count == 3
-```
-
-を要求し、さらに:
-
-```text
-original composition equality
-↓
-first functoriality
-↓
-symmetry
-↓
-second-level functoriality
-```
-
-の provenance を確認。
-
-これにより「単に MAX_ROUNDS になった」だけでなく、実際に distinct
-expression depth が増加していることを仕様化した。
-
-## Bounded / staged side
-
-Structural rules を explicit one-round で適用後:
-
-```text
-symmetry
-+
-transitivity
-```
-
-だけを fixed-point closure すると:
-
-```text
-Eα∘Eβ = Eγ
-```
-
-へ到達し:
-
-```text
-InferenceTerminationReason.FIXED_POINT
-```
-
-となる。
-
-Terminal round:
-
-```text
-new_steps == ()
-```
-
-も確認。
-
-### Phase 10-10 focused result
-
-```powershell
-python -m pytest tests/test_ehp_rules.py::test_phase10_representative_provenance_is_preserved tests/test_ehp_rules.py::test_phase10_functoriality_scope_and_termination_boundary -v
-```
-
-```text
-2 passed in 1.55s
-```
-
-### Combined EHP / relation result
-
-```powershell
-python -m pytest tests/test_ehp_rules.py tests/test_relation_rules.py -v
-```
-
-```text
-61 passed in 1.94s
-```
-
-### Full regression
-
-```powershell
-python -m pytest -v
-```
+Phase 10 completion:
 
 ```text
 763 passed in 22.32s
 ```
 
-No failures.
+### 状態
+
+完了
+
+---
+
+# Phase 11：Generalized Hopf-invariant reasoning
+
+Phase 11 は generalized Hopf invariant を actual theorem family として
+追加した。
+
+重要な設計判断:
+
+```text
+generalized Hopf invariant value
+```
+
+を integer 専用にはしない。
+
+```text
+H(α)=β
+```
+
+の `β` は `Expression` として保持する。
+
+Generic engine は変更しない。
+
+---
+
+# Phase 11-1：generalized Hopf invariant statement
+
+追加:
+
+```text
+HopfInvariantStatement
+```
+
+Fields:
+
+```text
+expression
+value
+source
+note
+```
+
+Semantics:
+
+```text
+H(expression)=value
+```
+
+`value` は `Expression`。
+
+Tests で structural equality、zero value、multiple value、provenance、
+proof-step representation を確認。
 
 ### 状態
 
@@ -882,7 +480,483 @@ No failures.
 
 ---
 
-# Phase 10 completion summary
+# Phase 11-2：known generalized Hopf fact / provenance
+
+Known Hopf fact を `ProofRule.GIVEN` の `ProofStep` として保持。
+
+`LiteratureReference` を statement source に保持可能。
+
+Provenance:
+
+```text
+derived step
+↓
+premises
+↓
+known Hopf fact
+↓
+LiteratureReference
+```
+
+を採用。
+
+### 状態
+
+完了
+
+---
+
+# Phase 11-3：first generalized Hopf theorem inference rule
+
+Known:
+
+```text
+H(α)=β
+```
+
+から:
+
+```text
+HopfCompositionLawStatement(
+  alpha=α,
+  beta=β,
+)
+```
+
+を導出。
+
+これは actual formula ではなく theorem-applicability intermediate
+statement。
+
+### 状態
+
+完了
+
+---
+
+# Phase 11-4：generalized Hopf composition formula
+
+Given:
+
+```text
+HopfCompositionLawStatement(α,β)
++
+γ
+```
+
+derive:
+
+```text
+H(α∘Eγ)=β∘Eγ
+```
+
+Existing `Composition` / `Suspension` を再利用。
+
+Generic engine の変更なし。
+
+### 状態
+
+完了
+
+---
+
+# Phase 11-5：Hopf invariant value ZERO bridge
+
+重要な theorem boundary:
+
+```text
+H(x)=0
+↛
+x=0
+```
+
+Implemented bridge:
+
+```text
+H(x)=y
++
+y=0
+↓
+H(x)=0
+```
+
+Guard により同じ `y` の ZERO のみを許可。
+
+Unrelated ZERO は reject。
+
+### 状態
+
+完了
+
+---
+
+# Phase 11-6：Suspension / composition functoriality 接続
+
+Take:
+
+```text
+β=Eδ
+```
+
+11-4 gives:
+
+```text
+H(α∘Eγ)=Eδ∘Eγ
+```
+
+Known:
+
+```text
+δ∘γ=0
+```
+
+Existing rules から:
+
+```text
+E(δ∘γ)=0
+```
+
+および:
+
+```text
+E(δ∘γ)=Eδ∘Eγ
+```
+
+を導出し、symmetry + generic ZERO propagation で:
+
+```text
+Eδ∘Eγ=0
+```
+
+さらに11-5で:
+
+```text
+H(α∘Eγ)=0
+```
+
+へ到達。
+
+Production code を増やさず既存 rule family の接続だけで達成。
+
+Phase 11-6:
+
+```text
+tests/test_hopf_rules.py
+21 passed
+```
+
+Full suite:
+
+```text
+784 passed
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 11-7：EHP reasoning との接続
+
+Map-level:
+
+```text
+H∘E=0
+```
+
+と element-level:
+
+```text
+H(Eα)=0
+```
+
+を区別。
+
+Bridge rule:
+
+```text
+EHPZeroCompositionStatement(E,H)
++
+α
+↓
+H(Eα)=0
+```
+
+Applicability guard:
+
+```text
+first_map.name == "E"
+second_map.name == "H"
+```
+
+`H→P` pair は reject。
+
+Integration:
+
+```text
+Exactness(E,H)
+↓
+EHPZeroCompositionStatement(E,H)
+↓
+H(Eα)=0
+```
+
+Phase 11-7:
+
+```text
+tests/test_hopf_rules.py
+24 passed
+```
+
+Full suite:
+
+```text
+787 passed
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 11-8：representative scenario
+
+Same knowledge state で:
+
+```text
+Hopf composition branch
++
+EHP branch
+```
+
+を統合。
+
+Hopf:
+
+```text
+H(α)=Eδ
+↓
+HopfCompositionLawStatement
+↓
+H(α∘Eγ)=Eδ∘Eγ
+↓
+Suspension / functoriality / generic ZERO
+↓
+H(α∘Eγ)=0
+```
+
+EHP:
+
+```text
+Exactness(E,H)
+↓
+EHPZeroCompositionStatement(E,H)
+↓
+H(Eγ)=0
+```
+
+Structural rules は explicit round で適用し、final finite stage は:
+
+```text
+FIXED_POINT
+```
+
+Phase 11-8:
+
+```text
+tests/test_hopf_rules.py
+25 passed
+```
+
+Full suite:
+
+```text
+788 passed
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 11-9：provenance regression
+
+Final conclusion を逆追跡できることを独立 regression として固定。
+
+Hopf branch:
+
+```text
+H(α∘Eγ)=0
+↓
+H(α∘Eγ)=Eδ∘Eγ
+↓
+HopfCompositionLawStatement(α,Eδ)
+↓
+H(α)=Eδ
+↓
+LiteratureReference
+```
+
+ZERO branch:
+
+```text
+Eδ∘Eγ=0
+↓
+Suspension ZERO
++
+functoriality / symmetry
+↓
+δ∘γ=0
+```
+
+EHP branch:
+
+```text
+H(Eγ)=0
+↓
+EHPZeroCompositionStatement(E,H)
+↓
+Exactness(E,H)
+```
+
+各 derived step の:
+
+```text
+premises
+inference_rule
+ProofRule.INFERENCE
+```
+
+を確認。
+
+Phase 11-9:
+
+```text
+tests/test_hopf_rules.py
+26 passed
+```
+
+Full suite:
+
+```text
+789 passed
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 11-10：theorem scope / inference termination boundary
+
+新しい production rule は追加しない。
+
+## Theorem scope
+
+Regression で:
+
+```text
+H(x)=0
+↛
+x=0
+```
+
+```text
+H(x)=y
++
+z=0
+(y != z)
+↛
+H(x)=0
+```
+
+```text
+P∘H=0
+↛
+H(Eα)=0
+```
+
+を固定。
+
+EHP bridge は `E→H` pair のみに限定。
+
+## Phase 11-specific structural growth
+
+Hopf rules 自体にも recursive growth がある:
+
+```text
+H(α)=β
+↓
+Law(α,β)
+↓
+H(α∘Eγ)=β∘Eγ
+↓
+Law(α∘Eγ,β∘Eγ)
+↓
+H((α∘Eγ)∘Eγ)=(β∘Eγ)∘Eγ
+↓
+...
+```
+
+したがって:
+
+```text
+hopf_composition_law_inference_rule
++
+hopf_composition_formula_inference_rule
+```
+
+を unrestricted fixed-point-safe とは扱わない。
+
+Bounded regression:
+
+```text
+max_rounds=4
+↓
+MAX_ROUNDS
+```
+
+Staged execution:
+
+```text
+explicit law round
+↓
+explicit formula round
+↓
+finite Hopf ZERO stage
+↓
+FIXED_POINT
+```
+
+Phase 11-10 focused:
+
+```text
+2 passed
+```
+
+Phase 11 suite:
+
+```text
+28 passed
+```
+
+Full suite:
+
+```text
+791 passed in 23.41s
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 11 completion summary
 
 Architecture progression:
 
@@ -903,63 +977,66 @@ Phase 9
 Freudenthal theorem reasoning
         ↓
 Phase 10
-Composition reasoning
+Composition reasoning /
+Suspension-composition functoriality
+        ↓
+Phase 11
+Generalized Hopf invariant
 +
-Suspension–composition functoriality
+Hopf composition formula
++
+generic ZERO reconnection
++
+EHP bridge
         ↓
-generic equality / ZERO reasoning
-        ↓
-traceable staged conclusion
+traceable staged reasoning
 ```
 
-Phase 10 principal vertical slice:
+Principal Hopf branch:
 
 ```text
-Toda composition equality
-α∘β = γ
-        ↓
-structured Composition
-        ↓
-┌──────────────────────────────┐
-│                              │
-↓                              ↓
-Suspension equality       functoriality
-↓                              ↓
-E(α∘β)=Eγ               E(α∘β)=Eα∘Eβ
-└──────────────┬───────────────┘
-               ↓
-       generic equality closure
-               ↓
-          Eα∘Eβ=Eγ
+H(α)=Eδ
+↓
+HopfCompositionLawStatement
+↓
+H(α∘Eγ)=Eδ∘Eγ
+↓
+δ∘γ=0
+↓
+Suspension / functoriality / generic ZERO
+↓
+Eδ∘Eγ=0
+↓
+H(α∘Eγ)=0
 ```
 
-同時に:
+EHP bridge:
 
 ```text
-EHP zero composition
-Toda zero composition
-Toda nonzero composition equality
-generic ZERO propagation
+Exactness(E,H)
+↓
+EHPZeroCompositionStatement(E,H)
+↓
+H(Eα)=0
 ```
 
-を同じ proof/inference infrastructure 上で統合。
+Phase 11 verified:
 
-成果:
-
-1. composition fact を structured generic equality として扱える。
-2. zero composition を generic ZERO へ bridge。
-3. EHP / Toda zero branches が coexist。
-4. composition equality を Suspension できる。
-5. Suspension–composition functoriality を rule 化。
-6. generic equality closure で componentwise suspended composition と
-   suspended result を接続。
-7. representative EHP + Toda + Suspension scenario。
-8. branch-specific provenance。
-9. structural rule family の unbounded growth を regression 固定。
-10. staged execution policy を明示。
-11. bounded generic stage は genuine fixed point。
-12. generic engine 無改変。
-13. full suite 763 PASS。
+1. generalized Hopf values are expressions, not integer-only;
+2. known facts preserve literature provenance;
+3. composition-law applicability is explicit;
+4. composition formula is structural;
+5. generic ZERO values reconnect to Hopf statements;
+6. Hopf vanishing is not confused with element vanishing;
+7. Suspension / functoriality rules are reused unchanged;
+8. EHP facts bridge to element-level Hopf facts only for `E→H`;
+9. representative Hopf and EHP branches coexist;
+10. provenance is traceable;
+11. theorem boundary is regression-fixed;
+12. recursive Hopf structural growth is regression-fixed;
+13. staged execution reaches genuine fixed point;
+14. generic engine remains unchanged;
+15. full suite passes.
 
 ### 状態
 
@@ -967,22 +1044,23 @@ generic ZERO propagation
 
 ---
 
-# Phase 10 completion boundary
+# Phase 11 completion boundary
 
-Phase 10 で実装しないもの:
+Phase 11 で実装しないもの:
 
 ```text
-RelationType.NONZERO
-automatic proof of nonzeroness
-composition associativity
-composition identity
-composition bilinearity
-canonical composition normalization
-canonical E^n normalization
-automatic suspension-depth planning
-automatic rule scheduling
+H(x)=0 → x=0
+H(x)=0 → x ∈ Im(E)
+element-level Ker(H) / Im(E) membership
+preimage witness generation
+Hopf additivity
+general Hopf algebra identities
+automatic theorem-depth scheduling
 semantic cycle detection
-general termination proof
+canonical composition normalization
+composition associativity
+composition bilinearity
+NONZERO relation
 Toda bracket
 Steenrod operations
 double EHP
@@ -991,19 +1069,42 @@ odd-primary-specific theorem families
 
 `max_rounds` は引き続き safety bound。
 
-Structural rules の scope は caller / scenario 側で明示する。
+Structural rule family の scope は caller / scenario 側で明示する。
 
 ---
 
-# Phase 11 boundary
+# Phase 12 boundary
 
-Phase 11 も speculative generic-engine work から開始しない。
+次 Phase も speculative generic-engine work から開始しない。
 
-候補 actual theorem families:
+Current representation needs:
 
-- Hopf-invariant relations
-- literature-backed theorem rules
-- further Toda composition relations
+```text
+α+β
+-α
+±α
+```
+
+```text
+α ∈ A
+A ⊆ B
+α ∈ Ker(H)
+α ∈ Im(E)
+```
+
+```text
+mod A
+Toda-bracket value set / indeterminacy
+```
+
+```text
+α=kβ+γ
+k odd
+```
+
+Other candidates:
+
+- further Toda relations
 - Toda brackets
 - Steenrod operations
 - double EHP
@@ -1013,35 +1114,46 @@ Phase 11 も speculative generic-engine work から開始しない。
 基本原則:
 
 ```text
-new mathematical theorem
-=
-new domain InferenceRule
+actual mathematical need
+↓
+minimal representation
+↓
+domain rule
+↓
+existing generic engine
 ```
-
-generic engine を変更するのは actual theorem が current rule language では
-正しく表現できないと実証された場合のみ。
 
 ---
 
 # Current verified status
 
-Phase 10 completion:
+Phase 11 suite:
 
-```text
-763 passed in 22.32s
+```powershell
+python -m pytest tests/test_hopf_rules.py -v
 ```
 
-Combined EHP / relation:
-
 ```text
-61 passed in 1.94s
+28 passed
 ```
 
-Phase 10-10 focused:
+Phase 11-10 focused:
 
 ```text
-2 passed in 1.55s
+2 passed
 ```
+
+Full suite:
+
+```powershell
+python -m pytest -v
+```
+
+```text
+791 passed in 23.41s
+```
+
+No failures.
 
 ---
 
