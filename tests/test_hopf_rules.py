@@ -1451,6 +1451,462 @@ def test_phase11_representative_hopf_and_ehp_scenario_reaches_fixed_point():
   assert ehp_hopf_zero in conclusions
 
 
+def test_phase11_representative_provenance_chain_is_preserved():
+  alpha = nu(4)
+  delta = eta(7)
+  gamma = eta(8)
+
+  beta = Suspension(
+    expression=delta,
+  )
+
+  hopf_reference = LiteratureReference(
+    label="Phase 11 representative",
+    author="Toda",
+    title="Composition methods",
+    year=1962,
+    locator="representative Hopf fact",
+  )
+
+  hopf_step = hopf_invariant_proof_step(
+    HopfInvariantStatement(
+      expression=alpha,
+      value=beta,
+      source=hopf_reference,
+    )
+  )
+
+  gamma_step = ProofStep(
+    conclusion=gamma,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  composition = Composition(
+    left=delta,
+    right=gamma,
+  )
+
+  zero_composition_fact = (
+    relation_proof_step(
+      Relation(
+        lhs=composition,
+        rhs=Zero(),
+        relation_type=RelationType.EQUALITY,
+        source="Toda",
+        note=(
+          "known zero composition "
+          "for Phase 11 provenance"
+        ),
+      )
+    )
+  )
+
+  e_map = type(
+    "EMap",
+    (),
+    {
+      "name": "E",
+    },
+  )()
+
+  h_map = type(
+    "HMap",
+    (),
+    {
+      "name": "H",
+    },
+  )()
+
+  exactness_step = ProofStep(
+    conclusion=ExactnessStatement(
+      first_map=e_map,
+      second_map=h_map,
+      is_exact=True,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  hopf_law_rule = (
+    hopf_composition_law_inference_rule()
+  )
+
+  composition_zero_rule = (
+    composition_equality_to_zero_inference_rule()
+  )
+
+  functoriality_rule = (
+    suspension_composition_functoriality_inference_rule()
+  )
+
+  ehp_zero_rule = (
+    ehp_exactness_implies_zero_composition_inference_rule()
+  )
+
+  first_round_steps = run_inference_round(
+    (
+      hopf_law_rule,
+      composition_zero_rule,
+      functoriality_rule,
+      ehp_zero_rule,
+    ),
+    (
+      hopf_step,
+      gamma_step,
+      zero_composition_fact,
+      exactness_step,
+    ),
+  )
+
+  hopf_law = HopfCompositionLawStatement(
+    alpha=alpha,
+    beta=beta,
+  )
+
+  composition_zero = Relation(
+    lhs=composition,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  functoriality_equality = Relation(
+    lhs=Suspension(
+      expression=composition,
+    ),
+    rhs=Composition(
+      left=Suspension(
+        expression=delta,
+      ),
+      right=Suspension(
+        expression=gamma,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  ehp_zero_composition = (
+    EHPZeroCompositionStatement(
+      first_map=e_map,
+      second_map=h_map,
+    )
+  )
+
+  hopf_law_step = next(
+    step
+    for step in first_round_steps
+    if step.conclusion
+    == hopf_law
+  )
+
+  composition_zero_step = next(
+    step
+    for step in first_round_steps
+    if step.conclusion
+    == composition_zero
+  )
+
+  functoriality_step = next(
+    step
+    for step in first_round_steps
+    if step.conclusion
+    == functoriality_equality
+  )
+
+  ehp_zero_composition_step = next(
+    step
+    for step in first_round_steps
+    if step.conclusion
+    == ehp_zero_composition
+  )
+
+  assert hopf_law_step.premises == (
+    hopf_step,
+  )
+
+  assert (
+    hopf_law_step.inference_rule
+    == hopf_law_rule
+  )
+
+  assert (
+    hopf_law_step.premises[
+      0
+    ].conclusion.source
+    == hopf_reference
+  )
+
+  assert composition_zero_step.premises == (
+    zero_composition_fact,
+  )
+
+  assert (
+    composition_zero_step.inference_rule
+    == composition_zero_rule
+  )
+
+  assert functoriality_step.premises == (
+    zero_composition_fact,
+  )
+
+  assert (
+    functoriality_step.inference_rule
+    == functoriality_rule
+  )
+
+  assert ehp_zero_composition_step.premises == (
+    exactness_step,
+  )
+
+  assert (
+    ehp_zero_composition_step.inference_rule
+    == ehp_zero_rule
+  )
+
+  hopf_formula_rule = (
+    hopf_composition_formula_inference_rule()
+  )
+
+  suspension_zero_rule = (
+    suspension_preserves_zero_inference_rule()
+  )
+
+  symmetry_rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  ehp_hopf_zero_rule = (
+    ehp_zero_composition_implies_suspended_hopf_zero_inference_rule()
+  )
+
+  second_round_steps = run_inference_round(
+    (
+      hopf_formula_rule,
+      suspension_zero_rule,
+      symmetry_rule,
+      ehp_hopf_zero_rule,
+    ),
+    first_round_steps,
+  )
+
+  hopf_value = Composition(
+    left=Suspension(
+      expression=delta,
+    ),
+    right=Suspension(
+      expression=gamma,
+    ),
+  )
+
+  hopf_formula = HopfInvariantStatement(
+    expression=Composition(
+      left=alpha,
+      right=Suspension(
+        expression=gamma,
+      ),
+    ),
+    value=hopf_value,
+  )
+
+  suspended_composition_zero = Relation(
+    lhs=Suspension(
+      expression=composition,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  reversed_functoriality = Relation(
+    lhs=hopf_value,
+    rhs=Suspension(
+      expression=composition,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  ehp_hopf_zero = HopfInvariantStatement(
+    expression=Suspension(
+      expression=gamma,
+    ),
+    value=Zero(),
+  )
+
+  hopf_formula_step = next(
+    step
+    for step in second_round_steps
+    if step.conclusion
+    == hopf_formula
+  )
+
+  suspended_zero_step = next(
+    step
+    for step in second_round_steps
+    if step.conclusion
+    == suspended_composition_zero
+  )
+
+  reversed_functoriality_step = next(
+    step
+    for step in second_round_steps
+    if step.conclusion
+    == reversed_functoriality
+  )
+
+  ehp_hopf_zero_step = next(
+    step
+    for step in second_round_steps
+    if step.conclusion
+    == ehp_hopf_zero
+  )
+
+  assert hopf_formula_step.premises == (
+    hopf_law_step,
+    gamma_step,
+  )
+
+  assert (
+    hopf_formula_step.inference_rule
+    == hopf_formula_rule
+  )
+
+  assert (
+    hopf_formula_step.premises[
+      0
+    ].premises[
+      0
+    ].conclusion.source
+    == hopf_reference
+  )
+
+  assert suspended_zero_step.premises == (
+    composition_zero_step,
+  )
+
+  assert (
+    suspended_zero_step.inference_rule
+    == suspension_zero_rule
+  )
+
+  assert reversed_functoriality_step.premises == (
+    functoriality_step,
+  )
+
+  assert (
+    reversed_functoriality_step.inference_rule
+    == symmetry_rule
+  )
+
+  assert ehp_hopf_zero_step.premises == (
+    ehp_zero_composition_step,
+    gamma_step,
+  )
+
+  assert (
+    ehp_hopf_zero_step.inference_rule
+    == ehp_hopf_zero_rule
+  )
+
+  assert (
+    ehp_hopf_zero_step.premises[
+      0
+    ].premises
+    == (
+      exactness_step,
+    )
+  )
+
+  zero_propagation_rule = (
+    zero_equality_implies_zero_inference_rule()
+  )
+
+  hopf_value_zero_rule = (
+    hopf_invariant_value_zero_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        zero_propagation_rule,
+        hopf_value_zero_rule,
+      ),
+      second_round_steps,
+    )
+  )
+
+  hopf_value_zero = Relation(
+    lhs=hopf_value,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  composition_hopf_zero = (
+    HopfInvariantStatement(
+      expression=Composition(
+        left=alpha,
+        right=Suspension(
+          expression=gamma,
+        ),
+      ),
+      value=Zero(),
+    )
+  )
+
+  hopf_value_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == hopf_value_zero
+  )
+
+  composition_hopf_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == composition_hopf_zero
+  )
+
+  assert hopf_value_zero_step.premises == (
+    suspended_zero_step,
+    reversed_functoriality_step,
+  )
+
+  assert (
+    hopf_value_zero_step.inference_rule
+    == zero_propagation_rule
+  )
+
+  assert composition_hopf_zero_step.premises == (
+    hopf_formula_step,
+    hopf_value_zero_step,
+  )
+
+  assert (
+    composition_hopf_zero_step.inference_rule
+    == hopf_value_zero_rule
+  )
+
+  assert (
+    composition_hopf_zero_step.premises[
+      0
+    ].premises[
+      0
+    ].premises[
+      0
+    ].conclusion.source
+    == hopf_reference
+  )
+
+  assert (
+    ehp_hopf_zero_step.premises[
+      0
+    ].premises[
+      0
+    ]
+    == exactness_step
+  )
+
+
+
 
 
 
