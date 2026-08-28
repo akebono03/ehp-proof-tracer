@@ -93,6 +93,29 @@ def sum_associativity_inference_rule(
   )
 
 
+def double_equals_repeated_sum_inference_rule(
+  expression,
+):
+  return InferenceRule(
+    name="double equals repeated sum",
+    description=(
+      "Twice an expression is equal to "
+      "the sum of the expression with itself."
+    ),
+    conclusion_pattern=Relation(
+      lhs=Sum(
+        left=expression,
+        right=expression,
+      ),
+      rhs=Multiple(
+        coefficient=2,
+        expression=expression,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+  )
+
+
 def order_implies_zero_multiple_inference_rule():
   element = PatternVariable(
     name="element",

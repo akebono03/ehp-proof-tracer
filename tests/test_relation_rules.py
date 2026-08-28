@@ -26,6 +26,7 @@ from relation_rules import (
   Suspension,
   additive_inverse_inference_rule,
   composition_equality_to_zero_inference_rule,
+  double_equals_repeated_sum_inference_rule,
   equality_symmetry_inference_rule,
   equality_transitivity_inference_rule,
   order_implies_zero_multiple_inference_rule,
@@ -168,6 +169,171 @@ def test_sum_associativity():
   assert derived_step.inference_rule == rule
 
   assert derived_step.premises == ()
+
+
+def test_double_equals_repeated_sum():
+  alpha = eta(3)
+
+  rule = double_equals_repeated_sum_inference_rule(
+    alpha,
+  )
+
+  match = find_inference_match(
+    rule,
+    (),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == Relation(
+    lhs=Sum(
+      left=alpha,
+      right=alpha,
+    ),
+    rhs=Multiple(
+      coefficient=2,
+      expression=alpha,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == ()
+
+
+def test_order_two_reaches_repeated_sum_zero():
+  alpha = eta(3)
+
+  order_step = relation_proof_step(
+    order_relation(
+      alpha,
+      2,
+    )
+  )
+
+  order_rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  double_rule = (
+    double_equals_repeated_sum_inference_rule(
+      alpha,
+    )
+  )
+
+  zero_propagation_rule = (
+    zero_equality_implies_zero_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        order_rule,
+        double_rule,
+        zero_propagation_rule,
+      ),
+      (
+        order_step,
+      ),
+    )
+  )
+
+  double_zero = Relation(
+    lhs=Multiple(
+      coefficient=2,
+      expression=alpha,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  repeated_sum_equality = Relation(
+    lhs=Sum(
+      left=alpha,
+      right=alpha,
+    ),
+    rhs=Multiple(
+      coefficient=2,
+      expression=alpha,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  repeated_sum_zero = Relation(
+    lhs=Sum(
+      left=alpha,
+      right=alpha,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert double_zero in conclusions
+  assert repeated_sum_equality in conclusions
+  assert repeated_sum_zero in conclusions
+
+  double_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == double_zero
+  )
+
+  repeated_sum_equality_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == repeated_sum_equality
+  )
+
+  repeated_sum_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == repeated_sum_zero
+  )
+
+  assert double_zero_step.premises == (
+    order_step,
+  )
+
+  assert double_zero_step.inference_rule == (
+    order_rule
+  )
+
+  assert repeated_sum_equality_step.premises == ()
+
+  assert (
+    repeated_sum_equality_step.inference_rule
+    == double_rule
+  )
+
+  assert repeated_sum_zero_step.premises == (
+    double_zero_step,
+    repeated_sum_equality_step,
+  )
+
+  assert (
+    repeated_sum_zero_step.inference_rule
+    == zero_propagation_rule
+  )
 
 
 def test_order_implies_zero_multiple():
