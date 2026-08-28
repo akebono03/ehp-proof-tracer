@@ -47,6 +47,22 @@ def test_multiple():
   assert expression.expression == eta(3)
 
 
+def test_inverse_is_represented_by_negative_one_multiple():
+  alpha = eta(3)
+
+  inverse = Multiple(
+    -1,
+    alpha,
+  )
+
+  assert inverse.coefficient == -1
+  assert inverse.expression == alpha
+  assert inverse == Multiple(
+    -1,
+    alpha,
+  )
+
+
 def test_multiple_remains_distinct_from_repeated_sum():
   alpha = eta(3)
 
