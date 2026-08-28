@@ -5,56 +5,37 @@ EHP exact sequences for unstable homotopy groups of spheres.
 
 ## Goal
 
-The long-term goal is to build a proof tracer that can explain how homotopy
-groups of spheres are determined from mathematical input such as:
+The long-term goal is to explain how homotopy groups of spheres are determined
+from mathematical input such as EHP exact sequences, element orders,
+Suspension, Freudenthal theorems, composition relations, generalized Hopf
+invariants, Toda relations, Toda brackets, Steenrod operations, and
+literature-backed facts.
 
-- EHP exact sequences
-- composition relations
-- element orders
-- suspension relations
-- stable-range / Freudenthal theorems
-- Toda relations and Toda brackets
-- Steenrod operations
-- Hopf invariants
-- literature-backed relations
-
-The project deliberately separates:
+The project separates:
 
 ```text
 mathematical rule / theorem
-```
-
-from:
-
-```text
 generic inference mechanism
-```
-
-and from:
-
-```text
 abelian-group calculation
 ```
-
-so that each layer can evolve independently.
 
 ---
 
 # Current status
 
-Completed foundations:
+Completed foundations and theorem families:
 
 1. finitely generated abelian-group calculation,
 2. EHP exact-sequence calculation,
 3. proof / relation representation,
 4. generic fixed-point inference,
 5. EHP-domain inference,
-6. exact finite ORDER reasoning,
-7. Suspension preservation,
+6. ORDER reasoning,
+7. Suspension reasoning,
 8. Freudenthal stable-range reasoning,
 9. composition reasoning,
-10. Suspension–composition functoriality,
-11. reconnection to generic equality / ZERO reasoning,
+10. Suspension-composition functoriality,
+11. generalized Hopf-invariant reasoning,
 12. provenance and explicit inference-scope / termination boundaries.
 
 Current architecture:
@@ -72,88 +53,9 @@ integer linear algebra
 ```
 
 Phase 5-65 is the completion point of the generic inference-engine foundation.
-
-Phase 6 established:
-
-```text
-Image / Kernel facts
-↓
-EHP exactness
-↓
-EHP zero composition
-↓
-generic ZERO relation
-↓
-equality reasoning
-↓
-ZERO propagation
-```
-
-Phase 7 added:
-
-```text
-ord(α)=n
-↓
-nα=0
-↓
-generic relation reasoning
-```
-
-Phase 8 added explicit `Suspension` expressions and preservation rules:
-
-```text
-x=y  → E(x)=E(y)
-x=0  → E(x)=0
-nα=0 → nE(α)=0
-```
-
-Phase 8 also established that repeated Suspension can produce an unbounded
-family of distinct conclusions, so bounded / staged execution may be required.
-
-Phase 9 added Freudenthal / stable-range theorem reasoning:
-
-```text
-stable
-→ suspension isomorphism
-→ injectivity
-→ equality / ZERO reflection
-
-boundary
-→ epimorphism only
-
-outside
-→ no Freudenthal-derived theorem conclusion
-```
-
-Phase 10 adds structured composition reasoning and Suspension–composition
-functoriality.
-
-The representative Phase 10 branch is:
-
-```text
-α∘β = γ
-├──────────────────────────────┐
-↓                              ↓
-E(α∘β) = Eγ              E(α∘β) = Eα∘Eβ
-└──────────────┬───────────────┘
-               ↓
-      equality symmetry /
-         transitivity
-               ↓
-          Eα∘Eβ = Eγ
-```
-
-Phase 10 also verifies coexistence with:
-
-```text
-EHP zero composition
-Toda zero composition
-Toda nonzero composition equality
-generic ZERO
-generic equality reasoning
-```
-
-and preserves branch-specific provenance.
+Later Phases add mathematical rule families without adding domain-specific
+branches to the engine unless an actual theorem demonstrates a missing generic
+capability.
 
 ---
 
@@ -161,20 +63,15 @@ and preserves branch-specific provenance.
 
 - Phase 1: finite abelian-group calculations — completed
 - Phase 2: structured subgroup calculations — completed
-- Phase 3: quotient groups, exact sequences, extensions, and EHP inference — completed
+- Phase 3: quotient groups, exact sequences, extensions, EHP inference — completed
 - Phase 4: presentation-based calculations with free components — completed
 - Phase 5: generic proof / inference engine foundation — completed
 - Phase 6: EHP domain-inference foundation — completed
 - Phase 7: element-order reasoning — completed
 - Phase 8: Suspension reasoning foundation — completed
 - Phase 9: Freudenthal / stable-range reasoning — completed
-- Phase 10-1〜10-5: composition relation / zero-composition integration — completed
-- Phase 10-6: `E(α∘β)` and composition internal structure — completed
-- Phase 10-7: Suspension–composition functoriality — completed
-- Phase 10-8: equality closure between `E(α∘β)` and `Eα∘Eβ` — completed
-- Phase 10-9: EHP + Toda zero/nonzero + Suspension + generic reasoning representative scenario — completed
-- Phase 10-10: representative provenance + termination / inference-scope regression — completed
-- Phase 10: composition reasoning and Suspension–composition functoriality — completed
+- Phase 10: composition reasoning / Suspension-composition functoriality — completed
+- Phase 11: generalized Hopf-invariant reasoning — completed
 
 ---
 
@@ -186,9 +83,9 @@ The algebra layer handles finitely generated abelian groups of the form:
 Z^r ⊕ finite torsion
 ```
 
-The presentation-based path uses relation matrices, integer lattices, HNF / SNF,
-and computes kernel / image / cokernel. Finite-group enumeration remains as a
-reference implementation for small finite examples.
+The presentation-based path uses relation matrices, integer lattices,
+Hermite normal form, and Smith normal form to calculate kernel, image, and
+cokernel. Finite-group enumeration remains as an independent reference path.
 
 For:
 
@@ -202,7 +99,7 @@ exactness is represented by:
 Im(f)=Ker(g)
 ```
 
-and kept distinct from the abstract isomorphism:
+and is kept distinct from:
 
 ```text
 B / Im(f) ≅ Im(g)
@@ -222,35 +119,12 @@ source
 note
 ```
 
-Current `RelationType` values:
+Current relation types:
 
 ```text
 EQUALITY
 ZERO
 ORDER
-```
-
-A ZERO fact is represented by:
-
-```python
-Relation(
-  lhs=x,
-  rhs=Zero(),
-  relation_type=RelationType.ZERO,
-)
-```
-
-Composition equalities are ordinary structured equality facts:
-
-```python
-Relation(
-  lhs=Composition(
-    left=alpha,
-    right=beta,
-  ),
-  rhs=gamma,
-  relation_type=RelationType.EQUALITY,
-)
 ```
 
 A `ProofStep` preserves:
@@ -264,6 +138,8 @@ inference_rule
 ```
 
 This is the basis for end-to-end provenance.
+
+`LiteratureReference` stores structured literature metadata.
 
 ---
 
@@ -287,11 +163,9 @@ nu(n)
 sigma(n)
 ```
 
-`Composition(left, right)` represents composition structure.
-
-`Suspension(expression)` represents expression structure only. It does not
-itself decide stable range, theorem applicability, dimension validity,
-normalization, or equality.
+The expression layer represents syntax and structure. It does not itself
+perform theorem application, normalization, stable-range checks, dimension
+validation, or equality / zero proof.
 
 ---
 
@@ -304,7 +178,7 @@ known ProofSteps
 +
 InferenceRules
 ↓
-premise assignment search
+premise search
 ↓
 structured matching
 ↓
@@ -313,8 +187,6 @@ bindings / shared-binding consistency
 match guard
 ↓
 conclusion construction
-↓
-candidate ProofSteps
 ↓
 duplicate classification
 ↓
@@ -330,9 +202,10 @@ FIXED_POINT
 MAX_ROUNDS
 ```
 
-`round_count` counts productive rounds.
+`max_rounds` is a safety bound, not semantic cycle detection.
 
-`max_rounds` is a safety bound, not a semantic termination proof.
+One round does not recursively consume conclusions created earlier in that
+same round as new premises for later rules.
 
 ---
 
@@ -342,8 +215,7 @@ Equality symmetry:
 
 ```text
 x=y
-↓
-y=x
+→ y=x
 ```
 
 Equality transitivity:
@@ -351,8 +223,7 @@ Equality transitivity:
 ```text
 x=y
 y=z
-↓
-x=z
+→ x=z
 ```
 
 Generic ZERO propagation:
@@ -360,291 +231,19 @@ Generic ZERO propagation:
 ```text
 x=0
 y=x
-↓
-y=0
+→ y=0
 ```
 
-EHP-derived ZERO, ORDER-derived ZERO, Suspension-derived ZERO,
-Freudenthal-reflected ZERO, and Toda zero-composition ZERO all use the same
-generic relation machinery.
+EHP-, ORDER-, Suspension-, Freudenthal-, Toda-, and Hopf-derived facts reconnect
+through the same generic relation machinery where their semantics permit it.
 
 ---
 
-# Phase 8: Suspension reasoning
+# Phase 6: EHP reasoning
 
-Phase 8 introduced:
-
-```text
-Suspension(expression)
-```
-
-and the rules:
+Representative chain:
 
 ```text
-x=y  → E(x)=E(y)
-x=0  → E(x)=0
-nα=0 → nE(α)=0
-```
-
-Suspension-derived facts remain ordinary generic `Relation` objects.
-
-Repeated Suspension may produce:
-
-```text
-E(x)
-E²(x)
-E³(x)
-...
-```
-
-so unrestricted fixed-point termination is not assumed for this rule family.
-
----
-
-# Phase 9: Freudenthal / stable-range reasoning
-
-## SuspensionMapStatement
-
-Phase 9 introduces map-level theorem metadata:
-
-```text
-SuspensionMapStatement(
-  sphere_dimension,
-  stem,
-)
-```
-
-This is deliberately separate from `Suspension(expression)`.
-
-## Stable range
-
-```text
-stem <= sphere_dimension - 2
-```
-
-derives:
-
-```text
-SuspensionIsomorphismStatement
-```
-
-## Boundary range
-
-```text
-stem == sphere_dimension - 1
-```
-
-derives:
-
-```text
-SuspensionEpimorphismStatement
-```
-
-Stable and boundary rules do not overlap.
-
-## Isomorphism → injectivity
-
-```text
-SuspensionIsomorphismStatement(E)
-↓
-SuspensionInjectiveStatement(E)
-```
-
-## Equality / ZERO reflection
-
-```text
-Injective(E)
-+
-E(x)=E(y)
-↓
-x=y
-```
-
-```text
-Injective(E)
-+
-E(x)=0
-↓
-x=0
-```
-
-The conclusions reconnect to generic `Relation`.
-
----
-
-# Phase 10: Composition reasoning
-
-## Structured composition equality
-
-Known composition facts are represented as ordinary equality relations over
-`Composition`.
-
-```text
-α∘β = γ
-```
-
-is represented by:
-
-```python
-Relation(
-  lhs=Composition(
-    left=alpha,
-    right=beta,
-  ),
-  rhs=gamma,
-  relation_type=RelationType.EQUALITY,
-)
-```
-
-There is no separate Phase 10 `NONZERO` relation type.
-
-A Toda nonzero-composition fact is currently represented by an equality whose
-right-hand side is a non-zero structured expression.
-
-## Zero composition → generic ZERO
-
-For a known composition equality:
-
-```text
-α∘β = 0
-```
-
-the rule:
-
-```text
-composition equality to zero
-```
-
-derives:
-
-```text
-Relation(
-  lhs=α∘β,
-  rhs=0,
-  relation_type=ZERO,
-)
-```
-
-This reconnects Toda zero-composition facts to the same generic ZERO layer
-already used by EHP and ORDER reasoning.
-
-## Suspension preserves composition equality
-
-From:
-
-```text
-α∘β = γ
-```
-
-ordinary Suspension equality preservation gives:
-
-```text
-E(α∘β) = Eγ
-```
-
-No composition-specific Suspension representation is introduced.
-
-## Suspension–composition functoriality
-
-From a composition equality whose left side is a `Composition`:
-
-```text
-α∘β = γ
-```
-
-the Phase 10 functoriality rule derives:
-
-```text
-E(α∘β) = Eα∘Eβ
-```
-
-The right-hand side is represented structurally as:
-
-```python
-Composition(
-  left=Suspension(alpha),
-  right=Suspension(beta),
-)
-```
-
-## Equality closure
-
-Given:
-
-```text
-E(α∘β) = Eγ
-E(α∘β) = Eα∘Eβ
-```
-
-generic equality symmetry / transitivity derive:
-
-```text
-Eα∘Eβ = Eγ
-```
-
-No Phase 10-specific transitivity rule is added.
-
-## Representative Phase 10 integration
-
-Phase 10-9 verifies coexistence of:
-
-```text
-EHP
-+
-Toda zero composition
-+
-Toda nonzero composition equality
-+
-Suspension
-+
-composition functoriality
-+
-generic ZERO / equality reasoning
-```
-
-The representative scenario confirms:
-
-```text
-EHP branch
-Image + Kernel
-→ Exactness
-→ EHP zero composition
-→ generic ZERO
-```
-
-```text
-Toda zero branch
-α∘β = 0
-→ generic ZERO
-→ generic ZERO propagation
-```
-
-```text
-Toda nonzero / Suspension branch
-α∘β = γ
-→ E(α∘β)=Eγ
-→ E(α∘β)=Eα∘Eβ
-→ Eα∘Eβ=Eγ
-```
-
-All branches share the same generic proof infrastructure.
-
----
-
-# Phase 10 provenance requirements
-
-Derived steps must preserve:
-
-```text
-ProofRule.INFERENCE
-premises
-inference_rule
-```
-
-Representative branch separation:
-
-```text
-EHP branch:
 Image + Kernel
 ↓
 Exactness
@@ -652,127 +251,416 @@ Exactness
 EHP zero composition
 ↓
 generic ZERO
-```
-
-```text
-Toda zero branch:
-Toda α∘β = 0
 ↓
-generic ZERO
+equality closure / ZERO propagation
+↓
+FIXED_POINT
 ```
-
-```text
-Toda nonzero / Suspension branch:
-Toda α∘β = γ
-├─→ E(α∘β)=Eγ
-└─→ E(α∘β)=Eα∘Eβ
-          ↓
-    equality closure
-          ↓
-      Eα∘Eβ=Eγ
-```
-
-Unrelated branch premises must not appear in a derived step's direct premises.
 
 ---
 
-# Phase 10 inference-scope / termination boundary
-
-Phase 10 makes the execution-scope distinction explicit.
-
-## Unrestricted structural closure is not assumed to terminate
-
-Combining:
+# Phase 7: ORDER reasoning
 
 ```text
-suspension composition functoriality
-+
-equality symmetry
+ord(α)=n
+↓
+nα=0
+↓
+generic equality / ZERO reasoning
 ```
 
-can generate increasing expression depth:
+---
+
+# Phase 8: Suspension reasoning
 
 ```text
-E(α∘β)=Eα∘Eβ
-↓ symmetry
-Eα∘Eβ=E(α∘β)
-↓ functoriality
-E(Eα∘Eβ)=E²α∘E²β
+x=y  → E(x)=E(y)
+x=0  → E(x)=0
+nα=0 → nE(α)=0
+```
+
+Repeated Suspension may generate:
+
+```text
+E(x), E²(x), E³(x), ...
+```
+
+so unrestricted fixed-point termination is not assumed.
+
+---
+
+# Phase 9: Freudenthal reasoning
+
+Stable range:
+
+```text
+stem <= sphere_dimension - 2
+→ suspension isomorphism
+→ injectivity
+→ equality / ZERO reflection
+```
+
+Boundary:
+
+```text
+stem == sphere_dimension - 1
+→ epimorphism only
+```
+
+Outside current range:
+
+```text
+stem >= sphere_dimension
+→ no Freudenthal-derived conclusion
+```
+
+---
+
+# Phase 10: Composition reasoning
+
+Known composition facts are ordinary structured equality relations:
+
+```text
+α∘β = γ
+```
+
+Known zero composition can be bridged to generic ZERO.
+
+Suspension preservation gives:
+
+```text
+α∘β=γ
+→ E(α∘β)=Eγ
+```
+
+Suspension-composition functoriality gives:
+
+```text
+α∘β=γ
+→ E(α∘β)=Eα∘Eβ
+```
+
+Generic equality reasoning can then derive:
+
+```text
+Eα∘Eβ=Eγ
+```
+
+Because functoriality combined with symmetry can increase structural depth,
+Phase 10 uses bounded / staged execution where needed.
+
+---
+
+# Phase 11: Generalized Hopf-invariant reasoning
+
+## Representation
+
+Generalized Hopf-invariant facts are represented by:
+
+```text
+HopfInvariantStatement(
+  expression,
+  value,
+  source,
+  note,
+)
+```
+
+Semantics:
+
+```text
+H(expression)=value
+```
+
+`value` is an `Expression`, not an integer-only field.
+
+Therefore the model can represent values such as:
+
+```text
+0
+β
+nβ
+β∘Eγ
+```
+
+## Known fact / provenance
+
+A known Hopf fact may carry a `LiteratureReference`.
+
+Provenance is preserved through:
+
+```text
+derived ProofStep
+↓
+premises
+↓
+known Hopf fact
+↓
+LiteratureReference
+```
+
+rather than by blindly copying source metadata to every derived conclusion.
+
+## Hopf composition-law applicability
+
+```text
+H(α)=β
+↓
+HopfCompositionLawStatement(α,β)
+```
+
+The intermediate statement records theorem applicability.
+
+## Generalized Hopf composition formula
+
+```text
+HopfCompositionLawStatement(α,β)
++
+γ
+↓
+H(α∘Eγ)=β∘Eγ
+```
+
+Existing `Composition` and `Suspension` expressions are reused.
+
+## Hopf value ZERO bridge
+
+```text
+H(x)=y
++
+y=0
+↓
+H(x)=0
+```
+
+The ZERO fact must concern exactly the same value `y`.
+
+An unrelated ZERO fact is rejected.
+
+Most importantly:
+
+```text
+H(x)=0
+↛
+x=0
+```
+
+Phase 11 does not confuse vanishing Hopf invariant with vanishing element.
+
+## Suspension / composition integration
+
+For `β=Eδ`:
+
+```text
+H(α∘Eγ)=Eδ∘Eγ
+```
+
+If:
+
+```text
+δ∘γ=0
+```
+
+existing Suspension, functoriality, equality, and ZERO rules can derive:
+
+```text
+Eδ∘Eγ=0
+```
+
+and therefore:
+
+```text
+H(α∘Eγ)=0
+```
+
+No separate Hopf-specific equality engine is added.
+
+## EHP bridge
+
+For the EHP map pair specifically `E` followed by `H`:
+
+```text
+EHPZeroCompositionStatement(E,H)
++
+α
+↓
+H(Eα)=0
+```
+
+Thus:
+
+```text
+Exactness(E,H)
+↓
+EHPZeroCompositionStatement(E,H)
+↓
+H(Eα)=0
+```
+
+The bridge rejects other consecutive EHP pairs such as `H` followed by `P`.
+
+## Representative scenario
+
+The representative Phase 11 scenario keeps both branches in one knowledge
+state:
+
+```text
+Hopf branch:
+H(α)=Eδ
+→ H(α∘Eγ)=Eδ∘Eγ
+→ Eδ∘Eγ=0
+→ H(α∘Eγ)=0
+```
+
+```text
+EHP branch:
+Exactness(E,H)
+→ EHPZeroCompositionStatement(E,H)
+→ H(Eγ)=0
+```
+
+The final finite stage reaches a genuine `FIXED_POINT`.
+
+## Provenance regression
+
+The final Hopf conclusion can be traced back through:
+
+```text
+H(α∘Eγ)=0
+↓
+H(α∘Eγ)=Eδ∘Eγ
+↓
+HopfCompositionLawStatement(α,Eδ)
+↓
+H(α)=Eδ
+↓
+LiteratureReference
+```
+
+The EHP branch can be traced through:
+
+```text
+H(Eγ)=0
+↓
+EHPZeroCompositionStatement(E,H)
+↓
+Exactness(E,H)
+```
+
+## Theorem scope
+
+Implemented:
+
+```text
+H(α)=β
+→ HopfCompositionLawStatement(α,β)
+```
+
+```text
+HopfCompositionLawStatement(α,β)
++
+γ
+→ H(α∘Eγ)=β∘Eγ
+```
+
+```text
+H(x)=y
++
+y=0
+→ H(x)=0
+```
+
+```text
+EHPZeroCompositionStatement(E,H)
++
+α
+→ H(Eα)=0
+```
+
+Not inferred:
+
+```text
+H(x)=0 → x=0
+H(x)=0 → x ∈ Im(E)
+H(x)=0 → x=E(y) for some y
+P∘H=0 → H(Eα)=0
+```
+
+## Phase 11 termination boundary
+
+The Hopf law / formula pair is recursively applicable:
+
+```text
+H(α)=β
+↓
+Law(α,β)
+↓
+H(α∘Eγ)=β∘Eγ
+↓
+Law(α∘Eγ,β∘Eγ)
+↓
+H((α∘Eγ)∘Eγ)=(β∘Eγ)∘Eγ
 ↓
 ...
 ```
 
-Therefore structural Suspension / functoriality rules are not assumed to form a
-finite closure family.
-
-The regression test deliberately runs this family with:
+Therefore:
 
 ```text
-max_rounds=3
+hopf_composition_law_inference_rule
++
+hopf_composition_formula_inference_rule
 ```
 
-and requires:
+is not treated as unrestricted fixed-point-safe.
+
+The bounded regression reaches `MAX_ROUNDS` while demonstrating actual
+increasing composition depth.
+
+Finite tasks use staged execution:
 
 ```text
-MAX_ROUNDS
-```
-
-while also verifying the second-level functoriality conclusion and its
-provenance.
-
-## Staged execution
-
-Phase 10 representative reasoning uses:
-
-```text
-structural stage
-  Suspension preservation: explicit one round
-  functoriality: explicit one round
-        ↓
-finite generic stage
-  equality symmetry
-  equality transitivity
-  ZERO propagation
-        ↓
+explicit Hopf structural stage
+↓
+explicit formula stage
+↓
+finite ZERO / generic stage
+↓
 FIXED_POINT
 ```
 
-The finite generic closure is verified by an explicit terminal round with:
+The principle remains:
 
 ```text
-new_steps == ()
+mathematical applicability
+≠
+execution scope
 ```
-
-This is an inference-scope policy, not a special-case modification of the
-generic engine.
 
 ---
 
 # Current limitations
 
-- Duplicate identity uses ordinary Python equality; there is no theorem-aware
-  canonical normalization.
-- The accumulated knowledge state keeps the first accepted `ProofStep` for an
-  equal conclusion; alternative applications remain in execution traces.
-- Pattern matching is structured but not a fully general unification system.
-- Exhaustive premise assignment can grow combinatorially; indexing / pruning /
-  semi-naive evaluation are not implemented.
+- Duplicate identity uses ordinary Python equality.
+- The knowledge state keeps the first accepted `ProofStep` for an equal
+  conclusion; alternative applications remain in execution traces.
+- Pattern matching is structured but not fully general recursive unification.
+- Exhaustive premise assignment can grow combinatorially.
 - Arbitrary symbolic rule families are not guaranteed to terminate.
 - `max_rounds` is a safety bound, not semantic cycle detection.
-- Repeated Suspension and composition functoriality can generate unbounded
-  families of structurally distinct expressions.
-- Automatic suspension-depth planning and automatic rule scheduling are not
-  implemented.
-- Canonical `E^n` normalization is not implemented.
-- Composition associativity, identity, and bilinearity are not yet encoded as
-  rule families.
+- Repeated Suspension, functoriality, and recursive Hopf formula application
+  can generate unbounded structural depth.
+- Automatic rule scheduling / theorem-depth planning is not implemented.
+- Canonical `E^n` and composition normalization are not implemented.
+- Composition associativity, identity, and bilinearity are not implemented.
 - There is no first-class `NONZERO` relation type.
-- `SuspensionMapStatement` metadata is currently supplied explicitly; it is not
-  automatically extracted from arbitrary homotopy-group objects.
-- `SuspensionEpimorphismStatement` is not yet connected to preimage / lifting
-  reasoning.
-- General inverse-map construction and unrestricted desuspension are not
+- General inverse-map construction / unrestricted desuspension are not
   implemented.
+- Element-level set / subgroup / image / kernel membership is not first-class.
+- `H(x)=0` cannot yet produce an explicit `x ∈ Ker(H)=Im(E)` fact or witness.
+- Hopf additivity is not implemented.
+- Toda brackets, Steenrod operations, double EHP, and odd-primary-specific
+  theorem families remain future work.
 
 ---
 
@@ -784,43 +672,35 @@ Full suite:
 python -m pytest -v
 ```
 
-Phase 10 completion result:
+Phase 11 completion:
 
 ```text
-763 passed in 22.32s
+791 passed in 23.41s
 ```
 
-Combined EHP / relation-rule suite:
+Phase 11 suite:
 
 ```powershell
-python -m pytest tests/test_ehp_rules.py tests/test_relation_rules.py -v
+python -m pytest tests/test_hopf_rules.py -v
 ```
 
 Result:
 
 ```text
-61 passed in 1.94s
+28 passed
 ```
 
-Phase 10-10 focused regressions:
+Focused theorem-scope / termination tests:
 
 ```powershell
-python -m pytest tests/test_ehp_rules.py::test_phase10_representative_provenance_is_preserved tests/test_ehp_rules.py::test_phase10_functoriality_scope_and_termination_boundary -v
+python -m pytest tests/test_hopf_rules.py::test_phase11_theorem_scope_boundary tests/test_hopf_rules.py::test_phase11_inference_scope_and_termination_boundary -v
 ```
 
 Result:
 
 ```text
-2 passed in 1.55s
+2 passed
 ```
-
-Representative Phase 10 scenario:
-
-```powershell
-python -m pytest tests/test_ehp_rules.py::test_phase10_representative_ehp_toda_composition_suspension_scenario -v
-```
-
-The representative scenario is included in the full and combined suites.
 
 ---
 
@@ -830,81 +710,76 @@ The representative scenario is included in the full and combined suites.
 - `docs/design.md` — current architecture, semantics, and design boundaries
 - `docs/development_log.md` — chronological implementation history
 
-Historical statements in the development log describe the project state at
-that time.
-
+Historical statements in the development log describe the state at that time.
 Current behavior is defined by the latest README and design documents.
 
 ---
 
-# Phase 10 completion boundary
+# Phase 11 completion boundary
 
-Phase 10 is complete because the project now supports the following vertical
+Phase 11 is complete because the project now supports a traceable vertical
 slice:
 
 ```text
-structured composition equality
+generalized Hopf fact
 ↓
-Suspension preservation
-+
-Suspension–composition functoriality
+composition-law applicability
 ↓
-generic equality closure
+Hopf composition formula
 ↓
-derived suspended composition equality
+existing Suspension / composition reasoning
+↓
+generic ZERO reasoning
+↓
+Hopf-invariant-zero conclusion
 ```
 
 together with:
 
 ```text
-EHP zero composition
-Toda zero composition
-Toda nonzero composition equality
-generic ZERO reasoning
-provenance
-explicit inference scope
-termination behavior
+EHP exactness
+↓
+E-H zero composition
+↓
+H(Eα)=0
 ```
 
 without modifying the generic inference engine.
-
-Phase 10 does not include:
-
-```text
-NONZERO relation type
-automatic proof of nonzeroness
-composition associativity
-composition identity
-composition bilinearity
-canonical composition normalization
-canonical E^n normalization
-automatic suspension-depth planning
-automatic rule scheduling
-semantic termination analysis
-cycle detection
-Toda bracket
-Steenrod operations
-double EHP
-odd-primary-specific rule families
-```
 
 ---
 
 # Next development boundary
 
-Phase 11 should again begin from an actual mathematical theorem family rather
-than speculative generic-engine refactoring.
+The next Phase should start from an actual mathematical representation need,
+not speculative generic-engine refactoring.
 
-Candidate directions include:
+Natural candidates include:
 
-- Hopf-invariant relations
-- literature-backed theorem rules
-- further Toda composition relations
-- Toda brackets
-- Steenrod operations
-- double EHP
-- odd-primary-specific theorem families
-- future epimorphism / preimage reasoning
+```text
+α+β
+-α
+±α
+```
+
+```text
+α ∈ A
+A ⊆ B
+α ∈ Ker(H)
+α ∈ Im(E)
+```
+
+```text
+mod A
+Toda-bracket indeterminacy
+```
+
+```text
+α=kβ+γ
+k odd
+```
+
+as well as further Toda relations, Toda brackets, Steenrod operations, double
+EHP, odd-primary-specific theorem families, and preimage reasoning.
 
 The governing rule remains:
 
@@ -914,11 +789,5 @@ new mathematical knowledge
 new domain InferenceRule
 ```
 
-and:
-
-```text
-change the generic engine
-only when an actual mathematical rule
-cannot be represented correctly
-with the current rule language
-```
+and the generic engine should change only when an actual mathematical rule
+cannot be represented correctly with the current infrastructure.
