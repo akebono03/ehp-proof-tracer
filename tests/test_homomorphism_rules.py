@@ -1900,6 +1900,609 @@ def test_phase13_order_homomorphism_integration_preserves_provenance():
   )
 
 
+def test_phase13_representative_scenario_reaches_fixed_point():
+  f = MapSymbol(
+    name="f",
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  homomorphism_step = ProofStep(
+    conclusion=HomomorphismStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  order_step = relation_proof_step(
+    order_relation(
+      alpha,
+      2,
+    )
+  )
+
+  double_alpha = Multiple(
+    coefficient=2,
+    expression=alpha,
+  )
+
+  negative_alpha = Multiple(
+    coefficient=-1,
+    expression=alpha,
+  )
+
+  f_alpha = MapApplication(
+    map=f,
+    expression=alpha,
+  )
+
+  f_beta = MapApplication(
+    map=f,
+    expression=beta,
+  )
+
+  f_double_alpha = MapApplication(
+    map=f,
+    expression=double_alpha,
+  )
+
+  double_f_alpha = Multiple(
+    coefficient=2,
+    expression=f_alpha,
+  )
+
+  addition_rule = (
+    homomorphism_preserves_addition_inference_rule(
+      alpha,
+      beta,
+    )
+  )
+
+  zero_rule = (
+    homomorphism_preserves_zero_inference_rule()
+  )
+
+  inverse_rule = (
+    homomorphism_preserves_inverse_inference_rule(
+      alpha,
+    )
+  )
+
+  multiple_rule = (
+    homomorphism_preserves_multiple_inference_rule(
+      coefficient=2,
+      expression=alpha,
+    )
+  )
+
+  order_rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  known_zero_rule = (
+    homomorphism_preserves_known_zero_inference_rule(
+      double_alpha,
+    )
+  )
+
+  symmetry_rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  zero_propagation_rule = (
+    zero_equality_implies_zero_inference_rule()
+  )
+
+  suspension_homomorphism_rule = (
+    suspension_is_homomorphism_inference_rule()
+  )
+
+  suspension_bridge_rule = (
+    suspension_additivity_bridge_inference_rule(
+      alpha,
+      beta,
+    )
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        addition_rule,
+        zero_rule,
+        inverse_rule,
+        multiple_rule,
+        order_rule,
+        known_zero_rule,
+        symmetry_rule,
+        zero_propagation_rule,
+        suspension_homomorphism_rule,
+        suspension_bridge_rule,
+      ),
+      (
+        homomorphism_step,
+        order_step,
+      ),
+    )
+  )
+
+  expected_addition = Relation(
+    lhs=MapApplication(
+      map=f,
+      expression=Sum(
+        left=alpha,
+        right=beta,
+      ),
+    ),
+    rhs=Sum(
+      left=f_alpha,
+      right=f_beta,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  expected_zero = Relation(
+    lhs=MapApplication(
+      map=f,
+      expression=Zero(),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  expected_inverse = Relation(
+    lhs=MapApplication(
+      map=f,
+      expression=negative_alpha,
+    ),
+    rhs=Multiple(
+      coefficient=-1,
+      expression=f_alpha,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  expected_multiple = Relation(
+    lhs=f_double_alpha,
+    rhs=double_f_alpha,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  expected_order_zero = Relation(
+    lhs=double_alpha,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  expected_mapped_zero = Relation(
+    lhs=f_double_alpha,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  expected_final_zero = Relation(
+    lhs=double_f_alpha,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  expected_generic_suspension_addition = Relation(
+    lhs=MapApplication(
+      map=SUSPENSION_MAP,
+      expression=Sum(
+        left=alpha,
+        right=beta,
+      ),
+    ),
+    rhs=Sum(
+      left=MapApplication(
+        map=SUSPENSION_MAP,
+        expression=alpha,
+      ),
+      right=MapApplication(
+        map=SUSPENSION_MAP,
+        expression=beta,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  expected_suspension_addition = Relation(
+    lhs=Suspension(
+      expression=Sum(
+        left=alpha,
+        right=beta,
+      ),
+    ),
+    rhs=Sum(
+      left=Suspension(
+        expression=alpha,
+      ),
+      right=Suspension(
+        expression=beta,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert expected_addition in conclusions
+  assert expected_zero in conclusions
+  assert expected_inverse in conclusions
+  assert expected_multiple in conclusions
+  assert expected_order_zero in conclusions
+  assert expected_mapped_zero in conclusions
+  assert expected_final_zero in conclusions
+
+  assert HomomorphismStatement(
+    map=SUSPENSION_MAP,
+  ) in conclusions
+
+  assert (
+    expected_generic_suspension_addition
+    in conclusions
+  )
+
+  assert (
+    expected_suspension_addition
+    in conclusions
+  )
+
+
+def test_phase13_representative_scenario_preserves_provenance():
+  f = MapSymbol(
+    name="f",
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  homomorphism_step = ProofStep(
+    conclusion=HomomorphismStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  order_step = relation_proof_step(
+    order_relation(
+      alpha,
+      2,
+    )
+  )
+
+  double_alpha = Multiple(
+    coefficient=2,
+    expression=alpha,
+  )
+
+  f_alpha = MapApplication(
+    map=f,
+    expression=alpha,
+  )
+
+  f_double_alpha = MapApplication(
+    map=f,
+    expression=double_alpha,
+  )
+
+  double_f_alpha = Multiple(
+    coefficient=2,
+    expression=f_alpha,
+  )
+
+  addition_rule = (
+    homomorphism_preserves_addition_inference_rule(
+      alpha,
+      beta,
+    )
+  )
+
+  zero_rule = (
+    homomorphism_preserves_zero_inference_rule()
+  )
+
+  inverse_rule = (
+    homomorphism_preserves_inverse_inference_rule(
+      alpha,
+    )
+  )
+
+  multiple_rule = (
+    homomorphism_preserves_multiple_inference_rule(
+      coefficient=2,
+      expression=alpha,
+    )
+  )
+
+  order_rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  known_zero_rule = (
+    homomorphism_preserves_known_zero_inference_rule(
+      double_alpha,
+    )
+  )
+
+  symmetry_rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  zero_propagation_rule = (
+    zero_equality_implies_zero_inference_rule()
+  )
+
+  suspension_homomorphism_rule = (
+    suspension_is_homomorphism_inference_rule()
+  )
+
+  suspension_bridge_rule = (
+    suspension_additivity_bridge_inference_rule(
+      alpha,
+      beta,
+    )
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        addition_rule,
+        zero_rule,
+        inverse_rule,
+        multiple_rule,
+        order_rule,
+        known_zero_rule,
+        symmetry_rule,
+        zero_propagation_rule,
+        suspension_homomorphism_rule,
+        suspension_bridge_rule,
+      ),
+      (
+        homomorphism_step,
+        order_step,
+      ),
+    )
+  )
+
+  expected_addition = Relation(
+    lhs=MapApplication(
+      map=f,
+      expression=Sum(
+        left=alpha,
+        right=beta,
+      ),
+    ),
+    rhs=Sum(
+      left=MapApplication(
+        map=f,
+        expression=alpha,
+      ),
+      right=MapApplication(
+        map=f,
+        expression=beta,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  expected_order_zero = Relation(
+    lhs=double_alpha,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  expected_multiple = Relation(
+    lhs=f_double_alpha,
+    rhs=double_f_alpha,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  expected_mapped_zero = Relation(
+    lhs=f_double_alpha,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  expected_reverse_multiple = Relation(
+    lhs=double_f_alpha,
+    rhs=f_double_alpha,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  expected_final_zero = Relation(
+    lhs=double_f_alpha,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  expected_generic_suspension_addition = Relation(
+    lhs=MapApplication(
+      map=SUSPENSION_MAP,
+      expression=Sum(
+        left=alpha,
+        right=beta,
+      ),
+    ),
+    rhs=Sum(
+      left=MapApplication(
+        map=SUSPENSION_MAP,
+        expression=alpha,
+      ),
+      right=MapApplication(
+        map=SUSPENSION_MAP,
+        expression=beta,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  expected_suspension_addition = Relation(
+    lhs=Suspension(
+      expression=Sum(
+        left=alpha,
+        right=beta,
+      ),
+    ),
+    rhs=Sum(
+      left=Suspension(
+        expression=alpha,
+      ),
+      right=Suspension(
+        expression=beta,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  addition_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == expected_addition
+  )
+
+  order_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == expected_order_zero
+  )
+
+  multiple_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == expected_multiple
+  )
+
+  mapped_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == expected_mapped_zero
+  )
+
+  reverse_multiple_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == expected_reverse_multiple
+  )
+
+  final_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == expected_final_zero
+  )
+
+  suspension_homomorphism_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == HomomorphismStatement(
+      map=SUSPENSION_MAP,
+    )
+  )
+
+  generic_suspension_addition_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == expected_generic_suspension_addition
+  )
+
+  suspension_addition_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == expected_suspension_addition
+  )
+
+  assert addition_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert addition_step.inference_rule == (
+    addition_rule
+  )
+
+  assert addition_step.premises == (
+    homomorphism_step,
+  )
+
+  assert order_zero_step.inference_rule == (
+    order_rule
+  )
+
+  assert order_zero_step.premises == (
+    order_step,
+  )
+
+  assert multiple_step.inference_rule == (
+    multiple_rule
+  )
+
+  assert multiple_step.premises == (
+    homomorphism_step,
+  )
+
+  assert mapped_zero_step.inference_rule == (
+    known_zero_rule
+  )
+
+  assert mapped_zero_step.premises == (
+    homomorphism_step,
+    order_zero_step,
+  )
+
+  assert reverse_multiple_step.inference_rule == (
+    symmetry_rule
+  )
+
+  assert reverse_multiple_step.premises == (
+    multiple_step,
+  )
+
+  assert final_zero_step.inference_rule == (
+    zero_propagation_rule
+  )
+
+  assert final_zero_step.premises == (
+    mapped_zero_step,
+    reverse_multiple_step,
+  )
+
+  assert suspension_homomorphism_step.inference_rule == (
+    suspension_homomorphism_rule
+  )
+
+  assert suspension_homomorphism_step.premises == ()
+
+  assert (
+    generic_suspension_addition_step.inference_rule
+    == addition_rule
+  )
+
+  assert generic_suspension_addition_step.premises == (
+    suspension_homomorphism_step,
+  )
+
+  assert suspension_addition_step.inference_rule == (
+    suspension_bridge_rule
+  )
+
+  assert suspension_addition_step.premises == (
+    generic_suspension_addition_step,
+  )
+
+
+
+
 
 
 
