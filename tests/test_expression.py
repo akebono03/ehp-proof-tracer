@@ -2,6 +2,7 @@ from expression import (
   Composition,
   HomotopyElement,
   Multiple,
+  Sum,
   Suspension,
   Zero,
   eta,
@@ -46,6 +47,91 @@ def test_multiple():
   assert expression.expression == eta(3)
 
 
+def test_inverse_is_represented_by_negative_one_multiple():
+  alpha = eta(3)
+
+  inverse = Multiple(
+    -1,
+    alpha,
+  )
+
+  assert inverse.coefficient == -1
+  assert inverse.expression == alpha
+  assert inverse == Multiple(
+    -1,
+    alpha,
+  )
+
+
+def test_multiple_remains_distinct_from_repeated_sum():
+  alpha = eta(3)
+
+  multiple = Multiple(
+    2,
+    alpha,
+  )
+
+  repeated_sum = Sum(
+    alpha,
+    alpha,
+  )
+
+  assert multiple != repeated_sum
+  assert multiple.coefficient == 2
+  assert multiple.expression == alpha
+
+
+def test_zero_remains_distinct_from_zero_multiple():
+  alpha = eta(3)
+
+  zero = Zero()
+
+  zero_multiple = Multiple(
+    0,
+    alpha,
+  )
+
+  assert zero_multiple != zero
+  assert zero_multiple.coefficient == 0
+  assert zero_multiple.expression == alpha
+
+
+def test_sum():
+  expression = Sum(
+    eta(3),
+    nu(4),
+  )
+
+  assert expression.left == eta(3)
+  assert expression.right == nu(4)
+
+
+def test_sum_with_zero_preserves_right_zero_structure():
+  alpha = eta(3)
+
+  expression = Sum(
+    alpha,
+    Zero(),
+  )
+
+  assert expression.left == alpha
+  assert expression.right == Zero()
+  assert expression != alpha
+
+
+def test_sum_with_zero_preserves_left_zero_structure():
+  alpha = eta(3)
+
+  expression = Sum(
+    Zero(),
+    alpha,
+  )
+
+  assert expression.left == Zero()
+  assert expression.right == alpha
+  assert expression != alpha
+
+
 def test_composition():
   expression = Composition(
     eta(3),
@@ -81,6 +167,67 @@ def test_nested_suspension():
     eta(3),
   )
 
+
+def test_sum_has_structural_equality():
+  expression = Sum(
+    eta(3),
+    nu(4),
+  )
+
+  assert expression == Sum(
+    eta(3),
+    nu(4),
+  )
+
+
+def test_sum_distinguishes_operand_order():
+  left_right = Sum(
+    eta(3),
+    nu(4),
+  )
+
+  right_left = Sum(
+    nu(4),
+    eta(3),
+  )
+
+  assert left_right != right_left
+
+
+def test_nested_sum_preserves_structure():
+  alpha = eta(3)
+  beta = nu(4)
+  gamma = sigma(8)
+
+  left_nested = Sum(
+    Sum(
+      alpha,
+      beta,
+    ),
+    gamma,
+  )
+
+  right_nested = Sum(
+    alpha,
+    Sum(
+      beta,
+      gamma,
+    ),
+  )
+
+  assert left_nested.left == Sum(
+    alpha,
+    beta,
+  )
+  assert left_nested.right == gamma
+
+  assert right_nested.left == alpha
+  assert right_nested.right == Sum(
+    beta,
+    gamma,
+  )
+
+  assert left_nested != right_nested
 
 
 

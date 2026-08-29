@@ -1,6 +1,7 @@
 from expression import (
   Composition,
   Multiple,
+  Sum,
   Suspension,
   Zero,
 )
@@ -12,6 +13,107 @@ from proof import (
   RelationType,
   lookup_variable_binding,
 )
+
+
+def additive_inverse_inference_rule(
+  expression,
+):
+  return InferenceRule(
+    name="additive inverse implies zero",
+    description=(
+      "An expression added to its "
+      "additive inverse is zero."
+    ),
+    conclusion_pattern=Relation(
+      lhs=Sum(
+        left=expression,
+        right=Multiple(
+          coefficient=-1,
+          expression=expression,
+        ),
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    ),
+  )
+
+
+def sum_commutativity_inference_rule(
+  left,
+  right,
+):
+  return InferenceRule(
+    name="sum commutativity",
+    description=(
+      "The sum of two expressions is equal "
+      "to the sum with operands reversed."
+    ),
+    conclusion_pattern=Relation(
+      lhs=Sum(
+        left=left,
+        right=right,
+      ),
+      rhs=Sum(
+        left=right,
+        right=left,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+  )
+
+
+def sum_associativity_inference_rule(
+  left,
+  middle,
+  right,
+):
+  return InferenceRule(
+    name="sum associativity",
+    description=(
+      "A nested sum is equal to the "
+      "corresponding reassociated sum."
+    ),
+    conclusion_pattern=Relation(
+      lhs=Sum(
+        left=Sum(
+          left=left,
+          right=middle,
+        ),
+        right=right,
+      ),
+      rhs=Sum(
+        left=left,
+        right=Sum(
+          left=middle,
+          right=right,
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+  )
+
+
+def double_equals_repeated_sum_inference_rule(
+  expression,
+):
+  return InferenceRule(
+    name="double equals repeated sum",
+    description=(
+      "Twice an expression is equal to "
+      "the sum of the expression with itself."
+    ),
+    conclusion_pattern=Relation(
+      lhs=Sum(
+        left=expression,
+        right=expression,
+      ),
+      rhs=Multiple(
+        coefficient=2,
+        expression=expression,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+  )
 
 
 def order_implies_zero_multiple_inference_rule():

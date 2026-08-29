@@ -1,6 +1,7 @@
 from expression import (
   Composition,
   Multiple,
+  Sum,
   Zero,
   eta,
   nu,
@@ -23,10 +24,14 @@ from proof import (
 )
 from relation_rules import (
   Suspension,
+  additive_inverse_inference_rule,
   composition_equality_to_zero_inference_rule,
+  double_equals_repeated_sum_inference_rule,
   equality_symmetry_inference_rule,
   equality_transitivity_inference_rule,
   order_implies_zero_multiple_inference_rule,
+  sum_associativity_inference_rule,
+  sum_commutativity_inference_rule,
   suspension_composition_functoriality_inference_rule,
   suspension_preserves_equality_inference_rule,
   suspension_preserves_zero_inference_rule,
@@ -35,6 +40,1148 @@ from relation_rules import (
   zero_composition_reverse_equality_implies_zero_inference_rule,
   zero_equality_implies_zero_inference_rule,
 )
+
+
+def test_additive_inverse_implies_zero():
+  alpha = eta(3)
+
+  rule = additive_inverse_inference_rule(
+    alpha,
+  )
+
+  match = find_inference_match(
+    rule,
+    (),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == Relation(
+    lhs=Sum(
+      left=alpha,
+      right=Multiple(
+        coefficient=-1,
+        expression=alpha,
+      ),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == ()
+
+
+def test_sum_commutativity():
+  alpha = eta(3)
+  beta = nu(4)
+
+  rule = sum_commutativity_inference_rule(
+    alpha,
+    beta,
+  )
+
+  match = find_inference_match(
+    rule,
+    (),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == Relation(
+    lhs=Sum(
+      left=alpha,
+      right=beta,
+    ),
+    rhs=Sum(
+      left=beta,
+      right=alpha,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == ()
+
+
+def test_sum_associativity():
+  alpha = eta(3)
+  beta = nu(4)
+  gamma = sigma(8)
+
+  rule = sum_associativity_inference_rule(
+    alpha,
+    beta,
+    gamma,
+  )
+
+  match = find_inference_match(
+    rule,
+    (),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == Relation(
+    lhs=Sum(
+      left=Sum(
+        left=alpha,
+        right=beta,
+      ),
+      right=gamma,
+    ),
+    rhs=Sum(
+      left=alpha,
+      right=Sum(
+        left=beta,
+        right=gamma,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == ()
+
+
+def test_double_equals_repeated_sum():
+  alpha = eta(3)
+
+  rule = double_equals_repeated_sum_inference_rule(
+    alpha,
+  )
+
+  match = find_inference_match(
+    rule,
+    (),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == Relation(
+    lhs=Sum(
+      left=alpha,
+      right=alpha,
+    ),
+    rhs=Multiple(
+      coefficient=2,
+      expression=alpha,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == ()
+
+
+def test_order_two_reaches_repeated_sum_zero():
+  alpha = eta(3)
+
+  order_step = relation_proof_step(
+    order_relation(
+      alpha,
+      2,
+    )
+  )
+
+  order_rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  double_rule = (
+    double_equals_repeated_sum_inference_rule(
+      alpha,
+    )
+  )
+
+  zero_propagation_rule = (
+    zero_equality_implies_zero_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        order_rule,
+        double_rule,
+        zero_propagation_rule,
+      ),
+      (
+        order_step,
+      ),
+    )
+  )
+
+  double_zero = Relation(
+    lhs=Multiple(
+      coefficient=2,
+      expression=alpha,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  repeated_sum_equality = Relation(
+    lhs=Sum(
+      left=alpha,
+      right=alpha,
+    ),
+    rhs=Multiple(
+      coefficient=2,
+      expression=alpha,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  repeated_sum_zero = Relation(
+    lhs=Sum(
+      left=alpha,
+      right=alpha,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert double_zero in conclusions
+  assert repeated_sum_equality in conclusions
+  assert repeated_sum_zero in conclusions
+
+  double_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == double_zero
+  )
+
+  repeated_sum_equality_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == repeated_sum_equality
+  )
+
+  repeated_sum_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == repeated_sum_zero
+  )
+
+  assert double_zero_step.premises == (
+    order_step,
+  )
+
+  assert double_zero_step.inference_rule == (
+    order_rule
+  )
+
+  assert repeated_sum_equality_step.premises == ()
+
+  assert (
+    repeated_sum_equality_step.inference_rule
+    == double_rule
+  )
+
+  assert repeated_sum_zero_step.premises == (
+    double_zero_step,
+    repeated_sum_equality_step,
+  )
+
+  assert (
+    repeated_sum_zero_step.inference_rule
+    == zero_propagation_rule
+  )
+
+
+def test_phase12_representative_additive_scenario_reaches_fixed_point():
+  alpha = eta(3)
+  beta = nu(4)
+  gamma = sigma(8)
+
+  inverse_alpha = Multiple(
+    coefficient=-1,
+    expression=alpha,
+  )
+
+  left_associated = Sum(
+    left=Sum(
+      left=alpha,
+      right=beta,
+    ),
+    right=gamma,
+  )
+
+  right_associated = Sum(
+    left=alpha,
+    right=Sum(
+      left=beta,
+      right=gamma,
+    ),
+  )
+
+  commuted_left_associated = Sum(
+    left=gamma,
+    right=Sum(
+      left=alpha,
+      right=beta,
+    ),
+  )
+
+  order_step = relation_proof_step(
+    order_relation(
+      alpha,
+      2,
+    )
+  )
+
+  additive_inverse_rule = (
+    additive_inverse_inference_rule(
+      alpha,
+    )
+  )
+
+  inverse_commutativity_rule = (
+    sum_commutativity_inference_rule(
+      alpha,
+      inverse_alpha,
+    )
+  )
+
+  associativity_rule = (
+    sum_associativity_inference_rule(
+      alpha,
+      beta,
+      gamma,
+    )
+  )
+
+  outer_commutativity_rule = (
+    sum_commutativity_inference_rule(
+      Sum(
+        left=alpha,
+        right=beta,
+      ),
+      gamma,
+    )
+  )
+
+  double_rule = (
+    double_equals_repeated_sum_inference_rule(
+      alpha,
+    )
+  )
+
+  order_rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  symmetry_rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  transitivity_rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  zero_propagation_rule = (
+    zero_equality_implies_zero_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        additive_inverse_rule,
+        inverse_commutativity_rule,
+        associativity_rule,
+        outer_commutativity_rule,
+        double_rule,
+        order_rule,
+        symmetry_rule,
+        transitivity_rule,
+        zero_propagation_rule,
+      ),
+      (
+        order_step,
+      ),
+    )
+  )
+
+  additive_inverse_zero = Relation(
+    lhs=Sum(
+      left=alpha,
+      right=inverse_alpha,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  reverse_additive_inverse_zero = Relation(
+    lhs=Sum(
+      left=inverse_alpha,
+      right=alpha,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  double_zero = Relation(
+    lhs=Multiple(
+      coefficient=2,
+      expression=alpha,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  repeated_sum_zero = Relation(
+    lhs=Sum(
+      left=alpha,
+      right=alpha,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  associativity_equality = Relation(
+    lhs=left_associated,
+    rhs=right_associated,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  reassociated_to_commuted = Relation(
+    lhs=right_associated,
+    rhs=commuted_left_associated,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert additive_inverse_zero in conclusions
+
+  assert reverse_additive_inverse_zero in (
+    conclusions
+  )
+
+  assert double_zero in conclusions
+
+  assert repeated_sum_zero in conclusions
+
+  assert associativity_equality in conclusions
+
+  assert reassociated_to_commuted in (
+    conclusions
+  )
+
+
+def test_phase12_representative_additive_provenance_is_preserved():
+  alpha = eta(3)
+  beta = nu(4)
+  gamma = sigma(8)
+
+  inverse_alpha = Multiple(
+    coefficient=-1,
+    expression=alpha,
+  )
+
+  alpha_plus_inverse = Sum(
+    left=alpha,
+    right=inverse_alpha,
+  )
+
+  inverse_plus_alpha = Sum(
+    left=inverse_alpha,
+    right=alpha,
+  )
+
+  repeated_sum = Sum(
+    left=alpha,
+    right=alpha,
+  )
+
+  double = Multiple(
+    coefficient=2,
+    expression=alpha,
+  )
+
+  alpha_plus_beta = Sum(
+    left=alpha,
+    right=beta,
+  )
+
+  left_associated = Sum(
+    left=alpha_plus_beta,
+    right=gamma,
+  )
+
+  right_associated = Sum(
+    left=alpha,
+    right=Sum(
+      left=beta,
+      right=gamma,
+    ),
+  )
+
+  commuted_left_associated = Sum(
+    left=gamma,
+    right=alpha_plus_beta,
+  )
+
+  order_step = relation_proof_step(
+    order_relation(
+      alpha,
+      2,
+    )
+  )
+
+  additive_inverse_rule = (
+    additive_inverse_inference_rule(
+      alpha,
+    )
+  )
+
+  inverse_commutativity_rule = (
+    sum_commutativity_inference_rule(
+      alpha,
+      inverse_alpha,
+    )
+  )
+
+  associativity_rule = (
+    sum_associativity_inference_rule(
+      alpha,
+      beta,
+      gamma,
+    )
+  )
+
+  outer_commutativity_rule = (
+    sum_commutativity_inference_rule(
+      alpha_plus_beta,
+      gamma,
+    )
+  )
+
+  double_rule = (
+    double_equals_repeated_sum_inference_rule(
+      alpha,
+    )
+  )
+
+  order_rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  symmetry_rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  transitivity_rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  zero_propagation_rule = (
+    zero_equality_implies_zero_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        additive_inverse_rule,
+        inverse_commutativity_rule,
+        associativity_rule,
+        outer_commutativity_rule,
+        double_rule,
+        order_rule,
+        symmetry_rule,
+        transitivity_rule,
+        zero_propagation_rule,
+      ),
+      (
+        order_step,
+      ),
+    )
+  )
+
+  additive_inverse_zero = Relation(
+    lhs=alpha_plus_inverse,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  inverse_commutativity_equality = Relation(
+    lhs=alpha_plus_inverse,
+    rhs=inverse_plus_alpha,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  reversed_inverse_equality = Relation(
+    lhs=inverse_plus_alpha,
+    rhs=alpha_plus_inverse,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  reverse_additive_inverse_zero = Relation(
+    lhs=inverse_plus_alpha,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  double_zero = Relation(
+    lhs=double,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  repeated_sum_equality = Relation(
+    lhs=repeated_sum,
+    rhs=double,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  repeated_sum_zero = Relation(
+    lhs=repeated_sum,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  associativity_equality = Relation(
+    lhs=left_associated,
+    rhs=right_associated,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  reversed_associativity_equality = Relation(
+    lhs=right_associated,
+    rhs=left_associated,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  outer_commutativity_equality = Relation(
+    lhs=left_associated,
+    rhs=commuted_left_associated,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  reassociated_to_commuted = Relation(
+    lhs=right_associated,
+    rhs=commuted_left_associated,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  additive_inverse_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == additive_inverse_zero
+  )
+
+  inverse_commutativity_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == inverse_commutativity_equality
+  )
+
+  reversed_inverse_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == reversed_inverse_equality
+  )
+
+  reverse_additive_inverse_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == reverse_additive_inverse_zero
+  )
+
+  double_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == double_zero
+  )
+
+  repeated_sum_equality_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == repeated_sum_equality
+  )
+
+  repeated_sum_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == repeated_sum_zero
+  )
+
+  associativity_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == associativity_equality
+  )
+
+  reversed_associativity_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == reversed_associativity_equality
+  )
+
+  outer_commutativity_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == outer_commutativity_equality
+  )
+
+  reassociated_to_commuted_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == reassociated_to_commuted
+  )
+
+  assert (
+    additive_inverse_zero_step
+    .inference_rule
+    == additive_inverse_rule
+  )
+
+  assert (
+    additive_inverse_zero_step.premises
+    == ()
+  )
+
+  assert (
+    inverse_commutativity_step
+    .inference_rule
+    == inverse_commutativity_rule
+  )
+
+  assert (
+    inverse_commutativity_step.premises
+    == ()
+  )
+
+  assert (
+    reversed_inverse_step.inference_rule
+    == symmetry_rule
+  )
+
+  assert reversed_inverse_step.premises == (
+    inverse_commutativity_step,
+  )
+
+  assert (
+    reverse_additive_inverse_zero_step
+    .inference_rule
+    == zero_propagation_rule
+  )
+
+  assert (
+    reverse_additive_inverse_zero_step
+    .premises
+    == (
+      additive_inverse_zero_step,
+      reversed_inverse_step,
+    )
+  )
+
+  assert double_zero_step.inference_rule == (
+    order_rule
+  )
+
+  assert double_zero_step.premises == (
+    order_step,
+  )
+
+  assert (
+    repeated_sum_equality_step.inference_rule
+    == double_rule
+  )
+
+  assert repeated_sum_equality_step.premises == ()
+
+  assert (
+    repeated_sum_zero_step.inference_rule
+    == zero_propagation_rule
+  )
+
+  assert repeated_sum_zero_step.premises == (
+    double_zero_step,
+    repeated_sum_equality_step,
+  )
+
+  assert associativity_step.inference_rule == (
+    associativity_rule
+  )
+
+  assert associativity_step.premises == ()
+
+  assert (
+    reversed_associativity_step.inference_rule
+    == symmetry_rule
+  )
+
+  assert reversed_associativity_step.premises == (
+    associativity_step,
+  )
+
+  assert (
+    outer_commutativity_step.inference_rule
+    == outer_commutativity_rule
+  )
+
+  assert outer_commutativity_step.premises == ()
+
+  assert (
+    reassociated_to_commuted_step.inference_rule
+    == transitivity_rule
+  )
+
+  assert (
+    reassociated_to_commuted_step.premises
+    == (
+      reversed_associativity_step,
+      outer_commutativity_step,
+    )
+  )
+
+
+def test_phase12_additive_rules_preserve_normalization_boundary():
+  alpha = eta(3)
+  beta = nu(4)
+  gamma = sigma(8)
+
+  repeated_sum = Sum(
+    left=alpha,
+    right=alpha,
+  )
+
+  double = Multiple(
+    coefficient=2,
+    expression=alpha,
+  )
+
+  left_associated = Sum(
+    left=Sum(
+      left=alpha,
+      right=beta,
+    ),
+    right=gamma,
+  )
+
+  right_associated = Sum(
+    left=alpha,
+    right=Sum(
+      left=beta,
+      right=gamma,
+    ),
+  )
+
+  alpha_beta = Sum(
+    left=alpha,
+    right=beta,
+  )
+
+  beta_alpha = Sum(
+    left=beta,
+    right=alpha,
+  )
+
+  right_zero_sum = Sum(
+    left=alpha,
+    right=Zero(),
+  )
+
+  left_zero_sum = Sum(
+    left=Zero(),
+    right=alpha,
+  )
+
+  assert repeated_sum != double
+
+  assert left_associated != right_associated
+
+  assert alpha_beta != beta_alpha
+
+  assert right_zero_sum != alpha
+
+  assert left_zero_sum != alpha
+
+  double_rule = (
+    double_equals_repeated_sum_inference_rule(
+      alpha,
+    )
+  )
+
+  associativity_rule = (
+    sum_associativity_inference_rule(
+      alpha,
+      beta,
+      gamma,
+    )
+  )
+
+  commutativity_rule = (
+    sum_commutativity_inference_rule(
+      alpha,
+      beta,
+    )
+  )
+
+  double_match = find_inference_match(
+    double_rule,
+    (),
+  )
+
+  associativity_match = find_inference_match(
+    associativity_rule,
+    (),
+  )
+
+  commutativity_match = find_inference_match(
+    commutativity_rule,
+    (),
+  )
+
+  assert double_match is not None
+  assert associativity_match is not None
+  assert commutativity_match is not None
+
+  double_step = apply_inference_match(
+    double_match
+  )
+
+  associativity_step = apply_inference_match(
+    associativity_match
+  )
+
+  commutativity_step = apply_inference_match(
+    commutativity_match
+  )
+
+  assert double_step.conclusion == Relation(
+    lhs=repeated_sum,
+    rhs=double,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert associativity_step.conclusion == Relation(
+    lhs=left_associated,
+    rhs=right_associated,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert commutativity_step.conclusion == Relation(
+    lhs=alpha_beta,
+    rhs=beta_alpha,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert right_zero_sum != alpha
+  assert left_zero_sum != alpha
+
+
+def test_phase12_additive_reasoning_scope_is_controlled_by_active_rule_set():
+  alpha = eta(3)
+
+  repeated_sum = Sum(
+    left=alpha,
+    right=alpha,
+  )
+
+  double = Multiple(
+    coefficient=2,
+    expression=alpha,
+  )
+
+  order_step = relation_proof_step(
+    order_relation(
+      alpha,
+      2,
+    )
+  )
+
+  double_rule = (
+    double_equals_repeated_sum_inference_rule(
+      alpha,
+    )
+  )
+
+  order_rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  zero_propagation_rule = (
+    zero_equality_implies_zero_inference_rule()
+  )
+
+  repeated_sum_equality = Relation(
+    lhs=repeated_sum,
+    rhs=double,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  double_zero = Relation(
+    lhs=double,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  repeated_sum_zero = Relation(
+    lhs=repeated_sum,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  bridge_only_result = (
+    run_inference_until_stable_with_history(
+      (
+        double_rule,
+      ),
+      (
+        order_step,
+      ),
+    )
+  )
+
+  bridge_only_conclusions = tuple(
+    step.conclusion
+    for step in bridge_only_result.steps
+  )
+
+  assert bridge_only_result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert repeated_sum_equality in (
+    bridge_only_conclusions
+  )
+
+  assert double_zero not in (
+    bridge_only_conclusions
+  )
+
+  assert repeated_sum_zero not in (
+    bridge_only_conclusions
+  )
+
+  order_result = (
+    run_inference_until_stable_with_history(
+      (
+        double_rule,
+        order_rule,
+      ),
+      (
+        order_step,
+      ),
+    )
+  )
+
+  order_conclusions = tuple(
+    step.conclusion
+    for step in order_result.steps
+  )
+
+  assert order_result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert repeated_sum_equality in (
+    order_conclusions
+  )
+
+  assert double_zero in order_conclusions
+
+  assert repeated_sum_zero not in (
+    order_conclusions
+  )
+
+  full_result = (
+    run_inference_until_stable_with_history(
+      (
+        double_rule,
+        order_rule,
+        zero_propagation_rule,
+      ),
+      (
+        order_step,
+      ),
+    )
+  )
+
+  full_conclusions = tuple(
+    step.conclusion
+    for step in full_result.steps
+  )
+
+  assert full_result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert repeated_sum_equality in (
+    full_conclusions
+  )
+
+  assert double_zero in full_conclusions
+
+  assert repeated_sum_zero in (
+    full_conclusions
+  )
 
 
 def test_order_implies_zero_multiple():

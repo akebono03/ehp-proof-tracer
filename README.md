@@ -6,10 +6,18 @@ EHP exact sequences for unstable homotopy groups of spheres.
 ## Goal
 
 The long-term goal is to explain how homotopy groups of spheres are determined
-from mathematical input such as EHP exact sequences, element orders,
-Suspension, Freudenthal theorems, composition relations, generalized Hopf
-invariants, Toda relations, Toda brackets, Steenrod operations, and
-literature-backed facts.
+from mathematical input such as:
+
+- EHP exact sequences
+- element orders
+- additive relations
+- Suspension
+- Freudenthal stable-range theorems
+- composition relations
+- generalized Hopf invariants
+- Toda relations and Toda brackets
+- Steenrod operations
+- literature-backed facts
 
 The project separates:
 
@@ -18,6 +26,21 @@ mathematical rule / theorem
 generic inference mechanism
 abelian-group calculation
 ```
+
+The default development principle is:
+
+```text
+actual mathematical need
+↓
+minimal representation
+↓
+domain InferenceRule
+↓
+existing generic engine
+```
+
+The generic inference engine is changed only when an actual mathematical rule
+cannot be represented correctly with the existing infrastructure.
 
 ---
 
@@ -36,7 +59,8 @@ Completed foundations and theorem families:
 9. composition reasoning,
 10. Suspension-composition functoriality,
 11. generalized Hopf-invariant reasoning,
-12. provenance and explicit inference-scope / termination boundaries.
+12. additive expression / additive-law reasoning,
+13. provenance and explicit inference-scope / termination boundaries.
 
 Current architecture:
 
@@ -53,7 +77,7 @@ integer linear algebra
 ```
 
 Phase 5-65 is the completion point of the generic inference-engine foundation.
-Later Phases add mathematical rule families without adding domain-specific
+Phases 6 onward add mathematical rule families without adding domain-specific
 branches to the engine unless an actual theorem demonstrates a missing generic
 capability.
 
@@ -72,6 +96,7 @@ capability.
 - Phase 9: Freudenthal / stable-range reasoning — completed
 - Phase 10: composition reasoning / Suspension-composition functoriality — completed
 - Phase 11: generalized Hopf-invariant reasoning — completed
+- Phase 12: additive expression / additive reasoning — completed
 
 ---
 
@@ -83,9 +108,10 @@ The algebra layer handles finitely generated abelian groups of the form:
 Z^r ⊕ finite torsion
 ```
 
-The presentation-based path uses relation matrices, integer lattices,
-Hermite normal form, and Smith normal form to calculate kernel, image, and
-cokernel. Finite-group enumeration remains as an independent reference path.
+The presentation-based path uses relation matrices, integer lattices, Hermite
+normal form, and Smith normal form to calculate kernel, image, and cokernel.
+
+Finite-group enumeration remains available as an independent reference path.
 
 For:
 
@@ -105,6 +131,9 @@ and is kept distinct from:
 B / Im(f) ≅ Im(g)
 ```
 
+The algebra layer does not encode Toda-, EHP-, Hopf-, or theorem-specific
+meaning.
+
 ---
 
 # Proof / relation model
@@ -119,7 +148,7 @@ source
 note
 ```
 
-Current relation types:
+Current principal relation types:
 
 ```text
 EQUALITY
@@ -151,6 +180,7 @@ Current structured expressions include:
 Zero
 HomotopyElement
 Multiple
+Sum
 Composition
 Suspension
 ```
@@ -163,9 +193,38 @@ nu(n)
 sigma(n)
 ```
 
-The expression layer represents syntax and structure. It does not itself
-perform theorem application, normalization, stable-range checks, dimension
-validation, or equality / zero proof.
+The expression layer is structural syntax only.
+
+It does not itself perform:
+
+- theorem application,
+- normalization,
+- stable-range checks,
+- dimension validation,
+- equality proof,
+- zero proof,
+- commutative reordering,
+- associative reassociation.
+
+For example, the following remain structurally distinct:
+
+```text
+α+β
+β+α
+```
+
+```text
+(α+β)+γ
+α+(β+γ)
+```
+
+```text
+2α
+α+α
+```
+
+Mathematical equality between such expressions is represented explicitly by
+`RelationType.EQUALITY`.
 
 ---
 
@@ -205,7 +264,7 @@ MAX_ROUNDS
 `max_rounds` is a safety bound, not semantic cycle detection.
 
 One round does not recursively consume conclusions created earlier in that
-same round as new premises for later rules.
+same round as fresh premises for later rules.
 
 ---
 
@@ -234,8 +293,9 @@ y=x
 → y=0
 ```
 
-EHP-, ORDER-, Suspension-, Freudenthal-, Toda-, and Hopf-derived facts reconnect
-through the same generic relation machinery where their semantics permit it.
+EHP-, ORDER-, Suspension-, Freudenthal-, composition-, Hopf-, and additive
+facts reconnect through this shared generic relation machinery where their
+semantics permit it.
 
 ---
 
@@ -269,6 +329,8 @@ nα=0
 generic equality / ZERO reasoning
 ```
 
+The ORDER conclusion uses `Multiple(n, α)`.
+
 ---
 
 # Phase 8: Suspension reasoning
@@ -279,7 +341,7 @@ x=0  → E(x)=0
 nα=0 → nE(α)=0
 ```
 
-Repeated Suspension may generate:
+Repeated Suspension can generate:
 
 ```text
 E(x), E²(x), E³(x), ...
@@ -307,7 +369,7 @@ stem == sphere_dimension - 1
 → epimorphism only
 ```
 
-Outside current range:
+Outside the implemented range:
 
 ```text
 stem >= sphere_dimension
@@ -346,98 +408,41 @@ Generic equality reasoning can then derive:
 Eα∘Eβ=Eγ
 ```
 
-Because functoriality combined with symmetry can increase structural depth,
-Phase 10 uses bounded / staged execution where needed.
+Functors and symmetry can increase structural depth, so staged / bounded
+execution is used where required.
 
 ---
 
 # Phase 11: Generalized Hopf-invariant reasoning
 
-## Representation
-
-Generalized Hopf-invariant facts are represented by:
-
-```text
-HopfInvariantStatement(
-  expression,
-  value,
-  source,
-  note,
-)
-```
-
-Semantics:
+Generalized Hopf facts are represented by:
 
 ```text
 H(expression)=value
 ```
 
-`value` is an `Expression`, not an integer-only field.
+where `value` is an `Expression`, not an integer-only field.
 
-Therefore the model can represent values such as:
-
-```text
-0
-β
-nβ
-β∘Eγ
-```
-
-## Known fact / provenance
-
-A known Hopf fact may carry a `LiteratureReference`.
-
-Provenance is preserved through:
-
-```text
-derived ProofStep
-↓
-premises
-↓
-known Hopf fact
-↓
-LiteratureReference
-```
-
-rather than by blindly copying source metadata to every derived conclusion.
-
-## Hopf composition-law applicability
+Implemented vertical slices include:
 
 ```text
 H(α)=β
 ↓
-HopfCompositionLawStatement(α,β)
-```
-
-The intermediate statement records theorem applicability.
-
-## Generalized Hopf composition formula
-
-```text
-HopfCompositionLawStatement(α,β)
-+
-γ
+HopfCompositionLawStatement
 ↓
 H(α∘Eγ)=β∘Eγ
 ```
 
-Existing `Composition` and `Suspension` expressions are reused.
-
-## Hopf value ZERO bridge
+and:
 
 ```text
 H(x)=y
-+
 y=0
 ↓
 H(x)=0
 ```
 
-The ZERO fact must concern exactly the same value `y`.
-
-An unrelated ZERO fact is rejected.
-
-Most importantly:
+with the important theorem boundary:
 
 ```text
 H(x)=0
@@ -445,49 +450,7 @@ H(x)=0
 x=0
 ```
 
-Phase 11 does not confuse vanishing Hopf invariant with vanishing element.
-
-## Suspension / composition integration
-
-For `β=Eδ`:
-
-```text
-H(α∘Eγ)=Eδ∘Eγ
-```
-
-If:
-
-```text
-δ∘γ=0
-```
-
-existing Suspension, functoriality, equality, and ZERO rules can derive:
-
-```text
-Eδ∘Eγ=0
-```
-
-and therefore:
-
-```text
-H(α∘Eγ)=0
-```
-
-No separate Hopf-specific equality engine is added.
-
-## EHP bridge
-
-For the EHP map pair specifically `E` followed by `H`:
-
-```text
-EHPZeroCompositionStatement(E,H)
-+
-α
-↓
-H(Eα)=0
-```
-
-Thus:
+The EHP bridge includes:
 
 ```text
 Exactness(E,H)
@@ -497,144 +460,317 @@ EHPZeroCompositionStatement(E,H)
 H(Eα)=0
 ```
 
-The bridge rejects other consecutive EHP pairs such as `H` followed by `P`.
+Recursive Hopf structural growth is not treated as unrestricted
+fixed-point-safe.
+
+---
+
+# Phase 12: Additive expression / reasoning
+
+Phase 12 introduces the first proof-layer representation of additive structure.
+
+## Sum
+
+Binary sum:
+
+```text
+α+β
+```
+
+is represented by:
+
+```python
+Sum(
+  left=alpha,
+  right=beta,
+)
+```
+
+`Sum` preserves binary tree structure exactly.
+
+No flattening or canonical reordering is performed.
+
+## Additive inverse representation
+
+Phase 12 does not add a dedicated `Inverse` node.
+
+The canonical current representation is:
+
+```text
+-α
+=
+Multiple(-1, α)
+```
+
+This is representation only; mathematical consequences are explicit rules.
+
+## Multiple / Sum boundary
+
+The following are intentionally structurally distinct:
+
+```text
+Multiple(2, α)
+Sum(α, α)
+```
+
+Likewise:
+
+```text
+Zero()
+Multiple(0, α)
+```
+
+are structurally distinct.
+
+No automatic `Multiple → Sum` normalization is performed.
+
+## Zero-addition structural boundary
+
+The expressions:
+
+```text
+α+0
+0+α
+```
+
+are representable and remain structurally distinct from `α`.
+
+Phase 12 does not add constructor simplification:
+
+```text
+α+0 → α
+0+α → α
+```
+
+and does not yet add a separate zero-identity theorem family.
+
+## Additive inverse rule
+
+Phase 12 adds:
+
+```text
+α+(-α)=0
+```
+
+as an explicit domain inference rule.
+
+The conclusion is a generic `RelationType.ZERO`.
+
+The expression itself remains a `Sum`; it is not normalized into `Zero()`.
+
+## Commutativity
+
+Phase 12 adds:
+
+```text
+α+β = β+α
+```
+
+as an explicit `RelationType.EQUALITY`.
+
+The two `Sum` objects remain structurally distinct.
+
+Reverse equality is handled by existing generic equality symmetry.
+
+## Associativity
+
+Phase 12 adds:
+
+```text
+(α+β)+γ = α+(β+γ)
+```
+
+as an explicit `RelationType.EQUALITY`.
+
+The left-associated and right-associated trees remain structurally distinct.
+
+Reverse reassociation is handled by existing generic equality symmetry.
+
+## ORDER bridge
+
+Phase 12 retains the Phase 7 ORDER semantics:
+
+```text
+ord(α)=n
+→ nα=0
+```
+
+using `Multiple(n, α)`.
+
+For the first additive bridge, Phase 12 adds only:
+
+```text
+α+α = 2α
+```
+
+as an explicit equality relation.
+
+This supports:
+
+```text
+ord(α)=2
+↓
+2α=0
+```
+
+together with:
+
+```text
+α+α=2α
+```
+
+and generic ZERO propagation:
+
+```text
+α+α=0
+```
+
+General `nα ↔ repeated Sum` expansion is not implemented.
 
 ## Representative scenario
 
-The representative Phase 11 scenario keeps both branches in one knowledge
-state:
+The Phase 12 representative scenario verifies coexistence of:
 
 ```text
-Hopf branch:
-H(α)=Eδ
-→ H(α∘Eγ)=Eδ∘Eγ
-→ Eδ∘Eγ=0
-→ H(α∘Eγ)=0
+additive inverse
+commutativity
+associativity
+ORDER
+Multiple / repeated-Sum bridge
+generic equality symmetry
+generic equality transitivity
+generic ZERO propagation
+```
+
+in one inference environment.
+
+Representative branches include:
+
+```text
+ord(α)=2
+↓
+2α=0
+α+α=2α
+↓
+α+α=0
 ```
 
 ```text
-EHP branch:
-Exactness(E,H)
-→ EHPZeroCompositionStatement(E,H)
-→ H(Eγ)=0
+α+(-α)=0
+α+(-α)=(-α)+α
+↓
+(-α)+α=0
 ```
 
-The final finite stage reaches a genuine `FIXED_POINT`.
+and reassociation / commutation chains using generic equality closure.
 
-## Provenance regression
-
-The final Hopf conclusion can be traced back through:
+The finite representative scenario reaches:
 
 ```text
-H(α∘Eγ)=0
-↓
-H(α∘Eγ)=Eδ∘Eγ
-↓
-HopfCompositionLawStatement(α,Eδ)
-↓
-H(α)=Eδ
-↓
-LiteratureReference
-```
-
-The EHP branch can be traced through:
-
-```text
-H(Eγ)=0
-↓
-EHPZeroCompositionStatement(E,H)
-↓
-Exactness(E,H)
-```
-
-## Theorem scope
-
-Implemented:
-
-```text
-H(α)=β
-→ HopfCompositionLawStatement(α,β)
-```
-
-```text
-HopfCompositionLawStatement(α,β)
-+
-γ
-→ H(α∘Eγ)=β∘Eγ
-```
-
-```text
-H(x)=y
-+
-y=0
-→ H(x)=0
-```
-
-```text
-EHPZeroCompositionStatement(E,H)
-+
-α
-→ H(Eα)=0
-```
-
-Not inferred:
-
-```text
-H(x)=0 → x=0
-H(x)=0 → x ∈ Im(E)
-H(x)=0 → x=E(y) for some y
-P∘H=0 → H(Eα)=0
-```
-
-## Phase 11 termination boundary
-
-The Hopf law / formula pair is recursively applicable:
-
-```text
-H(α)=β
-↓
-Law(α,β)
-↓
-H(α∘Eγ)=β∘Eγ
-↓
-Law(α∘Eγ,β∘Eγ)
-↓
-H((α∘Eγ)∘Eγ)=(β∘Eγ)∘Eγ
-↓
-...
-```
-
-Therefore:
-
-```text
-hopf_composition_law_inference_rule
-+
-hopf_composition_formula_inference_rule
-```
-
-is not treated as unrestricted fixed-point-safe.
-
-The bounded regression reaches `MAX_ROUNDS` while demonstrating actual
-increasing composition depth.
-
-Finite tasks use staged execution:
-
-```text
-explicit Hopf structural stage
-↓
-explicit formula stage
-↓
-finite ZERO / generic stage
-↓
 FIXED_POINT
 ```
 
-The principle remains:
+## Provenance
+
+Representative Phase 12 conclusions preserve:
 
 ```text
-mathematical applicability
-≠
-execution scope
+ProofRule.INFERENCE
+inference_rule
+premises
+```
+
+so that ORDER-derived, additive-inverse-derived, commutativity-derived,
+associativity-derived, and generic-relation-derived facts remain traceable.
+
+## Normalization boundary
+
+Phase 12 formally preserves:
+
+```text
+α+β                    !=structural β+α
+(α+β)+γ                !=structural α+(β+γ)
+2α                     !=structural α+α
+α+0                    !=structural α
+0+α                    !=structural α
+```
+
+Mathematical equivalence is represented by explicit theorem relations.
+
+No theorem-aware canonical expression equality is added.
+
+## Inference-scope / termination boundary
+
+Current additive rules are concrete rule factories, for example:
+
+```text
+additive_inverse_inference_rule(alpha)
+sum_commutativity_inference_rule(alpha, beta)
+sum_associativity_inference_rule(alpha, beta, gamma)
+double_equals_repeated_sum_inference_rule(alpha)
+```
+
+For a finite concrete expression set, additive equality / ZERO closure can
+reach a genuine fixed point through ordinary duplicate rejection.
+
+Active rule scope controls what is derivable.
+
+For example:
+
+```text
+bridge only
+→ α+α=2α
+```
+
+does not derive:
+
+```text
+2α=0
+```
+
+without the ORDER rule, and does not derive:
+
+```text
+α+α=0
+```
+
+without ZERO propagation.
+
+Phase 12 does not introduce arbitrary expression enumeration, recursive sum
+normalization, or general repeated-sum expansion.
+
+---
+
+# Phase 12 completion boundary
+
+Phase 12 is complete because the project can now represent and reason about a
+minimal additive structure while preserving the syntax / theorem separation.
+
+Completion means:
+
+1. `Sum` is a first-class structured expression.
+2. nested sums are representable.
+3. operand order remains structural.
+4. association remains structural.
+5. `Multiple` remains distinct from repeated `Sum`.
+6. additive inverse uses `Multiple(-1, α)`.
+7. zero-addition forms remain lossless structural expressions.
+8. `α+(-α)=0` is an explicit rule.
+9. commutativity is an explicit equality rule.
+10. associativity is an explicit equality rule.
+11. `α+α=2α` bridges additive syntax to existing ORDER reasoning.
+12. `ord(α)=2 → 2α=0 → α+α=0` works through generic ZERO propagation.
+13. additive rules coexist in one representative fixed-point scenario.
+14. provenance is preserved end-to-end.
+15. normalization boundaries are regression-fixed.
+16. active rule scope controls additive derivation.
+17. no additive-specific branch is added to the generic inference engine.
+18. the full regression suite passes.
+
+Phase 12 completion full suite:
+
+```text
+809 passed in 62.32s
 ```
 
 ---
@@ -642,23 +778,29 @@ execution scope
 # Current limitations
 
 - Duplicate identity uses ordinary Python equality.
+- There is no theorem-aware canonical normalization.
 - The knowledge state keeps the first accepted `ProofStep` for an equal
   conclusion; alternative applications remain in execution traces.
 - Pattern matching is structured but not fully general recursive unification.
 - Exhaustive premise assignment can grow combinatorially.
 - Arbitrary symbolic rule families are not guaranteed to terminate.
 - `max_rounds` is a safety bound, not semantic cycle detection.
-- Repeated Suspension, functoriality, and recursive Hopf formula application
-  can generate unbounded structural depth.
+- Repeated Suspension, composition functoriality, and recursive Hopf formula
+  application can generate unbounded structural depth.
 - Automatic rule scheduling / theorem-depth planning is not implemented.
 - Canonical `E^n` and composition normalization are not implemented.
 - Composition associativity, identity, and bilinearity are not implemented.
+- Additive zero identity is not yet an explicit theorem family.
+- General `nα ↔ repeated Sum` expansion is not implemented.
+- Additivity / homomorphism preservation for E, H, P, or arbitrary maps is not
+  yet implemented at the proof-expression level.
 - There is no first-class `NONZERO` relation type.
 - General inverse-map construction / unrestricted desuspension are not
   implemented.
 - Element-level set / subgroup / image / kernel membership is not first-class.
 - `H(x)=0` cannot yet produce an explicit `x ∈ Ker(H)=Im(E)` fact or witness.
 - Hopf additivity is not implemented.
+- `±α` is not yet a first-class indeterminacy representation.
 - Toda brackets, Steenrod operations, double EHP, and odd-primary-specific
   theorem families remain future work.
 
@@ -666,40 +808,26 @@ execution scope
 
 # Tests
 
-Full suite:
+Run the full project suite with:
 
 ```powershell
 python -m pytest -v
 ```
 
-Phase 11 completion:
+Phase 12 completion:
 
 ```text
-791 passed in 23.41s
+809 passed in 62.32s
 ```
 
-Phase 11 suite:
+Useful focused suites include:
 
 ```powershell
-python -m pytest tests/test_hopf_rules.py -v
+python -m pytest tests/test_expression.py -v
 ```
-
-Result:
-
-```text
-28 passed
-```
-
-Focused theorem-scope / termination tests:
 
 ```powershell
-python -m pytest tests/test_hopf_rules.py::test_phase11_theorem_scope_boundary tests/test_hopf_rules.py::test_phase11_inference_scope_and_termination_boundary -v
-```
-
-Result:
-
-```text
-2 passed
+python -m pytest tests/test_relation_rules.py -v
 ```
 
 ---
@@ -709,85 +837,52 @@ Result:
 - `README.md` — current capabilities and current status
 - `docs/design.md` — current architecture, semantics, and design boundaries
 - `docs/development_log.md` — chronological implementation history
+- `docs/roadmap.md` — future capabilities and dependency order
 
 Historical statements in the development log describe the state at that time.
 Current behavior is defined by the latest README and design documents.
 
 ---
 
-# Phase 11 completion boundary
-
-Phase 11 is complete because the project now supports a traceable vertical
-slice:
-
-```text
-generalized Hopf fact
-↓
-composition-law applicability
-↓
-Hopf composition formula
-↓
-existing Suspension / composition reasoning
-↓
-generic ZERO reasoning
-↓
-Hopf-invariant-zero conclusion
-```
-
-together with:
-
-```text
-EHP exactness
-↓
-E-H zero composition
-↓
-H(Eα)=0
-```
-
-without modifying the generic inference engine.
-
----
-
 # Next development boundary
 
-The next Phase should start from an actual mathematical representation need,
-not speculative generic-engine refactoring.
-
-Natural candidates include:
+The roadmap places:
 
 ```text
-α+β
--α
-±α
+Abelian group expression
+↓
+Homomorphism reasoning
+↓
+Set / subgroup reasoning
+↓
+Coset / modulo
+↓
+Symbolic scalar constraints
+↓
+Indeterminacy
+↓
+Toda bracket
 ```
+
+in that dependency order.
+
+Therefore the natural next Phase is Homomorphism reasoning for additive
+expressions.
+
+The next Phase should begin from a minimal actual rule such as preservation of
+addition by a map, rather than from speculative generic-engine refactoring.
+
+Possible mathematical needs include:
 
 ```text
-α ∈ A
-A ⊆ B
-α ∈ Ker(H)
-α ∈ Im(E)
+f(α+β)=f(α)+f(β)
+f(-α)=-f(α)
+f(nα)=n f(α)
+f(0)=0
 ```
 
-```text
-mod A
-Toda-bracket indeterminacy
-```
+with E, H, and P treated as homomorphisms only to the extent justified by the
+actual map / theorem semantics being implemented.
 
-```text
-α=kβ+γ
-k odd
-```
-
-as well as further Toda relations, Toda brackets, Steenrod operations, double
-EHP, odd-primary-specific theorem families, and preimage reasoning.
-
-The governing rule remains:
-
-```text
-new mathematical knowledge
-=
-new domain InferenceRule
-```
-
-and the generic engine should change only when an actual mathematical rule
-cannot be represented correctly with the current infrastructure.
+The generic engine should remain unchanged unless the concrete homomorphism
+rules demonstrate a missing generic capability.

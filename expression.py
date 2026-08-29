@@ -23,6 +23,12 @@ class Multiple(Expression):
 
 
 @dataclass(frozen=True)
+class Sum(Expression):
+  left: Expression
+  right: Expression
+
+
+@dataclass(frozen=True)
 class Composition(Expression):
   left: Expression
   right: Expression
@@ -43,7 +49,6 @@ def nu(n: int) -> HomotopyElement:
 
 def sigma(n: int) -> HomotopyElement:
   return HomotopyElement("σ", n)
-
 
 
 
