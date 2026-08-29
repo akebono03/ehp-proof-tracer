@@ -2,12 +2,14 @@ from expression import (
   MapApplication,
   MapSymbol,
   Sum,
+  Zero,
   eta,
   nu,
 )
 from homomorphism_rules import (
   HomomorphismStatement,
   homomorphism_preserves_addition_inference_rule,
+  homomorphism_preserves_zero_inference_rule,
 )
 from proof import (
   ProofRule,
@@ -326,6 +328,178 @@ def test_homomorphism_preserves_addition_keeps_structural_sides_distinct():
   )
 
   assert left != right
+
+
+def test_homomorphism_preserves_zero():
+  f = MapSymbol(
+    name="f",
+  )
+
+  homomorphism_step = ProofStep(
+    conclusion=HomomorphismStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    homomorphism_preserves_zero_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      homomorphism_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == Relation(
+    lhs=MapApplication(
+      map=f,
+      expression=Zero(),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+
+def test_homomorphism_preserves_zero_requires_homomorphism_statement():
+  f = MapSymbol(
+    name="f",
+  )
+
+  unrelated_step = ProofStep(
+    conclusion=f,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    homomorphism_preserves_zero_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      unrelated_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_homomorphism_preserves_zero_uses_map_from_premise():
+  f = MapSymbol(
+    name="f",
+  )
+
+  g = MapSymbol(
+    name="g",
+  )
+
+  f_step = ProofStep(
+    conclusion=HomomorphismStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  g_step = ProofStep(
+    conclusion=HomomorphismStatement(
+      map=g,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    homomorphism_preserves_zero_inference_rule()
+  )
+
+  new_steps = run_inference_round(
+    (
+      rule,
+    ),
+    (
+      f_step,
+      g_step,
+    ),
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in new_steps
+  )
+
+  assert Relation(
+    lhs=MapApplication(
+      map=f,
+      expression=Zero(),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  ) in conclusions
+
+  assert Relation(
+    lhs=MapApplication(
+      map=g,
+      expression=Zero(),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  ) in conclusions
+
+
+def test_homomorphism_preserves_zero_preserves_provenance():
+  f = MapSymbol(
+    name="f",
+  )
+
+  homomorphism_step = ProofStep(
+    conclusion=HomomorphismStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    homomorphism_preserves_zero_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      homomorphism_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    homomorphism_step,
+  )
+
+
+
 
 
 
