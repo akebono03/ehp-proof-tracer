@@ -1,6 +1,8 @@
 from expression import (
   Composition,
   HomotopyElement,
+  MapApplication,
+  MapSymbol,
   Multiple,
   Sum,
   Suspension,
@@ -228,6 +230,153 @@ def test_nested_sum_preserves_structure():
   )
 
   assert left_nested != right_nested
+
+
+def test_map_symbol():
+  map_symbol = MapSymbol(
+    name="f",
+  )
+
+  assert map_symbol.name == "f"
+
+
+def test_map_symbol_has_structural_equality():
+  first = MapSymbol(
+    name="f",
+  )
+
+  second = MapSymbol(
+    name="f",
+  )
+
+  assert first == second
+
+
+def test_map_symbol_distinguishes_name():
+  f = MapSymbol(
+    name="f",
+  )
+
+  g = MapSymbol(
+    name="g",
+  )
+
+  assert f != g
+
+
+def test_map_application():
+  f = MapSymbol(
+    name="f",
+  )
+
+  alpha = eta(3)
+
+  application = MapApplication(
+    map=f,
+    expression=alpha,
+  )
+
+  assert application.map == f
+  assert application.expression == alpha
+
+
+def test_map_application_has_structural_equality():
+  f = MapSymbol(
+    name="f",
+  )
+
+  alpha = eta(3)
+
+  first = MapApplication(
+    map=f,
+    expression=alpha,
+  )
+
+  second = MapApplication(
+    map=f,
+    expression=alpha,
+  )
+
+  assert first == second
+
+
+def test_map_application_distinguishes_map():
+  f = MapSymbol(
+    name="f",
+  )
+
+  g = MapSymbol(
+    name="g",
+  )
+
+  alpha = eta(3)
+
+  f_alpha = MapApplication(
+    map=f,
+    expression=alpha,
+  )
+
+  g_alpha = MapApplication(
+    map=g,
+    expression=alpha,
+  )
+
+  assert f_alpha != g_alpha
+
+
+def test_map_application_distinguishes_expression():
+  f = MapSymbol(
+    name="f",
+  )
+
+  f_alpha = MapApplication(
+    map=f,
+    expression=eta(3),
+  )
+
+  f_beta = MapApplication(
+    map=f,
+    expression=nu(4),
+  )
+
+  assert f_alpha != f_beta
+
+
+def test_map_application_preserves_structured_argument():
+  f = MapSymbol(
+    name="f",
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  argument = Sum(
+    alpha,
+    beta,
+  )
+
+  application = MapApplication(
+    map=f,
+    expression=argument,
+  )
+
+  assert application.expression == Sum(
+    alpha,
+    beta,
+  )
+
+  assert application != Sum(
+    MapApplication(
+      map=f,
+      expression=alpha,
+    ),
+    MapApplication(
+      map=f,
+      expression=beta,
+    ),
+  )
+
+
 
 
 
