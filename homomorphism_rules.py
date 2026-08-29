@@ -306,6 +306,59 @@ def suspension_additivity_bridge_inference_rule(
   )
 
 
+def homomorphism_preserves_known_zero_inference_rule(
+  expression,
+):
+  zero_relation = Relation(
+    lhs=expression,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  def build_conclusion(
+    premises,
+  ):
+    homomorphism_statement = (
+      premises[0].conclusion
+    )
+
+    map_symbol = (
+      homomorphism_statement.map
+    )
+
+    return Relation(
+      lhs=MapApplication(
+        map=map_symbol,
+        expression=expression,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name="homomorphism preserves known zero",
+    description=(
+      "A homomorphism maps an expression "
+      "known to be zero to zero."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          HomomorphismStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.ZERO,
+        relation_pattern=zero_relation,
+      ),
+    ),
+    conclusion_builder=(
+      build_conclusion
+    ),
+  )
+
+
 
 
 

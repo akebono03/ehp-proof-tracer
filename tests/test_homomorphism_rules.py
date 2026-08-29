@@ -13,6 +13,7 @@ from homomorphism_rules import (
   HomomorphismStatement,
   homomorphism_preserves_addition_inference_rule,
   homomorphism_preserves_inverse_inference_rule,
+  homomorphism_preserves_known_zero_inference_rule,
   homomorphism_preserves_multiple_inference_rule,
   homomorphism_preserves_zero_inference_rule,
   suspension_additivity_bridge_inference_rule,
@@ -26,9 +27,15 @@ from proof import (
   RelationType,
   apply_inference_match,
   find_inference_match,
+  order_relation,
   relation_proof_step,
   run_inference_round,
   run_inference_until_stable_with_history,
+)
+from relation_rules import (
+  equality_symmetry_inference_rule,
+  order_implies_zero_multiple_inference_rule,
+  zero_equality_implies_zero_inference_rule,
 )
 
 
@@ -1370,6 +1377,531 @@ def test_suspension_additivity_bridge_preserves_provenance():
   assert derived_step.premises == (
     generic_additivity_step,
   )
+
+
+def test_homomorphism_preserves_known_zero():
+  f = MapSymbol(
+    name="f",
+  )
+
+  alpha = eta(3)
+
+  zero_expression = Multiple(
+    coefficient=2,
+    expression=alpha,
+  )
+
+  homomorphism_step = ProofStep(
+    conclusion=HomomorphismStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  zero_step = relation_proof_step(
+    Relation(
+      lhs=zero_expression,
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  rule = (
+    homomorphism_preserves_known_zero_inference_rule(
+      zero_expression,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      homomorphism_step,
+      zero_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == Relation(
+    lhs=MapApplication(
+      map=f,
+      expression=zero_expression,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    homomorphism_step,
+    zero_step,
+  )
+
+
+def test_homomorphism_preserves_known_zero_requires_homomorphism_statement():
+  alpha = eta(3)
+
+  zero_expression = Multiple(
+    coefficient=2,
+    expression=alpha,
+  )
+
+  zero_step = relation_proof_step(
+    Relation(
+      lhs=zero_expression,
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  rule = (
+    homomorphism_preserves_known_zero_inference_rule(
+      zero_expression,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      zero_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_homomorphism_preserves_known_zero_requires_zero_relation():
+  f = MapSymbol(
+    name="f",
+  )
+
+  alpha = eta(3)
+
+  zero_expression = Multiple(
+    coefficient=2,
+    expression=alpha,
+  )
+
+  homomorphism_step = ProofStep(
+    conclusion=HomomorphismStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  unrelated_step = relation_proof_step(
+    Relation(
+      lhs=zero_expression,
+      rhs=eta(4),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  rule = (
+    homomorphism_preserves_known_zero_inference_rule(
+      zero_expression,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      homomorphism_step,
+      unrelated_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_homomorphism_preserves_known_zero_rejects_different_expression():
+  f = MapSymbol(
+    name="f",
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  target_expression = Multiple(
+    coefficient=2,
+    expression=alpha,
+  )
+
+  other_expression = Multiple(
+    coefficient=2,
+    expression=beta,
+  )
+
+  homomorphism_step = ProofStep(
+    conclusion=HomomorphismStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  zero_step = relation_proof_step(
+    Relation(
+      lhs=other_expression,
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  rule = (
+    homomorphism_preserves_known_zero_inference_rule(
+      target_expression,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      homomorphism_step,
+      zero_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase13_order_homomorphism_integration_reaches_zero_multiple():
+  f = MapSymbol(
+    name="f",
+  )
+
+  alpha = eta(3)
+
+  order_step = relation_proof_step(
+    order_relation(
+      alpha,
+      2,
+    )
+  )
+
+  homomorphism_step = ProofStep(
+    conclusion=HomomorphismStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  double_alpha = Multiple(
+    coefficient=2,
+    expression=alpha,
+  )
+
+  f_alpha = MapApplication(
+    map=f,
+    expression=alpha,
+  )
+
+  f_double_alpha = MapApplication(
+    map=f,
+    expression=double_alpha,
+  )
+
+  double_f_alpha = Multiple(
+    coefficient=2,
+    expression=f_alpha,
+  )
+
+  order_rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  multiple_rule = (
+    homomorphism_preserves_multiple_inference_rule(
+      coefficient=2,
+      expression=alpha,
+    )
+  )
+
+  known_zero_rule = (
+    homomorphism_preserves_known_zero_inference_rule(
+      double_alpha,
+    )
+  )
+
+  symmetry_rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  zero_propagation_rule = (
+    zero_equality_implies_zero_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        order_rule,
+        multiple_rule,
+        known_zero_rule,
+        symmetry_rule,
+        zero_propagation_rule,
+      ),
+      (
+        order_step,
+        homomorphism_step,
+      ),
+    )
+  )
+
+  order_zero = Relation(
+    lhs=double_alpha,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  multiple_preservation = Relation(
+    lhs=f_double_alpha,
+    rhs=double_f_alpha,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  mapped_zero = Relation(
+    lhs=f_double_alpha,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  reverse_multiple_preservation = Relation(
+    lhs=double_f_alpha,
+    rhs=f_double_alpha,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  final_zero = Relation(
+    lhs=double_f_alpha,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert order_zero in conclusions
+  assert multiple_preservation in conclusions
+  assert mapped_zero in conclusions
+  assert (
+    reverse_multiple_preservation
+    in conclusions
+  )
+  assert final_zero in conclusions
+
+
+def test_phase13_order_homomorphism_integration_preserves_provenance():
+  f = MapSymbol(
+    name="f",
+  )
+
+  alpha = eta(3)
+
+  order_step = relation_proof_step(
+    order_relation(
+      alpha,
+      2,
+    )
+  )
+
+  homomorphism_step = ProofStep(
+    conclusion=HomomorphismStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  double_alpha = Multiple(
+    coefficient=2,
+    expression=alpha,
+  )
+
+  f_alpha = MapApplication(
+    map=f,
+    expression=alpha,
+  )
+
+  f_double_alpha = MapApplication(
+    map=f,
+    expression=double_alpha,
+  )
+
+  double_f_alpha = Multiple(
+    coefficient=2,
+    expression=f_alpha,
+  )
+
+  order_rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  multiple_rule = (
+    homomorphism_preserves_multiple_inference_rule(
+      coefficient=2,
+      expression=alpha,
+    )
+  )
+
+  known_zero_rule = (
+    homomorphism_preserves_known_zero_inference_rule(
+      double_alpha,
+    )
+  )
+
+  symmetry_rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  zero_propagation_rule = (
+    zero_equality_implies_zero_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        order_rule,
+        multiple_rule,
+        known_zero_rule,
+        symmetry_rule,
+        zero_propagation_rule,
+      ),
+      (
+        order_step,
+        homomorphism_step,
+      ),
+    )
+  )
+
+  order_zero = Relation(
+    lhs=double_alpha,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  multiple_preservation = Relation(
+    lhs=f_double_alpha,
+    rhs=double_f_alpha,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  mapped_zero = Relation(
+    lhs=f_double_alpha,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  reverse_multiple_preservation = Relation(
+    lhs=double_f_alpha,
+    rhs=f_double_alpha,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  final_zero = Relation(
+    lhs=double_f_alpha,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  order_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == order_zero
+  )
+
+  multiple_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == multiple_preservation
+  )
+
+  mapped_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == mapped_zero
+  )
+
+  reverse_multiple_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == reverse_multiple_preservation
+  )
+
+  final_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == final_zero
+  )
+
+  assert order_zero_step.premises == (
+    order_step,
+  )
+
+  assert order_zero_step.inference_rule == (
+    order_rule
+  )
+
+  assert multiple_step.premises == (
+    homomorphism_step,
+  )
+
+  assert multiple_step.inference_rule == (
+    multiple_rule
+  )
+
+  assert mapped_zero_step.premises == (
+    homomorphism_step,
+    order_zero_step,
+  )
+
+  assert mapped_zero_step.inference_rule == (
+    known_zero_rule
+  )
+
+  assert reverse_multiple_step.premises == (
+    multiple_step,
+  )
+
+  assert reverse_multiple_step.inference_rule == (
+    symmetry_rule
+  )
+
+  assert final_zero_step.premises == (
+    mapped_zero_step,
+    reverse_multiple_step,
+  )
+
+  assert final_zero_step.inference_rule == (
+    zero_propagation_rule
+  )
+
+  assert final_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+
+
+
 
 
 
