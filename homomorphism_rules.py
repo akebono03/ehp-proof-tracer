@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from expression import (
   MapApplication,
   MapSymbol,
+  Multiple,
   Sum,
   Zero,
 )
@@ -115,6 +116,60 @@ def homomorphism_preserves_zero_inference_rule():
       build_conclusion
     ),
   )
+
+
+def homomorphism_preserves_inverse_inference_rule(
+  expression,
+):
+  def build_conclusion(
+    premises,
+  ):
+    homomorphism_statement = (
+      premises[0].conclusion
+    )
+
+    map_symbol = (
+      homomorphism_statement.map
+    )
+
+    return Relation(
+      lhs=MapApplication(
+        map=map_symbol,
+        expression=Multiple(
+          coefficient=-1,
+          expression=expression,
+        ),
+      ),
+      rhs=Multiple(
+        coefficient=-1,
+        expression=MapApplication(
+          map=map_symbol,
+          expression=expression,
+        ),
+      ),
+      relation_type=(
+        RelationType.EQUALITY
+      ),
+    )
+
+  return InferenceRule(
+    name="homomorphism preserves inverse",
+    description=(
+      "A homomorphism maps an additive inverse "
+      "to the additive inverse of the image."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          HomomorphismStatement
+        ),
+      ),
+    ),
+    conclusion_builder=(
+      build_conclusion
+    ),
+  )
+
 
 
 
