@@ -171,6 +171,60 @@ def homomorphism_preserves_inverse_inference_rule(
   )
 
 
+def homomorphism_preserves_multiple_inference_rule(
+  coefficient,
+  expression,
+):
+  def build_conclusion(
+    premises,
+  ):
+    homomorphism_statement = (
+      premises[0].conclusion
+    )
+
+    map_symbol = (
+      homomorphism_statement.map
+    )
+
+    return Relation(
+      lhs=MapApplication(
+        map=map_symbol,
+        expression=Multiple(
+          coefficient=coefficient,
+          expression=expression,
+        ),
+      ),
+      rhs=Multiple(
+        coefficient=coefficient,
+        expression=MapApplication(
+          map=map_symbol,
+          expression=expression,
+        ),
+      ),
+      relation_type=(
+        RelationType.EQUALITY
+      ),
+    )
+
+  return InferenceRule(
+    name="homomorphism preserves multiple",
+    description=(
+      "A homomorphism maps an integer multiple "
+      "to the same integer multiple of the image."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          HomomorphismStatement
+        ),
+      ),
+    ),
+    conclusion_builder=(
+      build_conclusion
+    ),
+  )
+
+
 
 
 

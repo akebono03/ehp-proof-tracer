@@ -11,6 +11,7 @@ from homomorphism_rules import (
   HomomorphismStatement,
   homomorphism_preserves_addition_inference_rule,
   homomorphism_preserves_inverse_inference_rule,
+  homomorphism_preserves_multiple_inference_rule,
   homomorphism_preserves_zero_inference_rule,
 )
 from proof import (
@@ -737,6 +738,303 @@ def test_homomorphism_preserves_inverse_keeps_structural_sides_distinct():
   )
 
   assert left != right
+
+
+def test_homomorphism_preserves_multiple():
+  f = MapSymbol(
+    name="f",
+  )
+
+  alpha = eta(3)
+
+  homomorphism_step = ProofStep(
+    conclusion=HomomorphismStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    homomorphism_preserves_multiple_inference_rule(
+      coefficient=2,
+      expression=alpha,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      homomorphism_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == Relation(
+    lhs=MapApplication(
+      map=f,
+      expression=Multiple(
+        coefficient=2,
+        expression=alpha,
+      ),
+    ),
+    rhs=Multiple(
+      coefficient=2,
+      expression=MapApplication(
+        map=f,
+        expression=alpha,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+
+def test_homomorphism_preserves_multiple_with_negative_coefficient():
+  f = MapSymbol(
+    name="f",
+  )
+
+  alpha = eta(3)
+
+  homomorphism_step = ProofStep(
+    conclusion=HomomorphismStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    homomorphism_preserves_multiple_inference_rule(
+      coefficient=-3,
+      expression=alpha,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      homomorphism_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == Relation(
+    lhs=MapApplication(
+      map=f,
+      expression=Multiple(
+        coefficient=-3,
+        expression=alpha,
+      ),
+    ),
+    rhs=Multiple(
+      coefficient=-3,
+      expression=MapApplication(
+        map=f,
+        expression=alpha,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+
+def test_homomorphism_preserves_multiple_requires_homomorphism_statement():
+  f = MapSymbol(
+    name="f",
+  )
+
+  alpha = eta(3)
+
+  unrelated_step = ProofStep(
+    conclusion=f,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    homomorphism_preserves_multiple_inference_rule(
+      coefficient=2,
+      expression=alpha,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      unrelated_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_homomorphism_preserves_multiple_uses_map_from_premise():
+  f = MapSymbol(
+    name="f",
+  )
+
+  g = MapSymbol(
+    name="g",
+  )
+
+  alpha = eta(3)
+
+  f_step = ProofStep(
+    conclusion=HomomorphismStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  g_step = ProofStep(
+    conclusion=HomomorphismStatement(
+      map=g,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    homomorphism_preserves_multiple_inference_rule(
+      coefficient=2,
+      expression=alpha,
+    )
+  )
+
+  new_steps = run_inference_round(
+    (
+      rule,
+    ),
+    (
+      f_step,
+      g_step,
+    ),
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in new_steps
+  )
+
+  assert Relation(
+    lhs=MapApplication(
+      map=f,
+      expression=Multiple(
+        coefficient=2,
+        expression=alpha,
+      ),
+    ),
+    rhs=Multiple(
+      coefficient=2,
+      expression=MapApplication(
+        map=f,
+        expression=alpha,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  ) in conclusions
+
+  assert Relation(
+    lhs=MapApplication(
+      map=g,
+      expression=Multiple(
+        coefficient=2,
+        expression=alpha,
+      ),
+    ),
+    rhs=Multiple(
+      coefficient=2,
+      expression=MapApplication(
+        map=g,
+        expression=alpha,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  ) in conclusions
+
+
+def test_homomorphism_preserves_multiple_preserves_provenance():
+  f = MapSymbol(
+    name="f",
+  )
+
+  alpha = eta(3)
+
+  homomorphism_step = ProofStep(
+    conclusion=HomomorphismStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    homomorphism_preserves_multiple_inference_rule(
+      coefficient=2,
+      expression=alpha,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      homomorphism_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    homomorphism_step,
+  )
+
+
+def test_homomorphism_preserves_multiple_keeps_structural_sides_distinct():
+  f = MapSymbol(
+    name="f",
+  )
+
+  alpha = eta(3)
+
+  left = MapApplication(
+    map=f,
+    expression=Multiple(
+      coefficient=2,
+      expression=alpha,
+    ),
+  )
+
+  right = Multiple(
+    coefficient=2,
+    expression=MapApplication(
+      map=f,
+      expression=alpha,
+    ),
+  )
+
+  assert left != right
+
 
 
 
