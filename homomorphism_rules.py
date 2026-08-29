@@ -5,6 +5,7 @@ from expression import (
   MapSymbol,
   Multiple,
   Sum,
+  Suspension,
   Zero,
 )
 from proof import (
@@ -12,6 +13,11 @@ from proof import (
   PremisePattern,
   Relation,
   RelationType,
+)
+
+
+SUSPENSION_MAP = MapSymbol(
+  name="E",
 )
 
 
@@ -223,6 +229,82 @@ def homomorphism_preserves_multiple_inference_rule(
       build_conclusion
     ),
   )
+
+
+def suspension_is_homomorphism_inference_rule():
+  return InferenceRule(
+    name="suspension is homomorphism",
+    description=(
+      "The suspension map E is a homomorphism "
+      "for the additive expressions considered "
+      "in the current proof-expression layer."
+    ),
+    conclusion_pattern=HomomorphismStatement(
+      map=SUSPENSION_MAP,
+    ),
+  )
+
+
+def suspension_additivity_bridge_inference_rule(
+  left,
+  right,
+):
+  expected_generic_relation = Relation(
+    lhs=MapApplication(
+      map=SUSPENSION_MAP,
+      expression=Sum(
+        left=left,
+        right=right,
+      ),
+    ),
+    rhs=Sum(
+      left=MapApplication(
+        map=SUSPENSION_MAP,
+        expression=left,
+      ),
+      right=MapApplication(
+        map=SUSPENSION_MAP,
+        expression=right,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  return InferenceRule(
+    name="suspension additivity bridge",
+    description=(
+      "Translate the generic homomorphism "
+      "additivity relation for E into the "
+      "existing Suspension expression."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.EQUALITY,
+        relation_pattern=(
+          expected_generic_relation
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=Suspension(
+        expression=Sum(
+          left=left,
+          right=right,
+        ),
+      ),
+      rhs=Sum(
+        left=Suspension(
+          expression=left,
+        ),
+        right=Suspension(
+          expression=right,
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+  )
+
 
 
 
