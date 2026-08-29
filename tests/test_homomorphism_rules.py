@@ -2501,6 +2501,326 @@ def test_phase13_representative_scenario_preserves_provenance():
   )
 
 
+def test_phase13_inference_scope_and_theorem_boundary():
+  f = MapSymbol(
+    name="f",
+  )
+
+  g = MapSymbol(
+    name="g",
+  )
+
+  h = MapSymbol(
+    name="H",
+  )
+
+  p = MapSymbol(
+    name="P",
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+  gamma = eta(5)
+  delta = nu(6)
+
+  homomorphism_step = ProofStep(
+    conclusion=HomomorphismStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  order_step = relation_proof_step(
+    order_relation(
+      alpha,
+      2,
+    )
+  )
+
+  double_alpha = Multiple(
+    coefficient=2,
+    expression=alpha,
+  )
+
+  f_alpha = MapApplication(
+    map=f,
+    expression=alpha,
+  )
+
+  addition_rule = (
+    homomorphism_preserves_addition_inference_rule(
+      alpha,
+      beta,
+    )
+  )
+
+  zero_rule = (
+    homomorphism_preserves_zero_inference_rule()
+  )
+
+  inverse_rule = (
+    homomorphism_preserves_inverse_inference_rule(
+      alpha,
+    )
+  )
+
+  multiple_rule = (
+    homomorphism_preserves_multiple_inference_rule(
+      coefficient=2,
+      expression=alpha,
+    )
+  )
+
+  order_rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  known_zero_rule = (
+    homomorphism_preserves_known_zero_inference_rule(
+      double_alpha,
+    )
+  )
+
+  symmetry_rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  zero_propagation_rule = (
+    zero_equality_implies_zero_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        addition_rule,
+        zero_rule,
+        inverse_rule,
+        multiple_rule,
+        order_rule,
+        known_zero_rule,
+        symmetry_rule,
+        zero_propagation_rule,
+      ),
+      (
+        homomorphism_step,
+        order_step,
+      ),
+    )
+  )
+
+  expected_addition = Relation(
+    lhs=MapApplication(
+      map=f,
+      expression=Sum(
+        left=alpha,
+        right=beta,
+      ),
+    ),
+    rhs=Sum(
+      left=MapApplication(
+        map=f,
+        expression=alpha,
+      ),
+      right=MapApplication(
+        map=f,
+        expression=beta,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  out_of_scope_addition = Relation(
+    lhs=MapApplication(
+      map=f,
+      expression=Sum(
+        left=gamma,
+        right=delta,
+      ),
+    ),
+    rhs=Sum(
+      left=MapApplication(
+        map=f,
+        expression=gamma,
+      ),
+      right=MapApplication(
+        map=f,
+        expression=delta,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  different_map_addition = Relation(
+    lhs=MapApplication(
+      map=g,
+      expression=Sum(
+        left=alpha,
+        right=beta,
+      ),
+    ),
+    rhs=Sum(
+      left=MapApplication(
+        map=g,
+        expression=alpha,
+      ),
+      right=MapApplication(
+        map=g,
+        expression=beta,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  exact_order_of_image = order_relation(
+    f_alpha,
+    2,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert expected_addition in conclusions
+
+  assert (
+    out_of_scope_addition
+    not in conclusions
+  )
+
+  assert (
+    different_map_addition
+    not in conclusions
+  )
+
+  assert (
+    exact_order_of_image
+    not in conclusions
+  )
+
+  assert HomomorphismStatement(
+    map=g,
+  ) not in conclusions
+
+  assert HomomorphismStatement(
+    map=h,
+  ) not in conclusions
+
+  assert HomomorphismStatement(
+    map=p,
+  ) not in conclusions
+
+
+def test_phase13_concrete_rule_family_reaches_fixed_point():
+  f = MapSymbol(
+    name="f",
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  homomorphism_step = ProofStep(
+    conclusion=HomomorphismStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  order_step = relation_proof_step(
+    order_relation(
+      alpha,
+      2,
+    )
+  )
+
+  double_alpha = Multiple(
+    coefficient=2,
+    expression=alpha,
+  )
+
+  addition_rule = (
+    homomorphism_preserves_addition_inference_rule(
+      alpha,
+      beta,
+    )
+  )
+
+  zero_rule = (
+    homomorphism_preserves_zero_inference_rule()
+  )
+
+  inverse_rule = (
+    homomorphism_preserves_inverse_inference_rule(
+      alpha,
+    )
+  )
+
+  multiple_rule = (
+    homomorphism_preserves_multiple_inference_rule(
+      coefficient=2,
+      expression=alpha,
+    )
+  )
+
+  order_rule = (
+    order_implies_zero_multiple_inference_rule()
+  )
+
+  known_zero_rule = (
+    homomorphism_preserves_known_zero_inference_rule(
+      double_alpha,
+    )
+  )
+
+  symmetry_rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  zero_propagation_rule = (
+    zero_equality_implies_zero_inference_rule()
+  )
+
+  suspension_homomorphism_rule = (
+    suspension_is_homomorphism_inference_rule()
+  )
+
+  suspension_bridge_rule = (
+    suspension_additivity_bridge_inference_rule(
+      alpha,
+      beta,
+    )
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        addition_rule,
+        zero_rule,
+        inverse_rule,
+        multiple_rule,
+        order_rule,
+        known_zero_rule,
+        symmetry_rule,
+        zero_propagation_rule,
+        suspension_homomorphism_rule,
+        suspension_bridge_rule,
+      ),
+      (
+        homomorphism_step,
+        order_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count > 0
+
+
 
 
 
