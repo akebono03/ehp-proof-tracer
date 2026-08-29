@@ -1,6 +1,6 @@
 # ehp_proof 設計メモ
 
-この文書は Phase 12 完了時点の current architecture / semantics /
+この文書は Phase 13 完了時点の current architecture / semantics /
 design boundary を正本としてまとめる。
 
 過去の development log にある「未実装」「今後の課題」は historical
@@ -99,8 +99,20 @@ Expression
 ├── Multiple
 ├── Sum
 ├── Composition
+├── MapApplication
 └── Suspension
 ```
+
+Generic map identity:
+
+```text
+MapSymbol
+```
+
+`MapSymbol` 自体は homotopy-element `Expression` ではない。
+
+`MapApplication(map, expression)` が proof-expression layer の `f(α)` を
+表す。
 
 Expression layer は数学的 syntax / structure を lossless に保持する。
 
@@ -973,11 +985,601 @@ arbitrary symbolic rule family の termination proof は行わない。
 Repeated Suspension / composition functoriality / recursive Hopf family は
 unbounded structural growth の concrete examples。
 
-Current additive concrete rule family は finite explicit scope で利用する。
+Current additive / homomorphism concrete rule families は finite explicit
+scope で利用する。
 
 ---
 
-# 35. Phase 13 boundary
+# 35. Phase 13 map representation
+
+Phase 13-1 で generic proof-expression map の最小表現を導入した。
+
+```python
+MapSymbol(
+  name="f",
+)
+```
+
+は map identity。
+
+```python
+MapApplication(
+  map=f,
+  expression=alpha,
+)
+```
+
+は:
+
+```text
+f(α)
+```
+
+を表す `Expression`。
+
+重要な分離:
+
+```text
+GroupMap
+=
+algebra layer の計算可能な群準同型
+
+MapSymbol / MapApplication
+=
+proof-expression layer の symbolic map syntax
+```
+
+Phase 13 は `GroupMap` を変更しない。
+
+既存:
+
+```text
+Suspension(α)
+```
+
+も `MapApplication(E,α)` に置換しない。
+
+---
+
+# 36. Phase 13 HomomorphismStatement
+
+Phase 13-2 で:
+
+```python
+HomomorphismStatement(
+  map=f,
+)
+```
+
+を導入した。
+
+Semantics:
+
+```text
+f is a homomorphism
+```
+
+重要:
+
+```text
+MapSymbol(f)
+↛
+HomomorphismStatement(f)
+```
+
+map identity の存在と homomorphism theorem fact は別。
+
+---
+
+# 37. Phase 13 addition preservation
+
+Phase 13-3:
+
+```text
+Homomorphism(f)
+↓
+f(α+β)=f(α)+f(β)
+```
+
+Conclusion は generic `RelationType.EQUALITY`。
+
+Structural boundary:
+
+```text
+MapApplication(f,Sum(α,β))
+!=structural
+Sum(MapApplication(f,α),MapApplication(f,β))
+```
+
+Expression normalization ではなく theorem relation として扱う。
+
+Rule は concrete `α,β` scope で作る。
+
+---
+
+# 38. Phase 13 zero preservation
+
+Phase 13-4:
+
+```text
+Homomorphism(f)
+↓
+f(0)=0
+```
+
+Conclusion は generic `RelationType.ZERO`。
+
+Structural boundary:
+
+```text
+MapApplication(f,Zero())
+!=structural
+Zero()
+```
+
+Phase 13-9 ではさらに:
+
+```text
+Homomorphism(f)
+x=0
+↓
+f(x)=0
+```
+
+という known-ZERO preservation bridge を追加した。
+
+これにより ORDER 等から得られた ZERO を homomorphism branch へ接続する。
+
+---
+
+# 39. Phase 13 inverse preservation
+
+Phase 13-5:
+
+```text
+Homomorphism(f)
+↓
+f(-α)=-f(α)
+```
+
+Phase 12 の current representation:
+
+```text
+-α = Multiple(-1,α)
+```
+
+を変更しない。
+
+専用 `Inverse` node は導入しない。
+
+Conclusion は generic equality。
+
+---
+
+# 40. Phase 13 multiple preservation
+
+Phase 13-6:
+
+```text
+Homomorphism(f)
+↓
+f(nα)=n f(α)
+```
+
+`n` は current `Multiple` の integer coefficient。
+
+Positive / negative coefficient を扱える。
+
+Phase 13 では以下を normalization しない:
+
+```text
+0α → 0
+1α → α
+```
+
+symbolic scalar variable も導入しない。
+
+Phase 13-5 inverse rule は、`n=-1` の multiple preservation と同じ結論を
+生成し得るが、既存 API / theorem provenance を維持するため削除しない。
+
+---
+
+# 41. Phase 13 Suspension / E integration
+
+Phase 13-7 で generic E map identity:
+
+```text
+SUSPENSION_MAP = MapSymbol("E")
+```
+
+を導入した。
+
+Explicit theorem:
+
+```text
+Homomorphism(E)
+```
+
+から generic rule により:
+
+```text
+MapApplication(E,α+β)
+=
+MapApplication(E,α)+MapApplication(E,β)
+```
+
+を導出する。
+
+Dedicated bridge により既存 syntax:
+
+```text
+Suspension(α+β)
+=
+Suspension(α)+Suspension(β)
+```
+
+へ接続する。
+
+以下は分離を維持する:
+
+```text
+MapApplication(E,α)
+Suspension(α)
+SuspensionMapStatement(...)
+```
+
+`SuspensionMapStatement` は Freudenthal theorem metadata。
+
+Phase 13 の `SUSPENSION_MAP` は generic additive-map identity。
+
+---
+
+# 42. Phase 13 H / P theorem scope
+
+数学的 semantics:
+
+```text
+EHP sequence の H
+=
+generalized Hopf invariant map H
+```
+
+Phase 11:
+
+```python
+HopfInvariantStatement(
+  expression=x,
+  value=y,
+)
+```
+
+は:
+
+```text
+H(x)=y
+```
+
+という同じ generalized Hopf map の value statement と解釈する。
+
+ただし current `MapSymbol` は:
+
+```text
+domain
+codomain
+ambient homotopy group
+```
+
+を持たない。
+
+したがって Phase 13 では:
+
+```text
+automatic Homomorphism(H)
+automatic Homomorphism(P)
+```
+
+を unrestricted に有効化しない。
+
+`HopfInvariantStatement` / Phase 11 Hopf rules は変更しない。
+
+P の proof-expression application 専用 bridge も Phase 13 では導入しない。
+
+---
+
+# 43. Phase 13 ORDER integration
+
+Phase 13-9 representative chain:
+
+```text
+ord(α)=2
+↓
+2α=0
+```
+
+```text
+Homomorphism(f)
+↓
+f(2α)=2f(α)
+```
+
+```text
+Homomorphism(f)
+2α=0
+↓
+f(2α)=0
+```
+
+generic equality symmetry:
+
+```text
+f(2α)=2f(α)
+↓
+2f(α)=f(2α)
+```
+
+generic ZERO propagation:
+
+```text
+f(2α)=0
+2f(α)=f(2α)
+↓
+2f(α)=0
+```
+
+重要な theorem boundary:
+
+```text
+2f(α)=0
+↛
+ord(f(α))=2
+```
+
+Current ORDER は exact positive finite additive order。
+
+Homomorphism image は元より小さい order を持つ可能性があるため、
+exact ORDER preservation は行わない。
+
+---
+
+# 44. Phase 13 representative scenario / provenance
+
+Phase 13-10 では same inference environment に:
+
+```text
+Homomorphism(f)
+addition preservation
+zero preservation
+inverse preservation
+multiple preservation
+known-ZERO preservation
+ORDER
+equality symmetry
+ZERO propagation
+Homomorphism(E)
+generic E additivity
+Suspension additivity bridge
+```
+
+を配置した。
+
+Representative conclusions:
+
+```text
+f(α+β)=f(α)+f(β)
+f(0)=0
+f(-α)=-f(α)
+f(2α)=2f(α)
+2f(α)=0
+Suspension(α+β)=Suspension(α)+Suspension(β)
+```
+
+Provenance requirements:
+
+```text
+ProofRule.INFERENCE
+premises
+inference_rule
+```
+
+を保持する。
+
+Branch behavior:
+
+```text
+f additive branch
+ORDER branch
+E / Suspension branch
+```
+
+は必要な theorem application まで独立。
+
+```text
+Homomorphism(f)
++
+2α=0
+↓
+f(2α)=0
+```
+
+で homomorphism branch と ORDER branch が初めて正当に合流する。
+
+Final:
+
+```text
+2f(α)=0
+```
+
+は known-ZERO branch と multiple-preservation/symmetry branch を
+generic ZERO propagation が merge した provenance を持つ。
+
+---
+
+# 45. Phase 13 active-rule / theorem scope boundary
+
+Phase 13-11 で formal regression 固定。
+
+Current homomorphism rules は concrete rule factory。
+
+Example:
+
+```text
+addition rule for α,β
+```
+
+を active にしても:
+
+```text
+f(γ+δ)=f(γ)+f(δ)
+```
+
+は自動生成しない。
+
+Known:
+
+```text
+Homomorphism(f)
+```
+
+から:
+
+```text
+Homomorphism(g)
+Homomorphism(H)
+Homomorphism(P)
+```
+
+を生成しない。
+
+ORDER boundary:
+
+```text
+ord(α)=n
++
+Homomorphism(f)
+→ n f(α)=0
+```
+
+までは可能。
+
+```text
+ord(f(α))=n
+```
+
+は導出しない。
+
+Phase 13 では universal map congruence:
+
+```text
+x=y
+→ f(x)=f(y)
+```
+
+も導入しない。
+
+---
+
+# 46. Phase 13 termination boundary
+
+Finite concrete rule set:
+
+```text
+addition for α,β
+inverse for α
+multiple for n,α
+known ZERO for x
+Suspension bridge for α,β
+```
+
+は finite expression closure を持つ。
+
+ordinary duplicate rejection により:
+
+```text
+FIXED_POINT
+```
+
+へ到達する。
+
+Phase 13 が新たに導入しないもの:
+
+```text
+arbitrary expression enumeration
+universal recursive map distribution
+nested-expression recursive rewriting
+automatic MapApplication generation
+automatic H / P homomorphism activation
+```
+
+したがって current Phase 13 concrete family は、
+Phase 8 repeated Suspension のような intrinsic unbounded structural-growth
+family とは区別する。
+
+`max_rounds` は generic safety bound のまま。
+
+---
+
+# 47. Phase 13 completion criteria
+
+Phase 13 completion criteria:
+
+1. `MapSymbol` が generic map identity。
+2. `MapApplication` が `f(α)` の structured Expression。
+3. proof map syntax と algebra `GroupMap` を分離。
+4. `HomomorphismStatement` を first-class theorem fact として表現。
+5. map existence と homomorphism fact を分離。
+6. addition preservation。
+7. zero preservation。
+8. inverse preservation。
+9. integer multiple preservation。
+10. known ZERO preservation bridge。
+11. E を generic homomorphism reasoning に接続。
+12. existing `Suspension` syntax へ additivity bridge。
+13. Freudenthal `SuspensionMapStatement` と分離。
+14. H は Phase 11 generalized Hopf map と同じ mathematical H と整理。
+15. H / P の unrestricted untyped activation は保留。
+16. ORDER + homomorphism integration。
+17. `nf(α)=0` と exact `ord(f(α))=n` を区別。
+18. representative scenario。
+19. provenance regression。
+20. active concrete theorem scope regression。
+21. finite concrete family が `FIXED_POINT`。
+22. generic engine 無改変。
+23. full regression PASS。
+
+Current verified full suite:
+
+```text
+856 passed in 62.31s
+```
+
+---
+
+# 48. Phase 13 non-goals
+
+Phase 13 では実装しない:
+
+- typed map source / target
+- ambient homotopy-group validation
+- universal map congruence `x=y → f(x)=f(y)`
+- recursive map distribution
+- arbitrary expression enumeration
+- automatic `Homomorphism(H)`
+- automatic `Homomorphism(P)`
+- generic bridge `MapApplication(E,x)=Suspension(x)` for arbitrary x
+- exact order preservation under homomorphisms
+- order-divides statement
+- symbolic scalar coefficient
+- `0α=0` theorem
+- `1α=α` theorem
+- first-class membership
+- subset reasoning
+- coset / modulo
+- indeterminacy
+- Toda bracket
+
+---
+
+# 49. Phase 14 boundary
 
 Roadmap dependency order:
 
@@ -997,27 +1599,40 @@ Indeterminacy
 Toda bracket
 ```
 
-Phase 12 で Abelian group expression の最小基盤を導入したため、
-次の自然な Phase は Homomorphism reasoning。
+Phase 13 で Homomorphism reasoning の最小基盤が完成したため、
+次の自然な Phase は Set / subgroup reasoning。
 
-候補:
+Initial actual needs:
 
 ```text
-f(α+β)=f(α)+f(β)
-f(-α)=-f(α)
-f(nα)=n f(α)
-f(0)=0
+α ∈ A
+A ⊆ B
+α ∈ Ker(f)
+α ∈ Im(f)
 ```
 
-ただし Phase 13 でも actual mathematical need を先に固定し、
-E/H/P を含む各 map にどの homomorphism law が適用可能かを明示する。
+Minimal inference candidate:
 
-generic engine の変更は、actual homomorphism theorem が current rule
+```text
+α ∈ A
+A ⊆ B
+↓
+α ∈ B
+```
+
+既存 algebra layer には `Subgroup`, kernel, image があるため、
+proof-level membership / subset statement と existing algebra object を
+不必要に二重管理しないことが重要。
+
+Phase 14 でも actual mathematical need を先に固定し、
+coset / modulo / symbolic scalar / indeterminacy / Toda bracket を先取りしない。
+
+generic engine の変更は actual set/subgroup theorem が current rule
 language で表現できないと実証された場合のみ。
 
 ---
 
-# 36. Testing principle
+# 50. Testing principle
 
 Domain rule family を追加するときは:
 
@@ -1035,7 +1650,7 @@ Domain rule family を追加するときは:
 
 ---
 
-# 37. Documentation policy
+# 51. Documentation policy
 
 ```text
 README.md

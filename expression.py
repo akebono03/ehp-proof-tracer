@@ -6,6 +6,11 @@ class Expression:
 
 
 @dataclass(frozen=True)
+class MapSymbol:
+  name: str
+
+
+@dataclass(frozen=True)
 class Zero(Expression):
   pass
 
@@ -35,6 +40,12 @@ class Composition(Expression):
 
 
 @dataclass(frozen=True)
+class MapApplication(Expression):
+  map: MapSymbol
+  expression: Expression
+
+
+@dataclass(frozen=True)
 class Suspension(Expression):
   expression: Expression
 
@@ -49,7 +60,6 @@ def nu(n: int) -> HomotopyElement:
 
 def sigma(n: int) -> HomotopyElement:
   return HomotopyElement("σ", n)
-
 
 
 
