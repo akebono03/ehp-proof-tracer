@@ -10,4 +10,13 @@ class MembershipStatement:
   subgroup: Subgroup
 
 
+@dataclass(frozen=True)
+class SubsetStatement:
+  subset: Subgroup
+  superset: Subgroup
+
+
+
+
+
 

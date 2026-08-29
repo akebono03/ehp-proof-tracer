@@ -13,6 +13,7 @@ from models import (
 )
 from set_rules import (
   MembershipStatement,
+  SubsetStatement,
 )
 
 
@@ -176,6 +177,154 @@ def test_membership_statement_distinguishes_subgroup():
     subgroup_two_statement
     != whole_group_statement
   )
+
+
+def test_subset_statement():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  whole_group = make_subgroup(
+    group,
+    [
+      (1,),
+    ],
+  )
+
+  statement = SubsetStatement(
+    subset=subgroup,
+    superset=whole_group,
+  )
+
+  assert statement.subset == subgroup
+  assert statement.superset == whole_group
+
+
+def test_subset_statement_has_structural_equality():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  whole_group = make_subgroup(
+    group,
+    [
+      (1,),
+    ],
+  )
+
+  first = SubsetStatement(
+    subset=subgroup,
+    superset=whole_group,
+  )
+
+  second = SubsetStatement(
+    subset=subgroup,
+    superset=whole_group,
+  )
+
+  assert first == second
+
+
+def test_subset_statement_distinguishes_subset():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  trivial_subgroup = make_subgroup(
+    group,
+    [],
+  )
+
+  subgroup_two = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  whole_group = make_subgroup(
+    group,
+    [
+      (1,),
+    ],
+  )
+
+  trivial_statement = SubsetStatement(
+    subset=trivial_subgroup,
+    superset=whole_group,
+  )
+
+  subgroup_two_statement = SubsetStatement(
+    subset=subgroup_two,
+    superset=whole_group,
+  )
+
+  assert (
+    trivial_statement
+    != subgroup_two_statement
+  )
+
+
+def test_subset_statement_distinguishes_superset():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  trivial_subgroup = make_subgroup(
+    group,
+    [],
+  )
+
+  subgroup_two = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  whole_group = make_subgroup(
+    group,
+    [
+      (1,),
+    ],
+  )
+
+  subgroup_statement = SubsetStatement(
+    subset=trivial_subgroup,
+    superset=subgroup_two,
+  )
+
+  whole_group_statement = SubsetStatement(
+    subset=trivial_subgroup,
+    superset=whole_group,
+  )
+
+  assert (
+    subgroup_statement
+    != whole_group_statement
+  )
+
+
+
+
 
 
 
