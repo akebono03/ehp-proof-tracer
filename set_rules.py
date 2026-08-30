@@ -351,11 +351,116 @@ def subgroup_equality_membership_propagation_inference_rule():
   )
 
 
+def subgroup_equality_symmetry_inference_rule():
+  left = PatternVariable(
+    name="left",
+  )
+
+  right = PatternVariable(
+    name="right",
+  )
+
+  return InferenceRule(
+    name="subgroup equality symmetry",
+    description=(
+      "Equality of subgroup terms is symmetric."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=SubgroupEqualityStatement,
+        statement_pattern=SubgroupEqualityStatement(
+          left=left,
+          right=right,
+        ),
+      ),
+    ),
+    conclusion_pattern=SubgroupEqualityStatement(
+      left=right,
+      right=left,
+    ),
+  )
 
 
+def subgroup_equality_transitivity_inference_rule():
+  left = PatternVariable(
+    name="left",
+  )
+
+  middle = PatternVariable(
+    name="middle",
+  )
+
+  right = PatternVariable(
+    name="right",
+  )
+
+  return InferenceRule(
+    name="subgroup equality transitivity",
+    description=(
+      "Equality of subgroup terms is transitive."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=SubgroupEqualityStatement,
+        statement_pattern=SubgroupEqualityStatement(
+          left=left,
+          right=middle,
+        ),
+      ),
+      PremisePattern(
+        statement_type=SubgroupEqualityStatement,
+        statement_pattern=SubgroupEqualityStatement(
+          left=middle,
+          right=right,
+        ),
+      ),
+    ),
+    conclusion_pattern=SubgroupEqualityStatement(
+      left=left,
+      right=right,
+    ),
+  )
 
 
+def subset_transitivity_inference_rule():
+  subset = PatternVariable(
+    name="subset",
+  )
 
+  middle = PatternVariable(
+    name="middle",
+  )
+
+  superset = PatternVariable(
+    name="superset",
+  )
+
+  return InferenceRule(
+    name="subset transitivity",
+    description=(
+      "Containment of subgroup terms is transitive."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=SubsetStatement,
+        statement_pattern=SubsetStatement(
+          subset=subset,
+          superset=middle,
+        ),
+      ),
+      PremisePattern(
+        statement_type=SubsetStatement,
+        statement_pattern=SubsetStatement(
+          subset=middle,
+          superset=superset,
+        ),
+      ),
+    ),
+    conclusion_pattern=SubsetStatement(
+      subset=subset,
+      superset=superset,
+    ),
+  )
 
 
 

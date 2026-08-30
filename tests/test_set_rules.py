@@ -42,6 +42,9 @@ from set_rules import (
   mapped_zero_implies_kernel_membership_inference_rule,
   membership_subset_propagation_inference_rule,
   subgroup_equality_membership_propagation_inference_rule,
+  subgroup_equality_symmetry_inference_rule,
+  subgroup_equality_transitivity_inference_rule,
+  subset_transitivity_inference_rule,
 )
 
 
@@ -3364,6 +3367,637 @@ def test_role_aware_subgroup_equality_membership_propagation_rejects_same_value_
   )
 
   assert match is None
+
+
+def test_subgroup_equality_symmetry():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  image_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  kernel_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  image_reference = ImageSubgroupReference(
+    group_map=image_map,
+  )
+
+  kernel_reference = KernelSubgroupReference(
+    group_map=kernel_map,
+  )
+
+  equality_step = ProofStep(
+    conclusion=SubgroupEqualityStatement(
+      left=image_reference,
+      right=kernel_reference,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    subgroup_equality_symmetry_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    SubgroupEqualityStatement(
+      left=kernel_reference,
+      right=image_reference,
+    )
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    equality_step,
+  )
+
+
+def test_subgroup_equality_transitivity():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  first_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  second_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  third_map = GroupMap(
+    name="P",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  first = ImageSubgroupReference(
+    group_map=first_map,
+  )
+
+  middle = KernelSubgroupReference(
+    group_map=second_map,
+  )
+
+  right = ImageSubgroupReference(
+    group_map=third_map,
+  )
+
+  first_step = ProofStep(
+    conclusion=SubgroupEqualityStatement(
+      left=first,
+      right=middle,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  second_step = ProofStep(
+    conclusion=SubgroupEqualityStatement(
+      left=middle,
+      right=right,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    subgroup_equality_transitivity_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      first_step,
+      second_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    SubgroupEqualityStatement(
+      left=first,
+      right=right,
+    )
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    first_step,
+    second_step,
+  )
+
+
+def test_subgroup_equality_transitivity_rejects_same_value_different_middle_role():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  first_map = GroupMap(
+    name="first",
+    source=group,
+    target=group,
+    matrix=[
+      [1],
+    ],
+  )
+
+  image_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  kernel_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  last_map = GroupMap(
+    name="last",
+    source=group,
+    target=group,
+    matrix=[
+      [1],
+    ],
+  )
+
+  first = ImageSubgroupReference(
+    group_map=first_map,
+  )
+
+  image_middle = ImageSubgroupReference(
+    group_map=image_map,
+  )
+
+  kernel_middle = KernelSubgroupReference(
+    group_map=kernel_map,
+  )
+
+  last = KernelSubgroupReference(
+    group_map=last_map,
+  )
+
+  assert (
+    image_middle.subgroup
+    == kernel_middle.subgroup
+  )
+
+  assert (
+    image_middle
+    != kernel_middle
+  )
+
+  first_step = ProofStep(
+    conclusion=SubgroupEqualityStatement(
+      left=first,
+      right=image_middle,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  second_step = ProofStep(
+    conclusion=SubgroupEqualityStatement(
+      left=kernel_middle,
+      right=last,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    subgroup_equality_transitivity_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      first_step,
+      second_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_subset_transitivity():
+  group = make_cyclic_group(
+    8,
+    "a",
+  )
+
+  small = make_subgroup(
+    group,
+    [
+      (4,),
+    ],
+  )
+
+  middle = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  whole = make_subgroup(
+    group,
+    [
+      (1,),
+    ],
+  )
+
+  first_step = ProofStep(
+    conclusion=SubsetStatement(
+      subset=small,
+      superset=middle,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  second_step = ProofStep(
+    conclusion=SubsetStatement(
+      subset=middle,
+      superset=whole,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    subset_transitivity_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      first_step,
+      second_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    SubsetStatement(
+      subset=small,
+      superset=whole,
+    )
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    first_step,
+    second_step,
+  )
+
+
+def test_subset_transitivity_rejects_same_value_different_middle_role():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  image_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  kernel_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  trivial = make_subgroup(
+    group,
+    [],
+  )
+
+  whole = make_subgroup(
+    group,
+    [
+      (1,),
+    ],
+  )
+
+  image_middle = ImageSubgroupReference(
+    group_map=image_map,
+  )
+
+  kernel_middle = KernelSubgroupReference(
+    group_map=kernel_map,
+  )
+
+  assert (
+    image_middle.subgroup
+    == kernel_middle.subgroup
+  )
+
+  assert (
+    image_middle
+    != kernel_middle
+  )
+
+  first_step = ProofStep(
+    conclusion=SubsetStatement(
+      subset=trivial,
+      superset=image_middle,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  second_step = ProofStep(
+    conclusion=SubsetStatement(
+      subset=kernel_middle,
+      superset=whole,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    subset_transitivity_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      first_step,
+      second_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase14_subgroup_relation_closure_reaches_fixed_point():
+  group = make_cyclic_group(
+    8,
+    "a",
+  )
+
+  first = make_subgroup(
+    group,
+    [
+      (4,),
+    ],
+  )
+
+  middle = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  last = make_subgroup(
+    group,
+    [
+      (1,),
+    ],
+  )
+
+  equality_first_step = ProofStep(
+    conclusion=SubgroupEqualityStatement(
+      left=first,
+      right=middle,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  equality_second_step = ProofStep(
+    conclusion=SubgroupEqualityStatement(
+      left=middle,
+      right=last,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  subset_first_step = ProofStep(
+    conclusion=SubsetStatement(
+      subset=first,
+      superset=middle,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  subset_second_step = ProofStep(
+    conclusion=SubsetStatement(
+      subset=middle,
+      superset=last,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  equality_symmetry_rule = (
+    subgroup_equality_symmetry_inference_rule()
+  )
+
+  equality_transitivity_rule = (
+    subgroup_equality_transitivity_inference_rule()
+  )
+
+  subset_transitivity_rule = (
+    subset_transitivity_inference_rule()
+  )
+
+  rules = (
+    equality_symmetry_rule,
+    equality_transitivity_rule,
+    subset_transitivity_rule,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        equality_first_step,
+        equality_second_step,
+        subset_first_step,
+        subset_second_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert SubgroupEqualityStatement(
+    left=middle,
+    right=first,
+  ) in conclusions
+
+  assert SubgroupEqualityStatement(
+    left=last,
+    right=middle,
+  ) in conclusions
+
+  assert SubgroupEqualityStatement(
+    left=first,
+    right=last,
+  ) in conclusions
+
+  assert SubgroupEqualityStatement(
+    left=last,
+    right=first,
+  ) in conclusions
+
+  assert SubsetStatement(
+    subset=first,
+    superset=last,
+  ) in conclusions
+
+  transitive_equality_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == SubgroupEqualityStatement(
+      left=first,
+      right=last,
+    )
+  )
+
+  assert transitive_equality_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    transitive_equality_step.inference_rule
+    == equality_transitivity_rule
+  )
+
+  assert transitive_equality_step.premises == (
+    equality_first_step,
+    equality_second_step,
+  )
+
+  transitive_subset_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == SubsetStatement(
+      subset=first,
+      superset=last,
+    )
+  )
+
+  assert transitive_subset_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    transitive_subset_step.inference_rule
+    == subset_transitivity_rule
+  )
+
+  assert transitive_subset_step.premises == (
+    subset_first_step,
+    subset_second_step,
+  )
+
+  terminal_round = (
+    derive_inference_round_result(
+      rules,
+      result.steps,
+    )
+  )
+
+  assert terminal_round.new_steps == ()
 
 
 
