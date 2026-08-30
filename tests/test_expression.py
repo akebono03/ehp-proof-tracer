@@ -527,6 +527,43 @@ def test_toda_bracket_is_not_expression():
   )
 
 
+def test_toda_bracket_structural_equality():
+  a = eta(3)
+  b = nu(4)
+  c = sigma(8)
+
+  left = TodaBracket(
+    first=a,
+    second=b,
+    third=c,
+  )
+  right = TodaBracket(
+    first=a,
+    second=b,
+    third=c,
+  )
+
+  assert left == right
+
+
+def test_toda_bracket_entry_order_is_structural():
+  a = eta(3)
+  b = nu(4)
+  c = sigma(8)
+
+  original = TodaBracket(
+    first=a,
+    second=b,
+    third=c,
+  )
+  reordered = TodaBracket(
+    first=a,
+    second=c,
+    third=b,
+  )
+
+  assert original != reordered
+
 
 
 
