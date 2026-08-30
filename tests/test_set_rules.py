@@ -8,6 +8,7 @@ from expression import (
   MapApplication,
   MapSymbol,
   Multiple,
+  ScalarSymbol,
   Sum,
   Zero,
   eta,
@@ -27,9 +28,15 @@ from proof import (
   apply_inference_match,
   derive_inference_round_result,
   find_inference_match,
+  order_relation,
   relation_proof_step,
   run_inference_round,
   run_inference_until_stable_with_history,
+)
+from scalar_rules import (
+  OddScalarStatement,
+  mod_two_one_scalar_preserves_order_two_element_inference_rule,
+  odd_scalar_implies_mod_two_congruence_inference_rule,
 )
 from set_rules import (
   Coset,
@@ -8008,6 +8015,274 @@ def test_phase15_equality_and_zero_do_not_generate_modulo_without_explicit_modul
 
   assert terminal_round.new_steps == ()
 
+
+def test_symbolic_multiple_equality_implies_modulo():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  modulus = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  beta = nu(4)
+
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=Multiple(
+        coefficient=k,
+        expression=beta,
+      ),
+      rhs=beta,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  rule = (
+    equality_implies_modulo_inference_rule(
+      modulus=modulus,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == ModuloStatement(
+    left=Multiple(
+      coefficient=k,
+      expression=beta,
+    ),
+    right=beta,
+    modulus=modulus,
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    equality_step,
+  )
+
+
+def test_odd_scalar_order_two_reaches_modulo_through_existing_equality_bridge():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  modulus = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  beta = nu(4)
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=k,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  order_step = relation_proof_step(
+    order_relation(
+      beta,
+      2,
+    )
+  )
+
+  parity_rule = (
+    odd_scalar_implies_mod_two_congruence_inference_rule()
+  )
+
+  order_bridge_rule = (
+    mod_two_one_scalar_preserves_order_two_element_inference_rule()
+  )
+
+  modulo_rule = (
+    equality_implies_modulo_inference_rule(
+      modulus=modulus,
+    )
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        parity_rule,
+        order_bridge_rule,
+        modulo_rule,
+      ),
+      (
+        odd_step,
+        order_step,
+      ),
+    )
+  )
+
+  symbolic_equality = Relation(
+    lhs=Multiple(
+      coefficient=k,
+      expression=beta,
+    ),
+    rhs=beta,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  symbolic_modulo = ModuloStatement(
+    left=Multiple(
+      coefficient=k,
+      expression=beta,
+    ),
+    right=beta,
+    modulus=modulus,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert symbolic_equality in conclusions
+  assert symbolic_modulo in conclusions
+
+  equality_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == symbolic_equality
+  )
+
+  modulo_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == symbolic_modulo
+  )
+
+  assert equality_step.inference_rule == (
+    order_bridge_rule
+  )
+
+  assert modulo_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert modulo_step.inference_rule == (
+    modulo_rule
+  )
+
+  assert modulo_step.premises == (
+    equality_step,
+  )
+
+
+def test_symbolic_order_reasoning_does_not_generate_modulo_without_active_modulo_rule():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  modulus = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  beta = nu(4)
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=k,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  order_step = relation_proof_step(
+    order_relation(
+      beta,
+      2,
+    )
+  )
+
+  parity_rule = (
+    odd_scalar_implies_mod_two_congruence_inference_rule()
+  )
+
+  order_bridge_rule = (
+    mod_two_one_scalar_preserves_order_two_element_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        parity_rule,
+        order_bridge_rule,
+      ),
+      (
+        odd_step,
+        order_step,
+      ),
+    )
+  )
+
+  symbolic_equality = Relation(
+    lhs=Multiple(
+      coefficient=k,
+      expression=beta,
+    ),
+    rhs=beta,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  symbolic_modulo = ModuloStatement(
+    left=Multiple(
+      coefficient=k,
+      expression=beta,
+    ),
+    right=beta,
+    modulus=modulus,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert symbolic_equality in conclusions
+
+  assert symbolic_modulo not in conclusions
 
 
 
