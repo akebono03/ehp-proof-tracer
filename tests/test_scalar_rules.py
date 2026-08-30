@@ -8,6 +8,7 @@ from expression import (
 )
 from proof import (
   ProofRule,
+  ProofStep,
   Relation,
   RelationType,
   apply_inference_match,
@@ -21,6 +22,8 @@ from scalar_rules import (
   EvenScalarStatement,
   OddScalarStatement,
   ScalarCongruenceStatement,
+  even_scalar_implies_mod_two_congruence_inference_rule,
+  odd_scalar_implies_mod_two_congruence_inference_rule,
 )
 
 
@@ -252,6 +255,149 @@ def test_symbolic_additive_equality_uses_generic_equality_reasoning():
     equality_step,
   )
 
+
+def test_odd_scalar_implies_mod_two_congruence():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=k,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    odd_scalar_implies_mod_two_congruence_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      odd_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == ScalarCongruenceStatement(
+    scalar=k,
+    residue=1,
+    modulus=2,
+  )
+
+  assert derived_step.rule == ProofRule.INFERENCE
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    odd_step,
+  )
+
+
+def test_odd_scalar_rule_rejects_even_scalar_statement():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  even_step = ProofStep(
+    conclusion=EvenScalarStatement(
+      scalar=k,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    odd_scalar_implies_mod_two_congruence_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      even_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_even_scalar_implies_mod_two_congruence():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  even_step = ProofStep(
+    conclusion=EvenScalarStatement(
+      scalar=k,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    even_scalar_implies_mod_two_congruence_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      even_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == ScalarCongruenceStatement(
+    scalar=k,
+    residue=0,
+    modulus=2,
+  )
+
+  assert derived_step.rule == ProofRule.INFERENCE
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    even_step,
+  )
+
+
+def test_even_scalar_rule_rejects_odd_scalar_statement():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=k,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    even_scalar_implies_mod_two_congruence_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      odd_step,
+    ),
+  )
+
+  assert match is None
 
 
 
