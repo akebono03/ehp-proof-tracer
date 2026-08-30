@@ -1532,6 +1532,467 @@ def test_phase17_representative_symbolic_scalar_modulo_indeterminacy_scenario():
   assert terminal_round.new_steps == ()
 
 
+def test_phase17_representative_provenance_is_preserved():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  x = eta(3)
+  beta = nu(4)
+  gamma = sigma(8)
+  delta = eta(4)
+
+  symbolic_expression = Sum(
+    left=Multiple(
+      coefficient=k,
+      expression=beta,
+    ),
+    right=gamma,
+  )
+
+  equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=x,
+      rhs=symbolic_expression,
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=k,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  modulo_step = ProofStep(
+    conclusion=ModuloStatement(
+      left=x,
+      right=delta,
+      modulus=subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  parity_rule = (
+    odd_scalar_implies_mod_two_congruence_inference_rule()
+  )
+
+  coefficient_rule = (
+    symbolic_odd_equality_implies_coefficient_indeterminacy_inference_rule()
+  )
+
+  sign_rule = (
+    equality_implies_sign_indeterminacy_inference_rule()
+  )
+
+  modulo_to_membership_rule = (
+    modulo_implies_coset_membership_inference_rule()
+  )
+
+  membership_to_modulo_rule = (
+    coset_membership_implies_modulo_inference_rule()
+  )
+
+  rules = (
+    parity_rule,
+    coefficient_rule,
+    sign_rule,
+    modulo_to_membership_rule,
+    membership_to_modulo_rule,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        equality_step,
+        odd_step,
+        modulo_step,
+      ),
+    )
+  )
+
+  coefficient_conclusion = (
+    CoefficientIndeterminacyStatement(
+      value=x,
+      expression=symbolic_expression,
+      constraint=OddScalarStatement(
+        scalar=k,
+      ),
+    )
+  )
+
+  coefficient_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == coefficient_conclusion
+  )
+
+  assert coefficient_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert coefficient_step.inference_rule == (
+    coefficient_rule
+  )
+
+  assert coefficient_step.premises == (
+    equality_step,
+    odd_step,
+  )
+
+  sign_conclusion = (
+    SignIndeterminacyStatement(
+      value=x,
+      representative=symbolic_expression,
+    )
+  )
+
+  sign_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == sign_conclusion
+  )
+
+  assert sign_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert sign_step.inference_rule == (
+    sign_rule
+  )
+
+  assert sign_step.premises == (
+    equality_step,
+  )
+
+  coset_conclusion = (
+    CosetMembershipStatement(
+      element=x,
+      coset=Coset(
+        representative=delta,
+        subgroup=subgroup,
+      ),
+    )
+  )
+
+  coset_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == coset_conclusion
+  )
+
+  assert coset_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert coset_step.inference_rule == (
+    modulo_to_membership_rule
+  )
+
+  assert coset_step.premises == (
+    modulo_step,
+  )
+
+
+def test_phase17_modulo_coset_cycle_terminates_by_duplicate_rejection():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  modulo = ModuloStatement(
+    left=alpha,
+    right=beta,
+    modulus=subgroup,
+  )
+
+  modulo_step = ProofStep(
+    conclusion=modulo,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  modulo_to_membership_rule = (
+    modulo_implies_coset_membership_inference_rule()
+  )
+
+  membership_to_modulo_rule = (
+    coset_membership_implies_modulo_inference_rule()
+  )
+
+  rules = (
+    modulo_to_membership_rule,
+    membership_to_modulo_rule,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        modulo_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  membership = CosetMembershipStatement(
+    element=alpha,
+    coset=Coset(
+      representative=beta,
+      subgroup=subgroup,
+    ),
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert conclusions.count(
+    modulo
+  ) == 1
+
+  assert conclusions.count(
+    membership
+  ) == 1
+
+  terminal_round = (
+    derive_inference_round_result(
+      rules,
+      result.steps,
+    )
+  )
+
+  assert terminal_round.new_steps == ()
+
+  duplicate_conclusions = tuple(
+    step.conclusion
+    for step in (
+      terminal_round.duplicate_rejected_steps
+    )
+  )
+
+  assert modulo in duplicate_conclusions
+  assert membership in duplicate_conclusions
+
+
+def test_phase17_sign_indeterminacy_does_not_collapse_to_exact_equality():
+  x = eta(3)
+  alpha = nu(4)
+
+  sign_step = ProofStep(
+    conclusion=SignIndeterminacyStatement(
+      value=x,
+      representative=alpha,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rules = (
+    equality_implies_sign_indeterminacy_inference_rule(),
+    modulo_implies_coset_membership_inference_rule(),
+    coset_membership_implies_modulo_inference_rule(),
+    symbolic_odd_equality_implies_coefficient_indeterminacy_inference_rule(),
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        sign_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert Relation(
+    lhs=x,
+    rhs=alpha,
+    relation_type=RelationType.EQUALITY,
+  ) not in conclusions
+
+  assert Relation(
+    lhs=x,
+    rhs=Multiple(
+      coefficient=-1,
+      expression=alpha,
+    ),
+    relation_type=RelationType.EQUALITY,
+  ) not in conclusions
+
+  assert result.steps == (
+    sign_step,
+  )
+
+
+def test_phase17_coset_membership_does_not_select_representative():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  x = eta(3)
+  beta = nu(4)
+
+  membership_step = ProofStep(
+    conclusion=CosetMembershipStatement(
+      element=x,
+      coset=Coset(
+        representative=beta,
+        subgroup=subgroup,
+      ),
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rules = (
+    modulo_implies_coset_membership_inference_rule(),
+    coset_membership_implies_modulo_inference_rule(),
+    equality_implies_sign_indeterminacy_inference_rule(),
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        membership_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert ModuloStatement(
+    left=x,
+    right=beta,
+    modulus=subgroup,
+  ) in conclusions
+
+  assert Relation(
+    lhs=x,
+    rhs=beta,
+    relation_type=RelationType.EQUALITY,
+  ) not in conclusions
+
+
+def test_phase17_coefficient_indeterminacy_is_not_treated_as_symbolic_equality():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  x = eta(3)
+  beta = nu(4)
+  gamma = sigma(8)
+
+  expression = Sum(
+    left=Multiple(
+      coefficient=k,
+      expression=beta,
+    ),
+    right=gamma,
+  )
+
+  coefficient_step = ProofStep(
+    conclusion=CoefficientIndeterminacyStatement(
+      value=x,
+      expression=expression,
+      constraint=OddScalarStatement(
+        scalar=k,
+      ),
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=k,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  coefficient_rule = (
+    symbolic_odd_equality_implies_coefficient_indeterminacy_inference_rule()
+  )
+
+  sign_rule = (
+    equality_implies_sign_indeterminacy_inference_rule()
+  )
+
+  coefficient_match = find_inference_match(
+    coefficient_rule,
+    (
+      coefficient_step,
+      odd_step,
+    ),
+  )
+
+  sign_match = find_inference_match(
+    sign_rule,
+    (
+      coefficient_step,
+    ),
+  )
+
+  assert coefficient_match is None
+  assert sign_match is None
+
 
 
 
