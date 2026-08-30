@@ -805,5 +805,144 @@ def test_toda_bracket_definedness_provenance_excludes_unrelated_fact():
   )
 
 
+def test_phase18_representative_toda_bracket_indeterminacy_scenario():
+  a = eta(3)
+  b = nu(4)
+  c = sigma(8)
+
+  x = eta(9)
+  alpha = nu(9)
+
+  bracket = TodaBracket(
+    first=a,
+    second=b,
+    third=c,
+  )
+
+  first_equality_step = relation_proof_step(
+    Relation(
+      lhs=Composition(
+        left=a,
+        right=b,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.EQUALITY,
+      source="Toda",
+      note="first defining zero composition",
+    )
+  )
+
+  second_equality_step = relation_proof_step(
+    Relation(
+      lhs=Composition(
+        left=b,
+        right=c,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.EQUALITY,
+      source="Toda",
+      note="second defining zero composition",
+    )
+  )
+
+  bracket_membership_step = ProofStep(
+    conclusion=TodaBracketMembershipStatement(
+      element=x,
+      bracket=bracket,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  sign_indeterminacy_step = ProofStep(
+    conclusion=SignIndeterminacyStatement(
+      value=x,
+      representative=alpha,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  zero_rule = (
+    composition_equality_to_zero_inference_rule()
+  )
+
+  defined_rule = (
+    toda_bracket_defined_by_zero_compositions_inference_rule()
+  )
+
+  result = run_inference_until_stable_with_history(
+    (
+      zero_rule,
+      defined_rule,
+    ),
+    (
+      first_equality_step,
+      second_equality_step,
+      bracket_membership_step,
+      sign_indeterminacy_step,
+    ),
+  )
+
+  first_zero = Relation(
+    lhs=Composition(
+      left=a,
+      right=b,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  second_zero = Relation(
+    lhs=Composition(
+      left=b,
+      right=c,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  defined_statement = TodaBracketDefinedStatement(
+    bracket=bracket,
+  )
+
+  bracket_membership = TodaBracketMembershipStatement(
+    element=x,
+    bracket=bracket,
+  )
+
+  sign_indeterminacy = SignIndeterminacyStatement(
+    value=x,
+    representative=alpha,
+  )
+
+  selected_value = Relation(
+    lhs=x,
+    rhs=alpha,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert first_zero in conclusions
+  assert second_zero in conclusions
+  assert defined_statement in conclusions
+
+  assert bracket_membership in conclusions
+  assert sign_indeterminacy in conclusions
+
+  assert selected_value not in conclusions
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 2
+
+
+
 
 
