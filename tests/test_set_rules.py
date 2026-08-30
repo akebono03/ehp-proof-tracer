@@ -4539,5 +4539,487 @@ def test_phase14_equality_subset_interconnection_reaches_fixed_point():
   assert terminal_round.new_steps == ()
 
 
+def test_phase14_representative_exactness_membership_relation_closure():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  suspension_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  hopf_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  hopf_symbol = MapSymbol(
+    name="H",
+  )
+
+  alpha = eta(3)
+
+  exactness_step = ProofStep(
+    conclusion=ExactnessStatement(
+      first_map=suspension_map,
+      second_map=hopf_map,
+      is_exact=True,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  mapped_zero_step = relation_proof_step(
+    Relation(
+      lhs=MapApplication(
+        map=hopf_symbol,
+        expression=alpha,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  exactness_rule = (
+    exactness_implies_subgroup_equality_inference_rule()
+  )
+
+  zero_to_kernel_rule = (
+    mapped_zero_implies_kernel_membership_inference_rule(
+      group_map=hopf_map,
+      map_symbol=hopf_symbol,
+    )
+  )
+
+  membership_equality_rule = (
+    subgroup_equality_membership_propagation_inference_rule()
+  )
+
+  membership_subset_rule = (
+    membership_subset_propagation_inference_rule()
+  )
+
+  equality_symmetry_rule = (
+    subgroup_equality_symmetry_inference_rule()
+  )
+
+  equality_transitivity_rule = (
+    subgroup_equality_transitivity_inference_rule()
+  )
+
+  subset_transitivity_rule = (
+    subset_transitivity_inference_rule()
+  )
+
+  equality_to_subset_rule = (
+    subgroup_equality_implies_subset_inference_rule()
+  )
+
+  mutual_subset_to_equality_rule = (
+    mutual_subset_implies_subgroup_equality_inference_rule()
+  )
+
+  rules = (
+    exactness_rule,
+    zero_to_kernel_rule,
+    membership_equality_rule,
+    membership_subset_rule,
+    equality_symmetry_rule,
+    equality_transitivity_rule,
+    subset_transitivity_rule,
+    equality_to_subset_rule,
+    mutual_subset_to_equality_rule,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        exactness_step,
+        mapped_zero_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  image_reference = ImageSubgroupReference(
+    group_map=suspension_map,
+  )
+
+  kernel_reference = KernelSubgroupReference(
+    group_map=hopf_map,
+  )
+
+  subgroup_equality = (
+    SubgroupEqualityStatement(
+      left=image_reference,
+      right=kernel_reference,
+    )
+  )
+
+  reverse_subgroup_equality = (
+    SubgroupEqualityStatement(
+      left=kernel_reference,
+      right=image_reference,
+    )
+  )
+
+  kernel_membership = (
+    kernel_membership_statement(
+      element=alpha,
+      group_map=hopf_map,
+    )
+  )
+
+  image_membership = (
+    image_membership_statement(
+      element=alpha,
+      group_map=suspension_map,
+    )
+  )
+
+  image_subset_kernel = (
+    SubsetStatement(
+      subset=image_reference,
+      superset=kernel_reference,
+    )
+  )
+
+  kernel_subset_image = (
+    SubsetStatement(
+      subset=kernel_reference,
+      superset=image_reference,
+    )
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert subgroup_equality in conclusions
+  assert reverse_subgroup_equality in conclusions
+  assert kernel_membership in conclusions
+  assert image_membership in conclusions
+  assert image_subset_kernel in conclusions
+  assert kernel_subset_image in conclusions
+
+  exactness_equality_step = next(
+    step
+    for step in result.steps
+    if (
+      step.conclusion
+      == subgroup_equality
+    )
+  )
+
+  assert exactness_equality_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    exactness_equality_step.inference_rule
+    == exactness_rule
+  )
+
+  assert exactness_equality_step.premises == (
+    exactness_step,
+  )
+
+  derived_kernel_membership_step = next(
+    step
+    for step in result.steps
+    if (
+      step.conclusion
+      == kernel_membership
+    )
+  )
+
+  assert (
+    derived_kernel_membership_step.rule
+    == ProofRule.INFERENCE
+  )
+
+  assert (
+    derived_kernel_membership_step.inference_rule
+    == zero_to_kernel_rule
+  )
+
+  assert derived_kernel_membership_step.premises == (
+    mapped_zero_step,
+  )
+
+  derived_image_membership_step = next(
+    step
+    for step in result.steps
+    if (
+      step.conclusion
+      == image_membership
+    )
+  )
+
+  assert (
+    derived_image_membership_step.rule
+    == ProofRule.INFERENCE
+  )
+
+  assert (
+    derived_image_membership_step.inference_rule
+    == membership_equality_rule
+  )
+
+  assert derived_image_membership_step.premises == (
+    derived_kernel_membership_step,
+    exactness_equality_step,
+  )
+
+  image_subset_kernel_step = next(
+    step
+    for step in result.steps
+    if (
+      step.conclusion
+      == image_subset_kernel
+    )
+  )
+
+  assert (
+    image_subset_kernel_step.rule
+    == ProofRule.INFERENCE
+  )
+
+  assert (
+    image_subset_kernel_step.inference_rule
+    == equality_to_subset_rule
+  )
+
+  assert image_subset_kernel_step.premises == (
+    exactness_equality_step,
+  )
+
+  reverse_equality_step = next(
+    step
+    for step in result.steps
+    if (
+      step.conclusion
+      == reverse_subgroup_equality
+    )
+  )
+
+  kernel_subset_image_step = next(
+    step
+    for step in result.steps
+    if (
+      step.conclusion
+      == kernel_subset_image
+    )
+  )
+
+  assert (
+    kernel_subset_image_step.rule
+    == ProofRule.INFERENCE
+  )
+
+  assert (
+    kernel_subset_image_step.inference_rule
+    == equality_to_subset_rule
+  )
+
+  assert kernel_subset_image_step.premises == (
+    reverse_equality_step,
+  )
+
+  terminal_round = (
+    derive_inference_round_result(
+      rules,
+      result.steps,
+    )
+  )
+
+  assert terminal_round.new_steps == ()
+
+
+def test_phase14_representative_requires_explicit_role_bridge():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  suspension_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  hopf_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  hopf_symbol = MapSymbol(
+    name="H",
+  )
+
+  alpha = eta(3)
+
+  image_reference = ImageSubgroupReference(
+    group_map=suspension_map,
+  )
+
+  kernel_reference = KernelSubgroupReference(
+    group_map=hopf_map,
+  )
+
+  assert (
+    image_reference.subgroup
+    == kernel_reference.subgroup
+  )
+
+  assert (
+    image_reference
+    != kernel_reference
+  )
+
+  mapped_zero_step = relation_proof_step(
+    Relation(
+      lhs=MapApplication(
+        map=hopf_symbol,
+        expression=alpha,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  zero_to_kernel_rule = (
+    mapped_zero_implies_kernel_membership_inference_rule(
+      group_map=hopf_map,
+      map_symbol=hopf_symbol,
+    )
+  )
+
+  membership_equality_rule = (
+    subgroup_equality_membership_propagation_inference_rule()
+  )
+
+  membership_subset_rule = (
+    membership_subset_propagation_inference_rule()
+  )
+
+  equality_symmetry_rule = (
+    subgroup_equality_symmetry_inference_rule()
+  )
+
+  equality_transitivity_rule = (
+    subgroup_equality_transitivity_inference_rule()
+  )
+
+  subset_transitivity_rule = (
+    subset_transitivity_inference_rule()
+  )
+
+  equality_to_subset_rule = (
+    subgroup_equality_implies_subset_inference_rule()
+  )
+
+  mutual_subset_to_equality_rule = (
+    mutual_subset_implies_subgroup_equality_inference_rule()
+  )
+
+  rules = (
+    zero_to_kernel_rule,
+    membership_equality_rule,
+    membership_subset_rule,
+    equality_symmetry_rule,
+    equality_transitivity_rule,
+    subset_transitivity_rule,
+    equality_to_subset_rule,
+    mutual_subset_to_equality_rule,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        mapped_zero_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  kernel_membership = (
+    kernel_membership_statement(
+      element=alpha,
+      group_map=hopf_map,
+    )
+  )
+
+  image_membership = (
+    image_membership_statement(
+      element=alpha,
+      group_map=suspension_map,
+    )
+  )
+
+  subgroup_equality = (
+    SubgroupEqualityStatement(
+      left=image_reference,
+      right=kernel_reference,
+    )
+  )
+
+  assert kernel_membership in conclusions
+
+  assert image_membership not in conclusions
+
+  assert subgroup_equality not in conclusions
+
+  assert SubsetStatement(
+    subset=image_reference,
+    superset=kernel_reference,
+  ) not in conclusions
+
+  assert SubsetStatement(
+    subset=kernel_reference,
+    superset=image_reference,
+  ) not in conclusions
+
+  terminal_round = (
+    derive_inference_round_result(
+      rules,
+      result.steps,
+    )
+  )
+
+  assert terminal_round.new_steps == ()
+
+
 
 
