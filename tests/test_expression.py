@@ -1249,6 +1249,40 @@ def test_indexed_toda_bracket_data_is_inconsistent_when_third_entry_does_not_mat
   assert not data.is_consistent()
 
 
+def test_indexed_toda_bracket_data_is_consistent_for_concrete_indexed_toda_form():
+  a = eta(3)
+
+  b = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  c = nu(6)
+
+  exponent = 2
+
+  data = IndexedTodaBracketData(
+    bracket=TodaBracket(
+      first=a,
+      second=IteratedSuspension(
+        expression=b,
+        exponent=exponent,
+      ),
+      third=IteratedSuspension(
+        expression=c,
+        exponent=exponent,
+      ),
+      index=exponent,
+    ),
+    second_base=b,
+    third_base=c,
+    suspension_exponent=exponent,
+  )
+
+  assert data.is_consistent()
+
+
+
 
 
 
