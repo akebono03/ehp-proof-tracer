@@ -30,6 +30,22 @@ class IndexedTodaBracketData:
   third_base: Expression
   suspension_exponent: int | ScalarSymbol
 
+  def is_consistent(self) -> bool:
+    return (
+      self.bracket.second
+      == IteratedSuspension(
+        expression=self.second_base,
+        exponent=self.suspension_exponent,
+      )
+      and self.bracket.third
+      == IteratedSuspension(
+        expression=self.third_base,
+        exponent=self.suspension_exponent,
+      )
+      and self.bracket.index
+      == self.suspension_exponent
+    )
+
 
 @dataclass(frozen=True)
 class Zero(Expression):

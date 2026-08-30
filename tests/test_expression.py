@@ -1099,6 +1099,155 @@ def test_indexed_toda_bracket_data_preserves_symbolic_indexed_toda_correspondenc
   assert data.bracket.third.expression == data.third_base
 
 
+def test_indexed_toda_bracket_data_is_consistent_for_symbolic_indexed_toda_form():
+  a = eta(3)
+
+  b = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  c = nu(6)
+
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  data = IndexedTodaBracketData(
+    bracket=TodaBracket(
+      first=a,
+      second=IteratedSuspension(
+        expression=b,
+        exponent=t,
+      ),
+      third=IteratedSuspension(
+        expression=c,
+        exponent=t,
+      ),
+      index=t,
+    ),
+    second_base=b,
+    third_base=c,
+    suspension_exponent=t,
+  )
+
+  assert data.is_consistent()
+
+
+def test_indexed_toda_bracket_data_is_inconsistent_when_index_differs_from_suspension_exponent():
+  a = eta(3)
+
+  b = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  c = nu(6)
+
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  s = ScalarSymbol(
+    name="s",
+  )
+
+  data = IndexedTodaBracketData(
+    bracket=TodaBracket(
+      first=a,
+      second=IteratedSuspension(
+        expression=b,
+        exponent=t,
+      ),
+      third=IteratedSuspension(
+        expression=c,
+        exponent=t,
+      ),
+      index=s,
+    ),
+    second_base=b,
+    third_base=c,
+    suspension_exponent=t,
+  )
+
+  assert not data.is_consistent()
+
+
+def test_indexed_toda_bracket_data_is_inconsistent_when_second_entry_does_not_match_base():
+  a = eta(3)
+
+  b = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  other_b = HomotopyElement(
+    name="ν″",
+    dimension=3,
+  )
+
+  c = nu(6)
+
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  data = IndexedTodaBracketData(
+    bracket=TodaBracket(
+      first=a,
+      second=IteratedSuspension(
+        expression=other_b,
+        exponent=t,
+      ),
+      third=IteratedSuspension(
+        expression=c,
+        exponent=t,
+      ),
+      index=t,
+    ),
+    second_base=b,
+    third_base=c,
+    suspension_exponent=t,
+  )
+
+  assert not data.is_consistent()
+
+
+def test_indexed_toda_bracket_data_is_inconsistent_when_third_entry_does_not_match_base():
+  a = eta(3)
+
+  b = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  c = nu(6)
+  other_c = nu(7)
+
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  data = IndexedTodaBracketData(
+    bracket=TodaBracket(
+      first=a,
+      second=IteratedSuspension(
+        expression=b,
+        exponent=t,
+      ),
+      third=IteratedSuspension(
+        expression=other_c,
+        exponent=t,
+      ),
+      index=t,
+    ),
+    second_base=b,
+    third_base=c,
+    suspension_exponent=t,
+  )
+
+  assert not data.is_consistent()
+
 
 
 
