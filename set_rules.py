@@ -1,6 +1,9 @@
 from dataclasses import dataclass
 
-from algebra import Subgroup
+from algebra import (
+  GroupMap,
+  Subgroup,
+)
 from expression import Expression
 from proof import (
   InferenceRule,
@@ -25,6 +28,16 @@ class SubsetStatement:
 class SubgroupEqualityStatement:
   left: Subgroup
   right: Subgroup
+
+
+def kernel_membership_statement(
+  element,
+  group_map: GroupMap,
+):
+  return MembershipStatement(
+    element=element,
+    subgroup=group_map.kernel_subgroup(),
+  )
 
 
 def membership_subset_propagation_inference_rule():
@@ -138,7 +151,6 @@ def subgroup_equality_membership_propagation_inference_rule():
     ),
     match_guard=guard,
   )
-
 
 
 

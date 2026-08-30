@@ -1,5 +1,6 @@
 from algebra import (
   GroupElement,
+  GroupMap,
   Subgroup,
   generated_subgroup_elements,
 )
@@ -22,6 +23,7 @@ from set_rules import (
   MembershipStatement,
   SubgroupEqualityStatement,
   SubsetStatement,
+  kernel_membership_statement,
   membership_subset_propagation_inference_rule,
   subgroup_equality_membership_propagation_inference_rule,
 )
@@ -926,6 +928,130 @@ def test_subgroup_equality_membership_propagation_preserves_provenance():
     membership_step,
     equality_step,
   )
+
+
+def test_kernel_membership_statement():
+  source = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    2,
+    "b",
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  alpha = eta(3)
+
+  statement = kernel_membership_statement(
+    element=alpha,
+    group_map=f,
+  )
+
+  assert statement == MembershipStatement(
+    element=alpha,
+    subgroup=f.kernel_subgroup(),
+  )
+
+
+def test_kernel_membership_statement_uses_existing_kernel_subgroup():
+  source = make_cyclic_group(
+    6,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    6,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  alpha = eta(3)
+
+  statement = kernel_membership_statement(
+    element=alpha,
+    group_map=f,
+  )
+
+  expected_kernel = f.kernel_subgroup()
+
+  assert statement.subgroup == expected_kernel
+  assert statement.subgroup.ambient_group == source
+
+  assert {
+    element.coefficients
+    for element in statement.subgroup.elements
+  } == {
+    (0,),
+    (3,),
+  }
+
+
+def test_kernel_membership_statement_distinguishes_kernel():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  g = GroupMap(
+    name="zero",
+    source=group,
+    target=group,
+    matrix=[
+      [0],
+    ],
+  )
+
+  alpha = eta(3)
+
+  f_statement = kernel_membership_statement(
+    element=alpha,
+    group_map=f,
+  )
+
+  g_statement = kernel_membership_statement(
+    element=alpha,
+    group_map=g,
+  )
+
+  assert (
+    f_statement
+    != g_statement
+  )
+
+  assert (
+    f_statement.subgroup
+    != g_statement.subgroup
+  )
+
+
+
 
 
 
