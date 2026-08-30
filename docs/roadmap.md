@@ -11,7 +11,7 @@
 この `docs/roadmap.md` は、まだ未実装の機能を含む将来構想と、
 それらの依存関係・実装優先順位を整理するための文書とする。
 
-Phase 17 完了時点では、以下の基盤が実装済みである。
+Phase 18 完了時点では、以下の基盤が実装済みである.
 
 ```text
 Abelian group calculation
@@ -27,13 +27,16 @@ Set / subgroup reasoning
 Coset / modulo reasoning
 Symbolic scalar constraints
 Indeterminacy
+Toda bracket minimum representation
+Toda bracket membership representation
+Toda bracket definedness from zero compositions
 ```
 
-したがって、次の直接的な開発対象は:
+したがって、次の直接的な開発対象候補は:
 
 ```text
-Phase 18
-Toda bracket minimum representation
+Phase 19
+Toda bracket membership / first theorem bridge
 ```
 
 である。
@@ -918,6 +921,7 @@ Phase 14  Set / subgroup reasoning
 Phase 15  Coset / modulo reasoning
 Phase 16  Symbolic scalar constraints
 Phase 17  Indeterminacy
+Phase 18  Toda bracket minimum representation
 ```
 
 完了。
@@ -925,10 +929,6 @@ Phase 17  Indeterminacy
 次:
 
 ```text
-Phase 18
-Toda bracket minimum representation
-  {a,b,c}
-        ↓
 Phase 19 candidate
 Toda bracket membership / first bracket theorem bridge
         ↓
@@ -959,97 +959,247 @@ Actual mathematical need に応じて再配置可能。
 
 ---
 
-# 21. Phase 18 予定案
+# 21. Phase 18 完了
 
-## Phase 18-1：Toda bracket statement / object の最小表現
+Phase 18 では three-fold unstable Toda bracket の最小表現を導入した。
 
-まず:
+Implemented object:
+
+```text
+TodaBracket(a,b,c)
+```
+
+Notation:
 
 ```text
 {a,b,c}
 ```
 
-を lossless に保持する。
-
-Bracket value はまだ選ばない。
-
-## Phase 18-2：structural equality / distinction
+Important:
 
 ```text
-{a,b,c}
+TodaBracket
+≠
+Expression
 ```
 
-と:
+Bracket entries are ordered structural inputs.
+
+Implemented statements:
 
 ```text
-{a,c,b}
+TodaBracketMembershipStatement
+TodaBracketDefinedStatement
 ```
 
-を structural に区別。
-
-No theorem-aware permutation.
-
-## Phase 18-3：bracket membership の最小表現
-
-Actual example に基づき:
+Semantics:
 
 ```text
-x ∈ {a,b,c}
+x∈{a,b,c}
 ```
 
-を first-class にする。
+```text
+{a,b,c} defined
+```
 
-既存 subgroup `MembershipStatement` を不用意に一般化しない。
-
-## Phase 18-4：Phase 17 indeterminacy との接続
-
-Bracket value が:
+Existing composition / ZERO reasoning と接続:
 
 ```text
+a∘b=0
+b∘c=0
+↓
+ZERO(a∘b)
+ZERO(b∘c)
+↓
+{a,b,c} defined
+```
+
+The two zero compositions must share the middle entry.
+
+Current boundaries:
+
+```text
+definedness
+≠
+membership
+```
+
+```text
+membership
+≠
+exact value
+```
+
+```text
+x∈{a,b,c}
++
 x=±α
+↛
+x=α
+```
+
+Phase 17 indeterminacy と同一 knowledge state に coexist 可能。
+
+Provenance:
+
+```text
+original composition equalities
+↓
+generic ZERO facts
+↓
+Toda definedness
+```
+
+を追跡可能。
+
+Representative scenario は:
+
+```text
+FIXED_POINT
+```
+
+に到達し、explicit terminal check:
+
+```text
+new_steps == ()
+```
+
+を確認済み。
+
+Verified:
+
+```text
+tests/test_toda_rules.py
+20 passed in 3.36s
 ```
 
 ```text
-x∈β+A
+full suite
+1048 passed in 61.09s
 ```
 
-等の形で与えられる場合の bridge を actual theorem に限定して検討。
-
-## Phase 18-5：zero-composition defining facts との接続
-
-Current `Composition` / ZERO infrastructure を再利用。
-
-No general theorem schema yet.
-
-## Phase 18-6：provenance
-
-Known composition / bracket fact から derived bracket membership までの
-dependency chain を保持。
-
-## Phase 18-7：representative scenario
-
-Three-fold bracket + current Phase 17 indeterminacy を同一 run で保持。
-
-## Phase 18-8：termination / inference-scope boundary
-
-Bracket membership から exact value を勝手に選ばない。
-
-Bracket candidate を列挙しない。
-
-## Phase 18-9：Phase 18 完了整理
+Generic inference engine:
 
 ```text
-README.md
-docs/design.md
-docs/development_log.md
-docs/roadmap.md
+unchanged
 ```
-
-を更新。
 
 ---
 
-# 22. 実装状況
+# 22. Phase 19 candidate：Toda bracket membership / first theorem bridge
+
+## 22.1 目的
+
+Phase 18 では:
+
+```text
+x∈{a,b,c}
+```
+
+を first-class known statement として保持可能になった。
+
+Phase 19 では actual mathematical theorem / known Toda fact を使って、
+membership conclusion を導出する最初の bridge を検討する。
+
+Intended shape:
+
+```text
+explicit theorem premises
+↓
+TodaBracketMembershipStatement
+```
+
+Important:
+
+```text
+{a,b,c} defined
+↛
+x∈{a,b,c}
+```
+
+なので、definedness だけから arbitrary element membership を生成する rule
+は導入しない。
+
+## 22.2 actual example first
+
+最初の theorem bridge は literature / concrete known bracket example に
+基づいて仕様化する。
+
+Possible target form:
+
+```text
+known Toda fact
+μ_3 ∈ {...}
+```
+
+ただし具体的な notation / entry count / bracket order / stem semantics は
+actual source と照合してから固定する。
+
+## 22.3 provenance
+
+Membership conclusion には:
+
+```text
+theorem / known fact
+composition assumptions if required
+source / literature provenance
+```
+
+を保持する。
+
+## 22.4 no universal theorem language yet
+
+Phase 19 で直ちに:
+
+```text
+universal quantified theorem framework
+general set containment algebra
+general candidate-set solver
+```
+
+を導入しない。
+
+---
+
+# 23. Phase 20 candidate：indexed unstable Toda notation
+
+Target notation:
+
+```text
+{a,E^t b,E^t c}_t
+```
+
+Phase 20 では下付き bracket index と suspension exponent を separate
+structural fields として保持する。
+
+```text
+bracket index t
+≠
+suspension exponent t
+```
+
+同じ notation symbol を使っていても内部で collapse しない。
+
+必要に応じて:
+
+```text
+IteratedSuspension
+```
+
+または同等の minimal structure を検討する。
+
+Stable notation:
+
+```text
+<a,b,c>
+```
+
+は引き続き別 context として deferred。
+
+---
+
+# 24. 実装状況
+
 
 | 項目 | 状態 | 備考 |
 |---|---|---|
@@ -1070,8 +1220,9 @@ docs/roadmap.md
 | modulo ↔ coset-membership bridge | IMPLEMENTED | Phase 17 |
 | equality → sign indeterminacy | IMPLEMENTED | Phase 17 |
 | symbolic odd equality → coefficient indeterminacy | IMPLEMENTED | Phase 17 |
-| Toda bracket `{a,b,c}` | NEXT | Phase 18 |
-| Toda bracket membership | PLANNED | Phase 18 |
+| Toda bracket `{a,b,c}` | IMPLEMENTED | Phase 18 |
+| Toda bracket membership | IMPLEMENTED | Phase 18 |
+| Toda bracket definedness from zero compositions | IMPLEMENTED | Phase 18 |
 | indexed unstable bracket `{a,E^t b,E^t c}_t` | PLANNED | after minimal bracket |
 | typed source / target | PLANNED | when bracket validity needs it |
 | ambient homotopy group validation | PLANNED | addition / equality / bracket typing |
@@ -1089,70 +1240,98 @@ docs/roadmap.md
 
 ---
 
-# 23. Phase 17 completion boundary
+# 25. Phase 18 completion boundary
 
 Implemented:
 
 ```text
-x∈β+A
-x=±α
-x∈{kβ+γ | k odd}
+TodaBracket(a,b,c)
+TodaBracketMembershipStatement
+TodaBracketDefinedStatement
 ```
 
 Bridges:
 
 ```text
-x≡β mod A
-↔
-x∈β+A
+a∘b=0
+b∘c=0
+↓
+generic ZERO
+↓
+{a,b,c} defined
 ```
 
+Coexistence:
+
 ```text
-x=α
-→
+x∈{a,b,c}
 x=±α
 ```
 
 ```text
-x=kβ+γ
-k odd
-→
-coefficient indeterminacy
+x∈{a,b,c}
+x∈β+A
 ```
 
 Safety:
 
 ```text
+{a,b,c} defined
+↛
+x∈{a,b,c}
+```
+
+```text
+x∈{a,b,c}
+↛
+exact value
+```
+
+```text
+x∈{a,b,c}
++
 x=±α
 ↛
 x=α
 ```
 
+No candidate enumeration.
+
+No general set-valued expression hierarchy.
+
+No indexed unstable notation yet.
+
+No stable / higher Toda bracket yet.
+
+Current representative Toda rule family reaches finite:
+
 ```text
-x∈β+A
-↛
-x=β
+FIXED_POINT
 ```
 
-No enumeration.
+and terminal:
 
-Current representative rule family reaches finite `FIXED_POINT`.
+```text
+new_steps == ()
+```
 
 Verified:
 
 ```text
-tests/test_indeterminacy_rules.py
-36 passed
+tests/test_toda_rules.py
+20 passed in 3.36s
 ```
 
 ```text
 full suite
-1024 passed in 66.01s
+1048 passed in 61.09s
 ```
 
 ---
 
-# 24. Testing Principle
+# 26. Testing Principle
+
+
 
 新しい mathematical layer を追加するときは:
 
@@ -1182,7 +1361,7 @@ stable / unstable distinction
 
 ---
 
-# 25. Documentation Policy
+# 27. Documentation Policy
 
 ```text
 README.md
@@ -1207,7 +1386,7 @@ roadmap の項目が実装された場合は、
 
 ---
 
-# 26. 長期目標
+# 28. 長期目標
 
 最終的には:
 
