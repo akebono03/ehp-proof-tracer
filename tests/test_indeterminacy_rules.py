@@ -37,6 +37,8 @@ from proof import (
 )
 from scalar_rules import (
   OddScalarStatement,
+  ScalarCongruenceStatement,
+  odd_scalar_implies_mod_two_congruence_inference_rule,
 )
 from set_rules import (
   Coset,
@@ -1357,6 +1359,178 @@ def test_symbolic_odd_coefficient_indeterminacy_does_not_enumerate_candidates():
     )
     for step in result.steps
   )
+
+
+def test_phase17_representative_symbolic_scalar_modulo_indeterminacy_scenario():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  x = eta(3)
+  beta = nu(4)
+  gamma = sigma(8)
+  delta = eta(4)
+
+  symbolic_expression = Sum(
+    left=Multiple(
+      coefficient=k,
+      expression=beta,
+    ),
+    right=gamma,
+  )
+
+  equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=x,
+      rhs=symbolic_expression,
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=k,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  modulo_step = ProofStep(
+    conclusion=ModuloStatement(
+      left=x,
+      right=delta,
+      modulus=subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  parity_rule = (
+    odd_scalar_implies_mod_two_congruence_inference_rule()
+  )
+
+  coefficient_rule = (
+    symbolic_odd_equality_implies_coefficient_indeterminacy_inference_rule()
+  )
+
+  sign_rule = (
+    equality_implies_sign_indeterminacy_inference_rule()
+  )
+
+  modulo_to_membership_rule = (
+    modulo_implies_coset_membership_inference_rule()
+  )
+
+  membership_to_modulo_rule = (
+    coset_membership_implies_modulo_inference_rule()
+  )
+
+  rules = (
+    parity_rule,
+    coefficient_rule,
+    sign_rule,
+    modulo_to_membership_rule,
+    membership_to_modulo_rule,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        equality_step,
+        odd_step,
+        modulo_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  scalar_congruence = ScalarCongruenceStatement(
+    scalar=k,
+    residue=1,
+    modulus=2,
+  )
+
+  coefficient_indeterminacy = (
+    CoefficientIndeterminacyStatement(
+      value=x,
+      expression=symbolic_expression,
+      constraint=OddScalarStatement(
+        scalar=k,
+      ),
+    )
+  )
+
+  sign_indeterminacy = (
+    SignIndeterminacyStatement(
+      value=x,
+      representative=symbolic_expression,
+    )
+  )
+
+  coset_membership = (
+    CosetMembershipStatement(
+      element=x,
+      coset=Coset(
+        representative=delta,
+        subgroup=subgroup,
+      ),
+    )
+  )
+
+  modulo = ModuloStatement(
+    left=x,
+    right=delta,
+    modulus=subgroup,
+  )
+
+  assert scalar_congruence in conclusions
+
+  assert coefficient_indeterminacy in conclusions
+
+  assert sign_indeterminacy in conclusions
+
+  assert coset_membership in conclusions
+
+  assert modulo in conclusions
+
+  assert Relation(
+    lhs=x,
+    rhs=delta,
+    relation_type=RelationType.EQUALITY,
+  ) not in conclusions
+
+  terminal_round = (
+    derive_inference_round_result(
+      rules,
+      result.steps,
+    )
+  )
+
+  assert terminal_round.new_steps == ()
+
 
 
 
