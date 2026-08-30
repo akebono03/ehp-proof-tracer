@@ -15,16 +15,25 @@ from indeterminacy_rules import (
   CoefficientIndeterminacyStatement,
   CosetMembershipStatement,
   SignIndeterminacyStatement,
+  modulo_implies_coset_membership_inference_rule,
 )
 from models import (
   AbelianGroup,
   GroupComponent,
 )
-from set_rules import (
-  Coset,
+from proof import (
+  ProofRule,
+  ProofStep,
+  apply_inference_match,
+  find_inference_match,
 )
 from scalar_rules import (
   OddScalarStatement,
+)
+from set_rules import (
+  Coset,
+  MembershipStatement,
+  ModuloStatement,
 )
 
 
@@ -430,6 +439,206 @@ def test_coefficient_indeterminacy_statement_distinguishes_scalar_constraint():
   )
 
   assert first != second
+
+
+def test_modulo_implies_coset_membership():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  modulo_step = ProofStep(
+    conclusion=ModuloStatement(
+      left=alpha,
+      right=beta,
+      modulus=subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    modulo_implies_coset_membership_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      modulo_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    CosetMembershipStatement(
+      element=alpha,
+      coset=Coset(
+        representative=beta,
+        subgroup=subgroup,
+      ),
+    )
+  )
+
+
+def test_modulo_implies_coset_membership_preserves_representative_direction():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  modulo_step = ProofStep(
+    conclusion=ModuloStatement(
+      left=alpha,
+      right=beta,
+      modulus=subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    modulo_implies_coset_membership_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      modulo_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion != (
+    CosetMembershipStatement(
+      element=beta,
+      coset=Coset(
+        representative=alpha,
+        subgroup=subgroup,
+      ),
+    )
+  )
+
+
+def test_modulo_implies_coset_membership_preserves_provenance():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  modulo_step = ProofStep(
+    conclusion=ModuloStatement(
+      left=alpha,
+      right=beta,
+      modulus=subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    modulo_implies_coset_membership_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      modulo_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    modulo_step,
+  )
+
+
+def test_modulo_to_coset_membership_rule_rejects_plain_membership():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  membership_step = ProofStep(
+    conclusion=MembershipStatement(
+      element=eta(3),
+      subgroup=subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    modulo_implies_coset_membership_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      membership_step,
+    ),
+  )
+
+  assert match is None
+
+
 
 
 
