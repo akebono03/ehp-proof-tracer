@@ -20,8 +20,10 @@ from proof import (
 )
 from set_rules import (
   MembershipStatement,
+  SubgroupEqualityStatement,
   SubsetStatement,
   membership_subset_propagation_inference_rule,
+  subgroup_equality_membership_propagation_inference_rule,
 )
 
 
@@ -603,6 +605,326 @@ def test_membership_subset_propagation_preserves_provenance():
   assert derived_step.premises == (
     membership_step,
     subset_step,
+  )
+
+
+def test_subgroup_equality_statement():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  left = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  right = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  statement = SubgroupEqualityStatement(
+    left=left,
+    right=right,
+  )
+
+  assert statement.left == left
+  assert statement.right == right
+
+
+def test_subgroup_equality_statement_has_structural_equality():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  left = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  right = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  first = SubgroupEqualityStatement(
+    left=left,
+    right=right,
+  )
+
+  second = SubgroupEqualityStatement(
+    left=left,
+    right=right,
+  )
+
+  assert first == second
+
+
+def test_subgroup_equality_membership_propagation():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  equal_subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+
+  membership_step = ProofStep(
+    conclusion=MembershipStatement(
+      element=alpha,
+      subgroup=subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  equality_step = ProofStep(
+    conclusion=SubgroupEqualityStatement(
+      left=subgroup,
+      right=equal_subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    subgroup_equality_membership_propagation_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      membership_step,
+      equality_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == MembershipStatement(
+    element=alpha,
+    subgroup=equal_subgroup,
+  )
+
+
+def test_subgroup_equality_membership_propagation_reverse_direction():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  equal_subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+
+  membership_step = ProofStep(
+    conclusion=MembershipStatement(
+      element=alpha,
+      subgroup=equal_subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  equality_step = ProofStep(
+    conclusion=SubgroupEqualityStatement(
+      left=subgroup,
+      right=equal_subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    subgroup_equality_membership_propagation_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      membership_step,
+      equality_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == MembershipStatement(
+    element=alpha,
+    subgroup=subgroup,
+  )
+
+
+def test_subgroup_equality_membership_propagation_rejects_unrelated_subgroup():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  trivial_subgroup = make_subgroup(
+    group,
+    [],
+  )
+
+  subgroup_two = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  whole_group = make_subgroup(
+    group,
+    [
+      (1,),
+    ],
+  )
+
+  alpha = eta(3)
+
+  membership_step = ProofStep(
+    conclusion=MembershipStatement(
+      element=alpha,
+      subgroup=trivial_subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  equality_step = ProofStep(
+    conclusion=SubgroupEqualityStatement(
+      left=subgroup_two,
+      right=whole_group,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    subgroup_equality_membership_propagation_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      membership_step,
+      equality_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_subgroup_equality_membership_propagation_preserves_provenance():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  equal_subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+
+  membership_step = ProofStep(
+    conclusion=MembershipStatement(
+      element=alpha,
+      subgroup=subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  equality_step = ProofStep(
+    conclusion=SubgroupEqualityStatement(
+      left=subgroup,
+      right=equal_subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    subgroup_equality_membership_propagation_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      membership_step,
+      equality_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    membership_step,
+    equality_step,
   )
 
 

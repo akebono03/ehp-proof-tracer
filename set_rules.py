@@ -21,6 +21,12 @@ class SubsetStatement:
   superset: Subgroup
 
 
+@dataclass(frozen=True)
+class SubgroupEqualityStatement:
+  left: Subgroup
+  right: Subgroup
+
+
 def membership_subset_propagation_inference_rule():
   element = PatternVariable(
     name="element",
@@ -63,6 +69,77 @@ def membership_subset_propagation_inference_rule():
       subgroup=superset,
     ),
   )
+
+
+def subgroup_equality_membership_propagation_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    membership_statement = (
+      premises[0].conclusion
+    )
+
+    equality_statement = (
+      premises[1].conclusion
+    )
+
+    return (
+      membership_statement.subgroup
+      == equality_statement.left
+      or membership_statement.subgroup
+      == equality_statement.right
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    membership_statement = (
+      premises[0].conclusion
+    )
+
+    equality_statement = (
+      premises[1].conclusion
+    )
+
+    if (
+      membership_statement.subgroup
+      == equality_statement.left
+    ):
+      target_subgroup = (
+        equality_statement.right
+      )
+    else:
+      target_subgroup = (
+        equality_statement.left
+      )
+
+    return MembershipStatement(
+      element=membership_statement.element,
+      subgroup=target_subgroup,
+    )
+
+  return InferenceRule(
+    name="subgroup equality membership propagation",
+    description=(
+      "Membership transfers across an equality "
+      "of subgroups."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=MembershipStatement,
+      ),
+      PremisePattern(
+        statement_type=SubgroupEqualityStatement,
+      ),
+    ),
+    conclusion_builder=(
+      build_conclusion
+    ),
+    match_guard=guard,
+  )
+
+
 
 
 
