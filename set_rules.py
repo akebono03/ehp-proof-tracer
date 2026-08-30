@@ -73,7 +73,9 @@ def kernel_membership_statement(
 ):
   return MembershipStatement(
     element=element,
-    subgroup=group_map.kernel_subgroup(),
+    subgroup=KernelSubgroupReference(
+      group_map=group_map,
+    ),
   )
 
 
@@ -83,7 +85,9 @@ def image_membership_statement(
 ):
   return MembershipStatement(
     element=element,
-    subgroup=group_map.image_subgroup(),
+    subgroup=ImageSubgroupReference(
+      group_map=group_map,
+    ),
   )
 
 
@@ -120,9 +124,9 @@ def kernel_membership_implies_mapped_zero_inference_rule(
     premise_patterns=(
       PremisePattern(
         statement_type=MembershipStatement,
-        statement_pattern=MembershipStatement(
+        statement_pattern=kernel_membership_statement(
           element=element,
-          subgroup=group_map.kernel_subgroup(),
+          group_map=group_map,
         ),
       ),
     ),
@@ -156,9 +160,9 @@ def mapped_zero_implies_kernel_membership_inference_rule(
   ):
     relation = premises[0].conclusion
 
-    return MembershipStatement(
+    return kernel_membership_statement(
       element=relation.lhs.expression,
-      subgroup=group_map.kernel_subgroup(),
+      group_map=group_map,
     )
 
   return InferenceRule(

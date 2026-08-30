@@ -1862,7 +1862,7 @@ def test_exactness_implies_subgroup_equality_preserves_provenance():
   )
 
 
-def test_phase14_exactness_image_kernel_membership_integration():
+def test_phase14_exactness_and_role_aware_kernel_membership_coexist_before_role_equality_migration():
   group = make_cyclic_group(
     4,
     "a",
@@ -1960,19 +1960,23 @@ def test_phase14_exactness_image_kernel_membership_integration():
     )
   )
 
-  kernel_membership = MembershipStatement(
-    element=alpha,
-    subgroup=hopf_map.kernel_subgroup(),
+  kernel_membership = (
+    kernel_membership_statement(
+      element=alpha,
+      group_map=hopf_map,
+    )
   )
 
-  image_membership = MembershipStatement(
-    element=alpha,
-    subgroup=suspension_map.image_subgroup(),
+  image_membership = (
+    image_membership_statement(
+      element=alpha,
+      group_map=suspension_map,
+    )
   )
 
   assert subgroup_equality in conclusions
   assert kernel_membership in conclusions
-  assert image_membership in conclusions
+  assert image_membership not in conclusions
 
   terminal_round = (
     derive_inference_round_result(
@@ -2035,7 +2039,7 @@ def test_image_and_kernel_roles_share_subgroup_value():
   }
 
 
-def test_image_and_kernel_membership_roles_collapse_under_equality():
+def test_legacy_image_and_kernel_membership_values_collapse_under_equality():
   group = make_cyclic_group(
     4,
     "a",
@@ -2061,30 +2065,23 @@ def test_image_and_kernel_membership_roles_collapse_under_equality():
 
   alpha = eta(3)
 
-  image_membership = image_membership_statement(
+  image_membership = MembershipStatement(
     element=alpha,
-    group_map=image_map,
+    subgroup=image_map.image_subgroup(),
   )
 
-  kernel_membership = kernel_membership_statement(
+  kernel_membership = MembershipStatement(
     element=alpha,
-    group_map=kernel_map,
-  )
-
-  assert image_membership == kernel_membership
-
-  assert (
-    image_membership.subgroup
-    == image_map.image_subgroup()
+    subgroup=kernel_map.kernel_subgroup(),
   )
 
   assert (
-    kernel_membership.subgroup
-    == kernel_map.kernel_subgroup()
+    image_membership
+    == kernel_membership
   )
 
 
-def test_subgroup_equality_membership_transport_is_duplicate_for_equal_roles():
+def test_legacy_subgroup_equality_membership_transport_is_duplicate_for_equal_values():
   group = make_cyclic_group(
     4,
     "a",
@@ -2109,12 +2106,19 @@ def test_subgroup_equality_membership_transport_is_duplicate_for_equal_roles():
   )
 
   alpha = eta(3)
+
+  kernel_membership = MembershipStatement(
+    element=alpha,
+    subgroup=kernel_map.kernel_subgroup(),
+  )
+
+  image_membership = MembershipStatement(
+    element=alpha,
+    subgroup=image_map.image_subgroup(),
+  )
 
   kernel_membership_step = ProofStep(
-    conclusion=kernel_membership_statement(
-      element=alpha,
-      group_map=kernel_map,
-    ),
+    conclusion=kernel_membership,
     premises=(),
     rule=ProofRule.GIVEN,
   )
@@ -2156,11 +2160,9 @@ def test_subgroup_equality_membership_transport_is_duplicate_for_equal_roles():
     round_result.candidate_steps[0]
   )
 
-  assert candidate_step.conclusion == (
-    image_membership_statement(
-      element=alpha,
-      group_map=image_map,
-    )
+  assert (
+    candidate_step.conclusion
+    == image_membership
   )
 
   assert candidate_step.premises == (
@@ -2424,6 +2426,485 @@ def test_role_aware_membership_statements_remain_distinct():
       for step in knowledge
     }
   ) == 2
+
+
+def test_kernel_membership_statement():
+  source = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    2,
+    "b",
+  )
+
+  f = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  alpha = eta(3)
+
+  statement = kernel_membership_statement(
+    element=alpha,
+    group_map=f,
+  )
+
+  assert statement == MembershipStatement(
+    element=alpha,
+    subgroup=KernelSubgroupReference(
+      group_map=f,
+    ),
+  )
+
+
+def test_kernel_membership_statement_uses_existing_kernel_subgroup():
+  source = make_cyclic_group(
+    6,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    6,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  alpha = eta(3)
+
+  statement = kernel_membership_statement(
+    element=alpha,
+    group_map=f,
+  )
+
+  expected_kernel = f.kernel_subgroup()
+
+  assert isinstance(
+    statement.subgroup,
+    KernelSubgroupReference,
+  )
+
+  assert statement.subgroup.group_map == f
+
+  assert (
+    statement.subgroup.subgroup
+    == expected_kernel
+  )
+
+  assert (
+    statement.subgroup.subgroup.ambient_group
+    == source
+  )
+
+  assert {
+    element.coefficients
+    for element
+    in statement.subgroup.subgroup.elements
+  } == {
+    (0,),
+    (3,),
+  }
+
+
+def test_kernel_membership_statement_distinguishes_kernel():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  g = GroupMap(
+    name="zero",
+    source=group,
+    target=group,
+    matrix=[
+      [0],
+    ],
+  )
+
+  alpha = eta(3)
+
+  f_statement = kernel_membership_statement(
+    element=alpha,
+    group_map=f,
+  )
+
+  g_statement = kernel_membership_statement(
+    element=alpha,
+    group_map=g,
+  )
+
+  assert (
+    f_statement
+    != g_statement
+  )
+
+  assert (
+    f_statement.subgroup
+    != g_statement.subgroup
+  )
+
+  assert (
+    f_statement.subgroup.subgroup
+    != g_statement.subgroup.subgroup
+  )
+
+
+def test_image_membership_statement():
+  source = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  beta = nu(4)
+
+  statement = image_membership_statement(
+    element=beta,
+    group_map=f,
+  )
+
+  assert statement == MembershipStatement(
+    element=beta,
+    subgroup=ImageSubgroupReference(
+      group_map=f,
+    ),
+  )
+
+
+def test_image_membership_statement_uses_existing_image_subgroup():
+  source = make_cyclic_group(
+    6,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    6,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  beta = nu(4)
+
+  statement = image_membership_statement(
+    element=beta,
+    group_map=f,
+  )
+
+  expected_image = f.image_subgroup()
+
+  assert isinstance(
+    statement.subgroup,
+    ImageSubgroupReference,
+  )
+
+  assert statement.subgroup.group_map == f
+
+  assert (
+    statement.subgroup.subgroup
+    == expected_image
+  )
+
+  assert (
+    statement.subgroup.subgroup.ambient_group
+    == target
+  )
+
+  assert {
+    element.coefficients
+    for element
+    in statement.subgroup.subgroup.elements
+  } == {
+    (0,),
+    (2,),
+    (4,),
+  }
+
+
+def test_image_membership_statement_distinguishes_image():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  g = GroupMap(
+    name="identity",
+    source=group,
+    target=group,
+    matrix=[
+      [1],
+    ],
+  )
+
+  beta = nu(4)
+
+  f_statement = image_membership_statement(
+    element=beta,
+    group_map=f,
+  )
+
+  g_statement = image_membership_statement(
+    element=beta,
+    group_map=g,
+  )
+
+  assert (
+    f_statement
+    != g_statement
+  )
+
+  assert (
+    f_statement.subgroup
+    != g_statement.subgroup
+  )
+
+  assert (
+    f_statement.subgroup.subgroup
+    != g_statement.subgroup.subgroup
+  )
+
+
+def test_mapped_zero_implies_kernel_membership():
+  source = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    2,
+    "b",
+  )
+
+  group_map = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  map_symbol = MapSymbol(
+    name="f",
+  )
+
+  alpha = eta(3)
+
+  zero_step = relation_proof_step(
+    Relation(
+      lhs=MapApplication(
+        map=map_symbol,
+        expression=alpha,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  rule = (
+    mapped_zero_implies_kernel_membership_inference_rule(
+      group_map=group_map,
+      map_symbol=map_symbol,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      zero_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    kernel_membership_statement(
+      element=alpha,
+      group_map=group_map,
+    )
+  )
+
+
+def test_mapped_zero_implies_kernel_membership_uses_explicit_group_map():
+  source = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    2,
+    "b",
+  )
+
+  group_map = GroupMap(
+    name="algebra-map-name",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  map_symbol = MapSymbol(
+    name="proof-map-symbol",
+  )
+
+  alpha = eta(3)
+
+  zero_step = relation_proof_step(
+    Relation(
+      lhs=MapApplication(
+        map=map_symbol,
+        expression=alpha,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  rule = (
+    mapped_zero_implies_kernel_membership_inference_rule(
+      group_map=group_map,
+      map_symbol=map_symbol,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      zero_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    kernel_membership_statement(
+      element=alpha,
+      group_map=group_map,
+    )
+  )
+
+
+def test_role_aware_membership_helpers_keep_image_and_kernel_roles_distinct():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  image_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  kernel_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  alpha = eta(3)
+
+  image_membership = (
+    image_membership_statement(
+      element=alpha,
+      group_map=image_map,
+    )
+  )
+
+  kernel_membership = (
+    kernel_membership_statement(
+      element=alpha,
+      group_map=kernel_map,
+    )
+  )
+
+  assert (
+    image_membership.subgroup.subgroup
+    == kernel_membership.subgroup.subgroup
+  )
+
+  assert (
+    image_membership
+    != kernel_membership
+  )
+
+  assert isinstance(
+    image_membership.subgroup,
+    ImageSubgroupReference,
+  )
+
+  assert isinstance(
+    kernel_membership.subgroup,
+    KernelSubgroupReference,
+  )
+
 
 
 
