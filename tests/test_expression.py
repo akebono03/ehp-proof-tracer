@@ -3,6 +3,7 @@ from expression import (
   Expression,
   HomotopyElement,
   IndexedTodaBracketData,
+  IteratedSuspension,
   MapApplication,
   MapSymbol,
   Multiple,
@@ -741,6 +742,109 @@ def test_indexed_toda_bracket_data_distinguishes_underlying_entries():
 
   assert first != second
 
+
+def test_iterated_suspension_preserves_concrete_exponent():
+  expression = eta(3)
+
+  suspended = IteratedSuspension(
+    expression=expression,
+    exponent=2,
+  )
+
+  assert suspended.expression == expression
+  assert suspended.exponent == 2
+  assert isinstance(
+    suspended,
+    Expression,
+  )
+
+
+def test_iterated_suspension_preserves_symbolic_exponent():
+  expression = eta(3)
+
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  suspended = IteratedSuspension(
+    expression=expression,
+    exponent=t,
+  )
+
+  assert suspended.expression == expression
+  assert suspended.exponent == t
+
+
+def test_iterated_suspension_one_is_structurally_distinct_from_suspension():
+  expression = eta(3)
+
+  iterated = IteratedSuspension(
+    expression=expression,
+    exponent=1,
+  )
+
+  ordinary = Suspension(
+    expression,
+  )
+
+  assert iterated != ordinary
+
+
+def test_iterated_suspension_two_is_structurally_distinct_from_nested_suspension():
+  expression = eta(3)
+
+  iterated = IteratedSuspension(
+    expression=expression,
+    exponent=2,
+  )
+
+  nested = Suspension(
+    Suspension(
+      expression,
+    ),
+  )
+
+  assert iterated != nested
+
+
+def test_iterated_suspension_distinguishes_exponent():
+  expression = eta(3)
+
+  first = IteratedSuspension(
+    expression=expression,
+    exponent=1,
+  )
+
+  second = IteratedSuspension(
+    expression=expression,
+    exponent=2,
+  )
+
+  assert first != second
+
+
+def test_iterated_suspension_distinguishes_symbolic_exponent():
+  expression = eta(3)
+
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  s = ScalarSymbol(
+    name="s",
+  )
+
+  first = IteratedSuspension(
+    expression=expression,
+    exponent=t,
+  )
+
+  second = IteratedSuspension(
+    expression=expression,
+    exponent=s,
+  )
+
+  assert first != second
 
 
 

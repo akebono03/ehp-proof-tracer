@@ -71,6 +71,12 @@ class Suspension(Expression):
   expression: Expression
 
 
+@dataclass(frozen=True)
+class IteratedSuspension(Expression):
+  expression: Expression
+  exponent: int | ScalarSymbol
+
+
 def eta(n: int) -> HomotopyElement:
   return HomotopyElement("η", n)
 
