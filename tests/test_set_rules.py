@@ -33,12 +33,14 @@ from proof import (
 )
 from set_rules import (
   Coset,
+  CosetEqualityStatement,
   ImageSubgroupReference,
   KernelSubgroupReference,
   MembershipStatement,
   ModuloStatement,
   SubgroupEqualityStatement,
   SubsetStatement,
+  coset_equality_implies_modulo_inference_rule,
   difference_membership_implies_modulo_inference_rule,
   exactness_implies_subgroup_equality_inference_rule,
   image_membership_statement,
@@ -46,6 +48,7 @@ from set_rules import (
   kernel_membership_statement,
   mapped_zero_implies_kernel_membership_inference_rule,
   membership_subset_propagation_inference_rule,
+  modulo_implies_coset_equality_inference_rule,
   modulo_implies_difference_membership_inference_rule,
   mutual_subset_implies_subgroup_equality_inference_rule,
   subgroup_equality_implies_subset_inference_rule,
@@ -5713,6 +5716,432 @@ def test_phase15_modulo_membership_bridge_reaches_fixed_point():
   )
 
   assert terminal_round.new_steps == ()
+
+
+def test_coset_equality_statement():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  left = Coset(
+    representative=alpha,
+    subgroup=subgroup,
+  )
+
+  right = Coset(
+    representative=beta,
+    subgroup=subgroup,
+  )
+
+  statement = CosetEqualityStatement(
+    left=left,
+    right=right,
+  )
+
+  reverse = CosetEqualityStatement(
+    left=right,
+    right=left,
+  )
+
+  assert statement.left == left
+  assert statement.right == right
+
+  assert statement != reverse
+
+
+def test_modulo_implies_coset_equality():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  modulo_step = ProofStep(
+    conclusion=ModuloStatement(
+      left=alpha,
+      right=beta,
+      modulus=subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    modulo_implies_coset_equality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      modulo_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    CosetEqualityStatement(
+      left=Coset(
+        representative=alpha,
+        subgroup=subgroup,
+      ),
+      right=Coset(
+        representative=beta,
+        subgroup=subgroup,
+      ),
+    )
+  )
+
+
+def test_modulo_implies_coset_equality_preserves_provenance():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  modulo_step = ProofStep(
+    conclusion=ModuloStatement(
+      left=alpha,
+      right=beta,
+      modulus=subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    modulo_implies_coset_equality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      modulo_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    modulo_step,
+  )
+
+
+def test_coset_equality_implies_modulo():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  equality_step = ProofStep(
+    conclusion=CosetEqualityStatement(
+      left=Coset(
+        representative=alpha,
+        subgroup=subgroup,
+      ),
+      right=Coset(
+        representative=beta,
+        subgroup=subgroup,
+      ),
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    coset_equality_implies_modulo_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    ModuloStatement(
+      left=alpha,
+      right=beta,
+      modulus=subgroup,
+    )
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    equality_step,
+  )
+
+
+def test_coset_equality_implies_modulo_rejects_different_role_moduli():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  image_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  kernel_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  image_reference = ImageSubgroupReference(
+    group_map=image_map,
+  )
+
+  kernel_reference = KernelSubgroupReference(
+    group_map=kernel_map,
+  )
+
+  assert (
+    image_reference.subgroup
+    == kernel_reference.subgroup
+  )
+
+  assert (
+    image_reference
+    != kernel_reference
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  equality_step = ProofStep(
+    conclusion=CosetEqualityStatement(
+      left=Coset(
+        representative=alpha,
+        subgroup=image_reference,
+      ),
+      right=Coset(
+        representative=beta,
+        subgroup=kernel_reference,
+      ),
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    coset_equality_implies_modulo_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase15_modulo_coset_equality_bridge_reaches_fixed_point():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  image_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  image_reference = ImageSubgroupReference(
+    group_map=image_map,
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  modulo_step = ProofStep(
+    conclusion=ModuloStatement(
+      left=alpha,
+      right=beta,
+      modulus=image_reference,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  modulo_to_coset_rule = (
+    modulo_implies_coset_equality_inference_rule()
+  )
+
+  coset_to_modulo_rule = (
+    coset_equality_implies_modulo_inference_rule()
+  )
+
+  rules = (
+    modulo_to_coset_rule,
+    coset_to_modulo_rule,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        modulo_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  coset_equality = (
+    CosetEqualityStatement(
+      left=Coset(
+        representative=alpha,
+        subgroup=image_reference,
+      ),
+      right=Coset(
+        representative=beta,
+        subgroup=image_reference,
+      ),
+    )
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert modulo_step.conclusion in conclusions
+  assert coset_equality in conclusions
+
+  assert len(
+    tuple(
+      conclusion
+      for conclusion in conclusions
+      if isinstance(
+        conclusion,
+        ModuloStatement,
+      )
+    )
+  ) == 1
+
+  assert len(
+    tuple(
+      conclusion
+      for conclusion in conclusions
+      if isinstance(
+        conclusion,
+        CosetEqualityStatement,
+      )
+    )
+  ) == 1
+
+  derived_coset_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == coset_equality
+  )
+
+  assert derived_coset_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    derived_coset_step.inference_rule
+    == modulo_to_coset_rule
+  )
+
+  assert derived_coset_step.premises == (
+    modulo_step,
+  )
+
+  terminal_round = (
+    derive_inference_round_result(
+      rules,
+      result.steps,
+    )
+  )
+
+  assert terminal_round.new_steps == ()
+
 
 
 

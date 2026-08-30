@@ -65,6 +65,12 @@ class ModuloStatement:
 
 
 @dataclass(frozen=True)
+class CosetEqualityStatement:
+  left: Coset
+  right: Coset
+
+
+@dataclass(frozen=True)
 class MembershipStatement:
   element: Expression
   subgroup: SubgroupTerm
@@ -146,6 +152,111 @@ def modulo_implies_difference_membership_inference_rule():
       ),
       subgroup=modulus,
     ),
+  )
+
+
+def modulo_implies_coset_equality_inference_rule():
+  left = PatternVariable(
+    name="left",
+  )
+
+  right = PatternVariable(
+    name="right",
+  )
+
+  modulus = PatternVariable(
+    name="modulus",
+  )
+
+  return InferenceRule(
+    name="modulo implies coset equality",
+    description=(
+      "If two elements are congruent modulo "
+      "a subgroup, then their cosets modulo "
+      "that subgroup are equal."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=ModuloStatement,
+        statement_pattern=ModuloStatement(
+          left=left,
+          right=right,
+          modulus=modulus,
+        ),
+      ),
+    ),
+    conclusion_pattern=CosetEqualityStatement(
+      left=Coset(
+        representative=left,
+        subgroup=modulus,
+      ),
+      right=Coset(
+        representative=right,
+        subgroup=modulus,
+      ),
+    ),
+  )
+
+
+def coset_equality_implies_modulo_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    equality_statement = (
+      premises[0].conclusion
+    )
+
+    return (
+      isinstance(
+        equality_statement.left,
+        Coset,
+      )
+      and isinstance(
+        equality_statement.right,
+        Coset,
+      )
+      and (
+        equality_statement.left.subgroup
+        == equality_statement.right.subgroup
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    equality_statement = (
+      premises[0].conclusion
+    )
+
+    return ModuloStatement(
+      left=(
+        equality_statement.left.representative
+      ),
+      right=(
+        equality_statement.right.representative
+      ),
+      modulus=(
+        equality_statement.left.subgroup
+      ),
+    )
+
+  return InferenceRule(
+    name="coset equality implies modulo",
+    description=(
+      "If two cosets of the same subgroup "
+      "are equal, then their representatives "
+      "are congruent modulo that subgroup."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=CosetEqualityStatement,
+      ),
+    ),
+    conclusion_builder=(
+      build_conclusion
+    ),
+    match_guard=guard,
   )
 
 
