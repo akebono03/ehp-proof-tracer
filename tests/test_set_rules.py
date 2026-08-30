@@ -7,6 +7,8 @@ from algebra import (
 from expression import (
   MapApplication,
   MapSymbol,
+  Multiple,
+  Sum,
   Zero,
   eta,
   nu,
@@ -37,12 +39,14 @@ from set_rules import (
   ModuloStatement,
   SubgroupEqualityStatement,
   SubsetStatement,
+  difference_membership_implies_modulo_inference_rule,
   exactness_implies_subgroup_equality_inference_rule,
   image_membership_statement,
   kernel_membership_implies_mapped_zero_inference_rule,
   kernel_membership_statement,
   mapped_zero_implies_kernel_membership_inference_rule,
   membership_subset_propagation_inference_rule,
+  modulo_implies_difference_membership_inference_rule,
   mutual_subset_implies_subgroup_equality_inference_rule,
   subgroup_equality_implies_subset_inference_rule,
   subgroup_equality_membership_propagation_inference_rule,
@@ -5298,6 +5302,417 @@ def test_modulo_statement_preserves_role_aware_modulus():
     != modulo_kernel
   )
 
+
+def test_modulo_implies_difference_membership():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  modulo_step = ProofStep(
+    conclusion=ModuloStatement(
+      left=alpha,
+      right=beta,
+      modulus=subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    modulo_implies_difference_membership_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      modulo_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    MembershipStatement(
+      element=Sum(
+        left=alpha,
+        right=Multiple(
+          coefficient=-1,
+          expression=beta,
+        ),
+      ),
+      subgroup=subgroup,
+    )
+  )
+
+
+def test_modulo_implies_difference_membership_preserves_provenance():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  modulo_step = ProofStep(
+    conclusion=ModuloStatement(
+      left=alpha,
+      right=beta,
+      modulus=subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    modulo_implies_difference_membership_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      modulo_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    modulo_step,
+  )
+
+
+def test_difference_membership_implies_modulo():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  membership_step = ProofStep(
+    conclusion=MembershipStatement(
+      element=Sum(
+        left=alpha,
+        right=Multiple(
+          coefficient=-1,
+          expression=beta,
+        ),
+      ),
+      subgroup=subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    difference_membership_implies_modulo_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      membership_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    ModuloStatement(
+      left=alpha,
+      right=beta,
+      modulus=subgroup,
+    )
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    membership_step,
+  )
+
+
+def test_difference_membership_implies_modulo_rejects_plain_membership():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+
+  membership_step = ProofStep(
+    conclusion=MembershipStatement(
+      element=alpha,
+      subgroup=subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    difference_membership_implies_modulo_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      membership_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_difference_membership_implies_modulo_requires_negative_one_multiple():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  positive_membership_step = ProofStep(
+    conclusion=MembershipStatement(
+      element=Sum(
+        left=alpha,
+        right=Multiple(
+          coefficient=1,
+          expression=beta,
+        ),
+      ),
+      subgroup=subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  double_membership_step = ProofStep(
+    conclusion=MembershipStatement(
+      element=Sum(
+        left=alpha,
+        right=Multiple(
+          coefficient=2,
+          expression=beta,
+        ),
+      ),
+      subgroup=subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    difference_membership_implies_modulo_inference_rule()
+  )
+
+  assert find_inference_match(
+    rule,
+    (
+      positive_membership_step,
+    ),
+  ) is None
+
+  assert find_inference_match(
+    rule,
+    (
+      double_membership_step,
+    ),
+  ) is None
+
+
+def test_phase15_modulo_membership_bridge_reaches_fixed_point():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  image_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  image_reference = ImageSubgroupReference(
+    group_map=image_map,
+  )
+
+  modulo_step = ProofStep(
+    conclusion=ModuloStatement(
+      left=alpha,
+      right=beta,
+      modulus=image_reference,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  modulo_to_membership_rule = (
+    modulo_implies_difference_membership_inference_rule()
+  )
+
+  membership_to_modulo_rule = (
+    difference_membership_implies_modulo_inference_rule()
+  )
+
+  rules = (
+    modulo_to_membership_rule,
+    membership_to_modulo_rule,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        modulo_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  difference_membership = (
+    MembershipStatement(
+      element=Sum(
+        left=alpha,
+        right=Multiple(
+          coefficient=-1,
+          expression=beta,
+        ),
+      ),
+      subgroup=image_reference,
+    )
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert modulo_step.conclusion in conclusions
+  assert difference_membership in conclusions
+
+  assert len(
+    tuple(
+      conclusion
+      for conclusion in conclusions
+      if isinstance(
+        conclusion,
+        ModuloStatement,
+      )
+    )
+  ) == 1
+
+  assert len(
+    tuple(
+      conclusion
+      for conclusion in conclusions
+      if isinstance(
+        conclusion,
+        MembershipStatement,
+      )
+    )
+  ) == 1
+
+  derived_membership_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == difference_membership
+  )
+
+  assert derived_membership_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    derived_membership_step.inference_rule
+    == modulo_to_membership_rule
+  )
+
+  assert derived_membership_step.premises == (
+    modulo_step,
+  )
+
+  terminal_round = (
+    derive_inference_round_result(
+      rules,
+      result.steps,
+    )
+  )
+
+  assert terminal_round.new_steps == ()
 
 
 
