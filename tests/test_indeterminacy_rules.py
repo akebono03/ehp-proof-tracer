@@ -4,10 +4,15 @@ from algebra import (
   generated_subgroup_elements,
 )
 from expression import (
+  Multiple,
+  ScalarSymbol,
+  Sum,
   eta,
   nu,
+  sigma,
 )
 from indeterminacy_rules import (
+  CoefficientIndeterminacyStatement,
   CosetMembershipStatement,
   SignIndeterminacyStatement,
 )
@@ -17,6 +22,9 @@ from models import (
 )
 from set_rules import (
   Coset,
+)
+from scalar_rules import (
+  OddScalarStatement,
 )
 
 
@@ -242,5 +250,186 @@ def test_sign_indeterminacy_statement_distinguishes_representative():
   )
 
   assert first != second
+
+
+def test_coefficient_indeterminacy_statement():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  x = eta(3)
+  beta = nu(4)
+  gamma = sigma(8)
+
+  expression = Sum(
+    left=Multiple(
+      coefficient=k,
+      expression=beta,
+    ),
+    right=gamma,
+  )
+
+  constraint = OddScalarStatement(
+    scalar=k,
+  )
+
+  statement = CoefficientIndeterminacyStatement(
+    value=x,
+    expression=expression,
+    constraint=constraint,
+  )
+
+  assert statement.value == x
+  assert statement.expression == expression
+  assert statement.constraint == constraint
+
+
+def test_coefficient_indeterminacy_statement_has_structural_equality():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  first = CoefficientIndeterminacyStatement(
+    value=eta(3),
+    expression=Sum(
+      left=Multiple(
+        coefficient=k,
+        expression=nu(4),
+      ),
+      right=sigma(8),
+    ),
+    constraint=OddScalarStatement(
+      scalar=k,
+    ),
+  )
+
+  second = CoefficientIndeterminacyStatement(
+    value=eta(3),
+    expression=Sum(
+      left=Multiple(
+        coefficient=ScalarSymbol(
+          name="k",
+        ),
+        expression=nu(4),
+      ),
+      right=sigma(8),
+    ),
+    constraint=OddScalarStatement(
+      scalar=ScalarSymbol(
+        name="k",
+      ),
+    ),
+  )
+
+  assert first == second
+
+
+def test_coefficient_indeterminacy_statement_distinguishes_value():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  expression = Sum(
+    left=Multiple(
+      coefficient=k,
+      expression=nu(4),
+    ),
+    right=sigma(8),
+  )
+
+  constraint = OddScalarStatement(
+    scalar=k,
+  )
+
+  first = CoefficientIndeterminacyStatement(
+    value=eta(3),
+    expression=expression,
+    constraint=constraint,
+  )
+
+  second = CoefficientIndeterminacyStatement(
+    value=nu(4),
+    expression=expression,
+    constraint=constraint,
+  )
+
+  assert first != second
+
+
+def test_coefficient_indeterminacy_statement_distinguishes_expression():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  constraint = OddScalarStatement(
+    scalar=k,
+  )
+
+  first = CoefficientIndeterminacyStatement(
+    value=eta(3),
+    expression=Sum(
+      left=Multiple(
+        coefficient=k,
+        expression=nu(4),
+      ),
+      right=sigma(8),
+    ),
+    constraint=constraint,
+  )
+
+  second = CoefficientIndeterminacyStatement(
+    value=eta(3),
+    expression=Sum(
+      left=Multiple(
+        coefficient=k,
+        expression=sigma(8),
+      ),
+      right=nu(4),
+    ),
+    constraint=constraint,
+  )
+
+  assert first != second
+
+
+def test_coefficient_indeterminacy_statement_distinguishes_scalar_constraint():
+  first_scalar = ScalarSymbol(
+    name="k",
+  )
+
+  second_scalar = ScalarSymbol(
+    name="l",
+  )
+
+  first = CoefficientIndeterminacyStatement(
+    value=eta(3),
+    expression=Sum(
+      left=Multiple(
+        coefficient=first_scalar,
+        expression=nu(4),
+      ),
+      right=sigma(8),
+    ),
+    constraint=OddScalarStatement(
+      scalar=first_scalar,
+    ),
+  )
+
+  second = CoefficientIndeterminacyStatement(
+    value=eta(3),
+    expression=Sum(
+      left=Multiple(
+        coefficient=first_scalar,
+        expression=nu(4),
+      ),
+      right=sigma(8),
+    ),
+    constraint=OddScalarStatement(
+      scalar=second_scalar,
+    ),
+  )
+
+  assert first != second
+
 
 

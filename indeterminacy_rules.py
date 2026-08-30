@@ -3,6 +3,9 @@ from dataclasses import dataclass
 from expression import (
   Expression,
 )
+from scalar_rules import (
+  OddScalarStatement,
+)
 from set_rules import (
   Coset,
 )
@@ -19,6 +22,12 @@ class SignIndeterminacyStatement:
   value: Expression
   representative: Expression
 
+
+@dataclass(frozen=True)
+class CoefficientIndeterminacyStatement:
+  value: Expression
+  expression: Expression
+  constraint: OddScalarStatement
 
 
 
