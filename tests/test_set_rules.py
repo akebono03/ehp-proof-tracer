@@ -23,6 +23,7 @@ from set_rules import (
   MembershipStatement,
   SubgroupEqualityStatement,
   SubsetStatement,
+  image_membership_statement,
   kernel_membership_statement,
   membership_subset_propagation_inference_rule,
   subgroup_equality_membership_propagation_inference_rule,
@@ -1051,7 +1052,126 @@ def test_kernel_membership_statement_distinguishes_kernel():
   )
 
 
+def test_image_membership_statement():
+  source = make_cyclic_group(
+    4,
+    "a",
+  )
 
+  target = make_cyclic_group(
+    4,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  beta = nu(4)
+
+  statement = image_membership_statement(
+    element=beta,
+    group_map=f,
+  )
+
+  assert statement == MembershipStatement(
+    element=beta,
+    subgroup=f.image_subgroup(),
+  )
+
+
+def test_image_membership_statement_uses_existing_image_subgroup():
+  source = make_cyclic_group(
+    6,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    6,
+    "b",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=source,
+    target=target,
+    matrix=[
+      [2],
+    ],
+  )
+
+  beta = nu(4)
+
+  statement = image_membership_statement(
+    element=beta,
+    group_map=f,
+  )
+
+  expected_image = f.image_subgroup()
+
+  assert statement.subgroup == expected_image
+  assert statement.subgroup.ambient_group == target
+
+  assert {
+    element.coefficients
+    for element in statement.subgroup.elements
+  } == {
+    (0,),
+    (2,),
+    (4,),
+  }
+
+
+def test_image_membership_statement_distinguishes_image():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  f = GroupMap(
+    name="times2",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  g = GroupMap(
+    name="identity",
+    source=group,
+    target=group,
+    matrix=[
+      [1],
+    ],
+  )
+
+  beta = nu(4)
+
+  f_statement = image_membership_statement(
+    element=beta,
+    group_map=f,
+  )
+
+  g_statement = image_membership_statement(
+    element=beta,
+    group_map=g,
+  )
+
+  assert (
+    f_statement
+    != g_statement
+  )
+
+  assert (
+    f_statement.subgroup
+    != g_statement.subgroup
+  )
 
 
 

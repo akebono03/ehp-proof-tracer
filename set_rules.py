@@ -40,6 +40,16 @@ def kernel_membership_statement(
   )
 
 
+def image_membership_statement(
+  element,
+  group_map: GroupMap,
+):
+  return MembershipStatement(
+    element=element,
+    subgroup=group_map.image_subgroup(),
+  )
+
+
 def membership_subset_propagation_inference_rule():
   element = PatternVariable(
     name="element",
@@ -151,6 +161,7 @@ def subgroup_equality_membership_propagation_inference_rule():
     ),
     match_guard=guard,
   )
+
 
 
 
