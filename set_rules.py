@@ -102,6 +102,55 @@ def kernel_membership_implies_mapped_zero_inference_rule(
   )
 
 
+def mapped_zero_implies_kernel_membership_inference_rule(
+  group_map: GroupMap,
+  map_symbol: MapSymbol,
+):
+  def guard(
+    premises,
+    bindings,
+  ):
+    relation = premises[0].conclusion
+
+    return (
+      isinstance(
+        relation.lhs,
+        MapApplication,
+      )
+      and relation.lhs.map == map_symbol
+      and relation.rhs == Zero()
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    relation = premises[0].conclusion
+
+    return MembershipStatement(
+      element=relation.lhs.expression,
+      subgroup=group_map.kernel_subgroup(),
+    )
+
+  return InferenceRule(
+    name="mapped zero implies kernel membership",
+    description=(
+      "If a map sends an element to zero, "
+      "then the element belongs to the kernel "
+      "of that map."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.ZERO,
+      ),
+    ),
+    conclusion_builder=(
+      build_conclusion
+    ),
+    match_guard=guard,
+  )
+
+
 def membership_subset_propagation_inference_rule():
   element = PatternVariable(
     name="element",
@@ -213,7 +262,6 @@ def subgroup_equality_membership_propagation_inference_rule():
     ),
     match_guard=guard,
   )
-
 
 
 
