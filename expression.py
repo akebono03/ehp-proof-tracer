@@ -16,6 +16,13 @@ class ScalarSymbol:
 
 
 @dataclass(frozen=True)
+class TodaBracket:
+  first: Expression
+  second: Expression
+  third: Expression
+
+
+@dataclass(frozen=True)
 class Zero(Expression):
   pass
 

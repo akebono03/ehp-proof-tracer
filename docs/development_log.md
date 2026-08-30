@@ -1,6 +1,6 @@
 # ehp_proof 開発記録
 
-この文書は Phase 17 完了時点までの開発履歴を、現在の実装と矛盾しない
+この文書は Phase 18 完了時点までの開発履歴を、現在の実装と矛盾しない
 形で整理した改訂版である。
 
 ```text
@@ -1210,79 +1210,772 @@ fully recursive pattern unification
 
 ---
 
-# Phase 18 boundary
 
-Phase 17 完了により、次の自然な Phase は:
+# Phase 18：Toda bracket minimum representation
 
-```text
-Phase 18: Toda bracket minimum representation
-```
+Phase 18 は three-fold unstable Toda bracket を first-class に導入し、
+bracket input structure と bracket value を分離した。
 
-Phase 18 は:
+基本境界:
 
 ```text
 bracket input structure
+≠
+bracket value
 ```
 
-と:
+また:
 
 ```text
-bracket value / indeterminacy
+definedness
+≠
+membership
+≠
+exact value
 ```
 
-を分離して設計する。
+を明示的に維持した。
 
-Primary actual notation:
+---
+
+## Phase 18-1：Toda bracket object の最小表現
+
+追加:
+
+```text
+TodaBracket
+```
+
+Representation:
+
+```text
+TodaBracket(
+  first=a,
+  second=b,
+  third=c,
+)
+```
+
+Notation:
 
 ```text
 {a,b,c}
 ```
 
-将来必要な indexed unstable notation:
+`TodaBracket` の entries は `Expression`。
+
+ただし bracket 自身は `Expression` にしなかった。
+
+理由:
 
 ```text
+Toda bracket
+=
+set-valued / indeterminate structure
+```
+
+であり、一つの exact homotopy element として扱わないため。
+
+Three-fold bracket の actual scope に限定し、variable arity は導入しなかった。
+
+Focused:
+
+```text
+tests/test_expression.py
+35 passed in 2.05s
+```
+
+Full suite:
+
+```text
+1026 passed in 65.52s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 18-2：structural distinction
+
+新 production code は追加しなかった。
+
+Structural equality を regression 固定:
+
+```text
+{a,b,c}
+=
+structurally
+{a,b,c}
+```
+
+```text
+{a,b,c}
+!=structurally
+{a,c,b}
+```
+
+この distinction は数学的な非等価性を主張するものではなく、entry order
+を representation layer で失わないための仕様。
+
+Constructor-side sorting / permutation normalization は追加しなかった。
+
+Focused:
+
+```text
+tests/test_expression.py
+37 passed in 1.80s
+```
+
+Full suite:
+
+```text
+1028 passed in 64.59s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 18-3：bracket membership
+
+新規:
+
+```text
+toda_rules.py
+```
+
+追加:
+
+```text
+TodaBracketMembershipStatement
+```
+
+Semantics:
+
+```text
+x ∈ {a,b,c}
+```
+
+Phase 14 の:
+
+```text
+MembershipStatement(x,A)
+```
+
+は subgroup membership 専用のままとし、general set membership に
+拡張しなかった。
+
+Bracket entries:
+
+```text
+a,b,c
+```
+
+は bracket の input であり、候補値ではない。
+
+したがって:
+
+```text
+x∈{a,b,c}
+↛
+x=a
+x=b
+x=c
+```
+
+Focused:
+
+```text
+4 passed in 0.79s
+```
+
+Full suite:
+
+```text
+1032 passed in 66.12s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 18-4：Phase 17 Indeterminacy との接続
+
+Production rule は追加しなかった。
+
+確認した coexistence:
+
+```text
+x∈{a,b,c}
+x=±α
+```
+
+```text
+x∈{a,b,c}
+x∈β+A
+```
+
+同じ `x` に関する別の partial information として同一 knowledge model
+上に保持できることを確認。
+
+No automatic bridge:
+
+```text
+x∈{a,b,c}
+↛
+x=±α
+```
+
+```text
+x∈{a,b,c}
+↛
+x∈β+A
+```
+
+また Toda membership と sign / coset statements を同一視しないことを
+固定。
+
+Initial test import では存在しない algebra helper を import したため
+collection error。
+
+```text
+ImportError:
+cannot import name 'make_cyclic_group' from 'algebra'
+```
+
+既存 set-rule tests と同じ local helper を `tests/test_toda_rules.py` に
+置く形へ修正。
+
+修正後:
+
+```text
+8 passed in 1.98s
+```
+
+Full suite:
+
+```text
+1036 passed in 61.27s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 18-5：zero-composition defining facts との接続
+
+追加:
+
+```text
+TodaBracketDefinedStatement
+```
+
+追加 rule:
+
+```text
+toda_bracket_defined_by_zero_compositions_inference_rule()
+```
+
+Semantics:
+
+```text
+ZERO(a∘b)
++
+ZERO(b∘c)
+↓
+{a,b,c} defined
+```
+
+Existing Phase 10 bridge:
+
+```text
+Composition(...)=0
+EQUALITY
+↓
+Composition(...)=0
+ZERO
+```
+
+を再利用。
+
+Integration:
+
+```text
+a∘b=0
+b∘c=0
+↓
+ZERO(a∘b)
+ZERO(b∘c)
+↓
+{a,b,c} defined
+```
+
+Shared middle entry:
+
+```text
+b
+```
+
+の structural identity を要求。
+
+Reject:
+
+```text
+a∘b=0
+d∘c=0
+```
+
+One zero-composition premise onlyでは definedness を生成しない。
+
+Important boundary:
+
+```text
+{a,b,c} defined
+↛
+x∈{a,b,c}
+```
+
+Full source / target typing は導入しなかった。
+
+Focused:
+
+```text
+13 passed in 2.11s
+```
+
+Full suite:
+
+```text
+1041 passed in 62.10s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 18-6：provenance
+
+新 production rule は追加しなかった。
+
+Regression-fixed chain:
+
+```text
+known a∘b=0
+↓
+ZERO(a∘b)
+
+known b∘c=0
+↓
+ZERO(b∘c)
+
+ZERO(a∘b)
++
+ZERO(b∘c)
+↓
+{a,b,c} defined
+```
+
+Final definedness step:
+
+```text
+premises:
+  ZERO(a∘b)
+  ZERO(b∘c)
+
+inference_rule:
+  toda bracket defined by zero compositions
+```
+
+各 ZERO step:
+
+```text
+premise:
+  corresponding original composition equality
+
+inference_rule:
+  composition equality → zero
+```
+
+Unrelated fact は direct provenance に混入しないことを固定。
+
+Focused:
+
+```text
+15 passed in 3.15s
+```
+
+Full suite:
+
+```text
+1043 passed in 60.38s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 18-7：representative scenario
+
+新 rule は追加しなかった。
+
+Initial knowledge:
+
+```text
+a∘b=0
+b∘c=0
+x∈{a,b,c}
+x=±α
+```
+
+Same fixed-point run で:
+
+```text
+ZERO(a∘b)
+ZERO(b∘c)
+{a,b,c} defined
+```
+
+を導出しつつ:
+
+```text
+x∈{a,b,c}
+x=±α
+```
+
+を coexist。
+
+Reject:
+
+```text
+x=α
+```
+
+Representative run:
+
+```text
+FIXED_POINT
+round_count == 2
+```
+
+Focused:
+
+```text
+16 passed in 3.47s
+```
+
+Full suite:
+
+```text
+1044 passed in 59.62s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 18-8：termination / inference-scope boundary
+
+新 production rule は追加しなかった。
+
+Regression-fixed:
+
+### genuine fixed point
+
+Representative final knowledge へもう一度 active rule family を適用し:
+
+```text
+new_steps == ()
+```
+
+を確認。
+
+### definedness / membership boundary
+
+```text
+{a,b,c} defined
+↛
+x∈{a,b,c}
+```
+
+### membership / exact value boundary
+
+```text
+x∈{a,b,c}
++
+x=±α
+↛
+x=α
+```
+
+```text
+x∈{a,b,c}
++
+x=±α
+↛
+x=-α
+```
+
+### inference scope
+
+```text
+TodaBracketDefinedStatement
+```
+
+と:
+
+```text
+TodaBracketMembershipStatement
+```
+
+は generic equality symmetry の premise に match しない。
+
+Initial run では test import に `Multiple` が不足して:
+
+```text
+NameError: name 'Multiple' is not defined
+```
+
+となった。
+
+`Multiple` import を追加後:
+
+```text
+20 passed in 3.36s
+```
+
+Full suite:
+
+```text
+1048 passed in 61.09s
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 18 completion summary
+
+Phase 18 により proof layer は three-fold unstable Toda bracket の最小構造を
+first-class に保持できるようになった。
+
+Implemented:
+
+```text
+TodaBracket(a,b,c)
+TodaBracketMembershipStatement
+TodaBracketDefinedStatement
+```
+
+Main chain:
+
+```text
+a∘b=0
+b∘c=0
+↓
+generic ZERO
+↓
+{a,b,c} defined
+```
+
+Membership:
+
+```text
+x∈{a,b,c}
+```
+
+を definedness とは独立に保持。
+
+Phase 17 partial information:
+
+```text
+x=±α
+x∈β+A
+```
+
+とも coexist できる。
+
+Important boundaries:
+
+```text
+bracket
+≠
+exact Expression
+```
+
+```text
+definedness
+≠
+membership
+```
+
+```text
+membership
+≠
+exact value
+```
+
+```text
+x∈{a,b,c}
++
+x=±α
+↛
+x=± selected value
+```
+
+Current representative rule family reaches genuine:
+
+```text
+FIXED_POINT
+```
+
+with terminal:
+
+```text
+new_steps == ()
+```
+
+Generic inference engine:
+
+```text
+unchanged
+```
+
+Verified focused suite:
+
+```text
+tests/test_toda_rules.py
+20 passed in 3.36s
+```
+
+Verified full suite:
+
+```text
+1048 passed in 61.09s
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 18 completion boundary
+
+Phase 18 で実装しないもの:
+
+```text
+bracket-definedness → arbitrary membership
+bracket membership → exact value
+automatic Toda → sign indeterminacy
+automatic Toda → coset indeterminacy
+automatic reverse indeterminacy bridge
+Toda bracket containment
+general set-valued expression hierarchy
+general candidate-set algebra
+variable-arity Toda bracket
+indexed unstable notation {a,E^t b,E^t c}_t
+symbolic iterated suspension E^t
+full source / target typing
+stable homotopy group model
+stable Toda bracket <a,b,c>
+higher Toda bracket
+general theorem quantifier language
+existential witness language
+semantic cycle detection
+fully recursive pattern unification
+```
+
+`max_rounds` は引き続き generic safety bound。
+
+---
+
+# Phase 19 boundary
+
+Phase 18 完了により、次の candidate Phase は:
+
+```text
+Phase 19: Toda bracket membership / first theorem bridge
+```
+
+Phase 18 では:
+
+```text
+x∈{a,b,c}
+```
+
+を known statement として保持できるが、concrete theorem から導出する
+一般 bridge はまだない。
+
+Phase 19 は actual mathematical example を用いて:
+
+```text
+explicit theorem premises / known fact
+↓
+TodaBracketMembershipStatement
+```
+
+という最初の theorem bridge を検討する。
+
+Definedness:
+
+```text
+{a,b,c} defined
+```
+
+だけから arbitrary membership を生成してはいけない。
+
+その後の provisional candidate:
+
+```text
+Phase 20
+indexed unstable Toda notation
 {a,E^t b,E^t c}_t
 ```
 
-Stable notation:
-
-```text
-<a,b,c>
-```
-
-は unstable notation と同一視しない。
-
-Phase 17 の:
-
-```text
-CosetMembershipStatement
-SignIndeterminacyStatement
-CoefficientIndeterminacyStatement
-```
-
-を可能な限り再利用しつつ、Toda-specific abstraction は actual bracket
-example が要求する最小範囲だけ追加する。
-
-Full higher-Toda framework を先取りしない。
-
-Generic engine の変更は actual Toda theorem が current rule language で
-表現できないと実証された場合のみ。
+Bracket index と suspension exponent は notation 上同じ `t` でも内部構造を
+分離する。
 
 ---
 
 # Current verified status
 
-Full suite at Phase 17 completion:
+Full suite at Phase 18 completion:
 
 ```powershell
 python -m pytest -q
 ```
 
 ```text
-1024 passed in 66.01s
+1048 passed in 61.09s
 ```
 
-Phase 17 focused:
+Phase 18 focused:
+
+```powershell
+python -m pytest tests/test_toda_rules.py -q
+```
+
+```text
+20 passed in 3.36s
+```
+
+Phase 17 focused remains:
 
 ```powershell
 python -m pytest tests/test_indeterminacy_rules.py -q

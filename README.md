@@ -70,7 +70,8 @@ Completed foundations and theorem families:
 15. coset / modulo reasoning,
 16. symbolic scalar constraints with parity / mod-two / order-two integration,
 17. indeterminacy representation and bridges,
-18. provenance and explicit inference-scope / termination boundaries.
+18. Toda bracket minimum representation, membership, definedness, provenance,
+19. explicit inference-scope / termination boundaries.
 
 Current architecture:
 
@@ -80,7 +81,7 @@ homotopy / EHP domain rules
 generic proof / inference engine
         ↓
 proof-level expression / scalar / set / subgroup / modulo /
-indeterminacy statements
+indeterminacy / Toda statements
         ↓
 homotopy / EHP data layer
         ↓
@@ -115,6 +116,7 @@ capability.
 - Phase 15: coset / modulo reasoning — completed
 - Phase 16: symbolic scalar constraints — completed
 - Phase 17: indeterminacy — completed
+- Phase 18: Toda bracket minimum representation — completed
 
 ---
 
@@ -895,6 +897,345 @@ The generic inference engine remains unchanged.
 
 ---
 
+
+# Phase 18: Toda bracket minimum representation
+
+Phase 18 introduces a first-class representation of a three-fold unstable Toda
+bracket while keeping the bracket input structure distinct from any selected
+value.
+
+The central design boundary is:
+
+```text
+bracket input structure
+≠
+bracket value
+```
+
+## TodaBracket
+
+The three-fold bracket:
+
+```text
+{a,b,c}
+```
+
+is represented by:
+
+```text
+TodaBracket(
+  first=a,
+  second=b,
+  third=c,
+)
+```
+
+`TodaBracket` is intentionally not an `Expression`.
+
+Its entries are `Expression` values, but the bracket object itself represents
+set-valued / indeterminate mathematical structure rather than one homotopy
+element.
+
+Entry order is preserved structurally.
+
+```text
+TodaBracket(a,b,c)
+!=structural
+TodaBracket(a,c,b)
+```
+
+This is a representation statement, not a theorem asserting mathematical
+inequality of two well-typed brackets.
+
+No constructor-side sorting, permutation normalization, or theorem-aware
+canonicalization is performed.
+
+## Toda bracket membership
+
+First-class membership is represented by:
+
+```text
+TodaBracketMembershipStatement(
+  element=x,
+  bracket=TodaBracket(a,b,c),
+)
+```
+
+with semantics:
+
+```text
+x ∈ {a,b,c}
+```
+
+This is distinct from the Phase 14 subgroup membership statement:
+
+```text
+MembershipStatement(x,A)
+```
+
+and the existing subgroup API is not widened to arbitrary set-valued objects.
+
+The bracket entries `a,b,c` are inputs defining the bracket. They are not
+candidate values of the bracket.
+
+Therefore:
+
+```text
+x ∈ {a,b,c}
+↛
+x=a
+```
+
+```text
+x ∈ {a,b,c}
+↛
+x=b
+```
+
+```text
+x ∈ {a,b,c}
+↛
+x=c
+```
+
+## Toda bracket definedness
+
+Three-fold bracket definedness is represented separately:
+
+```text
+TodaBracketDefinedStatement(
+  bracket=TodaBracket(a,b,c),
+)
+```
+
+Phase 18 connects existing composition / ZERO reasoning to bracket
+definedness.
+
+Implemented chain:
+
+```text
+a∘b=0
+b∘c=0
+↓ existing composition equality → generic ZERO
+ZERO(a∘b)
+ZERO(b∘c)
+↓
+TodaBracketDefinedStatement({a,b,c})
+```
+
+The two zero-composition premises must share the middle entry `b`.
+
+A mismatched pair:
+
+```text
+a∘b=0
+d∘c=0
+```
+
+does not establish `{a,b,c}` definedness.
+
+This Phase trusts already constructed `Composition` facts. Full source / target
+sphere validation is not yet introduced.
+
+## Definedness / membership boundary
+
+Definedness and membership remain distinct:
+
+```text
+{a,b,c} defined
+↛
+x ∈ {a,b,c}
+```
+
+Zero-composition defining facts do not select a bracket value.
+
+No rule of the form:
+
+```text
+a∘b=0
+b∘c=0
+→
+x∈{a,b,c}
+```
+
+is introduced.
+
+## Phase 17 indeterminacy coexistence
+
+Toda bracket membership may coexist with existing Phase 17 partial
+information about the same element.
+
+Examples:
+
+```text
+x ∈ {a,b,c}
+x = ±α
+```
+
+and:
+
+```text
+x ∈ {a,b,c}
+x ∈ β+A
+```
+
+These statements share the same `x` but remain mathematically distinct.
+
+Phase 18 does not introduce automatic bridges:
+
+```text
+x ∈ {a,b,c}
+↛
+x = ±α
+```
+
+```text
+x ∈ {a,b,c}
+↛
+x ∈ β+A
+```
+
+and the reverse directions are also absent unless a later concrete theorem
+justifies them.
+
+In particular:
+
+```text
+x ∈ {a,b,c}
++
+x = ±α
+↛
+x=α
+```
+
+and:
+
+```text
+x ∈ {a,b,c}
++
+x = ±α
+↛
+x=-α
+```
+
+## Provenance
+
+The defining-condition derivation retains the full dependency chain:
+
+```text
+known a∘b=0
+↓ composition equality → ZERO
+ZERO(a∘b)
+
+known b∘c=0
+↓ composition equality → ZERO
+ZERO(b∘c)
+
+ZERO(a∘b)
++
+ZERO(b∘c)
+↓ Toda definedness rule
+{a,b,c} defined
+```
+
+The final definedness `ProofStep` directly records the two ZERO steps as
+premises.
+
+Each ZERO step directly records its original known composition equality.
+
+Unrelated facts are not inserted into the direct provenance of the Toda
+definedness branch.
+
+## Representative fixed-point scenario
+
+A representative Phase 18 knowledge state may begin with:
+
+```text
+a∘b=0
+b∘c=0
+x∈{a,b,c}
+x=±α
+```
+
+Active rules:
+
+```text
+composition equality → generic ZERO
+ZERO + ZERO → Toda bracket definedness
+```
+
+Derived knowledge:
+
+```text
+ZERO(a∘b)
+ZERO(b∘c)
+{a,b,c} defined
+```
+
+while the given facts:
+
+```text
+x∈{a,b,c}
+x=±α
+```
+
+remain in the same knowledge state.
+
+Not derived:
+
+```text
+x=α
+```
+
+The representative run reaches:
+
+```text
+FIXED_POINT
+```
+
+with two productive rounds.
+
+## Termination / inference scope
+
+The current Toda rule family does not introduce recursive structural growth.
+
+For the representative finite knowledge state:
+
+```text
+round 1:
+  composition equality → ZERO
+
+round 2:
+  ZERO + ZERO → definedness
+
+terminal check:
+  no new steps
+```
+
+An explicit terminal inference round confirms:
+
+```text
+new_steps == ()
+```
+
+Toda-specific statements remain outside generic equality-rule scope:
+
+```text
+TodaBracketDefinedStatement
+≠
+RelationType.EQUALITY
+```
+
+```text
+TodaBracketMembershipStatement
+≠
+RelationType.EQUALITY
+```
+
+The generic inference engine remains unchanged.
+
+---
+
 # Current limitations
 
 ## Conclusion identity
@@ -961,7 +1302,11 @@ Not yet implemented as general systems:
 - theorem-aware candidate-set algebra,
 - general coefficient constraint families,
 - automatic collapse of indeterminacy from additional facts,
-- Toda-bracket value sets.
+- general Toda-bracket value-set algebra,
+- Toda bracket containment in cosets,
+- indexed unstable Toda notation,
+- stable Toda brackets,
+- higher Toda brackets.
 
 The absence of a general `Indeterminacy` superclass is intentional.
 
@@ -987,10 +1332,22 @@ Verified result:
 36 passed
 ```
 
-Phase 17 completion full suite:
+Phase 18 focused suite:
+
+```powershell
+python -m pytest tests/test_toda_rules.py -q
+```
+
+Verified result:
 
 ```text
-1024 passed in 66.01s
+20 passed in 3.36s
+```
+
+Phase 18 completion full suite:
+
+```text
+1048 passed in 61.09s
 ```
 
 No failures.
@@ -1009,61 +1366,62 @@ Current behavior is defined by the latest README and design documents.
 
 ---
 
-# Phase 17 completion boundary
+# Phase 18 completion boundary
 
-Phase 17 is complete because the proof layer can now preserve three concrete
-forms of non-unique mathematical information without prematurely selecting a
-value:
-
-```text
-x∈β+A
-x=±α
-x∈{kβ+γ | k odd}
-```
+Phase 18 is complete because the proof layer can now represent a minimal
+three-fold unstable Toda bracket without collapsing its set-valued semantics
+into an exact value.
 
 Completion means:
 
-1. `CosetMembershipStatement` is first-class.
-2. existing `Coset` is reused.
-3. `SignIndeterminacyStatement` is first-class.
-4. sign uncertainty is not represented as ordinary equality.
-5. `CoefficientIndeterminacyStatement` is first-class.
-6. existing `ScalarSymbol`, `Multiple`, `Sum`, and `OddScalarStatement` are reused.
-7. symbolic odd coefficients are not enumerated.
-8. modulo implies coset membership.
-9. coset membership implies modulo.
-10. exact equality implies sign indeterminacy.
-11. sign indeterminacy does not imply exact equality.
-12. symbolic equality plus matching odd-scalar constraint derives coefficient
-    indeterminacy.
-13. mismatched scalar constraints are rejected.
-14. the current structural `kβ+γ` form is explicit.
-15. no general recursive symbolic-expression matcher was added.
-16. modulo/coset bridges coexist in one fixed-point run.
-17. symbolic-scalar and indeterminacy branches coexist in one fixed-point run.
-18. provenance is retained for coefficient, sign, and coset indeterminacy.
-19. modulo/coset cycles terminate through duplicate rejection.
-20. terminal rounds have no new steps.
-21. coset membership does not select a representative.
-22. sign indeterminacy does not select a sign.
-23. coefficient indeterminacy is not treated as ordinary equality.
-24. no concrete candidate enumeration is introduced.
-25. no general `CandidateFamily` abstraction is introduced.
-26. no general `Indeterminacy` superclass is introduced.
-27. Toda bracket is not yet introduced.
-28. the generic inference engine remains unchanged.
-29. the full regression suite passes.
+1. `TodaBracket` is first-class.
+2. `TodaBracket` stores exactly three ordered `Expression` entries.
+3. `TodaBracket` itself is not an `Expression`.
+4. entry order is preserved structurally.
+5. no constructor-side permutation normalization is performed.
+6. `TodaBracketMembershipStatement` is first-class.
+7. `x∈{a,b,c}` is distinct from subgroup membership.
+8. bracket entries are not interpreted as candidate values.
+9. `TodaBracketDefinedStatement` is first-class.
+10. `a∘b=0` and `b∘c=0` can establish `{a,b,c}` definedness.
+11. the existing composition-equality → generic ZERO bridge is reused.
+12. the two defining compositions must share the middle entry.
+13. mismatched middle entries are rejected.
+14. one zero-composition fact alone does not establish definedness.
+15. definedness does not imply arbitrary bracket membership.
+16. bracket membership does not imply exact equality.
+17. bracket membership may coexist with sign indeterminacy.
+18. bracket membership may coexist with coset indeterminacy.
+19. Toda membership does not automatically imply sign indeterminacy.
+20. Toda membership does not automatically imply coset indeterminacy.
+21. sign is not selected automatically.
+22. provenance traces definedness through both ZERO facts to the original
+    composition equalities.
+23. unrelated facts do not enter direct Toda provenance.
+24. representative Toda + Phase 17 partial-information scenario reaches
+    `FIXED_POINT`.
+25. the representative scenario uses two productive rounds.
+26. an explicit terminal check yields `new_steps == ()`.
+27. Toda definedness is outside generic equality-rule scope.
+28. Toda membership is outside generic equality-rule scope.
+29. no general set-valued expression hierarchy is introduced.
+30. no indexed unstable Toda notation is introduced.
+31. no stable Toda bracket is introduced.
+32. no higher Toda bracket framework is introduced.
+33. full source / target typing is not introduced.
+34. the generic inference engine remains unchanged.
+35. the full regression suite passes.
 
-Phase 17 completion:
+Phase 18 completion:
 
 ```text
-tests/test_indeterminacy_rules.py
-36 passed
+tests/test_toda_rules.py
+20 passed in 3.36s
 ```
 
 ```text
 full suite
-1024 passed in 66.01s
+1048 passed in 61.09s
 ```
 
 ---
@@ -1084,69 +1442,53 @@ Coset / modulo
 Symbolic scalar constraints
 ↓
 Indeterminacy
+↓
+Toda bracket minimum representation
 ```
 
-The next natural Phase is:
+The next candidate Phase is:
 
 ```text
-Phase 18: Toda bracket minimum representation
+Phase 19: Toda bracket membership / first theorem bridge
 ```
 
-Phase 18 should begin from an actual bracket form rather than from a universal
-set-expression hierarchy.
+Phase 19 should introduce a mathematical bridge only from an actual known Toda
+fact or theorem.
 
-Primary candidates:
+The current Phase 18 representation already supports:
 
 ```text
-{a,b,c}
+x ∈ {a,b,c}
 ```
 
-and, when the indexed unstable notation is required:
+but does not yet derive such membership from a concrete Toda theorem.
+
+A Phase 19 rule should therefore have explicit mathematical premises and
+provenance rather than turning bracket definedness into arbitrary membership.
+
+After that, the provisional next step is:
+
+```text
+Phase 20: indexed unstable Toda notation
+```
+
+with notation such as:
 
 ```text
 {a,E^t b,E^t c}_t
 ```
 
-Stable Toda notation:
+The suspension exponent and bracket index must be represented as distinct
+structural fields even when the same symbol `t` appears in notation.
+
+Stable notation:
 
 ```text
 <a,b,c>
 ```
 
-should remain distinct from unstable notation.
+remains deferred and must stay distinct from unstable Toda notation.
 
-Phase 18 should first establish:
-
-```text
-bracket input structure
-≠
-bracket value
-```
-
-and:
-
-```text
-Toda bracket
-=
-set-valued / indeterminate mathematical object
-```
-
-rather than modeling a bracket as a function returning one exact element.
-
-The Phase 17 indeterminacy layer should be reused for statements such as:
-
-```text
-x ∈ TodaBracket(...)
-```
-
-or later:
-
-```text
-TodaBracket(...) ⊆ x+A
-```
-
-only when the actual bracket example requires them.
-
-The first Phase 18 implementation should not yet introduce a fully general
-higher-Toda-bracket theorem prover, quantified theorem language, or general
-symbolic set algebra.
+No general higher-Toda theorem prover, universal set algebra, or fully
+quantified theorem language should be introduced before a concrete
+mathematical example requires it.

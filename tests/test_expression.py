@@ -8,6 +8,7 @@ from expression import (
   ScalarSymbol,
   Sum,
   Suspension,
+  TodaBracket,
   Zero,
   eta,
   nu,
@@ -496,6 +497,72 @@ def test_map_application_preserves_structured_argument():
     ),
   )
 
+
+def test_toda_bracket():
+  a = eta(3)
+  b = nu(4)
+  c = sigma(8)
+
+  bracket = TodaBracket(
+    first=a,
+    second=b,
+    third=c,
+  )
+
+  assert bracket.first == a
+  assert bracket.second == b
+  assert bracket.third == c
+
+
+def test_toda_bracket_is_not_expression():
+  bracket = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+  )
+
+  assert not isinstance(
+    bracket,
+    Expression,
+  )
+
+
+def test_toda_bracket_structural_equality():
+  a = eta(3)
+  b = nu(4)
+  c = sigma(8)
+
+  left = TodaBracket(
+    first=a,
+    second=b,
+    third=c,
+  )
+  right = TodaBracket(
+    first=a,
+    second=b,
+    third=c,
+  )
+
+  assert left == right
+
+
+def test_toda_bracket_entry_order_is_structural():
+  a = eta(3)
+  b = nu(4)
+  c = sigma(8)
+
+  original = TodaBracket(
+    first=a,
+    second=b,
+    third=c,
+  )
+  reordered = TodaBracket(
+    first=a,
+    second=c,
+    third=b,
+  )
+
+  assert original != reordered
 
 
 
