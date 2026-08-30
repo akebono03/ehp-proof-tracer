@@ -18,6 +18,7 @@ from indeterminacy_rules import (
   coset_membership_implies_modulo_inference_rule,
   equality_implies_sign_indeterminacy_inference_rule,
   modulo_implies_coset_membership_inference_rule,
+  symbolic_odd_equality_implies_coefficient_indeterminacy_inference_rule,
 )
 from models import (
   AbelianGroup,
@@ -985,6 +986,377 @@ def test_modulo_coset_membership_bridge_reaches_fixed_point():
   )
 
   assert terminal_round.new_steps == ()
+
+
+def test_symbolic_odd_equality_implies_coefficient_indeterminacy():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+  gamma = sigma(8)
+
+  expression = Sum(
+    left=Multiple(
+      coefficient=k,
+      expression=beta,
+    ),
+    right=gamma,
+  )
+
+  equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=alpha,
+      rhs=expression,
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=k,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    symbolic_odd_equality_implies_coefficient_indeterminacy_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+      odd_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    CoefficientIndeterminacyStatement(
+      value=alpha,
+      expression=expression,
+      constraint=OddScalarStatement(
+        scalar=k,
+      ),
+    )
+  )
+
+
+def test_symbolic_odd_equality_to_coefficient_indeterminacy_requires_matching_scalar():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  ell = ScalarSymbol(
+    name="l",
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+  gamma = sigma(8)
+
+  equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=alpha,
+      rhs=Sum(
+        left=Multiple(
+          coefficient=k,
+          expression=beta,
+        ),
+        right=gamma,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=ell,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    symbolic_odd_equality_implies_coefficient_indeterminacy_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+      odd_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_symbolic_odd_equality_to_coefficient_indeterminacy_requires_symbolic_additive_form():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=alpha,
+      rhs=beta,
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=k,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    symbolic_odd_equality_implies_coefficient_indeterminacy_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+      odd_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_symbolic_odd_equality_to_coefficient_indeterminacy_does_not_normalize_sum_order():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+  gamma = sigma(8)
+
+  equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=alpha,
+      rhs=Sum(
+        left=gamma,
+        right=Multiple(
+          coefficient=k,
+          expression=beta,
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=k,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    symbolic_odd_equality_implies_coefficient_indeterminacy_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+      odd_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_symbolic_odd_equality_implies_coefficient_indeterminacy_preserves_provenance():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+  gamma = sigma(8)
+
+  equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=alpha,
+      rhs=Sum(
+        left=Multiple(
+          coefficient=k,
+          expression=beta,
+        ),
+        right=gamma,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=k,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    symbolic_odd_equality_implies_coefficient_indeterminacy_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+      odd_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.rule == ProofRule.INFERENCE
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    equality_step,
+    odd_step,
+  )
+
+
+def test_symbolic_odd_coefficient_indeterminacy_does_not_enumerate_candidates():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+  gamma = sigma(8)
+
+  equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=alpha,
+      rhs=Sum(
+        left=Multiple(
+          coefficient=k,
+          expression=beta,
+        ),
+        right=gamma,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=k,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    symbolic_odd_equality_implies_coefficient_indeterminacy_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        rule,
+      ),
+      (
+        equality_step,
+        odd_step,
+      ),
+    )
+  )
+
+  coefficient_statements = tuple(
+    step.conclusion
+    for step in result.steps
+    if isinstance(
+      step.conclusion,
+      CoefficientIndeterminacyStatement,
+    )
+  )
+
+  assert coefficient_statements == (
+    CoefficientIndeterminacyStatement(
+      value=alpha,
+      expression=Sum(
+        left=Multiple(
+          coefficient=k,
+          expression=beta,
+        ),
+        right=gamma,
+      ),
+      constraint=OddScalarStatement(
+        scalar=k,
+      ),
+    ),
+  )
+
+  assert not any(
+    isinstance(
+      step.conclusion,
+      Relation,
+    )
+    and step.conclusion.lhs == alpha
+    and step.conclusion.rhs
+    in (
+      Sum(
+        left=beta,
+        right=gamma,
+      ),
+      Sum(
+        left=Multiple(
+          coefficient=3,
+          expression=beta,
+        ),
+        right=gamma,
+      ),
+      Sum(
+        left=Multiple(
+          coefficient=5,
+          expression=beta,
+        ),
+        right=gamma,
+      ),
+    )
+    for step in result.steps
+  )
 
 
 
