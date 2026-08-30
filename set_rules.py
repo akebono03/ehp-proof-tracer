@@ -38,6 +38,35 @@ class SubgroupEqualityStatement:
   right: Subgroup
 
 
+@dataclass(frozen=True)
+class ImageSubgroupReference:
+  group_map: GroupMap
+
+  @property
+  def subgroup(
+    self,
+  ) -> Subgroup:
+    return self.group_map.image_subgroup()
+
+
+@dataclass(frozen=True)
+class KernelSubgroupReference:
+  group_map: GroupMap
+
+  @property
+  def subgroup(
+    self,
+  ) -> Subgroup:
+    return self.group_map.kernel_subgroup()
+
+
+SubgroupTerm = (
+  Subgroup
+  | ImageSubgroupReference
+  | KernelSubgroupReference
+)
+
+
 def kernel_membership_statement(
   element,
   group_map: GroupMap,

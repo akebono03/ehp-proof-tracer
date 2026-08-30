@@ -30,6 +30,8 @@ from proof import (
   run_inference_until_stable_with_history,
 )
 from set_rules import (
+  ImageSubgroupReference,
+  KernelSubgroupReference,
   MembershipStatement,
   SubgroupEqualityStatement,
   SubsetStatement,
@@ -2235,6 +2237,193 @@ def test_exactness_subgroup_equality_keeps_provenance_before_membership_collapse
     exactness_step,
   )
 
+
+def test_image_subgroup_reference():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  group_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  reference = ImageSubgroupReference(
+    group_map=group_map,
+  )
+
+  assert reference.group_map == group_map
+
+  assert (
+    reference.subgroup
+    == group_map.image_subgroup()
+  )
+
+  assert {
+    element.coefficients
+    for element in reference.subgroup.elements
+  } == {
+    (0,),
+    (2,),
+  }
+
+
+def test_kernel_subgroup_reference():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  group_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  reference = KernelSubgroupReference(
+    group_map=group_map,
+  )
+
+  assert reference.group_map == group_map
+
+  assert (
+    reference.subgroup
+    == group_map.kernel_subgroup()
+  )
+
+  assert {
+    element.coefficients
+    for element in reference.subgroup.elements
+  } == {
+    (0,),
+    (2,),
+  }
+
+
+def test_image_and_kernel_references_preserve_distinct_roles():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  image_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  kernel_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  image_reference = ImageSubgroupReference(
+    group_map=image_map,
+  )
+
+  kernel_reference = KernelSubgroupReference(
+    group_map=kernel_map,
+  )
+
+  assert (
+    image_reference.subgroup
+    == kernel_reference.subgroup
+  )
+
+  assert (
+    image_reference
+    != kernel_reference
+  )
+
+
+def test_role_aware_membership_statements_remain_distinct():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  image_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  kernel_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  alpha = eta(3)
+
+  image_reference = ImageSubgroupReference(
+    group_map=image_map,
+  )
+
+  kernel_reference = KernelSubgroupReference(
+    group_map=kernel_map,
+  )
+
+  image_membership = MembershipStatement(
+    element=alpha,
+    subgroup=image_reference,
+  )
+
+  kernel_membership = MembershipStatement(
+    element=alpha,
+    subgroup=kernel_reference,
+  )
+
+  assert (
+    image_reference.subgroup
+    == kernel_reference.subgroup
+  )
+
+  assert (
+    image_membership
+    != kernel_membership
+  )
+
+  knowledge = (
+    ProofStep(
+      conclusion=image_membership,
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    ProofStep(
+      conclusion=kernel_membership,
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+  )
+
+  assert len(
+    {
+      repr(step.conclusion)
+      for step in knowledge
+    }
+  ) == 2
 
 
 
