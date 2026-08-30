@@ -15,6 +15,7 @@ from mathematical input such as:
 - Freudenthal stable-range theorems
 - composition relations
 - generalized Hopf invariants
+- set / subgroup relations
 - Toda relations and Toda brackets
 - Steenrod operations
 - literature-backed facts
@@ -61,7 +62,8 @@ Completed foundations and theorem families:
 11. generalized Hopf-invariant reasoning,
 12. additive expression / additive-law reasoning,
 13. homomorphism reasoning for additive expressions,
-14. provenance and explicit inference-scope / termination boundaries.
+14. set / subgroup reasoning with role-aware image / kernel references,
+15. provenance and explicit inference-scope / termination boundaries.
 
 Current architecture:
 
@@ -69,6 +71,8 @@ Current architecture:
 homotopy / EHP domain rules
         ↓
 generic proof / inference engine
+        ↓
+proof-level set / subgroup statements
         ↓
 homotopy / EHP data layer
         ↓
@@ -99,6 +103,7 @@ capability.
 - Phase 11: generalized Hopf-invariant reasoning — completed
 - Phase 12: additive expression / additive reasoning — completed
 - Phase 13: homomorphism reasoning — completed
+- Phase 14: set / subgroup reasoning — completed
 
 ---
 
@@ -121,7 +126,7 @@ For:
 A --f--> B --g--> C
 ```
 
-exactness is represented by:
+exactness is represented algebraically by:
 
 ```text
 Im(f)=Ker(g)
@@ -305,9 +310,9 @@ y=x
 → y=0
 ```
 
-EHP-, ORDER-, Suspension-, Freudenthal-, composition-, Hopf-, additive-, and
-homomorphism-derived facts reconnect through this shared generic relation
-machinery where their semantics permit it.
+EHP-, ORDER-, Suspension-, Freudenthal-, composition-, Hopf-, additive-,
+homomorphism-, and subgroup-derived facts reconnect through shared generic
+reasoning where their semantics permit it.
 
 ---
 
@@ -481,631 +486,427 @@ fixed-point-safe.
 
 Phase 12 introduces the first proof-layer representation of additive structure.
 
-## Sum
-
-Binary sum:
+`Sum(left,right)` represents:
 
 ```text
 α+β
 ```
 
-is represented by:
+while preserving binary tree structure.
 
-```python
-Sum(
-  left=alpha,
-  right=beta,
-)
-```
-
-`Sum` preserves binary tree structure exactly.
-
-No flattening or canonical reordering is performed.
-
-## Additive inverse representation
-
-Phase 12 does not add a dedicated `Inverse` node.
-
-The canonical current representation is:
-
-```text
--α
-=
-Multiple(-1, α)
-```
-
-This is representation only; mathematical consequences are explicit rules.
-
-## Multiple / Sum boundary
-
-The following are intentionally structurally distinct:
-
-```text
-Multiple(2, α)
-Sum(α, α)
-```
-
-Likewise:
-
-```text
-Zero()
-Multiple(0, α)
-```
-
-are structurally distinct.
-
-No automatic `Multiple → Sum` normalization is performed.
-
-## Zero-addition structural boundary
-
-The expressions:
-
-```text
-α+0
-0+α
-```
-
-are representable and remain structurally distinct from `α`.
-
-Phase 12 does not add constructor simplification:
-
-```text
-α+0 → α
-0+α → α
-```
-
-and does not yet add a separate zero-identity theorem family.
-
-## Additive inverse rule
-
-Phase 12 adds:
-
-```text
-α+(-α)=0
-```
-
-as an explicit domain inference rule.
-
-The conclusion is a generic `RelationType.ZERO`.
-
-The expression itself remains a `Sum`; it is not normalized into `Zero()`.
-
-## Commutativity
-
-Phase 12 adds:
-
-```text
-α+β = β+α
-```
-
-as an explicit `RelationType.EQUALITY`.
-
-The two `Sum` objects remain structurally distinct.
-
-Reverse equality is handled by existing generic equality symmetry.
-
-## Associativity
-
-Phase 12 adds:
-
-```text
-(α+β)+γ = α+(β+γ)
-```
-
-as an explicit `RelationType.EQUALITY`.
-
-The left-associated and right-associated trees remain structurally distinct.
-
-Reverse reassociation is handled by existing generic equality symmetry.
-
-## ORDER bridge
-
-Phase 12 retains the Phase 7 ORDER semantics:
-
-```text
-ord(α)=n
-→ nα=0
-```
-
-using `Multiple(n, α)`.
-
-For the first additive bridge, Phase 12 adds only:
-
-```text
-α+α = 2α
-```
-
-as an explicit equality relation.
-
-This supports:
-
-```text
-ord(α)=2
-↓
-2α=0
-```
-
-together with:
-
-```text
-α+α=2α
-```
-
-and generic ZERO propagation:
-
-```text
-α+α=0
-```
-
-General `nα ↔ repeated Sum` expansion is not implemented.
-
-## Representative scenario
-
-The Phase 12 representative scenario verifies coexistence of:
-
-```text
-additive inverse
-commutativity
-associativity
-ORDER
-Multiple / repeated-Sum bridge
-generic equality symmetry
-generic equality transitivity
-generic ZERO propagation
-```
-
-in one inference environment.
-
-Representative branches include:
-
-```text
-ord(α)=2
-↓
-2α=0
-α+α=2α
-↓
-α+α=0
-```
-
-```text
-α+(-α)=0
-α+(-α)=(-α)+α
-↓
-(-α)+α=0
-```
-
-and reassociation / commutation chains using generic equality closure.
-
-The finite representative scenario reaches:
-
-```text
-FIXED_POINT
-```
-
-## Provenance
-
-Representative Phase 12 conclusions preserve:
-
-```text
-ProofRule.INFERENCE
-inference_rule
-premises
-```
-
-so that ORDER-derived, additive-inverse-derived, commutativity-derived,
-associativity-derived, and generic-relation-derived facts remain traceable.
-
-## Normalization boundary
-
-Phase 12 formally preserves:
-
-```text
-α+β                    !=structural β+α
-(α+β)+γ                !=structural α+(β+γ)
-2α                     !=structural α+α
-α+0                    !=structural α
-0+α                    !=structural α
-```
-
-Mathematical equivalence is represented by explicit theorem relations.
-
-No theorem-aware canonical expression equality is added.
-
-## Inference-scope / termination boundary
-
-Current additive rules are concrete rule factories, for example:
-
-```text
-additive_inverse_inference_rule(alpha)
-sum_commutativity_inference_rule(alpha, beta)
-sum_associativity_inference_rule(alpha, beta, gamma)
-double_equals_repeated_sum_inference_rule(alpha)
-```
-
-For a finite concrete expression set, additive equality / ZERO closure can
-reach a genuine fixed point through ordinary duplicate rejection.
-
-Active rule scope controls what is derivable.
-
-For example:
-
-```text
-bridge only
-→ α+α=2α
-```
-
-does not derive:
-
-```text
-2α=0
-```
-
-without the ORDER rule, and does not derive:
-
-```text
-α+α=0
-```
-
-without ZERO propagation.
-
-Phase 12 does not introduce arbitrary expression enumeration, recursive sum
-normalization, or general repeated-sum expansion.
-
----
-
-# Phase 12 completion boundary
-
-Phase 12 is complete because the project can now represent and reason about a
-minimal additive structure while preserving the syntax / theorem separation.
-
-Completion means:
-
-1. `Sum` is a first-class structured expression.
-2. nested sums are representable.
-3. operand order remains structural.
-4. association remains structural.
-5. `Multiple` remains distinct from repeated `Sum`.
-6. additive inverse uses `Multiple(-1, α)`.
-7. zero-addition forms remain lossless structural expressions.
-8. `α+(-α)=0` is an explicit rule.
-9. commutativity is an explicit equality rule.
-10. associativity is an explicit equality rule.
-11. `α+α=2α` bridges additive syntax to existing ORDER reasoning.
-12. `ord(α)=2 → 2α=0 → α+α=0` works through generic ZERO propagation.
-13. additive rules coexist in one representative fixed-point scenario.
-14. provenance is preserved end-to-end.
-15. normalization boundaries are regression-fixed.
-16. active rule scope controls additive derivation.
-17. no additive-specific branch is added to the generic inference engine.
-18. the full regression suite passes.
-
-Phase 12 completion full suite:
-
-```text
-809 passed in 62.32s
-```
-
----
-
-
-# Phase 13: Homomorphism reasoning
-
-Phase 13 introduces a minimal proof-expression representation for applying a
-generic map to an expression and then adds additive homomorphism laws as
-explicit theorem rules.
-
-## Map identity and application
-
-A generic map identity is represented by:
-
-```python
-MapSymbol(
-  name="f",
-)
-```
-
-A map application:
-
-```text
-f(α)
-```
-
-is represented by:
-
-```python
-MapApplication(
-  map=f,
-  expression=alpha,
-)
-```
-
-`MapSymbol` is kept separate from the algebra-layer `GroupMap`.
-
-```text
-GroupMap
-=
-computational algebra map
-
-MapSymbol / MapApplication
-=
-proof-expression syntax
-```
-
-Existing special-purpose expressions are not replaced. In particular:
-
-```text
-Suspension(α)
-```
-
-remains the existing structural representation of `Eα`.
-
-## Homomorphism statement
-
-The theorem-level fact:
-
-```text
-f is a homomorphism
-```
-
-is represented by:
-
-```python
-HomomorphismStatement(
-  map=f,
-)
-```
-
-Map existence does not imply homomorphism status.
-
-```text
-MapSymbol("f")
-↛
-HomomorphismStatement(f)
-```
-
-The homomorphism fact must be present or derived explicitly.
-
-## Addition preservation
-
-For an active concrete pair `α, β`:
-
-```text
-Homomorphism(f)
-↓
-f(α+β)=f(α)+f(β)
-```
-
-The two sides remain structurally distinct:
-
-```text
-MapApplication(f, Sum(α,β))
-!=structural
-Sum(MapApplication(f,α), MapApplication(f,β))
-```
-
-Their mathematical equality is an explicit `RelationType.EQUALITY`.
-
-## Zero preservation
-
-Phase 13 adds:
-
-```text
-Homomorphism(f)
-↓
-f(0)=0
-```
-
-as a generic `RelationType.ZERO`.
-
-It also adds the concrete known-zero bridge:
-
-```text
-Homomorphism(f)
-x=0
-↓
-f(x)=0
-```
-
-This allows ZERO facts derived by other theorem families to reconnect to
-homomorphism reasoning.
-
-The expression:
-
-```text
-f(0)
-```
-
-is not structurally normalized to `Zero()`.
-
-## Inverse preservation
-
-Using the Phase 12 representation:
+The additive inverse is represented by:
 
 ```text
 -α = Multiple(-1, α)
 ```
 
-Phase 13 derives:
+The following remain structurally distinct:
 
 ```text
-Homomorphism(f)
-↓
-f(-α)=-f(α)
+2α
+α+α
 ```
-
-as an explicit equality.
-
-No dedicated inverse AST node is introduced.
-
-## Multiple preservation
-
-For a concrete integer coefficient `n`:
 
 ```text
-Homomorphism(f)
-↓
-f(nα)=n f(α)
+0
+0α
 ```
-
-is represented using the existing `Multiple`.
-
-The rule accepts ordinary integer coefficients, including negative values.
-
-Phase 13 does not normalize:
 
 ```text
-0α → 0
-1α → α
+α+0
+α
 ```
 
-and does not introduce symbolic scalar variables.
-
-## Suspension / E integration
-
-Phase 13 defines a generic proof-expression map identity for Suspension:
+Mathematical laws are explicit rules:
 
 ```text
-SUSPENSION_MAP = MapSymbol("E")
+α+(-α)=0
+α+β=β+α
+(α+β)+γ=α+(β+γ)
+α+α=2α
 ```
 
-and derives:
-
-```text
-Homomorphism(E)
-```
-
-Generic homomorphism additivity can then produce:
-
-```text
-MapApplication(E, α+β)
-=
-MapApplication(E, α)
-+
-MapApplication(E, β)
-```
-
-A dedicated bridge reconnects this generic representation to the existing
-Suspension expression:
-
-```text
-Suspension(α+β)
-=
-Suspension(α)+Suspension(β)
-```
-
-This does not replace `Suspension(expression)` and does not merge it with
-Freudenthal's theorem-level `SuspensionMapStatement`.
-
-## H / P theorem scope
-
-The `H` appearing in the EHP sequence and the generalized Hopf invariant
-represented by `HopfInvariantStatement` refer to the same generalized Hopf map
-in the intended mathematical semantics.
-
-However, the current proof-expression `MapSymbol` is still untyped: it does
-not carry domain / codomain or ambient homotopy-group information.
-
-Therefore Phase 13 does not activate unrestricted:
-
-```text
-Homomorphism(H)
-Homomorphism(P)
-```
-
-for arbitrary proof expressions.
-
-Existing `HopfInvariantStatement` and Phase 11 Hopf rules remain unchanged.
-
-## ORDER integration
-
-Phase 13 reconnects element-order reasoning to homomorphism reasoning.
-
-Representative chain:
+The ORDER bridge supports:
 
 ```text
 ord(α)=2
 ↓
 2α=0
-```
 
-together with:
-
-```text
-Homomorphism(f)
+α+α=2α
 ↓
-f(2α)=2f(α)
+α+α=0
 ```
 
-and:
+The finite representative Phase 12 rule family reaches `FIXED_POINT`.
+
+---
+
+# Phase 13: Homomorphism reasoning
+
+Generic map application is represented by:
 
 ```text
-Homomorphism(f)
-2α=0
-↓
-f(2α)=0
+MapApplication(f, α)
 ```
 
-then existing equality symmetry and generic ZERO propagation give:
+and homomorphism status is explicit:
 
 ```text
-2f(α)=0
+HomomorphismStatement(f)
 ```
 
-Important theorem boundary:
+Map existence alone does not imply homomorphism status.
 
-```text
-ord(α)=2
-→ 2f(α)=0
-```
-
-does not imply:
-
-```text
-ord(f(α))=2
-```
-
-because the image may have smaller order, including zero.
-
-## Representative scenario
-
-The Phase 13 representative scenario runs the following families in one
-knowledge state:
-
-```text
-generic homomorphism fact
-addition preservation
-zero preservation
-inverse preservation
-multiple preservation
-known-ZERO preservation
-ORDER reasoning
-generic equality symmetry
-generic ZERO propagation
-E homomorphism fact
-generic E additivity
-Suspension additivity bridge
-```
-
-Representative conclusions include:
+Implemented laws include:
 
 ```text
 f(α+β)=f(α)+f(β)
 f(0)=0
 f(-α)=-f(α)
-f(2α)=2f(α)
-2f(α)=0
-E(α+β)=Eα+Eβ
+f(nα)=n f(α)
 ```
 
-The finite representative scenario reaches:
+Known ZERO preservation reconnects existing zero facts to map reasoning.
+
+For Suspension / `E`, a dedicated bridge reconnects generic map additivity to
+the existing `Suspension(expression)` syntax.
+
+The project does not automatically activate unrestricted untyped
+`Homomorphism(H)` or `Homomorphism(P)`.
+
+ORDER integration derives:
 
 ```text
-FIXED_POINT
+ord(α)=n
+→ n f(α)=0
 ```
+
+but not exact order preservation:
+
+```text
+ord(f(α))=n
+```
+
+The finite concrete Phase 13 rule family reaches `FIXED_POINT`.
+
+---
+
+# Phase 14: Set / subgroup reasoning
+
+Phase 14 introduces first-class proof-level set / subgroup statements while
+reusing algebra-layer subgroup values.
+
+## Membership
+
+Membership is represented by:
+
+```text
+MembershipStatement(
+  element=α,
+  subgroup=A,
+)
+```
+
+with intended notation:
+
+```text
+α ∈ A
+```
+
+## Subset
+
+Containment is represented by:
+
+```text
+SubsetStatement(
+  subset=A,
+  superset=B,
+)
+```
+
+with intended notation:
+
+```text
+A ⊆ B
+```
+
+Basic propagation:
+
+```text
+α ∈ A
+A ⊆ B
+↓
+α ∈ B
+```
+
+## Subgroup equality
+
+Proof-level subgroup equality is represented by:
+
+```text
+SubgroupEqualityStatement(
+  left=A,
+  right=B,
+)
+```
+
+Membership transfers across explicit equality:
+
+```text
+α ∈ A
+A = B
+↓
+α ∈ B
+```
+
+and in the reverse direction as well.
+
+## Image / kernel references
+
+A central Phase 14 design decision is that image and kernel roles are not
+identified merely because their computed subgroup values happen to be equal.
+
+Role-aware references are:
+
+```text
+ImageSubgroupReference(group_map=f)
+KernelSubgroupReference(group_map=g)
+```
+
+Both expose the existing algebra-layer subgroup through:
+
+```text
+reference.subgroup
+```
+
+but the references themselves remain distinct terms.
+
+Therefore:
+
+```text
+ImageSubgroupReference(E).subgroup
+==
+KernelSubgroupReference(H).subgroup
+```
+
+does not imply structural identity:
+
+```text
+ImageSubgroupReference(E)
+==
+KernelSubgroupReference(H)
+```
+
+This distinction preserves theorem provenance.
+
+## SubgroupTerm
+
+The proof-level subgroup term type is:
+
+```text
+SubgroupTerm
+=
+Subgroup
+| ImageSubgroupReference
+| KernelSubgroupReference
+```
+
+`MembershipStatement`, `SubsetStatement`, and `SubgroupEqualityStatement`
+accept `SubgroupTerm`.
+
+Raw algebra-layer `Subgroup` remains supported for existing APIs and tests.
+
+## Kernel membership bridge
+
+The helper:
+
+```text
+kernel_membership_statement(
+  element=α,
+  group_map=f,
+)
+```
+
+constructs membership in:
+
+```text
+KernelSubgroupReference(f)
+```
+
+rather than collapsing directly to the raw subgroup value.
+
+The theorem bridge is:
+
+```text
+α ∈ Ker(f)
+↓
+f(α)=0
+```
+
+and conversely:
+
+```text
+f(α)=0
+↓
+α ∈ Ker(f)
+```
+
+The proof-layer map symbol remains explicit, so the algebra-layer `GroupMap`
+and proof-expression `MapSymbol` are not silently identified by name.
+
+## Image membership bridge
+
+The helper:
+
+```text
+image_membership_statement(
+  element=α,
+  group_map=f,
+)
+```
+
+constructs membership in:
+
+```text
+ImageSubgroupReference(f)
+```
+
+so image provenance is retained even when another map has a kernel with the
+same computed subgroup value.
+
+## Exactness bridge
+
+For consecutive maps:
+
+```text
+A --f--> B --g--> C
+```
+
+exactness now produces the role-aware proof statement:
+
+```text
+ImageSubgroupReference(f)
+=
+KernelSubgroupReference(g)
+```
+
+rather than collapsing immediately to equality of raw `Subgroup` values.
+
+This enables:
+
+```text
+g(α)=0
+↓
+α ∈ Ker(g)
+
+Exactness(f,g)
+↓
+Im(f)=Ker(g)
+
+↓ subgroup equality membership propagation
+
+α ∈ Im(f)
+```
+
+while preserving the distinction between image role and kernel role.
+
+## Equality / subset closure
+
+Phase 14 adds subgroup-relation closure:
+
+```text
+A = B
+→ B = A
+```
+
+```text
+A = B
+B = C
+→ A = C
+```
+
+```text
+A ⊆ B
+B ⊆ C
+→ A ⊆ C
+```
+
+## Equality / subset interconnection
+
+Equality implies containment:
+
+```text
+A = B
+→ A ⊆ B
+```
+
+Together with equality symmetry:
+
+```text
+A = B
+→ B = A
+→ B ⊆ A
+```
+
+Mutual containment implies subgroup equality:
+
+```text
+A ⊆ B
+B ⊆ A
+→ A = B
+```
+
+No theorem is inferred merely from equality of the underlying raw subgroup
+values.
+
+## Representative scenario
+
+The Phase 14 representative scenario combines:
+
+```text
+Exactness
+mapped ZERO
+kernel membership
+image membership
+role-aware subgroup equality
+subgroup equality symmetry / transitivity
+subset transitivity
+equality → subset
+mutual subset → equality
+membership transport
+```
+
+Representative chain:
+
+```text
+Exactness(E,H)
+↓
+Im(E)=Ker(H)
+
+H(α)=0
+↓
+α∈Ker(H)
+
+Im(E)=Ker(H)
++
+α∈Ker(H)
+↓
+α∈Im(E)
+```
+
+The same equality also produces:
+
+```text
+Im(E)⊆Ker(H)
+Ker(H)⊆Im(E)
+```
+
+while preserving separate role-aware terms.
 
 ## Provenance
 
-Phase 13 representative conclusions preserve:
+Representative derived steps retain:
 
 ```text
 ProofRule.INFERENCE
@@ -1113,89 +914,91 @@ inference_rule
 premises
 ```
 
-The ORDER branch and homomorphism branch remain separate until the
-known-ZERO preservation rule legitimately merges them.
-
-The E / Suspension branch remains independent of unrelated `f` / ORDER
-premises.
-
-## Inference-scope / termination boundary
-
-Current homomorphism rules are concrete rule factories.
-
-Examples include concrete choices of:
+In particular:
 
 ```text
-α, β
-n, α
-known-zero expression x
+Exactness(E,H)
+↓
+Im(E)=Ker(H)
 ```
 
-Active rule scope controls derivability.
-
-Phase 13 does not introduce:
+is traceable to the exactness premise, while:
 
 ```text
-arbitrary expression enumeration
-recursive map distribution
-universal nested-expression rewriting
-automatic map congruence x=y → f(x)=f(y)
-automatic Homomorphism(H)
-automatic Homomorphism(P)
-exact-order preservation under arbitrary homomorphisms
+H(α)=0
+↓
+α∈Ker(H)
 ```
 
-For the finite concrete Phase 13 rule family, ordinary duplicate rejection
-reaches a genuine `FIXED_POINT`.
+is traceable to the mapped-zero premise.
 
----
+The final image-membership fact uses those intermediate proof steps as direct
+premises rather than collapsing the dependency graph.
 
-# Phase 13 completion boundary
+## Theorem boundary
 
-Phase 13 is complete because the project can now express a generic map
-application and use explicit homomorphism facts to derive the minimal additive
-laws needed by the current proof graph.
-
-Completion means:
-
-1. `MapSymbol` represents generic map identity.
-2. `MapApplication` represents `f(α)` structurally.
-3. map application remains separate from algebra-layer `GroupMap`.
-4. `HomomorphismStatement(f)` is a first-class theorem statement.
-5. map existence alone does not imply homomorphism status.
-6. addition preservation is an explicit equality theorem.
-7. zero preservation produces generic ZERO.
-8. additive inverse preservation uses `Multiple(-1, α)`.
-9. integer multiple preservation uses existing `Multiple`.
-10. known ZERO facts can be mapped to ZERO by a known homomorphism.
-11. generic `E` homomorphism reasoning reconnects to existing `Suspension`.
-12. Freudenthal `SuspensionMapStatement` remains a separate theorem-level
-    representation.
-13. `H` is semantically the generalized Hopf map already represented by
-    `HopfInvariantStatement`, but unrestricted untyped `Homomorphism(H)` is
-    not activated.
-14. unrestricted `Homomorphism(P)` is not activated.
-15. ORDER + homomorphism reasoning derives annihilation of the image.
-16. annihilation is not confused with exact order preservation.
-17. representative branches coexist in one inference environment.
-18. provenance is preserved through branch / merge reasoning.
-19. active concrete rule scope is regression-fixed.
-20. finite concrete Phase 13 closure reaches `FIXED_POINT`.
-21. no homomorphism-specific branch is added to the generic inference engine.
-22. the full regression suite passes.
-
-Phase 13 completion full suite:
+The following is intentionally not valid:
 
 ```text
-856 passed in 62.31s
+Im(E).subgroup == Ker(H).subgroup
+↓
+Im(E)=Ker(H)
 ```
+
+Underlying algebraic value equality is not a substitute for a theorem-level
+role bridge.
+
+If the Exactness rule is absent, then:
+
+```text
+H(α)=0
+→ α∈Ker(H)
+```
+
+does not imply:
+
+```text
+α∈Im(E)
+```
+
+even when the computed image and kernel subgroup values happen to coincide.
+
+## Termination boundary
+
+Equality / subset rules contain logical cycles such as:
+
+```text
+A=B
+→ A⊆B
+
+A=B
+→ B=A
+→ B⊆A
+
+A⊆B
+B⊆A
+→ A=B
+```
+
+but they do not generate unbounded new structural terms.
+
+For a finite set of `SubgroupTerm` values, ordinary duplicate rejection reaches
+a genuine:
+
+```text
+FIXED_POINT
+```
+
+This is distinct from structural families such as repeated Suspension that can
+increase expression depth indefinitely.
+
+The generic inference engine remains unchanged.
 
 ---
 
 # Current limitations
 
 - Duplicate identity uses ordinary Python equality.
-- There is no theorem-aware canonical normalization.
 - The knowledge state keeps the first accepted `ProofStep` for an equal
   conclusion; alternative applications remain in execution traces.
 - Pattern matching is structured but not fully general recursive unification.
@@ -1219,8 +1022,12 @@ Phase 13 completion full suite:
 - There is no first-class `NONZERO` relation type.
 - General inverse-map construction / unrestricted desuspension are not
   implemented.
-- Element-level set / subgroup / image / kernel membership is not first-class.
-- `H(x)=0` cannot yet produce an explicit `x ∈ Ker(H)=Im(E)` fact or witness.
+- Image membership currently records membership in an image role; explicit
+  preimage / witness generation is not implemented.
+- Subgroup equality / subset reflexivity is not generated as a premise-free
+  theorem family.
+- General set complements, unions, intersections, arbitrary set-valued
+  expressions, cosets, and modulo relations are not yet first-class.
 - Hopf additivity is not implemented.
 - `±α` is not yet a first-class indeterminacy representation.
 - Toda brackets, Steenrod operations, double EHP, and odd-primary-specific
@@ -1236,25 +1043,24 @@ Run the full project suite with:
 python -m pytest -v
 ```
 
-Phase 13 completion:
+Phase 14 completion:
 
 ```text
-856 passed in 62.31s
+921 passed in 62.89s
 ```
 
 Useful focused suites include:
 
 ```powershell
-python -m pytest tests/test_expression.py -v
+python -m pytest tests/test_set_rules.py -v
 ```
 
 ```powershell
-python -m pytest tests/test_relation_rules.py -v
+python -m pytest tests/test_stable_rules.py::test_phase9_inference_scope_termination_and_theorem_boundary -v
 ```
 
-```powershell
-python -m pytest tests/test_homomorphism_rules.py -v
-```
+The Phase 9 representative termination / theorem-boundary regression remains
+green at Phase 14 completion.
 
 ---
 
@@ -1267,6 +1073,56 @@ python -m pytest tests/test_homomorphism_rules.py -v
 
 Historical statements in the development log describe the state at that time.
 Current behavior is defined by the latest README and design documents.
+
+---
+
+# Phase 14 completion boundary
+
+Phase 14 is complete because proof-level subgroup reasoning now supports:
+
+```text
+α ∈ A
+A ⊆ B
+A = B
+α ∈ Ker(f)
+α ∈ Im(f)
+```
+
+with role-aware image / kernel identity, Exactness bridging, membership
+propagation, relation closure, provenance, and fixed-point termination.
+
+Completion means:
+
+1. `MembershipStatement` is first-class.
+2. `SubsetStatement` is first-class.
+3. `SubgroupEqualityStatement` is first-class.
+4. raw `Subgroup` remains supported.
+5. `ImageSubgroupReference` preserves image role identity.
+6. `KernelSubgroupReference` preserves kernel role identity.
+7. `SubgroupTerm` unifies raw / image / kernel subgroup terms.
+8. membership propagates through subset.
+9. membership propagates through explicit subgroup equality.
+10. `f(α)=0 ↔ α∈Ker(f)` is represented by explicit rule bridges.
+11. image membership has a role-aware helper.
+12. Exactness derives `Im(f)=Ker(g)` as role-aware equality.
+13. same underlying subgroup value does not collapse role identity.
+14. subgroup equality symmetry is implemented.
+15. subgroup equality transitivity is implemented.
+16. subset transitivity is implemented.
+17. subgroup equality implies subset.
+18. mutual subset implies subgroup equality.
+19. equality / subset cycles reach finite `FIXED_POINT`.
+20. representative Exactness + membership + closure scenario is regression-fixed.
+21. provenance is retained through intermediate role-aware facts.
+22. removing Exactness removes the image/kernel theorem bridge.
+23. the generic inference engine remains unchanged.
+24. the full regression suite passes.
+
+Phase 14 completion full suite:
+
+```text
+921 passed in 62.89s
+```
 
 ---
 
@@ -1290,41 +1146,41 @@ Indeterminacy
 Toda bracket
 ```
 
-Phase 12 completed the minimal additive-expression layer and Phase 13 completed
-the minimal homomorphism layer.
+Phases 12, 13, and 14 have completed the minimal additive-expression,
+homomorphism, and set/subgroup layers.
 
-Therefore the natural next Phase is:
-
-```text
-Phase 14: Set / subgroup reasoning
-```
-
-The next mathematical needs are expected to include first-class statements such
-as:
+The natural next Phase is therefore:
 
 ```text
-α ∈ A
-A ⊆ B
-α ∈ Ker(f)
-α ∈ Im(f)
+Phase 15: Coset / modulo reasoning
 ```
 
-and basic inference such as:
+Likely representation needs include forms such as:
 
 ```text
-α ∈ A
-A ⊆ B
-↓
-α ∈ B
+α mod A
+α + A
+α ≡ β mod A
 ```
 
-The design should reconnect proof-level membership to the existing algebra-layer
-`Subgroup`, kernel, and image structures without duplicating those mathematical
-objects unnecessarily.
+and theorem-level statements connecting differences or sums to subgroup
+membership.
 
-Phase 14 should not yet introduce cosets, modulo relations, symbolic scalar
-constraints, indeterminacy, or Toda brackets unless an actual set/subgroup rule
-requires them.
+Phase 15 should preserve the Phase 14 distinction between:
+
+```text
+underlying algebraic value
+```
+
+and:
+
+```text
+proof-level mathematical role / provenance
+```
+
+and should not yet introduce symbolic scalar constraints, general
+indeterminacy, or Toda brackets unless an actual coset/modulo rule requires
+them.
 
 The generic inference engine should remain unchanged unless a concrete
-set/subgroup theorem demonstrates a missing generic capability.
+coset/modulo theorem demonstrates a missing generic capability.
