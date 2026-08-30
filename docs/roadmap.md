@@ -11,7 +11,15 @@
 この `docs/roadmap.md` は、まだ未実装の機能を含む将来構想と、
 それらの依存関係・実装優先順位を整理するための文書とする。
 
-Phase 19 完了時点では、以下の基盤が実装済みである.
+この文書に記載された項目は、記載されているだけでは実装済みを意味しない。
+各機能は必要な Phase において個別に仕様化し、
+既存 API と generic inference engine を不必要に壊さない最小変更で導入する。
+
+---
+
+# 2. Phase 20 完了時点の実装基盤
+
+Implemented foundations:
 
 ```text
 Abelian group calculation
@@ -28,47 +36,19 @@ Coset / modulo reasoning
 Symbolic scalar constraints
 Indeterminacy
 Toda bracket minimum representation
-Toda bracket membership representation
-Toda bracket definedness from zero compositions
-Toda bracket membership theorem bridge
-Toda bracket membership theorem bridge from an actual literature fact
+Toda bracket membership
+Toda bracket definedness
+Toda membership theorem bridge
+Literature-backed Toda membership
+Toda bracket index
+IteratedSuspension
+IndexedTodaBracketData
+symbolic iterated-suspension exponent
+symbolic Toda index
+indexed Toda structural consistency predicate
 ```
 
-したがって、次の直接的な開発対象候補は:
-
-```text
-Phase 20
-indexed unstable Toda notation
-```
-
-である。
-
-その後、
-
-```text
-Toda bracket membership / value
-indexed unstable Toda notation
-typed homotopy elements
-stable homotopy groups
-structured generators
-iterated suspension
-theorem representation
-knowledge-table integration
-stable Toda brackets
-higher Toda brackets
-```
-
-へ必要に応じて進む。
-
-この文書に記載された項目は、記載されているだけでは実装済みを意味しない。
-各機能は必要な Phase において個別に仕様化し、
-既存 API と generic inference engine を不必要に壊さない最小変更で導入する。
-
----
-
-# 2. 現在の実装基盤
-
-Phase 17 完了時点で、proof / inference layer には次の主要構造がある。
+Current expression structures:
 
 ```text
 Expression
@@ -78,85 +58,24 @@ Expression
 ├── Sum
 ├── Composition
 ├── MapApplication
-└── Suspension
+├── Suspension
+└── IteratedSuspension
 ```
 
-加えて:
+Separate structures:
 
 ```text
 MapSymbol
 ScalarSymbol
+TodaBracket
+IndexedTodaBracketData
 ```
 
-Proof-level statement / relation:
+Current representative indexed Toda form:
 
 ```text
-Relation
-ProofStep
-InferenceRule
-MembershipStatement
-SubsetStatement
-SubgroupEqualityStatement
-ModuloStatement
-CosetEqualityStatement
-OddScalarStatement
-EvenScalarStatement
-ScalarCongruenceStatement
-CosetMembershipStatement
-SignIndeterminacyStatement
-CoefficientIndeterminacyStatement
+{a,E^t b,E^t c}_t
 ```
-
-Current examples:
-
-```text
-α+β
--α
-nα
-kβ
-α=kβ+γ
-
-f(α+β)=f(α)+f(β)
-
-α∈A
-A⊆B
-A=B
-
-α≡β mod A
-α+A
-α∈β+A
-
-k odd
-k even
-k≡1 mod 2
-
-x=±α
-x∈{kβ+γ | k odd}
-```
-
-Phase 17 representative integration:
-
-```text
-x=kβ+γ
-k odd
-x≡δ mod A
-↓
-k≡1 mod 2
-CoefficientIndeterminacyStatement
-SignIndeterminacyStatement
-CosetMembershipStatement
-ModuloStatement
-↓
-FIXED_POINT
-```
-
-without:
-
-```text
-x=δ
-```
-
-and without concrete candidate enumeration.
 
 ---
 
@@ -169,436 +88,387 @@ actual mathematical need
 ↓
 minimal representation
 ↓
-domain InferenceRule
+domain rule if needed
 ↓
 existing generic engine
 ```
 
-完全な symbolic algebra system、完全な theorem prover、完全な higher Toda
-system を先に実装しない。
+完全な theorem prover / symbolic algebra / higher Toda system を先に実装しない。
 
-## 3.2 不定性を消さずに保持する
-
-Implemented Phase 17 forms:
+## 3.2 structural syntax と theorem semantics を分離する
 
 ```text
-x=±α
-x≡β mod A
-x∈β+A
-x∈{kβ+γ | k odd}
-```
-
-値が未確定でも、判明している制約を first-class knowledge として保持する。
-
-## 3.3 candidate enumeration を避ける
-
-```text
-k odd
-```
-
-から:
-
-```text
-1,3,5,...
-```
-
-を無限列挙しない。
-
-```text
-x∈β+A
-```
-
-から coset element を列挙しない。
-
-Toda bracket でも同じ原則を維持する。
-
-## 3.4 数学的対象と表示 notation を分離する
-
-```text
-Eν'
-```
-
-は generator name に operation を埋め込まず:
-
-```text
-Suspension(ν')
-```
-
-として扱う。
-
-```text
-8ι_7
-```
-
-は:
-
-```text
-Multiple(8,ι_7)
-```
-
-として扱う。
-
-## 3.5 mathematical applicability と active inference scope を分離する
-
-数学的に正しい theorem でも、常に無制限に生成しない。
-
-```text
-mathematical applicability
+representable
 ≠
-active inference scope
+mathematically valid
 ```
 
-## 3.6 fixed-point termination を壊さない
-
-必要に応じて:
-
 ```text
-goal-directed reasoning
-bounded execution
-staged execution
-explicit active scope
-```
-
-を利用する。
-
----
-
-# 4. Phase 18: Toda bracket minimum representation
-
-## 4.1 目的
-
-Phase 18 は Toda bracket を初めて first-class に表現する。
-
-最初の原則:
-
-```text
-bracket input structure
+structurally consistent
 ≠
-bracket value
+theorem applicable
 ```
 
-Toda bracket を:
+Phase 20 の `is_consistent()` は structural consistency のみ扱う。
+
+## 3.3 不定性を消さない
 
 ```text
-TodaBracket(...) -> Expression
-```
-
-という一意値を返す関数として設計しない。
-
-## 4.2 最初の actual notation
-
-最初の対象候補:
-
-```text
-{a,b,c}
-```
-
-Three-fold unstable bracket を最小 actual example とする。
-
-必要であれば次に:
-
-```text
-{a,E^t b,E^t c}_t
-```
-
-へ拡張する。
-
-## 4.3 set-valued semantics
-
-Toda bracket は一般に集合値・不定性を持つ。
-
-したがって将来的な statement は:
-
-```text
-x ∈ {a,b,c}
-```
-
-や:
-
-```text
-{a,b,c} ⊆ x+A
-```
-
-のような形を候補とする。
-
-Phase 17 の indeterminacy infrastructure を最大限再利用する。
-
-## 4.4 no universal set hierarchy first
-
-Phase 18-1 でいきなり:
-
-```text
-GeneralSetExpression
-GeneralCandidateFamily
-UniversalIndeterminacy
-```
-
-を作らない。
-
-Actual bracket example から必要な minimal representation を決める。
-
-## 4.5 stable / unstable notation
-
-次を同一視しない:
-
-```text
-{a,b,c}
-<a,b,c>
-```
-
-Stable bracket は独立した stable context を必要とする可能性が高い。
-
----
-
-# 5. Indexed Unstable Toda Bracket
-
-## 5.1 notation
-
-Toda の記法:
-
-```text
-{a,E^t b,E^t c}_t
-```
-
-の下付き `t` を表示 decoration として捨てない。
-
-候補:
-
-```text
-TodaBracket(
-  entries=(...),
-  index=t,
-)
-```
-
-## 5.2 suspension exponent と bracket index
-
-```text
-E^t b
-```
-
-の `t` と:
-
-```text
-{...}_t
-```
-
-の `t` は、notation 上同じ記号でも内部では別フィールドとして保持する。
-
-Theorem が一致を要求するときに explicit side condition で接続する。
-
-## 5.3 IteratedSuspension
-
-Current `Suspension` の nested application で concrete iteration は表せるが、
-symbolic exponent:
-
-```text
-E^t α
-```
-
-はまだ first-class ではない。
-
-Actual indexed bracket が要求する Phase で:
-
-```text
-IteratedSuspension
-```
-
-または同等の minimal structure を検討する。
-
-Phase 18 の最初の subphase で先取りしない。
-
----
-
-# 6. Toda Bracket Membership
-
-目標例:
-
-```text
-μ_3 ∈ {η_3, Eν', 8ι_7, ν_7}
-```
-
-この notation の bracket order / index / stem semantics は actual literature
-example と照合して確定する。
-
-Important:
-
-```text
-entry count
-≠
-automatically bracket order
-```
-
-とし、記法だけから意味を決め打ちしない。
-
-Possible representation:
-
-```text
-TodaBracketValueStatement
-```
-
-または:
-
-```text
-MembershipStatement-like dedicated statement
-```
-
-のどちらが適切かは Phase 18 actual example で決定する。
-
-Current `MembershipStatement` は subgroup membership 専用なので、
-単純に set expression へ型を広げることは避ける。
-
----
-
-# 7. Toda Defining Conditions
-
-Three-fold Toda bracket の theorem application には一般に composition
-conditions が必要になる。
-
-候補:
-
-```text
-a∘b=0
-b∘c=0
-```
-
-Current project already has:
-
-```text
-Composition
-ZERO relation
-known zero-composition reasoning
-```
-
-Phase 18 以降では、この既存 infrastructure を bracket defining conditions
-へ接続する。
-
-ただし representation Phase で theorem rule を先取りしない。
-
----
-
-# 8. Toda Indeterminacy
-
-Toda bracket value / containment は Phase 17 の原則を維持する。
-
-```text
-bracket membership
+membership
 ≠
 exact value
 ```
 
 ```text
-bracket containment in coset
+coset information
 ≠
-representative equality
-```
-
-Potential future forms:
-
-```text
-x ∈ TodaBracket(...)
+chosen representative
 ```
 
 ```text
-TodaBracket(...) ⊆ x+A
+sign information
+≠
+chosen sign
 ```
 
-```text
-x = ±α
-```
+## 3.4 candidate enumeration を避ける
 
-```text
-x ∈ {kβ+γ | k odd}
-```
+Infinite / large candidate generation を避け、
+constraint / membership / theorem fact を first-class knowledge として保持する。
 
-必要に応じて Phase 17 statements と接続する。
+## 3.5 active inference scope を明示する
 
-No candidate enumeration.
+数学的に正しい rule でも無制限 generation を行わない。
+
+## 3.6 generic engine を domain semantics で汚さない
+
+Domain-specific validity は statement / rule / guard 側に置く。
 
 ---
 
-# 9. Typed Homotopy Elements
-
-Toda bracket の well-definedness を本格的に検査する段階では、
-各 element の type が必要になる。
-
-Unstable:
+# 4. Completed Phase chain
 
 ```text
-α : S^m → S^n
-α ∈ π_m(S^n)
+Phase 12  Additive expressions
+Phase 13  Homomorphism reasoning
+Phase 14  Set / subgroup reasoning
+Phase 15  Coset / modulo reasoning
+Phase 16  Symbolic scalar constraints
+Phase 17  Indeterminacy
+Phase 18  Toda bracket minimum representation
+Phase 19  Toda bracket membership / first theorem bridge
+Phase 20  Indexed unstable Toda notation
 ```
 
-必要情報候補:
+All completed.
+
+---
+
+# 5. Phase 18 完了：Toda bracket minimum representation
+
+Implemented:
+
+```text
+TodaBracket(a,b,c)
+TodaBracketDefinedStatement
+TodaBracketMembershipStatement
+```
+
+Bridge:
+
+```text
+a∘b=0
+b∘c=0
+↓
+ZERO
+↓
+{a,b,c} defined
+```
+
+Safety:
+
+```text
+definedness
+↛
+membership
+```
+
+```text
+membership
+↛
+exact equality
+```
+
+---
+
+# 6. Phase 19 完了：first Toda theorem bridge
+
+Actual source notation:
+
+```text
+ε₃ ∈ {η₃,Eν′,ν₇}_1
+```
+
+Implemented:
+
+```text
+TodaBracketMembershipTheoremStatement
+```
+
+Bridge:
+
+```text
+matching theorem fact
++
+matching definedness
+↓
+membership
+```
+
+Phase 19 では `_1` をまだ lossless に保持できなかった。
+
+That gap became the immediate Phase 20 requirement.
+
+---
+
+# 7. Phase 20 完了：Indexed Unstable Toda Notation
+
+## 7.1 Toda bracket index
+
+Implemented:
+
+```text
+TodaBracket.index
+=
+int | ScalarSymbol | None
+```
+
+Examples:
+
+```text
+{a,b,c}
+{a,b,c}_1
+{a,b,c}_t
+```
+
+## 7.2 IteratedSuspension
+
+Implemented:
+
+```text
+IteratedSuspension(
+  expression=α,
+  exponent=n_or_t,
+)
+```
+
+with:
+
+```text
+exponent: int | ScalarSymbol
+```
+
+Examples:
+
+```text
+E^2 α
+E^t α
+```
+
+No normalization to nested ordinary `Suspension`.
+
+## 7.3 IndexedTodaBracketData
+
+Implemented fields:
+
+```text
+bracket
+second_base
+third_base
+suspension_exponent
+```
+
+with:
+
+```text
+suspension_exponent: int | ScalarSymbol
+```
+
+## 7.4 target notation
+
+Implemented structural representation:
+
+```text
+{a,E^t b,E^t c}_t
+```
+
+The roles remain separate:
+
+```text
+suspension exponent
+bracket index
+```
+
+even when both are written as `t`.
+
+## 7.5 consistency
+
+Implemented:
+
+```text
+IndexedTodaBracketData.is_consistent()
+```
+
+Checks:
+
+```text
+second = E^t(second_base)
+third  = E^t(third_base)
+index  = t
+```
+
+for the stored exponent.
+
+Both symbolic and concrete forms are supported.
+
+## 7.6 API boundary
+
+Inconsistent data remains constructible.
+
+```text
+is_consistent() == False
+```
+
+reports the mismatch.
+
+No constructor validation.
+
+No theorem inference.
+
+## 7.7 verified status
+
+```text
+tests/test_expression.py
+64 passed in 1.46s
+```
+
+```text
+full suite
+1098 passed in 61.30s
+```
+
+Generic inference engine unchanged.
+
+---
+
+# 8. Phase 21 candidate：Typed Homotopy Elements / Source-Target Context
+
+## 8.1 motivation
+
+Phase 20 で indexed Toda notation 自体は保持可能になった。
+
+次の actual mathematical validity check では:
+
+```text
+composition compatibility
+Toda defining conditions
+suspension dimension shift
+ambient homotopy group
+```
+
+が必要になる。
+
+Natural next candidate:
+
+```text
+Phase 21
+typed homotopy elements / source-target context
+```
+
+## 8.2 minimal target
+
+Actual theorem need に必要な情報だけ導入する。
+
+Candidates:
 
 ```text
 source sphere
 target sphere
 ambient homotopy group
 stem
+stable / unstable context
 ```
 
-Addition:
+最初から universal type system を作らない。
+
+## 8.3 composition compatibility
+
+Future target:
 
 ```text
-ambient_group(a)=ambient_group(b)
+α : S^m → S^n
+β : S^p → S^m
 ```
 
-Composition:
+then:
 
 ```text
-target(b)=source(a)
+α∘β
 ```
 
-Phase 18 minimal bracket representation が typing を必要としない範囲では
-先取りしない。
+is type-compatible.
 
-Actual defining-condition theorem が要求した時点で導入する。
+Mismatch should become explicit non-applicability / validity failure.
+
+## 8.4 suspension typing
+
+Future:
+
+```text
+α : S^m → S^n
+↓
+Eα : S^(m+1) → S^(n+1)
+```
+
+and for concrete iterated suspension:
+
+```text
+E^r α : S^(m+r) → S^(n+r)
+```
+
+Symbolic `t` should not trigger a general symbolic dimension solver unless
+an actual theorem requires it.
+
+## 8.5 Toda compatibility
+
+Future Toda validity may require both:
+
+```text
+a∘b
+b∘c
+```
+
+to be type-correct before zero-composition facts are accepted as defining
+conditions.
+
+Phase 21 should not alter unrelated Toda semantics.
 
 ---
 
-# 10. Stable Homotopy Groups
+# 9. Structured Generator Representation
 
-Stable context:
-
-```text
-α ∈ π_k^S
-```
-
-を unstable group と区別する。
-
-Stable degree / stem convention を明文化する。
-
-Unstable class と stable class を notation conversion だけで同一視せず:
+Toda literature uses distinctions such as:
 
 ```text
-stabilization
-Freudenthal
-stable-range theorem
+ν
+ν′
+arν
+η_n
+μ_n
+ι_n
 ```
 
-等の explicit bridge を利用する。
-
----
-
-# 11. Structured Generator Representation
-
-Toda の具体例では:
-
-```text
-η_3
-ν'
-μ_3
-ι_7
-\barν
-ε
-ζ
-σ
-```
-
-などが必要になる。
-
-将来的に:
+Potential future structure:
 
 ```text
 GeneratorSymbol
@@ -607,95 +477,117 @@ GeneratorSymbol
   decoration
   source
   target
-  ambient_group
   stable_or_unstable
 ```
-
-等を検討。
 
 Important:
 
 ```text
 ν
-ν'
-\barν
+ν′
+arν
 ```
 
-を表示違いとして collapse しない。
+must not collapse as display variants.
 
-Operation は generator name に埋め込まない。
+Operations such as `E` remain structural operation nodes, not generator-name text.
+
+Introduce only when actual tables / literature input require it.
 
 ---
 
-# 12. Iterated Suspension
+# 10. Indexed Toda theorem connection
 
-Future actual notation:
+Phase 20 adds representation / consistency only.
 
-```text
-E^t α
-```
-
-Potential:
+Future actual theorem bridge may take the form:
 
 ```text
-IteratedSuspension(
-  expression=α,
-  exponent=t,
-)
-```
-
-`t` は symbolic scalar との関係を検討する。
-
-Typing:
-
-```text
-α : S^m → S^n
+indexed theorem fact
++
+indexed bracket definedness
++
+required consistency / typing side conditions
 ↓
-E^t α : S^(m+t) → S^(n+t)
+indexed Toda membership
 ```
 
-一般的 symbolic exponent simplifier は先に実装しない。
+This must be based on an actual literature fact.
+
+Do not derive membership merely from:
+
+```text
+is_consistent() == True
+```
 
 ---
 
-# 13. ORDER / Divisibility / Annihilator
+# 11. Stable Homotopy Groups
 
-Current:
-
-```text
-ord(a)=n
-→
-na=0
-```
-
-Mathematically:
+Future stable context:
 
 ```text
-ord(a)=n
-n divides m
-→
-ma=0
+α ∈ π_k^S
 ```
 
-だが:
+must remain distinct from unstable:
 
 ```text
-2a=0
-4a=0
-6a=0
-...
+α ∈ π_m(S^n)
 ```
 
-を無限生成しない。
-
-Future candidate:
+Bridge using:
 
 ```text
-Divides(n,m)
-Annihilator(a,n)
+Suspension
+Freudenthal
+stabilization theorem
 ```
 
-または goal-directed check。
+not notation-only conversion.
+
+---
+
+# 12. Stable Toda Bracket
+
+Stable notation:
+
+```text
+<a,b,c>
+```
+
+must remain distinct from unstable:
+
+```text
+{a,b,c}
+```
+
+Possible future statements:
+
+```text
+x ∈ <a,b,c>
+```
+
+Stable degree / stem convention must be fixed before theorem checking.
+
+---
+
+# 13. Higher Toda Brackets
+
+Higher / variable-arity brackets remain deferred until concrete literature
+examples require them.
+
+Do not infer bracket order solely from entry count.
+
+Distinguish:
+
+```text
+number of entries
+Toda order
+bracket index
+stem
+stable / unstable context
+```
 
 ---
 
@@ -704,8 +596,8 @@ Annihilator(a,n)
 Long-term theorem data:
 
 ```text
-theorem name
-source / provenance
+name
+source
 variables
 types
 quantification
@@ -714,33 +606,13 @@ side conditions
 conclusion
 ```
 
-Current multi-premise `InferenceRule` と接続する。
+Current `InferenceRule` and narrow theorem statements should be reused where possible.
 
-Universal quantification はまず:
-
-```text
-typed pattern variables
-+
-side conditions
-```
-
-を候補とする。
-
-全面的 first-order logic system を先に実装しない。
-
-Existential statements:
-
-```text
-∃β, α=2β
-```
-
-は actual theorem need が出た段階で symbolic witness を検討する。
+Do not introduce a general first-order logic engine before actual need.
 
 ---
 
-# 15. Knowledge Tables / Existing Data
-
-Existing group / generator / EHP data は再利用する。
+# 15. Knowledge Tables
 
 Goal:
 
@@ -756,7 +628,7 @@ InferenceRule
 derived conclusion
 ```
 
-Possible known facts:
+Possible inputs:
 
 ```text
 π_n(S^k)=G
@@ -764,183 +636,48 @@ Possible known facts:
 ord(α)=n
 α∘β=γ
 H(α)=β
-μ_3 ∈ TodaBracket(...)
+Toda membership facts
 ```
 
-Literature provenance を維持する。
+Literature provenance must remain attached.
 
 ---
 
-# 16. Stable Toda Bracket
+# 16. ORDER / Divisibility / Annihilator
 
-Stable notation:
+Current:
 
 ```text
-<a,b,c>
+ord(a)=n
+→
+na=0
 ```
 
-Unstable notation:
+Future need:
 
 ```text
-{a,b,c}
-```
-
-と同一視しない。
-
-Stable entries:
-
-```text
-a ∈ π_p^S
-b ∈ π_q^S
-c ∈ π_r^S
-```
-
-Defining conditions:
-
-```text
-ab=0
-bc=0
-```
-
-Result degree / stem は採用 convention を明文化して検査する。
-
-Set-valued semantics:
-
-```text
-x ∈ <a,b,c>
-```
-
-```text
-<a,b,c> ⊆ x+A
-```
-
----
-
-# 17. Higher Toda Brackets
-
-Higher / variable-arity bracket は future-capable design にするが、
-full implementation は actual concrete example まで延期する。
-
-Important distinctions:
-
-```text
-number of entries
-higher-bracket order
-Toda notation degree
-bracket index
-stem
-```
-
-を混同しない。
-
-Initial priority:
-
-```text
-three-fold unstable bracket
-three-fold stable bracket
-```
-
-Higher brackets は concrete literature need が出た時点で実装する。
-
----
-
-# 18. Provenance for Toda Reasoning
-
-Toda reasoning でも:
-
-```text
-known composition fact
+n | m
 +
-zero-composition fact
-+
-Toda theorem
-↓
-bracket membership / containment
+ord(a)=n
+→
+ma=0
 ```
 
-の dependency chain を追跡可能にする。
+Do not enumerate all multiples.
 
-Alternative derivation policy:
-
-```text
-first accepted ProofStep
-+
-duplicate-rejected alternative trace
-```
-
-を維持する。
+Potential goal-directed / divisibility-statement approach.
 
 ---
 
-# 19. Long-Term Input Model
-
-## Known data
+# 17. Recommended future order
 
 ```text
-unstable homotopy group tables
-stable homotopy group tables
-generator tables
-E/H/P map tables
-order facts
-composition facts
-known Toda-bracket facts
-```
-
-## Theorems
-
-```text
-variables
-types
-quantification
-assumptions
-side conditions
-conclusion
-source
-```
-
-## User assumptions / query facts
-
-```text
-specific elements
-specific dimensions
-specific stem
-temporary assumptions
-target statement
-```
-
-これらを共通 proof graph に接続する。
-
----
-
-# 20. 推奨 Phase 順
-
-Phase 17 まで:
-
-```text
-Phase 12  Additive expressions
-Phase 13  Homomorphism reasoning
-Phase 14  Set / subgroup reasoning
-Phase 15  Coset / modulo reasoning
-Phase 16  Symbolic scalar constraints
-Phase 17  Indeterminacy
-Phase 18  Toda bracket minimum representation
-Phase 19  Toda bracket membership / first bracket theorem bridge
-```
-
-完了。
-
-次:
-
-```text
-Phase 20 candidate
-Indexed unstable Toda notation
-  {a,E^t b,E^t c}_t
+Phase 21 candidate
+Typed homotopy elements / source-target context
         ↓
-Typed homotopy-element extension
-  when defining-condition validation requires it
+Structured generator representation
         ↓
-Structured generators / iterated suspension
-  as actual notation requires
+Indexed Toda theorem / validity connection
         ↓
 Theorem representation / knowledge-table integration
         ↓
@@ -953,403 +690,13 @@ Higher Toda bracket
   only when actual examples require it
 ```
 
-Phase 20 以降の番号は provisional。
+Phase 21 以降の numbering は provisional。
 
 Actual mathematical need に応じて再配置可能。
 
 ---
 
-# 21. Phase 18 完了
-
-Phase 18 では three-fold unstable Toda bracket の最小表現を導入した。
-
-Implemented object:
-
-```text
-TodaBracket(a,b,c)
-```
-
-Notation:
-
-```text
-{a,b,c}
-```
-
-Important:
-
-```text
-TodaBracket
-≠
-Expression
-```
-
-Bracket entries are ordered structural inputs.
-
-Implemented statements:
-
-```text
-TodaBracketMembershipStatement
-TodaBracketDefinedStatement
-```
-
-Semantics:
-
-```text
-x∈{a,b,c}
-```
-
-```text
-{a,b,c} defined
-```
-
-Existing composition / ZERO reasoning と接続:
-
-```text
-a∘b=0
-b∘c=0
-↓
-ZERO(a∘b)
-ZERO(b∘c)
-↓
-{a,b,c} defined
-```
-
-The two zero compositions must share the middle entry.
-
-Current boundaries:
-
-```text
-definedness
-≠
-membership
-```
-
-```text
-membership
-≠
-exact value
-```
-
-```text
-x∈{a,b,c}
-+
-x=±α
-↛
-x=α
-```
-
-Phase 17 indeterminacy と同一 knowledge state に coexist 可能。
-
-Provenance:
-
-```text
-original composition equalities
-↓
-generic ZERO facts
-↓
-Toda definedness
-```
-
-を追跡可能。
-
-Representative scenario は:
-
-```text
-FIXED_POINT
-```
-
-に到達し、explicit terminal check:
-
-```text
-new_steps == ()
-```
-
-を確認済み。
-
-Verified:
-
-```text
-tests/test_toda_rules.py
-20 passed in 3.36s
-```
-
-```text
-full suite
-1048 passed in 61.09s
-```
-
-Generic inference engine:
-
-```text
-unchanged
-```
-
----
-
-
-# 22. Phase 19 完了：Toda bracket membership / first theorem bridge
-
-## 22.1 actual example
-
-Phase 19 は最初の actual theorem bridge として:
-
-```text
-ε₃ ∈ {η₃,Eν′,ν₇}_1
-```
-
-を採用した。
-
-Current proof representation では bracket index をまだ持たないため:
-
-```text
-ε₃ ∈ {η₃,Eν′,ν₇}
-```
-
-という unindexed projection を保持する。
-
-Important:
-
-```text
-source notation
-{η₃,Eν′,ν₇}_1
-
-current representation
-{η₃,Eν′,ν₇}
-```
-
-は lossless に同一ではない。
-
-この gap が Phase 20 の immediate actual requirement になる。
-
-## 22.2 implemented theorem bridge
-
-追加済み:
-
-```text
-TodaBracketMembershipTheoremStatement
-```
-
-および:
-
-```text
-theorem fact
-+
-matching Toda bracket definedness
-↓
-Toda bracket membership
-```
-
-Theorem fact と membership conclusion は separate statement。
-
-```text
-theorem fact alone
-↛
-membership
-```
-
-```text
-definedness alone
-↛
-membership
-```
-
-を維持する。
-
-## 22.3 actual multi-round chain
-
-Implemented representative chain:
-
-```text
-η₃∘Eν′=0
-Eν′∘ν₇=0
-↓
-ZERO
-↓
-{η₃,Eν′,ν₇} defined
-+
-Toda theorem fact
-↓
-ε₃∈{η₃,Eν′,ν₇}
-```
-
-Three productive rounds:
-
-```text
-round 1 ZERO
-round 2 definedness
-round 3 membership
-```
-
-## 22.4 indeterminacy
-
-Theorem-derived membership may coexist with:
-
-```text
-ε₃=±α
-ε₃∈β+A
-```
-
-without deriving:
-
-```text
-ε₃=α
-ε₃=-α
-ε₃=β
-```
-
-No Toda→sign / Toda→coset automatic bridge is introduced.
-
-## 22.5 provenance
-
-Final membership provenance:
-
-```text
-membership
-├─ theorem fact
-└─ definedness
-   ├─ ZERO
-   │  └─ first defining equality
-   └─ ZERO
-      └─ second defining equality
-```
-
-Unrelated facts and coexisting indeterminacy do not enter the direct theorem
-branch.
-
-## 22.6 termination / scope
-
-Representative current family reaches:
-
-```text
-FIXED_POINT
-round_count == 3
-terminal new_steps == ()
-```
-
-`TodaBracketMembershipTheoremStatement` remains outside generic equality scope.
-
-Generic inference engine remains unchanged.
-
-Verified:
-
-```text
-tests/test_toda_rules.py
-36 passed in 3.06s
-```
-
-```text
-full suite
-1064 passed in 61.64s
-```
-
----
-
-# 23. Phase 20 candidate：indexed unstable Toda notation
-
-Target notation:
-
-```text
-{a,E^t b,E^t c}_t
-```
-
-The Phase 19 actual source example already demonstrates why the bracket index
-cannot remain discarded:
-
-```text
-{η₃,Eν′,ν₇}_1
-```
-
-Phase 20 should add the minimum structure needed to preserve this index.
-
-## 23.1 bracket index
-
-Candidate direction:
-
-```text
-IndexedTodaBracket
-```
-
-or a minimal extension that stores:
-
-```text
-entries
-index
-```
-
-The exact class shape should be chosen only after checking the current
-`TodaBracket` API and tests.
-
-Existing unindexed `TodaBracket(a,b,c)` should not be broken unnecessarily.
-
-## 23.2 suspension exponent and bracket index
-
-For general notation:
-
-```text
-{a,E^t b,E^t c}_t
-```
-
-the suspension exponent and bracket index must remain distinct structural
-fields.
-
-```text
-suspension exponent t
-≠
-bracket index t
-```
-
-A theorem may later state that they agree, but representation should not
-collapse them automatically.
-
-## 23.3 IteratedSuspension
-
-Concrete `Eν′` is already representable as:
-
-```text
-Suspension(ν′)
-```
-
-General symbolic:
-
-```text
-E^t α
-```
-
-may require:
-
-```text
-IteratedSuspension
-```
-
-or an equivalent minimal object.
-
-Do not add a general symbolic exponent system beyond what the actual indexed
-Toda notation requires.
-
-## 23.4 scope
-
-Phase 20 should not automatically introduce:
-
-```text
-stable Toda brackets
-higher Toda brackets
-general theorem quantification
-full homotopy typing
-general candidate-set algebra
-```
-
-Stable notation:
-
-```text
-<a,b,c>
-```
-
-remains a separate later layer.
-
----
-
-# 24. 実装状況
-
+# 18. 実装状況
 
 | 項目 | 状態 | 備考 |
 |---|---|---|
@@ -1361,184 +708,139 @@ remains a separate later layer.
 | subset `A⊆B` | IMPLEMENTED | Phase 14 |
 | coset `α+A` | IMPLEMENTED | Phase 15 |
 | modulo `α≡β mod A` | IMPLEMENTED | Phase 15 |
-| `Odd(k)` / `Even(k)` | IMPLEMENTED | Phase 16 |
-| scalar congruence | IMPLEMENTED | Phase 16 |
-| `α=kβ+γ` structural form | IMPLEMENTED | Phase 16 |
-| coset membership indeterminacy `x∈β+A` | IMPLEMENTED | Phase 17 |
-| sign indeterminacy `x=±α` | IMPLEMENTED | Phase 17 |
-| coefficient-family indeterminacy | IMPLEMENTED | Phase 17 |
-| modulo ↔ coset-membership bridge | IMPLEMENTED | Phase 17 |
-| equality → sign indeterminacy | IMPLEMENTED | Phase 17 |
-| symbolic odd equality → coefficient indeterminacy | IMPLEMENTED | Phase 17 |
+| scalar parity / congruence | IMPLEMENTED | Phase 16 |
+| coefficient indeterminacy | IMPLEMENTED | Phase 17 |
+| sign indeterminacy | IMPLEMENTED | Phase 17 |
+| coset membership indeterminacy | IMPLEMENTED | Phase 17 |
 | Toda bracket `{a,b,c}` | IMPLEMENTED | Phase 18 |
 | Toda bracket membership | IMPLEMENTED | Phase 18 |
-| Toda bracket definedness from zero compositions | IMPLEMENTED | Phase 18 |
-| Toda membership literature provenance | IMPLEMENTED | Phase 19 |
-| Toda membership theorem statement | IMPLEMENTED | Phase 19 |
+| Toda definedness | IMPLEMENTED | Phase 18 |
 | Toda theorem + definedness → membership | IMPLEMENTED | Phase 19 |
-| Actual ε₃ three-round Toda derivation | IMPLEMENTED | Phase 19 |
-| indexed unstable bracket `{a,E^t b,E^t c}_t` | PLANNED | Phase 20 candidate |
-| typed source / target | PLANNED | when bracket validity needs it |
-| ambient homotopy group validation | PLANNED | addition / equality / bracket typing |
+| literature-backed ε₃ Toda bridge | IMPLEMENTED | Phase 19 |
+| Toda bracket concrete index | IMPLEMENTED | Phase 20 |
+| Toda bracket symbolic index | IMPLEMENTED | Phase 20 |
+| `IteratedSuspension(α,n)` | IMPLEMENTED | Phase 20 |
+| `IteratedSuspension(α,t)` | IMPLEMENTED | Phase 20 |
+| `IndexedTodaBracketData` | IMPLEMENTED | Phase 20 |
+| `{a,E^t b,E^t c}_t` structural form | IMPLEMENTED | Phase 20 |
+| indexed Toda consistency predicate | IMPLEMENTED | Phase 20 |
+| typed source / target | NEXT CANDIDATE | Phase 21 |
+| ambient homotopy group validation | PLANNED | typing layer |
+| structured generator notation | PLANNED | actual tables / literature |
+| indexed Toda theorem bridge | PLANNED | actual theorem need |
 | stable homotopy group `π_k^S` | PLANNED | stable context |
-| structured generator notation | PLANNED | prime / bar / index |
-| iterated suspension `E^t α` | PLANNED | indexed Toda notation |
-| divisibility / annihilator reasoning | PLANNED | no infinite enumeration |
 | theorem representation | PLANNED | assumptions / conclusion / source |
-| universal quantification | PLANNED | typed pattern variables first |
-| existential statements | PLANNED | witness later |
-| knowledge-table integration | PLANNED | tables as known fact sources |
+| knowledge-table integration | PLANNED | facts with provenance |
 | stable Toda bracket `<a,b,c>` | PLANNED | stable layer required |
 | stable degree / stem checking | PLANNED | convention to be fixed |
 | higher Toda bracket | DEFERRED | concrete need required |
 
 ---
 
-# 25. Phase 19 completion boundary
+# 19. Phase 20 completion boundary
 
-Implemented through Phase 19:
+Implemented:
 
 ```text
-TodaBracket(a,b,c)
-TodaBracketDefinedStatement
-TodaBracketMembershipStatement
-TodaBracketMembershipTheoremStatement
+TodaBracket.index
+IndexedTodaBracketData
+IteratedSuspension
+IndexedTodaBracketData.is_consistent()
 ```
 
-Bridges:
+Types:
 
 ```text
-a∘b=0
-b∘c=0
-↓
-ZERO
-↓
-{a,b,c} defined
-```
-
-and:
-
-```text
-matching Toda theorem fact
-+
-{a,b,c} defined
-↓
-x∈{a,b,c}
-```
-
-Actual representative example:
-
-```text
-η₃∘Eν′=0
-Eν′∘ν₇=0
-+
-Toda theorem fact
-↓
-ε₃∈{η₃,Eν′,ν₇}
-```
-
-Coexistence:
-
-```text
-ε₃=±α
-ε₃∈β+A
-```
-
-Safety:
-
-```text
-definedness
-↛
-membership
+TodaBracket.index:
+  int | ScalarSymbol | None
 ```
 
 ```text
-theorem fact
-↛
-membership
+IteratedSuspension.exponent:
+  int | ScalarSymbol
 ```
 
 ```text
-membership
-↛
-exact value
+IndexedTodaBracketData.suspension_exponent:
+  int | ScalarSymbol
+```
+
+Representative:
+
+```text
+{a,E^t b,E^t c}_t
+```
+
+Boundary:
+
+```text
+IteratedSuspension
+!=
+ordinary Suspension normalization
 ```
 
 ```text
-membership
-↛
-automatic sign / coset indeterminacy
+suspension exponent role
+!=
+bracket index role
 ```
-
-Provenance reaches both defining composition equalities and the theorem fact.
-
-Representative Phase 19 family reaches:
 
 ```text
-round_count == 3
-FIXED_POINT
-terminal new_steps == ()
+inconsistent data
+remains constructible
 ```
-
-Current explicit limitation:
 
 ```text
-literature {η₃,Eν′,ν₇}_1
-↓
-Phase 19 stores only {η₃,Eν′,ν₇}
+is_consistent()
+!=
+theorem applicability
 ```
 
-No indexed unstable notation yet.
+```text
+is_consistent()
+!=
+inference
+```
 
-No stable / higher Toda bracket yet.
+No stable / higher Toda layer.
+
+No full typing.
+
+Generic inference engine unchanged.
 
 Verified:
 
 ```text
-tests/test_toda_rules.py
-36 passed in 3.06s
+tests/test_expression.py
+64 passed in 1.46s
 ```
 
 ```text
 full suite
-1064 passed in 61.64s
+1098 passed in 61.30s
 ```
 
 ---
 
-# 26. Testing Principle
-
-
+# 20. Testing Principle
 
 新しい mathematical layer を追加するときは:
 
 1. representation test
-2. structural distinction / typing test
-3. single-rule semantic test
-4. invalid-premise rejection
-5. multi-round integration
-6. generic-rule reconnection
-7. provenance
-8. representative mathematical scenario
-9. termination / inference-scope boundary
-10. full regression
+2. structural distinction test
+3. validity / applicability test
+4. invalid-case rejection
+5. integration
+6. provenance if inference is involved
+7. representative mathematical scenario
+8. termination / inference-scope boundary
+9. full regression
 
-Toda bracket では追加で:
-
-```text
-defining composition validity
-zero-composition assumptions
-membership / containment
-indeterminacy preservation
-index / suspension-parameter distinction
-stable / unstable distinction
-```
-
-を actual implemented scope に応じてテストする。
+Actual scope に存在しない theorem / inference のテストを先取りしない。
 
 ---
 
-# 27. Documentation Policy
+# 21. Documentation Policy
 
 ```text
 README.md
@@ -1558,12 +860,11 @@ docs/roadmap.md
 future capability dependency
 ```
 
-roadmap の項目が実装された場合は、
-その Phase 完了時に状態を更新する。
+roadmap の項目が実装された場合は、その Phase 完了時に状態を更新する。
 
 ---
 
-# 28. 長期目標
+# 22. 長期目標
 
 最終的には:
 
@@ -1596,6 +897,8 @@ indeterminacy
 +
 unstable Toda brackets
 +
+indexed unstable Toda notation
++
 stable Toda brackets
 ↓
 new homotopy-theoretic conclusions
@@ -1612,17 +915,8 @@ sign uncertainty
 coefficient uncertainty
 coset uncertainty
 Toda-bracket membership
+indexed Toda structure
 stable Toda-bracket membership
 ```
 
 を provenance 付き knowledge として保持する。
-
-EHP Proof Tracer の長期的な方向性は:
-
-```text
-数学的に判明している情報を、
-型・確定値・部分情報・不定性・定理・既知データとして構造化し、
-provenance を保った推論で接続する
-```
-
-proof tracer / reasoning system へ発展させることである。

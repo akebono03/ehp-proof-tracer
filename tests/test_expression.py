@@ -2,6 +2,8 @@ from expression import (
   Composition,
   Expression,
   HomotopyElement,
+  IndexedTodaBracketData,
+  IteratedSuspension,
   MapApplication,
   MapSymbol,
   Multiple,
@@ -563,6 +565,871 @@ def test_toda_bracket_entry_order_is_structural():
   )
 
   assert original != reordered
+
+
+def test_indexed_toda_bracket():
+  bracket = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+    index=1,
+  )
+
+  assert bracket.first == eta(3)
+  assert bracket.second == nu(4)
+  assert bracket.third == sigma(8)
+  assert bracket.index == 1
+
+
+def test_unindexed_toda_bracket_has_no_index():
+  bracket = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+  )
+
+  assert bracket.index is None
+
+
+def test_unindexed_and_indexed_toda_brackets_are_structurally_distinct():
+  unindexed = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+  )
+  indexed = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+    index=1,
+  )
+
+  assert unindexed != indexed
+
+
+def test_toda_brackets_with_different_indices_are_structurally_distinct():
+  index_one = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+    index=1,
+  )
+  index_two = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+    index=2,
+  )
+
+  assert index_one != index_two
+
+
+def test_toda_brackets_with_same_entries_and_same_index_are_structurally_equal():
+  left = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+    index=1,
+  )
+  right = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+    index=1,
+  )
+
+  assert left == right
+
+
+def test_indexed_toda_bracket_data_preserves_underlying_entries():
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  bracket = TodaBracket(
+    first=eta(3),
+    second=Suspension(
+      nu_prime,
+    ),
+    third=nu(7),
+    index=1,
+  )
+
+  data = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=nu_prime,
+    third_base=nu(6),
+    suspension_exponent=1,
+  )
+
+  assert data.bracket == bracket
+  assert data.second_base == nu_prime
+  assert data.third_base == nu(6)
+  assert data.suspension_exponent == 1
+
+  assert data.bracket.first == eta(3)
+
+  assert data.bracket.second == Suspension(
+    nu_prime,
+  )
+
+  assert data.bracket.third == nu(7)
+
+  assert data.bracket.index == 1
+
+
+def test_indexed_toda_bracket_data_keeps_suspension_exponent_separate_from_index():
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  bracket = TodaBracket(
+    first=eta(3),
+    second=Suspension(
+      nu_prime,
+    ),
+    third=nu(7),
+    index=1,
+  )
+
+  data = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=nu_prime,
+    third_base=nu(6),
+    suspension_exponent=2,
+  )
+
+  assert data.bracket.index == 1
+  assert data.suspension_exponent == 2
+  assert data.bracket.index != data.suspension_exponent
+
+
+def test_indexed_toda_bracket_data_distinguishes_underlying_entries():
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  other_nu_prime = HomotopyElement(
+    name="ν″",
+    dimension=3,
+  )
+
+  bracket = TodaBracket(
+    first=eta(3),
+    second=Suspension(
+      nu_prime,
+    ),
+    third=nu(7),
+    index=1,
+  )
+
+  first = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=nu_prime,
+    third_base=nu(6),
+    suspension_exponent=1,
+  )
+
+  second = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=other_nu_prime,
+    third_base=nu(6),
+    suspension_exponent=1,
+  )
+
+  assert first != second
+
+
+def test_iterated_suspension_preserves_concrete_exponent():
+  expression = eta(3)
+
+  suspended = IteratedSuspension(
+    expression=expression,
+    exponent=2,
+  )
+
+  assert suspended.expression == expression
+  assert suspended.exponent == 2
+  assert isinstance(
+    suspended,
+    Expression,
+  )
+
+
+def test_iterated_suspension_preserves_symbolic_exponent():
+  expression = eta(3)
+
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  suspended = IteratedSuspension(
+    expression=expression,
+    exponent=t,
+  )
+
+  assert suspended.expression == expression
+  assert suspended.exponent == t
+
+
+def test_iterated_suspension_one_is_structurally_distinct_from_suspension():
+  expression = eta(3)
+
+  iterated = IteratedSuspension(
+    expression=expression,
+    exponent=1,
+  )
+
+  ordinary = Suspension(
+    expression,
+  )
+
+  assert iterated != ordinary
+
+
+def test_iterated_suspension_two_is_structurally_distinct_from_nested_suspension():
+  expression = eta(3)
+
+  iterated = IteratedSuspension(
+    expression=expression,
+    exponent=2,
+  )
+
+  nested = Suspension(
+    Suspension(
+      expression,
+    ),
+  )
+
+  assert iterated != nested
+
+
+def test_iterated_suspension_distinguishes_exponent():
+  expression = eta(3)
+
+  first = IteratedSuspension(
+    expression=expression,
+    exponent=1,
+  )
+
+  second = IteratedSuspension(
+    expression=expression,
+    exponent=2,
+  )
+
+  assert first != second
+
+
+def test_iterated_suspension_distinguishes_symbolic_exponent():
+  expression = eta(3)
+
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  s = ScalarSymbol(
+    name="s",
+  )
+
+  first = IteratedSuspension(
+    expression=expression,
+    exponent=t,
+  )
+
+  second = IteratedSuspension(
+    expression=expression,
+    exponent=s,
+  )
+
+  assert first != second
+
+
+def test_indexed_toda_bracket_data_accepts_symbolic_suspension_exponent():
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  bracket = TodaBracket(
+    first=eta(3),
+    second=IteratedSuspension(
+      expression=nu_prime,
+      exponent=t,
+    ),
+    third=IteratedSuspension(
+      expression=nu(6),
+      exponent=t,
+    ),
+    index=1,
+  )
+
+  data = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=nu_prime,
+    third_base=nu(6),
+    suspension_exponent=t,
+  )
+
+  assert data.suspension_exponent == t
+
+  assert data.bracket.second == IteratedSuspension(
+    expression=data.second_base,
+    exponent=data.suspension_exponent,
+  )
+
+  assert data.bracket.third == IteratedSuspension(
+    expression=data.third_base,
+    exponent=data.suspension_exponent,
+  )
+
+
+def test_indexed_toda_bracket_data_distinguishes_symbolic_suspension_exponent():
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  bracket = TodaBracket(
+    first=eta(3),
+    second=IteratedSuspension(
+      expression=nu_prime,
+      exponent=ScalarSymbol(
+        name="t",
+      ),
+    ),
+    third=IteratedSuspension(
+      expression=nu(6),
+      exponent=ScalarSymbol(
+        name="t",
+      ),
+    ),
+    index=1,
+  )
+
+  first = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=nu_prime,
+    third_base=nu(6),
+    suspension_exponent=ScalarSymbol(
+      name="t",
+    ),
+  )
+
+  second = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=nu_prime,
+    third_base=nu(6),
+    suspension_exponent=ScalarSymbol(
+      name="s",
+    ),
+  )
+
+  assert first != second
+
+
+def test_toda_bracket_accepts_symbolic_index():
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  bracket = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+    index=t,
+  )
+
+  assert bracket.index == t
+
+
+def test_toda_brackets_with_same_symbolic_index_are_structurally_equal():
+  left = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+    index=ScalarSymbol(
+      name="t",
+    ),
+  )
+
+  right = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+    index=ScalarSymbol(
+      name="t",
+    ),
+  )
+
+  assert left == right
+
+
+def test_toda_brackets_with_different_symbolic_indices_are_structurally_distinct():
+  t_indexed = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+    index=ScalarSymbol(
+      name="t",
+    ),
+  )
+
+  s_indexed = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+    index=ScalarSymbol(
+      name="s",
+    ),
+  )
+
+  assert t_indexed != s_indexed
+
+
+def test_indexed_toda_bracket_data_represents_symbolic_indexed_suspension_form():
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  bracket = TodaBracket(
+    first=eta(3),
+    second=IteratedSuspension(
+      expression=nu_prime,
+      exponent=t,
+    ),
+    third=IteratedSuspension(
+      expression=nu(6),
+      exponent=t,
+    ),
+    index=t,
+  )
+
+  data = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=nu_prime,
+    third_base=nu(6),
+    suspension_exponent=t,
+  )
+
+  assert data.bracket.first == eta(3)
+
+  assert data.bracket.second == IteratedSuspension(
+    expression=data.second_base,
+    exponent=t,
+  )
+
+  assert data.bracket.third == IteratedSuspension(
+    expression=data.third_base,
+    exponent=t,
+  )
+
+  assert data.bracket.index == t
+  assert data.suspension_exponent == t
+  assert data.bracket.index == data.suspension_exponent
+
+
+def test_indexed_toda_bracket_data_preserves_symbolic_indexed_toda_correspondence():
+  a = eta(3)
+
+  b = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  c = nu(6)
+
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  second = IteratedSuspension(
+    expression=b,
+    exponent=t,
+  )
+
+  third = IteratedSuspension(
+    expression=c,
+    exponent=t,
+  )
+
+  bracket = TodaBracket(
+    first=a,
+    second=second,
+    third=third,
+    index=t,
+  )
+
+  data = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=b,
+    third_base=c,
+    suspension_exponent=t,
+  )
+
+  assert data.bracket.first == a
+
+  assert data.bracket.second == IteratedSuspension(
+    expression=data.second_base,
+    exponent=data.suspension_exponent,
+  )
+
+  assert data.bracket.third == IteratedSuspension(
+    expression=data.third_base,
+    exponent=data.suspension_exponent,
+  )
+
+  assert data.bracket.index == data.suspension_exponent
+
+  assert data.bracket.second.exponent == data.bracket.index
+  assert data.bracket.third.exponent == data.bracket.index
+
+  assert data.bracket.second.expression == data.second_base
+  assert data.bracket.third.expression == data.third_base
+
+
+def test_indexed_toda_bracket_data_is_consistent_for_symbolic_indexed_toda_form():
+  a = eta(3)
+
+  b = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  c = nu(6)
+
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  data = IndexedTodaBracketData(
+    bracket=TodaBracket(
+      first=a,
+      second=IteratedSuspension(
+        expression=b,
+        exponent=t,
+      ),
+      third=IteratedSuspension(
+        expression=c,
+        exponent=t,
+      ),
+      index=t,
+    ),
+    second_base=b,
+    third_base=c,
+    suspension_exponent=t,
+  )
+
+  assert data.is_consistent()
+
+
+def test_indexed_toda_bracket_data_is_inconsistent_when_index_differs_from_suspension_exponent():
+  a = eta(3)
+
+  b = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  c = nu(6)
+
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  s = ScalarSymbol(
+    name="s",
+  )
+
+  data = IndexedTodaBracketData(
+    bracket=TodaBracket(
+      first=a,
+      second=IteratedSuspension(
+        expression=b,
+        exponent=t,
+      ),
+      third=IteratedSuspension(
+        expression=c,
+        exponent=t,
+      ),
+      index=s,
+    ),
+    second_base=b,
+    third_base=c,
+    suspension_exponent=t,
+  )
+
+  assert not data.is_consistent()
+
+
+def test_indexed_toda_bracket_data_is_inconsistent_when_second_entry_does_not_match_base():
+  a = eta(3)
+
+  b = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  other_b = HomotopyElement(
+    name="ν″",
+    dimension=3,
+  )
+
+  c = nu(6)
+
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  data = IndexedTodaBracketData(
+    bracket=TodaBracket(
+      first=a,
+      second=IteratedSuspension(
+        expression=other_b,
+        exponent=t,
+      ),
+      third=IteratedSuspension(
+        expression=c,
+        exponent=t,
+      ),
+      index=t,
+    ),
+    second_base=b,
+    third_base=c,
+    suspension_exponent=t,
+  )
+
+  assert not data.is_consistent()
+
+
+def test_indexed_toda_bracket_data_is_inconsistent_when_third_entry_does_not_match_base():
+  a = eta(3)
+
+  b = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  c = nu(6)
+  other_c = nu(7)
+
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  data = IndexedTodaBracketData(
+    bracket=TodaBracket(
+      first=a,
+      second=IteratedSuspension(
+        expression=b,
+        exponent=t,
+      ),
+      third=IteratedSuspension(
+        expression=other_c,
+        exponent=t,
+      ),
+      index=t,
+    ),
+    second_base=b,
+    third_base=c,
+    suspension_exponent=t,
+  )
+
+  assert not data.is_consistent()
+
+
+def test_indexed_toda_bracket_data_is_consistent_for_concrete_indexed_toda_form():
+  a = eta(3)
+
+  b = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  c = nu(6)
+
+  exponent = 2
+
+  data = IndexedTodaBracketData(
+    bracket=TodaBracket(
+      first=a,
+      second=IteratedSuspension(
+        expression=b,
+        exponent=exponent,
+      ),
+      third=IteratedSuspension(
+        expression=c,
+        exponent=exponent,
+      ),
+      index=exponent,
+    ),
+    second_base=b,
+    third_base=c,
+    suspension_exponent=exponent,
+  )
+
+  assert data.is_consistent()
+
+
+def test_phase20_representative_indexed_toda_expression_and_boundary():
+  a = eta(3)
+
+  b = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  c = nu(6)
+
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  s = ScalarSymbol(
+    name="s",
+  )
+
+  second = IteratedSuspension(
+    expression=b,
+    exponent=t,
+  )
+
+  third = IteratedSuspension(
+    expression=c,
+    exponent=t,
+  )
+
+  bracket = TodaBracket(
+    first=a,
+    second=second,
+    third=third,
+    index=t,
+  )
+
+  data = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=b,
+    third_base=c,
+    suspension_exponent=t,
+  )
+
+  assert data.bracket.first == a
+
+  assert data.bracket.second == IteratedSuspension(
+    expression=b,
+    exponent=t,
+  )
+
+  assert data.bracket.third == IteratedSuspension(
+    expression=c,
+    exponent=t,
+  )
+
+  assert data.bracket.index == t
+  assert data.suspension_exponent == t
+
+  assert data.bracket.second.exponent == data.suspension_exponent
+  assert data.bracket.third.exponent == data.suspension_exponent
+  assert data.bracket.index == data.suspension_exponent
+
+  assert data.is_consistent()
+
+  same_data = IndexedTodaBracketData(
+    bracket=TodaBracket(
+      first=a,
+      second=IteratedSuspension(
+        expression=b,
+        exponent=ScalarSymbol(
+          name="t",
+        ),
+      ),
+      third=IteratedSuspension(
+        expression=c,
+        exponent=ScalarSymbol(
+          name="t",
+        ),
+      ),
+      index=ScalarSymbol(
+        name="t",
+      ),
+    ),
+    second_base=b,
+    third_base=c,
+    suspension_exponent=ScalarSymbol(
+      name="t",
+    ),
+  )
+
+  assert data == same_data
+
+  assert IteratedSuspension(
+    expression=b,
+    exponent=1,
+  ) != Suspension(
+    b,
+  )
+
+  assert IteratedSuspension(
+    expression=b,
+    exponent=2,
+  ) != Suspension(
+    Suspension(
+      b,
+    ),
+  )
+
+  assert IteratedSuspension(
+    expression=b,
+    exponent=t,
+  ) != IteratedSuspension(
+    expression=b,
+    exponent=2,
+  )
+
+  assert TodaBracket(
+    first=a,
+    second=second,
+    third=third,
+    index=t,
+  ) != TodaBracket(
+    first=a,
+    second=second,
+    third=third,
+    index=2,
+  )
+
+  inconsistent_data = IndexedTodaBracketData(
+    bracket=TodaBracket(
+      first=a,
+      second=IteratedSuspension(
+        expression=b,
+        exponent=t,
+      ),
+      third=IteratedSuspension(
+        expression=c,
+        exponent=t,
+      ),
+      index=s,
+    ),
+    second_base=b,
+    third_base=c,
+    suspension_exponent=t,
+  )
+
+  assert inconsistent_data.bracket.index == s
+  assert inconsistent_data.suspension_exponent == t
+  assert not inconsistent_data.is_consistent()
 
 
 

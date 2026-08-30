@@ -3205,6 +3205,367 @@ def test_phase19_toda_theorem_statement_is_outside_generic_equality_scope():
   assert match is None
 
 
+def test_phase20_actual_epsilon3_toda_fact_preserves_index_one():
+  epsilon_3 = HomotopyElement(
+    name="ε",
+    dimension=3,
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  bracket = TodaBracket(
+    first=eta(3),
+    second=Suspension(
+      nu_prime,
+    ),
+    third=nu(7),
+    index=1,
+  )
+
+  statement = TodaBracketMembershipStatement(
+    element=epsilon_3,
+    bracket=bracket,
+  )
+
+  assert statement.element == epsilon_3
+
+  assert statement.bracket == TodaBracket(
+    first=eta(3),
+    second=Suspension(
+      nu_prime,
+    ),
+    third=nu(7),
+    index=1,
+  )
+
+  assert statement.bracket.index == 1
+
+  assert statement.bracket.second == (
+    Suspension(
+      nu_prime,
+    )
+  )
+
+
+def test_phase20_actual_epsilon3_membership_fact_preserves_index():
+  reference = LiteratureReference(
+    label="Toda",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+    locator="Chapter VI",
+  )
+
+  epsilon_3 = HomotopyElement(
+    name="ε",
+    dimension=3,
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  statement = TodaBracketMembershipStatement(
+    element=epsilon_3,
+    bracket=TodaBracket(
+      first=eta(3),
+      second=Suspension(
+        nu_prime,
+      ),
+      third=nu(7),
+      index=1,
+    ),
+    source=reference,
+    note=(
+      "Known Toda membership fact "
+      "{η_3,Eν′,ν_7}_1."
+    ),
+  )
+
+  step = toda_bracket_membership_proof_step(
+    statement
+  )
+
+  assert step.conclusion == statement
+  assert step.conclusion.bracket.index == 1
+  assert step.conclusion.source == reference
+
+  assert step.conclusion.note == (
+    "Known Toda membership fact "
+    "{η_3,Eν′,ν_7}_1."
+  )
+
+  assert step.premises == ()
+  assert step.rule == ProofRule.GIVEN
+  assert step.inference_rule is None
+
+
+def test_phase20_actual_epsilon3_theorem_fact_preserves_index():
+  reference = LiteratureReference(
+    label="Toda",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+    locator="Chapter VI",
+  )
+
+  epsilon_3 = HomotopyElement(
+    name="ε",
+    dimension=3,
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  theorem = TodaBracketMembershipTheoremStatement(
+    element=epsilon_3,
+    bracket=TodaBracket(
+      first=eta(3),
+      second=Suspension(
+        nu_prime,
+      ),
+      third=nu(7),
+      index=1,
+    ),
+    source=reference,
+    note=(
+      "Literature-backed theorem for "
+      "{η_3,Eν′,ν_7}_1."
+    ),
+  )
+
+  step = (
+    toda_bracket_membership_theorem_proof_step(
+      theorem
+    )
+  )
+
+  assert step.conclusion == theorem
+  assert step.conclusion.bracket.index == 1
+  assert step.conclusion.source == reference
+
+  assert step.conclusion.note == (
+    "Literature-backed theorem for "
+    "{η_3,Eν′,ν_7}_1."
+  )
+
+  assert step.premises == ()
+  assert step.rule == ProofRule.GIVEN
+  assert step.inference_rule is None
+
+
+def test_phase20_actual_epsilon3_indexed_bracket_is_not_unindexed_projection():
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  indexed = TodaBracket(
+    first=eta(3),
+    second=Suspension(
+      nu_prime,
+    ),
+    third=nu(7),
+    index=1,
+  )
+
+  unindexed = TodaBracket(
+    first=eta(3),
+    second=Suspension(
+      nu_prime,
+    ),
+    third=nu(7),
+  )
+
+  assert indexed.index == 1
+  assert unindexed.index is None
+  assert indexed != unindexed
+
+
+def test_phase20_indexed_epsilon3_definedness_uses_underlying_compositions():
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  bracket = TodaBracket(
+    first=eta(3),
+    second=Suspension(
+      nu_prime,
+    ),
+    third=nu(7),
+    index=1,
+  )
+
+  first_condition = Relation(
+    lhs=Composition(
+      left=eta(3),
+      right=Suspension(
+        nu_prime,
+      ),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  second_condition = Relation(
+    lhs=Composition(
+      left=nu_prime,
+      right=nu(6),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert bracket.index == 1
+
+  assert first_condition.lhs == Composition(
+    left=eta(3),
+    right=Suspension(
+      nu_prime,
+    ),
+  )
+
+  assert second_condition.lhs == Composition(
+    left=nu_prime,
+    right=nu(6),
+  )
+
+  assert second_condition.lhs != Composition(
+    left=Suspension(
+      nu_prime,
+    ),
+    right=nu(7),
+  )
+
+
+def test_phase20_current_unindexed_definedness_rule_does_not_match_indexed_conditions():
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  first_zero_step = relation_proof_step(
+    Relation(
+      lhs=Composition(
+        left=eta(3),
+        right=Suspension(
+          nu_prime,
+        ),
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  second_zero_step = relation_proof_step(
+    Relation(
+      lhs=Composition(
+        left=nu_prime,
+        right=nu(6),
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  rule = (
+    toda_bracket_defined_by_zero_compositions_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      first_zero_step,
+      second_zero_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase20_adjacent_displayed_entries_do_not_establish_indexed_definedness():
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  suspended_nu_prime = Suspension(
+    nu_prime,
+  )
+
+  first_zero_step = relation_proof_step(
+    Relation(
+      lhs=Composition(
+        left=eta(3),
+        right=suspended_nu_prime,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  second_zero_step = relation_proof_step(
+    Relation(
+      lhs=Composition(
+        left=suspended_nu_prime,
+        right=nu(7),
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  rule = (
+    toda_bracket_defined_by_zero_compositions_inference_rule()
+  )
+
+  result = run_inference_until_stable_with_history(
+    rule,
+    (
+      first_zero_step,
+      second_zero_step,
+    ),
+  )
+
+  unindexed_definedness = TodaBracketDefinedStatement(
+    bracket=TodaBracket(
+      first=eta(3),
+      second=suspended_nu_prime,
+      third=nu(7),
+    ),
+  )
+
+  indexed_definedness = TodaBracketDefinedStatement(
+    bracket=TodaBracket(
+      first=eta(3),
+      second=suspended_nu_prime,
+      third=nu(7),
+      index=1,
+    ),
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert unindexed_definedness in conclusions
+  assert indexed_definedness not in conclusions
+
+
 
 
 
