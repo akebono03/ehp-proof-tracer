@@ -1,4 +1,22 @@
-from expression import ScalarSymbol
+from expression import (
+  Multiple,
+  ScalarSymbol,
+  Sum,
+  eta,
+  nu,
+  sigma,
+)
+from proof import (
+  ProofRule,
+  Relation,
+  RelationType,
+  apply_inference_match,
+  find_inference_match,
+  relation_proof_step,
+)
+from relation_rules import (
+  equality_symmetry_inference_rule,
+)
 from scalar_rules import (
   EvenScalarStatement,
   OddScalarStatement,
@@ -132,6 +150,110 @@ def test_scalar_congruence_statement_distinguishes_constraints():
   )
 
   assert odd_congruence != other_congruence
+
+
+def test_symbolic_additive_equality():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+  gamma = sigma(8)
+
+  equality = Relation(
+    lhs=alpha,
+    rhs=Sum(
+      left=Multiple(
+        coefficient=k,
+        expression=beta,
+      ),
+      right=gamma,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert equality.lhs == alpha
+
+  assert equality.rhs == Sum(
+    left=Multiple(
+      coefficient=ScalarSymbol(
+        name="k",
+      ),
+      expression=beta,
+    ),
+    right=gamma,
+  )
+
+  assert equality.relation_type == (
+    RelationType.EQUALITY
+  )
+
+
+def test_symbolic_additive_equality_uses_generic_equality_reasoning():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+  gamma = sigma(8)
+
+  equality = Relation(
+    lhs=alpha,
+    rhs=Sum(
+      left=Multiple(
+        coefficient=k,
+        expression=beta,
+      ),
+      right=gamma,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  equality_step = relation_proof_step(
+    equality
+  )
+
+  rule = equality_symmetry_inference_rule()
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == Relation(
+    lhs=Sum(
+      left=Multiple(
+        coefficient=k,
+        expression=beta,
+      ),
+      right=gamma,
+    ),
+    rhs=alpha,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    equality_step,
+  )
+
+
+
 
 
 
