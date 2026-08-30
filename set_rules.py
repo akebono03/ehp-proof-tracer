@@ -8,6 +8,8 @@ from expression import (
   Expression,
   MapApplication,
   MapSymbol,
+  Multiple,
+  Sum,
   Zero,
 )
 from proof import (
@@ -50,6 +52,25 @@ SubgroupTerm = (
 
 
 @dataclass(frozen=True)
+class Coset:
+  representative: Expression
+  subgroup: SubgroupTerm
+
+
+@dataclass(frozen=True)
+class ModuloStatement:
+  left: Expression
+  right: Expression
+  modulus: SubgroupTerm
+
+
+@dataclass(frozen=True)
+class CosetEqualityStatement:
+  left: Coset
+  right: Coset
+
+
+@dataclass(frozen=True)
 class MembershipStatement:
   element: Expression
   subgroup: SubgroupTerm
@@ -88,6 +109,326 @@ def image_membership_statement(
     subgroup=ImageSubgroupReference(
       group_map=group_map,
     ),
+  )
+
+
+def modulo_implies_difference_membership_inference_rule():
+  left = PatternVariable(
+    name="left",
+  )
+
+  right = PatternVariable(
+    name="right",
+  )
+
+  modulus = PatternVariable(
+    name="modulus",
+  )
+
+  return InferenceRule(
+    name="modulo implies difference membership",
+    description=(
+      "If two elements are congruent modulo "
+      "a subgroup, then their difference belongs "
+      "to that subgroup."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=ModuloStatement,
+        statement_pattern=ModuloStatement(
+          left=left,
+          right=right,
+          modulus=modulus,
+        ),
+      ),
+    ),
+    conclusion_pattern=MembershipStatement(
+      element=Sum(
+        left=left,
+        right=Multiple(
+          coefficient=-1,
+          expression=right,
+        ),
+      ),
+      subgroup=modulus,
+    ),
+  )
+
+
+def modulo_implies_coset_equality_inference_rule():
+  left = PatternVariable(
+    name="left",
+  )
+
+  right = PatternVariable(
+    name="right",
+  )
+
+  modulus = PatternVariable(
+    name="modulus",
+  )
+
+  return InferenceRule(
+    name="modulo implies coset equality",
+    description=(
+      "If two elements are congruent modulo "
+      "a subgroup, then their cosets modulo "
+      "that subgroup are equal."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=ModuloStatement,
+        statement_pattern=ModuloStatement(
+          left=left,
+          right=right,
+          modulus=modulus,
+        ),
+      ),
+    ),
+    conclusion_pattern=CosetEqualityStatement(
+      left=Coset(
+        representative=left,
+        subgroup=modulus,
+      ),
+      right=Coset(
+        representative=right,
+        subgroup=modulus,
+      ),
+    ),
+  )
+
+
+def coset_equality_implies_modulo_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    equality_statement = (
+      premises[0].conclusion
+    )
+
+    return (
+      isinstance(
+        equality_statement.left,
+        Coset,
+      )
+      and isinstance(
+        equality_statement.right,
+        Coset,
+      )
+      and (
+        equality_statement.left.subgroup
+        == equality_statement.right.subgroup
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    equality_statement = (
+      premises[0].conclusion
+    )
+
+    return ModuloStatement(
+      left=(
+        equality_statement.left.representative
+      ),
+      right=(
+        equality_statement.right.representative
+      ),
+      modulus=(
+        equality_statement.left.subgroup
+      ),
+    )
+
+  return InferenceRule(
+    name="coset equality implies modulo",
+    description=(
+      "If two cosets of the same subgroup "
+      "are equal, then their representatives "
+      "are congruent modulo that subgroup."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=CosetEqualityStatement,
+      ),
+    ),
+    conclusion_builder=(
+      build_conclusion
+    ),
+    match_guard=guard,
+  )
+
+
+def difference_membership_implies_modulo_inference_rule():
+  element = PatternVariable(
+    name="element",
+  )
+
+  subgroup = PatternVariable(
+    name="subgroup",
+  )
+
+  def guard(
+    premises,
+    bindings,
+  ):
+    membership_statement = (
+      premises[0].conclusion
+    )
+
+    difference = (
+      membership_statement.element
+    )
+
+    return (
+      isinstance(
+        difference,
+        Sum,
+      )
+      and isinstance(
+        difference.right,
+        Multiple,
+      )
+      and difference.right.coefficient == -1
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    membership_statement = (
+      premises[0].conclusion
+    )
+
+    difference = (
+      membership_statement.element
+    )
+
+    return ModuloStatement(
+      left=difference.left,
+      right=difference.right.expression,
+      modulus=membership_statement.subgroup,
+    )
+
+  return InferenceRule(
+    name="difference membership implies modulo",
+    description=(
+      "If the difference of two elements belongs "
+      "to a subgroup, then the two elements are "
+      "congruent modulo that subgroup."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=MembershipStatement,
+        statement_pattern=MembershipStatement(
+          element=element,
+          subgroup=subgroup,
+        ),
+      ),
+    ),
+    conclusion_builder=(
+      build_conclusion
+    ),
+    match_guard=guard,
+  )
+
+
+def equality_implies_modulo_inference_rule(
+  modulus: SubgroupTerm,
+):
+  left = PatternVariable(
+    name="left",
+  )
+
+  right = PatternVariable(
+    name="right",
+  )
+
+  def guard(
+    premises,
+    bindings,
+  ):
+    relation = premises[0].conclusion
+
+    return (
+      isinstance(
+        relation.lhs,
+        Expression,
+      )
+      and isinstance(
+        relation.rhs,
+        Expression,
+      )
+    )
+
+  return InferenceRule(
+    name="equality implies modulo",
+    description=(
+      "Equal expressions are congruent modulo "
+      "an explicitly selected subgroup."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.EQUALITY,
+        relation_pattern=Relation(
+          lhs=left,
+          rhs=right,
+          relation_type=RelationType.EQUALITY,
+        ),
+      ),
+    ),
+    conclusion_pattern=ModuloStatement(
+      left=left,
+      right=right,
+      modulus=modulus,
+    ),
+    match_guard=guard,
+  )
+
+
+def zero_implies_modulo_inference_rule(
+  modulus: SubgroupTerm,
+):
+  element = PatternVariable(
+    name="element",
+  )
+
+  def guard(
+    premises,
+    bindings,
+  ):
+    relation = premises[0].conclusion
+
+    return isinstance(
+      relation.lhs,
+      Expression,
+    )
+
+  return InferenceRule(
+    name="zero implies modulo",
+    description=(
+      "An expression known to be zero is "
+      "congruent to zero modulo an explicitly "
+      "selected subgroup."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.ZERO,
+        relation_pattern=Relation(
+          lhs=element,
+          rhs=Zero(),
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+    ),
+    conclusion_pattern=ModuloStatement(
+      left=element,
+      right=Zero(),
+      modulus=modulus,
+    ),
+    match_guard=guard,
   )
 
 
@@ -339,6 +680,76 @@ def subgroup_equality_membership_propagation_inference_rule():
     premise_patterns=(
       PremisePattern(
         statement_type=MembershipStatement,
+      ),
+      PremisePattern(
+        statement_type=SubgroupEqualityStatement,
+      ),
+    ),
+    conclusion_builder=(
+      build_conclusion
+    ),
+    match_guard=guard,
+  )
+
+
+def subgroup_equality_modulo_propagation_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    modulo_statement = (
+      premises[0].conclusion
+    )
+
+    equality_statement = (
+      premises[1].conclusion
+    )
+
+    return (
+      modulo_statement.modulus
+      == equality_statement.left
+      or modulo_statement.modulus
+      == equality_statement.right
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    modulo_statement = (
+      premises[0].conclusion
+    )
+
+    equality_statement = (
+      premises[1].conclusion
+    )
+
+    if (
+      modulo_statement.modulus
+      == equality_statement.left
+    ):
+      target_modulus = (
+        equality_statement.right
+      )
+    else:
+      target_modulus = (
+        equality_statement.left
+      )
+
+    return ModuloStatement(
+      left=modulo_statement.left,
+      right=modulo_statement.right,
+      modulus=target_modulus,
+    )
+
+  return InferenceRule(
+    name="subgroup equality modulo propagation",
+    description=(
+      "Congruence transfers across an equality "
+      "of subgroup terms."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=ModuloStatement,
       ),
       PremisePattern(
         statement_type=SubgroupEqualityStatement,
