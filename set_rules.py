@@ -11,6 +11,7 @@ from expression import (
   Zero,
 )
 from proof import (
+  ExactnessStatement,
   InferenceRule,
   PatternVariable,
   PremisePattern,
@@ -142,6 +143,59 @@ def mapped_zero_implies_kernel_membership_inference_rule(
       PremisePattern(
         statement_type=Relation,
         relation_type=RelationType.ZERO,
+      ),
+    ),
+    conclusion_builder=(
+      build_conclusion
+    ),
+    match_guard=guard,
+  )
+
+
+def exactness_implies_subgroup_equality_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    exactness_statement = (
+      premises[0].conclusion
+    )
+
+    return (
+      exactness_statement.is_exact
+      is True
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    exactness_statement = (
+      premises[0].conclusion
+    )
+
+    return SubgroupEqualityStatement(
+      left=(
+        exactness_statement
+        .first_map
+        .image_subgroup()
+      ),
+      right=(
+        exactness_statement
+        .second_map
+        .kernel_subgroup()
+      ),
+    )
+
+  return InferenceRule(
+    name="exactness implies subgroup equality",
+    description=(
+      "Exactness of consecutive maps means "
+      "that the image of the first map equals "
+      "the kernel of the second map."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=ExactnessStatement,
       ),
     ),
     conclusion_builder=(

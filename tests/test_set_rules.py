@@ -16,19 +16,24 @@ from models import (
   GroupComponent,
 )
 from proof import (
+  ExactnessStatement,
+  InferenceTerminationReason,
   ProofRule,
   ProofStep,
   Relation,
   RelationType,
   apply_inference_match,
+  derive_inference_round_result,
   find_inference_match,
   relation_proof_step,
   run_inference_round,
+  run_inference_until_stable_with_history,
 )
 from set_rules import (
   MembershipStatement,
   SubgroupEqualityStatement,
   SubsetStatement,
+  exactness_implies_subgroup_equality_inference_rule,
   image_membership_statement,
   kernel_membership_implies_mapped_zero_inference_rule,
   kernel_membership_statement,
@@ -1686,6 +1691,295 @@ def test_mapped_zero_implies_kernel_membership_preserves_provenance():
   )
 
 
+def test_exactness_implies_subgroup_equality():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  suspension_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  hopf_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  exactness_step = ProofStep(
+    conclusion=ExactnessStatement(
+      first_map=suspension_map,
+      second_map=hopf_map,
+      is_exact=True,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    exactness_implies_subgroup_equality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      exactness_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    SubgroupEqualityStatement(
+      left=suspension_map.image_subgroup(),
+      right=hopf_map.kernel_subgroup(),
+    )
+  )
+
+
+def test_exactness_implies_subgroup_equality_rejects_nonexact_pair():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  suspension_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  hopf_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  nonexact_step = ProofStep(
+    conclusion=ExactnessStatement(
+      first_map=suspension_map,
+      second_map=hopf_map,
+      is_exact=False,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    exactness_implies_subgroup_equality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      nonexact_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_exactness_implies_subgroup_equality_preserves_provenance():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  suspension_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  hopf_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  exactness_step = ProofStep(
+    conclusion=ExactnessStatement(
+      first_map=suspension_map,
+      second_map=hopf_map,
+      is_exact=True,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    exactness_implies_subgroup_equality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      exactness_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    exactness_step,
+  )
+
+
+def test_phase14_exactness_image_kernel_membership_integration():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  suspension_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  hopf_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  hopf_symbol = MapSymbol(
+    name="H",
+  )
+
+  alpha = eta(3)
+
+  exactness_step = ProofStep(
+    conclusion=ExactnessStatement(
+      first_map=suspension_map,
+      second_map=hopf_map,
+      is_exact=True,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  mapped_zero_step = relation_proof_step(
+    Relation(
+      lhs=MapApplication(
+        map=hopf_symbol,
+        expression=alpha,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  exactness_rule = (
+    exactness_implies_subgroup_equality_inference_rule()
+  )
+
+  zero_to_kernel_rule = (
+    mapped_zero_implies_kernel_membership_inference_rule(
+      group_map=hopf_map,
+      map_symbol=hopf_symbol,
+    )
+  )
+
+  membership_equality_rule = (
+    subgroup_equality_membership_propagation_inference_rule()
+  )
+
+  rules = (
+    exactness_rule,
+    zero_to_kernel_rule,
+    membership_equality_rule,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        exactness_step,
+        mapped_zero_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  subgroup_equality = (
+    SubgroupEqualityStatement(
+      left=suspension_map.image_subgroup(),
+      right=hopf_map.kernel_subgroup(),
+    )
+  )
+
+  kernel_membership = MembershipStatement(
+    element=alpha,
+    subgroup=hopf_map.kernel_subgroup(),
+  )
+
+  image_membership = MembershipStatement(
+    element=alpha,
+    subgroup=suspension_map.image_subgroup(),
+  )
+
+  assert subgroup_equality in conclusions
+  assert kernel_membership in conclusions
+  assert image_membership in conclusions
+
+  terminal_round = (
+    derive_inference_round_result(
+      rules,
+      result.steps,
+    )
+  )
+
+  assert terminal_round.new_steps == ()
 
 
 
