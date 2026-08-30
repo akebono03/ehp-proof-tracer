@@ -589,6 +589,58 @@ def test_unindexed_toda_bracket_has_no_index():
   assert bracket.index is None
 
 
+def test_unindexed_and_indexed_toda_brackets_are_structurally_distinct():
+  unindexed = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+  )
+  indexed = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+    index=1,
+  )
+
+  assert unindexed != indexed
+
+
+def test_toda_brackets_with_different_indices_are_structurally_distinct():
+  index_one = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+    index=1,
+  )
+  index_two = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+    index=2,
+  )
+
+  assert index_one != index_two
+
+
+def test_toda_brackets_with_same_entries_and_same_index_are_structurally_equal():
+  left = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+    index=1,
+  )
+  right = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+    index=1,
+  )
+
+  assert left == right
+
+
+
+
 
 
 
