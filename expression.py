@@ -11,6 +11,11 @@ class MapSymbol:
 
 
 @dataclass(frozen=True)
+class ScalarSymbol:
+  name: str
+
+
+@dataclass(frozen=True)
 class Zero(Expression):
   pass
 

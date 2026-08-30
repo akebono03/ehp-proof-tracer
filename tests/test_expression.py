@@ -1,9 +1,11 @@
 from expression import (
   Composition,
+  Expression,
   HomotopyElement,
   MapApplication,
   MapSymbol,
   Multiple,
+  ScalarSymbol,
   Sum,
   Suspension,
   Zero,
@@ -11,6 +13,42 @@ from expression import (
   nu,
   sigma,
 )
+
+
+def test_scalar_symbol():
+  scalar = ScalarSymbol(
+    name="k",
+  )
+
+  assert scalar.name == "k"
+
+
+def test_scalar_symbol_has_structural_equality():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  same_k = ScalarSymbol(
+    name="k",
+  )
+
+  ell = ScalarSymbol(
+    name="l",
+  )
+
+  assert k == same_k
+  assert k != ell
+
+
+def test_scalar_symbol_is_not_expression():
+  scalar = ScalarSymbol(
+    name="k",
+  )
+
+  assert not isinstance(
+    scalar,
+    Expression,
+  )
 
 
 def test_homotopy_element():
