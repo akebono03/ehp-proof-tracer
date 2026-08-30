@@ -20,6 +20,7 @@ class TodaBracket:
   first: Expression
   second: Expression
   third: Expression
+  index: int | None = None
 
 
 @dataclass(frozen=True)

@@ -565,6 +565,29 @@ def test_toda_bracket_entry_order_is_structural():
   assert original != reordered
 
 
+def test_indexed_toda_bracket():
+  bracket = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+    index=1,
+  )
+
+  assert bracket.first == eta(3)
+  assert bracket.second == nu(4)
+  assert bracket.third == sigma(8)
+  assert bracket.index == 1
+
+
+def test_unindexed_toda_bracket_has_no_index():
+  bracket = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+  )
+
+  assert bracket.index is None
+
 
 
 
