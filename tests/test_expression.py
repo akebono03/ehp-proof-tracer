@@ -87,6 +87,88 @@ def test_multiple():
   assert expression.expression == eta(3)
 
 
+def test_multiple_accepts_symbolic_scalar():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  alpha = eta(3)
+
+  multiple = Multiple(
+    coefficient=k,
+    expression=alpha,
+  )
+
+  assert multiple.coefficient == k
+  assert multiple.expression == alpha
+
+
+def test_symbolic_multiple_has_structural_equality():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  alpha = eta(3)
+
+  first = Multiple(
+    coefficient=k,
+    expression=alpha,
+  )
+
+  second = Multiple(
+    coefficient=ScalarSymbol(
+      name="k",
+    ),
+    expression=alpha,
+  )
+
+  assert first == second
+
+
+def test_symbolic_multiple_distinguishes_scalar_symbol():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  ell = ScalarSymbol(
+    name="l",
+  )
+
+  alpha = eta(3)
+
+  k_multiple = Multiple(
+    coefficient=k,
+    expression=alpha,
+  )
+
+  ell_multiple = Multiple(
+    coefficient=ell,
+    expression=alpha,
+  )
+
+  assert k_multiple != ell_multiple
+
+
+def test_symbolic_multiple_remains_distinct_from_integer_multiple():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  alpha = eta(3)
+
+  symbolic_multiple = Multiple(
+    coefficient=k,
+    expression=alpha,
+  )
+
+  integer_multiple = Multiple(
+    coefficient=2,
+    expression=alpha,
+  )
+
+  assert symbolic_multiple != integer_multiple
+
+
 def test_inverse_is_represented_by_negative_one_multiple():
   alpha = eta(3)
 

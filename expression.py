@@ -28,7 +28,7 @@ class HomotopyElement(Expression):
 
 @dataclass(frozen=True)
 class Multiple(Expression):
-  coefficient: int
+  coefficient: int | ScalarSymbol
   expression: Expression
 
 
