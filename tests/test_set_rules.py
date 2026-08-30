@@ -1982,6 +1982,261 @@ def test_phase14_exactness_image_kernel_membership_integration():
   assert terminal_round.new_steps == ()
 
 
+def test_image_and_kernel_roles_share_subgroup_value():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  image_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  kernel_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  image_subgroup = (
+    image_map.image_subgroup()
+  )
+
+  kernel_subgroup = (
+    kernel_map.kernel_subgroup()
+  )
+
+  assert image_subgroup == kernel_subgroup
+
+  assert {
+    element.coefficients
+    for element in image_subgroup.elements
+  } == {
+    (0,),
+    (2,),
+  }
+
+  assert {
+    element.coefficients
+    for element in kernel_subgroup.elements
+  } == {
+    (0,),
+    (2,),
+  }
+
+
+def test_image_and_kernel_membership_roles_collapse_under_equality():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  image_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  kernel_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  alpha = eta(3)
+
+  image_membership = image_membership_statement(
+    element=alpha,
+    group_map=image_map,
+  )
+
+  kernel_membership = kernel_membership_statement(
+    element=alpha,
+    group_map=kernel_map,
+  )
+
+  assert image_membership == kernel_membership
+
+  assert (
+    image_membership.subgroup
+    == image_map.image_subgroup()
+  )
+
+  assert (
+    kernel_membership.subgroup
+    == kernel_map.kernel_subgroup()
+  )
+
+
+def test_subgroup_equality_membership_transport_is_duplicate_for_equal_roles():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  image_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  kernel_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  alpha = eta(3)
+
+  kernel_membership_step = ProofStep(
+    conclusion=kernel_membership_statement(
+      element=alpha,
+      group_map=kernel_map,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  subgroup_equality_step = ProofStep(
+    conclusion=SubgroupEqualityStatement(
+      left=image_map.image_subgroup(),
+      right=kernel_map.kernel_subgroup(),
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    subgroup_equality_membership_propagation_inference_rule()
+  )
+
+  round_result = derive_inference_round_result(
+    (
+      rule,
+    ),
+    (
+      kernel_membership_step,
+      subgroup_equality_step,
+    ),
+  )
+
+  assert round_result.new_steps == ()
+
+  assert len(
+    round_result.candidate_steps
+  ) == 1
+
+  assert len(
+    round_result.duplicate_rejected_steps
+  ) == 1
+
+  candidate_step = (
+    round_result.candidate_steps[0]
+  )
+
+  assert candidate_step.conclusion == (
+    image_membership_statement(
+      element=alpha,
+      group_map=image_map,
+    )
+  )
+
+  assert candidate_step.premises == (
+    kernel_membership_step,
+    subgroup_equality_step,
+  )
+
+
+def test_exactness_subgroup_equality_keeps_provenance_before_membership_collapse():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  image_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  kernel_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  exactness_step = ProofStep(
+    conclusion=ExactnessStatement(
+      first_map=image_map,
+      second_map=kernel_map,
+      is_exact=True,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    exactness_implies_subgroup_equality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      exactness_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    SubgroupEqualityStatement(
+      left=image_map.image_subgroup(),
+      right=kernel_map.kernel_subgroup(),
+    )
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    exactness_step,
+  )
+
+
+
 
 
 
