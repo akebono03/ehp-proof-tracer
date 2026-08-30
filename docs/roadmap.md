@@ -11,7 +11,7 @@
 この `docs/roadmap.md` は、まだ未実装の機能を含む将来構想と、
 それらの依存関係・実装優先順位を整理するための文書とする。
 
-Phase 18 完了時点では、以下の基盤が実装済みである.
+Phase 19 完了時点では、以下の基盤が実装済みである.
 
 ```text
 Abelian group calculation
@@ -30,13 +30,15 @@ Indeterminacy
 Toda bracket minimum representation
 Toda bracket membership representation
 Toda bracket definedness from zero compositions
+Toda bracket membership theorem bridge
+Toda bracket membership theorem bridge from an actual literature fact
 ```
 
 したがって、次の直接的な開発対象候補は:
 
 ```text
-Phase 19
-Toda bracket membership / first theorem bridge
+Phase 20
+indexed unstable Toda notation
 ```
 
 である。
@@ -922,6 +924,7 @@ Phase 15  Coset / modulo reasoning
 Phase 16  Symbolic scalar constraints
 Phase 17  Indeterminacy
 Phase 18  Toda bracket minimum representation
+Phase 19  Toda bracket membership / first bracket theorem bridge
 ```
 
 完了。
@@ -929,9 +932,6 @@ Phase 18  Toda bracket minimum representation
 次:
 
 ```text
-Phase 19 candidate
-Toda bracket membership / first bracket theorem bridge
-        ↓
 Phase 20 candidate
 Indexed unstable Toda notation
   {a,E^t b,E^t c}_t
@@ -953,7 +953,7 @@ Higher Toda bracket
   only when actual examples require it
 ```
 
-Phase 19 以降の番号は provisional。
+Phase 20 以降の番号は provisional。
 
 Actual mathematical need に応じて再配置可能。
 
@@ -1086,78 +1086,161 @@ unchanged
 
 ---
 
-# 22. Phase 19 candidate：Toda bracket membership / first theorem bridge
 
-## 22.1 目的
+# 22. Phase 19 完了：Toda bracket membership / first theorem bridge
 
-Phase 18 では:
+## 22.1 actual example
 
-```text
-x∈{a,b,c}
-```
-
-を first-class known statement として保持可能になった。
-
-Phase 19 では actual mathematical theorem / known Toda fact を使って、
-membership conclusion を導出する最初の bridge を検討する。
-
-Intended shape:
+Phase 19 は最初の actual theorem bridge として:
 
 ```text
-explicit theorem premises
-↓
-TodaBracketMembershipStatement
+ε₃ ∈ {η₃,Eν′,ν₇}_1
 ```
+
+を採用した。
+
+Current proof representation では bracket index をまだ持たないため:
+
+```text
+ε₃ ∈ {η₃,Eν′,ν₇}
+```
+
+という unindexed projection を保持する。
 
 Important:
 
 ```text
-{a,b,c} defined
+source notation
+{η₃,Eν′,ν₇}_1
+
+current representation
+{η₃,Eν′,ν₇}
+```
+
+は lossless に同一ではない。
+
+この gap が Phase 20 の immediate actual requirement になる。
+
+## 22.2 implemented theorem bridge
+
+追加済み:
+
+```text
+TodaBracketMembershipTheoremStatement
+```
+
+および:
+
+```text
+theorem fact
++
+matching Toda bracket definedness
+↓
+Toda bracket membership
+```
+
+Theorem fact と membership conclusion は separate statement。
+
+```text
+theorem fact alone
 ↛
-x∈{a,b,c}
+membership
 ```
-
-なので、definedness だけから arbitrary element membership を生成する rule
-は導入しない。
-
-## 22.2 actual example first
-
-最初の theorem bridge は literature / concrete known bracket example に
-基づいて仕様化する。
-
-Possible target form:
 
 ```text
-known Toda fact
-μ_3 ∈ {...}
+definedness alone
+↛
+membership
 ```
 
-ただし具体的な notation / entry count / bracket order / stem semantics は
-actual source と照合してから固定する。
+を維持する。
 
-## 22.3 provenance
+## 22.3 actual multi-round chain
 
-Membership conclusion には:
+Implemented representative chain:
 
 ```text
-theorem / known fact
-composition assumptions if required
-source / literature provenance
+η₃∘Eν′=0
+Eν′∘ν₇=0
+↓
+ZERO
+↓
+{η₃,Eν′,ν₇} defined
++
+Toda theorem fact
+↓
+ε₃∈{η₃,Eν′,ν₇}
 ```
 
-を保持する。
-
-## 22.4 no universal theorem language yet
-
-Phase 19 で直ちに:
+Three productive rounds:
 
 ```text
-universal quantified theorem framework
-general set containment algebra
-general candidate-set solver
+round 1 ZERO
+round 2 definedness
+round 3 membership
 ```
 
-を導入しない。
+## 22.4 indeterminacy
+
+Theorem-derived membership may coexist with:
+
+```text
+ε₃=±α
+ε₃∈β+A
+```
+
+without deriving:
+
+```text
+ε₃=α
+ε₃=-α
+ε₃=β
+```
+
+No Toda→sign / Toda→coset automatic bridge is introduced.
+
+## 22.5 provenance
+
+Final membership provenance:
+
+```text
+membership
+├─ theorem fact
+└─ definedness
+   ├─ ZERO
+   │  └─ first defining equality
+   └─ ZERO
+      └─ second defining equality
+```
+
+Unrelated facts and coexisting indeterminacy do not enter the direct theorem
+branch.
+
+## 22.6 termination / scope
+
+Representative current family reaches:
+
+```text
+FIXED_POINT
+round_count == 3
+terminal new_steps == ()
+```
+
+`TodaBracketMembershipTheoremStatement` remains outside generic equality scope.
+
+Generic inference engine remains unchanged.
+
+Verified:
+
+```text
+tests/test_toda_rules.py
+36 passed in 3.06s
+```
+
+```text
+full suite
+1064 passed in 61.64s
+```
 
 ---
 
@@ -1169,24 +1252,91 @@ Target notation:
 {a,E^t b,E^t c}_t
 ```
 
-Phase 20 では下付き bracket index と suspension exponent を separate
-structural fields として保持する。
+The Phase 19 actual source example already demonstrates why the bracket index
+cannot remain discarded:
 
 ```text
-bracket index t
-≠
-suspension exponent t
+{η₃,Eν′,ν₇}_1
 ```
 
-同じ notation symbol を使っていても内部で collapse しない。
+Phase 20 should add the minimum structure needed to preserve this index.
 
-必要に応じて:
+## 23.1 bracket index
+
+Candidate direction:
+
+```text
+IndexedTodaBracket
+```
+
+or a minimal extension that stores:
+
+```text
+entries
+index
+```
+
+The exact class shape should be chosen only after checking the current
+`TodaBracket` API and tests.
+
+Existing unindexed `TodaBracket(a,b,c)` should not be broken unnecessarily.
+
+## 23.2 suspension exponent and bracket index
+
+For general notation:
+
+```text
+{a,E^t b,E^t c}_t
+```
+
+the suspension exponent and bracket index must remain distinct structural
+fields.
+
+```text
+suspension exponent t
+≠
+bracket index t
+```
+
+A theorem may later state that they agree, but representation should not
+collapse them automatically.
+
+## 23.3 IteratedSuspension
+
+Concrete `Eν′` is already representable as:
+
+```text
+Suspension(ν′)
+```
+
+General symbolic:
+
+```text
+E^t α
+```
+
+may require:
 
 ```text
 IteratedSuspension
 ```
 
-または同等の minimal structure を検討する。
+or an equivalent minimal object.
+
+Do not add a general symbolic exponent system beyond what the actual indexed
+Toda notation requires.
+
+## 23.4 scope
+
+Phase 20 should not automatically introduce:
+
+```text
+stable Toda brackets
+higher Toda brackets
+general theorem quantification
+full homotopy typing
+general candidate-set algebra
+```
 
 Stable notation:
 
@@ -1194,7 +1344,7 @@ Stable notation:
 <a,b,c>
 ```
 
-は引き続き別 context として deferred。
+remains a separate later layer.
 
 ---
 
@@ -1223,7 +1373,11 @@ Stable notation:
 | Toda bracket `{a,b,c}` | IMPLEMENTED | Phase 18 |
 | Toda bracket membership | IMPLEMENTED | Phase 18 |
 | Toda bracket definedness from zero compositions | IMPLEMENTED | Phase 18 |
-| indexed unstable bracket `{a,E^t b,E^t c}_t` | PLANNED | after minimal bracket |
+| Toda membership literature provenance | IMPLEMENTED | Phase 19 |
+| Toda membership theorem statement | IMPLEMENTED | Phase 19 |
+| Toda theorem + definedness → membership | IMPLEMENTED | Phase 19 |
+| Actual ε₃ three-round Toda derivation | IMPLEMENTED | Phase 19 |
+| indexed unstable bracket `{a,E^t b,E^t c}_t` | PLANNED | Phase 20 candidate |
 | typed source / target | PLANNED | when bracket validity needs it |
 | ambient homotopy group validation | PLANNED | addition / equality / bracket typing |
 | stable homotopy group `π_k^S` | PLANNED | stable context |
@@ -1240,14 +1394,15 @@ Stable notation:
 
 ---
 
-# 25. Phase 18 completion boundary
+# 25. Phase 19 completion boundary
 
-Implemented:
+Implemented through Phase 19:
 
 ```text
 TodaBracket(a,b,c)
-TodaBracketMembershipStatement
 TodaBracketDefinedStatement
+TodaBracketMembershipStatement
+TodaBracketMembershipTheoremStatement
 ```
 
 Bridges:
@@ -1256,75 +1411,97 @@ Bridges:
 a∘b=0
 b∘c=0
 ↓
-generic ZERO
+ZERO
 ↓
 {a,b,c} defined
+```
+
+and:
+
+```text
+matching Toda theorem fact
++
+{a,b,c} defined
+↓
+x∈{a,b,c}
+```
+
+Actual representative example:
+
+```text
+η₃∘Eν′=0
+Eν′∘ν₇=0
++
+Toda theorem fact
+↓
+ε₃∈{η₃,Eν′,ν₇}
 ```
 
 Coexistence:
 
 ```text
-x∈{a,b,c}
-x=±α
-```
-
-```text
-x∈{a,b,c}
-x∈β+A
+ε₃=±α
+ε₃∈β+A
 ```
 
 Safety:
 
 ```text
-{a,b,c} defined
+definedness
 ↛
-x∈{a,b,c}
+membership
 ```
 
 ```text
-x∈{a,b,c}
+theorem fact
+↛
+membership
+```
+
+```text
+membership
 ↛
 exact value
 ```
 
 ```text
-x∈{a,b,c}
-+
-x=±α
+membership
 ↛
-x=α
+automatic sign / coset indeterminacy
 ```
 
-No candidate enumeration.
+Provenance reaches both defining composition equalities and the theorem fact.
 
-No general set-valued expression hierarchy.
+Representative Phase 19 family reaches:
+
+```text
+round_count == 3
+FIXED_POINT
+terminal new_steps == ()
+```
+
+Current explicit limitation:
+
+```text
+literature {η₃,Eν′,ν₇}_1
+↓
+Phase 19 stores only {η₃,Eν′,ν₇}
+```
 
 No indexed unstable notation yet.
 
 No stable / higher Toda bracket yet.
 
-Current representative Toda rule family reaches finite:
-
-```text
-FIXED_POINT
-```
-
-and terminal:
-
-```text
-new_steps == ()
-```
-
 Verified:
 
 ```text
 tests/test_toda_rules.py
-20 passed in 3.36s
+36 passed in 3.06s
 ```
 
 ```text
 full suite
-1048 passed in 61.09s
+1064 passed in 61.64s
 ```
 
 ---
