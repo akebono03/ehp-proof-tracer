@@ -42,6 +42,7 @@ from set_rules import (
   SubsetStatement,
   coset_equality_implies_modulo_inference_rule,
   difference_membership_implies_modulo_inference_rule,
+  equality_implies_modulo_inference_rule,
   exactness_implies_subgroup_equality_inference_rule,
   image_membership_statement,
   kernel_membership_implies_mapped_zero_inference_rule,
@@ -56,6 +57,7 @@ from set_rules import (
   subgroup_equality_symmetry_inference_rule,
   subgroup_equality_transitivity_inference_rule,
   subset_transitivity_inference_rule,
+  zero_implies_modulo_inference_rule,
 )
 
 
@@ -6142,6 +6144,440 @@ def test_phase15_modulo_coset_equality_bridge_reaches_fixed_point():
 
   assert terminal_round.new_steps == ()
 
+
+def test_equality_implies_modulo():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=alpha,
+      rhs=beta,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  rule = (
+    equality_implies_modulo_inference_rule(
+      modulus=subgroup,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    ModuloStatement(
+      left=alpha,
+      right=beta,
+      modulus=subgroup,
+    )
+  )
+
+
+def test_equality_implies_modulo_preserves_provenance():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=alpha,
+      rhs=beta,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  rule = (
+    equality_implies_modulo_inference_rule(
+      modulus=subgroup,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    equality_step,
+  )
+
+
+def test_equality_implies_modulo_rejects_non_expression_equality():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  equality_step = relation_proof_step(
+    Relation(
+      lhs="left",
+      rhs="right",
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  rule = (
+    equality_implies_modulo_inference_rule(
+      modulus=subgroup,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_zero_implies_modulo():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+
+  zero_step = relation_proof_step(
+    Relation(
+      lhs=alpha,
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  rule = (
+    zero_implies_modulo_inference_rule(
+      modulus=subgroup,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      zero_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    ModuloStatement(
+      left=alpha,
+      right=Zero(),
+      modulus=subgroup,
+    )
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    zero_step,
+  )
+
+
+def test_equality_implies_modulo_preserves_explicit_role_aware_modulus():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  image_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  kernel_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  image_reference = ImageSubgroupReference(
+    group_map=image_map,
+  )
+
+  kernel_reference = KernelSubgroupReference(
+    group_map=kernel_map,
+  )
+
+  assert (
+    image_reference.subgroup
+    == kernel_reference.subgroup
+  )
+
+  assert (
+    image_reference
+    != kernel_reference
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=alpha,
+      rhs=beta,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  image_rule = (
+    equality_implies_modulo_inference_rule(
+      modulus=image_reference,
+    )
+  )
+
+  kernel_rule = (
+    equality_implies_modulo_inference_rule(
+      modulus=kernel_reference,
+    )
+  )
+
+  image_match = find_inference_match(
+    image_rule,
+    (
+      equality_step,
+    ),
+  )
+
+  kernel_match = find_inference_match(
+    kernel_rule,
+    (
+      equality_step,
+    ),
+  )
+
+  assert image_match is not None
+  assert kernel_match is not None
+
+  image_modulo_step = apply_inference_match(
+    image_match
+  )
+
+  kernel_modulo_step = apply_inference_match(
+    kernel_match
+  )
+
+  assert image_modulo_step.conclusion == (
+    ModuloStatement(
+      left=alpha,
+      right=beta,
+      modulus=image_reference,
+    )
+  )
+
+  assert kernel_modulo_step.conclusion == (
+    ModuloStatement(
+      left=alpha,
+      right=beta,
+      modulus=kernel_reference,
+    )
+  )
+
+  assert (
+    image_modulo_step.conclusion
+    != kernel_modulo_step.conclusion
+  )
+
+
+def test_phase15_zero_modulo_membership_coset_bridge_reaches_fixed_point():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  image_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  image_reference = ImageSubgroupReference(
+    group_map=image_map,
+  )
+
+  alpha = eta(3)
+
+  zero_step = relation_proof_step(
+    Relation(
+      lhs=alpha,
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  zero_to_modulo_rule = (
+    zero_implies_modulo_inference_rule(
+      modulus=image_reference,
+    )
+  )
+
+  modulo_to_membership_rule = (
+    modulo_implies_difference_membership_inference_rule()
+  )
+
+  membership_to_modulo_rule = (
+    difference_membership_implies_modulo_inference_rule()
+  )
+
+  modulo_to_coset_rule = (
+    modulo_implies_coset_equality_inference_rule()
+  )
+
+  coset_to_modulo_rule = (
+    coset_equality_implies_modulo_inference_rule()
+  )
+
+  rules = (
+    zero_to_modulo_rule,
+    modulo_to_membership_rule,
+    membership_to_modulo_rule,
+    modulo_to_coset_rule,
+    coset_to_modulo_rule,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        zero_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  modulo_zero = ModuloStatement(
+    left=alpha,
+    right=Zero(),
+    modulus=image_reference,
+  )
+
+  difference_membership = MembershipStatement(
+    element=Sum(
+      left=alpha,
+      right=Multiple(
+        coefficient=-1,
+        expression=Zero(),
+      ),
+    ),
+    subgroup=image_reference,
+  )
+
+  coset_equality = CosetEqualityStatement(
+    left=Coset(
+      representative=alpha,
+      subgroup=image_reference,
+    ),
+    right=Coset(
+      representative=Zero(),
+      subgroup=image_reference,
+    ),
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert modulo_zero in conclusions
+  assert difference_membership in conclusions
+  assert coset_equality in conclusions
+
+  terminal_round = (
+    derive_inference_round_result(
+      rules,
+      result.steps,
+    )
+  )
+
+  assert terminal_round.new_steps == ()
 
 
 

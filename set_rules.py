@@ -333,6 +333,105 @@ def difference_membership_implies_modulo_inference_rule():
   )
 
 
+def equality_implies_modulo_inference_rule(
+  modulus: SubgroupTerm,
+):
+  left = PatternVariable(
+    name="left",
+  )
+
+  right = PatternVariable(
+    name="right",
+  )
+
+  def guard(
+    premises,
+    bindings,
+  ):
+    relation = premises[0].conclusion
+
+    return (
+      isinstance(
+        relation.lhs,
+        Expression,
+      )
+      and isinstance(
+        relation.rhs,
+        Expression,
+      )
+    )
+
+  return InferenceRule(
+    name="equality implies modulo",
+    description=(
+      "Equal expressions are congruent modulo "
+      "an explicitly selected subgroup."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.EQUALITY,
+        relation_pattern=Relation(
+          lhs=left,
+          rhs=right,
+          relation_type=RelationType.EQUALITY,
+        ),
+      ),
+    ),
+    conclusion_pattern=ModuloStatement(
+      left=left,
+      right=right,
+      modulus=modulus,
+    ),
+    match_guard=guard,
+  )
+
+
+def zero_implies_modulo_inference_rule(
+  modulus: SubgroupTerm,
+):
+  element = PatternVariable(
+    name="element",
+  )
+
+  def guard(
+    premises,
+    bindings,
+  ):
+    relation = premises[0].conclusion
+
+    return isinstance(
+      relation.lhs,
+      Expression,
+    )
+
+  return InferenceRule(
+    name="zero implies modulo",
+    description=(
+      "An expression known to be zero is "
+      "congruent to zero modulo an explicitly "
+      "selected subgroup."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.ZERO,
+        relation_pattern=Relation(
+          lhs=element,
+          rhs=Zero(),
+          relation_type=RelationType.ZERO,
+        ),
+      ),
+    ),
+    conclusion_pattern=ModuloStatement(
+      left=element,
+      right=Zero(),
+      modulus=modulus,
+    ),
+    match_guard=guard,
+  )
+
+
 def kernel_membership_implies_mapped_zero_inference_rule(
   group_map: GroupMap,
   map_symbol: MapSymbol,
