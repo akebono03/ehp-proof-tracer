@@ -934,6 +934,114 @@ def test_indexed_toda_bracket_data_distinguishes_symbolic_suspension_exponent():
   assert first != second
 
 
+def test_toda_bracket_accepts_symbolic_index():
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  bracket = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+    index=t,
+  )
+
+  assert bracket.index == t
+
+
+def test_toda_brackets_with_same_symbolic_index_are_structurally_equal():
+  left = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+    index=ScalarSymbol(
+      name="t",
+    ),
+  )
+
+  right = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+    index=ScalarSymbol(
+      name="t",
+    ),
+  )
+
+  assert left == right
+
+
+def test_toda_brackets_with_different_symbolic_indices_are_structurally_distinct():
+  t_indexed = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+    index=ScalarSymbol(
+      name="t",
+    ),
+  )
+
+  s_indexed = TodaBracket(
+    first=eta(3),
+    second=nu(4),
+    third=sigma(8),
+    index=ScalarSymbol(
+      name="s",
+    ),
+  )
+
+  assert t_indexed != s_indexed
+
+
+def test_indexed_toda_bracket_data_represents_symbolic_indexed_suspension_form():
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  bracket = TodaBracket(
+    first=eta(3),
+    second=IteratedSuspension(
+      expression=nu_prime,
+      exponent=t,
+    ),
+    third=IteratedSuspension(
+      expression=nu(6),
+      exponent=t,
+    ),
+    index=t,
+  )
+
+  data = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=nu_prime,
+    third_base=nu(6),
+    suspension_exponent=t,
+  )
+
+  assert data.bracket.first == eta(3)
+
+  assert data.bracket.second == IteratedSuspension(
+    expression=data.second_base,
+    exponent=t,
+  )
+
+  assert data.bracket.third == IteratedSuspension(
+    expression=data.third_base,
+    exponent=t,
+  )
+
+  assert data.bracket.index == t
+  assert data.suspension_exponent == t
+  assert data.bracket.index == data.suspension_exponent
+
+
+
+
 
 
 
