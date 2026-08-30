@@ -8,7 +8,10 @@ from expression import (
 )
 from proof import (
   InferenceRule,
+  LiteratureReference,
   PremisePattern,
+  ProofRule,
+  ProofStep,
   Relation,
   RelationType,
 )
@@ -18,11 +21,113 @@ from proof import (
 class TodaBracketMembershipStatement:
   element: Expression
   bracket: TodaBracket
+  source: LiteratureReference | str | None = None
+  note: str | None = None
+
+
+def toda_bracket_membership_proof_step(
+  statement,
+):
+  if not isinstance(
+    statement,
+    TodaBracketMembershipStatement,
+  ):
+    raise TypeError(
+      "statement must be a "
+      "TodaBracketMembershipStatement"
+    )
+
+  return ProofStep(
+    conclusion=statement,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+
+@dataclass(frozen=True)
+class TodaBracketMembershipTheoremStatement:
+  element: Expression
+  bracket: TodaBracket
+  source: LiteratureReference | str | None = None
+  note: str | None = None
+
+
+def toda_bracket_membership_theorem_proof_step(
+  statement,
+):
+  if not isinstance(
+    statement,
+    TodaBracketMembershipTheoremStatement,
+  ):
+    raise TypeError(
+      "statement must be a "
+      "TodaBracketMembershipTheoremStatement"
+    )
+
+  return ProofStep(
+    conclusion=statement,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
 
 
 @dataclass(frozen=True)
 class TodaBracketDefinedStatement:
   bracket: TodaBracket
+
+
+def toda_bracket_membership_from_theorem_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    theorem_statement = premises[0].conclusion
+    defined_statement = premises[1].conclusion
+
+    return (
+      theorem_statement.bracket
+      == defined_statement.bracket
+    )
+
+  def conclusion_builder(
+    premises,
+  ):
+    theorem_statement = premises[0].conclusion
+
+    return TodaBracketMembershipStatement(
+      element=theorem_statement.element,
+      bracket=theorem_statement.bracket,
+      source=theorem_statement.source,
+      note=theorem_statement.note,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda bracket membership "
+      "from theorem"
+    ),
+    description=(
+      "If a literature-backed Toda "
+      "membership theorem applies to "
+      "a defined bracket, derive the "
+      "corresponding bracket membership."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaBracketMembershipTheoremStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaBracketDefinedStatement
+        ),
+      ),
+    ),
+    conclusion_builder=conclusion_builder,
+    match_guard=guard,
+  )
 
 
 def toda_bracket_defined_by_zero_compositions_inference_rule():

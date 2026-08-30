@@ -71,7 +71,8 @@ Completed foundations and theorem families:
 16. symbolic scalar constraints with parity / mod-two / order-two integration,
 17. indeterminacy representation and bridges,
 18. Toda bracket minimum representation, membership, definedness, provenance,
-19. explicit inference-scope / termination boundaries.
+19. Toda bracket membership theorem bridge from an actual literature-backed fact,
+20. explicit inference-scope / termination boundaries.
 
 Current architecture:
 
@@ -117,6 +118,7 @@ capability.
 - Phase 16: symbolic scalar constraints — completed
 - Phase 17: indeterminacy — completed
 - Phase 18: Toda bracket minimum representation — completed
+- Phase 19: Toda bracket membership / first theorem bridge — completed
 
 ---
 
@@ -1236,6 +1238,296 @@ The generic inference engine remains unchanged.
 
 ---
 
+
+# Phase 19: Toda bracket membership / first theorem bridge
+
+Phase 19 introduces the first actual literature-backed bridge from a concrete
+Toda theorem fact to a `TodaBracketMembershipStatement`.
+
+The first actual example is the unstable Toda-bracket fact represented in the
+current unindexed proof layer as:
+
+```text
+ε₃ ∈ {η₃,Eν′,ν₇}
+```
+
+The literature notation carries an index `_1`. Phase 19 intentionally stores
+only the current three-fold unindexed projection:
+
+```text
+{η₃,Eν′,ν₇}
+```
+
+The missing index is a known representation limitation and is deferred to
+Phase 20.
+
+The expression `Eν′` is represented structurally as:
+
+```text
+Suspension(ν′)
+```
+
+rather than being encoded into one generator name.
+
+## Known membership fact
+
+`TodaBracketMembershipStatement` now supports literature provenance:
+
+```text
+element
+bracket
+source
+note
+```
+
+A known membership may be introduced as a `ProofRule.GIVEN` step by:
+
+```text
+toda_bracket_membership_proof_step()
+```
+
+This remains useful for directly stored literature facts.
+
+## Membership theorem fact
+
+Phase 19 adds the narrow theorem statement:
+
+```text
+TodaBracketMembershipTheoremStatement
+```
+
+with fields:
+
+```text
+element
+bracket
+source
+note
+```
+
+Its semantics are intentionally narrower than a general theorem language:
+
+```text
+for this specific literature-backed bracket,
+if the bracket is established as defined,
+the specified element is a member
+```
+
+The theorem statement is not itself membership:
+
+```text
+TodaBracketMembershipTheoremStatement
+≠
+TodaBracketMembershipStatement
+```
+
+A theorem fact may be stored as a `ProofRule.GIVEN` step by:
+
+```text
+toda_bracket_membership_theorem_proof_step()
+```
+
+No universal theorem hierarchy, quantifier system, or theorem registry is
+introduced.
+
+## First theorem bridge
+
+The Phase 19 bridge is:
+
+```text
+matching Toda membership theorem fact
++
+{a,b,c} defined
+↓
+x ∈ {a,b,c}
+```
+
+implemented by:
+
+```text
+toda_bracket_membership_from_theorem_inference_rule()
+```
+
+The theorem fact and definedness statement must refer to the same structural
+`TodaBracket`.
+
+A mismatched bracket does not trigger the rule.
+
+Critical boundaries:
+
+```text
+{a,b,c} defined
+↛
+x ∈ {a,b,c}
+```
+
+```text
+Toda theorem fact
+↛
+x ∈ {a,b,c}
+```
+
+Only the combination of the matching theorem fact and established definedness
+produces membership.
+
+## Actual ε₃ multi-round chain
+
+The representative actual chain begins with:
+
+```text
+η₃∘Eν′ = 0
+Eν′∘ν₇ = 0
+Toda membership theorem fact for ε₃
+```
+
+Using the existing Phase 18 composition / ZERO / definedness rules together
+with the Phase 19 theorem bridge:
+
+```text
+round 1
+η₃∘Eν′ = 0
+Eν′∘ν₇ = 0
+↓
+ZERO(η₃∘Eν′)
+ZERO(Eν′∘ν₇)
+
+round 2
+ZERO(η₃∘Eν′)
+ZERO(Eν′∘ν₇)
+↓
+{η₃,Eν′,ν₇} defined
+
+round 3
+Toda membership theorem fact
++
+{η₃,Eν′,ν₇} defined
+↓
+ε₃ ∈ {η₃,Eν′,ν₇}
+```
+
+The run then reaches:
+
+```text
+FIXED_POINT
+```
+
+with exactly three productive rounds.
+
+## Phase 17 indeterminacy coexistence
+
+The theorem-derived membership can coexist with existing Phase 17 partial
+information such as:
+
+```text
+ε₃ = ±α
+```
+
+and:
+
+```text
+ε₃ ∈ β+A
+```
+
+without selecting an exact representative.
+
+In particular:
+
+```text
+ε₃ ∈ {η₃,Eν′,ν₇}
++
+ε₃ = ±α
+↛
+ε₃ = α
+```
+
+```text
+ε₃ ∈ {η₃,Eν′,ν₇}
++
+ε₃ = ±α
+↛
+ε₃ = -α
+```
+
+```text
+ε₃ ∈ {η₃,Eν′,ν₇}
++
+ε₃ ∈ β+A
+↛
+ε₃ = β
+```
+
+Toda membership does not automatically generate sign or coset indeterminacy.
+
+No candidate-set intersection or narrowing is introduced.
+
+## Provenance
+
+The theorem-derived membership preserves the complete dependency tree:
+
+```text
+ε₃ ∈ {η₃,Eν′,ν₇}
+│
+├─ Toda membership theorem fact
+│
+└─ {η₃,Eν′,ν₇} defined
+   │
+   ├─ ZERO(η₃∘Eν′)
+   │  └─ η₃∘Eν′ = 0
+   │
+   └─ ZERO(Eν′∘ν₇)
+      └─ Eν′∘ν₇ = 0
+```
+
+The direct premises of the final membership step are exactly:
+
+```text
+theorem fact
+definedness step
+```
+
+Sign / coset facts and unrelated facts do not enter this direct provenance
+branch.
+
+No new recursive provenance framework is added.
+
+## Termination / inference scope
+
+The active Phase 19 family is:
+
+```text
+composition equality → ZERO
+ZERO + ZERO → Toda definedness
+Toda theorem fact + Toda definedness → Toda membership
+```
+
+For the representative finite knowledge state it reaches a genuine fixed
+point:
+
+```text
+round_count == 3
+termination_reason == FIXED_POINT
+```
+
+An explicit terminal inference round confirms:
+
+```text
+new_steps == ()
+```
+
+The Phase 19 theorem statement remains outside generic equality scope:
+
+```text
+TodaBracketMembershipTheoremStatement
+≠
+RelationType.EQUALITY
+```
+
+The existing Toda statements remain outside generic equality scope as well.
+
+The generic inference engine remains unchanged.
+
+---
+
 # Current limitations
 
 ## Conclusion identity
@@ -1273,6 +1565,8 @@ expressions.
 
 The current Phase 17 modulo/coset cycle itself is finite.
 
+The current Phase 19 Toda theorem-bridge family is finite for the representative fixed known term set.
+
 ## Typing
 
 Proof-level expressions still do not fully enforce:
@@ -1304,7 +1598,7 @@ Not yet implemented as general systems:
 - automatic collapse of indeterminacy from additional facts,
 - general Toda-bracket value-set algebra,
 - Toda bracket containment in cosets,
-- indexed unstable Toda notation,
+- indexed unstable Toda notation, including the literature `_1` index used by the current ε₃ example,
 - stable Toda brackets,
 - higher Toda brackets.
 
@@ -1332,7 +1626,7 @@ Verified result:
 36 passed
 ```
 
-Phase 18 focused suite:
+Phase 19 Toda focused suite:
 
 ```powershell
 python -m pytest tests/test_toda_rules.py -q
@@ -1341,13 +1635,13 @@ python -m pytest tests/test_toda_rules.py -q
 Verified result:
 
 ```text
-20 passed in 3.36s
+36 passed in 3.06s
 ```
 
-Phase 18 completion full suite:
+Phase 19 completion full suite:
 
 ```text
-1048 passed in 61.09s
+1064 passed in 61.64s
 ```
 
 No failures.
@@ -1426,6 +1720,53 @@ full suite
 
 ---
 
+# Phase 19 completion boundary
+
+Phase 19 is complete because an actual literature-backed Toda theorem fact can now be connected to existing bracket definedness and produce theorem-derived membership without collapsing set-valued or indeterminate semantics.
+
+Completion means:
+
+1. the actual ε₃ example is represented in the current unindexed three-fold layer.
+2. `Eν′` is structural `Suspension(ν′)`.
+3. membership statements can preserve `source` / `note` provenance.
+4. a narrow `TodaBracketMembershipTheoremStatement` is first-class.
+5. theorem facts can be stored as `ProofRule.GIVEN`.
+6. theorem fact and membership conclusion remain distinct.
+7. matching theorem fact + definedness derives membership.
+8. mismatched brackets are rejected.
+9. theorem fact alone does not derive membership.
+10. definedness alone does not derive membership.
+11. the actual ε₃ chain runs through ZERO, definedness, and membership in three productive rounds.
+12. theorem-derived membership coexists with sign indeterminacy.
+13. theorem-derived membership coexists with coset indeterminacy.
+14. no sign or coset representative is selected automatically.
+15. Toda membership does not automatically generate sign or coset indeterminacy.
+16. membership provenance reaches the theorem fact and both defining composition equalities.
+17. unrelated facts do not enter the direct provenance tree.
+18. the representative scenario reaches `FIXED_POINT`.
+19. an explicit terminal check yields `new_steps == ()`.
+20. `TodaBracketMembershipTheoremStatement` remains outside generic equality scope.
+21. no general theorem hierarchy is introduced.
+22. no indexed unstable Toda notation is introduced.
+23. the literature `_1` index remains intentionally unrepresented until Phase 20.
+24. no typed source / target system is introduced.
+25. the generic inference engine remains unchanged.
+26. the full regression suite passes.
+
+Phase 19 completion:
+
+```text
+tests/test_toda_rules.py
+36 passed in 3.06s
+```
+
+```text
+full suite
+1064 passed in 61.64s
+```
+
+---
+
 # Next development boundary
 
 The completed dependency chain is now:
@@ -1444,29 +1785,11 @@ Symbolic scalar constraints
 Indeterminacy
 ↓
 Toda bracket minimum representation
+↓
+Toda bracket membership / first theorem bridge
 ```
 
 The next candidate Phase is:
-
-```text
-Phase 19: Toda bracket membership / first theorem bridge
-```
-
-Phase 19 should introduce a mathematical bridge only from an actual known Toda
-fact or theorem.
-
-The current Phase 18 representation already supports:
-
-```text
-x ∈ {a,b,c}
-```
-
-but does not yet derive such membership from a concrete Toda theorem.
-
-A Phase 19 rule should therefore have explicit mathematical premises and
-provenance rather than turning bracket definedness into arbitrary membership.
-
-After that, the provisional next step is:
 
 ```text
 Phase 20: indexed unstable Toda notation

@@ -1,6 +1,6 @@
 # ehp_proof 開発記録
 
-この文書は Phase 18 完了時点までの開発履歴を、現在の実装と矛盾しない
+この文書は Phase 19 完了時点までの開発履歴を、現在の実装と矛盾しない
 形で整理した改訂版である。
 
 ```text
@@ -1905,74 +1905,725 @@ fully recursive pattern unification
 
 ---
 
-# Phase 19 boundary
 
-Phase 18 完了により、次の candidate Phase は:
+# Phase 19：Toda bracket membership / first theorem bridge
+
+Phase 19 は、Phase 18 で first-class にした three-fold Toda bracket
+membership を、初めて actual literature-backed theorem fact から導出する
+bridge に接続した。
+
+Selected actual example:
 
 ```text
-Phase 19: Toda bracket membership / first theorem bridge
+ε₃ ∈ {η₃,Eν′,ν₇}
 ```
 
-Phase 18 では:
+Literature notation の `_1` index は current Phase 19 representation には
+保持せず、Phase 20 の indexed unstable notation に延期した。
+
+`Eν′` は:
 
 ```text
-x∈{a,b,c}
+Suspension(ν′)
 ```
 
-を known statement として保持できるが、concrete theorem から導出する
-一般 bridge はまだない。
+として structural に保持した。
 
-Phase 19 は actual mathematical example を用いて:
+---
+
+## Phase 19-1：最初の actual Toda fact の選定
+
+最初の theorem bridge 用 actual example として:
 
 ```text
-explicit theorem premises / known fact
+ε₃ ∈ {η₃,Eν′,ν₇}_1
+```
+
+を採用。
+
+Current Phase 18/19 three-fold representation へは:
+
+```text
+ε₃ ∈ {η₃,Eν′,ν₇}
+```
+
+として投影する方針を固定。
+
+Important:
+
+```text
+current unindexed projection
+≠
+lossless indexed notation
+```
+
+`_1` は Phase 20 で回収する。
+
+### 状態
+
+完了
+
+---
+
+## Phase 19-2：known Toda membership fact の最小表現
+
+Existing:
+
+```text
+TodaBracketMembershipStatement
+```
+
+をそのまま actual membership conclusion に利用。
+
+追加:
+
+```text
+source
+note
+```
+
+Known membership fact を:
+
+```text
+ProofRule.GIVEN
+```
+
+として保持する helper:
+
+```text
+toda_bracket_membership_proof_step()
+```
+
+を追加。
+
+Actual representation:
+
+```text
+ε₃
+Eν′ = Suspension(ν′)
+ν₇
+```
+
+General theorem hierarchy、structured generator overhaul、indexed bracket は
+導入しなかった。
+
+Focused:
+
+```text
+23 passed in 2.62s
+```
+
+Full suite:
+
+```text
+1051 passed in 64.71s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 19-3：最初の theorem bridge
+
+追加:
+
+```text
+TodaBracketMembershipTheoremStatement
+```
+
+Fields:
+
+```text
+element
+bracket
+source
+note
+```
+
+Semantics:
+
+```text
+matching bracket が defined なら
+この literature-backed theorem が
+element の bracket membership を与える
+```
+
+Theorem fact を GIVEN step にする helper:
+
+```text
+toda_bracket_membership_theorem_proof_step()
+```
+
+を追加。
+
+Inference rule:
+
+```text
+toda_bracket_membership_from_theorem_inference_rule()
+```
+
+Main bridge:
+
+```text
+Toda membership theorem fact
++
+matching TodaBracketDefinedStatement
 ↓
 TodaBracketMembershipStatement
 ```
 
-という最初の theorem bridge を検討する。
-
-Definedness:
+Reject:
 
 ```text
-{a,b,c} defined
+different bracket
 ```
 
-だけから arbitrary membership を生成してはいけない。
-
-その後の provisional candidate:
+Boundaries:
 
 ```text
-Phase 20
-indexed unstable Toda notation
+theorem fact only
+↛
+membership
+```
+
+```text
+definedness only
+↛
+membership
+```
+
+General quantified theorem framework は導入しなかった。
+
+Focused:
+
+```text
+27 passed in 2.20s
+```
+
+Full suite:
+
+```text
+1055 passed in 62.40s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 19-4：definedness との multi-round 接続
+
+Production code は変更しなかった。
+
+Initial facts:
+
+```text
+η₃∘Eν′=0
+Eν′∘ν₇=0
+Toda membership theorem fact
+```
+
+Same fixed-point run:
+
+```text
+round 1
+composition equality → ZERO
+
+round 2
+ZERO + ZERO → Toda definedness
+
+round 3
+theorem + definedness → ε₃ membership
+```
+
+Derived:
+
+```text
+ZERO(η₃∘Eν′)
+ZERO(Eν′∘ν₇)
+{η₃,Eν′,ν₇} defined
+ε₃∈{η₃,Eν′,ν₇}
+```
+
+Representative integration:
+
+```text
+round_count == 3
+FIXED_POINT
+```
+
+Focused:
+
+```text
+28 passed in 2.25s
+```
+
+Full suite:
+
+```text
+1056 passed in 63.74s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 19-5：Phase 17 indeterminacy との接続
+
+Production code は変更しなかった。
+
+Theorem-derived membership と:
+
+```text
+ε₃=±α
+```
+
+を coexist させても:
+
+```text
+ε₃=α
+ε₃=-α
+```
+
+を導かないことを固定。
+
+Theorem-derived membership と:
+
+```text
+ε₃∈β+A
+```
+
+を coexist させても:
+
+```text
+ε₃=β
+```
+
+を導かないことを固定。
+
+また:
+
+```text
+Toda membership
+↛
+sign indeterminacy
+```
+
+を actual theorem-derived membership に対して確認。
+
+No Toda→coset bridge / candidate intersection / narrowing を追加しなかった。
+
+Focused:
+
+```text
+31 passed in 2.05s
+```
+
+Full suite:
+
+```text
+1059 passed in 69.75s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 19-6：provenance
+
+Production code は変更しなかった。
+
+Final membership dependency:
+
+```text
+ε₃ ∈ {η₃,Eν′,ν₇}
+│
+├─ Toda membership theorem fact
+│
+└─ {η₃,Eν′,ν₇} defined
+   │
+   ├─ ZERO(η₃∘Eν′)
+   │  └─ η₃∘Eν′=0
+   │
+   └─ ZERO(Eν′∘ν₇)
+      └─ Eν′∘ν₇=0
+```
+
+固定した事項:
+
+- membership direct premises = theorem + definedness
+- theorem step = GIVEN
+- definedness step retains Toda definedness rule
+- ZERO steps retain composition equality → ZERO rule
+- original composition equalities remain reachable
+- LiteratureReference remains attached
+- unrelated facts do not enter direct provenance
+
+新しい provenance framework は追加しなかった。
+
+Focused:
+
+```text
+33 passed in 2.54s
+```
+
+Full suite:
+
+```text
+1061 passed in 61.17s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 19-7：representative scenario
+
+Production code は変更しなかった。
+
+Initial knowledge:
+
+```text
+η₃∘Eν′=0
+Eν′∘ν₇=0
+Toda membership theorem fact
+ε₃=±α
+ε₃∈β+A
+```
+
+Derived:
+
+```text
+ZERO(η₃∘Eν′)
+ZERO(Eν′∘ν₇)
+{η₃,Eν′,ν₇} defined
+ε₃∈{η₃,Eν′,ν₇}
+```
+
+Coexisting:
+
+```text
+ε₃=±α
+ε₃∈β+A
+```
+
+Not derived:
+
+```text
+ε₃=α
+ε₃=-α
+ε₃=β
+```
+
+Membership direct provenance remained:
+
+```text
+theorem fact
+definedness
+```
+
+and sign / coset facts did not enter that branch.
+
+Result:
+
+```text
+round_count == 3
+FIXED_POINT
+```
+
+Focused:
+
+```text
+34 passed in 3.77s
+```
+
+Full suite:
+
+```text
+1062 passed in 64.51s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 19-8：termination / inference-scope boundary
+
+Production code は変更しなかった。
+
+Representative final knowledge に active Phase 19 rules を再適用し:
+
+```text
+new_steps == ()
+```
+
+を確認。
+
+Current active family:
+
+```text
+composition equality → ZERO
+ZERO + ZERO → definedness
+theorem + definedness → membership
+```
+
+は current representative finite knowledge state 上で genuine:
+
+```text
+FIXED_POINT
+```
+
+に到達。
+
+また:
+
+```text
+TodaBracketMembershipTheoremStatement
+```
+
+が generic equality symmetry の premise に match しないことを固定。
+
+Phase 18 からの:
+
+```text
+TodaBracketDefinedStatement
+TodaBracketMembershipStatement
+```
+
+も generic equality scope 外のまま。
+
+Critical boundaries:
+
+```text
+definedness only
+↛ membership
+```
+
+```text
+theorem fact only
+↛ membership
+```
+
+```text
+membership
+↛ exact equality
+```
+
+```text
+membership
+↛ automatic sign / coset indeterminacy
+```
+
+Focused:
+
+```text
+36 passed in 3.06s
+```
+
+Full suite:
+
+```text
+1064 passed in 61.64s
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 19 completion summary
+
+Phase 19 により、Toda bracket membership は単なる GIVEN statement だけで
+なく、actual literature-backed theorem fact と bracket definedness の組から
+導出できるようになった。
+
+Implemented:
+
+```text
+TodaBracketMembershipStatement.source
+TodaBracketMembershipStatement.note
+TodaBracketMembershipTheoremStatement
+toda_bracket_membership_proof_step()
+toda_bracket_membership_theorem_proof_step()
+toda_bracket_membership_from_theorem_inference_rule()
+```
+
+Main actual chain:
+
+```text
+η₃∘Eν′=0
+Eν′∘ν₇=0
+↓
+ZERO
+↓
+{η₃,Eν′,ν₇} defined
++
+Toda membership theorem fact
+↓
+ε₃∈{η₃,Eν′,ν₇}
+```
+
+Important:
+
+```text
+definedness
+≠
+membership
+```
+
+```text
+theorem fact
+≠
+membership
+```
+
+```text
+membership
+≠
+exact value
+```
+
+```text
+Toda theorem statement
+≠
+generic equality
+```
+
+Phase 17 partial information と coexist しても exact representative を
+選択しない。
+
+Full provenance は theorem fact と両 defining composition equalities まで
+追跡可能。
+
+Representative run:
+
+```text
+round_count == 3
+FIXED_POINT
+terminal new_steps == ()
+```
+
+Generic inference engine:
+
+```text
+unchanged
+```
+
+Verified focused suite:
+
+```text
+tests/test_toda_rules.py
+36 passed in 3.06s
+```
+
+Verified full suite:
+
+```text
+1064 passed in 61.64s
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 19 completion boundary
+
+Phase 19 で実装しないもの:
+
+```text
+lossless indexed notation {η₃,Eν′,ν₇}_1
+general indexed unstable Toda notation {a,E^t b,E^t c}_t
+symbolic iterated suspension E^t
+general theorem hierarchy
+universal quantification
+existential theorem language
+typed source / target validation
+ambient homotopy group validation
+automatic Toda → sign indeterminacy
+automatic Toda → coset indeterminacy
+candidate intersection / narrowing
+general Toda value-set algebra
+stable Toda bracket
+higher Toda bracket
+semantic cycle detection
+fully recursive unification
+```
+
+The literature `_1` index used by the actual ε₃ source example remains an
+explicit known representation limitation.
+
+`max_rounds` remains the generic safety bound.
+
+---
+
+# Phase 20 boundary
+
+Next candidate Phase:
+
+```text
+Phase 20: indexed unstable Toda notation
+```
+
+The immediate actual need comes from the Phase 19 source notation:
+
+```text
+{η₃,Eν′,ν₇}_1
+```
+
+Current Phase 19 stores only:
+
+```text
+{η₃,Eν′,ν₇}
+```
+
+Phase 20 should therefore preserve bracket index information explicitly and
+then generalize toward:
+
+```text
 {a,E^t b,E^t c}_t
 ```
 
-Bracket index と suspension exponent は notation 上同じ `t` でも内部構造を
-分離する。
+Bracket index and suspension exponent must remain structurally separate even
+when notation uses the same symbol.
+
+Stable notation remains deferred.
 
 ---
 
 # Current verified status
 
-Full suite at Phase 18 completion:
+Full suite at Phase 19 completion:
 
 ```powershell
 python -m pytest -q
 ```
 
 ```text
-1048 passed in 61.09s
+1064 passed in 61.64s
 ```
 
-Phase 18 focused:
+Phase 19 Toda focused:
 
 ```powershell
 python -m pytest tests/test_toda_rules.py -q
 ```
 
 ```text
-20 passed in 3.36s
+36 passed in 3.06s
 ```
 
 Phase 17 focused remains:
