@@ -1660,4 +1660,164 @@ def test_phase19_toda_membership_theorem_does_not_imply_membership_without_defin
   )
 
 
+def test_phase19_toda_membership_multi_round_from_defining_compositions():
+  reference = LiteratureReference(
+    label="Toda",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+    locator="Chapter VI",
+  )
+
+  epsilon_3 = HomotopyElement(
+    name="ε",
+    dimension=3,
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  a = eta(3)
+
+  b = Suspension(
+    nu_prime,
+  )
+
+  c = nu(7)
+
+  bracket = TodaBracket(
+    first=a,
+    second=b,
+    third=c,
+  )
+
+  first_equality_step = relation_proof_step(
+    Relation(
+      lhs=Composition(
+        left=a,
+        right=b,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.EQUALITY,
+      source="Toda",
+      note=(
+        "First defining zero composition "
+        "for the epsilon_3 Toda bracket."
+      ),
+    )
+  )
+
+  second_equality_step = relation_proof_step(
+    Relation(
+      lhs=Composition(
+        left=b,
+        right=c,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.EQUALITY,
+      source="Toda",
+      note=(
+        "Second defining zero composition "
+        "for the epsilon_3 Toda bracket."
+      ),
+    )
+  )
+
+  theorem_step = (
+    toda_bracket_membership_theorem_proof_step(
+      TodaBracketMembershipTheoremStatement(
+        element=epsilon_3,
+        bracket=bracket,
+        source=reference,
+        note=(
+          "Literature-backed theorem for "
+          "the current unindexed projection "
+          "of {η_3,Eν′,ν_7}_1."
+        ),
+      )
+    )
+  )
+
+  zero_rule = (
+    composition_equality_to_zero_inference_rule()
+  )
+
+  defined_rule = (
+    toda_bracket_defined_by_zero_compositions_inference_rule()
+  )
+
+  membership_rule = (
+    toda_bracket_membership_from_theorem_inference_rule()
+  )
+
+  result = run_inference_until_stable_with_history(
+    (
+      zero_rule,
+      defined_rule,
+      membership_rule,
+    ),
+    (
+      first_equality_step,
+      second_equality_step,
+      theorem_step,
+    ),
+  )
+
+  first_zero = Relation(
+    lhs=Composition(
+      left=a,
+      right=b,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  second_zero = Relation(
+    lhs=Composition(
+      left=b,
+      right=c,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  defined_statement = TodaBracketDefinedStatement(
+    bracket=bracket,
+  )
+
+  membership_statement = TodaBracketMembershipStatement(
+    element=epsilon_3,
+    bracket=bracket,
+    source=reference,
+    note=(
+      "Literature-backed theorem for "
+      "the current unindexed projection "
+      "of {η_3,Eν′,ν_7}_1."
+    ),
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert first_zero in conclusions
+  assert second_zero in conclusions
+  assert defined_statement in conclusions
+  assert membership_statement in conclusions
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 3
+
+
+
+
 
