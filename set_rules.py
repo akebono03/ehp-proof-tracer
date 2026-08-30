@@ -4,11 +4,18 @@ from algebra import (
   GroupMap,
   Subgroup,
 )
-from expression import Expression
+from expression import (
+  Expression,
+  MapApplication,
+  MapSymbol,
+  Zero,
+)
 from proof import (
   InferenceRule,
   PatternVariable,
   PremisePattern,
+  Relation,
+  RelationType,
 )
 
 
@@ -47,6 +54,51 @@ def image_membership_statement(
   return MembershipStatement(
     element=element,
     subgroup=group_map.image_subgroup(),
+  )
+
+
+def kernel_membership_implies_mapped_zero_inference_rule(
+  group_map: GroupMap,
+  map_symbol: MapSymbol,
+):
+  element = PatternVariable(
+    name="element",
+  )
+
+  def build_conclusion(
+    premises,
+  ):
+    membership_statement = (
+      premises[0].conclusion
+    )
+
+    return Relation(
+      lhs=MapApplication(
+        map=map_symbol,
+        expression=membership_statement.element,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name="kernel membership implies mapped zero",
+    description=(
+      "An element in the kernel of a map "
+      "is mapped to zero."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=MembershipStatement,
+        statement_pattern=MembershipStatement(
+          element=element,
+          subgroup=group_map.kernel_subgroup(),
+        ),
+      ),
+    ),
+    conclusion_builder=(
+      build_conclusion
+    ),
   )
 
 
@@ -161,6 +213,8 @@ def subgroup_equality_membership_propagation_inference_rule():
     ),
     match_guard=guard,
   )
+
+
 
 
 

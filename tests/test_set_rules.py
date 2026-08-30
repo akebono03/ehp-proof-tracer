@@ -5,6 +5,9 @@ from algebra import (
   generated_subgroup_elements,
 )
 from expression import (
+  MapApplication,
+  MapSymbol,
+  Zero,
   eta,
   nu,
 )
@@ -15,6 +18,8 @@ from models import (
 from proof import (
   ProofRule,
   ProofStep,
+  Relation,
+  RelationType,
   apply_inference_match,
   find_inference_match,
   run_inference_round,
@@ -24,6 +29,7 @@ from set_rules import (
   SubgroupEqualityStatement,
   SubsetStatement,
   image_membership_statement,
+  kernel_membership_implies_mapped_zero_inference_rule,
   kernel_membership_statement,
   membership_subset_propagation_inference_rule,
   subgroup_equality_membership_propagation_inference_rule,
@@ -1174,6 +1180,256 @@ def test_image_membership_statement_distinguishes_image():
   )
 
 
+def test_kernel_membership_implies_mapped_zero():
+  source = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    2,
+    "b",
+  )
+
+  group_map = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  map_symbol = MapSymbol(
+    name="f",
+  )
+
+  alpha = eta(3)
+
+  membership_step = ProofStep(
+    conclusion=kernel_membership_statement(
+      element=alpha,
+      group_map=group_map,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    kernel_membership_implies_mapped_zero_inference_rule(
+      group_map=group_map,
+      map_symbol=map_symbol,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      membership_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == Relation(
+    lhs=MapApplication(
+      map=map_symbol,
+      expression=alpha,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+
+def test_kernel_membership_implies_mapped_zero_rejects_different_kernel():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  target_map = GroupMap(
+    name="times2",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  other_map = GroupMap(
+    name="zero",
+    source=group,
+    target=group,
+    matrix=[
+      [0],
+    ],
+  )
+
+  map_symbol = MapSymbol(
+    name="f",
+  )
+
+  alpha = eta(3)
+
+  membership_step = ProofStep(
+    conclusion=kernel_membership_statement(
+      element=alpha,
+      group_map=other_map,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    kernel_membership_implies_mapped_zero_inference_rule(
+      group_map=target_map,
+      map_symbol=map_symbol,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      membership_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_kernel_membership_implies_mapped_zero_uses_explicit_map_symbol():
+  source = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    2,
+    "b",
+  )
+
+  group_map = GroupMap(
+    name="algebra-map-name",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  map_symbol = MapSymbol(
+    name="proof-map-symbol",
+  )
+
+  alpha = eta(3)
+
+  membership_step = ProofStep(
+    conclusion=kernel_membership_statement(
+      element=alpha,
+      group_map=group_map,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    kernel_membership_implies_mapped_zero_inference_rule(
+      group_map=group_map,
+      map_symbol=map_symbol,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      membership_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == Relation(
+    lhs=MapApplication(
+      map=map_symbol,
+      expression=alpha,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+
+def test_kernel_membership_implies_mapped_zero_preserves_provenance():
+  source = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  target = make_cyclic_group(
+    2,
+    "b",
+  )
+
+  group_map = GroupMap(
+    name="f",
+    source=source,
+    target=target,
+    matrix=[
+      [1],
+    ],
+  )
+
+  map_symbol = MapSymbol(
+    name="f",
+  )
+
+  alpha = eta(3)
+
+  membership_step = ProofStep(
+    conclusion=kernel_membership_statement(
+      element=alpha,
+      group_map=group_map,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    kernel_membership_implies_mapped_zero_inference_rule(
+      group_map=group_map,
+      map_symbol=map_symbol,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      membership_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    membership_step,
+  )
 
 
 
