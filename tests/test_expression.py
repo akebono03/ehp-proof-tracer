@@ -847,6 +847,93 @@ def test_iterated_suspension_distinguishes_symbolic_exponent():
   assert first != second
 
 
+def test_indexed_toda_bracket_data_accepts_symbolic_suspension_exponent():
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  bracket = TodaBracket(
+    first=eta(3),
+    second=IteratedSuspension(
+      expression=nu_prime,
+      exponent=t,
+    ),
+    third=IteratedSuspension(
+      expression=nu(6),
+      exponent=t,
+    ),
+    index=1,
+  )
+
+  data = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=nu_prime,
+    third_base=nu(6),
+    suspension_exponent=t,
+  )
+
+  assert data.suspension_exponent == t
+
+  assert data.bracket.second == IteratedSuspension(
+    expression=data.second_base,
+    exponent=data.suspension_exponent,
+  )
+
+  assert data.bracket.third == IteratedSuspension(
+    expression=data.third_base,
+    exponent=data.suspension_exponent,
+  )
+
+
+def test_indexed_toda_bracket_data_distinguishes_symbolic_suspension_exponent():
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  bracket = TodaBracket(
+    first=eta(3),
+    second=IteratedSuspension(
+      expression=nu_prime,
+      exponent=ScalarSymbol(
+        name="t",
+      ),
+    ),
+    third=IteratedSuspension(
+      expression=nu(6),
+      exponent=ScalarSymbol(
+        name="t",
+      ),
+    ),
+    index=1,
+  )
+
+  first = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=nu_prime,
+    third_base=nu(6),
+    suspension_exponent=ScalarSymbol(
+      name="t",
+    ),
+  )
+
+  second = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=nu_prime,
+    third_base=nu(6),
+    suspension_exponent=ScalarSymbol(
+      name="s",
+    ),
+  )
+
+  assert first != second
+
+
 
 
 

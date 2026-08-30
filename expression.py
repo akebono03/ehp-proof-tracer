@@ -28,7 +28,7 @@ class IndexedTodaBracketData:
   bracket: TodaBracket
   second_base: Expression
   third_base: Expression
-  suspension_exponent: int
+  suspension_exponent: int | ScalarSymbol
 
 
 @dataclass(frozen=True)
