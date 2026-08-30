@@ -34,6 +34,7 @@ from set_rules import (
   ImageSubgroupReference,
   KernelSubgroupReference,
   MembershipStatement,
+  ModuloStatement,
   SubgroupEqualityStatement,
   SubsetStatement,
   exactness_implies_subgroup_equality_inference_rule,
@@ -5134,6 +5135,169 @@ def test_coset_preserves_role_aware_subgroup_term():
   assert kernel_coset.subgroup == kernel_reference
 
   assert image_coset != kernel_coset
+
+
+def test_modulo_statement():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  statement = ModuloStatement(
+    left=alpha,
+    right=beta,
+    modulus=subgroup,
+  )
+
+  assert statement.left == alpha
+  assert statement.right == beta
+  assert statement.modulus == subgroup
+
+
+def test_modulo_statement_has_structural_equality():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  first = ModuloStatement(
+    left=alpha,
+    right=beta,
+    modulus=subgroup,
+  )
+
+  second = ModuloStatement(
+    left=alpha,
+    right=beta,
+    modulus=subgroup,
+  )
+
+  assert first == second
+
+
+def test_modulo_statement_distinguishes_left_and_right():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  forward = ModuloStatement(
+    left=alpha,
+    right=beta,
+    modulus=subgroup,
+  )
+
+  reverse = ModuloStatement(
+    left=beta,
+    right=alpha,
+    modulus=subgroup,
+  )
+
+  assert forward != reverse
+
+
+def test_modulo_statement_preserves_role_aware_modulus():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  image_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  kernel_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  image_reference = ImageSubgroupReference(
+    group_map=image_map,
+  )
+
+  kernel_reference = KernelSubgroupReference(
+    group_map=kernel_map,
+  )
+
+  assert (
+    image_reference.subgroup
+    == kernel_reference.subgroup
+  )
+
+  assert (
+    image_reference
+    != kernel_reference
+  )
+
+  modulo_image = ModuloStatement(
+    left=alpha,
+    right=beta,
+    modulus=image_reference,
+  )
+
+  modulo_kernel = ModuloStatement(
+    left=alpha,
+    right=beta,
+    modulus=kernel_reference,
+  )
+
+  assert (
+    modulo_image.modulus
+    == image_reference
+  )
+
+  assert (
+    modulo_kernel.modulus
+    == kernel_reference
+  )
+
+  assert (
+    modulo_image
+    != modulo_kernel
+  )
+
 
 
 

@@ -56,6 +56,13 @@ class Coset:
 
 
 @dataclass(frozen=True)
+class ModuloStatement:
+  left: Expression
+  right: Expression
+  modulus: SubgroupTerm
+
+
+@dataclass(frozen=True)
 class MembershipStatement:
   element: Expression
   subgroup: SubgroupTerm
