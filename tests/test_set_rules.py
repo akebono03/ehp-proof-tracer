@@ -11,9 +11,17 @@ from models import (
   AbelianGroup,
   GroupComponent,
 )
+from proof import (
+  ProofRule,
+  ProofStep,
+  apply_inference_match,
+  find_inference_match,
+  run_inference_round,
+)
 from set_rules import (
   MembershipStatement,
   SubsetStatement,
+  membership_subset_propagation_inference_rule,
 )
 
 
@@ -323,6 +331,279 @@ def test_subset_statement_distinguishes_superset():
   )
 
 
+def test_membership_subset_propagation():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  whole_group = make_subgroup(
+    group,
+    [
+      (1,),
+    ],
+  )
+
+  alpha = eta(3)
+
+  membership_step = ProofStep(
+    conclusion=MembershipStatement(
+      element=alpha,
+      subgroup=subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  subset_step = ProofStep(
+    conclusion=SubsetStatement(
+      subset=subgroup,
+      superset=whole_group,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    membership_subset_propagation_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      membership_step,
+      subset_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == MembershipStatement(
+    element=alpha,
+    subgroup=whole_group,
+  )
+
+
+def test_membership_subset_propagation_requires_matching_subgroup():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  trivial_subgroup = make_subgroup(
+    group,
+    [],
+  )
+
+  subgroup_two = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  whole_group = make_subgroup(
+    group,
+    [
+      (1,),
+    ],
+  )
+
+  alpha = eta(3)
+
+  membership_step = ProofStep(
+    conclusion=MembershipStatement(
+      element=alpha,
+      subgroup=trivial_subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  unrelated_subset_step = ProofStep(
+    conclusion=SubsetStatement(
+      subset=subgroup_two,
+      superset=whole_group,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    membership_subset_propagation_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      membership_step,
+      unrelated_subset_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_membership_subset_propagation_uses_bound_element_and_superset():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  whole_group = make_subgroup(
+    group,
+    [
+      (1,),
+    ],
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  alpha_step = ProofStep(
+    conclusion=MembershipStatement(
+      element=alpha,
+      subgroup=subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  beta_step = ProofStep(
+    conclusion=MembershipStatement(
+      element=beta,
+      subgroup=subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  subset_step = ProofStep(
+    conclusion=SubsetStatement(
+      subset=subgroup,
+      superset=whole_group,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    membership_subset_propagation_inference_rule()
+  )
+
+  new_steps = run_inference_round(
+    (
+      rule,
+    ),
+    (
+      alpha_step,
+      beta_step,
+      subset_step,
+    ),
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in new_steps
+  )
+
+  assert MembershipStatement(
+    element=alpha,
+    subgroup=whole_group,
+  ) in conclusions
+
+  assert MembershipStatement(
+    element=beta,
+    subgroup=whole_group,
+  ) in conclusions
+
+
+def test_membership_subset_propagation_preserves_provenance():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  whole_group = make_subgroup(
+    group,
+    [
+      (1,),
+    ],
+  )
+
+  alpha = eta(3)
+
+  membership_step = ProofStep(
+    conclusion=MembershipStatement(
+      element=alpha,
+      subgroup=subgroup,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  subset_step = ProofStep(
+    conclusion=SubsetStatement(
+      subset=subgroup,
+      superset=whole_group,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    membership_subset_propagation_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      membership_step,
+      subset_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    membership_step,
+    subset_step,
+  )
 
 
 
