@@ -554,5 +554,256 @@ def test_toda_bracket_defined_from_known_zero_composition_equalities():
   assert result.round_count == 2
 
 
+def test_toda_bracket_definedness_provenance_chain():
+  a = eta(3)
+  b = nu(4)
+  c = sigma(8)
+
+  first_equality_step = relation_proof_step(
+    Relation(
+      lhs=Composition(
+        left=a,
+        right=b,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.EQUALITY,
+      source="Toda",
+      note="first defining zero composition",
+    )
+  )
+
+  second_equality_step = relation_proof_step(
+    Relation(
+      lhs=Composition(
+        left=b,
+        right=c,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.EQUALITY,
+      source="Toda",
+      note="second defining zero composition",
+    )
+  )
+
+  zero_rule = (
+    composition_equality_to_zero_inference_rule()
+  )
+
+  defined_rule = (
+    toda_bracket_defined_by_zero_compositions_inference_rule()
+  )
+
+  result = run_inference_until_stable_with_history(
+    (
+      zero_rule,
+      defined_rule,
+    ),
+    (
+      first_equality_step,
+      second_equality_step,
+    ),
+  )
+
+  first_zero_relation = Relation(
+    lhs=Composition(
+      left=a,
+      right=b,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  second_zero_relation = Relation(
+    lhs=Composition(
+      left=b,
+      right=c,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  defined_statement = TodaBracketDefinedStatement(
+    bracket=TodaBracket(
+      first=a,
+      second=b,
+      third=c,
+    ),
+  )
+
+  first_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == first_zero_relation
+  )
+
+  second_zero_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == second_zero_relation
+  )
+
+  defined_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == defined_statement
+  )
+
+  assert first_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert first_zero_step.inference_rule == (
+    zero_rule
+  )
+
+  assert first_zero_step.premises == (
+    first_equality_step,
+  )
+
+  assert second_zero_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert second_zero_step.inference_rule == (
+    zero_rule
+  )
+
+  assert second_zero_step.premises == (
+    second_equality_step,
+  )
+
+  assert defined_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert defined_step.inference_rule == (
+    defined_rule
+  )
+
+  assert defined_step.premises == (
+    first_zero_step,
+    second_zero_step,
+  )
+
+  assert (
+    defined_step.premises[0].premises[0]
+    == first_equality_step
+  )
+
+  assert (
+    defined_step.premises[1].premises[0]
+    == second_equality_step
+  )
+
+  assert (
+    first_equality_step.conclusion.source
+    == "Toda"
+  )
+
+  assert (
+    first_equality_step.conclusion.note
+    == "first defining zero composition"
+  )
+
+  assert (
+    second_equality_step.conclusion.source
+    == "Toda"
+  )
+
+  assert (
+    second_equality_step.conclusion.note
+    == "second defining zero composition"
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+
+def test_toda_bracket_definedness_provenance_excludes_unrelated_fact():
+  a = eta(3)
+  b = nu(4)
+  c = sigma(8)
+
+  first_equality_step = relation_proof_step(
+    Relation(
+      lhs=Composition(
+        left=a,
+        right=b,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.EQUALITY,
+      source="Toda",
+      note="first defining zero composition",
+    )
+  )
+
+  second_equality_step = relation_proof_step(
+    Relation(
+      lhs=Composition(
+        left=b,
+        right=c,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.EQUALITY,
+      source="Toda",
+      note="second defining zero composition",
+    )
+  )
+
+  unrelated_step = relation_proof_step(
+    Relation(
+      lhs=eta(10),
+      rhs=nu(11),
+      relation_type=RelationType.EQUALITY,
+      source="unrelated",
+      note="unrelated equality",
+    )
+  )
+
+  zero_rule = (
+    composition_equality_to_zero_inference_rule()
+  )
+
+  defined_rule = (
+    toda_bracket_defined_by_zero_compositions_inference_rule()
+  )
+
+  result = run_inference_until_stable_with_history(
+    (
+      zero_rule,
+      defined_rule,
+    ),
+    (
+      first_equality_step,
+      second_equality_step,
+      unrelated_step,
+    ),
+  )
+
+  defined_statement = TodaBracketDefinedStatement(
+    bracket=TodaBracket(
+      first=a,
+      second=b,
+      third=c,
+    ),
+  )
+
+  defined_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == defined_statement
+  )
+
+  assert unrelated_step not in (
+    defined_step.premises
+  )
+
+  assert all(
+    unrelated_step not in premise.premises
+    for premise in defined_step.premises
+  )
+
+
 
 
