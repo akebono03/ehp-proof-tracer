@@ -14,4 +14,12 @@ class CosetMembershipStatement:
   coset: Coset
 
 
+@dataclass(frozen=True)
+class SignIndeterminacyStatement:
+  value: Expression
+  representative: Expression
+
+
+
+
 

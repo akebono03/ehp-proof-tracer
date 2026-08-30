@@ -9,6 +9,7 @@ from expression import (
 )
 from indeterminacy_rules import (
   CosetMembershipStatement,
+  SignIndeterminacyStatement,
 )
 from models import (
   AbelianGroup,
@@ -187,5 +188,59 @@ def test_coset_membership_statement_distinguishes_coset():
 
   assert first != second
 
+
+def test_sign_indeterminacy_statement():
+  alpha = eta(3)
+  beta = nu(4)
+
+  statement = SignIndeterminacyStatement(
+    value=alpha,
+    representative=beta,
+  )
+
+  assert statement.value == alpha
+  assert statement.representative == beta
+
+
+def test_sign_indeterminacy_statement_has_structural_equality():
+  first = SignIndeterminacyStatement(
+    value=eta(3),
+    representative=nu(4),
+  )
+
+  second = SignIndeterminacyStatement(
+    value=eta(3),
+    representative=nu(4),
+  )
+
+  assert first == second
+
+
+def test_sign_indeterminacy_statement_distinguishes_value():
+  first = SignIndeterminacyStatement(
+    value=eta(3),
+    representative=nu(4),
+  )
+
+  second = SignIndeterminacyStatement(
+    value=nu(4),
+    representative=nu(4),
+  )
+
+  assert first != second
+
+
+def test_sign_indeterminacy_statement_distinguishes_representative():
+  first = SignIndeterminacyStatement(
+    value=eta(3),
+    representative=nu(4),
+  )
+
+  second = SignIndeterminacyStatement(
+    value=eta(3),
+    representative=eta(3),
+  )
+
+  assert first != second
 
 
