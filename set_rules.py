@@ -207,15 +207,15 @@ def exactness_implies_subgroup_equality_inference_rule():
     )
 
     return SubgroupEqualityStatement(
-      left=(
-        exactness_statement
-        .first_map
-        .image_subgroup()
+      left=ImageSubgroupReference(
+        group_map=(
+          exactness_statement.first_map
+        ),
       ),
-      right=(
-        exactness_statement
-        .second_map
-        .kernel_subgroup()
+      right=KernelSubgroupReference(
+        group_map=(
+          exactness_statement.second_map
+        ),
       ),
     )
 

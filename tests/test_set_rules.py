@@ -1746,8 +1746,12 @@ def test_exactness_implies_subgroup_equality():
 
   assert derived_step.conclusion == (
     SubgroupEqualityStatement(
-      left=suspension_map.image_subgroup(),
-      right=hopf_map.kernel_subgroup(),
+      left=ImageSubgroupReference(
+        group_map=suspension_map,
+      ),
+      right=KernelSubgroupReference(
+        group_map=hopf_map,
+      ),
     )
   )
 
@@ -1862,7 +1866,7 @@ def test_exactness_implies_subgroup_equality_preserves_provenance():
   )
 
 
-def test_phase14_exactness_and_role_aware_kernel_membership_coexist_before_role_equality_migration():
+def test_phase14_exactness_bridges_role_aware_kernel_membership_to_image_membership():
   group = make_cyclic_group(
     4,
     "a",
@@ -1955,8 +1959,12 @@ def test_phase14_exactness_and_role_aware_kernel_membership_coexist_before_role_
 
   subgroup_equality = (
     SubgroupEqualityStatement(
-      left=suspension_map.image_subgroup(),
-      right=hopf_map.kernel_subgroup(),
+      left=ImageSubgroupReference(
+        group_map=suspension_map,
+      ),
+      right=KernelSubgroupReference(
+        group_map=hopf_map,
+      ),
     )
   )
 
@@ -1976,7 +1984,7 @@ def test_phase14_exactness_and_role_aware_kernel_membership_coexist_before_role_
 
   assert subgroup_equality in conclusions
   assert kernel_membership in conclusions
-  assert image_membership not in conclusions
+  assert image_membership in conclusions
 
   terminal_round = (
     derive_inference_round_result(
@@ -2171,7 +2179,7 @@ def test_legacy_subgroup_equality_membership_transport_is_duplicate_for_equal_va
   )
 
 
-def test_exactness_subgroup_equality_keeps_provenance_before_membership_collapse():
+def test_exactness_role_aware_subgroup_equality_preserves_provenance():
   group = make_cyclic_group(
     4,
     "a",
@@ -2224,8 +2232,12 @@ def test_exactness_subgroup_equality_keeps_provenance_before_membership_collapse
 
   assert derived_step.conclusion == (
     SubgroupEqualityStatement(
-      left=image_map.image_subgroup(),
-      right=kernel_map.kernel_subgroup(),
+      left=ImageSubgroupReference(
+        group_map=image_map,
+      ),
+      right=KernelSubgroupReference(
+        group_map=kernel_map,
+      ),
     )
   )
 
