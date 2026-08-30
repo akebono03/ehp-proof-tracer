@@ -692,6 +692,76 @@ def subgroup_equality_membership_propagation_inference_rule():
   )
 
 
+def subgroup_equality_modulo_propagation_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    modulo_statement = (
+      premises[0].conclusion
+    )
+
+    equality_statement = (
+      premises[1].conclusion
+    )
+
+    return (
+      modulo_statement.modulus
+      == equality_statement.left
+      or modulo_statement.modulus
+      == equality_statement.right
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    modulo_statement = (
+      premises[0].conclusion
+    )
+
+    equality_statement = (
+      premises[1].conclusion
+    )
+
+    if (
+      modulo_statement.modulus
+      == equality_statement.left
+    ):
+      target_modulus = (
+        equality_statement.right
+      )
+    else:
+      target_modulus = (
+        equality_statement.left
+      )
+
+    return ModuloStatement(
+      left=modulo_statement.left,
+      right=modulo_statement.right,
+      modulus=target_modulus,
+    )
+
+  return InferenceRule(
+    name="subgroup equality modulo propagation",
+    description=(
+      "Congruence transfers across an equality "
+      "of subgroup terms."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=ModuloStatement,
+      ),
+      PremisePattern(
+        statement_type=SubgroupEqualityStatement,
+      ),
+    ),
+    conclusion_builder=(
+      build_conclusion
+    ),
+    match_guard=guard,
+  )
+
+
 def subgroup_equality_symmetry_inference_rule():
   left = PatternVariable(
     name="left",
