@@ -64,6 +64,50 @@ def test_homotopy_element():
   assert element.dimension == 3
 
 
+def test_homotopy_element_preserves_source_and_target():
+  element = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  assert element.name == "α"
+  assert element.dimension == 3
+  assert element.source == 5
+  assert element.target == 3
+
+
+def test_homotopy_element_source_and_target_default_to_none():
+  element = HomotopyElement(
+    name="η",
+    dimension=3,
+  )
+
+  assert element.name == "η"
+  assert element.dimension == 3
+  assert element.source is None
+  assert element.target is None
+
+
+def test_phase21_1_source_target_do_not_yet_affect_structural_equality():
+  first = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  second = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=6,
+    target=4,
+  )
+
+  assert first == second
+
+
 def test_eta():
   assert eta(3) == HomotopyElement("η", 3)
 
