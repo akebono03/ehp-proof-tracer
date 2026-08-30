@@ -1,9 +1,11 @@
 from expression import (
   Composition,
+  Expression,
   HomotopyElement,
   MapApplication,
   MapSymbol,
   Multiple,
+  ScalarSymbol,
   Sum,
   Suspension,
   Zero,
@@ -11,6 +13,42 @@ from expression import (
   nu,
   sigma,
 )
+
+
+def test_scalar_symbol():
+  scalar = ScalarSymbol(
+    name="k",
+  )
+
+  assert scalar.name == "k"
+
+
+def test_scalar_symbol_has_structural_equality():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  same_k = ScalarSymbol(
+    name="k",
+  )
+
+  ell = ScalarSymbol(
+    name="l",
+  )
+
+  assert k == same_k
+  assert k != ell
+
+
+def test_scalar_symbol_is_not_expression():
+  scalar = ScalarSymbol(
+    name="k",
+  )
+
+  assert not isinstance(
+    scalar,
+    Expression,
+  )
 
 
 def test_homotopy_element():
@@ -47,6 +85,88 @@ def test_multiple():
 
   assert expression.coefficient == 2
   assert expression.expression == eta(3)
+
+
+def test_multiple_accepts_symbolic_scalar():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  alpha = eta(3)
+
+  multiple = Multiple(
+    coefficient=k,
+    expression=alpha,
+  )
+
+  assert multiple.coefficient == k
+  assert multiple.expression == alpha
+
+
+def test_symbolic_multiple_has_structural_equality():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  alpha = eta(3)
+
+  first = Multiple(
+    coefficient=k,
+    expression=alpha,
+  )
+
+  second = Multiple(
+    coefficient=ScalarSymbol(
+      name="k",
+    ),
+    expression=alpha,
+  )
+
+  assert first == second
+
+
+def test_symbolic_multiple_distinguishes_scalar_symbol():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  ell = ScalarSymbol(
+    name="l",
+  )
+
+  alpha = eta(3)
+
+  k_multiple = Multiple(
+    coefficient=k,
+    expression=alpha,
+  )
+
+  ell_multiple = Multiple(
+    coefficient=ell,
+    expression=alpha,
+  )
+
+  assert k_multiple != ell_multiple
+
+
+def test_symbolic_multiple_remains_distinct_from_integer_multiple():
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  alpha = eta(3)
+
+  symbolic_multiple = Multiple(
+    coefficient=k,
+    expression=alpha,
+  )
+
+  integer_multiple = Multiple(
+    coefficient=2,
+    expression=alpha,
+  )
+
+  assert symbolic_multiple != integer_multiple
 
 
 def test_inverse_is_represented_by_negative_one_multiple():

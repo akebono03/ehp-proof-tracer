@@ -8,6 +8,7 @@ from expression import (
   MapApplication,
   MapSymbol,
   Multiple,
+  ScalarSymbol,
   Sum,
   Zero,
   eta,
@@ -27,9 +28,16 @@ from proof import (
   apply_inference_match,
   derive_inference_round_result,
   find_inference_match,
+  order_relation,
   relation_proof_step,
   run_inference_round,
   run_inference_until_stable_with_history,
+)
+from scalar_rules import (
+  OddScalarStatement,
+  ScalarCongruenceStatement,
+  mod_two_one_scalar_preserves_order_two_element_inference_rule,
+  odd_scalar_implies_mod_two_congruence_inference_rule,
 )
 from set_rules import (
   Coset,
@@ -8008,6 +8016,1164 @@ def test_phase15_equality_and_zero_do_not_generate_modulo_without_explicit_modul
 
   assert terminal_round.new_steps == ()
 
+
+def test_symbolic_multiple_equality_implies_modulo():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  modulus = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  beta = nu(4)
+
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=Multiple(
+        coefficient=k,
+        expression=beta,
+      ),
+      rhs=beta,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  rule = (
+    equality_implies_modulo_inference_rule(
+      modulus=modulus,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == ModuloStatement(
+    left=Multiple(
+      coefficient=k,
+      expression=beta,
+    ),
+    right=beta,
+    modulus=modulus,
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    equality_step,
+  )
+
+
+def test_odd_scalar_order_two_reaches_modulo_through_existing_equality_bridge():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  modulus = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  beta = nu(4)
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=k,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  order_step = relation_proof_step(
+    order_relation(
+      beta,
+      2,
+    )
+  )
+
+  parity_rule = (
+    odd_scalar_implies_mod_two_congruence_inference_rule()
+  )
+
+  order_bridge_rule = (
+    mod_two_one_scalar_preserves_order_two_element_inference_rule()
+  )
+
+  modulo_rule = (
+    equality_implies_modulo_inference_rule(
+      modulus=modulus,
+    )
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        parity_rule,
+        order_bridge_rule,
+        modulo_rule,
+      ),
+      (
+        odd_step,
+        order_step,
+      ),
+    )
+  )
+
+  symbolic_equality = Relation(
+    lhs=Multiple(
+      coefficient=k,
+      expression=beta,
+    ),
+    rhs=beta,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  symbolic_modulo = ModuloStatement(
+    left=Multiple(
+      coefficient=k,
+      expression=beta,
+    ),
+    right=beta,
+    modulus=modulus,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert symbolic_equality in conclusions
+  assert symbolic_modulo in conclusions
+
+  equality_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == symbolic_equality
+  )
+
+  modulo_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == symbolic_modulo
+  )
+
+  assert equality_step.inference_rule == (
+    order_bridge_rule
+  )
+
+  assert modulo_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert modulo_step.inference_rule == (
+    modulo_rule
+  )
+
+  assert modulo_step.premises == (
+    equality_step,
+  )
+
+
+def test_symbolic_order_reasoning_does_not_generate_modulo_without_active_modulo_rule():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  modulus = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  beta = nu(4)
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=k,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  order_step = relation_proof_step(
+    order_relation(
+      beta,
+      2,
+    )
+  )
+
+  parity_rule = (
+    odd_scalar_implies_mod_two_congruence_inference_rule()
+  )
+
+  order_bridge_rule = (
+    mod_two_one_scalar_preserves_order_two_element_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        parity_rule,
+        order_bridge_rule,
+      ),
+      (
+        odd_step,
+        order_step,
+      ),
+    )
+  )
+
+  symbolic_equality = Relation(
+    lhs=Multiple(
+      coefficient=k,
+      expression=beta,
+    ),
+    rhs=beta,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  symbolic_modulo = ModuloStatement(
+    left=Multiple(
+      coefficient=k,
+      expression=beta,
+    ),
+    right=beta,
+    modulus=modulus,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert symbolic_equality in conclusions
+
+  assert symbolic_modulo not in conclusions
+
+
+def test_phase16_representative_symbolic_scalar_order_exactness_modulo_scenario():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  suspension_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  hopf_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  image_reference = ImageSubgroupReference(
+    group_map=suspension_map,
+  )
+
+  kernel_reference = KernelSubgroupReference(
+    group_map=hopf_map,
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  beta = nu(4)
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=k,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  order_step = relation_proof_step(
+    order_relation(
+      beta,
+      2,
+    )
+  )
+
+  exactness_step = ProofStep(
+    conclusion=ExactnessStatement(
+      first_map=suspension_map,
+      second_map=hopf_map,
+      is_exact=True,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  parity_rule = (
+    odd_scalar_implies_mod_two_congruence_inference_rule()
+  )
+
+  order_bridge_rule = (
+    mod_two_one_scalar_preserves_order_two_element_inference_rule()
+  )
+
+  exactness_rule = (
+    exactness_implies_subgroup_equality_inference_rule()
+  )
+
+  equality_to_modulo_rule = (
+    equality_implies_modulo_inference_rule(
+      modulus=kernel_reference,
+    )
+  )
+
+  modulo_transport_rule = (
+    subgroup_equality_modulo_propagation_inference_rule()
+  )
+
+  modulo_to_membership_rule = (
+    modulo_implies_difference_membership_inference_rule()
+  )
+
+  membership_to_modulo_rule = (
+    difference_membership_implies_modulo_inference_rule()
+  )
+
+  modulo_to_coset_rule = (
+    modulo_implies_coset_equality_inference_rule()
+  )
+
+  coset_to_modulo_rule = (
+    coset_equality_implies_modulo_inference_rule()
+  )
+
+  rules = (
+    parity_rule,
+    order_bridge_rule,
+    exactness_rule,
+    equality_to_modulo_rule,
+    modulo_transport_rule,
+    modulo_to_membership_rule,
+    membership_to_modulo_rule,
+    modulo_to_coset_rule,
+    coset_to_modulo_rule,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        odd_step,
+        order_step,
+        exactness_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  congruence = ScalarCongruenceStatement(
+    scalar=k,
+    residue=1,
+    modulus=2,
+  )
+
+  symbolic_equality = Relation(
+    lhs=Multiple(
+      coefficient=k,
+      expression=beta,
+    ),
+    rhs=beta,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  subgroup_equality = SubgroupEqualityStatement(
+    left=image_reference,
+    right=kernel_reference,
+  )
+
+  kernel_modulo = ModuloStatement(
+    left=Multiple(
+      coefficient=k,
+      expression=beta,
+    ),
+    right=beta,
+    modulus=kernel_reference,
+  )
+
+  image_modulo = ModuloStatement(
+    left=Multiple(
+      coefficient=k,
+      expression=beta,
+    ),
+    right=beta,
+    modulus=image_reference,
+  )
+
+  difference = Sum(
+    left=Multiple(
+      coefficient=k,
+      expression=beta,
+    ),
+    right=Multiple(
+      coefficient=-1,
+      expression=beta,
+    ),
+  )
+
+  kernel_membership = MembershipStatement(
+    element=difference,
+    subgroup=kernel_reference,
+  )
+
+  image_membership = MembershipStatement(
+    element=difference,
+    subgroup=image_reference,
+  )
+
+  kernel_coset_equality = CosetEqualityStatement(
+    left=Coset(
+      representative=Multiple(
+        coefficient=k,
+        expression=beta,
+      ),
+      subgroup=kernel_reference,
+    ),
+    right=Coset(
+      representative=beta,
+      subgroup=kernel_reference,
+    ),
+  )
+
+  image_coset_equality = CosetEqualityStatement(
+    left=Coset(
+      representative=Multiple(
+        coefficient=k,
+        expression=beta,
+      ),
+      subgroup=image_reference,
+    ),
+    right=Coset(
+      representative=beta,
+      subgroup=image_reference,
+    ),
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert congruence in conclusions
+  assert symbolic_equality in conclusions
+  assert subgroup_equality in conclusions
+
+  assert kernel_modulo in conclusions
+  assert image_modulo in conclusions
+
+  assert kernel_membership in conclusions
+  assert image_membership in conclusions
+
+  assert kernel_coset_equality in conclusions
+  assert image_coset_equality in conclusions
+
+  congruence_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == congruence
+  )
+
+  assert congruence_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert congruence_step.inference_rule == (
+    parity_rule
+  )
+
+  assert congruence_step.premises == (
+    odd_step,
+  )
+
+  symbolic_equality_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == symbolic_equality
+  )
+
+  assert symbolic_equality_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert symbolic_equality_step.inference_rule == (
+    order_bridge_rule
+  )
+
+  assert symbolic_equality_step.premises == (
+    order_step,
+    congruence_step,
+  )
+
+  subgroup_equality_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == subgroup_equality
+  )
+
+  assert subgroup_equality_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert subgroup_equality_step.inference_rule == (
+    exactness_rule
+  )
+
+  assert subgroup_equality_step.premises == (
+    exactness_step,
+  )
+
+  kernel_modulo_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == kernel_modulo
+  )
+
+  assert kernel_modulo_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert kernel_modulo_step.inference_rule == (
+    equality_to_modulo_rule
+  )
+
+  assert kernel_modulo_step.premises == (
+    symbolic_equality_step,
+  )
+
+  image_modulo_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == image_modulo
+  )
+
+  assert image_modulo_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert image_modulo_step.inference_rule == (
+    modulo_transport_rule
+  )
+
+  assert image_modulo_step.premises == (
+    kernel_modulo_step,
+    subgroup_equality_step,
+  )
+
+  image_coset_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == image_coset_equality
+  )
+
+  assert image_coset_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert image_coset_step.inference_rule == (
+    modulo_to_coset_rule
+  )
+
+  assert image_coset_step.premises == (
+    image_modulo_step,
+  )
+
+  terminal_round = (
+    derive_inference_round_result(
+      rules,
+      result.steps,
+    )
+  )
+
+  assert terminal_round.new_steps == ()
+
+
+def test_phase16_alternative_derivation_keeps_first_provenance_and_duplicate_trace():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  suspension_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  hopf_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  image_reference = ImageSubgroupReference(
+    group_map=suspension_map,
+  )
+
+  kernel_reference = KernelSubgroupReference(
+    group_map=hopf_map,
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  beta = nu(4)
+
+  difference = Sum(
+    left=Multiple(
+      coefficient=k,
+      expression=beta,
+    ),
+    right=Multiple(
+      coefficient=-1,
+      expression=beta,
+    ),
+  )
+
+  image_modulo_step = ProofStep(
+    conclusion=ModuloStatement(
+      left=Multiple(
+        coefficient=k,
+        expression=beta,
+      ),
+      right=beta,
+      modulus=image_reference,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  kernel_membership_step = ProofStep(
+    conclusion=MembershipStatement(
+      element=difference,
+      subgroup=kernel_reference,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  subgroup_equality_step = ProofStep(
+    conclusion=SubgroupEqualityStatement(
+      left=image_reference,
+      right=kernel_reference,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  modulo_to_membership_rule = (
+    modulo_implies_difference_membership_inference_rule()
+  )
+
+  membership_transport_rule = (
+    subgroup_equality_membership_propagation_inference_rule()
+  )
+
+  round_result = derive_inference_round_result(
+    (
+      modulo_to_membership_rule,
+      membership_transport_rule,
+    ),
+    (
+      image_modulo_step,
+      kernel_membership_step,
+      subgroup_equality_step,
+    ),
+  )
+
+  target_membership = MembershipStatement(
+    element=difference,
+    subgroup=image_reference,
+  )
+
+  matching_candidates = tuple(
+    step
+    for step in round_result.candidate_steps
+    if step.conclusion == target_membership
+  )
+
+  assert len(
+    matching_candidates
+  ) == 2
+
+  matching_new_steps = tuple(
+    step
+    for step in round_result.new_steps
+    if step.conclusion == target_membership
+  )
+
+  assert len(
+    matching_new_steps
+  ) == 1
+
+  accepted_step = matching_new_steps[0]
+
+  assert accepted_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert accepted_step.inference_rule == (
+    modulo_to_membership_rule
+  )
+
+  assert accepted_step.premises == (
+    image_modulo_step,
+  )
+
+  matching_duplicate_steps = tuple(
+    step
+    for step
+    in round_result.duplicate_rejected_steps
+    if step.conclusion == target_membership
+  )
+
+  assert len(
+    matching_duplicate_steps
+  ) == 1
+
+  duplicate_step = (
+    matching_duplicate_steps[0]
+  )
+
+  assert duplicate_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert duplicate_step.inference_rule == (
+    membership_transport_rule
+  )
+
+  assert duplicate_step.premises == (
+    kernel_membership_step,
+    subgroup_equality_step,
+  )
+
+
+def test_phase16_bidirectional_scalar_modulo_bridges_terminate_at_fixed_point():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  suspension_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  hopf_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  image_reference = ImageSubgroupReference(
+    group_map=suspension_map,
+  )
+
+  kernel_reference = KernelSubgroupReference(
+    group_map=hopf_map,
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  beta = nu(4)
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=k,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  order_step = relation_proof_step(
+    order_relation(
+      beta,
+      2,
+    )
+  )
+
+  exactness_step = ProofStep(
+    conclusion=ExactnessStatement(
+      first_map=suspension_map,
+      second_map=hopf_map,
+      is_exact=True,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  parity_rule = (
+    odd_scalar_implies_mod_two_congruence_inference_rule()
+  )
+
+  order_bridge_rule = (
+    mod_two_one_scalar_preserves_order_two_element_inference_rule()
+  )
+
+  exactness_rule = (
+    exactness_implies_subgroup_equality_inference_rule()
+  )
+
+  equality_to_modulo_rule = (
+    equality_implies_modulo_inference_rule(
+      modulus=kernel_reference,
+    )
+  )
+
+  modulo_transport_rule = (
+    subgroup_equality_modulo_propagation_inference_rule()
+  )
+
+  modulo_to_membership_rule = (
+    modulo_implies_difference_membership_inference_rule()
+  )
+
+  membership_to_modulo_rule = (
+    difference_membership_implies_modulo_inference_rule()
+  )
+
+  modulo_to_coset_rule = (
+    modulo_implies_coset_equality_inference_rule()
+  )
+
+  coset_to_modulo_rule = (
+    coset_equality_implies_modulo_inference_rule()
+  )
+
+  rules = (
+    parity_rule,
+    order_bridge_rule,
+    exactness_rule,
+    equality_to_modulo_rule,
+    modulo_transport_rule,
+    modulo_to_membership_rule,
+    membership_to_modulo_rule,
+    modulo_to_coset_rule,
+    coset_to_modulo_rule,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        odd_step,
+        order_step,
+        exactness_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  scalar_congruences = tuple(
+    conclusion
+    for conclusion in conclusions
+    if isinstance(
+      conclusion,
+      ScalarCongruenceStatement,
+    )
+  )
+
+  symbolic_equalities = tuple(
+    conclusion
+    for conclusion in conclusions
+    if (
+      isinstance(
+        conclusion,
+        Relation,
+      )
+      and conclusion.relation_type
+      == RelationType.EQUALITY
+      and conclusion
+      == Relation(
+        lhs=Multiple(
+          coefficient=k,
+          expression=beta,
+        ),
+        rhs=beta,
+        relation_type=RelationType.EQUALITY,
+      )
+    )
+  )
+
+  modulo_statements = tuple(
+    conclusion
+    for conclusion in conclusions
+    if isinstance(
+      conclusion,
+      ModuloStatement,
+    )
+  )
+
+  membership_statements = tuple(
+    conclusion
+    for conclusion in conclusions
+    if isinstance(
+      conclusion,
+      MembershipStatement,
+    )
+  )
+
+  coset_equalities = tuple(
+    conclusion
+    for conclusion in conclusions
+    if isinstance(
+      conclusion,
+      CosetEqualityStatement,
+    )
+  )
+
+  assert len(
+    scalar_congruences
+  ) == 1
+
+  assert len(
+    symbolic_equalities
+  ) == 1
+
+  assert len(
+    modulo_statements
+  ) == 2
+
+  assert len(
+    membership_statements
+  ) == 2
+
+  assert len(
+    coset_equalities
+  ) == 2
+
+  terminal_round = (
+    derive_inference_round_result(
+      rules,
+      result.steps,
+    )
+  )
+
+  assert terminal_round.new_steps == ()
+
+
+def test_phase16_symbolic_scalar_reasoning_stays_outside_modulo_scope_without_explicit_bridge():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  modulus = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  beta = nu(4)
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=k,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  order_step = relation_proof_step(
+    order_relation(
+      beta,
+      2,
+    )
+  )
+
+  parity_rule = (
+    odd_scalar_implies_mod_two_congruence_inference_rule()
+  )
+
+  order_bridge_rule = (
+    mod_two_one_scalar_preserves_order_two_element_inference_rule()
+  )
+
+  modulo_to_membership_rule = (
+    modulo_implies_difference_membership_inference_rule()
+  )
+
+  membership_to_modulo_rule = (
+    difference_membership_implies_modulo_inference_rule()
+  )
+
+  modulo_to_coset_rule = (
+    modulo_implies_coset_equality_inference_rule()
+  )
+
+  coset_to_modulo_rule = (
+    coset_equality_implies_modulo_inference_rule()
+  )
+
+  rules = (
+    parity_rule,
+    order_bridge_rule,
+    modulo_to_membership_rule,
+    membership_to_modulo_rule,
+    modulo_to_coset_rule,
+    coset_to_modulo_rule,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        odd_step,
+        order_step,
+      ),
+    )
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  symbolic_equality = Relation(
+    lhs=Multiple(
+      coefficient=k,
+      expression=beta,
+    ),
+    rhs=beta,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  forbidden_modulo = ModuloStatement(
+    left=Multiple(
+      coefficient=k,
+      expression=beta,
+    ),
+    right=beta,
+    modulus=modulus,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert ScalarCongruenceStatement(
+    scalar=k,
+    residue=1,
+    modulus=2,
+  ) in conclusions
+
+  assert symbolic_equality in conclusions
+
+  assert forbidden_modulo not in conclusions
+
+  assert not any(
+    isinstance(
+      conclusion,
+      ModuloStatement,
+    )
+    for conclusion in conclusions
+  )
+
+  assert not any(
+    isinstance(
+      conclusion,
+      MembershipStatement,
+    )
+    for conclusion in conclusions
+  )
+
+  assert not any(
+    isinstance(
+      conclusion,
+      CosetEqualityStatement,
+    )
+    for conclusion in conclusions
+  )
+
+  terminal_round = (
+    derive_inference_round_result(
+      rules,
+      result.steps,
+    )
+  )
+
+  assert terminal_round.new_steps == ()
 
 
 

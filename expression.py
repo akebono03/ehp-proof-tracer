@@ -11,6 +11,11 @@ class MapSymbol:
 
 
 @dataclass(frozen=True)
+class ScalarSymbol:
+  name: str
+
+
+@dataclass(frozen=True)
 class Zero(Expression):
   pass
 
@@ -23,7 +28,7 @@ class HomotopyElement(Expression):
 
 @dataclass(frozen=True)
 class Multiple(Expression):
-  coefficient: int
+  coefficient: int | ScalarSymbol
   expression: Expression
 
 
