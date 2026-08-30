@@ -15,7 +15,10 @@ from mathematical input such as:
 - Freudenthal stable-range theorems
 - composition relations
 - generalized Hopf invariants
+- homomorphism laws
 - set / subgroup relations
+- coset / modulo relations
+- symbolic scalar constraints
 - Toda relations and Toda brackets
 - Steenrod operations
 - literature-backed facts
@@ -63,7 +66,8 @@ Completed foundations and theorem families:
 12. additive expression / additive-law reasoning,
 13. homomorphism reasoning for additive expressions,
 14. set / subgroup reasoning with role-aware image / kernel references,
-15. provenance and explicit inference-scope / termination boundaries.
+15. coset / modulo reasoning,
+16. provenance and explicit inference-scope / termination boundaries.
 
 Current architecture:
 
@@ -72,7 +76,7 @@ homotopy / EHP domain rules
         ↓
 generic proof / inference engine
         ↓
-proof-level set / subgroup statements
+proof-level expression / set / subgroup / modulo statements
         ↓
 homotopy / EHP data layer
         ↓
@@ -104,6 +108,7 @@ capability.
 - Phase 12: additive expression / additive reasoning — completed
 - Phase 13: homomorphism reasoning — completed
 - Phase 14: set / subgroup reasoning — completed
+- Phase 15: coset / modulo reasoning — completed
 
 ---
 
@@ -138,7 +143,7 @@ and is kept distinct from:
 B / Im(f) ≅ Im(g)
 ```
 
-The algebra layer does not encode Toda-, EHP-, Hopf-, or theorem-specific
+The algebra layer does not encode Toda-, EHP-, Hopf-, modulo-, or theorem-specific
 meaning.
 
 ---
@@ -221,7 +226,8 @@ It does not itself perform:
 - equality proof,
 - zero proof,
 - commutative reordering,
-- associative reassociation.
+- associative reassociation,
+- quotient / modulo simplification.
 
 For example, the following remain structurally distinct:
 
@@ -311,8 +317,8 @@ y=x
 ```
 
 EHP-, ORDER-, Suspension-, Freudenthal-, composition-, Hopf-, additive-,
-homomorphism-, and subgroup-derived facts reconnect through shared generic
-reasoning where their semantics permit it.
+homomorphism-, subgroup-, and modulo-derived facts reconnect through shared
+generic reasoning where their semantics permit it.
 
 ---
 
@@ -425,8 +431,8 @@ Generic equality reasoning can then derive:
 Eα∘Eβ=Eγ
 ```
 
-Functors and symmetry can increase structural depth, so staged / bounded
-execution is used where required.
+Structural functorial rules can increase depth, so staged / bounded execution
+is used where required.
 
 ---
 
@@ -483,8 +489,6 @@ fixed-point-safe.
 ---
 
 # Phase 12: Additive expression / reasoning
-
-Phase 12 introduces the first proof-layer representation of additive structure.
 
 `Sum(left,right)` represents:
 
@@ -599,8 +603,6 @@ reusing algebra-layer subgroup values.
 
 ## Membership
 
-Membership is represented by:
-
 ```text
 MembershipStatement(
   element=α,
@@ -608,15 +610,13 @@ MembershipStatement(
 )
 ```
 
-with intended notation:
+represents:
 
 ```text
 α ∈ A
 ```
 
 ## Subset
-
-Containment is represented by:
 
 ```text
 SubsetStatement(
@@ -625,7 +625,7 @@ SubsetStatement(
 )
 ```
 
-with intended notation:
+represents:
 
 ```text
 A ⊆ B
@@ -642,14 +642,14 @@ A ⊆ B
 
 ## Subgroup equality
 
-Proof-level subgroup equality is represented by:
-
 ```text
 SubgroupEqualityStatement(
   left=A,
   right=B,
 )
 ```
+
+represents theorem-level subgroup equality.
 
 Membership transfers across explicit equality:
 
@@ -662,25 +662,15 @@ A = B
 
 and in the reverse direction as well.
 
-## Image / kernel references
-
-A central Phase 14 design decision is that image and kernel roles are not
-identified merely because their computed subgroup values happen to be equal.
-
-Role-aware references are:
+## Role-aware image / kernel references
 
 ```text
 ImageSubgroupReference(group_map=f)
 KernelSubgroupReference(group_map=g)
 ```
 
-Both expose the existing algebra-layer subgroup through:
-
-```text
-reference.subgroup
-```
-
-but the references themselves remain distinct terms.
+Both expose the existing algebra-layer subgroup through `reference.subgroup`,
+but the proof-level references themselves remain distinct terms.
 
 Therefore:
 
@@ -690,7 +680,7 @@ ImageSubgroupReference(E).subgroup
 KernelSubgroupReference(H).subgroup
 ```
 
-does not imply structural identity:
+does not imply:
 
 ```text
 ImageSubgroupReference(E)
@@ -702,8 +692,6 @@ This distinction preserves theorem provenance.
 
 ## SubgroupTerm
 
-The proof-level subgroup term type is:
-
 ```text
 SubgroupTerm
 =
@@ -712,201 +700,283 @@ Subgroup
 | KernelSubgroupReference
 ```
 
-`MembershipStatement`, `SubsetStatement`, and `SubgroupEqualityStatement`
-accept `SubgroupTerm`.
-
-Raw algebra-layer `Subgroup` remains supported for existing APIs and tests.
-
-## Kernel membership bridge
-
-The helper:
-
-```text
-kernel_membership_statement(
-  element=α,
-  group_map=f,
-)
-```
-
-constructs membership in:
-
-```text
-KernelSubgroupReference(f)
-```
-
-rather than collapsing directly to the raw subgroup value.
-
-The theorem bridge is:
-
-```text
-α ∈ Ker(f)
-↓
-f(α)=0
-```
-
-and conversely:
-
-```text
-f(α)=0
-↓
-α ∈ Ker(f)
-```
-
-The proof-layer map symbol remains explicit, so the algebra-layer `GroupMap`
-and proof-expression `MapSymbol` are not silently identified by name.
-
-## Image membership bridge
-
-The helper:
-
-```text
-image_membership_statement(
-  element=α,
-  group_map=f,
-)
-```
-
-constructs membership in:
-
-```text
-ImageSubgroupReference(f)
-```
-
-so image provenance is retained even when another map has a kernel with the
-same computed subgroup value.
+is used throughout membership / subset / subgroup-equality statements.
 
 ## Exactness bridge
 
-For consecutive maps:
-
 ```text
-A --f--> B --g--> C
+Exactness(f,g)
+↓
+Im(f)=Ker(g)
 ```
 
-exactness now produces the role-aware proof statement:
+produces role-aware theorem equality.
 
-```text
-ImageSubgroupReference(f)
-=
-KernelSubgroupReference(g)
-```
-
-rather than collapsing immediately to equality of raw `Subgroup` values.
-
-This enables:
+Combined with:
 
 ```text
 g(α)=0
 ↓
 α ∈ Ker(g)
+```
 
-Exactness(f,g)
-↓
-Im(f)=Ker(g)
+this gives:
 
-↓ subgroup equality membership propagation
-
+```text
 α ∈ Im(f)
 ```
 
-while preserving the distinction between image role and kernel role.
+through explicit subgroup equality propagation.
 
 ## Equality / subset closure
 
-Phase 14 adds subgroup-relation closure:
+```text
+A=B → B=A
+```
+
+```text
+A=B
+B=C
+→ A=C
+```
+
+```text
+A⊆B
+B⊆C
+→ A⊆C
+```
+
+```text
+A=B → A⊆B
+```
+
+```text
+A⊆B
+B⊆A
+→ A=B
+```
+
+The finite current subgroup relation family reaches genuine `FIXED_POINT`.
+
+---
+
+# Phase 15: Coset / modulo reasoning
+
+Phase 15 adds a proof-level quotient / congruence layer on top of Phase 14.
+
+The central design principle remains:
+
+```text
+mathematical meaning
+≠
+low-level structural equality
+```
+
+## Coset
+
+A coset is represented structurally by:
+
+```text
+Coset(
+  representative=α,
+  subgroup=A,
+)
+```
+
+with intended notation:
+
+```text
+α + A
+```
+
+`subgroup` is a `SubgroupTerm`, so raw subgroups and role-aware image / kernel
+references are supported.
+
+`Coset` Python equality remains structural. Mathematical equality of two cosets
+is not encoded by changing `Coset.__eq__`.
+
+## ModuloStatement
+
+Congruence is a dedicated theorem statement:
+
+```text
+ModuloStatement(
+  left=α,
+  right=β,
+  modulus=A,
+)
+```
+
+with intended notation:
+
+```text
+α ≡ β mod A
+```
+
+This is deliberately separate from both generic `RelationType.EQUALITY` and
+coset structural equality.
+
+## Difference membership bridge
+
+Current additive syntax represents:
+
+```text
+α-β
+=
+Sum(
+  left=α,
+  right=Multiple(-1, β),
+)
+```
+
+Phase 15 implements:
+
+```text
+α ≡ β mod A
+↔
+α-β ∈ A
+```
+
+The reverse bridge recognizes only the explicit structural difference form
+`Sum(α, Multiple(-1,β))`.
+
+Ordinary membership, `α+β∈A`, or `α+2β∈A` are not misidentified as a modulo
+premise.
+
+No theorem-aware difference normalization is performed.
+
+## CosetEqualityStatement
+
+Mathematical coset equality is represented by:
+
+```text
+CosetEqualityStatement(
+  left=Coset(α,A),
+  right=Coset(β,A),
+)
+```
+
+and Phase 15 implements:
+
+```text
+α ≡ β mod A
+↔
+α+A = β+A
+```
+
+The reverse bridge requires the two cosets to use the same proof-level
+`SubgroupTerm`.
+
+Therefore equal underlying subgroup values do not erase image / kernel role
+identity.
+
+## Equality → modulo
+
+With an explicitly selected modulus `A`:
+
+```text
+α = β
+→
+α ≡ β mod A
+```
+
+The modulus is supplied to the concrete rule factory. Equality by itself does
+not enumerate arbitrary subgroup moduli.
+
+This is an inference-scope decision, not a mathematical limitation.
+
+## ZERO → modulo
+
+With an explicitly selected modulus `A`:
+
+```text
+α = 0
+→
+α ≡ 0 mod A
+```
+
+The reverse implication is intentionally absent:
+
+```text
+α ≡ 0 mod A
+↛
+α = 0
+```
+
+because congruence to zero modulo `A` only implies membership in `A`.
+
+Phase 15 also does not globally convert ZERO relations into ordinary equality
+relations merely to support modulo reasoning.
+
+## Subgroup equality propagation
+
+Explicit theorem equality transports the modulus:
 
 ```text
 A = B
-→ B = A
+α ≡ β mod A
+→
+α ≡ β mod B
 ```
+
+and in the reverse direction.
+
+The bridge compares proof-level `SubgroupTerm` identity, not only the computed
+raw subgroup value.
+
+Therefore:
 
 ```text
-A = B
-B = C
-→ A = C
+Image(E).subgroup == Kernel(H).subgroup
 ```
 
-```text
-A ⊆ B
-B ⊆ C
-→ A ⊆ C
-```
+alone does not transport modulo facts between `Im(E)` and `Ker(H)`.
 
-## Equality / subset interconnection
-
-Equality implies containment:
-
-```text
-A = B
-→ A ⊆ B
-```
-
-Together with equality symmetry:
-
-```text
-A = B
-→ B = A
-→ B ⊆ A
-```
-
-Mutual containment implies subgroup equality:
-
-```text
-A ⊆ B
-B ⊆ A
-→ A = B
-```
-
-No theorem is inferred merely from equality of the underlying raw subgroup
-values.
-
-## Representative scenario
-
-The Phase 14 representative scenario combines:
-
-```text
-Exactness
-mapped ZERO
-kernel membership
-image membership
-role-aware subgroup equality
-subgroup equality symmetry / transitivity
-subset transitivity
-equality → subset
-mutual subset → equality
-membership transport
-```
-
-Representative chain:
+An explicit theorem fact such as Exactness is required:
 
 ```text
 Exactness(E,H)
 ↓
 Im(E)=Ker(H)
-
-H(α)=0
 ↓
-α∈Ker(H)
-
-Im(E)=Ker(H)
-+
-α∈Ker(H)
-↓
-α∈Im(E)
+modulo transport
 ```
 
-The same equality also produces:
+## Representative scenario
+
+Phase 15 combines Phase 14 and Phase 15 facts in one fixed-point run:
 
 ```text
-Im(E)⊆Ker(H)
-Ker(H)⊆Im(E)
+Exactness(E,H)
+↓
+Im(E)=Ker(H)
 ```
 
-while preserving separate role-aware terms.
+```text
+α = β
+↓
+α ≡ β mod Ker(H)
+↓
+α ≡ β mod Im(E)
+├→ α-β ∈ Im(E)
+└→ α+Im(E)=β+Im(E)
+```
+
+and:
+
+```text
+β = 0
+↓
+β ≡ 0 mod Ker(H)
+↓
+β ≡ 0 mod Im(E)
+```
+
+No new shortcut theorem is required for these paths.
 
 ## Provenance
 
-Representative derived steps retain:
+Derived modulo / membership / coset facts retain:
 
 ```text
 ProofRule.INFERENCE
@@ -914,124 +984,98 @@ inference_rule
 premises
 ```
 
-In particular:
+When the same conclusion has multiple derivations:
 
 ```text
-Exactness(E,H)
-↓
-Im(E)=Ker(H)
+first accepted ProofStep
 ```
 
-is traceable to the exactness premise, while:
+is retained in the knowledge state.
 
-```text
-H(α)=0
-↓
-α∈Ker(H)
-```
+Alternative applications remain visible in execution traces through candidate
+and duplicate-rejected steps.
 
-is traceable to the mapped-zero premise.
-
-The final image-membership fact uses those intermediate proof steps as direct
-premises rather than collapsing the dependency graph.
-
-## Theorem boundary
-
-The following is intentionally not valid:
-
-```text
-Im(E).subgroup == Ker(H).subgroup
-↓
-Im(E)=Ker(H)
-```
-
-Underlying algebraic value equality is not a substitute for a theorem-level
-role bridge.
-
-If the Exactness rule is absent, then:
-
-```text
-H(α)=0
-→ α∈Ker(H)
-```
-
-does not imply:
-
-```text
-α∈Im(E)
-```
-
-even when the computed image and kernel subgroup values happen to coincide.
+Phase 15 does not yet store all alternative proofs as equal first-class proofs
+inside the knowledge state.
 
 ## Termination boundary
 
-Equality / subset rules contain logical cycles such as:
+Current Phase 15 cycles include:
 
 ```text
-A=B
-→ A⊆B
-
-A=B
-→ B=A
-→ B⊆A
-
-A⊆B
-B⊆A
-→ A=B
+Modulo
+↔ difference membership
 ```
 
-but they do not generate unbounded new structural terms.
+```text
+Modulo
+↔ coset equality
+```
 
-For a finite set of `SubgroupTerm` values, ordinary duplicate rejection reaches
-a genuine:
+and:
+
+```text
+Modulo mod A
+↔ Modulo mod B
+```
+
+through explicit subgroup equality.
+
+These rules do not construct unbounded nested terms. For a finite set of known
+expressions and active `SubgroupTerm` values, ordinary duplicate rejection
+reaches genuine:
 
 ```text
 FIXED_POINT
 ```
 
-This is distinct from structural families such as repeated Suspension that can
-increase expression depth indefinitely.
+Phase 15 termination does not rely on `MAX_ROUNDS`.
 
-The generic inference engine remains unchanged.
+This does not imply that all future symbolic quotient / scalar rule families
+will terminate.
 
 ---
 
 # Current limitations
 
 - Duplicate identity uses ordinary Python equality.
+- There is no theorem-aware canonical normalization.
 - The knowledge state keeps the first accepted `ProofStep` for an equal
   conclusion; alternative applications remain in execution traces.
-- Pattern matching is structured but not fully general recursive unification.
+- Pattern matching is structured but not a fully general recursive unification
+  language.
 - Exhaustive premise assignment can grow combinatorially.
 - Arbitrary symbolic rule families are not guaranteed to terminate.
 - `max_rounds` is a safety bound, not semantic cycle detection.
 - Repeated Suspension, composition functoriality, and recursive Hopf formula
   application can generate unbounded structural depth.
 - Automatic rule scheduling / theorem-depth planning is not implemented.
-- Canonical `E^n` and composition normalization are not implemented.
+- Canonical `E^n`, additive, composition, or quotient normalization is not
+  implemented.
 - Composition associativity, identity, and bilinearity are not implemented.
-- Additive zero identity is not yet an explicit theorem family.
+- Additive zero identity is not a general theorem family.
 - General `nα ↔ repeated Sum` expansion is not implemented.
-- Generic additive homomorphism preservation is implemented for explicit
-  `HomomorphismStatement` facts and concrete rule scopes.
 - Suspension / `E` is connected to generic homomorphism additivity, but `H` and
-  `P` are not yet activated as unrestricted untyped `MapSymbol` homomorphisms.
-- Map source / target and ambient homotopy-group typing are not yet represented
-  in the proof-expression map layer.
+  `P` are not activated as unrestricted untyped `MapSymbol` homomorphisms.
+- Proof-level map source / target / ambient homotopy-group typing is not yet
+  general.
 - Universal map congruence `x=y → f(x)=f(y)` is not implemented.
 - There is no first-class `NONZERO` relation type.
-- General inverse-map construction / unrestricted desuspension are not
+- General inverse-map construction / unrestricted desuspension is not
   implemented.
-- Image membership currently records membership in an image role; explicit
-  preimage / witness generation is not implemented.
-- Subgroup equality / subset reflexivity is not generated as a premise-free
-  theorem family.
-- General set complements, unions, intersections, arbitrary set-valued
-  expressions, cosets, and modulo relations are not yet first-class.
-- Hopf additivity is not implemented.
-- `±α` is not yet a first-class indeterminacy representation.
-- Toda brackets, Steenrod operations, double EHP, and odd-primary-specific
-  theorem families remain future work.
+- Modulo reflexivity / symmetry / transitivity are not separate automatic
+  theorem families.
+- Coset equality symmetry / transitivity are not separate automatic theorem
+  families.
+- Modulo propagation through subset is obtained by composition through
+  difference membership; no shortcut rule is added.
+- No theorem-aware simplification of `α-0`, quotient representatives, or cosets
+  is performed.
+- Symbolic integer / scalar constraints are not yet first-class.
+- `±α` and other coefficient indeterminacy are not yet first-class.
+- Toda bracket value sets and Toda bracket indeterminacy remain future work.
+- Steenrod operations, double EHP, and odd-primary-specific theorem families
+  remain future work.
 
 ---
 
@@ -1043,10 +1087,10 @@ Run the full project suite with:
 python -m pytest -v
 ```
 
-Phase 14 completion:
+Phase 15 completion:
 
 ```text
-921 passed in 62.89s
+956 passed in 64.09s
 ```
 
 Useful focused suites include:
@@ -1059,8 +1103,8 @@ python -m pytest tests/test_set_rules.py -v
 python -m pytest tests/test_stable_rules.py::test_phase9_inference_scope_termination_and_theorem_boundary -v
 ```
 
-The Phase 9 representative termination / theorem-boundary regression remains
-green at Phase 14 completion.
+The long-lived Phase 9 theorem-scope / termination regression remains green at
+Phase 15 completion.
 
 ---
 
@@ -1076,52 +1120,73 @@ Current behavior is defined by the latest README and design documents.
 
 ---
 
-# Phase 14 completion boundary
+# Phase 15 completion boundary
 
-Phase 14 is complete because proof-level subgroup reasoning now supports:
+Phase 15 is complete because the proof layer now supports:
 
 ```text
-α ∈ A
-A ⊆ B
-A = B
-α ∈ Ker(f)
-α ∈ Im(f)
+α + A
+α ≡ β mod A
+α + A = β + A
+α - β ∈ A
 ```
 
-with role-aware image / kernel identity, Exactness bridging, membership
-propagation, relation closure, provenance, and fixed-point termination.
-
-Completion means:
-
-1. `MembershipStatement` is first-class.
-2. `SubsetStatement` is first-class.
-3. `SubgroupEqualityStatement` is first-class.
-4. raw `Subgroup` remains supported.
-5. `ImageSubgroupReference` preserves image role identity.
-6. `KernelSubgroupReference` preserves kernel role identity.
-7. `SubgroupTerm` unifies raw / image / kernel subgroup terms.
-8. membership propagates through subset.
-9. membership propagates through explicit subgroup equality.
-10. `f(α)=0 ↔ α∈Ker(f)` is represented by explicit rule bridges.
-11. image membership has a role-aware helper.
-12. Exactness derives `Im(f)=Ker(g)` as role-aware equality.
-13. same underlying subgroup value does not collapse role identity.
-14. subgroup equality symmetry is implemented.
-15. subgroup equality transitivity is implemented.
-16. subset transitivity is implemented.
-17. subgroup equality implies subset.
-18. mutual subset implies subgroup equality.
-19. equality / subset cycles reach finite `FIXED_POINT`.
-20. representative Exactness + membership + closure scenario is regression-fixed.
-21. provenance is retained through intermediate role-aware facts.
-22. removing Exactness removes the image/kernel theorem bridge.
-23. the generic inference engine remains unchanged.
-24. the full regression suite passes.
-
-Phase 14 completion full suite:
+with explicit theorem bridges:
 
 ```text
-921 passed in 62.89s
+α ≡ β mod A
+↔ α-β ∈ A
+```
+
+```text
+α ≡ β mod A
+↔ α+A = β+A
+```
+
+```text
+α=β
+→ α≡β mod A
+```
+
+```text
+α=0
+→ α≡0 mod A
+```
+
+```text
+A=B
+α≡β mod A
+→ α≡β mod B
+```
+
+Completion also means:
+
+1. `Coset` is first-class structural syntax.
+2. `ModuloStatement` is a first-class theorem statement.
+3. `CosetEqualityStatement` is a first-class theorem statement.
+4. raw `Subgroup` remains supported as modulus.
+5. role-aware image / kernel references remain supported as modulus.
+6. structural equality remains separate from mathematical equality.
+7. the difference bridge uses existing additive syntax.
+8. the reverse difference bridge rejects non-difference membership.
+9. coset equality does not redefine Python `Coset` equality.
+10. the reverse coset bridge requires the same `SubgroupTerm` role.
+11. equality / ZERO modulo bridges use explicit modulus scope.
+12. modulo does not imply ordinary equality or ZERO.
+13. subgroup equality transports modulo facts explicitly.
+14. Exactness connects `Im(E)=Ker(H)` to modulo transport.
+15. same underlying subgroup value does not collapse role identity.
+16. representative Phase 14 + Phase 15 reasoning reaches one fixed point.
+17. duplicate derivations retain first accepted provenance and alternative trace.
+18. current bidirectional Phase 15 cycles reach finite `FIXED_POINT`.
+19. terminal inference rounds produce no new steps.
+20. the generic inference engine remains unchanged.
+21. the full regression suite passes.
+
+Phase 15 completion full suite:
+
+```text
+956 passed in 64.09s
 ```
 
 ---
@@ -1146,41 +1211,36 @@ Indeterminacy
 Toda bracket
 ```
 
-Phases 12, 13, and 14 have completed the minimal additive-expression,
-homomorphism, and set/subgroup layers.
+Phases 12–15 have now completed the minimal additive, homomorphism,
+set/subgroup, and coset/modulo layers.
 
 The natural next Phase is therefore:
 
 ```text
-Phase 15: Coset / modulo reasoning
+Phase 16: Symbolic scalar constraints
 ```
 
-Likely representation needs include forms such as:
+Likely actual needs include forms such as:
 
 ```text
-α mod A
-α + A
-α ≡ β mod A
+α = kβ + γ
+k odd
 ```
-
-and theorem-level statements connecting differences or sums to subgroup
-membership.
-
-Phase 15 should preserve the Phase 14 distinction between:
 
 ```text
-underlying algebraic value
+k ≡ 1 mod 2
 ```
-
-and:
 
 ```text
-proof-level mathematical role / provenance
+k ∈ Z
 ```
 
-and should not yet introduce symbolic scalar constraints, general
-indeterminacy, or Toda brackets unless an actual coset/modulo rule requires
-them.
+and restrictions that allow coefficient uncertainty to be preserved without
+prematurely selecting a concrete integer.
 
-The generic inference engine should remain unchanged unless a concrete
-coset/modulo theorem demonstrates a missing generic capability.
+Phase 16 should build on the existing additive and modulo layers without yet
+introducing general Toda-bracket indeterminacy unless an actual scalar theorem
+requires it.
+
+The generic inference engine should remain unchanged unless a concrete symbolic
+scalar theorem demonstrates a missing generic capability.
