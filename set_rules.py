@@ -50,6 +50,12 @@ SubgroupTerm = (
 
 
 @dataclass(frozen=True)
+class Coset:
+  representative: Expression
+  subgroup: SubgroupTerm
+
+
+@dataclass(frozen=True)
 class MembershipStatement:
   element: Expression
   subgroup: SubgroupTerm

@@ -30,6 +30,7 @@ from proof import (
   run_inference_until_stable_with_history,
 )
 from set_rules import (
+  Coset,
   ImageSubgroupReference,
   KernelSubgroupReference,
   MembershipStatement,
@@ -5019,6 +5020,120 @@ def test_phase14_representative_requires_explicit_role_bridge():
   )
 
   assert terminal_round.new_steps == ()
+
+
+def test_coset():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+
+  coset = Coset(
+    representative=alpha,
+    subgroup=subgroup,
+  )
+
+  assert coset.representative == alpha
+  assert coset.subgroup == subgroup
+
+
+def test_coset_has_structural_equality_and_distinguishes_representative():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  alpha = eta(3)
+  beta = nu(4)
+
+  alpha_coset = Coset(
+    representative=alpha,
+    subgroup=subgroup,
+  )
+
+  same_alpha_coset = Coset(
+    representative=alpha,
+    subgroup=subgroup,
+  )
+
+  beta_coset = Coset(
+    representative=beta,
+    subgroup=subgroup,
+  )
+
+  assert alpha_coset == same_alpha_coset
+  assert alpha_coset != beta_coset
+
+
+def test_coset_preserves_role_aware_subgroup_term():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  image_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  kernel_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  alpha = eta(3)
+
+  image_reference = ImageSubgroupReference(
+    group_map=image_map,
+  )
+
+  kernel_reference = KernelSubgroupReference(
+    group_map=kernel_map,
+  )
+
+  assert (
+    image_reference.subgroup
+    == kernel_reference.subgroup
+  )
+
+  image_coset = Coset(
+    representative=alpha,
+    subgroup=image_reference,
+  )
+
+  kernel_coset = Coset(
+    representative=alpha,
+    subgroup=kernel_reference,
+  )
+
+  assert image_coset.subgroup == image_reference
+  assert kernel_coset.subgroup == kernel_reference
+
+  assert image_coset != kernel_coset
 
 
 
