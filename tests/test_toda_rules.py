@@ -1818,6 +1818,434 @@ def test_phase19_toda_membership_multi_round_from_defining_compositions():
   assert result.round_count == 3
 
 
+def test_phase19_theorem_derived_toda_membership_coexists_with_sign_indeterminacy():
+  reference = LiteratureReference(
+    label="Toda",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+    locator="Chapter VI",
+  )
+
+  epsilon_3 = HomotopyElement(
+    name="ε",
+    dimension=3,
+  )
+
+  alpha = HomotopyElement(
+    name="α",
+    dimension=3,
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  a = eta(3)
+
+  b = Suspension(
+    nu_prime,
+  )
+
+  c = nu(7)
+
+  bracket = TodaBracket(
+    first=a,
+    second=b,
+    third=c,
+  )
+
+  first_equality_step = relation_proof_step(
+    Relation(
+      lhs=Composition(
+        left=a,
+        right=b,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.EQUALITY,
+      source="Toda",
+      note=(
+        "First defining zero composition "
+        "for the epsilon_3 Toda bracket."
+      ),
+    )
+  )
+
+  second_equality_step = relation_proof_step(
+    Relation(
+      lhs=Composition(
+        left=b,
+        right=c,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.EQUALITY,
+      source="Toda",
+      note=(
+        "Second defining zero composition "
+        "for the epsilon_3 Toda bracket."
+      ),
+    )
+  )
+
+  theorem_step = (
+    toda_bracket_membership_theorem_proof_step(
+      TodaBracketMembershipTheoremStatement(
+        element=epsilon_3,
+        bracket=bracket,
+        source=reference,
+        note=(
+          "Literature-backed theorem for "
+          "the current unindexed projection "
+          "of {η_3,Eν′,ν_7}_1."
+        ),
+      )
+    )
+  )
+
+  sign_step = ProofStep(
+    conclusion=SignIndeterminacyStatement(
+      value=epsilon_3,
+      representative=alpha,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  zero_rule = (
+    composition_equality_to_zero_inference_rule()
+  )
+
+  defined_rule = (
+    toda_bracket_defined_by_zero_compositions_inference_rule()
+  )
+
+  membership_rule = (
+    toda_bracket_membership_from_theorem_inference_rule()
+  )
+
+  result = run_inference_until_stable_with_history(
+    (
+      zero_rule,
+      defined_rule,
+      membership_rule,
+    ),
+    (
+      first_equality_step,
+      second_equality_step,
+      theorem_step,
+      sign_step,
+    ),
+  )
+
+  membership = TodaBracketMembershipStatement(
+    element=epsilon_3,
+    bracket=bracket,
+    source=reference,
+    note=(
+      "Literature-backed theorem for "
+      "the current unindexed projection "
+      "of {η_3,Eν′,ν_7}_1."
+    ),
+  )
+
+  sign_indeterminacy = SignIndeterminacyStatement(
+    value=epsilon_3,
+    representative=alpha,
+  )
+
+  positive_value = Relation(
+    lhs=epsilon_3,
+    rhs=alpha,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  negative_value = Relation(
+    lhs=epsilon_3,
+    rhs=Multiple(
+      coefficient=-1,
+      expression=alpha,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert membership in conclusions
+  assert sign_indeterminacy in conclusions
+
+  assert positive_value not in conclusions
+  assert negative_value not in conclusions
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 3
+
+
+def test_phase19_theorem_derived_toda_membership_coexists_with_coset_indeterminacy():
+  reference = LiteratureReference(
+    label="Toda",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+    locator="Chapter VI",
+  )
+
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  subgroup = make_subgroup(
+    group,
+    [
+      (2,),
+    ],
+  )
+
+  epsilon_3 = HomotopyElement(
+    name="ε",
+    dimension=3,
+  )
+
+  beta = HomotopyElement(
+    name="β",
+    dimension=3,
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  a = eta(3)
+
+  b = Suspension(
+    nu_prime,
+  )
+
+  c = nu(7)
+
+  bracket = TodaBracket(
+    first=a,
+    second=b,
+    third=c,
+  )
+
+  first_equality_step = relation_proof_step(
+    Relation(
+      lhs=Composition(
+        left=a,
+        right=b,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.EQUALITY,
+      source="Toda",
+      note=(
+        "First defining zero composition "
+        "for the epsilon_3 Toda bracket."
+      ),
+    )
+  )
+
+  second_equality_step = relation_proof_step(
+    Relation(
+      lhs=Composition(
+        left=b,
+        right=c,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.EQUALITY,
+      source="Toda",
+      note=(
+        "Second defining zero composition "
+        "for the epsilon_3 Toda bracket."
+      ),
+    )
+  )
+
+  theorem_step = (
+    toda_bracket_membership_theorem_proof_step(
+      TodaBracketMembershipTheoremStatement(
+        element=epsilon_3,
+        bracket=bracket,
+        source=reference,
+        note=(
+          "Literature-backed theorem for "
+          "the current unindexed projection "
+          "of {η_3,Eν′,ν_7}_1."
+        ),
+      )
+    )
+  )
+
+  coset_step = ProofStep(
+    conclusion=CosetMembershipStatement(
+      element=epsilon_3,
+      coset=Coset(
+        representative=beta,
+        subgroup=subgroup,
+      ),
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  zero_rule = (
+    composition_equality_to_zero_inference_rule()
+  )
+
+  defined_rule = (
+    toda_bracket_defined_by_zero_compositions_inference_rule()
+  )
+
+  membership_rule = (
+    toda_bracket_membership_from_theorem_inference_rule()
+  )
+
+  result = run_inference_until_stable_with_history(
+    (
+      zero_rule,
+      defined_rule,
+      membership_rule,
+    ),
+    (
+      first_equality_step,
+      second_equality_step,
+      theorem_step,
+      coset_step,
+    ),
+  )
+
+  membership = TodaBracketMembershipStatement(
+    element=epsilon_3,
+    bracket=bracket,
+    source=reference,
+    note=(
+      "Literature-backed theorem for "
+      "the current unindexed projection "
+      "of {η_3,Eν′,ν_7}_1."
+    ),
+  )
+
+  coset_membership = CosetMembershipStatement(
+    element=epsilon_3,
+    coset=Coset(
+      representative=beta,
+      subgroup=subgroup,
+    ),
+  )
+
+  selected_representative = Relation(
+    lhs=epsilon_3,
+    rhs=beta,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert membership in conclusions
+  assert coset_membership in conclusions
+
+  assert selected_representative not in conclusions
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 3
+
+
+def test_phase19_theorem_derived_toda_membership_does_not_create_indeterminacy():
+  epsilon_3 = HomotopyElement(
+    name="ε",
+    dimension=3,
+  )
+
+  alpha = HomotopyElement(
+    name="α",
+    dimension=3,
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  bracket = TodaBracket(
+    first=eta(3),
+    second=Suspension(
+      nu_prime,
+    ),
+    third=nu(7),
+  )
+
+  theorem_step = (
+    toda_bracket_membership_theorem_proof_step(
+      TodaBracketMembershipTheoremStatement(
+        element=epsilon_3,
+        bracket=bracket,
+      )
+    )
+  )
+
+  defined_step = ProofStep(
+    conclusion=TodaBracketDefinedStatement(
+      bracket=bracket,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  membership_rule = (
+    toda_bracket_membership_from_theorem_inference_rule()
+  )
+
+  result = run_inference_until_stable_with_history(
+    membership_rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  membership = TodaBracketMembershipStatement(
+    element=epsilon_3,
+    bracket=bracket,
+  )
+
+  sign_indeterminacy = SignIndeterminacyStatement(
+    value=epsilon_3,
+    representative=alpha,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert membership in conclusions
+  assert sign_indeterminacy not in conclusions
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+
 
 
 
