@@ -8,7 +8,10 @@ from expression import (
 )
 from proof import (
   InferenceRule,
+  LiteratureReference,
   PremisePattern,
+  ProofRule,
+  ProofStep,
   Relation,
   RelationType,
 )
@@ -18,6 +21,27 @@ from proof import (
 class TodaBracketMembershipStatement:
   element: Expression
   bracket: TodaBracket
+  source: LiteratureReference | str | None = None
+  note: str | None = None
+
+
+def toda_bracket_membership_proof_step(
+  statement,
+):
+  if not isinstance(
+    statement,
+    TodaBracketMembershipStatement,
+  ):
+    raise TypeError(
+      "statement must be a "
+      "TodaBracketMembershipStatement"
+    )
+
+  return ProofStep(
+    conclusion=statement,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
 
 
 @dataclass(frozen=True)
