@@ -463,6 +463,76 @@ def subset_transitivity_inference_rule():
   )
 
 
+def subgroup_equality_implies_subset_inference_rule():
+  left = PatternVariable(
+    name="left",
+  )
+
+  right = PatternVariable(
+    name="right",
+  )
+
+  return InferenceRule(
+    name="subgroup equality implies subset",
+    description=(
+      "Equality of subgroup terms implies "
+      "containment from the left term "
+      "to the right term."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=SubgroupEqualityStatement,
+        statement_pattern=SubgroupEqualityStatement(
+          left=left,
+          right=right,
+        ),
+      ),
+    ),
+    conclusion_pattern=SubsetStatement(
+      subset=left,
+      superset=right,
+    ),
+  )
+
+
+def mutual_subset_implies_subgroup_equality_inference_rule():
+  left = PatternVariable(
+    name="left",
+  )
+
+  right = PatternVariable(
+    name="right",
+  )
+
+  return InferenceRule(
+    name="mutual subset implies subgroup equality",
+    description=(
+      "If each subgroup term is contained "
+      "in the other, then the two subgroup "
+      "terms are equal."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=SubsetStatement,
+        statement_pattern=SubsetStatement(
+          subset=left,
+          superset=right,
+        ),
+      ),
+      PremisePattern(
+        statement_type=SubsetStatement,
+        statement_pattern=SubsetStatement(
+          subset=right,
+          superset=left,
+        ),
+      ),
+    ),
+    conclusion_pattern=SubgroupEqualityStatement(
+      left=left,
+      right=right,
+    ),
+  )
+
 
 
 
