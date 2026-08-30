@@ -1040,6 +1040,64 @@ def test_indexed_toda_bracket_data_represents_symbolic_indexed_suspension_form()
   assert data.bracket.index == data.suspension_exponent
 
 
+def test_indexed_toda_bracket_data_preserves_symbolic_indexed_toda_correspondence():
+  a = eta(3)
+
+  b = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  c = nu(6)
+
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  second = IteratedSuspension(
+    expression=b,
+    exponent=t,
+  )
+
+  third = IteratedSuspension(
+    expression=c,
+    exponent=t,
+  )
+
+  bracket = TodaBracket(
+    first=a,
+    second=second,
+    third=third,
+    index=t,
+  )
+
+  data = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=b,
+    third_base=c,
+    suspension_exponent=t,
+  )
+
+  assert data.bracket.first == a
+
+  assert data.bracket.second == IteratedSuspension(
+    expression=data.second_base,
+    exponent=data.suspension_exponent,
+  )
+
+  assert data.bracket.third == IteratedSuspension(
+    expression=data.third_base,
+    exponent=data.suspension_exponent,
+  )
+
+  assert data.bracket.index == data.suspension_exponent
+
+  assert data.bracket.second.exponent == data.bracket.index
+  assert data.bracket.third.exponent == data.bracket.index
+
+  assert data.bracket.second.expression == data.second_base
+  assert data.bracket.third.expression == data.third_base
+
 
 
 
