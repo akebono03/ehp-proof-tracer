@@ -2,6 +2,7 @@ from expression import (
   Composition,
   Expression,
   HomotopyElement,
+  IndexedTodaBracketData,
   MapApplication,
   MapSymbol,
   Multiple,
@@ -638,6 +639,107 @@ def test_toda_brackets_with_same_entries_and_same_index_are_structurally_equal()
 
   assert left == right
 
+
+def test_indexed_toda_bracket_data_preserves_underlying_entries():
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  bracket = TodaBracket(
+    first=eta(3),
+    second=Suspension(
+      nu_prime,
+    ),
+    third=nu(7),
+    index=1,
+  )
+
+  data = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=nu_prime,
+    third_base=nu(6),
+    suspension_exponent=1,
+  )
+
+  assert data.bracket == bracket
+  assert data.second_base == nu_prime
+  assert data.third_base == nu(6)
+  assert data.suspension_exponent == 1
+
+  assert data.bracket.first == eta(3)
+
+  assert data.bracket.second == Suspension(
+    nu_prime,
+  )
+
+  assert data.bracket.third == nu(7)
+
+  assert data.bracket.index == 1
+
+
+def test_indexed_toda_bracket_data_keeps_suspension_exponent_separate_from_index():
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  bracket = TodaBracket(
+    first=eta(3),
+    second=Suspension(
+      nu_prime,
+    ),
+    third=nu(7),
+    index=1,
+  )
+
+  data = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=nu_prime,
+    third_base=nu(6),
+    suspension_exponent=2,
+  )
+
+  assert data.bracket.index == 1
+  assert data.suspension_exponent == 2
+  assert data.bracket.index != data.suspension_exponent
+
+
+def test_indexed_toda_bracket_data_distinguishes_underlying_entries():
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  other_nu_prime = HomotopyElement(
+    name="ν″",
+    dimension=3,
+  )
+
+  bracket = TodaBracket(
+    first=eta(3),
+    second=Suspension(
+      nu_prime,
+    ),
+    third=nu(7),
+    index=1,
+  )
+
+  first = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=nu_prime,
+    third_base=nu(6),
+    suspension_exponent=1,
+  )
+
+  second = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=other_nu_prime,
+    third_base=nu(6),
+    suspension_exponent=1,
+  )
+
+  assert first != second
 
 
 

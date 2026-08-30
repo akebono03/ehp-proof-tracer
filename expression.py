@@ -24,6 +24,14 @@ class TodaBracket:
 
 
 @dataclass(frozen=True)
+class IndexedTodaBracketData:
+  bracket: TodaBracket
+  second_base: Expression
+  third_base: Expression
+  suspension_exponent: int
+
+
+@dataclass(frozen=True)
 class Zero(Expression):
   pass
 
