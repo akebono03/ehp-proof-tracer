@@ -2918,6 +2918,453 @@ def test_role_aware_membership_helpers_keep_image_and_kernel_roles_distinct():
   )
 
 
+def test_subset_statement_accepts_role_aware_subgroup_terms():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  image_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  kernel_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  image_reference = ImageSubgroupReference(
+    group_map=image_map,
+  )
+
+  kernel_reference = KernelSubgroupReference(
+    group_map=kernel_map,
+  )
+
+  statement = SubsetStatement(
+    subset=kernel_reference,
+    superset=image_reference,
+  )
+
+  assert statement.subset == kernel_reference
+  assert statement.superset == image_reference
+
+  assert (
+    statement.subset.subgroup
+    == statement.superset.subgroup
+  )
+
+  assert (
+    statement.subset
+    != statement.superset
+  )
+
+
+def test_subgroup_equality_statement_accepts_role_aware_subgroup_terms():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  image_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  kernel_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  image_reference = ImageSubgroupReference(
+    group_map=image_map,
+  )
+
+  kernel_reference = KernelSubgroupReference(
+    group_map=kernel_map,
+  )
+
+  statement = SubgroupEqualityStatement(
+    left=image_reference,
+    right=kernel_reference,
+  )
+
+  assert statement.left == image_reference
+  assert statement.right == kernel_reference
+
+  assert (
+    statement.left.subgroup
+    == statement.right.subgroup
+  )
+
+  assert (
+    statement.left
+    != statement.right
+  )
+
+
+def test_role_aware_membership_subset_propagation():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  kernel_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  image_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  alpha = eta(3)
+
+  kernel_reference = KernelSubgroupReference(
+    group_map=kernel_map,
+  )
+
+  image_reference = ImageSubgroupReference(
+    group_map=image_map,
+  )
+
+  membership_step = ProofStep(
+    conclusion=MembershipStatement(
+      element=alpha,
+      subgroup=kernel_reference,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  subset_step = ProofStep(
+    conclusion=SubsetStatement(
+      subset=kernel_reference,
+      superset=image_reference,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    membership_subset_propagation_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      membership_step,
+      subset_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    MembershipStatement(
+      element=alpha,
+      subgroup=image_reference,
+    )
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    membership_step,
+    subset_step,
+  )
+
+
+def test_role_aware_membership_subset_propagation_rejects_same_value_different_role():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  image_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  kernel_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  whole_group = make_subgroup(
+    group,
+    [
+      (1,),
+    ],
+  )
+
+  alpha = eta(3)
+
+  image_reference = ImageSubgroupReference(
+    group_map=image_map,
+  )
+
+  kernel_reference = KernelSubgroupReference(
+    group_map=kernel_map,
+  )
+
+  assert (
+    image_reference.subgroup
+    == kernel_reference.subgroup
+  )
+
+  assert (
+    image_reference
+    != kernel_reference
+  )
+
+  membership_step = ProofStep(
+    conclusion=MembershipStatement(
+      element=alpha,
+      subgroup=image_reference,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  subset_step = ProofStep(
+    conclusion=SubsetStatement(
+      subset=kernel_reference,
+      superset=whole_group,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    membership_subset_propagation_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      membership_step,
+      subset_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_role_aware_subgroup_equality_membership_propagation():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  image_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  kernel_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  alpha = eta(3)
+
+  image_reference = ImageSubgroupReference(
+    group_map=image_map,
+  )
+
+  kernel_reference = KernelSubgroupReference(
+    group_map=kernel_map,
+  )
+
+  membership_step = ProofStep(
+    conclusion=MembershipStatement(
+      element=alpha,
+      subgroup=kernel_reference,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  equality_step = ProofStep(
+    conclusion=SubgroupEqualityStatement(
+      left=image_reference,
+      right=kernel_reference,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    subgroup_equality_membership_propagation_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      membership_step,
+      equality_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    MembershipStatement(
+      element=alpha,
+      subgroup=image_reference,
+    )
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    membership_step,
+    equality_step,
+  )
+
+
+def test_role_aware_subgroup_equality_membership_propagation_rejects_same_value_different_role():
+  group = make_cyclic_group(
+    4,
+    "a",
+  )
+
+  image_map = GroupMap(
+    name="E",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  kernel_map = GroupMap(
+    name="H",
+    source=group,
+    target=group,
+    matrix=[
+      [2],
+    ],
+  )
+
+  whole_group = make_subgroup(
+    group,
+    [
+      (1,),
+    ],
+  )
+
+  alpha = eta(3)
+
+  image_reference = ImageSubgroupReference(
+    group_map=image_map,
+  )
+
+  kernel_reference = KernelSubgroupReference(
+    group_map=kernel_map,
+  )
+
+  assert (
+    image_reference.subgroup
+    == kernel_reference.subgroup
+  )
+
+  assert (
+    image_reference
+    != kernel_reference
+  )
+
+  membership_step = ProofStep(
+    conclusion=MembershipStatement(
+      element=alpha,
+      subgroup=image_reference,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  equality_step = ProofStep(
+    conclusion=SubgroupEqualityStatement(
+      left=kernel_reference,
+      right=whole_group,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    subgroup_equality_membership_propagation_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      membership_step,
+      equality_step,
+    ),
+  )
+
+  assert match is None
+
 
 
 

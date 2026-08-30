@@ -21,24 +21,6 @@ from proof import (
 
 
 @dataclass(frozen=True)
-class MembershipStatement:
-  element: Expression
-  subgroup: Subgroup
-
-
-@dataclass(frozen=True)
-class SubsetStatement:
-  subset: Subgroup
-  superset: Subgroup
-
-
-@dataclass(frozen=True)
-class SubgroupEqualityStatement:
-  left: Subgroup
-  right: Subgroup
-
-
-@dataclass(frozen=True)
 class ImageSubgroupReference:
   group_map: GroupMap
 
@@ -65,6 +47,24 @@ SubgroupTerm = (
   | ImageSubgroupReference
   | KernelSubgroupReference
 )
+
+
+@dataclass(frozen=True)
+class MembershipStatement:
+  element: Expression
+  subgroup: SubgroupTerm
+
+
+@dataclass(frozen=True)
+class SubsetStatement:
+  subset: SubgroupTerm
+  superset: SubgroupTerm
+
+
+@dataclass(frozen=True)
+class SubgroupEqualityStatement:
+  left: SubgroupTerm
+  right: SubgroupTerm
 
 
 def kernel_membership_statement(
