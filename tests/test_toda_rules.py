@@ -3205,6 +3205,192 @@ def test_phase19_toda_theorem_statement_is_outside_generic_equality_scope():
   assert match is None
 
 
+def test_phase20_actual_epsilon3_toda_fact_preserves_index_one():
+  epsilon_3 = HomotopyElement(
+    name="ε",
+    dimension=3,
+  )
 
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  bracket = TodaBracket(
+    first=eta(3),
+    second=Suspension(
+      nu_prime,
+    ),
+    third=nu(7),
+    index=1,
+  )
+
+  statement = TodaBracketMembershipStatement(
+    element=epsilon_3,
+    bracket=bracket,
+  )
+
+  assert statement.element == epsilon_3
+
+  assert statement.bracket == TodaBracket(
+    first=eta(3),
+    second=Suspension(
+      nu_prime,
+    ),
+    third=nu(7),
+    index=1,
+  )
+
+  assert statement.bracket.index == 1
+
+  assert statement.bracket.second == (
+    Suspension(
+      nu_prime,
+    )
+  )
+
+
+def test_phase20_actual_epsilon3_membership_fact_preserves_index():
+  reference = LiteratureReference(
+    label="Toda",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+    locator="Chapter VI",
+  )
+
+  epsilon_3 = HomotopyElement(
+    name="ε",
+    dimension=3,
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  statement = TodaBracketMembershipStatement(
+    element=epsilon_3,
+    bracket=TodaBracket(
+      first=eta(3),
+      second=Suspension(
+        nu_prime,
+      ),
+      third=nu(7),
+      index=1,
+    ),
+    source=reference,
+    note=(
+      "Known Toda membership fact "
+      "{η_3,Eν′,ν_7}_1."
+    ),
+  )
+
+  step = toda_bracket_membership_proof_step(
+    statement
+  )
+
+  assert step.conclusion == statement
+  assert step.conclusion.bracket.index == 1
+  assert step.conclusion.source == reference
+
+  assert step.conclusion.note == (
+    "Known Toda membership fact "
+    "{η_3,Eν′,ν_7}_1."
+  )
+
+  assert step.premises == ()
+  assert step.rule == ProofRule.GIVEN
+  assert step.inference_rule is None
+
+
+def test_phase20_actual_epsilon3_theorem_fact_preserves_index():
+  reference = LiteratureReference(
+    label="Toda",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+    locator="Chapter VI",
+  )
+
+  epsilon_3 = HomotopyElement(
+    name="ε",
+    dimension=3,
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  theorem = TodaBracketMembershipTheoremStatement(
+    element=epsilon_3,
+    bracket=TodaBracket(
+      first=eta(3),
+      second=Suspension(
+        nu_prime,
+      ),
+      third=nu(7),
+      index=1,
+    ),
+    source=reference,
+    note=(
+      "Literature-backed theorem for "
+      "{η_3,Eν′,ν_7}_1."
+    ),
+  )
+
+  step = (
+    toda_bracket_membership_theorem_proof_step(
+      theorem
+    )
+  )
+
+  assert step.conclusion == theorem
+  assert step.conclusion.bracket.index == 1
+  assert step.conclusion.source == reference
+
+  assert step.conclusion.note == (
+    "Literature-backed theorem for "
+    "{η_3,Eν′,ν_7}_1."
+  )
+
+  assert step.premises == ()
+  assert step.rule == ProofRule.GIVEN
+  assert step.inference_rule is None
+
+
+def test_phase20_actual_epsilon3_indexed_bracket_is_not_unindexed_projection():
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  indexed = TodaBracket(
+    first=eta(3),
+    second=Suspension(
+      nu_prime,
+    ),
+    third=nu(7),
+    index=1,
+  )
+
+  unindexed = TodaBracket(
+    first=eta(3),
+    second=Suspension(
+      nu_prime,
+    ),
+    third=nu(7),
+  )
+
+  assert indexed.index == 1
+  assert unindexed.index is None
+  assert indexed != unindexed
 
 
