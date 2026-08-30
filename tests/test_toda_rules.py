@@ -44,8 +44,11 @@ from set_rules import (
 from toda_rules import (
   TodaBracketDefinedStatement,
   TodaBracketMembershipStatement,
+  TodaBracketMembershipTheoremStatement,
   toda_bracket_defined_by_zero_compositions_inference_rule,
+  toda_bracket_membership_from_theorem_inference_rule,
   toda_bracket_membership_proof_step,
+  toda_bracket_membership_theorem_proof_step,
 )
 
 
@@ -1367,6 +1370,294 @@ def test_toda_statements_are_outside_generic_equality_scope():
   assert membership_match is None
 
 
+def test_phase19_toda_membership_theorem_statement():
+  reference = LiteratureReference(
+    label="Toda",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+    locator="Chapter VI",
+  )
+
+  epsilon_3 = HomotopyElement(
+    name="ε",
+    dimension=3,
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  bracket = TodaBracket(
+    first=eta(3),
+    second=Suspension(
+      nu_prime,
+    ),
+    third=nu(7),
+  )
+
+  statement = TodaBracketMembershipTheoremStatement(
+    element=epsilon_3,
+    bracket=bracket,
+    source=reference,
+    note=(
+      "Literature-backed theorem for "
+      "the current unindexed projection "
+      "of {η_3,Eν′,ν_7}_1."
+    ),
+  )
+
+  assert statement.element == epsilon_3
+  assert statement.bracket == bracket
+  assert statement.source == reference
+
+  assert statement.note == (
+    "Literature-backed theorem for "
+    "the current unindexed projection "
+    "of {η_3,Eν′,ν_7}_1."
+  )
+
+  assert not isinstance(
+    statement,
+    TodaBracketMembershipStatement,
+  )
+
+
+def test_phase19_toda_membership_theorem_bridge():
+  reference = LiteratureReference(
+    label="Toda",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+    locator="Chapter VI",
+  )
+
+  epsilon_3 = HomotopyElement(
+    name="ε",
+    dimension=3,
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  bracket = TodaBracket(
+    first=eta(3),
+    second=Suspension(
+      nu_prime,
+    ),
+    third=nu(7),
+  )
+
+  theorem_statement = (
+    TodaBracketMembershipTheoremStatement(
+      element=epsilon_3,
+      bracket=bracket,
+      source=reference,
+      note=(
+        "Literature-backed theorem for "
+        "the current unindexed projection."
+      ),
+    )
+  )
+
+  theorem_step = (
+    toda_bracket_membership_theorem_proof_step(
+      theorem_statement
+    )
+  )
+
+  defined_step = ProofStep(
+    conclusion=TodaBracketDefinedStatement(
+      bracket=bracket,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    toda_bracket_membership_from_theorem_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  assert match is not None
+
+  result = run_inference_until_stable_with_history(
+    rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  expected = TodaBracketMembershipStatement(
+    element=epsilon_3,
+    bracket=bracket,
+    source=reference,
+    note=(
+      "Literature-backed theorem for "
+      "the current unindexed projection."
+    ),
+  )
+
+  derived_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == expected
+  )
+
+  assert derived_step.rule == ProofRule.INFERENCE
+  assert derived_step.inference_rule == rule
+
+  assert derived_step.premises == (
+    theorem_step,
+    defined_step,
+  )
+
+  assert derived_step.conclusion.source == reference
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+
+def test_phase19_toda_membership_theorem_bridge_rejects_different_bracket():
+  epsilon_3 = HomotopyElement(
+    name="ε",
+    dimension=3,
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  theorem_bracket = TodaBracket(
+    first=eta(3),
+    second=Suspension(
+      nu_prime,
+    ),
+    third=nu(7),
+  )
+
+  different_bracket = TodaBracket(
+    first=eta(3),
+    second=Suspension(
+      nu_prime,
+    ),
+    third=sigma(8),
+  )
+
+  theorem_step = (
+    toda_bracket_membership_theorem_proof_step(
+      TodaBracketMembershipTheoremStatement(
+        element=epsilon_3,
+        bracket=theorem_bracket,
+      )
+    )
+  )
+
+  defined_step = ProofStep(
+    conclusion=TodaBracketDefinedStatement(
+      bracket=different_bracket,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    toda_bracket_membership_from_theorem_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase19_toda_membership_theorem_does_not_imply_membership_without_definedness():
+  epsilon_3 = HomotopyElement(
+    name="ε",
+    dimension=3,
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  bracket = TodaBracket(
+    first=eta(3),
+    second=Suspension(
+      nu_prime,
+    ),
+    third=nu(7),
+  )
+
+  theorem_step = (
+    toda_bracket_membership_theorem_proof_step(
+      TodaBracketMembershipTheoremStatement(
+        element=epsilon_3,
+        bracket=bracket,
+      )
+    )
+  )
+
+  rule = (
+    toda_bracket_membership_from_theorem_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      theorem_step,
+    ),
+  )
+
+  assert match is None
+
+  result = run_inference_until_stable_with_history(
+    rule,
+    (
+      theorem_step,
+    ),
+  )
+
+  membership = TodaBracketMembershipStatement(
+    element=epsilon_3,
+    bracket=bracket,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert membership not in conclusions
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
 
 
 
