@@ -69,7 +69,8 @@ Completed foundations and theorem families:
 14. set / subgroup reasoning with role-aware image / kernel references,
 15. coset / modulo reasoning,
 16. symbolic scalar constraints with parity / mod-two / order-two integration,
-17. provenance and explicit inference-scope / termination boundaries.
+17. indeterminacy representation and bridges,
+18. provenance and explicit inference-scope / termination boundaries.
 
 Current architecture:
 
@@ -78,7 +79,8 @@ homotopy / EHP domain rules
         ↓
 generic proof / inference engine
         ↓
-proof-level expression / scalar / set / subgroup / modulo statements
+proof-level expression / scalar / set / subgroup / modulo /
+indeterminacy statements
         ↓
 homotopy / EHP data layer
         ↓
@@ -112,6 +114,7 @@ capability.
 - Phase 14: set / subgroup reasoning — completed
 - Phase 15: coset / modulo reasoning — completed
 - Phase 16: symbolic scalar constraints — completed
+- Phase 17: indeterminacy — completed
 
 ---
 
@@ -146,8 +149,8 @@ and is kept distinct from:
 B / Im(f) ≅ Im(g)
 ```
 
-The algebra layer does not encode Toda-, EHP-, Hopf-, modulo-, scalar-constraint-,
-or theorem-specific meaning.
+The algebra layer does not encode Toda-, EHP-, Hopf-, modulo-,
+scalar-constraint-, indeterminacy-, or theorem-specific meaning.
 
 ---
 
@@ -185,6 +188,9 @@ This is the basis for end-to-end provenance.
 
 `LiteratureReference` stores structured literature metadata.
 
+Special mathematical information that should not be forced into ordinary
+element equality is represented by dedicated statement classes.
+
 ---
 
 # Expression model
@@ -207,38 +213,15 @@ Symbolic integer coefficients can be represented by:
 ScalarSymbol
 ```
 
-For example:
+Examples:
 
 ```text
 kβ
-```
-
-is represented structurally by:
-
-```text
-Multiple(
-  coefficient=ScalarSymbol("k"),
-  expression=β,
-)
-```
-
-and:
-
-```text
 α = kβ + γ
 ```
 
-can be represented by a generic equality relation whose right-hand side is a
-`Sum`.
-
-Current generic map identity is represented by:
-
-```text
-MapSymbol
-```
-
-`MapSymbol` is not itself a homotopy-element expression. `MapApplication`
-stores the structural expression `f(α)`.
+are represented structurally with existing `Multiple`, `Sum`, and generic
+equality.
 
 The expression layer is structural syntax only.
 
@@ -246,6 +229,7 @@ It does not itself perform:
 
 - theorem application,
 - scalar constraint solving,
+- candidate enumeration,
 - normalization,
 - stable-range checks,
 - dimension validation,
@@ -255,25 +239,23 @@ It does not itself perform:
 - associative reassociation,
 - quotient / modulo simplification.
 
-For example, the following remain structurally distinct:
+For example:
 
 ```text
 α+β
 β+α
 ```
 
-```text
-(α+β)+γ
-α+(β+γ)
-```
+and:
 
 ```text
 2α
 α+α
 ```
 
-Mathematical equality between such expressions is represented explicitly by
-`RelationType.EQUALITY`.
+remain structurally distinct.
+
+Mathematical equality is represented explicitly.
 
 ---
 
@@ -312,12 +294,14 @@ MAX_ROUNDS
 
 `max_rounds` is a safety bound, not semantic cycle detection.
 
-One round does not recursively consume conclusions created earlier in that
-same round as fresh premises for later rules.
-
 Duplicate conclusion identity continues to use ordinary Python equality.
 The first accepted `ProofStep` remains in the knowledge state; alternative
 derivations can remain visible in execution traces.
+
+The pattern language is structured but is not a fully recursive unification
+system over arbitrary nested mathematical syntax. Domain rules may use
+`match_guard` and `conclusion_builder` when nested semantic inspection is
+required.
 
 ---
 
@@ -347,8 +331,8 @@ y=x
 ```
 
 EHP-, ORDER-, Suspension-, Freudenthal-, composition-, Hopf-, additive-,
-homomorphism-, subgroup-, modulo-, and scalar-derived facts reconnect through
-shared generic reasoning where their semantics permit it.
+homomorphism-, subgroup-, modulo-, scalar-, and indeterminacy-derived facts
+reconnect through shared generic reasoning only where explicit bridges permit it.
 
 ---
 
@@ -382,8 +366,6 @@ nα=0
 generic equality / ZERO reasoning
 ```
 
-The ORDER conclusion uses `Multiple(n, α)`.
-
 ---
 
 # Phase 8: Suspension reasoning
@@ -394,13 +376,8 @@ x=0  → E(x)=0
 nα=0 → nE(α)=0
 ```
 
-Repeated Suspension can generate:
-
-```text
-E(x), E²(x), E³(x), ...
-```
-
-so unrestricted fixed-point termination is not assumed.
+Repeated Suspension can generate unbounded structural depth, so unrestricted
+fixed-point termination is not assumed.
 
 ---
 
@@ -433,26 +410,26 @@ stem >= sphere_dimension
 
 # Phase 10: Composition reasoning
 
-Known composition facts are ordinary structured equality relations:
+Known composition facts are structured equalities:
 
 ```text
 α∘β = γ
 ```
 
-Known zero composition can be bridged to generic ZERO.
-
-Suspension preservation gives:
+Suspension preservation and Suspension-composition functoriality give:
 
 ```text
 α∘β=γ
-→ E(α∘β)=Eγ
+↓
+E(α∘β)=Eγ
 ```
 
-Suspension-composition functoriality gives:
+and:
 
 ```text
 α∘β=γ
-→ E(α∘β)=Eα∘Eβ
+↓
+E(α∘β)=Eα∘Eβ
 ```
 
 Generic equality reasoning can then derive:
@@ -460,9 +437,6 @@ Generic equality reasoning can then derive:
 ```text
 Eα∘Eβ=Eγ
 ```
-
-Structural functorial rules can increase depth, so staged / bounded execution
-is used where required.
 
 ---
 
@@ -474,28 +448,9 @@ Generalized Hopf facts are represented by:
 H(expression)=value
 ```
 
-where `value` is an `Expression`, not an integer-only field.
+where `value` is an `Expression`.
 
-Implemented vertical slices include:
-
-```text
-H(α)=β
-↓
-HopfCompositionLawStatement
-↓
-H(α∘Eγ)=β∘Eγ
-```
-
-and:
-
-```text
-H(x)=y
-y=0
-↓
-H(x)=0
-```
-
-with the important theorem boundary:
+Important theorem boundary:
 
 ```text
 H(x)=0
@@ -503,18 +458,15 @@ H(x)=0
 x=0
 ```
 
-The EHP bridge includes:
+The EHP bridge can derive:
 
 ```text
 Exactness(E,H)
 ↓
-EHPZeroCompositionStatement(E,H)
-↓
 H(Eα)=0
 ```
 
-Recursive Hopf structural growth is not treated as unrestricted
-fixed-point-safe.
+without changing the generic inference engine.
 
 ---
 
@@ -526,29 +478,10 @@ fixed-point-safe.
 α+β
 ```
 
-while preserving binary tree structure.
-
-The additive inverse is represented by:
+The additive inverse is:
 
 ```text
 -α = Multiple(-1, α)
-```
-
-The following remain structurally distinct:
-
-```text
-2α
-α+α
-```
-
-```text
-0
-0α
-```
-
-```text
-α+0
-α
 ```
 
 Mathematical laws are explicit rules:
@@ -560,19 +493,7 @@ Mathematical laws are explicit rules:
 α+α=2α
 ```
 
-The ORDER bridge supports:
-
-```text
-ord(α)=2
-↓
-2α=0
-
-α+α=2α
-↓
-α+α=0
-```
-
-The finite representative Phase 12 rule family reaches `FIXED_POINT`.
+No theorem-aware constructor normalization is performed.
 
 ---
 
@@ -584,15 +505,13 @@ Generic map application is represented by:
 MapApplication(f, α)
 ```
 
-and homomorphism status is explicit:
+and homomorphism status by:
 
 ```text
 HomomorphismStatement(f)
 ```
 
-Map existence alone does not imply homomorphism status.
-
-Implemented laws include:
+With explicit homomorphism status:
 
 ```text
 f(α+β)=f(α)+f(β)
@@ -601,700 +520,450 @@ f(-α)=-f(α)
 f(nα)=n f(α)
 ```
 
-Known ZERO preservation reconnects existing zero facts to map reasoning.
-
-For Suspension / `E`, a dedicated bridge reconnects generic map additivity to
-the existing `Suspension(expression)` syntax.
-
-The project does not automatically activate unrestricted untyped
-`Homomorphism(H)` or `Homomorphism(P)`.
-
-ORDER integration derives:
-
-```text
-ord(α)=n
-→ n f(α)=0
-```
-
-but not exact order preservation:
-
-```text
-ord(f(α))=n
-```
-
-The finite concrete Phase 13 rule family reaches `FIXED_POINT`.
+Map existence alone does not imply homomorphism status.
 
 ---
 
 # Phase 14: Set / subgroup reasoning
 
-Phase 14 introduces first-class proof-level set / subgroup statements while
-reusing algebra-layer subgroup values.
-
-## Membership
-
-```text
-MembershipStatement(
-  element=α,
-  subgroup=A,
-)
-```
-
-represents:
-
-```text
-α ∈ A
-```
-
-## Subset
-
-```text
-SubsetStatement(
-  subset=A,
-  superset=B,
-)
-```
-
-represents:
-
-```text
-A ⊆ B
-```
-
-Basic propagation:
+First-class statements include:
 
 ```text
 α ∈ A
 A ⊆ B
-↓
-α ∈ B
-```
-
-## Subgroup equality
-
-```text
-SubgroupEqualityStatement(
-  left=A,
-  right=B,
-)
-```
-
-represents theorem-level subgroup equality.
-
-Membership transfers across explicit equality:
-
-```text
-α ∈ A
 A = B
-↓
-α ∈ B
-```
-
-and in the reverse direction as well.
-
-## Role-aware image / kernel references
-
-```text
-ImageSubgroupReference(group_map=f)
-KernelSubgroupReference(group_map=g)
-```
-
-Both expose the existing algebra-layer subgroup through `reference.subgroup`,
-but the proof-level references themselves remain distinct terms.
-
-Therefore:
-
-```text
-ImageSubgroupReference(E).subgroup
-==
-KernelSubgroupReference(H).subgroup
-```
-
-does not imply:
-
-```text
-ImageSubgroupReference(E)
-==
-KernelSubgroupReference(H)
-```
-
-This distinction preserves theorem provenance.
-
-## SubgroupTerm
-
-```text
-SubgroupTerm
-=
-Subgroup
-| ImageSubgroupReference
-| KernelSubgroupReference
-```
-
-is used throughout membership / subset / subgroup-equality / modulo statements.
-
-## Exactness bridge
-
-```text
-Exactness(f,g)
-↓
-Im(f)=Ker(g)
-```
-
-produces role-aware theorem equality.
-
-Combined with:
-
-```text
-g(α)=0
-↓
-α ∈ Ker(g)
-```
-
-this gives:
-
-```text
+α ∈ Ker(f)
 α ∈ Im(f)
 ```
 
-through explicit subgroup equality propagation.
+Role-aware references preserve the distinction between:
 
-The finite current subgroup relation family reaches genuine `FIXED_POINT`.
+```text
+ImageSubgroupReference(f)
+KernelSubgroupReference(g)
+```
+
+even when their underlying algebra-layer subgroup values happen to compare equal.
+
+Exactness can explicitly derive:
+
+```text
+Im(f)=Ker(g)
+```
+
+and membership may then propagate through theorem-level subgroup equality.
 
 ---
 
 # Phase 15: Coset / modulo reasoning
 
-Phase 15 adds a proof-level quotient / congruence layer on top of Phase 14.
-
-## Coset
+First-class structures:
 
 ```text
-Coset(
-  representative=α,
-  subgroup=A,
-)
+Coset
+ModuloStatement
+CosetEqualityStatement
 ```
 
-represents the structural coset:
+Notation:
 
 ```text
-α + A
+α+A
+α≡β mod A
+α+A=β+A
 ```
 
-Mathematical equality of cosets is represented separately by
-`CosetEqualityStatement`.
-
-## ModuloStatement
+Implemented theorem bridges include:
 
 ```text
-ModuloStatement(
-  left=α,
-  right=β,
-  modulus=A,
-)
-```
-
-represents:
-
-```text
-α ≡ β mod A
-```
-
-It is deliberately separate from generic `RelationType.EQUALITY`.
-
-## Difference membership bridge
-
-Current subtraction syntax is:
-
-```text
-α-β
-=
-Sum(
-  left=α,
-  right=Multiple(-1, β),
-)
-```
-
-Phase 15 implements:
-
-```text
-α ≡ β mod A
+α≡β mod A
 ↔
-α-β ∈ A
+α-β∈A
 ```
-
-The reverse bridge accepts the explicit difference structure only.
-
-## Coset equality bridge
-
-Phase 15 also implements:
 
 ```text
-α ≡ β mod A
+α≡β mod A
 ↔
-α+A = β+A
+α+A=β+A
 ```
-
-The reverse bridge requires the same proof-level modulus role.
-
-## Equality / ZERO modulo scope
-
-With an explicitly selected modulus `A`:
 
 ```text
 α=β
-→ α≡β mod A
-```
-
-```text
-α=0
-→ α≡0 mod A
-```
-
-These rules do not enumerate arbitrary moduli automatically.
-
-## Role-aware modulus transport
-
-Explicit theorem equality transports congruence:
-
-```text
-A=B
-α≡β mod A
 →
-α≡β mod B
+α≡β mod A
 ```
 
-This reconnects Phase 14 Exactness to modulo reasoning:
+and role-aware modulus transport.
 
-```text
-Exactness(E,H)
-↓
-Im(E)=Ker(H)
-↓
-role-aware modulo transport
-```
-
-Current Phase 15 bidirectional bridge families reach finite `FIXED_POINT`.
+Modulo information does not imply ordinary equality.
 
 ---
 
 # Phase 16: Symbolic scalar constraints
 
-Phase 16 introduces the minimal proof-level representation and theorem bridges
-needed for symbolic integer coefficients without introducing a general symbolic
-arithmetic solver.
-
-## ScalarSymbol
-
-A symbolic scalar such as:
-
-```text
-k
-```
-
-can occur as a `Multiple` coefficient:
-
-```text
-kβ
-```
-
-and therefore inside larger additive relations such as:
-
-```text
-α = kβ + γ
-```
-
-No concrete integer value is selected merely because the scalar is symbolic.
-
-## Parity statements
-
-Phase 16 adds first-class theorem statements:
-
-```text
-OddScalarStatement(k)
-EvenScalarStatement(k)
-```
-
-These mean that the symbolic integer scalar is known to be odd or even.
-
-Parity is proof-level mathematical knowledge; it is not inferred from the
-scalar name or from structural syntax.
-
-## ScalarCongruenceStatement
-
-Phase 16 adds:
-
-```text
-ScalarCongruenceStatement(
-  scalar=k,
-  residue=r,
-  modulus=m,
-)
-```
-
-with intended notation:
-
-```text
-k ≡ r mod m
-```
-
-Current concrete parity bridges are:
-
-```text
-k odd
-→
-k ≡ 1 mod 2
-```
-
-```text
-k even
-→
-k ≡ 0 mod 2
-```
-
-These are explicit `InferenceRule`s.
-
-## Order-two bridge
-
-The principal Phase 16 theorem bridge is:
-
-```text
-ord(β)=2
-k≡1 mod 2
-↓
-kβ=β
-```
-
-represented as ordinary generic equality:
-
-```text
-Relation(
-  lhs=Multiple(k, β),
-  rhs=β,
-  relation_type=EQUALITY,
-)
-```
-
-This reuses existing `Multiple`, ORDER, and equality infrastructure.
-
-The rule requires exact order two and specifically congruence to one modulo two.
-It does not fire for:
-
-```text
-ord(β)=3
-```
-
-or:
-
-```text
-k≡0 mod 2
-```
-
-## Generic equality reconnection
-
-Symbolic additive equalities remain ordinary generic equality facts.
-
-For example:
-
-```text
-α = kβ + γ
-```
-
-uses the same equality symmetry / transitivity machinery as concrete
-expressions.
-
-Phase 16 does not introduce a separate symbolic-equality relation type.
-
-## Modulo reconnection
-
-Phase 16 itself does not directly infer modulo facts from parity.
-
-Instead the existing layers compose:
-
-```text
-k odd
-↓
-k≡1 mod 2
-
-ord(β)=2
-+
-k≡1 mod 2
-↓
-kβ=β
-
-explicit equality→modulo bridge
-↓
-kβ≡β mod A
-```
-
-This preserves the architecture:
-
-```text
-scalar reasoning
-↓
-ordinary equality
-↓
-existing modulo reasoning
-```
-
-rather than adding scalar-specific modulo shortcuts.
-
-## Exactness / role-aware modulo integration
-
-The representative Phase 16 scenario connects:
-
-```text
-k odd
-ord(β)=2
-Exactness(E,H)
-```
-
-to:
-
-```text
-k≡1 mod 2
-↓
-kβ=β
-↓
-kβ≡β mod Ker(H)
-```
-
-and independently:
-
-```text
-Exactness(E,H)
-↓
-Im(E)=Ker(H)
-```
-
-therefore:
-
-```text
-kβ≡β mod Ker(H)
-↓
-kβ≡β mod Im(E)
-```
-
-Existing Phase 15 bridges then produce:
-
-```text
-kβ-β ∈ Ker(H)
-kβ-β ∈ Im(E)
-```
-
-and:
-
-```text
-[kβ]=[β] mod Ker(H)
-[kβ]=[β] mod Im(E)
-```
-
-No special scalar–Exactness shortcut is introduced.
-
-## Provenance
-
-The representative chain preserves intermediate premises:
-
-```text
-OddScalarStatement(k)
-↓
-ScalarCongruenceStatement(k,1,2)
-```
-
-then:
-
-```text
-ord(β)=2
-+
-ScalarCongruenceStatement(k,1,2)
-↓
-kβ=β
-```
-
-then:
-
-```text
-kβ=β
-↓
-kβ≡β mod Ker(H)
-```
-
-and:
-
-```text
-Exactness(E,H)
-↓
-Im(E)=Ker(H)
-```
-
-then:
-
-```text
-kβ≡β mod Ker(H)
-+
-Im(E)=Ker(H)
-↓
-kβ≡β mod Im(E)
-```
-
-When two derivation paths produce the same symbolic membership conclusion, the
-first accepted proof step remains in the knowledge state and the alternative
-derivation remains in duplicate-rejected execution trace data.
-
-## Termination
-
-The current Phase 16 scalar rules do not recursively construct deeper scalar
-syntax.
-
-The finite representative family:
-
-```text
-odd/even
-→ scalar congruence
-→ order-two equality
-→ modulo
-↔ membership
-↔ coset equality
-↔ explicit role-aware modulus transport
-```
-
-reaches genuine:
-
-```text
-FIXED_POINT
-```
-
-for finite known expressions and finite active moduli.
-
-The terminal inference round produces:
-
-```text
-new_steps == ()
-```
-
-No semantic cycle detector is added.
-
-## Inference-scope boundary
-
-A crucial boundary is:
-
-```text
-k odd
-ord(β)=2
-```
-
-with Phase 16 scalar / order rules can derive:
-
-```text
-k≡1 mod 2
-kβ=β
-```
-
-but does not derive:
-
-```text
-kβ≡β mod A
-```
-
-unless a concrete:
-
-```text
-equality_implies_modulo_inference_rule(modulus=A)
-```
-
-is explicitly active.
-
-Likewise, membership and coset facts do not appear without the required modulo
-bridges.
-
-This preserves:
-
-```text
-mathematical applicability
-≠
-active inference scope
-```
-
----
-
-# Current limitations
-
-The following remain current limitations after Phase 16.
-
-## Generic engine
-
-- Duplicate conclusion identity uses ordinary Python equality.
-- The knowledge state keeps the first accepted proof step for an equal
-  conclusion; alternative applications are execution-trace data.
-- Pattern matching is structured but is not a fully general symbolic
-  unification / theorem-proving language.
-- Exhaustive premise assignment can grow combinatorially.
-- `max_rounds` remains a safety bound rather than semantic cycle detection.
-- Arbitrary future rule families are not guaranteed to terminate.
-
-## Expression / normalization
-
-- No canonical commutative / associative additive normal form.
-- No general scalar arithmetic normalization.
-- `2α` and `α+α` remain structurally distinct unless an explicit theorem rule
-  connects them.
-- No general symbolic simplification of `kα+lα`.
-- No theorem-aware subtraction normalization.
-
-## Symbolic scalars
-
-Implemented:
+First-class symbolic-scalar structures:
 
 ```text
 ScalarSymbol
 OddScalarStatement
 EvenScalarStatement
 ScalarCongruenceStatement
-odd → 1 mod 2
-even → 0 mod 2
-order-two + 1 mod 2 → scalar-multiple equality
 ```
 
-Not implemented:
+Representative reasoning:
 
-- general symbolic integer arithmetic,
-- general congruence arithmetic,
-- divisibility / nondivisibility solver,
-- arbitrary modulus propagation for scalar congruences,
-- symbolic inequality,
-- automatic deduction of parity from arbitrary formulas,
-- coefficient-domain constraint solving,
-- quantifiers over integer coefficients.
+```text
+k odd
+↓
+k≡1 mod 2
+```
 
-## Modulo / quotient
+```text
+ord(β)=2
++
+k≡1 mod 2
+↓
+kβ=β
+```
 
-- No canonical coset representative selection.
-- No quotient arithmetic normalization.
-- No premise-free arbitrary modulus enumeration.
-- No theorem-aware Python equality for cosets.
-- No automatic conversion of every equality / ZERO fact into every possible
-  modulo statement.
+Symbolic scalar reasoning reconnects to modulo reasoning only through explicit
+active bridges.
 
-## Map / theorem language
+The system does not enumerate:
 
-- Proof-level `MapSymbol` does not yet carry complete source / target / ambient
-  homotopy-group typing.
-- General theorem quantifiers are not first-class.
-- Existential witnesses are not first-class.
+```text
+k=1,3,5,...
+```
 
-## Future homotopy-theoretic layers
+and does not implement a general symbolic arithmetic solver.
+
+Phase 16 completion full suite:
+
+```text
+988 passed in 61.87s
+```
+
+---
+
+# Phase 17: Indeterminacy
+
+Phase 17 adds a proof-level layer for mathematical information whose value is
+not uniquely determined.
+
+The central design principle is:
+
+```text
+uncertainty
+≠
+candidate enumeration
+```
+
+and:
+
+```text
+partial information
+≠
+exact equality
+```
+
+## Coset membership indeterminacy
+
+```text
+CosetMembershipStatement(
+  element=x,
+  coset=β+A,
+)
+```
+
+represents:
+
+```text
+x ∈ β+A
+```
+
+It reuses the Phase 15 `Coset` structure.
+
+It does not enumerate the elements of the coset.
+
+## Sign indeterminacy
+
+```text
+SignIndeterminacyStatement(
+  value=x,
+  representative=α,
+)
+```
+
+represents:
+
+```text
+x = ±α
+```
+
+This does not imply either:
+
+```text
+x=α
+```
+
+or:
+
+```text
+x=-α
+```
+
+without additional information.
+
+## Coefficient indeterminacy
+
+```text
+CoefficientIndeterminacyStatement(
+  value=x,
+  expression=kβ+γ,
+  constraint=k odd,
+)
+```
+
+represents the family:
+
+```text
+x ∈ {kβ+γ | k odd}
+```
+
+without enumerating concrete coefficients.
+
+The constraint reuses the existing Phase 16 `OddScalarStatement`.
+
+## Modulo / coset bridge
+
+Phase 17 connects modulo information to value indeterminacy:
+
+```text
+x≡β mod A
+↓
+x∈β+A
+```
+
+and the reverse bridge:
+
+```text
+x∈β+A
+↓
+x≡β mod A
+```
+
+These form a finite theorem cycle for finite known terms.
+
+Duplicate rejection prevents infinite accumulation and the current rule family
+reaches `FIXED_POINT`.
+
+## Equality / sign bridge
+
+Exact information may be weakened to sign-indeterminate information:
+
+```text
+x=α
+↓
+x=±α
+```
+
+The reverse rule is intentionally absent:
+
+```text
+x=±α
+↛
+x=α
+```
+
+## Symbolic scalar bridge
+
+```text
+x=kβ+γ
+k odd
+↓
+CoefficientIndeterminacyStatement
+```
+
+The coefficient appearing in the equality must match the scalar constrained by
+`OddScalarStatement`.
+
+The implemented slice intentionally recognizes the current structural form:
+
+```text
+kβ+γ
+```
+
+and does not introduce general recursive symbolic-expression search or
+commutative normalization.
+
+## Representative fixed-point scenario
+
+A representative Phase 17 run may begin with:
+
+```text
+x=kβ+γ
+k odd
+x≡δ mod A
+```
+
+and derive, in the same knowledge state:
+
+```text
+k≡1 mod 2
+CoefficientIndeterminacyStatement
+SignIndeterminacyStatement
+CosetMembershipStatement
+ModuloStatement
+```
+
+without deriving:
+
+```text
+x=δ
+```
+
+and without enumerating concrete odd coefficients.
+
+## Provenance
+
+Derived indeterminacy facts retain explicit premises and `inference_rule`.
+
+Examples:
+
+```text
+x=kβ+γ
++
+k odd
+↓
+CoefficientIndeterminacyStatement
+```
+
+```text
+x≡δ mod A
+↓
+x∈δ+A
+```
+
+The knowledge state retains the first accepted proof for an equal conclusion;
+alternative duplicate derivations may remain visible in execution traces.
+
+## Termination / inference scope
+
+The current Phase 17 bidirectional modulo/coset bridge:
+
+```text
+Modulo
+↔
+CosetMembership
+```
+
+does not create unbounded structural depth.
+
+For finite known terms, duplicate rejection yields genuine:
+
+```text
+FIXED_POINT
+```
+
+Critical non-collapse boundaries:
+
+```text
+x=±α
+↛
+x=α
+```
+
+```text
+x=±α
+↛
+x=-α
+```
+
+```text
+x∈β+A
+↛
+x=β
+```
+
+```text
+CoefficientIndeterminacyStatement
+≠
+RelationType.EQUALITY
+```
+
+The generic inference engine remains unchanged.
+
+---
+
+# Current limitations
+
+## Conclusion identity
+
+Duplicate identity uses ordinary Python equality.
+
+No theorem-aware canonical mathematical normalization exists.
+
+## Alternative proofs
+
+The knowledge state keeps the first accepted `ProofStep` for an equal
+conclusion. Alternative derivations can remain in duplicate-rejected traces.
+
+## Pattern-language depth
+
+The pattern language is not a fully recursive unification system over arbitrary
+nested mathematical syntax.
+
+Domain rules may inspect nested structures using `match_guard` and
+`conclusion_builder`.
+
+## Search complexity
+
+Exhaustive premise assignment may grow combinatorially.
+
+No general indexing, semi-naive evaluation, rule prioritization, or agenda-based
+optimization is implemented.
+
+## Termination
+
+`max_rounds` remains a safety bound.
+
+Some structural theorem families can still generate unbounded distinct
+expressions.
+
+The current Phase 17 modulo/coset cycle itself is finite.
+
+## Typing
+
+Proof-level expressions still do not fully enforce:
+
+```text
+source
+target
+ambient homotopy group
+stable / unstable context
+```
+
+## Indeterminacy
+
+Implemented:
+
+```text
+x∈β+A
+x=±α
+x∈{kβ+γ | k odd}
+```
 
 Not yet implemented as general systems:
 
-- first-class coefficient / sign indeterminacy,
-- `±α` as an indeterminacy object,
-- Toda-bracket value sets,
-- Toda-bracket indeterminacy,
-- indexed / iterated suspension parameters for general Toda-bracket notation,
-- general theorem representation with quantified assumptions,
-- Steenrod operations,
-- double EHP,
-- odd-primary-specific theorem families.
+- arbitrary finite candidate sets,
+- arbitrary set-valued expressions,
+- intersection / narrowing of independent indeterminacies,
+- theorem-aware candidate-set algebra,
+- general coefficient constraint families,
+- automatic collapse of indeterminacy from additional facts,
+- Toda-bracket value sets.
+
+The absence of a general `Indeterminacy` superclass is intentional.
 
 ---
 
@@ -1306,41 +975,25 @@ Run the full project suite with:
 python -m pytest -q
 ```
 
-Phase 16 completion:
-
-```text
-988 passed in 61.87s
-```
-
-Focused Phase 16 scalar / set integration:
+Phase 17 focused suite:
 
 ```powershell
-python -m pytest tests/test_scalar_rules.py tests/test_set_rules.py -q
+python -m pytest tests/test_indeterminacy_rules.py -q
 ```
 
-Phase 16-8 representative scenario:
-
-```powershell
-python -m pytest tests/test_set_rules.py::test_phase16_representative_symbolic_scalar_order_exactness_modulo_scenario -q
-```
-
-Phase 16-9 provenance / termination / scope regressions:
-
-```powershell
-python -m pytest tests/test_set_rules.py::test_phase16_alternative_derivation_keeps_first_provenance_and_duplicate_trace tests/test_set_rules.py::test_phase16_bidirectional_scalar_modulo_bridges_terminate_at_fixed_point tests/test_set_rules.py::test_phase16_symbolic_scalar_reasoning_stays_outside_modulo_scope_without_explicit_bridge -q
-```
-
-Verified Phase 16-9 focused result:
+Verified result:
 
 ```text
-3 passed in 2.10s
+36 passed
 ```
 
-Verified full suite:
+Phase 17 completion full suite:
 
 ```text
-988 passed in 61.87s
+1024 passed in 66.01s
 ```
+
+No failures.
 
 ---
 
@@ -1356,59 +1009,68 @@ Current behavior is defined by the latest README and design documents.
 
 ---
 
-# Phase 16 completion boundary
+# Phase 17 completion boundary
 
-Phase 16 is complete because the proof layer now supports the minimal symbolic
-scalar constraint slice needed to connect symbolic coefficients to existing
-ORDER and modulo reasoning.
+Phase 17 is complete because the proof layer can now preserve three concrete
+forms of non-unique mathematical information without prematurely selecting a
+value:
+
+```text
+x∈β+A
+x=±α
+x∈{kβ+γ | k odd}
+```
 
 Completion means:
 
-1. `ScalarSymbol` can occur as a `Multiple` coefficient.
-2. symbolic additive equality such as `α=kβ+γ` is structurally representable.
-3. symbolic additive equality uses existing generic equality reasoning.
-4. `OddScalarStatement` is first-class.
-5. `EvenScalarStatement` is first-class.
-6. `ScalarCongruenceStatement` is first-class.
-7. odd scalar implies congruence to one modulo two.
-8. even scalar implies congruence to zero modulo two.
-9. the odd rule rejects an even premise.
-10. the even rule rejects an odd premise.
-11. exact order two plus congruence to one modulo two derives `kβ=β`.
-12. the order-two bridge rejects non-order-two elements.
-13. the order-two bridge rejects scalar congruence zero modulo two.
-14. odd scalar plus order two reaches the symbolic equality in a fixed-point run.
-15. symbolic equality reconnects to existing modulo reasoning only through an
-    explicitly active modulo bridge.
-16. Phase 15 modulo / membership / coset bridges work unchanged for symbolic
-    multiples.
-17. Exactness transports the symbolic modulo fact between `Ker(H)` and `Im(E)`.
-18. role-aware image / kernel identity remains explicit.
-19. representative scalar + order + exactness + modulo reasoning reaches one
-    fixed point.
-20. provenance is preserved through parity, order, equality, modulo, Exactness,
-    and modulus transport.
-21. alternative derivations preserve the first accepted provenance and retain
-    the alternative duplicate trace.
-22. current bidirectional Phase 16 / Phase 15 bridge family reaches finite
-    `FIXED_POINT`.
-23. the terminal inference round has `new_steps == ()`.
-24. scalar/order reasoning does not cross into modulo scope without the explicit
-    equality-to-modulo bridge.
-25. the generic inference engine remains unchanged.
-26. the full regression suite passes.
+1. `CosetMembershipStatement` is first-class.
+2. existing `Coset` is reused.
+3. `SignIndeterminacyStatement` is first-class.
+4. sign uncertainty is not represented as ordinary equality.
+5. `CoefficientIndeterminacyStatement` is first-class.
+6. existing `ScalarSymbol`, `Multiple`, `Sum`, and `OddScalarStatement` are reused.
+7. symbolic odd coefficients are not enumerated.
+8. modulo implies coset membership.
+9. coset membership implies modulo.
+10. exact equality implies sign indeterminacy.
+11. sign indeterminacy does not imply exact equality.
+12. symbolic equality plus matching odd-scalar constraint derives coefficient
+    indeterminacy.
+13. mismatched scalar constraints are rejected.
+14. the current structural `kβ+γ` form is explicit.
+15. no general recursive symbolic-expression matcher was added.
+16. modulo/coset bridges coexist in one fixed-point run.
+17. symbolic-scalar and indeterminacy branches coexist in one fixed-point run.
+18. provenance is retained for coefficient, sign, and coset indeterminacy.
+19. modulo/coset cycles terminate through duplicate rejection.
+20. terminal rounds have no new steps.
+21. coset membership does not select a representative.
+22. sign indeterminacy does not select a sign.
+23. coefficient indeterminacy is not treated as ordinary equality.
+24. no concrete candidate enumeration is introduced.
+25. no general `CandidateFamily` abstraction is introduced.
+26. no general `Indeterminacy` superclass is introduced.
+27. Toda bracket is not yet introduced.
+28. the generic inference engine remains unchanged.
+29. the full regression suite passes.
 
-Phase 16 completion full suite:
+Phase 17 completion:
 
 ```text
-988 passed in 61.87s
+tests/test_indeterminacy_rules.py
+36 passed
+```
+
+```text
+full suite
+1024 passed in 66.01s
 ```
 
 ---
 
 # Next development boundary
 
-The roadmap dependency now passes through:
+The completed dependency chain is now:
 
 ```text
 Abelian group expression
@@ -1422,36 +1084,69 @@ Coset / modulo
 Symbolic scalar constraints
 ↓
 Indeterminacy
-↓
+```
+
+The next natural Phase is:
+
+```text
+Phase 18: Toda bracket minimum representation
+```
+
+Phase 18 should begin from an actual bracket form rather than from a universal
+set-expression hierarchy.
+
+Primary candidates:
+
+```text
+{a,b,c}
+```
+
+and, when the indexed unstable notation is required:
+
+```text
+{a,E^t b,E^t c}_t
+```
+
+Stable Toda notation:
+
+```text
+<a,b,c>
+```
+
+should remain distinct from unstable notation.
+
+Phase 18 should first establish:
+
+```text
+bracket input structure
+≠
+bracket value
+```
+
+and:
+
+```text
 Toda bracket
+=
+set-valued / indeterminate mathematical object
 ```
 
-Phases 12–16 have completed the minimal additive, homomorphism, set/subgroup,
-coset/modulo, and symbolic-scalar layers.
+rather than modeling a bracket as a function returning one exact element.
 
-The natural next Phase is therefore:
+The Phase 17 indeterminacy layer should be reused for statements such as:
 
 ```text
-Phase 17: Indeterminacy
+x ∈ TodaBracket(...)
 ```
 
-The next actual mathematical needs should be selected before implementation.
-Likely candidate forms include:
+or later:
 
 ```text
-α = kβ + γ
-k odd
+TodaBracket(...) ⊆ x+A
 ```
 
-viewed not merely as a scalar constraint, but as information describing a
-family of possible representatives, and expressions involving sign or
-coefficient uncertainty.
+only when the actual bracket example requires them.
 
-Phase 17 should preserve uncertainty explicitly rather than prematurely
-choosing a representative.
-
-It should not yet implement the full Toda-bracket system unless an actual
-indeterminacy representation requires a minimal bracket-facing interface.
-
-The generic inference engine should remain unchanged unless a concrete
-indeterminacy theorem demonstrates a missing generic capability.
+The first Phase 18 implementation should not yet introduce a fully general
+higher-Toda-bracket theorem prover, quantified theorem language, or general
+symbolic set algebra.

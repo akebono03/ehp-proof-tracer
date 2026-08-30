@@ -1,6 +1,6 @@
 # ehp_proof 開発記録
 
-この文書は Phase 16 完了時点までの開発履歴を、現在の実装と矛盾しない
+この文書は Phase 17 完了時点までの開発履歴を、現在の実装と矛盾しない
 形で整理した改訂版である。
 
 ```text
@@ -182,30 +182,14 @@ Phase 7 completion:
 
 `Suspension(expression)` を導入。
 
-Rule families:
-
 ```text
 x=y → E(x)=E(y)
 x=0 → E(x)=0
 nα=0 → nE(α)=0
 ```
 
-ORDER / EHP branches と Suspension を統合し、generic reasoning への
-reconnection と provenance を固定。
-
-Repeated Suspension:
-
-```text
-x=0
-↓
-E(x)=0
-↓
-E²(x)=0
-↓
-...
-```
-
-により unrestricted fixed-point termination を仮定できないことを仕様化。
+Repeated Suspension により unrestricted fixed-point termination を仮定
+できないことを仕様化。
 
 Phase 8 completion:
 
@@ -220,8 +204,6 @@ Phase 8 completion:
 ---
 
 # Phase 9：Freudenthal / stable-range reasoning
-
-Actual theorem family として Freudenthal reasoning を追加。
 
 Stable:
 
@@ -246,9 +228,6 @@ stem >= sphere_dimension
 → no Freudenthal-derived conclusion
 ```
 
-Representative scenario、generic reasoning、provenance、theorem boundary、
-finite fixed-point termination を固定。
-
 Phase 9 completion:
 
 ```text
@@ -271,35 +250,7 @@ Known:
 
 を structured `Composition` を含む generic equality として扱う。
 
-Known zero composition:
-
-```text
-α∘β = 0
-```
-
-から generic ZERO へ bridge。
-
-Suspension-composition functoriality:
-
-```text
-α∘β = γ
-↓
-E(α∘β)=Eα∘Eβ
-```
-
-Generic Suspension preservation と equality closure を使い:
-
-```text
-E(α∘β)=Eγ
-E(α∘β)=Eα∘Eβ
-↓
-Eα∘Eβ=Eγ
-```
-
-へ接続。
-
-Representative EHP + Toda + Suspension scenario、provenance、termination
-boundary を固定。
+Suspension-composition functoriality と equality closure を接続。
 
 Phase 10 completion:
 
@@ -315,44 +266,11 @@ Phase 10 completion:
 
 # Phase 11：Generalized Hopf-invariant reasoning
 
-Generalized Hopf invariant value を integer 専用にはしない。
-
 ```text
 H(α)=β
 ```
 
 の `β` は `Expression`。
-
-Implemented:
-
-```text
-H(α)=β
-↓
-HopfCompositionLawStatement(α,β)
-```
-
-```text
-HopfCompositionLawStatement(α,β)
-↓
-H(α∘Eγ)=β∘Eγ
-```
-
-```text
-H(x)=y
-y=0
-↓
-H(x)=0
-```
-
-EHP bridge:
-
-```text
-Exactness(E,H)
-↓
-EHPZeroCompositionStatement(E,H)
-↓
-H(Eα)=0
-```
 
 Theorem boundary:
 
@@ -362,8 +280,7 @@ H(x)=0
 x=0
 ```
 
-Representative Hopf + EHP scenario と provenance regression、recursive
-structural-growth boundary を固定。
+Representative Hopf + EHP scenario、provenance、termination boundary を固定。
 
 Phase 11 completion:
 
@@ -379,21 +296,11 @@ Phase 11 completion:
 
 # Phase 12：Additive expression / reasoning
 
-Phase 12 は proof-expression layer に最小 additive structure を導入した。
-
 追加:
 
 ```text
 Sum(left,right)
 ```
-
-Semantics:
-
-```text
-α+β
-```
-
-Binary tree structure を lossless に保持。
 
 Current inverse:
 
@@ -410,29 +317,6 @@ Additive rules:
 α+α=2α
 ```
 
-ORDER bridge:
-
-```text
-ord(α)=2
-↓
-2α=0
-
-α+α=2α
-↓
-α+α=0
-```
-
-Normalization boundary:
-
-```text
-α+β                    !=structural β+α
-(α+β)+γ                !=structural α+(β+γ)
-2α                     !=structural α+α
-α+0                    !=structural α
-```
-
-Finite concrete additive family は `FIXED_POINT`。
-
 Phase 12 completion:
 
 ```text
@@ -446,8 +330,6 @@ Phase 12 completion:
 ---
 
 # Phase 13：Homomorphism reasoning
-
-Phase 13 は additive expression と map reasoning を接続した。
 
 追加:
 
@@ -466,39 +348,6 @@ f(-α)=-f(α)
 f(nα)=n f(α)
 ```
 
-Known ZERO preservationも接続。
-
-Generic `E` homomorphism reasoning を existing `Suspension` syntax に接続。
-
-Untyped unrestricted:
-
-```text
-Homomorphism(H)
-Homomorphism(P)
-```
-
-は自動導入しない。
-
-ORDER integration:
-
-```text
-ord(α)=n
-↓
-nα=0
-↓
-n f(α)=0
-```
-
-ただし:
-
-```text
-ord(f(α))=n
-```
-
-とはしない。
-
-Finite concrete rule family は `FIXED_POINT`。
-
 Phase 13 completion:
 
 ```text
@@ -512,17 +361,6 @@ Phase 13 completion:
 ---
 
 # Phase 14：Set / subgroup reasoning
-
-Phase 14 は proof-level に element membership、subset、subgroup equality
-を導入し、既存 algebra `Subgroup` / kernel / image と接続した。
-
-最重要設計原則:
-
-```text
-same underlying subgroup value
-≠
-same proof-level subgroup role
-```
 
 追加:
 
@@ -544,12 +382,12 @@ Subgroup
 | KernelSubgroupReference
 ```
 
-Mapped ZERO と kernel membership:
+Important:
 
 ```text
-f(α)=0
-↔
-α∈Ker(f)
+same underlying subgroup value
+≠
+same proof-level subgroup role
 ```
 
 Exactness:
@@ -559,52 +397,6 @@ Exactness(f,g)
 ↓
 Im(f)=Ker(g)
 ```
-
-Membership / equality / subset closure:
-
-```text
-α∈A
-A⊆B
-→ α∈B
-```
-
-```text
-α∈A
-A=B
-→ α∈B
-```
-
-```text
-A=B → B=A
-```
-
-```text
-A=B
-B=C
-→ A=C
-```
-
-```text
-A⊆B
-B⊆C
-→ A⊆C
-```
-
-```text
-A=B → A⊆B
-```
-
-```text
-A⊆B
-B⊆A
-→ A=B
-```
-
-Same underlying subgroup value does not cross role boundaries without explicit
-theorem equality.
-
-Representative Exactness + membership + closure scenario reaches genuine
-`FIXED_POINT`.
 
 Phase 14 completion:
 
@@ -620,11 +412,6 @@ Phase 14 completion:
 
 # Phase 15：Coset / modulo reasoning
 
-Phase 15 は Phase 14 の role-aware subgroup layer 上に quotient /
-congruence semantics を導入した。
-
-## Phase 15-1〜15-2：Coset / modulo minimum representation
-
 追加:
 
 ```text
@@ -633,30 +420,7 @@ ModuloStatement
 CosetEqualityStatement
 ```
 
-Notation:
-
-```text
-α+A
-α≡β mod A
-α+A=β+A
-```
-
-`Coset` の Python equality は theorem-aware に変更しない。
-
-## Phase 15-3：difference membership bridge
-
-Current subtraction:
-
-```text
-α-β
-=
-Sum(
-  left=α,
-  right=Multiple(-1,β),
-)
-```
-
-Implemented:
+Theorem bridges:
 
 ```text
 α≡β mod A
@@ -664,93 +428,27 @@ Implemented:
 α-β∈A
 ```
 
-Reverse rule は explicit difference structure のみ受理。
-
-## Phase 15-4：coset equality bridge
-
 ```text
 α≡β mod A
 ↔
 α+A=β+A
 ```
 
-Reverse bridge は同じ proof-level `SubgroupTerm` を要求。
-
-## Phase 15-5：equality / ZERO bridge
-
-Explicit modulus scope:
-
 ```text
 α=β
-→ α≡β mod A
-```
-
-```text
-α=0
-→ α≡0 mod A
-```
-
-arbitrary modulus enumeration は行わない。
-
-## Phase 15-6：role-aware modulus transport
-
-```text
-A=B
-α≡β mod A
 →
-α≡β mod B
+α≡β mod A
 ```
 
-Raw subgroup value equalityだけでは role-aware modulo を transport しない。
+Role-aware modulus transport と Exactness integration を追加。
 
-## Phase 15-7：Exactness integration
+Current Phase 15 cyclic family は finite known term set 上で
+`FIXED_POINT`。
 
-```text
-Exactness(E,H)
-↓
-Im(E)=Ker(H)
-↓
-role-aware modulo transport
-```
-
-No special Exactness-modulo shortcut を追加しない。
-
-## Phase 15-8：representative / provenance / termination boundary
-
-Representative:
-
-```text
-Exactness(E,H)
-α=β
-β=0
-```
-
-から kernel/image modulo、difference membership、coset equality を導出。
-
-Alternative derivation では first accepted provenance を knowledge state に
-保持し、別 derivation を duplicate-rejected trace に残す。
-
-Bidirectional bridge:
-
-```text
-Modulo ↔ membership
-Modulo ↔ coset equality
-```
-
-を含めても finite active term set で genuine `FIXED_POINT` に到達。
-
-## Phase 15-9：完了整理
-
-Phase 15 completion full suite:
+Phase 15 completion:
 
 ```text
 956 passed in 64.09s
-```
-
-Generic inference engine:
-
-```text
-unchanged
 ```
 
 ### 状態
@@ -761,365 +459,7 @@ unchanged
 
 # Phase 16：Symbolic scalar constraints
 
-Phase 16 は symbolic integer coefficient を concrete integer に collapse
-せず、既存 additive / ORDER / modulo layers に接続する最小基盤を追加した。
-
-Generic inference engine は Phase 16 を通じて変更していない。
-
-## Phase 16-1：symbolic scalar representation
-
-追加:
-
-```text
-ScalarSymbol
-```
-
-Symbolic coefficient:
-
-```text
-kβ
-```
-
-を:
-
-```text
-Multiple(
-  coefficient=k,
-  expression=β,
-)
-```
-
-として表現可能にした。
-
-これにより:
-
-```text
-α = kβ + γ
-```
-
-のような additive relation を lossless に表現できる。
-
-## Phase 16-2：parity statement
-
-追加:
-
-```text
-OddScalarStatement(k)
-EvenScalarStatement(k)
-```
-
-Parity を scalar name や syntax から暗黙推論せず、proof-level fact として
-保持する。
-
-## Phase 16-3：scalar congruence statement
-
-追加:
-
-```text
-ScalarCongruenceStatement(
-  scalar=k,
-  residue=r,
-  modulus=m,
-)
-```
-
-Current principal use:
-
-```text
-k≡1 mod 2
-k≡0 mod 2
-```
-
-General modular arithmetic solver は導入しない。
-
-## Phase 16-4：odd / even → mod two
-
-Explicit rules:
-
-```text
-k odd
-→
-k≡1 mod 2
-```
-
-```text
-k even
-→
-k≡0 mod 2
-```
-
-Parity mismatch rejection をテストで固定。
-
-## Phase 16-5：symbolic additive equality / generic equality reconnection
-
-```text
-α = kβ + γ
-```
-
-を ordinary `RelationType.EQUALITY` として扱う。
-
-Generic equality symmetry が symbolic `Multiple` / `Sum` を含む relation に
-そのまま適用可能であることを確認。
-
-No dedicated symbolic equality type を追加しない。
-
-## Phase 16-6：order reasoning との接続
-
-Principal theorem bridge:
-
-```text
-ord(β)=2
-k≡1 mod 2
-↓
-kβ=β
-```
-
-Reject boundaries:
-
-```text
-ord(β)=3
-↛
-kβ=β
-```
-
-```text
-k≡0 mod 2
-↛
-kβ=β
-```
-
-Odd scalar fact と order-two fact を同一 fixed-point run に投入して:
-
-```text
-k odd
-↓
-k≡1 mod 2
-↓
-kβ=β
-```
-
-へ multi-round 接続。
-
-## Phase 16-7：modulo reasoning との接続
-
-Scalar-specific modulo shortcut は追加しない。
-
-既存 Phase 15 bridge を再利用:
-
-```text
-kβ=β
-↓
-kβ≡β mod A
-```
-
-ただし:
-
-```text
-equality_implies_modulo_inference_rule(modulus=A)
-```
-
-が explicit に active である場合のみ。
-
-Symbolic `Multiple` を含む modulo statement が既存 membership / coset /
-role-aware modulus transport と互換であることを確認。
-
-## Phase 16-8：representative scenario
-
-Initial facts:
-
-```text
-k odd
-ord(β)=2
-Exactness(E,H)
-```
-
-Principal chain:
-
-```text
-k odd
-↓
-k≡1 mod 2
-```
-
-```text
-ord(β)=2
-+
-k≡1 mod 2
-↓
-kβ=β
-```
-
-```text
-kβ=β
-↓
-kβ≡β mod Ker(H)
-```
-
-```text
-Exactness(E,H)
-↓
-Im(E)=Ker(H)
-```
-
-```text
-kβ≡β mod Ker(H)
-+
-Im(E)=Ker(H)
-↓
-kβ≡β mod Im(E)
-```
-
-Existing Phase 15 rules then derive:
-
-```text
-kβ-β∈Ker(H)
-kβ-β∈Im(E)
-```
-
-and:
-
-```text
-[kβ]=[β] mod Ker(H)
-[kβ]=[β] mod Im(E)
-```
-
-Representative scenario reaches genuine:
-
-```text
-FIXED_POINT
-```
-
-Phase 16 focused integration after representative addition:
-
-```text
-122 passed in 3.93s
-```
-
-At that checkpoint full suite:
-
-```text
-985 passed in 64.40s
-```
-
-## Phase 16-9：provenance / termination / inference-scope boundary
-
-### Provenance
-
-Symbolic membership conclusion with two derivations:
-
-```text
-image modulo
-→ image difference membership
-```
-
-and:
-
-```text
-kernel difference membership
-+
-Im(E)=Ker(H)
-→ image difference membership
-```
-
-を同一 round で生成。
-
-確認:
-
-```text
-first accepted derivation
-=
-knowledge-state provenance
-```
-
-and:
-
-```text
-alternative derivation
-=
-duplicate_rejected_steps trace
-```
-
-### Termination
-
-Rules:
-
-```text
-odd → congruence
-order-two + congruence → equality
-equality → modulo
-modulo ↔ membership
-modulo ↔ coset equality
-role-aware modulus transport
-```
-
-を同時に active にしても current finite scenario は:
-
-```text
-FIXED_POINT
-```
-
-に到達。
-
-Terminal round:
-
-```text
-new_steps == ()
-```
-
-### Inference scope
-
-Critical regression:
-
-```text
-k odd
-ord(β)=2
-```
-
-with scalar/order rules derives:
-
-```text
-k≡1 mod 2
-kβ=β
-```
-
-but without explicit equality→modulo rule:
-
-```text
-no ModuloStatement
-no MembershipStatement
-no CosetEqualityStatement
-```
-
-Principle:
-
-```text
-mathematical applicability
-≠
-active inference scope
-```
-
-Phase 16-9 focused:
-
-```text
-3 passed in 2.10s
-```
-
-Full suite:
-
-```text
-988 passed in 61.87s
-```
-
-### 状態
-
-完了
-
----
-
-# Phase 16 completion summary
-
-Phase 16 により proof layer は symbolic scalar constraints の最小 vertical
-slice を扱えるようになった。
+Phase 16 は symbolic coefficient を proof-level reasoning に接続した。
 
 Representation:
 
@@ -1130,7 +470,7 @@ EvenScalarStatement(k)
 ScalarCongruenceStatement(k,r,m)
 ```
 
-Principal theorem chain:
+Principal chain:
 
 ```text
 k odd
@@ -1162,14 +502,6 @@ Im(E)=Ker(H)
 kβ≡β mod Im(E)
 ```
 
-then existing Phase 15 bridges:
-
-```text
-modulo
-↔ difference membership
-↔ coset equality
-```
-
 Important design result:
 
 ```text
@@ -1186,15 +518,6 @@ scalar reasoning
 automatic modulo enumeration
 ```
 
-The scalar layer derives ordinary equality and reconnects to existing modulo
-reasoning only through explicitly active bridges.
-
-Generic inference engine:
-
-```text
-unchanged
-```
-
 Verified full suite:
 
 ```text
@@ -1207,104 +530,766 @@ Verified full suite:
 
 ---
 
-# Phase 16 completion boundary
+# Phase 17：Indeterminacy
 
-Phase 16 で実装しないもの:
+Phase 17 は「値を一つに確定できない数学的情報」を、確定値へ潰さず
+proof-level knowledge として保持する最小層を追加した。
+
+基本原則:
 
 ```text
-general symbolic integer arithmetic solver
-general scalar congruence closure
-symbolic divisibility / nondivisibility solver
-symbolic inequalities
-automatic parity inference from arbitrary arithmetic formulas
-arbitrary coefficient modulus enumeration
-theorem quantifiers over integer variables
-existential scalar witnesses
-canonical scalar normal form
-first-class coefficient indeterminacy
-first-class ±α indeterminacy
-Toda bracket value sets
-Toda bracket indeterminacy
-general Toda bracket syntax
-automatic typed map validation
+actual mathematical example
+↓
+必要な最小表現
+↓
+共通部分が見えたら一般化
+```
+
+Universal `Indeterminacy` / `CandidateFamily` は導入しなかった。
+
+---
+
+## Phase 17-1：CosetMembershipStatement
+
+追加:
+
+```text
+CosetMembershipStatement
+```
+
+Semantics:
+
+```text
+x ∈ β+A
+```
+
+Phase 15 `Coset` をそのまま再利用。
+
+Phase 14 `MembershipStatement(x,A)` は subgroup membership であり、
+coset membership へ型を広げなかった。
+
+候補列挙は行わない。
+
+Focused result:
+
+```text
+4 passed
+```
+
+Full suite:
+
+```text
+992 passed in 71.71s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 17-2：sign indeterminacy
+
+追加:
+
+```text
+SignIndeterminacyStatement(
+  value=x,
+  representative=α,
+)
+```
+
+Semantics:
+
+```text
+x = ±α
+```
+
+候補を:
+
+```text
+α
+-α
+```
+
+という Python list に展開しない。
+
+Ordinary equality ではない。
+
+この Phase では:
+
+```text
+x=±α
+↛
+x=α
+```
+
+```text
+x=±α
+↛
+x=-α
+```
+
+を維持。
+
+Focused:
+
+```text
+8 passed
+```
+
+Full suite:
+
+```text
+996 passed in 74.70s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 17-3：coefficient indeterminacy
+
+追加:
+
+```text
+CoefficientIndeterminacyStatement
+```
+
+Representation:
+
+```text
+value
+expression
+constraint
+```
+
+Example:
+
+```text
+x = kβ+γ
+k odd
+```
+
+を概念上:
+
+```text
+x ∈ {kβ+γ | k odd}
+```
+
+として保持。
+
+再利用:
+
+```text
+ScalarSymbol
+Multiple
+Sum
+OddScalarStatement
+```
+
+Concrete candidate:
+
+```text
+k=1,3,5,...
+```
+
+は列挙しない。
+
+Initial import error:
+
+```text
+OddScalarStatement
+```
+
+を `set_rules` から import していたため collection error。
+
+修正:
+
+```text
+set_rules
+→
+scalar_rules
+```
+
+修正後:
+
+```text
+13 passed
+```
+
+Full suite:
+
+```text
+1001 passed in 63.28s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 17-4：modulo / coset reasoning との接続
+
+追加:
+
+```text
+x≡β mod A
+↓
+x∈β+A
+```
+
+`ModuloStatement` と既存 `Coset` を再利用。
+
+Phase 15 の既存 modulo / coset equality reasoning は変更しなかった。
+
+この Phase では reverse bridge はまだ追加せず、
+Phase 15 → Phase 17 の入口だけを追加。
+
+Full suite:
+
+```text
+1005 passed in 63.23s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 17-5：equality / membership bridge
+
+追加:
+
+```text
+x=α
+↓
+x=±α
+```
+
+と:
+
+```text
+x∈β+A
+↓
+x≡β mod A
+```
+
+これにより Phase 17-4 と合わせて:
+
+```text
+x≡β mod A
+↔
+x∈β+A
+```
+
+が explicit theorem bridge になった。
+
+### Nested pattern issue
+
+Initial implementation では:
+
+```text
+CosetMembershipStatement(
+  coset=Coset(
+    representative=PatternVariable(...),
+    subgroup=PatternVariable(...),
+  )
+)
+```
+
+という nested pattern を使ったが、current generic matcher は arbitrary
+nested dataclass recursive unification を提供しないため match しなかった。
+
+失敗:
+
+```text
+3 failed, 21 passed
+```
+
+修正:
+
+```text
+PremisePattern(
+  statement_type=CosetMembershipStatement,
+)
++
+match_guard
++
+conclusion_builder
+```
+
+とし、nested `Coset` structure を rule 内で明示的に読むようにした。
+
+Generic engine は変更しなかった。
+
+修正後:
+
+```text
+24 passed
+```
+
+Full suite:
+
+```text
+1012 passed in 67.09s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 17-6：symbolic scalar reasoning との接続
+
+追加:
+
+```text
+x=kβ+γ
+k odd
+↓
+CoefficientIndeterminacyStatement
+```
+
+Rule は equality の right-hand side が current structural form:
+
+```text
+Sum(
+  left=Multiple(
+    coefficient=k,
+    expression=β,
+  ),
+  right=γ,
+)
+```
+
+であることを確認。
+
+さらに:
+
+```text
+expression.left.coefficient
+==
+OddScalarStatement.scalar
+```
+
+を要求。
+
+Reject:
+
+```text
+x=kβ+γ
+l odd
+```
+
+Current Phase では:
+
+```text
+γ+kβ
+```
+
+を normalize しない。
+
+Candidate:
+
+```text
+k=1
+k=3
+k=5
+...
+```
+
+を生成しない。
+
+Focused:
+
+```text
+30 passed
+```
+
+Full suite:
+
+```text
+1018 passed in 68.27s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 17-7：representative scenario
+
+新 rule は追加しなかった。
+
+Initial facts:
+
+```text
+x=kβ+γ
+k odd
+x≡δ mod A
+```
+
+Same fixed-point run で:
+
+```text
+k≡1 mod 2
+CoefficientIndeterminacyStatement
+SignIndeterminacyStatement
+CosetMembershipStatement
+ModuloStatement
+```
+
+が coexist。
+
+Reject:
+
+```text
+x=δ
+```
+
+No candidate enumeration。
+
+Terminal:
+
+```text
+FIXED_POINT
+new_steps == ()
+```
+
+Focused:
+
+```text
+31 passed
+```
+
+Full suite:
+
+```text
+1019 passed in 62.60s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 17-8：provenance / termination / inference-scope boundary
+
+新 production rule は追加しなかった。
+
+Regression-fixed:
+
+### provenance
+
+```text
+x=kβ+γ
++
+k odd
+↓
+CoefficientIndeterminacyStatement
+```
+
+の direct premises / inference_rule を追跡。
+
+```text
+x=kβ+γ
+↓
+SignIndeterminacyStatement
+```
+
+の provenance を追跡。
+
+```text
+x≡δ mod A
+↓
+x∈δ+A
+```
+
+の provenance を追跡。
+
+### termination
+
+Bidirectional bridge:
+
+```text
+Modulo
+↔
+CosetMembership
+```
+
+は duplicate rejection により finite `FIXED_POINT`。
+
+Terminal round:
+
+```text
+new_steps == ()
+```
+
+Duplicate candidates:
+
+```text
+duplicate_rejected_steps
+```
+
+に保持。
+
+### non-collapse
+
+```text
+x=±α
+↛
+x=α
+```
+
+```text
+x=±α
+↛
+x=-α
+```
+
+```text
+x∈β+A
+↛
+x=β
+```
+
+### inference scope
+
+```text
+CoefficientIndeterminacyStatement
+```
+
+を generic symbolic equality と誤認しない。
+
+```text
+SignIndeterminacyStatement
+```
+
+を equality rule の premise として誤認しない。
+
+No candidate enumeration。
+
+Focused:
+
+```text
+36 passed in 2.97s
+```
+
+Full suite:
+
+```text
+1024 passed in 66.01s
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 17 completion summary
+
+Phase 17 により proof layer は:
+
+```text
+x∈β+A
+x=±α
+x∈{kβ+γ | k odd}
+```
+
+という3種類の concrete indeterminacy を first-class knowledge として保持
+できるようになった。
+
+Main bridges:
+
+```text
+x≡β mod A
+↔
+x∈β+A
+```
+
+```text
+x=α
+→
+x=±α
+```
+
+```text
+x=kβ+γ
+k odd
+→
+CoefficientIndeterminacyStatement
+```
+
+Important boundaries:
+
+```text
+indeterminacy
+≠
+exact equality
+```
+
+```text
+uncertainty
+≠
+candidate enumeration
+```
+
+```text
+mathematical applicability
+≠
+active inference scope
+```
+
+Current bidirectional modulo / coset membership cycle is finite for fixed known
+terms and reaches genuine `FIXED_POINT`.
+
+Generic inference engine:
+
+```text
+unchanged
+```
+
+Verified Phase 17 suite:
+
+```text
+36 passed
+```
+
+Verified full suite:
+
+```text
+1024 passed in 66.01s
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 17 completion boundary
+
+Phase 17 で実装しないもの:
+
+```text
+general Indeterminacy superclass
+general CandidateFamily
+general finite candidate-set algebra
+set intersection / narrowing
+automatic sign selection
+automatic coset representative selection
+automatic coefficient enumeration
+general symbolic constraint hierarchy
+general symbolic arithmetic solver
+automatic indeterminacy collapse from ORDER
+typed source / target / ambient group validation
+stable homotopy group model
+structured generator overhaul
+iterated symbolic suspension E^t
+Toda bracket syntax
+Toda bracket defining conditions
+Toda bracket value / containment rules
+stable Toda bracket
+higher Toda bracket
+general theorem quantifier language
+existential witness language
 semantic cycle detection
+fully recursive pattern unification
 ```
 
 `max_rounds` は引き続き generic safety bound。
 
-Current Phase 16 concrete scalar + Phase 15 bridge family は finite known term
-set 上で genuine `FIXED_POINT`。
-
 ---
 
-# Phase 17 boundary
+# Phase 18 boundary
 
-Roadmap dependency:
-
-```text
-Abelian group expression
-↓
-Homomorphism reasoning
-↓
-Set / subgroup reasoning
-↓
-Coset / modulo
-↓
-Symbolic scalar constraints
-↓
-Indeterminacy
-↓
-Toda bracket
-```
-
-Phase 16 完了により、次の自然な Phase は:
+Phase 17 完了により、次の自然な Phase は:
 
 ```text
-Phase 17: Indeterminacy
+Phase 18: Toda bracket minimum representation
 ```
 
-Candidate actual needs:
+Phase 18 は:
 
 ```text
-α = kβ + γ
-k odd
+bracket input structure
 ```
 
-を単なる constraint ではなく possible representative family として保持する
-仕組み、
+と:
 
 ```text
-±α
+bracket value / indeterminacy
 ```
 
-の sign uncertainty、
+を分離して設計する。
 
-coefficient uncertainty と existing coset / modulo layer の接続。
+Primary actual notation:
 
-Phase 17 でも actual mathematical theorem / notation を先に固定し、
-Toda bracket 全体を先取りしない。
+```text
+{a,b,c}
+```
 
-Generic engine の変更は actual indeterminacy theorem が current rule
-language で表現できないと実証された場合のみ。
+将来必要な indexed unstable notation:
+
+```text
+{a,E^t b,E^t c}_t
+```
+
+Stable notation:
+
+```text
+<a,b,c>
+```
+
+は unstable notation と同一視しない。
+
+Phase 17 の:
+
+```text
+CosetMembershipStatement
+SignIndeterminacyStatement
+CoefficientIndeterminacyStatement
+```
+
+を可能な限り再利用しつつ、Toda-specific abstraction は actual bracket
+example が要求する最小範囲だけ追加する。
+
+Full higher-Toda framework を先取りしない。
+
+Generic engine の変更は actual Toda theorem が current rule language で
+表現できないと実証された場合のみ。
 
 ---
 
 # Current verified status
 
-Full suite at Phase 16 completion:
+Full suite at Phase 17 completion:
 
 ```powershell
 python -m pytest -q
 ```
 
 ```text
-988 passed in 61.87s
+1024 passed in 66.01s
 ```
 
-Phase 16-9 focused:
+Phase 17 focused:
+
+```powershell
+python -m pytest tests/test_indeterminacy_rules.py -q
+```
 
 ```text
-3 passed in 2.10s
+36 passed in 2.97s
 ```
 
 No failures.
