@@ -153,4 +153,142 @@ def test_phase25_1_generator_typing_fact_does_not_type_homotopy_element_automati
   assert element.target is None
 
 
+def test_phase25_2_generator_typing_fact_matches_same_generator():
+  fact = GeneratorTypingFact(
+    generator=GeneratorSymbol(
+      family="η",
+      index=3,
+    ),
+    source=4,
+    target=3,
+  )
+
+  generator = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+
+  assert fact.matches_generator(
+    generator
+  )
+
+
+def test_phase25_2_generator_typing_fact_rejects_different_family():
+  fact = GeneratorTypingFact(
+    generator=GeneratorSymbol(
+      family="η",
+      index=3,
+    ),
+    source=4,
+    target=3,
+  )
+
+  generator = GeneratorSymbol(
+    family="μ",
+    index=3,
+  )
+
+  assert not fact.matches_generator(
+    generator
+  )
+
+
+def test_phase25_2_generator_typing_fact_rejects_different_index():
+  fact = GeneratorTypingFact(
+    generator=GeneratorSymbol(
+      family="η",
+      index=3,
+    ),
+    source=4,
+    target=3,
+  )
+
+  generator = GeneratorSymbol(
+    family="η",
+    index=4,
+  )
+
+  assert not fact.matches_generator(
+    generator
+  )
+
+
+def test_phase25_2_generator_typing_fact_rejects_different_decoration():
+  fact = GeneratorTypingFact(
+    generator=GeneratorSymbol(
+      family="ν",
+      decoration="′",
+    ),
+    source=6,
+    target=3,
+  )
+
+  plain_nu = GeneratorSymbol(
+    family="ν",
+  )
+
+  nu_bar = GeneratorSymbol(
+    family="ν",
+    decoration="bar",
+  )
+
+  assert not fact.matches_generator(
+    plain_nu
+  )
+
+  assert not fact.matches_generator(
+    nu_bar
+  )
+
+
+def test_phase25_2_unindexed_generator_is_not_wildcard():
+  fact = GeneratorTypingFact(
+    generator=GeneratorSymbol(
+      family="η",
+    ),
+    source=4,
+    target=3,
+  )
+
+  indexed_generator = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+
+  assert not fact.matches_generator(
+    indexed_generator
+  )
+
+
+def test_phase25_2_typing_fact_matches_generator_stored_by_homotopy_element():
+  generator = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+
+  fact = GeneratorTypingFact(
+    generator=generator,
+    source=4,
+    target=3,
+  )
+
+  element = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="η",
+      index=3,
+    ),
+  )
+
+  assert fact.matches_generator(
+    element.generator
+  )
+
+  assert element.source is None
+  assert element.target is None
+
+
+
+
 

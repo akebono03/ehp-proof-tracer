@@ -9,5 +9,11 @@ class GeneratorTypingFact:
   source: int
   target: int
 
+  def matches_generator(
+    self,
+    generator: GeneratorSymbol,
+  ) -> bool:
+    return self.generator == generator
+
 
 
