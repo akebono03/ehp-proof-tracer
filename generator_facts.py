@@ -16,4 +16,12 @@ class GeneratorTypingFact:
     return self.generator == generator
 
 
+@dataclass(frozen=True)
+class GeneratorAmbientGroupFact:
+  generator: GeneratorSymbol
+  group_dimension: int
+  sphere_dimension: int
+
+
+
 

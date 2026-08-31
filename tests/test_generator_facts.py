@@ -3,6 +3,7 @@ from expression import (
   HomotopyElement,
 )
 from generator_facts import (
+  GeneratorAmbientGroupFact,
   GeneratorTypingFact,
 )
 
@@ -287,6 +288,136 @@ def test_phase25_2_typing_fact_matches_generator_stored_by_homotopy_element():
 
   assert element.source is None
   assert element.target is None
+
+
+def test_phase25_3_generator_ambient_group_fact_preserves_minimum_structure():
+  generator = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+
+  fact = GeneratorAmbientGroupFact(
+    generator=generator,
+    group_dimension=4,
+    sphere_dimension=3,
+  )
+
+  assert fact.generator == generator
+  assert fact.group_dimension == 4
+  assert fact.sphere_dimension == 3
+
+
+def test_phase25_3_same_generator_ambient_group_facts_are_structurally_equal():
+  left = GeneratorAmbientGroupFact(
+    generator=GeneratorSymbol(
+      family="η",
+      index=3,
+    ),
+    group_dimension=4,
+    sphere_dimension=3,
+  )
+
+  right = GeneratorAmbientGroupFact(
+    generator=GeneratorSymbol(
+      family="η",
+      index=3,
+    ),
+    group_dimension=4,
+    sphere_dimension=3,
+  )
+
+  assert left == right
+
+
+def test_phase25_3_generator_identity_is_part_of_ambient_group_fact_identity():
+  eta_3_fact = GeneratorAmbientGroupFact(
+    generator=GeneratorSymbol(
+      family="η",
+      index=3,
+    ),
+    group_dimension=4,
+    sphere_dimension=3,
+  )
+
+  mu_3_fact = GeneratorAmbientGroupFact(
+    generator=GeneratorSymbol(
+      family="μ",
+      index=3,
+    ),
+    group_dimension=4,
+    sphere_dimension=3,
+  )
+
+  assert eta_3_fact != mu_3_fact
+
+
+def test_phase25_3_group_dimension_is_part_of_ambient_group_fact_identity():
+  generator = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+
+  original = GeneratorAmbientGroupFact(
+    generator=generator,
+    group_dimension=4,
+    sphere_dimension=3,
+  )
+
+  different_group_dimension = GeneratorAmbientGroupFact(
+    generator=generator,
+    group_dimension=5,
+    sphere_dimension=3,
+  )
+
+  assert original != different_group_dimension
+
+
+def test_phase25_3_sphere_dimension_is_part_of_ambient_group_fact_identity():
+  generator = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+
+  original = GeneratorAmbientGroupFact(
+    generator=generator,
+    group_dimension=4,
+    sphere_dimension=3,
+  )
+
+  different_sphere_dimension = GeneratorAmbientGroupFact(
+    generator=generator,
+    group_dimension=4,
+    sphere_dimension=4,
+  )
+
+  assert original != different_sphere_dimension
+
+
+def test_phase25_3_ambient_group_fact_does_not_type_homotopy_element_automatically():
+  generator = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+
+  fact = GeneratorAmbientGroupFact(
+    generator=generator,
+    group_dimension=4,
+    sphere_dimension=3,
+  )
+
+  element = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=generator,
+  )
+
+  assert fact.generator == element.generator
+  assert fact.group_dimension == 4
+  assert fact.sphere_dimension == 3
+
+  assert element.source is None
+  assert element.target is None
+
 
 
 
