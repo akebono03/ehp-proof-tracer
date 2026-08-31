@@ -7,8 +7,11 @@ from expression import (
   nu,
 )
 from proof import (
+  InferenceTerminationReason,
   LiteratureReference,
   ProofRule,
+  ProofStep,
+  run_inference_until_stable_with_history,
 )
 from theorem_facts import (
   EPSILON_3_TODA_MEMBERSHIP_FACT,
@@ -17,7 +20,10 @@ from theorem_facts import (
   TheoremFactRepository,
 )
 from toda_rules import (
+  TodaBracketDefinedStatement,
+  TodaBracketMembershipStatement,
   TodaBracketMembershipTheoremStatement,
+  toda_bracket_membership_from_theorem_inference_rule,
 )
 
 
@@ -284,6 +290,81 @@ def test_phase24_6_given_step_preserves_materialized_provenance():
   )
 
   assert entry.statement.source is None
+
+
+def test_phase24_7_epsilon_3_repository_fact_derives_membership():
+  entry = THEOREM_FACT_REPOSITORY.lookup(
+    EPSILON_3_TODA_MEMBERSHIP_FACT.statement,
+  )
+
+  assert entry is not None
+
+  theorem_step = entry.to_proof_step()
+
+  defined_step = ProofStep(
+    conclusion=TodaBracketDefinedStatement(
+      bracket=entry.statement.bracket,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  membership_rule = (
+    toda_bracket_membership_from_theorem_inference_rule()
+  )
+
+  result = run_inference_until_stable_with_history(
+    membership_rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  membership = TodaBracketMembershipStatement(
+    element=entry.statement.element,
+    bracket=entry.statement.bracket,
+    source=entry.reference,
+    note=entry.statement.note,
+  )
+
+  derived_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == membership
+  )
+
+  assert derived_step.rule == ProofRule.INFERENCE
+
+  assert derived_step.inference_rule == (
+    membership_rule
+  )
+
+  assert derived_step.premises == (
+    theorem_step,
+    defined_step,
+  )
+
+  assert derived_step.conclusion.element == (
+    entry.statement.element
+  )
+
+  assert derived_step.conclusion.bracket == (
+    entry.statement.bracket
+  )
+
+  assert derived_step.conclusion.source == (
+    entry.reference
+  )
+
+  assert derived_step.conclusion.note == (
+    entry.statement.note
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
 
 
 
