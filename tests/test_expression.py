@@ -224,6 +224,65 @@ def test_phase22_4_same_display_family_does_not_collapse_decoration():
   assert nu_plain != nu_prime
 
 
+def test_phase22_5_indexed_eta_generator_representation():
+  eta_3 = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+
+  assert eta_3.family == "η"
+  assert eta_3.index == 3
+  assert eta_3.decoration is None
+
+
+def test_phase22_5_indexed_mu_generator_representation():
+  mu_3 = GeneratorSymbol(
+    family="μ",
+    index=3,
+  )
+
+  assert mu_3.family == "μ"
+  assert mu_3.index == 3
+  assert mu_3.decoration is None
+
+
+def test_phase22_5_indexed_iota_generator_representation():
+  iota_7 = GeneratorSymbol(
+    family="ι",
+    index=7,
+  )
+
+  assert iota_7.family == "ι"
+  assert iota_7.index == 7
+  assert iota_7.decoration is None
+
+
+def test_phase22_5_indexed_generator_families_remain_distinct():
+  eta_3 = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+  mu_3 = GeneratorSymbol(
+    family="μ",
+    index=3,
+  )
+
+  assert eta_3 != mu_3
+
+
+def test_phase22_5_index_is_part_of_generator_identity():
+  iota_7 = GeneratorSymbol(
+    family="ι",
+    index=7,
+  )
+  iota_8 = GeneratorSymbol(
+    family="ι",
+    index=8,
+  )
+
+  assert iota_7 != iota_8
+
+
 def test_homotopy_element():
   element = HomotopyElement(
     name="η",
