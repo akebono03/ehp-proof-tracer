@@ -5763,6 +5763,219 @@ def test_phase23_7_indexed_theorem_to_membership_representative_bridge():
   assert terminal_round.new_steps == ()
 
 
+def test_phase23_8_epsilon3_indexed_toda_representative_scenario():
+  reference = LiteratureReference(
+    label="Toda",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+    locator="Chapter VI",
+  )
+
+  epsilon_3 = HomotopyElement(
+    name="ε₃",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="ε",
+      index=3,
+    ),
+  )
+
+  eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="η",
+      index=3,
+    ),
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="ν",
+      decoration="′",
+    ),
+  )
+
+  nu_7 = HomotopyElement(
+    name="ν₇",
+    dimension=7,
+    generator=GeneratorSymbol(
+      family="ν",
+      index=7,
+    ),
+  )
+
+  bracket = TodaBracket(
+    first=eta_3,
+    second=Suspension(
+      expression=nu_prime,
+    ),
+    third=nu_7,
+    index=1,
+  )
+
+  theorem_statement = (
+    TodaBracketMembershipTheoremStatement(
+      element=epsilon_3,
+      bracket=bracket,
+      source=reference,
+      note=(
+        "Literature-backed indexed Toda theorem fact "
+        "ε₃ ∈ {η₃,Eν′,ν₇}_1."
+      ),
+    )
+  )
+
+  theorem_step = (
+    toda_bracket_membership_theorem_proof_step(
+      theorem_statement
+    )
+  )
+
+  defined_step = ProofStep(
+    conclusion=TodaBracketDefinedStatement(
+      bracket=bracket,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    toda_bracket_membership_from_theorem_inference_rule()
+  )
+
+  assert theorem_statement.bracket == bracket
+
+  assert theorem_statement.bracket.index == 1
+
+  assert theorem_statement.bracket.first.generator == (
+    GeneratorSymbol(
+      family="η",
+      index=3,
+    )
+  )
+
+  assert theorem_statement.bracket.second == (
+    Suspension(
+      expression=nu_prime,
+    )
+  )
+
+  assert (
+    theorem_statement
+    .bracket
+    .second
+    .expression
+    .generator
+    == GeneratorSymbol(
+      family="ν",
+      decoration="′",
+    )
+  )
+
+  assert theorem_statement.bracket.third.generator == (
+    GeneratorSymbol(
+      family="ν",
+      index=7,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  assert match is not None
+
+  result = run_inference_until_stable_with_history(
+    rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  membership = TodaBracketMembershipStatement(
+    element=epsilon_3,
+    bracket=bracket,
+    source=reference,
+    note=(
+      "Literature-backed indexed Toda theorem fact "
+      "ε₃ ∈ {η₃,Eν′,ν₇}_1."
+    ),
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert membership in conclusions
+
+  membership_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == membership
+  )
+
+  assert membership_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert membership_step.inference_rule == (
+    rule
+  )
+
+  assert membership_step.premises == (
+    theorem_step,
+    defined_step,
+  )
+
+  assert membership_step.conclusion.element == (
+    epsilon_3
+  )
+
+  assert membership_step.conclusion.bracket == (
+    bracket
+  )
+
+  assert membership_step.conclusion.bracket.index == 1
+
+  assert membership_step.conclusion.bracket.second == (
+    Suspension(
+      expression=nu_prime,
+    )
+  )
+
+  assert membership_step.conclusion.source == (
+    reference
+  )
+
+  assert membership_step.conclusion.note == (
+    "Literature-backed indexed Toda theorem fact "
+    "ε₃ ∈ {η₃,Eν′,ν₇}_1."
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  terminal_round = derive_inference_round_result(
+    rule,
+    result.steps,
+  )
+
+  assert terminal_round.new_steps == ()
+
 
 
 
