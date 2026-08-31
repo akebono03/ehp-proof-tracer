@@ -5,6 +5,7 @@ from algebra import (
 )
 from expression import (
   Composition,
+  GeneratorSymbol,
   HomotopyElement,
   Multiple,
   Suspension,
@@ -3649,6 +3650,96 @@ def test_phase21_8_type_compatibility_alone_does_not_establish_toda_definedness(
   assert result.termination_reason == (
     InferenceTerminationReason.FIXED_POINT
   )
+
+
+def test_phase23_1_indexed_toda_theorem_fact_preserves_full_bracket():
+  reference = LiteratureReference(
+    label="Toda",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+    locator="Chapter VI",
+  )
+
+  epsilon_3 = HomotopyElement(
+    name="ε₃",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="ε",
+      index=3,
+    ),
+  )
+
+  eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="η",
+      index=3,
+    ),
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="ν",
+      decoration="′",
+    ),
+  )
+
+  nu_7 = HomotopyElement(
+    name="ν₇",
+    dimension=7,
+    generator=GeneratorSymbol(
+      family="ν",
+      index=7,
+    ),
+  )
+
+  bracket = TodaBracket(
+    first=eta_3,
+    second=Suspension(
+      expression=nu_prime,
+    ),
+    third=nu_7,
+    index=1,
+  )
+
+  statement = TodaBracketMembershipTheoremStatement(
+    element=epsilon_3,
+    bracket=bracket,
+    source=reference,
+    note=(
+      "Literature-backed indexed Toda theorem fact "
+      "for {η₃,Eν′,ν₇}_1."
+    ),
+  )
+
+  assert statement.element == epsilon_3
+  assert statement.bracket == bracket
+  assert statement.bracket.index == 1
+  assert statement.bracket.first == eta_3
+  assert statement.bracket.second == Suspension(
+    expression=nu_prime,
+  )
+  assert statement.bracket.third == nu_7
+  assert statement.source == reference
+
+  assert statement.note == (
+    "Literature-backed indexed Toda theorem fact "
+    "for {η₃,Eν′,ν₇}_1."
+  )
+
+  assert not isinstance(
+    statement,
+    TodaBracketMembershipStatement,
+  )
+
+
 
 
 
