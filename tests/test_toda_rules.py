@@ -5977,5 +5977,463 @@ def test_phase23_8_epsilon3_indexed_toda_representative_scenario():
   assert terminal_round.new_steps == ()
 
 
+def test_phase23_9_guarded_bridge_provenance_excludes_unrelated_fact():
+  reference = LiteratureReference(
+    label="Toda indexed representative",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+    locator="representative indexed theorem",
+  )
+
+  x = HomotopyElement(
+    name="x",
+    dimension=10,
+  )
+
+  a = HomotopyElement(
+    name="a₃",
+    dimension=3,
+    source=7,
+    target=3,
+    generator=GeneratorSymbol(
+      family="a",
+      index=3,
+    ),
+  )
+
+  b = HomotopyElement(
+    name="b₅",
+    dimension=5,
+    source=9,
+    target=5,
+    generator=GeneratorSymbol(
+      family="b",
+      index=5,
+    ),
+  )
+
+  c = HomotopyElement(
+    name="c₉",
+    dimension=9,
+    source=13,
+    target=9,
+    generator=GeneratorSymbol(
+      family="c",
+      index=9,
+    ),
+  )
+
+  bracket = TodaBracket(
+    first=a,
+    second=IteratedSuspension(
+      expression=b,
+      exponent=2,
+    ),
+    third=IteratedSuspension(
+      expression=c,
+      exponent=2,
+    ),
+    index=2,
+  )
+
+  indexed_data = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=b,
+    third_base=c,
+    suspension_exponent=2,
+  )
+
+  theorem_step = (
+    toda_bracket_membership_theorem_proof_step(
+      TodaBracketMembershipTheoremStatement(
+        element=x,
+        bracket=bracket,
+        source=reference,
+        note=(
+          "Literature-backed indexed Toda "
+          "membership theorem."
+        ),
+      )
+    )
+  )
+
+  defined_step = ProofStep(
+    conclusion=TodaBracketDefinedStatement(
+      bracket=bracket,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  unrelated_step = relation_proof_step(
+    Relation(
+      lhs=eta(10),
+      rhs=nu(11),
+      relation_type=RelationType.EQUALITY,
+      source="unrelated",
+      note="unrelated equality",
+    )
+  )
+
+  rule = (
+    indexed_toda_bracket_membership_from_theorem_inference_rule(
+      indexed_data
+    )
+  )
+
+  result = run_inference_until_stable_with_history(
+    rule,
+    (
+      theorem_step,
+      defined_step,
+      unrelated_step,
+    ),
+  )
+
+  membership = TodaBracketMembershipStatement(
+    element=x,
+    bracket=bracket,
+    source=reference,
+    note=(
+      "Literature-backed indexed Toda "
+      "membership theorem."
+    ),
+  )
+
+  membership_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == membership
+  )
+
+  assert membership_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert membership_step.inference_rule == (
+    rule
+  )
+
+  assert membership_step.premises == (
+    theorem_step,
+    defined_step,
+  )
+
+  assert unrelated_step not in (
+    membership_step.premises
+  )
+
+  assert membership_step.conclusion.source == (
+    reference
+  )
+
+  assert membership_step.conclusion.note == (
+    "Literature-backed indexed Toda "
+    "membership theorem."
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  terminal_round = derive_inference_round_result(
+    rule,
+    result.steps,
+  )
+
+  assert terminal_round.new_steps == ()
+
+
+def test_phase23_9_epsilon3_uses_narrow_bridge_not_canonical_indexed_guard():
+  epsilon_3 = HomotopyElement(
+    name="ε₃",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="ε",
+      index=3,
+    ),
+  )
+
+  eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="η",
+      index=3,
+    ),
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="ν",
+      decoration="′",
+    ),
+  )
+
+  nu_7 = HomotopyElement(
+    name="ν₇",
+    dimension=7,
+    generator=GeneratorSymbol(
+      family="ν",
+      index=7,
+    ),
+  )
+
+  bracket = TodaBracket(
+    first=eta_3,
+    second=Suspension(
+      expression=nu_prime,
+    ),
+    third=nu_7,
+    index=1,
+  )
+
+  indexed_data = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=nu_prime,
+    third_base=nu_7,
+    suspension_exponent=1,
+  )
+
+  theorem_step = (
+    toda_bracket_membership_theorem_proof_step(
+      TodaBracketMembershipTheoremStatement(
+        element=epsilon_3,
+        bracket=bracket,
+      )
+    )
+  )
+
+  defined_step = ProofStep(
+    conclusion=TodaBracketDefinedStatement(
+      bracket=bracket,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  guarded_rule = (
+    indexed_toda_bracket_membership_from_theorem_inference_rule(
+      indexed_data
+    )
+  )
+
+  narrow_rule = (
+    toda_bracket_membership_from_theorem_inference_rule()
+  )
+
+  assert not indexed_data.is_consistent()
+
+  guarded_match = find_inference_match(
+    guarded_rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  narrow_match = find_inference_match(
+    narrow_rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  assert guarded_match is None
+  assert narrow_match is not None
+
+  guarded_result = (
+    run_inference_until_stable_with_history(
+      guarded_rule,
+      (
+        theorem_step,
+        defined_step,
+      ),
+    )
+  )
+
+  narrow_result = (
+    run_inference_until_stable_with_history(
+      narrow_rule,
+      (
+        theorem_step,
+        defined_step,
+      ),
+    )
+  )
+
+  membership = TodaBracketMembershipStatement(
+    element=epsilon_3,
+    bracket=bracket,
+  )
+
+  guarded_conclusions = tuple(
+    step.conclusion
+    for step in guarded_result.steps
+  )
+
+  narrow_conclusions = tuple(
+    step.conclusion
+    for step in narrow_result.steps
+  )
+
+  assert membership not in guarded_conclusions
+  assert membership in narrow_conclusions
+
+  assert bracket.second == Suspension(
+    expression=nu_prime,
+  )
+
+  assert bracket.second != IteratedSuspension(
+    expression=nu_prime,
+    exponent=1,
+  )
+
+  assert bracket.third == nu_7
+
+  assert guarded_result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert narrow_result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+
+def test_phase23_9_indexed_membership_does_not_collapse_to_unindexed_projection():
+  epsilon_3 = HomotopyElement(
+    name="ε₃",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="ε",
+      index=3,
+    ),
+  )
+
+  eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="η",
+      index=3,
+    ),
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="ν",
+      decoration="′",
+    ),
+  )
+
+  nu_7 = HomotopyElement(
+    name="ν₇",
+    dimension=7,
+    generator=GeneratorSymbol(
+      family="ν",
+      index=7,
+    ),
+  )
+
+  indexed_bracket = TodaBracket(
+    first=eta_3,
+    second=Suspension(
+      expression=nu_prime,
+    ),
+    third=nu_7,
+    index=1,
+  )
+
+  unindexed_bracket = TodaBracket(
+    first=eta_3,
+    second=Suspension(
+      expression=nu_prime,
+    ),
+    third=nu_7,
+  )
+
+  theorem_step = (
+    toda_bracket_membership_theorem_proof_step(
+      TodaBracketMembershipTheoremStatement(
+        element=epsilon_3,
+        bracket=indexed_bracket,
+      )
+    )
+  )
+
+  defined_step = ProofStep(
+    conclusion=TodaBracketDefinedStatement(
+      bracket=indexed_bracket,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    toda_bracket_membership_from_theorem_inference_rule()
+  )
+
+  result = run_inference_until_stable_with_history(
+    rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  indexed_membership = (
+    TodaBracketMembershipStatement(
+      element=epsilon_3,
+      bracket=indexed_bracket,
+    )
+  )
+
+  unindexed_membership = (
+    TodaBracketMembershipStatement(
+      element=epsilon_3,
+      bracket=unindexed_bracket,
+    )
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert indexed_bracket != unindexed_bracket
+
+  assert indexed_membership in conclusions
+  assert unindexed_membership not in conclusions
+
+  assert (
+    indexed_membership.bracket.index
+    == 1
+  )
+
+  assert (
+    unindexed_membership.bracket.index
+    is None
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  terminal_round = derive_inference_round_result(
+    rule,
+    result.steps,
+  )
+
+  assert terminal_round.new_steps == ()
+
 
 
