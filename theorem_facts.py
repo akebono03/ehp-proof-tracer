@@ -44,6 +44,20 @@ class TheoremFactRepository:
     ...
   ] = ()
 
+  def __post_init__(
+    self,
+  ) -> None:
+    statements = [
+      entry.statement
+      for entry in self.entries
+    ]
+
+    for index, statement in enumerate(statements):
+      if statement in statements[:index]:
+        raise ValueError(
+          "duplicate theorem fact statement"
+        )
+
   def lookup(
     self,
     statement: TodaBracketMembershipTheoremStatement,

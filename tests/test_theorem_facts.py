@@ -366,6 +366,42 @@ def test_phase24_7_epsilon_3_repository_fact_derives_membership():
   )
 
 
+def test_phase24_8_repository_rejects_duplicate_statements():
+  first_entry = EPSILON_3_TODA_MEMBERSHIP_FACT
+
+  second_entry = TheoremFactEntry(
+    statement=first_entry.statement,
+    reference=LiteratureReference(
+      label="Other source",
+    ),
+  )
+
+  try:
+    TheoremFactRepository(
+      entries=(
+        first_entry,
+        second_entry,
+      ),
+    )
+  except ValueError as error:
+    assert str(error) == (
+      "duplicate theorem fact statement"
+    )
+  else:
+    raise AssertionError(
+      "duplicate theorem fact statement "
+      "was not rejected"
+    )
+
+
+def test_phase24_8_empty_repository_lookup_returns_none():
+  repository = TheoremFactRepository()
+
+  result = repository.lookup(
+    EPSILON_3_TODA_MEMBERSHIP_FACT.statement,
+  )
+
+  assert result is None
 
 
 
