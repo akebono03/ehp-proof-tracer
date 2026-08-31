@@ -78,6 +78,57 @@ def test_phase22_1_generator_symbol_is_not_expression():
   )
 
 
+def test_phase22_2_generator_symbol_same_family_and_index_are_equal():
+  left = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+  right = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+
+  assert left == right
+
+
+def test_phase22_2_generator_symbol_different_family_is_not_equal():
+  eta_3 = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+  mu_3 = GeneratorSymbol(
+    family="μ",
+    index=3,
+  )
+
+  assert eta_3 != mu_3
+
+
+def test_phase22_2_generator_symbol_different_index_is_not_equal():
+  eta_3 = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+  eta_4 = GeneratorSymbol(
+    family="η",
+    index=4,
+  )
+
+  assert eta_3 != eta_4
+
+
+def test_phase22_2_generator_symbol_indexed_and_unindexed_are_not_equal():
+  eta = GeneratorSymbol(
+    family="η",
+  )
+  eta_3 = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+
+  assert eta != eta_3
+
+
 def test_homotopy_element():
   element = HomotopyElement(
     name="η",
