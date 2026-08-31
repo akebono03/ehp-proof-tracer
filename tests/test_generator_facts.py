@@ -1003,5 +1003,179 @@ def test_phase25_7_unmaterialized_generator_entries_remain_untyped_for_toda():
   )
 
 
+def test_phase25_8_repository_rejects_duplicate_typing_fact():
+  try:
+    GeneratorFactRepository(
+      typing_facts=(
+        ETA_3_TYPING_FACT,
+        ETA_3_TYPING_FACT,
+      ),
+    )
+  except ValueError as error:
+    assert str(error) == (
+      "duplicate generator typing fact"
+    )
+  else:
+    raise AssertionError(
+      "duplicate generator typing fact "
+      "was not rejected"
+    )
+
+
+def test_phase25_8_repository_rejects_conflicting_typing_facts_for_same_generator():
+  conflicting_fact = GeneratorTypingFact(
+    generator=ETA_3_GENERATOR,
+    source=5,
+    target=3,
+  )
+
+  try:
+    GeneratorFactRepository(
+      typing_facts=(
+        ETA_3_TYPING_FACT,
+        conflicting_fact,
+      ),
+    )
+  except ValueError as error:
+    assert str(error) == (
+      "duplicate generator typing fact"
+    )
+  else:
+    raise AssertionError(
+      "conflicting generator typing facts "
+      "were not rejected"
+    )
+
+
+def test_phase25_8_repository_rejects_duplicate_ambient_group_fact():
+  try:
+    GeneratorFactRepository(
+      ambient_group_facts=(
+        ETA_3_AMBIENT_GROUP_FACT,
+        ETA_3_AMBIENT_GROUP_FACT,
+      ),
+    )
+  except ValueError as error:
+    assert str(error) == (
+      "duplicate generator ambient-group fact"
+    )
+  else:
+    raise AssertionError(
+      "duplicate generator ambient-group fact "
+      "was not rejected"
+    )
+
+
+def test_phase25_8_repository_rejects_conflicting_ambient_group_facts_for_same_generator():
+  conflicting_fact = GeneratorAmbientGroupFact(
+    generator=ETA_3_GENERATOR,
+    group_dimension=5,
+    sphere_dimension=3,
+  )
+
+  try:
+    GeneratorFactRepository(
+      ambient_group_facts=(
+        ETA_3_AMBIENT_GROUP_FACT,
+        conflicting_fact,
+      ),
+    )
+  except ValueError as error:
+    assert str(error) == (
+      "duplicate generator ambient-group fact"
+    )
+  else:
+    raise AssertionError(
+      "conflicting generator ambient-group "
+      "facts were not rejected"
+    )
+
+
+def test_phase25_8_same_generator_is_allowed_across_fact_families():
+  repository = GeneratorFactRepository(
+    typing_facts=(
+      ETA_3_TYPING_FACT,
+    ),
+    ambient_group_facts=(
+      ETA_3_AMBIENT_GROUP_FACT,
+    ),
+  )
+
+  assert repository.lookup_typing(
+    ETA_3_GENERATOR
+  ) is ETA_3_TYPING_FACT
+
+  assert repository.lookup_ambient_group(
+    ETA_3_GENERATOR
+  ) is ETA_3_AMBIENT_GROUP_FACT
+
+
+def test_phase25_8_unknown_generator_remains_unknown():
+  unknown_generator = GeneratorSymbol(
+    family="η",
+    index=4,
+  )
+
+  assert (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_typing(
+      unknown_generator
+    )
+    is None
+  )
+
+  assert (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_ambient_group(
+      unknown_generator
+    )
+    is None
+  )
+
+
+def test_phase25_8_existing_conflicting_typing_is_not_overwritten():
+  element = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    source=5,
+    target=3,
+    generator=ETA_3_GENERATOR,
+  )
+
+  result = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      element
+    )
+  )
+
+  assert result is None
+
+  assert element.source == 5
+  assert element.target == 3
+
+
+def test_phase25_8_partial_existing_typing_is_not_completed_implicitly():
+  element = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    source=4,
+    target=None,
+    generator=ETA_3_GENERATOR,
+  )
+
+  result = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      element
+    )
+  )
+
+  assert result is None
+
+  assert element.source == 4
+  assert element.target is None
+
+
 
 

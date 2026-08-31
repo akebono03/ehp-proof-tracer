@@ -40,6 +40,35 @@ class GeneratorFactRepository:
     ...
   ] = ()
 
+  def __post_init__(
+    self,
+  ) -> None:
+    typing_generators = [
+      fact.generator
+      for fact in self.typing_facts
+    ]
+
+    for index, generator in enumerate(
+      typing_generators
+    ):
+      if generator in typing_generators[:index]:
+        raise ValueError(
+          "duplicate generator typing fact"
+        )
+
+    ambient_generators = [
+      fact.generator
+      for fact in self.ambient_group_facts
+    ]
+
+    for index, generator in enumerate(
+      ambient_generators
+    ):
+      if generator in ambient_generators[:index]:
+        raise ValueError(
+          "duplicate generator ambient-group fact"
+        )
+
   def lookup_typing(
     self,
     generator: GeneratorSymbol,
