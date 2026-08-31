@@ -1,6 +1,7 @@
 from expression import (
   GeneratorSymbol,
   HomotopyElement,
+  TodaBracket,
 )
 from generator_facts import (
   ETA_3_AMBIENT_GROUP_FACT,
@@ -750,6 +751,256 @@ def test_phase25_6_materialization_requires_untyped_element():
   assert element.source == 4
   assert element.target == 3
 
+
+def test_phase25_7_eta_3_fact_materialization_connects_to_toda_entry_typing():
+  eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=ETA_3_GENERATOR,
+  )
+
+  typed_eta_3 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      eta_3
+    )
+  )
+
+  second = HomotopyElement(
+    name="b",
+    dimension=4,
+    source=6,
+    target=4,
+  )
+
+  third = HomotopyElement(
+    name="c",
+    dimension=6,
+    source=8,
+    target=6,
+  )
+
+  assert typed_eta_3 is not None
+
+  bracket = TodaBracket(
+    first=typed_eta_3,
+    second=second,
+    third=third,
+  )
+
+  assert (
+    bracket
+    .are_defining_compositions_type_compatible()
+  )
+
+
+
+def test_phase25_7_generator_facts_materialize_compatible_toda_entries():
+  second_generator = GeneratorSymbol(
+    family="b",
+    index=4,
+  )
+
+  third_generator = GeneratorSymbol(
+    family="c",
+    index=6,
+  )
+
+  repository = GeneratorFactRepository(
+    typing_facts=(
+      ETA_3_TYPING_FACT,
+      GeneratorTypingFact(
+        generator=second_generator,
+        source=6,
+        target=4,
+      ),
+      GeneratorTypingFact(
+        generator=third_generator,
+        source=8,
+        target=6,
+      ),
+    ),
+  )
+
+  first = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=ETA_3_GENERATOR,
+  )
+
+  second = HomotopyElement(
+    name="b",
+    dimension=4,
+    generator=second_generator,
+  )
+
+  third = HomotopyElement(
+    name="c",
+    dimension=6,
+    generator=third_generator,
+  )
+
+  typed_first = (
+    repository
+    .materialize_typed_element(
+      first
+    )
+  )
+
+  typed_second = (
+    repository
+    .materialize_typed_element(
+      second
+    )
+  )
+
+  typed_third = (
+    repository
+    .materialize_typed_element(
+      third
+    )
+  )
+
+  assert typed_first is not None
+  assert typed_second is not None
+  assert typed_third is not None
+
+  assert typed_first.source == 4
+  assert typed_first.target == 3
+
+  assert typed_second.source == 6
+  assert typed_second.target == 4
+
+  assert typed_third.source == 8
+  assert typed_third.target == 6
+
+  bracket = TodaBracket(
+    first=typed_first,
+    second=typed_second,
+    third=typed_third,
+  )
+
+  assert (
+    bracket
+    .are_defining_compositions_type_compatible()
+  )
+
+
+def test_phase25_7_generator_fact_typing_mismatch_reaches_toda_compatibility():
+  second_generator = GeneratorSymbol(
+    family="b",
+    index=4,
+  )
+
+  third_generator = GeneratorSymbol(
+    family="c",
+    index=6,
+  )
+
+  repository = GeneratorFactRepository(
+    typing_facts=(
+      ETA_3_TYPING_FACT,
+      GeneratorTypingFact(
+        generator=second_generator,
+        source=6,
+        target=5,
+      ),
+      GeneratorTypingFact(
+        generator=third_generator,
+        source=8,
+        target=6,
+      ),
+    ),
+  )
+
+  first = repository.materialize_typed_element(
+    HomotopyElement(
+      name="η₃",
+      dimension=3,
+      generator=ETA_3_GENERATOR,
+    )
+  )
+
+  second = repository.materialize_typed_element(
+    HomotopyElement(
+      name="b",
+      dimension=4,
+      generator=second_generator,
+    )
+  )
+
+  third = repository.materialize_typed_element(
+    HomotopyElement(
+      name="c",
+      dimension=6,
+      generator=third_generator,
+    )
+  )
+
+  assert first is not None
+  assert second is not None
+  assert third is not None
+
+  assert first.source == 4
+  assert second.target == 5
+  assert first.source != second.target
+
+  bracket = TodaBracket(
+    first=first,
+    second=second,
+    third=third,
+  )
+
+  assert not (
+    bracket
+    .are_defining_compositions_type_compatible()
+  )
+
+
+def test_phase25_7_unmaterialized_generator_entries_remain_untyped_for_toda():
+  first = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=ETA_3_GENERATOR,
+  )
+
+  second = HomotopyElement(
+    name="b",
+    dimension=4,
+    generator=GeneratorSymbol(
+      family="b",
+      index=4,
+    ),
+  )
+
+  third = HomotopyElement(
+    name="c",
+    dimension=6,
+    generator=GeneratorSymbol(
+      family="c",
+      index=6,
+    ),
+  )
+
+  bracket = TodaBracket(
+    first=first,
+    second=second,
+    third=third,
+  )
+
+  assert first.source is None
+  assert first.target is None
+
+  assert second.source is None
+  assert second.target is None
+
+  assert third.source is None
+  assert third.target is None
+
+  assert not (
+    bracket
+    .are_defining_compositions_type_compatible()
+  )
 
 
 
