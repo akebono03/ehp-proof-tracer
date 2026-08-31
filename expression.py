@@ -83,6 +83,7 @@ class HomotopyElement(Expression):
   dimension: int
   source: int | None = None
   target: int | None = None
+  generator: GeneratorSymbol | None = None
 
 
 @dataclass(frozen=True)

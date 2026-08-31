@@ -283,6 +283,59 @@ def test_phase22_5_index_is_part_of_generator_identity():
   assert iota_7 != iota_8
 
 
+def test_phase22_6_homotopy_element_can_store_generator_symbol():
+  generator = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+
+  element = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    source=4,
+    target=3,
+    generator=generator,
+  )
+
+  assert element.generator == generator
+
+
+def test_phase22_6_generator_and_source_target_context_coexist():
+  generator = GeneratorSymbol(
+    family="ι",
+    index=7,
+  )
+
+  element = HomotopyElement(
+    name="ι₇",
+    dimension=7,
+    source=7,
+    target=7,
+    generator=generator,
+  )
+
+  assert element.generator == generator
+  assert element.source == 7
+  assert element.target == 7
+
+
+def test_phase22_6_generator_does_not_derive_source_target():
+  generator = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+
+  element = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=generator,
+  )
+
+  assert element.generator == generator
+  assert element.source is None
+  assert element.target is None
+
+
 def test_homotopy_element():
   element = HomotopyElement(
     name="η",
