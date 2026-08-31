@@ -179,5 +179,35 @@ def test_phase24_3_registers_epsilon_3_toda_membership_fact():
   )
 
 
+def test_phase24_4_repository_lookup_returns_matching_entry():
+  result = THEOREM_FACT_REPOSITORY.lookup(
+    EPSILON_3_TODA_MEMBERSHIP_FACT.statement,
+  )
+
+  assert result is EPSILON_3_TODA_MEMBERSHIP_FACT
+
+
+def test_phase24_4_repository_lookup_returns_none_for_unknown_fact():
+  theorem = EPSILON_3_TODA_MEMBERSHIP_FACT.statement
+
+  unknown_theorem = TodaBracketMembershipTheoremStatement(
+    element=theorem.element,
+    bracket=TodaBracket(
+      first=theorem.bracket.first,
+      second=theorem.bracket.second,
+      third=theorem.bracket.third,
+      index=2,
+    ),
+  )
+
+  result = THEOREM_FACT_REPOSITORY.lookup(
+    unknown_theorem,
+  )
+
+  assert result is None
+
+
+
+
 
 

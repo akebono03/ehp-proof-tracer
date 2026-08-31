@@ -25,6 +25,16 @@ class TheoremFactRepository:
     ...
   ] = ()
 
+  def lookup(
+    self,
+    statement: TodaBracketMembershipTheoremStatement,
+  ) -> TheoremFactEntry | None:
+    for entry in self.entries:
+      if entry.statement == statement:
+        return entry
+
+    return None
+
 
 EPSILON_3_TODA_MEMBERSHIP_FACT = TheoremFactEntry(
   statement=TodaBracketMembershipTheoremStatement(
