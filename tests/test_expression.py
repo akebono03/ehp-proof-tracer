@@ -464,6 +464,57 @@ def test_phase21_5_unknown_typing_is_not_type_compatible():
   assert not right_unknown.is_type_compatible()
 
 
+def test_phase21_6_known_mismatch_is_not_type_compatible():
+  alpha = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  beta = HomotopyElement(
+    name="β",
+    dimension=4,
+    source=7,
+    target=4,
+  )
+
+  composition = Composition(
+    left=alpha,
+    right=beta,
+  )
+
+  assert alpha.source == 5
+  assert beta.target == 4
+  assert alpha.source != beta.target
+  assert not composition.is_type_compatible()
+
+
+def test_phase21_6_mismatched_composition_remains_constructible():
+  alpha = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  beta = HomotopyElement(
+    name="β",
+    dimension=4,
+    source=7,
+    target=4,
+  )
+
+  composition = Composition(
+    left=alpha,
+    right=beta,
+  )
+
+  assert composition.left == alpha
+  assert composition.right == beta
+  assert not composition.is_type_compatible()
+
+
 def test_eta():
   assert eta(3) == HomotopyElement("η", 3)
 
