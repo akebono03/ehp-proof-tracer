@@ -611,5 +611,146 @@ def test_phase25_5_repository_lookup_does_not_type_homotopy_element_automaticall
   assert element.target is None
 
 
+def test_phase25_6_repository_materializes_typed_eta_3_element():
+  element = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=ETA_3_GENERATOR,
+  )
+
+  typed_element = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      element
+    )
+  )
+
+  assert typed_element == HomotopyElement(
+    name="η₃",
+    dimension=3,
+    source=4,
+    target=3,
+    generator=ETA_3_GENERATOR,
+  )
+
+
+def test_phase25_6_materialization_returns_new_element_without_mutating_original():
+  element = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=ETA_3_GENERATOR,
+  )
+
+  typed_element = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      element
+    )
+  )
+
+  assert typed_element is not None
+  assert typed_element is not element
+
+  assert element.source is None
+  assert element.target is None
+
+  assert typed_element.source == 4
+  assert typed_element.target == 3
+
+
+def test_phase25_6_materialization_preserves_element_identity_fields():
+  element = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=ETA_3_GENERATOR,
+  )
+
+  typed_element = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      element
+    )
+  )
+
+  assert typed_element is not None
+
+  assert typed_element.name == (
+    element.name
+  )
+
+  assert typed_element.dimension == (
+    element.dimension
+  )
+
+  assert typed_element.generator == (
+    element.generator
+  )
+
+
+def test_phase25_6_materialization_returns_none_for_unknown_generator():
+  element = HomotopyElement(
+    name="η₄",
+    dimension=4,
+    generator=GeneratorSymbol(
+      family="η",
+      index=4,
+    ),
+  )
+
+  typed_element = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      element
+    )
+  )
+
+  assert typed_element is None
+
+  assert element.source is None
+  assert element.target is None
+
+
+def test_phase25_6_materialization_returns_none_without_generator():
+  element = HomotopyElement(
+    name="α",
+    dimension=3,
+  )
+
+  typed_element = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      element
+    )
+  )
+
+  assert typed_element is None
+
+  assert element.source is None
+  assert element.target is None
+
+
+def test_phase25_6_materialization_requires_untyped_element():
+  element = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    source=4,
+    target=3,
+    generator=ETA_3_GENERATOR,
+  )
+
+  typed_element = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      element
+    )
+  )
+
+  assert typed_element is None
+
+  assert element.source == 4
+  assert element.target == 3
+
+
+
 
 
