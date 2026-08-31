@@ -679,6 +679,71 @@ def test_phase21_7_unknown_toda_typing_is_not_compatible():
   )
 
 
+def test_phase21_8_representative_typed_toda_scenario():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  b_base = HomotopyElement(
+    name="b",
+    dimension=4,
+    source=6,
+    target=4,
+  )
+
+  c_base = HomotopyElement(
+    name="c",
+    dimension=5,
+    source=9,
+    target=5,
+  )
+
+  b = Suspension(
+    expression=b_base,
+  )
+
+  c = IteratedSuspension(
+    expression=c_base,
+    exponent=2,
+  )
+
+  first_composition = Composition(
+    left=a,
+    right=b,
+  )
+
+  second_composition = Composition(
+    left=b,
+    right=c,
+  )
+
+  bracket = TodaBracket(
+    first=a,
+    second=b,
+    third=c,
+  )
+
+  assert a.source == 5
+  assert a.target == 3
+
+  assert b.source == 7
+  assert b.target == 5
+
+  assert c.source == 11
+  assert c.target == 7
+
+  assert first_composition.is_type_compatible()
+  assert second_composition.is_type_compatible()
+
+  assert (
+    bracket
+    .are_defining_compositions_type_compatible()
+  )
+
+
 def test_eta():
   assert eta(3) == HomotopyElement("η", 3)
 
