@@ -336,6 +336,96 @@ def test_phase22_6_generator_does_not_derive_source_target():
   assert element.target is None
 
 
+def test_phase22_7_legacy_homotopy_element_constructor_remains_supported():
+  element = HomotopyElement(
+    "α",
+    3,
+  )
+
+  assert element.name == "α"
+  assert element.dimension == 3
+  assert element.source is None
+  assert element.target is None
+  assert element.generator is None
+
+
+def test_phase22_7_legacy_homotopy_element_has_no_generator():
+  legacy = HomotopyElement(
+    name="α",
+    dimension=3,
+  )
+  explicit_none = HomotopyElement(
+    name="α",
+    dimension=3,
+    generator=None,
+  )
+
+  assert legacy == explicit_none
+
+
+def test_phase22_7_existing_generator_helpers_remain_backward_compatible():
+  assert eta(3) == HomotopyElement(
+    name="η",
+    dimension=3,
+  )
+  assert nu(7) == HomotopyElement(
+    name="ν",
+    dimension=7,
+  )
+  assert sigma(8) == HomotopyElement(
+    name="σ",
+    dimension=8,
+  )
+
+
+def test_phase22_7_generator_participates_in_homotopy_element_structural_equality():
+  eta_generator = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+  mu_generator = GeneratorSymbol(
+    family="μ",
+    index=3,
+  )
+
+  eta_element = HomotopyElement(
+    name="x",
+    dimension=3,
+    generator=eta_generator,
+  )
+  mu_element = HomotopyElement(
+    name="x",
+    dimension=3,
+    generator=mu_generator,
+  )
+
+  assert eta_element != mu_element
+
+
+def test_phase22_7_generator_does_not_change_existing_typed_equality_semantics():
+  generator = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+
+  left = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    source=4,
+    target=3,
+    generator=generator,
+  )
+  right = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    source=5,
+    target=3,
+    generator=generator,
+  )
+
+  assert left != right
+
+
 def test_homotopy_element():
   element = HomotopyElement(
     name="η",
