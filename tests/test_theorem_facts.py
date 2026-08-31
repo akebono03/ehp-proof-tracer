@@ -404,4 +404,135 @@ def test_phase24_8_empty_repository_lookup_returns_none():
   assert result is None
 
 
+def test_phase24_9_repository_membership_provenance_excludes_unrelated_fact():
+  unrelated_entry = TheoremFactEntry(
+    statement=TodaBracketMembershipTheoremStatement(
+      element=HomotopyElement(
+        name="ζ",
+        dimension=3,
+        generator=GeneratorSymbol(
+          family="ζ",
+          index=3,
+        ),
+      ),
+      bracket=TodaBracket(
+        first=EPSILON_3_TODA_MEMBERSHIP_FACT.statement.bracket.first,
+        second=EPSILON_3_TODA_MEMBERSHIP_FACT.statement.bracket.second,
+        third=EPSILON_3_TODA_MEMBERSHIP_FACT.statement.bracket.third,
+        index=2,
+      ),
+    ),
+    reference=LiteratureReference(
+      label="Unrelated source",
+    ),
+  )
+
+  repository = TheoremFactRepository(
+    entries=(
+      EPSILON_3_TODA_MEMBERSHIP_FACT,
+      unrelated_entry,
+    ),
+  )
+
+  epsilon_entry = repository.lookup(
+    EPSILON_3_TODA_MEMBERSHIP_FACT.statement,
+  )
+
+  assert epsilon_entry is not None
+
+  theorem_step = epsilon_entry.to_proof_step()
+  unrelated_step = unrelated_entry.to_proof_step()
+
+  defined_step = ProofStep(
+    conclusion=TodaBracketDefinedStatement(
+      bracket=epsilon_entry.statement.bracket,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  membership_rule = (
+    toda_bracket_membership_from_theorem_inference_rule()
+  )
+
+  result = run_inference_until_stable_with_history(
+    membership_rule,
+    (
+      theorem_step,
+      unrelated_step,
+      defined_step,
+    ),
+  )
+
+  membership = TodaBracketMembershipStatement(
+    element=epsilon_entry.statement.element,
+    bracket=epsilon_entry.statement.bracket,
+    source=epsilon_entry.reference,
+    note=epsilon_entry.statement.note,
+  )
+
+  derived_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == membership
+  )
+
+  assert derived_step.premises == (
+    theorem_step,
+    defined_step,
+  )
+
+  assert unrelated_step not in (
+    derived_step.premises
+  )
+
+
+def test_phase24_9_repository_inference_scope_reaches_fixed_point():
+  entry = THEOREM_FACT_REPOSITORY.lookup(
+    EPSILON_3_TODA_MEMBERSHIP_FACT.statement,
+  )
+
+  assert entry is not None
+
+  theorem_step = entry.to_proof_step()
+
+  defined_step = ProofStep(
+    conclusion=TodaBracketDefinedStatement(
+      bracket=entry.statement.bracket,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  membership_rule = (
+    toda_bracket_membership_from_theorem_inference_rule()
+  )
+
+  result = run_inference_until_stable_with_history(
+    membership_rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  membership = TodaBracketMembershipStatement(
+    element=entry.statement.element,
+    bracket=entry.statement.bracket,
+    source=entry.reference,
+    note=entry.statement.note,
+  )
+
+  matching_memberships = tuple(
+    step
+    for step in result.steps
+    if step.conclusion == membership
+  )
+
+  assert len(matching_memberships) == 1
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
 
