@@ -77,6 +77,35 @@ class Composition(Expression):
   left: Expression
   right: Expression
 
+  def is_type_compatible(self) -> bool:
+    if not isinstance(
+      self.left,
+      (
+        HomotopyElement,
+        Suspension,
+        IteratedSuspension,
+      ),
+    ):
+      return False
+
+    if not isinstance(
+      self.right,
+      (
+        HomotopyElement,
+        Suspension,
+        IteratedSuspension,
+      ),
+    ):
+      return False
+
+    if self.left.source is None:
+      return False
+
+    if self.right.target is None:
+      return False
+
+    return self.left.source == self.right.target
+
 
 @dataclass(frozen=True)
 class MapApplication(Expression):

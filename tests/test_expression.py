@@ -342,6 +342,128 @@ def test_phase21_4_negative_exponent_does_not_produce_source_or_target():
   assert suspended.target is None
 
 
+def test_phase21_5_composition_is_type_compatible_for_matching_boundary():
+  alpha = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  beta = HomotopyElement(
+    name="β",
+    dimension=5,
+    source=7,
+    target=5,
+  )
+
+  composition = Composition(
+    left=alpha,
+    right=beta,
+  )
+
+  assert alpha.source == beta.target
+  assert composition.is_type_compatible()
+
+
+def test_phase21_5_composition_uses_suspension_typing():
+  alpha = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  beta = HomotopyElement(
+    name="β",
+    dimension=6,
+    source=8,
+    target=6,
+  )
+
+  suspended_alpha = Suspension(
+    expression=alpha,
+  )
+
+  composition = Composition(
+    left=suspended_alpha,
+    right=beta,
+  )
+
+  assert suspended_alpha.source == 6
+  assert beta.target == 6
+  assert composition.is_type_compatible()
+
+
+def test_phase21_5_composition_uses_concrete_iterated_suspension_typing():
+  alpha = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  beta = HomotopyElement(
+    name="β",
+    dimension=7,
+    source=9,
+    target=7,
+  )
+
+  iterated_alpha = IteratedSuspension(
+    expression=alpha,
+    exponent=2,
+  )
+
+  composition = Composition(
+    left=iterated_alpha,
+    right=beta,
+  )
+
+  assert iterated_alpha.source == 7
+  assert beta.target == 7
+  assert composition.is_type_compatible()
+
+
+def test_phase21_5_unknown_typing_is_not_type_compatible():
+  untyped_alpha = HomotopyElement(
+    name="α",
+    dimension=3,
+  )
+
+  beta = HomotopyElement(
+    name="β",
+    dimension=5,
+    source=7,
+    target=5,
+  )
+
+  left_unknown = Composition(
+    left=untyped_alpha,
+    right=beta,
+  )
+
+  alpha = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  untyped_beta = HomotopyElement(
+    name="β",
+    dimension=5,
+  )
+
+  right_unknown = Composition(
+    left=alpha,
+    right=untyped_beta,
+  )
+
+  assert not left_unknown.is_type_compatible()
+  assert not right_unknown.is_type_compatible()
+
+
 def test_eta():
   assert eta(3) == HomotopyElement("η", 3)
 
