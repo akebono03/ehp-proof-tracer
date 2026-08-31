@@ -515,6 +515,170 @@ def test_phase21_6_mismatched_composition_remains_constructible():
   assert not composition.is_type_compatible()
 
 
+def test_phase21_7_toda_entries_are_composition_compatible():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=5,
+    source=7,
+    target=5,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=7,
+    source=9,
+    target=7,
+  )
+
+  bracket = TodaBracket(
+    first=a,
+    second=b,
+    third=c,
+  )
+
+  assert Composition(
+    left=a,
+    right=b,
+  ).is_type_compatible()
+
+  assert Composition(
+    left=b,
+    right=c,
+  ).is_type_compatible()
+
+  assert (
+    bracket
+    .are_defining_compositions_type_compatible()
+  )
+
+
+def test_phase21_7_first_toda_composition_mismatch_is_incompatible():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+    source=7,
+    target=4,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=7,
+    source=9,
+    target=7,
+  )
+
+  bracket = TodaBracket(
+    first=a,
+    second=b,
+    third=c,
+  )
+
+  assert not Composition(
+    left=a,
+    right=b,
+  ).is_type_compatible()
+
+  assert Composition(
+    left=b,
+    right=c,
+  ).is_type_compatible()
+
+  assert not (
+    bracket
+    .are_defining_compositions_type_compatible()
+  )
+
+
+def test_phase21_7_second_toda_composition_mismatch_is_incompatible():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=5,
+    source=7,
+    target=5,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=6,
+    source=9,
+    target=6,
+  )
+
+  bracket = TodaBracket(
+    first=a,
+    second=b,
+    third=c,
+  )
+
+  assert Composition(
+    left=a,
+    right=b,
+  ).is_type_compatible()
+
+  assert not Composition(
+    left=b,
+    right=c,
+  ).is_type_compatible()
+
+  assert not (
+    bracket
+    .are_defining_compositions_type_compatible()
+  )
+
+
+def test_phase21_7_unknown_toda_typing_is_not_compatible():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=5,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=7,
+    source=9,
+    target=7,
+  )
+
+  bracket = TodaBracket(
+    first=a,
+    second=b,
+    third=c,
+  )
+
+  assert not (
+    bracket
+    .are_defining_compositions_type_compatible()
+  )
+
+
 def test_eta():
   assert eta(3) == HomotopyElement("η", 3)
 

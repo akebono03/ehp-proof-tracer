@@ -22,6 +22,24 @@ class TodaBracket:
   third: Expression
   index: int | ScalarSymbol | None = None
 
+  def are_defining_compositions_type_compatible(
+    self,
+  ) -> bool:
+    first_composition = Composition(
+      left=self.first,
+      right=self.second,
+    )
+
+    second_composition = Composition(
+      left=self.second,
+      right=self.third,
+    )
+
+    return (
+      first_composition.is_type_compatible()
+      and second_composition.is_type_compatible()
+    )
+
 
 @dataclass(frozen=True)
 class IndexedTodaBracketData:
