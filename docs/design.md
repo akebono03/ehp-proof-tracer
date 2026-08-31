@@ -1,6 +1,6 @@
 # ehp_proof 設計メモ
 
-この文書は Phase 20 完了時点の current architecture / semantics /
+この文書は Phase 21 完了時点の current architecture / semantics /
 design boundary を正本としてまとめる。
 
 過去の development log にある「未実装」「今後の課題」は historical
@@ -97,7 +97,7 @@ Expression layer は syntax / structure を lossless に保持する。
 - scalar solving
 - candidate enumeration
 - stable-range judgement
-- source / target validation
+- constructor-level source / target validation
 - ambient homotopy-group validation
 - equality / zero proof
 - commutative / associative normalization
@@ -729,41 +729,464 @@ Not implemented:
 
 ---
 
-# 22. Phase 21 boundary
+
+# 22. Phase 21 typed homotopy-element semantics
+
+Phase 21 introduces minimal source / target context without introducing a universal
+homotopy type system.
+
+Current `HomotopyElement` shape:
+
+```text
+HomotopyElement
+  name: str
+  dimension: int
+  source: int | None
+  target: int | None
+```
+
+Example:
+
+```text
+α : S^5 → S^3
+```
+
+is represented by:
+
+```text
+source=5
+target=3
+```
+
+`source` / `target` participate in structural equality.
+
+Therefore:
+
+```text
+HomotopyElement(
+  name="α",
+  dimension=3,
+  source=5,
+  target=3,
+)
+!=structural
+HomotopyElement(
+  name="α",
+  dimension=3,
+  source=6,
+  target=3,
+)
+```
+
+and:
+
+```text
+typed α
+!=structural
+untyped α
+```
+
+`None` is not a wildcard. It means that the corresponding concrete typing
+information is not stored.
+
+---
+
+# 23. Suspension source / target semantics
+
+For:
+
+```text
+α : S^m → S^n
+```
+
+ordinary suspension exposes derived typing:
+
+```text
+Eα : S^(m+1) → S^(n+1)
+```
+
+Current `Suspension` does not store redundant source / target fields.
+
+Instead:
+
+```text
+Suspension.source
+Suspension.target
+```
+
+are derived properties.
+
+Known information shifts by `+1`.
+
+Unknown information remains `None`.
+
+Nested ordinary suspension repeats this shift.
+
+No constructor validation is introduced.
+
+---
+
+# 24. IteratedSuspension typing semantics
+
+For concrete non-negative:
+
+```text
+r: int
+```
+
+Phase 21 derives:
+
+```text
+E^r α : S^(m+r) → S^(n+r)
+```
+
+when the underlying concrete typing is available.
+
+For:
+
+```text
+ScalarSymbol("t")
+```
+
+Phase 21 does not create symbolic dimension expressions:
+
+```text
+m+t
+n+t
+```
+
+Therefore concrete typing query returns:
+
+```text
+source=None
+target=None
+```
+
+for symbolic exponent.
+
+Negative exponents remain structurally constructible but do not produce concrete
+source / target typing.
+
+This preserves:
+
+```text
+constructible
+≠
+validated suspension semantics
+```
+
+No iterated-suspension normalization is introduced.
+
+---
+
+# 25. Composition compatibility semantics
+
+Current:
+
+```text
+Composition(
+  left=α,
+  right=β,
+)
+```
+
+represents:
+
+```text
+α∘β
+```
+
+For:
+
+```text
+α : S^m → S^n
+β : S^p → S^m
+```
+
+the compatibility condition is:
+
+```text
+α.source == β.target
+```
+
+Current pure query:
+
+```text
+Composition.is_type_compatible() -> bool
+```
+
+Supported typed operand structures are currently:
+
+```text
+HomotopyElement
+Suspension
+IteratedSuspension
+```
+
+The predicate returns `True` only when the required boundary dimensions are both
+concrete and equal.
+
+Current `False` intentionally combines:
+
+```text
+known mismatch
+unknown typing
+unsupported typing
+```
+
+No three-valued `TypeCompatibility` enum exists yet.
+
+Critical:
+
+```text
+Composition(...)
+```
+
+remains constructible even when incompatible.
+
+No `__post_init__` rejection.
+
+No inference.
+
+No ZERO conclusion.
+
+---
+
+# 26. Toda entry compatibility semantics
+
+For:
+
+```text
+{a,b,c}
+```
+
+the displayed defining compositions are:
+
+```text
+a∘b
+b∘c
+```
+
+Current pure query:
+
+```text
+TodaBracket.are_defining_compositions_type_compatible()
+```
+
+constructs those two `Composition` structures and reuses:
+
+```text
+Composition.is_type_compatible()
+```
+
+Both must return `True`.
+
+The bracket index does not alter this displayed-entry compatibility predicate.
+
+Thus the same compatibility query can be applied to:
+
+```text
+{a,b,c}
+{a,b,c}_r
+```
+
+without treating the index as a composition-boundary dimension.
+
+Critical separation:
+
+```text
+entry compatibility
+≠
+ZERO composition
+```
+
+and:
+
+```text
+entry compatibility
+≠
+Toda definedness
+```
+
+Existing Toda definedness inference remains unchanged.
+
+---
+
+# 27. Phase 21 representative scenario
+
+Representative dependency:
+
+```text
+typed HomotopyElement
+↓
+ordinary Suspension typing
+↓
+concrete IteratedSuspension typing
+↓
+Composition compatibility
+↓
+Toda entry compatibility
+```
+
+The scenario confirms a typed chain such as:
+
+```text
+a : S^5 → S^3
+b : S^7 → S^5
+c : S^9 → S^7
+```
+
+satisfies:
+
+```text
+a∘b compatible
+b∘c compatible
+```
+
+and therefore:
+
+```text
+{a,b,c}
+```
+
+has compatible displayed defining compositions.
+
+Separately, inference regression fixes:
+
+```text
+type compatibility
+↛
+ZERO
+↛
+Toda definedness
+```
+
+---
+
+# 28. Phase 21 completion criteria
+
+1. `HomotopyElement.source`.
+2. `HomotopyElement.target`.
+3. optional source / target preserve legacy constructor usage.
+4. source / target participate in structural equality.
+5. typed / untyped structural distinction.
+6. ordinary Suspension shifts known source by `+1`.
+7. ordinary Suspension shifts known target by `+1`.
+8. unknown Suspension typing remains unknown.
+9. nested ordinary Suspension repeats the shift.
+10. concrete non-negative IteratedSuspension shifts by exponent.
+11. symbolic IteratedSuspension does not create symbolic sphere dimensions.
+12. negative IteratedSuspension does not produce concrete typing.
+13. `Composition.is_type_compatible()`.
+14. compatibility checks `left.source == right.target`.
+15. known matching boundary returns `True`.
+16. known mismatch returns `False`.
+17. unknown typing returns `False`.
+18. incompatible Composition remains constructible.
+19. `TodaBracket.are_defining_compositions_type_compatible()`.
+20. both displayed Toda compositions must be compatible.
+21. first mismatch returns `False`.
+22. second mismatch returns `False`.
+23. unknown Toda typing returns `False`.
+24. indexed bracket can use the same compatibility query.
+25. compatibility does not imply ZERO.
+26. compatibility does not imply Toda definedness.
+27. no constructor-level type validation.
+28. no three-valued compatibility model.
+29. no symbolic dimension solver.
+30. no ambient homotopy-group validation.
+31. no stem / stable-context model.
+32. no generic-engine change.
+33. full regression PASS.
+
+Verified:
+
+```text
+tests/test_expression.py
+90 passed in 0.33s
+```
+
+```text
+tests/test_toda_rules.py
+44 passed in 0.73s
+```
+
+```text
+full suite
+1125 passed in 22.75s
+```
+
+---
+
+# 29. Phase 21 non-goals
+
+Not implemented:
+
+- constructor rejection for source / target mismatch
+- universal `Expression` typing protocol
+- `Composition.source`
+- `Composition.target`
+- three-valued compatibility result
+- symbolic sphere-dimension arithmetic
+- negative-suspension semantics
+- ambient homotopy-group validation
+- stem validation
+- stable / unstable context
+- automatic typing of `eta()`, `nu()`, `sigma()`
+- Toda definedness typing guard
+- indexed Toda theorem applicability from typing
+- structured generator notation
+- stable homotopy-group model
+- stable Toda bracket
+- higher Toda bracket
+
+---
+
+# 30. Phase 22 boundary
 
 Natural next candidate:
 
 ```text
-Phase 21
-typed homotopy elements / source-target context
+Phase 22
+structured generator representation
 ```
 
 Purpose:
 
 ```text
-actual composition / Toda validity
+ν
+ν′
+decorated generator families
+η_n
+μ_n
+ι_n
 ```
 
-に必要な最小 typing を導入すること。
+を display-only text ではなく、actual literature / table input に必要な範囲で
+structural に区別すること。
 
-Candidate information:
+Potential fields:
 
 ```text
-source sphere
-target sphere
-ambient homotopy group
-stem
-stable / unstable context
+family
+index
+decoration
+source
+target
+stable_or_unstable
 ```
 
-Actual theorem need のない field は先取りしない。
+ただし Phase 22 でも actual source need のない field は先取りしない。
 
-Indexed Toda theorem bridge を先に必要とする actual literature example が
-出た場合は、Phase 21 内の順序を再調整してよい。
+Current typed `HomotopyElement` API を不必要に壊さず、必要なら additive structure として
+導入する。
+
+Indexed Toda theorem applicability / theorem representation / stable homotopy are
+later dependency layers.
 
 ---
 
-# 23. Testing principle
+# 31. Testing principle
 
 For each new mathematical layer:
 
@@ -781,7 +1204,7 @@ Structural-only Phase では存在しない inference / provenance を先取り�
 
 ---
 
-# 24. Documentation policy
+# 32. Documentation policy
 
 ```text
 README.md

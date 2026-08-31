@@ -1,6 +1,6 @@
 # ehp_proof 開発記録
 
-この文書は Phase 20 完了時点までの開発履歴を、現在の実装と矛盾しない
+この文書は Phase 21 完了時点までの開発履歴を、現在の実装と矛盾しない
 形で整理した改訂版である。
 
 ```text
@@ -943,6 +943,452 @@ unchanged
 
 ---
 
+
+# Phase 21：Typed homotopy elements / source-target context
+
+Phase 21 は、actual composition / Toda validity に必要な最小 typing として
+source / target context を導入した。
+
+Universal type system、ambient homotopy group、stem、stable context は
+先取りしない。
+
+---
+
+## Phase 21-1：source / target minimum representation
+
+`HomotopyElement` に optional fields:
+
+```text
+source
+target
+```
+
+を追加。
+
+Legacy:
+
+```text
+HomotopyElement(name, dimension)
+```
+
+は維持。
+
+この段階では source / target を structural equality にまだ参加させず、
+storage-only boundary を一度固定した。
+
+Verified:
+
+```text
+full suite
+1101 passed in 27.22s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 21-2：typed structural equality
+
+`source` / `target` を ordinary dataclass fields として structural equality に参加させた。
+
+Therefore:
+
+```text
+α : S^5 → S^3
+!=structural
+α : S^6 → S^3
+```
+
+and:
+
+```text
+typed α
+!=structural
+untyped α
+```
+
+Verified:
+
+```text
+full suite
+1103 passed in 25.61s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 21-3：Suspension source / target shift
+
+`Suspension` に derived properties:
+
+```text
+source
+target
+```
+
+を追加。
+
+For:
+
+```text
+α : S^m → S^n
+```
+
+derive:
+
+```text
+Eα : S^(m+1) → S^(n+1)
+```
+
+Unknown information remains `None`.
+
+Nested ordinary Suspension repeats the shift.
+
+Verified:
+
+```text
+full suite
+1106 passed in 23.15s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 21-4：concrete IteratedSuspension shift
+
+`IteratedSuspension` に derived typing を追加。
+
+Concrete non-negative:
+
+```text
+E^r α : S^(m+r) → S^(n+r)
+```
+
+Symbolic:
+
+```text
+E^t α
+```
+
+does not create symbolic sphere dimensions.
+
+Negative exponent remains constructible but does not produce concrete typing.
+
+Verified:
+
+```text
+full suite
+1111 passed in 23.41s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 21-5：Composition type compatibility predicate
+
+`Composition` に:
+
+```text
+is_type_compatible() -> bool
+```
+
+を追加。
+
+For:
+
+```text
+α : S^m → S^n
+β : S^p → S^m
+```
+
+checks:
+
+```text
+α.source == β.target
+```
+
+Supported current typed operands:
+
+```text
+HomotopyElement
+Suspension
+IteratedSuspension
+```
+
+No constructor rejection.
+
+Verified:
+
+```text
+full suite
+1115 passed in 22.76s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 21-6：mismatch boundary
+
+Production code は変更せず、known mismatch regression を固定。
+
+```text
+left.source != right.target
+→
+is_type_compatible() == False
+```
+
+while:
+
+```text
+mismatched Composition
+=
+constructible
+```
+
+Unknown typing and known mismatch both remain `False` in the current boolean API.
+
+No three-valued compatibility model.
+
+Verified:
+
+```text
+full suite
+1117 passed in 24.13s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 21-7：Toda entry composition compatibility
+
+`TodaBracket` に:
+
+```text
+are_defining_compositions_type_compatible()
+```
+
+を追加。
+
+Checks displayed compositions:
+
+```text
+first∘second
+second∘third
+```
+
+by reusing `Composition.is_type_compatible()`.
+
+Both must be confirmed compatible.
+
+No Toda definedness rule change.
+
+Verified:
+
+```text
+full suite
+1121 passed in 23.02s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 21-8：representative scenario
+
+Production code は変更せず、typed expression chain を integration regression で固定。
+
+Representative dependency:
+
+```text
+typed HomotopyElement
+↓
+Suspension shift
+↓
+concrete IteratedSuspension shift
+↓
+Composition compatibility
+↓
+Toda entry compatibility
+```
+
+Separate inference boundary:
+
+```text
+type compatibility
+↛
+ZERO
+↛
+Toda definedness
+```
+
+Verified:
+
+```text
+full suite
+1123 passed in 22.64s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 21-9：final regression / boundary
+
+Production code は変更せず、Phase 21 全体の boundary を final regression で固定。
+
+Checks include:
+
+```text
+typed structural equality
+typed / untyped distinction
+Suspension shift
+concrete IteratedSuspension shift
+symbolic exponent boundary
+negative exponent boundary
+Composition compatibility
+known mismatch
+unknown typing
+constructible != compatible
+Toda both-compatible case
+Toda first mismatch
+Toda second mismatch
+Toda unknown typing
+indexed / unindexed structural distinction
+```
+
+Verified:
+
+```text
+tests/test_expression.py
+90 passed in 0.33s
+```
+
+```text
+tests/test_toda_rules.py
+44 passed in 0.73s
+```
+
+```text
+full suite
+1125 passed in 22.75s
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 21 completion boundary
+
+Implemented:
+
+```text
+HomotopyElement.source
+HomotopyElement.target
+typed HomotopyElement structural equality
+Suspension source / target shift
+concrete IteratedSuspension source / target shift
+Composition.is_type_compatible()
+TodaBracket.are_defining_compositions_type_compatible()
+```
+
+Important boundaries:
+
+```text
+typed
+!=
+untyped
+```
+
+```text
+constructible
+!=
+type-compatible
+```
+
+```text
+symbolic E^t
+!=
+symbolic dimension arithmetic
+```
+
+```text
+type-compatible
+!=
+ZERO
+```
+
+```text
+type-compatible
+!=
+Toda definedness
+```
+
+Not implemented:
+
+```text
+constructor typing validation
+three-valued compatibility
+Composition source / target
+symbolic dimension expressions
+ambient homotopy-group validation
+stem validation
+stable / unstable context
+Toda definedness typing guard
+indexed Toda theorem applicability from typing
+structured generator representation
+stable homotopy groups
+stable Toda brackets
+higher Toda brackets
+```
+
+Generic inference engine:
+
+```text
+unchanged
+```
+
+Current verified status:
+
+```text
+tests/test_expression.py
+90 passed in 0.33s
+```
+
+```text
+tests/test_toda_rules.py
+44 passed in 0.73s
+```
+
+```text
+full suite
+1125 passed in 22.75s
+```
+
+---
+
 # Current verified status
 
 ```powershell
@@ -950,7 +1396,7 @@ python -m pytest tests/test_expression.py -q
 ```
 
 ```text
-64 passed in 1.46s
+90 passed in 0.33s
 ```
 
 ```powershell
@@ -958,49 +1404,44 @@ python -m pytest -q
 ```
 
 ```text
-1098 passed in 61.30s
+1125 passed in 22.75s
 ```
 
 No failures.
 
 ---
 
-# Phase 21 boundary
+# Phase 22 boundary
 
 Natural next candidate:
 
 ```text
-Phase 21
-typed homotopy elements / source-target context
+Phase 22
+structured generator representation
 ```
 
 Purpose:
 
 ```text
-actual composition / Toda validity
+actual tables / literature notation
 ```
 
-に必要な minimal typing を導入する。
+に必要な generator identity を lossless に保持する。
 
-Potential data:
+Potential information:
 
 ```text
-source sphere
-target sphere
-ambient homotopy group
-stem
-stable / unstable context
+family
+index
+decoration
+source
+target
+stable / unstable role
 ```
 
-Actual theorem need のない field を先取りしない。
+Actual source need のない field は先取りしない。
 
-Stable Toda notation:
-
-```text
-<a,b,c>
-```
-
-は deferred。
+Indexed Toda theorem applicability、stable homotopy、stable Toda notation は後続 layer。
 
 ---
 

@@ -57,6 +57,7 @@ Completed:
 - Phase 18: Toda bracket minimum representation
 - Phase 19: Toda membership / first theorem bridge
 - Phase 20: indexed unstable Toda notation
+- Phase 21: typed homotopy elements / source-target context
 
 Current architecture:
 
@@ -102,9 +103,10 @@ TodaBracket
 IndexedTodaBracketData
 ```
 
-The expression layer is structural syntax only. It does not perform theorem
-application, normalization, source / target validation, symbolic arithmetic
-solving, candidate enumeration, or Toda theorem applicability.
+The expression layer is primarily structural syntax. Phase 21 adds minimal
+source / target context and pure compatibility queries, but it still does not
+perform theorem application, constructor-level validity enforcement, symbolic
+dimension solving, candidate enumeration, or Toda theorem applicability.
 
 ---
 
@@ -393,11 +395,262 @@ full suite
 
 ---
 
+
+# Phase 21: Typed homotopy elements / source-target context
+
+Phase 21 introduces the minimum source / target information needed to ask whether
+homotopy-theoretic compositions and Toda-bracket entry chains are type-compatible.
+
+## Typed HomotopyElement
+
+`HomotopyElement` now stores:
+
+```text
+name
+dimension
+source
+target
+```
+
+with:
+
+```text
+source: int | None
+target: int | None
+```
+
+Example:
+
+```text
+α : S^5 → S^3
+```
+
+can be represented with:
+
+```text
+source = 5
+target = 3
+```
+
+Typed source / target fields participate in structural equality.
+
+Therefore:
+
+```text
+α : S^5 → S^3
+!=structural
+α : S^6 → S^3
+```
+
+and typed / untyped forms remain structurally distinct.
+
+## Suspension typing
+
+For typed input:
+
+```text
+α : S^m → S^n
+```
+
+ordinary suspension exposes derived typing:
+
+```text
+Eα : S^(m+1) → S^(n+1)
+```
+
+Unknown source / target information remains unknown.
+
+Nested ordinary suspensions repeat the shift.
+
+## IteratedSuspension typing
+
+For a concrete non-negative exponent `r`:
+
+```text
+E^r α : S^(m+r) → S^(n+r)
+```
+
+is available as derived source / target information.
+
+For a symbolic exponent:
+
+```text
+E^t α
+```
+
+Phase 21 does not construct symbolic sphere dimensions such as `m+t`.
+
+Therefore:
+
+```text
+source = None
+target = None
+```
+
+for the concrete typing query.
+
+Negative exponents remain constructible as syntax, but do not produce concrete
+source / target typing.
+
+## Composition compatibility
+
+`Composition.is_type_compatible()` checks the boundary:
+
+```text
+α : S^m → S^n
+β : S^p → S^m
+
+α∘β
+```
+
+using:
+
+```text
+α.source == β.target
+```
+
+The predicate is a pure query.
+
+Important:
+
+```text
+constructible
+≠
+type-compatible
+```
+
+A mismatched `Composition` remains representable.
+
+Current boolean semantics are intentionally narrow:
+
+```text
+True
+=
+compatibility is confirmed
+
+False
+=
+compatibility is not confirmed
+```
+
+Thus known mismatch and unknown typing are not yet separated into a three-valued
+status model.
+
+## Toda entry compatibility
+
+`TodaBracket.are_defining_compositions_type_compatible()` checks both displayed
+entry compositions:
+
+```text
+a∘b
+b∘c
+```
+
+using the existing composition compatibility predicate.
+
+Both must be confirmed compatible for the result to be `True`.
+
+This query is separate from Toda definedness.
+
+```text
+type-compatible
+≠
+composition is zero
+≠
+Toda bracket defined
+```
+
+No Toda inference rule was changed in Phase 21.
+
+## Representative scenario
+
+Phase 21 fixes an integrated scenario connecting:
+
+```text
+typed HomotopyElement
+↓
+ordinary Suspension shift
+↓
+concrete IteratedSuspension shift
+↓
+Composition compatibility
+↓
+Toda entry compatibility
+```
+
+while preserving the inference boundary:
+
+```text
+typing compatibility
+↛
+ZERO
+↛
+Toda definedness
+```
+
+## Phase 21 completion boundary
+
+Implemented:
+
+```text
+HomotopyElement.source
+HomotopyElement.target
+typed structural equality
+Suspension.source
+Suspension.target
+IteratedSuspension concrete source / target shift
+Composition.is_type_compatible()
+TodaBracket.are_defining_compositions_type_compatible()
+```
+
+Not implemented:
+
+```text
+constructor rejection for type mismatch
+three-valued TypeCompatibility
+symbolic sphere-dimension arithmetic
+Composition source / target derivation
+ambient homotopy-group validation
+stem validation
+stable / unstable context
+typing guard on Toda definedness inference
+indexed Toda theorem applicability from typing
+structured generator representation
+stable homotopy-group model
+stable Toda bracket
+higher Toda bracket
+```
+
+Generic inference engine:
+
+```text
+unchanged
+```
+
+Verified Phase 21 completion:
+
+```text
+tests/test_expression.py
+90 passed in 0.33s
+```
+
+```text
+tests/test_toda_rules.py
+44 passed in 0.73s
+```
+
+```text
+full suite
+1125 passed in 22.75s
+```
+
+---
+
 # Current limitations
 
 Not yet implemented as general systems:
 
-- full source / target / ambient homotopy-group typing,
+- ambient homotopy-group / stem / stable-context typing,
 - indexed Toda theorem applicability based on typing,
 - general symbolic exponent arithmetic,
 - automatic `Suspension` / `IteratedSuspension` normalization,
@@ -417,10 +670,10 @@ Run:
 python -m pytest tests/test_expression.py -q
 ```
 
-Expected current Phase 20 result:
+Verified current Phase 21 result:
 
 ```text
-64 passed
+90 passed in 0.33s
 ```
 
 Full suite:
@@ -432,7 +685,7 @@ python -m pytest -q
 Verified:
 
 ```text
-1098 passed in 61.30s
+1125 passed in 22.75s
 ```
 
 ---
@@ -471,16 +724,20 @@ Toda bracket minimum representation
 Toda membership theorem bridge
 ↓
 Indexed unstable Toda notation
+↓
+Typed homotopy elements / source-target context
 ```
 
 Natural next candidate:
 
 ```text
-Phase 21
-typed homotopy elements / source-target context
+Phase 22
+structured generator representation
 ```
 
-The next Phase should introduce only the minimum typing required by an actual
-composition or Toda-validity theorem.
+The next Phase should introduce only the minimum generator structure required by
+actual tables or literature input, keeping notation such as `ν`, `ν′`, decorated
+families, and indexed unstable generators structurally distinct.
 
-Stable Toda notation remains a separate later layer.
+Indexed Toda theorem applicability, stable homotopy notation, and stable Toda
+notation remain later layers.
