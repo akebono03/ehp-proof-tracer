@@ -1,6 +1,7 @@
 from expression import (
   Composition,
   Expression,
+  GeneratorSymbol,
   HomotopyElement,
   IndexedTodaBracketData,
   IteratedSuspension,
@@ -52,6 +53,556 @@ def test_scalar_symbol_is_not_expression():
     scalar,
     Expression,
   )
+
+
+def test_phase22_1_generator_symbol_preserves_minimum_structure():
+  symbol = GeneratorSymbol(
+    family="ν",
+    index=3,
+    decoration="′",
+  )
+
+  assert symbol.family == "ν"
+  assert symbol.index == 3
+  assert symbol.decoration == "′"
+
+
+def test_phase22_1_generator_symbol_is_not_expression():
+  symbol = GeneratorSymbol(
+    family="ν",
+  )
+
+  assert not isinstance(
+    symbol,
+    Expression,
+  )
+
+
+def test_phase22_2_generator_symbol_same_family_and_index_are_equal():
+  left = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+  right = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+
+  assert left == right
+
+
+def test_phase22_2_generator_symbol_different_family_is_not_equal():
+  eta_3 = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+  mu_3 = GeneratorSymbol(
+    family="μ",
+    index=3,
+  )
+
+  assert eta_3 != mu_3
+
+
+def test_phase22_2_generator_symbol_different_index_is_not_equal():
+  eta_3 = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+  eta_4 = GeneratorSymbol(
+    family="η",
+    index=4,
+  )
+
+  assert eta_3 != eta_4
+
+
+def test_phase22_2_generator_symbol_indexed_and_unindexed_are_not_equal():
+  eta = GeneratorSymbol(
+    family="η",
+  )
+  eta_3 = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+
+  assert eta != eta_3
+
+
+def test_phase22_3_generator_symbol_same_decoration_are_equal():
+  left = GeneratorSymbol(
+    family="ν",
+    decoration="′",
+  )
+  right = GeneratorSymbol(
+    family="ν",
+    decoration="′",
+  )
+
+  assert left == right
+
+
+def test_phase22_3_generator_symbol_plain_and_decorated_are_not_equal():
+  nu_plain = GeneratorSymbol(
+    family="ν",
+  )
+  nu_prime = GeneratorSymbol(
+    family="ν",
+    decoration="′",
+  )
+
+  assert nu_plain != nu_prime
+
+
+def test_phase22_3_generator_symbol_different_decorations_are_not_equal():
+  nu_prime = GeneratorSymbol(
+    family="ν",
+    decoration="′",
+  )
+  nu_bar = GeneratorSymbol(
+    family="ν",
+    decoration="bar",
+  )
+
+  assert nu_prime != nu_bar
+
+
+def test_phase22_3_generator_symbol_decoration_is_preserved():
+  symbol = GeneratorSymbol(
+    family="ν",
+    decoration="bar",
+  )
+
+  assert symbol.decoration == "bar"
+
+
+def test_phase22_4_nu_family_representative_distinctions():
+  nu_plain = GeneratorSymbol(
+    family="ν",
+  )
+  nu_prime = GeneratorSymbol(
+    family="ν",
+    decoration="′",
+  )
+  nu_bar = GeneratorSymbol(
+    family="ν",
+    decoration="bar",
+  )
+
+  assert nu_plain != nu_prime
+  assert nu_plain != nu_bar
+  assert nu_prime != nu_bar
+
+
+def test_phase22_4_decoration_and_index_are_independent_roles():
+  nu_prime = GeneratorSymbol(
+    family="ν",
+    decoration="′",
+  )
+  nu_prime_7 = GeneratorSymbol(
+    family="ν",
+    index=7,
+    decoration="′",
+  )
+
+  assert nu_prime != nu_prime_7
+  assert nu_prime.decoration == nu_prime_7.decoration
+  assert nu_prime.index is None
+  assert nu_prime_7.index == 7
+
+
+def test_phase22_4_same_display_family_does_not_collapse_decoration():
+  nu_plain = GeneratorSymbol(
+    family="ν",
+  )
+  nu_prime = GeneratorSymbol(
+    family="ν",
+    decoration="′",
+  )
+
+  assert nu_plain.family == nu_prime.family
+  assert nu_plain != nu_prime
+
+
+def test_phase22_5_indexed_eta_generator_representation():
+  eta_3 = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+
+  assert eta_3.family == "η"
+  assert eta_3.index == 3
+  assert eta_3.decoration is None
+
+
+def test_phase22_5_indexed_mu_generator_representation():
+  mu_3 = GeneratorSymbol(
+    family="μ",
+    index=3,
+  )
+
+  assert mu_3.family == "μ"
+  assert mu_3.index == 3
+  assert mu_3.decoration is None
+
+
+def test_phase22_5_indexed_iota_generator_representation():
+  iota_7 = GeneratorSymbol(
+    family="ι",
+    index=7,
+  )
+
+  assert iota_7.family == "ι"
+  assert iota_7.index == 7
+  assert iota_7.decoration is None
+
+
+def test_phase22_5_indexed_generator_families_remain_distinct():
+  eta_3 = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+  mu_3 = GeneratorSymbol(
+    family="μ",
+    index=3,
+  )
+
+  assert eta_3 != mu_3
+
+
+def test_phase22_5_index_is_part_of_generator_identity():
+  iota_7 = GeneratorSymbol(
+    family="ι",
+    index=7,
+  )
+  iota_8 = GeneratorSymbol(
+    family="ι",
+    index=8,
+  )
+
+  assert iota_7 != iota_8
+
+
+def test_phase22_6_homotopy_element_can_store_generator_symbol():
+  generator = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+
+  element = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    source=4,
+    target=3,
+    generator=generator,
+  )
+
+  assert element.generator == generator
+
+
+def test_phase22_6_generator_and_source_target_context_coexist():
+  generator = GeneratorSymbol(
+    family="ι",
+    index=7,
+  )
+
+  element = HomotopyElement(
+    name="ι₇",
+    dimension=7,
+    source=7,
+    target=7,
+    generator=generator,
+  )
+
+  assert element.generator == generator
+  assert element.source == 7
+  assert element.target == 7
+
+
+def test_phase22_6_generator_does_not_derive_source_target():
+  generator = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+
+  element = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=generator,
+  )
+
+  assert element.generator == generator
+  assert element.source is None
+  assert element.target is None
+
+
+def test_phase22_7_legacy_homotopy_element_constructor_remains_supported():
+  element = HomotopyElement(
+    "α",
+    3,
+  )
+
+  assert element.name == "α"
+  assert element.dimension == 3
+  assert element.source is None
+  assert element.target is None
+  assert element.generator is None
+
+
+def test_phase22_7_legacy_homotopy_element_has_no_generator():
+  legacy = HomotopyElement(
+    name="α",
+    dimension=3,
+  )
+  explicit_none = HomotopyElement(
+    name="α",
+    dimension=3,
+    generator=None,
+  )
+
+  assert legacy == explicit_none
+
+
+def test_phase22_7_existing_generator_helpers_remain_backward_compatible():
+  assert eta(3) == HomotopyElement(
+    name="η",
+    dimension=3,
+  )
+  assert nu(7) == HomotopyElement(
+    name="ν",
+    dimension=7,
+  )
+  assert sigma(8) == HomotopyElement(
+    name="σ",
+    dimension=8,
+  )
+
+
+def test_phase22_7_generator_participates_in_homotopy_element_structural_equality():
+  eta_generator = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+  mu_generator = GeneratorSymbol(
+    family="μ",
+    index=3,
+  )
+
+  eta_element = HomotopyElement(
+    name="x",
+    dimension=3,
+    generator=eta_generator,
+  )
+  mu_element = HomotopyElement(
+    name="x",
+    dimension=3,
+    generator=mu_generator,
+  )
+
+  assert eta_element != mu_element
+
+
+def test_phase22_7_generator_does_not_change_existing_typed_equality_semantics():
+  generator = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+
+  left = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    source=4,
+    target=3,
+    generator=generator,
+  )
+  right = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    source=5,
+    target=3,
+    generator=generator,
+  )
+
+  assert left != right
+
+
+def test_phase22_8_representative_literature_generator_scenario():
+  eta_3_generator = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+  nu_prime_generator = GeneratorSymbol(
+    family="ν",
+    decoration="′",
+  )
+  nu_7_generator = GeneratorSymbol(
+    family="ν",
+    index=7,
+  )
+
+  eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=eta_3_generator,
+  )
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    generator=nu_prime_generator,
+  )
+  nu_7 = HomotopyElement(
+    name="ν₇",
+    dimension=7,
+    generator=nu_7_generator,
+  )
+
+  suspended_nu_prime = Suspension(
+    expression=nu_prime,
+  )
+
+  bracket = TodaBracket(
+    first=eta_3,
+    second=suspended_nu_prime,
+    third=nu_7,
+    index=1,
+  )
+
+  assert eta_3.generator == GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+  assert nu_prime.generator == GeneratorSymbol(
+    family="ν",
+    decoration="′",
+  )
+  assert nu_7.generator == GeneratorSymbol(
+    family="ν",
+    index=7,
+  )
+
+  assert bracket.first == eta_3
+  assert bracket.second == Suspension(
+    expression=nu_prime,
+  )
+  assert bracket.third == nu_7
+  assert bracket.index == 1
+
+  assert bracket.second.expression.generator == nu_prime_generator
+
+
+def test_phase22_9_structured_generator_final_regression_and_boundary():
+  nu_plain = GeneratorSymbol(
+    family="ν",
+  )
+  nu_prime = GeneratorSymbol(
+    family="ν",
+    decoration="′",
+  )
+  nu_bar = GeneratorSymbol(
+    family="ν",
+    decoration="bar",
+  )
+  eta_3_generator = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+  mu_3_generator = GeneratorSymbol(
+    family="μ",
+    index=3,
+  )
+  iota_7_generator = GeneratorSymbol(
+    family="ι",
+    index=7,
+  )
+
+  assert not isinstance(
+    nu_plain,
+    Expression,
+  )
+
+  assert nu_plain != nu_prime
+  assert nu_plain != nu_bar
+  assert nu_prime != nu_bar
+
+  assert eta_3_generator != mu_3_generator
+  assert iota_7_generator != GeneratorSymbol(
+    family="ι",
+    index=8,
+  )
+
+  eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    source=4,
+    target=3,
+    generator=eta_3_generator,
+  )
+
+  assert eta_3.generator == eta_3_generator
+  assert eta_3.source == 4
+  assert eta_3.target == 3
+
+  untyped_eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=eta_3_generator,
+  )
+
+  assert untyped_eta_3.source is None
+  assert untyped_eta_3.target is None
+
+  inconsistent_name_and_generator = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=mu_3_generator,
+  )
+
+  assert inconsistent_name_and_generator.generator == mu_3_generator
+
+  legacy_eta = eta(3)
+
+  assert legacy_eta == HomotopyElement(
+    name="η",
+    dimension=3,
+  )
+  assert legacy_eta.generator is None
+
+  nu_prime_element = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    generator=nu_prime,
+  )
+  suspended_nu_prime = Suspension(
+    expression=nu_prime_element,
+  )
+
+  assert suspended_nu_prime.expression.generator == nu_prime
+  assert suspended_nu_prime.source is None
+  assert suspended_nu_prime.target is None
+
+  nu_7 = HomotopyElement(
+    name="ν₇",
+    dimension=7,
+    generator=GeneratorSymbol(
+      family="ν",
+      index=7,
+    ),
+  )
+
+  bracket = TodaBracket(
+    first=untyped_eta_3,
+    second=suspended_nu_prime,
+    third=nu_7,
+    index=1,
+  )
+
+  assert bracket.first.generator == eta_3_generator
+  assert bracket.second.expression.generator == nu_prime
+  assert bracket.third.generator == GeneratorSymbol(
+    family="ν",
+    index=7,
+  )
+  assert bracket.index == 1
 
 
 def test_homotopy_element():

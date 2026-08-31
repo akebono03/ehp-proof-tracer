@@ -16,6 +16,13 @@ class ScalarSymbol:
 
 
 @dataclass(frozen=True)
+class GeneratorSymbol:
+  family: str
+  index: int | None = None
+  decoration: str | None = None
+
+
+@dataclass(frozen=True)
 class TodaBracket:
   first: Expression
   second: Expression
@@ -76,6 +83,7 @@ class HomotopyElement(Expression):
   dimension: int
   source: int | None = None
   target: int | None = None
+  generator: GeneratorSymbol | None = None
 
 
 @dataclass(frozen=True)

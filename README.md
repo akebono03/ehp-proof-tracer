@@ -9,7 +9,8 @@ The long-term goal is to explain how homotopy groups of spheres are determined
 from mathematical input such as EHP exact sequences, element orders, additive
 relations, Suspension, Freudenthal theory, composition, generalized Hopf
 invariants, homomorphisms, subgroup / modulo information, symbolic scalar
-constraints, indeterminacy, Toda brackets, and literature-backed facts.
+constraints, indeterminacy, Toda brackets, typed homotopy elements, structured
+generator notation, and literature-backed facts.
 
 The project separates:
 
@@ -58,6 +59,7 @@ Completed:
 - Phase 19: Toda membership / first theorem bridge
 - Phase 20: indexed unstable Toda notation
 - Phase 21: typed homotopy elements / source-target context
+- Phase 22: structured generator representation
 
 Current architecture:
 
@@ -99,14 +101,18 @@ Separate structural objects include:
 ```text
 MapSymbol
 ScalarSymbol
+GeneratorSymbol
 TodaBracket
 IndexedTodaBracketData
 ```
 
-The expression layer is primarily structural syntax. Phase 21 adds minimal
-source / target context and pure compatibility queries, but it still does not
-perform theorem application, constructor-level validity enforcement, symbolic
-dimension solving, candidate enumeration, or Toda theorem applicability.
+The expression layer is primarily structural syntax.
+
+Phase 21 adds minimal source / target context and pure compatibility queries.
+
+Phase 22 adds structured generator identity while preserving the existing
+`HomotopyElement` API and keeping generator notation separate from typing rules,
+table lookup, and theorem applicability.
 
 ---
 
@@ -203,7 +209,7 @@ Phase 20 closes the Phase 19 representation gap and generalizes to:
 
 ## TodaBracket.index
 
-`TodaBracket` now stores:
+`TodaBracket` stores:
 
 ```text
 index: int | ScalarSymbol | None
@@ -219,8 +225,6 @@ Therefore:
 ```
 
 remain structurally distinguishable.
-
-The index is not display-only decoration.
 
 ## IteratedSuspension
 
@@ -314,12 +318,7 @@ bracket.index
 suspension_exponent
 ```
 
-The same predicate works for symbolic and concrete cases:
-
-```text
-{a,E^t b,E^t c}_t
-{a,E^2 b,E^2 c}_2
-```
+The same predicate works for symbolic and concrete cases.
 
 Important API boundary:
 
@@ -331,55 +330,7 @@ validation
 
 Inconsistent data is still constructible.
 
-For example:
-
-```text
-suspension_exponent=t
-bracket.index=s
-```
-
-is representable, but:
-
-```text
-is_consistent() == False
-```
-
 No `__post_init__` rejection is introduced.
-
----
-
-# Phase 20 completion boundary
-
-Phase 20 completion means:
-
-1. `TodaBracket.index` is explicit.
-2. unindexed brackets remain supported.
-3. concrete bracket indices are supported.
-4. symbolic bracket indices are supported.
-5. `IteratedSuspension` is first-class.
-6. concrete iterated exponents are supported.
-7. symbolic iterated exponents are supported.
-8. iterated suspension is not normalized to ordinary nested `Suspension`.
-9. `IndexedTodaBracketData` stores underlying second / third bases.
-10. suspension exponent is separate from bracket index.
-11. symbolic suspension exponent is supported.
-12. `{a,E^t b,E^t c}_t` is structurally representable.
-13. `is_consistent()` checks second-entry correspondence.
-14. `is_consistent()` checks third-entry correspondence.
-15. `is_consistent()` checks bracket-index correspondence.
-16. symbolic consistent data returns `True`.
-17. concrete consistent data returns `True`.
-18. index mismatch returns `False`.
-19. entry mismatch returns `False`.
-20. inconsistent data remains constructible.
-21. consistency is not theorem applicability.
-22. consistency is not inference.
-23. no general symbolic exponent normalization is introduced.
-24. no stable Toda bracket is introduced.
-25. no higher Toda bracket is introduced.
-26. no full source / target typing is introduced.
-27. the generic inference engine remains unchanged.
-28. full regression passes.
 
 Verified Phase 20 completion:
 
@@ -395,7 +346,6 @@ full suite
 
 ---
 
-
 # Phase 21: Typed homotopy elements / source-target context
 
 Phase 21 introduces the minimum source / target information needed to ask whether
@@ -403,7 +353,7 @@ homotopy-theoretic compositions and Toda-bracket entry chains are type-compatibl
 
 ## Typed HomotopyElement
 
-`HomotopyElement` now stores:
+`HomotopyElement` stores:
 
 ```text
 name
@@ -434,16 +384,6 @@ target = 3
 
 Typed source / target fields participate in structural equality.
 
-Therefore:
-
-```text
-α : S^5 → S^3
-!=structural
-α : S^6 → S^3
-```
-
-and typed / untyped forms remain structurally distinct.
-
 ## Suspension typing
 
 For typed input:
@@ -459,8 +399,6 @@ Eα : S^(m+1) → S^(n+1)
 ```
 
 Unknown source / target information remains unknown.
-
-Nested ordinary suspensions repeat the shift.
 
 ## IteratedSuspension typing
 
@@ -479,15 +417,6 @@ E^t α
 ```
 
 Phase 21 does not construct symbolic sphere dimensions such as `m+t`.
-
-Therefore:
-
-```text
-source = None
-target = None
-```
-
-for the concrete typing query.
 
 Negative exponents remain constructible as syntax, but do not produce concrete
 source / target typing.
@@ -519,8 +448,6 @@ constructible
 type-compatible
 ```
 
-A mismatched `Composition` remains representable.
-
 Current boolean semantics are intentionally narrow:
 
 ```text
@@ -546,8 +473,6 @@ a∘b
 b∘c
 ```
 
-using the existing composition compatibility predicate.
-
 Both must be confirmed compatible for the result to be `True`.
 
 This query is separate from Toda definedness.
@@ -558,73 +483,6 @@ type-compatible
 composition is zero
 ≠
 Toda bracket defined
-```
-
-No Toda inference rule was changed in Phase 21.
-
-## Representative scenario
-
-Phase 21 fixes an integrated scenario connecting:
-
-```text
-typed HomotopyElement
-↓
-ordinary Suspension shift
-↓
-concrete IteratedSuspension shift
-↓
-Composition compatibility
-↓
-Toda entry compatibility
-```
-
-while preserving the inference boundary:
-
-```text
-typing compatibility
-↛
-ZERO
-↛
-Toda definedness
-```
-
-## Phase 21 completion boundary
-
-Implemented:
-
-```text
-HomotopyElement.source
-HomotopyElement.target
-typed structural equality
-Suspension.source
-Suspension.target
-IteratedSuspension concrete source / target shift
-Composition.is_type_compatible()
-TodaBracket.are_defining_compositions_type_compatible()
-```
-
-Not implemented:
-
-```text
-constructor rejection for type mismatch
-three-valued TypeCompatibility
-symbolic sphere-dimension arithmetic
-Composition source / target derivation
-ambient homotopy-group validation
-stem validation
-stable / unstable context
-typing guard on Toda definedness inference
-indexed Toda theorem applicability from typing
-structured generator representation
-stable homotopy-group model
-stable Toda bracket
-higher Toda bracket
-```
-
-Generic inference engine:
-
-```text
-unchanged
 ```
 
 Verified Phase 21 completion:
@@ -646,10 +504,353 @@ full suite
 
 ---
 
+# Phase 22: Structured generator representation
+
+Phase 22 introduces the minimum structure needed to preserve generator notation
+from tables and literature without storing the whole identity only in
+`HomotopyElement.name`.
+
+## GeneratorSymbol
+
+New separate structural object:
+
+```text
+GeneratorSymbol
+  family: str
+  index: int | None
+  decoration: str | None
+```
+
+Examples:
+
+```text
+ν
+ν′
+barν
+η₃
+μ₃
+ι₇
+```
+
+can be represented as:
+
+```text
+ν
+=
+GeneratorSymbol(family="ν")
+
+ν′
+=
+GeneratorSymbol(family="ν", decoration="′")
+
+barν
+=
+GeneratorSymbol(family="ν", decoration="bar")
+
+η₃
+=
+GeneratorSymbol(family="η", index=3)
+
+μ₃
+=
+GeneratorSymbol(family="μ", index=3)
+
+ι₇
+=
+GeneratorSymbol(family="ι", index=7)
+```
+
+`GeneratorSymbol` is not an `Expression`.
+
+It represents generator identity / notation, not a homotopy operation node.
+
+## Structural equality
+
+Python equality remains structural.
+
+Therefore:
+
+```text
+η₃ == η₃
+η₃ != η₄
+η₃ != μ₃
+η != η₃
+```
+
+and:
+
+```text
+ν != ν′
+ν != barν
+ν′ != barν
+```
+
+`index=None` and `decoration=None` are not wildcards.
+
+They are ordinary structural field values.
+
+## Decoration semantics
+
+Decoration is currently stored losslessly as:
+
+```text
+str | None
+```
+
+Phase 22 does not normalize alternate spellings or introduce dedicated decoration
+classes.
+
+For example:
+
+```text
+"′"
+"prime"
+"'"
+```
+
+are not automatically identified.
+
+Likewise:
+
+```text
+"bar"
+"\bar"
+"¯"
+```
+
+are not normalized.
+
+## Indexed generator notation
+
+The same `GeneratorSymbol` structure handles:
+
+```text
+η_n
+μ_n
+ι_n
+```
+
+No separate indexed-generator class is introduced.
+
+The `index` field is part of generator identity but is not interpreted by the
+expression layer as a source dimension, target dimension, stem, or table key.
+
+## HomotopyElement connection
+
+`HomotopyElement` now stores:
+
+```text
+name: str
+dimension: int
+source: int | None
+target: int | None
+generator: GeneratorSymbol | None
+```
+
+The new field is optional.
+
+This gives the role separation:
+
+```text
+GeneratorSymbol
+=
+generator identity / notation
+
+HomotopyElement
+=
+homotopy expression + dimension / source / target context
+```
+
+Example:
+
+```text
+η₃ : S^4 → S^3
+```
+
+may be represented by explicitly supplying both pieces of information:
+
+```text
+generator = GeneratorSymbol(family="η", index=3)
+source = 4
+target = 3
+```
+
+Critical boundary:
+
+```text
+generator notation
+↛
+automatic source / target typing
+```
+
+A `GeneratorSymbol(family="η", index=3)` does not by itself derive:
+
+```text
+source = 4
+target = 3
+```
+
+## Backward compatibility
+
+Legacy construction remains supported:
+
+```text
+HomotopyElement(name, dimension)
+```
+
+and is equivalent to explicitly supplying:
+
+```text
+generator=None
+```
+
+Existing helpers remain unchanged:
+
+```text
+eta()
+nu()
+sigma()
+```
+
+They continue to return the legacy `HomotopyElement` form.
+
+Phase 22 does not silently migrate existing helpers to structured generators.
+
+The new `generator` field participates in ordinary dataclass structural equality
+when it is present.
+
+## Representative literature scenario
+
+Phase 22 can structurally represent:
+
+```text
+{η₃,Eν′,ν₇}_1
+```
+
+with independent roles:
+
+```text
+η₃
+=
+HomotopyElement(
+  ...,
+  generator=GeneratorSymbol(family="η", index=3),
+)
+
+ν′
+=
+HomotopyElement(
+  ...,
+  generator=GeneratorSymbol(family="ν", decoration="′"),
+)
+
+Eν′
+=
+Suspension(ν′)
+
+ν₇
+=
+HomotopyElement(
+  ...,
+  generator=GeneratorSymbol(family="ν", index=7),
+)
+
+_1
+=
+TodaBracket.index
+```
+
+The suspension operation is not embedded into a generator name.
+
+Thus:
+
+```text
+Eν′
+=
+Suspension(ν′)
+```
+
+rather than a new generator family such as `"Eν′"`.
+
+## Validation boundary
+
+Phase 22 preserves:
+
+```text
+constructible
+≠
+validated
+```
+
+For example, a `HomotopyElement` with a display `name` that disagrees with its
+`generator` remains constructible.
+
+Phase 22 does not add:
+
+```text
+name / generator consistency validation
+generator / dimension consistency validation
+generator / source-target consistency validation
+```
+
+These require a later mathematical typing / table layer.
+
+## Phase 22 completion boundary
+
+Implemented:
+
+1. `GeneratorSymbol`.
+2. `GeneratorSymbol.family`.
+3. optional `GeneratorSymbol.index`.
+4. optional `GeneratorSymbol.decoration`.
+5. `GeneratorSymbol` is separate from `Expression`.
+6. family participates in structural equality.
+7. index participates in structural equality.
+8. decoration participates in structural equality.
+9. `ν`, `ν′`, and decorated `ν` remain distinct.
+10. `η_n`, `μ_n`, and `ι_n` are representable with the same structure.
+11. indexed and unindexed generators remain distinct.
+12. `HomotopyElement.generator`.
+13. generator and source / target context can coexist.
+14. generator notation does not derive typing.
+15. legacy `HomotopyElement(name, dimension)` remains supported.
+16. omitted generator and `generator=None` are equivalent.
+17. existing `eta()`, `nu()`, `sigma()` helpers remain unchanged.
+18. generator participates in `HomotopyElement` structural equality when present.
+19. `Eν′` remains a `Suspension` node around `ν′`.
+20. `{η₃,Eν′,ν₇}_1` is losslessly structurally representable.
+21. name / generator mismatch remains constructible.
+22. no decoration normalization is introduced.
+23. no generator table lookup is introduced.
+24. no source / target automatic derivation is introduced.
+25. no stable / unstable generator classification is introduced.
+26. no ambient homotopy-group / stem validation is introduced.
+27. no indexed Toda theorem applicability is introduced.
+28. generic inference engine remains unchanged.
+29. full regression passes.
+
+Verified Phase 22 completion:
+
+```text
+tests/test_expression.py
+118 passed in 0.44s
+```
+
+```text
+full suite
+1153 passed in 24.83s
+```
+
+---
+
 # Current limitations
 
 Not yet implemented as general systems:
 
+- generator table lookup,
+- automatic source / target derivation from generator identity,
+- name / generator consistency validation,
+- generator / dimension / typing validation,
 - ambient homotopy-group / stem / stable-context typing,
 - indexed Toda theorem applicability based on typing,
 - general symbolic exponent arithmetic,
@@ -670,10 +871,10 @@ Run:
 python -m pytest tests/test_expression.py -q
 ```
 
-Verified current Phase 21 result:
+Verified current Phase 22 result:
 
 ```text
-90 passed in 0.33s
+118 passed in 0.44s
 ```
 
 Full suite:
@@ -685,7 +886,7 @@ python -m pytest -q
 Verified:
 
 ```text
-1125 passed in 22.75s
+1153 passed in 24.83s
 ```
 
 ---
@@ -726,18 +927,37 @@ Toda membership theorem bridge
 Indexed unstable Toda notation
 ↓
 Typed homotopy elements / source-target context
+↓
+Structured generator representation
 ```
 
 Natural next candidate:
 
 ```text
-Phase 22
-structured generator representation
+Phase 23
+Indexed Toda theorem / validity connection
 ```
 
-The next Phase should introduce only the minimum generator structure required by
-actual tables or literature input, keeping notation such as `ν`, `ν′`, decorated
-families, and indexed unstable generators structurally distinct.
+The next Phase should use actual literature facts and explicit side conditions to
+connect indexed Toda representation with theorem applicability.
 
-Indexed Toda theorem applicability, stable homotopy notation, and stable Toda
-notation remain later layers.
+Important:
+
+```text
+structured generator representation
+↛
+theorem applicability
+```
+
+and:
+
+```text
+type compatibility
+↛
+Toda definedness
+↛
+membership
+```
+
+Stable homotopy notation, stable Toda notation, and higher Toda brackets remain
+later layers.

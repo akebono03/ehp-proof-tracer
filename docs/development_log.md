@@ -1,6 +1,6 @@
 # ehp_proof 開発記録
 
-この文書は Phase 21 完了時点までの開発履歴を、現在の実装と矛盾しない
+この文書は Phase 22 完了時点までの開発履歴を、現在の実装と矛盾しない
 形で整理した改訂版である。
 
 ```text
@@ -553,342 +553,12 @@ Phase 20 は Phase 19 の representation gap:
 
 を structural に保持するための最小 extension を実装した。
 
-Phase 20 は基本的に expression / representation layer の Phase。
-
-Toda theorem inference や generic engine は変更しない。
-
----
-
-## Phase 20 前半：index / indexed data / iterated suspension
-
-既存 `TodaBracket` に optional index を追加し、unindexed API を維持した。
-
-```text
-TodaBracket.index
-```
-
-により:
-
-```text
-{a,b,c}
-{a,b,c}_1
-{a,b,c}_2
-```
-
-を structural に区別可能にした。
-
-Indexed notation の base と exponent を保持するため:
-
-```text
-IndexedTodaBracketData
-```
-
-を導入。
-
-Fields:
-
-```text
-bracket
-second_base
-third_base
-suspension_exponent
-```
-
-General iterated suspension のため:
-
-```text
-IteratedSuspension
-```
-
-を導入。
-
-Concrete / symbolic exponent を同じ structure で扱う。
-
-```text
-E^2 α
-E^t α
-```
-
-No normalization:
-
-```text
-IteratedSuspension(α,1)
-!=
-Suspension(α)
-```
-
-```text
-IteratedSuspension(α,2)
-!=
-Suspension(Suspension(α))
-```
-
----
-
-## Phase 20-7：suspension_exponent symbolic extension
-
-`IndexedTodaBracketData.suspension_exponent`:
-
-```text
-int
-↓
-int | ScalarSymbol
-```
-
-これにより:
-
-```text
-second = E^t b
-third  = E^t c
-suspension_exponent=t
-```
-
-を同じ symbolic scalar で保持可能になった。
-
-Verified:
-
-```text
-tests/test_expression.py
-53 passed in 1.99s
-```
-
-```text
-full suite
-1087 passed in 68.87s
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 20-8：TodaBracket.index symbolic extension
-
-`TodaBracket.index`:
-
-```text
-int | None
-↓
-int | ScalarSymbol | None
-```
-
-これにより:
-
-```text
-{a,E^t b,E^t c}_t
-```
-
-の末尾 index `t` まで structural に保持可能になった。
-
-Verified:
-
-```text
-tests/test_expression.py
-57 passed in 1.97s
-```
-
-```text
-full suite
-1091 passed in 71.44s
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 20-9：correspondence representative
-
-Production code は変更せず:
-
-```text
-second = E^t(second_base)
-third  = E^t(third_base)
-bracket.index = suspension_exponent = t
-```
-
-を representative regression で固定。
-
-Verified:
-
-```text
-tests/test_expression.py
-58 passed in 2.19s
-```
-
-```text
-full suite
-1092 passed in 62.37s
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 20-10：is_consistent()
-
-`IndexedTodaBracketData` に:
-
-```text
-is_consistent() -> bool
-```
-
-を追加。
-
-Checks:
-
-```text
-bracket.second
-==
-IteratedSuspension(second_base,suspension_exponent)
-
-bracket.third
-==
-IteratedSuspension(third_base,suspension_exponent)
-
-bracket.index
-==
-suspension_exponent
-```
-
-Boundary:
-
-```text
-inconsistent data
-=
-constructible
-```
-
-and:
-
-```text
-inconsistent data
-→
-is_consistent() == False
-```
-
-Constructor validation は導入しない。
-
-Verified:
-
-```text
-tests/test_expression.py
-62 passed in 2.57s
-```
-
-```text
-full suite
-1096 passed in 61.37s
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 20-11：concrete consistency representative
-
-Symbolic case と同じ predicate が:
-
-```text
-{a,E^2 b,E^2 c}_2
-```
-
-でも機能することを固定。
-
-Verified:
-
-```text
-tests/test_expression.py
-63 passed in 2.24s
-```
-
-```text
-full suite
-1097 passed in 61.99s
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 20-12：representative / boundary regression
-
-Phase 20 全体を final regression で固定。
-
-Representative:
-
-```text
-{a,E^t b,E^t c}_t
-```
-
-Checks:
-
-```text
-second exponent = t
-third exponent = t
-suspension_exponent = t
-bracket.index = t
-is_consistent() == True
-```
-
-Structural boundary:
-
-```text
-E^1 b !=structural E b
-E^2 b !=structural E(Eb)
-E^t b !=structural E^2 b
-```
-
-```text
-{a,E^t b,E^t c}_t
-!=structural
-{a,E^t b,E^t c}_2
-```
-
-Inconsistent data:
-
-```text
-constructible
-+
-is_consistent() == False
-```
-
-Verified:
-
-```text
-tests/test_expression.py
-64 passed in 1.46s
-```
-
-```text
-full suite
-1098 passed in 61.30s
-```
-
-### 状態
-
-完了
-
----
-
-# Phase 20 completion boundary
-
-Implemented:
+追加:
 
 ```text
 TodaBracket.index
 IndexedTodaBracketData
 IteratedSuspension
-symbolic iterated exponent
-symbolic bracket index
 IndexedTodaBracketData.is_consistent()
 ```
 
@@ -912,41 +582,47 @@ IndexedTodaBracketData.suspension_exponent
 int | ScalarSymbol
 ```
 
-Representative:
+Boundary:
 
 ```text
-{a,E^t b,E^t c}_t
+IteratedSuspension
+!=
+ordinary Suspension normalization
 ```
-
-Not implemented:
 
 ```text
-constructor validation
-automatic normalization
-Suspension ↔ IteratedSuspension auto conversion
-general symbolic exponent arithmetic
-is_consistent() → theorem applicability
-is_consistent() → inference rule
-full source / target typing
-ambient homotopy-group validation
-stable Toda bracket
-higher Toda bracket
-general theorem quantification
-candidate-set algebra
+suspension exponent
+!=
+bracket index
 ```
-
-Generic inference engine:
 
 ```text
-unchanged
+is_consistent()
+!=
+theorem applicability
 ```
+
+Verified Phase 20 completion:
+
+```text
+tests/test_expression.py
+64 passed in 1.46s
+```
+
+```text
+full suite
+1098 passed in 61.30s
+```
+
+### 状態
+
+完了
 
 ---
 
-
 # Phase 21：Typed homotopy elements / source-target context
 
-Phase 21 は、actual composition / Toda validity に必要な最小 typing として
+Phase 21 は actual composition / Toda validity に必要な最小 typing として
 source / target context を導入した。
 
 Universal type system、ambient homotopy group、stem、stable context は
@@ -973,16 +649,6 @@ HomotopyElement(name, dimension)
 
 は維持。
 
-この段階では source / target を structural equality にまだ参加させず、
-storage-only boundary を一度固定した。
-
-Verified:
-
-```text
-full suite
-1101 passed in 27.22s
-```
-
 ### 状態
 
 完了
@@ -991,29 +657,12 @@ full suite
 
 ## Phase 21-2：typed structural equality
 
-`source` / `target` を ordinary dataclass fields として structural equality に参加させた。
-
-Therefore:
+`source` / `target` を structural equality に参加させた。
 
 ```text
 α : S^5 → S^3
 !=structural
 α : S^6 → S^3
-```
-
-and:
-
-```text
-typed α
-!=structural
-untyped α
-```
-
-Verified:
-
-```text
-full suite
-1103 passed in 25.61s
 ```
 
 ### 状態
@@ -1033,27 +682,10 @@ target
 
 を追加。
 
-For:
-
 ```text
 α : S^m → S^n
-```
-
-derive:
-
-```text
+↓
 Eα : S^(m+1) → S^(n+1)
-```
-
-Unknown information remains `None`.
-
-Nested ordinary Suspension repeats the shift.
-
-Verified:
-
-```text
-full suite
-1106 passed in 23.15s
 ```
 
 ### 状態
@@ -1064,30 +696,15 @@ full suite
 
 ## Phase 21-4：concrete IteratedSuspension shift
 
-`IteratedSuspension` に derived typing を追加。
-
 Concrete non-negative:
 
 ```text
 E^r α : S^(m+r) → S^(n+r)
 ```
 
-Symbolic:
+Symbolic exponent does not create symbolic sphere dimensions.
 
-```text
-E^t α
-```
-
-does not create symbolic sphere dimensions.
-
-Negative exponent remains constructible but does not produce concrete typing.
-
-Verified:
-
-```text
-full suite
-1111 passed in 23.41s
-```
+Negative exponent remains constructible but has no concrete typing.
 
 ### 状態
 
@@ -1097,43 +714,19 @@ full suite
 
 ## Phase 21-5：Composition type compatibility predicate
 
-`Composition` に:
+追加:
 
 ```text
-is_type_compatible() -> bool
+Composition.is_type_compatible()
 ```
 
-を追加。
-
-For:
+Checks:
 
 ```text
-α : S^m → S^n
-β : S^p → S^m
-```
-
-checks:
-
-```text
-α.source == β.target
-```
-
-Supported current typed operands:
-
-```text
-HomotopyElement
-Suspension
-IteratedSuspension
+left.source == right.target
 ```
 
 No constructor rejection.
-
-Verified:
-
-```text
-full suite
-1115 passed in 22.76s
-```
 
 ### 状態
 
@@ -1143,32 +736,15 @@ full suite
 
 ## Phase 21-6：mismatch boundary
 
-Production code は変更せず、known mismatch regression を固定。
+Known mismatch:
 
 ```text
-left.source != right.target
-→
-is_type_compatible() == False
+False
 ```
 
-while:
+but mismatched Composition remains constructible.
 
-```text
-mismatched Composition
-=
-constructible
-```
-
-Unknown typing and known mismatch both remain `False` in the current boolean API.
-
-No three-valued compatibility model.
-
-Verified:
-
-```text
-full suite
-1117 passed in 24.13s
-```
+Unknown typing and known mismatch both use the current boolean `False`.
 
 ### 状態
 
@@ -1178,33 +754,20 @@ full suite
 
 ## Phase 21-7：Toda entry composition compatibility
 
-`TodaBracket` に:
+追加:
 
 ```text
-are_defining_compositions_type_compatible()
+TodaBracket.are_defining_compositions_type_compatible()
 ```
 
-を追加。
-
-Checks displayed compositions:
+Checks:
 
 ```text
 first∘second
 second∘third
 ```
 
-by reusing `Composition.is_type_compatible()`.
-
-Both must be confirmed compatible.
-
 No Toda definedness rule change.
-
-Verified:
-
-```text
-full suite
-1121 passed in 23.02s
-```
 
 ### 状態
 
@@ -1213,8 +776,6 @@ full suite
 ---
 
 ## Phase 21-8：representative scenario
-
-Production code は変更せず、typed expression chain を integration regression で固定。
 
 Representative dependency:
 
@@ -1240,13 +801,6 @@ ZERO
 Toda definedness
 ```
 
-Verified:
-
-```text
-full suite
-1123 passed in 22.64s
-```
-
 ### 状態
 
 完了
@@ -1255,29 +809,20 @@ full suite
 
 ## Phase 21-9：final regression / boundary
 
-Production code は変更せず、Phase 21 全体の boundary を final regression で固定。
-
-Checks include:
+Final regression fixed:
 
 ```text
-typed structural equality
-typed / untyped distinction
-Suspension shift
-concrete IteratedSuspension shift
-symbolic exponent boundary
-negative exponent boundary
-Composition compatibility
-known mismatch
-unknown typing
-constructible != compatible
-Toda both-compatible case
-Toda first mismatch
-Toda second mismatch
-Toda unknown typing
+typed != untyped
+symbolic E^t → no concrete dimensions
+negative exponent → no concrete dimensions
+known mismatch → False
+unknown typing → False
+mismatch remains constructible
+Toda mismatch boundaries
 indexed / unindexed structural distinction
 ```
 
-Verified:
+Verified Phase 21 completion:
 
 ```text
 tests/test_expression.py
@@ -1300,65 +845,503 @@ full suite
 
 ---
 
-# Phase 21 completion boundary
+# Phase 22：Structured Generator Representation
+
+Phase 22 は、actual tables / literature notation に現れる generator identity を
+単なる `HomotopyElement.name: str` よりも構造的に保持するための最小 layer
+を追加した。
+
+Target examples:
+
+```text
+ν
+ν′
+decorated ν
+η_n
+μ_n
+ι_n
+```
+
+Stable / unstable classification、generator table、automatic typing、
+indexed Toda theorem applicability は先取りしない。
+
+---
+
+## Phase 22-1：GeneratorSymbol の最小表現
+
+追加:
+
+```text
+GeneratorSymbol
+  family: str
+  index: int | None
+  decoration: str | None
+```
+
+`GeneratorSymbol` は `Expression` ではない。
+
+Representative storage:
+
+```text
+family
+index
+decoration
+```
+
+のみ。
+
+Verified:
+
+```text
+tests/test_expression.py
+92 passed in 0.36s
+```
+
+```text
+full suite
+1127 passed in 22.62s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 22-2：family / index の structural equality
+
+Production code は変更せず regression を追加。
+
+Fixed:
+
+```text
+η₃ == η₃
+η₃ != μ₃
+η₃ != η₄
+η != η₃
+```
+
+`index=None` は wildcard ではない。
+
+Verified:
+
+```text
+tests/test_expression.py
+96 passed in 0.33s
+```
+
+```text
+full suite
+1131 passed in 22.66s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 22-3：decoration の最小表現
+
+Production code は変更せず decoration identity を regression で固定。
+
+Fixed:
+
+```text
+ν′ == ν′
+ν != ν′
+ν′ != barν
+```
+
+`decoration=None` は wildcard ではない。
+
+No decoration normalization.
+
+Verified:
+
+```text
+tests/test_expression.py
+100 passed in 0.33s
+```
+
+```text
+full suite
+1135 passed in 22.53s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 22-4：ν / ν′ / decorated ν の区別
+
+Representative / boundary regression。
+
+Fixed:
+
+```text
+ν
+ν′
+barν
+```
+
+as distinct structured generators.
+
+Also fixed:
+
+```text
+decoration role
+!=
+index role
+```
+
+Example:
+
+```text
+ν′ != ν′₇
+```
+
+Verified:
+
+```text
+tests/test_expression.py
+103 passed in 0.33s
+```
+
+```text
+full suite
+1138 passed in 22.95s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 22-5：η_n / μ_n / ι_n の indexed generator 表現
+
+Representative indexed forms:
+
+```text
+η₃
+μ₃
+ι₇
+```
+
+represented by shared `GeneratorSymbol(family,index)` structure.
+
+Fixed:
+
+```text
+η₃ != μ₃
+ι₇ != ι₈
+```
+
+No indexed-generator subclass.
+
+Verified:
+
+```text
+tests/test_expression.py
+108 passed in 0.34s
+```
+
+```text
+full suite
+1143 passed in 22.57s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 22-6：source / target context との接続
+
+`HomotopyElement` に optional:
+
+```text
+generator: GeneratorSymbol | None
+```
+
+を追加。
+
+Current shape:
+
+```text
+HomotopyElement
+  name
+  dimension
+  source
+  target
+  generator
+```
+
+Role separation:
+
+```text
+GeneratorSymbol
+=
+generator identity / notation
+
+HomotopyElement
+=
+expression + dimension / source / target context
+```
+
+Critical boundary:
+
+```text
+generator notation
+↛
+automatic source / target typing
+```
+
+Verified:
+
+```text
+tests/test_expression.py
+111 passed in 0.50s
+```
+
+```text
+full suite
+1146 passed in 22.59s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 22-7：HomotopyElement との backward compatibility
+
+Production code は変更せず regression を追加。
+
+Fixed:
+
+```text
+HomotopyElement(name,dimension)
+```
+
+remains supported.
+
+Omitted generator equals:
+
+```text
+generator=None
+```
+
+Existing helpers remain unchanged:
+
+```text
+eta()
+nu()
+sigma()
+```
+
+When present, `generator` participates in structural equality.
+
+Verified:
+
+```text
+tests/test_expression.py
+116 passed in 0.38s
+```
+
+```text
+full suite
+1151 passed in 22.39s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 22-8：representative literature scenario
+
+Production code は変更せず actual literature notation に近い integration
+regression を追加。
+
+Representative:
+
+```text
+{η₃,Eν′,ν₇}_1
+```
+
+Storage:
+
+```text
+η₃
+=
+GeneratorSymbol(family="η",index=3)
+
+ν′
+=
+GeneratorSymbol(family="ν",decoration="′")
+
+Eν′
+=
+Suspension(ν′)
+
+ν₇
+=
+GeneratorSymbol(family="ν",index=7)
+
+_1
+=
+TodaBracket.index
+```
+
+No membership inference.
+
+No automatic typing.
+
+Verified:
+
+```text
+tests/test_expression.py
+117 passed in 0.39s
+```
+
+```text
+full suite
+1152 passed in 22.56s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 22-9：regression / boundary
+
+Final regression fixed the full Phase 22 boundary.
+
+Checks include:
+
+```text
+GeneratorSymbol is not Expression
+ν / ν′ / barν distinct
+η₃ / μ₃ distinct
+ι₇ / ι₈ distinct
+generator + source / target coexist
+generator does not derive typing
+name / generator mismatch remains constructible
+legacy eta()/nu()/sigma() unchanged
+Suspension preserves underlying generator identity
+{η₃,Eν′,ν₇}_1 remains lossless
+```
+
+Verified:
+
+```text
+tests/test_expression.py
+118 passed in 0.44s
+```
+
+```text
+full suite
+1153 passed in 24.83s
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 22 completion boundary
 
 Implemented:
 
 ```text
-HomotopyElement.source
-HomotopyElement.target
-typed HomotopyElement structural equality
-Suspension source / target shift
-concrete IteratedSuspension source / target shift
-Composition.is_type_compatible()
-TodaBracket.are_defining_compositions_type_compatible()
+GeneratorSymbol
+GeneratorSymbol.family
+GeneratorSymbol.index
+GeneratorSymbol.decoration
+HomotopyElement.generator
+```
+
+Representative:
+
+```text
+ν
+ν′
+barν
+η₃
+μ₃
+ι₇
+{η₃,Eν′,ν₇}_1
 ```
 
 Important boundaries:
 
 ```text
-typed
+GeneratorSymbol
 !=
-untyped
+Expression
+```
+
+```text
+family / index / decoration
+=
+structural identity
+```
+
+```text
+generator notation
+!=
+automatic typing
+```
+
+```text
+generator identity
+!=
+homotopy operation
+```
+
+```text
+Eν′
+=
+Suspension(ν′)
 ```
 
 ```text
 constructible
 !=
-type-compatible
+validated
 ```
 
 ```text
-symbolic E^t
-!=
-symbolic dimension arithmetic
-```
-
-```text
-type-compatible
-!=
-ZERO
-```
-
-```text
-type-compatible
-!=
-Toda definedness
+legacy HomotopyElement API
+=
+preserved
 ```
 
 Not implemented:
 
 ```text
-constructor typing validation
-three-valued compatibility
-Composition source / target
-symbolic dimension expressions
+decoration normalization
+generator parser / registry
+generator table lookup
+automatic source / target derivation
+name / generator validation
+generator / dimension validation
 ambient homotopy-group validation
 stem validation
-stable / unstable context
+stable / unstable generator classification
+automatic migration of eta()/nu()/sigma()
 Toda definedness typing guard
-indexed Toda theorem applicability from typing
-structured generator representation
+indexed Toda theorem applicability
 stable homotopy groups
 stable Toda brackets
 higher Toda brackets
@@ -1374,17 +1357,12 @@ Current verified status:
 
 ```text
 tests/test_expression.py
-90 passed in 0.33s
-```
-
-```text
-tests/test_toda_rules.py
-44 passed in 0.73s
+118 passed in 0.44s
 ```
 
 ```text
 full suite
-1125 passed in 22.75s
+1153 passed in 24.83s
 ```
 
 ---
@@ -1396,7 +1374,7 @@ python -m pytest tests/test_expression.py -q
 ```
 
 ```text
-90 passed in 0.33s
+118 passed in 0.44s
 ```
 
 ```powershell
@@ -1404,44 +1382,51 @@ python -m pytest -q
 ```
 
 ```text
-1125 passed in 22.75s
+1153 passed in 24.83s
 ```
 
 No failures.
 
 ---
 
-# Phase 22 boundary
+# Next boundary
 
 Natural next candidate:
 
 ```text
-Phase 22
-structured generator representation
+Phase 23
+Indexed Toda theorem / validity connection
 ```
 
-Purpose:
+Potential direction:
 
 ```text
-actual tables / literature notation
+indexed theorem fact
++
+matching indexed bracket
++
+required bracket definedness
++
+explicit structural / typing side conditions
+↓
+indexed Toda membership
 ```
 
-に必要な generator identity を lossless に保持する。
+Use actual literature-backed facts.
 
-Potential information:
+Do not infer theorem applicability merely from:
 
 ```text
-family
-index
-decoration
-source
-target
-stable / unstable role
+IndexedTodaBracketData.is_consistent() == True
 ```
 
-Actual source need のない field は先取りしない。
+or:
 
-Indexed Toda theorem applicability、stable homotopy、stable Toda notation は後続 layer。
+```text
+TodaBracket.are_defining_compositions_type_compatible() == True
+```
+
+Stable homotopy representation and stable Toda notation remain later layers.
 
 ---
 
