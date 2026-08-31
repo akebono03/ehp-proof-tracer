@@ -426,6 +426,70 @@ def test_phase22_7_generator_does_not_change_existing_typed_equality_semantics()
   assert left != right
 
 
+def test_phase22_8_representative_literature_generator_scenario():
+  eta_3_generator = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+  nu_prime_generator = GeneratorSymbol(
+    family="ν",
+    decoration="′",
+  )
+  nu_7_generator = GeneratorSymbol(
+    family="ν",
+    index=7,
+  )
+
+  eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=eta_3_generator,
+  )
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    generator=nu_prime_generator,
+  )
+  nu_7 = HomotopyElement(
+    name="ν₇",
+    dimension=7,
+    generator=nu_7_generator,
+  )
+
+  suspended_nu_prime = Suspension(
+    expression=nu_prime,
+  )
+
+  bracket = TodaBracket(
+    first=eta_3,
+    second=suspended_nu_prime,
+    third=nu_7,
+    index=1,
+  )
+
+  assert eta_3.generator == GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+  assert nu_prime.generator == GeneratorSymbol(
+    family="ν",
+    decoration="′",
+  )
+  assert nu_7.generator == GeneratorSymbol(
+    family="ν",
+    index=7,
+  )
+
+  assert bracket.first == eta_3
+  assert bracket.second == Suspension(
+    expression=nu_prime,
+  )
+  assert bracket.third == nu_7
+  assert bracket.index == 1
+
+  assert bracket.second.expression.generator == nu_prime_generator
+
+
 def test_homotopy_element():
   element = HomotopyElement(
     name="η",
