@@ -129,6 +129,53 @@ def test_phase22_2_generator_symbol_indexed_and_unindexed_are_not_equal():
   assert eta != eta_3
 
 
+def test_phase22_3_generator_symbol_same_decoration_are_equal():
+  left = GeneratorSymbol(
+    family="ν",
+    decoration="′",
+  )
+  right = GeneratorSymbol(
+    family="ν",
+    decoration="′",
+  )
+
+  assert left == right
+
+
+def test_phase22_3_generator_symbol_plain_and_decorated_are_not_equal():
+  nu_plain = GeneratorSymbol(
+    family="ν",
+  )
+  nu_prime = GeneratorSymbol(
+    family="ν",
+    decoration="′",
+  )
+
+  assert nu_plain != nu_prime
+
+
+def test_phase22_3_generator_symbol_different_decorations_are_not_equal():
+  nu_prime = GeneratorSymbol(
+    family="ν",
+    decoration="′",
+  )
+  nu_bar = GeneratorSymbol(
+    family="ν",
+    decoration="bar",
+  )
+
+  assert nu_prime != nu_bar
+
+
+def test_phase22_3_generator_symbol_decoration_is_preserved():
+  symbol = GeneratorSymbol(
+    family="ν",
+    decoration="bar",
+  )
+
+  assert symbol.decoration == "bar"
+
+
 def test_homotopy_element():
   element = HomotopyElement(
     name="η",
