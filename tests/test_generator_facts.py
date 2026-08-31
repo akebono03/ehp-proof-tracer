@@ -6,7 +6,9 @@ from generator_facts import (
   ETA_3_AMBIENT_GROUP_FACT,
   ETA_3_GENERATOR,
   ETA_3_TYPING_FACT,
+  GENERATOR_FACT_REPOSITORY,
   GeneratorAmbientGroupFact,
+  GeneratorFactRepository,
   GeneratorTypingFact,
 )
 
@@ -504,6 +506,109 @@ def test_phase25_4_eta_3_representative_does_not_type_homotopy_element_automatic
   assert element.source is None
   assert element.target is None
 
+
+def test_phase25_5_generator_fact_repository_is_empty_by_default():
+  repository = GeneratorFactRepository()
+
+  assert repository.typing_facts == ()
+  assert repository.ambient_group_facts == ()
+
+
+def test_phase25_5_production_repository_preserves_eta_3_facts():
+  assert (
+    GENERATOR_FACT_REPOSITORY.typing_facts
+    == (
+      ETA_3_TYPING_FACT,
+    )
+  )
+
+  assert (
+    GENERATOR_FACT_REPOSITORY.ambient_group_facts
+    == (
+      ETA_3_AMBIENT_GROUP_FACT,
+    )
+  )
+
+
+def test_phase25_5_repository_lookup_returns_eta_3_typing_fact():
+  result = (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_typing(
+      ETA_3_GENERATOR
+    )
+  )
+
+  assert result is ETA_3_TYPING_FACT
+
+
+def test_phase25_5_repository_lookup_returns_eta_3_ambient_group_fact():
+  result = (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_ambient_group(
+      ETA_3_GENERATOR
+    )
+  )
+
+  assert result is (
+    ETA_3_AMBIENT_GROUP_FACT
+  )
+
+
+def test_phase25_5_repository_lookup_returns_none_for_unknown_generator():
+  unknown_generator = GeneratorSymbol(
+    family="η",
+    index=4,
+  )
+
+  typing_result = (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_typing(
+      unknown_generator
+    )
+  )
+
+  ambient_result = (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_ambient_group(
+      unknown_generator
+    )
+  )
+
+  assert typing_result is None
+  assert ambient_result is None
+
+
+def test_phase25_5_repository_lookup_does_not_type_homotopy_element_automatically():
+  element = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=ETA_3_GENERATOR,
+  )
+
+  typing_fact = (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_typing(
+      element.generator
+    )
+  )
+
+  ambient_fact = (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_ambient_group(
+      element.generator
+    )
+  )
+
+  assert typing_fact is (
+    ETA_3_TYPING_FACT
+  )
+
+  assert ambient_fact is (
+    ETA_3_AMBIENT_GROUP_FACT
+  )
+
+  assert element.source is None
+  assert element.target is None
 
 
 
