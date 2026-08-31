@@ -490,6 +490,121 @@ def test_phase22_8_representative_literature_generator_scenario():
   assert bracket.second.expression.generator == nu_prime_generator
 
 
+def test_phase22_9_structured_generator_final_regression_and_boundary():
+  nu_plain = GeneratorSymbol(
+    family="ν",
+  )
+  nu_prime = GeneratorSymbol(
+    family="ν",
+    decoration="′",
+  )
+  nu_bar = GeneratorSymbol(
+    family="ν",
+    decoration="bar",
+  )
+  eta_3_generator = GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+  mu_3_generator = GeneratorSymbol(
+    family="μ",
+    index=3,
+  )
+  iota_7_generator = GeneratorSymbol(
+    family="ι",
+    index=7,
+  )
+
+  assert not isinstance(
+    nu_plain,
+    Expression,
+  )
+
+  assert nu_plain != nu_prime
+  assert nu_plain != nu_bar
+  assert nu_prime != nu_bar
+
+  assert eta_3_generator != mu_3_generator
+  assert iota_7_generator != GeneratorSymbol(
+    family="ι",
+    index=8,
+  )
+
+  eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    source=4,
+    target=3,
+    generator=eta_3_generator,
+  )
+
+  assert eta_3.generator == eta_3_generator
+  assert eta_3.source == 4
+  assert eta_3.target == 3
+
+  untyped_eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=eta_3_generator,
+  )
+
+  assert untyped_eta_3.source is None
+  assert untyped_eta_3.target is None
+
+  inconsistent_name_and_generator = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=mu_3_generator,
+  )
+
+  assert inconsistent_name_and_generator.generator == mu_3_generator
+
+  legacy_eta = eta(3)
+
+  assert legacy_eta == HomotopyElement(
+    name="η",
+    dimension=3,
+  )
+  assert legacy_eta.generator is None
+
+  nu_prime_element = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    generator=nu_prime,
+  )
+  suspended_nu_prime = Suspension(
+    expression=nu_prime_element,
+  )
+
+  assert suspended_nu_prime.expression.generator == nu_prime
+  assert suspended_nu_prime.source is None
+  assert suspended_nu_prime.target is None
+
+  nu_7 = HomotopyElement(
+    name="ν₇",
+    dimension=7,
+    generator=GeneratorSymbol(
+      family="ν",
+      index=7,
+    ),
+  )
+
+  bracket = TodaBracket(
+    first=untyped_eta_3,
+    second=suspended_nu_prime,
+    third=nu_7,
+    index=1,
+  )
+
+  assert bracket.first.generator == eta_3_generator
+  assert bracket.second.expression.generator == nu_prime
+  assert bracket.third.generator == GeneratorSymbol(
+    family="ν",
+    index=7,
+  )
+  assert bracket.index == 1
+
+
 def test_homotopy_element():
   element = HomotopyElement(
     name="η",
