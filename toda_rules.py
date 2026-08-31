@@ -147,6 +147,8 @@ def indexed_toda_bracket_membership_from_theorem_inference_rule(
 
     return (
       indexed_data.is_consistent()
+      and indexed_data.bracket
+      .are_defining_compositions_type_compatible()
       and theorem_statement.bracket
       == indexed_data.bracket
       and defined_statement.bracket
@@ -170,13 +172,15 @@ def indexed_toda_bracket_membership_from_theorem_inference_rule(
   return InferenceRule(
     name=(
       "Indexed Toda membership theorem "
-      "bridge with structural consistency"
+      "bridge with structural and typing guards"
     ),
     description=(
       "A matching indexed Toda theorem fact "
       "and definedness derive membership only "
       "when the supplied indexed bracket data "
-      "is structurally consistent."
+      "is structurally consistent and its "
+      "displayed defining compositions are "
+      "type-compatible."
     ),
     premise_patterns=(
       PremisePattern(
