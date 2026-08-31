@@ -1,4 +1,5 @@
 from expression import (
+  GeneratorSymbol,
   HomotopyElement,
   Suspension,
   TodaBracket,
@@ -7,6 +8,8 @@ from expression import (
 )
 from proof import LiteratureReference
 from theorem_facts import (
+  EPSILON_3_TODA_MEMBERSHIP_FACT,
+  THEOREM_FACT_REPOSITORY,
   TheoremFactEntry,
   TheoremFactRepository,
 )
@@ -122,6 +125,59 @@ def test_phase24_2_theorem_fact_entry_preserves_literature_reference():
 
   assert entry.reference.year == 1962
   assert entry.reference.locator == "Chapter VI"
+
+
+def test_phase24_3_registers_epsilon_3_toda_membership_fact():
+  entry = EPSILON_3_TODA_MEMBERSHIP_FACT
+  theorem = entry.statement
+
+  assert THEOREM_FACT_REPOSITORY.entries == (
+    EPSILON_3_TODA_MEMBERSHIP_FACT,
+  )
+
+  assert entry.reference == LiteratureReference(
+    label="Toda",
+  )
+
+  assert theorem.element == HomotopyElement(
+    name="ε₃",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="ε",
+      index=3,
+    ),
+  )
+
+  assert theorem.bracket == TodaBracket(
+    first=HomotopyElement(
+      name="η₃",
+      dimension=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    ),
+    second=Suspension(
+      HomotopyElement(
+        name="ν′",
+        dimension=3,
+        generator=GeneratorSymbol(
+          family="ν",
+          decoration="′",
+        ),
+      ),
+    ),
+    third=HomotopyElement(
+      name="ν₇",
+      dimension=7,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=7,
+      ),
+    ),
+    index=1,
+  )
+
 
 
 
