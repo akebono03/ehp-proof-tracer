@@ -1,4 +1,7 @@
-from dataclasses import dataclass
+from dataclasses import (
+  dataclass,
+  replace,
+)
 
 from expression import (
   GeneratorSymbol,
@@ -16,6 +19,14 @@ from toda_rules import (
 class TheoremFactEntry:
   statement: TodaBracketMembershipTheoremStatement
   reference: LiteratureReference
+
+  def materialize_statement(
+    self,
+  ) -> TodaBracketMembershipTheoremStatement:
+    return replace(
+      self.statement,
+      source=self.reference,
+    )
 
 
 @dataclass(frozen=True)

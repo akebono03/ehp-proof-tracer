@@ -207,6 +207,39 @@ def test_phase24_4_repository_lookup_returns_none_for_unknown_fact():
   assert result is None
 
 
+def test_phase24_5_materializes_statement_with_literature_source():
+  entry = THEOREM_FACT_REPOSITORY.lookup(
+    EPSILON_3_TODA_MEMBERSHIP_FACT.statement,
+  )
+
+  assert entry is not None
+
+  statement = entry.materialize_statement()
+
+  assert statement.element == entry.statement.element
+  assert statement.bracket == entry.statement.bracket
+  assert statement.note == entry.statement.note
+  assert statement.source == entry.reference
+
+
+def test_phase24_5_materialization_does_not_mutate_stored_statement():
+  entry = EPSILON_3_TODA_MEMBERSHIP_FACT
+
+  original_statement = entry.statement
+
+  materialized_statement = entry.materialize_statement()
+
+  assert original_statement.source is None
+
+  assert materialized_statement.source == (
+    entry.reference
+  )
+
+  assert materialized_statement is not original_statement
+
+  assert entry.statement is original_statement
+  assert entry.statement.source is None
+
 
 
 
