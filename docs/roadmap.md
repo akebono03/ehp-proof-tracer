@@ -17,7 +17,7 @@
 
 ---
 
-# 2. Phase 23 完了時点の実装基盤
+# 2. Phase 24 完了時点の実装基盤
 
 Implemented foundations:
 
@@ -71,6 +71,19 @@ indexed guarded theorem → membership bridge
 actual ε₃ ∈ {η₃,Eν′,ν₇}_1 representative bridge
 indexed / unindexed membership separation
 indexed theorem provenance regression
+TheoremFactEntry
+TheoremFactRepository
+LiteratureReference-backed theorem fact entry
+registered ε₃ Toda membership theorem fact
+THEOREM_FACT_REPOSITORY
+structural theorem-fact lookup
+unknown / empty lookup boundary
+duplicate structural theorem rejection
+statement materialization with source provenance
+repository theorem fact → ProofStep.GIVEN
+repository ε₃ end-to-end representative
+repository provenance exclusion regression
+repository inference fixed-point regression
 ```
 
 Current expression structures:
@@ -95,6 +108,8 @@ ScalarSymbol
 GeneratorSymbol
 TodaBracket
 IndexedTodaBracketData
+TheoremFactEntry
+TheoremFactRepository
 ```
 
 Current representative canonical indexed form:
@@ -107,6 +122,14 @@ Current representative actual literature form:
 
 ```text
 ε₃ ∈ {η₃,Eν′,ν₇}_1
+```
+
+Current repository representative:
+
+```text
+EPSILON_3_TODA_MEMBERSHIP_FACT
+↓
+THEOREM_FACT_REPOSITORY
 ```
 
 ---
@@ -147,6 +170,12 @@ structured generator identity
 typing theorem
 ```
 
+```text
+stored repository fact
+≠
+derived mathematical conclusion
+```
+
 ## 3.3 不定性を消さない
 
 ```text
@@ -180,9 +209,9 @@ constraint / membership / theorem fact を first-class knowledge として保持
 
 Domain-specific validity は statement / rule / guard 側に置く。
 
-## 3.7 canonical representation と literature-specific representation を無理に統合しない
+Repository semantics も generic inference engine から分離する。
 
-Current example:
+## 3.7 canonical representation と literature-specific representation を無理に統合しない
 
 ```text
 canonical:
@@ -196,6 +225,16 @@ specific literature:
 
 同じ数学的テーマでも current structural roles が異なる場合は、
 実際の theorem requirement が出るまで無理に normalization しない。
+
+## 3.8 repository identity を早すぎる汎用 key system にしない
+
+Current Phase 24 lookup identity:
+
+```text
+structural theorem statement
+```
+
+Fact key / stable ID / external schema は actual need が出てから導入する。
 
 ---
 
@@ -214,6 +253,7 @@ Phase 20  Indexed unstable Toda notation
 Phase 21  Typed homotopy elements / source-target context
 Phase 22  Structured generator representation
 Phase 23  Indexed Toda theorem / validity connection
+Phase 24  Theorem fact / knowledge-table integration
 ```
 
 All completed.
@@ -228,17 +268,6 @@ Implemented:
 TodaBracket(a,b,c)
 TodaBracketDefinedStatement
 TodaBracketMembershipStatement
-```
-
-Bridge:
-
-```text
-a∘b=0
-b∘c=0
-↓
-ZERO
-↓
-{a,b,c} defined
 ```
 
 Safety:
@@ -259,12 +288,6 @@ exact equality
 
 # 6. Phase 19 完了：first Toda theorem bridge
 
-Actual source notation:
-
-```text
-ε₃ ∈ {η₃,Eν′,ν₇}_1
-```
-
 Implemented:
 
 ```text
@@ -281,9 +304,7 @@ matching definedness
 membership
 ```
 
-Phase 19 では `_1` をまだ lossless に保持できなかった。
-
-That gap became the immediate Phase 20 requirement.
+The indexed-loss gap became Phase 20's requirement.
 
 ---
 
@@ -298,7 +319,7 @@ IndexedTodaBracketData
 IndexedTodaBracketData.is_consistent()
 ```
 
-Target structural representation:
+Target:
 
 ```text
 {a,E^t b,E^t c}_t
@@ -318,18 +339,6 @@ is_consistent()
 theorem applicability
 ```
 
-Verified:
-
-```text
-tests/test_expression.py
-64 passed in 1.46s
-```
-
-```text
-full suite
-1098 passed in 61.30s
-```
-
 ---
 
 # 8. Phase 21 完了：Typed Homotopy Elements / Source-Target Context
@@ -345,7 +354,7 @@ Composition.is_type_compatible()
 TodaBracket.are_defining_compositions_type_compatible()
 ```
 
-Critical boundaries:
+Critical:
 
 ```text
 typed
@@ -354,40 +363,11 @@ untyped
 ```
 
 ```text
-constructible
-!=
-type-compatible
-```
-
-```text
-symbolic E^t
-!=
-symbolic dimension arithmetic
-```
-
-```text
 type compatibility
 !=
 ZERO
 !=
 Toda definedness
-```
-
-Verified:
-
-```text
-tests/test_expression.py
-90 passed in 0.33s
-```
-
-```text
-tests/test_toda_rules.py
-44 passed in 0.73s
-```
-
-```text
-full suite
-1125 passed in 22.75s
 ```
 
 ---
@@ -401,17 +381,6 @@ GeneratorSymbol
   family
   index
   decoration
-```
-
-Examples:
-
-```text
-ν
-ν′
-barν
-η₃
-μ₃
-ι₇
 ```
 
 `HomotopyElement` stores:
@@ -428,7 +397,7 @@ generator notation
 automatic source / target typing
 ```
 
-Representative literature structure:
+Representative:
 
 ```text
 {η₃,Eν′,ν₇}_1
@@ -436,23 +405,11 @@ Representative literature structure:
 
 is losslessly representable.
 
-Verified:
-
-```text
-tests/test_expression.py
-118 passed in 0.44s
-```
-
-```text
-full suite
-1153 passed in 24.83s
-```
-
 ---
 
 # 10. Phase 23 完了：Indexed Toda theorem / validity connection
 
-Phase 23 は:
+Phase 23 connected:
 
 ```text
 indexed Toda structure
@@ -464,88 +421,9 @@ structured generator identity
 actual theorem fact
 ```
 
-を membership inference に接続した。
+to membership inference.
 
-## 10.1 theorem fact
-
-既存:
-
-```text
-TodaBracketMembershipTheoremStatement
-```
-
-を再利用。
-
-No parallel indexed theorem class.
-
-## 10.2 bracket-index match
-
-Whole-bracket structural equality により:
-
-```text
-_1 == _1
-_1 != _2
-_1 != None
-```
-
-を theorem applicability に反映。
-
-## 10.3 generator structure match
-
-Theorem / definedness matching は:
-
-```text
-GeneratorSymbol.family
-GeneratorSymbol.index
-GeneratorSymbol.decoration
-```
-
-まで含む。
-
-## 10.4 definedness dependency
-
-```text
-theorem alone
-↛ membership
-
-definedness alone
-↛ membership
-
-theorem + matching definedness
-→ membership
-```
-
-## 10.5 canonical indexed guarded bridge
-
-追加:
-
-```text
-indexed_toda_bracket_membership_from_theorem_inference_rule(
-  indexed_data
-)
-```
-
-Canonical target:
-
-```text
-{a,E^t b,E^t c}_t
-```
-
-Requires:
-
-```text
-indexed_data.is_consistent()
-```
-
-and:
-
-```text
-bracket.are_defining_compositions_type_compatible()
-```
-
-plus matching theorem / definedness.
-
-Therefore:
+General canonical bridge:
 
 ```text
 theorem
@@ -559,153 +437,215 @@ typing compatibility
 membership
 ```
 
-## 10.6 invalid canonical cases
-
-Reject:
+Specific actual bridge:
 
 ```text
-index / exponent mismatch
-entry / base mismatch
-known typing mismatch
-unknown typing
+ε₃ theorem fact
++
+matching definedness
+↓
+ε₃ ∈ {η₃,Eν′,ν₇}_1
 ```
 
-## 10.7 actual ε₃ representative
+Critical:
 
-Actual:
+```text
+Suspension(ν′)
+!=
+IteratedSuspension(ν′,1)
+```
+
+```text
+indexed membership
+!=
+unindexed membership
+```
+
+No generator lookup.
+
+No automatic typing.
+
+Generic inference engine unchanged.
+
+---
+
+# 11. Phase 24 完了：Theorem fact / knowledge-table integration
+
+Phase 24 added a minimal literature-backed theorem repository.
+
+Dependency:
+
+```text
+structured theorem fact
++
+LiteratureReference
+↓
+TheoremFactEntry
+↓
+TheoremFactRepository
+↓
+ProofStep.GIVEN
+↓
+existing inference rule
+↓
+proof graph
+```
+
+## 11.1 Repository representation
+
+Implemented:
+
+```text
+TheoremFactEntry
+TheoremFactRepository
+```
+
+Current narrow fact family:
+
+```text
+TodaBracketMembershipTheoremStatement
+```
+
+No universal theorem schema.
+
+## 11.2 Literature provenance
+
+Each fact entry stores:
+
+```text
+statement
+reference
+```
+
+using existing:
+
+```text
+LiteratureReference
+```
+
+`materialize_statement()` explicitly transfers:
+
+```text
+entry.reference
+→ statement.source
+```
+
+without mutating stored repository data.
+
+## 11.3 Actual registered fact
+
+Production representative:
+
+```text
+EPSILON_3_TODA_MEMBERSHIP_FACT
+```
+
+for:
 
 ```text
 ε₃ ∈ {η₃,Eν′,ν₇}_1
 ```
 
-uses:
+registered in:
 
 ```text
-Eν′ = Suspension(ν′)
-ν₇ = structured generator
-index = 1
+THEOREM_FACT_REPOSITORY
 ```
 
-It is not forced into canonical `IndexedTodaBracketData`.
+## 11.4 Lookup
 
-Specific theorem uses narrow literature bridge:
+Current API:
 
 ```text
-specific theorem fact
+repository.lookup(statement)
+```
+
+Behavior:
+
+```text
+known → entry
+unknown → None
+empty → None
+```
+
+No fact key / ID.
+
+## 11.5 Duplicate boundary
+
+Current theorem identity is structural statement equality.
+
+Therefore:
+
+```text
+same theorem statement
 +
-exactly matching definedness
-↓
-membership
+another reference
+→ duplicate
+→ reject
 ```
 
-## 10.8 provenance
+This makes lookup result unique.
 
-Membership direct provenance:
+## 11.6 ProofStep connection
+
+`TheoremFactEntry.to_proof_step()` reuses the existing Toda theorem helper.
+
+```text
+repository fact
+↓
+materialized theorem
+↓
+ProofStep.GIVEN
+```
+
+No new proof rule.
+
+## 11.7 End-to-end representative
+
+```text
+repository ε₃ theorem fact
+↓
+GIVEN theorem step
++
+matching definedness
+↓
+existing Toda theorem bridge
+↓
+ε₃ ∈ {η₃,Eν′,ν₇}_1
+```
+
+## 11.8 Provenance / scope
+
+Direct premises remain:
 
 ```text
 theorem_step
 defined_step
 ```
 
-Unrelated facts are excluded.
+Unrelated repository theorem steps are excluded.
 
-Theorem source / note are preserved.
+Matching membership is not duplicated.
 
-## 10.9 indexed / unindexed separation
-
-```text
-ε₃ ∈ {η₃,Eν′,ν₇}_1
-```
-
-does not automatically create:
+Inference reaches:
 
 ```text
-ε₃ ∈ {η₃,Eν′,ν₇}
-```
-
-Phase 19 の `_1` loss limitation は解消。
-
-Verified Phase 23 completion:
-
-```text
-tests/test_toda_rules.py
-66 passed in 1.01s
-```
-
-```text
-full suite
-1175 passed in 22.96s
+FIXED_POINT
 ```
 
 Generic inference engine unchanged.
 
----
-
-# 11. Phase 24 candidate：Theorem fact / knowledge-table integration
-
-Natural next dependency:
+Verified:
 
 ```text
-structured theorem facts
-+
-LiteratureReference
-+
-current Statement / Relation models
-↓
-knowledge repository / table
-↓
-ProofStep.GIVEN
-↓
-existing inference rules
-```
-
-Phase 23 では theorem fact を Python code 上で直接組み立てている。
-
-Phase 24 candidate では、actual literature-backed facts を:
-
-```text
-data / table
-↓
-structured theorem statement
-↓
-proof graph
-```
-
-へ供給する最小 layer を検討する。
-
-Important:
-
-```text
-knowledge table
-!=
-universal theorem prover
+tests/test_theorem_facts.py
+15 passed
 ```
 
 ```text
-stored fact
-!=
-automatically applicable theorem
+full suite
+1190 passed in 61.30s
 ```
-
-```text
-source metadata
-=
-must remain attached
-```
-
-Potential first targets:
-
-```text
-Toda membership theorem facts
-composition facts
-order facts
-Hopf-invariant facts
-generator identity facts
-```
-
-ただし最初からすべてを共通 schema に押し込まない。
-
-Actual repeated need がある fact family から始める。
 
 ---
 
@@ -724,33 +664,31 @@ side conditions
 conclusion
 ```
 
-Current `InferenceRule` and narrow theorem statements should be reused where possible.
+Current `InferenceRule`, narrow theorem statements, and Phase 24 repository should
+be reused where possible.
 
-Only generalize theorem representation when actual theorem requirements prove that
-the current narrow bridge is insufficient.
+Only generalize theorem representation when actual quantified theorem
+requirements prove that the current narrow model is insufficient.
 
-Phase 24 candidate はまず theorem fact repository / loading を優先し、
-general quantified theorem language は deferred とするのが安全。
+Phase 24 did not introduce a universal theorem language.
 
 ---
 
 # 13. Knowledge Tables
 
-Goal:
+Current implemented slice:
 
 ```text
-table / repository
+Toda membership theorem fact
 ↓
-known fact
+TheoremFactRepository
 ↓
-Statement / Relation
+ProofStep.GIVEN
 ↓
-InferenceRule
-↓
-derived conclusion
+existing Toda inference
 ```
 
-Possible inputs:
+Long-term possible inputs remain:
 
 ```text
 π_n(S^k)=G
@@ -764,33 +702,27 @@ generator identity / typing facts
 
 Literature provenance must remain attached.
 
-Potential later use:
+Do not immediately force all fact families into one universal schema.
+
+Actual repeated need should drive generalization.
+
+---
+
+# 14. Phase 25 candidate：Generator typing / ambient-group facts
+
+Natural next dependency:
 
 ```text
 GeneratorSymbol
 +
-generator table
+explicit generator fact
 ↓
-explicit source / target / ambient group fact
+source / target / ambient-group knowledge
+↓
+typed theorem applicability
 ```
 
-but Phase 22/23 deliberately do not perform this lookup automatically.
-
----
-
-# 14. Generator typing / ambient-group facts
-
-Potential later layer:
-
-```text
-generator fact
-+
-source / target table
-↓
-explicit typing knowledge
-```
-
-Examples may eventually include:
+Potential examples:
 
 ```text
 η_n
@@ -807,9 +739,31 @@ GeneratorSymbol
 automatic typing
 ```
 
-until an explicit fact/table layer is introduced.
+and:
 
-Do not silently derive typing from generator index.
+```text
+GeneratorSymbol.index
+↛
+source / target
+```
+
+unless explicit fact knowledge supplies the connection.
+
+Phase 25 should determine the first actual generator fact family before choosing
+a table schema.
+
+Possible minimal targets:
+
+```text
+generator identity
+→ explicit source / target fact
+
+generator identity
+→ ambient π_m(S^n) fact
+```
+
+but the exact first representation should be chosen from actual mathematical
+need.
 
 ---
 
@@ -838,7 +792,7 @@ stabilization theorem
 not notation-only conversion.
 
 Generator identity may eventually be shared between stable and unstable contexts,
-but the context must remain explicit.
+but context must remain explicit.
 
 ---
 
@@ -871,8 +825,6 @@ Stable degree / stem convention must be fixed before theorem checking.
 Higher / variable-arity brackets remain deferred until concrete literature
 examples require them.
 
-Do not infer bracket order solely from entry count.
-
 Distinguish:
 
 ```text
@@ -882,6 +834,8 @@ bracket index
 stem
 stable / unstable context
 ```
+
+Do not infer bracket order solely from entry count.
 
 ---
 
@@ -914,9 +868,7 @@ Potential goal-directed / divisibility-statement approach.
 # 19. Recommended future order
 
 ```text
-Phase 24 candidate
-Theorem fact / knowledge-table integration
-        ↓
+Phase 25 candidate
 Generator typing / ambient-group facts
         ↓
 Theorem representation generalization
@@ -931,7 +883,18 @@ Higher Toda bracket
   only when actual examples require it
 ```
 
-Phase 24 以降の numbering は provisional。
+Possible parallel / later knowledge-table work:
+
+```text
+external JSON / YAML loader
+fact key / stable ID
+multiple-source bibliography
+additional fact families
+```
+
+should be added only when actual data-management requirements arise.
+
+Phase 25 以降の numbering は provisional。
 
 Actual mathematical need に応じて再配置可能。
 
@@ -957,40 +920,45 @@ Actual mathematical need に応じて再配置可能。
 | Toda bracket membership | IMPLEMENTED | Phase 18 |
 | Toda bracket definedness | IMPLEMENTED | Phase 18 |
 | Toda theorem + definedness → membership | IMPLEMENTED | Phase 19 |
-| literature-backed ε₃ Toda bridge | IMPLEMENTED | Phase 19 / Phase 23 actual indexed form |
-| Toda bracket concrete index | IMPLEMENTED | Phase 20 |
-| Toda bracket symbolic index | IMPLEMENTED | Phase 20 |
-| `IteratedSuspension(α,n)` | IMPLEMENTED | Phase 20 |
-| `IteratedSuspension(α,t)` | IMPLEMENTED | Phase 20 |
+| literature-backed ε₃ Toda bridge | IMPLEMENTED | Phase 19 / Phase 23 |
+| Toda bracket concrete / symbolic index | IMPLEMENTED | Phase 20 |
+| `IteratedSuspension` | IMPLEMENTED | Phase 20 |
 | `IndexedTodaBracketData` | IMPLEMENTED | Phase 20 |
 | `{a,E^t b,E^t c}_t` structural form | IMPLEMENTED | Phase 20 |
 | indexed Toda consistency predicate | IMPLEMENTED | Phase 20 |
 | typed source / target | IMPLEMENTED | Phase 21 |
-| Suspension source / target shift | IMPLEMENTED | Phase 21 |
-| concrete IteratedSuspension source / target shift | IMPLEMENTED | Phase 21 |
+| Suspension typing shift | IMPLEMENTED | Phase 21 |
+| concrete IteratedSuspension typing shift | IMPLEMENTED | Phase 21 |
 | Composition type compatibility | IMPLEMENTED | Phase 21 |
 | Toda entry composition compatibility | IMPLEMENTED | Phase 21 |
 | `GeneratorSymbol` | IMPLEMENTED | Phase 22 |
 | generator family / index / decoration | IMPLEMENTED | Phase 22 |
-| `ν / ν′ / decorated ν` distinction | IMPLEMENTED | Phase 22 |
-| `η_n / μ_n / ι_n` structured notation | IMPLEMENTED | Phase 22 |
 | `HomotopyElement.generator` | IMPLEMENTED | Phase 22 |
-| generator + source / target coexistence | IMPLEMENTED | Phase 22 |
-| legacy HomotopyElement compatibility | IMPLEMENTED | Phase 22 |
-| `{η₃,Eν′,ν₇}_1` structured-generator form | IMPLEMENTED | Phase 22 |
+| structured `{η₃,Eν′,ν₇}_1` | IMPLEMENTED | Phase 22 |
 | indexed theorem fact preservation | IMPLEMENTED | Phase 23 |
 | bracket-index theorem matching | IMPLEMENTED | Phase 23 |
 | generator-structure theorem matching | IMPLEMENTED | Phase 23 |
 | indexed theorem + definedness → membership | IMPLEMENTED | Phase 23 |
-| canonical indexed structural guard | IMPLEMENTED | Phase 23 |
-| canonical indexed typing guard | IMPLEMENTED | Phase 23 |
-| canonical guarded theorem bridge | IMPLEMENTED | Phase 23 |
-| actual `ε₃ ∈ {η₃,Eν′,ν₇}_1` bridge | IMPLEMENTED | Phase 23 |
+| canonical indexed structural / typing guards | IMPLEMENTED | Phase 23 |
+| actual indexed ε₃ bridge | IMPLEMENTED | Phase 23 |
 | indexed → unindexed collapse prevention | IMPLEMENTED | Phase 23 |
-| theorem fact / knowledge-table integration | NEXT CANDIDATE | Phase 24 |
-| generator table lookup | PLANNED | actual table need |
-| automatic generator typing | PLANNED | later typing / table layer |
-| ambient homotopy group validation | PLANNED | later typing layer |
+| `TheoremFactEntry` | IMPLEMENTED | Phase 24 |
+| `TheoremFactRepository` | IMPLEMENTED | Phase 24 |
+| LiteratureReference-backed repository entry | IMPLEMENTED | Phase 24 |
+| registered ε₃ theorem fact | IMPLEMENTED | Phase 24 |
+| structural theorem-fact lookup | IMPLEMENTED | Phase 24 |
+| unknown / empty lookup boundary | IMPLEMENTED | Phase 24 |
+| duplicate structural fact rejection | IMPLEMENTED | Phase 24 |
+| theorem statement materialization | IMPLEMENTED | Phase 24 |
+| repository theorem → `ProofStep.GIVEN` | IMPLEMENTED | Phase 24 |
+| repository ε₃ end-to-end representative | IMPLEMENTED | Phase 24 |
+| repository provenance / fixed-point regression | IMPLEMENTED | Phase 24 |
+| external knowledge-table loader | PLANNED | actual file-loading need |
+| fact key / stable ID | PLANNED | actual lookup need |
+| multiple literature sources per fact | PLANNED | actual bibliography need |
+| generator table lookup | NEXT CANDIDATE | Phase 25 |
+| automatic generator typing | PLANNED | explicit fact layer first |
+| ambient homotopy group validation | PLANNED | Phase 25+ |
 | general theorem representation | PLANNED | quantified theorem need |
 | stable homotopy group `π_k^S` | PLANNED | stable context |
 | stable Toda bracket `<a,b,c>` | PLANNED | stable layer required |
@@ -999,97 +967,102 @@ Actual mathematical need に応じて再配置可能。
 
 ---
 
-# 21. Phase 23 completion boundary
+# 21. Phase 24 completion boundary
 
 Implemented:
 
 ```text
-indexed theorem fact
-indexed bracket matching
-structured generator matching
-definedness dependency
-canonical consistency guard
-canonical typing guard
-guarded indexed theorem bridge
-actual ε₃ representative bridge
-provenance boundary
-indexed / unindexed separation
+literature-backed Toda theorem repository
+fact entry + LiteratureReference
+actual ε₃ registered fact
+structural lookup
+unknown / empty lookup
+duplicate statement rejection
+provenance materialization
+ProofStep.GIVEN connection
+actual repository-to-membership representative
+unrelated-fact provenance exclusion
+fixed-point / duplicate-conclusion boundary
 ```
 
-General canonical bridge:
+Actual chain:
 
 ```text
-theorem
-+
-definedness
-+
-consistency
-+
-typing
+EPSILON_3_TODA_MEMBERSHIP_FACT
 ↓
-membership
-```
-
-Specific actual bridge:
-
-```text
-ε₃ theorem fact
+THEOREM_FACT_REPOSITORY
+↓
+lookup
+↓
+materialized theorem
+↓
+ProofStep.GIVEN
 +
 matching definedness
 ↓
+existing Toda theorem bridge
+↓
 ε₃ ∈ {η₃,Eν′,ν₇}_1
+↓
+FIXED_POINT
 ```
 
 Boundary:
 
 ```text
-is_consistent()
+repository fact
 !=
-theorem applicability by itself
+membership
 ```
 
 ```text
-type-compatible
+lookup success
 !=
-Toda definedness
+theorem applicability
 ```
 
 ```text
-Suspension(ν′)
-!=
-IteratedSuspension(ν′,1)
+structural statement
+=
+current lookup identity
 ```
 
 ```text
-canonical guarded bridge
-!=
-specific literature bridge
+fact key
+=
+not implemented
 ```
 
 ```text
-indexed membership
+repository
 !=
-unindexed membership
+universal theorem prover
 ```
 
-No generator lookup.
+```text
+repository
+!=
+external loader
+```
 
-No automatic typing.
-
-No universal theorem prover.
+```text
+GeneratorSymbol
+↛
+automatic typing
+```
 
 Generic inference engine unchanged.
 
 Verified:
 
 ```text
-tests/test_toda_rules.py
-66 passed in 1.01s
+tests/test_theorem_facts.py
+15 passed
 ```
 
 ```text
 full suite
-1175 passed in 22.96s
+1190 passed in 61.30s
 ```
 
 ---
@@ -1149,7 +1122,7 @@ generator / map tables
 +
 structured generator identity
 +
-literature-backed theorem facts
+literature-backed theorem repository
 +
 quantified theorems
 +
@@ -1193,7 +1166,8 @@ coset uncertainty
 Toda-bracket membership
 indexed Toda structure
 structured generator identity
-theorem provenance
+literature provenance
+repository provenance
 stable Toda-bracket membership
 ```
 

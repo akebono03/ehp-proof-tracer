@@ -1,0 +1,538 @@
+from expression import (
+  GeneratorSymbol,
+  HomotopyElement,
+  Suspension,
+  TodaBracket,
+  eta,
+  nu,
+)
+from proof import (
+  InferenceTerminationReason,
+  LiteratureReference,
+  ProofRule,
+  ProofStep,
+  run_inference_until_stable_with_history,
+)
+from theorem_facts import (
+  EPSILON_3_TODA_MEMBERSHIP_FACT,
+  THEOREM_FACT_REPOSITORY,
+  TheoremFactEntry,
+  TheoremFactRepository,
+)
+from toda_rules import (
+  TodaBracketDefinedStatement,
+  TodaBracketMembershipStatement,
+  TodaBracketMembershipTheoremStatement,
+  toda_bracket_membership_from_theorem_inference_rule,
+)
+
+
+def test_phase24_theorem_fact_repository_is_empty_by_default():
+  repository = TheoremFactRepository()
+
+  assert repository.entries == ()
+
+
+def test_phase24_theorem_fact_repository_preserves_toda_theorem_entry():
+  epsilon_3 = HomotopyElement(
+    name="ε",
+    dimension=3,
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  theorem = (
+    TodaBracketMembershipTheoremStatement(
+      element=epsilon_3,
+      bracket=TodaBracket(
+        first=eta(3),
+        second=Suspension(
+          nu_prime,
+        ),
+        third=nu(7),
+        index=1,
+      ),
+    )
+  )
+
+  reference = LiteratureReference(
+    label="Toda",
+  )
+
+  entry = TheoremFactEntry(
+    statement=theorem,
+    reference=reference,
+  )
+
+  repository = TheoremFactRepository(
+    entries=(
+      entry,
+    ),
+  )
+
+  assert repository.entries == (
+    entry,
+  )
+
+  assert repository.entries[0].statement is theorem
+  assert repository.entries[0].reference is reference
+
+
+def test_phase24_2_theorem_fact_entry_preserves_literature_reference():
+  reference = LiteratureReference(
+    label="Toda",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+    locator="Chapter VI",
+  )
+
+  epsilon_3 = HomotopyElement(
+    name="ε",
+    dimension=3,
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+  )
+
+  theorem = (
+    TodaBracketMembershipTheoremStatement(
+      element=epsilon_3,
+      bracket=TodaBracket(
+        first=eta(3),
+        second=Suspension(
+          nu_prime,
+        ),
+        third=nu(7),
+        index=1,
+      ),
+    )
+  )
+
+  entry = TheoremFactEntry(
+    statement=theorem,
+    reference=reference,
+  )
+
+  assert entry.statement == theorem
+  assert entry.reference == reference
+  assert entry.reference.label == "Toda"
+  assert entry.reference.author == "H. Toda"
+
+  assert entry.reference.title == (
+    "Composition Methods in "
+    "Homotopy Groups of Spheres"
+  )
+
+  assert entry.reference.year == 1962
+  assert entry.reference.locator == "Chapter VI"
+
+
+def test_phase24_3_registers_epsilon_3_toda_membership_fact():
+  entry = EPSILON_3_TODA_MEMBERSHIP_FACT
+  theorem = entry.statement
+
+  assert THEOREM_FACT_REPOSITORY.entries == (
+    EPSILON_3_TODA_MEMBERSHIP_FACT,
+  )
+
+  assert entry.reference == LiteratureReference(
+    label="Toda",
+  )
+
+  assert theorem.element == HomotopyElement(
+    name="ε₃",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="ε",
+      index=3,
+    ),
+  )
+
+  assert theorem.bracket == TodaBracket(
+    first=HomotopyElement(
+      name="η₃",
+      dimension=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    ),
+    second=Suspension(
+      HomotopyElement(
+        name="ν′",
+        dimension=3,
+        generator=GeneratorSymbol(
+          family="ν",
+          decoration="′",
+        ),
+      ),
+    ),
+    third=HomotopyElement(
+      name="ν₇",
+      dimension=7,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=7,
+      ),
+    ),
+    index=1,
+  )
+
+
+def test_phase24_4_repository_lookup_returns_matching_entry():
+  result = THEOREM_FACT_REPOSITORY.lookup(
+    EPSILON_3_TODA_MEMBERSHIP_FACT.statement,
+  )
+
+  assert result is EPSILON_3_TODA_MEMBERSHIP_FACT
+
+
+def test_phase24_4_repository_lookup_returns_none_for_unknown_fact():
+  theorem = EPSILON_3_TODA_MEMBERSHIP_FACT.statement
+
+  unknown_theorem = TodaBracketMembershipTheoremStatement(
+    element=theorem.element,
+    bracket=TodaBracket(
+      first=theorem.bracket.first,
+      second=theorem.bracket.second,
+      third=theorem.bracket.third,
+      index=2,
+    ),
+  )
+
+  result = THEOREM_FACT_REPOSITORY.lookup(
+    unknown_theorem,
+  )
+
+  assert result is None
+
+
+def test_phase24_5_materializes_statement_with_literature_source():
+  entry = THEOREM_FACT_REPOSITORY.lookup(
+    EPSILON_3_TODA_MEMBERSHIP_FACT.statement,
+  )
+
+  assert entry is not None
+
+  statement = entry.materialize_statement()
+
+  assert statement.element == entry.statement.element
+  assert statement.bracket == entry.statement.bracket
+  assert statement.note == entry.statement.note
+  assert statement.source == entry.reference
+
+
+def test_phase24_5_materialization_does_not_mutate_stored_statement():
+  entry = EPSILON_3_TODA_MEMBERSHIP_FACT
+
+  original_statement = entry.statement
+
+  materialized_statement = entry.materialize_statement()
+
+  assert original_statement.source is None
+
+  assert materialized_statement.source == (
+    entry.reference
+  )
+
+  assert materialized_statement is not original_statement
+
+  assert entry.statement is original_statement
+  assert entry.statement.source is None
+
+
+def test_phase24_6_theorem_fact_entry_creates_given_proof_step():
+  entry = THEOREM_FACT_REPOSITORY.lookup(
+    EPSILON_3_TODA_MEMBERSHIP_FACT.statement,
+  )
+
+  assert entry is not None
+
+  step = entry.to_proof_step()
+
+  assert step.conclusion == (
+    entry.materialize_statement()
+  )
+
+  assert step.premises == ()
+  assert step.rule == ProofRule.GIVEN
+  assert step.inference_rule is None
+
+
+def test_phase24_6_given_step_preserves_materialized_provenance():
+  entry = EPSILON_3_TODA_MEMBERSHIP_FACT
+
+  step = entry.to_proof_step()
+
+  assert step.conclusion.element == (
+    entry.statement.element
+  )
+
+  assert step.conclusion.bracket == (
+    entry.statement.bracket
+  )
+
+  assert step.conclusion.source == (
+    entry.reference
+  )
+
+  assert step.conclusion.note == (
+    entry.statement.note
+  )
+
+  assert entry.statement.source is None
+
+
+def test_phase24_7_epsilon_3_repository_fact_derives_membership():
+  entry = THEOREM_FACT_REPOSITORY.lookup(
+    EPSILON_3_TODA_MEMBERSHIP_FACT.statement,
+  )
+
+  assert entry is not None
+
+  theorem_step = entry.to_proof_step()
+
+  defined_step = ProofStep(
+    conclusion=TodaBracketDefinedStatement(
+      bracket=entry.statement.bracket,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  membership_rule = (
+    toda_bracket_membership_from_theorem_inference_rule()
+  )
+
+  result = run_inference_until_stable_with_history(
+    membership_rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  membership = TodaBracketMembershipStatement(
+    element=entry.statement.element,
+    bracket=entry.statement.bracket,
+    source=entry.reference,
+    note=entry.statement.note,
+  )
+
+  derived_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == membership
+  )
+
+  assert derived_step.rule == ProofRule.INFERENCE
+
+  assert derived_step.inference_rule == (
+    membership_rule
+  )
+
+  assert derived_step.premises == (
+    theorem_step,
+    defined_step,
+  )
+
+  assert derived_step.conclusion.element == (
+    entry.statement.element
+  )
+
+  assert derived_step.conclusion.bracket == (
+    entry.statement.bracket
+  )
+
+  assert derived_step.conclusion.source == (
+    entry.reference
+  )
+
+  assert derived_step.conclusion.note == (
+    entry.statement.note
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+
+def test_phase24_8_repository_rejects_duplicate_statements():
+  first_entry = EPSILON_3_TODA_MEMBERSHIP_FACT
+
+  second_entry = TheoremFactEntry(
+    statement=first_entry.statement,
+    reference=LiteratureReference(
+      label="Other source",
+    ),
+  )
+
+  try:
+    TheoremFactRepository(
+      entries=(
+        first_entry,
+        second_entry,
+      ),
+    )
+  except ValueError as error:
+    assert str(error) == (
+      "duplicate theorem fact statement"
+    )
+  else:
+    raise AssertionError(
+      "duplicate theorem fact statement "
+      "was not rejected"
+    )
+
+
+def test_phase24_8_empty_repository_lookup_returns_none():
+  repository = TheoremFactRepository()
+
+  result = repository.lookup(
+    EPSILON_3_TODA_MEMBERSHIP_FACT.statement,
+  )
+
+  assert result is None
+
+
+def test_phase24_9_repository_membership_provenance_excludes_unrelated_fact():
+  unrelated_entry = TheoremFactEntry(
+    statement=TodaBracketMembershipTheoremStatement(
+      element=HomotopyElement(
+        name="ζ",
+        dimension=3,
+        generator=GeneratorSymbol(
+          family="ζ",
+          index=3,
+        ),
+      ),
+      bracket=TodaBracket(
+        first=EPSILON_3_TODA_MEMBERSHIP_FACT.statement.bracket.first,
+        second=EPSILON_3_TODA_MEMBERSHIP_FACT.statement.bracket.second,
+        third=EPSILON_3_TODA_MEMBERSHIP_FACT.statement.bracket.third,
+        index=2,
+      ),
+    ),
+    reference=LiteratureReference(
+      label="Unrelated source",
+    ),
+  )
+
+  repository = TheoremFactRepository(
+    entries=(
+      EPSILON_3_TODA_MEMBERSHIP_FACT,
+      unrelated_entry,
+    ),
+  )
+
+  epsilon_entry = repository.lookup(
+    EPSILON_3_TODA_MEMBERSHIP_FACT.statement,
+  )
+
+  assert epsilon_entry is not None
+
+  theorem_step = epsilon_entry.to_proof_step()
+  unrelated_step = unrelated_entry.to_proof_step()
+
+  defined_step = ProofStep(
+    conclusion=TodaBracketDefinedStatement(
+      bracket=epsilon_entry.statement.bracket,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  membership_rule = (
+    toda_bracket_membership_from_theorem_inference_rule()
+  )
+
+  result = run_inference_until_stable_with_history(
+    membership_rule,
+    (
+      theorem_step,
+      unrelated_step,
+      defined_step,
+    ),
+  )
+
+  membership = TodaBracketMembershipStatement(
+    element=epsilon_entry.statement.element,
+    bracket=epsilon_entry.statement.bracket,
+    source=epsilon_entry.reference,
+    note=epsilon_entry.statement.note,
+  )
+
+  derived_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == membership
+  )
+
+  assert derived_step.premises == (
+    theorem_step,
+    defined_step,
+  )
+
+  assert unrelated_step not in (
+    derived_step.premises
+  )
+
+
+def test_phase24_9_repository_inference_scope_reaches_fixed_point():
+  entry = THEOREM_FACT_REPOSITORY.lookup(
+    EPSILON_3_TODA_MEMBERSHIP_FACT.statement,
+  )
+
+  assert entry is not None
+
+  theorem_step = entry.to_proof_step()
+
+  defined_step = ProofStep(
+    conclusion=TodaBracketDefinedStatement(
+      bracket=entry.statement.bracket,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  membership_rule = (
+    toda_bracket_membership_from_theorem_inference_rule()
+  )
+
+  result = run_inference_until_stable_with_history(
+    membership_rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  membership = TodaBracketMembershipStatement(
+    element=entry.statement.element,
+    bracket=entry.statement.bracket,
+    source=entry.reference,
+    note=entry.statement.note,
+  )
+
+  matching_memberships = tuple(
+    step
+    for step in result.steps
+    if step.conclusion == membership
+  )
+
+  assert len(matching_memberships) == 1
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+
