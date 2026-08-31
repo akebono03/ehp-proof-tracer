@@ -1,4 +1,4 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 
 class Expression:
@@ -56,14 +56,8 @@ class Zero(Expression):
 class HomotopyElement(Expression):
   name: str
   dimension: int
-  source: int | None = field(
-    default=None,
-    compare=False,
-  )
-  target: int | None = field(
-    default=None,
-    compare=False,
-  )
+  source: int | None = None
+  target: int | None = None
 
 
 @dataclass(frozen=True)

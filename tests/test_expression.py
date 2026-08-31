@@ -90,7 +90,40 @@ def test_homotopy_element_source_and_target_default_to_none():
   assert element.target is None
 
 
-def test_phase21_1_source_target_do_not_yet_affect_structural_equality():
+def test_phase21_2_source_and_target_affect_structural_equality():
+  source_mismatch = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  different_source = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=6,
+    target=3,
+  )
+
+  target_mismatch = HomotopyElement(
+    name="β",
+    dimension=4,
+    source=7,
+    target=4,
+  )
+
+  different_target = HomotopyElement(
+    name="β",
+    dimension=4,
+    source=7,
+    target=5,
+  )
+
+  assert source_mismatch != different_source
+  assert target_mismatch != different_target
+
+
+def test_phase21_2_same_typed_homotopy_elements_are_structurally_equal():
   first = HomotopyElement(
     name="α",
     dimension=3,
@@ -101,11 +134,27 @@ def test_phase21_1_source_target_do_not_yet_affect_structural_equality():
   second = HomotopyElement(
     name="α",
     dimension=3,
-    source=6,
-    target=4,
+    source=5,
+    target=3,
   )
 
   assert first == second
+
+
+def test_phase21_2_untyped_and_typed_homotopy_elements_are_structurally_distinct():
+  untyped = HomotopyElement(
+    name="α",
+    dimension=3,
+  )
+
+  typed = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  assert untyped != typed
 
 
 def test_eta():
