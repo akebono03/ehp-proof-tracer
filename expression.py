@@ -88,6 +88,46 @@ class MapApplication(Expression):
 class Suspension(Expression):
   expression: Expression
 
+  @property
+  def source(self) -> int | None:
+    if isinstance(
+      self.expression,
+      HomotopyElement,
+    ):
+      if self.expression.source is None:
+        return None
+      return self.expression.source + 1
+
+    if isinstance(
+      self.expression,
+      Suspension,
+    ):
+      if self.expression.source is None:
+        return None
+      return self.expression.source + 1
+
+    return None
+
+  @property
+  def target(self) -> int | None:
+    if isinstance(
+      self.expression,
+      HomotopyElement,
+    ):
+      if self.expression.target is None:
+        return None
+      return self.expression.target + 1
+
+    if isinstance(
+      self.expression,
+      Suspension,
+    ):
+      if self.expression.target is None:
+        return None
+      return self.expression.target + 1
+
+    return None
+
 
 @dataclass(frozen=True)
 class IteratedSuspension(Expression):

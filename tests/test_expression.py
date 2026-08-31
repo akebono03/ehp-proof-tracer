@@ -157,6 +157,76 @@ def test_phase21_2_untyped_and_typed_homotopy_elements_are_structurally_distinct
   assert untyped != typed
 
 
+def test_phase21_3_suspension_shifts_source_and_target():
+  alpha = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  suspended = Suspension(
+    expression=alpha,
+  )
+
+  assert suspended.expression == alpha
+  assert suspended.source == 6
+  assert suspended.target == 4
+
+
+def test_phase21_3_suspension_preserves_unknown_typing():
+  source_only = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=5,
+    target=None,
+  )
+
+  target_only = HomotopyElement(
+    name="β",
+    dimension=4,
+    source=None,
+    target=4,
+  )
+
+  suspended_source_only = Suspension(
+    expression=source_only,
+  )
+
+  suspended_target_only = Suspension(
+    expression=target_only,
+  )
+
+  assert suspended_source_only.source == 6
+  assert suspended_source_only.target is None
+
+  assert suspended_target_only.source is None
+  assert suspended_target_only.target == 5
+
+
+def test_phase21_3_nested_suspension_shifts_source_and_target_repeatedly():
+  alpha = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  once = Suspension(
+    expression=alpha,
+  )
+
+  twice = Suspension(
+    expression=once,
+  )
+
+  assert once.source == 6
+  assert once.target == 4
+
+  assert twice.source == 7
+  assert twice.target == 5
+
+
 def test_eta():
   assert eta(3) == HomotopyElement("η", 3)
 
