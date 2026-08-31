@@ -12,6 +12,9 @@ from generator_facts import (
   GeneratorFactRepository,
   GeneratorTypingFact,
 )
+from theorem_facts import (
+  THEOREM_FACT_REPOSITORY,
+)
 
 
 def test_phase25_1_generator_typing_fact_preserves_minimum_structure():
@@ -1175,6 +1178,207 @@ def test_phase25_8_partial_existing_typing_is_not_completed_implicitly():
 
   assert element.source == 4
   assert element.target is None
+
+
+def test_phase25_9_lookup_preserves_registered_typing_fact_identity():
+  result = (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_typing(
+      GeneratorSymbol(
+        family="η",
+        index=3,
+      )
+    )
+  )
+
+  assert result is (
+    ETA_3_TYPING_FACT
+  )
+
+
+def test_phase25_9_lookup_preserves_registered_ambient_group_fact_identity():
+  result = (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_ambient_group(
+      GeneratorSymbol(
+        family="η",
+        index=3,
+      )
+    )
+  )
+
+  assert result is (
+    ETA_3_AMBIENT_GROUP_FACT
+  )
+
+
+def test_phase25_9_unrelated_generator_facts_do_not_change_eta_3_materialization():
+  unrelated_generator = GeneratorSymbol(
+    family="μ",
+    index=3,
+  )
+
+  repository = GeneratorFactRepository(
+    typing_facts=(
+      GeneratorTypingFact(
+        generator=unrelated_generator,
+        source=12,
+        target=3,
+      ),
+      ETA_3_TYPING_FACT,
+    ),
+    ambient_group_facts=(
+      GeneratorAmbientGroupFact(
+        generator=unrelated_generator,
+        group_dimension=12,
+        sphere_dimension=3,
+      ),
+      ETA_3_AMBIENT_GROUP_FACT,
+    ),
+  )
+
+  element = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=ETA_3_GENERATOR,
+  )
+
+  typed_element = (
+    repository
+    .materialize_typed_element(
+      element
+    )
+  )
+
+  assert typed_element == HomotopyElement(
+    name="η₃",
+    dimension=3,
+    source=4,
+    target=3,
+    generator=ETA_3_GENERATOR,
+  )
+
+
+def test_phase25_9_element_name_does_not_replace_structured_generator_identity():
+  element = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="μ",
+      index=3,
+    ),
+  )
+
+  typed_element = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      element
+    )
+  )
+
+  assert typed_element is None
+
+  assert element.name == "η₃"
+  assert element.source is None
+  assert element.target is None
+
+
+def test_phase25_9_ambient_group_fact_alone_does_not_materialize_typing():
+  repository = GeneratorFactRepository(
+    ambient_group_facts=(
+      ETA_3_AMBIENT_GROUP_FACT,
+    ),
+  )
+
+  element = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=ETA_3_GENERATOR,
+  )
+
+  typed_element = (
+    repository
+    .materialize_typed_element(
+      element
+    )
+  )
+
+  assert (
+    repository.lookup_ambient_group(
+      ETA_3_GENERATOR
+    )
+    is ETA_3_AMBIENT_GROUP_FACT
+  )
+
+  assert typed_element is None
+
+  assert element.source is None
+  assert element.target is None
+
+
+def test_phase25_9_materialization_does_not_modify_repository_state():
+  typing_facts_before = (
+    GENERATOR_FACT_REPOSITORY
+    .typing_facts
+  )
+
+  ambient_facts_before = (
+    GENERATOR_FACT_REPOSITORY
+    .ambient_group_facts
+  )
+
+  element = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=ETA_3_GENERATOR,
+  )
+
+  typed_element = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      element
+    )
+  )
+
+  assert typed_element is not None
+
+  assert (
+    GENERATOR_FACT_REPOSITORY
+    .typing_facts
+    == typing_facts_before
+  )
+
+  assert (
+    GENERATOR_FACT_REPOSITORY
+    .ambient_group_facts
+    == ambient_facts_before
+  )
+
+
+def test_phase25_9_generator_materialization_does_not_modify_theorem_fact_repository():
+  theorem_entries_before = (
+    THEOREM_FACT_REPOSITORY.entries
+  )
+
+  element = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=ETA_3_GENERATOR,
+  )
+
+  typed_element = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      element
+    )
+  )
+
+  assert typed_element is not None
+
+  assert (
+    THEOREM_FACT_REPOSITORY.entries
+    == theorem_entries_before
+  )
 
 
 
