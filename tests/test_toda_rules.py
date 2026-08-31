@@ -5536,5 +5536,233 @@ def test_phase23_6_unknown_typing_rejects_indexed_theorem_bridge():
   )
 
 
+def test_phase23_7_indexed_theorem_to_membership_representative_bridge():
+  reference = LiteratureReference(
+    label="Toda indexed representative",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+    locator="representative indexed theorem",
+  )
+
+  x = HomotopyElement(
+    name="x",
+    dimension=10,
+  )
+
+  a = HomotopyElement(
+    name="a₃",
+    dimension=3,
+    source=7,
+    target=3,
+    generator=GeneratorSymbol(
+      family="a",
+      index=3,
+    ),
+  )
+
+  b = HomotopyElement(
+    name="b₅",
+    dimension=5,
+    source=9,
+    target=5,
+    generator=GeneratorSymbol(
+      family="b",
+      index=5,
+    ),
+  )
+
+  c = HomotopyElement(
+    name="c₉",
+    dimension=9,
+    source=13,
+    target=9,
+    generator=GeneratorSymbol(
+      family="c",
+      index=9,
+    ),
+  )
+
+  bracket = TodaBracket(
+    first=a,
+    second=IteratedSuspension(
+      expression=b,
+      exponent=2,
+    ),
+    third=IteratedSuspension(
+      expression=c,
+      exponent=2,
+    ),
+    index=2,
+  )
+
+  indexed_data = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=b,
+    third_base=c,
+    suspension_exponent=2,
+  )
+
+  theorem_statement = (
+    TodaBracketMembershipTheoremStatement(
+      element=x,
+      bracket=bracket,
+      source=reference,
+      note=(
+        "Literature-backed indexed Toda "
+        "membership theorem."
+      ),
+    )
+  )
+
+  theorem_step = (
+    toda_bracket_membership_theorem_proof_step(
+      theorem_statement
+    )
+  )
+
+  defined_step = ProofStep(
+    conclusion=TodaBracketDefinedStatement(
+      bracket=bracket,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    indexed_toda_bracket_membership_from_theorem_inference_rule(
+      indexed_data
+    )
+  )
+
+  assert indexed_data.is_consistent()
+
+  assert (
+    bracket
+    .are_defining_compositions_type_compatible()
+  )
+
+  assert theorem_statement.bracket == (
+    defined_step.conclusion.bracket
+  )
+
+  assert theorem_statement.bracket.index == 2
+
+  assert theorem_statement.bracket.first.generator == (
+    GeneratorSymbol(
+      family="a",
+      index=3,
+    )
+  )
+
+  assert (
+    theorem_statement
+    .bracket
+    .second
+    .expression
+    .generator
+    == GeneratorSymbol(
+      family="b",
+      index=5,
+    )
+  )
+
+  assert (
+    theorem_statement
+    .bracket
+    .third
+    .expression
+    .generator
+    == GeneratorSymbol(
+      family="c",
+      index=9,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  assert match is not None
+
+  result = run_inference_until_stable_with_history(
+    rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  membership = TodaBracketMembershipStatement(
+    element=x,
+    bracket=bracket,
+    source=reference,
+    note=(
+      "Literature-backed indexed Toda "
+      "membership theorem."
+    ),
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert membership in conclusions
+
+  membership_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == membership
+  )
+
+  assert membership_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert membership_step.inference_rule == (
+    rule
+  )
+
+  assert membership_step.premises == (
+    theorem_step,
+    defined_step,
+  )
+
+  assert membership_step.conclusion.bracket == (
+    bracket
+  )
+
+  assert membership_step.conclusion.bracket.index == 2
+
+  assert membership_step.conclusion.source == (
+    reference
+  )
+
+  assert membership_step.conclusion.note == (
+    "Literature-backed indexed Toda "
+    "membership theorem."
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  terminal_round = derive_inference_round_result(
+    rule,
+    result.steps,
+  )
+
+  assert terminal_round.new_steps == ()
+
+
+
 
 
