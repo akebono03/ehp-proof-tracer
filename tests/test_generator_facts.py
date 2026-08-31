@@ -3,6 +3,9 @@ from expression import (
   HomotopyElement,
 )
 from generator_facts import (
+  ETA_3_AMBIENT_GROUP_FACT,
+  ETA_3_GENERATOR,
+  ETA_3_TYPING_FACT,
   GeneratorAmbientGroupFact,
   GeneratorTypingFact,
 )
@@ -418,6 +421,88 @@ def test_phase25_3_ambient_group_fact_does_not_type_homotopy_element_automatical
   assert element.source is None
   assert element.target is None
 
+
+def test_phase25_4_eta_3_generator_representative_is_registered():
+  assert ETA_3_GENERATOR == GeneratorSymbol(
+    family="η",
+    index=3,
+  )
+
+
+def test_phase25_4_eta_3_typing_fact_representative_is_registered():
+  assert ETA_3_TYPING_FACT == GeneratorTypingFact(
+    generator=GeneratorSymbol(
+      family="η",
+      index=3,
+    ),
+    source=4,
+    target=3,
+  )
+
+
+def test_phase25_4_eta_3_ambient_group_fact_representative_is_registered():
+  assert ETA_3_AMBIENT_GROUP_FACT == (
+    GeneratorAmbientGroupFact(
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+      group_dimension=4,
+      sphere_dimension=3,
+    )
+  )
+
+
+def test_phase25_4_eta_3_representatives_share_generator_identity():
+  assert ETA_3_TYPING_FACT.generator == (
+    ETA_3_GENERATOR
+  )
+
+  assert ETA_3_AMBIENT_GROUP_FACT.generator == (
+    ETA_3_GENERATOR
+  )
+
+  assert (
+    ETA_3_TYPING_FACT.generator
+    == ETA_3_AMBIENT_GROUP_FACT.generator
+  )
+
+
+def test_phase25_4_eta_3_typing_and_ambient_group_facts_remain_distinct():
+  assert isinstance(
+    ETA_3_TYPING_FACT,
+    GeneratorTypingFact,
+  )
+
+  assert isinstance(
+    ETA_3_AMBIENT_GROUP_FACT,
+    GeneratorAmbientGroupFact,
+  )
+
+  assert (
+    ETA_3_TYPING_FACT
+    != ETA_3_AMBIENT_GROUP_FACT
+  )
+
+
+def test_phase25_4_eta_3_representative_does_not_type_homotopy_element_automatically():
+  element = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=ETA_3_GENERATOR,
+  )
+
+  assert ETA_3_TYPING_FACT.matches_generator(
+    element.generator
+  )
+
+  assert (
+    ETA_3_AMBIENT_GROUP_FACT.generator
+    == element.generator
+  )
+
+  assert element.source is None
+  assert element.target is None
 
 
 
