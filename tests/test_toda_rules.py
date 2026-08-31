@@ -3566,6 +3566,90 @@ def test_phase20_adjacent_displayed_entries_do_not_establish_indexed_definedness
   assert indexed_definedness not in conclusions
 
 
+def test_phase21_8_type_compatibility_alone_does_not_establish_toda_definedness():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=5,
+    source=7,
+    target=5,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=7,
+    source=9,
+    target=7,
+  )
+
+  bracket = TodaBracket(
+    first=a,
+    second=b,
+    third=c,
+  )
+
+  assert (
+    bracket
+    .are_defining_compositions_type_compatible()
+  )
+
+  first_zero = Relation(
+    lhs=Composition(
+      left=a,
+      right=b,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  second_zero = Relation(
+    lhs=Composition(
+      left=b,
+      right=c,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  defined_statement = TodaBracketDefinedStatement(
+    bracket=bracket,
+  )
+
+  zero_rule = (
+    composition_equality_to_zero_inference_rule()
+  )
+
+  defined_rule = (
+    toda_bracket_defined_by_zero_compositions_inference_rule()
+  )
+
+  result = run_inference_until_stable_with_history(
+    (
+      zero_rule,
+      defined_rule,
+    ),
+    (),
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert first_zero not in conclusions
+  assert second_zero not in conclusions
+  assert defined_statement not in conclusions
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
 
 
 

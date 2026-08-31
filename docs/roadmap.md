@@ -17,7 +17,7 @@
 
 ---
 
-# 2. Phase 20 完了時点の実装基盤
+# 2. Phase 21 完了時点の実装基盤
 
 Implemented foundations:
 
@@ -46,6 +46,12 @@ IndexedTodaBracketData
 symbolic iterated-suspension exponent
 symbolic Toda index
 indexed Toda structural consistency predicate
+typed homotopy-element source / target context
+typed HomotopyElement structural equality
+Suspension source / target shift
+concrete IteratedSuspension source / target shift
+Composition type compatibility predicate
+Toda entry composition compatibility predicate
 ```
 
 Current expression structures:
@@ -361,68 +367,49 @@ Generic inference engine unchanged.
 
 ---
 
-# 8. Phase 21 candidate：Typed Homotopy Elements / Source-Target Context
+# 8. Phase 21 完了：Typed Homotopy Elements / Source-Target Context
 
 ## 8.1 motivation
 
-Phase 20 で indexed Toda notation 自体は保持可能になった。
+Phase 20 で indexed Toda notation 自体は lossless に保持可能になった。
 
-次の actual mathematical validity check では:
+Phase 21 は actual composition / Toda validity に必要な最小 source / target context
+を導入した。
 
-```text
-composition compatibility
-Toda defining conditions
-suspension dimension shift
-ambient homotopy group
-```
+Universal type system は導入していない。
 
-が必要になる。
+## 8.2 typed HomotopyElement
 
-Natural next candidate:
+Implemented:
 
 ```text
-Phase 21
-typed homotopy elements / source-target context
+HomotopyElement.source
+HomotopyElement.target
 ```
 
-## 8.2 minimal target
-
-Actual theorem need に必要な情報だけ導入する。
-
-Candidates:
+Types:
 
 ```text
-source sphere
-target sphere
-ambient homotopy group
-stem
-stable / unstable context
+int | None
 ```
 
-最初から universal type system を作らない。
-
-## 8.3 composition compatibility
-
-Future target:
+Example:
 
 ```text
-α : S^m → S^n
-β : S^p → S^m
+α : S^5 → S^3
 ```
 
-then:
+Typed fields participate in structural equality.
 
 ```text
-α∘β
+typed α
+!=structural
+untyped α
 ```
 
-is type-compatible.
+## 8.3 Suspension typing
 
-Mismatch should become explicit non-applicability / validity failure.
-
-## 8.4 suspension typing
-
-Future:
+Implemented:
 
 ```text
 α : S^m → S^n
@@ -430,32 +417,151 @@ Future:
 Eα : S^(m+1) → S^(n+1)
 ```
 
-and for concrete iterated suspension:
+Unknown dimensions remain unknown.
+
+Nested ordinary Suspension repeats the shift.
+
+## 8.4 IteratedSuspension typing
+
+Concrete non-negative exponent:
 
 ```text
 E^r α : S^(m+r) → S^(n+r)
 ```
 
-Symbolic `t` should not trigger a general symbolic dimension solver unless
-an actual theorem requires it.
+Symbolic:
 
-## 8.5 Toda compatibility
+```text
+E^t α
+```
 
-Future Toda validity may require both:
+does not trigger general symbolic dimension arithmetic.
+
+Negative exponent does not produce concrete typing.
+
+## 8.5 Composition compatibility
+
+Implemented:
+
+```text
+Composition.is_type_compatible()
+```
+
+For:
+
+```text
+α : S^m → S^n
+β : S^p → S^m
+```
+
+checks:
+
+```text
+α.source == β.target
+```
+
+Critical boundary:
+
+```text
+constructible
+≠
+type-compatible
+```
+
+Current boolean `False` includes both:
+
+```text
+known mismatch
+unknown typing
+```
+
+No three-valued compatibility model yet.
+
+## 8.6 Toda entry compatibility
+
+Implemented:
+
+```text
+TodaBracket.are_defining_compositions_type_compatible()
+```
+
+Checks:
 
 ```text
 a∘b
 b∘c
 ```
 
-to be type-correct before zero-composition facts are accepted as defining
-conditions.
+using `Composition.is_type_compatible()`.
 
-Phase 21 should not alter unrelated Toda semantics.
+Both must be confirmed compatible.
+
+Important:
+
+```text
+type compatibility
+≠
+ZERO
+≠
+Toda definedness
+```
+
+Existing Toda inference rules are unchanged.
+
+## 8.7 representative / regression
+
+Representative chain:
+
+```text
+typed HomotopyElement
+↓
+Suspension shift
+↓
+concrete IteratedSuspension shift
+↓
+Composition compatibility
+↓
+Toda entry compatibility
+```
+
+Final regression fixes:
+
+```text
+typed != untyped
+symbolic E^t → no concrete dimensions
+negative exponent → no concrete dimensions
+known mismatch → False
+unknown typing → False
+mismatch remains constructible
+first Toda mismatch → False
+second Toda mismatch → False
+indexed / unindexed structural distinction
+compatibility ↛ ZERO
+compatibility ↛ Toda definedness
+```
+
+## 8.8 verified status
+
+```text
+tests/test_expression.py
+90 passed in 0.33s
+```
+
+```text
+tests/test_toda_rules.py
+44 passed in 0.73s
+```
+
+```text
+full suite
+1125 passed in 22.75s
+```
+
+Generic inference engine unchanged.
 
 ---
 
-# 9. Structured Generator Representation
+# 9. Phase 22 candidate：Structured Generator Representation
 
 Toda literature uses distinctions such as:
 
@@ -672,9 +778,10 @@ Potential goal-directed / divisibility-statement approach.
 # 17. Recommended future order
 
 ```text
-Phase 21 candidate
+Phase 21
 Typed homotopy elements / source-target context
         ↓
+Phase 22 candidate
 Structured generator representation
         ↓
 Indexed Toda theorem / validity connection
@@ -724,9 +831,13 @@ Actual mathematical need に応じて再配置可能。
 | `IndexedTodaBracketData` | IMPLEMENTED | Phase 20 |
 | `{a,E^t b,E^t c}_t` structural form | IMPLEMENTED | Phase 20 |
 | indexed Toda consistency predicate | IMPLEMENTED | Phase 20 |
-| typed source / target | NEXT CANDIDATE | Phase 21 |
-| ambient homotopy group validation | PLANNED | typing layer |
-| structured generator notation | PLANNED | actual tables / literature |
+| typed source / target | IMPLEMENTED | Phase 21 |
+| Suspension source / target shift | IMPLEMENTED | Phase 21 |
+| concrete IteratedSuspension source / target shift | IMPLEMENTED | Phase 21 |
+| Composition type compatibility | IMPLEMENTED | Phase 21 |
+| Toda entry composition compatibility | IMPLEMENTED | Phase 21 |
+| structured generator notation | NEXT CANDIDATE | Phase 22 |
+| ambient homotopy group validation | PLANNED | later typing layer |
 | indexed Toda theorem bridge | PLANNED | actual theorem need |
 | stable homotopy group `π_k^S` | PLANNED | stable context |
 | theorem representation | PLANNED | assumptions / conclusion / source |
@@ -822,7 +933,128 @@ full suite
 
 ---
 
-# 20. Testing Principle
+
+# 20. Phase 21 completion boundary
+
+Implemented:
+
+```text
+HomotopyElement.source
+HomotopyElement.target
+typed structural equality
+Suspension source / target shift
+concrete IteratedSuspension source / target shift
+Composition.is_type_compatible()
+TodaBracket.are_defining_compositions_type_compatible()
+```
+
+Boundaries:
+
+```text
+typed
+!=
+untyped
+```
+
+```text
+constructible
+!=
+type-compatible
+```
+
+```text
+symbolic E^t
+!=
+symbolic dimension arithmetic
+```
+
+```text
+type compatibility
+!=
+ZERO
+```
+
+```text
+type compatibility
+!=
+Toda definedness
+```
+
+No constructor type validation.
+
+No three-valued compatibility model.
+
+No Composition source / target derivation.
+
+No ambient homotopy-group / stem / stable-context typing.
+
+No Toda definedness typing guard.
+
+Generic inference engine unchanged.
+
+Verified:
+
+```text
+tests/test_expression.py
+90 passed in 0.33s
+```
+
+```text
+tests/test_toda_rules.py
+44 passed in 0.73s
+```
+
+```text
+full suite
+1125 passed in 22.75s
+```
+
+---
+
+# 21. Phase 22 candidate boundary
+
+Natural next candidate:
+
+```text
+Phase 22
+Structured Generator Representation
+```
+
+Target actual need:
+
+```text
+ν
+ν′
+decorated generator families
+η_n
+μ_n
+ι_n
+```
+
+Potential structure:
+
+```text
+family
+index
+decoration
+source
+target
+stable_or_unstable
+```
+
+Do not introduce every field immediately.
+
+Use actual tables / literature notation to determine the minimum structure.
+
+Current `HomotopyElement` should remain backward compatible unless an actual
+generator representation requirement proves otherwise.
+
+Indexed Toda theorem applicability, theorem representation, stable homotopy groups,
+stable Toda brackets, and higher Toda brackets remain later layers.
+
+---
+
+# 22. Testing Principle
 
 新しい mathematical layer を追加するときは:
 
@@ -840,7 +1072,7 @@ Actual scope に存在しない theorem / inference のテストを先取りし�
 
 ---
 
-# 21. Documentation Policy
+# 23. Documentation Policy
 
 ```text
 README.md
@@ -864,7 +1096,7 @@ roadmap の項目が実装された場合は、その Phase 完了時に状態�
 
 ---
 
-# 22. 長期目標
+# 24. 長期目標
 
 最終的には:
 
