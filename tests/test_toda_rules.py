@@ -4009,5 +4009,513 @@ def test_phase23_2_indexed_toda_theorem_bridge_rejects_unindexed_bracket():
   )
 
 
+def test_phase23_3_indexed_toda_theorem_bridge_matches_same_generator_structure():
+  epsilon_3 = HomotopyElement(
+    name="ε₃",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="ε",
+      index=3,
+    ),
+  )
+
+  eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="η",
+      index=3,
+    ),
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="ν",
+      decoration="′",
+    ),
+  )
+
+  nu_7 = HomotopyElement(
+    name="ν₇",
+    dimension=7,
+    generator=GeneratorSymbol(
+      family="ν",
+      index=7,
+    ),
+  )
+
+  theorem_bracket = TodaBracket(
+    first=eta_3,
+    second=Suspension(
+      expression=nu_prime,
+    ),
+    third=nu_7,
+    index=1,
+  )
+
+  defined_bracket = TodaBracket(
+    first=HomotopyElement(
+      name="η₃",
+      dimension=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    ),
+    second=Suspension(
+      expression=HomotopyElement(
+        name="ν′",
+        dimension=3,
+        generator=GeneratorSymbol(
+          family="ν",
+          decoration="′",
+        ),
+      ),
+    ),
+    third=HomotopyElement(
+      name="ν₇",
+      dimension=7,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=7,
+      ),
+    ),
+    index=1,
+  )
+
+  theorem_step = (
+    toda_bracket_membership_theorem_proof_step(
+      TodaBracketMembershipTheoremStatement(
+        element=epsilon_3,
+        bracket=theorem_bracket,
+      )
+    )
+  )
+
+  defined_step = ProofStep(
+    conclusion=TodaBracketDefinedStatement(
+      bracket=defined_bracket,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    toda_bracket_membership_from_theorem_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  assert theorem_bracket == defined_bracket
+  assert match is not None
+
+  result = run_inference_until_stable_with_history(
+    rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  membership = TodaBracketMembershipStatement(
+    element=epsilon_3,
+    bracket=theorem_bracket,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert membership in conclusions
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+
+def test_phase23_3_indexed_toda_theorem_bridge_rejects_generator_family_mismatch():
+  epsilon_3 = HomotopyElement(
+    name="ε₃",
+    dimension=3,
+  )
+
+  theorem_eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="η",
+      index=3,
+    ),
+  )
+
+  different_eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="μ",
+      index=3,
+    ),
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="ν",
+      decoration="′",
+    ),
+  )
+
+  nu_7 = HomotopyElement(
+    name="ν₇",
+    dimension=7,
+    generator=GeneratorSymbol(
+      family="ν",
+      index=7,
+    ),
+  )
+
+  theorem_bracket = TodaBracket(
+    first=theorem_eta_3,
+    second=Suspension(
+      expression=nu_prime,
+    ),
+    third=nu_7,
+    index=1,
+  )
+
+  defined_bracket = TodaBracket(
+    first=different_eta_3,
+    second=Suspension(
+      expression=nu_prime,
+    ),
+    third=nu_7,
+    index=1,
+  )
+
+  theorem_step = (
+    toda_bracket_membership_theorem_proof_step(
+      TodaBracketMembershipTheoremStatement(
+        element=epsilon_3,
+        bracket=theorem_bracket,
+      )
+    )
+  )
+
+  defined_step = ProofStep(
+    conclusion=TodaBracketDefinedStatement(
+      bracket=defined_bracket,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    toda_bracket_membership_from_theorem_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  assert theorem_eta_3.name == different_eta_3.name
+  assert theorem_eta_3.dimension == different_eta_3.dimension
+  assert theorem_eta_3.generator != different_eta_3.generator
+
+  assert theorem_bracket != defined_bracket
+  assert match is None
+
+  result = run_inference_until_stable_with_history(
+    rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  membership = TodaBracketMembershipStatement(
+    element=epsilon_3,
+    bracket=theorem_bracket,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert membership not in conclusions
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+
+def test_phase23_3_indexed_toda_theorem_bridge_rejects_generator_decoration_mismatch():
+  epsilon_3 = HomotopyElement(
+    name="ε₃",
+    dimension=3,
+  )
+
+  eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="η",
+      index=3,
+    ),
+  )
+
+  theorem_nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="ν",
+      decoration="′",
+    ),
+  )
+
+  different_nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="ν",
+    ),
+  )
+
+  nu_7 = HomotopyElement(
+    name="ν₇",
+    dimension=7,
+    generator=GeneratorSymbol(
+      family="ν",
+      index=7,
+    ),
+  )
+
+  theorem_bracket = TodaBracket(
+    first=eta_3,
+    second=Suspension(
+      expression=theorem_nu_prime,
+    ),
+    third=nu_7,
+    index=1,
+  )
+
+  defined_bracket = TodaBracket(
+    first=eta_3,
+    second=Suspension(
+      expression=different_nu_prime,
+    ),
+    third=nu_7,
+    index=1,
+  )
+
+  theorem_step = (
+    toda_bracket_membership_theorem_proof_step(
+      TodaBracketMembershipTheoremStatement(
+        element=epsilon_3,
+        bracket=theorem_bracket,
+      )
+    )
+  )
+
+  defined_step = ProofStep(
+    conclusion=TodaBracketDefinedStatement(
+      bracket=defined_bracket,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    toda_bracket_membership_from_theorem_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  assert theorem_nu_prime.name == (
+    different_nu_prime.name
+  )
+
+  assert theorem_nu_prime.dimension == (
+    different_nu_prime.dimension
+  )
+
+  assert theorem_nu_prime.generator != (
+    different_nu_prime.generator
+  )
+
+  assert theorem_bracket != defined_bracket
+  assert match is None
+
+  result = run_inference_until_stable_with_history(
+    rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  membership = TodaBracketMembershipStatement(
+    element=epsilon_3,
+    bracket=theorem_bracket,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert membership not in conclusions
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+
+def test_phase23_3_indexed_toda_theorem_bridge_rejects_generator_index_mismatch():
+  epsilon_3 = HomotopyElement(
+    name="ε₃",
+    dimension=3,
+  )
+
+  eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="η",
+      index=3,
+    ),
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    generator=GeneratorSymbol(
+      family="ν",
+      decoration="′",
+    ),
+  )
+
+  theorem_nu_7 = HomotopyElement(
+    name="ν₇",
+    dimension=7,
+    generator=GeneratorSymbol(
+      family="ν",
+      index=7,
+    ),
+  )
+
+  different_nu_7 = HomotopyElement(
+    name="ν₇",
+    dimension=7,
+    generator=GeneratorSymbol(
+      family="ν",
+      index=8,
+    ),
+  )
+
+  theorem_bracket = TodaBracket(
+    first=eta_3,
+    second=Suspension(
+      expression=nu_prime,
+    ),
+    third=theorem_nu_7,
+    index=1,
+  )
+
+  defined_bracket = TodaBracket(
+    first=eta_3,
+    second=Suspension(
+      expression=nu_prime,
+    ),
+    third=different_nu_7,
+    index=1,
+  )
+
+  theorem_step = (
+    toda_bracket_membership_theorem_proof_step(
+      TodaBracketMembershipTheoremStatement(
+        element=epsilon_3,
+        bracket=theorem_bracket,
+      )
+    )
+  )
+
+  defined_step = ProofStep(
+    conclusion=TodaBracketDefinedStatement(
+      bracket=defined_bracket,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    toda_bracket_membership_from_theorem_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  assert theorem_nu_7.name == different_nu_7.name
+  assert theorem_nu_7.dimension == (
+    different_nu_7.dimension
+  )
+
+  assert theorem_nu_7.generator != (
+    different_nu_7.generator
+  )
+
+  assert theorem_bracket != defined_bracket
+  assert match is None
+
+  result = run_inference_until_stable_with_history(
+    rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  membership = TodaBracketMembershipStatement(
+    element=epsilon_3,
+    bracket=theorem_bracket,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert membership not in conclusions
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+
 
 
