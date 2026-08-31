@@ -7,6 +7,8 @@ from expression import (
   Composition,
   GeneratorSymbol,
   HomotopyElement,
+  IndexedTodaBracketData,
+  IteratedSuspension,
   Multiple,
   Suspension,
   TodaBracket,
@@ -46,6 +48,7 @@ from toda_rules import (
   TodaBracketDefinedStatement,
   TodaBracketMembershipStatement,
   TodaBracketMembershipTheoremStatement,
+  indexed_toda_bracket_membership_from_theorem_inference_rule,
   toda_bracket_defined_by_zero_compositions_inference_rule,
   toda_bracket_membership_from_theorem_inference_rule,
   toda_bracket_membership_proof_step,
@@ -4836,6 +4839,336 @@ def test_phase23_4_indexed_definedness_alone_does_not_derive_membership():
 
   membership = TodaBracketMembershipStatement(
     element=epsilon_3,
+    bracket=bracket,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert membership not in conclusions
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+
+def test_phase23_5_consistent_indexed_data_allows_theorem_bridge():
+  x = HomotopyElement(
+    name="x",
+    dimension=10,
+  )
+
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=5,
+  )
+
+  bracket = TodaBracket(
+    first=a,
+    second=IteratedSuspension(
+      expression=b,
+      exponent=2,
+    ),
+    third=IteratedSuspension(
+      expression=c,
+      exponent=2,
+    ),
+    index=2,
+  )
+
+  indexed_data = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=b,
+    third_base=c,
+    suspension_exponent=2,
+  )
+
+  theorem_step = (
+    toda_bracket_membership_theorem_proof_step(
+      TodaBracketMembershipTheoremStatement(
+        element=x,
+        bracket=bracket,
+      )
+    )
+  )
+
+  defined_step = ProofStep(
+    conclusion=TodaBracketDefinedStatement(
+      bracket=bracket,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    indexed_toda_bracket_membership_from_theorem_inference_rule(
+      indexed_data
+    )
+  )
+
+  assert indexed_data.is_consistent()
+
+  match = find_inference_match(
+    rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  assert match is not None
+
+  result = run_inference_until_stable_with_history(
+    rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  membership = TodaBracketMembershipStatement(
+    element=x,
+    bracket=bracket,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert membership in conclusions
+
+  derived_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == membership
+  )
+
+  assert derived_step.premises == (
+    theorem_step,
+    defined_step,
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+
+def test_phase23_5_index_mismatch_rejects_indexed_theorem_bridge():
+  x = HomotopyElement(
+    name="x",
+    dimension=10,
+  )
+
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=5,
+  )
+
+  bracket = TodaBracket(
+    first=a,
+    second=IteratedSuspension(
+      expression=b,
+      exponent=2,
+    ),
+    third=IteratedSuspension(
+      expression=c,
+      exponent=2,
+    ),
+    index=1,
+  )
+
+  indexed_data = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=b,
+    third_base=c,
+    suspension_exponent=2,
+  )
+
+  theorem_step = (
+    toda_bracket_membership_theorem_proof_step(
+      TodaBracketMembershipTheoremStatement(
+        element=x,
+        bracket=bracket,
+      )
+    )
+  )
+
+  defined_step = ProofStep(
+    conclusion=TodaBracketDefinedStatement(
+      bracket=bracket,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    indexed_toda_bracket_membership_from_theorem_inference_rule(
+      indexed_data
+    )
+  )
+
+  assert theorem_step.conclusion.bracket == (
+    defined_step.conclusion.bracket
+  )
+
+  assert not indexed_data.is_consistent()
+
+  match = find_inference_match(
+    rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  assert match is None
+
+  result = run_inference_until_stable_with_history(
+    rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  membership = TodaBracketMembershipStatement(
+    element=x,
+    bracket=bracket,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert membership not in conclusions
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+
+def test_phase23_5_entry_mismatch_rejects_indexed_theorem_bridge():
+  x = HomotopyElement(
+    name="x",
+    dimension=10,
+  )
+
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  different_b = HomotopyElement(
+    name="different-b",
+    dimension=4,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=5,
+  )
+
+  bracket = TodaBracket(
+    first=a,
+    second=IteratedSuspension(
+      expression=different_b,
+      exponent=2,
+    ),
+    third=IteratedSuspension(
+      expression=c,
+      exponent=2,
+    ),
+    index=2,
+  )
+
+  indexed_data = IndexedTodaBracketData(
+    bracket=bracket,
+    second_base=b,
+    third_base=c,
+    suspension_exponent=2,
+  )
+
+  theorem_step = (
+    toda_bracket_membership_theorem_proof_step(
+      TodaBracketMembershipTheoremStatement(
+        element=x,
+        bracket=bracket,
+      )
+    )
+  )
+
+  defined_step = ProofStep(
+    conclusion=TodaBracketDefinedStatement(
+      bracket=bracket,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    indexed_toda_bracket_membership_from_theorem_inference_rule(
+      indexed_data
+    )
+  )
+
+  assert theorem_step.conclusion.bracket == (
+    defined_step.conclusion.bracket
+  )
+
+  assert bracket.index == 2
+  assert indexed_data.suspension_exponent == 2
+
+  assert not indexed_data.is_consistent()
+
+  match = find_inference_match(
+    rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  assert match is None
+
+  result = run_inference_until_stable_with_history(
+    rule,
+    (
+      theorem_step,
+      defined_step,
+    ),
+  )
+
+  membership = TodaBracketMembershipStatement(
+    element=x,
     bracket=bracket,
   )
 

@@ -130,6 +130,71 @@ def toda_bracket_membership_from_theorem_inference_rule():
   )
 
 
+def indexed_toda_bracket_membership_from_theorem_inference_rule(
+  indexed_data,
+):
+  def guard(
+    premises,
+    bindings,
+  ):
+    theorem_statement = (
+      premises[0].conclusion
+    )
+
+    defined_statement = (
+      premises[1].conclusion
+    )
+
+    return (
+      indexed_data.is_consistent()
+      and theorem_statement.bracket
+      == indexed_data.bracket
+      and defined_statement.bracket
+      == indexed_data.bracket
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    theorem_statement = (
+      premises[0].conclusion
+    )
+
+    return TodaBracketMembershipStatement(
+      element=theorem_statement.element,
+      bracket=theorem_statement.bracket,
+      source=theorem_statement.source,
+      note=theorem_statement.note,
+    )
+
+  return InferenceRule(
+    name=(
+      "Indexed Toda membership theorem "
+      "bridge with structural consistency"
+    ),
+    description=(
+      "A matching indexed Toda theorem fact "
+      "and definedness derive membership only "
+      "when the supplied indexed bracket data "
+      "is structurally consistent."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaBracketMembershipTheoremStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaBracketDefinedStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_bracket_defined_by_zero_compositions_inference_rule():
   def guard(
     premises,
