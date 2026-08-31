@@ -12,6 +12,7 @@ from expression import (
 from proof import LiteratureReference
 from toda_rules import (
   TodaBracketMembershipTheoremStatement,
+  toda_bracket_membership_theorem_proof_step,
 )
 
 
@@ -26,6 +27,13 @@ class TheoremFactEntry:
     return replace(
       self.statement,
       source=self.reference,
+    )
+
+  def to_proof_step(
+    self,
+  ):
+    return toda_bracket_membership_theorem_proof_step(
+      self.materialize_statement()
     )
 
 
@@ -98,6 +106,5 @@ THEOREM_FACT_REPOSITORY = TheoremFactRepository(
     EPSILON_3_TODA_MEMBERSHIP_FACT,
   ),
 )
-
 
 

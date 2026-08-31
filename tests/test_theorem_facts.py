@@ -6,7 +6,10 @@ from expression import (
   eta,
   nu,
 )
-from proof import LiteratureReference
+from proof import (
+  LiteratureReference,
+  ProofRule,
+)
 from theorem_facts import (
   EPSILON_3_TODA_MEMBERSHIP_FACT,
   THEOREM_FACT_REPOSITORY,
@@ -240,6 +243,47 @@ def test_phase24_5_materialization_does_not_mutate_stored_statement():
   assert entry.statement is original_statement
   assert entry.statement.source is None
 
+
+def test_phase24_6_theorem_fact_entry_creates_given_proof_step():
+  entry = THEOREM_FACT_REPOSITORY.lookup(
+    EPSILON_3_TODA_MEMBERSHIP_FACT.statement,
+  )
+
+  assert entry is not None
+
+  step = entry.to_proof_step()
+
+  assert step.conclusion == (
+    entry.materialize_statement()
+  )
+
+  assert step.premises == ()
+  assert step.rule == ProofRule.GIVEN
+  assert step.inference_rule is None
+
+
+def test_phase24_6_given_step_preserves_materialized_provenance():
+  entry = EPSILON_3_TODA_MEMBERSHIP_FACT
+
+  step = entry.to_proof_step()
+
+  assert step.conclusion.element == (
+    entry.statement.element
+  )
+
+  assert step.conclusion.bracket == (
+    entry.statement.bracket
+  )
+
+  assert step.conclusion.source == (
+    entry.reference
+  )
+
+  assert step.conclusion.note == (
+    entry.statement.note
+  )
+
+  assert entry.statement.source is None
 
 
 
