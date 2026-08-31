@@ -1,7 +1,6 @@
 # ehp_proof 開発記録
 
-この文書は Phase 24 完了時点までの開発履歴を、現在の実装と矛盾しない
-形で整理した改訂版である。
+この文書は Phase 25 完了時点までの開発履歴を、現在の実装と矛盾しない形で整理した改訂版である。
 
 ```text
 各 Phase の「未実装」「次の課題」
@@ -13,392 +12,43 @@ current specification は README.md / docs/design.md を優先する。
 
 ---
 
-# Phase 1：有限群計算の安定化
+# Phase 1–17 summary
 
-- `GroupElement`
-- `GroupMap.apply()`
-- kernel / image
-- finite EHP exactness
+Phase 1: finite abelian-group calculations.
 
-### 状態
+Phase 2: structured subgroup calculations.
 
-完了
+Phase 3: quotient / exact sequence / extension.
 
----
+Phase 4: presentation-based finitely generated abelian groups.
 
-# Phase 2：structured subgroup
+Phase 5: generic proof / inference engine foundation.
 
-- `Subgroup`
-- kernel / image subgroup
-- subgroup equality
-- subgroup generators / abstract structure
+Phase 6: EHP domain inference foundation.
 
-### 状態
+Phase 7: element-order reasoning.
 
-完了
+Phase 8: Suspension reasoning.
 
----
+Phase 9: Freudenthal / stable-range reasoning.
 
-# Phase 3：quotient / exact sequence / extension
+Phase 10: composition reasoning.
 
-- `QuotientGroup`
-- induced quotient map
-- first-isomorphism checks
-- `ExactSequenceStep`
-- finite extension candidates
-- EHP integration
+Phase 11: generalized Hopf-invariant reasoning.
 
-### 状態
+Phase 12: additive expression / reasoning.
 
-完了
+Phase 13: homomorphism reasoning.
 
----
+Phase 14: set / subgroup reasoning.
 
-# Phase 4：presentation-based finitely generated abelian groups
+Phase 15: coset / modulo reasoning.
 
-```text
-Z^r ⊕ finite torsion
-```
+Phase 16: symbolic scalar constraints.
 
-へ一般化。
+Phase 17: indeterminacy.
 
-- relation matrix
-- integer lattice
-- HNF / SNF
-- general kernel / image / cokernel
-- free / torsion / mixed maps
-- presentation-based exactness
-
-### 状態
-
-完了
-
----
-
-# Phase 5：Proof / Generic Inference Engine
-
-Phase 5-65 を foundation completion point とする。
-
-主な model:
-
-- `Relation`
-- `ProofStep`
-- `Proof`
-- `LiteratureReference`
-- `InferenceRule`
-- `PremisePattern`
-- `InferenceMatch`
-- `PatternVariable`
-- `VariableBinding`
-
-推論 engine:
-
-- multiple premises
-- exhaustive deterministic matching
-- shared bindings
-- conclusion builders / patterns
-- duplicate rejection
-- fixed-point execution
-- bounded execution
-- per-round tracing
-- branch / merge
-
-### 状態
-
-完了
-
----
-
-# Phase 6：EHP domain inference foundation
-
-```text
-Image + Kernel
-↓
-Exactness
-↓
-EHP zero composition
-↓
-generic ZERO
-↓
-equality closure / ZERO propagation
-↓
-FIXED_POINT
-```
-
-Phase 6 completion:
-
-```text
-691 passed in 22.77s
-```
-
-### 状態
-
-完了
-
----
-
-# Phase 7：Element-order reasoning
-
-```text
-ord(α)=n
-↓
-nα=0
-```
-
-Phase 7 completion:
-
-```text
-706 passed in 60.22s
-```
-
-### 状態
-
-完了
-
----
-
-# Phase 8：Suspension reasoning
-
-追加:
-
-```text
-Suspension(expression)
-```
-
-Rules:
-
-```text
-x=y → E(x)=E(y)
-x=0 → E(x)=0
-nα=0 → nE(α)=0
-```
-
-Phase 8 completion:
-
-```text
-721 passed in 22.16s
-```
-
-### 状態
-
-完了
-
----
-
-# Phase 9：Freudenthal / stable-range reasoning
-
-```text
-stable range
-→ suspension isomorphism
-→ injectivity
-→ equality / ZERO reflection
-```
-
-Boundary は epimorphism only。
-
-Phase 9 completion:
-
-```text
-750 passed in 22.66s
-```
-
-### 状態
-
-完了
-
----
-
-# Phase 10：Composition reasoning
-
-```text
-α∘β=γ
-```
-
-を structured equality として扱い、
-Suspension-composition functoriality と接続。
-
-Phase 10 completion:
-
-```text
-763 passed in 22.32s
-```
-
-### 状態
-
-完了
-
----
-
-# Phase 11：Generalized Hopf-invariant reasoning
-
-```text
-H(α)=β
-```
-
-の `β` は `Expression`。
-
-Boundary:
-
-```text
-H(x)=0
-↛
-x=0
-```
-
-Phase 11 completion:
-
-```text
-791 passed in 23.41s
-```
-
-### 状態
-
-完了
-
----
-
-# Phase 12：Additive expression / reasoning
-
-追加:
-
-```text
-Sum(left,right)
-```
-
-Inverse:
-
-```text
--α = Multiple(-1,α)
-```
-
-Phase 12 completion:
-
-```text
-809 passed in 62.32s
-```
-
-### 状態
-
-完了
-
----
-
-# Phase 13：Homomorphism reasoning
-
-追加:
-
-```text
-MapSymbol
-MapApplication
-HomomorphismStatement
-```
-
-Phase 13 completion:
-
-```text
-856 passed in 62.31s
-```
-
-### 状態
-
-完了
-
----
-
-# Phase 14：Set / subgroup reasoning
-
-追加:
-
-```text
-MembershipStatement
-SubsetStatement
-SubgroupEqualityStatement
-ImageSubgroupReference
-KernelSubgroupReference
-```
-
-Phase 14 completion:
-
-```text
-921 passed in 62.89s
-```
-
-### 状態
-
-完了
-
----
-
-# Phase 15：Coset / modulo reasoning
-
-追加:
-
-```text
-Coset
-ModuloStatement
-CosetEqualityStatement
-```
-
-Phase 15 completion:
-
-```text
-956 passed in 64.09s
-```
-
-### 状態
-
-完了
-
----
-
-# Phase 16：Symbolic scalar constraints
-
-追加:
-
-```text
-ScalarSymbol
-OddScalarStatement
-EvenScalarStatement
-ScalarCongruenceStatement
-```
-
-Representative:
-
-```text
-k odd
-↓
-k≡1 mod 2
-
-ord(β)=2
-+
-k≡1 mod 2
-↓
-kβ=β
-```
-
-Phase 16 completion:
-
-```text
-988 passed in 61.87s
-```
-
-### 状態
-
-完了
-
----
-
-# Phase 17：Indeterminacy
-
-追加:
-
-```text
-CosetMembershipStatement
-SignIndeterminacyStatement
-CoefficientIndeterminacyStatement
-```
-
-Examples:
+Representative Phase 17 forms:
 
 ```text
 x∈β+A
@@ -406,17 +56,9 @@ x=±α
 x∈{kβ+γ | k odd}
 ```
 
-Candidate enumeration は行わない。
-
-Phase 17 completion:
+Verified Phase 17 full suite:
 
 ```text
-tests/test_indeterminacy_rules.py
-36 passed
-```
-
-```text
-full suite
 1024 passed in 66.01s
 ```
 
@@ -436,37 +78,7 @@ TodaBracketMembershipStatement
 TodaBracketDefinedStatement
 ```
 
-Bridge:
-
-```text
-a∘b=0
-b∘c=0
-↓
-ZERO
-↓
-{a,b,c} defined
-```
-
-Boundary:
-
-```text
-definedness
-↛
-membership
-```
-
-```text
-membership
-↛
-exact value
-```
-
 Verified:
-
-```text
-tests/test_toda_rules.py
-20 passed in 3.36s
-```
 
 ```text
 full suite
@@ -497,20 +109,7 @@ matching bracket definedness
 Toda bracket membership
 ```
 
-Actual notation was:
-
-```text
-ε₃ ∈ {η₃,Eν′,ν₇}_1
-```
-
-Phase 19 では `_1` を lossless に保持できず、unindexed projection を使用した。
-
 Verified:
-
-```text
-tests/test_toda_rules.py
-36 passed in 3.06s
-```
 
 ```text
 full suite
@@ -525,8 +124,6 @@ full suite
 
 # Phase 20：Indexed unstable Toda notation
 
-Phase 19 の representation gap を解消。
-
 追加:
 
 ```text
@@ -536,32 +133,7 @@ IteratedSuspension
 IndexedTodaBracketData.is_consistent()
 ```
 
-Boundary:
-
-```text
-IteratedSuspension
-!=
-ordinary Suspension normalization
-```
-
-```text
-suspension exponent
-!=
-bracket index
-```
-
-```text
-is_consistent()
-!=
-theorem applicability
-```
-
 Verified:
-
-```text
-tests/test_expression.py
-64 passed in 1.46s
-```
 
 ```text
 full suite
@@ -581,45 +153,11 @@ full suite
 ```text
 HomotopyElement.source
 HomotopyElement.target
-Suspension source / target shift
-concrete IteratedSuspension source / target shift
 Composition.is_type_compatible()
 TodaBracket.are_defining_compositions_type_compatible()
 ```
 
-Boundary:
-
-```text
-typed
-!=
-untyped
-```
-
-```text
-constructible
-!=
-type-compatible
-```
-
-```text
-type compatibility
-!=
-ZERO
-!=
-Toda definedness
-```
-
 Verified:
-
-```text
-tests/test_expression.py
-90 passed in 0.33s
-```
-
-```text
-tests/test_toda_rules.py
-44 passed in 0.73s
-```
 
 ```text
 full suite
@@ -643,22 +181,6 @@ GeneratorSymbol
   decoration
 ```
 
-`HomotopyElement` に:
-
-```text
-generator: GeneratorSymbol | None
-```
-
-を追加。
-
-Representative:
-
-```text
-{η₃,Eν′,ν₇}_1
-```
-
-を generator structure 込みで lossless に保持。
-
 Critical:
 
 ```text
@@ -668,11 +190,6 @@ automatic source / target typing
 ```
 
 Verified:
-
-```text
-tests/test_expression.py
-118 passed in 0.44s
-```
 
 ```text
 full suite
@@ -687,45 +204,6 @@ full suite
 
 # Phase 23：Indexed Toda theorem / validity connection
 
-Phase 20〜22 で揃えた:
-
-```text
-indexed Toda structure
-typed entries
-structured generator identity
-```
-
-を actual theorem fact と Toda membership inference に接続。
-
-主な完了項目:
-
-```text
-indexed theorem fact preservation
-bracket-index structural matching
-structured-generator theorem matching
-definedness dependency
-canonical indexed consistency guard
-canonical indexed typing guard
-indexed guarded theorem bridge
-actual ε₃ literature representative
-provenance / boundary regressions
-indexed / unindexed separation
-```
-
-General canonical bridge:
-
-```text
-matching theorem
-+
-matching definedness
-+
-structural consistency
-+
-typing compatibility
-↓
-membership
-```
-
 Specific actual bridge:
 
 ```text
@@ -736,30 +214,7 @@ exactly matching definedness
 ε₃ ∈ {η₃,Eν′,ν₇}_1
 ```
 
-Important:
-
-```text
-Suspension(ν′)
-!=
-IteratedSuspension(ν′,1)
-```
-
-```text
-ν₇ ↛ ν₆
-```
-
-No generator lookup.
-
-No automatic typing.
-
-No universal theorem prover.
-
 Verified:
-
-```text
-tests/test_toda_rules.py
-66 passed in 1.01s
-```
 
 ```text
 full suite
@@ -774,487 +229,20 @@ full suite
 
 # Phase 24：Theorem fact / knowledge-table integration
 
-Phase 24 は、Phase 23 まで Python 上で直接組み立てていた
-literature-backed theorem fact を、最小 repository layer から
-proof graph に供給できるようにした。
-
-重要方針:
-
-```text
-knowledge table
-!=
-universal theorem prover
-```
-
-```text
-stored fact
-!=
-automatically applicable theorem
-```
-
-```text
-repository integration
-!=
-generic inference engine change
-```
-
----
-
-## Phase 24-1：theorem fact repository の最小表現
-
 追加:
 
 ```text
+TheoremFactEntry
 TheoremFactRepository
-```
-
-Initial shape:
-
-```text
-entries
-```
-
-Existing:
-
-```text
-TodaBracketMembershipTheoremStatement
-```
-
-を repository に保持できる最小構造を追加。
-
-まだ lookup / provenance materialization / ProofStep conversion は入れない。
-
-Verified:
-
-```text
-tests/test_theorem_facts.py
-2 passed
-```
-
-```text
-full suite
-1177 passed in 70.01s
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 24-2：LiteratureReference を含む fact entry
-
-追加:
-
-```text
-TheoremFactEntry
-  statement
-  reference
-```
-
-既存:
-
-```text
-LiteratureReference
-```
-
-をそのまま再利用。
-
-Repository は `TheoremFactEntry` を保持する形へ変更。
-
-まだ:
-
-```text
-entry.reference
-→ statement.source
-```
-
-の変換は行わない。
-
-Verified:
-
-```text
-tests/test_theorem_facts.py
-3 passed
-```
-
-```text
-full suite
-1178 passed in 71.32s
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 24-3：Toda membership theorem fact の登録
-
-Actual literature representative:
-
-```text
-ε₃ ∈ {η₃,Eν′,ν₇}_1
-```
-
-を production fact:
-
-```text
 EPSILON_3_TODA_MEMBERSHIP_FACT
-```
-
-として登録。
-
-Repository:
-
-```text
 THEOREM_FACT_REPOSITORY
 ```
 
-に格納。
-
-Preserved:
-
-```text
-ε₃ generator family/index
-η₃ generator family/index
-ν′ decoration
-ν₇ generator family/index
-Eν′ = Suspension(ν′)
-Toda index = 1
-LiteratureReference
-```
-
-No canonical `IndexedTodaBracketData` conversion.
-
 Verified:
 
 ```text
 tests/test_theorem_facts.py
-4 passed
-```
-
-```text
-full suite
-1179 passed in 68.66s
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 24-4：repository lookup の最小 API
-
-追加:
-
-```text
-TheoremFactRepository.lookup(statement)
-```
-
-Semantics:
-
-```text
-matching structural statement
-→ TheoremFactEntry
-
-unknown structural statement
-→ None
-```
-
-Whole statement structural equality を再利用。
-
-Wrong bracket index は match しない。
-
-Fact key / string ID は導入しない。
-
-Verified:
-
-```text
-tests/test_theorem_facts.py
-6 passed
-```
-
-```text
-full suite
-1181 passed in 66.81s
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 24-5：lookup result → theorem statement 変換
-
-追加:
-
-```text
-TheoremFactEntry.materialize_statement()
-```
-
-Behavior:
-
-```text
-stored statement
-+
-entry.reference
-↓
-new theorem statement
-  source = entry.reference
-```
-
-Stored statement は mutate しない。
-
-Preserved:
-
-```text
-element
-bracket
-note
-index
-generator structure
-```
-
-Verified:
-
-```text
-tests/test_theorem_facts.py
-8 passed
-```
-
-```text
-full suite
-1183 passed in 62.36s
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 24-6：theorem statement → ProofStep.GIVEN 接続
-
-追加:
-
-```text
-TheoremFactEntry.to_proof_step()
-```
-
-既存:
-
-```text
-toda_bracket_membership_theorem_proof_step()
-```
-
-を再利用。
-
-Chain:
-
-```text
-entry
-↓
-materialize_statement()
-↓
-source-backed theorem statement
-↓
-existing helper
-↓
-ProofStep.GIVEN
-```
-
-Result:
-
-```text
-rule = GIVEN
-premises = ()
-inference_rule = None
-```
-
-No new proof-step semantics.
-
-Verified:
-
-```text
-tests/test_theorem_facts.py
-10 passed
-```
-
-```text
-full suite
-1185 passed in 63.89s
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 24-7：ε₃ Toda fact の repository representative
-
-Production code:
-
-```text
-変更なし
-```
-
-Representative end-to-end:
-
-```text
-THEOREM_FACT_REPOSITORY
-↓
-lookup
-↓
-TheoremFactEntry
-↓
-ProofStep.GIVEN
-+
-matching TodaBracketDefinedStatement
-↓
-existing Toda theorem bridge
-↓
-ε₃ ∈ {η₃,Eν′,ν₇}_1
-```
-
-Preserved:
-
-```text
-index = 1
-structured generator identity
-ordinary Suspension(ν′)
-LiteratureReference
-direct provenance
-```
-
-No repository-specific inference rule.
-
-Verified:
-
-```text
-tests/test_theorem_facts.py
-11 passed
-```
-
-```text
-full suite
-1186 passed in 67.22s
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 24-8：duplicate / unknown / boundary
-
-`TheoremFactRepository` に duplicate validation を追加。
-
-Current repository invariant:
-
-```text
-known structural statement → entry
-unknown structural statement → None
-empty repository lookup → None
-duplicate structural statement → ValueError
-```
-
-Duplicate identity:
-
-```text
-same statement
-```
-
-なので:
-
-```text
-same statement
-+
-different LiteratureReference
-```
-
-も duplicate。
-
-一方:
-
-```text
-different statement
-+
-same LiteratureReference
-```
-
-は許容。
-
-No fact-key system.
-
-Verified:
-
-```text
-tests/test_theorem_facts.py
-13 passed
-```
-
-```text
-full suite
-1188 passed in 64.58s
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 24-9：provenance / regression / scope
-
-Production code:
-
-```text
-変更なし
-```
-
-複数の異なる repository theorem fact が存在する scenario で:
-
-```text
-ε₃ theorem step
-+
-unrelated theorem step
-+
-matching definedness
-```
-
-から derived ε₃ membership の direct premises が:
-
-```text
-theorem_step
-defined_step
-```
-
-だけであることを固定。
-
-Unrelated repository theorem step:
-
-```text
-↛ membership provenance
-```
-
-また matching membership は1件だけで、run は:
-
-```text
-FIXED_POINT
-```
-
-へ到達。
-
-Verified:
-
-```text
-tests/test_theorem_facts.py
-15 passed in 0.89s
+15 passed
 ```
 
 ```text
@@ -1268,106 +256,9 @@ full suite
 
 ---
 
-# Phase 24 completion boundary
+# Phase 25：Generator typing / ambient-group facts
 
-Implemented:
-
-```text
-TheoremFactEntry
-TheoremFactRepository
-LiteratureReference-backed fact entry
-actual ε₃ production theorem fact
-THEOREM_FACT_REPOSITORY
-structural statement lookup
-unknown / empty lookup boundary
-duplicate structural statement rejection
-non-mutating statement materialization
-LiteratureReference → theorem source materialization
-repository fact → ProofStep.GIVEN
-actual ε₃ repository representative
-existing Toda bridge integration
-repository provenance regression
-unrelated fact exclusion
-fixed-point / duplicate-conclusion boundary
-```
-
-Actual Phase 24 chain:
-
-```text
-literature-backed theorem data
-↓
-TheoremFactRepository
-↓
-lookup
-↓
-TheoremFactEntry
-↓
-materialize_statement()
-↓
-source-backed TodaBracketMembershipTheoremStatement
-↓
-to_proof_step()
-↓
-ProofStep.GIVEN
-+
-matching TodaBracketDefinedStatement
-↓
-existing Toda theorem inference rule
-↓
-ε₃ ∈ {η₃,Eν′,ν₇}_1
-↓
-FIXED_POINT
-```
-
-Important boundaries:
-
-```text
-repository fact
-!=
-membership
-```
-
-```text
-lookup success
-!=
-theorem applicability
-```
-
-```text
-stored statement
-!=
-materialized statement object
-```
-
-```text
-structural lookup
-!=
-general theorem unification
-```
-
-```text
-same statement with another source
-=
-duplicate in current repository
-```
-
-```text
-fact key
-=
-not implemented
-```
-
-```text
-repository
-!=
-external JSON / YAML loader
-```
-
-```text
-repository
-!=
-universal theorem prover
-```
+Critical principle:
 
 ```text
 GeneratorSymbol.index
@@ -1375,100 +266,450 @@ GeneratorSymbol.index
 automatic typing
 ```
 
-No repository-specific inference rule.
+Typing is supplied only from explicit registered facts.
 
-No generic engine change.
+---
 
-Current verified status:
+## Phase 25-1：generator typing fact の最小表現
+
+追加:
 
 ```text
-tests/test_theorem_facts.py
-15 passed in 0.89s
+GeneratorTypingFact
+  generator
+  source
+  target
 ```
 
+Representative:
+
 ```text
-tests/test_toda_rules.py
-66 passed
+η₃ : S⁴ → S³
+```
+
+Verified:
+
+```text
+tests/test_generator_facts.py
+6 passed
 ```
 
 ```text
 full suite
-1190 passed in 61.30s
+1196 passed in 64.54s
 ```
 
-No failures.
+### 状態
+
+完了
 
 ---
 
-# Current verified status
+## Phase 25-2：GeneratorSymbol と source / target fact の接続
 
-```powershell
-python -m pytest tests/test_theorem_facts.py -q
+追加:
+
+```text
+GeneratorTypingFact.matches_generator()
+```
+
+Exact structural identity.
+
+Verified:
+
+```text
+tests/test_generator_facts.py
+12 passed in 0.85s
 ```
 
 ```text
-15 passed in 0.89s
+full suite
+1202 passed in 61.04s
 ```
 
-```powershell
-python -m pytest tests/test_toda_rules.py -q
-```
+### 状態
 
-```text
-66 passed
-```
-
-```powershell
-python -m pytest -q
-```
-
-```text
-1190 passed in 61.30s
-```
-
-No failures.
+完了
 
 ---
 
-# Next boundary
+## Phase 25-3：ambient homotopy group fact の最小表現
 
-Natural next candidate:
+追加:
 
 ```text
-Phase 25
-Generator typing / ambient-group facts
+GeneratorAmbientGroupFact
+  generator
+  group_dimension
+  sphere_dimension
 ```
 
-Potential direction:
+Representative:
+
+```text
+η₃ ∈ π₄(S³)
+```
+
+Verified:
+
+```text
+tests/test_generator_facts.py
+18 passed in 0.55s
+```
+
+```text
+full suite
+1208 passed in 67.35s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 25-4：η₃ generator fact の representative
+
+Production representative:
+
+```text
+ETA_3_GENERATOR
+ETA_3_TYPING_FACT
+ETA_3_AMBIENT_GROUP_FACT
+```
+
+Verified:
+
+```text
+tests/test_generator_facts.py
+24 passed in 1.77s
+```
+
+```text
+full suite
+1214 passed in 68.81s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 25-5：generator fact repository の最小接続
+
+追加:
+
+```text
+GeneratorFactRepository
+GENERATOR_FACT_REPOSITORY
+```
+
+Lookup:
+
+```text
+lookup_typing()
+lookup_ambient_group()
+```
+
+Verified:
+
+```text
+tests/test_generator_facts.py
+30 passed in 0.98s
+```
+
+```text
+full suite
+1220 passed in 64.41s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 25-6：fact lookup → typed HomotopyElement
+
+追加:
+
+```text
+GeneratorFactRepository.materialize_typed_element()
+```
+
+Chain:
+
+```text
+untyped HomotopyElement
++
+matching GeneratorTypingFact
+↓
+new typed HomotopyElement
+```
+
+Verified:
+
+```text
+tests/test_generator_facts.py
+36 passed in 4.34s
+```
+
+```text
+full suite
+1226 passed in 73.20s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 25-7：Toda entry typing への representative connection
+
+Production code:
+
+```text
+変更なし
+```
+
+Representative integration:
+
+```text
+GeneratorSymbol
+↓
+GeneratorTypingFact
+↓
+GeneratorFactRepository
+↓
+materialize_typed_element()
+↓
+typed HomotopyElement entries
+↓
+TodaBracket
+↓
+are_defining_compositions_type_compatible()
+```
+
+Verified:
+
+```text
+tests/test_generator_facts.py
+40 passed in 1.69s
+```
+
+```text
+full suite
+1230 passed in 65.74s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 25-8：mismatch / unknown / duplicate boundary
+
+Repository uniqueness:
+
+```text
+same generator + two typing facts
+→ ValueError
+```
+
+```text
+same generator + two ambient-group facts
+→ ValueError
+```
+
+Cross-family one-per-family coexistence is allowed.
+
+Existing / partial typing is not overwritten or implicitly completed.
+
+Verified:
+
+```text
+tests/test_generator_facts.py
+48 passed in 1.91s
+```
+
+```text
+full suite
+1238 passed in 63.30s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 25-9：provenance / regression / scope
+
+Production code:
+
+```text
+変更なし
+```
+
+Fixed:
+
+```text
+lookup returns registered fact identity
+unrelated facts do not affect η₃ materialization
+HomotopyElement.name is not a lookup key
+ambient-group fact alone does not materialize typing
+materialization does not mutate repository
+materialization does not modify theorem repository
+```
+
+Current provenance:
+
+```text
+typed element
+← materialize_typed_element()
+← registered GeneratorTypingFact
+← GeneratorFactRepository
+```
+
+Verified:
+
+```text
+tests/test_generator_facts.py
+55 passed in 2.25s
+```
+
+```text
+full suite
+1245 passed in 65.71s
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 25 completion boundary
+
+Implemented:
+
+```text
+GeneratorTypingFact
+GeneratorAmbientGroupFact
+ETA_3_GENERATOR
+ETA_3_TYPING_FACT
+ETA_3_AMBIENT_GROUP_FACT
+GeneratorFactRepository
+GENERATOR_FACT_REPOSITORY
+exact structural generator lookup
+duplicate rejection per fact family
+unknown lookup boundary
+non-mutating typed-element materialization
+already-typed / partial-typing protection
+Toda compatibility integration
+scope / repository-separation regression
+```
+
+Main chain:
 
 ```text
 GeneratorSymbol
 +
-explicit literature / table fact
+explicit generator fact
 ↓
-generator source / target / ambient-group knowledge
+GeneratorFactRepository
 ↓
-typed theorem applicability
+exact structural lookup
+↓
+GeneratorTypingFact
+↓
+materialize_typed_element()
+↓
+typed HomotopyElement
+↓
+existing Toda type-compatibility machinery
 ```
 
-Do not silently derive:
+Important boundaries:
 
 ```text
 GeneratorSymbol.index
-→ source / target
+↛
+automatic typing
 ```
-
-without an explicit fact layer.
-
-Later candidates:
 
 ```text
-general theorem representation
-  only when actual quantified theorem need appears
-stable homotopy representation
-stable Toda bracket
-higher Toda bracket
+HomotopyElement.name
+↛
+generator lookup
 ```
+
+```text
+GeneratorAmbientGroupFact
+↛
+source / target materialization
+```
+
+```text
+typing fact
+!=
+ambient-group fact
+```
+
+```text
+generator repository
+!=
+theorem repository
+```
+
+```text
+lookup / materialization
+↛
+generic inference engine
+```
+
+Current verified status:
+
+```text
+tests/test_generator_facts.py
+55 passed in 2.25s
+```
+
+```text
+full suite
+1245 passed in 65.71s
+```
+
+No failures.
+
+### 状態
+
+完了
+
+---
+
+# Phase 26 candidate
+
+Natural next candidate:
+
+```text
+Phase 26
+Generator fact provenance / actual Toda-generator typing expansion
+```
+
+Candidate actual requirements:
+
+```text
+LiteratureReference-backed generator typing fact
+ν′ / ν₇ production typing facts
+typing / ambient-group consistency validation
+explicit nested Suspension typing
+```
+
+The next Phase should choose one actual mathematical need first.
 
 ---
 
@@ -1485,11 +726,9 @@ current architecture / semantics / boundaries
 
 docs/development_log.md
 =
-chronological history
+chronological implementation history
 
 docs/roadmap.md
 =
 future capability dependency
 ```
-
-今後も historical limitation と current limitation を混同しない。
