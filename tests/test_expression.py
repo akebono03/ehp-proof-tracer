@@ -176,6 +176,54 @@ def test_phase22_3_generator_symbol_decoration_is_preserved():
   assert symbol.decoration == "bar"
 
 
+def test_phase22_4_nu_family_representative_distinctions():
+  nu_plain = GeneratorSymbol(
+    family="ν",
+  )
+  nu_prime = GeneratorSymbol(
+    family="ν",
+    decoration="′",
+  )
+  nu_bar = GeneratorSymbol(
+    family="ν",
+    decoration="bar",
+  )
+
+  assert nu_plain != nu_prime
+  assert nu_plain != nu_bar
+  assert nu_prime != nu_bar
+
+
+def test_phase22_4_decoration_and_index_are_independent_roles():
+  nu_prime = GeneratorSymbol(
+    family="ν",
+    decoration="′",
+  )
+  nu_prime_7 = GeneratorSymbol(
+    family="ν",
+    index=7,
+    decoration="′",
+  )
+
+  assert nu_prime != nu_prime_7
+  assert nu_prime.decoration == nu_prime_7.decoration
+  assert nu_prime.index is None
+  assert nu_prime_7.index == 7
+
+
+def test_phase22_4_same_display_family_does_not_collapse_decoration():
+  nu_plain = GeneratorSymbol(
+    family="ν",
+  )
+  nu_prime = GeneratorSymbol(
+    family="ν",
+    decoration="′",
+  )
+
+  assert nu_plain.family == nu_prime.family
+  assert nu_plain != nu_prime
+
+
 def test_homotopy_element():
   element = HomotopyElement(
     name="η",
