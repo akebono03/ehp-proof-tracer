@@ -1,6 +1,7 @@
 from expression import (
   Composition,
   Expression,
+  GeneratorSymbol,
   HomotopyElement,
   IndexedTodaBracketData,
   IteratedSuspension,
@@ -50,6 +51,29 @@ def test_scalar_symbol_is_not_expression():
 
   assert not isinstance(
     scalar,
+    Expression,
+  )
+
+
+def test_phase22_1_generator_symbol_preserves_minimum_structure():
+  symbol = GeneratorSymbol(
+    family="ν",
+    index=3,
+    decoration="′",
+  )
+
+  assert symbol.family == "ν"
+  assert symbol.index == 3
+  assert symbol.decoration == "′"
+
+
+def test_phase22_1_generator_symbol_is_not_expression():
+  symbol = GeneratorSymbol(
+    family="ν",
+  )
+
+  assert not isinstance(
+    symbol,
     Expression,
   )
 
