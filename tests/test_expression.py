@@ -227,6 +227,121 @@ def test_phase21_3_nested_suspension_shifts_source_and_target_repeatedly():
   assert twice.target == 5
 
 
+def test_phase21_4_iterated_suspension_shifts_source_and_target_for_concrete_exponent():
+  alpha = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=7,
+    target=3,
+  )
+
+  suspended = IteratedSuspension(
+    expression=alpha,
+    exponent=2,
+  )
+
+  assert suspended.expression == alpha
+  assert suspended.exponent == 2
+  assert suspended.source == 9
+  assert suspended.target == 5
+
+
+def test_phase21_4_iterated_suspension_preserves_unknown_typing():
+  source_only = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=7,
+    target=None,
+  )
+
+  target_only = HomotopyElement(
+    name="β",
+    dimension=4,
+    source=None,
+    target=4,
+  )
+
+  suspended_source_only = IteratedSuspension(
+    expression=source_only,
+    exponent=3,
+  )
+
+  suspended_target_only = IteratedSuspension(
+    expression=target_only,
+    exponent=3,
+  )
+
+  assert suspended_source_only.source == 10
+  assert suspended_source_only.target is None
+
+  assert suspended_target_only.source is None
+  assert suspended_target_only.target == 7
+
+
+def test_phase21_4_symbolic_exponent_does_not_produce_source_or_target():
+  alpha = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=7,
+    target=3,
+  )
+
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  suspended = IteratedSuspension(
+    expression=alpha,
+    exponent=t,
+  )
+
+  assert suspended.expression == alpha
+  assert suspended.exponent == t
+  assert suspended.source is None
+  assert suspended.target is None
+
+
+def test_phase21_4_iterated_suspension_shifts_already_suspended_expression():
+  alpha = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=7,
+    target=3,
+  )
+
+  once = Suspension(
+    expression=alpha,
+  )
+
+  iterated = IteratedSuspension(
+    expression=once,
+    exponent=2,
+  )
+
+  assert once.source == 8
+  assert once.target == 4
+
+  assert iterated.source == 10
+  assert iterated.target == 6
+
+
+def test_phase21_4_negative_exponent_does_not_produce_source_or_target():
+  alpha = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=7,
+    target=3,
+  )
+
+  suspended = IteratedSuspension(
+    expression=alpha,
+    exponent=-1,
+  )
+
+  assert suspended.source is None
+  assert suspended.target is None
+
+
 def test_eta():
   assert eta(3) == HomotopyElement("η", 3)
 

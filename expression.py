@@ -134,6 +134,64 @@ class IteratedSuspension(Expression):
   expression: Expression
   exponent: int | ScalarSymbol
 
+  @property
+  def source(self) -> int | None:
+    if not isinstance(
+      self.exponent,
+      int,
+    ):
+      return None
+
+    if self.exponent < 0:
+      return None
+
+    if isinstance(
+      self.expression,
+      HomotopyElement,
+    ):
+      if self.expression.source is None:
+        return None
+      return self.expression.source + self.exponent
+
+    if isinstance(
+      self.expression,
+      Suspension,
+    ):
+      if self.expression.source is None:
+        return None
+      return self.expression.source + self.exponent
+
+    return None
+
+  @property
+  def target(self) -> int | None:
+    if not isinstance(
+      self.exponent,
+      int,
+    ):
+      return None
+
+    if self.exponent < 0:
+      return None
+
+    if isinstance(
+      self.expression,
+      HomotopyElement,
+    ):
+      if self.expression.target is None:
+        return None
+      return self.expression.target + self.exponent
+
+    if isinstance(
+      self.expression,
+      Suspension,
+    ):
+      if self.expression.target is None:
+        return None
+      return self.expression.target + self.exponent
+
+    return None
+
 
 def eta(n: int) -> HomotopyElement:
   return HomotopyElement("η", n)
