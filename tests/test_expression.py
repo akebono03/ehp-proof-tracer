@@ -744,6 +744,211 @@ def test_phase21_8_representative_typed_toda_scenario():
   )
 
 
+def test_phase21_9_typing_boundary_regression():
+  typed_alpha = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  same_typed_alpha = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  different_source_alpha = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=6,
+    target=3,
+  )
+
+  untyped_alpha = HomotopyElement(
+    name="α",
+    dimension=3,
+  )
+
+  assert typed_alpha == same_typed_alpha
+  assert typed_alpha != different_source_alpha
+  assert typed_alpha != untyped_alpha
+
+  suspended = Suspension(
+    expression=typed_alpha,
+  )
+
+  assert suspended.source == 6
+  assert suspended.target == 4
+
+  concrete_iterated = IteratedSuspension(
+    expression=typed_alpha,
+    exponent=2,
+  )
+
+  assert concrete_iterated.source == 7
+  assert concrete_iterated.target == 5
+
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  symbolic_iterated = IteratedSuspension(
+    expression=typed_alpha,
+    exponent=t,
+  )
+
+  assert symbolic_iterated.source is None
+  assert symbolic_iterated.target is None
+
+  negative_iterated = IteratedSuspension(
+    expression=typed_alpha,
+    exponent=-1,
+  )
+
+  assert negative_iterated.source is None
+  assert negative_iterated.target is None
+
+  compatible_beta = HomotopyElement(
+    name="β",
+    dimension=5,
+    source=7,
+    target=5,
+  )
+
+  compatible_composition = Composition(
+    left=typed_alpha,
+    right=compatible_beta,
+  )
+
+  assert compatible_composition.is_type_compatible()
+
+  mismatched_beta = HomotopyElement(
+    name="β",
+    dimension=4,
+    source=7,
+    target=4,
+  )
+
+  mismatched_composition = Composition(
+    left=typed_alpha,
+    right=mismatched_beta,
+  )
+
+  assert mismatched_composition.left == typed_alpha
+  assert mismatched_composition.right == mismatched_beta
+  assert not mismatched_composition.is_type_compatible()
+
+  unknown_composition = Composition(
+    left=untyped_alpha,
+    right=compatible_beta,
+  )
+
+  assert not unknown_composition.is_type_compatible()
+
+
+def test_phase21_9_toda_compatibility_boundary_regression():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=5,
+    source=7,
+    target=5,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=7,
+    source=9,
+    target=7,
+  )
+
+  compatible_bracket = TodaBracket(
+    first=a,
+    second=b,
+    third=c,
+  )
+
+  assert (
+    compatible_bracket
+    .are_defining_compositions_type_compatible()
+  )
+
+  first_mismatch_b = HomotopyElement(
+    name="b",
+    dimension=4,
+    source=7,
+    target=4,
+  )
+
+  first_mismatch_bracket = TodaBracket(
+    first=a,
+    second=first_mismatch_b,
+    third=c,
+  )
+
+  assert not (
+    first_mismatch_bracket
+    .are_defining_compositions_type_compatible()
+  )
+
+  second_mismatch_c = HomotopyElement(
+    name="c",
+    dimension=6,
+    source=9,
+    target=6,
+  )
+
+  second_mismatch_bracket = TodaBracket(
+    first=a,
+    second=b,
+    third=second_mismatch_c,
+  )
+
+  assert not (
+    second_mismatch_bracket
+    .are_defining_compositions_type_compatible()
+  )
+
+  untyped_b = HomotopyElement(
+    name="b",
+    dimension=5,
+  )
+
+  unknown_bracket = TodaBracket(
+    first=a,
+    second=untyped_b,
+    third=c,
+  )
+
+  assert not (
+    unknown_bracket
+    .are_defining_compositions_type_compatible()
+  )
+
+  indexed_bracket = TodaBracket(
+    first=a,
+    second=b,
+    third=c,
+    index=2,
+  )
+
+  assert (
+    indexed_bracket
+    .are_defining_compositions_type_compatible()
+  )
+
+  assert indexed_bracket.index == 2
+  assert indexed_bracket != compatible_bracket
+
+
 def test_eta():
   assert eta(3) == HomotopyElement("η", 3)
 
