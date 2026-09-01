@@ -8,6 +8,12 @@ from map_facts import (
   MapIsomorphismFactRepository,
   MapTypingFact,
 )
+from map_property_rules import (
+  IsomorphismStatement,
+)
+from proof import (
+  ProofRule,
+)
 
 
 def test_phase29_1_hopf_map_is_map_symbol():
@@ -622,6 +628,90 @@ def test_phase29_5_repository_allows_same_map_in_different_typing_context():
     different_typing
   ) is different_fact
 
+
+def test_phase29_6_map_isomorphism_fact_materializes_isomorphism_statement():
+  step = (
+    HOPF_MAP_ISOMORPHISM_FACT
+    .to_proof_step()
+  )
+
+  assert step.conclusion == (
+    IsomorphismStatement(
+      map=HOPF_MAP,
+    )
+  )
+
+
+def test_phase29_6_materialized_isomorphism_statement_preserves_actual_map():
+  step = (
+    HOPF_MAP_ISOMORPHISM_FACT
+    .to_proof_step()
+  )
+
+  assert isinstance(
+    step.conclusion,
+    IsomorphismStatement,
+  )
+
+  assert step.conclusion.map is (
+    HOPF_MAP
+  )
+
+
+def test_phase29_6_materialized_isomorphism_step_is_given():
+  step = (
+    HOPF_MAP_ISOMORPHISM_FACT
+    .to_proof_step()
+  )
+
+  assert step.rule == (
+    ProofRule.GIVEN
+  )
+
+
+def test_phase29_6_materialized_isomorphism_step_has_no_premises():
+  step = (
+    HOPF_MAP_ISOMORPHISM_FACT
+    .to_proof_step()
+  )
+
+  assert step.premises == ()
+
+
+def test_phase29_6_materialized_isomorphism_step_has_no_inference_rule():
+  step = (
+    HOPF_MAP_ISOMORPHISM_FACT
+    .to_proof_step()
+  )
+
+  assert step.inference_rule is None
+
+
+def test_phase29_6_repository_lookup_materializes_actual_hopf_isomorphism_step():
+  fact = (
+    MAP_ISOMORPHISM_FACT_REPOSITORY
+    .lookup(
+      HOPF_MAP_TYPING_FACT
+    )
+  )
+
+  assert fact is (
+    HOPF_MAP_ISOMORPHISM_FACT
+  )
+
+  step = fact.to_proof_step()
+
+  assert step.conclusion == (
+    IsomorphismStatement(
+      map=HOPF_MAP,
+    )
+  )
+
+  assert step.rule == (
+    ProofRule.GIVEN
+  )
+
+  assert step.premises == ()
 
 
 

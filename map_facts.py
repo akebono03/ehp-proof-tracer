@@ -1,6 +1,11 @@
 from dataclasses import dataclass
 
 from expression import MapSymbol
+from map_property_rules import IsomorphismStatement
+from proof import (
+  ProofRule,
+  ProofStep,
+)
 
 
 @dataclass(frozen=True)
@@ -15,6 +20,17 @@ class MapTypingFact:
 @dataclass(frozen=True)
 class MapIsomorphismFact:
   typing: MapTypingFact
+
+  def to_proof_step(
+    self,
+  ) -> ProofStep:
+    return ProofStep(
+      conclusion=IsomorphismStatement(
+        map=self.typing.map,
+      ),
+      premises=(),
+      rule=ProofRule.GIVEN,
+    )
 
 
 @dataclass(frozen=True)
