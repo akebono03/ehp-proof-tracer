@@ -1869,6 +1869,260 @@ def test_phase26_5_suspended_nu_prime_typing_originates_from_registered_typing_f
   )
 
 
+def test_phase26_6_actual_epsilon_3_toda_entries_are_typed_from_production_facts():
+  eta_3 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="η₃",
+        dimension=3,
+        generator=ETA_3_GENERATOR,
+      )
+    )
+  )
+
+  nu_prime = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν′",
+        dimension=3,
+        generator=NU_PRIME_GENERATOR,
+      )
+    )
+  )
+
+  nu_7 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν₇",
+        dimension=7,
+        generator=NU_7_GENERATOR,
+      )
+    )
+  )
+
+  assert eta_3 is not None
+  assert nu_prime is not None
+  assert nu_7 is not None
+
+  e_nu_prime = Suspension(
+    expression=nu_prime,
+  )
+
+  assert eta_3.source == 4
+  assert eta_3.target == 3
+
+  assert e_nu_prime.source == 7
+  assert e_nu_prime.target == 4
+
+  assert nu_7.source == 10
+  assert nu_7.target == 7
+
+
+def test_phase26_6_actual_epsilon_3_toda_bracket_preserves_typed_entries_and_index():
+  eta_3 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="η₃",
+        dimension=3,
+        generator=ETA_3_GENERATOR,
+      )
+    )
+  )
+
+  nu_prime = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν′",
+        dimension=3,
+        generator=NU_PRIME_GENERATOR,
+      )
+    )
+  )
+
+  nu_7 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν₇",
+        dimension=7,
+        generator=NU_7_GENERATOR,
+      )
+    )
+  )
+
+  assert eta_3 is not None
+  assert nu_prime is not None
+  assert nu_7 is not None
+
+  e_nu_prime = Suspension(
+    expression=nu_prime,
+  )
+
+  bracket = TodaBracket(
+    first=eta_3,
+    second=e_nu_prime,
+    third=nu_7,
+    index=1,
+  )
+
+  assert bracket.first is eta_3
+  assert bracket.second is e_nu_prime
+  assert bracket.third is nu_7
+  assert bracket.index == 1
+
+
+def test_phase26_6_actual_toda_entries_preserve_generator_fact_origins():
+  eta_3 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="η₃",
+        dimension=3,
+        generator=ETA_3_GENERATOR,
+      )
+    )
+  )
+
+  nu_prime = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν′",
+        dimension=3,
+        generator=NU_PRIME_GENERATOR,
+      )
+    )
+  )
+
+  nu_7 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν₇",
+        dimension=7,
+        generator=NU_7_GENERATOR,
+      )
+    )
+  )
+
+  assert eta_3 is not None
+  assert nu_prime is not None
+  assert nu_7 is not None
+
+  bracket = TodaBracket(
+    first=eta_3,
+    second=Suspension(
+      expression=nu_prime,
+    ),
+    third=nu_7,
+    index=1,
+  )
+
+  assert bracket.first.generator is (
+    ETA_3_GENERATOR
+  )
+
+  assert isinstance(
+    bracket.second,
+    Suspension,
+  )
+
+  assert bracket.second.expression.generator is (
+    NU_PRIME_GENERATOR
+  )
+
+  assert bracket.third.generator is (
+    NU_7_GENERATOR
+  )
+
+
+def test_phase26_6_typed_bracket_matches_actual_theorem_notation_structure():
+  eta_3 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="η₃",
+        dimension=3,
+        generator=ETA_3_GENERATOR,
+      )
+    )
+  )
+
+  nu_prime = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν′",
+        dimension=3,
+        generator=NU_PRIME_GENERATOR,
+      )
+    )
+  )
+
+  nu_7 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν₇",
+        dimension=7,
+        generator=NU_7_GENERATOR,
+      )
+    )
+  )
+
+  assert eta_3 is not None
+  assert nu_prime is not None
+  assert nu_7 is not None
+
+  typed_bracket = TodaBracket(
+    first=eta_3,
+    second=Suspension(
+      expression=nu_prime,
+    ),
+    third=nu_7,
+    index=1,
+  )
+
+  theorem_bracket = (
+    THEOREM_FACT_REPOSITORY
+    .entries[0]
+    .statement
+    .bracket
+  )
+
+  assert typed_bracket.index == (
+    theorem_bracket.index
+  )
+
+  assert typed_bracket.first.generator == (
+    theorem_bracket.first.generator
+  )
+
+  assert isinstance(
+    typed_bracket.second,
+    Suspension,
+  )
+
+  assert isinstance(
+    theorem_bracket.second,
+    Suspension,
+  )
+
+  assert (
+    typed_bracket.second.expression.generator
+    == theorem_bracket.second.expression.generator
+  )
+
+  assert typed_bracket.third.generator == (
+    theorem_bracket.third.generator
+  )
+
+
 
 
 
