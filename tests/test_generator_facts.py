@@ -1,4 +1,5 @@
 from expression import (
+  Composition,
   GeneratorSymbol,
   HomotopyElement,
   Suspension,
@@ -2123,6 +2124,208 @@ def test_phase26_6_typed_bracket_matches_actual_theorem_notation_structure():
   )
 
 
+def test_phase26_7_eta_3_composed_with_e_nu_prime_is_type_compatible():
+  eta_3 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="η₃",
+        dimension=3,
+        generator=ETA_3_GENERATOR,
+      )
+    )
+  )
+
+  nu_prime = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν′",
+        dimension=3,
+        generator=NU_PRIME_GENERATOR,
+      )
+    )
+  )
+
+  assert eta_3 is not None
+  assert nu_prime is not None
+
+  e_nu_prime = Suspension(
+    expression=nu_prime,
+  )
+
+  composition = Composition(
+    left=eta_3,
+    right=e_nu_prime,
+  )
+
+  assert eta_3.source == 4
+  assert e_nu_prime.target == 4
+
+  assert composition.is_type_compatible()
+
+
+def test_phase26_7_e_nu_prime_composed_with_nu_7_is_type_compatible():
+  nu_prime = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν′",
+        dimension=3,
+        generator=NU_PRIME_GENERATOR,
+      )
+    )
+  )
+
+  nu_7 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν₇",
+        dimension=7,
+        generator=NU_7_GENERATOR,
+      )
+    )
+  )
+
+  assert nu_prime is not None
+  assert nu_7 is not None
+
+  e_nu_prime = Suspension(
+    expression=nu_prime,
+  )
+
+  composition = Composition(
+    left=e_nu_prime,
+    right=nu_7,
+  )
+
+  assert e_nu_prime.source == 7
+  assert nu_7.target == 7
+
+  assert composition.is_type_compatible()
+
+
+def test_phase26_7_actual_epsilon_3_toda_bracket_is_type_compatible():
+  eta_3 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="η₃",
+        dimension=3,
+        generator=ETA_3_GENERATOR,
+      )
+    )
+  )
+
+  nu_prime = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν′",
+        dimension=3,
+        generator=NU_PRIME_GENERATOR,
+      )
+    )
+  )
+
+  nu_7 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν₇",
+        dimension=7,
+        generator=NU_7_GENERATOR,
+      )
+    )
+  )
+
+  assert eta_3 is not None
+  assert nu_prime is not None
+  assert nu_7 is not None
+
+  bracket = TodaBracket(
+    first=eta_3,
+    second=Suspension(
+      expression=nu_prime,
+    ),
+    third=nu_7,
+    index=1,
+  )
+
+  assert (
+    bracket
+    .are_defining_compositions_type_compatible()
+  )
+
+
+def test_phase26_7_actual_toda_type_compatibility_does_not_use_bracket_index():
+  eta_3 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="η₃",
+        dimension=3,
+        generator=ETA_3_GENERATOR,
+      )
+    )
+  )
+
+  nu_prime = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν′",
+        dimension=3,
+        generator=NU_PRIME_GENERATOR,
+      )
+    )
+  )
+
+  nu_7 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν₇",
+        dimension=7,
+        generator=NU_7_GENERATOR,
+      )
+    )
+  )
+
+  assert eta_3 is not None
+  assert nu_prime is not None
+  assert nu_7 is not None
+
+  e_nu_prime = Suspension(
+    expression=nu_prime,
+  )
+
+  indexed_bracket = TodaBracket(
+    first=eta_3,
+    second=e_nu_prime,
+    third=nu_7,
+    index=1,
+  )
+
+  unindexed_bracket = TodaBracket(
+    first=eta_3,
+    second=e_nu_prime,
+    third=nu_7,
+  )
+
+  assert indexed_bracket.index == 1
+  assert unindexed_bracket.index is None
+
+  assert (
+    indexed_bracket
+    .are_defining_compositions_type_compatible()
+  )
+
+  assert (
+    unindexed_bracket
+    .are_defining_compositions_type_compatible()
+  )
 
 
 
