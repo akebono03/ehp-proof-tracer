@@ -1,6 +1,7 @@
 from expression import (
   GeneratorSymbol,
   HomotopyElement,
+  Suspension,
   TodaBracket,
 )
 from generator_facts import (
@@ -1714,5 +1715,161 @@ def test_phase26_4_production_repository_returns_nu_7_ambient_group_fact():
   assert result is (
     NU_7_AMBIENT_GROUP_FACT
   )
+
+
+def test_phase26_5_repository_derived_nu_prime_suspends_to_expected_typing():
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    generator=NU_PRIME_GENERATOR,
+  )
+
+  typed_nu_prime = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      nu_prime
+    )
+  )
+
+  assert typed_nu_prime is not None
+  assert typed_nu_prime.source == 6
+  assert typed_nu_prime.target == 3
+
+  suspended_nu_prime = Suspension(
+    expression=typed_nu_prime,
+  )
+
+  assert suspended_nu_prime.source == 7
+  assert suspended_nu_prime.target == 4
+
+
+def test_phase26_5_suspended_nu_prime_preserves_repository_derived_base_element():
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    generator=NU_PRIME_GENERATOR,
+  )
+
+  typed_nu_prime = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      nu_prime
+    )
+  )
+
+  assert typed_nu_prime is not None
+
+  suspended_nu_prime = Suspension(
+    expression=typed_nu_prime,
+  )
+
+  assert suspended_nu_prime.expression is (
+    typed_nu_prime
+  )
+
+  assert (
+    suspended_nu_prime.expression.generator
+    is NU_PRIME_GENERATOR
+  )
+
+
+def test_phase26_5_unmaterialized_nu_prime_suspension_remains_untyped():
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    generator=NU_PRIME_GENERATOR,
+  )
+
+  suspended_nu_prime = Suspension(
+    expression=nu_prime,
+  )
+
+  assert nu_prime.source is None
+  assert nu_prime.target is None
+
+  assert suspended_nu_prime.source is None
+  assert suspended_nu_prime.target is None
+
+
+def test_phase26_5_suspension_connection_does_not_mutate_original_nu_prime():
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    generator=NU_PRIME_GENERATOR,
+  )
+
+  typed_nu_prime = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      nu_prime
+    )
+  )
+
+  assert typed_nu_prime is not None
+
+  suspended_nu_prime = Suspension(
+    expression=typed_nu_prime,
+  )
+
+  assert nu_prime.source is None
+  assert nu_prime.target is None
+
+  assert typed_nu_prime.source == 6
+  assert typed_nu_prime.target == 3
+
+  assert suspended_nu_prime.source == 7
+  assert suspended_nu_prime.target == 4
+
+
+def test_phase26_5_suspended_nu_prime_typing_originates_from_registered_typing_fact():
+  typing_fact = (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_typing(
+      NU_PRIME_GENERATOR
+    )
+  )
+
+  assert typing_fact is (
+    NU_PRIME_TYPING_FACT
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    generator=typing_fact.generator,
+  )
+
+  typed_nu_prime = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      nu_prime
+    )
+  )
+
+  assert typed_nu_prime is not None
+
+  suspended_nu_prime = Suspension(
+    expression=typed_nu_prime,
+  )
+
+  assert typed_nu_prime.source == (
+    NU_PRIME_TYPING_FACT.source
+  )
+
+  assert typed_nu_prime.target == (
+    NU_PRIME_TYPING_FACT.target
+  )
+
+  assert suspended_nu_prime.source == (
+    NU_PRIME_TYPING_FACT.source + 1
+  )
+
+  assert suspended_nu_prime.target == (
+    NU_PRIME_TYPING_FACT.target + 1
+  )
+
+
+
+
 
 
