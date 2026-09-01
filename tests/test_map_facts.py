@@ -1,4 +1,8 @@
-from expression import MapSymbol
+from expression import (
+  HomotopyElement,
+  MapApplication,
+  MapSymbol,
+)
 from map_facts import (
   HOPF_MAP,
   HOPF_MAP_ISOMORPHISM_FACT,
@@ -11,10 +15,14 @@ from map_facts import (
 from map_property_rules import (
   InjectiveMapStatement,
   IsomorphismStatement,
+  injective_map_reflects_equality_inference_rule,
   isomorphism_implies_injective_inference_rule,
 )
 from proof import (
   ProofRule,
+  ProofStep,
+  Relation,
+  RelationType,
   run_inference_until_stable_with_history,
 )
 
@@ -814,6 +822,80 @@ def test_phase29_7_actual_hopf_injectivity_preserves_isomorphism_provenance():
     isomorphism_step,
   )
 
+
+def test_phase29_8_actual_hopf_fact_and_mapped_equality_run_end_to_end():
+  fact = (
+    MAP_ISOMORPHISM_FACT_REPOSITORY
+    .lookup(
+      HOPF_MAP_TYPING_FACT
+    )
+  )
+
+  assert fact is (
+    HOPF_MAP_ISOMORPHISM_FACT
+  )
+
+  isomorphism_step = (
+    fact.to_proof_step()
+  )
+
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  mapped_equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=MapApplication(
+        map=HOPF_MAP,
+        expression=a,
+      ),
+      rhs=MapApplication(
+        map=HOPF_MAP,
+        expression=b,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rules = (
+    isomorphism_implies_injective_inference_rule(),
+    injective_map_reflects_equality_inference_rule(),
+  )
+
+  result = run_inference_until_stable_with_history(
+    rules,
+    (
+      isomorphism_step,
+      mapped_equality_step,
+    ),
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert IsomorphismStatement(
+    map=HOPF_MAP,
+  ) in conclusions
+
+  assert InjectiveMapStatement(
+    map=HOPF_MAP,
+  ) in conclusions
+
+  assert Relation(
+    lhs=a,
+    rhs=b,
+    relation_type=RelationType.EQUALITY,
+  ) in conclusions
 
 
 
