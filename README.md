@@ -4,7 +4,7 @@ A computational tool for tracing calculations and mathematical inference in EHP 
 
 ## Goal
 
-The long-term goal is to explain how homotopy groups of spheres are determined from mathematical input such as EHP exact sequences, element orders, additive relations, Suspension, Freudenthal theory, composition, generalized Hopf invariants, homomorphisms, subgroup / modulo information, symbolic scalar constraints, indeterminacy, Toda brackets, typed homotopy elements, structured generator notation, literature-backed theorem repositories, explicit generator and composition facts, map properties, and later stable-homotopy information.
+The long-term goal is to explain how homotopy groups of spheres are determined from mathematical input such as EHP exact sequences, element orders, additive relations, Suspension, Freudenthal theory, composition, generalized Hopf invariants, homomorphisms, subgroup / modulo information, symbolic scalar constraints, indeterminacy, Toda brackets, typed homotopy elements, structured generator notation, literature-backed theorem repositories, explicit generator / composition / map facts, map properties, and later stable-homotopy information.
 
 The project separates:
 
@@ -61,6 +61,7 @@ Completed:
 - Phase 26: actual Toda-generator typing expansion
 - Phase 27: corrected actual ε₃ Toda-definedness / end-to-end inference
 - Phase 28: map-property equality-reflection foundation
+- Phase 29: actual H map facts / typing / production-fact connection
 
 Current architecture:
 
@@ -68,7 +69,7 @@ Current architecture:
 literature-backed theorem facts / repository
 explicit generator facts / repository
 explicit composition facts / repository
-explicit map-property statements / future map facts
+explicit map facts / repository
         ↓
 homotopy / EHP / map-property domain rules
         ↓
@@ -112,7 +113,7 @@ TodaBracket
 IndexedTodaBracketData
 ```
 
-Phase 21 adds minimal source / target context and compatibility queries. Phase 22 adds structured generator identity while keeping generator notation separate from typing rules. Phase 23 connects indexed Toda theorem facts to membership under explicit guards. Phase 24 adds a narrow literature-backed theorem repository. Phase 25 adds a separate explicit generator-fact repository and typed-element materialization. Phase 26 expands this knowledge to the actual generators appearing in the ε₃ Toda bracket. Phase 27 adds explicit corrected composition knowledge and connects it to actual indexed Toda definedness and theorem-backed membership. Phase 28 adds proof-level injectivity / isomorphism statements and equality reflection through an injective map.
+Phase 21 adds minimal source / target context and compatibility queries. Phase 22 adds structured generator identity while keeping generator notation separate from typing rules. Phase 23 connects indexed Toda theorem facts to membership under explicit guards. Phase 24 adds a narrow literature-backed theorem repository. Phase 25 adds a separate explicit generator-fact repository and typed-element materialization. Phase 26 expands this knowledge to the actual generators appearing in the ε₃ Toda bracket. Phase 27 adds explicit corrected composition knowledge and connects it to actual indexed Toda definedness and theorem-backed membership. Phase 28 adds proof-level injectivity / isomorphism statements and equality reflection through an injective map. Phase 29 connects an actual Hopf map identity, typing context, and isomorphism fact to the Phase 28 proof-level machinery.
 
 ---
 
@@ -274,12 +275,7 @@ and:
 {η₃,Eν′,ν₇}_1
 ```
 
-has type-compatible displayed adjacent compositions:
-
-```text
-η₃ ∘ Eν′
-Eν′ ∘ ν₇
-```
+has type-compatible displayed adjacent compositions.
 
 Critical boundary retained in later phases:
 
@@ -338,13 +334,7 @@ For the indexed bracket:
 {η₃,Eν′,ν₇}_1
 ```
 
-the second defining condition is not treated as a primitive displayed-adjacent fact
-
-```text
-Eν′ ∘ ν₇ = 0
-```
-
-Instead, the corrected actual indexed condition is:
+the corrected actual indexed condition is:
 
 ```text
 η₃ ∘ Eν′ = 0
@@ -364,7 +354,7 @@ through:
 indexed_toda_bracket_index1_defined_inference_rule()
 ```
 
-The rule captures the structural pattern:
+The rule captures:
 
 ```text
 a ∘ Eb = 0
@@ -417,156 +407,38 @@ and terminates at a genuine fixed point.
 
 # Phase 28: map-property equality-reflection foundation
 
-Phase 28 introduces the minimal general mechanism needed for proofs of the form:
+Phase 28 introduced the minimal general mechanism:
 
 ```text
-f(a) = f(b)
+f(a)=f(b)
 +
 f is injective / an isomorphism
-↓
-a = b
-```
-
-The phase intentionally stops before adding actual Hopf-map facts.
-
-## 28-1: InjectiveMapStatement
-
-Added:
-
-```text
-InjectiveMapStatement(
-  map=f,
-)
-```
-
-This represents:
-
-```text
-f is injective
-```
-
-Critical boundary:
-
-```text
-MapSymbol(f)
-↛
-InjectiveMapStatement(f)
-```
-
-Injectivity is explicit proof-level knowledge and is not inferred from notation.
-
-## 28-2: IsomorphismStatement
-
-Added:
-
-```text
-IsomorphismStatement(
-  map=f,
-)
-```
-
-Critical structural distinction:
-
-```text
-IsomorphismStatement(f)
-!=
-InjectiveMapStatement(f)
-```
-
-Mathematical implication is represented by an explicit inference rule rather than by structural equality.
-
-## 28-3: isomorphism implies injectivity
-
-Added:
-
-```text
-isomorphism_implies_injective_inference_rule()
-```
-
-Rule:
-
-```text
-Isomorphism(f)
-↓
-Injective(f)
-```
-
-The derived `ProofStep` preserves the isomorphism premise as provenance.
-
-No reverse implication is added.
-
-## 28-4: MapApplication equality representation
-
-Existing structures are sufficient to represent:
-
-```text
-f(a)=f(b)
-```
-
-as:
-
-```text
-Relation(
-  lhs=MapApplication(
-    map=f,
-    expression=a,
-  ),
-  rhs=MapApplication(
-    map=f,
-    expression=b,
-  ),
-  relation_type=RelationType.EQUALITY,
-)
-```
-
-No new map-equality statement class is needed.
-
-Structural distinctions remain visible:
-
-```text
-f(a)=f(b)
-!=
-f(a)=g(b)
-```
-
-## 28-5: equality reflection under injectivity
-
-Added:
-
-```text
-injective_map_reflects_equality_inference_rule()
-```
-
-Rule:
-
-```text
-Injective(f)
-+
-f(a)=f(b)
 ↓
 a=b
 ```
 
-The guard requires:
+Added:
 
 ```text
-lhs is MapApplication
-rhs is MapApplication
-lhs.map == rhs.map
-injective_statement.map == lhs.map
+InjectiveMapStatement
+IsomorphismStatement
+isomorphism_implies_injective_inference_rule()
+injective_map_reflects_equality_inference_rule()
 ```
 
-The conclusion reuses the original mapped expressions:
+Existing `MapApplication` represents:
 
 ```text
-lhs = mapped_equality.lhs.expression
-rhs = mapped_equality.rhs.expression
-relation_type = EQUALITY
+f(a)
 ```
 
-## 28-6: provenance chain
+and `RelationType.EQUALITY` represents:
 
-The existing rules compose in one fixed-point run:
+```text
+f(a)=f(b)
+```
+
+The fixed-point chain is:
 
 ```text
 GIVEN
@@ -576,66 +448,231 @@ GIVEN
 f(a)=f(b)
 
 Round 1
-Isomorphism(f)
-→ Injective(f)
+Injective(f)
 
 Round 2
-Injective(f) + f(a)=f(b)
-→ a=b
+a=b
 ```
 
-The final equality step preserves direct premises:
+Invalid mismatched-map cases are rejected and full proof-level provenance is retained.
+
+Important Phase 28 boundary:
 
 ```text
-derived Injective(f)
-mapped equality f(a)=f(b)
+H
+=
+representative MapSymbol only
 ```
 
-and the derived injectivity step preserves:
+No actual Hopf-map fact was yet supplied.
+
+---
+
+# Phase 29: actual H map facts / typing
+
+Phase 29 replaces the representative Phase 28 `H is an isomorphism` assumption with explicit production mathematical knowledge for the required Hopf-map context.
+
+## 29-1: actual H map identity
+
+Production map identity:
 
 ```text
-Isomorphism(f)
+HOPF_MAP = MapSymbol(name="H")
 ```
 
-Thus the complete proof chain is traceable.
-
-## 28-7: invalid / mismatched map regression
-
-The following are rejected:
+Critical boundary:
 
 ```text
-Injective(f) + g(a)=g(b)
-↛ a=b
+HOPF_MAP
+!=
+map typing
+!=
+map property
 ```
+
+`MapSymbol` remains a structural map identity only.
+
+## 29-2: map typing representation
+
+Added:
 
 ```text
-Injective(f) + f(a)=g(b)
-↛ a=b
+MapTypingFact
 ```
+
+with fields:
 
 ```text
-Isomorphism(f) + g(a)=g(b)
-↛ a=b
+map
+source_group_dimension
+source_sphere_dimension
+target_group_dimension
+target_sphere_dimension
 ```
+
+This represents maps between unstable homotopy groups without embedding typing in `MapSymbol`.
+
+Representative structure:
 
 ```text
-Injective(f) + plain a=b
-↛ equality-reflection rule
+H : π₃(S²) → π₃(S³)
 ```
 
-Equality reflection requires the same map on both applications and the injectivity statement for that same map.
+Critical:
 
-## 28-8: representative end-to-end probe
+```text
+MapSymbol
+!=
+MapTypingFact
+```
 
-Representative executable probe:
+## 29-3: actual H typing fact
+
+Production knowledge:
+
+```text
+HOPF_MAP_TYPING_FACT
+```
+
+represents:
+
+```text
+H : π₃(S²) → π₃(S³)
+```
+
+The map identity remains:
+
+```text
+HOPF_MAP == MapSymbol(name="H")
+```
+
+and does not acquire typing fields.
+
+## 29-4: isomorphism fact representation
+
+Added:
+
+```text
+MapIsomorphismFact
+```
+
+with:
+
+```text
+typing: MapTypingFact
+```
+
+Thus the property is explicitly tied to one typing context.
+
+Critical:
+
+```text
+MapIsomorphismFact
+!=
+IsomorphismStatement
+```
+
+The former is knowledge-layer data; the latter is a proof-level statement.
+
+## 29-5: production isomorphism fact / repository
+
+Production fact:
+
+```text
+HOPF_MAP_ISOMORPHISM_FACT
+```
+
+Production repository:
+
+```text
+MAP_ISOMORPHISM_FACT_REPOSITORY
+```
+
+Repository API:
+
+```text
+lookup(typing)
+```
+
+The registered fact is:
+
+```text
+H : π₃(S²) → π₃(S³)
+is an isomorphism
+```
+
+Lookup is exact on `MapTypingFact` structural equality.
+
+Therefore:
+
+```text
+same MapSymbol("H")
++
+different typing context
+↛
+registered isomorphism fact
+```
+
+Duplicate isomorphism facts in the same typing context are rejected.
+
+## 29-6: fact materialization to proof level
+
+`MapIsomorphismFact.to_proof_step()` materializes:
+
+```text
+HOPF_MAP_ISOMORPHISM_FACT
+↓
+ProofStep.GIVEN
+↓
+IsomorphismStatement(HOPF_MAP)
+```
+
+This is knowledge materialization, not mathematical inference.
+
+Therefore:
+
+```text
+rule = ProofRule.GIVEN
+premises = ()
+inference_rule = None
+```
+
+The current proof-level `IsomorphismStatement` retains map identity only; typing context remains in the knowledge-layer fact used to create it.
+
+## 29-7: actual H fact to injectivity
+
+The existing Phase 28 rule is reused unchanged:
+
+```text
+MAP_ISOMORPHISM_FACT_REPOSITORY
+↓ lookup
+HOPF_MAP_ISOMORPHISM_FACT
+↓ to_proof_step()
+GIVEN Isomorphism(H)
+↓
+isomorphism_implies_injective_inference_rule()
+↓
+Injective(H)
+```
+
+No new inference rule and no generic-engine change are required.
+
+## 29-8: representative actual-H end-to-end example
+
+Representative probe:
 
 ```powershell
-python -m probes.probe_phase28_capabilities
+python -m probes.probe_phase29_capabilities
 ```
 
-Visible chain:
+Visible proof trace:
 
 ```text
+PRODUCTION FACT
+H : π₃(S²) → π₃(S³) is an isomorphism
+
+↓ materialize
+
 GIVEN
 H is an isomorphism
 
@@ -653,41 +690,57 @@ injective map reflects equality
 a=b
 ```
 
-The probe reports:
+The inference engine reports:
 
 ```text
 rounds = 2
 termination = InferenceTerminationReason.FIXED_POINT
 ```
 
+The key improvement over Phase 28 is that `Isomorphism(H)` is now supplied from actual production knowledge rather than directly assumed in the probe.
+
 Important boundary:
 
 ```text
-H
-=
-representative MapSymbol only
+H(a)=H(b)
 ```
 
-Phase 28 does not yet claim any actual Hopf-map typing or theorem fact.
+is still a representative GIVEN equality in Phase 29.
 
-## 28-9: scope / fixed-point regression
+Phase 29 does not yet calculate:
 
-Phase 28 fixes:
+```text
+H((2ι₂)η₂)=H(4η₂)
+```
+
+## 29-9: provenance / invalid / scope regression
+
+The actual-H chain now verifies:
+
+```text
+full proof-level provenance
+```
+
+```text
+Injective(H) + g(a)=g(b)
+↛ a=b
+```
+
+```text
+unknown H typing context
+↛ isomorphism fact lookup
+```
 
 ```text
 unrelated fact
-↛ injectivity provenance
+↛ Injective(H) provenance
+↛ a=b provenance
 ```
 
-```text
-unrelated fact
-↛ equality provenance
-```
-
-Derived conclusions are unique:
+Derived conclusions remain unique:
 
 ```text
-Injective(f)
+Injective(H)
 → exactly one derived step
 ```
 
@@ -696,57 +749,47 @@ a=b
 → exactly one derived step
 ```
 
-A terminal re-run using:
-
-```text
-derive_inference_round_result()
-```
-
-produces:
+A terminal re-run gives:
 
 ```text
 new_steps == ()
 ```
 
-Therefore the two-round result is a genuine fixed point rather than a round-limit artifact.
-
-Generic inference engine remains unchanged.
+so the two-round result is a genuine fixed point.
 
 ---
 
-# Phase 28 completion boundary
+# Phase 29 completion boundary
 
 Implemented:
 
-1. `InjectiveMapStatement`.
-2. `IsomorphismStatement`.
-3. structural distinction between injectivity and isomorphism.
-4. `isomorphism_implies_injective_inference_rule()`.
-5. existing `MapApplication` representation of `f(a)=f(b)`.
-6. no new map-equality statement class.
-7. `injective_map_reflects_equality_inference_rule()`.
-8. same-map guard for equality reflection.
-9. `Isomorphism(f) → Injective(f) → a=b` fixed-point composition.
-10. full two-level `ProofStep` provenance.
-11. mismatched-map rejection.
-12. plain-equality rejection.
-13. unrelated-fact provenance exclusion.
-14. derived-conclusion deduplication.
-15. genuine terminal fixed-point regression.
-16. human-readable Phase 28 capability probe.
-17. generic inference engine unchanged.
-18. full regression passes.
+1. production `HOPF_MAP` identity.
+2. `MapTypingFact` for maps between unstable homotopy groups.
+3. production `HOPF_MAP_TYPING_FACT`.
+4. structural `MapIsomorphismFact` tied to a typing context.
+5. production `HOPF_MAP_ISOMORPHISM_FACT`.
+6. `MapIsomorphismFactRepository`.
+7. exact typing-context lookup.
+8. duplicate fact rejection.
+9. `MapIsomorphismFact.to_proof_step()`.
+10. actual fact → `ProofStep.GIVEN` → `IsomorphismStatement(H)`.
+11. existing Phase 28 isomorphism → injectivity connection.
+12. actual-H fact-driven equality-reflection example.
+13. full proof-level provenance regression.
+14. different-map rejection.
+15. unknown-typing-context rejection.
+16. unrelated-fact exclusion.
+17. derived-conclusion deduplication.
+18. genuine fixed-point regression.
+19. human-readable Phase 29 capability probe.
+20. generic inference engine unchanged.
+21. full regression passes.
 
 Current verified status:
 
 ```text
-tests/test_map_property_rules.py
-26 passed in 1.42s
-```
-
-```text
 full suite
-1358 passed in 102.90s
+1408 passed in 96.81s
 ```
 
 No failures.
@@ -757,11 +800,9 @@ No failures.
 
 Not yet implemented as general systems:
 
-- typed `MapSymbol` domain / codomain,
-- actual Hopf map `H` typing facts,
-- actual `H` isomorphism facts,
+- typed `MapSymbol` domain / codomain; typing remains external knowledge,
+- typing-aware proof-level `IsomorphismStatement`,
 - literature provenance for map-property facts,
-- map-property fact repository,
 - `SurjectiveMapStatement`,
 - preimage reasoning,
 - general kernel-modulo equality shortcut,
@@ -770,6 +811,7 @@ Not yet implemented as general systems:
 - `ProofStep` representation for generator facts,
 - external generator-table loading,
 - external composition-fact-table loading,
+- external map-fact-table loading,
 - stable fact key / fact ID system,
 - name / generator consistency validation,
 - generator / `HomotopyElement.dimension` consistency validation,
@@ -783,7 +825,8 @@ Not yet implemented as general systems:
 - automatic theorem instantiation,
 - symbolic scalar expression trees such as `(-1)^n`,
 - smash-product expressions,
-- actual Hopf-invariant formulas needed for `(2ι₂)η₂=4η₂`,
+- actual Hopf-invariant formula needed for `(2ι₂)η₂=4η₂`,
+- actual mapped equality `H((2ι₂)η₂)=H(4η₂)`,
 - stable homotopy-group model,
 - stable Toda bracket `<a,b,c>`,
 - higher / variable-arity Toda brackets.
@@ -792,17 +835,13 @@ Not yet implemented as general systems:
 
 # Tests
 
-Focused Phase 28 suite:
+Focused map-fact suite at Phase 29 completion:
 
 ```powershell
-python -m pytest tests/test_map_property_rules.py -q
+python -m pytest tests/test_map_facts.py -q
 ```
 
-Verified:
-
-```text
-26 passed in 1.42s
-```
+Phase 29-9 adds the final six regressions to the Phase 29 test sequence.
 
 Full suite:
 
@@ -810,10 +849,10 @@ Full suite:
 python -m pytest -q
 ```
 
-Verified at Phase 28 completion:
+Verified at Phase 29 completion:
 
 ```text
-1358 passed in 102.90s
+1408 passed in 96.81s
 ```
 
 No failures.
@@ -846,19 +885,27 @@ Phase 28:
 python -m probes.probe_phase28_capabilities
 ```
 
-The Phase 28 probe visibly demonstrates:
+Phase 29:
+
+```powershell
+python -m probes.probe_phase29_capabilities
+```
+
+The Phase 29 probe visibly demonstrates:
 
 ```text
-H is an isomorphism
+production H isomorphism fact
 ↓
-H is injective
-
+proof-level Isomorphism(H)
+↓
+Injective(H)
++
 H(a)=H(b)
 ↓
 a=b
 ```
 
-It explicitly states that `H` is only a representative `MapSymbol` in Phase 28.
+It explicitly states that the mapped equality is still representative and that actual Hopf-invariant calculation remains outside Phase 29.
 
 ---
 
@@ -875,49 +922,57 @@ Historical statements in the development log describe the state at that time. Cu
 
 # Next development boundary
 
-Phase 28 completes the generic map-property equality-reflection foundation.
+Phase 29 completes the connection:
+
+```text
+actual H mathematical knowledge
+↓
+proof-level Isomorphism(H)
+↓
+Injective(H)
+↓
+equality reflection
+```
 
 The natural next phase is:
 
 ```text
+Phase 30
+Hopf formula minimum representation
+```
+
+Phase 30 should not attempt the entire calculation immediately. The next mathematical target is to represent the minimum theorem/formula structure needed for expressions of the form:
+
+```text
+H(γ α)=(γ∧γ)H(α)
+```
+
+while preserving the current design principle:
+
+```text
+formula representation
+!=
+unconditional rewrite
+```
+
+The longer dependency is:
+
+```text
 Phase 29
-actual H map facts / typing
-```
-
-The target is to replace the representative `MapSymbol("H")` assumption with explicit mathematical knowledge appropriate for the concrete Hopf-map situation.
-
-Likely Phase 29 responsibilities include only the facts needed by the next representative proof, for example:
-
-```text
-actual H identity
-actual H domain / codomain context
-actual H isomorphism property in the required case
-explicit fact / provenance supply
-connection to the existing Phase 28 map-property rules
-```
-
-Phase 29 should not yet implement the full calculation
-
-```text
-H((2ι₂)η₂)=4ι₃
-```
-
-or smash-product / Hopf-formula machinery unless the concrete next subphase requires it.
-
-The longer dependency remains:
-
-```text
-Phase 28
-generic injectivity / isomorphism / equality reflection
-
+actual H map facts / typing / equality reflection
 ↓
-Phase 29
-actual H map facts / typing
-
+Phase 30
+Hopf formula minimum representation
 ↓
-Phase 30+
-Hopf formulas / smash product / actual calculation
-
+Phase 31
+smash product
 ↓
-(2ι₂)η₂ = 4η₂
+Phase 32+
+actual H calculation
+↓
+H((2ι₂)η₂)=H(4η₂)
+↓
+existing Phase 28/29 equality reflection
+↓
+(2ι₂)η₂=4η₂
 ```
