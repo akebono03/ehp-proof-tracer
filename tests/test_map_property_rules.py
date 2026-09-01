@@ -725,6 +725,246 @@ def test_phase28_6_end_to_end_equality_preserves_full_provenance_chain():
   assert result.round_count == 2
 
 
+def test_phase28_7_injective_f_does_not_reflect_equality_under_g():
+  f = MapSymbol(
+    name="f",
+  )
+
+  g = MapSymbol(
+    name="g",
+  )
+
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  injective_step = ProofStep(
+    conclusion=InjectiveMapStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  mapped_equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=MapApplication(
+        map=g,
+        expression=a,
+      ),
+      rhs=MapApplication(
+        map=g,
+        expression=b,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    injective_map_reflects_equality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      injective_step,
+      mapped_equality_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase28_7_mismatched_maps_on_equality_sides_do_not_reflect():
+  f = MapSymbol(
+    name="f",
+  )
+
+  g = MapSymbol(
+    name="g",
+  )
+
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  injective_step = ProofStep(
+    conclusion=InjectiveMapStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  mismatched_equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=MapApplication(
+        map=f,
+        expression=a,
+      ),
+      rhs=MapApplication(
+        map=g,
+        expression=b,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    injective_map_reflects_equality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      injective_step,
+      mismatched_equality_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase28_7_isomorphism_f_does_not_reflect_equality_under_g_end_to_end():
+  f = MapSymbol(
+    name="f",
+  )
+
+  g = MapSymbol(
+    name="g",
+  )
+
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  isomorphism_step = ProofStep(
+    conclusion=IsomorphismStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  mapped_equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=MapApplication(
+        map=g,
+        expression=a,
+      ),
+      rhs=MapApplication(
+        map=g,
+        expression=b,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rules = (
+    isomorphism_implies_injective_inference_rule(),
+    injective_map_reflects_equality_inference_rule(),
+  )
+
+  result = run_inference_until_stable_with_history(
+    rules,
+    (
+      isomorphism_step,
+      mapped_equality_step,
+    ),
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert InjectiveMapStatement(
+    map=f,
+  ) in conclusions
+
+  assert Relation(
+    lhs=a,
+    rhs=b,
+    relation_type=RelationType.EQUALITY,
+  ) not in conclusions
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+
+def test_phase28_7_plain_equality_is_not_treated_as_mapped_equality():
+  f = MapSymbol(
+    name="f",
+  )
+
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  injective_step = ProofStep(
+    conclusion=InjectiveMapStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  plain_equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=a,
+      rhs=b,
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    injective_map_reflects_equality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      injective_step,
+      plain_equality_step,
+    ),
+  )
+
+  assert match is None
+
+
 
 
 
