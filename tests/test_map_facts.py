@@ -9,10 +9,13 @@ from map_facts import (
   MapTypingFact,
 )
 from map_property_rules import (
+  InjectiveMapStatement,
   IsomorphismStatement,
+  isomorphism_implies_injective_inference_rule,
 )
 from proof import (
   ProofRule,
+  run_inference_until_stable_with_history,
 )
 
 
@@ -712,6 +715,104 @@ def test_phase29_6_repository_lookup_materializes_actual_hopf_isomorphism_step()
   )
 
   assert step.premises == ()
+
+
+def test_phase29_7_actual_hopf_isomorphism_fact_derives_injectivity():
+  fact = (
+    MAP_ISOMORPHISM_FACT_REPOSITORY
+    .lookup(
+      HOPF_MAP_TYPING_FACT
+    )
+  )
+
+  assert fact is (
+    HOPF_MAP_ISOMORPHISM_FACT
+  )
+
+  isomorphism_step = (
+    fact.to_proof_step()
+  )
+
+  rule = (
+    isomorphism_implies_injective_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        isomorphism_step,
+      ),
+    )
+  )
+
+  expected = InjectiveMapStatement(
+    map=HOPF_MAP,
+  )
+
+  assert expected in tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+
+def test_phase29_7_actual_hopf_injectivity_preserves_isomorphism_provenance():
+  fact = (
+    MAP_ISOMORPHISM_FACT_REPOSITORY
+    .lookup(
+      HOPF_MAP_TYPING_FACT
+    )
+  )
+
+  assert fact is not None
+
+  isomorphism_step = (
+    fact.to_proof_step()
+  )
+
+  rule = (
+    isomorphism_implies_injective_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        isomorphism_step,
+      ),
+    )
+  )
+
+  injective_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == InjectiveMapStatement(
+      map=HOPF_MAP,
+    )
+  )
+
+  assert isomorphism_step.conclusion == (
+    IsomorphismStatement(
+      map=HOPF_MAP,
+    )
+  )
+
+  assert isomorphism_step.rule == (
+    ProofRule.GIVEN
+  )
+
+  assert injective_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert injective_step.inference_rule == (
+    rule
+  )
+
+  assert injective_step.premises == (
+    isomorphism_step,
+  )
 
 
 
