@@ -629,3 +629,676 @@ new homotopy-theoretic conclusions
 ```
 
 を同一の proof graph 上で扱えることを目標とする。
+
+---
+
+# 20. Map typing / injectivity / isomorphism
+
+Current `MapSymbol` / `MapApplication` / homomorphism reasoning は実装済みだが、
+complete source / target / ambient-group typing と map-property reasoning は今後の拡張候補とする。
+
+将来的に、
+
+```text
+f : A → B
+```
+
+のような map typing を proof-level に保持できるようにする。
+
+候補となる statement:
+
+```text
+InjectiveMapStatement(f)
+IsomorphismStatement(f)
+SurjectiveMapStatement(f)
+```
+
+基本的な theorem bridge:
+
+```text
+Isomorphism(f)
+↓
+Injective(f)
+```
+
+```text
+Isomorphism(f)
+↓
+Surjective(f)
+```
+
+単射による equality reflection:
+
+```text
+Injective(f)
+f(a)=f(b)
+↓
+a=b
+```
+
+この rule は、Toda 型の計算で
+「写像した先で等しいことを示し、単射または同型を使って元に戻す」
+証明を trace するために重要となる。
+
+Map property は notation から暗黙に推測せず、
+explicit theorem fact / literature-backed fact として扱う。
+
+---
+
+# 21. Preimage / inverse-image reasoning
+
+一般の写像について、
+
+```text
+f⁻¹(a)
+```
+
+を inverse map の値ではなく preimage set として扱う。
+
+概念的な representation 候補:
+
+```text
+PreimageSet(
+  map=f,
+  value=a,
+)
+```
+
+基本 semantics:
+
+```text
+x ∈ f⁻¹(a)
+↔
+f(x)=a
+```
+
+を explicit theorem rule として扱えるようにする。
+
+Important:
+
+```text
+f⁻¹(a)
+```
+
+自体を単一 element として扱わない。
+
+文献で「`f⁻¹(a)` の元を取る」と書かれる場合には、
+
+```text
+preimage set
++
+chosen element / witness
+```
+
+を区別する。
+
+存在命題との将来接続:
+
+```text
+f⁻¹(a) ≠ ∅
+↔
+∃x, f(x)=a
+```
+
+symbolic witness の導入は、
+general theorem representation / existential statement が実際に必要になった時点で検討する。
+
+---
+
+# 22. Kernel-modulo equality reasoning
+
+群準同型 `f` に対する重要な一般則:
+
+```text
+f(a)=f(b)
+↓
+a-b ∈ Ker(f)
+↓
+a≡b mod Ker(f)
+```
+
+すなわち、
+
+```text
+f(a)=f(b)
+→
+a=b mod Ker(f)
+```
+
+という reasoning を将来的に扱えるようにする。
+
+Current layers との接続候補:
+
+```text
+Homomorphism(f)
++
+f(a)=f(b)
+↓
+f(a-b)=0
+↓
+a-b∈Ker(f)
+↓
+a≡b mod Ker(f)
+```
+
+これは Phase 13〜15 で実装済みの、
+
+```text
+homomorphism
+ZERO
+kernel membership
+modulo ↔ difference membership
+```
+
+を再利用できる可能性が高い。
+
+可能であれば専用 shortcut rule を増やすより、
+既存 rule family の composition で proof trace を構築することを優先する。
+
+Injective specialization:
+
+```text
+Injective(f)
+↓
+Ker(f)=0
+```
+
+に相当する theorem knowledge が利用できる場合、
+
+```text
+a≡b mod Ker(f)
+↓
+a=b
+```
+
+へ接続できる。
+
+---
+
+# 23. Symbolic scalar expressions beyond Phase 16
+
+Phase 16 では、
+
+```text
+ScalarSymbol
+OddScalarStatement
+EvenScalarStatement
+ScalarCongruenceStatement
+```
+
+まで実装済みである。
+
+一般の symbolic scalar arithmetic expression は未実装。
+
+Toda の計算では、
+
+```text
+(-1)^n
+```
+
+のような scalar expression を concrete sign に決めずに保持する必要がある。
+
+将来的な representation 候補:
+
+```text
+ScalarPower(
+  base=-1,
+  exponent=n,
+)
+```
+
+したがって、
+
+```text
+(-1)^n α
+```
+
+を、
+
+```text
+Multiple(
+  coefficient=ScalarPower(-1,n),
+  expression=α,
+)
+```
+
+のように構造的に保持できるようにする。
+
+必要最小限の scalar expression tree 候補:
+
+```text
+ScalarExpression
+├── ScalarInteger
+├── ScalarSymbol
+├── ScalarNegation
+├── ScalarSum
+├── ScalarProduct
+└── ScalarPower
+```
+
+ただし general-purpose CAS は目標としない。
+
+Actual theorem need に応じて必要な node だけ追加する。
+
+---
+
+# 24. Parity reduction of `(-1)^n`
+
+`(-1)^n` は `±1` の単なる indeterminacy ではなく、
+`n` の parity によって値が決まる symbolic expression として扱う。
+
+将来的な rules:
+
+```text
+n even
+↓
+(-1)^n=1
+```
+
+```text
+n odd
+↓
+(-1)^n=-1
+```
+
+したがって、
+
+```text
+n even
+↓
+(-1)^n α=α
+```
+
+```text
+n odd
+↓
+(-1)^n α=-α
+```
+
+へ接続できる。
+
+Important distinction:
+
+```text
+±α
+```
+
+は sign indeterminacy。
+
+```text
+(-1)^n α
+```
+
+は symbolic scalar expression。
+
+Parity が未知の場合でも式をそのまま保持し、
+premature に `±α` へ collapse しない。
+
+---
+
+# 25. Smash product support for Hopf formulas
+
+Toda 型の Hopf-invariant calculation では、
+
+```text
+γ ∧ γ
+```
+
+のような smash product が現れる。
+
+将来的な structural expression 候補:
+
+```text
+SmashProduct(
+  left=γ,
+  right=δ,
+)
+```
+
+Actual theorem example:
+
+```text
+H(γα)
+=
+(γ∧γ)H(α)
+```
+
+このような公式は無条件の generic rewrite とせず、
+
+```text
+typed variables
+dimension conditions
+map compatibility
+literature source
+```
+
+を持つ theorem / inference rule として登録する。
+
+将来の representative calculation:
+
+```text
+H((2ι₂)η₂)
+=
+E(2ι₁∧2ι₁)H(η₂)
+=
+2ι₃∘2ι₃∘ι₃
+=
+4ι₃
+```
+
+smash product 一般論は先取りせず、
+実際の Hopf formula に必要な最小 representation から追加する。
+
+---
+
+# 26. Unstable Toda index-zero notation
+
+Unstable Toda bracket について、
+
+```text
+{a,b,c}_0
+=
+{a,b,c}
+```
+
+を notation-level equivalence として扱う。
+
+Internal canonical form の第一候補:
+
+```text
+TodaBracket(
+  entries=(a,b,c),
+  index=0,
+)
+```
+
+つまり unindexed notation:
+
+```text
+{a,b,c}
+```
+
+を内部的には index `0` として解釈する。
+
+一方、
+
+```text
+{a,b,c}_1
+{a,b,c}_2
+```
+
+等は別の bracket として保持する。
+
+---
+
+# 27. Representative future map-theoretic proof scenarios
+
+## 27.1 `(2ι₂)η₂=4η₂`
+
+Goal:
+
+```text
+(2ι₂)η₂=4η₂
+```
+
+Target proof structure:
+
+```text
+H((2ι₂)η₂)
+↓ Hopf theorem
+E(2ι₁∧2ι₁)H(η₂)
+↓ known facts / map calculation
+2ι₃∘2ι₃∘ι₃
+↓ additive / composition reasoning
+4ι₃
+```
+
+一方:
+
+```text
+H(4η₂)
+↓ homomorphism
+4H(η₂)
+↓ H(η₂)=ι₃
+4ι₃
+```
+
+したがって:
+
+```text
+H((2ι₂)η₂)=H(4η₂)
+```
+
+さらに:
+
+```text
+Isomorphism(H)
+↓
+Injective(H)
+↓
+(2ι₂)η₂=4η₂
+```
+
+この scenario は、
+
+```text
+map typing
+smash product
+Hopf theorem
+homomorphism
+injectivity / isomorphism
+equality reflection
+provenance
+```
+
+の統合テスト候補となる。
+
+## 27.2 `P(ι₅)=±2η₂`
+
+Goal:
+
+```text
+P(ι₅)=±2η₂
+```
+
+Target theorem input:
+
+```text
+n even
+↓
+HP(ι_{2n+1})=±2ι_{2n-1}
+```
+
+`n=2` への specialization:
+
+```text
+HP(ι₅)=±2ι₃
+```
+
+Known:
+
+```text
+H(η₂)=ι₃
+```
+
+Homomorphism reasoning:
+
+```text
+H(±2η₂)=±2ι₃
+```
+
+したがって:
+
+```text
+HP(ι₅)=H(±2η₂)
+```
+
+さらに:
+
+```text
+Isomorphism(H)
+↓
+Injective(H)
+↓
+P(ι₅)=±2η₂
+```
+
+この scenario は、
+
+```text
+theorem instantiation
+parity side condition
+sign indeterminacy
+homomorphism
+injectivity
+provenance
+```
+
+の統合テスト候補となる。
+
+---
+
+# 28. Recommended long-term dependency extension
+
+Current main direction:
+
+```text
+Phase 26
+actual typed Toda entries / compatibility
+↓
+actual zero-composition knowledge
+↓
+actual Toda definedness
+↓
+actual theorem applicability
+↓
+actual ε₃ membership proof trace
+```
+
+この current chain は維持する。
+
+その後または actual need に応じて、
+
+```text
+map typing
+↓
+injectivity / isomorphism
+↓
+preimage reasoning
+↓
+kernel-modulo equality
+↓
+symbolic scalar expressions
+↓
+(-1)^n parity reduction
+↓
+smash product / Hopf formulas
+↓
+general theorem representation
+↓
+stable homotopy representation
+↓
+stable Toda bracket
+```
+
+へ進む。
+
+Important:
+
+```text
+Phase 27 candidate
+=
+actual ε₃ Toda-definedness bridge
+```
+
+は今回の追記によって置き換えない。
+
+---
+
+# 29. Updated implementation-status additions
+
+以下を current implementation-status table の将来項目として扱う。
+
+| 項目 | 状態 | 備考 |
+|---|---|---|
+| typed `MapSymbol` domain / codomain | PLANNED | actual map-typing need |
+| `InjectiveMapStatement` | PLANNED | equality reflection |
+| `IsomorphismStatement` | PLANNED | injective / surjective bridge |
+| preimage `f⁻¹(a)` | PLANNED | set-valued inverse image |
+| preimage membership `x∈f⁻¹(a) ↔ f(x)=a` | PLANNED | theorem bridge |
+| `f(a)=f(b) ⇒ a≡b mod Ker(f)` | PLANNED | reuse Phase 13–15 |
+| symbolic scalar `(-1)^n` | PLANNED | preserve symbolic sign |
+| parity reduction of `(-1)^n` | PLANNED | even→1, odd→-1 |
+| smash product `γ∧δ` | PLANNED | Hopf formulas |
+| `{a,b,c}_0={a,b,c}` canonicalization | PLANNED | unstable Toda notation |
+| representative map-theoretic proof probes | PLANNED | after supporting APIs exist |
+
+---
+
+# 30. Long-term target extension
+
+Long-term target に以下を追加する。
+
+```text
+known unstable homotopy groups
++
+known stable homotopy groups
++
+generator / map tables
++
+map-property facts
++
+quantified theorems
++
+EHP exactness
++
+ORDER
++
+Suspension / stabilization
++
+composition
++
+Hopf invariant
++
+smash-product formulas
++
+additive reasoning
++
+subgroup / modulo reasoning
++
+kernel-modulo equality
++
+preimage reasoning
++
+injectivity / isomorphism reasoning
++
+symbolic scalar constraints
++
+symbolic scalar expressions
++
+indeterminacy
++
+unstable Toda brackets
++
+stable Toda brackets
+↓
+new homotopy-theoretic conclusions
+```
+
+その際、
+
+```text
+exact value
+partial information
+sign uncertainty
+coefficient uncertainty
+symbolic sign (-1)^n
+coset uncertainty
+preimage membership
+kernel-modulo equality
+Toda-bracket membership
+stable Toda-bracket membership
+```
+
+を provenance 付き knowledge として保持する。
+
