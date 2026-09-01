@@ -2,6 +2,7 @@ from expression import MapSymbol
 from map_facts import (
   HOPF_MAP,
   HOPF_MAP_TYPING_FACT,
+  MapIsomorphismFact,
   MapTypingFact,
 )
 
@@ -330,6 +331,145 @@ def test_phase29_3_hopf_map_typing_fact_does_not_change_map_symbol():
     HOPF_MAP,
     "target_sphere_dimension",
   )
+
+
+def test_phase29_4_map_isomorphism_fact_preserves_typing():
+  typing = MapTypingFact(
+    map=MapSymbol(
+      name="H",
+    ),
+    source_group_dimension=3,
+    source_sphere_dimension=2,
+    target_group_dimension=3,
+    target_sphere_dimension=3,
+  )
+
+  fact = MapIsomorphismFact(
+    typing=typing,
+  )
+
+  assert fact.typing == typing
+
+
+def test_phase29_4_map_isomorphism_fact_has_structural_equality():
+  typing = MapTypingFact(
+    map=MapSymbol(
+      name="H",
+    ),
+    source_group_dimension=3,
+    source_sphere_dimension=2,
+    target_group_dimension=3,
+    target_sphere_dimension=3,
+  )
+
+  first = MapIsomorphismFact(
+    typing=typing,
+  )
+
+  second = MapIsomorphismFact(
+    typing=typing,
+  )
+
+  assert first == second
+
+
+def test_phase29_4_map_isomorphism_fact_distinguishes_map():
+  h_typing = MapTypingFact(
+    map=MapSymbol(
+      name="H",
+    ),
+    source_group_dimension=3,
+    source_sphere_dimension=2,
+    target_group_dimension=3,
+    target_sphere_dimension=3,
+  )
+
+  f_typing = MapTypingFact(
+    map=MapSymbol(
+      name="f",
+    ),
+    source_group_dimension=3,
+    source_sphere_dimension=2,
+    target_group_dimension=3,
+    target_sphere_dimension=3,
+  )
+
+  assert MapIsomorphismFact(
+    typing=h_typing,
+  ) != MapIsomorphismFact(
+    typing=f_typing,
+  )
+
+
+def test_phase29_4_map_isomorphism_fact_distinguishes_domain_context():
+  original = MapIsomorphismFact(
+    typing=MapTypingFact(
+      map=MapSymbol(
+        name="H",
+      ),
+      source_group_dimension=3,
+      source_sphere_dimension=2,
+      target_group_dimension=3,
+      target_sphere_dimension=3,
+    ),
+  )
+
+  different = MapIsomorphismFact(
+    typing=MapTypingFact(
+      map=MapSymbol(
+        name="H",
+      ),
+      source_group_dimension=4,
+      source_sphere_dimension=2,
+      target_group_dimension=3,
+      target_sphere_dimension=3,
+    ),
+  )
+
+  assert original != different
+
+
+def test_phase29_4_map_isomorphism_fact_distinguishes_codomain_context():
+  original = MapIsomorphismFact(
+    typing=MapTypingFact(
+      map=MapSymbol(
+        name="H",
+      ),
+      source_group_dimension=3,
+      source_sphere_dimension=2,
+      target_group_dimension=3,
+      target_sphere_dimension=3,
+    ),
+  )
+
+  different = MapIsomorphismFact(
+    typing=MapTypingFact(
+      map=MapSymbol(
+        name="H",
+      ),
+      source_group_dimension=3,
+      source_sphere_dimension=2,
+      target_group_dimension=3,
+      target_sphere_dimension=4,
+    ),
+  )
+
+  assert original != different
+
+
+def test_phase29_4_map_isomorphism_fact_can_use_production_h_typing():
+  fact = MapIsomorphismFact(
+    typing=HOPF_MAP_TYPING_FACT,
+  )
+
+  assert fact.typing is (
+    HOPF_MAP_TYPING_FACT
+  )
+
+  assert fact.typing.map is (
+    HOPF_MAP
+  )
+
 
 
 

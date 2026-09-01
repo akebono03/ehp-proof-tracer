@@ -12,6 +12,11 @@ class MapTypingFact:
   target_sphere_dimension: int
 
 
+@dataclass(frozen=True)
+class MapIsomorphismFact:
+  typing: MapTypingFact
+
+
 HOPF_MAP = MapSymbol(
   name="H",
 )
