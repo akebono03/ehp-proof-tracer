@@ -1,6 +1,8 @@
 from composition_facts import (
   ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT,
   E_NU_PRIME_NU_7_ZERO_COMPOSITION_FACT,
+  ZERO_COMPOSITION_FACT_REPOSITORY,
+  ZeroCompositionFactRepository,
 )
 from expression import (
   Composition,
@@ -291,6 +293,175 @@ def test_phase27_2_zero_composition_fact_does_not_add_typing_implicitly():
 
   assert nu_7.source is None
   assert nu_7.target is None
+
+
+def test_phase27_3_zero_composition_fact_repository_is_empty_by_default():
+  repository = (
+    ZeroCompositionFactRepository()
+  )
+
+  assert repository.facts == ()
+
+
+def test_phase27_3_production_repository_preserves_actual_zero_composition_facts():
+  assert (
+    ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT
+    in ZERO_COMPOSITION_FACT_REPOSITORY.facts
+  )
+
+  assert (
+    E_NU_PRIME_NU_7_ZERO_COMPOSITION_FACT
+    in ZERO_COMPOSITION_FACT_REPOSITORY.facts
+  )
+
+
+def test_phase27_3_repository_lookup_returns_eta_3_e_nu_prime_fact():
+  result = (
+    ZERO_COMPOSITION_FACT_REPOSITORY
+    .lookup(
+      ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT
+      .lhs
+    )
+  )
+
+  assert result is (
+    ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT
+  )
+
+
+def test_phase27_3_repository_lookup_returns_e_nu_prime_nu_7_fact():
+  result = (
+    ZERO_COMPOSITION_FACT_REPOSITORY
+    .lookup(
+      E_NU_PRIME_NU_7_ZERO_COMPOSITION_FACT
+      .lhs
+    )
+  )
+
+  assert result is (
+    E_NU_PRIME_NU_7_ZERO_COMPOSITION_FACT
+  )
+
+
+def test_phase27_3_repository_lookup_returns_none_for_unknown_composition():
+  unknown = Composition(
+    left=HomotopyElement(
+      name="η₃",
+      dimension=3,
+      generator=ETA_3_GENERATOR,
+    ),
+    right=HomotopyElement(
+      name="ν₇",
+      dimension=7,
+      generator=NU_7_GENERATOR,
+    ),
+  )
+
+  result = (
+    ZERO_COMPOSITION_FACT_REPOSITORY
+    .lookup(
+      unknown
+    )
+  )
+
+  assert result is None
+
+
+def test_phase27_3_repository_rejects_duplicate_zero_composition_fact():
+  try:
+    ZeroCompositionFactRepository(
+      facts=(
+        ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT,
+        ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT,
+      ),
+    )
+  except ValueError as error:
+    assert str(error) == (
+      "duplicate zero-composition fact"
+    )
+  else:
+    raise AssertionError(
+      "duplicate zero-composition fact "
+      "was not rejected"
+    )
+
+
+def test_phase27_3_repository_rejects_non_zero_composition_relation():
+  invalid_fact = Relation(
+    lhs=Composition(
+      left=HomotopyElement(
+        name="a",
+        dimension=1,
+      ),
+      right=HomotopyElement(
+        name="b",
+        dimension=2,
+      ),
+    ),
+    rhs=HomotopyElement(
+      name="c",
+      dimension=1,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  try:
+    ZeroCompositionFactRepository(
+      facts=(
+        invalid_fact,
+      ),
+    )
+  except ValueError as error:
+    assert str(error) == (
+      "invalid zero-composition fact"
+    )
+  else:
+    raise AssertionError(
+      "invalid zero-composition fact "
+      "was not rejected"
+    )
+
+
+def test_phase27_3_exact_lookup_does_not_match_typed_composition_implicitly():
+  typed_eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    source=4,
+    target=3,
+    generator=ETA_3_GENERATOR,
+  )
+
+  typed_nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    source=6,
+    target=3,
+    generator=NU_PRIME_GENERATOR,
+  )
+
+  typed_composition = Composition(
+    left=typed_eta_3,
+    right=Suspension(
+      expression=typed_nu_prime,
+    ),
+  )
+
+  result = (
+    ZERO_COMPOSITION_FACT_REPOSITORY
+    .lookup(
+      typed_composition
+    )
+  )
+
+  assert result is None
+
+  assert (
+    typed_composition
+    != ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT
+    .lhs
+  )
+
+
 
 
 
