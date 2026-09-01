@@ -181,9 +181,13 @@ NU_7_AMBIENT_GROUP_FACT = GeneratorAmbientGroupFact(
 GENERATOR_FACT_REPOSITORY = GeneratorFactRepository(
   typing_facts=(
     ETA_3_TYPING_FACT,
+    NU_PRIME_TYPING_FACT,
+    NU_7_TYPING_FACT,
   ),
   ambient_group_facts=(
     ETA_3_AMBIENT_GROUP_FACT,
+    NU_PRIME_AMBIENT_GROUP_FACT,
+    NU_7_AMBIENT_GROUP_FACT,
   ),
 )
 

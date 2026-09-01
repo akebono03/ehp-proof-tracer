@@ -525,18 +525,14 @@ def test_phase25_5_generator_fact_repository_is_empty_by_default():
 
 
 def test_phase25_5_production_repository_preserves_eta_3_facts():
-  assert (
-    GENERATOR_FACT_REPOSITORY.typing_facts
-    == (
-      ETA_3_TYPING_FACT,
-    )
+  assert ETA_3_TYPING_FACT in (
+    GENERATOR_FACT_REPOSITORY
+    .typing_facts
   )
 
-  assert (
-    GENERATOR_FACT_REPOSITORY.ambient_group_facts
-    == (
-      ETA_3_AMBIENT_GROUP_FACT,
-    )
+  assert ETA_3_AMBIENT_GROUP_FACT in (
+    GENERATOR_FACT_REPOSITORY
+    .ambient_group_facts
   )
 
 
@@ -1439,37 +1435,6 @@ def test_phase26_1_nu_prime_remains_distinct_from_plain_nu():
   )
 
 
-def test_phase26_1_nu_prime_typing_fact_is_not_yet_in_production_repository():
-  result = (
-    GENERATOR_FACT_REPOSITORY
-    .lookup_typing(
-      NU_PRIME_GENERATOR
-    )
-  )
-
-  assert result is None
-
-
-def test_phase26_1_nu_prime_is_not_yet_materialized_by_production_repository():
-  element = HomotopyElement(
-    name="ν′",
-    dimension=3,
-    generator=NU_PRIME_GENERATOR,
-  )
-
-  typed_element = (
-    GENERATOR_FACT_REPOSITORY
-    .materialize_typed_element(
-      element
-    )
-  )
-
-  assert typed_element is None
-
-  assert element.source is None
-  assert element.target is None
-
-
 def test_phase26_2_nu_7_generator_has_expected_structural_identity():
   assert NU_7_GENERATOR == GeneratorSymbol(
     family="ν",
@@ -1541,37 +1506,6 @@ def test_phase26_2_nu_7_remains_distinct_from_nu_prime():
       NU_7_GENERATOR
     )
   )
-
-
-def test_phase26_2_nu_7_typing_fact_is_not_yet_in_production_repository():
-  result = (
-    GENERATOR_FACT_REPOSITORY
-    .lookup_typing(
-      NU_7_GENERATOR
-    )
-  )
-
-  assert result is None
-
-
-def test_phase26_2_nu_7_is_not_yet_materialized_by_production_repository():
-  element = HomotopyElement(
-    name="ν₇",
-    dimension=7,
-    generator=NU_7_GENERATOR,
-  )
-
-  typed_element = (
-    GENERATOR_FACT_REPOSITORY
-    .materialize_typed_element(
-      element
-    )
-  )
-
-  assert typed_element is None
-
-  assert element.source is None
-  assert element.target is None
 
 
 def test_phase26_3_nu_prime_ambient_group_fact_has_expected_group():
@@ -1678,7 +1612,85 @@ def test_phase26_3_nu_7_typing_and_ambient_group_facts_remain_distinct():
   )
 
 
-def test_phase26_3_nu_prime_ambient_group_fact_is_not_yet_in_production_repository():
+def test_phase26_4_production_repository_returns_nu_prime_typing_fact():
+  result = (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_typing(
+      NU_PRIME_GENERATOR
+    )
+  )
+
+  assert result is (
+    NU_PRIME_TYPING_FACT
+  )
+
+
+def test_phase26_4_production_repository_materializes_nu_prime():
+  element = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    generator=NU_PRIME_GENERATOR,
+  )
+
+  typed_element = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      element
+    )
+  )
+
+  assert typed_element == HomotopyElement(
+    name="ν′",
+    dimension=3,
+    source=6,
+    target=3,
+    generator=NU_PRIME_GENERATOR,
+  )
+
+  assert element.source is None
+  assert element.target is None
+
+
+def test_phase26_4_production_repository_returns_nu_7_typing_fact():
+  result = (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_typing(
+      NU_7_GENERATOR
+    )
+  )
+
+  assert result is (
+    NU_7_TYPING_FACT
+  )
+
+
+def test_phase26_4_production_repository_materializes_nu_7():
+  element = HomotopyElement(
+    name="ν₇",
+    dimension=7,
+    generator=NU_7_GENERATOR,
+  )
+
+  typed_element = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      element
+    )
+  )
+
+  assert typed_element == HomotopyElement(
+    name="ν₇",
+    dimension=7,
+    source=10,
+    target=7,
+    generator=NU_7_GENERATOR,
+  )
+
+  assert element.source is None
+  assert element.target is None
+
+
+def test_phase26_4_production_repository_returns_nu_prime_ambient_group_fact():
   result = (
     GENERATOR_FACT_REPOSITORY
     .lookup_ambient_group(
@@ -1686,10 +1698,12 @@ def test_phase26_3_nu_prime_ambient_group_fact_is_not_yet_in_production_reposito
     )
   )
 
-  assert result is None
+  assert result is (
+    NU_PRIME_AMBIENT_GROUP_FACT
+  )
 
 
-def test_phase26_3_nu_7_ambient_group_fact_is_not_yet_in_production_repository():
+def test_phase26_4_production_repository_returns_nu_7_ambient_group_fact():
   result = (
     GENERATOR_FACT_REPOSITORY
     .lookup_ambient_group(
@@ -1697,7 +1711,8 @@ def test_phase26_3_nu_7_ambient_group_fact_is_not_yet_in_production_repository()
     )
   )
 
-  assert result is None
-
+  assert result is (
+    NU_7_AMBIENT_GROUP_FACT
+  )
 
 
