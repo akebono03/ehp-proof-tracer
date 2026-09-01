@@ -6,6 +6,7 @@ from expression import (
 )
 from generator_facts import (
   ETA_3_GENERATOR,
+  NU_7_GENERATOR,
   NU_PRIME_GENERATOR,
 )
 from proof import (
@@ -27,6 +28,26 @@ ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT = Relation(
         dimension=3,
         generator=NU_PRIME_GENERATOR,
       ),
+    ),
+  ),
+  rhs=Zero(),
+  relation_type=RelationType.ZERO,
+)
+
+
+E_NU_PRIME_NU_7_ZERO_COMPOSITION_FACT = Relation(
+  lhs=Composition(
+    left=Suspension(
+      expression=HomotopyElement(
+        name="ν′",
+        dimension=3,
+        generator=NU_PRIME_GENERATOR,
+      ),
+    ),
+    right=HomotopyElement(
+      name="ν₇",
+      dimension=7,
+      generator=NU_7_GENERATOR,
     ),
   ),
   rhs=Zero(),
