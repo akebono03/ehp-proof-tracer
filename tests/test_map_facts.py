@@ -1,6 +1,7 @@
 from expression import MapSymbol
 from map_facts import (
   HOPF_MAP,
+  HOPF_MAP_TYPING_FACT,
   MapTypingFact,
 )
 
@@ -246,6 +247,87 @@ def test_phase29_2_map_symbol_does_not_contain_typing_implicitly():
   )
   assert not hasattr(
     h,
+    "target_sphere_dimension",
+  )
+
+
+def test_phase29_3_hopf_map_typing_fact_is_map_typing_fact():
+  assert isinstance(
+    HOPF_MAP_TYPING_FACT,
+    MapTypingFact,
+  )
+
+
+def test_phase29_3_hopf_map_typing_fact_uses_production_hopf_map():
+  assert HOPF_MAP_TYPING_FACT.map is (
+    HOPF_MAP
+  )
+
+
+def test_phase29_3_hopf_map_typing_fact_has_expected_domain():
+  assert (
+    HOPF_MAP_TYPING_FACT
+    .source_group_dimension
+    == 3
+  )
+
+  assert (
+    HOPF_MAP_TYPING_FACT
+    .source_sphere_dimension
+    == 2
+  )
+
+
+def test_phase29_3_hopf_map_typing_fact_has_expected_codomain():
+  assert (
+    HOPF_MAP_TYPING_FACT
+    .target_group_dimension
+    == 3
+  )
+
+  assert (
+    HOPF_MAP_TYPING_FACT
+    .target_sphere_dimension
+    == 3
+  )
+
+
+def test_phase29_3_hopf_map_typing_fact_has_expected_structure():
+  expected = MapTypingFact(
+    map=HOPF_MAP,
+    source_group_dimension=3,
+    source_sphere_dimension=2,
+    target_group_dimension=3,
+    target_sphere_dimension=3,
+  )
+
+  assert HOPF_MAP_TYPING_FACT == (
+    expected
+  )
+
+
+def test_phase29_3_hopf_map_typing_fact_does_not_change_map_symbol():
+  assert HOPF_MAP == MapSymbol(
+    name="H",
+  )
+
+  assert not hasattr(
+    HOPF_MAP,
+    "source_group_dimension",
+  )
+
+  assert not hasattr(
+    HOPF_MAP,
+    "source_sphere_dimension",
+  )
+
+  assert not hasattr(
+    HOPF_MAP,
+    "target_group_dimension",
+  )
+
+  assert not hasattr(
+    HOPF_MAP,
     "target_sphere_dimension",
   )
 

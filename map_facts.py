@@ -17,3 +17,14 @@ HOPF_MAP = MapSymbol(
 )
 
 
+HOPF_MAP_TYPING_FACT = MapTypingFact(
+  map=HOPF_MAP,
+  source_group_dimension=3,
+  source_sphere_dimension=2,
+  target_group_dimension=3,
+  target_sphere_dimension=3,
+)
+
+
+
+
