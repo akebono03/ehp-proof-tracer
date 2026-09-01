@@ -199,7 +199,9 @@ def indexed_toda_bracket_membership_from_theorem_inference_rule(
   )
 
 
-def toda_bracket_defined_by_zero_compositions_inference_rule():
+def toda_bracket_defined_by_zero_compositions_inference_rule(
+  index=None,
+):
   def guard(
     premises,
     bindings,
@@ -241,6 +243,7 @@ def toda_bracket_defined_by_zero_compositions_inference_rule():
         first=first_composition.left,
         second=first_composition.right,
         third=second_composition.right,
+        index=index,
       ),
     )
 
