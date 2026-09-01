@@ -9,6 +9,7 @@ from expression import (
 )
 from generator_facts import (
   ETA_3_GENERATOR,
+  NU_6_GENERATOR,
   NU_7_GENERATOR,
   NU_PRIME_GENERATOR,
 )
@@ -189,19 +190,17 @@ ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT = Relation(
 )
 
 
-E_NU_PRIME_NU_7_ZERO_COMPOSITION_FACT = Relation(
+NU_PRIME_NU_6_ZERO_COMPOSITION_FACT = Relation(
   lhs=Composition(
-    left=Suspension(
-      expression=HomotopyElement(
-        name="ν′",
-        dimension=3,
-        generator=NU_PRIME_GENERATOR,
-      ),
+    left=HomotopyElement(
+      name="ν′",
+      dimension=3,
+      generator=NU_PRIME_GENERATOR,
     ),
     right=HomotopyElement(
-      name="ν₇",
-      dimension=7,
-      generator=NU_7_GENERATOR,
+      name="ν₆",
+      dimension=6,
+      generator=NU_6_GENERATOR,
     ),
   ),
   rhs=Zero(),
@@ -209,15 +208,28 @@ E_NU_PRIME_NU_7_ZERO_COMPOSITION_FACT = Relation(
 )
 
 
+E_NU_6_EQUALS_NU_7_FACT = Relation(
+  lhs=Suspension(
+    expression=HomotopyElement(
+      name="ν₆",
+      dimension=6,
+      generator=NU_6_GENERATOR,
+    ),
+  ),
+  rhs=HomotopyElement(
+    name="ν₇",
+    dimension=7,
+    generator=NU_7_GENERATOR,
+  ),
+  relation_type=RelationType.EQUALITY,
+)
+
+
 ZERO_COMPOSITION_FACT_REPOSITORY = (
   ZeroCompositionFactRepository(
     facts=(
       ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT,
-      E_NU_PRIME_NU_7_ZERO_COMPOSITION_FACT,
+      NU_PRIME_NU_6_ZERO_COMPOSITION_FACT,
     ),
   )
 )
-
-
-
-

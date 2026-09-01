@@ -1,6 +1,7 @@
 from composition_facts import (
   ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT,
-  E_NU_PRIME_NU_7_ZERO_COMPOSITION_FACT,
+  E_NU_6_EQUALS_NU_7_FACT,
+  NU_PRIME_NU_6_ZERO_COMPOSITION_FACT,
   ZERO_COMPOSITION_FACT_REPOSITORY,
   ZeroCompositionFactRepository,
 )
@@ -14,6 +15,7 @@ from expression import (
 from generator_facts import (
   ETA_3_GENERATOR,
   GENERATOR_FACT_REPOSITORY,
+  NU_6_GENERATOR,
   NU_7_GENERATOR,
   NU_PRIME_GENERATOR,
 )
@@ -52,11 +54,10 @@ def test_phase27_1_eta_3_e_nu_prime_zero_composition_fact_has_composition_lhs():
 
 
 def test_phase27_1_eta_3_e_nu_prime_zero_composition_fact_preserves_actual_generator_structure():
-  fact = (
+  composition = (
     ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT
+    .lhs
   )
-
-  composition = fact.lhs
 
   assert isinstance(
     composition,
@@ -138,31 +139,15 @@ def test_phase27_1_zero_composition_fact_does_not_add_typing_implicitly():
     Suspension,
   )
 
-  assert isinstance(
-    e_nu_prime.expression,
-    HomotopyElement,
-  )
-
   assert eta_3.source is None
   assert eta_3.target is None
-
-  assert (
-    e_nu_prime.expression.source
-    is None
-  )
-
-  assert (
-    e_nu_prime.expression.target
-    is None
-  )
-
   assert e_nu_prime.source is None
   assert e_nu_prime.target is None
 
 
-def test_phase27_2_e_nu_prime_nu_7_zero_composition_fact_is_zero_relation():
+def test_phase27_2_nu_prime_nu_6_zero_composition_fact_is_zero_relation():
   fact = (
-    E_NU_PRIME_NU_7_ZERO_COMPOSITION_FACT
+    NU_PRIME_NU_6_ZERO_COMPOSITION_FACT
   )
 
   assert isinstance(
@@ -177,42 +162,26 @@ def test_phase27_2_e_nu_prime_nu_7_zero_composition_fact_is_zero_relation():
   assert fact.rhs == Zero()
 
 
-def test_phase27_2_e_nu_prime_nu_7_zero_composition_fact_has_composition_lhs():
-  fact = (
-    E_NU_PRIME_NU_7_ZERO_COMPOSITION_FACT
-  )
-
+def test_phase27_2_nu_prime_nu_6_zero_composition_fact_has_composition_lhs():
   assert isinstance(
-    fact.lhs,
+    NU_PRIME_NU_6_ZERO_COMPOSITION_FACT.lhs,
     Composition,
   )
 
 
-def test_phase27_2_e_nu_prime_nu_7_zero_composition_fact_preserves_actual_generator_structure():
-  fact = (
-    E_NU_PRIME_NU_7_ZERO_COMPOSITION_FACT
-  )
-
-  composition = fact.lhs
-
-  assert isinstance(
-    composition,
-    Composition,
+def test_phase27_2_nu_prime_nu_6_zero_composition_fact_preserves_generator_structure():
+  composition = (
+    NU_PRIME_NU_6_ZERO_COMPOSITION_FACT
+    .lhs
   )
 
   assert isinstance(
     composition.left,
-    Suspension,
-  )
-
-  assert isinstance(
-    composition.left.expression,
     HomotopyElement,
   )
 
-  assert (
-    composition.left.expression.generator
-    is NU_PRIME_GENERATOR
+  assert composition.left.generator is (
+    NU_PRIME_GENERATOR
   )
 
   assert isinstance(
@@ -221,24 +190,22 @@ def test_phase27_2_e_nu_prime_nu_7_zero_composition_fact_preserves_actual_genera
   )
 
   assert composition.right.generator is (
-    NU_7_GENERATOR
+    NU_6_GENERATOR
   )
 
 
-def test_phase27_2_e_nu_prime_nu_7_zero_composition_fact_has_expected_structure():
+def test_phase27_2_nu_prime_nu_6_zero_composition_fact_has_expected_structure():
   expected = Relation(
     lhs=Composition(
-      left=Suspension(
-        expression=HomotopyElement(
-          name="ν′",
-          dimension=3,
-          generator=NU_PRIME_GENERATOR,
-        ),
+      left=HomotopyElement(
+        name="ν′",
+        dimension=3,
+        generator=NU_PRIME_GENERATOR,
       ),
       right=HomotopyElement(
-        name="ν₇",
-        dimension=7,
-        generator=NU_7_GENERATOR,
+        name="ν₆",
+        dimension=6,
+        generator=NU_6_GENERATOR,
       ),
     ),
     rhs=Zero(),
@@ -246,55 +213,50 @@ def test_phase27_2_e_nu_prime_nu_7_zero_composition_fact_has_expected_structure(
   )
 
   assert (
-    E_NU_PRIME_NU_7_ZERO_COMPOSITION_FACT
+    NU_PRIME_NU_6_ZERO_COMPOSITION_FACT
     == expected
   )
 
 
-def test_phase27_2_zero_composition_fact_does_not_add_typing_implicitly():
+def test_phase27_2_nu_prime_nu_6_zero_fact_does_not_add_typing_implicitly():
   composition = (
-    E_NU_PRIME_NU_7_ZERO_COMPOSITION_FACT
+    NU_PRIME_NU_6_ZERO_COMPOSITION_FACT
     .lhs
   )
 
-  assert isinstance(
-    composition,
-    Composition,
+  assert composition.left.source is None
+  assert composition.left.target is None
+  assert composition.right.source is None
+  assert composition.right.target is None
+
+
+def test_phase27_correction_e_nu_6_equals_nu_7_fact_has_expected_structure():
+  expected = Relation(
+    lhs=Suspension(
+      expression=HomotopyElement(
+        name="ν₆",
+        dimension=6,
+        generator=NU_6_GENERATOR,
+      ),
+    ),
+    rhs=HomotopyElement(
+      name="ν₇",
+      dimension=7,
+      generator=NU_7_GENERATOR,
+    ),
+    relation_type=RelationType.EQUALITY,
   )
 
-  e_nu_prime = composition.left
-  nu_7 = composition.right
-
-  assert isinstance(
-    e_nu_prime,
-    Suspension,
+  assert E_NU_6_EQUALS_NU_7_FACT == (
+    expected
   )
 
-  assert isinstance(
-    e_nu_prime.expression,
-    HomotopyElement,
+
+def test_phase27_correction_e_nu_6_equals_nu_7_is_not_zero_repository_fact():
+  assert E_NU_6_EQUALS_NU_7_FACT not in (
+    ZERO_COMPOSITION_FACT_REPOSITORY
+    .facts
   )
-
-  assert isinstance(
-    nu_7,
-    HomotopyElement,
-  )
-
-  assert (
-    e_nu_prime.expression.source
-    is None
-  )
-
-  assert (
-    e_nu_prime.expression.target
-    is None
-  )
-
-  assert e_nu_prime.source is None
-  assert e_nu_prime.target is None
-
-  assert nu_7.source is None
-  assert nu_7.target is None
 
 
 def test_phase27_3_zero_composition_fact_repository_is_empty_by_default():
@@ -305,14 +267,14 @@ def test_phase27_3_zero_composition_fact_repository_is_empty_by_default():
   assert repository.facts == ()
 
 
-def test_phase27_3_production_repository_preserves_actual_zero_composition_facts():
+def test_phase27_3_production_repository_preserves_actual_primitive_zero_composition_facts():
   assert (
     ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT
     in ZERO_COMPOSITION_FACT_REPOSITORY.facts
   )
 
   assert (
-    E_NU_PRIME_NU_7_ZERO_COMPOSITION_FACT
+    NU_PRIME_NU_6_ZERO_COMPOSITION_FACT
     in ZERO_COMPOSITION_FACT_REPOSITORY.facts
   )
 
@@ -331,17 +293,17 @@ def test_phase27_3_repository_lookup_returns_eta_3_e_nu_prime_fact():
   )
 
 
-def test_phase27_3_repository_lookup_returns_e_nu_prime_nu_7_fact():
+def test_phase27_3_repository_lookup_returns_nu_prime_nu_6_fact():
   result = (
     ZERO_COMPOSITION_FACT_REPOSITORY
     .lookup(
-      E_NU_PRIME_NU_7_ZERO_COMPOSITION_FACT
+      NU_PRIME_NU_6_ZERO_COMPOSITION_FACT
       .lhs
     )
   )
 
   assert result is (
-    E_NU_PRIME_NU_7_ZERO_COMPOSITION_FACT
+    NU_PRIME_NU_6_ZERO_COMPOSITION_FACT
   )
 
 
@@ -359,14 +321,13 @@ def test_phase27_3_repository_lookup_returns_none_for_unknown_composition():
     ),
   )
 
-  result = (
+  assert (
     ZERO_COMPOSITION_FACT_REPOSITORY
     .lookup(
       unknown
     )
+    is None
   )
-
-  assert result is None
 
 
 def test_phase27_3_repository_rejects_duplicate_zero_composition_fact():
@@ -448,19 +409,12 @@ def test_phase27_3_exact_lookup_does_not_match_typed_composition_implicitly():
     ),
   )
 
-  result = (
+  assert (
     ZERO_COMPOSITION_FACT_REPOSITORY
     .lookup(
       typed_composition
     )
-  )
-
-  assert result is None
-
-  assert (
-    typed_composition
-    != ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT
-    .lhs
+    is None
   )
 
 
@@ -509,7 +463,42 @@ def test_phase27_4_typed_eta_3_e_nu_prime_matches_zero_fact_by_untyped_structure
   )
 
 
-def test_phase27_4_typed_e_nu_prime_nu_7_matches_zero_fact_by_untyped_structure():
+def test_phase27_4_typed_nu_prime_nu_6_matches_second_zero_fact_by_untyped_structure():
+  nu_prime = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν′",
+        dimension=3,
+        generator=NU_PRIME_GENERATOR,
+      )
+    )
+  )
+
+  assert nu_prime is not None
+
+  composition = Composition(
+    left=nu_prime,
+    right=HomotopyElement(
+      name="ν₆",
+      dimension=6,
+      generator=NU_6_GENERATOR,
+    ),
+  )
+
+  result = (
+    ZERO_COMPOSITION_FACT_REPOSITORY
+    .lookup_by_untyped_structure(
+      composition
+    )
+  )
+
+  assert result is (
+    NU_PRIME_NU_6_ZERO_COMPOSITION_FACT
+  )
+
+
+def test_phase27_4_displayed_e_nu_prime_nu_7_is_not_primitive_zero_fact():
   nu_prime = (
     GENERATOR_FACT_REPOSITORY
     .materialize_typed_element(
@@ -542,15 +531,12 @@ def test_phase27_4_typed_e_nu_prime_nu_7_matches_zero_fact_by_untyped_structure(
     right=nu_7,
   )
 
-  result = (
+  assert (
     ZERO_COMPOSITION_FACT_REPOSITORY
     .lookup_by_untyped_structure(
       composition
     )
-  )
-
-  assert result is (
-    E_NU_PRIME_NU_7_ZERO_COMPOSITION_FACT
+    is None
   )
 
 
@@ -629,14 +615,13 @@ def test_phase27_4_structure_lookup_rejects_different_generator():
     ),
   )
 
-  result = (
+  assert (
     ZERO_COMPOSITION_FACT_REPOSITORY
     .lookup_by_untyped_structure(
       composition
     )
+    is None
   )
-
-  assert result is None
 
 
 def test_phase27_4_structure_lookup_rejects_missing_suspension():
@@ -657,14 +642,13 @@ def test_phase27_4_structure_lookup_rejects_missing_suspension():
     ),
   )
 
-  result = (
+  assert (
     ZERO_COMPOSITION_FACT_REPOSITORY
     .lookup_by_untyped_structure(
       composition
     )
+    is None
   )
-
-  assert result is None
 
 
 def test_phase27_4_structure_lookup_ignores_only_typing_annotations():
@@ -687,15 +671,10 @@ def test_phase27_4_structure_lookup_ignores_only_typing_annotations():
     ),
   )
 
-  result = (
+  assert (
     ZERO_COMPOSITION_FACT_REPOSITORY
     .lookup_by_untyped_structure(
       composition
     )
+    is None
   )
-
-  assert result is None
-
-
-
-
