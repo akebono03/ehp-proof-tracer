@@ -8,8 +8,10 @@ from generator_facts import (
   ETA_3_GENERATOR,
   ETA_3_TYPING_FACT,
   GENERATOR_FACT_REPOSITORY,
+  NU_7_AMBIENT_GROUP_FACT,
   NU_7_GENERATOR,
   NU_7_TYPING_FACT,
+  NU_PRIME_AMBIENT_GROUP_FACT,
   NU_PRIME_GENERATOR,
   NU_PRIME_TYPING_FACT,
   GeneratorAmbientGroupFact,
@@ -1571,6 +1573,131 @@ def test_phase26_2_nu_7_is_not_yet_materialized_by_production_repository():
   assert element.source is None
   assert element.target is None
 
+
+def test_phase26_3_nu_prime_ambient_group_fact_has_expected_group():
+  assert NU_PRIME_AMBIENT_GROUP_FACT == (
+    GeneratorAmbientGroupFact(
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+      group_dimension=6,
+      sphere_dimension=3,
+    )
+  )
+
+
+def test_phase26_3_nu_prime_ambient_group_fact_uses_nu_prime_generator_identity():
+  assert (
+    NU_PRIME_AMBIENT_GROUP_FACT.generator
+    is NU_PRIME_GENERATOR
+  )
+
+  assert (
+    NU_PRIME_AMBIENT_GROUP_FACT.group_dimension
+    == 6
+  )
+
+  assert (
+    NU_PRIME_AMBIENT_GROUP_FACT.sphere_dimension
+    == 3
+  )
+
+
+def test_phase26_3_nu_7_ambient_group_fact_has_expected_group():
+  assert NU_7_AMBIENT_GROUP_FACT == (
+    GeneratorAmbientGroupFact(
+      generator=GeneratorSymbol(
+        family="ν",
+        index=7,
+      ),
+      group_dimension=10,
+      sphere_dimension=7,
+    )
+  )
+
+
+def test_phase26_3_nu_7_ambient_group_fact_uses_nu_7_generator_identity():
+  assert (
+    NU_7_AMBIENT_GROUP_FACT.generator
+    is NU_7_GENERATOR
+  )
+
+  assert (
+    NU_7_AMBIENT_GROUP_FACT.group_dimension
+    == 10
+  )
+
+  assert (
+    NU_7_AMBIENT_GROUP_FACT.sphere_dimension
+    == 7
+  )
+
+
+def test_phase26_3_nu_prime_typing_and_ambient_group_facts_remain_distinct():
+  assert isinstance(
+    NU_PRIME_TYPING_FACT,
+    GeneratorTypingFact,
+  )
+
+  assert isinstance(
+    NU_PRIME_AMBIENT_GROUP_FACT,
+    GeneratorAmbientGroupFact,
+  )
+
+  assert (
+    NU_PRIME_TYPING_FACT
+    != NU_PRIME_AMBIENT_GROUP_FACT
+  )
+
+  assert (
+    NU_PRIME_TYPING_FACT.generator
+    == NU_PRIME_AMBIENT_GROUP_FACT.generator
+  )
+
+
+def test_phase26_3_nu_7_typing_and_ambient_group_facts_remain_distinct():
+  assert isinstance(
+    NU_7_TYPING_FACT,
+    GeneratorTypingFact,
+  )
+
+  assert isinstance(
+    NU_7_AMBIENT_GROUP_FACT,
+    GeneratorAmbientGroupFact,
+  )
+
+  assert (
+    NU_7_TYPING_FACT
+    != NU_7_AMBIENT_GROUP_FACT
+  )
+
+  assert (
+    NU_7_TYPING_FACT.generator
+    == NU_7_AMBIENT_GROUP_FACT.generator
+  )
+
+
+def test_phase26_3_nu_prime_ambient_group_fact_is_not_yet_in_production_repository():
+  result = (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_ambient_group(
+      NU_PRIME_GENERATOR
+    )
+  )
+
+  assert result is None
+
+
+def test_phase26_3_nu_7_ambient_group_fact_is_not_yet_in_production_repository():
+  result = (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_ambient_group(
+      NU_7_GENERATOR
+    )
+  )
+
+  assert result is None
 
 
 

@@ -151,6 +151,13 @@ NU_PRIME_TYPING_FACT = GeneratorTypingFact(
 )
 
 
+NU_PRIME_AMBIENT_GROUP_FACT = GeneratorAmbientGroupFact(
+  generator=NU_PRIME_GENERATOR,
+  group_dimension=6,
+  sphere_dimension=3,
+)
+
+
 NU_7_GENERATOR = GeneratorSymbol(
   family="ν",
   index=7,
@@ -161,6 +168,13 @@ NU_7_TYPING_FACT = GeneratorTypingFact(
   generator=NU_7_GENERATOR,
   source=10,
   target=7,
+)
+
+
+NU_7_AMBIENT_GROUP_FACT = GeneratorAmbientGroupFact(
+  generator=NU_7_GENERATOR,
+  group_dimension=10,
+  sphere_dimension=7,
 )
 
 
