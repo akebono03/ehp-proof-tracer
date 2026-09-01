@@ -138,6 +138,19 @@ ETA_3_AMBIENT_GROUP_FACT = GeneratorAmbientGroupFact(
 )
 
 
+NU_PRIME_GENERATOR = GeneratorSymbol(
+  family="ν",
+  decoration="′",
+)
+
+
+NU_PRIME_TYPING_FACT = GeneratorTypingFact(
+  generator=NU_PRIME_GENERATOR,
+  source=6,
+  target=3,
+)
+
+
 GENERATOR_FACT_REPOSITORY = GeneratorFactRepository(
   typing_facts=(
     ETA_3_TYPING_FACT,

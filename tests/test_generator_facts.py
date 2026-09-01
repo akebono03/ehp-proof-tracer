@@ -8,6 +8,8 @@ from generator_facts import (
   ETA_3_GENERATOR,
   ETA_3_TYPING_FACT,
   GENERATOR_FACT_REPOSITORY,
+  NU_PRIME_GENERATOR,
+  NU_PRIME_TYPING_FACT,
   GeneratorAmbientGroupFact,
   GeneratorFactRepository,
   GeneratorTypingFact,
@@ -1379,6 +1381,90 @@ def test_phase25_9_generator_materialization_does_not_modify_theorem_fact_reposi
     THEOREM_FACT_REPOSITORY.entries
     == theorem_entries_before
   )
+
+
+def test_phase26_1_nu_prime_generator_has_expected_structural_identity():
+  assert NU_PRIME_GENERATOR == GeneratorSymbol(
+    family="ν",
+    decoration="′",
+  )
+
+
+def test_phase26_1_nu_prime_typing_fact_has_expected_source_and_target():
+  assert NU_PRIME_TYPING_FACT == GeneratorTypingFact(
+    generator=GeneratorSymbol(
+      family="ν",
+      decoration="′",
+    ),
+    source=6,
+    target=3,
+  )
+
+
+def test_phase26_1_nu_prime_typing_fact_uses_nu_prime_generator_identity():
+  assert NU_PRIME_TYPING_FACT.generator is (
+    NU_PRIME_GENERATOR
+  )
+
+  assert NU_PRIME_TYPING_FACT.source == 6
+  assert NU_PRIME_TYPING_FACT.target == 3
+
+
+def test_phase26_1_nu_prime_remains_distinct_from_plain_nu():
+  plain_nu = GeneratorSymbol(
+    family="ν",
+  )
+
+  assert NU_PRIME_GENERATOR != plain_nu
+
+  assert not (
+    NU_PRIME_TYPING_FACT
+    .matches_generator(
+      plain_nu
+    )
+  )
+
+  assert (
+    NU_PRIME_TYPING_FACT
+    .matches_generator(
+      GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      )
+    )
+  )
+
+
+def test_phase26_1_nu_prime_typing_fact_is_not_yet_in_production_repository():
+  result = (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_typing(
+      NU_PRIME_GENERATOR
+    )
+  )
+
+  assert result is None
+
+
+def test_phase26_1_nu_prime_is_not_yet_materialized_by_production_repository():
+  element = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    generator=NU_PRIME_GENERATOR,
+  )
+
+  typed_element = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      element
+    )
+  )
+
+  assert typed_element is None
+
+  assert element.source is None
+  assert element.target is None
+
 
 
 
