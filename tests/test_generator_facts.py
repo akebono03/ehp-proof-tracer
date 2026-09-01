@@ -2328,5 +2328,124 @@ def test_phase26_7_actual_toda_type_compatibility_does_not_use_bracket_index():
   )
 
 
+def test_phase26_8_eta_3_typing_and_ambient_group_facts_are_consistent():
+  result = (
+    GENERATOR_FACT_REPOSITORY
+    .is_typing_ambient_group_consistent(
+      ETA_3_GENERATOR
+    )
+  )
+
+  assert result is True
+
+
+def test_phase26_8_nu_prime_typing_and_ambient_group_facts_are_consistent():
+  result = (
+    GENERATOR_FACT_REPOSITORY
+    .is_typing_ambient_group_consistent(
+      NU_PRIME_GENERATOR
+    )
+  )
+
+  assert result is True
+
+
+def test_phase26_8_nu_7_typing_and_ambient_group_facts_are_consistent():
+  result = (
+    GENERATOR_FACT_REPOSITORY
+    .is_typing_ambient_group_consistent(
+      NU_7_GENERATOR
+    )
+  )
+
+  assert result is True
+
+
+def test_phase26_8_inconsistent_typing_and_ambient_group_facts_return_false():
+  generator = GeneratorSymbol(
+    family="α",
+    index=3,
+  )
+
+  repository = GeneratorFactRepository(
+    typing_facts=(
+      GeneratorTypingFact(
+        generator=generator,
+        source=6,
+        target=3,
+      ),
+    ),
+    ambient_group_facts=(
+      GeneratorAmbientGroupFact(
+        generator=generator,
+        group_dimension=7,
+        sphere_dimension=3,
+      ),
+    ),
+  )
+
+  result = (
+    repository
+    .is_typing_ambient_group_consistent(
+      generator
+    )
+  )
+
+  assert result is False
+
+
+def test_phase26_8_typing_fact_without_ambient_group_fact_has_unknown_consistency():
+  generator = GeneratorSymbol(
+    family="α",
+    index=3,
+  )
+
+  repository = GeneratorFactRepository(
+    typing_facts=(
+      GeneratorTypingFact(
+        generator=generator,
+        source=6,
+        target=3,
+      ),
+    ),
+  )
+
+  result = (
+    repository
+    .is_typing_ambient_group_consistent(
+      generator
+    )
+  )
+
+  assert result is None
+
+
+def test_phase26_8_ambient_group_fact_without_typing_fact_has_unknown_consistency():
+  generator = GeneratorSymbol(
+    family="α",
+    index=3,
+  )
+
+  repository = GeneratorFactRepository(
+    ambient_group_facts=(
+      GeneratorAmbientGroupFact(
+        generator=generator,
+        group_dimension=6,
+        sphere_dimension=3,
+      ),
+    ),
+  )
+
+  result = (
+    repository
+    .is_typing_ambient_group_consistent(
+      generator
+    )
+  )
+
+  assert result is None
+
+
+
 
 

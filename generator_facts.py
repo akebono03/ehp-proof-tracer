@@ -91,6 +91,33 @@ class GeneratorFactRepository:
 
     return None
 
+  def is_typing_ambient_group_consistent(
+    self,
+    generator: GeneratorSymbol,
+  ) -> bool | None:
+    typing_fact = self.lookup_typing(
+      generator
+    )
+
+    ambient_group_fact = (
+      self.lookup_ambient_group(
+        generator
+      )
+    )
+
+    if (
+      typing_fact is None
+      or ambient_group_fact is None
+    ):
+      return None
+
+    return (
+      typing_fact.source
+      == ambient_group_fact.group_dimension
+      and typing_fact.target
+      == ambient_group_fact.sphere_dimension
+    )
+
   def materialize_typed_element(
     self,
     element: HomotopyElement,
