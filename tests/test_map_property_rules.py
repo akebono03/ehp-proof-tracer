@@ -517,6 +517,215 @@ def test_phase28_5_injective_map_reflects_map_application_equality():
   )
 
 
+def test_phase28_6_isomorphism_and_mapped_equality_run_end_to_end():
+  f = MapSymbol(
+    name="f",
+  )
+
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  isomorphism_step = ProofStep(
+    conclusion=IsomorphismStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  mapped_equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=MapApplication(
+        map=f,
+        expression=a,
+      ),
+      rhs=MapApplication(
+        map=f,
+        expression=b,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  isomorphism_rule = (
+    isomorphism_implies_injective_inference_rule()
+  )
+
+  reflection_rule = (
+    injective_map_reflects_equality_inference_rule()
+  )
+
+  result = run_inference_until_stable_with_history(
+    (
+      isomorphism_rule,
+      reflection_rule,
+    ),
+    (
+      isomorphism_step,
+      mapped_equality_step,
+    ),
+  )
+
+  expected_injectivity = InjectiveMapStatement(
+    map=f,
+  )
+
+  expected_equality = Relation(
+    lhs=a,
+    rhs=b,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert expected_injectivity in conclusions
+  assert expected_equality in conclusions
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 2
+
+
+def test_phase28_6_end_to_end_equality_preserves_full_provenance_chain():
+  f = MapSymbol(
+    name="f",
+  )
+
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  isomorphism_step = ProofStep(
+    conclusion=IsomorphismStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  mapped_equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=MapApplication(
+        map=f,
+        expression=a,
+      ),
+      rhs=MapApplication(
+        map=f,
+        expression=b,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  isomorphism_rule = (
+    isomorphism_implies_injective_inference_rule()
+  )
+
+  reflection_rule = (
+    injective_map_reflects_equality_inference_rule()
+  )
+
+  result = run_inference_until_stable_with_history(
+    (
+      isomorphism_rule,
+      reflection_rule,
+    ),
+    (
+      isomorphism_step,
+      mapped_equality_step,
+    ),
+  )
+
+  injective_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == InjectiveMapStatement(
+      map=f,
+    )
+  )
+
+  equality_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == Relation(
+      lhs=a,
+      rhs=b,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  assert injective_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert injective_step.inference_rule == (
+    isomorphism_rule
+  )
+
+  assert injective_step.premises == (
+    isomorphism_step,
+  )
+
+  assert equality_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert equality_step.inference_rule == (
+    reflection_rule
+  )
+
+  assert equality_step.premises == (
+    injective_step,
+    mapped_equality_step,
+  )
+
+  assert (
+    equality_step
+    .premises[0]
+    .premises
+    == (
+      isomorphism_step,
+    )
+  )
+
+  assert isomorphism_step.rule == (
+    ProofRule.GIVEN
+  )
+
+  assert mapped_equality_step.rule == (
+    ProofRule.GIVEN
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 2
+
+
+
 
 
 
