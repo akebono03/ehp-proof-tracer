@@ -1,8 +1,11 @@
 from expression import MapSymbol
 from map_facts import (
   HOPF_MAP,
+  HOPF_MAP_ISOMORPHISM_FACT,
   HOPF_MAP_TYPING_FACT,
+  MAP_ISOMORPHISM_FACT_REPOSITORY,
   MapIsomorphismFact,
+  MapIsomorphismFactRepository,
   MapTypingFact,
 )
 
@@ -469,6 +472,156 @@ def test_phase29_4_map_isomorphism_fact_can_use_production_h_typing():
   assert fact.typing.map is (
     HOPF_MAP
   )
+
+
+def test_phase29_5_hopf_map_isomorphism_fact_uses_production_typing():
+  assert (
+    HOPF_MAP_ISOMORPHISM_FACT.typing
+    is HOPF_MAP_TYPING_FACT
+  )
+
+  assert (
+    HOPF_MAP_ISOMORPHISM_FACT
+    .typing
+    .map
+    is HOPF_MAP
+  )
+
+
+def test_phase29_5_hopf_map_isomorphism_fact_has_expected_structure():
+  expected = MapIsomorphismFact(
+    typing=HOPF_MAP_TYPING_FACT,
+  )
+
+  assert (
+    HOPF_MAP_ISOMORPHISM_FACT
+    == expected
+  )
+
+
+def test_phase29_5_map_isomorphism_repository_is_empty_by_default():
+  repository = (
+    MapIsomorphismFactRepository()
+  )
+
+  assert repository.facts == ()
+
+
+def test_phase29_5_production_repository_preserves_actual_hopf_isomorphism_fact():
+  assert (
+    MAP_ISOMORPHISM_FACT_REPOSITORY
+    .facts
+    == (
+      HOPF_MAP_ISOMORPHISM_FACT,
+    )
+  )
+
+
+def test_phase29_5_repository_lookup_returns_actual_hopf_isomorphism_fact():
+  result = (
+    MAP_ISOMORPHISM_FACT_REPOSITORY
+    .lookup(
+      HOPF_MAP_TYPING_FACT
+    )
+  )
+
+  assert result is (
+    HOPF_MAP_ISOMORPHISM_FACT
+  )
+
+
+def test_phase29_5_repository_lookup_returns_none_for_unknown_typing():
+  unknown_typing = MapTypingFact(
+    map=HOPF_MAP,
+    source_group_dimension=4,
+    source_sphere_dimension=2,
+    target_group_dimension=3,
+    target_sphere_dimension=3,
+  )
+
+  assert (
+    MAP_ISOMORPHISM_FACT_REPOSITORY
+    .lookup(
+      unknown_typing
+    )
+    is None
+  )
+
+
+def test_phase29_5_repository_lookup_distinguishes_map_identity():
+  different_map_typing = MapTypingFact(
+    map=MapSymbol(
+      name="f",
+    ),
+    source_group_dimension=3,
+    source_sphere_dimension=2,
+    target_group_dimension=3,
+    target_sphere_dimension=3,
+  )
+
+  assert (
+    MAP_ISOMORPHISM_FACT_REPOSITORY
+    .lookup(
+      different_map_typing
+    )
+    is None
+  )
+
+
+def test_phase29_5_repository_rejects_duplicate_typing_context():
+  try:
+    MapIsomorphismFactRepository(
+      facts=(
+        HOPF_MAP_ISOMORPHISM_FACT,
+        HOPF_MAP_ISOMORPHISM_FACT,
+      ),
+    )
+  except ValueError as error:
+    assert str(error) == (
+      "duplicate map isomorphism fact"
+    )
+  else:
+    raise AssertionError(
+      "duplicate map isomorphism fact "
+      "was not rejected"
+    )
+
+
+def test_phase29_5_repository_allows_same_map_in_different_typing_context():
+  different_typing = MapTypingFact(
+    map=HOPF_MAP,
+    source_group_dimension=4,
+    source_sphere_dimension=2,
+    target_group_dimension=4,
+    target_sphere_dimension=3,
+  )
+
+  different_fact = MapIsomorphismFact(
+    typing=different_typing,
+  )
+
+  repository = (
+    MapIsomorphismFactRepository(
+      facts=(
+        HOPF_MAP_ISOMORPHISM_FACT,
+        different_fact,
+      ),
+    )
+  )
+
+  assert repository.facts == (
+    HOPF_MAP_ISOMORPHISM_FACT,
+    different_fact,
+  )
+
+  assert repository.lookup(
+    HOPF_MAP_TYPING_FACT
+  ) is HOPF_MAP_ISOMORPHISM_FACT
+
+  assert repository.lookup(
+    different_typing
+  ) is different_fact
+
 
 
 
