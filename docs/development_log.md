@@ -1,6 +1,6 @@
 # ehp_proof 開発記録
 
-この文書は Phase 27 完了時点までの開発履歴を、現在の実装と矛盾しない形で整理した改訂版である。
+この文書は Phase 28 完了時点までの開発履歴を、現在の実装と矛盾しない形で整理した改訂版である。
 
 ```text
 各 Phase の「未実装」「次の課題」
@@ -48,21 +48,6 @@ Phase 16: symbolic scalar constraints.
 
 Phase 17: indeterminacy.
 
-代表的な Phase 17 形式:
-
-```text
-x∈β+A
-x=±α
-x∈{kβ+γ | k odd}
-```
-
-Phase 17 完了時:
-
-```text
-full suite
-1024 passed in 66.01s
-```
-
 ### 状態
 
 完了
@@ -77,13 +62,6 @@ full suite
 TodaBracket
 TodaBracketMembershipStatement
 TodaBracketDefinedStatement
-```
-
-確認:
-
-```text
-full suite
-1048 passed in 61.09s
 ```
 
 ### 状態
@@ -110,13 +88,6 @@ matching bracket definedness
 Toda bracket membership
 ```
 
-確認:
-
-```text
-full suite
-1064 passed in 61.64s
-```
-
 ### 状態
 
 完了
@@ -134,13 +105,6 @@ IteratedSuspension
 IndexedTodaBracketData.is_consistent()
 ```
 
-確認:
-
-```text
-full suite
-1098 passed in 61.30s
-```
-
 ### 状態
 
 完了
@@ -156,13 +120,6 @@ HomotopyElement.source
 HomotopyElement.target
 Composition.is_type_compatible()
 TodaBracket.are_defining_compositions_type_compatible()
-```
-
-確認:
-
-```text
-full suite
-1125 passed in 22.75s
 ```
 
 ### 状態
@@ -190,13 +147,6 @@ generator notation
 automatic source / target typing
 ```
 
-確認:
-
-```text
-full suite
-1153 passed in 24.83s
-```
-
 ### 状態
 
 完了
@@ -213,13 +163,6 @@ actual bridge:
 exactly matching definedness
 ↓
 ε₃ ∈ {η₃,Eν′,ν₇}_1
-```
-
-確認:
-
-```text
-full suite
-1175 passed in 22.96s
 ```
 
 ### 状態
@@ -239,18 +182,6 @@ EPSILON_3_TODA_MEMBERSHIP_FACT
 THEOREM_FACT_REPOSITORY
 ```
 
-確認:
-
-```text
-tests/test_theorem_facts.py
-15 passed
-```
-
-```text
-full suite
-1190 passed in 61.30s
-```
-
 ### 状態
 
 完了
@@ -258,16 +189,6 @@ full suite
 ---
 
 # Phase 25：Generator typing / ambient-group facts
-
-原則:
-
-```text
-GeneratorSymbol.index
-↛
-automatic typing
-```
-
-typing は explicit registered fact だけから供給する。
 
 主な追加:
 
@@ -289,24 +210,6 @@ materialize_typed_element()
 η₃ ∈ π₄(S³)
 ```
 
-確認:
-
-```text
-tests/test_generator_facts.py
-55 passed in 2.25s
-```
-
-```text
-full suite
-1245 passed in 65.71s
-```
-
-代表 probe:
-
-```powershell
-python -m probes.probe_phase25_capabilities
-```
-
 ### 状態
 
 完了
@@ -315,83 +218,7 @@ python -m probes.probe_phase25_capabilities
 
 # Phase 26：actual Toda-generator typing expansion
 
-目的:
-
-```text
-{η₃,Eν′,ν₇}_1
-```
-
-の3 entry を notation から推測するのではなく、explicit generator facts から typed にし、既存 Toda type-compatibility machinery に接続する。
-
----
-
-## Phase 26-1：ν′ generator typing fact
-
-追加:
-
-```text
-NU_PRIME_GENERATOR
-NU_PRIME_TYPING_FACT
-```
-
-typing:
-
-```text
-ν′ : S⁶ → S³
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 26-2：ν₇ generator typing fact
-
-追加:
-
-```text
-NU_7_GENERATOR
-NU_7_TYPING_FACT
-```
-
-typing:
-
-```text
-ν₇ : S¹⁰ → S⁷
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 26-3：ν′ / ν₇ ambient-group fact
-
-追加:
-
-```text
-NU_PRIME_AMBIENT_GROUP_FACT
-NU_7_AMBIENT_GROUP_FACT
-```
-
-facts:
-
-```text
-ν′ ∈ π₆(S³)
-ν₇ ∈ π₁₀(S⁷)
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 26-4：production repository 登録
-
-production repository coverage:
+production generator coverage:
 
 ```text
 η₃
@@ -399,64 +226,31 @@ production repository coverage:
 ν₇
 ```
 
-typing / ambient-group lookup と typed materialization が利用可能になった。
-
-### 状態
-
-完了
-
----
-
-## Phase 26-5：Eν′ の explicit typing connection
-
-production code の新規追加なし。
+typing:
 
 ```text
+η₃ : S⁴ → S³
 ν′ : S⁶ → S³
-↓
-Suspension
+ν₇ : S¹⁰ → S⁷
+```
+
+Suspension:
+
+```text
+ν′
 ↓
 Eν′ : S⁷ → S⁴
 ```
 
-### 状態
-
-完了
-
----
-
-## Phase 26-6：actual bracket entry typing
-
-構築:
-
-```text
-η₃  : S⁴  → S³
-Eν′ : S⁷  → S⁴
-ν₇  : S¹⁰ → S⁷
-```
+actual bracket:
 
 ```text
 {η₃,Eν′,ν₇}_1
 ```
 
-### 状態
+displayed adjacent compositions は type-compatible。
 
-完了
-
----
-
-## Phase 26-7：type compatibility
-
-確認:
-
-```text
-η₃ ∘ Eν′
-Eν′ ∘ ν₇
-```
-
-は type-compatible。
-
-境界:
+重要:
 
 ```text
 type-compatible
@@ -472,259 +266,21 @@ Toda definedness
 
 ---
 
-## Phase 26-8：typing / ambient-group consistency
-
-追加:
-
-```text
-GeneratorFactRepository.is_typing_ambient_group_consistent()
-```
-
-semantics:
-
-```text
-True
-False
-None
-```
-
-production:
-
-```text
-η₃ → True
-ν′ → True
-ν₇ → True
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 26-9：provenance / regression / scope
-
-固定:
-
-```text
-actual Toda typing chain
-↛
-generator repository mutation
-```
-
-```text
-actual Toda typing chain
-↛
-theorem repository mutation
-```
-
-```text
-ν₇ registered
-↛
-general ν_n automatic typing
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 26-10：Phase 26 完了整理
-
-代表 probe:
-
-```powershell
-python -m probes.probe_phase26_capabilities
-```
-
-最終確認:
-
-```text
-tests/test_generator_facts.py
-100 passed in 0.39s
-```
-
-```text
-full suite
-1290 passed in 23.16s
-```
-
-### 状態
-
-完了
-
----
-
 # Phase 27：corrected actual ε₃ Toda-definedness / end-to-end inference
 
 目的:
 
-Phase 26 で得た actual bracket typing / compatibility の先へ進み、actual indexed Toda definedness を explicit mathematical facts から導出し、existing theorem fact とつないで:
+actual indexed Toda definedness を explicit mathematical facts から導出し、existing theorem fact と接続する。
 
-```text
-ε₃ ∈ {η₃,Eν′,ν₇}_1
-```
-
-まで corrected end-to-end proof trace を構築する。
-
-Phase 27 では途中で indexed defining condition の解釈を correction し、表示上の adjacent composition をそのまま primitive condition とみなさない設計を確定した。
-
----
-
-## Phase 27-1：`η₃ ∘ Eν′ = 0` explicit fact
-
-追加:
-
-```text
-ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT
-```
-
-内容:
+primitive knowledge:
 
 ```text
 η₃ ∘ Eν′ = 0
-```
-
-`RelationType.ZERO` として保持。
-
-この fact 自体には source / target typing を暗黙追加しない。
-
-### 状態
-
-完了
-
----
-
-## Phase 27-2：corrected second primitive fact
-
-追加:
-
-```text
-NU_PRIME_NU_6_ZERO_COMPOSITION_FACT
-```
-
-内容:
-
-```text
 ν′ ∘ ν₆ = 0
-```
-
-さらに indexed bracket の third displayed entry へ接続する equality:
-
-```text
-E_NU_6_EQUALS_NU_7_FACT
-```
-
-内容:
-
-```text
 Eν₆ = ν₇
 ```
 
-を使用する。
-
-ここで重要な correction:
-
-```text
-Eν′ ∘ ν₇ = 0
-```
-
-を index-1 bracket の second primitive defining condition として扱わない。
-
-### 状態
-
-完了
-
----
-
-## Phase 27-3：ZeroCompositionFactRepository
-
-追加:
-
-```text
-ZeroCompositionFactRepository
-ZERO_COMPOSITION_FACT_REPOSITORY
-```
-
-production repository の primitive facts:
-
-```text
-η₃ ∘ Eν′ = 0
-ν′ ∘ ν₆ = 0
-```
-
-`Eν₆ = ν₇` は equality fact なのでこの repository には登録しない。
-
-validation:
-
-```text
-lhs is Composition
-rhs == Zero()
-relation_type == ZERO
-duplicate rejection
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 27-4：typed actual composition と untyped fact の接続
-
-追加:
-
-```text
-lookup_by_untyped_structure()
-```
-
-目的:
-
-typed actual composition と、typing annotation を持たない production mathematical fact を必要最小限で接続する。
-
-無視するもの:
-
-```text
-source
-target
-```
-
-保持するもの:
-
-```text
-name
-dimension
-generator
-Suspension structure
-Composition structure
-```
-
-したがって general wildcard matching ではない。
-
-regression:
-
-```text
-different generator → reject
-missing Suspension → reject
-wrong name → reject
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 27-5：corrected indexed Toda definedness
-
-追加:
-
-```text
-indexed_toda_bracket_index1_defined_inference_rule()
-```
-
-一般形:
+corrected rule:
 
 ```text
 a ∘ Eb = 0
@@ -734,139 +290,46 @@ Ec = d
 {a,Eb,d}_1 is defined
 ```
 
-actual inputs:
+actual result:
 
 ```text
 η₃ ∘ Eν′ = 0
 ν′ ∘ ν₆ = 0
 Eν₆ = ν₇
-```
-
-から:
-
-```text
+↓
 {η₃,Eν′,ν₇}_1 is defined
 ```
 
-を導出。
-
-provenance:
+さらに theorem fact と接続:
 
 ```text
-defined_step.premises
-=
-first_zero_step
-second_zero_step
-suspension_step
-```
-
-negative regression:
-
-```text
-η₃ ∘ Eν′ = 0
-Eν′ ∘ ν₇ = 0
-Eν₆ = ν₇
-```
-
-では actual indexed definedness を導出しない。
-
-確認:
-
-```text
-tests/test_phase27_toda_definedness.py
-4 passed
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 27-6：actual theorem connection
-
-Phase 27-5 で derived した actual definedness が:
-
-```text
-EPSILON_3_TODA_MEMBERSHIP_FACT
-```
-
-の bracket と一致することを確認。
-
-theorem repository:
-
-```text
-THEOREM_FACT_REPOSITORY
-```
-
-から theorem step を materialize し、既存:
-
-```text
-toda_bracket_membership_from_theorem_inference_rule()
-```
-
-へ接続。
-
-theorem fact 単独では membership を導出しないことも確認。
-
-### 状態
-
-完了
-
----
-
-## Phase 27-7：corrected end-to-end inference
-
-Phase 27-6 までは definedness derivation と membership bridge を段階的に確認していた。
-
-Phase 27-7 では同一 fixed-point run に:
-
-```text
-indexed_toda_bracket_index1_defined_inference_rule()
-toda_bracket_membership_from_theorem_inference_rule()
-```
-
-を投入。
-
-initial knowledge:
-
-```text
-η₃ ∘ Eν′ = 0
-ν′ ∘ ν₆ = 0
-Eν₆ = ν₇
 Toda theorem fact
-```
-
-結果:
-
-```text
-Round 1
-{η₃,Eν′,ν₇}_1 is defined
-
-Round 2
++
+derived definedness
+↓
 ε₃ ∈ {η₃,Eν′,ν₇}_1
 ```
 
-termination:
+single fixed-point run:
 
 ```text
-FIXED_POINT
+Round 1
+definedness
+
+Round 2
+membership
 ```
 
-```text
-round_count = 2
-```
-
-確認時:
+最終確認:
 
 ```text
 tests/test_phase27_theorem_connection.py
-7 passed
+11 passed in 0.69s
 ```
 
 ```text
 full suite
-1328 passed in 88.44s
+1332 passed in 86.87s
 ```
 
 ### 状態
@@ -875,65 +338,424 @@ full suite
 
 ---
 
-## Phase 27-8：corrected end-to-end capability probe
+# Phase 28：map-property equality-reflection foundation
+
+目的:
+
+Toda 型の次の代表的な証明形式:
+
+```text
+写像した先で等しい
++
+その写像が単射 / 同型
+↓
+元でも等しい
+```
+
+を proof graph 上で扱うための generic foundation を追加する。
+
+Phase 28 では actual Hopf map `H` の数学的 fact はまだ追加せず、map-property reasoning そのものに限定した。
+
+---
+
+## Phase 28-1：InjectiveMapStatement の最小表現
+
+追加:
+
+```text
+InjectiveMapStatement
+```
+
+構造:
+
+```text
+InjectiveMapStatement(
+  map=f,
+)
+```
+
+意味:
+
+```text
+f is injective
+```
+
+境界:
+
+```text
+MapSymbol(f)
+↛
+InjectiveMapStatement(f)
+```
+
+map notation 自体から injectivity を推測しない。
+
+focused:
+
+```text
+4 passed
+```
+
+full suite:
+
+```text
+1336 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 28-2：IsomorphismStatement の最小表現
+
+追加:
+
+```text
+IsomorphismStatement
+```
+
+構造:
+
+```text
+IsomorphismStatement(
+  map=f,
+)
+```
+
+重要:
+
+```text
+IsomorphismStatement(f)
+!=
+InjectiveMapStatement(f)
+```
+
+数学的 implication と structural equality を分離する。
+
+full suite:
+
+```text
+1340 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 28-3：Isomorphism(f) → Injective(f)
+
+追加:
+
+```text
+isomorphism_implies_injective_inference_rule()
+```
+
+rule:
+
+```text
+Isomorphism(f)
+↓
+Injective(f)
+```
+
+provenance:
+
+```text
+derived Injective(f)
+premises =
+  Isomorphism(f)
+```
+
+negative boundary:
+
+```text
+Isomorphism(f)
+↛
+Injective(g)
+```
+
+```text
+Injective(f)
+↛
+Isomorphism(f)
+```
+
+focused:
+
+```text
+12 passed
+```
+
+full suite:
+
+```text
+1344 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 28-4：MapApplication を使った f(a)=f(b) の表現確認
+
+production code の追加なし。
+
+既存:
+
+```text
+MapApplication(
+  map=f,
+  expression=a,
+)
+```
+
+を用いて:
+
+```text
+Relation(
+  lhs=f(a),
+  rhs=f(b),
+  relation_type=EQUALITY,
+)
+```
+
+を表現可能であることを確認。
+
+重要:
+
+```text
+f(a)=f(b)
+!=
+f(a)=g(b)
+```
+
+focused:
+
+```text
+16 passed
+```
+
+full suite:
+
+```text
+1348 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 28-5：Injective(f) + f(a)=f(b) → a=b
+
+追加:
+
+```text
+injective_map_reflects_equality_inference_rule()
+```
+
+rule:
+
+```text
+Injective(f)
++
+f(a)=f(b)
+↓
+a=b
+```
+
+guard:
+
+```text
+lhs is MapApplication
+rhs is MapApplication
+lhs.map == rhs.map
+injective.map == lhs.map
+```
+
+conclusion は mapped expression の `expression` をそのまま使う。
+
+focused:
+
+```text
+17 passed
+```
+
+full suite:
+
+```text
+1349 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 28-6：provenance chain
+
+production code の追加なし。
+
+同一 fixed-point run:
+
+```text
+GIVEN
+Isomorphism(f)
+
+GIVEN
+f(a)=f(b)
+
+Round 1
+Injective(f)
+
+Round 2
+a=b
+```
+
+provenance:
+
+```text
+a=b
+premises =
+  derived Injective(f)
+  f(a)=f(b)
+```
+
+さらに:
+
+```text
+derived Injective(f)
+premises =
+  Isomorphism(f)
+```
+
+最終 `a=b` から2段階の chain を辿れる。
+
+focused:
+
+```text
+19 passed
+```
+
+full suite:
+
+```text
+1351 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 28-7：invalid / mismatched map regression
+
+production code の追加なし。
+
+以下を reject:
+
+```text
+Injective(f) + g(a)=g(b)
+↛ a=b
+```
+
+```text
+Injective(f) + f(a)=g(b)
+↛ a=b
+```
+
+```text
+Isomorphism(f) + g(a)=g(b)
+↛ a=b
+```
+
+```text
+Injective(f) + plain a=b
+↛ equality-reflection rule
+```
+
+focused:
+
+```text
+23 passed
+```
+
+full suite:
+
+```text
+1355 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 28-8：representative end-to-end example
 
 新規:
 
 ```text
-probes/probe_phase27_capabilities.py
+probes/probe_phase28_capabilities.py
 ```
 
 実行:
 
 ```powershell
-python -m probes.probe_phase27_capabilities
+python -m probes.probe_phase28_capabilities
 ```
 
 visible chain:
 
 ```text
 GIVEN
-η₃ ∘ Eν′ = 0
-
-GIVEN
-ν′ ∘ ν₆ = 0
-
-GIVEN
-Eν₆ = ν₇
+H is an isomorphism
 
 INFERENCE
-{η₃,Eν′,ν₇}_1 is defined
+isomorphism implies injectivity
+↓
+H is injective
 
 GIVEN
-Toda theorem:
-ε₃ ∈ {η₃,Eν′,ν₇}_1
+H(a)=H(b)
 
 INFERENCE
-ε₃ ∈ {η₃,Eν′,ν₇}_1
+injective map reflects equality
+↓
+a=b
 ```
 
 表示:
 
 ```text
 rounds = 2
-termination = FIXED_POINT
+termination = InferenceTerminationReason.FIXED_POINT
 ```
 
-さらに:
+重要:
 
 ```text
-Eν′ ∘ ν₇ = 0
+H
+=
+representative MapSymbol only
 ```
 
-を primitive defining knowledge として使っていないことを明示。
+まだ actual Hopf map fact ではない。
 
-この probe は production APIs / facts / inference rules を使用し、数学的ロジックを別実装しない。
-
-確認:
+full suite:
 
 ```text
-full suite
-1328 passed in 91.17s
+1355 passed
 ```
 
 ### 状態
@@ -942,61 +764,44 @@ full suite
 
 ---
 
-## Phase 27-9：provenance / regression / scope boundary
+## Phase 28-9：scope / fixed-point regression
 
-新しい production code は追加しない。
+production code の追加なし。
 
-回帰テストで以下を固定:
-
-### unrelated fact exclusion
+unrelated fact exclusion:
 
 ```text
 unrelated fact
-↛
-definedness provenance
+↛ Injective(f) provenance
 ```
 
 ```text
 unrelated fact
-↛
-membership provenance
+↛ a=b provenance
 ```
 
-### repository non-mutation
+deduplication:
 
 ```text
-inference run
-↛
-ZERO_COMPOSITION_FACT_REPOSITORY mutation
+Injective(f)
+→ exactly 1 derived step
 ```
 
 ```text
-inference run
-↛
-THEOREM_FACT_REPOSITORY mutation
+a=b
+→ exactly 1 derived step
 ```
 
-### deduplication
+genuine fixed point:
 
 ```text
-actual definedness
-→ 1 step
+derive_inference_round_result(
+  rules,
+  result.steps,
+)
 ```
 
-```text
-actual membership
-→ 1 step
-```
-
-### genuine fixed point
-
-terminal state から:
-
-```text
-derive_inference_round_result()
-```
-
-を再実行して:
+で:
 
 ```text
 new_steps == ()
@@ -1007,13 +812,13 @@ new_steps == ()
 最終確認:
 
 ```text
-tests/test_phase27_theorem_connection.py
-11 passed in 0.69s
+tests/test_map_property_rules.py
+26 passed in 1.42s
 ```
 
 ```text
 full suite
-1332 passed in 86.87s
+1358 passed in 102.90s
 ```
 
 ### 状態
@@ -1022,72 +827,51 @@ full suite
 
 ---
 
-## Phase 27-10：Phase 27 完了整理
+## Phase 28-10：Phase 28 完了整理
 
-Phase 27 completion chain:
+Phase 28 completion chain:
 
 ```text
-explicit primitive composition facts
-η₃ ∘ Eν′ = 0
-ν′ ∘ ν₆ = 0
+Isomorphism(f)
+↓
+Injective(f)
 
 +
-Suspension identification
-Eν₆ = ν₇
+
+f(a)=f(b)
 
 ↓
-indexed_toda_bracket_index1_defined_inference_rule()
+a=b
+```
+
+single fixed-point run:
+
+```text
+Round 1
+Injective(f)
+
+Round 2
+a=b
 
 ↓
-{η₃,Eν′,ν₇}_1 is defined
-
-+
-THEOREM_FACT_REPOSITORY
-Toda theorem fact
-
-↓
-toda_bracket_membership_from_theorem_inference_rule()
-
-↓
-ε₃ ∈ {η₃,Eν′,ν₇}_1
+genuine FIXED_POINT
 ```
 
-2 round で genuine fixed point に到達する。
-
-重要な corrected boundary:
+実装済み:
 
 ```text
-displayed Eν′ ∘ ν₇ = 0
-!=
-primitive second defining condition
-```
-
-Phase 27 では:
-
-```text
-ν′ ∘ ν₆ = 0
-+
-Eν₆ = ν₇
-```
-
-を使う。
-
-代表 probe:
-
-```powershell
-python -m probes.probe_phase27_capabilities
-```
-
-最終 verified status:
-
-```text
-tests/test_phase27_theorem_connection.py
-11 passed in 0.69s
-```
-
-```text
-full suite
-1332 passed in 86.87s
+InjectiveMapStatement
+IsomorphismStatement
+isomorphism → injective inference
+MapApplication equality representation
+injective equality reflection
+same-map validity guard
+two-level provenance
+invalid / mismatched map rejection
+unrelated-fact exclusion
+deduplication
+genuine fixed-point regression
+human-readable capability probe
 ```
 
 generic inference engine:
@@ -1096,78 +880,22 @@ generic inference engine:
 変更なし
 ```
 
-更新文書:
+representative probe:
 
-```text
-README.md
-docs/design.md
-docs/development_log.md
-docs/roadmap.md
-```
-
-### 状態
-
-完了
-
----
-
-# Phase 27 completion boundary
-
-実装済み:
-
-```text
-explicit corrected zero-composition knowledge
-zero-composition fact repository
-typed/untyped narrow structure lookup
-corrected index-1 Toda definedness
-actual definedness ProofStep provenance
-theorem fact connection
-single-run end-to-end ε₃ membership
-two-round fixed point
-full provenance chain
-unrelated fact exclusion
-repository non-mutation
-deduplication
-genuine fixed-point regression
-human-readable capability probe
-```
-
-重要な境界:
-
-```text
-type compatibility
-↛
-ZERO
-```
-
-```text
-displayed adjacency
-↛
-indexed defining conditions
-```
-
-```text
-lookup_by_untyped_structure
-!=
-general wildcard equality
-```
-
-```text
-inference
-↛
-repository mutation
-```
-
-```text
-generic inference engine
-=
-unchanged
+```powershell
+python -m probes.probe_phase28_capabilities
 ```
 
 current verified status:
 
 ```text
-1332 passed in 86.87s
+tests/test_map_property_rules.py
+26 passed in 1.42s
+```
+
+```text
+full suite
+1358 passed in 102.90s
 ```
 
 No failures.
@@ -1178,43 +906,73 @@ No failures.
 
 ---
 
-# 次の候補
+# Phase 28 completion boundary
 
-Phase 27 で actual ε₃ Toda proof chain は corrected end-to-end まで到達した。
+Phase 28 で一般的な:
 
-次は、既に roadmap に記録している map-theoretic reasoning が有力。
+```text
+f(a)=f(b)
++
+f is injective / isomorphism
+↓
+a=b
+```
+
+の proof trace が可能になった。
+
+ただし actual mathematical knowledge として:
+
+```text
+H is the required Hopf map
+H has a required domain / codomain
+H is an isomorphism in the required case
+```
+
+はまだ入っていない。
+
+したがって Phase 28 の `H` probe は representative example であり、actual Toda calculation ではない。
+
+---
+
+# 次の Phase
+
+次は:
+
+```text
+Phase 29
+actual H map facts / typing
+```
+
+が自然。
 
 候補:
 
 ```text
-MapSymbol の domain / codomain typing
-InjectiveMapStatement
-IsomorphismStatement
-SurjectiveMapStatement
-equality reflection under injectivity
+actual H identity
+actual H source / target
+actual H isomorphism property
+必要最小限の explicit fact / provenance
+existing Phase 28 equality reflection への接続
 ```
 
-代表的な将来目標:
+その後:
+
+```text
+Phase 30+
+Hopf formula
+smash product
+actual H calculation
+```
+
+へ進み、
 
 ```text
 H((2ι₂)η₂)=H(4η₂)
-+
-H isomorphism
 ↓
 (2ι₂)η₂=4η₂
 ```
 
-および:
-
-```text
-HP(ι₅)=H(±2η₂)
-+
-H isomorphism
-↓
-P(ι₅)=±2η₂
-```
-
-actual mathematical need から必要最小限の Phase を切る。
+という実例へ接続する。
 
 ---
 
