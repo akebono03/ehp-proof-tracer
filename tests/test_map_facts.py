@@ -19,10 +19,12 @@ from map_property_rules import (
   isomorphism_implies_injective_inference_rule,
 )
 from proof import (
+  InferenceTerminationReason,
   ProofRule,
   ProofStep,
   Relation,
   RelationType,
+  derive_inference_round_result,
   run_inference_until_stable_with_history,
 )
 
@@ -897,6 +899,494 @@ def test_phase29_8_actual_hopf_fact_and_mapped_equality_run_end_to_end():
     relation_type=RelationType.EQUALITY,
   ) in conclusions
 
+
+def test_phase29_9_actual_hopf_end_to_end_preserves_full_provenance_chain():
+  fact = (
+    MAP_ISOMORPHISM_FACT_REPOSITORY
+    .lookup(
+      HOPF_MAP_TYPING_FACT
+    )
+  )
+
+  assert fact is (
+    HOPF_MAP_ISOMORPHISM_FACT
+  )
+
+  isomorphism_step = (
+    fact.to_proof_step()
+  )
+
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  mapped_equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=MapApplication(
+        map=HOPF_MAP,
+        expression=a,
+      ),
+      rhs=MapApplication(
+        map=HOPF_MAP,
+        expression=b,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  isomorphism_rule = (
+    isomorphism_implies_injective_inference_rule()
+  )
+
+  reflection_rule = (
+    injective_map_reflects_equality_inference_rule()
+  )
+
+  result = run_inference_until_stable_with_history(
+    (
+      isomorphism_rule,
+      reflection_rule,
+    ),
+    (
+      isomorphism_step,
+      mapped_equality_step,
+    ),
+  )
+
+  injective_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == InjectiveMapStatement(
+      map=HOPF_MAP,
+    )
+  )
+
+  equality_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == Relation(
+      lhs=a,
+      rhs=b,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  assert isomorphism_step.rule == (
+    ProofRule.GIVEN
+  )
+
+  assert isomorphism_step.conclusion == (
+    IsomorphismStatement(
+      map=HOPF_MAP,
+    )
+  )
+
+  assert injective_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert injective_step.inference_rule == (
+    isomorphism_rule
+  )
+
+  assert injective_step.premises == (
+    isomorphism_step,
+  )
+
+  assert equality_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert equality_step.inference_rule == (
+    reflection_rule
+  )
+
+  assert equality_step.premises == (
+    injective_step,
+    mapped_equality_step,
+  )
+
+  assert (
+    equality_step
+    .premises[0]
+    .premises
+    == (
+      isomorphism_step,
+    )
+  )
+
+
+def test_phase29_9_actual_hopf_injectivity_does_not_reflect_equality_under_different_map():
+  fact = (
+    MAP_ISOMORPHISM_FACT_REPOSITORY
+    .lookup(
+      HOPF_MAP_TYPING_FACT
+    )
+  )
+
+  assert fact is not None
+
+  isomorphism_step = (
+    fact.to_proof_step()
+  )
+
+  g = MapSymbol(
+    name="g",
+  )
+
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  mapped_equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=MapApplication(
+        map=g,
+        expression=a,
+      ),
+      rhs=MapApplication(
+        map=g,
+        expression=b,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rules = (
+    isomorphism_implies_injective_inference_rule(),
+    injective_map_reflects_equality_inference_rule(),
+  )
+
+  result = run_inference_until_stable_with_history(
+    rules,
+    (
+      isomorphism_step,
+      mapped_equality_step,
+    ),
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert InjectiveMapStatement(
+    map=HOPF_MAP,
+  ) in conclusions
+
+  assert Relation(
+    lhs=a,
+    rhs=b,
+    relation_type=RelationType.EQUALITY,
+  ) not in conclusions
+
+
+def test_phase29_9_unknown_hopf_typing_context_has_no_isomorphism_fact():
+  unknown_typing = MapTypingFact(
+    map=HOPF_MAP,
+    source_group_dimension=4,
+    source_sphere_dimension=2,
+    target_group_dimension=4,
+    target_sphere_dimension=3,
+  )
+
+  fact = (
+    MAP_ISOMORPHISM_FACT_REPOSITORY
+    .lookup(
+      unknown_typing
+    )
+  )
+
+  assert fact is None
+
+
+def test_phase29_9_actual_hopf_end_to_end_provenance_excludes_unrelated_fact():
+  fact = (
+    MAP_ISOMORPHISM_FACT_REPOSITORY
+    .lookup(
+      HOPF_MAP_TYPING_FACT
+    )
+  )
+
+  assert fact is not None
+
+  isomorphism_step = (
+    fact.to_proof_step()
+  )
+
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  x = HomotopyElement(
+    name="x",
+    dimension=1,
+  )
+
+  y = HomotopyElement(
+    name="y",
+    dimension=1,
+  )
+
+  mapped_equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=MapApplication(
+        map=HOPF_MAP,
+        expression=a,
+      ),
+      rhs=MapApplication(
+        map=HOPF_MAP,
+        expression=b,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  unrelated_step = ProofStep(
+    conclusion=Relation(
+      lhs=x,
+      rhs=y,
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rules = (
+    isomorphism_implies_injective_inference_rule(),
+    injective_map_reflects_equality_inference_rule(),
+  )
+
+  result = run_inference_until_stable_with_history(
+    rules,
+    (
+      isomorphism_step,
+      mapped_equality_step,
+      unrelated_step,
+    ),
+  )
+
+  injective_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == InjectiveMapStatement(
+      map=HOPF_MAP,
+    )
+  )
+
+  equality_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == Relation(
+      lhs=a,
+      rhs=b,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  assert injective_step.premises == (
+    isomorphism_step,
+  )
+
+  assert equality_step.premises == (
+    injective_step,
+    mapped_equality_step,
+  )
+
+  assert unrelated_step not in (
+    injective_step.premises
+  )
+
+  assert unrelated_step not in (
+    equality_step.premises
+  )
+
+  assert all(
+    unrelated_step not in premise.premises
+    for premise in equality_step.premises
+  )
+
+
+def test_phase29_9_actual_hopf_end_to_end_has_unique_derived_conclusions():
+  fact = (
+    MAP_ISOMORPHISM_FACT_REPOSITORY
+    .lookup(
+      HOPF_MAP_TYPING_FACT
+    )
+  )
+
+  assert fact is not None
+
+  isomorphism_step = (
+    fact.to_proof_step()
+  )
+
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  mapped_equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=MapApplication(
+        map=HOPF_MAP,
+        expression=a,
+      ),
+      rhs=MapApplication(
+        map=HOPF_MAP,
+        expression=b,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rules = (
+    isomorphism_implies_injective_inference_rule(),
+    injective_map_reflects_equality_inference_rule(),
+  )
+
+  result = run_inference_until_stable_with_history(
+    rules,
+    (
+      isomorphism_step,
+      mapped_equality_step,
+    ),
+  )
+
+  injectivity = InjectiveMapStatement(
+    map=HOPF_MAP,
+  )
+
+  equality = Relation(
+    lhs=a,
+    rhs=b,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  injective_steps = tuple(
+    step
+    for step in result.steps
+    if step.conclusion == injectivity
+  )
+
+  equality_steps = tuple(
+    step
+    for step in result.steps
+    if step.conclusion == equality
+  )
+
+  assert len(injective_steps) == 1
+  assert len(equality_steps) == 1
+
+  assert injective_steps[0].rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert equality_steps[0].rule == (
+    ProofRule.INFERENCE
+  )
+
+
+def test_phase29_9_actual_hopf_end_to_end_reaches_genuine_fixed_point():
+  fact = (
+    MAP_ISOMORPHISM_FACT_REPOSITORY
+    .lookup(
+      HOPF_MAP_TYPING_FACT
+    )
+  )
+
+  assert fact is not None
+
+  isomorphism_step = (
+    fact.to_proof_step()
+  )
+
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  mapped_equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=MapApplication(
+        map=HOPF_MAP,
+        expression=a,
+      ),
+      rhs=MapApplication(
+        map=HOPF_MAP,
+        expression=b,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rules = (
+    isomorphism_implies_injective_inference_rule(),
+    injective_map_reflects_equality_inference_rule(),
+  )
+
+  result = run_inference_until_stable_with_history(
+    rules,
+    (
+      isomorphism_step,
+      mapped_equality_step,
+    ),
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 2
+
+  terminal_round = derive_inference_round_result(
+    rules,
+    result.steps,
+  )
+
+  assert terminal_round.new_steps == ()
 
 
 
