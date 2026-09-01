@@ -8,6 +8,8 @@ from generator_facts import (
   ETA_3_GENERATOR,
   ETA_3_TYPING_FACT,
   GENERATOR_FACT_REPOSITORY,
+  NU_7_GENERATOR,
+  NU_7_TYPING_FACT,
   NU_PRIME_GENERATOR,
   NU_PRIME_TYPING_FACT,
   GeneratorAmbientGroupFact,
@@ -1465,6 +1467,109 @@ def test_phase26_1_nu_prime_is_not_yet_materialized_by_production_repository():
   assert element.source is None
   assert element.target is None
 
+
+def test_phase26_2_nu_7_generator_has_expected_structural_identity():
+  assert NU_7_GENERATOR == GeneratorSymbol(
+    family="ν",
+    index=7,
+  )
+
+
+def test_phase26_2_nu_7_typing_fact_has_expected_source_and_target():
+  assert NU_7_TYPING_FACT == GeneratorTypingFact(
+    generator=GeneratorSymbol(
+      family="ν",
+      index=7,
+    ),
+    source=10,
+    target=7,
+  )
+
+
+def test_phase26_2_nu_7_typing_fact_uses_nu_7_generator_identity():
+  assert NU_7_TYPING_FACT.generator is (
+    NU_7_GENERATOR
+  )
+
+  assert NU_7_TYPING_FACT.source == 10
+  assert NU_7_TYPING_FACT.target == 7
+
+
+def test_phase26_2_nu_7_remains_distinct_from_unindexed_nu():
+  unindexed_nu = GeneratorSymbol(
+    family="ν",
+  )
+
+  assert NU_7_GENERATOR != unindexed_nu
+
+  assert not (
+    NU_7_TYPING_FACT
+    .matches_generator(
+      unindexed_nu
+    )
+  )
+
+  assert (
+    NU_7_TYPING_FACT
+    .matches_generator(
+      GeneratorSymbol(
+        family="ν",
+        index=7,
+      )
+    )
+  )
+
+
+def test_phase26_2_nu_7_remains_distinct_from_nu_prime():
+  assert (
+    NU_7_GENERATOR
+    != NU_PRIME_GENERATOR
+  )
+
+  assert not (
+    NU_7_TYPING_FACT
+    .matches_generator(
+      NU_PRIME_GENERATOR
+    )
+  )
+
+  assert not (
+    NU_PRIME_TYPING_FACT
+    .matches_generator(
+      NU_7_GENERATOR
+    )
+  )
+
+
+def test_phase26_2_nu_7_typing_fact_is_not_yet_in_production_repository():
+  result = (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_typing(
+      NU_7_GENERATOR
+    )
+  )
+
+  assert result is None
+
+
+def test_phase26_2_nu_7_is_not_yet_materialized_by_production_repository():
+  element = HomotopyElement(
+    name="ν₇",
+    dimension=7,
+    generator=NU_7_GENERATOR,
+  )
+
+  typed_element = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      element
+    )
+  )
+
+  assert typed_element is None
+
+  assert element.source is None
+  assert element.target is None
 
 
 

@@ -151,6 +151,19 @@ NU_PRIME_TYPING_FACT = GeneratorTypingFact(
 )
 
 
+NU_7_GENERATOR = GeneratorSymbol(
+  family="ν",
+  index=7,
+)
+
+
+NU_7_TYPING_FACT = GeneratorTypingFact(
+  generator=NU_7_GENERATOR,
+  source=10,
+  target=7,
+)
+
+
 GENERATOR_FACT_REPOSITORY = GeneratorFactRepository(
   typing_facts=(
     ETA_3_TYPING_FACT,
