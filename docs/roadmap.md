@@ -58,6 +58,7 @@ Explicit generator ambient-group facts
 Generator fact repository
 Typed-element materialization from explicit facts
 Toda entry typing integration
+Representative human-readable capability probe
 ```
 
 ---
@@ -188,13 +189,37 @@ Verified:
 
 ```text
 tests/test_generator_facts.py
-55 passed in 2.25s
+55 passed
 ```
 
 ```text
 full suite
-1245 passed in 65.71s
+1245 passed
 ```
+
+Representative capability demo:
+
+```powershell
+python -m probes.probe_phase25_capabilities
+```
+
+Visible current results:
+
+```text
+ε₃ ∈ {η₃,Eν′,ν₇}_1
+η₃ : S⁴ → S³
+η₃ ∈ π₄(S³)
+```
+
+Current visible boundary:
+
+```text
+ν′ / ν₇ production typing
+repository-derived Eν′ typing
+complete ε₃ Toda entry typing
+```
+
+remain future work.
 
 ---
 
@@ -223,6 +248,7 @@ full suite
 | typed-element materialization | IMPLEMENTED | Phase 25 |
 | duplicate generator-fact rejection | IMPLEMENTED | Phase 25 |
 | Toda entry typing connection | IMPLEMENTED | Phase 25 |
+| representative capability demo convention | IMPLEMENTED | post-Phase 25 documentation / probe |
 | generator-fact literature provenance | NEXT CANDIDATE | Phase 26 candidate |
 | ν′ / ν₇ production typing facts | PLANNED | actual Toda requirement |
 | typing ↔ ambient consistency validation | PLANNED | actual validation need |
@@ -396,9 +422,31 @@ stable homotopy representation
 stable Toda bracket
 ```
 
+At each suitable Phase boundary, also grow a representative executable proof / validation scenario so that the visible mathematical chain becomes deeper rather than only increasing internal API coverage.
+
+Target direction:
+
+```text
+generator facts
+↓
+typing
+↓
+composition validity
+↓
+zero compositions
+↓
+Toda definedness
+↓
+theorem applicability
+↓
+membership
+↓
+human-readable proof trace
+```
+
 ---
 
-# 15. Testing principle
+# 15. Testing and representative-demonstration principle
 
 For each new layer:
 
@@ -411,6 +459,38 @@ For each new layer:
 7. representative scenario
 8. termination / scope boundary
 9. full regression
+
+In addition, when the Phase has a meaningful human-visible mathematical result:
+
+10. provide or extend a representative probe,
+11. run it from the project root,
+12. show the premises / registered facts,
+13. show the applied inference or validation,
+14. show the mathematical conclusion,
+15. show the previous-Phase difference,
+16. show the remaining Phase boundary.
+
+Tests and probes have different purposes:
+
+```text
+pytest
+=
+correctness / regression
+
+representative probe
+=
+visible mathematical progress
+```
+
+The probe must reuse production APIs and existing inference rules. It must not introduce a second implementation of the mathematical rule merely for demonstration.
+
+Prefer module execution:
+
+```powershell
+python -m probes.<probe_module>
+```
+
+when the probe imports project-root modules.
 
 ---
 

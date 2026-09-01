@@ -671,7 +671,7 @@ lookup / materialization
 generic inference engine
 ```
 
-Current verified status:
+Current verified status at Phase 25 completion:
 
 ```text
 tests/test_generator_facts.py
@@ -688,6 +688,157 @@ No failures.
 ### 状態
 
 完了
+
+---
+
+# Phase 25 post-completion representative capability demo
+
+Phase 25完了後、各 Phase の数学的成果を人間が実行して確認できる形にするため、representative probe を導入した。
+
+Probe:
+
+```text
+probes/probe_phase25_capabilities.py
+```
+
+Run from project root as a module:
+
+```powershell
+python -m probes.probe_phase25_capabilities
+```
+
+Direct execution:
+
+```powershell
+python probes/probe_phase25_capabilities.py
+```
+
+では project root が import path に入らず、
+
+```text
+ModuleNotFoundError: No module named 'expression'
+```
+
+となるため、module execution を標準とする。
+
+Representative regression run:
+
+```powershell
+python -m pytest tests/test_theorem_facts.py -q
+python -m pytest tests/test_generator_facts.py -q
+python -m pytest -q
+```
+
+Observed:
+
+```text
+15 passed in 0.08s
+55 passed in 0.24s
+1245 passed in 23.45s
+```
+
+Representative mathematical inference demonstrated:
+
+```text
+THEOREM_FACT_REPOSITORY
+↓
+EPSILON_3_TODA_MEMBERSHIP_FACT
+↓
+literature-backed ProofStep.GIVEN
++
+{η₃,Eν′,ν₇}_1 defined
+↓
+Toda bracket membership inference rule
+↓
+ε₃ ∈ {η₃,Eν′,ν₇}_1
+↓
+FIXED_POINT
+```
+
+Representative Phase 25 generator-knowledge demonstration:
+
+```text
+untyped η₃
++
+ETA_3_GENERATOR
+↓
+GENERATOR_FACT_REPOSITORY.lookup_typing()
+↓
+η₃ : S⁴ → S³
+↓
+materialize_typed_element()
+↓
+new typed HomotopyElement
+```
+
+Ambient group lookup also displays:
+
+```text
+η₃ ∈ π₄(S³)
+```
+
+Non-mutation is visible:
+
+```text
+original source = None
+original target = None
+new source = 4
+new target = 3
+```
+
+The same probe explicitly displays the Phase 25 boundary:
+
+```text
+ν′ production typing
+ν₇ production typing
+repository-derived Eν′ typing
+complete production typing of all ε₃ Toda entries
+```
+
+are not yet implemented.
+
+Therefore the current state is:
+
+```text
+actual Toda membership inference
++
+explicit generator typing materialization
+```
+
+both work independently, but:
+
+```text
+generator facts
+↓
+all ε₃ Toda entry typing
+↓
+definedness
+↓
+theorem applicability
+↓
+membership
+```
+
+is not yet one complete end-to-end proof.
+
+### 方針
+
+今後、可能な Phase では完了整理に以下を含める:
+
+```text
+focused pytest
+full regression
+representative probe command
+human-readable mathematical result
+what became possible in this Phase
+what remains outside the Phase boundary
+```
+
+Probe は production API / existing inference engine を実際に使い、テスト専用の別ロジックで数学的結果を偽装しない。
+
+### 状態
+
+記録完了
 
 ---
 
