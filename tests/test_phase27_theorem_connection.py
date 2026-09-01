@@ -2,6 +2,7 @@ from composition_facts import (
   ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT,
   E_NU_6_EQUALS_NU_7_FACT,
   NU_PRIME_NU_6_ZERO_COMPOSITION_FACT,
+  ZERO_COMPOSITION_FACT_REPOSITORY,
 )
 from expression import (
   Composition,
@@ -18,6 +19,7 @@ from proof import (
   ProofRule,
   Relation,
   RelationType,
+  derive_inference_round_result,
   relation_proof_step,
   run_inference_until_stable_with_history,
 )
@@ -511,6 +513,296 @@ def test_phase27_7_end_to_end_requires_correct_second_base_zero_condition():
   assert result.termination_reason == (
     InferenceTerminationReason.FIXED_POINT
   )
+
+
+def test_phase27_9_end_to_end_provenance_excludes_unrelated_fact():
+  first_zero_step = relation_proof_step(
+    ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT
+  )
+
+  second_zero_step = relation_proof_step(
+    NU_PRIME_NU_6_ZERO_COMPOSITION_FACT
+  )
+
+  suspension_step = relation_proof_step(
+    E_NU_6_EQUALS_NU_7_FACT
+  )
+
+  unrelated_step = relation_proof_step(
+    Relation(
+      lhs=HomotopyElement(
+        name="x",
+        dimension=1,
+      ),
+      rhs=HomotopyElement(
+        name="y",
+        dimension=1,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  entry = THEOREM_FACT_REPOSITORY.lookup(
+    EPSILON_3_TODA_MEMBERSHIP_FACT.statement
+  )
+
+  assert entry is not None
+
+  theorem_step = entry.to_proof_step()
+
+  definedness_rule = (
+    indexed_toda_bracket_index1_defined_inference_rule()
+  )
+
+  membership_rule = (
+    toda_bracket_membership_from_theorem_inference_rule()
+  )
+
+  result = run_inference_until_stable_with_history(
+    (
+      definedness_rule,
+      membership_rule,
+    ),
+    (
+      first_zero_step,
+      second_zero_step,
+      suspension_step,
+      theorem_step,
+      unrelated_step,
+    ),
+  )
+
+  definedness = TodaBracketDefinedStatement(
+    bracket=entry.statement.bracket,
+  )
+
+  membership = TodaBracketMembershipStatement(
+    element=entry.statement.element,
+    bracket=entry.statement.bracket,
+    source=entry.reference,
+    note=entry.statement.note,
+  )
+
+  defined_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == definedness
+  )
+
+  membership_step = next(
+    step
+    for step in result.steps
+    if step.conclusion == membership
+  )
+
+  assert defined_step.premises == (
+    first_zero_step,
+    second_zero_step,
+    suspension_step,
+  )
+
+  assert membership_step.premises == (
+    theorem_step,
+    defined_step,
+  )
+
+  assert unrelated_step not in (
+    defined_step.premises
+  )
+
+  assert unrelated_step not in (
+    membership_step.premises
+  )
+
+  assert all(
+    unrelated_step not in premise.premises
+    for premise in membership_step.premises
+  )
+
+
+def test_phase27_9_end_to_end_does_not_mutate_production_repositories():
+  zero_facts_before = (
+    ZERO_COMPOSITION_FACT_REPOSITORY.facts
+  )
+
+  theorem_entries_before = (
+    THEOREM_FACT_REPOSITORY.entries
+  )
+
+  first_zero_step = relation_proof_step(
+    ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT
+  )
+
+  second_zero_step = relation_proof_step(
+    NU_PRIME_NU_6_ZERO_COMPOSITION_FACT
+  )
+
+  suspension_step = relation_proof_step(
+    E_NU_6_EQUALS_NU_7_FACT
+  )
+
+  entry = THEOREM_FACT_REPOSITORY.lookup(
+    EPSILON_3_TODA_MEMBERSHIP_FACT.statement
+  )
+
+  assert entry is not None
+
+  theorem_step = entry.to_proof_step()
+
+  rules = (
+    indexed_toda_bracket_index1_defined_inference_rule(),
+    toda_bracket_membership_from_theorem_inference_rule(),
+  )
+
+  run_inference_until_stable_with_history(
+    rules,
+    (
+      first_zero_step,
+      second_zero_step,
+      suspension_step,
+      theorem_step,
+    ),
+  )
+
+  assert (
+    ZERO_COMPOSITION_FACT_REPOSITORY.facts
+    == zero_facts_before
+  )
+
+  assert (
+    THEOREM_FACT_REPOSITORY.entries
+    == theorem_entries_before
+  )
+
+  assert ZERO_COMPOSITION_FACT_REPOSITORY.facts == (
+    ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT,
+    NU_PRIME_NU_6_ZERO_COMPOSITION_FACT,
+  )
+
+  assert THEOREM_FACT_REPOSITORY.entries == (
+    EPSILON_3_TODA_MEMBERSHIP_FACT,
+  )
+
+
+def test_phase27_9_end_to_end_has_unique_derived_conclusions():
+  first_zero_step = relation_proof_step(
+    ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT
+  )
+
+  second_zero_step = relation_proof_step(
+    NU_PRIME_NU_6_ZERO_COMPOSITION_FACT
+  )
+
+  suspension_step = relation_proof_step(
+    E_NU_6_EQUALS_NU_7_FACT
+  )
+
+  entry = THEOREM_FACT_REPOSITORY.lookup(
+    EPSILON_3_TODA_MEMBERSHIP_FACT.statement
+  )
+
+  assert entry is not None
+
+  theorem_step = entry.to_proof_step()
+
+  rules = (
+    indexed_toda_bracket_index1_defined_inference_rule(),
+    toda_bracket_membership_from_theorem_inference_rule(),
+  )
+
+  result = run_inference_until_stable_with_history(
+    rules,
+    (
+      first_zero_step,
+      second_zero_step,
+      suspension_step,
+      theorem_step,
+    ),
+  )
+
+  definedness = TodaBracketDefinedStatement(
+    bracket=entry.statement.bracket,
+  )
+
+  membership = TodaBracketMembershipStatement(
+    element=entry.statement.element,
+    bracket=entry.statement.bracket,
+    source=entry.reference,
+    note=entry.statement.note,
+  )
+
+  defined_steps = tuple(
+    step
+    for step in result.steps
+    if step.conclusion == definedness
+  )
+
+  membership_steps = tuple(
+    step
+    for step in result.steps
+    if step.conclusion == membership
+  )
+
+  assert len(defined_steps) == 1
+  assert len(membership_steps) == 1
+
+  assert defined_steps[0].rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert membership_steps[0].rule == (
+    ProofRule.INFERENCE
+  )
+
+
+def test_phase27_9_end_to_end_reaches_genuine_fixed_point():
+  first_zero_step = relation_proof_step(
+    ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT
+  )
+
+  second_zero_step = relation_proof_step(
+    NU_PRIME_NU_6_ZERO_COMPOSITION_FACT
+  )
+
+  suspension_step = relation_proof_step(
+    E_NU_6_EQUALS_NU_7_FACT
+  )
+
+  entry = THEOREM_FACT_REPOSITORY.lookup(
+    EPSILON_3_TODA_MEMBERSHIP_FACT.statement
+  )
+
+  assert entry is not None
+
+  theorem_step = entry.to_proof_step()
+
+  rules = (
+    indexed_toda_bracket_index1_defined_inference_rule(),
+    toda_bracket_membership_from_theorem_inference_rule(),
+  )
+
+  result = run_inference_until_stable_with_history(
+    rules,
+    (
+      first_zero_step,
+      second_zero_step,
+      suspension_step,
+      theorem_step,
+    ),
+  )
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 2
+
+  terminal_round = derive_inference_round_result(
+    rules,
+    result.steps,
+  )
+
+  assert terminal_round.new_steps == ()
 
 
 
