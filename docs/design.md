@@ -580,12 +580,12 @@ Verified:
 
 ```text
 tests/test_generator_facts.py
-55 passed in 2.25s
+55 passed
 ```
 
 ```text
 full suite
-1245 passed in 65.71s
+1245 passed
 ```
 
 Generic inference engine unchanged.
@@ -655,7 +655,96 @@ Structural-only Phase では存在しない inference / provenance を先取り�
 
 ---
 
-# 25. Documentation policy
+# 25. Representative capability demo policy
+
+各 Phase 完了時は、可能であれば regression test に加えて、人間が実行して数学的進展を確認できる representative probe を用意する。
+
+Purpose:
+
+```text
+tests
+=
+correctness / regression
+
+representative probe
+=
+human-readable mathematical capability demonstration
+```
+
+Representative probe は新しい数学機能を別経路で実装するものではなく、production API と既存 inference engine を実際に呼び出して、その Phase までに可能な推論・検証を表示する。
+
+原則として表示するもの:
+
+```text
+premises / registered facts
+↓
+applied rule / validation
+↓
+intermediate result when relevant
+↓
+mathematical conclusion
+```
+
+加えて:
+
+```text
+what became possible in this Phase
+what is still outside the current Phase boundary
+```
+
+を明示する。
+
+Phase 25 representative:
+
+```powershell
+python -m probes.probe_phase25_capabilities
+```
+
+Current visible mathematical results:
+
+```text
+THEOREM_FACT_REPOSITORY
++
+{η₃,Eν′,ν₇}_1 defined
+↓
+Toda membership inference
+↓
+ε₃ ∈ {η₃,Eν′,ν₇}_1
+```
+
+and:
+
+```text
+ETA_3_GENERATOR
+↓
+GENERATOR_FACT_REPOSITORY
+↓
+η₃ : S⁴ → S³
+η₃ ∈ π₄(S³)
+```
+
+The probe must preserve the Phase 25 boundary:
+
+```text
+ν′ typing
+ν₇ typing
+automatic Eν′ typing
+complete ε₃ entry typing
+```
+
+are not presented as implemented.
+
+Direct script execution may not include the project root on `sys.path`, so repository probes are run as modules from the project root:
+
+```powershell
+python -m probes.probe_phase25_capabilities
+```
+
+Do not add import-path mutation solely for the representative probe when module execution is sufficient.
+
+---
+
+# 26. Documentation policy
 
 ```text
 README.md

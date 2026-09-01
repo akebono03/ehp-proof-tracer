@@ -484,16 +484,28 @@ Not yet implemented as general systems:
 
 # Tests
 
+Focused theorem-fact suite:
+
+```powershell
+python -m pytest tests/test_theorem_facts.py -q
+```
+
+Latest verified run:
+
+```text
+15 passed in 0.08s
+```
+
 Focused Phase 25 generator-fact suite:
 
 ```powershell
 python -m pytest tests/test_generator_facts.py -q
 ```
 
-Verified Phase 25 completion:
+Latest verified run:
 
 ```text
-55 passed in 2.25s
+55 passed in 0.24s
 ```
 
 Full suite:
@@ -502,13 +514,98 @@ Full suite:
 python -m pytest -q
 ```
 
-Verified Phase 25 completion:
+Latest verified run:
 
 ```text
-1245 passed in 65.71s
+1245 passed in 23.45s
 ```
 
 No failures.
+
+---
+
+# Representative capability demo
+
+Phase completion should include not only regression tests but also a human-readable representative capability demo when the Phase adds or deepens mathematical reasoning.
+
+Current Phase 25 representative command:
+
+```powershell
+python -m probes.probe_phase25_capabilities
+```
+
+The demo verifies, by actual execution:
+
+```text
+Phase 24 theorem repository
++
+Toda bracket definedness
+↓
+generic inference engine
+↓
+ε₃ ∈ {η₃,Eν′,ν₇}_1
+```
+
+and:
+
+```text
+ETA_3_GENERATOR
+↓
+GENERATOR_FACT_REPOSITORY
+↓
+lookup_typing()
+↓
+materialize_typed_element()
+↓
+η₃ : S⁴ → S³
+```
+
+It also displays:
+
+```text
+η₃ ∈ π₄(S³)
+```
+
+and confirms non-mutating materialization:
+
+```text
+original source / target = None / None
+new source / target      = 4 / 3
+```
+
+Current explicit boundary shown by the demo:
+
+```text
+ν′ production typing
+ν₇ production typing
+repository-derived Eν′ typing
+complete production typing of all ε₃ Toda entries
+```
+
+are not yet available in Phase 25.
+
+Therefore Phase 25 has both:
+
+```text
+actual Toda membership inference
+```
+
+and:
+
+```text
+explicit generator typing materialization
+```
+
+but these are not yet connected into one complete generator-fact-to-membership end-to-end proof.
+
+For future Phases, representative demos should make visible:
+
+1. mathematical premises / registered facts,
+2. the rule or validation applied,
+3. intermediate conclusions when relevant,
+4. the final mathematical conclusion or validation result,
+5. what became possible in the current Phase,
+6. what still remains outside the current Phase boundary.
 
 ---
 
