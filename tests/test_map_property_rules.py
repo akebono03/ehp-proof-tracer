@@ -6,6 +6,7 @@ from expression import (
 from map_property_rules import (
   InjectiveMapStatement,
   IsomorphismStatement,
+  injective_map_reflects_equality_inference_rule,
   isomorphism_implies_injective_inference_rule,
 )
 from proof import (
@@ -450,6 +451,71 @@ def test_phase28_4_map_application_equality_distinguishes_mismatched_maps():
     mismatched_map_relation.lhs.map
     != mismatched_map_relation.rhs.map
   )
+
+
+def test_phase28_5_injective_map_reflects_map_application_equality():
+  f = MapSymbol(
+    name="f",
+  )
+
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  injective_step = ProofStep(
+    conclusion=InjectiveMapStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  mapped_equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=MapApplication(
+        map=f,
+        expression=a,
+      ),
+      rhs=MapApplication(
+        map=f,
+        expression=b,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    injective_map_reflects_equality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      injective_step,
+      mapped_equality_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == Relation(
+    lhs=a,
+    rhs=b,
+    relation_type=RelationType.EQUALITY,
+  )
+
 
 
 
