@@ -4,6 +4,15 @@ from expression import (
 from map_property_rules import (
   InjectiveMapStatement,
   IsomorphismStatement,
+  isomorphism_implies_injective_inference_rule,
+)
+from proof import (
+  InferenceTerminationReason,
+  ProofRule,
+  ProofStep,
+  apply_inference_match,
+  find_inference_match,
+  run_inference_until_stable_with_history,
 )
 
 
@@ -129,6 +138,163 @@ def test_phase28_2_isomorphism_and_injectivity_remain_distinct_statements():
   )
 
   assert isomorphism != injectivity
+
+
+def test_phase28_3_isomorphism_derives_injectivity():
+  f = MapSymbol(
+    name="f",
+  )
+
+  isomorphism_step = ProofStep(
+    conclusion=IsomorphismStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    isomorphism_implies_injective_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      isomorphism_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == (
+    InjectiveMapStatement(
+      map=f,
+    )
+  )
+
+
+def test_phase28_3_isomorphism_to_injectivity_preserves_provenance():
+  f = MapSymbol(
+    name="f",
+  )
+
+  isomorphism_step = ProofStep(
+    conclusion=IsomorphismStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    isomorphism_implies_injective_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      isomorphism_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == (
+    rule
+  )
+
+  assert derived_step.premises == (
+    isomorphism_step,
+  )
+
+
+def test_phase28_3_isomorphism_derives_injectivity_for_same_map_only():
+  f = MapSymbol(
+    name="f",
+  )
+
+  g = MapSymbol(
+    name="g",
+  )
+
+  isomorphism_step = ProofStep(
+    conclusion=IsomorphismStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    isomorphism_implies_injective_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        isomorphism_step,
+      ),
+    )
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert InjectiveMapStatement(
+    map=f,
+  ) in conclusions
+
+  assert InjectiveMapStatement(
+    map=g,
+  ) not in conclusions
+
+  assert result.termination_reason == (
+    InferenceTerminationReason.FIXED_POINT
+  )
+
+
+def test_phase28_3_injectivity_is_not_derived_without_isomorphism():
+  f = MapSymbol(
+    name="f",
+  )
+
+  unrelated_step = ProofStep(
+    conclusion=InjectiveMapStatement(
+      map=f,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    isomorphism_implies_injective_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      unrelated_step,
+    ),
+  )
+
+  assert match is None
+
+
 
 
 
