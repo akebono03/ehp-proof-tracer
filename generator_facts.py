@@ -91,6 +91,33 @@ class GeneratorFactRepository:
 
     return None
 
+  def is_typing_ambient_group_consistent(
+    self,
+    generator: GeneratorSymbol,
+  ) -> bool | None:
+    typing_fact = self.lookup_typing(
+      generator
+    )
+
+    ambient_group_fact = (
+      self.lookup_ambient_group(
+        generator
+      )
+    )
+
+    if (
+      typing_fact is None
+      or ambient_group_fact is None
+    ):
+      return None
+
+    return (
+      typing_fact.source
+      == ambient_group_fact.group_dimension
+      and typing_fact.target
+      == ambient_group_fact.sphere_dimension
+    )
+
   def materialize_typed_element(
     self,
     element: HomotopyElement,
@@ -138,12 +165,56 @@ ETA_3_AMBIENT_GROUP_FACT = GeneratorAmbientGroupFact(
 )
 
 
+NU_PRIME_GENERATOR = GeneratorSymbol(
+  family="ν",
+  decoration="′",
+)
+
+
+NU_PRIME_TYPING_FACT = GeneratorTypingFact(
+  generator=NU_PRIME_GENERATOR,
+  source=6,
+  target=3,
+)
+
+
+NU_PRIME_AMBIENT_GROUP_FACT = GeneratorAmbientGroupFact(
+  generator=NU_PRIME_GENERATOR,
+  group_dimension=6,
+  sphere_dimension=3,
+)
+
+
+NU_7_GENERATOR = GeneratorSymbol(
+  family="ν",
+  index=7,
+)
+
+
+NU_7_TYPING_FACT = GeneratorTypingFact(
+  generator=NU_7_GENERATOR,
+  source=10,
+  target=7,
+)
+
+
+NU_7_AMBIENT_GROUP_FACT = GeneratorAmbientGroupFact(
+  generator=NU_7_GENERATOR,
+  group_dimension=10,
+  sphere_dimension=7,
+)
+
+
 GENERATOR_FACT_REPOSITORY = GeneratorFactRepository(
   typing_facts=(
     ETA_3_TYPING_FACT,
+    NU_PRIME_TYPING_FACT,
+    NU_7_TYPING_FACT,
   ),
   ambient_group_facts=(
     ETA_3_AMBIENT_GROUP_FACT,
+    NU_PRIME_AMBIENT_GROUP_FACT,
+    NU_7_AMBIENT_GROUP_FACT,
   ),
 )
 

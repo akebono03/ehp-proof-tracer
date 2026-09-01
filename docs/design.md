@@ -1,6 +1,6 @@
 # ehp_proof 設計メモ
 
-この文書は Phase 25 完了時点の current architecture / semantics / design boundary を正本としてまとめる。
+この文書は Phase 26 完了時点の current architecture / semantics / design boundary を正本としてまとめる。
 
 過去の development log にある「未実装」「今後の課題」は historical statement であり、current specification とは限らない。
 
@@ -38,7 +38,9 @@ knowledge supply / domain rule
 existing machinery
 ```
 
-Phase 24 / 25 の repository layer は既知 knowledge の供給を担当し、新しい数学的推論そのものを generic engine に埋め込まない。
+Phase 24 theorem repository と Phase 25 / 26 generator repository は既知 knowledge の供給を担当する。
+
+Generic inference engine に generator-specific knowledge を埋め込まない。
 
 ---
 
@@ -76,9 +78,10 @@ Expression layer は syntax / structure を lossless に保持する。
 - theorem repository lookup
 - generator fact repository lookup
 - literature provenance materialization
-- ambient homotopy-group validation
 - automatic generator-to-typing inference
-- recursive global expression typing
+- automatic family formulas
+- recursive repository traversal
+- ambient homotopy-group validation
 - stable homotopy classification
 
 ---
@@ -96,9 +99,9 @@ Suspension(alpha)
 ```
 
 ```text
-GeneratorSymbol(family="η",index=3)
+GeneratorSymbol(family="ν",decoration="′")
 !=structural
-GeneratorSymbol(family="μ",index=3)
+GeneratorSymbol(family="ν",index=7)
 ```
 
 ```text
@@ -107,7 +110,15 @@ TodaBracket(...,index=1)
 TodaBracket(...,index=None)
 ```
 
-Phase 24 theorem lookup と Phase 25 generator lookup は structural identity を current narrow lookup key として再利用する。
+Typed / untyped HomotopyElement も structural に異なる。
+
+```text
+untyped η₃
+!=structural
+typed η₃ : S⁴ → S³
+```
+
+Therefore theorem-side untyped Toda notation と Phase 26 typed representative は bracket 全体の structural equality を要求しない。
 
 ---
 
@@ -124,7 +135,7 @@ iterate
 trace
 ```
 
-Phase 25 でも generic inference engine は変更しない。
+Phase 26 でも generic inference engine は変更しない。
 
 Theorem repository responsibilities:
 
@@ -143,6 +154,7 @@ store
 validate uniqueness
 lookup exact generator identity
 materialize a new typed HomotopyElement
+compare typing / ambient facts when explicitly requested
 ```
 
 Generator repository は inference run を起動しない。
@@ -195,6 +207,12 @@ GeneratorSymbol.index
 automatic typing
 ```
 
+```text
+GeneratorSymbol.decoration
+↛
+automatic typing
+```
+
 `index=None` / `decoration=None` は wildcard ではない。
 
 ---
@@ -214,6 +232,12 @@ Current narrow fact family:
 TodaBracketMembershipTheoremStatement
 ```
 
+Representative actual theorem:
+
+```text
+ε₃ ∈ {η₃,Eν′,ν₇}_1
+```
+
 Important:
 
 ```text
@@ -230,33 +254,7 @@ universal theorem system
 
 ---
 
-# 8. Phase 25 design goal
-
-Goal:
-
-```text
-GeneratorSymbol
-+
-explicit generator fact
-↓
-repository lookup
-↓
-typed HomotopyElement / ambient-group knowledge
-```
-
-Anti-goal:
-
-```text
-GeneratorSymbol.index
-↓
-family-specific formula
-↓
-automatic source / target
-```
-
----
-
-# 9. GeneratorTypingFact semantics
+# 8. GeneratorTypingFact semantics
 
 ```text
 GeneratorTypingFact
@@ -271,17 +269,17 @@ Meaning:
 generator : S^source → S^target
 ```
 
-Representative:
+Current production typing facts:
 
 ```text
 η₃ : S⁴ → S³
+ν′ : S⁶ → S³
+ν₇ : S¹⁰ → S⁷
 ```
-
-Current production fact: `ETA_3_TYPING_FACT`.
 
 ---
 
-# 10. GeneratorAmbientGroupFact semantics
+# 9. GeneratorAmbientGroupFact semantics
 
 ```text
 GeneratorAmbientGroupFact
@@ -296,13 +294,13 @@ Meaning:
 generator ∈ π_group_dimension(S^sphere_dimension)
 ```
 
-Representative:
+Current production ambient-group facts:
 
 ```text
 η₃ ∈ π₄(S³)
+ν′ ∈ π₆(S³)
+ν₇ ∈ π₁₀(S⁷)
 ```
-
-Current production fact: `ETA_3_AMBIENT_GROUP_FACT`.
 
 Critical:
 
@@ -312,11 +310,11 @@ typing fact
 ambient-group fact
 ```
 
-No conversion or consistency rule between these fact families is introduced.
+No automatic conversion between the two fact families is introduced.
 
 ---
 
-# 11. Representative generator identity
+# 10. Production generator identities
 
 ```text
 ETA_3_GENERATOR
@@ -324,11 +322,23 @@ ETA_3_GENERATOR
 GeneratorSymbol(family="η", index=3)
 ```
 
-This is production data, not a parsing rule.
+```text
+NU_PRIME_GENERATOR
+=
+GeneratorSymbol(family="ν", decoration="′")
+```
+
+```text
+NU_7_GENERATOR
+=
+GeneratorSymbol(family="ν", index=7)
+```
+
+These are production data, not parsing rules or family formulas.
 
 ---
 
-# 12. GeneratorFactRepository
+# 11. GeneratorFactRepository
 
 Current structure:
 
@@ -344,15 +354,28 @@ Current APIs:
 lookup_typing(generator)
 lookup_ambient_group(generator)
 materialize_typed_element(element)
+is_typing_ambient_group_consistent(generator)
 ```
 
-Production repository: `GENERATOR_FACT_REPOSITORY`.
+Production repository:
+
+```text
+GENERATOR_FACT_REPOSITORY
+```
+
+Production coverage:
+
+```text
+η₃
+ν′
+ν₇
+```
 
 No theorem facts are stored here.
 
 ---
 
-# 13. Generator repository lookup semantics
+# 12. Generator repository lookup semantics
 
 Lookup identity:
 
@@ -360,13 +383,14 @@ Lookup identity:
 GeneratorSymbol structural equality
 ```
 
-Therefore:
+Examples:
 
 ```text
 η₃ → exact match
-η₄ → no match
-η → no match
-μ₃ → no match
+ν′ → exact match
+ν₇ → exact match
+ν₈ → no match
+ν → no match
 ```
 
 Unknown result is `None`.
@@ -375,7 +399,7 @@ No family fallback. No index inference. No display-name parsing. `HomotopyElemen
 
 ---
 
-# 14. Repository uniqueness semantics
+# 13. Repository uniqueness semantics
 
 Within `typing_facts`:
 
@@ -401,9 +425,11 @@ for same generator
 → allowed
 ```
 
+Cross-family disagreement does not make repository construction fail in Phase 26.
+
 ---
 
-# 15. Typed-element materialization semantics
+# 14. Typed-element materialization semantics
 
 ```text
 materialize_typed_element(element)
@@ -433,7 +459,7 @@ Original element is not mutated.
 
 ---
 
-# 16. Existing / partial typing boundary
+# 15. Existing / partial typing boundary
 
 Already typed or partially typed elements are not overwritten or completed.
 
@@ -451,63 +477,233 @@ repository says source=4,target=3
 
 ---
 
-# 17. Ambient-group knowledge boundary
+# 16. Explicit Suspension typing connection
 
-`GeneratorAmbientGroupFact` does not materialize source / target.
-
-```text
-ambient-group fact only
-↛
-typed HomotopyElement
-```
-
-No current rule states:
+Phase 26 does not add a repository method such as:
 
 ```text
-group_dimension == source
-sphere_dimension == target
+materialize_typed_suspension()
 ```
 
----
-
-# 18. Toda integration boundary
-
-Phase 25 does not modify `TodaBracket`.
+and does not add recursive expression typing.
 
 Instead:
 
 ```text
-GeneratorTypingFact
+repository-derived ν′ : S⁶ → S³
 ↓
-GeneratorFactRepository
+existing Suspension semantics
 ↓
-typed HomotopyElement
-↓
-TodaBracket
-↓
-existing compatibility query
+Eν′ : S⁷ → S⁴
 ```
 
-No recursive bracket materializer is introduced.
-
----
-
-# 19. Generator fact provenance semantics
-
-Current provenance is data-path provenance:
+The base element must be explicitly materialized first.
 
 ```text
-typed element
-← materialize_typed_element()
-← registered typing fact
-← repository
+Suspension(untyped ν′)
+→ source=None
+→ target=None
 ```
 
-No generator-fact `LiteratureReference`. No generator-fact `ProofStep.GIVEN`. No inference rule for materialization.
+This preserves the rule:
+
+```text
+notation alone
+↛
+typing knowledge
+```
 
 ---
 
-# 20. Repository separation
+# 17. Actual ε₃ Toda entry representation
+
+Phase 26 can construct:
+
+```text
+η₃  : S⁴  → S³
+Eν′ : S⁷  → S⁴
+ν₇  : S¹⁰ → S⁷
+```
+
+and:
+
+```text
+TodaBracket(
+  first=typed η₃,
+  second=Suspension(typed ν′),
+  third=typed ν₇,
+  index=1,
+)
+```
+
+This is the typed representative of:
+
+```text
+{η₃,Eν′,ν₇}_1
+```
+
+The theorem-side bracket and typed bracket share:
+
+```text
+first generator identity
+second base generator identity under Suspension
+third generator identity
+index=1
+```
+
+but are not required to be structurally equal because the typed entries contain source / target annotations.
+
+---
+
+# 18. Toda type compatibility semantics
+
+Current query:
+
+```text
+TodaBracket.are_defining_compositions_type_compatible()
+```
+
+For the actual bracket:
+
+```text
+η₃.source == Eν′.target == 4
+Eν′.source == ν₇.target == 7
+```
+
+Therefore:
+
+```text
+η₃ ∘ Eν′
+→ type-compatible
+```
+
+```text
+Eν′ ∘ ν₇
+→ type-compatible
+```
+
+and:
+
+```text
+{η₃,Eν′,ν₇}_1
+→ defining compositions are type-compatible
+```
+
+`TodaBracket.index` is not part of the current compatibility predicate.
+
+Critical:
+
+```text
+type compatibility
+!=
+zero composition
+!=
+Toda definedness
+```
+
+---
+
+# 19. Typing / ambient-group consistency semantics
+
+Phase 26 adds:
+
+```text
+is_typing_ambient_group_consistent(generator)
+→ bool | None
+```
+
+Semantics:
+
+```text
+True
+=
+both facts exist and agree
+```
+
+```text
+False
+=
+both facts exist and disagree
+```
+
+```text
+None
+=
+consistency cannot be evaluated because one or both facts are missing
+```
+
+Agreement means:
+
+```text
+typing.source == ambient.group_dimension
+and
+typing.target == ambient.sphere_dimension
+```
+
+Production results:
+
+```text
+η₃ → True
+ν′ → True
+ν₇ → True
+```
+
+Important:
+
+```text
+consistency query
+↛
+new typing fact
+```
+
+```text
+consistency query
+↛
+new ambient-group fact
+```
+
+```text
+False
+↛
+repository construction failure
+```
+
+---
+
+# 20. Generator fact provenance semantics
+
+Current provenance is data-path provenance.
+
+```text
+typed η₃
+← materialize_typed_element()
+← ETA_3_TYPING_FACT
+← GENERATOR_FACT_REPOSITORY
+```
+
+```text
+typed Eν′
+← Suspension
+← typed ν′
+← materialize_typed_element()
+← NU_PRIME_TYPING_FACT
+← GENERATOR_FACT_REPOSITORY
+```
+
+```text
+typed ν₇
+← materialize_typed_element()
+← NU_7_TYPING_FACT
+← GENERATOR_FACT_REPOSITORY
+```
+
+No generator-fact `LiteratureReference`.
+No generator-fact `ProofStep.GIVEN`.
+No inference rule for materialization.
+
+---
+
+# 21. Repository separation
 
 Current repositories:
 
@@ -518,81 +714,57 @@ GENERATOR_FACT_REPOSITORY
 
 are separate.
 
+Phase 26 regression ensures that generator materialization, Suspension construction, Toda compatibility checks, and consistency queries do not modify theorem repository state.
+
 Do not unify these repositories until an actual cross-family requirement exists.
 
 ---
 
-# 21. Phase 25 completion boundary
+# 22. Phase 26 completion boundary
 
 Implemented:
 
 ```text
-GeneratorTypingFact
-GeneratorAmbientGroupFact
-ETA_3_GENERATOR
-ETA_3_TYPING_FACT
-ETA_3_AMBIENT_GROUP_FACT
-GeneratorFactRepository
-GENERATOR_FACT_REPOSITORY
-exact structural lookup
-unknown lookup boundary
-duplicate rejection per fact family
-explicit typed-element materialization
-non-mutating materialization
-already-typed / partial-typing protection
-Toda compatibility connection
-scope / repository-separation regression
-```
-
-Critical boundaries:
-
-```text
-GeneratorSymbol.index
-↛
-automatic typing
-```
-
-```text
-HomotopyElement.name
-↛
-generator lookup
-```
-
-```text
-ambient-group fact
-↛
-source / target materialization
-```
-
-```text
-lookup / materialization
-↛
-generic inference engine
-```
-
-```text
-generator repository
-!=
-theorem repository
+NU_PRIME_GENERATOR
+NU_PRIME_TYPING_FACT
+NU_PRIME_AMBIENT_GROUP_FACT
+NU_7_GENERATOR
+NU_7_TYPING_FACT
+NU_7_AMBIENT_GROUP_FACT
+production registration of η₃ / ν′ / ν₇
+production lookup for all six facts
+production materialization of ν′ / ν₇
+explicit ν′ → Eν′ typing connection via Suspension
+actual typed η₃ / Eν′ / ν₇ entries
+actual indexed ε₃ Toda representative
+actual defining-composition type compatibility
+index / compatibility separation
+is_typing_ambient_group_consistent()
+True / False / None consistency semantics
+repository non-mutation regression
+theorem repository non-mutation regression
+consistency-query non-generation regression
+no automatic ν_n family typing
+explicit data-path provenance regression
 ```
 
 Verified:
 
 ```text
 tests/test_generator_facts.py
-55 passed
+100 passed in 0.39s
 ```
 
 ```text
 full suite
-1245 passed
+1290 passed in 23.16s
 ```
 
 Generic inference engine unchanged.
 
 ---
 
-# 22. Phase 25 non-goals
+# 23. Phase 26 non-goals
 
 Not implemented:
 
@@ -603,11 +775,13 @@ Not implemented:
 - stable fact key / ID,
 - name / generator consistency validation,
 - `HomotopyElement.dimension` / generator validation,
-- typing / ambient-group consistency validation,
 - automatic η_n / ν_n / μ_n / ι_n typing,
 - recursive expression typing,
-- automatic typing of `Suspension(ν′)` from ν′ data,
-- actual full ε₃ Toda entry typing from production generator facts,
+- repository traversal through arbitrary `Suspension`,
+- ambient validation of arbitrary expressions,
+- zero-composition facts for `η₃ ∘ Eν′` or `Eν′ ∘ ν₇`,
+- automatic Toda definedness from type compatibility,
+- automatic theorem applicability from typing,
 - stable / unstable generator classification,
 - stable homotopy groups,
 - stable Toda brackets,
@@ -615,29 +789,103 @@ Not implemented:
 
 ---
 
-# 23. Next design boundary
+# 24. Representative capability demo policy
 
-Natural next candidate:
+Each suitable Phase completion should include a representative probe using production APIs.
 
-```text
-Phase 26
-Generator fact provenance / actual Toda-generator typing expansion
-```
-
-Potential sub-directions:
+Purpose:
 
 ```text
-LiteratureReference-backed generator fact
-ν′ / ν₇ production typing facts
-typing ↔ ambient-group consistency validation
-explicit nested Suspension typing from generator facts
+pytest
+=
+correctness / regression
 ```
 
-Do not implement all directions together.
+```text
+representative probe
+=
+human-readable mathematical capability demonstration
+```
+
+Phase 26 representative command:
+
+```powershell
+python -m probes.probe_phase26_capabilities
+```
+
+Expected visible chain:
+
+```text
+η₃ fact
+ν′ fact
+ν₇ fact
+↓
+GENERATOR_FACT_REPOSITORY
+↓
+typed η₃ / ν′ / ν₇
+↓
+Suspension
+↓
+typed Eν′
+↓
+{η₃,Eν′,ν₇}_1
+↓
+defining compositions are type-compatible
+```
+
+The probe may also display the existing theorem-side result:
+
+```text
+ε₃ ∈ {η₃,Eν′,ν₇}_1
+```
+
+but must clearly distinguish:
+
+```text
+type compatibility
+```
+
+from:
+
+```text
+Toda definedness / membership inference
+```
 
 ---
 
-# 24. Testing principle
+# 25. Next design boundary
+
+A natural next direction is to deepen the same actual ε₃ proof chain.
+
+Possible sequence:
+
+```text
+actual typed entries
+↓
+explicit zero-composition facts
+↓
+Toda definedness
+↓
+existing theorem fact
+↓
+ε₃ membership
+↓
+proof trace
+```
+
+Alternative next topics:
+
+```text
+generator-fact LiteratureReference
+name / dimension / generator validation
+external generator table loading
+```
+
+Do not widen all directions at once.
+
+---
+
+# 26. Testing principle
 
 For each new mathematical layer:
 
@@ -650,116 +898,28 @@ For each new mathematical layer:
 7. representative scenario
 8. termination / scope boundary
 9. full regression
+10. human-readable representative demo when useful
 
-Structural-only Phase では存在しない inference / provenance を先取りしない。
-
----
-
-# 25. Representative capability demo policy
-
-各 Phase 完了時は、可能であれば regression test に加えて、人間が実行して数学的進展を確認できる representative probe を用意する。
-
-Purpose:
-
-```text
-tests
-=
-correctness / regression
-
-representative probe
-=
-human-readable mathematical capability demonstration
-```
-
-Representative probe は新しい数学機能を別経路で実装するものではなく、production API と既存 inference engine を実際に呼び出して、その Phase までに可能な推論・検証を表示する。
-
-原則として表示するもの:
-
-```text
-premises / registered facts
-↓
-applied rule / validation
-↓
-intermediate result when relevant
-↓
-mathematical conclusion
-```
-
-加えて:
-
-```text
-what became possible in this Phase
-what is still outside the current Phase boundary
-```
-
-を明示する。
-
-Phase 25 representative:
-
-```powershell
-python -m probes.probe_phase25_capabilities
-```
-
-Current visible mathematical results:
-
-```text
-THEOREM_FACT_REPOSITORY
-+
-{η₃,Eν′,ν₇}_1 defined
-↓
-Toda membership inference
-↓
-ε₃ ∈ {η₃,Eν′,ν₇}_1
-```
-
-and:
-
-```text
-ETA_3_GENERATOR
-↓
-GENERATOR_FACT_REPOSITORY
-↓
-η₃ : S⁴ → S³
-η₃ ∈ π₄(S³)
-```
-
-The probe must preserve the Phase 25 boundary:
-
-```text
-ν′ typing
-ν₇ typing
-automatic Eν′ typing
-complete ε₃ entry typing
-```
-
-are not presented as implemented.
-
-Direct script execution may not include the project root on `sys.path`, so repository probes are run as modules from the project root:
-
-```powershell
-python -m probes.probe_phase25_capabilities
-```
-
-Do not add import-path mutation solely for the representative probe when module execution is sufficient.
+Structural-only or validation-only Phase では存在しない inference / provenance を先取りしない。
 
 ---
 
-# 26. Documentation policy
+# 27. Documentation policy
 
 ```text
 README.md
 =
 current capabilities / current status
 
-docs/design.md
+ docs/design.md
 =
 current architecture / semantics / boundaries
 
-docs/development_log.md
+ docs/development_log.md
 =
 chronological implementation history
 
-docs/roadmap.md
+ docs/roadmap.md
 =
 future capability dependency
 ```
