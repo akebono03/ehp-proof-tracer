@@ -6,12 +6,14 @@ from composition_facts import (
 )
 from expression import (
   Composition,
+  GeneratorSymbol,
   HomotopyElement,
   Suspension,
   Zero,
 )
 from generator_facts import (
   ETA_3_GENERATOR,
+  GENERATOR_FACT_REPOSITORY,
   NU_7_GENERATOR,
   NU_PRIME_GENERATOR,
 )
@@ -462,6 +464,237 @@ def test_phase27_3_exact_lookup_does_not_match_typed_composition_implicitly():
   )
 
 
+def test_phase27_4_typed_eta_3_e_nu_prime_matches_zero_fact_by_untyped_structure():
+  eta_3 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="η₃",
+        dimension=3,
+        generator=ETA_3_GENERATOR,
+      )
+    )
+  )
+
+  nu_prime = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν′",
+        dimension=3,
+        generator=NU_PRIME_GENERATOR,
+      )
+    )
+  )
+
+  assert eta_3 is not None
+  assert nu_prime is not None
+
+  composition = Composition(
+    left=eta_3,
+    right=Suspension(
+      expression=nu_prime,
+    ),
+  )
+
+  result = (
+    ZERO_COMPOSITION_FACT_REPOSITORY
+    .lookup_by_untyped_structure(
+      composition
+    )
+  )
+
+  assert result is (
+    ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT
+  )
+
+
+def test_phase27_4_typed_e_nu_prime_nu_7_matches_zero_fact_by_untyped_structure():
+  nu_prime = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν′",
+        dimension=3,
+        generator=NU_PRIME_GENERATOR,
+      )
+    )
+  )
+
+  nu_7 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν₇",
+        dimension=7,
+        generator=NU_7_GENERATOR,
+      )
+    )
+  )
+
+  assert nu_prime is not None
+  assert nu_7 is not None
+
+  composition = Composition(
+    left=Suspension(
+      expression=nu_prime,
+    ),
+    right=nu_7,
+  )
+
+  result = (
+    ZERO_COMPOSITION_FACT_REPOSITORY
+    .lookup_by_untyped_structure(
+      composition
+    )
+  )
+
+  assert result is (
+    E_NU_PRIME_NU_7_ZERO_COMPOSITION_FACT
+  )
+
+
+def test_phase27_4_exact_lookup_still_does_not_match_typed_composition():
+  eta_3 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="η₃",
+        dimension=3,
+        generator=ETA_3_GENERATOR,
+      )
+    )
+  )
+
+  nu_prime = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν′",
+        dimension=3,
+        generator=NU_PRIME_GENERATOR,
+      )
+    )
+  )
+
+  assert eta_3 is not None
+  assert nu_prime is not None
+
+  composition = Composition(
+    left=eta_3,
+    right=Suspension(
+      expression=nu_prime,
+    ),
+  )
+
+  assert (
+    ZERO_COMPOSITION_FACT_REPOSITORY
+    .lookup(
+      composition
+    )
+    is None
+  )
+
+  assert (
+    ZERO_COMPOSITION_FACT_REPOSITORY
+    .lookup_by_untyped_structure(
+      composition
+    )
+    is ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT
+  )
+
+
+def test_phase27_4_structure_lookup_rejects_different_generator():
+  different_generator = GeneratorSymbol(
+    family="μ",
+    index=3,
+  )
+
+  composition = Composition(
+    left=HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=different_generator,
+    ),
+    right=Suspension(
+      expression=HomotopyElement(
+        name="ν′",
+        dimension=3,
+        source=6,
+        target=3,
+        generator=NU_PRIME_GENERATOR,
+      ),
+    ),
+  )
+
+  result = (
+    ZERO_COMPOSITION_FACT_REPOSITORY
+    .lookup_by_untyped_structure(
+      composition
+    )
+  )
+
+  assert result is None
+
+
+def test_phase27_4_structure_lookup_rejects_missing_suspension():
+  composition = Composition(
+    left=HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=ETA_3_GENERATOR,
+    ),
+    right=HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=NU_PRIME_GENERATOR,
+    ),
+  )
+
+  result = (
+    ZERO_COMPOSITION_FACT_REPOSITORY
+    .lookup_by_untyped_structure(
+      composition
+    )
+  )
+
+  assert result is None
+
+
+def test_phase27_4_structure_lookup_ignores_only_typing_annotations():
+  composition = Composition(
+    left=HomotopyElement(
+      name="wrong-name",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=ETA_3_GENERATOR,
+    ),
+    right=Suspension(
+      expression=HomotopyElement(
+        name="ν′",
+        dimension=3,
+        source=6,
+        target=3,
+        generator=NU_PRIME_GENERATOR,
+      ),
+    ),
+  )
+
+  result = (
+    ZERO_COMPOSITION_FACT_REPOSITORY
+    .lookup_by_untyped_structure(
+      composition
+    )
+  )
+
+  assert result is None
 
 
 
