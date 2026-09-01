@@ -185,6 +185,12 @@ NU_PRIME_AMBIENT_GROUP_FACT = GeneratorAmbientGroupFact(
 )
 
 
+NU_6_GENERATOR = GeneratorSymbol(
+  family="ν",
+  index=6,
+)
+
+
 NU_7_GENERATOR = GeneratorSymbol(
   family="ν",
   index=7,
@@ -217,7 +223,3 @@ GENERATOR_FACT_REPOSITORY = GeneratorFactRepository(
     NU_7_AMBIENT_GROUP_FACT,
   ),
 )
-
-
-
-

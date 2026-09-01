@@ -4,7 +4,7 @@ A computational tool for tracing calculations and mathematical inference in EHP 
 
 ## Goal
 
-The long-term goal is to explain how homotopy groups of spheres are determined from mathematical input such as EHP exact sequences, element orders, additive relations, Suspension, Freudenthal theory, composition, generalized Hopf invariants, homomorphisms, subgroup / modulo information, symbolic scalar constraints, indeterminacy, Toda brackets, typed homotopy elements, structured generator notation, literature-backed theorem repositories, explicit generator facts, and later stable-homotopy information.
+The long-term goal is to explain how homotopy groups of spheres are determined from mathematical input such as EHP exact sequences, element orders, additive relations, Suspension, Freudenthal theory, composition, generalized Hopf invariants, homomorphisms, subgroup / modulo information, symbolic scalar constraints, indeterminacy, Toda brackets, typed homotopy elements, structured generator notation, literature-backed theorem repositories, explicit generator and composition facts, and later stable-homotopy information.
 
 The project separates:
 
@@ -59,12 +59,14 @@ Completed:
 - Phase 24: theorem fact / knowledge-table integration
 - Phase 25: generator typing / ambient-group facts
 - Phase 26: actual Toda-generator typing expansion
+- Phase 27: corrected actual ε₃ Toda-definedness / end-to-end inference
 
 Current architecture:
 
 ```text
 literature-backed theorem facts / repository
 explicit generator facts / repository
+explicit composition facts / repository
         ↓
 homotopy / EHP domain rules
         ↓
@@ -108,7 +110,7 @@ TodaBracket
 IndexedTodaBracketData
 ```
 
-Phase 21 adds minimal source / target context and compatibility queries. Phase 22 adds structured generator identity while keeping generator notation separate from typing rules. Phase 23 connects indexed Toda theorem facts to membership under explicit guards. Phase 24 adds a narrow literature-backed theorem repository. Phase 25 adds a separate explicit generator-fact repository and typed-element materialization. Phase 26 expands this explicit knowledge to the actual generators appearing in the ε₃ Toda bracket and connects them to existing Suspension and Toda type-compatibility semantics.
+Phase 21 adds minimal source / target context and compatibility queries. Phase 22 adds structured generator identity while keeping generator notation separate from typing rules. Phase 23 connects indexed Toda theorem facts to membership under explicit guards. Phase 24 adds a narrow literature-backed theorem repository. Phase 25 adds a separate explicit generator-fact repository and typed-element materialization. Phase 26 expands this knowledge to the actual generators appearing in the ε₃ Toda bracket. Phase 27 adds explicit corrected composition knowledge and connects it to actual indexed Toda definedness and theorem-backed membership.
 
 ---
 
@@ -145,7 +147,7 @@ Typing is supplied only through explicit registered facts.
 
 ---
 
-# Phase 24: Theorem fact / knowledge-table integration
+# Phase 24: theorem fact / knowledge-table integration
 
 Phase 24 introduced:
 
@@ -199,33 +201,9 @@ theorem applicability
 
 ---
 
-# Phase 25: Generator typing / ambient-group facts
+# Phase 25: generator typing / ambient-group facts
 
 Phase 25 introduced an explicit knowledge layer connecting structured generator identity to typing and ambient unstable homotopy-group context.
-
-Core principle:
-
-```text
-GeneratorSymbol
-+
-explicit registered fact
-↓
-exact structural lookup
-↓
-explicit materialization
-↓
-typed HomotopyElement
-```
-
-not:
-
-```text
-GeneratorSymbol.index
-↓
-automatic family formula
-↓
-typing
-```
 
 Core structures:
 
@@ -236,14 +214,14 @@ GeneratorFactRepository
 GENERATOR_FACT_REPOSITORY
 ```
 
-Phase 25 representative data:
+Representative:
 
 ```text
 η₃ : S⁴ → S³
 η₃ ∈ π₄(S³)
 ```
 
-Typing facts and ambient-group facts are distinct knowledge families.
+Critical:
 
 ```text
 typing fact
@@ -257,139 +235,30 @@ No automatic conversion is performed between them.
 
 # Phase 26: actual Toda-generator typing expansion
 
-Phase 26 connects the Phase 25 generator-fact layer to the actual bracket used by the ε₃ theorem fact:
+Production generator coverage:
 
 ```text
-{η₃,Eν′,ν₇}_1
-```
+η₃ : S⁴ → S³
+η₃ ∈ π₄(S³)
 
-The Phase deliberately expands only the explicit generator knowledge needed by this concrete Toda bracket.
-
-## ν′ generator facts
-
-Production identity:
-
-```text
-NU_PRIME_GENERATOR
-=
-GeneratorSymbol(
-  family="ν",
-  decoration="′",
-)
-```
-
-Explicit typing fact:
-
-```text
 ν′ : S⁶ → S³
-```
-
-Explicit ambient-group fact:
-
-```text
 ν′ ∈ π₆(S³)
-```
 
-Production constants:
-
-```text
-NU_PRIME_TYPING_FACT
-NU_PRIME_AMBIENT_GROUP_FACT
-```
-
-## ν₇ generator facts
-
-Production identity:
-
-```text
-NU_7_GENERATOR
-=
-GeneratorSymbol(
-  family="ν",
-  index=7,
-)
-```
-
-Explicit typing fact:
-
-```text
 ν₇ : S¹⁰ → S⁷
-```
-
-Explicit ambient-group fact:
-
-```text
 ν₇ ∈ π₁₀(S⁷)
 ```
 
-Production constants:
+Existing Suspension semantics connects:
 
 ```text
-NU_7_TYPING_FACT
-NU_7_AMBIENT_GROUP_FACT
-```
-
-## Production repository coverage
-
-`GENERATOR_FACT_REPOSITORY` now contains typing and ambient-group facts for:
-
-```text
-η₃
-ν′
-ν₇
-```
-
-Typing lookup:
-
-```text
-η₃ → η₃ : S⁴ → S³
-ν′ → ν′ : S⁶ → S³
-ν₇ → ν₇ : S¹⁰ → S⁷
-```
-
-Ambient lookup:
-
-```text
-η₃ → η₃ ∈ π₄(S³)
-ν′ → ν′ ∈ π₆(S³)
-ν₇ → ν₇ ∈ π₁₀(S⁷)
-```
-
-Lookup remains exact structural lookup. Registered `ν₇` does not imply a formula for `ν₈`, `ν₉`, or arbitrary `ν_n`.
-
-## Explicit Eν′ typing connection
-
-Phase 26 does not add recursive repository typing.
-
-Instead it explicitly composes existing layers:
-
-```text
-NU_PRIME_TYPING_FACT
-↓
-GENERATOR_FACT_REPOSITORY
-↓
-materialize_typed_element()
-↓
 ν′ : S⁶ → S³
 ↓
-existing Suspension semantics
+Suspension
 ↓
 Eν′ : S⁷ → S⁴
 ```
 
-An unmaterialized `ν′` remains untyped under Suspension.
-
-```text
-Suspension(untyped ν′)
-→ source=None
-→ target=None
-```
-
-Therefore the typing still depends on explicit registered knowledge.
-
-## Actual typed ε₃ Toda entries
-
-Phase 26 can build:
+The actual typed entries can therefore be assembled as:
 
 ```text
 η₃  : S⁴  → S³
@@ -397,64 +266,20 @@ Eν′ : S⁷  → S⁴
 ν₇  : S¹⁰ → S⁷
 ```
 
-from production generator facts and existing Suspension semantics.
-
-These entries can then be assembled as:
-
-```text
-TodaBracket(
-  first=typed η₃,
-  second=typed Eν′,
-  third=typed ν₇,
-  index=1,
-)
-```
-
-which represents the actual indexed Toda notation:
+and:
 
 ```text
 {η₃,Eν′,ν₇}_1
 ```
 
-The typed representation preserves the same generator identities and index as the theorem-side actual bracket notation, while source / target annotations make the typed bracket structurally different from the untyped theorem-side bracket.
-
-## Actual Toda type compatibility
-
-The existing compatibility query is used without modification:
-
-```text
-TodaBracket.are_defining_compositions_type_compatible()
-```
-
-For the actual ε₃ bracket:
-
-```text
-η₃.source = 4
-Eν′.target = 4
-```
-
-and:
-
-```text
-Eν′.source = 7
-ν₇.target = 7
-```
-
-Therefore both defining compositions are type-compatible:
+has type-compatible displayed adjacent compositions:
 
 ```text
 η₃ ∘ Eν′
 Eν′ ∘ ν₇
 ```
 
-and:
-
-```text
-{η₃,Eν′,ν₇}_1
-→ defining compositions are type-compatible
-```
-
-Critical boundary:
+Critical boundary retained in Phase 27:
 
 ```text
 type-compatible
@@ -464,140 +289,302 @@ composition is zero
 Toda bracket is defined
 ```
 
-Phase 26 does not derive zero compositions from typing.
+---
 
-## Typing / ambient-group consistency query
+# Phase 27: corrected actual ε₃ Toda-definedness bridge
 
-Phase 26 adds:
+Phase 27 deepens the same actual ε₃ proof chain using explicit mathematical knowledge.
+
+## Corrected primitive facts
+
+The production primitive zero-composition facts are:
 
 ```text
-GeneratorFactRepository.is_typing_ambient_group_consistent(generator)
+η₃ ∘ Eν′ = 0
+ν′ ∘ ν₆ = 0
 ```
 
-Result semantics:
+The production Suspension identification is:
 
 ```text
-True
-=
-both facts exist and
-source == group_dimension and
-target == sphere_dimension
+Eν₆ = ν₇
 ```
 
+These are represented by:
+
 ```text
-False
-=
-both facts exist but disagree
+ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT
+NU_PRIME_NU_6_ZERO_COMPOSITION_FACT
+E_NU_6_EQUALS_NU_7_FACT
 ```
 
+The zero-composition repository is:
+
 ```text
-None
-=
-one or both facts are missing
+ZERO_COMPOSITION_FACT_REPOSITORY
 ```
 
-For production facts:
+and stores only the primitive zero-composition facts.
+
+`E_NU_6_EQUALS_NU_7_FACT` is an equality fact and is intentionally not stored as a zero-composition fact.
+
+## Important corrected indexed condition
+
+For the indexed bracket:
 
 ```text
-η₃ → True
-ν′ → True
-ν₇ → True
+{η₃,Eν′,ν₇}_1
 ```
 
-The consistency query does not generate facts, repair facts, or reject a repository merely because the two fact families disagree.
-
-## Phase 26 provenance and scope
-
-Current provenance remains explicit data-path provenance:
+the second defining condition is not treated as a primitive displayed-adjacent fact
 
 ```text
-typed η₃
-← ETA_3_TYPING_FACT
-← GENERATOR_FACT_REPOSITORY
+Eν′ ∘ ν₇ = 0
 ```
 
+Instead, the corrected actual indexed condition is:
+
 ```text
-typed Eν′
-← Suspension
-← typed ν′
-← NU_PRIME_TYPING_FACT
-← GENERATOR_FACT_REPOSITORY
+η₃ ∘ Eν′ = 0
+ν′ ∘ ν₆ = 0
+Eν₆ = ν₇
 ```
 
+which derives:
+
 ```text
-typed ν₇
-← NU_7_TYPING_FACT
-← GENERATOR_FACT_REPOSITORY
+{η₃,Eν′,ν₇}_1 is defined
 ```
 
-This is not `ProofStep` provenance.
-
-Phase 26 regression fixes the following boundaries:
+through:
 
 ```text
-lookup / materialization / compatibility
+indexed_toda_bracket_index1_defined_inference_rule()
+```
+
+The rule captures the structural pattern:
+
+```text
+a ∘ Eb = 0
+b ∘ c = 0
+Ec = d
+↓
+{a,Eb,d}_1 is defined
+```
+
+## Zero-composition fact lookup
+
+`ZeroCompositionFactRepository` supports:
+
+```text
+lookup()
+```
+
+for exact structural lookup and:
+
+```text
+lookup_by_untyped_structure()
+```
+
+for the narrow typed/untyped bridge needed by Phase 27.
+
+The structure lookup ignores source / target typing annotations only. It still preserves:
+
+```text
+name
+dimension
+generator identity
+Suspension structure
+composition structure
+```
+
+Therefore typed actual expressions can be matched against stored untyped mathematical facts without making `None` a wildcard in general structural equality.
+
+## Actual definedness derivation
+
+Production proof inputs:
+
+```text
+GIVEN
+η₃ ∘ Eν′ = 0
+
+GIVEN
+ν′ ∘ ν₆ = 0
+
+GIVEN
+Eν₆ = ν₇
+```
+
+derive:
+
+```text
+INFERENCE
+{η₃,Eν′,ν₇}_1 is defined
+```
+
+The derived `ProofStep` preserves all three corrected premises.
+
+## Corrected end-to-end theorem connection
+
+The theorem repository supplies:
+
+```text
+GIVEN
+ε₃ ∈ {η₃,Eν′,ν₇}_1
+```
+
+as a literature-backed theorem statement.
+
+A single fixed-point run over:
+
+```text
+indexed_toda_bracket_index1_defined_inference_rule()
+toda_bracket_membership_from_theorem_inference_rule()
+```
+
+with the four production inputs:
+
+```text
+η₃ ∘ Eν′ = 0
+ν′ ∘ ν₆ = 0
+Eν₆ = ν₇
+Toda theorem fact
+```
+
+derives:
+
+```text
+Round 1
+{η₃,Eν′,ν₇}_1 is defined
+
+Round 2
+ε₃ ∈ {η₃,Eν′,ν₇}_1
+```
+
+and terminates at:
+
+```text
+InferenceTerminationReason.FIXED_POINT
+```
+
+with:
+
+```text
+round_count = 2
+```
+
+## Provenance
+
+The final membership step has direct premises:
+
+```text
+theorem_step
+derived_definedness_step
+```
+
+The derived definedness step has direct premises:
+
+```text
+ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT
+NU_PRIME_NU_6_ZERO_COMPOSITION_FACT
+E_NU_6_EQUALS_NU_7_FACT
+```
+
+Therefore the visible proof graph is:
+
+```text
+η₃ ∘ Eν′ = 0 ───────────────┐
+                              │
+ν′ ∘ ν₆ = 0 ─────────────────┼──→ {η₃,Eν′,ν₇}_1 defined
+                              │              │
+Eν₆ = ν₇ ────────────────────┘              │
+                                             ├──→ ε₃ ∈ {η₃,Eν′,ν₇}_1
+Toda theorem fact ────────────────────────────┘
+```
+
+Unrelated facts are excluded from the provenance chain.
+
+## Regression / scope boundaries
+
+Phase 27 fixes the following boundaries:
+
+```text
+displayed adjacent entries
 ↛
-generator repository mutation
+indexed defining conditions automatically
 ```
 
 ```text
-generator typing chain
+Eν′ ∘ ν₇ = 0
 ↛
-theorem repository mutation
+accepted as a substitute primitive condition
 ```
 
 ```text
-consistency query
+typed structure lookup
 ↛
-new fact generation
+general wildcard structural equality
 ```
 
 ```text
-ν₇ registered
+inference execution
 ↛
-general ν_n typing formula
+ZERO_COMPOSITION_FACT_REPOSITORY mutation
 ```
 
 ```text
-data-path provenance
-!=
-ProofStep provenance
+inference execution
+↛
+THEOREM_FACT_REPOSITORY mutation
 ```
+
+```text
+unrelated fact
+↛
+definedness provenance
+```
+
+```text
+unrelated fact
+↛
+membership provenance
+```
+
+Derived actual definedness and membership are deduplicated, and the terminal inference round has no new steps.
+
+Generic inference engine remains unchanged.
 
 ---
 
-# Phase 26 completion boundary
+# Phase 27 completion boundary
 
 Implemented:
 
-1. `NU_PRIME_GENERATOR`.
-2. `NU_PRIME_TYPING_FACT`.
-3. `NU_PRIME_AMBIENT_GROUP_FACT`.
-4. `NU_7_GENERATOR`.
-5. `NU_7_TYPING_FACT`.
-6. `NU_7_AMBIENT_GROUP_FACT`.
-7. production repository registration for `η₃`, `ν′`, and `ν₇`.
-8. production typing lookup for `ν′` and `ν₇`.
-9. production ambient-group lookup for `ν′` and `ν₇`.
-10. production materialization of typed `ν′` and `ν₇`.
-11. explicit repository-derived `ν′` → typed `Eν′` connection using existing Suspension semantics.
-12. actual typed entries `η₃`, `Eν′`, `ν₇`.
-13. actual indexed `TodaBracket(..., index=1)` representative.
-14. theorem-side notation identity connection at generator / index level.
-15. compatibility of `η₃ ∘ Eν′`.
-16. compatibility of `Eν′ ∘ ν₇`.
-17. compatibility of the actual `{η₃,Eν′,ν₇}_1` defining compositions.
-18. index / typing responsibility separation.
-19. `is_typing_ambient_group_consistent()`.
-20. `True / False / None` consistency semantics.
-21. production consistency for `η₃`, `ν′`, `ν₇`.
-22. repository non-mutation regression.
-23. theorem repository non-mutation regression.
-24. consistency-query non-generation regression.
-25. no automatic `ν_n` family typing.
-26. explicit data-path provenance regression.
-27. generic inference engine unchanged.
-28. full regression passes.
+1. explicit primitive fact `η₃ ∘ Eν′ = 0`.
+2. explicit primitive fact `ν′ ∘ ν₆ = 0`.
+3. explicit equality fact `Eν₆ = ν₇`.
+4. `ZeroCompositionFactRepository`.
+5. production registration of the two primitive zero-composition facts.
+6. exact zero-composition lookup.
+7. narrow typed/untyped structural lookup.
+8. structure lookup that ignores only typing annotations.
+9. rejection of mismatched generator / name / Suspension structure.
+10. corrected indexed Toda definedness rule.
+11. actual derivation of `{η₃,Eν′,ν₇}_1` definedness.
+12. three-premise definedness provenance.
+13. rejection of primitive `Eν′ ∘ ν₇ = 0` as the indexed defining substitute.
+14. connection to `THEOREM_FACT_REPOSITORY`.
+15. actual theorem-backed membership derivation.
+16. corrected single-run end-to-end inference.
+17. two-round fixed-point chain.
+18. final membership provenance through theorem fact + derived definedness.
+19. unrelated-fact provenance exclusion.
+20. repository non-mutation regression.
+21. derived-conclusion deduplication.
+22. genuine terminal fixed-point regression.
+23. human-readable Phase 27 capability probe.
+24. generic inference engine unchanged.
+25. full regression passes.
 
 ---
 
@@ -606,23 +593,26 @@ Implemented:
 Not yet implemented as general systems:
 
 - literature provenance on generator typing / ambient-group facts,
+- literature provenance on composition facts,
 - `ProofStep` representation for generator facts,
 - external generator-table loading,
-- stable fact key / fact ID system for generator facts,
+- external composition-fact-table loading,
+- stable fact key / fact ID system,
 - name / generator consistency validation,
 - generator / `HomotopyElement.dimension` consistency validation,
 - automatic source / target derivation from generator notation,
 - general η_n / ν_n / μ_n / ι_n typing formulas,
 - recursive typing of arbitrary nested expressions,
-- repository API that automatically traverses `Suspension` or nested expressions,
 - ambient homotopy-group validation of arbitrary expressions,
 - automatic zero-composition facts from type compatibility,
-- automatic Toda definedness from typing,
-- generator-fact `LiteratureReference`,
-- generator-fact `ProofStep` provenance,
-- automatic connection from typed bracket validation to theorem applicability,
-- stem / stable-context classification,
+- general indexed Toda definedness for arbitrary index,
 - general theorem quantification,
+- automatic theorem instantiation,
+- proof-level map injectivity / isomorphism statements,
+- preimage reasoning,
+- general kernel-modulo equality shortcut,
+- symbolic scalar expression trees such as `(-1)^n`,
+- smash-product expressions,
 - stable homotopy-group model,
 - stable Toda bracket `<a,b,c>`,
 - higher / variable-arity Toda brackets.
@@ -631,22 +621,37 @@ Not yet implemented as general systems:
 
 # Tests
 
-Focused theorem-fact suite:
+Focused Phase 27 theorem connection suite:
 
 ```powershell
-python -m pytest tests/test_theorem_facts.py -q
-```
-
-Focused generator-fact suite at Phase 26 completion:
-
-```powershell
-python -m pytest tests/test_generator_facts.py -q
+python -m pytest tests/test_phase27_theorem_connection.py -q
 ```
 
 Verified:
 
 ```text
-100 passed in 0.39s
+11 passed in 0.69s
+```
+
+Related suites:
+
+```powershell
+python -m pytest tests/test_phase27_toda_definedness.py -q
+python -m pytest tests/test_composition_facts.py -q
+python -m pytest tests/test_toda_rules.py -q
+```
+
+Latest verified counts during Phase 27:
+
+```text
+tests/test_phase27_toda_definedness.py
+4 passed
+
+tests/test_composition_facts.py
+27 passed
+
+tests/test_toda_rules.py
+66 passed
 ```
 
 Full suite:
@@ -655,63 +660,59 @@ Full suite:
 python -m pytest -q
 ```
 
-Verified:
+Verified at Phase 27 completion:
 
 ```text
-1290 passed in 23.16s
+1332 passed in 86.87s
 ```
 
 No failures.
 
 ---
 
-# Representative capability demo
+# Representative capability demos
 
-Phase completion includes a human-readable representative capability demo in addition to regression tests.
-
-Phase 25 command:
+Phase 25:
 
 ```powershell
 python -m probes.probe_phase25_capabilities
 ```
 
-Phase 26 command:
+Phase 26:
 
 ```powershell
 python -m probes.probe_phase26_capabilities
 ```
 
-The Phase 26 probe should make visible:
+Phase 27:
 
-```text
-η₃ : S⁴ → S³
-ν′ : S⁶ → S³
-Eν′ : S⁷ → S⁴
-ν₇ : S¹⁰ → S⁷
+```powershell
+python -m probes.probe_phase27_capabilities
 ```
 
-and:
+The Phase 27 probe visibly demonstrates:
 
 ```text
-{η₃,Eν′,ν₇}_1
-→ defining compositions are type-compatible
-```
-
-It should also retain the actual theorem-side result:
-
-```text
+η₃ ∘ Eν′ = 0
+ν′ ∘ ν₆ = 0
+Eν₆ = ν₇
+↓
+{η₃,Eν′,ν₇}_1 is defined
++
+Toda theorem fact
+↓
 ε₃ ∈ {η₃,Eν′,ν₇}_1
 ```
 
-while explicitly showing that:
+It also explicitly shows:
 
 ```text
-type compatibility
-!=
-Toda definedness
+Eν′ ∘ ν₇ = 0
 ```
 
-The probe reuses production APIs and existing inference rules; it does not contain a second implementation of the mathematics.
+is not used as primitive defining knowledge.
+
+The probe reuses production facts, repositories, inference rules, and the generic fixed-point engine. It does not contain a second implementation of the mathematics.
 
 ---
 
@@ -728,29 +729,34 @@ Historical statements in the development log describe the state at that time. Cu
 
 # Next development boundary
 
-Natural next candidates after Phase 26:
+Phase 27 completes the first corrected end-to-end actual ε₃ Toda proof chain.
+
+A natural next direction is to begin one of the map-theoretic proof capabilities already identified in the roadmap, while still following actual mathematical need.
+
+Strong candidates include:
 
 ```text
-A. generator-fact LiteratureReference / provenance
-B. explicit zero-composition facts for the actual ε₃ Toda entries
-C. actual Toda definedness connection from explicit zero-composition premises
-D. name / dimension / generator validation
+A. map typing / injectivity / isomorphism
+B. equality reflection through an injective map
+C. generator / expression validation
+D. literature provenance for generator / composition facts
 ```
 
-A strong next direction is to deepen the same actual ε₃ proof chain rather than widen generator coverage prematurely:
+The map-theoretic direction is especially useful for future proofs of the form:
 
 ```text
-typed actual entries
+H(a) = H(b)
++
+H injective / isomorphism
 ↓
-explicit zero-composition knowledge
-↓
-Toda definedness
-↓
-existing theorem fact
-↓
-ε₃ membership
-↓
-human-readable proof trace
+a = b
+```
+
+and for representative Toda-style calculations such as:
+
+```text
+(2ι₂)η₂ = 4η₂
+P(ι₅) = ±2η₂
 ```
 
 Stable homotopy groups and stable Toda brackets remain later layers.

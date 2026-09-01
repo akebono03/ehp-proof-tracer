@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from expression import (
   Composition,
   Expression,
+  Suspension,
   TodaBracket,
   Zero,
 )
@@ -179,8 +180,7 @@ def indexed_toda_bracket_membership_from_theorem_inference_rule(
       "and definedness derive membership only "
       "when the supplied indexed bracket data "
       "is structurally consistent and its "
-      "displayed defining compositions are "
-      "type-compatible."
+      "displayed entries are type-compatible."
     ),
     premise_patterns=(
       PremisePattern(
@@ -269,5 +269,94 @@ def toda_bracket_defined_by_zero_compositions_inference_rule():
   )
 
 
+def indexed_toda_bracket_index1_defined_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    first_relation = premises[0].conclusion
+    second_relation = premises[1].conclusion
+    suspension_relation = premises[2].conclusion
 
+    first_composition = first_relation.lhs
+    second_composition = second_relation.lhs
 
+    if not isinstance(
+      first_composition,
+      Composition,
+    ):
+      return False
+
+    if not isinstance(
+      second_composition,
+      Composition,
+    ):
+      return False
+
+    if not isinstance(
+      first_composition.right,
+      Suspension,
+    ):
+      return False
+
+    if (
+      first_composition.right.expression
+      != second_composition.left
+    ):
+      return False
+
+    if not isinstance(
+      suspension_relation.lhs,
+      Suspension,
+    ):
+      return False
+
+    return (
+      suspension_relation.lhs.expression
+      == second_composition.right
+    )
+
+  def conclusion_builder(
+    premises,
+  ):
+    first_relation = premises[0].conclusion
+    suspension_relation = premises[2].conclusion
+
+    first_composition = first_relation.lhs
+
+    return TodaBracketDefinedStatement(
+      bracket=TodaBracket(
+        first=first_composition.left,
+        second=first_composition.right,
+        third=suspension_relation.rhs,
+        index=1,
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Indexed Toda bracket index 1 "
+      "defined by base zero compositions"
+    ),
+    description=(
+      "If a∘Eb=0, b∘c=0, and Ec=d, "
+      "then the indexed Toda bracket "
+      "{a,Eb,d}_1 is defined."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.ZERO,
+      ),
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.ZERO,
+      ),
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.EQUALITY,
+      ),
+    ),
+    conclusion_builder=conclusion_builder,
+    match_guard=guard,
+  )
