@@ -1,6 +1,6 @@
 # ehp_proof 設計メモ
 
-この文書は Phase 27 完了時点の current architecture / semantics / design boundary を正本としてまとめる。
+この文書は Phase 28 完了時点の current architecture / semantics / design boundary を正本としてまとめる。
 
 過去の `development_log.md` にある「未実装」「今後の課題」は、その Phase 時点の historical statement であり、current specification とは限らない。
 
@@ -12,13 +12,14 @@
 literature-backed theorem facts / repository
 explicit generator facts / repository
 explicit composition facts / repository
+explicit map-property statements / future map facts
         ↓
-homotopy / EHP domain inference rules
+homotopy / EHP / map-property domain inference rules
         ↓
 generic proof / inference engine
         ↓
 proof-level expression / scalar / set / subgroup / modulo /
-indeterminacy / Toda statements
+indeterminacy / Toda / map-property statements
         ↓
 homotopy / EHP data layer
         ↓
@@ -39,9 +40,9 @@ explicit fact / domain rule
 既存機構
 ```
 
-Phase 24 の theorem repository、Phase 25 / 26 の generator repository、Phase 27 の composition fact repository は、既知 knowledge の供給を担当する。
+Phase 24 の theorem repository、Phase 25 / 26 の generator repository、Phase 27 の composition fact repository、Phase 28 の map-property statement / rule は、それぞれ責務を分離する。
 
-generic inference engine に個別の generator / Toda theorem / composition fact を埋め込まない。
+generic inference engine に個別の generator / Toda theorem / composition fact / map property fact を埋め込まない。
 
 ---
 
@@ -79,8 +80,10 @@ Expression layer は syntax / structure を lossless に保持する。
 - theorem repository lookup
 - generator fact repository lookup
 - composition fact repository lookup
+- map property theorem applicability
 - literature provenance materialization
 - generator notation からの automatic typing
+- map notation からの injectivity / isomorphism 推測
 - automatic family formula
 - general recursive repository traversal
 - ambient homotopy-group validation
@@ -120,7 +123,15 @@ untyped η₃
 typed η₃ : S⁴ → S³
 ```
 
-したがって、Phase 27 の `lookup_by_untyped_structure()` は Python equality を変更しない。
+Phase 28 では map property についても同じ原則を採用する。
+
+```text
+IsomorphismStatement(f)
+!=
+InjectiveMapStatement(f)
+```
+
+数学的 implication は structural equality ではなく explicit inference rule で表す。
 
 ---
 
@@ -137,7 +148,7 @@ iterate
 trace
 ```
 
-Phase 27 でも generic engine は変更しない。
+Phase 28 でも generic engine は変更しない。
 
 Theorem repository の責務:
 
@@ -168,7 +179,17 @@ exact composition lookup
 必要最小限の typed/untyped structure lookup
 ```
 
-repository 自体は inference run を起動しない。
+Phase 28 の map-property layer の責務:
+
+```text
+InjectiveMapStatement
+IsomorphismStatement
+isomorphism → injective
+injective-map equality reflection
+same-map applicability guard
+```
+
+Phase 28 では map-property repository はまだ追加しない。
 
 ---
 
@@ -196,8 +217,6 @@ ZERO
 !=
 Toda definedness
 ```
-
-Phase 27 でもこの境界は維持する。
 
 ---
 
@@ -278,14 +297,6 @@ ambient-group facts:
 η₃ ∈ π₄(S³)
 ν′ ∈ π₆(S³)
 ν₇ ∈ π₁₀(S⁷)
-```
-
-production identities:
-
-```text
-ETA_3_GENERATOR
-NU_PRIME_GENERATOR
-NU_7_GENERATOR
 ```
 
 repository:
@@ -375,8 +386,6 @@ displayed adjacent compositions の type compatibility:
 Eν′.source == ν₇.target == 7
 ```
 
-したがって type-compatible である。
-
 ただし:
 
 ```text
@@ -398,29 +407,16 @@ primitive zero-composition facts:
 ν′ ∘ ν₆ = 0
 ```
 
-production constants:
-
-```text
-ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT
-NU_PRIME_NU_6_ZERO_COMPOSITION_FACT
-```
-
 さらに Suspension identification:
 
 ```text
 Eν₆ = ν₇
 ```
 
-production constant:
-
-```text
-E_NU_6_EQUALS_NU_7_FACT
-```
-
 重要:
 
 ```text
-E_NU_6_EQUALS_NU_7_FACT
+Eν₆ = ν₇
 ```
 
 は `RelationType.EQUALITY` であり、zero-composition repository には入れない。
@@ -442,32 +438,13 @@ production repository:
 ZERO_COMPOSITION_FACT_REPOSITORY
 ```
 
-現在の production facts:
-
-```text
-ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT
-NU_PRIME_NU_6_ZERO_COMPOSITION_FACT
-```
-
-constructor は以下を検査する:
+constructor は少なくとも以下を検査する:
 
 ```text
 lhs is Composition
 rhs == Zero()
 relation_type == RelationType.ZERO
 duplicate composition がない
-```
-
-不正 fact は:
-
-```text
-ValueError("invalid zero-composition fact")
-```
-
-重複は:
-
-```text
-ValueError("duplicate zero-composition fact")
 ```
 
 ---
@@ -481,16 +458,6 @@ lookup(composition)
 ```
 
 は通常の structural equality を使う。
-
-そのため:
-
-```text
-stored untyped composition
-!=
-typed composition
-```
-
-であり、exact lookup は typed expression を暗黙に一致させない。
 
 Phase 27 の actual bridge のために:
 
@@ -519,23 +486,6 @@ Suspension structure
 Composition left/right structure
 ```
 
-したがって:
-
-```text
-typing annotation の差
-→ match 可能
-```
-
-だが:
-
-```text
-別 generator
-missing Suspension
-wrong name
-wrong dimension
-→ match 不可
-```
-
 これは general wildcard equality ではない。
 
 ---
@@ -550,14 +500,7 @@ Phase 27 の重要な correction:
 {η₃,Eν′,ν₇}_1
 ```
 
-であっても、index 1 の defining condition を単純な displayed-adjacent pair:
-
-```text
-η₃ ∘ Eν′ = 0
-Eν′ ∘ ν₇ = 0
-```
-
-として扱わない。
+であっても、index 1 の defining condition を単純な displayed-adjacent pair として扱わない。
 
 current corrected input:
 
@@ -583,113 +526,9 @@ implementation:
 indexed_toda_bracket_index1_defined_inference_rule()
 ```
 
-この rule は index `1` 専用であり、general indexed Toda definedness system ではない。
-
 ---
 
-# 16. Corrected definedness rule の guard
-
-3 premises:
-
-```text
-first RelationType.ZERO
-second RelationType.ZERO
-third RelationType.EQUALITY
-```
-
-guard は少なくとも次を要求する:
-
-```text
-first lhs is Composition
-second lhs is Composition
-first.right is Suspension
-first.right.expression == second.left
-third.lhs is Suspension
-third.lhs.expression == second.right
-```
-
-conclusion:
-
-```text
-TodaBracketDefinedStatement(
-  bracket=TodaBracket(
-    first=first.left,
-    second=first.right,
-    third=third.rhs,
-    index=1,
-  ),
-)
-```
-
-actual inputs では:
-
-```text
-first  = η₃ ∘ Eν′ = 0
-second = ν′ ∘ ν₆ = 0
-third  = Eν₆ = ν₇
-```
-
-から:
-
-```text
-{η₃,Eν′,ν₇}_1 is defined
-```
-
-を導出する。
-
----
-
-# 17. Displayed adjacent zero の境界
-
-次の relation:
-
-```text
-Eν′ ∘ ν₇ = 0
-```
-
-を作ること自体は expression model 上可能である。
-
-しかし Phase 27 の corrected indexed definedness rule の second primitive premise の代わりにはならない。
-
-したがって:
-
-```text
-η₃ ∘ Eν′ = 0
-Eν′ ∘ ν₇ = 0
-Eν₆ = ν₇
-```
-
-から actual index-1 definedness は導出しない。
-
-これは Phase 27 の最重要 regression boundary の一つである。
-
----
-
-# 18. Toda theorem connection
-
-既存 rule:
-
-```text
-toda_bracket_membership_from_theorem_inference_rule()
-```
-
-は:
-
-```text
-matching TodaBracketMembershipTheoremStatement
-+
-matching TodaBracketDefinedStatement
-↓
-TodaBracketMembershipStatement
-```
-
-を表す。
-
-Phase 27 では definedness を GIVEN で仮置きせず、corrected primitive inputs から実際に derived `ProofStep` として作れるようになった。
-
----
-
-# 19. Corrected end-to-end inference
+# 16. Corrected end-to-end Toda inference
 
 production inputs:
 
@@ -725,6 +564,265 @@ Round 2
 ε₃ ∈ {η₃,Eν′,ν₇}_1
 ```
 
+---
+
+# 17. Phase 28 map-property statement layer
+
+Phase 28 では map-theoretic equality reflection の最小基盤を追加した。
+
+追加 statement:
+
+```text
+InjectiveMapStatement
+IsomorphismStatement
+```
+
+最小構造:
+
+```text
+InjectiveMapStatement(
+  map: MapSymbol
+)
+```
+
+```text
+IsomorphismStatement(
+  map: MapSymbol
+)
+```
+
+重要:
+
+```text
+MapSymbol(f)
+↛
+InjectiveMapStatement(f)
+```
+
+```text
+MapSymbol(f)
+↛
+IsomorphismStatement(f)
+```
+
+map notation だけから property knowledge を生成しない。
+
+---
+
+# 18. Injectivity と isomorphism の structural distinction
+
+同一 map `f` でも:
+
+```text
+InjectiveMapStatement(f)
+!=
+IsomorphismStatement(f)
+```
+
+数学的には:
+
+```text
+Isomorphism(f)
+⇒
+Injective(f)
+```
+
+だが、この implication は structural equality ではなく inference rule で表す。
+
+---
+
+# 19. Isomorphism → Injective inference
+
+Phase 28-3 で追加:
+
+```text
+isomorphism_implies_injective_inference_rule()
+```
+
+semantics:
+
+```text
+Isomorphism(f)
+↓
+Injective(f)
+```
+
+conclusion は premise 内の同じ `MapSymbol` を保持する。
+
+```text
+Isomorphism(f)
+↛
+Injective(g)
+```
+
+reverse implication:
+
+```text
+Injective(f)
+↛
+Isomorphism(f)
+```
+
+は追加しない。
+
+---
+
+# 20. MapApplication equality representation
+
+既存 `MapApplication`:
+
+```text
+MapApplication(
+  map=f,
+  expression=a,
+)
+```
+
+は `f(a)` を表す。
+
+したがって:
+
+```text
+f(a)=f(b)
+```
+
+は既存 `Relation` で:
+
+```text
+Relation(
+  lhs=MapApplication(
+    map=f,
+    expression=a,
+  ),
+  rhs=MapApplication(
+    map=f,
+    expression=b,
+  ),
+  relation_type=RelationType.EQUALITY,
+)
+```
+
+と表現できる。
+
+専用の:
+
+```text
+MapEqualityStatement
+ImageEqualityStatement
+```
+
+は追加しない。
+
+---
+
+# 21. Injective map equality reflection
+
+Phase 28-5 で追加:
+
+```text
+injective_map_reflects_equality_inference_rule()
+```
+
+semantics:
+
+```text
+Injective(f)
++
+f(a)=f(b)
+↓
+a=b
+```
+
+guard は少なくとも:
+
+```text
+equality lhs is MapApplication
+equality rhs is MapApplication
+lhs.map == rhs.map
+injective_statement.map == lhs.map
+```
+
+を要求する。
+
+conclusion:
+
+```text
+Relation(
+  lhs=lhs.expression,
+  rhs=rhs.expression,
+  relation_type=RelationType.EQUALITY,
+)
+```
+
+つまり mapped expression 自体を lossless に取り出し、名前解析などで復元しない。
+
+---
+
+# 22. Equality reflection の invalid boundary
+
+以下では rule を適用しない。
+
+```text
+Injective(f) + g(a)=g(b)
+↛ a=b
+```
+
+```text
+Injective(f) + f(a)=g(b)
+↛ a=b
+```
+
+```text
+Isomorphism(f) + g(a)=g(b)
+↛ a=b
+```
+
+```text
+Injective(f) + plain a=b
+↛ equality-reflection rule
+```
+
+必要条件は:
+
+```text
+same map on both MapApplications
++
+injectivity of that same map
+```
+
+である。
+
+---
+
+# 23. Phase 28 end-to-end fixed-point inference
+
+initial knowledge:
+
+```text
+GIVEN
+Isomorphism(f)
+
+GIVEN
+f(a)=f(b)
+```
+
+rules:
+
+```text
+isomorphism_implies_injective_inference_rule()
+injective_map_reflects_equality_inference_rule()
+```
+
+結果:
+
+```text
+Round 1
+Injective(f)
+
+Round 2
+a=b
+```
+
 termination:
 
 ```text
@@ -737,101 +835,80 @@ round_count == 2
 
 ---
 
-# 20. ProofStep provenance
+# 24. Phase 28 provenance
 
-definedness step:
-
-```text
-rule = ProofRule.INFERENCE
-inference_rule = indexed_toda_bracket_index1_defined_inference_rule()
-premises =
-  first_zero_step
-  second_zero_step
-  suspension_step
-```
-
-membership step:
+derived injectivity step:
 
 ```text
 rule = ProofRule.INFERENCE
-inference_rule = toda_bracket_membership_from_theorem_inference_rule()
+inference_rule = isomorphism_implies_injective_inference_rule()
 premises =
-  theorem_step
-  definedness_step
+  isomorphism_step
 ```
 
-theorem step:
+derived equality step:
 
 ```text
-rule = ProofRule.GIVEN
-source = LiteratureReference(label="Toda", ...)
+rule = ProofRule.INFERENCE
+inference_rule = injective_map_reflects_equality_inference_rule()
+premises =
+  derived injective_step
+  mapped_equality_step
 ```
 
-したがって final membership から corrected primitive conditions まで provenance を辿れる。
-
----
-
-# 21. Unrelated fact の排除
-
-inference run に unrelated fact が含まれていても:
+したがって final `a=b` から:
 
 ```text
-unrelated fact
-↛
-definedness premises
-```
-
-```text
-unrelated fact
-↛
-membership premises
-```
-
-を保証する。
-
-provenance は applicability に実際に必要だった premise のみを保持する。
-
----
-
-# 22. Repository non-mutation
-
-Phase 27 inference の前後で:
-
-```text
-ZERO_COMPOSITION_FACT_REPOSITORY.facts
+a=b
+↓
+Injective(f)
+↓
+Isomorphism(f)
 ```
 
 および:
 
 ```text
-THEOREM_FACT_REPOSITORY.entries
+a=b
+↓
+f(a)=f(b)
 ```
 
-は不変。
-
-したがって:
-
-```text
-inference run
-↛
-knowledge repository mutation
-```
-
-knowledge supply と proof derivation の責務を分離する。
+まで辿れる。
 
 ---
 
-# 23. Deduplication / genuine fixed point
+# 25. Unrelated fact exclusion
 
-actual chain では:
+inference run に unrelated fact が含まれていても:
 
 ```text
-actual definedness step
+unrelated fact
+↛ Injective(f) premises
+```
+
+```text
+unrelated fact
+↛ a=b premises
+```
+
+を保証する。
+
+provenance は applicability に実際に必要だった premise のみ保持する。
+
+---
+
+# 26. Deduplication / genuine fixed point
+
+Phase 28 end-to-end chain では:
+
+```text
+Injective(f)
 → 1個
 ```
 
 ```text
-actual membership step
+a=b
 → 1個
 ```
 
@@ -852,68 +929,74 @@ derive_inference_round_result(
 new_steps == ()
 ```
 
-したがって単に round limit で停止したのではなく、genuine fixed point に達している。
+したがって genuine fixed point に達している。
 
 ---
 
-# 24. Phase 27 representative probe
+# 27. Phase 28 representative probe
 
 実行:
 
 ```powershell
-python -m probes.probe_phase27_capabilities
+python -m probes.probe_phase28_capabilities
 ```
 
 表示する chain:
 
 ```text
-η₃ ∘ Eν′ = 0
-ν′ ∘ ν₆ = 0
-Eν₆ = ν₇
-↓
-{η₃,Eν′,ν₇}_1 is defined
-+
-Toda theorem
-↓
-ε₃ ∈ {η₃,Eν′,ν₇}_1
+GIVEN
+H is an isomorphism
+
+INFERENCE
+H is injective
+
+GIVEN
+H(a)=H(b)
+
+INFERENCE
+a=b
 ```
 
-さらに:
+表示:
 
 ```text
-Eν′ ∘ ν₇ = 0
+rounds = 2
+termination = InferenceTerminationReason.FIXED_POINT
 ```
 
-を primitive defining knowledge として使っていないことを明示する。
+重要:
 
-probe は production APIs / repositories / rules / generic engine を再利用し、数学を別実装しない。
+```text
+H
+=
+Phase 28 では representative MapSymbol
+```
+
+actual Hopf map property fact ではない。
+
+probe は production APIs / rules / generic engine を再利用し、数学を別実装しない。
 
 ---
 
-# 25. Phase 27 completion boundary
+# 28. Phase 28 completion boundary
 
 実装済み:
 
 ```text
-η₃ ∘ Eν′ = 0 explicit fact
-ν′ ∘ ν₆ = 0 explicit fact
-Eν₆ = ν₇ explicit equality fact
-ZeroCompositionFactRepository
-production zero-composition registration
-exact lookup
-typed/untyped narrow structure lookup
-index-1 corrected Toda definedness rule
-actual corrected definedness derivation
-three-premise ProofStep provenance
-theorem repository connection
-single-run end-to-end membership
-two-round fixed point
-membership full provenance
+InjectiveMapStatement
+IsomorphismStatement
+isomorphism → injective inference
+MapApplication equality representation
+injective equality reflection
+same-map guard
+two-round end-to-end inference
+full ProofStep provenance
+mismatched-map rejection
+plain-equality rejection
 unrelated-fact exclusion
-repository non-mutation
 deduplication
 genuine fixed-point regression
-human-readable Phase 27 probe
+human-readable capability probe
 ```
 
 generic inference engine:
@@ -925,116 +1008,93 @@ generic inference engine:
 最終確認:
 
 ```text
-tests/test_phase27_theorem_connection.py
-11 passed in 0.69s
+tests/test_map_property_rules.py
+26 passed in 1.42s
 ```
 
 ```text
 full suite
-1332 passed in 86.87s
+1358 passed in 102.90s
 ```
 
 ---
 
-# 26. Phase 27 non-goals
+# 29. Phase 28 non-goals
 
 未実装:
 
-- arbitrary index の general indexed Toda definedness
-- displayed entries から defining conditions を自動生成する一般則
-- type compatibility から ZERO fact を生成する規則
-- composition fact の literature provenance
-- composition fact の `ProofStep.GIVEN` repository materialization API
-- generator fact の `LiteratureReference`
-- generator fact の `ProofStep`
-- general theorem quantification / instantiation
-- generator name / dimension validation
-- arbitrary recursive expression typing
-- stable homotopy group model
-- stable Toda bracket
-- higher Toda bracket
+- typed `MapSymbol` domain / codomain
+- actual Hopf map `H` identity facts
+- actual `H` isomorphism facts
+- map-property fact repository
+- map-property literature provenance
+- `SurjectiveMapStatement`
+- preimage representation
+- kernel-modulo equality shortcut
+- Hopf invariant formula
+- smash product
+- actual `(2ι₂)η₂=4η₂` calculation
 
 ---
 
-# 27. Current knowledge-layer separation
+# 30. 次の設計境界
 
-現在の主要 knowledge repositories:
+Phase 28 で generic map-property equality reflection は完成した。
+
+次の Phase 29 は:
 
 ```text
-THEOREM_FACT_REPOSITORY
-GENERATOR_FACT_REPOSITORY
-ZERO_COMPOSITION_FACT_REPOSITORY
+actual H map facts / typing
 ```
 
-それぞれの役割:
+を推奨する。
+
+目的は Phase 28 の representative:
 
 ```text
-THEOREM_FACT_REPOSITORY
-=
-literature-backed theorem statements
-```
-
-```text
-GENERATOR_FACT_REPOSITORY
-=
-generator typing / ambient-group facts
-```
-
-```text
-ZERO_COMPOSITION_FACT_REPOSITORY
-=
-primitive zero-composition facts
-```
-
-必要性が生じるまで一つの general repository に統合しない。
-
----
-
-# 28. 次の設計境界
-
-Phase 27 で actual ε₃ Toda proof chain は corrected end-to-end まで到達した。
-
-次の有力候補は map-theoretic reasoning。
-
-候補:
-
-```text
-typed MapSymbol domain / codomain
-InjectiveMapStatement
-IsomorphismStatement
-SurjectiveMapStatement
-```
-
-重要な bridge:
-
-```text
-Isomorphism(f)
-↓
-Injective(f)
-```
-
-```text
-Injective(f)
-f(a)=f(b)
+H is an isomorphism
+H(a)=H(b)
 ↓
 a=b
 ```
 
-これは将来:
+のうち、`H is an isomorphism` を仮の GIVEN ではなく actual mathematical knowledge に置き換えることである。
+
+候補:
 
 ```text
-H((2ι₂)η₂) = H(4η₂)
-+
-H isomorphism
-↓
-(2ι₂)η₂ = 4η₂
+actual H map identity
+actual H source / target context
+actual H isomorphism property
+必要なら explicit fact / repository / provenance
 ```
 
-のような Toda 型計算を trace するために重要となる。
+Phase 29 ではまだ:
+
+```text
+H((2ι₂)η₂)=4ι₃
+```
+
+の計算全体を先取りしない。
+
+長期 dependency:
+
+```text
+Phase 28
+generic injectivity / isomorphism / equality reflection
+↓
+Phase 29
+actual H map facts / typing
+↓
+Phase 30+
+Hopf formula / smash product / actual calculation
+↓
+(2ι₂)η₂=4η₂
+```
 
 ---
 
-# 29. テスト原則
+# 31. テスト原則
 
 新しい数学的 layer ごとに:
 
@@ -1055,7 +1115,7 @@ structural-only Phase では存在しない inference / provenance を先取り�
 
 ---
 
-# 30. 文書運用方針
+# 32. 文書運用方針
 
 ```text
 README.md
