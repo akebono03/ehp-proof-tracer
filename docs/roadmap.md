@@ -7,28 +7,28 @@
 ```text
 README.md
 =
-current capabilities / current status
+現在できること / 現在の状態
 
- docs/design.md
+docs/design.md
 =
-current architecture / semantics / boundaries
+現在の architecture / semantics / boundaries
 
- docs/development_log.md
+docs/development_log.md
 =
-chronological implementation history
+時系列の実装履歴
 
- docs/roadmap.md
+docs/roadmap.md
 =
-future capability dependency
+将来機能と依存関係
 ```
 
 各機能は actual mathematical need に基づいて個別に仕様化し、既存 API と generic inference engine を不必要に壊さない最小変更で導入する。
 
 ---
 
-# 2. Phase 26 完了時点の実装基盤
+# 2. Phase 27 完了時点の実装基盤
 
-Implemented foundations:
+実装済みの主な基盤:
 
 ```text
 Abelian group calculation
@@ -56,13 +56,18 @@ Literature-backed theorem fact repository
 Explicit generator typing facts
 Explicit generator ambient-group facts
 Generator fact repository
-Typed-element materialization from explicit facts
+Typed-element materialization
 η₃ / ν′ / ν₇ production generator facts
-Explicit Eν′ typing connection via Suspension
-Actual typed {η₃,Eν′,ν₇}_1 representative
-Actual Toda defining-composition type compatibility
-Typing / ambient-group consistency query
-Representative human-readable capability probes
+Explicit Eν′ typing via Suspension
+Actual typed {η₃,Eν′,ν₇}_1
+Actual displayed-entry type compatibility
+Explicit primitive zero-composition facts
+ZeroCompositionFactRepository
+Corrected index-1 Toda definedness rule
+Actual corrected {η₃,Eν′,ν₇}_1 definedness
+Actual theorem-backed ε₃ membership
+Corrected single-run end-to-end proof trace
+Human-readable capability probes
 ```
 
 ---
@@ -70,16 +75,16 @@ Representative human-readable capability probes
 # 3. 基本設計原則
 
 ```text
-actual mathematical need
+実際の数学的必要
 ↓
-minimal representation
+必要最小限の表現
 ↓
 explicit fact / domain rule
 ↓
-existing machinery
+既存 machinery
 ```
 
-Important:
+重要:
 
 ```text
 representable
@@ -101,11 +106,17 @@ zero composition
 Toda definedness
 ```
 
-Avoid notation-derived hidden knowledge.
+```text
+displayed adjacency
+≠
+indexed Toda defining conditions
+```
+
+notation から hidden knowledge を自動生成しない。
 
 ---
 
-# 4. Current main dependency chain
+# 4. 現在の主要 dependency chain
 
 ```text
 Abelian group expression
@@ -136,105 +147,107 @@ Generator typing / ambient-group facts
 ↓
 Actual Toda-generator typing
 ↓
-Actual Toda type compatibility
+Actual displayed-entry type compatibility
+↓
+Explicit corrected composition knowledge
+↓
+Corrected index-1 Toda definedness
+↓
+Actual theorem applicability
+↓
+ε₃ membership
+↓
+Human-readable proof trace
 ```
 
 ---
 
-# 5. Phase 26 completion
+# 5. Phase 27 completion
 
-Production generator coverage:
+Phase 27 で actual ε₃ Toda proof chain は corrected end-to-end まで到達した。
+
+primitive knowledge:
 
 ```text
-η₃ : S⁴ → S³
-η₃ ∈ π₄(S³)
-
-ν′ : S⁶ → S³
-ν′ ∈ π₆(S³)
-
-ν₇ : S¹⁰ → S⁷
-ν₇ ∈ π₁₀(S⁷)
+η₃ ∘ Eν′ = 0
+ν′ ∘ ν₆ = 0
+Eν₆ = ν₇
 ```
 
-Production repository:
+corrected indexed definedness:
 
 ```text
-GENERATOR_FACT_REPOSITORY
-```
-
-Actual typing chain:
-
-```text
-ν′ : S⁶ → S³
+η₃ ∘ Eν′ = 0
+ν′ ∘ ν₆ = 0
+Eν₆ = ν₇
 ↓
-Suspension
+{η₃,Eν′,ν₇}_1 is defined
+```
+
+theorem connection:
+
+```text
+Toda theorem fact
+ε₃ ∈ {η₃,Eν′,ν₇}_1
+
++
+derived definedness
+
 ↓
-Eν′ : S⁷ → S⁴
+ε₃ ∈ {η₃,Eν′,ν₇}_1
 ```
 
-Actual Toda entries:
+single fixed-point run:
 
 ```text
-η₃  : S⁴  → S³
-Eν′ : S⁷  → S⁴
-ν₇  : S¹⁰ → S⁷
+Round 1
+definedness
+
+Round 2
+membership
+
+↓
+FIXED_POINT
 ```
 
-Actual indexed bracket:
+重要な correction:
 
 ```text
-{η₃,Eν′,ν₇}_1
+Eν′ ∘ ν₇ = 0
 ```
 
-Verified compatibility:
+を primitive second defining condition として扱わない。
+
+current second base zero condition:
 
 ```text
-η₃ ∘ Eν′
-→ type-compatible
+ν′ ∘ ν₆ = 0
 ```
 
+third displayed entry は:
+
 ```text
-Eν′ ∘ ν₇
-→ type-compatible
+Eν₆ = ν₇
 ```
 
-Therefore:
+で接続する。
 
-```text
-{η₃,Eν′,ν₇}_1
-→ defining compositions are type-compatible
+代表 probe:
+
+```powershell
+python -m probes.probe_phase27_capabilities
 ```
 
-Consistency API:
+最終確認:
 
 ```text
-is_typing_ambient_group_consistent()
-```
-
-Production results:
-
-```text
-η₃ → True
-ν′ → True
-ν₇ → True
-```
-
-Verified:
-
-```text
-tests/test_generator_facts.py
-100 passed in 0.39s
+tests/test_phase27_theorem_connection.py
+11 passed in 0.69s
 ```
 
 ```text
 full suite
-1290 passed in 23.16s
-```
-
-Representative capability demo:
-
-```powershell
-python -m probes.probe_phase26_capabilities
+1332 passed in 86.87s
 ```
 
 ---
@@ -265,15 +278,31 @@ python -m probes.probe_phase26_capabilities
 | production η₃ / ν′ / ν₇ repository coverage | IMPLEMENTED | Phase 26 |
 | explicit Eν′ typing connection | IMPLEMENTED | Phase 26 |
 | actual typed `{η₃,Eν′,ν₇}_1` | IMPLEMENTED | Phase 26 |
-| actual Toda type compatibility | IMPLEMENTED | Phase 26 |
+| actual displayed Toda type compatibility | IMPLEMENTED | Phase 26 |
 | typing ↔ ambient consistency query | IMPLEMENTED | Phase 26 |
-| representative capability demo convention | IMPLEMENTED | Phase 25+ |
+| `η₃∘Eν′=0` fact | IMPLEMENTED | Phase 27 |
+| `ν′∘ν₆=0` fact | IMPLEMENTED | Phase 27 |
+| `Eν₆=ν₇` fact | IMPLEMENTED | Phase 27 |
+| `ZeroCompositionFactRepository` | IMPLEMENTED | Phase 27 |
+| typed/untyped structure lookup | IMPLEMENTED | Phase 27 |
+| corrected index-1 Toda definedness | IMPLEMENTED | Phase 27 |
+| actual `{η₃,Eν′,ν₇}_1` definedness | IMPLEMENTED | Phase 27 |
+| corrected ε₃ end-to-end membership | IMPLEMENTED | Phase 27 |
+| full ProofStep provenance chain | IMPLEMENTED | Phase 27 |
+| Phase 27 capability probe | IMPLEMENTED | Phase 27 |
 | generator-fact literature provenance | PLANNED | concrete provenance need |
-| actual zero-composition facts for ε₃ entries | NEXT CANDIDATE | deepen same proof chain |
-| actual Toda definedness from explicit zero premises | PLANNED | after zero-composition facts |
+| composition-fact literature provenance | PLANNED | concrete provenance need |
 | name / generator validation | PLANNED | explicit validation layer |
 | dimension / generator validation | PLANNED | explicit validation layer |
-| external generator-table loader | PLANNED | actual file-loading need |
+| typed `MapSymbol` domain / codomain | PLANNED | map-theoretic proof need |
+| `InjectiveMapStatement` | PLANNED | equality reflection |
+| `IsomorphismStatement` | PLANNED | injective / surjective bridge |
+| preimage `f⁻¹(a)` | PLANNED | set-valued inverse image |
+| `f(a)=f(b) ⇒ a≡b mod Ker(f)` | PLANNED | reuse Phase 13–15 |
+| symbolic scalar `(-1)^n` | PLANNED | preserve symbolic sign |
+| parity reduction of `(-1)^n` | PLANNED | even→1, odd→-1 |
+| smash product `γ∧δ` | PLANNED | Hopf formulas |
+| `{a,b,c}_0={a,b,c}` canonicalization | PLANNED | unstable Toda notation |
 | general theorem representation | PLANNED | quantified theorem need |
 | stable homotopy group `π_k^S` | PLANNED | stable context |
 | stable Toda bracket `<a,b,c>` | PLANNED | stable layer |
@@ -281,231 +310,9 @@ python -m probes.probe_phase26_capabilities
 
 ---
 
-# 7. Recommended next Phase direction
+# 7. 次 Phase の推奨方向
 
-The strongest next direction is to deepen the same actual ε₃ bracket chain.
-
-Current state:
-
-```text
-explicit generator facts
-↓
-typed η₃ / Eν′ / ν₇
-↓
-type-compatible defining compositions
-```
-
-Natural next requirement:
-
-```text
-η₃ ∘ Eν′ = 0
-Eν′ ∘ ν₇ = 0
-```
-
-as explicit mathematical facts or consequences of already supported rules.
-
-Then:
-
-```text
-zero compositions
-↓
-Toda definedness
-↓
-existing theorem fact
-↓
-ε₃ ∈ {η₃,Eν′,ν₇}_1
-```
-
-This would connect the Phase 24 theorem fact and Phase 26 typed actual bracket into a deeper end-to-end proof trace.
-
----
-
-# 8. Candidate Phase 27
-
-Natural candidate:
-
-```text
-Phase 27
-actual ε₃ Toda-definedness bridge
-```
-
-A possible split:
-
-```text
-27-1  η₃ ∘ Eν′ zero-composition fact requirement
-27-2  Eν′ ∘ ν₇ zero-composition fact requirement
-27-3  zero-composition fact representation / repository choice
-27-4  production registration
-27-5  typed actual compositions ↔ zero facts connection
-27-6  actual {η₃,Eν′,ν₇}_1 definedness derivation
-27-7  theorem fact applicability with actual definedness
-27-8  ε₃ membership end-to-end representative
-27-9  provenance / regression / scope
-27-10 Phase 27 completion整理
-```
-
-This is only a roadmap suggestion. Exact Phase 27 scope should be fixed from current code and the actual mathematical sources before implementation.
-
----
-
-# 9. Generator-fact provenance
-
-Current generator provenance is:
-
-```text
-registered explicit fact
-↓
-repository lookup
-↓
-materialized typed element
-```
-
-Potential future extension:
-
-```text
-known generator typing statement
-+
-LiteratureReference
-↓
-generator fact entry
-↓
-repository
-↓
-typed element
-```
-
-Do not add `LiteratureReference` solely for symmetry with theorem facts. Add it when an actual generator fact requires source attribution in the proof trace.
-
----
-
-# 10. Additional production generator facts
-
-Current production coverage:
-
-```text
-η₃
-ν′
-ν₇
-```
-
-Potential future needs:
-
-```text
-μ₃
-ι₇
-other η_n / ν_n
-```
-
-Add only facts required by concrete theorem / proof scenarios.
-
-Do not create a family formula solely because notation has an index.
-
----
-
-# 11. Nested expression typing
-
-Current explicit pattern:
-
-```text
-GeneratorSymbol
-↓
-materialized typed HomotopyElement
-↓
-Suspension
-↓
-shifted source / target
-```
-
-No general recursive repository traversal exists.
-
-Future recursive typing should be introduced only if multiple nested expression forms create a real need.
-
----
-
-# 12. Typing / ambient-group consistency
-
-Current API:
-
-```text
-is_typing_ambient_group_consistent(generator)
-```
-
-Current semantics:
-
-```text
-True / False / None
-```
-
-No auto-conversion and no repository-construction rejection for cross-family mismatch.
-
-A stronger validation layer should only be added when an actual workflow needs strict rejection.
-
----
-
-# 13. Stable homotopy groups
-
-Future stable context:
-
-```text
-α ∈ π_k^S
-```
-
-must remain distinct from unstable:
-
-```text
-α ∈ π_m(S^n)
-```
-
-Bridges should use stabilization mathematics, not notation-only conversion.
-
----
-
-# 14. Stable Toda brackets
-
-Stable notation:
-
-```text
-<a,b,c>
-```
-
-must remain distinct from unstable:
-
-```text
-{a,b,c}
-```
-
----
-
-# 15. Higher Toda brackets
-
-Higher / variable-arity brackets remain deferred until concrete literature examples require them.
-
----
-
-# 16. Long-term dependency suggestion
-
-```text
-Phase 26
-actual typed Toda entries / compatibility
-↓
-actual zero-composition knowledge
-↓
-actual Toda definedness
-↓
-actual theorem applicability
-↓
-actual ε₃ membership proof trace
-↓
-generator / theorem provenance expansion when needed
-↓
-stable homotopy representation
-↓
-stable Toda bracket
-```
-
-At each suitable Phase boundary, grow a representative executable proof / validation scenario so that the visible mathematical chain becomes deeper rather than only increasing internal API coverage.
-
-Target direction:
+Phase 27 までで:
 
 ```text
 generator facts
@@ -514,138 +321,52 @@ typing
 ↓
 composition validity
 ↓
-zero compositions
+explicit zero-composition knowledge
 ↓
-Toda definedness
+corrected Toda definedness
 ↓
 theorem applicability
 ↓
 membership
 ↓
-human-readable proof trace
+proof trace
 ```
 
----
+が actual ε₃ example で一通りつながった。
 
-# 17. Testing and representative-demonstration principle
+次の強い候補は map-theoretic reasoning。
 
-For each new layer:
-
-1. representation
-2. structural distinction
-3. validity / applicability
-4. invalid-case behavior
-5. integration
-6. provenance if inference exists
-7. representative scenario
-8. termination / scope boundary
-9. full regression
-10. representative executable demonstration when mathematically meaningful
-
-Tests and probes have different purposes:
+候補 dependency:
 
 ```text
-pytest
-=
-correctness / regression
-```
-
-```text
-representative probe
-=
-visible mathematical progress
-```
-
-The probe must reuse production APIs and existing inference rules. It must not introduce a second implementation of the mathematical rule merely for demonstration.
-
-Prefer module execution:
-
-```powershell
-python -m probes.<probe_module>
-```
-
-when the probe imports project-root modules.
-
----
-
-# 18. Documentation policy
-
-```text
-README.md
-=
-current capabilities / current status
-
- docs/design.md
-=
-current architecture / semantics / boundaries
-
- docs/development_log.md
-=
-chronological implementation history
-
- docs/roadmap.md
-=
-future capability dependency
-```
-
----
-
-# 19. 長期目標
-
-最終的には:
-
-```text
-known unstable homotopy groups
-+
-known stable homotopy groups
-+
-generator / map tables
-+
-quantified theorems
-+
-EHP exactness
-+
-ORDER
-+
-Suspension / stabilization
-+
-composition
-+
-Hopf invariant
-+
-additive reasoning
-+
-subgroup / modulo reasoning
-+
-symbolic scalar constraints
-+
-indeterminacy
-+
-unstable Toda brackets
-+
-stable Toda brackets
+map typing
 ↓
-new homotopy-theoretic conclusions
+injectivity / isomorphism
+↓
+equality reflection
+↓
+preimage reasoning
+↓
+kernel-modulo equality
 ```
 
-を同一の proof graph 上で扱えることを目標とする。
+最初からすべて実装せず、representative proof に必要な最小 layer から進む。
 
 ---
 
-# 20. Map typing / injectivity / isomorphism
+# 8. Map typing / injectivity / isomorphism
 
-Current `MapSymbol` / `MapApplication` / homomorphism reasoning は実装済みだが、
-complete source / target / ambient-group typing と map-property reasoning は今後の拡張候補とする。
+現在 `MapSymbol` / `MapApplication` / homomorphism reasoning は実装済み。
 
-将来的に、
+今後、proof-level に:
 
 ```text
 f : A → B
 ```
 
-のような map typing を proof-level に保持できるようにする。
+という map typing を保持する候補がある。
 
-候補となる statement:
+statement 候補:
 
 ```text
 InjectiveMapStatement(f)
@@ -653,7 +374,7 @@ IsomorphismStatement(f)
 SurjectiveMapStatement(f)
 ```
 
-基本的な theorem bridge:
+基本 bridge:
 
 ```text
 Isomorphism(f)
@@ -667,7 +388,7 @@ Isomorphism(f)
 Surjective(f)
 ```
 
-単射による equality reflection:
+equality reflection:
 
 ```text
 Injective(f)
@@ -676,372 +397,19 @@ f(a)=f(b)
 a=b
 ```
 
-この rule は、Toda 型の計算で
-「写像した先で等しいことを示し、単射または同型を使って元に戻す」
-証明を trace するために重要となる。
-
-Map property は notation から暗黙に推測せず、
-explicit theorem fact / literature-backed fact として扱う。
+Map property は notation から推測せず、explicit theorem fact / literature-backed fact として供給する。
 
 ---
 
-# 21. Preimage / inverse-image reasoning
+# 9. Representative map-theoretic scenario 1
 
-一般の写像について、
-
-```text
-f⁻¹(a)
-```
-
-を inverse map の値ではなく preimage set として扱う。
-
-概念的な representation 候補:
-
-```text
-PreimageSet(
-  map=f,
-  value=a,
-)
-```
-
-基本 semantics:
-
-```text
-x ∈ f⁻¹(a)
-↔
-f(x)=a
-```
-
-を explicit theorem rule として扱えるようにする。
-
-Important:
-
-```text
-f⁻¹(a)
-```
-
-自体を単一 element として扱わない。
-
-文献で「`f⁻¹(a)` の元を取る」と書かれる場合には、
-
-```text
-preimage set
-+
-chosen element / witness
-```
-
-を区別する。
-
-存在命題との将来接続:
-
-```text
-f⁻¹(a) ≠ ∅
-↔
-∃x, f(x)=a
-```
-
-symbolic witness の導入は、
-general theorem representation / existential statement が実際に必要になった時点で検討する。
-
----
-
-# 22. Kernel-modulo equality reasoning
-
-群準同型 `f` に対する重要な一般則:
-
-```text
-f(a)=f(b)
-↓
-a-b ∈ Ker(f)
-↓
-a≡b mod Ker(f)
-```
-
-すなわち、
-
-```text
-f(a)=f(b)
-→
-a=b mod Ker(f)
-```
-
-という reasoning を将来的に扱えるようにする。
-
-Current layers との接続候補:
-
-```text
-Homomorphism(f)
-+
-f(a)=f(b)
-↓
-f(a-b)=0
-↓
-a-b∈Ker(f)
-↓
-a≡b mod Ker(f)
-```
-
-これは Phase 13〜15 で実装済みの、
-
-```text
-homomorphism
-ZERO
-kernel membership
-modulo ↔ difference membership
-```
-
-を再利用できる可能性が高い。
-
-可能であれば専用 shortcut rule を増やすより、
-既存 rule family の composition で proof trace を構築することを優先する。
-
-Injective specialization:
-
-```text
-Injective(f)
-↓
-Ker(f)=0
-```
-
-に相当する theorem knowledge が利用できる場合、
-
-```text
-a≡b mod Ker(f)
-↓
-a=b
-```
-
-へ接続できる。
-
----
-
-# 23. Symbolic scalar expressions beyond Phase 16
-
-Phase 16 では、
-
-```text
-ScalarSymbol
-OddScalarStatement
-EvenScalarStatement
-ScalarCongruenceStatement
-```
-
-まで実装済みである。
-
-一般の symbolic scalar arithmetic expression は未実装。
-
-Toda の計算では、
-
-```text
-(-1)^n
-```
-
-のような scalar expression を concrete sign に決めずに保持する必要がある。
-
-将来的な representation 候補:
-
-```text
-ScalarPower(
-  base=-1,
-  exponent=n,
-)
-```
-
-したがって、
-
-```text
-(-1)^n α
-```
-
-を、
-
-```text
-Multiple(
-  coefficient=ScalarPower(-1,n),
-  expression=α,
-)
-```
-
-のように構造的に保持できるようにする。
-
-必要最小限の scalar expression tree 候補:
-
-```text
-ScalarExpression
-├── ScalarInteger
-├── ScalarSymbol
-├── ScalarNegation
-├── ScalarSum
-├── ScalarProduct
-└── ScalarPower
-```
-
-ただし general-purpose CAS は目標としない。
-
-Actual theorem need に応じて必要な node だけ追加する。
-
----
-
-# 24. Parity reduction of `(-1)^n`
-
-`(-1)^n` は `±1` の単なる indeterminacy ではなく、
-`n` の parity によって値が決まる symbolic expression として扱う。
-
-将来的な rules:
-
-```text
-n even
-↓
-(-1)^n=1
-```
-
-```text
-n odd
-↓
-(-1)^n=-1
-```
-
-したがって、
-
-```text
-n even
-↓
-(-1)^n α=α
-```
-
-```text
-n odd
-↓
-(-1)^n α=-α
-```
-
-へ接続できる。
-
-Important distinction:
-
-```text
-±α
-```
-
-は sign indeterminacy。
-
-```text
-(-1)^n α
-```
-
-は symbolic scalar expression。
-
-Parity が未知の場合でも式をそのまま保持し、
-premature に `±α` へ collapse しない。
-
----
-
-# 25. Smash product support for Hopf formulas
-
-Toda 型の Hopf-invariant calculation では、
-
-```text
-γ ∧ γ
-```
-
-のような smash product が現れる。
-
-将来的な structural expression 候補:
-
-```text
-SmashProduct(
-  left=γ,
-  right=δ,
-)
-```
-
-Actual theorem example:
-
-```text
-H(γα)
-=
-(γ∧γ)H(α)
-```
-
-このような公式は無条件の generic rewrite とせず、
-
-```text
-typed variables
-dimension conditions
-map compatibility
-literature source
-```
-
-を持つ theorem / inference rule として登録する。
-
-将来の representative calculation:
-
-```text
-H((2ι₂)η₂)
-=
-E(2ι₁∧2ι₁)H(η₂)
-=
-2ι₃∘2ι₃∘ι₃
-=
-4ι₃
-```
-
-smash product 一般論は先取りせず、
-実際の Hopf formula に必要な最小 representation から追加する。
-
----
-
-# 26. Unstable Toda index-zero notation
-
-Unstable Toda bracket について、
-
-```text
-{a,b,c}_0
-=
-{a,b,c}
-```
-
-を notation-level equivalence として扱う。
-
-Internal canonical form の第一候補:
-
-```text
-TodaBracket(
-  entries=(a,b,c),
-  index=0,
-)
-```
-
-つまり unindexed notation:
-
-```text
-{a,b,c}
-```
-
-を内部的には index `0` として解釈する。
-
-一方、
-
-```text
-{a,b,c}_1
-{a,b,c}_2
-```
-
-等は別の bracket として保持する。
-
----
-
-# 27. Representative future map-theoretic proof scenarios
-
-## 27.1 `(2ι₂)η₂=4η₂`
-
-Goal:
+目標:
 
 ```text
 (2ι₂)η₂=4η₂
 ```
 
-Target proof structure:
+将来の proof structure:
 
 ```text
 H((2ι₂)η₂)
@@ -1063,7 +431,7 @@ H(4η₂)
 4ι₃
 ```
 
-したがって:
+よって:
 
 ```text
 H((2ι₂)η₂)=H(4η₂)
@@ -1079,7 +447,7 @@ Injective(H)
 (2ι₂)η₂=4η₂
 ```
 
-この scenario は、
+必要候補:
 
 ```text
 map typing
@@ -1091,17 +459,17 @@ equality reflection
 provenance
 ```
 
-の統合テスト候補となる。
+---
 
-## 27.2 `P(ι₅)=±2η₂`
+# 10. Representative map-theoretic scenario 2
 
-Goal:
+目標:
 
 ```text
 P(ι₅)=±2η₂
 ```
 
-Target theorem input:
+theorem input 候補:
 
 ```text
 n even
@@ -1109,25 +477,25 @@ n even
 HP(ι_{2n+1})=±2ι_{2n-1}
 ```
 
-`n=2` への specialization:
+`n=2`:
 
 ```text
 HP(ι₅)=±2ι₃
 ```
 
-Known:
+known:
 
 ```text
 H(η₂)=ι₃
 ```
 
-Homomorphism reasoning:
+homomorphism:
 
 ```text
 H(±2η₂)=±2ι₃
 ```
 
-したがって:
+よって:
 
 ```text
 HP(ι₅)=H(±2η₂)
@@ -1143,7 +511,7 @@ Injective(H)
 P(ι₅)=±2η₂
 ```
 
-この scenario は、
+必要候補:
 
 ```text
 theorem instantiation
@@ -1154,43 +522,322 @@ injectivity
 provenance
 ```
 
-の統合テスト候補となる。
+---
+
+# 11. Preimage / inverse-image reasoning
+
+一般の写像:
+
+```text
+f⁻¹(a)
+```
+
+は inverse map の値ではなく preimage set として扱う。
+
+候補:
+
+```text
+PreimageSet(
+  map=f,
+  value=a,
+)
+```
+
+基本 semantics:
+
+```text
+x ∈ f⁻¹(a)
+↔
+f(x)=a
+```
+
+`f⁻¹(a)` 自体を単一 element としない。
+
+必要なら:
+
+```text
+preimage set
++
+chosen witness
+```
+
+を分ける。
 
 ---
 
-# 28. Recommended long-term dependency extension
+# 12. Kernel-modulo equality reasoning
 
-Current main direction:
+重要な一般則:
 
 ```text
-Phase 26
-actual typed Toda entries / compatibility
+f(a)=f(b)
 ↓
-actual zero-composition knowledge
+a-b ∈ Ker(f)
 ↓
-actual Toda definedness
-↓
-actual theorem applicability
-↓
-actual ε₃ membership proof trace
+a≡b mod Ker(f)
 ```
 
-この current chain は維持する。
-
-その後または actual need に応じて、
+Phase 13〜15 の既存:
 
 ```text
+homomorphism
+ZERO
+kernel membership
+modulo ↔ difference membership
+```
+
+を再利用できる可能性が高い。
+
+専用 shortcut rule を増やす前に既存 rule composition を優先する。
+
+---
+
+# 13. Generator / composition fact provenance
+
+現在 generator typing provenance は data-path provenance。
+
+Phase 27 composition facts も explicit production fact だが、composition fact 自体の literature source は未導入。
+
+将来候補:
+
+```text
+known generator / composition fact
++
+LiteratureReference
+↓
+fact entry
+↓
+repository
+↓
+ProofStep.GIVEN
+```
+
+ただし theorem repository と対称にしたいだけの理由では追加しない。
+
+actual proof trace で source attribution が必要になった時点で導入する。
+
+---
+
+# 14. Additional production generator / composition facts
+
+現在の generator coverage:
+
+```text
+η₃
+ν′
+ν₇
+```
+
+現在の primitive zero-composition coverage:
+
+```text
+η₃ ∘ Eν′ = 0
+ν′ ∘ ν₆ = 0
+```
+
+必要な theorem / proof scenario が出たときだけ追加する。
+
+family formula や general composition table を先取りしない。
+
+---
+
+# 15. Nested expression typing
+
+現在:
+
+```text
+GeneratorSymbol
+↓
+materialized typed HomotopyElement
+↓
+Suspension
+↓
+shifted source / target
+```
+
+general recursive repository traversal は未実装。
+
+複数 nested expression form で本当に必要になったときに検討する。
+
+---
+
+# 16. Symbolic scalar expressions
+
+Phase 16 では:
+
+```text
+ScalarSymbol
+OddScalarStatement
+EvenScalarStatement
+ScalarCongruenceStatement
+```
+
+まで実装済み。
+
+一般の symbolic scalar arithmetic expression は未実装。
+
+将来候補:
+
+```text
+(-1)^n
+```
+
+を structural に保持するため:
+
+```text
+ScalarPower(
+  base=-1,
+  exponent=n,
+)
+```
+
+などを必要最小限で追加する。
+
+general-purpose CAS は目標としない。
+
+---
+
+# 17. `(-1)^n` の parity reduction
+
+```text
+n even
+↓
+(-1)^n=1
+```
+
+```text
+n odd
+↓
+(-1)^n=-1
+```
+
+重要な区別:
+
+```text
+±α
+```
+
+は sign indeterminacy。
+
+```text
+(-1)^n α
+```
+
+は symbolic scalar expression。
+
+parity 不明時に `±α` へ collapse しない。
+
+---
+
+# 18. Smash product
+
+Toda 型 Hopf-invariant calculation のため:
+
+```text
+γ ∧ δ
+```
+
+を structural に保持する候補:
+
+```text
+SmashProduct(
+  left=γ,
+  right=δ,
+)
+```
+
+theorem example:
+
+```text
+H(γα)
+=
+(γ∧γ)H(α)
+```
+
+無条件 generic rewrite にはせず、typed conditions / literature source を持つ theorem として扱う。
+
+---
+
+# 19. Unstable Toda index-zero notation
+
+将来:
+
+```text
+{a,b,c}_0
+=
+{a,b,c}
+```
+
+という notation-level equivalence を扱う候補。
+
+internal canonicalization は actual need に応じて決める。
+
+index `1`, `2`, ... は別 bracket として保持する。
+
+---
+
+# 20. Stable homotopy groups
+
+stable context:
+
+```text
+α ∈ π_k^S
+```
+
+は unstable:
+
+```text
+α ∈ π_m(S^n)
+```
+
+と明確に区別する。
+
+bridge は stabilization theorem に基づく。
+
+notation-only conversion は行わない。
+
+---
+
+# 21. Stable Toda brackets
+
+stable notation:
+
+```text
+<a,b,c>
+```
+
+は unstable:
+
+```text
+{a,b,c}
+```
+
+と別 representation にする。
+
+---
+
+# 22. Higher Toda brackets
+
+higher / variable-arity brackets は concrete literature example が必要になるまで deferred。
+
+---
+
+# 23. 長期 dependency
+
+Phase 27 完了後の候補:
+
+```text
+corrected actual ε₃ proof chain
+↓
 map typing
 ↓
 injectivity / isomorphism
 ↓
-preimage reasoning
+equality reflection
 ↓
-kernel-modulo equality
+preimage / kernel-modulo reasoning
 ↓
 symbolic scalar expressions
-↓
-(-1)^n parity reduction
 ↓
 smash product / Hopf formulas
 ↓
@@ -1201,50 +848,77 @@ stable homotopy representation
 stable Toda bracket
 ```
 
-へ進む。
+実際の theorem scenario に応じて順番は調整してよい。
 
-Important:
+---
+
+# 24. テスト / representative demonstration 原則
+
+各 layer で:
+
+1. representation
+2. structural distinction
+3. validity / applicability
+4. invalid-case behavior
+5. integration
+6. provenance
+7. representative scenario
+8. termination / scope
+9. full regression
+10. representative executable demonstration
+
+を確認する。
 
 ```text
-Phase 27 candidate
+pytest
 =
-actual ε₃ Toda-definedness bridge
+correctness / regression
 ```
 
-は今回の追記によって置き換えない。
+```text
+probe
+=
+人間が目で追える数学的 capability
+```
+
+probe は production APIs と existing inference rules を再利用し、別実装を作らない。
 
 ---
 
-# 29. Updated implementation-status additions
+# 25. 文書運用方針
 
-以下を current implementation-status table の将来項目として扱う。
+```text
+README.md
+=
+現在の capabilities / status
 
-| 項目 | 状態 | 備考 |
-|---|---|---|
-| typed `MapSymbol` domain / codomain | PLANNED | actual map-typing need |
-| `InjectiveMapStatement` | PLANNED | equality reflection |
-| `IsomorphismStatement` | PLANNED | injective / surjective bridge |
-| preimage `f⁻¹(a)` | PLANNED | set-valued inverse image |
-| preimage membership `x∈f⁻¹(a) ↔ f(x)=a` | PLANNED | theorem bridge |
-| `f(a)=f(b) ⇒ a≡b mod Ker(f)` | PLANNED | reuse Phase 13–15 |
-| symbolic scalar `(-1)^n` | PLANNED | preserve symbolic sign |
-| parity reduction of `(-1)^n` | PLANNED | even→1, odd→-1 |
-| smash product `γ∧δ` | PLANNED | Hopf formulas |
-| `{a,b,c}_0={a,b,c}` canonicalization | PLANNED | unstable Toda notation |
-| representative map-theoretic proof probes | PLANNED | after supporting APIs exist |
+docs/design.md
+=
+現在の architecture / semantics / boundaries
+
+docs/development_log.md
+=
+chronological implementation history
+
+docs/roadmap.md
+=
+future capability dependency
+```
+
+Phase completion ごとに historical statement と current specification を区別する。
 
 ---
 
-# 30. Long-term target extension
+# 26. 長期目標
 
-Long-term target に以下を追加する。
+最終的には:
 
 ```text
 known unstable homotopy groups
 +
 known stable homotopy groups
 +
-generator / map tables
+generator / composition / map tables
 +
 map-property facts
 +
@@ -1285,7 +959,9 @@ stable Toda brackets
 new homotopy-theoretic conclusions
 ```
 
-その際、
+を同一 proof graph 上で扱う。
+
+knowledge として:
 
 ```text
 exact value
@@ -1300,5 +976,4 @@ Toda-bracket membership
 stable Toda-bracket membership
 ```
 
-を provenance 付き knowledge として保持する。
-
+を provenance 付きで保持することを目標とする。
