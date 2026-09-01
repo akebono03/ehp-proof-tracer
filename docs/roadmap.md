@@ -9,15 +9,15 @@ README.md
 =
 current capabilities / current status
 
-docs/design.md
+ docs/design.md
 =
 current architecture / semantics / boundaries
 
-docs/development_log.md
+ docs/development_log.md
 =
 chronological implementation history
 
-docs/roadmap.md
+ docs/roadmap.md
 =
 future capability dependency
 ```
@@ -26,7 +26,7 @@ future capability dependency
 
 ---
 
-# 2. Phase 25 完了時点の実装基盤
+# 2. Phase 26 完了時点の実装基盤
 
 Implemented foundations:
 
@@ -51,14 +51,18 @@ Toda membership theorem bridge
 Indexed unstable Toda notation
 Typed HomotopyElement source / target context
 Structured GeneratorSymbol
-Indexed Toda theorem / validity connection
+Indexed Toda theorem validity
 Literature-backed theorem fact repository
 Explicit generator typing facts
 Explicit generator ambient-group facts
 Generator fact repository
 Typed-element materialization from explicit facts
-Toda entry typing integration
-Representative human-readable capability probe
+η₃ / ν′ / ν₇ production generator facts
+Explicit Eν′ typing connection via Suspension
+Actual typed {η₃,Eν′,ν₇}_1 representative
+Actual Toda defining-composition type compatibility
+Typing / ambient-group consistency query
+Representative human-readable capability probes
 ```
 
 ---
@@ -87,6 +91,14 @@ valid
 GeneratorSymbol
 ≠
 typing knowledge
+```
+
+```text
+type-compatible
+≠
+zero composition
+≠
+Toda definedness
 ```
 
 Avoid notation-derived hidden knowledge.
@@ -121,105 +133,109 @@ Indexed theorem validity
 Theorem fact repository
 ↓
 Generator typing / ambient-group facts
+↓
+Actual Toda-generator typing
+↓
+Actual Toda type compatibility
 ```
 
 ---
 
-# 5. Phase 25 completion
+# 5. Phase 26 completion
 
-Implemented:
-
-```text
-GeneratorTypingFact
-GeneratorAmbientGroupFact
-GeneratorFactRepository
-```
-
-Representative:
+Production generator coverage:
 
 ```text
 η₃ : S⁴ → S³
 η₃ ∈ π₄(S³)
+
+ν′ : S⁶ → S³
+ν′ ∈ π₆(S³)
+
+ν₇ : S¹⁰ → S⁷
+ν₇ ∈ π₁₀(S⁷)
 ```
 
-Production data:
+Production repository:
 
 ```text
-ETA_3_GENERATOR
-ETA_3_TYPING_FACT
-ETA_3_AMBIENT_GROUP_FACT
 GENERATOR_FACT_REPOSITORY
 ```
 
-Main chain:
+Actual typing chain:
 
 ```text
-GeneratorSymbol
-+
-explicit typing fact
+ν′ : S⁶ → S³
 ↓
-repository lookup
+Suspension
 ↓
-new typed HomotopyElement
-↓
-existing Toda compatibility
+Eν′ : S⁷ → S⁴
 ```
 
-Boundary:
+Actual Toda entries:
 
 ```text
-GeneratorSymbol.index
-↛
-automatic typing
+η₃  : S⁴  → S³
+Eν′ : S⁷  → S⁴
+ν₇  : S¹⁰ → S⁷
+```
+
+Actual indexed bracket:
+
+```text
+{η₃,Eν′,ν₇}_1
+```
+
+Verified compatibility:
+
+```text
+η₃ ∘ Eν′
+→ type-compatible
 ```
 
 ```text
-GeneratorAmbientGroupFact
-↛
-source / target typing
+Eν′ ∘ ν₇
+→ type-compatible
 ```
 
+Therefore:
+
 ```text
-generator repository
-!=
-theorem repository
+{η₃,Eν′,ν₇}_1
+→ defining compositions are type-compatible
+```
+
+Consistency API:
+
+```text
+is_typing_ambient_group_consistent()
+```
+
+Production results:
+
+```text
+η₃ → True
+ν′ → True
+ν₇ → True
 ```
 
 Verified:
 
 ```text
 tests/test_generator_facts.py
-55 passed
+100 passed in 0.39s
 ```
 
 ```text
 full suite
-1245 passed
+1290 passed in 23.16s
 ```
 
 Representative capability demo:
 
 ```powershell
-python -m probes.probe_phase25_capabilities
+python -m probes.probe_phase26_capabilities
 ```
-
-Visible current results:
-
-```text
-ε₃ ∈ {η₃,Eν′,ν₇}_1
-η₃ : S⁴ → S³
-η₃ ∈ π₄(S³)
-```
-
-Current visible boundary:
-
-```text
-ν′ / ν₇ production typing
-repository-derived Eν′ typing
-complete ε₃ Toda entry typing
-```
-
-remain future work.
 
 ---
 
@@ -242,18 +258,21 @@ remain future work.
 | theorem fact repository | IMPLEMENTED | Phase 24 |
 | `GeneratorTypingFact` | IMPLEMENTED | Phase 25 |
 | `GeneratorAmbientGroupFact` | IMPLEMENTED | Phase 25 |
-| η₃ generator facts | IMPLEMENTED | Phase 25 |
 | generator fact repository | IMPLEMENTED | Phase 25 |
-| exact generator lookup | IMPLEMENTED | Phase 25 |
-| typed-element materialization | IMPLEMENTED | Phase 25 |
-| duplicate generator-fact rejection | IMPLEMENTED | Phase 25 |
-| Toda entry typing connection | IMPLEMENTED | Phase 25 |
-| representative capability demo convention | IMPLEMENTED | post-Phase 25 documentation / probe |
-| generator-fact literature provenance | NEXT CANDIDATE | Phase 26 candidate |
-| ν′ / ν₇ production typing facts | PLANNED | actual Toda requirement |
-| typing ↔ ambient consistency validation | PLANNED | actual validation need |
-| nested Suspension typing from repository | PLANNED | actual expression need |
+| η₃ generator facts | IMPLEMENTED | Phase 25 |
+| ν′ generator facts | IMPLEMENTED | Phase 26 |
+| ν₇ generator facts | IMPLEMENTED | Phase 26 |
+| production η₃ / ν′ / ν₇ repository coverage | IMPLEMENTED | Phase 26 |
+| explicit Eν′ typing connection | IMPLEMENTED | Phase 26 |
+| actual typed `{η₃,Eν′,ν₇}_1` | IMPLEMENTED | Phase 26 |
+| actual Toda type compatibility | IMPLEMENTED | Phase 26 |
+| typing ↔ ambient consistency query | IMPLEMENTED | Phase 26 |
+| representative capability demo convention | IMPLEMENTED | Phase 25+ |
+| generator-fact literature provenance | PLANNED | concrete provenance need |
+| actual zero-composition facts for ε₃ entries | NEXT CANDIDATE | deepen same proof chain |
+| actual Toda definedness from explicit zero premises | PLANNED | after zero-composition facts |
 | name / generator validation | PLANNED | explicit validation layer |
+| dimension / generator validation | PLANNED | explicit validation layer |
 | external generator-table loader | PLANNED | actual file-loading need |
 | general theorem representation | PLANNED | quantified theorem need |
 | stable homotopy group `π_k^S` | PLANNED | stable context |
@@ -262,16 +281,86 @@ remain future work.
 
 ---
 
-# 7. Phase 26 candidate
+# 7. Recommended next Phase direction
+
+The strongest next direction is to deepen the same actual ε₃ bracket chain.
+
+Current state:
+
+```text
+explicit generator facts
+↓
+typed η₃ / Eν′ / ν₇
+↓
+type-compatible defining compositions
+```
+
+Natural next requirement:
+
+```text
+η₃ ∘ Eν′ = 0
+Eν′ ∘ ν₇ = 0
+```
+
+as explicit mathematical facts or consequences of already supported rules.
+
+Then:
+
+```text
+zero compositions
+↓
+Toda definedness
+↓
+existing theorem fact
+↓
+ε₃ ∈ {η₃,Eν′,ν₇}_1
+```
+
+This would connect the Phase 24 theorem fact and Phase 26 typed actual bracket into a deeper end-to-end proof trace.
+
+---
+
+# 8. Candidate Phase 27
 
 Natural candidate:
 
 ```text
-Phase 26
-Generator fact provenance / actual Toda-generator typing expansion
+Phase 27
+actual ε₃ Toda-definedness bridge
 ```
 
-Possible first actual requirement:
+A possible split:
+
+```text
+27-1  η₃ ∘ Eν′ zero-composition fact requirement
+27-2  Eν′ ∘ ν₇ zero-composition fact requirement
+27-3  zero-composition fact representation / repository choice
+27-4  production registration
+27-5  typed actual compositions ↔ zero facts connection
+27-6  actual {η₃,Eν′,ν₇}_1 definedness derivation
+27-7  theorem fact applicability with actual definedness
+27-8  ε₃ membership end-to-end representative
+27-9  provenance / regression / scope
+27-10 Phase 27 completion整理
+```
+
+This is only a roadmap suggestion. Exact Phase 27 scope should be fixed from current code and the actual mathematical sources before implementation.
+
+---
+
+# 9. Generator-fact provenance
+
+Current generator provenance is:
+
+```text
+registered explicit fact
+↓
+repository lookup
+↓
+materialized typed element
+```
+
+Potential future extension:
 
 ```text
 known generator typing statement
@@ -285,35 +374,26 @@ repository
 typed element
 ```
 
-Alternative:
-
-```text
-ν′ / ν₇ typing facts
-↓
-explicit materialization
-↓
-actual ε₃ Toda entry typing
-```
-
-Do not implement both automatically unless the actual requirement needs both.
+Do not add `LiteratureReference` solely for symmetry with theorem facts. Add it when an actual generator fact requires source attribution in the proof trace.
 
 ---
 
-# 8. Additional production generator facts
+# 10. Additional production generator facts
 
-Current production fact coverage:
+Current production coverage:
 
 ```text
 η₃
-```
-
-Potential needs:
-
-```text
 ν′
 ν₇
+```
+
+Potential future needs:
+
+```text
 μ₃
 ι₇
+other η_n / ν_n
 ```
 
 Add only facts required by concrete theorem / proof scenarios.
@@ -322,47 +402,47 @@ Do not create a family formula solely because notation has an index.
 
 ---
 
-# 9. Nested expression typing
+# 11. Nested expression typing
 
-Potential future requirement:
+Current explicit pattern:
 
 ```text
 GeneratorSymbol
 ↓
-typed HomotopyElement
+materialized typed HomotopyElement
 ↓
 Suspension
 ↓
 shifted source / target
 ```
 
-Reuse existing Suspension semantics after explicit base-element materialization.
+No general recursive repository traversal exists.
 
-Do not introduce recursive global expression inference prematurely.
-
----
-
-# 10. Typing / ambient-group consistency
-
-Current separate facts:
-
-```text
-GeneratorTypingFact(source,target)
-GeneratorAmbientGroupFact(group_dimension,sphere_dimension)
-```
-
-No rule currently asserts:
-
-```text
-source == group_dimension
-target == sphere_dimension
-```
-
-A future explicit consistency predicate may be introduced when required.
+Future recursive typing should be introduced only if multiple nested expression forms create a real need.
 
 ---
 
-# 11. Stable homotopy groups
+# 12. Typing / ambient-group consistency
+
+Current API:
+
+```text
+is_typing_ambient_group_consistent(generator)
+```
+
+Current semantics:
+
+```text
+True / False / None
+```
+
+No auto-conversion and no repository-construction rejection for cross-family mismatch.
+
+A stronger validation layer should only be added when an actual workflow needs strict rejection.
+
+---
+
+# 13. Stable homotopy groups
 
 Future stable context:
 
@@ -380,7 +460,7 @@ Bridges should use stabilization mathematics, not notation-only conversion.
 
 ---
 
-# 12. Stable Toda brackets
+# 14. Stable Toda brackets
 
 Stable notation:
 
@@ -396,33 +476,34 @@ must remain distinct from unstable:
 
 ---
 
-# 13. Higher Toda brackets
+# 15. Higher Toda brackets
 
 Higher / variable-arity brackets remain deferred until concrete literature examples require them.
 
 ---
 
-# 14. Long-term dependency suggestion
+# 16. Long-term dependency suggestion
 
 ```text
-Phase 25
-explicit generator facts
+Phase 26
+actual typed Toda entries / compatibility
 ↓
-Phase 26 candidate
-generator fact provenance / additional actual typing facts
+actual zero-composition knowledge
 ↓
-explicit nested generator-expression typing
+actual Toda definedness
 ↓
-actual Toda theorem typing expansion
+actual theorem applicability
 ↓
-ambient / stem validation when needed
+actual ε₃ membership proof trace
+↓
+generator / theorem provenance expansion when needed
 ↓
 stable homotopy representation
 ↓
 stable Toda bracket
 ```
 
-At each suitable Phase boundary, also grow a representative executable proof / validation scenario so that the visible mathematical chain becomes deeper rather than only increasing internal API coverage.
+At each suitable Phase boundary, grow a representative executable proof / validation scenario so that the visible mathematical chain becomes deeper rather than only increasing internal API coverage.
 
 Target direction:
 
@@ -446,7 +527,7 @@ human-readable proof trace
 
 ---
 
-# 15. Testing and representative-demonstration principle
+# 17. Testing and representative-demonstration principle
 
 For each new layer:
 
@@ -459,16 +540,7 @@ For each new layer:
 7. representative scenario
 8. termination / scope boundary
 9. full regression
-
-In addition, when the Phase has a meaningful human-visible mathematical result:
-
-10. provide or extend a representative probe,
-11. run it from the project root,
-12. show the premises / registered facts,
-13. show the applied inference or validation,
-14. show the mathematical conclusion,
-15. show the previous-Phase difference,
-16. show the remaining Phase boundary.
+10. representative executable demonstration when mathematically meaningful
 
 Tests and probes have different purposes:
 
@@ -476,7 +548,9 @@ Tests and probes have different purposes:
 pytest
 =
 correctness / regression
+```
 
+```text
 representative probe
 =
 visible mathematical progress
@@ -494,29 +568,29 @@ when the probe imports project-root modules.
 
 ---
 
-# 16. Documentation policy
+# 18. Documentation policy
 
 ```text
 README.md
 =
 current capabilities / current status
 
-docs/design.md
+ docs/design.md
 =
 current architecture / semantics / boundaries
 
-docs/development_log.md
+ docs/development_log.md
 =
 chronological implementation history
 
-docs/roadmap.md
+ docs/roadmap.md
 =
 future capability dependency
 ```
 
 ---
 
-# 17. 長期目標
+# 19. 長期目標
 
 最終的には:
 
