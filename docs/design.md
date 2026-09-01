@@ -1,6 +1,6 @@
 # ehp_proof 設計メモ
 
-この文書は Phase 28 完了時点の current architecture / semantics / design boundary を正本としてまとめる。
+この文書は Phase 29 完了時点の current architecture / semantics / design boundary を正本としてまとめる。
 
 過去の `development_log.md` にある「未実装」「今後の課題」は、その Phase 時点の historical statement であり、current specification とは限らない。
 
@@ -12,7 +12,7 @@
 literature-backed theorem facts / repository
 explicit generator facts / repository
 explicit composition facts / repository
-explicit map-property statements / future map facts
+explicit map facts / repository
         ↓
 homotopy / EHP / map-property domain inference rules
         ↓
@@ -40,9 +40,9 @@ explicit fact / domain rule
 既存機構
 ```
 
-Phase 24 の theorem repository、Phase 25 / 26 の generator repository、Phase 27 の composition fact repository、Phase 28 の map-property statement / rule は、それぞれ責務を分離する。
+Phase 24 の theorem repository、Phase 25 / 26 の generator repository、Phase 27 の composition fact repository、Phase 28 の map-property statement / rule、Phase 29 の actual map fact / repository は責務を分離する。
 
-generic inference engine に個別の generator / Toda theorem / composition fact / map property fact を埋め込まない。
+generic inference engine に個別の generator / Toda theorem / composition fact / map fact を埋め込まない。
 
 ---
 
@@ -80,10 +80,11 @@ Expression layer は syntax / structure を lossless に保持する。
 - theorem repository lookup
 - generator fact repository lookup
 - composition fact repository lookup
+- map fact repository lookup
 - map property theorem applicability
 - literature provenance materialization
 - generator notation からの automatic typing
-- map notation からの injectivity / isomorphism 推測
+- map notation からの typing / injectivity / isomorphism 推測
 - automatic family formula
 - general recursive repository traversal
 - ambient homotopy-group validation
@@ -123,7 +124,7 @@ untyped η₃
 typed η₃ : S⁴ → S³
 ```
 
-Phase 28 では map property についても同じ原則を採用する。
+map property についても:
 
 ```text
 IsomorphismStatement(f)
@@ -131,7 +132,21 @@ IsomorphismStatement(f)
 InjectiveMapStatement(f)
 ```
 
-数学的 implication は structural equality ではなく explicit inference rule で表す。
+Phase 29 では knowledge-layer map objects についても structural equality を採用する。
+
+```text
+MapSymbol(H)
+!=
+MapTypingFact(H context)
+```
+
+```text
+MapIsomorphismFact(H context)
+!=
+IsomorphismStatement(H)
+```
+
+数学的 implication / knowledge materialization は structural equality ではなく explicit API / inference rule で表す。
 
 ---
 
@@ -148,7 +163,7 @@ iterate
 trace
 ```
 
-Phase 28 でも generic engine は変更しない。
+Phase 29 でも generic engine は変更しない。
 
 Theorem repository の責務:
 
@@ -179,7 +194,7 @@ exact composition lookup
 必要最小限の typed/untyped structure lookup
 ```
 
-Phase 28 の map-property layer の責務:
+Phase 28 map-property layer の責務:
 
 ```text
 InjectiveMapStatement
@@ -189,7 +204,15 @@ injective-map equality reflection
 same-map applicability guard
 ```
 
-Phase 28 では map-property repository はまだ追加しない。
+Phase 29 map-fact layer の責務:
+
+```text
+actual map identity
+map typing context
+map isomorphism fact
+exact typing-context repository lookup
+knowledge fact → ProofStep.GIVEN materialization
+```
 
 ---
 
@@ -365,28 +388,10 @@ Eν′ : S⁷  → S⁴
 actual typed bracket:
 
 ```text
-TodaBracket(
-  first=typed η₃,
-  second=Suspension(typed ν′),
-  third=typed ν₇,
-  index=1,
-)
-```
-
-表示上:
-
-```text
 {η₃,Eν′,ν₇}_1
 ```
 
-displayed adjacent compositions の type compatibility:
-
-```text
-η₃.source == Eν′.target == 4
-Eν′.source == ν₇.target == 7
-```
-
-ただし:
+重要:
 
 ```text
 type-compatible
@@ -398,8 +403,6 @@ zero composition
 
 # 12. Phase 27 composition knowledge
 
-Phase 27 では actual ε₃ indexed Toda bracket の definedness に必要な explicit composition knowledge を追加した。
-
 primitive zero-composition facts:
 
 ```text
@@ -407,19 +410,13 @@ primitive zero-composition facts:
 ν′ ∘ ν₆ = 0
 ```
 
-さらに Suspension identification:
+Suspension identification:
 
 ```text
 Eν₆ = ν₇
 ```
 
-重要:
-
-```text
-Eν₆ = ν₇
-```
-
-は `RelationType.EQUALITY` であり、zero-composition repository には入れない。
+`Eν₆ = ν₇` は `RelationType.EQUALITY` であり、zero-composition repository には入れない。
 
 ---
 
@@ -438,7 +435,7 @@ production repository:
 ZERO_COMPOSITION_FACT_REPOSITORY
 ```
 
-constructor は少なくとも以下を検査する:
+constructor は少なくとも:
 
 ```text
 lhs is Composition
@@ -446,6 +443,8 @@ rhs == Zero()
 relation_type == RelationType.ZERO
 duplicate composition がない
 ```
+
+を検査する。
 
 ---
 
@@ -457,15 +456,15 @@ exact lookup:
 lookup(composition)
 ```
 
-は通常の structural equality を使う。
+は structural equality を使う。
 
-Phase 27 の actual bridge のために:
+Phase 27 の actual bridge のため:
 
 ```text
 lookup_by_untyped_structure(composition)
 ```
 
-を追加した。
+を持つ。
 
 この API が無視するのは:
 
@@ -474,33 +473,11 @@ HomotopyElement.source
 HomotopyElement.target
 ```
 
-だけである。
-
-無視しないもの:
-
-```text
-name
-dimension
-generator
-Suspension structure
-Composition left/right structure
-```
-
-これは general wildcard equality ではない。
+のみ。
 
 ---
 
 # 15. Corrected indexed Toda definedness semantics
-
-Phase 27 の重要な correction:
-
-表示上の bracket が
-
-```text
-{η₃,Eν′,ν₇}_1
-```
-
-であっても、index 1 の defining condition を単純な displayed-adjacent pair として扱わない。
 
 current corrected input:
 
@@ -547,13 +524,6 @@ Toda theorem:
 ε₃ ∈ {η₃,Eν′,ν₇}_1
 ```
 
-rules:
-
-```text
-indexed_toda_bracket_index1_defined_inference_rule()
-toda_bracket_membership_from_theorem_inference_rule()
-```
-
 同一 fixed-point run:
 
 ```text
@@ -568,8 +538,6 @@ Round 2
 
 # 17. Phase 28 map-property statement layer
 
-Phase 28 では map-theoretic equality reflection の最小基盤を追加した。
-
 追加 statement:
 
 ```text
@@ -580,15 +548,8 @@ IsomorphismStatement
 最小構造:
 
 ```text
-InjectiveMapStatement(
-  map: MapSymbol
-)
-```
-
-```text
-IsomorphismStatement(
-  map: MapSymbol
-)
+InjectiveMapStatement(map=f)
+IsomorphismStatement(map=f)
 ```
 
 重要:
@@ -619,7 +580,7 @@ InjectiveMapStatement(f)
 IsomorphismStatement(f)
 ```
 
-数学的には:
+数学的 implication:
 
 ```text
 Isomorphism(f)
@@ -627,13 +588,11 @@ Isomorphism(f)
 Injective(f)
 ```
 
-だが、この implication は structural equality ではなく inference rule で表す。
+は explicit inference rule で表す。
 
 ---
 
 # 19. Isomorphism → Injective inference
-
-Phase 28-3 で追加:
 
 ```text
 isomorphism_implies_injective_inference_rule()
@@ -647,77 +606,29 @@ Isomorphism(f)
 Injective(f)
 ```
 
-conclusion は premise 内の同じ `MapSymbol` を保持する。
-
-```text
-Isomorphism(f)
-↛
-Injective(g)
-```
-
-reverse implication:
-
-```text
-Injective(f)
-↛
-Isomorphism(f)
-```
-
-は追加しない。
+reverse implication は追加しない。
 
 ---
 
 # 20. MapApplication equality representation
 
-既存 `MapApplication`:
-
 ```text
-MapApplication(
-  map=f,
-  expression=a,
-)
+MapApplication(map=f, expression=a)
 ```
 
 は `f(a)` を表す。
-
-したがって:
 
 ```text
 f(a)=f(b)
 ```
 
-は既存 `Relation` で:
+は `RelationType.EQUALITY` で表現する。
 
-```text
-Relation(
-  lhs=MapApplication(
-    map=f,
-    expression=a,
-  ),
-  rhs=MapApplication(
-    map=f,
-    expression=b,
-  ),
-  relation_type=RelationType.EQUALITY,
-)
-```
-
-と表現できる。
-
-専用の:
-
-```text
-MapEqualityStatement
-ImageEqualityStatement
-```
-
-は追加しない。
+専用 `MapEqualityStatement` は追加しない。
 
 ---
 
 # 21. Injective map equality reflection
-
-Phase 28-5 で追加:
 
 ```text
 injective_map_reflects_equality_inference_rule()
@@ -733,34 +644,20 @@ f(a)=f(b)
 a=b
 ```
 
-guard は少なくとも:
+guard は:
 
 ```text
-equality lhs is MapApplication
-equality rhs is MapApplication
+lhs is MapApplication
+rhs is MapApplication
 lhs.map == rhs.map
 injective_statement.map == lhs.map
 ```
 
 を要求する。
 
-conclusion:
-
-```text
-Relation(
-  lhs=lhs.expression,
-  rhs=rhs.expression,
-  relation_type=RelationType.EQUALITY,
-)
-```
-
-つまり mapped expression 自体を lossless に取り出し、名前解析などで復元しない。
-
 ---
 
 # 22. Equality reflection の invalid boundary
-
-以下では rule を適用しない。
 
 ```text
 Injective(f) + g(a)=g(b)
@@ -773,30 +670,13 @@ Injective(f) + f(a)=g(b)
 ```
 
 ```text
-Isomorphism(f) + g(a)=g(b)
-↛ a=b
-```
-
-```text
 Injective(f) + plain a=b
 ↛ equality-reflection rule
 ```
 
-必要条件は:
-
-```text
-same map on both MapApplications
-+
-injectivity of that same map
-```
-
-である。
-
 ---
 
 # 23. Phase 28 end-to-end fixed-point inference
-
-initial knowledge:
 
 ```text
 GIVEN
@@ -804,18 +684,7 @@ Isomorphism(f)
 
 GIVEN
 f(a)=f(b)
-```
 
-rules:
-
-```text
-isomorphism_implies_injective_inference_rule()
-injective_map_reflects_equality_inference_rule()
-```
-
-結果:
-
-```text
 Round 1
 Injective(f)
 
@@ -829,92 +698,366 @@ termination:
 InferenceTerminationReason.FIXED_POINT
 ```
 
-```text
-round_count == 2
-```
-
 ---
 
 # 24. Phase 28 provenance
 
-derived injectivity step:
+final equality step:
 
 ```text
-rule = ProofRule.INFERENCE
-inference_rule = isomorphism_implies_injective_inference_rule()
 premises =
-  isomorphism_step
+  derived Injective(f)
+  mapped equality f(a)=f(b)
 ```
 
-derived equality step:
+injectivity step:
 
 ```text
-rule = ProofRule.INFERENCE
-inference_rule = injective_map_reflects_equality_inference_rule()
 premises =
-  derived injective_step
-  mapped_equality_step
+  Isomorphism(f)
 ```
-
-したがって final `a=b` から:
-
-```text
-a=b
-↓
-Injective(f)
-↓
-Isomorphism(f)
-```
-
-および:
-
-```text
-a=b
-↓
-f(a)=f(b)
-```
-
-まで辿れる。
 
 ---
 
-# 25. Unrelated fact exclusion
+# 25. Phase 29 actual map identity
 
-inference run に unrelated fact が含まれていても:
+Phase 29-1 で production map identity を追加:
 
 ```text
-unrelated fact
-↛ Injective(f) premises
+HOPF_MAP = MapSymbol(name="H")
+```
+
+意味:
+
+```text
+project-wide actual map identity for H
+```
+
+ただし:
+
+```text
+HOPF_MAP
+↛ typing
+↛ isomorphism
+↛ injectivity
+```
+
+`MapSymbol` 自体は generic structural identity のまま保持する。
+
+---
+
+# 26. MapTypingFact semantics
+
+Phase 29-2 で追加:
+
+```text
+MapTypingFact
+```
+
+fields:
+
+```text
+map: MapSymbol
+source_group_dimension: int
+source_sphere_dimension: int
+target_group_dimension: int
+target_sphere_dimension: int
+```
+
+これは:
+
+```text
+π_m(S^n) → π_p(S^q)
+```
+
+型の map context を lossless に保持する。
+
+`MapSymbol` に source / target を埋め込まない。
+
+Critical:
+
+```text
+MapSymbol
+!=
+MapTypingFact
+```
+
+同じ `MapSymbol("H")` が将来異なる degree/context に現れても structural に区別できる。
+
+---
+
+# 27. Actual H typing fact
+
+Phase 29-3 production knowledge:
+
+```text
+HOPF_MAP_TYPING_FACT
+```
+
+represents:
+
+```text
+H : π₃(S²) → π₃(S³)
+```
+
+structure:
+
+```text
+map = HOPF_MAP
+source = π₃(S²)
+target = π₃(S³)
+```
+
+`HOPF_MAP` 自体は unchanged。
+
+---
+
+# 28. MapIsomorphismFact semantics
+
+Phase 29-4 で追加:
+
+```text
+MapIsomorphismFact
+  typing: MapTypingFact
+```
+
+意味:
+
+```text
+この typing context の map は isomorphism
+```
+
+property fact は map identity だけではなく typing context を structural identity に含める。
+
+Critical:
+
+```text
+MapIsomorphismFact
+!=
+IsomorphismStatement
+```
+
+前者は knowledge-layer object、後者は proof-level statement。
+
+---
+
+# 29. MapIsomorphismFactRepository semantics
+
+Phase 29-5 で追加:
+
+```text
+MapIsomorphismFactRepository
+```
+
+production:
+
+```text
+HOPF_MAP_ISOMORPHISM_FACT
+MAP_ISOMORPHISM_FACT_REPOSITORY
+```
+
+actual fact:
+
+```text
+H : π₃(S²) → π₃(S³)
+is an isomorphism
+```
+
+repository API:
+
+```text
+lookup(typing: MapTypingFact)
+```
+
+lookup は exact structural equality。
+
+```text
+unknown typing
+→ None
 ```
 
 ```text
+same H + different typing
+→ separate context
+```
+
+同一 typing context の duplicate isomorphism fact は reject。
+
+---
+
+# 30. Map isomorphism fact materialization
+
+Phase 29-6 で:
+
+```text
+MapIsomorphismFact.to_proof_step()
+```
+
+を追加。
+
+materialization:
+
+```text
+knowledge fact
+↓
+ProofStep.GIVEN
+↓
+IsomorphismStatement(map=fact.typing.map)
+```
+
+これは inference ではない。
+
+```text
+rule = ProofRule.GIVEN
+premises = ()
+inference_rule = None
+```
+
+Current boundary:
+
+proof-level `IsomorphismStatement` は typing context を保持せず map identity のみを保持する。
+
+Phase 29 の actual production context は1件なので narrow bridge として許容する。
+
+将来、同じ map identity の複数 typing context を同一 proof graph 上で同時に扱う必要が生じた場合に typed property statement を検討する。
+
+---
+
+# 31. Actual H isomorphism → injectivity connection
+
+Phase 29-7 では production code を追加せず existing Phase 28 rule を再利用する。
+
+```text
+MAP_ISOMORPHISM_FACT_REPOSITORY
+↓ lookup
+HOPF_MAP_ISOMORPHISM_FACT
+↓ to_proof_step()
+GIVEN Isomorphism(H)
+↓ existing inference
+Injective(H)
+```
+
+provenance:
+
+```text
+Injective(H).premises =
+  actual fact-derived Isomorphism(H) step
+```
+
+---
+
+# 32. Actual H end-to-end equality reflection
+
+Phase 29-8 representative chain:
+
+```text
+PRODUCTION FACT
+H : π₃(S²) → π₃(S³) is an isomorphism
+
+↓ materialize
+
+GIVEN
+Isomorphism(H)
+
+↓
+Injective(H)
+
++
+
+GIVEN
+H(a)=H(b)
+
+↓
+a=b
+```
+
+single fixed-point run:
+
+```text
+Round 1
+Injective(H)
+
+Round 2
+a=b
+```
+
+termination:
+
+```text
+InferenceTerminationReason.FIXED_POINT
+```
+
+Important boundary:
+
+```text
+actual H property
++
+representative mapped equality
+```
+
+までであり、actual mapped equality はまだ計算しない。
+
+---
+
+# 33. Phase 29 provenance / invalid / scope semantics
+
+Phase 29-9 で actual-H chain に対して regression を固定。
+
+full proof-level provenance:
+
+```text
+a=b
+↓
+Injective(H)
+↓
+Isomorphism(H) GIVEN
+```
+
+and:
+
+```text
+a=b
+↓
+H(a)=H(b)
+```
+
+Different map:
+
+```text
+Injective(H) + g(a)=g(b)
+↛ a=b
+```
+
+Unknown typing:
+
+```text
+same MapSymbol("H")
++
+unregistered typing context
+↛ H isomorphism fact
+```
+
+Unrelated fact:
+
+```text
 unrelated fact
+↛ Injective(H) premises
 ↛ a=b premises
 ```
 
-を保証する。
-
-provenance は applicability に実際に必要だった premise のみ保持する。
-
----
-
-# 26. Deduplication / genuine fixed point
-
-Phase 28 end-to-end chain では:
+Deduplication:
 
 ```text
-Injective(f)
-→ 1個
+Injective(H)
+→ exactly 1 derived step
 ```
 
 ```text
 a=b
-→ 1個
+→ exactly 1 derived step
 ```
 
-に deduplicate される。
-
-完了後の knowledge に対し:
+Genuine fixed point:
 
 ```text
 derive_inference_round_result(
@@ -923,80 +1066,118 @@ derive_inference_round_result(
 )
 ```
 
-を再実行すると:
+returns:
 
 ```text
 new_steps == ()
 ```
 
-したがって genuine fixed point に達している。
+---
+
+# 34. Knowledge provenance boundary
+
+`MapIsomorphismFact.to_proof_step()` は current proof graph に:
+
+```text
+ProofStep.GIVEN(Isomorphism(H))
+```
+
+を投入する。
+
+現在、`ProofStep.premises` に `MapIsomorphismFact` 自体は保持しない。
+
+したがって first-class proof-level provenance は:
+
+```text
+Isomorphism(H) GIVEN
+↓
+Injective(H)
+↓
+a=b
+```
+
+まで。
+
+knowledge supply provenance:
+
+```text
+HOPF_MAP_ISOMORPHISM_FACT
+↓ to_proof_step()
+Isomorphism(H) GIVEN
+```
+
+は materialization API と repository lookup により追跡できるが、`ProofStep` graph の premise object ではない。
+
+この provenance model を拡張する具体的必要が出るまで一般化しない。
 
 ---
 
-# 27. Phase 28 representative probe
+# 35. Phase 29 representative probe
 
 実行:
 
 ```powershell
-python -m probes.probe_phase28_capabilities
+python -m probes.probe_phase29_capabilities
 ```
 
-表示する chain:
+表示:
 
 ```text
+PRODUCTION FACT
+H : π₃(S²) → π₃(S³) is an isomorphism
+
+MATERIALIZE
+↓
+
 GIVEN
 H is an isomorphism
 
 INFERENCE
+isomorphism implies injectivity
+↓
 H is injective
 
 GIVEN
 H(a)=H(b)
 
 INFERENCE
+injective map reflects equality
+↓
 a=b
 ```
-
-表示:
 
 ```text
 rounds = 2
 termination = InferenceTerminationReason.FIXED_POINT
 ```
 
-重要:
-
-```text
-H
-=
-Phase 28 では representative MapSymbol
-```
-
-actual Hopf map property fact ではない。
-
-probe は production APIs / rules / generic engine を再利用し、数学を別実装しない。
-
 ---
 
-# 28. Phase 28 completion boundary
+# 36. Phase 29 completion boundary
 
 実装済み:
 
 ```text
-InjectiveMapStatement
-IsomorphismStatement
-isomorphism → injective inference
-MapApplication equality representation
-injective equality reflection
-same-map guard
-two-round end-to-end inference
-full ProofStep provenance
-mismatched-map rejection
-plain-equality rejection
+HOPF_MAP
+MapTypingFact
+HOPF_MAP_TYPING_FACT
+MapIsomorphismFact
+HOPF_MAP_ISOMORPHISM_FACT
+MapIsomorphismFactRepository
+MAP_ISOMORPHISM_FACT_REPOSITORY
+exact typing-context lookup
+duplicate fact rejection
+MapIsomorphismFact.to_proof_step()
+actual fact → IsomorphismStatement(H)
+actual Isomorphism(H) → Injective(H)
+actual-H fact-driven equality reflection
+full proof-level provenance regression
+different-map rejection
+unknown-typing-context rejection
 unrelated-fact exclusion
 deduplication
 genuine fixed-point regression
-human-readable capability probe
+human-readable Phase 29 capability probe
 ```
 
 generic inference engine:
@@ -1008,93 +1189,88 @@ generic inference engine:
 最終確認:
 
 ```text
-tests/test_map_property_rules.py
-26 passed in 1.42s
-```
-
-```text
 full suite
-1358 passed in 102.90s
+1408 passed in 96.81s
 ```
 
 ---
 
-# 29. Phase 28 non-goals
+# 37. Phase 29 non-goals
 
 未実装:
 
 - typed `MapSymbol` domain / codomain
-- actual Hopf map `H` identity facts
-- actual `H` isomorphism facts
-- map-property fact repository
-- map-property literature provenance
+- typing-aware proof-level map-property statement
+- literature provenance for map facts
+- map fact as first-class `ProofStep` premise provenance
+- Hopf formula
+- smash product
+- actual calculation of `H((2ι₂)η₂)`
+- actual mapped equality `H((2ι₂)η₂)=H(4η₂)`
+- actual proof `(2ι₂)η₂=4η₂`
 - `SurjectiveMapStatement`
 - preimage representation
 - kernel-modulo equality shortcut
-- Hopf invariant formula
-- smash product
-- actual `(2ι₂)η₂=4η₂` calculation
 
 ---
 
-# 30. 次の設計境界
+# 38. 次の設計境界
 
-Phase 28 で generic map-property equality reflection は完成した。
-
-次の Phase 29 は:
+Phase 29 で:
 
 ```text
-actual H map facts / typing
+actual H mathematical knowledge
+↓
+proof-level Isomorphism(H)
+↓
+Injective(H)
+↓
+equality reflection
+```
+
+まで完成した。
+
+次の Phase 30 は:
+
+```text
+Hopf formula minimum representation
 ```
 
 を推奨する。
 
-目的は Phase 28 の representative:
+対象となる代表式:
 
 ```text
-H is an isomorphism
-H(a)=H(b)
-↓
-a=b
+H(γ α)=(γ∧γ)H(α)
 ```
 
-のうち、`H is an isomorphism` を仮の GIVEN ではなく actual mathematical knowledge に置き換えることである。
-
-候補:
-
-```text
-actual H map identity
-actual H source / target context
-actual H isomorphism property
-必要なら explicit fact / repository / provenance
-```
-
-Phase 29 ではまだ:
-
-```text
-H((2ι₂)η₂)=4ι₃
-```
-
-の計算全体を先取りしない。
+ただし Phase 30 では formula を structural に表現する最小 layer から開始し、無条件 generic rewrite や smash product の全面実装を先取りしない。
 
 長期 dependency:
 
 ```text
-Phase 28
-generic injectivity / isomorphism / equality reflection
-↓
 Phase 29
-actual H map facts / typing
+actual H facts / equality reflection
 ↓
-Phase 30+
-Hopf formula / smash product / actual calculation
+Phase 30
+Hopf formula minimum representation
+↓
+Phase 31
+smash product
+↓
+Phase 32+
+actual H calculation
+↓
+H((2ι₂)η₂)=H(4η₂)
+↓
+existing equality reflection
 ↓
 (2ι₂)η₂=4η₂
 ```
 
 ---
 
-# 31. テスト原則
+# 39. テスト原則
 
 新しい数学的 layer ごとに:
 
@@ -1115,7 +1291,7 @@ structural-only Phase では存在しない inference / provenance を先取り�
 
 ---
 
-# 32. 文書運用方針
+# 40. 文書運用方針
 
 ```text
 README.md

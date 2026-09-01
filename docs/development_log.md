@@ -1,6 +1,6 @@
 # ehp_proof 開発記録
 
-この文書は Phase 28 完了時点までの開発履歴を、現在の実装と矛盾しない形で整理した改訂版である。
+この文書は Phase 29 完了時点までの開発履歴を、現在の実装と矛盾しない形で整理した改訂版である。
 
 ```text
 各 Phase の「未実装」「次の課題」
@@ -248,8 +248,6 @@ actual bracket:
 {η₃,Eν′,ν₇}_1
 ```
 
-displayed adjacent compositions は type-compatible。
-
 重要:
 
 ```text
@@ -267,10 +265,6 @@ Toda definedness
 ---
 
 # Phase 27：corrected actual ε₃ Toda-definedness / end-to-end inference
-
-目的:
-
-actual indexed Toda definedness を explicit mathematical facts から導出し、existing theorem fact と接続する。
 
 primitive knowledge:
 
@@ -323,11 +317,6 @@ membership
 最終確認:
 
 ```text
-tests/test_phase27_theorem_connection.py
-11 passed in 0.69s
-```
-
-```text
 full suite
 1332 passed in 86.87s
 ```
@@ -342,8 +331,6 @@ full suite
 
 目的:
 
-Toda 型の次の代表的な証明形式:
-
 ```text
 写像した先で等しい
 +
@@ -352,13 +339,11 @@ Toda 型の次の代表的な証明形式:
 元でも等しい
 ```
 
-を proof graph 上で扱うための generic foundation を追加する。
+を proof graph 上で扱う generic foundation を追加する。
 
 Phase 28 では actual Hopf map `H` の数学的 fact はまだ追加せず、map-property reasoning そのものに限定した。
 
----
-
-## Phase 28-1：InjectiveMapStatement の最小表現
+## Phase 28-1：InjectiveMapStatement
 
 追加:
 
@@ -366,62 +351,16 @@ Phase 28 では actual Hopf map `H` の数学的 fact はまだ追加せず、ma
 InjectiveMapStatement
 ```
 
-構造:
-
-```text
-InjectiveMapStatement(
-  map=f,
-)
-```
-
-意味:
-
-```text
-f is injective
-```
-
-境界:
-
-```text
-MapSymbol(f)
-↛
-InjectiveMapStatement(f)
-```
-
-map notation 自体から injectivity を推測しない。
-
-focused:
-
-```text
-4 passed
-```
-
-full suite:
-
-```text
-1336 passed
-```
-
 ### 状態
 
 完了
 
----
-
-## Phase 28-2：IsomorphismStatement の最小表現
+## Phase 28-2：IsomorphismStatement
 
 追加:
 
 ```text
 IsomorphismStatement
-```
-
-構造:
-
-```text
-IsomorphismStatement(
-  map=f,
-)
 ```
 
 重要:
@@ -432,19 +371,9 @@ IsomorphismStatement(f)
 InjectiveMapStatement(f)
 ```
 
-数学的 implication と structural equality を分離する。
-
-full suite:
-
-```text
-1340 passed
-```
-
 ### 状態
 
 完了
-
----
 
 ## Phase 28-3：Isomorphism(f) → Injective(f)
 
@@ -454,104 +383,23 @@ full suite:
 isomorphism_implies_injective_inference_rule()
 ```
 
-rule:
-
-```text
-Isomorphism(f)
-↓
-Injective(f)
-```
-
-provenance:
-
-```text
-derived Injective(f)
-premises =
-  Isomorphism(f)
-```
-
-negative boundary:
-
-```text
-Isomorphism(f)
-↛
-Injective(g)
-```
-
-```text
-Injective(f)
-↛
-Isomorphism(f)
-```
-
-focused:
-
-```text
-12 passed
-```
-
-full suite:
-
-```text
-1344 passed
-```
-
 ### 状態
 
 完了
 
----
+## Phase 28-4：MapApplication equality representation
 
-## Phase 28-4：MapApplication を使った f(a)=f(b) の表現確認
-
-production code の追加なし。
-
-既存:
+既存 `MapApplication` と `RelationType.EQUALITY` で:
 
 ```text
-MapApplication(
-  map=f,
-  expression=a,
-)
-```
-
-を用いて:
-
-```text
-Relation(
-  lhs=f(a),
-  rhs=f(b),
-  relation_type=EQUALITY,
-)
+f(a)=f(b)
 ```
 
 を表現可能であることを確認。
 
-重要:
-
-```text
-f(a)=f(b)
-!=
-f(a)=g(b)
-```
-
-focused:
-
-```text
-16 passed
-```
-
-full suite:
-
-```text
-1348 passed
-```
-
 ### 状態
 
 完了
-
----
 
 ## Phase 28-5：Injective(f) + f(a)=f(b) → a=b
 
@@ -561,107 +409,28 @@ full suite:
 injective_map_reflects_equality_inference_rule()
 ```
 
-rule:
-
-```text
-Injective(f)
-+
-f(a)=f(b)
-↓
-a=b
-```
-
-guard:
-
-```text
-lhs is MapApplication
-rhs is MapApplication
-lhs.map == rhs.map
-injective.map == lhs.map
-```
-
-conclusion は mapped expression の `expression` をそのまま使う。
-
-focused:
-
-```text
-17 passed
-```
-
-full suite:
-
-```text
-1349 passed
-```
-
 ### 状態
 
 完了
-
----
 
 ## Phase 28-6：provenance chain
 
-production code の追加なし。
-
-同一 fixed-point run:
-
 ```text
-GIVEN
-Isomorphism(f)
-
-GIVEN
-f(a)=f(b)
-
-Round 1
-Injective(f)
-
-Round 2
-a=b
-```
-
-provenance:
-
-```text
-a=b
-premises =
-  derived Injective(f)
-  f(a)=f(b)
-```
-
-さらに:
-
-```text
-derived Injective(f)
-premises =
-  Isomorphism(f)
-```
-
-最終 `a=b` から2段階の chain を辿れる。
-
-focused:
-
-```text
-19 passed
-```
-
-full suite:
-
-```text
-1351 passed
+GIVEN Isomorphism(f)
+GIVEN f(a)=f(b)
+↓
+Round 1 Injective(f)
+↓
+Round 2 a=b
 ```
 
 ### 状態
 
 完了
 
----
-
 ## Phase 28-7：invalid / mismatched map regression
 
-production code の追加なし。
-
-以下を reject:
+reject:
 
 ```text
 Injective(f) + g(a)=g(b)
@@ -673,33 +442,9 @@ Injective(f) + f(a)=g(b)
 ↛ a=b
 ```
 
-```text
-Isomorphism(f) + g(a)=g(b)
-↛ a=b
-```
-
-```text
-Injective(f) + plain a=b
-↛ equality-reflection rule
-```
-
-focused:
-
-```text
-23 passed
-```
-
-full suite:
-
-```text
-1355 passed
-```
-
 ### 状態
 
 完了
-
----
 
 ## Phase 28-8：representative end-to-end example
 
@@ -709,15 +454,420 @@ full suite:
 probes/probe_phase28_capabilities.py
 ```
 
-実行:
-
-```powershell
-python -m probes.probe_phase28_capabilities
-```
-
-visible chain:
+important boundary:
 
 ```text
+H = representative MapSymbol only
+```
+
+### 状態
+
+完了
+
+## Phase 28-9：scope / fixed-point regression
+
+確認:
+
+```text
+unrelated fact exclusion
+deduplication
+genuine fixed point
+```
+
+最終確認:
+
+```text
+full suite
+1358 passed in 102.90s
+```
+
+### 状態
+
+完了
+
+## Phase 28-10：Phase 28 完了整理
+
+completion chain:
+
+```text
+Isomorphism(f)
+↓
+Injective(f)
++
+f(a)=f(b)
+↓
+a=b
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 29：actual H map facts / typing
+
+目的:
+
+Phase 28 の representative:
+
+```text
+GIVEN
+H is an isomorphism
+```
+
+を actual production mathematical knowledge に置き換え、既存 generic map-property reasoning へ接続する。
+
+Phase 29 ではまだ actual Hopf formula calculation は実装しない。
+
+---
+
+## Phase 29-1：actual H map identity
+
+新規:
+
+```text
+map_facts.py
+```
+
+production identity:
+
+```text
+HOPF_MAP = MapSymbol(name="H")
+```
+
+確認:
+
+```text
+MapSymbol identity only
+```
+
+まだ typing / property を暗黙に持たない。
+
+focused:
+
+```text
+4 passed
+```
+
+full suite:
+
+```text
+1362 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 29-2：H domain / codomain typing の最小表現
+
+追加:
+
+```text
+MapTypingFact
+```
+
+fields:
+
+```text
+map
+source_group_dimension
+source_sphere_dimension
+target_group_dimension
+target_sphere_dimension
+```
+
+これにより:
+
+```text
+H : π₃(S²) → π₃(S³)
+```
+
+のような homotopy-group 間 map typing を表現可能にした。
+
+重要:
+
+```text
+MapSymbol
+!=
+MapTypingFact
+```
+
+focused:
+
+```text
+14 passed
+```
+
+full suite:
+
+```text
+1372 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 29-3：actual H typing fact
+
+追加 production fact:
+
+```text
+HOPF_MAP_TYPING_FACT
+```
+
+meaning:
+
+```text
+H : π₃(S²) → π₃(S³)
+```
+
+boundary:
+
+```text
+HOPF_MAP_TYPING_FACT
+↛
+IsomorphismStatement(H)
+```
+
+focused:
+
+```text
+20 passed
+```
+
+full suite:
+
+```text
+1378 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 29-4：H isomorphism property fact の最小表現
+
+追加:
+
+```text
+MapIsomorphismFact
+```
+
+structure:
+
+```text
+MapIsomorphismFact(
+  typing=MapTypingFact(...)
+)
+```
+
+意味:
+
+```text
+この map はこの typing context で isomorphism
+```
+
+重要:
+
+```text
+MapIsomorphismFact
+!=
+IsomorphismStatement
+```
+
+focused:
+
+```text
+26 passed
+```
+
+full suite:
+
+```text
+1384 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 29-5：production fact / lookup
+
+追加:
+
+```text
+MapIsomorphismFactRepository
+HOPF_MAP_ISOMORPHISM_FACT
+MAP_ISOMORPHISM_FACT_REPOSITORY
+```
+
+actual fact:
+
+```text
+H : π₃(S²) → π₃(S³)
+is an isomorphism
+```
+
+lookup:
+
+```text
+MAP_ISOMORPHISM_FACT_REPOSITORY.lookup(
+  HOPF_MAP_TYPING_FACT
+)
+↓
+HOPF_MAP_ISOMORPHISM_FACT
+```
+
+unknown typing context:
+
+```text
+→ None
+```
+
+duplicate typing-context fact:
+
+```text
+→ ValueError
+```
+
+focused:
+
+```text
+35 passed
+```
+
+full suite:
+
+```text
+1393 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 29-6：actual H fact → IsomorphismStatement(H)
+
+追加:
+
+```text
+MapIsomorphismFact.to_proof_step()
+```
+
+materialization:
+
+```text
+HOPF_MAP_ISOMORPHISM_FACT
+↓
+to_proof_step()
+↓
+ProofStep.GIVEN
+↓
+IsomorphismStatement(HOPF_MAP)
+```
+
+materialization は inference ではない。
+
+```text
+rule = ProofRule.GIVEN
+premises = ()
+inference_rule = None
+```
+
+focused:
+
+```text
+41 passed
+```
+
+full suite:
+
+```text
+1399 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 29-7：Isomorphism(H) → Injective(H) actual connection
+
+production code 変更なし。
+
+existing Phase 28 rule と接続:
+
+```text
+repository lookup
+↓
+actual H fact
+↓
+to_proof_step()
+↓
+GIVEN Isomorphism(H)
+↓
+isomorphism_implies_injective_inference_rule()
+↓
+Injective(H)
+```
+
+provenance:
+
+```text
+Injective(H).premises =
+  actual fact-derived Isomorphism(H) step
+```
+
+focused:
+
+```text
+43 passed
+```
+
+full suite:
+
+```text
+1401 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 29-8：representative actual-H end-to-end example
+
+production code 変更なし。
+
+新規 probe:
+
+```text
+probes/probe_phase29_capabilities.py
+```
+
+single fixed-point chain:
+
+```text
+PRODUCTION FACT
+H : π₃(S²) → π₃(S³) is an isomorphism
+
+↓ materialize
+
 GIVEN
 H is an isomorphism
 
@@ -735,27 +885,33 @@ injective map reflects equality
 a=b
 ```
 
-表示:
+probe result:
 
 ```text
 rounds = 2
 termination = InferenceTerminationReason.FIXED_POINT
 ```
 
-重要:
+Important boundary:
 
 ```text
-H
-=
-representative MapSymbol only
+H(a)=H(b)
 ```
 
-まだ actual Hopf map fact ではない。
+は representative GIVEN。
+
+まだ:
+
+```text
+H((2ι₂)η₂)=H(4η₂)
+```
+
+を actual calculation から導出していない。
 
 full suite:
 
 ```text
-1355 passed
+1402 passed
 ```
 
 ### 状態
@@ -764,26 +920,64 @@ full suite:
 
 ---
 
-## Phase 28-9：scope / fixed-point regression
+## Phase 29-9：provenance / invalid / scope regression
 
-production code の追加なし。
+production code 変更なし。
 
-unrelated fact exclusion:
+追加 regression:
 
 ```text
-unrelated fact
-↛ Injective(f) provenance
+full provenance chain
+different map rejection
+unknown typing context rejection
+unrelated fact exclusion
+derived conclusion uniqueness
+genuine fixed point
 ```
 
+full provenance:
+
+```text
+a=b
+↓
+Injective(H)
+↓
+Isomorphism(H) GIVEN
+```
+
+and:
+
+```text
+a=b
+↓
+H(a)=H(b)
+```
+
+different map:
+
+```text
+Injective(H) + g(a)=g(b)
+↛ a=b
+```
+
+unknown typing:
+
+```text
+unregistered H typing context
+↛ actual isomorphism fact
+```
+
+unrelated fact:
+
 ```text
 unrelated fact
-↛ a=b provenance
+↛ provenance
 ```
 
 deduplication:
 
 ```text
-Injective(f)
+Injective(H)
 → exactly 1 derived step
 ```
 
@@ -795,30 +989,14 @@ a=b
 genuine fixed point:
 
 ```text
-derive_inference_round_result(
-  rules,
-  result.steps,
-)
+terminal derive_inference_round_result()
+→ new_steps == ()
 ```
 
-で:
+final full suite:
 
 ```text
-new_steps == ()
-```
-
-を確認。
-
-最終確認:
-
-```text
-tests/test_map_property_rules.py
-26 passed in 1.42s
-```
-
-```text
-full suite
-1358 passed in 102.90s
+1408 passed in 96.81s
 ```
 
 ### 状態
@@ -827,51 +1005,64 @@ full suite
 
 ---
 
-## Phase 28-10：Phase 28 完了整理
+## Phase 29-10：Phase 29 完了整理
 
-Phase 28 completion chain:
+Phase 29 completion chain:
 
 ```text
-Isomorphism(f)
+HOPF_MAP
 ↓
-Injective(f)
+actual map identity
+
+HOPF_MAP_TYPING_FACT
+↓
+H : π₃(S²) → π₃(S³)
+
+HOPF_MAP_ISOMORPHISM_FACT
+↓
+H : π₃(S²) → π₃(S³) is an isomorphism
+
+MAP_ISOMORPHISM_FACT_REPOSITORY
+↓ lookup
+
+MapIsomorphismFact.to_proof_step()
+↓
+GIVEN Isomorphism(H)
+
+↓ existing Phase 28 inference
+
+Injective(H)
 
 +
 
-f(a)=f(b)
+GIVEN H(a)=H(b)
 
-↓
+↓ existing Phase 28 equality reflection
+
 a=b
-```
-
-single fixed-point run:
-
-```text
-Round 1
-Injective(f)
-
-Round 2
-a=b
-
-↓
-genuine FIXED_POINT
 ```
 
 実装済み:
 
 ```text
-InjectiveMapStatement
-IsomorphismStatement
-isomorphism → injective inference
-MapApplication equality representation
-injective equality reflection
-same-map validity guard
-two-level provenance
-invalid / mismatched map rejection
+actual H identity
+map typing representation
+actual H typing fact
+typed-context isomorphism fact representation
+actual H isomorphism production fact
+map isomorphism fact repository
+exact typing-context lookup
+duplicate rejection
+fact → ProofStep.GIVEN materialization
+actual H IsomorphismStatement
+actual H injectivity derivation
+actual-H equality-reflection end-to-end probe
+full proof-level provenance
+different-map rejection
+unknown-typing-context rejection
 unrelated-fact exclusion
 deduplication
 genuine fixed-point regression
-human-readable capability probe
 ```
 
 generic inference engine:
@@ -880,22 +1071,11 @@ generic inference engine:
 変更なし
 ```
 
-representative probe:
-
-```powershell
-python -m probes.probe_phase28_capabilities
-```
-
 current verified status:
 
 ```text
-tests/test_map_property_rules.py
-26 passed in 1.42s
-```
-
-```text
 full suite
-1358 passed in 102.90s
+1408 passed in 96.81s
 ```
 
 No failures.
@@ -906,31 +1086,37 @@ No failures.
 
 ---
 
-# Phase 28 completion boundary
+# Phase 29 completion boundary
 
-Phase 28 で一般的な:
+Phase 29 で:
 
 ```text
-f(a)=f(b)
-+
-f is injective / isomorphism
+actual H mathematical knowledge
 ↓
-a=b
+proof-level Isomorphism(H)
+↓
+Injective(H)
+↓
+equality reflection
 ```
 
-の proof trace が可能になった。
+まで production knowledge から end-to-end に接続した。
 
-ただし actual mathematical knowledge として:
+ただし actual mapped equality:
 
 ```text
-H is the required Hopf map
-H has a required domain / codomain
-H is an isomorphism in the required case
+H((2ι₂)η₂)=H(4η₂)
 ```
 
-はまだ入っていない。
+はまだ未実装。
 
-したがって Phase 28 の `H` probe は representative example であり、actual Toda calculation ではない。
+したがって actual target:
+
+```text
+(2ι₂)η₂=4η₂
+```
+
+はまだ証明していない。
 
 ---
 
@@ -939,40 +1125,41 @@ H is an isomorphism in the required case
 次は:
 
 ```text
-Phase 29
-actual H map facts / typing
+Phase 30
+Hopf formula minimum representation
 ```
 
-が自然。
+を推奨する。
 
-候補:
+代表的な数学的対象:
 
 ```text
-actual H identity
-actual H source / target
-actual H isomorphism property
-必要最小限の explicit fact / provenance
-existing Phase 28 equality reflection への接続
+H(γ α)=(γ∧γ)H(α)
 ```
+
+Phase 30 では formula の最小表現から開始し、smash product の一般機構や actual `(2ι₂)η₂` calculation を先取りしない。
 
 その後:
 
 ```text
-Phase 30+
-Hopf formula
+Phase 31
 smash product
+
+↓
+Phase 32+
 actual H calculation
-```
 
-へ進み、
-
-```text
+↓
 H((2ι₂)η₂)=H(4η₂)
+
+↓
+Phase 28/29 equality reflection
+
 ↓
 (2ι₂)η₂=4η₂
 ```
 
-という実例へ接続する。
+へ進む。
 
 ---
 
