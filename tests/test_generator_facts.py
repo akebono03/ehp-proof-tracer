@@ -2446,6 +2446,310 @@ def test_phase26_8_ambient_group_fact_without_typing_fact_has_unknown_consistenc
   assert result is None
 
 
+def test_phase26_9_actual_toda_typing_chain_does_not_modify_generator_repository():
+  typing_facts_before = (
+    GENERATOR_FACT_REPOSITORY
+    .typing_facts
+  )
+
+  ambient_facts_before = (
+    GENERATOR_FACT_REPOSITORY
+    .ambient_group_facts
+  )
+
+  eta_3 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="η₃",
+        dimension=3,
+        generator=ETA_3_GENERATOR,
+      )
+    )
+  )
+
+  nu_prime = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν′",
+        dimension=3,
+        generator=NU_PRIME_GENERATOR,
+      )
+    )
+  )
+
+  nu_7 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν₇",
+        dimension=7,
+        generator=NU_7_GENERATOR,
+      )
+    )
+  )
+
+  assert eta_3 is not None
+  assert nu_prime is not None
+  assert nu_7 is not None
+
+  bracket = TodaBracket(
+    first=eta_3,
+    second=Suspension(
+      expression=nu_prime,
+    ),
+    third=nu_7,
+    index=1,
+  )
+
+  assert (
+    bracket
+    .are_defining_compositions_type_compatible()
+  )
+
+  assert (
+    GENERATOR_FACT_REPOSITORY
+    .typing_facts
+    == typing_facts_before
+  )
+
+  assert (
+    GENERATOR_FACT_REPOSITORY
+    .ambient_group_facts
+    == ambient_facts_before
+  )
+
+
+def test_phase26_9_actual_toda_typing_chain_does_not_modify_theorem_repository():
+  theorem_entries_before = (
+    THEOREM_FACT_REPOSITORY.entries
+  )
+
+  eta_3 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="η₃",
+        dimension=3,
+        generator=ETA_3_GENERATOR,
+      )
+    )
+  )
+
+  nu_prime = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν′",
+        dimension=3,
+        generator=NU_PRIME_GENERATOR,
+      )
+    )
+  )
+
+  nu_7 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν₇",
+        dimension=7,
+        generator=NU_7_GENERATOR,
+      )
+    )
+  )
+
+  assert eta_3 is not None
+  assert nu_prime is not None
+  assert nu_7 is not None
+
+  bracket = TodaBracket(
+    first=eta_3,
+    second=Suspension(
+      expression=nu_prime,
+    ),
+    third=nu_7,
+    index=1,
+  )
+
+  assert (
+    bracket
+    .are_defining_compositions_type_compatible()
+  )
+
+  assert (
+    THEOREM_FACT_REPOSITORY.entries
+    == theorem_entries_before
+  )
+
+
+def test_phase26_9_consistency_query_does_not_generate_or_modify_facts():
+  typing_facts_before = (
+    GENERATOR_FACT_REPOSITORY
+    .typing_facts
+  )
+
+  ambient_facts_before = (
+    GENERATOR_FACT_REPOSITORY
+    .ambient_group_facts
+  )
+
+  result = (
+    GENERATOR_FACT_REPOSITORY
+    .is_typing_ambient_group_consistent(
+      NU_PRIME_GENERATOR
+    )
+  )
+
+  assert result is True
+
+  assert (
+    GENERATOR_FACT_REPOSITORY
+    .typing_facts
+    == typing_facts_before
+  )
+
+  assert (
+    GENERATOR_FACT_REPOSITORY
+    .ambient_group_facts
+    == ambient_facts_before
+  )
+
+
+def test_phase26_9_registered_nu_7_does_not_enable_automatic_nu_family_typing():
+  nu_8_generator = GeneratorSymbol(
+    family="ν",
+    index=8,
+  )
+
+  assert (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_typing(
+      nu_8_generator
+    )
+    is None
+  )
+
+  assert (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_ambient_group(
+      nu_8_generator
+    )
+    is None
+  )
+
+  element = HomotopyElement(
+    name="ν₈",
+    dimension=8,
+    generator=nu_8_generator,
+  )
+
+  assert (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      element
+    )
+    is None
+  )
+
+  assert element.source is None
+  assert element.target is None
+
+
+def test_phase26_9_actual_toda_entry_typing_preserves_registered_fact_origins():
+  eta_3_fact = (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_typing(
+      ETA_3_GENERATOR
+    )
+  )
+
+  nu_prime_fact = (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_typing(
+      NU_PRIME_GENERATOR
+    )
+  )
+
+  nu_7_fact = (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_typing(
+      NU_7_GENERATOR
+    )
+  )
+
+  assert eta_3_fact is (
+    ETA_3_TYPING_FACT
+  )
+
+  assert nu_prime_fact is (
+    NU_PRIME_TYPING_FACT
+  )
+
+  assert nu_7_fact is (
+    NU_7_TYPING_FACT
+  )
+
+  eta_3 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="η₃",
+        dimension=3,
+        generator=eta_3_fact.generator,
+      )
+    )
+  )
+
+  nu_prime = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν′",
+        dimension=3,
+        generator=nu_prime_fact.generator,
+      )
+    )
+  )
+
+  nu_7 = (
+    GENERATOR_FACT_REPOSITORY
+    .materialize_typed_element(
+      HomotopyElement(
+        name="ν₇",
+        dimension=7,
+        generator=nu_7_fact.generator,
+      )
+    )
+  )
+
+  assert eta_3 is not None
+  assert nu_prime is not None
+  assert nu_7 is not None
+
+  bracket = TodaBracket(
+    first=eta_3,
+    second=Suspension(
+      expression=nu_prime,
+    ),
+    third=nu_7,
+    index=1,
+  )
+
+  assert bracket.first.generator is (
+    ETA_3_TYPING_FACT.generator
+  )
+
+  assert (
+    bracket.second.expression.generator
+    is NU_PRIME_TYPING_FACT.generator
+  )
+
+  assert bracket.third.generator is (
+    NU_7_TYPING_FACT.generator
+  )
+
+
 
 
 
