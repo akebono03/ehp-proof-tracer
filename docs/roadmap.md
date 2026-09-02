@@ -26,7 +26,7 @@ docs/roadmap.md
 
 ---
 
-# 2. Phase 31 完了時点の実装基盤
+# 2. Phase 32 完了時点の実装基盤
 
 実装済みの主な基盤:
 
@@ -71,8 +71,6 @@ Isomorphism → Injective inference
 MapApplication equality representation
 Injective-map equality reflection
 Map-property provenance chain
-Mismatched-map rejection
-Map-property fixed-point regression
 HOPF_MAP actual identity
 MapTypingFact
 HOPF_MAP_TYPING_FACT
@@ -80,34 +78,20 @@ MapIsomorphismFact
 HOPF_MAP_ISOMORPHISM_FACT
 MapIsomorphismFactRepository
 MAP_ISOMORPHISM_FACT_REPOSITORY
-Exact typing-context map-property lookup
-MapIsomorphismFact → ProofStep.GIVEN materialization
-Actual H fact → Isomorphism(H)
-Actual H Isomorphism → Injective(H)
-Actual-H fact-driven equality reflection
-Actual-H provenance / invalid / scope regression
-Human-readable Phase 29 capability probe
-Toda Prop.2.2 right formula structural representation
-HopfInvariantStatement → actual EHP H equality bridge
-Actual H(a∘Eb)=β∘Eb equality
-Staged right-composition equality
-Toda Prop.2.2 right formula closure
-Phase 30 full provenance / invalid / scope regression
-Human-readable Phase 30 capability probe
+Actual H fact materialization
+Actual Isomorphism(H)
+Actual Injective(H)
+Actual-H equality reflection
+Toda Prop.2.2 right direct theorem
 SmashProduct minimum representation
-SmashProduct structural equality / distinction
-SmashProduct Expression hierarchy connection
-Representative c ∧ c construction
-Representative E(c ∧ c) construction
-SmashProduct typing-boundary regression
-SmashProduct invalid / scope regression
-Human-readable Phase 31 capability probe
+Toda Prop.2.2 left direct theorem
+Phase 32 human-readable capability probe
 ```
 
 Current full regression:
 
 ```text
-1466 passed in 23.63s
+1512 passed in 63.58s
 ```
 
 ---
@@ -133,27 +117,11 @@ valid
 ```
 
 ```text
-GeneratorSymbol
+representation
 ≠
-typing knowledge
-```
-
-```text
-MapSymbol
+typing
 ≠
-map typing knowledge
-```
-
-```text
-MapTypingFact
-≠
-map property knowledge
-```
-
-```text
-MapIsomorphismFact
-≠
-IsomorphismStatement
+theorem knowledge
 ```
 
 ```text
@@ -164,691 +132,108 @@ zero composition
 Toda definedness
 ```
 
-```text
-IsomorphismStatement(f)
-≠
-InjectiveMapStatement(f)
-```
-
 notation から hidden knowledge を自動生成しない。
 
 ---
 
-# 4. 現在の主要 dependency chain
+# 4. Completed Phase chain
 
 ```text
-Abelian group expression
-↓
-Homomorphism reasoning
-↓
-Set / subgroup reasoning
-↓
-Coset / modulo reasoning
-↓
-Symbolic scalar constraints
-↓
-Indeterminacy
-↓
-Toda bracket
-↓
-Indexed unstable Toda notation
-↓
-Typed homotopy elements
-↓
-Structured generators
-↓
-Indexed theorem validity
-↓
-Theorem fact repository
-↓
-Generator typing / ambient-group facts
-↓
-Actual Toda-generator typing
-↓
-Explicit corrected composition knowledge
-↓
-Corrected index-1 Toda definedness
-↓
-Actual theorem applicability
-↓
-ε₃ membership
-↓
-Map property statements
-↓
-Isomorphism → injectivity
-↓
-Equality reflection
-↓
-Actual H identity / typing context
-↓
-Actual H isomorphism fact repository
-↓
-Actual fact materialization
-↓
-Actual Isomorphism(H)
-↓
-Actual Injective(H)
-↓
-Actual-H fact-driven equality reflection
-↓
-Human-readable proof trace
+Phase 12  Additive expressions
+Phase 13  Homomorphism reasoning
+Phase 14  Set / subgroup reasoning
+Phase 15  Coset / modulo reasoning
+Phase 16  Symbolic scalar constraints
+Phase 17  Indeterminacy
+Phase 18  Toda bracket minimum representation
+Phase 19  Toda bracket membership / first theorem bridge
+Phase 20  Indexed unstable Toda notation
+Phase 21  Typed homotopy elements
+Phase 22  Structured generators
+Phase 23  Indexed Toda theorem validity
+Phase 24  Theorem fact repository
+Phase 25  Generator typing / ambient-group facts
+Phase 26  Actual Toda-generator typing
+Phase 27  Actual ε₃ Toda-definedness / membership
+Phase 28  Map injectivity / isomorphism / equality reflection
+Phase 29  Actual H facts / typing / isomorphism
+Phase 30  Toda Prop.2.2 right formula
+Phase 31  SmashProduct minimum representation
+Phase 32  Toda Prop.2.2 left formula
 ```
+
+すべて完了。
 
 ---
 
-# 5. Phase 27 completion
+# 5. Toda Prop.2.2 completion
 
-Phase 27 actual ε₃ Toda proof chain:
+Phase 30 / 32 で [Toda] Prop.2.2 の両式を direct theorem rule として扱える。
 
-```text
-η₃ ∘ Eν′ = 0
-ν′ ∘ ν₆ = 0
-Eν₆ = ν₇
-↓
-{η₃,Eν′,ν₇}_1 is defined
-```
-
-```text
-Toda theorem fact
-+
-derived definedness
-↓
-ε₃ ∈ {η₃,Eν′,ν₇}_1
-```
-
----
-
-# 6. Phase 28 completion
-
-Phase 28 general form:
-
-```text
-f(a)=f(b)
-+
-f is injective / isomorphism
-↓
-a=b
-```
-
-Implemented:
-
-```text
-InjectiveMapStatement
-IsomorphismStatement
-isomorphism_implies_injective_inference_rule()
-injective_map_reflects_equality_inference_rule()
-```
-
-Representative `H` was still only a local `MapSymbol` assumption.
-
----
-
-# 7. Phase 29 completion
-
-Phase 29 connects actual `H` knowledge to the Phase 28 generic machinery.
-
-## Actual identity
-
-```text
-HOPF_MAP
-=
-MapSymbol(name="H")
-```
-
-## Actual typing
-
-```text
-HOPF_MAP_TYPING_FACT
-
-H : π₃(S²) → π₃(S³)
-```
-
-## Actual property
-
-```text
-HOPF_MAP_ISOMORPHISM_FACT
-
-H : π₃(S²) → π₃(S³)
-is an isomorphism
-```
-
-## Repository
-
-```text
-MAP_ISOMORPHISM_FACT_REPOSITORY
-```
-
-exact typing-context lookup:
-
-```text
-lookup(HOPF_MAP_TYPING_FACT)
-↓
-HOPF_MAP_ISOMORPHISM_FACT
-```
-
-## Materialization
-
-```text
-HOPF_MAP_ISOMORPHISM_FACT
-↓
-to_proof_step()
-↓
-GIVEN Isomorphism(H)
-```
-
-## Existing generic rule connection
-
-```text
-GIVEN Isomorphism(H)
-↓
-Injective(H)
-```
-
-## Representative actual-H end-to-end chain
-
-```text
-PRODUCTION FACT
-H : π₃(S²) → π₃(S³) is an isomorphism
-
-↓ materialize
-
-GIVEN
-H is an isomorphism
-
-↓
-H is injective
-
-+
-
-GIVEN
-H(a)=H(b)
-
-↓
-a=b
-```
-
-The actual property comes from production knowledge. The mapped equality remains representative.
-
-Regression coverage:
-
-```text
-full provenance
-different-map rejection
-unknown-typing-context rejection
-unrelated-fact exclusion
-deduplication
-genuine fixed point
-```
-
-Final status:
-
-```text
-1408 passed in 96.81s
-```
-
----
-
-# 8. 実装状況
-
-| 項目 | 状態 | 備考 |
-|---|---|---|
-| Additive expression | IMPLEMENTED | Phase 12 |
-| homomorphism reasoning | IMPLEMENTED | Phase 13 |
-| set / subgroup reasoning | IMPLEMENTED | Phase 14 |
-| coset / modulo | IMPLEMENTED | Phase 15 |
-| symbolic scalar constraints | IMPLEMENTED | Phase 16 |
-| indeterminacy | IMPLEMENTED | Phase 17 |
-| unstable Toda bracket | IMPLEMENTED | Phase 18 |
-| Toda theorem bridge | IMPLEMENTED | Phase 19 |
-| indexed Toda notation | IMPLEMENTED | Phase 20 |
-| typed source / target | IMPLEMENTED | Phase 21 |
-| structured `GeneratorSymbol` | IMPLEMENTED | Phase 22 |
-| indexed Toda theorem validity | IMPLEMENTED | Phase 23 |
-| theorem fact repository | IMPLEMENTED | Phase 24 |
-| `GeneratorTypingFact` | IMPLEMENTED | Phase 25 |
-| `GeneratorAmbientGroupFact` | IMPLEMENTED | Phase 25 |
-| generator fact repository | IMPLEMENTED | Phase 25 |
-| η₃ / ν′ / ν₇ production facts | IMPLEMENTED | Phase 25–26 |
-| actual typed `{η₃,Eν′,ν₇}_1` | IMPLEMENTED | Phase 26 |
-| corrected ε₃ Toda definedness | IMPLEMENTED | Phase 27 |
-| corrected ε₃ end-to-end membership | IMPLEMENTED | Phase 27 |
-| `InjectiveMapStatement` | IMPLEMENTED | Phase 28 |
-| `IsomorphismStatement` | IMPLEMENTED | Phase 28 |
-| isomorphism → injective | IMPLEMENTED | Phase 28 |
-| injective equality reflection | IMPLEMENTED | Phase 28 |
-| map-property provenance / fixed point | IMPLEMENTED | Phase 28 |
-| `HOPF_MAP` actual identity | IMPLEMENTED | Phase 29 |
-| `MapTypingFact` | IMPLEMENTED | Phase 29 |
-| actual `HOPF_MAP_TYPING_FACT` | IMPLEMENTED | Phase 29 |
-| `MapIsomorphismFact` | IMPLEMENTED | Phase 29 |
-| actual `HOPF_MAP_ISOMORPHISM_FACT` | IMPLEMENTED | Phase 29 |
-| `MapIsomorphismFactRepository` | IMPLEMENTED | Phase 29 |
-| actual H fact materialization | IMPLEMENTED | Phase 29 |
-| actual H → `IsomorphismStatement(H)` | IMPLEMENTED | Phase 29 |
-| actual `Isomorphism(H)` → `Injective(H)` | IMPLEMENTED | Phase 29 |
-| actual-H fact-driven equality reflection | IMPLEMENTED | Phase 29 |
-| Phase 29 capability probe | IMPLEMENTED | Phase 29 |
-| Toda Prop.2.2 right formula representation | IMPLEMENTED | Phase 30 |
-| `H(a∘Eb)=H(a)∘Eb` | IMPLEMENTED | Phase 30 |
-| Toda (5.1) foundational sphere-group facts | PLANNED | foundational known-fact layer; implement when concrete proof need is selected |
-| Toda (2.1) foundational composition laws | PLANNED | domain-specific composition equalities; avoid unrestricted bidirectional rewrites |
-| `H((Ec)∘a)=E(c∧c)∘H(a)` | NEXT CANDIDATE | Phase 32 |
-| smash product `a∧b` | IMPLEMENTED | Phase 31 |
-| iterated suspension `E^t` | IMPLEMENTED / may need later expansion | existing `IteratedSuspension`; add only concrete Barratt-Hilton needs |
-| symbolic scalar `(-1)^n` | PLANNED | later Barratt-Hilton prerequisite |
-| parity reduction of `(-1)^n` | PLANNED | later Barratt-Hilton prerequisite |
-| Barratt–Hilton Prop.3.1 | PLANNED | after Prop.2.2 left support and required scalar/typing prerequisites |
-| actual H calculation | PLANNED | Phase 35+ |
-| `H((2ι₂)η₂)=H(4η₂)` | PLANNED | after Prop.2.2 / Prop.3.1 |
-| `(2ι₂)η₂=4η₂` | PLANNED | use existing equality reflection |
-| preimage `f⁻¹(a)` | PLANNED | set-valued inverse image |
-| `f(a)=f(b) ⇒ a≡b mod Ker(f)` | PLANNED | reuse Phase 13–15 |
-| `{a,b,c}_0={a,b,c}` canonicalization | PLANNED | unstable Toda notation |
-| general theorem representation | PLANNED | quantified theorem need |
-| stable homotopy group `π_k^S` | PLANNED | stable context |
-| stable Toda bracket `<a,b,c>` | PLANNED | stable layer |
-| higher Toda bracket | DEFERRED | concrete need required |
-
----
-
-# 9. Foundational known facts: Toda (5.1)
-
-[Toda](5.1) の次の結果は、個別 generator fact より基礎的な homotopy-group knowledge として known fact source に登録する候補とする。
-
-```text
-π_i(S^1)=0
-(i>1)
-```
-
-```text
-π_i(S^n)=0
-(i<n)
-```
-
-```text
-π_n(S^n)=Z{ι_n}
-```
-
-## 9.1 zero-group facts
-
-```text
-π_i(S^1)=0
-(i>1)
-```
-
-および:
-
-```text
-π_i(S^n)=0
-(i<n)
-```
-
-は zero homotopy-group fact として扱う。
-
-将来的な reasoning:
-
-```text
-ambient_group(a)=π_i(S^n)
-+
-π_i(S^n)=0
-↓
-a=0
-```
-
-ただし:
-
-```text
-group is zero
-```
-
-と:
-
-```text
-specific element a is zero
-```
-
-は別の proof step として保持し、provenance を失わない。
-
-## 9.2 identity-generator fact
-
-```text
-π_n(S^n)=Z{ι_n}
-```
-
-は少なくとも次の knowledge に接続できるようにする。
-
-```text
-ι_n ∈ π_n(S^n)
-```
-
-```text
-ι_n generates π_n(S^n)
-```
-
-```text
-π_n(S^n) ≅ Z
-```
-
-Current `GeneratorTypingFact` / `GeneratorAmbientGroupFact` と将来の group-structure fact を接続する候補となる。
-
-Important:
-
-```text
-notation ι_n
-≠
-automatic generator theorem
-```
-
-とし、[Toda](5.1) の known fact から materialize する。
-
-## 9.3 repository policy
-
-候補:
-
-```text
-HomotopyGroupFact
-HomotopyGroupFactRepository
-```
-
-または existing repository architecture への最小 extension。
-
-実装時は、新しい repository class を先に増やすのではなく、current theorem / generator repositories で正しく表現できるかを先に確認する。
-
----
-
-# 10. Foundational composition laws: Toda (2.1)
-
-[Toda](2.1) の composition laws は、actual H calculation、Barratt–Hilton 後の式整理、scalar / additive reasoning を composition に接続する基礎 theorem family とする。
-
-## 10.1 right additivity
-
-```text
-a ∘ (b₁ ± b₂)
-=
-a ∘ b₁ ± a ∘ b₂
-```
-
-これは right factor の加法に対する composition additivity として扱う。
-
-Structural target:
-
-```text
-Composition(
-  left=a,
-  right=Sum(...),
-)
-```
-
-から、composition の和へ展開する explicit theorem rule。
-
-## 10.2 left additivity with suspended right factor
-
-```text
-(a₁ ± a₂) ∘ Eb
-=
-a₁ ∘ Eb ± a₂ ∘ Eb
-```
-
-Important:
-
-この式は source notation のとおり、
-
-```text
-... ∘ Eb
-```
-
-という suspended right factor を持つ theorem として扱う。
-
-一般の:
-
-```text
-(a₁±a₂)∘b
-```
-
-へ notation だけから拡張しない。
-
-```text
-Toda (2.1) theorem shape
-≠
-unrestricted bilinearity assumption
-```
-
-を維持する。
-
-## 10.3 integer scalar law on the right factor
-
-特に任意の整数 `k` に対して:
-
-```text
-k(a ∘ b)
-=
-a ∘ (k b)
-```
-
-を扱う。
-
-Current `Multiple` と `Composition` を接続する explicit theorem rule 候補。
-
-## 10.4 integer scalar law on the left factor with suspension
-
-特に任意の整数 `k` に対して:
-
-```text
-k(a ∘ Eb)
-=
-(k a) ∘ Eb
-```
-
-を扱う。
-
-こちらも suspended right factor `Eb` を含む theorem shape を保持する。
-
-## 10.5 relation to current additive layer
-
-Phase 12–13 で既に:
-
-```text
-Sum
-Multiple
-Homomorphism reasoning
-```
-
-が存在する。
-
-Toda (2.1) は、それらを `Composition` に接続する domain-specific theorem family とする。
-
-Generic additive normalization に埋め込まず、
-
-```text
-additive expression
-+
-composition theorem
-↓
-new composition equality
-```
-
-という既存 inference architecture を利用する。
-
-## 10.6 termination boundary
-
-次のような bidirectional rewrite を無制限に同時 active にしない。
-
-```text
-composition of sum
-↔
-sum of compositions
-```
-
-```text
-multiple of composition
-↔
-composition with multiple
-```
-
-Phase 実装時には、actual calculation に必要な方向を優先し、fixed-point で structural term size が往復増加しないことを確認する。
-
----
-
-# 11. Phase 30 completion：Toda Prop.2.2 right formula
-
-Phase 30 で [Toda] Prop.2.2 の右側公式:
-
-```text
-H(a ∘ Eb)=H(a) ∘ Eb
-```
-
-を proof-level actual `H` equality として end-to-end に閉じた。
-
-利用した既存 machinery:
-
-```text
-HopfInvariantStatement
-HopfCompositionLawStatement
-hopf_composition_law_inference_rule()
-hopf_composition_formula_inference_rule()
-MapApplication
-EHP_H_MAP
-equality symmetry
-equality preserved under right composition
-equality transitivity
-```
-
-completion chain:
-
-```text
-H(a)=β
-↓
-H(a∘Eb)=β∘Eb
-
-H(a)=β
-↓
-β=H(a)
-↓
-β∘Eb=H(a)∘Eb
-
-↓
-H(a∘Eb)=H(a)∘Eb
-```
-
-Phase 30 は以下も固定した:
-
-```text
-full provenance
-mismatched-middle rejection
-different-right-factor rejection
-unrelated equality exclusion
-unrelated valid Hopf branch rejection
-round-level deduplication
-terminal transitivity regression
-staged right-composition boundary
-human-readable capability probe
-```
-
-verified:
-
-```text
-tests/test_phase30_prop22.py
-21 passed
-```
-
-```text
-full suite
-1439 passed in 23.44s
-```
-
-Important:
+右側:
 
 ```text
 H(a∘Eb)=H(a)∘Eb
 ```
 
-は実装済みだが:
+左側:
 
 ```text
 H((Ec)∘a)=E(c∧c)∘H(a)
 ```
 
-は `SmashProduct` がないため未実装。
+重要:
+
+```text
+H(a)=β
+```
+
+は Prop.2.2 本体の premise ではない。
+
+β-based reasoning は concrete Hopf value への specialization / integration test として保持する。
+
+両 theorem conclusion は canonical production `HOPF_MAP / EHP_H_MAP` identity を使用する。
 
 ---
 
-# 12. Phase 31 completion：SmashProduct minimum representation
+# 6. SmashProduct current boundary
 
 Phase 31 で:
 
 ```text
-a ∧ b
-c ∧ c
-E(c ∧ c)
+a∧b
+c∧c
+E(c∧c)
 ```
 
-を structural `Expression` として lossless に表現できるようになった。
+を structural に表現可能。
 
-Implemented:
+しかし:
 
 ```text
-SmashProduct(Expression)
-structural equality
-operand distinction
-operand-order distinction
-Sum / Composition distinction
-Expression hierarchy connection
-c ∧ c representative construction
-E(c ∧ c) representation
-typing boundary regression
-invalid / scope regression
-final regression
-human-readable capability probe
+SmashProduct typing
+SmashProduct algebra
+normalization
+symmetry theorem
+associativity theorem
+Barratt-Hilton knowledge
 ```
 
-Important boundary:
+は未実装。
+
+current:
 
 ```text
-representation
-!=
-typing
-!=
-theorem knowledge
+SmashProduct has no source / target
+E(c∧c).source = None
+E(c∧c).target = None
 ```
-
-Current behavior:
-
-```text
-SmashProduct has no source / target property
-E(c ∧ c).source = None
-E(c ∧ c).target = None
-```
-
-Verified:
-
-```text
-tests/test_expression.py
-145 passed
-
-full suite
-1466 passed
-```
-
-The next natural phase is:
-
-```text
-Phase 32
-Toda Prop.2.2 left suspended-composition formula support
-```
-
-Target:
-
-```text
-H((Ec)∘a)=E(c∧c)∘H(a)
-```
-
-Phase 32 should reuse the actual `H` representation and existing proof/equality machinery. General smash-product algebra and Barratt-Hilton remain later concerns.
 
 ---
 
-# 13. Representative map-theoretic scenario 1
+# 7. 長期目標 1
 
-長期目標:
+代表目標:
 
 ```text
 (2ι₂)η₂=4η₂
@@ -858,11 +243,9 @@ Phase 32 should reuse the actual `H` representation and existing proof/equality 
 
 ```text
 H((2ι₂)η₂)
-↓ Toda Prop.2.2
+↓ Toda Prop.2.2 left
 E(2ι₁∧2ι₁)H(η₂)
-↓ Toda Prop.3.1 / known smash-product facts
-2ι₃∘2ι₃∘ι₃
-↓ additive / composition reasoning
+↓ Toda Prop.3.1 / required smash-product reasoning
 4ι₃
 ```
 
@@ -882,15 +265,15 @@ H(4η₂)
 H((2ι₂)η₂)=H(4η₂)
 ```
 
-Phase 29 machinery:
+Phase 29:
 
 ```text
-actual Isomorphism(H)
+Isomorphism(H)
 ↓
 Injective(H)
 ```
 
-を用いて:
+から:
 
 ```text
 (2ι₂)η₂=4η₂
@@ -900,9 +283,9 @@ Injective(H)
 
 ---
 
-# 14. Representative map-theoretic scenario 2
+# 8. 長期目標 2
 
-長期目標:
+代表目標:
 
 ```text
 P(ι₅)=±2η₂
@@ -940,132 +323,35 @@ H(±2η₂)=±2ι₃
 HP(ι₅)=H(±2η₂)
 ```
 
-さらに Phase 29:
+Phase 29 equality reflection を使って:
 
 ```text
-actual Isomorphism(H)
-↓
-Injective(H)
-↓
 P(ι₅)=±2η₂
 ```
 
----
-
-# 15. Smash product
-
-Phase 31 completed the minimum structural representation:
-
-```text
-SmashProduct(
-  left=a,
-  right=b,
-)
-```
-
-for:
-
-```text
-a ∧ b
-```
-
-and the actual representative forms:
-
-```text
-c ∧ c
-E(c ∧ c)
-```
-
-Important:
-
-```text
-SmashProduct(a,b)
-```
-
-is structural syntax only. It does not contain Barratt-Hilton theorem knowledge, typing rules, symmetry, associativity, or normalization.
-
-Future theorem rules must connect this structural object to proof-level equalities explicitly.
+へ進む候補がある。
 
 ---
 
-# 16. Iterated suspension for Barratt–Hilton
+# 9. Phase 33 candidate：Barratt–Hilton prerequisite minimum representation
 
-[Toda] Prop.3.1 では、
+Phase 32 の次は、[Toda] Prop.3.1 Barratt–Hilton に必要な prerequisite を最小単位で導入する。
 
-```text
-E^q a
-E^(p+k)b
-E^p b
-E^(q+h)a
-```
-
-が現れる。
-
-したがって Phase 32 candidate として、
-concrete / symbolic exponent を持つ iterated suspension の最小表現を検討する。
-
-候補:
+現時点の第一候補:
 
 ```text
-IteratedSuspension(
-  expression=a,
-  exponent=q,
-)
+symbolic scalar expression
+(-1)^n
 ```
 
-Typing:
-
-```text
-a ∈ π_{p+k}(S^p)
-```
-
-なら、
-
-```text
-E^q a
-:
-S^(p+k+q)
-→
-S^(p+q)
-```
-
-を導出できるようにする。
-
-同様に、
-
-```text
-b ∈ π_{q+h}(S^q)
-```
-
-から各 iterated suspension の source / target を導出し、
-Barratt–Hilton の composition が type-compatible であることを検査できるようにする。
-
----
-
-# 17. Symbolic scalar expressions
-
-Phase 16 では:
-
-```text
-ScalarSymbol
-OddScalarStatement
-EvenScalarStatement
-ScalarCongruenceStatement
-```
-
-まで実装済み。
-
-[Toda] Prop.3.1 では、
+[Toda] Prop.3.1 に現れる:
 
 ```text
 (-1)^((p+k)h)
 (-1)^(ph)
 ```
 
-のような symbolic scalar expression が必要になる。
-
-Phase 33 candidate として、
-必要最小限の scalar expression representation を導入する。
+などを lossless に保持する必要がある。
 
 候補:
 
@@ -1078,24 +364,17 @@ ScalarExpression
 └── ScalarPower
 ```
 
-例えば、
+ただし general-purpose CAS は作らない。
 
-```text
-(-1)^((p+k)h)
-```
-
-を構造的に保持する。
-
-general-purpose CAS は目標としない。
+Prop.3.1 の concrete formula に必要な最小 structure のみ導入する。
 
 ---
 
-# 18. Parity reduction of symbolic signs
+# 10. parity reduction candidate
 
-`(-1)^n` は sign indeterminacy ではなく、
-parity により値が決定する symbolic scalar expression とする。
+`(-1)^n` は sign indeterminacy ではなく parity により値が決まる symbolic scalar expression とする。
 
-将来的な rules:
+候補 rule:
 
 ```text
 n even
@@ -1109,7 +388,7 @@ n odd
 (-1)^n=-1
 ```
 
-したがって:
+さらに必要なら:
 
 ```text
 n even
@@ -1123,91 +402,112 @@ n odd
 (-1)^n a=-a
 ```
 
-へ接続できる。
+へ接続する。
 
-Prop.3.1 では、
-
-```text
-(p+k)h
-```
-
-および、
-
-```text
-ph
-```
-
-の parity を必要に応じて判定する。
-
-Parity が未知の場合は、
-symbolic sign をそのまま保持する。
+Phase 16 の既存 parity / congruence machinery を再利用できるかを先に確認する。
 
 ---
 
-# 19. Toda Prop.3.1 (Barratt–Hilton)
+# 11. IteratedSuspension
 
-Phase 34 candidate として、
-[Toda] Prop.3.1 (Barratt–Hilton) を explicit theorem rule として導入する。
+`IteratedSuspension` は既に実装済み。
 
-Assumptions:
+[Toda] Prop.3.1 では:
 
 ```text
-a ∈ π_{p+k}(S^p)
-b ∈ π_{q+h}(S^q)
+E^q a
+E^(p+k)b
+E^p b
+E^(q+h)a
 ```
 
-Conclusions:
+が現れる。
+
+したがって新しい representation を作る前に existing `IteratedSuspension` で formula を lossless に表現できるか確認する。
+
+不足する場合のみ:
 
 ```text
-a ∧ b
-=
-(-1)^((p+k)h)
-E^q a ∘ E^(p+k)b
+typing
+symbolic exponent interaction
+nested expression compatibility
 ```
 
-and:
+を最小拡張する。
+
+---
+
+# 12. Barratt–Hilton theorem candidate
+
+prerequisite が揃った後に [Toda] Prop.3.1 を explicit theorem rule として導入する。
+
+重要:
 
 ```text
-a ∧ b
-=
-(-1)^(ph)
-E^p b ∘ E^(q+h)a
-```
-
-Important:
-
-```text
-Barratt–Hilton
-≠
-general smash-product normalization
-```
-
-これは literature-backed theorem rule として扱う。
-
-必要な dependency:
-
-```text
-typed HomotopyElement
-+
 SmashProduct
-+
-IteratedSuspension
-+
-Composition
-+
-Symbolic scalar expressions
-+
-parity reasoning
+↛
+Barratt-Hilton
 ```
 
-Prop.3.1 を適用した結果、
-smash product を composition expression へ変換できる。
+theorem knowledge は explicit domain rule として追加する。
+
+また Prop.3.1 を general-purpose smash algebra に一般化しない。
 
 ---
 
-# 20. Actual H calculation
+# 13. Toda (2.1) foundational composition laws
 
-Phase 35+ candidate:
+将来必要:
+
+```text
+a ∘ (b₁ ± b₂)
+=
+a ∘ b₁ ± a ∘ b₂
+```
+
+```text
+(a₁ ± a₂) ∘ Eb
+=
+a₁ ∘ Eb ± a₂ ∘ Eb
+```
+
+特に:
+
+```text
+k(a∘b)=a∘(kb)
+```
+
+```text
+k(a∘Eb)=(ka)∘Eb
+```
+
+ただし unrestricted bidirectional rewrite は expression growth / loop を起こし得る。
+
+actual proof scenario が要求した時点で staged / directed rule として導入する。
+
+---
+
+# 14. Toda (5.1) foundational sphere-group facts
+
+known facts candidate:
+
+```text
+π_i(S¹)=0  (i>1)
+
+π_i(S^n)=0  (i<n)
+
+π_n(S^n)=Z{ι_n}
+```
+
+これらは foundational known-fact layer として将来利用できる。
+
+ただし Phase 33 で直接必要でなければ先取りしない。
+
+---
+
+# 15. actual H calculation
+
+Toda Prop.3.1 と必要な additive / scalar / composition machinery が揃った後:
 
 ```text
 H((2ι₂)η₂)
@@ -1215,53 +515,65 @@ H((2ι₂)η₂)
 
 の actual evaluation を行う。
 
-利用候補:
-
-```text
-Toda Prop.2.2
-SmashProduct
-Toda Prop.3.1
-iterated suspension
-symbolic sign / parity
-H(η₂)=ι₃
-scalar / additive reasoning
-composition facts
-```
-
 目標:
 
 ```text
 H((2ι₂)η₂)=4ι₃
 ```
 
-and:
+さらに:
 
 ```text
 H(4η₂)=4ι₃
 ```
 
-から:
+を導出し:
 
 ```text
 H((2ι₂)η₂)=H(4η₂)
 ```
 
-を構築する。
-
-その後、
-Phase 29 の actual H injectivity を再利用して:
-
-```text
-(2ι₂)η₂=4η₂
-```
-
-を end-to-end で導出する。
+へ接続する。
 
 ---
 
-# 21. Preimage / inverse-image reasoning
+# 16. equality reflection reuse
 
-一般の写像:
+新しい injectivity mechanism は不要。
+
+Phase 29 の:
+
+```text
+actual Isomorphism(H)
+↓
+Injective(H)
+```
+
+と Phase 28 の:
+
+```text
+Injective(H)
++
+H(a)=H(b)
+↓
+a=b
+```
+
+を再利用する。
+
+目標:
+
+```text
+H((2ι₂)η₂)=H(4η₂)
+↓
+(2ι₂)η₂=4η₂
+```
+
+---
+
+# 17. preimage / kernel-modulo reasoning
+
+将来候補:
 
 ```text
 f⁻¹(a)
@@ -1278,21 +590,7 @@ PreimageSet(
 )
 ```
 
-基本 semantics:
-
-```text
-x∈f⁻¹(a)
-↔
-f(x)=a
-```
-
-必要になるまで実装しない。
-
----
-
-# 22. Kernel-modulo equality reasoning
-
-一般則:
+また:
 
 ```text
 f(a)=f(b)
@@ -1302,102 +600,11 @@ a-b ∈ Ker(f)
 a≡b mod Ker(f)
 ```
 
-Phase 13〜15 の既存 machinery を再利用できる可能性が高い。
-
-専用 shortcut rule を増やす前に existing rule composition を優先する。
+は Phase 13–15 の machinery を優先的に再利用する。
 
 ---
 
-# 23. Map property facts / provenance
-
-Phase 29 で actual map fact repository は導入済み。
-
-現在:
-
-```text
-MapIsomorphismFact
-↓
-to_proof_step()
-↓
-ProofStep.GIVEN
-```
-
-ただし literature provenance はまだない。
-
-将来 concrete need があれば:
-
-```text
-map fact
-+
-LiteratureReference
-↓
-repository
-↓
-ProofStep.GIVEN
-```
-
-を検討する。
-
-また current proof-level `IsomorphismStatement` は typing context を保持しない。
-
-複数 H typing context を同じ proof graph で同時に扱う必要が生じた場合に typing-aware statement を検討する。
-
----
-
-# 24. Additional generator / composition facts
-
-現在の generator coverage:
-
-```text
-η₃
-ν′
-ν₇
-```
-
-現在の primitive zero-composition coverage:
-
-```text
-η₃ ∘ Eν′ = 0
-ν′ ∘ ν₆ = 0
-```
-
-必要な theorem / proof scenario が出たときだけ追加する。
-
-family formula や general composition table を先取りしない。
-
----
-
-# 25. Nested expression typing
-
-現在:
-
-```text
-GeneratorSymbol
-↓
-materialized typed HomotopyElement
-↓
-Suspension
-↓
-shifted source / target
-```
-
-general recursive repository traversal は未実装。
-
-Prop.2.2 / Prop.3.1 に必要な範囲で、
-
-```text
-Composition
-SmashProduct
-IteratedSuspension
-Multiple
-```
-
-を含む nested expression typing の actual need を確認し、
-必要最小限の recursive typing を導入する。
-
----
-
-# 26. Stable homotopy groups
+# 18. stable homotopy groups
 
 stable context:
 
@@ -1411,15 +618,13 @@ stable context:
 α ∈ π_m(S^n)
 ```
 
-と明確に区別する。
+と別 representation にする。
 
-bridge は stabilization theorem に基づく。
-
-notation-only conversion は行わない。
+notation-only conversion は行わず stabilization theorem を explicit bridge とする。
 
 ---
 
-# 27. Stable Toda brackets
+# 19. stable Toda brackets
 
 stable notation:
 
@@ -1437,62 +642,70 @@ stable notation:
 
 ---
 
-# 28. Unstable Toda index-zero notation
-
-Unstable Toda bracket について:
-
-```text
-{a,b,c}_0
-=
-{a,b,c}
-```
-
-を notation-level equivalence とする。
-
-Internal canonical form の第一候補:
-
-```text
-TodaBracket(
-  entries=(a,b,c),
-  index=0,
-)
-```
-
-unindexed notation を index `0` として解釈する。
-
----
-
-# 29. Higher Toda brackets
+# 20. higher Toda brackets
 
 higher / variable-arity brackets は concrete literature example が必要になるまで deferred。
 
 ---
 
-# 30. 長期 dependency
+# 21. 実装状況
 
-Phase 31 完了後の有力順序:
+| 項目 | 状態 | 備考 |
+|---|---|---|
+| Additive expression | IMPLEMENTED | Phase 12 |
+| homomorphism reasoning | IMPLEMENTED | Phase 13 |
+| set / subgroup reasoning | IMPLEMENTED | Phase 14 |
+| coset / modulo | IMPLEMENTED | Phase 15 |
+| symbolic scalar constraints | IMPLEMENTED | Phase 16 |
+| indeterminacy | IMPLEMENTED | Phase 17 |
+| unstable Toda bracket | IMPLEMENTED | Phase 18 |
+| Toda theorem bridge | IMPLEMENTED | Phase 19 |
+| indexed Toda notation | IMPLEMENTED | Phase 20 |
+| typed source / target | IMPLEMENTED | Phase 21 |
+| structured `GeneratorSymbol` | IMPLEMENTED | Phase 22 |
+| indexed Toda theorem validity | IMPLEMENTED | Phase 23 |
+| theorem fact repository | IMPLEMENTED | Phase 24 |
+| generator fact repository | IMPLEMENTED | Phase 25 |
+| actual Toda-generator typing | IMPLEMENTED | Phase 26 |
+| corrected ε₃ proof chain | IMPLEMENTED | Phase 27 |
+| map injectivity / isomorphism | IMPLEMENTED | Phase 28 |
+| actual H facts / typing | IMPLEMENTED | Phase 29 |
+| Toda Prop.2.2 right direct theorem | IMPLEMENTED | Phase 30 |
+| `SmashProduct` | IMPLEMENTED | Phase 31 |
+| Toda Prop.2.2 left direct theorem | IMPLEMENTED | Phase 32 |
+| symbolic scalar `(-1)^n` | NEXT CANDIDATE | Phase 33 |
+| parity reduction of `(-1)^n` | PLANNED | Phase 33+ |
+| Barratt–Hilton Prop.3.1 | PLANNED | prerequisites 後 |
+| actual H calculation | PLANNED | Prop.3.1 後 |
+| `H((2ι₂)η₂)=H(4η₂)` | PLANNED | actual H calculation 後 |
+| `(2ι₂)η₂=4η₂` | PLANNED | existing equality reflection を再利用 |
+| Toda (2.1) | PLANNED | concrete need 時 |
+| Toda (5.1) | PLANNED | concrete need 時 |
+| stable homotopy group | PLANNED | later |
+| stable Toda bracket | PLANNED | later |
+| higher Toda bracket | DEFERRED | concrete need required |
+
+---
+
+# 22. 長期 dependency
 
 ```text
+Phase 29
 actual H equality-reflection foundation
 ↓
-Toda (5.1) foundational homotopy-group facts
-+
-Toda (2.1) foundational composition laws
-↓
 Phase 30
-Toda Prop.2.2 right formula COMPLETE
+Toda Prop.2.2 right COMPLETE
 ↓
 Phase 31
 SmashProduct minimum representation COMPLETE
 ↓
 Phase 32
-Toda Prop.2.2 left formula support
+Toda Prop.2.2 left COMPLETE
 ↓
-Barratt-Hilton に実際に必要な typing / iterated-suspension expansion
+Phase 33+
+Barratt-Hilton prerequisites
 ↓
-symbolic scalar expression / (-1)^n parity reasoning
-↓
-Toda Prop.3.1 Barratt-Hilton
+Toda Prop.3.1
 ↓
 actual H((2ι₂)η₂) calculation
 ↓
@@ -1500,9 +713,9 @@ H((2ι₂)η₂)=H(4η₂)
 ↓
 (2ι₂)η₂=4η₂
 ↓
-preimage / kernel-modulo reasoning
+preimage / kernel-modulo reasoning as needed
 ↓
-general theorem representation
+general theorem representation as needed
 ↓
 stable homotopy representation
 ↓
@@ -1511,21 +724,9 @@ stable Toda bracket
 
 actual theorem scenario に応じて後続 Phase の番号・順序は調整してよい。
 
-重要なのは、Phase 31 以降が単なる API 増加ではなく、
-
-```text
-Toda Prop.2.2
-+
-Toda Prop.3.1
-↓
-actual H calculation
-```
-
-という一つの数学的 proof chain を形成することである。
-
 ---
 
-# 31. テスト / representative demonstration 原則
+# 23. テスト / representative demonstration 原則
 
 各 layer で:
 
@@ -1555,123 +756,60 @@ probe
 人間が目で追える数学的 capability
 ```
 
-Prop.2.2 / Prop.3.1 では特に:
+---
+
+# 24. Phase 32 完了時点
+
+focused:
 
 ```text
-formula shape
-typing
-suspension exponent
-composition compatibility
-symbolic sign preservation
-parity reduction
-literature-backed provenance
+tests/test_phase30_prop22.py
+25 passed
+
+tests/test_phase32_prop22.py
+39 passed
+
+tests/test_hopf_rules.py
+31 passed
+
+tests/test_map_facts.py
+54 passed
 ```
 
-を確認する。
+full suite:
 
-probe は production APIs と existing inference rules を再利用し、別実装を作らない。
+```text
+1512 passed in 63.58s
+```
+
+No failures.
 
 ---
 
-# 32. 文書運用方針
+# 25. 次の直接的候補
+
+推奨:
 
 ```text
-README.md
-=
-現在の capabilities / status
-
-docs/design.md
-=
-現在の architecture / semantics / boundaries
-
-docs/development_log.md
-=
-chronological implementation history
-
-docs/roadmap.md
-=
-future capability dependency
+Phase 33
+Barratt-Hilton prerequisite minimum representation
 ```
 
-Phase completion ごとに historical statement と current specification を区別する。
-
----
-
-# 33. 長期目標
-
-最終的には:
+最初に [Toda] Prop.3.1 の concrete formula を structural に再確認し、次の順に不足を確認する。
 
 ```text
-known unstable homotopy groups
-+
-known stable homotopy groups
-+
-Toda (5.1) foundational sphere-group facts
-+
-Toda (2.1) foundational composition laws
-+
-generator / composition / map tables
-+
-map-property facts
-+
-literature-backed formulas
-+
-quantified theorems
-+
-EHP exactness
-+
-ORDER
-+
-Suspension / stabilization
-+
-composition
-+
-Hopf invariant
-+
-Toda Prop.2.2 formulas
-+
-smash-product formulas
-+
-Barratt–Hilton
-+
-additive reasoning
-+
-subgroup / modulo reasoning
-+
-kernel-modulo equality
-+
-preimage reasoning
-+
-injectivity / isomorphism reasoning
-+
-symbolic scalar constraints
-+
-symbolic scalar expressions
-+
-indeterminacy
-+
-unstable Toda brackets
-+
-stable Toda brackets
+existing IteratedSuspension
+existing additive expressions
+existing symbolic scalar constraints
+existing SmashProduct
 ↓
-new homotopy-theoretic conclusions
+不足している最小 syntax / rule のみ追加
 ```
 
-を同一 proof graph 上で扱う。
-
-その際、
+現時点の最有力不足:
 
 ```text
-exact value
-partial information
-sign uncertainty
-coefficient uncertainty
-symbolic sign (-1)^n
-coset uncertainty
-preimage membership
-kernel-modulo equality
-Toda-bracket membership
-stable Toda-bracket membership
+(-1)^n
 ```
 
-を provenance 付き knowledge として保持する。
+の symbolic scalar-expression representation と parity reduction。
