@@ -3238,6 +3238,71 @@ def test_phase31_4_representative_c_smash_c_preserves_same_operand_structure():
   assert smash.right is c
 
 
+def test_phase31_5_suspension_of_representative_c_smash_c():
+  c = HomotopyElement(
+    name="c",
+    dimension=3,
+  )
+
+  c_smash_c = SmashProduct(
+    left=c,
+    right=c,
+  )
+
+  suspended = Suspension(
+    expression=c_smash_c,
+  )
+
+  assert suspended == Suspension(
+    expression=SmashProduct(
+      left=c,
+      right=c,
+    ),
+  )
+
+  assert suspended.expression == c_smash_c
+
+
+def test_phase31_5_suspension_preserves_c_smash_c_structure():
+  c = HomotopyElement(
+    name="c",
+    dimension=3,
+  )
+
+  suspended = Suspension(
+    expression=SmashProduct(
+      left=c,
+      right=c,
+    ),
+  )
+
+  assert isinstance(
+    suspended.expression,
+    SmashProduct,
+  )
+
+  assert suspended.expression.left == c
+  assert suspended.expression.right == c
+  assert suspended.expression.left == suspended.expression.right
+
+
+def test_phase31_5_suspended_smash_remains_structurally_distinct_from_unsuspended_smash():
+  c = HomotopyElement(
+    name="c",
+    dimension=3,
+  )
+
+  c_smash_c = SmashProduct(
+    left=c,
+    right=c,
+  )
+
+  suspended = Suspension(
+    expression=c_smash_c,
+  )
+
+  assert suspended != c_smash_c
+
 
 
 
