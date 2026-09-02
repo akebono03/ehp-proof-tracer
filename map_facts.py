@@ -67,13 +67,13 @@ class MapIsomorphismFactRepository:
     return None
 
 
-HOPF_MAP = MapSymbol(
+EHP_H_MAP = MapSymbol(
   name="H",
 )
 
 
-HOPF_MAP_TYPING_FACT = MapTypingFact(
-  map=HOPF_MAP,
+EHP_H_MAP_TYPING_FACT = MapTypingFact(
+  map=EHP_H_MAP,
   source_group_dimension=3,
   source_sphere_dimension=2,
   target_group_dimension=3,
@@ -81,9 +81,9 @@ HOPF_MAP_TYPING_FACT = MapTypingFact(
 )
 
 
-HOPF_MAP_ISOMORPHISM_FACT = (
+EHP_H_MAP_ISOMORPHISM_FACT = (
   MapIsomorphismFact(
-    typing=HOPF_MAP_TYPING_FACT,
+    typing=EHP_H_MAP_TYPING_FACT,
   )
 )
 
@@ -91,11 +91,21 @@ HOPF_MAP_ISOMORPHISM_FACT = (
 MAP_ISOMORPHISM_FACT_REPOSITORY = (
   MapIsomorphismFactRepository(
     facts=(
-      HOPF_MAP_ISOMORPHISM_FACT,
+      EHP_H_MAP_ISOMORPHISM_FACT,
     ),
   )
 )
 
+
+HOPF_MAP = EHP_H_MAP
+
+HOPF_MAP_TYPING_FACT = (
+  EHP_H_MAP_TYPING_FACT
+)
+
+HOPF_MAP_ISOMORPHISM_FACT = (
+  EHP_H_MAP_ISOMORPHISM_FACT
+)
 
 
 

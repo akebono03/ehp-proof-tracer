@@ -1,6 +1,6 @@
 # ehp_proof 設計メモ
 
-この文書は Phase 29 完了時点の current architecture / semantics / design boundary を正本としてまとめる。
+この文書は Phase 30 完了時点の current architecture / semantics / design boundary を正本としてまとめる。
 
 過去の `development_log.md` にある「未実装」「今後の課題」は、その Phase 時点の historical statement であり、current specification とは限らない。
 
@@ -163,7 +163,7 @@ iterate
 trace
 ```
 
-Phase 29 でも generic engine は変更しない。
+Phase 30 でも generic engine は変更しない。
 
 Theorem repository の責務:
 
@@ -1214,51 +1214,531 @@ full suite
 
 ---
 
-# 38. 次の設計境界
+# 38. Phase 30 right Prop.2.2 representation boundary
 
-Phase 29 で:
+Phase 30 の対象は [Toda] Prop.2.2 の右側公式:
 
 ```text
-actual H mathematical knowledge
-↓
-proof-level Isomorphism(H)
-↓
-Injective(H)
-↓
-equality reflection
+H(a ∘ Eb)=H(a) ∘ Eb
 ```
 
-まで完成した。
+のみ。
 
-次の Phase 30 は:
+この式は新しい dedicated formula object を導入せず、既存 structural objects:
 
 ```text
-Hopf formula minimum representation
+MapApplication
+Composition
+Suspension
+Relation(RelationType.EQUALITY)
+```
+
+で lossless に表現する。
+
+重要:
+
+```text
+representable formula
+!=
+automatically valid theorem instance
+```
+
+---
+
+# 39. Phase 11 Hopf statement と actual-H equality の distinction
+
+Phase 11 の:
+
+```text
+HopfInvariantStatement(
+  expression=a,
+  value=β,
+)
+```
+
+と proof-level actual-H equality:
+
+```text
+Relation(
+  lhs=MapApplication(H,a),
+  rhs=β,
+  relation_type=EQUALITY,
+)
+```
+
+は structural に別 object。
+
+```text
+HopfInvariantStatement
+!=
+Relation(MapApplication(H,...))
+```
+
+`HopfInvariantStatement` 自体は map field を持たない。
+
+したがって implicit conversion は行わない。
+
+---
+
+# 40. HopfInvariantStatement → actual EHP H equality bridge
+
+Phase 30 で利用する explicit bridge:
+
+```text
+hopf_invariant_statement_to_ehp_h_equality_inference_rule()
+```
+
+semantics:
+
+```text
+HopfInvariantStatement(x,y)
+↓
+H(x)=y
+```
+
+production map identity:
+
+```text
+EHP_H_MAP
+```
+
+を使用する。
+
+この bridge は mathematical inference として `ProofRule.INFERENCE` を持ち、premise は元の Hopf statement step。
+
+---
+
+# 41. Existing generalized Hopf composition law reuse
+
+Phase 30 は Phase 11 の:
+
+```text
+hopf_composition_law_inference_rule()
+hopf_composition_formula_inference_rule()
+```
+
+を変更せず再利用する。
+
+base fact:
+
+```text
+H(a)=β
+```
+
+から:
+
+```text
+HopfCompositionLawStatement(
+  alpha=a,
+  beta=β,
+)
+```
+
+を得て、さらに expression `b` と組み合わせ:
+
+```text
+HopfInvariantStatement(
+  expression=a ∘ Eb,
+  value=β ∘ Eb,
+)
+```
+
+を得る。
+
+actual-H bridge 後:
+
+```text
+H(a ∘ Eb)=β ∘ Eb
+```
+
+となる。
+
+---
+
+# 42. Right-hand branch construction
+
+base actual-H equality:
+
+```text
+H(a)=β
+```
+
+に対して existing generic equality rules を staged に使う。
+
+```text
+H(a)=β
+↓ equality symmetry
+β=H(a)
+```
+
+次に:
+
+```text
+β=H(a)
+↓ equality preserved under right composition by Eb
+β ∘ Eb=H(a) ∘ Eb
+```
+
+この段階では right-composition rule は1回だけ明示適用する。
+
+---
+
+# 43. Prop.2.2 right-formula closure
+
+二つの equality:
+
+```text
+H(a ∘ Eb)=β ∘ Eb
+```
+
+```text
+β ∘ Eb=H(a) ∘ Eb
+```
+
+に existing:
+
+```text
+equality_transitivity_inference_rule()
+```
+
+を適用して:
+
+```text
+H(a ∘ Eb)=H(a) ∘ Eb
+```
+
+を得る。
+
+専用の「H preserves composition」rule は導入しない。
+
+重要:
+
+```text
+Toda Prop.2.2 right formula
+!=
+general H composition homomorphism law
+```
+
+---
+
+# 44. Provenance semantics
+
+final equality step:
+
+```text
+premises =
+  H(a∘Eb)=β∘Eb step
+  β∘Eb=H(a)∘Eb step
+```
+
+left branch:
+
+```text
+final premise
+↓
+actual-H bridge
+↓
+Hopf composition formula
+↓
+Hopf composition law
+↓
+base Hopf fact
+```
+
+right branch:
+
+```text
+final premise
+↓
+staged right composition
+↓
+equality symmetry
+↓
+actual-H bridge
+↓
+base Hopf fact
+```
+
+同じ base Hopf fact から分岐していることを proof graph 上で保持する。
+
+---
+
+# 45. Invalid / mismatch semantics
+
+Phase 30 regressions は少なくとも以下を reject する。
+
+```text
+H(a∘b)=H(a)∘b
+```
+
+は suspended right factor を持つ formula と structural に同一視しない。
+
+```text
+H(a∘Eb)=β∘Eb
+γ∘Eb=H(a)∘Eb
+```
+
+で `β != γ` なら transitivity closure しない。
+
+```text
+H(a∘Eb)=β∘Eb
+β∘Ec=H(a)∘Ec
+```
+
+で `Eb != Ec` なら closure しない。
+
+unrelated equality は final provenance に入らない。
+
+さらに別の valid Hopf fact:
+
+```text
+H(c)=γ
+```
+
+から:
+
+```text
+γ∘Eb=H(c)∘Eb
+```
+
+が正しく導出できても、`a / β` branch の Prop.2.2 closure には使えない。
+
+---
+
+# 46. Right-composition staged-rule boundary
+
+```text
+equality_preserved_under_right_composition_inference_rule(Eb)
+```
+
+は structural growth を生む productive rule。
+
+同じ rule を再適用すると:
+
+```text
+x=y
+↓
+x∘Eb=y∘Eb
+↓
+(x∘Eb)∘Eb=(y∘Eb)∘Eb
+↓
+...
+```
+
+となり得る。
+
+したがって Phase 30 の representative proof では:
+
+```text
+right composition
+=
+one staged application
+```
+
+とする。
+
+これは engine-side の hidden termination ではなく active-rule scope の設計判断。
+
+---
+
+# 47. Terminal / deduplication semantics
+
+最終 transitivity conclusion:
+
+```text
+H(a∘Eb)=H(a)∘Eb
+```
+
+は tested round 内で一意に derived される。
+
+最終 transitivity rule を既知 steps に対して再度適用した terminal round は:
+
+```text
+new_steps == ()
+```
+
+となる。
+
+ただし staged right-composition rule を unrestricted fixed-point rule set に含めた termination を主張しているわけではない。
+
+---
+
+# 48. Phase 30 representative probe
+
+実行:
+
+```powershell
+python -m probes.probe_phase30_capabilities
+```
+
+表示する proof chain:
+
+```text
+GIVEN H(a)=β
+↓
+Hopf composition law
+↓
+H(a∘Eb)=β∘Eb
+```
+
+and:
+
+```text
+H(a)=β
+↓ symmetry
+β=H(a)
+↓ staged right composition
+β∘Eb=H(a)∘Eb
+```
+
+then:
+
+```text
+transitivity
+↓
+H(a∘Eb)=H(a)∘Eb
+```
+
+probe は production APIs と existing inference rules を再利用し、数学的推論を別実装しない。
+
+---
+
+# 49. Phase 30 completion boundary
+
+実装済み:
+
+```text
+right Prop.2.2 formula structural representation
+Phase 11 Hopf statement / actual-H equality distinction
+explicit actual EHP H equality bridge
+existing Hopf composition law reuse
+existing Hopf composition formula reuse
+actual H(a∘Eb)=β∘Eb equality
+actual H(a)=β equality
+symmetry bridge
+staged right-composition bridge
+transitivity closure
+H(a∘Eb)=H(a)∘Eb
+full proof provenance
+mismatch rejection
+right-factor mismatch rejection
+unrelated equality exclusion
+unrelated valid Hopf branch rejection
+round-level deduplication
+terminal transitivity regression
+staged structural-growth boundary
+human-readable Phase 30 probe
+```
+
+generic inference engine:
+
+```text
+変更なし
+```
+
+verified:
+
+```text
+tests/test_phase30_prop22.py
+21 passed in 0.19s
+```
+
+```text
+full suite
+1439 passed in 23.44s
+```
+
+---
+
+# 50. Phase 30 non-goals
+
+Phase 30 では未実装:
+
+```text
+H((Ec)∘a)=E(c∧c)∘H(a)
+```
+
+および:
+
+- `SmashProduct`
+- general smash-product algebra
+- Barratt-Hilton Prop.3.1
+- symbolic scalar `(-1)^n` expression tree
+- actual `H((2ι₂)η₂)` calculation
+- actual `H((2ι₂)η₂)=H(4η₂)`
+- actual `(2ι₂)η₂=4η₂`
+
+右側公式を一般の「H preserves composition」へ一般化しない。
+
+---
+
+# 51. 次の設計境界
+
+Phase 30 で:
+
+```text
+H(a∘Eb)=H(a)∘Eb
+```
+
+まで proof-level end-to-end に閉じた。
+
+次は:
+
+```text
+Phase 31
+SmashProduct minimum representation
 ```
 
 を推奨する。
 
-対象となる代表式:
+対象:
 
 ```text
-H(γ α)=(γ∧γ)H(α)
+a ∧ b
 ```
 
-ただし Phase 30 では formula を structural に表現する最小 layer から開始し、無条件 generic rewrite や smash product の全面実装を先取りしない。
+候補 structural object:
+
+```text
+SmashProduct(
+  left=a,
+  right=b,
+)
+```
+
+重要:
+
+```text
+SmashProduct(a,b)
+!=
+Barratt-Hilton theorem knowledge
+```
+
+Phase 31 では smash product の structural identity / equality / minimal typing needs を確認し、一般 algebra や Barratt-Hilton を先取りしない。
+
+この representation が整って初めて、Toda Prop.2.2 の左側公式:
+
+```text
+H((Ec)∘a)=E(c∧c)∘H(a)
+```
+
+を lossless に表現できる。
 
 長期 dependency:
 
 ```text
-Phase 29
-actual H facts / equality reflection
-↓
 Phase 30
-Hopf formula minimum representation
+right Prop.2.2 formula complete
 ↓
 Phase 31
-smash product
+SmashProduct minimum representation
 ↓
-Phase 32+
+left Prop.2.2 formula support
+↓
+IteratedSuspension / symbolic sign support
+↓
+Toda Prop.3.1 Barratt-Hilton
+↓
 actual H calculation
 ↓
 H((2ι₂)η₂)=H(4η₂)
@@ -1270,7 +1750,7 @@ existing equality reflection
 
 ---
 
-# 39. テスト原則
+# 52. テスト原則
 
 新しい数学的 layer ごとに:
 
@@ -1289,9 +1769,11 @@ existing equality reflection
 
 structural-only Phase では存在しない inference / provenance を先取りしない。
 
+structural growth を生む rule は、fixed-point rule set に無条件で常駐させず、actual proof scenario に必要な active scope を明示する。
+
 ---
 
-# 40. 文書運用方針
+# 53. 文書運用方針
 
 ```text
 README.md

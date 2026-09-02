@@ -27,6 +27,7 @@ from relation_rules import (
   additive_inverse_inference_rule,
   composition_equality_to_zero_inference_rule,
   double_equals_repeated_sum_inference_rule,
+  equality_preserved_under_right_composition_inference_rule,
   equality_symmetry_inference_rule,
   equality_transitivity_inference_rule,
   order_implies_zero_multiple_inference_rule,
@@ -2324,6 +2325,121 @@ def test_suspension_preserves_equality_rejects_non_equality_relation():
     rule,
     (
       premise_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase30_4_equality_is_preserved_under_right_composition():
+  left = eta(3)
+  right = nu(4)
+  common_right = sigma(5)
+
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=left,
+      rhs=right,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  rule = (
+    equality_preserved_under_right_composition_inference_rule(
+      common_right
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == Relation(
+    lhs=Composition(
+      left=left,
+      right=common_right,
+    ),
+    rhs=Composition(
+      left=right,
+      right=common_right,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+
+def test_phase30_4_right_composition_equality_preserves_provenance():
+  left = eta(3)
+  right = nu(4)
+  common_right = sigma(5)
+
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=left,
+      rhs=right,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  rule = (
+    equality_preserved_under_right_composition_inference_rule(
+      common_right
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == (
+    rule
+  )
+
+  assert derived_step.premises == (
+    equality_step,
+  )
+
+
+def test_phase30_4_right_composition_equality_rejects_non_equality_relation():
+  zero_step = relation_proof_step(
+    Relation(
+      lhs=eta(3),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  rule = (
+    equality_preserved_under_right_composition_inference_rule(
+      sigma(5)
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      zero_step,
     ),
   )
 
