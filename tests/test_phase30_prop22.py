@@ -22,6 +22,7 @@ from proof import (
   RelationType,
   apply_inference_match,
   find_inference_match,
+  run_inference_round,
 )
 from relation_rules import (
   equality_preserved_under_right_composition_inference_rule,
@@ -1005,6 +1006,660 @@ def test_phase30_5_prop22_right_formula_closes_as_actual_ehp_h_equality():
 
   assert base_h_equality_step.premises == (
     hopf_step,
+  )
+
+
+def test_phase30_6_right_formula_preserves_full_provenance_chain():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  beta = HomotopyElement(
+    name="beta",
+    dimension=1,
+  )
+
+  suspended_b = Suspension(
+    expression=b,
+  )
+
+  hopf_step = hopf_invariant_proof_step(
+    HopfInvariantStatement(
+      expression=a,
+      value=beta,
+    )
+  )
+
+  law_rule = (
+    hopf_composition_law_inference_rule()
+  )
+
+  law_match = find_inference_match(
+    law_rule,
+    (
+      hopf_step,
+    ),
+  )
+
+  assert law_match is not None
+
+  law_step = apply_inference_match(
+    law_match
+  )
+
+  b_step = ProofStep(
+    conclusion=b,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  formula_rule = (
+    hopf_composition_formula_inference_rule()
+  )
+
+  formula_match = find_inference_match(
+    formula_rule,
+    (
+      law_step,
+      b_step,
+    ),
+  )
+
+  assert formula_match is not None
+
+  formula_step = apply_inference_match(
+    formula_match
+  )
+
+  bridge_rule = (
+    hopf_invariant_statement_to_ehp_h_equality_inference_rule()
+  )
+
+  formula_bridge_match = find_inference_match(
+    bridge_rule,
+    (
+      formula_step,
+    ),
+  )
+
+  assert formula_bridge_match is not None
+
+  composed_h_equality_step = (
+    apply_inference_match(
+      formula_bridge_match
+    )
+  )
+
+  base_bridge_match = find_inference_match(
+    bridge_rule,
+    (
+      hopf_step,
+    ),
+  )
+
+  assert base_bridge_match is not None
+
+  base_h_equality_step = (
+    apply_inference_match(
+      base_bridge_match
+    )
+  )
+
+  symmetry_rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  symmetry_match = find_inference_match(
+    symmetry_rule,
+    (
+      base_h_equality_step,
+    ),
+  )
+
+  assert symmetry_match is not None
+
+  reversed_base_step = (
+    apply_inference_match(
+      symmetry_match
+    )
+  )
+
+  composition_rule = (
+    equality_preserved_under_right_composition_inference_rule(
+      suspended_b
+    )
+  )
+
+  composition_match = find_inference_match(
+    composition_rule,
+    (
+      reversed_base_step,
+    ),
+  )
+
+  assert composition_match is not None
+
+  right_composition_step = (
+    apply_inference_match(
+      composition_match
+    )
+  )
+
+  transitivity_rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  transitivity_match = find_inference_match(
+    transitivity_rule,
+    (
+      composed_h_equality_step,
+      right_composition_step,
+    ),
+  )
+
+  assert transitivity_match is not None
+
+  final_step = apply_inference_match(
+    transitivity_match
+  )
+
+  assert final_step.premises == (
+    composed_h_equality_step,
+    right_composition_step,
+  )
+
+  assert composed_h_equality_step.premises == (
+    formula_step,
+  )
+
+  assert formula_step.premises == (
+    law_step,
+    b_step,
+  )
+
+  assert law_step.premises == (
+    hopf_step,
+  )
+
+  assert right_composition_step.premises == (
+    reversed_base_step,
+  )
+
+  assert reversed_base_step.premises == (
+    base_h_equality_step,
+  )
+
+  assert base_h_equality_step.premises == (
+    hopf_step,
+  )
+
+
+def test_phase30_6_transitivity_rejects_mismatched_middle_expression():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  beta = HomotopyElement(
+    name="beta",
+    dimension=1,
+  )
+
+  different_beta = HomotopyElement(
+    name="different_beta",
+    dimension=1,
+  )
+
+  suspended_b = Suspension(
+    expression=b,
+  )
+
+  first_step = ProofStep(
+    conclusion=Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=Composition(
+          left=a,
+          right=suspended_b,
+        ),
+      ),
+      rhs=Composition(
+        left=beta,
+        right=suspended_b,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  second_step = ProofStep(
+    conclusion=Relation(
+      lhs=Composition(
+        left=different_beta,
+        right=suspended_b,
+      ),
+      rhs=Composition(
+        left=MapApplication(
+          map=EHP_H_MAP,
+          expression=a,
+        ),
+        right=suspended_b,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      first_step,
+      second_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase30_6_different_right_factor_does_not_close_prop22_formula():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=1,
+  )
+
+  beta = HomotopyElement(
+    name="beta",
+    dimension=1,
+  )
+
+  suspended_b = Suspension(
+    expression=b,
+  )
+
+  suspended_c = Suspension(
+    expression=c,
+  )
+
+  first_step = ProofStep(
+    conclusion=Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=Composition(
+          left=a,
+          right=suspended_b,
+        ),
+      ),
+      rhs=Composition(
+        left=beta,
+        right=suspended_b,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  second_step = ProofStep(
+    conclusion=Relation(
+      lhs=Composition(
+        left=beta,
+        right=suspended_c,
+      ),
+      rhs=Composition(
+        left=MapApplication(
+          map=EHP_H_MAP,
+          expression=a,
+        ),
+        right=suspended_c,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      first_step,
+      second_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase30_6_right_formula_provenance_excludes_unrelated_equality():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  beta = HomotopyElement(
+    name="beta",
+    dimension=1,
+  )
+
+  x = HomotopyElement(
+    name="x",
+    dimension=1,
+  )
+
+  y = HomotopyElement(
+    name="y",
+    dimension=1,
+  )
+
+  suspended_b = Suspension(
+    expression=b,
+  )
+
+  first_step = ProofStep(
+    conclusion=Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=Composition(
+          left=a,
+          right=suspended_b,
+        ),
+      ),
+      rhs=Composition(
+        left=beta,
+        right=suspended_b,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  second_step = ProofStep(
+    conclusion=Relation(
+      lhs=Composition(
+        left=beta,
+        right=suspended_b,
+      ),
+      rhs=Composition(
+        left=MapApplication(
+          map=EHP_H_MAP,
+          expression=a,
+        ),
+        right=suspended_b,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  unrelated_step = ProofStep(
+    conclusion=Relation(
+      lhs=x,
+      rhs=y,
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      first_step,
+      second_step,
+      unrelated_step,
+    ),
+  )
+
+  assert match is not None
+
+  final_step = apply_inference_match(
+    match
+  )
+
+  assert final_step.premises == (
+    first_step,
+    second_step,
+  )
+
+  assert unrelated_step not in (
+    final_step.premises
+  )
+
+
+def test_phase30_6_final_prop22_right_formula_is_derived_once_per_round():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  beta = HomotopyElement(
+    name="beta",
+    dimension=1,
+  )
+
+  suspended_b = Suspension(
+    expression=b,
+  )
+
+  first_step = ProofStep(
+    conclusion=Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=Composition(
+          left=a,
+          right=suspended_b,
+        ),
+      ),
+      rhs=Composition(
+        left=beta,
+        right=suspended_b,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  second_step = ProofStep(
+    conclusion=Relation(
+      lhs=Composition(
+        left=beta,
+        right=suspended_b,
+      ),
+      rhs=Composition(
+        left=MapApplication(
+          map=EHP_H_MAP,
+          expression=a,
+        ),
+        right=suspended_b,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  steps = run_inference_round(
+    rule,
+    (
+      first_step,
+      second_step,
+    ),
+  )
+
+  expected = Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=Composition(
+        left=a,
+        right=suspended_b,
+      ),
+    ),
+    rhs=Composition(
+      left=MapApplication(
+        map=EHP_H_MAP,
+        expression=a,
+      ),
+      right=suspended_b,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  derived_steps = tuple(
+    step
+    for step in steps
+    if step.conclusion == expected
+  )
+
+  assert len(
+    derived_steps
+  ) == 1
+
+
+def test_phase30_6_right_composition_rule_is_applied_as_single_staged_step():
+  beta = HomotopyElement(
+    name="beta",
+    dimension=1,
+  )
+
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  suspended_b = Suspension(
+    expression=b,
+  )
+
+  equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=beta,
+      rhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=a,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    equality_preserved_under_right_composition_inference_rule(
+      suspended_b
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  once_composed = Relation(
+    lhs=Composition(
+      left=beta,
+      right=suspended_b,
+    ),
+    rhs=Composition(
+      left=MapApplication(
+        map=EHP_H_MAP,
+        expression=a,
+      ),
+      right=suspended_b,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  twice_composed = Relation(
+    lhs=Composition(
+      left=Composition(
+        left=beta,
+        right=suspended_b,
+      ),
+      right=suspended_b,
+    ),
+    rhs=Composition(
+      left=Composition(
+        left=MapApplication(
+          map=EHP_H_MAP,
+          expression=a,
+        ),
+        right=suspended_b,
+      ),
+      right=suspended_b,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert derived_step.conclusion == (
+    once_composed
+  )
+
+  assert derived_step.conclusion != (
+    twice_composed
   )
 
 
