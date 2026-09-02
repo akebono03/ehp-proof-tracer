@@ -21,6 +21,7 @@ from proof import (
   Relation,
   RelationType,
   apply_inference_match,
+  derive_inference_round_result,
   find_inference_match,
   run_inference_round,
 )
@@ -1662,6 +1663,252 @@ def test_phase30_6_right_composition_rule_is_applied_as_single_staged_step():
     twice_composed
   )
 
+
+def test_phase30_7_final_prop22_right_formula_reaches_genuine_terminal_round():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  beta = HomotopyElement(
+    name="beta",
+    dimension=1,
+  )
+
+  suspended_b = Suspension(
+    expression=b,
+  )
+
+  first_step = ProofStep(
+    conclusion=Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=Composition(
+          left=a,
+          right=suspended_b,
+        ),
+      ),
+      rhs=Composition(
+        left=beta,
+        right=suspended_b,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  second_step = ProofStep(
+    conclusion=Relation(
+      lhs=Composition(
+        left=beta,
+        right=suspended_b,
+      ),
+      rhs=Composition(
+        left=MapApplication(
+          map=EHP_H_MAP,
+          expression=a,
+        ),
+        right=suspended_b,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  first_round = (
+    derive_inference_round_result(
+      rule,
+      (
+        first_step,
+        second_step,
+      ),
+    )
+  )
+
+  expected = Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=Composition(
+        left=a,
+        right=suspended_b,
+      ),
+    ),
+    rhs=Composition(
+      left=MapApplication(
+        map=EHP_H_MAP,
+        expression=a,
+      ),
+      right=suspended_b,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert len(
+    first_round.new_steps
+  ) == 1
+
+  final_step = (
+    first_round.new_steps[0]
+  )
+
+  assert final_step.conclusion == expected
+
+  terminal_round = (
+    derive_inference_round_result(
+      rule,
+      (
+        first_step,
+        second_step,
+        final_step,
+      ),
+    )
+  )
+
+  assert terminal_round.new_steps == ()
+
+  assert expected in tuple(
+    step.conclusion
+    for step
+    in terminal_round.candidate_steps
+  )
+
+  assert final_step.premises == (
+    first_step,
+    second_step,
+  )
+
+  assert final_step.inference_rule == (
+    rule
+  )
+
+
+def test_phase30_7_right_composition_rule_remains_staged_outside_terminal_rule_set():
+  beta = HomotopyElement(
+    name="beta",
+    dimension=1,
+  )
+
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  suspended_b = Suspension(
+    expression=b,
+  )
+
+  base_step = ProofStep(
+    conclusion=Relation(
+      lhs=beta,
+      rhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=a,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  staged_rule = (
+    equality_preserved_under_right_composition_inference_rule(
+      suspended_b
+    )
+  )
+
+  staged_match = find_inference_match(
+    staged_rule,
+    (
+      base_step,
+    ),
+  )
+
+  assert staged_match is not None
+
+  staged_step = apply_inference_match(
+    staged_match
+  )
+
+  once_composed = Relation(
+    lhs=Composition(
+      left=beta,
+      right=suspended_b,
+    ),
+    rhs=Composition(
+      left=MapApplication(
+        map=EHP_H_MAP,
+        expression=a,
+      ),
+      right=suspended_b,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert staged_step.conclusion == (
+    once_composed
+  )
+
+  second_stage_match = (
+    find_inference_match(
+      staged_rule,
+      (
+        staged_step,
+      ),
+    )
+  )
+
+  assert second_stage_match is not None
+
+  second_stage_step = (
+    apply_inference_match(
+      second_stage_match
+    )
+  )
+
+  twice_composed = Relation(
+    lhs=Composition(
+      left=Composition(
+        left=beta,
+        right=suspended_b,
+      ),
+      right=suspended_b,
+    ),
+    rhs=Composition(
+      left=Composition(
+        left=MapApplication(
+          map=EHP_H_MAP,
+          expression=a,
+        ),
+        right=suspended_b,
+      ),
+      right=suspended_b,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert second_stage_step.conclusion == (
+    twice_composed
+  )
+
+  assert second_stage_step.conclusion != (
+    once_composed
+  )
 
 
 
