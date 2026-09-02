@@ -2941,6 +2941,113 @@ def test_phase31_1_smash_product_distinguishes_operand_order():
   assert left_right != right_left
 
 
+def test_phase31_2_smash_product_distinguishes_left_operand():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=5,
+  )
+
+  first = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  second = SmashProduct(
+    left=c,
+    right=b,
+  )
+
+  assert first != second
+
+
+def test_phase31_2_smash_product_distinguishes_right_operand():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=5,
+  )
+
+  first = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  second = SmashProduct(
+    left=a,
+    right=c,
+  )
+
+  assert first != second
+
+
+def test_phase31_2_smash_product_is_distinct_from_sum():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  smash = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  sum_expression = Sum(
+    left=a,
+    right=b,
+  )
+
+  assert smash != sum_expression
+
+
+def test_phase31_2_smash_product_is_distinct_from_composition():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  smash = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  composition = Composition(
+    left=a,
+    right=b,
+  )
+
+  assert smash != composition
+
+
+
 
 
 
