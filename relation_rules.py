@@ -657,6 +657,53 @@ def equality_preserved_under_right_composition_inference_rule(
   )
 
 
+def equality_preserved_under_left_composition_inference_rule(
+  left_expression,
+):
+  right_expression = PatternVariable(
+    name="right_expression",
+  )
+
+  equal_expression = PatternVariable(
+    name="equal_expression",
+  )
+
+  return InferenceRule(
+    name=(
+      "equality preserved under "
+      "left composition"
+    ),
+    description=(
+      "If x=y, then composing the same "
+      "expression z on the left of both "
+      "expressions gives "
+      "z o x = z o y."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.EQUALITY,
+        relation_pattern=Relation(
+          lhs=right_expression,
+          rhs=equal_expression,
+          relation_type=RelationType.EQUALITY,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=Composition(
+        left=left_expression,
+        right=right_expression,
+      ),
+      rhs=Composition(
+        left=left_expression,
+        right=equal_expression,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+  )
+
+
 def equality_symmetry_inference_rule():
   left_expression = PatternVariable(
     name="left_expression",

@@ -27,6 +27,7 @@ from relation_rules import (
   additive_inverse_inference_rule,
   composition_equality_to_zero_inference_rule,
   double_equals_repeated_sum_inference_rule,
+  equality_preserved_under_left_composition_inference_rule,
   equality_preserved_under_right_composition_inference_rule,
   equality_symmetry_inference_rule,
   equality_transitivity_inference_rule,
@@ -3759,17 +3760,144 @@ def test_suspension_reasoning_scope_is_controlled_by_active_rule_set():
   )
 
 
+def test_equality_preserved_under_left_composition():
+  alpha = eta(3)
+  beta = nu(4)
+  gamma = sigma(8)
+
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=alpha,
+      rhs=beta,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  rule = (
+    equality_preserved_under_left_composition_inference_rule(
+      gamma,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    equality_step,
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == Relation(
+    lhs=Composition(
+      left=gamma,
+      right=alpha,
+    ),
+    rhs=Composition(
+      left=gamma,
+      right=beta,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert derived_step.premises == (
+    equality_step,
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == rule
 
 
+def test_equality_preserved_under_left_composition_rejects_non_equality_relation():
+  alpha = eta(3)
+  gamma = sigma(8)
+
+  zero_step = relation_proof_step(
+    Relation(
+      lhs=alpha,
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  rule = (
+    equality_preserved_under_left_composition_inference_rule(
+      gamma,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    zero_step,
+  )
+
+  assert match is None
 
 
+def test_equality_preserved_under_left_composition_preserves_fixed_left_factor():
+  alpha = eta(3)
+  beta = nu(4)
+  gamma = sigma(8)
+  delta = eta(8)
 
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=alpha,
+      rhs=beta,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
 
+  rule = (
+    equality_preserved_under_left_composition_inference_rule(
+      gamma,
+    )
+  )
 
+  match = find_inference_match(
+    rule,
+    equality_step,
+  )
 
+  assert match is not None
 
+  derived_step = apply_inference_match(
+    match
+  )
 
+  expected = Relation(
+    lhs=Composition(
+      left=gamma,
+      right=alpha,
+    ),
+    rhs=Composition(
+      left=gamma,
+      right=beta,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
 
+  different_left_factor = Relation(
+    lhs=Composition(
+      left=delta,
+      right=alpha,
+    ),
+    rhs=Composition(
+      left=delta,
+      right=beta,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert derived_step.conclusion == expected
+  assert derived_step.conclusion != (
+    different_left_factor
+  )
 
 
 
