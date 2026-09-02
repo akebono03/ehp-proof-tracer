@@ -9,6 +9,7 @@ from expression import (
   MapSymbol,
   Multiple,
   ScalarSymbol,
+  SmashProduct,
   Sum,
   Suspension,
   TodaBracket,
@@ -2867,6 +2868,77 @@ def test_phase20_representative_indexed_toda_expression_and_boundary():
   assert inconsistent_data.suspension_exponent == t
   assert not inconsistent_data.is_consistent()
 
+
+def test_phase31_1_smash_product_preserves_operands():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  smash = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  assert smash.left == a
+  assert smash.right == b
+  assert isinstance(
+    smash,
+    Expression,
+  )
+
+
+def test_phase31_1_smash_product_has_structural_equality():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  first = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  second = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  assert first == second
+
+
+def test_phase31_1_smash_product_distinguishes_operand_order():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  left_right = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  right_left = SmashProduct(
+    left=b,
+    right=a,
+  )
+
+  assert left_right != right_left
 
 
 
