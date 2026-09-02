@@ -3400,4 +3400,185 @@ def test_phase31_6_smash_product_does_not_gain_composition_compatibility():
   assert not composition.is_type_compatible()
 
 
+def test_phase31_7_suspended_smash_distinguishes_right_operand():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=5,
+  )
+
+  first = Suspension(
+    expression=SmashProduct(
+      left=a,
+      right=b,
+    ),
+  )
+
+  second = Suspension(
+    expression=SmashProduct(
+      left=a,
+      right=c,
+    ),
+  )
+
+  assert first != second
+
+
+def test_phase31_7_suspended_smash_distinguishes_operand_order():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  left_right = Suspension(
+    expression=SmashProduct(
+      left=a,
+      right=b,
+    ),
+  )
+
+  right_left = Suspension(
+    expression=SmashProduct(
+      left=b,
+      right=a,
+    ),
+  )
+
+  assert left_right != right_left
+
+
+def test_phase31_7_smash_product_is_not_implicitly_suspended():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  smash = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  suspended = Suspension(
+    expression=smash,
+  )
+
+  assert smash != suspended
+
+
+def test_phase31_7_smash_product_is_not_implicitly_composition():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  smash = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  composition = Composition(
+    left=a,
+    right=b,
+  )
+
+  assert smash != composition
+
+
+def test_phase31_7_phase31_scope_regression():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+    source=6,
+    target=4,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=5,
+    source=7,
+    target=5,
+  )
+
+  smash_ab = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  smash_ac = SmashProduct(
+    left=a,
+    right=c,
+  )
+
+  smash_ba = SmashProduct(
+    left=b,
+    right=a,
+  )
+
+  suspended_ab = Suspension(
+    expression=smash_ab,
+  )
+
+  suspended_ac = Suspension(
+    expression=smash_ac,
+  )
+
+  composition_ab = Composition(
+    left=a,
+    right=b,
+  )
+
+  assert smash_ab != smash_ac
+  assert smash_ab != smash_ba
+  assert suspended_ab != suspended_ac
+  assert suspended_ab != smash_ab
+  assert smash_ab != composition_ab
+
+  assert not hasattr(
+    smash_ab,
+    "source",
+  )
+
+  assert not hasattr(
+    smash_ab,
+    "target",
+  )
+
+  assert suspended_ab.source is None
+  assert suspended_ab.target is None
+
+
+
+
+
 
