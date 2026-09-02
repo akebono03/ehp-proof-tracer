@@ -610,6 +610,53 @@ def suspension_preserves_zero_multiple_inference_rule():
   )
 
 
+def equality_preserved_under_right_composition_inference_rule(
+  right_expression,
+):
+  left_expression = PatternVariable(
+    name="left_expression",
+  )
+
+  equal_expression = PatternVariable(
+    name="equal_expression",
+  )
+
+  return InferenceRule(
+    name=(
+      "equality preserved under "
+      "right composition"
+    ),
+    description=(
+      "If x=y, then composing both "
+      "expressions on the right by "
+      "the same expression z gives "
+      "x o z = y o z."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.EQUALITY,
+        relation_pattern=Relation(
+          lhs=left_expression,
+          rhs=equal_expression,
+          relation_type=RelationType.EQUALITY,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=Composition(
+        left=left_expression,
+        right=right_expression,
+      ),
+      rhs=Composition(
+        left=equal_expression,
+        right=right_expression,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+  )
+
+
 def equality_symmetry_inference_rule():
   left_expression = PatternVariable(
     name="left_expression",
