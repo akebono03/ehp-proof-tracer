@@ -3202,6 +3202,42 @@ def test_phase31_3_nested_smash_product_structure_is_preserved():
   )
 
 
+def test_phase31_4_representative_c_smash_c_construction():
+  c = HomotopyElement(
+    name="c",
+    dimension=3,
+  )
+
+  smash = SmashProduct(
+    left=c,
+    right=c,
+  )
+
+  assert smash == SmashProduct(
+    left=c,
+    right=c,
+  )
+
+  assert smash.left == c
+  assert smash.right == c
+
+
+def test_phase31_4_representative_c_smash_c_preserves_same_operand_structure():
+  c = HomotopyElement(
+    name="c",
+    dimension=3,
+  )
+
+  smash = SmashProduct(
+    left=c,
+    right=c,
+  )
+
+  assert smash.left == smash.right
+  assert smash.left is c
+  assert smash.right is c
+
+
 
 
 
