@@ -2021,6 +2021,139 @@ def test_phase32_6_transitivity_rejects_mismatched_suspended_smash_middle():
   assert match is None
 
 
+def test_phase32_7_smash_product_typing_remains_unknown():
+  c = HomotopyElement(
+    name="c",
+    dimension=3,
+    source=6,
+    target=3,
+  )
+
+  smash = SmashProduct(
+    left=c,
+    right=c,
+  )
+
+  assert not hasattr(
+    smash,
+    "source",
+  )
+
+  assert not hasattr(
+    smash,
+    "target",
+  )
+
+
+def test_phase32_7_suspended_smash_product_typing_remains_unknown():
+  c = HomotopyElement(
+    name="c",
+    dimension=3,
+    source=6,
+    target=3,
+  )
+
+  suspended_smash = Suspension(
+    expression=SmashProduct(
+      left=c,
+      right=c,
+    ),
+  )
+
+  assert suspended_smash.source is None
+  assert suspended_smash.target is None
+
+
+def test_phase32_7_left_composition_law_requires_explicit_c():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  beta = HomotopyElement(
+    name="β",
+    dimension=1,
+  )
+
+  hopf_step = hopf_invariant_proof_step(
+    HopfInvariantStatement(
+      expression=a,
+      value=beta,
+    )
+  )
+
+  rule = (
+    hopf_left_composition_law_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    hopf_step,
+  )
+
+  assert match is None
+
+
+def test_phase32_7_left_formula_requires_explicit_law_statement():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  beta = HomotopyElement(
+    name="β",
+    dimension=1,
+  )
+
+  hopf_step = hopf_invariant_proof_step(
+    HopfInvariantStatement(
+      expression=a,
+      value=beta,
+    )
+  )
+
+  rule = (
+    hopf_left_composition_formula_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    hopf_step,
+  )
+
+  assert match is None
+
+
+def test_phase32_7_smash_product_is_not_automatically_simplified():
+  c = HomotopyElement(
+    name="c",
+    dimension=1,
+  )
+
+  candidate = HomotopyElement(
+    name="candidate",
+    dimension=1,
+  )
+
+  smash = SmashProduct(
+    left=c,
+    right=c,
+  )
+
+  suspended_smash = Suspension(
+    expression=smash,
+  )
+
+  candidate_suspension = Suspension(
+    expression=candidate,
+  )
+
+  assert smash != candidate
+
+  assert suspended_smash != (
+    candidate_suspension
+  )
+
 
 
 
