@@ -3047,6 +3047,160 @@ def test_phase31_2_smash_product_is_distinct_from_composition():
   assert smash != composition
 
 
+def test_phase31_3_smash_product_can_be_suspended():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  smash = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  suspended = Suspension(
+    expression=smash,
+  )
+
+  assert suspended.expression == smash
+  assert suspended.expression.left == a
+  assert suspended.expression.right == b
+
+
+def test_phase31_3_smash_product_can_be_map_application_argument():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  smash = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  f = MapSymbol(
+    name="f",
+  )
+
+  application = MapApplication(
+    map=f,
+    expression=smash,
+  )
+
+  assert application.map == f
+  assert application.expression == smash
+  assert application.expression.left == a
+  assert application.expression.right == b
+
+
+def test_phase31_3_smash_product_can_be_multiple_expression():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  smash = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  multiple = Multiple(
+    coefficient=2,
+    expression=smash,
+  )
+
+  assert multiple.coefficient == 2
+  assert multiple.expression == smash
+  assert multiple.expression.left == a
+  assert multiple.expression.right == b
+
+
+def test_phase31_3_smash_product_can_be_nested_in_sum():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=5,
+  )
+
+  smash = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  expression = Sum(
+    left=smash,
+    right=c,
+  )
+
+  assert expression.left == smash
+  assert expression.right == c
+  assert expression.left.left == a
+  assert expression.left.right == b
+
+
+def test_phase31_3_nested_smash_product_structure_is_preserved():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=5,
+  )
+
+  inner = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  outer = SmashProduct(
+    left=inner,
+    right=c,
+  )
+
+  assert outer.left == inner
+  assert outer.right == c
+  assert outer.left.left == a
+  assert outer.left.right == b
+
+  assert outer != SmashProduct(
+    left=a,
+    right=SmashProduct(
+      left=b,
+      right=c,
+    ),
+  )
+
 
 
 
