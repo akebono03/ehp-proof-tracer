@@ -6,9 +6,11 @@ from ehp_rules import (
 from expression import (
   Composition,
   Expression,
+  MapApplication,
   Suspension,
   Zero,
 )
+from map_facts import EHP_H_MAP
 from proof import (
   InferenceRule,
   LiteratureReference,
@@ -50,6 +52,47 @@ def hopf_invariant_proof_step(
     conclusion=statement,
     premises=(),
     rule=ProofRule.GIVEN,
+  )
+
+
+def hopf_invariant_statement_to_ehp_h_equality_inference_rule():
+  def conclusion_builder(
+    premises,
+  ):
+    statement = (
+      premises[0].conclusion
+    )
+
+    return Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=statement.expression,
+      ),
+      rhs=statement.value,
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "generalized Hopf invariant "
+      "to EHP H equality"
+    ),
+    description=(
+      "Represent a generalized Hopf "
+      "invariant fact H(alpha)=beta "
+      "as an equality using the actual "
+      "EHP H map."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          HopfInvariantStatement
+        ),
+      ),
+    ),
+    conclusion_builder=(
+      conclusion_builder
+    ),
   )
 
 

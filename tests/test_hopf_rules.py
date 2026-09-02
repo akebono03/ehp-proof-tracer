@@ -6,6 +6,7 @@ from ehp_rules import (
 )
 from expression import (
   Composition,
+  MapApplication,
   Multiple,
   Suspension,
   Zero,
@@ -19,8 +20,10 @@ from hopf_rules import (
   hopf_composition_formula_inference_rule,
   hopf_composition_law_inference_rule,
   hopf_invariant_proof_step,
+  hopf_invariant_statement_to_ehp_h_equality_inference_rule,
   hopf_invariant_value_zero_inference_rule,
 )
+from map_facts import EHP_H_MAP
 from proof import (
   ExactnessStatement,
   InferenceTerminationReason,
@@ -2240,10 +2243,142 @@ def test_phase11_inference_scope_and_termination_boundary():
   )
 
 
+def test_phase30_3b_hopf_invariant_statement_derives_actual_ehp_h_equality():
+  statement = HopfInvariantStatement(
+    expression=nu(4),
+    value=eta(7),
+  )
+
+  hopf_step = hopf_invariant_proof_step(
+    statement
+  )
+
+  rule = (
+    hopf_invariant_statement_to_ehp_h_equality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      hopf_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.conclusion == Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=nu(4),
+    ),
+    rhs=eta(7),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert (
+    derived_step.conclusion.lhs.map
+    is EHP_H_MAP
+  )
 
 
+def test_phase30_3b_hopf_invariant_to_ehp_h_equality_preserves_provenance():
+  reference = LiteratureReference(
+    label="Toda",
+    author="H. Toda",
+    title=(
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    year=1962,
+    locator="generalized Hopf invariant fact",
+  )
+
+  statement = HopfInvariantStatement(
+    expression=nu(4),
+    value=eta(7),
+    source=reference,
+    note=(
+      "known generalized "
+      "Hopf invariant fact"
+    ),
+  )
+
+  hopf_step = hopf_invariant_proof_step(
+    statement
+  )
+
+  rule = (
+    hopf_invariant_statement_to_ehp_h_equality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      hopf_step,
+    ),
+  )
+
+  assert match is not None
+
+  derived_step = apply_inference_match(
+    match
+  )
+
+  assert derived_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert derived_step.inference_rule == (
+    rule
+  )
+
+  assert derived_step.premises == (
+    hopf_step,
+  )
+
+  assert (
+    derived_step
+    .premises[0]
+    .conclusion
+    .source
+    == reference
+  )
+
+  assert (
+    derived_step
+    .premises[0]
+    .conclusion
+    .note
+    == (
+      "known generalized "
+      "Hopf invariant fact"
+    )
+  )
 
 
+def test_phase30_3b_hopf_invariant_to_ehp_h_equality_rejects_non_hopf_statement():
+  unrelated_step = ProofStep(
+    conclusion=eta(2),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    hopf_invariant_statement_to_ehp_h_equality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      unrelated_step,
+    ),
+  )
+
+  assert match is None
 
 
 

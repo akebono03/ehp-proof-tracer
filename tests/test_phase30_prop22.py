@@ -6,11 +6,22 @@ from expression import (
 )
 from hopf_rules import (
   HopfInvariantStatement,
+  hopf_composition_formula_inference_rule,
+  hopf_composition_law_inference_rule,
+  hopf_invariant_proof_step,
+  hopf_invariant_statement_to_ehp_h_equality_inference_rule,
 )
-from map_facts import HOPF_MAP
+from map_facts import (
+  EHP_H_MAP,
+  HOPF_MAP,
+)
 from proof import (
+  ProofRule,
+  ProofStep,
   Relation,
   RelationType,
+  apply_inference_match,
+  find_inference_match,
 )
 
 
@@ -391,6 +402,163 @@ def test_phase30_2_no_implicit_bridge_exists_between_phase11_and_actual_hopf_map
     relation_type=RelationType.EQUALITY,
   )
 
+
+def test_phase30_3b_prop22_right_formula_reaches_actual_ehp_h_map_equality():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  beta = HomotopyElement(
+    name="beta",
+    dimension=1,
+  )
+
+  hopf_step = hopf_invariant_proof_step(
+    HopfInvariantStatement(
+      expression=a,
+      value=beta,
+    )
+  )
+
+  law_rule = (
+    hopf_composition_law_inference_rule()
+  )
+
+  law_match = find_inference_match(
+    law_rule,
+    (
+      hopf_step,
+    ),
+  )
+
+  assert law_match is not None
+
+  law_step = apply_inference_match(
+    law_match
+  )
+
+  b_step = ProofStep(
+    conclusion=b,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  formula_rule = (
+    hopf_composition_formula_inference_rule()
+  )
+
+  formula_match = find_inference_match(
+    formula_rule,
+    (
+      law_step,
+      b_step,
+    ),
+  )
+
+  assert formula_match is not None
+
+  formula_step = apply_inference_match(
+    formula_match
+  )
+
+  expected_phase11_formula = (
+    HopfInvariantStatement(
+      expression=Composition(
+        left=a,
+        right=Suspension(
+          expression=b,
+        ),
+      ),
+      value=Composition(
+        left=beta,
+        right=Suspension(
+          expression=b,
+        ),
+      ),
+    )
+  )
+
+  assert formula_step.conclusion == (
+    expected_phase11_formula
+  )
+
+  bridge_rule = (
+    hopf_invariant_statement_to_ehp_h_equality_inference_rule()
+  )
+
+  bridge_match = find_inference_match(
+    bridge_rule,
+    (
+      formula_step,
+    ),
+  )
+
+  assert bridge_match is not None
+
+  actual_equality_step = (
+    apply_inference_match(
+      bridge_match
+    )
+  )
+
+  expected_actual_equality = Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=Composition(
+        left=a,
+        right=Suspension(
+          expression=b,
+        ),
+      ),
+    ),
+    rhs=Composition(
+      left=beta,
+      right=Suspension(
+        expression=b,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert actual_equality_step.conclusion == (
+    expected_actual_equality
+  )
+
+  assert (
+    actual_equality_step
+    .conclusion
+    .lhs
+    .map
+    is EHP_H_MAP
+  )
+
+  assert actual_equality_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    actual_equality_step.inference_rule
+    == bridge_rule
+  )
+
+  assert actual_equality_step.premises == (
+    formula_step,
+  )
+
+  assert formula_step.premises == (
+    law_step,
+    b_step,
+  )
+
+  assert law_step.premises == (
+    hopf_step,
+  )
 
 
 
