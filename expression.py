@@ -99,6 +99,12 @@ class Sum(Expression):
 
 
 @dataclass(frozen=True)
+class SmashProduct(Expression):
+  left: Expression
+  right: Expression
+
+
+@dataclass(frozen=True)
 class Composition(Expression):
   left: Expression
   right: Expression

@@ -1,6 +1,6 @@
 # ehp_proof 開発記録
 
-この文書は Phase 30 完了時点までの開発履歴を、現在の実装と矛盾しない形で整理した改訂版である。
+この文書は Phase 31 完了時点までの開発履歴を、現在の実装と矛盾しない形で整理した改訂版である。
 
 ```text
 各 Phase の「未実装」「次の課題」
@@ -1703,3 +1703,455 @@ future capability dependency
 ```
 
 historical limitation と current limitation を混同しない。
+
+---
+
+# Phase 31：SmashProduct minimum representation
+
+目的:
+
+Toda Prop.2.2 左側公式:
+
+```text
+H((Ec)∘a)=E(c∧c)∘H(a)
+```
+
+へ進むため、まず `c∧c` を lossless に表現する最小 structural syntax を追加する。
+
+Phase 31 では theorem rule / smash-product algebra / typing を先取りしない。
+
+---
+
+## Phase 31-1：SmashProduct structural representation
+
+追加:
+
+```text
+SmashProduct(Expression)
+  left
+  right
+```
+
+最小確認:
+
+```text
+SmashProduct(a,b) を構築可能
+same operands → structural equality
+operand order → structural distinction
+```
+
+focused completion:
+
+```text
+tests/test_expression.py
+121 passed
+```
+
+full suite:
+
+```text
+1442 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 31-2：structural equality / distinction
+
+追加 regression:
+
+```text
+left operand distinction
+right operand distinction
+SmashProduct != Sum
+SmashProduct != Composition
+```
+
+確認:
+
+```text
+tests/test_expression.py
+125 passed
+
+full suite
+1446 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 31-3：Expression hierarchy との接続
+
+production code 変更なし。
+
+確認:
+
+```text
+Suspension(SmashProduct(a,b))
+MapApplication(f,SmashProduct(a,b))
+Multiple(2,SmashProduct(a,b))
+Sum(SmashProduct(a,b),c)
+SmashProduct(SmashProduct(a,b),c)
+```
+
+すべて structure を lossless に保持。
+
+確認:
+
+```text
+tests/test_expression.py
+130 passed
+
+full suite
+1451 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 31-4：c ∧ c representative construction
+
+actual left Prop.2.2 で必要な代表形:
+
+```text
+c ∧ c
+```
+
+を:
+
+```text
+SmashProduct(left=c,right=c)
+```
+
+として固定。
+
+確認:
+
+```text
+left == c
+right == c
+left == right
+```
+
+確認:
+
+```text
+tests/test_expression.py
+132 passed
+
+full suite
+1453 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 31-5：Suspension(SmashProduct(c,c)) representation confirmation
+
+代表形:
+
+```text
+E(c ∧ c)
+```
+
+を:
+
+```text
+Suspension(
+  expression=SmashProduct(
+    left=c,
+    right=c,
+  ),
+)
+```
+
+として構築可能であることを固定。
+
+確認:
+
+```text
+E(c∧c) != c∧c
+inner SmashProduct structure preserved
+```
+
+確認:
+
+```text
+tests/test_expression.py
+135 passed
+
+full suite
+1456 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 31-6：typing boundary / non-goals regression
+
+重要 boundary:
+
+```text
+typed operands
+↛
+typed SmashProduct
+```
+
+確認:
+
+```text
+SmashProduct has no source property
+SmashProduct has no target property
+E(c∧c).source = None
+E(c∧c).target = None
+```
+
+また:
+
+```text
+Composition(left=SmashProduct(...),...)
+```
+
+は constructible だが automatic type-compatible ではない。
+
+確認:
+
+```text
+tests/test_expression.py
+139 passed
+
+full suite
+1460 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 31-7：invalid / scope regression
+
+固定した distinction:
+
+```text
+SmashProduct(a,b) != SmashProduct(a,c)
+SmashProduct(a,b) != SmashProduct(b,a)
+E(a∧b) != E(a∧c)
+E(a∧b) != E(b∧a)
+E(a∧b) != a∧b
+a∧b != a∘b
+```
+
+これは mathematical inequality theorem ではなく structural scope の確認。
+
+確認:
+
+```text
+tests/test_expression.py
+144 passed
+
+full suite
+1465 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 31-8：representative executable probe
+
+新規:
+
+```text
+probes/probe_phase31_capabilities.py
+```
+
+実行:
+
+```powershell
+python -m probes.probe_phase31_capabilities
+```
+
+表示:
+
+```text
+c
+↓
+c ∧ c
+↓
+E(c ∧ c)
+```
+
+さらに:
+
+```text
+SmashProduct has source: False
+SmashProduct has target: False
+E(c ∧ c).source = None
+E(c ∧ c).target = None
+```
+
+を表示。
+
+probe addition 後 full suite:
+
+```text
+1465 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 31-9：final regression
+
+Phase 31-1〜31-8 の仕様を1本の representative regression に統合。
+
+確認:
+
+```text
+SmashProduct is Expression
+operands preserved
+structural equality
+operand distinction
+operand-order distinction
+Sum / Composition distinction
+c ∧ c representation
+E(c ∧ c) representation
+typing remains absent
+composition is not automatically type-compatible
+```
+
+最終確認:
+
+```text
+tests/test_expression.py
+145 passed in 0.58s
+```
+
+```text
+full suite
+1466 passed in 23.63s
+```
+
+probe も再実行成功。
+
+### 状態
+
+完了
+
+---
+
+## Phase 31-10：Phase 31 完了整理
+
+Phase 31 completion chain:
+
+```text
+Expression
+↓
+SmashProduct(a,b)
+↓
+c ∧ c
+↓
+Suspension
+↓
+E(c ∧ c)
+```
+
+実装済み:
+
+```text
+SmashProduct minimum structural representation
+structural equality / distinction
+Expression hierarchy connection
+c ∧ c representative construction
+E(c ∧ c) representation
+typing boundary regression
+invalid / scope regression
+representative executable probe
+final regression
+```
+
+production / inference changes:
+
+```text
+SmashProduct class addition only
+generic inference engine unchanged
+theorem knowledge unchanged
+map facts unchanged
+Hopf rules unchanged
+```
+
+final verified status:
+
+```text
+tests/test_expression.py
+145 passed in 0.58s
+
+full suite
+1466 passed in 23.63s
+```
+
+No failures.
+
+### 状態
+
+完了
+
+---
+
+# Phase 31 completion boundary
+
+Phase 31 で:
+
+```text
+a ∧ b
+c ∧ c
+E(c ∧ c)
+```
+
+を structural に表現可能になった。
+
+しかしまだ:
+
+```text
+SmashProduct typing
+smash-product algebra
+smash-product normalization
+H((Ec)∘a)=E(c∧c)∘H(a)
+Toda Prop.3.1 Barratt-Hilton
+symbolic (-1)^n algebra
+actual H((2ι₂)η₂) calculation
+```
+
+は未実装。
+
+したがって次は:
+
+```text
+Phase 32
+Toda Prop.2.2 left suspended-composition formula support
+```
+
+を推奨する。
+

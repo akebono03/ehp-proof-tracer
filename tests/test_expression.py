@@ -9,6 +9,7 @@ from expression import (
   MapSymbol,
   Multiple,
   ScalarSymbol,
+  SmashProduct,
   Sum,
   Suspension,
   TodaBracket,
@@ -2866,6 +2867,843 @@ def test_phase20_representative_indexed_toda_expression_and_boundary():
   assert inconsistent_data.bracket.index == s
   assert inconsistent_data.suspension_exponent == t
   assert not inconsistent_data.is_consistent()
+
+
+def test_phase31_1_smash_product_preserves_operands():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  smash = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  assert smash.left == a
+  assert smash.right == b
+  assert isinstance(
+    smash,
+    Expression,
+  )
+
+
+def test_phase31_1_smash_product_has_structural_equality():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  first = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  second = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  assert first == second
+
+
+def test_phase31_1_smash_product_distinguishes_operand_order():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  left_right = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  right_left = SmashProduct(
+    left=b,
+    right=a,
+  )
+
+  assert left_right != right_left
+
+
+def test_phase31_2_smash_product_distinguishes_left_operand():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=5,
+  )
+
+  first = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  second = SmashProduct(
+    left=c,
+    right=b,
+  )
+
+  assert first != second
+
+
+def test_phase31_2_smash_product_distinguishes_right_operand():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=5,
+  )
+
+  first = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  second = SmashProduct(
+    left=a,
+    right=c,
+  )
+
+  assert first != second
+
+
+def test_phase31_2_smash_product_is_distinct_from_sum():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  smash = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  sum_expression = Sum(
+    left=a,
+    right=b,
+  )
+
+  assert smash != sum_expression
+
+
+def test_phase31_2_smash_product_is_distinct_from_composition():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  smash = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  composition = Composition(
+    left=a,
+    right=b,
+  )
+
+  assert smash != composition
+
+
+def test_phase31_3_smash_product_can_be_suspended():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  smash = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  suspended = Suspension(
+    expression=smash,
+  )
+
+  assert suspended.expression == smash
+  assert suspended.expression.left == a
+  assert suspended.expression.right == b
+
+
+def test_phase31_3_smash_product_can_be_map_application_argument():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  smash = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  f = MapSymbol(
+    name="f",
+  )
+
+  application = MapApplication(
+    map=f,
+    expression=smash,
+  )
+
+  assert application.map == f
+  assert application.expression == smash
+  assert application.expression.left == a
+  assert application.expression.right == b
+
+
+def test_phase31_3_smash_product_can_be_multiple_expression():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  smash = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  multiple = Multiple(
+    coefficient=2,
+    expression=smash,
+  )
+
+  assert multiple.coefficient == 2
+  assert multiple.expression == smash
+  assert multiple.expression.left == a
+  assert multiple.expression.right == b
+
+
+def test_phase31_3_smash_product_can_be_nested_in_sum():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=5,
+  )
+
+  smash = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  expression = Sum(
+    left=smash,
+    right=c,
+  )
+
+  assert expression.left == smash
+  assert expression.right == c
+  assert expression.left.left == a
+  assert expression.left.right == b
+
+
+def test_phase31_3_nested_smash_product_structure_is_preserved():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=5,
+  )
+
+  inner = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  outer = SmashProduct(
+    left=inner,
+    right=c,
+  )
+
+  assert outer.left == inner
+  assert outer.right == c
+  assert outer.left.left == a
+  assert outer.left.right == b
+
+  assert outer != SmashProduct(
+    left=a,
+    right=SmashProduct(
+      left=b,
+      right=c,
+    ),
+  )
+
+
+def test_phase31_4_representative_c_smash_c_construction():
+  c = HomotopyElement(
+    name="c",
+    dimension=3,
+  )
+
+  smash = SmashProduct(
+    left=c,
+    right=c,
+  )
+
+  assert smash == SmashProduct(
+    left=c,
+    right=c,
+  )
+
+  assert smash.left == c
+  assert smash.right == c
+
+
+def test_phase31_4_representative_c_smash_c_preserves_same_operand_structure():
+  c = HomotopyElement(
+    name="c",
+    dimension=3,
+  )
+
+  smash = SmashProduct(
+    left=c,
+    right=c,
+  )
+
+  assert smash.left == smash.right
+  assert smash.left is c
+  assert smash.right is c
+
+
+def test_phase31_5_suspension_of_representative_c_smash_c():
+  c = HomotopyElement(
+    name="c",
+    dimension=3,
+  )
+
+  c_smash_c = SmashProduct(
+    left=c,
+    right=c,
+  )
+
+  suspended = Suspension(
+    expression=c_smash_c,
+  )
+
+  assert suspended == Suspension(
+    expression=SmashProduct(
+      left=c,
+      right=c,
+    ),
+  )
+
+  assert suspended.expression == c_smash_c
+
+
+def test_phase31_5_suspension_preserves_c_smash_c_structure():
+  c = HomotopyElement(
+    name="c",
+    dimension=3,
+  )
+
+  suspended = Suspension(
+    expression=SmashProduct(
+      left=c,
+      right=c,
+    ),
+  )
+
+  assert isinstance(
+    suspended.expression,
+    SmashProduct,
+  )
+
+  assert suspended.expression.left == c
+  assert suspended.expression.right == c
+  assert suspended.expression.left == suspended.expression.right
+
+
+def test_phase31_5_suspended_smash_remains_structurally_distinct_from_unsuspended_smash():
+  c = HomotopyElement(
+    name="c",
+    dimension=3,
+  )
+
+  c_smash_c = SmashProduct(
+    left=c,
+    right=c,
+  )
+
+  suspended = Suspension(
+    expression=c_smash_c,
+  )
+
+  assert suspended != c_smash_c
+
+
+def test_phase31_6_smash_product_has_no_automatic_typing():
+  c = HomotopyElement(
+    name="c",
+    dimension=3,
+  )
+
+  smash = SmashProduct(
+    left=c,
+    right=c,
+  )
+
+  assert not hasattr(
+    smash,
+    "source",
+  )
+
+  assert not hasattr(
+    smash,
+    "target",
+  )
+
+
+def test_phase31_6_typed_operands_do_not_type_smash_product():
+  c = HomotopyElement(
+    name="c",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  smash = SmashProduct(
+    left=c,
+    right=c,
+  )
+
+  assert smash.left.source == 5
+  assert smash.left.target == 3
+  assert smash.right.source == 5
+  assert smash.right.target == 3
+
+  assert not hasattr(
+    smash,
+    "source",
+  )
+
+  assert not hasattr(
+    smash,
+    "target",
+  )
+
+
+def test_phase31_6_suspension_of_smash_product_preserves_unknown_typing():
+  c = HomotopyElement(
+    name="c",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  suspended = Suspension(
+    expression=SmashProduct(
+      left=c,
+      right=c,
+    ),
+  )
+
+  assert suspended.source is None
+  assert suspended.target is None
+
+
+def test_phase31_6_smash_product_does_not_gain_composition_compatibility():
+  c = HomotopyElement(
+    name="c",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=5,
+    source=7,
+    target=5,
+  )
+
+  composition = Composition(
+    left=SmashProduct(
+      left=c,
+      right=c,
+    ),
+    right=b,
+  )
+
+  assert not composition.is_type_compatible()
+
+
+def test_phase31_7_suspended_smash_distinguishes_right_operand():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=5,
+  )
+
+  first = Suspension(
+    expression=SmashProduct(
+      left=a,
+      right=b,
+    ),
+  )
+
+  second = Suspension(
+    expression=SmashProduct(
+      left=a,
+      right=c,
+    ),
+  )
+
+  assert first != second
+
+
+def test_phase31_7_suspended_smash_distinguishes_operand_order():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  left_right = Suspension(
+    expression=SmashProduct(
+      left=a,
+      right=b,
+    ),
+  )
+
+  right_left = Suspension(
+    expression=SmashProduct(
+      left=b,
+      right=a,
+    ),
+  )
+
+  assert left_right != right_left
+
+
+def test_phase31_7_smash_product_is_not_implicitly_suspended():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  smash = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  suspended = Suspension(
+    expression=smash,
+  )
+
+  assert smash != suspended
+
+
+def test_phase31_7_smash_product_is_not_implicitly_composition():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  smash = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  composition = Composition(
+    left=a,
+    right=b,
+  )
+
+  assert smash != composition
+
+
+def test_phase31_7_phase31_scope_regression():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+    source=6,
+    target=4,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=5,
+    source=7,
+    target=5,
+  )
+
+  smash_ab = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  smash_ac = SmashProduct(
+    left=a,
+    right=c,
+  )
+
+  smash_ba = SmashProduct(
+    left=b,
+    right=a,
+  )
+
+  suspended_ab = Suspension(
+    expression=smash_ab,
+  )
+
+  suspended_ac = Suspension(
+    expression=smash_ac,
+  )
+
+  composition_ab = Composition(
+    left=a,
+    right=b,
+  )
+
+  assert smash_ab != smash_ac
+  assert smash_ab != smash_ba
+  assert suspended_ab != suspended_ac
+  assert suspended_ab != smash_ab
+  assert smash_ab != composition_ab
+
+  assert not hasattr(
+    smash_ab,
+    "source",
+  )
+
+  assert not hasattr(
+    smash_ab,
+    "target",
+  )
+
+  assert suspended_ab.source is None
+  assert suspended_ab.target is None
+
+
+def test_phase31_9_smash_product_final_regression_and_boundary():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=5,
+    source=7,
+    target=5,
+  )
+
+  same_c = c
+
+  smash_ab = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  same_smash_ab = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  smash_ba = SmashProduct(
+    left=b,
+    right=a,
+  )
+
+  smash_ac = SmashProduct(
+    left=a,
+    right=c,
+  )
+
+  c_smash_c = SmashProduct(
+    left=c,
+    right=same_c,
+  )
+
+  suspended_c_smash_c = Suspension(
+    expression=c_smash_c,
+  )
+
+  assert isinstance(
+    smash_ab,
+    Expression,
+  )
+
+  assert smash_ab.left == a
+  assert smash_ab.right == b
+
+  assert smash_ab == same_smash_ab
+
+  assert smash_ab != smash_ba
+  assert smash_ab != smash_ac
+
+  assert smash_ab != Sum(
+    left=a,
+    right=b,
+  )
+
+  assert smash_ab != Composition(
+    left=a,
+    right=b,
+  )
+
+  assert c_smash_c.left == c
+  assert c_smash_c.right == c
+  assert c_smash_c.left == c_smash_c.right
+
+  assert suspended_c_smash_c.expression == c_smash_c
+
+  assert isinstance(
+    suspended_c_smash_c.expression,
+    SmashProduct,
+  )
+
+  assert (
+    suspended_c_smash_c
+    .expression
+    .left
+    == c
+  )
+
+  assert (
+    suspended_c_smash_c
+    .expression
+    .right
+    == c
+  )
+
+  assert suspended_c_smash_c != c_smash_c
+
+  assert not hasattr(
+    c_smash_c,
+    "source",
+  )
+
+  assert not hasattr(
+    c_smash_c,
+    "target",
+  )
+
+  assert suspended_c_smash_c.source is None
+  assert suspended_c_smash_c.target is None
+
+  composition_with_smash = Composition(
+    left=c_smash_c,
+    right=HomotopyElement(
+      name="d",
+      dimension=7,
+      source=9,
+      target=7,
+    ),
+  )
+
+  assert not (
+    composition_with_smash
+    .is_type_compatible()
+  )
 
 
 
