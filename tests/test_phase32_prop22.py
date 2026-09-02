@@ -12,6 +12,7 @@ from hopf_rules import (
   hopf_invariant_statement_to_ehp_h_equality_inference_rule,
   hopf_left_composition_formula_inference_rule,
   hopf_left_composition_law_inference_rule,
+  toda_prop22_left_inference_rule,
 )
 from map_facts import (
   HOPF_MAP,
@@ -2153,6 +2154,462 @@ def test_phase32_7_smash_product_is_not_automatically_simplified():
   assert suspended_smash != (
     candidate_suspension
   )
+
+
+def test_phase32_direct_toda_prop22_left_formula():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=1,
+  )
+
+  rule = toda_prop22_left_inference_rule(
+    alpha=a,
+    gamma=c,
+  )
+
+  match = find_inference_match(
+    rule,
+    (),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == Relation(
+    lhs=MapApplication(
+      map=HOPF_MAP,
+      expression=Composition(
+        left=Suspension(
+          expression=c,
+        ),
+        right=a,
+      ),
+    ),
+    rhs=Composition(
+      left=Suspension(
+        expression=SmashProduct(
+          left=c,
+          right=c,
+        ),
+      ),
+      right=MapApplication(
+        map=HOPF_MAP,
+        expression=a,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+
+def test_phase32_direct_toda_prop22_left_formula_requires_no_hopf_value_fact():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=1,
+  )
+
+  rule = toda_prop22_left_inference_rule(
+    alpha=a,
+    gamma=c,
+  )
+
+  match = find_inference_match(
+    rule,
+    (),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.premises == ()
+
+  assert step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert step.inference_rule == rule
+
+
+def test_phase32_direct_toda_prop22_left_formula_uses_actual_h_map():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=1,
+  )
+
+  rule = toda_prop22_left_inference_rule(
+    alpha=a,
+    gamma=c,
+  )
+
+  match = find_inference_match(
+    rule,
+    (),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert isinstance(
+    step.conclusion.lhs,
+    MapApplication,
+  )
+
+  assert step.conclusion.lhs.map is (
+    HOPF_MAP
+  )
+
+  assert isinstance(
+    step.conclusion.rhs,
+    Composition,
+  )
+
+  assert isinstance(
+    step.conclusion.rhs.right,
+    MapApplication,
+  )
+
+  assert step.conclusion.rhs.right.map is (
+    HOPF_MAP
+  )
+
+
+def test_phase32_beta_specialization_agrees_with_direct_toda_prop22_formula():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  beta = HomotopyElement(
+    name="β",
+    dimension=1,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=1,
+  )
+
+  direct_rule = (
+    toda_prop22_left_inference_rule(
+      alpha=a,
+      gamma=c,
+    )
+  )
+
+  direct_match = find_inference_match(
+    direct_rule,
+    (),
+  )
+
+  assert direct_match is not None
+
+  direct_step = apply_inference_match(
+    direct_match
+  )
+
+  hopf_step = hopf_invariant_proof_step(
+    HopfInvariantStatement(
+      expression=a,
+      value=beta,
+    )
+  )
+
+  c_step = ProofStep(
+    conclusion=c,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  law_rule = (
+    hopf_left_composition_law_inference_rule()
+  )
+
+  law_match = find_inference_match(
+    law_rule,
+    (
+      hopf_step,
+      c_step,
+    ),
+  )
+
+  assert law_match is not None
+
+  law_step = apply_inference_match(
+    law_match
+  )
+
+  formula_rule = (
+    hopf_left_composition_formula_inference_rule()
+  )
+
+  formula_match = find_inference_match(
+    formula_rule,
+    law_step,
+  )
+
+  assert formula_match is not None
+
+  formula_step = apply_inference_match(
+    formula_match
+  )
+
+  bridge_rule = (
+    hopf_invariant_statement_to_ehp_h_equality_inference_rule()
+  )
+
+  formula_bridge_match = find_inference_match(
+    bridge_rule,
+    formula_step,
+  )
+
+  assert formula_bridge_match is not None
+
+  left_step = apply_inference_match(
+    formula_bridge_match
+  )
+
+  base_bridge_match = find_inference_match(
+    bridge_rule,
+    hopf_step,
+  )
+
+  assert base_bridge_match is not None
+
+  base_h_step = apply_inference_match(
+    base_bridge_match
+  )
+
+  symmetry_rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  symmetry_match = find_inference_match(
+    symmetry_rule,
+    base_h_step,
+  )
+
+  assert symmetry_match is not None
+
+  beta_equals_h_step = apply_inference_match(
+    symmetry_match
+  )
+
+  suspended_smash = Suspension(
+    expression=SmashProduct(
+      left=c,
+      right=c,
+    ),
+  )
+
+  composition_rule = (
+    equality_preserved_under_left_composition_inference_rule(
+      suspended_smash,
+    )
+  )
+
+  composition_match = find_inference_match(
+    composition_rule,
+    beta_equals_h_step,
+  )
+
+  assert composition_match is not None
+
+  right_step = apply_inference_match(
+    composition_match
+  )
+
+  transitivity_rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  transitivity_match = find_inference_match(
+    transitivity_rule,
+    (
+      left_step,
+      right_step,
+    ),
+  )
+
+  assert transitivity_match is not None
+
+  beta_path_step = apply_inference_match(
+    transitivity_match
+  )
+
+  assert beta_path_step.conclusion == (
+    direct_step.conclusion
+  )
+
+
+def test_phase32_9_final_regression_for_direct_toda_prop22_left_formula():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=3,
+    source=6,
+    target=3,
+  )
+
+  rule = toda_prop22_left_inference_rule(
+    alpha=a,
+    gamma=c,
+  )
+
+  match = find_inference_match(
+    rule,
+    (),
+  )
+
+  assert match is not None
+
+  final_step = apply_inference_match(
+    match
+  )
+
+  suspended_c = Suspension(
+    expression=c,
+  )
+
+  smash = SmashProduct(
+    left=c,
+    right=c,
+  )
+
+  suspended_smash = Suspension(
+    expression=smash,
+  )
+
+  expected = Relation(
+    lhs=MapApplication(
+      map=HOPF_MAP,
+      expression=Composition(
+        left=suspended_c,
+        right=a,
+      ),
+    ),
+    rhs=Composition(
+      left=suspended_smash,
+      right=MapApplication(
+        map=HOPF_MAP,
+        expression=a,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert final_step.conclusion == expected
+
+  assert final_step.premises == ()
+
+  assert final_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert final_step.inference_rule == (
+    rule
+  )
+
+  assert isinstance(
+    final_step.conclusion.lhs,
+    MapApplication,
+  )
+
+  assert final_step.conclusion.lhs.map is (
+    HOPF_MAP
+  )
+
+  assert isinstance(
+    final_step.conclusion.lhs.expression,
+    Composition,
+  )
+
+  assert (
+    final_step
+    .conclusion
+    .lhs
+    .expression
+    .left
+    == suspended_c
+  )
+
+  assert (
+    final_step
+    .conclusion
+    .lhs
+    .expression
+    .right
+    == a
+  )
+
+  assert isinstance(
+    final_step.conclusion.rhs,
+    Composition,
+  )
+
+  assert (
+    final_step.conclusion.rhs.left
+    == suspended_smash
+  )
+
+  assert isinstance(
+    final_step.conclusion.rhs.right,
+    MapApplication,
+  )
+
+  assert final_step.conclusion.rhs.right.map is (
+    HOPF_MAP
+  )
+
+  assert (
+    final_step
+    .conclusion
+    .rhs
+    .right
+    .expression
+    == a
+  )
+
+  assert not hasattr(
+    smash,
+    "source",
+  )
+
+  assert not hasattr(
+    smash,
+    "target",
+  )
+
+  assert suspended_smash.source is None
+  assert suspended_smash.target is None
+
+
 
 
 

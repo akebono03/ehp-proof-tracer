@@ -44,6 +44,91 @@ class HopfLeftCompositionLawStatement:
   gamma: Expression
 
 
+def toda_prop22_right_inference_rule(
+  alpha,
+  gamma,
+):
+  def conclusion_builder(
+    premises,
+  ):
+    suspended_gamma = Suspension(
+      expression=gamma,
+    )
+
+    return Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=Composition(
+          left=alpha,
+          right=suspended_gamma,
+        ),
+      ),
+      rhs=Composition(
+        left=MapApplication(
+          map=EHP_H_MAP,
+          expression=alpha,
+        ),
+        right=suspended_gamma,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name="Toda Prop.2.2 right formula",
+    description=(
+      "Toda Prop.2.2 directly gives "
+      "H(alpha o E gamma) "
+      "= H(alpha) o E gamma."
+    ),
+    premise_patterns=(),
+    conclusion_builder=conclusion_builder,
+  )
+
+
+def toda_prop22_left_inference_rule(
+  alpha,
+  gamma,
+):
+  def conclusion_builder(
+    premises,
+  ):
+    return Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=Composition(
+          left=Suspension(
+            expression=gamma,
+          ),
+          right=alpha,
+        ),
+      ),
+      rhs=Composition(
+        left=Suspension(
+          expression=SmashProduct(
+            left=gamma,
+            right=gamma,
+          ),
+        ),
+        right=MapApplication(
+          map=EHP_H_MAP,
+          expression=alpha,
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name="Toda Prop.2.2 left formula",
+    description=(
+      "Toda Prop.2.2 directly gives "
+      "H((E gamma) o alpha) "
+      "= E(gamma smash gamma) o H(alpha)."
+    ),
+    premise_patterns=(),
+    conclusion_builder=conclusion_builder,
+  )
+
+
 def hopf_invariant_proof_step(
   statement,
 ):
