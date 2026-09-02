@@ -1,6 +1,6 @@
 # ehp_proof 開発記録
 
-この文書は Phase 29 完了時点までの開発履歴を、現在の実装と矛盾しない形で整理した改訂版である。
+この文書は Phase 30 完了時点までの開発履歴を、現在の実装と矛盾しない形で整理した改訂版である。
 
 ```text
 各 Phase の「未実装」「次の課題」
@@ -1120,41 +1120,560 @@ H((2ι₂)η₂)=H(4η₂)
 
 ---
 
+# Phase 30：Toda Prop.2.2 right suspended-composition formula
+
+目的:
+
+[Toda] Prop.2.2 の右側公式:
+
+```text
+H(a ∘ Eb)=H(a) ∘ Eb
+```
+
+を、既存 Phase 11 Hopf machinery、Phase 29 actual H identity、generic equality rules を再利用して proof graph 上で閉じる。
+
+Phase 30 では `SmashProduct` を必要とする左側公式:
+
+```text
+H((Ec) ∘ a)=E(c ∧ c) ∘ H(a)
+```
+
+を先取りしない。
+
+---
+
+## Phase 30-1：right Hopf formula structural representation
+
+既存:
+
+```text
+MapApplication
+Composition
+Suspension
+RelationType.EQUALITY
+```
+
+で:
+
+```text
+H(a ∘ Eb)=H(a) ∘ Eb
+```
+
+を structural に表現可能であることを確認。
+
+確認:
+
+```text
+Eb
+!=
+b
+```
+
+actual production `HOPF_MAP` identity を保持。
+
+### 状態
+
+完了
+
+---
+
+## Phase 30-2：Phase 11 Hopf statement / actual-H equality distinction
+
+確認:
+
+```text
+HopfInvariantStatement(a,β)
+!=
+Relation(H(a),β,EQUALITY)
+```
+
+`HopfInvariantStatement` は map field を持たず、actual `H` identity を暗黙に埋め込まない。
+
+一方 `MapApplication` representation は production `HOPF_MAP` を明示的に保持する。
+
+implicit bridge は存在しない。
+
+### 状態
+
+完了
+
+---
+
+## Phase 30-3：HopfInvariantStatement → actual EHP H equality bridge
+
+追加 / 利用:
+
+```text
+hopf_invariant_statement_to_ehp_h_equality_inference_rule()
+```
+
+semantics:
+
+```text
+HopfInvariantStatement(x,y)
+↓
+EHP_H_MAP(x)=y
+```
+
+既存 Phase 11 formula と接続して:
+
+```text
+H(a∘Eb)=β∘Eb
+```
+
+を actual `EHP_H_MAP` equality として得られることを確認。
+
+provenance:
+
+```text
+actual equality
+↓
+HopfInvariantStatement formula
+↓
+Hopf composition law
+↓
+base Hopf fact
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 30-4：actual H equality の right-composition connection
+
+base:
+
+```text
+H(a)=β
+```
+
+から:
+
+```text
+β=H(a)
+```
+
+を equality symmetry で導出。
+
+さらに existing:
+
+```text
+equality_preserved_under_right_composition_inference_rule(Eb)
+```
+
+を1回適用して:
+
+```text
+β∘Eb=H(a)∘Eb
+```
+
+を導出。
+
+### 状態
+
+完了
+
+---
+
+## Phase 30-5：Prop.2.2 right formula closure
+
+二枝:
+
+```text
+H(a∘Eb)=β∘Eb
+```
+
+```text
+β∘Eb=H(a)∘Eb
+```
+
+を existing:
+
+```text
+equality_transitivity_inference_rule()
+```
+
+で接続。
+
+結果:
+
+```text
+H(a∘Eb)=H(a)∘Eb
+```
+
+専用 generic rewrite は追加しない。
+
+### 状態
+
+完了
+
+---
+
+## Phase 30-6：provenance / invalid / staged scope regression
+
+確認:
+
+```text
+full provenance chain
+```
+
+```text
+mismatched middle expression
+↛ transitivity closure
+```
+
+```text
+different suspended right factor
+↛ closure
+```
+
+```text
+unrelated equality
+↛ final provenance
+```
+
+```text
+final Prop.2.2 formula
+→ 1 derived step per tested round
+```
+
+また right-composition rule は structural growth を起こせるため:
+
+```text
+right composition
+=
+staged one-step application
+```
+
+とする境界を固定。
+
+### 状態
+
+完了
+
+---
+
+## Phase 30-7：terminal / inference-scope regression
+
+最終 transitivity result を含む状態へ再適用:
+
+```text
+derive_inference_round_result(
+  transitivity_rule,
+  completed_steps,
+)
+```
+
+が:
+
+```text
+new_steps == ()
+```
+
+になることを確認。
+
+一方 staged right-composition rule 自体は再適用可能であり:
+
+```text
+x=y
+↓
+x∘Eb=y∘Eb
+↓
+(x∘Eb)∘Eb=(y∘Eb)∘Eb
+```
+
+と structural growth し得ることを明示。
+
+したがって unrestricted global fixed-point rule として扱わない。
+
+Phase 30-7 完了時 full suite:
+
+```text
+1438 passed in 24.08s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 30-8：representative executable probe
+
+新規:
+
+```text
+probes/probe_phase30_capabilities.py
+```
+
+実行:
+
+```powershell
+python -m probes.probe_phase30_capabilities
+```
+
+人間が目で追える形で:
+
+```text
+GIVEN H(a)=β
+↓
+Hopf composition law
+↓
+H(a∘Eb)=β∘Eb
+```
+
+および:
+
+```text
+H(a)=β
+↓ equality symmetry
+β=H(a)
+↓ staged right composition
+β∘Eb=H(a)∘Eb
+```
+
+から:
+
+```text
+equality transitivity
+↓
+H(a∘Eb)=H(a)∘Eb
+```
+
+を表示。
+
+full proof provenance と Phase 30-8 boundary も表示。
+
+probe 追加後 full suite:
+
+```text
+1438 passed in 22.68s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 30-9：invalid / scope / provenance final regression
+
+追加した最終 invalid scenario:
+
+```text
+H(a)=β
+```
+
+とは別に valid Hopf fact:
+
+```text
+H(c)=γ
+```
+
+を同時に与える。
+
+unrelated branch では正当に:
+
+```text
+γ∘Eb=H(c)∘Eb
+```
+
+まで導出できる。
+
+しかし:
+
+```text
+H(a∘Eb)=β∘Eb
+```
+
+との middle expression が一致しないため、`a / β` の Prop.2.2 formula を閉じないことを確認。
+
+最終確認:
+
+```text
+tests/test_phase30_prop22.py
+21 passed in 0.19s
+```
+
+```text
+tests/test_relation_rules.py
+47 passed in 0.20s
+```
+
+```text
+tests/test_hopf_rules.py
+31 passed in 0.12s
+```
+
+```text
+tests/test_map_facts.py
+54 passed in 0.17s
+```
+
+```text
+full suite
+1439 passed in 23.44s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 30-10：Phase 30 完了整理
+
+Phase 30 completion chain:
+
+```text
+GIVEN
+H(a)=β
+
+↓ existing generalized Hopf machinery
+
+H(a∘Eb)=β∘Eb
+
++
+
+H(a)=β
+↓ symmetry
+β=H(a)
+↓ staged right composition
+β∘Eb=H(a)∘Eb
+
+↓ equality transitivity
+
+H(a∘Eb)=H(a)∘Eb
+```
+
+実装 / 接続済み:
+
+```text
+right formula structural representation
+Phase 11 statement / actual-H equality distinction
+explicit Hopf statement → actual EHP H bridge
+existing Hopf composition law reuse
+existing Hopf composition formula reuse
+actual composed-H equality
+base actual-H equality
+symmetry connection
+staged right-composition connection
+transitivity closure
+full provenance
+mismatched-middle rejection
+different-right-factor rejection
+unrelated equality exclusion
+unrelated valid Hopf branch rejection
+round-level deduplication
+terminal transitivity regression
+productive right-composition scope boundary
+human-readable Phase 30 probe
+```
+
+generic inference engine:
+
+```text
+変更なし
+```
+
+production map facts:
+
+```text
+変更なし
+```
+
+final verified status:
+
+```text
+full suite
+1439 passed in 23.44s
+```
+
+No failures.
+
+### 状態
+
+完了
+
+---
+
+# Phase 30 completion boundary
+
+Phase 30 で [Toda] Prop.2.2 の右側公式:
+
+```text
+H(a∘Eb)=H(a)∘Eb
+```
+
+を actual `H` map representation と proof provenance を保ったまま end-to-end に導出できるようになった。
+
+まだ未実装:
+
+```text
+H((Ec)∘a)=E(c∧c)∘H(a)
+```
+
+これは `c∧c` の structural representation を必要とする。
+
+したがって Phase 30 では:
+
+```text
+SmashProduct
+Barratt-Hilton
+symbolic sign algebra
+actual H((2ι₂)η₂)
+```
+
+を先取りしていない。
+
+---
+
 # 次の Phase
 
 次は:
 
 ```text
-Phase 30
-Hopf formula minimum representation
+Phase 31
+SmashProduct minimum representation
 ```
 
 を推奨する。
 
-代表的な数学的対象:
+最初の対象:
 
 ```text
-H(γ α)=(γ∧γ)H(α)
+a ∧ b
 ```
 
-Phase 30 では formula の最小表現から開始し、smash product の一般機構や actual `(2ι₂)η₂` calculation を先取りしない。
+候補:
+
+```text
+SmashProduct(
+  left=a,
+  right=b,
+)
+```
+
+Phase 31 では structural representation と必要最小限の identity / typing boundary を整え、Barratt-Hilton formula 自体は先取りしない。
 
 その後:
 
 ```text
-Phase 31
-smash product
-
+SmashProduct minimum representation
 ↓
-Phase 32+
+H((Ec)∘a)=E(c∧c)∘H(a)
+↓
+IteratedSuspension / symbolic sign support
+↓
+Toda Prop.3.1 Barratt-Hilton
+↓
 actual H calculation
-
 ↓
 H((2ι₂)η₂)=H(4η₂)
-
 ↓
-Phase 28/29 equality reflection
-
+Phase 29 equality reflection
 ↓
 (2ι₂)η₂=4η₂
 ```

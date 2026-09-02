@@ -26,7 +26,7 @@ docs/roadmap.md
 
 ---
 
-# 2. Phase 29 完了時点の実装基盤
+# 2. Phase 30 完了時点の実装基盤
 
 実装済みの主な基盤:
 
@@ -87,6 +87,13 @@ Actual H Isomorphism → Injective(H)
 Actual-H fact-driven equality reflection
 Actual-H provenance / invalid / scope regression
 Human-readable Phase 29 capability probe
+Toda Prop.2.2 right formula structural representation
+HopfInvariantStatement → actual EHP H equality bridge
+Actual H(a∘Eb)=β∘Eb equality
+Staged right-composition equality
+Toda Prop.2.2 right formula closure
+Phase 30 full provenance / invalid / scope regression
+Human-readable Phase 30 capability probe
 ```
 
 Current full regression:
@@ -413,10 +420,10 @@ Final status:
 | actual `Isomorphism(H)` → `Injective(H)` | IMPLEMENTED | Phase 29 |
 | actual-H fact-driven equality reflection | IMPLEMENTED | Phase 29 |
 | Phase 29 capability probe | IMPLEMENTED | Phase 29 |
-| Toda Prop.2.2 Hopf formula representation | NEXT CANDIDATE | Phase 30 |
-| `H(a∘Eb)=H(a)∘Eb` | PLANNED | Toda Prop.2.2 |
-| `H((Ec)∘a)=E(c∧c)∘H(a)` | PLANNED | Toda Prop.2.2 |
-| smash product `a∧b` | PLANNED | Phase 31 candidate |
+| Toda Prop.2.2 right formula representation | IMPLEMENTED | Phase 30 |
+| `H(a∘Eb)=H(a)∘Eb` | IMPLEMENTED | Phase 30 |
+| `H((Ec)∘a)=E(c∧c)∘H(a)` | PLANNED | after SmashProduct minimum representation |
+| smash product `a∧b` | NEXT CANDIDATE | Phase 31 |
 | iterated suspension `E^t` | PLANNED | Phase 32 candidate |
 | symbolic scalar `(-1)^n` | PLANNED | Phase 33 candidate |
 | parity reduction of `(-1)^n` | PLANNED | Phase 33 candidate |
@@ -434,38 +441,72 @@ Final status:
 
 ---
 
-# 9. 次 Phase：Phase 30 Toda Prop.2.2 Hopf formula minimum representation
+# 9. Phase 30 completion：Toda Prop.2.2 right formula
 
-Phase 29 により actual H property side は準備できた。
-
-現在:
+Phase 30 で [Toda] Prop.2.2 の右側公式:
 
 ```text
-actual H isomorphism
+H(a ∘ Eb)=H(a) ∘ Eb
+```
+
+を proof-level actual `H` equality として end-to-end に閉じた。
+
+利用した既存 machinery:
+
+```text
+HopfInvariantStatement
+HopfCompositionLawStatement
+hopf_composition_law_inference_rule()
+hopf_composition_formula_inference_rule()
+MapApplication
+EHP_H_MAP
+equality symmetry
+equality preserved under right composition
+equality transitivity
+```
+
+completion chain:
+
+```text
+H(a)=β
 ↓
-Injective(H)
+H(a∘Eb)=β∘Eb
+
+H(a)=β
+↓
+β=H(a)
+↓
+β∘Eb=H(a)∘Eb
+
+↓
+H(a∘Eb)=H(a)∘Eb
 ```
 
-が production knowledge 由来で利用可能。
-
-次に必要なのは mapped equality を actual calculation から作るための Hopf formula layer。
-
-[Toda] Prop.2.2 で利用する2つの公式:
+Phase 30 は以下も固定した:
 
 ```text
-H(a ∘ Eb)
-=
-H(a) ∘ Eb
+full provenance
+mismatched-middle rejection
+different-right-factor rejection
+unrelated equality exclusion
+unrelated valid Hopf branch rejection
+round-level deduplication
+terminal transitivity regression
+staged right-composition boundary
+human-readable capability probe
+```
+
+verified:
+
+```text
+tests/test_phase30_prop22.py
+21 passed
 ```
 
 ```text
-H((Ec) ∘ a)
-=
-E(c ∧ c) ∘ H(a)
+full suite
+1439 passed in 23.44s
 ```
-
-Phase 30 の目的は、
-この2つを future actual proof に利用できる最小 structural / theorem representation として導入すること。
 
 Important:
 
@@ -473,89 +514,61 @@ Important:
 H(a∘Eb)=H(a)∘Eb
 ```
 
-と、
+は実装済みだが:
 
 ```text
 H((Ec)∘a)=E(c∧c)∘H(a)
 ```
 
-は別 theorem pattern として扱う。
+は `SmashProduct` がないため未実装。
 
-これらを単一の、
+---
+
+# 10. 次 Phase：Phase 31 SmashProduct minimum representation
+
+Phase 31 candidate:
 
 ```text
-H preserves composition
+a ∧ b
 ```
 
-のような generic rule に潰さない。
+minimal structural representation 候補:
 
-Phase 30 ではまだ:
+```text
+SmashProduct(
+  left=a,
+  right=b,
+)
+```
+
+Phase 31 の目的は、Toda Prop.2.2 左側公式と将来の Barratt-Hilton Prop.3.1 に必要な smash product syntax を lossless に保持すること。
+
+Important:
+
+```text
+SmashProduct(a,b)
+!=
+Barratt-Hilton theorem knowledge
+```
+
+Phase 31 ではまだ:
 
 ```text
 general smash-product algebra
-Barratt–Hilton
-general symbolic scalar AST
-actual (2ι₂)η₂ calculation
+Barratt-Hilton theorem
+symbolic (-1)^n algebra
+actual H((2ι₂)η₂) calculation
 ```
 
 を先取りしない。
 
----
-
-# 10. Toda Prop.2.2 theorem layer
-
-## 10.1 right suspended composition formula
-
-[Toda] Prop.2.2:
+SmashProduct representation が整った後に:
 
 ```text
-H(a ∘ Eb)
-=
-H(a) ∘ Eb
+H((Ec)∘a)=E(c∧c)∘H(a)
 ```
 
-この formula は、
-existing generic homomorphism law ではなく Hopf-specific theorem とする。
-
-## 10.2 left suspended composition formula
-
-[Toda] Prop.2.2:
-
-```text
-H((Ec) ∘ a)
-=
-E(c ∧ c) ∘ H(a)
-```
-
-ここでは、
-
-```text
-Suspension(c)
-Composition
-SmashProduct(c,c)
-Suspension(SmashProduct(c,c))
-MapApplication(H,a)
-```
-
-が必要になる。
-
-Phase 30 では formula representation の最小形を決め、
-`SmashProduct` 自体の algebraic computation は Phase 31 以降へ分離する。
-
-## 10.3 theorem applicability
-
-Prop.2.2 の適用条件は、
-actual implementation 時に Toda の記述に合わせて明示する。
-
-少なくとも、
-
-```text
-expression shape
-typing
-composition compatibility
-```
-
-を notation だけから暗黙生成しない。
+の最小 theorem connection を実装する。
 
 ---
 
@@ -1188,13 +1201,13 @@ higher / variable-arity brackets は concrete literature example が必要にな
 
 # 28. 長期 dependency
 
-Phase 29 完了後の有力順序:
+Phase 30 完了後の有力順序:
 
 ```text
 actual H equality-reflection foundation
 ↓
 Phase 30
-Toda Prop.2.2 minimum theorem representation
+Toda Prop.2.2 right formula COMPLETE
 ↓
 Phase 31
 SmashProduct minimum representation
@@ -1227,7 +1240,7 @@ stable Toda bracket
 actual theorem scenario に応じて順番は調整してよい。
 
 重要なのは、
-Phase 30〜34 が単なる API 増加ではなく、
+Phase 30 以降が単なる API 増加ではなく、
 
 ```text
 Toda Prop.2.2

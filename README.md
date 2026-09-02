@@ -62,6 +62,7 @@ Completed:
 - Phase 27: corrected actual ε₃ Toda-definedness / end-to-end inference
 - Phase 28: map-property equality-reflection foundation
 - Phase 29: actual H map facts / typing / production-fact connection
+- Phase 30: Toda Prop.2.2 right suspended-composition formula / actual-H proof closure
 
 Current architecture:
 
@@ -113,7 +114,7 @@ TodaBracket
 IndexedTodaBracketData
 ```
 
-Phase 21 adds minimal source / target context and compatibility queries. Phase 22 adds structured generator identity while keeping generator notation separate from typing rules. Phase 23 connects indexed Toda theorem facts to membership under explicit guards. Phase 24 adds a narrow literature-backed theorem repository. Phase 25 adds a separate explicit generator-fact repository and typed-element materialization. Phase 26 expands this knowledge to the actual generators appearing in the ε₃ Toda bracket. Phase 27 adds explicit corrected composition knowledge and connects it to actual indexed Toda definedness and theorem-backed membership. Phase 28 adds proof-level injectivity / isomorphism statements and equality reflection through an injective map. Phase 29 connects an actual Hopf map identity, typing context, and isomorphism fact to the Phase 28 proof-level machinery.
+Phase 21 adds minimal source / target context and compatibility queries. Phase 22 adds structured generator identity while keeping generator notation separate from typing rules. Phase 23 connects indexed Toda theorem facts to membership under explicit guards. Phase 24 adds a narrow literature-backed theorem repository. Phase 25 adds a separate explicit generator-fact repository and typed-element materialization. Phase 26 expands this knowledge to the actual generators appearing in the ε₃ Toda bracket. Phase 27 adds explicit corrected composition knowledge and connects it to actual indexed Toda definedness and theorem-backed membership. Phase 28 adds proof-level injectivity / isomorphism statements and equality reflection through an injective map. Phase 29 connects an actual Hopf map identity, typing context, and isomorphism fact to the Phase 28 proof-level machinery. Phase 30 connects the existing generalized Hopf-invariant composition machinery to the actual EHP `H` map representation and generic equality rules, yielding the Toda Prop.2.2 right suspended-composition formula as a proof-level equality with full provenance.
 
 ---
 
@@ -794,7 +795,298 @@ full suite
 
 No failures.
 
+
 ---
+
+# Phase 30: Toda Prop.2.2 right suspended-composition formula
+
+Phase 30 establishes the right-hand formula from [Toda] Prop.2.2:
+
+```text
+H(a ∘ Eb)=H(a) ∘ Eb
+```
+
+without introducing smash products or the left-hand Prop.2.2 formula.
+
+## Existing machinery reused
+
+Phase 30 deliberately reuses the Phase 11 generalized Hopf-invariant layer:
+
+```text
+HopfInvariantStatement
+HopfCompositionLawStatement
+hopf_composition_law_inference_rule()
+hopf_composition_formula_inference_rule()
+```
+
+and connects it to the production H identity through:
+
+```text
+hopf_invariant_statement_to_ehp_h_equality_inference_rule()
+```
+
+The bridge materializes:
+
+```text
+HopfInvariantStatement(
+  expression=x,
+  value=y,
+)
+```
+
+as the proof-level equality:
+
+```text
+H(x)=y
+```
+
+using the actual production map:
+
+```text
+EHP_H_MAP
+```
+
+No implicit equality exists between `HopfInvariantStatement` and `Relation(MapApplication(...))`; the connection is an explicit inference rule.
+
+## Right-formula proof chain
+
+Starting from:
+
+```text
+GIVEN
+H(a)=β
+```
+
+Phase 11 machinery gives:
+
+```text
+H(a)=β
+↓
+generalized Hopf composition law
+↓
+H(a ∘ Eb)=β ∘ Eb
+```
+
+The actual-H bridge gives this as:
+
+```text
+H(a ∘ Eb)=β ∘ Eb
+```
+
+A second branch starts again from:
+
+```text
+H(a)=β
+```
+
+and uses generic equality rules:
+
+```text
+H(a)=β
+↓ equality symmetry
+β=H(a)
+↓ equality preserved under right composition by Eb
+β ∘ Eb=H(a) ∘ Eb
+```
+
+Finally:
+
+```text
+H(a ∘ Eb)=β ∘ Eb
+β ∘ Eb=H(a) ∘ Eb
+↓ equality transitivity
+H(a ∘ Eb)=H(a) ∘ Eb
+```
+
+Thus the Toda Prop.2.2 right formula is available as an actual proof-level `RelationType.EQUALITY` over the production H map.
+
+## Provenance
+
+The final equality retains both proof branches.
+
+Left branch:
+
+```text
+final transitivity premise
+↓
+actual-H bridge
+↓
+Hopf composition formula
+↓
+Hopf composition law
+↓
+GIVEN H(a)=β
+```
+
+Right branch:
+
+```text
+final transitivity premise
+↓
+staged right composition
+↓
+equality symmetry
+↓
+actual-H bridge
+↓
+GIVEN H(a)=β
+```
+
+Unrelated equalities and unrelated valid Hopf facts are excluded from the final closure.
+
+## Scope / termination boundary
+
+The generic rule:
+
+```text
+equality_preserved_under_right_composition_inference_rule(Eb)
+```
+
+is structurally productive and can be applied repeatedly:
+
+```text
+x=y
+↓
+x∘Eb=y∘Eb
+↓
+(x∘Eb)∘Eb=(y∘Eb)∘Eb
+↓
+...
+```
+
+Therefore Phase 30 does not place this rule into an unrestricted global fixed-point rule set. It is used as one explicit staged application in the Prop.2.2 proof.
+
+The terminal transitivity step itself is stable:
+
+```text
+terminal derive_inference_round_result()
+→ new_steps == ()
+```
+
+Invalid / scope regressions verify:
+
+```text
+unsuspended right factor
+↛ right suspended-composition formula
+```
+
+```text
+mismatched middle expression
+↛ transitivity closure
+```
+
+```text
+different suspended right factor
+↛ Prop.2.2 closure
+```
+
+```text
+unrelated equality
+↛ final provenance
+```
+
+```text
+unrelated valid Hopf fact H(c)=γ
+↛ closure of the a / β branch
+```
+
+The final formula is deduplicated within the tested inference round.
+
+## Representative capability probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase30_capabilities
+```
+
+The probe visibly demonstrates:
+
+```text
+GIVEN H(a)=β
+↓
+Hopf composition law
+↓
+H(a∘Eb)=β∘Eb
+```
+
+and:
+
+```text
+GIVEN H(a)=β
+↓
+β=H(a)
+↓
+β∘Eb=H(a)∘Eb
+```
+
+followed by:
+
+```text
+equality transitivity
+↓
+H(a∘Eb)=H(a)∘Eb
+```
+
+The probe also displays the full provenance chain and explicitly states that right composition is a staged step.
+
+---
+
+# Phase 30 completion boundary
+
+Implemented:
+
+1. structural representation of `H(a∘Eb)=H(a)∘Eb` using existing `MapApplication`, `Composition`, and `Suspension`.
+2. explicit distinction between Phase 11 `HopfInvariantStatement` and actual-H map-application equality.
+3. explicit Phase 11 Hopf statement → production EHP `H` equality bridge.
+4. reuse of the existing generalized Hopf composition law.
+5. reuse of the existing generalized Hopf composition formula.
+6. actual-H equality for `H(a∘Eb)=β∘Eb`.
+7. actual-H equality for `H(a)=β`.
+8. equality symmetry to obtain `β=H(a)`.
+9. staged right-composition equality to obtain `β∘Eb=H(a)∘Eb`.
+10. equality transitivity closure to obtain `H(a∘Eb)=H(a)∘Eb`.
+11. full proof-level provenance across both branches.
+12. mismatched-middle rejection.
+13. different-right-factor rejection.
+14. unrelated-equality provenance exclusion.
+15. final-formula deduplication in the tested round.
+16. explicit staged-rule scope for structurally productive right composition.
+17. genuine terminal transitivity regression with `new_steps == ()`.
+18. unrelated valid Hopf-branch rejection.
+19. human-readable Phase 30 capability probe.
+20. production map identity `EHP_H_MAP` / `HOPF_MAP` reused unchanged.
+21. generic inference engine unchanged.
+22. full regression passes.
+
+Current verified status:
+
+```text
+tests/test_phase30_prop22.py
+21 passed in 0.19s
+```
+
+```text
+tests/test_relation_rules.py
+47 passed in 0.20s
+```
+
+```text
+tests/test_hopf_rules.py
+31 passed in 0.12s
+```
+
+```text
+tests/test_map_facts.py
+54 passed in 0.17s
+```
+
+```text
+full suite
+1439 passed in 23.44s
+```
+
+No failures.
 
 # Current limitations
 
@@ -825,7 +1117,7 @@ Not yet implemented as general systems:
 - automatic theorem instantiation,
 - symbolic scalar expression trees such as `(-1)^n`,
 - smash-product expressions,
-- actual Hopf-invariant formula needed for `(2ι₂)η₂=4η₂`,
+- Toda Prop.2.2 left formula `H((Ec)∘a)=E(c∧c)∘H(a)`,
 - actual mapped equality `H((2ι₂)η₂)=H(4η₂)`,
 - stable homotopy-group model,
 - stable Toda bracket `<a,b,c>`,
@@ -835,13 +1127,33 @@ Not yet implemented as general systems:
 
 # Tests
 
-Focused map-fact suite at Phase 29 completion:
+Phase 30 focused suite:
 
 ```powershell
+python -m pytest tests/test_phase30_prop22.py -q
+```
+
+Verified:
+
+```text
+21 passed in 0.19s
+```
+
+Related focused suites:
+
+```powershell
+python -m pytest tests/test_relation_rules.py -q
+python -m pytest tests/test_hopf_rules.py -q
 python -m pytest tests/test_map_facts.py -q
 ```
 
-Phase 29-9 adds the final six regressions to the Phase 29 test sequence.
+Verified:
+
+```text
+47 passed in 0.20s
+31 passed in 0.12s
+54 passed in 0.17s
+```
 
 Full suite:
 
@@ -849,10 +1161,10 @@ Full suite:
 python -m pytest -q
 ```
 
-Verified at Phase 29 completion:
+Verified at Phase 30 completion:
 
 ```text
-1408 passed in 96.81s
+1439 passed in 23.44s
 ```
 
 No failures.
@@ -891,21 +1203,41 @@ Phase 29:
 python -m probes.probe_phase29_capabilities
 ```
 
-The Phase 29 probe visibly demonstrates:
+Phase 30:
 
-```text
-production H isomorphism fact
-↓
-proof-level Isomorphism(H)
-↓
-Injective(H)
-+
-H(a)=H(b)
-↓
-a=b
+```powershell
+python -m probes.probe_phase30_capabilities
 ```
 
-It explicitly states that the mapped equality is still representative and that actual Hopf-invariant calculation remains outside Phase 29.
+The Phase 30 probe visibly demonstrates:
+
+```text
+GIVEN H(a)=β
+↓
+Hopf composition law
+↓
+H(a∘Eb)=β∘Eb
+```
+
+and:
+
+```text
+H(a)=β
+↓ equality symmetry
+β=H(a)
+↓ staged right composition
+β∘Eb=H(a)∘Eb
+```
+
+then:
+
+```text
+equality transitivity
+↓
+H(a∘Eb)=H(a)∘Eb
+```
+
+The probe also displays full proof provenance and the staged-rule scope boundary.
 
 ---
 
@@ -922,53 +1254,71 @@ Historical statements in the development log describe the state at that time. Cu
 
 # Next development boundary
 
-Phase 29 completes the connection:
+Phase 30 completes the right-hand Toda Prop.2.2 chain:
 
 ```text
-actual H mathematical knowledge
+H(a)=β
 ↓
-proof-level Isomorphism(H)
+H(a∘Eb)=β∘Eb
+
+H(a)=β
 ↓
-Injective(H)
+β=H(a)
 ↓
-equality reflection
+β∘Eb=H(a)∘Eb
+
+↓ equality transitivity
+
+H(a∘Eb)=H(a)∘Eb
 ```
 
-The natural next phase is:
+The next natural phase is:
 
 ```text
-Phase 30
-Hopf formula minimum representation
+Phase 31
+SmashProduct minimum representation
 ```
 
-Phase 30 should not attempt the entire calculation immediately. The next mathematical target is to represent the minimum theorem/formula structure needed for expressions of the form:
+The immediate structural target is:
 
 ```text
-H(γ α)=(γ∧γ)H(α)
+a ∧ b
 ```
 
-while preserving the current design principle:
+represented without prematurely implementing general smash-product algebra.
+
+This is required before the second Toda Prop.2.2 formula can be represented faithfully:
 
 ```text
-formula representation
+H((Ec) ∘ a)=E(c ∧ c) ∘ H(a)
+```
+
+Phase 31 should preserve:
+
+```text
+SmashProduct(a,b)
 !=
-unconditional rewrite
+Barratt-Hilton theorem knowledge
 ```
+
+and should not yet implement the full Barratt-Hilton formula, symbolic sign algebra, or the actual calculation of `H((2ι₂)η₂)`.
 
 The longer dependency is:
 
 ```text
-Phase 29
-actual H map facts / typing / equality reflection
-↓
 Phase 30
-Hopf formula minimum representation
+Toda Prop.2.2 right formula complete
 ↓
 Phase 31
-smash product
+SmashProduct minimum representation
 ↓
-Phase 32+
-actual H calculation
+left Prop.2.2 formula support
+↓
+IteratedSuspension / symbolic sign support as required
+↓
+Toda Prop.3.1 Barratt-Hilton
+↓
+actual H((2ι₂)η₂) calculation
 ↓
 H((2ι₂)η₂)=H(4η₂)
 ↓
