@@ -26,6 +26,7 @@ from proof import (
 from relation_rules import (
   equality_preserved_under_right_composition_inference_rule,
   equality_symmetry_inference_rule,
+  equality_transitivity_inference_rule,
 )
 
 
@@ -709,6 +710,303 @@ def test_phase30_4_actual_h_equality_extends_through_right_composition():
   assert actual_h_equality_step.premises == (
     hopf_step,
   )
+
+
+def test_phase30_5_prop22_right_formula_closes_as_actual_ehp_h_equality():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  beta = HomotopyElement(
+    name="beta",
+    dimension=1,
+  )
+
+  suspended_b = Suspension(
+    expression=b,
+  )
+
+  hopf_step = hopf_invariant_proof_step(
+    HopfInvariantStatement(
+      expression=a,
+      value=beta,
+    )
+  )
+
+  law_rule = (
+    hopf_composition_law_inference_rule()
+  )
+
+  law_match = find_inference_match(
+    law_rule,
+    (
+      hopf_step,
+    ),
+  )
+
+  assert law_match is not None
+
+  law_step = apply_inference_match(
+    law_match
+  )
+
+  b_step = ProofStep(
+    conclusion=b,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  formula_rule = (
+    hopf_composition_formula_inference_rule()
+  )
+
+  formula_match = find_inference_match(
+    formula_rule,
+    (
+      law_step,
+      b_step,
+    ),
+  )
+
+  assert formula_match is not None
+
+  formula_step = apply_inference_match(
+    formula_match
+  )
+
+  bridge_rule = (
+    hopf_invariant_statement_to_ehp_h_equality_inference_rule()
+  )
+
+  formula_bridge_match = find_inference_match(
+    bridge_rule,
+    (
+      formula_step,
+    ),
+  )
+
+  assert formula_bridge_match is not None
+
+  composed_h_equality_step = (
+    apply_inference_match(
+      formula_bridge_match
+    )
+  )
+
+  expected_composed_h_equality = Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=Composition(
+        left=a,
+        right=suspended_b,
+      ),
+    ),
+    rhs=Composition(
+      left=beta,
+      right=suspended_b,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert (
+    composed_h_equality_step.conclusion
+    == expected_composed_h_equality
+  )
+
+  base_bridge_match = find_inference_match(
+    bridge_rule,
+    (
+      hopf_step,
+    ),
+  )
+
+  assert base_bridge_match is not None
+
+  base_h_equality_step = (
+    apply_inference_match(
+      base_bridge_match
+    )
+  )
+
+  expected_base_h_equality = Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=a,
+    ),
+    rhs=beta,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert base_h_equality_step.conclusion == (
+    expected_base_h_equality
+  )
+
+  symmetry_rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  symmetry_match = find_inference_match(
+    symmetry_rule,
+    (
+      base_h_equality_step,
+    ),
+  )
+
+  assert symmetry_match is not None
+
+  reversed_base_h_equality_step = (
+    apply_inference_match(
+      symmetry_match
+    )
+  )
+
+  expected_reversed_base_h_equality = (
+    Relation(
+      lhs=beta,
+      rhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=a,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  assert (
+    reversed_base_h_equality_step
+    .conclusion
+    == expected_reversed_base_h_equality
+  )
+
+  composition_rule = (
+    equality_preserved_under_right_composition_inference_rule(
+      suspended_b
+    )
+  )
+
+  composition_match = find_inference_match(
+    composition_rule,
+    (
+      reversed_base_h_equality_step,
+    ),
+  )
+
+  assert composition_match is not None
+
+  right_composition_step = (
+    apply_inference_match(
+      composition_match
+    )
+  )
+
+  expected_right_composition_equality = (
+    Relation(
+      lhs=Composition(
+        left=beta,
+        right=suspended_b,
+      ),
+      rhs=Composition(
+        left=MapApplication(
+          map=EHP_H_MAP,
+          expression=a,
+        ),
+        right=suspended_b,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  assert (
+    right_composition_step.conclusion
+    == expected_right_composition_equality
+  )
+
+  transitivity_rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  transitivity_match = find_inference_match(
+    transitivity_rule,
+    (
+      composed_h_equality_step,
+      right_composition_step,
+    ),
+  )
+
+  assert transitivity_match is not None
+
+  final_step = apply_inference_match(
+    transitivity_match
+  )
+
+  expected_final_formula = Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=Composition(
+        left=a,
+        right=suspended_b,
+      ),
+    ),
+    rhs=Composition(
+      left=MapApplication(
+        map=EHP_H_MAP,
+        expression=a,
+      ),
+      right=suspended_b,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert final_step.conclusion == (
+    expected_final_formula
+  )
+
+  assert final_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert final_step.inference_rule == (
+    transitivity_rule
+  )
+
+  assert final_step.premises == (
+    composed_h_equality_step,
+    right_composition_step,
+  )
+
+  assert composed_h_equality_step.premises == (
+    formula_step,
+  )
+
+  assert formula_step.premises == (
+    law_step,
+    b_step,
+  )
+
+  assert law_step.premises == (
+    hopf_step,
+  )
+
+  assert right_composition_step.premises == (
+    reversed_base_h_equality_step,
+  )
+
+  assert (
+    reversed_base_h_equality_step.premises
+    == (
+      base_h_equality_step,
+    )
+  )
+
+  assert base_h_equality_step.premises == (
+    hopf_step,
+  )
+
 
 
 
