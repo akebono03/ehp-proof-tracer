@@ -1,6 +1,6 @@
 # ehp_proof 設計メモ
 
-この文書は Phase 30 完了時点の current architecture / semantics / design boundary を正本としてまとめる。
+この文書は Phase 31 完了時点の current architecture / semantics / design boundary を正本としてまとめる。
 
 過去の `development_log.md` にある「未実装」「今後の課題」は、その Phase 時点の historical statement であり、current specification とは限らない。
 
@@ -56,6 +56,7 @@ Expression
 ├── HomotopyElement
 ├── Multiple
 ├── Sum
+├── SmashProduct
 ├── Composition
 ├── MapApplication
 ├── Suspension
@@ -163,7 +164,7 @@ iterate
 trace
 ```
 
-Phase 30 でも generic engine は変更しない。
+Phase 30 / 31 でも generic engine は変更しない。
 
 Theorem repository の責務:
 
@@ -1794,3 +1795,399 @@ future capability dependency
 ```
 
 current specification は latest README / design を優先する。
+
+---
+
+# 54. Phase 31 SmashProduct minimum representation
+
+Phase 31 は Toda Prop.2.2 左側公式:
+
+```text
+H((Ec)∘a)=E(c∧c)∘H(a)
+```
+
+に必要な `c∧c` を表現するため、最小 structural expression として `SmashProduct` を追加する。
+
+structure:
+
+```text
+SmashProduct(Expression)
+  left: Expression
+  right: Expression
+```
+
+意味:
+
+```text
+SmashProduct(a,b)
+=
+a ∧ b の structural syntax
+```
+
+重要:
+
+```text
+SmashProduct(a,b)
+!=
+Barratt-Hilton theorem knowledge
+```
+
+```text
+representation
+!=
+theorem knowledge
+```
+
+を維持する。
+
+---
+
+# 55. SmashProduct structural equality semantics
+
+`SmashProduct` は frozen dataclass として Python structural equality を使用する。
+
+したがって:
+
+```text
+SmashProduct(a,b)
+==
+SmashProduct(a,b)
+```
+
+一方:
+
+```text
+SmashProduct(a,b)
+!=
+SmashProduct(b,a)
+```
+
+```text
+SmashProduct(a,b)
+!=
+SmashProduct(a,c)
+```
+
+である。
+
+これは smash product の数学的非可換性を主張する theorem ではない。
+
+意味は:
+
+```text
+different syntax tree
+→
+structurally distinct
+```
+
+である。
+
+---
+
+# 56. Expression-family distinction
+
+同じ operands でも expression family は区別する。
+
+```text
+SmashProduct(a,b)
+!=
+Sum(a,b)
+```
+
+```text
+SmashProduct(a,b)
+!=
+Composition(a,b)
+```
+
+将来 Barratt-Hilton により `a∧b` と composition expression の equality が得られる場合も、それは structural equality ではなく explicit theorem / proof-level equality として扱う。
+
+---
+
+# 57. Expression hierarchy connection
+
+`SmashProduct` は `Expression` を継承するため、既存 expression containers の内部に lossless に保持できる。
+
+確認済み:
+
+```text
+Suspension(SmashProduct(a,b))
+MapApplication(f,SmashProduct(a,b))
+Multiple(2,SmashProduct(a,b))
+Sum(SmashProduct(a,b),c)
+SmashProduct(SmashProduct(a,b),c)
+```
+
+この接続のための新しい inference rule や generic engine change は不要。
+
+---
+
+# 58. Representative c ∧ c construction
+
+Toda Prop.2.2 左側で直接必要となる代表形:
+
+```text
+c ∧ c
+```
+
+は:
+
+```text
+SmashProduct(
+  left=c,
+  right=c,
+)
+```
+
+として表現する。
+
+同一 operand を受け取った場合も left / right をそのまま保持し、hidden copy / normalization は行わない。
+
+---
+
+# 59. E(c ∧ c) representation
+
+既存 `Suspension` と組み合わせて:
+
+```text
+E(c ∧ c)
+```
+
+を:
+
+```text
+Suspension(
+  expression=SmashProduct(
+    left=c,
+    right=c,
+  ),
+)
+```
+
+として lossless に表現できる。
+
+代表 chain:
+
+```text
+c
+↓
+c ∧ c
+↓
+E(c ∧ c)
+```
+
+これにより Toda Prop.2.2 左側公式の右辺に必要な syntax は揃った。
+
+---
+
+# 60. Phase 31 typing boundary
+
+Phase 31 では `SmashProduct` の typing semantics を追加しない。
+
+`SmashProduct` 自体は:
+
+```text
+source property を持たない
+target property を持たない
+```
+
+operands が typed でも:
+
+```text
+typed a + typed b
+↛
+typed SmashProduct(a,b)
+```
+
+既存 `Suspension` は `SmashProduct` から typing を導出しないため:
+
+```text
+Suspension(SmashProduct(c,c)).source = None
+Suspension(SmashProduct(c,c)).target = None
+```
+
+となる。
+
+重要:
+
+```text
+representable
+!=
+typed
+```
+
+---
+
+# 61. Composition compatibility boundary
+
+`Composition` は `SmashProduct` を operand とする syntax tree 自体は構築できる。
+
+しかし current `Composition.is_type_compatible()` は `SmashProduct` を typed expression family として扱わない。
+
+したがって:
+
+```text
+constructible
+!=
+type-compatible
+```
+
+である。
+
+Phase 31 ではこの境界を regression で固定し、smash-product typing を先取りしない。
+
+---
+
+# 62. Phase 31 invalid / scope semantics
+
+Phase 31 は異なる syntax の implicit identification を reject する。
+
+例:
+
+```text
+SmashProduct(a,b) != SmashProduct(a,c)
+SmashProduct(a,b) != SmashProduct(b,a)
+E(a∧b) != E(a∧c)
+E(a∧b) != E(b∧a)
+E(a∧b) != a∧b
+a∧b != a∘b
+```
+
+これらは mathematical inequality theorem ではなく structural distinction。
+
+automatic normalization は行わない。
+
+---
+
+# 63. Phase 31 representative probe
+
+実行:
+
+```powershell
+python -m probes.probe_phase31_capabilities
+```
+
+表示する代表 capability:
+
+```text
+c
+↓
+c ∧ c
+↓
+E(c ∧ c)
+```
+
+さらに:
+
+```text
+SmashProduct has source: False
+SmashProduct has target: False
+E(c ∧ c).source = None
+E(c ∧ c).target = None
+```
+
+を表示して、
+
+```text
+representation != typing
+representation != theorem knowledge
+```
+
+を人間が目で確認できる。
+
+---
+
+# 64. Phase 31 completion boundary
+
+実装済み:
+
+```text
+SmashProduct(Expression)
+structural equality
+operand distinction
+operand-order distinction
+Sum / Composition distinction
+Expression hierarchy connection
+nested SmashProduct preservation
+c ∧ c representative construction
+E(c ∧ c) representation
+typing boundary regression
+composition-compatibility boundary
+invalid / scope regression
+final regression
+human-readable capability probe
+```
+
+generic inference engine:
+
+```text
+変更なし
+```
+
+theorem / knowledge layers:
+
+```text
+変更なし
+```
+
+verified:
+
+```text
+tests/test_expression.py
+145 passed in 0.58s
+```
+
+```text
+full suite
+1466 passed in 23.63s
+```
+
+---
+
+# 65. Phase 31 non-goals
+
+未実装:
+
+```text
+SmashProduct source / target typing
+SmashProduct.is_type_compatible()
+smash-product algebra
+smash-product symmetry theorem
+smash-product associativity theorem
+smash-product normalization
+H((Ec)∘a)=E(c∧c)∘H(a)
+Toda Prop.3.1 Barratt-Hilton
+symbolic (-1)^n algebra
+actual H((2ι₂)η₂) calculation
+```
+
+---
+
+# 66. 次の設計境界
+
+Phase 31 により left Toda Prop.2.2 formula に必要な:
+
+```text
+c ∧ c
+E(c ∧ c)
+```
+
+の syntax は揃った。
+
+次は:
+
+```text
+Phase 32
+Toda Prop.2.2 left suspended-composition formula support
+```
+
+を推奨する。
+
+Target:
+
+```text
+H((Ec)∘a)=E(c∧c)∘H(a)
+```
+
+Phase 32 では actual `H` representation と existing proof-level equality machinery を再利用し、Barratt-Hilton や general smash-product algebra は先取りしない。
+

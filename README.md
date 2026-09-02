@@ -63,6 +63,7 @@ Completed:
 - Phase 28: map-property equality-reflection foundation
 - Phase 29: actual H map facts / typing / production-fact connection
 - Phase 30: Toda Prop.2.2 right suspended-composition formula / actual-H proof closure
+- Phase 31: SmashProduct minimum structural representation
 
 Current architecture:
 
@@ -98,6 +99,7 @@ Expression
 ├── HomotopyElement
 ├── Multiple
 ├── Sum
+├── SmashProduct
 ├── Composition
 ├── MapApplication
 ├── Suspension
@@ -114,7 +116,7 @@ TodaBracket
 IndexedTodaBracketData
 ```
 
-Phase 21 adds minimal source / target context and compatibility queries. Phase 22 adds structured generator identity while keeping generator notation separate from typing rules. Phase 23 connects indexed Toda theorem facts to membership under explicit guards. Phase 24 adds a narrow literature-backed theorem repository. Phase 25 adds a separate explicit generator-fact repository and typed-element materialization. Phase 26 expands this knowledge to the actual generators appearing in the ε₃ Toda bracket. Phase 27 adds explicit corrected composition knowledge and connects it to actual indexed Toda definedness and theorem-backed membership. Phase 28 adds proof-level injectivity / isomorphism statements and equality reflection through an injective map. Phase 29 connects an actual Hopf map identity, typing context, and isomorphism fact to the Phase 28 proof-level machinery. Phase 30 connects the existing generalized Hopf-invariant composition machinery to the actual EHP `H` map representation and generic equality rules, yielding the Toda Prop.2.2 right suspended-composition formula as a proof-level equality with full provenance.
+Phase 21 adds minimal source / target context and compatibility queries. Phase 22 adds structured generator identity while keeping generator notation separate from typing rules. Phase 23 connects indexed Toda theorem facts to membership under explicit guards. Phase 24 adds a narrow literature-backed theorem repository. Phase 25 adds a separate explicit generator-fact repository and typed-element materialization. Phase 26 expands this knowledge to the actual generators appearing in the ε₃ Toda bracket. Phase 27 adds explicit corrected composition knowledge and connects it to actual indexed Toda definedness and theorem-backed membership. Phase 28 adds proof-level injectivity / isomorphism statements and equality reflection through an injective map. Phase 29 connects an actual Hopf map identity, typing context, and isomorphism fact to the Phase 28 proof-level machinery. Phase 30 connects the existing generalized Hopf-invariant composition machinery to the actual EHP `H` map representation and generic equality rules, yielding the Toda Prop.2.2 right suspended-composition formula as a proof-level equality with full provenance. Phase 31 adds `SmashProduct` as a minimal structural `Expression`, makes `a ∧ b`, `c ∧ c`, and `E(c ∧ c)` representable, and deliberately leaves smash-product typing, algebra, normalization, and theorem knowledge unimplemented.
 
 ---
 
@@ -1088,6 +1090,162 @@ full suite
 
 No failures.
 
+
+# Phase 31: SmashProduct minimum representation
+
+Phase 31 introduces the minimum structural syntax required for the left-hand Toda Prop.2.2 formula.
+
+Added:
+
+```text
+SmashProduct(Expression)
+  left: Expression
+  right: Expression
+```
+
+Representative structural forms:
+
+```text
+a ∧ b
+
+c ∧ c
+
+E(c ∧ c)
+```
+
+represented as:
+
+```python
+SmashProduct(
+  left=a,
+  right=b,
+)
+```
+
+and:
+
+```python
+Suspension(
+  expression=SmashProduct(
+    left=c,
+    right=c,
+  ),
+)
+```
+
+Structural guarantees fixed by regression:
+
+```text
+SmashProduct(a,b) == SmashProduct(a,b)
+SmashProduct(a,b) != SmashProduct(b,a)
+SmashProduct(a,b) != SmashProduct(a,c)
+SmashProduct(a,b) != Sum(a,b)
+SmashProduct(a,b) != Composition(a,b)
+E(a∧b) != a∧b
+```
+
+`SmashProduct` participates in the existing `Expression` hierarchy and can be nested inside `Suspension`, `MapApplication`, `Multiple`, `Sum`, and another `SmashProduct` without automatic normalization.
+
+The actual left-formula representative can now be built structurally as:
+
+```text
+c
+↓
+c ∧ c
+↓
+E(c ∧ c)
+```
+
+Typing remains intentionally outside Phase 31. Even with typed operands:
+
+```text
+typed c + typed c
+↛ typed SmashProduct(c,c)
+```
+
+Current behavior:
+
+```text
+SmashProduct(c,c)
+↛ source property
+↛ target property
+
+Suspension(SmashProduct(c,c)).source = None
+Suspension(SmashProduct(c,c)).target = None
+```
+
+Therefore:
+
+```text
+representable
+!=
+typed
+!=
+type-compatible
+!=
+theorem-valid
+```
+
+No theorem rule was added. In particular Phase 31 does not implement:
+
+```text
+H((Ec)∘a)=E(c∧c)∘H(a)
+```
+
+or Barratt–Hilton Prop.3.1.
+
+Representative probe:
+
+```powershell
+python -m probes.probe_phase31_capabilities
+```
+
+The probe visibly demonstrates `c → c ∧ c → E(c ∧ c)`, structural distinctions, and the intentional typing boundary.
+
+---
+
+# Phase 31 completion boundary
+
+Implemented:
+
+1. `SmashProduct(Expression)` with `left` / `right` operands.
+2. structural equality for identical smash-product trees.
+3. operand-order distinction.
+4. left-operand and right-operand distinction.
+5. distinction from `Sum`.
+6. distinction from `Composition`.
+7. connection to the existing `Expression` hierarchy.
+8. nesting inside `Suspension`.
+9. nesting inside `MapApplication`.
+10. nesting inside `Multiple`.
+11. nesting inside `Sum`.
+12. nested `SmashProduct` preservation.
+13. representative `c ∧ c` construction.
+14. representative `E(c ∧ c)` construction.
+15. typed-operand / untyped-smash boundary.
+16. `Suspension(SmashProduct(...))` source / target remains `None`.
+17. no automatic composition compatibility for smash-product expressions.
+18. invalid / scope regression against implicit normalization.
+19. final Phase 31 regression.
+20. human-readable Phase 31 capability probe.
+21. generic inference engine unchanged.
+22. theorem / knowledge layers unchanged.
+23. full regression passes.
+
+Current verified status:
+
+```text
+tests/test_expression.py
+145 passed in 0.58s
+```
+
+```text
+full suite
+1466 passed in 23.63s
+```
+
+No failures.
+
 # Current limitations
 
 Not yet implemented as general systems:
@@ -1116,7 +1274,6 @@ Not yet implemented as general systems:
 - general theorem quantification,
 - automatic theorem instantiation,
 - symbolic scalar expression trees such as `(-1)^n`,
-- smash-product expressions,
 - Toda Prop.2.2 left formula `H((Ec)∘a)=E(c∧c)∘H(a)`,
 - actual mapped equality `H((2ι₂)η₂)=H(4η₂)`,
 - stable homotopy-group model,
@@ -1137,6 +1294,18 @@ Verified:
 
 ```text
 21 passed in 0.19s
+```
+
+Phase 31 focused suite:
+
+```powershell
+python -m pytest tests/test_expression.py -q
+```
+
+Verified at Phase 31 completion:
+
+```text
+145 passed in 0.58s
 ```
 
 Related focused suites:
@@ -1161,10 +1330,10 @@ Full suite:
 python -m pytest -q
 ```
 
-Verified at Phase 30 completion:
+Verified at Phase 31 completion:
 
 ```text
-1439 passed in 23.44s
+1466 passed in 23.63s
 ```
 
 No failures.
@@ -1207,6 +1376,12 @@ Phase 30:
 
 ```powershell
 python -m probes.probe_phase30_capabilities
+```
+
+Phase 31:
+
+```powershell
+python -m probes.probe_phase31_capabilities
 ```
 
 The Phase 30 probe visibly demonstrates:
@@ -1254,67 +1429,52 @@ Historical statements in the development log describe the state at that time. Cu
 
 # Next development boundary
 
-Phase 30 completes the right-hand Toda Prop.2.2 chain:
+Phase 31 completes the structural syntax required by the left-hand Toda Prop.2.2 formula:
 
 ```text
-H(a)=β
-↓
-H(a∘Eb)=β∘Eb
-
-H(a)=β
-↓
-β=H(a)
-↓
-β∘Eb=H(a)∘Eb
-
-↓ equality transitivity
-
-H(a∘Eb)=H(a)∘Eb
+a ∧ b
+c ∧ c
+E(c ∧ c)
 ```
 
 The next natural phase is:
 
 ```text
-Phase 31
-SmashProduct minimum representation
+Phase 32
+Toda Prop.2.2 left suspended-composition formula support
 ```
 
-The immediate structural target is:
-
-```text
-a ∧ b
-```
-
-represented without prematurely implementing general smash-product algebra.
-
-This is required before the second Toda Prop.2.2 formula can be represented faithfully:
+Target theorem shape:
 
 ```text
 H((Ec) ∘ a)=E(c ∧ c) ∘ H(a)
 ```
 
-Phase 31 should preserve:
+Phase 32 should connect the new `SmashProduct` structure to the existing actual `H` representation and proof-level equality machinery, while preserving:
 
 ```text
-SmashProduct(a,b)
+SmashProduct representation
+!=
+smash-product typing
 !=
 Barratt-Hilton theorem knowledge
 ```
 
-and should not yet implement the full Barratt-Hilton formula, symbolic sign algebra, or the actual calculation of `H((2ι₂)η₂)`.
+Barratt–Hilton Prop.3.1 remains a later phase. No general smash-product algebra or symbolic sign system should be introduced unless required by that later theorem.
 
-The longer dependency is:
+Longer dependency:
 
 ```text
 Phase 30
 Toda Prop.2.2 right formula complete
 ↓
 Phase 31
-SmashProduct minimum representation
+SmashProduct minimum representation complete
 ↓
-left Prop.2.2 formula support
+Phase 32
+Toda Prop.2.2 left formula support
 ↓
-IteratedSuspension / symbolic sign support as required
+Barratt-Hilton prerequisites as actually required
 ↓
 Toda Prop.3.1 Barratt-Hilton
 ↓
