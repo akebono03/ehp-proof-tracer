@@ -7,13 +7,21 @@ from expression import (
 )
 from hopf_rules import (
   HopfInvariantStatement,
+  HopfLeftCompositionLawStatement,
+  hopf_invariant_proof_step,
+  hopf_left_composition_formula_inference_rule,
+  hopf_left_composition_law_inference_rule,
 )
 from map_facts import (
   HOPF_MAP,
 )
 from proof import (
+  ProofRule,
+  ProofStep,
   Relation,
   RelationType,
+  apply_inference_match,
+  find_inference_match,
 )
 
 
@@ -615,6 +623,542 @@ def test_phase32_2_same_expression_and_value_do_not_collapse_statement_families(
 
   assert hopf_statement != actual_h_equality
 
+
+def test_phase32_3_left_composition_law_statement_preserves_minimum_structure():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  beta = HomotopyElement(
+    name="β",
+    dimension=1,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=1,
+  )
+
+  statement = HopfLeftCompositionLawStatement(
+    alpha=a,
+    beta=beta,
+    gamma=c,
+  )
+
+  assert statement.alpha == a
+  assert statement.beta == beta
+  assert statement.gamma == c
+
+
+def test_phase32_3_left_composition_law_statement_has_structural_equality():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  beta = HomotopyElement(
+    name="β",
+    dimension=1,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=1,
+  )
+
+  first = HopfLeftCompositionLawStatement(
+    alpha=a,
+    beta=beta,
+    gamma=c,
+  )
+
+  second = HopfLeftCompositionLawStatement(
+    alpha=a,
+    beta=beta,
+    gamma=c,
+  )
+
+  assert first == second
+
+
+def test_phase32_3_left_composition_law_statement_distinguishes_alpha():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  other_a = HomotopyElement(
+    name="a′",
+    dimension=1,
+  )
+
+  beta = HomotopyElement(
+    name="β",
+    dimension=1,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=1,
+  )
+
+  first = HopfLeftCompositionLawStatement(
+    alpha=a,
+    beta=beta,
+    gamma=c,
+  )
+
+  second = HopfLeftCompositionLawStatement(
+    alpha=other_a,
+    beta=beta,
+    gamma=c,
+  )
+
+  assert first != second
+
+
+def test_phase32_3_left_composition_law_statement_distinguishes_beta():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  beta = HomotopyElement(
+    name="β",
+    dimension=1,
+  )
+
+  other_beta = HomotopyElement(
+    name="γ",
+    dimension=1,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=1,
+  )
+
+  first = HopfLeftCompositionLawStatement(
+    alpha=a,
+    beta=beta,
+    gamma=c,
+  )
+
+  second = HopfLeftCompositionLawStatement(
+    alpha=a,
+    beta=other_beta,
+    gamma=c,
+  )
+
+  assert first != second
+
+
+def test_phase32_3_left_composition_law_statement_distinguishes_gamma():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  beta = HomotopyElement(
+    name="β",
+    dimension=1,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=1,
+  )
+
+  other_c = HomotopyElement(
+    name="d",
+    dimension=1,
+  )
+
+  first = HopfLeftCompositionLawStatement(
+    alpha=a,
+    beta=beta,
+    gamma=c,
+  )
+
+  second = HopfLeftCompositionLawStatement(
+    alpha=a,
+    beta=beta,
+    gamma=other_c,
+  )
+
+  assert first != second
+
+
+def test_phase32_4_hopf_invariant_and_c_derive_left_composition_law():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  beta = HomotopyElement(
+    name="β",
+    dimension=1,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=1,
+  )
+
+  hopf_step = hopf_invariant_proof_step(
+    HopfInvariantStatement(
+      expression=a,
+      value=beta,
+    )
+  )
+
+  c_step = ProofStep(
+    conclusion=c,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    hopf_left_composition_law_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      hopf_step,
+      c_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == (
+    HopfLeftCompositionLawStatement(
+      alpha=a,
+      beta=beta,
+      gamma=c,
+    )
+  )
+
+  assert step.premises == (
+    hopf_step,
+    c_step,
+  )
+
+  assert step.rule == ProofRule.INFERENCE
+  assert step.inference_rule == rule
+
+
+def test_phase32_4_left_composition_law_derives_hopf_formula():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  beta = HomotopyElement(
+    name="β",
+    dimension=1,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=1,
+  )
+
+  law_step = ProofStep(
+    conclusion=HopfLeftCompositionLawStatement(
+      alpha=a,
+      beta=beta,
+      gamma=c,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    hopf_left_composition_formula_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    law_step,
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == (
+    HopfInvariantStatement(
+      expression=Composition(
+        left=Suspension(
+          expression=c,
+        ),
+        right=a,
+      ),
+      value=Composition(
+        left=Suspension(
+          expression=SmashProduct(
+            left=c,
+            right=c,
+          ),
+        ),
+        right=beta,
+      ),
+    )
+  )
+
+  assert step.premises == (
+    law_step,
+  )
+
+  assert step.rule == ProofRule.INFERENCE
+  assert step.inference_rule == rule
+
+
+def test_phase32_4_hopf_invariant_and_c_reach_left_composition_formula():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  beta = HomotopyElement(
+    name="β",
+    dimension=1,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=1,
+  )
+
+  hopf_step = hopf_invariant_proof_step(
+    HopfInvariantStatement(
+      expression=a,
+      value=beta,
+    )
+  )
+
+  c_step = ProofStep(
+    conclusion=c,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  law_rule = (
+    hopf_left_composition_law_inference_rule()
+  )
+
+  law_match = find_inference_match(
+    law_rule,
+    (
+      hopf_step,
+      c_step,
+    ),
+  )
+
+  assert law_match is not None
+
+  law_step = apply_inference_match(
+    law_match
+  )
+
+  formula_rule = (
+    hopf_left_composition_formula_inference_rule()
+  )
+
+  formula_match = find_inference_match(
+    formula_rule,
+    law_step,
+  )
+
+  assert formula_match is not None
+
+  formula_step = apply_inference_match(
+    formula_match
+  )
+
+  expected = HopfInvariantStatement(
+    expression=Composition(
+      left=Suspension(
+        expression=c,
+      ),
+      right=a,
+    ),
+    value=Composition(
+      left=Suspension(
+        expression=SmashProduct(
+          left=c,
+          right=c,
+        ),
+      ),
+      right=beta,
+    ),
+  )
+
+  assert formula_step.conclusion == expected
+
+  assert formula_step.premises == (
+    law_step,
+  )
+
+  assert law_step.premises == (
+    hopf_step,
+    c_step,
+  )
+
+
+def test_phase32_4_left_composition_formula_preserves_provenance():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  beta = HomotopyElement(
+    name="β",
+    dimension=1,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=1,
+  )
+
+  hopf_step = hopf_invariant_proof_step(
+    HopfInvariantStatement(
+      expression=a,
+      value=beta,
+    )
+  )
+
+  c_step = ProofStep(
+    conclusion=c,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  law_rule = (
+    hopf_left_composition_law_inference_rule()
+  )
+
+  law_match = find_inference_match(
+    law_rule,
+    (
+      hopf_step,
+      c_step,
+    ),
+  )
+
+  assert law_match is not None
+
+  law_step = apply_inference_match(
+    law_match
+  )
+
+  formula_rule = (
+    hopf_left_composition_formula_inference_rule()
+  )
+
+  formula_match = find_inference_match(
+    formula_rule,
+    law_step,
+  )
+
+  assert formula_match is not None
+
+  formula_step = apply_inference_match(
+    formula_match
+  )
+
+  assert formula_step.premises == (
+    law_step,
+  )
+
+  assert formula_step.premises[0].premises == (
+    hopf_step,
+    c_step,
+  )
+
+  assert (
+    formula_step
+    .premises[0]
+    .premises[0]
+    == hopf_step
+  )
+
+  assert (
+    formula_step
+    .premises[0]
+    .premises[1]
+    == c_step
+  )
+
+
+def test_phase32_4_left_composition_law_rejects_missing_c():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  beta = HomotopyElement(
+    name="β",
+    dimension=1,
+  )
+
+  hopf_step = hopf_invariant_proof_step(
+    HopfInvariantStatement(
+      expression=a,
+      value=beta,
+    )
+  )
+
+  rule = (
+    hopf_left_composition_law_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    hopf_step,
+  )
+
+  assert match is None
+
+
+def test_phase32_4_left_formula_rejects_plain_hopf_statement():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  beta = HomotopyElement(
+    name="β",
+    dimension=1,
+  )
+
+  hopf_step = hopf_invariant_proof_step(
+    HopfInvariantStatement(
+      expression=a,
+      value=beta,
+    )
+  )
+
+  rule = (
+    hopf_left_composition_formula_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    hopf_step,
+  )
+
+  assert match is None
 
 
 

@@ -7,6 +7,7 @@ from expression import (
   Composition,
   Expression,
   MapApplication,
+  SmashProduct,
   Suspension,
   Zero,
 )
@@ -34,6 +35,13 @@ class HopfInvariantStatement:
 class HopfCompositionLawStatement:
   alpha: Expression
   beta: Expression
+
+
+@dataclass(frozen=True)
+class HopfLeftCompositionLawStatement:
+  alpha: Expression
+  beta: Expression
+  gamma: Expression
 
 
 def hopf_invariant_proof_step(
@@ -124,6 +132,107 @@ def hopf_composition_law_inference_rule():
       PremisePattern(
         statement_type=(
           HopfInvariantStatement
+        ),
+      ),
+    ),
+    conclusion_builder=(
+      conclusion_builder
+    ),
+  )
+
+
+def hopf_left_composition_law_inference_rule():
+  def conclusion_builder(
+    premises,
+  ):
+    hopf_statement = (
+      premises[0].conclusion
+    )
+
+    gamma = (
+      premises[1].conclusion
+    )
+
+    return HopfLeftCompositionLawStatement(
+      alpha=hopf_statement.expression,
+      beta=hopf_statement.value,
+      gamma=gamma,
+    )
+
+  return InferenceRule(
+    name=(
+      "generalized Hopf invariant "
+      "enables left composition law"
+    ),
+    description=(
+      "A generalized Hopf invariant "
+      "fact H(alpha)=beta and an "
+      "expression gamma enable the "
+      "left suspended-composition "
+      "Hopf law."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          HopfInvariantStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=Expression,
+      ),
+    ),
+    conclusion_builder=(
+      conclusion_builder
+    ),
+  )
+
+
+def hopf_left_composition_formula_inference_rule():
+  def conclusion_builder(
+    premises,
+  ):
+    law_statement = (
+      premises[0].conclusion
+    )
+
+    suspended_gamma = Suspension(
+      expression=law_statement.gamma,
+    )
+
+    suspended_smash = Suspension(
+      expression=SmashProduct(
+        left=law_statement.gamma,
+        right=law_statement.gamma,
+      ),
+    )
+
+    return HopfInvariantStatement(
+      expression=Composition(
+        left=suspended_gamma,
+        right=law_statement.alpha,
+      ),
+      value=Composition(
+        left=suspended_smash,
+        right=law_statement.beta,
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "generalized Hopf left "
+      "composition formula"
+    ),
+    description=(
+      "From the generalized Hopf "
+      "left composition law for "
+      "alpha, beta, and gamma, derive "
+      "H((E gamma) o alpha) "
+      "= E(gamma smash gamma) o beta."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          HopfLeftCompositionLawStatement
         ),
       ),
     ),
