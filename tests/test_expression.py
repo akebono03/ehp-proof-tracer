@@ -3304,5 +3304,100 @@ def test_phase31_5_suspended_smash_remains_structurally_distinct_from_unsuspende
   assert suspended != c_smash_c
 
 
+def test_phase31_6_smash_product_has_no_automatic_typing():
+  c = HomotopyElement(
+    name="c",
+    dimension=3,
+  )
+
+  smash = SmashProduct(
+    left=c,
+    right=c,
+  )
+
+  assert not hasattr(
+    smash,
+    "source",
+  )
+
+  assert not hasattr(
+    smash,
+    "target",
+  )
+
+
+def test_phase31_6_typed_operands_do_not_type_smash_product():
+  c = HomotopyElement(
+    name="c",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  smash = SmashProduct(
+    left=c,
+    right=c,
+  )
+
+  assert smash.left.source == 5
+  assert smash.left.target == 3
+  assert smash.right.source == 5
+  assert smash.right.target == 3
+
+  assert not hasattr(
+    smash,
+    "source",
+  )
+
+  assert not hasattr(
+    smash,
+    "target",
+  )
+
+
+def test_phase31_6_suspension_of_smash_product_preserves_unknown_typing():
+  c = HomotopyElement(
+    name="c",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  suspended = Suspension(
+    expression=SmashProduct(
+      left=c,
+      right=c,
+    ),
+  )
+
+  assert suspended.source is None
+  assert suspended.target is None
+
+
+def test_phase31_6_smash_product_does_not_gain_composition_compatibility():
+  c = HomotopyElement(
+    name="c",
+    dimension=3,
+    source=5,
+    target=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=5,
+    source=7,
+    target=5,
+  )
+
+  composition = Composition(
+    left=SmashProduct(
+      left=c,
+      right=c,
+    ),
+    right=b,
+  )
+
+  assert not composition.is_type_compatible()
+
 
 
