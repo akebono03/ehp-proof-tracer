@@ -4,6 +4,9 @@ from expression import (
   MapSymbol,
 )
 from map_facts import (
+  EHP_H_MAP,
+  EHP_H_MAP_ISOMORPHISM_FACT,
+  EHP_H_MAP_TYPING_FACT,
   HOPF_MAP,
   HOPF_MAP_ISOMORPHISM_FACT,
   HOPF_MAP_TYPING_FACT,
@@ -1387,6 +1390,86 @@ def test_phase29_9_actual_hopf_end_to_end_reaches_genuine_fixed_point():
   )
 
   assert terminal_round.new_steps == ()
+
+
+def test_phase30_3a_ehp_h_map_is_canonical_generalized_hopf_invariant_map():
+  assert isinstance(
+    EHP_H_MAP,
+    MapSymbol,
+  )
+
+  assert EHP_H_MAP == MapSymbol(
+    name="H",
+  )
+
+
+def test_phase30_3a_ehp_h_typing_fact_uses_canonical_map():
+  assert (
+    EHP_H_MAP_TYPING_FACT.map
+    is EHP_H_MAP
+  )
+
+  assert (
+    EHP_H_MAP_TYPING_FACT
+    .source_group_dimension
+    == 3
+  )
+
+  assert (
+    EHP_H_MAP_TYPING_FACT
+    .source_sphere_dimension
+    == 2
+  )
+
+  assert (
+    EHP_H_MAP_TYPING_FACT
+    .target_group_dimension
+    == 3
+  )
+
+  assert (
+    EHP_H_MAP_TYPING_FACT
+    .target_sphere_dimension
+    == 3
+  )
+
+
+def test_phase30_3a_ehp_h_isomorphism_fact_uses_canonical_typing():
+  assert (
+    EHP_H_MAP_ISOMORPHISM_FACT
+    .typing
+    is EHP_H_MAP_TYPING_FACT
+  )
+
+  assert (
+    EHP_H_MAP_ISOMORPHISM_FACT
+    .typing
+    .map
+    is EHP_H_MAP
+  )
+
+  assert (
+    MAP_ISOMORPHISM_FACT_REPOSITORY
+    .lookup(
+      EHP_H_MAP_TYPING_FACT
+    )
+    is EHP_H_MAP_ISOMORPHISM_FACT
+  )
+
+
+def test_phase30_3a_legacy_hopf_map_names_are_compatibility_aliases():
+  assert HOPF_MAP is EHP_H_MAP
+
+  assert (
+    HOPF_MAP_TYPING_FACT
+    is EHP_H_MAP_TYPING_FACT
+  )
+
+  assert (
+    HOPF_MAP_ISOMORPHISM_FACT
+    is EHP_H_MAP_ISOMORPHISM_FACT
+  )
+
 
 
 
