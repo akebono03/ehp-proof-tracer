@@ -3578,6 +3578,134 @@ def test_phase31_7_phase31_scope_regression():
   assert suspended_ab.target is None
 
 
+def test_phase31_9_smash_product_final_regression_and_boundary():
+  a = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=4,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=5,
+    source=7,
+    target=5,
+  )
+
+  same_c = c
+
+  smash_ab = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  same_smash_ab = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  smash_ba = SmashProduct(
+    left=b,
+    right=a,
+  )
+
+  smash_ac = SmashProduct(
+    left=a,
+    right=c,
+  )
+
+  c_smash_c = SmashProduct(
+    left=c,
+    right=same_c,
+  )
+
+  suspended_c_smash_c = Suspension(
+    expression=c_smash_c,
+  )
+
+  assert isinstance(
+    smash_ab,
+    Expression,
+  )
+
+  assert smash_ab.left == a
+  assert smash_ab.right == b
+
+  assert smash_ab == same_smash_ab
+
+  assert smash_ab != smash_ba
+  assert smash_ab != smash_ac
+
+  assert smash_ab != Sum(
+    left=a,
+    right=b,
+  )
+
+  assert smash_ab != Composition(
+    left=a,
+    right=b,
+  )
+
+  assert c_smash_c.left == c
+  assert c_smash_c.right == c
+  assert c_smash_c.left == c_smash_c.right
+
+  assert suspended_c_smash_c.expression == c_smash_c
+
+  assert isinstance(
+    suspended_c_smash_c.expression,
+    SmashProduct,
+  )
+
+  assert (
+    suspended_c_smash_c
+    .expression
+    .left
+    == c
+  )
+
+  assert (
+    suspended_c_smash_c
+    .expression
+    .right
+    == c
+  )
+
+  assert suspended_c_smash_c != c_smash_c
+
+  assert not hasattr(
+    c_smash_c,
+    "source",
+  )
+
+  assert not hasattr(
+    c_smash_c,
+    "target",
+  )
+
+  assert suspended_c_smash_c.source is None
+  assert suspended_c_smash_c.target is None
+
+  composition_with_smash = Composition(
+    left=c_smash_c,
+    right=HomotopyElement(
+      name="d",
+      dimension=7,
+      source=9,
+      target=7,
+    ),
+  )
+
+  assert not (
+    composition_with_smash
+    .is_type_compatible()
+  )
+
+
 
 
 
