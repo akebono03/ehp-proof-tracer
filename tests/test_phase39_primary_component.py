@@ -1,8 +1,18 @@
+from typing import (
+  get_type_hints,
+)
+
 from algebra import (
   Subgroup,
 )
+from barratt_hilton_rules import (
+  HomotopyGroupMembershipStatement,
+)
 from expression import (
+  HomotopyElement,
+  ScalarSum,
   ScalarSymbol,
+  ScalarValue,
 )
 from homotopy_groups import (
   PrimaryComponent,
@@ -244,5 +254,141 @@ def test_phase39_3_primary_component_has_no_known_decomposition_fields():
     component,
     "elements",
   )
+
+
+def test_phase39_4_primary_component_uses_existing_scalar_value_dimension_types():
+  primary_type_hints = get_type_hints(
+    PrimaryComponent
+  )
+
+  membership_type_hints = get_type_hints(
+    HomotopyGroupMembershipStatement
+  )
+
+  assert primary_type_hints[
+    "group_dimension"
+  ] == ScalarValue
+
+  assert primary_type_hints[
+    "sphere_dimension"
+  ] == ScalarValue
+
+  assert membership_type_hints[
+    "group_dimension"
+  ] == ScalarValue
+
+  assert membership_type_hints[
+    "sphere_dimension"
+  ] == ScalarValue
+
+
+def test_phase39_4_concrete_primary_component_matches_existing_dimension_representation():
+  component = PrimaryComponent(
+    group_dimension=8,
+    sphere_dimension=5,
+    prime=2,
+  )
+
+  element = HomotopyElement(
+    name="a",
+    dimension=3,
+  )
+
+  membership = (
+    HomotopyGroupMembershipStatement(
+      element=element,
+      group_dimension=8,
+      sphere_dimension=5,
+    )
+  )
+
+  assert component.group_dimension == (
+    membership.group_dimension
+  )
+
+  assert component.sphere_dimension == (
+    membership.sphere_dimension
+  )
+
+
+def test_phase39_4_symbolic_primary_component_matches_existing_dimension_representation():
+  i = ScalarSymbol(
+    name="i",
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  component = PrimaryComponent(
+    group_dimension=i,
+    sphere_dimension=n,
+    prime=2,
+  )
+
+  element = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  membership = (
+    HomotopyGroupMembershipStatement(
+      element=element,
+      group_dimension=i,
+      sphere_dimension=n,
+    )
+  )
+
+  assert component.group_dimension == (
+    membership.group_dimension
+  )
+
+  assert component.sphere_dimension == (
+    membership.sphere_dimension
+  )
+
+  assert component.group_dimension is i
+  assert component.sphere_dimension is n
+
+
+def test_phase39_4_primary_component_accepts_compound_symbolic_dimension():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  n_plus_one = ScalarSum(
+    left=n,
+    right=1,
+  )
+
+  component = PrimaryComponent(
+    group_dimension=n_plus_one,
+    sphere_dimension=n,
+    prime=2,
+  )
+
+  assert component.group_dimension == (
+    ScalarSum(
+      left=n,
+      right=1,
+    )
+  )
+
+  assert component.sphere_dimension == n
+  assert component.prime == 2
+
+
+def test_phase39_4_primary_component_prime_typing_remains_integer():
+  type_hints = get_type_hints(
+    PrimaryComponent
+  )
+
+  assert type_hints[
+    "prime"
+  ] is int
+
+
+
+
 
 
