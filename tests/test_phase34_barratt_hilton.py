@@ -2841,5 +2841,408 @@ def test_phase34_7_barratt_hilton_theorem_does_not_introduce_actual_h_map_applic
   )
 
 
+def test_phase34_9_final_representative_regression():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  p_plus_k = ScalarSum(
+    left=p,
+    right=k,
+  )
+
+  q_plus_h = ScalarSum(
+    left=q,
+    right=h,
+  )
+
+  first_exponent = ScalarProduct(
+    left=p_plus_k,
+    right=h,
+  )
+
+  first_sign = ScalarPower(
+    base=-1,
+    exponent=first_exponent,
+  )
+
+  first_composition = Composition(
+    left=IteratedSuspension(
+      expression=a,
+      exponent=q,
+    ),
+    right=IteratedSuspension(
+      expression=b,
+      exponent=p_plus_k,
+    ),
+  )
+
+  second_exponent = ScalarProduct(
+    left=p,
+    right=h,
+  )
+
+  second_sign = ScalarPower(
+    base=-1,
+    exponent=second_exponent,
+  )
+
+  second_composition = Composition(
+    left=IteratedSuspension(
+      expression=b,
+      exponent=p,
+    ),
+    right=IteratedSuspension(
+      expression=a,
+      exponent=q_plus_h,
+    ),
+  )
+
+  a_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=a,
+        group_dimension=p_plus_k,
+        sphere_dimension=p,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  b_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=b,
+        group_dimension=q_plus_h,
+        sphere_dimension=q,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  second_rule = (
+    barratt_hilton_second_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  first_match = find_inference_match(
+    first_rule,
+    (
+      a_membership_step,
+      b_membership_step,
+    ),
+  )
+
+  second_match = find_inference_match(
+    second_rule,
+    (
+      a_membership_step,
+      b_membership_step,
+    ),
+  )
+
+  assert first_match is not None
+  assert second_match is not None
+
+  first_step = apply_inference_match(
+    first_match
+  )
+
+  second_step = apply_inference_match(
+    second_match
+  )
+
+  assert first_step.conclusion == Relation(
+    lhs=SmashProduct(
+      left=a,
+      right=b,
+    ),
+    rhs=Multiple(
+      coefficient=first_sign,
+      expression=first_composition,
+    ),
+    relation_type=RelationType.EQUALITY,
+    source=TODA_PROP_3_1_REFERENCE,
+    note=(
+      "Toda Prop.3.1 "
+      "Barratt-Hilton first formula."
+    ),
+  )
+
+  assert second_step.conclusion == Relation(
+    lhs=SmashProduct(
+      left=a,
+      right=b,
+    ),
+    rhs=Multiple(
+      coefficient=second_sign,
+      expression=second_composition,
+    ),
+    relation_type=RelationType.EQUALITY,
+    source=TODA_PROP_3_1_REFERENCE,
+    note=(
+      "Toda Prop.3.1 "
+      "Barratt-Hilton second formula."
+    ),
+  )
+
+  assert first_step.conclusion != (
+    second_step.conclusion
+  )
+
+  assert first_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert second_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert first_step.premises == (
+    a_membership_step,
+    b_membership_step,
+  )
+
+  assert second_step.premises == (
+    a_membership_step,
+    b_membership_step,
+  )
+
+  assert first_step.conclusion.source == (
+    TODA_PROP_3_1_REFERENCE
+  )
+
+  assert second_step.conclusion.source == (
+    TODA_PROP_3_1_REFERENCE
+  )
+
+  assert isinstance(
+    first_step.conclusion.source,
+    LiteratureReference,
+  )
+
+  assert (
+    first_step.conclusion.source.label
+    == "Toda Prop.3.1"
+  )
+
+  assert (
+    first_step.conclusion.source.locator
+    == "Proposition 3.1"
+  )
+
+  parity_step = ProofStep(
+    conclusion=EvenScalarStatement(
+      scalar=first_exponent,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  sign_rule = (
+    even_scalar_evaluates_minus_one_power_inference_rule()
+  )
+
+  sign_match = find_inference_match(
+    sign_rule,
+    (
+      parity_step,
+    ),
+  )
+
+  assert sign_match is not None
+
+  sign_step = apply_inference_match(
+    sign_match
+  )
+
+  assert sign_step.conclusion == (
+    ScalarSignEvaluationStatement(
+      expression=first_sign,
+      value=1,
+    )
+  )
+
+  assert sign_step.premises == (
+    parity_step,
+  )
+
+  reduction_rule = (
+    scalar_sign_evaluation_applies_to_multiple_inference_rule(
+      sign=first_sign,
+      expression=first_composition,
+    )
+  )
+
+  reduction_match = find_inference_match(
+    reduction_rule,
+    (
+      sign_step,
+    ),
+  )
+
+  assert reduction_match is not None
+
+  reduction_step = apply_inference_match(
+    reduction_match
+  )
+
+  assert reduction_step.conclusion == Relation(
+    lhs=Multiple(
+      coefficient=first_sign,
+      expression=first_composition,
+    ),
+    rhs=first_composition,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert (
+    first_step.conclusion.rhs
+    == reduction_step.conclusion.lhs
+  )
+
+  transitivity_rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  transitivity_match = find_inference_match(
+    transitivity_rule,
+    (
+      first_step,
+      reduction_step,
+    ),
+  )
+
+  assert transitivity_match is not None
+
+  final_step = apply_inference_match(
+    transitivity_match
+  )
+
+  assert final_step.conclusion == Relation(
+    lhs=SmashProduct(
+      left=a,
+      right=b,
+    ),
+    rhs=first_composition,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert final_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert final_step.inference_rule == (
+    transitivity_rule
+  )
+
+  assert final_step.premises == (
+    first_step,
+    reduction_step,
+  )
+
+  assert reduction_step.premises == (
+    sign_step,
+  )
+
+  assert sign_step.premises == (
+    parity_step,
+  )
+
+  assert first_step.premises == (
+    a_membership_step,
+    b_membership_step,
+  )
+
+  assert isinstance(
+    first_step.conclusion.lhs,
+    SmashProduct,
+  )
+
+  assert isinstance(
+    first_step.conclusion.rhs,
+    Multiple,
+  )
+
+  assert first_step.conclusion.rhs.coefficient == (
+    first_sign
+  )
+
+  assert first_step.conclusion.rhs.coefficient != 1
+  assert first_step.conclusion.rhs.coefficient != -1
+
+  assert first_composition.left.source is None
+  assert first_composition.left.target is None
+
+  assert first_composition.right.source is None
+  assert first_composition.right.target is None
+
+  assert second_composition.left.source is None
+  assert second_composition.left.target is None
+
+  assert second_composition.right.source is None
+  assert second_composition.right.target is None
+
+  assert not isinstance(
+    first_step.conclusion.lhs,
+    MapApplication,
+  )
+
+  assert not isinstance(
+    first_step.conclusion.rhs,
+    MapApplication,
+  )
+
+  assert not isinstance(
+    final_step.conclusion.lhs,
+    MapApplication,
+  )
+
+  assert not isinstance(
+    final_step.conclusion.rhs,
+    MapApplication,
+  )
+
 
 
