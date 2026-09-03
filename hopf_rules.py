@@ -189,6 +189,41 @@ def hopf_invariant_statement_to_ehp_h_equality_inference_rule():
   )
 
 
+def ehp_h_preserves_equality_inference_rule():
+  def conclusion_builder(
+    premises,
+  ):
+    equality = premises[0].conclusion
+
+    return Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=equality.lhs,
+      ),
+      rhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=equality.rhs,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name="EHP H preserves equality",
+    description=(
+      "If x=y, applying the canonical "
+      "actual EHP H map to both sides "
+      "gives H(x)=H(y)."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.EQUALITY,
+      ),
+    ),
+    conclusion_builder=conclusion_builder,
+  )
+
+
 def hopf_composition_law_inference_rule():
   def conclusion_builder(
     premises,
