@@ -459,5 +459,585 @@ def test_phase34_2_barratt_hilton_first_theorem_rule_preserves_inference_premise
   )
 
 
+def test_phase34_3_first_rule_ignores_unrelated_available_membership_premise():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  a_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=a,
+        group_dimension=ScalarSum(
+          left=p,
+          right=k,
+        ),
+        sphere_dimension=p,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  b_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=b,
+        group_dimension=ScalarSum(
+          left=q,
+          right=h,
+        ),
+        sphere_dimension=q,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  unrelated_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=c,
+        group_dimension=1,
+        sphere_dimension=1,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      a_membership_step,
+      b_membership_step,
+      unrelated_membership_step,
+    ),
+  )
+
+  assert match is not None
+
+  assert match.premises == (
+    a_membership_step,
+    b_membership_step,
+  )
+
+  assert unrelated_membership_step not in (
+    match.premises
+  )
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.premises == (
+    a_membership_step,
+    b_membership_step,
+  )
+
+
+def test_phase34_3_first_rule_rejects_missing_b_membership():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  a_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=a,
+        group_dimension=ScalarSum(
+          left=p,
+          right=k,
+        ),
+        sphere_dimension=p,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      a_membership_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase34_3_first_rule_rejects_wrong_a_group_dimension():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  wrong_a_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=a,
+        group_dimension=ScalarSum(
+          left=p,
+          right=h,
+        ),
+        sphere_dimension=p,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  b_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=b,
+        group_dimension=ScalarSum(
+          left=q,
+          right=h,
+        ),
+        sphere_dimension=q,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      wrong_a_membership_step,
+      b_membership_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase34_3_first_rule_rejects_wrong_a_sphere_dimension():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  wrong_a_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=a,
+        group_dimension=ScalarSum(
+          left=p,
+          right=k,
+        ),
+        sphere_dimension=q,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  b_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=b,
+        group_dimension=ScalarSum(
+          left=q,
+          right=h,
+        ),
+        sphere_dimension=q,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      wrong_a_membership_step,
+      b_membership_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase34_3_first_rule_rejects_wrong_b_group_dimension():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  a_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=a,
+        group_dimension=ScalarSum(
+          left=p,
+          right=k,
+        ),
+        sphere_dimension=p,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  wrong_b_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=b,
+        group_dimension=ScalarSum(
+          left=q,
+          right=k,
+        ),
+        sphere_dimension=q,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      a_membership_step,
+      wrong_b_membership_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase34_3_first_rule_rejects_wrong_b_sphere_dimension():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  a_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=a,
+        group_dimension=ScalarSum(
+          left=p,
+          right=k,
+        ),
+        sphere_dimension=p,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  wrong_b_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=b,
+        group_dimension=ScalarSum(
+          left=q,
+          right=h,
+        ),
+        sphere_dimension=p,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      a_membership_step,
+      wrong_b_membership_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase34_3_first_rule_rejects_membership_of_different_element():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  c_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=c,
+        group_dimension=ScalarSum(
+          left=p,
+          right=k,
+        ),
+        sphere_dimension=p,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  b_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=b,
+        group_dimension=ScalarSum(
+          left=q,
+          right=h,
+        ),
+        sphere_dimension=q,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      c_membership_step,
+      b_membership_step,
+    ),
+  )
+
+  assert match is None
+
+
+
+
 
 
