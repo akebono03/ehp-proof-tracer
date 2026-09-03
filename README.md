@@ -4,7 +4,9 @@ A computational tool for tracing calculations and mathematical inference in EHP 
 
 ## Goal
 
-The project separates mathematical theorem knowledge, explicit facts, the generic inference engine, and algebraic calculation. Development follows:
+The project separates mathematical theorem knowledge, explicit facts, the generic inference engine, and algebraic calculation.
+
+Development follows:
 
 ```text
 actual mathematical need
@@ -13,64 +15,7 @@ minimum representation
 ↓
 explicit fact / domain rule when needed
 ↓
-existing generic engine
-```
-
----
-
-# Current status
-
-Completed through Phase 34.
-
-```text
-Phase 28  map injectivity / isomorphism / equality reflection
-Phase 29  actual H facts / typing / isomorphism
-Phase 30  Toda Prop.2.2 right formula
-Phase 31  SmashProduct minimum representation
-Phase 32  Toda Prop.2.2 left formula
-Phase 33  Barratt–Hilton prerequisite minimum representation
-Phase 34  Toda Prop.3.1 Barratt–Hilton theorem rules
-```
-
-Current full regression:
-
-```text
-1620 passed in 23.32s
-```
-
-Focused Phase 34 suite:
-
-```text
-35 passed
-```
-
----
-
-# Expression model
-
-Current expression classes include:
-
-```text
-Expression
-├── Zero
-├── HomotopyElement
-├── Multiple
-├── Sum
-├── SmashProduct
-├── Composition
-├── MapApplication
-├── Suspension
-└── IteratedSuspension
-```
-
-Scalar-expression structures:
-
-```text
-ScalarExpression
-├── ScalarSymbol
-├── ScalarSum
-├── ScalarProduct
-└── ScalarPower
+existing generic inference engine
 ```
 
 Important boundaries:
@@ -91,9 +36,83 @@ mathematical equality
 
 ---
 
+# Current status
+
+Completed through Phase 35.
+
+```text
+Phase 28  map injectivity / isomorphism / equality reflection
+Phase 29  actual H facts / typing / isomorphism
+Phase 30  Toda Prop.2.2 right formula
+Phase 31  SmashProduct minimum representation
+Phase 32  Toda Prop.2.2 left formula
+Phase 33  Barratt-Hilton prerequisite minimum representation
+Phase 34  Toda Prop.3.1 Barratt-Hilton theorem rules
+Phase 35  actual H((2ι₂)η₂) calculation
+```
+
+Current full regression:
+
+```text
+1673 passed in 23.33s
+```
+
+Focused Phase 35 suite:
+
+```text
+53 passed
+```
+
+Representative Phase 35 probe:
+
+```powershell
+python -m probes.probe_phase35_capabilities
+```
+
+The probe reaches:
+
+```text
+H((2ι₂)∘η₂)=4ι₃
+```
+
+as an actual inference-generated `ProofStep`.
+
+---
+
+# Expression model
+
+Current expression classes include:
+
+```text
+Expression
+├── Zero
+├── HomotopyElement
+├── Multiple
+├── Sum
+├── SmashProduct
+├── Composition
+├── MapApplication
+├── Suspension
+└── IteratedSuspension
+```
+
+Scalar-expression structures include:
+
+```text
+ScalarExpression
+├── ScalarSymbol
+├── ScalarSum
+├── ScalarProduct
+└── ScalarPower
+```
+
+The expression layer remains structural syntax. Constructors do not perform theorem-aware normalization.
+
+---
+
 # Toda Prop.2.2
 
-Phase 30 / 32 provide direct theorem rules for:
+Phase 30 and Phase 32 provide direct theorem rules for:
 
 ```text
 H(a∘Eb)=H(a)∘Eb
@@ -105,15 +124,13 @@ and:
 H((Ec)∘a)=E(c∧c)∘H(a)
 ```
 
-Both preserve the canonical production `H` map identity.
+Both use the canonical production `EHP_H_MAP`.
 
 ---
 
-# Phase 33: Barratt–Hilton prerequisites
+# Phase 33: Barratt-Hilton prerequisites
 
-Phase 33 added only the minimum representation and sign machinery required before Toda Prop.3.1 itself.
-
-Representable:
+Phase 33 added the minimum symbolic structures required before Toda Prop.3.1:
 
 ```text
 p+k
@@ -141,66 +158,29 @@ n even
 (-1)^n=1
 ```
 
+and:
+
 ```text
 n odd
 ↓
 (-1)^n=-1
 ```
 
-With an explicit sign evaluation:
+The evaluated sign can then reduce a symbolic `Multiple`.
 
-```text
-(-1)^n a=a
-```
-
-or:
-
-```text
-(-1)^n a=-a
-```
-
-The additive inverse remains represented as:
-
-```text
--a = Multiple(-1,a)
-```
-
-Phase 33 could represent the two Barratt–Hilton formulas structurally, but did not yet derive them as theorem-backed `ProofStep` objects.
+No general scalar CAS was introduced.
 
 ---
 
-# Phase 34: Toda Prop.3.1 Barratt–Hilton theorem rules
+# Phase 34: Toda Prop.3.1 Barratt-Hilton theorem rules
 
-Phase 34 adds the minimum theorem-applicability representation and direct literature-backed theorem rules for Toda Prop.3.1.
-
-## Symbolic homotopy-group membership
-
-Phase 34 introduces:
+Phase 34 introduced:
 
 ```text
 HomotopyGroupMembershipStatement
 ```
 
-which can represent:
-
-```text
-a ∈ π_{p+k}(S^p)
-b ∈ π_{q+h}(S^q)
-```
-
-without adding symbolic `HomotopyElement.source` / `target` arithmetic.
-
-Important boundary:
-
-```text
-symbolic homotopy-group membership
-!=
-symbolic source / target solver
-```
-
----
-
-## First Barratt–Hilton theorem rule
+and direct literature-backed first / second Barratt-Hilton theorem rules.
 
 From:
 
@@ -209,7 +189,7 @@ a ∈ π_{p+k}(S^p)
 b ∈ π_{q+h}(S^q)
 ```
 
-the first direct theorem rule derives:
+the first rule derives:
 
 ```text
 a∧b
@@ -218,25 +198,7 @@ a∧b
 (E^q a∘E^(p+k)b)
 ```
 
-as an inference-generated `ProofStep`.
-
-Applicability is strict:
-
-```text
-missing membership
-wrong group dimension
-wrong sphere dimension
-wrong element
-→ no match
-```
-
-Unrelated available knowledge does not block inference; the generic engine selects the two required premises.
-
----
-
-## Second Barratt–Hilton theorem rule
-
-The same typing premises also derive:
+and the second rule derives:
 
 ```text
 a∧b
@@ -245,13 +207,7 @@ a∧b
 (E^p b∘E^(q+h)a)
 ```
 
-The first and second formulas remain structurally distinct and are produced by separate theorem rules.
-
----
-
-## Literature provenance
-
-Both formulas preserve a structured reference to:
+Both preserve structured provenance for:
 
 ```text
 Toda Prop.3.1
@@ -261,169 +217,384 @@ Composition Methods in Homotopy Groups of Spheres
 Proposition 3.1
 ```
 
-The proof trace therefore separates:
+Important:
 
 ```text
-proof premises
-→ ProofStep.premises
-
-inference identity
-→ ProofStep.inference_rule
-
-literature source
-→ Relation.source
-
-formula identity
-→ Relation.note
+Barratt-Hilton theorem inference
+!=
+general smash-product rewrite system
 ```
-
-No general theorem-repository refactor was introduced.
 
 ---
 
-## Sign-evaluation connection
+# Phase 35: actual H((2ι₂)η₂) calculation
 
-Phase 34 reuses the Phase 33 sign machinery directly.
+Phase 35 connects the Phase 30–34 theorem infrastructure to one concrete calculation.
 
-Representative chain:
+## Actual Hopf-invariant fact
+
+Phase 35 adds the literature-backed fact:
 
 ```text
-a ∈ π_{p+k}(S^p)
-b ∈ π_{q+h}(S^q)
-↓ Toda Prop.3.1
-a∧b
-=
-(-1)^((p+k)h)
-(E^q a∘E^(p+k)b)
-
-+
-
-((p+k)h) is even
-↓
-(-1)^((p+k)h)=1
-↓
-(-1)^((p+k)h)
-(E^q a∘E^(p+k)b)
-=
-E^q a∘E^(p+k)b
-
-↓ equality transitivity
-
-a∧b
-=
-E^q a∘E^(p+k)b
+H(η₂)=ι₃
 ```
 
-Odd parity similarly reduces the signed term to its additive inverse.
+with provenance:
 
-No Barratt–Hilton-specific sign bridge was needed.
+```text
+Toda Prop.5.1
+H. Toda
+Composition Methods in Homotopy Groups of Spheres
+1962
+Proposition 5.1
+```
+
+The fact is represented as a `HopfInvariantStatement` and bridged to the canonical actual `EHP_H_MAP`.
 
 ---
 
-# Phase 34 representative capability demo
+## Concrete Toda Prop.2.2 left application
 
-Run:
-
-```powershell
-python -m probes.probe_phase34_capabilities
-```
-
-The probe displays:
+Using:
 
 ```text
-typing premises
-↓
-Toda Prop.3.1
-↓
-Barratt–Hilton theorem equality
-↓
-explicit parity
-↓
-sign evaluation
-↓
-signed Multiple reduction
-↓
-equality transitivity
-↓
-reduced Barratt–Hilton equality
+c=2ι₁
+a=η₂
 ```
 
-It also displays:
+the existing left formula gives:
 
 ```text
-source: Toda Prop.3.1
-locator: Proposition 3.1
-theorem result is ProofStep: True
-final result is ProofStep: True
-symbolic suspension source/target = None
+H((E(2ι₁))∘η₂)
+=
+E((2ι₁)∧(2ι₁))∘H(η₂)
 ```
-
-and confirms that actual `H((2ι₂)η₂)` calculation is still outside Phase 34.
 
 ---
 
-# Phase 34 scope boundaries
+## Concrete Barratt-Hilton instantiation
 
-Still not implemented:
+Phase 35 extends the membership statement only enough to accept actual expressions such as:
 
 ```text
-automatic compound parity inference
-general symbolic scalar algebra
-general SmashProduct normalization
-general SmashProduct typing
-symbolic suspension source / target arithmetic
-Toda (2.1) composition formulas
-actual H((2ι₂)η₂) calculation
-H((2ι₂)η₂)=H(4η₂)
-(2ι₂)η₂=4η₂
+2ι₁ ∈ π₁(S¹)
+```
+
+For the concrete parameters:
+
+```text
+a=2ι₁
+b=2ι₁
+p=1
+q=1
+k=0
+h=0
+```
+
+Toda Prop.3.1 derives:
+
+```text
+2ι₁∧2ι₁
+=
+(-1)^(1·0)
+(E^1(2ι₁)∘E^1(2ι₁))
+```
+
+Concrete integer additions inside the theorem parameter construction are folded only where needed for applicability. This is not general scalar simplification.
+
+---
+
+## Concrete parity and sign reduction
+
+With the explicit fact:
+
+```text
+1·0 is even
+```
+
+the existing Phase 33 machinery derives:
+
+```text
+(-1)^(1·0)=1
+```
+
+and then:
+
+```text
+2ι₁∧2ι₁
+=
+E^1(2ι₁)∘E^1(2ι₁)
+```
+
+No automatic parity solver is introduced.
+
+---
+
+## Suspension and multiple calculation
+
+Phase 35 adds the minimum bridges required for the concrete calculation.
+
+Actual suspension facts:
+
+```text
+Eι₁=ι₂
+Eι₂=ι₃
+```
+
+combined with Suspension homomorphism reasoning give:
+
+```text
+E(2ι₁)=2ι₂
+E(2ι₂)=2ι₃
+```
+
+A proof-level bridge connects:
+
+```text
+E^1x=Ex
+```
+
+without changing structural equality.
+
+Therefore:
+
+```text
+E(2ι₁∧2ι₁)
+=
+2ι₃∘2ι₃
+```
+
+---
+
+## Directed Toda (2.1) calculation
+
+Phase 35 adds only the concrete direction required by the calculation:
+
+```text
+a∘(kb)=k(a∘b)
+```
+
+together with an explicit right-identity premise and nested integer-multiple reduction.
+
+This gives:
+
+```text
+2ι₃∘2ι₃
+=
+2((2ι₃)∘ι₃)
+=
+2(2ι₃)
+=
+4ι₃
+```
+
+Hence:
+
+```text
+E(2ι₁∧2ι₁)=4ι₃
 ```
 
 Important:
 
 ```text
-Barratt–Hilton theorem inference
+directed Toda (2.1) support
 !=
-general smash-product rewrite system
+general composition bilinearity
 ```
 
-and:
+---
+
+## Actual H equality transport
+
+Phase 35 adds a narrow equality-preservation rule for the canonical actual `EHP_H_MAP`:
 
 ```text
-Toda Prop.3.1
-!=
-actual Hopf-invariant calculation
+x=y
+↓
+H(x)=H(y)
 ```
+
+This is deliberately not a universal arbitrary-map congruence rule.
+
+Using:
+
+```text
+E(2ι₁)=2ι₂
+```
+
+the left input becomes:
+
+```text
+(E(2ι₁))∘η₂
+=
+(2ι₂)∘η₂
+```
+
+and therefore:
+
+```text
+H((E(2ι₁))∘η₂)
+=
+H((2ι₂)∘η₂)
+```
+
+---
+
+# Phase 35 final chain
+
+The representative proof is:
+
+```text
+E(2ι₁)=2ι₂
+↓
+(E(2ι₁))∘η₂=(2ι₂)∘η₂
+↓
+H((E(2ι₁))∘η₂)=H((2ι₂)∘η₂)
+
+Toda Prop.2.2 left
+↓
+H((E(2ι₁))∘η₂)
+=
+E(2ι₁∧2ι₁)∘H(η₂)
+
+Toda Prop.3.1
++
+explicit parity / sign reduction
+↓
+2ι₁∧2ι₁
+=
+E^1(2ι₁)∘E^1(2ι₁)
+
+Suspension / multiple calculation
++
+Toda (2.1)
+↓
+E(2ι₁∧2ι₁)=4ι₃
+
+Toda Prop.5.1
+↓
+H(η₂)=ι₃
+
+right-identity composition
+↓
+E(2ι₁∧2ι₁)∘H(η₂)=4ι₃
+
+equality transitivity
+↓
+H((2ι₂)∘η₂)=4ι₃
+```
+
+This is the completed Phase 35 mathematical capability.
+
+---
+
+# Phase 35 provenance
+
+The representative proof retains dependencies on:
+
+```text
+Toda Prop.2.2 left
+Toda Prop.3.1
+Toda Prop.5.1
+Toda (2.1)
+```
+
+as well as explicit Suspension / identity / parity facts and generic equality transport.
+
+The generic inference engine remains unchanged.
+
+---
+
+# Phase 35 scope boundaries
+
+Still not implemented:
+
+```text
+H(4η₂)=4ι₃
+H((2ι₂)η₂)=H(4η₂)
+(2ι₂)η₂=4η₂
+```
+
+Also intentionally not implemented as general systems:
+
+```text
+general symbolic scalar algebra
+scalar commutativity / distributivity normalization
+automatic compound parity inference
+general SmashProduct typing
+general SmashProduct algebra / normalization
+symbolic source / target arithmetic for iterated suspensions
+general composition bilinearity
+unrestricted bidirectional Toda (2.1) rewriting
+universal arbitrary-map equality congruence
+automatic identity-map inference from ι notation
+stable homotopy-group model
+stable Toda brackets
+higher / variable-arity Toda brackets
+```
+
+Important:
+
+```text
+H((2ι₂)η₂)=4ι₃
++
+Injective(H)
+↛
+(2ι₂)η₂=4η₂
+```
+
+because injective-map reflection requires an equality of the form:
+
+```text
+H(a)=H(b)
+```
+
+The next branch must first derive:
+
+```text
+H(4η₂)=4ι₃
+```
+
+and then:
+
+```text
+H((2ι₂)η₂)=H(4η₂)
+```
+
+before reusing the existing `Injective(H)` equality reflection.
 
 ---
 
 # Tests
 
-Focused Phase 34 suite:
+Focused Phase 35 suite:
 
 ```powershell
-python -m pytest tests/test_phase34_barratt_hilton.py -q
+python -m pytest tests/test_phase35_actual_h_calculation.py -q
 ```
 
 Verified:
 
 ```text
-35 passed
+53 passed
 ```
 
 Related regressions:
 
 ```powershell
-python -m pytest tests/test_phase33_barratt_hilton.py -q
-python -m pytest tests/test_scalar_rules.py -q
+python -m pytest tests/test_hopf_rules.py -q
+python -m pytest tests/test_homomorphism_rules.py -q
 python -m pytest tests/test_relation_rules.py -q
+python -m pytest tests/test_phase34_barratt_hilton.py -q
 ```
 
-Verified:
+Verified at Phase 35 completion:
 
 ```text
-73 passed
-18 passed
+31 passed
+39 passed
 50 passed
+35 passed
 ```
 
 Full suite:
@@ -432,10 +603,10 @@ Full suite:
 python -m pytest -q
 ```
 
-Verified at Phase 34 completion:
+Verified at Phase 35 completion:
 
 ```text
-1620 passed in 23.32s
+1673 passed in 23.33s
 ```
 
 No failures.
@@ -455,6 +626,13 @@ python -m probes.probe_phase31_capabilities
 python -m probes.probe_phase32_capabilities
 python -m probes.probe_phase33_capabilities
 python -m probes.probe_phase34_capabilities
+python -m probes.probe_phase35_capabilities
+```
+
+The Phase 35 probe is the canonical demonstration of the actual calculation:
+
+```text
+H((2ι₂)∘η₂)=4ι₃
 ```
 
 ---
@@ -472,42 +650,24 @@ Historical limitations in the development log describe the state at that time. C
 
 # Next development boundary
 
-Next:
+Phase 35 is complete.
+
+The next mathematical branch is:
 
 ```text
-Phase 35+
-actual H((2ι₂)η₂) calculation
-```
-
-The intended dependency is:
-
-```text
-Phase 29
-actual H equality-reflection foundation
-↓
-Phase 30
-Toda Prop.2.2 right COMPLETE
-↓
-Phase 31
-SmashProduct minimum representation COMPLETE
-↓
-Phase 32
-Toda Prop.2.2 left COMPLETE
-↓
-Phase 33
-Barratt–Hilton prerequisites COMPLETE
-↓
-Phase 34
-Toda Prop.3.1 Barratt–Hilton COMPLETE
-↓
-Phase 35+
-actual H((2ι₂)η₂)
+H(4η₂)=4ι₃
 ↓
 H((2ι₂)η₂)=H(4η₂)
 ↓
-existing Injective(H) equality reflection
+existing Injective(H)
 ↓
 (2ι₂)η₂=4η₂
 ```
 
-Phase 35+ should introduce only the concrete theorem/fact/algebraic machinery required by the actual `H((2ι₂)η₂)` calculation and should continue to avoid unrelated general symbolic algebra.
+The next phase should add only the minimum actual `H` homomorphism / multiple calculation needed for:
+
+```text
+H(4η₂)=4ι₃
+```
+
+and should continue to avoid unrelated general algebra.

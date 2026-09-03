@@ -1,6 +1,12 @@
 # EHP Proof Tracer 設計
 
-## 1. 基本設計原則
+この文書は EHP Proof Tracer の current architecture、semantics、design boundary を記録する。
+
+historical な実装経緯は `docs/development_log.md`、将来構想は `docs/roadmap.md` に分離する。
+
+---
+
+# 1. 基本設計原則
 
 ```text
 actual mathematical need
@@ -12,7 +18,7 @@ explicit fact / domain rule
 existing generic inference engine
 ```
 
-generic engine に数学固有の theorem knowledge を埋め込まない。
+generic inference engine に数学固有の theorem knowledge を埋め込まない。
 
 重要な区別:
 
@@ -48,9 +54,13 @@ homotopy / EHP data
 abelian-group algebra
 ```
 
+Phase 35 でも generic inference engine 自体は変更していない。
+
 ---
 
 # 3. Expression layer
+
+現在の主要 expression:
 
 ```text
 Expression
@@ -65,13 +75,29 @@ Expression
 └── IteratedSuspension
 ```
 
-constructors は theorem-aware normalization を行わない。
+constructor は theorem-aware normalization を行わない。
+
+例えば:
+
+```text
+Suspension(Multiple(2,ι₁))
+!= structural
+Multiple(2,ι₂)
+```
+
+```text
+IteratedSuspension(x,1)
+!= structural
+Suspension(x)
+```
+
+必要な数学的同値は `RelationType.EQUALITY` として proof-level に導出する。
 
 ---
 
 # 4. Scalar-expression layer
 
-Phase 33 で Barratt–Hilton に必要な minimum scalar-expression tree を追加した。
+Barratt–Hilton に必要な minimum scalar tree:
 
 ```text
 ScalarExpression
@@ -80,8 +106,6 @@ ScalarExpression
 ├── ScalarProduct
 └── ScalarPower
 ```
-
-`ScalarValue` は integer と symbolic scalar expression を共通に受けるための型として使う。
 
 representable:
 
@@ -94,24 +118,22 @@ ph
 (-1)^(ph)
 ```
 
-general-purpose CAS ではない。
+これは general-purpose CAS ではない。
 
 自動では行わない:
 
 ```text
-p+k = k+p
-ph = hp
-(p+k)h = ph+kh
-(-1)^2 = 1
+p+k=k+p
+ph=hp
+(p+k)h=ph+kh
+(-1)^2=1
 ```
-
-これらが必要になれば explicit rule として追加する。
 
 ---
 
-# 5. Parity and sign semantics
+# 5. Parity / sign semantics
 
-既存:
+proof-level statements:
 
 ```text
 OddScalarStatement
@@ -141,54 +163,54 @@ scalar expression structure
 automatic parity
 ```
 
-sign evaluation は proof-level knowledge であり、元の `ScalarPower` を破壊的に整数へ正規化しない。
+Phase 35 concrete case でも:
+
+```text
+1·0 is even
+```
+
+を explicit premise として与える。
 
 ---
 
-# 6. Multiple with symbolic coefficient
+# 6. Symbolic Multiple
 
-`Multiple.coefficient` は symbolic scalar を保持できる。
-
-```text
-(-1)^n a
-```
+`Multiple.coefficient` は integer / symbolic scalar の両方を保持できる。
 
 bridge:
 
 ```text
 (-1)^n=1
 ↓
-(-1)^n a=a
+(-1)^n X=X
 ```
 
 ```text
 (-1)^n=-1
 ↓
-(-1)^n a=-a
+(-1)^n X=-X
 ```
 
-additive inverse representation:
+Phase 35 では concrete Barratt–Hilton sign:
 
 ```text
--a = Multiple(-1,a)
+(-1)^(1·0)
 ```
 
-を再利用する。
+に同じ machinery を再利用する。
 
 ---
 
 # 7. IteratedSuspension
 
-symbolic scalar exponent を保持できる。
+symbolic exponent を保持できる:
 
 ```text
 E^q a
 E^(p+k)b
-E^p b
-E^(q+h)a
 ```
 
-current typing boundary:
+typing boundary:
 
 ```text
 integer exponent
@@ -197,11 +219,17 @@ integer exponent
 
 ```text
 symbolic exponent
-→ source = None
-→ target = None
+→ source=None
+→ target=None
 ```
 
-Phase 34 で symbolic homotopy-group membership を導入したが、この typing boundary は変更していない。
+Phase 35 では `E^1x=Ex` を constructor normalization にせず、明示的 equality bridge:
+
+```text
+iterated_suspension_one_bridge_inference_rule()
+```
+
+で接続する。
 
 ---
 
@@ -209,7 +237,7 @@ Phase 34 で symbolic homotopy-group membership を導入したが、この typi
 
 `SmashProduct(left,right)` は structural syntax。
 
-未実装:
+一般には未実装:
 
 ```text
 source / target typing
@@ -219,173 +247,121 @@ normalization
 general smash-product algebra
 ```
 
-重要:
-
-```text
-SmashProduct(a,b)
-↛
-Barratt–Hilton RHS
-```
-
-Toda Prop.3.1 の正しい applicability premises と theorem rule がある場合にのみ equality が導出される。
+Toda Prop.3.1 の正しい premise がある場合にのみ Barratt–Hilton equality を導出する。
 
 ---
 
-# 9. Barratt–Hilton structural representation
+# 9. HomotopyGroupMembershipStatement
 
-Phase 33 で Toda Prop.3.1 の2式を structural `RelationType.EQUALITY` として表現可能にした。
+Phase 34 で symbolic applicability 用に導入した。
 
-```text
-a∧b
-=
-(-1)^((p+k)h)
-(E^q a∘E^(p+k)b)
-```
+Phase 35 では actual multiple:
 
 ```text
-a∧b
-=
-(-1)^(ph)
-(E^p b∘E^(q+h)a)
+2ι₁
 ```
 
-使用 structures:
+も element として保持する必要が生じたため:
 
 ```text
-SmashProduct
-ScalarSum
-ScalarProduct
-ScalarPower
-Multiple
-IteratedSuspension
-Composition
-Relation
+element: Expression
 ```
 
-Phase 33 completion boundary:
+へ拡張した。
+
+representable:
 
 ```text
-structural Relation
-!=
-theorem-derived ProofStep
+2ι₁ ∈ π₁(S¹)
 ```
-
----
-
-# 10. Phase 34 symbolic homotopy-group membership
-
-Toda Prop.3.1 の applicability を lossless に保持するため、Phase 34 で minimum statement を追加した。
-
-```text
-HomotopyGroupMembershipStatement
-```
-
-代表:
-
-```text
-a ∈ π_{p+k}(S^p)
-b ∈ π_{q+h}(S^q)
-```
-
-conceptual fields:
-
-```text
-element
-group_dimension
-sphere_dimension
-```
-
-`group_dimension` / `sphere_dimension` は symbolic scalar structure を保持できる。
 
 重要:
 
 ```text
 HomotopyGroupMembershipStatement
 !=
-HomotopyElement.source / target
+automatic expression typing
 ```
 
-したがって、
-
-```text
-a ∈ π_{p+k}(S^p)
-```
-
-から自動的に symbolic `source=p+k`, `target=p` を materialize しない。
+membership fact から arbitrary nested expression の source / target を自動推論しない。
 
 ---
 
-# 11. Toda Prop.3.1 first theorem rule
+# 10. Barratt–Hilton concrete scalar sum policy
 
-applicability:
+symbolic Toda Prop.3.1 では:
+
+```text
+p+k
+q+h
+```
+
+を `ScalarSum` として保持する。
+
+Phase 35 actual case では:
+
+```text
+p=1
+k=0
+```
+
+のとき theorem applicability が:
+
+```text
+π₁(S¹)
+```
+
+と一致する必要がある。
+
+そのため Barratt–Hilton rule 内だけで:
+
+```text
+concrete int + int
+→ Python integer sum
+```
+
+を行う。
+
+一方:
+
+```text
+symbolic + symbolic
+→ ScalarSum
+```
+
+のまま。
+
+これは general constant-folding / scalar normalization ではない。
+
+---
+
+# 11. Toda Prop.3.1 theorem rules
+
+first:
 
 ```text
 a ∈ π_{p+k}(S^p)
 b ∈ π_{q+h}(S^q)
-```
-
-conclusion:
-
-```text
+↓
 a∧b
 =
 (-1)^((p+k)h)
 (E^q a∘E^(p+k)b)
 ```
 
-これは direct theorem rule であり、generic engine には数学固有知識を追加していない。
-
-strict applicability:
+second:
 
 ```text
-missing a membership
-→ reject
-
-missing b membership
-→ reject
-
-wrong group dimension
-→ reject
-
-wrong sphere dimension
-→ reject
-
-wrong element
-→ reject
-```
-
-available steps に unrelated knowledge があっても、generic matcher が必要な2 premise を選択できる。
-
----
-
-# 12. Toda Prop.3.1 second theorem rule
-
-同じ applicability premises から:
-
-```text
+a ∈ π_{p+k}(S^p)
+b ∈ π_{q+h}(S^q)
+↓
 a∧b
 =
 (-1)^(ph)
 (E^p b∘E^(q+h)a)
 ```
 
-を導出する。
-
-first / second は同じ `SmashProduct(a,b)` を左辺に持つが、右辺構造は別物として保持する。
-
-```text
-first formula
-!=
-second formula
-```
-
----
-
-# 13. Literature provenance
-
-Phase 34 では structured literature reference を Barratt–Hilton の derived `Relation.source` に保持する。
-
-source:
+literature provenance:
 
 ```text
 Toda Prop.3.1
@@ -395,259 +371,507 @@ Composition Methods in Homotopy Groups of Spheres
 Proposition 3.1
 ```
 
-proof trace 上の役割:
+Phase 35 concrete instantiation:
 
 ```text
-ProofStep.premises
-=
-どの前提から出たか
+a=2ι₁
+b=2ι₁
+p=1
+q=1
+k=0
+h=0
 ```
+
+gives:
 
 ```text
-ProofStep.inference_rule
+2ι₁∧2ι₁
 =
-どの rule を適用したか
+(-1)^(1·0)
+(E^1(2ι₁)∘E^1(2ι₁))
 ```
-
-```text
-Relation.source
-=
-どの文献定理に基づくか
-```
-
-```text
-Relation.note
-=
-first / second formula の識別
-```
-
-Phase 24 の Toda bracket membership repository は narrow design のまま維持し、Barratt–Hilton のために universal theorem repository へ一般化していない。
 
 ---
 
-# 14. Phase 34 sign evaluation connection
+# 12. Actual Hopf fact layer
 
-Phase 34 theorem conclusion の RHS は Phase 33 sign machinery と structural に一致する。
-
-first formula:
+Phase 35 で `hopf_facts.py` に actual fact を追加した。
 
 ```text
-a∧b
+H(η₂)=ι₃
+```
+
+representation:
+
+```text
+HopfInvariantStatement(
+  expression=η₂,
+  value=ι₃,
+)
+```
+
+provenance:
+
+```text
+Toda Prop.5.1
+H. Toda
+Composition Methods in Homotopy Groups of Spheres
+1962
+Proposition 5.1
+```
+
+既存 bridge により:
+
+```text
+HopfInvariantStatement
+↓
+Relation(
+  MapApplication(EHP_H_MAP,η₂),
+  ι₃,
+  EQUALITY
+)
+```
+
+へ接続する。
+
+---
+
+# 13. Suspension facts
+
+Phase 35 actual calculation では identity suspension を explicit facts とする。
+
+```text
+Eι₁=ι₂
+Eι₂=ι₃
+```
+
+general:
+
+```text
+Eι_n=ι_{n+1}
+```
+
+theorem solver は追加していない。
+
+actual need に必要な `n=1,2` の facts のみ。
+
+---
+
+# 14. Suspension homomorphism / Multiple bridge
+
+generic homomorphism layer には:
+
+```text
+f(kx)=k f(x)
+```
+
+がある。
+
+一方 Phase 35 の formula は dedicated `Suspension(...)` syntax を使用する。
+
+そこで:
+
+```text
+MapApplication(SUSPENSION_MAP,kx)
 =
-(-1)^((p+k)h)X
+k MapApplication(SUSPENSION_MAP,x)
+```
+
+を:
+
+```text
+Suspension(kx)
+=
+k Suspension(x)
+```
+
+へ移す narrow bridge を追加した。
+
+この bridge と explicit suspension facts により:
+
+```text
+E(2ι₁)=2ι₂
+E(2ι₂)=2ι₃
+```
+
+を proof-level に導出できる。
+
+---
+
+# 15. Equality under Multiple
+
+Phase 35 で generic equality transport の必要形を追加した。
+
+```text
+x=y
+↓
+kx=ky
+```
+
+これは symbolic algebra normalization ではなく、ordinary equality congruence の一方向 rule。
+
+actual suspension facts:
+
+```text
+Eι₁=ι₂
+```
+
+から:
+
+```text
+2Eι₁=2ι₂
+```
+
+を作るために使用する。
+
+---
+
+# 16. Nested integer Multiple
+
+Phase 35 actual `4ι₃` 計算のため:
+
+```text
+m(nx)=(mn)x
+```
+
+を concrete integer coefficient に限定して追加した。
+
+代表:
+
+```text
+2(2ι₃)=4ι₃
+```
+
+symbolic coefficient multiplication は行わない。
+
+---
+
+# 17. Directed Toda (2.1)
+
+Phase 35 actual calculation に必要な方向のみ追加:
+
+```text
+a∘(kb)
+=
+k(a∘b)
+```
+
+provenance:
+
+```text
+Toda (2.1)
+```
+
+重要:
+
+```text
+directed rule
+!=
+general composition bilinearity
+```
+
+未実装:
+
+```text
+(a₁+a₂)∘b
+a∘(b₁+b₂)
+general bidirectional distribution / collection
+```
+
+Phase 35 の具体例:
+
+```text
+2ι₃∘2ι₃
+=
+2((2ι₃)∘ι₃)
+```
+
+に使用する。
+
+---
+
+# 18. Explicit identity-map premise
+
+`ιₙ` の notation だけから identity semantics を自動付与しない。
+
+proof-level:
+
+```text
+IdentityMapStatement(
+  element=ι₃
+)
+```
+
+を explicit premise とする。
+
+この premise から:
+
+```text
+x∘ι₃=x
+```
+
+を導出できる。
+
+Phase 35 では:
+
+```text
+2ι₃∘ι₃=2ι₃
+4ι₃∘ι₃=4ι₃
+```
+
+に利用する。
+
+---
+
+# 19. Actual H equality preservation
+
+Phase 35-7 で canonical actual `H` に限定した congruence を追加した。
+
+```text
+x=y
+↓
+H(x)=H(y)
+```
+
+implementation は:
+
+```text
+EHP_H_MAP
+```
+
+に固定される。
+
+重要:
+
+```text
+canonical actual H congruence
+!=
+universal arbitrary-map congruence
+```
+
+任意の `MapSymbol f` に自動一般化しない。
+
+---
+
+# 20. Concrete Phase 35 chain
+
+まず:
+
+```text
+E(2ι₁)=2ι₂
+```
+
+よって:
+
+```text
+(E(2ι₁))∘η₂
+=
+(2ι₂)∘η₂
+```
+
+actual H congruence:
+
+```text
+H((E(2ι₁))∘η₂)
+=
+H((2ι₂)∘η₂)
+```
+
+Toda Prop.2.2 left:
+
+```text
+H((E(2ι₁))∘η₂)
+=
+E(2ι₁∧2ι₁)∘H(η₂)
+```
+
+Barratt–Hilton:
+
+```text
+2ι₁∧2ι₁
+=
+(-1)^(1·0)
+(E^1(2ι₁)∘E^1(2ι₁))
 ```
 
 explicit parity:
 
 ```text
-((p+k)h) is even
-```
-
-sign evaluation:
-
-```text
-(-1)^((p+k)h)=1
-```
-
-Multiple reduction:
-
-```text
-(-1)^((p+k)h)X=X
-```
-
-generic equality transitivity:
-
-```text
-a∧b=(-1)^((p+k)h)X
-(-1)^((p+k)h)X=X
+1·0 is even
 ↓
-a∧b=X
+(-1)^(1·0)=1
 ```
 
-odd parity では:
+therefore:
 
 ```text
-a∧b=-X
+2ι₁∧2ι₁
+=
+E^1(2ι₁)∘E^1(2ι₁)
 ```
 
-まで同じ既存 machinery で到達できる。
+Suspension / functoriality:
 
-Barratt–Hilton 専用 sign bridge は追加していない。
+```text
+E(2ι₁∧2ι₁)
+=
+2ι₃∘2ι₃
+```
+
+Toda (2.1), identity, nested Multiple:
+
+```text
+2ι₃∘2ι₃
+=
+4ι₃
+```
+
+Toda Prop.5.1:
+
+```text
+H(η₂)=ι₃
+```
+
+したがって:
+
+```text
+E(2ι₁∧2ι₁)∘H(η₂)
+=
+4ι₃
+```
+
+最終的に:
+
+```text
+H((2ι₂)∘η₂)
+=
+4ι₃
+```
 
 ---
 
-# 15. Provenance through equality closure
+# 21. Provenance design
 
-generic equality transitivity が作る final `Relation` に literature source を直接コピーしない。
-
-ただし proof dependency:
+Phase 35 representative proof graph では:
 
 ```text
-final_step
-├── theorem_step
-│   ├── Toda Prop.3.1 source
-│   ├── a membership
-│   └── b membership
-│
-└── reduction_step
-    └── sign_step
-        └── parity_step
-```
-
-を `ProofStep.premises` で追跡できる。
-
-したがって source metadata を conclusion へ重複コピーせず、proof graph を provenance の正本とする。
-
----
-
-# 16. Phase 34 scope regression
-
-Phase 34 で固定した boundary:
-
-```text
-theorem premises なし
-↛ Barratt–Hilton equality
-```
-
-```text
-structural formula itself
-↛ theorem applicability
-```
-
-```text
-Toda Prop.3.1 derivation
-↛ automatic parity fact
-```
-
-```text
-symbolic sign
-↛ ±1 without explicit parity
-```
-
-```text
-symbolic homotopy-group membership
-↛ symbolic source / target solving
-```
-
-```text
+Toda Prop.2.2 left
 Toda Prop.3.1
-↛ actual H calculation
+Toda Prop.5.1
+Toda (2.1)
 ```
 
+を dependency として追跡する。
+
+さらに:
+
 ```text
-Barratt–Hilton
-!=
-general SmashProduct normalization
+explicit parity
+explicit suspension facts
+explicit identity fact
+homomorphism proof
+generic equality transport
 ```
+
+も `ProofStep.premises` に残る。
+
+generic transitivity が作る final `Relation` にすべての literature metadata を複製しない。
+
+proof graph を provenance の正本とする。
 
 ---
 
-# 17. Toda Prop.2.2 integration
+# 22. Phase 35 scope regression
 
-既存:
+固定した boundary:
 
 ```text
-H(a∘Eb)=H(a)∘Eb
+H equality preservation
+→ canonical EHP_H_MAP only
 ```
 
 ```text
-H((Ec)∘a)=E(c∧c)∘H(a)
+H equality preservation
+→ equality premise required
 ```
 
-Phase 34 はこれらを変更しない。
-
-Phase 35+ では特に左公式:
-
 ```text
-H((Ec)∘a)=E(c∧c)∘H(a)
+Toda (2.1)
+→ right integer multiple direction only
 ```
 
-と Phase 34 Barratt–Hilton theorem rule を actual `H((2ι₂)η₂)` 計算へ接続する予定。
-
----
-
-# 18. Representative Phase 34 inference
+```text
+identity composition
+→ explicit IdentityMapStatement required
+```
 
 ```text
-GIVEN
-a ∈ π_{p+k}(S^p)
+H(4η₂)
+↛
+4H(η₂) automatically
+```
 
-GIVEN
-b ∈ π_{q+h}(S^q)
-
-↓ Toda Prop.3.1
-
-a∧b
-=
-(-1)^((p+k)h)
-(E^q a∘E^(p+k)b)
-
+```text
+H((2ι₂)η₂)=4ι₃
 +
-
-GIVEN
-((p+k)h) is even
-
-↓
-(-1)^((p+k)h)=1
-
-↓
-(-1)^((p+k)h)
-(E^q a∘E^(p+k)b)
-=
-E^q a∘E^(p+k)b
-
-↓ equality transitivity
-
-a∧b
-=
-E^q a∘E^(p+k)b
+Injective(H)
+↛
+(2ι₂)η₂=4η₂
 ```
 
-provenance は theorem branch と sign branch の両方を追跡できる。
+理由:
+
+injective reflection が要求するのは:
+
+```text
+Injective(H)
++
+H(a)=H(b)
+↓
+a=b
+```
+
+であり:
+
+```text
+H(a)=4ι₃
+```
+
+だけではない。
 
 ---
 
-# 19. Representative probe
+# 23. Representative probe
+
+Phase 35 probe:
 
 ```powershell
-python -m probes.probe_phase34_capabilities
+python -m probes.probe_phase35_capabilities
 ```
 
-表示内容:
+表示する主要 chain:
 
 ```text
-typing premises
-Toda Prop.3.1 first formula
-Toda Prop.3.1 second formula
-literature source
-explicit parity
-sign evaluation
-Multiple reduction
-equality transitivity
-final reduced equality
-full proof dependency
-scope boundary
+[1] E(2ι₁)=2ι₂
+[2] concrete Toda Prop.3.1
+[3] explicit parity
+[4] sign reduction
+[5] E(2ι₁∧2ι₁)=4ι₃
+[6] Toda (2.1)
+[7] H(η₂)=ι₃
+[8] Toda Prop.2.2 left
+[9] Prop.2.2 RHS calculation
+[10] actual H equality transport
+[RESULT] H((2ι₂)∘η₂)=4ι₃
 ```
 
-probe と pytest の役割:
-
-```text
-pytest
-=
-correctness / regression
-```
-
-```text
-probe
-=
-人間が目で追える mathematical capability
-```
+probe は production APIs / existing inference rules を再利用し、別の数学実装を持たない。
 
 ---
 
-# 20. Testing principle
+# 24. Test policy
 
-各 layer で:
+各 mathematical layer で:
 
 1. representation
 2. structural distinction
@@ -663,27 +887,39 @@ probe
 
 を確認する。
 
+```text
+pytest
+=
+correctness / regression
+```
+
+```text
+probe
+=
+人間が目で追える mathematical capability
+```
+
 ---
 
-# 21. Phase 34 verified status
+# 25. Phase 35 verified status
 
 focused:
 
 ```text
-tests/test_phase34_barratt_hilton.py
-35 passed
+tests/test_phase35_actual_h_calculation.py
+53 passed
 ```
 
 related:
 
 ```text
-tests/test_phase33_barratt_hilton.py
-73 passed
+tests/test_hopf_rules.py
+31 passed
 ```
 
 ```text
-tests/test_scalar_rules.py
-18 passed
+tests/test_homomorphism_rules.py
+39 passed
 ```
 
 ```text
@@ -691,46 +927,65 @@ tests/test_relation_rules.py
 50 passed
 ```
 
-full suite:
-
 ```text
-1620 passed in 23.32s
+tests/test_phase34_barratt_hilton.py
+35 passed
 ```
 
-No failures.
+full:
+
+```text
+1673 passed in 23.33s
+```
+
+probe:
+
+```powershell
+python -m probes.probe_phase35_capabilities
+```
+
+正常完走。
 
 ---
 
-# 22. Phase 34 completion boundary
+# 26. Phase 35 completion boundary
 
-Phase 34 で完成:
+実装済み:
 
 ```text
-symbolic homotopy-group membership
-Toda Prop.3.1 first theorem rule
-Toda Prop.3.1 second theorem rule
-strict applicability
-invalid-case rejection
-unrelated-premise tolerance
-structured literature provenance
-theorem RHS → sign evaluation connection
-theorem equality → reduced equality closure
-scope / non-goal regression
-representative executable probe
-final integrated regression
+actual H(η₂)=ι₃ fact
+actual ι₁ / ι₂ Suspension facts
+concrete Barratt-Hilton applicability
+concrete scalar-sum handling inside theorem parameters
+concrete parity / sign reduction
+Suspension Multiple bridge
+E^1-to-E proof bridge
+equality transport through Multiple
+nested integer Multiple
+directed Toda (2.1)
+explicit identity composition
+canonical actual H equality preservation
+E(2ι₁)=2ι₂
+E(2ι₂)=2ι₃
+E(2ι₁∧2ι₁)=4ι₃
+H((2ι₂)η₂)=4ι₃
+representative probe
+final regression
 ```
 
 未実装:
 
 ```text
-automatic compound parity inference
-general symbolic scalar algebra
-general SmashProduct typing / normalization
-symbolic suspension source / target arithmetic
-Toda (2.1)
-actual H((2ι₂)η₂) calculation
+H(4η₂)=4ι₃
 H((2ι₂)η₂)=H(4η₂)
 (2ι₂)η₂=4η₂
+general scalar CAS
+automatic compound parity
+general SmashProduct typing / algebra
+general composition bilinearity
+unrestricted Toda (2.1) rewrites
+universal arbitrary-map congruence
+automatic identity semantics from generator notation
 stable homotopy group model
 stable Toda brackets
 higher Toda brackets
@@ -738,39 +993,51 @@ higher Toda brackets
 
 ---
 
-# 23. 次の設計境界
+# 27. 次の設計境界
 
-```text
-Phase 35+
-actual H((2ι₂)η₂) calculation
-```
-
-想定 dependency:
-
-```text
-H((2ι₂)η₂)
-↓ Toda Prop.2.2 left
-E(2ι₁∧2ι₁)H(η₂)
-↓ Toda Prop.3.1 / concrete calculation
-4ι₃
-```
-
-一方:
+次の数学的 branch:
 
 ```text
 H(4η₂)
-↓ H homomorphism
+↓ H homomorphism / multiple calculation
 4H(η₂)
 ↓ H(η₂)=ι₃
 4ι₃
 ```
 
-最終的に:
+その後:
 
 ```text
+H((2ι₂)η₂)=4ι₃
+H(4η₂)=4ι₃
+↓
 H((2ι₂)η₂)=H(4η₂)
-↓ existing Injective(H)
+```
+
+既存:
+
+```text
+Isomorphism(H)
+↓
+Injective(H)
+```
+
+と:
+
+```text
+Injective(H)
++
+H(a)=H(b)
+↓
+a=b
+```
+
+を再利用して:
+
+```text
 (2ι₂)η₂=4η₂
 ```
 
-Phase 35+ でも actual calculation に必要な最小 representation / fact / directed rule だけを追加し、一般的 symbolic algebra を先取りしない。
+へ進む。
+
+次 Phase でも actual need に必要な最小 capability だけを追加し、general algebra を先取りしない。
