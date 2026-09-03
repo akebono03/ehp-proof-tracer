@@ -7,6 +7,7 @@ from algebra import Subgroup
 from barratt_hilton_rules import (
   HomotopyGroupMembershipStatement,
   barratt_hilton_first_inference_rule,
+  barratt_hilton_second_inference_rule,
 )
 from expression import (
   Composition,
@@ -1036,6 +1037,346 @@ def test_phase34_3_first_rule_rejects_membership_of_different_element():
 
   assert match is None
 
+
+def test_phase34_4_barratt_hilton_second_theorem_rule_derives_second_formula():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  a_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=a,
+        group_dimension=ScalarSum(
+          left=p,
+          right=k,
+        ),
+        sphere_dimension=p,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  b_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=b,
+        group_dimension=ScalarSum(
+          left=q,
+          right=h,
+        ),
+        sphere_dimension=q,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    barratt_hilton_second_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      a_membership_step,
+      b_membership_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == Relation(
+    lhs=SmashProduct(
+      left=a,
+      right=b,
+    ),
+    rhs=Multiple(
+      coefficient=ScalarPower(
+        base=-1,
+        exponent=ScalarProduct(
+          left=p,
+          right=h,
+        ),
+      ),
+      expression=Composition(
+        left=IteratedSuspension(
+          expression=b,
+          exponent=p,
+        ),
+        right=IteratedSuspension(
+          expression=a,
+          exponent=ScalarSum(
+            left=q,
+            right=h,
+          ),
+        ),
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+
+def test_phase34_4_second_theorem_rule_reuses_barratt_hilton_membership_premises():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  a_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=a,
+        group_dimension=ScalarSum(
+          left=p,
+          right=k,
+        ),
+        sphere_dimension=p,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  b_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=b,
+        group_dimension=ScalarSum(
+          left=q,
+          right=h,
+        ),
+        sphere_dimension=q,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    barratt_hilton_second_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      a_membership_step,
+      b_membership_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert step.inference_rule == rule
+
+  assert step.premises == (
+    a_membership_step,
+    b_membership_step,
+  )
+
+  assert step.inference_rule.name == (
+    "Toda Prop.3.1 "
+    "Barratt-Hilton second formula"
+  )
+
+
+def test_phase34_4_first_and_second_theorem_rules_derive_distinct_formulas():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  a_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=a,
+        group_dimension=ScalarSum(
+          left=p,
+          right=k,
+        ),
+        sphere_dimension=p,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  b_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=b,
+        group_dimension=ScalarSum(
+          left=q,
+          right=h,
+        ),
+        sphere_dimension=q,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  second_rule = (
+    barratt_hilton_second_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  first_match = find_inference_match(
+    first_rule,
+    (
+      a_membership_step,
+      b_membership_step,
+    ),
+  )
+
+  second_match = find_inference_match(
+    second_rule,
+    (
+      a_membership_step,
+      b_membership_step,
+    ),
+  )
+
+  assert first_match is not None
+  assert second_match is not None
+
+  first_step = apply_inference_match(
+    first_match
+  )
+
+  second_step = apply_inference_match(
+    second_match
+  )
+
+  assert first_step.conclusion != (
+    second_step.conclusion
+  )
+
+  assert first_step.conclusion.lhs == (
+    SmashProduct(
+      left=a,
+      right=b,
+    )
+  )
+
+  assert second_step.conclusion.lhs == (
+    SmashProduct(
+      left=a,
+      right=b,
+    )
+  )
+
+  assert first_step.conclusion.rhs != (
+    second_step.conclusion.rhs
+  )
 
 
 
