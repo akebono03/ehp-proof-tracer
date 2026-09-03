@@ -421,5 +421,173 @@ def test_phase37_3_actual_h_side_equality_closes_by_transitivity():
   )
 
 
+def test_phase37_4_end_to_end_result_preserves_phase35_and_phase36_provenance():
+  phase35_result = (
+    build_phase35_end_to_end()
+  )
+
+  phase36_result = (
+    build_phase36_end_to_end()
+  )
+
+  phase35_step = phase35_result[
+    "final_step"
+  ]
+
+  phase36_step = phase36_result[
+    "final_step"
+  ]
+
+  symmetry_rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  symmetry_match = find_inference_match(
+    symmetry_rule,
+    (
+      phase36_step,
+    ),
+  )
+
+  assert symmetry_match is not None
+
+  reversed_phase36_step = (
+    apply_inference_match(
+      symmetry_match
+    )
+  )
+
+  transitivity_rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  transitivity_match = find_inference_match(
+    transitivity_rule,
+    (
+      phase35_step,
+      reversed_phase36_step,
+    ),
+  )
+
+  assert transitivity_match is not None
+
+  final_step = apply_inference_match(
+    transitivity_match
+  )
+
+  two_iota_2_eta_2 = Composition(
+    left=Multiple(
+      coefficient=2,
+      expression=IOTA_2,
+    ),
+    right=ETA_2,
+  )
+
+  four_eta_2 = Multiple(
+    coefficient=4,
+    expression=ETA_2,
+  )
+
+  assert final_step.conclusion == Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=two_iota_2_eta_2,
+    ),
+    rhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=four_eta_2,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert final_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert final_step.premises == (
+    phase35_step,
+    reversed_phase36_step,
+  )
+
+  assert final_step.premises[0] is (
+    phase35_result[
+      "final_step"
+    ]
+  )
+
+  assert (
+    final_step.premises[1]
+    is reversed_phase36_step
+  )
+
+  assert reversed_phase36_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert reversed_phase36_step.premises == (
+    phase36_step,
+  )
+
+  assert (
+    reversed_phase36_step.premises[0]
+    is phase36_result[
+      "final_step"
+    ]
+  )
+
+  assert phase35_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert phase35_step.premises != ()
+
+  assert phase36_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert phase36_step.premises == (
+    phase36_result[
+      "h_four_eta_2_step"
+    ],
+    phase36_result[
+      "four_h_eta_2_step"
+    ],
+  )
+
+  assert (
+    phase36_result[
+      "h_four_eta_2_step"
+    ].premises
+    == (
+      phase36_result[
+        "homomorphism_step"
+      ],
+    )
+  )
+
+  assert (
+    phase36_result[
+      "four_h_eta_2_step"
+    ].premises
+    == (
+      phase36_result[
+        "h_eta_2_step"
+      ],
+    )
+  )
+
+  assert (
+    phase36_result[
+      "h_eta_2_step"
+    ].premises
+    == (
+      phase36_result[
+        "hopf_fact_step"
+      ],
+    )
+  )
+
+
+
 
 
