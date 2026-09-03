@@ -33,6 +33,17 @@ from proof import (
   apply_inference_match,
   find_inference_match,
 )
+from relation_rules import (
+  equality_transitivity_inference_rule,
+)
+from scalar_rules import (
+  EvenScalarStatement,
+  OddScalarStatement,
+  ScalarSignEvaluationStatement,
+  even_scalar_evaluates_minus_one_power_inference_rule,
+  odd_scalar_evaluates_minus_one_power_inference_rule,
+  scalar_sign_evaluation_applies_to_multiple_inference_rule,
+)
 from set_rules import (
   ImageSubgroupReference,
   KernelSubgroupReference,
@@ -1625,6 +1636,727 @@ def test_phase34_5_second_formula_preserves_toda_prop_3_1_provenance():
   assert step.premises == (
     a_membership_step,
     b_membership_step,
+  )
+
+
+def test_phase34_6_first_formula_even_sign_reduction_connects_to_theorem_rhs():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  p_plus_k = ScalarSum(
+    left=p,
+    right=k,
+  )
+
+  exponent = ScalarProduct(
+    left=p_plus_k,
+    right=h,
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=exponent,
+  )
+
+  composition = Composition(
+    left=IteratedSuspension(
+      expression=a,
+      exponent=q,
+    ),
+    right=IteratedSuspension(
+      expression=b,
+      exponent=p_plus_k,
+    ),
+  )
+
+  a_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=a,
+        group_dimension=p_plus_k,
+        sphere_dimension=p,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  b_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=b,
+        group_dimension=ScalarSum(
+          left=q,
+          right=h,
+        ),
+        sphere_dimension=q,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  theorem_rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  theorem_match = find_inference_match(
+    theorem_rule,
+    (
+      a_membership_step,
+      b_membership_step,
+    ),
+  )
+
+  assert theorem_match is not None
+
+  theorem_step = apply_inference_match(
+    theorem_match
+  )
+
+  parity_step = ProofStep(
+    conclusion=EvenScalarStatement(
+      scalar=exponent,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  sign_rule = (
+    even_scalar_evaluates_minus_one_power_inference_rule()
+  )
+
+  sign_match = find_inference_match(
+    sign_rule,
+    (
+      parity_step,
+    ),
+  )
+
+  assert sign_match is not None
+
+  sign_step = apply_inference_match(
+    sign_match
+  )
+
+  assert sign_step.conclusion == (
+    ScalarSignEvaluationStatement(
+      expression=sign,
+      value=1,
+    )
+  )
+
+  reduction_rule = (
+    scalar_sign_evaluation_applies_to_multiple_inference_rule(
+      sign=sign,
+      expression=composition,
+    )
+  )
+
+  reduction_match = find_inference_match(
+    reduction_rule,
+    (
+      sign_step,
+    ),
+  )
+
+  assert reduction_match is not None
+
+  reduction_step = apply_inference_match(
+    reduction_match
+  )
+
+  assert theorem_step.conclusion.rhs == (
+    reduction_step.conclusion.lhs
+  )
+
+  assert reduction_step.conclusion == Relation(
+    lhs=Multiple(
+      coefficient=sign,
+      expression=composition,
+    ),
+    rhs=composition,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert reduction_step.premises == (
+    sign_step,
+  )
+
+  assert sign_step.premises == (
+    parity_step,
+  )
+
+
+def test_phase34_6_first_formula_odd_sign_reduction_connects_to_inverse():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  p_plus_k = ScalarSum(
+    left=p,
+    right=k,
+  )
+
+  exponent = ScalarProduct(
+    left=p_plus_k,
+    right=h,
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=exponent,
+  )
+
+  composition = Composition(
+    left=IteratedSuspension(
+      expression=a,
+      exponent=q,
+    ),
+    right=IteratedSuspension(
+      expression=b,
+      exponent=p_plus_k,
+    ),
+  )
+
+  a_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=a,
+        group_dimension=p_plus_k,
+        sphere_dimension=p,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  b_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=b,
+        group_dimension=ScalarSum(
+          left=q,
+          right=h,
+        ),
+        sphere_dimension=q,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  theorem_rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  theorem_match = find_inference_match(
+    theorem_rule,
+    (
+      a_membership_step,
+      b_membership_step,
+    ),
+  )
+
+  assert theorem_match is not None
+
+  theorem_step = apply_inference_match(
+    theorem_match
+  )
+
+  parity_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=exponent,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  sign_rule = (
+    odd_scalar_evaluates_minus_one_power_inference_rule()
+  )
+
+  sign_match = find_inference_match(
+    sign_rule,
+    (
+      parity_step,
+    ),
+  )
+
+  assert sign_match is not None
+
+  sign_step = apply_inference_match(
+    sign_match
+  )
+
+  assert sign_step.conclusion == (
+    ScalarSignEvaluationStatement(
+      expression=sign,
+      value=-1,
+    )
+  )
+
+  reduction_rule = (
+    scalar_sign_evaluation_applies_to_multiple_inference_rule(
+      sign=sign,
+      expression=composition,
+    )
+  )
+
+  reduction_match = find_inference_match(
+    reduction_rule,
+    (
+      sign_step,
+    ),
+  )
+
+  assert reduction_match is not None
+
+  reduction_step = apply_inference_match(
+    reduction_match
+  )
+
+  assert theorem_step.conclusion.rhs == (
+    reduction_step.conclusion.lhs
+  )
+
+  assert reduction_step.conclusion == Relation(
+    lhs=Multiple(
+      coefficient=sign,
+      expression=composition,
+    ),
+    rhs=Multiple(
+      coefficient=-1,
+      expression=composition,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+
+def test_phase34_6_first_formula_even_sign_reduction_closes_by_equality_transitivity():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  p_plus_k = ScalarSum(
+    left=p,
+    right=k,
+  )
+
+  exponent = ScalarProduct(
+    left=p_plus_k,
+    right=h,
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=exponent,
+  )
+
+  composition = Composition(
+    left=IteratedSuspension(
+      expression=a,
+      exponent=q,
+    ),
+    right=IteratedSuspension(
+      expression=b,
+      exponent=p_plus_k,
+    ),
+  )
+
+  a_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=a,
+        group_dimension=p_plus_k,
+        sphere_dimension=p,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  b_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=b,
+        group_dimension=ScalarSum(
+          left=q,
+          right=h,
+        ),
+        sphere_dimension=q,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  theorem_rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  theorem_match = find_inference_match(
+    theorem_rule,
+    (
+      a_membership_step,
+      b_membership_step,
+    ),
+  )
+
+  assert theorem_match is not None
+
+  theorem_step = apply_inference_match(
+    theorem_match
+  )
+
+  parity_step = ProofStep(
+    conclusion=EvenScalarStatement(
+      scalar=exponent,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  sign_rule = (
+    even_scalar_evaluates_minus_one_power_inference_rule()
+  )
+
+  sign_match = find_inference_match(
+    sign_rule,
+    (
+      parity_step,
+    ),
+  )
+
+  assert sign_match is not None
+
+  sign_step = apply_inference_match(
+    sign_match
+  )
+
+  reduction_rule = (
+    scalar_sign_evaluation_applies_to_multiple_inference_rule(
+      sign=sign,
+      expression=composition,
+    )
+  )
+
+  reduction_match = find_inference_match(
+    reduction_rule,
+    (
+      sign_step,
+    ),
+  )
+
+  assert reduction_match is not None
+
+  reduction_step = apply_inference_match(
+    reduction_match
+  )
+
+  transitivity_rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  transitivity_match = find_inference_match(
+    transitivity_rule,
+    (
+      theorem_step,
+      reduction_step,
+    ),
+  )
+
+  assert transitivity_match is not None
+
+  final_step = apply_inference_match(
+    transitivity_match
+  )
+
+  assert final_step.conclusion == Relation(
+    lhs=SmashProduct(
+      left=a,
+      right=b,
+    ),
+    rhs=composition,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert final_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert final_step.inference_rule == (
+    transitivity_rule
+  )
+
+  assert final_step.premises == (
+    theorem_step,
+    reduction_step,
+  )
+
+  assert theorem_step.conclusion.source == (
+    TODA_PROP_3_1_REFERENCE
+  )
+
+  assert reduction_step.premises == (
+    sign_step,
+  )
+
+  assert sign_step.premises == (
+    parity_step,
+  )
+
+
+def test_phase34_6_second_formula_even_sign_reduction_connects_to_theorem_rhs():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  exponent = ScalarProduct(
+    left=p,
+    right=h,
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=exponent,
+  )
+
+  composition = Composition(
+    left=IteratedSuspension(
+      expression=b,
+      exponent=p,
+    ),
+    right=IteratedSuspension(
+      expression=a,
+      exponent=ScalarSum(
+        left=q,
+        right=h,
+      ),
+    ),
+  )
+
+  a_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=a,
+        group_dimension=ScalarSum(
+          left=p,
+          right=k,
+        ),
+        sphere_dimension=p,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  b_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=b,
+        group_dimension=ScalarSum(
+          left=q,
+          right=h,
+        ),
+        sphere_dimension=q,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  theorem_rule = (
+    barratt_hilton_second_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  theorem_match = find_inference_match(
+    theorem_rule,
+    (
+      a_membership_step,
+      b_membership_step,
+    ),
+  )
+
+  assert theorem_match is not None
+
+  theorem_step = apply_inference_match(
+    theorem_match
+  )
+
+  parity_step = ProofStep(
+    conclusion=EvenScalarStatement(
+      scalar=exponent,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  sign_rule = (
+    even_scalar_evaluates_minus_one_power_inference_rule()
+  )
+
+  sign_match = find_inference_match(
+    sign_rule,
+    (
+      parity_step,
+    ),
+  )
+
+  assert sign_match is not None
+
+  sign_step = apply_inference_match(
+    sign_match
+  )
+
+  reduction_rule = (
+    scalar_sign_evaluation_applies_to_multiple_inference_rule(
+      sign=sign,
+      expression=composition,
+    )
+  )
+
+  reduction_match = find_inference_match(
+    reduction_rule,
+    (
+      sign_step,
+    ),
+  )
+
+  assert reduction_match is not None
+
+  reduction_step = apply_inference_match(
+    reduction_match
+  )
+
+  assert theorem_step.conclusion.rhs == (
+    reduction_step.conclusion.lhs
+  )
+
+  assert reduction_step.conclusion == Relation(
+    lhs=Multiple(
+      coefficient=sign,
+      expression=composition,
+    ),
+    rhs=composition,
+    relation_type=RelationType.EQUALITY,
   )
 
 
