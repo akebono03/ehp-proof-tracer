@@ -16,6 +16,7 @@ from expression import (
   HomotopyElement,
   IteratedSuspension,
   MapApplication,
+  MapSymbol,
   Multiple,
   ScalarPower,
   ScalarProduct,
@@ -45,6 +46,13 @@ from hopf_rules import (
 )
 from map_facts import (
   EHP_H_MAP,
+)
+from map_property_rules import (
+  InjectiveMapStatement,
+  injective_map_reflects_equality_inference_rule,
+)
+from probes.probe_phase35_capabilities import (
+  build_phase35_end_to_end,
 )
 from proof import (
   LiteratureReference,
@@ -78,7 +86,6 @@ from suspension_facts import (
   IOTA_2,
   IOTA_2_SUSPENSION_FACT,
 )
-
 
 
 def test_phase35_1_iota_1_identity_is_representable_with_explicit_typing():
@@ -3519,6 +3526,351 @@ def test_phase35_7_h_two_iota_2_eta_2_equals_four_iota_3_end_to_end():
   assert final_step.premises == (
     actual_h_to_prop22_rhs_step,
     prop22_rhs_four_step,
+  )
+
+
+def test_phase35_8_h_equality_preservation_remains_canonical_ehp_h_only():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=a,
+      rhs=b,
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    ehp_h_preserves_equality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      equality_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=a,
+    ),
+    rhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=b,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert (
+    step.conclusion.lhs.map
+    is EHP_H_MAP
+  )
+
+  assert (
+    step.conclusion.rhs.map
+    is EHP_H_MAP
+  )
+
+  assert (
+    step.conclusion.lhs.map
+    != MapSymbol(
+      name="G",
+    )
+  )
+
+
+def test_phase35_8_h_equality_preservation_requires_equality_premise():
+  rule = (
+    ehp_h_preserves_equality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (),
+  )
+
+  assert match is None
+
+
+def test_phase35_8_toda_2_1_remains_right_multiple_only():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  rule = (
+    toda_2_1_right_multiple_inference_rule(
+      left=a,
+      right=b,
+      coefficient=2,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion.lhs == Composition(
+    left=a,
+    right=Multiple(
+      coefficient=2,
+      expression=b,
+    ),
+  )
+
+  assert step.conclusion.rhs == Multiple(
+    coefficient=2,
+    expression=Composition(
+      left=a,
+      right=b,
+    ),
+  )
+
+  assert step.conclusion.lhs != Composition(
+    left=Multiple(
+      coefficient=2,
+      expression=a,
+    ),
+    right=b,
+  )
+
+
+def test_phase35_8_identity_composition_requires_explicit_identity_fact():
+  expression = Multiple(
+    coefficient=4,
+    expression=IOTA_3,
+  )
+
+  rule = (
+    right_identity_composition_inference_rule(
+      expression=expression,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (),
+  )
+
+  assert match is None
+
+
+def test_phase35_8_h_four_eta_2_is_not_structurally_reduced():
+  four_eta_2 = Multiple(
+    coefficient=4,
+    expression=ETA_2,
+  )
+
+  h_four_eta_2 = MapApplication(
+    map=EHP_H_MAP,
+    expression=four_eta_2,
+  )
+
+  four_iota_3 = Multiple(
+    coefficient=4,
+    expression=IOTA_3,
+  )
+
+  assert h_four_eta_2 != (
+    four_iota_3
+  )
+
+  assert h_four_eta_2 != Multiple(
+    coefficient=4,
+    expression=MapApplication(
+      map=EHP_H_MAP,
+      expression=ETA_2,
+    ),
+  )
+
+
+def test_phase35_8_phase35_7_result_does_not_trigger_injective_reflection():
+  two_iota_2 = Multiple(
+    coefficient=2,
+    expression=IOTA_2,
+  )
+
+  four_iota_3 = Multiple(
+    coefficient=4,
+    expression=IOTA_3,
+  )
+
+  source_expression = Composition(
+    left=two_iota_2,
+    right=ETA_2,
+  )
+
+  h_calculation_step = ProofStep(
+    conclusion=Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=source_expression,
+      ),
+      rhs=four_iota_3,
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  injective_step = ProofStep(
+    conclusion=InjectiveMapStatement(
+      map=EHP_H_MAP,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    injective_map_reflects_equality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      injective_step,
+      h_calculation_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase35_9_representative_probe_builder_reaches_final_actual_h_calculation():
+  result = (
+    build_phase35_end_to_end()
+  )
+
+  two_iota_2 = Multiple(
+    coefficient=2,
+    expression=IOTA_2,
+  )
+
+  four_iota_3 = Multiple(
+    coefficient=4,
+    expression=IOTA_3,
+  )
+
+  final_step = result[
+    "final_step"
+  ]
+
+  assert final_step.conclusion == Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=Composition(
+        left=two_iota_2,
+        right=ETA_2,
+      ),
+    ),
+    rhs=four_iota_3,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert isinstance(
+    final_step,
+    ProofStep,
+  )
+
+  assert final_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    result[
+      "prop22_step"
+    ].inference_rule.name
+    == "Toda Prop.2.2 left formula"
+  )
+
+  assert (
+    result[
+      "barratt_hilton_step"
+    ].conclusion.source
+    == TODA_PROP_3_1_REFERENCE
+  )
+
+  assert (
+    result[
+      "hopf_fact_step"
+    ].conclusion.source
+    == TODA_PROP_5_1_REFERENCE
+  )
+
+  assert (
+    result[
+      "right_multiple_step"
+    ].conclusion.source
+    == TODA_2_1_REFERENCE
+  )
+
+  assert (
+    result[
+      "e_two_iota_1_step"
+    ].conclusion
+    == Relation(
+      lhs=Suspension(
+        expression=Multiple(
+          coefficient=2,
+          expression=IOTA_1,
+        ),
+      ),
+      rhs=two_iota_2,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  assert (
+    result[
+      "e_two_iota_2_step"
+    ].conclusion
+    == Relation(
+      lhs=Suspension(
+        expression=two_iota_2,
+      ),
+      rhs=Multiple(
+        coefficient=2,
+        expression=IOTA_3,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  assert (
+    result[
+      "prop22_rhs_four_step"
+    ].conclusion.rhs
+    == four_iota_3
   )
 
 
