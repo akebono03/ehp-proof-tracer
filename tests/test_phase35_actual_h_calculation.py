@@ -43,6 +43,16 @@ from proof import (
   apply_inference_match,
   find_inference_match,
 )
+from relation_rules import (
+  equality_transitivity_inference_rule,
+)
+from scalar_rules import (
+  EvenScalarStatement,
+  ScalarSignEvaluationStatement,
+  even_scalar_evaluates_minus_one_power_inference_rule,
+  scalar_sign_evaluation_applies_to_multiple_inference_rule,
+)
+
 
 
 def test_phase35_1_iota_1_identity_is_representable_with_explicit_typing():
@@ -1377,6 +1387,537 @@ def test_phase35_4_concrete_barratt_hilton_does_not_reduce_sign_yet():
   )
 
 
+def test_phase35_5_concrete_barratt_hilton_exponent_can_be_given_even_parity():
+  exponent = ScalarProduct(
+    left=1,
+    right=0,
+  )
+
+  parity_step = ProofStep(
+    conclusion=EvenScalarStatement(
+      scalar=exponent,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  assert parity_step.conclusion == (
+    EvenScalarStatement(
+      scalar=ScalarProduct(
+        left=1,
+        right=0,
+      ),
+    )
+  )
+
+  assert parity_step.rule == (
+    ProofRule.GIVEN
+  )
+
+
+def test_phase35_5_concrete_even_exponent_evaluates_barratt_hilton_sign_to_one():
+  exponent = ScalarProduct(
+    left=1,
+    right=0,
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=exponent,
+  )
+
+  parity_step = ProofStep(
+    conclusion=EvenScalarStatement(
+      scalar=exponent,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    even_scalar_evaluates_minus_one_power_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      parity_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == (
+    ScalarSignEvaluationStatement(
+      expression=sign,
+      value=1,
+    )
+  )
+
+  assert step.premises == (
+    parity_step,
+  )
+
+
+def test_phase35_5_concrete_sign_evaluation_reduces_barratt_hilton_multiple():
+  iota_1 = HomotopyElement(
+    name="ι₁",
+    dimension=1,
+    source=1,
+    target=1,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=1,
+    ),
+  )
+
+  two_iota_1 = Multiple(
+    coefficient=2,
+    expression=iota_1,
+  )
+
+  exponent = ScalarProduct(
+    left=1,
+    right=0,
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=exponent,
+  )
+
+  composition = Composition(
+    left=IteratedSuspension(
+      expression=two_iota_1,
+      exponent=1,
+    ),
+    right=IteratedSuspension(
+      expression=two_iota_1,
+      exponent=1,
+    ),
+  )
+
+  parity_step = ProofStep(
+    conclusion=EvenScalarStatement(
+      scalar=exponent,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  sign_rule = (
+    even_scalar_evaluates_minus_one_power_inference_rule()
+  )
+
+  sign_match = find_inference_match(
+    sign_rule,
+    (
+      parity_step,
+    ),
+  )
+
+  assert sign_match is not None
+
+  sign_step = apply_inference_match(
+    sign_match
+  )
+
+  reduction_rule = (
+    scalar_sign_evaluation_applies_to_multiple_inference_rule(
+      sign=sign,
+      expression=composition,
+    )
+  )
+
+  reduction_match = find_inference_match(
+    reduction_rule,
+    (
+      sign_step,
+    ),
+  )
+
+  assert reduction_match is not None
+
+  reduction_step = apply_inference_match(
+    reduction_match
+  )
+
+  assert reduction_step.conclusion == Relation(
+    lhs=Multiple(
+      coefficient=sign,
+      expression=composition,
+    ),
+    rhs=composition,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert reduction_step.premises == (
+    sign_step,
+  )
+
+
+def test_phase35_5_concrete_sign_reduction_connects_to_barratt_hilton_theorem_rhs():
+  iota_1 = HomotopyElement(
+    name="ι₁",
+    dimension=1,
+    source=1,
+    target=1,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=1,
+    ),
+  )
+
+  two_iota_1 = Multiple(
+    coefficient=2,
+    expression=iota_1,
+  )
+
+  alpha_membership_step = ProofStep(
+    conclusion=HomotopyGroupMembershipStatement(
+      element=two_iota_1,
+      group_dimension=1,
+      sphere_dimension=1,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  beta_membership_step = ProofStep(
+    conclusion=HomotopyGroupMembershipStatement(
+      element=two_iota_1,
+      group_dimension=1,
+      sphere_dimension=1,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  theorem_rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=two_iota_1,
+      beta=two_iota_1,
+      p=1,
+      q=1,
+      k=0,
+      h=0,
+    )
+  )
+
+  theorem_match = find_inference_match(
+    theorem_rule,
+    (
+      alpha_membership_step,
+      beta_membership_step,
+    ),
+  )
+
+  assert theorem_match is not None
+
+  theorem_step = apply_inference_match(
+    theorem_match
+  )
+
+  exponent = ScalarProduct(
+    left=1,
+    right=0,
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=exponent,
+  )
+
+  composition = Composition(
+    left=IteratedSuspension(
+      expression=two_iota_1,
+      exponent=1,
+    ),
+    right=IteratedSuspension(
+      expression=two_iota_1,
+      exponent=1,
+    ),
+  )
+
+  parity_step = ProofStep(
+    conclusion=EvenScalarStatement(
+      scalar=exponent,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  sign_rule = (
+    even_scalar_evaluates_minus_one_power_inference_rule()
+  )
+
+  sign_match = find_inference_match(
+    sign_rule,
+    (
+      parity_step,
+    ),
+  )
+
+  assert sign_match is not None
+
+  sign_step = apply_inference_match(
+    sign_match
+  )
+
+  reduction_rule = (
+    scalar_sign_evaluation_applies_to_multiple_inference_rule(
+      sign=sign,
+      expression=composition,
+    )
+  )
+
+  reduction_match = find_inference_match(
+    reduction_rule,
+    (
+      sign_step,
+    ),
+  )
+
+  assert reduction_match is not None
+
+  reduction_step = apply_inference_match(
+    reduction_match
+  )
+
+  assert (
+    theorem_step.conclusion.rhs
+    == reduction_step.conclusion.lhs
+  )
+
+
+def test_phase35_5_concrete_barratt_hilton_sign_reduction_closes_by_transitivity():
+  iota_1 = HomotopyElement(
+    name="ι₁",
+    dimension=1,
+    source=1,
+    target=1,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=1,
+    ),
+  )
+
+  two_iota_1 = Multiple(
+    coefficient=2,
+    expression=iota_1,
+  )
+
+  alpha_membership_step = ProofStep(
+    conclusion=HomotopyGroupMembershipStatement(
+      element=two_iota_1,
+      group_dimension=1,
+      sphere_dimension=1,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  beta_membership_step = ProofStep(
+    conclusion=HomotopyGroupMembershipStatement(
+      element=two_iota_1,
+      group_dimension=1,
+      sphere_dimension=1,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  theorem_rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=two_iota_1,
+      beta=two_iota_1,
+      p=1,
+      q=1,
+      k=0,
+      h=0,
+    )
+  )
+
+  theorem_match = find_inference_match(
+    theorem_rule,
+    (
+      alpha_membership_step,
+      beta_membership_step,
+    ),
+  )
+
+  assert theorem_match is not None
+
+  theorem_step = apply_inference_match(
+    theorem_match
+  )
+
+  exponent = ScalarProduct(
+    left=1,
+    right=0,
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=exponent,
+  )
+
+  composition = Composition(
+    left=IteratedSuspension(
+      expression=two_iota_1,
+      exponent=1,
+    ),
+    right=IteratedSuspension(
+      expression=two_iota_1,
+      exponent=1,
+    ),
+  )
+
+  parity_step = ProofStep(
+    conclusion=EvenScalarStatement(
+      scalar=exponent,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  sign_rule = (
+    even_scalar_evaluates_minus_one_power_inference_rule()
+  )
+
+  sign_match = find_inference_match(
+    sign_rule,
+    (
+      parity_step,
+    ),
+  )
+
+  assert sign_match is not None
+
+  sign_step = apply_inference_match(
+    sign_match
+  )
+
+  reduction_rule = (
+    scalar_sign_evaluation_applies_to_multiple_inference_rule(
+      sign=sign,
+      expression=composition,
+    )
+  )
+
+  reduction_match = find_inference_match(
+    reduction_rule,
+    (
+      sign_step,
+    ),
+  )
+
+  assert reduction_match is not None
+
+  reduction_step = apply_inference_match(
+    reduction_match
+  )
+
+  transitivity_rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  transitivity_match = find_inference_match(
+    transitivity_rule,
+    (
+      theorem_step,
+      reduction_step,
+    ),
+  )
+
+  assert transitivity_match is not None
+
+  final_step = apply_inference_match(
+    transitivity_match
+  )
+
+  assert final_step.conclusion == Relation(
+    lhs=SmashProduct(
+      left=two_iota_1,
+      right=two_iota_1,
+    ),
+    rhs=composition,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert final_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert final_step.premises == (
+    theorem_step,
+    reduction_step,
+  )
+
+
+def test_phase35_5_reduced_barratt_hilton_formula_still_keeps_suspended_multiples():
+  iota_1 = HomotopyElement(
+    name="ι₁",
+    dimension=1,
+    source=1,
+    target=1,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=1,
+    ),
+  )
+
+  two_iota_1 = Multiple(
+    coefficient=2,
+    expression=iota_1,
+  )
+
+  composition = Composition(
+    left=IteratedSuspension(
+      expression=two_iota_1,
+      exponent=1,
+    ),
+    right=IteratedSuspension(
+      expression=two_iota_1,
+      exponent=1,
+    ),
+  )
+
+  assert isinstance(
+    composition.left,
+    IteratedSuspension,
+  )
+
+  assert isinstance(
+    composition.right,
+    IteratedSuspension,
+  )
+
+  assert composition.left.expression == (
+    two_iota_1
+  )
+
+  assert composition.right.expression == (
+    two_iota_1
+  )
+
+  assert composition.left != Multiple(
+    coefficient=2,
+    expression=HomotopyElement(
+      name="ι₂",
+      dimension=2,
+      source=2,
+      target=2,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=2,
+      ),
+    ),
+  )
 
 
 
