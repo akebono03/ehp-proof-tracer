@@ -18,6 +18,9 @@ from map_property_rules import (
   injective_map_reflects_equality_inference_rule,
   isomorphism_implies_injective_inference_rule,
 )
+from probes.probe_phase35_capabilities import (
+  build_phase35_end_to_end,
+)
 from probes.probe_phase37_capabilities import (
   build_phase37_end_to_end,
 )
@@ -577,6 +580,175 @@ def test_phase38_4_end_to_end_reflection_preserves_full_actual_provenance():
     ]
   )
 
+
+def test_phase38_5_isomorphism_h_does_not_directly_reflect_phase37_equality():
+  isomorphism_step = (
+    EHP_H_MAP_ISOMORPHISM_FACT
+    .to_proof_step()
+  )
+
+  phase37_result = (
+    build_phase37_end_to_end()
+  )
+
+  h_side_equality_step = (
+    phase37_result[
+      "final_step"
+    ]
+  )
+
+  reflection_rule = (
+    injective_map_reflects_equality_inference_rule()
+  )
+
+  reflection_match = find_inference_match(
+    reflection_rule,
+    (
+      isomorphism_step,
+      h_side_equality_step,
+    ),
+  )
+
+  assert isomorphism_step.conclusion == (
+    IsomorphismStatement(
+      map=EHP_H_MAP,
+    )
+  )
+
+  assert reflection_match is None
+
+
+def test_phase38_5_injective_h_does_not_reflect_phase35_one_sided_h_equality():
+  isomorphism_step = (
+    EHP_H_MAP_ISOMORPHISM_FACT
+    .to_proof_step()
+  )
+
+  isomorphism_rule = (
+    isomorphism_implies_injective_inference_rule()
+  )
+
+  isomorphism_match = find_inference_match(
+    isomorphism_rule,
+    (
+      isomorphism_step,
+    ),
+  )
+
+  assert isomorphism_match is not None
+
+  injective_step = (
+    apply_inference_match(
+      isomorphism_match
+    )
+  )
+
+  phase35_result = (
+    build_phase35_end_to_end()
+  )
+
+  phase35_final_step = (
+    phase35_result[
+      "final_step"
+    ]
+  )
+
+  reflection_rule = (
+    injective_map_reflects_equality_inference_rule()
+  )
+
+  reflection_match = find_inference_match(
+    reflection_rule,
+    (
+      injective_step,
+      phase35_final_step,
+    ),
+  )
+
+  assert isinstance(
+    phase35_final_step.conclusion.lhs,
+    MapApplication,
+  )
+
+  assert not isinstance(
+    phase35_final_step.conclusion.rhs,
+    MapApplication,
+  )
+
+  assert reflection_match is None
+
+
+def test_phase38_5_injective_h_does_not_apply_to_plain_underlying_equality():
+  isomorphism_step = (
+    EHP_H_MAP_ISOMORPHISM_FACT
+    .to_proof_step()
+  )
+
+  isomorphism_rule = (
+    isomorphism_implies_injective_inference_rule()
+  )
+
+  isomorphism_match = find_inference_match(
+    isomorphism_rule,
+    (
+      isomorphism_step,
+    ),
+  )
+
+  assert isomorphism_match is not None
+
+  injective_step = (
+    apply_inference_match(
+      isomorphism_match
+    )
+  )
+
+  two_iota_2_eta_2 = Composition(
+    left=Multiple(
+      coefficient=2,
+      expression=IOTA_2,
+    ),
+    right=ETA_2,
+  )
+
+  four_eta_2 = Multiple(
+    coefficient=4,
+    expression=ETA_2,
+  )
+
+  plain_equality_step = ProofStep(
+    conclusion=Relation(
+      lhs=two_iota_2_eta_2,
+      rhs=four_eta_2,
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  reflection_rule = (
+    injective_map_reflects_equality_inference_rule()
+  )
+
+  reflection_match = find_inference_match(
+    reflection_rule,
+    (
+      injective_step,
+      plain_equality_step,
+    ),
+  )
+
+  assert not isinstance(
+    plain_equality_step.conclusion.lhs,
+    MapApplication,
+  )
+
+  assert not isinstance(
+    plain_equality_step.conclusion.rhs,
+    MapApplication,
+  )
+
+  assert reflection_match is None
 
 
 
