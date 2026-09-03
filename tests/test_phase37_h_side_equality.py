@@ -19,6 +19,9 @@ from probes.probe_phase35_capabilities import (
 from probes.probe_phase36_capabilities import (
   build_phase36_end_to_end,
 )
+from probes.probe_phase37_capabilities import (
+  build_phase37_end_to_end,
+)
 from proof import (
   ProofRule,
   ProofStep,
@@ -767,6 +770,100 @@ def test_phase37_5_injective_reflection_requires_separate_injective_premise():
   )
 
   assert reflection_match is None
+
+
+def test_phase37_6_representative_builder_reaches_final_h_side_equality():
+  result = (
+    build_phase37_end_to_end()
+  )
+
+  final_step = result[
+    "final_step"
+  ]
+
+  two_iota_2_eta_2 = Composition(
+    left=Multiple(
+      coefficient=2,
+      expression=IOTA_2,
+    ),
+    right=ETA_2,
+  )
+
+  four_eta_2 = Multiple(
+    coefficient=4,
+    expression=ETA_2,
+  )
+
+  assert isinstance(
+    final_step,
+    ProofStep,
+  )
+
+  assert final_step.conclusion == Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=two_iota_2_eta_2,
+    ),
+    rhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=four_eta_2,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert final_step.premises == (
+    result[
+      "phase35_step"
+    ],
+    result[
+      "reversed_phase36_step"
+    ],
+  )
+
+  assert (
+    result[
+      "reversed_phase36_step"
+    ].premises
+    == (
+      result[
+        "phase36_step"
+      ],
+    )
+  )
+
+  assert (
+    result[
+      "phase35_step"
+    ]
+    is result[
+      "phase35_result"
+    ][
+      "final_step"
+    ]
+  )
+
+  assert (
+    result[
+      "phase36_step"
+    ]
+    is result[
+      "phase36_result"
+    ][
+      "final_step"
+    ]
+  )
+
+  assert (
+    result[
+      "reversed_phase36_step"
+    ].inference_rule
+    == equality_symmetry_inference_rule()
+  )
+
+  assert (
+    final_step.inference_rule
+    == equality_transitivity_inference_rule()
+  )
 
 
 
