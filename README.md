@@ -1,48 +1,15 @@
 # EHP Proof Tracer
 
-A computational tool for tracing calculations and mathematical inference in
-EHP exact sequences for unstable homotopy groups of spheres.
+A computational tool for tracing calculations and mathematical inference in EHP exact sequences for unstable homotopy groups of spheres.
 
 ## Goal
 
-The long-term goal is to explain how homotopy groups of spheres are determined
-from mathematical input such as:
-
-- EHP exact sequences,
-- element orders,
-- additive relations,
-- Suspension and Freudenthal theory,
-- composition,
-- generalized Hopf invariants,
-- homomorphisms,
-- subgroup / modulo information,
-- symbolic scalar constraints,
-- indeterminacy,
-- Toda brackets,
-- typed homotopy elements,
-- structured generator notation,
-- literature-backed theorem repositories,
-- explicit generator / composition / map facts,
-- map properties,
-- Toda composition formulas,
-- smash-product expressions,
-- and later stable-homotopy information.
-
-The project separates:
-
-```text
-mathematical rule / theorem
-knowledge / fact supply
-generic inference mechanism
-abelian-group calculation
-```
-
-Development principle:
+The project separates mathematical theorem knowledge, explicit facts, the generic inference engine, and algebraic calculation. Development follows:
 
 ```text
 actual mathematical need
 ↓
-minimal representation
+minimum representation
 ↓
 explicit fact / domain rule when needed
 ↓
@@ -53,61 +20,21 @@ existing generic engine
 
 # Current status
 
-Completed:
-
-- Phase 1: finite abelian-group calculations
-- Phase 2: structured subgroup calculations
-- Phase 3: quotient / exact sequence / extension
-- Phase 4: presentation-based finitely generated abelian groups
-- Phase 5: generic proof / inference engine
-- Phase 6: EHP domain inference
-- Phase 7: ORDER reasoning
-- Phase 8: Suspension reasoning
-- Phase 9: Freudenthal / stable-range reasoning
-- Phase 10: composition / Suspension-composition functoriality
-- Phase 11: generalized Hopf-invariant reasoning
-- Phase 12: additive expressions
-- Phase 13: homomorphism reasoning
-- Phase 14: set / subgroup reasoning
-- Phase 15: coset / modulo reasoning
-- Phase 16: symbolic scalar constraints
-- Phase 17: indeterminacy
-- Phase 18: Toda bracket minimum representation
-- Phase 19: Toda membership / first theorem bridge
-- Phase 20: indexed unstable Toda notation
-- Phase 21: typed homotopy elements / source-target context
-- Phase 22: structured generator representation
-- Phase 23: indexed Toda theorem / validity connection
-- Phase 24: theorem fact / knowledge-table integration
-- Phase 25: generator typing / ambient-group facts
-- Phase 26: actual Toda-generator typing expansion
-- Phase 27: corrected actual ε₃ Toda-definedness / end-to-end inference
-- Phase 28: map-property equality-reflection foundation
-- Phase 29: actual H map facts / typing / production-fact connection
-- Phase 30: Toda Prop.2.2 right suspended-composition formula
-- Phase 31: SmashProduct minimum structural representation
-- Phase 32: Toda Prop.2.2 left suspended-composition formula
-
-Current architecture:
+Completed through Phase 33.
 
 ```text
-literature-backed theorem facts / repository
-explicit generator facts / repository
-explicit composition facts / repository
-explicit map facts / repository
-        ↓
-homotopy / EHP / map-property domain rules
-        ↓
-generic proof / inference engine
-        ↓
-proof-level expression / scalar / set / subgroup / modulo /
-indeterminacy / Toda / map-property statements
-        ↓
-homotopy / EHP data layer
-        ↓
-finitely generated abelian-group algebra
-        ↓
-integer linear algebra
+Phase 28  map injectivity / isomorphism / equality reflection
+Phase 29  actual H facts / typing / isomorphism
+Phase 30  Toda Prop.2.2 right formula
+Phase 31  SmashProduct minimum representation
+Phase 32  Toda Prop.2.2 left formula
+Phase 33  Barratt–Hilton prerequisite minimum representation
+```
+
+Current full regression:
+
+```text
+1585 passed in 23.09s
 ```
 
 ---
@@ -129,17 +56,17 @@ Expression
 └── IteratedSuspension
 ```
 
-Separate structural objects include:
+Phase 33 scalar-expression structures:
 
 ```text
-MapSymbol
-ScalarSymbol
-GeneratorSymbol
-TodaBracket
-IndexedTodaBracketData
+ScalarExpression
+├── ScalarSymbol
+├── ScalarSum
+├── ScalarProduct
+└── ScalarPower
 ```
 
-Important boundaries remain explicit:
+Important boundaries:
 
 ```text
 representation
@@ -149,328 +76,215 @@ typing
 theorem knowledge
 ```
 
-and:
-
 ```text
-type-compatible
+structural equality
 !=
-zero composition
-!=
-Toda definedness
+algebraic theorem equality
 ```
-
----
-
-# Actual H map foundation
-
-Phase 29 connected the actual Hopf map to the generic map-property machinery.
-
-Production map identity:
-
-```text
-HOPF_MAP
-=
-EHP_H_MAP
-=
-MapSymbol(name="H")
-```
-
-Production typing fact:
-
-```text
-H : π₃(S²) → π₃(S³)
-```
-
-Production property fact:
-
-```text
-H : π₃(S²) → π₃(S³)
-is an isomorphism
-```
-
-Representative proof chain:
-
-```text
-production H isomorphism fact
-↓
-ProofStep.GIVEN Isomorphism(H)
-↓
-Injective(H)
-
-+
-
-H(a)=H(b)
-↓
-a=b
-```
-
-The map identity, map typing, and map property remain distinct objects.
 
 ---
 
 # Toda Prop.2.2
 
-Both formulas are now represented as direct theorem rules.
-
-## Right formula
-
-```text
-H(a ∘ Eb)=H(a) ∘ Eb
-```
-
-Production rule:
-
-```text
-toda_prop22_right_inference_rule(alpha=a, gamma=b)
-```
-
-The theorem requires no concrete fact of the form:
-
-```text
-H(a)=β
-```
-
-Its proof-level conclusion directly uses the canonical production `H` map.
-
-A concrete fact:
-
-```text
-H(a)=β
-```
-
-can still be used in the existing generalized Hopf machinery to derive the
-corresponding specialized expression. That β-based branch is retained as an
-integration / consistency path, not as the statement or proof of Prop.2.2
-itself.
-
-## Left formula
-
-```text
-H((Ec) ∘ a)=E(c ∧ c) ∘ H(a)
-```
-
-Production rule:
-
-```text
-toda_prop22_left_inference_rule(alpha=a, gamma=c)
-```
-
-Again, no concrete Hopf value `H(a)=β` is required to state or apply the
-theorem.
-
-The conclusion is an actual proof-level equality:
-
-```text
-Relation(
-  lhs=H((Ec)∘a),
-  rhs=E(c∧c)∘H(a),
-  relation_type=EQUALITY,
-)
-```
-
-Both occurrences of `H` preserve the canonical production map identity.
-
----
-
-# Phase 30 design correction
-
-Phase 30 originally reached:
+Phase 30 / 32 provide direct theorem rules for:
 
 ```text
 H(a∘Eb)=H(a)∘Eb
-```
-
-through a concrete value `H(a)=β`, generalized Hopf reasoning, equality
-symmetry, staged right composition, and transitivity.
-
-That path remains useful as an integration / specialization regression.
-
-The current theorem design is now:
-
-```text
-Toda Prop.2.2
-↓
-H(a∘Eb)=H(a)∘Eb
-```
-
-directly.
-
-The β-based path is checked to agree with the direct theorem result.
-
----
-
-# Phase 31: SmashProduct minimum representation
-
-Phase 31 added:
-
-```text
-SmashProduct(
-  left=a,
-  right=b,
-)
-```
-
-for structural expressions such as:
-
-```text
-a ∧ b
-c ∧ c
-E(c ∧ c)
-```
-
-`SmashProduct` is structural syntax only.
-
-It does not currently provide:
-
-- source / target typing,
-- symmetry or commutativity rules,
-- associativity rules,
-- normalization,
-- Barratt–Hilton theorem knowledge,
-- automatic conversion to composition expressions.
-
-Current boundary:
-
-```text
-SmashProduct(c,c)
-→ no source / target attributes
 ```
 
 and:
 
 ```text
-E(c∧c).source = None
-E(c∧c).target = None
-```
-
----
-
-# Phase 32: Toda Prop.2.2 left formula
-
-Phase 32 connected the Phase 31 smash-product structure to the actual `H` map
-and proof-level equality representation.
-
-Direct theorem:
-
-```text
-a, c
-↓ Toda Prop.2.2
 H((Ec)∘a)=E(c∧c)∘H(a)
 ```
 
-Core production rule:
-
-```text
-toda_prop22_left_inference_rule()
-```
-
-The rule:
-
-- requires no `H(a)=β` premise,
-- produces a `RelationType.EQUALITY`,
-- preserves the canonical `HOPF_MAP / EHP_H_MAP` identity,
-- preserves `Suspension(c)`,
-- preserves `Suspension(SmashProduct(c,c))`,
-- does not add smash-product typing,
-- does not add Barratt–Hilton knowledge,
-- does not modify the generic inference engine.
-
-The previous β-based Phase 32 branch is retained as a specialization /
-consistency path:
-
-```text
-H(a)=β
-↓
-H((Ec)∘a)=E(c∧c)∘β
-```
-
-together with the existing equality machinery. Its final result is checked to
-agree with the direct Toda Prop.2.2 theorem.
+Both preserve the canonical production `H` map identity.
 
 ---
 
-# Phase 32 representative capability demo
+# Phase 33: Barratt–Hilton prerequisites
+
+Phase 33 adds only the minimum representation and sign machinery needed before Toda Prop.3.1 itself.
+
+## Symbolic scalar expressions
+
+Lossless structural representation is available for:
+
+```text
+p+k
+q+h
+(p+k)h
+ph
+(-1)^((p+k)h)
+(-1)^(ph)
+```
+
+For example:
+
+```text
+(-1)^((p+k)h)
+```
+
+is represented as a `ScalarPower` whose exponent is a `ScalarProduct` containing `ScalarSum(p,k)` and `h`.
+
+No general-purpose CAS or automatic normalization is implemented.
+
+## IteratedSuspension
+
+The existing `IteratedSuspension` accepts symbolic scalar exponents needed for:
+
+```text
+E^q a
+E^(p+k)b
+E^p b
+E^(q+h)a
+```
+
+Current boundary:
+
+```text
+symbolic exponent
+→ source = None
+→ target = None
+```
+
+Concrete integer exponent typing remains unchanged.
+
+## Parity-driven sign evaluation
+
+Explicit parity facts can derive:
+
+```text
+n even
+↓
+(-1)^n=1
+```
+
+```text
+n odd
+↓
+(-1)^n=-1
+```
+
+No automatic compound parity inference is implemented.
+
+## Symbolic sign and Multiple
+
+`Multiple` can use symbolic scalar coefficients, so:
+
+```text
+(-1)^n a
+```
+
+is structural syntax.
+
+With an explicit sign evaluation:
+
+```text
+(-1)^n=1
+↓
+(-1)^n a=a
+```
+
+```text
+(-1)^n=-1
+↓
+(-1)^n a=-a
+```
+
+The additive inverse remains:
+
+```text
+-a = Multiple(-1,a)
+```
+
+## Barratt–Hilton formula statement representation
+
+Phase 33 can represent both Toda Prop.3.1 formula shapes as structural `RelationType.EQUALITY` objects:
+
+```text
+a∧b
+=
+(-1)^((p+k)h)
+(E^q a∘E^(p+k)b)
+```
+
+and:
+
+```text
+a∧b
+=
+(-1)^(ph)
+(E^p b∘E^(q+h)a)
+```
+
+Important:
+
+```text
+formula is representable
+!=
+formula is theorem-derived
+```
+
+Toda Prop.3.1 theorem inference is not yet implemented.
+
+---
+
+# Phase 33 representative capability demo
 
 Run:
 
 ```powershell
-python -m probes.probe_phase32_capabilities
+python -m probes.probe_phase33_capabilities
 ```
 
-Representative output:
+Representative inference:
 
 ```text
-Toda Prop.2.2 left formula
-
-Theorem:
-  H((Ec)∘a)=E(c∧c)∘H(a)
-
-Parameters:
-  a = a
-  c = c
-
-[1] Apply Toda Prop.2.2
-  inference: Toda Prop.2.2 left formula
-  premises: none
-
-[CONCLUSION]
-  H(E(c)∘a)=E((c∧c))∘H(a)
-
-Structural confirmation:
-  lhs correct = True
-  rhs correct = True
-  actual H map preserved = True
+((p+k)h) is even
+↓
+(-1)^((p+k)h)=1
+↓
+(-1)^((p+k)h)(E^q a∘E^(p+k)b)
+=
+E^q a∘E^(p+k)b
 ```
 
-The probe also displays the current Phase 32 boundary:
+The probe also confirms:
 
 ```text
-SmashProduct has source: False
-SmashProduct has target: False
-E(c∧c).source = None
-E(c∧c).target = None
+formula is Relation: True
+formula is ProofStep: False
+symbolic exponent source = None
+symbolic exponent target = None
 ```
 
 ---
 
 # Tests
 
-Phase 30 focused suite:
+Focused Phase 33 suite:
 
 ```powershell
-python -m pytest tests/test_phase30_prop22.py -q
+python -m pytest tests/test_phase33_barratt_hilton.py -q
 ```
 
 Verified:
 
 ```text
-25 passed
+73 passed in 0.31s
 ```
 
-Phase 32 focused suite:
+Related scalar suite:
 
 ```powershell
-python -m pytest tests/test_phase32_prop22.py -q
+python -m pytest tests/test_scalar_rules.py -q
 ```
 
-Verified:
+Verified during Phase 33:
 
 ```text
-39 passed
-```
-
-Related suites:
-
-```powershell
-python -m pytest tests/test_hopf_rules.py -q
-python -m pytest tests/test_map_facts.py -q
-```
-
-Verified:
-
-```text
-31 passed
-54 passed
+18 passed
 ```
 
 Full suite:
@@ -479,13 +293,34 @@ Full suite:
 python -m pytest -q
 ```
 
-Verified at Phase 32 completion:
+Verified at Phase 33 completion:
 
 ```text
-1512 passed in 63.58s
+1585 passed in 23.09s
 ```
 
 No failures.
+
+---
+
+# Current non-goals
+
+Not currently implemented:
+
+- general symbolic scalar algebra,
+- scalar commutativity / distributivity normalization,
+- automatic compound parity inference,
+- general smash-product typing,
+- smash-product algebra / normalization,
+- symbolic source / target arithmetic for iterated suspensions,
+- Toda (2.1) composition formulas,
+- Toda Prop.3.1 Barratt–Hilton theorem inference,
+- automatic calculation of `H((2ι₂)η₂)`,
+- `H((2ι₂)η₂)=H(4η₂)`,
+- `(2ι₂)η₂=4η₂`,
+- stable homotopy-group model,
+- stable Toda brackets,
+- higher / variable-arity Toda brackets.
 
 ---
 
@@ -500,95 +335,55 @@ python -m probes.probe_phase29_capabilities
 python -m probes.probe_phase30_capabilities
 python -m probes.probe_phase31_capabilities
 python -m probes.probe_phase32_capabilities
+python -m probes.probe_phase33_capabilities
 ```
-
-The current Phase 32 probe is the canonical demonstration of the left
-Toda Prop.2.2 theorem.
-
-The historical β-based Phase 30 / Phase 32 branches remain useful for
-integration testing but are not the canonical statement of Prop.2.2.
-
----
-
-# Current non-goals
-
-Not currently implemented:
-
-- general smash-product typing,
-- smash-product algebra / normalization,
-- automatic Barratt–Hilton simplification,
-- symbolic scalar-expression trees such as `(-1)^n`,
-- parity reduction for symbolic signs,
-- Toda Prop.3.1 Barratt–Hilton,
-- automatic calculation of `H((2ι₂)η₂)`,
-- actual equality `H((2ι₂)η₂)=H(4η₂)`,
-- final equality `(2ι₂)η₂=4η₂`,
-- general theorem quantification / automatic theorem instantiation,
-- stable homotopy-group model,
-- stable Toda brackets,
-- higher / variable-arity Toda brackets.
 
 ---
 
 # Documentation
 
-- `README.md` — current capabilities and current status
-- `docs/design.md` — current architecture, semantics, and design boundaries
+- `README.md` — current capabilities and status
+- `docs/design.md` — current architecture, semantics, and boundaries
 - `docs/development_log.md` — chronological implementation history
-- `docs/roadmap.md` — future capabilities and dependency order
+- `docs/roadmap.md` — future capability dependency
 
-Historical statements in the development log describe the state at that time.
-Current behavior is defined by the latest README and design documents.
+Historical limitations in the development log describe the state at that time. Current behavior is defined by the latest README and design documents.
 
 ---
 
 # Next development boundary
 
-Phase 32 completes both sides of Toda Prop.2.2:
+Next:
 
 ```text
-H(a∘Eb)=H(a)∘Eb
-
-H((Ec)∘a)=E(c∧c)∘H(a)
+Phase 34
+Toda Prop.3.1 Barratt–Hilton theorem rule
 ```
 
-The next mathematical target is the Barratt–Hilton layer required for the
-actual calculation of:
-
-```text
-H((2ι₂)η₂)
-```
-
-The immediate next phase should introduce only the minimum prerequisite that
-is actually needed for Toda Prop.3.1, with the strongest current candidate
-being symbolic sign / parity support for expressions such as:
-
-```text
-(-1)^n
-```
-
-Existing `IteratedSuspension` should be reused and expanded only if a concrete
-Barratt–Hilton typing requirement cannot be expressed with the current model.
+Phase 34 should reuse the Phase 33 syntax and add explicit literature-backed theorem inference only. It should not generalize Barratt–Hilton into unrestricted smash-product algebra.
 
 Longer dependency:
 
 ```text
 Phase 29
-actual H map facts / equality reflection
+actual H equality-reflection foundation
 ↓
 Phase 30
-Toda Prop.2.2 right formula COMPLETE
+Toda Prop.2.2 right COMPLETE
 ↓
 Phase 31
 SmashProduct minimum representation COMPLETE
 ↓
 Phase 32
-Toda Prop.2.2 left formula COMPLETE
+Toda Prop.2.2 left COMPLETE
 ↓
-minimal Barratt–Hilton prerequisites
+Phase 33
+Barratt–Hilton prerequisites COMPLETE
 ↓
+Phase 34
 Toda Prop.3.1 Barratt–Hilton
 ↓
+Phase 35+
 actual H((2ι₂)η₂) calculation
 ↓
 H((2ι₂)η₂)=H(4η₂)

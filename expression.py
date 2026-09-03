@@ -10,9 +10,34 @@ class MapSymbol:
   name: str
 
 
+class ScalarExpression:
+  pass
+
+
+ScalarValue = int | ScalarExpression
+
+
 @dataclass(frozen=True)
-class ScalarSymbol:
+class ScalarSymbol(ScalarExpression):
   name: str
+
+
+@dataclass(frozen=True)
+class ScalarSum(ScalarExpression):
+  left: ScalarValue
+  right: ScalarValue
+
+
+@dataclass(frozen=True)
+class ScalarProduct(ScalarExpression):
+  left: ScalarValue
+  right: ScalarValue
+
+
+@dataclass(frozen=True)
+class ScalarPower(ScalarExpression):
+  base: ScalarValue
+  exponent: ScalarValue
 
 
 @dataclass(frozen=True)
@@ -53,7 +78,7 @@ class IndexedTodaBracketData:
   bracket: TodaBracket
   second_base: Expression
   third_base: Expression
-  suspension_exponent: int | ScalarSymbol
+  suspension_exponent: ScalarValue
 
   def is_consistent(self) -> bool:
     return (
@@ -193,7 +218,7 @@ class Suspension(Expression):
 @dataclass(frozen=True)
 class IteratedSuspension(Expression):
   expression: Expression
-  exponent: int | ScalarSymbol
+  exponent: ScalarValue
 
   @property
   def source(self) -> int | None:
@@ -264,6 +289,5 @@ def nu(n: int) -> HomotopyElement:
 
 def sigma(n: int) -> HomotopyElement:
   return HomotopyElement("σ", n)
-
 
 
