@@ -4,6 +4,12 @@ from barratt_hilton_rules import (
   barratt_hilton_first_inference_rule,
   barratt_hilton_second_inference_rule,
 )
+from composition_scalar_rules import (
+  TODA_2_1_REFERENCE,
+  IdentityMapStatement,
+  right_identity_composition_inference_rule,
+  toda_2_1_right_multiple_inference_rule,
+)
 from expression import (
   Composition,
   GeneratorSymbol,
@@ -18,6 +24,11 @@ from expression import (
 )
 from generator_facts import (
   GENERATOR_FACT_REPOSITORY,
+)
+from homomorphism_rules import (
+  homomorphism_preserves_multiple_inference_rule,
+  suspension_is_homomorphism_inference_rule,
+  suspension_multiple_bridge_inference_rule,
 )
 from hopf_facts import (
   ETA_2,
@@ -44,13 +55,27 @@ from proof import (
   find_inference_match,
 )
 from relation_rules import (
+  equality_preserved_under_left_composition_inference_rule,
+  equality_preserved_under_multiple_inference_rule,
+  equality_preserved_under_right_composition_inference_rule,
+  equality_symmetry_inference_rule,
   equality_transitivity_inference_rule,
+  iterated_suspension_one_bridge_inference_rule,
+  nested_integer_multiple_inference_rule,
+  suspension_composition_functoriality_inference_rule,
+  suspension_preserves_equality_inference_rule,
 )
 from scalar_rules import (
   EvenScalarStatement,
   ScalarSignEvaluationStatement,
   even_scalar_evaluates_minus_one_power_inference_rule,
   scalar_sign_evaluation_applies_to_multiple_inference_rule,
+)
+from suspension_facts import (
+  IOTA_1,
+  IOTA_1_SUSPENSION_FACT,
+  IOTA_2,
+  IOTA_2_SUSPENSION_FACT,
 )
 
 
@@ -1918,6 +1943,483 @@ def test_phase35_5_reduced_barratt_hilton_formula_still_keeps_suspended_multiple
       ),
     ),
   )
+
+
+def test_phase35_6_suspension_multiple_calculation_reaches_two_iota_2():
+  two_iota_1 = Multiple(
+    coefficient=2,
+    expression=IOTA_1,
+  )
+
+  homomorphism_rule = (
+    suspension_is_homomorphism_inference_rule()
+  )
+
+  homomorphism_match = find_inference_match(
+    homomorphism_rule,
+    (),
+  )
+
+  assert homomorphism_match is not None
+
+  homomorphism_step = apply_inference_match(
+    homomorphism_match
+  )
+
+  multiple_rule = (
+    homomorphism_preserves_multiple_inference_rule(
+      coefficient=2,
+      expression=IOTA_1,
+    )
+  )
+
+  multiple_match = find_inference_match(
+    multiple_rule,
+    (
+      homomorphism_step,
+    ),
+  )
+
+  assert multiple_match is not None
+
+  generic_step = apply_inference_match(
+    multiple_match
+  )
+
+  bridge_rule = (
+    suspension_multiple_bridge_inference_rule(
+      coefficient=2,
+      expression=IOTA_1,
+    )
+  )
+
+  bridge_match = find_inference_match(
+    bridge_rule,
+    (
+      generic_step,
+    ),
+  )
+
+  assert bridge_match is not None
+
+  bridge_step = apply_inference_match(
+    bridge_match
+  )
+
+  identity_step = ProofStep(
+    conclusion=IOTA_1_SUSPENSION_FACT,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  multiple_equality_rule = (
+    equality_preserved_under_multiple_inference_rule(
+      coefficient=2,
+    )
+  )
+
+  multiple_equality_match = find_inference_match(
+    multiple_equality_rule,
+    (
+      identity_step,
+    ),
+  )
+
+  assert multiple_equality_match is not None
+
+  identity_multiple_step = apply_inference_match(
+    multiple_equality_match
+  )
+
+  transitivity_rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  transitivity_match = find_inference_match(
+    transitivity_rule,
+    (
+      bridge_step,
+      identity_multiple_step,
+    ),
+  )
+
+  assert transitivity_match is not None
+
+  final_step = apply_inference_match(
+    transitivity_match
+  )
+
+  assert final_step.conclusion == Relation(
+    lhs=Suspension(
+      expression=two_iota_1,
+    ),
+    rhs=Multiple(
+      coefficient=2,
+      expression=IOTA_2,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+
+def test_phase35_6_suspension_multiple_calculation_reaches_two_iota_3():
+  two_iota_2 = Multiple(
+    coefficient=2,
+    expression=IOTA_2,
+  )
+
+  homomorphism_rule = (
+    suspension_is_homomorphism_inference_rule()
+  )
+
+  homomorphism_match = find_inference_match(
+    homomorphism_rule,
+    (),
+  )
+
+  assert homomorphism_match is not None
+
+  homomorphism_step = apply_inference_match(
+    homomorphism_match
+  )
+
+  multiple_rule = (
+    homomorphism_preserves_multiple_inference_rule(
+      coefficient=2,
+      expression=IOTA_2,
+    )
+  )
+
+  multiple_match = find_inference_match(
+    multiple_rule,
+    (
+      homomorphism_step,
+    ),
+  )
+
+  assert multiple_match is not None
+
+  generic_step = apply_inference_match(
+    multiple_match
+  )
+
+  bridge_rule = (
+    suspension_multiple_bridge_inference_rule(
+      coefficient=2,
+      expression=IOTA_2,
+    )
+  )
+
+  bridge_match = find_inference_match(
+    bridge_rule,
+    (
+      generic_step,
+    ),
+  )
+
+  assert bridge_match is not None
+
+  bridge_step = apply_inference_match(
+    bridge_match
+  )
+
+  identity_step = ProofStep(
+    conclusion=IOTA_2_SUSPENSION_FACT,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  multiple_equality_rule = (
+    equality_preserved_under_multiple_inference_rule(
+      coefficient=2,
+    )
+  )
+
+  multiple_equality_match = find_inference_match(
+    multiple_equality_rule,
+    (
+      identity_step,
+    ),
+  )
+
+  assert multiple_equality_match is not None
+
+  identity_multiple_step = apply_inference_match(
+    multiple_equality_match
+  )
+
+  transitivity_rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  transitivity_match = find_inference_match(
+    transitivity_rule,
+    (
+      bridge_step,
+      identity_multiple_step,
+    ),
+  )
+
+  assert transitivity_match is not None
+
+  final_step = apply_inference_match(
+    transitivity_match
+  )
+
+  assert final_step.conclusion == Relation(
+    lhs=Suspension(
+      expression=two_iota_2,
+    ),
+    rhs=Multiple(
+      coefficient=2,
+      expression=IOTA_3,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+
+def test_phase35_6_first_iterated_suspension_connects_to_ordinary_suspension():
+  two_iota_1 = Multiple(
+    coefficient=2,
+    expression=IOTA_1,
+  )
+
+  rule = (
+    iterated_suspension_one_bridge_inference_rule(
+      two_iota_1
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == Relation(
+    lhs=IteratedSuspension(
+      expression=two_iota_1,
+      exponent=1,
+    ),
+    rhs=Suspension(
+      expression=two_iota_1,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+
+def test_phase35_6_two_iota_3_composed_with_two_iota_3_reduces_to_four_iota_3():
+  two_iota_3 = Multiple(
+    coefficient=2,
+    expression=IOTA_3,
+  )
+
+  right_multiple_rule = (
+    toda_2_1_right_multiple_inference_rule(
+      left=two_iota_3,
+      right=IOTA_3,
+      coefficient=2,
+    )
+  )
+
+  right_multiple_match = find_inference_match(
+    right_multiple_rule,
+    (),
+  )
+
+  assert right_multiple_match is not None
+
+  right_multiple_step = apply_inference_match(
+    right_multiple_match
+  )
+
+  identity_step = ProofStep(
+    conclusion=IdentityMapStatement(
+      element=IOTA_3,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  identity_rule = (
+    right_identity_composition_inference_rule(
+      expression=two_iota_3,
+    )
+  )
+
+  identity_match = find_inference_match(
+    identity_rule,
+    (
+      identity_step,
+    ),
+  )
+
+  assert identity_match is not None
+
+  identity_composition_step = (
+    apply_inference_match(
+      identity_match
+    )
+  )
+
+  multiple_rule = (
+    equality_preserved_under_multiple_inference_rule(
+      coefficient=2,
+    )
+  )
+
+  multiple_match = find_inference_match(
+    multiple_rule,
+    (
+      identity_composition_step,
+    ),
+  )
+
+  assert multiple_match is not None
+
+  multiplied_identity_step = (
+    apply_inference_match(
+      multiple_match
+    )
+  )
+
+  nested_rule = (
+    nested_integer_multiple_inference_rule(
+      outer_coefficient=2,
+      inner_coefficient=2,
+      expression=IOTA_3,
+    )
+  )
+
+  nested_match = find_inference_match(
+    nested_rule,
+    (),
+  )
+
+  assert nested_match is not None
+
+  nested_step = apply_inference_match(
+    nested_match
+  )
+
+  transitivity_rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  first_match = find_inference_match(
+    transitivity_rule,
+    (
+      right_multiple_step,
+      multiplied_identity_step,
+    ),
+  )
+
+  assert first_match is not None
+
+  first_step = apply_inference_match(
+    first_match
+  )
+
+  second_match = find_inference_match(
+    transitivity_rule,
+    (
+      first_step,
+      nested_step,
+    ),
+  )
+
+  assert second_match is not None
+
+  final_step = apply_inference_match(
+    second_match
+  )
+
+  assert final_step.conclusion == Relation(
+    lhs=Composition(
+      left=two_iota_3,
+      right=two_iota_3,
+    ),
+    rhs=Multiple(
+      coefficient=4,
+      expression=IOTA_3,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert (
+    right_multiple_step
+    .conclusion
+    .source
+    == TODA_2_1_REFERENCE
+  )
+
+
+def test_phase35_6_toda_2_1_right_multiple_rule_does_not_add_general_left_bilinearity():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  rule = (
+    toda_2_1_right_multiple_inference_rule(
+      left=a,
+      right=b,
+      coefficient=2,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == Relation(
+    lhs=Composition(
+      left=a,
+      right=Multiple(
+        coefficient=2,
+        expression=b,
+      ),
+    ),
+    rhs=Multiple(
+      coefficient=2,
+      expression=Composition(
+        left=a,
+        right=b,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+    source=TODA_2_1_REFERENCE,
+    note=(
+      "Toda (2.1) integer scalar "
+      "law on the right factor."
+    ),
+  )
+
+  assert step.conclusion.lhs != Composition(
+    left=Multiple(
+      coefficient=2,
+      expression=a,
+    ),
+    right=b,
+  )
+
+
 
 
 
