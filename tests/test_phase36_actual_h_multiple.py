@@ -27,6 +27,9 @@ from map_property_rules import (
   IsomorphismStatement,
   injective_map_reflects_equality_inference_rule,
 )
+from probes.probe_phase36_capabilities import (
+  build_phase36_end_to_end,
+)
 from proof import (
   ProofRule,
   ProofStep,
@@ -805,6 +808,85 @@ def test_phase36_7_injective_h_cannot_reflect_single_value_equality():
   )
 
   assert match is None
+
+
+def test_phase36_8_representative_builder_reaches_final_result():
+  result = (
+    build_phase36_end_to_end()
+  )
+
+  final_step = result[
+    "final_step"
+  ]
+
+  assert isinstance(
+    final_step,
+    ProofStep,
+  )
+
+  assert final_step.conclusion == Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=Multiple(
+        coefficient=4,
+        expression=ETA_2,
+      ),
+    ),
+    rhs=Multiple(
+      coefficient=4,
+      expression=IOTA_3,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert final_step.premises == (
+    result[
+      "h_four_eta_2_step"
+    ],
+    result[
+      "four_h_eta_2_step"
+    ],
+  )
+
+  assert (
+    result[
+      "h_four_eta_2_step"
+    ].premises
+    == (
+      result[
+        "homomorphism_step"
+      ],
+    )
+  )
+
+  assert (
+    result[
+      "four_h_eta_2_step"
+    ].premises
+    == (
+      result[
+        "h_eta_2_step"
+      ],
+    )
+  )
+
+  assert (
+    result[
+      "h_eta_2_step"
+    ].premises
+    == (
+      result[
+        "hopf_fact_step"
+      ],
+    )
+  )
+
+  assert (
+    result[
+      "hopf_fact_step"
+    ].conclusion.source
+    == ETA_2_HOPF_INVARIANT_FACT.source
+  )
 
 
 
