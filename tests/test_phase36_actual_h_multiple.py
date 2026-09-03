@@ -176,6 +176,60 @@ def test_phase36_2_actual_h_homomorphism_connects_to_generic_multiple_rule():
   assert match is not None
 
 
+def test_phase36_3_h_four_eta_2_equals_four_h_eta_2():
+  homomorphism_step = (
+    ehp_h_homomorphism_proof_step()
+  )
+
+  rule = (
+    homomorphism_preserves_multiple_inference_rule(
+      coefficient=4,
+      expression=ETA_2,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      homomorphism_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=Multiple(
+        coefficient=4,
+        expression=ETA_2,
+      ),
+    ),
+    rhs=Multiple(
+      coefficient=4,
+      expression=MapApplication(
+        map=EHP_H_MAP,
+        expression=ETA_2,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert step.inference_rule == rule
+
+  assert step.premises == (
+    homomorphism_step,
+  )
+
+
 
 
 
