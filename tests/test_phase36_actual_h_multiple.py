@@ -9,6 +9,9 @@ from homomorphism_rules import (
 from hopf_facts import (
   ETA_2,
 )
+from hopf_rules import (
+  ehp_h_homomorphism_proof_step,
+)
 from map_facts import (
   EHP_H_MAP,
   EHP_H_MAP_ISOMORPHISM_FACT,
@@ -129,6 +132,51 @@ def test_phase36_1_multiple_rule_does_not_accept_actual_h_isomorphism_directly()
   )
 
   assert match is None
+
+
+def test_phase36_2_actual_h_homomorphism_materializes_as_given_proof_step():
+  step = (
+    ehp_h_homomorphism_proof_step()
+  )
+
+  assert step.conclusion == (
+    HomomorphismStatement(
+      map=EHP_H_MAP,
+    )
+  )
+
+  assert step.rule == ProofRule.GIVEN
+  assert step.premises == ()
+  assert step.inference_rule is None
+
+  assert step.conclusion.map is (
+    EHP_H_MAP
+  )
+
+
+def test_phase36_2_actual_h_homomorphism_connects_to_generic_multiple_rule():
+  homomorphism_step = (
+    ehp_h_homomorphism_proof_step()
+  )
+
+  rule = (
+    homomorphism_preserves_multiple_inference_rule(
+      coefficient=4,
+      expression=ETA_2,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      homomorphism_step,
+    ),
+  )
+
+  assert match is not None
+
+
+
 
 
 

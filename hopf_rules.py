@@ -11,6 +11,9 @@ from expression import (
   Suspension,
   Zero,
 )
+from homomorphism_rules import (
+  HomomorphismStatement,
+)
 from map_facts import EHP_H_MAP
 from proof import (
   InferenceRule,
@@ -42,6 +45,16 @@ class HopfLeftCompositionLawStatement:
   alpha: Expression
   beta: Expression
   gamma: Expression
+
+
+def ehp_h_homomorphism_proof_step():
+  return ProofStep(
+    conclusion=HomomorphismStatement(
+      map=EHP_H_MAP,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
 
 
 def toda_prop22_right_inference_rule(
