@@ -22,7 +22,7 @@ future capability dependency
 
 ---
 
-# 2. Phase 38 完了時点
+# 2. Phase 39 完了時点
 
 Completed chain:
 
@@ -38,30 +38,31 @@ Phase 35  actual H((2ι₂)η₂) calculation
 Phase 36  actual H(4η₂) calculation
 Phase 37  actual H-side equality closure
 Phase 38  Injective(H) reflection
+Phase 39  PrimaryComponent minimum representation
 ```
 
 Current full regression:
 
 ```text
-1711 passed in 60.38s
+1735 passed in 58.59s
 ```
 
-Focused Phase 38:
+Focused Phase 39:
 
 ```text
-13 passed
+24 passed
 ```
 
 Representative probe:
 
 ```powershell
-python -m probes.probe_phase38_capabilities
+python -m probes.probe_phase39_capabilities
 ```
 
-Final Phase 38 result:
+Final Phase 39 capability:
 
 ```text
-(2ι₂)η₂=4η₂
+π_i(S^n;p) minimum structural representation
 ```
 
 ---
@@ -574,7 +575,7 @@ higher Toda brackets
 | full equality representative proof | IMPLEMENTED | 38 |
 | Toda Prop.5.1 group structure `π_3^2=Z{η₂}` | DEFERRED | concrete need |
 | Toda (4.2) Serre finiteness | PLANNED | foundational 2-primary branch |
-| p-primary component `π_i(S^n;p)` | PLANNED | Toda (4.3) prerequisite |
+| p-primary component `π_i(S^n;p)` | IMPLEMENTED | 39 |
 | Toda subgroup `π_i^n` | PLANNED | Toda (4.3) |
 | `E^{-1}(π_{2n}(S^{n+1};2))` preimage group | PLANNED | critical degree `i=2n-1` |
 | Whitehead product `[a,b]` | PLANNED | Lemma 4.1 prerequisite |
@@ -742,7 +743,7 @@ Phase 35–38 actual equality branch は COMPLETE。
 候補順序:
 
 ```text
-PrimaryComponent minimum representation
+PrimaryComponent minimum representation COMPLETE
 ↓
 TodaPrimaryGroup π_i^n
 ↓
@@ -850,21 +851,42 @@ known decomposition
 
 ## 20.1 p-primary component
 
+Phase 39 で minimum structural representation を実装済み。
+
 ```text
 π_i(S^n;p)
 ```
 
-を `π_i(S^n)` の `p`-primary component として扱う。
-
-特に:
+production object:
 
 ```text
+PrimaryComponent(
+  group_dimension=i,
+  sphere_dimension=n,
+  prime=p,
+)
+```
+
+representative:
+
+```text
+π_8(S^5;2)
+π_8(S^5;3)
 π_i(S^n;2)
 ```
 
-を優先する。
+重要:
 
-将来的には ambient homotopy group と prime を structural に持つ minimum representation を検討する。
+```text
+PrimaryComponent
+!= AbelianGroup
+!= Subgroup
+!= membership fact
+!= finiteness fact
+!= Toda π_i^n
+```
+
+`finite != known decomposition` の境界を維持し、primary decomposition calculation は未実装。
 
 ## 20.2 Toda subgroup π_i^n
 
@@ -1325,3 +1347,82 @@ injectivity
 ```
 
 を同一 provenance-aware framework に統合する。
+
+
+---
+
+# 31. Phase 39：PrimaryComponent COMPLETE
+
+Phase 39 split:
+
+```text
+39-1 current group / subgroup compatibility check COMPLETE
+39-2 PrimaryComponent minimum data model COMPLETE
+39-3 structural equality / distinction regression COMPLETE
+39-4 basic construction / typing compatibility COMPLETE
+39-5 scope / non-goal regression COMPLETE
+39-6 representative probe / final regression COMPLETE
+39-7 Phase 39 completion COMPLETE
+```
+
+verified:
+
+```text
+tests/test_phase39_primary_component.py
+24 passed
+
+full suite
+1735 passed in 58.59s
+```
+
+probe:
+
+```powershell
+python -m probes.probe_phase39_capabilities
+```
+
+Phase 39 final capability:
+
+```text
+π_i(S^n;p) minimum structural representation
+```
+
+No theorem rule, primary decomposition solver, membership rule, or generic inference-engine feature was introduced.
+
+---
+
+# 32. 次 Phase candidate：TodaPrimaryGroup minimum representation
+
+次は Toda (4.3) で使う:
+
+```text
+π_i^n
+```
+
+の minimum representation。
+
+最初から以下の case semantics を constructor に埋め込まない。
+
+```text
+i=n
+i=2n-1
+otherwise
+```
+
+まず structural group term として:
+
+```text
+π_i^n
+!= π_i(S^n)
+!= π_i(S^n;2)
+```
+
+を固定する。
+
+その後、critical degree に必要な:
+
+```text
+E^-1(π_{2n}(S^{n+1};2))
+```
+
+を `PreimageSubgroup` branch で表現する。
