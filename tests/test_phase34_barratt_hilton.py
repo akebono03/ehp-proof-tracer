@@ -14,6 +14,7 @@ from expression import (
   Composition,
   HomotopyElement,
   IteratedSuspension,
+  MapApplication,
   Multiple,
   ScalarPower,
   ScalarProduct,
@@ -2357,6 +2358,486 @@ def test_phase34_6_second_formula_even_sign_reduction_connects_to_theorem_rhs():
     ),
     rhs=composition,
     relation_type=RelationType.EQUALITY,
+  )
+
+
+def test_phase34_7_first_theorem_rule_does_not_rewrite_smash_product_without_membership_premises():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (),
+  )
+
+  assert match is None
+
+  smash = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  assert not isinstance(
+    smash,
+    ProofStep,
+  )
+
+
+def test_phase34_7_first_theorem_rule_does_not_use_formula_itself_as_applicability_premise():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  p_plus_k = ScalarSum(
+    left=p,
+    right=k,
+  )
+
+  formula_step = ProofStep(
+    conclusion=Relation(
+      lhs=SmashProduct(
+        left=a,
+        right=b,
+      ),
+      rhs=Multiple(
+        coefficient=ScalarPower(
+          base=-1,
+          exponent=ScalarProduct(
+            left=p_plus_k,
+            right=h,
+          ),
+        ),
+        expression=Composition(
+          left=IteratedSuspension(
+            expression=a,
+            exponent=q,
+          ),
+          right=IteratedSuspension(
+            expression=b,
+            exponent=p_plus_k,
+          ),
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      formula_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase34_7_theorem_derivation_does_not_automatically_evaluate_first_sign():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  p_plus_k = ScalarSum(
+    left=p,
+    right=k,
+  )
+
+  exponent = ScalarProduct(
+    left=p_plus_k,
+    right=h,
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=exponent,
+  )
+
+  a_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=a,
+        group_dimension=p_plus_k,
+        sphere_dimension=p,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  b_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=b,
+        group_dimension=ScalarSum(
+          left=q,
+          right=h,
+        ),
+        sphere_dimension=q,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  theorem_rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  theorem_match = find_inference_match(
+    theorem_rule,
+    (
+      a_membership_step,
+      b_membership_step,
+    ),
+  )
+
+  assert theorem_match is not None
+
+  theorem_step = apply_inference_match(
+    theorem_match
+  )
+
+  assert theorem_step.conclusion.rhs.coefficient == (
+    sign
+  )
+
+  assert theorem_step.conclusion.rhs.coefficient != 1
+  assert theorem_step.conclusion.rhs.coefficient != -1
+
+  even_rule = (
+    even_scalar_evaluates_minus_one_power_inference_rule()
+  )
+
+  odd_rule = (
+    odd_scalar_evaluates_minus_one_power_inference_rule()
+  )
+
+  assert find_inference_match(
+    even_rule,
+    (
+      theorem_step,
+    ),
+  ) is None
+
+  assert find_inference_match(
+    odd_rule,
+    (
+      theorem_step,
+    ),
+  ) is None
+
+
+def test_phase34_7_theorem_derived_symbolic_suspensions_do_not_gain_source_target_typing():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  a_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=a,
+        group_dimension=ScalarSum(
+          left=p,
+          right=k,
+        ),
+        sphere_dimension=p,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  b_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=b,
+        group_dimension=ScalarSum(
+          left=q,
+          right=h,
+        ),
+        sphere_dimension=q,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      a_membership_step,
+      b_membership_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  composition = (
+    step.conclusion.rhs.expression
+  )
+
+  assert isinstance(
+    composition,
+    Composition,
+  )
+
+  assert isinstance(
+    composition.left,
+    IteratedSuspension,
+  )
+
+  assert isinstance(
+    composition.right,
+    IteratedSuspension,
+  )
+
+  assert composition.left.source is None
+  assert composition.left.target is None
+
+  assert composition.right.source is None
+  assert composition.right.target is None
+
+
+def test_phase34_7_barratt_hilton_theorem_does_not_introduce_actual_h_map_application():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  a_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=a,
+        group_dimension=ScalarSum(
+          left=p,
+          right=k,
+        ),
+        sphere_dimension=p,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  b_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=b,
+        group_dimension=ScalarSum(
+          left=q,
+          right=h,
+        ),
+        sphere_dimension=q,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      a_membership_step,
+      b_membership_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert not isinstance(
+    step.conclusion.lhs,
+    MapApplication,
+  )
+
+  assert not isinstance(
+    step.conclusion.rhs,
+    MapApplication,
+  )
+
+  assert isinstance(
+    step.conclusion.lhs,
+    SmashProduct,
+  )
+
+  assert isinstance(
+    step.conclusion.rhs,
+    Multiple,
+  )
+
+  assert isinstance(
+    step.conclusion.rhs.expression,
+    Composition,
   )
 
 
