@@ -1406,22 +1406,343 @@ universal arbitrary-map congruence
 
 ---
 
-# 次の Phase
+# Phase 37：H-side equality closure
 
-次は Phase 37:
+目的:
 
 ```text
-H((2ι₂)η₂)=4ι₃
-H(4η₂)=4ι₃
-↓ symmetry
-4ι₃=H(4η₂)
-↓ transitivity
 H((2ι₂)η₂)=H(4η₂)
 ```
 
-第一候補は existing equality symmetry / transitivity の再利用。
+を Phase 35 / Phase 36 の actual final `ProofStep` と existing equality symmetry / transitivity だけから導出する。
 
-その後 Phase 38 で:
+---
+
+## Phase 37-1：Phase 35 / Phase 36 final ProofStep compatibility check
+
+確認:
+
+```text
+Phase 35 final:
+H((2ι₂)η₂)=4ι₃
+
+Phase 36 final:
+H(4η₂)=4ι₃
+```
+
+両右辺は structural に同一の:
+
+```text
+4ι₃
+```
+
+一方 orientation は `A=C`, `B=C` なので direct transitivity は match しないことを固定。
+
+production code 変更なし。
+
+結果:
+
+```text
+5 passed Phase 37 focused
+1692 passed full suite
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 37-2：H(4η₂)=4ι₃ symmetry
+
+existing:
+
+```text
+equality_symmetry_inference_rule()
+```
+
+を Phase 36 actual final に適用。
+
+```text
+H(4η₂)=4ι₃
+↓
+4ι₃=H(4η₂)
+```
+
+元 Phase 36 final step を direct premise に保持。
+
+production code 変更なし。
+
+結果:
+
+```text
+6 passed Phase 37 focused
+1693 passed full suite
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 37-3：transitivity closure
+
+```text
+H((2ι₂)η₂)=4ι₃
+4ι₃=H(4η₂)
+↓ equality transitivity
+H((2ι₂)η₂)=H(4η₂)
+```
+
+を actual Phase 35 / Phase 36 proof steps から導出。
+
+Phase 37 の数学的主結果が完成。
+
+production code 変更なし。
+
+結果:
+
+```text
+7 passed Phase 37 focused
+1694 passed full suite
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 37-4：end-to-end integration / provenance
+
+final proof graph:
+
+```text
+Phase 37 final
+├─ Phase 35 actual final
+└─ symmetry-derived step
+   └─ Phase 36 actual final
+```
+
+Phase 35 / Phase 36 の内部 proof graph が切れずに保持されることを確認。
+
+synthetic `GIVEN` へ置き換えない。
+
+production code 変更なし。
+
+結果:
+
+```text
+8 passed Phase 37 focused
+1695 passed full suite
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 37-5：scope / non-goal regression
+
+固定:
+
+```text
+Phase 37 final
+= H((2ι₂)η₂)=H(4η₂)
+```
+
+```text
+Phase 37
+↛ (2ι₂)η₂=4η₂
+```
+
+さらに H-side equality 単独では:
+
+```text
+injective_map_reflects_equality_inference_rule()
+```
+
+が match しないことを確認。explicit `Injective(H)` premise は Phase 38 に残す。
+
+production code 変更なし。
+
+結果:
+
+```text
+10 passed Phase 37 focused
+1697 passed full suite
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 37-6：representative probe / final regression
+
+追加:
+
+```text
+probes/probe_phase37_capabilities.py
+```
+
+表示:
+
+```text
+[1] Phase 35
+H((2ι₂)η₂)=4ι₃
+
+[2] Phase 36
+H(4η₂)=4ι₃
+
+[3] Equality symmetry
+4ι₃=H(4η₂)
+
+[RESULT]
+H((2ι₂)η₂)=H(4η₂)
+```
+
+provenance confirmation:
+
+```text
+final includes Phase 35 = True
+symmetry includes Phase 36 = True
+```
+
+boundary:
+
+```text
+Injective(H) application to the Phase 37 equality
+(2ι₂)η₂=4η₂
+```
+
+final regression:
+
+```text
+tests/test_phase37_h_side_equality.py
+11 passed
+```
+
+```text
+full suite
+1698 passed in 70.48s
+```
+
+probe:
+
+```powershell
+python -m probes.probe_phase37_capabilities
+```
+
+正常完走。
+
+### 状態
+
+完了
+
+---
+
+## Phase 37-7：Phase 37 完了整理
+
+Phase 37 で完成:
+
+```text
+Phase 35 / Phase 36 final ProofStep compatibility check
+H(4η₂)=4ι₃ symmetry
+4ι₃=H(4η₂)
+H((2ι₂)η₂)=H(4η₂) transitivity closure
+end-to-end integration / provenance
+scope / non-goal regression
+representative executable probe
+final integrated regression
+```
+
+production code:
+
+```text
+変更なし
+```
+
+Phase 37 completion status:
+
+```text
+tests/test_phase37_h_side_equality.py
+11 passed
+```
+
+```text
+tests/test_phase35_actual_h_calculation.py
+53 passed
+```
+
+```text
+tests/test_phase36_actual_h_multiple.py
+14 passed
+```
+
+```text
+tests/test_relation_rules.py
+50 passed
+```
+
+```text
+tests/test_map_property_rules.py
+26 passed
+```
+
+```text
+full suite
+1698 passed in 70.48s
+```
+
+probe:
+
+```powershell
+python -m probes.probe_phase37_capabilities
+```
+
+正常完走。
+
+### 状態
+
+完了
+
+---
+
+# Phase 37 completion boundary
+
+実装済み:
+
+```text
+H(η₂)=ι₃
+H((2ι₂)η₂)=4ι₃
+H(4η₂)=4ι₃
+4ι₃=H(4η₂)
+H((2ι₂)η₂)=H(4η₂)
+```
+
+未実装:
+
+```text
+(2ι₂)η₂=4η₂
+```
+
+generalization として新規には実装していない:
+
+```text
+new theorem rule for Phase 37
+new production algebra for Phase 37
+new generic inference-engine feature for Phase 37
+```
+
+---
+
+# 次の Phase
+
+次は Phase 38:
 
 ```text
 Isomorphism(H)
@@ -1435,4 +1756,4 @@ H((2ι₂)η₂)=H(4η₂)
 (2ι₂)η₂=4η₂
 ```
 
-へ進む。
+Phase 28 / 29 の existing map-property machinery を第一候補として再利用する。

@@ -54,7 +54,7 @@ homotopy / EHP data
 abelian-group algebra
 ```
 
-Phase 35–36 でも generic inference engine 自体は変更していない。
+Phase 35–37 でも generic inference engine 自体は変更していない。
 
 ---
 
@@ -1347,23 +1347,222 @@ scope / non-goal regression
 final integrated regression
 ```
 
-未実装:
+Phase 36 完了時点では未実装だったもの:
 
 ```text
 H((2ι₂)η₂)=H(4η₂)
 (2ι₂)η₂=4η₂
-automatic Isomorphism→Homomorphism conversion
-arbitrary-map automatic homomorphism inference
+```
+
+---
+
+# 37. Phase 37 final-step compatibility
+
+Phase 35 final:
+
+```text
+H((2ι₂)η₂)=4ι₃
+```
+
+Phase 36 final:
+
+```text
+H(4η₂)=4ι₃
+```
+
+両者の右辺は structural に同じ:
+
+```text
+Multiple(4,IOTA_3)
+```
+
+一方 orientation は:
+
+```text
+A=C
+B=C
+```
+
+なので direct transitivity は成立しない。
+
+---
+
+# 38. Phase 37 symmetry / transitivity closure
+
+existing equality symmetry:
+
+```text
+H(4η₂)=4ι₃
+↓
+4ι₃=H(4η₂)
+```
+
+existing equality transitivity:
+
+```text
+H((2ι₂)η₂)=4ι₃
+4ι₃=H(4η₂)
+↓
+H((2ι₂)η₂)=H(4η₂)
+```
+
+Phase 37 専用 theorem rule は追加しない。
+
+```text
+Phase 37 closure
+=
+existing equality symmetry
++
+existing equality transitivity
+```
+
+---
+
+# 39. Phase 37 provenance
+
+proof graph の正本は `ProofStep.premises`。
+
+```text
+Phase 37 final
+├─ Phase 35 actual final
+└─ symmetry-derived step
+   └─ Phase 36 actual final
+```
+
+Phase 35 / Phase 36 の内部 provenance はそのまま保持される。
+
+Phase 37 final relation に literature metadata を複製しない。
+
+---
+
+# 40. Phase 37 scope boundary
+
+実装済み:
+
+```text
+H((2ι₂)η₂)=H(4η₂)
+```
+
+Phase 37 では行わない:
+
+```text
+Injective(H) application
+(2ι₂)η₂=4η₂
+```
+
+重要:
+
+```text
+H(a)=H(b)
+↛
+a=b
+```
+
+reflection には explicit:
+
+```text
+Injective(H)
+```
+
+premise が必要。これは Phase 38 の責務。
+
+---
+
+# 41. Phase 37 representative probe / verified status
+
+probe:
+
+```powershell
+python -m probes.probe_phase37_capabilities
+```
+
+代表表示:
+
+```text
+[1] Phase 35
+    H((2ι₂)η₂)=4ι₃
+
+[2] Phase 36
+    H(4η₂)=4ι₃
+
+[3] Equality symmetry
+    4ι₃=H(4η₂)
+
+[RESULT]
+    H((2ι₂)η₂)=H(4η₂)
+```
+
+focused:
+
+```text
+tests/test_phase37_h_side_equality.py
+11 passed
+```
+
+related:
+
+```text
+tests/test_phase35_actual_h_calculation.py
+53 passed
+
+tests/test_phase36_actual_h_multiple.py
+14 passed
+
+tests/test_relation_rules.py
+50 passed
+
+tests/test_map_property_rules.py
+26 passed
+```
+
+full:
+
+```text
+1698 passed in 70.48s
+```
+
+production code:
+
+```text
+変更なし
+```
+
+---
+
+# 42. Phase 37 completion boundary
+
+実装済み:
+
+```text
+Phase 35 / Phase 36 final ProofStep compatibility
+H(4η₂)=4ι₃ symmetry
+4ι₃=H(4η₂)
+H((2ι₂)η₂)=H(4η₂) transitivity closure
+end-to-end integration / provenance
+scope / non-goal regression
+Phase 37 representative probe
+final integrated regression
+```
+
+未実装:
+
+```text
+(2ι₂)η₂=4η₂
 ```
 
 次の設計境界:
 
 ```text
-Phase 37
-H((2ι₂)η₂)=4ι₃
-H(4η₂)=4ι₃
-↓ symmetry + transitivity
+Phase 38
+Isomorphism(H)
+↓
+Injective(H)
+
+Injective(H)
++
 H((2ι₂)η₂)=H(4η₂)
+↓
+(2ι₂)η₂=4η₂
 ```
 
-その後 Phase 38 で existing `Injective(H)` reflection を再利用する。
+existing Phase 28/29 map-property machinery を第一候補として再利用する。
