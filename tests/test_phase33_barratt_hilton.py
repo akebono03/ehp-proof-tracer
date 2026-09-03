@@ -2328,6 +2328,444 @@ def test_phase33_6_formula_is_structural_statement_not_barratt_hilton_inference(
   )
 
 
+def test_phase33_7_scalar_sum_is_not_implicitly_commutative():
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  assert ScalarSum(
+    left=p,
+    right=k,
+  ) != ScalarSum(
+    left=k,
+    right=p,
+  )
+
+
+def test_phase33_7_scalar_product_is_not_implicitly_commutative():
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  assert ScalarProduct(
+    left=p,
+    right=h,
+  ) != ScalarProduct(
+    left=h,
+    right=p,
+  )
+
+
+def test_phase33_7_scalar_product_does_not_distribute_over_sum_automatically():
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  factored = ScalarProduct(
+    left=ScalarSum(
+      left=p,
+      right=k,
+    ),
+    right=h,
+  )
+
+  expanded = ScalarSum(
+    left=ScalarProduct(
+      left=p,
+      right=h,
+    ),
+    right=ScalarProduct(
+      left=k,
+      right=h,
+    ),
+  )
+
+  assert factored != expanded
+
+
+def test_phase33_7_scalar_power_is_not_constant_folded_automatically():
+  assert ScalarPower(
+    base=-1,
+    exponent=2,
+  ) != 1
+
+  assert ScalarPower(
+    base=-1,
+    exponent=3,
+  ) != -1
+
+
+def test_phase33_7_scalar_structure_does_not_imply_parity_fact():
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  product = ScalarProduct(
+    left=p,
+    right=h,
+  )
+
+  even_statement = EvenScalarStatement(
+    scalar=product,
+  )
+
+  odd_statement = OddScalarStatement(
+    scalar=product,
+  )
+
+  assert product != even_statement
+  assert product != odd_statement
+
+
+def test_phase33_7_smash_product_is_not_implicitly_commutative():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  assert SmashProduct(
+    left=a,
+    right=b,
+  ) != SmashProduct(
+    left=b,
+    right=a,
+  )
+
+
+def test_phase33_7_smash_product_has_no_automatic_typing():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+    source=6,
+    target=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+    source=7,
+    target=4,
+  )
+
+  smash = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  assert not hasattr(
+    smash,
+    "source",
+  )
+
+  assert not hasattr(
+    smash,
+    "target",
+  )
+
+
+def test_phase33_7_smash_product_does_not_equal_barratt_hilton_composition_automatically():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  smash = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  barratt_hilton_rhs = Multiple(
+    coefficient=ScalarPower(
+      base=-1,
+      exponent=ScalarProduct(
+        left=ScalarSum(
+          left=p,
+          right=k,
+        ),
+        right=h,
+      ),
+    ),
+    expression=Composition(
+      left=IteratedSuspension(
+        expression=a,
+        exponent=q,
+      ),
+      right=IteratedSuspension(
+        expression=b,
+        exponent=ScalarSum(
+          left=p,
+          right=k,
+        ),
+      ),
+    ),
+  )
+
+  assert smash != barratt_hilton_rhs
+
+
+def test_phase33_7_barratt_hilton_formula_requires_explicit_relation():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  smash = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  rhs = Multiple(
+    coefficient=ScalarPower(
+      base=-1,
+      exponent=ScalarProduct(
+        left=ScalarSum(
+          left=p,
+          right=k,
+        ),
+        right=h,
+      ),
+    ),
+    expression=Composition(
+      left=IteratedSuspension(
+        expression=a,
+        exponent=q,
+      ),
+      right=IteratedSuspension(
+        expression=b,
+        exponent=ScalarSum(
+          left=p,
+          right=k,
+        ),
+      ),
+    ),
+  )
+
+  formula = Relation(
+    lhs=smash,
+    rhs=rhs,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert smash != rhs
+  assert formula.lhs == smash
+  assert formula.rhs == rhs
+
+
+def test_phase33_7_symbolic_sign_is_not_evaluated_without_parity_fact():
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=ScalarProduct(
+      left=p,
+      right=h,
+    ),
+  )
+
+  assert sign != 1
+  assert sign != -1
+
+
+def test_phase33_7_symbolic_signed_multiple_is_not_simplified_without_sign_evaluation():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=ScalarProduct(
+      left=p,
+      right=h,
+    ),
+  )
+
+  symbolic = Multiple(
+    coefficient=sign,
+    expression=a,
+  )
+
+  assert symbolic != a
+
+  assert symbolic != Multiple(
+    coefficient=-1,
+    expression=a,
+  )
+
+
+def test_phase33_7_signed_sum_is_not_simplified_automatically():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=n,
+  )
+
+  symbolic_sum = Sum(
+    left=a,
+    right=Multiple(
+      coefficient=sign,
+      expression=a,
+    ),
+  )
+
+  assert symbolic_sum != a
+
+  assert symbolic_sum != Multiple(
+    coefficient=2,
+    expression=a,
+  )
+
+
+def test_phase33_7_symbolic_iterated_suspension_does_not_gain_typing_from_notation():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+    source=8,
+    target=4,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  suspension = IteratedSuspension(
+    expression=a,
+    exponent=ScalarSum(
+      left=p,
+      right=k,
+    ),
+  )
+
+  assert suspension.source is None
+  assert suspension.target is None
+
+
+def test_phase33_7_formula_representation_is_not_a_proof_step_by_itself():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  formula = Relation(
+    lhs=SmashProduct(
+      left=a,
+      right=b,
+    ),
+    rhs=Composition(
+      left=a,
+      right=b,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert isinstance(
+    formula,
+    Relation,
+  )
+
+  assert not isinstance(
+    formula,
+    ProofStep,
+  )
+
 
 
 
