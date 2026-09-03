@@ -38,7 +38,7 @@ mathematical equality
 
 # Current status
 
-Completed through Phase 37.
+Completed through Phase 38.
 
 ```text
 Phase 28  map injectivity / isomorphism / equality reflection
@@ -51,30 +51,31 @@ Phase 34  Toda Prop.3.1 Barratt-Hilton theorem rules
 Phase 35  actual H((2ι₂)η₂) calculation
 Phase 36  actual H(4η₂) calculation
 Phase 37  actual H-side equality closure
+Phase 38  Injective(H) reflection
 ```
 
 Current full regression:
 
 ```text
-1698 passed in 70.48s
+1711 passed in 60.38s
 ```
 
-Focused Phase 37 suite:
+Focused Phase 38 suite:
 
 ```text
-11 passed
+13 passed
 ```
 
-Representative Phase 37 probe:
+Representative Phase 38 probe:
 
 ```powershell
-python -m probes.probe_phase37_capabilities
+python -m probes.probe_phase38_capabilities
 ```
 
 The probe reaches:
 
 ```text
-H((2ι₂)η₂)=H(4η₂)
+(2ι₂)η₂=4η₂
 ```
 
 as an actual inference-generated `ProofStep`.
@@ -671,6 +672,87 @@ The latter requires the existing actual `Injective(H)` machinery and belongs to 
 
 ---
 
+# Phase 38: Injective(H) reflection
+
+Phase 38 reuses the existing Phase 28/29 map-property machinery without adding a new production theorem rule.
+
+The actual `H` isomorphism fact materializes:
+
+```text
+Isomorphism(H)
+```
+
+and the existing generic rule derives:
+
+```text
+Isomorphism(H)
+↓
+Injective(H)
+```
+
+Phase 37 already provides:
+
+```text
+H((2ι₂)η₂)=H(4η₂)
+```
+
+Both sides are `MapApplication` values using the same canonical `EHP_H_MAP`. The existing injective-map equality-reflection rule therefore applies:
+
+```text
+Injective(H)
++
+H((2ι₂)η₂)=H(4η₂)
+↓
+(2ι₂)η₂=4η₂
+```
+
+The final proof graph preserves both branches:
+
+```text
+(2ι₂)η₂=4η₂
+├── Injective(H)
+│   └── Isomorphism(H)
+└── H((2ι₂)η₂)=H(4η₂)
+    ├── Phase 35 final
+    └── symmetry
+        └── Phase 36 final
+```
+
+No new H-specific reflection theorem, direct `Isomorphism(H)` reflection, or unrestricted arbitrary-map reflection was introduced.
+
+Phase 38 scope regressions confirm:
+
+```text
+Isomorphism(H) + H(a)=H(b)
+↛ direct reflection
+
+Injective(H) + H(a)=c
+↛ reflection
+
+Injective(H) + a=b
+↛ reflection
+```
+
+Focused Phase 38 suite:
+
+```text
+13 passed
+```
+
+Full regression at Phase 38 completion:
+
+```text
+1711 passed in 60.38s
+```
+
+Representative probe:
+
+```powershell
+python -m probes.probe_phase38_capabilities
+```
+
+---
+
 # Phase 35 historical scope boundaries
 
 Still not implemented:
@@ -733,16 +815,16 @@ before reusing the existing `Injective(H)` equality reflection.
 
 # Tests
 
-Focused Phase 37 suite:
+Focused Phase 38 suite:
 
 ```powershell
-python -m pytest tests/test_phase37_h_side_equality.py -q
+python -m pytest tests/test_phase38_injective_reflection.py -q
 ```
 
 Verified:
 
 ```text
-11 passed
+13 passed
 ```
 
 Related regressions:
@@ -769,10 +851,10 @@ Full suite:
 python -m pytest -q
 ```
 
-Verified at Phase 37 completion:
+Verified at Phase 38 completion:
 
 ```text
-1698 passed in 70.48s
+1711 passed in 60.38s
 ```
 
 No failures.
@@ -795,6 +877,7 @@ python -m probes.probe_phase34_capabilities
 python -m probes.probe_phase35_capabilities
 python -m probes.probe_phase36_capabilities
 python -m probes.probe_phase37_capabilities
+python -m probes.probe_phase38_capabilities
 ```
 
 The Phase 35 and Phase 36 probes demonstrate the two parallel actual calculations:
@@ -808,6 +891,12 @@ The Phase 37 probe combines them by symmetry and transitivity:
 
 ```text
 H((2ι₂)η₂)=H(4η₂)
+```
+
+The Phase 38 probe applies the existing injectivity reflection:
+
+```text
+(2ι₂)η₂=4η₂
 ```
 
 ---
@@ -825,20 +914,19 @@ Historical limitations in the development log describe the state at that time. C
 
 # Next development boundary
 
-Phase 37 is complete.
+Phase 38 is complete.
 
-The next mathematical step is Phase 38: reuse the existing actual `H` isomorphism / injectivity machinery.
+The actual equality branch now reaches:
 
 ```text
-Isomorphism(H)
+H((2ι₂)η₂)=4ι₃
+H(4η₂)=4ι₃
+↓
+H((2ι₂)η₂)=H(4η₂)
 ↓
 Injective(H)
-
-Injective(H)
-+
-H((2ι₂)η₂)=H(4η₂)
 ↓
 (2ι₂)η₂=4η₂
 ```
 
-Phase 38 should reuse the existing Phase 28/29 map-property machinery and should not introduce a new special-purpose theorem rule unless current code inspection reveals a concrete gap.
+The next major planned branch is the Toda Chapter 4 2-primary calculation infrastructure described in `docs/roadmap.md`. The first implementation step should be chosen only after current code inspection and should preserve the existing principle of adding the minimum representation required by an actual mathematical need.

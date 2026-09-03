@@ -24,6 +24,9 @@ from probes.probe_phase35_capabilities import (
 from probes.probe_phase37_capabilities import (
   build_phase37_end_to_end,
 )
+from probes.probe_phase38_capabilities import (
+  build_phase38_end_to_end,
+)
 from proof import (
   ProofRule,
   ProofStep,
@@ -750,6 +753,133 @@ def test_phase38_5_injective_h_does_not_apply_to_plain_underlying_equality():
 
   assert reflection_match is None
 
+
+def test_phase38_6_representative_builder_reaches_final_reflected_equality():
+  result = (
+    build_phase38_end_to_end()
+  )
+
+  final_step = result[
+    "final_step"
+  ]
+
+  two_iota_2_eta_2 = Composition(
+    left=Multiple(
+      coefficient=2,
+      expression=IOTA_2,
+    ),
+    right=ETA_2,
+  )
+
+  four_eta_2 = Multiple(
+    coefficient=4,
+    expression=ETA_2,
+  )
+
+  assert isinstance(
+    final_step,
+    ProofStep,
+  )
+
+  assert final_step.conclusion == Relation(
+    lhs=two_iota_2_eta_2,
+    rhs=four_eta_2,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert final_step.premises == (
+    result[
+      "injective_step"
+    ],
+    result[
+      "h_side_equality_step"
+    ],
+  )
+
+  assert (
+    result[
+      "injective_step"
+    ].premises
+    == (
+      result[
+        "isomorphism_step"
+      ],
+    )
+  )
+
+  assert (
+    result[
+      "h_side_equality_step"
+    ]
+    is result[
+      "phase37_result"
+    ][
+      "final_step"
+    ]
+  )
+
+  assert (
+    result[
+      "phase37_result"
+    ][
+      "phase35_step"
+    ]
+    is result[
+      "phase37_result"
+    ][
+      "phase35_result"
+    ][
+      "final_step"
+    ]
+  )
+
+  assert (
+    result[
+      "phase37_result"
+    ][
+      "reversed_phase36_step"
+    ].premises
+    == (
+      result[
+        "phase37_result"
+      ][
+        "phase36_step"
+      ],
+    )
+  )
+
+  assert (
+    result[
+      "phase37_result"
+    ][
+      "phase36_step"
+    ]
+    is result[
+      "phase37_result"
+    ][
+      "phase36_result"
+    ][
+      "final_step"
+    ]
+  )
+
+  assert (
+    final_step.inference_rule.name
+    == (
+      injective_map_reflects_equality_inference_rule()
+      .name
+    )
+  )
+
+  assert (
+    result[
+      "injective_step"
+    ].inference_rule.name
+    == (
+      isomorphism_implies_injective_inference_rule()
+      .name
+    )
+  )
 
 
 

@@ -1757,3 +1757,215 @@ H((2ι₂)η₂)=H(4η₂)
 ```
 
 Phase 28 / 29 の existing map-property machinery を第一候補として再利用する。
+
+---
+
+# Phase 38：Injective(H) reflection
+
+目的:
+
+```text
+Isomorphism(H)
+↓
+Injective(H)
+
+Injective(H)
++
+H((2ι₂)η₂)=H(4η₂)
+↓
+(2ι₂)η₂=4η₂
+```
+
+Phase 28 / 29 の existing map-property machinery を再利用する。
+
+## Phase 38-1：actual Isomorphism(H) → Injective(H) compatibility check
+actual `EHP_H_MAP_ISOMORPHISM_FACT` が canonical `EHP_H_MAP` を保持し existing rule に match。production code 変更なし。
+
+```text
+4 passed Phase 38 focused
+1702 passed full suite
+```
+
+### 状態
+完了
+
+---
+
+## Phase 38-2：Phase 37 final H-side equality compatibility check
+Phase 37 final の両辺が `MapApplication` で canonical `EHP_H_MAP` を共有し、actual `Injective(H)` と structural に一致することを確認。production code 変更なし。
+
+```text
+7 passed Phase 38 focused
+1705 passed full suite
+```
+
+### 状態
+完了
+
+---
+
+## Phase 38-3：Injective(H) + H(a)=H(b) reflection
+existing `injective_map_reflects_equality_inference_rule()` に actual premises を与え:
+
+```text
+(2ι₂)η₂=4η₂
+```
+
+を actual `ProofStep` として導出。production code 変更なし。
+
+```text
+8 passed Phase 38 focused
+1706 passed full suite
+```
+
+### 状態
+完了
+
+---
+
+## Phase 38-4：end-to-end integration / provenance
+
+```text
+(2ι₂)η₂=4η₂
+├─ Injective(H)
+│  └─ Isomorphism(H)
+└─ H((2ι₂)η₂)=H(4η₂)
+   ├─ Phase 35 final
+   └─ symmetry
+      └─ Phase 36 final
+```
+
+Phase 35 / 36 / 37 provenance が切れないことを確認。production code 変更なし。
+
+```text
+9 passed Phase 38 focused
+1707 passed full suite
+```
+
+### 状態
+完了
+
+---
+
+## Phase 38-5：scope / non-goal regression
+
+```text
+Isomorphism(H) + H(a)=H(b) ↛ direct reflection
+Injective(H) + H(a)=c ↛ reflection
+Injective(H) + a=b ↛ reflection
+```
+
+Phase 38 は new H-specific reflection theorem を追加しない。production code 変更なし。
+
+```text
+12 passed Phase 38 focused
+1710 passed full suite
+```
+
+### 状態
+完了
+
+---
+
+## Phase 38-6：representative probe / final regression
+追加 `probes/probe_phase38_capabilities.py`。
+
+```text
+[1] Actual Isomorphism(H)
+[2] Existing isomorphism-to-injectivity
+[3] Phase 37 H-side equality
+[RESULT] (2ι₂)η₂=4η₂
+```
+
+初回 full regression は `InferenceRule` factory の closure function object を含む structural equality 比較で1件失敗。production / probe は正しく、test を `inference_rule.name` 比較へ最小修正。
+
+最終:
+
+```text
+tests/test_phase38_injective_reflection.py
+13 passed
+
+full suite
+1711 passed in 60.38s
+```
+
+probe 正常完走。
+
+### 状態
+完了
+
+---
+
+## Phase 38-7：Phase 38 完了整理
+
+Phase 38 で完成:
+
+```text
+actual Isomorphism(H) compatibility
+actual Isomorphism(H)→Injective(H) reuse
+Phase 37 final H-side equality compatibility
+Injective(H) + H(a)=H(b) reflection
+(2ι₂)η₂=4η₂
+end-to-end integration / provenance
+scope / non-goal regression
+representative executable probe
+final integrated regression
+```
+
+production code:
+
+```text
+変更なし
+```
+
+completion:
+
+```text
+tests/test_phase38_injective_reflection.py
+13 passed
+
+full suite
+1711 passed in 60.38s
+```
+
+```powershell
+python -m probes.probe_phase38_capabilities
+```
+
+正常完走。
+
+### 状態
+完了
+
+---
+
+# Phase 38 completion boundary
+
+実装済み:
+
+```text
+H(η₂)=ι₃
+H((2ι₂)η₂)=4ι₃
+H(4η₂)=4ι₃
+H((2ι₂)η₂)=H(4η₂)
+Isomorphism(H)
+Injective(H)
+(2ι₂)η₂=4η₂
+```
+
+Phase 38 で新規には実装していない:
+
+```text
+new H-specific reflection theorem
+new map-property production rule
+new generic inference-engine feature
+direct Isomorphism(H) reflection
+unrestricted arbitrary-map equality reflection
+```
+
+---
+
+# 次の Phase
+
+Phase 35–38 の actual equality branch は完了。次の major candidate は `docs/roadmap.md` の Toda 4章 2-primary calculation branch。最初の Phase 番号と実装対象は current code / tests を確認して actual mathematical need に必要な minimum representation から決定する。
+
