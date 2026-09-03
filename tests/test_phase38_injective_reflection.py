@@ -15,6 +15,7 @@ from map_facts import (
 from map_property_rules import (
   InjectiveMapStatement,
   IsomorphismStatement,
+  injective_map_reflects_equality_inference_rule,
   isomorphism_implies_injective_inference_rule,
 )
 from probes.probe_phase37_capabilities import (
@@ -322,6 +323,261 @@ def test_phase38_2_phase37_final_h_matches_actual_injective_h():
   assert injective_step.conclusion.map is (
     rhs.map
   )
+
+
+def test_phase38_3_actual_injective_h_reflects_phase37_h_side_equality():
+  isomorphism_step = (
+    EHP_H_MAP_ISOMORPHISM_FACT
+    .to_proof_step()
+  )
+
+  isomorphism_rule = (
+    isomorphism_implies_injective_inference_rule()
+  )
+
+  isomorphism_match = find_inference_match(
+    isomorphism_rule,
+    (
+      isomorphism_step,
+    ),
+  )
+
+  assert isomorphism_match is not None
+
+  injective_step = (
+    apply_inference_match(
+      isomorphism_match
+    )
+  )
+
+  phase37_result = (
+    build_phase37_end_to_end()
+  )
+
+  h_side_equality_step = (
+    phase37_result[
+      "final_step"
+    ]
+  )
+
+  reflection_rule = (
+    injective_map_reflects_equality_inference_rule()
+  )
+
+  reflection_match = find_inference_match(
+    reflection_rule,
+    (
+      injective_step,
+      h_side_equality_step,
+    ),
+  )
+
+  assert reflection_match is not None
+
+  reflected_step = (
+    apply_inference_match(
+      reflection_match
+    )
+  )
+
+  two_iota_2_eta_2 = Composition(
+    left=Multiple(
+      coefficient=2,
+      expression=IOTA_2,
+    ),
+    right=ETA_2,
+  )
+
+  four_eta_2 = Multiple(
+    coefficient=4,
+    expression=ETA_2,
+  )
+
+  assert reflected_step.conclusion == Relation(
+    lhs=two_iota_2_eta_2,
+    rhs=four_eta_2,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert reflected_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert reflected_step.inference_rule == (
+    reflection_rule
+  )
+
+  assert reflected_step.premises == (
+    injective_step,
+    h_side_equality_step,
+  )
+
+  assert injective_step.premises == (
+    isomorphism_step,
+  )
+
+  assert (
+    h_side_equality_step
+    is phase37_result[
+      "final_step"
+    ]
+  )
+
+
+def test_phase38_4_end_to_end_reflection_preserves_full_actual_provenance():
+  isomorphism_step = (
+    EHP_H_MAP_ISOMORPHISM_FACT
+    .to_proof_step()
+  )
+
+  isomorphism_rule = (
+    isomorphism_implies_injective_inference_rule()
+  )
+
+  isomorphism_match = find_inference_match(
+    isomorphism_rule,
+    (
+      isomorphism_step,
+    ),
+  )
+
+  assert isomorphism_match is not None
+
+  injective_step = (
+    apply_inference_match(
+      isomorphism_match
+    )
+  )
+
+  phase37_result = (
+    build_phase37_end_to_end()
+  )
+
+  h_side_equality_step = (
+    phase37_result[
+      "final_step"
+    ]
+  )
+
+  reflection_rule = (
+    injective_map_reflects_equality_inference_rule()
+  )
+
+  reflection_match = find_inference_match(
+    reflection_rule,
+    (
+      injective_step,
+      h_side_equality_step,
+    ),
+  )
+
+  assert reflection_match is not None
+
+  final_step = (
+    apply_inference_match(
+      reflection_match
+    )
+  )
+
+  two_iota_2_eta_2 = Composition(
+    left=Multiple(
+      coefficient=2,
+      expression=IOTA_2,
+    ),
+    right=ETA_2,
+  )
+
+  four_eta_2 = Multiple(
+    coefficient=4,
+    expression=ETA_2,
+  )
+
+  assert final_step.conclusion == Relation(
+    lhs=two_iota_2_eta_2,
+    rhs=four_eta_2,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert final_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert final_step.inference_rule == (
+    reflection_rule
+  )
+
+  assert final_step.premises == (
+    injective_step,
+    h_side_equality_step,
+  )
+
+  assert injective_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert injective_step.inference_rule == (
+    isomorphism_rule
+  )
+
+  assert injective_step.premises == (
+    isomorphism_step,
+  )
+
+  assert isomorphism_step.rule == (
+    ProofRule.GIVEN
+  )
+
+  assert isomorphism_step.premises == ()
+
+  assert h_side_equality_step is (
+    phase37_result[
+      "final_step"
+    ]
+  )
+
+  assert h_side_equality_step.premises == (
+    phase37_result[
+      "phase35_step"
+    ],
+    phase37_result[
+      "reversed_phase36_step"
+    ],
+  )
+
+  assert (
+    phase37_result[
+      "phase35_step"
+    ]
+    is phase37_result[
+      "phase35_result"
+    ][
+      "final_step"
+    ]
+  )
+
+  assert (
+    phase37_result[
+      "reversed_phase36_step"
+    ].premises
+    == (
+      phase37_result[
+        "phase36_step"
+      ],
+    )
+  )
+
+  assert (
+    phase37_result[
+      "phase36_step"
+    ]
+    is phase37_result[
+      "phase36_result"
+    ][
+      "final_step"
+    ]
+  )
+
+
 
 
 
