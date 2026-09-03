@@ -1,5 +1,7 @@
 from expression import (
+  Composition,
   MapApplication,
+  MapSymbol,
   Multiple,
 )
 from homomorphism_rules import (
@@ -21,7 +23,9 @@ from map_facts import (
   EHP_H_MAP_ISOMORPHISM_FACT,
 )
 from map_property_rules import (
+  InjectiveMapStatement,
   IsomorphismStatement,
+  injective_map_reflects_equality_inference_rule,
 )
 from proof import (
   ProofRule,
@@ -34,6 +38,9 @@ from proof import (
 from relation_rules import (
   equality_preserved_under_multiple_inference_rule,
   equality_transitivity_inference_rule,
+)
+from suspension_facts import (
+  IOTA_2,
 )
 
 
@@ -664,7 +671,140 @@ def test_phase36_6_h_four_eta_2_equals_four_iota_3_end_to_end():
   )
 
 
+def test_phase36_7_actual_h_homomorphism_is_canonical_h_only():
+  step = (
+    ehp_h_homomorphism_proof_step()
+  )
 
+  unrelated_map = MapSymbol(
+    name="unrelated",
+  )
+
+  assert step.conclusion == (
+    HomomorphismStatement(
+      map=EHP_H_MAP,
+    )
+  )
+
+  assert step.conclusion != (
+    HomomorphismStatement(
+      map=unrelated_map,
+    )
+  )
+
+  assert step.conclusion.map is (
+    EHP_H_MAP
+  )
+
+
+def test_phase36_7_phase35_and_phase36_results_do_not_transit_directly():
+  two_iota_2_eta_2 = Composition(
+    left=Multiple(
+      coefficient=2,
+      expression=IOTA_2,
+    ),
+    right=ETA_2,
+  )
+
+  four_eta_2 = Multiple(
+    coefficient=4,
+    expression=ETA_2,
+  )
+
+  four_iota_3 = Multiple(
+    coefficient=4,
+    expression=IOTA_3,
+  )
+
+  phase35_step = ProofStep(
+    conclusion=Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=two_iota_2_eta_2,
+      ),
+      rhs=four_iota_3,
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  phase36_step = ProofStep(
+    conclusion=Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=four_eta_2,
+      ),
+      rhs=four_iota_3,
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  transitivity_rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  match = find_inference_match(
+    transitivity_rule,
+    (
+      phase35_step,
+      phase36_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase36_7_injective_h_cannot_reflect_single_value_equality():
+  two_iota_2_eta_2 = Composition(
+    left=Multiple(
+      coefficient=2,
+      expression=IOTA_2,
+    ),
+    right=ETA_2,
+  )
+
+  four_iota_3 = Multiple(
+    coefficient=4,
+    expression=IOTA_3,
+  )
+
+  injective_step = ProofStep(
+    conclusion=InjectiveMapStatement(
+      map=EHP_H_MAP,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  phase35_step = ProofStep(
+    conclusion=Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=two_iota_2_eta_2,
+      ),
+      rhs=four_iota_3,
+      relation_type=RelationType.EQUALITY,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  reflection_rule = (
+    injective_map_reflects_equality_inference_rule()
+  )
+
+  match = find_inference_match(
+    reflection_rule,
+    (
+      injective_step,
+      phase35_step,
+    ),
+  )
+
+  assert match is None
 
 
 
