@@ -5,6 +5,7 @@ from typing import (
 
 from algebra import Subgroup
 from barratt_hilton_rules import (
+  TODA_PROP_3_1_REFERENCE,
   HomotopyGroupMembershipStatement,
   barratt_hilton_first_inference_rule,
   barratt_hilton_second_inference_rule,
@@ -24,6 +25,7 @@ from generator_facts import (
   GeneratorAmbientGroupFact,
 )
 from proof import (
+  LiteratureReference,
   ProofRule,
   ProofStep,
   Relation,
@@ -358,6 +360,11 @@ def test_phase34_2_barratt_hilton_first_theorem_rule_derives_first_formula():
       ),
     ),
     relation_type=RelationType.EQUALITY,
+    source=TODA_PROP_3_1_REFERENCE,
+    note=(
+      "Toda Prop.3.1 "
+      "Barratt-Hilton first formula."
+    ),
   )
 
 
@@ -1148,6 +1155,11 @@ def test_phase34_4_barratt_hilton_second_theorem_rule_derives_second_formula():
       ),
     ),
     relation_type=RelationType.EQUALITY,
+    source=TODA_PROP_3_1_REFERENCE,
+    note=(
+      "Toda Prop.3.1 "
+      "Barratt-Hilton second formula."
+    ),
   )
 
 
@@ -1378,6 +1390,242 @@ def test_phase34_4_first_and_second_theorem_rules_derive_distinct_formulas():
     second_step.conclusion.rhs
   )
 
+
+def test_phase34_5_toda_prop_3_1_reference_is_structured_literature_reference():
+  assert isinstance(
+    TODA_PROP_3_1_REFERENCE,
+    LiteratureReference,
+  )
+
+  assert (
+    TODA_PROP_3_1_REFERENCE.label
+    == "Toda Prop.3.1"
+  )
+
+  assert (
+    TODA_PROP_3_1_REFERENCE.author
+    == "H. Toda"
+  )
+
+  assert (
+    TODA_PROP_3_1_REFERENCE.title
+    == (
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    )
+  )
+
+  assert (
+    TODA_PROP_3_1_REFERENCE.year
+    == 1962
+  )
+
+  assert (
+    TODA_PROP_3_1_REFERENCE.locator
+    == "Proposition 3.1"
+  )
+
+
+def test_phase34_5_first_formula_preserves_toda_prop_3_1_provenance():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  a_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=a,
+        group_dimension=ScalarSum(
+          left=p,
+          right=k,
+        ),
+        sphere_dimension=p,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  b_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=b,
+        group_dimension=ScalarSum(
+          left=q,
+          right=h,
+        ),
+        sphere_dimension=q,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      a_membership_step,
+      b_membership_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion.source == (
+    TODA_PROP_3_1_REFERENCE
+  )
+
+  assert step.conclusion.note == (
+    "Toda Prop.3.1 "
+    "Barratt-Hilton first formula."
+  )
+
+  assert step.rule == ProofRule.INFERENCE
+
+  assert step.inference_rule == rule
+
+  assert step.premises == (
+    a_membership_step,
+    b_membership_step,
+  )
+
+
+def test_phase34_5_second_formula_preserves_toda_prop_3_1_provenance():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  a_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=a,
+        group_dimension=ScalarSum(
+          left=p,
+          right=k,
+        ),
+        sphere_dimension=p,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  b_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=b,
+        group_dimension=ScalarSum(
+          left=q,
+          right=h,
+        ),
+        sphere_dimension=q,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    barratt_hilton_second_inference_rule(
+      alpha=a,
+      beta=b,
+      p=p,
+      q=q,
+      k=k,
+      h=h,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      a_membership_step,
+      b_membership_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion.source == (
+    TODA_PROP_3_1_REFERENCE
+  )
+
+  assert step.conclusion.note == (
+    "Toda Prop.3.1 "
+    "Barratt-Hilton second formula."
+  )
+
+  assert step.rule == ProofRule.INFERENCE
+
+  assert step.inference_rule == rule
+
+  assert step.premises == (
+    a_membership_step,
+    b_membership_step,
+  )
 
 
 

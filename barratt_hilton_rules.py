@@ -13,9 +13,22 @@ from expression import (
 )
 from proof import (
   InferenceRule,
+  LiteratureReference,
   PremisePattern,
   Relation,
   RelationType,
+)
+
+
+TODA_PROP_3_1_REFERENCE = LiteratureReference(
+  label="Toda Prop.3.1",
+  author="H. Toda",
+  title=(
+    "Composition Methods in "
+    "Homotopy Groups of Spheres"
+  ),
+  year=1962,
+  locator="Proposition 3.1",
 )
 
 
@@ -111,6 +124,11 @@ def barratt_hilton_first_inference_rule(
         expression=composition,
       ),
       relation_type=RelationType.EQUALITY,
+      source=TODA_PROP_3_1_REFERENCE,
+      note=(
+        "Toda Prop.3.1 "
+        "Barratt-Hilton first formula."
+      ),
     )
 
   return InferenceRule(
@@ -226,6 +244,11 @@ def barratt_hilton_second_inference_rule(
         expression=composition,
       ),
       relation_type=RelationType.EQUALITY,
+      source=TODA_PROP_3_1_REFERENCE,
+      note=(
+        "Toda Prop.3.1 "
+        "Barratt-Hilton second formula."
+      ),
     )
 
   return InferenceRule(
