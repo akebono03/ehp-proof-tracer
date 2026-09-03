@@ -8,9 +8,13 @@ from homomorphism_rules import (
 )
 from hopf_facts import (
   ETA_2,
+  ETA_2_HOPF_INVARIANT_FACT,
+  IOTA_3,
 )
 from hopf_rules import (
   ehp_h_homomorphism_proof_step,
+  hopf_invariant_proof_step,
+  hopf_invariant_statement_to_ehp_h_equality_inference_rule,
 )
 from map_facts import (
   EHP_H_MAP,
@@ -26,6 +30,9 @@ from proof import (
   RelationType,
   apply_inference_match,
   find_inference_match,
+)
+from relation_rules import (
+  equality_preserved_under_multiple_inference_rule,
 )
 
 
@@ -228,6 +235,99 @@ def test_phase36_3_h_four_eta_2_equals_four_h_eta_2():
   assert step.premises == (
     homomorphism_step,
   )
+
+
+def test_phase36_4_h_eta_2_equality_substitutes_under_four_multiple():
+  hopf_fact_step = (
+    hopf_invariant_proof_step(
+      ETA_2_HOPF_INVARIANT_FACT
+    )
+  )
+
+  bridge_rule = (
+    hopf_invariant_statement_to_ehp_h_equality_inference_rule()
+  )
+
+  bridge_match = find_inference_match(
+    bridge_rule,
+    (
+      hopf_fact_step,
+    ),
+  )
+
+  assert bridge_match is not None
+
+  h_eta_2_step = apply_inference_match(
+    bridge_match
+  )
+
+  assert h_eta_2_step.conclusion == Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=ETA_2,
+    ),
+    rhs=IOTA_3,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  multiple_rule = (
+    equality_preserved_under_multiple_inference_rule(
+      coefficient=4,
+    )
+  )
+
+  multiple_match = find_inference_match(
+    multiple_rule,
+    (
+      h_eta_2_step,
+    ),
+  )
+
+  assert multiple_match is not None
+
+  step = apply_inference_match(
+    multiple_match
+  )
+
+  assert step.conclusion == Relation(
+    lhs=Multiple(
+      coefficient=4,
+      expression=MapApplication(
+        map=EHP_H_MAP,
+        expression=ETA_2,
+      ),
+    ),
+    rhs=Multiple(
+      coefficient=4,
+      expression=IOTA_3,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert step.inference_rule == (
+    multiple_rule
+  )
+
+  assert step.premises == (
+    h_eta_2_step,
+  )
+
+  assert (
+    h_eta_2_step.premises
+    == (
+      hopf_fact_step,
+    )
+  )
+
+  assert (
+    hopf_fact_step.conclusion.source
+    == ETA_2_HOPF_INVARIANT_FACT.source
+  )
+
 
 
 
