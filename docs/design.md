@@ -1725,3 +1725,212 @@ unrestricted arbitrary-map equality reflection
 
 次の major design branch は `docs/roadmap.md` の Toda 4章 2-primary calculation infrastructure。
 
+
+
+---
+
+# 50. Phase 39 PrimaryComponent minimum representation
+
+Toda 4章の 2-primary calculation branch の最初の minimum representation として、
+
+```text
+π_i(S^n;p)
+```
+
+を structural に保持する `PrimaryComponent` を導入した。
+
+production object:
+
+```text
+PrimaryComponent
+├── group_dimension: ScalarValue
+├── sphere_dimension: ScalarValue
+└── prime: int
+```
+
+重要なのは、既存の concrete group calculation layer を再利用して primary decomposition を計算するのではなく、まず group term 自体を lossless に表現することである。
+
+```text
+PrimaryComponent
+!= AbelianGroup
+!= Subgroup
+```
+
+`AbelianGroup` は具体的な group components / generators / orders を持つ calculation object、`Subgroup` は concrete ambient group の actual elements を持つ object である。`PrimaryComponent` はそれらを要求しない。
+
+---
+
+# 51. Phase 39 dimension compatibility
+
+`PrimaryComponent` の dimension fields は既存の homotopy-group statement layer と同じ `ScalarValue` を使う。
+
+```text
+group_dimension: ScalarValue
+sphere_dimension: ScalarValue
+```
+
+したがって次を同じ structural scalar layer で保持できる。
+
+```text
+π_8(S^5;2)
+π_i(S^n;2)
+π_(n+1)(S^n;2)
+```
+
+これは新しい dimension arithmetic system ではない。
+
+```text
+ScalarValue reuse
+!= automatic dimension simplification
+!= side-condition solver
+```
+
+---
+
+# 52. Phase 39 structural equality
+
+`PrimaryComponent` は dataclass structural equality により、次のいずれかが違えば別 object として扱う。
+
+```text
+group_dimension
+sphere_dimension
+prime
+```
+
+したがって:
+
+```text
+π_i(S^n;2) != π_i(S^n;3)
+π_i(S^n;2) != π_j(S^n;2)
+π_i(S^n;2) != π_i(S^m;2)
+```
+
+ここでいう equality / distinction は mathematical group isomorphism の判定ではなく structural identity の話である。
+
+```text
+structural equality
+!= mathematical equality / isomorphism
+```
+
+---
+
+# 53. Phase 39 scope boundary
+
+`PrimaryComponent` は group term representation のみ。以下は encode しない。
+
+```text
+known AbelianGroup decomposition
+components
+orders
+generators
+elements
+Subgroup conversion
+finiteness
+membership
+theorem provenance
+Toda π_i^n
+```
+
+特に:
+
+```text
+finite
+!= known decomposition
+```
+
+```text
+PrimaryComponent
+!= HomotopyGroupMembershipStatement
+```
+
+```text
+prime=2
+↛ Toda π_i^n automatically
+```
+
+Toda (4.3) の `π_i^n` は critical degree で primary component と異なる定義を持つため、Phase 39 では先取りしない。
+
+---
+
+# 54. Phase 39 representative probe / verified status
+
+probe:
+
+```powershell
+python -m probes.probe_phase39_capabilities
+```
+
+representative output:
+
+```text
+π_8(S^5;2)
+π_8(S^5;3)
+π_i(S^n;2)
+```
+
+さらに:
+
+```text
+same dimensions + different prime are distinct = True
+```
+
+および以下が未 encode であることを表示する。
+
+```text
+known AbelianGroup decomposition = False
+concrete Subgroup elements = False
+finiteness fact = False
+membership element = False
+Toda primary group = False
+theorem provenance = False
+```
+
+focused:
+
+```text
+tests/test_phase39_primary_component.py
+24 passed
+```
+
+full:
+
+```text
+1735 passed in 58.59s
+```
+
+Phase 39 で generic inference engine は変更していない。
+
+---
+
+# 55. Phase 39 completion boundary
+
+実装済み:
+
+```text
+PrimaryComponent minimum representation
+concrete primary-component construction
+symbolic dimension construction
+ScalarValue typing compatibility
+structural equality / distinction
+AbelianGroup / Subgroup separation
+membership / finiteness / provenance non-goal regression
+representative probe
+final integrated regression
+```
+
+未実装:
+
+```text
+Serre finiteness theorem fact
+PrimaryComponent membership
+primary decomposition calculation
+TodaPrimaryGroup π_i^n
+critical-degree preimage subgroup
+WhiteheadProduct
+Toda Lemma 4.1
+Toda Prop.4.2
+```
+
+次の設計境界は `TodaPrimaryGroup π_i^n` の minimum representation。
+
+初期 Phase では critical-degree theorem semantics を constructor に埋め込まず、まず ordinary homotopy group / primary component と異なる structural group term として表現する。

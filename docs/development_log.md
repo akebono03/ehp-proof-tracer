@@ -1969,3 +1969,335 @@ unrestricted arbitrary-map equality reflection
 
 Phase 35–38 の actual equality branch は完了。次の major candidate は `docs/roadmap.md` の Toda 4章 2-primary calculation branch。最初の Phase 番号と実装対象は current code / tests を確認して actual mathematical need に必要な minimum representation から決定する。
 
+
+
+---
+
+# Phase 39：PrimaryComponent minimum representation
+
+目的:
+
+```text
+π_i(S^n;p)
+```
+
+を Toda 4章 2-primary calculation branch の土台となる minimum structural object として表現する。
+
+---
+
+## Phase 39-1：current group / subgroup representation compatibility check
+
+現行 `AbelianGroup` / `Subgroup` / homotopy-group dimension representation を確認。
+
+結論:
+
+```text
+AbelianGroup
+= concrete group decomposition / calculation object
+
+Subgroup
+= concrete ambient group の actual element subset
+
+PrimaryComponent
+= π_i(S^n;p) structural group term
+```
+
+したがって `PrimaryComponent` を `AbelianGroup` / `Subgroup` と同一 layer にしない方針を確定。
+
+production code 変更なし。
+
+### 状態
+完了
+
+---
+
+## Phase 39-2：PrimaryComponent minimum data model
+
+新規:
+
+```text
+homotopy_groups.py
+```
+
+追加:
+
+```text
+PrimaryComponent(
+  group_dimension: ScalarValue,
+  sphere_dimension: ScalarValue,
+  prime: int,
+)
+```
+
+representative:
+
+```text
+π_8(S^5;2)
+π_i(S^n;2)
+```
+
+known decomposition / subgroup elements は持たせない。
+
+結果:
+
+```text
+tests/test_phase39_primary_component.py
+5 passed
+
+full suite
+1716 passed in 96.23s
+```
+
+### 状態
+完了
+
+---
+
+## Phase 39-3：structural equality / distinction regression
+
+固定:
+
+```text
+π_i(S^n;2) != π_i(S^n;3)
+π_i(S^n;2) != π_j(S^n;2)
+π_i(S^n;2) != π_i(S^m;2)
+```
+
+さらに:
+
+```text
+PrimaryComponent != AbelianGroup
+PrimaryComponent != Subgroup
+```
+
+known decomposition fields を持たないことも regression 固定。
+
+production code 変更なし。
+
+結果:
+
+```text
+11 passed Phase 39 focused
+1722 passed full suite
+```
+
+### 状態
+完了
+
+---
+
+## Phase 39-4：basic construction / typing compatibility
+
+`PrimaryComponent` の dimension fields が既存 `HomotopyGroupMembershipStatement` と同じ `ScalarValue` representation を共有することを確認。
+
+```text
+concrete int dimensions
+symbolic ScalarSymbol dimensions
+compound ScalarExpression dimensions
+```
+
+を保持可能。
+
+prime は `int` のまま。
+
+production code 変更なし。
+
+結果:
+
+```text
+16 passed Phase 39 focused
+1727 passed full suite
+```
+
+### 状態
+完了
+
+---
+
+## Phase 39-5：scope / non-goal regression
+
+固定:
+
+```text
+PrimaryComponent != membership statement
+PrimaryComponent ↛ finiteness automatically
+PrimaryComponent ↛ Subgroup automatically
+prime=2 ↛ Toda π_i^n automatically
+PrimaryComponent has no theorem provenance
+```
+
+production code 変更なし。
+
+結果:
+
+```text
+21 passed Phase 39 focused
+1732 passed full suite
+```
+
+### 状態
+完了
+
+---
+
+## Phase 39-6：representative probe / final regression
+
+追加:
+
+```text
+probes/probe_phase39_capabilities.py
+```
+
+表示:
+
+```text
+[1] π_8(S^5;2)
+[2] π_8(S^5;3)
+[3] π_i(S^n;2)
+```
+
+structural distinction:
+
+```text
+same dimensions + different prime are distinct = True
+```
+
+boundary:
+
+```text
+known AbelianGroup decomposition = False
+concrete Subgroup elements = False
+finiteness fact = False
+membership element = False
+Toda primary group = False
+theorem provenance = False
+```
+
+final regression:
+
+```text
+tests/test_phase39_primary_component.py
+24 passed
+
+full suite
+1735 passed in 58.59s
+```
+
+probe 正常完走。
+
+### 状態
+完了
+
+---
+
+## Phase 39-7：Phase 39 完了整理
+
+Phase 39 で完成:
+
+```text
+current group / subgroup compatibility check
+PrimaryComponent minimum data model
+concrete / symbolic dimension representation
+structural equality / distinction
+ScalarValue typing compatibility
+AbelianGroup / Subgroup separation
+membership / finiteness / provenance scope regression
+representative executable probe
+final integrated regression
+```
+
+production capability:
+
+```text
+π_i(S^n;p) minimum structural representation
+```
+
+production code で追加した数学 object は `PrimaryComponent` のみ。
+
+generic inference engine:
+
+```text
+変更なし
+```
+
+completion:
+
+```text
+tests/test_phase39_primary_component.py
+24 passed
+
+full suite
+1735 passed in 58.59s
+```
+
+```powershell
+python -m probes.probe_phase39_capabilities
+```
+
+正常完走。
+
+### 状態
+完了
+
+---
+
+# Phase 39 completion boundary
+
+実装済み:
+
+```text
+π_i(S^n;p) structural representation
+PrimaryComponent(group_dimension,sphere_dimension,prime)
+concrete dimensions
+symbolic / compound scalar dimensions
+prime distinction
+structural equality / distinction
+representative probe
+```
+
+未実装:
+
+```text
+Serre finiteness
+primary decomposition calculation
+PrimaryComponent membership
+TodaPrimaryGroup π_i^n
+PreimageSubgroup under E
+WhiteheadProduct
+Toda Lemma 4.1
+Toda Prop.4.2
+```
+
+重要:
+
+```text
+PrimaryComponent
+!= AbelianGroup
+!= Subgroup
+!= membership
+!= finiteness fact
+!= Toda π_i^n
+```
+
+---
+
+# 次の Phase
+
+次は `TodaPrimaryGroup π_i^n` minimum representation。
+
+Toda (4.3) の場合分け theorem semantics を一度に実装せず、まず:
+
+```text
+π_i^n
+```
+
+を ordinary homotopy group / `PrimaryComponent` と区別できる structural object として表現する。
+
+その後の Phase で critical degree:
+
+```text
+i=2n-1
+π_i^n=E^-1(π_{2n}(S^{n+1};2))
+```
+
+に必要な `PreimageSubgroup` へ進む。

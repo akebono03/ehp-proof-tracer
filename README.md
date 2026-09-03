@@ -38,7 +38,7 @@ mathematical equality
 
 # Current status
 
-Completed through Phase 38.
+Completed through Phase 39.
 
 ```text
 Phase 28  map injectivity / isomorphism / equality reflection
@@ -52,30 +52,33 @@ Phase 35  actual H((2ι₂)η₂) calculation
 Phase 36  actual H(4η₂) calculation
 Phase 37  actual H-side equality closure
 Phase 38  Injective(H) reflection
+Phase 39  PrimaryComponent minimum representation
 ```
 
 Current full regression:
 
 ```text
-1711 passed in 60.38s
+1735 passed in 58.59s
 ```
 
-Focused Phase 38 suite:
+Focused Phase 39 suite:
 
 ```text
-13 passed
+24 passed
 ```
 
-Representative Phase 38 probe:
+Representative Phase 39 probe:
 
 ```powershell
-python -m probes.probe_phase38_capabilities
+python -m probes.probe_phase39_capabilities
 ```
 
-The probe reaches:
+The probe demonstrates:
 
 ```text
-(2ι₂)η₂=4η₂
+π_8(S^5;2)
+π_8(S^5;3)
+π_i(S^n;2)
 ```
 
 as an actual inference-generated `ProofStep`.
@@ -753,6 +756,102 @@ python -m probes.probe_phase38_capabilities
 
 ---
 
+# Phase 39: PrimaryComponent minimum representation
+
+Phase 39 starts the Toda Chapter 4 2-primary calculation branch by adding only the structural representation required for:
+
+```text
+π_i(S^n;p)
+```
+
+The new production object is:
+
+```text
+PrimaryComponent
+├── group_dimension: ScalarValue
+├── sphere_dimension: ScalarValue
+└── prime: int
+```
+
+Representative values include:
+
+```text
+π_8(S^5;2)
+π_8(S^5;3)
+π_i(S^n;2)
+```
+
+The dimension fields deliberately reuse the existing `ScalarValue` representation, so concrete integers, symbolic dimensions, and compound scalar expressions remain compatible with the existing homotopy-group statement layer.
+
+Structural equality distinguishes changes in any of:
+
+```text
+group dimension
+sphere dimension
+prime
+```
+
+Important boundaries:
+
+```text
+PrimaryComponent
+!= AbelianGroup
+!= Subgroup
+!= HomotopyGroupMembershipStatement
+!= finiteness fact
+!= Toda π_i^n
+```
+
+A `PrimaryComponent` does not encode:
+
+```text
+known direct-sum decomposition
+orders
+generators
+elements
+automatic Subgroup conversion
+finiteness
+membership
+theorem provenance
+```
+
+In particular:
+
+```text
+finite
+!= known decomposition
+```
+
+and:
+
+```text
+prime=2
+↛ Toda π_i^n automatically
+```
+
+Phase 39 adds no theorem rule, no primary-decomposition calculation, and no generic inference-engine feature.
+
+Focused Phase 39 suite:
+
+```text
+tests/test_phase39_primary_component.py
+24 passed
+```
+
+Full regression:
+
+```text
+1735 passed in 58.59s
+```
+
+Representative probe:
+
+```powershell
+python -m probes.probe_phase39_capabilities
+```
+
+---
+
 # Phase 35 historical scope boundaries
 
 Still not implemented:
@@ -851,10 +950,10 @@ Full suite:
 python -m pytest -q
 ```
 
-Verified at Phase 38 completion:
+Verified at Phase 39 completion:
 
 ```text
-1711 passed in 60.38s
+1735 passed in 58.59s
 ```
 
 No failures.
@@ -878,6 +977,7 @@ python -m probes.probe_phase35_capabilities
 python -m probes.probe_phase36_capabilities
 python -m probes.probe_phase37_capabilities
 python -m probes.probe_phase38_capabilities
+python -m probes.probe_phase39_capabilities
 ```
 
 The Phase 35 and Phase 36 probes demonstrate the two parallel actual calculations:
@@ -914,7 +1014,7 @@ Historical limitations in the development log describe the state at that time. C
 
 # Next development boundary
 
-Phase 38 is complete.
+Phase 39 is complete.
 
 The actual equality branch now reaches:
 
@@ -929,4 +1029,4 @@ Injective(H)
 (2ι₂)η₂=4η₂
 ```
 
-The next major planned branch is the Toda Chapter 4 2-primary calculation infrastructure described in `docs/roadmap.md`. The first implementation step should be chosen only after current code inspection and should preserve the existing principle of adding the minimum representation required by an actual mathematical need.
+The Toda Chapter 4 2-primary branch has now begun with the `PrimaryComponent` structural term. The next minimum representation is the Toda subgroup `π_i^n`, kept distinct from both the ordinary homotopy group and the p-primary component. The critical-degree preimage definition remains a later phase and must not be folded into the initial `TodaPrimaryGroup` representation.
