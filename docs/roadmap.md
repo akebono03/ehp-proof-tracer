@@ -22,7 +22,7 @@ future capability dependency
 
 ---
 
-# 2. Phase 34 完了時点
+# 2. Phase 35 完了時点
 
 Completed chain:
 
@@ -34,215 +34,297 @@ Phase 31  SmashProduct minimum representation
 Phase 32  Toda Prop.2.2 left
 Phase 33  Barratt–Hilton prerequisites
 Phase 34  Toda Prop.3.1 Barratt–Hilton theorem rules
+Phase 35  actual H((2ι₂)η₂) calculation
 ```
 
 Current full regression:
 
 ```text
-1620 passed in 23.32s
+1673 passed in 23.33s
 ```
 
-Focused Phase 34:
+Focused Phase 35:
 
 ```text
-35 passed
+53 passed
 ```
 
----
+Representative probe:
 
-# 3. Phase 34 completed capabilities
-
-```text
-HomotopyGroupMembershipStatement
-Toda Prop.3.1 first theorem rule
-Toda Prop.3.1 second theorem rule
-strict symbolic applicability
-invalid-case rejection
-unrelated-premise tolerance
-structured literature provenance
-Phase 33 sign-evaluation connection
-generic equality-transitivity closure
-scope / non-goal regression
-Phase 34 representative probe
-Phase 34 final integrated regression
+```powershell
+python -m probes.probe_phase35_capabilities
 ```
 
-theorem premises:
-
-```text
-a ∈ π_{p+k}(S^p)
-b ∈ π_{q+h}(S^q)
-```
-
-first conclusion:
-
-```text
-a∧b
-=
-(-1)^((p+k)h)
-(E^q a∘E^(p+k)b)
-```
-
-second conclusion:
-
-```text
-a∧b
-=
-(-1)^(ph)
-(E^p b∘E^(q+h)a)
-```
-
-provenance:
-
-```text
-Toda Prop.3.1
-H. Toda
-Composition Methods in Homotopy Groups of Spheres
-1962
-Proposition 3.1
-```
-
----
-
-# 4. Phase 34 completed inference chain
-
-代表:
-
-```text
-a ∈ π_{p+k}(S^p)
-b ∈ π_{q+h}(S^q)
-
-↓ Toda Prop.3.1
-
-a∧b
-=
-(-1)^((p+k)h)
-(E^q a∘E^(p+k)b)
-
-+
-
-((p+k)h) is even
-
-↓
-(-1)^((p+k)h)=1
-
-↓
-(-1)^((p+k)h)
-(E^q a∘E^(p+k)b)
-=
-E^q a∘E^(p+k)b
-
-↓ equality transitivity
-
-a∧b
-=
-E^q a∘E^(p+k)b
-```
-
-重要:
-
-```text
-Barratt–Hilton
-!=
-general SmashProduct normalization
-```
-
-```text
-symbolic homotopy-group membership
-!=
-symbolic source / target solver
-```
-
----
-
-# 5. Phase 35+：actual H((2ι₂)η₂) calculation
-
-NEXT。
-
-Phase 34 までで:
-
-```text
-Toda Prop.2.2 left
-+
-SmashProduct
-+
-Barratt–Hilton theorem rules
-+
-sign machinery
-+
-H injectivity
-```
-
-が準備済み。
-
-次は abstract symbolic formula ではなく、具体的に:
-
-```text
-H((2ι₂)η₂)
-```
-
-を計算する。
-
-想定 target chain:
-
-```text
-H((2ι₂)η₂)
-↓ Toda Prop.2.2 left
-E(2ι₁∧2ι₁)H(η₂)
-↓ Toda Prop.3.1 / concrete Barratt–Hilton
-4ι₃
-```
-
-このために必要になる可能性がある concrete pieces:
-
-```text
-typing of ι₁, ι₂, ι₃, η₂
-H(η₂)=ι₃
-2ι₁ ∈ appropriate homotopy group
-concrete Barratt–Hilton parameter instantiation
-concrete parity/sign evaluation
-composition of multiples / identity maps
-```
-
-ただし Phase 35+ では actual calculation に必要な順に1つずつ導入する。
-
-一般的な symbolic arithmetic や Toda (2.1) 全体を先取りしない。
-
----
-
-# 6. parallel calculation of H(4η₂)
-
-もう一方:
-
-```text
-H(4η₂)
-```
-
-について:
-
-```text
-H(4η₂)
-↓ H homomorphism
-4H(η₂)
-↓ H(η₂)=ι₃
-4ι₃
-```
-
-が必要。
-
-既存 homomorphism machinery を再利用できるかをまず確認する。
-
-不足がある場合のみ、actual H map に必要な最小 fact / bridge を追加する。
-
----
-
-# 7. equality target
-
-両側を計算後:
+Final Phase 35 result:
 
 ```text
 H((2ι₂)η₂)=4ι₃
 ```
+
+---
+
+# 3. Phase 35 completed capabilities
+
+```text
+actual H(η₂)=ι₃ literature fact
+actual identity suspension facts Eι₁=ι₂ / Eι₂=ι₃
+concrete Barratt–Hilton membership
+concrete Barratt–Hilton applicability
+concrete theorem-parameter integer addition
+explicit concrete parity / sign reduction
+Suspension Multiple bridge
+E^1-to-E proof-level bridge
+equality transport through Multiple
+nested integer Multiple calculation
+directed Toda (2.1) right-multiple rule
+explicit IdentityMapStatement
+right identity composition
+canonical actual H equality preservation
+E(2ι₁)=2ι₂
+E(2ι₂)=2ι₃
+E(2ι₁∧2ι₁)=4ι₃
+H((2ι₂)η₂)=4ι₃
+scope / non-goal regression
+Phase 35 representative probe
+Phase 35 final integrated regression
+```
+
+---
+
+# 4. Phase 35 completed inference chain
+
+代表:
+
+```text
+Eι₁=ι₂
++
+E is homomorphism
+↓
+E(2ι₁)=2ι₂
+```
+
+```text
+Eι₂=ι₃
++
+E is homomorphism
+↓
+E(2ι₂)=2ι₃
+```
+
+Toda Prop.3.1:
+
+```text
+2ι₁ ∈ π₁(S¹)
+2ι₁ ∈ π₁(S¹)
+↓
+2ι₁∧2ι₁
+=
+(-1)^(1·0)
+(E^1(2ι₁)∘E^1(2ι₁))
+```
+
+explicit parity:
+
+```text
+1·0 is even
+↓
+(-1)^(1·0)=1
+```
+
+therefore:
+
+```text
+2ι₁∧2ι₁
+=
+E^1(2ι₁)∘E^1(2ι₁)
+```
+
+Suspension / composition calculation:
+
+```text
+E(2ι₁∧2ι₁)
+=
+2ι₃∘2ι₃
+```
+
+Toda (2.1), identity, nested Multiple:
+
+```text
+2ι₃∘2ι₃
+=
+2((2ι₃)∘ι₃)
+=
+2(2ι₃)
+=
+4ι₃
+```
+
+Toda Prop.5.1:
+
+```text
+H(η₂)=ι₃
+```
+
+Toda Prop.2.2 left:
+
+```text
+H((E(2ι₁))∘η₂)
+=
+E(2ι₁∧2ι₁)∘H(η₂)
+```
+
+actual left transport:
+
+```text
+E(2ι₁)=2ι₂
+↓
+(E(2ι₁))∘η₂=(2ι₂)∘η₂
+↓
+H((E(2ι₁))∘η₂)=H((2ι₂)∘η₂)
+```
+
+final:
+
+```text
+H((2ι₂)η₂)=4ι₃
+```
+
+Important:
+
+```text
+actual H equality preservation
+!=
+universal arbitrary-map congruence
+```
+
+```text
+directed Toda (2.1)
+!=
+general composition bilinearity
+```
+
+---
+
+# 5. Phase 36：H(4η₂)=4ι₃
+
+NEXT。
+
+Phase 35 で一方:
+
+```text
+H((2ι₂)η₂)=4ι₃
+```
+
+が完成した。
+
+次は parallel calculation:
+
+```text
+H(4η₂)
+```
+
+を計算する。
+
+target:
+
+```text
+H(4η₂)
+↓ H homomorphism / multiple
+4H(η₂)
+↓ Toda Prop.5.1
+4ι₃
+```
+
+最初に current code を確認して:
+
+```text
+EHP_H_MAP
++
+homomorphism machinery
++
+Multiple
++
+HopfInvariantStatement bridge
+```
+
+でどこまで既存機能を再利用できるか確認する。
+
+不足がある場合のみ actual H map に必要な narrow bridge を追加する。
+
+Important:
+
+```text
+Phase 36
+!=
+general arbitrary-map homomorphism expansion project
+```
+
+---
+
+# 6. Phase 36 candidate split
+
+実装時は current code / related tests を確認して最小単位に切る。
+
+候補:
+
+```text
+Phase 36-1
+actual H homomorphism applicability check
+```
+
+```text
+Phase 36-2
+H(4η₂) Multiple representation / bridge
+```
+
+```text
+Phase 36-3
+H(4η₂)=4H(η₂)
+```
+
+```text
+Phase 36-4
+H(η₂)=ι₃ substitution
+```
+
+```text
+Phase 36-5
+4H(η₂)=4ι₃
+```
+
+```text
+Phase 36-6
+H(4η₂)=4ι₃ end-to-end
+```
+
+```text
+Phase 36-7
+scope / non-goal regression
+```
+
+```text
+Phase 36-8
+representative probe / final regression
+```
+
+```text
+Phase 36-9
+Phase 36 completion
+```
+
+この分割は actual code inspection 後に調整する。
+
+---
+
+# 7. Phase 37：H-side equality
+
+Phase 35:
+
+```text
+H((2ι₂)η₂)=4ι₃
+```
+
+Phase 36:
 
 ```text
 H(4η₂)=4ι₃
@@ -256,7 +338,32 @@ H((2ι₂)η₂)=H(4η₂)
 
 を構成する。
 
-その後 Phase 28 / 29 を再利用:
+第一候補は既存 equality symmetry / transitivity:
+
+```text
+H((2ι₂)η₂)=4ι₃
+```
+
+```text
+H(4η₂)=4ι₃
+↓ symmetry
+4ι₃=H(4η₂)
+```
+
+```text
+↓ transitivity
+H((2ι₂)η₂)=H(4η₂)
+```
+
+新しい theorem rule は原則不要。
+
+Phase 37 は integration / provenance / scope の確認を中心とする。
+
+---
+
+# 8. Phase 38：Injective(H) reflection
+
+Phase 28 / 29 の既存 machinery を再利用する。
 
 ```text
 Isomorphism(H)
@@ -272,72 +379,72 @@ H(a)=H(b)
 a=b
 ```
 
-最終 target:
+ここで:
+
+```text
+a=(2ι₂)η₂
+b=4η₂
+```
+
+を代入し:
 
 ```text
 (2ι₂)η₂=4η₂
 ```
 
+を導出する。
+
+Important:
+
+```text
+Injective(H)
+```
+
+は actual typing / map context を満たす場合だけ使用する。
+
+global unrestricted H injectivity として扱わない。
+
 ---
 
-# 8. Phase 35+ の候補分割
+# 9. Phase 39 candidate：representative full equality proof
 
-実装時は actual code を確認して最小単位に切る。
-
-候補:
+Phase 35–38 を統合して:
 
 ```text
-Phase 35-1
-actual generator / identity typing check
-```
-
-```text
-Phase 35-2
-H(η₂)=ι₃ fact representation
-```
-
-```text
-Phase 35-3
-concrete Prop.2.2-left application setup
-```
-
-```text
-Phase 35-4
-2ι₁∧2ι₁ Barratt–Hilton concrete instantiation
-```
-
-```text
-Phase 35-5
-concrete sign / parity reduction
-```
-
-```text
-Phase 35-6
-composition / multiple calculation to 4ι₃
-```
-
-```text
-Phase 35-7
-H((2ι₂)η₂)=4ι₃ representative chain
-```
-
-その後必要に応じて:
-
-```text
+H((2ι₂)η₂)=4ι₃
 H(4η₂)=4ι₃
-H-side equality
-Injective(H) reflection
+↓
+H((2ι₂)η₂)=H(4η₂)
+↓
+Injective(H)
+↓
+(2ι₂)η₂=4η₂
 ```
 
-へ進む。
+を representative proof / probe にする候補。
 
-この番号は actual code inspection 後に確定する。
+ただし Phase 38 で十分に end-to-end proof が完成する場合、
+独立 Phase とせず Phase 38 の final integration に含めてもよい。
 
 ---
 
-# 9. Toda (2.1) future candidate
+# 10. Toda (2.1) current status
 
-既知として利用候補:
+Phase 35 で actual `4ι₃` calculation に必要な direction:
+
+```text
+a∘(kb)=k(a∘b)
+```
+
+を実装済み。
+
+status:
+
+```text
+DIRECTED SUBSET IMPLEMENTED
+```
+
+未実装:
 
 ```text
 a∘(b₁±b₂)=a∘b₁±a∘b₂
@@ -348,46 +455,66 @@ a∘(b₁±b₂)=a∘b₁±a∘b₂
 ```
 
 ```text
-k(a∘b)=a∘(kb)
-```
-
-```text
 k(a∘Eb)=(ka)∘Eb
 ```
 
-ただし unrestricted bidirectional rewrite は導入しない。
+unrestricted bidirectional rewrite は導入しない。
 
-Phase 35+ の actual `4ι₃` calculation で必要になった式だけ staged / directed rule として追加する。
+actual proof need が現れた式だけ staged / directed rule として追加する。
 
 ---
 
-# 10. Toda (5.1) future candidate
+# 11. Toda Prop.5.1 current status
 
-既知として利用候補:
+Phase 35 で actual fact:
 
 ```text
-π_i(S¹)=0  (i>1)
-π_i(S^n)=0  (i<n)
-π_n(S^n)=Z{ι_n}
+H(η₂)=ι₃
 ```
 
-actual proof need が現れた時点で foundational fact layer として導入する。
+を production fact として実装済み。
+
+status:
+
+```text
+PARTIALLY IMPLEMENTED FOR ACTUAL NEED
+```
+
+同じ Proposition 5.1 に含まれる:
+
+```text
+π_3^2=Z{η₂}
+```
+
+は未実装。
+
+actual proof need が現れるまで group-structure fact は追加しない。
 
 ---
 
-# 11. Current deferred boundaries
+# 12. Current deferred boundaries
 
 未実装:
 
 ```text
+H(4η₂)=4ι₃
+H((2ι₂)η₂)=H(4η₂)
+(2ι₂)η₂=4η₂
 automatic compound parity inference
 general symbolic scalar simplification
 general SmashProduct typing / algebra / normalization
 symbolic suspension typing arithmetic
 Toda (2.1) general rule set
-actual H((2ι₂)η₂) evaluation
-H((2ι₂)η₂)=H(4η₂)
-(2ι₂)η₂=4η₂
+universal arbitrary-map equality congruence
+automatic identity semantics from ι notation
+Toda (4.2) Serre finiteness fact
+Toda (4.3) 2-primary component / π_i^n definition
+WhiteheadProduct representation
+Toda Lemma 4.1 structure theorem
+Toda Prop.4.2 2-primary EHP exact sequence
+Toda (4.5) stable-range suspension isomorphism
+Toda Prop.4.4 decomposition isomorphism
+Toda Prop.4.4 consequence: E injective on π_i^n
 stable homotopy group model
 stable Toda brackets
 higher Toda brackets
@@ -395,7 +522,7 @@ higher Toda brackets
 
 ---
 
-# 12. Capability matrix
+# 13. Capability matrix
 
 | capability | status | phase |
 |---|---|---|
@@ -415,17 +542,37 @@ higher Toda brackets
 | Toda Prop.3.1 literature provenance | IMPLEMENTED | 34 |
 | Barratt–Hilton sign connection | IMPLEMENTED | 34 |
 | Barratt–Hilton reduced equality closure | IMPLEMENTED | 34 |
-| actual `H((2ι₂)η₂)` calculation | NEXT | 35+ |
-| `H((2ι₂)η₂)=H(4η₂)` | PLANNED | after actual H calculations |
-| `(2ι₂)η₂=4η₂` | PLANNED | reuse equality reflection |
-| Toda (2.1) | PLANNED | concrete need |
-| Toda (5.1) | PLANNED | concrete need |
+| actual `H(η₂)=ι₃` fact | IMPLEMENTED | 35 |
+| concrete Barratt–Hilton instantiation | IMPLEMENTED | 35 |
+| concrete parity / sign reduction | IMPLEMENTED | 35 |
+| directed Toda (2.1) right-multiple rule | IMPLEMENTED | 35 |
+| explicit identity composition | IMPLEMENTED | 35 |
+| `E(2ι₁)=2ι₂` | IMPLEMENTED | 35 |
+| `E(2ι₂)=2ι₃` | IMPLEMENTED | 35 |
+| `E(2ι₁∧2ι₁)=4ι₃` | IMPLEMENTED | 35 |
+| actual `H((2ι₂)η₂)=4ι₃` | IMPLEMENTED | 35 |
+| Phase 35 representative probe | IMPLEMENTED | 35 |
+| `H(4η₂)=4ι₃` | NEXT | 36 |
+| `H((2ι₂)η₂)=H(4η₂)` | PLANNED | 37 |
+| `(2ι₂)η₂=4η₂` | PLANNED | 38 |
+| full equality representative proof | PLANNED | 38/39 |
+| Toda Prop.5.1 group structure `π_3^2=Z{η₂}` | DEFERRED | concrete need |
+| Toda (4.2) Serre finiteness | PLANNED | foundational 2-primary branch |
+| p-primary component `π_i(S^n;p)` | PLANNED | Toda (4.3) prerequisite |
+| Toda subgroup `π_i^n` | PLANNED | Toda (4.3) |
+| `E^{-1}(π_{2n}(S^{n+1};2))` preimage group | PLANNED | critical degree `i=2n-1` |
+| Whitehead product `[a,b]` | PLANNED | Lemma 4.1 prerequisite |
+| Toda Lemma 4.1 | PLANNED | structure of `π_{2n-1}^n` |
+| Toda Prop.4.2 2-primary EHP exact sequence | PLANNED | main 2-primary calculation engine |
+| Toda (4.5) `E^(m-n)` isomorphism | PLANNED | stable-range theorem for `π_i^n` |
+| Toda Prop.4.4 decomposition isomorphism | PLANNED | `(β,γ)↦Eβ+α∘γ` |
+| Toda Prop.4.4 `E` injectivity consequence | PLANNED | reuse generic equality reflection |
 | stable homotopy | PLANNED | later |
 | higher Toda bracket | DEFERRED | concrete need |
 
 ---
 
-# 13. Long-term dependency
+# 14. Long-term dependency
 
 ```text
 Phase 29
@@ -446,23 +593,58 @@ Barratt–Hilton prerequisites COMPLETE
 Phase 34
 Toda Prop.3.1 Barratt–Hilton COMPLETE
 ↓
-Phase 35+
-actual H((2ι₂)η₂)
+Phase 35
+actual H((2ι₂)η₂) COMPLETE
 ↓
-H((2ι₂)η₂)=4ι₃
+H((2ι₂)η₂)=4ι₃ COMPLETE
 ↓
+Phase 36
 H(4η₂)=4ι₃
 ↓
+Phase 37
 H((2ι₂)η₂)=H(4η₂)
 ↓
+Phase 38
 existing Injective(H)
 ↓
 (2ι₂)η₂=4η₂
+
+parallel future branch:
+
+Toda (4.2)
+Serre finiteness
+↓
+p-primary component π_i(S^n;p)
+↓
+Toda (4.3)
+π_i^n definition
+↓
+preimage under E in degree 2n-1
+↓
+Whitehead product
+↓
+Toda Lemma 4.1
+structure of π_{2n-1}^n
+↓
+Toda Prop.4.2
+2-primary EHP exact sequence
+↓
+Toda (4.5)
+stable-range E^(m-n) isomorphism
+↓
+Toda Prop.4.4
+π_i^n decomposition isomorphism
+↓
+E is injective
+↓
+existing equality / ZERO reflection machinery
+↓
+2-primary calculations
 ```
 
 ---
 
-# 14. Testing principle
+# 15. Testing principle
 
 各 layer で:
 
@@ -480,27 +662,49 @@ existing Injective(H)
 
 を確認する。
 
+追加で actual calculation branch では:
+
+```text
+constructor normalization
+!=
+proof-level equality
+```
+
+```text
+explicit fact
+!=
+notation-derived semantics
+```
+
+```text
+directed calculation rule
+!=
+general algebra
+```
+
+を regression で固定する。
+
 ---
 
-# 15. Phase 34 verified status
+# 16. Phase 35 verified status
 
 focused:
 
 ```text
-tests/test_phase34_barratt_hilton.py
-35 passed
+tests/test_phase35_actual_h_calculation.py
+53 passed
 ```
 
 related:
 
 ```text
-tests/test_phase33_barratt_hilton.py
-73 passed
+tests/test_hopf_rules.py
+31 passed
 ```
 
 ```text
-tests/test_scalar_rules.py
-18 passed
+tests/test_homomorphism_rules.py
+39 passed
 ```
 
 ```text
@@ -508,27 +712,619 @@ tests/test_relation_rules.py
 50 passed
 ```
 
+```text
+tests/test_phase34_barratt_hilton.py
+35 passed
+```
+
 full:
 
 ```text
-1620 passed in 23.32s
+1673 passed in 23.33s
 ```
 
 probe:
 
 ```powershell
-python -m probes.probe_phase34_capabilities
+python -m probes.probe_phase35_capabilities
+```
+
+result:
+
+```text
+H((2ι₂)∘η₂)=4ι₃
 ```
 
 ---
 
-# 16. 次 Phase
+# 17. 次 Phase
 
 ```text
-Phase 35+
-actual H((2ι₂)η₂) calculation
+Phase 36
+H(4η₂)=4ι₃
 ```
 
-最初に current generator typing / identity-map representation / `H(η₂)=ι₃` / multiple representation を確認し、actual calculation に不足する最小 capability だけを特定する。
+最初に current production code と関連 tests を確認し:
 
-不足がある場合のみ production code を追加する。
+```text
+EHP_H_MAP
+homomorphism property
+homomorphism_preserves_multiple
+HopfInvariantStatement H(η₂)=ι₃
+equality under Multiple
+```
+
+の再利用可能範囲を確認する。
+
+想定 target:
+
+```text
+H(4η₂)
+↓
+4H(η₂)
+↓
+4ι₃
+```
+
+不足がある場合のみ actual H multiple calculation に必要な最小 bridge を追加する。
+
+---
+
+# 18. Toda 4章：2-primary calculation branch
+
+Toda 4章の結果は、
+通常の homotopy group `π_i(S^n)` だけでなく、
+2-primary component と Toda が定義する部分群 `π_i^n` を用いて
+EHP 型計算を進めるための独立した将来 branch とする。
+
+この branch の中心:
+
+```text
+Serre finiteness
+↓
+p-primary component
+↓
+Toda π_i^n
+↓
+preimage under E
+↓
+Whitehead product
+↓
+Lemma 4.1
+↓
+2-primary EHP exact sequence
+↓
+stable-range suspension isomorphism
+↓
+decomposition isomorphism
+↓
+E injectivity
+↓
+2-primary calculations
+```
+
+Important:
+
+```text
+π_i^n
+!=
+π_i(S^n)
+```
+
+一般には同一視しない。
+
+---
+
+# 19. Toda (4.2) — Serre finiteness
+
+[Toda](4.2) で利用する既知結果:
+
+```text
+π_i(S^n)
+```
+
+は、
+
+```text
+i=n
+```
+
+または、
+
+```text
+i=2n-1
+```
+
+の場合を除いて有限群である。
+
+将来的には foundational group fact として扱う。
+
+この fact 自体から具体的な group structure を自動生成しない。
+
+```text
+finite
+!=
+known decomposition
+```
+
+---
+
+# 20. Toda (4.3) — p-primary component と π_i^n
+
+## 20.1 p-primary component
+
+```text
+π_i(S^n;p)
+```
+
+を `π_i(S^n)` の `p`-primary component として扱う。
+
+特に:
+
+```text
+π_i(S^n;2)
+```
+
+を優先する。
+
+将来的には ambient homotopy group と prime を structural に持つ minimum representation を検討する。
+
+## 20.2 Toda subgroup π_i^n
+
+[Toda](4.3):
+
+```text
+i=n
+```
+
+のとき:
+
+```text
+π_i^n=π_n(S^n)
+```
+
+```text
+i=2n-1
+```
+
+のとき:
+
+```text
+π_i^n
+=
+E^-1(π_{2n}(S^{n+1};2))
+```
+
+```text
+i != n, 2n-1
+```
+
+のとき:
+
+```text
+π_i^n
+=
+π_i(S^n;2)
+```
+
+Important:
+
+```text
+π_i^n
+!=
+plain alias of π_i(S^n)
+```
+
+critical degree では preimage definition provenance を保持する。
+
+---
+
+# 21. Preimage group under suspension
+
+critical degree:
+
+```text
+π_{2n-1}^n
+=
+E^-1(π_{2n}(S^{n+1};2))
+```
+
+では subgroup preimage が必要。
+
+将来候補:
+
+```text
+PreimageSubgroup(
+  map=E,
+  subgroup=π_{2n}(S^{n+1};2),
+)
+```
+
+semantics:
+
+```text
+x ∈ E^-1(A)
+↔
+E(x) ∈ A
+```
+
+element preimage と subgroup preimage を区別する。
+
+---
+
+# 22. Whitehead product
+
+Toda Lemma 4.1 で:
+
+```text
+[ι_{n-1},ι_{n-1}]
+```
+
+が必要。
+
+minimum representation candidate:
+
+```text
+WhiteheadProduct(
+  left=a,
+  right=b,
+)
+```
+
+Important:
+
+```text
+WhiteheadProduct
+!=
+Composition
+!=
+SmashProduct
+```
+
+初期は Lemma 4.1 に必要な zero / nonzero facts の表現を優先し、
+general Whitehead-product algebra は先取りしない。
+
+---
+
+# 23. Toda Lemma 4.1
+
+critical group:
+
+```text
+π_{2n-1}^n
+```
+
+を parity と Whitehead product で場合分けする。
+
+## n odd
+
+```text
+π_{2n-1}^n
+=
+π_{2n-1}(S^n;2)
+```
+
+## n even + Whitehead product nonzero
+
+```text
+π_{2n-1}^n
+=
+Z{P(ι_{2n+1})}
+⊕
+π_{2n-1}(S^n;2)
+```
+
+## n even + Whitehead product zero
+
+```text
+π_{2n-1}^n
+=
+Z{α}
+⊕
+π_{2n-1}(S^n;2)
+```
+
+with:
+
+```text
+H(α)=ι_{2n-1}
+```
+
+```text
+Eα ∈ π_{2n}^{n+1}
+```
+
+`α` は theorem witness として扱い、
+notation から自動生成しない。
+
+---
+
+# 24. Toda Prop.4.2 — 2-primary EHP exact sequence
+
+[Toda] Prop.4.2:
+
+```text
+… →
+π_i^n
+-E→
+π_{i+1}^{n+1}
+-H→
+π_{i+1}^{2n+1}
+-Δ→
+π_{i-1}^n
+-E→
+π_i^{n+1}
+-H→
+…
+```
+
+existing exactness machinery を可能な限り再利用する。
+
+```text
+new group-term representation
++
+existing exactness reasoning
+```
+
+を優先し、
+新しい exactness engine は作らない。
+
+---
+
+# 25. Toda (4.5) — stable-range suspension isomorphism
+
+```text
+n >= k+2
+m >= n
+```
+
+のとき:
+
+```text
+E^(m-n):
+π_{n+k}^n
+→
+π_{m+k}^m
+```
+
+は同型。
+
+Important:
+
+```text
+Toda (4.5)
+!=
+existing Freudenthal theorem
+```
+
+source / theorem provenance を別々に保持する。
+
+existing Phase 28:
+
+```text
+Isomorphism
+↓
+Injective
+```
+
+を再利用する。
+
+---
+
+# 26. Toda Prop.4.4 — decomposition isomorphism
+
+仮定:
+
+```text
+α ∈ π_{2n-1}^n
+H(α)=±ι_{2n-1}
+```
+
+map:
+
+```text
+π_{i-1}^{n-1}
+⊕
+π_i^{2n-1}
+→
+π_i^n
+```
+
+```text
+(β,γ)
+↦
+Eβ + α∘γ
+```
+
+は同型。
+
+将来 representation は generic lambda calculus を作らず、
+actual theorem application に必要な minimum map object を優先する。
+
+---
+
+# 27. Prop.4.4 consequence — contextual Injective(E)
+
+Prop.4.4 から:
+
+```text
+E:
+π_{i-1}^{n-1}
+→
+π_i^n
+```
+
+は単射。
+
+existing equality reflection:
+
+```text
+Injective(E)
++
+Eβ₁=Eβ₂
+↓
+β₁=β₂
+```
+
+を再利用する。
+
+Important:
+
+```text
+contextual Injective(E)
+!=
+global Injective(E)
+```
+
+typing context と theorem provenance を保持する。
+
+---
+
+# 28. 2-primary branch implementation order candidate
+
+Phase 36–38 の actual equality branch を直近目標として維持する。
+
+その後の候補:
+
+```text
+4A
+PrimaryComponent minimum representation
+↓
+4B
+TodaPrimaryGroup π_i^n
+↓
+4C
+PreimageSubgroup under E
+↓
+4D
+WhiteheadProduct minimum representation
+↓
+4E
+Toda Lemma 4.1 theorem rules
+↓
+4F
+Toda Prop.4.2 exact-sequence construction
+↓
+4G
+Toda (4.5) suspension-isomorphism theorem
+↓
+4H
+Toda Prop.4.4 decomposition isomorphism
+↓
+4I
+contextual Injective(E)
+↓
+4J
+representative 2-primary calculation
+```
+
+実際の Phase 番号は current project progress と code inspection 後に決める。
+
+---
+
+# 29. 2-primary branch testing principle
+
+既存 testing principle に加えて:
+
+```text
+π_i(S^n)
+!=
+π_i(S^n;2)
+!=
+π_i^n
+```
+
+を固定する。
+
+critical degree:
+
+```text
+i=n
+i=2n-1
+otherwise
+```
+
+を区別する。
+
+Preimage subgroup:
+
+```text
+x∈E^-1(A)
+↔
+E(x)∈A
+```
+
+Whitehead:
+
+```text
+[ι_{n-1},ι_{n-1}]=0
+```
+
+と:
+
+```text
+[ι_{n-1},ι_{n-1}]!=0
+```
+
+を区別する。
+
+Toda (4.5):
+
+```text
+n>=k+2
+m>=n
+```
+
+の side conditions を strict に扱う。
+
+Prop.4.4:
+
+```text
+α∈π_{2n-1}^n
+H(α)=±ι_{2n-1}
+```
+
+の両 premise を要求する。
+
+contextual `Injective(E)` が unrelated map context に漏れないことを regression で確認する。
+
+---
+
+# 30. 将来の2-primary representative proof direction
+
+最終的には:
+
+```text
+known group facts
++
+2-primary component
++
+π_i^n
++
+EHP exactness
++
+stable-range suspension isomorphism
++
+decomposition isomorphism
++
+injective E
+```
+
+から Toda の 2-primary calculations を proof graph 上で追跡する。
+
+扱う対象:
+
+```text
+exact group value
+finite-group fact
+2-primary subgroup
+free Z summand
+preimage-defined subgroup
+chosen witness α
+Whitehead-product condition
+exactness
+isomorphism
+injectivity
+```
+
+を同一 provenance-aware framework に統合する。

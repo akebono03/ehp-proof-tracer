@@ -306,6 +306,62 @@ def suspension_additivity_bridge_inference_rule(
   )
 
 
+def suspension_multiple_bridge_inference_rule(
+  coefficient,
+  expression,
+):
+  expected_generic_relation = Relation(
+    lhs=MapApplication(
+      map=SUSPENSION_MAP,
+      expression=Multiple(
+        coefficient=coefficient,
+        expression=expression,
+      ),
+    ),
+    rhs=Multiple(
+      coefficient=coefficient,
+      expression=MapApplication(
+        map=SUSPENSION_MAP,
+        expression=expression,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  return InferenceRule(
+    name="suspension multiple bridge",
+    description=(
+      "Translate the generic homomorphism "
+      "multiple relation for E into the "
+      "existing Suspension expression."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.EQUALITY,
+        relation_pattern=(
+          expected_generic_relation
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=Suspension(
+        expression=Multiple(
+          coefficient=coefficient,
+          expression=expression,
+        ),
+      ),
+      rhs=Multiple(
+        coefficient=coefficient,
+        expression=Suspension(
+          expression=expression,
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+  )
+
+
 def homomorphism_preserves_known_zero_inference_rule(
   expression,
 ):

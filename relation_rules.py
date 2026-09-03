@@ -1,5 +1,6 @@
 from expression import (
   Composition,
+  IteratedSuspension,
   Multiple,
   Sum,
   Suspension,
@@ -401,6 +402,32 @@ def zero_composition_reverse_equality_implies_zero_inference_rule():
   )
 
 
+def iterated_suspension_one_bridge_inference_rule(
+  expression,
+):
+  return InferenceRule(
+    name=(
+      "first iterated suspension "
+      "equals suspension"
+    ),
+    description=(
+      "One iterated suspension E^1(x) "
+      "is mathematically equal to the "
+      "ordinary Suspension expression E(x)."
+    ),
+    conclusion_pattern=Relation(
+      lhs=IteratedSuspension(
+        expression=expression,
+        exponent=1,
+      ),
+      rhs=Suspension(
+        expression=expression,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+  )
+
+
 def suspension_preserves_equality_inference_rule():
   left_expression = PatternVariable(
     name="left_expression",
@@ -698,6 +725,102 @@ def equality_preserved_under_left_composition_inference_rule(
       rhs=Composition(
         left=left_expression,
         right=equal_expression,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+  )
+
+
+def equality_preserved_under_multiple_inference_rule(
+  coefficient,
+):
+  left_expression = PatternVariable(
+    name="left_expression",
+  )
+
+  right_expression = PatternVariable(
+    name="right_expression",
+  )
+
+  return InferenceRule(
+    name="equality preserved under multiple",
+    description=(
+      "If x=y, then the same integer "
+      "multiple of x and y is equal."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.EQUALITY,
+        relation_pattern=Relation(
+          lhs=left_expression,
+          rhs=right_expression,
+          relation_type=RelationType.EQUALITY,
+        ),
+      ),
+    ),
+    conclusion_pattern=Relation(
+      lhs=Multiple(
+        coefficient=coefficient,
+        expression=left_expression,
+      ),
+      rhs=Multiple(
+        coefficient=coefficient,
+        expression=right_expression,
+      ),
+      relation_type=RelationType.EQUALITY,
+    ),
+  )
+
+
+def nested_integer_multiple_inference_rule(
+  outer_coefficient,
+  inner_coefficient,
+  expression,
+):
+  if (
+    isinstance(
+      outer_coefficient,
+      bool,
+    )
+    or not isinstance(
+      outer_coefficient,
+      int,
+    )
+    or isinstance(
+      inner_coefficient,
+      bool,
+    )
+    or not isinstance(
+      inner_coefficient,
+      int,
+    )
+  ):
+    raise TypeError(
+      "nested integer multiple "
+      "requires integer coefficients"
+    )
+
+  return InferenceRule(
+    name="nested integer multiple",
+    description=(
+      "A nested integer multiple "
+      "m(nx) equals (mn)x."
+    ),
+    conclusion_pattern=Relation(
+      lhs=Multiple(
+        coefficient=outer_coefficient,
+        expression=Multiple(
+          coefficient=inner_coefficient,
+          expression=expression,
+        ),
+      ),
+      rhs=Multiple(
+        coefficient=(
+          outer_coefficient
+          * inner_coefficient
+        ),
+        expression=expression,
       ),
       relation_type=RelationType.EQUALITY,
     ),

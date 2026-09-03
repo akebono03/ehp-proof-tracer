@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from expression import (
   Composition,
-  HomotopyElement,
+  Expression,
   IteratedSuspension,
   Multiple,
   ScalarPower,
@@ -34,9 +34,31 @@ TODA_PROP_3_1_REFERENCE = LiteratureReference(
 
 @dataclass(frozen=True)
 class HomotopyGroupMembershipStatement:
-  element: HomotopyElement
+  element: Expression
   group_dimension: ScalarValue
   sphere_dimension: ScalarValue
+
+
+def _barratt_hilton_scalar_sum(
+  left,
+  right,
+):
+  if (
+    isinstance(
+      left,
+      int,
+    )
+    and isinstance(
+      right,
+      int,
+    )
+  ):
+    return left + right
+
+  return ScalarSum(
+    left=left,
+    right=right,
+  )
 
 
 def barratt_hilton_first_inference_rule(
@@ -47,13 +69,24 @@ def barratt_hilton_first_inference_rule(
   k,
   h,
 ):
+  p_plus_k = (
+    _barratt_hilton_scalar_sum(
+      p,
+      k,
+    )
+  )
+
+  q_plus_h = (
+    _barratt_hilton_scalar_sum(
+      q,
+      h,
+    )
+  )
+
   expected_alpha_membership = (
     HomotopyGroupMembershipStatement(
       element=alpha,
-      group_dimension=ScalarSum(
-        left=p,
-        right=k,
-      ),
+      group_dimension=p_plus_k,
       sphere_dimension=p,
     )
   )
@@ -61,10 +94,7 @@ def barratt_hilton_first_inference_rule(
   expected_beta_membership = (
     HomotopyGroupMembershipStatement(
       element=beta,
-      group_dimension=ScalarSum(
-        left=q,
-        right=h,
-      ),
+      group_dimension=q_plus_h,
       sphere_dimension=q,
     )
   )
@@ -88,11 +118,6 @@ def barratt_hilton_first_inference_rule(
   def conclusion_builder(
     premises,
   ):
-    p_plus_k = ScalarSum(
-      left=p,
-      right=k,
-    )
-
     sign_exponent = ScalarProduct(
       left=p_plus_k,
       right=h,
@@ -167,13 +192,24 @@ def barratt_hilton_second_inference_rule(
   k,
   h,
 ):
+  p_plus_k = (
+    _barratt_hilton_scalar_sum(
+      p,
+      k,
+    )
+  )
+
+  q_plus_h = (
+    _barratt_hilton_scalar_sum(
+      q,
+      h,
+    )
+  )
+
   expected_alpha_membership = (
     HomotopyGroupMembershipStatement(
       element=alpha,
-      group_dimension=ScalarSum(
-        left=p,
-        right=k,
-      ),
+      group_dimension=p_plus_k,
       sphere_dimension=p,
     )
   )
@@ -181,10 +217,7 @@ def barratt_hilton_second_inference_rule(
   expected_beta_membership = (
     HomotopyGroupMembershipStatement(
       element=beta,
-      group_dimension=ScalarSum(
-        left=q,
-        right=h,
-      ),
+      group_dimension=q_plus_h,
       sphere_dimension=q,
     )
   )
@@ -208,11 +241,6 @@ def barratt_hilton_second_inference_rule(
   def conclusion_builder(
     premises,
   ):
-    q_plus_h = ScalarSum(
-      left=q,
-      right=h,
-    )
-
     sign_exponent = ScalarProduct(
       left=p,
       right=h,
