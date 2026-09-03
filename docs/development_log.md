@@ -964,3 +964,475 @@ Injective(H)
 へ進む。
 
 次 Phase でも actual mathematical need に必要な最小変更だけを行う。
+
+
+---
+
+# Phase 36：actual H(4η₂) calculation
+
+目的:
+
+```text
+H(4η₂)=4ι₃
+```
+
+を actual `EHP_H_MAP`、generic homomorphism machinery、Toda Prop.5.1 fact、equality under Multiple、transitivity から導出する。
+
+---
+
+## Phase 36-1：actual H homomorphism applicability check
+
+確認:
+
+```text
+4η₂
+```
+
+は既存 `Multiple` で表現可能。
+
+既存:
+
+```text
+homomorphism_preserves_multiple_inference_rule()
+```
+
+は explicit `HomomorphismStatement(map=EHP_H_MAP)` が premise にあれば:
+
+```text
+H(4η₂)=4H(η₂)
+```
+
+を生成可能。
+
+一方 current actual map knowledge は:
+
+```text
+Isomorphism(H)
+```
+
+までで:
+
+```text
+Isomorphism(H)
+↛ Homomorphism(H)
+```
+
+であることを確認。
+
+production code 変更なし。
+
+結果:
+
+```text
+4 passed Phase 36 focused
+1677 passed full suite
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 36-2：actual H homomorphism fact / bridge
+
+`hopf_rules.py` に narrow actual-H materialization:
+
+```text
+ehp_h_homomorphism_proof_step()
+```
+
+を追加。
+
+生成:
+
+```text
+GIVEN Homomorphism(EHP_H_MAP)
+```
+
+重要:
+
+```text
+Isomorphism(f)→Homomorphism(f)
+```
+
+という general rule は追加しない。
+
+```text
+arbitrary MapSymbol→Homomorphism
+```
+
+も追加しない。
+
+結果:
+
+```text
+6 passed Phase 36 focused
+1679 passed full suite
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 36-3：H(4η₂)=4H(η₂)
+
+production code 変更なし。
+
+```text
+Homomorphism(H)
++
+homomorphism preserves multiple
+↓
+H(4η₂)=4H(η₂)
+```
+
+を `ProofStep` として生成。
+
+結果:
+
+```text
+7 passed Phase 36 focused
+1680 passed full suite
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 36-4：H(η₂)=ι₃ substitution
+
+Phase 35 の actual Toda Prop.5.1 fact:
+
+```text
+H(η₂)=ι₃
+```
+
+へ既存:
+
+```text
+x=y
+↓
+4x=4y
+```
+
+を適用。
+
+結果:
+
+```text
+4H(η₂)=4ι₃
+```
+
+production code / new algebra rule 変更なし。
+
+結果:
+
+```text
+8 passed Phase 36 focused
+1681 passed full suite
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 36-5：H(4η₂)=4ι₃ transitivity closure
+
+```text
+H(4η₂)=4H(η₂)
+4H(η₂)=4ι₃
+↓
+equality transitivity
+H(4η₂)=4ι₃
+```
+
+専用 theorem rule なし。
+
+結果:
+
+```text
+9 passed Phase 36 focused
+1682 passed full suite
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 36-6：H(4η₂)=4ι₃ end-to-end integration
+
+1本の representative test 内で:
+
+```text
+Homomorphism(H)
+↓
+H(4η₂)=4H(η₂)
+
+Toda Prop.5.1
+↓
+H(η₂)=ι₃
+↓
+4H(η₂)=4ι₃
+
+↓
+H(4η₂)=4ι₃
+```
+
+を構築。
+
+proof dependency も確認。
+
+結果:
+
+```text
+10 passed Phase 36 focused
+1683 passed full suite
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 36-7：scope / non-goal regression
+
+固定:
+
+```text
+actual Homomorphism(H)
+→ EHP_H_MAP only
+```
+
+```text
+H((2ι₂)η₂)=4ι₃
+H(4η₂)=4ι₃
+↛ direct transitivity
+```
+
+```text
+Injective(H)
++
+H((2ι₂)η₂)=4ι₃
+↛
+(2ι₂)η₂=4η₂
+```
+
+Phase 37 / 38 を先取りしないことを regression 固定。
+
+結果:
+
+```text
+13 passed Phase 36 focused
+1686 passed full suite
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 36-8：representative probe / final regression
+
+追加:
+
+```text
+probes/probe_phase36_capabilities.py
+```
+
+表示:
+
+```text
+[1] Actual H homomorphism
+[2] H multiple calculation
+[3] Toda Prop.5.1
+[4] Equality under Multiple
+[RESULT] H(4η₂)=4ι₃
+```
+
+provenance:
+
+```text
+actual H homomorphism
+homomorphism preserves multiple
+Toda Prop.5.1
+equality preserved under multiple
+equality transitivity
+```
+
+boundary:
+
+```text
+H((2ι₂)η₂)=H(4η₂)
+(2ι₂)η₂=4η₂
+automatic Isomorphism→Homomorphism
+arbitrary-map automatic homomorphism inference
+```
+
+final regression:
+
+```text
+tests/test_phase36_actual_h_multiple.py
+14 passed
+```
+
+```text
+full suite
+1687 passed in 25.70s
+```
+
+probe:
+
+```powershell
+python -m probes.probe_phase36_capabilities
+```
+
+正常完走。
+
+### 状態
+
+完了
+
+---
+
+## Phase 36-9：Phase 36 完了整理
+
+Phase 36 で完成:
+
+```text
+actual H homomorphism applicability check
+actual Homomorphism(H) materialization
+H(4η₂)=4H(η₂)
+Toda Prop.5.1 H(η₂)=ι₃ reuse
+4H(η₂)=4ι₃
+H(4η₂)=4ι₃ transitivity closure
+end-to-end representative ProofStep
+scope / non-goal regression
+representative executable probe
+final integrated regression
+```
+
+generic inference engine:
+
+```text
+変更なし
+```
+
+Phase 36 completion status:
+
+```text
+tests/test_phase36_actual_h_multiple.py
+14 passed
+```
+
+```text
+tests/test_homomorphism_rules.py
+39 passed
+```
+
+```text
+tests/test_hopf_rules.py
+31 passed
+```
+
+```text
+tests/test_relation_rules.py
+50 passed
+```
+
+```text
+tests/test_map_property_rules.py
+26 passed
+```
+
+```text
+full suite
+1687 passed in 25.70s
+```
+
+probe:
+
+```powershell
+python -m probes.probe_phase36_capabilities
+```
+
+正常完走。
+
+### 状態
+
+完了
+
+---
+
+# Phase 36 completion boundary
+
+実装済み:
+
+```text
+H(η₂)=ι₃
+H((2ι₂)η₂)=4ι₃
+Homomorphism(H) actual materialization
+H(4η₂)=4H(η₂)
+4H(η₂)=4ι₃
+H(4η₂)=4ι₃
+```
+
+未実装:
+
+```text
+H((2ι₂)η₂)=H(4η₂)
+(2ι₂)η₂=4η₂
+```
+
+generalization として未実装:
+
+```text
+automatic Isomorphism→Homomorphism conversion
+arbitrary-map automatic homomorphism inference
+general symbolic scalar algebra
+general composition bilinearity
+universal arbitrary-map congruence
+```
+
+---
+
+# 次の Phase
+
+次は Phase 37:
+
+```text
+H((2ι₂)η₂)=4ι₃
+H(4η₂)=4ι₃
+↓ symmetry
+4ι₃=H(4η₂)
+↓ transitivity
+H((2ι₂)η₂)=H(4η₂)
+```
+
+第一候補は existing equality symmetry / transitivity の再利用。
+
+その後 Phase 38 で:
+
+```text
+Isomorphism(H)
+↓
+Injective(H)
+
+Injective(H)
++
+H((2ι₂)η₂)=H(4η₂)
+↓
+(2ι₂)η₂=4η₂
+```
+
+へ進む。

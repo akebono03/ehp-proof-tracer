@@ -22,7 +22,7 @@ future capability dependency
 
 ---
 
-# 2. Phase 35 完了時点
+# 2. Phase 36 完了時点
 
 Completed chain:
 
@@ -35,30 +35,31 @@ Phase 32  Toda Prop.2.2 left
 Phase 33  Barratt–Hilton prerequisites
 Phase 34  Toda Prop.3.1 Barratt–Hilton theorem rules
 Phase 35  actual H((2ι₂)η₂) calculation
+Phase 36  actual H(4η₂) calculation
 ```
 
 Current full regression:
 
 ```text
-1673 passed in 23.33s
+1687 passed in 25.70s
 ```
 
-Focused Phase 35:
+Focused Phase 36:
 
 ```text
-53 passed
+14 passed
 ```
 
 Representative probe:
 
 ```powershell
-python -m probes.probe_phase35_capabilities
+python -m probes.probe_phase36_capabilities
 ```
 
-Final Phase 35 result:
+Final Phase 36 result:
 
 ```text
-H((2ι₂)η₂)=4ι₃
+H(4η₂)=4ι₃
 ```
 
 ---
@@ -207,51 +208,58 @@ general composition bilinearity
 
 # 5. Phase 36：H(4η₂)=4ι₃
 
-NEXT。
+COMPLETE。
 
-Phase 35 で一方:
+Phase 35 の parallel result:
 
 ```text
 H((2ι₂)η₂)=4ι₃
 ```
 
-が完成した。
-
-次は parallel calculation:
+に対して Phase 36 では:
 
 ```text
-H(4η₂)
+H(4η₂)=4ι₃
 ```
 
-を計算する。
+を完成した。
 
-target:
+actual chain:
 
 ```text
-H(4η₂)
-↓ H homomorphism / multiple
-4H(η₂)
-↓ Toda Prop.5.1
-4ι₃
+actual Homomorphism(H)
+↓
+H(4η₂)=4H(η₂)
+
+Toda Prop.5.1
+↓
+H(η₂)=ι₃
+↓ equality under Multiple
+4H(η₂)=4ι₃
+
+↓ equality transitivity
+H(4η₂)=4ι₃
 ```
 
-最初に current code を確認して:
+Phase 36 で追加した production capability は narrow actual-H materialization:
 
 ```text
-EHP_H_MAP
-+
-homomorphism machinery
-+
-Multiple
-+
-HopfInvariantStatement bridge
+ehp_h_homomorphism_proof_step()
 ```
 
-でどこまで既存機能を再利用できるか確認する。
-
-不足がある場合のみ actual H map に必要な narrow bridge を追加する。
+のみ。
 
 Important:
+
+```text
+Isomorphism(H)
+↛ Homomorphism(H) automatically
+```
+
+```text
+arbitrary MapSymbol
+↛ automatic Homomorphism
+```
 
 ```text
 Phase 36
@@ -259,60 +267,39 @@ Phase 36
 general arbitrary-map homomorphism expansion project
 ```
 
+verified:
+
+```text
+tests/test_phase36_actual_h_multiple.py
+14 passed
+
+full suite
+1687 passed in 25.70s
+```
+
+probe:
+
+```powershell
+python -m probes.probe_phase36_capabilities
+```
+
 ---
 
-# 6. Phase 36 candidate split
-
-実装時は current code / related tests を確認して最小単位に切る。
-
-候補:
+# 6. Phase 36 completed split
 
 ```text
-Phase 36-1
-actual H homomorphism applicability check
+36-1 actual H homomorphism applicability check COMPLETE
+36-2 actual H homomorphism fact / bridge COMPLETE
+36-3 H(4η₂)=4H(η₂) COMPLETE
+36-4 H(η₂)=ι₃ substitution COMPLETE
+36-5 H(4η₂)=4ι₃ transitivity closure COMPLETE
+36-6 H(4η₂)=4ι₃ end-to-end integration COMPLETE
+36-7 scope / non-goal regression COMPLETE
+36-8 representative probe / final regression COMPLETE
+36-9 Phase 36 completion COMPLETE
 ```
 
-```text
-Phase 36-2
-H(4η₂) Multiple representation / bridge
-```
-
-```text
-Phase 36-3
-H(4η₂)=4H(η₂)
-```
-
-```text
-Phase 36-4
-H(η₂)=ι₃ substitution
-```
-
-```text
-Phase 36-5
-4H(η₂)=4ι₃
-```
-
-```text
-Phase 36-6
-H(4η₂)=4ι₃ end-to-end
-```
-
-```text
-Phase 36-7
-scope / non-goal regression
-```
-
-```text
-Phase 36-8
-representative probe / final regression
-```
-
-```text
-Phase 36-9
-Phase 36 completion
-```
-
-この分割は actual code inspection 後に調整する。
+Phase 37/38 は未着手。
 
 ---
 
@@ -497,7 +484,6 @@ actual proof need が現れるまで group-structure fact は追加しない。
 未実装:
 
 ```text
-H(4η₂)=4ι₃
 H((2ι₂)η₂)=H(4η₂)
 (2ι₂)η₂=4η₂
 automatic compound parity inference
@@ -552,7 +538,7 @@ higher Toda brackets
 | `E(2ι₁∧2ι₁)=4ι₃` | IMPLEMENTED | 35 |
 | actual `H((2ι₂)η₂)=4ι₃` | IMPLEMENTED | 35 |
 | Phase 35 representative probe | IMPLEMENTED | 35 |
-| `H(4η₂)=4ι₃` | NEXT | 36 |
+| `H(4η₂)=4ι₃` | IMPLEMENTED | 36 |
 | `H((2ι₂)η₂)=H(4η₂)` | PLANNED | 37 |
 | `(2ι₂)η₂=4η₂` | PLANNED | 38 |
 | full equality representative proof | PLANNED | 38/39 |
@@ -599,7 +585,7 @@ actual H((2ι₂)η₂) COMPLETE
 H((2ι₂)η₂)=4ι₃ COMPLETE
 ↓
 Phase 36
-H(4η₂)=4ι₃
+H(4η₂)=4ι₃ COMPLETE
 ↓
 Phase 37
 H((2ι₂)η₂)=H(4η₂)
@@ -686,25 +672,25 @@ general algebra
 
 ---
 
-# 16. Phase 35 verified status
+# 16. Phase 36 verified status
 
 focused:
 
 ```text
-tests/test_phase35_actual_h_calculation.py
-53 passed
+tests/test_phase36_actual_h_multiple.py
+14 passed
 ```
 
 related:
 
 ```text
-tests/test_hopf_rules.py
-31 passed
+tests/test_homomorphism_rules.py
+39 passed
 ```
 
 ```text
-tests/test_homomorphism_rules.py
-39 passed
+tests/test_hopf_rules.py
+31 passed
 ```
 
 ```text
@@ -713,26 +699,26 @@ tests/test_relation_rules.py
 ```
 
 ```text
-tests/test_phase34_barratt_hilton.py
-35 passed
+tests/test_map_property_rules.py
+26 passed
 ```
 
 full:
 
 ```text
-1673 passed in 23.33s
+1687 passed in 25.70s
 ```
 
 probe:
 
 ```powershell
-python -m probes.probe_phase35_capabilities
+python -m probes.probe_phase36_capabilities
 ```
 
 result:
 
 ```text
-H((2ι₂)∘η₂)=4ι₃
+H(4η₂)=4ι₃
 ```
 
 ---
@@ -740,33 +726,37 @@ H((2ι₂)∘η₂)=4ι₃
 # 17. 次 Phase
 
 ```text
-Phase 36
+Phase 37
+H((2ι₂)η₂)=H(4η₂)
+```
+
+既に:
+
+```text
+Phase 35: H((2ι₂)η₂)=4ι₃
+Phase 36: H(4η₂)=4ι₃
+```
+
+がある。
+
+第一候補は既存 equality symmetry / transitivity:
+
+```text
 H(4η₂)=4ι₃
+↓ symmetry
+4ι₃=H(4η₂)
 ```
-
-最初に current production code と関連 tests を確認し:
 
 ```text
-EHP_H_MAP
-homomorphism property
-homomorphism_preserves_multiple
-HopfInvariantStatement H(η₂)=ι₃
-equality under Multiple
+H((2ι₂)η₂)=4ι₃
+4ι₃=H(4η₂)
+↓ transitivity
+H((2ι₂)η₂)=H(4η₂)
 ```
 
-の再利用可能範囲を確認する。
+新しい theorem rule は原則不要。
 
-想定 target:
-
-```text
-H(4η₂)
-↓
-4H(η₂)
-↓
-4ι₃
-```
-
-不足がある場合のみ actual H multiple calculation に必要な最小 bridge を追加する。
+その後 Phase 38 で existing actual `H` injectivity reflection を再利用する。
 
 ---
 

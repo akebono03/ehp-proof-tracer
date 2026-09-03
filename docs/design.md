@@ -54,7 +54,7 @@ homotopy / EHP data
 abelian-group algebra
 ```
 
-Phase 35 でも generic inference engine 自体は変更していない。
+Phase 35–36 でも generic inference engine 自体は変更していない。
 
 ---
 
@@ -1041,3 +1041,329 @@ a=b
 へ進む。
 
 次 Phase でも actual need に必要な最小 capability だけを追加し、general algebra を先取りしない。
+
+
+---
+
+# 28. Actual H homomorphism materialization
+
+Phase 36 では actual `EHP_H_MAP` に対する homomorphism property を proof graph に供給する必要が生じた。
+
+既存 generic machinery:
+
+```text
+Homomorphism(f)
+↓
+f(kx)=k f(x)
+```
+
+はそのまま再利用する。
+
+追加した narrow production API:
+
+```text
+ehp_h_homomorphism_proof_step()
+```
+
+返す statement:
+
+```text
+HomomorphismStatement(
+  map=EHP_H_MAP,
+)
+```
+
+これは actual `H` の既知 property の materialization であり、map-property inference の一般化ではない。
+
+重要:
+
+```text
+Isomorphism(H)
+↛
+Homomorphism(H) automatically
+```
+
+```text
+MapSymbol(f)
+↛
+Homomorphism(f) automatically
+```
+
+Phase 13 以来の automatic `Homomorphism(H)` / arbitrary-map homomorphism discovery を導入しない boundary を維持する。
+
+---
+
+# 29. Phase 36 actual H Multiple calculation
+
+actual element:
+
+```text
+4η₂
+```
+
+は既存 `Multiple` で表現する。
+
+actual homomorphism premise と generic rule:
+
+```text
+Homomorphism(H)
++
+homomorphism_preserves_multiple_inference_rule(
+  coefficient=4,
+  expression=η₂,
+)
+```
+
+から:
+
+```text
+H(4η₂)=4H(η₂)
+```
+
+を導出する。
+
+専用 `H Multiple` expression / bridge は追加しない。`MapApplication(EHP_H_MAP, ...)` が actual `H` application の canonical representation である。
+
+---
+
+# 30. Toda Prop.5.1 substitution under Multiple
+
+Phase 35 で実装済みの actual equality:
+
+```text
+H(η₂)=ι₃
+```
+
+に既存 generic equality congruence:
+
+```text
+x=y
+↓
+kx=ky
+```
+
+を `k=4` で適用し:
+
+```text
+4H(η₂)=4ι₃
+```
+
+を導出する。
+
+新しい substitution engine / scalar normalization は追加しない。
+
+---
+
+# 31. Phase 36 transitivity closure
+
+2 branch:
+
+```text
+H(4η₂)=4H(η₂)
+```
+
+```text
+4H(η₂)=4ι₃
+```
+
+の middle expression は structural に同一:
+
+```text
+Multiple(
+  coefficient=4,
+  expression=MapApplication(
+    map=EHP_H_MAP,
+    expression=ETA_2,
+  ),
+)
+```
+
+したがって existing equality transitivity により:
+
+```text
+H(4η₂)=4ι₃
+```
+
+を得る。
+
+専用 final theorem rule は追加しない。
+
+---
+
+# 32. Phase 36 provenance
+
+代表 proof graph:
+
+```text
+actual Homomorphism(H)
+↓
+homomorphism preserves multiple
+↓
+H(4η₂)=4H(η₂)
+
+Toda Prop.5.1
+↓
+H(η₂)=ι₃
+↓
+equality preserved under multiple
+↓
+4H(η₂)=4ι₃
+
+↓ equality transitivity
+H(4η₂)=4ι₃
+```
+
+Toda provenance の正本は Phase 35 の `ETA_2_HOPF_INVARIANT_FACT` に保持される。final transitivity Relation に literature metadata を複製しない。
+
+---
+
+# 33. Phase 36 scope regression
+
+固定する boundary:
+
+```text
+actual Homomorphism(H)
+→ canonical EHP_H_MAP only
+```
+
+```text
+Isomorphism(H)
+↛ Homomorphism(H)
+```
+
+```text
+arbitrary MapSymbol
+↛ automatic Homomorphism
+```
+
+```text
+H((2ι₂)η₂)=4ι₃
++
+H(4η₂)=4ι₃
+↛
+direct transitivity
+```
+
+```text
+Injective(H)
++
+H((2ι₂)η₂)=4ι₃
+↛
+(2ι₂)η₂=4η₂
+```
+
+Phase 37 でまず:
+
+```text
+H((2ι₂)η₂)=H(4η₂)
+```
+
+を構成する必要がある。
+
+---
+
+# 34. Phase 36 representative probe
+
+```powershell
+python -m probes.probe_phase36_capabilities
+```
+
+表示 chain:
+
+```text
+[1] Actual H homomorphism
+    Homomorphism(H)
+
+[2] H multiple calculation
+    H(4η₂)=4H(η₂)
+
+[3] Toda Prop.5.1
+    H(η₂)=ι₃
+
+[4] Equality under Multiple
+    4H(η₂)=4ι₃
+
+[RESULT]
+    H(4η₂)=4ι₃
+```
+
+probe は production APIs / existing inference rules を再利用し、別の数学実装を持たない。
+
+---
+
+# 35. Phase 36 verified status
+
+focused:
+
+```text
+tests/test_phase36_actual_h_multiple.py
+14 passed
+```
+
+related:
+
+```text
+tests/test_homomorphism_rules.py
+39 passed
+
+tests/test_hopf_rules.py
+31 passed
+
+tests/test_relation_rules.py
+50 passed
+
+tests/test_map_property_rules.py
+26 passed
+```
+
+full:
+
+```text
+1687 passed in 25.70s
+```
+
+probe:
+
+```powershell
+python -m probes.probe_phase36_capabilities
+```
+
+正常完走。
+
+---
+
+# 36. Phase 36 completion boundary
+
+実装済み:
+
+```text
+actual Homomorphism(H) materialization
+H(4η₂)=4H(η₂)
+H(η₂)=ι₃
+4H(η₂)=4ι₃
+H(4η₂)=4ι₃
+Phase 36 representative probe
+scope / non-goal regression
+final integrated regression
+```
+
+未実装:
+
+```text
+H((2ι₂)η₂)=H(4η₂)
+(2ι₂)η₂=4η₂
+automatic Isomorphism→Homomorphism conversion
+arbitrary-map automatic homomorphism inference
+```
+
+次の設計境界:
+
+```text
+Phase 37
+H((2ι₂)η₂)=4ι₃
+H(4η₂)=4ι₃
+↓ symmetry + transitivity
+H((2ι₂)η₂)=H(4η₂)
+```
+
+その後 Phase 38 で existing `Injective(H)` reflection を再利用する。
