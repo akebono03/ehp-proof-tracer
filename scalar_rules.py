@@ -188,6 +188,69 @@ def odd_scalar_evaluates_minus_one_power_inference_rule():
   )
 
 
+def scalar_sign_evaluation_applies_to_multiple_inference_rule(
+  sign,
+  expression,
+):
+  def guard(
+    premises,
+    bindings,
+  ):
+    statement = premises[0].conclusion
+
+    return (
+      statement.expression == sign
+      and statement.value in (
+        -1,
+        1,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    statement = premises[0].conclusion
+
+    if statement.value == 1:
+      evaluated_expression = expression
+    else:
+      evaluated_expression = Multiple(
+        coefficient=-1,
+        expression=expression,
+      )
+
+    return Relation(
+      lhs=Multiple(
+        coefficient=sign,
+        expression=expression,
+      ),
+      rhs=evaluated_expression,
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Evaluated symbolic sign "
+      "applies to multiple"
+    ),
+    description=(
+      "If a symbolic power of minus one "
+      "has been evaluated to plus or minus "
+      "one, apply that evaluated sign to "
+      "the specified expression."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          ScalarSignEvaluationStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def mod_two_one_scalar_preserves_order_two_element_inference_rule():
   scalar = PatternVariable(
     "scalar",

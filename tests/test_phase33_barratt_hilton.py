@@ -14,6 +14,8 @@ from expression import (
 from proof import (
   ProofRule,
   ProofStep,
+  Relation,
+  RelationType,
   apply_inference_match,
   find_inference_match,
 )
@@ -25,6 +27,7 @@ from scalar_rules import (
   even_scalar_implies_mod_two_congruence_inference_rule,
   odd_scalar_evaluates_minus_one_power_inference_rule,
   odd_scalar_implies_mod_two_congruence_inference_rule,
+  scalar_sign_evaluation_applies_to_multiple_inference_rule,
 )
 
 
@@ -986,6 +989,455 @@ def test_phase33_3_sign_evaluation_does_not_connect_to_multiple_yet():
   assert evaluation.value == -1
 
   assert evaluation != existing_multiple
+
+
+def test_phase33_4_multiple_accepts_symbolic_sign_coefficient():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=n,
+  )
+
+  multiple = Multiple(
+    coefficient=sign,
+    expression=a,
+  )
+
+  assert multiple.coefficient == sign
+  assert multiple.expression == a
+
+
+def test_phase33_4_symbolic_sign_multiple_preserves_structure():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  symbolic_multiple = Multiple(
+    coefficient=ScalarPower(
+      base=-1,
+      exponent=n,
+    ),
+    expression=a,
+  )
+
+  assert symbolic_multiple == Multiple(
+    coefficient=ScalarPower(
+      base=-1,
+      exponent=ScalarSymbol(
+        name="n",
+      ),
+    ),
+    expression=a,
+  )
+
+  assert symbolic_multiple != Multiple(
+    coefficient=-1,
+    expression=a,
+  )
+
+  assert symbolic_multiple != a
+
+
+def test_phase33_4_positive_sign_evaluation_reduces_symbolic_multiple_to_expression():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=n,
+  )
+
+  evaluation_step = ProofStep(
+    conclusion=ScalarSignEvaluationStatement(
+      expression=sign,
+      value=1,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    scalar_sign_evaluation_applies_to_multiple_inference_rule(
+      sign=sign,
+      expression=a,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      evaluation_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == Relation(
+    lhs=Multiple(
+      coefficient=sign,
+      expression=a,
+    ),
+    rhs=a,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert step.rule == ProofRule.INFERENCE
+  assert step.inference_rule == rule
+  assert step.premises == (
+    evaluation_step,
+  )
+
+
+def test_phase33_4_negative_sign_evaluation_reduces_symbolic_multiple_to_inverse():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=n,
+  )
+
+  evaluation_step = ProofStep(
+    conclusion=ScalarSignEvaluationStatement(
+      expression=sign,
+      value=-1,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    scalar_sign_evaluation_applies_to_multiple_inference_rule(
+      sign=sign,
+      expression=a,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      evaluation_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == Relation(
+    lhs=Multiple(
+      coefficient=sign,
+      expression=a,
+    ),
+    rhs=Multiple(
+      coefficient=-1,
+      expression=a,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert step.rule == ProofRule.INFERENCE
+  assert step.inference_rule == rule
+  assert step.premises == (
+    evaluation_step,
+  )
+
+
+def test_phase33_4_sign_bridge_rejects_different_symbolic_sign():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  m = ScalarSymbol(
+    name="m",
+  )
+
+  expected_sign = ScalarPower(
+    base=-1,
+    exponent=n,
+  )
+
+  different_sign = ScalarPower(
+    base=-1,
+    exponent=m,
+  )
+
+  evaluation_step = ProofStep(
+    conclusion=ScalarSignEvaluationStatement(
+      expression=different_sign,
+      value=1,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    scalar_sign_evaluation_applies_to_multiple_inference_rule(
+      sign=expected_sign,
+      expression=a,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      evaluation_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase33_4_sign_bridge_rejects_non_sign_value():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=n,
+  )
+
+  invalid_evaluation_step = ProofStep(
+    conclusion=ScalarSignEvaluationStatement(
+      expression=sign,
+      value=2,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    scalar_sign_evaluation_applies_to_multiple_inference_rule(
+      sign=sign,
+      expression=a,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      invalid_evaluation_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase33_4_barratt_hilton_symbolic_signed_terms_fit_inside_sum():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  first_sign = ScalarPower(
+    base=-1,
+    exponent=ScalarProduct(
+      left=ScalarSum(
+        left=p,
+        right=k,
+      ),
+      right=h,
+    ),
+  )
+
+  second_sign = ScalarPower(
+    base=-1,
+    exponent=ScalarProduct(
+      left=p,
+      right=h,
+    ),
+  )
+
+  expression = Sum(
+    left=Multiple(
+      coefficient=first_sign,
+      expression=a,
+    ),
+    right=Multiple(
+      coefficient=second_sign,
+      expression=b,
+    ),
+  )
+
+  assert expression.left == Multiple(
+    coefficient=first_sign,
+    expression=a,
+  )
+
+  assert expression.right == Multiple(
+    coefficient=second_sign,
+    expression=b,
+  )
+
+
+def test_phase33_4_negative_sign_result_matches_existing_inverse_representation():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=n,
+  )
+
+  evaluation_step = ProofStep(
+    conclusion=ScalarSignEvaluationStatement(
+      expression=sign,
+      value=-1,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    scalar_sign_evaluation_applies_to_multiple_inference_rule(
+      sign=sign,
+      expression=a,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      evaluation_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  additive_inverse = Multiple(
+    coefficient=-1,
+    expression=a,
+  )
+
+  assert step.conclusion.rhs == additive_inverse
+
+
+def test_phase33_4_negative_sign_result_connects_to_existing_sum_structure():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  negative_a = Multiple(
+    coefficient=-1,
+    expression=a,
+  )
+
+  additive_inverse_sum = Sum(
+    left=a,
+    right=negative_a,
+  )
+
+  assert additive_inverse_sum == Sum(
+    left=a,
+    right=Multiple(
+      coefficient=-1,
+      expression=a,
+    ),
+  )
+
+
+def test_phase33_4_symbolic_signed_sum_is_not_simplified_automatically():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=n,
+  )
+
+  symbolic_sum = Sum(
+    left=a,
+    right=Multiple(
+      coefficient=sign,
+      expression=a,
+    ),
+  )
+
+  additive_inverse_sum = Sum(
+    left=a,
+    right=Multiple(
+      coefficient=-1,
+      expression=a,
+    ),
+  )
+
+  assert symbolic_sum != additive_inverse_sum
 
 
 
