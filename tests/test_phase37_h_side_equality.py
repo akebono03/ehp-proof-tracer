@@ -292,6 +292,134 @@ def test_phase37_2_phase36_final_equality_reverses_by_symmetry():
   )
 
 
+def test_phase37_3_actual_h_side_equality_closes_by_transitivity():
+  phase35_result = (
+    build_phase35_end_to_end()
+  )
+
+  phase36_result = (
+    build_phase36_end_to_end()
+  )
+
+  phase35_step = phase35_result[
+    "final_step"
+  ]
+
+  phase36_step = phase36_result[
+    "final_step"
+  ]
+
+  four_eta_2 = Multiple(
+    coefficient=4,
+    expression=ETA_2,
+  )
+
+  four_iota_3 = Multiple(
+    coefficient=4,
+    expression=IOTA_3,
+  )
+
+  two_iota_2_eta_2 = Composition(
+    left=Multiple(
+      coefficient=2,
+      expression=IOTA_2,
+    ),
+    right=ETA_2,
+  )
+
+  assert phase35_step.conclusion == Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=two_iota_2_eta_2,
+    ),
+    rhs=four_iota_3,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert phase36_step.conclusion == Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=four_eta_2,
+    ),
+    rhs=four_iota_3,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  symmetry_rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  symmetry_match = find_inference_match(
+    symmetry_rule,
+    (
+      phase36_step,
+    ),
+  )
+
+  assert symmetry_match is not None
+
+  reversed_phase36_step = (
+    apply_inference_match(
+      symmetry_match
+    )
+  )
+
+  assert reversed_phase36_step.conclusion == Relation(
+    lhs=four_iota_3,
+    rhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=four_eta_2,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  transitivity_rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  transitivity_match = find_inference_match(
+    transitivity_rule,
+    (
+      phase35_step,
+      reversed_phase36_step,
+    ),
+  )
+
+  assert transitivity_match is not None
+
+  final_step = apply_inference_match(
+    transitivity_match
+  )
+
+  assert final_step.conclusion == Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=two_iota_2_eta_2,
+    ),
+    rhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=four_eta_2,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert final_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert final_step.inference_rule == (
+    transitivity_rule
+  )
+
+  assert final_step.premises == (
+    phase35_step,
+    reversed_phase36_step,
+  )
+
+  assert reversed_phase36_step.premises == (
+    phase36_step,
+  )
+
 
 
 
