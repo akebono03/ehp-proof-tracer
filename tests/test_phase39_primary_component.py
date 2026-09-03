@@ -388,6 +388,101 @@ def test_phase39_4_primary_component_prime_typing_remains_integer():
   ] is int
 
 
+def test_phase39_5_primary_component_is_not_membership_statement():
+  component = PrimaryComponent(
+    group_dimension=8,
+    sphere_dimension=5,
+    prime=2,
+  )
+
+  assert not isinstance(
+    component,
+    HomotopyGroupMembershipStatement,
+  )
+
+  assert not hasattr(
+    component,
+    "element",
+  )
+
+
+def test_phase39_5_primary_component_does_not_encode_finiteness():
+  component = PrimaryComponent(
+    group_dimension=8,
+    sphere_dimension=5,
+    prime=2,
+  )
+
+  assert not hasattr(
+    component,
+    "finite",
+  )
+
+  assert not hasattr(
+    component,
+    "is_finite",
+  )
+
+
+def test_phase39_5_primary_component_has_no_automatic_subgroup_conversion():
+  component = PrimaryComponent(
+    group_dimension=8,
+    sphere_dimension=5,
+    prime=2,
+  )
+
+  assert not hasattr(
+    component,
+    "subgroup",
+  )
+
+  assert not hasattr(
+    component,
+    "to_subgroup",
+  )
+
+
+def test_phase39_5_two_primary_component_remains_plain_primary_component():
+  component = PrimaryComponent(
+    group_dimension=8,
+    sphere_dimension=5,
+    prime=2,
+  )
+
+  assert type(
+    component
+  ) is PrimaryComponent
+
+  assert component.prime == 2
+
+  assert not hasattr(
+    component,
+    "toda_primary_group",
+  )
+
+
+def test_phase39_5_primary_component_has_no_theorem_provenance():
+  component = PrimaryComponent(
+    group_dimension=8,
+    sphere_dimension=5,
+    prime=2,
+  )
+
+  assert not hasattr(
+    component,
+    "source",
+  )
+
+  assert not hasattr(
+    component,
+    "theorem",
+  )
+
+  assert not hasattr(
+    component,
+    "provenance",
+  )
+
 
 
 
