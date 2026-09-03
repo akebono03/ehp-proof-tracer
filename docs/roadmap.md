@@ -22,7 +22,7 @@ future capability dependency
 
 ---
 
-# 2. Phase 33 完了時点
+# 2. Phase 34 完了時点
 
 Completed chain:
 
@@ -33,32 +33,48 @@ Phase 30  Toda Prop.2.2 right
 Phase 31  SmashProduct minimum representation
 Phase 32  Toda Prop.2.2 left
 Phase 33  Barratt–Hilton prerequisites
+Phase 34  Toda Prop.3.1 Barratt–Hilton theorem rules
 ```
 
 Current full regression:
 
 ```text
-1585 passed in 23.09s
+1620 passed in 23.32s
+```
+
+Focused Phase 34:
+
+```text
+35 passed
 ```
 
 ---
 
-# 3. Phase 33 completed capabilities
+# 3. Phase 34 completed capabilities
 
 ```text
-ScalarExpression
-ScalarSum
-ScalarProduct
-ScalarPower
-symbolic Multiple coefficient
-symbolic IteratedSuspension exponent
-explicit parity → sign evaluation
-sign evaluation → Multiple bridge
-Barratt–Hilton 2 formula structural representation
-Phase 33 representative probe
+HomotopyGroupMembershipStatement
+Toda Prop.3.1 first theorem rule
+Toda Prop.3.1 second theorem rule
+strict symbolic applicability
+invalid-case rejection
+unrelated-premise tolerance
+structured literature provenance
+Phase 33 sign-evaluation connection
+generic equality-transitivity closure
+scope / non-goal regression
+Phase 34 representative probe
+Phase 34 final integrated regression
 ```
 
-representable:
+theorem premises:
+
+```text
+a ∈ π_{p+k}(S^p)
+b ∈ π_{q+h}(S^q)
+```
+
+first conclusion:
 
 ```text
 a∧b
@@ -67,6 +83,8 @@ a∧b
 (E^q a∘E^(p+k)b)
 ```
 
+second conclusion:
+
 ```text
 a∧b
 =
@@ -74,51 +92,51 @@ a∧b
 (E^p b∘E^(q+h)a)
 ```
 
-boundary:
+provenance:
 
 ```text
-Relation
-!=
-theorem-derived ProofStep
+Toda Prop.3.1
+H. Toda
+Composition Methods in Homotopy Groups of Spheres
+1962
+Proposition 3.1
 ```
 
 ---
 
-# 4. Phase 34：Toda Prop.3.1 Barratt–Hilton theorem rule
+# 4. Phase 34 completed inference chain
 
-NEXT。
-
-Phase 33 で conclusion syntax は完成済み。
-
-Phase 34 の中心課題:
-
-```text
-[Toda] Prop.3.1
-↓
-explicit theorem-derived equality
-```
-
-candidate assumptions:
+代表:
 
 ```text
 a ∈ π_{p+k}(S^p)
 b ∈ π_{q+h}(S^q)
-```
 
-conclusions:
+↓ Toda Prop.3.1
 
-```text
 a∧b
 =
 (-1)^((p+k)h)
-E^q a∘E^(p+k)b
-```
+(E^q a∘E^(p+k)b)
 
-```text
++
+
+((p+k)h) is even
+
+↓
+(-1)^((p+k)h)=1
+
+↓
+(-1)^((p+k)h)
+(E^q a∘E^(p+k)b)
+=
+E^q a∘E^(p+k)b
+
+↓ equality transitivity
+
 a∧b
 =
-(-1)^(ph)
-E^p b∘E^(q+h)a
+E^q a∘E^(p+k)b
 ```
 
 重要:
@@ -126,54 +144,119 @@ E^p b∘E^(q+h)a
 ```text
 Barratt–Hilton
 !=
-general smash-product normalization
+general SmashProduct normalization
 ```
 
-Phase 34 は applicability / theorem provenance に必要な最小表現だけ追加する。
+```text
+symbolic homotopy-group membership
+!=
+symbolic source / target solver
+```
 
 ---
 
-# 5. Phase 35+：actual H calculation
+# 5. Phase 35+：actual H((2ι₂)η₂) calculation
 
-Phase 34 後:
+NEXT。
+
+Phase 34 までで:
+
+```text
+Toda Prop.2.2 left
++
+SmashProduct
++
+Barratt–Hilton theorem rules
++
+sign machinery
++
+H injectivity
+```
+
+が準備済み。
+
+次は abstract symbolic formula ではなく、具体的に:
 
 ```text
 H((2ι₂)η₂)
 ```
 
-の actual evaluation を進める。
+を計算する。
 
-想定:
+想定 target chain:
 
 ```text
 H((2ι₂)η₂)
 ↓ Toda Prop.2.2 left
 E(2ι₁∧2ι₁)H(η₂)
-↓ Toda Prop.3.1 / concrete reasoning
+↓ Toda Prop.3.1 / concrete Barratt–Hilton
 4ι₃
 ```
 
-一方:
+このために必要になる可能性がある concrete pieces:
+
+```text
+typing of ι₁, ι₂, ι₃, η₂
+H(η₂)=ι₃
+2ι₁ ∈ appropriate homotopy group
+concrete Barratt–Hilton parameter instantiation
+concrete parity/sign evaluation
+composition of multiples / identity maps
+```
+
+ただし Phase 35+ では actual calculation に必要な順に1つずつ導入する。
+
+一般的な symbolic arithmetic や Toda (2.1) 全体を先取りしない。
+
+---
+
+# 6. parallel calculation of H(4η₂)
+
+もう一方:
 
 ```text
 H(4η₂)
-↓ homomorphism
+```
+
+について:
+
+```text
+H(4η₂)
+↓ H homomorphism
 4H(η₂)
 ↓ H(η₂)=ι₃
 4ι₃
 ```
 
-よって:
+が必要。
+
+既存 homomorphism machinery を再利用できるかをまず確認する。
+
+不足がある場合のみ、actual H map に必要な最小 fact / bridge を追加する。
+
+---
+
+# 7. equality target
+
+両側を計算後:
+
+```text
+H((2ι₂)η₂)=4ι₃
+```
+
+```text
+H(4η₂)=4ι₃
+```
+
+から:
 
 ```text
 H((2ι₂)η₂)=H(4η₂)
 ```
 
----
+を構成する。
 
-# 6. equality reflection reuse
-
-Phase 29 / 28 を再利用:
+その後 Phase 28 / 29 を再利用:
 
 ```text
 Isomorphism(H)
@@ -192,16 +275,69 @@ a=b
 最終 target:
 
 ```text
-H((2ι₂)η₂)=H(4η₂)
-↓
 (2ι₂)η₂=4η₂
 ```
 
 ---
 
-# 7. Toda (2.1) future candidate
+# 8. Phase 35+ の候補分割
 
-必要になった時点で staged / directed rule として検討:
+実装時は actual code を確認して最小単位に切る。
+
+候補:
+
+```text
+Phase 35-1
+actual generator / identity typing check
+```
+
+```text
+Phase 35-2
+H(η₂)=ι₃ fact representation
+```
+
+```text
+Phase 35-3
+concrete Prop.2.2-left application setup
+```
+
+```text
+Phase 35-4
+2ι₁∧2ι₁ Barratt–Hilton concrete instantiation
+```
+
+```text
+Phase 35-5
+concrete sign / parity reduction
+```
+
+```text
+Phase 35-6
+composition / multiple calculation to 4ι₃
+```
+
+```text
+Phase 35-7
+H((2ι₂)η₂)=4ι₃ representative chain
+```
+
+その後必要に応じて:
+
+```text
+H(4η₂)=4ι₃
+H-side equality
+Injective(H) reflection
+```
+
+へ進む。
+
+この番号は actual code inspection 後に確定する。
+
+---
+
+# 9. Toda (2.1) future candidate
+
+既知として利用候補:
 
 ```text
 a∘(b₁±b₂)=a∘b₁±a∘b₂
@@ -219,11 +355,15 @@ k(a∘b)=a∘(kb)
 k(a∘Eb)=(ka)∘Eb
 ```
 
-unrestricted bidirectional rewrite は導入しない。
+ただし unrestricted bidirectional rewrite は導入しない。
+
+Phase 35+ の actual `4ι₃` calculation で必要になった式だけ staged / directed rule として追加する。
 
 ---
 
-# 8. Toda (5.1) future candidate
+# 10. Toda (5.1) future candidate
+
+既知として利用候補:
 
 ```text
 π_i(S¹)=0  (i>1)
@@ -235,17 +375,19 @@ actual proof need が現れた時点で foundational fact layer として導入�
 
 ---
 
-# 9. Current deferred boundaries
+# 11. Current deferred boundaries
 
 未実装:
 
 ```text
-general symbolic scalar simplification
 automatic compound parity inference
-general smash-product typing / algebra
+general symbolic scalar simplification
+general SmashProduct typing / algebra / normalization
 symbolic suspension typing arithmetic
-Toda Prop.3.1 theorem inference
+Toda (2.1) general rule set
 actual H((2ι₂)η₂) evaluation
+H((2ι₂)η₂)=H(4η₂)
+(2ι₂)η₂=4η₂
 stable homotopy group model
 stable Toda brackets
 higher Toda brackets
@@ -253,7 +395,7 @@ higher Toda brackets
 
 ---
 
-# 10. Capability matrix
+# 12. Capability matrix
 
 | capability | status | phase |
 |---|---|---|
@@ -267,9 +409,14 @@ higher Toda brackets
 | symbolic sign → Multiple bridge | IMPLEMENTED | 33 |
 | symbolic IteratedSuspension exponent | IMPLEMENTED | 33 |
 | Barratt–Hilton structural formulas | IMPLEMENTED | 33 |
-| Toda Prop.3.1 theorem rule | NEXT | 34 |
-| actual H calculation | PLANNED | 35+ |
-| `H((2ι₂)η₂)=H(4η₂)` | PLANNED | after actual H calculation |
+| symbolic homotopy-group membership | IMPLEMENTED | 34 |
+| Toda Prop.3.1 first theorem rule | IMPLEMENTED | 34 |
+| Toda Prop.3.1 second theorem rule | IMPLEMENTED | 34 |
+| Toda Prop.3.1 literature provenance | IMPLEMENTED | 34 |
+| Barratt–Hilton sign connection | IMPLEMENTED | 34 |
+| Barratt–Hilton reduced equality closure | IMPLEMENTED | 34 |
+| actual `H((2ι₂)η₂)` calculation | NEXT | 35+ |
+| `H((2ι₂)η₂)=H(4η₂)` | PLANNED | after actual H calculations |
 | `(2ι₂)η₂=4η₂` | PLANNED | reuse equality reflection |
 | Toda (2.1) | PLANNED | concrete need |
 | Toda (5.1) | PLANNED | concrete need |
@@ -278,7 +425,7 @@ higher Toda brackets
 
 ---
 
-# 11. Long-term dependency
+# 13. Long-term dependency
 
 ```text
 Phase 29
@@ -297,19 +444,25 @@ Phase 33
 Barratt–Hilton prerequisites COMPLETE
 ↓
 Phase 34
-Toda Prop.3.1 Barratt–Hilton
+Toda Prop.3.1 Barratt–Hilton COMPLETE
 ↓
 Phase 35+
 actual H((2ι₂)η₂)
 ↓
+H((2ι₂)η₂)=4ι₃
+↓
+H(4η₂)=4ι₃
+↓
 H((2ι₂)η₂)=H(4η₂)
+↓
+existing Injective(H)
 ↓
 (2ι₂)η₂=4η₂
 ```
 
 ---
 
-# 12. Testing principle
+# 14. Testing principle
 
 各 layer で:
 
@@ -329,33 +482,53 @@ H((2ι₂)η₂)=H(4η₂)
 
 ---
 
-# 13. Phase 33 verified status
+# 15. Phase 34 verified status
+
+focused:
+
+```text
+tests/test_phase34_barratt_hilton.py
+35 passed
+```
+
+related:
 
 ```text
 tests/test_phase33_barratt_hilton.py
-73 passed in 0.31s
+73 passed
 ```
 
 ```text
-full suite
-1585 passed in 23.09s
+tests/test_scalar_rules.py
+18 passed
+```
+
+```text
+tests/test_relation_rules.py
+50 passed
+```
+
+full:
+
+```text
+1620 passed in 23.32s
 ```
 
 probe:
 
 ```powershell
-python -m probes.probe_phase33_capabilities
+python -m probes.probe_phase34_capabilities
 ```
 
 ---
 
-# 14. 次 Phase
+# 16. 次 Phase
 
 ```text
-Phase 34
-Toda Prop.3.1 Barratt–Hilton theorem rule
+Phase 35+
+actual H((2ι₂)η₂) calculation
 ```
 
-最初に current typed HomotopyElement / membership representation で theorem applicability をどこまで lossless に表現できるか確認する。
+最初に current generator typing / identity-map representation / `H(η₂)=ι₃` / multiple representation を確認し、actual calculation に不足する最小 capability だけを特定する。
 
-不足がある場合のみ、Phase 34 の theorem applicability に必要な最小表現を追加する。
+不足がある場合のみ production code を追加する。
