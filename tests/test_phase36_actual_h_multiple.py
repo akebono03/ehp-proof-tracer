@@ -481,6 +481,190 @@ def test_phase36_5_h_four_eta_2_equals_four_iota_3_by_transitivity():
   )
 
 
+def test_phase36_6_h_four_eta_2_equals_four_iota_3_end_to_end():
+  four_eta_2 = Multiple(
+    coefficient=4,
+    expression=ETA_2,
+  )
+
+  four_iota_3 = Multiple(
+    coefficient=4,
+    expression=IOTA_3,
+  )
+
+  homomorphism_step = (
+    ehp_h_homomorphism_proof_step()
+  )
+
+  assert homomorphism_step.conclusion == (
+    HomomorphismStatement(
+      map=EHP_H_MAP,
+    )
+  )
+
+  h_multiple_rule = (
+    homomorphism_preserves_multiple_inference_rule(
+      coefficient=4,
+      expression=ETA_2,
+    )
+  )
+
+  h_multiple_match = find_inference_match(
+    h_multiple_rule,
+    (
+      homomorphism_step,
+    ),
+  )
+
+  assert h_multiple_match is not None
+
+  h_four_eta_2_step = (
+    apply_inference_match(
+      h_multiple_match
+    )
+  )
+
+  assert h_four_eta_2_step.conclusion == Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=four_eta_2,
+    ),
+    rhs=Multiple(
+      coefficient=4,
+      expression=MapApplication(
+        map=EHP_H_MAP,
+        expression=ETA_2,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  hopf_fact_step = (
+    hopf_invariant_proof_step(
+      ETA_2_HOPF_INVARIANT_FACT
+    )
+  )
+
+  hopf_bridge_rule = (
+    hopf_invariant_statement_to_ehp_h_equality_inference_rule()
+  )
+
+  hopf_bridge_match = find_inference_match(
+    hopf_bridge_rule,
+    (
+      hopf_fact_step,
+    ),
+  )
+
+  assert hopf_bridge_match is not None
+
+  h_eta_2_step = (
+    apply_inference_match(
+      hopf_bridge_match
+    )
+  )
+
+  assert h_eta_2_step.conclusion == Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=ETA_2,
+    ),
+    rhs=IOTA_3,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  multiple_rule = (
+    equality_preserved_under_multiple_inference_rule(
+      coefficient=4,
+    )
+  )
+
+  multiple_match = find_inference_match(
+    multiple_rule,
+    (
+      h_eta_2_step,
+    ),
+  )
+
+  assert multiple_match is not None
+
+  four_h_eta_2_step = (
+    apply_inference_match(
+      multiple_match
+    )
+  )
+
+  assert four_h_eta_2_step.conclusion == Relation(
+    lhs=Multiple(
+      coefficient=4,
+      expression=MapApplication(
+        map=EHP_H_MAP,
+        expression=ETA_2,
+      ),
+    ),
+    rhs=four_iota_3,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  transitivity_rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  final_match = find_inference_match(
+    transitivity_rule,
+    (
+      h_four_eta_2_step,
+      four_h_eta_2_step,
+    ),
+  )
+
+  assert final_match is not None
+
+  final_step = apply_inference_match(
+    final_match
+  )
+
+  assert final_step.conclusion == Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=four_eta_2,
+    ),
+    rhs=four_iota_3,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert final_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert final_step.inference_rule == (
+    transitivity_rule
+  )
+
+  assert final_step.premises == (
+    h_four_eta_2_step,
+    four_h_eta_2_step,
+  )
+
+  assert h_four_eta_2_step.premises == (
+    homomorphism_step,
+  )
+
+  assert four_h_eta_2_step.premises == (
+    h_eta_2_step,
+  )
+
+  assert h_eta_2_step.premises == (
+    hopf_fact_step,
+  )
+
+  assert (
+    hopf_fact_step.conclusion.source
+    == ETA_2_HOPF_INVARIANT_FACT.source
+  )
+
+
+
 
 
 
