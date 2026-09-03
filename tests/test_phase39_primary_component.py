@@ -21,6 +21,10 @@ from models import (
   AbelianGroup,
   GroupComponent,
 )
+from probes.probe_phase39_capabilities import (
+  build_phase39_representative_components,
+  primary_component_text,
+)
 
 
 def test_phase39_2_primary_component_represents_concrete_two_primary_group():
@@ -484,6 +488,95 @@ def test_phase39_5_primary_component_has_no_theorem_provenance():
   )
 
 
+def test_phase39_6_representative_builder_constructs_expected_components():
+  result = (
+    build_phase39_representative_components()
+  )
+
+  assert result[
+    "concrete_two_primary"
+  ] == PrimaryComponent(
+    group_dimension=8,
+    sphere_dimension=5,
+    prime=2,
+  )
+
+  assert result[
+    "concrete_three_primary"
+  ] == PrimaryComponent(
+    group_dimension=8,
+    sphere_dimension=5,
+    prime=3,
+  )
+
+  assert result[
+    "symbolic_two_primary"
+  ] == PrimaryComponent(
+    group_dimension=ScalarSymbol(
+      name="i",
+    ),
+    sphere_dimension=ScalarSymbol(
+      name="n",
+    ),
+    prime=2,
+  )
+
+
+def test_phase39_6_representative_builder_preserves_primary_distinction():
+  result = (
+    build_phase39_representative_components()
+  )
+
+  two_primary = result[
+    "concrete_two_primary"
+  ]
+
+  three_primary = result[
+    "concrete_three_primary"
+  ]
+
+  symbolic_two_primary = result[
+    "symbolic_two_primary"
+  ]
+
+  assert two_primary != three_primary
+
+  assert two_primary.prime == 2
+  assert three_primary.prime == 3
+
+  assert isinstance(
+    symbolic_two_primary.group_dimension,
+    ScalarSymbol,
+  )
+
+  assert isinstance(
+    symbolic_two_primary.sphere_dimension,
+    ScalarSymbol,
+  )
+
+
+def test_phase39_6_primary_component_text_displays_representative_notation():
+  result = (
+    build_phase39_representative_components()
+  )
+
+  assert primary_component_text(
+    result[
+      "concrete_two_primary"
+    ]
+  ) == "π_8(S^5;2)"
+
+  assert primary_component_text(
+    result[
+      "concrete_three_primary"
+    ]
+  ) == "π_8(S^5;3)"
+
+  assert primary_component_text(
+    result[
+      "symbolic_two_primary"
+    ]
+  ) == "π_i(S^n;2)"
 
 
 
