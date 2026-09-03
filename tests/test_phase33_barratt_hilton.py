@@ -1440,6 +1440,290 @@ def test_phase33_4_symbolic_signed_sum_is_not_simplified_automatically():
   assert symbolic_sum != additive_inverse_sum
 
 
+def test_phase33_5_e_q_a_is_structurally_representable():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  suspension = IteratedSuspension(
+    expression=a,
+    exponent=q,
+  )
+
+  assert suspension.expression == a
+  assert suspension.exponent == q
+
+  assert suspension == IteratedSuspension(
+    expression=a,
+    exponent=ScalarSymbol(
+      name="q",
+    ),
+  )
+
+
+def test_phase33_5_e_p_plus_k_b_is_structurally_representable():
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  p_plus_k = ScalarSum(
+    left=p,
+    right=k,
+  )
+
+  suspension = IteratedSuspension(
+    expression=b,
+    exponent=p_plus_k,
+  )
+
+  assert suspension.expression == b
+
+  assert suspension.exponent == ScalarSum(
+    left=p,
+    right=k,
+  )
+
+  assert suspension != IteratedSuspension(
+    expression=b,
+    exponent=ScalarSymbol(
+      name="p+k",
+    ),
+  )
+
+
+def test_phase33_5_e_p_b_is_structurally_representable():
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  suspension = IteratedSuspension(
+    expression=b,
+    exponent=p,
+  )
+
+  assert suspension.expression == b
+  assert suspension.exponent == p
+
+  assert suspension == IteratedSuspension(
+    expression=b,
+    exponent=ScalarSymbol(
+      name="p",
+    ),
+  )
+
+
+def test_phase33_5_e_q_plus_h_a_is_structurally_representable():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  q_plus_h = ScalarSum(
+    left=q,
+    right=h,
+  )
+
+  suspension = IteratedSuspension(
+    expression=a,
+    exponent=q_plus_h,
+  )
+
+  assert suspension.expression == a
+
+  assert suspension.exponent == ScalarSum(
+    left=q,
+    right=h,
+  )
+
+  assert suspension != IteratedSuspension(
+    expression=a,
+    exponent=ScalarSymbol(
+      name="q+h",
+    ),
+  )
+
+
+def test_phase33_5_first_barratt_hilton_composition_is_structurally_representable():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  composition = Composition(
+    left=IteratedSuspension(
+      expression=a,
+      exponent=q,
+    ),
+    right=IteratedSuspension(
+      expression=b,
+      exponent=ScalarSum(
+        left=p,
+        right=k,
+      ),
+    ),
+  )
+
+  assert composition.left == IteratedSuspension(
+    expression=a,
+    exponent=q,
+  )
+
+  assert composition.right == IteratedSuspension(
+    expression=b,
+    exponent=ScalarSum(
+      left=p,
+      right=k,
+    ),
+  )
+
+
+def test_phase33_5_second_barratt_hilton_composition_is_structurally_representable():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  composition = Composition(
+    left=IteratedSuspension(
+      expression=b,
+      exponent=p,
+    ),
+    right=IteratedSuspension(
+      expression=a,
+      exponent=ScalarSum(
+        left=q,
+        right=h,
+      ),
+    ),
+  )
+
+  assert composition.left == IteratedSuspension(
+    expression=b,
+    exponent=p,
+  )
+
+  assert composition.right == IteratedSuspension(
+    expression=a,
+    exponent=ScalarSum(
+      left=q,
+      right=h,
+    ),
+  )
+
+
+def test_phase33_5_symbolic_iterated_suspension_preserves_typing_boundary():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+    source=7,
+    target=3,
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  symbolic_suspension = IteratedSuspension(
+    expression=a,
+    exponent=q,
+  )
+
+  compound_suspension = IteratedSuspension(
+    expression=a,
+    exponent=ScalarSum(
+      left=q,
+      right=ScalarSymbol(
+        name="h",
+      ),
+    ),
+  )
+
+  assert symbolic_suspension.source is None
+  assert symbolic_suspension.target is None
+
+  assert compound_suspension.source is None
+  assert compound_suspension.target is None
+
+
+def test_phase33_5_concrete_iterated_suspension_typing_regression_is_preserved():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+    source=7,
+    target=3,
+  )
+
+  suspension = IteratedSuspension(
+    expression=a,
+    exponent=2,
+  )
+
+  assert suspension.source == 9
+  assert suspension.target == 5
+
+
+
 
 
 
