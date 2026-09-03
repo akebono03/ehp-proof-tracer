@@ -1723,6 +1723,611 @@ def test_phase33_5_concrete_iterated_suspension_typing_regression_is_preserved()
   assert suspension.target == 5
 
 
+def test_phase33_6_first_barratt_hilton_formula_is_structurally_representable():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=ScalarProduct(
+      left=ScalarSum(
+        left=p,
+        right=k,
+      ),
+      right=h,
+    ),
+  )
+
+  composition = Composition(
+    left=IteratedSuspension(
+      expression=a,
+      exponent=q,
+    ),
+    right=IteratedSuspension(
+      expression=b,
+      exponent=ScalarSum(
+        left=p,
+        right=k,
+      ),
+    ),
+  )
+
+  formula = Relation(
+    lhs=SmashProduct(
+      left=a,
+      right=b,
+    ),
+    rhs=Multiple(
+      coefficient=sign,
+      expression=composition,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert formula.lhs == SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  assert formula.rhs == Multiple(
+    coefficient=sign,
+    expression=composition,
+  )
+
+  assert formula.relation_type == (
+    RelationType.EQUALITY
+  )
+
+
+def test_phase33_6_second_barratt_hilton_formula_is_structurally_representable():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=ScalarProduct(
+      left=p,
+      right=h,
+    ),
+  )
+
+  composition = Composition(
+    left=IteratedSuspension(
+      expression=b,
+      exponent=p,
+    ),
+    right=IteratedSuspension(
+      expression=a,
+      exponent=ScalarSum(
+        left=q,
+        right=h,
+      ),
+    ),
+  )
+
+  formula = Relation(
+    lhs=SmashProduct(
+      left=a,
+      right=b,
+    ),
+    rhs=Multiple(
+      coefficient=sign,
+      expression=composition,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert formula.lhs == SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  assert formula.rhs == Multiple(
+    coefficient=sign,
+    expression=composition,
+  )
+
+  assert formula.relation_type == (
+    RelationType.EQUALITY
+  )
+
+
+def test_phase33_6_first_formula_preserves_full_symbolic_sign_structure():
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=ScalarProduct(
+      left=ScalarSum(
+        left=p,
+        right=k,
+      ),
+      right=h,
+    ),
+  )
+
+  assert sign.base == -1
+
+  assert sign.exponent == ScalarProduct(
+    left=ScalarSum(
+      left=p,
+      right=k,
+    ),
+    right=h,
+  )
+
+  assert sign.exponent.left == ScalarSum(
+    left=p,
+    right=k,
+  )
+
+  assert sign.exponent.right == h
+
+
+def test_phase33_6_second_formula_preserves_full_symbolic_sign_structure():
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=ScalarProduct(
+      left=p,
+      right=h,
+    ),
+  )
+
+  assert sign.base == -1
+
+  assert sign.exponent == ScalarProduct(
+    left=p,
+    right=h,
+  )
+
+
+def test_phase33_6_first_formula_preserves_full_suspension_structure():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  composition = Composition(
+    left=IteratedSuspension(
+      expression=a,
+      exponent=q,
+    ),
+    right=IteratedSuspension(
+      expression=b,
+      exponent=ScalarSum(
+        left=p,
+        right=k,
+      ),
+    ),
+  )
+
+  assert composition.left == IteratedSuspension(
+    expression=a,
+    exponent=q,
+  )
+
+  assert composition.right == IteratedSuspension(
+    expression=b,
+    exponent=ScalarSum(
+      left=p,
+      right=k,
+    ),
+  )
+
+
+def test_phase33_6_second_formula_preserves_full_suspension_structure():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  composition = Composition(
+    left=IteratedSuspension(
+      expression=b,
+      exponent=p,
+    ),
+    right=IteratedSuspension(
+      expression=a,
+      exponent=ScalarSum(
+        left=q,
+        right=h,
+      ),
+    ),
+  )
+
+  assert composition.left == IteratedSuspension(
+    expression=b,
+    exponent=p,
+  )
+
+  assert composition.right == IteratedSuspension(
+    expression=a,
+    exponent=ScalarSum(
+      left=q,
+      right=h,
+    ),
+  )
+
+
+def test_phase33_6_two_barratt_hilton_formula_shapes_remain_structurally_distinct():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  first = Relation(
+    lhs=SmashProduct(
+      left=a,
+      right=b,
+    ),
+    rhs=Multiple(
+      coefficient=ScalarPower(
+        base=-1,
+        exponent=ScalarProduct(
+          left=ScalarSum(
+            left=p,
+            right=k,
+          ),
+          right=h,
+        ),
+      ),
+      expression=Composition(
+        left=IteratedSuspension(
+          expression=a,
+          exponent=q,
+        ),
+        right=IteratedSuspension(
+          expression=b,
+          exponent=ScalarSum(
+            left=p,
+            right=k,
+          ),
+        ),
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  second = Relation(
+    lhs=SmashProduct(
+      left=a,
+      right=b,
+    ),
+    rhs=Multiple(
+      coefficient=ScalarPower(
+        base=-1,
+        exponent=ScalarProduct(
+          left=p,
+          right=h,
+        ),
+      ),
+      expression=Composition(
+        left=IteratedSuspension(
+          expression=b,
+          exponent=p,
+        ),
+        right=IteratedSuspension(
+          expression=a,
+          exponent=ScalarSum(
+            left=q,
+            right=h,
+          ),
+        ),
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert first != second
+
+  assert first.lhs == second.lhs
+  assert first.rhs != second.rhs
+
+
+def test_phase33_6_opaque_scalar_names_do_not_match_structural_formula():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  structural = Relation(
+    lhs=SmashProduct(
+      left=a,
+      right=b,
+    ),
+    rhs=Multiple(
+      coefficient=ScalarPower(
+        base=-1,
+        exponent=ScalarProduct(
+          left=ScalarSum(
+            left=p,
+            right=k,
+          ),
+          right=h,
+        ),
+      ),
+      expression=Composition(
+        left=IteratedSuspension(
+          expression=a,
+          exponent=q,
+        ),
+        right=IteratedSuspension(
+          expression=b,
+          exponent=ScalarSum(
+            left=p,
+            right=k,
+          ),
+        ),
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  opaque = Relation(
+    lhs=SmashProduct(
+      left=a,
+      right=b,
+    ),
+    rhs=Multiple(
+      coefficient=ScalarSymbol(
+        name="(-1)^((p+k)h)",
+      ),
+      expression=Composition(
+        left=IteratedSuspension(
+          expression=a,
+          exponent=q,
+        ),
+        right=IteratedSuspension(
+          expression=b,
+          exponent=ScalarSymbol(
+            name="p+k",
+          ),
+        ),
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert structural != opaque
+
+
+def test_phase33_6_formula_representation_does_not_add_smash_product_typing():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+    source=6,
+    target=3,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+    source=7,
+    target=4,
+  )
+
+  smash = SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  assert not hasattr(
+    smash,
+    "source",
+  )
+
+  assert not hasattr(
+    smash,
+    "target",
+  )
+
+
+def test_phase33_6_formula_is_structural_statement_not_barratt_hilton_inference():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  formula = Relation(
+    lhs=SmashProduct(
+      left=a,
+      right=b,
+    ),
+    rhs=Multiple(
+      coefficient=ScalarPower(
+        base=-1,
+        exponent=ScalarProduct(
+          left=ScalarSum(
+            left=p,
+            right=k,
+          ),
+          right=h,
+        ),
+      ),
+      expression=Composition(
+        left=IteratedSuspension(
+          expression=a,
+          exponent=q,
+        ),
+        right=IteratedSuspension(
+          expression=b,
+          exponent=ScalarSum(
+            left=p,
+            right=k,
+          ),
+        ),
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert isinstance(
+    formula,
+    Relation,
+  )
+
+  assert formula.relation_type == (
+    RelationType.EQUALITY
+  )
+
+
 
 
 
