@@ -1,10 +1,33 @@
 from expression import (
   GeneratorSymbol,
   HomotopyElement,
+  MapApplication,
   Multiple,
 )
 from generator_facts import (
   GENERATOR_FACT_REPOSITORY,
+)
+from hopf_facts import (
+  ETA_2,
+  ETA_2_HOPF_INVARIANT_FACT,
+  IOTA_3,
+  TODA_PROP_5_1_REFERENCE,
+)
+from hopf_rules import (
+  HopfInvariantStatement,
+  hopf_invariant_proof_step,
+  hopf_invariant_statement_to_ehp_h_equality_inference_rule,
+)
+from map_facts import (
+  EHP_H_MAP,
+)
+from proof import (
+  LiteratureReference,
+  ProofRule,
+  Relation,
+  RelationType,
+  apply_inference_match,
+  find_inference_match,
 )
 
 
@@ -340,6 +363,186 @@ def test_phase35_1_representative_actual_elements_need_no_new_expression_type():
   assert two_iota_2.expression == (
     iota_2
   )
+
+
+def test_phase35_2_toda_prop_5_1_reference_is_structured_literature_reference():
+  assert isinstance(
+    TODA_PROP_5_1_REFERENCE,
+    LiteratureReference,
+  )
+
+  assert (
+    TODA_PROP_5_1_REFERENCE.label
+    == "Toda Prop.5.1"
+  )
+
+  assert (
+    TODA_PROP_5_1_REFERENCE.author
+    == "H. Toda"
+  )
+
+  assert (
+    TODA_PROP_5_1_REFERENCE.title
+    == (
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    )
+  )
+
+  assert (
+    TODA_PROP_5_1_REFERENCE.year
+    == 1962
+  )
+
+  assert (
+    TODA_PROP_5_1_REFERENCE.locator
+    == "Proposition 5.1"
+  )
+
+
+def test_phase35_2_eta_2_hopf_fact_represents_h_eta_2_equals_iota_3():
+  assert isinstance(
+    ETA_2_HOPF_INVARIANT_FACT,
+    HopfInvariantStatement,
+  )
+
+  assert (
+    ETA_2_HOPF_INVARIANT_FACT.expression
+    == ETA_2
+  )
+
+  assert (
+    ETA_2_HOPF_INVARIANT_FACT.value
+    == IOTA_3
+  )
+
+  assert ETA_2.source == 3
+  assert ETA_2.target == 2
+
+  assert IOTA_3.source == 3
+  assert IOTA_3.target == 3
+
+
+def test_phase35_2_eta_2_hopf_fact_preserves_toda_prop_5_1_provenance():
+  assert (
+    ETA_2_HOPF_INVARIANT_FACT.source
+    == TODA_PROP_5_1_REFERENCE
+  )
+
+  assert (
+    ETA_2_HOPF_INVARIANT_FACT.note
+    == (
+      "Toda Prop.5.1 "
+      "H(η₂)=ι₃."
+    )
+  )
+
+
+def test_phase35_2_eta_2_hopf_fact_materializes_as_given_proof_step():
+  step = hopf_invariant_proof_step(
+    ETA_2_HOPF_INVARIANT_FACT
+  )
+
+  assert step.conclusion == (
+    ETA_2_HOPF_INVARIANT_FACT
+  )
+
+  assert step.rule == ProofRule.GIVEN
+  assert step.premises == ()
+  assert step.inference_rule is None
+
+  assert (
+    step.conclusion.source
+    == TODA_PROP_5_1_REFERENCE
+  )
+
+
+def test_phase35_2_eta_2_hopf_fact_bridges_to_actual_ehp_h_equality():
+  hopf_step = hopf_invariant_proof_step(
+    ETA_2_HOPF_INVARIANT_FACT
+  )
+
+  rule = (
+    hopf_invariant_statement_to_ehp_h_equality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      hopf_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=ETA_2,
+    ),
+    rhs=IOTA_3,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert (
+    step.conclusion.lhs.map
+    is EHP_H_MAP
+  )
+
+
+def test_phase35_2_actual_h_equality_preserves_fact_provenance_through_premise():
+  hopf_step = hopf_invariant_proof_step(
+    ETA_2_HOPF_INVARIANT_FACT
+  )
+
+  rule = (
+    hopf_invariant_statement_to_ehp_h_equality_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      hopf_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert step.inference_rule == rule
+
+  assert step.premises == (
+    hopf_step,
+  )
+
+  assert (
+    step.premises[0]
+    .conclusion
+    .source
+    == TODA_PROP_5_1_REFERENCE
+  )
+
+  assert (
+    step.premises[0]
+    .conclusion
+    .note
+    == (
+      "Toda Prop.5.1 "
+      "H(η₂)=ι₃."
+    )
+  )
+
 
 
 

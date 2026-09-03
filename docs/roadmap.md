@@ -388,6 +388,14 @@ Toda (2.1) general rule set
 actual H((2ι₂)η₂) evaluation
 H((2ι₂)η₂)=H(4η₂)
 (2ι₂)η₂=4η₂
+Toda (4.2) Serre finiteness fact
+Toda (4.3) 2-primary component / π_i^n definition
+WhiteheadProduct representation
+Toda Lemma 4.1 structure theorem
+Toda Prop.4.2 2-primary EHP exact sequence
+Toda (4.5) stable-range suspension isomorphism
+Toda Prop.4.4 decomposition isomorphism
+Toda Prop.4.4 consequence: E injective on π_i^n
 stable homotopy group model
 stable Toda brackets
 higher Toda brackets
@@ -420,6 +428,16 @@ higher Toda brackets
 | `(2ι₂)η₂=4η₂` | PLANNED | reuse equality reflection |
 | Toda (2.1) | PLANNED | concrete need |
 | Toda (5.1) | PLANNED | concrete need |
+| Toda (4.2) Serre finiteness | PLANNED | foundational 2-primary branch |
+| p-primary component `π_i(S^n;p)` | PLANNED | Toda (4.3) prerequisite |
+| Toda subgroup `π_i^n` | PLANNED | Toda (4.3) |
+| `E^{-1}(π_{2n}(S^{n+1};2))` preimage group | PLANNED | critical degree `i=2n-1` |
+| Whitehead product `[a,b]` | PLANNED | Lemma 4.1 prerequisite |
+| Toda Lemma 4.1 | PLANNED | structure of `π_{2n-1}^n` |
+| Toda Prop.4.2 2-primary EHP exact sequence | PLANNED | main 2-primary calculation engine |
+| Toda (4.5) `E^(m-n)` isomorphism | PLANNED | stable-range theorem for `π_i^n` |
+| Toda Prop.4.4 decomposition isomorphism | PLANNED | `(β,γ)↦Eβ+α∘γ` |
+| Toda Prop.4.4 `E` injectivity consequence | PLANNED | reuse generic equality reflection |
 | stable homotopy | PLANNED | later |
 | higher Toda bracket | DEFERRED | concrete need |
 
@@ -458,6 +476,38 @@ H((2ι₂)η₂)=H(4η₂)
 existing Injective(H)
 ↓
 (2ι₂)η₂=4η₂
+
+parallel future branch:
+
+Toda (4.2)
+Serre finiteness
+↓
+p-primary component π_i(S^n;p)
+↓
+Toda (4.3)
+π_i^n definition
+↓
+preimage under E in degree 2n-1
+↓
+Whitehead product
+↓
+Toda Lemma 4.1
+structure of π_{2n-1}^n
+↓
+Toda Prop.4.2
+2-primary EHP exact sequence
+↓
+Toda (4.5)
+stable-range E^(m-n) isomorphism
+↓
+Toda Prop.4.4
+π_i^n decomposition isomorphism
+↓
+E is injective
+↓
+existing equality / ZERO reflection machinery
+↓
+2-primary calculations
 ```
 
 ---
@@ -532,3 +582,850 @@ actual H((2ι₂)η₂) calculation
 最初に current generator typing / identity-map representation / `H(η₂)=ι₃` / multiple representation を確認し、actual calculation に不足する最小 capability だけを特定する。
 
 不足がある場合のみ production code を追加する。
+
+---
+
+# 17. Toda 4章：2-primary calculation branch
+
+Toda 4章の結果は、
+通常の homotopy group `π_i(S^n)` だけでなく、
+2-primary component と Toda が定義する部分群 `π_i^n` を用いて
+EHP 型計算を進めるための独立した将来 branch とする。
+
+この branch の中心:
+
+```text
+Serre finiteness
+↓
+p-primary component
+↓
+Toda π_i^n
+↓
+preimage under E
+↓
+Whitehead product
+↓
+Lemma 4.1
+↓
+2-primary EHP exact sequence
+↓
+stable-range suspension isomorphism
+↓
+decomposition isomorphism
+↓
+E injectivity
+↓
+2-primary calculations
+```
+
+Important:
+
+```text
+π_i^n
+!=
+π_i(S^n)
+```
+
+一般には同一視しない。
+
+---
+
+# 18. Toda (4.2) — Serre finiteness
+
+[Toda](4.2) で利用する既知結果:
+
+```text
+π_i(S^n)
+```
+
+は、
+
+```text
+i=n
+```
+
+または、
+
+```text
+i=2n-1
+```
+
+の場合を除いて有限群である。
+
+将来的には foundational group fact として扱う。
+
+概念的には:
+
+```text
+HomotopyGroupFinitenessFact(
+  group=π_i(S^n),
+  finite=True,
+  conditions=(i != n, i != 2n-1),
+)
+```
+
+のような表現候補がある。
+
+ただし actual implementation では、
+一般 quantified condition を先に作らず、
+既存 theorem-fact machinery で必要最小限に表現できるかを確認する。
+
+この fact 自体から具体的な group structure を自動生成しない。
+
+```text
+finite
+!=
+known decomposition
+```
+
+---
+
+# 19. Toda (4.3) — p-primary component と π_i^n
+
+## 19.1 p-primary component
+
+```text
+π_i(S^n;p)
+```
+
+を、
+
+```text
+π_i(S^n)
+```
+
+の `p`-primary component として扱う。
+
+特にこの project では、
+Toda 4章の 2-primary calculation に必要な:
+
+```text
+π_i(S^n;2)
+```
+
+を優先する。
+
+将来的な group expression / reference 候補:
+
+```text
+PrimaryComponent(
+  group=π_i(S^n),
+  prime=2,
+)
+```
+
+Important:
+
+```text
+π_i(S^n;2)
+```
+
+を文字列だけで保持せず、
+ambient homotopy group と prime を structural に持てる形を優先する。
+
+## 19.2 Toda subgroup π_i^n
+
+[Toda](4.3) の定義:
+
+```text
+i=n
+```
+
+のとき:
+
+```text
+π_i^n
+=
+π_n(S^n)
+```
+
+```text
+i=2n-1
+```
+
+のとき:
+
+```text
+π_i^n
+=
+E^-1(π_{2n}(S^{n+1};2))
+```
+
+```text
+i != n, 2n-1
+```
+
+のとき:
+
+```text
+π_i^n
+=
+π_i(S^n;2)
+```
+
+将来的には `π_i^n` を独立した group-family reference として扱う。
+
+候補:
+
+```text
+TodaPrimaryGroup(
+  degree=i,
+  sphere_dimension=n,
+)
+```
+
+または equivalent minimal representation。
+
+Important:
+
+```text
+TodaPrimaryGroup(i,n)
+```
+
+を単なる alias にしない。
+
+特に critical degree:
+
+```text
+i=2n-1
+```
+
+では preimage により定義されるため、
+definition provenance を保持する。
+
+---
+
+# 20. Preimage group under suspension
+
+critical degree:
+
+```text
+π_{2n-1}^n
+=
+E^-1(π_{2n}(S^{n+1};2))
+```
+
+は、
+以前 roadmap に挙げた element preimage:
+
+```text
+f^-1(a)
+```
+
+より一段一般的な、
+
+```text
+map inverse image of a subgroup
+```
+
+を実際に必要とする具体例である。
+
+将来的な候補:
+
+```text
+PreimageSubgroup(
+  map=E,
+  subgroup=π_{2n}(S^{n+1};2),
+)
+```
+
+Semantics:
+
+```text
+x ∈ E^-1(A)
+↔
+E(x) ∈ A
+```
+
+この bridge を proof-level に保持できるようにする。
+
+Important:
+
+```text
+preimage of element
+```
+
+と:
+
+```text
+preimage of subgroup
+```
+
+を区別する。
+
+Toda (4.3) では後者が中心となる。
+
+---
+
+# 21. Whitehead product
+
+Toda Lemma 4.1 では:
+
+```text
+[ι_{n-1},ι_{n-1}]
+```
+
+が現れる。
+
+したがって将来的に Whitehead product の最小 structural representation が必要になる。
+
+候補:
+
+```text
+WhiteheadProduct(
+  left=a,
+  right=b,
+)
+```
+
+Important:
+
+```text
+WhiteheadProduct
+!=
+Composition
+```
+
+```text
+WhiteheadProduct
+!=
+SmashProduct
+```
+
+として distinct expression とする。
+
+初期実装では Lemma 4.1 に必要な:
+
+```text
+[ι_{n-1},ι_{n-1}] = 0
+```
+
+または:
+
+```text
+[ι_{n-1},ι_{n-1}] != 0
+```
+
+という known fact / theorem premise を表現できればよい。
+
+general Whitehead-product algebra は先取りしない。
+
+---
+
+# 22. Toda Lemma 4.1
+
+[Toda] Lemma 4.1 は、
+critical group:
+
+```text
+π_{2n-1}^n
+```
+
+の構造を parity と Whitehead product により場合分けする。
+
+## 22.1 n odd
+
+```text
+n odd
+↓
+π_{2n-1}^n
+=
+π_{2n-1}(S^n;2)
+```
+
+## 22.2 n even and Whitehead product nonzero
+
+```text
+n even
++
+[ι_{n-1},ι_{n-1}] != 0
+↓
+π_{2n-1}^n
+=
+Z{P(ι_{2n+1})}
+⊕
+π_{2n-1}(S^n;2)
+```
+
+## 22.3 n even and Whitehead product zero
+
+```text
+n even
++
+[ι_{n-1},ι_{n-1}] = 0
+↓
+π_{2n-1}^n
+=
+Z{α}
+⊕
+π_{2n-1}(S^n;2)
+```
+
+ここで `α` は:
+
+```text
+H(α)=ι_{2n-1}
+```
+
+かつ:
+
+```text
+Eα ∈ π_{2n}^{n+1}
+=
+π_{2n}(S^{n+1};2)
+```
+
+を満たす元。
+
+この case は将来的に:
+
+```text
+existential / chosen witness
++
+map equation
++
+membership
+```
+
+を接続する actual theorem scenario となる。
+
+Important:
+
+```text
+α
+```
+
+は notation から自動生成する named generator ではなく、
+Lemma 4.1 の条件を満たす witness element として扱う。
+
+---
+
+# 23. Toda Prop.4.2 — 2-primary EHP exact sequence
+
+[Toda] Proposition 4.2:
+
+```text
+… →
+π_i^n
+-E→
+π_{i+1}^{n+1}
+-H→
+π_{i+1}^{2n+1}
+-Δ→
+π_{i-1}^n
+-E→
+π_i^{n+1}
+-H→
+…
+```
+
+は exact sequence である。
+
+この sequence は、
+通常の homotopy group を直接並べる既存 EHP layer とは別に、
+Toda subgroup:
+
+```text
+π_i^n
+```
+
+を domain object とする 2-primary EHP branch として扱う。
+
+Important:
+
+```text
+existing EHP exactness machinery
+```
+
+を可能な限り再利用する。
+
+新しい exactness engine を作らず、
+
+```text
+new group-term representation
++
+existing exactness reasoning
+```
+
+で成立するかを先に確認する。
+
+また map 名:
+
+```text
+E
+H
+Δ
+```
+
+の typing context は、
+通常の EHP sequence と Toda `π_i^n` sequence で区別できるようにする。
+
+この exact sequence を、
+2-primary component の計算の主要 engine とする。
+
+---
+
+# 24. Toda (4.5) — stable-range suspension isomorphism
+
+[Toda](4.5):
+
+```text
+n >= k+2
+```
+
+のとき、
+任意の:
+
+```text
+m >= n
+```
+
+について:
+
+```text
+E^(m-n):
+π_{n+k}^n
+→
+π_{m+k}^m
+```
+
+は同型。
+
+この theorem は、
+Toda `π_i^n` family に対する stable-range theorem として扱う。
+
+将来的な conclusion:
+
+```text
+Isomorphism(
+  E^(m-n):
+  π_{n+k}^n
+  →
+  π_{m+k}^m
+)
+```
+
+Important:
+
+既存 Freudenthal theorem と数学的に関連していても、
+同じ theorem fact として暗黙統合しない。
+
+```text
+Toda (4.5)
+!=
+existing Freudenthal rule
+```
+
+とし、
+source / theorem provenance を保持する。
+
+既存 Phase 28 の:
+
+```text
+Isomorphism
+↓
+Injective
+```
+
+をそのまま再利用できる。
+
+したがって:
+
+```text
+E^(m-n)(a)=E^(m-n)(b)
++
+Toda (4.5)
+↓
+a=b
+```
+
+という equality reflection が可能になる。
+
+---
+
+# 25. Toda Prop.4.4 — decomposition isomorphism
+
+仮定:
+
+```text
+α ∈ π_{2n-1}^n
+```
+
+```text
+H(α)=±ι_{2n-1}
+```
+
+このとき:
+
+```text
+π_{i-1}^{n-1}
+⊕
+π_i^{2n-1}
+→
+π_i^n
+```
+
+```text
+(β,γ)
+↦
+Eβ + α∘γ
+```
+
+は任意の `i` で同型。
+
+この theorem は、
+以下を一度に接続する代表的 theorem scenario となる。
+
+```text
+direct sum
+Suspension
+Composition
+Sum
+Map / function representation
+Isomorphism
+```
+
+将来的な map representation 候補:
+
+```text
+TodaDecompositionMap(
+  alpha=α,
+  n=n,
+  i=i,
+)
+```
+
+または actual theorem application 時に構築する lambda-like map expression。
+
+ただし generic lambda calculus は導入しない。
+
+重要なのは:
+
+```text
+(β,γ)
+↦
+Eβ + α∘γ
+```
+
+という map の数学的 identity と typing を保持し、
+その map に対する `IsomorphismStatement` を導けることである。
+
+---
+
+# 26. Prop.4.4 consequence — suspension E is injective
+
+Proposition 4.4 から特に:
+
+```text
+E:
+π_{i-1}^{n-1}
+→
+π_i^n
+```
+
+は任意の `i` で単射。
+
+これは current generic map-property machinery に直接接続できる。
+
+```text
+Injective(E)
++
+Eβ₁=Eβ₂
+↓
+β₁=β₂
+```
+
+また:
+
+```text
+Injective(E)
++
+Eβ=0
+↓
+β=0
+```
+
+の ZERO reflection も将来候補。
+
+Important:
+
+proof trace 上では:
+
+```text
+Toda Prop.4.4
+↓
+decomposition map isomorphism
+↓
+E injective
+```
+
+という theorem provenance を保持する。
+
+`E` の injectivity を notation から global fact として登録しない。
+
+typing context:
+
+```text
+E:
+π_{i-1}^{n-1}
+→
+π_i^n
+```
+
+を含む contextual property とする。
+
+---
+
+# 27. 2-primary branch implementation order candidate
+
+Phase 35+ の actual H calculation を直近目標として維持する。
+
+Toda 4章 branch はその後の有力候補として、
+actual proof need に応じて次の順を検討する。
+
+```text
+4A
+PrimaryComponent / π_i(S^n;2) minimum representation
+↓
+4B
+TodaPrimaryGroup π_i^n minimum representation
+↓
+4C
+PreimageSubgroup under E
+↓
+4D
+WhiteheadProduct minimum representation
+↓
+4E
+Toda Lemma 4.1 theorem rules
+↓
+4F
+Toda Prop.4.2 exact-sequence construction
+↓
+4G
+Toda (4.5) suspension-isomorphism theorem
+↓
+4H
+Toda Prop.4.4 decomposition isomorphism
+↓
+4I
+contextual Injective(E)
+↓
+4J
+representative 2-primary calculation
+```
+
+実際の Phase 番号は current project progress と code inspection 後に決める。
+
+---
+
+# 28. 2-primary branch testing principle
+
+各 layer で既存 testing principle に加えて、
+次を確認する。
+
+```text
+π_i(S^n)
+!=
+π_i(S^n;2)
+!=
+π_i^n
+```
+
+critical degree branch:
+
+```text
+i=n
+i=2n-1
+otherwise
+```
+
+を区別する。
+
+Preimage subgroup:
+
+```text
+x∈E^-1(A)
+↔
+E(x)∈A
+```
+
+Whitehead condition:
+
+```text
+[ι_{n-1},ι_{n-1}]=0
+```
+
+と:
+
+```text
+[ι_{n-1},ι_{n-1}]!=0
+```
+
+を strict に区別する。
+
+Toda (4.5):
+
+```text
+n>=k+2
+m>=n
+```
+
+の side conditions を満たさない場合に theorem を適用しない。
+
+Prop.4.4:
+
+```text
+α∈π_{2n-1}^n
+H(α)=±ι_{2n-1}
+```
+
+の両 premise を必要とし、
+不足時には isomorphism を生成しない。
+
+また contextual `Injective(E)` が
+unrelated E map / typing context に漏れないことを regression で確認する。
+
+---
+
+# 29. 将来の2-primary representative proof direction
+
+最終的には Toda 4章 branch を用いて:
+
+```text
+known group facts
++
+2-primary component
++
+π_i^n
++
+EHP exactness
++
+stable-range suspension isomorphism
++
+decomposition isomorphism
++
+injective E
+```
+
+から、
+Toda の 2-primary homotopy-group calculations を
+proof graph 上で追跡できることを目標とする。
+
+この branch では特に:
+
+```text
+exact group value
+finite-group fact
+2-primary subgroup
+free Z summand
+preimage-defined subgroup
+chosen witness α
+Whitehead-product condition
+exactness
+isomorphism
+injectivity
+```
+
+を同一の provenance-aware framework で扱う。
+
