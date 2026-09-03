@@ -1,9 +1,12 @@
-import expression as expression_module
 from expression import (
   Composition,
   HomotopyElement,
   IteratedSuspension,
   Multiple,
+  ScalarExpression,
+  ScalarPower,
+  ScalarProduct,
+  ScalarSum,
   ScalarSymbol,
   SmashProduct,
   Sum,
@@ -50,7 +53,7 @@ def test_phase33_1_single_symbol_iterated_suspensions_are_representable():
   )
 
 
-def test_phase33_1_existing_expression_nodes_compose_without_new_production_code():
+def test_phase33_1_existing_expression_nodes_compose_without_new_semantics():
   a = HomotopyElement(
     name="a",
     dimension=1,
@@ -102,101 +105,416 @@ def test_phase33_1_existing_expression_nodes_compose_without_new_production_code
   )
 
 
-def test_phase33_1_symbolic_exponent_sum_has_no_structural_representation_yet():
-  assert not hasattr(
-    expression_module,
-    "ScalarSum",
+def test_phase33_2_scalar_symbol_is_scalar_expression():
+  p = ScalarSymbol(
+    name="p",
   )
 
-  opaque_exponent = ScalarSymbol(
+  assert isinstance(
+    p,
+    ScalarExpression,
+  )
+
+
+def test_phase33_2_scalar_sum_preserves_operands_structurally():
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  scalar_sum = ScalarSum(
+    left=p,
+    right=k,
+  )
+
+  assert scalar_sum.left == p
+  assert scalar_sum.right == k
+
+  assert scalar_sum == ScalarSum(
+    left=p,
+    right=k,
+  )
+
+
+def test_phase33_2_scalar_product_preserves_operands_structurally():
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  scalar_product = ScalarProduct(
+    left=p,
+    right=h,
+  )
+
+  assert scalar_product.left == p
+  assert scalar_product.right == h
+
+  assert scalar_product == ScalarProduct(
+    left=p,
+    right=h,
+  )
+
+
+def test_phase33_2_scalar_power_preserves_base_and_exponent_structurally():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=n,
+  )
+
+  assert sign.base == -1
+  assert sign.exponent == n
+
+  assert sign == ScalarPower(
+    base=-1,
+    exponent=n,
+  )
+
+
+def test_phase33_2_p_plus_k_is_lossless_scalar_structure():
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  p_plus_k = ScalarSum(
+    left=p,
+    right=k,
+  )
+
+  opaque = ScalarSymbol(
     name="p+k",
   )
 
-  assert opaque_exponent.name == "p+k"
-  assert not hasattr(
-    opaque_exponent,
-    "left",
-  )
-  assert not hasattr(
-    opaque_exponent,
-    "right",
-  )
-
-
-def test_phase33_1_symbolic_exponent_product_has_no_structural_representation_yet():
-  assert not hasattr(
-    expression_module,
-    "ScalarProduct",
+  assert p_plus_k == ScalarSum(
+    left=ScalarSymbol(
+      name="p",
+    ),
+    right=ScalarSymbol(
+      name="k",
+    ),
   )
 
-  opaque_exponent = ScalarSymbol(
-    name="ph",
+  assert p_plus_k != opaque
+
+
+def test_phase33_2_p_plus_k_times_h_is_lossless_scalar_structure():
+  p = ScalarSymbol(
+    name="p",
   )
 
-  assert opaque_exponent.name == "ph"
-  assert not hasattr(
-    opaque_exponent,
-    "left",
-  )
-  assert not hasattr(
-    opaque_exponent,
-    "right",
+  k = ScalarSymbol(
+    name="k",
   )
 
-
-def test_phase33_1_symbolic_power_has_no_structural_representation_yet():
-  assert not hasattr(
-    expression_module,
-    "ScalarPower",
+  h = ScalarSymbol(
+    name="h",
   )
 
-  opaque_sign = ScalarSymbol(
-    name="(-1)^n",
+  exponent = ScalarProduct(
+    left=ScalarSum(
+      left=p,
+      right=k,
+    ),
+    right=h,
   )
 
-  assert opaque_sign.name == "(-1)^n"
-  assert not hasattr(
-    opaque_sign,
-    "base",
-  )
-  assert not hasattr(
-    opaque_sign,
-    "exponent",
+  assert exponent.left == ScalarSum(
+    left=p,
+    right=k,
   )
 
+  assert exponent.right == h
 
-def test_phase33_1_barratt_hilton_gap_is_scalar_structure_not_main_expression_structure():
-  missing_scalar_nodes = tuple(
-    name
-    for name in (
-      "ScalarSum",
-      "ScalarProduct",
-      "ScalarPower",
-    )
-    if not hasattr(
-      expression_module,
-      name,
-    )
+
+def test_phase33_2_barratt_hilton_sign_with_sum_product_exponent_is_representable():
+  p = ScalarSymbol(
+    name="p",
   )
 
-  assert missing_scalar_nodes == (
-    "ScalarSum",
-    "ScalarProduct",
-    "ScalarPower",
+  k = ScalarSymbol(
+    name="k",
   )
 
-  for name in (
-    "IteratedSuspension",
-    "Composition",
-    "Multiple",
-    "Sum",
-    "SmashProduct",
-  ):
-    assert hasattr(
-      expression_module,
-      name,
-    )
+  h = ScalarSymbol(
+    name="h",
+  )
 
+  sign = ScalarPower(
+    base=-1,
+    exponent=ScalarProduct(
+      left=ScalarSum(
+        left=p,
+        right=k,
+      ),
+      right=h,
+    ),
+  )
+
+  expected = ScalarPower(
+    base=-1,
+    exponent=ScalarProduct(
+      left=ScalarSum(
+        left=ScalarSymbol(
+          name="p",
+        ),
+        right=ScalarSymbol(
+          name="k",
+        ),
+      ),
+      right=ScalarSymbol(
+        name="h",
+      ),
+    ),
+  )
+
+  assert sign == expected
+
+
+def test_phase33_2_barratt_hilton_ph_sign_is_representable():
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=ScalarProduct(
+      left=p,
+      right=h,
+    ),
+  )
+
+  assert sign == ScalarPower(
+    base=-1,
+    exponent=ScalarProduct(
+      left=p,
+      right=h,
+    ),
+  )
+
+
+def test_phase33_2_iterated_suspension_accepts_p_plus_k_structure():
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  exponent = ScalarSum(
+    left=p,
+    right=k,
+  )
+
+  suspension = IteratedSuspension(
+    expression=b,
+    exponent=exponent,
+  )
+
+  assert suspension.expression == b
+  assert suspension.exponent == exponent
+
+  assert suspension == IteratedSuspension(
+    expression=b,
+    exponent=ScalarSum(
+      left=p,
+      right=k,
+    ),
+  )
+
+
+def test_phase33_2_iterated_suspension_accepts_q_plus_h_structure():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  exponent = ScalarSum(
+    left=q,
+    right=h,
+  )
+
+  suspension = IteratedSuspension(
+    expression=a,
+    exponent=exponent,
+  )
+
+  assert suspension.expression == a
+  assert suspension.exponent == exponent
+
+
+def test_phase33_2_symbolic_scalar_sum_does_not_gain_concrete_typing():
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+    source=8,
+    target=4,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  suspension = IteratedSuspension(
+    expression=b,
+    exponent=ScalarSum(
+      left=p,
+      right=k,
+    ),
+  )
+
+  assert suspension.source is None
+  assert suspension.target is None
+
+
+def test_phase33_2_scalar_sum_is_not_implicitly_commutative():
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  assert ScalarSum(
+    left=p,
+    right=k,
+  ) != ScalarSum(
+    left=k,
+    right=p,
+  )
+
+
+def test_phase33_2_scalar_product_is_not_implicitly_commutative():
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  assert ScalarProduct(
+    left=p,
+    right=h,
+  ) != ScalarProduct(
+    left=h,
+    right=p,
+  )
+
+
+def test_phase33_2_scalar_product_does_not_distribute_automatically():
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  factored = ScalarProduct(
+    left=ScalarSum(
+      left=p,
+      right=k,
+    ),
+    right=h,
+  )
+
+  expanded = ScalarSum(
+    left=ScalarProduct(
+      left=p,
+      right=h,
+    ),
+    right=ScalarProduct(
+      left=k,
+      right=h,
+    ),
+  )
+
+  assert factored != expanded
+
+
+def test_phase33_2_scalar_power_is_not_evaluated_automatically():
+  assert ScalarPower(
+    base=-1,
+    exponent=2,
+  ) != 1
+
+  assert ScalarPower(
+    base=-1,
+    exponent=3,
+  ) != -1
+
+
+def test_phase33_2_symbolic_sign_is_not_yet_connected_to_multiple():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=n,
+  )
+
+  current_multiple = Multiple(
+    coefficient=ScalarSymbol(
+      name="k",
+    ),
+    expression=a,
+  )
+
+  assert sign != current_multiple.coefficient
+
+  assert current_multiple == Multiple(
+    coefficient=ScalarSymbol(
+      name="k",
+    ),
+    expression=a,
+  )
 
 
 
