@@ -11,6 +11,21 @@ from expression import (
   SmashProduct,
   Sum,
 )
+from proof import (
+  ProofRule,
+  ProofStep,
+  apply_inference_match,
+  find_inference_match,
+)
+from scalar_rules import (
+  EvenScalarStatement,
+  OddScalarStatement,
+  ScalarSignEvaluationStatement,
+  even_scalar_evaluates_minus_one_power_inference_rule,
+  even_scalar_implies_mod_two_congruence_inference_rule,
+  odd_scalar_evaluates_minus_one_power_inference_rule,
+  odd_scalar_implies_mod_two_congruence_inference_rule,
+)
 
 
 def test_phase33_1_single_symbol_iterated_suspensions_are_representable():
@@ -515,6 +530,464 @@ def test_phase33_2_symbolic_sign_is_not_yet_connected_to_multiple():
     ),
     expression=a,
   )
+
+
+def test_phase33_3_even_scalar_fact_accepts_compound_scalar_expression():
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  exponent = ScalarProduct(
+    left=ScalarSum(
+      left=p,
+      right=k,
+    ),
+    right=h,
+  )
+
+  statement = EvenScalarStatement(
+    scalar=exponent,
+  )
+
+  assert statement.scalar == exponent
+
+
+def test_phase33_3_odd_scalar_fact_accepts_compound_scalar_expression():
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  exponent = ScalarProduct(
+    left=p,
+    right=h,
+  )
+
+  statement = OddScalarStatement(
+    scalar=exponent,
+  )
+
+  assert statement.scalar == exponent
+
+
+def test_phase33_3_even_exponent_evaluates_symbolic_sign_to_one():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  even_step = ProofStep(
+    conclusion=EvenScalarStatement(
+      scalar=n,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    even_scalar_evaluates_minus_one_power_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      even_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == (
+    ScalarSignEvaluationStatement(
+      expression=ScalarPower(
+        base=-1,
+        exponent=n,
+      ),
+      value=1,
+    )
+  )
+
+  assert step.rule == ProofRule.INFERENCE
+  assert step.inference_rule == rule
+  assert step.premises == (
+    even_step,
+  )
+
+
+def test_phase33_3_odd_exponent_evaluates_symbolic_sign_to_minus_one():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=n,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    odd_scalar_evaluates_minus_one_power_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      odd_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == (
+    ScalarSignEvaluationStatement(
+      expression=ScalarPower(
+        base=-1,
+        exponent=n,
+      ),
+      value=-1,
+    )
+  )
+
+  assert step.rule == ProofRule.INFERENCE
+  assert step.inference_rule == rule
+  assert step.premises == (
+    odd_step,
+  )
+
+
+def test_phase33_3_even_compound_exponent_evaluates_barratt_hilton_sign():
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  exponent = ScalarProduct(
+    left=ScalarSum(
+      left=p,
+      right=k,
+    ),
+    right=h,
+  )
+
+  even_step = ProofStep(
+    conclusion=EvenScalarStatement(
+      scalar=exponent,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    even_scalar_evaluates_minus_one_power_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      even_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == (
+    ScalarSignEvaluationStatement(
+      expression=ScalarPower(
+        base=-1,
+        exponent=ScalarProduct(
+          left=ScalarSum(
+            left=p,
+            right=k,
+          ),
+          right=h,
+        ),
+      ),
+      value=1,
+    )
+  )
+
+
+def test_phase33_3_odd_compound_exponent_evaluates_barratt_hilton_sign():
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  exponent = ScalarProduct(
+    left=p,
+    right=h,
+  )
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=exponent,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    odd_scalar_evaluates_minus_one_power_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      odd_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == (
+    ScalarSignEvaluationStatement(
+      expression=ScalarPower(
+        base=-1,
+        exponent=ScalarProduct(
+          left=p,
+          right=h,
+        ),
+      ),
+      value=-1,
+    )
+  )
+
+
+def test_phase33_3_even_sign_rule_rejects_odd_fact():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=n,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    even_scalar_evaluates_minus_one_power_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      odd_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase33_3_odd_sign_rule_rejects_even_fact():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  even_step = ProofStep(
+    conclusion=EvenScalarStatement(
+      scalar=n,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    odd_scalar_evaluates_minus_one_power_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      even_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase33_3_compound_parity_does_not_enter_phase16_mod_two_bridge():
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  exponent = ScalarProduct(
+    left=p,
+    right=h,
+  )
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=exponent,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    odd_scalar_implies_mod_two_congruence_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      odd_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase33_3_compound_even_parity_does_not_enter_phase16_mod_two_bridge():
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  exponent = ScalarProduct(
+    left=p,
+    right=h,
+  )
+
+  even_step = ProofStep(
+    conclusion=EvenScalarStatement(
+      scalar=exponent,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    even_scalar_implies_mod_two_congruence_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      even_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase33_3_parity_is_not_inferred_from_scalar_structure_alone():
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  exponent = ScalarProduct(
+    left=p,
+    right=h,
+  )
+
+  sign = ScalarPower(
+    base=-1,
+    exponent=exponent,
+  )
+
+  even_rule = (
+    even_scalar_evaluates_minus_one_power_inference_rule()
+  )
+
+  odd_rule = (
+    odd_scalar_evaluates_minus_one_power_inference_rule()
+  )
+
+  assert find_inference_match(
+    even_rule,
+    (),
+  ) is None
+
+  assert find_inference_match(
+    odd_rule,
+    (),
+  ) is None
+
+  assert sign == ScalarPower(
+    base=-1,
+    exponent=exponent,
+  )
+
+
+def test_phase33_3_sign_evaluation_does_not_connect_to_multiple_yet():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  evaluation = ScalarSignEvaluationStatement(
+    expression=ScalarPower(
+      base=-1,
+      exponent=n,
+    ),
+    value=-1,
+  )
+
+  existing_multiple = Multiple(
+    coefficient=-1,
+    expression=a,
+  )
+
+  assert evaluation.value == -1
+
+  assert evaluation != existing_multiple
+
+
 
 
 
