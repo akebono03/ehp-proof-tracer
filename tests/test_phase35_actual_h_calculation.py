@@ -1,8 +1,11 @@
 from expression import (
+  Composition,
   GeneratorSymbol,
   HomotopyElement,
   MapApplication,
   Multiple,
+  SmashProduct,
+  Suspension,
 )
 from generator_facts import (
   GENERATOR_FACT_REPOSITORY,
@@ -17,6 +20,7 @@ from hopf_rules import (
   HopfInvariantStatement,
   hopf_invariant_proof_step,
   hopf_invariant_statement_to_ehp_h_equality_inference_rule,
+  toda_prop22_left_inference_rule,
 )
 from map_facts import (
   EHP_H_MAP,
@@ -543,6 +547,358 @@ def test_phase35_2_actual_h_equality_preserves_fact_provenance_through_premise()
     )
   )
 
+
+def test_phase35_3_two_iota_1_is_available_for_concrete_prop22_left_application():
+  iota_1 = HomotopyElement(
+    name="ι₁",
+    dimension=1,
+    source=1,
+    target=1,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=1,
+    ),
+  )
+
+  two_iota_1 = Multiple(
+    coefficient=2,
+    expression=iota_1,
+  )
+
+  assert two_iota_1 == Multiple(
+    coefficient=2,
+    expression=iota_1,
+  )
+
+
+def test_phase35_3_prop22_left_rule_accepts_two_iota_1_and_eta_2():
+  iota_1 = HomotopyElement(
+    name="ι₁",
+    dimension=1,
+    source=1,
+    target=1,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=1,
+    ),
+  )
+
+  two_iota_1 = Multiple(
+    coefficient=2,
+    expression=iota_1,
+  )
+
+  rule = toda_prop22_left_inference_rule(
+    alpha=ETA_2,
+    gamma=two_iota_1,
+  )
+
+  match = find_inference_match(
+    rule,
+    (),
+  )
+
+  assert match is not None
+
+
+def test_phase35_3_prop22_left_derives_concrete_actual_h_equality():
+  iota_1 = HomotopyElement(
+    name="ι₁",
+    dimension=1,
+    source=1,
+    target=1,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=1,
+    ),
+  )
+
+  two_iota_1 = Multiple(
+    coefficient=2,
+    expression=iota_1,
+  )
+
+  rule = toda_prop22_left_inference_rule(
+    alpha=ETA_2,
+    gamma=two_iota_1,
+  )
+
+  match = find_inference_match(
+    rule,
+    (),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.conclusion == Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=Composition(
+        left=Suspension(
+          expression=two_iota_1,
+        ),
+        right=ETA_2,
+      ),
+    ),
+    rhs=Composition(
+      left=Suspension(
+        expression=SmashProduct(
+          left=two_iota_1,
+          right=two_iota_1,
+        ),
+      ),
+      right=MapApplication(
+        map=EHP_H_MAP,
+        expression=ETA_2,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+
+def test_phase35_3_concrete_prop22_left_result_is_theorem_derived_proof_step():
+  iota_1 = HomotopyElement(
+    name="ι₁",
+    dimension=1,
+    source=1,
+    target=1,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=1,
+    ),
+  )
+
+  two_iota_1 = Multiple(
+    coefficient=2,
+    expression=iota_1,
+  )
+
+  rule = toda_prop22_left_inference_rule(
+    alpha=ETA_2,
+    gamma=two_iota_1,
+  )
+
+  match = find_inference_match(
+    rule,
+    (),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert step.inference_rule == rule
+
+  assert step.premises == ()
+
+  assert (
+    step.inference_rule.name
+    == "Toda Prop.2.2 left formula"
+  )
+
+
+def test_phase35_3_concrete_prop22_left_uses_canonical_actual_h_map():
+  iota_1 = HomotopyElement(
+    name="ι₁",
+    dimension=1,
+    source=1,
+    target=1,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=1,
+    ),
+  )
+
+  two_iota_1 = Multiple(
+    coefficient=2,
+    expression=iota_1,
+  )
+
+  rule = toda_prop22_left_inference_rule(
+    alpha=ETA_2,
+    gamma=two_iota_1,
+  )
+
+  match = find_inference_match(
+    rule,
+    (),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert (
+    step.conclusion.lhs.map
+    is EHP_H_MAP
+  )
+
+  assert (
+    step.conclusion
+    .rhs
+    .right
+    .map
+    is EHP_H_MAP
+  )
+
+
+def test_phase35_3_prop22_left_rhs_connects_structurally_to_h_eta_2_fact():
+  iota_1 = HomotopyElement(
+    name="ι₁",
+    dimension=1,
+    source=1,
+    target=1,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=1,
+    ),
+  )
+
+  two_iota_1 = Multiple(
+    coefficient=2,
+    expression=iota_1,
+  )
+
+  prop22_rule = (
+    toda_prop22_left_inference_rule(
+      alpha=ETA_2,
+      gamma=two_iota_1,
+    )
+  )
+
+  prop22_match = find_inference_match(
+    prop22_rule,
+    (),
+  )
+
+  assert prop22_match is not None
+
+  prop22_step = apply_inference_match(
+    prop22_match
+  )
+
+  hopf_step = hopf_invariant_proof_step(
+    ETA_2_HOPF_INVARIANT_FACT
+  )
+
+  h_bridge_rule = (
+    hopf_invariant_statement_to_ehp_h_equality_inference_rule()
+  )
+
+  h_bridge_match = find_inference_match(
+    h_bridge_rule,
+    (
+      hopf_step,
+    ),
+  )
+
+  assert h_bridge_match is not None
+
+  h_eta_2_step = apply_inference_match(
+    h_bridge_match
+  )
+
+  assert (
+    prop22_step
+    .conclusion
+    .rhs
+    .right
+    == h_eta_2_step.conclusion.lhs
+  )
+
+  assert h_eta_2_step.conclusion == Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=ETA_2,
+    ),
+    rhs=IOTA_3,
+    relation_type=RelationType.EQUALITY,
+  )
+
+
+def test_phase35_3_does_not_identify_suspension_two_iota_1_with_two_iota_2_yet():
+  iota_1 = HomotopyElement(
+    name="ι₁",
+    dimension=1,
+    source=1,
+    target=1,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=1,
+    ),
+  )
+
+  iota_2 = HomotopyElement(
+    name="ι₂",
+    dimension=2,
+    source=2,
+    target=2,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=2,
+    ),
+  )
+
+  two_iota_1 = Multiple(
+    coefficient=2,
+    expression=iota_1,
+  )
+
+  two_iota_2 = Multiple(
+    coefficient=2,
+    expression=iota_2,
+  )
+
+  suspended_two_iota_1 = Suspension(
+    expression=two_iota_1,
+  )
+
+  assert suspended_two_iota_1 != (
+    two_iota_2
+  )
+
+
+def test_phase35_3_does_not_evaluate_two_iota_1_smash_product_yet():
+  iota_1 = HomotopyElement(
+    name="ι₁",
+    dimension=1,
+    source=1,
+    target=1,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=1,
+    ),
+  )
+
+  two_iota_1 = Multiple(
+    coefficient=2,
+    expression=iota_1,
+  )
+
+  smash = SmashProduct(
+    left=two_iota_1,
+    right=two_iota_1,
+  )
+
+  assert isinstance(
+    smash,
+    SmashProduct,
+  )
+
+  assert smash.left == two_iota_1
+  assert smash.right == two_iota_1
 
 
 
