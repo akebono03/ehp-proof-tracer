@@ -1,9 +1,18 @@
+from barratt_hilton_rules import (
+  TODA_PROP_3_1_REFERENCE,
+  HomotopyGroupMembershipStatement,
+  barratt_hilton_first_inference_rule,
+  barratt_hilton_second_inference_rule,
+)
 from expression import (
   Composition,
   GeneratorSymbol,
   HomotopyElement,
+  IteratedSuspension,
   MapApplication,
   Multiple,
+  ScalarPower,
+  ScalarProduct,
   SmashProduct,
   Suspension,
 )
@@ -28,6 +37,7 @@ from map_facts import (
 from proof import (
   LiteratureReference,
   ProofRule,
+  ProofStep,
   Relation,
   RelationType,
   apply_inference_match,
@@ -899,6 +909,473 @@ def test_phase35_3_does_not_evaluate_two_iota_1_smash_product_yet():
 
   assert smash.left == two_iota_1
   assert smash.right == two_iota_1
+
+
+def test_phase35_4_two_iota_1_can_be_actual_barratt_hilton_membership_element():
+  iota_1 = HomotopyElement(
+    name="ι₁",
+    dimension=1,
+    source=1,
+    target=1,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=1,
+    ),
+  )
+
+  two_iota_1 = Multiple(
+    coefficient=2,
+    expression=iota_1,
+  )
+
+  statement = (
+    HomotopyGroupMembershipStatement(
+      element=two_iota_1,
+      group_dimension=1,
+      sphere_dimension=1,
+    )
+  )
+
+  assert statement.element == (
+    two_iota_1
+  )
+
+  assert statement.group_dimension == 1
+  assert statement.sphere_dimension == 1
+
+
+def test_phase35_4_first_barratt_hilton_rule_accepts_two_iota_1_in_pi_1_s_1():
+  iota_1 = HomotopyElement(
+    name="ι₁",
+    dimension=1,
+    source=1,
+    target=1,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=1,
+    ),
+  )
+
+  two_iota_1 = Multiple(
+    coefficient=2,
+    expression=iota_1,
+  )
+
+  alpha_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=two_iota_1,
+        group_dimension=1,
+        sphere_dimension=1,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  beta_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=two_iota_1,
+        group_dimension=1,
+        sphere_dimension=1,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=two_iota_1,
+      beta=two_iota_1,
+      p=1,
+      q=1,
+      k=0,
+      h=0,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      alpha_membership_step,
+      beta_membership_step,
+    ),
+  )
+
+  assert match is not None
+
+
+def test_phase35_4_first_barratt_hilton_rule_derives_concrete_two_iota_1_smash_formula():
+  iota_1 = HomotopyElement(
+    name="ι₁",
+    dimension=1,
+    source=1,
+    target=1,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=1,
+    ),
+  )
+
+  two_iota_1 = Multiple(
+    coefficient=2,
+    expression=iota_1,
+  )
+
+  alpha_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=two_iota_1,
+        group_dimension=1,
+        sphere_dimension=1,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  beta_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=two_iota_1,
+        group_dimension=1,
+        sphere_dimension=1,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=two_iota_1,
+      beta=two_iota_1,
+      p=1,
+      q=1,
+      k=0,
+      h=0,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      alpha_membership_step,
+      beta_membership_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  sign_exponent = ScalarProduct(
+    left=1,
+    right=0,
+  )
+
+  assert step.conclusion == Relation(
+    lhs=SmashProduct(
+      left=two_iota_1,
+      right=two_iota_1,
+    ),
+    rhs=Multiple(
+      coefficient=ScalarPower(
+        base=-1,
+        exponent=sign_exponent,
+      ),
+      expression=Composition(
+        left=IteratedSuspension(
+          expression=two_iota_1,
+          exponent=1,
+        ),
+        right=IteratedSuspension(
+          expression=two_iota_1,
+          exponent=1,
+        ),
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+    source=TODA_PROP_3_1_REFERENCE,
+    note=(
+      "Toda Prop.3.1 "
+      "Barratt-Hilton first formula."
+    ),
+  )
+
+
+def test_phase35_4_concrete_barratt_hilton_step_preserves_toda_prop_3_1_provenance():
+  iota_1 = HomotopyElement(
+    name="ι₁",
+    dimension=1,
+    source=1,
+    target=1,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=1,
+    ),
+  )
+
+  two_iota_1 = Multiple(
+    coefficient=2,
+    expression=iota_1,
+  )
+
+  alpha_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=two_iota_1,
+        group_dimension=1,
+        sphere_dimension=1,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  beta_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=two_iota_1,
+        group_dimension=1,
+        sphere_dimension=1,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=two_iota_1,
+      beta=two_iota_1,
+      p=1,
+      q=1,
+      k=0,
+      h=0,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      alpha_membership_step,
+      beta_membership_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert step.rule == ProofRule.INFERENCE
+  assert step.inference_rule == rule
+
+  assert step.premises == (
+    alpha_membership_step,
+    beta_membership_step,
+  )
+
+  assert (
+    step.conclusion.source
+    == TODA_PROP_3_1_REFERENCE
+  )
+
+
+def test_phase35_4_second_barratt_hilton_formula_agrees_in_symmetric_two_iota_1_case():
+  iota_1 = HomotopyElement(
+    name="ι₁",
+    dimension=1,
+    source=1,
+    target=1,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=1,
+    ),
+  )
+
+  two_iota_1 = Multiple(
+    coefficient=2,
+    expression=iota_1,
+  )
+
+  alpha_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=two_iota_1,
+        group_dimension=1,
+        sphere_dimension=1,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  beta_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=two_iota_1,
+        group_dimension=1,
+        sphere_dimension=1,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=two_iota_1,
+      beta=two_iota_1,
+      p=1,
+      q=1,
+      k=0,
+      h=0,
+    )
+  )
+
+  second_rule = (
+    barratt_hilton_second_inference_rule(
+      alpha=two_iota_1,
+      beta=two_iota_1,
+      p=1,
+      q=1,
+      k=0,
+      h=0,
+    )
+  )
+
+  first_match = find_inference_match(
+    first_rule,
+    (
+      alpha_membership_step,
+      beta_membership_step,
+    ),
+  )
+
+  second_match = find_inference_match(
+    second_rule,
+    (
+      alpha_membership_step,
+      beta_membership_step,
+    ),
+  )
+
+  assert first_match is not None
+  assert second_match is not None
+
+  first_step = apply_inference_match(
+    first_match
+  )
+
+  second_step = apply_inference_match(
+    second_match
+  )
+
+  assert (
+    first_step.conclusion.lhs
+    == second_step.conclusion.lhs
+  )
+
+  assert (
+    first_step.conclusion.rhs
+    == second_step.conclusion.rhs
+  )
+
+  assert (
+    first_step.inference_rule
+    != second_step.inference_rule
+  )
+
+
+def test_phase35_4_concrete_barratt_hilton_does_not_reduce_sign_yet():
+  iota_1 = HomotopyElement(
+    name="ι₁",
+    dimension=1,
+    source=1,
+    target=1,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=1,
+    ),
+  )
+
+  two_iota_1 = Multiple(
+    coefficient=2,
+    expression=iota_1,
+  )
+
+  alpha_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=two_iota_1,
+        group_dimension=1,
+        sphere_dimension=1,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  beta_membership_step = ProofStep(
+    conclusion=(
+      HomotopyGroupMembershipStatement(
+        element=two_iota_1,
+        group_dimension=1,
+        sphere_dimension=1,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    barratt_hilton_first_inference_rule(
+      alpha=two_iota_1,
+      beta=two_iota_1,
+      p=1,
+      q=1,
+      k=0,
+      h=0,
+    )
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      alpha_membership_step,
+      beta_membership_step,
+    ),
+  )
+
+  assert match is not None
+
+  step = apply_inference_match(
+    match
+  )
+
+  assert (
+    step.conclusion.rhs.coefficient
+    == ScalarPower(
+      base=-1,
+      exponent=ScalarProduct(
+        left=1,
+        right=0,
+      ),
+    )
+  )
+
+  assert (
+    step.conclusion.rhs.coefficient
+    != 1
+  )
+
 
 
 
