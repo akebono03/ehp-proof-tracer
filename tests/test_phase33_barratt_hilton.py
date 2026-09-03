@@ -2767,6 +2767,289 @@ def test_phase33_7_formula_representation_is_not_a_proof_step_by_itself():
   )
 
 
+def test_phase33_9_final_representative_regression():
+  a = HomotopyElement(
+    name="a",
+    dimension=1,
+  )
 
+  b = HomotopyElement(
+    name="b",
+    dimension=1,
+  )
+
+  p = ScalarSymbol(
+    name="p",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  k = ScalarSymbol(
+    name="k",
+  )
+
+  h = ScalarSymbol(
+    name="h",
+  )
+
+  p_plus_k = ScalarSum(
+    left=p,
+    right=k,
+  )
+
+  q_plus_h = ScalarSum(
+    left=q,
+    right=h,
+  )
+
+  first_exponent = ScalarProduct(
+    left=p_plus_k,
+    right=h,
+  )
+
+  first_sign = ScalarPower(
+    base=-1,
+    exponent=first_exponent,
+  )
+
+  first_composition = Composition(
+    left=IteratedSuspension(
+      expression=a,
+      exponent=q,
+    ),
+    right=IteratedSuspension(
+      expression=b,
+      exponent=p_plus_k,
+    ),
+  )
+
+  first_formula = Relation(
+    lhs=SmashProduct(
+      left=a,
+      right=b,
+    ),
+    rhs=Multiple(
+      coefficient=first_sign,
+      expression=first_composition,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  second_exponent = ScalarProduct(
+    left=p,
+    right=h,
+  )
+
+  second_sign = ScalarPower(
+    base=-1,
+    exponent=second_exponent,
+  )
+
+  second_composition = Composition(
+    left=IteratedSuspension(
+      expression=b,
+      exponent=p,
+    ),
+    right=IteratedSuspension(
+      expression=a,
+      exponent=q_plus_h,
+    ),
+  )
+
+  second_formula = Relation(
+    lhs=SmashProduct(
+      left=a,
+      right=b,
+    ),
+    rhs=Multiple(
+      coefficient=second_sign,
+      expression=second_composition,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert first_formula.lhs == SmashProduct(
+    left=a,
+    right=b,
+  )
+
+  assert first_formula.rhs == Multiple(
+    coefficient=ScalarPower(
+      base=-1,
+      exponent=ScalarProduct(
+        left=ScalarSum(
+          left=p,
+          right=k,
+        ),
+        right=h,
+      ),
+    ),
+    expression=Composition(
+      left=IteratedSuspension(
+        expression=a,
+        exponent=q,
+      ),
+      right=IteratedSuspension(
+        expression=b,
+        exponent=ScalarSum(
+          left=p,
+          right=k,
+        ),
+      ),
+    ),
+  )
+
+  assert second_formula.rhs == Multiple(
+    coefficient=ScalarPower(
+      base=-1,
+      exponent=ScalarProduct(
+        left=p,
+        right=h,
+      ),
+    ),
+    expression=Composition(
+      left=IteratedSuspension(
+        expression=b,
+        exponent=p,
+      ),
+      right=IteratedSuspension(
+        expression=a,
+        exponent=ScalarSum(
+          left=q,
+          right=h,
+        ),
+      ),
+    ),
+  )
+
+  assert first_formula != second_formula
+
+  parity_step = ProofStep(
+    conclusion=EvenScalarStatement(
+      scalar=first_exponent,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  sign_rule = (
+    even_scalar_evaluates_minus_one_power_inference_rule()
+  )
+
+  sign_match = find_inference_match(
+    sign_rule,
+    (
+      parity_step,
+    ),
+  )
+
+  assert sign_match is not None
+
+  sign_step = apply_inference_match(
+    sign_match
+  )
+
+  assert sign_step.conclusion == (
+    ScalarSignEvaluationStatement(
+      expression=first_sign,
+      value=1,
+    )
+  )
+
+  assert sign_step.premises == (
+    parity_step,
+  )
+
+  assert sign_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert sign_step.inference_rule == (
+    sign_rule
+  )
+
+  multiple_rule = (
+    scalar_sign_evaluation_applies_to_multiple_inference_rule(
+      sign=first_sign,
+      expression=first_composition,
+    )
+  )
+
+  multiple_match = find_inference_match(
+    multiple_rule,
+    (
+      sign_step,
+    ),
+  )
+
+  assert multiple_match is not None
+
+  multiple_step = apply_inference_match(
+    multiple_match
+  )
+
+  assert multiple_step.conclusion == Relation(
+    lhs=Multiple(
+      coefficient=first_sign,
+      expression=first_composition,
+    ),
+    rhs=first_composition,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert multiple_step.premises == (
+    sign_step,
+  )
+
+  assert multiple_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert multiple_step.inference_rule == (
+    multiple_rule
+  )
+
+  assert isinstance(
+    first_formula,
+    Relation,
+  )
+
+  assert not isinstance(
+    first_formula,
+    ProofStep,
+  )
+
+  assert first_formula.lhs != (
+    first_formula.rhs
+  )
+
+  assert not hasattr(
+    first_formula.lhs,
+    "source",
+  )
+
+  assert not hasattr(
+    first_formula.lhs,
+    "target",
+  )
+
+  assert (
+    first_composition
+    .right
+    .source
+    is None
+  )
+
+  assert (
+    first_composition
+    .right
+    .target
+    is None
+  )
+
+  assert first_sign != 1
+  assert first_sign != -1
 
 
