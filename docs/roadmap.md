@@ -22,7 +22,7 @@ future capability dependency
 
 ---
 
-# 2. Phase 36 完了時点
+# 2. Phase 38 完了時点
 
 Completed chain:
 
@@ -36,30 +36,32 @@ Phase 33  Barratt–Hilton prerequisites
 Phase 34  Toda Prop.3.1 Barratt–Hilton theorem rules
 Phase 35  actual H((2ι₂)η₂) calculation
 Phase 36  actual H(4η₂) calculation
+Phase 37  actual H-side equality closure
+Phase 38  Injective(H) reflection
 ```
 
 Current full regression:
 
 ```text
-1687 passed in 25.70s
+1711 passed in 60.38s
 ```
 
-Focused Phase 36:
+Focused Phase 38:
 
 ```text
-14 passed
+13 passed
 ```
 
 Representative probe:
 
 ```powershell
-python -m probes.probe_phase36_capabilities
+python -m probes.probe_phase38_capabilities
 ```
 
-Final Phase 36 result:
+Final Phase 38 result:
 
 ```text
-H(4η₂)=4ι₃
+(2ι₂)η₂=4η₂
 ```
 
 ---
@@ -299,11 +301,13 @@ python -m probes.probe_phase36_capabilities
 36-9 Phase 36 completion COMPLETE
 ```
 
-Phase 37/38 は未着手。
+Phase 37 は完了。Phase 38 は未着手。
 
 ---
 
 # 7. Phase 37：H-side equality
+
+COMPLETE。
 
 Phase 35:
 
@@ -317,40 +321,48 @@ Phase 36:
 H(4η₂)=4ι₃
 ```
 
-から:
-
-```text
-H((2ι₂)η₂)=H(4η₂)
-```
-
-を構成する。
-
-第一候補は既存 equality symmetry / transitivity:
-
-```text
-H((2ι₂)η₂)=4ι₃
-```
+existing equality symmetry:
 
 ```text
 H(4η₂)=4ι₃
-↓ symmetry
+↓
 4ι₃=H(4η₂)
 ```
 
+existing equality transitivity:
+
 ```text
-↓ transitivity
+H((2ι₂)η₂)=4ι₃
+4ι₃=H(4η₂)
+↓
 H((2ι₂)η₂)=H(4η₂)
 ```
 
-新しい theorem rule は原則不要。
+Phase 37 では新しい theorem rule / production algebra / generic inference-engine feature を追加しなかった。
 
-Phase 37 は integration / provenance / scope の確認を中心とする。
+verified:
+
+```text
+tests/test_phase37_h_side_equality.py
+11 passed
+
+full suite
+1698 passed in 70.48s
+```
+
+probe:
+
+```powershell
+python -m probes.probe_phase37_capabilities
+```
 
 ---
 
 # 8. Phase 38：Injective(H) reflection
 
-Phase 28 / 29 の既存 machinery を再利用する。
+COMPLETE。
+
+Phase 28 / 29 の既存 machinery を再利用。
 
 ```text
 Isomorphism(H)
@@ -361,41 +373,60 @@ Injective(H)
 ```text
 Injective(H)
 +
-H(a)=H(b)
+H((2ι₂)η₂)=H(4η₂)
 ↓
-a=b
-```
-
-ここで:
-
-```text
-a=(2ι₂)η₂
-b=4η₂
-```
-
-を代入し:
-
-```text
 (2ι₂)η₂=4η₂
 ```
 
-を導出する。
+production code 変更なし。
+
+completed split:
+
+```text
+38-1 actual Isomorphism(H) → Injective(H) compatibility COMPLETE
+38-2 Phase 37 final H-side equality compatibility COMPLETE
+38-3 Injective(H) + H(a)=H(b) reflection COMPLETE
+38-4 end-to-end integration / provenance COMPLETE
+38-5 scope / non-goal regression COMPLETE
+38-6 representative probe / final regression COMPLETE
+38-7 Phase 38 completion COMPLETE
+```
+
+verified:
+
+```text
+tests/test_phase38_injective_reflection.py
+13 passed
+
+full suite
+1711 passed in 60.38s
+```
+
+probe:
+
+```powershell
+python -m probes.probe_phase38_capabilities
+```
 
 Important:
 
 ```text
-Injective(H)
+Phase 38
+!= new H-specific reflection theorem
 ```
 
-は actual typing / map context を満たす場合だけ使用する。
-
-global unrestricted H injectivity として扱わない。
+```text
+Phase 38
+= existing generic reflection machinery reused on actual H
+```
 
 ---
 
 # 9. Phase 39 candidate：representative full equality proof
 
-Phase 35–38 を統合して:
+独立 Phase としては不要。
+
+Phase 38-6 representative probe で既に:
 
 ```text
 H((2ι₂)η₂)=4ι₃
@@ -408,10 +439,9 @@ Injective(H)
 (2ι₂)η₂=4η₂
 ```
 
-を representative proof / probe にする候補。
+を provenance-aware end-to-end proof として完成済み。
 
-ただし Phase 38 で十分に end-to-end proof が完成する場合、
-独立 Phase とせず Phase 38 の final integration に含めてもよい。
+actual equality branch は Phase 38 で閉じる。
 
 ---
 
@@ -539,9 +569,9 @@ higher Toda brackets
 | actual `H((2ι₂)η₂)=4ι₃` | IMPLEMENTED | 35 |
 | Phase 35 representative probe | IMPLEMENTED | 35 |
 | `H(4η₂)=4ι₃` | IMPLEMENTED | 36 |
-| `H((2ι₂)η₂)=H(4η₂)` | PLANNED | 37 |
-| `(2ι₂)η₂=4η₂` | PLANNED | 38 |
-| full equality representative proof | PLANNED | 38/39 |
+| `H((2ι₂)η₂)=H(4η₂)` | IMPLEMENTED | 37 |
+| `(2ι₂)η₂=4η₂` | IMPLEMENTED | 38 |
+| full equality representative proof | IMPLEMENTED | 38 |
 | Toda Prop.5.1 group structure `π_3^2=Z{η₂}` | DEFERRED | concrete need |
 | Toda (4.2) Serre finiteness | PLANNED | foundational 2-primary branch |
 | p-primary component `π_i(S^n;p)` | PLANNED | Toda (4.3) prerequisite |
@@ -588,12 +618,14 @@ Phase 36
 H(4η₂)=4ι₃ COMPLETE
 ↓
 Phase 37
-H((2ι₂)η₂)=H(4η₂)
+H((2ι₂)η₂)=H(4η₂) COMPLETE
 ↓
-Phase 38
+Phase 38 COMPLETE
 existing Injective(H)
 ↓
-(2ι₂)η₂=4η₂
+(2ι₂)η₂=4η₂ COMPLETE
+
+actual equality branch COMPLETE
 
 parallel future branch:
 
@@ -672,91 +704,66 @@ general algebra
 
 ---
 
-# 16. Phase 36 verified status
+# 16. Phase 38 verified status
 
 focused:
 
 ```text
-tests/test_phase36_actual_h_multiple.py
-14 passed
-```
-
-related:
-
-```text
-tests/test_homomorphism_rules.py
-39 passed
-```
-
-```text
-tests/test_hopf_rules.py
-31 passed
-```
-
-```text
-tests/test_relation_rules.py
-50 passed
-```
-
-```text
-tests/test_map_property_rules.py
-26 passed
+tests/test_phase38_injective_reflection.py
+13 passed
 ```
 
 full:
 
 ```text
-1687 passed in 25.70s
+1711 passed in 60.38s
 ```
 
 probe:
 
 ```powershell
-python -m probes.probe_phase36_capabilities
+python -m probes.probe_phase38_capabilities
 ```
 
 result:
 
 ```text
-H(4η₂)=4ι₃
+(2ι₂)η₂=4η₂
 ```
 
 ---
 
 # 17. 次 Phase
 
-```text
-Phase 37
-H((2ι₂)η₂)=H(4η₂)
-```
+Phase 35–38 actual equality branch は COMPLETE。
 
-既に:
+次の major branch は Toda 4章 2-primary calculation infrastructure。
 
-```text
-Phase 35: H((2ι₂)η₂)=4ι₃
-Phase 36: H(4η₂)=4ι₃
-```
-
-がある。
-
-第一候補は既存 equality symmetry / transitivity:
+候補順序:
 
 ```text
-H(4η₂)=4ι₃
-↓ symmetry
-4ι₃=H(4η₂)
+PrimaryComponent minimum representation
+↓
+TodaPrimaryGroup π_i^n
+↓
+PreimageSubgroup under E
+↓
+WhiteheadProduct minimum representation
+↓
+Toda Lemma 4.1
+↓
+Toda Prop.4.2 2-primary EHP exact sequence
+↓
+Toda (4.5) suspension isomorphism
+↓
+Toda Prop.4.4 decomposition isomorphism
+↓
+contextual Injective(E)
+↓
+representative 2-primary calculation
 ```
 
-```text
-H((2ι₂)η₂)=4ι₃
-4ι₃=H(4η₂)
-↓ transitivity
-H((2ι₂)η₂)=H(4η₂)
-```
-
-新しい theorem rule は原則不要。
-
-その後 Phase 38 で existing actual `H` injectivity reflection を再利用する。
+具体的な次 Phase 番号は current code / tests を確認後、actual mathematical need に必要な最小表現から決定する。
 
 ---
 

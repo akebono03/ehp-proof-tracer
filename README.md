@@ -38,7 +38,7 @@ mathematical equality
 
 # Current status
 
-Completed through Phase 36.
+Completed through Phase 38.
 
 ```text
 Phase 28  map injectivity / isomorphism / equality reflection
@@ -50,30 +50,32 @@ Phase 33  Barratt-Hilton prerequisite minimum representation
 Phase 34  Toda Prop.3.1 Barratt-Hilton theorem rules
 Phase 35  actual H((2ι₂)η₂) calculation
 Phase 36  actual H(4η₂) calculation
+Phase 37  actual H-side equality closure
+Phase 38  Injective(H) reflection
 ```
 
 Current full regression:
 
 ```text
-1687 passed in 25.70s
+1711 passed in 60.38s
 ```
 
-Focused Phase 36 suite:
+Focused Phase 38 suite:
 
 ```text
-14 passed
+13 passed
 ```
 
-Representative Phase 36 probe:
+Representative Phase 38 probe:
 
 ```powershell
-python -m probes.probe_phase36_capabilities
+python -m probes.probe_phase38_capabilities
 ```
 
 The probe reaches:
 
 ```text
-H(4η₂)=4ι₃
+(2ι₂)η₂=4η₂
 ```
 
 as an actual inference-generated `ProofStep`.
@@ -619,6 +621,138 @@ before Phase 38 can reuse existing `Injective(H)` reflection.
 
 ---
 
+# Phase 37: actual H-side equality closure
+
+Phase 37 combines the two completed actual calculations:
+
+```text
+H((2ι₂)η₂)=4ι₃
+H(4η₂)=4ι₃
+```
+
+using only existing generic equality rules.
+
+First, equality symmetry reverses the Phase 36 result:
+
+```text
+H(4η₂)=4ι₃
+↓ symmetry
+4ι₃=H(4η₂)
+```
+
+Then equality transitivity closes the H-side equality:
+
+```text
+H((2ι₂)η₂)=4ι₃
+4ι₃=H(4η₂)
+↓ transitivity
+H((2ι₂)η₂)=H(4η₂)
+```
+
+No new theorem rule, production algebra, or generic inference-engine feature was added.
+
+The representative proof graph preserves the actual Phase 35 and Phase 36 branches:
+
+```text
+Phase 37 final
+├── Phase 35 final: H((2ι₂)η₂)=4ι₃
+└── symmetry
+    └── Phase 36 final: H(4η₂)=4ι₃
+```
+
+Important boundary:
+
+```text
+H((2ι₂)η₂)=H(4η₂)
+!=
+(2ι₂)η₂=4η₂
+```
+
+The latter requires the existing actual `Injective(H)` machinery and belongs to Phase 38.
+
+---
+
+# Phase 38: Injective(H) reflection
+
+Phase 38 reuses the existing Phase 28/29 map-property machinery without adding a new production theorem rule.
+
+The actual `H` isomorphism fact materializes:
+
+```text
+Isomorphism(H)
+```
+
+and the existing generic rule derives:
+
+```text
+Isomorphism(H)
+↓
+Injective(H)
+```
+
+Phase 37 already provides:
+
+```text
+H((2ι₂)η₂)=H(4η₂)
+```
+
+Both sides are `MapApplication` values using the same canonical `EHP_H_MAP`. The existing injective-map equality-reflection rule therefore applies:
+
+```text
+Injective(H)
++
+H((2ι₂)η₂)=H(4η₂)
+↓
+(2ι₂)η₂=4η₂
+```
+
+The final proof graph preserves both branches:
+
+```text
+(2ι₂)η₂=4η₂
+├── Injective(H)
+│   └── Isomorphism(H)
+└── H((2ι₂)η₂)=H(4η₂)
+    ├── Phase 35 final
+    └── symmetry
+        └── Phase 36 final
+```
+
+No new H-specific reflection theorem, direct `Isomorphism(H)` reflection, or unrestricted arbitrary-map reflection was introduced.
+
+Phase 38 scope regressions confirm:
+
+```text
+Isomorphism(H) + H(a)=H(b)
+↛ direct reflection
+
+Injective(H) + H(a)=c
+↛ reflection
+
+Injective(H) + a=b
+↛ reflection
+```
+
+Focused Phase 38 suite:
+
+```text
+13 passed
+```
+
+Full regression at Phase 38 completion:
+
+```text
+1711 passed in 60.38s
+```
+
+Representative probe:
+
+```powershell
+python -m probes.probe_phase38_capabilities
+```
+
+---
+
 # Phase 35 historical scope boundaries
 
 Still not implemented:
@@ -681,32 +815,32 @@ before reusing the existing `Injective(H)` equality reflection.
 
 # Tests
 
-Focused Phase 36 suite:
+Focused Phase 38 suite:
 
 ```powershell
-python -m pytest tests/test_phase36_actual_h_multiple.py -q
+python -m pytest tests/test_phase38_injective_reflection.py -q
 ```
 
 Verified:
 
 ```text
-14 passed
+13 passed
 ```
 
 Related regressions:
 
 ```powershell
-python -m pytest tests/test_homomorphism_rules.py -q
-python -m pytest tests/test_hopf_rules.py -q
+python -m pytest tests/test_phase35_actual_h_calculation.py -q
+python -m pytest tests/test_phase36_actual_h_multiple.py -q
 python -m pytest tests/test_relation_rules.py -q
 python -m pytest tests/test_map_property_rules.py -q
 ```
 
-Verified at Phase 36 completion:
+Verified at Phase 37 completion:
 
 ```text
-39 passed
-31 passed
+53 passed
+14 passed
 50 passed
 26 passed
 ```
@@ -717,10 +851,10 @@ Full suite:
 python -m pytest -q
 ```
 
-Verified at Phase 36 completion:
+Verified at Phase 38 completion:
 
 ```text
-1687 passed in 25.70s
+1711 passed in 60.38s
 ```
 
 No failures.
@@ -742,6 +876,8 @@ python -m probes.probe_phase33_capabilities
 python -m probes.probe_phase34_capabilities
 python -m probes.probe_phase35_capabilities
 python -m probes.probe_phase36_capabilities
+python -m probes.probe_phase37_capabilities
+python -m probes.probe_phase38_capabilities
 ```
 
 The Phase 35 and Phase 36 probes demonstrate the two parallel actual calculations:
@@ -749,6 +885,18 @@ The Phase 35 and Phase 36 probes demonstrate the two parallel actual calculation
 ```text
 H((2ι₂)∘η₂)=4ι₃
 H(4η₂)=4ι₃
+```
+
+The Phase 37 probe combines them by symmetry and transitivity:
+
+```text
+H((2ι₂)η₂)=H(4η₂)
+```
+
+The Phase 38 probe applies the existing injectivity reflection:
+
+```text
+(2ι₂)η₂=4η₂
 ```
 
 ---
@@ -766,29 +914,19 @@ Historical limitations in the development log describe the state at that time. C
 
 # Next development boundary
 
-Phase 36 is complete.
+Phase 38 is complete.
 
-The next mathematical step is Phase 37:
+The actual equality branch now reaches:
 
 ```text
 H((2ι₂)η₂)=4ι₃
 H(4η₂)=4ι₃
-↓ symmetry + transitivity
+↓
 H((2ι₂)η₂)=H(4η₂)
-```
-
-Then Phase 38 reuses the existing actual `H` isomorphism / injectivity machinery:
-
-```text
-Isomorphism(H)
 ↓
 Injective(H)
-
-Injective(H)
-+
-H((2ι₂)η₂)=H(4η₂)
 ↓
 (2ι₂)η₂=4η₂
 ```
 
-Phase 37 should add no new theorem rule unless current code inspection reveals a concrete gap; existing equality symmetry and transitivity are the first-choice machinery.
+The next major planned branch is the Toda Chapter 4 2-primary calculation infrastructure described in `docs/roadmap.md`. The first implementation step should be chosen only after current code inspection and should preserve the existing principle of adding the minimum representation required by an actual mathematical need.
