@@ -17,12 +17,15 @@ from probes.probe_phase36_capabilities import (
   build_phase36_end_to_end,
 )
 from proof import (
+  ProofRule,
   ProofStep,
   Relation,
   RelationType,
+  apply_inference_match,
   find_inference_match,
 )
 from relation_rules import (
+  equality_symmetry_inference_rule,
   equality_transitivity_inference_rule,
 )
 from suspension_facts import (
@@ -214,6 +217,81 @@ def test_phase37_1_actual_final_steps_do_not_transit_without_symmetry():
   )
 
   assert match is None
+
+
+def test_phase37_2_phase36_final_equality_reverses_by_symmetry():
+  phase36_result = (
+    build_phase36_end_to_end()
+  )
+
+  phase36_step = phase36_result[
+    "final_step"
+  ]
+
+  four_eta_2 = Multiple(
+    coefficient=4,
+    expression=ETA_2,
+  )
+
+  four_iota_3 = Multiple(
+    coefficient=4,
+    expression=IOTA_3,
+  )
+
+  assert phase36_step.conclusion == Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=four_eta_2,
+    ),
+    rhs=four_iota_3,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  symmetry_rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  symmetry_match = find_inference_match(
+    symmetry_rule,
+    (
+      phase36_step,
+    ),
+  )
+
+  assert symmetry_match is not None
+
+  reversed_step = apply_inference_match(
+    symmetry_match
+  )
+
+  assert reversed_step.conclusion == Relation(
+    lhs=four_iota_3,
+    rhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=four_eta_2,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  assert reversed_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert reversed_step.inference_rule == (
+    symmetry_rule
+  )
+
+  assert reversed_step.premises == (
+    phase36_step,
+  )
+
+  assert phase36_step is (
+    phase36_result[
+      "final_step"
+    ]
+  )
+
+
 
 
 
