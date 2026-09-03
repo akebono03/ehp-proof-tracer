@@ -38,7 +38,7 @@ mathematical equality
 
 # Current status
 
-Completed through Phase 35.
+Completed through Phase 36.
 
 ```text
 Phase 28  map injectivity / isomorphism / equality reflection
@@ -49,30 +49,31 @@ Phase 32  Toda Prop.2.2 left formula
 Phase 33  Barratt-Hilton prerequisite minimum representation
 Phase 34  Toda Prop.3.1 Barratt-Hilton theorem rules
 Phase 35  actual H((2ι₂)η₂) calculation
+Phase 36  actual H(4η₂) calculation
 ```
 
 Current full regression:
 
 ```text
-1673 passed in 23.33s
+1687 passed in 25.70s
 ```
 
-Focused Phase 35 suite:
+Focused Phase 36 suite:
 
 ```text
-53 passed
+14 passed
 ```
 
-Representative Phase 35 probe:
+Representative Phase 36 probe:
 
 ```powershell
-python -m probes.probe_phase35_capabilities
+python -m probes.probe_phase36_capabilities
 ```
 
 The probe reaches:
 
 ```text
-H((2ι₂)∘η₂)=4ι₃
+H(4η₂)=4ι₃
 ```
 
 as an actual inference-generated `ProofStep`.
@@ -505,7 +506,120 @@ The generic inference engine remains unchanged.
 
 ---
 
-# Phase 35 scope boundaries
+
+# Phase 36: actual H(4η₂) calculation
+
+Phase 36 computes the parallel actual Hopf-invariant value:
+
+```text
+H(4η₂)=4ι₃
+```
+
+The existing generic homomorphism machinery already provides:
+
+```text
+Homomorphism(f)
+↓
+f(kx)=k f(x)
+```
+
+Phase 36 adds only the narrow actual-H materialization:
+
+```text
+ehp_h_homomorphism_proof_step()
+↓
+Homomorphism(EHP_H_MAP)
+```
+
+This is an explicit actual-map fact. It does not add a general rule:
+
+```text
+Isomorphism(f)
+↛
+Homomorphism(f)
+```
+
+and does not infer homomorphism properties from arbitrary `MapSymbol` values.
+
+Using the existing generic rule gives:
+
+```text
+H(4η₂)=4H(η₂)
+```
+
+The existing Toda Prop.5.1 fact:
+
+```text
+H(η₂)=ι₃
+```
+
+is transported under `Multiple`:
+
+```text
+4H(η₂)=4ι₃
+```
+
+Equality transitivity then yields:
+
+```text
+H(4η₂)=4ι₃
+```
+
+The generic inference engine remains unchanged.
+
+---
+
+# Phase 36 scope boundaries
+
+Now implemented:
+
+```text
+actual Homomorphism(H) materialization
+H(4η₂)=4H(η₂)
+4H(η₂)=4ι₃
+H(4η₂)=4ι₃
+```
+
+Still not implemented:
+
+```text
+H((2ι₂)η₂)=H(4η₂)
+(2ι₂)η₂=4η₂
+```
+
+Important boundaries remain:
+
+```text
+actual Homomorphism(H)
+!=
+automatic arbitrary-map homomorphism inference
+```
+
+```text
+Isomorphism(H)
+↛
+Homomorphism(H) automatically
+```
+
+```text
+H((2ι₂)η₂)=4ι₃
++
+H(4η₂)=4ι₃
+↛
+direct transitivity
+```
+
+Phase 37 must first reverse the second equality and derive:
+
+```text
+H((2ι₂)η₂)=H(4η₂)
+```
+
+before Phase 38 can reuse existing `Injective(H)` reflection.
+
+---
+
+# Phase 35 historical scope boundaries
 
 Still not implemented:
 
@@ -567,34 +681,34 @@ before reusing the existing `Injective(H)` equality reflection.
 
 # Tests
 
-Focused Phase 35 suite:
+Focused Phase 36 suite:
 
 ```powershell
-python -m pytest tests/test_phase35_actual_h_calculation.py -q
+python -m pytest tests/test_phase36_actual_h_multiple.py -q
 ```
 
 Verified:
 
 ```text
-53 passed
+14 passed
 ```
 
 Related regressions:
 
 ```powershell
-python -m pytest tests/test_hopf_rules.py -q
 python -m pytest tests/test_homomorphism_rules.py -q
+python -m pytest tests/test_hopf_rules.py -q
 python -m pytest tests/test_relation_rules.py -q
-python -m pytest tests/test_phase34_barratt_hilton.py -q
+python -m pytest tests/test_map_property_rules.py -q
 ```
 
-Verified at Phase 35 completion:
+Verified at Phase 36 completion:
 
 ```text
-31 passed
 39 passed
+31 passed
 50 passed
-35 passed
+26 passed
 ```
 
 Full suite:
@@ -603,10 +717,10 @@ Full suite:
 python -m pytest -q
 ```
 
-Verified at Phase 35 completion:
+Verified at Phase 36 completion:
 
 ```text
-1673 passed in 23.33s
+1687 passed in 25.70s
 ```
 
 No failures.
@@ -627,12 +741,14 @@ python -m probes.probe_phase32_capabilities
 python -m probes.probe_phase33_capabilities
 python -m probes.probe_phase34_capabilities
 python -m probes.probe_phase35_capabilities
+python -m probes.probe_phase36_capabilities
 ```
 
-The Phase 35 probe is the canonical demonstration of the actual calculation:
+The Phase 35 and Phase 36 probes demonstrate the two parallel actual calculations:
 
 ```text
 H((2ι₂)∘η₂)=4ι₃
+H(4η₂)=4ι₃
 ```
 
 ---
@@ -650,24 +766,29 @@ Historical limitations in the development log describe the state at that time. C
 
 # Next development boundary
 
-Phase 35 is complete.
+Phase 36 is complete.
 
-The next mathematical branch is:
+The next mathematical step is Phase 37:
 
 ```text
+H((2ι₂)η₂)=4ι₃
 H(4η₂)=4ι₃
-↓
+↓ symmetry + transitivity
 H((2ι₂)η₂)=H(4η₂)
+```
+
+Then Phase 38 reuses the existing actual `H` isomorphism / injectivity machinery:
+
+```text
+Isomorphism(H)
 ↓
-existing Injective(H)
+Injective(H)
+
+Injective(H)
++
+H((2ι₂)η₂)=H(4η₂)
 ↓
 (2ι₂)η₂=4η₂
 ```
 
-The next phase should add only the minimum actual `H` homomorphism / multiple calculation needed for:
-
-```text
-H(4η₂)=4ι₃
-```
-
-and should continue to avoid unrelated general algebra.
+Phase 37 should add no new theorem rule unless current code inspection reveals a concrete gap; existing equality symmetry and transitivity are the first-choice machinery.
