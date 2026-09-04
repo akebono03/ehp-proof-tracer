@@ -665,6 +665,177 @@ def test_phase43_4_zero_propagation_rejects_inequality_as_equality_premise():
   assert match is None
 
 
+def test_phase43_5_zero_premise_does_not_encode_nonzero_semantics():
+  premise = Relation(
+    lhs=(
+      build_phase43_1_representative_whitehead_product()
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert not hasattr(
+    premise,
+    "is_nonzero",
+  )
+
+  assert not hasattr(
+    premise,
+    "nonzero",
+  )
+
+  assert not hasattr(
+    premise,
+    "derive_nonzero",
+  )
+
+
+def test_phase43_5_nonzero_premise_does_not_encode_zero_semantics():
+  premise = Relation(
+    lhs=(
+      build_phase43_1_representative_whitehead_product()
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.INEQUALITY,
+  )
+
+  assert not hasattr(
+    premise,
+    "is_zero",
+  )
+
+  assert not hasattr(
+    premise,
+    "zero",
+  )
+
+  assert not hasattr(
+    premise,
+    "derive_zero",
+  )
+
+
+def test_phase43_5_zero_and_nonzero_premises_do_not_encode_contradiction_detection():
+  product = (
+    build_phase43_1_representative_whitehead_product()
+  )
+
+  zero_premise = Relation(
+    lhs=product,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  nonzero_premise = Relation(
+    lhs=product,
+    rhs=Zero(),
+    relation_type=RelationType.INEQUALITY,
+  )
+
+  assert not hasattr(
+    zero_premise,
+    "contradicts",
+  )
+
+  assert not hasattr(
+    nonzero_premise,
+    "contradicts",
+  )
+
+  assert not hasattr(
+    zero_premise,
+    "is_contradiction",
+  )
+
+  assert not hasattr(
+    nonzero_premise,
+    "is_contradiction",
+  )
+
+
+def test_phase43_5_whitehead_product_still_has_no_bilinearity_semantics():
+  product = (
+    build_phase43_1_representative_whitehead_product()
+  )
+
+  assert not hasattr(
+    product,
+    "bilinear",
+  )
+
+  assert not hasattr(
+    product,
+    "bilinearity",
+  )
+
+  assert not hasattr(
+    product,
+    "expand",
+  )
+
+
+def test_phase43_5_whitehead_product_still_has_no_antisymmetry_semantics():
+  product = (
+    build_phase43_1_representative_whitehead_product()
+  )
+
+  assert not hasattr(
+    product,
+    "antisymmetric",
+  )
+
+  assert not hasattr(
+    product,
+    "antisymmetry",
+  )
+
+  assert not hasattr(
+    product,
+    "swap_sign",
+  )
+
+
+def test_phase43_5_premises_have_no_toda_lemma_4_1_case_evaluation():
+  product = (
+    build_phase43_1_representative_whitehead_product()
+  )
+
+  zero_premise = Relation(
+    lhs=product,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  nonzero_premise = Relation(
+    lhs=product,
+    rhs=Zero(),
+    relation_type=RelationType.INEQUALITY,
+  )
+
+  for premise in (
+    zero_premise,
+    nonzero_premise,
+  ):
+    assert not hasattr(
+      premise,
+      "toda_lemma_4_1",
+    )
+
+    assert not hasattr(
+      premise,
+      "case",
+    )
+
+    assert not hasattr(
+      premise,
+      "evaluated_group",
+    )
+
+    assert not hasattr(
+      premise,
+      "result_group",
+    )
+
 
 
 
