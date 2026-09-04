@@ -5,10 +5,15 @@ from typing import (
 from expression import (
   Composition,
   Expression,
+  GeneratorSymbol,
   HomotopyElement,
   Multiple,
   SmashProduct,
   WhiteheadProduct,
+)
+from probes.probe_phase42_capabilities import (
+  build_phase42_representative_whitehead_product,
+  whitehead_product_text,
 )
 
 
@@ -810,6 +815,122 @@ def test_phase42_5_whitehead_product_has_no_theorem_provenance():
     "provenance",
   )
 
+
+def test_phase42_6_representative_builder_constructs_iota_4_whitehead_product():
+  result = (
+    build_phase42_representative_whitehead_product()
+  )
+
+  expected_iota_4 = HomotopyElement(
+    name="ι₄",
+    dimension=4,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=4,
+    ),
+  )
+
+  assert result[
+    "whitehead_product"
+  ] == WhiteheadProduct(
+    left=expected_iota_4,
+    right=expected_iota_4,
+  )
+
+
+def test_phase42_6_whitehead_product_text_displays_representative_notation():
+  result = (
+    build_phase42_representative_whitehead_product()
+  )
+
+  assert whitehead_product_text(
+    result[
+      "whitehead_product"
+    ]
+  ) == "[ι₄,ι₄]"
+
+
+def test_phase42_6_representative_builder_preserves_structural_distinction():
+  result = (
+    build_phase42_representative_whitehead_product()
+  )
+
+  product = result[
+    "whitehead_product"
+  ]
+
+  assert product != result[
+    "composition"
+  ]
+
+  assert product != result[
+    "smash_product"
+  ]
+
+  assert not isinstance(
+    product,
+    Composition,
+  )
+
+  assert not isinstance(
+    product,
+    SmashProduct,
+  )
+
+
+def test_phase42_6_representative_builder_preserves_phase42_boundary():
+  result = (
+    build_phase42_representative_whitehead_product()
+  )
+
+  product = result[
+    "whitehead_product"
+  ]
+
+  assert not hasattr(
+    product,
+    "source",
+  )
+
+  assert not hasattr(
+    product,
+    "target",
+  )
+
+  assert not hasattr(
+    product,
+    "is_type_compatible",
+  )
+
+  assert not hasattr(
+    product,
+    "is_zero",
+  )
+
+  assert not hasattr(
+    product,
+    "is_nonzero",
+  )
+
+  assert not hasattr(
+    product,
+    "bilinearity",
+  )
+
+  assert not hasattr(
+    product,
+    "antisymmetry",
+  )
+
+  assert not hasattr(
+    product,
+    "toda_lemma_4_1",
+  )
+
+  assert not hasattr(
+    product,
+    "provenance",
+  )
 
 
 
