@@ -379,6 +379,100 @@ def test_phase41_2_preimage_subgroup_has_only_minimum_representation_fields():
   )
 
 
+def test_phase41_3_preimage_subgroup_is_distinct_from_concrete_subgroup():
+  preimage = PreimageSubgroup(
+    map=SUSPENSION_MAP,
+    subgroup=PrimaryComponent(
+      group_dimension=10,
+      sphere_dimension=6,
+      prime=2,
+    ),
+  )
+
+  assert not isinstance(
+    preimage,
+    Subgroup,
+  )
+
+
+def test_phase41_3_preimage_subgroup_is_distinct_from_image_subgroup_reference():
+  preimage = PreimageSubgroup(
+    map=SUSPENSION_MAP,
+    subgroup=PrimaryComponent(
+      group_dimension=10,
+      sphere_dimension=6,
+      prime=2,
+    ),
+  )
+
+  assert not isinstance(
+    preimage,
+    ImageSubgroupReference,
+  )
+
+
+def test_phase41_3_preimage_subgroup_is_distinct_from_kernel_subgroup_reference():
+  preimage = PreimageSubgroup(
+    map=SUSPENSION_MAP,
+    subgroup=PrimaryComponent(
+      group_dimension=10,
+      sphere_dimension=6,
+      prime=2,
+    ),
+  )
+
+  assert not isinstance(
+    preimage,
+    KernelSubgroupReference,
+  )
+
+
+def test_phase41_3_preimage_subgroup_is_distinct_from_target_primary_component():
+  target = PrimaryComponent(
+    group_dimension=10,
+    sphere_dimension=6,
+    prime=2,
+  )
+
+  preimage = PreimageSubgroup(
+    map=SUSPENSION_MAP,
+    subgroup=target,
+  )
+
+  assert not isinstance(
+    preimage,
+    PrimaryComponent,
+  )
+
+  assert preimage != target
+
+
+def test_phase41_3_preimage_subgroup_is_not_an_element_preimage_representation():
+  preimage = PreimageSubgroup(
+    map=SUSPENSION_MAP,
+    subgroup=PrimaryComponent(
+      group_dimension=10,
+      sphere_dimension=6,
+      prime=2,
+    ),
+  )
+
+  assert not hasattr(
+    preimage,
+    "element",
+  )
+
+  assert not hasattr(
+    preimage,
+    "preimage_element",
+  )
+
+  assert not hasattr(
+    preimage,
+    "value",
+  )
+
+
 
 
 
