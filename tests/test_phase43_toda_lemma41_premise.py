@@ -11,6 +11,10 @@ from proof import (
   find_inference_match,
   relation_proof_step,
 )
+from probes.probe_phase43_capabilities import (
+  build_phase43_representative_premises,
+  phase43_relation_text,
+)
 from relation_rules import (
   equality_symmetry_inference_rule,
   equality_transitivity_inference_rule,
@@ -837,6 +841,113 @@ def test_phase43_5_premises_have_no_toda_lemma_4_1_case_evaluation():
     )
 
 
+def test_phase43_6_representative_builder_constructs_zero_and_nonzero_premises():
+  result = (
+    build_phase43_representative_premises()
+  )
+
+  product = result[
+    "whitehead_product"
+  ]
+
+  assert result[
+    "zero_premise"
+  ] == Relation(
+    lhs=product,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert result[
+    "nonzero_premise"
+  ] == Relation(
+    lhs=product,
+    rhs=Zero(),
+    relation_type=RelationType.INEQUALITY,
+  )
+
+
+def test_phase43_6_representative_builder_preserves_relation_distinction():
+  result = (
+    build_phase43_representative_premises()
+  )
+
+  zero_premise = result[
+    "zero_premise"
+  ]
+
+  nonzero_premise = result[
+    "nonzero_premise"
+  ]
+
+  assert zero_premise != nonzero_premise
+
+  assert (
+    zero_premise.lhs
+    == nonzero_premise.lhs
+  )
+
+  assert (
+    zero_premise.rhs
+    == nonzero_premise.rhs
+  )
+
+
+def test_phase43_6_representative_builder_constructs_explicit_proof_steps():
+  result = (
+    build_phase43_representative_premises()
+  )
+
+  zero_step = result[
+    "zero_step"
+  ]
+
+  nonzero_step = result[
+    "nonzero_step"
+  ]
+
+  assert (
+    zero_step.conclusion
+    == result[
+      "zero_premise"
+    ]
+  )
+
+  assert (
+    nonzero_step.conclusion
+    == result[
+      "nonzero_premise"
+    ]
+  )
+
+  assert zero_step.rule == (
+    ProofRule.RELATION
+  )
+
+  assert nonzero_step.rule == (
+    ProofRule.RELATION
+  )
+
+  assert zero_step.premises == ()
+  assert nonzero_step.premises == ()
+
+
+def test_phase43_6_relation_text_displays_representative_premises():
+  result = (
+    build_phase43_representative_premises()
+  )
+
+  assert phase43_relation_text(
+    result[
+      "zero_premise"
+    ]
+  ) == "[ι₄,ι₄] = 0"
+
+  assert phase43_relation_text(
+    result[
+      "nonzero_premise"
+    ]
+  ) == "[ι₄,ι₄] != 0"
 
 
 
