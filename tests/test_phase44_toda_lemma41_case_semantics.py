@@ -37,6 +37,7 @@ from scalar_rules import (
   OddScalarStatement,
 )
 from toda_rules import (
+  toda_lemma41_even_nonzero_case_inference_rule,
   toda_lemma41_odd_case_inference_rule,
 )
 
@@ -1132,6 +1133,659 @@ def test_phase44_3_group_representation_does_not_evaluate_toda_lemma():
     even_statement,
     "direct_sum",
   )
+
+
+def build_phase44_4_even_nonzero_premises(
+  n,
+):
+  n_minus_one = ScalarSum(
+    left=n,
+    right=-1,
+  )
+
+  iota_n_minus_one = (
+    HomotopyElement(
+      name="ι_(n-1)",
+      dimension=n_minus_one,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=n_minus_one,
+      ),
+    )
+  )
+
+  even_step = ProofStep(
+    conclusion=EvenScalarStatement(
+      scalar=n,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  nonzero_step = ProofStep(
+    conclusion=Relation(
+      lhs=WhiteheadProduct(
+        left=iota_n_minus_one,
+        right=iota_n_minus_one,
+      ),
+      rhs=Zero(),
+      relation_type=(
+        RelationType.INEQUALITY
+      ),
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  return (
+    even_step,
+    nonzero_step,
+  )
+
+
+def test_phase44_4_rule_has_even_and_nonzero_premises():
+  rule = (
+    toda_lemma41_even_nonzero_case_inference_rule()
+  )
+
+  assert len(
+    rule.premise_patterns
+  ) == 2
+
+  assert (
+    rule.premise_patterns[
+      0
+    ].statement_type
+    is EvenScalarStatement
+  )
+
+  assert (
+    rule.premise_patterns[
+      1
+    ].statement_type
+    is Relation
+  )
+
+  assert (
+    rule.premise_patterns[
+      1
+    ].relation_type
+    == RelationType.INEQUALITY
+  )
+
+
+def test_phase44_4_matching_even_and_whitehead_nonzero_are_applicable():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  (
+    even_step,
+    nonzero_step,
+  ) = (
+    build_phase44_4_even_nonzero_premises(
+      n
+    )
+  )
+
+  rule = (
+    toda_lemma41_even_nonzero_case_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      even_step,
+      nonzero_step,
+    ),
+  )
+
+  assert match is not None
+
+  assert match.premises == (
+    even_step,
+    nonzero_step,
+  )
+
+
+def test_phase44_4_derives_even_nonzero_group_structure():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  (
+    even_step,
+    nonzero_step,
+  ) = (
+    build_phase44_4_even_nonzero_premises(
+      n
+    )
+  )
+
+  rule = (
+    toda_lemma41_even_nonzero_case_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        even_step,
+        nonzero_step,
+      ),
+    )
+  )
+
+  two_n_minus_one = ScalarSum(
+    left=ScalarProduct(
+      left=2,
+      right=n,
+    ),
+    right=-1,
+  )
+
+  two_n_plus_one = ScalarSum(
+    left=ScalarProduct(
+      left=2,
+      right=n,
+    ),
+    right=1,
+  )
+
+  iota_two_n_plus_one = (
+    HomotopyElement(
+      name="ι_(2n+1)",
+      dimension=two_n_plus_one,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=two_n_plus_one,
+      ),
+    )
+  )
+
+  expected = Relation(
+    lhs=TodaPrimaryGroup(
+      group_dimension=two_n_minus_one,
+      sphere_dimension=n,
+    ),
+    rhs=DirectSumGroup(
+      summands=(
+        FreeCyclicGroup(
+          generator=MapApplication(
+            map=MapSymbol(
+              name="P",
+            ),
+            expression=(
+              iota_two_n_plus_one
+            ),
+          ),
+        ),
+        PrimaryComponent(
+          group_dimension=two_n_minus_one,
+          sphere_dimension=n,
+          prime=2,
+        ),
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert expected in conclusions
+
+
+def test_phase44_4_derived_direct_sum_preserves_free_generator_structure():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  (
+    even_step,
+    nonzero_step,
+  ) = (
+    build_phase44_4_even_nonzero_premises(
+      n
+    )
+  )
+
+  rule = (
+    toda_lemma41_even_nonzero_case_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        even_step,
+        nonzero_step,
+      ),
+    )
+  )
+
+  derived_step = next(
+    step
+    for step in result.steps
+    if isinstance(
+      step.conclusion,
+      Relation,
+    )
+    and isinstance(
+      step.conclusion.rhs,
+      DirectSumGroup,
+    )
+  )
+
+  direct_sum = (
+    derived_step.conclusion.rhs
+  )
+
+  free_part = direct_sum.summands[
+    0
+  ]
+
+  assert isinstance(
+    free_part,
+    FreeCyclicGroup,
+  )
+
+  assert isinstance(
+    free_part.generator,
+    MapApplication,
+  )
+
+  assert (
+    free_part.generator.map
+    == MapSymbol(
+      name="P",
+    )
+  )
+
+
+def test_phase44_4_derived_direct_sum_preserves_primary_component():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  (
+    even_step,
+    nonzero_step,
+  ) = (
+    build_phase44_4_even_nonzero_premises(
+      n
+    )
+  )
+
+  rule = (
+    toda_lemma41_even_nonzero_case_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        even_step,
+        nonzero_step,
+      ),
+    )
+  )
+
+  derived_step = next(
+    step
+    for step in result.steps
+    if isinstance(
+      step.conclusion,
+      Relation,
+    )
+    and isinstance(
+      step.conclusion.rhs,
+      DirectSumGroup,
+    )
+  )
+
+  direct_sum = (
+    derived_step.conclusion.rhs
+  )
+
+  primary_part = (
+    direct_sum.summands[
+      1
+    ]
+  )
+
+  expected_degree = ScalarSum(
+    left=ScalarProduct(
+      left=2,
+      right=n,
+    ),
+    right=-1,
+  )
+
+  assert primary_part == (
+    PrimaryComponent(
+      group_dimension=expected_degree,
+      sphere_dimension=n,
+      prime=2,
+    )
+  )
+
+
+def test_phase44_4_derived_step_keeps_both_premises():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  (
+    even_step,
+    nonzero_step,
+  ) = (
+    build_phase44_4_even_nonzero_premises(
+      n
+    )
+  )
+
+  rule = (
+    toda_lemma41_even_nonzero_case_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        even_step,
+        nonzero_step,
+      ),
+    )
+  )
+
+  derived_step = next(
+    step
+    for step in result.steps
+    if isinstance(
+      step.conclusion,
+      Relation,
+    )
+    and isinstance(
+      step.conclusion.rhs,
+      DirectSumGroup,
+    )
+  )
+
+  assert derived_step.premises == (
+    even_step,
+    nonzero_step,
+  )
+
+  assert (
+    derived_step.rule
+    == ProofRule.INFERENCE
+  )
+
+  assert (
+    derived_step.inference_rule
+    == rule
+  )
+
+
+def test_phase44_4_nonzero_premise_without_even_statement_is_not_applicable():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  (
+    even_step,
+    nonzero_step,
+  ) = (
+    build_phase44_4_even_nonzero_premises(
+      n
+    )
+  )
+
+  rule = (
+    toda_lemma41_even_nonzero_case_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      nonzero_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase44_4_even_statement_without_nonzero_premise_is_not_applicable():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  (
+    even_step,
+    nonzero_step,
+  ) = (
+    build_phase44_4_even_nonzero_premises(
+      n
+    )
+  )
+
+  rule = (
+    toda_lemma41_even_nonzero_case_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      even_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase44_4_zero_relation_does_not_match_nonzero_case():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  n_minus_one = ScalarSum(
+    left=n,
+    right=-1,
+  )
+
+  iota_n_minus_one = (
+    HomotopyElement(
+      name="ι_(n-1)",
+      dimension=n_minus_one,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=n_minus_one,
+      ),
+    )
+  )
+
+  even_step = ProofStep(
+    conclusion=EvenScalarStatement(
+      scalar=n,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  zero_step = ProofStep(
+    conclusion=Relation(
+      lhs=WhiteheadProduct(
+        left=iota_n_minus_one,
+        right=iota_n_minus_one,
+      ),
+      rhs=Zero(),
+      relation_type=(
+        RelationType.ZERO
+      ),
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  rule = (
+    toda_lemma41_even_nonzero_case_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      even_step,
+      zero_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase44_4_different_symbolic_index_is_not_applicable():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  m = ScalarSymbol(
+    name="m",
+  )
+
+  m_minus_one = ScalarSum(
+    left=m,
+    right=-1,
+  )
+
+  iota_m_minus_one = (
+    HomotopyElement(
+      name="ι_(n-1)",
+      dimension=m_minus_one,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=m_minus_one,
+      ),
+    )
+  )
+
+  even_step = ProofStep(
+    conclusion=EvenScalarStatement(
+      scalar=n,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  nonzero_step = ProofStep(
+    conclusion=Relation(
+      lhs=WhiteheadProduct(
+        left=iota_m_minus_one,
+        right=iota_m_minus_one,
+      ),
+      rhs=Zero(),
+      relation_type=(
+        RelationType.INEQUALITY
+      ),
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  rule = (
+    toda_lemma41_even_nonzero_case_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      even_step,
+      nonzero_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase44_4_arbitrary_inequality_does_not_match():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  even_step = ProofStep(
+    conclusion=EvenScalarStatement(
+      scalar=n,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  inequality_step = ProofStep(
+    conclusion=Relation(
+      lhs=HomotopyElement(
+        name="α",
+        dimension=n,
+      ),
+      rhs=Zero(),
+      relation_type=(
+        RelationType.INEQUALITY
+      ),
+    ),
+    premises=(),
+    rule=ProofRule.RELATION,
+  )
+
+  rule = (
+    toda_lemma41_even_nonzero_case_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      even_step,
+      inequality_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase44_4_odd_statement_does_not_replace_even_premise():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  (
+    even_step,
+    nonzero_step,
+  ) = (
+    build_phase44_4_even_nonzero_premises(
+      n
+    )
+  )
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=n,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    toda_lemma41_even_nonzero_case_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      odd_step,
+      nonzero_step,
+    ),
+  )
+
+  assert match is None
 
 
 
