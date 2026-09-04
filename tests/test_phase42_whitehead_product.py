@@ -6,6 +6,7 @@ from expression import (
   Composition,
   Expression,
   HomotopyElement,
+  Multiple,
   SmashProduct,
   WhiteheadProduct,
 )
@@ -406,6 +407,239 @@ def test_phase42_3_whitehead_product_is_not_smash_product():
   assert not isinstance(
     whitehead_product,
     SmashProduct,
+  )
+
+
+def test_phase42_4_whitehead_product_accepts_homotopy_elements():
+  left = HomotopyElement(
+    name="a",
+    dimension=4,
+    source=3,
+    target=2,
+  )
+
+  right = HomotopyElement(
+    name="b",
+    dimension=5,
+    source=4,
+    target=3,
+  )
+
+  product = WhiteheadProduct(
+    left=left,
+    right=right,
+  )
+
+  assert product.left is left
+  assert product.right is right
+
+
+def test_phase42_4_whitehead_product_accepts_multiple_expression():
+  element = HomotopyElement(
+    name="a",
+    dimension=4,
+  )
+
+  multiple = Multiple(
+    coefficient=2,
+    expression=element,
+  )
+
+  product = WhiteheadProduct(
+    left=multiple,
+    right=element,
+  )
+
+  assert product.left is multiple
+  assert product.right is element
+
+
+def test_phase42_4_whitehead_product_accepts_composition_expression():
+  left = HomotopyElement(
+    name="a",
+    dimension=4,
+  )
+
+  right = HomotopyElement(
+    name="b",
+    dimension=5,
+  )
+
+  composition = Composition(
+    left=left,
+    right=right,
+  )
+
+  product = WhiteheadProduct(
+    left=composition,
+    right=left,
+  )
+
+  assert product.left is composition
+  assert product.right is left
+
+
+def test_phase42_4_whitehead_product_accepts_smash_product_expression():
+  left = HomotopyElement(
+    name="a",
+    dimension=4,
+  )
+
+  right = HomotopyElement(
+    name="b",
+    dimension=5,
+  )
+
+  smash_product = SmashProduct(
+    left=left,
+    right=right,
+  )
+
+  product = WhiteheadProduct(
+    left=left,
+    right=smash_product,
+  )
+
+  assert product.left is left
+  assert product.right is smash_product
+
+
+def test_phase42_4_whitehead_product_accepts_nested_whitehead_product():
+  a = HomotopyElement(
+    name="a",
+    dimension=4,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=5,
+  )
+
+  c = HomotopyElement(
+    name="c",
+    dimension=6,
+  )
+
+  inner = WhiteheadProduct(
+    left=a,
+    right=b,
+  )
+
+  outer = WhiteheadProduct(
+    left=inner,
+    right=c,
+  )
+
+  assert outer.left is inner
+  assert outer.right is c
+
+
+def test_phase42_4_whitehead_product_preserves_nested_structure():
+  a = HomotopyElement(
+    name="a",
+    dimension=4,
+  )
+
+  b = HomotopyElement(
+    name="b",
+    dimension=5,
+  )
+
+  nested = WhiteheadProduct(
+    left=Multiple(
+      coefficient=2,
+      expression=a,
+    ),
+    right=SmashProduct(
+      left=a,
+      right=b,
+    ),
+  )
+
+  assert nested == WhiteheadProduct(
+    left=Multiple(
+      coefficient=2,
+      expression=HomotopyElement(
+        name="a",
+        dimension=4,
+      ),
+    ),
+    right=SmashProduct(
+      left=HomotopyElement(
+        name="a",
+        dimension=4,
+      ),
+      right=HomotopyElement(
+        name="b",
+        dimension=5,
+      ),
+    ),
+  )
+
+
+def test_phase42_4_whitehead_product_has_no_source():
+  product = WhiteheadProduct(
+    left=HomotopyElement(
+      name="a",
+      dimension=4,
+      source=3,
+      target=2,
+    ),
+    right=HomotopyElement(
+      name="b",
+      dimension=5,
+      source=4,
+      target=3,
+    ),
+  )
+
+  assert not hasattr(
+    product,
+    "source",
+  )
+
+
+def test_phase42_4_whitehead_product_has_no_target():
+  product = WhiteheadProduct(
+    left=HomotopyElement(
+      name="a",
+      dimension=4,
+      source=3,
+      target=2,
+    ),
+    right=HomotopyElement(
+      name="b",
+      dimension=5,
+      source=4,
+      target=3,
+    ),
+  )
+
+  assert not hasattr(
+    product,
+    "target",
+  )
+
+
+def test_phase42_4_whitehead_product_has_no_type_compatibility_method():
+  product = WhiteheadProduct(
+    left=HomotopyElement(
+      name="a",
+      dimension=4,
+      source=3,
+      target=2,
+    ),
+    right=HomotopyElement(
+      name="b",
+      dimension=5,
+      source=4,
+      target=3,
+    ),
+  )
+
+  assert not hasattr(
+    product,
+    "is_type_compatible",
   )
 
 
