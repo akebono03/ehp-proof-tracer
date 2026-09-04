@@ -8,7 +8,13 @@ from proof import (
   ProofRule,
   Relation,
   RelationType,
+  find_inference_match,
   relation_proof_step,
+)
+from relation_rules import (
+  equality_symmetry_inference_rule,
+  equality_transitivity_inference_rule,
+  zero_equality_implies_zero_inference_rule,
 )
 
 
@@ -490,6 +496,174 @@ def test_phase43_3_nonzero_premise_has_no_automatic_semantics():
     premise,
     "evaluated_group",
   )
+
+
+def test_phase43_4_relation_types_remain_structurally_distinct():
+  product = (
+    build_phase43_1_representative_whitehead_product()
+  )
+
+  equality_relation = Relation(
+    lhs=product,
+    rhs=Zero(),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  zero_relation = Relation(
+    lhs=product,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  inequality_relation = Relation(
+    lhs=product,
+    rhs=Zero(),
+    relation_type=RelationType.INEQUALITY,
+  )
+
+  assert equality_relation != zero_relation
+  assert equality_relation != inequality_relation
+  assert zero_relation != inequality_relation
+
+
+def test_phase43_4_equality_symmetry_rejects_inequality():
+  inequality_step = relation_proof_step(
+    Relation(
+      lhs=(
+        build_phase43_1_representative_whitehead_product()
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.INEQUALITY,
+    )
+  )
+
+  rule = (
+    equality_symmetry_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      inequality_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase43_4_equality_transitivity_rejects_inequality():
+  product = (
+    build_phase43_1_representative_whitehead_product()
+  )
+
+  inequality_step = relation_proof_step(
+    Relation(
+      lhs=product,
+      rhs=Zero(),
+      relation_type=RelationType.INEQUALITY,
+    )
+  )
+
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=Zero(),
+      rhs=product,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  rule = (
+    equality_transitivity_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      inequality_step,
+      equality_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase43_4_zero_propagation_rejects_inequality_as_zero_premise():
+  product = (
+    build_phase43_1_representative_whitehead_product()
+  )
+
+  inequality_step = relation_proof_step(
+    Relation(
+      lhs=product,
+      rhs=Zero(),
+      relation_type=RelationType.INEQUALITY,
+    )
+  )
+
+  equality_step = relation_proof_step(
+    Relation(
+      lhs=HomotopyElement(
+        name="x",
+        dimension=4,
+      ),
+      rhs=product,
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  rule = (
+    zero_equality_implies_zero_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      inequality_step,
+      equality_step,
+    ),
+  )
+
+  assert match is None
+
+
+def test_phase43_4_zero_propagation_rejects_inequality_as_equality_premise():
+  product = (
+    build_phase43_1_representative_whitehead_product()
+  )
+
+  zero_step = relation_proof_step(
+    Relation(
+      lhs=product,
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+  )
+
+  inequality_step = relation_proof_step(
+    Relation(
+      lhs=HomotopyElement(
+        name="x",
+        dimension=4,
+      ),
+      rhs=product,
+      relation_type=RelationType.INEQUALITY,
+    )
+  )
+
+  rule = (
+    zero_equality_implies_zero_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      zero_step,
+      inequality_step,
+    ),
+  )
+
+  assert match is None
+
 
 
 
