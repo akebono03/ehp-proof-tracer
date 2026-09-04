@@ -7,6 +7,7 @@ class RelationType(Enum):
   EQUALITY = "equality"
   ZERO = "zero"
   ORDER = "order"
+  INEQUALITY = "inequality"
 
 
 @dataclass(frozen=True)
