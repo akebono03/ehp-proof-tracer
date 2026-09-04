@@ -325,5 +325,89 @@ def test_phase42_2_whitehead_product_has_structural_equality():
   assert first != different_right
 
 
+def test_phase42_3_whitehead_product_is_distinct_from_composition():
+  left = HomotopyElement(
+    name="a",
+    dimension=4,
+  )
+
+  right = HomotopyElement(
+    name="b",
+    dimension=5,
+  )
+
+  whitehead_product = WhiteheadProduct(
+    left=left,
+    right=right,
+  )
+
+  composition = Composition(
+    left=left,
+    right=right,
+  )
+
+  assert whitehead_product != composition
+
+
+def test_phase42_3_whitehead_product_is_not_composition():
+  whitehead_product = WhiteheadProduct(
+    left=HomotopyElement(
+      name="a",
+      dimension=4,
+    ),
+    right=HomotopyElement(
+      name="b",
+      dimension=5,
+    ),
+  )
+
+  assert not isinstance(
+    whitehead_product,
+    Composition,
+  )
+
+
+def test_phase42_3_whitehead_product_is_distinct_from_smash_product():
+  left = HomotopyElement(
+    name="a",
+    dimension=4,
+  )
+
+  right = HomotopyElement(
+    name="b",
+    dimension=5,
+  )
+
+  whitehead_product = WhiteheadProduct(
+    left=left,
+    right=right,
+  )
+
+  smash_product = SmashProduct(
+    left=left,
+    right=right,
+  )
+
+  assert whitehead_product != smash_product
+
+
+def test_phase42_3_whitehead_product_is_not_smash_product():
+  whitehead_product = WhiteheadProduct(
+    left=HomotopyElement(
+      name="a",
+      dimension=4,
+    ),
+    right=HomotopyElement(
+      name="b",
+      dimension=5,
+    ),
+  )
+
+  assert not isinstance(
+    whitehead_product,
+    SmashProduct,
+  )
+
+
 
 
