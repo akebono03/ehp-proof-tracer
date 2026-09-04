@@ -1934,3 +1934,245 @@ Toda Prop.4.2
 次の設計境界は `TodaPrimaryGroup π_i^n` の minimum representation。
 
 初期 Phase では critical-degree theorem semantics を constructor に埋め込まず、まず ordinary homotopy group / primary component と異なる structural group term として表現する。
+
+---
+
+# 56. Phase 40 TodaPrimaryGroup minimum representation
+
+Toda (4.3) で使用する notation:
+
+```text
+π_i^n
+```
+
+を structural に保持するため、`homotopy_groups.py` に `TodaPrimaryGroup` を追加した。
+
+production object:
+
+```text
+TodaPrimaryGroup
+├── group_dimension: ScalarValue
+└── sphere_dimension: ScalarValue
+```
+
+representative:
+
+```text
+π_8^5
+π_i^n
+π_9^5
+```
+
+Phase 40 では notation-level group term の representation のみに限定する。
+
+```text
+representation
+!= typing theorem
+!= Toda (4.3) evaluated definition
+```
+
+---
+
+# 57. Phase 40 dimension compatibility
+
+`TodaPrimaryGroup` の dimension fields は `PrimaryComponent` / `HomotopyGroupMembershipStatement` と同じ `ScalarValue` を使用する。
+
+```text
+group_dimension: ScalarValue
+sphere_dimension: ScalarValue
+```
+
+したがって以下を同じ structural scalar layer で保持できる。
+
+```text
+π_8^5
+π_i^n
+π_(n+1)^n
+π_i^(n+1)
+```
+
+compound dimension は既存 `ScalarExpression` tree を保持するだけであり、新しい dimension arithmetic solver は追加しない。
+
+```text
+ScalarValue reuse
+!= automatic arithmetic simplification
+!= side-condition solver
+```
+
+---
+
+# 58. Phase 40 structural distinction
+
+`TodaPrimaryGroup` は `PrimaryComponent` と別 class である。
+
+```text
+π_i^n
+!= π_i(S^n;2)
+```
+
+また current ordinary homotopy-group membership representation とも別 object である。
+
+```text
+TodaPrimaryGroup
+!= HomotopyGroupMembershipStatement
+```
+
+`TodaPrimaryGroup` は group term であり、membership statement ではないため `element` を持たない。
+
+さらに `prime` を持たない。
+
+```text
+TodaPrimaryGroup has no prime
+```
+
+これは Toda の `π_i^n` を単なる `2-primary component` alias にしないための design boundary である。
+
+---
+
+# 59. Phase 40 critical-degree non-evaluation boundary
+
+critical degree の concrete example:
+
+```text
+TodaPrimaryGroup(
+  group_dimension=9,
+  sphere_dimension=5,
+)
+```
+
+は:
+
+```text
+9=2·5-1
+```
+
+を満たすが、constructor はこれを自動的に:
+
+```text
+E^-1(π_10(S^6;2))
+```
+
+へ評価しない。
+
+`TodaPrimaryGroup` は以下を持たない。
+
+```text
+definition
+evaluated_definition
+preimage
+preimage_subgroup
+subgroup
+to_subgroup
+primary_component
+to_primary_component
+source
+theorem
+provenance
+```
+
+したがって:
+
+```text
+critical-degree structural object
+!= critical-degree theorem evaluation
+```
+
+Toda (4.3) の case semantics は後続 phase の theorem / definition layer に残す。
+
+---
+
+# 60. Phase 40 representative probe / verified status
+
+probe:
+
+```powershell
+python -m probes.probe_phase40_capabilities
+```
+
+representative output:
+
+```text
+[1] Concrete Toda primary group
+    π_8^5
+
+[2] Symbolic Toda primary group
+    π_i^n
+
+[3] Critical-degree structural object
+    π_9^5
+```
+
+boundary output:
+
+```text
+TodaPrimaryGroup != PrimaryComponent = True
+TodaPrimaryGroup has prime = False
+TodaPrimaryGroup has membership element = False
+evaluated Toda (4.3) definition = False
+preimage subgroup = False
+automatic PrimaryComponent conversion = False
+theorem provenance = False
+```
+
+focused:
+
+```text
+tests/test_phase40_toda_primary_group.py
+24 passed
+```
+
+full:
+
+```text
+1759 passed in 25.21s
+```
+
+Phase 40 で generic inference engine は変更していない。
+
+---
+
+# 61. Phase 40 completion boundary
+
+実装済み:
+
+```text
+TodaPrimaryGroup minimum representation
+π_i^n concrete construction
+π_i^n symbolic construction
+ScalarValue typing compatibility
+compound scalar dimension compatibility
+structural equality / distinction
+PrimaryComponent separation
+membership separation
+critical-degree structural representation
+scope / non-goal regression
+representative probe
+final integrated regression
+```
+
+未実装:
+
+```text
+Toda (4.3) evaluated definition
+PreimageSubgroup under E
+x∈E^-1(A) ↔ E(x)∈A
+π_i^n membership statement
+Toda (4.3) theorem provenance
+WhiteheadProduct
+Toda Lemma 4.1
+Toda Prop.4.2
+```
+
+次の設計境界は `PreimageSubgroup` minimum representation。
+
+まず:
+
+```text
+PreimageSubgroup(
+  map=E,
+  subgroup=A,
+)
+```
+
+のような structural object を検討し、Toda (4.3) の case evaluation や membership equivalence は先取りしない。
+

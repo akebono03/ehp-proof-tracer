@@ -12,5 +12,11 @@ class PrimaryComponent:
   prime: int
 
 
+@dataclass(frozen=True)
+class TodaPrimaryGroup:
+  group_dimension: ScalarValue
+  sphere_dimension: ScalarValue
+
+
 
 
