@@ -144,4 +144,160 @@ def test_phase43_1_current_relation_type_has_no_inequality():
   )
 
 
+def test_phase43_2_whitehead_product_zero_premise_has_canonical_relation():
+  product = (
+    build_phase43_1_representative_whitehead_product()
+  )
+
+  premise = Relation(
+    lhs=product,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert premise == Relation(
+    lhs=product,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert (
+    premise.relation_type
+    == RelationType.ZERO
+  )
+
+  assert premise.rhs == Zero()
+
+
+def test_phase43_2_whitehead_product_zero_premise_preserves_operands():
+  product = (
+    build_phase43_1_representative_whitehead_product()
+  )
+
+  premise = Relation(
+    lhs=product,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert isinstance(
+    premise.lhs,
+    WhiteheadProduct,
+  )
+
+  assert premise.lhs.left == HomotopyElement(
+    name="ι₄",
+    dimension=4,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=4,
+    ),
+  )
+
+  assert premise.lhs.right == HomotopyElement(
+    name="ι₄",
+    dimension=4,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=4,
+    ),
+  )
+
+
+def test_phase43_2_whitehead_product_zero_premise_is_structurally_reconstructible():
+  premise = Relation(
+    lhs=(
+      build_phase43_1_representative_whitehead_product()
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  reconstructed = Relation(
+    lhs=WhiteheadProduct(
+      left=HomotopyElement(
+        name="ι₄",
+        dimension=4,
+        generator=GeneratorSymbol(
+          family="ι",
+          index=4,
+        ),
+      ),
+      right=HomotopyElement(
+        name="ι₄",
+        dimension=4,
+        generator=GeneratorSymbol(
+          family="ι",
+          index=4,
+        ),
+      ),
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert premise == reconstructed
+
+
+def test_phase43_2_whitehead_product_zero_premise_can_be_explicit_proof_premise():
+  premise = Relation(
+    lhs=(
+      build_phase43_1_representative_whitehead_product()
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  step = relation_proof_step(
+    premise
+  )
+
+  assert step.conclusion == premise
+
+  assert (
+    step.conclusion.relation_type
+    == RelationType.ZERO
+  )
+
+  assert isinstance(
+    step.conclusion.lhs,
+    WhiteheadProduct,
+  )
+
+  assert step.conclusion.rhs == Zero()
+
+  assert step.premises == ()
+
+  assert step.rule == (
+    ProofRule.RELATION
+  )
+
+
+def test_phase43_2_zero_premise_has_no_toda_lemma_evaluation():
+  premise = Relation(
+    lhs=(
+      build_phase43_1_representative_whitehead_product()
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert not hasattr(
+    premise,
+    "toda_lemma_4_1",
+  )
+
+  assert not hasattr(
+    premise,
+    "case",
+  )
+
+  assert not hasattr(
+    premise,
+    "evaluated_group",
+  )
+
+
+
+
 
