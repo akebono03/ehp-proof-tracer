@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
 from expression import (
+  Expression,
   MapSymbol,
   ScalarValue,
 )
@@ -23,6 +24,19 @@ class TodaPrimaryGroup:
 class PreimageSubgroup:
   map: MapSymbol
   subgroup: PrimaryComponent
+
+
+@dataclass(frozen=True)
+class FreeCyclicGroup:
+  generator: Expression
+
+
+@dataclass(frozen=True)
+class DirectSumGroup:
+  summands: tuple[
+    FreeCyclicGroup | PrimaryComponent,
+    ...
+  ]
 
 
 

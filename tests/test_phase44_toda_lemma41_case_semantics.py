@@ -5,11 +5,17 @@ from typing import (
 from expression import (
   GeneratorSymbol,
   HomotopyElement,
+  MapApplication,
+  MapSymbol,
   ScalarProduct,
   ScalarSum,
   ScalarSymbol,
+  WhiteheadProduct,
+  Zero,
 )
 from homotopy_groups import (
+  DirectSumGroup,
+  FreeCyclicGroup,
   PrimaryComponent,
   TodaPrimaryGroup,
 )
@@ -157,72 +163,6 @@ def test_phase44_1_odd_case_group_conclusion_is_representable_as_relation():
   assert (
     conclusion.relation_type
     == RelationType.EQUALITY
-  )
-
-
-def test_phase44_1_homotopy_element_dimension_remains_concrete_integer():
-  type_hints = get_type_hints(
-    HomotopyElement
-  )
-
-  assert type_hints[
-    "dimension"
-  ] is int
-
-
-def test_phase44_1_generator_symbol_index_remains_concrete_integer_or_none():
-  type_hints = get_type_hints(
-    GeneratorSymbol
-  )
-
-  assert type_hints[
-    "index"
-  ] == (
-    int | None
-  )
-
-
-def test_phase44_1_general_symbolic_whitehead_identity_is_not_yet_lossless():
-  n = ScalarSymbol(
-    name="n",
-  )
-
-  n_minus_one = ScalarSum(
-    left=n,
-    right=-1,
-  )
-
-  homotopy_element_hints = (
-    get_type_hints(
-      HomotopyElement
-    )
-  )
-
-  generator_symbol_hints = (
-    get_type_hints(
-      GeneratorSymbol
-    )
-  )
-
-  assert (
-    homotopy_element_hints[
-      "dimension"
-    ]
-    is int
-  )
-
-  assert (
-    generator_symbol_hints[
-      "index"
-    ]
-    == (
-      int | None
-    )
-  )
-
-  assert not isinstance(
-    n_minus_one,
-    int,
   )
 
 
@@ -739,6 +679,460 @@ def test_phase44_2_odd_case_does_not_create_direct_sum_semantics():
     relation.rhs,
     "right_summand",
   )
+
+
+def test_phase44_3_generator_symbol_accepts_symbolic_index():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  n_minus_one = ScalarSum(
+    left=n,
+    right=-1,
+  )
+
+  generator = GeneratorSymbol(
+    family="ι",
+    index=n_minus_one,
+  )
+
+  assert generator.index == (
+    n_minus_one
+  )
+
+
+def test_phase44_3_homotopy_element_accepts_symbolic_dimension():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  n_minus_one = ScalarSum(
+    left=n,
+    right=-1,
+  )
+
+  element = HomotopyElement(
+    name="ι_(n-1)",
+    dimension=n_minus_one,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=n_minus_one,
+    ),
+  )
+
+  assert element.dimension == (
+    n_minus_one
+  )
+
+  assert element.generator == (
+    GeneratorSymbol(
+      family="ι",
+      index=n_minus_one,
+    )
+  )
+
+
+def test_phase44_3_symbolic_whitehead_product_is_lossless():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  n_minus_one = ScalarSum(
+    left=n,
+    right=-1,
+  )
+
+  iota_n_minus_one = (
+    HomotopyElement(
+      name="ι_(n-1)",
+      dimension=n_minus_one,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=n_minus_one,
+      ),
+    )
+  )
+
+  product = WhiteheadProduct(
+    left=iota_n_minus_one,
+    right=iota_n_minus_one,
+  )
+
+  assert product.left == (
+    iota_n_minus_one
+  )
+
+  assert product.right == (
+    iota_n_minus_one
+  )
+
+
+def test_phase44_3_symbolic_whitehead_zero_premise_is_representable():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  n_minus_one = ScalarSum(
+    left=n,
+    right=-1,
+  )
+
+  iota_n_minus_one = (
+    HomotopyElement(
+      name="ι_(n-1)",
+      dimension=n_minus_one,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=n_minus_one,
+      ),
+    )
+  )
+
+  product = WhiteheadProduct(
+    left=iota_n_minus_one,
+    right=iota_n_minus_one,
+  )
+
+  premise = Relation(
+    lhs=product,
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  assert premise.lhs == product
+  assert premise.rhs == Zero()
+
+  assert (
+    premise.relation_type
+    == RelationType.ZERO
+  )
+
+
+def test_phase44_3_symbolic_whitehead_nonzero_premise_is_representable():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  n_minus_one = ScalarSum(
+    left=n,
+    right=-1,
+  )
+
+  iota_n_minus_one = (
+    HomotopyElement(
+      name="ι_(n-1)",
+      dimension=n_minus_one,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=n_minus_one,
+      ),
+    )
+  )
+
+  product = WhiteheadProduct(
+    left=iota_n_minus_one,
+    right=iota_n_minus_one,
+  )
+
+  premise = Relation(
+    lhs=product,
+    rhs=Zero(),
+    relation_type=(
+      RelationType.INEQUALITY
+    ),
+  )
+
+  assert premise.lhs == product
+  assert premise.rhs == Zero()
+
+  assert (
+    premise.relation_type
+    == RelationType.INEQUALITY
+  )
+
+
+def test_phase44_3_free_cyclic_group_preserves_generator_expression():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  two_n_plus_one = ScalarSum(
+    left=ScalarProduct(
+      left=2,
+      right=n,
+    ),
+    right=1,
+  )
+
+  iota_two_n_plus_one = (
+    HomotopyElement(
+      name="ι_(2n+1)",
+      dimension=two_n_plus_one,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=two_n_plus_one,
+      ),
+    )
+  )
+
+  p_iota = MapApplication(
+    map=MapSymbol(
+      name="P",
+    ),
+    expression=iota_two_n_plus_one,
+  )
+
+  group = FreeCyclicGroup(
+    generator=p_iota,
+  )
+
+  assert group.generator == p_iota
+
+
+def test_phase44_3_free_cyclic_group_preserves_alpha_generator():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  two_n_minus_one = ScalarSum(
+    left=ScalarProduct(
+      left=2,
+      right=n,
+    ),
+    right=-1,
+  )
+
+  alpha = HomotopyElement(
+    name="α",
+    dimension=two_n_minus_one,
+  )
+
+  group = FreeCyclicGroup(
+    generator=alpha,
+  )
+
+  assert group.generator == alpha
+
+
+def test_phase44_3_nonzero_case_direct_sum_is_lossless():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  two_n_minus_one = ScalarSum(
+    left=ScalarProduct(
+      left=2,
+      right=n,
+    ),
+    right=-1,
+  )
+
+  two_n_plus_one = ScalarSum(
+    left=ScalarProduct(
+      left=2,
+      right=n,
+    ),
+    right=1,
+  )
+
+  iota_two_n_plus_one = (
+    HomotopyElement(
+      name="ι_(2n+1)",
+      dimension=two_n_plus_one,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=two_n_plus_one,
+      ),
+    )
+  )
+
+  free_part = FreeCyclicGroup(
+    generator=MapApplication(
+      map=MapSymbol(
+        name="P",
+      ),
+      expression=iota_two_n_plus_one,
+    ),
+  )
+
+  primary_part = PrimaryComponent(
+    group_dimension=two_n_minus_one,
+    sphere_dimension=n,
+    prime=2,
+  )
+
+  group = DirectSumGroup(
+    summands=(
+      free_part,
+      primary_part,
+    ),
+  )
+
+  assert group.summands == (
+    free_part,
+    primary_part,
+  )
+
+
+def test_phase44_3_zero_case_direct_sum_is_lossless():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  two_n_minus_one = ScalarSum(
+    left=ScalarProduct(
+      left=2,
+      right=n,
+    ),
+    right=-1,
+  )
+
+  alpha = HomotopyElement(
+    name="α",
+    dimension=two_n_minus_one,
+  )
+
+  free_part = FreeCyclicGroup(
+    generator=alpha,
+  )
+
+  primary_part = PrimaryComponent(
+    group_dimension=two_n_minus_one,
+    sphere_dimension=n,
+    prime=2,
+  )
+
+  group = DirectSumGroup(
+    summands=(
+      free_part,
+      primary_part,
+    ),
+  )
+
+  assert group.summands == (
+    free_part,
+    primary_part,
+  )
+
+
+def test_phase44_3_direct_sum_is_not_concrete_abelian_group():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  two_n_minus_one = ScalarSum(
+    left=ScalarProduct(
+      left=2,
+      right=n,
+    ),
+    right=-1,
+  )
+
+  group = DirectSumGroup(
+    summands=(
+      FreeCyclicGroup(
+        generator=HomotopyElement(
+          name="α",
+          dimension=two_n_minus_one,
+        ),
+      ),
+      PrimaryComponent(
+        group_dimension=two_n_minus_one,
+        sphere_dimension=n,
+        prime=2,
+      ),
+    ),
+  )
+
+  assert not isinstance(
+    group,
+    AbelianGroup,
+  )
+
+
+def test_phase44_3_free_cyclic_group_is_not_group_component():
+  alpha = HomotopyElement(
+    name="α",
+    dimension=9,
+  )
+
+  group = FreeCyclicGroup(
+    generator=alpha,
+  )
+
+  assert not isinstance(
+    group,
+    GroupComponent,
+  )
+
+
+def test_phase44_3_group_representation_has_no_theorem_semantics():
+  alpha = HomotopyElement(
+    name="α",
+    dimension=9,
+  )
+
+  free_group = FreeCyclicGroup(
+    generator=alpha,
+  )
+
+  direct_sum = DirectSumGroup(
+    summands=(
+      free_group,
+      PrimaryComponent(
+        group_dimension=9,
+        sphere_dimension=5,
+        prime=2,
+      ),
+    ),
+  )
+
+  for value in (
+    free_group,
+    direct_sum,
+  ):
+    assert not hasattr(
+      value,
+      "theorem",
+    )
+
+    assert not hasattr(
+      value,
+      "source",
+    )
+
+    assert not hasattr(
+      value,
+      "provenance",
+    )
+
+    assert not hasattr(
+      value,
+      "case",
+    )
+
+
+def test_phase44_3_group_representation_does_not_evaluate_toda_lemma():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  even_statement = (
+    EvenScalarStatement(
+      scalar=n,
+    )
+  )
+
+  assert not hasattr(
+    even_statement,
+    "result_group",
+  )
+
+  assert not hasattr(
+    even_statement,
+    "direct_sum",
+  )
+
 
 
 
