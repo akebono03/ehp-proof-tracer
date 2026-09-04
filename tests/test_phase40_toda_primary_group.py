@@ -154,5 +154,73 @@ def test_phase40_2_toda_primary_group_structural_equality_uses_both_dimensions()
   assert first != different_sphere_dimension
 
 
+def test_phase40_3_toda_primary_group_is_distinct_from_primary_component():
+  toda_group = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  primary_component = PrimaryComponent(
+    group_dimension=8,
+    sphere_dimension=5,
+    prime=2,
+  )
+
+  assert not isinstance(
+    toda_group,
+    PrimaryComponent,
+  )
+
+  assert toda_group != primary_component
+
+
+def test_phase40_3_toda_primary_group_is_distinct_from_homotopy_group_membership():
+  toda_group = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  membership = HomotopyGroupMembershipStatement(
+    element=HomotopyElement(
+      name="a",
+      dimension=3,
+    ),
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  assert not isinstance(
+    toda_group,
+    HomotopyGroupMembershipStatement,
+  )
+
+  assert toda_group != membership
+
+
+def test_phase40_3_toda_primary_group_has_no_prime_field():
+  group = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  assert not hasattr(
+    group,
+    "prime",
+  )
+
+
+def test_phase40_3_toda_primary_group_has_no_membership_element():
+  group = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  assert not hasattr(
+    group,
+    "element",
+  )
+
+
+
 
 
