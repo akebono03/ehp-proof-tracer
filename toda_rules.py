@@ -3,9 +3,15 @@ from dataclasses import dataclass
 from expression import (
   Composition,
   Expression,
+  ScalarProduct,
+  ScalarSum,
   Suspension,
   TodaBracket,
   Zero,
+)
+from homotopy_groups import (
+  PrimaryComponent,
+  TodaPrimaryGroup,
 )
 from proof import (
   InferenceRule,
@@ -16,6 +22,61 @@ from proof import (
   Relation,
   RelationType,
 )
+from scalar_rules import (
+  OddScalarStatement,
+)
+
+
+def toda_lemma41_odd_case_inference_rule():
+  def build_conclusion(
+    premises,
+  ):
+    odd_statement = (
+      premises[0].conclusion
+    )
+
+    n = odd_statement.scalar
+
+    critical_degree = ScalarSum(
+      left=ScalarProduct(
+        left=2,
+        right=n,
+      ),
+      right=-1,
+    )
+
+    return Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=critical_degree,
+        sphere_dimension=n,
+      ),
+      rhs=PrimaryComponent(
+        group_dimension=critical_degree,
+        sphere_dimension=n,
+        prime=2,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 4.1 odd case"
+    ),
+    description=(
+      "If n is odd, Toda Lemma 4.1 "
+      "identifies pi_(2n-1)^n with "
+      "the 2-primary component "
+      "pi_(2n-1)(S^n;2)."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          OddScalarStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+  )
 
 
 @dataclass(frozen=True)
@@ -360,3 +421,8 @@ def indexed_toda_bracket_index1_defined_inference_rule():
     conclusion_builder=conclusion_builder,
     match_guard=guard,
   )
+
+
+
+
+

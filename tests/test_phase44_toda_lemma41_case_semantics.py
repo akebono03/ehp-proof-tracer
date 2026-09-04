@@ -18,12 +18,20 @@ from models import (
   GroupComponent,
 )
 from proof import (
+  InferenceTerminationReason,
+  ProofRule,
+  ProofStep,
   Relation,
   RelationType,
+  find_inference_match,
+  run_inference_until_stable_with_history,
 )
 from scalar_rules import (
   EvenScalarStatement,
   OddScalarStatement,
+)
+from toda_rules import (
+  toda_lemma41_odd_case_inference_rule,
 )
 
 
@@ -338,6 +346,400 @@ def test_phase44_1_has_no_toda_lemma_4_1_case_semantics_yet():
       statement,
       "result_group",
     )
+
+
+def test_phase44_2_odd_case_rule_has_only_odd_scalar_premise():
+  rule = (
+    toda_lemma41_odd_case_inference_rule()
+  )
+
+  assert len(
+    rule.premise_patterns
+  ) == 1
+
+  assert (
+    rule.premise_patterns[
+      0
+    ].statement_type
+    is OddScalarStatement
+  )
+
+
+def test_phase44_2_odd_symbolic_n_matches_rule():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=n,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    toda_lemma41_odd_case_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      odd_step,
+    ),
+  )
+
+  assert match is not None
+
+  assert match.premises == (
+    odd_step,
+  )
+
+
+def test_phase44_2_odd_case_derives_toda_primary_group_equality():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  two_n_minus_one = ScalarSum(
+    left=ScalarProduct(
+      left=2,
+      right=n,
+    ),
+    right=-1,
+  )
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=n,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    toda_lemma41_odd_case_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        odd_step,
+      ),
+    )
+  )
+
+  expected = Relation(
+    lhs=TodaPrimaryGroup(
+      group_dimension=two_n_minus_one,
+      sphere_dimension=n,
+    ),
+    rhs=PrimaryComponent(
+      group_dimension=two_n_minus_one,
+      sphere_dimension=n,
+      prime=2,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert expected in conclusions
+
+
+def test_phase44_2_derived_relation_preserves_symbolic_n_structure():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=n,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    toda_lemma41_odd_case_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        odd_step,
+      ),
+    )
+  )
+
+  derived_step = next(
+    step
+    for step in result.steps
+    if isinstance(
+      step.conclusion,
+      Relation,
+    )
+    and isinstance(
+      step.conclusion.lhs,
+      TodaPrimaryGroup,
+    )
+  )
+
+  relation = derived_step.conclusion
+
+  expected_degree = ScalarSum(
+    left=ScalarProduct(
+      left=2,
+      right=n,
+    ),
+    right=-1,
+  )
+
+  assert (
+    relation.lhs.group_dimension
+    == expected_degree
+  )
+
+  assert (
+    relation.lhs.sphere_dimension
+    == n
+  )
+
+  assert (
+    relation.rhs.group_dimension
+    == expected_degree
+  )
+
+  assert (
+    relation.rhs.sphere_dimension
+    == n
+  )
+
+  assert relation.rhs.prime == 2
+
+
+def test_phase44_2_derived_step_keeps_odd_premise_provenance():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=n,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    toda_lemma41_odd_case_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        odd_step,
+      ),
+    )
+  )
+
+  derived_step = next(
+    step
+    for step in result.steps
+    if isinstance(
+      step.conclusion,
+      Relation,
+    )
+    and isinstance(
+      step.conclusion.lhs,
+      TodaPrimaryGroup,
+    )
+  )
+
+  assert (
+    derived_step.rule
+    == ProofRule.INFERENCE
+  )
+
+  assert derived_step.premises == (
+    odd_step,
+  )
+
+  assert (
+    derived_step.inference_rule
+    == rule
+  )
+
+
+def test_phase44_2_even_statement_does_not_match_odd_case_rule():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  even_step = ProofStep(
+    conclusion=EvenScalarStatement(
+      scalar=n,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    toda_lemma41_odd_case_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      even_step,
+    ),
+  )
+
+  assert match is None
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        even_step,
+      ),
+    )
+  )
+
+  derived_relations = tuple(
+    step.conclusion
+    for step in result.steps
+    if isinstance(
+      step.conclusion,
+      Relation,
+    )
+  )
+
+  assert derived_relations == ()
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+
+def test_phase44_2_odd_case_does_not_require_whitehead_premise():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=n,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    toda_lemma41_odd_case_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        odd_step,
+      ),
+    )
+  )
+
+  expected_degree = ScalarSum(
+    left=ScalarProduct(
+      left=2,
+      right=n,
+    ),
+    right=-1,
+  )
+
+  expected = Relation(
+    lhs=TodaPrimaryGroup(
+      group_dimension=expected_degree,
+      sphere_dimension=n,
+    ),
+    rhs=PrimaryComponent(
+      group_dimension=expected_degree,
+      sphere_dimension=n,
+      prime=2,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert expected in conclusions
+
+
+def test_phase44_2_odd_case_does_not_create_direct_sum_semantics():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  odd_step = ProofStep(
+    conclusion=OddScalarStatement(
+      scalar=n,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  rule = (
+    toda_lemma41_odd_case_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        odd_step,
+      ),
+    )
+  )
+
+  derived_step = next(
+    step
+    for step in result.steps
+    if isinstance(
+      step.conclusion,
+      Relation,
+    )
+    and isinstance(
+      step.conclusion.lhs,
+      TodaPrimaryGroup,
+    )
+  )
+
+  relation = derived_step.conclusion
+
+  assert not hasattr(
+    relation.rhs,
+    "summands",
+  )
+
+  assert not hasattr(
+    relation.rhs,
+    "left_summand",
+  )
+
+  assert not hasattr(
+    relation.rhs,
+    "right_summand",
+  )
+
 
 
 
