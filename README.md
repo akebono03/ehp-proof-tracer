@@ -38,7 +38,7 @@ mathematical equality
 
 # Current status
 
-Completed through Phase 42.
+Completed through Phase 43.
 
 ```text
 Phase 28  map injectivity / isomorphism / equality reflection
@@ -56,24 +56,25 @@ Phase 39  PrimaryComponent minimum representation
 Phase 40  TodaPrimaryGroup minimum representation
 Phase 41  PreimageSubgroup minimum representation
 Phase 42  WhiteheadProduct minimum representation
+Phase 43  Toda Lemma 4.1 premise minimum representation
 ```
 
 Current full regression:
 
 ```text
-1831 passed in 23.58s
+1863 passed in 24.47s
 ```
 
-Focused Phase 42 suite:
+Focused Phase 43 suite:
 
 ```text
-36 passed
+32 passed
 ```
 
-Representative Phase 42 probe:
+Representative Phase 43 probe:
 
 ```powershell
-python -m probes.probe_phase42_capabilities
+python -m probes.probe_phase43_capabilities
 ```
 
 The probe demonstrates:
@@ -1043,6 +1044,7 @@ Representative probe:
 ```powershell
 python -m probes.probe_phase41_capabilities
 python -m probes.probe_phase42_capabilities
+python -m probes.probe_phase43_capabilities
 ```
 
 ---
@@ -1160,6 +1162,109 @@ Representative probe:
 ```powershell
 python -m probes.probe_phase42_capabilities
 ```
+
+---
+
+
+# Phase 43: Toda Lemma 4.1 premise minimum representation
+
+Phase 43 adds the minimum relation infrastructure required to hold the two Whitehead-product premises used by Toda Lemma 4.1:
+
+```text
+[ι₄,ι₄] = 0
+[ι₄,ι₄] != 0
+```
+
+The zero premise reuses the existing canonical zero relation:
+
+```text
+Relation(
+  lhs=WhiteheadProduct(...),
+  rhs=Zero(),
+  relation_type=RelationType.ZERO,
+)
+```
+
+The nonzero premise adds one minimum generic relation kind:
+
+```text
+RelationType.INEQUALITY
+```
+
+and is represented as:
+
+```text
+Relation(
+  lhs=WhiteheadProduct(...),
+  rhs=Zero(),
+  relation_type=RelationType.INEQUALITY,
+)
+```
+
+Important structural distinction:
+
+```text
+ZERO
+!=
+INEQUALITY
+```
+
+Both premises retain the same structural `WhiteheadProduct` lhs and the same `Zero()` rhs. Their mathematical roles are distinguished by `RelationType`.
+
+Phase 43 does not introduce a dedicated Whitehead-product zero / nonzero statement class. It also does not change `WhiteheadProduct` itself.
+
+Important boundaries:
+
+```text
+premise representation
+!= automatic zero inference
+!= automatic nonzero inference
+!= contradiction detection
+!= Whitehead-product bilinearity
+!= Whitehead-product antisymmetry
+!= Toda Lemma 4.1 case evaluation
+```
+
+Existing equality / zero inference rules remain relation-type strict. `INEQUALITY` does not match equality symmetry, equality transitivity, or zero-propagation premises.
+
+Focused Phase 43 suite:
+
+```text
+tests/test_phase43_toda_lemma41_premise.py
+32 passed
+```
+
+Related regressions:
+
+```text
+tests/test_relation_rules.py
+50 passed
+
+tests/test_phase42_whitehead_product.py
+36 passed
+```
+
+Full regression:
+
+```text
+1863 passed in 24.47s
+```
+
+Representative probe:
+
+```powershell
+python -m probes.probe_phase43_capabilities
+```
+
+The probe demonstrates:
+
+```text
+[ι₄,ι₄] = 0
+[ι₄,ι₄] != 0
+ZERO != INEQUALITY
+```
+
+while confirming that automatic zero / nonzero inference, contradiction detection, Whitehead-product algebra, and Toda Lemma 4.1 evaluation remain unevaluated.
 
 ---
 
@@ -1342,44 +1447,39 @@ Historical limitations in the development log describe the state at that time. C
 
 # Next development boundary
 
-Phase 42 is complete.
+Phase 43 is complete.
 
-The Toda Chapter 4 2-primary branch now has the structural terms required before introducing Toda Lemma 4.1 theorem semantics:
+The Toda Chapter 4 2-primary branch now has both the structural Whitehead product and the premise relations needed before introducing Toda Lemma 4.1 case semantics:
 
 ```text
-PrimaryComponent(i,n,p)
-→ π_i(S^n;p)
-
-TodaPrimaryGroup(i,n)
-→ π_i^n
-
-PreimageSubgroup(f,A)
-→ f^-1(A)
-
 WhiteheadProduct(a,b)
 → [a,b]
+
+RelationType.ZERO
+→ [ι₄,ι₄] = 0
+
+RelationType.INEQUALITY
+→ [ι₄,ι₄] != 0
 ```
 
-The representative Whitehead product:
+The representative premises are explicit proof-level relations, not properties encoded inside `WhiteheadProduct`.
+
+Phase 43 still does not evaluate:
 
 ```text
-[ι₄,ι₄]
+n odd
+
+n even
++
+[ι_{n-1},ι_{n-1}] != 0
+
+n even
++
+[ι_{n-1},ι_{n-1}] = 0
 ```
 
-is now structurally representable while remaining distinct from composition and smash product.
+into the corresponding structure of `π_{2n-1}^n`.
 
-Phase 42 still does not decide:
+The next development boundary is therefore Toda Lemma 4.1 case semantics itself. The first step should inspect the current parity statement infrastructure, `TodaPrimaryGroup`, `PrimaryComponent`, and the available representation for the direct-sum / free-`Z` conclusions before introducing any theorem rule.
 
-```text
-[ι_{n-1},ι_{n-1}]=0
-```
-
-or:
-
-```text
-[ι_{n-1},ι_{n-1}]!=0
-```
-
-and it does not implement the Toda Lemma 4.1 case split.
-
-The next development boundary is therefore the minimum theorem / statement infrastructure required to represent the Whitehead-product zero / nonzero premise used by Toda Lemma 4.1, followed by the Lemma 4.1 case semantics itself. General Whitehead-product algebra remains deferred until a concrete proof need appears.
+General Whitehead-product algebra, automatic zero / nonzero inference, and contradiction detection remain deferred until a concrete proof need appears.

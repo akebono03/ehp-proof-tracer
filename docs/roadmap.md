@@ -22,7 +22,7 @@ future capability dependency
 
 ---
 
-# 2. Phase 42 完了時点
+# 2. Phase 43 完了時点
 
 Completed chain:
 
@@ -42,30 +42,31 @@ Phase 39  PrimaryComponent minimum representation
 Phase 40  TodaPrimaryGroup minimum representation
 Phase 41  PreimageSubgroup minimum representation
 Phase 42  WhiteheadProduct minimum representation
+Phase 43  Toda Lemma 4.1 premise minimum representation
 ```
 
 Current full regression:
 
 ```text
-1831 passed in 23.58s
+1863 passed in 24.47s
 ```
 
-Focused Phase 42:
+Focused Phase 43:
 
 ```text
-36 passed
+32 passed
 ```
 
 Representative probe:
 
 ```powershell
-python -m probes.probe_phase42_capabilities
+python -m probes.probe_phase43_capabilities
 ```
 
-Final Phase 42 capability:
+Final Phase 43 capability:
 
 ```text
-[a,b] minimum structural representation
+[ι₄,ι₄] = 0 / [ι₄,ι₄] != 0 premise minimum representation
 ```
 
 ---
@@ -580,7 +581,8 @@ higher Toda brackets
 | Toda subgroup `π_i^n` | IMPLEMENTED | 40 |
 | `E^{-1}(π_{2n}(S^{n+1};2))` preimage group | IMPLEMENTED | 41 |
 | Whitehead product `[a,b]` | IMPLEMENTED | 42 |
-| Toda Lemma 4.1 | PLANNED | structure of `π_{2n-1}^n` |
+| Toda Lemma 4.1 premise zero / nonzero representation | IMPLEMENTED | 43 |
+| Toda Lemma 4.1 case semantics | PLANNED | structure of `π_{2n-1}^n` |
 | Toda Prop.4.2 2-primary EHP exact sequence | PLANNED | main 2-primary calculation engine |
 | Toda (4.5) `E^(m-n)` isomorphism | PLANNED | stable-range theorem for `π_i^n` |
 | Toda Prop.4.4 decomposition isomorphism | PLANNED | `(β,γ)↦Eβ+α∘γ` |
@@ -645,7 +647,10 @@ PreimageSubgroup under E in degree 2n-1 COMPLETE
 Phase 42
 WhiteheadProduct minimum representation COMPLETE
 ↓
-Toda Lemma 4.1
+Phase 43
+Toda Lemma 4.1 zero / nonzero premise representation COMPLETE
+↓
+Toda Lemma 4.1 case semantics
 structure of π_{2n-1}^n
 ↓
 Toda Prop.4.2
@@ -1625,52 +1630,137 @@ No new theorem rule or generic inference-engine feature was introduced.
 
 ---
 
-# 35. 次 Phase candidate：Toda Lemma 4.1 premise / case infrastructure
+# 35. Phase 43：Toda Lemma 4.1 premise minimum representation COMPLETE
 
-Phase 42 で:
-
-```text
-[a,b]
-```
-
-の structural representation は完成した。
-
-次は Toda Lemma 4.1 で必要な:
+Phase 43 split:
 
 ```text
-[ι_{n-1},ι_{n-1}]=0
+43-1 current Relation / ZERO / INEQUALITY compatibility check COMPLETE
+43-2 Whitehead product zero premise representation COMPLETE
+43-3 Whitehead product nonzero premise representation COMPLETE
+43-4 structural / relation compatibility regression COMPLETE
+43-5 scope / non-goal regression COMPLETE
+43-6 representative probe / final regression COMPLETE
+43-7 Phase 43 completion COMPLETE
 ```
 
-および:
+production extension:
 
 ```text
-[ι_{n-1},ι_{n-1}]!=0
+RelationType.INEQUALITY
 ```
 
-を theorem premise として扱うための minimum statement representation / existing relation compatibility を確認する。
+zero premise:
 
-その後:
+```text
+[ι₄,ι₄] = 0
+→ RelationType.ZERO
+```
+
+nonzero premise:
+
+```text
+[ι₄,ι₄] != 0
+→ RelationType.INEQUALITY
+```
+
+verified:
+
+```text
+tests/test_phase43_toda_lemma41_premise.py
+32 passed
+
+tests/test_relation_rules.py
+50 passed
+
+tests/test_phase42_whitehead_product.py
+36 passed
+
+full suite
+1863 passed in 24.47s
+```
+
+probe:
+
+```powershell
+python -m probes.probe_phase43_capabilities
+```
+
+Important:
+
+```text
+premise representation
+!= automatic zero / nonzero inference
+!= contradiction detection
+!= Whitehead-product algebra
+!= Toda Lemma 4.1 case evaluation
+```
+
+No new theorem rule or generic inference-engine feature was introduced.
+
+---
+
+# 36. 次 Phase candidate：Toda Lemma 4.1 case semantics
+
+Phase 43 で Toda Lemma 4.1 の場合分けに必要な premise infrastructure は完成した。
+
+次は:
 
 ```text
 n odd
-
-n even
-+
-Whitehead product nonzero
-
-n even
-+
-Whitehead product zero
 ```
 
-という Toda Lemma 4.1 の case semantics を staged に導入する。
+```text
+n even
++
+[ι_{n-1},ι_{n-1}] != 0
+```
 
-初期 Phase では以下を先取りしない。
+```text
+n even
++
+[ι_{n-1},ι_{n-1}] = 0
+```
+
+から `π_{2n-1}^n` の構造を theorem-derived に評価する case semantics へ進む。
+
+実装順の第一候補:
+
+```text
+44-1 current parity / group-conclusion representation compatibility check
+↓
+44-2 n odd case
+↓
+44-3 n even + Whitehead nonzero case
+↓
+44-4 n even + Whitehead zero case
+↓
+44-5 provenance / applicability / scope regression
+↓
+44-6 representative probe / final regression
+↓
+44-7 completion
+```
+
+ただし Phase 44-1 で current code を確認してから実際の split を確定する。
+
+特に結論側で必要になる:
+
+```text
+π_{2n-1}(S^n;2)
+Z{P(ι_{2n+1})} ⊕ π_{2n-1}(S^n;2)
+Z{α} ⊕ π_{2n-1}(S^n;2)
+```
+
+を既存 representation でどこまで lossless に保持できるかを先に確認する。
+
+以下は引き続き先取りしない。
 
 ```text
 general Whitehead-product bilinearity
 general Whitehead-product antisymmetry
 automatic Whitehead-product typing
+ZERO / INEQUALITY contradiction engine
 symbolic generator indexing project
 Toda Prop.4.2 exact-sequence semantics
 ```

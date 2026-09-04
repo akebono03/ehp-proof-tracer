@@ -2744,3 +2744,237 @@ Toda Prop.4.2
 
 一般 Whitehead-product algebra は concrete proof need が現れるまで先取りしない。
 
+---
+
+# 76. Phase 43 Relation / ZERO / INEQUALITY compatibility
+
+Toda Lemma 4.1 の場合分けで必要な premise:
+
+```text
+[ι_{n-1},ι_{n-1}]=0
+[ι_{n-1},ι_{n-1}]!=0
+```
+
+を既存 relation layer で扱う compatibility を確認した。
+
+zero 側は既存 canonical representation をそのまま再利用する。
+
+```text
+Relation(
+  lhs=WhiteheadProduct(...),
+  rhs=Zero(),
+  relation_type=RelationType.ZERO,
+)
+```
+
+したがって zero premise 専用 class は追加しない。
+
+一方、Phase 43-1 時点の `RelationType` には nonzero を lossless に保持する relation kind がなかったため、Phase 43-3 で minimum extension として:
+
+```text
+RelationType.INEQUALITY
+```
+
+を追加した。
+
+---
+
+# 77. Phase 43 nonzero premise representation
+
+nonzero premise の canonical representation:
+
+```text
+Relation(
+  lhs=WhiteheadProduct(...),
+  rhs=Zero(),
+  relation_type=RelationType.INEQUALITY,
+)
+```
+
+代表:
+
+```text
+[ι₄,ι₄] != 0
+```
+
+重要:
+
+```text
+INEQUALITY
+= generic relation kind
+```
+
+であり:
+
+```text
+INEQUALITY
+!= automatic nonzero theorem engine
+```
+
+`WhiteheadProduct` 自体には `is_zero` / `is_nonzero` 等を追加しない。
+
+---
+
+# 78. Phase 43 structural / relation compatibility
+
+同じ lhs / rhs を持っていても relation type が異なれば structural に別 `Relation` として扱う。
+
+```text
+Relation(..., ZERO)
+!=
+Relation(..., INEQUALITY)
+```
+
+代表:
+
+```text
+[ι₄,ι₄] = 0
+!= structural
+[ι₄,ι₄] != 0
+```
+
+`proof.py` の relation matching は relation type を strict に比較するため、existing equality / zero rule は `INEQUALITY` を誤って consume しない。
+
+regression で固定:
+
+```text
+INEQUALITY ↛ equality symmetry
+INEQUALITY ↛ equality transitivity
+INEQUALITY ↛ ZERO premise
+INEQUALITY ↛ EQUALITY premise
+```
+
+このため generic inference engine の変更は不要だった。
+
+---
+
+# 79. Phase 43 scope boundary
+
+Phase 43 で完成するのは premise representation のみ。
+
+```text
+premise representation
+!= automatic zero inference
+!= automatic nonzero inference
+!= contradiction detection
+!= bilinearity
+!= antisymmetry
+!= Toda Lemma 4.1 case evaluation
+```
+
+zero / nonzero relations が同時に存在しても Phase 43 では contradiction を自動導出しない。
+
+また Phase 42 からの boundary:
+
+```text
+WhiteheadProduct
+!= theorem semantics
+```
+
+を維持する。
+
+---
+
+# 80. Phase 43 representative probe / verified status
+
+probe:
+
+```powershell
+python -m probes.probe_phase43_capabilities
+```
+
+代表出力:
+
+```text
+[1] Representative Whitehead product
+  [ι₄,ι₄]
+
+[2] Zero premise
+  [ι₄,ι₄] = 0
+
+[3] Nonzero premise
+  [ι₄,ι₄] != 0
+```
+
+structural distinction:
+
+```text
+ZERO != INEQUALITY = True
+same WhiteheadProduct lhs = True
+same Zero rhs = True
+```
+
+boundary:
+
+```text
+automatic zero inference = False
+automatic nonzero inference = False
+contradiction detection = False
+bilinearity = False
+antisymmetry = False
+Toda Lemma 4.1 evaluation = False
+```
+
+verified:
+
+```text
+tests/test_phase43_toda_lemma41_premise.py
+32 passed
+
+tests/test_relation_rules.py
+50 passed
+
+tests/test_phase42_whitehead_product.py
+36 passed
+
+full suite
+1863 passed in 24.47s
+```
+
+---
+
+# 81. Phase 43 completion boundary
+
+実装済み:
+
+```text
+current Relation / ZERO / INEQUALITY compatibility check
+Whitehead-product zero premise representation
+Whitehead-product nonzero premise representation
+RelationType.INEQUALITY minimum extension
+ZERO / INEQUALITY structural distinction
+existing relation matching compatibility
+existing equality / zero rule isolation
+scope / non-goal regression
+representative executable probe
+final integrated regression
+```
+
+production code の変更:
+
+```text
+RelationType.INEQUALITY
+```
+
+のみ。
+
+`Relation` / `WhiteheadProduct` / generic inference engine は変更していない。
+
+未実装:
+
+```text
+automatic Whitehead-product zero inference
+automatic Whitehead-product nonzero inference
+ZERO / INEQUALITY contradiction detection
+Whitehead-product bilinearity
+Whitehead-product antisymmetry
+symbolic generator index ι_{n-1}
+Toda Lemma 4.1 case evaluation
+Toda Lemma 4.1 theorem provenance
+Toda Prop.4.2
+```
+
+次の設計境界は Toda Lemma 4.1 case semantics。
+
+まず current parity statement infrastructure と、結論側で必要な `TodaPrimaryGroup` / `PrimaryComponent` / free `Z` summand / direct-sum representation の compatibility を確認し、actual theorem need に必要な minimum representation だけを追加する。
+
