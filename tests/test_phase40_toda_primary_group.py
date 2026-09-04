@@ -7,6 +7,7 @@ from barratt_hilton_rules import (
 )
 from expression import (
   HomotopyElement,
+  ScalarSum,
   ScalarSymbol,
   ScalarValue,
 )
@@ -220,6 +221,152 @@ def test_phase40_3_toda_primary_group_has_no_membership_element():
     "element",
   )
 
+
+def test_phase40_4_toda_primary_group_uses_existing_scalar_value_dimension_types():
+  type_hints = get_type_hints(
+    TodaPrimaryGroup
+  )
+
+  assert type_hints[
+    "group_dimension"
+  ] == ScalarValue
+
+  assert type_hints[
+    "sphere_dimension"
+  ] == ScalarValue
+
+
+def test_phase40_4_toda_primary_group_matches_existing_concrete_dimension_representation():
+  toda_group = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  primary_component = PrimaryComponent(
+    group_dimension=8,
+    sphere_dimension=5,
+    prime=2,
+  )
+
+  membership = HomotopyGroupMembershipStatement(
+    element=HomotopyElement(
+      name="a",
+      dimension=3,
+    ),
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  assert toda_group.group_dimension == (
+    primary_component.group_dimension
+  )
+
+  assert toda_group.sphere_dimension == (
+    primary_component.sphere_dimension
+  )
+
+  assert toda_group.group_dimension == (
+    membership.group_dimension
+  )
+
+  assert toda_group.sphere_dimension == (
+    membership.sphere_dimension
+  )
+
+
+def test_phase40_4_toda_primary_group_matches_existing_symbolic_dimension_representation():
+  i = ScalarSymbol(
+    name="i",
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  toda_group = TodaPrimaryGroup(
+    group_dimension=i,
+    sphere_dimension=n,
+  )
+
+  primary_component = PrimaryComponent(
+    group_dimension=i,
+    sphere_dimension=n,
+    prime=2,
+  )
+
+  membership = HomotopyGroupMembershipStatement(
+    element=HomotopyElement(
+      name="a",
+      dimension=1,
+    ),
+    group_dimension=i,
+    sphere_dimension=n,
+  )
+
+  assert toda_group.group_dimension is i
+  assert toda_group.sphere_dimension is n
+
+  assert toda_group.group_dimension is (
+    primary_component.group_dimension
+  )
+
+  assert toda_group.sphere_dimension is (
+    primary_component.sphere_dimension
+  )
+
+  assert toda_group.group_dimension is (
+    membership.group_dimension
+  )
+
+  assert toda_group.sphere_dimension is (
+    membership.sphere_dimension
+  )
+
+
+def test_phase40_4_toda_primary_group_accepts_compound_symbolic_group_dimension():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  n_plus_one = ScalarSum(
+    left=n,
+    right=1,
+  )
+
+  group = TodaPrimaryGroup(
+    group_dimension=n_plus_one,
+    sphere_dimension=n,
+  )
+
+  assert group.group_dimension == ScalarSum(
+    left=n,
+    right=1,
+  )
+
+  assert group.sphere_dimension is n
+
+
+def test_phase40_4_toda_primary_group_accepts_compound_symbolic_sphere_dimension():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  n_plus_one = ScalarSum(
+    left=n,
+    right=1,
+  )
+
+  group = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=n_plus_one,
+  )
+
+  assert group.group_dimension == 8
+
+  assert group.sphere_dimension == ScalarSum(
+    left=n,
+    right=1,
+  )
 
 
 
