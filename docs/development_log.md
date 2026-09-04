@@ -3611,3 +3611,389 @@ Whitehead product zero
 
 一般 Whitehead-product algebra は先取りしない。
 
+---
+
+# Phase 43：Toda Lemma 4.1 premise minimum representation
+
+目的:
+
+Toda Lemma 4.1 の場合分けに必要な:
+
+```text
+[ι_{n-1},ι_{n-1}]=0
+[ι_{n-1},ι_{n-1}]!=0
+```
+
+を theorem premise として保持できる minimum relation infrastructure を整備する。
+
+Toda Lemma 4.1 の case evaluation 自体は Phase 43 では行わない。
+
+---
+
+## Phase 43-1：current Relation / ZERO / INEQUALITY compatibility check
+
+確認:
+
+```text
+WhiteheadProduct
+→ existing Relation lhs として保持可能
+```
+
+zero premise は既存 canonical ZERO relation:
+
+```text
+Relation(
+  lhs=WhiteheadProduct(...),
+  rhs=Zero(),
+  relation_type=RelationType.ZERO,
+)
+```
+
+で表現可能。
+
+一方 current `RelationType` に `INEQUALITY` は存在しなかった。
+
+production code 変更なし。
+
+結果:
+
+```text
+tests/test_phase43_toda_lemma41_premise.py
+6 passed
+
+full suite
+1837 passed in 25.79s
+```
+
+### 状態
+完了
+
+---
+
+## Phase 43-2：Whitehead product zero premise representation
+
+existing `RelationType.ZERO` を Toda Lemma 4.1 zero premise の canonical representation として固定。
+
+代表:
+
+```text
+[ι₄,ι₄]=0
+```
+
+専用 zero statement class は追加せず、`WhiteheadProduct` 自体にも zero semantics を入れない。
+
+production code 変更なし。
+
+結果:
+
+```text
+tests/test_phase43_toda_lemma41_premise.py
+11 passed
+
+full suite
+1842 passed in 24.79s
+```
+
+### 状態
+完了
+
+---
+
+## Phase 43-3：Whitehead product nonzero premise representation
+
+nonzero premise:
+
+```text
+[ι₄,ι₄] != 0
+```
+
+を lossless に保持するため `proof.py` の `RelationType` に minimum extension:
+
+```text
+INEQUALITY = "inequality"
+```
+
+を追加。
+
+canonical representation:
+
+```text
+Relation(
+  lhs=WhiteheadProduct(...),
+  rhs=Zero(),
+  relation_type=RelationType.INEQUALITY,
+)
+```
+
+旧 Phase 43-1 の「INEQUALITY が存在しない」regression は仕様変更に伴い削除。
+
+`Relation` 本体 / relation proof step / generic inference engine は変更しない。
+
+結果:
+
+```text
+tests/test_phase43_toda_lemma41_premise.py
+17 passed
+
+full suite
+1848 passed in 24.50s
+```
+
+### 状態
+完了
+
+---
+
+## Phase 43-4：structural / relation compatibility regression
+
+`INEQUALITY` 追加後も existing relation semantics が漏れないことを確認。
+
+固定:
+
+```text
+EQUALITY != ZERO != INEQUALITY
+```
+
+```text
+INEQUALITY ↛ equality symmetry
+INEQUALITY ↛ equality transitivity
+INEQUALITY ↛ ZERO premise
+INEQUALITY ↛ EQUALITY premise
+```
+
+production code 変更なし。
+
+結果:
+
+```text
+tests/test_phase43_toda_lemma41_premise.py
+22 passed
+
+full suite
+1853 passed in 24.09s
+```
+
+### 状態
+完了
+
+---
+
+## Phase 43-5：scope / non-goal regression
+
+固定:
+
+```text
+premise representation
+!= automatic zero inference
+!= automatic nonzero inference
+!= contradiction detection
+!= bilinearity
+!= antisymmetry
+!= Toda Lemma 4.1 case evaluation
+```
+
+zero / nonzero premise が両方存在しても contradiction engine は起動しない。
+
+production code 変更なし。
+
+結果:
+
+```text
+tests/test_phase43_toda_lemma41_premise.py
+28 passed
+
+full suite
+1859 passed in 24.67s
+```
+
+### 状態
+完了
+
+---
+
+## Phase 43-6：representative probe / final regression
+
+追加:
+
+```text
+probes/probe_phase43_capabilities.py
+```
+
+representative:
+
+```text
+[ι₄,ι₄]
+[ι₄,ι₄] = 0
+[ι₄,ι₄] != 0
+```
+
+probe で確認:
+
+```text
+ZERO != INEQUALITY = True
+same WhiteheadProduct lhs = True
+same Zero rhs = True
+```
+
+completion boundary:
+
+```text
+automatic zero inference = False
+automatic nonzero inference = False
+contradiction detection = False
+bilinearity = False
+antisymmetry = False
+Toda Lemma 4.1 evaluation = False
+```
+
+final regression:
+
+```text
+tests/test_phase43_toda_lemma41_premise.py
+32 passed
+
+tests/test_relation_rules.py
+50 passed
+
+tests/test_phase42_whitehead_product.py
+36 passed
+
+full suite
+1863 passed in 24.47s
+```
+
+probe:
+
+```powershell
+python -m probes.probe_phase43_capabilities
+```
+
+正常完走。
+
+### 状態
+完了
+
+---
+
+## Phase 43-7：Phase 43 完了整理
+
+Phase 43 で完成:
+
+```text
+current Relation / ZERO / INEQUALITY compatibility check
+Whitehead-product zero premise representation
+Whitehead-product nonzero premise representation
+RelationType.INEQUALITY minimum extension
+ZERO / INEQUALITY structural distinction
+existing relation matcher compatibility
+existing equality / zero inference isolation
+scope / non-goal regression
+representative executable probe
+final integrated regression
+```
+
+production code で追加した capability:
+
+```text
+RelationType.INEQUALITY
+```
+
+のみ。
+
+既存:
+
+```text
+Relation
+WhiteheadProduct
+relation_proof_step
+generic inference engine
+```
+
+は変更していない。
+
+completion:
+
+```text
+tests/test_phase43_toda_lemma41_premise.py
+32 passed
+
+tests/test_relation_rules.py
+50 passed
+
+tests/test_phase42_whitehead_product.py
+36 passed
+
+full suite
+1863 passed in 24.47s
+```
+
+```powershell
+python -m probes.probe_phase43_capabilities
+```
+
+正常完走。
+
+### 状態
+完了
+
+---
+
+# Phase 43 completion boundary
+
+実装済み:
+
+```text
+[ι₄,ι₄] = 0 premise
+[ι₄,ι₄] != 0 premise
+RelationType.ZERO / INEQUALITY distinction
+explicit proof premise representation
+representative probe
+```
+
+未実装:
+
+```text
+automatic zero inference
+automatic nonzero inference
+ZERO / INEQUALITY contradiction detection
+Whitehead-product bilinearity
+Whitehead-product antisymmetry
+symbolic generator index ι_{n-1}
+Toda Lemma 4.1 case evaluation
+Toda Lemma 4.1 theorem provenance
+Toda Prop.4.2
+```
+
+重要:
+
+```text
+premise representation
+!= theorem case semantics
+```
+
+---
+
+# 次の Phase
+
+次は Toda Lemma 4.1 case semantics branch。
+
+対象:
+
+```text
+n odd
+
+n even
++
+Whitehead product nonzero
+
+n even
++
+Whitehead product zero
+```
+
+から `π_{2n-1}^n` の構造を theorem-derived に評価する。
+
+ただし最初に current parity statement / `TodaPrimaryGroup` / `PrimaryComponent` / direct-sum・free `Z` summand representation の compatibility を確認し、必要な minimum representation だけを追加する。
+
+一般 Whitehead-product algebra は先取りしない。
+
