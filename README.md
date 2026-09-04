@@ -38,7 +38,7 @@ mathematical equality
 
 # Current status
 
-Completed through Phase 41.
+Completed through Phase 42.
 
 ```text
 Phase 28  map injectivity / isomorphism / equality reflection
@@ -55,34 +55,34 @@ Phase 38  Injective(H) reflection
 Phase 39  PrimaryComponent minimum representation
 Phase 40  TodaPrimaryGroup minimum representation
 Phase 41  PreimageSubgroup minimum representation
+Phase 42  WhiteheadProduct minimum representation
 ```
 
 Current full regression:
 
 ```text
-1795 passed in 23.68s
+1831 passed in 23.58s
 ```
 
-Focused Phase 41 suite:
+Focused Phase 42 suite:
 
 ```text
 36 passed
 ```
 
-Representative Phase 41 probe:
+Representative Phase 42 probe:
 
 ```powershell
-python -m probes.probe_phase41_capabilities
+python -m probes.probe_phase42_capabilities
 ```
 
 The probe demonstrates:
 
 ```text
-E^-1(π_10(S^6;2))
-E^-1(π_2n(S^(n+1);2))
+[ι₄,ι₄]
 ```
 
-as structural `PreimageSubgroup` values while keeping membership semantics and Toda (4.3) evaluation unevaluated.
+as a structural `WhiteheadProduct` while keeping source / target typing, zero / nonzero theorem semantics, Whitehead-product algebra, and Toda Lemma 4.1 evaluation unevaluated.
 
 ---
 
@@ -97,6 +97,7 @@ Expression
 ├── Multiple
 ├── Sum
 ├── SmashProduct
+├── WhiteheadProduct
 ├── Composition
 ├── MapApplication
 ├── Suspension
@@ -1041,6 +1042,123 @@ Representative probe:
 
 ```powershell
 python -m probes.probe_phase41_capabilities
+python -m probes.probe_phase42_capabilities
+```
+
+---
+
+
+# Phase 42: WhiteheadProduct minimum representation
+
+Phase 42 adds the minimum structural representation required for the Whitehead product appearing in Toda Lemma 4.1:
+
+```text
+[a,b]
+```
+
+The production object is:
+
+```text
+WhiteheadProduct
+├── left: Expression
+└── right: Expression
+```
+
+Representative value:
+
+```text
+[ι₄,ι₄]
+```
+
+`WhiteheadProduct` is a frozen dataclass and participates in ordinary structural equality.
+
+Important structural distinctions:
+
+```text
+WhiteheadProduct
+!= Composition
+!= SmashProduct
+```
+
+Even when all three expressions use the same operands, the expression kind remains distinct.
+
+`WhiteheadProduct` accepts existing `Expression` values losslessly as operands, including:
+
+```text
+HomotopyElement
+Multiple
+Composition
+SmashProduct
+nested WhiteheadProduct
+```
+
+This is structural construction only.
+
+Important boundaries:
+
+```text
+construction
+!= mathematical typing
+```
+
+and:
+
+```text
+WhiteheadProduct
+!= source / target typing
+!= type-compatibility theorem
+!= zero theorem
+!= nonzero theorem
+!= bilinearity
+!= antisymmetry
+!= Toda Lemma 4.1 evaluation
+!= theorem provenance
+```
+
+In particular, constructing:
+
+```text
+[ι₄,ι₄]
+```
+
+does not imply either:
+
+```text
+[ι₄,ι₄]=0
+```
+
+or:
+
+```text
+[ι₄,ι₄]!=0
+```
+
+Phase 42 intentionally does not add symbolic generator indexing such as `ι_(n-1)`. The representative probe uses the concrete Toda-Lemma-4.1 instance `n=5`, hence `[ι₄,ι₄]`, while leaving symbolic generator-index support for a separate concrete need.
+
+Focused Phase 42 suite:
+
+```text
+tests/test_phase42_whitehead_product.py
+36 passed
+```
+
+Related expression regression:
+
+```text
+tests/test_expression.py
+145 passed
+```
+
+Full regression:
+
+```text
+1831 passed in 23.58s
+```
+
+Representative probe:
+
+```powershell
+python -m probes.probe_phase42_capabilities
 ```
 
 ---
@@ -1107,10 +1225,10 @@ before reusing the existing `Injective(H)` equality reflection.
 
 # Tests
 
-Focused Phase 41 suite:
+Focused Phase 42 suite:
 
 ```powershell
-python -m pytest tests/test_phase41_preimage_subgroup.py -q
+python -m pytest tests/test_phase42_whitehead_product.py -q
 ```
 
 Verified:
@@ -1122,15 +1240,15 @@ Verified:
 Related representation regressions:
 
 ```powershell
-python -m pytest tests/test_phase40_toda_primary_group.py -q
-python -m pytest tests/test_set_rules.py -q
+python -m pytest tests/test_expression.py -q
+python -m pytest tests/test_phase41_preimage_subgroup.py -q
 ```
 
 Verified:
 
 ```text
-24 passed
-107 passed
+145 passed
+36 passed
 ```
 
 Related regressions:
@@ -1157,10 +1275,10 @@ Full suite:
 python -m pytest -q
 ```
 
-Verified at Phase 41 completion:
+Verified at Phase 42 completion:
 
 ```text
-1795 passed in 23.68s
+1831 passed in 23.58s
 ```
 
 No failures.
@@ -1187,6 +1305,7 @@ python -m probes.probe_phase38_capabilities
 python -m probes.probe_phase39_capabilities
 python -m probes.probe_phase40_capabilities
 python -m probes.probe_phase41_capabilities
+python -m probes.probe_phase42_capabilities
 ```
 
 The Phase 35 and Phase 36 probes demonstrate the two parallel actual calculations:
@@ -1223,9 +1342,9 @@ Historical limitations in the development log describe the state at that time. C
 
 # Next development boundary
 
-Phase 41 is complete.
+Phase 42 is complete.
 
-The Toda Chapter 4 2-primary branch now has three distinct structural terms:
+The Toda Chapter 4 2-primary branch now has the structural terms required before introducing Toda Lemma 4.1 theorem semantics:
 
 ```text
 PrimaryComponent(i,n,p)
@@ -1236,30 +1355,31 @@ TodaPrimaryGroup(i,n)
 
 PreimageSubgroup(f,A)
 → f^-1(A)
+
+WhiteheadProduct(a,b)
+→ [a,b]
 ```
 
-The critical-degree preimage required later by Toda (4.3) is now structurally representable:
+The representative Whitehead product:
 
 ```text
-E^-1(π_{2n}(S^{n+1};2))
+[ι₄,ι₄]
 ```
 
-However, Phase 41 still does not identify:
+is now structurally representable while remaining distinct from composition and smash product.
+
+Phase 42 still does not decide:
 
 ```text
-π_{2n-1}^n
+[ι_{n-1},ι_{n-1}]=0
 ```
 
-with that preimage automatically, and it does not implement:
+or:
 
 ```text
-x ∈ E^-1(A) ↔ E(x) ∈ A
+[ι_{n-1},ι_{n-1}]!=0
 ```
 
-The next representation dependency in the Toda Chapter 4 branch is the Whitehead product required by Toda Lemma 4.1:
+and it does not implement the Toda Lemma 4.1 case split.
 
-```text
-[ι_{n-1},ι_{n-1}]
-```
-
-Therefore the next candidate phase is `WhiteheadProduct minimum representation`, without yet implementing Toda Lemma 4.1 theorem semantics or general Whitehead-product algebra.
+The next development boundary is therefore the minimum theorem / statement infrastructure required to represent the Whitehead-product zero / nonzero premise used by Toda Lemma 4.1, followed by the Lemma 4.1 case semantics itself. General Whitehead-product algebra remains deferred until a concrete proof need appears.

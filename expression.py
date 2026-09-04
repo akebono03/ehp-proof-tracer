@@ -130,6 +130,12 @@ class SmashProduct(Expression):
 
 
 @dataclass(frozen=True)
+class WhiteheadProduct(Expression):
+  left: Expression
+  right: Expression
+
+
+@dataclass(frozen=True)
 class Composition(Expression):
   left: Expression
   right: Expression
