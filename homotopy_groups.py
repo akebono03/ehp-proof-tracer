@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
 from expression import (
+  MapSymbol,
   ScalarValue,
 )
 
@@ -17,6 +18,11 @@ class TodaPrimaryGroup:
   group_dimension: ScalarValue
   sphere_dimension: ScalarValue
 
+
+@dataclass(frozen=True)
+class PreimageSubgroup:
+  map: MapSymbol
+  subgroup: PrimaryComponent
 
 
 
