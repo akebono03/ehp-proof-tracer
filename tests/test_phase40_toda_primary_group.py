@@ -2,7 +2,6 @@ from typing import (
   get_type_hints,
 )
 
-import homotopy_groups
 from barratt_hilton_rules import (
   HomotopyGroupMembershipStatement,
 )
@@ -13,6 +12,7 @@ from expression import (
 )
 from homotopy_groups import (
   PrimaryComponent,
+  TodaPrimaryGroup,
 )
 
 
@@ -100,11 +100,58 @@ def test_phase40_1_primary_component_and_homotopy_group_membership_share_symboli
   assert membership.sphere_dimension is n
 
 
-def test_phase40_1_toda_primary_group_is_not_yet_implemented():
-  assert not hasattr(
-    homotopy_groups,
-    "TodaPrimaryGroup",
+def test_phase40_2_toda_primary_group_represents_concrete_group():
+  group = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
   )
+
+  assert group.group_dimension == 8
+  assert group.sphere_dimension == 5
+
+
+def test_phase40_2_toda_primary_group_supports_symbolic_dimensions():
+  i = ScalarSymbol(
+    name="i",
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  group = TodaPrimaryGroup(
+    group_dimension=i,
+    sphere_dimension=n,
+  )
+
+  assert group.group_dimension is i
+  assert group.sphere_dimension is n
+
+
+def test_phase40_2_toda_primary_group_structural_equality_uses_both_dimensions():
+  first = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  same = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  different_group_dimension = TodaPrimaryGroup(
+    group_dimension=9,
+    sphere_dimension=5,
+  )
+
+  different_sphere_dimension = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=6,
+  )
+
+  assert first == same
+  assert first != different_group_dimension
+  assert first != different_sphere_dimension
 
 
 
