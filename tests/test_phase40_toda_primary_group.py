@@ -15,6 +15,10 @@ from homotopy_groups import (
   PrimaryComponent,
   TodaPrimaryGroup,
 )
+from probes.probe_phase40_capabilities import (
+  build_phase40_representative_groups,
+  toda_primary_group_text,
+)
 
 
 def test_phase40_1_primary_component_uses_existing_scalar_value_dimensions():
@@ -457,6 +461,121 @@ def test_phase40_5_toda_primary_group_has_no_theorem_provenance():
     group,
     "provenance",
   )
+
+
+def test_phase40_6_representative_builder_constructs_expected_groups():
+  result = (
+    build_phase40_representative_groups()
+  )
+
+  assert result[
+    "concrete_group"
+  ] == TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  assert result[
+    "symbolic_group"
+  ] == TodaPrimaryGroup(
+    group_dimension=ScalarSymbol(
+      name="i",
+    ),
+    sphere_dimension=ScalarSymbol(
+      name="n",
+    ),
+  )
+
+  assert result[
+    "critical_degree_group"
+  ] == TodaPrimaryGroup(
+    group_dimension=9,
+    sphere_dimension=5,
+  )
+
+  assert result[
+    "matching_primary_component"
+  ] == PrimaryComponent(
+    group_dimension=8,
+    sphere_dimension=5,
+    prime=2,
+  )
+
+
+def test_phase40_6_representative_builder_preserves_phase40_boundary():
+  result = (
+    build_phase40_representative_groups()
+  )
+
+  concrete_group = result[
+    "concrete_group"
+  ]
+
+  critical_group = result[
+    "critical_degree_group"
+  ]
+
+  primary_component = result[
+    "matching_primary_component"
+  ]
+
+  assert concrete_group != (
+    primary_component
+  )
+
+  assert not hasattr(
+    concrete_group,
+    "prime",
+  )
+
+  assert not hasattr(
+    concrete_group,
+    "element",
+  )
+
+  assert not hasattr(
+    critical_group,
+    "evaluated_definition",
+  )
+
+  assert not hasattr(
+    critical_group,
+    "preimage_subgroup",
+  )
+
+  assert not hasattr(
+    critical_group,
+    "to_primary_component",
+  )
+
+  assert not hasattr(
+    critical_group,
+    "provenance",
+  )
+
+
+def test_phase40_6_toda_primary_group_text_displays_representative_notation():
+  result = (
+    build_phase40_representative_groups()
+  )
+
+  assert toda_primary_group_text(
+    result[
+      "concrete_group"
+    ]
+  ) == "π_8^5"
+
+  assert toda_primary_group_text(
+    result[
+      "symbolic_group"
+    ]
+  ) == "π_i^n"
+
+  assert toda_primary_group_text(
+    result[
+      "critical_degree_group"
+    ]
+  ) == "π_9^5"
 
 
 
