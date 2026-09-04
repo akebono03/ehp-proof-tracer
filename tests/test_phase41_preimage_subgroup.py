@@ -21,6 +21,10 @@ from homotopy_groups import (
   PrimaryComponent,
   TodaPrimaryGroup,
 )
+from probes.probe_phase41_capabilities import (
+  build_phase41_representative_preimages,
+  preimage_subgroup_text,
+)
 from set_rules import (
   ImageSubgroupReference,
   KernelSubgroupReference,
@@ -648,6 +652,120 @@ def test_phase41_5_preimage_subgroup_has_no_theorem_provenance():
   )
 
 
+def test_phase41_6_representative_builder_constructs_concrete_preimage():
+  result = (
+    build_phase41_representative_preimages()
+  )
+
+  assert result[
+    "concrete_preimage"
+  ] == PreimageSubgroup(
+    map=SUSPENSION_MAP,
+    subgroup=PrimaryComponent(
+      group_dimension=10,
+      sphere_dimension=6,
+      prime=2,
+    ),
+  )
+
+
+def test_phase41_6_representative_builder_constructs_symbolic_preimage():
+  result = (
+    build_phase41_representative_preimages()
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  assert result[
+    "symbolic_preimage"
+  ] == PreimageSubgroup(
+    map=SUSPENSION_MAP,
+    subgroup=PrimaryComponent(
+      group_dimension=ScalarProduct(
+        left=2,
+        right=n,
+      ),
+      sphere_dimension=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      prime=2,
+    ),
+  )
+
+
+def test_phase41_6_preimage_subgroup_text_displays_representative_notation():
+  result = (
+    build_phase41_representative_preimages()
+  )
+
+  assert preimage_subgroup_text(
+    result[
+      "concrete_preimage"
+    ]
+  ) == "E^-1(π_10(S^6;2))"
+
+  assert preimage_subgroup_text(
+    result[
+      "symbolic_preimage"
+    ]
+  ) == "E^-1(π_2n(S^n+1;2))"
+
+
+def test_phase41_6_representative_builder_preserves_phase41_boundary():
+  result = (
+    build_phase41_representative_preimages()
+  )
+
+  preimage = result[
+    "concrete_preimage"
+  ]
+
+  toda_group = result[
+    "critical_toda_group"
+  ]
+
+  assert not isinstance(
+    preimage,
+    Subgroup,
+  )
+
+  assert not isinstance(
+    preimage,
+    ImageSubgroupReference,
+  )
+
+  assert not isinstance(
+    preimage,
+    KernelSubgroupReference,
+  )
+
+  assert not hasattr(
+    preimage,
+    "element",
+  )
+
+  assert not hasattr(
+    preimage,
+    "membership_equivalence",
+  )
+
+  assert not hasattr(
+    preimage,
+    "provenance",
+  )
+
+  assert not hasattr(
+    toda_group,
+    "to_preimage_subgroup",
+  )
+
+  assert not hasattr(
+    toda_group,
+    "evaluated_definition",
+  )
 
 
 
