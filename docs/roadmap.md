@@ -22,7 +22,7 @@ future capability dependency
 
 ---
 
-# 2. Phase 40 完了時点
+# 2. Phase 41 完了時点
 
 Completed chain:
 
@@ -40,30 +40,31 @@ Phase 37  actual H-side equality closure
 Phase 38  Injective(H) reflection
 Phase 39  PrimaryComponent minimum representation
 Phase 40  TodaPrimaryGroup minimum representation
+Phase 41  PreimageSubgroup minimum representation
 ```
 
 Current full regression:
 
 ```text
-1759 passed in 25.21s
+1795 passed in 23.68s
 ```
 
-Focused Phase 40:
+Focused Phase 41:
 
 ```text
-24 passed
+36 passed
 ```
 
 Representative probe:
 
 ```powershell
-python -m probes.probe_phase40_capabilities
+python -m probes.probe_phase41_capabilities
 ```
 
-Final Phase 40 capability:
+Final Phase 41 capability:
 
 ```text
-π_i^n minimum structural representation
+E^-1(A) minimum structural representation
 ```
 
 ---
@@ -576,7 +577,7 @@ higher Toda brackets
 | Toda (4.2) Serre finiteness | PLANNED | foundational 2-primary branch |
 | p-primary component `π_i(S^n;p)` | IMPLEMENTED | 39 |
 | Toda subgroup `π_i^n` | IMPLEMENTED | 40 |
-| `E^{-1}(π_{2n}(S^{n+1};2))` preimage group | PLANNED | critical degree `i=2n-1` |
+| `E^{-1}(π_{2n}(S^{n+1};2))` preimage group | IMPLEMENTED | 41 |
 | Whitehead product `[a,b]` | PLANNED | Lemma 4.1 prerequisite |
 | Toda Lemma 4.1 | PLANNED | structure of `π_{2n-1}^n` |
 | Toda Prop.4.2 2-primary EHP exact sequence | PLANNED | main 2-primary calculation engine |
@@ -637,7 +638,8 @@ p-primary component π_i(S^n;p)
 Phase 40
 TodaPrimaryGroup π_i^n minimum representation COMPLETE
 ↓
-PreimageSubgroup under E in degree 2n-1
+Phase 41
+PreimageSubgroup under E in degree 2n-1 COMPLETE
 ↓
 Whitehead product
 ↓
@@ -746,7 +748,7 @@ PrimaryComponent minimum representation COMPLETE
 ↓
 TodaPrimaryGroup π_i^n COMPLETE
 ↓
-PreimageSubgroup under E
+PreimageSubgroup under E COMPLETE
 ↓
 WhiteheadProduct minimum representation
 ↓
@@ -1212,7 +1214,7 @@ PrimaryComponent minimum representation
 TodaPrimaryGroup π_i^n
 ↓
 4C
-PreimageSubgroup under E
+PreimageSubgroup under E COMPLETE
 ↓
 4D
 WhiteheadProduct minimum representation
@@ -1462,37 +1464,119 @@ No theorem rule, `PreimageSubgroup`, automatic primary-component conversion, mem
 
 ---
 
-# 33. 次 Phase candidate：PreimageSubgroup minimum representation
+# 33. Phase 41：PreimageSubgroup COMPLETE
 
-次は Toda (4.3) の critical degree:
+Phase 41 split:
 
 ```text
-i=2n-1
-π_i^n=E^-1(π_{2n}(S^{n+1};2))
+41-1 current Subgroup / map representation compatibility check COMPLETE
+41-2 PreimageSubgroup minimum data model COMPLETE
+41-3 structural distinction regression COMPLETE
+41-4 map / subgroup typing compatibility COMPLETE
+41-5 scope / non-goal regression COMPLETE
+41-6 representative probe / final regression COMPLETE
+41-7 Phase 41 completion COMPLETE
 ```
 
-に必要な subgroup preimage の minimum representation。
+verified:
 
-最初は structural object として:
+```text
+tests/test_phase41_preimage_subgroup.py
+36 passed
+
+tests/test_phase40_toda_primary_group.py
+24 passed
+
+tests/test_set_rules.py
+107 passed
+
+full suite
+1795 passed in 23.68s
+```
+
+probe:
+
+```powershell
+python -m probes.probe_phase41_capabilities
+```
+
+Phase 41 final capability:
+
+```text
+E^-1(A) minimum structural representation
+```
+
+production object:
 
 ```text
 PreimageSubgroup(
-  map=E,
-  subgroup=A,
+  map: MapSymbol,
+  subgroup: PrimaryComponent,
 )
 ```
 
-を表現できることに限定する。
+representative:
+
+```text
+E^-1(π_10(S^6;2))
+E^-1(π_2n(S^(n+1);2))
+```
+
+Important:
+
+```text
+PreimageSubgroup
+!= Subgroup
+!= ImageSubgroupReference
+!= KernelSubgroupReference
+!= PrimaryComponent
+!= MembershipStatement
+```
+
+Phase 41 does not add `PreimageSubgroup` to `SubgroupTerm`.
+
+It also does not implement:
+
+```text
+x∈E^-1(A) ↔ E(x)∈A
+TodaPrimaryGroup automatic preimage conversion
+Toda (4.3) case evaluation
+theorem provenance
+```
+
+No theorem rule, membership inference rule, or generic inference-engine feature was introduced.
+
+---
+
+# 34. 次 Phase candidate：WhiteheadProduct minimum representation
+
+Toda Lemma 4.1 では:
+
+```text
+[ι_{n-1},ι_{n-1}]
+```
+
+が必要。
+
+次はこれを minimum structural object として表現する。
+
+candidate:
+
+```text
+WhiteheadProduct(
+  left=a,
+  right=b,
+)
+```
 
 初期 Phase では以下を先取りしない。
 
 ```text
-x∈E^-1(A) ↔ E(x)∈A
-Toda (4.3) case evaluation
-TodaPrimaryGroup automatic evaluation
-preimage membership inference
-new exactness machinery
+general Whitehead-product algebra
+automatic source / target typing
+zero / nonzero theorem inference
+Toda Lemma 4.1 case evaluation
+Toda Prop.4.2 exact-sequence semantics
 ```
 
-まず `Subgroup` / `ImageSubgroupReference` / `KernelSubgroupReference` など current subgroup representation との compatibility を確認し、既存 API を不必要に壊さない最小 data model を決定する。
-
+まず current `Composition` / `SmashProduct` / expression representation との compatibility を確認し、既存 API を不必要に壊さない最小 data model を決定する。

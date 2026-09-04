@@ -38,7 +38,7 @@ mathematical equality
 
 # Current status
 
-Completed through Phase 40.
+Completed through Phase 41.
 
 ```text
 Phase 28  map injectivity / isomorphism / equality reflection
@@ -54,35 +54,35 @@ Phase 37  actual H-side equality closure
 Phase 38  Injective(H) reflection
 Phase 39  PrimaryComponent minimum representation
 Phase 40  TodaPrimaryGroup minimum representation
+Phase 41  PreimageSubgroup minimum representation
 ```
 
 Current full regression:
 
 ```text
-1759 passed in 25.21s
+1795 passed in 23.68s
 ```
 
-Focused Phase 40 suite:
+Focused Phase 41 suite:
 
 ```text
-24 passed
+36 passed
 ```
 
-Representative Phase 40 probe:
+Representative Phase 41 probe:
 
 ```powershell
-python -m probes.probe_phase40_capabilities
+python -m probes.probe_phase41_capabilities
 ```
 
 The probe demonstrates:
 
 ```text
-π_8^5
-π_i^n
-π_9^5
+E^-1(π_10(S^6;2))
+E^-1(π_2n(S^(n+1);2))
 ```
 
-as structural `TodaPrimaryGroup` values, including a critical-degree example that remains unevaluated.
+as structural `PreimageSubgroup` values while keeping membership semantics and Toda (4.3) evaluation unevaluated.
 
 ---
 
@@ -953,6 +953,98 @@ python -m probes.probe_phase40_capabilities
 
 ---
 
+
+# Phase 41: PreimageSubgroup minimum representation
+
+Phase 41 adds the minimum structural representation required for the critical-degree preimage term in Toda (4.3):
+
+```text
+E^-1(A)
+```
+
+The production object is:
+
+```text
+PreimageSubgroup
+├── map: MapSymbol
+└── subgroup: PrimaryComponent
+```
+
+Representative values include:
+
+```text
+E^-1(π_10(S^6;2))
+E^-1(π_2n(S^(n+1);2))
+```
+
+The map field reuses the proof-expression `MapSymbol` layer. The Toda critical-degree representative uses the canonical suspension symbol `SUSPENSION_MAP`.
+
+The target subgroup reuses `PrimaryComponent`, whose dimensions already accept concrete, symbolic, and compound `ScalarValue` expressions.
+
+For example:
+
+```text
+2n
+→ ScalarProduct(2,n)
+
+n+1
+→ ScalarSum(n,1)
+```
+
+Important structural distinctions:
+
+```text
+PreimageSubgroup
+!= Subgroup
+!= ImageSubgroupReference
+!= KernelSubgroupReference
+!= PrimaryComponent
+```
+
+`PreimageSubgroup` is not an element-preimage representation and has no membership element.
+
+Phase 41 deliberately does not add `PreimageSubgroup` to the existing `SubgroupTerm` union.
+
+It also does not encode:
+
+```text
+x ∈ E^-1(A) ↔ E(x) ∈ A
+TodaPrimaryGroup automatic preimage conversion
+Toda (4.3) evaluated definition
+theorem provenance
+```
+
+Therefore:
+
+```text
+preimage representation
+!= preimage membership semantics
+!= Toda (4.3) theorem evaluation
+```
+
+Phase 41 adds no theorem rule, no membership inference rule, and no generic inference-engine feature.
+
+Focused Phase 41 suite:
+
+```text
+tests/test_phase41_preimage_subgroup.py
+36 passed
+```
+
+Full regression:
+
+```text
+1795 passed in 23.68s
+```
+
+Representative probe:
+
+```powershell
+python -m probes.probe_phase41_capabilities
+```
+
+---
+
 # Phase 35 historical scope boundaries
 
 Still not implemented:
@@ -1015,16 +1107,30 @@ before reusing the existing `Injective(H)` equality reflection.
 
 # Tests
 
-Focused Phase 40 suite:
+Focused Phase 41 suite:
+
+```powershell
+python -m pytest tests/test_phase41_preimage_subgroup.py -q
+```
+
+Verified:
+
+```text
+36 passed
+```
+
+Related representation regressions:
 
 ```powershell
 python -m pytest tests/test_phase40_toda_primary_group.py -q
+python -m pytest tests/test_set_rules.py -q
 ```
 
 Verified:
 
 ```text
 24 passed
+107 passed
 ```
 
 Related regressions:
@@ -1051,10 +1157,10 @@ Full suite:
 python -m pytest -q
 ```
 
-Verified at Phase 40 completion:
+Verified at Phase 41 completion:
 
 ```text
-1759 passed in 25.21s
+1795 passed in 23.68s
 ```
 
 No failures.
@@ -1080,6 +1186,7 @@ python -m probes.probe_phase37_capabilities
 python -m probes.probe_phase38_capabilities
 python -m probes.probe_phase39_capabilities
 python -m probes.probe_phase40_capabilities
+python -m probes.probe_phase41_capabilities
 ```
 
 The Phase 35 and Phase 36 probes demonstrate the two parallel actual calculations:
@@ -1116,9 +1223,9 @@ Historical limitations in the development log describe the state at that time. C
 
 # Next development boundary
 
-Phase 40 is complete.
+Phase 41 is complete.
 
-The Toda Chapter 4 2-primary branch now has two distinct structural group terms:
+The Toda Chapter 4 2-primary branch now has three distinct structural terms:
 
 ```text
 PrimaryComponent(i,n,p)
@@ -1126,15 +1233,33 @@ PrimaryComponent(i,n,p)
 
 TodaPrimaryGroup(i,n)
 → π_i^n
+
+PreimageSubgroup(f,A)
+→ f^-1(A)
 ```
 
-They remain structurally distinct, and `TodaPrimaryGroup` still does not evaluate the cases in Toda (4.3).
-
-The next minimum representation is the subgroup preimage required by the critical degree:
+The critical-degree preimage required later by Toda (4.3) is now structurally representable:
 
 ```text
-i=2n-1
-π_i^n = E^-1(π_{2n}(S^{n+1};2))
+E^-1(π_{2n}(S^{n+1};2))
 ```
 
-Therefore the next phase is `PreimageSubgroup minimum representation`. The initial phase should represent the preimage subgroup structurally without yet implementing Toda (4.3) evaluation or membership equivalence rules.
+However, Phase 41 still does not identify:
+
+```text
+π_{2n-1}^n
+```
+
+with that preimage automatically, and it does not implement:
+
+```text
+x ∈ E^-1(A) ↔ E(x) ∈ A
+```
+
+The next representation dependency in the Toda Chapter 4 branch is the Whitehead product required by Toda Lemma 4.1:
+
+```text
+[ι_{n-1},ι_{n-1}]
+```
+
+Therefore the next candidate phase is `WhiteheadProduct minimum representation`, without yet implementing Toda Lemma 4.1 theorem semantics or general Whitehead-product algebra.
