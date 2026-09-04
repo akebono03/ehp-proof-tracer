@@ -2301,3 +2301,400 @@ i=2n-1
 ```
 
 に必要な `PreimageSubgroup` へ進む。
+
+---
+
+# Phase 40：TodaPrimaryGroup minimum representation
+
+目的:
+
+```text
+π_i^n
+```
+
+を Toda (4.3) の theorem semantics とは分離した minimum structural object として表現する。
+
+---
+
+## Phase 40-1：current PrimaryComponent / homotopy-group representation compatibility check
+
+確認:
+
+```text
+PrimaryComponent.group_dimension: ScalarValue
+PrimaryComponent.sphere_dimension: ScalarValue
+```
+
+および current homotopy-group membership representation:
+
+```text
+HomotopyGroupMembershipStatement.group_dimension: ScalarValue
+HomotopyGroupMembershipStatement.sphere_dimension: ScalarValue
+```
+
+が同じ dimension layer を再利用していることを確認。
+
+concrete / symbolic dimensions の compatibility を固定。
+
+この時点では `TodaPrimaryGroup` がまだ存在しないことも regression で確認。
+
+production code 変更なし。
+
+結果:
+
+```text
+tests/test_phase40_toda_primary_group.py
+5 passed
+
+full suite
+1740 passed in 27.62s
+```
+
+### 状態
+完了
+
+---
+
+## Phase 40-2：TodaPrimaryGroup minimum data model
+
+`homotopy_groups.py` に追加:
+
+```text
+TodaPrimaryGroup(
+  group_dimension: ScalarValue,
+  sphere_dimension: ScalarValue,
+)
+```
+
+representative:
+
+```text
+π_8^5
+π_i^n
+```
+
+`prime` や Toda (4.3) の case semantics は持たせない。
+
+Phase 40-1 の「未実装」regression を削除し、concrete / symbolic construction と structural equality を追加。
+
+結果:
+
+```text
+tests/test_phase40_toda_primary_group.py
+7 passed
+
+full suite
+1742 passed in 25.23s
+```
+
+### 状態
+完了
+
+---
+
+## Phase 40-3：structural distinction regression
+
+固定:
+
+```text
+TodaPrimaryGroup != PrimaryComponent
+TodaPrimaryGroup != HomotopyGroupMembershipStatement
+TodaPrimaryGroup has no prime
+TodaPrimaryGroup has no element
+```
+
+したがって representation-level で:
+
+```text
+π_i^n != π_i(S^n;2)
+```
+
+を明確に分離。
+
+production code 変更なし。
+
+結果:
+
+```text
+tests/test_phase40_toda_primary_group.py
+11 passed
+
+full suite
+1746 passed in 23.46s
+```
+
+### 状態
+完了
+
+---
+
+## Phase 40-4：basic construction / dimension typing compatibility
+
+`TodaPrimaryGroup` 自身について:
+
+```text
+group_dimension: ScalarValue
+sphere_dimension: ScalarValue
+```
+
+を regression 固定。
+
+確認:
+
+```text
+concrete int dimensions
+symbolic ScalarSymbol dimensions
+compound ScalarSum dimensions
+```
+
+`PrimaryComponent` / `HomotopyGroupMembershipStatement` と同じ dimension representation を再利用する。
+
+新しい dimension arithmetic / simplification は追加しない。
+
+production code 変更なし。
+
+結果:
+
+```text
+tests/test_phase40_toda_primary_group.py
+16 passed
+
+full suite
+1751 passed in 24.91s
+```
+
+### 状態
+完了
+
+---
+
+## Phase 40-5：scope / non-goal regression
+
+固定:
+
+```text
+TodaPrimaryGroup has no evaluated definition
+TodaPrimaryGroup has no preimage representation
+TodaPrimaryGroup has no Subgroup conversion
+TodaPrimaryGroup has no automatic PrimaryComponent conversion
+TodaPrimaryGroup has no theorem provenance
+```
+
+critical-degree example:
+
+```text
+TodaPrimaryGroup(
+  group_dimension=9,
+  sphere_dimension=5,
+)
+```
+
+は `9=2·5-1` だが、自動的に:
+
+```text
+E^-1(π_10(S^6;2))
+```
+
+へ評価しないことを固定。
+
+production code 変更なし。
+
+結果:
+
+```text
+tests/test_phase40_toda_primary_group.py
+21 passed
+
+full suite
+1756 passed in 23.59s
+```
+
+### 状態
+完了
+
+---
+
+## Phase 40-6：representative probe / final regression
+
+追加:
+
+```text
+probes/probe_phase40_capabilities.py
+```
+
+表示:
+
+```text
+[1] Concrete Toda primary group
+    π_8^5
+
+[2] Symbolic Toda primary group
+    π_i^n
+
+[3] Critical-degree structural object
+    π_9^5
+```
+
+structural distinction:
+
+```text
+TodaPrimaryGroup != PrimaryComponent = True
+TodaPrimaryGroup has prime = False
+TodaPrimaryGroup has membership element = False
+```
+
+completion boundary:
+
+```text
+evaluated Toda (4.3) definition = False
+preimage subgroup = False
+automatic PrimaryComponent conversion = False
+theorem provenance = False
+```
+
+final regression:
+
+```text
+tests/test_phase40_toda_primary_group.py
+24 passed
+
+full suite
+1759 passed in 25.21s
+```
+
+probe:
+
+```powershell
+python -m probes.probe_phase40_capabilities
+```
+
+正常完走。
+
+### 状態
+完了
+
+---
+
+## Phase 40-7：Phase 40 完了整理
+
+Phase 40 で完成:
+
+```text
+current PrimaryComponent / homotopy-group compatibility check
+TodaPrimaryGroup minimum data model
+concrete / symbolic construction
+structural equality / distinction
+ScalarValue dimension typing compatibility
+compound dimension representation
+PrimaryComponent separation
+membership separation
+critical-degree structural representation
+Toda (4.3) non-evaluation boundary
+PreimageSubgroup non-goal regression
+automatic PrimaryComponent conversion non-goal regression
+theorem provenance non-goal regression
+representative executable probe
+final integrated regression
+```
+
+production capability:
+
+```text
+π_i^n minimum structural representation
+```
+
+production code で追加した数学 object は `TodaPrimaryGroup` のみ。
+
+generic inference engine:
+
+```text
+変更なし
+```
+
+completion:
+
+```text
+tests/test_phase40_toda_primary_group.py
+24 passed
+
+full suite
+1759 passed in 25.21s
+```
+
+```powershell
+python -m probes.probe_phase40_capabilities
+```
+
+正常完走。
+
+### 状態
+完了
+
+---
+
+# Phase 40 completion boundary
+
+実装済み:
+
+```text
+π_i^n structural representation
+TodaPrimaryGroup(group_dimension,sphere_dimension)
+concrete dimensions
+symbolic / compound scalar dimensions
+structural equality / distinction
+critical-degree structural object
+representative probe
+```
+
+未実装:
+
+```text
+Toda (4.3) evaluated definition
+PreimageSubgroup under E
+preimage membership semantics
+π_i^n membership
+Toda (4.3) theorem provenance
+WhiteheadProduct
+Toda Lemma 4.1
+Toda Prop.4.2
+```
+
+重要:
+
+```text
+TodaPrimaryGroup
+!= PrimaryComponent
+!= HomotopyGroupMembershipStatement
+!= evaluated Toda (4.3)
+!= PreimageSubgroup
+```
+
+---
+
+# 次の Phase
+
+次は `PreimageSubgroup minimum representation`。
+
+Toda (4.3) critical degree:
+
+```text
+i=2n-1
+π_i^n=E^-1(π_{2n}(S^{n+1};2))
+```
+
+に必要な structural object を先に導入する。
+
+初期 Phase では:
+
+```text
+PreimageSubgroup(map=E, subgroup=A)
+```
+
+のような representation のみに留め、
+
+```text
+x∈E^-1(A) ↔ E(x)∈A
+```
+
+という membership semantics や Toda (4.3) の case evaluation は後続 Phase に残す。
+

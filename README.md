@@ -38,7 +38,7 @@ mathematical equality
 
 # Current status
 
-Completed through Phase 39.
+Completed through Phase 40.
 
 ```text
 Phase 28  map injectivity / isomorphism / equality reflection
@@ -53,35 +53,36 @@ Phase 36  actual H(4η₂) calculation
 Phase 37  actual H-side equality closure
 Phase 38  Injective(H) reflection
 Phase 39  PrimaryComponent minimum representation
+Phase 40  TodaPrimaryGroup minimum representation
 ```
 
 Current full regression:
 
 ```text
-1735 passed in 58.59s
+1759 passed in 25.21s
 ```
 
-Focused Phase 39 suite:
+Focused Phase 40 suite:
 
 ```text
 24 passed
 ```
 
-Representative Phase 39 probe:
+Representative Phase 40 probe:
 
 ```powershell
-python -m probes.probe_phase39_capabilities
+python -m probes.probe_phase40_capabilities
 ```
 
 The probe demonstrates:
 
 ```text
-π_8(S^5;2)
-π_8(S^5;3)
-π_i(S^n;2)
+π_8^5
+π_i^n
+π_9^5
 ```
 
-as an actual inference-generated `ProofStep`.
+as structural `TodaPrimaryGroup` values, including a critical-degree example that remains unevaluated.
 
 ---
 
@@ -848,6 +849,106 @@ Representative probe:
 
 ```powershell
 python -m probes.probe_phase39_capabilities
+python -m probes.probe_phase40_capabilities
+```
+
+---
+
+
+# Phase 40: TodaPrimaryGroup minimum representation
+
+Phase 40 adds the minimum structural representation required for Toda's notation:
+
+```text
+π_i^n
+```
+
+The production object is:
+
+```text
+TodaPrimaryGroup
+├── group_dimension: ScalarValue
+└── sphere_dimension: ScalarValue
+```
+
+Representative values include:
+
+```text
+π_8^5
+π_i^n
+π_9^5
+```
+
+The dimension fields reuse the existing `ScalarValue` layer, so concrete integers, symbolic dimensions, and compound scalar expressions remain compatible with the existing homotopy-group representation.
+
+Structural equality distinguishes changes in either dimension.
+
+Important boundaries:
+
+```text
+TodaPrimaryGroup
+!= PrimaryComponent
+!= HomotopyGroupMembershipStatement
+```
+
+A `TodaPrimaryGroup` has no:
+
+```text
+prime
+membership element
+evaluated Toda (4.3) definition
+preimage subgroup
+automatic PrimaryComponent conversion
+theorem provenance
+```
+
+In particular, even the critical-degree structural value:
+
+```text
+π_9^5
+```
+
+remains only:
+
+```text
+TodaPrimaryGroup(
+  group_dimension=9,
+  sphere_dimension=5,
+)
+```
+
+Phase 40 does not evaluate it automatically as:
+
+```text
+E^-1(π_10(S^6;2))
+```
+
+Therefore:
+
+```text
+representation
+!= Toda (4.3) theorem semantics
+```
+
+Phase 40 adds no theorem rule, no `PreimageSubgroup`, no automatic primary-component conversion, and no generic inference-engine feature.
+
+Focused Phase 40 suite:
+
+```text
+tests/test_phase40_toda_primary_group.py
+24 passed
+```
+
+Full regression:
+
+```text
+1759 passed in 25.21s
+```
+
+Representative probe:
+
+```powershell
+python -m probes.probe_phase40_capabilities
 ```
 
 ---
@@ -914,16 +1015,16 @@ before reusing the existing `Injective(H)` equality reflection.
 
 # Tests
 
-Focused Phase 38 suite:
+Focused Phase 40 suite:
 
 ```powershell
-python -m pytest tests/test_phase38_injective_reflection.py -q
+python -m pytest tests/test_phase40_toda_primary_group.py -q
 ```
 
 Verified:
 
 ```text
-13 passed
+24 passed
 ```
 
 Related regressions:
@@ -950,10 +1051,10 @@ Full suite:
 python -m pytest -q
 ```
 
-Verified at Phase 39 completion:
+Verified at Phase 40 completion:
 
 ```text
-1735 passed in 58.59s
+1759 passed in 25.21s
 ```
 
 No failures.
@@ -978,6 +1079,7 @@ python -m probes.probe_phase36_capabilities
 python -m probes.probe_phase37_capabilities
 python -m probes.probe_phase38_capabilities
 python -m probes.probe_phase39_capabilities
+python -m probes.probe_phase40_capabilities
 ```
 
 The Phase 35 and Phase 36 probes demonstrate the two parallel actual calculations:
@@ -1014,19 +1116,25 @@ Historical limitations in the development log describe the state at that time. C
 
 # Next development boundary
 
-Phase 39 is complete.
+Phase 40 is complete.
 
-The actual equality branch now reaches:
+The Toda Chapter 4 2-primary branch now has two distinct structural group terms:
 
 ```text
-H((2ι₂)η₂)=4ι₃
-H(4η₂)=4ι₃
-↓
-H((2ι₂)η₂)=H(4η₂)
-↓
-Injective(H)
-↓
-(2ι₂)η₂=4η₂
+PrimaryComponent(i,n,p)
+→ π_i(S^n;p)
+
+TodaPrimaryGroup(i,n)
+→ π_i^n
 ```
 
-The Toda Chapter 4 2-primary branch has now begun with the `PrimaryComponent` structural term. The next minimum representation is the Toda subgroup `π_i^n`, kept distinct from both the ordinary homotopy group and the p-primary component. The critical-degree preimage definition remains a later phase and must not be folded into the initial `TodaPrimaryGroup` representation.
+They remain structurally distinct, and `TodaPrimaryGroup` still does not evaluate the cases in Toda (4.3).
+
+The next minimum representation is the subgroup preimage required by the critical degree:
+
+```text
+i=2n-1
+π_i^n = E^-1(π_{2n}(S^{n+1};2))
+```
+
+Therefore the next phase is `PreimageSubgroup minimum representation`. The initial phase should represent the preimage subgroup structurally without yet implementing Toda (4.3) evaluation or membership equivalence rules.
