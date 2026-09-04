@@ -2176,3 +2176,270 @@ PreimageSubgroup(
 
 のような structural object を検討し、Toda (4.3) の case evaluation や membership equivalence は先取りしない。
 
+---
+
+# 62. Phase 41 PreimageSubgroup minimum representation
+
+Toda (4.3) critical degree で必要になる:
+
+```text
+E^-1(π_{2n}(S^{n+1};2))
+```
+
+を structural に保持するため、`homotopy_groups.py` に `PreimageSubgroup` を追加した。
+
+production object:
+
+```text
+PreimageSubgroup
+├── map: MapSymbol
+└── subgroup: PrimaryComponent
+```
+
+representative:
+
+```text
+E^-1(π_10(S^6;2))
+E^-1(π_2n(S^(n+1);2))
+```
+
+Phase 41 では preimage term の representation のみに限定する。
+
+```text
+representation
+!= membership semantics
+!= Toda (4.3) evaluated definition
+```
+
+---
+
+# 63. Phase 41 map / subgroup typing
+
+`PreimageSubgroup.map` は proof-expression layer の `MapSymbol` を使用する。
+
+Toda critical-degree representative の suspension map は canonical:
+
+```text
+SUSPENSION_MAP
+=
+MapSymbol(name="E")
+```
+
+を再利用する。
+
+これは concrete abelian-group calculation layer の `GroupMap` とは別。
+
+```text
+MapSymbol
+!= GroupMap
+```
+
+`PreimageSubgroup.subgroup` は現在の actual need に限定して `PrimaryComponent` とする。
+
+```text
+subgroup: PrimaryComponent
+```
+
+したがって:
+
+```text
+π_10(S^6;2)
+```
+
+だけでなく symbolic:
+
+```text
+π_2n(S^(n+1);2)
+```
+
+も既存 `ScalarValue` layer で保持できる。
+
+```text
+2n
+→ ScalarProduct(2,n)
+
+n+1
+→ ScalarSum(n,1)
+```
+
+新しい dimension arithmetic solver は追加しない。
+
+---
+
+# 64. Phase 41 structural distinction
+
+`PreimageSubgroup` は既存 subgroup / reference object と別 class として扱う。
+
+```text
+PreimageSubgroup
+!= Subgroup
+!= ImageSubgroupReference
+!= KernelSubgroupReference
+!= PrimaryComponent
+```
+
+current `SubgroupTerm`:
+
+```text
+Subgroup
+| ImageSubgroupReference
+| KernelSubgroupReference
+```
+
+には Phase 41 では `PreimageSubgroup` を追加しない。
+
+したがって:
+
+```text
+PreimageSubgroup representation
+!= current MembershipStatement-compatible SubgroupTerm
+```
+
+また `PreimageSubgroup` は element preimage を表す object ではなく、`element` / `preimage_element` / `value` を持たない。
+
+---
+
+# 65. Phase 41 scope boundary
+
+Phase 41 では以下を実装しない。
+
+```text
+x∈E^-1(A) ↔ E(x)∈A
+preimage membership inference
+PreimageSubgroup membership theorem
+TodaPrimaryGroup → PreimageSubgroup automatic conversion
+PreimageSubgroup → TodaPrimaryGroup automatic conversion
+Toda (4.3) case evaluation
+Toda (4.3) theorem provenance
+```
+
+`PreimageSubgroup` 自体にも:
+
+```text
+element
+membership_equivalence
+definition
+evaluated_definition
+source
+theorem
+provenance
+```
+
+を持たせない。
+
+重要:
+
+```text
+preimage structural term
+!= preimage membership theorem
+```
+
+```text
+critical-degree preimage term
+!= π_{2n-1}^n automatic evaluation
+```
+
+---
+
+# 66. Phase 41 representative probe / verified status
+
+probe:
+
+```powershell
+python -m probes.probe_phase41_capabilities
+```
+
+representative output:
+
+```text
+[1] Concrete suspension preimage
+    E^-1(π_10(S^6;2))
+
+[2] Symbolic critical-degree target
+    E^-1(π_2n(S^n+1;2))
+```
+
+completion boundary output:
+
+```text
+PreimageSubgroup != Subgroup = True
+PreimageSubgroup != ImageSubgroupReference = True
+PreimageSubgroup != KernelSubgroupReference = True
+PreimageSubgroup != PrimaryComponent = True
+membership element = False
+membership equivalence = False
+theorem provenance = False
+automatic preimage conversion = False
+evaluated Toda (4.3) definition = False
+```
+
+focused:
+
+```text
+tests/test_phase41_preimage_subgroup.py
+36 passed
+```
+
+related:
+
+```text
+tests/test_phase40_toda_primary_group.py
+24 passed
+
+tests/test_set_rules.py
+107 passed
+```
+
+full:
+
+```text
+1795 passed in 23.68s
+```
+
+Phase 41 で generic inference engine は変更していない。
+
+---
+
+# 67. Phase 41 completion boundary
+
+実装済み:
+
+```text
+current Subgroup / ImageSubgroupReference / KernelSubgroupReference compatibility check
+PreimageSubgroup minimum data model
+map: MapSymbol
+subgroup: PrimaryComponent
+concrete preimage representation
+symbolic / compound scalar target representation
+structural equality / distinction
+Subgroup / Image / Kernel reference separation
+element-preimage separation
+scope / non-goal regression
+representative probe
+final integrated regression
+```
+
+未実装:
+
+```text
+PreimageSubgroup in SubgroupTerm
+x∈E^-1(A) ↔ E(x)∈A
+preimage membership inference
+Toda (4.3) evaluated definition
+π_i^n membership statement
+Toda (4.3) theorem provenance
+WhiteheadProduct
+Toda Lemma 4.1
+Toda Prop.4.2
+```
+
+次の設計境界は `WhiteheadProduct` minimum representation。
+
+Toda Lemma 4.1 に必要な:
+
+```text
+[ι_{n-1},ι_{n-1}]
+```
+
+をまず `Composition` / `SmashProduct` と区別できる structural object として表現し、general Whitehead-product algebra や Lemma 4.1 theorem semantics は先取りしない。
+
