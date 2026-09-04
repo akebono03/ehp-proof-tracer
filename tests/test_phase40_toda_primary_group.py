@@ -369,5 +369,95 @@ def test_phase40_4_toda_primary_group_accepts_compound_symbolic_sphere_dimension
   )
 
 
+def test_phase40_5_toda_primary_group_has_no_evaluated_definition():
+  group = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  assert not hasattr(
+    group,
+    "definition",
+  )
+
+  assert not hasattr(
+    group,
+    "evaluated_definition",
+  )
+
+
+def test_phase40_5_toda_primary_group_has_no_preimage_representation():
+  group = TodaPrimaryGroup(
+    group_dimension=9,
+    sphere_dimension=5,
+  )
+
+  assert not hasattr(
+    group,
+    "preimage",
+  )
+
+  assert not hasattr(
+    group,
+    "preimage_subgroup",
+  )
+
+
+def test_phase40_5_toda_primary_group_has_no_subgroup_representation():
+  group = TodaPrimaryGroup(
+    group_dimension=9,
+    sphere_dimension=5,
+  )
+
+  assert not hasattr(
+    group,
+    "subgroup",
+  )
+
+  assert not hasattr(
+    group,
+    "to_subgroup",
+  )
+
+
+def test_phase40_5_toda_primary_group_has_no_automatic_primary_component_conversion():
+  group = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  assert not hasattr(
+    group,
+    "primary_component",
+  )
+
+  assert not hasattr(
+    group,
+    "to_primary_component",
+  )
+
+
+def test_phase40_5_toda_primary_group_has_no_theorem_provenance():
+  group = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  assert not hasattr(
+    group,
+    "source",
+  )
+
+  assert not hasattr(
+    group,
+    "theorem",
+  )
+
+  assert not hasattr(
+    group,
+    "provenance",
+  )
+
+
 
 
