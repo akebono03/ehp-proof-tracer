@@ -2,12 +2,12 @@ from typing import (
   get_type_hints,
 )
 
-import expression
 from expression import (
   Composition,
   Expression,
   HomotopyElement,
   SmashProduct,
+  WhiteheadProduct,
 )
 
 
@@ -221,11 +221,109 @@ def test_phase42_1_composition_with_smash_product_is_constructible_but_not_type_
   assert not composition.is_type_compatible()
 
 
-def test_phase42_1_whitehead_product_is_not_yet_implemented():
-  assert not hasattr(
-    expression,
-    "WhiteheadProduct",
+def test_phase42_2_whitehead_product_is_expression():
+  left = HomotopyElement(
+    name="a",
+    dimension=4,
   )
+
+  right = HomotopyElement(
+    name="b",
+    dimension=5,
+  )
+
+  product = WhiteheadProduct(
+    left=left,
+    right=right,
+  )
+
+  assert isinstance(
+    product,
+    Expression,
+  )
+
+
+def test_phase42_2_whitehead_product_preserves_left_and_right():
+  left = HomotopyElement(
+    name="a",
+    dimension=4,
+  )
+
+  right = HomotopyElement(
+    name="b",
+    dimension=5,
+  )
+
+  product = WhiteheadProduct(
+    left=left,
+    right=right,
+  )
+
+  assert product.left is left
+  assert product.right is right
+
+
+def test_phase42_2_whitehead_product_operands_use_expression():
+  type_hints = get_type_hints(
+    WhiteheadProduct
+  )
+
+  assert type_hints[
+    "left"
+  ] is Expression
+
+  assert type_hints[
+    "right"
+  ] is Expression
+
+
+def test_phase42_2_whitehead_product_has_structural_equality():
+  left = HomotopyElement(
+    name="a",
+    dimension=4,
+  )
+
+  right = HomotopyElement(
+    name="b",
+    dimension=5,
+  )
+
+  first = WhiteheadProduct(
+    left=left,
+    right=right,
+  )
+
+  same = WhiteheadProduct(
+    left=HomotopyElement(
+      name="a",
+      dimension=4,
+    ),
+    right=HomotopyElement(
+      name="b",
+      dimension=5,
+    ),
+  )
+
+  different_left = WhiteheadProduct(
+    left=HomotopyElement(
+      name="c",
+      dimension=4,
+    ),
+    right=right,
+  )
+
+  different_right = WhiteheadProduct(
+    left=left,
+    right=HomotopyElement(
+      name="c",
+      dimension=5,
+    ),
+  )
+
+  assert first == same
+  assert first != different_left
+  assert first != different_right
+
 
 
 
