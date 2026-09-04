@@ -9,11 +9,15 @@ from algebra import (
 )
 from expression import (
   MapSymbol,
+  ScalarProduct,
+  ScalarSum,
+  ScalarSymbol,
 )
 from homomorphism_rules import (
   SUSPENSION_MAP,
 )
 from homotopy_groups import (
+  PreimageSubgroup,
   PrimaryComponent,
 )
 from set_rules import (
@@ -472,6 +476,140 @@ def test_phase41_3_preimage_subgroup_is_not_an_element_preimage_representation()
     "value",
   )
 
+
+def test_phase41_4_preimage_subgroup_map_type_remains_map_symbol():
+  type_hints = get_type_hints(
+    PreimageSubgroup
+  )
+
+  assert type_hints[
+    "map"
+  ] is MapSymbol
+
+
+def test_phase41_4_preimage_subgroup_target_type_remains_primary_component():
+  type_hints = get_type_hints(
+    PreimageSubgroup
+  )
+
+  assert type_hints[
+    "subgroup"
+  ] is PrimaryComponent
+
+
+def test_phase41_4_preimage_subgroup_accepts_symbolic_critical_degree_target():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  target = PrimaryComponent(
+    group_dimension=ScalarProduct(
+      left=2,
+      right=n,
+    ),
+    sphere_dimension=ScalarSum(
+      left=n,
+      right=1,
+    ),
+    prime=2,
+  )
+
+  preimage = PreimageSubgroup(
+    map=SUSPENSION_MAP,
+    subgroup=target,
+  )
+
+  assert preimage.map is SUSPENSION_MAP
+
+  assert preimage.subgroup == PrimaryComponent(
+    group_dimension=ScalarProduct(
+      left=2,
+      right=ScalarSymbol(
+        name="n",
+      ),
+    ),
+    sphere_dimension=ScalarSum(
+      left=ScalarSymbol(
+        name="n",
+      ),
+      right=1,
+    ),
+    prime=2,
+  )
+
+
+def test_phase41_4_preimage_subgroup_preserves_compound_dimensions_structurally():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  group_dimension = ScalarProduct(
+    left=2,
+    right=n,
+  )
+
+  sphere_dimension = ScalarSum(
+    left=n,
+    right=1,
+  )
+
+  preimage = PreimageSubgroup(
+    map=SUSPENSION_MAP,
+    subgroup=PrimaryComponent(
+      group_dimension=group_dimension,
+      sphere_dimension=sphere_dimension,
+      prime=2,
+    ),
+  )
+
+  assert preimage.subgroup.group_dimension is (
+    group_dimension
+  )
+
+  assert preimage.subgroup.sphere_dimension is (
+    sphere_dimension
+  )
+
+  assert preimage.subgroup.group_dimension != ScalarSymbol(
+    name="2n",
+  )
+
+  assert preimage.subgroup.sphere_dimension != ScalarSymbol(
+    name="n+1",
+  )
+
+
+def test_phase41_4_preimage_subgroup_preserves_primary_component_prime():
+  preimage = PreimageSubgroup(
+    map=SUSPENSION_MAP,
+    subgroup=PrimaryComponent(
+      group_dimension=10,
+      sphere_dimension=6,
+      prime=2,
+    ),
+  )
+
+  assert preimage.subgroup.prime == 2
+
+
+def test_phase41_4_preimage_subgroup_map_representation_is_not_limited_to_suspension():
+  map_symbol = MapSymbol(
+    name="f",
+  )
+
+  target = PrimaryComponent(
+    group_dimension=10,
+    sphere_dimension=6,
+    prime=2,
+  )
+
+  preimage = PreimageSubgroup(
+    map=map_symbol,
+    subgroup=target,
+  )
+
+  assert preimage.map is map_symbol
+  assert preimage.subgroup is target
 
 
 
