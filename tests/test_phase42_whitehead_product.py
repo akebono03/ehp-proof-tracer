@@ -643,5 +643,175 @@ def test_phase42_4_whitehead_product_has_no_type_compatibility_method():
   )
 
 
+def test_phase42_5_whitehead_product_has_no_zero_theorem_semantics():
+  product = WhiteheadProduct(
+    left=HomotopyElement(
+      name="a",
+      dimension=4,
+    ),
+    right=HomotopyElement(
+      name="b",
+      dimension=5,
+    ),
+  )
+
+  assert not hasattr(
+    product,
+    "is_zero",
+  )
+
+  assert not hasattr(
+    product,
+    "zero",
+  )
+
+  assert not hasattr(
+    product,
+    "zero_theorem",
+  )
+
+
+def test_phase42_5_whitehead_product_has_no_nonzero_theorem_semantics():
+  product = WhiteheadProduct(
+    left=HomotopyElement(
+      name="a",
+      dimension=4,
+    ),
+    right=HomotopyElement(
+      name="b",
+      dimension=5,
+    ),
+  )
+
+  assert not hasattr(
+    product,
+    "is_nonzero",
+  )
+
+  assert not hasattr(
+    product,
+    "nonzero",
+  )
+
+  assert not hasattr(
+    product,
+    "nonzero_theorem",
+  )
+
+
+def test_phase42_5_whitehead_product_has_no_bilinearity_semantics():
+  product = WhiteheadProduct(
+    left=HomotopyElement(
+      name="a",
+      dimension=4,
+    ),
+    right=HomotopyElement(
+      name="b",
+      dimension=5,
+    ),
+  )
+
+  assert not hasattr(
+    product,
+    "bilinear",
+  )
+
+  assert not hasattr(
+    product,
+    "bilinearity",
+  )
+
+  assert not hasattr(
+    product,
+    "expand",
+  )
+
+
+def test_phase42_5_whitehead_product_has_no_antisymmetry_semantics():
+  product = WhiteheadProduct(
+    left=HomotopyElement(
+      name="a",
+      dimension=4,
+    ),
+    right=HomotopyElement(
+      name="b",
+      dimension=5,
+    ),
+  )
+
+  assert not hasattr(
+    product,
+    "antisymmetric",
+  )
+
+  assert not hasattr(
+    product,
+    "antisymmetry",
+  )
+
+  assert not hasattr(
+    product,
+    "swap_sign",
+  )
+
+
+def test_phase42_5_whitehead_product_has_no_toda_lemma_4_1_evaluation():
+  product = WhiteheadProduct(
+    left=HomotopyElement(
+      name="a",
+      dimension=4,
+    ),
+    right=HomotopyElement(
+      name="a",
+      dimension=4,
+    ),
+  )
+
+  assert not hasattr(
+    product,
+    "lemma_4_1",
+  )
+
+  assert not hasattr(
+    product,
+    "toda_lemma_4_1",
+  )
+
+  assert not hasattr(
+    product,
+    "evaluated_definition",
+  )
+
+
+def test_phase42_5_whitehead_product_has_no_theorem_provenance():
+  product = WhiteheadProduct(
+    left=HomotopyElement(
+      name="a",
+      dimension=4,
+    ),
+    right=HomotopyElement(
+      name="b",
+      dimension=5,
+    ),
+  )
+
+  assert not hasattr(
+    product,
+    "source",
+  )
+
+  assert not hasattr(
+    product,
+    "theorem",
+  )
+
+  assert not hasattr(
+    product,
+    "provenance",
+  )
+
+
+
+
 
 
