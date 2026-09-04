@@ -2443,3 +2443,304 @@ Toda Lemma 4.1 に必要な:
 
 をまず `Composition` / `SmashProduct` と区別できる structural object として表現し、general Whitehead-product algebra や Lemma 4.1 theorem semantics は先取りしない。
 
+# 68. Phase 42 WhiteheadProduct minimum representation
+
+Toda Lemma 4.1 で必要になる:
+
+```text
+[ι_{n-1},ι_{n-1}]
+```
+
+の土台として、`expression.py` に `WhiteheadProduct` を追加した。
+
+production object:
+
+```text
+WhiteheadProduct
+├── left: Expression
+└── right: Expression
+```
+
+実装:
+
+```text
+@dataclass(frozen=True)
+class WhiteheadProduct(Expression):
+  left: Expression
+  right: Expression
+```
+
+Phase 42 では Whitehead product の theorem semantics を constructor に入れず、binary structural syntax のみに限定する。
+
+```text
+representation
+!= typing
+!= theorem knowledge
+```
+
+---
+
+# 69. Phase 42 structural distinction
+
+`WhiteheadProduct` は既存:
+
+```text
+Composition
+SmashProduct
+```
+
+とは別 class である。
+
+同じ operands `a,b` を使っても:
+
+```text
+WhiteheadProduct(a,b)
+!= Composition(a,b)
+
+WhiteheadProduct(a,b)
+!= SmashProduct(a,b)
+```
+
+を structural regression として固定した。
+
+したがって:
+
+```text
+[a,b]
+a∘b
+a∧b
+```
+
+は expression kind として混同しない。
+
+ここでの distinction は structural representation の区別であり、数学的関係が存在しないという主張ではない。
+
+---
+
+# 70. Phase 42 Expression compatibility
+
+`WhiteheadProduct.left` / `right` は `Expression` を受け取る。
+
+そのため既存 expression tree を lossless に保持できる。
+
+確認済み:
+
+```text
+HomotopyElement
+Multiple
+Composition
+SmashProduct
+nested WhiteheadProduct
+```
+
+代表:
+
+```text
+WhiteheadProduct(
+  left=Multiple(...),
+  right=SmashProduct(...),
+)
+```
+
+重要:
+
+```text
+constructor acceptance
+!= mathematical well-typedness
+```
+
+---
+
+# 71. Phase 42 typing boundary
+
+Phase 42 では `WhiteheadProduct` に以下を追加していない。
+
+```text
+source
+target
+is_type_compatible()
+```
+
+したがって:
+
+```text
+WhiteheadProduct representation
+!= automatic Whitehead-product typing
+```
+
+Phase 31 の `SmashProduct` と同様、まず structural syntax のみとする。
+
+Whitehead-product dimension formula や operand compatibility は、actual mathematical need が現れるまで後続 Phase に残す。
+
+---
+
+# 72. Phase 42 theorem / algebra non-goal
+
+`WhiteheadProduct` 自体は以下を持たない。
+
+```text
+is_zero
+is_nonzero
+zero_theorem
+nonzero_theorem
+bilinearity
+antisymmetry
+Toda Lemma 4.1 evaluation
+theorem provenance
+```
+
+したがって:
+
+```text
+[ι,ι] representation
+↛ [ι,ι]=0
+
+[ι,ι] representation
+↛ [ι,ι]!=0
+```
+
+また constructor は bilinearity / antisymmetry を実行しない。
+
+```text
+WhiteheadProduct
+!= Whitehead-product algebra engine
+```
+
+---
+
+# 73. Phase 42 representative probe
+
+probe:
+
+```powershell
+python -m probes.probe_phase42_capabilities
+```
+
+代表として concrete:
+
+```text
+[ι₄,ι₄]
+```
+
+を構築する。
+
+`ι₄` は既存 generator representation:
+
+```text
+GeneratorSymbol(
+  family="ι",
+  index=4,
+)
+```
+
+を使用する。
+
+Phase 42 では symbolic generator index `ι_{n-1}` を新規導入しない。
+
+```text
+WhiteheadProduct minimum representation
+!= symbolic generator indexing project
+```
+
+probe では以下を表示する。
+
+```text
+WhiteheadProduct != Composition = True
+WhiteheadProduct != SmashProduct = True
+source typing = False
+target typing = False
+type compatibility = False
+zero theorem semantics = False
+nonzero theorem semantics = False
+bilinearity = False
+antisymmetry = False
+Toda Lemma 4.1 evaluation = False
+theorem provenance = False
+```
+
+---
+
+# 74. Phase 42 verified status
+
+focused:
+
+```text
+tests/test_phase42_whitehead_product.py
+36 passed
+```
+
+related:
+
+```text
+tests/test_expression.py
+145 passed
+
+tests/test_phase41_preimage_subgroup.py
+36 passed
+```
+
+full:
+
+```text
+1831 passed in 23.58s
+```
+
+probe 正常完走。
+
+generic inference engine:
+
+```text
+変更なし
+```
+
+---
+
+# 75. Phase 42 completion boundary
+
+実装済み:
+
+```text
+WhiteheadProduct minimum data model
+WhiteheadProduct is Expression
+left: Expression
+right: Expression
+structural equality
+WhiteheadProduct / Composition distinction
+WhiteheadProduct / SmashProduct distinction
+existing Expression operand compatibility
+nested WhiteheadProduct representation
+representative [ι₄,ι₄]
+scope / non-goal regression
+representative executable probe
+final integrated regression
+```
+
+未実装:
+
+```text
+Whitehead-product source / target typing
+Whitehead-product dimension formula
+Whitehead-product operand compatibility theorem
+symbolic generator index ι_{n-1}
+Whitehead-product zero theorem fact
+Whitehead-product nonzero theorem fact
+bilinearity
+antisymmetry
+Toda Lemma 4.1 case evaluation
+Toda Lemma 4.1 theorem provenance
+Toda Prop.4.2
+```
+
+次の設計境界は Toda Lemma 4.1。
+
+ただし一度に case evaluation を入れず、まず:
+
+```text
+[ι_{n-1},ι_{n-1}]=0
+[ι_{n-1},ι_{n-1}]!=0
+```
+
+を theorem premise として扱うために必要な minimum statement representation / existing relation compatibility を確認する。
+
+一般 Whitehead-product algebra は concrete proof need が現れるまで先取りしない。
+

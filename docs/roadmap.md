@@ -22,7 +22,7 @@ future capability dependency
 
 ---
 
-# 2. Phase 41 完了時点
+# 2. Phase 42 完了時点
 
 Completed chain:
 
@@ -41,15 +41,16 @@ Phase 38  Injective(H) reflection
 Phase 39  PrimaryComponent minimum representation
 Phase 40  TodaPrimaryGroup minimum representation
 Phase 41  PreimageSubgroup minimum representation
+Phase 42  WhiteheadProduct minimum representation
 ```
 
 Current full regression:
 
 ```text
-1795 passed in 23.68s
+1831 passed in 23.58s
 ```
 
-Focused Phase 41:
+Focused Phase 42:
 
 ```text
 36 passed
@@ -58,13 +59,13 @@ Focused Phase 41:
 Representative probe:
 
 ```powershell
-python -m probes.probe_phase41_capabilities
+python -m probes.probe_phase42_capabilities
 ```
 
-Final Phase 41 capability:
+Final Phase 42 capability:
 
 ```text
-E^-1(A) minimum structural representation
+[a,b] minimum structural representation
 ```
 
 ---
@@ -578,7 +579,7 @@ higher Toda brackets
 | p-primary component `π_i(S^n;p)` | IMPLEMENTED | 39 |
 | Toda subgroup `π_i^n` | IMPLEMENTED | 40 |
 | `E^{-1}(π_{2n}(S^{n+1};2))` preimage group | IMPLEMENTED | 41 |
-| Whitehead product `[a,b]` | PLANNED | Lemma 4.1 prerequisite |
+| Whitehead product `[a,b]` | IMPLEMENTED | 42 |
 | Toda Lemma 4.1 | PLANNED | structure of `π_{2n-1}^n` |
 | Toda Prop.4.2 2-primary EHP exact sequence | PLANNED | main 2-primary calculation engine |
 | Toda (4.5) `E^(m-n)` isomorphism | PLANNED | stable-range theorem for `π_i^n` |
@@ -641,7 +642,8 @@ TodaPrimaryGroup π_i^n minimum representation COMPLETE
 Phase 41
 PreimageSubgroup under E in degree 2n-1 COMPLETE
 ↓
-Whitehead product
+Phase 42
+WhiteheadProduct minimum representation COMPLETE
 ↓
 Toda Lemma 4.1
 structure of π_{2n-1}^n
@@ -750,7 +752,7 @@ TodaPrimaryGroup π_i^n COMPLETE
 ↓
 PreimageSubgroup under E COMPLETE
 ↓
-WhiteheadProduct minimum representation
+WhiteheadProduct minimum representation COMPLETE
 ↓
 Toda Lemma 4.1
 ↓
@@ -1548,35 +1550,127 @@ No theorem rule, membership inference rule, or generic inference-engine feature 
 
 ---
 
-# 34. 次 Phase candidate：WhiteheadProduct minimum representation
+# 34. Phase 42：WhiteheadProduct COMPLETE
 
-Toda Lemma 4.1 では:
+Phase 42 split:
 
 ```text
-[ι_{n-1},ι_{n-1}]
+42-1 current Composition / SmashProduct / expression compatibility check COMPLETE
+42-2 WhiteheadProduct minimum data model COMPLETE
+42-3 structural distinction regression COMPLETE
+42-4 basic construction / expression typing compatibility COMPLETE
+42-5 scope / non-goal regression COMPLETE
+42-6 representative probe / final regression COMPLETE
+42-7 Phase 42 completion COMPLETE
 ```
 
-が必要。
-
-次はこれを minimum structural object として表現する。
-
-candidate:
+production object:
 
 ```text
 WhiteheadProduct(
-  left=a,
-  right=b,
+  left: Expression,
+  right: Expression,
 )
 ```
+
+representative:
+
+```text
+[ι₄,ι₄]
+```
+
+verified:
+
+```text
+tests/test_phase42_whitehead_product.py
+36 passed
+
+tests/test_expression.py
+145 passed
+
+tests/test_phase41_preimage_subgroup.py
+36 passed
+
+full suite
+1831 passed in 23.58s
+```
+
+probe:
+
+```powershell
+python -m probes.probe_phase42_capabilities
+```
+
+Important:
+
+```text
+WhiteheadProduct
+!= Composition
+!= SmashProduct
+```
+
+and:
+
+```text
+WhiteheadProduct
+!= source / target typing
+!= zero / nonzero theorem semantics
+!= bilinearity
+!= antisymmetry
+!= Toda Lemma 4.1 evaluation
+!= theorem provenance
+```
+
+No new theorem rule or generic inference-engine feature was introduced.
+
+---
+
+# 35. 次 Phase candidate：Toda Lemma 4.1 premise / case infrastructure
+
+Phase 42 で:
+
+```text
+[a,b]
+```
+
+の structural representation は完成した。
+
+次は Toda Lemma 4.1 で必要な:
+
+```text
+[ι_{n-1},ι_{n-1}]=0
+```
+
+および:
+
+```text
+[ι_{n-1},ι_{n-1}]!=0
+```
+
+を theorem premise として扱うための minimum statement representation / existing relation compatibility を確認する。
+
+その後:
+
+```text
+n odd
+
+n even
++
+Whitehead product nonzero
+
+n even
++
+Whitehead product zero
+```
+
+という Toda Lemma 4.1 の case semantics を staged に導入する。
 
 初期 Phase では以下を先取りしない。
 
 ```text
-general Whitehead-product algebra
-automatic source / target typing
-zero / nonzero theorem inference
-Toda Lemma 4.1 case evaluation
+general Whitehead-product bilinearity
+general Whitehead-product antisymmetry
+automatic Whitehead-product typing
+symbolic generator indexing project
 Toda Prop.4.2 exact-sequence semantics
 ```
-
-まず current `Composition` / `SmashProduct` / expression representation との compatibility を確認し、既存 API を不必要に壊さない最小 data model を決定する。
