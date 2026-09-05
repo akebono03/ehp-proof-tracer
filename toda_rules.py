@@ -28,6 +28,7 @@ from map_facts import (
   EHP_H_MAP,
 )
 from proof import (
+  ExactnessStatement,
   InferenceRule,
   LiteratureReference,
   PremisePattern,
@@ -350,6 +351,44 @@ def toda_prop42_delta_e_exactness_inference_rule():
     ),
     conclusion_builder=build_conclusion,
     match_guard=guard,
+  )
+
+
+def toda_prop42_exactness_to_generic_inference_rule():
+  def build_conclusion(
+    premises,
+  ):
+    statement = (
+      premises[0].conclusion
+    )
+
+    window = statement.window
+
+    return ExactnessStatement(
+      first_map=window.first_map,
+      second_map=window.second_map,
+      is_exact=True,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 4.2 "
+      "exactness to generic exactness"
+    ),
+    description=(
+      "A Toda Proposition 4.2 "
+      "exactness statement implies the "
+      "corresponding generic exactness "
+      "statement for its two maps."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
   )
 
 
