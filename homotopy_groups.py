@@ -39,6 +39,16 @@ class TodaSuspensionMap:
 
 
 @dataclass(frozen=True)
+class TodaPrimaryGroupZeroStatement:
+  group: TodaPrimaryGroup
+
+
+@dataclass(frozen=True)
+class TodaSuspensionIsomorphismStatement:
+  map: TodaSuspensionMap
+
+
+@dataclass(frozen=True)
 class TodaIteratedSuspensionMap:
   exponent: ScalarValue
   source_group: TodaPrimaryGroup
