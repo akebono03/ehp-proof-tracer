@@ -27,6 +27,13 @@ class TodaPrimaryGroup:
 
 
 @dataclass(frozen=True)
+class TodaIteratedSuspensionMap:
+  exponent: ScalarValue
+  source_group: TodaPrimaryGroup
+  target_group: TodaPrimaryGroup
+
+
+@dataclass(frozen=True)
 class TodaEHPSequence:
   terms: tuple[
     TodaPrimaryGroup,
@@ -77,8 +84,3 @@ class DirectSumGroup:
     FreeCyclicGroup | PrimaryComponent,
     ...
   ]
-
-
-
-
-
