@@ -43,6 +43,7 @@ from proof import (
 )
 from probes.probe_phase44_capabilities import (
   build_phase44_representative_cases,
+  primary_component_membership_text,
   relation_text,
 )
 from scalar_rules import (
@@ -3722,6 +3723,213 @@ def test_phase44_6c_alpha_condition_rules_do_not_match_nonzero_case():
     assert match is None
 
 
+def test_phase44_6d_zero_case_bundle_has_three_applicable_rules():
+  result = (
+    build_phase44_representative_cases()
+  )
+
+  zero_case = result[
+    "cases"
+  ][
+    "even_zero"
+  ]
+
+  applicable = zero_case[
+    "zero_case_applicable_rules"
+  ]
+
+  assert len(
+    applicable
+  ) == 3
+
+  assert tuple(
+    rule.name
+    for rule in applicable
+  ) == (
+    (
+      "Toda Lemma 4.1 even "
+      "Whitehead zero case"
+    ),
+    (
+      "Toda Lemma 4.1 even zero "
+      "alpha Hopf condition"
+    ),
+    (
+      "Toda Lemma 4.1 even zero "
+      "alpha suspension primary condition"
+    ),
+  )
+
+
+def test_phase44_6d_zero_case_bundle_reaches_fixed_point_with_three_results():
+  result = (
+    build_phase44_representative_cases()
+  )
+
+  zero_result = result[
+    "cases"
+  ][
+    "even_zero"
+  ][
+    "zero_case_result"
+  ]
+
+  assert (
+    zero_result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert (
+    zero_result.round_count
+    == 1
+  )
+
+  assert len(
+    zero_result.round_results[
+      0
+    ].new_steps
+  ) == 3
+
+
+def test_phase44_6d_probe_formats_h_alpha_condition():
+  result = (
+    build_phase44_representative_cases()
+  )
+
+  h_alpha_step = result[
+    "cases"
+  ][
+    "even_zero"
+  ][
+    "alpha_condition_steps"
+  ][
+    0
+  ]
+
+  assert relation_text(
+    h_alpha_step.conclusion
+  ) == (
+    "H(α) = ι_{2n-1}"
+  )
+
+
+def test_phase44_6d_probe_formats_e_alpha_primary_membership():
+  result = (
+    build_phase44_representative_cases()
+  )
+
+  membership_step = result[
+    "cases"
+  ][
+    "even_zero"
+  ][
+    "alpha_condition_steps"
+  ][
+    1
+  ]
+
+  assert (
+    primary_component_membership_text(
+      membership_step.conclusion
+    )
+    == (
+      "Eα ∈ π_{2n}(S^{n+1};2)"
+    )
+  )
+
+
+def test_phase44_6d_probe_zero_case_shares_structural_alpha():
+  result = (
+    build_phase44_representative_cases()
+  )
+
+  zero_case = result[
+    "cases"
+  ][
+    "even_zero"
+  ]
+
+  group_alpha = (
+    zero_case[
+      "derived_step"
+    ]
+    .conclusion
+    .rhs
+    .summands[
+      0
+    ]
+    .generator
+  )
+
+  (
+    h_alpha_step,
+    membership_step,
+  ) = zero_case[
+    "alpha_condition_steps"
+  ]
+
+  h_alpha = (
+    h_alpha_step
+    .conclusion
+    .lhs
+    .expression
+  )
+
+  suspension_alpha = (
+    membership_step
+    .conclusion
+    .element
+    .expression
+  )
+
+  assert group_alpha == h_alpha
+
+  assert (
+    group_alpha
+    == suspension_alpha
+  )
+
+
+def test_phase44_6d_existing_three_case_probe_contract_remains_unchanged():
+  result = (
+    build_phase44_representative_cases()
+  )
+
+  cases = result[
+    "cases"
+  ]
+
+  for name in (
+    "odd",
+    "even_nonzero",
+    "even_zero",
+  ):
+    assert len(
+      cases[
+        name
+      ][
+        "applicable_rules"
+      ]
+    ) == 1
+
+    assert (
+      cases[
+        name
+      ][
+        "result"
+      ].round_count
+      == 1
+    )
+
+    assert len(
+      cases[
+        name
+      ][
+        "result"
+      ].round_results[
+        0
+      ].new_steps
+    ) == 1
 
 
 

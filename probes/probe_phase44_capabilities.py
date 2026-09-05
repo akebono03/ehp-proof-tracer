@@ -5,6 +5,7 @@ from expression import (
   ScalarProduct,
   ScalarSum,
   ScalarSymbol,
+  Suspension,
   WhiteheadProduct,
   Zero,
 )
@@ -12,7 +13,11 @@ from homotopy_groups import (
   DirectSumGroup,
   FreeCyclicGroup,
   PrimaryComponent,
+  PrimaryComponentMembershipStatement,
   TodaPrimaryGroup,
+)
+from map_facts import (
+  EHP_H_MAP,
 )
 from proof import (
   InferenceTerminationReason,
@@ -30,6 +35,8 @@ from scalar_rules import (
 from toda_rules import (
   toda_lemma41_even_nonzero_case_inference_rule,
   toda_lemma41_even_zero_case_inference_rule,
+  toda_lemma41_even_zero_h_alpha_inference_rule,
+  toda_lemma41_even_zero_suspension_primary_inference_rule,
   toda_lemma41_odd_case_inference_rule,
 )
 
@@ -156,6 +163,17 @@ def expression_text(
         expression.expression
       )
       + ")"
+    )
+
+  if isinstance(
+    expression,
+    Suspension,
+  ):
+    return (
+      "E"
+      + expression_text(
+        expression.expression
+      )
     )
 
   if isinstance(
@@ -299,6 +317,29 @@ def relation_text(
   )
 
 
+def primary_component_membership_text(
+  statement,
+):
+  if not isinstance(
+    statement,
+    PrimaryComponentMembershipStatement,
+  ):
+    raise TypeError(
+      "statement must be a "
+      "PrimaryComponentMembershipStatement"
+    )
+
+  return (
+    expression_text(
+      statement.element
+    )
+    + " ∈ "
+    + group_text(
+      statement.component
+    )
+  )
+
+
 def premise_text(
   step,
 ):
@@ -389,6 +430,47 @@ def find_case_derived_step(
         TodaPrimaryGroup,
       )
     )
+  )
+
+
+def find_zero_case_alpha_condition_steps(
+  result,
+):
+  h_step = next(
+    step
+    for step in result.steps
+    if (
+      step.rule
+      == ProofRule.INFERENCE
+      and isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and isinstance(
+        step.conclusion.lhs,
+        MapApplication,
+      )
+      and step.conclusion.lhs.map
+      is EHP_H_MAP
+    )
+  )
+
+  primary_membership_step = next(
+    step
+    for step in result.steps
+    if (
+      step.rule
+      == ProofRule.INFERENCE
+      and isinstance(
+        step.conclusion,
+        PrimaryComponentMembershipStatement,
+      )
+    )
+  )
+
+  return (
+    h_step,
+    primary_membership_step,
   )
 
 
@@ -500,6 +582,72 @@ def build_phase44_representative_cases():
       ),
     }
 
+  zero_case_rules = (
+    rules[
+      2
+    ],
+    toda_lemma41_even_zero_h_alpha_inference_rule(),
+    toda_lemma41_even_zero_suspension_primary_inference_rule(),
+  )
+
+  zero_case_premises = cases[
+    "even_zero"
+  ][
+    "premises"
+  ]
+
+  zero_case_applicable_rules = (
+    find_applicable_inference_rules(
+      zero_case_rules,
+      zero_case_premises,
+    )
+  )
+
+  zero_case_result = (
+    run_inference_until_stable_with_history(
+      zero_case_rules,
+      zero_case_premises,
+    )
+  )
+
+  (
+    h_alpha_step,
+    primary_membership_step,
+  ) = (
+    find_zero_case_alpha_condition_steps(
+      zero_case_result
+    )
+  )
+
+  cases[
+    "even_zero"
+  ][
+    "zero_case_rules"
+  ] = zero_case_rules
+
+  cases[
+    "even_zero"
+  ][
+    "zero_case_applicable_rules"
+  ] = (
+    zero_case_applicable_rules
+  )
+
+  cases[
+    "even_zero"
+  ][
+    "zero_case_result"
+  ] = zero_case_result
+
+  cases[
+    "even_zero"
+  ][
+    "alpha_condition_steps"
+  ] = (
+    h_alpha_step,
+    primary_membership_step,
+  )
+
   return {
     "n": n,
     "rules": rules,
@@ -577,6 +725,66 @@ def print_phase44_case(
   )
 
 
+def print_phase44_alpha_conditions(
+  case,
+):
+  (
+    h_alpha_step,
+    primary_membership_step,
+  ) = case[
+    "alpha_condition_steps"
+  ]
+
+  print()
+  print("α conditions:")
+
+  print(
+    " ",
+    relation_text(
+      h_alpha_step.conclusion
+    ),
+  )
+
+  print(
+    " ",
+    primary_component_membership_text(
+      primary_membership_step.conclusion
+    ),
+  )
+
+  print()
+
+  print(
+    "α-condition applicable rule count =",
+    len(
+      case[
+        "zero_case_applicable_rules"
+      ]
+    ),
+  )
+
+  print(
+    "α-condition derived step count =",
+    len(
+      case[
+        "zero_case_result"
+      ].round_results[
+        0
+      ].new_steps
+    ),
+  )
+
+  print(
+    "α-condition fixed point =",
+    (
+      case[
+        "zero_case_result"
+      ].termination_reason
+      == InferenceTerminationReason.FIXED_POINT
+    ),
+  )
+
+
 def print_phase44_applicability(
   result,
 ):
@@ -628,10 +836,19 @@ def print_phase44_boundary():
     "  n even + Whitehead zero case semantics"
   )
   print(
+    "  zero-case H(α)=ι_(2n-1) condition"
+  )
+  print(
+    "  zero-case Eα primary membership condition"
+  )
+  print(
     "  structural symbolic generator indexing"
   )
   print(
     "  structural free cyclic / direct-sum groups"
+  )
+  print(
+    "  PrimaryComponent membership representation"
   )
   print()
 
@@ -650,6 +867,9 @@ def print_phase44_boundary():
   )
   print(
     "  Whitehead-product antisymmetry"
+  )
+  print(
+    "  automatic alpha existence / uniqueness machinery"
   )
   print(
     "  Toda Proposition 4.2 semantics"
@@ -696,6 +916,12 @@ def main():
     cases[
       "even_zero"
     ],
+  )
+
+  print_phase44_alpha_conditions(
+    cases[
+      "even_zero"
+    ]
   )
 
   print_phase44_applicability(
