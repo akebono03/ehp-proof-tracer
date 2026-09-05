@@ -20,6 +20,7 @@ from homotopy_groups import (
   PrimaryComponent,
   PrimaryComponentMembershipStatement,
   TodaEHPExactnessWindow,
+  TodaIteratedSuspensionMap,
   TodaPrimaryGroup,
 )
 from map_facts import (
@@ -40,12 +41,194 @@ from proof import (
 from scalar_rules import (
   EvenScalarStatement,
   OddScalarStatement,
+  ScalarGreaterEqualStatement,
 )
 
 
 @dataclass(frozen=True)
 class TodaProp42ExactnessStatement:
   window: TodaEHPExactnessWindow
+
+
+@dataclass(frozen=True)
+class Toda45IsomorphismStatement:
+  map: TodaIteratedSuspensionMap
+
+
+def toda_45_isomorphism_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    stable_range = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    suspension_range = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    suspension_map = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    n = stable_range.left
+
+    stable_right = (
+      stable_range.right
+    )
+
+    if not isinstance(
+      stable_right,
+      ScalarSum,
+    ):
+      return False
+
+    if (
+      stable_right.right
+      != 2
+    ):
+      return False
+
+    k = stable_right.left
+
+    if (
+      suspension_range.right
+      != n
+    ):
+      return False
+
+    m = suspension_range.left
+
+    source = (
+      suspension_map.source_group
+    )
+
+    target = (
+      suspension_map.target_group
+    )
+
+    source_dimension = (
+      source.group_dimension
+    )
+
+    if not isinstance(
+      source_dimension,
+      ScalarSum,
+    ):
+      return False
+
+    if (
+      source_dimension.left
+      != n
+    ):
+      return False
+
+    if (
+      source_dimension.right
+      != k
+    ):
+      return False
+
+    if (
+      source.sphere_dimension
+      != n
+    ):
+      return False
+
+    target_dimension = (
+      target.group_dimension
+    )
+
+    if not isinstance(
+      target_dimension,
+      ScalarSum,
+    ):
+      return False
+
+    if (
+      target_dimension.left
+      != m
+    ):
+      return False
+
+    if (
+      target_dimension.right
+      != k
+    ):
+      return False
+
+    if (
+      target.sphere_dimension
+      != m
+    ):
+      return False
+
+    expected_exponent = ScalarSum(
+      left=m,
+      right=ScalarProduct(
+        left=-1,
+        right=n,
+      ),
+    )
+
+    return (
+      suspension_map.exponent
+      == expected_exponent
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    suspension_map = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    return Toda45IsomorphismStatement(
+      map=suspension_map,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 4.5 stable-range "
+      "iterated suspension isomorphism"
+    ),
+    description=(
+      "If n is at least k+2 and "
+      "m is at least n, Toda (4.5) "
+      "states that the iterated "
+      "suspension E^(m-n) from "
+      "pi_(n+k)^n to pi_(m+k)^m "
+      "is an isomorphism."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaIteratedSuspensionMap
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
 
 
 def toda_prop42_e_h_exactness_inference_rule():
