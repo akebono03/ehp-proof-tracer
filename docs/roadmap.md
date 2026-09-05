@@ -22,7 +22,7 @@ future capability dependency
 
 ---
 
-# 2. Phase 47 完了時点
+# 2. Phase 48 完了時点
 
 Completed chain:
 
@@ -47,18 +47,19 @@ Phase 44  Toda Lemma 4.1 case semantics
 Phase 45  Toda Proposition 4.2 2-primary EHP exact sequence
 Phase 46  Toda (4.5) stable-range E^(m-n) isomorphism
 Phase 47  Toda Proposition 4.4 decomposition isomorphism
+Phase 48  Toda Proposition 4.4 suspension E injectivity consequence
 ```
 
 Current full regression:
 
 ```text
-2277 passed in 55.61s
+2411 passed in 58.16s
 ```
 
-Representative probe:
+Representative Phase 48 probe:
 
 ```powershell
-python -m probes.probe_phase47_capabilities
+python -m probes.probe_phase48_capabilities
 ```
 
 ---
@@ -201,7 +202,6 @@ automatic numeric inequality validation
 generic map-property type generalization
 Toda45IsomorphismStatement → IsomorphismStatement bridge
 generic injectivity consequence for TodaIteratedSuspensionMap
-Toda Prop.4.4 consequence: E injective on π_i^n
 stable homotopy group model
 stable Toda brackets
 higher Toda brackets
@@ -250,7 +250,8 @@ higher Toda brackets
 | Toda Prop.4.2 → zero-composition reuse | IMPLEMENTED | 45 |
 | Toda (4.5) `E^(m-n)` isomorphism | IMPLEMENTED | 46 |
 | Toda Prop.4.4 decomposition isomorphism | IMPLEMENTED | 47 |
-| Toda Prop.4.4 `E` injectivity consequence | NEXT | 48 candidate |
+| Toda Prop.4.4 `E` injectivity consequence | IMPLEMENTED | 48 |
+| concrete calculation `π_3^2 = Z{η_2}` | NEXT | 49 candidate |
 | stable homotopy | PLANNED | later |
 | higher Toda bracket | DEFERRED | concrete need |
 
@@ -329,13 +330,15 @@ Phase 47
 Toda Prop.4.4
 π_i^n decomposition isomorphism COMPLETE
 ↓
-Phase 48 candidate
+Phase 48
 Toda Prop.4.4 consequence
-E is injective
+E is injective COMPLETE
 ↓
-existing equality / ZERO reflection machinery
+Phase 49 candidate
+concrete EHP calculation
+π_3^2 = Z{η_2}
 ↓
-2-primary calculations
+low-dimensional 2-primary calculations
 ```
 
 ---
@@ -596,50 +599,378 @@ fixed point = True
 
 ---
 
-# 13. Phase 48 candidate：Toda Proposition 4.4 consequence E injective
+# 13. Phase 48：Toda Proposition 4.4 consequence E injective COMPLETE
 
-NEXT。
-
-最初は compatibility check。
-
-確認対象:
+目的:
 
 ```text
-TodaProp44IsomorphismStatement
-TodaProp44DecompositionMap
-EHP_E_MAP
-existing InjectiveMapStatement
-existing generic isomorphism → injective rule
-instance-aware source / target of E
-first-summand inclusion semantics
-後続 equality / ZERO reflection への接続
-```
-
-Phase 48 の目的は:
-
-```text
-Proposition 4.4 decomposition isomorphism
+Toda Proposition 4.4 decomposition isomorphism
 ↓
-E injective
+first direct-sum summand restriction
+↓
+E: π_{i-1}^{n-1} → π_i^n is injective
 ```
 
-という mathematical consequence を、decomposition map 全体と suspension `E` を混同せず表現すること。
+Phase 48 では、generic `EHP_E_MAP` の injectivity と specific Toda suspension instance を混同しない。
 
-まだ先取りしない:
+implemented representation:
 
 ```text
-generic map-property type generalization
-automatic generic Toda-isomorphism bridge
-stable homotopy theory
-general symbolic dimension solver
-general Whitehead-product algebra
-automatic Whitehead zero / nonzero solver
-general existential witness engine
+TodaSuspensionMap
+├── source_group: TodaPrimaryGroup
+└── target_group: TodaPrimaryGroup
 ```
+
+representative:
+
+```text
+E:
+π_{i-1}^{n-1}
+→
+π_i^n
+```
+
+first-summand restriction theorem:
+
+```text
+TodaProp44FirstSummandRestrictionStatement
+```
+
+meaning:
+
+```text
+Φ|_{π_{i-1}^{n-1}}
+=
+E: π_{i-1}^{n-1} → π_i^n
+```
+
+injectivity consequence:
+
+```text
+TodaProp44SuspensionInjectiveStatement
+```
+
+meaning:
+
+```text
+E: π_{i-1}^{n-1} → π_i^n
+is injective
+```
+
+end-to-end representative path:
+
+```text
+α ∈ π_{2n-1}^n
+H(α)=±ι_{2n-1}
+TodaProp44DecompositionMap
+TodaSuspensionMap
+↓
+TodaProp44IsomorphismStatement
++
+TodaProp44FirstSummandRestrictionStatement
+↓
+TodaProp44SuspensionInjectiveStatement
+↓
+fixed point
+```
+
+representative inference rounds:
+
+```text
+round 1
+TodaProp44IsomorphismStatement
+TodaProp44FirstSummandRestrictionStatement
+
+round 2
+TodaProp44SuspensionInjectiveStatement
+
+fixed point
+```
+
+important boundary:
+
+```text
+TodaProp44SuspensionInjectiveStatement
+!= InjectiveMapStatement(EHP_E_MAP)
+```
+
+specific source / target instance remains authoritative.
+
+Phase 48 does not add:
+
+```text
+generic InjectiveMapStatement bridge
+generic map-property type generalization
+general direct-sum inclusion machinery
+automatic equality reflection through TodaSuspensionMap
+```
+
+Representative probe:
+
+```powershell
+python -m probes.probe_phase48_capabilities
+```
+
+verified focused:
+
+```text
+tests/test_phase48_toda_prop44_e_injectivity_compatibility.py
+21 passed
+
+tests/test_phase48_toda_prop44_e_map.py
+22 passed
+
+tests/test_phase48_toda_prop44_first_summand_restriction.py
+22 passed
+
+tests/test_phase48_toda_prop44_e_injective_theorem.py
+26 passed
+
+tests/test_phase48_toda_prop44_e_injective_applicability.py
+22 passed
+
+tests/test_phase48_toda_prop44_probe.py
+21 passed
+```
+
+full:
+
+```text
+2411 passed in 58.16s
+```
+
+### 状態
+
+完了
 
 ---
 
-# 14. Testing principle
+# 14. Phase 49 candidate：concrete EHP calculation π_3^2 = Z{η_2}
+
+次の concrete target 候補:
+
+```text
+π_3^2 = Z{η_2}
+```
+
+目標は、Toda の theorem catalogue を先に広げることではなく、現在の EHP / exactness / injectivity infrastructure を具体的な低次ホモトピー群計算へ接続すること。
+
+使用する完全列:
+
+```text
+π_2^1
+-E→
+π_3^2
+-H→
+π_3^3
+-Δ→
+π_1^1
+-E→
+π_2^2
+```
+
+mathematical target path:
+
+```text
+π_2^1 = 0
++
+E-H exact
+↓
+H injective
+```
+
+```text
+E: π_1^1 → π_2^2 is isomorphism
+↓
+E injective
++
+Δ-E exact
+↓
+Im(Δ)=Ker(E)=0
+↓
+Δ=0
+```
+
+```text
+H-Δ exact
++
+Δ=0
+↓
+Im(H)=Ker(Δ)=π_3^3
+↓
+H surjective
+```
+
+therefore:
+
+```text
+H: π_3^2 → π_3^3
+is isomorphism
+```
+
+with the target generator fact:
+
+```text
+π_3^3 = Z{ι_3}
+```
+
+transport the generator back through `H`:
+
+```text
+there exists a unique η_2 ∈ π_3^2
+such that
+H(η_2)=ι_3
+```
+
+and conclude:
+
+```text
+π_3^2 = Z{η_2}
+```
+
+Phase 49 should begin with a compatibility check, not immediate implementation.
+
+Suggested subdivision:
+
+```text
+Phase 49-1
+current exactness → injective / surjective compatibility check
+
+Phase 49-2
+low-dimensional facts required by the calculation
+π_2^1 = 0
+π_3^3 = Z{ι_3}
+E: π_1^1 → π_2^2 is isomorphism
+
+Phase 49-3
+exactness + zero left term
+→ H injective
+
+Phase 49-4
+exactness + right-map injectivity
+→ Δ = 0
+→ H surjective
+
+Phase 49-5
+H injective + H surjective
+→ instance-aware H isomorphism
+
+Phase 49-6
+minimum generator transport across isomorphism
+H(η_2)=ι_3
+→ π_3^2 = Z{η_2}
+
+Phase 49-7
+representative probe / final regression / completion
+```
+
+Important scope boundary:
+
+```text
+specific generator transport needed by π_3^2
+!=
+general existential quantification engine
+```
+
+Do not introduce a general witness / uniqueness framework unless a concrete later calculation requires it.
+
+---
+
+# 15. Toda calculation backlog
+
+The following Toda results are expected to be useful in concrete calculations, but should not be implemented merely because they appear earlier in the book.
+
+```text
+Toda Lemma 1.1
+Toda Proposition 1.2
+Toda Proposition 1.3, lower displayed formula
+Toda Proposition 1.4
+Toda Proposition 1.5
+Toda Proposition 1.6
+Toda (2.1)
+Toda Proposition 2.3
+Toda Proposition 2.5, 2-primary case
+Toda Proposition 2.6
+Toda Proposition 2.7
+Toda Corollary 3.7
+Toda Lemma 4.3
+Toda Lemma 4.5
+```
+
+status:
+
+```text
+DEFERRED UNTIL CONCRETE NEED
+```
+
+implementation policy:
+
+```text
+concrete homotopy-group calculation
+↓
+identify first missing theorem / fact
+↓
+compatibility check
+↓
+minimum representation
+↓
+minimum theorem semantics
+↓
+complete the concrete calculation
+```
+
+Do not implement the Toda list sequentially as a theorem catalogue.
+
+If one item becomes a common prerequisite for several actual calculations, promote it to its own Phase at that point.
+
+Especially:
+
+```text
+Toda (2.1)
+```
+
+may become a reusable foundation, but remains deferred until an actual calculation demonstrates that need.
+
+---
+
+# 16. Development policy after Phase 48
+
+The project now has enough Chapter 4 infrastructure to shift emphasis from theorem representation alone toward concrete calculations.
+
+Preferred direction:
+
+```text
+actual calculation
+↓
+missing capability
+↓
+minimum new representation / theorem rule
+↓
+existing inference engine
+↓
+end-to-end proof
+```
+
+Avoid:
+
+```text
+implementing many Toda propositions in advance
+building a general CAS
+building general existential machinery prematurely
+generalizing generic map-property types without a concrete need
+```
+
+Near-term target:
+
+```text
+π_3^2 = Z{η_2}
+```
+
+After completion, choose the next low-dimensional homotopy group calculation based on which missing capability gives the highest reuse value.
+
+---
+
+# 17. Testing principle
 
 各 layer で:
 
