@@ -85,6 +85,13 @@ class TodaHopfInvariantIsomorphismStatement:
 
 
 @dataclass(frozen=True)
+class TodaPi32Eta2DefinitionStatement:
+  map: TodaHopfInvariantMap
+  element: HomotopyElement
+  image: HomotopyElement
+
+
+@dataclass(frozen=True)
 class Toda45IsomorphismStatement:
   map: TodaIteratedSuspensionMap
 
@@ -1492,6 +1499,395 @@ def toda_hopf_injective_surjective_implies_isomorphism_inference_rule():
       PremisePattern(
         statement_type=(
           TodaHopfInvariantSurjectiveStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_pi3_2_define_eta2_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    isomorphism = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    target_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    hopf_map = isomorphism.map
+
+    expected_source = TodaPrimaryGroup(
+      group_dimension=3,
+      sphere_dimension=2,
+    )
+
+    expected_target = TodaPrimaryGroup(
+      group_dimension=3,
+      sphere_dimension=3,
+    )
+
+    if (
+      hopf_map.source_group
+      != expected_source
+    ):
+      return False
+
+    if (
+      hopf_map.target_group
+      != expected_target
+    ):
+      return False
+
+    if (
+      target_relation.lhs
+      != expected_target
+    ):
+      return False
+
+    if not isinstance(
+      target_relation.rhs,
+      FreeCyclicGroup,
+    ):
+      return False
+
+    expected_iota_3 = HomotopyElement(
+      name="ι_3",
+      dimension=3,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=3,
+      ),
+    )
+
+    return (
+      target_relation.rhs.generator
+      == expected_iota_3
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    isomorphism = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    target_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    return TodaPi32Eta2DefinitionStatement(
+      map=isomorphism.map,
+      element=eta_2,
+      image=(
+        target_relation
+        .rhs
+        .generator
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda pi_3^2 define eta_2 "
+      "as unique Hopf preimage"
+    ),
+    description=(
+      "Because the specific Hopf "
+      "invariant map from pi_3^2 to "
+      "pi_3^3 is an isomorphism, "
+      "iota_3 has a unique preimage "
+      "in pi_3^2. Denote that unique "
+      "preimage by eta_2."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaHopfInvariantIsomorphismStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_pi3_2_eta2_hopf_relation_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    expected_source = TodaPrimaryGroup(
+      group_dimension=3,
+      sphere_dimension=2,
+    )
+
+    expected_target = TodaPrimaryGroup(
+      group_dimension=3,
+      sphere_dimension=3,
+    )
+
+    if (
+      definition.map.source_group
+      != expected_source
+    ):
+      return False
+
+    if (
+      definition.map.target_group
+      != expected_target
+    ):
+      return False
+
+    expected_eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    expected_iota_3 = HomotopyElement(
+      name="ι_3",
+      dimension=3,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=3,
+      ),
+    )
+
+    return (
+      definition.element
+      == expected_eta_2
+      and definition.image
+      == expected_iota_3
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=definition.element,
+      ),
+      rhs=definition.image,
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda pi_3^2 eta_2 "
+      "Hopf relation"
+    ),
+    description=(
+      "The element denoted eta_2 "
+      "was defined as the unique "
+      "preimage of iota_3 under the "
+      "Hopf invariant map, hence "
+      "H(eta_2)=iota_3."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaPi32Eta2DefinitionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+
+def toda_pi3_2_free_cyclic_generator_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    isomorphism = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    target_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    if (
+      definition.map
+      != isomorphism.map
+    ):
+      return False
+
+    if (
+      target_relation.lhs
+      != isomorphism.map.target_group
+    ):
+      return False
+
+    if not isinstance(
+      target_relation.rhs,
+      FreeCyclicGroup,
+    ):
+      return False
+
+    if (
+      target_relation.rhs.generator
+      != definition.image
+    ):
+      return False
+
+    expected_source = TodaPrimaryGroup(
+      group_dimension=3,
+      sphere_dimension=2,
+    )
+
+    expected_target = TodaPrimaryGroup(
+      group_dimension=3,
+      sphere_dimension=3,
+    )
+
+    if (
+      isomorphism.map.source_group
+      != expected_source
+    ):
+      return False
+
+    if (
+      isomorphism.map.target_group
+      != expected_target
+    ):
+      return False
+
+    expected_eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    return (
+      definition.element
+      == expected_eta_2
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    isomorphism = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=(
+        isomorphism
+        .map
+        .source_group
+      ),
+      rhs=FreeCyclicGroup(
+        generator=(
+          definition.element
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda pi_3^2 free cyclic "
+      "generator transport"
+    ),
+    description=(
+      "If the Hopf invariant map "
+      "from pi_3^2 to pi_3^3 is an "
+      "isomorphism, pi_3^3 is freely "
+      "generated by iota_3, and eta_2 "
+      "is defined as the unique "
+      "preimage of iota_3, then "
+      "pi_3^2 is freely generated "
+      "by eta_2."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaHopfInvariantIsomorphismStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaPi32Eta2DefinitionStatement
         ),
       ),
     ),
