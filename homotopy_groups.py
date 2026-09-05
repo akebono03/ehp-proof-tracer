@@ -27,6 +27,40 @@ class TodaPrimaryGroup:
 
 
 @dataclass(frozen=True)
+class TodaEHPSequence:
+  terms: tuple[
+    TodaPrimaryGroup,
+    ...
+  ]
+  maps: tuple[
+    MapSymbol,
+    ...
+  ]
+
+  def __post_init__(
+    self,
+  ) -> None:
+    if len(
+      self.terms
+    ) != len(
+      self.maps
+    ) + 1:
+      raise ValueError(
+        "TodaEHPSequence requires "
+        "exactly one more term than maps"
+      )
+
+
+@dataclass(frozen=True)
+class TodaEHPExactnessWindow:
+  source_term: TodaPrimaryGroup
+  middle_term: TodaPrimaryGroup
+  target_term: TodaPrimaryGroup
+  first_map: MapSymbol
+  second_map: MapSymbol
+
+
+@dataclass(frozen=True)
 class PreimageSubgroup:
   map: MapSymbol
   subgroup: PrimaryComponent

@@ -67,8 +67,18 @@ class MapIsomorphismFactRepository:
     return None
 
 
+EHP_E_MAP = MapSymbol(
+  name="E",
+)
+
+
 EHP_H_MAP = MapSymbol(
   name="H",
+)
+
+
+EHP_DELTA_MAP = MapSymbol(
+  name="Δ",
 )
 
 

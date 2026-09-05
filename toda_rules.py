@@ -19,12 +19,16 @@ from homotopy_groups import (
   FreeCyclicGroup,
   PrimaryComponent,
   PrimaryComponentMembershipStatement,
+  TodaEHPExactnessWindow,
   TodaPrimaryGroup,
 )
 from map_facts import (
+  EHP_DELTA_MAP,
+  EHP_E_MAP,
   EHP_H_MAP,
 )
 from proof import (
+  ExactnessStatement,
   InferenceRule,
   LiteratureReference,
   PremisePattern,
@@ -37,6 +41,355 @@ from scalar_rules import (
   EvenScalarStatement,
   OddScalarStatement,
 )
+
+
+@dataclass(frozen=True)
+class TodaProp42ExactnessStatement:
+  window: TodaEHPExactnessWindow
+
+
+def toda_prop42_e_h_exactness_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    window = (
+      premises[0].conclusion
+    )
+
+    if (
+      window.first_map
+      != EHP_E_MAP
+    ):
+      return False
+
+    if (
+      window.second_map
+      != EHP_H_MAP
+    ):
+      return False
+
+    source = window.source_term
+    middle = window.middle_term
+    target = window.target_term
+
+    i = source.group_dimension
+    n = source.sphere_dimension
+
+    i_plus_one = ScalarSum(
+      left=i,
+      right=1,
+    )
+
+    n_plus_one = ScalarSum(
+      left=n,
+      right=1,
+    )
+
+    two_n_plus_one = ScalarSum(
+      left=ScalarProduct(
+        left=2,
+        right=n,
+      ),
+      right=1,
+    )
+
+    return (
+      middle
+      == TodaPrimaryGroup(
+        group_dimension=i_plus_one,
+        sphere_dimension=n_plus_one,
+      )
+      and target
+      == TodaPrimaryGroup(
+        group_dimension=i_plus_one,
+        sphere_dimension=two_n_plus_one,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    window = (
+      premises[0].conclusion
+    )
+
+    return TodaProp42ExactnessStatement(
+      window=window,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 4.2 "
+      "E-H exactness"
+    ),
+    description=(
+      "Toda Proposition 4.2 states "
+      "that pi_i^n -> pi_(i+1)^(n+1) "
+      "-> pi_(i+1)^(2n+1) is exact "
+      "for the E and H maps."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaEHPExactnessWindow
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop42_h_delta_exactness_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    window = (
+      premises[0].conclusion
+    )
+
+    if (
+      window.first_map
+      != EHP_H_MAP
+    ):
+      return False
+
+    if (
+      window.second_map
+      != EHP_DELTA_MAP
+    ):
+      return False
+
+    source = window.source_term
+    middle = window.middle_term
+    target = window.target_term
+
+    target_dimension = (
+      target.group_dimension
+    )
+
+    if not isinstance(
+      target_dimension,
+      ScalarSum,
+    ):
+      return False
+
+    if (
+      target_dimension.right
+      != -1
+    ):
+      return False
+
+    i = target_dimension.left
+    n = target.sphere_dimension
+
+    i_plus_one = ScalarSum(
+      left=i,
+      right=1,
+    )
+
+    n_plus_one = ScalarSum(
+      left=n,
+      right=1,
+    )
+
+    two_n_plus_one = ScalarSum(
+      left=ScalarProduct(
+        left=2,
+        right=n,
+      ),
+      right=1,
+    )
+
+    return (
+      source
+      == TodaPrimaryGroup(
+        group_dimension=i_plus_one,
+        sphere_dimension=n_plus_one,
+      )
+      and middle
+      == TodaPrimaryGroup(
+        group_dimension=i_plus_one,
+        sphere_dimension=two_n_plus_one,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    window = (
+      premises[0].conclusion
+    )
+
+    return TodaProp42ExactnessStatement(
+      window=window,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 4.2 "
+      "H-Delta exactness"
+    ),
+    description=(
+      "Toda Proposition 4.2 states "
+      "that pi_(i+1)^(n+1) -> "
+      "pi_(i+1)^(2n+1) -> "
+      "pi_(i-1)^n is exact "
+      "for the H and Delta maps."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaEHPExactnessWindow
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop42_delta_e_exactness_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    window = (
+      premises[0].conclusion
+    )
+
+    if (
+      window.first_map
+      != EHP_DELTA_MAP
+    ):
+      return False
+
+    if (
+      window.second_map
+      != EHP_E_MAP
+    ):
+      return False
+
+    source = window.source_term
+    middle = window.middle_term
+    target = window.target_term
+
+    i = target.group_dimension
+    n = middle.sphere_dimension
+
+    i_plus_one = ScalarSum(
+      left=i,
+      right=1,
+    )
+
+    i_minus_one = ScalarSum(
+      left=i,
+      right=-1,
+    )
+
+    n_plus_one = ScalarSum(
+      left=n,
+      right=1,
+    )
+
+    two_n_plus_one = ScalarSum(
+      left=ScalarProduct(
+        left=2,
+        right=n,
+      ),
+      right=1,
+    )
+
+    return (
+      source
+      == TodaPrimaryGroup(
+        group_dimension=i_plus_one,
+        sphere_dimension=two_n_plus_one,
+      )
+      and middle
+      == TodaPrimaryGroup(
+        group_dimension=i_minus_one,
+        sphere_dimension=n,
+      )
+      and target
+      == TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=n_plus_one,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    window = (
+      premises[0].conclusion
+    )
+
+    return TodaProp42ExactnessStatement(
+      window=window,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 4.2 "
+      "Delta-E exactness"
+    ),
+    description=(
+      "Toda Proposition 4.2 states "
+      "that pi_(i+1)^(2n+1) -> "
+      "pi_(i-1)^n -> pi_i^(n+1) "
+      "is exact for the Delta and E maps."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaEHPExactnessWindow
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop42_exactness_to_generic_inference_rule():
+  def build_conclusion(
+    premises,
+  ):
+    statement = (
+      premises[0].conclusion
+    )
+
+    window = statement.window
+
+    return ExactnessStatement(
+      first_map=window.first_map,
+      second_map=window.second_map,
+      is_exact=True,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 4.2 "
+      "exactness to generic exactness"
+    ),
+    description=(
+      "A Toda Proposition 4.2 "
+      "exactness statement implies the "
+      "corresponding generic exactness "
+      "statement for its two maps."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+  )
 
 
 def toda_lemma41_odd_case_inference_rule():
