@@ -371,23 +371,6 @@ def test_phase46_1_map_typing_fact_does_not_accept_toda_group_terms_as_fields():
   )
 
 
-def test_phase46_1_current_scalar_rules_have_no_greater_equal_statement():
-  assert not hasattr(
-    scalar_rules,
-    "GreaterEqualScalarStatement",
-  )
-
-  assert not hasattr(
-    scalar_rules,
-    "ScalarGreaterEqualStatement",
-  )
-
-  assert not hasattr(
-    scalar_rules,
-    "ScalarInequalityStatement",
-  )
-
-
 def test_phase46_1_current_scalar_rules_do_not_encode_stable_range_premises():
   assert not hasattr(
     scalar_rules,
