@@ -483,13 +483,6 @@ def test_phase47_1_primary_membership_statement_cannot_type_toda_group():
   )
 
 
-def test_phase47_1_no_toda_primary_group_membership_statement_exists_yet():
-  assert not hasattr(
-    homotopy_groups,
-    "TodaPrimaryGroupMembershipStatement",
-  )
-
-
 def test_phase47_1_generic_isomorphism_statement_stores_only_map_symbol():
   type_hints = get_type_hints(
     IsomorphismStatement
