@@ -52,6 +52,15 @@ class TodaEHPSequence:
 
 
 @dataclass(frozen=True)
+class TodaEHPExactnessWindow:
+  source_term: TodaPrimaryGroup
+  middle_term: TodaPrimaryGroup
+  target_term: TodaPrimaryGroup
+  first_map: MapSymbol
+  second_map: MapSymbol
+
+
+@dataclass(frozen=True)
 class PreimageSubgroup:
   map: MapSymbol
   subgroup: PrimaryComponent
