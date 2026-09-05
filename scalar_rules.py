@@ -26,6 +26,12 @@ class EvenScalarStatement:
 
 
 @dataclass(frozen=True)
+class ScalarGreaterEqualStatement:
+  left: ScalarValue
+  right: ScalarValue
+
+
+@dataclass(frozen=True)
 class ScalarCongruenceStatement:
   scalar: ScalarSymbol
   residue: int
@@ -299,7 +305,3 @@ def mod_two_one_scalar_preserves_order_two_element_inference_rule():
       relation_type=RelationType.EQUALITY,
     ),
   )
-
-
-
-
