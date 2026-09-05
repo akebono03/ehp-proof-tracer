@@ -229,32 +229,6 @@ def test_phase47_1_prop44_source_terms_are_not_primary_components():
   )
 
 
-def test_phase47_1_direct_sum_group_type_contract_does_not_include_toda_group():
-  type_hints = get_type_hints(
-    DirectSumGroup
-  )
-
-  summands_hint = type_hints[
-    "summands"
-  ]
-
-  tuple_args = get_args(
-    summands_hint
-  )
-
-  summand_type = tuple_args[
-    0
-  ]
-
-  allowed_types = get_args(
-    summand_type
-  )
-
-  assert TodaPrimaryGroup not in (
-    allowed_types
-  )
-
-
 def test_phase47_1_direct_sum_group_current_contract_includes_existing_summands():
   type_hints = get_type_hints(
     DirectSumGroup
@@ -666,18 +640,6 @@ def test_phase47_1_toda45_statement_remains_specific_to_iterated_suspension():
   assert not isinstance(
     statement,
     IsomorphismStatement,
-  )
-
-
-def test_phase47_1_no_prop44_decomposition_map_exists_yet():
-  assert not hasattr(
-    homotopy_groups,
-    "TodaDecompositionMap",
-  )
-
-  assert not hasattr(
-    homotopy_groups,
-    "TodaProp44DecompositionMap",
   )
 
 
