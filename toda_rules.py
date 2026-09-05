@@ -21,11 +21,15 @@ from homotopy_groups import (
   FreeCyclicGroup,
   PrimaryComponent,
   PrimaryComponentMembershipStatement,
+  TodaDeltaMap,
   TodaEHPExactnessWindow,
+  TodaHopfInvariantMap,
   TodaIteratedSuspensionMap,
   TodaPrimaryGroup,
   TodaPrimaryGroupMembershipStatement,
+  TodaPrimaryGroupZeroStatement,
   TodaProp44DecompositionMap,
+  TodaSuspensionIsomorphismStatement,
   TodaSuspensionMap,
 )
 from map_facts import (
@@ -53,6 +57,38 @@ from scalar_rules import (
 @dataclass(frozen=True)
 class TodaProp42ExactnessStatement:
   window: TodaEHPExactnessWindow
+
+
+@dataclass(frozen=True)
+class TodaHopfInvariantInjectiveStatement:
+  map: TodaHopfInvariantMap
+
+
+@dataclass(frozen=True)
+class TodaSuspensionInjectiveStatement:
+  map: TodaSuspensionMap
+
+
+@dataclass(frozen=True)
+class TodaDeltaZeroStatement:
+  map: TodaDeltaMap
+
+
+@dataclass(frozen=True)
+class TodaHopfInvariantSurjectiveStatement:
+  map: TodaHopfInvariantMap
+
+
+@dataclass(frozen=True)
+class TodaHopfInvariantIsomorphismStatement:
+  map: TodaHopfInvariantMap
+
+
+@dataclass(frozen=True)
+class TodaPi32Eta2DefinitionStatement:
+  map: TodaHopfInvariantMap
+  element: HomotopyElement
+  image: HomotopyElement
 
 
 @dataclass(frozen=True)
@@ -1082,6 +1118,781 @@ def toda_prop42_exactness_to_generic_inference_rule():
       ),
     ),
     conclusion_builder=build_conclusion,
+  )
+
+
+def toda_exactness_zero_left_implies_hopf_injective_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    zero_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    window = exactness.window
+
+    if (
+      window.first_map
+      != EHP_E_MAP
+    ):
+      return False
+
+    if (
+      window.second_map
+      != EHP_H_MAP
+    ):
+      return False
+
+    if (
+      zero_statement.group
+      != window.source_term
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    window = exactness.window
+
+    hopf_map = TodaHopfInvariantMap(
+      source_group=window.middle_term,
+      target_group=window.target_term,
+    )
+
+    return TodaHopfInvariantInjectiveStatement(
+      map=hopf_map,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda EHP exactness "
+      "zero-left Hopf injectivity"
+    ),
+    description=(
+      "If an E-H Toda EHP window is "
+      "exact and its source group is "
+      "zero, then the corresponding "
+      "Hopf invariant map from the "
+      "middle group to the target "
+      "group is injective."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaPrimaryGroupZeroStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_suspension_isomorphism_implies_injective_inference_rule():
+  def build_conclusion(
+    premises,
+  ):
+    isomorphism = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return TodaSuspensionInjectiveStatement(
+      map=isomorphism.map,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda suspension isomorphism "
+      "implies injectivity"
+    ),
+    description=(
+      "An instance-aware Toda "
+      "suspension isomorphism implies "
+      "injectivity of the same "
+      "suspension map instance."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaSuspensionIsomorphismStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+  )
+
+
+def toda_exactness_injective_right_implies_delta_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    injectivity = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    window = exactness.window
+
+    if (
+      window.first_map
+      != EHP_DELTA_MAP
+    ):
+      return False
+
+    if (
+      window.second_map
+      != EHP_E_MAP
+    ):
+      return False
+
+    suspension_map = (
+      injectivity.map
+    )
+
+    if (
+      suspension_map.source_group
+      != window.middle_term
+    ):
+      return False
+
+    if (
+      suspension_map.target_group
+      != window.target_term
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    window = exactness.window
+
+    delta_map = TodaDeltaMap(
+      source_group=window.source_term,
+      target_group=window.middle_term,
+    )
+
+    return TodaDeltaZeroStatement(
+      map=delta_map,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda EHP exactness "
+      "injective-right Delta zero"
+    ),
+    description=(
+      "If a Delta-E Toda EHP window "
+      "is exact and the corresponding "
+      "suspension map E is injective, "
+      "then the preceding Delta map "
+      "is zero."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaSuspensionInjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_exactness_zero_delta_implies_hopf_surjective_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    delta_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    window = exactness.window
+
+    if (
+      window.first_map
+      != EHP_H_MAP
+    ):
+      return False
+
+    if (
+      window.second_map
+      != EHP_DELTA_MAP
+    ):
+      return False
+
+    delta_map = (
+      delta_zero.map
+    )
+
+    if (
+      delta_map.source_group
+      != window.middle_term
+    ):
+      return False
+
+    if (
+      delta_map.target_group
+      != window.target_term
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    window = exactness.window
+
+    hopf_map = TodaHopfInvariantMap(
+      source_group=window.source_term,
+      target_group=window.middle_term,
+    )
+
+    return TodaHopfInvariantSurjectiveStatement(
+      map=hopf_map,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda EHP exactness "
+      "zero-Delta Hopf surjectivity"
+    ),
+    description=(
+      "If an H-Delta Toda EHP window "
+      "is exact and the corresponding "
+      "Delta map is zero, then the "
+      "Hopf invariant map is "
+      "surjective."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaDeltaZeroStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_hopf_injective_surjective_implies_isomorphism_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    injectivity = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    surjectivity = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return (
+      injectivity.map
+      == surjectivity.map
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    injectivity = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return TodaHopfInvariantIsomorphismStatement(
+      map=injectivity.map,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Hopf invariant "
+      "injective and surjective "
+      "implies isomorphism"
+    ),
+    description=(
+      "If the same instance-aware "
+      "Toda Hopf invariant map is both "
+      "injective and surjective, then "
+      "that Hopf invariant map is an "
+      "isomorphism."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaHopfInvariantInjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaHopfInvariantSurjectiveStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_pi3_2_define_eta2_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    isomorphism = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    target_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    hopf_map = isomorphism.map
+
+    expected_source = TodaPrimaryGroup(
+      group_dimension=3,
+      sphere_dimension=2,
+    )
+
+    expected_target = TodaPrimaryGroup(
+      group_dimension=3,
+      sphere_dimension=3,
+    )
+
+    if (
+      hopf_map.source_group
+      != expected_source
+    ):
+      return False
+
+    if (
+      hopf_map.target_group
+      != expected_target
+    ):
+      return False
+
+    if (
+      target_relation.lhs
+      != expected_target
+    ):
+      return False
+
+    if not isinstance(
+      target_relation.rhs,
+      FreeCyclicGroup,
+    ):
+      return False
+
+    expected_iota_3 = HomotopyElement(
+      name="ι_3",
+      dimension=3,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=3,
+      ),
+    )
+
+    return (
+      target_relation.rhs.generator
+      == expected_iota_3
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    isomorphism = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    target_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    return TodaPi32Eta2DefinitionStatement(
+      map=isomorphism.map,
+      element=eta_2,
+      image=(
+        target_relation
+        .rhs
+        .generator
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda pi_3^2 define eta_2 "
+      "as unique Hopf preimage"
+    ),
+    description=(
+      "Because the specific Hopf "
+      "invariant map from pi_3^2 to "
+      "pi_3^3 is an isomorphism, "
+      "iota_3 has a unique preimage "
+      "in pi_3^2. Denote that unique "
+      "preimage by eta_2."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaHopfInvariantIsomorphismStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_pi3_2_eta2_hopf_relation_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    expected_source = TodaPrimaryGroup(
+      group_dimension=3,
+      sphere_dimension=2,
+    )
+
+    expected_target = TodaPrimaryGroup(
+      group_dimension=3,
+      sphere_dimension=3,
+    )
+
+    if (
+      definition.map.source_group
+      != expected_source
+    ):
+      return False
+
+    if (
+      definition.map.target_group
+      != expected_target
+    ):
+      return False
+
+    expected_eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    expected_iota_3 = HomotopyElement(
+      name="ι_3",
+      dimension=3,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=3,
+      ),
+    )
+
+    return (
+      definition.element
+      == expected_eta_2
+      and definition.image
+      == expected_iota_3
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=definition.element,
+      ),
+      rhs=definition.image,
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda pi_3^2 eta_2 "
+      "Hopf relation"
+    ),
+    description=(
+      "The element denoted eta_2 "
+      "was defined as the unique "
+      "preimage of iota_3 under the "
+      "Hopf invariant map, hence "
+      "H(eta_2)=iota_3."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaPi32Eta2DefinitionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+
+def toda_pi3_2_free_cyclic_generator_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    isomorphism = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    target_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    if (
+      definition.map
+      != isomorphism.map
+    ):
+      return False
+
+    if (
+      target_relation.lhs
+      != isomorphism.map.target_group
+    ):
+      return False
+
+    if not isinstance(
+      target_relation.rhs,
+      FreeCyclicGroup,
+    ):
+      return False
+
+    if (
+      target_relation.rhs.generator
+      != definition.image
+    ):
+      return False
+
+    expected_source = TodaPrimaryGroup(
+      group_dimension=3,
+      sphere_dimension=2,
+    )
+
+    expected_target = TodaPrimaryGroup(
+      group_dimension=3,
+      sphere_dimension=3,
+    )
+
+    if (
+      isomorphism.map.source_group
+      != expected_source
+    ):
+      return False
+
+    if (
+      isomorphism.map.target_group
+      != expected_target
+    ):
+      return False
+
+    expected_eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    return (
+      definition.element
+      == expected_eta_2
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    isomorphism = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=(
+        isomorphism
+        .map
+        .source_group
+      ),
+      rhs=FreeCyclicGroup(
+        generator=(
+          definition.element
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda pi_3^2 free cyclic "
+      "generator transport"
+    ),
+    description=(
+      "If the Hopf invariant map "
+      "from pi_3^2 to pi_3^3 is an "
+      "isomorphism, pi_3^3 is freely "
+      "generated by iota_3, and eta_2 "
+      "is defined as the unique "
+      "preimage of iota_3, then "
+      "pi_3^2 is freely generated "
+      "by eta_2."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaHopfInvariantIsomorphismStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaPi32Eta2DefinitionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
   )
 
 

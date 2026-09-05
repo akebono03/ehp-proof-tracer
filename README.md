@@ -22,23 +22,20 @@ Important boundaries:
 
 ```text
 representation
-!=
-typing
-!=
-theorem knowledge
+!= typing
+!= theorem knowledge
 ```
 
 ```text
 structural equality
-!=
-mathematical equality
+!= mathematical equality
 ```
 
 ---
 
 # Current status
 
-Completed through Phase 48.
+Completed through Phase 49.
 
 ```text
 Phase 28  map injectivity / isomorphism / equality reflection
@@ -62,251 +59,56 @@ Phase 45  Toda Proposition 4.2 2-primary EHP exact sequence
 Phase 46  Toda (4.5) stable-range E^(m-n) isomorphism
 Phase 47  Toda Proposition 4.4 decomposition isomorphism
 Phase 48  Toda Proposition 4.4 suspension E injectivity consequence
+Phase 49  concrete EHP calculation π_3^2 = Z{η_2}
 ```
 
 Current full regression:
 
 ```text
-2411 passed in 58.16s
+2557 passed in 56.45s
 ```
 
-Focused Phase 48 suites:
-
-```text
-tests/test_phase48_toda_prop44_e_injectivity_compatibility.py
-21 passed
-
-tests/test_phase48_toda_prop44_e_map.py
-22 passed
-
-tests/test_phase48_toda_prop44_first_summand_restriction.py
-22 passed
-
-tests/test_phase48_toda_prop44_e_injective_theorem.py
-26 passed
-
-tests/test_phase48_toda_prop44_e_injective_applicability.py
-22 passed
-
-tests/test_phase48_toda_prop44_probe.py
-21 passed
-```
-
-Representative Phase 48 probe:
+Representative Phase 49 probe:
 
 ```powershell
-python -m probes.probe_phase48_capabilities
+python -m probes.probe_phase49_capabilities
 ```
 
 ---
 
-# Expression model
-
-Current expression classes include:
+# Core architecture
 
 ```text
-Expression
-├── Zero
-├── HomotopyElement
-├── Multiple
-├── Sum
-├── SmashProduct
-├── WhiteheadProduct
-├── Composition
-├── MapApplication
-├── Suspension
-└── IteratedSuspension
+literature-backed theorem / explicit facts
+↓
+domain-specific inference rules
+↓
+generic ProofStep / InferenceRule machinery
+↓
+expression / statement structures
+↓
+homotopy / EHP data
+↓
+abelian-group algebra
 ```
 
-`GeneratorSymbol.index` and `HomotopyElement.dimension` accept symbolic `ScalarValue` values when needed.
-
-Scalar-expression structures include:
-
-```text
-ScalarExpression
-├── ScalarSymbol
-├── ScalarSum
-├── ScalarProduct
-└── ScalarPower
-```
-
-The expression layer remains structural syntax. Constructors do not perform theorem-aware normalization.
+The generic inference engine remains theorem-agnostic.
 
 ---
 
-# Toda Chapter 4 structural group terms
+# Toda Chapter 4 structural layer
 
-The current structural layer contains:
-
-```text
-PrimaryComponent(i,n,p)
-→ π_i(S^n;p)
-
-TodaPrimaryGroup(i,n)
-→ π_i^n
-
-PreimageSubgroup(f,A)
-→ f^-1(A)
-
-FreeCyclicGroup(generator)
-→ Z{generator}
-
-DirectSumGroup(summands)
-→ structural direct sum including FreeCyclicGroup / PrimaryComponent / TodaPrimaryGroup summands
-
-PrimaryComponentMembershipStatement(element,component)
-→ element ∈ π_i(S^n;p)
-
-TodaPrimaryGroupMembershipStatement(element,group)
-→ element ∈ π_i^n
-
-TodaProp44DecompositionMap(source_group,target_group,alpha,beta,gamma,formula)
-→ instance-aware Toda Proposition 4.4 decomposition map
-
-TodaSuspensionMap(source_group,target_group)
-→ instance-aware single suspension E map between TodaPrimaryGroup terms
-
-TodaEHPSequence(terms,maps)
-→ structural Toda EHP sequence
-
-TodaEHPExactnessWindow(
-  source_term,
-  middle_term,
-  target_term,
-  first_map,
-  second_map,
-)
-→ one instance-aware three-term EHP window
-```
-
-These remain distinct from the concrete finitely generated abelian-group calculation layer.
-
-In particular:
+Structural group terms:
 
 ```text
-PrimaryComponent
-!= AbelianGroup
-
-FreeCyclicGroup
-!= GroupComponent
-
-DirectSumGroup
-!= AbelianGroup
-
-TodaEHPSequence
-!= EHPSegment
-
-TodaEHPExactnessWindow
-!= ExactnessStatement
+PrimaryComponent(i,n,p) → π_i(S^n;p)
+TodaPrimaryGroup(i,n) → π_i^n
+PreimageSubgroup(f,A) → f^-1(A)
+FreeCyclicGroup(generator) → Z{generator}
+DirectSumGroup(summands) → structural direct sum
 ```
 
----
-
-# Whitehead-product representation
-
-Phase 42 introduced:
-
-```text
-WhiteheadProduct(a,b)
-→ [a,b]
-```
-
-with the structural distinctions:
-
-```text
-WhiteheadProduct
-!= Composition
-!= SmashProduct
-```
-
-Phase 43 introduced the minimum relation vocabulary required for Toda Lemma 4.1:
-
-```text
-[ι_{n-1},ι_{n-1}] = 0
-→ RelationType.ZERO
-
-[ι_{n-1},ι_{n-1}] != 0
-→ RelationType.INEQUALITY
-```
-
-The Whitehead product itself does not decide either relation.
-
----
-
-# Toda Lemma 4.1 case semantics
-
-Phase 44 implements the three case branches of Toda Lemma 4.1.
-
-## Odd case
-
-From:
-
-```text
-n odd
-```
-
-derive:
-
-```text
-π_{2n-1}^n
-=
-π_{2n-1}(S^n;2)
-```
-
-## Even / Whitehead nonzero case
-
-From:
-
-```text
-n even
-[ι_{n-1},ι_{n-1}] != 0
-```
-
-derive:
-
-```text
-π_{2n-1}^n
-=
-Z{P(ι_{2n+1})}
-⊕
-π_{2n-1}(S^n;2)
-```
-
-## Even / Whitehead zero case
-
-From:
-
-```text
-n even
-[ι_{n-1},ι_{n-1}] = 0
-```
-
-derive:
-
-```text
-π_{2n-1}^n
-=
-Z{α}
-⊕
-π_{2n-1}(S^n;2)
-```
-
-and:
-
-```text
-H(α)=ι_{2n-1}
-Eα ∈ π_{2n}(S^{n+1};2)
-```
-
-The group decomposition, Hopf condition, and suspension-primary condition use the same structural `α`.
-
----
-
-# Phase 45: Toda Proposition 4.2
-
-Phase 45 introduces a symbolic representation and theorem semantics for the three exact sequences in Toda Proposition 4.2.
-
-Canonical symbolic maps:
+Canonical symbolic EHP maps:
 
 ```text
 EHP_E_MAP     → E
@@ -314,1153 +116,107 @@ EHP_H_MAP     → H
 EHP_DELTA_MAP → Δ
 ```
 
-The structural sequence is:
+Instance-aware Toda maps:
 
 ```text
-π_i^n
---E→
-π_{i+1}^{n+1}
---H→
-π_{i+1}^{2n+1}
---Δ→
-π_{i-1}^n
---E→
-π_i^{n+1}
+TodaSuspensionMap(source_group,target_group)
+TodaHopfInvariantMap(source_group,target_group)
+TodaDeltaMap(source_group,target_group)
 ```
 
-This long sequence is represented by:
+Important:
+
+```text
+TodaSuspensionMap != EHP_E_MAP
+TodaHopfInvariantMap != EHP_H_MAP
+TodaDeltaMap != EHP_DELTA_MAP
+```
+
+---
+
+# Toda Proposition 4.2 exactness
+
+Structural representations:
 
 ```text
 TodaEHPSequence
-```
-
-It does not itself assert exactness.
-
----
-
-# Toda Proposition 4.2 exactness windows
-
-The proposition is represented as three exactness windows.
-
-## E-H window
-
-```text
-π_i^n
---E→
-π_{i+1}^{n+1}
---H→
-π_{i+1}^{2n+1}
-```
-
-## H-Δ window
-
-```text
-π_{i+1}^{n+1}
---H→
-π_{i+1}^{2n+1}
---Δ→
-π_{i-1}^n
-```
-
-## Δ-E window
-
-```text
-π_{i+1}^{2n+1}
---Δ→
-π_{i-1}^n
---E→
-π_i^{n+1}
-```
-
-Each window is represented by:
-
-```text
 TodaEHPExactnessWindow
 ```
 
-which stores:
-
-```text
-source_term
-middle_term
-target_term
-first_map
-second_map
-```
-
-The window object is representation only and does not contain an `is_exact` field.
-
----
-
-# Toda Proposition 4.2 theorem statements
-
-Phase 45 introduces:
+Instance-aware exactness theorem:
 
 ```text
 TodaProp42ExactnessStatement(window)
 ```
 
-This is the instance-aware theorem result that the supplied `TodaEHPExactnessWindow` is exact.
-
-The three domain rules are:
+Rules:
 
 ```text
 toda_prop42_e_h_exactness_inference_rule()
-
 toda_prop42_h_delta_exactness_inference_rule()
-
 toda_prop42_delta_e_exactness_inference_rule()
 ```
 
-Each rule checks both:
-
-```text
-map order
-symbolic group-dimension structure
-```
-
-before deriving the theorem statement.
-
-The generic inference engine is unchanged.
-
----
-
-# Instance-aware exactness
-
-A key Phase 45 distinction is:
-
-```text
-TodaProp42ExactnessStatement
-=
-instance-aware theorem knowledge
-```
-
-For example:
-
-```text
-(i,n) E-H exactness
-!=
-(j,m) E-H exactness
-```
-
-when the group terms differ.
-
-By contrast:
-
-```text
-ExactnessStatement(
-  first_map=E,
-  second_map=H,
-  is_exact=True,
-)
-```
-
-does not retain the group terms and therefore does not identify the symbolic `(i,n)` instance.
-
-The instance-aware Toda statement is the authoritative theorem result.
-
----
-
-# Generic exactness bridge
-
-Phase 45 adds:
+The generic bridge:
 
 ```text
 toda_prop42_exactness_to_generic_inference_rule()
 ```
 
-which derives:
+is intentionally instance-lossy.
 
-```text
-TodaProp42ExactnessStatement(window)
-↓
-ExactnessStatement(
-  first_map=window.first_map,
-  second_map=window.second_map,
-  is_exact=True,
-)
-```
-
-The generic projection is intentionally instance-lossy.
-
-This permits existing generic EHP exactness infrastructure to be reused without changing `ExactnessStatement`.
+Therefore `TodaProp42ExactnessStatement` remains the authoritative theorem result for a specific Toda EHP window.
 
 ---
 
-# Existing generic EHP consequences
+# Toda (4.5)
 
-The Phase 45 representative run connects Toda Proposition 4.2 to the existing zero-composition rule.
-
-```text
-E-H exact
-→ H∘E = 0
-
-H-Δ exact
-→ Δ∘H = 0
-
-Δ-E exact
-→ E∘Δ = 0
-```
-
-The end-to-end inference path is:
+Phase 46 represents the stable-range isomorphism:
 
 ```text
-TodaEHPExactnessWindow
-↓
-TodaProp42ExactnessStatement
-↓
-ExactnessStatement
-↓
-EHPZeroCompositionStatement
+E^(m-n):
+π_{n+k}^n → π_{m+k}^m
 ```
 
-Representative inference reaches fixed point in three derived rounds:
-
-```text
-round 1
-3 Toda theorem exactness statements
-
-round 2
-3 generic exactness statements
-
-round 3
-3 zero-composition statements
-
-fixed point
-```
-
----
-
-# Applicability and provenance
-
-The three Toda Proposition 4.2 rules use the same premise type:
-
-```text
-TodaEHPExactnessWindow
-```
-
-so pattern-level candidate search may return all three rules.
-
-Actual theorem applicability is determined by guard-aware matching:
-
-```text
-find_inference_match()
-```
-
-which evaluates the rule `match_guard`.
-
-Therefore:
-
-```text
-pattern-level candidate
-!=
-guard-aware inference match
-```
-
-For a valid E-H, H-Δ, or Δ-E window, exactly one of the three theorem rules produces an inference match.
-
-Every derived theorem step preserves:
-
-```text
-ProofStep.premises
-ProofStep.inference_rule
-ProofRule.INFERENCE
-```
-
-The generic bridge also preserves the Toda theorem step as its premise.
-
----
-
-# Phase 45 representative probe
-
-Run:
-
-```powershell
-python -m probes.probe_phase45_capabilities
-```
-
-Representative output includes:
-
-```text
-π_i^n -E→ π_{i+1}^{n+1} -H→ π_{i+1}^{2n+1}
-π_{i+1}^{n+1} -H→ π_{i+1}^{2n+1} -Δ→ π_{i-1}^n
-π_{i+1}^{2n+1} -Δ→ π_{i-1}^n -E→ π_i^{n+1}
-```
-
-then:
-
-```text
-E-H exact
-H-Δ exact
-Δ-E exact
-```
-
-and existing generic consequences:
-
-```text
-H∘E = 0
-Δ∘H = 0
-E∘Δ = 0
-```
-
-The representative run reports:
-
-```text
-theorem exactness count = 3
-generic exactness count = 3
-zero composition count = 3
-derived round count = 3
-fixed point = True
-```
-
----
-
-# Phase 46: Toda (4.5) stable-range suspension isomorphism
-
-Phase 46 represents and derives Toda (4.5):
+under:
 
 ```text
 n ≥ k+2
 m ≥ n
 ```
 
-implies:
-
-```text
-E^(m-n):
-π_{n+k}^n
-→
-π_{m+k}^m
-```
-
-is an isomorphism.
-
-Phase 46 keeps four layers distinct:
-
-```text
-stable-range premise representation
-!=
-iterated-suspension map representation
-!=
-Toda theorem statement
-!=
-generic map-property statement
-```
+as an instance-aware theorem statement.
 
 ---
 
-# Stable-range premise representation
+# Toda Proposition 4.4
 
-Phase 46 introduces:
-
-```text
-ScalarGreaterEqualStatement(left,right)
-```
-
-with `left` and `right` both using `ScalarValue`.
-
-Representative premises:
+Phase 47 represents:
 
 ```text
-ScalarGreaterEqualStatement(
-  left=n,
-  right=k+2,
-)
-→ n ≥ k+2
+Φ:
+π_{i-1}^{n-1} ⊕ π_i^{2n-1}
+→ π_i^n
+
+Φ(β,γ)=Eβ+α∘γ
 ```
 
-```text
-ScalarGreaterEqualStatement(
-  left=m,
-  right=n,
-)
-→ m ≥ n
-```
-
-The statement is structural only.
-
-It does not contain:
-
-```text
-evaluate()
-is_true
-solve()
-```
-
-and does not provide a general symbolic inequality solver.
-
----
-
-# Toda iterated-suspension map
-
-Phase 46 introduces:
-
-```text
-TodaIteratedSuspensionMap
-├── exponent: ScalarValue
-├── source_group: TodaPrimaryGroup
-└── target_group: TodaPrimaryGroup
-```
-
-Representative:
-
-```text
-TodaIteratedSuspensionMap(
-  exponent=m-n,
-  source_group=π_{n+k}^n,
-  target_group=π_{m+k}^m,
-)
-```
-
-This represents the map-level object:
-
-```text
-E^(m-n):
-π_{n+k}^n
-→
-π_{m+k}^m
-```
-
-Important:
-
-```text
-TodaIteratedSuspensionMap
-!= IteratedSuspension
-```
-
-`IteratedSuspension` remains an element-level expression.
-
-Also:
-
-```text
-TodaIteratedSuspensionMap
-!= MapSymbol
-```
-
-The constructor stores structure only and does not solve dimension compatibility.
-
----
-
-# Toda (4.5) theorem statement
-
-Phase 46 introduces:
-
-```text
-Toda45IsomorphismStatement(map)
-```
-
-where `map` is the specific `TodaIteratedSuspensionMap`.
-
-Meaning:
-
-```text
-the supplied iterated-suspension map
-is an isomorphism by Toda (4.5)
-```
-
-This is an instance-aware theorem result.
-
-For different symbolic source / target / exponent data:
-
-```text
-Toda45IsomorphismStatement(first_map)
-!=
-Toda45IsomorphismStatement(second_map)
-```
-
-when the underlying map instances differ.
-
----
-
-# Toda (4.5) inference rule
-
-The domain rule is:
-
-```text
-toda_45_isomorphism_inference_rule()
-```
-
-Premises:
-
-```text
-n ≥ k+2
-
-m ≥ n
-
-E^(m-n):
-π_{n+k}^n
-→
-π_{m+k}^m
-```
-
-Conclusion:
-
-```text
-Toda45IsomorphismStatement(
-  map=the supplied map instance
-)
-```
-
-The rule uses `match_guard` to verify the shared symbolic structure:
-
-```text
-stable-range right side = k+2
-second inequality = m ≥ n
-source = π_{n+k}^n
-target = π_{m+k}^m
-exponent = m-n
-```
-
-It does not evaluate whether supplied inequality premises are numerically true.
-
-Premise truth remains external theorem/fact knowledge.
-
----
-
-# Phase 46 applicability and provenance
-
-A valid representative instance derives exactly one theorem result.
-
-Invalid or mismatched structures are rejected, including:
-
-```text
-missing n ≥ k+2
-missing m ≥ n
-missing iterated-suspension map
-different n instance
-different k instance
-different m instance
-wrong source-group shape
-wrong target-group shape
-wrong exponent
-```
-
-Every derived theorem step preserves:
-
-```text
-ProofStep.premises
-ProofStep.inference_rule
-ProofRule.INFERENCE
-```
-
-Representative inference reaches fixed point in one derived round:
-
-```text
-3 GIVEN premises
-↓
-1 Toda45IsomorphismStatement
-↓
-fixed point
-```
-
----
-
-# Generic isomorphism compatibility boundary
-
-The existing generic map-property statements remain:
-
-```text
-IsomorphismStatement(map: MapSymbol)
-InjectiveMapStatement(map: MapSymbol)
-```
-
-while:
-
-```text
-TodaIteratedSuspensionMap
-!= MapSymbol
-```
-
-Therefore Phase 46 does not add:
-
-```text
-Toda45IsomorphismStatement
-→
-IsomorphismStatement
-```
-
-and does not derive a generic injectivity consequence.
-
-Important:
-
-```text
-Toda45IsomorphismStatement
-=
-instance-aware authoritative Toda theorem result
-```
-
-but there is currently no lossless type-compatible generic projection.
-
-The existing generic map-property API is not generalized merely for Phase 46.
-
----
-
-# Phase 46 representative probe
-
-Run:
-
-```powershell
-python -m probes.probe_phase46_capabilities
-```
-
-Representative output:
-
-```text
-n ≥ k+2
-m ≥ n
-
-E^(m-n): π_{n+k}^{n} → π_{m+k}^{m}
-
-E^(m-n): π_{n+k}^{n} → π_{m+k}^{m} is isomorphism
-```
-
-The representative run reports:
-
-```text
-theorem isomorphism count = 1
-premise count = 3
-derived round count = 1
-fixed point = True
-```
-
----
-
-# Phase 46 scope boundaries
-
-Implemented:
-
-```text
-ScalarGreaterEqualStatement
-symbolic n ≥ k+2
-symbolic m ≥ n
-TodaIteratedSuspensionMap
-symbolic exponent m-n
-source π_{n+k}^n
-target π_{m+k}^m
-Toda45IsomorphismStatement
-Toda (4.5) applicability guard
-invalid-case rejection
-cross-instance rejection
-theorem provenance
-one-round fixed-point representative integration
-executable Phase 46 probe
-full regression
-```
-
-Still not implemented:
-
-```text
-general symbolic inequality solver
-automatic numeric inequality verification
-general symbolic dimension solver
-symbolic map typing solver
-generic map-property type generalization
-Toda45IsomorphismStatement → IsomorphismStatement bridge
-generic InjectiveMapStatement consequence
-Toda Proposition 4.4 decomposition theorem
-Toda Proposition 4.4 consequence: E injective
-stable homotopy group model
-general Whitehead-product algebra
-automatic Whitehead-product zero / nonzero solver
-general existential witness machinery
-higher Toda brackets
-```
-
-Important:
-
-```text
-ScalarGreaterEqualStatement
-!= inequality solver
-```
-
-and:
-
-```text
-TodaIteratedSuspensionMap
-!= isomorphism theorem
-```
-
-and:
-
-```text
-Toda45IsomorphismStatement
-!= generic IsomorphismStatement
-```
-
----
-
-
-# Phase 47: Toda Proposition 4.4 decomposition isomorphism
-
-Phase 47 represents and derives Toda Proposition 4.4 in the form:
+under:
 
 ```text
 α ∈ π_{2n-1}^n
 H(α)=±ι_{2n-1}
 ```
 
-implies that the decomposition map
+and derives `TodaProp44IsomorphismStatement`.
 
-```text
-Φ:
-π_{i-1}^{n-1} ⊕ π_i^{2n-1}
-→
-π_i^n
-
-Φ(β,γ)=Eβ+α∘γ
-```
-
-is an isomorphism.
-
-Phase 47 keeps the following layers distinct:
-
-```text
-Toda group membership
-!=
-decomposition source / target representation
-!=
-decomposition map representation
-!=
-Toda Proposition 4.4 theorem statement
-!=
-generic map-property statement
-```
-
----
-
-# TodaPrimaryGroup membership
-
-Phase 47 introduces:
-
-```text
-TodaPrimaryGroupMembershipStatement
-├── element: Expression
-└── group: TodaPrimaryGroup
-```
-
-Representative:
-
-```text
-α ∈ π_{2n-1}^n
-```
-
-This remains distinct from:
-
-```text
-PrimaryComponentMembershipStatement
-→ element ∈ π_i(S^n;p)
-```
-
-The statement is structural only. Its constructor does not validate element dimensions or prove membership.
-
----
-
-# Proposition 4.4 decomposition source / target
-
-`DirectSumGroup` now accepts:
-
-```text
-FreeCyclicGroup
-PrimaryComponent
-TodaPrimaryGroup
-```
-
-as structural summands.
-
-This permits the Proposition 4.4 source:
-
-```text
-π_{i-1}^{n-1}
-⊕
-π_i^{2n-1}
-```
-
-to be represented losslessly, while the target remains:
-
-```text
-π_i^n
-```
-
-as a `TodaPrimaryGroup`.
-
-Important:
-
-```text
-DirectSumGroup
-!= AbelianGroup
-```
-
-and source representation alone does not assert any isomorphism theorem.
-
----
-
-# Toda Proposition 4.4 decomposition map
-
-Phase 47 introduces:
-
-```text
-TodaProp44DecompositionMap
-├── source_group: DirectSumGroup
-├── target_group: TodaPrimaryGroup
-├── alpha: Expression
-├── beta: Expression
-├── gamma: Expression
-└── formula: Expression
-```
-
-Representative:
-
-```text
-Φ:
-π_{i-1}^{n-1} ⊕ π_i^{2n-1}
-→
-π_i^n
-
-Φ(β,γ)=Eβ+α∘γ
-```
-
-The formula uses existing expression structures:
-
-```text
-Suspension(β)
-Composition(α,γ)
-Sum(Eβ, α∘γ)
-```
-
-The map constructor stores structure only. It does not validate source / target typing, formula validity, or theorem applicability.
-
-Important:
-
-```text
-TodaProp44DecompositionMap
-!= MapSymbol
-
-TodaProp44DecompositionMap
-!= TodaIteratedSuspensionMap
-```
-
----
-
-# Toda Proposition 4.4 theorem statement
-
-Phase 47 introduces:
-
-```text
-TodaProp44IsomorphismStatement(map)
-```
-
-where `map` is a specific `TodaProp44DecompositionMap`.
-
-Meaning:
-
-```text
-the supplied decomposition map instance
-is an isomorphism by Toda Proposition 4.4
-```
-
-Different symbolic `(i,n,α)` instances remain structurally distinct.
-
-Important:
-
-```text
-TodaProp44IsomorphismStatement
-!= Toda45IsomorphismStatement
-
-TodaProp44IsomorphismStatement
-!= IsomorphismStatement
-```
-
----
-
-# Toda Proposition 4.4 inference rule
-
-The domain rule is:
-
-```text
-toda_prop44_isomorphism_inference_rule()
-```
-
-Premises:
-
-```text
-α ∈ π_{2n-1}^n
-
-H(α)=+ι_{2n-1}
-or
-H(α)=-ι_{2n-1}
-
-TodaProp44DecompositionMap(
-  π_{i-1}^{n-1} ⊕ π_i^{2n-1}
-  →
-  π_i^n,
-  Φ(β,γ)=Eβ+α∘γ
-)
-```
-
-Conclusion:
-
-```text
-TodaProp44IsomorphismStatement(map)
-```
-
-The rule uses `match_guard` to verify one shared symbolic instance:
-
-```text
-membership degree = 2n-1
-same α in membership / Hopf relation / map
-Hopf map = H
-Hopf value = ±ι_{2n-1}
-target = π_i^n
-first source summand = π_{i-1}^{n-1}
-second source summand = π_i^{2n-1}
-formula = Eβ+α∘γ
-```
-
-The generic inference engine is unchanged.
-
----
-
-# Phase 47 applicability and provenance
-
-Valid positive- and negative-Hopf instances each derive exactly one theorem result.
-
-Invalid or mixed structures are rejected, including:
-
-```text
-missing membership premise
-missing Hopf premise
-missing decomposition map
-wrong membership degree
-different α instance
-different n instance
-wrong Hopf map
-wrong Hopf value
-wrong target sphere dimension
-reversed source summands
-wrong formula
-cross-instance premise mixing
-```
-
-Every derived theorem step preserves:
-
-```text
-ProofStep.premises
-ProofStep.inference_rule
-ProofRule.INFERENCE
-```
-
-Representative inference reaches fixed point in one derived round:
-
-```text
-3 GIVEN premises
-↓
-1 TodaProp44IsomorphismStatement
-↓
-fixed point
-```
-
----
-
-# Generic isomorphism compatibility boundary after Phase 47
-
-The existing generic map-property API remains:
-
-```text
-IsomorphismStatement(map: MapSymbol)
-InjectiveMapStatement(map: MapSymbol)
-```
-
-while:
-
-```text
-TodaProp44DecompositionMap
-!= MapSymbol
-```
-
-Therefore Phase 47 does not add:
-
-```text
-TodaProp44IsomorphismStatement
-→ IsomorphismStatement
-```
-
-and does not derive:
-
-```text
-InjectiveMapStatement
-```
-
-from the Proposition 4.4 theorem.
-
-The Proposition 4.4 consequence that suspension `E` is injective is also intentionally outside Phase 47.
-
-Important:
-
-```text
-decomposition map isomorphism
-!=
-E injectivity consequence
-```
-
----
-
-# Phase 47 representative probe
-
-Run:
-
-```powershell
-python -m probes.probe_phase47_capabilities
-```
-
-Representative output:
-
-```text
-α ∈ π_{2n-1}^{n}
-H(α) = ι_(2n-1)
-
-Φ: π_{i-1}^{n-1} ⊕ π_{i}^{2n-1} → π_{i}^{n}
-Φ(β,γ) = Eβ + α∘γ
-
-Φ: π_{i-1}^{n-1} ⊕ π_{i}^{2n-1} → π_{i}^{n} is isomorphism
-```
-
-The representative run reports:
-
-```text
-theorem isomorphism count = 1
-premise count = 3
-derived round count = 1
-fixed point = True
-```
-
----
-
-# Phase 47 scope boundaries
-
-Implemented:
-
-```text
-TodaPrimaryGroupMembershipStatement
-DirectSumGroup TodaPrimaryGroup summands
-symbolic Proposition 4.4 source / target
-TodaProp44DecompositionMap
-structural formula Eβ+α∘γ
-positive Hopf applicability
-negative Hopf applicability
-TodaProp44IsomorphismStatement
-Toda Proposition 4.4 theorem rule
-cross-instance rejection
-invalid-case rejection
-theorem provenance
-one-round fixed-point integration
-representative executable probe
-full regression
-```
-
-Still not implemented:
-
-```text
-general symbolic dimension solver
-symbolic map typing solver
-generic map-property type generalization
-Toda45IsomorphismStatement → IsomorphismStatement bridge
-TodaProp44IsomorphismStatement → IsomorphismStatement bridge
-generic injectivity consequence for Toda-specific maps
-Toda Proposition 4.4 consequence: E injective
-stable homotopy group model
-general Whitehead-product algebra
-automatic Whitehead-product zero / nonzero solver
-general existential witness machinery
-higher Toda brackets
-```
-
-Important:
-
-```text
-TodaPrimaryGroupMembershipStatement
-!= membership solver
-```
-
-```text
-TodaProp44DecompositionMap
-!= isomorphism theorem
-```
-
-```text
-TodaProp44IsomorphismStatement
-!= generic IsomorphismStatement
-```
-
----
-
-# Phase 48: Toda Proposition 4.4 suspension E injectivity consequence
-
-Phase 48 derives the Proposition 4.4 consequence that the suspension map
-
-```text
-E:
-π_{i-1}^{n-1}
-→
-π_i^n
-```
-
-is injective, while preserving the symbolic `(i,n)` source / target instance.
-
-Phase 48 keeps four layers distinct:
-
-```text
-generic E map symbol
-!=
-instance-aware Toda suspension map
-!=
-first-summand restriction semantics
-!=
-instance-aware injectivity theorem
-```
-
-## Instance-aware suspension map
-
-Phase 48 introduces:
-
-```text
-TodaSuspensionMap
-├── source_group: TodaPrimaryGroup
-└── target_group: TodaPrimaryGroup
-```
-
-Representative:
-
-```text
-E:
-π_{i-1}^{n-1}
-→
-π_i^n
-```
-
-Important:
-
-```text
-TodaSuspensionMap
-!= MapSymbol
-!= EHP_E_MAP
-!= Suspension
-!= TodaIteratedSuspensionMap
-!= TodaProp44DecompositionMap
-```
-
-The constructor stores the source / target structure only. It does not validate symbolic dimensions and does not assert injectivity.
-
-## Proposition 4.4 first-summand restriction
-
-Phase 48 introduces:
+Phase 48 adds:
 
 ```text
 TodaProp44FirstSummandRestrictionStatement
-├── decomposition_map: TodaProp44DecompositionMap
-└── suspension_map: TodaSuspensionMap
 ```
 
-Meaning:
+meaning:
 
 ```text
 Φ|_{π_{i-1}^{n-1}}
@@ -1468,290 +224,333 @@ Meaning:
 E: π_{i-1}^{n-1} → π_i^n
 ```
 
-The rule:
-
-```text
-toda_prop44_first_summand_restriction_inference_rule()
-```
-
-checks that:
-
-```text
-suspension source = first direct-sum summand
-suspension target = decomposition target
-formula = Eβ + α∘γ
-```
-
-No general direct-sum inclusion or projection machinery is introduced.
-
-## Proposition 4.4 suspension injectivity theorem
-
-Phase 48 introduces:
+then derives:
 
 ```text
 TodaProp44SuspensionInjectiveStatement
-└── map: TodaSuspensionMap
 ```
 
-Meaning:
+Important:
 
 ```text
-E: π_{i-1}^{n-1} → π_i^n
-is injective
+TodaProp44SuspensionInjectiveStatement
+!= InjectiveMapStatement(EHP_E_MAP)
 ```
 
-The domain rule is:
+---
+
+# Phase 49: concrete `π_3^2 = Z{η_2}` calculation
+
+Target EHP fragment:
 
 ```text
-toda_prop44_suspension_injective_inference_rule()
+π_2^1
+-E→ π_3^2
+-H→ π_3^3
+-Δ→ π_1^1
+-E→ π_2^2
 ```
 
-Premises:
+Low-dimensional facts:
 
 ```text
-TodaProp44IsomorphismStatement(Φ)
-
-TodaProp44FirstSummandRestrictionStatement(Φ,E)
+π_2^1 = 0
+π_3^3 = Z{ι_3}
+E: π_1^1 → π_2^2 is isomorphism
 ```
 
-Conclusion:
+Phase 49-specific statements include:
 
 ```text
-TodaProp44SuspensionInjectiveStatement(E)
+TodaPrimaryGroupZeroStatement
+TodaSuspensionIsomorphismStatement
+TodaSuspensionInjectiveStatement
+TodaHopfInvariantInjectiveStatement
+TodaDeltaZeroStatement
+TodaHopfInvariantSurjectiveStatement
+TodaHopfInvariantIsomorphismStatement
+TodaPi32Eta2DefinitionStatement
 ```
 
-The rule requires the same decomposition-map instance and checks that the suspension source is the first summand and the suspension target is the decomposition target.
+---
 
-## Phase 48 end-to-end inference
+# Phase 49 proof
 
-Representative initial premises:
+First:
 
 ```text
-α ∈ π_{2n-1}^n
-H(α)=ι_{2n-1}
-TodaProp44DecompositionMap
-TodaSuspensionMap
+π_2^1 = 0
++
+π_2^1 -E→ π_3^2 -H→ π_3^3 exact
+↓
+H: π_3^2 → π_3^3 is injective
 ```
 
-Fixed-point inference:
+Rule:
+
+```text
+toda_exactness_zero_left_implies_hopf_injective_inference_rule()
+```
+
+Next:
+
+```text
+E: π_1^1 → π_2^2 is isomorphism
+↓
+E: π_1^1 → π_2^2 is injective
+```
+
+Rule:
+
+```text
+toda_suspension_isomorphism_implies_injective_inference_rule()
+```
+
+Then:
+
+```text
+E injective
++
+π_3^3 -Δ→ π_1^1 -E→ π_2^2 exact
+↓
+Δ: π_3^3 → π_1^1 = 0
+```
+
+Rule:
+
+```text
+toda_exactness_injective_right_implies_delta_zero_inference_rule()
+```
+
+Then:
+
+```text
+π_3^2 -H→ π_3^3 -Δ→ π_1^1 exact
++
+Δ=0
+↓
+H: π_3^2 → π_3^3 is surjective
+```
+
+Rule:
+
+```text
+toda_exactness_zero_delta_implies_hopf_surjective_inference_rule()
+```
+
+Then:
+
+```text
+H injective
++
+H surjective
+↓
+H: π_3^2 → π_3^3 is isomorphism
+```
+
+Rule:
+
+```text
+toda_hopf_injective_surjective_implies_isomorphism_inference_rule()
+```
+
+---
+
+# Definition of `η_2`
+
+The central semantic point is:
+
+```text
+η_2
+!=
+an initially GIVEN element
+```
+
+Instead:
+
+```text
+H: π_3^2 → π_3^3 is isomorphism
++
+π_3^3 = Z{ι_3}
+↓
+ι_3 has a unique preimage under H
+↓
+denote that unique preimage by η_2
+```
+
+This is represented by:
+
+```text
+TodaPi32Eta2DefinitionStatement
+```
+
+and derived by:
+
+```text
+toda_pi3_2_define_eta2_inference_rule()
+```
+
+The isomorphism supplies existence and uniqueness:
+
+```text
+surjective → existence
+injective → uniqueness
+```
+
+No general existential, witness, uniqueness, or inverse-map framework is introduced.
+
+From the definition:
+
+```text
+H(η_2)=ι_3
+```
+
+is derived by:
+
+```text
+toda_pi3_2_eta2_hopf_relation_inference_rule()
+```
+
+Finally:
+
+```text
+H isomorphism
++
+π_3^3 = Z{ι_3}
++
+η_2 is the unique H-preimage of ι_3
+↓
+π_3^2 = Z{η_2}
+```
+
+by:
+
+```text
+toda_pi3_2_free_cyclic_generator_inference_rule()
+```
+
+This is a concrete generator transport rule for the actual `π_3^2` calculation, not a general cyclic-generator transport framework.
+
+---
+
+# Phase 49 end-to-end inference
+
+Initial GIVEN premises:
+
+```text
+π_2^1 = 0
+π_3^3 = Z{ι_3}
+E: π_1^1 → π_2^2 is isomorphism
+
+π_2^1 -E→ π_3^2 -H→ π_3^3 exact
+π_3^2 -H→ π_3^3 -Δ→ π_1^1 exact
+π_3^3 -Δ→ π_1^1 -E→ π_2^2 exact
+```
+
+Fixed-point result:
 
 ```text
 round 1
-TodaProp44IsomorphismStatement
-TodaProp44FirstSummandRestrictionStatement
+H: π_3^2 → π_3^3 is injective
+E: π_1^1 → π_2^2 is injective
 
 round 2
-TodaProp44SuspensionInjectiveStatement
+Δ: π_3^3 → π_1^1 = 0
+
+round 3
+H: π_3^2 → π_3^3 is surjective
+
+round 4
+H: π_3^2 → π_3^3 is isomorphism
+
+round 5
+ι_3 has a unique preimage under H;
+denote it by η_2
+
+round 6
+H(η_2)=ι_3
+π_3^2 = Z{η_2}
 
 fixed point
 ```
 
-Representative result:
+Counts:
 
 ```text
-Φ:
-π_{i-1}^{n-1} ⊕ π_i^{2n-1}
-→
-π_i^n
-is isomorphism
-
-Φ|_{π_{i-1}^{n-1}}
-=
-E: π_{i-1}^{n-1} → π_i^n
-
-E: π_{i-1}^{n-1} → π_i^n
-is injective
-```
-
-## Generic map-property boundary after Phase 48
-
-The generic API remains:
-
-```text
-IsomorphismStatement(map: MapSymbol)
-InjectiveMapStatement(map: MapSymbol)
-```
-
-while:
-
-```text
-TodaSuspensionMap
-!= MapSymbol
-```
-
-Therefore Phase 48 intentionally does not derive:
-
-```text
-InjectiveMapStatement(EHP_E_MAP)
-```
-
-from the instance-aware theorem.
-
-Important:
-
-```text
-TodaProp44SuspensionInjectiveStatement
-!= InjectiveMapStatement
-```
-
-and the instance-aware theorem remains authoritative for the specific source / target pair.
-
-## Phase 48 representative probe
-
-Run:
-
-```powershell
-python -m probes.probe_phase48_capabilities
-```
-
-Representative report:
-
-```text
-given premise count = 4
-isomorphism count = 1
-restriction count = 1
-injectivity count = 1
-derived round count = 2
-round 1 new step count = 2
-round 2 new step count = 1
+given premise count = 6
+derived step count = 8
+derived round count = 6
 fixed point = True
 ```
 
-## Phase 48 scope boundaries
+---
+
+# Phase 49 tests
+
+Focused:
+
+```text
+tests/test_phase49_concrete_pi3_2_compatibility.py  20 passed
+tests/test_phase49_low_dimensional_facts.py         19 passed
+tests/test_phase49_hopf_injectivity.py              21 passed
+tests/test_phase49_delta_hopf_surjectivity.py       26 passed
+tests/test_phase49_hopf_isomorphism.py              17 passed
+tests/test_phase49_generator_transport.py           20 passed
+tests/test_phase49_probe.py                         23 passed
+```
+
+Related:
+
+```text
+tests/test_phase45_toda_prop42_theorem_semantics.py
+16 passed
+```
+
+Full regression:
+
+```text
+2557 passed in 56.45s
+```
+
+---
+
+# Phase 49 completion boundary
 
 Implemented:
 
 ```text
-TodaSuspensionMap
-instance-aware E source / target
-TodaProp44FirstSummandRestrictionStatement
-Toda Proposition 4.4 first-summand restriction rule
-TodaProp44SuspensionInjectiveStatement
-Toda Proposition 4.4 E injectivity theorem rule
+low-dimensional facts required by π_3^2
+instance-aware E/H/Δ map semantics needed by the calculation
+H injective
+E injective
+Δ=0
+H surjective
+H isomorphism
+η_2 theorem-derived naming as the unique H-preimage of ι_3
+H(η_2)=ι_3
+π_3^2=Z{η_2}
 cross-instance rejection
-invalid-source / invalid-target rejection
 provenance
-two-round fixed-point integration
-representative executable probe
+six-round fixed-point integration
+representative probe
 full regression
 ```
 
-Still not implemented:
+Still outside Phase 49:
 
 ```text
-generic InjectiveMapStatement bridge
+general existential quantification
+general witness / uniqueness framework
+general inverse-map machinery
+general cyclic-generator transport
 generic map-property type generalization
-general direct-sum inclusion machinery
-automatic equality reflection through TodaSuspensionMap
 general symbolic dimension solver
 symbolic map typing solver
+Toda Proposition 2.7
+concrete π_4^3 calculation
 stable homotopy group model
-general existential witness machinery
 higher Toda brackets
 ```
-
----
-
-# Phase 45 historical scope boundaries
-
-Still not implemented:
-
-```text
-symbolic map typing solver
-general symbolic dimension solver
-automatic symbolic kernel/image groups for TodaEHPExactnessWindow
-instance-aware generic ExactnessStatement
-Toda (4.5) stable-range suspension isomorphism
-Toda Proposition 4.4 decomposition theorem
-Toda Proposition 4.4 consequence: E injective
-stable homotopy group model
-general Whitehead-product algebra
-automatic Whitehead-product zero / nonzero solver
-general existential witness machinery
-higher Toda brackets
-```
-
-Important:
-
-```text
-TodaEHPExactnessWindow
-!=
-exactness theorem
-```
-
-and:
-
-```text
-TodaProp42ExactnessStatement
-!=
-generic ExactnessStatement
-```
-
-and:
-
-```text
-instance-aware theorem result
-!=
-instance-lossy generic projection
-```
-
----
-
-# Tests
-
-Focused Phase 48:
-
-```powershell
-python -m pytest tests/test_phase48_toda_prop44_e_injectivity_compatibility.py -q
-python -m pytest tests/test_phase48_toda_prop44_e_map.py -q
-python -m pytest tests/test_phase48_toda_prop44_first_summand_restriction.py -q
-python -m pytest tests/test_phase48_toda_prop44_e_injective_theorem.py -q
-python -m pytest tests/test_phase48_toda_prop44_e_injective_applicability.py -q
-python -m pytest tests/test_phase48_toda_prop44_probe.py -q
-```
-
-Verified:
-
-```text
-21 passed
-22 passed
-22 passed
-26 passed
-22 passed
-21 passed
-```
-
-Related regressions:
-
-```powershell
-python -m pytest tests/test_phase47_toda_prop44_theorem_semantics.py -q
-python -m pytest tests/test_phase47_toda_prop44_applicability_compatibility.py -q
-python -m pytest tests/test_map_property_rules.py -q
-python -m pytest tests/test_inference_rule_pattern.py -q
-```
-
-Verified:
-
-```text
-22 passed
-21 passed
-26 passed
-438 passed
-```
-
-Full suite:
-
-```powershell
-python -m pytest -q
-```
-
-Verified:
-
-```text
-2411 passed in 58.16s
-```
-
-No failures.
 
 ---
 
@@ -1762,44 +561,46 @@ No failures.
 - `docs/development_log.md` — chronological implementation history
 - `docs/roadmap.md` — future capability dependency
 
-Historical limitations in the development log describe the state at that time. Current behavior is defined by the latest README and design documents.
+Historical limitations in the development log describe the state at that time.
+
+Current behavior is defined by the latest README and design documents.
 
 ---
 
 # Next development boundary
 
-Phase 48 is complete.
+Phase 49 is complete.
 
-The Toda Chapter 4 branch now contains:
+Next:
 
 ```text
-Toda Lemma 4.1 case semantics
-Toda Proposition 4.2 instance-aware EHP exactness
-Toda (4.5) stable-range E^(m-n) instance-aware isomorphism
-Toda Proposition 4.4 instance-aware decomposition isomorphism
-Toda Proposition 4.4 instance-aware suspension E injectivity consequence
+Phase 50
+concrete π_4^3 calculation
 ```
 
-The next candidate is a concrete low-dimensional calculation:
+Start with:
 
 ```text
-Phase 49 candidate
-π_3^2 = Z{η_2}
+Phase 50-1
+π_4^3 proof dependency compatibility check
 ```
 
-The planned mathematical route is:
+Known expected dependency:
 
 ```text
-π_2^1 -E→ π_3^2 -H→ π_3^3 -Δ→ π_1^1 -E→ π_2^2
+Toda Proposition 2.7
 ```
 
-using low-dimensional facts and exactness to derive that `H: π_3^2 → π_3^3` is an isomorphism, then transport the generator `ι_3` back to a unique `η_2`.
-
-Phase 49 should begin with a compatibility check and add only the minimum missing facts / theorem semantics required by this concrete calculation.
-
-Important:
+The rule remains:
 
 ```text
-concrete generator transport needed by π_3^2
-!= general existential witness engine
+actual π_4^3 proof dependency
+↓
+minimum Toda Prop.2.7 semantics
+```
+
+not:
+
+```text
+full Prop.2.7 theorem catalogue first
 ```
