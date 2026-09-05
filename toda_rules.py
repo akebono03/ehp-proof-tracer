@@ -71,6 +71,11 @@ class TodaProp44FirstSummandRestrictionStatement:
   suspension_map: TodaSuspensionMap
 
 
+@dataclass(frozen=True)
+class TodaProp44SuspensionInjectiveStatement:
+  map: TodaSuspensionMap
+
+
 def toda_prop44_first_summand_restriction_inference_rule():
   def guard(
     premises,
@@ -202,6 +207,117 @@ def toda_prop44_first_summand_restriction_inference_rule():
       PremisePattern(
         statement_type=(
           TodaSuspensionMap
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop44_suspension_injective_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    isomorphism = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    restriction = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if (
+      isomorphism.map
+      != restriction.decomposition_map
+    ):
+      return False
+
+    decomposition_map = (
+      isomorphism.map
+    )
+
+    suspension_map = (
+      restriction.suspension_map
+    )
+
+    source = (
+      decomposition_map.source_group
+    )
+
+    if (
+      len(
+        source.summands
+      )
+      != 2
+    ):
+      return False
+
+    first_summand = (
+      source.summands[
+        0
+      ]
+    )
+
+    if (
+      suspension_map.source_group
+      != first_summand
+    ):
+      return False
+
+    if (
+      suspension_map.target_group
+      != decomposition_map.target_group
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    restriction = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return (
+      TodaProp44SuspensionInjectiveStatement(
+        map=(
+          restriction.suspension_map
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 4.4 "
+      "suspension injectivity"
+    ),
+    description=(
+      "If the Toda Proposition 4.4 "
+      "decomposition map is an "
+      "isomorphism and its restriction "
+      "to the first direct-sum summand "
+      "is the supplied suspension map, "
+      "then that suspension map is "
+      "injective."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaProp44IsomorphismStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaProp44FirstSummandRestrictionStatement
         ),
       ),
     ),
