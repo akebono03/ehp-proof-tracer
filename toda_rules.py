@@ -80,6 +80,11 @@ class TodaHopfInvariantSurjectiveStatement:
 
 
 @dataclass(frozen=True)
+class TodaHopfInvariantIsomorphismStatement:
+  map: TodaHopfInvariantMap
+
+
+@dataclass(frozen=True)
 class Toda45IsomorphismStatement:
   map: TodaIteratedSuspensionMap
 
@@ -1422,6 +1427,71 @@ def toda_exactness_zero_delta_implies_hopf_surjective_inference_rule():
       PremisePattern(
         statement_type=(
           TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_hopf_injective_surjective_implies_isomorphism_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    injectivity = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    surjectivity = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return (
+      injectivity.map
+      == surjectivity.map
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    injectivity = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return TodaHopfInvariantIsomorphismStatement(
+      map=injectivity.map,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Hopf invariant "
+      "injective and surjective "
+      "implies isomorphism"
+    ),
+    description=(
+      "If the same instance-aware "
+      "Toda Hopf invariant map is both "
+      "injective and surjective, then "
+      "that Hopf invariant map is an "
+      "isomorphism."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaHopfInvariantInjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaHopfInvariantSurjectiveStatement
         ),
       ),
     ),
