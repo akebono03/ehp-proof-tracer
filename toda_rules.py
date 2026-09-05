@@ -7,8 +7,10 @@ from expression import (
   HomotopyElement,
   MapApplication,
   MapSymbol,
+  Multiple,
   ScalarProduct,
   ScalarSum,
+  Sum,
   Suspension,
   TodaBracket,
   WhiteheadProduct,
@@ -22,6 +24,8 @@ from homotopy_groups import (
   TodaEHPExactnessWindow,
   TodaIteratedSuspensionMap,
   TodaPrimaryGroup,
+  TodaPrimaryGroupMembershipStatement,
+  TodaProp44DecompositionMap,
 )
 from map_facts import (
   EHP_DELTA_MAP,
@@ -53,6 +57,250 @@ class TodaProp42ExactnessStatement:
 @dataclass(frozen=True)
 class Toda45IsomorphismStatement:
   map: TodaIteratedSuspensionMap
+
+
+@dataclass(frozen=True)
+class TodaProp44IsomorphismStatement:
+  map: TodaProp44DecompositionMap
+
+
+def toda_prop44_isomorphism_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    membership = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    hopf_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    decomposition_map = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    alpha = membership.element
+
+    group = membership.group
+
+    n = group.sphere_dimension
+
+    two_n_minus_one = ScalarSum(
+      left=ScalarProduct(
+        left=2,
+        right=n,
+      ),
+      right=-1,
+    )
+
+    if (
+      group.group_dimension
+      != two_n_minus_one
+    ):
+      return False
+
+    if (
+      decomposition_map.alpha
+      != alpha
+    ):
+      return False
+
+    expected_h_alpha = MapApplication(
+      map=EHP_H_MAP,
+      expression=alpha,
+    )
+
+    if (
+      hopf_relation.lhs
+      != expected_h_alpha
+    ):
+      return False
+
+    expected_iota = HomotopyElement(
+      name="ι_(2n-1)",
+      dimension=two_n_minus_one,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=two_n_minus_one,
+      ),
+    )
+
+    positive_hopf = (
+      hopf_relation.rhs
+      == expected_iota
+    )
+
+    negative_hopf = (
+      hopf_relation.rhs
+      == Multiple(
+        coefficient=-1,
+        expression=expected_iota,
+      )
+    )
+
+    if not (
+      positive_hopf
+      or negative_hopf
+    ):
+      return False
+
+    target = (
+      decomposition_map.target_group
+    )
+
+    if (
+      target.sphere_dimension
+      != n
+    ):
+      return False
+
+    i = target.group_dimension
+
+    source = (
+      decomposition_map.source_group
+    )
+
+    if (
+      len(
+        source.summands
+      )
+      != 2
+    ):
+      return False
+
+    first_summand = (
+      source.summands[
+        0
+      ]
+    )
+
+    second_summand = (
+      source.summands[
+        1
+      ]
+    )
+
+    if not isinstance(
+      first_summand,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    if not isinstance(
+      second_summand,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    expected_first = TodaPrimaryGroup(
+      group_dimension=ScalarSum(
+        left=i,
+        right=-1,
+      ),
+      sphere_dimension=ScalarSum(
+        left=n,
+        right=-1,
+      ),
+    )
+
+    expected_second = TodaPrimaryGroup(
+      group_dimension=i,
+      sphere_dimension=two_n_minus_one,
+    )
+
+    if (
+      first_summand
+      != expected_first
+    ):
+      return False
+
+    if (
+      second_summand
+      != expected_second
+    ):
+      return False
+
+    expected_formula = Sum(
+      left=Suspension(
+        expression=(
+          decomposition_map.beta
+        ),
+      ),
+      right=Composition(
+        left=alpha,
+        right=(
+          decomposition_map.gamma
+        ),
+      ),
+    )
+
+    return (
+      decomposition_map.formula
+      == expected_formula
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    decomposition_map = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    return (
+      TodaProp44IsomorphismStatement(
+        map=decomposition_map,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 4.4 "
+      "decomposition isomorphism"
+    ),
+    description=(
+      "If alpha belongs to "
+      "pi_(2n-1)^n and "
+      "H(alpha)=plus or minus "
+      "iota_(2n-1), Toda "
+      "Proposition 4.4 states that "
+      "the map from "
+      "pi_(i-1)^(n-1) direct sum "
+      "pi_i^(2n-1) to pi_i^n "
+      "sending (beta,gamma) to "
+      "E(beta)+alpha composed with "
+      "gamma is an isomorphism."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaPrimaryGroupMembershipStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaProp44DecompositionMap
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
 
 
 def toda_45_isomorphism_inference_rule():

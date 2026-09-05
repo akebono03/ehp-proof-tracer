@@ -4,7 +4,6 @@ from typing import (
 )
 
 import homotopy_groups
-import toda_rules
 
 from expression import (
   Composition,
@@ -636,28 +635,6 @@ def test_phase47_1_toda45_statement_remains_specific_to_iterated_suspension():
   )
 
 
-def test_phase47_1_no_prop44_isomorphism_statement_exists_yet():
-  assert not hasattr(
-    toda_rules,
-    "TodaProp44IsomorphismStatement",
-  )
-
-  assert not hasattr(
-    toda_rules,
-    "Toda44IsomorphismStatement",
-  )
-
-
-def test_phase47_1_no_prop44_theorem_rule_exists_yet():
-  assert not hasattr(
-    toda_rules,
-    "toda_prop44_isomorphism_inference_rule",
-  )
-
-  assert not hasattr(
-    toda_rules,
-    "toda_prop44_decomposition_inference_rule",
-  )
 
 
 
