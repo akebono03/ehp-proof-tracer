@@ -22,7 +22,7 @@ future capability dependency
 
 ---
 
-# 2. Phase 45 完了時点
+# 2. Phase 46 完了時点
 
 Completed chain:
 
@@ -45,132 +45,128 @@ Phase 42  WhiteheadProduct minimum representation
 Phase 43  Toda Lemma 4.1 premise minimum representation
 Phase 44  Toda Lemma 4.1 case semantics
 Phase 45  Toda Proposition 4.2 2-primary EHP exact sequence
+Phase 46  Toda (4.5) stable-range E^(m-n) isomorphism
 ```
 
 Current full regression:
 
 ```text
-2060 passed in 70.48s
+2143 passed in 64.31s
 ```
 
 Representative probe:
 
 ```powershell
-python -m probes.probe_phase45_capabilities
+python -m probes.probe_phase46_capabilities
 ```
 
 ---
 
-# 3. Phase 45 completed capabilities
+# 3. Phase 46 completed capabilities
 
 ```text
-canonical symbolic E
-canonical symbolic H
-canonical symbolic Δ
-TodaEHPSequence
-TodaEHPExactnessWindow
-TodaProp42ExactnessStatement
-Toda Prop.4.2 E-H exactness rule
-Toda Prop.4.2 H-Δ exactness rule
-Toda Prop.4.2 Δ-E exactness rule
-instance-aware exactness
-guard-aware theorem applicability
+ScalarGreaterEqualStatement
+symbolic n ≥ k+2
+symbolic m ≥ n
+TodaIteratedSuspensionMap
+symbolic exponent m-n
+source π_{n+k}^n
+target π_{m+k}^m
+Toda45IsomorphismStatement
+Toda (4.5) theorem rule
+guard-aware applicability
+invalid-case rejection
+cross-instance rejection
 theorem provenance
-Toda exactness → generic ExactnessStatement bridge
-existing generic EHP zero-composition reuse
-three-round fixed-point integration
+one-round fixed-point integration
 representative probe
 ```
 
 ---
 
-# 4. Toda Proposition 4.2 completed theorem branch
+# 4. Toda (4.5) completed theorem branch
+
+premises:
 
 ```text
-π_i^n
--E→
-π_{i+1}^{n+1}
--H→
-π_{i+1}^{2n+1}
+n ≥ k+2
+m ≥ n
 ```
 
-is exact.
+map:
 
 ```text
-π_{i+1}^{n+1}
--H→
-π_{i+1}^{2n+1}
--Δ→
-π_{i-1}^n
+E^(m-n):
+π_{n+k}^n
+→
+π_{m+k}^m
 ```
 
-is exact.
+theorem result:
 
 ```text
-π_{i+1}^{2n+1}
--Δ→
-π_{i-1}^n
--E→
-π_i^{n+1}
+Toda45IsomorphismStatement(
+  map=<specific TodaIteratedSuspensionMap>
+)
 ```
 
-is exact.
-
-Generic consequences now reusable:
+meaning:
 
 ```text
-H∘E = 0
-Δ∘H = 0
-E∘Δ = 0
+the supplied E^(m-n) map instance
+is an isomorphism by Toda (4.5)
 ```
 
 ---
 
-# 5. Phase 45 architecture result
+# 5. Phase 46 architecture result
 
 ```text
-TodaEHPSequence
+ScalarGreaterEqualStatement
 =
-long structural sequence
+structural inequality premise
 ```
 
 ```text
-TodaEHPExactnessWindow
+TodaIteratedSuspensionMap
 =
-instance-aware three-term structural window
+instance-aware map-level source / target / exponent structure
 ```
 
 ```text
-TodaProp42ExactnessStatement
+Toda45IsomorphismStatement
 =
-instance-aware theorem exactness
+instance-aware Toda theorem isomorphism
 ```
 
+Current generic boundary:
+
 ```text
-ExactnessStatement
+IsomorphismStatement.map
 =
-instance-lossy generic exactness projection
-```
+MapSymbol
 
-```text
-EHPZeroCompositionStatement
+InjectiveMapStatement.map
 =
-existing generic exactness consequence
+MapSymbol
 ```
 
-End-to-end:
+therefore:
 
 ```text
-TodaEHPExactnessWindow
-↓
-TodaProp42ExactnessStatement
-↓
-ExactnessStatement
-↓
-EHPZeroCompositionStatement
+TodaIteratedSuspensionMap
+!= MapSymbol
 ```
 
-generic inference engine は変更していない。
+and Phase 46 intentionally does not add:
+
+```text
+Toda45IsomorphismStatement
+→ IsomorphismStatement
+→ InjectiveMapStatement
+```
+
+generic inference engine and generic map-property API remain unchanged.
 
 ---
 
@@ -200,7 +196,11 @@ symbolic map typing solver
 general symbolic dimension solver
 automatic symbolic image/kernel group construction
 instance-aware generic ExactnessStatement
-Toda (4.5) stable-range suspension isomorphism
+general symbolic inequality solver
+automatic numeric inequality validation
+generic map-property type generalization
+Toda45IsomorphismStatement → IsomorphismStatement bridge
+generic injectivity consequence for TodaIteratedSuspensionMap
 Toda Prop.4.4 decomposition isomorphism
 Toda Prop.4.4 consequence: E injective on π_i^n
 stable homotopy group model
@@ -249,8 +249,8 @@ higher Toda brackets
 | Toda Prop.4.2 Δ-E exactness | IMPLEMENTED | 45 |
 | Toda exactness → generic exactness bridge | IMPLEMENTED | 45 |
 | Toda Prop.4.2 → zero-composition reuse | IMPLEMENTED | 45 |
-| Toda (4.5) `E^(m-n)` isomorphism | NEXT | 46 candidate |
-| Toda Prop.4.4 decomposition isomorphism | PLANNED | later |
+| Toda (4.5) `E^(m-n)` isomorphism | IMPLEMENTED | 46 |
+| Toda Prop.4.4 decomposition isomorphism | NEXT | 47 candidate |
 | Toda Prop.4.4 `E` injectivity consequence | PLANNED | later |
 | stable homotopy | PLANNED | later |
 | higher Toda bracket | DEFERRED | concrete need |
@@ -322,10 +322,11 @@ Toda Lemma 4.1 case semantics COMPLETE
 Phase 45
 Toda Prop.4.2 2-primary EHP exact sequence COMPLETE
 ↓
-Phase 46 candidate
+Phase 46
 Toda (4.5)
-stable-range E^(m-n) isomorphism
+stable-range E^(m-n) isomorphism COMPLETE
 ↓
+Phase 47 candidate
 Toda Prop.4.4
 π_i^n decomposition isomorphism
 ↓
@@ -338,14 +339,13 @@ existing equality / ZERO reflection machinery
 
 ---
 
-# 9. Phase 46 candidate：Toda (4.5)
-
-NEXT。
+# 9. Phase 46：Toda (4.5) COMPLETE
 
 Toda (4.5):
 
 ```text
 n ≥ k+2
+m ≥ n
 ```
 
 のとき:
@@ -355,45 +355,140 @@ E^(m-n):
 π_{n+k}^n
 →
 π_{m+k}^m
-
-(m ≥ n)
 ```
 
 は isomorphism。
 
-Phase 45 までで Chapter 4 の critical group structure と 2-primary EHP exactness が theorem-level に接続されたため、次は stable-range suspension isomorphism が自然。
-
-実装前 compatibility check:
+implemented layers:
 
 ```text
-IteratedSuspension
-existing map isomorphism statement
-TodaPrimaryGroup
-symbolic scalar inequalities
-symbolic E^(m-n) representation
-symbolic domain / codomain compatibility
-Toda (4.5) exact statement
+ScalarGreaterEqualStatement
+↓
+TodaIteratedSuspensionMap
+↓
+Toda45IsomorphismStatement
 ```
 
-Phase 46 で確認すべき点:
+applicability:
 
 ```text
-existing IteratedSuspension を map-level E^(m-n) に再利用できるか
-existing Isomorphism statement が symbolic map / group terms を保持できるか
-n ≥ k+2 / m ≥ n premise を current scalar statements で表せるか
-TodaPrimaryGroup source / target を lossless に保持できるか
-theorem provenance を current ProofStep で保持できるか
+n ≥ k+2
+m ≥ n
+source = π_{n+k}^n
+target = π_{m+k}^m
+exponent = m-n
+```
+
+を同一 symbolic instance として guard-aware に確認。
+
+representative:
+
+```text
+3 GIVEN premises
+↓
+1 Toda45IsomorphismStatement
+↓
+fixed point
+```
+
+generic map-property bridge は type boundary のため deferred。
+
+---
+
+# 10. Phase 46 verified status
+
+focused:
+
+```text
+tests/test_phase46_toda_45_compatibility.py
+17 passed
+
+tests/test_phase46_toda_45_stable_range_premise.py
+11 passed
+
+tests/test_phase46_toda_45_suspension_map.py
+15 passed
+
+tests/test_phase46_toda_45_theorem_semantics.py
+14 passed
+
+tests/test_phase46_toda_45_applicability_compatibility.py
+16 passed
+
+tests/test_phase46_toda_45_probe.py
+10 passed
+```
+
+related:
+
+```text
+tests/test_toda_rules.py
+66 passed
+
+tests/test_map_property_rules.py
+26 passed
+
+tests/test_inference_rule_pattern.py
+438 passed
+```
+
+full:
+
+```text
+2143 passed in 64.31s
+```
+
+probe:
+
+```powershell
+python -m probes.probe_phase46_capabilities
+```
+
+result:
+
+```text
+n ≥ k+2
+m ≥ n
+
+E^(m-n): π_{n+k}^{n} → π_{m+k}^{m}
+
+E^(m-n): π_{n+k}^{n} → π_{m+k}^{m} is isomorphism
+
+theorem isomorphism count = 1
+premise count = 3
+derived round count = 1
+fixed point = True
 ```
 
 ---
 
-# 10. Phase 46 non-goals
+# 11. Phase 47 candidate：Toda Proposition 4.4
 
-Phase 46 では先取りしない:
+NEXT。
+
+最初は compatibility check。
+
+確認対象:
 
 ```text
-Toda Prop.4.4
-Toda Prop.4.4 decomposition theorem
+Toda Proposition 4.4 の正確な decomposition statement
+TodaPrimaryGroup
+PrimaryComponent
+PreimageSubgroup
+DirectSumGroup
+必要な source / target group representation
+必要な instance-aware isomorphism statement
+Toda (4.5) との dependency
+後続の E injectivity consequence
+```
+
+Phase 47 の最初の目的は、current structures のどこまでをそのまま再利用できるか確認すること。
+
+まだ先取りしない:
+
+```text
+generic map-property type generalization
+automatic generic isomorphism bridge
 Toda Prop.4.4 E injectivity consequence
 general stable homotopy theory
 general symbolic inequality solver
@@ -403,25 +498,9 @@ automatic Whitehead zero / nonzero solver
 general existential witness engine
 ```
 
-実装順序:
-
-```text
-compatibility check
-↓
-minimum representation
-↓
-theorem rule
-↓
-applicability / provenance
-↓
-representative probe
-↓
-full regression
-```
-
 ---
 
-# 11. Testing principle
+# 12. Testing principle
 
 各 layer で:
 
@@ -438,73 +517,3 @@ full regression
 11. executable probe
 
 を確認する。
-
----
-
-# 12. Phase 45 verified status
-
-focused:
-
-```text
-tests/test_phase45_toda_prop42_compatibility.py
-17 passed
-
-tests/test_phase45_toda_prop42_sequence.py
-19 passed
-
-tests/test_phase45_toda_prop42_exactness_compatibility.py
-17 passed
-
-tests/test_phase45_toda_prop42_exactness_instance.py
-18 passed
-
-tests/test_phase45_toda_prop42_theorem_semantics.py
-16 passed
-
-tests/test_phase45_toda_prop42_bridge.py
-16 passed
-```
-
-related:
-
-```text
-tests/test_toda_rules.py
-66 passed
-
-tests/test_ehp_rules.py
-26 passed
-
-tests/test_inference_rule_pattern.py
-438 passed
-```
-
-full:
-
-```text
-2060 passed in 70.48s
-```
-
-probe:
-
-```powershell
-python -m probes.probe_phase45_capabilities
-```
-
-result:
-
-```text
-π_i^n -E→ π_{i+1}^{n+1} -H→ π_{i+1}^{2n+1}
-π_{i+1}^{n+1} -H→ π_{i+1}^{2n+1} -Δ→ π_{i-1}^n
-π_{i+1}^{2n+1} -Δ→ π_{i-1}^n -E→ π_i^{n+1}
-
-E-H exact
-H-Δ exact
-Δ-E exact
-
-H∘E = 0
-Δ∘H = 0
-E∘Δ = 0
-
-derived round count = 3
-fixed point = True
-```

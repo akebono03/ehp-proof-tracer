@@ -1239,3 +1239,564 @@ existing generic inference engine
 を維持する。
 
 Toda Prop.4.4 は先取りしない。
+
+
+---
+
+# Phase 46：Toda (4.5) stable-range E^(m-n) isomorphism
+
+目的:
+
+Toda (4.5):
+
+```text
+n ≥ k+2
+m ≥ n
+```
+
+のもとで:
+
+```text
+E^(m-n):
+π_{n+k}^n
+→
+π_{m+k}^m
+```
+
+が isomorphism であることを、symbolic instance を保持した theorem semantics として表現する。
+
+Toda Prop.4.4 は Phase 46 では先取りしない。
+
+---
+
+## Phase 46-1：Toda (4.5) compatibility check
+
+production code 変更なし。
+
+確認:
+
+```text
+TodaPrimaryGroup
+→ n+k / m+k symbolic dimensions を保持可能
+
+ScalarSum / ScalarProduct
+→ n+k / m+k / m-n を structural に保持可能
+
+IteratedSuspension.exponent
+→ symbolic ScalarValue を保持可能
+
+IteratedSuspension
+→ element-level expression
+→ map-level source / target は保持しない
+
+IsomorphismStatement
+→ map: MapSymbol のみ
+→ source / target Toda group instance を保持しない
+
+MapTypingFact
+→ concrete int dimensions
+
+n ≥ k+2 / m ≥ n
+→ current scalar statement では未表現
+```
+
+focused:
+
+```text
+tests/test_phase46_toda_45_compatibility.py
+18 passed
+```
+
+Phase 46-2 実装後、greater-equal absence test 1件を obsolete として削除。
+
+最終:
+
+```text
+tests/test_phase46_toda_45_compatibility.py
+17 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 46-2：stable-range premise minimum representation
+
+追加:
+
+```text
+ScalarGreaterEqualStatement
+├── left: ScalarValue
+└── right: ScalarValue
+```
+
+representable:
+
+```text
+n ≥ k+2
+m ≥ n
+```
+
+important:
+
+```text
+inequality representation
+!= inequality solver
+```
+
+`evaluate()` / `is_true` / `solve()` は追加しない。
+
+verified:
+
+```text
+tests/test_phase46_toda_45_stable_range_premise.py
+11 passed
+
+tests/test_scalar_rules.py
+18 passed
+```
+
+この時点の full regression:
+
+```text
+2088 passed in 72.56s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 46-3：E^(m-n) map / source-target minimum representation
+
+追加:
+
+```text
+TodaIteratedSuspensionMap
+├── exponent: ScalarValue
+├── source_group: TodaPrimaryGroup
+└── target_group: TodaPrimaryGroup
+```
+
+representative:
+
+```text
+E^(m-n):
+π_{n+k}^n
+→
+π_{m+k}^m
+```
+
+important:
+
+```text
+TodaIteratedSuspensionMap
+!= IteratedSuspension
+!= MapSymbol
+```
+
+constructor は dimension compatibility を solve しない。
+
+verified:
+
+```text
+tests/test_phase46_toda_45_suspension_map.py
+15 passed
+
+tests/test_phase46_toda_45_compatibility.py
+17 passed
+
+tests/test_phase46_toda_45_stable_range_premise.py
+11 passed
+
+tests/test_phase40_toda_primary_group.py
+24 passed
+
+tests/test_phase45_toda_prop42_sequence.py
+19 passed
+
+tests/test_phase45_toda_prop42_exactness_instance.py
+18 passed
+
+tests/test_phase33_barratt_hilton.py
+73 passed
+
+full suite
+2103 passed in 69.58s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 46-4：Toda (4.5) isomorphism theorem semantics
+
+追加:
+
+```text
+Toda45IsomorphismStatement
+└── map: TodaIteratedSuspensionMap
+```
+
+追加:
+
+```text
+toda_45_isomorphism_inference_rule()
+```
+
+premises:
+
+```text
+n ≥ k+2
+m ≥ n
+E^(m-n): π_{n+k}^n → π_{m+k}^m
+```
+
+conclusion:
+
+```text
+Toda45IsomorphismStatement(map)
+```
+
+`match_guard` で:
+
+```text
+k+2
+m ≥ n relation
+source π_{n+k}^n
+target π_{m+k}^m
+exponent m-n
+```
+
+の同一 symbolic instance を確認。
+
+general inequality evaluation は行わない。
+
+verified:
+
+```text
+tests/test_phase46_toda_45_theorem_semantics.py
+14 passed
+
+tests/test_phase46_toda_45_compatibility.py
+17 passed
+
+tests/test_phase46_toda_45_stable_range_premise.py
+11 passed
+
+tests/test_phase46_toda_45_suspension_map.py
+15 passed
+
+tests/test_toda_rules.py
+66 passed
+
+tests/test_inference_rule_pattern.py
+438 passed
+
+full suite
+2117 passed in 68.55s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 46-5：applicability / invalid cases / provenance / generic isomorphism compatibility
+
+production code 変更なし。
+
+確認:
+
+```text
+valid instance
+→ exactly one Toda45IsomorphismStatement
+
+missing premise
+→ reject
+
+different n / k / m instance
+→ reject
+
+derived theorem
+→ all three premises preserved
+
+derived theorem
+→ inference_rule preserved
+
+one-round fixed point
+```
+
+generic compatibility:
+
+```text
+IsomorphismStatement.map
+=
+MapSymbol
+
+InjectiveMapStatement.map
+=
+MapSymbol
+
+TodaIteratedSuspensionMap
+!= MapSymbol
+```
+
+したがって:
+
+```text
+Toda45IsomorphismStatement
+→ IsomorphismStatement
+```
+
+bridge は Phase 46 では追加しない。
+
+generic injectivity consequence も追加しない。
+
+verified:
+
+```text
+tests/test_phase46_toda_45_applicability_compatibility.py
+16 passed
+
+tests/test_phase46_toda_45_compatibility.py
+17 passed
+
+tests/test_phase46_toda_45_stable_range_premise.py
+11 passed
+
+tests/test_phase46_toda_45_suspension_map.py
+15 passed
+
+tests/test_phase46_toda_45_theorem_semantics.py
+14 passed
+
+tests/test_map_property_rules.py
+26 passed
+
+tests/test_map_facts.py
+54 passed
+
+tests/test_toda_rules.py
+66 passed
+
+tests/test_inference_rule_pattern.py
+438 passed
+
+full suite
+2133 passed in 73.15s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 46-6：representative probe / final regression
+
+追加:
+
+```text
+probes/probe_phase46_capabilities.py
+```
+
+追加:
+
+```text
+tests/test_phase46_toda_45_probe.py
+```
+
+representative output:
+
+```text
+n ≥ k+2
+m ≥ n
+
+E^(m-n): π_{n+k}^{n} → π_{m+k}^{m}
+
+E^(m-n): π_{n+k}^{n} → π_{m+k}^{m} is isomorphism
+```
+
+provenance / fixed point:
+
+```text
+theorem isomorphism count = 1
+premise count = 3
+derived round count = 1
+fixed point = True
+```
+
+verified:
+
+```text
+tests/test_phase46_toda_45_probe.py
+10 passed
+
+tests/test_phase46_toda_45_applicability_compatibility.py
+16 passed
+
+tests/test_phase46_toda_45_theorem_semantics.py
+14 passed
+
+tests/test_phase46_toda_45_suspension_map.py
+15 passed
+
+tests/test_phase46_toda_45_stable_range_premise.py
+11 passed
+
+tests/test_phase46_toda_45_compatibility.py
+17 passed
+
+tests/test_toda_rules.py
+66 passed
+
+tests/test_map_property_rules.py
+26 passed
+
+tests/test_inference_rule_pattern.py
+438 passed
+
+full suite
+2143 passed in 64.31s
+```
+
+probe:
+
+```powershell
+python -m probes.probe_phase46_capabilities
+```
+
+正常完走。
+
+### 状態
+
+完了
+
+---
+
+## Phase 46-7：Phase 46 completion
+
+Phase 46 で完成:
+
+```text
+ScalarGreaterEqualStatement
+symbolic n ≥ k+2
+symbolic m ≥ n
+TodaIteratedSuspensionMap
+symbolic exponent m-n
+source π_{n+k}^n
+target π_{m+k}^m
+Toda45IsomorphismStatement
+Toda (4.5) theorem semantics
+guard-aware applicability
+invalid-case rejection
+cross-instance rejection
+theorem provenance
+one-round fixed-point integration
+representative executable probe
+full regression
+```
+
+generic inference engine:
+
+```text
+変更なし
+```
+
+generic map-property API:
+
+```text
+変更なし
+```
+
+Phase 46 completion status:
+
+```text
+full suite
+2143 passed in 64.31s
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 46 completion boundary
+
+実装済み:
+
+```text
+n ≥ k+2
+m ≥ n
+
+E^(m-n):
+π_{n+k}^n
+→
+π_{m+k}^m
+
+is isomorphism by Toda (4.5)
+```
+
+instance-aware theorem:
+
+```text
+Toda45IsomorphismStatement(
+  map=TodaIteratedSuspensionMap(...)
+)
+```
+
+未実装:
+
+```text
+general symbolic inequality solver
+automatic numeric inequality validation
+general symbolic dimension solver
+symbolic map typing solver
+generic map-property type generalization
+Toda45IsomorphismStatement → IsomorphismStatement bridge
+generic InjectiveMapStatement consequence
+Toda Prop.4.4
+Toda Prop.4.4 E injectivity consequence
+stable homotopy
+general Whitehead algebra
+automatic Whitehead zero / nonzero solver
+general existential witness machinery
+higher Toda brackets
+```
+
+---
+
+# 次の Phase
+
+```text
+Phase 47 candidate
+Toda Proposition 4.4
+decomposition-isomorphism compatibility check
+```
+
+最初に current representation との compatibility を確認する。
+
+特に:
+
+```text
+TodaPrimaryGroup
+PrimaryComponent
+PreimageSubgroup
+DirectSumGroup
+Toda Prop.4.4 の exact decomposition statement
+必要な instance-aware isomorphism object
+Toda (4.5) との依存
+後続 E injectivity consequence
+```
+
+を確認する。
+
+Phase 47 の compatibility check より前に generic map-property API を拡張しない。

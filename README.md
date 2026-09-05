@@ -38,7 +38,7 @@ mathematical equality
 
 # Current status
 
-Completed through Phase 45.
+Completed through Phase 46.
 
 ```text
 Phase 28  map injectivity / isomorphism / equality reflection
@@ -59,12 +59,13 @@ Phase 42  WhiteheadProduct minimum representation
 Phase 43  Toda Lemma 4.1 premise minimum representation
 Phase 44  Toda Lemma 4.1 case semantics
 Phase 45  Toda Proposition 4.2 2-primary EHP exact sequence
+Phase 46  Toda (4.5) stable-range E^(m-n) isomorphism
 ```
 
 Current full regression:
 
 ```text
-2060 passed in 70.48s
+2143 passed in 64.31s
 ```
 
 Focused Phase 45 suites:
@@ -603,7 +604,381 @@ fixed point = True
 
 ---
 
-# Phase 45 scope boundaries
+# Phase 46: Toda (4.5) stable-range suspension isomorphism
+
+Phase 46 represents and derives Toda (4.5):
+
+```text
+n ≥ k+2
+m ≥ n
+```
+
+implies:
+
+```text
+E^(m-n):
+π_{n+k}^n
+→
+π_{m+k}^m
+```
+
+is an isomorphism.
+
+Phase 46 keeps four layers distinct:
+
+```text
+stable-range premise representation
+!=
+iterated-suspension map representation
+!=
+Toda theorem statement
+!=
+generic map-property statement
+```
+
+---
+
+# Stable-range premise representation
+
+Phase 46 introduces:
+
+```text
+ScalarGreaterEqualStatement(left,right)
+```
+
+with `left` and `right` both using `ScalarValue`.
+
+Representative premises:
+
+```text
+ScalarGreaterEqualStatement(
+  left=n,
+  right=k+2,
+)
+→ n ≥ k+2
+```
+
+```text
+ScalarGreaterEqualStatement(
+  left=m,
+  right=n,
+)
+→ m ≥ n
+```
+
+The statement is structural only.
+
+It does not contain:
+
+```text
+evaluate()
+is_true
+solve()
+```
+
+and does not provide a general symbolic inequality solver.
+
+---
+
+# Toda iterated-suspension map
+
+Phase 46 introduces:
+
+```text
+TodaIteratedSuspensionMap
+├── exponent: ScalarValue
+├── source_group: TodaPrimaryGroup
+└── target_group: TodaPrimaryGroup
+```
+
+Representative:
+
+```text
+TodaIteratedSuspensionMap(
+  exponent=m-n,
+  source_group=π_{n+k}^n,
+  target_group=π_{m+k}^m,
+)
+```
+
+This represents the map-level object:
+
+```text
+E^(m-n):
+π_{n+k}^n
+→
+π_{m+k}^m
+```
+
+Important:
+
+```text
+TodaIteratedSuspensionMap
+!= IteratedSuspension
+```
+
+`IteratedSuspension` remains an element-level expression.
+
+Also:
+
+```text
+TodaIteratedSuspensionMap
+!= MapSymbol
+```
+
+The constructor stores structure only and does not solve dimension compatibility.
+
+---
+
+# Toda (4.5) theorem statement
+
+Phase 46 introduces:
+
+```text
+Toda45IsomorphismStatement(map)
+```
+
+where `map` is the specific `TodaIteratedSuspensionMap`.
+
+Meaning:
+
+```text
+the supplied iterated-suspension map
+is an isomorphism by Toda (4.5)
+```
+
+This is an instance-aware theorem result.
+
+For different symbolic source / target / exponent data:
+
+```text
+Toda45IsomorphismStatement(first_map)
+!=
+Toda45IsomorphismStatement(second_map)
+```
+
+when the underlying map instances differ.
+
+---
+
+# Toda (4.5) inference rule
+
+The domain rule is:
+
+```text
+toda_45_isomorphism_inference_rule()
+```
+
+Premises:
+
+```text
+n ≥ k+2
+
+m ≥ n
+
+E^(m-n):
+π_{n+k}^n
+→
+π_{m+k}^m
+```
+
+Conclusion:
+
+```text
+Toda45IsomorphismStatement(
+  map=the supplied map instance
+)
+```
+
+The rule uses `match_guard` to verify the shared symbolic structure:
+
+```text
+stable-range right side = k+2
+second inequality = m ≥ n
+source = π_{n+k}^n
+target = π_{m+k}^m
+exponent = m-n
+```
+
+It does not evaluate whether supplied inequality premises are numerically true.
+
+Premise truth remains external theorem/fact knowledge.
+
+---
+
+# Phase 46 applicability and provenance
+
+A valid representative instance derives exactly one theorem result.
+
+Invalid or mismatched structures are rejected, including:
+
+```text
+missing n ≥ k+2
+missing m ≥ n
+missing iterated-suspension map
+different n instance
+different k instance
+different m instance
+wrong source-group shape
+wrong target-group shape
+wrong exponent
+```
+
+Every derived theorem step preserves:
+
+```text
+ProofStep.premises
+ProofStep.inference_rule
+ProofRule.INFERENCE
+```
+
+Representative inference reaches fixed point in one derived round:
+
+```text
+3 GIVEN premises
+↓
+1 Toda45IsomorphismStatement
+↓
+fixed point
+```
+
+---
+
+# Generic isomorphism compatibility boundary
+
+The existing generic map-property statements remain:
+
+```text
+IsomorphismStatement(map: MapSymbol)
+InjectiveMapStatement(map: MapSymbol)
+```
+
+while:
+
+```text
+TodaIteratedSuspensionMap
+!= MapSymbol
+```
+
+Therefore Phase 46 does not add:
+
+```text
+Toda45IsomorphismStatement
+→
+IsomorphismStatement
+```
+
+and does not derive a generic injectivity consequence.
+
+Important:
+
+```text
+Toda45IsomorphismStatement
+=
+instance-aware authoritative Toda theorem result
+```
+
+but there is currently no lossless type-compatible generic projection.
+
+The existing generic map-property API is not generalized merely for Phase 46.
+
+---
+
+# Phase 46 representative probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase46_capabilities
+```
+
+Representative output:
+
+```text
+n ≥ k+2
+m ≥ n
+
+E^(m-n): π_{n+k}^{n} → π_{m+k}^{m}
+
+E^(m-n): π_{n+k}^{n} → π_{m+k}^{m} is isomorphism
+```
+
+The representative run reports:
+
+```text
+theorem isomorphism count = 1
+premise count = 3
+derived round count = 1
+fixed point = True
+```
+
+---
+
+# Phase 46 scope boundaries
+
+Implemented:
+
+```text
+ScalarGreaterEqualStatement
+symbolic n ≥ k+2
+symbolic m ≥ n
+TodaIteratedSuspensionMap
+symbolic exponent m-n
+source π_{n+k}^n
+target π_{m+k}^m
+Toda45IsomorphismStatement
+Toda (4.5) applicability guard
+invalid-case rejection
+cross-instance rejection
+theorem provenance
+one-round fixed-point representative integration
+executable Phase 46 probe
+full regression
+```
+
+Still not implemented:
+
+```text
+general symbolic inequality solver
+automatic numeric inequality verification
+general symbolic dimension solver
+symbolic map typing solver
+generic map-property type generalization
+Toda45IsomorphismStatement → IsomorphismStatement bridge
+generic InjectiveMapStatement consequence
+Toda Proposition 4.4 decomposition theorem
+Toda Proposition 4.4 consequence: E injective
+stable homotopy group model
+general Whitehead-product algebra
+automatic Whitehead-product zero / nonzero solver
+general existential witness machinery
+higher Toda brackets
+```
+
+Important:
+
+```text
+ScalarGreaterEqualStatement
+!= inequality solver
+```
+
+and:
+
+```text
+TodaIteratedSuspensionMap
+!= isomorphism theorem
+```
+
+and:
+
+```text
+Toda45IsomorphismStatement
+!= generic IsomorphismStatement
+```
+
+---
+
+# Phase 45 historical scope boundaries
 
 Still not implemented:
 
@@ -650,33 +1025,33 @@ instance-lossy generic projection
 
 # Tests
 
-Focused Phase 45:
+Focused Phase 46:
 
 ```powershell
-python -m pytest tests/test_phase45_toda_prop42_compatibility.py -q
-python -m pytest tests/test_phase45_toda_prop42_sequence.py -q
-python -m pytest tests/test_phase45_toda_prop42_exactness_compatibility.py -q
-python -m pytest tests/test_phase45_toda_prop42_exactness_instance.py -q
-python -m pytest tests/test_phase45_toda_prop42_theorem_semantics.py -q
-python -m pytest tests/test_phase45_toda_prop42_bridge.py -q
+python -m pytest tests/test_phase46_toda_45_compatibility.py -q
+python -m pytest tests/test_phase46_toda_45_stable_range_premise.py -q
+python -m pytest tests/test_phase46_toda_45_suspension_map.py -q
+python -m pytest tests/test_phase46_toda_45_theorem_semantics.py -q
+python -m pytest tests/test_phase46_toda_45_applicability_compatibility.py -q
+python -m pytest tests/test_phase46_toda_45_probe.py -q
 ```
 
 Verified:
 
 ```text
 17 passed
-19 passed
-17 passed
-18 passed
+11 passed
+15 passed
+14 passed
 16 passed
-16 passed
+10 passed
 ```
 
 Related regressions:
 
 ```powershell
 python -m pytest tests/test_toda_rules.py -q
-python -m pytest tests/test_ehp_rules.py -q
+python -m pytest tests/test_map_property_rules.py -q
 python -m pytest tests/test_inference_rule_pattern.py -q
 ```
 
@@ -697,7 +1072,7 @@ python -m pytest -q
 Verified:
 
 ```text
-2060 passed in 70.48s
+2143 passed in 64.31s
 ```
 
 No failures.
@@ -717,17 +1092,26 @@ Historical limitations in the development log describe the state at that time. C
 
 # Next development boundary
 
-Phase 45 is complete.
+Phase 46 is complete.
 
-The Toda Chapter 4 branch now contains theorem-level, instance-aware exactness semantics for Toda Proposition 4.2 and a bridge into the existing generic exactness infrastructure.
+The Toda Chapter 4 branch now contains:
+
+```text
+Toda Lemma 4.1 case semantics
+Toda Proposition 4.2 instance-aware EHP exactness
+Toda (4.5) stable-range E^(m-n) instance-aware isomorphism
+```
 
 The next planned branch is:
 
 ```text
-Toda (4.5)
-stable-range E^(m-n) isomorphism
+Phase 47 candidate
+Toda Proposition 4.4
+decomposition-isomorphism compatibility check
 ```
 
-Before implementation, the current iterated-suspension representation, map isomorphism statements, symbolic dimension handling, and exact formulation of Toda (4.5) should be checked.
+Before implementing Toda Proposition 4.4, the exact decomposition statement, required source / target group structures, relationship to existing `PrimaryComponent` / `PreimageSubgroup` / `TodaPrimaryGroup`, and the later route to `E` injectivity should be checked.
 
-Toda Proposition 4.4 remains later and must not be introduced as part of the Toda (4.5) compatibility phase.
+Phase 47 should begin with compatibility only.
+
+It should not immediately generalize the generic map-property API or treat the Phase 46 Toda isomorphism as a generic `IsomorphismStatement`.
