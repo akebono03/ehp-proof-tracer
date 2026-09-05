@@ -43,7 +43,7 @@ class ScalarPower(ScalarExpression):
 @dataclass(frozen=True)
 class GeneratorSymbol:
   family: str
-  index: int | None = None
+  index: ScalarValue | None = None
   decoration: str | None = None
 
 
@@ -105,7 +105,7 @@ class Zero(Expression):
 @dataclass(frozen=True)
 class HomotopyElement(Expression):
   name: str
-  dimension: int
+  dimension: ScalarValue
   source: int | None = None
   target: int | None = None
   generator: GeneratorSymbol | None = None

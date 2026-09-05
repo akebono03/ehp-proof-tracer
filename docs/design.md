@@ -54,7 +54,7 @@ homotopy / EHP data
 abelian-group algebra
 ```
 
-Phase 35–38 でも generic inference engine 自体は変更していない。
+Phase 44 でも generic inference engine は変更していない。
 
 ---
 
@@ -69,6 +69,7 @@ Expression
 ├── Multiple
 ├── Sum
 ├── SmashProduct
+├── WhiteheadProduct
 ├── Composition
 ├── MapApplication
 ├── Suspension
@@ -77,27 +78,13 @@ Expression
 
 constructor は theorem-aware normalization を行わない。
 
-例えば:
-
-```text
-Suspension(Multiple(2,ι₁))
-!= structural
-Multiple(2,ι₂)
-```
-
-```text
-IteratedSuspension(x,1)
-!= structural
-Suspension(x)
-```
-
-必要な数学的同値は `RelationType.EQUALITY` として proof-level に導出する。
+必要な数学的同値は proof-level `Relation` として導出する。
 
 ---
 
 # 4. Scalar-expression layer
 
-Barratt–Hilton に必要な minimum scalar tree:
+minimum scalar tree:
 
 ```text
 ScalarExpression
@@ -107,1637 +94,108 @@ ScalarExpression
 └── ScalarPower
 ```
 
-representable:
+`ScalarValue` により integer / symbolic scalar expression を共通に扱う。
+
+Phase 44 では:
 
 ```text
-p+k
-q+h
-(p+k)h
-ph
-(-1)^((p+k)h)
-(-1)^(ph)
+n-1
+2n-1
+2n
+2n+1
+n+1
 ```
 
-これは general-purpose CAS ではない。
+を structural scalar expression として保持する。
 
-自動では行わない:
-
-```text
-p+k=k+p
-ph=hp
-(p+k)h=ph+kh
-(-1)^2=1
-```
+general-purpose CAS は導入しない。
 
 ---
 
-# 5. Parity / sign semantics
+# 5. Symbolic generator index
 
-proof-level statements:
+Phase 44 では Toda Lemma 4.1 の symbolic Whitehead premise が必要になったため `GeneratorSymbol.index` は `ScalarValue | None` を受ける。
+
+これにより:
 
 ```text
-OddScalarStatement
-EvenScalarStatement
-ScalarSignEvaluationStatement
+ι_{n-1}
+ι_{2n-1}
+ι_{2n+1}
 ```
 
-rules:
+を structural に保持できる。
+
+同様に `HomotopyElement.dimension` は symbolic `ScalarValue` を保持できる。
+
+ただし `source` / `target` の symbolic typing までは拡張しない。
+
+---
+
+# 6. WhiteheadProduct
+
+production object:
 
 ```text
-n even
-↓
-(-1)^n=1
+WhiteheadProduct
+├── left: Expression
+└── right: Expression
 ```
 
+representative:
+
 ```text
-n odd
-↓
-(-1)^n=-1
+[ι_{n-1},ι_{n-1}]
 ```
 
 重要:
 
 ```text
-scalar expression structure
-↛
-automatic parity
+WhiteheadProduct
+!= Composition
+!= SmashProduct
 ```
 
-Phase 35 concrete case でも:
-
-```text
-1·0 is even
-```
-
-を explicit premise として与える。
+Whitehead-product constructor は zero theorem、nonzero theorem、bilinearity、antisymmetry、typing theorem を持たない。
 
 ---
 
-# 6. Symbolic Multiple
+# 7. Whitehead zero / nonzero premise
 
-`Multiple.coefficient` は integer / symbolic scalar の両方を保持できる。
-
-bridge:
+Phase 43 から:
 
 ```text
-(-1)^n=1
-↓
-(-1)^n X=X
+RelationType.ZERO
+RelationType.INEQUALITY
 ```
 
+を使用する。
+
+zero:
+
 ```text
-(-1)^n=-1
-↓
-(-1)^n X=-X
+[ι_{n-1},ι_{n-1}] = 0
 ```
 
-Phase 35 では concrete Barratt–Hilton sign:
+nonzero:
 
 ```text
-(-1)^(1·0)
-```
-
-に同じ machinery を再利用する。
-
----
-
-# 7. IteratedSuspension
-
-symbolic exponent を保持できる:
-
-```text
-E^q a
-E^(p+k)b
-```
-
-typing boundary:
-
-```text
-integer exponent
-→ existing source / target shift
-```
-
-```text
-symbolic exponent
-→ source=None
-→ target=None
-```
-
-Phase 35 では `E^1x=Ex` を constructor normalization にせず、明示的 equality bridge:
-
-```text
-iterated_suspension_one_bridge_inference_rule()
-```
-
-で接続する。
-
----
-
-# 8. SmashProduct boundary
-
-`SmashProduct(left,right)` は structural syntax。
-
-一般には未実装:
-
-```text
-source / target typing
-commutativity theorem
-associativity theorem
-normalization
-general smash-product algebra
-```
-
-Toda Prop.3.1 の正しい premise がある場合にのみ Barratt–Hilton equality を導出する。
-
----
-
-# 9. HomotopyGroupMembershipStatement
-
-Phase 34 で symbolic applicability 用に導入した。
-
-Phase 35 では actual multiple:
-
-```text
-2ι₁
-```
-
-も element として保持する必要が生じたため:
-
-```text
-element: Expression
-```
-
-へ拡張した。
-
-representable:
-
-```text
-2ι₁ ∈ π₁(S¹)
+[ι_{n-1},ι_{n-1}] != 0
 ```
 
 重要:
 
 ```text
-HomotopyGroupMembershipStatement
+ZERO
 !=
-automatic expression typing
+INEQUALITY
 ```
 
-membership fact から arbitrary nested expression の source / target を自動推論しない。
-
----
-
-# 10. Barratt–Hilton concrete scalar sum policy
-
-symbolic Toda Prop.3.1 では:
-
-```text
-p+k
-q+h
-```
-
-を `ScalarSum` として保持する。
-
-Phase 35 actual case では:
-
-```text
-p=1
-k=0
-```
-
-のとき theorem applicability が:
-
-```text
-π₁(S¹)
-```
-
-と一致する必要がある。
-
-そのため Barratt–Hilton rule 内だけで:
-
-```text
-concrete int + int
-→ Python integer sum
-```
-
-を行う。
-
-一方:
-
-```text
-symbolic + symbolic
-→ ScalarSum
-```
-
-のまま。
-
-これは general constant-folding / scalar normalization ではない。
+既存 equality / zero inference rules は relation-type strict のまま。
 
 ---
 
-# 11. Toda Prop.3.1 theorem rules
-
-first:
-
-```text
-a ∈ π_{p+k}(S^p)
-b ∈ π_{q+h}(S^q)
-↓
-a∧b
-=
-(-1)^((p+k)h)
-(E^q a∘E^(p+k)b)
-```
-
-second:
-
-```text
-a ∈ π_{p+k}(S^p)
-b ∈ π_{q+h}(S^q)
-↓
-a∧b
-=
-(-1)^(ph)
-(E^p b∘E^(q+h)a)
-```
-
-literature provenance:
-
-```text
-Toda Prop.3.1
-H. Toda
-Composition Methods in Homotopy Groups of Spheres
-1962
-Proposition 3.1
-```
-
-Phase 35 concrete instantiation:
-
-```text
-a=2ι₁
-b=2ι₁
-p=1
-q=1
-k=0
-h=0
-```
-
-gives:
-
-```text
-2ι₁∧2ι₁
-=
-(-1)^(1·0)
-(E^1(2ι₁)∘E^1(2ι₁))
-```
-
----
-
-# 12. Actual Hopf fact layer
-
-Phase 35 で `hopf_facts.py` に actual fact を追加した。
-
-```text
-H(η₂)=ι₃
-```
-
-representation:
-
-```text
-HopfInvariantStatement(
-  expression=η₂,
-  value=ι₃,
-)
-```
-
-provenance:
-
-```text
-Toda Prop.5.1
-H. Toda
-Composition Methods in Homotopy Groups of Spheres
-1962
-Proposition 5.1
-```
-
-既存 bridge により:
-
-```text
-HopfInvariantStatement
-↓
-Relation(
-  MapApplication(EHP_H_MAP,η₂),
-  ι₃,
-  EQUALITY
-)
-```
-
-へ接続する。
-
----
-
-# 13. Suspension facts
-
-Phase 35 actual calculation では identity suspension を explicit facts とする。
-
-```text
-Eι₁=ι₂
-Eι₂=ι₃
-```
-
-general:
-
-```text
-Eι_n=ι_{n+1}
-```
-
-theorem solver は追加していない。
-
-actual need に必要な `n=1,2` の facts のみ。
-
----
-
-# 14. Suspension homomorphism / Multiple bridge
-
-generic homomorphism layer には:
-
-```text
-f(kx)=k f(x)
-```
-
-がある。
-
-一方 Phase 35 の formula は dedicated `Suspension(...)` syntax を使用する。
-
-そこで:
-
-```text
-MapApplication(SUSPENSION_MAP,kx)
-=
-k MapApplication(SUSPENSION_MAP,x)
-```
-
-を:
-
-```text
-Suspension(kx)
-=
-k Suspension(x)
-```
-
-へ移す narrow bridge を追加した。
-
-この bridge と explicit suspension facts により:
-
-```text
-E(2ι₁)=2ι₂
-E(2ι₂)=2ι₃
-```
-
-を proof-level に導出できる。
-
----
-
-# 15. Equality under Multiple
-
-Phase 35 で generic equality transport の必要形を追加した。
-
-```text
-x=y
-↓
-kx=ky
-```
-
-これは symbolic algebra normalization ではなく、ordinary equality congruence の一方向 rule。
-
-actual suspension facts:
-
-```text
-Eι₁=ι₂
-```
-
-から:
-
-```text
-2Eι₁=2ι₂
-```
-
-を作るために使用する。
-
----
-
-# 16. Nested integer Multiple
-
-Phase 35 actual `4ι₃` 計算のため:
-
-```text
-m(nx)=(mn)x
-```
-
-を concrete integer coefficient に限定して追加した。
-
-代表:
-
-```text
-2(2ι₃)=4ι₃
-```
-
-symbolic coefficient multiplication は行わない。
-
----
-
-# 17. Directed Toda (2.1)
-
-Phase 35 actual calculation に必要な方向のみ追加:
-
-```text
-a∘(kb)
-=
-k(a∘b)
-```
-
-provenance:
-
-```text
-Toda (2.1)
-```
-
-重要:
-
-```text
-directed rule
-!=
-general composition bilinearity
-```
-
-未実装:
-
-```text
-(a₁+a₂)∘b
-a∘(b₁+b₂)
-general bidirectional distribution / collection
-```
-
-Phase 35 の具体例:
-
-```text
-2ι₃∘2ι₃
-=
-2((2ι₃)∘ι₃)
-```
-
-に使用する。
-
----
-
-# 18. Explicit identity-map premise
-
-`ιₙ` の notation だけから identity semantics を自動付与しない。
-
-proof-level:
-
-```text
-IdentityMapStatement(
-  element=ι₃
-)
-```
-
-を explicit premise とする。
-
-この premise から:
-
-```text
-x∘ι₃=x
-```
-
-を導出できる。
-
-Phase 35 では:
-
-```text
-2ι₃∘ι₃=2ι₃
-4ι₃∘ι₃=4ι₃
-```
-
-に利用する。
-
----
-
-# 19. Actual H equality preservation
-
-Phase 35-7 で canonical actual `H` に限定した congruence を追加した。
-
-```text
-x=y
-↓
-H(x)=H(y)
-```
-
-implementation は:
-
-```text
-EHP_H_MAP
-```
-
-に固定される。
-
-重要:
-
-```text
-canonical actual H congruence
-!=
-universal arbitrary-map congruence
-```
-
-任意の `MapSymbol f` に自動一般化しない。
-
----
-
-# 20. Concrete Phase 35 chain
-
-まず:
-
-```text
-E(2ι₁)=2ι₂
-```
-
-よって:
-
-```text
-(E(2ι₁))∘η₂
-=
-(2ι₂)∘η₂
-```
-
-actual H congruence:
-
-```text
-H((E(2ι₁))∘η₂)
-=
-H((2ι₂)∘η₂)
-```
-
-Toda Prop.2.2 left:
-
-```text
-H((E(2ι₁))∘η₂)
-=
-E(2ι₁∧2ι₁)∘H(η₂)
-```
-
-Barratt–Hilton:
-
-```text
-2ι₁∧2ι₁
-=
-(-1)^(1·0)
-(E^1(2ι₁)∘E^1(2ι₁))
-```
-
-explicit parity:
-
-```text
-1·0 is even
-↓
-(-1)^(1·0)=1
-```
-
-therefore:
-
-```text
-2ι₁∧2ι₁
-=
-E^1(2ι₁)∘E^1(2ι₁)
-```
-
-Suspension / functoriality:
-
-```text
-E(2ι₁∧2ι₁)
-=
-2ι₃∘2ι₃
-```
-
-Toda (2.1), identity, nested Multiple:
-
-```text
-2ι₃∘2ι₃
-=
-4ι₃
-```
-
-Toda Prop.5.1:
-
-```text
-H(η₂)=ι₃
-```
-
-したがって:
-
-```text
-E(2ι₁∧2ι₁)∘H(η₂)
-=
-4ι₃
-```
-
-最終的に:
-
-```text
-H((2ι₂)∘η₂)
-=
-4ι₃
-```
-
----
-
-# 21. Provenance design
-
-Phase 35 representative proof graph では:
-
-```text
-Toda Prop.2.2 left
-Toda Prop.3.1
-Toda Prop.5.1
-Toda (2.1)
-```
-
-を dependency として追跡する。
-
-さらに:
-
-```text
-explicit parity
-explicit suspension facts
-explicit identity fact
-homomorphism proof
-generic equality transport
-```
-
-も `ProofStep.premises` に残る。
-
-generic transitivity が作る final `Relation` にすべての literature metadata を複製しない。
-
-proof graph を provenance の正本とする。
-
----
-
-# 22. Phase 35 scope regression
-
-固定した boundary:
-
-```text
-H equality preservation
-→ canonical EHP_H_MAP only
-```
-
-```text
-H equality preservation
-→ equality premise required
-```
-
-```text
-Toda (2.1)
-→ right integer multiple direction only
-```
-
-```text
-identity composition
-→ explicit IdentityMapStatement required
-```
-
-```text
-H(4η₂)
-↛
-4H(η₂) automatically
-```
-
-```text
-H((2ι₂)η₂)=4ι₃
-+
-Injective(H)
-↛
-(2ι₂)η₂=4η₂
-```
-
-理由:
-
-injective reflection が要求するのは:
-
-```text
-Injective(H)
-+
-H(a)=H(b)
-↓
-a=b
-```
-
-であり:
-
-```text
-H(a)=4ι₃
-```
-
-だけではない。
-
----
-
-# 23. Representative probe
-
-Phase 35 probe:
-
-```powershell
-python -m probes.probe_phase35_capabilities
-```
-
-表示する主要 chain:
-
-```text
-[1] E(2ι₁)=2ι₂
-[2] concrete Toda Prop.3.1
-[3] explicit parity
-[4] sign reduction
-[5] E(2ι₁∧2ι₁)=4ι₃
-[6] Toda (2.1)
-[7] H(η₂)=ι₃
-[8] Toda Prop.2.2 left
-[9] Prop.2.2 RHS calculation
-[10] actual H equality transport
-[RESULT] H((2ι₂)∘η₂)=4ι₃
-```
-
-probe は production APIs / existing inference rules を再利用し、別の数学実装を持たない。
-
----
-
-# 24. Test policy
-
-各 mathematical layer で:
-
-1. representation
-2. structural distinction
-3. applicability
-4. invalid-case behavior
-5. typing compatibility
-6. integration
-7. provenance
-8. representative scenario
-9. scope
-10. full regression
-11. executable probe
-
-を確認する。
-
-```text
-pytest
-=
-correctness / regression
-```
-
-```text
-probe
-=
-人間が目で追える mathematical capability
-```
-
----
-
-# 25. Phase 35 verified status
-
-focused:
-
-```text
-tests/test_phase35_actual_h_calculation.py
-53 passed
-```
-
-related:
-
-```text
-tests/test_hopf_rules.py
-31 passed
-```
-
-```text
-tests/test_homomorphism_rules.py
-39 passed
-```
-
-```text
-tests/test_relation_rules.py
-50 passed
-```
-
-```text
-tests/test_phase34_barratt_hilton.py
-35 passed
-```
-
-full:
-
-```text
-1673 passed in 23.33s
-```
-
-probe:
-
-```powershell
-python -m probes.probe_phase35_capabilities
-```
-
-正常完走。
-
----
-
-# 26. Phase 35 completion boundary
-
-実装済み:
-
-```text
-actual H(η₂)=ι₃ fact
-actual ι₁ / ι₂ Suspension facts
-concrete Barratt-Hilton applicability
-concrete scalar-sum handling inside theorem parameters
-concrete parity / sign reduction
-Suspension Multiple bridge
-E^1-to-E proof bridge
-equality transport through Multiple
-nested integer Multiple
-directed Toda (2.1)
-explicit identity composition
-canonical actual H equality preservation
-E(2ι₁)=2ι₂
-E(2ι₂)=2ι₃
-E(2ι₁∧2ι₁)=4ι₃
-H((2ι₂)η₂)=4ι₃
-representative probe
-final regression
-```
-
-未実装:
-
-```text
-H(4η₂)=4ι₃
-H((2ι₂)η₂)=H(4η₂)
-(2ι₂)η₂=4η₂
-general scalar CAS
-automatic compound parity
-general SmashProduct typing / algebra
-general composition bilinearity
-unrestricted Toda (2.1) rewrites
-universal arbitrary-map congruence
-automatic identity semantics from generator notation
-stable homotopy group model
-stable Toda brackets
-higher Toda brackets
-```
-
----
-
-# 27. 次の設計境界
-
-次の数学的 branch:
-
-```text
-H(4η₂)
-↓ H homomorphism / multiple calculation
-4H(η₂)
-↓ H(η₂)=ι₃
-4ι₃
-```
-
-その後:
-
-```text
-H((2ι₂)η₂)=4ι₃
-H(4η₂)=4ι₃
-↓
-H((2ι₂)η₂)=H(4η₂)
-```
-
-既存:
-
-```text
-Isomorphism(H)
-↓
-Injective(H)
-```
-
-と:
-
-```text
-Injective(H)
-+
-H(a)=H(b)
-↓
-a=b
-```
-
-を再利用して:
-
-```text
-(2ι₂)η₂=4η₂
-```
-
-へ進む。
-
-次 Phase でも actual need に必要な最小 capability だけを追加し、general algebra を先取りしない。
-
-
----
-
-# 28. Actual H homomorphism materialization
-
-Phase 36 では actual `EHP_H_MAP` に対する homomorphism property を proof graph に供給する必要が生じた。
-
-既存 generic machinery:
-
-```text
-Homomorphism(f)
-↓
-f(kx)=k f(x)
-```
-
-はそのまま再利用する。
-
-追加した narrow production API:
-
-```text
-ehp_h_homomorphism_proof_step()
-```
-
-返す statement:
-
-```text
-HomomorphismStatement(
-  map=EHP_H_MAP,
-)
-```
-
-これは actual `H` の既知 property の materialization であり、map-property inference の一般化ではない。
-
-重要:
-
-```text
-Isomorphism(H)
-↛
-Homomorphism(H) automatically
-```
-
-```text
-MapSymbol(f)
-↛
-Homomorphism(f) automatically
-```
-
-Phase 13 以来の automatic `Homomorphism(H)` / arbitrary-map homomorphism discovery を導入しない boundary を維持する。
-
----
-
-# 29. Phase 36 actual H Multiple calculation
-
-actual element:
-
-```text
-4η₂
-```
-
-は既存 `Multiple` で表現する。
-
-actual homomorphism premise と generic rule:
-
-```text
-Homomorphism(H)
-+
-homomorphism_preserves_multiple_inference_rule(
-  coefficient=4,
-  expression=η₂,
-)
-```
-
-から:
-
-```text
-H(4η₂)=4H(η₂)
-```
-
-を導出する。
-
-専用 `H Multiple` expression / bridge は追加しない。`MapApplication(EHP_H_MAP, ...)` が actual `H` application の canonical representation である。
-
----
-
-# 30. Toda Prop.5.1 substitution under Multiple
-
-Phase 35 で実装済みの actual equality:
-
-```text
-H(η₂)=ι₃
-```
-
-に既存 generic equality congruence:
-
-```text
-x=y
-↓
-kx=ky
-```
-
-を `k=4` で適用し:
-
-```text
-4H(η₂)=4ι₃
-```
-
-を導出する。
-
-新しい substitution engine / scalar normalization は追加しない。
-
----
-
-# 31. Phase 36 transitivity closure
-
-2 branch:
-
-```text
-H(4η₂)=4H(η₂)
-```
-
-```text
-4H(η₂)=4ι₃
-```
-
-の middle expression は structural に同一:
-
-```text
-Multiple(
-  coefficient=4,
-  expression=MapApplication(
-    map=EHP_H_MAP,
-    expression=ETA_2,
-  ),
-)
-```
-
-したがって existing equality transitivity により:
-
-```text
-H(4η₂)=4ι₃
-```
-
-を得る。
-
-専用 final theorem rule は追加しない。
-
----
-
-# 32. Phase 36 provenance
-
-代表 proof graph:
-
-```text
-actual Homomorphism(H)
-↓
-homomorphism preserves multiple
-↓
-H(4η₂)=4H(η₂)
-
-Toda Prop.5.1
-↓
-H(η₂)=ι₃
-↓
-equality preserved under multiple
-↓
-4H(η₂)=4ι₃
-
-↓ equality transitivity
-H(4η₂)=4ι₃
-```
-
-Toda provenance の正本は Phase 35 の `ETA_2_HOPF_INVARIANT_FACT` に保持される。final transitivity Relation に literature metadata を複製しない。
-
----
-
-# 33. Phase 36 scope regression
-
-固定する boundary:
-
-```text
-actual Homomorphism(H)
-→ canonical EHP_H_MAP only
-```
-
-```text
-Isomorphism(H)
-↛ Homomorphism(H)
-```
-
-```text
-arbitrary MapSymbol
-↛ automatic Homomorphism
-```
-
-```text
-H((2ι₂)η₂)=4ι₃
-+
-H(4η₂)=4ι₃
-↛
-direct transitivity
-```
-
-```text
-Injective(H)
-+
-H((2ι₂)η₂)=4ι₃
-↛
-(2ι₂)η₂=4η₂
-```
-
-Phase 37 でまず:
-
-```text
-H((2ι₂)η₂)=H(4η₂)
-```
-
-を構成する必要がある。
-
----
-
-# 34. Phase 36 representative probe
-
-```powershell
-python -m probes.probe_phase36_capabilities
-```
-
-表示 chain:
-
-```text
-[1] Actual H homomorphism
-    Homomorphism(H)
-
-[2] H multiple calculation
-    H(4η₂)=4H(η₂)
-
-[3] Toda Prop.5.1
-    H(η₂)=ι₃
-
-[4] Equality under Multiple
-    4H(η₂)=4ι₃
-
-[RESULT]
-    H(4η₂)=4ι₃
-```
-
-probe は production APIs / existing inference rules を再利用し、別の数学実装を持たない。
-
----
-
-# 35. Phase 36 verified status
-
-focused:
-
-```text
-tests/test_phase36_actual_h_multiple.py
-14 passed
-```
-
-related:
-
-```text
-tests/test_homomorphism_rules.py
-39 passed
-
-tests/test_hopf_rules.py
-31 passed
-
-tests/test_relation_rules.py
-50 passed
-
-tests/test_map_property_rules.py
-26 passed
-```
-
-full:
-
-```text
-1687 passed in 25.70s
-```
-
-probe:
-
-```powershell
-python -m probes.probe_phase36_capabilities
-```
-
-正常完走。
-
----
-
-# 36. Phase 36 completion boundary
-
-実装済み:
-
-```text
-actual Homomorphism(H) materialization
-H(4η₂)=4H(η₂)
-H(η₂)=ι₃
-4H(η₂)=4ι₃
-H(4η₂)=4ι₃
-Phase 36 representative probe
-scope / non-goal regression
-final integrated regression
-```
-
-Phase 36 完了時点では未実装だったもの:
-
-```text
-H((2ι₂)η₂)=H(4η₂)
-(2ι₂)η₂=4η₂
-```
-
----
-
-# 37. Phase 37 final-step compatibility
-
-Phase 35 final:
-
-```text
-H((2ι₂)η₂)=4ι₃
-```
-
-Phase 36 final:
-
-```text
-H(4η₂)=4ι₃
-```
-
-両者の右辺は structural に同じ:
-
-```text
-Multiple(4,IOTA_3)
-```
-
-一方 orientation は:
-
-```text
-A=C
-B=C
-```
-
-なので direct transitivity は成立しない。
-
----
-
-# 38. Phase 37 symmetry / transitivity closure
-
-existing equality symmetry:
-
-```text
-H(4η₂)=4ι₃
-↓
-4ι₃=H(4η₂)
-```
-
-existing equality transitivity:
-
-```text
-H((2ι₂)η₂)=4ι₃
-4ι₃=H(4η₂)
-↓
-H((2ι₂)η₂)=H(4η₂)
-```
-
-Phase 37 専用 theorem rule は追加しない。
-
-```text
-Phase 37 closure
-=
-existing equality symmetry
-+
-existing equality transitivity
-```
-
----
-
-# 39. Phase 37 provenance
-
-proof graph の正本は `ProofStep.premises`。
-
-```text
-Phase 37 final
-├─ Phase 35 actual final
-└─ symmetry-derived step
-   └─ Phase 36 actual final
-```
-
-Phase 35 / Phase 36 の内部 provenance はそのまま保持される。
-
-Phase 37 final relation に literature metadata を複製しない。
-
----
-
-# 40. Phase 37 scope boundary
-
-実装済み:
-
-```text
-H((2ι₂)η₂)=H(4η₂)
-```
-
-Phase 37 では行わない:
-
-```text
-Injective(H) application
-(2ι₂)η₂=4η₂
-```
-
-重要:
-
-```text
-H(a)=H(b)
-↛
-a=b
-```
-
-reflection には explicit:
-
-```text
-Injective(H)
-```
-
-premise が必要。これは Phase 38 の責務。
-
----
-
-# 41. Phase 37 representative probe / verified status
-
-probe:
-
-```powershell
-python -m probes.probe_phase37_capabilities
-```
-
-代表表示:
-
-```text
-[1] Phase 35
-    H((2ι₂)η₂)=4ι₃
-
-[2] Phase 36
-    H(4η₂)=4ι₃
-
-[3] Equality symmetry
-    4ι₃=H(4η₂)
-
-[RESULT]
-    H((2ι₂)η₂)=H(4η₂)
-```
-
-focused:
-
-```text
-tests/test_phase37_h_side_equality.py
-11 passed
-```
-
-related:
-
-```text
-tests/test_phase35_actual_h_calculation.py
-53 passed
-
-tests/test_phase36_actual_h_multiple.py
-14 passed
-
-tests/test_relation_rules.py
-50 passed
-
-tests/test_map_property_rules.py
-26 passed
-```
-
-full:
-
-```text
-1698 passed in 70.48s
-```
-
-production code:
-
-```text
-変更なし
-```
-
----
-
-# 42. Phase 37 completion boundary
-
-実装済み:
-
-```text
-Phase 35 / Phase 36 final ProofStep compatibility
-H(4η₂)=4ι₃ symmetry
-4ι₃=H(4η₂)
-H((2ι₂)η₂)=H(4η₂) transitivity closure
-end-to-end integration / provenance
-scope / non-goal regression
-Phase 37 representative probe
-final integrated regression
-```
-
-未実装:
-
-```text
-(2ι₂)η₂=4η₂
-```
-
-次の設計境界:
-
-```text
-Phase 38
-Isomorphism(H)
-↓
-Injective(H)
-
-Injective(H)
-+
-H((2ι₂)η₂)=H(4η₂)
-↓
-(2ι₂)η₂=4η₂
-```
-
-existing Phase 28/29 map-property machinery を第一候補として再利用する。
-
----
-
-# 43. Phase 38 actual Isomorphism(H) compatibility
-
-Phase 29 の actual map fact repository から canonical `EHP_H_MAP` に対する `Isomorphism(H)` を `ProofStep` として materialize できる。
-
-existing Phase 28 rule:
-
-```text
-Isomorphism(f)
-↓
-Injective(f)
-```
-
-をそのまま適用し `Injective(H)` を得る。Phase 38 では production map-property rule を追加しない。
-
----
-
-# 44. Phase 38 Phase 37 equality compatibility
-
-Phase 37 final `H((2ι₂)η₂)=H(4η₂)` は structural に両辺とも `MapApplication(EHP_H_MAP, ...)` である。actual `Injective(H)` と両辺の map identity は同じ canonical `EHP_H_MAP` なので、existing injective-map reflection guard の要求を満たす。
-
----
-
-# 45. Phase 38 equality reflection
-
-existing Phase 28 rule:
-
-```text
-Injective(f)
-+
-f(a)=f(b)
-↓
-a=b
-```
-
-に actual premises:
-
-```text
-Injective(H)
-H((2ι₂)η₂)=H(4η₂)
-```
-
-を与え、
-
-```text
-(2ι₂)η₂=4η₂
-```
-
-を導出する。Phase 38 専用 theorem rule は追加しない。
-
----
-
-# 46. Phase 38 provenance
-
-```text
-(2ι₂)η₂=4η₂
-├─ Injective(H)
-│  └─ Isomorphism(H)
-└─ H((2ι₂)η₂)=H(4η₂)
-   ├─ Phase 35 final
-   └─ symmetry
-      └─ Phase 36 final
-```
-
-Phase 35 / Phase 36 内部の literature provenance は既存 `ProofStep.premises` graph に残る。final reflection relation に literature metadata を複製しない。
-
----
-
-# 47. Phase 38 scope boundary
-
-```text
-Isomorphism(H) + H(a)=H(b)
-↛ direct reflection
-
-Injective(H) + H(a)=c
-↛ reflection
-
-Injective(H) + a=b
-↛ reflection
-```
-
-actual H reflection は new H-specific theorem ではなく、existing generic map-property machinery の actual reuse である。
-
----
-
-# 48. Phase 38 representative probe / verified status
-
-```powershell
-python -m probes.probe_phase38_capabilities
-```
-
-```text
-[1] Actual Isomorphism(H)
-[2] Existing isomorphism-to-injectivity
-[3] Phase 37 H-side equality
-[RESULT] (2ι₂)η₂=4η₂
-```
-
-provenance confirmation:
-
-```text
-Injective(H) includes Isomorphism(H) = True
-final includes Injective(H) = True
-final includes Phase 37 = True
-Phase 37 includes Phase 35 = True
-Phase 37 symmetry includes Phase 36 = True
-```
-
-focused:
-
-```text
-tests/test_phase38_injective_reflection.py
-13 passed
-```
-
-full:
-
-```text
-1711 passed in 60.38s
-```
-
-production code:
-
-```text
-変更なし
-```
-
----
-
-# 49. Phase 38 completion boundary
-
-実装済み:
-
-```text
-actual Isomorphism(H) compatibility
-Isomorphism(H)→Injective(H) reuse
-Phase 37 final H-side equality compatibility
-Injective(H) reflection
-(2ι₂)η₂=4η₂
-end-to-end integration / provenance
-scope / non-goal regression
-Phase 38 representative probe
-final integrated regression
-```
-
-Phase 38 で新規には実装していない:
-
-```text
-new H-specific reflection theorem
-new map-property production rule
-new generic inference-engine feature
-direct Isomorphism(H) reflection
-unrestricted arbitrary-map equality reflection
-```
-
-次の major design branch は `docs/roadmap.md` の Toda 4章 2-primary calculation infrastructure。
-
-
-
----
-
-# 50. Phase 39 PrimaryComponent minimum representation
-
-Toda 4章の 2-primary calculation branch の最初の minimum representation として、
-
-```text
-π_i(S^n;p)
-```
-
-を structural に保持する `PrimaryComponent` を導入した。
+# 8. PrimaryComponent
 
 production object:
 
@@ -1748,204 +206,25 @@ PrimaryComponent
 └── prime: int
 ```
 
-重要なのは、既存の concrete group calculation layer を再利用して primary decomposition を計算するのではなく、まず group term 自体を lossless に表現することである。
+representative:
+
+```text
+π_i(S^n;p)
+π_{2n-1}(S^n;2)
+π_{2n}(S^{n+1};2)
+```
+
+重要:
 
 ```text
 PrimaryComponent
 != AbelianGroup
-!= Subgroup
-```
-
-`AbelianGroup` は具体的な group components / generators / orders を持つ calculation object、`Subgroup` は concrete ambient group の actual elements を持つ object である。`PrimaryComponent` はそれらを要求しない。
-
----
-
-# 51. Phase 39 dimension compatibility
-
-`PrimaryComponent` の dimension fields は既存の homotopy-group statement layer と同じ `ScalarValue` を使う。
-
-```text
-group_dimension: ScalarValue
-sphere_dimension: ScalarValue
-```
-
-したがって次を同じ structural scalar layer で保持できる。
-
-```text
-π_8(S^5;2)
-π_i(S^n;2)
-π_(n+1)(S^n;2)
-```
-
-これは新しい dimension arithmetic system ではない。
-
-```text
-ScalarValue reuse
-!= automatic dimension simplification
-!= side-condition solver
+!= membership statement
 ```
 
 ---
 
-# 52. Phase 39 structural equality
-
-`PrimaryComponent` は dataclass structural equality により、次のいずれかが違えば別 object として扱う。
-
-```text
-group_dimension
-sphere_dimension
-prime
-```
-
-したがって:
-
-```text
-π_i(S^n;2) != π_i(S^n;3)
-π_i(S^n;2) != π_j(S^n;2)
-π_i(S^n;2) != π_i(S^m;2)
-```
-
-ここでいう equality / distinction は mathematical group isomorphism の判定ではなく structural identity の話である。
-
-```text
-structural equality
-!= mathematical equality / isomorphism
-```
-
----
-
-# 53. Phase 39 scope boundary
-
-`PrimaryComponent` は group term representation のみ。以下は encode しない。
-
-```text
-known AbelianGroup decomposition
-components
-orders
-generators
-elements
-Subgroup conversion
-finiteness
-membership
-theorem provenance
-Toda π_i^n
-```
-
-特に:
-
-```text
-finite
-!= known decomposition
-```
-
-```text
-PrimaryComponent
-!= HomotopyGroupMembershipStatement
-```
-
-```text
-prime=2
-↛ Toda π_i^n automatically
-```
-
-Toda (4.3) の `π_i^n` は critical degree で primary component と異なる定義を持つため、Phase 39 では先取りしない。
-
----
-
-# 54. Phase 39 representative probe / verified status
-
-probe:
-
-```powershell
-python -m probes.probe_phase39_capabilities
-```
-
-representative output:
-
-```text
-π_8(S^5;2)
-π_8(S^5;3)
-π_i(S^n;2)
-```
-
-さらに:
-
-```text
-same dimensions + different prime are distinct = True
-```
-
-および以下が未 encode であることを表示する。
-
-```text
-known AbelianGroup decomposition = False
-concrete Subgroup elements = False
-finiteness fact = False
-membership element = False
-Toda primary group = False
-theorem provenance = False
-```
-
-focused:
-
-```text
-tests/test_phase39_primary_component.py
-24 passed
-```
-
-full:
-
-```text
-1735 passed in 58.59s
-```
-
-Phase 39 で generic inference engine は変更していない。
-
----
-
-# 55. Phase 39 completion boundary
-
-実装済み:
-
-```text
-PrimaryComponent minimum representation
-concrete primary-component construction
-symbolic dimension construction
-ScalarValue typing compatibility
-structural equality / distinction
-AbelianGroup / Subgroup separation
-membership / finiteness / provenance non-goal regression
-representative probe
-final integrated regression
-```
-
-未実装:
-
-```text
-Serre finiteness theorem fact
-PrimaryComponent membership
-primary decomposition calculation
-TodaPrimaryGroup π_i^n
-critical-degree preimage subgroup
-WhiteheadProduct
-Toda Lemma 4.1
-Toda Prop.4.2
-```
-
-次の設計境界は `TodaPrimaryGroup π_i^n` の minimum representation。
-
-初期 Phase では critical-degree theorem semantics を constructor に埋め込まず、まず ordinary homotopy group / primary component と異なる structural group term として表現する。
-
----
-
-# 56. Phase 40 TodaPrimaryGroup minimum representation
-
-Toda (4.3) で使用する notation:
-
-```text
-π_i^n
-```
-
-を structural に保持するため、`homotopy_groups.py` に `TodaPrimaryGroup` を追加した。
+# 9. TodaPrimaryGroup
 
 production object:
 
@@ -1958,1007 +237,427 @@ TodaPrimaryGroup
 representative:
 
 ```text
-π_8^5
 π_i^n
-π_9^5
+π_{2n-1}^n
 ```
 
-Phase 40 では notation-level group term の representation のみに限定する。
-
-```text
-representation
-!= typing theorem
-!= Toda (4.3) evaluated definition
-```
-
----
-
-# 57. Phase 40 dimension compatibility
-
-`TodaPrimaryGroup` の dimension fields は `PrimaryComponent` / `HomotopyGroupMembershipStatement` と同じ `ScalarValue` を使用する。
-
-```text
-group_dimension: ScalarValue
-sphere_dimension: ScalarValue
-```
-
-したがって以下を同じ structural scalar layer で保持できる。
-
-```text
-π_8^5
-π_i^n
-π_(n+1)^n
-π_i^(n+1)
-```
-
-compound dimension は既存 `ScalarExpression` tree を保持するだけであり、新しい dimension arithmetic solver は追加しない。
-
-```text
-ScalarValue reuse
-!= automatic arithmetic simplification
-!= side-condition solver
-```
-
----
-
-# 58. Phase 40 structural distinction
-
-`TodaPrimaryGroup` は `PrimaryComponent` と別 class である。
-
-```text
-π_i^n
-!= π_i(S^n;2)
-```
-
-また current ordinary homotopy-group membership representation とも別 object である。
+重要:
 
 ```text
 TodaPrimaryGroup
-!= HomotopyGroupMembershipStatement
+!= PrimaryComponent
 ```
 
-`TodaPrimaryGroup` は group term であり、membership statement ではないため `element` を持たない。
-
-さらに `prime` を持たない。
-
-```text
-TodaPrimaryGroup has no prime
-```
-
-これは Toda の `π_i^n` を単なる `2-primary component` alias にしないための design boundary である。
+Toda notation を ordinary p-primary group term に constructor-level で変換しない。
 
 ---
 
-# 59. Phase 40 critical-degree non-evaluation boundary
+# 10. FreeCyclicGroup
 
-critical degree の concrete example:
-
-```text
-TodaPrimaryGroup(
-  group_dimension=9,
-  sphere_dimension=5,
-)
-```
-
-は:
+Phase 44 の group decomposition に必要な structural free summand。
 
 ```text
-9=2·5-1
-```
-
-を満たすが、constructor はこれを自動的に:
-
-```text
-E^-1(π_10(S^6;2))
-```
-
-へ評価しない。
-
-`TodaPrimaryGroup` は以下を持たない。
-
-```text
-definition
-evaluated_definition
-preimage
-preimage_subgroup
-subgroup
-to_subgroup
-primary_component
-to_primary_component
-source
-theorem
-provenance
-```
-
-したがって:
-
-```text
-critical-degree structural object
-!= critical-degree theorem evaluation
-```
-
-Toda (4.3) の case semantics は後続 phase の theorem / definition layer に残す。
-
----
-
-# 60. Phase 40 representative probe / verified status
-
-probe:
-
-```powershell
-python -m probes.probe_phase40_capabilities
-```
-
-representative output:
-
-```text
-[1] Concrete Toda primary group
-    π_8^5
-
-[2] Symbolic Toda primary group
-    π_i^n
-
-[3] Critical-degree structural object
-    π_9^5
-```
-
-boundary output:
-
-```text
-TodaPrimaryGroup != PrimaryComponent = True
-TodaPrimaryGroup has prime = False
-TodaPrimaryGroup has membership element = False
-evaluated Toda (4.3) definition = False
-preimage subgroup = False
-automatic PrimaryComponent conversion = False
-theorem provenance = False
-```
-
-focused:
-
-```text
-tests/test_phase40_toda_primary_group.py
-24 passed
-```
-
-full:
-
-```text
-1759 passed in 25.21s
-```
-
-Phase 40 で generic inference engine は変更していない。
-
----
-
-# 61. Phase 40 completion boundary
-
-実装済み:
-
-```text
-TodaPrimaryGroup minimum representation
-π_i^n concrete construction
-π_i^n symbolic construction
-ScalarValue typing compatibility
-compound scalar dimension compatibility
-structural equality / distinction
-PrimaryComponent separation
-membership separation
-critical-degree structural representation
-scope / non-goal regression
-representative probe
-final integrated regression
-```
-
-未実装:
-
-```text
-Toda (4.3) evaluated definition
-PreimageSubgroup under E
-x∈E^-1(A) ↔ E(x)∈A
-π_i^n membership statement
-Toda (4.3) theorem provenance
-WhiteheadProduct
-Toda Lemma 4.1
-Toda Prop.4.2
-```
-
-次の設計境界は `PreimageSubgroup` minimum representation。
-
-まず:
-
-```text
-PreimageSubgroup(
-  map=E,
-  subgroup=A,
-)
-```
-
-のような structural object を検討し、Toda (4.3) の case evaluation や membership equivalence は先取りしない。
-
----
-
-# 62. Phase 41 PreimageSubgroup minimum representation
-
-Toda (4.3) critical degree で必要になる:
-
-```text
-E^-1(π_{2n}(S^{n+1};2))
-```
-
-を structural に保持するため、`homotopy_groups.py` に `PreimageSubgroup` を追加した。
-
-production object:
-
-```text
-PreimageSubgroup
-├── map: MapSymbol
-└── subgroup: PrimaryComponent
+FreeCyclicGroup
+└── generator: Expression
 ```
 
 representative:
 
 ```text
-E^-1(π_10(S^6;2))
-E^-1(π_2n(S^(n+1);2))
+Z{P(ι_{2n+1})}
+Z{α}
 ```
 
-Phase 41 では preimage term の representation のみに限定する。
+concrete calculation layer の `GroupComponent` とは別。
 
 ```text
-representation
-!= membership semantics
-!= Toda (4.3) evaluated definition
+FreeCyclicGroup
+!= GroupComponent
 ```
 
 ---
 
-# 63. Phase 41 map / subgroup typing
+# 11. DirectSumGroup
 
-`PreimageSubgroup.map` は proof-expression layer の `MapSymbol` を使用する。
-
-Toda critical-degree representative の suspension map は canonical:
+Phase 44 の symbolic group decomposition 用。
 
 ```text
-SUSPENSION_MAP
-=
-MapSymbol(name="E")
+DirectSumGroup
+└── summands:
+    tuple[
+      FreeCyclicGroup | PrimaryComponent,
+      ...
+    ]
 ```
 
-を再利用する。
-
-これは concrete abelian-group calculation layer の `GroupMap` とは別。
+representative:
 
 ```text
-MapSymbol
-!= GroupMap
+Z{P(ι_{2n+1})} ⊕ π_{2n-1}(S^n;2)
+Z{α} ⊕ π_{2n-1}(S^n;2)
 ```
 
-`PreimageSubgroup.subgroup` は現在の actual need に限定して `PrimaryComponent` とする。
+重要:
 
 ```text
-subgroup: PrimaryComponent
+DirectSumGroup
+!= AbelianGroup
 ```
 
-したがって:
-
-```text
-π_10(S^6;2)
-```
-
-だけでなく symbolic:
-
-```text
-π_2n(S^(n+1);2)
-```
-
-も既存 `ScalarValue` layer で保持できる。
-
-```text
-2n
-→ ScalarProduct(2,n)
-
-n+1
-→ ScalarSum(n,1)
-```
-
-新しい dimension arithmetic solver は追加しない。
+これは symbolic theorem conclusion 用 structural group term であり、concrete computation を担わない。
 
 ---
 
-# 64. Phase 41 structural distinction
+# 12. PrimaryComponentMembershipStatement
 
-`PreimageSubgroup` は既存 subgroup / reference object と別 class として扱う。
+Phase 44-6b で導入。
 
 ```text
-PreimageSubgroup
-!= Subgroup
-!= ImageSubgroupReference
-!= KernelSubgroupReference
+PrimaryComponentMembershipStatement
+├── element: Expression
+└── component: PrimaryComponent
+```
+
+representative:
+
+```text
+Eα ∈ π_{2n}(S^{n+1};2)
+```
+
+これは ordinary `HomotopyGroupMembershipStatement` とは別 statement。
+
+重要:
+
+```text
+PrimaryComponentMembershipStatement
 != PrimaryComponent
+!= HomotopyGroupMembershipStatement
 ```
-
-current `SubgroupTerm`:
-
-```text
-Subgroup
-| ImageSubgroupReference
-| KernelSubgroupReference
-```
-
-には Phase 41 では `PreimageSubgroup` を追加しない。
-
-したがって:
-
-```text
-PreimageSubgroup representation
-!= current MembershipStatement-compatible SubgroupTerm
-```
-
-また `PreimageSubgroup` は element preimage を表す object ではなく、`element` / `preimage_element` / `value` を持たない。
 
 ---
 
-# 65. Phase 41 scope boundary
+# 13. Toda Lemma 4.1 odd case
 
-Phase 41 では以下を実装しない。
-
-```text
-x∈E^-1(A) ↔ E(x)∈A
-preimage membership inference
-PreimageSubgroup membership theorem
-TodaPrimaryGroup → PreimageSubgroup automatic conversion
-PreimageSubgroup → TodaPrimaryGroup automatic conversion
-Toda (4.3) case evaluation
-Toda (4.3) theorem provenance
-```
-
-`PreimageSubgroup` 自体にも:
+premise:
 
 ```text
-element
-membership_equivalence
-definition
-evaluated_definition
-source
-theorem
-provenance
+OddScalarStatement(n)
 ```
 
-を持たせない。
+conclusion:
+
+```text
+π_{2n-1}^n = π_{2n-1}(S^n;2)
+```
+
+rule:
+
+```text
+toda_lemma41_odd_case_inference_rule()
+```
+
+Whitehead premise は要求しない。
+
+---
+
+# 14. Toda Lemma 4.1 even / Whitehead nonzero case
+
+premises:
+
+```text
+EvenScalarStatement(n)
+[ι_{n-1},ι_{n-1}] != 0
+```
+
+conclusion:
+
+```text
+π_{2n-1}^n
+=
+Z{P(ι_{2n+1})}
+⊕
+π_{2n-1}(S^n;2)
+```
+
+rule:
+
+```text
+toda_lemma41_even_nonzero_case_inference_rule()
+```
+
+`match_guard` で Whitehead product の symbolic index が同じ `n` に対応することを確認する。
+
+generic matcher の recursive dataclass decomposition は追加しない。
+
+---
+
+# 15. Toda Lemma 4.1 even / Whitehead zero case
+
+premises:
+
+```text
+EvenScalarStatement(n)
+[ι_{n-1},ι_{n-1}] = 0
+```
+
+group conclusion:
+
+```text
+π_{2n-1}^n
+=
+Z{α}
+⊕
+π_{2n-1}(S^n;2)
+```
+
+rule:
+
+```text
+toda_lemma41_even_zero_case_inference_rule()
+```
+
+α は structural `HomotopyElement(name="α", dimension=2n-1)` として生成する。
+
+---
+
+# 16. α Hopf condition
+
+同じ zero-case premises から:
+
+```text
+H(α)=ι_{2n-1}
+```
+
+を導出する。
+
+rule:
+
+```text
+toda_lemma41_even_zero_h_alpha_inference_rule()
+```
+
+canonical actual `H` として `EHP_H_MAP` を使用する。
+
+---
+
+# 17. α suspension-primary condition
+
+同じ zero-case premises から:
+
+```text
+Eα ∈ π_{2n}(S^{n+1};2)
+```
+
+を導出する。
+
+rule:
+
+```text
+toda_lemma41_even_zero_suspension_primary_inference_rule()
+```
+
+conclusion は `PrimaryComponentMembershipStatement`。
+
+---
+
+# 18. Multi-result theorem policy
+
+generic `InferenceRule` は 1 rule = 1 conclusion を維持する。
+
+Toda Lemma 4.1 zero case では:
+
+```text
+same premises
+├── group structure rule
+├── H(α) rule
+└── Eα primary-membership rule
+```
+
+という3本の domain rule で表現する。
 
 重要:
 
 ```text
-preimage structural term
-!= preimage membership theorem
-```
-
-```text
-critical-degree preimage term
-!= π_{2n-1}^n automatic evaluation
-```
-
----
-
-# 66. Phase 41 representative probe / verified status
-
-probe:
-
-```powershell
-python -m probes.probe_phase41_capabilities
-```
-
-representative output:
-
-```text
-[1] Concrete suspension preimage
-    E^-1(π_10(S^6;2))
-
-[2] Symbolic critical-degree target
-    E^-1(π_2n(S^n+1;2))
-```
-
-completion boundary output:
-
-```text
-PreimageSubgroup != Subgroup = True
-PreimageSubgroup != ImageSubgroupReference = True
-PreimageSubgroup != KernelSubgroupReference = True
-PreimageSubgroup != PrimaryComponent = True
-membership element = False
-membership equivalence = False
-theorem provenance = False
-automatic preimage conversion = False
-evaluated Toda (4.3) definition = False
-```
-
-focused:
-
-```text
-tests/test_phase41_preimage_subgroup.py
-36 passed
-```
-
-related:
-
-```text
-tests/test_phase40_toda_primary_group.py
-24 passed
-
-tests/test_set_rules.py
-107 passed
-```
-
-full:
-
-```text
-1795 passed in 23.68s
-```
-
-Phase 41 で generic inference engine は変更していない。
-
----
-
-# 67. Phase 41 completion boundary
-
-実装済み:
-
-```text
-current Subgroup / ImageSubgroupReference / KernelSubgroupReference compatibility check
-PreimageSubgroup minimum data model
-map: MapSymbol
-subgroup: PrimaryComponent
-concrete preimage representation
-symbolic / compound scalar target representation
-structural equality / distinction
-Subgroup / Image / Kernel reference separation
-element-preimage separation
-scope / non-goal regression
-representative probe
-final integrated regression
-```
-
-未実装:
-
-```text
-PreimageSubgroup in SubgroupTerm
-x∈E^-1(A) ↔ E(x)∈A
-preimage membership inference
-Toda (4.3) evaluated definition
-π_i^n membership statement
-Toda (4.3) theorem provenance
-WhiteheadProduct
-Toda Lemma 4.1
-Toda Prop.4.2
-```
-
-次の設計境界は `WhiteheadProduct` minimum representation。
-
-Toda Lemma 4.1 に必要な:
-
-```text
-[ι_{n-1},ι_{n-1}]
-```
-
-をまず `Composition` / `SmashProduct` と区別できる structural object として表現し、general Whitehead-product algebra や Lemma 4.1 theorem semantics は先取りしない。
-
-# 68. Phase 42 WhiteheadProduct minimum representation
-
-Toda Lemma 4.1 で必要になる:
-
-```text
-[ι_{n-1},ι_{n-1}]
-```
-
-の土台として、`expression.py` に `WhiteheadProduct` を追加した。
-
-production object:
-
-```text
-WhiteheadProduct
-├── left: Expression
-└── right: Expression
-```
-
-実装:
-
-```text
-@dataclass(frozen=True)
-class WhiteheadProduct(Expression):
-  left: Expression
-  right: Expression
-```
-
-Phase 42 では Whitehead product の theorem semantics を constructor に入れず、binary structural syntax のみに限定する。
-
-```text
-representation
-!= typing
-!= theorem knowledge
-```
-
----
-
-# 69. Phase 42 structural distinction
-
-`WhiteheadProduct` は既存:
-
-```text
-Composition
-SmashProduct
-```
-
-とは別 class である。
-
-同じ operands `a,b` を使っても:
-
-```text
-WhiteheadProduct(a,b)
-!= Composition(a,b)
-
-WhiteheadProduct(a,b)
-!= SmashProduct(a,b)
-```
-
-を structural regression として固定した。
-
-したがって:
-
-```text
-[a,b]
-a∘b
-a∧b
-```
-
-は expression kind として混同しない。
-
-ここでの distinction は structural representation の区別であり、数学的関係が存在しないという主張ではない。
-
----
-
-# 70. Phase 42 Expression compatibility
-
-`WhiteheadProduct.left` / `right` は `Expression` を受け取る。
-
-そのため既存 expression tree を lossless に保持できる。
-
-確認済み:
-
-```text
-HomotopyElement
-Multiple
-Composition
-SmashProduct
-nested WhiteheadProduct
-```
-
-代表:
-
-```text
-WhiteheadProduct(
-  left=Multiple(...),
-  right=SmashProduct(...),
-)
-```
-
-重要:
-
-```text
-constructor acceptance
-!= mathematical well-typedness
-```
-
----
-
-# 71. Phase 42 typing boundary
-
-Phase 42 では `WhiteheadProduct` に以下を追加していない。
-
-```text
-source
-target
-is_type_compatible()
-```
-
-したがって:
-
-```text
-WhiteheadProduct representation
-!= automatic Whitehead-product typing
-```
-
-Phase 31 の `SmashProduct` と同様、まず structural syntax のみとする。
-
-Whitehead-product dimension formula や operand compatibility は、actual mathematical need が現れるまで後続 Phase に残す。
-
----
-
-# 72. Phase 42 theorem / algebra non-goal
-
-`WhiteheadProduct` 自体は以下を持たない。
-
-```text
-is_zero
-is_nonzero
-zero_theorem
-nonzero_theorem
-bilinearity
-antisymmetry
-Toda Lemma 4.1 evaluation
-theorem provenance
-```
-
-したがって:
-
-```text
-[ι,ι] representation
-↛ [ι,ι]=0
-
-[ι,ι] representation
-↛ [ι,ι]!=0
-```
-
-また constructor は bilinearity / antisymmetry を実行しない。
-
-```text
-WhiteheadProduct
-!= Whitehead-product algebra engine
-```
-
----
-
-# 73. Phase 42 representative probe
-
-probe:
-
-```powershell
-python -m probes.probe_phase42_capabilities
-```
-
-代表として concrete:
-
-```text
-[ι₄,ι₄]
-```
-
-を構築する。
-
-`ι₄` は既存 generator representation:
-
-```text
-GeneratorSymbol(
-  family="ι",
-  index=4,
-)
-```
-
-を使用する。
-
-Phase 42 では symbolic generator index `ι_{n-1}` を新規導入しない。
-
-```text
-WhiteheadProduct minimum representation
-!= symbolic generator indexing project
-```
-
-probe では以下を表示する。
-
-```text
-WhiteheadProduct != Composition = True
-WhiteheadProduct != SmashProduct = True
-source typing = False
-target typing = False
-type compatibility = False
-zero theorem semantics = False
-nonzero theorem semantics = False
-bilinearity = False
-antisymmetry = False
-Toda Lemma 4.1 evaluation = False
-theorem provenance = False
-```
-
----
-
-# 74. Phase 42 verified status
-
-focused:
-
-```text
-tests/test_phase42_whitehead_product.py
-36 passed
-```
-
-related:
-
-```text
-tests/test_expression.py
-145 passed
-
-tests/test_phase41_preimage_subgroup.py
-36 passed
-```
-
-full:
-
-```text
-1831 passed in 23.58s
-```
-
-probe 正常完走。
-
-generic inference engine:
-
-```text
-変更なし
-```
-
----
-
-# 75. Phase 42 completion boundary
-
-実装済み:
-
-```text
-WhiteheadProduct minimum data model
-WhiteheadProduct is Expression
-left: Expression
-right: Expression
-structural equality
-WhiteheadProduct / Composition distinction
-WhiteheadProduct / SmashProduct distinction
-existing Expression operand compatibility
-nested WhiteheadProduct representation
-representative [ι₄,ι₄]
-scope / non-goal regression
-representative executable probe
-final integrated regression
-```
-
-未実装:
-
-```text
-Whitehead-product source / target typing
-Whitehead-product dimension formula
-Whitehead-product operand compatibility theorem
-symbolic generator index ι_{n-1}
-Whitehead-product zero theorem fact
-Whitehead-product nonzero theorem fact
-bilinearity
-antisymmetry
-Toda Lemma 4.1 case evaluation
-Toda Lemma 4.1 theorem provenance
-Toda Prop.4.2
-```
-
-次の設計境界は Toda Lemma 4.1。
-
-ただし一度に case evaluation を入れず、まず:
-
-```text
-[ι_{n-1},ι_{n-1}]=0
-[ι_{n-1},ι_{n-1}]!=0
-```
-
-を theorem premise として扱うために必要な minimum statement representation / existing relation compatibility を確認する。
-
-一般 Whitehead-product algebra は concrete proof need が現れるまで先取りしない。
-
----
-
-# 76. Phase 43 Relation / ZERO / INEQUALITY compatibility
-
-Toda Lemma 4.1 の場合分けで必要な premise:
-
-```text
-[ι_{n-1},ι_{n-1}]=0
-[ι_{n-1},ι_{n-1}]!=0
-```
-
-を既存 relation layer で扱う compatibility を確認した。
-
-zero 側は既存 canonical representation をそのまま再利用する。
-
-```text
-Relation(
-  lhs=WhiteheadProduct(...),
-  rhs=Zero(),
-  relation_type=RelationType.ZERO,
-)
-```
-
-したがって zero premise 専用 class は追加しない。
-
-一方、Phase 43-1 時点の `RelationType` には nonzero を lossless に保持する relation kind がなかったため、Phase 43-3 で minimum extension として:
-
-```text
-RelationType.INEQUALITY
-```
-
-を追加した。
-
----
-
-# 77. Phase 43 nonzero premise representation
-
-nonzero premise の canonical representation:
-
-```text
-Relation(
-  lhs=WhiteheadProduct(...),
-  rhs=Zero(),
-  relation_type=RelationType.INEQUALITY,
-)
-```
-
-代表:
-
-```text
-[ι₄,ι₄] != 0
-```
-
-重要:
-
-```text
-INEQUALITY
-= generic relation kind
-```
-
-であり:
-
-```text
-INEQUALITY
-!= automatic nonzero theorem engine
-```
-
-`WhiteheadProduct` 自体には `is_zero` / `is_nonzero` 等を追加しない。
-
----
-
-# 78. Phase 43 structural / relation compatibility
-
-同じ lhs / rhs を持っていても relation type が異なれば structural に別 `Relation` として扱う。
-
-```text
-Relation(..., ZERO)
+multi-result mathematical theorem
 !=
-Relation(..., INEQUALITY)
+generic multi-conclusion inference-rule extension
 ```
-
-代表:
-
-```text
-[ι₄,ι₄] = 0
-!= structural
-[ι₄,ι₄] != 0
-```
-
-`proof.py` の relation matching は relation type を strict に比較するため、existing equality / zero rule は `INEQUALITY` を誤って consume しない。
-
-regression で固定:
-
-```text
-INEQUALITY ↛ equality symmetry
-INEQUALITY ↛ equality transitivity
-INEQUALITY ↛ ZERO premise
-INEQUALITY ↛ EQUALITY premise
-```
-
-このため generic inference engine の変更は不要だった。
 
 ---
 
-# 79. Phase 43 scope boundary
+# 19. Structural α identity
 
-Phase 43 で完成するのは premise representation のみ。
+group rule、Hopf rule、suspension-primary rule の `α` は同じ structural value として生成する。
 
-```text
-premise representation
-!= automatic zero inference
-!= automatic nonzero inference
-!= contradiction detection
-!= bilinearity
-!= antisymmetry
-!= Toda Lemma 4.1 case evaluation
-```
+test では Python object identity `is` ではなく structural equality `==` を要求する。
 
-zero / nonzero relations が同時に存在しても Phase 43 では contradiction を自動導出しない。
-
-また Phase 42 からの boundary:
-
-```text
-WhiteheadProduct
-!= theorem semantics
-```
-
-を維持する。
+これは same structural witness syntax を意味するが、general existential witness engine を意味しない。
 
 ---
 
-# 80. Phase 43 representative probe / verified status
+# 20. Applicability policy
 
-probe:
+```text
+n odd
+→ odd rule only
+```
+
+```text
+n even
++
+matching [ι_{n-1},ι_{n-1}] != 0
+→ nonzero rule only
+```
+
+```text
+n even
++
+matching [ι_{n-1},ι_{n-1}] = 0
+→ zero group rule
+```
+
+zero theorem bundle は同じ premises から3 rule が applicable。
+
+異なる symbolic index や arbitrary ZERO / INEQUALITY relation は match しない。
+
+---
+
+# 21. Provenance
+
+derived `ProofStep` は:
+
+```text
+rule=ProofRule.INFERENCE
+premises=(...)
+inference_rule=<domain rule>
+```
+
+を保持する。
+
+group conclusion と α conditions の provenance の正本は `ProofStep` graph。
+
+---
+
+# 22. Fixed-point behavior
+
+```text
+odd
+→ 1 new group conclusion
+→ fixed point
+```
+
+```text
+even nonzero
+→ 1 new group conclusion
+→ fixed point
+```
+
+```text
+even zero primary group case
+→ 1 new group conclusion
+→ fixed point
+```
+
+zero theorem bundle:
+
+```text
+group rule
+Hopf rule
+suspension-primary rule
+↓
+1 round
+↓
+3 new steps
+↓
+fixed point
+```
+
+---
+
+# 23. Phase 44 representative probe
 
 ```powershell
-python -m probes.probe_phase43_capabilities
+python -m probes.probe_phase44_capabilities
 ```
 
-代表出力:
+表示:
 
 ```text
-[1] Representative Whitehead product
-  [ι₄,ι₄]
-
-[2] Zero premise
-  [ι₄,ι₄] = 0
-
-[3] Nonzero premise
-  [ι₄,ι₄] != 0
+n odd
+→ π_{2n-1}^n = π_{2n-1}(S^n;2)
 ```
 
-structural distinction:
-
 ```text
-ZERO != INEQUALITY = True
-same WhiteheadProduct lhs = True
-same Zero rhs = True
+n even + Whitehead nonzero
+→ π_{2n-1}^n = Z{P(ι_{2n+1})} ⊕ π_{2n-1}(S^n;2)
 ```
 
-boundary:
-
 ```text
-automatic zero inference = False
-automatic nonzero inference = False
-contradiction detection = False
-bilinearity = False
-antisymmetry = False
-Toda Lemma 4.1 evaluation = False
+n even + Whitehead zero
+→ π_{2n-1}^n = Z{α} ⊕ π_{2n-1}(S^n;2)
+
+H(α)=ι_{2n-1}
+Eα ∈ π_{2n}(S^{n+1};2)
 ```
 
-verified:
+---
+
+# 24. Phase 44 testing
+
+focused:
 
 ```text
+tests/test_phase44_toda_lemma41_case_semantics.py
+94 passed
+```
+
+related:
+
+```text
+tests/test_toda_rules.py
+66 passed
+
 tests/test_phase43_toda_lemma41_premise.py
 32 passed
 
-tests/test_relation_rules.py
-50 passed
+tests/test_phase39_primary_component.py
+24 passed
 
-tests/test_phase42_whitehead_product.py
-36 passed
+tests/test_hopf_rules.py
+31 passed
 
-full suite
-1863 passed in 24.47s
+tests/test_expression.py
+145 passed
+```
+
+full:
+
+```text
+1957 passed in 75.54s
 ```
 
 ---
 
-# 81. Phase 43 completion boundary
+# 25. Phase 44 scope boundary
 
 実装済み:
 
 ```text
-current Relation / ZERO / INEQUALITY compatibility check
-Whitehead-product zero premise representation
-Whitehead-product nonzero premise representation
-RelationType.INEQUALITY minimum extension
-ZERO / INEQUALITY structural distinction
-existing relation matching compatibility
-existing equality / zero rule isolation
-scope / non-goal regression
-representative executable probe
-final integrated regression
+symbolic generator index
+symbolic HomotopyElement dimension
+FreeCyclicGroup
+DirectSumGroup
+PrimaryComponentMembershipStatement
+Toda Lemma 4.1 odd case
+Toda Lemma 4.1 even/nonzero case
+Toda Lemma 4.1 even/zero group case
+H(α)=ι_{2n-1}
+Eα ∈ π_{2n}(S^{n+1};2)
+case applicability
+provenance
+fixed-point representative integration
+executable probe
 ```
-
-production code の変更:
-
-```text
-RelationType.INEQUALITY
-```
-
-のみ。
-
-`Relation` / `WhiteheadProduct` / generic inference engine は変更していない。
 
 未実装:
 
@@ -2968,13 +667,33 @@ automatic Whitehead-product nonzero inference
 ZERO / INEQUALITY contradiction detection
 Whitehead-product bilinearity
 Whitehead-product antisymmetry
-symbolic generator index ι_{n-1}
-Toda Lemma 4.1 case evaluation
-Toda Lemma 4.1 theorem provenance
+automatic α existence
+automatic α uniqueness
+general existential quantification / witness objects
+PrimaryComponent membership → ordinary membership bridge
 Toda Prop.4.2
+Toda (4.5)
+Toda Prop.4.4
+stable homotopy
+higher Toda brackets
 ```
 
-次の設計境界は Toda Lemma 4.1 case semantics。
+---
 
-まず current parity statement infrastructure と、結論側で必要な `TodaPrimaryGroup` / `PrimaryComponent` / free `Z` summand / direct-sum representation の compatibility を確認し、actual theorem need に必要な minimum representation だけを追加する。
+# 26. 次の設計境界
 
+次は Toda Proposition 4.2。
+
+実装前に確認する対象:
+
+```text
+current EHP exactness representation
+PrimaryComponent
+TodaPrimaryGroup
+existing E / H / P map symbols
+Toda Prop.4.2 exact statement
+```
+
+次 Phase でも actual mathematical need → minimum representation → explicit theorem rule → existing generic engine を維持する。
+
+Toda (4.5)、Toda Prop.4.4、general Whitehead algebra は先取りしない。
