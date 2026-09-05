@@ -33,6 +33,12 @@ class TodaPrimaryGroupMembershipStatement:
 
 
 @dataclass(frozen=True)
+class TodaSuspensionMap:
+  source_group: TodaPrimaryGroup
+  target_group: TodaPrimaryGroup
+
+
+@dataclass(frozen=True)
 class TodaIteratedSuspensionMap:
   exponent: ScalarValue
   source_group: TodaPrimaryGroup
