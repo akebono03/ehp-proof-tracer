@@ -39,6 +39,12 @@ class TodaSuspensionMap:
 
 
 @dataclass(frozen=True)
+class TodaHopfInvariantMap:
+  source_group: TodaPrimaryGroup
+  target_group: TodaPrimaryGroup
+
+
+@dataclass(frozen=True)
 class TodaPrimaryGroupZeroStatement:
   group: TodaPrimaryGroup
 

@@ -22,9 +22,11 @@ from homotopy_groups import (
   PrimaryComponent,
   PrimaryComponentMembershipStatement,
   TodaEHPExactnessWindow,
+  TodaHopfInvariantMap,
   TodaIteratedSuspensionMap,
   TodaPrimaryGroup,
   TodaPrimaryGroupMembershipStatement,
+  TodaPrimaryGroupZeroStatement,
   TodaProp44DecompositionMap,
   TodaSuspensionMap,
 )
@@ -53,6 +55,11 @@ from scalar_rules import (
 @dataclass(frozen=True)
 class TodaProp42ExactnessStatement:
   window: TodaEHPExactnessWindow
+
+
+@dataclass(frozen=True)
+class TodaHopfInvariantInjectiveStatement:
+  map: TodaHopfInvariantMap
 
 
 @dataclass(frozen=True)
@@ -1082,6 +1089,95 @@ def toda_prop42_exactness_to_generic_inference_rule():
       ),
     ),
     conclusion_builder=build_conclusion,
+  )
+
+
+def toda_exactness_zero_left_implies_hopf_injective_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    zero_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    window = exactness.window
+
+    if (
+      window.first_map
+      != EHP_E_MAP
+    ):
+      return False
+
+    if (
+      window.second_map
+      != EHP_H_MAP
+    ):
+      return False
+
+    if (
+      zero_statement.group
+      != window.source_term
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    window = exactness.window
+
+    hopf_map = TodaHopfInvariantMap(
+      source_group=window.middle_term,
+      target_group=window.target_term,
+    )
+
+    return TodaHopfInvariantInjectiveStatement(
+      map=hopf_map,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda EHP exactness "
+      "zero-left Hopf injectivity"
+    ),
+    description=(
+      "If an E-H Toda EHP window is "
+      "exact and its source group is "
+      "zero, then the corresponding "
+      "Hopf invariant map from the "
+      "middle group to the target "
+      "group is injective."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaPrimaryGroupZeroStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
   )
 
 
