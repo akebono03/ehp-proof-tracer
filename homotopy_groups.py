@@ -45,6 +45,12 @@ class TodaHopfInvariantMap:
 
 
 @dataclass(frozen=True)
+class TodaDeltaMap:
+  source_group: TodaPrimaryGroup
+  target_group: TodaPrimaryGroup
+
+
+@dataclass(frozen=True)
 class TodaPrimaryGroupZeroStatement:
   group: TodaPrimaryGroup
 

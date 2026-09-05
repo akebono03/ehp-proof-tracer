@@ -21,6 +21,7 @@ from homotopy_groups import (
   FreeCyclicGroup,
   PrimaryComponent,
   PrimaryComponentMembershipStatement,
+  TodaDeltaMap,
   TodaEHPExactnessWindow,
   TodaHopfInvariantMap,
   TodaIteratedSuspensionMap,
@@ -28,6 +29,7 @@ from homotopy_groups import (
   TodaPrimaryGroupMembershipStatement,
   TodaPrimaryGroupZeroStatement,
   TodaProp44DecompositionMap,
+  TodaSuspensionIsomorphismStatement,
   TodaSuspensionMap,
 )
 from map_facts import (
@@ -59,6 +61,21 @@ class TodaProp42ExactnessStatement:
 
 @dataclass(frozen=True)
 class TodaHopfInvariantInjectiveStatement:
+  map: TodaHopfInvariantMap
+
+
+@dataclass(frozen=True)
+class TodaSuspensionInjectiveStatement:
+  map: TodaSuspensionMap
+
+
+@dataclass(frozen=True)
+class TodaDeltaZeroStatement:
+  map: TodaDeltaMap
+
+
+@dataclass(frozen=True)
+class TodaHopfInvariantSurjectiveStatement:
   map: TodaHopfInvariantMap
 
 
@@ -1168,6 +1185,238 @@ def toda_exactness_zero_left_implies_hopf_injective_inference_rule():
       PremisePattern(
         statement_type=(
           TodaPrimaryGroupZeroStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_suspension_isomorphism_implies_injective_inference_rule():
+  def build_conclusion(
+    premises,
+  ):
+    isomorphism = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return TodaSuspensionInjectiveStatement(
+      map=isomorphism.map,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda suspension isomorphism "
+      "implies injectivity"
+    ),
+    description=(
+      "An instance-aware Toda "
+      "suspension isomorphism implies "
+      "injectivity of the same "
+      "suspension map instance."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaSuspensionIsomorphismStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+  )
+
+
+def toda_exactness_injective_right_implies_delta_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    injectivity = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    window = exactness.window
+
+    if (
+      window.first_map
+      != EHP_DELTA_MAP
+    ):
+      return False
+
+    if (
+      window.second_map
+      != EHP_E_MAP
+    ):
+      return False
+
+    suspension_map = (
+      injectivity.map
+    )
+
+    if (
+      suspension_map.source_group
+      != window.middle_term
+    ):
+      return False
+
+    if (
+      suspension_map.target_group
+      != window.target_term
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    window = exactness.window
+
+    delta_map = TodaDeltaMap(
+      source_group=window.source_term,
+      target_group=window.middle_term,
+    )
+
+    return TodaDeltaZeroStatement(
+      map=delta_map,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda EHP exactness "
+      "injective-right Delta zero"
+    ),
+    description=(
+      "If a Delta-E Toda EHP window "
+      "is exact and the corresponding "
+      "suspension map E is injective, "
+      "then the preceding Delta map "
+      "is zero."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaSuspensionInjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_exactness_zero_delta_implies_hopf_surjective_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    delta_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    window = exactness.window
+
+    if (
+      window.first_map
+      != EHP_H_MAP
+    ):
+      return False
+
+    if (
+      window.second_map
+      != EHP_DELTA_MAP
+    ):
+      return False
+
+    delta_map = (
+      delta_zero.map
+    )
+
+    if (
+      delta_map.source_group
+      != window.middle_term
+    ):
+      return False
+
+    if (
+      delta_map.target_group
+      != window.target_term
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    window = exactness.window
+
+    hopf_map = TodaHopfInvariantMap(
+      source_group=window.source_term,
+      target_group=window.middle_term,
+    )
+
+    return TodaHopfInvariantSurjectiveStatement(
+      map=hopf_map,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda EHP exactness "
+      "zero-Delta Hopf surjectivity"
+    ),
+    description=(
+      "If an H-Delta Toda EHP window "
+      "is exact and the corresponding "
+      "Delta map is zero, then the "
+      "Hopf invariant map is "
+      "surjective."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaDeltaZeroStatement
         ),
       ),
       PremisePattern(
