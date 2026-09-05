@@ -2374,3 +2374,451 @@ decomposition map と E map の区別
 
 Phase 48 でも actual need に必要な最小変更だけを行い、generic map-property API を先に generalize しない。
 
+---
+
+# Phase 48：Toda Proposition 4.4 consequence — E injective
+
+目的:
+
+Toda Proposition 4.4 の decomposition isomorphism から、第一 direct-sum summand 上の suspension
+
+```text
+E: π_{i-1}^{n-1} → π_i^n
+```
+
+が injective であることを symbolic `(i,n)` instance を保ったまま導出する。
+
+generic `MapSymbol` property と specific Toda suspension map を混同しない。
+
+---
+
+## Phase 48-1：current injectivity / E-map representation compatibility check
+
+production code 変更なし。
+
+確認:
+
+```text
+EHP_E_MAP
+= MapSymbol("E")
+
+InjectiveMapStatement(EHP_E_MAP)
+= representable
+```
+
+一方 generic injectivity statement は source / target group を保持しないため:
+
+```text
+E: π_{i-1}^{n-1} → π_i^n
+```
+
+という specific `(i,n)` instance を lossless に保持できない。
+
+Phase 47 theorem 側には decomposition map を通して first summand / target instance が残ることを確認。
+
+追加:
+
+```text
+tests/test_phase48_toda_prop44_e_injectivity_compatibility.py
+```
+
+verified:
+
+```text
+21 passed
+full suite 2298 passed in 59.00s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 48-2：instance-aware E map minimum representation
+
+追加:
+
+```text
+TodaSuspensionMap
+├── source_group: TodaPrimaryGroup
+└── target_group: TodaPrimaryGroup
+```
+
+representative:
+
+```text
+E: π_{i-1}^{n-1} → π_i^n
+```
+
+important:
+
+```text
+TodaSuspensionMap
+!= MapSymbol
+!= EHP_E_MAP
+!= Suspension
+!= TodaIteratedSuspensionMap
+!= TodaProp44DecompositionMap
+```
+
+constructor は typing / injectivity を判定しない。
+
+追加:
+
+```text
+tests/test_phase48_toda_prop44_e_map.py
+```
+
+verified:
+
+```text
+22 passed
+full suite 2320 passed in 54.79s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 48-3：Prop.4.4 first-summand embedding / restriction semantics
+
+一般的な direct-sum inclusion machinery は導入せず、Prop.4.4 に必要な domain-specific minimum semantics を追加。
+
+追加:
+
+```text
+TodaProp44FirstSummandRestrictionStatement
+├── decomposition_map: TodaProp44DecompositionMap
+└── suspension_map: TodaSuspensionMap
+```
+
+追加 rule:
+
+```text
+toda_prop44_first_summand_restriction_inference_rule()
+```
+
+meaning:
+
+```text
+Φ|_{π_{i-1}^{n-1}}
+= E: π_{i-1}^{n-1} → π_i^n
+```
+
+`match_guard` で:
+
+```text
+first summand
+suspension source
+suspension target
+formula Eβ+α∘γ
+```
+
+を確認。
+
+追加:
+
+```text
+tests/test_phase48_toda_prop44_first_summand_restriction.py
+```
+
+verified:
+
+```text
+22 passed
+full suite 2342 passed in 59.14s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 48-4：Toda Prop.4.4 ⇒ E injective theorem semantics
+
+追加:
+
+```text
+TodaProp44SuspensionInjectiveStatement
+└── map: TodaSuspensionMap
+```
+
+追加 rule:
+
+```text
+toda_prop44_suspension_injective_inference_rule()
+```
+
+premises:
+
+```text
+TodaProp44IsomorphismStatement(Φ)
+TodaProp44FirstSummandRestrictionStatement(Φ,E)
+```
+
+conclusion:
+
+```text
+TodaProp44SuspensionInjectiveStatement(E)
+```
+
+rule は same decomposition-map instance、first-summand source、target compatibility を guard-aware に確認。
+
+generic `InjectiveMapStatement(EHP_E_MAP)` は生成しない。
+
+追加:
+
+```text
+tests/test_phase48_toda_prop44_e_injective_theorem.py
+```
+
+verified:
+
+```text
+26 passed
+full suite 2368 passed in 60.20s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 48-5：applicability / invalid cases / provenance
+
+production code 変更なし。
+
+確認:
+
+```text
+valid instance
+→ exactly one specific E injectivity
+
+missing isomorphism
+→ reject
+
+missing restriction
+→ reject
+
+cross-i
+→ reject
+
+cross-n
+→ reject
+
+cross-α
+→ reject
+
+different decomposition map
+→ reject
+
+wrong E source / target
+→ reject
+
+second summand as E source
+→ reject
+```
+
+provenance:
+
+```text
+ProofRule.INFERENCE
+exact two premises
+inference_rule preserved
+```
+
+generic boundary:
+
+```text
+TodaProp44SuspensionInjectiveStatement
+!= InjectiveMapStatement(EHP_E_MAP)
+```
+
+追加:
+
+```text
+tests/test_phase48_toda_prop44_e_injective_applicability.py
+```
+
+verified:
+
+```text
+22 passed
+full suite 2390 passed in 58.57s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 48-6：representative probe / full regression
+
+追加:
+
+```text
+probes/probe_phase48_capabilities.py
+tests/test_phase48_toda_prop44_probe.py
+```
+
+representative initial GIVEN:
+
+```text
+α ∈ π_{2n-1}^n
+H(α)=ι_{2n-1}
+TodaProp44DecompositionMap
+TodaSuspensionMap
+```
+
+end-to-end fixed point:
+
+```text
+round 1
+TodaProp44IsomorphismStatement
+TodaProp44FirstSummandRestrictionStatement
+
+round 2
+TodaProp44SuspensionInjectiveStatement
+
+fixed point
+```
+
+representative result:
+
+```text
+Φ: π_{i-1}^{n-1} ⊕ π_i^{2n-1} → π_i^n
+Φ(β,γ)=Eβ+α∘γ
+
+Φ is isomorphism
+Φ|_{π_{i-1}^{n-1}} = E
+E: π_{i-1}^{n-1} → π_i^n is injective
+```
+
+verified:
+
+```text
+tests/test_phase48_toda_prop44_probe.py
+21 passed
+
+full suite
+2411 passed in 58.16s
+```
+
+probe:
+
+```powershell
+python -m probes.probe_phase48_capabilities
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 48-7：Phase 48 completion
+
+Phase 48 で完成:
+
+```text
+TodaSuspensionMap
+instance-aware suspension source / target
+TodaProp44FirstSummandRestrictionStatement
+Toda Proposition 4.4 first-summand restriction semantics
+TodaProp44SuspensionInjectiveStatement
+Toda Proposition 4.4 suspension injectivity theorem semantics
+invalid-case rejection
+cross-instance rejection
+theorem provenance
+two-round fixed-point integration
+representative executable probe
+full regression
+```
+
+generic inference engine:
+
+```text
+変更なし
+```
+
+generic map-property API:
+
+```text
+変更なし
+```
+
+Phase 48 completion status:
+
+```text
+full suite
+2411 passed in 58.16s
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 48 completion boundary
+
+実装済み:
+
+```text
+Toda Proposition 4.4 decomposition isomorphism
+↓
+first-summand restriction
+↓
+E: π_{i-1}^{n-1} → π_i^n is injective
+```
+
+instance-aware theorem:
+
+```text
+TodaProp44SuspensionInjectiveStatement(
+  map=TodaSuspensionMap(...)
+)
+```
+
+未実装:
+
+```text
+generic InjectiveMapStatement bridge
+generic map-property type generalization
+general direct-sum inclusion machinery
+automatic equality reflection through TodaSuspensionMap
+general symbolic dimension solver
+symbolic map typing solver
+stable homotopy
+general existential witness machinery
+higher Toda brackets
+```
+
+---
+
+# 次の Phase
+
+```text
+Phase 49 candidate
+concrete EHP calculation
+π_3^2 = Z{η_2}
+```
+
+最初に compatibility check を行う。
+
+対象 path:
+
+```text
+π_2^1 -E→ π_3^2 -H→ π_3^3 -Δ→ π_1^1 -E→ π_2^2
+```
+
+低次 facts と exactness から `H: π_3^2 → π_3^3` isomorphism を導き、`ι_3` を source generator `η_2` へ transport できるか確認する。
+
+一般的 existential witness machinery は先取りしない。
+

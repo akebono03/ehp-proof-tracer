@@ -38,7 +38,7 @@ mathematical equality
 
 # Current status
 
-Completed through Phase 47.
+Completed through Phase 48.
 
 ```text
 Phase 28  map injectivity / isomorphism / equality reflection
@@ -61,43 +61,41 @@ Phase 44  Toda Lemma 4.1 case semantics
 Phase 45  Toda Proposition 4.2 2-primary EHP exact sequence
 Phase 46  Toda (4.5) stable-range E^(m-n) isomorphism
 Phase 47  Toda Proposition 4.4 decomposition isomorphism
+Phase 48  Toda Proposition 4.4 suspension E injectivity consequence
 ```
 
 Current full regression:
 
 ```text
-2277 passed in 55.61s
+2411 passed in 58.16s
 ```
 
-Focused Phase 47 suites:
+Focused Phase 48 suites:
 
 ```text
-tests/test_phase47_toda_prop44_compatibility.py
-20 passed
-
-tests/test_phase47_toda_prop44_decomposition_groups.py
-17 passed
-
-tests/test_phase47_toda_prop44_decomposition_map.py
-27 passed
-
-tests/test_phase47_toda_prop44_toda_membership.py
-15 passed
-
-tests/test_phase47_toda_prop44_theorem_semantics.py
-22 passed
-
-tests/test_phase47_toda_prop44_applicability_compatibility.py
+tests/test_phase48_toda_prop44_e_injectivity_compatibility.py
 21 passed
 
-tests/test_phase47_toda_prop44_probe.py
-12 passed
+tests/test_phase48_toda_prop44_e_map.py
+22 passed
+
+tests/test_phase48_toda_prop44_first_summand_restriction.py
+22 passed
+
+tests/test_phase48_toda_prop44_e_injective_theorem.py
+26 passed
+
+tests/test_phase48_toda_prop44_e_injective_applicability.py
+22 passed
+
+tests/test_phase48_toda_prop44_probe.py
+21 passed
 ```
 
-Representative Phase 47 probe:
+Representative Phase 48 probe:
 
 ```powershell
-python -m probes.probe_phase47_capabilities
+python -m probes.probe_phase48_capabilities
 ```
 
 ---
@@ -164,6 +162,9 @@ TodaPrimaryGroupMembershipStatement(element,group)
 
 TodaProp44DecompositionMap(source_group,target_group,alpha,beta,gamma,formula)
 → instance-aware Toda Proposition 4.4 decomposition map
+
+TodaSuspensionMap(source_group,target_group)
+→ instance-aware single suspension E map between TodaPrimaryGroup terms
 
 TodaEHPSequence(terms,maps)
 → structural Toda EHP sequence
@@ -1392,6 +1393,265 @@ TodaProp44IsomorphismStatement
 
 ---
 
+# Phase 48: Toda Proposition 4.4 suspension E injectivity consequence
+
+Phase 48 derives the Proposition 4.4 consequence that the suspension map
+
+```text
+E:
+π_{i-1}^{n-1}
+→
+π_i^n
+```
+
+is injective, while preserving the symbolic `(i,n)` source / target instance.
+
+Phase 48 keeps four layers distinct:
+
+```text
+generic E map symbol
+!=
+instance-aware Toda suspension map
+!=
+first-summand restriction semantics
+!=
+instance-aware injectivity theorem
+```
+
+## Instance-aware suspension map
+
+Phase 48 introduces:
+
+```text
+TodaSuspensionMap
+├── source_group: TodaPrimaryGroup
+└── target_group: TodaPrimaryGroup
+```
+
+Representative:
+
+```text
+E:
+π_{i-1}^{n-1}
+→
+π_i^n
+```
+
+Important:
+
+```text
+TodaSuspensionMap
+!= MapSymbol
+!= EHP_E_MAP
+!= Suspension
+!= TodaIteratedSuspensionMap
+!= TodaProp44DecompositionMap
+```
+
+The constructor stores the source / target structure only. It does not validate symbolic dimensions and does not assert injectivity.
+
+## Proposition 4.4 first-summand restriction
+
+Phase 48 introduces:
+
+```text
+TodaProp44FirstSummandRestrictionStatement
+├── decomposition_map: TodaProp44DecompositionMap
+└── suspension_map: TodaSuspensionMap
+```
+
+Meaning:
+
+```text
+Φ|_{π_{i-1}^{n-1}}
+=
+E: π_{i-1}^{n-1} → π_i^n
+```
+
+The rule:
+
+```text
+toda_prop44_first_summand_restriction_inference_rule()
+```
+
+checks that:
+
+```text
+suspension source = first direct-sum summand
+suspension target = decomposition target
+formula = Eβ + α∘γ
+```
+
+No general direct-sum inclusion or projection machinery is introduced.
+
+## Proposition 4.4 suspension injectivity theorem
+
+Phase 48 introduces:
+
+```text
+TodaProp44SuspensionInjectiveStatement
+└── map: TodaSuspensionMap
+```
+
+Meaning:
+
+```text
+E: π_{i-1}^{n-1} → π_i^n
+is injective
+```
+
+The domain rule is:
+
+```text
+toda_prop44_suspension_injective_inference_rule()
+```
+
+Premises:
+
+```text
+TodaProp44IsomorphismStatement(Φ)
+
+TodaProp44FirstSummandRestrictionStatement(Φ,E)
+```
+
+Conclusion:
+
+```text
+TodaProp44SuspensionInjectiveStatement(E)
+```
+
+The rule requires the same decomposition-map instance and checks that the suspension source is the first summand and the suspension target is the decomposition target.
+
+## Phase 48 end-to-end inference
+
+Representative initial premises:
+
+```text
+α ∈ π_{2n-1}^n
+H(α)=ι_{2n-1}
+TodaProp44DecompositionMap
+TodaSuspensionMap
+```
+
+Fixed-point inference:
+
+```text
+round 1
+TodaProp44IsomorphismStatement
+TodaProp44FirstSummandRestrictionStatement
+
+round 2
+TodaProp44SuspensionInjectiveStatement
+
+fixed point
+```
+
+Representative result:
+
+```text
+Φ:
+π_{i-1}^{n-1} ⊕ π_i^{2n-1}
+→
+π_i^n
+is isomorphism
+
+Φ|_{π_{i-1}^{n-1}}
+=
+E: π_{i-1}^{n-1} → π_i^n
+
+E: π_{i-1}^{n-1} → π_i^n
+is injective
+```
+
+## Generic map-property boundary after Phase 48
+
+The generic API remains:
+
+```text
+IsomorphismStatement(map: MapSymbol)
+InjectiveMapStatement(map: MapSymbol)
+```
+
+while:
+
+```text
+TodaSuspensionMap
+!= MapSymbol
+```
+
+Therefore Phase 48 intentionally does not derive:
+
+```text
+InjectiveMapStatement(EHP_E_MAP)
+```
+
+from the instance-aware theorem.
+
+Important:
+
+```text
+TodaProp44SuspensionInjectiveStatement
+!= InjectiveMapStatement
+```
+
+and the instance-aware theorem remains authoritative for the specific source / target pair.
+
+## Phase 48 representative probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase48_capabilities
+```
+
+Representative report:
+
+```text
+given premise count = 4
+isomorphism count = 1
+restriction count = 1
+injectivity count = 1
+derived round count = 2
+round 1 new step count = 2
+round 2 new step count = 1
+fixed point = True
+```
+
+## Phase 48 scope boundaries
+
+Implemented:
+
+```text
+TodaSuspensionMap
+instance-aware E source / target
+TodaProp44FirstSummandRestrictionStatement
+Toda Proposition 4.4 first-summand restriction rule
+TodaProp44SuspensionInjectiveStatement
+Toda Proposition 4.4 E injectivity theorem rule
+cross-instance rejection
+invalid-source / invalid-target rejection
+provenance
+two-round fixed-point integration
+representative executable probe
+full regression
+```
+
+Still not implemented:
+
+```text
+generic InjectiveMapStatement bridge
+generic map-property type generalization
+general direct-sum inclusion machinery
+automatic equality reflection through TodaSuspensionMap
+general symbolic dimension solver
+symbolic map typing solver
+stable homotopy group model
+general existential witness machinery
+higher Toda brackets
+```
+
+---
+
 # Phase 45 historical scope boundaries
 
 Still not implemented:
@@ -1439,34 +1699,33 @@ instance-lossy generic projection
 
 # Tests
 
-Focused Phase 47:
+Focused Phase 48:
 
 ```powershell
-python -m pytest tests/test_phase47_toda_prop44_compatibility.py -q
-python -m pytest tests/test_phase47_toda_prop44_decomposition_groups.py -q
-python -m pytest tests/test_phase47_toda_prop44_decomposition_map.py -q
-python -m pytest tests/test_phase47_toda_prop44_toda_membership.py -q
-python -m pytest tests/test_phase47_toda_prop44_theorem_semantics.py -q
-python -m pytest tests/test_phase47_toda_prop44_applicability_compatibility.py -q
-python -m pytest tests/test_phase47_toda_prop44_probe.py -q
+python -m pytest tests/test_phase48_toda_prop44_e_injectivity_compatibility.py -q
+python -m pytest tests/test_phase48_toda_prop44_e_map.py -q
+python -m pytest tests/test_phase48_toda_prop44_first_summand_restriction.py -q
+python -m pytest tests/test_phase48_toda_prop44_e_injective_theorem.py -q
+python -m pytest tests/test_phase48_toda_prop44_e_injective_applicability.py -q
+python -m pytest tests/test_phase48_toda_prop44_probe.py -q
 ```
 
 Verified:
 
 ```text
-20 passed
-17 passed
-27 passed
-15 passed
+21 passed
+22 passed
+22 passed
+26 passed
 22 passed
 21 passed
-12 passed
 ```
 
 Related regressions:
 
 ```powershell
-python -m pytest tests/test_toda_rules.py -q
+python -m pytest tests/test_phase47_toda_prop44_theorem_semantics.py -q
+python -m pytest tests/test_phase47_toda_prop44_applicability_compatibility.py -q
 python -m pytest tests/test_map_property_rules.py -q
 python -m pytest tests/test_inference_rule_pattern.py -q
 ```
@@ -1474,7 +1733,8 @@ python -m pytest tests/test_inference_rule_pattern.py -q
 Verified:
 
 ```text
-66 passed
+22 passed
+21 passed
 26 passed
 438 passed
 ```
@@ -1488,7 +1748,7 @@ python -m pytest -q
 Verified:
 
 ```text
-2277 passed in 55.61s
+2411 passed in 58.16s
 ```
 
 No failures.
@@ -1508,7 +1768,7 @@ Historical limitations in the development log describe the state at that time. C
 
 # Next development boundary
 
-Phase 47 is complete.
+Phase 48 is complete.
 
 The Toda Chapter 4 branch now contains:
 
@@ -1517,26 +1777,29 @@ Toda Lemma 4.1 case semantics
 Toda Proposition 4.2 instance-aware EHP exactness
 Toda (4.5) stable-range E^(m-n) instance-aware isomorphism
 Toda Proposition 4.4 instance-aware decomposition isomorphism
+Toda Proposition 4.4 instance-aware suspension E injectivity consequence
 ```
 
-The next planned branch is:
+The next candidate is a concrete low-dimensional calculation:
 
 ```text
-Phase 48 candidate
-Toda Proposition 4.4 consequence
-E injective
+Phase 49 candidate
+π_3^2 = Z{η_2}
 ```
 
-Phase 48 should derive the injectivity of the suspension map `E` as a consequence of the Proposition 4.4 decomposition isomorphism, without conflating the full decomposition map with `E`.
+The planned mathematical route is:
 
-The compatibility check should determine the minimum instance-aware representation needed for this consequence and whether any existing generic injectivity machinery can be reused without generalizing unrelated APIs.
+```text
+π_2^1 -E→ π_3^2 -H→ π_3^3 -Δ→ π_1^1 -E→ π_2^2
+```
+
+using low-dimensional facts and exactness to derive that `H: π_3^2 → π_3^3` is an isomorphism, then transport the generator `ι_3` back to a unique `η_2`.
+
+Phase 49 should begin with a compatibility check and add only the minimum missing facts / theorem semantics required by this concrete calculation.
 
 Important:
 
 ```text
-TodaProp44IsomorphismStatement
-!= generic IsomorphismStatement
-
-decomposition-map injectivity
-!= E injectivity
+concrete generator transport needed by π_3^2
+!= general existential witness engine
 ```
