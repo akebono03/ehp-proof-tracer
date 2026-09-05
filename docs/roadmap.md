@@ -22,7 +22,7 @@ future capability dependency
 
 ---
 
-# 2. Phase 44 完了時点
+# 2. Phase 45 完了時点
 
 Completed chain:
 
@@ -44,83 +44,137 @@ Phase 41  PreimageSubgroup minimum representation
 Phase 42  WhiteheadProduct minimum representation
 Phase 43  Toda Lemma 4.1 premise minimum representation
 Phase 44  Toda Lemma 4.1 case semantics
+Phase 45  Toda Proposition 4.2 2-primary EHP exact sequence
 ```
 
 Current full regression:
 
 ```text
-1957 passed in 75.54s
-```
-
-Focused Phase 44:
-
-```text
-94 passed
+2060 passed in 70.48s
 ```
 
 Representative probe:
 
 ```powershell
-python -m probes.probe_phase44_capabilities
+python -m probes.probe_phase45_capabilities
 ```
 
 ---
 
-# 3. Phase 44 completed capabilities
+# 3. Phase 45 completed capabilities
 
 ```text
-symbolic GeneratorSymbol index
-symbolic HomotopyElement dimension
-FreeCyclicGroup
-DirectSumGroup
-PrimaryComponentMembershipStatement
-Toda Lemma 4.1 odd case rule
-Toda Lemma 4.1 even/nonzero case rule
-Toda Lemma 4.1 even/zero group rule
-Toda Lemma 4.1 zero-case Hopf condition rule
-Toda Lemma 4.1 zero-case suspension-primary rule
-case applicability / exclusivity
-provenance
-fixed-point integration
+canonical symbolic E
+canonical symbolic H
+canonical symbolic Δ
+TodaEHPSequence
+TodaEHPExactnessWindow
+TodaProp42ExactnessStatement
+Toda Prop.4.2 E-H exactness rule
+Toda Prop.4.2 H-Δ exactness rule
+Toda Prop.4.2 Δ-E exactness rule
+instance-aware exactness
+guard-aware theorem applicability
+theorem provenance
+Toda exactness → generic ExactnessStatement bridge
+existing generic EHP zero-composition reuse
+three-round fixed-point integration
 representative probe
 ```
 
 ---
 
-# 4. Toda Lemma 4.1 completed theorem branch
+# 4. Toda Proposition 4.2 completed theorem branch
 
 ```text
-n odd
-↓
-π_{2n-1}^n = π_{2n-1}(S^n;2)
+π_i^n
+-E→
+π_{i+1}^{n+1}
+-H→
+π_{i+1}^{2n+1}
 ```
 
+is exact.
+
 ```text
-n even
-+
-[ι_{n-1},ι_{n-1}] != 0
-↓
-π_{2n-1}^n = Z{P(ι_{2n+1})} ⊕ π_{2n-1}(S^n;2)
+π_{i+1}^{n+1}
+-H→
+π_{i+1}^{2n+1}
+-Δ→
+π_{i-1}^n
 ```
 
+is exact.
+
 ```text
-n even
-+
-[ι_{n-1},ι_{n-1}] = 0
-↓
-π_{2n-1}^n = Z{α} ⊕ π_{2n-1}(S^n;2)
+π_{i+1}^{2n+1}
+-Δ→
+π_{i-1}^n
+-E→
+π_i^{n+1}
 ```
 
-with:
+is exact.
+
+Generic consequences now reusable:
 
 ```text
-H(α)=ι_{2n-1}
-Eα ∈ π_{2n}(S^{n+1};2)
+H∘E = 0
+Δ∘H = 0
+E∘Δ = 0
 ```
 
 ---
 
-# 5. Current deferred boundaries
+# 5. Phase 45 architecture result
+
+```text
+TodaEHPSequence
+=
+long structural sequence
+```
+
+```text
+TodaEHPExactnessWindow
+=
+instance-aware three-term structural window
+```
+
+```text
+TodaProp42ExactnessStatement
+=
+instance-aware theorem exactness
+```
+
+```text
+ExactnessStatement
+=
+instance-lossy generic exactness projection
+```
+
+```text
+EHPZeroCompositionStatement
+=
+existing generic exactness consequence
+```
+
+End-to-end:
+
+```text
+TodaEHPExactnessWindow
+↓
+TodaProp42ExactnessStatement
+↓
+ExactnessStatement
+↓
+EHPZeroCompositionStatement
+```
+
+generic inference engine は変更していない。
+
+---
+
+# 6. Current deferred boundaries
 
 未実装:
 
@@ -142,7 +196,10 @@ Whitehead-product antisymmetry
 general existential quantification / witness objects
 automatic α existence / uniqueness
 PrimaryComponent membership → ordinary membership bridge
-Toda Prop.4.2 2-primary EHP exact sequence
+symbolic map typing solver
+general symbolic dimension solver
+automatic symbolic image/kernel group construction
+instance-aware generic ExactnessStatement
 Toda (4.5) stable-range suspension isomorphism
 Toda Prop.4.4 decomposition isomorphism
 Toda Prop.4.4 consequence: E injective on π_i^n
@@ -153,7 +210,7 @@ higher Toda brackets
 
 ---
 
-# 6. Capability matrix
+# 7. Capability matrix
 
 | capability | status | phase |
 |---|---|---|
@@ -184,8 +241,15 @@ higher Toda brackets
 | Toda Lemma 4.1 even / Whitehead zero case | IMPLEMENTED | 44 |
 | zero-case `H(α)=ι_{2n-1}` | IMPLEMENTED | 44 |
 | zero-case `Eα∈π_{2n}(S^{n+1};2)` | IMPLEMENTED | 44 |
-| Toda Prop.4.2 2-primary EHP exact sequence | NEXT | 45 |
-| Toda (4.5) `E^(m-n)` isomorphism | PLANNED | later |
+| symbolic E / H / Δ map terms | IMPLEMENTED | 45 |
+| symbolic Toda EHP long sequence | IMPLEMENTED | 45 |
+| instance-aware exactness window | IMPLEMENTED | 45 |
+| Toda Prop.4.2 E-H exactness | IMPLEMENTED | 45 |
+| Toda Prop.4.2 H-Δ exactness | IMPLEMENTED | 45 |
+| Toda Prop.4.2 Δ-E exactness | IMPLEMENTED | 45 |
+| Toda exactness → generic exactness bridge | IMPLEMENTED | 45 |
+| Toda Prop.4.2 → zero-composition reuse | IMPLEMENTED | 45 |
+| Toda (4.5) `E^(m-n)` isomorphism | NEXT | 46 candidate |
 | Toda Prop.4.4 decomposition isomorphism | PLANNED | later |
 | Toda Prop.4.4 `E` injectivity consequence | PLANNED | later |
 | stable homotopy | PLANNED | later |
@@ -193,7 +257,7 @@ higher Toda brackets
 
 ---
 
-# 7. Long-term dependency
+# 8. Long-term dependency
 
 ```text
 Phase 29
@@ -256,8 +320,9 @@ Phase 44
 Toda Lemma 4.1 case semantics COMPLETE
 ↓
 Phase 45
-Toda Prop.4.2 2-primary EHP exact sequence
+Toda Prop.4.2 2-primary EHP exact sequence COMPLETE
 ↓
+Phase 46 candidate
 Toda (4.5)
 stable-range E^(m-n) isomorphism
 ↓
@@ -273,54 +338,69 @@ existing equality / ZERO reflection machinery
 
 ---
 
-# 8. Phase 45 candidate：Toda Prop.4.2
+# 9. Phase 46 candidate：Toda (4.5)
 
 NEXT。
 
-Phase 44 で critical Toda group structure を theorem-level に表現可能になった。
-
-次の対象:
+Toda (4.5):
 
 ```text
-Toda Proposition 4.2
-2-primary EHP exact sequence
+n ≥ k+2
 ```
+
+のとき:
+
+```text
+E^(m-n):
+π_{n+k}^n
+→
+π_{m+k}^m
+
+(m ≥ n)
+```
+
+は isomorphism。
+
+Phase 45 までで Chapter 4 の critical group structure と 2-primary EHP exactness が theorem-level に接続されたため、次は stable-range suspension isomorphism が自然。
 
 実装前 compatibility check:
 
 ```text
-current EHP exactness representation
-current E / H / P map terms
-PrimaryComponent
+IteratedSuspension
+existing map isomorphism statement
 TodaPrimaryGroup
-PreimageSubgroup
-Toda Prop.4.2 exact statement
+symbolic scalar inequalities
+symbolic E^(m-n) representation
+symbolic domain / codomain compatibility
+Toda (4.5) exact statement
 ```
 
-Phase 45 で確認すべき点:
+Phase 46 で確認すべき点:
 
 ```text
-ordinary EHP exactness object を再利用できるか
-2-primary component を sequence object の term として保持できるか
-TodaPrimaryGroup と PrimaryComponent の役割をどう分離するか
-map source / target を symbolic degree で lossless に置けるか
-theorem provenance を既存 ProofStep で保持できるか
+existing IteratedSuspension を map-level E^(m-n) に再利用できるか
+existing Isomorphism statement が symbolic map / group terms を保持できるか
+n ≥ k+2 / m ≥ n premise を current scalar statements で表せるか
+TodaPrimaryGroup source / target を lossless に保持できるか
+theorem provenance を current ProofStep で保持できるか
 ```
 
 ---
 
-# 9. Phase 45 non-goals
+# 10. Phase 46 non-goals
 
-Phase 45 では先取りしない:
+Phase 46 では先取りしない:
 
 ```text
-Toda (4.5)
 Toda Prop.4.4
-general stable homotopy
+Toda Prop.4.4 decomposition theorem
+Toda Prop.4.4 E injectivity consequence
+general stable homotopy theory
+general symbolic inequality solver
+general symbolic dimension simplifier
 general Whitehead-product algebra
 automatic Whitehead zero / nonzero solver
 general existential witness engine
-general symbolic dimension solver
 ```
 
 実装順序:
@@ -341,7 +421,7 @@ full regression
 
 ---
 
-# 10. Testing principle
+# 11. Testing principle
 
 各 layer で:
 
@@ -361,13 +441,28 @@ full regression
 
 ---
 
-# 11. Phase 44 verified status
+# 12. Phase 45 verified status
 
 focused:
 
 ```text
-tests/test_phase44_toda_lemma41_case_semantics.py
-94 passed
+tests/test_phase45_toda_prop42_compatibility.py
+17 passed
+
+tests/test_phase45_toda_prop42_sequence.py
+19 passed
+
+tests/test_phase45_toda_prop42_exactness_compatibility.py
+17 passed
+
+tests/test_phase45_toda_prop42_exactness_instance.py
+18 passed
+
+tests/test_phase45_toda_prop42_theorem_semantics.py
+16 passed
+
+tests/test_phase45_toda_prop42_bridge.py
+16 passed
 ```
 
 related:
@@ -376,43 +471,40 @@ related:
 tests/test_toda_rules.py
 66 passed
 
-tests/test_phase43_toda_lemma41_premise.py
-32 passed
+tests/test_ehp_rules.py
+26 passed
 
-tests/test_phase39_primary_component.py
-24 passed
-
-tests/test_hopf_rules.py
-31 passed
-
-tests/test_expression.py
-145 passed
+tests/test_inference_rule_pattern.py
+438 passed
 ```
 
 full:
 
 ```text
-1957 passed in 75.54s
+2060 passed in 70.48s
 ```
 
 probe:
 
 ```powershell
-python -m probes.probe_phase44_capabilities
+python -m probes.probe_phase45_capabilities
 ```
 
 result:
 
 ```text
-odd case
-→ π_{2n-1}^n = π_{2n-1}(S^n;2)
+π_i^n -E→ π_{i+1}^{n+1} -H→ π_{i+1}^{2n+1}
+π_{i+1}^{n+1} -H→ π_{i+1}^{2n+1} -Δ→ π_{i-1}^n
+π_{i+1}^{2n+1} -Δ→ π_{i-1}^n -E→ π_i^{n+1}
 
-even / nonzero case
-→ π_{2n-1}^n = Z{P(ι_{2n+1})} ⊕ π_{2n-1}(S^n;2)
+E-H exact
+H-Δ exact
+Δ-E exact
 
-even / zero case
-→ π_{2n-1}^n = Z{α} ⊕ π_{2n-1}(S^n;2)
+H∘E = 0
+Δ∘H = 0
+E∘Δ = 0
 
-H(α)=ι_{2n-1}
-Eα ∈ π_{2n}(S^{n+1};2)
+derived round count = 3
+fixed point = True
 ```

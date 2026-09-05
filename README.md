@@ -38,7 +38,7 @@ mathematical equality
 
 # Current status
 
-Completed through Phase 44.
+Completed through Phase 45.
 
 ```text
 Phase 28  map injectivity / isomorphism / equality reflection
@@ -58,25 +58,41 @@ Phase 41  PreimageSubgroup minimum representation
 Phase 42  WhiteheadProduct minimum representation
 Phase 43  Toda Lemma 4.1 premise minimum representation
 Phase 44  Toda Lemma 4.1 case semantics
+Phase 45  Toda Proposition 4.2 2-primary EHP exact sequence
 ```
 
 Current full regression:
 
 ```text
-1957 passed in 75.54s
+2060 passed in 70.48s
 ```
 
-Focused Phase 44 suite:
+Focused Phase 45 suites:
 
 ```text
-tests/test_phase44_toda_lemma41_case_semantics.py
-94 passed
+tests/test_phase45_toda_prop42_compatibility.py
+17 passed
+
+tests/test_phase45_toda_prop42_sequence.py
+19 passed
+
+tests/test_phase45_toda_prop42_exactness_compatibility.py
+17 passed
+
+tests/test_phase45_toda_prop42_exactness_instance.py
+18 passed
+
+tests/test_phase45_toda_prop42_theorem_semantics.py
+16 passed
+
+tests/test_phase45_toda_prop42_bridge.py
+16 passed
 ```
 
-Representative Phase 44 probe:
+Representative Phase 45 probe:
 
 ```powershell
-python -m probes.probe_phase44_capabilities
+python -m probes.probe_phase45_capabilities
 ```
 
 ---
@@ -137,6 +153,18 @@ DirectSumGroup(summands)
 
 PrimaryComponentMembershipStatement(element,component)
 → element ∈ π_i(S^n;p)
+
+TodaEHPSequence(terms,maps)
+→ structural Toda EHP sequence
+
+TodaEHPExactnessWindow(
+  source_term,
+  middle_term,
+  target_term,
+  first_map,
+  second_map,
+)
+→ one instance-aware three-term EHP window
 ```
 
 These remain distinct from the concrete finitely generated abelian-group calculation layer.
@@ -152,6 +180,12 @@ FreeCyclicGroup
 
 DirectSumGroup
 != AbelianGroup
+
+TodaEHPSequence
+!= EHPSegment
+
+TodaEHPExactnessWindow
+!= ExactnessStatement
 ```
 
 ---
@@ -187,7 +221,7 @@ The Whitehead product itself does not decide either relation.
 
 ---
 
-# Phase 44: Toda Lemma 4.1 case semantics
+# Toda Lemma 4.1 case semantics
 
 Phase 44 implements the three case branches of Toda Lemma 4.1.
 
@@ -206,8 +240,6 @@ derive:
 =
 π_{2n-1}(S^n;2)
 ```
-
-The result is represented as an equality between `TodaPrimaryGroup` and `PrimaryComponent`.
 
 ## Even / Whitehead nonzero case
 
@@ -228,8 +260,6 @@ Z{P(ι_{2n+1})}
 π_{2n-1}(S^n;2)
 ```
 
-The free summand is represented structurally as `FreeCyclicGroup`, and the full right-hand side as `DirectSumGroup`.
-
 ## Even / Whitehead zero case
 
 From:
@@ -249,74 +279,275 @@ Z{α}
 π_{2n-1}(S^n;2)
 ```
 
-The same theorem premise also derives:
-
-```text
-H(α)=ι_{2n-1}
-```
-
 and:
 
 ```text
+H(α)=ι_{2n-1}
 Eα ∈ π_{2n}(S^{n+1};2)
 ```
-
-The latter is represented by `PrimaryComponentMembershipStatement`.
 
 The group decomposition, Hopf condition, and suspension-primary condition use the same structural `α`.
 
 ---
 
-# Phase 44 rule structure
+# Phase 45: Toda Proposition 4.2
 
-The generic inference engine still assumes one conclusion per `InferenceRule`.
+Phase 45 introduces a symbolic representation and theorem semantics for the three exact sequences in Toda Proposition 4.2.
 
-Therefore the zero case uses three domain rules sharing the same premises:
-
-```text
-n even
-+
-[ι_{n-1},ι_{n-1}] = 0
-```
-
-to derive independently:
+Canonical symbolic maps:
 
 ```text
-π_{2n-1}^n = Z{α} ⊕ π_{2n-1}(S^n;2)
-H(α)=ι_{2n-1}
-Eα ∈ π_{2n}(S^{n+1};2)
+EHP_E_MAP     → E
+EHP_H_MAP     → H
+EHP_DELTA_MAP → Δ
 ```
 
-No generic multi-conclusion theorem mechanism was introduced.
+The structural sequence is:
+
+```text
+π_i^n
+--E→
+π_{i+1}^{n+1}
+--H→
+π_{i+1}^{2n+1}
+--Δ→
+π_{i-1}^n
+--E→
+π_i^{n+1}
+```
+
+This long sequence is represented by:
+
+```text
+TodaEHPSequence
+```
+
+It does not itself assert exactness.
+
+---
+
+# Toda Proposition 4.2 exactness windows
+
+The proposition is represented as three exactness windows.
+
+## E-H window
+
+```text
+π_i^n
+--E→
+π_{i+1}^{n+1}
+--H→
+π_{i+1}^{2n+1}
+```
+
+## H-Δ window
+
+```text
+π_{i+1}^{n+1}
+--H→
+π_{i+1}^{2n+1}
+--Δ→
+π_{i-1}^n
+```
+
+## Δ-E window
+
+```text
+π_{i+1}^{2n+1}
+--Δ→
+π_{i-1}^n
+--E→
+π_i^{n+1}
+```
+
+Each window is represented by:
+
+```text
+TodaEHPExactnessWindow
+```
+
+which stores:
+
+```text
+source_term
+middle_term
+target_term
+first_map
+second_map
+```
+
+The window object is representation only and does not contain an `is_exact` field.
+
+---
+
+# Toda Proposition 4.2 theorem statements
+
+Phase 45 introduces:
+
+```text
+TodaProp42ExactnessStatement(window)
+```
+
+This is the instance-aware theorem result that the supplied `TodaEHPExactnessWindow` is exact.
+
+The three domain rules are:
+
+```text
+toda_prop42_e_h_exactness_inference_rule()
+
+toda_prop42_h_delta_exactness_inference_rule()
+
+toda_prop42_delta_e_exactness_inference_rule()
+```
+
+Each rule checks both:
+
+```text
+map order
+symbolic group-dimension structure
+```
+
+before deriving the theorem statement.
+
+The generic inference engine is unchanged.
+
+---
+
+# Instance-aware exactness
+
+A key Phase 45 distinction is:
+
+```text
+TodaProp42ExactnessStatement
+=
+instance-aware theorem knowledge
+```
+
+For example:
+
+```text
+(i,n) E-H exactness
+!=
+(j,m) E-H exactness
+```
+
+when the group terms differ.
+
+By contrast:
+
+```text
+ExactnessStatement(
+  first_map=E,
+  second_map=H,
+  is_exact=True,
+)
+```
+
+does not retain the group terms and therefore does not identify the symbolic `(i,n)` instance.
+
+The instance-aware Toda statement is the authoritative theorem result.
+
+---
+
+# Generic exactness bridge
+
+Phase 45 adds:
+
+```text
+toda_prop42_exactness_to_generic_inference_rule()
+```
+
+which derives:
+
+```text
+TodaProp42ExactnessStatement(window)
+↓
+ExactnessStatement(
+  first_map=window.first_map,
+  second_map=window.second_map,
+  is_exact=True,
+)
+```
+
+The generic projection is intentionally instance-lossy.
+
+This permits existing generic EHP exactness infrastructure to be reused without changing `ExactnessStatement`.
+
+---
+
+# Existing generic EHP consequences
+
+The Phase 45 representative run connects Toda Proposition 4.2 to the existing zero-composition rule.
+
+```text
+E-H exact
+→ H∘E = 0
+
+H-Δ exact
+→ Δ∘H = 0
+
+Δ-E exact
+→ E∘Δ = 0
+```
+
+The end-to-end inference path is:
+
+```text
+TodaEHPExactnessWindow
+↓
+TodaProp42ExactnessStatement
+↓
+ExactnessStatement
+↓
+EHPZeroCompositionStatement
+```
+
+Representative inference reaches fixed point in three derived rounds:
+
+```text
+round 1
+3 Toda theorem exactness statements
+
+round 2
+3 generic exactness statements
+
+round 3
+3 zero-composition statements
+
+fixed point
+```
 
 ---
 
 # Applicability and provenance
 
-Representative applicability:
+The three Toda Proposition 4.2 rules use the same premise type:
 
 ```text
-odd premise
-→ odd rule only
-
-even + Whitehead nonzero
-→ nonzero rule only
-
-even + Whitehead zero
-→ zero group rule only
+TodaEHPExactnessWindow
 ```
 
-For the zero-case theorem bundle:
+so pattern-level candidate search may return all three rules.
+
+Actual theorem applicability is determined by guard-aware matching:
 
 ```text
-group structure rule
-Hopf condition rule
-suspension-primary condition rule
+find_inference_match()
 ```
 
-all three are applicable to the same two premises.
+which evaluates the rule `match_guard`.
 
-Every derived step preserves:
+Therefore:
+
+```text
+pattern-level candidate
+!=
+guard-aware inference match
+```
+
+For a valid E-H, H-Δ, or Δ-E window, exactly one of the three theorem rules produces an inference match.
+
+Every derived theorem step preserves:
 
 ```text
 ProofStep.premises
@@ -324,113 +555,137 @@ ProofStep.inference_rule
 ProofRule.INFERENCE
 ```
 
-as theorem provenance.
+The generic bridge also preserves the Toda theorem step as its premise.
 
 ---
 
-# Phase 44 representative probe
+# Phase 45 representative probe
 
 Run:
 
 ```powershell
-python -m probes.probe_phase44_capabilities
+python -m probes.probe_phase45_capabilities
 ```
 
 Representative output includes:
 
 ```text
-Toda Lemma 4.1: n odd
-π_{2n-1}^{n} = π_{2n-1}(S^{n};2)
+π_i^n -E→ π_{i+1}^{n+1} -H→ π_{i+1}^{2n+1}
+π_{i+1}^{n+1} -H→ π_{i+1}^{2n+1} -Δ→ π_{i-1}^n
+π_{i+1}^{2n+1} -Δ→ π_{i-1}^n -E→ π_i^{n+1}
 ```
+
+then:
 
 ```text
-Toda Lemma 4.1: n even + Whitehead nonzero
-π_{2n-1}^{n} = Z{P(ι_{2n+1})} ⊕ π_{2n-1}(S^{n};2)
+E-H exact
+H-Δ exact
+Δ-E exact
 ```
+
+and existing generic consequences:
 
 ```text
-Toda Lemma 4.1: n even + Whitehead zero
-π_{2n-1}^{n} = Z{α} ⊕ π_{2n-1}(S^{n};2)
-
-H(α)=ι_{2n-1}
-Eα ∈ π_{2n}(S^{n+1};2)
+H∘E = 0
+Δ∘H = 0
+E∘Δ = 0
 ```
 
-The zero-case theorem bundle derives three results in one inference round and then reaches a fixed point.
+The representative run reports:
+
+```text
+theorem exactness count = 3
+generic exactness count = 3
+zero composition count = 3
+derived round count = 3
+fixed point = True
+```
 
 ---
 
-# Phase 44 scope boundaries
+# Phase 45 scope boundaries
 
 Still not implemented:
 
 ```text
-automatic Whitehead-product zero inference
-automatic Whitehead-product nonzero inference
-ZERO / INEQUALITY contradiction detection
-Whitehead-product bilinearity
-Whitehead-product antisymmetry
-automatic α existence machinery
-automatic α uniqueness machinery
-general existential witness representation
-PrimaryComponent membership → ordinary membership bridge
-Toda Prop.4.2 semantics
-Toda (4.5) stable-range E^(m-n) isomorphism
-Toda Prop.4.4 decomposition theorem
+symbolic map typing solver
+general symbolic dimension solver
+automatic symbolic kernel/image groups for TodaEHPExactnessWindow
+instance-aware generic ExactnessStatement
+Toda (4.5) stable-range suspension isomorphism
+Toda Proposition 4.4 decomposition theorem
+Toda Proposition 4.4 consequence: E injective
 stable homotopy group model
-higher / variable-arity Toda brackets
+general Whitehead-product algebra
+automatic Whitehead-product zero / nonzero solver
+general existential witness machinery
+higher Toda brackets
 ```
 
 Important:
 
 ```text
-Toda Lemma 4.1 theorem semantics
+TodaEHPExactnessWindow
 !=
-general Whitehead-product algebra
+exactness theorem
 ```
 
 and:
 
 ```text
-structural α shared across theorem conclusions
+TodaProp42ExactnessStatement
 !=
-general existential witness engine
+generic ExactnessStatement
+```
+
+and:
+
+```text
+instance-aware theorem result
+!=
+instance-lossy generic projection
 ```
 
 ---
 
 # Tests
 
-Focused Phase 44:
+Focused Phase 45:
 
 ```powershell
-python -m pytest tests/test_phase44_toda_lemma41_case_semantics.py -q
+python -m pytest tests/test_phase45_toda_prop42_compatibility.py -q
+python -m pytest tests/test_phase45_toda_prop42_sequence.py -q
+python -m pytest tests/test_phase45_toda_prop42_exactness_compatibility.py -q
+python -m pytest tests/test_phase45_toda_prop42_exactness_instance.py -q
+python -m pytest tests/test_phase45_toda_prop42_theorem_semantics.py -q
+python -m pytest tests/test_phase45_toda_prop42_bridge.py -q
 ```
 
 Verified:
 
 ```text
-94 passed
+17 passed
+19 passed
+17 passed
+18 passed
+16 passed
+16 passed
 ```
 
 Related regressions:
 
 ```powershell
 python -m pytest tests/test_toda_rules.py -q
-python -m pytest tests/test_phase43_toda_lemma41_premise.py -q
-python -m pytest tests/test_phase39_primary_component.py -q
-python -m pytest tests/test_hopf_rules.py -q
-python -m pytest tests/test_expression.py -q
+python -m pytest tests/test_ehp_rules.py -q
+python -m pytest tests/test_inference_rule_pattern.py -q
 ```
 
 Verified:
 
 ```text
 66 passed
-32 passed
-24 passed
-31 passed
-145 passed
+26 passed
+438 passed
 ```
 
 Full suite:
@@ -442,7 +697,7 @@ python -m pytest -q
 Verified:
 
 ```text
-1957 passed in 75.54s
+2060 passed in 70.48s
 ```
 
 No failures.
@@ -462,17 +717,17 @@ Historical limitations in the development log describe the state at that time. C
 
 # Next development boundary
 
-Phase 44 is complete.
+Phase 45 is complete.
 
-The Toda Chapter 4 branch now has a theorem-level structural description of `π_{2n-1}^n` in all three Toda Lemma 4.1 cases.
+The Toda Chapter 4 branch now contains theorem-level, instance-aware exactness semantics for Toda Proposition 4.2 and a bridge into the existing generic exactness infrastructure.
 
 The next planned branch is:
 
 ```text
-Toda Prop.4.2
-2-primary EHP exact sequence
+Toda (4.5)
+stable-range E^(m-n) isomorphism
 ```
 
-Before implementation, the current EHP exactness representation, `PrimaryComponent`, `TodaPrimaryGroup`, and the exact statement of Toda Proposition 4.2 should be checked.
+Before implementation, the current iterated-suspension representation, map isomorphism statements, symbolic dimension handling, and exact formulation of Toda (4.5) should be checked.
 
-The next phase should add only the minimum representation and theorem semantics required by Proposition 4.2, without introducing general Whitehead-product algebra, existential-witness machinery, or stable-range theorems prematurely.
+Toda Proposition 4.4 remains later and must not be introduced as part of the Toda (4.5) compatibility phase.

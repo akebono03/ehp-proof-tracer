@@ -54,7 +54,7 @@ homotopy / EHP data
 abelian-group algebra
 ```
 
-Phase 44 でも generic inference engine は変更していない。
+Phase 45 でも generic inference engine は変更していない。
 
 ---
 
@@ -78,7 +78,7 @@ Expression
 
 constructor は theorem-aware normalization を行わない。
 
-必要な数学的同値は proof-level `Relation` として導出する。
+必要な数学的同値は proof-level statement / `Relation` として導出する。
 
 ---
 
@@ -96,14 +96,13 @@ ScalarExpression
 
 `ScalarValue` により integer / symbolic scalar expression を共通に扱う。
 
-Phase 44 では:
+Phase 45 では:
 
 ```text
-n-1
-2n-1
-2n
-2n+1
+i+1
+i-1
 n+1
+2n+1
 ```
 
 を structural scalar expression として保持する。
@@ -114,7 +113,7 @@ general-purpose CAS は導入しない。
 
 # 5. Symbolic generator index
 
-Phase 44 では Toda Lemma 4.1 の symbolic Whitehead premise が必要になったため `GeneratorSymbol.index` は `ScalarValue | None` を受ける。
+`GeneratorSymbol.index` は `ScalarValue | None` を受ける。
 
 これにより:
 
@@ -238,7 +237,9 @@ representative:
 
 ```text
 π_i^n
-π_{2n-1}^n
+π_{i+1}^{n+1}
+π_{i+1}^{2n+1}
+π_{i-1}^n
 ```
 
 重要:
@@ -254,7 +255,7 @@ Toda notation を ordinary p-primary group term に constructor-level で変換�
 
 # 10. FreeCyclicGroup
 
-Phase 44 の group decomposition に必要な structural free summand。
+symbolic group decomposition 用 structural free summand。
 
 ```text
 FreeCyclicGroup
@@ -279,7 +280,7 @@ FreeCyclicGroup
 
 # 11. DirectSumGroup
 
-Phase 44 の symbolic group decomposition 用。
+symbolic group decomposition 用。
 
 ```text
 DirectSumGroup
@@ -304,13 +305,11 @@ DirectSumGroup
 != AbelianGroup
 ```
 
-これは symbolic theorem conclusion 用 structural group term であり、concrete computation を担わない。
-
 ---
 
 # 12. PrimaryComponentMembershipStatement
 
-Phase 44-6b で導入。
+production object:
 
 ```text
 PrimaryComponentMembershipStatement
@@ -473,7 +472,20 @@ same premises
 └── Eα primary-membership rule
 ```
 
-という3本の domain rule で表現する。
+Toda Proposition 4.2 では:
+
+```text
+E-H window
+→ E-H exactness rule
+
+H-Δ window
+→ H-Δ exactness rule
+
+Δ-E window
+→ Δ-E exactness rule
+```
+
+と domain rule を分ける。
 
 重要:
 
@@ -485,130 +497,530 @@ generic multi-conclusion inference-rule extension
 
 ---
 
-# 19. Structural α identity
+# 19. Canonical symbolic EHP maps
 
-group rule、Hopf rule、suspension-primary rule の `α` は同じ structural value として生成する。
+Phase 45 で symbolic map terms を揃えた。
 
-test では Python object identity `is` ではなく structural equality `==` を要求する。
+```text
+EHP_E_MAP
+→ E
 
-これは same structural witness syntax を意味するが、general existential witness engine を意味しない。
+EHP_H_MAP
+→ H
+
+EHP_DELTA_MAP
+→ Δ
+```
+
+これらは `MapSymbol`。
+
+symbolic source / target typing はまだ持たない。
+
+既存 `MapTypingFact` の concrete integer dimensions を Phase 45 では拡張しない。
 
 ---
 
-# 20. Applicability policy
+# 20. TodaEHPSequence
+
+Phase 45 の long structural sequence 用。
 
 ```text
-n odd
-→ odd rule only
+TodaEHPSequence
+├── terms: tuple[TodaPrimaryGroup,...]
+└── maps: tuple[MapSymbol,...]
 ```
+
+invariant:
 
 ```text
-n even
-+
-matching [ι_{n-1},ι_{n-1}] != 0
-→ nonzero rule only
+len(terms) = len(maps) + 1
 ```
+
+representative:
 
 ```text
-n even
-+
-matching [ι_{n-1},ι_{n-1}] = 0
-→ zero group rule
+π_i^n
+-E→
+π_{i+1}^{n+1}
+-H→
+π_{i+1}^{2n+1}
+-Δ→
+π_{i-1}^n
+-E→
+π_i^{n+1}
 ```
 
-zero theorem bundle は同じ premises から3 rule が applicable。
+重要:
 
-異なる symbolic index や arbitrary ZERO / INEQUALITY relation は match しない。
+```text
+TodaEHPSequence
+!= EHPSegment
+```
+
+`EHPSegment` は repository-backed concrete `AbelianGroup` / `GroupMap` calculation layer。
+
+`TodaEHPSequence` は symbolic theorem representation layer。
+
+また:
+
+```text
+TodaEHPSequence
+!= exactness theorem
+```
+
+sequence object に `is_exact` は置かない。
 
 ---
 
-# 21. Provenance
+# 21. TodaEHPExactnessWindow
 
-derived `ProofStep` は:
+Phase 45-4 で導入。
+
+```text
+TodaEHPExactnessWindow
+├── source_term: TodaPrimaryGroup
+├── middle_term: TodaPrimaryGroup
+├── target_term: TodaPrimaryGroup
+├── first_map: MapSymbol
+└── second_map: MapSymbol
+```
+
+目的:
+
+```text
+A --f→ B --g→ C
+```
+
+を instance-aware に保持する。
+
+representative:
+
+```text
+π_i^n
+-E→
+π_{i+1}^{n+1}
+-H→
+π_{i+1}^{2n+1}
+```
+
+同じ `E-H` map pair でも group terms が異なれば別 structural instance として区別できる。
+
+重要:
+
+```text
+TodaEHPExactnessWindow
+!= ExactnessStatement
+```
+
+and:
+
+```text
+window representation
+!= exactness theorem
+```
+
+---
+
+# 22. Toda Proposition 4.2 E-H exactness
+
+window:
+
+```text
+π_i^n
+-E→
+π_{i+1}^{n+1}
+-H→
+π_{i+1}^{2n+1}
+```
+
+rule:
+
+```text
+toda_prop42_e_h_exactness_inference_rule()
+```
+
+`match_guard` が:
+
+```text
+first_map = E
+second_map = H
+middle = π_{i+1}^{n+1}
+target = π_{i+1}^{2n+1}
+```
+
+を確認する。
+
+conclusion:
+
+```text
+TodaProp42ExactnessStatement(window)
+```
+
+---
+
+# 23. Toda Proposition 4.2 H-Δ exactness
+
+window:
+
+```text
+π_{i+1}^{n+1}
+-H→
+π_{i+1}^{2n+1}
+-Δ→
+π_{i-1}^n
+```
+
+rule:
+
+```text
+toda_prop42_h_delta_exactness_inference_rule()
+```
+
+`match_guard` が map order と symbolic dimension structure を確認する。
+
+conclusion:
+
+```text
+TodaProp42ExactnessStatement(window)
+```
+
+---
+
+# 24. Toda Proposition 4.2 Δ-E exactness
+
+window:
+
+```text
+π_{i+1}^{2n+1}
+-Δ→
+π_{i-1}^n
+-E→
+π_i^{n+1}
+```
+
+rule:
+
+```text
+toda_prop42_delta_e_exactness_inference_rule()
+```
+
+`match_guard` が map order と symbolic dimension structure を確認する。
+
+conclusion:
+
+```text
+TodaProp42ExactnessStatement(window)
+```
+
+---
+
+# 25. TodaProp42ExactnessStatement
+
+production statement:
+
+```text
+TodaProp42ExactnessStatement
+└── window: TodaEHPExactnessWindow
+```
+
+意味:
+
+```text
+the supplied TodaEHPExactnessWindow
+is exact by Toda Proposition 4.2
+```
+
+重要:
+
+```text
+TodaProp42ExactnessStatement
+=
+instance-aware theorem result
+```
+
+異なる `(i,n)` から作られた E-H window は theorem statement として distinct。
+
+`is_exact: bool` は持たない。
+
+statement type 自体が theorem exactness を表す。
+
+---
+
+# 26. Generic ExactnessStatement compatibility
+
+既存 generic:
+
+```text
+ExactnessStatement
+├── first_map
+├── second_map
+└── is_exact
+```
+
+は map pair の generic exactness を表す。
+
+Phase 45-3 で確認:
+
+```text
+E-H
+H-Δ
+Δ-E
+```
+
+の position は区別できる。
+
+しかし:
+
+```text
+(i,n) E-H
+(j,m) E-H
+```
+
+は canonical map pair が同じため、generic `ExactnessStatement` 単体では区別できない。
+
+したがって:
+
+```text
+ExactnessStatement
+!=
+instance-aware Toda theorem result
+```
+
+---
+
+# 27. Toda exactness → generic exactness bridge
+
+Phase 45-6 で追加:
+
+```text
+toda_prop42_exactness_to_generic_inference_rule()
+```
+
+premise:
+
+```text
+TodaProp42ExactnessStatement(window)
+```
+
+conclusion:
+
+```text
+ExactnessStatement(
+  first_map=window.first_map,
+  second_map=window.second_map,
+  is_exact=True,
+)
+```
+
+bridge は theorem validity を再検査しない。
+
+theorem-specific map / dimension guards は Phase 45-5 の3 rules が担当済み。
+
+重要:
+
+```text
+TodaProp42ExactnessStatement
+=
+authoritative instance-aware theorem knowledge
+```
+
+```text
+ExactnessStatement
+=
+generic inference projection
+```
+
+generic projection は intentionally instance-lossy。
+
+---
+
+# 28. Existing generic exactness reuse
+
+Phase 45 は generic exactness engine を変更しない。
+
+既存 EHP exactness consequence を bridge 後に再利用する。
+
+代表:
+
+```text
+ExactnessStatement(E,H)
+→ H∘E = 0
+
+ExactnessStatement(H,Δ)
+→ Δ∘H = 0
+
+ExactnessStatement(Δ,E)
+→ E∘Δ = 0
+```
+
+Phase 45 representative path:
+
+```text
+TodaEHPExactnessWindow
+↓
+TodaProp42ExactnessStatement
+↓
+ExactnessStatement
+↓
+EHPZeroCompositionStatement
+```
+
+---
+
+# 29. Applicability semantics
+
+Phase 45 の3 theorem rules は同じ premise pattern:
+
+```text
+statement_type = TodaEHPExactnessWindow
+```
+
+を持つ。
+
+そのため pattern-level candidate search:
+
+```text
+find_applicable_inference_rules()
+```
+
+では3 rules が候補になり得る。
+
+実際の theorem match は:
+
+```text
+find_inference_match()
+```
+
+が `match_guard` まで評価して決定する。
+
+したがって:
+
+```text
+pattern-level candidate
+!=
+guard-aware inference match
+```
+
+valid E-H / H-Δ / Δ-E window では guard-aware match はそれぞれ1 ruleのみ。
+
+generic candidate search の semantics は変更しない。
+
+---
+
+# 30. Provenance
+
+Toda theorem-derived `ProofStep` は:
 
 ```text
 rule=ProofRule.INFERENCE
-premises=(...)
-inference_rule=<domain rule>
+premises=(TodaEHPExactnessWindow step,)
+inference_rule=<Toda Prop.4.2 domain rule>
 ```
 
 を保持する。
 
-group conclusion と α conditions の provenance の正本は `ProofStep` graph。
+generic bridge-derived step は:
+
+```text
+premises=(TodaProp42ExactnessStatement step,)
+inference_rule=toda_prop42_exactness_to_generic_inference_rule()
+```
+
+を保持する。
+
+instance-aware theorem provenance の正本は `ProofStep` graph と `TodaProp42ExactnessStatement`。
 
 ---
 
-# 22. Fixed-point behavior
+# 31. Fixed-point behavior
+
+Phase 45 representative:
 
 ```text
-odd
-→ 1 new group conclusion
-→ fixed point
-```
+round 1
+3 × TodaProp42ExactnessStatement
 
-```text
-even nonzero
-→ 1 new group conclusion
-→ fixed point
-```
+round 2
+3 × ExactnessStatement
 
-```text
-even zero primary group case
-→ 1 new group conclusion
-→ fixed point
-```
+round 3
+3 × EHPZeroCompositionStatement
 
-zero theorem bundle:
-
-```text
-group rule
-Hopf rule
-suspension-primary rule
-↓
-1 round
-↓
-3 new steps
-↓
 fixed point
 ```
 
+representative result:
+
+```text
+theorem exactness count = 3
+generic exactness count = 3
+zero composition count = 3
+round_count = 3
+termination_reason = FIXED_POINT
+```
+
 ---
 
-# 23. Phase 44 representative probe
+# 32. Phase 45 representative probe
 
 ```powershell
-python -m probes.probe_phase44_capabilities
+python -m probes.probe_phase45_capabilities
 ```
 
 表示:
 
 ```text
-n odd
-→ π_{2n-1}^n = π_{2n-1}(S^n;2)
+π_i^n -E→ π_{i+1}^{n+1} -H→ π_{i+1}^{2n+1}
+π_{i+1}^{n+1} -H→ π_{i+1}^{2n+1} -Δ→ π_{i-1}^n
+π_{i+1}^{2n+1} -Δ→ π_{i-1}^n -E→ π_i^{n+1}
 ```
 
+Toda theorem exactness:
+
 ```text
-n even + Whitehead nonzero
-→ π_{2n-1}^n = Z{P(ι_{2n+1})} ⊕ π_{2n-1}(S^n;2)
+each of the three windows is exact
 ```
 
-```text
-n even + Whitehead zero
-→ π_{2n-1}^n = Z{α} ⊕ π_{2n-1}(S^n;2)
+generic bridge:
 
-H(α)=ι_{2n-1}
-Eα ∈ π_{2n}(S^{n+1};2)
+```text
+E-H exact
+H-Δ exact
+Δ-E exact
+```
+
+existing generic consequences:
+
+```text
+H∘E = 0
+Δ∘H = 0
+E∘Δ = 0
 ```
 
 ---
 
-# 24. Phase 44 testing
+# 33. Phase 45 testing
 
 focused:
 
 ```text
-tests/test_phase44_toda_lemma41_case_semantics.py
-94 passed
+tests/test_phase45_toda_prop42_compatibility.py
+17 passed
+
+tests/test_phase45_toda_prop42_sequence.py
+19 passed
+
+tests/test_phase45_toda_prop42_exactness_compatibility.py
+17 passed
+
+tests/test_phase45_toda_prop42_exactness_instance.py
+18 passed
+
+tests/test_phase45_toda_prop42_theorem_semantics.py
+16 passed
+
+tests/test_phase45_toda_prop42_bridge.py
+16 passed
 ```
 
 related:
@@ -617,83 +1029,108 @@ related:
 tests/test_toda_rules.py
 66 passed
 
-tests/test_phase43_toda_lemma41_premise.py
-32 passed
+tests/test_ehp_rules.py
+26 passed
 
-tests/test_phase39_primary_component.py
-24 passed
-
-tests/test_hopf_rules.py
-31 passed
-
-tests/test_expression.py
-145 passed
+tests/test_inference_rule_pattern.py
+438 passed
 ```
 
 full:
 
 ```text
-1957 passed in 75.54s
+2060 passed in 70.48s
 ```
 
 ---
 
-# 25. Phase 44 scope boundary
+# 34. Phase 45 scope boundary
 
 実装済み:
 
 ```text
-symbolic generator index
-symbolic HomotopyElement dimension
-FreeCyclicGroup
-DirectSumGroup
-PrimaryComponentMembershipStatement
-Toda Lemma 4.1 odd case
-Toda Lemma 4.1 even/nonzero case
-Toda Lemma 4.1 even/zero group case
-H(α)=ι_{2n-1}
-Eα ∈ π_{2n}(S^{n+1};2)
-case applicability
-provenance
-fixed-point representative integration
+canonical symbolic E
+canonical symbolic H
+canonical symbolic Δ
+TodaEHPSequence
+TodaEHPExactnessWindow
+TodaProp42ExactnessStatement
+E-H exactness rule
+H-Δ exactness rule
+Δ-E exactness rule
+instance-aware exactness
+guard-aware applicability
+theorem provenance
+Toda exactness → generic ExactnessStatement bridge
+existing generic zero-composition reuse
+three-round fixed-point representative integration
 executable probe
+full regression
 ```
 
 未実装:
 
 ```text
-automatic Whitehead-product zero inference
-automatic Whitehead-product nonzero inference
-ZERO / INEQUALITY contradiction detection
-Whitehead-product bilinearity
-Whitehead-product antisymmetry
-automatic α existence
-automatic α uniqueness
-general existential quantification / witness objects
-PrimaryComponent membership → ordinary membership bridge
-Toda Prop.4.2
+symbolic map typing solver
+general symbolic dimension solver
+automatic symbolic image/kernel group construction
+instance-aware generic ExactnessStatement
 Toda (4.5)
 Toda Prop.4.4
+Toda Prop.4.4 E injectivity consequence
 stable homotopy
+general Whitehead algebra
+automatic Whitehead zero / nonzero solver
+general existential witness machinery
 higher Toda brackets
 ```
 
 ---
 
-# 26. 次の設計境界
+# 35. 次の設計境界
 
-次は Toda Proposition 4.2。
+次は Toda (4.5)。
+
+対象:
+
+```text
+n ≥ k+2
+のとき
+
+E^(m-n):
+π_{n+k}^n
+→
+π_{m+k}^m
+
+(m ≥ n)
+isomorphism
+```
 
 実装前に確認する対象:
 
 ```text
-current EHP exactness representation
-PrimaryComponent
+IteratedSuspension
+existing map isomorphism statement
+symbolic scalar inequalities
+symbolic source / target representation
 TodaPrimaryGroup
-existing E / H / P map symbols
-Toda Prop.4.2 exact statement
+Toda (4.5) exact statement
 ```
 
-次 Phase でも actual mathematical need → minimum representation → explicit theorem rule → existing generic engine を維持する。
+Phase 46 でも:
 
-Toda (4.5)、Toda Prop.4.4、general Whitehead algebra は先取りしない。
+```text
+actual mathematical need
+↓
+compatibility check
+↓
+minimum representation
+↓
+theorem rule
+↓
+existing generic inference engine
+```
+
+を維持する。
+
+Toda Prop.4.4 は先取りしない。

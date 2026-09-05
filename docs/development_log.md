@@ -575,55 +575,11 @@ full suite
 
 Phase 44 probe を zero-case α conditions まで拡張。
 
-representative:
-
-```text
-Toda Lemma 4.1: n odd
-π_{2n-1}^{n} = π_{2n-1}(S^{n};2)
-```
-
-```text
-Toda Lemma 4.1: n even + Whitehead nonzero
-π_{2n-1}^{n} = Z{P(ι_{2n+1})} ⊕ π_{2n-1}(S^{n};2)
-```
-
-```text
-Toda Lemma 4.1: n even + Whitehead zero
-π_{2n-1}^{n} = Z{α} ⊕ π_{2n-1}(S^{n};2)
-
-α conditions:
-H(α)=ι_{2n-1}
-Eα ∈ π_{2n}(S^{n+1};2)
-```
-
-zero-case theorem bundle:
-
-```text
-applicable rule count = 3
-derived step count = 3
-fixed point = True
-```
-
 final regression:
 
 ```text
 tests/test_phase44_toda_lemma41_case_semantics.py
 94 passed
-
-tests/test_toda_rules.py
-66 passed
-
-tests/test_phase43_toda_lemma41_premise.py
-32 passed
-
-tests/test_phase39_primary_component.py
-24 passed
-
-tests/test_hopf_rules.py
-31 passed
-
-tests/test_expression.py
-145 passed
 
 full suite
 1957 passed in 75.54s
@@ -645,33 +601,6 @@ python -m probes.probe_phase44_capabilities
 
 ## Phase 44-7：Phase 44 completion
 
-Phase 44 で完成:
-
-```text
-symbolic generator index
-symbolic HomotopyElement dimension
-FreeCyclicGroup
-DirectSumGroup
-PrimaryComponentMembershipStatement
-Toda Lemma 4.1 odd case semantics
-Toda Lemma 4.1 even / Whitehead nonzero semantics
-Toda Lemma 4.1 even / Whitehead zero group semantics
-zero-case H(α)=ι_{2n-1}
-zero-case Eα ∈ π_{2n}(S^{n+1};2)
-case applicability / exclusivity
-theorem provenance
-same structural α across three conclusions
-fixed-point integration
-representative executable probe
-full regression
-```
-
-generic inference engine:
-
-```text
-変更なし
-```
-
 Phase 44 completion status:
 
 ```text
@@ -688,51 +617,587 @@ full suite
 
 ---
 
-# Phase 44 completion boundary
+# Phase 45：Toda Proposition 4.2 — 2-primary EHP exact sequence
+
+目的:
+
+Toda Proposition 4.2 の3つの exact sequence を symbolic `(i,n)` instance を保持したまま theorem-level に表現し、既存 generic exactness infrastructure に接続する。
+
+対象:
+
+```text
+π_i^n
+-E→
+π_{i+1}^{n+1}
+-H→
+π_{i+1}^{2n+1}
+```
+
+```text
+π_{i+1}^{n+1}
+-H→
+π_{i+1}^{2n+1}
+-Δ→
+π_{i-1}^n
+```
+
+```text
+π_{i+1}^{2n+1}
+-Δ→
+π_{i-1}^n
+-E→
+π_i^{n+1}
+```
+
+---
+
+## Phase 45-1：compatibility check
+
+production code 変更なし。
+
+確認:
+
+```text
+PrimaryComponent
+→ symbolic dimensions を保持可能
+
+TodaPrimaryGroup
+→ symbolic dimensions を保持可能
+
+PreimageSubgroup
+→ existing structural group connection usable
+
+ExactnessStatement
+→ symbolic map pair は保持可能
+
+EHPSegment
+→ repository-backed concrete AbelianGroup / GroupMap layer
+→ symbolic Toda theorem sequence に直接流用しない
+
+EHP_H_MAP
+→ existing canonical H
+
+canonical symbolic E
+→ 未実装
+
+canonical symbolic P
+→ 未実装
+
+MapTypingFact
+→ concrete int dimensions
+```
+
+verified:
+
+```text
+tests/test_phase45_toda_prop42_compatibility.py
+18 passed
+
+full suite
+1975 passed in 66.68s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 45-2：2-primary EHP sequence minimum representation
+
+追加:
+
+```text
+EHP_E_MAP
+EHP_DELTA_MAP
+```
+
+existing:
+
+```text
+EHP_H_MAP
+```
+
+追加:
+
+```text
+TodaEHPSequence
+├── terms
+└── maps
+```
+
+invariant:
+
+```text
+len(terms) = len(maps) + 1
+```
+
+representative:
+
+```text
+π_i^n
+-E→
+π_{i+1}^{n+1}
+-H→
+π_{i+1}^{2n+1}
+-Δ→
+π_{i-1}^n
+-E→
+π_i^{n+1}
+```
+
+sequence は representation only。
+
+```text
+TodaEHPSequence
+!= exactness theorem
+```
+
+Phase 45-1 の obsolete E absence test を削除。
+
+verified:
+
+```text
+tests/test_phase45_toda_prop42_sequence.py
+19 passed
+
+tests/test_phase45_toda_prop42_compatibility.py
+17 passed
+
+full suite
+1993 passed in 72.54s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 45-3：Prop.4.2 exactness-instance compatibility check
+
+production code 変更なし。
+
+確認:
+
+```text
+ExactnessStatement(E,H)
+ExactnessStatement(H,Δ)
+ExactnessStatement(Δ,E)
+```
+
+の3 position は区別可能。
+
+一方:
+
+```text
+(i,n) の E-H
+(j,m) の E-H
+```
+
+は generic `ExactnessStatement` 単体では区別不能。
+
+理由:
+
+```text
+ExactnessStatement
+=
+map pair + is_exact
+
+group triple / symbolic indices
+=
+保持しない
+```
+
+結論:
+
+```text
+position identification
+✅
+
+symbolic Prop.4.2 instance identification
+❌
+```
+
+verified:
+
+```text
+tests/test_phase45_toda_prop42_exactness_compatibility.py
+17 passed
+
+full suite
+2010 passed in 74.69s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 45-4：minimum Prop.4.2 exactness-instance representation
+
+追加:
+
+```text
+TodaEHPExactnessWindow
+├── source_term
+├── middle_term
+├── target_term
+├── first_map
+└── second_map
+```
+
+これにより:
+
+```text
+same E-H map pair
++
+different group terms
+```
+
+を structural に区別可能。
+
+3 windows:
+
+```text
+E-H
+H-Δ
+Δ-E
+```
+
+を `TodaEHPSequence` から lossless に構築可能。
+
+重要:
+
+```text
+TodaEHPExactnessWindow
+!= ExactnessStatement
+```
+
+and:
+
+```text
+window
+!= exactness theorem
+```
+
+verified:
+
+```text
+tests/test_phase45_toda_prop42_exactness_instance.py
+18 passed
+
+full suite
+2028 passed in 72.62s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 45-5：Toda Proposition 4.2 theorem semantics
+
+追加:
+
+```text
+TodaProp42ExactnessStatement(window)
+```
+
+意味:
+
+```text
+the supplied instance-aware window is exact
+by Toda Proposition 4.2
+```
+
+追加:
+
+```text
+toda_prop42_e_h_exactness_inference_rule()
+toda_prop42_h_delta_exactness_inference_rule()
+toda_prop42_delta_e_exactness_inference_rule()
+```
+
+各 rule は `match_guard` で:
+
+```text
+map order
+symbolic group dimensions
+```
+
+を確認。
+
+当初、test で `find_applicable_inference_rules()` を使い exactly-one rule を期待したため1 failure。
+
+原因:
+
+```text
+find_applicable_inference_rules()
+=
+premise-pattern level candidate search
+
+find_inference_match()
+=
+match_guard-aware actual inference match
+```
+
+3 rules は同じ premise type:
+
+```text
+TodaEHPExactnessWindow
+```
+
+を持つため pattern-level では3候補になる。
+
+production code は変更せず、test を `find_inference_match()` ベースへ修正。
+
+verified:
+
+```text
+tests/test_phase45_toda_prop42_theorem_semantics.py
+16 passed
+
+tests/test_toda_rules.py
+66 passed
+
+tests/test_ehp_rules.py
+26 passed
+
+full suite
+2044 passed in 68.62s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 45-6：generic exactness bridge / representative probe / final regression
+
+追加:
+
+```text
+toda_prop42_exactness_to_generic_inference_rule()
+```
+
+bridge:
+
+```text
+TodaProp42ExactnessStatement(window)
+↓
+ExactnessStatement(
+  first_map=window.first_map,
+  second_map=window.second_map,
+  is_exact=True,
+)
+```
+
+重要:
+
+```text
+TodaProp42ExactnessStatement
+=
+instance-aware authoritative theorem result
+```
+
+```text
+ExactnessStatement
+=
+instance-lossy generic projection
+```
+
+existing generic EHP rule を再利用:
+
+```text
+E-H exact
+→ H∘E = 0
+
+H-Δ exact
+→ Δ∘H = 0
+
+Δ-E exact
+→ E∘Δ = 0
+```
+
+representative end-to-end:
+
+```text
+TodaEHPExactnessWindow
+↓
+TodaProp42ExactnessStatement
+↓
+ExactnessStatement
+↓
+EHPZeroCompositionStatement
+```
+
+追加:
+
+```text
+probes/probe_phase45_capabilities.py
+```
+
+representative fixed-point:
+
+```text
+round 1
+3 theorem exactness statements
+
+round 2
+3 generic exactness statements
+
+round 3
+3 zero-composition statements
+
+fixed point
+```
+
+verified:
+
+```text
+tests/test_phase45_toda_prop42_bridge.py
+16 passed
+
+tests/test_phase45_toda_prop42_theorem_semantics.py
+16 passed
+
+tests/test_phase45_toda_prop42_exactness_instance.py
+18 passed
+
+tests/test_phase45_toda_prop42_exactness_compatibility.py
+17 passed
+
+tests/test_phase45_toda_prop42_sequence.py
+19 passed
+
+tests/test_phase45_toda_prop42_compatibility.py
+17 passed
+
+tests/test_toda_rules.py
+66 passed
+
+tests/test_ehp_rules.py
+26 passed
+
+tests/test_inference_rule_pattern.py
+438 passed
+
+full suite
+2060 passed in 70.48s
+```
+
+probe:
+
+```powershell
+python -m probes.probe_phase45_capabilities
+```
+
+正常完走。
+
+### 状態
+
+完了
+
+---
+
+## Phase 45-7：Phase 45 completion
+
+Phase 45 で完成:
+
+```text
+canonical symbolic E / H / Δ
+TodaEHPSequence
+TodaEHPExactnessWindow
+TodaProp42ExactnessStatement
+Toda Prop.4.2 E-H exactness semantics
+Toda Prop.4.2 H-Δ exactness semantics
+Toda Prop.4.2 Δ-E exactness semantics
+instance-aware theorem exactness
+guard-aware applicability
+theorem provenance
+Toda exactness → generic ExactnessStatement bridge
+existing generic zero-composition reuse
+3-round fixed-point integration
+representative executable probe
+full regression
+```
+
+generic inference engine:
+
+```text
+変更なし
+```
+
+Phase 45 completion status:
+
+```text
+full suite
+2060 passed in 70.48s
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 45 completion boundary
 
 実装済み:
 
 ```text
-n odd
-→ π_{2n-1}^n = π_{2n-1}(S^n;2)
+π_i^n
+-E→
+π_{i+1}^{n+1}
+-H→
+π_{i+1}^{2n+1}
+is exact
 ```
 
 ```text
-n even
-+
-[ι_{n-1},ι_{n-1}] != 0
-→
-π_{2n-1}^n = Z{P(ι_{2n+1})} ⊕ π_{2n-1}(S^n;2)
+π_{i+1}^{n+1}
+-H→
+π_{i+1}^{2n+1}
+-Δ→
+π_{i-1}^n
+is exact
 ```
 
 ```text
-n even
-+
-[ι_{n-1},ι_{n-1}] = 0
-→
-π_{2n-1}^n = Z{α} ⊕ π_{2n-1}(S^n;2)
+π_{i+1}^{2n+1}
+-Δ→
+π_{i-1}^n
+-E→
+π_i^{n+1}
+is exact
 ```
 
-with:
+with generic consequences:
 
 ```text
-H(α)=ι_{2n-1}
-Eα ∈ π_{2n}(S^{n+1};2)
+H∘E = 0
+Δ∘H = 0
+E∘Δ = 0
 ```
 
 未実装:
 
 ```text
-automatic Whitehead zero / nonzero inference
-ZERO / INEQUALITY contradiction detection
-Whitehead bilinearity / antisymmetry
-automatic α existence / uniqueness
-general existential witness machinery
-PrimaryComponent membership → ordinary membership bridge
-Toda Prop.4.2
+symbolic map typing solver
+general symbolic dimension solver
+automatic symbolic image/kernel group construction
+instance-aware generic ExactnessStatement
 Toda (4.5)
 Toda Prop.4.4
+Toda Prop.4.4 E injectivity consequence
 stable homotopy
+general Whitehead algebra
+automatic Whitehead zero / nonzero solver
+general existential witness machinery
 higher Toda brackets
 ```
 
@@ -741,34 +1206,36 @@ higher Toda brackets
 # 次の Phase
 
 ```text
-Phase 45
-Toda Proposition 4.2
-2-primary EHP exact sequence
+Phase 46 candidate
+Toda (4.5)
+stable-range E^(m-n) isomorphism
 ```
 
 実装前 compatibility check:
 
 ```text
-current EHP exactness representation
-current E / H / P map terms
-PrimaryComponent
+IteratedSuspension
+map isomorphism representation
 TodaPrimaryGroup
-PreimageSubgroup
-Toda Prop.4.2 exact statement
+symbolic scalar inequality representation
+symbolic domain / codomain compatibility
+Toda (4.5) exact statement
 ```
 
-Phase 45 でも:
+Phase 46 でも:
 
 ```text
 actual mathematical need
 ↓
+compatibility check
+↓
 minimum representation
 ↓
-explicit theorem rule
+theorem rule
 ↓
 existing generic inference engine
 ```
 
 を維持する。
 
-Toda (4.5)、Toda Prop.4.4、general Whitehead-product algebra は先取りしない。
+Toda Prop.4.4 は先取りしない。
