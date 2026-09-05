@@ -22,7 +22,7 @@ future capability dependency
 
 ---
 
-# 2. Phase 46 完了時点
+# 2. Phase 47 完了時点
 
 Completed chain:
 
@@ -46,34 +46,34 @@ Phase 43  Toda Lemma 4.1 premise minimum representation
 Phase 44  Toda Lemma 4.1 case semantics
 Phase 45  Toda Proposition 4.2 2-primary EHP exact sequence
 Phase 46  Toda (4.5) stable-range E^(m-n) isomorphism
+Phase 47  Toda Proposition 4.4 decomposition isomorphism
 ```
 
 Current full regression:
 
 ```text
-2143 passed in 64.31s
+2277 passed in 55.61s
 ```
 
 Representative probe:
 
 ```powershell
-python -m probes.probe_phase46_capabilities
+python -m probes.probe_phase47_capabilities
 ```
 
 ---
 
-# 3. Phase 46 completed capabilities
+# 3. Phase 47 completed capabilities
 
 ```text
-ScalarGreaterEqualStatement
-symbolic n ≥ k+2
-symbolic m ≥ n
-TodaIteratedSuspensionMap
-symbolic exponent m-n
-source π_{n+k}^n
-target π_{m+k}^m
-Toda45IsomorphismStatement
-Toda (4.5) theorem rule
+TodaPrimaryGroupMembershipStatement
+DirectSumGroup TodaPrimaryGroup summands
+symbolic Proposition 4.4 source / target
+TodaProp44DecompositionMap
+structural Eβ+α∘γ formula
+TodaProp44IsomorphismStatement
+Toda Proposition 4.4 theorem rule
+positive / negative Hopf applicability
 guard-aware applicability
 invalid-case rejection
 cross-instance rejection
@@ -201,7 +201,6 @@ automatic numeric inequality validation
 generic map-property type generalization
 Toda45IsomorphismStatement → IsomorphismStatement bridge
 generic injectivity consequence for TodaIteratedSuspensionMap
-Toda Prop.4.4 decomposition isomorphism
 Toda Prop.4.4 consequence: E injective on π_i^n
 stable homotopy group model
 stable Toda brackets
@@ -250,8 +249,8 @@ higher Toda brackets
 | Toda exactness → generic exactness bridge | IMPLEMENTED | 45 |
 | Toda Prop.4.2 → zero-composition reuse | IMPLEMENTED | 45 |
 | Toda (4.5) `E^(m-n)` isomorphism | IMPLEMENTED | 46 |
-| Toda Prop.4.4 decomposition isomorphism | NEXT | 47 candidate |
-| Toda Prop.4.4 `E` injectivity consequence | PLANNED | later |
+| Toda Prop.4.4 decomposition isomorphism | IMPLEMENTED | 47 |
+| Toda Prop.4.4 `E` injectivity consequence | NEXT | 48 candidate |
 | stable homotopy | PLANNED | later |
 | higher Toda bracket | DEFERRED | concrete need |
 
@@ -326,10 +325,12 @@ Phase 46
 Toda (4.5)
 stable-range E^(m-n) isomorphism COMPLETE
 ↓
-Phase 47 candidate
+Phase 47
 Toda Prop.4.4
-π_i^n decomposition isomorphism
+π_i^n decomposition isomorphism COMPLETE
 ↓
+Phase 48 candidate
+Toda Prop.4.4 consequence
 E is injective
 ↓
 existing equality / ZERO reflection machinery
@@ -462,7 +463,140 @@ fixed point = True
 
 ---
 
-# 11. Phase 47 candidate：Toda Proposition 4.4
+# 11. Phase 47：Toda Proposition 4.4 COMPLETE
+
+Toda Proposition 4.4:
+
+```text
+α ∈ π_{2n-1}^n
+H(α)=±ι_{2n-1}
+```
+
+のとき:
+
+```text
+Φ:
+π_{i-1}^{n-1} ⊕ π_i^{2n-1}
+→
+π_i^n
+
+Φ(β,γ)=Eβ+α∘γ
+```
+
+は isomorphism。
+
+implemented layers:
+
+```text
+TodaPrimaryGroupMembershipStatement
+↓
+DirectSumGroup with TodaPrimaryGroup summands
+↓
+TodaProp44DecompositionMap
+↓
+TodaProp44IsomorphismStatement
+```
+
+applicability:
+
+```text
+membership degree = 2n-1
+same α
+H(α)=±ι_{2n-1}
+source first = π_{i-1}^{n-1}
+source second = π_i^{2n-1}
+target = π_i^n
+formula = Eβ+α∘γ
+```
+
+を同一 symbolic instance として guard-aware に確認。
+
+representative:
+
+```text
+3 GIVEN premises
+↓
+1 TodaProp44IsomorphismStatement
+↓
+fixed point
+```
+
+generic map-property bridge と E injectivity consequence は deferred。
+
+---
+
+# 12. Phase 47 verified status
+
+focused:
+
+```text
+tests/test_phase47_toda_prop44_compatibility.py
+20 passed
+
+tests/test_phase47_toda_prop44_decomposition_groups.py
+17 passed
+
+tests/test_phase47_toda_prop44_decomposition_map.py
+27 passed
+
+tests/test_phase47_toda_prop44_toda_membership.py
+15 passed
+
+tests/test_phase47_toda_prop44_theorem_semantics.py
+22 passed
+
+tests/test_phase47_toda_prop44_applicability_compatibility.py
+21 passed
+
+tests/test_phase47_toda_prop44_probe.py
+12 passed
+```
+
+related:
+
+```text
+tests/test_toda_rules.py
+66 passed
+
+tests/test_map_property_rules.py
+26 passed
+
+tests/test_inference_rule_pattern.py
+438 passed
+```
+
+full:
+
+```text
+2277 passed in 55.61s
+```
+
+probe:
+
+```powershell
+python -m probes.probe_phase47_capabilities
+```
+
+result:
+
+```text
+α ∈ π_{2n-1}^{n}
+H(α) = ι_(2n-1)
+
+Φ: π_{i-1}^{n-1} ⊕ π_{i}^{2n-1} → π_{i}^{n}
+Φ(β,γ) = Eβ + α∘γ
+
+Φ: π_{i-1}^{n-1} ⊕ π_{i}^{2n-1} → π_{i}^{n} is isomorphism
+
+theorem isomorphism count = 1
+premise count = 3
+derived round count = 1
+fixed point = True
+```
+
+---
+
+# 13. Phase 48 candidate：Toda Proposition 4.4 consequence E injective
 
 NEXT。
 
@@ -471,28 +605,33 @@ NEXT。
 確認対象:
 
 ```text
-Toda Proposition 4.4 の正確な decomposition statement
-TodaPrimaryGroup
-PrimaryComponent
-PreimageSubgroup
-DirectSumGroup
-必要な source / target group representation
-必要な instance-aware isomorphism statement
-Toda (4.5) との dependency
-後続の E injectivity consequence
+TodaProp44IsomorphismStatement
+TodaProp44DecompositionMap
+EHP_E_MAP
+existing InjectiveMapStatement
+existing generic isomorphism → injective rule
+instance-aware source / target of E
+first-summand inclusion semantics
+後続 equality / ZERO reflection への接続
 ```
 
-Phase 47 の最初の目的は、current structures のどこまでをそのまま再利用できるか確認すること。
+Phase 48 の目的は:
+
+```text
+Proposition 4.4 decomposition isomorphism
+↓
+E injective
+```
+
+という mathematical consequence を、decomposition map 全体と suspension `E` を混同せず表現すること。
 
 まだ先取りしない:
 
 ```text
 generic map-property type generalization
-automatic generic isomorphism bridge
-Toda Prop.4.4 E injectivity consequence
-general stable homotopy theory
-general symbolic inequality solver
-general symbolic dimension simplifier
+automatic generic Toda-isomorphism bridge
+stable homotopy theory
+general symbolic dimension solver
 general Whitehead-product algebra
 automatic Whitehead zero / nonzero solver
 general existential witness engine
@@ -500,7 +639,7 @@ general existential witness engine
 
 ---
 
-# 12. Testing principle
+# 14. Testing principle
 
 各 layer で:
 

@@ -1800,3 +1800,577 @@ Toda (4.5) との依存
 を確認する。
 
 Phase 47 の compatibility check より前に generic map-property API を拡張しない。
+
+---
+
+# Phase 47：Toda Proposition 4.4 decomposition isomorphism
+
+目的:
+
+Toda Proposition 4.4:
+
+```text
+α ∈ π_{2n-1}^n
+H(α)=±ι_{2n-1}
+```
+
+のもとで:
+
+```text
+Φ:
+π_{i-1}^{n-1} ⊕ π_i^{2n-1}
+→
+π_i^n
+
+Φ(β,γ)=Eβ+α∘γ
+```
+
+が isomorphism であることを symbolic instance を保持して theorem-level に表現する。
+
+`E` injectivity consequence は Phase 47 では先取りしない。
+
+---
+
+## Phase 47-1：Toda Proposition 4.4 compatibility check
+
+production code 変更なし。
+
+確認:
+
+```text
+TodaPrimaryGroup
+→ individual source / target terms を lossless
+
+ScalarSum / ScalarProduct
+→ i-1 / n-1 / 2n-1 を lossless
+
+Suspension / Composition / Sum
+→ Eβ+α∘γ を lossless
+
+Relation + MapApplication(H,...)
+→ H(α)=±ι_{2n-1} を lossless
+```
+
+不足:
+
+```text
+DirectSumGroup に TodaPrimaryGroup summand がない
+TodaPrimaryGroup membership statement がない
+instance-aware decomposition map がない
+instance-aware Proposition 4.4 isomorphism statement がない
+```
+
+generic `IsomorphismStatement(map: MapSymbol)` は Proposition 4.4 instance を保持できないことを確認。
+
+verified:
+
+```text
+tests/test_phase47_toda_prop44_compatibility.py
+25 passed
+
+full suite
+2168 passed in 69.31s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 47-2：decomposition source / target minimum representation
+
+変更:
+
+```text
+DirectSumGroup.summands
+
+FreeCyclicGroup | PrimaryComponent
+→
+FreeCyclicGroup | PrimaryComponent | TodaPrimaryGroup
+```
+
+これにより:
+
+```text
+π_{i-1}^{n-1} ⊕ π_i^{2n-1}
+```
+
+を source として lossless に表現可能。
+
+target:
+
+```text
+π_i^n
+```
+
+は existing `TodaPrimaryGroup` を再利用。
+
+Phase 44 direct-sum representation への regression を確認。
+
+verified:
+
+```text
+tests/test_phase47_toda_prop44_decomposition_groups.py
+17 passed
+
+tests/test_phase47_toda_prop44_compatibility.py
+24 passed
+
+full suite
+2184 passed in 64.39s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 47-3：Proposition 4.4 decomposition map minimum representation
+
+追加:
+
+```text
+TodaProp44DecompositionMap
+├── source_group
+├── target_group
+├── alpha
+├── beta
+├── gamma
+└── formula
+```
+
+representative:
+
+```text
+Φ:
+π_{i-1}^{n-1} ⊕ π_i^{2n-1}
+→
+π_i^n
+
+Φ(β,γ)=Eβ+α∘γ
+```
+
+formula は existing:
+
+```text
+Suspension
+Composition
+Sum
+```
+
+を再利用。
+
+important:
+
+```text
+TodaProp44DecompositionMap
+!= MapSymbol
+!= TodaIteratedSuspensionMap
+```
+
+constructor は formula validity や group compatibility を検査しない。
+
+verified:
+
+```text
+tests/test_phase47_toda_prop44_decomposition_map.py
+27 passed
+
+tests/test_phase47_toda_prop44_decomposition_groups.py
+17 passed
+
+tests/test_phase47_toda_prop44_compatibility.py
+23 passed
+
+full suite
+2210 passed in 68.14s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 47-4a：TodaPrimaryGroup membership minimum representation
+
+追加:
+
+```text
+TodaPrimaryGroupMembershipStatement
+├── element: Expression
+└── group: TodaPrimaryGroup
+```
+
+representative:
+
+```text
+α ∈ π_{2n-1}^n
+```
+
+existing:
+
+```text
+PrimaryComponentMembershipStatement
+```
+
+とは distinct。
+
+constructor は membership truth や element dimension を検証しない。
+
+verified:
+
+```text
+tests/test_phase47_toda_prop44_toda_membership.py
+15 passed
+
+tests/test_phase47_toda_prop44_compatibility.py
+22 passed
+
+full suite
+2224 passed in 55.25s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 47-4b：Toda Proposition 4.4 theorem semantics
+
+追加:
+
+```text
+TodaProp44IsomorphismStatement(map)
+```
+
+追加:
+
+```text
+toda_prop44_isomorphism_inference_rule()
+```
+
+premises:
+
+```text
+α ∈ π_{2n-1}^n
+H(α)=±ι_{2n-1}
+TodaProp44DecompositionMap(...)
+```
+
+conclusion:
+
+```text
+TodaProp44IsomorphismStatement(map)
+```
+
+`match_guard` で:
+
+```text
+membership degree
+same α
+H map
+±ι_{2n-1}
+source first / second summands
+target
+formula Eβ+α∘γ
+```
+
+を同一 symbolic instance として確認。
+
+positive / negative Hopf の双方を受理。
+
+generic inference engine は変更しない。
+
+verified:
+
+```text
+tests/test_phase47_toda_prop44_theorem_semantics.py
+22 passed
+
+tests/test_phase47_toda_prop44_toda_membership.py
+15 passed
+
+tests/test_phase47_toda_prop44_decomposition_map.py
+27 passed
+
+tests/test_phase47_toda_prop44_decomposition_groups.py
+17 passed
+
+tests/test_phase47_toda_prop44_compatibility.py
+20 passed
+
+full suite
+2244 passed in 58.85s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 47-5：applicability / invalid cases / provenance
+
+production code 変更なし。
+
+確認:
+
+```text
+positive Hopf instance
+→ exactly one theorem
+
+negative Hopf instance
+→ exactly one theorem
+
+different n mixing
+→ reject
+
+different α mixing
+→ reject
+
+different i / n / α theorem instances
+→ structurally distinct
+```
+
+generic boundary:
+
+```text
+TodaProp44IsomorphismStatement
+!= IsomorphismStatement
+!= Toda45IsomorphismStatement
+```
+
+existing:
+
+```text
+isomorphism_implies_injective_inference_rule()
+```
+
+は `TodaProp44IsomorphismStatement` に match しない。
+
+Phase 47 では:
+
+```text
+generic InjectiveMapStatement
+E injectivity consequence
+```
+
+を生成しないことを確認。
+
+verified:
+
+```text
+tests/test_phase47_toda_prop44_applicability_compatibility.py
+21 passed
+
+full suite
+2265 passed in 56.15s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 47-6：representative probe / final regression
+
+追加:
+
+```text
+probes/probe_phase47_capabilities.py
+tests/test_phase47_toda_prop44_probe.py
+```
+
+representative output:
+
+```text
+α ∈ π_{2n-1}^{n}
+H(α) = ι_(2n-1)
+
+Φ: π_{i-1}^{n-1} ⊕ π_{i}^{2n-1} → π_{i}^{n}
+Φ(β,γ) = Eβ + α∘γ
+
+Φ: π_{i-1}^{n-1} ⊕ π_{i}^{2n-1} → π_{i}^{n} is isomorphism
+```
+
+provenance / fixed point:
+
+```text
+theorem isomorphism count = 1
+premise count = 3
+derived round count = 1
+fixed point = True
+```
+
+verified:
+
+```text
+tests/test_phase47_toda_prop44_probe.py
+12 passed
+
+tests/test_phase47_toda_prop44_applicability_compatibility.py
+21 passed
+
+tests/test_phase47_toda_prop44_theorem_semantics.py
+22 passed
+
+tests/test_phase47_toda_prop44_toda_membership.py
+15 passed
+
+tests/test_phase47_toda_prop44_decomposition_map.py
+27 passed
+
+tests/test_phase47_toda_prop44_decomposition_groups.py
+17 passed
+
+tests/test_phase47_toda_prop44_compatibility.py
+20 passed
+
+tests/test_toda_rules.py
+66 passed
+
+tests/test_map_property_rules.py
+26 passed
+
+tests/test_inference_rule_pattern.py
+438 passed
+
+full suite
+2277 passed in 55.61s
+```
+
+probe:
+
+```powershell
+python -m probes.probe_phase47_capabilities
+```
+
+正常完走。
+
+### 状態
+
+完了
+
+---
+
+## Phase 47-7：Phase 47 completion
+
+Phase 47 で完成:
+
+```text
+TodaPrimaryGroupMembershipStatement
+DirectSumGroup TodaPrimaryGroup summands
+symbolic Proposition 4.4 source / target
+TodaProp44DecompositionMap
+structural Eβ+α∘γ formula
+TodaProp44IsomorphismStatement
+Toda Proposition 4.4 theorem semantics
+positive / negative Hopf applicability
+guard-aware applicability
+invalid-case rejection
+cross-instance rejection
+theorem provenance
+one-round fixed-point integration
+representative executable probe
+full regression
+```
+
+generic inference engine:
+
+```text
+変更なし
+```
+
+generic map-property API:
+
+```text
+変更なし
+```
+
+Phase 47 completion status:
+
+```text
+full suite
+2277 passed in 55.61s
+```
+
+### 状態
+
+完了
+
+---
+
+# Phase 47 completion boundary
+
+実装済み:
+
+```text
+α ∈ π_{2n-1}^n
+H(α)=±ι_{2n-1}
+
+Φ:
+π_{i-1}^{n-1} ⊕ π_i^{2n-1}
+→
+π_i^n
+
+Φ(β,γ)=Eβ+α∘γ
+
+is isomorphism by Toda Proposition 4.4
+```
+
+instance-aware theorem:
+
+```text
+TodaProp44IsomorphismStatement(
+  map=TodaProp44DecompositionMap(...)
+)
+```
+
+未実装:
+
+```text
+general symbolic dimension solver
+symbolic map typing solver
+generic map-property type generalization
+Toda45IsomorphismStatement → IsomorphismStatement bridge
+TodaProp44IsomorphismStatement → IsomorphismStatement bridge
+generic InjectiveMapStatement consequence for Toda-specific maps
+Toda Proposition 4.4 E injectivity consequence
+stable homotopy
+general Whitehead algebra
+automatic Whitehead zero / nonzero solver
+general existential witness machinery
+higher Toda brackets
+```
+
+---
+
+# 次の Phase
+
+```text
+Phase 48 candidate
+Toda Proposition 4.4 consequence
+E injective
+```
+
+最初に compatibility check を行う。
+
+特に:
+
+```text
+injective とする E の exact instance
+source / target の instance-aware representation
+TodaProp44IsomorphismStatement からの consequence rule
+existing generic InjectiveMapStatement との compatibility
+decomposition map と E map の区別
+```
+
+を確認する。
+
+Phase 48 でも actual need に必要な最小変更だけを行い、generic map-property API を先に generalize しない。
+

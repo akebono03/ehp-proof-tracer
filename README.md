@@ -38,7 +38,7 @@ mathematical equality
 
 # Current status
 
-Completed through Phase 46.
+Completed through Phase 47.
 
 ```text
 Phase 28  map injectivity / isomorphism / equality reflection
@@ -60,40 +60,44 @@ Phase 43  Toda Lemma 4.1 premise minimum representation
 Phase 44  Toda Lemma 4.1 case semantics
 Phase 45  Toda Proposition 4.2 2-primary EHP exact sequence
 Phase 46  Toda (4.5) stable-range E^(m-n) isomorphism
+Phase 47  Toda Proposition 4.4 decomposition isomorphism
 ```
 
 Current full regression:
 
 ```text
-2143 passed in 64.31s
+2277 passed in 55.61s
 ```
 
-Focused Phase 45 suites:
+Focused Phase 47 suites:
 
 ```text
-tests/test_phase45_toda_prop42_compatibility.py
+tests/test_phase47_toda_prop44_compatibility.py
+20 passed
+
+tests/test_phase47_toda_prop44_decomposition_groups.py
 17 passed
 
-tests/test_phase45_toda_prop42_sequence.py
-19 passed
+tests/test_phase47_toda_prop44_decomposition_map.py
+27 passed
 
-tests/test_phase45_toda_prop42_exactness_compatibility.py
-17 passed
+tests/test_phase47_toda_prop44_toda_membership.py
+15 passed
 
-tests/test_phase45_toda_prop42_exactness_instance.py
-18 passed
+tests/test_phase47_toda_prop44_theorem_semantics.py
+22 passed
 
-tests/test_phase45_toda_prop42_theorem_semantics.py
-16 passed
+tests/test_phase47_toda_prop44_applicability_compatibility.py
+21 passed
 
-tests/test_phase45_toda_prop42_bridge.py
-16 passed
+tests/test_phase47_toda_prop44_probe.py
+12 passed
 ```
 
-Representative Phase 45 probe:
+Representative Phase 47 probe:
 
 ```powershell
-python -m probes.probe_phase45_capabilities
+python -m probes.probe_phase47_capabilities
 ```
 
 ---
@@ -150,10 +154,16 @@ FreeCyclicGroup(generator)
 → Z{generator}
 
 DirectSumGroup(summands)
-→ structural direct sum
+→ structural direct sum including FreeCyclicGroup / PrimaryComponent / TodaPrimaryGroup summands
 
 PrimaryComponentMembershipStatement(element,component)
 → element ∈ π_i(S^n;p)
+
+TodaPrimaryGroupMembershipStatement(element,group)
+→ element ∈ π_i^n
+
+TodaProp44DecompositionMap(source_group,target_group,alpha,beta,gamma,formula)
+→ instance-aware Toda Proposition 4.4 decomposition map
 
 TodaEHPSequence(terms,maps)
 → structural Toda EHP sequence
@@ -978,6 +988,410 @@ Toda45IsomorphismStatement
 
 ---
 
+
+# Phase 47: Toda Proposition 4.4 decomposition isomorphism
+
+Phase 47 represents and derives Toda Proposition 4.4 in the form:
+
+```text
+α ∈ π_{2n-1}^n
+H(α)=±ι_{2n-1}
+```
+
+implies that the decomposition map
+
+```text
+Φ:
+π_{i-1}^{n-1} ⊕ π_i^{2n-1}
+→
+π_i^n
+
+Φ(β,γ)=Eβ+α∘γ
+```
+
+is an isomorphism.
+
+Phase 47 keeps the following layers distinct:
+
+```text
+Toda group membership
+!=
+decomposition source / target representation
+!=
+decomposition map representation
+!=
+Toda Proposition 4.4 theorem statement
+!=
+generic map-property statement
+```
+
+---
+
+# TodaPrimaryGroup membership
+
+Phase 47 introduces:
+
+```text
+TodaPrimaryGroupMembershipStatement
+├── element: Expression
+└── group: TodaPrimaryGroup
+```
+
+Representative:
+
+```text
+α ∈ π_{2n-1}^n
+```
+
+This remains distinct from:
+
+```text
+PrimaryComponentMembershipStatement
+→ element ∈ π_i(S^n;p)
+```
+
+The statement is structural only. Its constructor does not validate element dimensions or prove membership.
+
+---
+
+# Proposition 4.4 decomposition source / target
+
+`DirectSumGroup` now accepts:
+
+```text
+FreeCyclicGroup
+PrimaryComponent
+TodaPrimaryGroup
+```
+
+as structural summands.
+
+This permits the Proposition 4.4 source:
+
+```text
+π_{i-1}^{n-1}
+⊕
+π_i^{2n-1}
+```
+
+to be represented losslessly, while the target remains:
+
+```text
+π_i^n
+```
+
+as a `TodaPrimaryGroup`.
+
+Important:
+
+```text
+DirectSumGroup
+!= AbelianGroup
+```
+
+and source representation alone does not assert any isomorphism theorem.
+
+---
+
+# Toda Proposition 4.4 decomposition map
+
+Phase 47 introduces:
+
+```text
+TodaProp44DecompositionMap
+├── source_group: DirectSumGroup
+├── target_group: TodaPrimaryGroup
+├── alpha: Expression
+├── beta: Expression
+├── gamma: Expression
+└── formula: Expression
+```
+
+Representative:
+
+```text
+Φ:
+π_{i-1}^{n-1} ⊕ π_i^{2n-1}
+→
+π_i^n
+
+Φ(β,γ)=Eβ+α∘γ
+```
+
+The formula uses existing expression structures:
+
+```text
+Suspension(β)
+Composition(α,γ)
+Sum(Eβ, α∘γ)
+```
+
+The map constructor stores structure only. It does not validate source / target typing, formula validity, or theorem applicability.
+
+Important:
+
+```text
+TodaProp44DecompositionMap
+!= MapSymbol
+
+TodaProp44DecompositionMap
+!= TodaIteratedSuspensionMap
+```
+
+---
+
+# Toda Proposition 4.4 theorem statement
+
+Phase 47 introduces:
+
+```text
+TodaProp44IsomorphismStatement(map)
+```
+
+where `map` is a specific `TodaProp44DecompositionMap`.
+
+Meaning:
+
+```text
+the supplied decomposition map instance
+is an isomorphism by Toda Proposition 4.4
+```
+
+Different symbolic `(i,n,α)` instances remain structurally distinct.
+
+Important:
+
+```text
+TodaProp44IsomorphismStatement
+!= Toda45IsomorphismStatement
+
+TodaProp44IsomorphismStatement
+!= IsomorphismStatement
+```
+
+---
+
+# Toda Proposition 4.4 inference rule
+
+The domain rule is:
+
+```text
+toda_prop44_isomorphism_inference_rule()
+```
+
+Premises:
+
+```text
+α ∈ π_{2n-1}^n
+
+H(α)=+ι_{2n-1}
+or
+H(α)=-ι_{2n-1}
+
+TodaProp44DecompositionMap(
+  π_{i-1}^{n-1} ⊕ π_i^{2n-1}
+  →
+  π_i^n,
+  Φ(β,γ)=Eβ+α∘γ
+)
+```
+
+Conclusion:
+
+```text
+TodaProp44IsomorphismStatement(map)
+```
+
+The rule uses `match_guard` to verify one shared symbolic instance:
+
+```text
+membership degree = 2n-1
+same α in membership / Hopf relation / map
+Hopf map = H
+Hopf value = ±ι_{2n-1}
+target = π_i^n
+first source summand = π_{i-1}^{n-1}
+second source summand = π_i^{2n-1}
+formula = Eβ+α∘γ
+```
+
+The generic inference engine is unchanged.
+
+---
+
+# Phase 47 applicability and provenance
+
+Valid positive- and negative-Hopf instances each derive exactly one theorem result.
+
+Invalid or mixed structures are rejected, including:
+
+```text
+missing membership premise
+missing Hopf premise
+missing decomposition map
+wrong membership degree
+different α instance
+different n instance
+wrong Hopf map
+wrong Hopf value
+wrong target sphere dimension
+reversed source summands
+wrong formula
+cross-instance premise mixing
+```
+
+Every derived theorem step preserves:
+
+```text
+ProofStep.premises
+ProofStep.inference_rule
+ProofRule.INFERENCE
+```
+
+Representative inference reaches fixed point in one derived round:
+
+```text
+3 GIVEN premises
+↓
+1 TodaProp44IsomorphismStatement
+↓
+fixed point
+```
+
+---
+
+# Generic isomorphism compatibility boundary after Phase 47
+
+The existing generic map-property API remains:
+
+```text
+IsomorphismStatement(map: MapSymbol)
+InjectiveMapStatement(map: MapSymbol)
+```
+
+while:
+
+```text
+TodaProp44DecompositionMap
+!= MapSymbol
+```
+
+Therefore Phase 47 does not add:
+
+```text
+TodaProp44IsomorphismStatement
+→ IsomorphismStatement
+```
+
+and does not derive:
+
+```text
+InjectiveMapStatement
+```
+
+from the Proposition 4.4 theorem.
+
+The Proposition 4.4 consequence that suspension `E` is injective is also intentionally outside Phase 47.
+
+Important:
+
+```text
+decomposition map isomorphism
+!=
+E injectivity consequence
+```
+
+---
+
+# Phase 47 representative probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase47_capabilities
+```
+
+Representative output:
+
+```text
+α ∈ π_{2n-1}^{n}
+H(α) = ι_(2n-1)
+
+Φ: π_{i-1}^{n-1} ⊕ π_{i}^{2n-1} → π_{i}^{n}
+Φ(β,γ) = Eβ + α∘γ
+
+Φ: π_{i-1}^{n-1} ⊕ π_{i}^{2n-1} → π_{i}^{n} is isomorphism
+```
+
+The representative run reports:
+
+```text
+theorem isomorphism count = 1
+premise count = 3
+derived round count = 1
+fixed point = True
+```
+
+---
+
+# Phase 47 scope boundaries
+
+Implemented:
+
+```text
+TodaPrimaryGroupMembershipStatement
+DirectSumGroup TodaPrimaryGroup summands
+symbolic Proposition 4.4 source / target
+TodaProp44DecompositionMap
+structural formula Eβ+α∘γ
+positive Hopf applicability
+negative Hopf applicability
+TodaProp44IsomorphismStatement
+Toda Proposition 4.4 theorem rule
+cross-instance rejection
+invalid-case rejection
+theorem provenance
+one-round fixed-point integration
+representative executable probe
+full regression
+```
+
+Still not implemented:
+
+```text
+general symbolic dimension solver
+symbolic map typing solver
+generic map-property type generalization
+Toda45IsomorphismStatement → IsomorphismStatement bridge
+TodaProp44IsomorphismStatement → IsomorphismStatement bridge
+generic injectivity consequence for Toda-specific maps
+Toda Proposition 4.4 consequence: E injective
+stable homotopy group model
+general Whitehead-product algebra
+automatic Whitehead-product zero / nonzero solver
+general existential witness machinery
+higher Toda brackets
+```
+
+Important:
+
+```text
+TodaPrimaryGroupMembershipStatement
+!= membership solver
+```
+
+```text
+TodaProp44DecompositionMap
+!= isomorphism theorem
+```
+
+```text
+TodaProp44IsomorphismStatement
+!= generic IsomorphismStatement
+```
+
+---
+
 # Phase 45 historical scope boundaries
 
 Still not implemented:
@@ -1025,26 +1439,28 @@ instance-lossy generic projection
 
 # Tests
 
-Focused Phase 46:
+Focused Phase 47:
 
 ```powershell
-python -m pytest tests/test_phase46_toda_45_compatibility.py -q
-python -m pytest tests/test_phase46_toda_45_stable_range_premise.py -q
-python -m pytest tests/test_phase46_toda_45_suspension_map.py -q
-python -m pytest tests/test_phase46_toda_45_theorem_semantics.py -q
-python -m pytest tests/test_phase46_toda_45_applicability_compatibility.py -q
-python -m pytest tests/test_phase46_toda_45_probe.py -q
+python -m pytest tests/test_phase47_toda_prop44_compatibility.py -q
+python -m pytest tests/test_phase47_toda_prop44_decomposition_groups.py -q
+python -m pytest tests/test_phase47_toda_prop44_decomposition_map.py -q
+python -m pytest tests/test_phase47_toda_prop44_toda_membership.py -q
+python -m pytest tests/test_phase47_toda_prop44_theorem_semantics.py -q
+python -m pytest tests/test_phase47_toda_prop44_applicability_compatibility.py -q
+python -m pytest tests/test_phase47_toda_prop44_probe.py -q
 ```
 
 Verified:
 
 ```text
+20 passed
 17 passed
-11 passed
+27 passed
 15 passed
-14 passed
-16 passed
-10 passed
+22 passed
+21 passed
+12 passed
 ```
 
 Related regressions:
@@ -1072,7 +1488,7 @@ python -m pytest -q
 Verified:
 
 ```text
-2143 passed in 64.31s
+2277 passed in 55.61s
 ```
 
 No failures.
@@ -1092,7 +1508,7 @@ Historical limitations in the development log describe the state at that time. C
 
 # Next development boundary
 
-Phase 46 is complete.
+Phase 47 is complete.
 
 The Toda Chapter 4 branch now contains:
 
@@ -1100,18 +1516,27 @@ The Toda Chapter 4 branch now contains:
 Toda Lemma 4.1 case semantics
 Toda Proposition 4.2 instance-aware EHP exactness
 Toda (4.5) stable-range E^(m-n) instance-aware isomorphism
+Toda Proposition 4.4 instance-aware decomposition isomorphism
 ```
 
 The next planned branch is:
 
 ```text
-Phase 47 candidate
-Toda Proposition 4.4
-decomposition-isomorphism compatibility check
+Phase 48 candidate
+Toda Proposition 4.4 consequence
+E injective
 ```
 
-Before implementing Toda Proposition 4.4, the exact decomposition statement, required source / target group structures, relationship to existing `PrimaryComponent` / `PreimageSubgroup` / `TodaPrimaryGroup`, and the later route to `E` injectivity should be checked.
+Phase 48 should derive the injectivity of the suspension map `E` as a consequence of the Proposition 4.4 decomposition isomorphism, without conflating the full decomposition map with `E`.
 
-Phase 47 should begin with compatibility only.
+The compatibility check should determine the minimum instance-aware representation needed for this consequence and whether any existing generic injectivity machinery can be reused without generalizing unrelated APIs.
 
-It should not immediately generalize the generic map-property API or treat the Phase 46 Toda isomorphism as a generic `IsomorphismStatement`.
+Important:
+
+```text
+TodaProp44IsomorphismStatement
+!= generic IsomorphismStatement
+
+decomposition-map injectivity
+!= E injectivity
+```

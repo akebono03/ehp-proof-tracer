@@ -27,6 +27,12 @@ class TodaPrimaryGroup:
 
 
 @dataclass(frozen=True)
+class TodaPrimaryGroupMembershipStatement:
+  element: Expression
+  group: TodaPrimaryGroup
+
+
+@dataclass(frozen=True)
 class TodaIteratedSuspensionMap:
   exponent: ScalarValue
   source_group: TodaPrimaryGroup
@@ -81,6 +87,21 @@ class FreeCyclicGroup:
 @dataclass(frozen=True)
 class DirectSumGroup:
   summands: tuple[
-    FreeCyclicGroup | PrimaryComponent,
+    FreeCyclicGroup
+    | PrimaryComponent
+    | TodaPrimaryGroup,
     ...
   ]
+
+
+@dataclass(frozen=True)
+class TodaProp44DecompositionMap:
+  source_group: DirectSumGroup
+  target_group: TodaPrimaryGroup
+  alpha: Expression
+  beta: Expression
+  gamma: Expression
+  formula: Expression
+
+
+
