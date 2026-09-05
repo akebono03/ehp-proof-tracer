@@ -15,6 +15,12 @@ class PrimaryComponent:
 
 
 @dataclass(frozen=True)
+class PrimaryComponentMembershipStatement:
+  element: Expression
+  component: PrimaryComponent
+
+
+@dataclass(frozen=True)
 class TodaPrimaryGroup:
   group_dimension: ScalarValue
   sphere_dimension: ScalarValue
@@ -37,6 +43,8 @@ class DirectSumGroup:
     FreeCyclicGroup | PrimaryComponent,
     ...
   ]
+
+
 
 
 

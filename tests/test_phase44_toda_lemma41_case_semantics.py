@@ -2,6 +2,9 @@ from typing import (
   get_type_hints,
 )
 
+from barratt_hilton_rules import (
+  HomotopyGroupMembershipStatement,
+)
 from expression import (
   GeneratorSymbol,
   HomotopyElement,
@@ -10,13 +13,18 @@ from expression import (
   ScalarProduct,
   ScalarSum,
   ScalarSymbol,
+  Suspension,
   WhiteheadProduct,
   Zero,
+)
+from map_facts import (
+  EHP_H_MAP,
 )
 from homotopy_groups import (
   DirectSumGroup,
   FreeCyclicGroup,
   PrimaryComponent,
+  PrimaryComponentMembershipStatement,
   TodaPrimaryGroup,
 )
 from models import (
@@ -29,8 +37,13 @@ from proof import (
   ProofStep,
   Relation,
   RelationType,
+  find_applicable_inference_rules,
   find_inference_match,
   run_inference_until_stable_with_history,
+)
+from probes.probe_phase44_capabilities import (
+  build_phase44_representative_cases,
+  relation_text,
 )
 from scalar_rules import (
   EvenScalarStatement,
@@ -39,6 +52,8 @@ from scalar_rules import (
 from toda_rules import (
   toda_lemma41_even_nonzero_case_inference_rule,
   toda_lemma41_even_zero_case_inference_rule,
+  toda_lemma41_even_zero_h_alpha_inference_rule,
+  toda_lemma41_even_zero_suspension_primary_inference_rule,
   toda_lemma41_odd_case_inference_rule,
 )
 
@@ -2413,6 +2428,1298 @@ def test_phase44_5_odd_statement_does_not_replace_even_premise():
 
   assert match is None
 
+
+def test_phase44_6_representative_uses_all_three_case_rules():
+  result = (
+    build_phase44_representative_cases()
+  )
+
+  rule_names = tuple(
+    rule.name
+    for rule in result[
+      "rules"
+    ]
+  )
+
+  assert rule_names == (
+    "Toda Lemma 4.1 odd case",
+    (
+      "Toda Lemma 4.1 even "
+      "Whitehead nonzero case"
+    ),
+    (
+      "Toda Lemma 4.1 even "
+      "Whitehead zero case"
+    ),
+  )
+
+
+def test_phase44_6_odd_case_has_exactly_one_applicable_rule():
+  result = (
+    build_phase44_representative_cases()
+  )
+
+  case = result[
+    "cases"
+  ][
+    "odd"
+  ]
+
+  applicable = case[
+    "applicable_rules"
+  ]
+
+  assert len(
+    applicable
+  ) == 1
+
+  assert (
+    applicable[
+      0
+    ].name
+    == "Toda Lemma 4.1 odd case"
+  )
+
+
+def test_phase44_6_even_nonzero_has_exactly_one_applicable_rule():
+  result = (
+    build_phase44_representative_cases()
+  )
+
+  case = result[
+    "cases"
+  ][
+    "even_nonzero"
+  ]
+
+  applicable = case[
+    "applicable_rules"
+  ]
+
+  assert len(
+    applicable
+  ) == 1
+
+  assert (
+    applicable[
+      0
+    ].name
+    == (
+      "Toda Lemma 4.1 even "
+      "Whitehead nonzero case"
+    )
+  )
+
+
+def test_phase44_6_even_zero_has_exactly_one_applicable_rule():
+  result = (
+    build_phase44_representative_cases()
+  )
+
+  case = result[
+    "cases"
+  ][
+    "even_zero"
+  ]
+
+  applicable = case[
+    "applicable_rules"
+  ]
+
+  assert len(
+    applicable
+  ) == 1
+
+  assert (
+    applicable[
+      0
+    ].name
+    == (
+      "Toda Lemma 4.1 even "
+      "Whitehead zero case"
+    )
+  )
+
+
+def test_phase44_6_all_cases_preserve_exact_premise_provenance():
+  result = (
+    build_phase44_representative_cases()
+  )
+
+  cases = result[
+    "cases"
+  ]
+
+  for name in (
+    "odd",
+    "even_nonzero",
+    "even_zero",
+  ):
+    case = cases[
+      name
+    ]
+
+    derived_step = case[
+      "derived_step"
+    ]
+
+    assert (
+      derived_step.rule
+      == ProofRule.INFERENCE
+    )
+
+    assert (
+      derived_step.premises
+      == case[
+        "premises"
+      ]
+    )
+
+    assert (
+      derived_step.inference_rule
+      is case[
+        "applicable_rules"
+      ][
+        0
+      ]
+    )
+
+
+def test_phase44_6_all_cases_reach_fixed_point_after_one_derived_round():
+  result = (
+    build_phase44_representative_cases()
+  )
+
+  cases = result[
+    "cases"
+  ]
+
+  for name in (
+    "odd",
+    "even_nonzero",
+    "even_zero",
+  ):
+    inference_result = cases[
+      name
+    ][
+      "result"
+    ]
+
+    assert (
+      inference_result.termination_reason
+      == InferenceTerminationReason.FIXED_POINT
+    )
+
+    assert (
+      inference_result.round_count
+      == 1
+    )
+
+    assert len(
+      inference_result.round_results[
+        0
+      ].new_steps
+    ) == 1
+
+
+def test_phase44_6_three_case_conclusions_remain_structurally_distinct():
+  result = (
+    build_phase44_representative_cases()
+  )
+
+  cases = result[
+    "cases"
+  ]
+
+  odd_conclusion = (
+    cases[
+      "odd"
+    ][
+      "derived_step"
+    ].conclusion
+  )
+
+  nonzero_conclusion = (
+    cases[
+      "even_nonzero"
+    ][
+      "derived_step"
+    ].conclusion
+  )
+
+  zero_conclusion = (
+    cases[
+      "even_zero"
+    ][
+      "derived_step"
+    ].conclusion
+  )
+
+  assert (
+    odd_conclusion
+    != nonzero_conclusion
+  )
+
+  assert (
+    odd_conclusion
+    != zero_conclusion
+  )
+
+  assert (
+    nonzero_conclusion
+    != zero_conclusion
+  )
+
+  assert isinstance(
+    odd_conclusion.rhs,
+    PrimaryComponent,
+  )
+
+  assert isinstance(
+    nonzero_conclusion.rhs,
+    DirectSumGroup,
+  )
+
+  assert isinstance(
+    zero_conclusion.rhs,
+    DirectSumGroup,
+  )
+
+
+def test_phase44_6_representative_probe_displays_three_conclusions():
+  result = (
+    build_phase44_representative_cases()
+  )
+
+  cases = result[
+    "cases"
+  ]
+
+  assert relation_text(
+    cases[
+      "odd"
+    ][
+      "derived_step"
+    ].conclusion
+  ) == (
+    "π_{2n-1}^{n} = "
+    "π_{2n-1}(S^{n};2)"
+  )
+
+  assert relation_text(
+    cases[
+      "even_nonzero"
+    ][
+      "derived_step"
+    ].conclusion
+  ) == (
+    "π_{2n-1}^{n} = "
+    "Z{P(ι_{2n+1})} ⊕ "
+    "π_{2n-1}(S^{n};2)"
+  )
+
+  assert relation_text(
+    cases[
+      "even_zero"
+    ][
+      "derived_step"
+    ].conclusion
+  ) == (
+    "π_{2n-1}^{n} = "
+    "Z{α} ⊕ "
+    "π_{2n-1}(S^{n};2)"
+  )
+
+
+def build_phase44_6a_alpha_condition_objects():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  two_n_minus_one = ScalarSum(
+    left=ScalarProduct(
+      left=2,
+      right=n,
+    ),
+    right=-1,
+  )
+
+  two_n = ScalarProduct(
+    left=2,
+    right=n,
+  )
+
+  n_plus_one = ScalarSum(
+    left=n,
+    right=1,
+  )
+
+  alpha = HomotopyElement(
+    name="α",
+    dimension=two_n_minus_one,
+  )
+
+  iota_two_n_minus_one = (
+    HomotopyElement(
+      name="ι_(2n-1)",
+      dimension=two_n_minus_one,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=two_n_minus_one,
+      ),
+    )
+  )
+
+  h_condition = Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=alpha,
+    ),
+    rhs=iota_two_n_minus_one,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  suspended_alpha = Suspension(
+    expression=alpha,
+  )
+
+  ordinary_membership = (
+    HomotopyGroupMembershipStatement(
+      element=suspended_alpha,
+      group_dimension=two_n,
+      sphere_dimension=n_plus_one,
+    )
+  )
+
+  primary_component = PrimaryComponent(
+    group_dimension=two_n,
+    sphere_dimension=n_plus_one,
+    prime=2,
+  )
+
+  return {
+    "n": n,
+    "alpha": alpha,
+    "two_n_minus_one": two_n_minus_one,
+    "two_n": two_n,
+    "n_plus_one": n_plus_one,
+    "iota_two_n_minus_one": (
+      iota_two_n_minus_one
+    ),
+    "h_condition": h_condition,
+    "suspended_alpha": suspended_alpha,
+    "ordinary_membership": (
+      ordinary_membership
+    ),
+    "primary_component": (
+      primary_component
+    ),
+  }
+
+
+def test_phase44_6a_h_alpha_condition_is_losslessly_representable():
+  result = (
+    build_phase44_6a_alpha_condition_objects()
+  )
+
+  assert result[
+    "h_condition"
+  ] == Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=result[
+        "alpha"
+      ],
+    ),
+    rhs=result[
+      "iota_two_n_minus_one"
+    ],
+    relation_type=RelationType.EQUALITY,
+  )
+
+
+def test_phase44_6a_h_alpha_condition_uses_canonical_h():
+  result = (
+    build_phase44_6a_alpha_condition_objects()
+  )
+
+  lhs = result[
+    "h_condition"
+  ].lhs
+
+  assert isinstance(
+    lhs,
+    MapApplication,
+  )
+
+  assert lhs.map is EHP_H_MAP
+
+  assert lhs.expression == (
+    result[
+      "alpha"
+    ]
+  )
+
+
+def test_phase44_6a_iota_two_n_minus_one_preserves_symbolic_index():
+  result = (
+    build_phase44_6a_alpha_condition_objects()
+  )
+
+  iota = result[
+    "iota_two_n_minus_one"
+  ]
+
+  assert iota.generator == (
+    GeneratorSymbol(
+      family="ι",
+      index=result[
+        "two_n_minus_one"
+      ],
+    )
+  )
+
+  assert iota.dimension == (
+    result[
+      "two_n_minus_one"
+    ]
+  )
+
+
+def test_phase44_6a_suspension_alpha_is_expression_compatible_with_membership():
+  result = (
+    build_phase44_6a_alpha_condition_objects()
+  )
+
+  membership = result[
+    "ordinary_membership"
+  ]
+
+  assert membership.element == (
+    Suspension(
+      expression=result[
+        "alpha"
+      ],
+    )
+  )
+
+
+def test_phase44_6a_e_alpha_ordinary_homotopy_membership_is_representable():
+  result = (
+    build_phase44_6a_alpha_condition_objects()
+  )
+
+  membership = result[
+    "ordinary_membership"
+  ]
+
+  assert membership == (
+    HomotopyGroupMembershipStatement(
+      element=result[
+        "suspended_alpha"
+      ],
+      group_dimension=result[
+        "two_n"
+      ],
+      sphere_dimension=result[
+        "n_plus_one"
+      ],
+    )
+  )
+
+
+def test_phase44_6a_e_alpha_membership_preserves_symbolic_dimensions():
+  result = (
+    build_phase44_6a_alpha_condition_objects()
+  )
+
+  membership = result[
+    "ordinary_membership"
+  ]
+
+  assert membership.group_dimension == (
+    ScalarProduct(
+      left=2,
+      right=result[
+        "n"
+      ],
+    )
+  )
+
+  assert membership.sphere_dimension == (
+    ScalarSum(
+      left=result[
+        "n"
+      ],
+      right=1,
+    )
+  )
+
+
+def test_phase44_6a_target_primary_component_is_separately_representable():
+  result = (
+    build_phase44_6a_alpha_condition_objects()
+  )
+
+  assert result[
+    "primary_component"
+  ] == PrimaryComponent(
+    group_dimension=result[
+      "two_n"
+    ],
+    sphere_dimension=result[
+      "n_plus_one"
+    ],
+    prime=2,
+  )
+
+
+def test_phase44_6a_ordinary_membership_does_not_encode_primary_prime():
+  result = (
+    build_phase44_6a_alpha_condition_objects()
+  )
+
+  membership = result[
+    "ordinary_membership"
+  ]
+
+  assert not hasattr(
+    membership,
+    "prime",
+  )
+
+
+def test_phase44_6a_primary_component_does_not_encode_membership_element():
+  result = (
+    build_phase44_6a_alpha_condition_objects()
+  )
+
+  component = result[
+    "primary_component"
+  ]
+
+  assert not hasattr(
+    component,
+    "element",
+  )
+
+
+def test_phase44_6b_e_alpha_primary_membership_is_lossless():
+  result = (
+    build_phase44_6a_alpha_condition_objects()
+  )
+
+  membership = (
+    PrimaryComponentMembershipStatement(
+      element=result[
+        "suspended_alpha"
+      ],
+      component=result[
+        "primary_component"
+      ],
+    )
+  )
+
+  assert membership.element == (
+    Suspension(
+      expression=result[
+        "alpha"
+      ],
+    )
+  )
+
+  assert membership.component == (
+    PrimaryComponent(
+      group_dimension=result[
+        "two_n"
+      ],
+      sphere_dimension=result[
+        "n_plus_one"
+      ],
+      prime=2,
+    )
+  )
+
+
+def test_phase44_6b_primary_membership_preserves_element():
+  result = (
+    build_phase44_6a_alpha_condition_objects()
+  )
+
+  membership = (
+    PrimaryComponentMembershipStatement(
+      element=result[
+        "suspended_alpha"
+      ],
+      component=result[
+        "primary_component"
+      ],
+    )
+  )
+
+  assert membership.element == (
+    result[
+      "suspended_alpha"
+    ]
+  )
+
+
+def test_phase44_6b_primary_membership_preserves_prime():
+  result = (
+    build_phase44_6a_alpha_condition_objects()
+  )
+
+  membership = (
+    PrimaryComponentMembershipStatement(
+      element=result[
+        "suspended_alpha"
+      ],
+      component=result[
+        "primary_component"
+      ],
+    )
+  )
+
+  assert (
+    membership.component.prime
+    == 2
+  )
+
+
+def test_phase44_6b_primary_membership_preserves_symbolic_dimensions():
+  result = (
+    build_phase44_6a_alpha_condition_objects()
+  )
+
+  membership = (
+    PrimaryComponentMembershipStatement(
+      element=result[
+        "suspended_alpha"
+      ],
+      component=result[
+        "primary_component"
+      ],
+    )
+  )
+
+  assert (
+    membership.component.group_dimension
+    == ScalarProduct(
+      left=2,
+      right=result[
+        "n"
+      ],
+    )
+  )
+
+  assert (
+    membership.component.sphere_dimension
+    == ScalarSum(
+      left=result[
+        "n"
+      ],
+      right=1,
+    )
+  )
+
+
+def test_phase44_6b_primary_membership_is_distinct_from_ordinary_membership():
+  result = (
+    build_phase44_6a_alpha_condition_objects()
+  )
+
+  primary_membership = (
+    PrimaryComponentMembershipStatement(
+      element=result[
+        "suspended_alpha"
+      ],
+      component=result[
+        "primary_component"
+      ],
+    )
+  )
+
+  ordinary_membership = (
+    result[
+      "ordinary_membership"
+    ]
+  )
+
+  assert (
+    primary_membership
+    != ordinary_membership
+  )
+
+  assert not isinstance(
+    primary_membership,
+    HomotopyGroupMembershipStatement,
+  )
+
+
+def test_phase44_6b_primary_membership_is_distinct_from_primary_component():
+  result = (
+    build_phase44_6a_alpha_condition_objects()
+  )
+
+  membership = (
+    PrimaryComponentMembershipStatement(
+      element=result[
+        "suspended_alpha"
+      ],
+      component=result[
+        "primary_component"
+      ],
+    )
+  )
+
+  assert (
+    membership
+    != result[
+      "primary_component"
+    ]
+  )
+
+  assert not isinstance(
+    membership,
+    PrimaryComponent,
+  )
+
+
+def test_phase44_6b_primary_membership_distinguishes_prime():
+  result = (
+    build_phase44_6a_alpha_condition_objects()
+  )
+
+  two_primary = (
+    PrimaryComponentMembershipStatement(
+      element=result[
+        "suspended_alpha"
+      ],
+      component=PrimaryComponent(
+        group_dimension=result[
+          "two_n"
+        ],
+        sphere_dimension=result[
+          "n_plus_one"
+        ],
+        prime=2,
+      ),
+    )
+  )
+
+  three_primary = (
+    PrimaryComponentMembershipStatement(
+      element=result[
+        "suspended_alpha"
+      ],
+      component=PrimaryComponent(
+        group_dimension=result[
+          "two_n"
+        ],
+        sphere_dimension=result[
+          "n_plus_one"
+        ],
+        prime=3,
+      ),
+    )
+  )
+
+  assert (
+    two_primary
+    != three_primary
+  )
+
+
+def test_phase44_6b_primary_membership_distinguishes_element():
+  result = (
+    build_phase44_6a_alpha_condition_objects()
+  )
+
+  alpha_membership = (
+    PrimaryComponentMembershipStatement(
+      element=result[
+        "suspended_alpha"
+      ],
+      component=result[
+        "primary_component"
+      ],
+    )
+  )
+
+  beta = HomotopyElement(
+    name="β",
+    dimension=result[
+      "two_n_minus_one"
+    ],
+  )
+
+  beta_membership = (
+    PrimaryComponentMembershipStatement(
+      element=Suspension(
+        expression=beta,
+      ),
+      component=result[
+        "primary_component"
+      ],
+    )
+  )
+
+  assert (
+    alpha_membership
+    != beta_membership
+  )
+
+
+def test_phase44_6c_h_alpha_rule_matches_even_zero_case():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  (
+    even_step,
+    zero_step,
+  ) = (
+    build_phase44_5_even_zero_premises(
+      n
+    )
+  )
+
+  rule = (
+    toda_lemma41_even_zero_h_alpha_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      even_step,
+      zero_step,
+    ),
+  )
+
+  assert match is not None
+
+  assert match.premises == (
+    even_step,
+    zero_step,
+  )
+
+
+def test_phase44_6c_h_alpha_condition_is_theorem_derived():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  (
+    even_step,
+    zero_step,
+  ) = (
+    build_phase44_5_even_zero_premises(
+      n
+    )
+  )
+
+  rule = (
+    toda_lemma41_even_zero_h_alpha_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        even_step,
+        zero_step,
+      ),
+    )
+  )
+
+  two_n_minus_one = ScalarSum(
+    left=ScalarProduct(
+      left=2,
+      right=n,
+    ),
+    right=-1,
+  )
+
+  alpha = HomotopyElement(
+    name="α",
+    dimension=two_n_minus_one,
+  )
+
+  expected = Relation(
+    lhs=MapApplication(
+      map=EHP_H_MAP,
+      expression=alpha,
+    ),
+    rhs=HomotopyElement(
+      name="ι_(2n-1)",
+      dimension=two_n_minus_one,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=two_n_minus_one,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert expected in conclusions
+
+
+def test_phase44_6c_suspension_primary_rule_matches_even_zero_case():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  (
+    even_step,
+    zero_step,
+  ) = (
+    build_phase44_5_even_zero_premises(
+      n
+    )
+  )
+
+  rule = (
+    toda_lemma41_even_zero_suspension_primary_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      even_step,
+      zero_step,
+    ),
+  )
+
+  assert match is not None
+
+  assert match.premises == (
+    even_step,
+    zero_step,
+  )
+
+
+def test_phase44_6c_suspension_primary_condition_is_theorem_derived():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  (
+    even_step,
+    zero_step,
+  ) = (
+    build_phase44_5_even_zero_premises(
+      n
+    )
+  )
+
+  rule = (
+    toda_lemma41_even_zero_suspension_primary_inference_rule()
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rule,
+      (
+        even_step,
+        zero_step,
+      ),
+    )
+  )
+
+  two_n_minus_one = ScalarSum(
+    left=ScalarProduct(
+      left=2,
+      right=n,
+    ),
+    right=-1,
+  )
+
+  two_n = ScalarProduct(
+    left=2,
+    right=n,
+  )
+
+  n_plus_one = ScalarSum(
+    left=n,
+    right=1,
+  )
+
+  alpha = HomotopyElement(
+    name="α",
+    dimension=two_n_minus_one,
+  )
+
+  expected = (
+    PrimaryComponentMembershipStatement(
+      element=Suspension(
+        expression=alpha,
+      ),
+      component=PrimaryComponent(
+        group_dimension=two_n,
+        sphere_dimension=n_plus_one,
+        prime=2,
+      ),
+    )
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert expected in conclusions
+
+
+def test_phase44_6c_zero_case_three_conclusions_share_same_alpha():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  (
+    even_step,
+    zero_step,
+  ) = (
+    build_phase44_5_even_zero_premises(
+      n
+    )
+  )
+
+  rules = (
+    toda_lemma41_even_zero_case_inference_rule(),
+    toda_lemma41_even_zero_h_alpha_inference_rule(),
+    toda_lemma41_even_zero_suspension_primary_inference_rule(),
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        even_step,
+        zero_step,
+      ),
+    )
+  )
+
+  group_step = next(
+    step
+    for step in result.steps
+    if (
+      step.rule
+      == ProofRule.INFERENCE
+      and isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and isinstance(
+        step.conclusion.rhs,
+        DirectSumGroup,
+      )
+    )
+  )
+
+  h_step = next(
+    step
+    for step in result.steps
+    if (
+      step.rule
+      == ProofRule.INFERENCE
+      and isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and isinstance(
+        step.conclusion.lhs,
+        MapApplication,
+      )
+      and step.conclusion.lhs.map
+      is EHP_H_MAP
+    )
+  )
+
+  membership_step = next(
+    step
+    for step in result.steps
+    if (
+      step.rule
+      == ProofRule.INFERENCE
+      and isinstance(
+        step.conclusion,
+        PrimaryComponentMembershipStatement,
+      )
+    )
+  )
+
+  group_alpha = (
+    group_step
+    .conclusion
+    .rhs
+    .summands[
+      0
+    ]
+    .generator
+  )
+
+  h_alpha = (
+    h_step
+    .conclusion
+    .lhs
+    .expression
+  )
+
+  suspension_alpha = (
+    membership_step
+    .conclusion
+    .element
+    .expression
+  )
+
+  assert (
+    group_alpha
+    == h_alpha
+  )
+
+  assert (
+    group_alpha
+    == suspension_alpha
+  )
+
+
+def test_phase44_6c_zero_case_alpha_conditions_preserve_provenance():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  (
+    even_step,
+    zero_step,
+  ) = (
+    build_phase44_5_even_zero_premises(
+      n
+    )
+  )
+
+  rules = (
+    toda_lemma41_even_zero_case_inference_rule(),
+    toda_lemma41_even_zero_h_alpha_inference_rule(),
+    toda_lemma41_even_zero_suspension_primary_inference_rule(),
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        even_step,
+        zero_step,
+      ),
+    )
+  )
+
+  derived_steps = tuple(
+    step
+    for step in result.steps
+    if (
+      step.rule
+      == ProofRule.INFERENCE
+    )
+  )
+
+  assert len(
+    derived_steps
+  ) == 3
+
+  for step in derived_steps:
+    assert step.premises == (
+      even_step,
+      zero_step,
+    )
+
+    assert (
+      step.inference_rule
+      in rules
+    )
+
+
+def test_phase44_6c_zero_case_three_theorem_results_reach_fixed_point():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  (
+    even_step,
+    zero_step,
+  ) = (
+    build_phase44_5_even_zero_premises(
+      n
+    )
+  )
+
+  rules = (
+    toda_lemma41_even_zero_case_inference_rule(),
+    toda_lemma41_even_zero_h_alpha_inference_rule(),
+    toda_lemma41_even_zero_suspension_primary_inference_rule(),
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      rules,
+      (
+        even_step,
+        zero_step,
+      ),
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert (
+    result.round_count
+    == 1
+  )
+
+  assert len(
+    result.round_results[
+      0
+    ].new_steps
+  ) == 3
+
+
+def test_phase44_6c_alpha_condition_rules_do_not_match_nonzero_case():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  (
+    even_step,
+    nonzero_step,
+  ) = (
+    build_phase44_4_even_nonzero_premises(
+      n
+    )
+  )
+
+  rules = (
+    toda_lemma41_even_zero_h_alpha_inference_rule(),
+    toda_lemma41_even_zero_suspension_primary_inference_rule(),
+  )
+
+  for rule in rules:
+    match = find_inference_match(
+      rule,
+      (
+        even_step,
+        nonzero_step,
+      ),
+    )
+
+    assert match is None
 
 
 
