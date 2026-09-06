@@ -103,6 +103,103 @@ class TodaPi32WhiteheadSquareUpToSignStatement:
   positive_value: Expression
 
 
+@dataclass(frozen=True)
+class TodaDeltaImageUpToSignStatement:
+  map: TodaDeltaMap
+  element: Expression
+  positive_value: Expression
+
+
+def toda_delta_iota5_whitehead_square_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    delta_map = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    expected_source = TodaPrimaryGroup(
+      group_dimension=5,
+      sphere_dimension=5,
+    )
+
+    expected_target = TodaPrimaryGroup(
+      group_dimension=3,
+      sphere_dimension=2,
+    )
+
+    return (
+      delta_map.source_group
+      == expected_source
+      and delta_map.target_group
+      == expected_target
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    delta_map = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    iota_5 = HomotopyElement(
+      name="ι_5",
+      dimension=5,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=5,
+      ),
+    )
+
+    iota_2 = HomotopyElement(
+      name="ι_2",
+      dimension=2,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=2,
+      ),
+    )
+
+    whitehead_square = WhiteheadProduct(
+      left=iota_2,
+      right=iota_2,
+    )
+
+    return TodaDeltaImageUpToSignStatement(
+      map=delta_map,
+      element=iota_5,
+      positive_value=whitehead_square,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Delta iota_5 "
+      "Whitehead-square relation"
+    ),
+    description=(
+      "For the specific Delta map "
+      "from pi_5^5 to pi_3^2, "
+      "Delta(iota_5) equals the "
+      "Whitehead square "
+      "[iota_2,iota_2] up to sign."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaDeltaMap
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_pi3_2_whitehead_square_up_to_sign_inference_rule():
   def guard(
     premises,
