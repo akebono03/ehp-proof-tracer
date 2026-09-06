@@ -46,6 +46,37 @@ def pi_3_3_free_cyclic_fact():
   )
 
 
+def pi_5_5_free_cyclic_fact():
+  iota_5 = HomotopyElement(
+    name="ι_5",
+    dimension=5,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=5,
+    ),
+  )
+
+  return Relation(
+    lhs=TodaPrimaryGroup(
+      group_dimension=5,
+      sphere_dimension=5,
+    ),
+    rhs=FreeCyclicGroup(
+      generator=iota_5,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+
+def pi_4_5_zero_fact():
+  return TodaPrimaryGroupZeroStatement(
+    group=TodaPrimaryGroup(
+      group_dimension=4,
+      sphere_dimension=5,
+    ),
+  )
+
+
 def e_pi_1_1_to_pi_2_2_isomorphism_fact():
   suspension_map = TodaSuspensionMap(
     source_group=TodaPrimaryGroup(

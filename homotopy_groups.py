@@ -113,6 +113,12 @@ class FreeCyclicGroup:
 
 
 @dataclass(frozen=True)
+class FiniteCyclicGroup:
+  order: int
+  generator: Expression
+
+
+@dataclass(frozen=True)
 class DirectSumGroup:
   summands: tuple[
     FreeCyclicGroup
