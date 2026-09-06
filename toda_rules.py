@@ -98,6 +98,196 @@ class TodaProp27HopfInvariantUpToSignStatement:
 
 
 @dataclass(frozen=True)
+class TodaPi32WhiteheadSquareUpToSignStatement:
+  whitehead_square: Expression
+  positive_value: Expression
+
+
+def toda_pi3_2_whitehead_square_up_to_sign_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    prop27_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta_2_definition = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    hopf_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    hopf_injectivity = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    expected_pi_3_2 = TodaPrimaryGroup(
+      group_dimension=3,
+      sphere_dimension=2,
+    )
+
+    expected_pi_3_3 = TodaPrimaryGroup(
+      group_dimension=3,
+      sphere_dimension=3,
+    )
+
+    if (
+      eta_2_definition.map.source_group
+      != expected_pi_3_2
+    ):
+      return False
+
+    if (
+      eta_2_definition.map.target_group
+      != expected_pi_3_3
+    ):
+      return False
+
+    if (
+      hopf_injectivity.map
+      != eta_2_definition.map
+    ):
+      return False
+
+    eta_2 = eta_2_definition.element
+
+    iota_3 = eta_2_definition.image
+
+    expected_hopf_relation = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=eta_2,
+      ),
+      rhs=iota_3,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      hopf_relation
+      != expected_hopf_relation
+    ):
+      return False
+
+    iota_2 = HomotopyElement(
+      name="ι_2",
+      dimension=2,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=2,
+      ),
+    )
+
+    expected_whitehead_square = (
+      WhiteheadProduct(
+        left=iota_2,
+        right=iota_2,
+      )
+    )
+
+    if (
+      prop27_statement.argument
+      != expected_whitehead_square
+    ):
+      return False
+
+    expected_positive_hopf_value = (
+      Multiple(
+        coefficient=2,
+        expression=iota_3,
+      )
+    )
+
+    return (
+      prop27_statement.positive_value
+      == expected_positive_hopf_value
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    prop27_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta_2_definition = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return (
+      TodaPi32WhiteheadSquareUpToSignStatement(
+        whitehead_square=(
+          prop27_statement.argument
+        ),
+        positive_value=Multiple(
+          coefficient=2,
+          expression=(
+            eta_2_definition.element
+          ),
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda pi_3^2 Whitehead square "
+      "equals twice eta_2 up to sign"
+    ),
+    description=(
+      "For the specific Hopf invariant "
+      "map from pi_3^2 to pi_3^3, "
+      "Toda Proposition 2.7 gives "
+      "H([iota_2,iota_2]) equal to "
+      "plus or minus 2 iota_3. "
+      "Since eta_2 maps to iota_3 "
+      "and the same Hopf map is "
+      "injective, the Whitehead square "
+      "[iota_2,iota_2] equals plus or "
+      "minus 2 eta_2."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaProp27HopfInvariantUpToSignStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaPi32Eta2DefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaHopfInvariantInjectiveStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+@dataclass(frozen=True)
 class Toda45IsomorphismStatement:
   map: TodaIteratedSuspensionMap
 
