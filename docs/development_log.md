@@ -6,23 +6,17 @@ current specification は `README.md` / `docs/design.md` を優先する。
 
 # Phase 1–27 概要
 
-Phase 1–17 で abelian-group calculation、generic inference、EHP、ORDER、Suspension、Freudenthal、Composition、Hopf invariant、additive / homomorphism / subgroup / modulo / symbolic scalar / indeterminacy reasoning を整備。
-
-Phase 18–27 で unstable Toda bracket、indexed notation、typed homotopy elements、structured generators、theorem / generator facts、actual η₃ / ν′ / ν₇ typing、および actual ε₃ Toda chain を実装。
+abelian-group calculation、generic inference、EHP、ORDER、Suspension、Freudenthal、Composition、Hopf invariant、additive / homomorphism / subgroup / modulo / symbolic scalar / indeterminacy reasoning、unstable Toda bracket、typed elements、generator facts を整備。
 
 ### 状態
 
-完了
+COMPLETE
 
 ---
 
 # Phase 28–38 概要
 
-Phase 28–29 で map injectivity / isomorphism / actual H facts を整備。
-
-Phase 30–34 で Toda Prop.2.2、SmashProduct、Barratt–Hilton prerequisites、Toda Prop.3.1 theorem rules を実装。
-
-Phase 35–38 で actual equality branch:
+Toda Prop.2.2、Barratt–Hilton、actual H branch を接続し:
 
 ```text
 H((2ι₂)η₂)=4ι₃
@@ -37,765 +31,25 @@ Injective(H)
 
 を completion。
 
-generic inference engine はこの branch で変更しなかった。
-
 ### 状態
 
-完了
+COMPLETE
 
 ---
 
-# Phase 39–44 概要
-
-Phase 39:
-
-```text
-PrimaryComponent
-```
-
-Phase 40:
-
-```text
-TodaPrimaryGroup
-```
-
-Phase 41:
-
-```text
-PreimageSubgroup
-```
-
-Phase 42:
-
-```text
-WhiteheadProduct
-```
-
-Phase 43:
-
-```text
-Toda Lemma 4.1 zero / nonzero premise vocabulary
-```
-
-Phase 44:
-
-```text
-Toda Lemma 4.1 three-case theorem semantics
-```
-
-zero case では:
-
-```text
-π_{2n-1}^n = Z{α} ⊕ π_{2n-1}(S^n;2)
-H(α)=ι_{2n-1}
-Eα ∈ π_{2n}(S^{n+1};2)
-```
-
-まで推論可能にした。
-
-### 状態
-
-完了
-
----
-
-# Phase 45 概要
-
-Toda Proposition 4.2 の symbolic EHP exactness を instance-aware に実装。
-
-追加:
-
-```text
-EHP_E_MAP
-EHP_DELTA_MAP
-TodaEHPSequence
-TodaEHPExactnessWindow
-TodaProp42ExactnessStatement
-```
-
-rules:
-
-```text
-toda_prop42_e_h_exactness_inference_rule()
-toda_prop42_h_delta_exactness_inference_rule()
-toda_prop42_delta_e_exactness_inference_rule()
-toda_prop42_exactness_to_generic_inference_rule()
-```
-
-generic exactness bridge により既存 zero-composition reasoning と接続。
-
-generic inference engine は変更なし。
-
-### 状態
-
-完了
-
----
-
-# Phase 46 概要
-
-Toda (4.5):
-
-```text
-n ≥ k+2
-m ≥ n
-↓
-E^(m-n):
-π_{n+k}^n
-→
-π_{m+k}^m
-is isomorphism
-```
-
-を instance-aware symbolic theorem として実装。
-
-### 状態
-
-完了
-
----
-
-# Phase 47 概要
-
-Toda Proposition 4.4 decomposition:
-
-```text
-Φ:
-π_{i-1}^{n-1}
-⊕
-π_i^{2n-1}
-→
-π_i^n
-```
-
-```text
-Φ(β,γ)=Eβ+α∘γ
-```
-
-under:
-
-```text
-α ∈ π_{2n-1}^n
-H(α)=±ι_{2n-1}
-```
-
-を representation + theorem semantics として実装。
-
-### 状態
-
-完了
-
----
-
-# Phase 48 概要
-
-Toda Proposition 4.4 consequence:
-
-```text
-Φ is isomorphism
-Φ|_{π_{i-1}^{n-1}}=E
-↓
-E: π_{i-1}^{n-1} → π_i^n is injective
-```
-
-instance-aware suspension map:
-
-```text
-TodaSuspensionMap
-```
-
-restriction statement:
-
-```text
-TodaProp44FirstSummandRestrictionStatement
-```
-
-injectivity theorem:
-
-```text
-TodaProp44SuspensionInjectiveStatement
-```
-
-completion full suite:
-
-```text
-2411 passed in 58.16s
-```
-
-### 状態
-
-完了
-
----
-
-# Phase 49：concrete EHP calculation `π_3^2 = Z{η_2}`
-
-目的:
-
-Toda Proposition 4.2 の exactness infrastructure を具体的な低次ホモトピー群計算へ接続する。
-
-対象:
-
-```text
-π_2^1
--E→
-π_3^2
--H→
-π_3^3
--Δ→
-π_1^1
--E→
-π_2^2
-```
-
-最終目標:
-
-```text
-π_3^2 = Z{η_2}
-```
-
----
-
-## Phase 49-1：current exactness → injective / surjective compatibility check
-
-production code 変更なし。
-
-確認:
-
-```text
-InjectiveMapStatement(EHP_H_MAP)
-IsomorphismStatement(EHP_E_MAP)
-```
-
-は generic に表現可能。
-
-ただし generic map property は source / target group instance を保持しない。
-
-また current generic API には:
-
-```text
-SurjectiveMapStatement
-```
-
-が存在しないことを確認。
-
-`TodaProp42ExactnessStatement` は source / middle / target instance を保持する。
-
-結論:
-
-```text
-Phase 49 concrete calculation では
-instance-aware Toda-specific map properties を使う
-```
-
-追加:
-
-```text
-tests/test_phase49_concrete_pi3_2_compatibility.py
-```
-
-verified:
-
-```text
-20 passed
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 49-2：low-dimensional facts
-
-追加:
-
-```text
-TodaPrimaryGroupZeroStatement
-TodaSuspensionIsomorphismStatement
-```
-
-追加 module:
-
-```text
-low_dimensional_facts.py
-```
-
-facts:
-
-```text
-π_2^1 = 0
-π_3^3 = Z{ι_3}
-E: π_1^1 → π_2^2 is isomorphism
-```
-
-specific E isomorphism は generic `IsomorphismStatement(EHP_E_MAP)` と distinct。
-
-追加:
-
-```text
-tests/test_phase49_low_dimensional_facts.py
-```
-
-verified:
-
-```text
-19 passed
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 49-3：exactness + zero-left ⇒ H injective
-
-追加:
-
-```text
-TodaHopfInvariantMap
-```
-
-representative:
-
-```text
-H: π_3^2 → π_3^3
-```
-
-追加:
-
-```text
-TodaHopfInvariantInjectiveStatement
-```
-
-rule:
-
-```text
-toda_exactness_zero_left_implies_hopf_injective_inference_rule()
-```
-
-premises:
-
-```text
-π_2^1 = 0
-π_2^1 -E→ π_3^2 -H→ π_3^3 exact
-```
-
-conclusion:
-
-```text
-H: π_3^2 → π_3^3 is injective
-```
-
-cross-instance zero group を reject。
-
-追加:
-
-```text
-tests/test_phase49_hopf_injectivity.py
-```
-
-verified:
-
-```text
-21 passed
-```
-
-full suite:
-
-```text
-2471 passed in 68.78s
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 49-4：E injective ⇒ Δ=0 ⇒ H surjective
-
-追加:
-
-```text
-TodaDeltaMap
-TodaSuspensionInjectiveStatement
-TodaDeltaZeroStatement
-TodaHopfInvariantSurjectiveStatement
-```
-
-rule 1:
-
-```text
-toda_suspension_isomorphism_implies_injective_inference_rule()
-```
-
-```text
-E: π_1^1 → π_2^2 is isomorphism
-↓
-E injective
-```
-
-rule 2:
-
-```text
-toda_exactness_injective_right_implies_delta_zero_inference_rule()
-```
-
-```text
-E injective
-+
-π_3^3 -Δ→ π_1^1 -E→ π_2^2 exact
-↓
-Δ: π_3^3 → π_1^1 = 0
-```
-
-rule 3:
-
-```text
-toda_exactness_zero_delta_implies_hopf_surjective_inference_rule()
-```
-
-```text
-Δ=0
-+
-π_3^2 -H→ π_3^3 -Δ→ π_1^1 exact
-↓
-H: π_3^2 → π_3^3 is surjective
-```
-
-追加:
-
-```text
-tests/test_phase49_delta_hopf_surjectivity.py
-```
-
-verified:
-
-```text
-26 passed
-```
-
-full suite:
-
-```text
-2497 passed in 64.87s
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 49-5：H injective + surjective ⇒ H isomorphism
-
-追加:
-
-```text
-TodaHopfInvariantIsomorphismStatement
-```
-
-rule:
-
-```text
-toda_hopf_injective_surjective_implies_isomorphism_inference_rule()
-```
-
-premises:
-
-```text
-TodaHopfInvariantInjectiveStatement(H-instance)
-TodaHopfInvariantSurjectiveStatement(H-instance)
-```
-
-conclusion:
-
-```text
-TodaHopfInvariantIsomorphismStatement(H-instance)
-```
-
-same H-map instance を guard で要求。
-
-追加:
-
-```text
-tests/test_phase49_hopf_isomorphism.py
-```
-
-verified:
-
-```text
-17 passed
-```
-
-full suite:
-
-```text
-2514 passed in 92.67s
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 49-6：minimum generator transport across isomorphism
-
-重要な設計修正:
-
-```text
-η_2 を既知の GIVEN element として置かない
-```
-
-mathematical semantics:
-
-```text
-H: π_3^2 → π_3^3 is isomorphism
-+
-π_3^3 = Z{ι_3}
-↓
-ι_3 の逆像が一意に存在
-↓
-その一意な元を η_2 と命名
-```
-
-追加:
-
-```text
-TodaPi32Eta2DefinitionStatement
-```
-
-fields:
-
-```text
-map
-element
-image
-```
-
-rule:
-
-```text
-toda_pi3_2_define_eta2_inference_rule()
-```
-
-次:
-
-```text
-TodaPi32Eta2DefinitionStatement
-↓
-H(η_2)=ι_3
-```
-
-rule:
-
-```text
-toda_pi3_2_eta2_hopf_relation_inference_rule()
-```
-
-generator transport:
-
-```text
-H isomorphism
-+
-π_3^3 = Z{ι_3}
-+
-η_2 is the unique H-preimage of ι_3
-↓
-π_3^2 = Z{η_2}
-```
-
-rule:
-
-```text
-toda_pi3_2_free_cyclic_generator_inference_rule()
-```
-
-general existential / witness / inverse-map machinery は追加しない。
-
-既存 Toda Prop.5.1 由来の `H(η_2)=ι_3` fact は premise に使わない。
-
-追加:
-
-```text
-tests/test_phase49_generator_transport.py
-```
-
-verified:
-
-```text
-20 passed
-```
-
-full suite:
-
-```text
-2534 passed in 60.93s
-```
-
-### 状態
-
-完了
-
----
-
-## Phase 49-7：representative probe / full regression / completion
-
-追加:
-
-```text
-probes/probe_phase49_capabilities.py
-tests/test_phase49_probe.py
-```
-
-initial GIVEN:
-
-```text
-π_2^1 = 0
-π_3^3 = Z{ι_3}
-E: π_1^1 → π_2^2 is isomorphism
-
-π_2^1 -E→ π_3^2 -H→ π_3^3 exact
-π_3^2 -H→ π_3^3 -Δ→ π_1^1 exact
-π_3^3 -Δ→ π_1^1 -E→ π_2^2 exact
-```
-
-end-to-end fixed point:
-
-```text
-round 1
-H: π_3^2 → π_3^3 is injective
-E: π_1^1 → π_2^2 is injective
-
-round 2
-Δ: π_3^3 → π_1^1 = 0
-
-round 3
-H: π_3^2 → π_3^3 is surjective
-
-round 4
-H: π_3^2 → π_3^3 is isomorphism
-
-round 5
-ι_3 has a unique preimage under H;
-denote it by η_2
-
-round 6
-H(η_2)=ι_3
-π_3^2 = Z{η_2}
-
-fixed point
-```
-
-counts:
-
-```text
-given premise count = 6
-derived step count = 8
-derived round count = 6
-fixed point = True
-```
-
-focused verified:
-
-```text
-tests/test_phase49_concrete_pi3_2_compatibility.py  20 passed
-tests/test_phase49_low_dimensional_facts.py         19 passed
-tests/test_phase49_hopf_injectivity.py              21 passed
-tests/test_phase49_delta_hopf_surjectivity.py       26 passed
-tests/test_phase49_hopf_isomorphism.py              17 passed
-tests/test_phase49_generator_transport.py           20 passed
-tests/test_phase49_probe.py                         23 passed
-```
-
-related:
-
-```text
-tests/test_phase45_toda_prop42_theorem_semantics.py
-16 passed
-```
-
-final full regression:
-
-```text
-2557 passed in 56.45s
-```
-
-### 状態
-
-完了
-
----
-
-# Phase 49 completion boundary
-
-Phase 49 で完成:
-
-```text
-π_2^1 = 0
-+
-E-H exact
-↓
-H injective
-```
-
-```text
-E: π_1^1 → π_2^2 isomorphism
-↓
-E injective
-+
-Δ-E exact
-↓
-Δ=0
-```
-
-```text
-H-Δ exact
-+
-Δ=0
-↓
-H surjective
-```
-
-```text
-H injective
-+
-H surjective
-↓
-H isomorphism
-```
-
-```text
-H isomorphism
-+
-π_3^3=Z{ι_3}
-↓
-ι_3 の一意な逆像を η_2 と命名
-↓
-H(η_2)=ι_3
-↓
-π_3^2=Z{η_2}
-```
-
-generic inference engine:
-
-```text
-変更なし
-```
-
-generic map-property API:
-
-```text
-generalization なし
-```
-
-general existential framework:
-
-```text
-未導入
+# Phase 39–48 概要
+
+```text
+39 PrimaryComponent
+40 TodaPrimaryGroup
+41 PreimageSubgroup
+42 WhiteheadProduct
+43 Toda Lemma 4.1 premise vocabulary
+44 Toda Lemma 4.1 case semantics
+45 Toda Proposition 4.2 EHP exactness
+46 Toda (4.5) stable-range isomorphism
+47 Toda Proposition 4.4 decomposition
+48 Toda Proposition 4.4 E injectivity
 ```
 
 ### 状態
@@ -804,34 +58,459 @@ COMPLETE
 
 ---
 
+# Phase 49：`π_3^2=Z{η₂}`
+
+EHP:
+
+```text
+π_2^1 -E→ π_3^2 -H→ π_3^3 -Δ→ π_1^1 -E→ π_2^2
+```
+
+Derived:
+
+```text
+H injective
+Δ=0
+H surjective
+H isomorphism
+η₂ = unique H-preimage of ι_3
+H(η₂)=ι_3
+π_3^2=Z{η₂}
+```
+
+Representative:
+
+```text
+given = 6
+derived = 8
+rounds = 6
+fixed point = True
+```
+
+Full regression:
+
+```text
+2557 passed in 56.45s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 50：`π_4^3=Z/2{η₃}`
+
+目的:
+
+Phase 49 の `π_3^2=Z{η₂}` を concrete EHP calculation に接続する。
+
+---
+
+## Phase 50-1：proof dependency compatibility
+
+確認した EHP windows:
+
+```text
+π_5^5 -Δ→ π_3^2 -E→ π_4^3
+π_3^2 -E→ π_4^3 -H→ π_4^5
+```
+
+Required:
+
+```text
+π_5^5=Z{ι_5}
+π_4^5=0
+Toda Proposition 2.7 minimum consequence
+```
+
+必要な Prop.2.7 consequence:
+
+```text
+H([ι_2,ι_2])=±2ι_3
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 50-2：up-to-sign representation compatibility
+
+`Relation` では unresolved `±` を1 statement に lossless に保持できないことを確認。
+
+general `PlusMinus` は導入せず theorem-specific statement を採用。
+
+### 状態
+
+完了
+
+---
+
+## Phase 50-3：minimum Prop.2.7 theorem semantics
+
+追加:
+
+```text
+TodaProp27HopfInvariantUpToSignStatement
+```
+
+actual:
+
+```text
+H([ι_2,ι_2])=±2ι_3
+```
+
+focused:
+
+```text
+18 passed
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 50-4a：Whitehead square
+
+Derived:
+
+```text
+H([ι_2,ι_2])=±2ι_3
++
+H(η₂)=ι_3
++
+H injective
+↓
+[ι_2,ι_2]=±2η₂
+```
+
+focused:
+
+```text
+14 passed
+```
+
+full:
+
+```text
+2589 passed in 62.06s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 50-4b：low-dimensional Δ facts
+
+追加:
+
+```text
+π_5^5=Z{ι_5}
+π_4^5=0
+TodaDeltaImageUpToSignStatement
+```
+
+Derived:
+
+```text
+Δ(ι_5)=±[ι_2,ι_2]
+```
+
+focused:
+
+```text
+22 passed
+```
+
+full:
+
+```text
+2611 passed in 64.75s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 50-4c：exactness bridge
+
+追加:
+
+```text
+TodaDeltaImageFreeCyclicStatement
+TodaSuspensionKernelFreeCyclicStatement
+TodaSuspensionSurjectiveStatement
+```
+
+Derived:
+
+```text
+Im(Δ)=Z{2η₂}
+Ker(E)=Z{2η₂}
+E: π_3^2→π_4^3 surjective
+```
+
+focused:
+
+```text
+18 passed
+```
+
+full:
+
+```text
+2629 passed in 61.36s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 50-4d：finite cyclic conclusion
+
+追加:
+
+```text
+FiniteCyclicGroup
+```
+
+Derived:
+
+```text
+π_3^2=Z{η₂}
++
+Ker(E)=Z{2η₂}
++
+E surjective
+↓
+π_4^3=Z/2{Eη₂}
+```
+
+focused:
+
+```text
+17 passed
+```
+
+full:
+
+```text
+2646 passed in 61.38s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 50-4e：η-family notation
+
+Definition:
+
+```text
+η_n=E^(n-2)η₂
+```
+
+For n=3:
+
+```text
+η₃=Eη₂
+```
+
+Then:
+
+```text
+π_4^3=Z/2{Eη₂}
+↓
+π_4^3=Z/2{η₃}
+```
+
+途中 `η3` / `η₃` mismatch をテストで検出し修正。
+
+focused:
+
+```text
+16 passed
+```
+
+full:
+
+```text
+2662 passed in 66.78s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 50-5：applicability / provenance
+
+production code 変更なし。
+
+確認:
+
+```text
+wrong H instance reject
+wrong Δ instance reject
+wrong exactness window reject
+missing π_3^2 structure reject
+wrong η index rejects only notation final
+sign-specific equality not invented
+final result is INFERENCE
+```
+
+focused:
+
+```text
+14 passed
+```
+
+full:
+
+```text
+2676 passed in 67.57s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 50-6：representative probe / final regression
+
+追加:
+
+```text
+probes/probe_phase50_capabilities.py
+tests/test_phase50_probe.py
+```
+
+central output:
+
+```text
+H([ι_2,ι_2]) = ±2ι_3
+[ι_2,ι_2] = ±2η₂
+Δ(ι_5) = ±[ι_2,ι_2]
+Im(Δ) = Z{2η₂}
+Ker(E) = Z{2η₂}
+E: π_3^2 → π_4^3 is surjective
+π_4^3 = Z/2{Eη₂}
+η₃ = Eη₂
+π_4^3 = Z/2{η₃}
+```
+
+counts:
+
+```text
+given premise count = 11
+derived step count = 9
+round count = 6
+fixed point = True
+```
+
+probe tests:
+
+```text
+27 passed
+```
+
+final full regression:
+
+```text
+2703 passed in 65.69s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 50-7：completion
+
+Phase 50 で完成:
+
+```text
+minimum Toda Prop.2.7 consequence
+up-to-sign theorem-specific semantics
+π_5^5=Z{ι_5}
+π_4^5=0
+[ι_2,ι_2]=±2η₂
+Δ(ι_5)=±[ι_2,ι_2]
+Im(Δ)=Z{2η₂}
+Ker(E)=Z{2η₂}
+E surjective
+FiniteCyclicGroup
+π_4^3=Z/2{Eη₂}
+η_n=E^(n-2)η₂
+η₃=Eη₂
+π_4^3=Z/2{η₃}
+applicability
+provenance
+representative probe
+full regression
+```
+
+Generic inference engine:
+
+```text
+変更なし
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 50 completion boundary
+
+Current concrete branch:
+
+```text
+Phase 49
+π_3^2=Z{η₂}
+COMPLETE
+↓
+Phase 50
+π_4^3=Z/2{η₃}
+COMPLETE
+```
+
+Still outside:
+
+```text
+full Toda Proposition 2.7 formalization
+general sign algebra
+general quotient simplification
+general first-isomorphism theorem
+general suspension normalization
+Toda Proposition 5.1 proof completion
+stable homotopy
+higher Toda brackets
+```
+
+---
+
 # 次の Phase
 
 ```text
-Phase 50
-concrete π_4^3 calculation
+Phase 51 candidate
+Toda Proposition 5.1 proof dependency analysis
 ```
 
-最初:
-
-```text
-Phase 50-1
-π_4^3 proof dependency compatibility check
-```
-
-既知の次 dependency:
-
-```text
-Toda Proposition 2.7
-```
-
-方針:
-
-```text
-actual π_4^3 proof dependency
-↓
-minimum Toda Prop.2.7 semantics
-↓
-concrete calculation completion
-```
-
-Toda Proposition 2.7 全体の general theorem catalogue を先取りしない。
+最初に actual proof path と current code / tests を照合し、不足 dependency を確定する。
