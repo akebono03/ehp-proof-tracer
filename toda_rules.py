@@ -92,8 +92,99 @@ class TodaPi32Eta2DefinitionStatement:
 
 
 @dataclass(frozen=True)
+class TodaProp27HopfInvariantUpToSignStatement:
+  argument: Expression
+  positive_value: Expression
+
+
+@dataclass(frozen=True)
 class Toda45IsomorphismStatement:
   map: TodaIteratedSuspensionMap
+
+
+def toda_prop27_iota2_whitehead_hopf_invariant_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    whitehead_product = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    iota_2 = HomotopyElement(
+      name="ι_2",
+      dimension=2,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=2,
+      ),
+    )
+
+    expected_whitehead_product = (
+      WhiteheadProduct(
+        left=iota_2,
+        right=iota_2,
+      )
+    )
+
+    return (
+      whitehead_product
+      == expected_whitehead_product
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    whitehead_product = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    iota_3 = HomotopyElement(
+      name="ι_3",
+      dimension=3,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=3,
+      ),
+    )
+
+    return (
+      TodaProp27HopfInvariantUpToSignStatement(
+        argument=whitehead_product,
+        positive_value=Multiple(
+          coefficient=2,
+          expression=iota_3,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 2.7 "
+      "iota_2 Whitehead-square "
+      "Hopf invariant up to sign"
+    ),
+    description=(
+      "For the Whitehead square "
+      "[iota_2,iota_2], the required "
+      "Toda Proposition 2.7 consequence "
+      "states that its Hopf invariant "
+      "is plus or minus 2 iota_3."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          WhiteheadProduct
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
 
 
 @dataclass(frozen=True)
