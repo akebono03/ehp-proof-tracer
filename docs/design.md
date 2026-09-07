@@ -25,7 +25,7 @@ representation != typing != theorem knowledge
 structural equality != mathematical equality
 ```
 
-Phase 57 までこの原則を維持している。
+Phase 58 までこの原則を維持している。
 
 ---
 
@@ -130,6 +130,15 @@ explicit inference rule
 
 で接続する。
 
+Phase 58 でも:
+
+```text
+η_4 != η₄
+η_5 != η₅
+```
+
+を structural equality のまま保持し、必要な concrete branch だけ dedicated bridge で接続する。
+
 ---
 
 # 5. ホモトピー群・群構造
@@ -224,7 +233,7 @@ ProofStep.inference_rule
 
 に保持する。
 
-Phase 57 でも generic inference engine の変更は行っていない。
+Phase 58 でも generic inference engine の変更は行っていない。
 
 ---
 
@@ -249,6 +258,7 @@ Toda Proposition 2.6
 Toda Proposition 4.4
 Toda Proposition 5.1
 Toda Lemma 5.2
+Toda (5.3) concrete specialization bridges
 ```
 
 判断基準:
@@ -306,7 +316,36 @@ Phase 54 の専用 bridge:
 E^(n-3)η₃=η_n
 ```
 
-一般の suspension / scalar normalizer は追加しない。
+Phase 54 の symbolic bridge は `ScalarSymbol` を対象とし、concrete index を一般化しない。
+
+Phase 58 では concrete need に限定して:
+
+```text
+Eη₃=η₄
+E²η₃=η₅
+```
+
+を narrow bridge で導出する。
+
+既存 concrete constructor は `n>=4` で:
+
+```text
+η_4
+η_5
+```
+
+という structural name を持つ。一方 Toda (5.3) の canonical concrete expression は:
+
+```text
+η₄
+η₅
+```
+
+を用いる。
+
+これを global constructor 変更で統一せず、dimension / source / target / `GeneratorSymbol` identity を確認する dedicated bridge で接続する。
+
+一般の suspension / scalar / η-name normalizer は追加しない。
 
 ---
 
@@ -398,7 +437,7 @@ H(β)=E²α
 Δ(E²α)=0
 ```
 
-を同一 fixed-point run で導出する。
+を derived provenance 付きで導出する。
 
 ---
 
@@ -432,7 +471,7 @@ S^(i+2) → S^3
 また `α=η₃`, `i=4` specialization は:
 
 ```text
-2ν'=η₃∘η₄∘η₅
+2ν′=η₃∘η₄∘η₅
 ```
 
 となる。
@@ -560,7 +599,7 @@ Lemma 4.5, `n=4` の suspension injectivity から:
 
 # 20. Phase 57-7：end-to-end integration
 
-同じ fixed-point run 内で Phase 55 provenance と Phase 57 rule family を接続する。
+Phase 55 provenance と Phase 57 rule family を接続する。
 
 最終:
 
@@ -693,7 +732,368 @@ stable homotopy model
 
 ---
 
-# 25. テスト方針
+# 25. Phase 58 の設計目標
+
+Toda (5.3) の concrete specialization:
+
+```text
+ν′∈{η₃,2ι₄,η₄}_1
+```
+
+を出発点とし、Phase 57 の Lemma 5.2 result を再利用する。
+
+specialization:
+
+```text
+α=η₃
+i=4
+β=ν′
+```
+
+最終 target:
+
+```text
+ν′∈π_6^3
+H(ν′)=η₅
+2ν′=η₃∘η₄∘η₅
+```
+
+Toda bracket 自体と `ν′` を同一視せず:
+
+```text
+ν′∈{η₃,2ι₄,η₄}_1
+```
+
+という membership を theorem input とする。
+
+---
+
+# 26. Phase 58-2：ν′ specialization recognition
+
+専用 statement:
+
+```text
+Toda53NuPrimeBracketSpecializationStatement
+```
+
+保持:
+
+```text
+nu_prime
+alpha
+lemma52_index
+bracket_membership
+```
+
+dedicated rule:
+
+```text
+toda_53_nu_prime_bracket_specialization_inference_rule()
+```
+
+は exactly:
+
+```text
+ν′∈{η₃,2ι₄,η₄}_1
+```
+
+を認識し:
+
+```text
+α=η₃
+i=4
+β=ν′
+```
+
+という Lemma 5.2 specialization data を derived にする。
+
+generic Toda-bracket specialization framework は追加しない。
+
+---
+
+# 27. Phase 58-3：Lemma 5.2 concrete specialization
+
+Phase 50 の derived result:
+
+```text
+π_4^3=Z/2{η₃}
+```
+
+から:
+
+```text
+2η₃=0
+```
+
+を derived にする。
+
+専用 rule family:
+
+```text
+toda_53_eta3_twice_zero_inference_rule()
+toda_53_nu_prime_lemma52_hopf_inference_rule()
+toda_53_nu_prime_lemma52_double_inference_rule()
+toda_53_nu_prime_lemma52_membership_inference_rule()
+```
+
+raw conclusion:
+
+```text
+H(ν′)=E²η₃
+2ν′=η₃∘Eη₃∘η₅
+ν′∈π_6^3
+```
+
+Phase 57 proof 本体を再実装しない。
+
+---
+
+# 28. Phase 58-4：H(ν′)=η₅ bridge
+
+concrete η-family definition を利用して:
+
+```text
+E²η₃=η₅
+```
+
+を narrow bridge で導出する。
+
+専用 rule:
+
+```text
+toda_53_eta5_iterated_suspension_bridge_inference_rule()
+```
+
+その後は generic:
+
+```text
+equality_transitivity_inference_rule()
+```
+
+で:
+
+```text
+H(ν′)=E²η₃
+E²η₃=η₅
+↓
+H(ν′)=η₅
+```
+
+を導出する。
+
+Phase 54 symbolic bridge は変更しない。
+
+---
+
+# 29. Phase 58-5：2ν′ relation bridge
+
+concrete η-family definition を利用して:
+
+```text
+Eη₃=η₄
+```
+
+を narrow bridge で導出する。
+
+専用 rule:
+
+```text
+toda_53_eta4_suspension_bridge_inference_rule()
+```
+
+その後は generic relation mechanics:
+
+```text
+equality_preserved_under_right_composition_inference_rule(η₅)
+equality_preserved_under_left_composition_inference_rule(η₃)
+equality_transitivity_inference_rule()
+```
+
+を利用して:
+
+```text
+Eη₃=η₄
+↓
+Eη₃∘η₅=η₄∘η₅
+↓
+η₃∘(Eη₃∘η₅)=η₃∘(η₄∘η₅)
+
+2ν′=η₃∘(Eη₃∘η₅)
+↓
+2ν′=η₃∘η₄∘η₅
+```
+
+を得る。
+
+---
+
+# 30. repeatable composition rule の execution scope
+
+composition equality propagation は:
+
+```text
+Relation
+↓
+Relation
+```
+
+であり、同じ rule を出力へ再適用できる。
+
+例:
+
+```text
+a=b
+↓
+a∘η₅=b∘η₅
+↓
+(a∘η₅)∘η₅=(b∘η₅)∘η₅
+↓
+...
+```
+
+したがって unrestricted fixed-point closure に入れると distinct expression が無限に増え得る。
+
+Phase 58 では:
+
+```text
+find_inference_match()
++
+apply_inference_match()
+```
+
+による one-shot application を使う。
+
+設計原則:
+
+```text
+fixed-point-safe rule
+→ fixed-point runner
+
+repeatable scope-sensitive rule
+→ staged / one-shot execution
+```
+
+これは generic engine の変更ではなく execution scope の選択である。
+
+---
+
+# 31. Phase 58-6：provenance / representative staged same-run
+
+代表 builder:
+
+```text
+probes/probe_phase58_capabilities.py
+```
+
+は1つの representative scenario 内で:
+
+```text
+Phase 50 derived π_4^3
+↓
+2η₃=0
+
+ν′ bracket membership
+↓
+Phase 58 specialization
+↓
+Phase 58-3 raw conclusions
+
+η₅ bridge
+↓
+H(ν′)=η₅
+
+η₄ bridge
+↓
+one-shot composition propagation
+↓
+2ν′=η₃∘η₄∘η₅
+```
+
+を接続する。
+
+fixed-point-safe stage は `FIXED_POINT` に到達し、composition propagation のみ one-shot とする。
+
+最終:
+
+```text
+ν′∈π_6^3
+H(ν′)=η₅
+2ν′=η₃∘η₄∘η₅
+```
+
+すべて:
+
+```text
+ProofRule.INFERENCE
+```
+
+final GIVEN:
+
+```text
+False
+```
+
+---
+
+# 32. Phase 58 testing
+
+```text
+test_phase58_nu_prime_specialization.py       11 passed
+test_phase58_lemma52_specialization.py        14 passed
+test_phase58_hopf_eta5_bridge.py              13 passed
+test_phase58_double_eta4_bridge.py            15 passed
+test_phase58_probe.py                          9 passed
+```
+
+関連:
+
+```text
+test_relation_rules.py                        50 passed
+test_toda_rules.py                            66 passed
+```
+
+full regression:
+
+```text
+3059 passed in 38.23s
+```
+
+---
+
+# 33. Phase 58 completion boundary
+
+完成:
+
+```text
+ν′ bracket membership specialization
+α=η₃ / i=4 / β=ν′ recognition
+2η₃=0 derived from π_4^3=Z/2{η₃}
+raw Lemma 5.2 specialization
+E²η₃=η₅ narrow bridge
+H(ν′)=η₅
+Eη₃=η₄ narrow bridge
+one-shot composition propagation
+2ν′=η₃∘η₄∘η₅
+derived provenance
+representative staged same-run
+representative probe
+full regression
+```
+
+先取りしない:
+
+```text
+generic concrete η normalization
+global η-name normalization
+unrestricted fixed-point composition closure
+generic Toda-bracket specialization framework
+generic Toda-bracket coset algebra
+stable homotopy model
+```
+
+---
+
+# 34. テスト方針
 
 各数学レイヤーで:
 
@@ -704,15 +1104,24 @@ invalid cases
 integration
 provenance
 representative probe
-termination / scope
+termination / execution scope
 full regression
 ```
 
 を確認する。
 
+repeatable rule については:
+
+```text
+fixed-point-safe か
+one-shot / staged execution が必要か
+```
+
+も確認する。
+
 ---
 
-# 26. 文書運用方針
+# 35. 文書運用方針
 
 ```text
 README.md
@@ -735,22 +1144,20 @@ current specification は latest README / design を優先する。
 
 ---
 
-# 27. 次の設計境界
+# 36. 次の設計境界
 
-次:
+Phase 58 は完了。
 
-```text
-Phase 58
-Toda (5.3) ν' consequence
-```
-
-Phase 58 では Phase 57 proof を再実装しない。
+次は source material の次の concrete consequence を確認してから Phase 59 の target を確定する。
 
 ```text
-α=η₃∈π_4(S^3)
-ν'∈{η₃,2ι₄,η₄}_1
-↓ Lemma 5.2 specialization
-ν'∈π_6^3
-H(ν')=η₅
-2ν'=η₃∘η₄∘η₅
+next source statement
+↓
+dependency analysis
+↓
+current representation compatibility
+↓
+minimum implementation
 ```
+
+stable homotopy model、generic Toda-bracket coset algebra、generic normalization は concrete need が生じるまで保留する。

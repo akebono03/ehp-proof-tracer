@@ -4026,6 +4026,965 @@ def toda_bracket_membership_proof_step(
 
 
 @dataclass(frozen=True)
+class Toda53NuPrimeBracketSpecializationStatement:
+  nu_prime: HomotopyElement
+  alpha: HomotopyElement
+  lemma52_index: int
+  bracket_membership: TodaBracketMembershipStatement
+
+
+def toda_53_nu_prime_bracket_specialization_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    membership = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    if (
+      membership.element
+      != nu_prime
+    ):
+      return False
+
+    bracket = membership.bracket
+
+    if (
+      bracket.index
+      != 1
+    ):
+      return False
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    if (
+      bracket.first
+      != eta_3
+    ):
+      return False
+
+    iota_4 = HomotopyElement(
+      name="ι_4",
+      dimension=4,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=4,
+      ),
+    )
+
+    expected_second = Multiple(
+      coefficient=2,
+      expression=iota_4,
+    )
+
+    if (
+      bracket.second
+      != expected_second
+    ):
+      return False
+
+    eta_4 = HomotopyElement(
+      name="η₄",
+      dimension=4,
+      source=5,
+      target=4,
+      generator=GeneratorSymbol(
+        family="η",
+        index=4,
+      ),
+    )
+
+    return (
+      bracket.third
+      == eta_4
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    membership = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    return (
+      Toda53NuPrimeBracketSpecializationStatement(
+        nu_prime=membership.element,
+        alpha=eta_3,
+        lemma52_index=4,
+        bracket_membership=membership,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 5.3 nu-prime "
+      "Lemma 5.2 bracket specialization"
+    ),
+    description=(
+      "Recognize the concrete Toda "
+      "(5.3) membership "
+      "nu-prime in "
+      "{eta_3, 2 iota_4, eta_4}_1 "
+      "as the alpha=eta_3 and i=4 "
+      "instance to which the already "
+      "proved Lemma 5.2 consequence "
+      "will be specialized. "
+      "This rule does not reimplement "
+      "the proof of Lemma 5.2."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaBracketMembershipStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_53_eta3_twice_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    group_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    expected_group = TodaPrimaryGroup(
+      group_dimension=4,
+      sphere_dimension=3,
+    )
+
+    if (
+      group_relation.lhs
+      != expected_group
+    ):
+      return False
+
+    if not isinstance(
+      group_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      group_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    return (
+      group_relation.rhs.generator
+      == eta_3
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    return Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=eta_3,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 5.3 eta_3 "
+      "twice zero"
+    ),
+    description=(
+      "From the independently derived "
+      "relation pi_4^3=Z/2{eta_3}, "
+      "derive the concrete order-two "
+      "consequence 2 eta_3=0 required "
+      "for the alpha=eta_3 "
+      "specialization of Lemma 5.2."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_53_nu_prime_lemma52_hopf_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    specialization = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    two_eta3_zero = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    if (
+      specialization.alpha
+      != eta_3
+    ):
+      return False
+
+    if (
+      specialization.lemma52_index
+      != 4
+    ):
+      return False
+
+    expected_zero = Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=eta_3,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    return (
+      two_eta3_zero
+      == expected_zero
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    specialization = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=(
+          specialization.nu_prime
+        ),
+      ),
+      rhs=IteratedSuspension(
+        expression=(
+          specialization.alpha
+        ),
+        exponent=2,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 5.3 nu-prime "
+      "Lemma 5.2 Hopf specialization"
+    ),
+    description=(
+      "Specialize the already proved "
+      "Lemma 5.2 Hopf conclusion "
+      "H(beta)=E^2 alpha to "
+      "alpha=eta_3, i=4, and "
+      "beta=nu-prime, using the "
+      "independently derived "
+      "order-two relation 2 eta_3=0."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda53NuPrimeBracketSpecializationStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_53_nu_prime_lemma52_double_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    specialization = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    two_eta3_zero = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    if (
+      specialization.alpha
+      != eta_3
+    ):
+      return False
+
+    if (
+      specialization.lemma52_index
+      != 4
+    ):
+      return False
+
+    expected_zero = Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=eta_3,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    return (
+      two_eta3_zero
+      == expected_zero
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    specialization = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta_3 = (
+      specialization.alpha
+    )
+
+    eta_5 = HomotopyElement(
+      name="η₅",
+      dimension=5,
+      source=6,
+      target=5,
+      generator=GeneratorSymbol(
+        family="η",
+        index=5,
+      ),
+    )
+
+    return Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=(
+          specialization.nu_prime
+        ),
+      ),
+      rhs=Composition(
+        left=eta_3,
+        right=Composition(
+          left=Suspension(
+            expression=eta_3,
+          ),
+          right=eta_5,
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 5.3 nu-prime "
+      "Lemma 5.2 double specialization"
+    ),
+    description=(
+      "Specialize the already proved "
+      "Lemma 5.2 relation "
+      "2 beta=eta_3 composed with "
+      "E alpha composed with "
+      "eta_(i+1) to alpha=eta_3, "
+      "i=4, and beta=nu-prime. "
+      "The resulting canonical "
+      "Phase 58-3 form is "
+      "2 nu-prime=eta_3 composed with "
+      "E eta_3 composed with eta_5."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda53NuPrimeBracketSpecializationStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_53_nu_prime_lemma52_membership_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    specialization = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    two_eta3_zero = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    if (
+      specialization.alpha
+      != eta_3
+    ):
+      return False
+
+    if (
+      specialization.lemma52_index
+      != 4
+    ):
+      return False
+
+    expected_zero = Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=eta_3,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    return (
+      two_eta3_zero
+      == expected_zero
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    specialization = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return (
+      HomotopyGroupMembershipStatement(
+        element=(
+          specialization.nu_prime
+        ),
+        group_dimension=6,
+        sphere_dimension=3,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 5.3 nu-prime "
+      "Lemma 5.2 membership specialization"
+    ),
+    description=(
+      "Specialize the already proved "
+      "Lemma 5.2 typing conclusion "
+      "beta in pi_(i+2)^3 to "
+      "i=4 and beta=nu-prime, "
+      "giving nu-prime in pi_6^3."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda53NuPrimeBracketSpecializationStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_53_eta5_iterated_suspension_bridge_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    eta3_definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta5_definition = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if (
+      eta3_definition.index
+      != 3
+    ):
+      return False
+
+    if (
+      eta5_definition.index
+      != 5
+    ):
+      return False
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    if (
+      eta3_definition.element
+      != eta_3
+    ):
+      return False
+
+    expected_eta3_definition = (
+      IteratedSuspension(
+        expression=eta_2,
+        exponent=1,
+      )
+    )
+
+    if (
+      eta3_definition.iterated_suspension
+      != expected_eta3_definition
+    ):
+      return False
+
+    eta5_element = (
+      eta5_definition.element
+    )
+
+    if (
+      eta5_element.dimension
+      != 5
+    ):
+      return False
+
+    if (
+      eta5_element.source
+      != 6
+    ):
+      return False
+
+    if (
+      eta5_element.target
+      != 5
+    ):
+      return False
+
+    if (
+      eta5_element.generator
+      != GeneratorSymbol(
+        family="η",
+        index=5,
+      )
+    ):
+      return False
+
+    expected_eta5_definition = (
+      IteratedSuspension(
+        expression=eta_2,
+        exponent=3,
+      )
+    )
+
+    return (
+      eta5_definition.iterated_suspension
+      == expected_eta5_definition
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    eta3_definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta_5 = HomotopyElement(
+      name="η₅",
+      dimension=5,
+      source=6,
+      target=5,
+      generator=GeneratorSymbol(
+        family="η",
+        index=5,
+      ),
+    )
+
+    return Relation(
+      lhs=IteratedSuspension(
+        expression=(
+          eta3_definition.element
+        ),
+        exponent=2,
+      ),
+      rhs=eta_5,
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 5.3 eta_5 "
+      "iterated suspension bridge"
+    ),
+    description=(
+      "For the concrete eta-family "
+      "definitions at indices 3 and 5, "
+      "derive the Phase 58 consequence "
+      "E^2 eta_3=eta_5. "
+      "The existing eta-family "
+      "constructor uses the structural "
+      "name eta_5 at index 5, while "
+      "Toda 5.3 uses the canonical "
+      "concrete notation eta-subscript-5. "
+      "This narrow bridge connects those "
+      "representations without changing "
+      "the Phase 54 constructor or adding "
+      "generic suspension normalization."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaEtaFamilyDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaEtaFamilyDefinitionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_53_eta4_suspension_bridge_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    eta3_definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta4_definition = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if (
+      eta3_definition.index
+      != 3
+    ):
+      return False
+
+    if (
+      eta4_definition.index
+      != 4
+    ):
+      return False
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    if (
+      eta3_definition.element
+      != eta_3
+    ):
+      return False
+
+    if (
+      eta3_definition.iterated_suspension
+      != IteratedSuspension(
+        expression=eta_2,
+        exponent=1,
+      )
+    ):
+      return False
+
+    eta4_element = (
+      eta4_definition.element
+    )
+
+    if (
+      eta4_element.dimension
+      != 4
+    ):
+      return False
+
+    if (
+      eta4_element.source
+      != 5
+    ):
+      return False
+
+    if (
+      eta4_element.target
+      != 4
+    ):
+      return False
+
+    if (
+      eta4_element.generator
+      != GeneratorSymbol(
+        family="η",
+        index=4,
+      )
+    ):
+      return False
+
+    return (
+      eta4_definition.iterated_suspension
+      == IteratedSuspension(
+        expression=eta_2,
+        exponent=2,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    eta3_definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta_4 = HomotopyElement(
+      name="η₄",
+      dimension=4,
+      source=5,
+      target=4,
+      generator=GeneratorSymbol(
+        family="η",
+        index=4,
+      ),
+    )
+
+    return Relation(
+      lhs=Suspension(
+        expression=(
+          eta3_definition.element
+        ),
+      ),
+      rhs=eta_4,
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 5.3 eta_4 "
+      "suspension bridge"
+    ),
+    description=(
+      "For the concrete eta-family "
+      "definitions at indices 3 and 4, "
+      "derive E eta_3=eta_4. "
+      "The existing eta-family constructor "
+      "uses the structural name eta_4 at "
+      "index 4, while Toda 5.3 uses the "
+      "canonical concrete notation "
+      "eta-subscript-4. "
+      "This narrow bridge does not change "
+      "the Phase 54 symbolic eta-family "
+      "rule or introduce generic "
+      "suspension normalization."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaEtaFamilyDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaEtaFamilyDefinitionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+@dataclass(frozen=True)
 class TodaBracketMembershipTheoremStatement:
   element: Expression
   bracket: TodaBracket

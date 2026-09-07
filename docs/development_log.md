@@ -698,27 +698,436 @@ COMPLETE
 
 ---
 
-# Phase 57 completion boundary
+# Phase 58：Toda (5.3) ν′ consequence
+
+対象:
+
+```text
+ν′∈{η₃,2ι₄,η₄}_1
+```
+
+specialization:
+
+```text
+α=η₃
+i=4
+β=ν′
+```
+
+target:
+
+```text
+ν′∈π_6^3
+H(ν′)=η₅
+2ν′=η₃∘η₄∘η₅
+```
+
+Phase 57 の Lemma 5.2 proof を再実装せず、その conclusion を concrete specialization として利用する。
+
+---
+
+## Phase 58-1：η-family / bracket specialization compatibility
+
+確認:
+
+```text
+TodaBracket
+TodaBracketMembershipStatement
+HomotopyElement
+GeneratorSymbol
+TodaEtaFamilyDefinitionStatement
+```
+
+で必要な concrete input を表現できる。
+
+確認した重要境界:
+
+```text
+Phase 54 symbolic η bridge
+→ ScalarSymbol のみ
+
+Phase 58 concrete index
+→ dedicated narrow specialization が必要
+```
+
+production code:
+
+```text
+変更なし
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 58-2：ν′ minimum specialization representation
+
+追加 statement:
+
+```text
+Toda53NuPrimeBracketSpecializationStatement
+```
+
+追加 rule:
+
+```text
+toda_53_nu_prime_bracket_specialization_inference_rule()
+```
+
+入力:
+
+```text
+ν′∈{η₃,2ι₄,η₄}_1
+```
+
+から:
+
+```text
+α=η₃
+i=4
+β=ν′
+```
+
+という Lemma 5.2 specialization data を derived にする。
+
+Toda bracket 自体を `ν′` と同一視せず、membership を出発点とする。
+
+focused:
+
+```text
+11 passed
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 58-3：Lemma 5.2 specialization α=η₃
+
+追加 rule:
+
+```text
+toda_53_eta3_twice_zero_inference_rule()
+toda_53_nu_prime_lemma52_hopf_inference_rule()
+toda_53_nu_prime_lemma52_double_inference_rule()
+toda_53_nu_prime_lemma52_membership_inference_rule()
+```
+
+Phase 50 derived:
+
+```text
+π_4^3=Z/2{η₃}
+```
+
+から:
+
+```text
+2η₃=0
+```
+
+を derived にする。
+
+その上で:
+
+```text
+H(ν′)=E²η₃
+2ν′=η₃∘Eη₃∘η₅
+ν′∈π_6^3
+```
+
+を導出。
+
+focused:
+
+```text
+14 passed
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 58-4：H(ν′)=η₅ bridge
+
+追加:
+
+```text
+toda_53_eta5_iterated_suspension_bridge_inference_rule()
+```
+
+既存 concrete η-family constructor の:
+
+```text
+η_5
+```
+
+と Toda (5.3) canonical element:
+
+```text
+η₅
+```
+
+の structural 差を narrow bridge で吸収する。
+
+```text
+E²η₃=η₅
+```
+
+を derived にし、generic equality transitivity で:
+
+```text
+H(ν′)=E²η₃
+E²η₃=η₅
+↓
+H(ν′)=η₅
+```
+
+を得る。
+
+focused:
+
+```text
+13 passed
+```
+
+全体回帰:
+
+```text
+3035 passed in 41.19s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 58-5：2ν′=η₃∘η₄∘η₅ bridge
+
+追加:
+
+```text
+toda_53_eta4_suspension_bridge_inference_rule()
+```
+
+既存 constructor の:
+
+```text
+η_4
+```
+
+と canonical:
+
+```text
+η₄
+```
+
+の structural 差を narrow bridge で接続し:
+
+```text
+Eη₃=η₄
+```
+
+を derived にする。
+
+既存 generic rule:
+
+```text
+equality_preserved_under_right_composition_inference_rule()
+equality_preserved_under_left_composition_inference_rule()
+equality_transitivity_inference_rule()
+```
+
+を再利用して:
+
+```text
+Eη₃=η₄
+↓
+Eη₃∘η₅=η₄∘η₅
+↓
+η₃∘(Eη₃∘η₅)=η₃∘(η₄∘η₅)
+
+2ν′=η₃∘(Eη₃∘η₅)
+↓
+2ν′=η₃∘η₄∘η₅
+```
+
+を導出。
+
+composition propagation rule は出力 Relation に再適用できるため unrestricted fixed-point では使わず:
+
+```text
+find_inference_match()
+apply_inference_match()
+```
+
+で one-shot application とする。
+
+focused:
+
+```text
+15 passed
+```
+
+全体回帰:
+
+```text
+3050 passed in 40.79s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 58-6：provenance / representative probe / staged same-run
+
+追加:
+
+```text
+probes/probe_phase58_capabilities.py
+tests/test_phase58_probe.py
+```
+
+代表 output:
+
+```text
+ν′ ∈ π_6^3
+H(ν′) = η₅
+2ν′ = η₃∘η₄∘η₅
+```
+
+provenance:
+
+```text
+nu-prime membership derived = True
+H(nu-prime)=eta_5 derived = True
+2 nu-prime relation derived = True
+all final results are INFERENCE = True
+final results are GIVEN = False
+```
+
+same-run execution:
+
+```text
+fixed-point-safe stages complete = True
+composition propagation one-shot = True
+shared raw specialization = True
+```
+
+focused:
+
+```text
+tests/test_phase58_probe.py  9 passed
+```
+
+Phase 58 focused:
+
+```text
+tests/test_phase58_double_eta4_bridge.py       15 passed
+tests/test_phase58_hopf_eta5_bridge.py         13 passed
+tests/test_phase58_lemma52_specialization.py   14 passed
+tests/test_phase58_nu_prime_specialization.py  11 passed
+```
+
+最終全体回帰:
+
+```text
+3059 passed in 38.23s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 58-7：Phase 58 completion
+
+Phase 58 で完成:
+
+```text
+ν′ bracket membership specialization
+α=η₃ / i=4 / β=ν′ recognition
+2η₃=0 derived from π_4^3=Z/2{η₃}
+ν′∈π_6^3
+H(ν′)=E²η₃
+2ν′=η₃∘Eη₃∘η₅
+E²η₃=η₅
+H(ν′)=η₅
+Eη₃=η₄
+one-shot composition propagation
+2ν′=η₃∘η₄∘η₅
+derived provenance
+representative staged same-run
+representative probe
+full regression
+```
+
+generic inference engine:
+
+```text
+変更なし
+```
+
+追加しなかったもの:
+
+```text
+generic concrete η normalization
+global η-name normalization
+unrestricted fixed-point composition closure
+generic Toda-bracket specialization framework
+generic Toda-bracket coset algebra
+generic inverse-image algebra
+generic sign normalization
+stable homotopy model
+```
+
+最終全体回帰:
+
+```text
+3059 passed in 38.23s
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase58_capabilities
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 58 completion boundary
 
 最終 capability:
 
 ```text
-α∈π_i(S³)
-2α=0
-β∈{η₃,2ι₄,Eα}_1
+ν′∈{η₃,2ι₄,η₄}_1
 ↓
-H(β)=E²α
-2β=η₃∘Eα∘η_{i+1}
-β∈π_{i+2}^3
-Δ(E²α)=0
+ν′∈π_6^3
+H(ν′)=η₅
+2ν′=η₃∘η₄∘η₅
 ```
 
 次:
 
 ```text
-Phase 58
-Toda (5.3) ν' consequence
+Phase 59
+次の concrete Toda consequence の source dependency analysis
 ```
+
+target は source statement と dependency を確認してから確定する。
 
 ---
 

@@ -2,7 +2,7 @@
 
 この文書は EHP Proof Tracer の主要 Python module と、その責務・主要 class / function・探索方法をまとめる。
 
-対象は **Phase 57 completion 時点**。
+対象は **Phase 58 completion 時点**。
 
 この文書は全 API を機械的に列挙する reference ではない。目的は:
 
@@ -128,6 +128,9 @@ generator
 ```text
 η₂
 η₃
+η₄
+η₅
+ν′
 ι₅
 α
 β
@@ -135,7 +138,16 @@ generator
 
 ### `GeneratorSymbol`
 
-生成元 family と index を保持する。
+生成元 family、index、decoration を保持する。
+
+Phase 58 の `ν′` は:
+
+```text
+family="ν"
+decoration="′"
+```
+
+を保持する。
 
 ### `Multiple`
 
@@ -207,6 +219,14 @@ Barratt–Hilton で必要な:
 の structural representation。
 
 indexed bracket も `index` で保持する。
+
+Phase 58 の representative input:
+
+```text
+{η₃,2ι₄,η₄}_1
+```
+
+も既存 `TodaBracket` で表現する。
 
 ## ここに追加すべきもの
 
@@ -318,12 +338,22 @@ derive_inference_round_result()
 run_inference_until_stable_with_history()
 ```
 
-Phase 57 representative run は 18 round で fixed point に到達。
+Phase 58 では fixed-point-safe stage と one-shot stage を分ける。
+
+```text
+fixed-point-safe rule family
+→ run_inference_until_stable_with_history()
+
+repeatable composition propagation
+→ find_inference_match()
+→ apply_inference_match()
+```
 
 ## ここに追加しないもの
 
 ```text
 Toda Lemma 5.2
+Toda (5.3)
 η-family normalization
 concrete homotopy-group fact
 ```
@@ -372,6 +402,29 @@ Phase 57-2 では:
 ```
 
 の後半を generic `zero_equality_implies_zero_inference_rule()` に任せた。
+
+Phase 58-5 では:
+
+```text
+Eη₃=η₄
+↓
+Eη₃∘η₅=η₄∘η₅
+↓
+η₃∘(Eη₃∘η₅)=η₃∘(η₄∘η₅)
+```
+
+に左右 composition preservation rule を利用する。
+
+重要な API:
+
+```text
+equality_preserved_under_right_composition_inference_rule(right_expression)
+equality_preserved_under_left_composition_inference_rule(left_expression)
+```
+
+factor は premise ではなく rule constructor に渡す。
+
+これらは出力 Relation に再適用可能なので、Phase 58 representative flow では one-shot application とする。
 
 ---
 
@@ -456,6 +509,7 @@ EHP_DELTA_MAP
 ```text
 H(β)
 Δ(E²α)
+H(ν′)
 ```
 
 を表す。
@@ -496,12 +550,13 @@ element ∈ π_k(S^n)
 
 の current generic membership statement。
 
-Phase 57 でも:
+Phase 57 / 58 では:
 
 ```text
 α∈π_i(S³)
 β∈π_{i+2}(S³)
 γ∈π_{i+2}(S⁴)
+ν′∈π_6(S³)
 ```
 
 に利用。
@@ -517,7 +572,7 @@ barratt_hilton_second_inference_rule()
 
 `HomotopyGroupMembershipStatement` がこの module にある配置は歴史的経緯による。
 
-Phase 57 では移動しない。
+Phase 58 では移動しない。
 
 将来 concrete need が生じた場合のみ配置変更を検討する。
 
@@ -529,7 +584,7 @@ Phase 57 では移動しない。
 
 Toda 固有の theorem knowledge を置く中心 module。
 
-Phase 57 までは:
+Phase 58 までは:
 
 ```text
 actual proof need
@@ -630,9 +685,14 @@ Toda52CompositionIsomorphismStatement
 代表 rule:
 
 ```text
+toda_eta_family_definition_statement()
+toda_eta3_suspension_relation_inference_rule()
+toda_higher_eta_family_bridge_inference_rule()
 toda_prop51_finite_dimensional_integration_inference_rule()
 toda_52_eta2_composition_isomorphism_inference_rule()
 ```
+
+Phase 54 symbolic higher η bridge は `ScalarSymbol` index を対象とする。
 
 ---
 
@@ -653,36 +713,16 @@ TodaLemma52BracketRepresentativeStatement
 toda_lemma45_n4_two_iota3_composition_inference_rule()
 ```
 
-```text
-α∈π_i(S³)
-↓
-2ι₃∘α=2α
-```
-
 ### Proposition 2.6 specialization
 
 ```text
 toda_prop26_lemma52_hopf_bracket_inference_rule()
 ```
 
-```text
-β∈{η₃,2ι₄,Eα}_1
-+
-required zero compositions
-↓
-H(β) ∈ -Δ^-1(η₂∘2ι₃)∘E²α
-```
-
 ### Δ inverse bridge
 
 ```text
 toda_lemma52_delta_two_eta2_preimage_inference_rule()
-```
-
-```text
-Δ(ι₅)=±2η₂
-↓
-Δ^-1(2η₂)=±ι₅
 ```
 
 ### Proposition 1.4 / 1.3 / Corollary 3.7
@@ -720,13 +760,110 @@ H(β)=E²α
 Δ(E²α)=0
 ```
 
+---
+
+## 10.6 Phase 58：Toda (5.3) ν′ consequence
+
+主要 statement:
+
+```text
+Toda53NuPrimeBracketSpecializationStatement
+```
+
+### ν′ bracket specialization
+
+```text
+toda_53_nu_prime_bracket_specialization_inference_rule()
+```
+
+認識:
+
+```text
+ν′∈{η₃,2ι₄,η₄}_1
+↓
+α=η₃
+i=4
+β=ν′
+```
+
+### 2η₃=0
+
+```text
+toda_53_eta3_twice_zero_inference_rule()
+```
+
+derived:
+
+```text
+π_4^3=Z/2{η₃}
+↓
+2η₃=0
+```
+
+### raw Lemma 5.2 specialization
+
+```text
+toda_53_nu_prime_lemma52_hopf_inference_rule()
+toda_53_nu_prime_lemma52_double_inference_rule()
+toda_53_nu_prime_lemma52_membership_inference_rule()
+```
+
+raw result:
+
+```text
+H(ν′)=E²η₃
+2ν′=η₃∘Eη₃∘η₅
+ν′∈π_6^3
+```
+
+### concrete η₅ bridge
+
+```text
+toda_53_eta5_iterated_suspension_bridge_inference_rule()
+```
+
+```text
+E²η₃=η₅
+```
+
+### concrete η₄ bridge
+
+```text
+toda_53_eta4_suspension_bridge_inference_rule()
+```
+
+```text
+Eη₃=η₄
+```
+
+Phase 58 専用 bridge は concrete constructor の `η_4` / `η_5` と canonical `η₄` / `η₅` を局所的に接続する。
+
+global η-name normalization はしない。
+
+### final relation
+
+generic relation rule を再利用して:
+
+```text
+H(ν′)=η₅
+2ν′=η₃∘η₄∘η₅
+```
+
+を導出する。
+
+`toda_rules.py` に generic composition rewrite は追加していない。
+
+---
+
 ### `toda_rules.py` に追加しないもの
 
 ```text
 generic equality transitivity
 generic fixed-point engine
 generic scalar normalization
+generic concrete η normalization
 generic Toda-bracket CAS normalization
+generic Toda-bracket specialization framework
 generic coset algebra
 generic sign solver
 generic inverse-image solver
@@ -747,7 +884,7 @@ actual representative GIVEN
 +
 production inference rules
 ↓
-same-run derived result
+derived result
 ```
 
 を組み立てる integration fixture としても使う。
@@ -760,24 +897,36 @@ probes/probe_phase50_capabilities.py
 probes/probe_phase55_capabilities.py
 probes/probe_phase56_capabilities.py
 probes/probe_phase57_capabilities.py
+probes/probe_phase58_capabilities.py
 ```
 
-Phase 57:
+Phase 58:
 
 ```powershell
-python -m probes.probe_phase57_capabilities
+python -m probes.probe_phase58_capabilities
 ```
 
 確認:
 
 ```text
-H(beta)=E^2 alpha derived = True
-2 beta relation derived = True
-beta membership derived = True
-Delta(E^2 alpha)=0 derived = True
+ν′ ∈ π_6^3
+H(ν′) = η₅
+2ν′ = η₃∘η₄∘η₅
+```
+
+provenance:
+
+```text
 all final results are INFERENCE = True
 final results are GIVEN = False
-fixed point = True
+```
+
+execution:
+
+```text
+fixed-point-safe stages complete = True
+composition propagation one-shot = True
+shared raw specialization = True
 ```
 
 ---
@@ -793,7 +942,7 @@ wrong input rejection
 integration
 provenance
 scope
-fixed point
+fixed point / execution scope
 ```
 
 を検証する。
@@ -816,10 +965,20 @@ test_phase57_lemma52_integration.py
 test_phase57_probe.py
 ```
 
-completion regression:
+Phase 58:
 
 ```text
-2997 passed in 38.45s
+test_phase58_nu_prime_specialization.py
+test_phase58_lemma52_specialization.py
+test_phase58_hopf_eta5_bridge.py
+test_phase58_double_eta4_bridge.py
+test_phase58_probe.py
+```
+
+Phase 58 completion regression:
+
+```text
+3059 passed in 38.23s
 ```
 
 ---
@@ -884,7 +1043,23 @@ proof_rule=ProofRule.INFERENCE
 
 を `GIVEN` として再投入して循環・shortcut を作らないこと。
 
-Phase 55 / 56 / 57 の integration では特に重要。
+Phase 55 / 56 / 57 / 58 の integration では特に重要。
+
+Phase 58 probe では `2η₃=0` の step を単に:
+
+```text
+rule == INFERENCE
+```
+
+で選ばず、期待する conclusion:
+
+```text
+2η₃=0
+```
+
+そのものに一致する step を選ぶ。
+
+入力 step 自体も `INFERENCE` の場合があるため、rule 種別だけでは provenance source を特定できない。
 
 ---
 
@@ -896,6 +1071,8 @@ Phase 55 / 56 / 57 の integration では特に重要。
 2*2-1 → 3
 E^1α → Eα
 -(order-two element) → element
+η_4 → η₄
+η_5 → η₅
 ```
 
 を global normalizer にする前に:
@@ -918,7 +1095,48 @@ dedicated bridge / specialization
 
 ---
 
-# 16. code_reference.md の更新ルール
+# 16. repeatable inference rule の実行境界
+
+`Relation → Relation` の rule は、出力が再び同じ rule の premise になる可能性がある。
+
+Phase 58 で確認した例:
+
+```text
+equality_preserved_under_right_composition_inference_rule(η₅)
+equality_preserved_under_left_composition_inference_rule(η₃)
+```
+
+unrestricted fixed-point に入れると:
+
+```text
+a=b
+↓
+a∘η₅=b∘η₅
+↓
+(a∘η₅)∘η₅=(b∘η₅)∘η₅
+↓
+...
+```
+
+のように distinct conclusion が増え続ける。
+
+したがって:
+
+```text
+fixed-point-safe
+→ fixed-point runner
+
+repeatable / scope-sensitive
+→ one-shot or staged application
+```
+
+を使い分ける。
+
+generic engine を変更して自動抑制することは Phase 58 の scope 外。
+
+---
+
+# 17. code_reference.md の更新ルール
 
 毎 Phase 必須ではない。
 
@@ -929,6 +1147,7 @@ dedicated bridge / specialization
 主要 class family を追加した
 module の責務が変わった
 重要な end-to-end entry point が増えた
+execution-scope 上の重要な注意が増えた
 ```
 
 場合。
@@ -937,31 +1156,41 @@ module の責務が変わった
 
 ---
 
-# 17. Phase 58 で確認する場所
+# 18. Phase 59 で確認する場所
 
-次 Phase:
+Phase 58 は完了。
 
-```text
-Toda (5.3) ν' consequence
-```
+Phase 59 の theorem target は source dependency を確認してから確定する。
 
-まず確認:
+最初に確認:
 
 ```text
+Toda source material
+  Phase 58 直後の concrete statement / proof
+
 toda_rules.py
-  Phase 57 Lemma 5.2 integration rules
+  Phase 57 / 58 rule family
 
-expression.py
-  η-family / Composition / Suspension
+docs/roadmap.md
+  deferred generalization と concrete branch の境界
 
-tests/test_phase57_lemma52_integration.py
-  final theorem result representation
+probes/probe_phase58_capabilities.py
+  staged same-run / provenance pattern
 
-probes/probe_phase57_capabilities.py
-  representative build pattern
-
-Phase 54 / 55 tests
-  η₄, η₅ family bridge
+tests/test_phase58_*.py
+  concrete η bridge / specialization / execution-scope regression
 ```
 
-Phase 58 では Lemma 5.2 proof chain を再実装せず specialization として利用する。
+Phase 59 でも:
+
+```text
+source statement
+↓
+dependency analysis
+↓
+current representation compatibility
+↓
+minimum implementation
+```
+
+を維持する。

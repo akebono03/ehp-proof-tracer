@@ -61,12 +61,13 @@ Phase 54  E^(n-3)η₃=η_n / π_{n+1}^n=Z/2{η_n}             COMPLETE
 Phase 55  Toda Proposition 5.1 finite-dimensional result   COMPLETE
 Phase 56  Toda (5.2) composition isomorphism               COMPLETE
 Phase 57  Toda Lemma 5.2 proof integration                 COMPLETE
+Phase 58  Toda (5.3) ν′ consequence                        COMPLETE
 ```
 
-Phase 57 final regression:
+Phase 58 final regression:
 
 ```text
-2997 passed in 38.45s
+3059 passed in 38.23s
 ```
 
 ---
@@ -99,7 +100,7 @@ Phase 57
 Toda Lemma 5.2
 ↓
 Phase 58
-Toda (5.3) ν' consequence
+Toda (5.3) ν′ consequence
 ```
 
 ---
@@ -139,50 +140,93 @@ end-to-end integration
 
 ---
 
-# 6. Phase 58：Toda (5.3) ν' consequence
+# 6. Phase 58：Toda (5.3) ν′ consequence
 
 Phase 57 の Lemma 5.2 を再利用する concrete specialization。
 
 入力:
 
 ```text
-α=η₃∈π_4(S^3)
-ν'∈{η₃,2ι₄,η₄}_1
+ν′∈{η₃,2ι₄,η₄}_1
 ```
 
-Lemma 5.2 specialization から:
+specialization:
 
 ```text
-ν'∈π_6^3
-H(ν')=η₅
-2ν'=η₃∘η₄∘η₅
+α=η₃
+i=4
+β=ν′
 ```
 
-を target とする。
+Phase 50 の:
 
-候補分割:
+```text
+π_4^3=Z/2{η₃}
+```
+
+から:
+
+```text
+2η₃=0
+```
+
+を derived にし、Lemma 5.2 specialization から:
+
+```text
+ν′∈π_6^3
+H(ν′)=E²η₃
+2ν′=η₃∘Eη₃∘η₅
+```
+
+を得る。
+
+concrete η bridge:
+
+```text
+E²η₃=η₅
+Eη₃=η₄
+```
+
+と generic equality / composition propagation から:
+
+```text
+ν′∈π_6^3
+H(ν′)=η₅
+2ν′=η₃∘η₄∘η₅
+```
+
+を導出する。
+
+Phase 58 の分割:
 
 ```text
 Phase 58-1
 current η-family / bracket specialization compatibility check
+COMPLETE
 
 Phase 58-2
-ν' minimum definition / membership representation
+ν′ minimum specialization representation
+COMPLETE
 
 Phase 58-3
 Lemma 5.2 specialization α=η₃
+COMPLETE
 
 Phase 58-4
-H(ν')=η₅ bridge
+H(ν′)=η₅ bridge
+COMPLETE
 
 Phase 58-5
-2ν'=η₃∘η₄∘η₅ bridge
+2ν′=η₃∘η₄∘η₅ bridge
+COMPLETE
 
 Phase 58-6
-provenance / representative probe
+provenance / representative probe / staged same-run
+COMPLETE
 
 Phase 58-7
 completion
+COMPLETE
 ```
 
 実装原則:
@@ -192,6 +236,346 @@ Phase 57 proof を再実装しない
 Lemma 5.2 result を specialization する
 existing η-family facts を再利用する
 generic normalization を先取りしない
+repeatable composition rule は one-shot で使う
+```
+
+状態:
+
+```text
+COMPLETE
+```
+
+---
+
+# 7. Phase 59：Toda Proposition 5.3 finite-dimensional branch
+
+Phase 59 の theorem target は Toda Proposition 5.3 の finite-dimensional result とする。
+
+記法:
+
+```text
+η_n^2 := η_n∘η_{n+1}
+```
+
+target:
+
+```text
+π_{n+2}^n=<η_n^2>≅Z/2
+(n≥2)
+```
+
+stable result:
+
+```text
+(G_2;2)=<η^2>≅Z/2
+```
+
+は Phase 59 では扱わず deferred とする。
+
+理由:
+
+```text
+finite-dimensional branch
+↓
+既存 Phase 49–58 と直接接続可能
+
+stable branch
+↓
+stable homotopy group model を別途要求
+```
+
+---
+
+## Phase 59 proof dependency
+
+Toda Proposition 5.3 の finite-dimensional proof は次の4段階に分ける。
+
+### n=2
+
+Toda (5.2) と Phase 50 から:
+
+```text
+η₂∘- : π_4^3 ≅ π_4^2
+π_4^3=Z/2{η₃}
+↓
+π_4^2=Z/2{η₂∘η₃}
+↓
+π_4^2=Z/2{η₂^2}
+```
+
+確認事項:
+
+```text
+Toda52CompositionIsomorphismStatement から
+finite-cyclic generator transport が既存表現で可能か
+
+η₂^2 := η₂∘η₃
+を既存 Composition だけで表現できるか
+```
+
+---
+
+### n=3
+
+EHP exact sequence:
+
+```text
+π_6^3
+  --H-->
+π_6^5
+  --Δ-->
+π_4^2
+  --E-->
+π_5^3
+  --H-->
+π_5^5
+  --Δ-->
+π_3^2
+```
+
+Prop.5.1 から:
+
+```text
+Δ:π_5^5→π_3^2 injective
+↓ exactness
+H(π_5^3)=0
+↓
+E:π_4^2→π_5^3 surjective
+```
+
+Phase 58 から:
+
+```text
+ν′∈π_6^3
+H(ν′)=η₅
+```
+
+Prop.5.1 の:
+
+```text
+π_6^5=Z/2{η₅}
+```
+
+と合わせて:
+
+```text
+H:π_6^3→π_6^5 surjective
+↓ exactness
+Δ:π_6^5→π_4^2 zero
+↓
+E:π_4^2→π_5^3 injective
+```
+
+したがって:
+
+```text
+E:π_4^2≅π_5^3
+```
+
+さらに:
+
+```text
+Eη₂^2=η₃^2
+```
+
+から:
+
+```text
+π_5^3=Z/2{η₃^2}
+```
+
+を得る。
+
+Phase 58 の `H(ν′)=η₅` はここで直接利用する。
+
+---
+
+### n=4
+
+EHP segment:
+
+```text
+π_5^3
+  --E-->
+π_6^4
+  -->
+π_6^7
+```
+
+Toda (5.1) から:
+
+```text
+π_6^7=0
+```
+
+よって exactness から:
+
+```text
+E:π_5^3→π_6^4 surjective
+```
+
+さらに Proposition 4.4 consequence から:
+
+```text
+E:π_5^3→π_6^4 injective
+```
+
+したがって:
+
+```text
+E:π_5^3≅π_6^4
+```
+
+および:
+
+```text
+Eη₃^2=η₄^2
+```
+
+より:
+
+```text
+π_6^4=Z/2{η₄^2}
+```
+
+を得る。
+
+---
+
+### n>4
+
+Toda (4.5) stable-range suspension isomorphism から:
+
+```text
+E^(n-4):
+π_6^4 ≅ π_{n+2}^n
+```
+
+および:
+
+```text
+Eη_k^2=η_{k+1}^2
+```
+
+を使って generator を transport し:
+
+```text
+π_{n+2}^n=Z/2{η_n^2}
+```
+
+を得る。
+
+---
+
+## Phase 59 で最初に確認する compatibility
+
+```text
+A.
+Phase 56 + Phase 50 から
+π_4^2=Z/2{η₂^2}
+を既存 rule で導けるか
+
+B.
+Prop.5.1 から
+Δ:π_5^5→π_3^2 injective
+を current statement で導けるか
+
+C.
+H(ν′)=η₅
++
+π_6^5=Z/2{η₅}
+から
+H:π_6^3→π_6^5 surjective
+を導けるか
+
+D.
+EHP exactness
++
+H surjective
+から
+Δ=0
+さらに
+E injective
+まで existing rule で届くか
+
+E.
+Toda (5.1) の
+π_6^7=0
+をどう current representation に入れるか
+
+F.
+Phase 48 / Prop.4.4 から
+E:π_5^3→π_6^4 injective
+を current instance で再利用できるか
+
+G.
+η_n^2 := η_n∘η_{n+1}
+Eη_n^2=η_{n+1}^2
+を existing Composition / Suspension semantics で扱えるか
+```
+
+generic square-of-eta class は先に追加しない。
+
+まず:
+
+```text
+η_n^2
+=
+Composition(
+  η_n,
+  η_{n+1},
+)
+```
+
+で十分かを確認する。
+
+---
+
+## Phase 59 の分割
+
+```text
+Phase 59-1
+Toda Proposition 5.3 proof dependency /
+current compatibility check
+
+Phase 59-2
+π_4^2=Z/2{η₂^2} from Toda (5.2)
+
+Phase 59-3
+n=3 EHP surjectivity / injectivity chain
+
+Phase 59-4
+π_5^3=Z/2{η₃^2}
+
+Phase 59-5
+n=4 suspension isomorphism
+
+Phase 59-6
+π_6^4=Z/2{η₄^2}
+
+Phase 59-7
+n>4 stable-range finite-dimensional transport
+
+Phase 59-8
+π_{n+2}^n=Z/2{η_n^2}
+integration / provenance / representative probe
+
+Phase 59-9
+Phase 59 completion
+```
+
+実装原則:
+
+```text
+Phase 58 の H(ν′)=η₅ を再利用する
+Phase 56 の Toda (5.2) を再利用する
+Phase 45 の EHP exactness を再利用する
+Phase 48 の E injectivity を再利用する
+Phase 46 の Toda (4.5) を再利用する
+
+generic η^2 class を先取りしない
+generic cyclic-generator transport を先取りしない
+stable (G_2;2) を Phase 59 に入れない
 ```
 
 状態:
@@ -202,30 +586,18 @@ NEXT
 
 ---
 
-# 7. Phase 59 以降
-
-Phase 58 完了後は Toda 本の次の concrete consequence を優先する。
-
-Phase 番号と対象は Phase 58 completion 時点で source dependency を再確認して確定する。
-
-```text
-source statement
-↓
-dependency analysis
-↓
-current representation compatibility
-↓
-minimum implementation
-```
-
----
-
 # 8. stable branch
 
 Toda Proposition 5.1 の stable conclusion:
 
 ```text
 (G_1;2)=Z/2{η}
+```
+
+Toda Proposition 5.3 の stable conclusion:
+
+```text
+(G_2;2)=Z/2{η^2}
 ```
 
 状態:
@@ -255,6 +627,10 @@ general quotient simplification
 general first-isomorphism theorem engine
 general suspension normalization
 general finite-cyclic direct-sum algebra
+generic concrete η normalization
+global η-name normalization
+unrestricted fixed-point composition closure
+generic Toda-bracket specialization framework
 full Toda Proposition 1.3 formalization
 full Toda Proposition 1.4 formalization
 full Toda Proposition 2.6 formalization
@@ -358,8 +734,10 @@ current code / related tests を確認
 | Prop.5.1 finite-dimensional integration | COMPLETE | 55 |
 | Toda (5.2) composition isomorphism | COMPLETE | 56 |
 | Toda Lemma 5.2 integration | COMPLETE | 57 |
-| Toda (5.3) ν' consequence | NEXT | 58 |
+| Toda (5.3) ν′ consequence | COMPLETE | 58 |
+| Toda Prop.5.3 finite-dimensional branch | NEXT | 59 |
 | stable `(G_1;2)=Z/2{η}` | DEFERRED | later |
+| stable `(G_2;2)=Z/2{η^2}` | DEFERRED | later |
 | stable homotopy | DEFERRED | later |
 | higher Toda brackets | DEFERRED | concrete need |
 
@@ -368,15 +746,34 @@ current code / related tests を確認
 # 13. 現在の直近ステップ
 
 ```text
-Phase 58
-Toda (5.3) ν' consequence
+Phase 59-1
+Toda Proposition 5.3
+proof dependency / current compatibility check
 ```
 
-まず:
+最初に確認するもの:
 
 ```text
-58-1
-current η-family / bracket specialization compatibility check
+Phase 56:
+η₂∘- : π_4^3≅π_4^2
+
+Phase 50:
+π_4^3=Z/2{η₃}
+
+Phase 55:
+Proposition 5.1 finite-dimensional result
+
+Phase 58:
+H(ν′)=η₅
+
+Phase 45:
+EHP exactness
+
+Phase 48:
+E injectivity consequence
+
+Phase 46:
+Toda (4.5) stable-range isomorphism
 ```
 
-から開始する。
+これらを current code / current tests で確認し、Phase 59 に本当に不足している edge だけを実装する。
