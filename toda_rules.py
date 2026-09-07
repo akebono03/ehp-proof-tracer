@@ -7663,6 +7663,323 @@ def toda_54_indeterminacy_double_nu_prime_generator_inference_rule():
   )
 
 
+def toda_54_nu_prime_bracket_inclusion_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    specialization = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    n_range = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    t_lower_range = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    t_upper_range = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    n = n_range.left
+    t = t_lower_range.left
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if not isinstance(
+      t,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      n_range.right
+      != 3
+    ):
+      return False
+
+    if (
+      t_lower_range.right
+      != 1
+    ):
+      return False
+
+    expected_t_upper_left = ScalarSum(
+      left=n,
+      right=-2,
+    )
+
+    if (
+      t_upper_range.left
+      != expected_t_upper_left
+    ):
+      return False
+
+    if (
+      t_upper_range.right
+      != t
+    ):
+      return False
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    if (
+      specialization.nu_prime
+      != nu_prime
+    ):
+      return False
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    if (
+      specialization.alpha
+      != eta_3
+    ):
+      return False
+
+    if (
+      specialization.lemma52_index
+      != 4
+    ):
+      return False
+
+    membership = (
+      specialization
+      .bracket_membership
+    )
+
+    if (
+      membership.element
+      != nu_prime
+    ):
+      return False
+
+    bracket = membership.bracket
+
+    if (
+      bracket.index
+      != 1
+    ):
+      return False
+
+    if (
+      bracket.first
+      != eta_3
+    ):
+      return False
+
+    iota_4 = HomotopyElement(
+      name="ι_4",
+      dimension=4,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=4,
+      ),
+    )
+
+    if (
+      bracket.second
+      != Multiple(
+        coefficient=2,
+        expression=iota_4,
+      )
+    ):
+      return False
+
+    eta_4 = HomotopyElement(
+      name="η₄",
+      dimension=4,
+      source=5,
+      target=4,
+      generator=GeneratorSymbol(
+        family="η",
+        index=4,
+      ),
+    )
+
+    return (
+      bracket.third
+      == eta_4
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    specialization = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    n_range = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    t_lower_range = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    n = n_range.left
+    t = t_lower_range.left
+
+    n_plus_one = ScalarSum(
+      left=n,
+      right=1,
+    )
+
+    n_plus_two = ScalarSum(
+      left=n,
+      right=2,
+    )
+
+    eta_n = HomotopyElement(
+      name="η_n",
+      dimension=n,
+      source=n_plus_one,
+      target=n,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n,
+      ),
+    )
+
+    eta_n_plus_one = HomotopyElement(
+      name="η_(n+1)",
+      dimension=n_plus_one,
+      source=n_plus_two,
+      target=n_plus_one,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n_plus_one,
+      ),
+    )
+
+    iota_n_plus_one = HomotopyElement(
+      name="ι_(n+1)",
+      dimension=n_plus_one,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=n_plus_one,
+      ),
+    )
+
+    target_bracket = TodaBracket(
+      first=eta_n,
+      second=Multiple(
+        coefficient=2,
+        expression=iota_n_plus_one,
+      ),
+      third=eta_n_plus_one,
+      index=t,
+    )
+
+    suspended_nu_prime = IteratedSuspension(
+      expression=(
+        specialization
+        .nu_prime
+      ),
+      exponent=ScalarSum(
+        left=n,
+        right=ScalarProduct(
+          left=-1,
+          right=3,
+        ),
+      ),
+    )
+
+    return TodaBracketMembershipStatement(
+      element=suspended_nu_prime,
+      bracket=target_bracket,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 5.4 "
+      "nu-prime suspended bracket inclusion"
+    ),
+    description=(
+      "Starting from the independently "
+      "recognized Toda (5.3) membership "
+      "nu-prime in "
+      "{eta_3, 2 iota_4, eta_4}_1, "
+      "apply the minimum consequence "
+      "of Toda Proposition 1.3 and "
+      "Toda (1.15) required for "
+      "Toda (5.4). "
+      "For n>=3 and "
+      "1<=t<=n-2, derive "
+      "E^(n-3) nu-prime in "
+      "{eta_n, 2 iota_(n+1), "
+      "eta_(n+1)}_t. "
+      "This rule does not implement "
+      "generic bracket suspension or "
+      "the full Proposition 1.3."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda53NuPrimeBracketSpecializationStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_bracket_membership_proof_step(
   statement,
 ):
