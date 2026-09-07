@@ -7126,6 +7126,12 @@ class TodaBracketMembershipStatement:
   note: str | None = None
 
 
+@dataclass(frozen=True)
+class Toda54BracketUpToSignStatement:
+  bracket: TodaBracket
+  positive_value: Expression
+
+
 def toda_bracket_membership_proof_step(
   statement,
 ):
