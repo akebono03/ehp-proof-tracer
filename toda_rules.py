@@ -1078,6 +1078,253 @@ def toda_prop44_isomorphism_inference_rule():
   )
 
 
+def toda_prop44_eta2_n2_isomorphism_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    hopf_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    decomposition_map = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi_3_2 = TodaPrimaryGroup(
+      group_dimension=3,
+      sphere_dimension=2,
+    )
+
+    pi_3_3 = TodaPrimaryGroup(
+      group_dimension=3,
+      sphere_dimension=3,
+    )
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    iota_3 = HomotopyElement(
+      name="ι_3",
+      dimension=3,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=3,
+      ),
+    )
+
+    if (
+      definition.map.source_group
+      != pi_3_2
+    ):
+      return False
+
+    if (
+      definition.map.target_group
+      != pi_3_3
+    ):
+      return False
+
+    if (
+      definition.element
+      != eta_2
+    ):
+      return False
+
+    if (
+      definition.image
+      != iota_3
+    ):
+      return False
+
+    expected_hopf_relation = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=eta_2,
+      ),
+      rhs=iota_3,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      hopf_relation
+      != expected_hopf_relation
+    ):
+      return False
+
+    if (
+      decomposition_map.alpha
+      != eta_2
+    ):
+      return False
+
+    target_group = (
+      decomposition_map.target_group
+    )
+
+    if not isinstance(
+      target_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    if (
+      target_group.sphere_dimension
+      != 2
+    ):
+      return False
+
+    i = target_group.group_dimension
+
+    if not isinstance(
+      i,
+      ScalarSymbol,
+    ):
+      return False
+
+    source_group = (
+      decomposition_map.source_group
+    )
+
+    if not isinstance(
+      source_group,
+      DirectSumGroup,
+    ):
+      return False
+
+    if (
+      len(
+        source_group.summands
+      )
+      != 2
+    ):
+      return False
+
+    expected_first_summand = (
+      TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=i,
+          right=-1,
+        ),
+        sphere_dimension=1,
+      )
+    )
+
+    expected_second_summand = (
+      TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=3,
+      )
+    )
+
+    if (
+      source_group.summands[
+        0
+      ]
+      != expected_first_summand
+    ):
+      return False
+
+    if (
+      source_group.summands[
+        1
+      ]
+      != expected_second_summand
+    ):
+      return False
+
+    expected_formula = Sum(
+      left=Suspension(
+        expression=(
+          decomposition_map.beta
+        ),
+      ),
+      right=Composition(
+        left=eta_2,
+        right=(
+          decomposition_map.gamma
+        ),
+      ),
+    )
+
+    return (
+      decomposition_map.formula
+      == expected_formula
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    decomposition_map = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    return (
+      TodaProp44IsomorphismStatement(
+        map=decomposition_map,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 4.4 "
+      "eta_2 n=2 specialization"
+    ),
+    description=(
+      "Specialize Toda Proposition 4.4 "
+      "to n=2 and alpha=eta_2 using "
+      "the independently derived "
+      "definition of eta_2 and "
+      "H(eta_2)=iota_3. The resulting "
+      "decomposition map from "
+      "pi_(i-1)^1 direct sum pi_i^3 "
+      "to pi_i^2 is an isomorphism."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaPi32Eta2DefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaProp44DecompositionMap
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_45_isomorphism_inference_rule():
   def guard(
     premises,
