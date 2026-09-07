@@ -4053,6 +4053,595 @@ def toda_bracket_membership_theorem_proof_step(
 
 
 @dataclass(frozen=True)
+class TodaLemma52BracketCompositionMembershipStatement:
+  element: Expression
+  outer_left: Expression
+  bracket: TodaBracket
+  bracket_sign: int
+  bracket_suspension_exponent: int
+
+
+@dataclass(frozen=True)
+class TodaLemma52BracketRepresentativeStatement:
+  membership: TodaLemma52BracketCompositionMembershipStatement
+  representative: Expression
+
+
+def toda_prop14_lemma52_bracket_transformation_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    membership = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    bracket = membership.bracket
+
+    if (
+      bracket.index
+      != 1
+    ):
+      return False
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    if (
+      bracket.first
+      != eta_3
+    ):
+      return False
+
+    iota_4 = HomotopyElement(
+      name="ι_4",
+      dimension=4,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=4,
+      ),
+    )
+
+    if (
+      bracket.second
+      != Multiple(
+        coefficient=2,
+        expression=iota_4,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      bracket.third,
+      Suspension,
+    ):
+      return False
+
+    alpha = (
+      bracket
+      .third
+      .expression
+    )
+
+    if not isinstance(
+      alpha,
+      HomotopyElement,
+    ):
+      return False
+
+    i = alpha.dimension
+
+    if not isinstance(
+      i,
+      ScalarSymbol,
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    membership = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    source_bracket = (
+      membership.bracket
+    )
+
+    alpha = (
+      source_bracket
+      .third
+      .expression
+    )
+
+    i = alpha.dimension
+
+    iota_3 = HomotopyElement(
+      name="ι_3",
+      dimension=3,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=3,
+      ),
+    )
+
+    iota_i = HomotopyElement(
+      name="ι_i",
+      dimension=i,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=i,
+      ),
+    )
+
+    inner_bracket = TodaBracket(
+      first=Multiple(
+        coefficient=2,
+        expression=iota_3,
+      ),
+      second=alpha,
+      third=Multiple(
+        coefficient=2,
+        expression=iota_i,
+      ),
+    )
+
+    return (
+      TodaLemma52BracketCompositionMembershipStatement(
+        element=Multiple(
+          coefficient=2,
+          expression=membership.element,
+        ),
+        outer_left=source_bracket.first,
+        bracket=inner_bracket,
+        bracket_sign=1,
+        bracket_suspension_exponent=1,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 1.4 "
+      "Lemma 5.2 bracket transformation"
+    ),
+    description=(
+      "For beta in "
+      "{eta_3, 2 iota_4, E alpha}_1, "
+      "the n=1 specialization of "
+      "Toda Proposition 1.4 gives "
+      "2 beta in eta_3 composed with "
+      "E{2 iota_3, alpha, 2 iota_i}."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaBracketMembershipStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop13_lemma52_bracket_transformation_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    if (
+      statement.bracket_sign
+      != 1
+    ):
+      return False
+
+    if (
+      statement.bracket_suspension_exponent
+      != 1
+    ):
+      return False
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    if (
+      statement.outer_left
+      != eta_3
+    ):
+      return False
+
+    bracket = statement.bracket
+
+    if (
+      bracket.index
+      is not None
+    ):
+      return False
+
+    if not isinstance(
+      bracket.first,
+      Multiple,
+    ):
+      return False
+
+    if (
+      bracket.first.coefficient
+      != 2
+    ):
+      return False
+
+    iota_3 = HomotopyElement(
+      name="ι_3",
+      dimension=3,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=3,
+      ),
+    )
+
+    if (
+      bracket.first.expression
+      != iota_3
+    ):
+      return False
+
+    alpha = bracket.second
+
+    if not isinstance(
+      alpha,
+      HomotopyElement,
+    ):
+      return False
+
+    i = alpha.dimension
+
+    if not isinstance(
+      i,
+      ScalarSymbol,
+    ):
+      return False
+
+    iota_i = HomotopyElement(
+      name="ι_i",
+      dimension=i,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=i,
+      ),
+    )
+
+    if (
+      bracket.third
+      != Multiple(
+        coefficient=2,
+        expression=iota_i,
+      )
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    source_bracket = statement.bracket
+
+    alpha = source_bracket.second
+    i = alpha.dimension
+
+    i_plus_one = ScalarSum(
+      left=i,
+      right=1,
+    )
+
+    iota_4 = HomotopyElement(
+      name="ι_4",
+      dimension=4,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=4,
+      ),
+    )
+
+    iota_i_plus_one = HomotopyElement(
+      name="ι_(i+1)",
+      dimension=i_plus_one,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=i_plus_one,
+      ),
+    )
+
+    target_bracket = TodaBracket(
+      first=Multiple(
+        coefficient=2,
+        expression=iota_4,
+      ),
+      second=Suspension(
+        expression=alpha,
+      ),
+      third=Multiple(
+        coefficient=2,
+        expression=iota_i_plus_one,
+      ),
+      index=1,
+    )
+
+    return (
+      TodaLemma52BracketCompositionMembershipStatement(
+        element=statement.element,
+        outer_left=statement.outer_left,
+        bracket=target_bracket,
+        bracket_sign=-1,
+        bracket_suspension_exponent=0,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 1.3 "
+      "Lemma 5.2 bracket transformation"
+    ),
+    description=(
+      "The n=0 specialization of "
+      "Toda Proposition 1.3 transforms "
+      "E{2 iota_3, alpha, 2 iota_i} "
+      "into the negative indexed bracket "
+      "{2 iota_4, E alpha, "
+      "2 iota_(i+1)}_1 required in "
+      "Toda Lemma 5.2."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma52BracketCompositionMembershipStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_cor37_lemma52_representative_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    if (
+      statement.bracket_sign
+      != -1
+    ):
+      return False
+
+    if (
+      statement.bracket_suspension_exponent
+      != 0
+    ):
+      return False
+
+    bracket = statement.bracket
+
+    if (
+      bracket.index
+      != 1
+    ):
+      return False
+
+    if not isinstance(
+      bracket.first,
+      Multiple,
+    ):
+      return False
+
+    if (
+      bracket.first.coefficient
+      != 2
+    ):
+      return False
+
+    iota_4 = HomotopyElement(
+      name="ι_4",
+      dimension=4,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=4,
+      ),
+    )
+
+    if (
+      bracket.first.expression
+      != iota_4
+    ):
+      return False
+
+    if not isinstance(
+      bracket.second,
+      Suspension,
+    ):
+      return False
+
+    alpha = (
+      bracket
+      .second
+      .expression
+    )
+
+    if not isinstance(
+      alpha,
+      HomotopyElement,
+    ):
+      return False
+
+    i = alpha.dimension
+
+    if not isinstance(
+      i,
+      ScalarSymbol,
+    ):
+      return False
+
+    i_plus_one = ScalarSum(
+      left=i,
+      right=1,
+    )
+
+    iota_i_plus_one = HomotopyElement(
+      name="ι_(i+1)",
+      dimension=i_plus_one,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=i_plus_one,
+      ),
+    )
+
+    expected_third = Multiple(
+      coefficient=2,
+      expression=iota_i_plus_one,
+    )
+
+    return (
+      bracket.third
+      == expected_third
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    bracket = statement.bracket
+
+    alpha = (
+      bracket
+      .second
+      .expression
+    )
+
+    i = alpha.dimension
+
+    i_plus_one = ScalarSum(
+      left=i,
+      right=1,
+    )
+
+    i_plus_two = ScalarSum(
+      left=i,
+      right=2,
+    )
+
+    eta_i_plus_one = HomotopyElement(
+      name="η_(i+1)",
+      dimension=i_plus_one,
+      source=i_plus_two,
+      target=i_plus_one,
+      generator=GeneratorSymbol(
+        family="η",
+        index=i_plus_one,
+      ),
+    )
+
+    cor37_element = Composition(
+      left=Suspension(
+        expression=alpha,
+      ),
+      right=eta_i_plus_one,
+    )
+
+    signed_element = Multiple(
+      coefficient=-1,
+      expression=cor37_element,
+    )
+
+    representative = Composition(
+      left=statement.outer_left,
+      right=signed_element,
+    )
+
+    return (
+      TodaLemma52BracketRepresentativeStatement(
+        membership=statement,
+        representative=representative,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Corollary 3.7 "
+      "Lemma 5.2 bracket representative"
+    ),
+    description=(
+      "For r=2, Corollary 3.7 gives "
+      "E alpha composed with eta_(i+1) "
+      "as an element of "
+      "{2 iota_4, E alpha, "
+      "2 iota_(i+1)}_1. "
+      "For the negative bracket used "
+      "after Proposition 1.3, the "
+      "corresponding representative is "
+      "eta_3 composed with minus "
+      "(E alpha composed with "
+      "eta_(i+1))."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma52BracketCompositionMembershipStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+@dataclass(frozen=True)
 class TodaBracketDefinedStatement:
   bracket: TodaBracket
 
