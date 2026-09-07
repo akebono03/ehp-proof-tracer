@@ -283,6 +283,32 @@ Target:
 Δ(ι₅)=±2η₂
 ```
 
+Implemented:
+
+```text
+existing up-to-sign statement reuse
+Toda-specific direct bridge rule
+wrong-instance rejection
+Phase 50 chain integration
+INFERENCE provenance
+representative probe
+```
+
+Representative:
+
+```text
+given = 11
+derived = 10
+rounds = 6
+fixed point = True
+```
+
+verified:
+
+```text
+2731 passed in 26.67s
+```
+
 Boundary:
 
 ```text
@@ -294,14 +320,14 @@ no sign solver
 state:
 
 ```text
-NEXT
+COMPLETE
 ```
 
 ---
 
 # 8. Phase 53–55：finite-dimensional Proposition 5.1 completion path
 
-Phase 53:
+Phase 53 (NEXT):
 
 ```text
 Toda (4.5) finite-cyclic transport
@@ -384,8 +410,8 @@ general-purpose CAS normalization
 | minimum Prop.2.7 consequence | COMPLETE | 50 |
 | π_4^3=Z/2{η₃} | COMPLETE | 50 |
 | Prop.5.1 dependency analysis | COMPLETE | 51 |
-| Δ(ι₅)=±2η₂ direct bridge | NEXT | 52 |
-| Toda (4.5) finite-cyclic transport | PLANNED | 53 |
+| Δ(ι₅)=±2η₂ direct bridge | COMPLETE | 52 |
+| Toda (4.5) finite-cyclic transport | NEXT | 53 |
 | higher η-family bridge | PLANNED | 54 |
 | Prop.5.1 finite-dimensional integration | PLANNED | 55 |
 | Prop.5.1 stable `(G_1;2)` conclusion | DEFERRED | later |
@@ -781,7 +807,7 @@ COMPLETE
 ↓
 Phase 52
 Δ(ι₅)=±2η₂ direct bridge
-NEXT
+COMPLETE
 ↓
 Phase 53
 Toda (4.5) finite-cyclic transport
@@ -858,37 +884,53 @@ Prop 2.7
 
 # 22. Updated immediate next step
 
-```text
-Phase 52
-Δ(ι₅)=±2η₂ direct consequence bridge
-```
+Phase 52 is complete.
 
-Required current premises:
+Current independently derived finite-dimensional facts now include:
 
 ```text
-Δ(ι₅)=±[ι₂,ι₂]
-[ι₂,ι₂]=±2η₂
-```
-
-Target:
-
-```text
+π_3^2=Z{η₂}
+H(η₂)=ι₃
+π_4^3=Z/2{η₃}
 Δ(ι₅)=±2η₂
+```
+
+Next:
+
+```text
+Phase 53
+Toda (4.5) finite-cyclic transport
+```
+
+Required current inputs:
+
+```text
+π_4^3=Z/2{η₃}
+Toda (4.5) stable-range E^(m-n) isomorphism
+```
+
+Target shape:
+
+```text
+π_4^3=Z/2{η₃}
++
+E^(n-3): π_4^3 ≅ π_{n+1}^n
+↓
+π_{n+1}^n=Z/2{E^(n-3)η₃}
 ```
 
 Boundary:
 
 ```text
-Toda-specific bridge only
-no generic up-to-sign algebra
-no low-dimensional table expansion
+concrete Toda (4.5) finite-cyclic transport only
+no generic isomorphism-transport framework
+no generic suspension normalization
 no stable homotopy model
 ```
 
-After Phase 52:
+After Phase 53:
 
 ```text
-Phase 53 finite-cyclic transport
 Phase 54 higher η-family bridge
 Phase 55 finite-dimensional Prop.5.1 integration
 ```
