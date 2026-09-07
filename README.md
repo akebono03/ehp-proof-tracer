@@ -33,7 +33,7 @@ structural equality
 
 # Current status
 
-Completed through Phase 53.
+Completed through Phase 54.
 
 ```text
 Phase 28  map injectivity / isomorphism / equality reflection
@@ -62,18 +62,19 @@ Phase 50  concrete EHP calculation π_4^3 = Z/2{η₃}
 Phase 51  Toda Proposition 5.1 proof dependency analysis
 Phase 52  Δ(ι₅)=±2η₂ direct bridge
 Phase 53  Toda (4.5) finite-cyclic transport
+Phase 54  higher η-family bridge and finite-cyclic integration
 ```
 
 Current full regression:
 
 ```text
-2769 passed in 25.60s
+2804 passed in 26.50s
 ```
 
 Representative current probe:
 
 ```powershell
-python -m probes.probe_phase53_capabilities
+python -m probes.probe_phase54_capabilities
 ```
 
 ---
@@ -707,23 +708,174 @@ not implemented:
 
 ---
 
-# Next development boundary
+# Phase 54: higher η-family bridge and finite-cyclic integration
 
-Phase 53 is complete.
+Phase 54 completes the higher η-family connection needed after the Phase 53 Toda (4.5) transport.
 
-Next:
+The symbolic η-family definition is now representable for symbolic `n`:
 
 ```text
-Phase 54
-higher η-family suspension bridge
-E^(n-3)η₃=η_n
+η_n = E^(n-2)η₂
 ```
 
-Then:
+using the existing:
+
+```text
+TodaEtaFamilyDefinitionStatement
+IteratedSuspension
+ScalarSymbol
+ScalarSum
+```
+
+For the existing low-dimensional bridge:
+
+```text
+η₃ = Eη₂
+```
+
+the Phase 54 η-family-specific rule derives:
+
+```text
+η_n = E^(n-2)η₂
++
+η₃ = Eη₂
+↓
+E^(n-3)η₃ = η_n
+```
+
+Specific rule:
+
+```text
+toda_higher_eta_family_bridge_inference_rule()
+```
+
+The rule is deliberately narrow. It does not introduce generic iterated-suspension composition, generic suspension normalization, or generic scalar normalization.
+
+The Phase 53 transported finite-cyclic group:
+
+```text
+π_{n+1}^n = Z/2{E^(n-3)η₃}
+```
+
+is then connected to the higher η-family bridge:
+
+```text
+π_{n+1}^n = Z/2{E^(n-3)η₃}
++
+E^(n-3)η₃ = η_n
+↓
+π_{n+1}^n = Z/2{η_n}
+```
+
+Specific rule:
+
+```text
+toda_higher_eta_finite_cyclic_generator_inference_rule()
+```
+
+This is not a generic cyclic-generator rewrite rule. It accepts only the Phase 53 target shape, order `2`, the transported generator `E^(n-3)η₃`, and the matching higher η-family relation.
+
+Applicability tests reject:
+
+```text
+concrete higher η-family index
+mismatched symbolic index
+wrong η_n element structure
+wrong η-family definition exponent
+wrong η₃ base
+wrong suspended η₂ base
+reversed η₃ relation
+non-equality η₃ relation
+```
+
+The Phase 53 and Phase 54 branches are integrated in one fixed-point run. The Phase 53 transported group and the higher η bridge are both derived premises of the final group result.
+
+Representative result:
+
+```text
+η_n = E^(n-2)η₂
+η₃ = Eη₂
+↓
+E^(n-3)η₃ = η_n
+
+π_{n+1}^n = Z/2{E^(n-3)η₃}
++
+E^(n-3)η₃ = η_n
+↓
+π_{n+1}^n = Z/2{η_n}
+```
+
+Representative counts:
+
+```text
+given premise count = 15
+derived step count = 13
+derived round count = 8
+fixed point = True
+```
+
+Representative probe:
+
+```powershell
+python -m probes.probe_phase54_capabilities
+```
+
+Phase 54 tests:
+
+```text
+tests/test_phase54_eta_family_bridge.py  20 passed
+tests/test_phase54_integration.py         7 passed
+tests/test_phase54_probe.py               8 passed
+```
+
+Full regression:
+
+```text
+2804 passed in 26.50s
+```
+
+Phase 54 boundary:
+
+```text
+implemented:
+  symbolic higher η-family definition
+  η-family-specific E^(n-3)η₃=η_n bridge
+  applicability / wrong-instance rejection
+  Phase 53 transported finite-cyclic integration
+  π_{n+1}^n=Z/2{η_n}
+  derived provenance
+  representative probe
+  full regression
+
+not implemented:
+  generic iterated-suspension composition
+  generic suspension normalization
+  generic scalar normalization
+  generic cyclic-generator rewrite
+  Proposition 5.1 final integration
+  stable homotopy model
+```
+
+---
+
+# Next development boundary
+
+Phase 54 is complete.
+
+Next:
 
 ```text
 Phase 55
 Toda Proposition 5.1 finite-dimensional integration / provenance
 ```
 
-Do not introduce stable homotopy-group representation, generic isomorphism transport, generic generator transport, or generic suspension normalization before a concrete need appears.
+The available independently derived finite-dimensional ingredients are now:
+
+```text
+π_3^2=Z{η₂}
+H(η₂)=ι₃
+Δ(ι₅)=±2η₂
+π_{n+1}^n=Z/2{η_n}
+```
+
+Do not introduce the stable `(G_1;2)` conclusion, a stable homotopy-group model, generic cyclic-generator rewriting, generic scalar normalization, or generic suspension normalization before a concrete need appears.

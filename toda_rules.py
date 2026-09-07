@@ -11,6 +11,7 @@ from expression import (
   Multiple,
   ScalarProduct,
   ScalarSum,
+  ScalarSymbol,
   Sum,
   Suspension,
   TodaBracket,
@@ -114,7 +115,7 @@ class TodaDeltaImageUpToSignStatement:
 
 @dataclass(frozen=True)
 class TodaEtaFamilyDefinitionStatement:
-  index: int
+  index: int | ScalarSymbol
   element: HomotopyElement
   iterated_suspension: IteratedSuspension
 
@@ -4140,13 +4141,22 @@ def toda_eta_family_definition_statement(
 ):
   if not isinstance(
     n,
-    int,
+    (
+      int,
+      ScalarSymbol,
+    ),
   ):
     raise TypeError(
-      "n must be an int"
+      "n must be an int or ScalarSymbol"
     )
 
-  if n < 2:
+  if (
+    isinstance(
+      n,
+      int,
+    )
+    and n < 2
+  ):
     raise ValueError(
       "eta family requires n >= 2"
     )
@@ -4164,20 +4174,39 @@ def toda_eta_family_definition_statement(
 
   if n == 2:
     name = "η₂"
+    source = 3
+    exponent = 0
   elif n == 3:
     name = "η₃"
-  else:
+    source = 4
+    exponent = 1
+  elif isinstance(
+    n,
+    int,
+  ):
     name = (
       "η_"
       + str(
         n
       )
     )
+    source = n + 1
+    exponent = n - 2
+  else:
+    name = "η_n"
+    source = ScalarSum(
+      left=n,
+      right=1,
+    )
+    exponent = ScalarSum(
+      left=n,
+      right=-2,
+    )
 
   eta_n = HomotopyElement(
     name=name,
     dimension=n,
-    source=n + 1,
+    source=source,
     target=n,
     generator=GeneratorSymbol(
       family="η",
@@ -4191,7 +4220,7 @@ def toda_eta_family_definition_statement(
     iterated_suspension=(
       IteratedSuspension(
         expression=eta_2,
-        exponent=n - 2,
+        exponent=exponent,
       )
     ),
   )
@@ -4291,6 +4320,359 @@ def toda_eta3_suspension_relation_inference_rule():
       PremisePattern(
         statement_type=(
           TodaEtaFamilyDefinitionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_higher_eta_family_bridge_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta_3_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    n = definition.index
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    expected_eta_n = HomotopyElement(
+      name="η_n",
+      dimension=n,
+      source=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      target=n,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n,
+      ),
+    )
+
+    if (
+      definition.element
+      != expected_eta_n
+    ):
+      return False
+
+    expected_definition = (
+      IteratedSuspension(
+        expression=eta_2,
+        exponent=ScalarSum(
+          left=n,
+          right=-2,
+        ),
+      )
+    )
+
+    if (
+      definition.iterated_suspension
+      != expected_definition
+    ):
+      return False
+
+    expected_eta_3_relation = Relation(
+      lhs=eta_3,
+      rhs=Suspension(
+        expression=eta_2,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      eta_3_relation
+      == expected_eta_3_relation
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta_3_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    n = definition.index
+
+    eta_3 = (
+      eta_3_relation.lhs
+    )
+
+    return Relation(
+      lhs=IteratedSuspension(
+        expression=eta_3,
+        exponent=ScalarSum(
+          left=n,
+          right=ScalarProduct(
+            left=-1,
+            right=3,
+          ),
+        ),
+      ),
+      rhs=definition.element,
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda higher eta-family "
+      "iterated suspension bridge"
+    ),
+    description=(
+      "For the eta-family definition "
+      "eta_n = E^(n-2) eta_2 and the "
+      "specific relation "
+      "eta_3 = E eta_2, derive the "
+      "eta-family-specific relation "
+      "E^(n-3) eta_3 = eta_n. "
+      "This rule does not introduce "
+      "generic iterated-suspension "
+      "composition or normalization."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaEtaFamilyDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_higher_eta_finite_cyclic_generator_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    group_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      group_relation.lhs,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    target_group = (
+      group_relation.lhs
+    )
+
+    n = (
+      target_group
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    expected_target_group = (
+      TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=n,
+          right=1,
+        ),
+        sphere_dimension=n,
+      )
+    )
+
+    if (
+      target_group
+      != expected_target_group
+    ):
+      return False
+
+    if not isinstance(
+      group_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      group_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    expected_transported_generator = (
+      IteratedSuspension(
+        expression=eta_3,
+        exponent=ScalarSum(
+          left=n,
+          right=ScalarProduct(
+            left=-1,
+            right=3,
+          ),
+        ),
+      )
+    )
+
+    if (
+      group_relation.rhs.generator
+      != expected_transported_generator
+    ):
+      return False
+
+    eta_n = HomotopyElement(
+      name="η_n",
+      dimension=n,
+      source=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      target=n,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n,
+      ),
+    )
+
+    expected_eta_relation = Relation(
+      lhs=expected_transported_generator,
+      rhs=eta_n,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      eta_relation
+      == expected_eta_relation
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    group_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=group_relation.lhs,
+      rhs=FiniteCyclicGroup(
+        order=(
+          group_relation
+          .rhs
+          .order
+        ),
+        generator=(
+          eta_relation.rhs
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda higher eta-family "
+      "finite-cyclic generator bridge"
+    ),
+    description=(
+      "If pi_(n+1)^n is cyclic of "
+      "order 2 generated by "
+      "E^(n-3) eta_3 and the "
+      "eta-family-specific bridge "
+      "identifies E^(n-3) eta_3 "
+      "with eta_n, then pi_(n+1)^n "
+      "is cyclic of order 2 generated "
+      "by eta_n. This rule does not "
+      "introduce generic generator "
+      "rewriting."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
         ),
       ),
     ),
