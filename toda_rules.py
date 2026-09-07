@@ -4641,6 +4641,498 @@ def toda_cor37_lemma52_representative_inference_rule():
   )
 
 
+def toda_prop51_eta4_twice_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    prop51_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    higher_eta_relation = (
+      prop51_statement
+      .higher_eta_group_relation
+    )
+
+    if not isinstance(
+      higher_eta_relation.lhs,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    if not isinstance(
+      higher_eta_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    target_group = (
+      higher_eta_relation.lhs
+    )
+
+    n = (
+      target_group
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    expected_group = TodaPrimaryGroup(
+      group_dimension=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      sphere_dimension=n,
+    )
+
+    if (
+      target_group
+      != expected_group
+    ):
+      return False
+
+    cyclic_group = (
+      higher_eta_relation.rhs
+    )
+
+    if (
+      cyclic_group.order
+      != 2
+    ):
+      return False
+
+    eta_n = HomotopyElement(
+      name="η_n",
+      dimension=n,
+      source=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      target=n,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n,
+      ),
+    )
+
+    return (
+      cyclic_group.generator
+      == eta_n
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    eta_4 = HomotopyElement(
+      name="η₄",
+      dimension=4,
+      source=5,
+      target=4,
+      generator=GeneratorSymbol(
+        family="η",
+        index=4,
+      ),
+    )
+
+    return Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=eta_4,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.1 "
+      "eta_4 order-two consequence"
+    ),
+    description=(
+      "From the independently derived "
+      "finite-dimensional Proposition 5.1 "
+      "higher eta-family result, specialize "
+      "only the consequence needed in "
+      "Lemma 5.2: 2 eta_4 is zero."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaProp51FiniteDimensionalStatement
+        ),
+        proof_rule=ProofRule.INFERENCE,
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_21_lemma52_suspended_indeterminacy_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    membership = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta4_zero = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if (
+      membership.sphere_dimension
+      != 4
+    ):
+      return False
+
+    group_dimension = (
+      membership.group_dimension
+    )
+
+    if not isinstance(
+      group_dimension,
+      ScalarSum,
+    ):
+      return False
+
+    if (
+      group_dimension.right
+      != 2
+    ):
+      return False
+
+    i = (
+      group_dimension.left
+    )
+
+    if not isinstance(
+      i,
+      ScalarSymbol,
+    ):
+      return False
+
+    gamma = (
+      membership.element
+    )
+
+    if (
+      gamma.dimension
+      != group_dimension
+    ):
+      return False
+
+    eta_4 = HomotopyElement(
+      name="η₄",
+      dimension=4,
+      source=5,
+      target=4,
+      generator=GeneratorSymbol(
+        family="η",
+        index=4,
+      ),
+    )
+
+    expected_eta4_zero = Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=eta_4,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    return (
+      eta4_zero
+      == expected_eta4_zero
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    membership = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    gamma = (
+      membership.element
+    )
+
+    i_plus_two = (
+      membership.group_dimension
+    )
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    iota_i_plus_two = HomotopyElement(
+      name="ι_(i+2)",
+      dimension=i_plus_two,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=i_plus_two,
+      ),
+    )
+
+    indeterminacy_element = Composition(
+      left=Composition(
+        left=eta_3,
+        right=gamma,
+      ),
+      right=Multiple(
+        coefficient=2,
+        expression=iota_i_plus_two,
+      ),
+    )
+
+    return Relation(
+      lhs=Suspension(
+        expression=indeterminacy_element,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (2.1) Lemma 5.2 "
+      "suspended indeterminacy zero"
+    ),
+    description=(
+      "For gamma in pi_(i+2)(S^4), "
+      "Toda (2.1) gives "
+      "E(eta_3 gamma 2 iota_(i+2)) "
+      "= eta_4 2Egamma "
+      "= 2 eta_4 Egamma. "
+      "Using 2 eta_4 = 0, the suspended "
+      "indeterminacy element is zero."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          HomotopyGroupMembershipStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.ZERO,
+        proof_rule=ProofRule.INFERENCE,
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma45_n4_suspension_zero_reflection_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    membership = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    suspended_zero = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if (
+      membership.sphere_dimension
+      != 4
+    ):
+      return False
+
+    group_dimension = (
+      membership.group_dimension
+    )
+
+    if not isinstance(
+      group_dimension,
+      ScalarSum,
+    ):
+      return False
+
+    if (
+      group_dimension.right
+      != 2
+    ):
+      return False
+
+    i = (
+      group_dimension.left
+    )
+
+    if not isinstance(
+      i,
+      ScalarSymbol,
+    ):
+      return False
+
+    gamma = (
+      membership.element
+    )
+
+    if (
+      gamma.dimension
+      != group_dimension
+    ):
+      return False
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    iota_i_plus_two = HomotopyElement(
+      name="ι_(i+2)",
+      dimension=group_dimension,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=group_dimension,
+      ),
+    )
+
+    indeterminacy_element = Composition(
+      left=Composition(
+        left=eta_3,
+        right=gamma,
+      ),
+      right=Multiple(
+        coefficient=2,
+        expression=iota_i_plus_two,
+      ),
+    )
+
+    expected_suspended_zero = Relation(
+      lhs=Suspension(
+        expression=indeterminacy_element,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    return (
+      suspended_zero
+      == expected_suspended_zero
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    membership = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    gamma = (
+      membership.element
+    )
+
+    i_plus_two = (
+      membership.group_dimension
+    )
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    iota_i_plus_two = HomotopyElement(
+      name="ι_(i+2)",
+      dimension=i_plus_two,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=i_plus_two,
+      ),
+    )
+
+    indeterminacy_element = Composition(
+      left=Composition(
+        left=eta_3,
+        right=gamma,
+      ),
+      right=Multiple(
+        coefficient=2,
+        expression=iota_i_plus_two,
+      ),
+    )
+
+    return Relation(
+      lhs=indeterminacy_element,
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 4.5 n=4 "
+      "indeterminacy zero reflection"
+    ),
+    description=(
+      "Toda Lemma 4.5 says that "
+      "suspension is injective for n=4. "
+      "For the specific Lemma 5.2 "
+      "indeterminacy element, if its "
+      "suspension is zero, then the "
+      "original element is zero."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          HomotopyGroupMembershipStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=RelationType.ZERO,
+        proof_rule=ProofRule.INFERENCE,
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 @dataclass(frozen=True)
 class TodaBracketDefinedStatement:
   bracket: TodaBracket
