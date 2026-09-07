@@ -43,7 +43,7 @@ homotopy / EHP data
 abelian-group algebra
 ```
 
-Phase 45–50 でも generic inference engine は変更していない。
+Phase 45–51 でも generic inference engine は変更していない。
 
 ---
 
@@ -464,20 +464,123 @@ docs/roadmap.md = future dependency
 
 ---
 
-# 22. Next design boundary
+# 22. Phase 51 dependency-analysis design
 
-Phase 50 completes:
+Phase 51 is analysis-only. No production-code representation or inference rule is added.
+
+Finite-dimensional Proposition 5.1 target:
 
 ```text
 π_3^2=Z{η₂}
-↓
-π_4^3=Z/2{η₃}
+π_{n+1}^n=Z/2{η_n}  (n≥3)
+H(η₂)=ι₃
+Δ(ι₅)=±2η₂
 ```
 
-Natural next candidate:
+Toda p.39 has an internal notation inconsistency between the proof text and the printed proposition line. The proof text uses `Δ(ι₅)=±2η₂`, which is compatible with the target group `π_3^2`; this is the development target.
+
+Existing independent dependencies:
 
 ```text
-Toda Proposition 5.1 proof dependency analysis
+Phase 49:
+π_3^2=Z{η₂}
+H(η₂)=ι₃
+
+Phase 50:
+π_4^3=Z/2{η₃}
+[ι₂,ι₂]=±2η₂
+Δ(ι₅)=±[ι₂,ι₂]
+
+Phase 46:
+Toda (4.5) stable-range E^(m-n) isomorphism
 ```
 
-First identify exact missing premises before adding new theorem semantics.
+No additional low-dimensional group table is required.
+
+---
+
+# 23. Phase 51 missing-edge boundary
+
+Minimum missing implementation:
+
+```text
+1. specific direct bridge
+   Δ(ι₅)=±[ι₂,ι₂]
+   +
+   [ι₂,ι₂]=±2η₂
+   ↓
+   Δ(ι₅)=±2η₂
+
+2. finite cyclic transport through Toda (4.5)
+   π_4^3=Z/2{η₃}
+   +
+   E^(n-3): π_4^3 ≅ π_{n+1}^n
+   ↓
+   π_{n+1}^n=Z/2{E^(n-3)η₃}
+
+3. η-family-specific suspension bridge
+   E^(n-3)η₃=η_n
+
+4. finite-dimensional Proposition 5.1 integration
+   with provenance / circular-dependency rejection
+```
+
+The direct Δ bridge must remain theorem-specific. Do not add general up-to-sign transitivity or a sign solver.
+
+The finite-cyclic transport should be scoped to the concrete Toda (4.5) need. Do not add a generic isomorphism-transport framework unless later phases require it.
+
+The higher η bridge should remain η-family-specific. Do not normalize arbitrary `Suspension` / `IteratedSuspension` expressions.
+
+---
+
+# 24. Circular dependency policy for Proposition 5.1
+
+Safe premises:
+
+```text
+Phase 49 proof-derived H(η₂)=ι₃
+Phase 49 π_3^2=Z{η₂}
+Phase 50 π_4^3=Z/2{η₃}
+Toda Proposition 2.7 minimum consequence
+Toda Proposition 4.2 exactness
+Toda (4.5) stable-range isomorphism
+η-family definition
+```
+
+Unsafe as Proposition 5.1 premises:
+
+```text
+old literature GIVEN H(η₂)=ι₃ attributed to Proposition 5.1
+old Phase 35–36 proof traces that depend on that GIVEN fact
+```
+
+Phase 35–38 inference machinery may later be reused only after replacing the old Proposition-5.1 GIVEN provenance with the independently derived Phase 49 result.
+
+---
+
+# 25. Deferred stable boundary
+
+The stable conclusion
+
+```text
+(G_1;2)=Z/2{η}
+```
+
+is intentionally deferred. No stable homotopy-group model is introduced for the finite-dimensional Proposition 5.1 branch.
+
+The composition isomorphism following Proposition 5.1, equation (5.2), is also outside the current proof target.
+
+---
+
+# 26. Next design boundary
+
+Phase 51 is complete.
+
+Next implementation sequence:
+
+```text
+Phase 52  Δ(ι₅)=±2η₂ direct bridge
+Phase 53  Toda (4.5) finite-cyclic transport
+Phase 54  E^(n-3)η₃=η_n bridge
+Phase 55  Proposition 5.1 finite-dimensional integration / provenance
+```

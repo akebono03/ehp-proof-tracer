@@ -33,7 +33,7 @@ structural equality
 
 # Current status
 
-Completed through Phase 50.
+Completed through Phase 51.
 
 ```text
 Phase 28  map injectivity / isomorphism / equality reflection
@@ -59,6 +59,7 @@ Phase 47  Toda Proposition 4.4 decomposition isomorphism
 Phase 48  Toda Proposition 4.4 suspension E injectivity consequence
 Phase 49  concrete EHP calculation π_3^2 = Z{η₂}
 Phase 50  concrete EHP calculation π_4^3 = Z/2{η₃}
+Phase 51  Toda Proposition 5.1 proof dependency analysis
 ```
 
 Current full regression:
@@ -408,23 +409,84 @@ Current behavior is defined by the latest README and design documents.
 
 ---
 
+# Phase 51: Toda Proposition 5.1 proof dependency analysis
+
+Actual finite-dimensional target analyzed:
+
+```text
+π_3^2=Z{η₂}
+π_{n+1}^n=Z/2{η_n}  (n≥3)
+H(η₂)=ι₃
+Δ(ι₅)=±2η₂
+```
+
+The scan of Toda p.39 contains an internal inconsistency: the proof text has `Δ(ι₅)=±2η₂`, while the printed Proposition 5.1 line has `±2η₃`. The proof text is dimensionally compatible with `Δ(ι₅)∈π_3^2`, so the development target uses `Δ(ι₅)=±2η₂`.
+
+Already available without using Proposition 5.1 as a premise:
+
+```text
+Phase 49
+π_3^2=Z{η₂}
+H(η₂)=ι₃
+
+Phase 50
+π_4^3=Z/2{η₃}
+[ι₂,ι₂]=±2η₂
+Δ(ι₅)=±[ι₂,ι₂]
+
+Phase 46
+E^(m-n): π_{n+k}^n → π_{m+k}^m isomorphism
+in the stable range
+```
+
+No additional low-dimensional group facts were identified as necessary for the finite-dimensional part of Proposition 5.1. The missing implementation has been reduced to:
+
+```text
+1. Δ(ι₅)=±2η₂ direct bridge
+2. Toda (4.5) finite-cyclic transport
+3. E^(n-3)η₃=η_n bridge
+4. Proposition 5.1 finite-dimensional integration / provenance
+```
+
+Circular-dependency boundary:
+
+```text
+SAFE:
+Phase 49 / Phase 50 / Toda (4.5) derived results
+
+NOT SAFE AS PROP.5.1 PREMISES:
+old Phase 35–36 traces that use H(η₂)=ι₃ as a Prop.5.1 GIVEN fact
+```
+
+Stable `(G_1;2)=Z/2{η}` and the post-Proposition-5.1 composition isomorphism (5.2) remain deferred.
+
+Phase 51 made no production-code changes.
+
+---
+
 # Next development boundary
 
-Phase 50 is complete.
+Phase 51 is complete.
 
-Next candidate:
-
-```text
-Phase 51
-Toda Proposition 5.1 proof dependency analysis
-```
-
-Start with dependency analysis, not implementation:
+Next:
 
 ```text
-actual Prop.5.1 proof dependency
-↓
-minimum missing representation / theorem semantics
-↓
-concrete proof completion
+Phase 52
+Δ(ι₅)=±2η₂ direct consequence bridge
 ```
+
+Then:
+
+```text
+Phase 53
+Toda (4.5) finite-cyclic transport
+
+Phase 54
+higher η-family suspension bridge
+E^(n-3)η₃=η_n
+
+Phase 55
+Toda Proposition 5.1 finite-dimensional integration
+```
+
+Do not introduce stable homotopy-group representation, generic sign algebra, or generic suspension normalization before a concrete need appears.

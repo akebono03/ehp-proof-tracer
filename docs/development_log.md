@@ -506,11 +506,302 @@ higher Toda brackets
 
 ---
 
+# Phase 51：Toda Proposition 5.1 proof dependency analysis
+
+目的:
+
+```text
+Prop.5.1 の actual proof path
++
+Phase 49–50 / current code
+↓
+既に独立導出できる premise と不足 edge を確定する
+```
+
+production code は変更しない。
+
+---
+
+## Phase 51-1：actual statement / proof path compatibility
+
+旧 Phase 35 で Prop.5.1 由来の GIVEN fact として使用していた
+
+```text
+H(η₂)=ι₃
+```
+
+は、現在は Phase 49 の
+
+```text
+H isomorphism
+↓
+η₂ = unique H-preimage of ι₃
+↓
+H(η₂)=ι₃
+```
+
+で独立に導出可能であることを確認。
+
+したがって旧 provenance は Prop.5.1 proof の premise として使用しない。
+
+### 状態
+
+完了
+
+---
+
+## Phase 51-2：current code で既に推論可能な premises
+
+AVAILABLE:
+
+```text
+π_3^2=Z{η₂}
+H(η₂)=ι₃
+π_4^3=Z/2{η₃}
+η_n=E^(n-2)η₂ structural definition
+Toda (4.5) stable-range E^(m-n) isomorphism
+```
+
+PARTIAL:
+
+```text
+π_{n+1}^n=Z/2{η_n}, n≥3
+higher η_n generator connection
+```
+
+MISSING:
+
+```text
+finite-cyclic transport through Toda (4.5)
+stable (G_1;2) representation / conclusion
+direct Δ(ι₅)=±2η₂ conclusion
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 51-3：missing low-dimensional groups
+
+追加の low-dimensional group fact は不要と判断。
+
+既存 base facts / results:
+
+```text
+π_2^1=0
+π_3^3=Z{ι₃}
+π_5^5=Z{ι₅}
+π_4^5=0
+π_3^2=Z{η₂}
+π_4^3=Z/2{η₃}
+```
+
+高次は個別 table fact ではなく
+
+```text
+π_4^3
++
+Toda (4.5)
+↓
+π_{n+1}^n
+```
+
+で transport する方針。
+
+`(G_1;2)` は deferred。
+
+### 状態
+
+完了
+
+---
+
+## Phase 51-4：composition / suspension / Hopf relations
+
+Toda p.39 の scan を確認。
+
+同ページでは proof text に
+
+```text
+Δ(ι₅)=±2η₂
+```
+
+とある一方、printed Proposition 5.1 line は `±2η₃` となっており内部不整合がある。
+
+`Δ(ι₅)∈π_3^2` の次元と proof text に合わせ、development target は
+
+```text
+Δ(ι₅)=±2η₂
+```
+
+とする。
+
+確認結果:
+
+```text
+H(η₂)=ι₃                 AVAILABLE
+H injective               AVAILABLE
+new composition relation  NOT REQUIRED
+Δ(ι₅)=±2η₂ direct bridge  MISSING
+E^(n-3)η₃=η_n             MISSING
+finite cyclic transport   MISSING
+```
+
+Prop.5.1 の直後の composition isomorphism (5.2) は proof premise ではないため deferred。
+
+### 状態
+
+完了
+
+---
+
+## Phase 51-5：circular dependency check
+
+安全な branch:
+
+```text
+Toda Prop.4.2 / independent low-dimensional facts
+↓
+Phase 49
+π_3^2=Z{η₂}, H(η₂)=ι₃
+↓
+Toda Prop.2.7 minimum consequence
+↓
+Phase 50
+π_4^3=Z/2{η₃}
+↓
+Toda (4.5)
+↓
+higher η-family
+↓
+Prop.5.1 finite-dimensional conclusion
+```
+
+循環するため使用禁止:
+
+```text
+Prop.5.1 GIVEN
+↓
+H(η₂)=ι₃
+↓
+old Phase 35–36 proof trace
+↓
+Prop.5.1 proof
+```
+
+Phase 35–38 の rule / machinery 自体は、Phase 49 derived premise に差し替えれば後で再利用可能。
+
+### 状態
+
+完了
+
+---
+
+## Phase 51-6：minimum implementation roadmap
+
+必要な implementation を4点に限定。
+
+```text
+1. Δ(ι₅)=±2η₂ direct bridge
+2. Toda (4.5) finite-cyclic transport
+3. E^(n-3)η₃=η_n bridge
+4. Prop.5.1 finite-dimensional integration / provenance test
+```
+
+先取りしない:
+
+```text
+additional low-dimensional group table
+general sign algebra
+general suspension normalization
+generic isomorphism transport framework
+stable (G_1;2)
+composition (5.2)
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 51-7：completion
+
+Phase 51 で確定:
+
+```text
+Prop.5.1 finite-dimensional proof target
+current independent premises
+no additional low-dimensional group facts required
+missing Δ direct relation edge
+missing finite-cyclic transport edge
+missing higher η-family bridge
+circular dependency boundary
+minimum Phase 52–55 roadmap
+```
+
+production code:
+
+```text
+変更なし
+```
+
+full regression:
+
+```text
+not rerun in Phase 51
+last known: 2703 passed in 65.69s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 51 completion boundary
+
+Completed analysis branch:
+
+```text
+Phase 49
+π_3^2=Z{η₂}
+COMPLETE
+↓
+Phase 50
+π_4^3=Z/2{η₃}
+COMPLETE
+↓
+Phase 51
+Toda Proposition 5.1 proof dependency analysis
+COMPLETE
+```
+
+Minimum next implementation sequence:
+
+```text
+Phase 52
+Δ(ι₅)=±2η₂ direct bridge
+↓
+Phase 53
+Toda (4.5) finite-cyclic transport
+↓
+Phase 54
+E^(n-3)η₃=η_n bridge
+↓
+Phase 55
+Prop.5.1 finite-dimensional integration / provenance
+```
+
+Stable `(G_1;2)=Z/2{η}` is deferred.
+
+---
+
 # 次の Phase
 
 ```text
-Phase 51 candidate
-Toda Proposition 5.1 proof dependency analysis
+Phase 52
+Δ(ι₅)=±2η₂ direct consequence bridge
 ```
-
-最初に actual proof path と current code / tests を照合し、不足 dependency を確定する。

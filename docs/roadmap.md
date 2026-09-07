@@ -202,7 +202,7 @@ general sign solver
 
 ---
 
-# 5. Next central direction
+# 5. Current central direction
 
 Phase 49–50 established:
 
@@ -213,35 +213,83 @@ Phase 49–50 established:
 
 without using Proposition 5.1 as a premise.
 
-Natural next step:
+Phase 51 completed the Proposition 5.1 dependency analysis.
+
+---
+
+# 6. Phase 51：Toda Proposition 5.1 dependency analysis
+
+Analyzed finite-dimensional target:
 
 ```text
-Phase 51
-Toda Proposition 5.1 proof dependency analysis
+π_3^2=Z{η₂}
+π_{n+1}^n=Z/2{η_n}  (n≥3)
+H(η₂)=ι₃
+Δ(ι₅)=±2η₂
+```
+
+Toda p.39 contains an internal inconsistency: the proof text has `Δ(ι₅)=±2η₂`, while the printed proposition line has `±2η₃`. The development follows the proof text and the dimensionally compatible target `π_3^2`.
+
+Confirmed available independently of Proposition 5.1:
+
+```text
+π_3^2=Z{η₂}
+H(η₂)=ι₃
+π_4^3=Z/2{η₃}
+η_n=E^(n-2)η₂ structural definition
+Toda (4.5) stable-range isomorphism
+```
+
+No additional low-dimensional group facts are currently required.
+
+Missing implementation reduced to:
+
+```text
+1. Δ(ι₅)=±2η₂ direct bridge
+2. Toda (4.5) finite-cyclic transport
+3. E^(n-3)η₃=η_n bridge
+4. finite-dimensional Prop.5.1 integration / provenance
+```
+
+Circularity boundary:
+
+```text
+SAFE:
+Phase 49 / 50 derived results
+Toda Prop.2.7 / Prop.4.2 / (4.5) dependencies
+
+UNSAFE AS PROP.5.1 PREMISE:
+old H(η₂)=ι₃ literature GIVEN attributed to Prop.5.1
+old Phase 35–36 traces carrying that provenance
+```
+
+state:
+
+```text
+COMPLETE
 ```
 
 ---
 
-# 6. Phase 51 candidate：Toda Proposition 5.1 dependency analysis
+# 7. Phase 52：Δ(ι₅)=±2η₂ direct bridge
 
-確認すること:
+Target:
 
 ```text
-actual Proposition 5.1 statement
-current proof target
-current Phase 35 use of Prop.5.1-derived facts
-which facts are now independently proof-derived
-required low-dimensional groups
-required composition relations
-required suspension relations
-required Hopf invariant relations
-required prior Toda propositions
-possible circular dependencies
+Δ(ι₅)=±[ι₂,ι₂]
++
+[ι₂,ι₂]=±2η₂
+↓
+Δ(ι₅)=±2η₂
 ```
 
-特に Phase 49/50 の結果を Prop.5.1 proof の input として利用できるかを確認する。
+Boundary:
 
-production code は原則変更しない。
+```text
+theorem-specific direct bridge only
+no general up-to-sign transitivity
+no sign solver
+```
 
 state:
 
@@ -251,43 +299,45 @@ NEXT
 
 ---
 
-# 7. Phase 52+ candidate：missing dependencies
+# 8. Phase 53–55：finite-dimensional Proposition 5.1 completion path
 
-Phase 51 の分析結果に応じて、必要な concrete groups / relations のみ追加する。
-
-```text
-必要と判明したものだけを追加
-```
-
-not:
+Phase 53:
 
 ```text
-低次ホモトピー群 table を一括実装
+Toda (4.5) finite-cyclic transport
+
+π_4^3=Z/2{η₃}
++
+E^(n-3): π_4^3 ≅ π_{n+1}^n
+↓
+π_{n+1}^n=Z/2{E^(n-3)η₃}
 ```
 
----
-
-# 8. Toda Proposition 5.1 proof completion
-
-Dependency が揃った後にのみ proof completion に進む。
+Phase 54:
 
 ```text
-Phase 49 / 50 low-dimensional results
-↓
-additional required low-dimensional groups
-↓
-required composition / suspension relations
-↓
-required prior Toda results
-↓
-Proposition 5.1 premises
-↓
-Proposition 5.1 conclusion
+higher η-family bridge
+E^(n-3)η₃=η_n
 ```
 
-その後、既存 Phase 35–38 branch と再接続する。
+Phase 55:
 
----
+```text
+Prop.5.1 finite-dimensional integration / provenance
+
+π_3^2=Z{η₂}
+π_{n+1}^n=Z/2{η_n}  (n≥3)
+H(η₂)=ι₃
+Δ(ι₅)=±2η₂
+```
+
+Deferred beyond Phase 55:
+
+```text
+(G_1;2)=Z/2{η}
+stable homotopy group model
+composition isomorphism (5.2)
+```
 
 # 9. Deferred generalizations
 
@@ -333,8 +383,12 @@ general-purpose CAS normalization
 | π_3^2=Z{η₂} | COMPLETE | 49 |
 | minimum Prop.2.7 consequence | COMPLETE | 50 |
 | π_4^3=Z/2{η₃} | COMPLETE | 50 |
-| Prop.5.1 dependency analysis | NEXT | 51 candidate |
-| Prop.5.1 proof completion | PLANNED | later |
+| Prop.5.1 dependency analysis | COMPLETE | 51 |
+| Δ(ι₅)=±2η₂ direct bridge | NEXT | 52 |
+| Toda (4.5) finite-cyclic transport | PLANNED | 53 |
+| higher η-family bridge | PLANNED | 54 |
+| Prop.5.1 finite-dimensional integration | PLANNED | 55 |
+| Prop.5.1 stable `(G_1;2)` conclusion | DEFERRED | later |
 | stable homotopy | PLANNED | later |
 | higher Toda brackets | DEFERRED | concrete need |
 
@@ -343,22 +397,20 @@ general-purpose CAS normalization
 # 11. Current immediate next step
 
 ```text
-Phase 51-1
-Toda Proposition 5.1 proof dependency compatibility check
+Phase 52
+Δ(ι₅)=±2η₂ direct consequence bridge
 ```
 
-最初に:
+Use only the already derived Phase 50 specific statements:
 
 ```text
-current code
-+
-current tests
-+
-actual Proposition 5.1 proof path
+Δ(ι₅)=±[ι₂,ι₂]
+[ι₂,ι₂]=±2η₂
 ```
 
-を照合し、missing premise / theorem edge / low-dimensional group を確定する。
+and add the minimum theorem-specific conclusion needed for Proposition 5.1.
 
+Do not add generic sign algebra.
 
 ---
 
@@ -725,13 +777,27 @@ COMPLETE
 ↓
 Phase 51
 Toda Proposition 5.1 dependency analysis
+COMPLETE
+↓
+Phase 52
+Δ(ι₅)=±2η₂ direct bridge
 NEXT
 ↓
-必要な concrete low-dimensional calculations
+Phase 53
+Toda (4.5) finite-cyclic transport
 ↓
-Toda backlog から必要 theorem のみ昇格
+Phase 54
+E^(n-3)η₃=η_n bridge
 ↓
-Toda Proposition 5.1 proof completion
+Phase 55
+Toda Proposition 5.1 finite-dimensional integration
+```
+
+Stable branch:
+
+```text
+(G_1;2)=Z/2{η}
+DEFERRED
 ```
 
 並行する将来 architecture branch:
@@ -793,39 +859,36 @@ Prop 2.7
 # 22. Updated immediate next step
 
 ```text
-Phase 51-1
-Toda Proposition 5.1 proof dependency compatibility check
+Phase 52
+Δ(ι₅)=±2η₂ direct consequence bridge
 ```
 
-確認:
+Required current premises:
 
 ```text
-current code
-+
-current tests
-+
-Phase 49 / 50 derived facts
-+
-actual Proposition 5.1 proof path
+Δ(ι₅)=±[ι₂,ι₂]
+[ι₂,ι₂]=±2η₂
 ```
 
-から:
+Target:
 
 ```text
-missing low-dimensional fact
-missing relation
-missing theorem dependency
-possible circular dependency
+Δ(ι₅)=±2η₂
 ```
 
-を確定する。
-
-repository / database は Phase 51 のために先取り実装しない。
-
-ただし Phase 51 以降で concrete fact がさらに増え、同じ保存・lookup・比較処理が繰り返し必要になった時点で:
+Boundary:
 
 ```text
-HomotopyFactRepository compatibility check
+Toda-specific bridge only
+no generic up-to-sign algebra
+no low-dimensional table expansion
+no stable homotopy model
 ```
 
-を新しい Phase candidate として昇格する。
+After Phase 52:
+
+```text
+Phase 53 finite-cyclic transport
+Phase 54 higher η-family bridge
+Phase 55 finite-dimensional Prop.5.1 integration
+```
