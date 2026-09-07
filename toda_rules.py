@@ -117,6 +117,133 @@ class TodaDeltaImageUpToSignStatement:
 
 
 @dataclass(frozen=True)
+class TodaDeltaPreimageUpToSignStatement:
+  map: TodaDeltaMap
+  value: Expression
+  positive_preimage: Expression
+
+
+def toda_lemma52_delta_two_eta2_preimage_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    delta_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    expected_source = TodaPrimaryGroup(
+      group_dimension=5,
+      sphere_dimension=5,
+    )
+
+    expected_target = TodaPrimaryGroup(
+      group_dimension=3,
+      sphere_dimension=2,
+    )
+
+    if (
+      delta_statement.map.source_group
+      != expected_source
+    ):
+      return False
+
+    if (
+      delta_statement.map.target_group
+      != expected_target
+    ):
+      return False
+
+    iota_5 = HomotopyElement(
+      name="ι_5",
+      dimension=5,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=5,
+      ),
+    )
+
+    if (
+      delta_statement.element
+      != iota_5
+    ):
+      return False
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    expected_two_eta_2 = Multiple(
+      coefficient=2,
+      expression=eta_2,
+    )
+
+    return (
+      delta_statement.positive_value
+      == expected_two_eta_2
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    delta_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return (
+      TodaDeltaPreimageUpToSignStatement(
+        map=delta_statement.map,
+        value=(
+          delta_statement
+          .positive_value
+        ),
+        positive_preimage=(
+          delta_statement
+          .element
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.2 "
+      "Delta inverse of twice eta_2"
+    ),
+    description=(
+      "For the specific Delta map "
+      "from pi_5^5 to pi_3^2, "
+      "the independently derived "
+      "relation Delta(iota_5) equals "
+      "plus or minus 2 eta_2 gives "
+      "the Lemma 5.2 connection "
+      "Delta^-1(2 eta_2) equals "
+      "plus or minus iota_5."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaDeltaImageUpToSignStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+@dataclass(frozen=True)
 class TodaProp51FiniteDimensionalStatement:
   pi3_2_group_relation: Relation
   eta2_hopf_relation: Relation
