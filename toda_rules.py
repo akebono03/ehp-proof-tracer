@@ -519,6 +519,76 @@ class TodaProp44SuspensionInjectiveStatement:
   map: TodaSuspensionMap
 
 
+def toda_pi_i_minus_1_1_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    lower_bound = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    i = lower_bound.left
+
+    if not isinstance(
+      i,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      lower_bound.right
+      != 3
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    lower_bound = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    i = lower_bound.left
+
+    return TodaPrimaryGroupZeroStatement(
+      group=TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=i,
+          right=-1,
+        ),
+        sphere_dimension=1,
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda pi_(i-1)^1 "
+      "zero for i at least 3"
+    ),
+    description=(
+      "For symbolic i at least 3, "
+      "the Toda primary group "
+      "pi_(i-1)^1 is zero."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_prop44_first_summand_restriction_inference_rule():
   def guard(
     premises,
