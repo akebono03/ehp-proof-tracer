@@ -1772,6 +1772,289 @@ def toda_prop53_n3_pi5_3_finite_cyclic_transport_inference_rule():
   )
 
 
+def toda_prop53_n4_phase48_injectivity_bridge_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    injectivity = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    suspension_map = (
+      injectivity.map
+    )
+
+    expected_structural_source = (
+      TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=6,
+          right=-1,
+        ),
+        sphere_dimension=ScalarSum(
+          left=4,
+          right=-1,
+        ),
+      )
+    )
+
+    expected_target = TodaPrimaryGroup(
+      group_dimension=6,
+      sphere_dimension=4,
+    )
+
+    return (
+      suspension_map.source_group
+      == expected_structural_source
+      and suspension_map.target_group
+      == expected_target
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return (
+      TodaProp44SuspensionInjectiveStatement(
+        map=TodaSuspensionMap(
+          source_group=TodaPrimaryGroup(
+            group_dimension=5,
+            sphere_dimension=3,
+          ),
+          target_group=TodaPrimaryGroup(
+            group_dimension=6,
+            sphere_dimension=4,
+          ),
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.3 "
+      "n=4 Phase 48 injectivity bridge"
+    ),
+    description=(
+      "Specialize the independently "
+      "derived Toda Proposition 4.4 "
+      "suspension injectivity instance "
+      "with i=6 and n=4. "
+      "The structural first summand "
+      "pi_(6-1)^(4-1) is identified "
+      "with the concrete group pi_5^3, "
+      "giving injectivity of suspension "
+      "E from pi_5^3 to pi_6^4. "
+      "No general scalar normalization "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp44SuspensionInjectiveStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop53_n4_zero_right_suspension_surjective_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    zero_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    window = exactness.window
+
+    expected_source = TodaPrimaryGroup(
+      group_dimension=5,
+      sphere_dimension=3,
+    )
+
+    expected_middle = TodaPrimaryGroup(
+      group_dimension=6,
+      sphere_dimension=4,
+    )
+
+    expected_target = TodaPrimaryGroup(
+      group_dimension=6,
+      sphere_dimension=7,
+    )
+
+    if (
+      zero_statement.group
+      != expected_target
+    ):
+      return False
+
+    if (
+      window.first_map
+      != EHP_E_MAP
+    ):
+      return False
+
+    if (
+      window.second_map
+      != EHP_H_MAP
+    ):
+      return False
+
+    return (
+      window.source_term
+      == expected_source
+      and window.middle_term
+      == expected_middle
+      and window.target_term
+      == expected_target
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    window = exactness.window
+
+    return (
+      TodaSuspensionSurjectiveStatement(
+        map=TodaSuspensionMap(
+          source_group=window.source_term,
+          target_group=window.middle_term,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.3 "
+      "n=4 zero-right "
+      "suspension surjectivity"
+    ),
+    description=(
+      "For the concrete E-H exact "
+      "window pi_5^3 to pi_6^4 "
+      "to pi_6^7, the Toda (5.1) "
+      "fact pi_6^7=0 makes the "
+      "kernel of H all of pi_6^4. "
+      "Exactness therefore makes "
+      "suspension E from pi_5^3 "
+      "to pi_6^4 surjective."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaPrimaryGroupZeroStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop53_n4_suspension_isomorphism_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    injectivity = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    surjectivity = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    expected_map = TodaSuspensionMap(
+      source_group=TodaPrimaryGroup(
+        group_dimension=5,
+        sphere_dimension=3,
+      ),
+      target_group=TodaPrimaryGroup(
+        group_dimension=6,
+        sphere_dimension=4,
+      ),
+    )
+
+    return (
+      injectivity.map
+      == expected_map
+      and surjectivity.map
+      == expected_map
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    injectivity = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return (
+      TodaSuspensionIsomorphismStatement(
+        map=injectivity.map,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.3 "
+      "n=4 suspension isomorphism"
+    ),
+    description=(
+      "If the concrete suspension map "
+      "E from pi_5^3 to pi_6^4 is "
+      "both injective and surjective, "
+      "then it is an isomorphism."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp44SuspensionInjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaSuspensionSurjectiveStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 @dataclass(frozen=True)
 class TodaEtaFamilyDefinitionStatement:
   index: int | ScalarSymbol
