@@ -521,8 +521,286 @@ class TodaProp44SecondSummandRestrictionStatement:
 
 
 @dataclass(frozen=True)
+class Toda52CompositionIsomorphismStatement:
+  source_group: TodaPrimaryGroup
+  target_group: TodaPrimaryGroup
+  composition: Composition
+
+
+@dataclass(frozen=True)
 class TodaProp44SuspensionInjectiveStatement:
   map: TodaSuspensionMap
+
+
+def toda_52_eta2_composition_isomorphism_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    zero_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    isomorphism = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    restriction = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    decomposition_map = (
+      isomorphism.map
+    )
+
+    if (
+      restriction.decomposition_map
+      != decomposition_map
+    ):
+      return False
+
+    source_group = (
+      decomposition_map.source_group
+    )
+
+    if not isinstance(
+      source_group,
+      DirectSumGroup,
+    ):
+      return False
+
+    if (
+      len(
+        source_group.summands
+      )
+      != 2
+    ):
+      return False
+
+    first_summand = (
+      source_group.summands[
+        0
+      ]
+    )
+
+    second_summand = (
+      source_group.summands[
+        1
+      ]
+    )
+
+    if not isinstance(
+      first_summand,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    if not isinstance(
+      second_summand,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    target_group = (
+      decomposition_map.target_group
+    )
+
+    if not isinstance(
+      target_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    i = (
+      target_group.group_dimension
+    )
+
+    if not isinstance(
+      i,
+      ScalarSymbol,
+    ):
+      return False
+
+    expected_first_summand = (
+      TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=i,
+          right=-1,
+        ),
+        sphere_dimension=1,
+      )
+    )
+
+    if (
+      first_summand
+      != expected_first_summand
+    ):
+      return False
+
+    if (
+      zero_statement.group
+      != first_summand
+    ):
+      return False
+
+    expected_second_summand = (
+      TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=3,
+      )
+    )
+
+    if (
+      second_summand
+      != expected_second_summand
+    ):
+      return False
+
+    expected_target_group = (
+      TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=2,
+      )
+    )
+
+    if (
+      target_group
+      != expected_target_group
+    ):
+      return False
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    if (
+      decomposition_map.alpha
+      != eta_2
+    ):
+      return False
+
+    expected_composition = (
+      Composition(
+        left=eta_2,
+        right=(
+          decomposition_map.gamma
+        ),
+      )
+    )
+
+    if (
+      restriction.composition
+      != expected_composition
+    ):
+      return False
+
+    expected_formula = Sum(
+      left=Suspension(
+        expression=(
+          decomposition_map.beta
+        ),
+      ),
+      right=expected_composition,
+    )
+
+    return (
+      decomposition_map.formula
+      == expected_formula
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    isomorphism = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    restriction = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    decomposition_map = (
+      isomorphism.map
+    )
+
+    second_summand = (
+      decomposition_map
+      .source_group
+      .summands[
+        1
+      ]
+    )
+
+    return (
+      Toda52CompositionIsomorphismStatement(
+        source_group=second_summand,
+        target_group=(
+          decomposition_map
+          .target_group
+        ),
+        composition=(
+          restriction.composition
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 5.2 eta_2 "
+      "composition isomorphism"
+    ),
+    description=(
+      "If the first summand "
+      "pi_(i-1)^1 is zero, the derived "
+      "n=2 and alpha=eta_2 Toda "
+      "Proposition 4.4 decomposition "
+      "map is an isomorphism, and its "
+      "restriction to the second "
+      "summand is composition with "
+      "eta_2, then composition with "
+      "eta_2 gives an isomorphism "
+      "from pi_i^3 to pi_i^2."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaPrimaryGroupZeroStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp44IsomorphismStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp44SecondSummandRestrictionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
 
 
 def toda_pi_i_minus_1_1_zero_inference_rule():
