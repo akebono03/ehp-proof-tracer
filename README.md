@@ -33,7 +33,7 @@ structural equality
 
 # Current status
 
-Completed through Phase 52.
+Completed through Phase 53.
 
 ```text
 Phase 28  map injectivity / isomorphism / equality reflection
@@ -61,18 +61,19 @@ Phase 49  concrete EHP calculation π_3^2 = Z{η₂}
 Phase 50  concrete EHP calculation π_4^3 = Z/2{η₃}
 Phase 51  Toda Proposition 5.1 proof dependency analysis
 Phase 52  Δ(ι₅)=±2η₂ direct bridge
+Phase 53  Toda (4.5) finite-cyclic transport
 ```
 
 Current full regression:
 
 ```text
-2731 passed in 26.67s
+2769 passed in 25.60s
 ```
 
 Representative current probe:
 
 ```powershell
-python -m probes.probe_phase52_capabilities
+python -m probes.probe_phase53_capabilities
 ```
 
 ---
@@ -588,26 +589,141 @@ not implemented:
 
 ---
 
-# Next development boundary
+# Phase 53: Toda (4.5) finite-cyclic transport
 
-Phase 52 is complete.
-
-Next:
+Target:
 
 ```text
-Phase 53
-Toda (4.5) finite-cyclic transport
+π_4^3=Z/2{η₃}
++
+E^(n-3): π_4^3 ≅ π_{n+1}^n
+↓
+π_{n+1}^n=Z/2{E^(n-3)η₃}
 ```
 
-Then:
+Phase 53 reuses the existing structures:
+
+```text
+Toda45IsomorphismStatement
+TodaIteratedSuspensionMap
+FiniteCyclicGroup
+IteratedSuspension
+Relation
+```
+
+No new generic transport representation is introduced.
+
+Specific inference rule:
+
+```text
+toda_45_pi4_3_finite_cyclic_transport_inference_rule()
+```
+
+The rule is restricted to the concrete source structure:
+
+```text
+π_4^3=Z/2{η₃}
+```
+
+and a Toda (4.5) iterated suspension isomorphism with target shape:
+
+```text
+E^(n-3): π_4^3 → π_{n+1}^n.
+```
+
+It preserves the order and transports only the required generator expression:
+
+```text
+η₃
+↓
+E^(n-3)η₃
+```
+
+The Phase 46 stable-range branch and the Phase 50 concrete calculation are integrated in one fixed-point run:
+
+```text
+Phase 50 derived
+π_4^3=Z/2{η₃}
+
+Phase 46 derived
+Toda (4.5) isomorphism
+
+↓
+
+Phase 53 derived
+π_{n+1}^n=Z/2{E^(n-3)η₃}
+```
+
+The final transport step preserves two derived premises; the Phase 50 group result is not reintroduced as GIVEN.
+
+Representative counts:
+
+```text
+given premise count = 14
+derived step count = 11
+derived round count = 7
+fixed point = True
+```
+
+Representative probe:
+
+```powershell
+python -m probes.probe_phase53_capabilities
+```
+
+Phase 53 tests:
+
+```text
+tests/test_phase53_finite_cyclic_transport.py  24 passed
+tests/test_phase53_integration.py               6 passed
+tests/test_phase53_probe.py                     8 passed
+```
+
+Full regression:
+
+```text
+2769 passed in 25.60s
+```
+
+Phase 53 boundary:
+
+```text
+implemented:
+  specific Toda (4.5) finite-cyclic transport
+  stable-range branch integration
+  wrong-instance rejection
+  Phase 50 derived-result integration
+  provenance
+  representative probe
+
+not implemented:
+  E^(n-3)η₃=η_n
+  generic isomorphism transport
+  generic generator transport
+  generic suspension normalization
+  Proposition 5.1 finite-dimensional integration
+  stable homotopy model
+```
+
+---
+
+# Next development boundary
+
+Phase 53 is complete.
+
+Next:
 
 ```text
 Phase 54
 higher η-family suspension bridge
 E^(n-3)η₃=η_n
-
-Phase 55
-Toda Proposition 5.1 finite-dimensional integration
 ```
 
-Do not introduce stable homotopy-group representation, generic sign algebra, generic isomorphism transport, or generic suspension normalization before a concrete need appears.
+Then:
+
+```text
+Phase 55
+Toda Proposition 5.1 finite-dimensional integration / provenance
+```
+
+Do not introduce stable homotopy-group representation, generic isomorphism transport, generic generator transport, or generic suspension normalization before a concrete need appears.
