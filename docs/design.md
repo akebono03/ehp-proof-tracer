@@ -671,16 +671,163 @@ Phase 52 full regression:
 
 ---
 
-# 27. Next design boundary
+# 27. Phase 53 finite-cyclic transport 設計
 
-Phase 52 is complete.
-
-Next implementation sequence:
+目的:
 
 ```text
-Phase 53  Toda (4.5) finite-cyclic transport
+π_4^3=Z/2{η₃}
++
+E^(n-3): π_4^3 ≅ π_{n+1}^n
+↓
+π_{n+1}^n=Z/2{E^(n-3)η₃}
+```
+
+既存表現だけを再利用する。
+
+```text
+Toda45IsomorphismStatement
+TodaIteratedSuspensionMap
+FiniteCyclicGroup
+IteratedSuspension
+Relation
+```
+
+新しい transport 用 group class や generic isomorphism transport framework は追加しない。
+
+Specific rule:
+
+```text
+toda_45_pi4_3_finite_cyclic_transport_inference_rule()
+```
+
+適用対象は次に限定する。
+
+```text
+source group relation = π_4^3=Z/2{η₃}
+Toda (4.5) source sphere = 3
+source degree = 4 または既存 Phase 46 の ScalarSum(3,1)
+target = π_{n+1}^n
+exponent = n-3 の既存 symbolic tree
+```
+
+`ScalarSum(3,1)` と concrete `4` の差は、この specific `π_4^3` guard 内だけで受理する。generic scalar normalization は導入しない。
+
+Generator transport は:
+
+```text
+η₃
+↓
+IteratedSuspension(η₃,n-3)
+```
+
+までとする。
+
+```text
+E^(n-3)η₃=η_n
+```
+
+への接続は Phase 54 の責務であり、Phase 53 では行わない。
+
+---
+
+# 28. Phase 53 stable-range / applicability 設計
+
+Toda (4.5) の stable range は Phase 46 の責務を維持する。
+
+```text
+stable-range premises
++
+TodaIteratedSuspensionMap
+↓
+Toda45IsomorphismStatement
+```
+
+Phase 53 rule 自体は inequality を再評価せず、導出済み `Toda45IsomorphismStatement` を premise とする。
+
+現在の scalar inequality は structural representation であり、一般の数値 inequality solver は導入しない。
+
+Phase 53 で reject を固定した対象:
+
+```text
+wrong stable-range structure
+wrong suspension-range instance
+wrong source sphere
+wrong source degree
+wrong target degree
+wrong exponent
+wrong source group
+wrong cyclic order
+wrong generator
+```
+
+---
+
+# 29. Phase 53 integration / provenance 設計
+
+Phase 50 の最終 result を GIVEN として再投入しない。
+
+同一 fixed-point run 内で:
+
+```text
+Phase 50 premises
+↓
+π_4^3=Z/2{η₃}  INFERENCE
+
+Phase 46 stable-range premises
+↓
+Toda45IsomorphismStatement  INFERENCE
+
+両者
+↓
+π_{n+1}^n=Z/2{E^(n-3)η₃}  INFERENCE
+```
+
+transport step の2 premise は両方とも `ProofRule.INFERENCE` であることを要求する。
+
+Representative counts:
+
+```text
+given = 14
+derived = 11
+rounds = 7
+fixed point = True
+```
+
+Full regression:
+
+```text
+2769 passed in 25.60s
+```
+
+Generic inference engine は変更していない。
+
+---
+
+# 30. 次の設計境界
+
+Phase 53 は完了。
+
+次の実装順序:
+
+```text
 Phase 54  E^(n-3)η₃=η_n bridge
 Phase 55  Proposition 5.1 finite-dimensional integration / provenance
 ```
 
-Phase 53 should transport the concrete `Z/2{η₃}` structure through the existing Toda (4.5) isomorphism only as far as required by Proposition 5.1. Do not introduce a generic isomorphism-transport framework without a concrete later need.
+Phase 54 では、higher η-family の定義
+
+```text
+η_n=E^(n-2)η₂  (n>=3)
+```
+
+と `η₃=Eη₂` を使い、必要な η-family-specific bridge だけを追加する。
+
+先取りしない:
+
+```text
+generic suspension normalization
+generic iterated-suspension composition algebra
+generic generator transport
+stable homotopy model
+```
