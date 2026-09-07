@@ -1,5 +1,8 @@
 from dataclasses import dataclass
 
+from barratt_hilton_rules import (
+  HomotopyGroupMembershipStatement,
+)
 from expression import (
   Composition,
   Expression,
@@ -5897,6 +5900,77 @@ def toda_pi4_3_eta3_generator_inference_rule():
         statement_type=Relation,
         relation_type=(
           RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma45_n4_two_iota3_composition_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    membership = (
+      premises[0].conclusion
+    )
+
+    return (
+      membership.sphere_dimension
+      == 3
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    membership = (
+      premises[0].conclusion
+    )
+
+    alpha = membership.element
+
+    iota_3 = HomotopyElement(
+      name="ι_3",
+      dimension=3,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=3,
+      ),
+    )
+
+    return Relation(
+      lhs=Composition(
+        left=Multiple(
+          coefficient=2,
+          expression=iota_3,
+        ),
+        right=alpha,
+      ),
+      rhs=Multiple(
+        coefficient=2,
+        expression=alpha,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 4.5 "
+      "n=4 two-iota_3 composition"
+    ),
+    description=(
+      "For alpha in pi_i(S^3), "
+      "the n=4, r=2 specialization "
+      "of Toda Lemma 4.5 gives "
+      "2 iota_3 composed with alpha "
+      "equals 2 alpha."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          HomotopyGroupMembershipStatement
         ),
       ),
     ),
