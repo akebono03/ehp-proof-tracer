@@ -4813,6 +4813,177 @@ def toda_53_eta5_iterated_suspension_bridge_inference_rule():
   )
 
 
+def toda_53_eta4_suspension_bridge_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    eta3_definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta4_definition = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if (
+      eta3_definition.index
+      != 3
+    ):
+      return False
+
+    if (
+      eta4_definition.index
+      != 4
+    ):
+      return False
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    if (
+      eta3_definition.element
+      != eta_3
+    ):
+      return False
+
+    if (
+      eta3_definition.iterated_suspension
+      != IteratedSuspension(
+        expression=eta_2,
+        exponent=1,
+      )
+    ):
+      return False
+
+    eta4_element = (
+      eta4_definition.element
+    )
+
+    if (
+      eta4_element.dimension
+      != 4
+    ):
+      return False
+
+    if (
+      eta4_element.source
+      != 5
+    ):
+      return False
+
+    if (
+      eta4_element.target
+      != 4
+    ):
+      return False
+
+    if (
+      eta4_element.generator
+      != GeneratorSymbol(
+        family="η",
+        index=4,
+      )
+    ):
+      return False
+
+    return (
+      eta4_definition.iterated_suspension
+      == IteratedSuspension(
+        expression=eta_2,
+        exponent=2,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    eta3_definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta_4 = HomotopyElement(
+      name="η₄",
+      dimension=4,
+      source=5,
+      target=4,
+      generator=GeneratorSymbol(
+        family="η",
+        index=4,
+      ),
+    )
+
+    return Relation(
+      lhs=Suspension(
+        expression=(
+          eta3_definition.element
+        ),
+      ),
+      rhs=eta_4,
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 5.3 eta_4 "
+      "suspension bridge"
+    ),
+    description=(
+      "For the concrete eta-family "
+      "definitions at indices 3 and 4, "
+      "derive E eta_3=eta_4. "
+      "The existing eta-family constructor "
+      "uses the structural name eta_4 at "
+      "index 4, while Toda 5.3 uses the "
+      "canonical concrete notation "
+      "eta-subscript-4. "
+      "This narrow bridge does not change "
+      "the Phase 54 symbolic eta-family "
+      "rule or introduce generic "
+      "suspension normalization."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaEtaFamilyDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaEtaFamilyDefinitionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 @dataclass(frozen=True)
 class TodaBracketMembershipTheoremStatement:
   element: Expression
