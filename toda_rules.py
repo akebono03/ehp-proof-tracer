@@ -114,6 +114,282 @@ class TodaDeltaImageUpToSignStatement:
 
 
 @dataclass(frozen=True)
+class TodaProp51FiniteDimensionalStatement:
+  pi3_2_group_relation: Relation
+  eta2_hopf_relation: Relation
+  delta_iota5_relation: TodaDeltaImageUpToSignStatement
+  higher_eta_group_relation: Relation
+
+
+def toda_prop51_finite_dimensional_integration_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    pi3_2_group_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta2_hopf_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    delta_iota5_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    higher_eta_group_relation = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    iota_3 = HomotopyElement(
+      name="ι_3",
+      dimension=3,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=3,
+      ),
+    )
+
+    iota_5 = HomotopyElement(
+      name="ι_5",
+      dimension=5,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=5,
+      ),
+    )
+
+    pi_3_2 = TodaPrimaryGroup(
+      group_dimension=3,
+      sphere_dimension=2,
+    )
+
+    pi_5_5 = TodaPrimaryGroup(
+      group_dimension=5,
+      sphere_dimension=5,
+    )
+
+    expected_pi3_2_relation = Relation(
+      lhs=pi_3_2,
+      rhs=FreeCyclicGroup(
+        generator=eta_2,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      pi3_2_group_relation
+      != expected_pi3_2_relation
+    ):
+      return False
+
+    expected_hopf_relation = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=eta_2,
+      ),
+      rhs=iota_3,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      eta2_hopf_relation
+      != expected_hopf_relation
+    ):
+      return False
+
+    expected_delta_relation = (
+      TodaDeltaImageUpToSignStatement(
+        map=TodaDeltaMap(
+          source_group=pi_5_5,
+          target_group=pi_3_2,
+        ),
+        element=iota_5,
+        positive_value=Multiple(
+          coefficient=2,
+          expression=eta_2,
+        ),
+      )
+    )
+
+    if (
+      delta_iota5_relation
+      != expected_delta_relation
+    ):
+      return False
+
+    if not isinstance(
+      higher_eta_group_relation.lhs,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    target_group = (
+      higher_eta_group_relation.lhs
+    )
+
+    n = (
+      target_group
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    expected_target_group = TodaPrimaryGroup(
+      group_dimension=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      sphere_dimension=n,
+    )
+
+    if (
+      target_group
+      != expected_target_group
+    ):
+      return False
+
+    if not isinstance(
+      higher_eta_group_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      higher_eta_group_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    eta_n = HomotopyElement(
+      name="η_n",
+      dimension=n,
+      source=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      target=n,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n,
+      ),
+    )
+
+    return (
+      higher_eta_group_relation
+      == Relation(
+        lhs=expected_target_group,
+        rhs=FiniteCyclicGroup(
+          order=2,
+          generator=eta_n,
+        ),
+        relation_type=RelationType.EQUALITY,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return (
+      TodaProp51FiniteDimensionalStatement(
+        pi3_2_group_relation=(
+          premises[
+            0
+          ].conclusion
+        ),
+        eta2_hopf_relation=(
+          premises[
+            1
+          ].conclusion
+        ),
+        delta_iota5_relation=(
+          premises[
+            2
+          ].conclusion
+        ),
+        higher_eta_group_relation=(
+          premises[
+            3
+          ].conclusion
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.1 "
+      "finite-dimensional integration"
+    ),
+    description=(
+      "Integrate the independently "
+      "derived finite-dimensional "
+      "results pi_3^2=Z{eta_2}, "
+      "H(eta_2)=iota_3, "
+      "Delta(iota_5)=plus or minus "
+      "2 eta_2, and "
+      "pi_(n+1)^n=Z/2{eta_n} "
+      "into the finite-dimensional "
+      "Toda Proposition 5.1 statement."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaDeltaImageUpToSignStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+@dataclass(frozen=True)
 class TodaEtaFamilyDefinitionStatement:
   index: int | ScalarSymbol
   element: HomotopyElement

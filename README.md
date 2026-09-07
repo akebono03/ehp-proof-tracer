@@ -33,7 +33,7 @@ structural equality
 
 # Current status
 
-Completed through Phase 54.
+Completed through Phase 55.
 
 ```text
 Phase 28  map injectivity / isomorphism / equality reflection
@@ -63,18 +63,19 @@ Phase 51  Toda Proposition 5.1 proof dependency analysis
 Phase 52  Δ(ι₅)=±2η₂ direct bridge
 Phase 53  Toda (4.5) finite-cyclic transport
 Phase 54  higher η-family bridge and finite-cyclic integration
+Phase 55  Toda Proposition 5.1 finite-dimensional integration / provenance
 ```
 
 Current full regression:
 
 ```text
-2804 passed in 26.50s
+2844 passed in 31.12s
 ```
 
 Representative current probe:
 
 ```powershell
-python -m probes.probe_phase54_capabilities
+python -m probes.probe_phase55_capabilities
 ```
 
 ---
@@ -858,18 +859,9 @@ not implemented:
 
 ---
 
-# Next development boundary
+# Phase 55: Toda Proposition 5.1 finite-dimensional integration / provenance
 
-Phase 54 is complete.
-
-Next:
-
-```text
-Phase 55
-Toda Proposition 5.1 finite-dimensional integration / provenance
-```
-
-The available independently derived finite-dimensional ingredients are now:
+Phase 55 integrates the four independently derived finite-dimensional results needed for Toda Proposition 5.1:
 
 ```text
 π_3^2=Z{η₂}
@@ -878,4 +870,133 @@ H(η₂)=ι₃
 π_{n+1}^n=Z/2{η_n}
 ```
 
-Do not introduce the stable `(G_1;2)` conclusion, a stable homotopy-group model, generic cyclic-generator rewriting, generic scalar normalization, or generic suspension normalization before a concrete need appears.
+Minimum aggregate representation:
+
+```text
+TodaProp51FiniteDimensionalStatement
+```
+
+Its four fields preserve the existing representations without introducing a generic conjunction framework:
+
+```text
+pi3_2_group_relation
+eta2_hopf_relation
+delta_iota5_relation
+higher_eta_group_relation
+```
+
+Specific integration rule:
+
+```text
+toda_prop51_finite_dimensional_integration_inference_rule()
+```
+
+The rule requires exactly the four Proposition 5.1 finite-dimensional results in their expected structural forms and requires every premise to be `ProofRule.INFERENCE`. Therefore the final Proposition 5.1 result cannot be built by reintroducing one of these results as a GIVEN premise.
+
+Dependency chain:
+
+```text
+Phase 49 derived:
+  π_3^2=Z{η₂}
+  H(η₂)=ι₃
+
+Phase 52 derived:
+  Δ(ι₅)=±2η₂
+
+Phase 54 derived:
+  π_{n+1}^n=Z/2{η_n}
+
+↓
+
+Toda Proposition 5.1
+finite-dimensional result
+```
+
+The Phase 55 representative run is rebuilt from the Phase 49 base premises instead of blindly extending the Phase 50 representative premise set. This avoids reintroducing the old Phase 49 results as GIVEN premises.
+
+Circular-dependency checks reject:
+
+```text
+GIVEN H(η₂)=ι₃
+GIVEN π_3^2=Z{η₂}
+GIVEN Δ(ι₅)=±2η₂
+GIVEN π_{n+1}^n=Z/2{η_n}
+GIVEN Proposition 5.1 result used in place of a missing dependency
+pre-direct Δ result Δ(ι₅)=±[ι₂,ι₂]
+pre-η-family transported group π_{n+1}^n=Z/2{E^(n-3)η₃}
+```
+
+Representative provenance:
+
+```text
+pi_3^2 result is derived = True
+H(eta_2)=iota_3 is derived = True
+Delta(iota_5)=+-2eta_2 is derived = True
+higher eta group is derived = True
+final Prop.5.1 result is derived = True
+final premise count = 4
+final premises are derived = True
+H(eta_2)=iota_3 is GIVEN premise = False
+pi_3^2 result is GIVEN premise = False
+Prop.5.1 result is GIVEN premise = False
+given premise count = 17
+derived step count = 23
+derived round count = 14
+fixed point = True
+```
+
+Representative probe:
+
+```powershell
+python -m probes.probe_phase55_capabilities
+```
+
+Phase 55 tests:
+
+```text
+tests/test_phase55_prop51_finite_dimensional_statement.py      5 passed
+tests/test_phase55_prop51_phase49_dependency.py                7 passed
+tests/test_phase55_prop51_phase52_phase54_dependency.py        7 passed
+tests/test_phase55_prop51_integration.py                       6 passed
+tests/test_phase55_prop51_rejection_provenance.py              7 passed
+tests/test_phase55_probe.py                                    8 passed
+```
+
+Full regression:
+
+```text
+2844 passed in 31.12s
+```
+
+Phase 55 boundary:
+
+```text
+implemented:
+  TodaProp51FiniteDimensionalStatement
+  Phase 49 dependency connection
+  Phase 52 / 54 dependency connection
+  finite-dimensional Proposition 5.1 integration rule
+  four-derived-premise provenance
+  circular-dependency rejection
+  non-circular representative run
+  representative probe
+  full regression
+
+not implemented:
+  stable (G_1;2)=Z/2{η}
+  stable homotopy-group model
+  composition isomorphism (5.2)
+  generic cyclic-generator rewrite
+  generic scalar normalization
+  generic suspension normalization
+```
+
+---
+
+# Next development boundary
+
+Phase 55 is complete.
+
+The finite-dimensional part of Toda Proposition 5.1 is now integrated with independently derived provenance. The next concrete Phase is intentionally not fixed here; it should be chosen from an actual mathematical need.
+
+Continue to defer the stable `(G_1;2)=Z/2{η}` conclusion, a stable homotopy-group model, composition isomorphism (5.2), generic cyclic-generator rewriting, generic scalar normalization, and generic suspension normalization until a concrete dependency requires them.
