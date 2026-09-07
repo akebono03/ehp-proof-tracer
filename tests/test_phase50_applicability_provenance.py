@@ -37,6 +37,7 @@ from toda_rules import (
   TodaPi32WhiteheadSquareUpToSignStatement,
   TodaProp42ExactnessStatement,
   TodaDeltaImageUpToSignStatement,
+  toda_delta_iota5_two_eta2_up_to_sign_inference_rule,
   toda_delta_iota5_whitehead_square_inference_rule,
   toda_eta3_suspension_relation_inference_rule,
   toda_eta_family_definition_statement,
@@ -342,6 +343,7 @@ def build_phase50_5_rules():
     toda_prop27_iota2_whitehead_hopf_invariant_inference_rule(),
     toda_pi3_2_whitehead_square_up_to_sign_inference_rule(),
     toda_delta_iota5_whitehead_square_inference_rule(),
+    toda_delta_iota5_two_eta2_up_to_sign_inference_rule(),
     toda_pi4_3_delta_image_free_cyclic_inference_rule(),
     toda_pi4_3_exactness_delta_image_to_suspension_kernel_inference_rule(),
     toda_pi4_3_zero_right_implies_suspension_surjective_inference_rule(),
@@ -869,6 +871,206 @@ def test_phase50_5_all_new_phase50_results_are_inference_derived():
     is not None
     for step in derived
   )
+
+
+def test_phase52_5_phase50_chain_derives_direct_delta_bridge():
+  data = build_phase50_5_data()
+
+  result = run_phase50_5(
+    build_phase50_5_initial_steps(
+      data
+    )
+  )
+
+  expected = TodaDeltaImageUpToSignStatement(
+    map=data[
+      "delta_map"
+    ],
+    element=HomotopyElement(
+      name="ι_5",
+      dimension=5,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=5,
+      ),
+    ),
+    positive_value=Multiple(
+      coefficient=2,
+      expression=data[
+        "eta_2"
+      ],
+    ),
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert expected in conclusions
+
+
+def test_phase52_5_direct_bridge_preserves_derived_provenance():
+  data = build_phase50_5_data()
+
+  result = run_phase50_5(
+    build_phase50_5_initial_steps(
+      data
+    )
+  )
+
+  expected = TodaDeltaImageUpToSignStatement(
+    map=data[
+      "delta_map"
+    ],
+    element=HomotopyElement(
+      name="ι_5",
+      dimension=5,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=5,
+      ),
+    ),
+    positive_value=Multiple(
+      coefficient=2,
+      expression=data[
+        "eta_2"
+      ],
+    ),
+  )
+
+  bridge_step = next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == expected
+  )
+
+  assert bridge_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert bridge_step.inference_rule is not None
+
+  assert (
+    bridge_step.inference_rule.name
+    == (
+      "Toda Delta iota_5 "
+      "twice eta_2 up-to-sign bridge"
+    )
+  )
+
+  assert len(
+    bridge_step.premises
+  ) == 2
+
+  assert all(
+    premise.rule
+    == ProofRule.INFERENCE
+    for premise in bridge_step.premises
+  )
+
+  assert isinstance(
+    bridge_step
+    .premises[
+      0
+    ]
+    .conclusion,
+    TodaDeltaImageUpToSignStatement,
+  )
+
+  assert isinstance(
+    bridge_step
+    .premises[
+      1
+    ]
+    .conclusion,
+    TodaPi32WhiteheadSquareUpToSignStatement,
+  )
+
+
+def test_phase52_5_phase50_final_result_remains_derivable():
+  data = build_phase50_5_data()
+
+  result = run_phase50_5(
+    build_phase50_5_initial_steps(
+      data
+    )
+  )
+
+  final_step = find_final_step(
+    result,
+    data[
+      "final_relation"
+    ],
+  )
+
+  assert final_step is not None
+
+  assert final_step.rule == (
+    ProofRule.INFERENCE
+  )
+
+  assert (
+    final_step.inference_rule.name
+    == (
+      "Toda pi_4^3 eta_3 "
+      "generator notation"
+    )
+  )
+
+
+def test_phase52_5_phase50_chain_keeps_six_round_fixed_point():
+  data = build_phase50_5_data()
+
+  result = run_phase50_5(
+    build_phase50_5_initial_steps(
+      data
+    )
+  )
+
+  assert (
+    result.termination_reason
+    == InferenceTerminationReason.FIXED_POINT
+  )
+
+  assert result.round_count == 6
+
+  expected = TodaDeltaImageUpToSignStatement(
+    map=data[
+      "delta_map"
+    ],
+    element=HomotopyElement(
+      name="ι_5",
+      dimension=5,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=5,
+      ),
+    ),
+    positive_value=Multiple(
+      coefficient=2,
+      expression=data[
+        "eta_2"
+      ],
+    ),
+  )
+
+  third_round_conclusions = tuple(
+    step.conclusion
+    for step in (
+      result
+      .round_results[
+        2
+      ]
+      .new_steps
+    )
+  )
+
+  assert expected in (
+    third_round_conclusions
+  )
+
 
 
 

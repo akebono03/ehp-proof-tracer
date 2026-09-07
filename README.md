@@ -33,7 +33,7 @@ structural equality
 
 # Current status
 
-Completed through Phase 51.
+Completed through Phase 52.
 
 ```text
 Phase 28  map injectivity / isomorphism / equality reflection
@@ -60,18 +60,19 @@ Phase 48  Toda Proposition 4.4 suspension E injectivity consequence
 Phase 49  concrete EHP calculation π_3^2 = Z{η₂}
 Phase 50  concrete EHP calculation π_4^3 = Z/2{η₃}
 Phase 51  Toda Proposition 5.1 proof dependency analysis
+Phase 52  Δ(ι₅)=±2η₂ direct bridge
 ```
 
 Current full regression:
 
 ```text
-2703 passed in 65.69s
+2731 passed in 26.67s
 ```
 
-Representative Phase 50 probe:
+Representative current probe:
 
 ```powershell
-python -m probes.probe_phase50_capabilities
+python -m probes.probe_phase52_capabilities
 ```
 
 ---
@@ -464,23 +465,143 @@ Phase 51 made no production-code changes.
 
 ---
 
+# Phase 52: `Δ(ι₅)=±2η₂` direct bridge
+
+Target:
+
+```text
+Δ(ι₅)=±[ι₂,ι₂]
++
+[ι₂,ι₂]=±2η₂
+↓
+Δ(ι₅)=±2η₂
+```
+
+Phase 52 reuses the existing theorem-specific statements:
+
+```text
+TodaDeltaImageUpToSignStatement
+TodaPi32WhiteheadSquareUpToSignStatement
+```
+
+No new up-to-sign representation is added. The conclusion is represented as:
+
+```text
+TodaDeltaImageUpToSignStatement(
+  map=Δ: π_5^5 → π_3^2,
+  element=ι₅,
+  positive_value=2η₂,
+)
+```
+
+Specific rule:
+
+```text
+toda_delta_iota5_two_eta2_up_to_sign_inference_rule()
+```
+
+Applicability is restricted to:
+
+```text
+Δ : π_5^5 → π_3^2
+element = ι₅
+intermediate value = [ι₂,ι₂]
+Whitehead-square value = 2η₂
+```
+
+Rejected examples include wrong Δ source / target, wrong element, wrong Whitehead square, wrong coefficient, and wrong η index.
+
+Integrated representative fixed point:
+
+```text
+round 1
+H([ι_2,ι_2]) = ±2ι_3
+Δ(ι_5) = ±[ι_2,ι_2]
+E: π_3^2 → π_4^3 is surjective
+η₃ = Eη₂
+
+round 2
+[ι_2,ι_2] = ±2η₂
+
+round 3
+Δ(ι_5) = ±2η₂
+Im(Δ) = Z{2η₂}
+
+round 4
+Ker(E) = Z{2η₂}
+
+round 5
+π_4^3 = Z/2{Eη₂}
+
+round 6
+π_4^3 = Z/2{η₃}
+
+fixed point
+```
+
+Counts:
+
+```text
+given premise count = 11
+derived step count = 10
+derived round count = 6
+fixed point = True
+```
+
+Representative probe:
+
+```powershell
+python -m probes.probe_phase52_capabilities
+```
+
+Phase 52 tests:
+
+```text
+tests/test_phase52_delta_direct_bridge.py  16 passed
+tests/test_phase52_probe.py                 8 passed
+```
+
+Full regression:
+
+```text
+2731 passed in 26.67s
+```
+
+Phase 52 boundary:
+
+```text
+implemented:
+  Δ(ι₅)=±2η₂ direct consequence
+  theorem-specific direct bridge
+  wrong-instance rejection
+  Phase 50 chain integration
+  provenance
+  representative probe
+
+not implemented:
+  general up-to-sign transitivity
+  general sign solver
+  Toda (4.5) finite-cyclic transport
+  higher η-family bridge
+  Proposition 5.1 finite-dimensional integration
+```
+
+---
+
 # Next development boundary
 
-Phase 51 is complete.
+Phase 52 is complete.
 
 Next:
 
 ```text
-Phase 52
-Δ(ι₅)=±2η₂ direct consequence bridge
+Phase 53
+Toda (4.5) finite-cyclic transport
 ```
 
 Then:
 
 ```text
-Phase 53
-Toda (4.5) finite-cyclic transport
-
 Phase 54
 higher η-family suspension bridge
 E^(n-3)η₃=η_n
@@ -489,4 +610,4 @@ Phase 55
 Toda Proposition 5.1 finite-dimensional integration
 ```
 
-Do not introduce stable homotopy-group representation, generic sign algebra, or generic suspension normalization before a concrete need appears.
+Do not introduce stable homotopy-group representation, generic sign algebra, generic isomorphism transport, or generic suspension normalization before a concrete need appears.

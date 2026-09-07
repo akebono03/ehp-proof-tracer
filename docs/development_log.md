@@ -799,9 +799,340 @@ Stable `(G_1;2)=Z/2{η}` is deferred.
 
 ---
 
+# Phase 52：`Δ(ι₅)=±2η₂` direct bridge
+
+目的:
+
+```text
+Δ(ι₅)=±[ι₂,ι₂]
++
+[ι₂,ι₂]=±2η₂
+↓
+Δ(ι₅)=±2η₂
+```
+
+Toda-specific narrow bridge のみを追加し、general up-to-sign algebra は導入しない。
+
+---
+
+## Phase 52-1：current up-to-sign statement compatibility check
+
+確認:
+
+```text
+TodaDeltaImageUpToSignStatement
+TodaPi32WhiteheadSquareUpToSignStatement
+Multiple(2,η₂)
+```
+
+をそのまま再利用可能。
+
+新規 statement class は不要。
+
+production code:
+
+```text
+変更なし
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 52-2：minimum statement representation
+
+既存 `TodaDeltaImageUpToSignStatement` で:
+
+```text
+Δ(ι₅)=±2η₂
+```
+
+を structural に保持できることをテスト固定。
+
+追加:
+
+```text
+tests/test_phase52_delta_direct_bridge.py
+```
+
+この時点の focused:
+
+```text
+5 passed
+```
+
+full:
+
+```text
+2708 passed in 29.36s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 52-3：specific bridge inference rule
+
+追加:
+
+```text
+toda_delta_iota5_two_eta2_up_to_sign_inference_rule()
+```
+
+Derived:
+
+```text
+Δ(ι₅)=±[ι₂,ι₂]
++
+[ι₂,ι₂]=±2η₂
+↓
+Δ(ι₅)=±2η₂
+```
+
+Guard:
+
+```text
+Δ source = π_5^5
+Δ target = π_3^2
+element = ι₅
+intermediate = [ι₂,ι₂]
+final positive value = 2η₂
+```
+
+focused:
+
+```text
+10 passed
+```
+
+full:
+
+```text
+2713 passed in 27.61s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 52-4：invalid cases / wrong instance rejection
+
+production code 変更なし。
+
+Reject をテスト固定:
+
+```text
+wrong Δ source
+wrong Δ target
+wrong element
+wrong Whitehead square
+wrong coefficient
+wrong η index
+```
+
+focused:
+
+```text
+16 passed
+```
+
+full:
+
+```text
+2719 passed in 25.70s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 52-5：integration with existing Phase 50 chain
+
+Phase 50 representative rule set に Phase 52 bridge rule を追加。
+
+既存の `Im(Δ)=Z{2η₂}` rule は変更せず並列に保持。
+
+Updated rounds:
+
+```text
+round 1
+H([ι₂,ι₂])=±2ι₃
+Δ(ι₅)=±[ι₂,ι₂]
+E surjective
+η₃=Eη₂
+
+round 2
+[ι₂,ι₂]=±2η₂
+
+round 3
+Δ(ι₅)=±2η₂
+Im(Δ)=Z{2η₂}
+
+round 4
+Ker(E)=Z{2η₂}
+
+round 5
+π_4^3=Z/2{Eη₂}
+
+round 6
+π_4^3=Z/2{η₃}
+```
+
+Integration tests:
+
+```text
+18 passed
+```
+
+full:
+
+```text
+2723 passed in 26.52s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 52-6：probe / provenance / full regression
+
+追加:
+
+```text
+probes/probe_phase52_capabilities.py
+tests/test_phase52_probe.py
+```
+
+Representative output:
+
+```text
+Δ(ι₅)=±[ι₂,ι₂]
+[ι₂,ι₂]=±2η₂
+↓
+Δ(ι₅)=±2η₂
+```
+
+Provenance:
+
+```text
+bridge premise count = 2
+bridge premises are derived = True
+bridge result is derived = True
+given premise count = 11
+derived step count = 10
+derived round count = 6
+fixed point = True
+```
+
+probe tests:
+
+```text
+8 passed
+```
+
+final full regression:
+
+```text
+2731 passed in 26.67s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 52-7：completion
+
+Phase 52 で完成:
+
+```text
+existing up-to-sign statement reuse
+Δ(ι₅)=±2η₂ minimum representation
+Toda-specific direct bridge rule
+wrong-instance rejection
+Phase 50 chain integration
+INFERENCE provenance
+representative probe
+full regression
+```
+
+Generic inference engine:
+
+```text
+変更なし
+```
+
+Not added:
+
+```text
+general up-to-sign transitivity
+general sign solver
+generic isomorphism transport
+Toda (4.5) finite-cyclic transport
+higher η-family bridge
+Prop.5.1 finite-dimensional integration
+stable homotopy model
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 52 completion boundary
+
+Current branch:
+
+```text
+Phase 49
+π_3^2=Z{η₂}
+COMPLETE
+↓
+Phase 50
+π_4^3=Z/2{η₃}
+COMPLETE
+↓
+Phase 51
+Toda Proposition 5.1 proof dependency analysis
+COMPLETE
+↓
+Phase 52
+Δ(ι₅)=±2η₂ direct bridge
+COMPLETE
+```
+
+Remaining finite-dimensional Proposition 5.1 path:
+
+```text
+Phase 53
+Toda (4.5) finite-cyclic transport
+↓
+Phase 54
+E^(n-3)η₃=η_n bridge
+↓
+Phase 55
+Prop.5.1 finite-dimensional integration / provenance
+```
+
+Stable `(G_1;2)=Z/2{η}` remains deferred.
+
+---
+
 # 次の Phase
 
 ```text
-Phase 52
-Δ(ι₅)=±2η₂ direct consequence bridge
+Phase 53
+Toda (4.5) finite-cyclic transport
 ```

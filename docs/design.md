@@ -43,7 +43,7 @@ homotopy / EHP data
 abelian-group algebra
 ```
 
-Phase 45–51 でも generic inference engine は変更していない。
+Phase 45–52 でも generic inference engine は変更していない。
 
 ---
 
@@ -572,15 +572,115 @@ The composition isomorphism following Proposition 5.1, equation (5.2), is also o
 
 ---
 
-# 26. Next design boundary
+# 26. Phase 52 direct-bridge design
 
-Phase 51 is complete.
+Target:
+
+```text
+Δ(ι₅)=±[ι₂,ι₂]
++
+[ι₂,ι₂]=±2η₂
+↓
+Δ(ι₅)=±2η₂
+```
+
+No new statement class is required. Reuse:
+
+```text
+TodaDeltaImageUpToSignStatement
+TodaPi32WhiteheadSquareUpToSignStatement
+```
+
+The target is represented by the existing `TodaDeltaImageUpToSignStatement` with:
+
+```text
+map = Δ : π_5^5 → π_3^2
+element = ι₅
+positive_value = 2η₂
+```
+
+Specific inference rule:
+
+```text
+toda_delta_iota5_two_eta2_up_to_sign_inference_rule()
+```
+
+The guard requires the exact Toda instance:
+
+```text
+source = π_5^5
+target = π_3^2
+element = ι₅
+first positive value = [ι₂,ι₂]
+Whitehead-square statement = [ι₂,ι₂]=±2η₂
+```
+
+Therefore the rule is not a generic transitivity principle for up-to-sign equalities.
+
+Invalid cases are rejected for:
+
+```text
+wrong Δ source
+wrong Δ target
+wrong element
+wrong Whitehead square
+wrong coefficient
+wrong η-family index
+```
+
+Integration policy:
+
+```text
+existing Phase 50 image rule remains unchanged
++
+Phase 52 direct bridge is added in parallel
+```
+
+Thus round 3 contains both:
+
+```text
+Δ(ι₅)=±2η₂
+Im(Δ)=Z{2η₂}
+```
+
+Representative counts:
+
+```text
+given = 11
+derived = 10
+rounds = 6
+fixed point = True
+```
+
+Provenance requirement:
+
+```text
+Δ(ι₅)=±[ι₂,ι₂]  INFERENCE
+[ι₂,ι₂]=±2η₂     INFERENCE
+↓
+Δ(ι₅)=±2η₂       INFERENCE
+```
+
+The generic inference engine remains unchanged.
+
+Phase 52 full regression:
+
+```text
+2731 passed in 26.67s
+```
+
+---
+
+# 27. Next design boundary
+
+Phase 52 is complete.
 
 Next implementation sequence:
 
 ```text
-Phase 52  Δ(ι₅)=±2η₂ direct bridge
 Phase 53  Toda (4.5) finite-cyclic transport
 Phase 54  E^(n-3)η₃=η_n bridge
 Phase 55  Proposition 5.1 finite-dimensional integration / provenance
 ```
+
+Phase 53 should transport the concrete `Z/2{η₃}` structure through the existing Toda (4.5) isomorphism only as far as required by Proposition 5.1. Do not introduce a generic isomorphism-transport framework without a concrete later need.
