@@ -9,13 +9,13 @@
 # 1. 基本設計原則
 
 ```text
-actual mathematical need
+実際の数学的必要
 ↓
-minimum representation
+不足している最小表現
 ↓
-explicit fact / domain rule
+必要な explicit fact / domain rule
 ↓
-existing generic inference engine
+既存 generic inference engine
 ```
 
 generic inference engine に数学固有の theorem knowledge を埋め込まない。
@@ -30,11 +30,11 @@ structural equality != mathematical equality
 # 2. レイヤー分離
 
 ```text
-literature-backed theorem / explicit facts
+文献由来 theorem / explicit facts
 ↓
 domain-specific inference rules
 ↓
-generic ProofStep / InferenceRule machinery
+ProofStep / InferenceRule
 ↓
 expression / statement structures
 ↓
@@ -43,11 +43,13 @@ homotopy / EHP data
 abelian-group algebra
 ```
 
-Phase 45–52 でも generic inference engine は変更していない。
+Phase 56 まで generic inference engine は theorem-specific branch を追加せず維持している。
 
 ---
 
 # 3. 式表現レイヤー
+
+主要構造:
 
 ```text
 Expression
@@ -60,14 +62,28 @@ Expression
 ├── Composition
 ├── MapApplication
 ├── Suspension
-└── IteratedSuspension
+├── IteratedSuspension
+└── TodaBracket
 ```
 
 constructor は theorem-aware normalization を行わない。
 
+特に:
+
+```text
+IteratedSuspension(x,1) != Suspension(x)
+ScalarSum(ScalarProduct(2,2),-1) != 3
+```
+
+を structural equality のまま保持する。
+
+必要な concrete theorem branch では専用 bridge / specialization を使う。
+
 ---
 
-# 4. 記号的ホモトピー群レイヤー
+# 4. ホモトピー群・群構造
+
+現在の主な structural object:
 
 ```text
 PrimaryComponent
@@ -78,11 +94,13 @@ FiniteCyclicGroup
 DirectSumGroup
 ```
 
-`FiniteCyclicGroup(order,generator)` は Phase 50 で `Z/2{η₃}` を structural に保持するための minimum representation。
+`TodaPrimaryGroup(i,n)` は Toda 記法 `π_i^n` を保持する。
+
+`FiniteCyclicGroup(order,generator)` は concrete finite-cyclic calculation の最小表現であり、一般 quotient simplifier を意味しない。
 
 ---
 
-# 5. 標準写像 / インスタンス対応写像
+# 5. 標準写像と instance-aware map
 
 標準写像:
 
@@ -92,21 +110,28 @@ EHP_H_MAP
 EHP_DELTA_MAP
 ```
 
-インスタンス対応写像:
+instance-aware map:
 
 ```text
 TodaSuspensionMap
 TodaHopfInvariantMap
 TodaDeltaMap
+TodaIteratedSuspensionMap
 ```
 
+設計境界:
+
 ```text
-specific theorem instance != generic MapSymbol
+specific theorem instance
+!=
+generic MapSymbol
 ```
 
 ---
 
 # 6. Toda Proposition 4.2
+
+instance-aware EHP exactness:
 
 ```text
 TodaEHPSequence
@@ -114,7 +139,7 @@ TodaEHPExactnessWindow
 TodaProp42ExactnessStatement
 ```
 
-Rules:
+rules:
 
 ```text
 toda_prop42_e_h_exactness_inference_rule()
@@ -122,40 +147,55 @@ toda_prop42_h_delta_exactness_inference_rule()
 toda_prop42_delta_e_exactness_inference_rule()
 ```
 
+generic exactness machineryと Toda-specific window semantics を分離する。
+
 ---
 
 # 7. Toda Proposition 4.4
 
-Phase 47:
+Phase 47 で:
 
 ```text
 Φ:
 π_{i-1}^{n-1} ⊕ π_i^{2n-1}
 → π_i^n
+
 Φ(β,γ)=Eβ+α∘γ
 ```
 
-Phase 48:
+を `TodaProp44DecompositionMap` で structural に保持する。
+
+`TodaProp44IsomorphismStatement` は specific decomposition instance が同型であることを保持する。
+
+Phase 48 では first summand restriction を:
 
 ```text
-Φ is isomorphism
-+
-first-summand restriction = E
-↓
-E injective
+TodaProp44FirstSummandRestrictionStatement
 ```
+
+で保持し、同じ instance の suspension injectivity を導出する。
 
 ---
 
-# 8. Phase 49 設計
+# 8. Phase 49 の η₂ 設計
 
-目的:
+`η₂` を literature GIVEN として final premise にせず:
 
 ```text
-π_3^2=Z{η₂}
+H:π_3^2→π_3^3 isomorphism
++
+π_3^3=Z{ι₃}
+↓
+η₂ = ι₃ の一意な H-preimage
 ```
 
-`η₂` は GIVEN にせず、H isomorphism による `ι_3` の一意な逆像として theorem-derived に定義する。
+として定義する。
+
+専用 statement:
+
+```text
+TodaPi32Eta2DefinitionStatement
+```
 
 No general:
 
@@ -166,41 +206,58 @@ Witness
 InverseMap
 ```
 
+を追加しない。
+
 ---
 
-# 9. Phase 50 設計目標
+# 9. ±付き relation の境界
 
-目的:
+現在使用する専用 statement:
 
 ```text
-π_4^3=Z/2{η₃}
+TodaProp27HopfInvariantUpToSignStatement
+TodaPi32WhiteheadSquareUpToSignStatement
+TodaDeltaImageUpToSignStatement
 ```
 
-推論経路:
+一般化しない:
 
 ```text
-H([ι_2,ι_2])=±2ι_3
+PlusMinus
+SignVariable
+generic up-to-sign transitivity
+general sign solver
+```
+
+具体的な theorem dependency が必要な場合だけ専用 bridge を追加する。
+
+---
+
+# 10. Phase 50 finite-cyclic calculation
+
+中心:
+
+```text
+H([ι₂,ι₂])=±2ι₃
++
+H(η₂)=ι₃
++
+H injective
 ↓
-[ι_2,ι_2]=±2η₂
+[ι₂,ι₂]=±2η₂
+```
+
+```text
+Δ(ι₅)=±[ι₂,ι₂]
 ↓
-Δ(ι_5)=±[ι_2,ι_2]
-↓
+Δ(ι₅)=±2η₂
+```
+
+```text
 Im(Δ)=Z{2η₂}
 ↓
 Ker(E)=Z{2η₂}
 ```
-
-and:
-
-```text
-π_4^5=0
-+
-E-H exactness
-↓
-E surjective
-```
-
-then:
 
 ```text
 π_3^2=Z{η₂}
@@ -212,9 +269,10 @@ E surjective
 π_4^3=Z/2{Eη₂}
 ```
 
-finally:
+η-family notation:
 
 ```text
+η_n=E^(n-2)η₂
 η₃=Eη₂
 ↓
 π_4^3=Z/2{η₃}
@@ -222,217 +280,461 @@ finally:
 
 ---
 
-# 10. Toda Proposition 2.7 の最小意味論
+# 11. η-family 設計
 
-実装対象:
-
-```text
-H([ι_2,ι_2])=±2ι_3
-```
-
-のみを実装する。
-
-文:
+structural definition:
 
 ```text
-TodaProp27HopfInvariantUpToSignStatement
+TodaEtaFamilyDefinitionStatement
+η_n=E^(n-2)η₂
 ```
 
-これは `Relation` ではなく、未確定の符号を定理専用の1文に保持する。
+Phase 54 の専用 bridge:
+
+```text
+η_n=E^(n-2)η₂
++
+η₃=Eη₂
+↓
+E^(n-3)η₃=η_n
+```
+
+これは η-family 専用であり:
+
+```text
+generic iterated-suspension composition
+generic suspension normalization
+generic scalar normalization
+```
+
+を導入しない。
 
 ---
 
-# 11. ±付き等式の設計境界
+# 12. Toda Proposition 5.1 finite-dimensional integration
 
-Phase 50 also uses:
+専用 aggregate statement:
 
 ```text
-TodaPi32WhiteheadSquareUpToSignStatement
-TodaDeltaImageUpToSignStatement
+TodaProp51FiniteDimensionalStatement
 ```
 
-for:
+保持:
 
 ```text
-[ι_2,ι_2]=±2η₂
-Δ(ι_5)=±[ι_2,ι_2]
+pi3_2_group_relation
+eta2_hopf_relation
+delta_iota5_relation
+higher_eta_group_relation
 ```
 
-一般化して追加しないもの:
+rule:
 
 ```text
-PlusMinus
-SignVariable
-UpToSignEquality algebra
+toda_prop51_finite_dimensional_integration_inference_rule()
+```
+
+必要 premise:
+
+```text
+π_3^2=Z{η₂}        INFERENCE
+H(η₂)=ι₃           INFERENCE
+Δ(ι₅)=±2η₂         INFERENCE
+π_{n+1}^n=Z/2{η_n} INFERENCE
+```
+
+4 premise を `ProofStep.premises` に保持する。
+
+Proposition 5.1 自身を premise として再投入しない。
+
+---
+
+# 13. Phase 56 設計目標
+
+Toda (5.2):
+
+```text
+η₂∘- :
+π_i^3
+≅
+π_i^2
+    (i≥3)
+```
+
+必要 dependency:
+
+```text
+Toda Proposition 4.4
+H(η₂)=ι₃
+π_{i-1}^1=0  (i≥3)
+Composition
+```
+
+Phase 56 は Toda Lemma 5.2 を使わない。
+
+---
+
+# 14. Phase 56-1 compatibility boundary
+
+既存 object で次を保持できる:
+
+```text
+π_{i-1}^1 ⊕ π_i^3 → π_i^2
+Eβ+η₂∘γ
+π_{i-1}^1=0
+```
+
+利用:
+
+```text
+TodaProp44DecompositionMap
+Composition
+TodaPrimaryGroupZeroStatement
+```
+
+問題:
+
+```text
+generic Prop.4.4 rule:
+2n-1
+
+concrete n=2:
+3
+```
+
+が structural equality では一致しない。
+
+解決方針:
+
+```text
+generic scalar normalization を追加しない
+↓
+n=2, α=η₂ 専用 specialization を追加
+```
+
+---
+
+# 15. Phase 56-2 zero theorem semantics
+
+専用 narrow rule:
+
+```text
+i≥3
+↓
+π_{i-1}^1=0
+```
+
+既存:
+
+```text
+ScalarGreaterEqualStatement
+TodaPrimaryGroupZeroStatement
+```
+
+を再利用する。
+
+意図的に受理しない:
+
+```text
+i≥2
+i≥4
+3≥i
+concrete 5≥3
+```
+
+この Phase では general inequality solver を追加しない。
+
+---
+
+# 16. Phase 56-3 Prop.4.4 specialization
+
+専用 rule:
+
+```text
+toda_prop44_eta2_n2_isomorphism_inference_rule()
+```
+
+premise:
+
+```text
+TodaPi32Eta2DefinitionStatement    INFERENCE
+H(η₂)=ι₃                           INFERENCE
+TodaProp44DecompositionMap
+```
+
+expected map:
+
+```text
+Φ:
+π_{i-1}^1 ⊕ π_i^3
+→
+π_i^2
+
+Φ(β,γ)=Eβ+η₂∘γ
+```
+
+conclusion:
+
+```text
+TodaProp44IsomorphismStatement
+```
+
+generic `toda_prop44_isomorphism_inference_rule()` は変更しない。
+
+---
+
+# 17. Phase 56-4 second-summand restriction
+
+専用 statement:
+
+```text
+TodaProp44SecondSummandRestrictionStatement
+```
+
+field:
+
+```text
+decomposition_map
+composition
+```
+
+専用 rule:
+
+```text
+toda_prop44_eta2_second_summand_restriction_inference_rule()
+```
+
+導出:
+
+```text
+Φ isomorphism
+↓
+Φ|_{π_i^3}(γ)=η₂∘γ
+```
+
+generic:
+
+```text
+CompositionMap
+LeftCompositionMap
+generic map restriction
 ```
 
 は追加しない。
 
-符号を捨てるのは生成部分群へ移った後だけとする:
+---
+
+# 18. Phase 56-5 Toda (5.2)
+
+最小 final statement:
 
 ```text
-Z{±2η₂}=Z{2η₂}
+Toda52CompositionIsomorphismStatement
+```
+
+field:
+
+```text
+source_group
+target_group
+composition
+```
+
+target:
+
+```text
+source_group = π_i^3
+target_group = π_i^2
+composition = η₂∘γ
+```
+
+専用 rule:
+
+```text
+toda_52_eta2_composition_isomorphism_inference_rule()
+```
+
+premise は exactly:
+
+```text
+π_{i-1}^1=0                  INFERENCE
+Prop.4.4 n=2 isomorphism     INFERENCE
+second-summand restriction   INFERENCE
+```
+
+guard で:
+
+```text
+zero group == first summand
+restriction.decomposition_map == isomorphism.map
+second summand == π_i^3
+target == π_i^2
+α == η₂
+restriction.composition == η₂∘γ
+formula == Eβ+η₂∘γ
+```
+
+を確認する。
+
+一般化しない:
+
+```text
+DirectSumGroup(A,B) + A=0 → B
+generic direct-sum simplifier
+generic isomorphism restriction theorem
+generic composition-map framework
 ```
 
 ---
 
-# 12. Phase 50 低次元 fact
+# 19. Phase 56 provenance 方針
 
-```text
-π_5^5=Z{ι_5}
-π_4^5=0
-```
-
-提供関数:
-
-```text
-pi_5_5_free_cyclic_fact()
-pi_4_5_zero_fact()
-```
-
----
-
-# 13. 像 / 核 / 全射性 bridge
-
-限定的な記号的文:
-
-```text
-TodaDeltaImageFreeCyclicStatement
-TodaSuspensionKernelFreeCyclicStatement
-TodaSuspensionSurjectiveStatement
-```
-
-これらは concrete な `GroupMap` の部分群参照とは意図的に分離する。
-
----
-
-# 14. FiniteCyclicGroup
-
-```text
-FiniteCyclicGroup
-├── order: int
-└── generator: Expression
-```
-
-用途:
-
-```text
-Z/2{Eη₂}
-Z/2{η₃}
-```
-
-No general quotient simplifier or first-isomorphism theorem engine は追加しない。
-
----
-
-# 15. η-family 記法
-
-定義:
-
-```text
-η_n=E^(n-2)η₂
-```
-
-表現:
-
-```text
-TodaEtaFamilyDefinitionStatement
-```
-
-`n=3` では専用 bridge により次を導出する:
-
-```text
-η₃=Eη₂
-```
-
-重要:
-
-```text
-IteratedSuspension(η₂,1) != Suspension(η₂)
-```
-
-No generic suspension normalization は追加しない。
-
----
-
-# 16. Phase 50 fixed-point 統合
-
-```text
-given = 11
-derived = 9
-rounds = 6
-fixed point = True
-```
-
-各 round:
-
-```text
-1: Prop.2.7 consequence, Δ up-to-sign, E surjective, η₃=Eη₂
-2: [ι_2,ι_2]=±2η₂
-3: Im(Δ)=Z{2η₂}
-4: Ker(E)=Z{2η₂}
-5: π_4^3=Z/2{Eη₂}
-6: π_4^3=Z/2{η₃}
-```
-
----
-
-# 17. provenance 方針
-
-Phase 50 のすべての導出結果は次を使う:
+最終 `Toda52CompositionIsomorphismStatement` は:
 
 ```text
 ProofRule.INFERENCE
 ```
 
-また次を保持する:
+final premise count:
 
 ```text
-ProofStep.premises
-ProofStep.inference_rule
+3
 ```
 
-最終結果 `π_4^3=Z/2{η₃}` は GIVEN ではない。
-
----
-
-# 18. 適用条件方針
-
-reject 対象:
+すべて derived:
 
 ```text
-wrong H instance
-wrong Δ instance
-wrong exactness window
-wrong kernel coefficient
-wrong source generator
-wrong target group
-missing π_3^2 structure
-wrong η-family index
+π_{i-1}^1=0
+Prop.4.4 n=2 specialization
+second-summand restriction
 ```
 
-意図しない符号固定の等式も reject する。
-
----
-
-# 19. Phase 50 後の generic engine 境界
-
-追加しないもの:
+rejection:
 
 ```text
-general up-to-sign algebra
-general quotient simplification
-general first-isomorphism theorem engine
-general suspension normalization
-general symbolic map typing
-general symbolic dimension solver
+GIVEN zero statement
+GIVEN Prop.4.4 isomorphism
+GIVEN restriction
+wrong zero group
+wrong α
+wrong second summand
+wrong formula
+wrong composition
 ```
 
 ---
 
-# 20. テスト方針
+# 20. Phase 56 representative run
 
-各数学レイヤーで確認するもの:
+base premise:
+
+```text
+Phase 49 base premises × 6
+i≥3
+Prop.4.4 decomposition map
+```
+
+合計:
+
+```text
+given = 8
+```
+
+同一 fixed-point run で:
+
+```text
+η₂ definition
+H(η₂)=ι₃
+π_{i-1}^1=0
+Prop.4.4 n=2 specialization
+second-summand restriction
+Toda (5.2)
+```
+
+まで導出する。
+
+代表値:
+
+```text
+given = 8
+derived = 12
+rounds = 9
+fixed point = True
+```
+
+重要:
+
+```text
+π_{i-1}^1=0 is GIVEN = False
+Prop.4.4 specialization is GIVEN = False
+second-summand restriction is GIVEN = False
+Toda (5.2) is GIVEN = False
+```
+
+---
+
+# 21. Phase 56 testing
+
+focused:
+
+```text
+Phase 56-1   6 passed
+Phase 56-2  10 passed
+Phase 56-3  11 passed
+Phase 56-4  13 passed
+Phase 56-5  16 passed
+Phase 56-6  10 passed
+```
+
+full regression:
+
+```text
+2910 passed in 29.17s
+```
+
+generic inference engine:
+
+```text
+変更なし
+```
+
+---
+
+# 22. Phase 56 completion boundary
+
+完成:
+
+```text
+Prop.4.4 / Composition / zero-group compatibility
+π_{i-1}^1=0 narrow theorem semantics
+n=2, α=η₂ specialization
+second-summand restriction
+Toda52CompositionIsomorphismStatement
+Toda (5.2) composition isomorphism
+applicability
+provenance
+representative probe
+same-run integration
+full regression
+```
+
+先取りしない:
+
+```text
+Toda Lemma 5.2
+generic scalar normalization
+generic direct-sum reduction
+generic composition-map framework
+generic isomorphism restriction
+stable homotopy model
+generic Toda-bracket normalization
+```
+
+---
+
+# 23. テスト方針
+
+各数学レイヤーで:
 
 ```text
 representation
@@ -445,904 +747,81 @@ termination / scope
 full regression
 ```
 
-Phase 50 全体回帰:
+を確認する。
 
-```text
-2703 passed in 65.69s
-```
+structural-only Phase では不要な theorem semantics を先取りしない。
 
 ---
 
-# 21. ドキュメント方針
+# 24. ドキュメント方針
 
 ```text
-README.md = current capabilities / status
-docs/design.md = current architecture / semantics / boundaries
-docs/development_log.md = chronological implementation history
-docs/roadmap.md = future dependency
+README.md
+=
+current capabilities / status
+
+docs/design.md
+=
+current architecture / semantics / boundaries
+
+docs/development_log.md
+=
+chronological implementation history
+
+docs/roadmap.md
+=
+future capability dependency
 ```
+
+current specification は latest README / design を優先する。
 
 ---
 
-# 22. Phase 51 依存関係分析の設計
-
-Phase 51 is analysis-only. No production-code representation or inference rule は追加しない。
-
-Proposition 5.1 の有限次元側の目標:
-
-```text
-π_3^2=Z{η₂}
-π_{n+1}^n=Z/2{η_n}  (n≥3)
-H(η₂)=ι₃
-Δ(ι₅)=±2η₂
-```
-
-Toda p.39 has an internal notation inconsistency between the proof text and the printed proposition line. The proof text uses `Δ(ι₅)=±2η₂`, which is compatible with the target group `π_3^2`; this is the development target.
-
-既存の独立依存関係:
-
-```text
-Phase 49:
-π_3^2=Z{η₂}
-H(η₂)=ι₃
-
-Phase 50:
-π_4^3=Z/2{η₃}
-[ι₂,ι₂]=±2η₂
-Δ(ι₅)=±[ι₂,ι₂]
-
-Phase 46:
-Toda (4.5) stable-range E^(m-n) isomorphism
-```
-
-追加の低次元ホモトピー群 table は不要とする。
-
----
-
-# 23. Phase 51 不足 edge の境界
-
-不足している最小実装:
-
-```text
-1. specific direct bridge
-   Δ(ι₅)=±[ι₂,ι₂]
-   +
-   [ι₂,ι₂]=±2η₂
-   ↓
-   Δ(ι₅)=±2η₂
-
-2. finite cyclic transport through Toda (4.5)
-   π_4^3=Z/2{η₃}
-   +
-   E^(n-3): π_4^3 ≅ π_{n+1}^n
-   ↓
-   π_{n+1}^n=Z/2{E^(n-3)η₃}
-
-3. η-family-specific suspension bridge
-   E^(n-3)η₃=η_n
-
-4. finite-dimensional Proposition 5.1 integration
-   with provenance / circular-dependency rejection
-```
-
-Δ の direct bridge は定理専用のままとし、一般の ± 付き推移律や符号 solver は追加しない。
-
-finite-cyclic transport は具体的な Toda (4.5) の必要範囲に限定し、後続 Phase で必要になるまでは一般の同型 transport framework を追加しない。
-
-higher η bridge は η-family 専用に限定し、任意の `Suspension` / `IteratedSuspension` を normalize しない。
-
----
-
-# 24. Proposition 5.1 の循環依存回避方針
-
-安全に使える premise:
-
-```text
-Phase 49 proof-derived H(η₂)=ι₃
-Phase 49 π_3^2=Z{η₂}
-Phase 50 π_4^3=Z/2{η₃}
-Toda Proposition 2.7 minimum consequence
-Toda Proposition 4.2 exactness
-Toda (4.5) stable-range isomorphism
-η-family definition
-```
-
-Proposition 5.1 の premise として使用禁止:
-
-```text
-old literature GIVEN H(η₂)=ι₃ attributed to Proposition 5.1
-old Phase 35–36 proof traces that depend on that GIVEN fact
-```
-
-Phase 35–38 inference machinery may later be reused only after replacing the old Proposition-5.1 GIVEN provenance with the independently derived Phase 49 result.
-
----
-
-# 25. stable 結論の保留境界
-
-The stable conclusion
-
-```text
-(G_1;2)=Z/2{η}
-```
-
-は意図的に保留する。有限次元 Proposition 5.1 branch のために stable homotopy-group model は導入しない。
-
-Proposition 5.1 に続く composition isomorphism (5.2) も現在の proof target の外とする。
-
----
-
-# 26. Phase 52 direct bridge 設計
-
-目的:
-
-```text
-Δ(ι₅)=±[ι₂,ι₂]
-+
-[ι₂,ι₂]=±2η₂
-↓
-Δ(ι₅)=±2η₂
-```
-
-新しい statement class は追加せず、次を再利用する:
-
-```text
-TodaDeltaImageUpToSignStatement
-TodaPi32WhiteheadSquareUpToSignStatement
-```
-
-The target is represented by the existing `TodaDeltaImageUpToSignStatement` with:
-
-```text
-map = Δ : π_5^5 → π_3^2
-element = ι₅
-positive_value = 2η₂
-```
-
-専用推論ルール:
-
-```text
-toda_delta_iota5_two_eta2_up_to_sign_inference_rule()
-```
-
-guard は次の Toda instance の完全一致を要求する:
-
-```text
-source = π_5^5
-target = π_3^2
-element = ι₅
-first positive value = [ι₂,ι₂]
-Whitehead-square statement = [ι₂,ι₂]=±2η₂
-```
-
-したがって、この rule は ± 付き等式の一般推移律ではない。
-
-次の不正ケースを reject する:
-
-```text
-wrong Δ source
-wrong Δ target
-wrong element
-wrong Whitehead square
-wrong coefficient
-wrong η-family index
-```
-
-統合方針:
-
-```text
-existing Phase 50 image rule remains unchanged
-+
-Phase 52 direct bridge is added in parallel
-```
-
-Thus round 3 contains both:
-
-```text
-Δ(ι₅)=±2η₂
-Im(Δ)=Z{2η₂}
-```
-
-代表実行の件数:
-
-```text
-given = 11
-derived = 10
-rounds = 6
-fixed point = True
-```
-
-provenance 要件:
-
-```text
-Δ(ι₅)=±[ι₂,ι₂]  INFERENCE
-[ι₂,ι₂]=±2η₂     INFERENCE
-↓
-Δ(ι₅)=±2η₂       INFERENCE
-```
-
-generic inference engine は変更しない。
-
-Phase 52 全体回帰:
-
-```text
-2731 passed in 26.67s
-```
-
----
-
-# 27. Phase 53 finite-cyclic transport 設計
-
-目的:
-
-```text
-π_4^3=Z/2{η₃}
-+
-E^(n-3): π_4^3 ≅ π_{n+1}^n
-↓
-π_{n+1}^n=Z/2{E^(n-3)η₃}
-```
-
-既存表現だけを再利用する。
-
-```text
-Toda45IsomorphismStatement
-TodaIteratedSuspensionMap
-FiniteCyclicGroup
-IteratedSuspension
-Relation
-```
-
-新しい transport 用 group class や generic isomorphism transport framework は追加しない。
-
-専用 rule:
-
-```text
-toda_45_pi4_3_finite_cyclic_transport_inference_rule()
-```
-
-適用対象は次に限定する。
-
-```text
-source group relation = π_4^3=Z/2{η₃}
-Toda (4.5) source sphere = 3
-source degree = 4 または既存 Phase 46 の ScalarSum(3,1)
-target = π_{n+1}^n
-exponent = n-3 の既存 symbolic tree
-```
-
-`ScalarSum(3,1)` と concrete `4` の差は、この specific `π_4^3` guard 内だけで受理する。generic scalar normalization は導入しない。
-
-generator transport は:
-
-```text
-η₃
-↓
-IteratedSuspension(η₃,n-3)
-```
-
-までとする。
-
-```text
-E^(n-3)η₃=η_n
-```
-
-への接続は Phase 54 の責務であり、Phase 53 では行わない。
-
----
-
-# 28. Phase 53 stable-range / applicability 設計
-
-Toda (4.5) の stable range は Phase 46 の責務を維持する。
-
-```text
-stable-range premises
-+
-TodaIteratedSuspensionMap
-↓
-Toda45IsomorphismStatement
-```
-
-Phase 53 rule 自体は inequality を再評価せず、導出済み `Toda45IsomorphismStatement` を premise とする。
-
-現在の scalar inequality は structural representation であり、一般の数値 inequality solver は導入しない。
-
-Phase 53 で reject を固定した対象:
-
-```text
-wrong stable-range structure
-wrong suspension-range instance
-wrong source sphere
-wrong source degree
-wrong target degree
-wrong exponent
-wrong source group
-wrong cyclic order
-wrong generator
-```
-
----
-
-# 29. Phase 53 integration / provenance 設計
-
-Phase 50 の最終 result を GIVEN として再投入しない。
-
-同一 fixed-point run 内で:
-
-```text
-Phase 50 premises
-↓
-π_4^3=Z/2{η₃}  INFERENCE
-
-Phase 46 stable-range premises
-↓
-Toda45IsomorphismStatement  INFERENCE
-
-両者
-↓
-π_{n+1}^n=Z/2{E^(n-3)η₃}  INFERENCE
-```
-
-transport step の2 premise は両方とも `ProofRule.INFERENCE` であることを要求する。
-
-代表実行の件数:
-
-```text
-given = 14
-derived = 11
-rounds = 7
-fixed point = True
-```
-
-全体回帰:
-
-```text
-2769 passed in 25.60s
-```
-
-generic inference engine は変更していない。
-
----
-
----
-
-# 30. Phase 54 higher η-family bridge 設計
-
-目的:
-
-```text
-η_n=E^(n-2)η₂
-+
-η₃=Eη₂
-↓
-E^(n-3)η₃=η_n
-```
-
-Phase 54-2 で `TodaEtaFamilyDefinitionStatement` を symbolic `n` に対応させる。
-
-対応範囲:
-
-```text
-index = int | ScalarSymbol
-η_n:
-  dimension = n
-  source = n+1
-  target = n
-  generator family = η
-  generator index = n
-
-definition:
-  η_n = IteratedSuspension(η₂,n-2)
-```
-
-既存の concrete `n=2`, `n=3` の表現は維持する。
-
-一般の scalar expression 全体へ index 型を広げず、Phase 54 で必要な `ScalarSymbol` のみ追加する。
-
----
-
-# 31. Phase 54 η-family-specific bridge
-
-専用推論ルール:
-
-```text
-toda_higher_eta_family_bridge_inference_rule()
-```
-
-受理する premise は次に限定する。
-
-```text
-TodaEtaFamilyDefinitionStatement
-  index = symbolic n
-  element = η_n
-  iterated_suspension = E^(n-2)η₂
-
-Relation
-  η₃ = Eη₂
-```
-
-導出:
-
-```text
-E^(n-3)η₃=η_n
-```
-
-結論側の `n-3` は Phase 53 の transported generator と同じ structural tree:
-
-```text
-ScalarSum(
-  left=n,
-  right=ScalarProduct(
-    left=-1,
-    right=3,
-  ),
-)
-```
-
-を使う。
-
-これにより一般の scalar normalization を追加せず Phase 53 と structural equality で接続する。
-
-追加しないもの:
-
-```text
-E^a(E^b x)=E^(a+b)x の一般則
-generic IteratedSuspension composition
-generic suspension normalization
-generic scalar normalization
-```
-
----
-
-# 32. Phase 54 applicability / rejection 設計
-
-valid case:
-
-```text
-symbolic η_n definition
-+
-η₃=Eη₂
-```
-
-reject を固定する対象:
-
-```text
-concrete higher η-family index
-mismatched symbolic index
-wrong η_n element structure
-wrong η-family definition exponent
-wrong η₃ base
-wrong suspended η₂ base
-reversed η₃ relation
-non-equality η₃ relation
-```
-
-Phase 54-4 では production code を変更せず、既存 narrow guard の適用範囲を regression test で固定する。
-
----
-
-# 33. Phase 54 finite-cyclic integration 設計
-
-Phase 53 result:
-
-```text
-π_{n+1}^n=Z/2{E^(n-3)η₃}
-```
-
-Phase 54 bridge:
-
-```text
-E^(n-3)η₃=η_n
-```
-
-から:
-
-```text
-π_{n+1}^n=Z/2{η_n}
-```
-
-を導出する。
-
-専用推論ルール:
-
-```text
-toda_higher_eta_finite_cyclic_generator_inference_rule()
-```
-
-guard は次を要求する。
-
-```text
-target group = π_{n+1}^n
-order = 2
-generator = E^(n-3)η₃
-bridge = E^(n-3)η₃=η_n
-```
-
-したがって一般の
-
-```text
-G=Z/m{x}
-+
-x=y
-↓
-G=Z/m{y}
-```
-
-という cyclic-generator rewrite は追加していない。
-
----
-
-# 34. Phase 54 integration / provenance 設計
-
-Phase 53 の最終 relation を GIVEN として再投入しない。
-
-同一 fixed-point run 内で:
-
-```text
-Phase 50 premises
-↓
-π_4^3=Z/2{η₃}  INFERENCE
-
-Phase 46 stable-range premises
-↓
-Toda45IsomorphismStatement  INFERENCE
-
-両者
-↓
-π_{n+1}^n=Z/2{E^(n-3)η₃}  INFERENCE
-```
-
-並行して:
-
-```text
-η_n=E^(n-2)η₂  GIVEN
-η₃=Eη₂         INFERENCE
-↓
-E^(n-3)η₃=η_n  INFERENCE
-```
-
-最後に:
-
-```text
-π_{n+1}^n=Z/2{E^(n-3)η₃}  INFERENCE
-+
-E^(n-3)η₃=η_n              INFERENCE
-↓
-π_{n+1}^n=Z/2{η_n}         INFERENCE
-```
-
-最終 step の2 premise は両方とも `ProofRule.INFERENCE` であることを要求する。
-
-代表実行:
-
-```text
-given = 15
-derived = 13
-rounds = 8
-fixed point = True
-```
-
-全体回帰:
-
-```text
-2804 passed in 26.50s
-```
-
-generic inference engine は変更していない。
-
----
-
-# 35. Phase 54 representative probe
-
-追加:
-
-```text
-probes/probe_phase54_capabilities.py
-tests/test_phase54_probe.py
-```
-
-代表出力:
-
-```text
-η_n = E^(n-2)η₂
-η₃ = Eη₂
-↓
-E^(n-3)η₃ = η_n
-
-π_(n+1)^n = Z/2{E^(n-3)η₃}
-+
-E^(n-3)η₃ = η_n
-↓
-π_(n+1)^n = Z/2{η_n}
-```
-
-provenance:
-
-```text
-source group result is derived = True
-transport result is derived = True
-higher eta bridge is derived = True
-final group result is derived = True
-final premise count = 2
-final premises are derived = True
-given premise count = 15
-derived step count = 13
-derived round count = 8
-fixed point = True
-```
-
----
-
-# 36. Phase 54 completion boundary
-
-Phase 54 で完成:
-
-```text
-symbolic higher η-family definition
-η-family-specific E^(n-3)η₃=η_n bridge
-wrong-instance rejection
-Phase 53 finite-cyclic transport との統合
-π_{n+1}^n=Z/2{η_n}
-INFERENCE provenance
-representative probe
-full regression
-```
-
-追加していないもの:
-
-```text
-generic iterated-suspension composition
-generic suspension normalization
-generic scalar normalization
-generic cyclic-generator rewrite
-Proposition 5.1 final integration
-stable homotopy model
-```
-
----
-
-# 37. 次の設計境界
-
-Phase 54 は完了。
+# 25. 次の設計境界
 
 次:
 
 ```text
-Phase 55
-Toda Proposition 5.1 finite-dimensional integration / provenance
+Phase 57
+Toda Lemma 5.2 proof integration
 ```
 
-Phase 55 で利用可能な独立導出済み結果:
+入力 candidate:
 
 ```text
-π_3^2=Z{η₂}
-H(η₂)=ι₃
-Δ(ι₅)=±2η₂
-π_{n+1}^n=Z/2{η_n}
+α∈π_i(S^3)
+2α=0
+β∈{η₃,2ι₄,Eα}_1
 ```
 
-Phase 55 でも Proposition 5.1 自身を premise として再投入せず、循環依存を避けた provenance を確認する。
-
-引き続き先取りしない:
+target:
 
 ```text
-stable (G_1;2)=Z/2{η}
-stable homotopy-group model
-generic cyclic-generator rewrite
-generic scalar normalization
-generic suspension normalization
+H(β)=E²α
+2β=η₃∘Eα∘η_{i+1}
+β∈π_{i+2}^3
+Δ(E²α)=0
 ```
 
----
+ただし source material では Lemma statement と proof ending の η-index に不整合があるため、Phase 57-1 で原典・型・次元を確認してから development target を確定する。
 
-# 38. Phase 55 finite-dimensional Proposition 5.1 statement 設計
-
-目的:
+現在確認済み dependency:
 
 ```text
-π_3^2=Z{η₂}
-H(η₂)=ι₃
-Δ(ι₅)=±2η₂
-π_{n+1}^n=Z/2{η_n}
+Lemma 4.5
+Proposition 2.6
+Proposition 1.4
+Proposition 1.3
+Corollary 3.7
+(2.1)
+```
+
+Phase 57 でも:
+
+```text
+actual proof need
 ↓
-Toda Proposition 5.1 finite-dimensional result
+minimum consequence
 ```
 
-Phase 55-2 では4結果を束ねる最小専用 statement を追加する。
-
-```text
-TodaProp51FiniteDimensionalStatement
-```
-
-保持する field:
-
-```text
-pi3_2_group_relation: Relation
-eta2_hopf_relation: Relation
-delta_iota5_relation: TodaDeltaImageUpToSignStatement
-higher_eta_group_relation: Relation
-```
-
-既存の `Relation` / `TodaDeltaImageUpToSignStatement` をそのまま保持し、一般の conjunction / proposition-result framework は導入しない。
-
----
-
-# 39. Phase 55 dependency connection 設計
-
-Phase 55-3 では Phase 49 から次を derived provenance のまま接続する。
-
-```text
-π_3^2=Z{η₂}  INFERENCE
-H(η₂)=ι₃     INFERENCE
-```
-
-`H(η₂)=ι₃` は `TodaPi32Eta2DefinitionStatement` から導出され、`π_3^2=Z{η₂}` も同じ derived η₂ definition を利用する。
-
-Phase 55-4 では次を接続する。
-
-```text
-Phase 52:
-Δ(ι₅)=±2η₂  INFERENCE
-
-Phase 54:
-π_{n+1}^n=Z/2{η_n}  INFERENCE
-```
-
-どの結果も Phase 55 用に GIVEN として再投入しない。
-
----
-
-# 40. Phase 55 integration rule 設計
-
-専用 rule:
-
-```text
-toda_prop51_finite_dimensional_integration_inference_rule()
-```
-
-4 premise の expected structural shape を guard で確認する。
-
-```text
-1. π_3^2=Z{η₂}
-2. H(η₂)=ι₃
-3. Δ(ι₅)=±2η₂
-4. π_{n+1}^n=Z/2{η_n}
-```
-
-さらに各 `PremisePattern` で:
-
-```text
-proof_rule=ProofRule.INFERENCE
-```
-
-を要求する。
-
-したがって integration result は:
-
-```text
-4 independently derived premises
-↓
-TodaProp51FiniteDimensionalStatement
-```
-
-としてのみ生成される。
-
-一般の theorem conjunction rule や provenance solver は追加しない。
-
----
-
-# 41. Phase 55 circular-dependency rejection 設計
-
-次を reject する。
-
-```text
-GIVEN H(η₂)=ι₃
-GIVEN π_3^2=Z{η₂}
-GIVEN Δ(ι₅)=±2η₂
-GIVEN π_{n+1}^n=Z/2{η_n}
-GIVEN Proposition 5.1 result による不足 premise の代替
-```
-
-さらに、INFERENCE であっても required final result でないものを reject する。
-
-```text
-Δ(ι₅)=±[ι₂,ι₂]
-π_{n+1}^n=Z/2{E^(n-3)η₃}
-```
-
-重要:
-
-```text
-derived provenance
-!=
-correct Proposition 5.1 dependency shape
-```
-
-両方を満たす必要がある。
-
----
-
-# 42. Phase 55 representative run の非循環構成
-
-既存 Phase 50 representative は、Phase 49 で導出可能な結果を GIVEN として再投入する箇所を含む。
-
-Phase 55 の provenance 検証では、その premise set をそのまま継承しない。
-
-Phase 49 の base premises / rules から開始し、Phase 50 以降の premise は Phase 49 ですでに得られる conclusion を除外して追加する。
-
-これにより代表 run で次を満たす。
-
-```text
-H(η₂)=ι₃ is GIVEN premise = False
-π_3^2=Z{η₂} is GIVEN premise = False
-Prop.5.1 result is GIVEN premise = False
-```
-
-代表値:
-
-```text
-given = 17
-derived = 23
-rounds = 14
-fixed point = True
-```
-
----
-
-# 43. Phase 55 provenance 方針
-
-最終 `TodaProp51FiniteDimensionalStatement` は:
-
-```text
-ProofRule.INFERENCE
-```
-
-であり、premise 数は exactly 4。
-
-```text
-π_3^2=Z{η₂}        INFERENCE
-H(η₂)=ι₃           INFERENCE
-Δ(ι₅)=±2η₂         INFERENCE
-π_{n+1}^n=Z/2{η_n} INFERENCE
-```
-
-4 premise を `ProofStep.premises` にそのまま保持する。
-
-別の provenance graph class は導入しない。
-
----
-
-# 44. Phase 55 completion boundary
-
-Phase 55 で完成:
-
-```text
-TodaProp51FiniteDimensionalStatement
-Phase 49 dependency connection
-Phase 52 / 54 dependency connection
-finite-dimensional Proposition 5.1 integration rule
-4 derived premise provenance
-circular-dependency rejection
-non-circular representative run
-representative probe
-full regression
-```
-
-全体回帰:
-
-```text
-2844 passed in 31.12s
-```
-
-引き続き追加しない:
-
-```text
-stable (G_1;2)=Z/2{η}
-stable homotopy-group model
-composition isomorphism (5.2)
-generic cyclic-generator rewrite
-generic scalar normalization
-generic suspension normalization
-```
-
-次の具体 Phase は実際の数学的必要が決まってから設定する。
+の原則を維持し、各 theorem の full formalization は具体的必要がなければ追加しない。
