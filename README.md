@@ -29,7 +29,7 @@ The implementation strategy is to formalize only the minimum theorem consequence
 
 # Current status
 
-Completed through Phase 57.
+Completed through Phase 58.
 
 ```text
 Phase 1–27   generic proof / algebra / Toda-bracket foundation
@@ -53,18 +53,19 @@ Phase 54     higher η-family bridge
 Phase 55     Toda Proposition 5.1 finite-dimensional integration
 Phase 56     Toda (5.2) composition isomorphism
 Phase 57     Toda Lemma 5.2 end-to-end integration
+Phase 58     Toda (5.3) ν′ consequence
 ```
 
 Current full regression:
 
 ```text
-2997 passed in 38.45s
+3059 passed in 38.23s
 ```
 
 Representative current probe:
 
 ```powershell
-python -m probes.probe_phase57_capabilities
+python -m probes.probe_phase58_capabilities
 ```
 
 ---
@@ -345,7 +346,7 @@ tests/test_phase55_probe.py                           8 passed
 tests/test_toda_rules.py                             66 passed
 ```
 
-Full regression:
+Phase 57 completion regression:
 
 ```text
 2997 passed in 38.45s
@@ -353,23 +354,189 @@ Full regression:
 
 ---
 
-# Phase 57 completion boundary
+# Phase 58: Toda (5.3) ν′ consequence
+
+Phase 58 specializes the already-derived Lemma 5.2 result. The Phase 57 proof chain is not reimplemented.
+
+The starting membership is:
+
+```text
+ν′∈{η₃,2ι₄,η₄}_1
+```
+
+This is a membership statement: `ν′` is chosen as an element of the indexed Toda bracket. The bracket itself is not identified structurally with `ν′`.
+
+The specialization is:
+
+```text
+α=η₃
+i=4
+β=ν′
+```
+
+Using the independently derived:
+
+```text
+π_4^3=Z/2{η₃}
+↓
+2η₃=0
+```
+
+Phase 58-3 derives the raw Lemma 5.2 specialization:
+
+```text
+ν′∈π_6^3
+H(ν′)=E²η₃
+2ν′=η₃∘Eη₃∘η₅
+```
+
+## Hopf-value normalization
+
+The existing η-family definitions give the concrete Phase 58 bridge:
+
+```text
+E²η₃=η₅
+```
+
+and generic equality transitivity gives:
+
+```text
+H(ν′)=E²η₃
+E²η₃=η₅
+↓
+H(ν′)=η₅
+```
+
+## Double-value normalization
+
+The concrete η-family bridge gives:
+
+```text
+Eη₃=η₄
+```
+
+The existing generic composition-preservation rules are applied once:
+
+```text
+Eη₃=η₄
+↓ right composition by η₅
+Eη₃∘η₅=η₄∘η₅
+
+↓ left composition by η₃
+η₃∘(Eη₃∘η₅)
+=
+η₃∘(η₄∘η₅)
+```
+
+and generic equality transitivity gives:
+
+```text
+2ν′=η₃∘Eη₃∘η₅
+↓
+2ν′=η₃∘η₄∘η₅
+```
+
+The composition-preservation rules are repeatable `Relation → Relation` rules, so the Phase 58 representative flow applies them one-shot with `find_inference_match()` / `apply_inference_match()` instead of putting them into unrestricted fixed-point closure.
+
+## Structural η-name boundary
+
+The existing concrete η-family constructor uses:
+
+```text
+η_4
+η_5
+```
+
+for concrete indices `n>=4`, while the Toda (5.3) branch uses canonical displayed elements:
+
+```text
+η₄
+η₅
+```
+
+Phase 58 does not change the constructor globally. Dedicated narrow bridges validate dimension / source / target / generator identity and produce the canonical concrete conclusion.
+
+No generic η-name normalizer is added.
+
+---
+
+# Phase 58 provenance and tests
+
+Representative probe:
+
+```powershell
+python -m probes.probe_phase58_capabilities
+```
+
+reports:
+
+```text
+ν′ ∈ π_6^3
+H(ν′) = η₅
+2ν′ = η₃∘η₄∘η₅
+```
+
+Provenance / integration:
+
+```text
+nu-prime membership derived = True
+H(nu-prime)=eta_5 derived = True
+2 nu-prime relation derived = True
+all final results are INFERENCE = True
+final results are GIVEN = False
+```
+
+Same-run execution:
+
+```text
+fixed-point-safe stages complete = True
+composition propagation one-shot = True
+shared raw specialization = True
+```
+
+Focused Phase 58 suites:
+
+```text
+tests/test_phase58_nu_prime_specialization.py       11 passed
+tests/test_phase58_lemma52_specialization.py        14 passed
+tests/test_phase58_hopf_eta5_bridge.py              13 passed
+tests/test_phase58_double_eta4_bridge.py            15 passed
+tests/test_phase58_probe.py                          9 passed
+```
+
+Related regression:
+
+```text
+tests/test_relation_rules.py                        50 passed
+tests/test_toda_rules.py                            66 passed
+```
+
+Final full regression:
+
+```text
+3059 passed in 38.23s
+```
+
+---
+
+# Phase 58 completion boundary
 
 Implemented:
 
 ```text
-Lemma 5.2 statement / typing verification
-Lemma 4.5 minimum consequence
-Proposition 2.6 minimum consequence
-Δ^-1(2η₂)=±ι₅ bridge
-Proposition 1.4 / Proposition 1.3 / Corollary 3.7 minimum chain
-Toda (2.1) + Lemma 4.5 indeterminacy vanishing
-H(β)=E²α
-2β=η₃∘Eα∘η_{i+1}
-β∈π_{i+2}^3
-Δ(E²α)=0
+ν′∈{η₃,2ι₄,η₄}_1 specialization recognition
+α=η₃, i=4, β=ν′ specialization
+2η₃=0 from derived π_4^3=Z/2{η₃}
+ν′∈π_6^3
+H(ν′)=E²η₃
+2ν′=η₃∘Eη₃∘η₅
+E²η₃=η₅ concrete bridge
+H(ν′)=η₅
+Eη₃=η₄ concrete bridge
+one-shot generic composition propagation
+2ν′=η₃∘η₄∘η₅
 derived provenance
-same-run integration
+representative staged same-run
 representative probe
 full regression
 ```
@@ -377,19 +544,18 @@ full regression
 Not implemented:
 
 ```text
-full generic Proposition 1.3 formalization
-full generic Proposition 1.4 formalization
-full generic Proposition 2.6 formalization
-full generic Corollary 3.7 formalization
+generic concrete η normalization
+global η_4 / η₄ or η_5 / η₅ normalization
+unrestricted fixed-point composition closure
+generic Toda-bracket specialization framework
 generic Toda-bracket coset algebra
 generic inverse-image algebra
 generic sign normalization
 generic Δ-H rewrite framework
-generic scalar normalization
 stable homotopy-group model
 ```
 
-The generic inference engine is unchanged.
+The generic inference engine remains unchanged.
 
 ---
 
@@ -405,25 +571,18 @@ The generic inference engine is unchanged.
 
 # Next development boundary
 
-Phase 58:
+Phase 58 is complete.
+
+The next Phase should first inspect the next concrete source statement and its dependencies before choosing a new representation or general framework.
 
 ```text
-Toda (5.3) ν' consequence
+next concrete Toda consequence
+↓
+source dependency analysis
+↓
+current representation compatibility
+↓
+minimum implementation
 ```
 
-Planned specialization:
-
-```text
-α=η₃∈π_4(S^3)
-ν'∈{η₃,2ι₄,η₄}_1
-```
-
-Use the already-derived Lemma 5.2 result without reimplementing its proof:
-
-```text
-ν'∈π_6^3
-H(ν')=η₅
-2ν'=η₃∘η₄∘η₅
-```
-
-Phase 58 should remain a specialization / consequence phase.
+Stable `(G_1;2)=Z/2{η}`, a general stable homotopy-group model, generic Toda-bracket coset algebra, and generic normalization remain deferred until a concrete proof branch requires them.
