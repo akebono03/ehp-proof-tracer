@@ -29,7 +29,7 @@ The implementation strategy is to formalize only the minimum theorem consequence
 
 # Current status
 
-Completed through Phase 58.
+Completed through Phase 59.
 
 ```text
 Phase 1–27   generic proof / algebra / Toda-bracket foundation
@@ -54,18 +54,19 @@ Phase 55     Toda Proposition 5.1 finite-dimensional integration
 Phase 56     Toda (5.2) composition isomorphism
 Phase 57     Toda Lemma 5.2 end-to-end integration
 Phase 58     Toda (5.3) ν′ consequence
+Phase 59     Toda Proposition 5.3 finite-dimensional result
 ```
 
 Current full regression:
 
 ```text
-3059 passed in 38.23s
+3177 passed in 123.99s
 ```
 
 Representative current probe:
 
 ```powershell
-python -m probes.probe_phase58_capabilities
+python -m probes.probe_phase59_capabilities
 ```
 
 ---
@@ -559,6 +560,172 @@ The generic inference engine remains unchanged.
 
 ---
 
+# Phase 59: Toda Proposition 5.3 finite-dimensional result
+
+Phase 59 proves the finite-dimensional part of Toda Proposition 5.3 without introducing a stable homotopy-group model.
+
+Notation:
+
+```text
+η_n² := η_n∘η_{n+1}
+```
+
+The final capability is:
+
+```text
+π_{n+2}^n = Z/2{η_n²}
+(n≥2)
+```
+
+The proof is implemented by separate finite-dimensional branches.
+
+## n=2
+
+```text
+π_4^3=Z/2{η₃}
++
+η₂∘- : π_4^3 ≅ π_4^2
+↓
+π_4^2=Z/2{η₂²}
+```
+
+## n=3
+
+Using Proposition 5.1, EHP exactness, and the Phase 58 consequence `H(ν′)=η₅`:
+
+```text
+Δ:π_5^5→π_3^2 injective
+↓
+H:π_5^3→π_5^5 zero
+↓
+E:π_4^2→π_5^3 surjective
+```
+
+and:
+
+```text
+H(ν′)=η₅
++
+π_6^5=Z/2{η₅}
+↓
+H:π_6^3→π_6^5 surjective
+↓
+Δ:π_6^5→π_4^2 zero
+↓
+E:π_4^2→π_5^3 injective
+```
+
+therefore:
+
+```text
+E:π_4^2≅π_5^3
+Eη₂²=η₃²
+↓
+π_5^3=Z/2{η₃²}
+```
+
+## n=4
+
+```text
+π_6^7=0
++
+π_5^3 --E--> π_6^4 --H--> π_6^7 exact
+↓
+E:π_5^3→π_6^4 surjective
+```
+
+Phase 48 gives the corresponding injectivity consequence. A narrow structural bridge identifies the concrete source `π_5^3`. Hence:
+
+```text
+E:π_5^3≅π_6^4
+Eη₃²=η₄²
+↓
+π_6^4=Z/2{η₄²}
+```
+
+## n≥5
+
+Toda (4.5) gives:
+
+```text
+E^(n-4):π_6^4≅π_{n+2}^n
+```
+
+so Phase 59 first derives:
+
+```text
+π_{n+2}^n=Z/2{E^(n-4)η₄²}
+```
+
+and then uses the theorem-specific bridge:
+
+```text
+E^(n-4)η₄²=η_n²
+```
+
+to obtain:
+
+```text
+π_{n+2}^n=Z/2{η_n²}
+```
+
+The four branches are aggregated into:
+
+```text
+TodaProp53FiniteDimensionalStatement
+```
+
+All group conclusions used by the aggregate are independently derived `ProofRule.INFERENCE` steps. The final aggregate is not reintroduced as `GIVEN`.
+
+## Phase 59 representation boundary
+
+`η_n²` remains an ordinary `Composition`:
+
+```text
+η_n² = Composition(η_n,η_{n+1})
+```
+
+The implementation does not add:
+
+```text
+EtaSquare class
+generic cyclic-generator transport
+generic suspension-of-composition normalization
+generic η-name normalization
+generic scalar normalization
+stable homotopy-group model
+```
+
+The stable conclusion:
+
+```text
+(G_2;2)=Z/2{η²}
+```
+
+remains deferred.
+
+## Phase 59 provenance and tests
+
+Representative probe:
+
+```powershell
+python -m probes.probe_phase59_capabilities
+```
+
+Focused completion integration:
+
+```text
+tests/test_phase59_prop53_integration.py  18 passed
+```
+
+Final full regression:
+
+```text
+3177 passed in 123.99s
+```
+
+---
+
 # Documentation
 
 - `README.md` — current capabilities and status
@@ -571,18 +738,18 @@ The generic inference engine remains unchanged.
 
 # Next development boundary
 
-Phase 58 is complete.
+Phase 59 is complete.
 
-The next Phase should first inspect the next concrete source statement and its dependencies before choosing a new representation or general framework.
+The next Phase should inspect the next concrete Toda source statement and its dependencies before choosing a representation or general framework.
 
 ```text
-next concrete Toda consequence
+next source statement
 ↓
-source dependency analysis
+dependency analysis
 ↓
 current representation compatibility
 ↓
 minimum implementation
 ```
 
-Stable `(G_1;2)=Z/2{η}`, a general stable homotopy-group model, generic Toda-bracket coset algebra, and generic normalization remain deferred until a concrete proof branch requires them.
+Stable `(G_1;2)=Z/2{η}`, stable `(G_2;2)=Z/2{η²}`, a general stable homotopy-group model, generic cyclic-generator transport, and generic normalization remain deferred until a concrete proof branch requires them.

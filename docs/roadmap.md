@@ -64,10 +64,10 @@ Phase 57  Toda Lemma 5.2 proof integration                 COMPLETE
 Phase 58  Toda (5.3) ν′ consequence                        COMPLETE
 ```
 
-Phase 58 final regression:
+Phase 59 final regression:
 
 ```text
-3059 passed in 38.23s
+3177 passed in 123.99s
 ```
 
 ---
@@ -581,7 +581,20 @@ stable (G_2;2) を Phase 59 に入れない
 状態:
 
 ```text
-NEXT
+COMPLETE
+```
+
+Phase 59 final capability:
+
+```text
+π_{n+2}^n=Z/2{η_n²}
+(n≥2)
+```
+
+Phase 59 final regression:
+
+```text
+3177 passed in 123.99s
 ```
 
 ---
@@ -735,7 +748,7 @@ current code / related tests を確認
 | Toda (5.2) composition isomorphism | COMPLETE | 56 |
 | Toda Lemma 5.2 integration | COMPLETE | 57 |
 | Toda (5.3) ν′ consequence | COMPLETE | 58 |
-| Toda Prop.5.3 finite-dimensional branch | NEXT | 59 |
+| Toda Prop.5.3 finite-dimensional branch | COMPLETE | 59 |
 | stable `(G_1;2)=Z/2{η}` | DEFERRED | later |
 | stable `(G_2;2)=Z/2{η^2}` | DEFERRED | later |
 | stable homotopy | DEFERRED | later |
@@ -745,35 +758,31 @@ current code / related tests を確認
 
 # 13. 現在の直近ステップ
 
-```text
-Phase 59-1
-Toda Proposition 5.3
-proof dependency / current compatibility check
-```
+Phase 59 は COMPLETE。
 
-最初に確認するもの:
+次の Phase 番号と theorem target は、次の Toda source statement と proof dependency を確認してから確定する。
 
 ```text
-Phase 56:
-η₂∘- : π_4^3≅π_4^2
-
-Phase 50:
-π_4^3=Z/2{η₃}
-
-Phase 55:
-Proposition 5.1 finite-dimensional result
-
-Phase 58:
-H(ν′)=η₅
-
-Phase 45:
-EHP exactness
-
-Phase 48:
-E injectivity consequence
-
-Phase 46:
-Toda (4.5) stable-range isomorphism
+source statement
+↓
+dependency analysis
+↓
+current representation compatibility
+↓
+minimum implementation
 ```
 
-これらを current code / current tests で確認し、Phase 59 に本当に不足している edge だけを実装する。
+優先確認:
+
+```text
+Toda Proposition 5.3 直後の concrete statement / proof
+Phase 59 aggregate の再利用可能性
+既存 EHP / η-family / Toda bracket rule family
+```
+
+stable branch は引き続き別系統:
+
+```text
+(G_1;2)=Z/2{η}    DEFERRED
+(G_2;2)=Z/2{η²}   DEFERRED
+```

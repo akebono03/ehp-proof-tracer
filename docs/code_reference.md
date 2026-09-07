@@ -2,7 +2,7 @@
 
 この文書は EHP Proof Tracer の主要 Python module と、その責務・主要 class / function・探索方法をまとめる。
 
-対象は **Phase 58 completion 時点**。
+対象は **Phase 59 completion 時点**。
 
 この文書は全 API を機械的に列挙する reference ではない。目的は:
 
@@ -584,7 +584,7 @@ Phase 58 では移動しない。
 
 Toda 固有の theorem knowledge を置く中心 module。
 
-Phase 58 までは:
+Phase 59 までは:
 
 ```text
 actual proof need
@@ -869,6 +869,89 @@ generic sign solver
 generic inverse-image solver
 ```
 
+
+## 10.7 Phase 59：Toda Proposition 5.3 finite-dimensional branch
+
+主要 aggregate:
+
+```text
+TodaProp53FiniteDimensionalStatement
+```
+
+保持:
+
+```text
+pi4_2_group_relation
+pi5_3_group_relation
+pi6_4_group_relation
+higher_eta_squared_group_relation
+higher_range
+```
+
+主要 Phase 59 rule family:
+
+```text
+toda_52_pi4_2_finite_cyclic_transport_inference_rule()
+
+toda_53_n3_prop51_delta_injective_inference_rule()
+toda_53_n3_delta_injective_hopf_zero_inference_rule()
+toda_53_n3_hopf_zero_suspension_surjective_inference_rule()
+toda_53_n3_hopf_eta5_surjective_inference_rule()
+toda_53_n3_hopf_surjective_delta_zero_inference_rule()
+toda_53_n3_delta_zero_suspension_injective_inference_rule()
+toda_53_n3_suspension_isomorphism_inference_rule()
+
+toda_prop53_n3_eta_square_suspension_bridge_inference_rule()
+toda_prop53_n3_pi5_3_finite_cyclic_transport_inference_rule()
+
+toda_prop53_n4_phase48_injectivity_bridge_inference_rule()
+toda_prop53_n4_zero_right_suspension_surjective_inference_rule()
+toda_prop53_n4_suspension_isomorphism_inference_rule()
+
+toda_prop53_n4_eta_square_suspension_bridge_inference_rule()
+toda_prop53_n4_pi6_4_finite_cyclic_transport_inference_rule()
+
+toda_prop53_eta4_squared_stable_transport_inference_rule()
+toda_prop53_higher_eta_squared_bridge_inference_rule()
+toda_prop53_higher_eta_squared_finite_cyclic_generator_inference_rule()
+toda_prop53_finite_dimensional_integration_inference_rule()
+```
+
+主要 final results:
+
+```text
+π_4^2=Z/2{η₂²}
+π_5^3=Z/2{η₃²}
+π_6^4=Z/2{η₄²}
+π_{n+2}^n=Z/2{η_n²}, n≥5
+```
+
+`η_n²` は dedicated class ではなく:
+
+```text
+Composition(η_n,η_{n+1})
+```
+
+として保持する。
+
+Phase 46 の symbolic exponent は structural に:
+
+```text
+ScalarSum(n,ScalarProduct(-1,4))
+```
+
+を維持する。`ScalarSum(n,-4)` への global scalar normalization は行わない。
+
+Phase 59 で追加しないもの:
+
+```text
+EtaSquare
+generic cyclic-generator transport
+generic suspension/composition normalization
+generic η-family normalization
+stable homotopy-group model
+```
+
 ---
 
 # 11. probes/
@@ -898,6 +981,7 @@ probes/probe_phase55_capabilities.py
 probes/probe_phase56_capabilities.py
 probes/probe_phase57_capabilities.py
 probes/probe_phase58_capabilities.py
+probes/probe_phase59_capabilities.py
 ```
 
 Phase 58:
@@ -975,10 +1059,10 @@ test_phase58_double_eta4_bridge.py
 test_phase58_probe.py
 ```
 
-Phase 58 completion regression:
+Phase 59 completion regression:
 
 ```text
-3059 passed in 38.23s
+3177 passed in 123.99s
 ```
 
 ---
@@ -1156,32 +1240,32 @@ execution-scope 上の重要な注意が増えた
 
 ---
 
-# 18. Phase 59 で確認する場所
+# 18. Phase 60 以降で最初に確認する場所
 
-Phase 58 は完了。
+Phase 59 は完了。
 
-Phase 59 の theorem target は source dependency を確認してから確定する。
+次の theorem target は source dependency を確認してから確定する。
 
 最初に確認:
 
 ```text
 Toda source material
-  Phase 58 直後の concrete statement / proof
+  Proposition 5.3 直後の concrete statement / proof
 
 toda_rules.py
-  Phase 57 / 58 rule family
+  Phase 59 aggregate / η-square bridge / EHP chain
 
 docs/roadmap.md
   deferred generalization と concrete branch の境界
 
-probes/probe_phase58_capabilities.py
-  staged same-run / provenance pattern
+probes/probe_phase59_capabilities.py
+  Phase 59 end-to-end capability / provenance
 
-tests/test_phase58_*.py
-  concrete η bridge / specialization / execution-scope regression
+tests/test_phase59_*.py
+  branch-specific structural / provenance regression
 ```
 
-Phase 59 でも:
+引き続き:
 
 ```text
 source statement
