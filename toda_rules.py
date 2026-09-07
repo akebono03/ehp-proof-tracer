@@ -7153,6 +7153,377 @@ class TodaLemma54DoubleSuspensionUpToSignStatement:
   positive_value: Expression
 
 
+@dataclass(frozen=True)
+class TodaLemma54HopfOddMultipleStatement:
+  alpha_star: HomotopyElement
+  parameter: ScalarSymbol
+  generator: HomotopyElement
+
+
+def toda_lemma54_pi6_5_finite_cyclic_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    higher_relation = (
+      statement
+      .higher_eta_group_relation
+    )
+
+    if not isinstance(
+      higher_relation.lhs,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    if not isinstance(
+      higher_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      higher_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    n = (
+      higher_relation
+      .lhs
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    expected_group = TodaPrimaryGroup(
+      group_dimension=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      sphere_dimension=n,
+    )
+
+    if (
+      higher_relation.lhs
+      != expected_group
+    ):
+      return False
+
+    eta_n = HomotopyElement(
+      name="η_n",
+      dimension=n,
+      source=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      target=n,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n,
+      ),
+    )
+
+    return (
+      higher_relation.rhs.generator
+      == eta_n
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    eta_5 = HomotopyElement(
+      name="η₅",
+      dimension=5,
+      source=6,
+      target=5,
+      generator=GeneratorSymbol(
+        family="η",
+        index=5,
+      ),
+    )
+
+    return Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=6,
+        sphere_dimension=5,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=2,
+        generator=eta_5,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.4 "
+      "pi_6^5 finite-cyclic specialization"
+    ),
+    description=(
+      "Specialize the independently "
+      "derived Proposition 5.1 "
+      "higher eta-family result "
+      "pi_(n+1)^n=Z/2{eta_n} "
+      "to n=5, giving "
+      "pi_6^5=Z/2{eta_5}. "
+      "This concrete result is used "
+      "only for the Toda (4.8) "
+      "parity argument in Lemma 5.4."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp51FiniteDimensionalStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_48_lemma54_hopf_odd_multiple_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    theorem36 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    double_statement = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    nu_prime_hopf = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi6_5_relation = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    alpha_star = (
+      theorem36
+      .alpha_star
+    )
+
+    if (
+      theorem36
+      .alpha_star_membership
+      .element
+      != alpha_star
+    ):
+      return False
+
+    if (
+      theorem36
+      .alpha_star_membership
+      .group_dimension
+      != 7
+    ):
+      return False
+
+    if (
+      theorem36
+      .alpha_star_membership
+      .sphere_dimension
+      != 4
+    ):
+      return False
+
+    expected_double_left = Multiple(
+      coefficient=2,
+      expression=Suspension(
+        expression=alpha_star,
+      ),
+    )
+
+    if (
+      double_statement.left
+      != expected_double_left
+    ):
+      return False
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    expected_double_value = (
+      IteratedSuspension(
+        expression=nu_prime,
+        exponent=2,
+      )
+    )
+
+    if (
+      double_statement.positive_value
+      != expected_double_value
+    ):
+      return False
+
+    eta_5 = HomotopyElement(
+      name="η₅",
+      dimension=5,
+      source=6,
+      target=5,
+      generator=GeneratorSymbol(
+        family="η",
+        index=5,
+      ),
+    )
+
+    expected_hopf = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=nu_prime,
+      ),
+      rhs=eta_5,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      nu_prime_hopf
+      != expected_hopf
+    ):
+      return False
+
+    expected_pi6_5 = Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=6,
+        sphere_dimension=5,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=2,
+        generator=eta_5,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      pi6_5_relation
+      == expected_pi6_5
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    theorem36 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    s = ScalarSymbol(
+      name="s",
+    )
+
+    iota_7 = HomotopyElement(
+      name="ι_7",
+      dimension=7,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=7,
+      ),
+    )
+
+    return (
+      TodaLemma54HopfOddMultipleStatement(
+        alpha_star=(
+          theorem36.alpha_star
+        ),
+        parameter=s,
+        generator=iota_7,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 4.8 "
+      "Lemma 5.4 Hopf odd multiple"
+    ),
+    description=(
+      "For the Lemma 5.4 alpha-star, "
+      "Phase 58 gives "
+      "H(nu-prime)=eta_5 and the "
+      "independently derived group "
+      "pi_6^5=Z/2{eta_5} shows that "
+      "nu-prime cannot be divisible "
+      "by two. "
+      "Phase 60-6 gives "
+      "2 E alpha-star="
+      "plus or minus E^2 nu-prime, "
+      "so E^2 nu-prime is divisible "
+      "by two. "
+      "The Toda (4.8) consequence "
+      "required in Lemma 5.4 therefore "
+      "makes the Hopf invariant of "
+      "alpha-star an odd multiple of "
+      "iota_7. "
+      "Represent that odd coefficient "
+      "as 2s+1 without adding generic "
+      "divisibility or parity solving."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda36Lemma54SpecializationStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54DoubleSuspensionUpToSignStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_lemma54_eta6_twice_zero_inference_rule():
   def guard(
     premises,
