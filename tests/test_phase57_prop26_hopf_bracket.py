@@ -4,10 +4,28 @@ from expression import (
   HomotopyElement,
   IteratedSuspension,
   Multiple,
+  ScalarSum,
   ScalarSymbol,
   Suspension,
   TodaBracket,
   Zero,
+)
+from proof import (
+  InferenceTerminationReason,
+  ProofRule,
+  ProofStep,
+  Relation,
+  RelationType,
+  find_inference_match,
+  run_inference_until_stable_with_history,
+)
+from test_phase57_lemma45_two_iota3 import (
+  build_phase57_2_data,
+)
+from toda_rules import (
+  TodaBracketMembershipStatement,
+  TodaProp26HopfBracketConsequenceStatement,
+  toda_prop26_lemma52_hopf_bracket_inference_rule,
 )
 from proof import (
   InferenceTerminationReason,
@@ -39,6 +57,11 @@ def build_phase57_3_data():
     ]
   )
 
+  i_plus_two = ScalarSum(
+    left=i,
+    right=2,
+  )
+
   alpha = (
     phase57_2[
       "alpha"
@@ -47,7 +70,9 @@ def build_phase57_3_data():
 
   beta = HomotopyElement(
     name="β",
-    dimension=i,
+    dimension=i_plus_two,
+    source=i_plus_two,
+    target=3,
   )
 
   eta_2 = HomotopyElement(
@@ -198,8 +223,8 @@ def build_phase57_3_data():
 
   return {
     "phase57_2": phase57_2,
-    "phase57_2_result": phase57_2_result,
     "i": i,
+    "i_plus_two": i_plus_two,
     "alpha": alpha,
     "beta": beta,
     "eta_2": eta_2,
