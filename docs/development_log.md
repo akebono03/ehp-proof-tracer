@@ -58,13 +58,7 @@ COMPLETE
 
 ---
 
-# Phase 49：`π_3^2=Z{η₂}`
-
-EHP:
-
-```text
-π_2^1 -E→ π_3^2 -H→ π_3^3 -Δ→ π_1^1 -E→ π_2^2
-```
+# Phase 49：π_3^2=Z{η₂}
 
 導出:
 
@@ -73,8 +67,8 @@ H injective
 Δ=0
 H surjective
 H isomorphism
-η₂ = unique H-preimage of ι_3
-H(η₂)=ι_3
+η₂ = unique H-preimage of ι₃
+H(η₂)=ι₃
 π_3^2=Z{η₂}
 ```
 
@@ -99,19 +93,7 @@ COMPLETE
 
 ---
 
-# Phase 50：`π_4^3=Z/2{η₃}`
-
-依存:
-
-```text
-H([ι₂,ι₂])=±2ι₃
-H(η₂)=ι₃
-H injective
-Δ(ι₅)=±[ι₂,ι₂]
-π_5^5=Z{ι₅}
-π_4^5=0
-EHP exactness
-```
+# Phase 50：π_4^3=Z/2{η₃}
 
 導出:
 
@@ -124,15 +106,6 @@ E surjective
 π_4^3=Z/2{Eη₂}
 η₃=Eη₂
 π_4^3=Z/2{η₃}
-```
-
-代表実行:
-
-```text
-given = 11
-derived = 9
-rounds = 6
-fixed point = True
 ```
 
 全体回帰:
@@ -158,18 +131,7 @@ H(η₂)=ι₃
 Δ(ι₅)=±2η₂
 ```
 
-不足 edge を:
-
-```text
-1. Δ(ι₅)=±2η₂ direct bridge
-2. Toda (4.5) finite-cyclic transport
-3. E^(n-3)η₃=η_n bridge
-4. Proposition 5.1 finite-dimensional integration / provenance
-```
-
-に限定した。
-
-旧 literature GIVEN `H(η₂)=ι₃` を Proposition 5.1 の premise として再利用しない方針を確定。
+不足 edge を具体化し、Phase 52–55 の順序を決定。
 
 ### 状態
 
@@ -179,8 +141,6 @@ COMPLETE
 
 # Phase 52：Δ(ι₅)=±2η₂ direct bridge
 
-導出:
-
 ```text
 Δ(ι₅)=±[ι₂,ι₂]
 +
@@ -189,16 +149,7 @@ COMPLETE
 Δ(ι₅)=±2η₂
 ```
 
-一般の up-to-sign transitivity は導入せず Toda-specific direct bridge に限定。
-
-代表実行:
-
-```text
-given = 11
-derived = 10
-rounds = 6
-fixed point = True
-```
+generic up-to-sign transitivity は導入しない。
 
 全体回帰:
 
@@ -214,23 +165,12 @@ COMPLETE
 
 # Phase 53：Toda (4.5) finite-cyclic transport
 
-導出:
-
 ```text
 π_4^3=Z/2{η₃}
 +
 E^(n-3): π_4^3 ≅ π_{n+1}^n
 ↓
 π_{n+1}^n=Z/2{E^(n-3)η₃}
-```
-
-代表実行:
-
-```text
-given = 14
-derived = 11
-rounds = 7
-fixed point = True
 ```
 
 全体回帰:
@@ -247,14 +187,6 @@ COMPLETE
 
 # Phase 54：higher η-family bridge
 
-structural definition:
-
-```text
-η_n=E^(n-2)η₂
-```
-
-bridge:
-
 ```text
 η₃=Eη₂
 +
@@ -263,23 +195,12 @@ bridge:
 E^(n-3)η₃=η_n
 ```
 
-finite-cyclic integration:
+および:
 
 ```text
 π_{n+1}^n=Z/2{E^(n-3)η₃}
-+
-E^(n-3)η₃=η_n
 ↓
 π_{n+1}^n=Z/2{η_n}
-```
-
-代表実行:
-
-```text
-given = 15
-derived = 13
-rounds = 8
-fixed point = True
 ```
 
 全体回帰:
@@ -294,9 +215,9 @@ COMPLETE
 
 ---
 
-# Phase 55：Toda Proposition 5.1 finite-dimensional integration / provenance
+# Phase 55：Toda Proposition 5.1 finite-dimensional integration
 
-有限次元側で independently derived:
+independently derived:
 
 ```text
 π_3^2=Z{η₂}
@@ -313,27 +234,6 @@ toda_prop51_finite_dimensional_integration_inference_rule()
 ```
 
 最終 rule は4 premise をすべて `ProofRule.INFERENCE` として要求。
-
-代表 run は Phase 49 base premise から組み直し、Phase 49 result を GIVEN として再投入しない。
-
-代表 provenance:
-
-```text
-pi_3^2 result is derived = True
-H(eta_2)=iota_3 is derived = True
-Delta(iota_5)=+-2eta_2 is derived = True
-higher eta group is derived = True
-final Prop.5.1 result is derived = True
-final premise count = 4
-final premises are derived = True
-H(eta_2)=iota_3 is GIVEN premise = False
-pi_3^2 result is GIVEN premise = False
-Prop.5.1 result is GIVEN premise = False
-given premise count = 17
-derived step count = 23
-derived round count = 14
-fixed point = True
-```
 
 全体回帰:
 
@@ -352,343 +252,21 @@ COMPLETE
 目標:
 
 ```text
-η₂∘- :
-π_i^3
-≅
-π_i^2
-    (i≥3)
-```
-
----
-
-## Phase 56-1：Prop.4.4 / Composition / zero-group compatibility check
-
-確認:
-
-```text
-π_{i-1}^1 ⊕ π_i^3 → π_i^2
-Eβ+η₂∘γ
-π_{i-1}^1=0
-```
-
-は既存:
-
-```text
-TodaProp44DecompositionMap
-Composition
-TodaPrimaryGroupZeroStatement
-```
-
-で表現可能。
-
-ただし generic Prop.4.4 rule では concrete `3` と structural `2*2-1` が直接一致しない。
-
-production code:
-
-```text
-変更なし
-```
-
-追加:
-
-```text
-tests/test_phase56_prop44_composition_compatibility.py
-```
-
-focused:
-
-```text
-6 passed
-```
-
-全体回帰:
-
-```text
-2850 passed in 28.58s
-```
-
-### 状態
-
-COMPLETE
-
----
-
-## Phase 56-2：`π_{i-1}^1=0 (i≥3)`
-
-追加 rule:
-
-```text
-toda_pi_i_minus_1_1_zero_inference_rule()
-```
-
-推論:
-
-```text
-i≥3
-↓
-π_{i-1}^1=0
-```
-
-既存:
-
-```text
-ScalarGreaterEqualStatement
-TodaPrimaryGroupZeroStatement
-```
-
-を再利用。
-
-一般 inequality solver は追加しない。
-
-追加:
-
-```text
-tests/test_phase56_pi_i_minus_1_1_zero.py
-```
-
-focused:
-
-```text
-10 passed
-```
-
-全体回帰:
-
-```text
-2860 passed in 28.04s
-```
-
-### 状態
-
-COMPLETE
-
----
-
-## Phase 56-3：Prop.4.4 specialization to `n=2, α=η₂`
-
-追加 rule:
-
-```text
-toda_prop44_eta2_n2_isomorphism_inference_rule()
-```
-
-接続:
-
-```text
-TodaPi32Eta2DefinitionStatement    INFERENCE
-H(η₂)=ι₃                           INFERENCE
-TodaProp44DecompositionMap
-↓
-TodaProp44IsomorphismStatement
-```
-
-concrete result:
-
-```text
-Φ:
-π_{i-1}^1 ⊕ π_i^3
-≅
-π_i^2
-
-Φ(β,γ)=Eβ+η₂∘γ
-```
-
-generic Prop.4.4 rule は変更しない。
-
-追加:
-
-```text
-tests/test_phase56_prop44_eta2_specialization.py
-```
-
-focused:
-
-```text
-11 passed
-```
-
-全体回帰:
-
-```text
-2871 passed in 28.45s
-```
-
-### 状態
-
-COMPLETE
-
----
-
-## Phase 56-4：second-summand restriction
-
-追加:
-
-```text
-TodaProp44SecondSummandRestrictionStatement
-toda_prop44_eta2_second_summand_restriction_inference_rule()
-```
-
-導出:
-
-```text
-Φ isomorphism
-↓
-Φ|_{π_i^3}(γ)=η₂∘γ
-```
-
-generic composition-map framework は追加しない。
-
-追加:
-
-```text
-tests/test_phase56_prop44_second_summand_restriction.py
-```
-
-focused:
-
-```text
-13 passed
-```
-
-全体回帰:
-
-```text
-2884 passed in 29.62s
-```
-
-### 状態
-
-COMPLETE
-
----
-
-## Phase 56-5：zero first summand → composition isomorphism (5.2)
-
-追加:
-
-```text
-Toda52CompositionIsomorphismStatement
-toda_52_eta2_composition_isomorphism_inference_rule()
-```
-
-3 derived premises:
-
-```text
-π_{i-1}^1=0                  INFERENCE
-Prop.4.4 n=2 isomorphism     INFERENCE
-second-summand restriction   INFERENCE
-```
-
-から:
-
-```text
 η₂∘- : π_i^3 ≅ π_i^2
+(i≥3)
 ```
 
-を導出。
-
-rejection:
+Phase 56-1〜56-6 で:
 
 ```text
-GIVEN zero
-GIVEN isomorphism
-GIVEN restriction
-wrong first zero group
-wrong composition
-```
-
-追加:
-
-```text
-tests/test_phase56_toda52_composition_isomorphism.py
-```
-
-focused:
-
-```text
-16 passed
-```
-
-全体回帰:
-
-```text
-2900 passed in 28.79s
-```
-
-### 状態
-
-COMPLETE
-
----
-
-## Phase 56-6：applicability / provenance / representative probe
-
-production semantics:
-
-```text
-変更なし
-```
-
-追加:
-
-```text
-probes/probe_phase56_capabilities.py
-tests/test_phase56_probe.py
-```
-
-initial GIVEN:
-
-```text
-Phase 49 base premises × 6
-i≥3
-Prop.4.4 decomposition map
-```
-
-合計:
-
-```text
-given premise count = 8
-```
-
-同一 run で:
-
-```text
-η₂ definition
-H(η₂)=ι₃
 π_{i-1}^1=0
-Prop.4.4 n=2 specialization
+Prop.4.4 n=2, α=η₂ specialization
 second-summand restriction
-Toda (5.2)
+Toda52CompositionIsomorphismStatement
+representative probe
 ```
 
-まで導出。
-
-probe:
-
-```text
-pi_(i-1)^1=0 is derived = True
-Prop.4.4 n=2 specialization is derived = True
-second-summand restriction is derived = True
-Toda (5.2) result is derived = True
-final rule = Toda 5.2 eta_2 composition isomorphism
-final premise count = 3
-final premises are derived = True
-pi_(i-1)^1=0 is GIVEN premise = False
-Prop.4.4 specialization is GIVEN premise = False
-second-summand restriction is GIVEN premise = False
-Toda (5.2) result is GIVEN premise = False
-given premise count = 8
-derived step count = 12
-derived round count = 9
-fixed point = True
-```
-
-focused:
-
-```text
-tests/test_phase56_probe.py
-10 passed
-```
+を実装。
 
 最終全体回帰:
 
@@ -702,39 +280,378 @@ COMPLETE
 
 ---
 
-## Phase 56-7：Phase 56 completion
+# Phase 57：Toda Lemma 5.2 proof integration
 
-Phase 56 で完成:
+対象:
 
 ```text
-Prop.4.4 / Composition / zero-group compatibility
-π_{i-1}^1=0 narrow theorem semantics
-Prop.4.4 n=2, α=η₂ specialization
-second-summand restriction
-Toda52CompositionIsomorphismStatement
-Toda (5.2) composition isomorphism
+α∈π_i(S^3)
+2α=0
+β∈{η₃,2ι₄,Eα}_1
+```
+
+canonical target:
+
+```text
+H(β)=E²α
+2β=η₃∘Eα∘η_{i+1}
+β∈π_{i+2}^3
+Δ(E²α)=0
+```
+
+---
+
+## Phase 57-1：statement / proof index / typing compatibility
+
+確認:
+
+```text
+β∈π_{i+2}^3
+```
+
+および:
+
+```text
+η₃∘Eα∘η_{i+1}
+```
+
+が正しい typing を持つ。
+
+source proof ending の `η_{i+2}` は型が合わず、直後の `α=η₃`, `i=4` specialization も `η₅` を与えるため、`η_{i+1}` を canonical target と決定。
+
+production code:
+
+```text
+変更なし
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 57-2：Lemma 4.5 minimum consequence
+
+追加:
+
+```text
+toda_lemma45_n4_two_iota3_composition_inference_rule()
+```
+
+推論:
+
+```text
+α∈π_i(S³)
+↓
+2ι₃∘α=2α
+
+2α=0
+↓ generic zero propagation
+2ι₃∘α=0
+```
+
+focused:
+
+```text
+10 passed
+```
+
+全体回帰:
+
+```text
+2920 passed in 30.13s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 57-3：Proposition 2.6 minimum Hopf-bracket consequence
+
+追加:
+
+```text
+TodaProp26HopfBracketConsequenceStatement
+toda_prop26_lemma52_hopf_bracket_inference_rule()
+```
+
+推論:
+
+```text
+β∈{η₃,2ι₄,Eα}_1
+E(η₂∘2ι₃)=0
+2ι₃∘α=0
+↓
+H(β) ∈ -Δ^-1(η₂∘2ι₃)∘E²α
+```
+
+`PreimageSubgroup` は変更しない。
+
+focused:
+
+```text
+14 passed
+```
+
+全体回帰:
+
+```text
+2934 passed in 30.62s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 57-4：Δ^-1(2η₂)=±ι₅ connection
+
+追加:
+
+```text
+TodaDeltaPreimageUpToSignStatement
+toda_lemma52_delta_two_eta2_preimage_inference_rule()
+```
+
+推論:
+
+```text
+Δ(ι₅)=±2η₂
+↓
+Δ^-1(2η₂)=±ι₅
+```
+
+Phase 52 derived result を provenance 付きで再利用。
+
+focused:
+
+```text
+14 passed
+```
+
+全体回帰:
+
+```text
+2948 passed in 29.78s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 57-5：Prop.1.4 / Prop.1.3 / Cor.3.7 minimum chain
+
+追加 statement:
+
+```text
+TodaLemma52BracketCompositionMembershipStatement
+TodaLemma52BracketRepresentativeStatement
+```
+
+追加 rule:
+
+```text
+toda_prop14_lemma52_bracket_transformation_inference_rule()
+toda_prop13_lemma52_bracket_transformation_inference_rule()
+toda_cor37_lemma52_representative_inference_rule()
+```
+
+chain:
+
+```text
+β∈{η₃,2ι₄,Eα}_1
+↓ Prop.1.4
+2β∈η₃∘E{2ι₃,α,2ι_i}
+
+↓ Prop.1.3
+2β∈η₃∘-{2ι₄,Eα,2ι_{i+1}}_1
+
+↓ Cor.3.7
+explicit representative
+```
+
+generic coset algebra は追加しない。
+
+focused:
+
+```text
+17 passed
+```
+
+全体回帰:
+
+```text
+2965 passed in 30.20s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 57-6：(2.1) + Lemma 4.5 indeterminacy vanishing
+
+追加:
+
+```text
+toda_prop51_eta4_twice_zero_inference_rule()
+toda_21_lemma52_suspended_indeterminacy_zero_inference_rule()
+toda_lemma45_n4_suspension_zero_reflection_inference_rule()
+```
+
+推論:
+
+```text
+Prop.5.1
+↓
+2η₄=0
+
+γ∈π_{i+2}(S⁴)
+↓ Toda (2.1)
+E(η₃∘γ∘2ι_{i+2})=0
+
+↓ Lemma 4.5
+η₃∘γ∘2ι_{i+2}=0
+```
+
+focused:
+
+```text
+15 passed
+```
+
+全体回帰:
+
+```text
+2980 passed in 31.13s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 57-7：Lemma 5.2 end-to-end integration / provenance / probe
+
+追加 integration rule:
+
+```text
+toda_lemma52_prop26_first_zero_inference_rule()
+toda_lemma52_hopf_value_inference_rule()
+toda_lemma52_double_value_inference_rule()
+toda_lemma52_beta_membership_inference_rule()
+toda_lemma52_delta_e2_alpha_zero_inference_rule()
+```
+
+Phase 57-3 helper の β typing を:
+
+```text
+dimension=i
+```
+
+から:
+
+```text
+dimension=i+2
+source=i+2
+target=3
+```
+
+へ修正。
+
+追加:
+
+```text
+probes/probe_phase57_capabilities.py
+tests/test_phase57_lemma52_integration.py
+tests/test_phase57_probe.py
+```
+
+代表 output:
+
+```text
+H(β)=E²α
+2β=η₃∘Eα∘η_(i+1)
+β∈π_(i+2)^3
+Δ(E²α)=0
+```
+
+provenance:
+
+```text
+H(beta)=E^2 alpha derived = True
+2 beta relation derived = True
+beta membership derived = True
+Delta(E^2 alpha)=0 derived = True
+all final results are INFERENCE = True
+final results are GIVEN = False
+fixed point = True
+```
+
+representative inference rounds:
+
+```text
+18
+```
+
+focused:
+
+```text
+tests/test_phase57_lemma52_integration.py  13 passed
+tests/test_phase57_probe.py                 4 passed
+```
+
+関連:
+
+```text
+test_phase57_prop26_hopf_bracket.py            14 passed
+test_phase57_delta_two_eta2_preimage.py        14 passed
+test_phase57_bracket_transformation_chain.py   17 passed
+test_phase57_indeterminacy_vanishing.py        15 passed
+test_phase57_lemma45_two_iota3.py              10 passed
+test_phase55_probe.py                           8 passed
+test_toda_rules.py                             66 passed
+```
+
+最終全体回帰:
+
+```text
+2997 passed in 38.45s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 57-8：Phase 57 completion
+
+Phase 57 で完成:
+
+```text
+Lemma 5.2 statement / index / typing verification
+Lemma 4.5 minimum consequence
+Proposition 2.6 minimum consequence
+Δ^-1(2η₂)=±ι₅ bridge
+Proposition 1.4 / Proposition 1.3 / Corollary 3.7 minimum transformation chain
+Toda (2.1) + Lemma 4.5 indeterminacy vanishing
+H(β)=E²α
+2β=η₃∘Eα∘η_{i+1}
+β∈π_{i+2}^3
+Δ(E²α)=0
 derived provenance
 same-run end-to-end integration
 representative probe
 full regression
-```
-
-最終 capability:
-
-```text
-i≥3
-↓
-π_{i-1}^1=0
-
-η₂ definition
-H(η₂)=ι₃
-↓
-Φ:
-π_{i-1}^1 ⊕ π_i^3 ≅ π_i^2
-
-Φ|_{π_i^3}(γ)=η₂∘γ
-↓
-η₂∘- : π_i^3 ≅ π_i^2
 ```
 
 generic inference engine:
@@ -746,13 +663,33 @@ generic inference engine:
 追加しなかったもの:
 
 ```text
-generic scalar normalization
-generic direct-sum reduction
-generic composition-map framework
-generic isomorphism-restriction framework
-Toda Lemma 5.2
+generic Toda-bracket coset algebra
+generic inverse-image algebra
+generic sign normalization
+generic Δ-H rewrite framework
+full Prop.1.3 formalization
+full Prop.1.4 formalization
+full Prop.2.6 formalization
+full Cor.3.7 formalization
 stable homotopy model
-generic Toda-bracket normalization
+```
+
+最終全体回帰:
+
+```text
+2997 passed in 38.45s
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase57_capabilities
+```
+
+新規文書:
+
+```text
+docs/code_reference.md
 ```
 
 ### 状態
@@ -761,98 +698,27 @@ COMPLETE
 
 ---
 
-# Phase 56 completion boundary
+# Phase 57 completion boundary
 
-最終全体回帰:
-
-```text
-2910 passed in 29.17s
-```
-
-representative probe:
-
-```powershell
-python -m probes.probe_phase56_capabilities
-```
-
-次:
+最終 capability:
 
 ```text
-Phase 57
-Toda Lemma 5.2 proof integration
-```
-
----
-
-# Phase 57 candidate
-
-対象:
-
-```text
-α∈π_i(S^3)
+α∈π_i(S³)
 2α=0
 β∈{η₃,2ι₄,Eα}_1
-```
-
-target candidate:
-
-```text
+↓
 H(β)=E²α
 2β=η₃∘Eα∘η_{i+1}
 β∈π_{i+2}^3
 Δ(E²α)=0
 ```
 
-source material では Lemma statement と proof ending に η-index 不整合があるため、Phase 57-1 で原典・型・次元を確認する。
-
-現在確認している依存:
+次:
 
 ```text
-Lemma 4.5
-Proposition 2.6
-Proposition 1.4
-Proposition 1.3
-Corollary 3.7
-(2.1)
+Phase 58
+Toda (5.3) ν' consequence
 ```
-
-候補分割:
-
-```text
-Phase 57-1
-Lemma 5.2 statement / proof index / typing compatibility check
-
-Phase 57-2
-Lemma 4.5 minimum consequence needed for 2ι₃∘α=0
-
-Phase 57-3
-Proposition 2.6 minimum Hopf-invariant Toda-bracket consequence
-
-Phase 57-4
-Δ^-1(2η₂)=±ι₅ connection using independently derived Δ relation
-
-Phase 57-5
-Proposition 1.4 / Proposition 1.3 / Corollary 3.7 minimum bracket transformation chain
-
-Phase 57-6
-(2.1) + Lemma 4.5 indeterminacy-vanishing bridge
-
-Phase 57-7
-Lemma 5.2 end-to-end integration / provenance / representative probe
-
-Phase 57-8
-completion
-```
-
-実装原則:
-
-```text
-actual proof need
-↓
-minimum consequence
-```
-
-各 theorem の full formalization、generic Toda-bracket CAS normalization、generic coset algebra、stable homotopy model は先取りしない。
 
 ---
 
@@ -860,18 +726,19 @@ minimum consequence
 
 ```text
 README.md
-=
-current capabilities / current status
+= current capabilities / current status
 
 docs/design.md
-=
-current architecture / semantics / boundaries
+= current architecture / semantics / boundaries
 
 docs/development_log.md
-=
-chronological implementation history
+= chronological implementation history
 
 docs/roadmap.md
-=
-future capability dependency
+= future capability dependency
+
+docs/code_reference.md
+= 主要ファイルの責務、主要 class / function、コード探索ガイド
 ```
+
+`code_reference.md` は実装を読むための索引として運用し、細かな helper をすべて機械的に列挙する API reference にはしない。
