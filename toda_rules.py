@@ -114,6 +114,14 @@ class TodaDeltaImageUpToSignStatement:
 
 
 @dataclass(frozen=True)
+class TodaProp51FiniteDimensionalStatement:
+  pi3_2_group_relation: Relation
+  eta2_hopf_relation: Relation
+  delta_iota5_relation: TodaDeltaImageUpToSignStatement
+  higher_eta_group_relation: Relation
+
+
+@dataclass(frozen=True)
 class TodaEtaFamilyDefinitionStatement:
   index: int | ScalarSymbol
   element: HomotopyElement
