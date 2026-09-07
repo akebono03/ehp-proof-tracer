@@ -20,8 +20,12 @@ from proof import (
   find_inference_match,
   run_inference_until_stable_with_history,
 )
+from scalar_rules import (
+  ScalarGreaterEqualStatement,
+)
 from toda_rules import (
   Toda45IsomorphismStatement,
+  toda_45_isomorphism_inference_rule,
   toda_45_pi4_3_finite_cyclic_transport_inference_rule,
 )
 
@@ -524,5 +528,504 @@ def test_phase53_3_accepts_existing_toda45_symbolic_pi4_3_source_degree():
     toda_45_pi4_3_finite_cyclic_transport_inference_rule(),
     steps,
   ) is not None
+
+
+def build_phase53_4_toda45_steps(
+  data,
+):
+  stable_range = (
+    ScalarGreaterEqualStatement(
+      left=3,
+      right=ScalarSum(
+        left=1,
+        right=2,
+      ),
+    )
+  )
+
+  suspension_range = (
+    ScalarGreaterEqualStatement(
+      left=data[
+        "n"
+      ],
+      right=3,
+    )
+  )
+
+  suspension_map = (
+    TodaIteratedSuspensionMap(
+      exponent=ScalarSum(
+        left=data[
+          "n"
+        ],
+        right=ScalarProduct(
+          left=-1,
+          right=3,
+        ),
+      ),
+      source_group=TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=3,
+          right=1,
+        ),
+        sphere_dimension=3,
+      ),
+      target_group=data[
+        "pi_n_plus_1_n"
+      ],
+    )
+  )
+
+  return (
+    ProofStep(
+      conclusion=stable_range,
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    ProofStep(
+      conclusion=suspension_range,
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    ProofStep(
+      conclusion=suspension_map,
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    ProofStep(
+      conclusion=data[
+        "source_relation"
+      ],
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+  )
+
+
+def test_phase53_4_valid_stable_range_chain_derives_transport():
+  data = build_phase53_2_data()
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_45_isomorphism_inference_rule(),
+        toda_45_pi4_3_finite_cyclic_transport_inference_rule(),
+      ),
+      build_phase53_4_toda45_steps(
+        data
+      ),
+    )
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert data[
+    "target_relation"
+  ] in conclusions
+
+
+def test_phase53_4_wrong_stable_range_structure_blocks_transport():
+  data = build_phase53_2_data()
+
+  steps = list(
+    build_phase53_4_toda45_steps(
+      data
+    )
+  )
+
+  steps[
+    0
+  ] = ProofStep(
+    conclusion=ScalarGreaterEqualStatement(
+      left=3,
+      right=ScalarSum(
+        left=1,
+        right=3,
+      ),
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_45_isomorphism_inference_rule(),
+        toda_45_pi4_3_finite_cyclic_transport_inference_rule(),
+      ),
+      tuple(
+        steps
+      ),
+    )
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert not any(
+    isinstance(
+      conclusion,
+      Toda45IsomorphismStatement,
+    )
+    for conclusion in conclusions
+  )
+
+  assert data[
+    "target_relation"
+  ] not in conclusions
+
+
+def test_phase53_4_wrong_suspension_range_instance_blocks_transport():
+  data = build_phase53_2_data()
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  steps = list(
+    build_phase53_4_toda45_steps(
+      data
+    )
+  )
+
+  steps[
+    1
+  ] = ProofStep(
+    conclusion=ScalarGreaterEqualStatement(
+      left=data[
+        "n"
+      ],
+      right=q,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_45_isomorphism_inference_rule(),
+        toda_45_pi4_3_finite_cyclic_transport_inference_rule(),
+      ),
+      tuple(
+        steps
+      ),
+    )
+  )
+
+  conclusions = tuple(
+    step.conclusion
+    for step in result.steps
+  )
+
+  assert not any(
+    isinstance(
+      conclusion,
+      Toda45IsomorphismStatement,
+    )
+    for conclusion in conclusions
+  )
+
+  assert data[
+    "target_relation"
+  ] not in conclusions
+
+
+def test_phase53_4_rejects_wrong_transport_source_sphere():
+  data = build_phase53_2_data()
+
+  wrong_map = TodaIteratedSuspensionMap(
+    exponent=data[
+      "transport_map"
+    ].exponent,
+    source_group=TodaPrimaryGroup(
+      group_dimension=4,
+      sphere_dimension=4,
+    ),
+    target_group=data[
+      "pi_n_plus_1_n"
+    ],
+  )
+
+  steps = (
+    ProofStep(
+      conclusion=data[
+        "source_relation"
+      ],
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    ProofStep(
+      conclusion=Toda45IsomorphismStatement(
+        map=wrong_map,
+      ),
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+  )
+
+  assert find_inference_match(
+    toda_45_pi4_3_finite_cyclic_transport_inference_rule(),
+    steps,
+  ) is None
+
+
+def test_phase53_4_rejects_wrong_transport_source_degree():
+  data = build_phase53_2_data()
+
+  wrong_map = TodaIteratedSuspensionMap(
+    exponent=data[
+      "transport_map"
+    ].exponent,
+    source_group=TodaPrimaryGroup(
+      group_dimension=5,
+      sphere_dimension=3,
+    ),
+    target_group=data[
+      "pi_n_plus_1_n"
+    ],
+  )
+
+  steps = (
+    ProofStep(
+      conclusion=data[
+        "source_relation"
+      ],
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    ProofStep(
+      conclusion=Toda45IsomorphismStatement(
+        map=wrong_map,
+      ),
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+  )
+
+  assert find_inference_match(
+    toda_45_pi4_3_finite_cyclic_transport_inference_rule(),
+    steps,
+  ) is None
+
+
+def test_phase53_4_rejects_wrong_transport_target_degree():
+  data = build_phase53_2_data()
+
+  wrong_target = TodaPrimaryGroup(
+    group_dimension=ScalarSum(
+      left=data[
+        "n"
+      ],
+      right=2,
+    ),
+    sphere_dimension=data[
+      "n"
+    ],
+  )
+
+  wrong_map = TodaIteratedSuspensionMap(
+    exponent=data[
+      "transport_map"
+    ].exponent,
+    source_group=data[
+      "pi_4_3"
+    ],
+    target_group=wrong_target,
+  )
+
+  steps = (
+    ProofStep(
+      conclusion=data[
+        "source_relation"
+      ],
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    ProofStep(
+      conclusion=Toda45IsomorphismStatement(
+        map=wrong_map,
+      ),
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+  )
+
+  assert find_inference_match(
+    toda_45_pi4_3_finite_cyclic_transport_inference_rule(),
+    steps,
+  ) is None
+
+
+def test_phase53_4_rejects_wrong_transport_exponent():
+  data = build_phase53_2_data()
+
+  wrong_map = TodaIteratedSuspensionMap(
+    exponent=ScalarSum(
+      left=data[
+        "n"
+      ],
+      right=ScalarProduct(
+        left=-1,
+        right=2,
+      ),
+    ),
+    source_group=data[
+      "pi_4_3"
+    ],
+    target_group=data[
+      "pi_n_plus_1_n"
+    ],
+  )
+
+  steps = (
+    ProofStep(
+      conclusion=data[
+        "source_relation"
+      ],
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    ProofStep(
+      conclusion=Toda45IsomorphismStatement(
+        map=wrong_map,
+      ),
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+  )
+
+  assert find_inference_match(
+    toda_45_pi4_3_finite_cyclic_transport_inference_rule(),
+    steps,
+  ) is None
+
+
+def test_phase53_4_rejects_wrong_source_group():
+  data = build_phase53_2_data()
+
+  wrong_source_relation = Relation(
+    lhs=TodaPrimaryGroup(
+      group_dimension=5,
+      sphere_dimension=3,
+    ),
+    rhs=FiniteCyclicGroup(
+      order=2,
+      generator=data[
+        "eta_3"
+      ],
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  steps = (
+    ProofStep(
+      conclusion=wrong_source_relation,
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    ProofStep(
+      conclusion=data[
+        "isomorphism"
+      ],
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+  )
+
+  assert find_inference_match(
+    toda_45_pi4_3_finite_cyclic_transport_inference_rule(),
+    steps,
+  ) is None
+
+
+def test_phase53_4_rejects_wrong_cyclic_order():
+  data = build_phase53_2_data()
+
+  wrong_source_relation = Relation(
+    lhs=data[
+      "pi_4_3"
+    ],
+    rhs=FiniteCyclicGroup(
+      order=3,
+      generator=data[
+        "eta_3"
+      ],
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  steps = (
+    ProofStep(
+      conclusion=wrong_source_relation,
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    ProofStep(
+      conclusion=data[
+        "isomorphism"
+      ],
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+  )
+
+  assert find_inference_match(
+    toda_45_pi4_3_finite_cyclic_transport_inference_rule(),
+    steps,
+  ) is None
+
+
+def test_phase53_4_rejects_wrong_generator():
+  data = build_phase53_2_data()
+
+  eta_4 = HomotopyElement(
+    name="η₄",
+    dimension=4,
+    source=5,
+    target=4,
+    generator=GeneratorSymbol(
+      family="η",
+      index=4,
+    ),
+  )
+
+  wrong_source_relation = Relation(
+    lhs=data[
+      "pi_4_3"
+    ],
+    rhs=FiniteCyclicGroup(
+      order=2,
+      generator=eta_4,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  steps = (
+    ProofStep(
+      conclusion=wrong_source_relation,
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    ProofStep(
+      conclusion=data[
+        "isomorphism"
+      ],
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+  )
+
+  assert find_inference_match(
+    toda_45_pi4_3_finite_cyclic_transport_inference_rule(),
+    steps,
+  ) is None
+
+
 
 
