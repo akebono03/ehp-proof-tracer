@@ -4328,6 +4328,172 @@ def toda_eta3_suspension_relation_inference_rule():
   )
 
 
+def toda_higher_eta_family_bridge_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta_3_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    n = definition.index
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    expected_eta_n = HomotopyElement(
+      name="η_n",
+      dimension=n,
+      source=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      target=n,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n,
+      ),
+    )
+
+    if (
+      definition.element
+      != expected_eta_n
+    ):
+      return False
+
+    expected_definition = (
+      IteratedSuspension(
+        expression=eta_2,
+        exponent=ScalarSum(
+          left=n,
+          right=-2,
+        ),
+      )
+    )
+
+    if (
+      definition.iterated_suspension
+      != expected_definition
+    ):
+      return False
+
+    expected_eta_3_relation = Relation(
+      lhs=eta_3,
+      rhs=Suspension(
+        expression=eta_2,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      eta_3_relation
+      == expected_eta_3_relation
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta_3_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    n = definition.index
+
+    eta_3 = (
+      eta_3_relation.lhs
+    )
+
+    return Relation(
+      lhs=IteratedSuspension(
+        expression=eta_3,
+        exponent=ScalarSum(
+          left=n,
+          right=ScalarProduct(
+            left=-1,
+            right=3,
+          ),
+        ),
+      ),
+      rhs=definition.element,
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda higher eta-family "
+      "iterated suspension bridge"
+    ),
+    description=(
+      "For the eta-family definition "
+      "eta_n = E^(n-2) eta_2 and the "
+      "specific relation "
+      "eta_3 = E eta_2, derive the "
+      "eta-family-specific relation "
+      "E^(n-3) eta_3 = eta_n. "
+      "This rule does not introduce "
+      "generic iterated-suspension "
+      "composition or normalization."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaEtaFamilyDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_pi4_3_eta3_generator_inference_rule():
   def guard(
     premises,
