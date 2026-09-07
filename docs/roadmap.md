@@ -450,7 +450,7 @@ COMPLETE
 
 ---
 
-## Phase 55（NEXT）
+## Phase 55
 
 目的:
 
@@ -506,6 +506,157 @@ generic scalar normalization
 generic suspension normalization
 ```
 
+実装結果:
+
+```text
+TodaProp51FiniteDimensionalStatement
+Phase 49 dependency connection
+Phase 52 / 54 dependency connection
+finite-dimensional integration rule
+circular-dependency rejection
+non-circular representative run
+representative probe
+```
+
+代表実行:
+
+```text
+given = 17
+derived = 23
+rounds = 14
+fixed point = True
+```
+
+検証:
+
+```text
+2844 passed in 31.12s
+```
+
+状態:
+
+```text
+COMPLETE
+```
+
+---
+
+## Phase 56（NEXT candidate）
+
+Toda (5.2) composition isomorphism。
+
+Toda Proposition 4.4 を `n=2`, `α=η₂` に特殊化し、Phase 55 までに独立導出済みの
+
+```text
+H(η₂)=ι₃
+```
+
+を使う。
+
+さらに本文の
+
+```text
+π_{i-1}^1=0  (i≥3)
+```
+
+を接続して、
+
+```text
+α ↦ η₂∘α : π_i^3 → π_i^2
+```
+
+が同型であることを導出する。
+
+候補分割:
+
+```text
+Phase 56-1
+current Prop.4.4 / Composition / zero-group compatibility check
+
+Phase 56-2
+π_{i-1}^1=0 (i≥3) minimum statement representation
+
+Phase 56-3
+Prop.4.4 n=2, α=η₂ specialization
+
+Phase 56-4
+second-summand restriction γ ↦ η₂∘γ
+
+Phase 56-5
+zero first summand → composition isomorphism (5.2)
+
+Phase 56-6
+applicability / provenance / representative probe
+
+Phase 56-7
+Phase 56 completion
+```
+
+重要な境界:
+
+```text
+使う:
+  Phase 55 までに独立導出済みの H(η₂)=ι₃
+  Toda Proposition 4.4
+  Composition
+  π_{i-1}^1=0 (i≥3)
+
+使わない:
+  Toda Lemma 5.2
+  stable (G_1;2)=Z/2{η}
+  stable homotopy-group model
+  generic composition-isomorphism framework
+```
+
+状態:
+
+```text
+NEXT CANDIDATE
+```
+
+---
+
+## Phase 57（after Phase 56 candidate）
+
+Toda Lemma 5.2。
+
+対象:
+
+```text
+α∈π_i(S^3)
+2α=0
+β∈{η₃, 2ι₄, Eα}_1
+```
+
+に対して、
+
+```text
+H(β)=E²α
+2β=η₃∘Eα∘η_{i+1}
+β∈π_{i+2}^3
+Δ(E²α)=0
+```
+
+を表現・推論する。
+
+Phase 57 は Phase 56 の (5.2) を完成させてから着手する。
+
+候補分割は実装直前の compatibility check で確定する。
+
+先取りしない:
+
+```text
+full Chapter 5 automation
+generic indexed Toda-bracket theorem engine extension
+stable homotopy-group model
+```
+
+状態:
+
+```text
+PLANNED AFTER PHASE 56
+```
+
 ---
 
 # 9. 保留中の一般化
@@ -559,7 +710,9 @@ general-purpose CAS normalization
 | Toda (4.5) finite-cyclic transport | COMPLETE | 53 |
 | higher η-family bridge | COMPLETE | 54 |
 | π_{n+1}^n=Z/2{η_n} | COMPLETE | 54 |
-| Prop.5.1 finite-dimensional integration / provenance | NEXT | 55 |
+| Prop.5.1 finite-dimensional integration / provenance | COMPLETE | 55 |
+| Toda (5.2) composition isomorphism | NEXT CANDIDATE | 56 |
+| Toda Lemma 5.2 | PLANNED | 57 |
 | Prop.5.1 stable `(G_1;2)` conclusion | DEFERRED | later |
 | stable homotopy | PLANNED | later |
 | higher Toda brackets | DEFERRED | concrete need |
@@ -568,7 +721,7 @@ general-purpose CAS normalization
 
 # 11. 現在の直近ステップ
 
-Phase 54 まで完了。
+Phase 55 まで完了。
 
 現在 independently derived できる有限次元結果:
 
@@ -578,17 +731,35 @@ H(η₂)=ι₃
 π_4^3=Z/2{η₃}
 Δ(ι₅)=±2η₂
 π_{n+1}^n=Z/2{η_n}
+Toda Proposition 5.1 finite-dimensional result
 ```
 
-次:
+次の候補:
 
 ```text
-Phase 55
-Toda Proposition 5.1
-finite-dimensional integration / provenance
+Phase 56
+Toda (5.2) composition isomorphism
+
+α ↦ η₂∘α : π_i^3 ≅ π_i^2  (i≥3)
 ```
 
-Phase 55 の目的は新しい低次元 group fact を増やすことではなく、既存の独立導出済み結果を Proposition 5.1 の有限次元 statement として統合し、その依存関係を検証すること。
+依存:
+
+```text
+Toda Proposition 4.4
+H(η₂)=ι₃
+π_{i-1}^1=0  (i≥3)
+```
+
+その後の候補:
+
+```text
+Phase 57
+Toda Lemma 5.2
+```
+
+Phase 57 では、`2α=0` と indexed Toda bracket `{η₃,2ι₄,Eα}_1` から、
+`H(β)=E²α`、`2β=η₃∘Eα∘η_{i+1}`、`β∈π_{i+2}^3`、`Δ(E²α)=0` を扱う。
 
 ---
 
@@ -980,7 +1151,19 @@ COMPLETE
 ↓
 Phase 55
 Toda Proposition 5.1 finite-dimensional integration / provenance
+COMPLETE
+↓
+Phase 56
+Toda (5.2) composition isomorphism
 NEXT
+↓
+Phase 57
+Toda Lemma 5.2 proof integration
+PLANNED
+↓
+Phase 58
+Toda (5.3) ν' consequence
+PLANNED AFTER PHASE 57
 ```
 
 stable branch:
@@ -1018,16 +1201,11 @@ repository / database branch は具体的計算を妨げないタイミングで
 Lem 1.1
 Prop 1.2
 Prop 1.3 の下の式
-Prop 1.4
 Prop 1.5
 Prop 1.6
-(2.1)
 Prop 2.3
 Prop 2.5 の 2-primary case
-Prop 2.6
-Cor 3.7
 Lem 4.3
-Lem 4.5
 ```
 
 方針:
@@ -1036,85 +1214,318 @@ Lem 4.5
 DEFERRED UNTIL CONCRETE NEED
 ```
 
-ただし:
+すでに具体的必要が発生したため backlog から外すもの:
+
+```text
+Prop 1.4   → Phase 57 dependency
+Prop 1.3   → Phase 57 dependency
+(2.1)      → Phase 57 dependency
+Prop 2.6   → Phase 57 dependency
+Cor 3.7    → Phase 57 dependency
+Lem 4.5    → Phase 57 dependency
+```
+
+また:
 
 ```text
 Prop 2.7
 ```
 
-は Phase 50 の `π_4^3` 計算で minimum consequence が既に使用されたため、この backlog から除外する。
+は Phase 50 の `π_4^3` 計算で minimum consequence がすでに実装済みなので backlog には戻さない。
 
 ---
 
-# 22. Phase 54 完了後の直近ステップ
+# 22. Phase 55 完了後の直近ステップ
 
-Phase 54 は完了。
+Phase 55 は完了。
 
-Phase 54 で追加された結果:
+有限次元 Proposition 5.1 branch は:
 
 ```text
-η_n=E^(n-2)η₂
-+
-η₃=Eη₂
+π_3^2=Z{η₂}            INFERENCE
+H(η₂)=ι₃               INFERENCE
+Δ(ι₅)=±2η₂             INFERENCE
+π_{n+1}^n=Z/2{η_n}     INFERENCE
 ↓
-E^(n-3)η₃=η_n
+Toda Proposition 5.1
+finite-dimensional result INFERENCE
 ```
 
-さらに:
+まで統合済み。
+
+代表 provenance:
 
 ```text
-π_{n+1}^n=Z/2{E^(n-3)η₃}
-+
-E^(n-3)η₃=η_n
-↓
-π_{n+1}^n=Z/2{η_n}
-```
-
-代表実行:
-
-```text
-given = 15
-derived = 13
-rounds = 8
+final premise count = 4
+final premises are derived = True
+H(η₂)=ι₃ is GIVEN premise = False
+π_3^2 result is GIVEN premise = False
+Prop.5.1 result is GIVEN premise = False
+given = 17
+derived = 23
+rounds = 14
 fixed point = True
 ```
 
-検証:
+全体回帰:
 
 ```text
-2804 passed in 26.50s
+2844 passed in 31.12s
 ```
 
-次:
+次は Toda (5.2) を Phase 56 とする。
+
+```text
+Toda Proposition 4.4
++
+H(η₂)=ι₃
++
+π_{i-1}^1=0  (i≥3)
+↓
+α ↦ η₂∘α : π_i^3 ≅ π_i^2
+```
+
+Phase 56:
+
+```text
+56-1 current Prop.4.4 / Composition / zero-group compatibility check
+56-2 π_{i-1}^1=0 (i≥3) minimum statement representation
+56-3 Prop.4.4 n=2, α=η₂ specialization
+56-4 second-summand restriction γ ↦ η₂∘γ
+56-5 zero first summand → composition isomorphism (5.2)
+56-6 applicability / provenance / representative probe
+56-7 completion
+```
+
+Phase 56 では Lemma 5.2 を先取りしない。
+
+---
+
+# 23. Phase 57：Toda Lemma 5.2 proof integration
+
+Phase 56 の (5.2) 完了後、Toda Lemma 5.2 を次の具体的 proof target とする。
+
+入力:
+
+```text
+α∈π_i(S^3)
+2α=0
+β∈{η₃,2ι₄,Eα}_1
+```
+
+本文で要求される結論:
+
+```text
+H(β)=E²α
+2β=η₃∘Eα∘η_{i+1}
+β∈π_{i+2}^3
+Δ(E²α)=0
+```
+
+ただし、提示された証明末尾では:
+
+```text
+2β=η₃∘Eα∘η_{i+2}
+```
+
+となっており、本文の `η_{i+1}` と証明末尾の `η_{i+2}` に添字不整合がある。
+
+この点は自動補正せず、Phase 57-1 で原典・型・次元を確認して development target を確定する。
+
+## Phase 57 proof dependency
+
+証明前半:
+
+```text
+2α=0
++
+Lem 4.5
+↓
+2ι₃∘α=0
+```
+
+これにより indexed Toda bracket:
+
+```text
+{η₃,2Eι₃,Eα}_1
+```
+
+に Prop.2.6 を適用する。
+
+Hopf invariant branch:
+
+```text
+Prop 2.6
+↓
+H(β) ∈ Δ^-1(η₂∘2ι₃) ∘ E²α
+
+η₂∘2ι₃ = 2η₂
+Phase 55 までの Δ(ι₅)=±2η₂
+↓
+Δ^-1(2η₂)=±ι₅
+↓
+H(β)=E²α
+```
+
+ここでは `Δ^-1(2η₂)=±ι₅` の扱いに必要な最小表現を、実際の current code compatibility を確認してから追加する。
+
+2β branch:
+
+```text
+2β
+∈ 2{η₃,2ι₄,Eα}_1
+=
+{η₃,2ι₄,Eα}_1∘2ι_{i+2}
+↓ Prop 1.4
+η₃∘E{2ι₃,α,2ι_i}
+↓ Prop 1.3
+η₃∘-{2ι₄,Eα,2ι_{i+1}}
+↓ Cor 3.7
+η₃∘-(Eα∘η_{i+1})
+```
+
+さらに bracket indeterminacy / coset を消すため:
+
+```text
+γ∈π_{i+2}(S^4)
+↓ (2.1)
+E(η₃∘γ∘2ι_{i+2})
+=η₄∘2Eγ
+=2η₄∘Eγ
+=0
+↓ Lem 4.5
+η₃∘γ∘2ι_{i+2}=0
+```
+
+したがって該当 coset が1点に縮退し、`2β` の具体的 relation を得る。
+
+最後に:
+
+```text
+H(β)=E²α
+↓
+Δ(E²α)=Δ(H(β))=0
+```
+
+を接続する。
+
+## Phase 57 candidate 分割
+
+```text
+Phase 57-1
+Lemma 5.2 statement / proof index / typing compatibility check
+
+Phase 57-2
+Lem 4.5 minimum consequence needed for 2ι₃∘α=0
+
+Phase 57-3
+Prop 2.6 minimum Hopf-invariant Toda-bracket consequence
+
+Phase 57-4
+Δ^-1(2η₂)=±ι₅ connection using Phase 55 derived Δ relation
+
+Phase 57-5
+Prop 1.4 / Prop 1.3 / Cor 3.7 minimum bracket transformation chain
+
+Phase 57-6
+(2.1) + Lem 4.5 indeterminacy-vanishing bridge
+
+Phase 57-7
+Lemma 5.2 end-to-end integration / provenance / representative probe
+
+Phase 57-8
+completion
+```
+
+実装原則:
+
+```text
+use only minimum consequences actually appearing in this proof
+no full Prop 1.3 / Prop 1.4 / Prop 2.6 / Cor 3.7 formalization unless required
+no generic Toda-bracket CAS normalization
+no generic coset algebra unless concrete need forces it
+no stable homotopy model
+```
+
+---
+
+# 24. Phase 58：Toda (5.3) ν' consequence
+
+Lemma 5.2 完了後、その concrete specialization を別 Phase に分離する。
+
+入力:
+
+```text
+α=η₃∈π_4(S^3)
+2ι₃∘η₃=0
+ν'∈{η₃,2ι₄,η₄}_1
+```
+
+Lemma 5.2 を適用して Toda (5.3):
+
+```text
+ν'∈π_6^3
+H(ν')=η₅
+2ν'=η₃∘η₄∘η₅
+```
+
+を導出することを target とする。
+
+Phase 58 candidate:
+
+```text
+58-1 current η-family / bracket specialization compatibility check
+58-2 ν' minimum definition / membership representation
+58-3 Lemma 5.2 specialization α=η₃
+58-4 H(ν')=η₅ bridge
+58-5 2ν'=η₃∘η₄∘η₅ bridge
+58-6 provenance / representative probe
+58-7 completion
+```
+
+Phase 58 では Lemma 5.2 の proof を再実装せず、Phase 57 で導出済み theorem result を specialization する。
+
+---
+
+# 25. 直近の capability dependency
 
 ```text
 Phase 55
-Toda Proposition 5.1
-finite-dimensional integration / provenance
+Prop.5.1 finite-dimensional integration
+COMPLETE
+↓
+Phase 56
+(5.2) composition isomorphism
+NEXT
+↓
+Phase 57
+Lemma 5.2 proof integration
+PLANNED
+↓
+Phase 58
+(5.3) ν' consequence
+PLANNED
 ```
 
-Phase 55 の現在の input:
+Phase 57 で具体的必要が確定した dependency:
 
 ```text
-π_3^2=Z{η₂}
-H(η₂)=ι₃
-Δ(ι₅)=±2η₂
-π_{n+1}^n=Z/2{η_n}
+Lem 4.5
+Prop 2.6
+Prop 1.4
+Prop 1.3
+Cor 3.7
+(2.1)
 ```
 
-目標:
+引き続き保留:
 
 ```text
-上記4結果を Proposition 5.1 finite-dimensional result として
-同一 provenance chain 上で統合する
-```
-
-境界:
-
-```text
-no Proposition 5.1 GIVEN premise
-no old literature-derived circular H premise
-no stable (G_1;2) conclusion
-no stable homotopy model
-no composition isomorphism (5.2)
+stable (G_1;2)=Z/2{η}
+stable homotopy-group model
+generic cyclic-generator rewrite
+generic scalar normalization
+generic suspension normalization
+generic Toda-bracket normalization
+full theorem formalization beyond concrete need
 ```

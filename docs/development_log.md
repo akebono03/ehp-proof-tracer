@@ -1933,3 +1933,367 @@ stable `(G_1;2)=Z/2{η}` は引き続き保留。
 Phase 55
 Toda Proposition 5.1 finite-dimensional integration / provenance
 ```
+
+---
+
+# Phase 55：Toda Proposition 5.1 finite-dimensional integration / provenance
+
+目的:
+
+```text
+π_3^2=Z{η₂}
+H(η₂)=ι₃
+Δ(ι₅)=±2η₂
+π_{n+1}^n=Z/2{η_n}
+↓
+Toda Proposition 5.1 finite-dimensional result
+```
+
+新しい低次元群を計算せず、Phase 49 / 52 / 54 の独立導出済み結果を循環依存なしで統合する。
+
+---
+
+## Phase 55-1：current Proposition 5.1 result / provenance representation compatibility check
+
+確認:
+
+```text
+π_3^2=Z{η₂}        Relation + FreeCyclicGroup
+H(η₂)=ι₃           Relation + MapApplication
+Δ(ι₅)=±2η₂         TodaDeltaImageUpToSignStatement
+π_{n+1}^n=Z/2{η_n} Relation + FiniteCyclicGroup
+```
+
+`ProofStep` の既存 provenance で derived-premise chaining が可能。
+
+不足は4結果を一つに束ねる専用 statement のみ。
+
+production code:
+
+```text
+変更なし
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 55-2：finite-dimensional Proposition 5.1 minimum statement representation
+
+追加:
+
+```text
+TodaProp51FiniteDimensionalStatement
+```
+
+保持する4 field:
+
+```text
+pi3_2_group_relation
+eta2_hopf_relation
+delta_iota5_relation
+higher_eta_group_relation
+```
+
+新規:
+
+```text
+tests/test_phase55_prop51_finite_dimensional_statement.py
+```
+
+focused:
+
+```text
+5 passed
+```
+
+全体回帰:
+
+```text
+2809 passed in 27.51s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 55-3：π_3^2=Z{η₂} / H(η₂)=ι₃ dependency connection
+
+Phase 49 から次を INFERENCE provenance のまま取得することを固定。
+
+```text
+π_3^2=Z{η₂}
+H(η₂)=ι₃
+```
+
+新規:
+
+```text
+tests/test_phase55_prop51_phase49_dependency.py
+```
+
+確認:
+
+```text
+η₂ definition = INFERENCE
+H(η₂)=ι₃ = INFERENCE
+π_3^2=Z{η₂} = INFERENCE
+両 result は initial GIVEN conclusions に含まれない
+```
+
+focused:
+
+```text
+7 passed
+```
+
+全体回帰:
+
+```text
+2816 passed in 28.45s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 55-4：Δ(ι₅)=±2η₂ / π_{n+1}^n=Z/2{η_n} dependency connection
+
+Phase 52 / 54 から次を INFERENCE provenance のまま取得。
+
+```text
+Δ(ι₅)=±2η₂
+π_{n+1}^n=Z/2{η_n}
+```
+
+新規:
+
+```text
+tests/test_phase55_prop51_phase52_phase54_dependency.py
+```
+
+確認:
+
+```text
+Δ direct result の2 premise は両方 INFERENCE
+higher η group の2 premise は両方 INFERENCE
+両 result は initial GIVEN conclusions に含まれない
+```
+
+focused:
+
+```text
+7 passed
+```
+
+全体回帰:
+
+```text
+2823 passed in 28.93s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 55-5：Proposition 5.1 finite-dimensional integration rule
+
+追加:
+
+```text
+toda_prop51_finite_dimensional_integration_inference_rule()
+```
+
+入力:
+
+```text
+π_3^2=Z{η₂}        INFERENCE
+H(η₂)=ι₃           INFERENCE
+Δ(ι₅)=±2η₂         INFERENCE
+π_{n+1}^n=Z/2{η_n} INFERENCE
+```
+
+導出:
+
+```text
+TodaProp51FiniteDimensionalStatement
+```
+
+`PremisePattern` で4 premise 全て `ProofRule.INFERENCE` を要求。
+
+新規:
+
+```text
+tests/test_phase55_prop51_integration.py
+```
+
+focused:
+
+```text
+6 passed
+```
+
+全体回帰:
+
+```text
+2829 passed in 27.16s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 55-6：circular-dependency rejection / provenance / representative probe
+
+production rule は変更なし。
+
+rejection を固定:
+
+```text
+GIVEN H(η₂)=ι₃
+GIVEN π_3^2=Z{η₂}
+GIVEN Δ(ι₅)=±2η₂
+GIVEN π_{n+1}^n=Z/2{η_n}
+GIVEN Proposition 5.1 result で不足 premise を代替
+Δ(ι₅)=±[ι₂,ι₂] を final Δ result として使用
+π_{n+1}^n=Z/2{E^(n-3)η₃} を final η_n group として使用
+```
+
+新規:
+
+```text
+tests/test_phase55_prop51_rejection_provenance.py
+probes/probe_phase55_capabilities.py
+tests/test_phase55_probe.py
+```
+
+重要な修正方針:
+
+Phase 50 representative には Phase 49 由来 result を GIVEN として再投入する premise があるため、Phase 55 representative は Phase 54 probe を単純延長しない。
+
+Phase 49 の base premises から代表 run を組み直し、Phase 49 ですでに導出可能な Phase 50 GIVEN conclusion を除外する。
+
+代表出力:
+
+```text
+π_3^2 = Z{η₂}
+H(η₂) = ι₃
+Δ(ι₅) = ±2η₂
+π_(n+1)^n = Z/2{η_n}
+↓
+Toda Proposition 5.1 finite-dimensional result
+```
+
+代表 provenance:
+
+```text
+pi_3^2 result is derived = True
+H(eta_2)=iota_3 is derived = True
+Delta(iota_5)=+-2eta_2 is derived = True
+higher eta group is derived = True
+final Prop.5.1 result is derived = True
+final rule = Toda Proposition 5.1 finite-dimensional integration
+final premise count = 4
+final premises are derived = True
+H(eta_2)=iota_3 is GIVEN premise = False
+pi_3^2 result is GIVEN premise = False
+Prop.5.1 result is GIVEN premise = False
+given premise count = 17
+derived step count = 23
+derived round count = 14
+fixed point = True
+```
+
+focused:
+
+```text
+rejection / provenance  7 passed
+probe                   8 passed
+```
+
+最終全体回帰:
+
+```text
+2844 passed in 31.12s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 55-7：Phase 55 completion
+
+Phase 55 で完成:
+
+```text
+TodaProp51FiniteDimensionalStatement
+Phase 49 dependency connection
+Phase 52 / 54 dependency connection
+finite-dimensional Proposition 5.1 integration rule
+four-derived-premise provenance
+circular-dependency rejection
+non-circular representative run
+representative probe
+full regression
+```
+
+Generic inference engine:
+
+```text
+変更なし
+```
+
+追加しなかったもの:
+
+```text
+stable (G_1;2)=Z/2{η}
+stable homotopy-group model
+composition isomorphism (5.2)
+generic cyclic-generator rewrite
+generic scalar normalization
+generic suspension normalization
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 55 completion boundary
+
+有限次元 Proposition 5.1 branch:
+
+```text
+Phase 49
+π_3^2=Z{η₂}, H(η₂)=ι₃
+COMPLETE
+↓
+Phase 52
+Δ(ι₅)=±2η₂
+COMPLETE
+↓
+Phase 54
+π_{n+1}^n=Z/2{η_n}
+COMPLETE
+↓
+Phase 55
+Toda Proposition 5.1 finite-dimensional integration / provenance
+COMPLETE
+```
+
+stable `(G_1;2)=Z/2{η}` は引き続き DEFERRED。
+
+次の具体 Phase は、実際の数学的必要を確認してから設定する。

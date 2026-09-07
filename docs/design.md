@@ -1132,3 +1132,217 @@ generic cyclic-generator rewrite
 generic scalar normalization
 generic suspension normalization
 ```
+
+---
+
+# 38. Phase 55 finite-dimensional Proposition 5.1 statement 設計
+
+目的:
+
+```text
+π_3^2=Z{η₂}
+H(η₂)=ι₃
+Δ(ι₅)=±2η₂
+π_{n+1}^n=Z/2{η_n}
+↓
+Toda Proposition 5.1 finite-dimensional result
+```
+
+Phase 55-2 では4結果を束ねる最小専用 statement を追加する。
+
+```text
+TodaProp51FiniteDimensionalStatement
+```
+
+保持する field:
+
+```text
+pi3_2_group_relation: Relation
+eta2_hopf_relation: Relation
+delta_iota5_relation: TodaDeltaImageUpToSignStatement
+higher_eta_group_relation: Relation
+```
+
+既存の `Relation` / `TodaDeltaImageUpToSignStatement` をそのまま保持し、一般の conjunction / proposition-result framework は導入しない。
+
+---
+
+# 39. Phase 55 dependency connection 設計
+
+Phase 55-3 では Phase 49 から次を derived provenance のまま接続する。
+
+```text
+π_3^2=Z{η₂}  INFERENCE
+H(η₂)=ι₃     INFERENCE
+```
+
+`H(η₂)=ι₃` は `TodaPi32Eta2DefinitionStatement` から導出され、`π_3^2=Z{η₂}` も同じ derived η₂ definition を利用する。
+
+Phase 55-4 では次を接続する。
+
+```text
+Phase 52:
+Δ(ι₅)=±2η₂  INFERENCE
+
+Phase 54:
+π_{n+1}^n=Z/2{η_n}  INFERENCE
+```
+
+どの結果も Phase 55 用に GIVEN として再投入しない。
+
+---
+
+# 40. Phase 55 integration rule 設計
+
+専用 rule:
+
+```text
+toda_prop51_finite_dimensional_integration_inference_rule()
+```
+
+4 premise の expected structural shape を guard で確認する。
+
+```text
+1. π_3^2=Z{η₂}
+2. H(η₂)=ι₃
+3. Δ(ι₅)=±2η₂
+4. π_{n+1}^n=Z/2{η_n}
+```
+
+さらに各 `PremisePattern` で:
+
+```text
+proof_rule=ProofRule.INFERENCE
+```
+
+を要求する。
+
+したがって integration result は:
+
+```text
+4 independently derived premises
+↓
+TodaProp51FiniteDimensionalStatement
+```
+
+としてのみ生成される。
+
+一般の theorem conjunction rule や provenance solver は追加しない。
+
+---
+
+# 41. Phase 55 circular-dependency rejection 設計
+
+次を reject する。
+
+```text
+GIVEN H(η₂)=ι₃
+GIVEN π_3^2=Z{η₂}
+GIVEN Δ(ι₅)=±2η₂
+GIVEN π_{n+1}^n=Z/2{η_n}
+GIVEN Proposition 5.1 result による不足 premise の代替
+```
+
+さらに、INFERENCE であっても required final result でないものを reject する。
+
+```text
+Δ(ι₅)=±[ι₂,ι₂]
+π_{n+1}^n=Z/2{E^(n-3)η₃}
+```
+
+重要:
+
+```text
+derived provenance
+!=
+correct Proposition 5.1 dependency shape
+```
+
+両方を満たす必要がある。
+
+---
+
+# 42. Phase 55 representative run の非循環構成
+
+既存 Phase 50 representative は、Phase 49 で導出可能な結果を GIVEN として再投入する箇所を含む。
+
+Phase 55 の provenance 検証では、その premise set をそのまま継承しない。
+
+Phase 49 の base premises / rules から開始し、Phase 50 以降の premise は Phase 49 ですでに得られる conclusion を除外して追加する。
+
+これにより代表 run で次を満たす。
+
+```text
+H(η₂)=ι₃ is GIVEN premise = False
+π_3^2=Z{η₂} is GIVEN premise = False
+Prop.5.1 result is GIVEN premise = False
+```
+
+代表値:
+
+```text
+given = 17
+derived = 23
+rounds = 14
+fixed point = True
+```
+
+---
+
+# 43. Phase 55 provenance 方針
+
+最終 `TodaProp51FiniteDimensionalStatement` は:
+
+```text
+ProofRule.INFERENCE
+```
+
+であり、premise 数は exactly 4。
+
+```text
+π_3^2=Z{η₂}        INFERENCE
+H(η₂)=ι₃           INFERENCE
+Δ(ι₅)=±2η₂         INFERENCE
+π_{n+1}^n=Z/2{η_n} INFERENCE
+```
+
+4 premise を `ProofStep.premises` にそのまま保持する。
+
+別の provenance graph class は導入しない。
+
+---
+
+# 44. Phase 55 completion boundary
+
+Phase 55 で完成:
+
+```text
+TodaProp51FiniteDimensionalStatement
+Phase 49 dependency connection
+Phase 52 / 54 dependency connection
+finite-dimensional Proposition 5.1 integration rule
+4 derived premise provenance
+circular-dependency rejection
+non-circular representative run
+representative probe
+full regression
+```
+
+全体回帰:
+
+```text
+2844 passed in 31.12s
+```
+
+引き続き追加しない:
+
+```text
+stable (G_1;2)=Z/2{η}
+stable homotopy-group model
+composition isomorphism (5.2)
+generic cyclic-generator rewrite
+generic scalar normalization
+generic suspension normalization
+```
+
+次の具体 Phase は実際の数学的必要が決まってから設定する。
