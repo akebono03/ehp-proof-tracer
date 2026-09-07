@@ -3930,6 +3930,252 @@ class TodaBracketDefinedStatement:
   bracket: TodaBracket
 
 
+@dataclass(frozen=True)
+class TodaProp26HopfBracketConsequenceStatement:
+  bracket_element: Expression
+  bracket: TodaBracket
+  delta_preimage_value: Expression
+  right_factor: Expression
+  sign: int
+
+
+def toda_prop26_lemma52_hopf_bracket_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    membership = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    first_zero = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    second_zero = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    bracket = membership.bracket
+
+    if (
+      bracket.index
+      != 1
+    ):
+      return False
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    iota_3 = HomotopyElement(
+      name="ι_3",
+      dimension=3,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=3,
+      ),
+    )
+
+    iota_4 = HomotopyElement(
+      name="ι_4",
+      dimension=4,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=4,
+      ),
+    )
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    if (
+      bracket.first
+      != eta_3
+    ):
+      return False
+
+    if (
+      bracket.second
+      != Multiple(
+        coefficient=2,
+        expression=iota_4,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      bracket.third,
+      Suspension,
+    ):
+      return False
+
+    alpha = (
+      bracket.third.expression
+    )
+
+    expected_first_zero = Relation(
+      lhs=Suspension(
+        expression=Composition(
+          left=eta_2,
+          right=Multiple(
+            coefficient=2,
+            expression=iota_3,
+          ),
+        ),
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    if (
+      first_zero
+      != expected_first_zero
+    ):
+      return False
+
+    expected_second_zero = Relation(
+      lhs=Composition(
+        left=Multiple(
+          coefficient=2,
+          expression=iota_3,
+        ),
+        right=alpha,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    if (
+      second_zero
+      != expected_second_zero
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    membership = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    bracket = membership.bracket
+
+    alpha = (
+      bracket
+      .third
+      .expression
+    )
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    iota_3 = HomotopyElement(
+      name="ι_3",
+      dimension=3,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=3,
+      ),
+    )
+
+    return (
+      TodaProp26HopfBracketConsequenceStatement(
+        bracket_element=(
+          membership.element
+        ),
+        bracket=bracket,
+        delta_preimage_value=Composition(
+          left=eta_2,
+          right=Multiple(
+            coefficient=2,
+            expression=iota_3,
+          ),
+        ),
+        right_factor=IteratedSuspension(
+          expression=alpha,
+          exponent=2,
+        ),
+        sign=-1,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 2.6 "
+      "Lemma 5.2 Hopf bracket consequence"
+    ),
+    description=(
+      "For beta in "
+      "{eta_3, 2 iota_4, E alpha}_1, "
+      "with E(eta_2 composed with "
+      "2 iota_3)=0 and "
+      "2 iota_3 composed with alpha=0, "
+      "the Lemma 5.2 specialization "
+      "of Toda Proposition 2.6 gives "
+      "H(beta) in minus "
+      "Delta^-1(eta_2 composed with "
+      "2 iota_3) composed with "
+      "E^2 alpha."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaBracketMembershipStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_bracket_membership_from_theorem_inference_rule():
   def guard(
     premises,
