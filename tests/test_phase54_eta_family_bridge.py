@@ -857,5 +857,284 @@ def test_phase54_3_rejects_wrong_symbolic_eta_definition_exponent():
   ) is None
 
 
+def test_phase54_4_rejects_mismatched_symbolic_index():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  q = ScalarSymbol(
+    name="q",
+  )
+
+  valid_definition = (
+    toda_eta_family_definition_statement(
+      n
+    )
+  )
+
+  wrong_definition = (
+    TodaEtaFamilyDefinitionStatement(
+      index=q,
+      element=valid_definition.element,
+      iterated_suspension=(
+        valid_definition
+        .iterated_suspension
+      ),
+    )
+  )
+
+  eta_2 = HomotopyElement(
+    name="η₂",
+    dimension=2,
+    source=3,
+    target=2,
+    generator=GeneratorSymbol(
+      family="η",
+      index=2,
+    ),
+  )
+
+  eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    source=4,
+    target=3,
+    generator=GeneratorSymbol(
+      family="η",
+      index=3,
+    ),
+  )
+
+  eta_3_relation = Relation(
+    lhs=eta_3,
+    rhs=Suspension(
+      expression=eta_2,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  steps = (
+    ProofStep(
+      conclusion=wrong_definition,
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    ProofStep(
+      conclusion=eta_3_relation,
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+  )
+
+  assert find_inference_match(
+    toda_higher_eta_family_bridge_inference_rule(),
+    steps,
+  ) is None
+
+
+def test_phase54_4_rejects_wrong_symbolic_eta_element():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  valid_definition = (
+    toda_eta_family_definition_statement(
+      n
+    )
+  )
+
+  wrong_eta_n = HomotopyElement(
+    name="η_n",
+    dimension=n,
+    source=ScalarSum(
+      left=n,
+      right=2,
+    ),
+    target=n,
+    generator=GeneratorSymbol(
+      family="η",
+      index=n,
+    ),
+  )
+
+  wrong_definition = (
+    TodaEtaFamilyDefinitionStatement(
+      index=n,
+      element=wrong_eta_n,
+      iterated_suspension=(
+        valid_definition
+        .iterated_suspension
+      ),
+    )
+  )
+
+  eta_2 = HomotopyElement(
+    name="η₂",
+    dimension=2,
+    source=3,
+    target=2,
+    generator=GeneratorSymbol(
+      family="η",
+      index=2,
+    ),
+  )
+
+  eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    source=4,
+    target=3,
+    generator=GeneratorSymbol(
+      family="η",
+      index=3,
+    ),
+  )
+
+  eta_3_relation = Relation(
+    lhs=eta_3,
+    rhs=Suspension(
+      expression=eta_2,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  steps = (
+    ProofStep(
+      conclusion=wrong_definition,
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    ProofStep(
+      conclusion=eta_3_relation,
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+  )
+
+  assert find_inference_match(
+    toda_higher_eta_family_bridge_inference_rule(),
+    steps,
+  ) is None
+
+
+def test_phase54_4_rejects_reversed_eta3_relation():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  definition = (
+    toda_eta_family_definition_statement(
+      n
+    )
+  )
+
+  eta_2 = HomotopyElement(
+    name="η₂",
+    dimension=2,
+    source=3,
+    target=2,
+    generator=GeneratorSymbol(
+      family="η",
+      index=2,
+    ),
+  )
+
+  eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    source=4,
+    target=3,
+    generator=GeneratorSymbol(
+      family="η",
+      index=3,
+    ),
+  )
+
+  reversed_relation = Relation(
+    lhs=Suspension(
+      expression=eta_2,
+    ),
+    rhs=eta_3,
+    relation_type=RelationType.EQUALITY,
+  )
+
+  steps = (
+    ProofStep(
+      conclusion=definition,
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    ProofStep(
+      conclusion=reversed_relation,
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+  )
+
+  assert find_inference_match(
+    toda_higher_eta_family_bridge_inference_rule(),
+    steps,
+  ) is None
+
+
+def test_phase54_4_rejects_non_equality_eta3_relation():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  definition = (
+    toda_eta_family_definition_statement(
+      n
+    )
+  )
+
+  eta_2 = HomotopyElement(
+    name="η₂",
+    dimension=2,
+    source=3,
+    target=2,
+    generator=GeneratorSymbol(
+      family="η",
+      index=2,
+    ),
+  )
+
+  eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    source=4,
+    target=3,
+    generator=GeneratorSymbol(
+      family="η",
+      index=3,
+    ),
+  )
+
+  wrong_relation = Relation(
+    lhs=eta_3,
+    rhs=Suspension(
+      expression=eta_2,
+    ),
+    relation_type=RelationType.INEQUALITY,
+  )
+
+  steps = (
+    ProofStep(
+      conclusion=definition,
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    ProofStep(
+      conclusion=wrong_relation,
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+  )
+
+  assert find_inference_match(
+    toda_higher_eta_family_bridge_inference_rule(),
+    steps,
+  ) is None
+
 
 
