@@ -4026,6 +4026,161 @@ def toda_bracket_membership_proof_step(
 
 
 @dataclass(frozen=True)
+class Toda53NuPrimeBracketSpecializationStatement:
+  nu_prime: HomotopyElement
+  alpha: HomotopyElement
+  lemma52_index: int
+  bracket_membership: TodaBracketMembershipStatement
+
+
+def toda_53_nu_prime_bracket_specialization_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    membership = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    if (
+      membership.element
+      != nu_prime
+    ):
+      return False
+
+    bracket = membership.bracket
+
+    if (
+      bracket.index
+      != 1
+    ):
+      return False
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    if (
+      bracket.first
+      != eta_3
+    ):
+      return False
+
+    iota_4 = HomotopyElement(
+      name="ι_4",
+      dimension=4,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=4,
+      ),
+    )
+
+    expected_second = Multiple(
+      coefficient=2,
+      expression=iota_4,
+    )
+
+    if (
+      bracket.second
+      != expected_second
+    ):
+      return False
+
+    eta_4 = HomotopyElement(
+      name="η₄",
+      dimension=4,
+      source=5,
+      target=4,
+      generator=GeneratorSymbol(
+        family="η",
+        index=4,
+      ),
+    )
+
+    return (
+      bracket.third
+      == eta_4
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    membership = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    return (
+      Toda53NuPrimeBracketSpecializationStatement(
+        nu_prime=membership.element,
+        alpha=eta_3,
+        lemma52_index=4,
+        bracket_membership=membership,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 5.3 nu-prime "
+      "Lemma 5.2 bracket specialization"
+    ),
+    description=(
+      "Recognize the concrete Toda "
+      "(5.3) membership "
+      "nu-prime in "
+      "{eta_3, 2 iota_4, eta_4}_1 "
+      "as the alpha=eta_3 and i=4 "
+      "instance to which the already "
+      "proved Lemma 5.2 consequence "
+      "will be specialized. "
+      "This rule does not reimplement "
+      "the proof of Lemma 5.2."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaBracketMembershipStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+@dataclass(frozen=True)
 class TodaBracketMembershipTheoremStatement:
   element: Expression
   bracket: TodaBracket
