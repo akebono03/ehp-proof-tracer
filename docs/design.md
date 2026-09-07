@@ -2,7 +2,7 @@
 
 この文書は現在のアーキテクチャ、意味論、設計境界を記録する。
 
-過去の実装経緯は `docs/development_log.md`、将来構想は `docs/roadmap.md` に分離する。
+過去の実装経緯は `docs/development_log.md`、将来構想は `docs/roadmap.md`、主要ファイルの責務は `docs/code_reference.md` に分離する。
 
 ---
 
@@ -25,6 +25,8 @@ representation != typing != theorem knowledge
 structural equality != mathematical equality
 ```
 
+Phase 57 までこの原則を維持している。
+
 ---
 
 # 2. レイヤー分離
@@ -43,7 +45,29 @@ homotopy / EHP data
 abelian-group algebra
 ```
 
-Phase 56 まで generic inference engine は theorem-specific branch を追加せず維持している。
+主要責務:
+
+```text
+expression.py
+= 式の構造
+
+proof.py
+= generic proof / inference
+
+relation_rules.py
+= generic relation propagation
+
+homotopy_groups.py
+= homotopy / Toda group and map data
+
+toda_rules.py
+= Toda-specific theorem knowledge
+
+probes/
+= representative end-to-end capability demonstration
+```
+
+詳細は `docs/code_reference.md` を参照する。
 
 ---
 
@@ -53,35 +77,62 @@ Phase 56 まで generic inference engine は theorem-specific branch を追加�
 
 ```text
 Expression
-├── Zero
-├── HomotopyElement
-├── Multiple
-├── Sum
-├── SmashProduct
-├── WhiteheadProduct
-├── Composition
-├── MapApplication
-├── Suspension
-├── IteratedSuspension
-└── TodaBracket
+Zero
+HomotopyElement
+GeneratorSymbol
+Multiple
+Sum
+SmashProduct
+WhiteheadProduct
+Composition
+MapApplication
+Suspension
+IteratedSuspension
+TodaBracket
 ```
 
 constructor は theorem-aware normalization を行わない。
 
-特に:
+例えば:
 
 ```text
-IteratedSuspension(x,1) != Suspension(x)
-ScalarSum(ScalarProduct(2,2),-1) != 3
+IteratedSuspension(x,1)
 ```
 
-を structural equality のまま保持する。
+と:
 
-必要な concrete theorem branch では専用 bridge / specialization を使う。
+```text
+Suspension(x)
+```
+
+を structural に自動同一視しない。
+
+同様に symbolic scalar の一般 CAS normalization も行わない。
 
 ---
 
-# 4. ホモトピー群・群構造
+# 4. structural equality と mathematical equality
+
+Python dataclass の equality は syntax tree の一致を表す。
+
+```text
+同じ syntax
+→ structural equality
+```
+
+数学的に同値だが syntax が異なる場合は:
+
+```text
+explicit Relation
++
+explicit inference rule
+```
+
+で接続する。
+
+---
+
+# 5. ホモトピー群・群構造
 
 現在の主な structural object:
 
@@ -96,11 +147,13 @@ DirectSumGroup
 
 `TodaPrimaryGroup(i,n)` は Toda 記法 `π_i^n` を保持する。
 
+`PreimageSubgroup` は subgroup inverse image であり、specific value の `Δ^-1(x)` を表す generic object ではない。
+
 `FiniteCyclicGroup(order,generator)` は concrete finite-cyclic calculation の最小表現であり、一般 quotient simplifier を意味しない。
 
 ---
 
-# 5. 標準写像と instance-aware map
+# 6. 標準写像と instance-aware map
 
 標準写像:
 
@@ -117,6 +170,7 @@ TodaSuspensionMap
 TodaHopfInvariantMap
 TodaDeltaMap
 TodaIteratedSuspensionMap
+TodaProp44DecompositionMap
 ```
 
 設計境界:
@@ -129,95 +183,97 @@ generic MapSymbol
 
 ---
 
-# 6. Toda Proposition 4.2
+# 7. generic inference engine
 
-instance-aware EHP exactness:
+中心 object:
 
 ```text
-TodaEHPSequence
-TodaEHPExactnessWindow
-TodaProp42ExactnessStatement
+Relation
+ProofStep
+PremisePattern
+PatternVariable
+InferenceRule
+InferenceMatch
+InferenceRunResult
 ```
 
-rules:
+実行:
 
 ```text
-toda_prop42_e_h_exactness_inference_rule()
-toda_prop42_h_delta_exactness_inference_rule()
-toda_prop42_delta_e_exactness_inference_rule()
-```
-
-generic exactness machineryと Toda-specific window semantics を分離する。
-
----
-
-# 7. Toda Proposition 4.4
-
-Phase 47 で:
-
-```text
-Φ:
-π_{i-1}^{n-1} ⊕ π_i^{2n-1}
-→ π_i^n
-
-Φ(β,γ)=Eβ+α∘γ
-```
-
-を `TodaProp44DecompositionMap` で structural に保持する。
-
-`TodaProp44IsomorphismStatement` は specific decomposition instance が同型であることを保持する。
-
-Phase 48 では first summand restriction を:
-
-```text
-TodaProp44FirstSummandRestrictionStatement
-```
-
-で保持し、同じ instance の suspension injectivity を導出する。
-
----
-
-# 8. Phase 49 の η₂ 設計
-
-`η₂` を literature GIVEN として final premise にせず:
-
-```text
-H:π_3^2→π_3^3 isomorphism
-+
-π_3^3=Z{ι₃}
+available ProofStep
 ↓
-η₂ = ι₃ の一意な H-preimage
+premise matching
+↓
+bindings
+↓
+match_guard
+↓
+conclusion_builder / conclusion_pattern
+↓
+ProofRule.INFERENCE
+↓
+fixed-point iteration
 ```
 
-として定義する。
-
-専用 statement:
+provenance は:
 
 ```text
-TodaPi32Eta2DefinitionStatement
+ProofStep.premises
+ProofStep.inference_rule
 ```
 
-No general:
+に保持する。
+
+Phase 57 でも generic inference engine の変更は行っていない。
+
+---
+
+# 8. generic relation rule と theorem-specific rule の境界
+
+`relation_rules.py` に置くもの:
 
 ```text
-ExistsStatement
-UniqueExistsStatement
-Witness
-InverseMap
+x=0, y=x → y=0
+equality symmetry
+equality transitivity
+equality preservation under composition
+suspension preserves equality / zero
+integer multiple の generic structural bridge
 ```
 
-を追加しない。
+`toda_rules.py` に置くもの:
+
+```text
+Toda Lemma 4.5
+Toda Proposition 2.6
+Toda Proposition 4.4
+Toda Proposition 5.1
+Toda Lemma 5.2
+```
+
+判断基準:
+
+```text
+数学 theorem 固有の知識か？
+YES → domain-specific module
+
+一般 relation mechanics か？
+YES → generic relation / proof module
+```
 
 ---
 
 # 9. ±付き relation の境界
 
-現在使用する専用 statement:
+現在の dedicated statement family は concrete theorem branch で必要な ± 情報だけを保持する。
+
+代表:
 
 ```text
 TodaProp27HopfInvariantUpToSignStatement
 TodaPi32WhiteheadSquareUpToSignStatement
 TodaDeltaImageUpToSignStatement
+TodaDeltaPreimageUpToSignStatement
 ```
 
 一般化しない:
@@ -229,58 +285,9 @@ generic up-to-sign transitivity
 general sign solver
 ```
 
-具体的な theorem dependency が必要な場合だけ専用 bridge を追加する。
-
 ---
 
-# 10. Phase 50 finite-cyclic calculation
-
-中心:
-
-```text
-H([ι₂,ι₂])=±2ι₃
-+
-H(η₂)=ι₃
-+
-H injective
-↓
-[ι₂,ι₂]=±2η₂
-```
-
-```text
-Δ(ι₅)=±[ι₂,ι₂]
-↓
-Δ(ι₅)=±2η₂
-```
-
-```text
-Im(Δ)=Z{2η₂}
-↓
-Ker(E)=Z{2η₂}
-```
-
-```text
-π_3^2=Z{η₂}
-+
-Ker(E)=Z{2η₂}
-+
-E surjective
-↓
-π_4^3=Z/2{Eη₂}
-```
-
-η-family notation:
-
-```text
-η_n=E^(n-2)η₂
-η₃=Eη₂
-↓
-π_4^3=Z/2{η₃}
-```
-
----
-
-# 11. η-family 設計
+# 10. η-family 設計
 
 structural definition:
 
@@ -299,21 +306,13 @@ Phase 54 の専用 bridge:
 E^(n-3)η₃=η_n
 ```
 
-これは η-family 専用であり:
-
-```text
-generic iterated-suspension composition
-generic suspension normalization
-generic scalar normalization
-```
-
-を導入しない。
+一般の suspension / scalar normalizer は追加しない。
 
 ---
 
-# 12. Toda Proposition 5.1 finite-dimensional integration
+# 11. Toda Proposition 5.1 finite-dimensional integration
 
-専用 aggregate statement:
+専用 aggregate:
 
 ```text
 TodaProp51FiniteDimensionalStatement
@@ -343,396 +342,358 @@ H(η₂)=ι₃           INFERENCE
 π_{n+1}^n=Z/2{η_n} INFERENCE
 ```
 
-4 premise を `ProofStep.premises` に保持する。
-
 Proposition 5.1 自身を premise として再投入しない。
 
 ---
 
-# 13. Phase 56 設計目標
+# 12. Toda (5.2)
 
-Toda (5.2):
-
-```text
-η₂∘- :
-π_i^3
-≅
-π_i^2
-    (i≥3)
-```
-
-必要 dependency:
+Phase 56 の target:
 
 ```text
-Toda Proposition 4.4
-H(η₂)=ι₃
-π_{i-1}^1=0  (i≥3)
-Composition
+η₂∘- : π_i^3 ≅ π_i^2
+(i≥3)
 ```
-
-Phase 56 は Toda Lemma 5.2 を使わない。
-
----
-
-# 14. Phase 56-1 compatibility boundary
-
-既存 object で次を保持できる:
-
-```text
-π_{i-1}^1 ⊕ π_i^3 → π_i^2
-Eβ+η₂∘γ
-π_{i-1}^1=0
-```
-
-利用:
-
-```text
-TodaProp44DecompositionMap
-Composition
-TodaPrimaryGroupZeroStatement
-```
-
-問題:
-
-```text
-generic Prop.4.4 rule:
-2n-1
-
-concrete n=2:
-3
-```
-
-が structural equality では一致しない。
-
-解決方針:
-
-```text
-generic scalar normalization を追加しない
-↓
-n=2, α=η₂ 専用 specialization を追加
-```
-
----
-
-# 15. Phase 56-2 zero theorem semantics
-
-専用 narrow rule:
-
-```text
-i≥3
-↓
-π_{i-1}^1=0
-```
-
-既存:
-
-```text
-ScalarGreaterEqualStatement
-TodaPrimaryGroupZeroStatement
-```
-
-を再利用する。
-
-意図的に受理しない:
-
-```text
-i≥2
-i≥4
-3≥i
-concrete 5≥3
-```
-
-この Phase では general inequality solver を追加しない。
-
----
-
-# 16. Phase 56-3 Prop.4.4 specialization
-
-専用 rule:
-
-```text
-toda_prop44_eta2_n2_isomorphism_inference_rule()
-```
-
-premise:
-
-```text
-TodaPi32Eta2DefinitionStatement    INFERENCE
-H(η₂)=ι₃                           INFERENCE
-TodaProp44DecompositionMap
-```
-
-expected map:
-
-```text
-Φ:
-π_{i-1}^1 ⊕ π_i^3
-→
-π_i^2
-
-Φ(β,γ)=Eβ+η₂∘γ
-```
-
-conclusion:
-
-```text
-TodaProp44IsomorphismStatement
-```
-
-generic `toda_prop44_isomorphism_inference_rule()` は変更しない。
-
----
-
-# 17. Phase 56-4 second-summand restriction
 
 専用 statement:
-
-```text
-TodaProp44SecondSummandRestrictionStatement
-```
-
-field:
-
-```text
-decomposition_map
-composition
-```
-
-専用 rule:
-
-```text
-toda_prop44_eta2_second_summand_restriction_inference_rule()
-```
-
-導出:
-
-```text
-Φ isomorphism
-↓
-Φ|_{π_i^3}(γ)=η₂∘γ
-```
-
-generic:
-
-```text
-CompositionMap
-LeftCompositionMap
-generic map restriction
-```
-
-は追加しない。
-
----
-
-# 18. Phase 56-5 Toda (5.2)
-
-最小 final statement:
 
 ```text
 Toda52CompositionIsomorphismStatement
 ```
 
-field:
+依存:
 
 ```text
-source_group
-target_group
-composition
+π_{i-1}^1=0
+Prop.4.4 n=2 specialization
+second-summand restriction
 ```
-
-target:
-
-```text
-source_group = π_i^3
-target_group = π_i^2
-composition = η₂∘γ
-```
-
-専用 rule:
-
-```text
-toda_52_eta2_composition_isomorphism_inference_rule()
-```
-
-premise は exactly:
-
-```text
-π_{i-1}^1=0                  INFERENCE
-Prop.4.4 n=2 isomorphism     INFERENCE
-second-summand restriction   INFERENCE
-```
-
-guard で:
-
-```text
-zero group == first summand
-restriction.decomposition_map == isomorphism.map
-second summand == π_i^3
-target == π_i^2
-α == η₂
-restriction.composition == η₂∘γ
-formula == Eβ+η₂∘γ
-```
-
-を確認する。
 
 一般化しない:
 
 ```text
 DirectSumGroup(A,B) + A=0 → B
-generic direct-sum simplifier
 generic isomorphism restriction theorem
 generic composition-map framework
 ```
 
 ---
 
-# 19. Phase 56 provenance 方針
+# 13. Phase 57 の設計目標
 
-最終 `Toda52CompositionIsomorphismStatement` は:
+Toda Lemma 5.2:
+
+```text
+α∈π_i(S^3)
+2α=0
+β∈{η₃,2ι₄,Eα}_1
+```
+
+から:
+
+```text
+H(β)=E²α
+2β=η₃∘Eα∘η_{i+1}
+β∈π_{i+2}^3
+Δ(E²α)=0
+```
+
+を同一 fixed-point run で導出する。
+
+---
+
+# 14. Lemma 5.2 index 方針
+
+canonical target は:
+
+```text
+η_{i+1}
+```
+
+とする。
+
+理由:
+
+```text
+Eα : S^(i+1) → S^4
+η_{i+1} : S^(i+2) → S^(i+1)
+```
+
+なので:
+
+```text
+η₃∘Eα∘η_{i+1}
+:
+S^(i+2) → S^3
+```
+
+となり `2β` と一致する。
+
+また `α=η₃`, `i=4` specialization は:
+
+```text
+2ν'=η₃∘η₄∘η₅
+```
+
+となる。
+
+---
+
+# 15. Phase 57-2：Lemma 4.5 minimum consequence
+
+```text
+α∈π_i(S³)
+↓
+2ι₃∘α=2α
+
+2α=0
+↓ generic zero propagation
+2ι₃∘α=0
+```
+
+Lemma 4.5 全体の generic formalization は行わない。
+
+---
+
+# 16. Phase 57-3：Proposition 2.6 minimum consequence
+
+専用 statement:
+
+```text
+TodaProp26HopfBracketConsequenceStatement
+```
+
+Lemma 5.2 specialization:
+
+```text
+β∈{η₃,2ι₄,Eα}_1
++
+E(η₂∘2ι₃)=0
++
+2ι₃∘α=0
+↓
+H(β) ∈ -Δ^-1(η₂∘2ι₃)∘E²α
+```
+
+`PreimageSubgroup` は変更しない。
+
+---
+
+# 17. Phase 57-4：Δ inverse bridge
+
+専用 statement:
+
+```text
+TodaDeltaPreimageUpToSignStatement
+```
+
+```text
+Δ(ι₅)=±2η₂
+↓
+Δ^-1(2η₂)=±ι₅
+```
+
+これは concrete inverse-image consequence。
+
+---
+
+# 18. Phase 57-5：bracket transformation chain
+
+専用 statement:
+
+```text
+TodaLemma52BracketCompositionMembershipStatement
+TodaLemma52BracketRepresentativeStatement
+```
+
+chain:
+
+```text
+β∈{η₃,2ι₄,Eα}_1
+↓ Prop.1.4
+2β∈η₃∘E{2ι₃,α,2ι_i}
+
+↓ Prop.1.3
+2β∈η₃∘-{2ι₄,Eα,2ι_{i+1}}_1
+
+↓ Cor.3.7
+explicit representative
+```
+
+TodaBracket を generic coset algebra へ拡張しない。
+
+---
+
+# 19. Phase 57-6：indeterminacy vanishing
+
+Phase 55 の higher η relation から:
+
+```text
+2η₄=0
+```
+
+を derived にする。
+
+任意の:
+
+```text
+γ∈π_{i+2}(S⁴)
+```
+
+について:
+
+```text
+E(η₃∘γ∘2ι_{i+2})=0
+```
+
+を Toda (2.1) の narrow consequence として導出。
+
+Lemma 4.5, `n=4` の suspension injectivity から:
+
+```text
+η₃∘γ∘2ι_{i+2}=0
+```
+
+を得る。
+
+---
+
+# 20. Phase 57-7：end-to-end integration
+
+同じ fixed-point run 内で Phase 55 provenance と Phase 57 rule family を接続する。
+
+最終:
+
+```text
+H(β)=E²α
+2β=η₃∘Eα∘η_{i+1}
+β∈π_{i+2}^3
+Δ(E²α)=0
+```
+
+すべて:
 
 ```text
 ProofRule.INFERENCE
 ```
 
-final premise count:
+final results:
 
 ```text
-3
+GIVEN = False
 ```
 
-すべて derived:
+representative run:
 
 ```text
-π_{i-1}^1=0
-Prop.4.4 n=2 specialization
-second-summand restriction
-```
-
-rejection:
-
-```text
-GIVEN zero statement
-GIVEN Prop.4.4 isomorphism
-GIVEN restriction
-wrong zero group
-wrong α
-wrong second summand
-wrong formula
-wrong composition
+18 inference rounds
+FIXED_POINT
 ```
 
 ---
 
-# 20. Phase 56 representative run
+# 21. Phase 57 の sign 処理
 
-base premise:
+Phase 57 では generic sign normalizer を導入しない。
+
+必要箇所のみ、order-two η-family fact と `2α=0` を theorem-specific guard に利用する。
 
 ```text
-Phase 49 base premises × 6
-i≥3
-Prop.4.4 decomposition map
+concrete proof need
+↓
+narrow sign consequence
 ```
 
-合計:
+---
+
+# 22. Phase 57 provenance 方針
+
+重要中間結果を final GIVEN として再投入しない。
+
+特に:
 
 ```text
-given = 8
+2ι₃∘α=0
+Prop.2.6 consequence
+Δ^-1(2η₂)=±ι₅
+bracket transformations
+indeterminacy zero
+H(β)=E²α
+2β=...
+β membership
+Δ(E²α)=0
 ```
 
-同一 fixed-point run で:
+は inference chain で導出する。
+
+probe:
 
 ```text
-η₂ definition
-H(η₂)=ι₃
-π_{i-1}^1=0
-Prop.4.4 n=2 specialization
-second-summand restriction
-Toda (5.2)
-```
-
-まで導出する。
-
-代表値:
-
-```text
-given = 8
-derived = 12
-rounds = 9
+all final results are INFERENCE = True
+final results are GIVEN = False
 fixed point = True
 ```
 
-重要:
-
-```text
-π_{i-1}^1=0 is GIVEN = False
-Prop.4.4 specialization is GIVEN = False
-second-summand restriction is GIVEN = False
-Toda (5.2) is GIVEN = False
-```
-
 ---
 
-# 21. Phase 56 testing
-
-focused:
+# 23. Phase 57 testing
 
 ```text
-Phase 56-1   6 passed
-Phase 56-2  10 passed
-Phase 56-3  11 passed
-Phase 56-4  13 passed
-Phase 56-5  16 passed
-Phase 56-6  10 passed
+test_phase57_lemma45_two_iota3.py              10 passed
+test_phase57_prop26_hopf_bracket.py            14 passed
+test_phase57_delta_two_eta2_preimage.py        14 passed
+test_phase57_bracket_transformation_chain.py   17 passed
+test_phase57_indeterminacy_vanishing.py        15 passed
+test_phase57_lemma52_integration.py            13 passed
+test_phase57_probe.py                           4 passed
+```
+
+関連:
+
+```text
+test_phase55_probe.py                           8 passed
+test_toda_rules.py                             66 passed
 ```
 
 full regression:
 
 ```text
-2910 passed in 29.17s
-```
-
-generic inference engine:
-
-```text
-変更なし
+2997 passed in 38.45s
 ```
 
 ---
 
-# 22. Phase 56 completion boundary
+# 24. Phase 57 completion boundary
 
 完成:
 
 ```text
-Prop.4.4 / Composition / zero-group compatibility
-π_{i-1}^1=0 narrow theorem semantics
-n=2, α=η₂ specialization
-second-summand restriction
-Toda52CompositionIsomorphismStatement
-Toda (5.2) composition isomorphism
-applicability
+Lemma 5.2 statement / typing verification
+Lemma 4.5 minimum consequence
+Proposition 2.6 minimum consequence
+Δ inverse minimum bridge
+Proposition 1.4 / 1.3 / Cor.3.7 minimum chain
+indeterminacy vanishing
+end-to-end integration
 provenance
 representative probe
-same-run integration
 full regression
 ```
 
 先取りしない:
 
 ```text
-Toda Lemma 5.2
-generic scalar normalization
-generic direct-sum reduction
-generic composition-map framework
-generic isomorphism restriction
+generic Toda-bracket coset algebra
+generic inverse-image algebra
+generic sign normalization
+generic Δ-H rewrite framework
+full theorem formalization beyond actual proof need
 stable homotopy model
-generic Toda-bracket normalization
 ```
 
 ---
 
-# 23. テスト方針
+# 25. テスト方針
 
 各数学レイヤーで:
 
@@ -749,79 +710,47 @@ full regression
 
 を確認する。
 
-structural-only Phase では不要な theorem semantics を先取りしない。
-
 ---
 
-# 24. ドキュメント方針
+# 26. 文書運用方針
 
 ```text
 README.md
-=
-current capabilities / status
+= current capabilities / status
 
 docs/design.md
-=
-current architecture / semantics / boundaries
+= current architecture / semantics / boundaries
 
 docs/development_log.md
-=
-chronological implementation history
+= chronological implementation history
 
 docs/roadmap.md
-=
-future capability dependency
+= future capability dependency
+
+docs/code_reference.md
+= 主要 module / class / function の責務と探索ガイド
 ```
 
 current specification は latest README / design を優先する。
 
 ---
 
-# 25. 次の設計境界
+# 27. 次の設計境界
 
 次:
 
 ```text
-Phase 57
-Toda Lemma 5.2 proof integration
+Phase 58
+Toda (5.3) ν' consequence
 ```
 
-入力 candidate:
+Phase 58 では Phase 57 proof を再実装しない。
 
 ```text
-α∈π_i(S^3)
-2α=0
-β∈{η₃,2ι₄,Eα}_1
+α=η₃∈π_4(S^3)
+ν'∈{η₃,2ι₄,η₄}_1
+↓ Lemma 5.2 specialization
+ν'∈π_6^3
+H(ν')=η₅
+2ν'=η₃∘η₄∘η₅
 ```
-
-target:
-
-```text
-H(β)=E²α
-2β=η₃∘Eα∘η_{i+1}
-β∈π_{i+2}^3
-Δ(E²α)=0
-```
-
-ただし source material では Lemma statement と proof ending の η-index に不整合があるため、Phase 57-1 で原典・型・次元を確認してから development target を確定する。
-
-現在確認済み dependency:
-
-```text
-Lemma 4.5
-Proposition 2.6
-Proposition 1.4
-Proposition 1.3
-Corollary 3.7
-(2.1)
-```
-
-Phase 57 でも:
-
-```text
-actual proof need
-↓
-minimum consequence
-```
-
-の原則を維持し、各 theorem の full formalization は具体的必要がなければ追加しない。
