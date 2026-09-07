@@ -25,7 +25,7 @@ representation != typing != theorem knowledge
 structural equality != mathematical equality
 ```
 
-Phase 58 までこの原則を維持している。
+Phase 59 までこの原則を維持している。
 
 ---
 
@@ -1093,7 +1093,234 @@ stable homotopy model
 
 ---
 
-# 34. テスト方針
+# 34. Phase 59：Toda Proposition 5.3 finite-dimensional result
+
+Phase 59 の target:
+
+```text
+η_n² := η_n∘η_{n+1}
+π_{n+2}^n=Z/2{η_n²}
+(n≥2)
+```
+
+`η_n²` の専用 expression class は追加しない。
+
+```text
+η_n²
+=
+Composition(η_n,η_{n+1})
+```
+
+## 34.1 n=2 finite-cyclic transport
+
+Phase 56 の Toda (5.2) と Phase 50 の `π_4^3=Z/2{η₃}` を再利用する。
+
+```text
+η₂∘- : π_4^3≅π_4^2
+π_4^3=Z/2{η₃}
+↓
+π_4^2=Z/2{η₂²}
+```
+
+一般 cyclic-generator transport は追加せず、Toda (5.2) instance 専用 rule に限定する。
+
+## 34.2 n=3 EHP chain
+
+左 branch:
+
+```text
+Proposition 5.1
+↓
+Δ:π_5^5→π_3^2 injective
+↓ exactness
+H:π_5^3→π_5^5 zero
+↓ exactness
+E:π_4^2→π_5^3 surjective
+```
+
+右 branch:
+
+```text
+H(ν′)=η₅
++
+π_6^5=Z/2{η₅}
+↓
+H:π_6^3→π_6^5 surjective
+↓ exactness
+Δ:π_6^5→π_4^2 zero
+↓ exactness
+E:π_4^2→π_5^3 injective
+```
+
+統合:
+
+```text
+E:π_4^2≅π_5^3
+```
+
+## 34.3 concrete η-square suspension bridge
+
+必要な concrete bridge のみ追加する。
+
+```text
+Eη₂²=η₃²
+Eη₃²=η₄²
+```
+
+constructor-aware global normalization はしない。
+
+## 34.4 n=4 suspension isomorphism
+
+```text
+π_6^7=0
++
+E-H exactness
+↓
+E:π_5^3→π_6^4 surjective
+```
+
+Phase 48 の structural source:
+
+```text
+π_(6-1)^(4-1)
+```
+
+は global scalar simplifier で `π_5^3` に変換せず、Phase 59-5 専用 bridge で concrete map に接続する。
+
+最終:
+
+```text
+E:π_5^3≅π_6^4
+```
+
+## 34.5 n≥5 stable-range finite-dimensional transport
+
+Phase 46 の Toda (4.5) を再利用する。
+
+```text
+E^(n-4):π_6^4≅π_{n+2}^n
+```
+
+Phase 46 の exponent は structural に:
+
+```text
+ScalarSum(
+  n,
+  ScalarProduct(-1,4),
+)
+```
+
+として保持する。数学的に同じ `ScalarSum(n,-4)` へ global normalize しない。
+
+まず:
+
+```text
+π_{n+2}^n=Z/2{E^(n-4)η₄²}
+```
+
+を導出する。
+
+## 34.6 higher η-square bridge
+
+Phase 59-8 で theorem-specific に:
+
+```text
+E^(n-4)η₄²=η_n²
+```
+
+を導出する。
+
+`η_{n+1}` は generic family constructor を拡張せず、必要な symbolic `HomotopyElement` を局所的に構成する。
+
+## 34.7 finite-dimensional aggregate
+
+専用 aggregate:
+
+```text
+TodaProp53FiniteDimensionalStatement
+```
+
+保持:
+
+```text
+pi4_2_group_relation
+pi5_3_group_relation
+pi6_4_group_relation
+higher_eta_squared_group_relation
+higher_range
+```
+
+統合 premise:
+
+```text
+π_4^2=Z/2{η₂²}                 INFERENCE
+π_5^3=Z/2{η₃²}                 INFERENCE
+π_6^4=Z/2{η₄²}                 INFERENCE
+π_{n+2}^n=Z/2{η_n²}, n≥5       INFERENCE
+```
+
+aggregate result も `ProofRule.INFERENCE`。
+
+stable `(G_2;2)=Z/2{η²}` は含めない。
+
+---
+
+# 35. Phase 59 testing
+
+Phase 59 completion 時点の focused integration:
+
+```text
+test_phase59_prop53_integration.py  18 passed
+```
+
+Phase 59-7 focused:
+
+```text
+test_phase59_eta4_squared_stable_transport.py  18 passed
+```
+
+最終 full regression:
+
+```text
+3177 passed in 123.99s
+```
+
+---
+
+# 36. Phase 59 completion boundary
+
+完成:
+
+```text
+π_4^2=Z/2{η₂²}
+E:π_4^2≅π_5^3
+π_5^3=Z/2{η₃²}
+E:π_5^3≅π_6^4
+π_6^4=Z/2{η₄²}
+π_{n+2}^n=Z/2{E^(n-4)η₄²}, n≥5
+E^(n-4)η₄²=η_n²
+π_{n+2}^n=Z/2{η_n²}, n≥5
+TodaProp53FiniteDimensionalStatement
+derived provenance
+representative probe
+full regression
+```
+
+先取りしない:
+
+```text
+EtaSquare class
+generic cyclic-generator transport
+generic suspension-of-composition normalization
+generic concrete η normalization
+global scalar normalization
+stable homotopy-group model
+stable (G_2;2)=Z/2{η²}
+```
+
+---
+
+# 37. テスト方針
 
 各数学レイヤーで:
 
@@ -1110,18 +1337,11 @@ full regression
 
 を確認する。
 
-repeatable rule については:
-
-```text
-fixed-point-safe か
-one-shot / staged execution が必要か
-```
-
-も確認する。
+structural arithmetic を使う Phase では、数学的同値だけでなく syntax tree の shape も regression で固定する。
 
 ---
 
-# 35. 文書運用方針
+# 38. 文書運用方針
 
 ```text
 README.md
@@ -1144,11 +1364,11 @@ current specification は latest README / design を優先する。
 
 ---
 
-# 36. 次の設計境界
+# 39. 次の設計境界
 
-Phase 58 は完了。
+Phase 59 は完了。
 
-次は source material の次の concrete consequence を確認してから Phase 59 の target を確定する。
+次は source material の次の concrete statement / proof を確認してから target を確定する。
 
 ```text
 next source statement
@@ -1160,4 +1380,4 @@ current representation compatibility
 minimum implementation
 ```
 
-stable homotopy model、generic Toda-bracket coset algebra、generic normalization は concrete need が生じるまで保留する。
+stable `(G_1;2)=Z/2{η}`、stable `(G_2;2)=Z/2{η²}`、stable homotopy model、generic normalization は concrete need が生じるまで保留する。

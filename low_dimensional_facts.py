@@ -77,6 +77,15 @@ def pi_4_5_zero_fact():
   )
 
 
+def pi_6_7_zero_fact():
+  return TodaPrimaryGroupZeroStatement(
+    group=TodaPrimaryGroup(
+      group_dimension=6,
+      sphere_dimension=7,
+    ),
+  )
+
+
 def e_pi_1_1_to_pi_2_2_isomorphism_fact():
   suspension_map = TodaSuspensionMap(
     source_group=TodaPrimaryGroup(

@@ -64,10 +64,10 @@ Phase 57  Toda Lemma 5.2 proof integration                 COMPLETE
 Phase 58  Toda (5.3) ν′ consequence                        COMPLETE
 ```
 
-Phase 58 final regression:
+Phase 59 final regression:
 
 ```text
-3059 passed in 38.23s
+3177 passed in 123.99s
 ```
 
 ---
@@ -581,12 +581,478 @@ stable (G_2;2) を Phase 59 に入れない
 状態:
 
 ```text
+COMPLETE
+```
+
+Phase 59 final capability:
+
+```text
+π_{n+2}^n=Z/2{η_n²}
+(n≥2)
+```
+
+Phase 59 final regression:
+
+```text
+3177 passed in 123.99s
+```
+
+---
+
+
+# 8. Phase 60：Toda Lemma 5.4 / ν₄ construction
+
+Toda Lemma 5.4 の target:
+
+```text
+ν₄∈π_7^4
+H(ν₄)=ι₇
+2Eν₄=E²ν′
+```
+
+Phase 58 の:
+
+```text
+ν′∈π_6^3
+H(ν′)=η₅
+2ν′=η₃∘η₄∘η₅
+```
+
+Phase 59 の:
+
+```text
+π_{n+2}^n=Z/2{η_n²}
+(n≥2)
+```
+
+を主要 dependency として再利用する。
+
+---
+
+## Phase 60 proof dependency
+
+Lemma 5.4 の証明は次の branch に分ける。
+
+### A. Theorem 3.6 specialization
+
+Theorem 3.6 を:
+
+```text
+α=η₂
+β=2ι₃
+t=1
+```
+
+に specialization する。
+
+前提:
+
+```text
+2η₆=0
+2ι₃∘Eη₂=2η₃=0
+```
+
+から、ある:
+
+```text
+α*∈π_7^4
+```
+
+が存在して:
+
+```text
+2Eα*
+∈
+-{η₅,2ι₆,η₆}_3
+```
+
+を得る。
+
+---
+
+### B. Toda (5.4)
+
+新しい主要中間結果:
+
+```text
+{η_n,2ι_{n+1},η_{n+1}}_t
+=
+{E^(n-3)ν′,-E^(n-3)ν′}
+```
+
+scope:
+
+```text
+n≥3
+t≤n-2
+```
+
+まず:
+
+```text
+t≥1
+```
+
+を扱う。
+
+Toda bracket の indeterminacy は:
+
+```text
+η_n∘π_{n+3}^{n+1}
++
+π_{n+2}^n∘η_{n+2}
+```
+
+である。
+
+Toda (4.7)、Proposition 5.3、Toda (5.3) から:
+
+```text
+η_n∘π_{n+3}^{n+1}
++
+π_{n+2}^n∘η_{n+2}
+=
+<η_n∘η_{n+1}∘η_{n+2}>
+=
+<2E^(n-3)ν′>
+```
+
+を得る。
+
+さらに ν′ の bracket definition、Proposition 1.3、Toda (1.15) から:
+
+```text
+E^(n-3)ν′
+∈
+{η_n,2ι_{n+1},η_{n+1}}_t
+```
+
+を示し、Toda (5.4) を得る。
+
+---
+
+### C. t=0 bridge
+
+Toda (3.2) の:
+
+```text
+π_{n+3}(S^{n+1})
+=
+Eπ_{n+2}(S^n)
+```
+
+を使う。
+
+その結果:
+
+```text
+{η_n,2ι_{n+1},η_{n+1}}_1
+```
+
+と:
+
+```text
+{η_n,2ι_{n+1},η_{n+1}}
+```
+
+は同じ indeterminacy group の coset になる。
+
+Toda (1.15) から両 bracket を一致させ、`t=0` の Toda (5.4) を得る。
+
+---
+
+### D. α* consequence
+
+Toda (5.4) の:
+
+```text
+n=5
+t=3
+```
+
+から:
+
+```text
+2Eα*=±E²ν′
+```
+
+を得る。
+
+---
+
+### E. Hopf invariant parity
+
+Phase 58 の:
+
+```text
+H(ν′)=η₅
+```
+
+と:
+
+```text
+π_6^5=Z/2{η₅}
+```
+
+から、ν′ は 2 で割れない。
+
+一方:
+
+```text
+2Eα*=±E²ν′
+```
+
+から `E²ν′` は 2 で割れる。
+
+Toda (4.8) から:
+
+```text
+H(α*)=(2s+1)ι₇
+```
+
+を得る。
+
+---
+
+### F. Whitehead correction
+
+Whitehead product に対して:
+
+```text
+H[ι₄,ι₄]=(-1)^u 2ι₇
+```
+
+を使う。
+
+`2Eα*` の sign に応じて:
+
+```text
+ν₄
+=
+α* - (-1)^u s[ι₄,ι₄]
+```
+
+または:
+
+```text
+ν₄
+=
+-α* + (-1)^u(s+1)[ι₄,ι₄]
+```
+
+と定義する。
+
+`E[ι₄,ι₄]=0` と Hopf invariant correction から:
+
+```text
+H(ν₄)=ι₇
+2Eν₄=E²ν′
+```
+
+を得る。
+
+---
+
+## Phase 60 の分割
+
+```text
+Phase 60-1
+Lemma 5.4 dependency / current compatibility analysis
+
+Phase 60-2
+Toda (5.4) bracket statement / minimum value-set semantics
+
+Phase 60-3
+Toda (5.4) t≥1 indeterminacy calculation
+using Toda (4.7), Prop.5.3, Toda (5.3)
+
+Phase 60-4
+E^(n-3)ν′ bracket inclusion
+using ν′ definition, Prop.1.3, Toda (1.15)
+
+Phase 60-5
+t=0 bridge
+using Toda (3.2) and Toda (1.15)
+
+Phase 60-6
+Theorem 3.6 specialization
+α=η₂, β=2ι₃, t=1
+↓
+2Eα*=±E²ν′
+
+Phase 60-7
+Hopf invariant / parity consequence
+H(α*)=(2s+1)ι₇
+
+Phase 60-8
+Whitehead correction / ν₄ construction
+
+Phase 60-9
+Lemma 5.4 integration / provenance
+
+Phase 60-10
+representative probe / full regression
+
+Phase 60-11
+Phase 60 completion
+```
+
+実装原則:
+
+```text
+Phase 58 ν′ result を再利用する
+Phase 59 Prop.5.3 result を再利用する
+existing WhiteheadProduct representation を再利用する
+generic Toda-bracket coset algebra を先取りしない
+general witness framework を先取りしない
+general sign solver を先取りしない
+Lemma 5.5 を Phase 60 に入れない
+```
+
+状態:
+
+```text
 NEXT
 ```
 
 ---
 
-# 8. stable branch
+# 9. Phase 61：Toda Lemma 5.5 bracket transport
+
+Lemma 5.5 の target:
+
+```text
+β∈π_{t+2}(S^m)
+β∘η_{t+2}=0
+t>0
+↓
+{η_{m+2},E³β,η_{t+5}}_3
+contains
+±(E²β∘E^tν₄)
+```
+
+proof dependency:
+
+```text
+Lemma 5.4 proof の α* bracket inclusion
++
+E[ι₄,ι₄]=0
+↓
+E^tν₄=±E^tα*
+↓
+Lemma 5.5
+```
+
+Phase 61 では Lemma 5.4 の provenance を再利用し、α* proof を再実装しない。
+
+状態:
+
+```text
+PLANNED
+```
+
+---
+
+# 10. Phase 62：ν-family / Toda (5.5)
+
+定義:
+
+```text
+ν_n:=E^(n-4)ν₄
+(n≥4)
+
+ν:=E^∞ν₄
+```
+
+および:
+
+```text
+η_n³:=η_n∘η_{n+1}∘η_{n+2}
+(n≥2)
+
+η³:=η∘η∘η
+```
+
+Toda (5.5) target:
+
+```text
+n≥5:
+2ν_n=E^(n-3)ν′
+
+4ν_n=η_n³
+
+4ν=η³
+```
+
+主要 dependency:
+
+```text
+Lemma 5.4
++
+Proposition 5.3
++
+Phase 58 Toda (5.3)
++
+η-family transport
+```
+
+Phase 62 では finite-dimensional `ν_n` branch を優先し、stable `ν` / `η³` に stable homotopy model が必要なら separate deferred boundary とする。
+
+状態:
+
+```text
+PLANNED
+```
+
+---
+
+# 11. Phase 63：Toda (5.6) Proposition 4.4 decomposition with ν₄
+
+Toda (5.6) target:
+
+```text
+(α,β)
+↦
+Eα+ν₄∘β
+```
+
+が:
+
+```text
+π_{i-1}^3 ⊕ π_i^7
+≅
+π_i^4
+```
+
+を与える。
+
+主要 dependency:
+
+```text
+Proposition 4.4 decomposition semantics
++
+Lemma 5.4
+H(ν₄)=ι₇
+```
+
+Phase 47 の decomposition infrastructure を再利用する。
+
+実装原則:
+
+```text
+generic direct-sum decomposition framework を拡張しない
+ν₄ specialization に必要な minimum bridge のみ追加する
+```
+
+状態:
+
+```text
+PLANNED
+```
+
+---
+
+# 12. stable branch
 
 Toda Proposition 5.1 の stable conclusion:
 
@@ -610,7 +1076,7 @@ stable homotopy group model が concrete proof branch に必要になるまで�
 
 ---
 
-# 9. 保留中の一般化
+# 13. 保留中の一般化
 
 ```text
 general existential quantification
@@ -651,7 +1117,7 @@ DEFERRED UNTIL CONCRETE NEED
 
 ---
 
-# 10. 具体的結果の保存・照合・検証方針
+# 14. 具体的結果の保存・照合・検証方針
 
 今後、具体的ホモトピー群結果を蓄積する。
 
@@ -673,7 +1139,7 @@ repository / database を先に作って現在の proof development を妨げな
 
 ---
 
-# 11. 文書・コード探索方針
+# 15. 文書・コード探索方針
 
 ```text
 README.md
@@ -708,7 +1174,7 @@ current code / related tests を確認
 
 ---
 
-# 12. Completion table
+# 16. Completion table
 
 | Capability | State | Phase |
 |---|---|---:|
@@ -735,7 +1201,11 @@ current code / related tests を確認
 | Toda (5.2) composition isomorphism | COMPLETE | 56 |
 | Toda Lemma 5.2 integration | COMPLETE | 57 |
 | Toda (5.3) ν′ consequence | COMPLETE | 58 |
-| Toda Prop.5.3 finite-dimensional branch | NEXT | 59 |
+| Toda Prop.5.3 finite-dimensional branch | COMPLETE | 59 |
+| Toda Lemma 5.4 / ν₄ construction | NEXT | 60 |
+| Toda Lemma 5.5 bracket transport | PLANNED | 61 |
+| ν-family / Toda (5.5) | PLANNED | 62 |
+| Toda (5.6) ν₄ decomposition | PLANNED | 63 |
 | stable `(G_1;2)=Z/2{η}` | DEFERRED | later |
 | stable `(G_2;2)=Z/2{η^2}` | DEFERRED | later |
 | stable homotopy | DEFERRED | later |
@@ -743,37 +1213,89 @@ current code / related tests を確認
 
 ---
 
-# 13. 現在の直近ステップ
+# 17. 現在の直近ステップ
+
+Phase 59 は COMPLETE。
+
+次は:
 
 ```text
-Phase 59-1
-Toda Proposition 5.3
-proof dependency / current compatibility check
+Phase 60-1
+Toda Lemma 5.4
+dependency / current compatibility analysis
 ```
 
-最初に確認するもの:
+直近 target:
 
 ```text
-Phase 56:
-η₂∘- : π_4^3≅π_4^2
-
-Phase 50:
-π_4^3=Z/2{η₃}
-
-Phase 55:
-Proposition 5.1 finite-dimensional result
-
-Phase 58:
-H(ν′)=η₅
-
-Phase 45:
-EHP exactness
-
-Phase 48:
-E injectivity consequence
-
-Phase 46:
-Toda (4.5) stable-range isomorphism
+ν₄∈π_7^4
+H(ν₄)=ι₇
+2Eν₄=E²ν′
 ```
 
-これらを current code / current tests で確認し、Phase 59 に本当に不足している edge だけを実装する。
+最初に確認する dependency:
+
+```text
+A.
+Theorem 3.6 specialization を
+current theorem / bracket representation でどこまで再利用できるか
+
+B.
+Toda (5.4)
+{η_n,2ι_{n+1},η_{n+1}}_t
+=
+{±E^(n-3)ν′}
+を current set-valued / bracket semantics で
+どこまで最小表現できるか
+
+C.
+Phase 59 Proposition 5.3 から
+Toda (5.4) indeterminacy
+<η_n³>
+を導くために不足する bridge は何か
+
+D.
+Phase 58
+2ν′=η₃η₄η₅
+を
+2E^(n-3)ν′=η_n³
+へ transport するのに必要な minimum bridge は何か
+
+E.
+Toda (3.2) の
+π_{n+3}(S^{n+1})=Eπ_{n+2}(S^n)
+を t=0 bracket bridge にどう接続するか
+
+F.
+Toda (4.8) の
+H(α*)=(2s+1)ι₇
+を current scalar / sign representation でどう扱うか
+
+G.
+H[ι₄,ι₄]=±2ι₇
+と
+E[ι₄,ι₄]=0
+を current WhiteheadProduct representation にどう接続するか
+
+H.
+ν₄ の piecewise sign correction を
+general sign solver なしで theorem-specific に表現できるか
+```
+
+Phase 60-1 では実装追加を急がず:
+
+```text
+current code
++
+related tests
++
+Phase 58 / 59 provenance
++
+Theorem 3.6 / Toda (5.4) / Toda (4.8) dependencies
+↓
+minimum missing representation list
+```
+
+を確定する。
+
+stable branch と generic framework は引き続き deferred とする。

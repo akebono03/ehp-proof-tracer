@@ -1151,3 +1151,403 @@ docs/code_reference.md
 ```
 
 `code_reference.md` は実装を読むための索引として運用し、細かな helper をすべて機械的に列挙する API reference にはしない。
+
+
+---
+
+# Phase 59：Toda Proposition 5.3 finite-dimensional result
+
+対象:
+
+```text
+η_n² := η_n∘η_{n+1}
+π_{n+2}^n=Z/2{η_n²}
+(n≥2)
+```
+
+stable `(G_2;2)=Z/2{η²}` は Phase 59 に含めない。
+
+## Phase 59-1：dependency / compatibility check
+
+確認した再利用対象:
+
+```text
+Phase 50  π_4^3=Z/2{η₃}
+Phase 56  η₂∘- : π_i^3≅π_i^2
+Phase 55  Proposition 5.1 finite-dimensional result
+Phase 58  H(ν′)=η₅
+Phase 45  EHP exactness
+Phase 48  E injectivity consequence
+Phase 46  Toda (4.5)
+```
+
+方針:
+
+```text
+η_n² は Composition
+generic EtaSquare class は追加しない
+generic cyclic-generator transport は追加しない
+stable branch は deferred
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 59-2：π_4^2=Z/2{η₂²}
+
+```text
+π_4^3=Z/2{η₃}
++
+η₂∘- : π_4^3≅π_4^2
+↓
+π_4^2=Z/2{η₂∘η₃}
+```
+
+focused:
+
+```text
+15 passed
+```
+
+全体回帰:
+
+```text
+3074 passed
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 59-3：n=3 EHP surjectivity / injectivity chain
+
+左 branch:
+
+```text
+Δ:π_5^5→π_3^2 injective
+↓
+H:π_5^3→π_5^5 zero
+↓
+E:π_4^2→π_5^3 surjective
+```
+
+右 branch:
+
+```text
+H(ν′)=η₅
++
+π_6^5=Z/2{η₅}
+↓
+H:π_6^3→π_6^5 surjective
+↓
+Δ:π_6^5→π_4^2 zero
+↓
+E:π_4^2→π_5^3 injective
+```
+
+最終:
+
+```text
+E:π_4^2≅π_5^3
+```
+
+focused:
+
+```text
+13 passed
+```
+
+全体回帰:
+
+```text
+3087 passed in 94.16s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 59-4：π_5^3=Z/2{η₃²}
+
+```text
+π_4^2=Z/2{η₂²}
+E:π_4^2≅π_5^3
+Eη₂²=η₃²
+↓
+π_5^3=Z/2{η₃²}
+```
+
+focused:
+
+```text
+18 passed
+```
+
+全体回帰:
+
+```text
+3105 passed in 101.33s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 59-5：n=4 suspension isomorphism
+
+Toda (5.1):
+
+```text
+π_6^7=0
+```
+
+から E-H exactness により:
+
+```text
+E:π_5^3→π_6^4 surjective
+```
+
+Phase 48 の structural injectivity instance を narrow bridge で concrete map に接続し:
+
+```text
+E:π_5^3→π_6^4 injective
+```
+
+したがって:
+
+```text
+E:π_5^3≅π_6^4
+```
+
+focused:
+
+```text
+17 passed
+```
+
+全体回帰:
+
+```text
+3122 passed in 99.53s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 59-6：π_6^4=Z/2{η₄²}
+
+```text
+π_5^3=Z/2{η₃²}
+E:π_5^3≅π_6^4
+Eη₃²=η₄²
+↓
+π_6^4=Z/2{η₄²}
+```
+
+focused:
+
+```text
+19 passed
+```
+
+全体回帰:
+
+```text
+3141 passed in 100.75s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 59-7：n>4 stable-range finite-dimensional transport
+
+Toda (4.5):
+
+```text
+E^(n-4):π_6^4≅π_{n+2}^n
+```
+
+から:
+
+```text
+π_{n+2}^n=Z/2{E^(n-4)η₄²}
+(n≥5)
+```
+
+Phase 46 exponent の structural shape:
+
+```text
+ScalarSum(n,ScalarProduct(-1,4))
+```
+
+をそのまま保持した。
+
+focused:
+
+```text
+18 passed
+```
+
+全体回帰:
+
+```text
+3159 passed in 110.50s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 59-8：integration / provenance / η_n² bridge
+
+追加:
+
+```text
+TodaProp53FiniteDimensionalStatement
+toda_prop53_higher_eta_squared_bridge_inference_rule()
+toda_prop53_higher_eta_squared_finite_cyclic_generator_inference_rule()
+toda_prop53_finite_dimensional_integration_inference_rule()
+```
+
+導出:
+
+```text
+E^(n-4)η₄²=η_n²
+```
+
+および:
+
+```text
+π_{n+2}^n=Z/2{E^(n-4)η₄²}
+↓
+π_{n+2}^n=Z/2{η_n²}
+```
+
+さらに n=2,3,4 branch と統合:
+
+```text
+TodaProp53FiniteDimensionalStatement
+```
+
+focused:
+
+```text
+18 passed in 19.94s
+```
+
+最終全体回帰:
+
+```text
+3177 passed in 123.99s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 59-9：Phase 59 completion
+
+完成 capability:
+
+```text
+η_n² := η_n∘η_{n+1}
+π_{n+2}^n=Z/2{η_n²}
+(n≥2)
+```
+
+branch:
+
+```text
+n=2  π_4^2=Z/2{η₂²}
+n=3  π_5^3=Z/2{η₃²}
+n=4  π_6^4=Z/2{η₄²}
+n≥5  π_{n+2}^n=Z/2{η_n²}
+```
+
+provenance:
+
+```text
+low-dimensional branches are derived
+higher transport is derived
+higher η-square bridge is derived
+final aggregate is INFERENCE
+final aggregate is not GIVEN
+```
+
+generic inference engine:
+
+```text
+変更なし
+```
+
+追加しなかったもの:
+
+```text
+EtaSquare class
+generic cyclic-generator transport
+generic suspension/composition normalizer
+generic concrete η normalization
+global scalar normalization
+stable homotopy-group model
+stable (G_2;2)=Z/2{η²}
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase59_capabilities
+```
+
+最終全体回帰:
+
+```text
+3177 passed in 123.99s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 59 completion boundary
+
+最終 capability:
+
+```text
+π_{n+2}^n=Z/2{η_n²}
+(n≥2)
+```
+
+次:
+
+```text
+next concrete Toda source statement
+↓
+dependency analysis
+↓
+current representation compatibility
+↓
+minimum implementation
+```
+
+stable `(G_1;2)=Z/2{η}` と stable `(G_2;2)=Z/2{η²}` は引き続き deferred。
