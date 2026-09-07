@@ -7160,6 +7160,559 @@ class TodaLemma54HopfOddMultipleStatement:
   generator: HomotopyElement
 
 
+@dataclass(frozen=True)
+class TodaLemma54WhiteheadCorrectionDataStatement:
+  whitehead_square: WhiteheadProduct
+  sign_parameter: ScalarSymbol
+  hopf_positive_value: Expression
+  suspension_zero_relation: Relation
+
+
+@dataclass(frozen=True)
+class TodaLemma54Nu4BranchFormula:
+  double_suspension_sign: int
+  alpha_star_sign: int
+  whitehead_coefficient_sign: int
+  parameter_offset: int
+
+
+@dataclass(frozen=True)
+class TodaLemma54Nu4ConstructionStatement:
+  alpha_star: HomotopyElement
+  nu4: HomotopyElement
+  parameter: ScalarSymbol
+  whitehead_data: TodaLemma54WhiteheadCorrectionDataStatement
+  double_suspension_value: Expression
+  positive_branch: TodaLemma54Nu4BranchFormula
+  negative_branch: TodaLemma54Nu4BranchFormula
+
+
+def toda_lemma54_whitehead_correction_data_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    whitehead_square = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    iota_4 = HomotopyElement(
+      name="ι_4",
+      dimension=4,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=4,
+      ),
+    )
+
+    return (
+      whitehead_square
+      == WhiteheadProduct(
+        left=iota_4,
+        right=iota_4,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    whitehead_square = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    u = ScalarSymbol(
+      name="u",
+    )
+
+    iota_7 = HomotopyElement(
+      name="ι_7",
+      dimension=7,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=7,
+      ),
+    )
+
+    return (
+      TodaLemma54WhiteheadCorrectionDataStatement(
+        whitehead_square=whitehead_square,
+        sign_parameter=u,
+        hopf_positive_value=Multiple(
+          coefficient=2,
+          expression=iota_7,
+        ),
+        suspension_zero_relation=Relation(
+          lhs=Suspension(
+            expression=whitehead_square,
+          ),
+          rhs=Zero(),
+          relation_type=RelationType.ZERO,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.4 "
+      "Whitehead correction data"
+    ),
+    description=(
+      "For the Whitehead square "
+      "[iota_4,iota_4], record the "
+      "specific Lemma 5.4 facts "
+      "H[iota_4,iota_4]="
+      "(-1)^u 2 iota_7 and "
+      "E[iota_4,iota_4]=0. "
+      "The sign parameter u is retained "
+      "structurally rather than solved. "
+      "No generic Whitehead-product "
+      "Hopf theorem or sign algebra "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          WhiteheadProduct
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma54_nu4_piecewise_construction_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    hopf_odd = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    double_statement = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    whitehead_data = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    alpha_star = (
+      hopf_odd.alpha_star
+    )
+
+    if (
+      double_statement.left
+      != Multiple(
+        coefficient=2,
+        expression=Suspension(
+          expression=alpha_star,
+        ),
+      )
+    ):
+      return False
+
+    iota_7 = HomotopyElement(
+      name="ι_7",
+      dimension=7,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=7,
+      ),
+    )
+
+    if (
+      hopf_odd.generator
+      != iota_7
+    ):
+      return False
+
+    if (
+      whitehead_data.hopf_positive_value
+      != Multiple(
+        coefficient=2,
+        expression=iota_7,
+      )
+    ):
+      return False
+
+    iota_4 = HomotopyElement(
+      name="ι_4",
+      dimension=4,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=4,
+      ),
+    )
+
+    expected_whitehead = WhiteheadProduct(
+      left=iota_4,
+      right=iota_4,
+    )
+
+    if (
+      whitehead_data.whitehead_square
+      != expected_whitehead
+    ):
+      return False
+
+    expected_zero = Relation(
+      lhs=Suspension(
+        expression=expected_whitehead,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    if (
+      whitehead_data.suspension_zero_relation
+      != expected_zero
+    ):
+      return False
+
+    return isinstance(
+      double_statement.positive_value,
+      IteratedSuspension,
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    hopf_odd = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    double_statement = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    whitehead_data = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    nu4 = HomotopyElement(
+      name="ν₄",
+      dimension=4,
+      source=7,
+      target=4,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=4,
+      ),
+    )
+
+    return (
+      TodaLemma54Nu4ConstructionStatement(
+        alpha_star=hopf_odd.alpha_star,
+        nu4=nu4,
+        parameter=hopf_odd.parameter,
+        whitehead_data=whitehead_data,
+        double_suspension_value=(
+          double_statement
+          .positive_value
+        ),
+        positive_branch=(
+          TodaLemma54Nu4BranchFormula(
+            double_suspension_sign=1,
+            alpha_star_sign=1,
+            whitehead_coefficient_sign=-1,
+            parameter_offset=0,
+          )
+        ),
+        negative_branch=(
+          TodaLemma54Nu4BranchFormula(
+            double_suspension_sign=-1,
+            alpha_star_sign=-1,
+            whitehead_coefficient_sign=1,
+            parameter_offset=1,
+          )
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.4 "
+      "piecewise nu_4 construction"
+    ),
+    description=(
+      "Combine "
+      "H(alpha-star)=(2s+1)iota_7, "
+      "2 E alpha-star="
+      "plus or minus E^2 nu-prime, "
+      "H[iota_4,iota_4]="
+      "(-1)^u 2 iota_7, and "
+      "E[iota_4,iota_4]=0. "
+      "If the double-suspension sign "
+      "is positive, use "
+      "nu_4=alpha-star-"
+      "(-1)^u s[iota_4,iota_4]. "
+      "If it is negative, use "
+      "nu_4=-alpha-star+"
+      "(-1)^u(s+1)[iota_4,iota_4]. "
+      "Both branches are stored "
+      "without introducing a generic "
+      "sign solver or symbolic "
+      "coefficient expression."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54HopfOddMultipleStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54DoubleSuspensionUpToSignStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54WhiteheadCorrectionDataStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma54_nu4_membership_inference_rule():
+  def build_conclusion(
+    premises,
+  ):
+    construction = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return (
+      HomotopyGroupMembershipStatement(
+        element=construction.nu4,
+        group_dimension=7,
+        sphere_dimension=4,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.4 "
+      "nu_4 membership"
+    ),
+    description=(
+      "The piecewise Whitehead-corrected "
+      "element nu_4 belongs to pi_7^4."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54Nu4ConstructionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+  )
+
+
+def toda_lemma54_nu4_hopf_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    construction = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    if (
+      construction.positive_branch
+      != TodaLemma54Nu4BranchFormula(
+        double_suspension_sign=1,
+        alpha_star_sign=1,
+        whitehead_coefficient_sign=-1,
+        parameter_offset=0,
+      )
+    ):
+      return False
+
+    return (
+      construction.negative_branch
+      == TodaLemma54Nu4BranchFormula(
+        double_suspension_sign=-1,
+        alpha_star_sign=-1,
+        whitehead_coefficient_sign=1,
+        parameter_offset=1,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    construction = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    iota_7 = HomotopyElement(
+      name="ι_7",
+      dimension=7,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=7,
+      ),
+    )
+
+    return Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=construction.nu4,
+      ),
+      rhs=iota_7,
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.4 "
+      "nu_4 Hopf correction"
+    ),
+    description=(
+      "For either stored sign branch "
+      "of the Lemma 5.4 Whitehead "
+      "correction, "
+      "H(alpha-star)=(2s+1)iota_7 "
+      "and "
+      "H[iota_4,iota_4]="
+      "(-1)^u 2 iota_7 "
+      "give H(nu_4)=iota_7. "
+      "This is a theorem-specific "
+      "piecewise consequence."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54Nu4ConstructionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma54_nu4_double_suspension_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    construction = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    suspension_zero = (
+      construction
+      .whitehead_data
+      .suspension_zero_relation
+    )
+
+    expected_zero = Relation(
+      lhs=Suspension(
+        expression=(
+          construction
+          .whitehead_data
+          .whitehead_square
+        ),
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    return (
+      suspension_zero
+      == expected_zero
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    construction = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=Suspension(
+          expression=construction.nu4,
+        ),
+      ),
+      rhs=(
+        construction
+        .double_suspension_value
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.4 "
+      "nu_4 double suspension"
+    ),
+    description=(
+      "In both sign branches of the "
+      "Whitehead correction, "
+      "E[iota_4,iota_4]=0 removes "
+      "the correction term after "
+      "suspension. "
+      "Combining this with "
+      "2 E alpha-star="
+      "plus or minus E^2 nu-prime "
+      "and the branch-dependent "
+      "choice of nu_4 gives "
+      "2 E nu_4=E^2 nu-prime."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54Nu4ConstructionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_lemma54_pi6_5_finite_cyclic_inference_rule():
   def guard(
     premises,
