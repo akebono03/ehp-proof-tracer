@@ -11,6 +11,7 @@ from expression import (
   Multiple,
   ScalarProduct,
   ScalarSum,
+  ScalarSymbol,
   Sum,
   Suspension,
   TodaBracket,
@@ -114,7 +115,7 @@ class TodaDeltaImageUpToSignStatement:
 
 @dataclass(frozen=True)
 class TodaEtaFamilyDefinitionStatement:
-  index: int
+  index: int | ScalarSymbol
   element: HomotopyElement
   iterated_suspension: IteratedSuspension
 
@@ -4140,13 +4141,22 @@ def toda_eta_family_definition_statement(
 ):
   if not isinstance(
     n,
-    int,
+    (
+      int,
+      ScalarSymbol,
+    ),
   ):
     raise TypeError(
-      "n must be an int"
+      "n must be an int or ScalarSymbol"
     )
 
-  if n < 2:
+  if (
+    isinstance(
+      n,
+      int,
+    )
+    and n < 2
+  ):
     raise ValueError(
       "eta family requires n >= 2"
     )
@@ -4164,20 +4174,39 @@ def toda_eta_family_definition_statement(
 
   if n == 2:
     name = "η₂"
+    source = 3
+    exponent = 0
   elif n == 3:
     name = "η₃"
-  else:
+    source = 4
+    exponent = 1
+  elif isinstance(
+    n,
+    int,
+  ):
     name = (
       "η_"
       + str(
         n
       )
     )
+    source = n + 1
+    exponent = n - 2
+  else:
+    name = "η_n"
+    source = ScalarSum(
+      left=n,
+      right=1,
+    )
+    exponent = ScalarSum(
+      left=n,
+      right=-2,
+    )
 
   eta_n = HomotopyElement(
     name=name,
     dimension=n,
-    source=n + 1,
+    source=source,
     target=n,
     generator=GeneratorSymbol(
       family="η",
@@ -4191,7 +4220,7 @@ def toda_eta_family_definition_statement(
     iterated_suspension=(
       IteratedSuspension(
         expression=eta_2,
-        exponent=n - 2,
+        exponent=exponent,
       )
     ),
   )
