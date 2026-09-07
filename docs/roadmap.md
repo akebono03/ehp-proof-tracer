@@ -2,20 +2,20 @@
 
 この文書は今後の capability dependency と Phase 順序を記録する。
 
-current specification は `README.md` / `docs/design.md` を優先する。
+現在の仕様は `README.md` / `docs/design.md` を優先する。
 
 ---
 
 # 1. 開発原則
 
 ```text
-actual mathematical need
+実際の数学的必要
 ↓
-current code / test compatibility check
+現在のコード / テスト互換性確認
 ↓
-minimum missing representation
+不足している最小表現
 ↓
-minimum theorem / fact semantics
+最小限の定理 / fact 意味論
 ↓
 integration
 ↓
@@ -28,7 +28,7 @@ full regression
 
 ---
 
-# 2. Completed foundation
+# 2. 完了済み基盤
 
 ```text
 Phase 1–27   generic proof / algebra / Toda bracket foundation COMPLETE
@@ -47,35 +47,35 @@ Phase 48     Toda Proposition 4.4 E injectivity COMPLETE
 
 ---
 
-# 3. Concrete low-dimensional branch
+# 3. 具体的低次元 branch
 
 ## Phase 49
 
-Target:
+目標:
 
 ```text
 π_3^2=Z{η₂}
 ```
 
-Result:
+結果:
 
 ```text
 H isomorphism
 ↓
-η₂ = unique H-preimage of ι_3
+η₂ = ι_3 の一意な H-preimage
 ↓
 H(η₂)=ι_3
 ↓
 π_3^2=Z{η₂}
 ```
 
-verified:
+検証:
 
 ```text
 2557 passed in 56.45s
 ```
 
-state:
+状態:
 
 ```text
 COMPLETE
@@ -85,20 +85,20 @@ COMPLETE
 
 ## Phase 50
 
-Target:
+目標:
 
 ```text
 π_4^3=Z/2{η₃}
 ```
 
-Dependency:
+依存:
 
 ```text
 Toda Proposition 2.7 minimum consequence
 H([ι_2,ι_2])=±2ι_3
 ```
 
-Chain:
+推論経路:
 
 ```text
 H([ι_2,ι_2])=±2ι_3
@@ -140,13 +140,13 @@ E surjective
 π_4^3=Z/2{Eη₂}
 ```
 
-Definition:
+定義:
 
 ```text
 η_n=E^(n-2)η₂
 ```
 
-so:
+したがって:
 
 ```text
 η₃=Eη₂
@@ -154,13 +154,13 @@ so:
 π_4^3=Z/2{η₃}
 ```
 
-Representative:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase50_capabilities
 ```
 
-Counts:
+件数:
 
 ```text
 given = 11
@@ -169,13 +169,13 @@ rounds = 6
 fixed point = True
 ```
 
-verified:
+検証:
 
 ```text
 2703 passed in 65.69s
 ```
 
-state:
+状態:
 
 ```text
 COMPLETE
@@ -183,15 +183,15 @@ COMPLETE
 
 ---
 
-# 4. Toda Proposition 2.7 boundary
+# 4. Toda Proposition 2.7 の境界
 
-Implemented only:
+実装済みなのは次だけ:
 
 ```text
 H([ι_2,ι_2])=±2ι_3
 ```
 
-Deferred:
+保留:
 
 ```text
 full Proposition 2.7 formalization
@@ -202,24 +202,26 @@ general sign solver
 
 ---
 
-# 5. Current central direction
+# 5. 現在の中心方向
 
-Phase 49–50 established:
+Phase 49–50 で:
 
 ```text
 π_3^2=Z{η₂}
 π_4^3=Z/2{η₃}
 ```
 
-without using Proposition 5.1 as a premise.
+を Proposition 5.1 を premise に使わずに導出できるようになった。
 
-Phase 51 completed the Proposition 5.1 dependency analysis.
+Phase 51 では Proposition 5.1 の依存関係分析を完了した。
+
+Phase 52–54 で不足していた有限次元側の edge を順に埋めた。
 
 ---
 
 # 6. Phase 51：Toda Proposition 5.1 dependency analysis
 
-Analyzed finite-dimensional target:
+分析した有限次元側の目標:
 
 ```text
 π_3^2=Z{η₂}
@@ -228,9 +230,17 @@ H(η₂)=ι₃
 Δ(ι₅)=±2η₂
 ```
 
-Toda p.39 contains an internal inconsistency: the proof text has `Δ(ι₅)=±2η₂`, while the printed proposition line has `±2η₃`. The development follows the proof text and the dimensionally compatible target `π_3^2`.
+Toda p.39 には内部表記の不整合があり、proof text は `Δ(ι₅)=±2η₂`、printed proposition line は `±2η₃` となっている。
 
-Confirmed available independently of Proposition 5.1:
+開発上は proof text と `Δ(ι₅)∈π_3^2` の次元に整合する:
+
+```text
+Δ(ι₅)=±2η₂
+```
+
+を採用する。
+
+Proposition 5.1 から独立して利用可能と確認したもの:
 
 ```text
 π_3^2=Z{η₂}
@@ -240,9 +250,9 @@ H(η₂)=ι₃
 Toda (4.5) stable-range isomorphism
 ```
 
-No additional low-dimensional group facts are currently required.
+追加の低次元 group fact は不要と判断。
 
-Missing implementation reduced to:
+不足実装を次の4点に限定した:
 
 ```text
 1. Δ(ι₅)=±2η₂ direct bridge
@@ -251,7 +261,7 @@ Missing implementation reduced to:
 4. finite-dimensional Prop.5.1 integration / provenance
 ```
 
-Circularity boundary:
+循環依存の境界:
 
 ```text
 SAFE:
@@ -263,7 +273,7 @@ old H(η₂)=ι₃ literature GIVEN attributed to Prop.5.1
 old Phase 35–36 traces carrying that provenance
 ```
 
-state:
+状態:
 
 ```text
 COMPLETE
@@ -273,7 +283,7 @@ COMPLETE
 
 # 7. Phase 52：Δ(ι₅)=±2η₂ direct bridge
 
-Target:
+目標:
 
 ```text
 Δ(ι₅)=±[ι₂,ι₂]
@@ -283,10 +293,10 @@ Target:
 Δ(ι₅)=±2η₂
 ```
 
-Implemented:
+実装:
 
 ```text
-existing up-to-sign statement reuse
+既存 up-to-sign statement の再利用
 Toda-specific direct bridge rule
 wrong-instance rejection
 Phase 50 chain integration
@@ -294,7 +304,7 @@ INFERENCE provenance
 representative probe
 ```
 
-Representative:
+代表実行:
 
 ```text
 given = 11
@@ -303,13 +313,13 @@ rounds = 6
 fixed point = True
 ```
 
-verified:
+検証:
 
 ```text
 2731 passed in 26.67s
 ```
 
-Boundary:
+境界:
 
 ```text
 theorem-specific direct bridge only
@@ -317,7 +327,7 @@ no general up-to-sign transitivity
 no sign solver
 ```
 
-state:
+状態:
 
 ```text
 COMPLETE
@@ -325,9 +335,9 @@ COMPLETE
 
 ---
 
-# 8. Phase 53–55：finite-dimensional Proposition 5.1 completion path
+# 8. Phase 53–55：Proposition 5.1 有限次元側の completion path
 
-Phase 53:
+## Phase 53
 
 ```text
 Toda (4.5) finite-cyclic transport
@@ -339,45 +349,166 @@ E^(n-3): π_4^3 ≅ π_{n+1}^n
 π_{n+1}^n=Z/2{E^(n-3)η₃}
 ```
 
-state:
+代表実行:
 
 ```text
-COMPLETE
+given = 14
+derived = 11
+rounds = 7
+fixed point = True
 ```
 
-verified:
+検証:
 
 ```text
 2769 passed in 25.60s
 ```
 
-Phase 54 (NEXT):
+状態:
 
 ```text
-higher η-family bridge
+COMPLETE
+```
+
+---
+
+## Phase 54
+
+higher η-family bridge:
+
+```text
+η_n=E^(n-2)η₂
++
+η₃=Eη₂
+↓
 E^(n-3)η₃=η_n
 ```
 
-Phase 55:
+Phase 53 transport との統合:
 
 ```text
-Prop.5.1 finite-dimensional integration / provenance
-
-π_3^2=Z{η₂}
-π_{n+1}^n=Z/2{η_n}  (n≥3)
-H(η₂)=ι₃
-Δ(ι₅)=±2η₂
+π_{n+1}^n=Z/2{E^(n-3)η₃}
++
+E^(n-3)η₃=η_n
+↓
+π_{n+1}^n=Z/2{η_n}
 ```
 
-Deferred beyond Phase 55:
+実装:
+
+```text
+symbolic η_n minimum representation
+η_n=E^(n-2)η₂ structural definition
+η-family-specific bridge rule
+wrong-instance rejection
+specific finite-cyclic generator bridge
+Phase 53 + Phase 54 same-run integration
+derived provenance
+representative probe
+```
+
+代表実行:
+
+```text
+given = 15
+derived = 13
+rounds = 8
+fixed point = True
+```
+
+Phase 54 tests:
+
+```text
+tests/test_phase54_eta_family_bridge.py  20 passed
+tests/test_phase54_integration.py         7 passed
+tests/test_phase54_probe.py               8 passed
+```
+
+全体回帰:
+
+```text
+2804 passed in 26.50s
+```
+
+境界:
+
+```text
+η-family-specific bridge only
+specific finite-cyclic generator bridge only
+no generic iterated-suspension composition
+no generic suspension normalization
+no generic scalar normalization
+no generic cyclic-generator rewrite
+no stable homotopy model
+```
+
+状態:
+
+```text
+COMPLETE
+```
+
+---
+
+## Phase 55（NEXT）
+
+目的:
+
+```text
+Toda Proposition 5.1
+finite-dimensional integration / provenance
+```
+
+現在、有限次元側で独立に導出済み:
+
+```text
+π_3^2=Z{η₂}
+H(η₂)=ι₃
+Δ(ι₅)=±2η₂
+π_{n+1}^n=Z/2{η_n}
+```
+
+Phase 55 ではこれらを一つの Proposition 5.1 finite-dimensional result として統合し、provenance と循環依存がないことを固定する。
+
+重要:
+
+```text
+Prop.5.1 自身を premise にしない
+old literature GIVEN H(η₂)=ι₃ を premise にしない
+old Phase 35–36 trace をそのまま premise にしない
+```
+
+Phase 55 の中心確認:
+
+```text
+Phase 49 derived:
+π_3^2=Z{η₂}
+H(η₂)=ι₃
+
+Phase 52 derived:
+Δ(ι₅)=±2η₂
+
+Phase 54 derived:
+π_{n+1}^n=Z/2{η_n}
+
+↓
+Toda Proposition 5.1 finite-dimensional integration
+```
+
+まだ先取りしない:
 
 ```text
 (G_1;2)=Z/2{η}
 stable homotopy group model
 composition isomorphism (5.2)
+generic cyclic-generator rewrite
+generic scalar normalization
+generic suspension normalization
 ```
 
-# 9. Deferred generalizations
+---
+
+# 9. 保留中の一般化
 
 ```text
 general existential quantification
@@ -393,6 +524,8 @@ general sign variable / sign solver
 general quotient simplification
 general first-isomorphism theorem engine
 general suspension normalization
+general iterated-suspension composition algebra
+general scalar normalization
 general finite-cyclic direct-sum algebra
 full Toda Proposition 2.7 formalization
 stable homotopy group model
@@ -424,8 +557,9 @@ general-purpose CAS normalization
 | Prop.5.1 dependency analysis | COMPLETE | 51 |
 | Δ(ι₅)=±2η₂ direct bridge | COMPLETE | 52 |
 | Toda (4.5) finite-cyclic transport | COMPLETE | 53 |
-| higher η-family bridge | NEXT | 54 |
-| Prop.5.1 finite-dimensional integration | PLANNED | 55 |
+| higher η-family bridge | COMPLETE | 54 |
+| π_{n+1}^n=Z/2{η_n} | COMPLETE | 54 |
+| Prop.5.1 finite-dimensional integration / provenance | NEXT | 55 |
 | Prop.5.1 stable `(G_1;2)` conclusion | DEFERRED | later |
 | stable homotopy | PLANNED | later |
 | higher Toda brackets | DEFERRED | concrete need |
@@ -434,49 +568,43 @@ general-purpose CAS normalization
 
 # 11. 現在の直近ステップ
 
-Phase 53 まで完了。
+Phase 54 まで完了。
 
-現在 independently derived / transported できる有限次元結果:
+現在 independently derived できる有限次元結果:
 
 ```text
 π_3^2=Z{η₂}
 H(η₂)=ι₃
 π_4^3=Z/2{η₃}
 Δ(ι₅)=±2η₂
-π_{n+1}^n=Z/2{E^(n-3)η₃}
+π_{n+1}^n=Z/2{η_n}
 ```
 
-次は:
+次:
 
 ```text
-Phase 54
-higher η-family bridge
-E^(n-3)η₃=η_n
+Phase 55
+Toda Proposition 5.1
+finite-dimensional integration / provenance
 ```
 
-Phase 54 の定義基盤:
-
-```text
-η_n=E^(n-2)η₂  (n>=3)
-η₃=Eη₂
-```
-
-必要な η-family-specific bridge だけを追加し、generic suspension normalization は導入しない。
+Phase 55 の目的は新しい低次元 group fact を増やすことではなく、既存の独立導出済み結果を Proposition 5.1 の有限次元 statement として統合し、その依存関係を検証すること。
 
 ---
 
 # 12. 具体的結果の保存・照合・検証方針
 
-Phase 49–50 で:
+Phase 49–54 で:
 
 ```text
 π_3^2=Z{η₂}
 π_4^3=Z/2{η₃}
+π_{n+1}^n=Z/2{η_n}
 ```
 
-のような具体的結果を、EHP exactness と theorem / fact dependency から end-to-end で導出できるようになった。
+のような具体的結果を theorem / fact dependency から end-to-end で導出できるようになった。
 
-今後は、推論結果を probe 出力やテストだけに閉じず、再利用可能な fact として保存・照合できる層を検討する。
+今後は推論結果を probe 出力やテストだけに閉じず、再利用可能な fact として保存・照合できる層を検討する。
 
 目標:
 
@@ -524,6 +652,7 @@ generator fact
 element relation
 H(η₂)=ι₃
 Eη₂=η₃
+E^(n-3)η₃=η_n
 
 order fact
 2η₃=0
@@ -533,7 +662,7 @@ E injective
 H isomorphism
 ```
 
-結果だけではなく:
+結果だけでなく:
 
 ```text
 result
@@ -581,9 +710,9 @@ table に書いてある
 proof により導出された
 ```
 
-既存 table を検証対象とする場合、その table の値を同じ proof の premise として無条件に使用しない。
+既存 table を検証対象にする場合、その table の値を同じ proof の premise として無条件に使わない。
 
-circular verification を避ける。
+循環する verification を避ける。
 
 ---
 
@@ -621,7 +750,7 @@ NO_ENTRY
 table に対応する entry がない
 
 NOT_DERIVED
-table entry はあるが current engine ではまだ導出できない
+table entry はあるが現在の engine ではまだ導出できない
 ```
 
 これにより、以前作成した table の確認に利用できる。
@@ -667,7 +796,7 @@ UNKNOWN
 FALSE
 ```
 
-current capability で導出できないことと、table が誤っていることを区別する。
+現在の capability で導出できないことと、table が誤っていることを区別する。
 
 ---
 
@@ -684,11 +813,17 @@ Phase 49
 Phase 50
 π_4^3
 
-Phase 51+
-Prop.5.1 dependency に必要な具体的群・relation
+Phase 52
+Δ(ι₅)=±2η₂
+
+Phase 53–54
+π_{n+1}^n=Z/2{η_n}
+
+Phase 55
+Prop.5.1 finite-dimensional integration / provenance
 ```
 
-を継続して計算し、
+のような具体的結果を継続して蓄積し、
 
 ```text
 どの種類の fact を保存する必要があるか
@@ -813,9 +948,9 @@ table entry があれば比較
 
 ---
 
-# 20. Updated long-term direction
+# 20. 更新後の長期方向
 
-現在の central branch:
+現在の中心 branch:
 
 ```text
 Phase 49
@@ -839,13 +974,16 @@ Toda (4.5) finite-cyclic transport
 COMPLETE
 ↓
 Phase 54
-E^(n-3)η₃=η_n bridge
+E^(n-3)η₃=η_n
+π_{n+1}^n=Z/2{η_n}
+COMPLETE
 ↓
 Phase 55
-Toda Proposition 5.1 finite-dimensional integration
+Toda Proposition 5.1 finite-dimensional integration / provenance
+NEXT
 ```
 
-Stable branch:
+stable branch:
 
 ```text
 (G_1;2)=Z/2{η}
@@ -868,7 +1006,7 @@ table verification
 persistent database if needed
 ```
 
-repository / database branch は concrete calculation を妨げないタイミングで導入する。
+repository / database branch は具体的計算を妨げないタイミングで導入する。
 
 ---
 
@@ -908,68 +1046,75 @@ Prop 2.7
 
 ---
 
-# 22. Phase 53 完了後の直近ステップ
+# 22. Phase 54 完了後の直近ステップ
 
-Phase 53 は完了。
+Phase 54 は完了。
 
-Phase 53 で追加された result:
+Phase 54 で追加された結果:
 
 ```text
-π_4^3=Z/2{η₃}
+η_n=E^(n-2)η₂
 +
-Toda (4.5) stable-range isomorphism
+η₃=Eη₂
 ↓
-π_{n+1}^n=Z/2{E^(n-3)η₃}
+E^(n-3)η₃=η_n
 ```
 
-Representative:
+さらに:
 
 ```text
-given = 14
-derived = 11
-rounds = 7
+π_{n+1}^n=Z/2{E^(n-3)η₃}
++
+E^(n-3)η₃=η_n
+↓
+π_{n+1}^n=Z/2{η_n}
+```
+
+代表実行:
+
+```text
+given = 15
+derived = 13
+rounds = 8
 fixed point = True
 ```
 
-verified:
+検証:
 
 ```text
-2769 passed in 25.60s
+2804 passed in 26.50s
 ```
 
 次:
 
 ```text
-Phase 54
-higher η-family bridge
-E^(n-3)η₃=η_n
+Phase 55
+Toda Proposition 5.1
+finite-dimensional integration / provenance
 ```
 
-Phase 54 の current inputs:
+Phase 55 の現在の input:
 
 ```text
-η_n=E^(n-2)η₂  (n>=3)
-η₃=Eη₂
-π_{n+1}^n=Z/2{E^(n-3)η₃}
+π_3^2=Z{η₂}
+H(η₂)=ι₃
+Δ(ι₅)=±2η₂
+π_{n+1}^n=Z/2{η_n}
 ```
 
-Target:
+目標:
 
 ```text
-E^(n-3)η₃=η_n
+上記4結果を Proposition 5.1 finite-dimensional result として
+同一 provenance chain 上で統合する
 ```
 
-Boundary:
+境界:
 
 ```text
-η-family-specific bridge only
-no generic suspension normalization
-no generic iterated-suspension composition algebra
+no Proposition 5.1 GIVEN premise
+no old literature-derived circular H premise
+no stable (G_1;2) conclusion
 no stable homotopy model
-```
-
-After Phase 54:
-
-```text
-Phase 55 finite-dimensional Prop.5.1 integration / provenance
+no composition isomorphism (5.2)
 ```

@@ -1,12 +1,12 @@
 # ehp_proof 開発記録
 
-current specification は `README.md` / `docs/design.md` を優先する。
+現在の仕様は `README.md` / `docs/design.md` を優先する。
 
 ---
 
 # Phase 1–27 概要
 
-abelian-group calculation、generic inference、EHP、ORDER、Suspension、Freudenthal、Composition、Hopf invariant、additive / homomorphism / subgroup / modulo / symbolic scalar / indeterminacy reasoning、unstable Toda bracket、typed elements、generator facts を整備。
+可換群計算、汎用推論、EHP、ORDER、Suspension、Freudenthal、Composition、Hopf 不変量、加法 / 準同型 / 部分群 / modulo / 記号的 scalar / 不定性推論、unstable Toda bracket、型付き要素、生成元 fact を整備。
 
 ### 状態
 
@@ -16,7 +16,7 @@ COMPLETE
 
 # Phase 28–38 概要
 
-Toda Prop.2.2、Barratt–Hilton、actual H branch を接続し:
+Toda Prop.2.2、Barratt–Hilton、実際の H branch を接続し:
 
 ```text
 H((2ι₂)η₂)=4ι₃
@@ -29,7 +29,7 @@ Injective(H)
 (2ι₂)η₂=4η₂
 ```
 
-を completion。
+を まで完成。
 
 ### 状態
 
@@ -44,12 +44,12 @@ COMPLETE
 40 TodaPrimaryGroup
 41 PreimageSubgroup
 42 WhiteheadProduct
-43 Toda Lemma 4.1 premise vocabulary
-44 Toda Lemma 4.1 case semantics
+43 Toda Lemma 4.1 premise 表現
+44 Toda Lemma 4.1 場合分け意味論
 45 Toda Proposition 4.2 EHP exactness
-46 Toda (4.5) stable-range isomorphism
-47 Toda Proposition 4.4 decomposition
-48 Toda Proposition 4.4 E injectivity
+46 Toda (4.5) stable-range 同型
+47 Toda Proposition 4.4 分解
+48 Toda Proposition 4.4 E の単射性
 ```
 
 ### 状態
@@ -66,7 +66,7 @@ EHP:
 π_2^1 -E→ π_3^2 -H→ π_3^3 -Δ→ π_1^1 -E→ π_2^2
 ```
 
-Derived:
+導出:
 
 ```text
 H injective
@@ -78,7 +78,7 @@ H(η₂)=ι_3
 π_3^2=Z{η₂}
 ```
 
-Representative:
+代表実行:
 
 ```text
 given = 6
@@ -87,7 +87,7 @@ rounds = 6
 fixed point = True
 ```
 
-Full regression:
+全体回帰:
 
 ```text
 2557 passed in 56.45s
@@ -103,11 +103,11 @@ COMPLETE
 
 目的:
 
-Phase 49 の `π_3^2=Z{η₂}` を concrete EHP calculation に接続する。
+Phase 49 の `π_3^2=Z{η₂}` を具体的な EHP 計算に接続する。
 
 ---
 
-## Phase 50-1：proof dependency compatibility
+## Phase 50-1：証明依存関係の互換性確認
 
 確認した EHP windows:
 
@@ -116,12 +116,12 @@ Phase 49 の `π_3^2=Z{η₂}` を concrete EHP calculation に接続する。
 π_3^2 -E→ π_4^3 -H→ π_4^5
 ```
 
-Required:
+必要:
 
 ```text
 π_5^5=Z{ι_5}
 π_4^5=0
-Toda Proposition 2.7 minimum consequence
+Toda Proposition 2.7 最小 consequence
 ```
 
 必要な Prop.2.7 consequence:
@@ -136,11 +136,11 @@ H([ι_2,ι_2])=±2ι_3
 
 ---
 
-## Phase 50-2：up-to-sign representation compatibility
+## Phase 50-2：±付き表現の互換性確認
 
-`Relation` では unresolved `±` を1 statement に lossless に保持できないことを確認。
+`Relation` では 未確定の `±` を1 statement に 情報を失わず に保持できないことを確認。
 
-general `PlusMinus` は導入せず theorem-specific statement を採用。
+一般の `PlusMinus` は導入せず、定理専用 statement を採用。
 
 ### 状態
 
@@ -148,7 +148,7 @@ general `PlusMinus` は導入せず theorem-specific statement を採用。
 
 ---
 
-## Phase 50-3：minimum Prop.2.7 theorem semantics
+## Phase 50-3：Prop.2.7 の最小定理意味論
 
 追加:
 
@@ -156,13 +156,13 @@ general `PlusMinus` は導入せず theorem-specific statement を採用。
 TodaProp27HopfInvariantUpToSignStatement
 ```
 
-actual:
+対象:
 
 ```text
 H([ι_2,ι_2])=±2ι_3
 ```
 
-focused:
+focused テスト:
 
 ```text
 18 passed
@@ -176,7 +176,7 @@ focused:
 
 ## Phase 50-4a：Whitehead square
 
-Derived:
+導出:
 
 ```text
 H([ι_2,ι_2])=±2ι_3
@@ -188,13 +188,13 @@ H injective
 [ι_2,ι_2]=±2η₂
 ```
 
-focused:
+focused テスト:
 
 ```text
 14 passed
 ```
 
-full:
+全体回帰:
 
 ```text
 2589 passed in 62.06s
@@ -206,7 +206,7 @@ full:
 
 ---
 
-## Phase 50-4b：low-dimensional Δ facts
+## Phase 50-4b：低次元 Δ fact
 
 追加:
 
@@ -216,19 +216,19 @@ full:
 TodaDeltaImageUpToSignStatement
 ```
 
-Derived:
+導出:
 
 ```text
 Δ(ι_5)=±[ι_2,ι_2]
 ```
 
-focused:
+focused テスト:
 
 ```text
 22 passed
 ```
 
-full:
+全体回帰:
 
 ```text
 2611 passed in 64.75s
@@ -240,7 +240,7 @@ full:
 
 ---
 
-## Phase 50-4c：exactness bridge
+## Phase 50-4c：完全性 bridge
 
 追加:
 
@@ -250,7 +250,7 @@ TodaSuspensionKernelFreeCyclicStatement
 TodaSuspensionSurjectiveStatement
 ```
 
-Derived:
+導出:
 
 ```text
 Im(Δ)=Z{2η₂}
@@ -258,13 +258,13 @@ Ker(E)=Z{2η₂}
 E: π_3^2→π_4^3 surjective
 ```
 
-focused:
+focused テスト:
 
 ```text
 18 passed
 ```
 
-full:
+全体回帰:
 
 ```text
 2629 passed in 61.36s
@@ -276,7 +276,7 @@ full:
 
 ---
 
-## Phase 50-4d：finite cyclic conclusion
+## Phase 50-4d：有限巡回群の結論
 
 追加:
 
@@ -284,7 +284,7 @@ full:
 FiniteCyclicGroup
 ```
 
-Derived:
+導出:
 
 ```text
 π_3^2=Z{η₂}
@@ -296,13 +296,13 @@ E surjective
 π_4^3=Z/2{Eη₂}
 ```
 
-focused:
+focused テスト:
 
 ```text
 17 passed
 ```
 
-full:
+全体回帰:
 
 ```text
 2646 passed in 61.38s
@@ -314,21 +314,21 @@ full:
 
 ---
 
-## Phase 50-4e：η-family notation
+## Phase 50-4e：η-family 記法
 
-Definition:
+定義:
 
 ```text
 η_n=E^(n-2)η₂
 ```
 
-For n=3:
+n=3 では:
 
 ```text
 η₃=Eη₂
 ```
 
-Then:
+すると:
 
 ```text
 π_4^3=Z/2{Eη₂}
@@ -338,13 +338,13 @@ Then:
 
 途中 `η3` / `η₃` mismatch をテストで検出し修正。
 
-focused:
+focused テスト:
 
 ```text
 16 passed
 ```
 
-full:
+全体回帰:
 
 ```text
 2662 passed in 66.78s
@@ -356,29 +356,29 @@ full:
 
 ---
 
-## Phase 50-5：applicability / provenance
+## Phase 50-5：適用条件 / provenance
 
-production code 変更なし。
+production code は変更なし。
 
 確認:
 
 ```text
-wrong H instance reject
-wrong Δ instance reject
-wrong exactness window reject
-missing π_3^2 structure reject
-wrong η index rejects only notation final
-sign-specific equality not invented
-final result is INFERENCE
+誤った H instance を reject
+誤った Δ instance を reject
+誤った exactness window を reject
+π_3^2 structure 不足を reject
+誤った η index では最終 notation rule のみ reject
+符号を固定した等式を勝手に導入しない
+最終結果は INFERENCE
 ```
 
-focused:
+focused テスト:
 
 ```text
 14 passed
 ```
 
-full:
+全体回帰:
 
 ```text
 2676 passed in 67.57s
@@ -390,7 +390,7 @@ full:
 
 ---
 
-## Phase 50-6：representative probe / final regression
+## Phase 50-6：代表 probe / 最終回帰
 
 追加:
 
@@ -399,7 +399,7 @@ probes/probe_phase50_capabilities.py
 tests/test_phase50_probe.py
 ```
 
-central output:
+中心出力:
 
 ```text
 H([ι_2,ι_2]) = ±2ι_3
@@ -413,7 +413,7 @@ E: π_3^2 → π_4^3 is surjective
 π_4^3 = Z/2{η₃}
 ```
 
-counts:
+件数:
 
 ```text
 given premise count = 11
@@ -422,13 +422,13 @@ round count = 6
 fixed point = True
 ```
 
-probe tests:
+probe テスト:
 
 ```text
 27 passed
 ```
 
-final full regression:
+最終全体回帰:
 
 ```text
 2703 passed in 65.69s
@@ -440,7 +440,7 @@ final full regression:
 
 ---
 
-## Phase 50-7：completion
+## Phase 50-7：完了
 
 Phase 50 で完成:
 
@@ -477,9 +477,9 @@ COMPLETE
 
 ---
 
-# Phase 50 completion boundary
+# Phase 50 完了 boundary
 
-Current concrete branch:
+現在の具体計算 branch:
 
 ```text
 Phase 49
@@ -491,7 +491,7 @@ Phase 50
 COMPLETE
 ```
 
-Still outside:
+範囲外:
 
 ```text
 full Toda Proposition 2.7 formalization
@@ -499,21 +499,21 @@ general sign algebra
 general quotient simplification
 general first-isomorphism theorem
 general suspension normalization
-Toda Proposition 5.1 proof completion
+Toda Proposition 5.1 proof 完了
 stable homotopy
 higher Toda brackets
 ```
 
 ---
 
-# Phase 51：Toda Proposition 5.1 proof dependency analysis
+# Phase 51：Toda Proposition 5.1 証明依存関係分析
 
 目的:
 
 ```text
-Prop.5.1 の actual proof path
+Prop.5.1 の 実際の証明経路
 +
-Phase 49–50 / current code
+Phase 49–50 / 現在のコード
 ↓
 既に独立導出できる premise と不足 edge を確定する
 ```
@@ -550,9 +550,9 @@ H(η₂)=ι₃
 
 ---
 
-## Phase 51-2：current code で既に推論可能な premises
+## Phase 51-2：現在のコード で既に推論可能な premises
 
-AVAILABLE:
+利用可能:
 
 ```text
 π_3^2=Z{η₂}
@@ -562,14 +562,14 @@ H(η₂)=ι₃
 Toda (4.5) stable-range E^(m-n) isomorphism
 ```
 
-PARTIAL:
+部分的に利用可能:
 
 ```text
 π_{n+1}^n=Z/2{η_n}, n≥3
 higher η_n generator connection
 ```
 
-MISSING:
+不足:
 
 ```text
 finite-cyclic transport through Toda (4.5)
@@ -583,7 +583,7 @@ direct Δ(ι₅)=±2η₂ conclusion
 
 ---
 
-## Phase 51-3：missing low-dimensional groups
+## Phase 51-3：不足している低次元群
 
 追加の low-dimensional group fact は不要と判断。
 
@@ -618,9 +618,9 @@ Toda (4.5)
 
 ---
 
-## Phase 51-4：composition / suspension / Hopf relations
+## Phase 51-4：composition / suspension / Hopf relation
 
-Toda p.39 の scan を確認。
+Toda p.39 の スキャン を確認。
 
 同ページでは proof text に
 
@@ -628,9 +628,9 @@ Toda p.39 の scan を確認。
 Δ(ι₅)=±2η₂
 ```
 
-とある一方、printed Proposition 5.1 line は `±2η₃` となっており内部不整合がある。
+とある一方、印刷された Proposition 5.1 の行 は `±2η₃` となっており内部不整合がある。
 
-`Δ(ι₅)∈π_3^2` の次元と proof text に合わせ、development target は
+`Δ(ι₅)∈π_3^2` の次元と proof text に合わせ、開発上の対象 は
 
 ```text
 Δ(ι₅)=±2η₂
@@ -667,7 +667,7 @@ Toda Prop.4.2 / independent low-dimensional facts
 Phase 49
 π_3^2=Z{η₂}, H(η₂)=ι₃
 ↓
-Toda Prop.2.7 minimum consequence
+Toda Prop.2.7 最小 consequence
 ↓
 Phase 50
 π_4^3=Z/2{η₃}
@@ -727,7 +727,7 @@ composition (5.2)
 
 ---
 
-## Phase 51-7：completion
+## Phase 51-7：完了
 
 Phase 51 で確定:
 
@@ -761,7 +761,7 @@ COMPLETE
 
 ---
 
-# Phase 51 completion boundary
+# Phase 51 完了 boundary
 
 Completed analysis branch:
 
@@ -775,7 +775,7 @@ Phase 50
 COMPLETE
 ↓
 Phase 51
-Toda Proposition 5.1 proof dependency analysis
+Toda Proposition 5.1 証明依存関係分析
 COMPLETE
 ```
 
@@ -857,13 +857,13 @@ production code:
 tests/test_phase52_delta_direct_bridge.py
 ```
 
-この時点の focused:
+この時点の focused テスト:
 
 ```text
 5 passed
 ```
 
-full:
+全体回帰:
 
 ```text
 2708 passed in 29.36s
@@ -883,7 +883,7 @@ full:
 toda_delta_iota5_two_eta2_up_to_sign_inference_rule()
 ```
 
-Derived:
+導出:
 
 ```text
 Δ(ι₅)=±[ι₂,ι₂]
@@ -903,13 +903,13 @@ intermediate = [ι₂,ι₂]
 final positive value = 2η₂
 ```
 
-focused:
+focused テスト:
 
 ```text
 10 passed
 ```
 
-full:
+全体回帰:
 
 ```text
 2713 passed in 27.61s
@@ -923,7 +923,7 @@ full:
 
 ## Phase 52-4：invalid cases / wrong instance rejection
 
-production code 変更なし。
+production code は変更なし。
 
 Reject をテスト固定:
 
@@ -936,13 +936,13 @@ wrong coefficient
 wrong η index
 ```
 
-focused:
+focused テスト:
 
 ```text
 16 passed
 ```
 
-full:
+全体回帰:
 
 ```text
 2719 passed in 25.70s
@@ -992,7 +992,7 @@ Integration tests:
 18 passed
 ```
 
-full:
+全体回帰:
 
 ```text
 2723 passed in 26.52s
@@ -1004,7 +1004,7 @@ full:
 
 ---
 
-## Phase 52-6：probe / provenance / full regression
+## Phase 52-6：probe / provenance / 全体回帰
 
 追加:
 
@@ -1013,7 +1013,7 @@ probes/probe_phase52_capabilities.py
 tests/test_phase52_probe.py
 ```
 
-Representative output:
+代表出力:
 
 ```text
 Δ(ι₅)=±[ι₂,ι₂]
@@ -1022,7 +1022,7 @@ Representative output:
 Δ(ι₅)=±2η₂
 ```
 
-Provenance:
+provenance:
 
 ```text
 bridge premise count = 2
@@ -1034,13 +1034,13 @@ derived round count = 6
 fixed point = True
 ```
 
-probe tests:
+probe テスト:
 
 ```text
 8 passed
 ```
 
-final full regression:
+最終全体回帰:
 
 ```text
 2731 passed in 26.67s
@@ -1052,7 +1052,7 @@ final full regression:
 
 ---
 
-## Phase 52-7：completion
+## Phase 52-7：完了
 
 Phase 52 で完成:
 
@@ -1073,7 +1073,7 @@ Generic inference engine:
 変更なし
 ```
 
-Not added:
+追加しなかったもの:
 
 ```text
 general up-to-sign transitivity
@@ -1091,9 +1091,9 @@ COMPLETE
 
 ---
 
-# Phase 52 completion boundary
+# Phase 52 完了 boundary
 
-Current branch:
+現在の branch:
 
 ```text
 Phase 49
@@ -1105,7 +1105,7 @@ Phase 50
 COMPLETE
 ↓
 Phase 51
-Toda Proposition 5.1 proof dependency analysis
+Toda Proposition 5.1 証明依存関係分析
 COMPLETE
 ↓
 Phase 52
@@ -1113,7 +1113,7 @@ Phase 52
 COMPLETE
 ```
 
-Remaining finite-dimensional Proposition 5.1 path:
+Proposition 5.1 有限次元側の残り経路:
 
 ```text
 Phase 53
@@ -1126,7 +1126,7 @@ Phase 55
 Prop.5.1 finite-dimensional integration / provenance
 ```
 
-Stable `(G_1;2)=Z/2{η}` remains deferred.
+stable `(G_1;2)=Z/2{η}` は引き続き保留。
 
 ---
 
@@ -1192,13 +1192,13 @@ no η_n normalization
 tests/test_phase53_finite_cyclic_transport.py
 ```
 
-focused:
+focused テスト:
 
 ```text
 8 passed
 ```
 
-full:
+全体回帰:
 
 ```text
 2739 passed in 26.92s
@@ -1218,7 +1218,7 @@ full:
 toda_45_pi4_3_finite_cyclic_transport_inference_rule()
 ```
 
-Derived:
+導出:
 
 ```text
 π_4^3=Z/2{η₃}
@@ -1230,13 +1230,13 @@ Toda45IsomorphismStatement
 
 Phase 46 の source degree `ScalarSum(3,1)` と Phase 50 の concrete `4` の表現差は、この specific `π_4^3` guard 内だけで受理する。generic scalar normalization は追加しない。
 
-focused:
+focused テスト:
 
 ```text
 14 passed
 ```
 
-full:
+全体回帰:
 
 ```text
 2745 passed in 25.53s
@@ -1250,7 +1250,7 @@ full:
 
 ## Phase 53-4：stable-range / wrong-map / wrong-group rejection
 
-production code 変更なし。
+production code は変更なし。
 
 Phase 46 と Phase 53 の責務を分離したまま reject を固定。
 
@@ -1278,13 +1278,13 @@ finite-cyclic transport
 
 まで接続することを確認。
 
-focused:
+focused テスト:
 
 ```text
 24 passed
 ```
 
-full:
+全体回帰:
 
 ```text
 2755 passed in 25.60s
@@ -1321,13 +1321,13 @@ transport step の2 premise が両方 derived であることを確認。
 tests/test_phase53_integration.py
 ```
 
-focused:
+focused テスト:
 
 ```text
 6 passed
 ```
 
-full:
+全体回帰:
 
 ```text
 2761 passed in 25.89s
@@ -1339,7 +1339,7 @@ full:
 
 ---
 
-## Phase 53-6：probe / provenance / full regression
+## Phase 53-6：probe / provenance / 全体回帰
 
 追加:
 
@@ -1348,7 +1348,7 @@ probes/probe_phase53_capabilities.py
 tests/test_phase53_probe.py
 ```
 
-Representative output:
+代表出力:
 
 ```text
 π_4^3 = Z/2{η₃}
@@ -1361,7 +1361,7 @@ E^(n-3): π_4^3 ≅ π_(n+1)^n
 π_(n+1)^n = Z/2{E^(n-3)η₃}
 ```
 
-Provenance:
+provenance:
 
 ```text
 source group result is derived = True
@@ -1383,7 +1383,7 @@ tests/test_phase53_integration.py               6 passed
 tests/test_phase53_probe.py                     8 passed
 ```
 
-final full regression:
+最終全体回帰:
 
 ```text
 2769 passed in 25.60s
@@ -1395,7 +1395,7 @@ final full regression:
 
 ---
 
-## Phase 53-7：completion
+## Phase 53-7：完了
 
 Phase 53 で完成:
 
@@ -1417,7 +1417,7 @@ Generic inference engine:
 変更なし
 ```
 
-Not added:
+追加しなかったもの:
 
 ```text
 E^(n-3)η₃=η_n
@@ -1435,9 +1435,9 @@ COMPLETE
 
 ---
 
-# Phase 53 completion boundary
+# Phase 53 完了 boundary
 
-Current branch:
+現在の branch:
 
 ```text
 Phase 49
@@ -1449,7 +1449,7 @@ Phase 50
 COMPLETE
 ↓
 Phase 51
-Toda Proposition 5.1 proof dependency analysis
+Toda Proposition 5.1 証明依存関係分析
 COMPLETE
 ↓
 Phase 52
@@ -1461,7 +1461,7 @@ Toda (4.5) finite-cyclic transport
 COMPLETE
 ```
 
-Remaining finite-dimensional Proposition 5.1 path:
+Proposition 5.1 有限次元側の残り経路:
 
 ```text
 Phase 54
@@ -1471,14 +1471,465 @@ Phase 55
 Prop.5.1 finite-dimensional integration / provenance
 ```
 
-Stable `(G_1;2)=Z/2{η}` remains deferred.
+stable `(G_1;2)=Z/2{η}` は引き続き保留。
+
+---
+
+---
+
+# Phase 54：higher η-family bridge
+
+目的:
+
+```text
+η_n=E^(n-2)η₂
+η₃=Eη₂
+↓
+E^(n-3)η₃=η_n
+```
+
+さらに Phase 53 の transport と接続し:
+
+```text
+π_{n+1}^n=Z/2{E^(n-3)η₃}
++
+E^(n-3)η₃=η_n
+↓
+π_{n+1}^n=Z/2{η_n}
+```
+
+まで end-to-end で導出する。
+
+---
+
+## Phase 54-1：current η-family / IteratedSuspension compatibility check
+
+確認:
+
+```text
+利用可能:
+  IteratedSuspension
+  symbolic n / n-3 表現
+  Phase 53 transported generator
+  Relation
+  FiniteCyclicGroup
+  既存 η₃=Eη₂ bridge
+
+部分対応:
+  TodaEtaFamilyDefinitionStatement
+
+不足:
+  symbolic n の η-family definition 構築
+  E^(n-3)η₃=η_n 専用 bridge
+  transported generator → η_n group rewrite
+```
+
+`IteratedSuspension` 自体の変更は不要と判断。
+
+一般の suspension composition algebra は導入しない。
+
+### 状態
+
+完了
+
+---
+
+## Phase 54-2：higher η bridge minimum statement representation
+
+変更:
+
+```text
+TodaEtaFamilyDefinitionStatement
+  index: int | ScalarSymbol
+
+toda_eta_family_definition_statement()
+  symbolic n 対応
+```
+
+symbolic `n` に対して:
+
+```text
+η_n:
+  dimension = n
+  source = n+1
+  target = n
+  generator family = η
+  generator index = n
+
+η_n=E^(n-2)η₂
+```
+
+を structural に保持可能にした。
+
+既存 concrete `n=2`, `n=3` の API と表現は維持。
+
+追加:
+
+```text
+tests/test_phase54_eta_family_bridge.py
+```
+
+focused テスト:
+
+```text
+8 passed
+```
+
+既存 η-family regression:
+
+```text
+16 passed
+```
+
+Phase 53 regression:
+
+```text
+24 + 6 + 8 passed
+```
+
+全体回帰:
+
+```text
+2777 passed in 28.37s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 54-3：η-family-specific bridge inference rule
+
+追加:
+
+```text
+toda_higher_eta_family_bridge_inference_rule()
+```
+
+premise:
+
+```text
+η_n=E^(n-2)η₂
+η₃=Eη₂
+```
+
+導出:
+
+```text
+E^(n-3)η₃=η_n
+```
+
+`n-3` の expression tree は Phase 53 transport と同一形にし、generic scalar normalization なしで structural に接続可能とした。
+
+途中、provenance test が既存の `η₃=Eη₂` INFERENCE step を誤って取得する問題を検出。
+
+production code は変更せず、期待する conclusion で derived step を選択するようテストを修正。
+
+focused テスト:
+
+```text
+16 passed
+```
+
+既存回帰:
+
+```text
+Phase 50 η-family  16 passed
+Phase 53 transport 24 passed
+Phase 53 integration 6 passed
+Phase 53 probe 8 passed
+```
+
+全体回帰:
+
+```text
+2785 passed in 27.24s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 54-4：wrong index / wrong exponent / wrong base rejection
+
+production code は変更せず、既存 narrow guard の適用境界をテストで固定。
+
+reject:
+
+```text
+concrete higher η-family index
+mismatched symbolic index
+wrong η_n element structure
+wrong η-family definition exponent
+wrong η₃ base
+wrong suspended η₂ base
+reversed η₃ relation
+non-equality η₃ relation
+```
+
+focused テスト:
+
+```text
+20 passed
+```
+
+全体回帰:
+
+```text
+2789 passed in 28.37s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 54-5：Phase 53 transported finite-cyclic group との統合
+
+追加:
+
+```text
+toda_higher_eta_finite_cyclic_generator_inference_rule()
+tests/test_phase54_integration.py
+```
+
+入力:
+
+```text
+π_{n+1}^n=Z/2{E^(n-3)η₃}
+E^(n-3)η₃=η_n
+```
+
+導出:
+
+```text
+π_{n+1}^n=Z/2{η_n}
+```
+
+rule は次に限定:
+
+```text
+target = π_{n+1}^n
+order = 2
+generator = E^(n-3)η₃
+bridge = E^(n-3)η₃=η_n
+```
+
+一般の cyclic-generator rewrite は導入しない。
+
+`tests/test_phase54_integration.py` から Phase 53 integration helper を参照する際、`tests` が package ではないため:
+
+```text
+from tests.test_phase53_integration
+```
+
+では import error になった。
+
+テスト実行時の import path に合わせ:
+
+```text
+from test_phase53_integration
+```
+
+へ修正。
+
+focused テスト:
+
+```text
+Phase 54 bridge       20 passed
+Phase 54 integration   7 passed
+```
+
+既存回帰:
+
+```text
+Phase 53 transport    24 passed
+Phase 53 integration   6 passed
+Phase 53 probe         8 passed
+Phase 50 η-family     16 passed
+```
+
+全体回帰:
+
+```text
+2796 passed in 27.29s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 54-6：probe / provenance / full regression
+
+追加:
+
+```text
+probes/probe_phase54_capabilities.py
+tests/test_phase54_probe.py
+```
+
+代表出力:
+
+```text
+η_n = E^(n-2)η₂
+η₃ = Eη₂
+↓
+E^(n-3)η₃ = η_n
+
+π_(n+1)^n = Z/2{E^(n-3)η₃}
++
+E^(n-3)η₃ = η_n
+↓
+π_(n+1)^n = Z/2{η_n}
+```
+
+round:
+
+```text
+round 1 new step count = 5
+round 2 new step count = 2
+round 3 new step count = 1
+round 4 new step count = 1
+round 5 new step count = 1
+round 6 new step count = 1
+round 7 new step count = 1
+round 8 new step count = 1
+```
+
+provenance:
+
+```text
+source group result is derived = True
+transport result is derived = True
+higher eta bridge is derived = True
+higher eta bridge rule = Toda higher eta-family iterated suspension bridge
+final group result is derived = True
+final group rule = Toda higher eta-family finite-cyclic generator bridge
+final premise count = 2
+final premises are derived = True
+given premise count = 15
+derived step count = 13
+derived round count = 8
+fixed point = True
+```
+
+probe test は最初にファイル未保存のため `no tests ran` となったが、保存後:
+
+```text
+8 passed
+```
+
+Phase 54 tests:
+
+```text
+tests/test_phase54_eta_family_bridge.py  20 passed
+tests/test_phase54_integration.py         7 passed
+tests/test_phase54_probe.py               8 passed
+```
+
+最終全体回帰:
+
+```text
+2804 passed in 26.50s
+```
+
+### 状態
+
+完了
+
+---
+
+## Phase 54-7：Phase 54 completion
+
+Phase 54 で完成:
+
+```text
+symbolic η_n minimum representation
+η_n=E^(n-2)η₂ structural definition
+η-family-specific E^(n-3)η₃=η_n bridge
+wrong-instance rejection
+Phase 53 transported finite-cyclic group との統合
+π_{n+1}^n=Z/2{η_n}
+derived provenance
+representative probe
+full regression
+```
+
+generic inference engine:
+
+```text
+変更なし
+```
+
+追加しなかったもの:
+
+```text
+generic iterated-suspension composition
+generic suspension normalization
+generic scalar normalization
+generic cyclic-generator rewrite
+Proposition 5.1 final integration
+stable homotopy model
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 54 completion boundary
+
+現在の有限次元 branch:
+
+```text
+Phase 49
+π_3^2=Z{η₂}
+COMPLETE
+↓
+Phase 50
+π_4^3=Z/2{η₃}
+COMPLETE
+↓
+Phase 51
+Toda Proposition 5.1 証明依存関係分析
+COMPLETE
+↓
+Phase 52
+Δ(ι₅)=±2η₂ direct bridge
+COMPLETE
+↓
+Phase 53
+Toda (4.5) finite-cyclic transport
+COMPLETE
+↓
+Phase 54
+π_{n+1}^n=Z/2{η_n}
+COMPLETE
+```
+
+Proposition 5.1 の有限次元側で独立導出済み:
+
+```text
+π_3^2=Z{η₂}
+H(η₂)=ι₃
+Δ(ι₅)=±2η₂
+π_{n+1}^n=Z/2{η_n}
+```
+
+stable `(G_1;2)=Z/2{η}` は引き続き保留。
 
 ---
 
 # 次の Phase
 
 ```text
-Phase 54
-higher η-family bridge
-E^(n-3)η₃=η_n
+Phase 55
+Toda Proposition 5.1 finite-dimensional integration / provenance
 ```
