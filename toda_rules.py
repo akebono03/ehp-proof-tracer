@@ -3005,6 +3005,165 @@ def toda_delta_iota5_whitehead_square_inference_rule():
   )
 
 
+def toda_delta_iota5_two_eta2_up_to_sign_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    delta_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    whitehead_statement = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    expected_source = TodaPrimaryGroup(
+      group_dimension=5,
+      sphere_dimension=5,
+    )
+
+    expected_target = TodaPrimaryGroup(
+      group_dimension=3,
+      sphere_dimension=2,
+    )
+
+    if (
+      delta_statement.map.source_group
+      != expected_source
+    ):
+      return False
+
+    if (
+      delta_statement.map.target_group
+      != expected_target
+    ):
+      return False
+
+    iota_5 = HomotopyElement(
+      name="ι_5",
+      dimension=5,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=5,
+      ),
+    )
+
+    if (
+      delta_statement.element
+      != iota_5
+    ):
+      return False
+
+    iota_2 = HomotopyElement(
+      name="ι_2",
+      dimension=2,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=2,
+      ),
+    )
+
+    expected_whitehead_square = (
+      WhiteheadProduct(
+        left=iota_2,
+        right=iota_2,
+      )
+    )
+
+    if (
+      delta_statement.positive_value
+      != expected_whitehead_square
+    ):
+      return False
+
+    if (
+      whitehead_statement.whitehead_square
+      != expected_whitehead_square
+    ):
+      return False
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    expected_two_eta_2 = Multiple(
+      coefficient=2,
+      expression=eta_2,
+    )
+
+    return (
+      whitehead_statement.positive_value
+      == expected_two_eta_2
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    delta_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    whitehead_statement = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return TodaDeltaImageUpToSignStatement(
+      map=delta_statement.map,
+      element=delta_statement.element,
+      positive_value=(
+        whitehead_statement
+        .positive_value
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Delta iota_5 "
+      "twice eta_2 up-to-sign bridge"
+    ),
+    description=(
+      "For the specific Delta map "
+      "from pi_5^5 to pi_3^2, "
+      "if Delta(iota_5) equals "
+      "[iota_2,iota_2] up to sign "
+      "and [iota_2,iota_2] equals "
+      "2 eta_2 up to sign, then "
+      "Delta(iota_5) equals "
+      "2 eta_2 up to sign."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaDeltaImageUpToSignStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaPi32WhiteheadSquareUpToSignStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_pi3_2_whitehead_square_up_to_sign_inference_rule():
   def guard(
     premises,
