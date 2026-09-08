@@ -10882,6 +10882,182 @@ def toda_lemma55_nu4_suspension_correction_inference_rule():
   )
 
 
+def toda_lemma55_alpha_star_to_nu4_composition_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    bracket_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    suspension_statement = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    positive_value = (
+      bracket_statement
+      .positive_value
+    )
+
+    if not isinstance(
+      positive_value,
+      Composition,
+    ):
+      return False
+
+    e2_beta = (
+      positive_value
+      .left
+    )
+
+    et_alpha_star = (
+      positive_value
+      .right
+    )
+
+    if not isinstance(
+      e2_beta,
+      IteratedSuspension,
+    ):
+      return False
+
+    if (
+      e2_beta.exponent
+      != 2
+    ):
+      return False
+
+    if not isinstance(
+      et_alpha_star,
+      IteratedSuspension,
+    ):
+      return False
+
+    if not isinstance(
+      suspension_statement.left,
+      IteratedSuspension,
+    ):
+      return False
+
+    et_nu4 = (
+      suspension_statement
+      .left
+    )
+
+    if not isinstance(
+      suspension_statement
+      .positive_value,
+      IteratedSuspension,
+    ):
+      return False
+
+    suspension_et_alpha_star = (
+      suspension_statement
+      .positive_value
+    )
+
+    if (
+      et_alpha_star
+      != suspension_et_alpha_star
+    ):
+      return False
+
+    if (
+      et_nu4.exponent
+      != et_alpha_star.exponent
+    ):
+      return False
+
+    if (
+      suspension_et_alpha_star.exponent
+      != et_alpha_star.exponent
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    bracket_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    suspension_statement = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    positive_value = (
+      bracket_statement
+      .positive_value
+    )
+
+    return (
+      TodaLemma55BracketContainsUpToSignStatement(
+        bracket=(
+          bracket_statement
+          .bracket
+        ),
+        positive_value=Composition(
+          left=positive_value.left,
+          right=(
+            suspension_statement
+            .left
+          ),
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.5 "
+      "alpha-star to nu_4 "
+      "composition bridge"
+    ),
+    description=(
+      "If the Lemma 5.5 bracket "
+      "contains plus or minus "
+      "E^2 beta composed with "
+      "E^t alpha-star, and the "
+      "Lemma 5.4 Whitehead correction "
+      "gives E^t nu_4 equal up to sign "
+      "to E^t alpha-star, then the "
+      "same bracket contains plus or "
+      "minus E^2 beta composed with "
+      "E^t nu_4. "
+      "This is a Lemma 5.5-specific "
+      "sign/composition bridge and "
+      "does not introduce generic "
+      "up-to-sign propagation."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma55BracketContainsUpToSignStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma55SuspensionUpToSignStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_bracket_membership_proof_step(
   statement,
 ):
