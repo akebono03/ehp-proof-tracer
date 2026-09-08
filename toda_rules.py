@@ -7359,6 +7359,252 @@ def toda_56_nu4_prop44_specialization_inference_rule():
   )
 
 
+def toda_56_nu4_prop44_isomorphism_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    specialization = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    decomposition_map = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if (
+      specialization.n
+      != 4
+    ):
+      return False
+
+    nu_4 = HomotopyElement(
+      name="ν₄",
+      dimension=4,
+      source=7,
+      target=4,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=4,
+      ),
+    )
+
+    if (
+      specialization.alpha
+      != nu_4
+    ):
+      return False
+
+    expected_membership = (
+      TodaPrimaryGroupMembershipStatement(
+        element=nu_4,
+        group=TodaPrimaryGroup(
+          group_dimension=7,
+          sphere_dimension=4,
+        ),
+      )
+    )
+
+    if (
+      specialization.membership
+      != expected_membership
+    ):
+      return False
+
+    iota_7 = HomotopyElement(
+      name="ι_7",
+      dimension=7,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=7,
+      ),
+    )
+
+    expected_hopf_relation = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=nu_4,
+      ),
+      rhs=iota_7,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      specialization.hopf_relation
+      != expected_hopf_relation
+    ):
+      return False
+
+    if (
+      decomposition_map.alpha
+      != nu_4
+    ):
+      return False
+
+    target_group = (
+      decomposition_map.target_group
+    )
+
+    if not isinstance(
+      target_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    if (
+      target_group.sphere_dimension
+      != 4
+    ):
+      return False
+
+    i = (
+      target_group.group_dimension
+    )
+
+    if not isinstance(
+      i,
+      ScalarSymbol,
+    ):
+      return False
+
+    expected_target_group = (
+      TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=4,
+      )
+    )
+
+    if (
+      target_group
+      != expected_target_group
+    ):
+      return False
+
+    source_group = (
+      decomposition_map.source_group
+    )
+
+    if not isinstance(
+      source_group,
+      DirectSumGroup,
+    ):
+      return False
+
+    if (
+      len(
+        source_group.summands
+      )
+      != 2
+    ):
+      return False
+
+    expected_first_summand = (
+      TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=i,
+          right=-1,
+        ),
+        sphere_dimension=3,
+      )
+    )
+
+    expected_second_summand = (
+      TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=7,
+      )
+    )
+
+    if (
+      source_group.summands[
+        0
+      ]
+      != expected_first_summand
+    ):
+      return False
+
+    if (
+      source_group.summands[
+        1
+      ]
+      != expected_second_summand
+    ):
+      return False
+
+    expected_formula = Sum(
+      left=Suspension(
+        expression=(
+          decomposition_map.beta
+        ),
+      ),
+      right=Composition(
+        left=nu_4,
+        right=(
+          decomposition_map.gamma
+        ),
+      ),
+    )
+
+    return (
+      decomposition_map.formula
+      == expected_formula
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    decomposition_map = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return (
+      TodaProp44IsomorphismStatement(
+        map=decomposition_map,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 4.4 "
+      "nu_4 n=4 decomposition "
+      "specialization"
+    ),
+    description=(
+      "Specialize Toda Proposition 4.4 "
+      "to n=4 and alpha=nu_4 using "
+      "the independently derived "
+      "Phase 63 nu_4 specialization "
+      "premises. The concrete map from "
+      "pi_(i-1)^3 direct sum pi_i^7 "
+      "to pi_i^4 sending "
+      "(alpha,beta) to "
+      "E(alpha)+nu_4 composed with beta "
+      "is an isomorphism."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda56Nu4Prop44SpecializationStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaProp44DecompositionMap
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 @dataclass(frozen=True)
 class TodaLemma55Statement:
   nu4: HomotopyElement
