@@ -7233,6 +7233,247 @@ class Toda56Nu4DecompositionIsomorphismStatement:
   prop44_isomorphism: TodaProp44IsomorphismStatement
 
 
+@dataclass(frozen=True)
+class Toda56Nu4DecompositionStatement:
+  decomposition_isomorphism: (
+    Toda56Nu4DecompositionIsomorphismStatement
+  )
+  lemma54_statement: TodaLemma54Statement
+  literature_statements: tuple[
+    LiteratureStatement,
+    ...
+  ]
+
+
+def toda_56_nu4_decomposition_literature_statements():
+  toda_reference = {
+    "author": "H. Toda",
+    "title": (
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    "year": 1962,
+  }
+
+  return (
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda (5.6)",
+        locator="Equation (5.6)",
+        **toda_reference,
+      ),
+      statement=(
+        "The map "
+        "(α,β)↦Eα+ν₄∘β gives an "
+        "isomorphism "
+        "π_(i-1)^3⊕π_i^7≅π_i^4."
+      ),
+    ),
+  )
+
+
+def toda_56_nu4_decomposition_integration_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    decomposition_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    lemma54_statement = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    prop44_isomorphism = (
+      decomposition_statement
+      .prop44_isomorphism
+    )
+
+    decomposition_map = (
+      prop44_isomorphism.map
+    )
+
+    nu_4 = HomotopyElement(
+      name="ν₄",
+      dimension=4,
+      source=7,
+      target=4,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=4,
+      ),
+    )
+
+    if (
+      lemma54_statement.nu4
+      != nu_4
+    ):
+      return False
+
+    if (
+      decomposition_map.alpha
+      != nu_4
+    ):
+      return False
+
+    if (
+      decomposition_map.alpha
+      != lemma54_statement.nu4
+    ):
+      return False
+
+    target_group = (
+      decomposition_map.target_group
+    )
+
+    if not isinstance(
+      target_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    if (
+      target_group.sphere_dimension
+      != 4
+    ):
+      return False
+
+    i = (
+      target_group.group_dimension
+    )
+
+    if not isinstance(
+      i,
+      ScalarSymbol,
+    ):
+      return False
+
+    expected_target_group = (
+      TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=4,
+      )
+    )
+
+    if (
+      target_group
+      != expected_target_group
+    ):
+      return False
+
+    source_group = (
+      decomposition_map.source_group
+    )
+
+    expected_source_group = DirectSumGroup(
+      summands=(
+        TodaPrimaryGroup(
+          group_dimension=ScalarSum(
+            left=i,
+            right=-1,
+          ),
+          sphere_dimension=3,
+        ),
+        TodaPrimaryGroup(
+          group_dimension=i,
+          sphere_dimension=7,
+        ),
+      ),
+    )
+
+    if (
+      source_group
+      != expected_source_group
+    ):
+      return False
+
+    expected_formula = Sum(
+      left=Suspension(
+        expression=(
+          decomposition_map.beta
+        ),
+      ),
+      right=Composition(
+        left=nu_4,
+        right=(
+          decomposition_map.gamma
+        ),
+      ),
+    )
+
+    return (
+      decomposition_map.formula
+      == expected_formula
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return (
+      Toda56Nu4DecompositionStatement(
+        decomposition_isomorphism=(
+          premises[
+            0
+          ].conclusion
+        ),
+        lemma54_statement=(
+          premises[
+            1
+          ].conclusion
+        ),
+        literature_statements=(
+          toda_56_nu4_decomposition_literature_statements()
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (5.6) "
+      "nu_4 decomposition integration"
+    ),
+    description=(
+      "Integrate the derived Toda "
+      "(5.6) decomposition "
+      "isomorphism semantics with the "
+      "independently derived Toda "
+      "Lemma 5.4 nu_4 provenance. "
+      "The map "
+      "(alpha,beta) -> "
+      "E(alpha)+nu_4 composed with beta "
+      "gives an isomorphism from "
+      "pi_(i-1)^3 direct sum pi_i^7 "
+      "to pi_i^4. "
+      "Direct Toda (5.6) literature "
+      "is stored on this aggregate, "
+      "while Lemma 5.4 literature "
+      "remains inherited through the "
+      "nested lemma54 statement."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda56Nu4DecompositionIsomorphismStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54Statement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_56_nu4_prop44_specialization_inference_rule():
   def guard(
     premises,
