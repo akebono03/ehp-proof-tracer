@@ -912,8 +912,42 @@ Lemma 5.5 を Phase 60 に入れない
 状態:
 
 ```text
-NEXT
+COMPLETE
 ```
+
+---
+
+## Phase 60 completion result
+
+完成:
+
+```text
+Toda (5.4) t≥1 up-to-sign bracket value
+Toda (5.4) t=0 bridge
+Theorem 3.6 specialization
+α*∈π_7^4
+2Eα*=±E²ν′
+H(α*)=(2s+1)ι₇
+Whitehead correction branches
+ν₄∈π_7^4
+H(ν₄)=ι₇
+2Eν₄=E²ν′
+TodaLemma54Statement
+LiteratureStatement
+reference statement display
+Used in display
+Proof-style derivation display
+representative probe
+```
+
+final regression:
+
+```text
+3334 passed in 132.72s
+```
+
+Phase 60 では generic Toda-bracket coset algebra、generic sign solver、generic divisibility framework、generic witness framework、generic Whitehead correction algebraを導入しなかった。
+
 
 ---
 
@@ -948,7 +982,7 @@ Phase 61 では Lemma 5.4 の provenance を再利用し、α* proof を再実�
 状態:
 
 ```text
-PLANNED
+NEXT
 ```
 
 ---
@@ -1117,7 +1151,91 @@ DEFERRED UNTIL CONCRETE NEED
 
 ---
 
-# 14. 具体的結果の保存・照合・検証方針
+# 14. 将来：proof narrative generation
+
+Phase 60 で proof-style derivation を representative probe に追加した。
+
+current state:
+
+```text
+proof inference        = automatic
+proof provenance       = automatic
+literature metadata    = structured
+Used in display        = probe-local mapping
+proof-style narrative  = hand-authored probe presentation
+```
+
+したがって、まだ「ProofStep graph から証明本文を自動生成」しているわけではない。
+
+将来 target:
+
+```text
+ProofStep graph
++ Expression tree
++ InferenceRule provenance
++ LiteratureStatement
+↓
+relevant dependency path extraction
+↓
+proof-step grouping / compression
+↓
+equation-chain generation
+↓
+automatic citation insertion
+↓
+rule-specific narrative templates
+↓
+natural-language connectors
+↓
+console / Markdown / LaTeX proof output
+```
+
+具体例として Phase 60-4 の:
+
+```text
+E^(n-3)ν′
+∈ E^(n-3){η₃,2ι₄,η₄}_1
+⊂ (-1)^(n-3){η_n,2ι_(n+1),η_(n+1)}_(n-2)
+⊂ (-1)^(n-3){η_n,2ι_(n+1),η_(n+1)}_t
+```
+
+を、将来は current proof objects と citation metadata から組み立てる。
+
+必要になる可能性のある schema:
+
+```text
+ProofDisplayStep / equivalent presentation metadata
+premise role
+conclusion role
+equation rendering hint
+citation role
+narrative template
+compression / omission hint
+```
+
+ただし generic proof narrative framework は今すぐ実装しない。
+
+導入条件:
+
+```text
+Phase 61 以降の concrete proofs を蓄積
+↓
+同じ presentation pattern が複数回現れる
+↓
+必要 metadata が安定
+↓
+manual probe derivation から generic generator へ抽象化
+```
+
+状態:
+
+```text
+PLANNED / DEFERRED UNTIL DISPLAY SCHEMA STABILIZES
+```
+
+---
+
+# 15. 具体的結果の保存・照合・検証方針
 
 今後、具体的ホモトピー群結果を蓄積する。
 
@@ -1139,7 +1257,7 @@ repository / database を先に作って現在の proof development を妨げな
 
 ---
 
-# 15. 文書・コード探索方針
+# 16. 文書・コード探索方針
 
 ```text
 README.md
@@ -1174,7 +1292,7 @@ current code / related tests を確認
 
 ---
 
-# 16. Completion table
+# 17. Completion table
 
 | Capability | State | Phase |
 |---|---|---:|
@@ -1202,10 +1320,11 @@ current code / related tests を確認
 | Toda Lemma 5.2 integration | COMPLETE | 57 |
 | Toda (5.3) ν′ consequence | COMPLETE | 58 |
 | Toda Prop.5.3 finite-dimensional branch | COMPLETE | 59 |
-| Toda Lemma 5.4 / ν₄ construction | NEXT | 60 |
-| Toda Lemma 5.5 bracket transport | PLANNED | 61 |
+| Toda Lemma 5.4 / ν₄ construction | COMPLETE | 60 |
+| Toda Lemma 5.5 bracket transport | NEXT | 61 |
 | ν-family / Toda (5.5) | PLANNED | 62 |
 | Toda (5.6) ν₄ decomposition | PLANNED | 63 |
+| automatic proof narrative generation | PLANNED / DEFERRED | later |
 | stable `(G_1;2)=Z/2{η}` | DEFERRED | later |
 | stable `(G_2;2)=Z/2{η^2}` | DEFERRED | later |
 | stable homotopy | DEFERRED | later |
@@ -1213,19 +1332,11 @@ current code / related tests を確認
 
 ---
 
-# 17. 現在の直近ステップ
+# 18. 現在の直近ステップ
 
-Phase 59 は COMPLETE。
+Phase 60 は COMPLETE。
 
-次は:
-
-```text
-Phase 60-1
-Toda Lemma 5.4
-dependency / current compatibility analysis
-```
-
-直近 target:
+現在の verified capability:
 
 ```text
 ν₄∈π_7^4
@@ -1233,69 +1344,80 @@ H(ν₄)=ι₇
 2Eν₄=E²ν′
 ```
 
+representative probe:
+
+```powershell
+python -m probes.probe_phase60_capabilities
+```
+
+full regression:
+
+```text
+3334 passed in 132.72s
+```
+
+次は:
+
+```text
+Phase 61-1
+Toda Lemma 5.5
+current representation / dependency compatibility analysis
+```
+
+Phase 61 target:
+
+```text
+β∈π_{t+2}(S^m)
+β∘η_{t+2}=0
+t>0
+↓
+{η_{m+2},E³β,η_{t+5}}_3
+contains
+±(E²β∘E^tν₄)
+```
+
 最初に確認する dependency:
 
 ```text
 A.
-Theorem 3.6 specialization を
-current theorem / bracket representation でどこまで再利用できるか
+Phase 60 の TodaLemma54Statement から
+ν₄ / H(ν₄) / 2Eν₄ provenance をそのまま再利用できるか
 
 B.
-Toda (5.4)
-{η_n,2ι_{n+1},η_{n+1}}_t
-=
-{±E^(n-3)ν′}
-を current set-valued / bracket semantics で
-どこまで最小表現できるか
+Lemma 5.4 proof 中の α* bracket inclusion を
+Phase 61 で再利用するために
+どの Phase 60 intermediate statement が必要か
 
 C.
-Phase 59 Proposition 5.3 から
-Toda (5.4) indeterminacy
-<η_n³>
-を導くために不足する bridge は何か
+E[ι₄,ι₄]=0 から
+E^tν₄=±E^tα*
+へ進む minimum theorem-specific bridge は何か
 
 D.
-Phase 58
-2ν′=η₃η₄η₅
-を
-2E^(n-3)ν′=η_n³
-へ transport するのに必要な minimum bridge は何か
+β∘η_{t+2}=0 と
+Toda bracket
+{η_{m+2},E³β,η_{t+5}}_3
+の applicability / typing を current TodaBracket で表現できるか
 
 E.
-Toda (3.2) の
-π_{n+3}(S^{n+1})=Eπ_{n+2}(S^n)
-を t=0 bracket bridge にどう接続するか
-
-F.
-Toda (4.8) の
-H(α*)=(2s+1)ι₇
-を current scalar / sign representation でどう扱うか
-
-G.
-H[ι₄,ι₄]=±2ι₇
-と
-E[ι₄,ι₄]=0
-を current WhiteheadProduct representation にどう接続するか
-
-H.
-ν₄ の piecewise sign correction を
-general sign solver なしで theorem-specific に表現できるか
+±(E²β∘E^tν₄) を
+existing composition / up-to-sign semantics でどこまで保持できるか
 ```
 
-Phase 60-1 では実装追加を急がず:
+Phase 61-1 では実装追加を急がず:
 
 ```text
 current code
 +
+Phase 60 provenance
++
+Lemma 5.5 source proof
++
 related tests
-+
-Phase 58 / 59 provenance
-+
-Theorem 3.6 / Toda (5.4) / Toda (4.8) dependencies
 ↓
 minimum missing representation list
 ```
 
 を確定する。
 
-stable branch と generic framework は引き続き deferred とする。
+stable branch、generic sign solver、generic Toda-bracket coset algebra、theorem repository は引き続き deferred とする。

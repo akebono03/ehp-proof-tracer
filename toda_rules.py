@@ -47,6 +47,7 @@ from proof import (
   ExactnessStatement,
   InferenceRule,
   LiteratureReference,
+  LiteratureStatement,
   PremisePattern,
   ProofRule,
   ProofStep,
@@ -7124,6 +7125,3274 @@ class TodaBracketMembershipStatement:
   bracket: TodaBracket
   source: LiteratureReference | str | None = None
   note: str | None = None
+
+
+@dataclass(frozen=True)
+class Toda54BracketUpToSignStatement:
+  bracket: TodaBracket
+  positive_value: Expression
+
+
+@dataclass(frozen=True)
+class Toda54IndeterminacyGeneratorStatement:
+  bracket: TodaBracket
+  generator: Expression
+
+
+@dataclass(frozen=True)
+class Toda36Lemma54SpecializationStatement:
+  alpha: HomotopyElement
+  beta: Expression
+  alpha_star: HomotopyElement
+  alpha_star_membership: HomotopyGroupMembershipStatement
+  negative_bracket_membership: TodaBracketMembershipStatement
+
+
+@dataclass(frozen=True)
+class TodaLemma54DoubleSuspensionUpToSignStatement:
+  left: Expression
+  positive_value: Expression
+
+
+@dataclass(frozen=True)
+class TodaLemma54HopfOddMultipleStatement:
+  alpha_star: HomotopyElement
+  parameter: ScalarSymbol
+  generator: HomotopyElement
+
+
+@dataclass(frozen=True)
+class TodaLemma54WhiteheadCorrectionDataStatement:
+  whitehead_square: WhiteheadProduct
+  sign_parameter: ScalarSymbol
+  hopf_positive_value: Expression
+  suspension_zero_relation: Relation
+
+
+@dataclass(frozen=True)
+class TodaLemma54Nu4BranchFormula:
+  double_suspension_sign: int
+  alpha_star_sign: int
+  whitehead_coefficient_sign: int
+  parameter_offset: int
+
+
+@dataclass(frozen=True)
+class TodaLemma54Nu4ConstructionStatement:
+  alpha_star: HomotopyElement
+  nu4: HomotopyElement
+  parameter: ScalarSymbol
+  whitehead_data: TodaLemma54WhiteheadCorrectionDataStatement
+  double_suspension_value: Expression
+  positive_branch: TodaLemma54Nu4BranchFormula
+  negative_branch: TodaLemma54Nu4BranchFormula
+
+
+@dataclass(frozen=True)
+class TodaLemma54Statement:
+  nu4: HomotopyElement
+  membership: HomotopyGroupMembershipStatement
+  hopf_relation: Relation
+  double_suspension_relation: Relation
+  literature_statements: tuple[
+    LiteratureStatement,
+    ...
+  ]
+
+
+def toda_lemma54_literature_statements():
+  toda_reference = {
+    "author": "H. Toda",
+    "title": (
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    "year": 1962,
+  }
+
+  return (
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda Proposition 1.3",
+        locator="Proposition 1.3",
+        **toda_reference,
+      ),
+      statement=(
+        "-E{α,E^nβ,E^nγ}_n "
+        "⊂ "
+        "{Eα,E^(n+1)β,E^(n+1)γ}_(n+1)."
+      ),
+    ),
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda (1.15)",
+        locator="Equation (1.15)",
+        **toda_reference,
+      ),
+      statement=(
+        "{α,E^nβ,E^nγ}_n "
+        "⊂ "
+        "{α,E^m(E^(n-m)β),"
+        "E^m(E^(n-m)γ)}_m."
+      ),
+    ),
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda (3.2)",
+        locator="Equation (3.2)",
+        **toda_reference,
+      ),
+      statement=(
+        "E: π_i(S^m) → π_(i+1)(S^(m+1)) "
+        "is an isomorphism for i<2m-1 "
+        "and is surjective for i=2m-1."
+      ),
+    ),
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda Theorem 3.6",
+        locator="Theorem 3.6",
+        **toda_reference,
+      ),
+      statement=(
+        "For the Lemma 5.4 specialization "
+        "α=η₂, β=2ι₃, t=1, "
+        "there exists α*∈π_7^4 such that "
+        "2Eα* belongs to "
+        "-{η₅,2ι₆,η₆}_3."
+      ),
+    ),
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda (4.7)",
+        locator="Equation (4.7)",
+        **toda_reference,
+      ),
+      statement=(
+        "For the Toda (5.4) bracket, "
+        "the indeterminacy used here is "
+        "η_n∘π_(n+3)^(n+1) "
+        "+ π_(n+2)^n∘η_(n+2)."
+      ),
+    ),
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda Proposition 5.3",
+        locator="Proposition 5.3",
+        **toda_reference,
+      ),
+      statement=(
+        "π_(n+2)^n = Z/2{η_n²} "
+        "for n≥2."
+      ),
+    ),
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda (5.3)",
+        locator="Equation (5.3)",
+        **toda_reference,
+      ),
+      statement=(
+        "ν′∈π_6^3, "
+        "H(ν′)=η₅, and "
+        "2ν′=η₃∘η₄∘η₅."
+      ),
+    ),
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda (5.4)",
+        locator="Equation (5.4)",
+        **toda_reference,
+      ),
+      statement=(
+        "{η_n,2ι_(n+1),η_(n+1)}_t "
+        "= {±E^(n-3)ν′} "
+        "for n≥3 and 0≤t≤n-2."
+      ),
+    ),
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda (4.8)",
+        locator="Equation (4.8)",
+        **toda_reference,
+      ),
+      statement=(
+        "The consequence used in "
+        "Lemma 5.4 gives "
+        "H(α*)=(2s+1)ι₇."
+      ),
+    ),
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda Lemma 5.4 proof",
+        locator="Lemma 5.4 proof",
+        **toda_reference,
+      ),
+      statement=(
+        "H[ι₄,ι₄]=(-1)^u 2ι₇ "
+        "and E[ι₄,ι₄]=0."
+      ),
+    ),
+  )
+
+
+def toda_lemma54_integration_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    membership = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    hopf_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    double_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    nu4 = membership.element
+
+    expected_nu4 = HomotopyElement(
+      name="ν₄",
+      dimension=4,
+      source=7,
+      target=4,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=4,
+      ),
+    )
+
+    if (
+      nu4
+      != expected_nu4
+    ):
+      return False
+
+    if (
+      membership.group_dimension
+      != 7
+    ):
+      return False
+
+    if (
+      membership.sphere_dimension
+      != 4
+    ):
+      return False
+
+    iota_7 = HomotopyElement(
+      name="ι_7",
+      dimension=7,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=7,
+      ),
+    )
+
+    expected_hopf = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=nu4,
+      ),
+      rhs=iota_7,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      hopf_relation
+      != expected_hopf
+    ):
+      return False
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    expected_double = Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=Suspension(
+          expression=nu4,
+        ),
+      ),
+      rhs=IteratedSuspension(
+        expression=nu_prime,
+        exponent=2,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      double_relation
+      == expected_double
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    membership = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return (
+      TodaLemma54Statement(
+        nu4=membership.element,
+        membership=membership,
+        hopf_relation=(
+          premises[
+            1
+          ].conclusion
+        ),
+        double_suspension_relation=(
+          premises[
+            2
+          ].conclusion
+        ),
+        literature_statements=(
+          toda_lemma54_literature_statements()
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.4 integration"
+    ),
+    description=(
+      "Integrate the independently "
+      "derived Phase 60-8 conclusions "
+      "nu_4 in pi_7^4, "
+      "H(nu_4)=iota_7, and "
+      "2 E nu_4=E^2 nu-prime "
+      "into the final Toda Lemma 5.4 "
+      "statement. "
+      "The aggregate also records the "
+      "literature statements used "
+      "throughout the Phase 60 proof."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          HomotopyGroupMembershipStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma54_whitehead_correction_data_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    whitehead_square = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    iota_4 = HomotopyElement(
+      name="ι_4",
+      dimension=4,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=4,
+      ),
+    )
+
+    return (
+      whitehead_square
+      == WhiteheadProduct(
+        left=iota_4,
+        right=iota_4,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    whitehead_square = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    u = ScalarSymbol(
+      name="u",
+    )
+
+    iota_7 = HomotopyElement(
+      name="ι_7",
+      dimension=7,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=7,
+      ),
+    )
+
+    return (
+      TodaLemma54WhiteheadCorrectionDataStatement(
+        whitehead_square=whitehead_square,
+        sign_parameter=u,
+        hopf_positive_value=Multiple(
+          coefficient=2,
+          expression=iota_7,
+        ),
+        suspension_zero_relation=Relation(
+          lhs=Suspension(
+            expression=whitehead_square,
+          ),
+          rhs=Zero(),
+          relation_type=RelationType.ZERO,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.4 "
+      "Whitehead correction data"
+    ),
+    description=(
+      "For the Whitehead square "
+      "[iota_4,iota_4], record the "
+      "specific Lemma 5.4 facts "
+      "H[iota_4,iota_4]="
+      "(-1)^u 2 iota_7 and "
+      "E[iota_4,iota_4]=0. "
+      "The sign parameter u is retained "
+      "structurally rather than solved. "
+      "No generic Whitehead-product "
+      "Hopf theorem or sign algebra "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          WhiteheadProduct
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma54_nu4_piecewise_construction_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    hopf_odd = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    double_statement = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    whitehead_data = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    alpha_star = (
+      hopf_odd.alpha_star
+    )
+
+    if (
+      double_statement.left
+      != Multiple(
+        coefficient=2,
+        expression=Suspension(
+          expression=alpha_star,
+        ),
+      )
+    ):
+      return False
+
+    iota_7 = HomotopyElement(
+      name="ι_7",
+      dimension=7,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=7,
+      ),
+    )
+
+    if (
+      hopf_odd.generator
+      != iota_7
+    ):
+      return False
+
+    if (
+      whitehead_data.hopf_positive_value
+      != Multiple(
+        coefficient=2,
+        expression=iota_7,
+      )
+    ):
+      return False
+
+    iota_4 = HomotopyElement(
+      name="ι_4",
+      dimension=4,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=4,
+      ),
+    )
+
+    expected_whitehead = WhiteheadProduct(
+      left=iota_4,
+      right=iota_4,
+    )
+
+    if (
+      whitehead_data.whitehead_square
+      != expected_whitehead
+    ):
+      return False
+
+    expected_zero = Relation(
+      lhs=Suspension(
+        expression=expected_whitehead,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    if (
+      whitehead_data.suspension_zero_relation
+      != expected_zero
+    ):
+      return False
+
+    return isinstance(
+      double_statement.positive_value,
+      IteratedSuspension,
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    hopf_odd = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    double_statement = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    whitehead_data = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    nu4 = HomotopyElement(
+      name="ν₄",
+      dimension=4,
+      source=7,
+      target=4,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=4,
+      ),
+    )
+
+    return (
+      TodaLemma54Nu4ConstructionStatement(
+        alpha_star=hopf_odd.alpha_star,
+        nu4=nu4,
+        parameter=hopf_odd.parameter,
+        whitehead_data=whitehead_data,
+        double_suspension_value=(
+          double_statement
+          .positive_value
+        ),
+        positive_branch=(
+          TodaLemma54Nu4BranchFormula(
+            double_suspension_sign=1,
+            alpha_star_sign=1,
+            whitehead_coefficient_sign=-1,
+            parameter_offset=0,
+          )
+        ),
+        negative_branch=(
+          TodaLemma54Nu4BranchFormula(
+            double_suspension_sign=-1,
+            alpha_star_sign=-1,
+            whitehead_coefficient_sign=1,
+            parameter_offset=1,
+          )
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.4 "
+      "piecewise nu_4 construction"
+    ),
+    description=(
+      "Combine "
+      "H(alpha-star)=(2s+1)iota_7, "
+      "2 E alpha-star="
+      "plus or minus E^2 nu-prime, "
+      "H[iota_4,iota_4]="
+      "(-1)^u 2 iota_7, and "
+      "E[iota_4,iota_4]=0. "
+      "If the double-suspension sign "
+      "is positive, use "
+      "nu_4=alpha-star-"
+      "(-1)^u s[iota_4,iota_4]. "
+      "If it is negative, use "
+      "nu_4=-alpha-star+"
+      "(-1)^u(s+1)[iota_4,iota_4]. "
+      "Both branches are stored "
+      "without introducing a generic "
+      "sign solver or symbolic "
+      "coefficient expression."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54HopfOddMultipleStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54DoubleSuspensionUpToSignStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54WhiteheadCorrectionDataStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma54_nu4_membership_inference_rule():
+  def build_conclusion(
+    premises,
+  ):
+    construction = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return (
+      HomotopyGroupMembershipStatement(
+        element=construction.nu4,
+        group_dimension=7,
+        sphere_dimension=4,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.4 "
+      "nu_4 membership"
+    ),
+    description=(
+      "The piecewise Whitehead-corrected "
+      "element nu_4 belongs to pi_7^4."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54Nu4ConstructionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+  )
+
+
+def toda_lemma54_nu4_hopf_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    construction = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    if (
+      construction.positive_branch
+      != TodaLemma54Nu4BranchFormula(
+        double_suspension_sign=1,
+        alpha_star_sign=1,
+        whitehead_coefficient_sign=-1,
+        parameter_offset=0,
+      )
+    ):
+      return False
+
+    return (
+      construction.negative_branch
+      == TodaLemma54Nu4BranchFormula(
+        double_suspension_sign=-1,
+        alpha_star_sign=-1,
+        whitehead_coefficient_sign=1,
+        parameter_offset=1,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    construction = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    iota_7 = HomotopyElement(
+      name="ι_7",
+      dimension=7,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=7,
+      ),
+    )
+
+    return Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=construction.nu4,
+      ),
+      rhs=iota_7,
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.4 "
+      "nu_4 Hopf correction"
+    ),
+    description=(
+      "For either stored sign branch "
+      "of the Lemma 5.4 Whitehead "
+      "correction, "
+      "H(alpha-star)=(2s+1)iota_7 "
+      "and "
+      "H[iota_4,iota_4]="
+      "(-1)^u 2 iota_7 "
+      "give H(nu_4)=iota_7. "
+      "This is a theorem-specific "
+      "piecewise consequence."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54Nu4ConstructionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma54_nu4_double_suspension_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    construction = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    suspension_zero = (
+      construction
+      .whitehead_data
+      .suspension_zero_relation
+    )
+
+    expected_zero = Relation(
+      lhs=Suspension(
+        expression=(
+          construction
+          .whitehead_data
+          .whitehead_square
+        ),
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    return (
+      suspension_zero
+      == expected_zero
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    construction = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=Suspension(
+          expression=construction.nu4,
+        ),
+      ),
+      rhs=(
+        construction
+        .double_suspension_value
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.4 "
+      "nu_4 double suspension"
+    ),
+    description=(
+      "In both sign branches of the "
+      "Whitehead correction, "
+      "E[iota_4,iota_4]=0 removes "
+      "the correction term after "
+      "suspension. "
+      "Combining this with "
+      "2 E alpha-star="
+      "plus or minus E^2 nu-prime "
+      "and the branch-dependent "
+      "choice of nu_4 gives "
+      "2 E nu_4=E^2 nu-prime."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54Nu4ConstructionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma54_pi6_5_finite_cyclic_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    higher_relation = (
+      statement
+      .higher_eta_group_relation
+    )
+
+    if not isinstance(
+      higher_relation.lhs,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    if not isinstance(
+      higher_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      higher_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    n = (
+      higher_relation
+      .lhs
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    expected_group = TodaPrimaryGroup(
+      group_dimension=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      sphere_dimension=n,
+    )
+
+    if (
+      higher_relation.lhs
+      != expected_group
+    ):
+      return False
+
+    eta_n = HomotopyElement(
+      name="η_n",
+      dimension=n,
+      source=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      target=n,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n,
+      ),
+    )
+
+    return (
+      higher_relation.rhs.generator
+      == eta_n
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    eta_5 = HomotopyElement(
+      name="η₅",
+      dimension=5,
+      source=6,
+      target=5,
+      generator=GeneratorSymbol(
+        family="η",
+        index=5,
+      ),
+    )
+
+    return Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=6,
+        sphere_dimension=5,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=2,
+        generator=eta_5,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.4 "
+      "pi_6^5 finite-cyclic specialization"
+    ),
+    description=(
+      "Specialize the independently "
+      "derived Proposition 5.1 "
+      "higher eta-family result "
+      "pi_(n+1)^n=Z/2{eta_n} "
+      "to n=5, giving "
+      "pi_6^5=Z/2{eta_5}. "
+      "This concrete result is used "
+      "only for the Toda (4.8) "
+      "parity argument in Lemma 5.4."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp51FiniteDimensionalStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_48_lemma54_hopf_odd_multiple_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    theorem36 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    double_statement = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    nu_prime_hopf = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi6_5_relation = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    alpha_star = (
+      theorem36
+      .alpha_star
+    )
+
+    if (
+      theorem36
+      .alpha_star_membership
+      .element
+      != alpha_star
+    ):
+      return False
+
+    if (
+      theorem36
+      .alpha_star_membership
+      .group_dimension
+      != 7
+    ):
+      return False
+
+    if (
+      theorem36
+      .alpha_star_membership
+      .sphere_dimension
+      != 4
+    ):
+      return False
+
+    expected_double_left = Multiple(
+      coefficient=2,
+      expression=Suspension(
+        expression=alpha_star,
+      ),
+    )
+
+    if (
+      double_statement.left
+      != expected_double_left
+    ):
+      return False
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    expected_double_value = (
+      IteratedSuspension(
+        expression=nu_prime,
+        exponent=2,
+      )
+    )
+
+    if (
+      double_statement.positive_value
+      != expected_double_value
+    ):
+      return False
+
+    eta_5 = HomotopyElement(
+      name="η₅",
+      dimension=5,
+      source=6,
+      target=5,
+      generator=GeneratorSymbol(
+        family="η",
+        index=5,
+      ),
+    )
+
+    expected_hopf = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=nu_prime,
+      ),
+      rhs=eta_5,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      nu_prime_hopf
+      != expected_hopf
+    ):
+      return False
+
+    expected_pi6_5 = Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=6,
+        sphere_dimension=5,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=2,
+        generator=eta_5,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      pi6_5_relation
+      == expected_pi6_5
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    theorem36 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    s = ScalarSymbol(
+      name="s",
+    )
+
+    iota_7 = HomotopyElement(
+      name="ι_7",
+      dimension=7,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=7,
+      ),
+    )
+
+    return (
+      TodaLemma54HopfOddMultipleStatement(
+        alpha_star=(
+          theorem36.alpha_star
+        ),
+        parameter=s,
+        generator=iota_7,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 4.8 "
+      "Lemma 5.4 Hopf odd multiple"
+    ),
+    description=(
+      "For the Lemma 5.4 alpha-star, "
+      "Phase 58 gives "
+      "H(nu-prime)=eta_5 and the "
+      "independently derived group "
+      "pi_6^5=Z/2{eta_5} shows that "
+      "nu-prime cannot be divisible "
+      "by two. "
+      "Phase 60-6 gives "
+      "2 E alpha-star="
+      "plus or minus E^2 nu-prime, "
+      "so E^2 nu-prime is divisible "
+      "by two. "
+      "The Toda (4.8) consequence "
+      "required in Lemma 5.4 therefore "
+      "makes the Hopf invariant of "
+      "alpha-star an odd multiple of "
+      "iota_7. "
+      "Represent that odd coefficient "
+      "as 2s+1 without adding generic "
+      "divisibility or parity solving."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda36Lemma54SpecializationStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54DoubleSuspensionUpToSignStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma54_eta6_twice_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    higher_relation = (
+      statement
+      .higher_eta_group_relation
+    )
+
+    if not isinstance(
+      higher_relation.lhs,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    if not isinstance(
+      higher_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      higher_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    n = (
+      higher_relation
+      .lhs
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    expected_group = TodaPrimaryGroup(
+      group_dimension=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      sphere_dimension=n,
+    )
+
+    if (
+      higher_relation.lhs
+      != expected_group
+    ):
+      return False
+
+    eta_n = HomotopyElement(
+      name="η_n",
+      dimension=n,
+      source=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      target=n,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n,
+      ),
+    )
+
+    return (
+      higher_relation.rhs.generator
+      == eta_n
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    eta_6 = HomotopyElement(
+      name="η₆",
+      dimension=6,
+      source=7,
+      target=6,
+      generator=GeneratorSymbol(
+        family="η",
+        index=6,
+      ),
+    )
+
+    return Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=eta_6,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.4 "
+      "eta_6 twice zero"
+    ),
+    description=(
+      "Specialize the independently "
+      "derived Proposition 5.1 "
+      "higher eta-family result "
+      "pi_(n+1)^n=Z/2{eta_n} "
+      "to n=6 and derive "
+      "2 eta_6=0. "
+      "This is the exact order-two "
+      "premise required by the "
+      "Theorem 3.6 specialization."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp51FiniteDimensionalStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_36_lemma54_specialization_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    prop51 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    two_eta3_zero = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    two_eta6_zero = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    if not isinstance(
+      prop51,
+      TodaProp51FiniteDimensionalStatement,
+    ):
+      return False
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    expected_eta3_zero = Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=eta_3,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    if (
+      two_eta3_zero
+      != expected_eta3_zero
+    ):
+      return False
+
+    eta_6 = HomotopyElement(
+      name="η₆",
+      dimension=6,
+      source=7,
+      target=6,
+      generator=GeneratorSymbol(
+        family="η",
+        index=6,
+      ),
+    )
+
+    expected_eta6_zero = Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=eta_6,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    return (
+      two_eta6_zero
+      == expected_eta6_zero
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    iota_3 = HomotopyElement(
+      name="ι_3",
+      dimension=3,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=3,
+      ),
+    )
+
+    eta_5 = HomotopyElement(
+      name="η₅",
+      dimension=5,
+      source=6,
+      target=5,
+      generator=GeneratorSymbol(
+        family="η",
+        index=5,
+      ),
+    )
+
+    iota_6 = HomotopyElement(
+      name="ι_6",
+      dimension=6,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=6,
+      ),
+    )
+
+    eta_6 = HomotopyElement(
+      name="η₆",
+      dimension=6,
+      source=7,
+      target=6,
+      generator=GeneratorSymbol(
+        family="η",
+        index=6,
+      ),
+    )
+
+    alpha_star = HomotopyElement(
+      name="α*",
+      dimension=7,
+      source=7,
+      target=4,
+    )
+
+    alpha_star_membership = (
+      HomotopyGroupMembershipStatement(
+        element=alpha_star,
+        group_dimension=7,
+        sphere_dimension=4,
+      )
+    )
+
+    target_bracket = TodaBracket(
+      first=eta_5,
+      second=Multiple(
+        coefficient=2,
+        expression=iota_6,
+      ),
+      third=eta_6,
+      index=3,
+    )
+
+    negative_bracket_membership = (
+      TodaBracketMembershipStatement(
+        element=Multiple(
+          coefficient=-2,
+          expression=Suspension(
+            expression=alpha_star,
+          ),
+        ),
+        bracket=target_bracket,
+      )
+    )
+
+    return (
+      Toda36Lemma54SpecializationStatement(
+        alpha=eta_2,
+        beta=Multiple(
+          coefficient=2,
+          expression=iota_3,
+        ),
+        alpha_star=alpha_star,
+        alpha_star_membership=(
+          alpha_star_membership
+        ),
+        negative_bracket_membership=(
+          negative_bracket_membership
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Theorem 3.6 "
+      "Lemma 5.4 specialization"
+    ),
+    description=(
+      "Specialize Toda Theorem 3.6 "
+      "to alpha=eta_2, "
+      "beta=2 iota_3, "
+      "n=2, k=1, h=1, m=3, "
+      "ell=1, and t=1. "
+      "The derived relation "
+      "2 eta_3=0 verifies "
+      "beta composed with E alpha=0, "
+      "and the derived relation "
+      "2 eta_6=0 removes the second "
+      "bracket term. "
+      "The sign exponent is "
+      "km+kt+t=5, so there exists "
+      "alpha-star in pi_7^4 with "
+      "2 E alpha-star in minus "
+      "{eta_5,2 iota_6,eta_6}_3. "
+      "The negative bracket membership "
+      "is represented equivalently as "
+      "-2 E alpha-star belonging to "
+      "the positive bracket."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp51FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_54_n5_t3_specialization_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    bracket = statement.bracket
+
+    if not isinstance(
+      bracket.index,
+      ScalarSymbol,
+    ):
+      return False
+
+    if not isinstance(
+      bracket.first,
+      HomotopyElement,
+    ):
+      return False
+
+    n = bracket.first.dimension
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    expected_eta_n = HomotopyElement(
+      name="η_n",
+      dimension=n,
+      source=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      target=n,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n,
+      ),
+    )
+
+    if (
+      bracket.first
+      != expected_eta_n
+    ):
+      return False
+
+    expected_iota = HomotopyElement(
+      name="ι_(n+1)",
+      dimension=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      generator=GeneratorSymbol(
+        family="ι",
+        index=ScalarSum(
+          left=n,
+          right=1,
+        ),
+      ),
+    )
+
+    if (
+      bracket.second
+      != Multiple(
+        coefficient=2,
+        expression=expected_iota,
+      )
+    ):
+      return False
+
+    expected_eta_n_plus_one = (
+      HomotopyElement(
+        name="η_(n+1)",
+        dimension=ScalarSum(
+          left=n,
+          right=1,
+        ),
+        source=ScalarSum(
+          left=n,
+          right=2,
+        ),
+        target=ScalarSum(
+          left=n,
+          right=1,
+        ),
+        generator=GeneratorSymbol(
+          family="η",
+          index=ScalarSum(
+            left=n,
+            right=1,
+          ),
+        ),
+      )
+    )
+
+    if (
+      bracket.third
+      != expected_eta_n_plus_one
+    ):
+      return False
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    expected_value = IteratedSuspension(
+      expression=nu_prime,
+      exponent=ScalarSum(
+        left=n,
+        right=ScalarProduct(
+          left=-1,
+          right=3,
+        ),
+      ),
+    )
+
+    return (
+      statement.positive_value
+      == expected_value
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    eta_5 = HomotopyElement(
+      name="η₅",
+      dimension=5,
+      source=6,
+      target=5,
+      generator=GeneratorSymbol(
+        family="η",
+        index=5,
+      ),
+    )
+
+    iota_6 = HomotopyElement(
+      name="ι_6",
+      dimension=6,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=6,
+      ),
+    )
+
+    eta_6 = HomotopyElement(
+      name="η₆",
+      dimension=6,
+      source=7,
+      target=6,
+      generator=GeneratorSymbol(
+        family="η",
+        index=6,
+      ),
+    )
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    return (
+      Toda54BracketUpToSignStatement(
+        bracket=TodaBracket(
+          first=eta_5,
+          second=Multiple(
+            coefficient=2,
+            expression=iota_6,
+          ),
+          third=eta_6,
+          index=3,
+        ),
+        positive_value=IteratedSuspension(
+          expression=nu_prime,
+          exponent=2,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 5.4 "
+      "n=5 t=3 specialization"
+    ),
+    description=(
+      "Specialize the independently "
+      "derived symbolic Toda (5.4) "
+      "positive-index statement to "
+      "n=5 and t=3, obtaining "
+      "{eta_5,2 iota_6,eta_6}_3 "
+      "equals plus or minus E^2 "
+      "nu-prime. "
+      "No generic symbolic "
+      "substitution engine is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda54BracketUpToSignStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma54_double_suspension_up_to_sign_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    theorem36 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    bracket_value = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    membership = (
+      theorem36
+      .negative_bracket_membership
+    )
+
+    if (
+      membership.bracket
+      != bracket_value.bracket
+    ):
+      return False
+
+    expected_element = Multiple(
+      coefficient=-2,
+      expression=Suspension(
+        expression=(
+          theorem36.alpha_star
+        ),
+      ),
+    )
+
+    return (
+      membership.element
+      == expected_element
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    theorem36 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    bracket_value = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return (
+      TodaLemma54DoubleSuspensionUpToSignStatement(
+        left=Multiple(
+          coefficient=2,
+          expression=Suspension(
+            expression=(
+              theorem36.alpha_star
+            ),
+          ),
+        ),
+        positive_value=(
+          bracket_value
+          .positive_value
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.4 "
+      "double suspension up to sign"
+    ),
+    description=(
+      "Combine the Theorem 3.6 "
+      "specialization "
+      "-2 E alpha-star in "
+      "{eta_5,2 iota_6,eta_6}_3 "
+      "with the independently derived "
+      "Toda (5.4) value set "
+      "{eta_5,2 iota_6,eta_6}_3 "
+      "={plus or minus E^2 nu-prime}. "
+      "Since this value set is sign "
+      "symmetric, derive "
+      "2 E alpha-star="
+      "plus or minus E^2 nu-prime. "
+      "No generic sign solver or "
+      "set-membership algebra is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda36Lemma54SpecializationStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda54BracketUpToSignStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_54_t_ge_1_indeterminacy_eta_cube_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    prop53 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    n_range = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    t_range = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    if not isinstance(
+      prop53,
+      TodaProp53FiniteDimensionalStatement,
+    ):
+      return False
+
+    n = n_range.left
+    t = t_range.left
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if not isinstance(
+      t,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      n_range.right
+      != 3
+    ):
+      return False
+
+    return (
+      t_range.right
+      == 1
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    n_range = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    t_range = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    n = n_range.left
+    t = t_range.left
+
+    n_plus_one = ScalarSum(
+      left=n,
+      right=1,
+    )
+
+    n_plus_two = ScalarSum(
+      left=n,
+      right=2,
+    )
+
+    eta_n = HomotopyElement(
+      name="η_n",
+      dimension=n,
+      source=n_plus_one,
+      target=n,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n,
+      ),
+    )
+
+    eta_n_plus_one = HomotopyElement(
+      name="η_(n+1)",
+      dimension=n_plus_one,
+      source=n_plus_two,
+      target=n_plus_one,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n_plus_one,
+      ),
+    )
+
+    eta_n_plus_two = HomotopyElement(
+      name="η_(n+2)",
+      dimension=n_plus_two,
+      source=ScalarSum(
+        left=n,
+        right=3,
+      ),
+      target=n_plus_two,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n_plus_two,
+      ),
+    )
+
+    iota_n_plus_one = HomotopyElement(
+      name="ι_(n+1)",
+      dimension=n_plus_one,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=n_plus_one,
+      ),
+    )
+
+    bracket = TodaBracket(
+      first=eta_n,
+      second=Multiple(
+        coefficient=2,
+        expression=iota_n_plus_one,
+      ),
+      third=eta_n_plus_one,
+      index=t,
+    )
+
+    eta_cube = Composition(
+      left=eta_n,
+      right=Composition(
+        left=eta_n_plus_one,
+        right=eta_n_plus_two,
+      ),
+    )
+
+    return (
+      Toda54IndeterminacyGeneratorStatement(
+        bracket=bracket,
+        generator=eta_cube,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 5.4 t>=1 "
+      "indeterminacy generated by "
+      "eta triple composition"
+    ),
+    description=(
+      "For n>=3 and t>=1, "
+      "specialize Toda (4.7) to "
+      "{eta_n, 2 iota_(n+1), "
+      "eta_(n+1)}_t. "
+      "Using the independently derived "
+      "Toda Proposition 5.3 "
+      "finite-dimensional result, "
+      "the two indeterminacy summands "
+      "generate the subgroup generated "
+      "by eta_n composed with "
+      "eta_(n+1) composed with "
+      "eta_(n+2). "
+      "This is a theorem-specific "
+      "indeterminacy consequence and "
+      "does not introduce generic "
+      "Toda-bracket coset algebra."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp53FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_54_nu_prime_triple_eta_transport_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    double_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    n_range = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    n = n_range.left
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      n_range.right
+      != 3
+    ):
+      return False
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    eta_4 = HomotopyElement(
+      name="η₄",
+      dimension=4,
+      source=5,
+      target=4,
+      generator=GeneratorSymbol(
+        family="η",
+        index=4,
+      ),
+    )
+
+    eta_5 = HomotopyElement(
+      name="η₅",
+      dimension=5,
+      source=6,
+      target=5,
+      generator=GeneratorSymbol(
+        family="η",
+        index=5,
+      ),
+    )
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    expected_relation = Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=nu_prime,
+      ),
+      rhs=Composition(
+        left=eta_3,
+        right=Composition(
+          left=eta_4,
+          right=eta_5,
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      double_relation
+      == expected_relation
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    double_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    n_range = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    n = n_range.left
+
+    nu_prime = (
+      double_relation
+      .lhs
+      .expression
+    )
+
+    n_plus_one = ScalarSum(
+      left=n,
+      right=1,
+    )
+
+    n_plus_two = ScalarSum(
+      left=n,
+      right=2,
+    )
+
+    eta_n = HomotopyElement(
+      name="η_n",
+      dimension=n,
+      source=n_plus_one,
+      target=n,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n,
+      ),
+    )
+
+    eta_n_plus_one = HomotopyElement(
+      name="η_(n+1)",
+      dimension=n_plus_one,
+      source=n_plus_two,
+      target=n_plus_one,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n_plus_one,
+      ),
+    )
+
+    eta_n_plus_two = HomotopyElement(
+      name="η_(n+2)",
+      dimension=n_plus_two,
+      source=ScalarSum(
+        left=n,
+        right=3,
+      ),
+      target=n_plus_two,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n_plus_two,
+      ),
+    )
+
+    return Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=IteratedSuspension(
+          expression=nu_prime,
+          exponent=ScalarSum(
+            left=n,
+            right=ScalarProduct(
+              left=-1,
+              right=3,
+            ),
+          ),
+        ),
+      ),
+      rhs=Composition(
+        left=eta_n,
+        right=Composition(
+          left=eta_n_plus_one,
+          right=eta_n_plus_two,
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 5.4 nu-prime "
+      "higher triple eta transport"
+    ),
+    description=(
+      "Suspend the independently "
+      "derived Toda (5.3) relation "
+      "2 nu-prime="
+      "eta_3 eta_4 eta_5 "
+      "by n-3 suspensions. "
+      "The theorem-specific eta-family "
+      "transport gives "
+      "2 E^(n-3) nu-prime="
+      "eta_n eta_(n+1) eta_(n+2). "
+      "No generic suspension-of-"
+      "composition normalization "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_54_indeterminacy_double_nu_prime_generator_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    indeterminacy = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    transport = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if (
+      transport.rhs
+      != indeterminacy.generator
+    ):
+      return False
+
+    if not isinstance(
+      transport.lhs,
+      Multiple,
+    ):
+      return False
+
+    if (
+      transport.lhs.coefficient
+      != 2
+    ):
+      return False
+
+    return isinstance(
+      transport.lhs.expression,
+      IteratedSuspension,
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    indeterminacy = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    transport = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return (
+      Toda54IndeterminacyGeneratorStatement(
+        bracket=indeterminacy.bracket,
+        generator=transport.lhs,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 5.4 indeterminacy "
+      "double nu-prime generator bridge"
+    ),
+    description=(
+      "If the Toda (5.4) bracket "
+      "indeterminacy is generated by "
+      "eta_n eta_(n+1) eta_(n+2), "
+      "and the independently derived "
+      "Toda (5.3) transport identifies "
+      "that element with "
+      "2 E^(n-3) nu-prime, "
+      "rewrite the theorem-specific "
+      "indeterminacy generator as "
+      "2 E^(n-3) nu-prime."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda54IndeterminacyGeneratorStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_54_nu_prime_bracket_inclusion_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    specialization = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    n_range = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    t_lower_range = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    t_upper_range = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    n = n_range.left
+    t = t_lower_range.left
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if not isinstance(
+      t,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      n_range.right
+      != 3
+    ):
+      return False
+
+    if (
+      t_lower_range.right
+      != 1
+    ):
+      return False
+
+    expected_t_upper_left = ScalarSum(
+      left=n,
+      right=-2,
+    )
+
+    if (
+      t_upper_range.left
+      != expected_t_upper_left
+    ):
+      return False
+
+    if (
+      t_upper_range.right
+      != t
+    ):
+      return False
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    if (
+      specialization.nu_prime
+      != nu_prime
+    ):
+      return False
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    if (
+      specialization.alpha
+      != eta_3
+    ):
+      return False
+
+    if (
+      specialization.lemma52_index
+      != 4
+    ):
+      return False
+
+    membership = (
+      specialization
+      .bracket_membership
+    )
+
+    if (
+      membership.element
+      != nu_prime
+    ):
+      return False
+
+    bracket = membership.bracket
+
+    if (
+      bracket.index
+      != 1
+    ):
+      return False
+
+    if (
+      bracket.first
+      != eta_3
+    ):
+      return False
+
+    iota_4 = HomotopyElement(
+      name="ι_4",
+      dimension=4,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=4,
+      ),
+    )
+
+    if (
+      bracket.second
+      != Multiple(
+        coefficient=2,
+        expression=iota_4,
+      )
+    ):
+      return False
+
+    eta_4 = HomotopyElement(
+      name="η₄",
+      dimension=4,
+      source=5,
+      target=4,
+      generator=GeneratorSymbol(
+        family="η",
+        index=4,
+      ),
+    )
+
+    return (
+      bracket.third
+      == eta_4
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    specialization = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    n_range = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    t_lower_range = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    n = n_range.left
+    t = t_lower_range.left
+
+    n_plus_one = ScalarSum(
+      left=n,
+      right=1,
+    )
+
+    n_plus_two = ScalarSum(
+      left=n,
+      right=2,
+    )
+
+    eta_n = HomotopyElement(
+      name="η_n",
+      dimension=n,
+      source=n_plus_one,
+      target=n,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n,
+      ),
+    )
+
+    eta_n_plus_one = HomotopyElement(
+      name="η_(n+1)",
+      dimension=n_plus_one,
+      source=n_plus_two,
+      target=n_plus_one,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n_plus_one,
+      ),
+    )
+
+    iota_n_plus_one = HomotopyElement(
+      name="ι_(n+1)",
+      dimension=n_plus_one,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=n_plus_one,
+      ),
+    )
+
+    target_bracket = TodaBracket(
+      first=eta_n,
+      second=Multiple(
+        coefficient=2,
+        expression=iota_n_plus_one,
+      ),
+      third=eta_n_plus_one,
+      index=t,
+    )
+
+    suspended_nu_prime = IteratedSuspension(
+      expression=(
+        specialization
+        .nu_prime
+      ),
+      exponent=ScalarSum(
+        left=n,
+        right=ScalarProduct(
+          left=-1,
+          right=3,
+        ),
+      ),
+    )
+
+    return TodaBracketMembershipStatement(
+      element=suspended_nu_prime,
+      bracket=target_bracket,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 5.4 "
+      "nu-prime suspended bracket inclusion"
+    ),
+    description=(
+      "Starting from the independently "
+      "recognized Toda (5.3) membership "
+      "nu-prime in "
+      "{eta_3, 2 iota_4, eta_4}_1, "
+      "apply the minimum consequence "
+      "of Toda Proposition 1.3 and "
+      "Toda (1.15) required for "
+      "Toda (5.4). "
+      "For n>=3 and "
+      "1<=t<=n-2, derive "
+      "E^(n-3) nu-prime in "
+      "{eta_n, 2 iota_(n+1), "
+      "eta_(n+1)}_t. "
+      "This rule does not implement "
+      "generic bracket suspension or "
+      "the full Proposition 1.3."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda53NuPrimeBracketSpecializationStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_54_t_ge_1_up_to_sign_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    indeterminacy = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    membership = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if (
+      indeterminacy.bracket
+      != membership.bracket
+    ):
+      return False
+
+    bracket = membership.bracket
+
+    if not isinstance(
+      bracket.index,
+      ScalarSymbol,
+    ):
+      return False
+
+    expected_generator = Multiple(
+      coefficient=2,
+      expression=membership.element,
+    )
+
+    return (
+      indeterminacy.generator
+      == expected_generator
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    membership = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return (
+      Toda54BracketUpToSignStatement(
+        bracket=membership.bracket,
+        positive_value=membership.element,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 5.4 t>=1 "
+      "up-to-sign integration"
+    ),
+    description=(
+      "For the Toda (5.4) bracket, "
+      "combine the independently "
+      "derived indeterminacy subgroup "
+      "generated by "
+      "2 E^(n-3) nu-prime with the "
+      "independently derived membership "
+      "of E^(n-3) nu-prime. "
+      "The theorem-specific consequence "
+      "is that the bracket has values "
+      "plus or minus E^(n-3) nu-prime. "
+      "No generic coset algebra is "
+      "introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda54IndeterminacyGeneratorStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaBracketMembershipStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_32_phase60_suspension_surjective_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    n_range = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    n = n_range.left
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    return (
+      n_range.right
+      == 3
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    n_range = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    n = n_range.left
+
+    source_group = TodaPrimaryGroup(
+      group_dimension=ScalarSum(
+        left=n,
+        right=2,
+      ),
+      sphere_dimension=n,
+    )
+
+    target_group = TodaPrimaryGroup(
+      group_dimension=ScalarSum(
+        left=n,
+        right=3,
+      ),
+      sphere_dimension=ScalarSum(
+        left=n,
+        right=1,
+      ),
+    )
+
+    return (
+      TodaSuspensionSurjectiveStatement(
+        map=TodaSuspensionMap(
+          source_group=source_group,
+          target_group=target_group,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 3.2 Phase 60 "
+      "suspension surjectivity"
+    ),
+    description=(
+      "For n>=3, specialize Toda (3.2) "
+      "to the suspension "
+      "E:pi_(n+2)^n to "
+      "pi_(n+3)^(n+1). "
+      "For n=3 this is the boundary "
+      "surjective case, while for n>3 "
+      "it is an isomorphism and hence "
+      "surjective. "
+      "Only the surjectivity consequence "
+      "needed for the Toda (5.4) "
+      "t=0 bridge is represented."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_54_t0_bridge_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    indexed_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    surjectivity = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    n_range = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    bracket = (
+      indexed_statement
+      .bracket
+    )
+
+    n = n_range.left
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      n_range.right
+      != 3
+    ):
+      return False
+
+    if not isinstance(
+      bracket.index,
+      ScalarSymbol,
+    ):
+      return False
+
+    expected_source = TodaPrimaryGroup(
+      group_dimension=ScalarSum(
+        left=n,
+        right=2,
+      ),
+      sphere_dimension=n,
+    )
+
+    expected_target = TodaPrimaryGroup(
+      group_dimension=ScalarSum(
+        left=n,
+        right=3,
+      ),
+      sphere_dimension=ScalarSum(
+        left=n,
+        right=1,
+      ),
+    )
+
+    suspension_map = (
+      surjectivity.map
+    )
+
+    if (
+      suspension_map.source_group
+      != expected_source
+    ):
+      return False
+
+    if (
+      suspension_map.target_group
+      != expected_target
+    ):
+      return False
+
+    eta_n = HomotopyElement(
+      name="η_n",
+      dimension=n,
+      source=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      target=n,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n,
+      ),
+    )
+
+    if (
+      bracket.first
+      != eta_n
+    ):
+      return False
+
+    n_plus_one = ScalarSum(
+      left=n,
+      right=1,
+    )
+
+    iota_n_plus_one = HomotopyElement(
+      name="ι_(n+1)",
+      dimension=n_plus_one,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=n_plus_one,
+      ),
+    )
+
+    if (
+      bracket.second
+      != Multiple(
+        coefficient=2,
+        expression=iota_n_plus_one,
+      )
+    ):
+      return False
+
+    eta_n_plus_one = HomotopyElement(
+      name="η_(n+1)",
+      dimension=n_plus_one,
+      source=ScalarSum(
+        left=n,
+        right=2,
+      ),
+      target=n_plus_one,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n_plus_one,
+      ),
+    )
+
+    if (
+      bracket.third
+      != eta_n_plus_one
+    ):
+      return False
+
+    expected_value = IteratedSuspension(
+      expression=HomotopyElement(
+        name="ν′",
+        dimension=3,
+        source=6,
+        target=3,
+        generator=GeneratorSymbol(
+          family="ν",
+          decoration="′",
+        ),
+      ),
+      exponent=ScalarSum(
+        left=n,
+        right=ScalarProduct(
+          left=-1,
+          right=3,
+        ),
+      ),
+    )
+
+    return (
+      indexed_statement.positive_value
+      == expected_value
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    indexed_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    indexed_bracket = (
+      indexed_statement
+      .bracket
+    )
+
+    unindexed_bracket = TodaBracket(
+      first=indexed_bracket.first,
+      second=indexed_bracket.second,
+      third=indexed_bracket.third,
+    )
+
+    return (
+      Toda54BracketUpToSignStatement(
+        bracket=unindexed_bracket,
+        positive_value=(
+          indexed_statement
+          .positive_value
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 5.4 t=0 bridge"
+    ),
+    description=(
+      "Use Toda (1.15) to compare the "
+      "positive-index Toda bracket with "
+      "the unindexed t=0 bracket. "
+      "Toda (3.2) gives surjectivity of "
+      "E:pi_(n+2)^n to "
+      "pi_(n+3)^(n+1) for n>=3, "
+      "so the relevant indeterminacy "
+      "groups agree. "
+      "Hence the already derived "
+      "Toda (5.4) up-to-sign value set "
+      "for positive t gives the same "
+      "up-to-sign value set for t=0. "
+      "No generic indexed-bracket "
+      "equivalence framework is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda54BracketUpToSignStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaSuspensionSurjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
 
 
 def toda_bracket_membership_proof_step(
