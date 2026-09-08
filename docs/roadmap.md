@@ -62,6 +62,10 @@ Phase 55  Toda Proposition 5.1 finite-dimensional result   COMPLETE
 Phase 56  Toda (5.2) composition isomorphism               COMPLETE
 Phase 57  Toda Lemma 5.2 proof integration                 COMPLETE
 Phase 58  Toda (5.3) ν′ consequence                        COMPLETE
+Phase 59  Toda Proposition 5.3 finite-dimensional result   COMPLETE
+Phase 60  Toda Lemma 5.4 / ν₄ construction                COMPLETE
+Phase 61  Toda Lemma 5.5 bracket transport                 COMPLETE
+Phase 62  Toda (5.5) finite-dimensional ν-family           COMPLETE
 ```
 
 Phase 59 final regression:
@@ -1118,10 +1122,41 @@ Phase 58 Toda (5.3)
 
 Phase 62 では finite-dimensional `ν_n` branch を優先し、stable `ν` / `η³` に stable homotopy model が必要なら separate deferred boundary とする。
 
+completion result:
+
+```text
+ν_n:=E^(n-4)ν₄
+(n≥4)
+
+n≥5:
+2ν_n=E^(n-3)ν′
+4ν_n=η_n³
+```
+
+aggregate:
+
+```text
+Toda55NuFamilyFiniteDimensionalStatement
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase62_capabilities
+```
+
+final regression:
+
+```text
+3550 passed in 411.22s
+```
+
+stable `ν:=E^∞ν₄` / `4ν=η³` は deferred。
+
 状態:
 
 ```text
-PLANNED
+COMPLETE
 ```
 
 ---
@@ -1167,7 +1202,7 @@ generic direct-sum decomposition framework を拡張しない
 状態:
 
 ```text
-PLANNED
+NEXT
 ```
 
 ---
@@ -1408,8 +1443,8 @@ current code / related tests を確認
 | Toda Prop.5.3 finite-dimensional branch | COMPLETE | 59 |
 | Toda Lemma 5.4 / ν₄ construction | COMPLETE | 60 |
 | Toda Lemma 5.5 bracket transport | COMPLETE | 61 |
-| ν-family / Toda (5.5) | PLANNED | 62 |
-| Toda (5.6) ν₄ decomposition | PLANNED | 63 |
+| ν-family / Toda (5.5) finite-dimensional | COMPLETE | 62 |
+| Toda (5.6) ν₄ decomposition | NEXT | 63 |
 | automatic proof narrative generation | PLANNED / DEFERRED | later |
 | stable `(G_1;2)=Z/2{η}` | DEFERRED | later |
 | stable `(G_2;2)=Z/2{η^2}` | DEFERRED | later |
@@ -1420,41 +1455,9 @@ current code / related tests を確認
 
 # 18. 現在の直近ステップ
 
-Phase 61 implementation は COMPLETE。
+Phase 62 は COMPLETE。
 
 現在の verified capability:
-
-```text
-β∈π_(t+2)(S^m)
-β∘η_(t+2)=0
-t>0
-↓
-{η_(m+2),E³β,η_(t+5)}_3
-contains
-±(E²β∘E^tν₄)
-```
-
-representative probe:
-
-```powershell
-python -m probes.probe_phase61_capabilities
-```
-
-Phase 61 focused regression は verified。Phase 61 completion の repository-wide count は次を実行して記録する:
-
-```powershell
-python -m pytest -q
-```
-
-次は:
-
-```text
-Phase 62-1
-Toda (5.5) / ν-family
-current representation / dependency compatibility analysis
-```
-
-Phase 62 finite-dimensional target:
 
 ```text
 ν_n:=E^(n-4)ν₄
@@ -1465,26 +1468,52 @@ n≥5:
 4ν_n=η_n³
 ```
 
+representative probe:
+
+```powershell
+python -m probes.probe_phase62_capabilities
+```
+
+final repository-wide regression:
+
+```text
+3550 passed in 411.22s
+```
+
+次は:
+
+```text
+Phase 63-1
+Toda (5.6)
+Prop.4.4 n=4 / ν₄
+current representation / dependency compatibility analysis
+```
+
 最初に確認する dependency:
 
 ```text
 A.
-Phase 60 の 2Eν₄=E²ν′ から
-2E^(n-4)ν₄=E^(n-3)ν′
-を current suspension semantics でどこまで transport できるか
+Phase 47 の Toda Proposition 4.4 decomposition statement / map が
+n=4 specialization を structural に保持できるか
 
 B.
-ν_n:=E^(n-4)ν₄ を existing IteratedSuspension / HomotopyElement で十分に表せるか
+Phase 60 の derived H(ν₄)=ι₇ を
+Prop.4.4 の H(α)=±ι_(2n-1) premise に接続できるか
 
 C.
-Phase 58 の 2ν′=η₃∘η₄∘η₅ を higher suspension へ transport して
-4ν_n=η_n³ へ接続できるか
+n=4 の domain:
+π_(i-1)^3 ⊕ π_i^7
+を existing DirectSumGroup / TodaPrimaryGroup でそのまま表せるか
 
 D.
-η_n³ を existing Composition の right-associated expression だけで扱えるか
+map formula:
+(α,β)↦Eα+ν₄∘β
+を existing Sum / Suspension / Composition で表せるか
 
 E.
-stable ν / η³ branch を Phase 62 finite-dimensional branch から分離すべきか
+Toda (5.6) 専用 specialization だけで十分か、
+追加の generic decomposition machinery が本当に必要か
 ```
 
-generic sign solver、generic Toda-bracket algebra、automatic proof narrative generation、theorem repository は引き続き deferred とする。
+generic specialization engine、generic direct-sum simplifier、stable ν / η³、automatic proof narrative generation は引き続き deferred とする。
+

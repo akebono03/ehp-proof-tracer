@@ -2,7 +2,7 @@
 
 この文書は EHP Proof Tracer の主要 Python module と、その責務・主要 class / function・探索方法をまとめる。
 
-対象は **Phase 61 completion 時点**。
+対象は **Phase 62 completion 時点**。
 
 この文書は全 API を機械的に列挙する reference ではない。目的は:
 
@@ -1356,6 +1356,8 @@ probes/probe_phase57_capabilities.py
 probes/probe_phase58_capabilities.py
 probes/probe_phase59_capabilities.py
 probes/probe_phase60_capabilities.py
+probes/probe_phase61_capabilities.py
+probes/probe_phase62_capabilities.py
 ```
 
 Phase 58:
@@ -1837,3 +1839,321 @@ minimum implementation
 ```
 
 を維持する。
+
+---
+
+# 20. Phase 62：ν-family / Toda (5.5)
+
+## statement
+
+```text
+TodaNuFamilyDefinitionStatement
+Toda55NuFamilyFiniteDimensionalStatement
+```
+
+### `TodaNuFamilyDefinitionStatement`
+
+field:
+
+```text
+index
+element
+iterated_suspension
+```
+
+helper:
+
+```text
+toda_nu_family_definition_statement(n)
+```
+
+意味:
+
+```text
+ν_n:=E^(n-4)ν₄
+```
+
+concrete `n<4` は reject。
+
+symbolic exponent:
+
+```text
+ScalarSum(n,-4)
+```
+
+### `Toda55NuFamilyFiniteDimensionalStatement`
+
+保持:
+
+```text
+nu_family_definition
+lemma54_statement
+n_range
+double_nu_relation
+quadruple_nu_relation
+literature_statements
+```
+
+---
+
+# 21. Phase 62 double-value transport
+
+rule:
+
+```text
+toda_55_nu_family_double_suspension_transport_inference_rule()
+```
+
+input:
+
+```text
+TodaLemma54Statement       INFERENCE
+TodaNuFamilyDefinitionStatement
+ScalarGreaterEqualStatement(n,5)
+```
+
+validate:
+
+```text
+definition matches symbolic n
+base ν₄ matches Lemma 5.4
+Lemma 5.4 relation is exactly 2Eν₄=E²ν′
+```
+
+output:
+
+```text
+2ν_n=E^(n-3)ν′
+```
+
+reject:
+
+```text
+GIVEN Lemma 5.4
+n≥4
+wrong symbolic index
+wrong family definition
+wrong Lemma 5.4 relation
+```
+
+---
+
+# 22. Phase 62 eta-cube bridge
+
+production theorem rule:
+
+```text
+追加なし
+```
+
+test builder:
+
+```text
+tests/test_phase62_nu_family_eta_cube_bridge.py
+  build_phase62_4_data()
+```
+
+reused generic rule:
+
+```text
+equality_preserved_under_multiple_inference_rule()
+nested_integer_multiple_inference_rule()
+equality_symmetry_inference_rule()
+equality_transitivity_inference_rule()
+```
+
+Phase 60 builder から:
+
+```text
+2E^(n-3)ν′
+=
+η_n∘η_(n+1)∘η_(n+2)
+```
+
+を再利用。
+
+---
+
+# 23. Phase 62 integration / literature
+
+literature helper:
+
+```text
+toda_55_nu_family_literature_statements()
+```
+
+integration:
+
+```text
+toda_55_nu_family_finite_dimensional_integration_inference_rule()
+```
+
+premises:
+
+```text
+TodaLemma54Statement                INFERENCE
+TodaNuFamilyDefinitionStatement     GIVEN
+ScalarGreaterEqualStatement         GIVEN
+2ν_n relation                       INFERENCE
+4ν_n relation                       INFERENCE
+```
+
+final:
+
+```text
+Toda55NuFamilyFiniteDimensionalStatement
+ProofRule.INFERENCE
+```
+
+direct literature:
+
+```text
+Toda (5.5)
+Equation (5.5)
+```
+
+Phase 60 literature は nested `lemma54_statement` から参照。
+
+---
+
+# 24. Phase 62 test builders
+
+```text
+tests/test_phase62_nu_family_double_transport.py
+  build_phase62_3_data()
+
+tests/test_phase62_nu_family_eta_cube_bridge.py
+  build_phase62_4_data()
+
+tests/test_phase62_applicability_provenance.py
+  build_phase62_5_data()
+
+tests/test_phase62_toda55_integration.py
+  build_phase62_6_data()
+
+tests/test_phase62_toda55_applicability_provenance.py
+  build_phase62_7_data()
+```
+
+重要:
+
+```text
+id() ancestor check
+→ same nested fixture tree を共有
+```
+
+同じ conclusion を持つ別 `ProofStep` instance を再構築しない。
+
+---
+
+# 25. Phase 62 representative probe
+
+module:
+
+```text
+probes/probe_phase62_capabilities.py
+```
+
+主要 function:
+
+```text
+build_phase62_representative_result()
+print_phase62_results()
+print_phase62_derivation_chain()
+print_phase62_provenance()
+phase62_literature_usage()
+print_phase62_literature_statements()
+print_phase62_boundary()
+main()
+```
+
+focused integration builder:
+
+```text
+build_phase62_6_data()
+```
+
+を representative fixture として再利用し、probe 側へ theorem logic を複製しない。
+
+---
+
+# 26. Phase 62 focused tests
+
+```text
+tests/test_phase62_nu_family_definition.py               9 passed
+tests/test_phase62_nu_family_double_transport.py        14 passed
+tests/test_phase62_nu_family_eta_cube_bridge.py         13 passed
+tests/test_phase62_applicability_provenance.py          17 passed
+tests/test_phase62_toda55_integration.py                24 passed
+tests/test_phase62_toda55_applicability_provenance.py   19 passed
+tests/test_phase62_probe.py                             18 passed
+```
+
+full regression:
+
+```text
+3550 passed in 411.22s
+```
+
+---
+
+# 27. Phase 63 で最初に確認する場所
+
+target:
+
+```text
+Toda (5.6)
+```
+
+確認:
+
+```text
+Toda source
+  Equation (5.6)
+
+toda_rules.py
+  TodaProp44IsomorphismStatement
+  Prop.4.4 rule family
+  TodaLemma54Statement
+  ν₄ Hopf relation
+
+homotopy_groups.py
+  TodaProp44DecompositionMap
+  DirectSumGroup
+  TodaPrimaryGroup
+
+tests/test_phase47_*.py
+  Prop.4.4 decomposition behavior
+
+tests/test_phase60_*.py
+  ν₄ / H(ν₄)=ι₇ provenance
+
+probes/probe_phase62_capabilities.py
+  current proof-display pattern
+```
+
+compatibility target:
+
+```text
+n=4
+α=ν₄
+H(ν₄)=ι₇
+↓
+Prop.4.4
+π_{i-1}^3 ⊕ π_i^7
+≅
+π_i^4
+```
+
+map formula:
+
+```text
+(α,β)
+↦
+Eα+ν₄∘β
+```
+
+Phase 63 では concrete specialization の minimum bridge のみ追加する。
+
+stable ν / η³、generic direct-sum framework extension、automatic proof narrative generation は先取りしない。
+

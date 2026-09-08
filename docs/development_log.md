@@ -2692,3 +2692,497 @@ Phase 62
 ```
 
 Phase 62 では Phase 60 の `2Eν₄=E²ν′` と Phase 58 の `2ν′=η₃∘η₄∘η₅` を再利用し、finite-dimensional `ν_n` branch から開始する。
+
+---
+
+# Phase 62：ν-family / Toda (5.5)
+
+source target:
+
+```text
+ν_n:=E^(n-4)ν₄
+(n≥4)
+
+n≥5:
+2ν_n=E^(n-3)ν′
+4ν_n=η_n³
+
+stable:
+ν:=E^∞ν₄
+4ν=η³
+```
+
+Phase 62 では finite-dimensional branch のみ実装した。
+
+---
+
+## Phase 62-1：compatibility / dependency analysis
+
+確認:
+
+```text
+ν_n
+→ HomotopyElement + IteratedSuspension で表現可能
+
+η_n³
+→ right-associated Composition で表現可能
+
+2E^(n-3)ν′=η_n³
+→ Phase 60 transport を再利用可能
+```
+
+stable ν / η³ は separate deferred boundary とした。
+
+production code:
+
+```text
+変更なし
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 62-2：ν-family definition
+
+追加:
+
+```text
+TodaNuFamilyDefinitionStatement
+toda_nu_family_definition_statement()
+```
+
+定義:
+
+```text
+ν_n:=E^(n-4)ν₄
+n≥4
+```
+
+concrete `n<4` は reject。
+
+symbolic exponent:
+
+```text
+ScalarSum(n,-4)
+```
+
+focused:
+
+```text
+9 passed
+```
+
+Phase 62-2 full regression:
+
+```text
+3445 passed in 319.44s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 62-3：2ν_n transport
+
+追加:
+
+```text
+toda_55_nu_family_double_suspension_transport_inference_rule()
+```
+
+premise:
+
+```text
+TodaLemma54Statement INFERENCE
+ν-family definition
+n≥5
+```
+
+Lemma 5.4:
+
+```text
+2Eν₄=E²ν′
+```
+
+から:
+
+```text
+2ν_n=E^(n-3)ν′
+```
+
+を導出。
+
+reject:
+
+```text
+GIVEN Lemma 5.4
+n≥4
+mismatched symbolic index
+wrong ν-family definition
+wrong Lemma 5.4 relation
+```
+
+focused:
+
+```text
+14 passed
+```
+
+full regression:
+
+```text
+3459 passed in 323.15s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 62-4：4ν_n=η_n³ bridge
+
+production theorem rule:
+
+```text
+追加なし
+```
+
+existing generic mechanics:
+
+```text
+equality_preserved_under_multiple_inference_rule(2)
+nested_integer_multiple_inference_rule(2,2,ν_n)
+equality_symmetry_inference_rule()
+equality_transitivity_inference_rule()
+```
+
+を staged application で再利用。
+
+chain:
+
+```text
+2ν_n=E^(n-3)ν′
+↓ ×2
+4ν_n=2E^(n-3)ν′
+```
+
+Phase 60:
+
+```text
+2E^(n-3)ν′
+=
+η_n∘η_(n+1)∘η_(n+2)
+```
+
+と接続し:
+
+```text
+4ν_n=η_n³
+```
+
+を導出。
+
+focused:
+
+```text
+13 passed
+```
+
+full regression:
+
+```text
+3472 passed in 333.77s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 62-5：finite-dimensional applicability / branch conditions
+
+固定:
+
+```text
+ν-family definition:
+n≥4
+
+Toda (5.5) relations:
+n≥5
+```
+
+provenance boundary:
+
+```text
+definition       GIVEN
+n≥5              GIVEN
+Lemma 5.4        INFERENCE
+2ν_n relation    INFERENCE
+4ν_n relation    INFERENCE
+```
+
+identity-based ancestor test は `build_phase62_4_data()` 内の same nested fixture tree を共有するよう修正した。
+
+focused:
+
+```text
+17 passed
+```
+
+full regression:
+
+```text
+3489 passed in 351.68s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 62-6：Toda (5.5) finite-dimensional aggregate / literature provenance
+
+追加:
+
+```text
+Toda55NuFamilyFiniteDimensionalStatement
+toda_55_nu_family_literature_statements()
+toda_55_nu_family_finite_dimensional_integration_inference_rule()
+```
+
+aggregate:
+
+```text
+Toda Lemma 5.4 aggregate  INFERENCE
+ν-family definition       GIVEN
+n≥5                       GIVEN
+2ν_n=E^(n-3)ν′             INFERENCE
+4ν_n=η_n³                  INFERENCE
+↓
+Toda (5.5) finite-dimensional aggregate
+                            INFERENCE
+```
+
+direct literature:
+
+```text
+Toda (5.5)
+Equation (5.5)
+```
+
+Phase 60 literature は nested Lemma 5.4 aggregate から継承。
+
+stable `4ν=η³` は aggregate に含めない。
+
+focused:
+
+```text
+24 passed
+```
+
+full regression:
+
+```text
+3513 passed in 385.25s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 62-7：applicability / non-circular provenance regression
+
+追加:
+
+```text
+tests/test_phase62_toda55_applicability_provenance.py
+```
+
+final aggregate から:
+
+```text
+Phase 62-3
+Phase 62-4
+Phase 60 Lemma 5.4
+Phase 60 triple-η transport
+Phase 58 2ν′ relation
+```
+
+まで ancestor reachability を確認。
+
+non-circularity:
+
+```text
+final aggregate not ancestor of itself
+final aggregate not ancestor of 2ν_n
+final aggregate not ancestor of 4ν_n
+final aggregate conclusion absent from ancestors
+```
+
+focused:
+
+```text
+19 passed
+```
+
+full regression:
+
+```text
+3532 passed in 402.17s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 62-8：representative probe
+
+追加:
+
+```text
+probes/probe_phase62_capabilities.py
+tests/test_phase62_probe.py
+```
+
+表示:
+
+```text
+Result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Phase 62 completion boundary
+```
+
+representative result:
+
+```text
+ν_n:=E^(n-4)ν₄
+n≥4
+
+n≥5:
+2ν_n=E^(n-3)ν′
+4ν_n=η_n³
+```
+
+provenance display:
+
+```text
+Lemma 5.4 aggregate derived = True
+nu-family definition is GIVEN = True
+n>=5 applicability is GIVEN = True
+2ν_n=E^(n-3)ν′ derived = True
+Phase 60 triple-eta transport derived = True
+4ν_n=η_n³ derived = True
+final aggregate derived = True
+final aggregate is GIVEN = False
+theorem dependencies are INFERENCE = True
+definition / applicability remain GIVEN = True
+fixed point = True
+```
+
+focused:
+
+```text
+18 passed
+```
+
+full regression:
+
+```text
+3550 passed in 411.22s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 62-9：Phase 62 completion
+
+Phase 62 完成 capability:
+
+```text
+TodaNuFamilyDefinitionStatement
+ν_n:=E^(n-4)ν₄
+n≥4
+
+n≥5:
+2ν_n=E^(n-3)ν′
+4ν_n=η_n³
+
+Toda55NuFamilyFiniteDimensionalStatement
+literature-aware provenance
+Phase 60 inherited literature
+applicability regression
+acyclic provenance regression
+representative proof-style probe
+```
+
+generic inference engine:
+
+```text
+変更なし
+```
+
+追加しなかったもの:
+
+```text
+stable ν:=E^∞ν₄
+4ν=η³
+stable homotopy-group model
+generic ν-family framework
+generic suspension exponent algebra
+generic η-cube class
+automatic proof narrative generation
+Toda (5.6)
+```
+
+最終 full regression:
+
+```text
+3550 passed in 411.22s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 62 completion boundary
+
+最終 capability:
+
+```text
+ν_n:=E^(n-4)ν₄
+n≥4
+
+n≥5:
+2ν_n=E^(n-3)ν′
+4ν_n=η_n³
+```
+
+next:
+
+```text
+Phase 63
+Toda (5.6)
+ν₄ decomposition isomorphism
+```
+
+Phase 63 では Phase 47 Proposition 4.4 と Phase 60 `H(ν₄)=ι₇` を再利用する。
+
