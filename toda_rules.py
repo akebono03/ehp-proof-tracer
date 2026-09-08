@@ -10401,6 +10401,318 @@ def toda_54_t0_bridge_inference_rule():
   )
 
 
+def toda_lemma55_alpha_star_bracket_inclusion_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    theorem36 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    beta_membership = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    zero_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    t_range = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    alpha_star = (
+      theorem36
+      .alpha_star
+    )
+
+    expected_alpha_star_membership = (
+      HomotopyGroupMembershipStatement(
+        element=alpha_star,
+        group_dimension=7,
+        sphere_dimension=4,
+      )
+    )
+
+    if (
+      theorem36.alpha_star_membership
+      != expected_alpha_star_membership
+    ):
+      return False
+
+    beta = beta_membership.element
+
+    if not isinstance(
+      beta,
+      HomotopyElement,
+    ):
+      return False
+
+    group_dimension = (
+      beta_membership
+      .group_dimension
+    )
+
+    if not isinstance(
+      group_dimension,
+      ScalarSum,
+    ):
+      return False
+
+    if (
+      group_dimension.right
+      != 2
+    ):
+      return False
+
+    t = group_dimension.left
+
+    if not isinstance(
+      t,
+      ScalarSymbol,
+    ):
+      return False
+
+    m = (
+      beta_membership
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      m,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      beta.dimension
+      != group_dimension
+    ):
+      return False
+
+    if (
+      beta.source
+      != group_dimension
+    ):
+      return False
+
+    if (
+      beta.target
+      != m
+    ):
+      return False
+
+    t_plus_two = ScalarSum(
+      left=t,
+      right=2,
+    )
+
+    t_plus_three = ScalarSum(
+      left=t,
+      right=3,
+    )
+
+    eta_t_plus_two = HomotopyElement(
+      name="η_(t+2)",
+      dimension=t_plus_two,
+      source=t_plus_three,
+      target=t_plus_two,
+      generator=GeneratorSymbol(
+        family="η",
+        index=t_plus_two,
+      ),
+    )
+
+    expected_zero_relation = Relation(
+      lhs=Composition(
+        left=beta,
+        right=eta_t_plus_two,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    if (
+      zero_relation
+      != expected_zero_relation
+    ):
+      return False
+
+    return (
+      t_range
+      == ScalarGreaterEqualStatement(
+        left=t,
+        right=1,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    theorem36 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    beta_membership = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    beta = (
+      beta_membership
+      .element
+    )
+
+    group_dimension = (
+      beta_membership
+      .group_dimension
+    )
+
+    t = (
+      group_dimension
+      .left
+    )
+
+    m = (
+      beta_membership
+      .sphere_dimension
+    )
+
+    m_plus_two = ScalarSum(
+      left=m,
+      right=2,
+    )
+
+    m_plus_three = ScalarSum(
+      left=m,
+      right=3,
+    )
+
+    t_plus_five = ScalarSum(
+      left=t,
+      right=5,
+    )
+
+    t_plus_six = ScalarSum(
+      left=t,
+      right=6,
+    )
+
+    eta_m_plus_two = HomotopyElement(
+      name="η_(m+2)",
+      dimension=m_plus_two,
+      source=m_plus_three,
+      target=m_plus_two,
+      generator=GeneratorSymbol(
+        family="η",
+        index=m_plus_two,
+      ),
+    )
+
+    eta_t_plus_five = HomotopyElement(
+      name="η_(t+5)",
+      dimension=t_plus_five,
+      source=t_plus_six,
+      target=t_plus_five,
+      generator=GeneratorSymbol(
+        family="η",
+        index=t_plus_five,
+      ),
+    )
+
+    bracket = TodaBracket(
+      first=eta_m_plus_two,
+      second=IteratedSuspension(
+        expression=beta,
+        exponent=3,
+      ),
+      third=eta_t_plus_five,
+      index=3,
+    )
+
+    positive_value = Composition(
+      left=IteratedSuspension(
+        expression=beta,
+        exponent=2,
+      ),
+      right=IteratedSuspension(
+        expression=(
+          theorem36
+          .alpha_star
+        ),
+        exponent=t,
+      ),
+    )
+
+    return (
+      TodaLemma55BracketContainsUpToSignStatement(
+        bracket=bracket,
+        positive_value=positive_value,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.5 "
+      "alpha-star bracket inclusion"
+    ),
+    description=(
+      "For the alpha-star obtained in "
+      "the proof of Toda Lemma 5.4, "
+      "if beta belongs to pi_(t+2)^m, "
+      "beta composed with eta_(t+2) "
+      "is zero, and t>=1, then "
+      "{eta_(m+2), E^3 beta, "
+      "eta_(t+5)}_3 contains "
+      "plus or minus "
+      "E^2 beta composed with "
+      "E^t alpha-star. "
+      "This records only the "
+      "Lemma 5.5 consequence used in "
+      "the source proof and does not "
+      "formalize full Toda Theorem 3.6."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda36Lemma54SpecializationStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          HomotopyGroupMembershipStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_bracket_membership_proof_step(
   statement,
 ):
