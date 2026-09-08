@@ -7134,6 +7134,12 @@ class Toda54BracketUpToSignStatement:
 
 
 @dataclass(frozen=True)
+class TodaLemma55BracketContainsUpToSignStatement:
+  bracket: TodaBracket
+  positive_value: Expression
+
+
+@dataclass(frozen=True)
 class Toda54IndeterminacyGeneratorStatement:
   bracket: TodaBracket
   generator: Expression
