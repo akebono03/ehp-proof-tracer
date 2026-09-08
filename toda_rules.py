@@ -7140,6 +7140,12 @@ class TodaLemma55BracketContainsUpToSignStatement:
 
 
 @dataclass(frozen=True)
+class TodaLemma55SuspensionUpToSignStatement:
+  left: Expression
+  positive_value: Expression
+
+
+@dataclass(frozen=True)
 class Toda54IndeterminacyGeneratorStatement:
   bracket: TodaBracket
   generator: Expression
@@ -10700,6 +10706,169 @@ def toda_lemma55_alpha_star_bracket_inclusion_inference_rule():
         statement_type=Relation,
         relation_type=(
           RelationType.ZERO
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma55_nu4_suspension_correction_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    construction = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    t_range = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      t_range.left,
+      ScalarSymbol,
+    ):
+      return False
+
+    t = t_range.left
+
+    if (
+      t_range
+      != ScalarGreaterEqualStatement(
+        left=t,
+        right=1,
+      )
+    ):
+      return False
+
+    if (
+      construction.positive_branch
+      != TodaLemma54Nu4BranchFormula(
+        double_suspension_sign=1,
+        alpha_star_sign=1,
+        whitehead_coefficient_sign=-1,
+        parameter_offset=0,
+      )
+    ):
+      return False
+
+    if (
+      construction.negative_branch
+      != TodaLemma54Nu4BranchFormula(
+        double_suspension_sign=-1,
+        alpha_star_sign=-1,
+        whitehead_coefficient_sign=1,
+        parameter_offset=1,
+      )
+    ):
+      return False
+
+    iota_4 = HomotopyElement(
+      name="ι_4",
+      dimension=4,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=4,
+      ),
+    )
+
+    expected_whitehead_square = (
+      WhiteheadProduct(
+        left=iota_4,
+        right=iota_4,
+      )
+    )
+
+    if (
+      construction
+      .whitehead_data
+      .whitehead_square
+      != expected_whitehead_square
+    ):
+      return False
+
+    expected_suspension_zero = Relation(
+      lhs=Suspension(
+        expression=expected_whitehead_square,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    return (
+      construction
+      .whitehead_data
+      .suspension_zero_relation
+      == expected_suspension_zero
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    construction = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    t_range = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    t = t_range.left
+
+    return (
+      TodaLemma55SuspensionUpToSignStatement(
+        left=IteratedSuspension(
+          expression=construction.nu4,
+          exponent=t,
+        ),
+        positive_value=IteratedSuspension(
+          expression=construction.alpha_star,
+          exponent=t,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.5 "
+      "nu_4 suspension correction"
+    ),
+    description=(
+      "For t>=1, the Whitehead "
+      "correction in the Lemma 5.4 "
+      "construction of nu_4 disappears "
+      "after suspension because "
+      "E[iota_4,iota_4]=0. "
+      "The positive construction branch "
+      "gives E^t nu_4=E^t alpha-star, "
+      "and the negative branch gives "
+      "E^t nu_4=-E^t alpha-star. "
+      "The combined consequence is "
+      "stored up to sign without "
+      "introducing generic Whitehead "
+      "correction or sign algebra."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54Nu4ConstructionStatement
         ),
       ),
       PremisePattern(
