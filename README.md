@@ -29,7 +29,7 @@ The implementation strategy is to formalize only the minimum theorem consequence
 
 # Current status
 
-Completed through Phase 61.
+Completed through Phase 62.
 
 ```text
 Phase 1–27   generic proof / algebra / Toda-bracket foundation
@@ -57,20 +57,21 @@ Phase 58     Toda (5.3) ν′ consequence
 Phase 59     Toda Proposition 5.3 finite-dimensional result
 Phase 60     Toda Lemma 5.4 / ν₄ construction and literature-aware provenance
 Phase 61     Toda Lemma 5.5 bracket transport and literature-aware provenance
+Phase 62     Toda (5.5) finite-dimensional ν-family integration
 ```
 
-Latest recorded full regression (Phase 60):
+Latest repository-wide regression:
 
 ```text
-3334 passed in 132.72s
+3550 passed in 411.22s
 ```
 
-Phase 61 focused / probe regression has been verified. The final repository-wide Phase 61 regression count is recorded after running `python -m pytest -q`.
+Phase 62 focused / applicability / provenance / integration / probe regression has been verified.
 
 Representative current probe:
 
 ```powershell
-python -m probes.probe_phase61_capabilities
+python -m probes.probe_phase62_capabilities
 ```
 
 ---
@@ -1284,6 +1285,234 @@ Toda (5.5) ν-family calculation
 
 ---
 
+# Phase 62: Toda (5.5) finite-dimensional ν-family
+
+Phase 62 implements the finite-dimensional ν-family branch of Toda (5.5).
+
+The family notation is:
+
+```text
+ν_n:=E^(n-4)ν₄
+(n≥4)
+```
+
+represented by:
+
+```text
+TodaNuFamilyDefinitionStatement
+```
+
+The stable notation:
+
+```text
+ν:=E^∞ν₄
+```
+
+and the stable relation:
+
+```text
+4ν=η³
+```
+
+remain deferred.
+
+## Double-value transport
+
+Phase 60 independently derived:
+
+```text
+2Eν₄=E²ν′
+```
+
+For symbolic `n≥5`, Phase 62 introduces the theorem-specific rule:
+
+```text
+toda_55_nu_family_double_suspension_transport_inference_rule()
+```
+
+and derives:
+
+```text
+2ν_n=E^(n-3)ν′
+```
+
+The rule requires the actual derived `TodaLemma54Statement`; replacing Lemma 5.4 by a `GIVEN` shortcut is rejected.
+
+## η-cube bridge
+
+Phase 62 does not add a new theorem-specific rule for the second relation.
+
+Instead it reuses generic relation mechanics:
+
+```text
+equality_preserved_under_multiple_inference_rule(2)
+nested_integer_multiple_inference_rule(2,2,ν_n)
+equality_symmetry_inference_rule()
+equality_transitivity_inference_rule()
+```
+
+in a staged one-shot chain:
+
+```text
+2ν_n=E^(n-3)ν′
+↓ ×2
+4ν_n=2E^(n-3)ν′
+```
+
+Phase 60 already derives:
+
+```text
+2E^(n-3)ν′
+=
+η_n∘η_(n+1)∘η_(n+2)
+```
+
+therefore:
+
+```text
+4ν_n
+=
+η_n∘η_(n+1)∘η_(n+2)
+=
+η_n³
+```
+
+No dedicated `EtaCube` class is introduced.
+
+## Applicability boundary
+
+The family definition and Toda (5.5) relation have different finite-dimensional ranges:
+
+```text
+ν_n definition:
+n≥4
+
+Toda (5.5) relations:
+n≥5
+```
+
+Thus `ν₄` is a valid family definition instance, but the Phase 62 Toda (5.5) transport rule does not apply at `n=4`.
+
+## Final aggregate
+
+Phase 62 adds:
+
+```text
+Toda55NuFamilyFiniteDimensionalStatement
+toda_55_nu_family_literature_statements()
+toda_55_nu_family_finite_dimensional_integration_inference_rule()
+```
+
+The final aggregate preserves:
+
+```text
+ν-family definition
+Toda Lemma 5.4 aggregate
+n≥5
+2ν_n=E^(n-3)ν′
+4ν_n=η_n³
+Toda (5.5) literature
+```
+
+Its direct provenance boundary is:
+
+```text
+Toda Lemma 5.4 aggregate  INFERENCE
+ν-family definition       GIVEN
+n≥5                       GIVEN
+2ν_n relation             INFERENCE
+4ν_n relation             INFERENCE
+↓
+Toda (5.5) aggregate      INFERENCE
+```
+
+Phase 60 literature remains inherited through the nested Lemma 5.4 aggregate.
+
+## Non-circular provenance
+
+The final aggregate is regression-tested to reach:
+
+```text
+Phase 62-3 double-value transport
+Phase 62-4 quadruple-value bridge
+Phase 60 Lemma 5.4
+Phase 60 triple-η transport
+Phase 58 2ν′ relation
+```
+
+The final aggregate is not an ancestor of itself or of either derived Toda (5.5) relation, and its final conclusion does not already occur among its ancestors.
+
+## Representative probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase62_capabilities
+```
+
+The probe displays:
+
+```text
+Result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Phase 62 completion boundary
+```
+
+Representative machine checks include:
+
+```text
+Lemma 5.4 aggregate derived = True
+nu-family definition is GIVEN = True
+n>=5 applicability is GIVEN = True
+2ν_n=E^(n-3)ν′ derived = True
+Phase 60 triple-eta transport derived = True
+4ν_n=η_n³ derived = True
+final aggregate derived = True
+final aggregate is GIVEN = False
+theorem dependencies are INFERENCE = True
+definition / applicability remain GIVEN = True
+fixed point = True
+```
+
+The proof-style derivation remains a hand-authored presentation layer and is not automatic proof-text generation.
+
+## Phase 62 focused tests
+
+```text
+tests/test_phase62_nu_family_definition.py               9 passed
+tests/test_phase62_nu_family_double_transport.py        14 passed
+tests/test_phase62_nu_family_eta_cube_bridge.py         13 passed
+tests/test_phase62_applicability_provenance.py          17 passed
+tests/test_phase62_toda55_integration.py                24 passed
+tests/test_phase62_toda55_applicability_provenance.py   19 passed
+tests/test_phase62_probe.py                             18 passed
+```
+
+Final repository-wide regression:
+
+```text
+3550 passed in 411.22s
+```
+
+## Phase 62 representation boundary
+
+Phase 62 deliberately does not add:
+
+```text
+stable ν:=E^∞ν₄
+stable 4ν=η³
+stable homotopy-group model
+generic ν-family framework
+generic suspension exponent algebra
+generic η-cube class
+automatic proof narrative generation
+Toda (5.6)
+```
+
+---
+
 # Documentation
 
 - `README.md` — current capabilities and status
@@ -1296,31 +1525,40 @@ Toda (5.5) ν-family calculation
 
 # Next development boundary
 
-Phase 61 implementation is complete. The final repository-wide regression should be run and its pass count recorded before tagging the completion state.
+Phase 62 is complete.
 
 The next mathematical target is:
 
 ```text
-Phase 62
-ν-family / Toda (5.5)
+Phase 63
+Toda (5.6) ν₄ decomposition
 ```
 
-The intended finite-dimensional dependency is:
+Target:
 
 ```text
-Phase 60 Lemma 5.4
-ν₄∈π_7^4
-2Eν₄=E²ν′
-+
-Phase 58 Toda (5.3)
-2ν′=η₃∘η₄∘η₅
-+
-η-family suspension transport
-↓
-ν_n:=E^(n-4)ν₄
-↓
-2ν_n=E^(n-3)ν′
-4ν_n=η_n³
+(α,β)
+↦
+Eα+ν₄∘β
+:
+π_{i-1}^3 ⊕ π_i^7
+≅
+π_i^4
 ```
 
-The stable `ν` / `η³` branch remains separate if it requires a stable homotopy-group model. Generic sign solving, generic Toda-bracket algebra, automatic proof narrative generation, and theorem-repository infrastructure remain deferred until concrete need.
+The intended dependency is:
+
+```text
+Phase 47
+Toda Proposition 4.4 decomposition semantics
++
+Phase 60
+ν₄∈π_7^4
+H(ν₄)=ι₇
+↓
+n=4, α=ν₄ specialization
+↓
+Toda (5.6)
+```
+
+Phase 63 should reuse the existing Proposition 4.4 decomposition infrastructure and add only the minimum ν₄ specialization required by Toda (5.6). Stable ν / η³, generic sign solving, generic Toda-bracket algebra, automatic proof narrative generation, and theorem-repository infrastructure remain deferred until concrete need.

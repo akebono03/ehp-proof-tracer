@@ -25,7 +25,7 @@ representation != typing != theorem knowledge
 structural equality != mathematical equality
 ```
 
-Phase 61 までこの原則を維持している。
+Phase 62 までこの原則を維持している。
 
 ---
 
@@ -2199,3 +2199,396 @@ Composition / IteratedSuspension
 stable `ν` / `η³` branch は stable homotopy model が必要なら finite-dimensional branch と分離する。
 
 generic sign solver、generic Toda-bracket algebra、automatic proof narrative generator、theorem repository は concrete need が生じるまで保留する。
+
+---
+
+# 50. Phase 62：ν-family / Toda (5.5) finite-dimensional 設計
+
+Phase 62 の finite-dimensional target:
+
+```text
+ν_n:=E^(n-4)ν₄
+(n≥4)
+
+n≥5:
+2ν_n=E^(n-3)ν′
+4ν_n=η_n³
+```
+
+stable:
+
+```text
+ν:=E^∞ν₄
+4ν=η³
+```
+
+は separate deferred boundary とする。
+
+---
+
+# 51. ν-family definition semantics
+
+追加:
+
+```text
+TodaNuFamilyDefinitionStatement
+```
+
+保持:
+
+```text
+index
+element
+iterated_suspension
+```
+
+helper:
+
+```text
+toda_nu_family_definition_statement(n)
+```
+
+意味:
+
+```text
+ν_n:=E^(n-4)ν₄
+```
+
+concrete boundary:
+
+```text
+n≥4
+```
+
+symbolic `n-4` は:
+
+```text
+ScalarSum(n,-4)
+```
+
+として保持する。
+
+一般 scalar normalization は導入しない。
+
+---
+
+# 52. double-value transport semantics
+
+専用 rule:
+
+```text
+toda_55_nu_family_double_suspension_transport_inference_rule()
+```
+
+premise:
+
+```text
+TodaLemma54Statement                INFERENCE
+TodaNuFamilyDefinitionStatement
+ScalarGreaterEqualStatement(n,5)
+```
+
+Lemma 5.4 の exact relation:
+
+```text
+2Eν₄=E²ν′
+```
+
+を確認し:
+
+```text
+2ν_n=E^(n-3)ν′
+```
+
+を導出する。
+
+これは Toda (5.5) 専用 transport であり、generic suspension exponent algebra ではない。
+
+---
+
+# 53. 4ν_n=η_n³ bridge
+
+新しい Toda-specific theorem rule は追加しない。
+
+generic relation mechanics:
+
+```text
+equality_preserved_under_multiple_inference_rule(2)
+nested_integer_multiple_inference_rule(2,2,ν_n)
+equality_symmetry_inference_rule()
+equality_transitivity_inference_rule()
+```
+
+を staged に使う。
+
+```text
+2ν_n=E^(n-3)ν′
+↓ ×2
+2(2ν_n)=2E^(n-3)ν′
+
+2(2ν_n)=4ν_n
+↓
+4ν_n=2E^(n-3)ν′
+```
+
+Phase 60:
+
+```text
+2E^(n-3)ν′
+=
+η_n∘η_(n+1)∘η_(n+2)
+```
+
+と transitivity で:
+
+```text
+4ν_n=η_n³
+```
+
+を得る。
+
+`η_n³` は dedicated expression class ではなく right-associated `Composition`。
+
+---
+
+# 54. Phase 62 applicability boundary
+
+区別:
+
+```text
+ν-family definition:
+n≥4
+
+Toda (5.5) finite-dimensional relations:
+n≥5
+```
+
+`n=4` は family definition として valid だが Toda (5.5) relation transport には不適用。
+
+explicit input:
+
+```text
+ν-family definition  GIVEN
+n≥5                  GIVEN
+```
+
+theorem dependency:
+
+```text
+Lemma 5.4            INFERENCE
+2ν_n relation        INFERENCE
+4ν_n relation        INFERENCE
+```
+
+---
+
+# 55. Toda (5.5) finite-dimensional aggregate
+
+追加:
+
+```text
+Toda55NuFamilyFiniteDimensionalStatement
+```
+
+保持:
+
+```text
+nu_family_definition
+lemma54_statement
+n_range
+double_nu_relation
+quadruple_nu_relation
+literature_statements
+```
+
+integration:
+
+```text
+toda_55_nu_family_finite_dimensional_integration_inference_rule()
+```
+
+direct premises:
+
+```text
+TodaLemma54Statement                INFERENCE
+TodaNuFamilyDefinitionStatement     GIVEN
+ScalarGreaterEqualStatement(n,5)    GIVEN
+2ν_n=E^(n-3)ν′                      INFERENCE
+4ν_n=η_n³                           INFERENCE
+```
+
+final aggregate:
+
+```text
+INFERENCE
+```
+
+Lemma 5.4 を nested に保持し Phase 60 literature provenance を切らない。
+
+---
+
+# 56. Phase 62 literature provenance
+
+direct literature:
+
+```text
+Toda (5.5)
+Equation (5.5)
+```
+
+finite-dimensional clause のみを direct statement とする。
+
+stable clause:
+
+```text
+4ν=η³
+```
+
+は Phase 62 aggregate に含めない。
+
+Phase 60 literature は:
+
+```text
+Toda55NuFamilyFiniteDimensionalStatement
+└─ lemma54_statement
+   └─ literature_statements
+```
+
+から継承する。
+
+---
+
+# 57. Phase 62 non-circular provenance
+
+actual `ProofStep.premises` graph を identity ベースで確認する。
+
+```text
+Toda (5.5) aggregate
+↓
+Phase 62-3
+↓
+Phase 60 Lemma 5.4
+```
+
+および:
+
+```text
+Toda (5.5) aggregate
+↓
+Phase 62-4
+↓
+Phase 60 triple-η transport
+↓
+Phase 58 2ν′ relation
+```
+
+を ancestor reachability で固定する。
+
+non-circular conditions:
+
+```text
+final aggregate not in ancestors(final aggregate)
+final aggregate not in ancestors(2ν_n relation)
+final aggregate not in ancestors(4ν_n relation)
+final aggregate conclusion absent from ancestor conclusions
+```
+
+generic semantic cycle detector は追加しない。
+
+---
+
+# 58. Phase 62 representative probe
+
+追加:
+
+```text
+probes/probe_phase62_capabilities.py
+```
+
+表示:
+
+```text
+Result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Phase 62 completion boundary
+```
+
+theorem logic は focused integration builder を再利用し、probe 側へ複製しない。
+
+proof-style derivation は presentation-only の hand-authored output。
+
+---
+
+# 59. Phase 62 completion boundary
+
+完成:
+
+```text
+TodaNuFamilyDefinitionStatement
+ν_n:=E^(n-4)ν₄
+n≥4
+2ν_n=E^(n-3)ν′, n≥5
+4ν_n=η_n³, n≥5
+Toda55NuFamilyFiniteDimensionalStatement
+Toda (5.5) direct literature
+Phase 60 inherited literature
+applicability regression
+acyclic provenance regression
+representative proof-style probe
+```
+
+先取りしない:
+
+```text
+stable ν:=E^∞ν₄
+4ν=η³
+stable homotopy-group model
+generic ν-family framework
+generic suspension exponent algebra
+generic η-cube class
+automatic proof narrative generation
+Toda (5.6)
+```
+
+最終 full regression:
+
+```text
+3550 passed in 411.22s
+```
+
+---
+
+# 60. 次の設計境界
+
+Phase 63:
+
+```text
+Toda (5.6)
+```
+
+target:
+
+```text
+(α,β)
+↦
+Eα+ν₄∘β
+:
+π_{i-1}^3 ⊕ π_i^7
+≅
+π_i^4
+```
+
+dependency:
+
+```text
+Phase 47 Proposition 4.4 decomposition
++
+Phase 60 ν₄ / H(ν₄)=ι₇
+↓
+n=4, α=ν₄ specialization
+```
+
+generic direct-sum framework extension、generic specialization engine、stable ν、automatic proof narrative generation は先取りしない。
+
