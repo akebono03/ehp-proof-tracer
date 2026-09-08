@@ -25,7 +25,7 @@ representation != typing != theorem knowledge
 structural equality != mathematical equality
 ```
 
-Phase 59 までこの原則を維持している。
+Phase 60 までこの原則を維持している。
 
 ---
 
@@ -233,7 +233,7 @@ ProofStep.inference_rule
 
 に保持する。
 
-Phase 58 でも generic inference engine の変更は行っていない。
+Phase 60 でも generic inference engine の推論機構自体は変更していない。
 
 ---
 
@@ -1364,20 +1364,544 @@ current specification は latest README / design を優先する。
 
 ---
 
-# 39. 次の設計境界
+# 39. Phase 60：Toda Lemma 5.4 設計目標
 
-Phase 59 は完了。
-
-次は source material の次の concrete statement / proof を確認してから target を確定する。
+Phase 60 の target:
 
 ```text
-next source statement
-↓
-dependency analysis
-↓
-current representation compatibility
-↓
-minimum implementation
+ν₄∈π_7^4
+H(ν₄)=ι₇
+2Eν₄=E²ν′
 ```
 
-stable `(G_1;2)=Z/2{η}`、stable `(G_2;2)=Z/2{η²}`、stable homotopy model、generic normalization は concrete need が生じるまで保留する。
+主要 dependency:
+
+```text
+Phase 58
+ν′∈π_6^3
+H(ν′)=η₅
+2ν′=η₃∘η₄∘η₅
+
+Phase 59
+π_{n+2}^n=Z/2{η_n²}
+```
+
+Theorem 3.6、Toda (5.4)、Toda (4.8)、Whitehead correction はすべて Lemma 5.4 に必要な consequence のみに限定する。
+
+---
+
+# 40. Toda (5.4) の最小 value-set semantics
+
+Phase 60-2 で追加する専用 statement:
+
+```text
+Toda54BracketUpToSignStatement
+```
+
+意味:
+
+```text
+bracket = {±positive_value}
+```
+
+対象:
+
+```text
+{η_n,2ι_(n+1),η_(n+1)}_t
+=
+{±E^(n-3)ν′}
+```
+
+一般化しない:
+
+```text
+generic set-valued expression
+generic coset equality
+generic sign variable
+generic up-to-sign transitivity
+```
+
+Phase 60-3 の indeterminacy は:
+
+```text
+Toda54IndeterminacyGeneratorStatement
+```
+
+で theorem-specific に:
+
+```text
+Indeterminacy(B)=<x>
+```
+
+を保持する。
+
+Toda (4.7) と Proposition 5.3 から:
+
+```text
+<η_n∘η_(n+1)∘η_(n+2)>
+```
+
+を導出し、Phase 58 の:
+
+```text
+2ν′=η₃∘η₄∘η₅
+```
+
+を narrow suspension transport して:
+
+```text
+2E^(n-3)ν′
+=
+η_n∘η_(n+1)∘η_(n+2)
+```
+
+を得る。
+
+したがって:
+
+```text
+Indeterminacy(B)=<2E^(n-3)ν′>
+```
+
+となる。
+
+---
+
+# 41. bracket inclusion と t=0 bridge
+
+Phase 60-4 は既存:
+
+```text
+TodaBracketMembershipStatement
+```
+
+を再利用する。
+
+ν′ の bracket definition、Proposition 1.3、Toda (1.15) から:
+
+```text
+E^(n-3)ν′
+∈
+{η_n,2ι_(n+1),η_(n+1)}_t
+```
+
+を theorem-specific rule で導出する。
+
+Phase 60-5 では Toda (3.2) から:
+
+```text
+E:π_(n+2)^n→π_(n+3)^(n+1)
+```
+
+の `n≥3` surjectivity を専用 consequence として導出し、Toda (1.15) と接続する。
+
+`t=0` は current representation では unindexed `TodaBracket` として保持する。
+
+一般の indexed bracket equivalence や generic bracket-index normalization は追加しない。
+
+---
+
+# 42. Theorem 3.6 specialization と α*
+
+Phase 60-6 は Theorem 3.6 全体を formalize しない。
+
+専用 statement:
+
+```text
+Toda36Lemma54SpecializationStatement
+```
+
+保持:
+
+```text
+α=η₂
+β=2ι₃
+α*
+α*∈π_7^4
+-2Eα*∈{η₅,2ι₆,η₆}_3
+```
+
+Phase 60-5 Toda (5.4) の `n=5,t=3` specialization と接続して:
+
+```text
+2Eα*=±E²ν′
+```
+
+を:
+
+```text
+TodaLemma54DoubleSuspensionUpToSignStatement
+```
+
+で保持する。
+
+この statement は Lemma 5.4 専用であり、generic sign equality object ではない。
+
+---
+
+# 43. Hopf parity と Whitehead correction
+
+Phase 60-7 の専用 statement:
+
+```text
+TodaLemma54HopfOddMultipleStatement
+```
+
+意味:
+
+```text
+H(α*)=(2s+1)ι₇
+```
+
+field:
+
+```text
+alpha_star
+parameter=s
+generator=ι₇
+```
+
+`s` を Phase 60-8 の correction へそのまま渡す。
+
+Phase 60-8 では:
+
+```text
+TodaLemma54WhiteheadCorrectionDataStatement
+TodaLemma54Nu4BranchFormula
+TodaLemma54Nu4ConstructionStatement
+```
+
+を使用する。
+
+Whitehead data:
+
+```text
+H[ι₄,ι₄]=(-1)^u2ι₇
+E[ι₄,ι₄]=0
+```
+
+positive branch:
+
+```text
+ν₄=α* - (-1)^u s[ι₄,ι₄]
+```
+
+negative branch:
+
+```text
+ν₄=-α* + (-1)^u(s+1)[ι₄,ι₄]
+```
+
+`Multiple.coefficient` を symbolic sign product 全般へ拡張せず、branch formula を theorem-specific descriptor として保持する。
+
+両 branch から:
+
+```text
+ν₄∈π_7^4
+H(ν₄)=ι₇
+2Eν₄=E²ν′
+```
+
+を derived にする。
+
+一般化しない:
+
+```text
+generic Whitehead Hopf algebra
+generic symbolic coefficient simplifier
+generic piecewise theorem engine
+generic sign solver
+```
+
+---
+
+# 44. Lemma 5.4 aggregate と literature metadata
+
+Phase 60-9 の最終 aggregate:
+
+```text
+TodaLemma54Statement
+```
+
+保持:
+
+```text
+nu4
+membership
+hopf_relation
+double_suspension_relation
+literature_statements
+```
+
+premise:
+
+```text
+ν₄∈π_7^4        INFERENCE
+H(ν₄)=ι₇        INFERENCE
+2Eν₄=E²ν′       INFERENCE
+```
+
+aggregate 自身も:
+
+```text
+ProofRule.INFERENCE
+```
+
+であり Lemma 5.4 を `GIVEN` として再投入しない。
+
+`proof.py` に追加した generic metadata:
+
+```text
+LiteratureStatement
+```
+
+field:
+
+```text
+reference: LiteratureReference
+statement: str
+```
+
+責務:
+
+```text
+LiteratureReference
+= 文献のどこか
+
+LiteratureStatement
+= その場所で利用する数学 statement
+```
+
+これは theorem knowledge を generic inference engine に入れるものではない。
+
+Phase 60-10 probe では `LiteratureStatement` に保存した statement に加え、probe-local な locator→usage mapping を使って:
+
+```text
+Reference
+Locator
+Author
+Source
+Year
+Used in: Phase 60-x ...
+Statement
+```
+
+を表示する。
+
+`Used in` は current Phase 60 representative display metadata であり、`LiteratureStatement` schema には入れない。
+
+Phase 60-10 ではさらに probe-local presentation として:
+
+```text
+print_phase60_derivation_chain()
+```
+
+を追加した。表示順は:
+
+```text
+Result
+↓
+Proof-style derivation
+↓
+Provenance / integration
+↓
+Literature statements used
+↓
+Completion boundary
+```
+
+とする。
+
+`Proof-style derivation` は current `ProofStep` graph から自動生成しているわけではない。Phase 60 の推論意味論を壊さずに、人間が Toda の証明順を読めるよう probe に手書きした presentation-only layer である。
+
+---
+
+# 45. Phase 60 testing / representative probe
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase60_capabilities
+```
+
+最終表示:
+
+```text
+ν₄ ∈ π_7^4
+H(ν₄) = ι₇
+2Eν₄ = E²ν′
+```
+
+provenance:
+
+```text
+ν₄ membership derived = True
+H(ν₄)=ι₇ derived = True
+2Eν₄=E²ν′ derived = True
+final aggregate derived = True
+final aggregate is GIVEN = False
+all final premises are INFERENCE = True
+fixed point = True
+```
+
+literature display:
+
+```text
+Literature statements used
+Used in:
+Statement:
+```
+
+focused final suites:
+
+```text
+test_phase60_toda36_specialization.py       20 passed
+test_phase60_toda48_hopf_parity.py          18 passed
+test_phase60_nu4_whitehead_correction.py     19 passed
+test_phase60_lemma54_integration.py          20 passed
+test_phase60_probe.py                        16 passed
+```
+
+最終 full regression:
+
+```text
+3334 passed in 132.72s
+```
+
+---
+
+# 46. Phase 60 completion boundary
+
+完成:
+
+```text
+Toda (5.4) t≥1 up-to-sign bracket value
+Toda (5.4) t=0 bridge
+Theorem 3.6 Lemma 5.4 specialization
+2Eα*=±E²ν′
+H(α*)=(2s+1)ι₇
+Whitehead correction branches
+ν₄∈π_7^4
+H(ν₄)=ι₇
+2Eν₄=E²ν′
+TodaLemma54Statement
+LiteratureStatement
+reference statement display
+Used in display
+representative probe
+full regression
+```
+
+先取りしない:
+
+```text
+generic Toda-bracket coset algebra
+generic sign solver
+generic divisibility framework
+generic existential witness framework
+generic Whitehead correction algebra
+full Theorem 3.6 formalization
+full Toda (4.8) formalization
+theorem statement repository / search
+Toda Lemma 5.5
+```
+
+---
+
+# 47. 将来の proof narrative generation
+
+Phase 60 で次の4種類の情報が揃った。
+
+```text
+ProofStep / premises
+Expression の構造
+InferenceRule / provenance
+LiteratureStatement
+```
+
+このため将来は proof graph から証明本文を生成する方向へ進める。
+
+目標 pipeline:
+
+```text
+ProofStep graph
+↓
+目的 conclusion へ至る dependency path の選択
+↓
+同種 step の圧縮 / grouping
+↓
+式連鎖の生成
+↓
+利用箇所への literature citation 挿入
+↓
+InferenceRule ごとの narrative template 適用
+↓
+自然言語の接続
+↓
+console / Markdown / LaTeX 出力
+```
+
+将来必要になる可能性のある display metadata:
+
+```text
+premise role
+conclusion role
+step heading
+equation rendering hint
+citation role
+narrative template
+compression / omission hint
+```
+
+ただし current architecture ではこれらを `InferenceRule` にまだ追加しない。Phase 60 の `print_phase60_derivation_chain()` は manual representative であり、自動 proof generator ではない。
+
+generalization 条件:
+
+```text
+複数の concrete proof branch
+で同じ presentation pattern が反復
+↓
+安定した display schema を抽出
+↓
+generic proof narrative generation を実装
+```
+
+proof generation が theorem inference の正しさを変更してはならない。presentation layer は proof semantics から分離する。
+
+---
+
+# 48. 次の設計境界
+
+Phase 60 は完了。
+
+次は:
+
+```text
+Phase 61
+Toda Lemma 5.5 bracket transport
+```
+
+target:
+
+```text
+β∈π_{t+2}(S^m)
+β∘η_{t+2}=0
+t>0
+↓
+{η_{m+2},E³β,η_{t+5}}_3
+contains
+±(E²β∘E^tν₄)
+```
+
+Phase 61 では Phase 60 の:
+
+```text
+TodaLemma54Statement
+α* specialization provenance
+Whitehead correction data
+E[ι₄,ι₄]=0
+```
+
+を再利用し、α* / ν₄ construction を再実装しない。
+
+stable `(G_1;2)=Z/2{η}`、stable `(G_2;2)=Z/2{η²}`、generic coset/sign/divisibility framework は concrete need が生じるまで保留する。

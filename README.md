@@ -29,7 +29,7 @@ The implementation strategy is to formalize only the minimum theorem consequence
 
 # Current status
 
-Completed through Phase 59.
+Completed through Phase 60.
 
 ```text
 Phase 1–27   generic proof / algebra / Toda-bracket foundation
@@ -55,18 +55,19 @@ Phase 56     Toda (5.2) composition isomorphism
 Phase 57     Toda Lemma 5.2 end-to-end integration
 Phase 58     Toda (5.3) ν′ consequence
 Phase 59     Toda Proposition 5.3 finite-dimensional result
+Phase 60     Toda Lemma 5.4 / ν₄ construction and literature-aware provenance
 ```
 
 Current full regression:
 
 ```text
-3177 passed in 123.99s
+3334 passed in 132.72s
 ```
 
 Representative current probe:
 
 ```powershell
-python -m probes.probe_phase59_capabilities
+python -m probes.probe_phase60_capabilities
 ```
 
 ---
@@ -724,6 +725,306 @@ Final full regression:
 3177 passed in 123.99s
 ```
 
+
+---
+
+# Phase 60: Toda Lemma 5.4 / ν₄ construction
+
+Phase 60 proves the finite-dimensional Toda Lemma 5.4 target:
+
+```text
+ν₄ ∈ π_7^4
+H(ν₄) = ι₇
+2Eν₄ = E²ν′
+```
+
+The proof reuses the independently derived Phase 58 and Phase 59 results rather than reintroducing Lemma 5.4 as a given fact.
+
+## Toda (5.4)
+
+Phase 60 first derives the bracket value:
+
+```text
+{η_n,2ι_(n+1),η_(n+1)}_t
+=
+{±E^(n-3)ν′}
+```
+
+for `n≥3` and `0≤t≤n-2`.
+
+For `t≥1`, the indeterminacy is reduced theorem-specifically:
+
+```text
+Toda (4.7) + Proposition 5.3
+↓
+Indeterminacy = <η_n∘η_(n+1)∘η_(n+2)>
+
+Phase 58:
+2ν′=η₃∘η₄∘η₅
+↓
+2E^(n-3)ν′=η_n∘η_(n+1)∘η_(n+2)
+
+↓
+Indeterminacy = <2E^(n-3)ν′>
+```
+
+The inclusion
+
+```text
+E^(n-3)ν′ ∈ {η_n,2ι_(n+1),η_(n+1)}_t
+```
+
+uses the `ν′` bracket definition, Toda Proposition 1.3, and Toda (1.15).
+
+The `t=0` branch uses Toda (3.2) suspension surjectivity together with Toda (1.15). No generic Toda-bracket coset algebra is introduced.
+
+## Theorem 3.6 specialization
+
+Phase 60 specializes Toda Theorem 3.6 to the Lemma 5.4 branch:
+
+```text
+α = η₂
+β = 2ι₃
+t = 1
+```
+
+Using derived order-two information, the specialization produces an element:
+
+```text
+α* ∈ π_7^4
+```
+
+with:
+
+```text
+2Eα* ∈ -{η₅,2ι₆,η₆}_3
+```
+
+Toda (5.4), specialized to `n=5,t=3`, gives:
+
+```text
+{η₅,2ι₆,η₆}_3 = {±E²ν′}
+```
+
+and therefore:
+
+```text
+2Eα* = ±E²ν′
+```
+
+The implementation does not add a generic existential-witness framework or a generic sign solver.
+
+## Hopf invariant parity
+
+Phase 58 gives:
+
+```text
+H(ν′)=η₅
+```
+
+and Proposition 5.1 gives:
+
+```text
+π_6^5=Z/2{η₅}
+```
+
+Together with `2Eα*=±E²ν′`, the Toda (4.8) consequence used in Lemma 5.4 yields:
+
+```text
+H(α*)=(2s+1)ι₇
+```
+
+The symbolic integer `s` is retained in the theorem-specific statement needed by the Whitehead correction. No generic divisibility or parity solver is added.
+
+## Whitehead correction and ν₄
+
+Phase 60 records the Lemma 5.4 Whitehead facts:
+
+```text
+H[ι₄,ι₄]=(-1)^u 2ι₇
+E[ι₄,ι₄]=0
+```
+
+and keeps the two sign branches explicitly.
+
+If:
+
+```text
+2Eα*=+E²ν′
+```
+
+use:
+
+```text
+ν₄=α* - (-1)^u s[ι₄,ι₄]
+```
+
+If:
+
+```text
+2Eα*=-E²ν′
+```
+
+use:
+
+```text
+ν₄=-α* + (-1)^u(s+1)[ι₄,ι₄]
+```
+
+Both branches derive:
+
+```text
+ν₄∈π_7^4
+H(ν₄)=ι₇
+2Eν₄=E²ν′
+```
+
+The final results are integrated into:
+
+```text
+TodaLemma54Statement
+```
+
+and the aggregate itself is an independently derived `ProofRule.INFERENCE` result.
+
+## Literature-aware provenance
+
+Phase 60 adds:
+
+```text
+LiteratureStatement
+```
+
+next to the existing `LiteratureReference` metadata.
+
+A literature statement records:
+
+```text
+reference
+statement text
+```
+
+so the representative probe can display not only which theorem was cited, but also what statement was used.
+
+The Phase 60 probe additionally displays a Phase-specific `Used in:` map, for example:
+
+```text
+[Toda Theorem 3.6]
+Used in:
+  - Phase 60-6: α=η₂, β=2ι₃, t=1 specialization
+  - Phase 60-6: α*∈π_7^4 and 2Eα* bracket consequence
+Statement:
+  ...
+```
+
+The representative probe also contains a proof-style derivation section that displays the mathematical chain in proof order, for example:
+
+```text
+ν′ ∈ {η₃, 2ι₄, η₄}_1
+↓ suspend by E^(n-3)
+E^(n-3)ν′
+∈ E^(n-3){η₃, 2ι₄, η₄}_1
+⊂ (-1)^(n-3){η_n, 2ι_(n+1), η_(n+1)}_(n-2)
+  [Toda Proposition 1.3]
+⊂ (-1)^(n-3){η_n, 2ι_(n+1), η_(n+1)}_t
+  [Toda (1.15), 1 ≤ t ≤ n-2]
+```
+
+This proof-style section is currently hand-authored presentation code in the Phase 60 probe. It is not yet generated automatically from the `ProofStep` graph. The long-term direction is to derive such equation chains and natural-language proof narratives from structured proof data, inference-rule display metadata, and literature statements.
+
+This keeps theorem usage human-readable without introducing a theorem repository or automatic theorem search.
+
+## Phase 60 provenance and tests
+
+Representative probe:
+
+```powershell
+python -m probes.probe_phase60_capabilities
+```
+
+Representative output verifies:
+
+```text
+ν₄ membership derived = True
+H(ν₄)=ι₇ derived = True
+2Eν₄=E²ν′ derived = True
+final aggregate derived = True
+final aggregate is GIVEN = False
+all final premises are INFERENCE = True
+fixed point = True
+```
+
+The probe also prints:
+
+```text
+Literature statements used
+Reference / locator / author / source / year
+Used in: Phase 60-x ...
+Statement: ...
+```
+
+Focused Phase 60 completion tests include:
+
+```text
+tests/test_phase60_toda36_specialization.py            20 passed
+tests/test_phase60_toda48_hopf_parity.py               18 passed
+tests/test_phase60_nu4_whitehead_correction.py          19 passed
+tests/test_phase60_lemma54_integration.py               20 passed
+tests/test_phase60_probe.py                             16 passed
+```
+
+Final full regression:
+
+```text
+3334 passed in 132.72s
+```
+
+## Phase 60 representation boundary
+
+Phase 60 deliberately does not add:
+
+```text
+generic Toda-bracket coset algebra
+generic sign solver
+generic divisibility framework
+generic existential witness framework
+generic Whitehead correction algebra
+full Theorem 3.6 formalization
+full Toda (4.8) formalization
+theorem statement repository / search
+```
+
+These remain deferred until a concrete later proof requires them.
+
+## Future proof narrative generation
+
+The current inference engine already stores the ingredients needed for future proof-text generation:
+
+```text
+ProofStep graph
++ structural Expression objects
++ InferenceRule provenance
++ LiteratureStatement metadata
+```
+
+The intended future direction is:
+
+```text
+ProofStep graph
+↓
+proof-chain selection / compression
+↓
+equation-chain generation
+↓
+citation insertion at the step where it is used
+↓
+rule-specific narrative templates
+↓
+console / Markdown / LaTeX proof output
+```
+
+The Phase 60 `Proof-style derivation` is a manual representative of this intended output, not the automatic generator itself. Generic proof-narrative generation remains deferred until several concrete proof branches reveal a stable display schema.
+
 ---
 
 # Documentation
@@ -738,18 +1039,29 @@ Final full regression:
 
 # Next development boundary
 
-Phase 59 is complete.
+Phase 60 is complete.
 
-The next Phase should inspect the next concrete Toda source statement and its dependencies before choosing a representation or general framework.
+The next target is:
 
 ```text
-next source statement
-↓
-dependency analysis
-↓
-current representation compatibility
-↓
-minimum implementation
+Phase 61
+Toda Lemma 5.5 bracket transport
 ```
 
-Stable `(G_1;2)=Z/2{η}`, stable `(G_2;2)=Z/2{η²}`, a general stable homotopy-group model, generic cyclic-generator transport, and generic normalization remain deferred until a concrete proof branch requires them.
+The intended dependency is:
+
+```text
+Phase 60 Lemma 5.4 provenance
++
+α* bracket inclusion
++
+E[ι₄,ι₄]=0
+↓
+E^tν₄=±E^tα*
+↓
+Toda Lemma 5.5
+```
+
+Phase 61 should reuse the Phase 60 proof objects and must not reimplement the construction of `α*` or `ν₄`.
+
+Stable `(G_1;2)=Z/2{η}`, stable `(G_2;2)=Z/2{η²}`, a general stable homotopy-group model, generic Toda-bracket coset algebra, generic sign solving, and theorem-repository infrastructure remain deferred until a concrete proof branch requires them.

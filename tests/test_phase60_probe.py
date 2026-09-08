@@ -501,3 +501,172 @@ def test_phase60_probe_usage_distinguishes_phase_locations(
   )
 
 
+def test_phase60_probe_output_contains_derivation_chain(
+  capsys,
+):
+  main()
+
+  output = (
+    capsys
+    .readouterr()
+    .out
+  )
+
+  assert (
+    "Proof-style derivation"
+    in output
+  )
+
+  assert (
+    "Phase 60-3: "
+    "Toda (5.4) indeterminacy"
+    in output
+  )
+
+  assert (
+    "Phase 60-4: "
+    "bracket inclusion"
+    in output
+  )
+
+  assert (
+    "Phase 60-5: "
+    "Toda (5.4)"
+    in output
+  )
+
+  assert (
+    "Phase 60-6: "
+    "Theorem 3.6 specialization"
+    in output
+  )
+
+  assert (
+    "Phase 60-7: "
+    "Hopf invariant parity"
+    in output
+  )
+
+  assert (
+    "Phase 60-8: "
+    "Whitehead correction"
+    in output
+  )
+
+
+def test_phase60_probe_output_contains_phase60_4_formula_chain(
+  capsys,
+):
+  main()
+
+  output = (
+    capsys
+    .readouterr()
+    .out
+  )
+
+  assert (
+    "ν′ ∈ {η₃, 2ι₄, η₄}_1"
+    in output
+  )
+
+  assert (
+    "E^(n-3)ν′"
+    in output
+  )
+
+  assert (
+    "∈ E^(n-3)"
+    "{η₃, 2ι₄, η₄}_1"
+    in output
+  )
+
+  assert (
+    "⊂ (-1)^(n-3)"
+    "{η_n, 2ι_(n+1), "
+    "η_(n+1)}_(n-2)"
+    in output
+  )
+
+  assert (
+    "[Toda Proposition 1.3]"
+    in output
+  )
+
+  assert (
+    "⊂ (-1)^(n-3)"
+    "{η_n, 2ι_(n+1), "
+    "η_(n+1)}_t"
+    in output
+  )
+
+  assert (
+    "[Toda (1.15), "
+    "1 ≤ t ≤ n-2]"
+    in output
+  )
+
+  assert (
+    "∈ {η_n, 2ι_(n+1), "
+    "η_(n+1)}_t"
+    in output
+  )
+
+
+def test_phase60_probe_output_contains_full_proof_flow(
+  capsys,
+):
+  main()
+
+  output = (
+    capsys
+    .readouterr()
+    .out
+  )
+
+  assert (
+    "Indeterminacy = <2E^(n-3)ν′>"
+    in output
+  )
+
+  assert (
+    "{η_n, 2ι_(n+1), "
+    "η_(n+1)}_t"
+    in output
+  )
+
+  assert (
+    "= {±E^(n-3)ν′}"
+    in output
+  )
+
+  assert (
+    "∃ α* ∈ π_7^4"
+    in output
+  )
+
+  assert (
+    "2Eα* = ±E²ν′"
+    in output
+  )
+
+  assert (
+    "H(α*) = (2s+1)ι₇"
+    in output
+  )
+
+  assert (
+    "ν₄ ∈ π_7^4"
+    in output
+  )
+
+  assert (
+    "H(ν₄) = ι₇"
+    in output
+  )
+
+  assert (
+    "2Eν₄ = E²ν′"
+    in output
+  )
+

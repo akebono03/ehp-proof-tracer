@@ -1551,3 +1551,703 @@ minimum implementation
 ```
 
 stable `(G_1;2)=Z/2{η}` と stable `(G_2;2)=Z/2{η²}` は引き続き deferred。
+
+---
+
+# Phase 60：Toda Lemma 5.4 / ν₄ construction
+
+対象:
+
+```text
+ν₄∈π_7^4
+H(ν₄)=ι₇
+2Eν₄=E²ν′
+```
+
+主要 dependency:
+
+```text
+Phase 58:
+ν′∈π_6^3
+H(ν′)=η₅
+2ν′=η₃∘η₄∘η₅
+
+Phase 59:
+π_{n+2}^n=Z/2{η_n²}
+```
+
+---
+
+## Phase 60-1：dependency / current compatibility analysis
+
+確認:
+
+```text
+TodaBracket
+TodaBracketMembershipStatement
+WhiteheadProduct
+ScalarSymbol / ScalarSum / ScalarProduct
+HomotopyGroupMembershipStatement
+Phase 58 ν′ provenance
+Phase 59 Proposition 5.3 aggregate
+```
+
+不足を theorem-specific な最小 statement に限定する方針を決定。
+
+追加しない:
+
+```text
+generic Toda-bracket value-set algebra
+generic coset algebra
+generic sign solver
+generic existential witness framework
+generic Whitehead correction algebra
+```
+
+production code:
+
+```text
+変更なし
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 60-2：Toda (5.4) bracket up-to-sign statement
+
+追加:
+
+```text
+Toda54BracketUpToSignStatement
+```
+
+意味:
+
+```text
+bracket={±positive_value}
+```
+
+inference rule はまだ追加せず structural semantics のみ導入。
+
+focused:
+
+```text
+7 passed
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 60-3：Toda (5.4) t≥1 indeterminacy
+
+追加:
+
+```text
+Toda54IndeterminacyGeneratorStatement
+
+toda_54_t_ge_1_indeterminacy_eta_cube_inference_rule()
+toda_54_nu_prime_triple_eta_transport_inference_rule()
+toda_54_indeterminacy_double_nu_prime_generator_inference_rule()
+```
+
+chain:
+
+```text
+Toda (4.7) + Proposition 5.3
+↓
+Indeterminacy=<η_nη_(n+1)η_(n+2)>
+
+Phase 58:
+2ν′=η₃η₄η₅
+↓
+2E^(n-3)ν′=η_nη_(n+1)η_(n+2)
+
+↓
+Indeterminacy=<2E^(n-3)ν′>
+```
+
+focused:
+
+```text
+19 passed
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 60-4：E^(n-3)ν′ bracket inclusion
+
+追加:
+
+```text
+toda_54_nu_prime_bracket_inclusion_inference_rule()
+```
+
+Phase 58 の derived `Toda53NuPrimeBracketSpecializationStatement` を再利用し:
+
+```text
+n≥3
+1≤t≤n-2
+↓
+E^(n-3)ν′
+∈
+{η_n,2ι_(n+1),η_(n+1)}_t
+```
+
+を導出。
+
+generic bracket specialization framework は追加しない。
+
+focused:
+
+```text
+17 passed
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 60-5：Toda (5.4) completion / t=0 bridge
+
+追加:
+
+```text
+toda_54_t_ge_1_up_to_sign_inference_rule()
+toda_32_phase60_suspension_surjective_inference_rule()
+toda_54_t0_bridge_inference_rule()
+```
+
+`t≥1`:
+
+```text
+Indeterminacy=<2E^(n-3)ν′>
++
+E^(n-3)ν′∈bracket
+↓
+bracket={±E^(n-3)ν′}
+```
+
+`t=0`:
+
+```text
+Toda (3.2) suspension surjectivity
++
+Toda (1.15)
+↓
+unindexed bracket={±E^(n-3)ν′}
+```
+
+focused:
+
+```text
+21 passed
+```
+
+全体回帰:
+
+```text
+3241 passed
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 60-6：Theorem 3.6 specialization
+
+追加 statement:
+
+```text
+Toda36Lemma54SpecializationStatement
+TodaLemma54DoubleSuspensionUpToSignStatement
+```
+
+追加 rule:
+
+```text
+toda_lemma54_eta6_twice_zero_inference_rule()
+toda_36_lemma54_specialization_inference_rule()
+toda_54_n5_t3_specialization_inference_rule()
+toda_lemma54_double_suspension_up_to_sign_inference_rule()
+```
+
+specialization:
+
+```text
+α=η₂
+β=2ι₃
+n=2, k=1, h=1, m=3, ell=1, t=1
+```
+
+導出:
+
+```text
+2η₆=0
+2η₃=0
+↓
+α*∈π_7^4
+-2Eα*∈{η₅,2ι₆,η₆}_3
+```
+
+Toda (5.4), `n=5,t=3`:
+
+```text
+{η₅,2ι₆,η₆}_3={±E²ν′}
+```
+
+したがって:
+
+```text
+2Eα*=±E²ν′
+```
+
+focused:
+
+```text
+20 passed
+```
+
+最終全体回帰:
+
+```text
+3261 passed in 87.54s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 60-7：Hopf invariant / parity consequence
+
+追加:
+
+```text
+TodaLemma54HopfOddMultipleStatement
+
+toda_lemma54_pi6_5_finite_cyclic_inference_rule()
+toda_48_lemma54_hopf_odd_multiple_inference_rule()
+```
+
+chain:
+
+```text
+π_6^5=Z/2{η₅}
+H(ν′)=η₅
+2Eα*=±E²ν′
+↓ Toda (4.8) minimum consequence
+H(α*)=(2s+1)ι₇
+```
+
+`s` は Phase 60-8 の Whitehead correction 用に first-class に保持。
+
+generic divisibility / parity solver は追加しない。
+
+focused:
+
+```text
+18 passed
+```
+
+最終全体回帰:
+
+```text
+3279 passed in 100.40s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 60-8：Whitehead correction / ν₄ construction
+
+追加 statement:
+
+```text
+TodaLemma54WhiteheadCorrectionDataStatement
+TodaLemma54Nu4BranchFormula
+TodaLemma54Nu4ConstructionStatement
+```
+
+追加 rule:
+
+```text
+toda_lemma54_whitehead_correction_data_inference_rule()
+toda_lemma54_nu4_piecewise_construction_inference_rule()
+toda_lemma54_nu4_membership_inference_rule()
+toda_lemma54_nu4_hopf_inference_rule()
+toda_lemma54_nu4_double_suspension_inference_rule()
+```
+
+Whitehead data:
+
+```text
+H[ι₄,ι₄]=(-1)^u2ι₇
+E[ι₄,ι₄]=0
+```
+
+positive branch:
+
+```text
+ν₄=α* - (-1)^u s[ι₄,ι₄]
+```
+
+negative branch:
+
+```text
+ν₄=-α* + (-1)^u(s+1)[ι₄,ι₄]
+```
+
+両 branch から:
+
+```text
+ν₄∈π_7^4
+H(ν₄)=ι₇
+2Eν₄=E²ν′
+```
+
+を derived。
+
+focused:
+
+```text
+19 passed
+```
+
+最終全体回帰:
+
+```text
+3298 passed in 109.14s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 60-9：Lemma 5.4 integration / literature provenance
+
+`proof.py` に追加:
+
+```text
+LiteratureStatement
+```
+
+field:
+
+```text
+reference: LiteratureReference
+statement: str
+```
+
+`toda_rules.py` に追加:
+
+```text
+TodaLemma54Statement
+
+toda_lemma54_literature_statements()
+toda_lemma54_integration_inference_rule()
+```
+
+最終 aggregate premise:
+
+```text
+ν₄∈π_7^4    INFERENCE
+H(ν₄)=ι₇    INFERENCE
+2Eν₄=E²ν′   INFERENCE
+```
+
+最終 aggregate:
+
+```text
+TodaLemma54Statement
+ProofRule.INFERENCE
+```
+
+Lemma 5.4 自身を `GIVEN` として再投入しない。
+
+literature metadata には Phase 60 で利用した:
+
+```text
+Toda Proposition 1.3
+Toda (1.15)
+Toda (3.2)
+Toda Theorem 3.6
+Toda (4.7)
+Toda Proposition 5.3
+Toda (5.3)
+Toda (5.4)
+Toda (4.8)
+Toda Lemma 5.4 proof Whitehead facts
+```
+
+の statement text を保持。
+
+focused:
+
+```text
+20 passed
+```
+
+最終全体回帰:
+
+```text
+3318 passed in 119.96s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 60-10：representative probe / full regression
+
+追加:
+
+```text
+probes/probe_phase60_capabilities.py
+tests/test_phase60_probe.py
+```
+
+probe result:
+
+```text
+ν₄ ∈ π_7^4
+H(ν₄) = ι₇
+2Eν₄ = E²ν′
+```
+
+provenance display:
+
+```text
+ν₄ membership derived = True
+H(ν₄)=ι₇ derived = True
+2Eν₄=E²ν′ derived = True
+final aggregate derived = True
+final aggregate is GIVEN = False
+all final premises are INFERENCE = True
+fixed point = True
+```
+
+literature display:
+
+```text
+Reference / Locator / Author / Source / Year
+Statement
+```
+
+さらに Phase 60-10 probe improvement として:
+
+```text
+phase60_literature_usage()
+```
+
+を probe-local に追加し:
+
+```text
+Used in:
+  - Phase 60-3 ...
+  - Phase 60-4 ...
+  ...
+```
+
+を表示可能にした。
+
+`LiteratureStatement` schema は変更せず、usage は representative display metadata に限定。
+
+さらに proof-style derivation improvement として:
+
+```text
+print_phase60_derivation_chain()
+```
+
+を probe に追加。
+
+表示内容:
+
+```text
+Phase 60-3  indeterminacy
+Phase 60-4  ν′ bracket inclusion の式連鎖
+Phase 60-5  Toda (5.4) completion / t=0
+Phase 60-6  Theorem 3.6 specialization
+Phase 60-7  Hopf parity
+Phase 60-8  Whitehead correction / ν₄ construction
+```
+
+特に Phase 60-4 は:
+
+```text
+ν′ ∈ {η₃,2ι₄,η₄}_1
+↓
+E^(n-3)ν′
+∈ E^(n-3){η₃,2ι₄,η₄}_1
+⊂ (-1)^(n-3){η_n,2ι_(n+1),η_(n+1)}_(n-2)
+  [Toda Proposition 1.3]
+⊂ (-1)^(n-3){η_n,2ι_(n+1),η_(n+1)}_t
+  [Toda (1.15)]
+```
+
+を証明本文風に表示する。
+
+これは automatic proof narrative generation ではなく、Phase 60 probe に hand-authored した presentation-only code。将来 ProofStep graph からこの形式を自動生成する構想を roadmap / design に追加した。
+
+probe focused:
+
+```text
+16 passed
+```
+
+最終全体回帰:
+
+```text
+3334 passed in 132.72s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 60-11：Phase 60 completion
+
+Phase 60 完成 capability:
+
+```text
+Toda (5.4) t≥1 / t=0
+Theorem 3.6 Lemma 5.4 specialization
+2Eα*=±E²ν′
+H(α*)=(2s+1)ι₇
+Whitehead correction branches
+ν₄∈π_7^4
+H(ν₄)=ι₇
+2Eν₄=E²ν′
+TodaLemma54Statement
+LiteratureStatement
+literature statement / usage display
+Proof-style derivation display
+representative probe
+full regression
+```
+
+generic inference engine の inference machinery:
+
+```text
+変更なし
+```
+
+追加しなかったもの:
+
+```text
+generic Toda-bracket coset algebra
+generic sign solver
+generic divisibility framework
+generic existential witness framework
+generic Whitehead correction algebra
+full Theorem 3.6 formalization
+full Toda (4.8) formalization
+theorem statement repository / search
+Toda Lemma 5.5
+```
+
+最終全体回帰:
+
+```text
+3334 passed in 132.72s
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase60_capabilities
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 60 completion boundary
+
+最終 capability:
+
+```text
+ν₄∈π_7^4
+H(ν₄)=ι₇
+2Eν₄=E²ν′
+```
+
+文献 provenance:
+
+```text
+何を参照したか
++
+どこで使ったか
++
+その statement は何か
+```
+
+を representative probe で確認可能。
+
+証明表示:
+
+```text
+Result
+↓
+Proof-style derivation
+↓
+Machine provenance
+↓
+Literature / Used in / Statement
+```
+
+を representative probe で確認可能。
+
+現在の proof-style derivation は自動生成ではない。将来は:
+
+```text
+ProofStep graph
++ Expression
++ InferenceRule provenance
++ LiteratureStatement
+↓
+automatic equation chain
+↓
+automatic citation placement
+↓
+narrative template
+↓
+Markdown / LaTeX / console proof
+```
+
+へ発展させる方針を追加した。
+
+次:
+
+```text
+Phase 61
+Toda Lemma 5.5 bracket transport
+```
+
+Phase 61 では Phase 60 の provenance を再利用し、α* / ν₄ construction を再実装しない。
+

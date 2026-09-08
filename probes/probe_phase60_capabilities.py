@@ -57,6 +57,332 @@ def print_phase60_results(
   )
 
 
+def print_phase60_derivation_chain():
+  print()
+  print_separator()
+  print(
+    "Proof-style derivation"
+  )
+  print_separator()
+  print()
+
+  print(
+    "Phase 60-3: "
+    "Toda (5.4) indeterminacy"
+  )
+  print()
+
+  print(
+    "  Indeterminacy"
+  )
+  print(
+    "  = η_n∘π_(n+3)^(n+1)"
+  )
+  print(
+    "    + π_(n+2)^n∘η_(n+2)"
+  )
+  print(
+    "    [Toda (4.7)]"
+  )
+  print()
+  print(
+    "  = <η_n∘η_(n+1)∘η_(n+2)>"
+  )
+  print(
+    "    [Toda Proposition 5.3]"
+  )
+  print()
+  print(
+    "  = <2E^(n-3)ν′>"
+  )
+  print(
+    "    [Toda (5.3)]"
+  )
+  print()
+
+  print(
+    "Phase 60-4: "
+    "bracket inclusion"
+  )
+  print()
+
+  print(
+    "  ν′ ∈ {η₃, 2ι₄, η₄}_1"
+  )
+  print(
+    "    [definition of ν′]"
+  )
+  print()
+  print(
+    "  ↓ suspend by E^(n-3)"
+  )
+  print()
+  print(
+    "  E^(n-3)ν′"
+  )
+  print(
+    "  ∈ E^(n-3)"
+    "{η₃, 2ι₄, η₄}_1"
+  )
+  print()
+  print(
+    "  ⊂ (-1)^(n-3)"
+    "{η_n, 2ι_(n+1), "
+    "η_(n+1)}_(n-2)"
+  )
+  print(
+    "    [Toda Proposition 1.3]"
+  )
+  print()
+  print(
+    "  ⊂ (-1)^(n-3)"
+    "{η_n, 2ι_(n+1), "
+    "η_(n+1)}_t"
+  )
+  print(
+    "    [Toda (1.15), "
+    "1 ≤ t ≤ n-2]"
+  )
+  print()
+  print(
+    "  Therefore,"
+  )
+  print()
+  print(
+    "  E^(n-3)ν′"
+  )
+  print(
+    "  ∈ {η_n, 2ι_(n+1), "
+    "η_(n+1)}_t"
+  )
+  print(
+    "  for 1 ≤ t ≤ n-2."
+  )
+  print()
+
+  print(
+    "Phase 60-5: "
+    "Toda (5.4)"
+  )
+  print()
+
+  print(
+    "  E^(n-3)ν′ belongs to the bracket"
+  )
+  print(
+    "  +"
+  )
+  print(
+    "  Indeterminacy = <2E^(n-3)ν′>"
+  )
+  print()
+  print(
+    "  ↓"
+  )
+  print()
+  print(
+    "  {η_n, 2ι_(n+1), "
+    "η_(n+1)}_t"
+  )
+  print(
+    "  = {±E^(n-3)ν′}"
+  )
+  print(
+    "  for 1 ≤ t ≤ n-2."
+  )
+  print()
+
+  print(
+    "  Toda (3.2) gives"
+  )
+  print(
+    "  E: π_(n+2)^n "
+    "→ π_(n+3)^(n+1)"
+  )
+  print(
+    "  surjective for n ≥ 3."
+  )
+  print()
+  print(
+    "  Together with Toda (1.15),"
+  )
+  print(
+    "  the same formula also holds "
+    "for t=0."
+  )
+  print()
+
+  print(
+    "  Therefore,"
+  )
+  print()
+  print(
+    "  {η_n, 2ι_(n+1), "
+    "η_(n+1)}_t"
+  )
+  print(
+    "  = {±E^(n-3)ν′}"
+  )
+  print(
+    "  for n ≥ 3, "
+    "0 ≤ t ≤ n-2."
+  )
+  print()
+
+  print(
+    "Phase 60-6: "
+    "Theorem 3.6 specialization"
+  )
+  print()
+
+  print(
+    "  α = η₂"
+  )
+  print(
+    "  β = 2ι₃"
+  )
+  print(
+    "  t = 1"
+  )
+  print()
+  print(
+    "  2η₃ = 0,"
+  )
+  print(
+    "  2η₆ = 0"
+  )
+  print()
+  print(
+    "  ↓ Toda Theorem 3.6"
+  )
+  print()
+  print(
+    "  ∃ α* ∈ π_7^4"
+  )
+  print()
+  print(
+    "  2Eα*"
+  )
+  print(
+    "  ∈ -{η₅, 2ι₆, η₆}_3"
+  )
+  print()
+
+  print(
+    "  Toda (5.4), "
+    "n=5, t=3:"
+  )
+  print()
+  print(
+    "  {η₅, 2ι₆, η₆}_3"
+  )
+  print(
+    "  = {±E²ν′}"
+  )
+  print()
+  print(
+    "  ↓"
+  )
+  print()
+  print(
+    "  2Eα* = ±E²ν′"
+  )
+  print()
+
+  print(
+    "Phase 60-7: "
+    "Hopf invariant parity"
+  )
+  print()
+
+  print(
+    "  H(ν′) = η₅"
+  )
+  print()
+  print(
+    "  π_6^5 = Z/2{η₅}"
+  )
+  print()
+  print(
+    "  2Eα* = ±E²ν′"
+  )
+  print()
+  print(
+    "  ↓ Toda (4.8)"
+  )
+  print()
+  print(
+    "  H(α*) = (2s+1)ι₇"
+  )
+  print()
+
+  print(
+    "Phase 60-8: "
+    "Whitehead correction"
+  )
+  print()
+
+  print(
+    "  H[ι₄,ι₄] = (-1)^u 2ι₇"
+  )
+  print(
+    "  E[ι₄,ι₄] = 0"
+  )
+  print()
+
+  print(
+    "  If"
+  )
+  print(
+    "  2Eα* = +E²ν′,"
+  )
+  print(
+    "  define"
+  )
+  print()
+  print(
+    "  ν₄"
+  )
+  print(
+    "  = α* "
+    "- (-1)^u s[ι₄,ι₄]."
+  )
+  print()
+
+  print(
+    "  If"
+  )
+  print(
+    "  2Eα* = -E²ν′,"
+  )
+  print(
+    "  define"
+  )
+  print()
+  print(
+    "  ν₄"
+  )
+  print(
+    "  = -α* "
+    "+ (-1)^u(s+1)[ι₄,ι₄]."
+  )
+  print()
+
+  print(
+    "  In either case,"
+  )
+  print()
+  print(
+    "  ν₄ ∈ π_7^4"
+  )
+  print(
+    "  H(ν₄) = ι₇"
+  )
+  print(
+    "  2Eν₄ = E²ν′"
+  )
+
+
 def print_phase60_provenance(
   representative,
 ):
@@ -451,6 +777,8 @@ def main():
   print_phase60_results(
     representative
   )
+
+  print_phase60_derivation_chain()
 
   print_phase60_provenance(
     representative

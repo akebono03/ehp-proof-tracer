@@ -2,7 +2,7 @@
 
 この文書は EHP Proof Tracer の主要 Python module と、その責務・主要 class / function・探索方法をまとめる。
 
-対象は **Phase 59 completion 時点**。
+対象は **Phase 60 completion 時点**。
 
 この文書は全 API を機械的に列挙する reference ではない。目的は:
 
@@ -235,6 +235,45 @@ Phase 58 の representative input:
 ```
 
 が必要な場合。
+
+## Literature metadata
+
+### `LiteratureReference`
+
+文献の所在を構造化する。
+
+代表 field:
+
+```text
+label
+author
+title
+year
+locator
+```
+
+### `LiteratureStatement`
+
+Phase 60-9 で追加。
+
+```text
+reference: LiteratureReference
+statement: str
+```
+
+責務:
+
+```text
+LiteratureReference
+= どの文献のどこか
+
+LiteratureStatement
+= そこで利用する数学 statement
+```
+
+これは metadata object であり、statement text を generic inference engine が自動適用することはない。
+
+Phase 60 representative probe の `Used in:` は `LiteratureStatement` の field ではなく probe-local display metadata。
 
 ## ここに追加しないもの
 
@@ -954,6 +993,156 @@ stable homotopy-group model
 
 ---
 
+
+## 10.8 Phase 60：Toda Lemma 5.4 / ν₄ construction
+
+### Toda (5.4) statement / indeterminacy
+
+主要 statement:
+
+```text
+Toda54BracketUpToSignStatement
+Toda54IndeterminacyGeneratorStatement
+```
+
+主要 rule:
+
+```text
+toda_54_t_ge_1_indeterminacy_eta_cube_inference_rule()
+toda_54_nu_prime_triple_eta_transport_inference_rule()
+toda_54_indeterminacy_double_nu_prime_generator_inference_rule()
+toda_54_nu_prime_bracket_inclusion_inference_rule()
+toda_54_t_ge_1_up_to_sign_inference_rule()
+toda_32_phase60_suspension_surjective_inference_rule()
+toda_54_t0_bridge_inference_rule()
+```
+
+final symbolic result:
+
+```text
+{η_n,2ι_(n+1),η_(n+1)}_t
+=
+{±E^(n-3)ν′}
+```
+
+`t=0` は unindexed `TodaBracket` で保持する。
+
+### Theorem 3.6 specialization
+
+主要 statement:
+
+```text
+Toda36Lemma54SpecializationStatement
+TodaLemma54DoubleSuspensionUpToSignStatement
+```
+
+主要 rule:
+
+```text
+toda_lemma54_eta6_twice_zero_inference_rule()
+toda_36_lemma54_specialization_inference_rule()
+toda_54_n5_t3_specialization_inference_rule()
+toda_lemma54_double_suspension_up_to_sign_inference_rule()
+```
+
+final:
+
+```text
+α*∈π_7^4
+2Eα*=±E²ν′
+```
+
+### Hopf parity
+
+statement:
+
+```text
+TodaLemma54HopfOddMultipleStatement
+```
+
+rule:
+
+```text
+toda_lemma54_pi6_5_finite_cyclic_inference_rule()
+toda_48_lemma54_hopf_odd_multiple_inference_rule()
+```
+
+意味:
+
+```text
+H(α*)=(2s+1)ι₇
+```
+
+`parameter=s` を Whitehead correction へ渡す。
+
+### Whitehead correction
+
+statement:
+
+```text
+TodaLemma54WhiteheadCorrectionDataStatement
+TodaLemma54Nu4BranchFormula
+TodaLemma54Nu4ConstructionStatement
+```
+
+rule:
+
+```text
+toda_lemma54_whitehead_correction_data_inference_rule()
+toda_lemma54_nu4_piecewise_construction_inference_rule()
+toda_lemma54_nu4_membership_inference_rule()
+toda_lemma54_nu4_hopf_inference_rule()
+toda_lemma54_nu4_double_suspension_inference_rule()
+```
+
+final:
+
+```text
+ν₄∈π_7^4
+H(ν₄)=ι₇
+2Eν₄=E²ν′
+```
+
+### Lemma 5.4 aggregate
+
+statement:
+
+```text
+TodaLemma54Statement
+```
+
+helper / rule:
+
+```text
+toda_lemma54_literature_statements()
+toda_lemma54_integration_inference_rule()
+```
+
+aggregate は Phase 60-8 の3 derived result のみを premise とする。
+
+```text
+membership        INFERENCE
+Hopf relation     INFERENCE
+double suspension INFERENCE
+↓
+TodaLemma54Statement INFERENCE
+```
+
+### Phase 60 で追加しないもの
+
+```text
+generic Toda-bracket coset algebra
+generic sign solver
+generic divisibility framework
+generic existential witness framework
+generic Whitehead correction algebra
+full Theorem 3.6 formalization
+full Toda (4.8) formalization
+theorem statement repository / search
+```
+
+---
+
 # 11. probes/
 
 ## 役割
@@ -982,6 +1171,7 @@ probes/probe_phase56_capabilities.py
 probes/probe_phase57_capabilities.py
 probes/probe_phase58_capabilities.py
 probes/probe_phase59_capabilities.py
+probes/probe_phase60_capabilities.py
 ```
 
 Phase 58:
@@ -1012,6 +1202,88 @@ fixed-point-safe stages complete = True
 composition propagation one-shot = True
 shared raw specialization = True
 ```
+
+---
+
+
+Phase 60:
+
+```powershell
+python -m probes.probe_phase60_capabilities
+```
+
+確認:
+
+```text
+ν₄ ∈ π_7^4
+H(ν₄) = ι₇
+2Eν₄ = E²ν′
+```
+
+provenance:
+
+```text
+final aggregate derived = True
+final aggregate is GIVEN = False
+all final premises are INFERENCE = True
+fixed point = True
+```
+
+literature:
+
+```text
+Reference / Locator / Author / Source / Year
+Used in: Phase 60-x ...
+Statement: ...
+```
+
+`phase60_literature_usage()` は probe-local display mapping であり production theorem model ではない。
+
+### `print_phase60_derivation_chain()`
+
+Phase 60-10 proof-style derivation improvement で追加。
+
+責務:
+
+```text
+Phase 60-3〜8 の proof flow を
+Toda の証明本文に近い順序で表示する
+```
+
+代表表示:
+
+```text
+Phase 60-4: bracket inclusion
+
+ν′ ∈ {η₃,2ι₄,η₄}_1
+↓
+E^(n-3)ν′
+∈ E^(n-3){η₃,2ι₄,η₄}_1
+⊂ (-1)^(n-3){η_n,2ι_(n+1),η_(n+1)}_(n-2)
+  [Toda Proposition 1.3]
+⊂ (-1)^(n-3){η_n,2ι_(n+1),η_(n+1)}_t
+  [Toda (1.15)]
+```
+
+重要な境界:
+
+```text
+この関数は presentation-only
+proof semantics を生成しない
+ProofStep graph から自動生成していない
+```
+
+current `main()` display order:
+
+```text
+Result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Completion boundary
+```
+
+将来は `ProofStep` / `Expression` / `InferenceRule` / `LiteratureStatement` から同種の表示を自動生成する proof narrative generator を検討する。current Phase 60 code をその generic framework と誤認しないこと。
 
 ---
 
@@ -1063,6 +1335,29 @@ Phase 59 completion regression:
 
 ```text
 3177 passed in 123.99s
+```
+
+---
+
+
+Phase 60 focused suites:
+
+```text
+tests/test_phase60_toda54_bracket_statement.py
+tests/test_phase60_toda54_indeterminacy.py
+tests/test_phase60_toda54_bracket_inclusion.py
+tests/test_phase60_toda54_t0_bridge.py
+tests/test_phase60_toda36_specialization.py
+tests/test_phase60_toda48_hopf_parity.py
+tests/test_phase60_nu4_whitehead_correction.py
+tests/test_phase60_lemma54_integration.py
+tests/test_phase60_probe.py
+```
+
+Phase 60 completion full regression:
+
+```text
+3334 passed in 132.72s
 ```
 
 ---
@@ -1240,30 +1535,107 @@ execution-scope 上の重要な注意が増えた
 
 ---
 
-# 18. Phase 60 以降で最初に確認する場所
+# 18. 将来 proof narrative generation で確認する場所
 
-Phase 59 は完了。
+current manual representative:
 
-次の theorem target は source dependency を確認してから確定する。
+```text
+probes/probe_phase60_capabilities.py
+  print_phase60_derivation_chain()
+  phase60_literature_usage()
+```
+
+将来 generic generator を検討するときの主要 input:
+
+```text
+proof.py
+  ProofStep
+  InferenceRule
+  LiteratureReference
+  LiteratureStatement
+
+expression.py
+  Expression family
+
+toda_rules.py / domain rules
+  theorem-specific provenance
+  rule descriptions
+
+probes/
+  concrete human-readable output examples
+```
+
+候補 pipeline:
+
+```text
+ProofStep graph
+↓
+path extraction
+↓
+step grouping / compression
+↓
+equation rendering
+↓
+citation insertion
+↓
+narrative template
+↓
+console / Markdown / LaTeX
+```
+
+複数 Phase で display pattern が安定するまでは専用 probe 表示を優先する。
+
+---
+
+# 19. Phase 61 で最初に確認する場所
+
+Phase 60 は完了。
+
+Phase 61 target:
+
+```text
+Toda Lemma 5.5 bracket transport
+```
 
 最初に確認:
 
 ```text
 Toda source material
-  Proposition 5.3 直後の concrete statement / proof
+  Lemma 5.5 statement / proof
 
 toda_rules.py
-  Phase 59 aggregate / η-square bridge / EHP chain
+  TodaLemma54Statement
+  Toda36Lemma54SpecializationStatement
+  TodaLemma54WhiteheadCorrectionDataStatement
+  Phase 60 bracket / α* / ν₄ rule family
+
+proof.py
+  LiteratureReference
+  LiteratureStatement
+  provenance machinery
+
+probes/probe_phase60_capabilities.py
+  Phase 60 end-to-end result
+  literature statement / usage display
+
+tests/test_phase60_*.py
+  Phase 60 structural / provenance regression
 
 docs/roadmap.md
-  deferred generalization と concrete branch の境界
-
-probes/probe_phase59_capabilities.py
-  Phase 59 end-to-end capability / provenance
-
-tests/test_phase59_*.py
-  branch-specific structural / provenance regression
+  Phase 61 dependency / deferred generalization boundary
 ```
+
+Phase 61 では:
+
+```text
+Phase 60 provenance
+↓
+E^tν₄=±E^tα*
+↓
+Lemma 5.5 bracket inclusion
+```
+
+の minimum bridge を先に調べる。
 
 引き続き:
 
