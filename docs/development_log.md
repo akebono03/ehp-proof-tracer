@@ -2251,3 +2251,444 @@ Toda Lemma 5.5 bracket transport
 
 Phase 61 では Phase 60 の provenance を再利用し、α* / ν₄ construction を再実装しない。
 
+
+
+---
+
+# Phase 61：Toda Lemma 5.5 bracket transport
+
+対象:
+
+```text
+β∈π_(t+2)(S^m)
+β∘η_(t+2)=0
+t>0
+↓
+{η_(m+2),E³β,η_(t+5)}_3
+contains
+±(E²β∘E^tν₄)
+```
+
+Phase 60 の `α*` / `ν₄` provenance を再利用し、Lemma 5.4 proof は再実装しない。
+
+## Phase 61-1：statement / dependency / current compatibility analysis
+
+確認:
+
+```text
+HomotopyGroupMembershipStatement
+Composition
+IteratedSuspension
+TodaBracket(index=3)
+ScalarGreaterEqualStatement
+```
+
+で Lemma 5.5 の hypothesis / target を表現可能。
+
+不足は theorem-specific に:
+
+```text
+α* bracket inclusion
+E^tν₄=±E^tα*
+α*→ν₄ transport
+final aggregate
+```
+
+へ限定。
+
+production code:
+
+```text
+変更なし
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 61-2：minimum statement semantics
+
+追加:
+
+```text
+TodaLemma55BracketContainsUpToSignStatement
+```
+
+意味:
+
+```text
+bracket contains x or -x
+```
+
+Phase 60 の `Toda54BracketUpToSignStatement` の `{±x}` value-set semantics とは分離。
+
+追加 test:
+
+```text
+tests/test_phase61_lemma55_statement.py
+```
+
+focused:
+
+```text
+8 passed
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 61-3：α* bracket inclusion consequence
+
+Phase 60 の derived `Toda36Lemma54SpecializationStatement` を provenance anchor として再利用。
+
+推論:
+
+```text
+β∈π_(t+2)(S^m)
+β∘η_(t+2)=0
+t≥1
++
+derived α*
+↓
+{η_(m+2),E³β,η_(t+5)}_3
+contains
+±(E²β∘E^tα*)
+```
+
+追加:
+
+```text
+toda_lemma55_alpha_star_bracket_inclusion_inference_rule()
+```
+
+focused:
+
+```text
+13 passed
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 61-4：ν₄ suspension correction bridge
+
+Phase 60 `TodaLemma54Nu4ConstructionStatement` の two branches と:
+
+```text
+E[ι₄,ι₄]=0
+```
+
+を再利用。
+
+追加:
+
+```text
+TodaLemma55SuspensionUpToSignStatement
+toda_lemma55_nu4_suspension_correction_inference_rule()
+```
+
+推論:
+
+```text
+t≥1
+↓
+E^tν₄=±E^tα*
+```
+
+focused:
+
+```text
+16 passed
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 61-5：α* → ν₄ composition bridge
+
+入力:
+
+```text
+bracket contains ±(E²β∘E^tα*)
+E^tν₄=±E^tα*
+```
+
+結論:
+
+```text
+{η_(m+2),E³β,η_(t+5)}_3
+contains
+±(E²β∘E^tν₄)
+```
+
+追加:
+
+```text
+toda_lemma55_alpha_star_to_nu4_composition_inference_rule()
+```
+
+generic up-to-sign transitivity は追加しない。
+
+focused:
+
+```text
+14 passed
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 61-6：Lemma 5.5 final aggregate / literature provenance
+
+追加:
+
+```text
+TodaLemma55Statement
+toda_lemma55_literature_statements()
+toda_lemma55_integration_inference_rule()
+```
+
+aggregate は:
+
+```text
+nu4
+lemma54_statement
+beta_membership
+beta_eta_zero_relation
+t_range
+bracket_inclusion
+literature_statements
+```
+
+を保持。
+
+Phase 60 `TodaLemma54Statement` を derived premise として直接要求し、Lemma 5.4 の ν₄ と Lemma 5.5 final inclusion の ν₄ を一致させる。
+
+Phase 61 direct literature:
+
+```text
+Toda Lemma 5.5
+Toda Lemma 5.5 proof
+```
+
+Phase 60 literature は nested `lemma54_statement` 経由で維持。
+
+focused:
+
+```text
+20 passed
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 61-7：applicability / provenance regression
+
+production code:
+
+```text
+変更なし
+```
+
+追加:
+
+```text
+tests/test_phase61_lemma55_applicability_provenance.py
+```
+
+reject を確認:
+
+```text
+wrong β group
+wrong β∘η premise
+t≥0
+α* representative を final に戻す
+Lemma 5.4 aggregate を GIVEN に差し替える
+final inclusion を GIVEN に差し替える
+```
+
+provenance reachability:
+
+```text
+Phase 61-5 → Phase 61-3 / 61-4
+Phase 61-3 → Phase 60 Theorem 3.6
+Phase 61-4 → Phase 60 ν₄ construction
+Phase 61-6 → Phase 60 Lemma 5.4 aggregate
+```
+
+acyclicity も確認。
+
+focused:
+
+```text
+15 passed
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 61-8：representative probe
+
+追加:
+
+```text
+probes/probe_phase61_capabilities.py
+tests/test_phase61_probe.py
+```
+
+表示:
+
+```text
+Result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Phase 61 completion boundary
+```
+
+representative output:
+
+```text
+{η_(m+2), E³β, η_(t+5)}_3
+contains
+±(E²β∘E^tν₄)
+```
+
+provenance:
+
+```text
+Lemma 5.4 aggregate derived = True
+alpha-star bracket inclusion derived = True
+E^tν₄=±E^tα* derived = True
+final ν₄ bracket inclusion derived = True
+final aggregate derived = True
+final aggregate is GIVEN = False
+theorem dependencies are INFERENCE = True
+Lemma 5.5 hypotheses remain GIVEN = True
+fixed point = True
+```
+
+probe test:
+
+```text
+16 passed
+```
+
+Phase 60 probe regression:
+
+```text
+16 passed
+```
+
+proof-style derivation は automatic proof narrative generation ではなく hand-authored presentation-only layer。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 61-9：Phase 61 completion
+
+Phase 61 完成 capability:
+
+```text
+Toda Lemma 5.5 contains-up-to-sign semantics
+α* bracket inclusion
+E^tν₄=±E^tα*
+α*→ν₄ composition bridge
+{η_(m+2),E³β,η_(t+5)}_3 contains ±(E²β∘E^tν₄)
+TodaLemma55Statement
+LiteratureStatement integration
+Phase 60→61 provenance
+applicability regression
+acyclic provenance regression
+representative proof-style probe
+```
+
+generic inference engine:
+
+```text
+変更なし
+```
+
+追加しなかったもの:
+
+```text
+generic Toda-bracket containment algebra
+generic up-to-sign transitivity
+generic sign solver
+generic Whitehead correction algebra
+full Theorem 3.6 formalization
+automatic proof narrative generation
+Toda (5.5) ν-family calculation
+```
+
+focused completion suites verified:
+
+```text
+test_phase61_lemma55_statement.py                   8 passed
+test_phase61_lemma55_alpha_star_inclusion.py       13 passed
+test_phase61_lemma55_nu4_suspension.py             16 passed
+test_phase61_lemma55_nu4_composition.py            14 passed
+test_phase61_lemma55_integration.py                20 passed
+test_phase61_lemma55_applicability_provenance.py   15 passed
+test_phase61_probe.py                              16 passed
+```
+
+最終 repository-wide regression は:
+
+```powershell
+python -m pytest -q
+```
+
+を実行し、pass 数 / elapsed time を completion record に追記する。
+
+### 状態
+
+IMPLEMENTATION COMPLETE / FINAL FULL REGRESSION TO RECORD
+
+---
+
+# Phase 61 completion boundary
+
+最終 capability:
+
+```text
+β∈π_(t+2)(S^m)
+β∘η_(t+2)=0
+t>0
+↓
+{η_(m+2),E³β,η_(t+5)}_3
+contains
+±(E²β∘E^tν₄)
+```
+
+次:
+
+```text
+Phase 62
+ν-family / Toda (5.5)
+```
+
+Phase 62 では Phase 60 の `2Eν₄=E²ν′` と Phase 58 の `2ν′=η₃∘η₄∘η₅` を再利用し、finite-dimensional `ν_n` branch から開始する。

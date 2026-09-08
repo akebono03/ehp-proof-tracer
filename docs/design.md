@@ -25,7 +25,7 @@ representation != typing != theorem knowledge
 structural equality != mathematical equality
 ```
 
-Phase 60 までこの原則を維持している。
+Phase 61 までこの原則を維持している。
 
 ---
 
@@ -1808,20 +1808,325 @@ Toda Lemma 5.5
 
 ---
 
-# 47. 将来の proof narrative generation
+# 47. Phase 61：Toda Lemma 5.5 設計
 
-Phase 60 で次の4種類の情報が揃った。
+Phase 61 target:
+
+```text
+β∈π_(t+2)(S^m)
+β∘η_(t+2)=0
+t>0
+↓
+{η_(m+2),E³β,η_(t+5)}_3
+contains
+±(E²β∘E^tν₄)
+```
+
+基本方針:
+
+```text
+Phase 60 の α* / ν₄ provenance を再利用
+↓
+Lemma 5.5 に必要な minimum consequence のみ追加
+↓
+generic sign / bracket algebra は追加しない
+```
+
+## 47.1 contains-up-to-sign semantics
+
+追加:
+
+```text
+TodaLemma55BracketContainsUpToSignStatement
+```
+
+意味:
+
+```text
+bracket contains x or -x
+```
+
+これは Phase 60 の:
+
+```text
+Toda54BracketUpToSignStatement
+= bracket value set is {±x}
+```
+
+とは区別する。Lemma 5.5 は bracket 全体を `{±x}` と同定しないため、既存 Phase 60 statement の流用は意味を強くしすぎる。
+
+field は:
+
+```text
+bracket
+positive_value
+```
+
+のみとし、`β / m / t / ν₄` は expression tree から検査する。
+
+## 47.2 α* bracket inclusion
+
+Phase 60 の derived:
+
+```text
+Toda36Lemma54SpecializationStatement
+```
+
+を provenance anchor として利用し、Lemma 5.5 hypotheses:
+
+```text
+β∈π_(t+2)(S^m)
+β∘η_(t+2)=0
+t≥1
+```
+
+から:
+
+```text
+{η_(m+2),E³β,η_(t+5)}_3
+contains
+±(E²β∘E^tα*)
+```
+
+を theorem-specific rule で導出する。
+
+`α*` を新規 `GIVEN` として再投入しない。full Theorem 3.6 formalization も行わない。
+
+## 47.3 ν₄ suspension correction
+
+Phase 60 の:
+
+```text
+TodaLemma54Nu4ConstructionStatement
+```
+
+には:
+
+```text
+alpha_star
+nu4
+whitehead_data
+positive_branch
+negative_branch
+```
+
+が保持される。
+
+さらに:
+
+```text
+whitehead_data.suspension_zero_relation
+= E[ι₄,ι₄]=0
+```
+
+を利用して、`t≥1` のもとで:
+
+```text
+E^tν₄=±E^tα*
+```
+
+を導出する。
+
+専用 statement:
+
+```text
+TodaLemma55SuspensionUpToSignStatement
+```
+
+を用い、generic sign solver / symbolic Whitehead correction algebra は追加しない。
+
+## 47.4 α* → ν₄ composition bridge
+
+入力:
+
+```text
+bracket contains ±(E²β∘E^tα*)
+E^tν₄=±E^tα*
+```
+
+結論:
+
+```text
+bracket contains ±(E²β∘E^tν₄)
+```
+
+ここでも generic up-to-sign transitivity を追加しない。Lemma 5.5 専用 bridge として実装する。
+
+## 47.5 final aggregate
+
+追加:
+
+```text
+TodaLemma55Statement
+```
+
+保持:
+
+```text
+nu4
+lemma54_statement
+beta_membership
+beta_eta_zero_relation
+t_range
+bracket_inclusion
+literature_statements
+```
+
+`lemma54_statement` を nested に保持することで:
+
+```text
+Lemma 5.4 で構成された ν₄
+=
+Lemma 5.5 final inclusion の ν₄
+```
+
+を theorem-level provenance で固定する。
+
+final integration は derived `TodaLemma54Statement` と derived final inclusion を要求する。
+
+## 47.6 literature provenance
+
+Phase 61 direct literature:
+
+```text
+Toda Lemma 5.5
+Toda Lemma 5.5 proof
+```
+
+を `LiteratureStatement` として保持する。
+
+Phase 60 literature は:
+
+```text
+TodaLemma55Statement
+└─ lemma54_statement
+   └─ literature_statements
+```
+
+から継承する。
+
+`Used in:` は Phase 60 と同じく probe-local display metadata とし、`LiteratureStatement` schema は変更しない。
+
+## 47.7 hypotheses と derived theorem dependency の境界
+
+Lemma 5.5 の theorem hypotheses:
+
+```text
+β membership
+β∘η_(t+2)=0
+t≥1
+```
+
+は `ProofRule.GIVEN` でよい。
+
+一方、derived spine:
+
+```text
+Phase 60 α*
+Phase 60 ν₄ construction
+Phase 60 Lemma 5.4 aggregate
+Phase 61 α* bracket inclusion
+Phase 61 suspension bridge
+Phase 61 ν₄ bracket inclusion
+Phase 61 Lemma 5.5 aggregate
+```
+
+は `ProofRule.INFERENCE` を維持する。
+
+「hypothesis が GIVEN」と「final theorem result を GIVEN に戻す」は区別する。
+
+## 47.8 provenance acyclicity
+
+Phase 61-7 regression では final aggregate から premise ancestry を走査し:
+
+```text
+final step が自分自身の ancestor ではない
+final conclusion が ancestor conclusions に存在しない
+```
+
+ことを確認する。
+
+また:
+
+```text
+Phase 61-5 → Phase 61-3 / 61-4
+Phase 61-3 → Phase 60 Theorem 3.6 specialization
+Phase 61-4 → Phase 60 ν₄ construction
+Phase 61-6 → Phase 60 Lemma 5.4 aggregate
+```
+
+への provenance reachability を regression で固定する。
+
+## 47.9 representative probe
+
+`probes/probe_phase61_capabilities.py` は Phase 61-6 integration builder を再利用する。
+
+表示:
+
+```text
+Result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Phase 61 completion boundary
+```
+
+Phase 61 aggregate では theorem dependencies と hypotheses が混在するため、Phase 60 の `all final premises are INFERENCE` 表示を流用せず:
+
+```text
+theorem dependencies are INFERENCE = True
+Lemma 5.5 hypotheses remain GIVEN = True
+```
+
+と分離する。
+
+proof-style derivation は Phase 60 と同様に presentation-only の hand-authored output であり、自動 proof narrative generator ではない。
+
+## 47.10 Phase 61 completion boundary
+
+実装:
+
+```text
+contains-up-to-sign semantics
+α* bracket inclusion
+E^tν₄=±E^tα*
+α*→ν₄ composition bridge
+TodaLemma55Statement
+literature-aware provenance
+applicability rejection
+acyclic provenance regression
+representative proof-style probe
+```
+
+追加しない:
+
+```text
+generic Toda-bracket containment algebra
+generic up-to-sign transitivity
+generic sign solver
+generic Whitehead correction algebra
+full Theorem 3.6 formalization
+automatic proof narrative generation
+Toda (5.5) ν-family calculation
+```
+
+---
+
+# 48. 将来の proof narrative generation
+
+Phase 60 と Phase 61 で、手書きの proof-style representative が2つ蓄積した。
+
+現在利用可能な情報:
 
 ```text
 ProofStep / premises
 Expression の構造
 InferenceRule / provenance
 LiteratureStatement
+probe-local Used in metadata
 ```
 
-このため将来は proof graph から証明本文を生成する方向へ進める。
-
-目標 pipeline:
+将来 target:
 
 ```text
 ProofStep graph
@@ -1841,67 +2146,56 @@ InferenceRule ごとの narrative template 適用
 console / Markdown / LaTeX 出力
 ```
 
-将来必要になる可能性のある display metadata:
+Phase 61 は特に:
 
 ```text
-premise role
-conclusion role
-step heading
-equation rendering hint
-citation role
-narrative template
-compression / omission hint
+explicit hypotheses
++ inherited theorem provenance
++ local bridge
++ final aggregate
 ```
 
-ただし current architecture ではこれらを `InferenceRule` にまだ追加しない。Phase 60 の `print_phase60_derivation_chain()` は manual representative であり、自動 proof generator ではない。
+という display pattern を追加した。これが今後の concrete proof でも反復するかを確認してから generic schema に抽象化する。
 
-generalization 条件:
-
-```text
-複数の concrete proof branch
-で同じ presentation pattern が反復
-↓
-安定した display schema を抽出
-↓
-generic proof narrative generation を実装
-```
-
-proof generation が theorem inference の正しさを変更してはならない。presentation layer は proof semantics から分離する。
+proof narrative generation が inference semantics を変更してはならない。presentation layer は proof semantics から分離する。
 
 ---
 
-# 48. 次の設計境界
+# 49. 次の設計境界
 
-Phase 60 は完了。
+Phase 61 implementation は完了。
 
 次は:
 
 ```text
-Phase 61
-Toda Lemma 5.5 bracket transport
+Phase 62
+ν-family / Toda (5.5)
 ```
 
-target:
+finite-dimensional target:
 
 ```text
-β∈π_{t+2}(S^m)
-β∘η_{t+2}=0
-t>0
-↓
-{η_{m+2},E³β,η_{t+5}}_3
-contains
-±(E²β∘E^tν₄)
+ν_n:=E^(n-4)ν₄
+(n≥4)
+
+n≥5:
+2ν_n=E^(n-3)ν′
+4ν_n=η_n³
 ```
 
-Phase 61 では Phase 60 の:
+最初に確認する dependency:
 
 ```text
-TodaLemma54Statement
-α* specialization provenance
-Whitehead correction data
-E[ι₄,ι₄]=0
+Lemma 5.4
+2Eν₄=E²ν′
+
+Phase 58
+2ν′=η₃∘η₄∘η₅
+
+η-family / η² transport
+Composition / IteratedSuspension
 ```
 
-を再利用し、α* / ν₄ construction を再実装しない。
+stable `ν` / `η³` branch は stable homotopy model が必要なら finite-dimensional branch と分離する。
 
-stable `(G_1;2)=Z/2{η}`、stable `(G_2;2)=Z/2{η²}`、generic coset/sign/divisibility framework は concrete need が生じるまで保留する。
+generic sign solver、generic Toda-bracket algebra、automatic proof narrative generator、theorem repository は concrete need が生じるまで保留する。

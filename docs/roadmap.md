@@ -953,7 +953,7 @@ Phase 60 では generic Toda-bracket coset algebra、generic sign solver、gener
 
 # 9. Phase 61：Toda Lemma 5.5 bracket transport
 
-Lemma 5.5 の target:
+Lemma 5.5 target:
 
 ```text
 β∈π_{t+2}(S^m)
@@ -968,21 +968,107 @@ contains
 proof dependency:
 
 ```text
-Lemma 5.4 proof の α* bracket inclusion
+Phase 60 Lemma 5.4 α* / ν₄ provenance
++
+Lemma 5.5 hypotheses
+↓
+±(E²β∘E^tα*) bracket inclusion
 +
 E[ι₄,ι₄]=0
 ↓
 E^tν₄=±E^tα*
 ↓
-Lemma 5.5
+±(E²β∘E^tν₄) bracket inclusion
 ```
 
-Phase 61 では Lemma 5.4 の provenance を再利用し、α* proof を再実装しない。
+Phase 61 では Lemma 5.4 provenance を再利用し、α* / ν₄ proof を再実装しない。
+
+## Phase 61 分割
+
+```text
+Phase 61-1
+statement / dependency / current compatibility analysis
+COMPLETE
+
+Phase 61-2
+minimum contains-up-to-sign statement semantics
+COMPLETE
+
+Phase 61-3
+α* bracket inclusion consequence
+COMPLETE
+
+Phase 61-4
+ν₄ suspension correction bridge
+COMPLETE
+
+Phase 61-5
+α* → ν₄ composition bridge
+COMPLETE
+
+Phase 61-6
+Lemma 5.5 final aggregate / literature provenance
+COMPLETE
+
+Phase 61-7
+applicability / acyclic provenance regression
+COMPLETE
+
+Phase 61-8
+representative proof-style probe
+COMPLETE
+
+Phase 61-9
+completion documentation / final full regression record
+IMPLEMENTATION COMPLETE
+```
+
+## Phase 61 completion result
+
+完成:
+
+```text
+TodaLemma55BracketContainsUpToSignStatement
+TodaLemma55SuspensionUpToSignStatement
+TodaLemma55Statement
+α* bracket inclusion
+E^tν₄=±E^tα*
+α*→ν₄ composition bridge
+final bracket inclusion
+literature-aware final aggregate
+Phase 60 inherited literature
+wrong-instance rejection
+GIVEN / INFERENCE boundary regression
+acyclic provenance regression
+proof-style representative probe
+```
+
+verified probe result:
+
+```text
+{η_(m+2), E³β, η_(t+5)}_3
+contains
+±(E²β∘E^tν₄)
+```
+
+focused Phase 61 tests:
+
+```text
+8 + 13 + 16 + 14 + 20 + 15 + 16 passed
+```
+
+final repository-wide regression count:
+
+```text
+TO RECORD AFTER: python -m pytest -q
+```
+
+Phase 61 では generic bracket containment algebra、generic sign solver、generic up-to-sign transitivity、generic Whitehead correction algebra、full Theorem 3.6 formalizationを導入しなかった。
 
 状態:
 
 ```text
-NEXT
+COMPLETE (implementation / focused regression)
 ```
 
 ---
@@ -1321,7 +1407,7 @@ current code / related tests を確認
 | Toda (5.3) ν′ consequence | COMPLETE | 58 |
 | Toda Prop.5.3 finite-dimensional branch | COMPLETE | 59 |
 | Toda Lemma 5.4 / ν₄ construction | COMPLETE | 60 |
-| Toda Lemma 5.5 bracket transport | NEXT | 61 |
+| Toda Lemma 5.5 bracket transport | COMPLETE | 61 |
 | ν-family / Toda (5.5) | PLANNED | 62 |
 | Toda (5.6) ν₄ decomposition | PLANNED | 63 |
 | automatic proof narrative generation | PLANNED / DEFERRED | later |
@@ -1334,90 +1420,71 @@ current code / related tests を確認
 
 # 18. 現在の直近ステップ
 
-Phase 60 は COMPLETE。
+Phase 61 implementation は COMPLETE。
 
 現在の verified capability:
 
 ```text
-ν₄∈π_7^4
-H(ν₄)=ι₇
-2Eν₄=E²ν′
+β∈π_(t+2)(S^m)
+β∘η_(t+2)=0
+t>0
+↓
+{η_(m+2),E³β,η_(t+5)}_3
+contains
+±(E²β∘E^tν₄)
 ```
 
 representative probe:
 
 ```powershell
-python -m probes.probe_phase60_capabilities
+python -m probes.probe_phase61_capabilities
 ```
 
-full regression:
+Phase 61 focused regression は verified。Phase 61 completion の repository-wide count は次を実行して記録する:
 
-```text
-3334 passed in 132.72s
+```powershell
+python -m pytest -q
 ```
 
 次は:
 
 ```text
-Phase 61-1
-Toda Lemma 5.5
+Phase 62-1
+Toda (5.5) / ν-family
 current representation / dependency compatibility analysis
 ```
 
-Phase 61 target:
+Phase 62 finite-dimensional target:
 
 ```text
-β∈π_{t+2}(S^m)
-β∘η_{t+2}=0
-t>0
-↓
-{η_{m+2},E³β,η_{t+5}}_3
-contains
-±(E²β∘E^tν₄)
+ν_n:=E^(n-4)ν₄
+(n≥4)
+
+n≥5:
+2ν_n=E^(n-3)ν′
+4ν_n=η_n³
 ```
 
 最初に確認する dependency:
 
 ```text
 A.
-Phase 60 の TodaLemma54Statement から
-ν₄ / H(ν₄) / 2Eν₄ provenance をそのまま再利用できるか
+Phase 60 の 2Eν₄=E²ν′ から
+2E^(n-4)ν₄=E^(n-3)ν′
+を current suspension semantics でどこまで transport できるか
 
 B.
-Lemma 5.4 proof 中の α* bracket inclusion を
-Phase 61 で再利用するために
-どの Phase 60 intermediate statement が必要か
+ν_n:=E^(n-4)ν₄ を existing IteratedSuspension / HomotopyElement で十分に表せるか
 
 C.
-E[ι₄,ι₄]=0 から
-E^tν₄=±E^tα*
-へ進む minimum theorem-specific bridge は何か
+Phase 58 の 2ν′=η₃∘η₄∘η₅ を higher suspension へ transport して
+4ν_n=η_n³ へ接続できるか
 
 D.
-β∘η_{t+2}=0 と
-Toda bracket
-{η_{m+2},E³β,η_{t+5}}_3
-の applicability / typing を current TodaBracket で表現できるか
+η_n³ を existing Composition の right-associated expression だけで扱えるか
 
 E.
-±(E²β∘E^tν₄) を
-existing composition / up-to-sign semantics でどこまで保持できるか
+stable ν / η³ branch を Phase 62 finite-dimensional branch から分離すべきか
 ```
 
-Phase 61-1 では実装追加を急がず:
-
-```text
-current code
-+
-Phase 60 provenance
-+
-Lemma 5.5 source proof
-+
-related tests
-↓
-minimum missing representation list
-```
-
-を確定する。
-
-stable branch、generic sign solver、generic Toda-bracket coset algebra、theorem repository は引き続き deferred とする。
+generic sign solver、generic Toda-bracket algebra、automatic proof narrative generation、theorem repository は引き続き deferred とする。

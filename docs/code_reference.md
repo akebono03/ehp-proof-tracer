@@ -2,7 +2,7 @@
 
 この文書は EHP Proof Tracer の主要 Python module と、その責務・主要 class / function・探索方法をまとめる。
 
-対象は **Phase 60 completion 時点**。
+対象は **Phase 61 completion 時点**。
 
 この文書は全 API を機械的に列挙する reference ではない。目的は:
 
@@ -1143,6 +1143,190 @@ theorem statement repository / search
 
 ---
 
+
+## 10.9 Phase 61：Toda Lemma 5.5 bracket transport
+
+### statement
+
+```text
+TodaLemma55BracketContainsUpToSignStatement
+TodaLemma55SuspensionUpToSignStatement
+TodaLemma55Statement
+```
+
+#### `TodaLemma55BracketContainsUpToSignStatement`
+
+```text
+bracket
+positive_value
+```
+
+意味:
+
+```text
+bracket contains positive_value or -positive_value
+```
+
+Phase 60 `Toda54BracketUpToSignStatement` の `{±x}` value-set semantics とは異なる。
+
+#### `TodaLemma55SuspensionUpToSignStatement`
+
+```text
+left
+positive_value
+```
+
+Phase 61 concrete use:
+
+```text
+left = E^tν₄
+positive_value = E^tα*
+```
+
+意味:
+
+```text
+E^tν₄=±E^tα*
+```
+
+#### `TodaLemma55Statement`
+
+final aggregate。保持:
+
+```text
+nu4
+lemma54_statement
+beta_membership
+beta_eta_zero_relation
+t_range
+bracket_inclusion
+literature_statements
+```
+
+`lemma54_statement` を nested に保持し、Phase 60 theorem-level provenance を切らない。
+
+### rule
+
+```text
+toda_lemma55_alpha_star_bracket_inclusion_inference_rule()
+toda_lemma55_nu4_suspension_correction_inference_rule()
+toda_lemma55_alpha_star_to_nu4_composition_inference_rule()
+toda_lemma55_integration_inference_rule()
+```
+
+#### α* bracket inclusion
+
+```text
+Toda36Lemma54SpecializationStatement  INFERENCE
+β∈π_(t+2)(S^m)
+β∘η_(t+2)=0
+t≥1
+↓
+bracket contains ±(E²β∘E^tα*)
+```
+
+#### ν₄ suspension correction
+
+```text
+TodaLemma54Nu4ConstructionStatement INFERENCE
++ t≥1
++ E[ι₄,ι₄]=0 stored in whitehead_data
+↓
+E^tν₄=±E^tα*
+```
+
+#### composition bridge
+
+```text
+bracket contains ±(E²β∘E^tα*)
++
+E^tν₄=±E^tα*
+↓
+bracket contains ±(E²β∘E^tν₄)
+```
+
+Lemma-5.5-specific rule。generic up-to-sign transitivity ではない。
+
+#### integration
+
+```text
+TodaLemma54Statement                  INFERENCE
+β membership                         GIVEN
+β∘η zero                             GIVEN
+t≥1                                  GIVEN
+final ν₄ bracket inclusion           INFERENCE
+↓
+TodaLemma55Statement                 INFERENCE
+```
+
+### literature helper
+
+```text
+toda_lemma55_literature_statements()
+```
+
+直接保持:
+
+```text
+Toda Lemma 5.5
+Toda Lemma 5.5 proof
+```
+
+Phase 60 literature は `TodaLemma55Statement.lemma54_statement.literature_statements` から参照する。
+
+### probe
+
+```text
+probes/probe_phase61_capabilities.py
+```
+
+主要 function:
+
+```text
+build_phase61_representative_result()
+print_phase61_results()
+print_phase61_derivation_chain()
+print_phase61_provenance()
+phase61_literature_usage()
+print_phase61_literature_statements()
+print_phase61_boundary()
+main()
+```
+
+Phase 60 と同じく focused integration builder を representative fixture として再利用し、probe 側へ theorem logic を複製しない。
+
+Phase 61 固有表示:
+
+```text
+theorem dependencies are INFERENCE = True
+Lemma 5.5 hypotheses remain GIVEN = True
+```
+
+### tests
+
+```text
+tests/test_phase61_lemma55_statement.py
+tests/test_phase61_lemma55_alpha_star_inclusion.py
+tests/test_phase61_lemma55_nu4_suspension.py
+tests/test_phase61_lemma55_nu4_composition.py
+tests/test_phase61_lemma55_integration.py
+tests/test_phase61_lemma55_applicability_provenance.py
+tests/test_phase61_probe.py
+```
+
+Phase 61-7 は production code を変更せず、wrong-instance rejection / GIVEN-INFERENCE boundary / ancestry reachability / acyclicity を regression で固定する。
+
+### deferred boundary
+
+```text
+generic bracket containment algebra
+generic up-to-sign transitivity
+generic sign solver
+generic Whitehead correction algebra
+full Theorem 3.6 formalization
+automatic proof narrative generator
+```
+
 # 11. probes/
 
 ## 役割
@@ -1587,52 +1771,55 @@ console / Markdown / LaTeX
 
 ---
 
-# 19. Phase 61 で最初に確認する場所
+# 19. Phase 62 で最初に確認する場所
 
-Phase 60 は完了。
+Phase 61 implementation は完了。
 
-Phase 61 target:
+Phase 62 target:
 
 ```text
-Toda Lemma 5.5 bracket transport
+ν-family / Toda (5.5)
 ```
 
 最初に確認:
 
 ```text
 Toda source material
-  Lemma 5.5 statement / proof
+  Toda (5.5) statement / proof
 
 toda_rules.py
   TodaLemma54Statement
-  Toda36Lemma54SpecializationStatement
-  TodaLemma54WhiteheadCorrectionDataStatement
-  Phase 60 bracket / α* / ν₄ rule family
+  TodaLemma55Statement
+  Phase 58 ν′ relation
+  η-family bridge rule family
 
-proof.py
-  LiteratureReference
-  LiteratureStatement
-  provenance machinery
+expression.py
+  Composition
+  IteratedSuspension
+  HomotopyElement
 
-probes/probe_phase60_capabilities.py
-  Phase 60 end-to-end result
-  literature statement / usage display
+relation_rules.py
+  suspension / equality transport の既存 rule
+
+probes/probe_phase61_capabilities.py
+  current ν₄ provenance / proof-display boundary
 
 tests/test_phase60_*.py
-  Phase 60 structural / provenance regression
+tests/test_phase61_*.py
+  ν₄ / provenance regression
 
 docs/roadmap.md
-  Phase 61 dependency / deferred generalization boundary
+  Phase 62 finite-dimensional / stable boundary
 ```
 
-Phase 61 では:
+Phase 62 では:
 
 ```text
-Phase 60 provenance
+ν_n:=E^(n-4)ν₄
 ↓
-E^tν₄=±E^tα*
+2ν_n=E^(n-3)ν′
 ↓
-Lemma 5.5 bracket inclusion
+4ν_n=η_n³
 ```
 
 の minimum bridge を先に調べる。
