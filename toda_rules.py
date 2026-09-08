@@ -7233,6 +7233,318 @@ class TodaLemma55Statement:
   ]
 
 
+@dataclass(frozen=True)
+class Toda55NuFamilyFiniteDimensionalStatement:
+  nu_family_definition: TodaNuFamilyDefinitionStatement
+  lemma54_statement: TodaLemma54Statement
+  n_range: ScalarGreaterEqualStatement
+  double_nu_relation: Relation
+  quadruple_nu_relation: Relation
+  literature_statements: tuple[
+    LiteratureStatement,
+    ...
+  ]
+
+
+def toda_55_nu_family_literature_statements():
+  toda_reference = {
+    "author": "H. Toda",
+    "title": (
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    "year": 1962,
+  }
+
+  return (
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda (5.5)",
+        locator="Equation (5.5)",
+        **toda_reference,
+      ),
+      statement=(
+        "Finite-dimensional part: "
+        "ν_n:=E^(n-4)ν₄ for n>=4; "
+        "for n>=5, "
+        "2ν_n=E^(n-3)ν′ and "
+        "4ν_n=η_n∘η_(n+1)∘η_(n+2)."
+      ),
+    ),
+  )
+
+
+def toda_55_nu_family_finite_dimensional_integration_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    lemma54_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    definition = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    n_range = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    double_nu_relation = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    quadruple_nu_relation = (
+      premises[
+        4
+      ].conclusion
+    )
+
+    n = definition.index
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      definition
+      != toda_nu_family_definition_statement(
+        n
+      )
+    ):
+      return False
+
+    if (
+      n_range
+      != ScalarGreaterEqualStatement(
+        left=n,
+        right=5,
+      )
+    ):
+      return False
+
+    if (
+      lemma54_statement.nu4
+      != (
+        definition
+        .iterated_suspension
+        .expression
+      )
+    ):
+      return False
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    expected_double_relation = Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=definition.element,
+      ),
+      rhs=IteratedSuspension(
+        expression=nu_prime,
+        exponent=ScalarSum(
+          left=n,
+          right=ScalarProduct(
+            left=-1,
+            right=3,
+          ),
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      double_nu_relation
+      != expected_double_relation
+    ):
+      return False
+
+    n_plus_one = ScalarSum(
+      left=n,
+      right=1,
+    )
+
+    n_plus_two = ScalarSum(
+      left=n,
+      right=2,
+    )
+
+    n_plus_three = ScalarSum(
+      left=n,
+      right=3,
+    )
+
+    eta_n = HomotopyElement(
+      name="η_n",
+      dimension=n,
+      source=n_plus_one,
+      target=n,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n,
+      ),
+    )
+
+    eta_n_plus_one = HomotopyElement(
+      name="η_(n+1)",
+      dimension=n_plus_one,
+      source=n_plus_two,
+      target=n_plus_one,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n_plus_one,
+      ),
+    )
+
+    eta_n_plus_two = HomotopyElement(
+      name="η_(n+2)",
+      dimension=n_plus_two,
+      source=n_plus_three,
+      target=n_plus_two,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n_plus_two,
+      ),
+    )
+
+    expected_eta_cube = Composition(
+      left=eta_n,
+      right=Composition(
+        left=eta_n_plus_one,
+        right=eta_n_plus_two,
+      ),
+    )
+
+    expected_quadruple_relation = Relation(
+      lhs=Multiple(
+        coefficient=4,
+        expression=definition.element,
+      ),
+      rhs=expected_eta_cube,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      quadruple_nu_relation
+      == expected_quadruple_relation
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return (
+      Toda55NuFamilyFiniteDimensionalStatement(
+        nu_family_definition=(
+          premises[
+            1
+          ].conclusion
+        ),
+        lemma54_statement=(
+          premises[
+            0
+          ].conclusion
+        ),
+        n_range=(
+          premises[
+            2
+          ].conclusion
+        ),
+        double_nu_relation=(
+          premises[
+            3
+          ].conclusion
+        ),
+        quadruple_nu_relation=(
+          premises[
+            4
+          ].conclusion
+        ),
+        literature_statements=(
+          toda_55_nu_family_literature_statements()
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 5.5 nu-family "
+      "finite-dimensional integration"
+    ),
+    description=(
+      "Integrate the derived Toda "
+      "Lemma 5.4 nu_4 provenance, "
+      "the explicit nu-family "
+      "definition, the n>=5 "
+      "applicability condition, "
+      "the derived relation "
+      "2 nu_n=E^(n-3) nu-prime, "
+      "and the derived relation "
+      "4 nu_n=eta_n eta_(n+1) "
+      "eta_(n+2) into the "
+      "finite-dimensional part of "
+      "Toda equation (5.5). "
+      "The stable relation "
+      "4 nu=eta^3 remains deferred."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54Statement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaNuFamilyDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_lemma54_literature_statements():
   toda_reference = {
     "author": "H. Toda",
