@@ -3405,6 +3405,13 @@ class TodaEtaFamilyDefinitionStatement:
 
 
 @dataclass(frozen=True)
+class TodaNuFamilyDefinitionStatement:
+  index: int | ScalarSymbol
+  element: HomotopyElement
+  iterated_suspension: IteratedSuspension
+
+
+@dataclass(frozen=True)
 class TodaDeltaImageFreeCyclicStatement:
   map: TodaDeltaMap
   image_group: FreeCyclicGroup
@@ -16084,6 +16091,92 @@ def toda_eta_family_definition_statement(
     iterated_suspension=(
       IteratedSuspension(
         expression=eta_2,
+        exponent=exponent,
+      )
+    ),
+  )
+
+
+def toda_nu_family_definition_statement(
+  n,
+):
+  if not isinstance(
+    n,
+    (
+      int,
+      ScalarSymbol,
+    ),
+  ):
+    raise TypeError(
+      "n must be an int or ScalarSymbol"
+    )
+
+  if (
+    isinstance(
+      n,
+      int,
+    )
+    and n < 4
+  ):
+    raise ValueError(
+      "nu family requires n >= 4"
+    )
+
+  nu_4 = HomotopyElement(
+    name="ν₄",
+    dimension=4,
+    source=7,
+    target=4,
+    generator=GeneratorSymbol(
+      family="ν",
+      index=4,
+    ),
+  )
+
+  if n == 4:
+    name = "ν₄"
+    source = 7
+    exponent = 0
+  elif isinstance(
+    n,
+    int,
+  ):
+    name = (
+      "ν_"
+      + str(
+        n
+      )
+    )
+    source = n + 3
+    exponent = n - 4
+  else:
+    name = "ν_n"
+    source = ScalarSum(
+      left=n,
+      right=3,
+    )
+    exponent = ScalarSum(
+      left=n,
+      right=-4,
+    )
+
+  nu_n = HomotopyElement(
+    name=name,
+    dimension=n,
+    source=source,
+    target=n,
+    generator=GeneratorSymbol(
+      family="ν",
+      index=n,
+    ),
+  )
+
+  return TodaNuFamilyDefinitionStatement(
+    index=n,
+    element=nu_n,
+    iterated_suspension=(
+      IteratedSuspension(
+        expression=nu_4,
         exponent=exponent,
       )
     ),
