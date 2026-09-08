@@ -47,6 +47,7 @@ from proof import (
   ExactnessStatement,
   InferenceRule,
   LiteratureReference,
+  LiteratureStatement,
   PremisePattern,
   ProofRule,
   ProofStep,
@@ -7185,6 +7186,334 @@ class TodaLemma54Nu4ConstructionStatement:
   double_suspension_value: Expression
   positive_branch: TodaLemma54Nu4BranchFormula
   negative_branch: TodaLemma54Nu4BranchFormula
+
+
+@dataclass(frozen=True)
+class TodaLemma54Statement:
+  nu4: HomotopyElement
+  membership: HomotopyGroupMembershipStatement
+  hopf_relation: Relation
+  double_suspension_relation: Relation
+  literature_statements: tuple[
+    LiteratureStatement,
+    ...
+  ]
+
+
+def toda_lemma54_literature_statements():
+  toda_reference = {
+    "author": "H. Toda",
+    "title": (
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    "year": 1962,
+  }
+
+  return (
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda Proposition 1.3",
+        locator="Proposition 1.3",
+        **toda_reference,
+      ),
+      statement=(
+        "-E{α,E^nβ,E^nγ}_n "
+        "⊂ "
+        "{Eα,E^(n+1)β,E^(n+1)γ}_(n+1)."
+      ),
+    ),
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda (1.15)",
+        locator="Equation (1.15)",
+        **toda_reference,
+      ),
+      statement=(
+        "{α,E^nβ,E^nγ}_n "
+        "⊂ "
+        "{α,E^m(E^(n-m)β),"
+        "E^m(E^(n-m)γ)}_m."
+      ),
+    ),
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda (3.2)",
+        locator="Equation (3.2)",
+        **toda_reference,
+      ),
+      statement=(
+        "E: π_i(S^m) → π_(i+1)(S^(m+1)) "
+        "is an isomorphism for i<2m-1 "
+        "and is surjective for i=2m-1."
+      ),
+    ),
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda Theorem 3.6",
+        locator="Theorem 3.6",
+        **toda_reference,
+      ),
+      statement=(
+        "For the Lemma 5.4 specialization "
+        "α=η₂, β=2ι₃, t=1, "
+        "there exists α*∈π_7^4 such that "
+        "2Eα* belongs to "
+        "-{η₅,2ι₆,η₆}_3."
+      ),
+    ),
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda (4.7)",
+        locator="Equation (4.7)",
+        **toda_reference,
+      ),
+      statement=(
+        "For the Toda (5.4) bracket, "
+        "the indeterminacy used here is "
+        "η_n∘π_(n+3)^(n+1) "
+        "+ π_(n+2)^n∘η_(n+2)."
+      ),
+    ),
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda Proposition 5.3",
+        locator="Proposition 5.3",
+        **toda_reference,
+      ),
+      statement=(
+        "π_(n+2)^n = Z/2{η_n²} "
+        "for n≥2."
+      ),
+    ),
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda (5.3)",
+        locator="Equation (5.3)",
+        **toda_reference,
+      ),
+      statement=(
+        "ν′∈π_6^3, "
+        "H(ν′)=η₅, and "
+        "2ν′=η₃∘η₄∘η₅."
+      ),
+    ),
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda (5.4)",
+        locator="Equation (5.4)",
+        **toda_reference,
+      ),
+      statement=(
+        "{η_n,2ι_(n+1),η_(n+1)}_t "
+        "= {±E^(n-3)ν′} "
+        "for n≥3 and 0≤t≤n-2."
+      ),
+    ),
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda (4.8)",
+        locator="Equation (4.8)",
+        **toda_reference,
+      ),
+      statement=(
+        "The consequence used in "
+        "Lemma 5.4 gives "
+        "H(α*)=(2s+1)ι₇."
+      ),
+    ),
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda Lemma 5.4 proof",
+        locator="Lemma 5.4 proof",
+        **toda_reference,
+      ),
+      statement=(
+        "H[ι₄,ι₄]=(-1)^u 2ι₇ "
+        "and E[ι₄,ι₄]=0."
+      ),
+    ),
+  )
+
+
+def toda_lemma54_integration_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    membership = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    hopf_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    double_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    nu4 = membership.element
+
+    expected_nu4 = HomotopyElement(
+      name="ν₄",
+      dimension=4,
+      source=7,
+      target=4,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=4,
+      ),
+    )
+
+    if (
+      nu4
+      != expected_nu4
+    ):
+      return False
+
+    if (
+      membership.group_dimension
+      != 7
+    ):
+      return False
+
+    if (
+      membership.sphere_dimension
+      != 4
+    ):
+      return False
+
+    iota_7 = HomotopyElement(
+      name="ι_7",
+      dimension=7,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=7,
+      ),
+    )
+
+    expected_hopf = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=nu4,
+      ),
+      rhs=iota_7,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      hopf_relation
+      != expected_hopf
+    ):
+      return False
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    expected_double = Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=Suspension(
+          expression=nu4,
+        ),
+      ),
+      rhs=IteratedSuspension(
+        expression=nu_prime,
+        exponent=2,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      double_relation
+      == expected_double
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    membership = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return (
+      TodaLemma54Statement(
+        nu4=membership.element,
+        membership=membership,
+        hopf_relation=(
+          premises[
+            1
+          ].conclusion
+        ),
+        double_suspension_relation=(
+          premises[
+            2
+          ].conclusion
+        ),
+        literature_statements=(
+          toda_lemma54_literature_statements()
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.4 integration"
+    ),
+    description=(
+      "Integrate the independently "
+      "derived Phase 60-8 conclusions "
+      "nu_4 in pi_7^4, "
+      "H(nu_4)=iota_7, and "
+      "2 E nu_4=E^2 nu-prime "
+      "into the final Toda Lemma 5.4 "
+      "statement. "
+      "The aggregate also records the "
+      "literature statements used "
+      "throughout the Phase 60 proof."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          HomotopyGroupMembershipStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
 
 
 def toda_lemma54_whitehead_correction_data_inference_rule():

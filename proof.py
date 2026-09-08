@@ -20,6 +20,12 @@ class LiteratureReference:
 
 
 @dataclass(frozen=True)
+class LiteratureStatement:
+  reference: LiteratureReference
+  statement: str
+
+
+@dataclass(frozen=True)
 class Relation:
   lhs: Any
   rhs: Any
