@@ -7220,6 +7220,146 @@ class TodaLemma54Statement:
 
 
 @dataclass(frozen=True)
+class Toda56Nu4Prop44SpecializationStatement:
+  lemma54_statement: TodaLemma54Statement
+  n: int
+  alpha: HomotopyElement
+  membership: TodaPrimaryGroupMembershipStatement
+  hopf_relation: Relation
+
+
+def toda_56_nu4_prop44_specialization_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    lemma54_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    nu_4 = HomotopyElement(
+      name="ν₄",
+      dimension=4,
+      source=7,
+      target=4,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=4,
+      ),
+    )
+
+    if (
+      lemma54_statement.nu4
+      != nu_4
+    ):
+      return False
+
+    expected_membership = (
+      HomotopyGroupMembershipStatement(
+        element=nu_4,
+        group_dimension=7,
+        sphere_dimension=4,
+      )
+    )
+
+    if (
+      lemma54_statement.membership
+      != expected_membership
+    ):
+      return False
+
+    iota_7 = HomotopyElement(
+      name="ι_7",
+      dimension=7,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=7,
+      ),
+    )
+
+    expected_hopf_relation = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=nu_4,
+      ),
+      rhs=iota_7,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      lemma54_statement.hopf_relation
+      == expected_hopf_relation
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    lemma54_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    nu_4 = (
+      lemma54_statement.nu4
+    )
+
+    return (
+      Toda56Nu4Prop44SpecializationStatement(
+        lemma54_statement=(
+          lemma54_statement
+        ),
+        n=4,
+        alpha=nu_4,
+        membership=(
+          TodaPrimaryGroupMembershipStatement(
+            element=nu_4,
+            group=TodaPrimaryGroup(
+              group_dimension=7,
+              sphere_dimension=4,
+            ),
+          )
+        ),
+        hopf_relation=(
+          lemma54_statement
+          .hopf_relation
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (5.6) "
+      "nu_4 Proposition 4.4 "
+      "specialization premises"
+    ),
+    description=(
+      "The independently derived "
+      "Toda Lemma 5.4 statement gives "
+      "nu_4 in pi_7^4 and "
+      "H(nu_4)=iota_7. "
+      "Record these as the concrete "
+      "n=4, alpha=nu_4 premises needed "
+      "for the Proposition 4.4 "
+      "specialization used in "
+      "Toda (5.6)."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54Statement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+@dataclass(frozen=True)
 class TodaLemma55Statement:
   nu4: HomotopyElement
   lemma54_statement: TodaLemma54Statement
