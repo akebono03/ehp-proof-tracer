@@ -1202,7 +1202,7 @@ generic direct-sum decomposition framework を拡張しない
 状態:
 
 ```text
-NEXT
+COMPLETE
 ```
 
 ---
@@ -1444,7 +1444,7 @@ current code / related tests を確認
 | Toda Lemma 5.4 / ν₄ construction | COMPLETE | 60 |
 | Toda Lemma 5.5 bracket transport | COMPLETE | 61 |
 | ν-family / Toda (5.5) finite-dimensional | COMPLETE | 62 |
-| Toda (5.6) ν₄ decomposition | NEXT | 63 |
+| Toda (5.6) ν₄ decomposition | COMPLETE | 63 |
 | automatic proof narrative generation | PLANNED / DEFERRED | later |
 | stable `(G_1;2)=Z/2{η}` | DEFERRED | later |
 | stable `(G_2;2)=Z/2{η^2}` | DEFERRED | later |
@@ -1453,7 +1453,7 @@ current code / related tests を確認
 
 ---
 
-# 18. 現在の直近ステップ
+# 18. Phase 62 completion 時点の直近ステップ（履歴）
 
 Phase 62 は COMPLETE。
 
@@ -1517,3 +1517,142 @@ Toda (5.6) 専用 specialization だけで十分か、
 
 generic specialization engine、generic direct-sum simplifier、stable ν / η³、automatic proof narrative generation は引き続き deferred とする。
 
+
+
+---
+
+# 19. Phase 63：Toda (5.6) ν₄ decomposition 完了
+
+target:
+
+```text
+(α,β)
+↦
+Eα+ν₄∘β
+:
+π_{i-1}^3 ⊕ π_i^7
+≅
+π_i^4
+```
+
+実装 dependency:
+
+```text
+Phase 47
+Toda Proposition 4.4 decomposition
++
+Phase 60
+Toda Lemma 5.4
+ν₄∈π_7^4
+H(ν₄)=ι₇
+↓
+Phase 63-2
+n=4 / α=ν₄ specialization bridge
+↓
+Phase 63-3
+concrete Proposition 4.4 decomposition specialization
+↓
+Phase 63-4
+Toda (5.6) isomorphism semantics
+↓
+Phase 63-5
+applicability / provenance regression
+↓
+Phase 63-6
+literature-aware aggregate
+↓
+Phase 63-7
+representative proof-style probe
+```
+
+最終 capability:
+
+```text
+π_(i-1)^3 ⊕ π_i^7
+≅
+π_i^4
+
+(α,β)↦Eα+ν₄∘β
+```
+
+provenance boundary:
+
+```text
+theorem dependency = INFERENCE
+TodaProp44DecompositionMap = GIVEN
+```
+
+literature:
+
+```text
+direct:
+Toda (5.6), Equation (5.6)
+
+inherited:
+Toda Lemma 5.4 / Phase 60 literature
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase63_capabilities
+```
+
+focused tests:
+
+```text
+test_phase63_nu4_prop44_specialization.py              15 passed
+test_phase63_prop44_decomposition_specialization.py    19 passed
+test_phase63_toda56_semantics.py                       17 passed
+test_phase63_applicability_provenance.py               20 passed
+test_phase63_toda56_integration.py                     19 passed
+test_phase63_probe.py                                  17 passed
+```
+
+final repository-wide regression:
+
+```text
+3657 passed in 939.47s
+```
+
+状態:
+
+```text
+COMPLETE
+```
+
+---
+
+# 20. 現在の直近ステップ
+
+Phase 63 は COMPLETE。
+
+次は Equation (5.6) の後に続く concrete Toda statement / consequence を source から確認し、その Phase の最初に compatibility analysis を行う。
+
+開始順序:
+
+```text
+source statement
+↓
+mathematical dependency
+↓
+current code / tests compatibility
+↓
+minimum missing representation
+↓
+minimum theorem rule
+```
+
+引き続き deferred:
+
+```text
+generic Proposition 4.4 specialization framework
+generic direct-sum simplifier
+generic scalar normalization
+generic membership normalization
+stable ν / η³
+stable homotopy-group model
+automatic proof narrative generation
+```
+
+次 Phase の theorem 番号 / target は source statement を確認してから確定する。

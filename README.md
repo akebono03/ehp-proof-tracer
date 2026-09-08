@@ -29,7 +29,7 @@ The implementation strategy is to formalize only the minimum theorem consequence
 
 # Current status
 
-Completed through Phase 62.
+Completed through Phase 63.
 
 ```text
 Phase 1–27   generic proof / algebra / Toda-bracket foundation
@@ -58,20 +58,21 @@ Phase 59     Toda Proposition 5.3 finite-dimensional result
 Phase 60     Toda Lemma 5.4 / ν₄ construction and literature-aware provenance
 Phase 61     Toda Lemma 5.5 bracket transport and literature-aware provenance
 Phase 62     Toda (5.5) finite-dimensional ν-family integration
+Phase 63     Toda (5.6) ν₄ decomposition isomorphism
 ```
 
 Latest repository-wide regression:
 
 ```text
-3550 passed in 411.22s
+3657 passed in 939.47s
 ```
 
-Phase 62 focused / applicability / provenance / integration / probe regression has been verified.
+Phase 63 specialization / applicability / provenance / integration / probe regression has been verified.
 
 Representative current probe:
 
 ```powershell
-python -m probes.probe_phase62_capabilities
+python -m probes.probe_phase63_capabilities
 ```
 
 ---
@@ -1511,6 +1512,187 @@ automatic proof narrative generation
 Toda (5.6)
 ```
 
+
+---
+
+# Phase 63: Toda (5.6) ν₄ decomposition isomorphism
+
+Phase 63 specializes the existing Toda Proposition 4.4 decomposition theorem to:
+
+```text
+n=4
+α=ν₄
+ν₄∈π_7^4
+H(ν₄)=ι₇
+```
+
+The final capability is:
+
+```text
+Φ:
+π_{i-1}^3 ⊕ π_i^7
+→
+π_i^4
+
+Φ(α,β)=Eα+ν₄∘β
+
+Φ is an isomorphism.
+```
+
+Equivalently:
+
+```text
+π_{i-1}^3 ⊕ π_i^7
+≅
+π_i^4
+
+(α,β)↦Eα+ν₄∘β
+```
+
+## Phase 63 dependency
+
+```text
+Phase 47
+Toda Proposition 4.4 decomposition semantics
++
+Phase 60
+Toda Lemma 5.4
+ν₄∈π_7^4
+H(ν₄)=ι₇
+↓
+Phase 63-2
+n=4, α=ν₄ specialization premises
+↓
+Phase 63-3
+concrete Proposition 4.4 decomposition specialization
+↓
+Phase 63-4
+Toda (5.6) map / isomorphism semantics
+↓
+Phase 63-6
+literature-aware final aggregate
+```
+
+Phase 63 deliberately does not add generic scalar normalization, generic membership normalization, a generic Proposition 4.4 specialization framework, or generic direct-sum simplification.
+
+## Phase 63 provenance boundary
+
+The theorem-side spine remains derived:
+
+```text
+ν₄ membership                         INFERENCE
+H(ν₄)=ι₇                              INFERENCE
+2Eν₄=E²ν′                             INFERENCE
+Toda Lemma 5.4 aggregate              INFERENCE
+ν₄ / Prop.4.4 specialization          INFERENCE
+Prop.4.4 specialization isomorphism   INFERENCE
+Toda (5.6) semantics                  INFERENCE
+Toda (5.6) final aggregate            INFERENCE
+```
+
+The concrete decomposition-map instance remains structural input:
+
+```text
+TodaProp44DecompositionMap            GIVEN
+```
+
+This distinction is intentional:
+
+```text
+theorem knowledge
+!=
+structural map instance
+```
+
+Phase 63 provenance regression verifies ancestor reachability to Phase 60, rejection of GIVEN replacements for derived theorem results, and acyclicity of the final `ProofStep` graph.
+
+## Phase 63 literature provenance
+
+Direct literature:
+
+```text
+Toda (5.6)
+Equation (5.6)
+```
+
+with statement:
+
+```text
+(α,β)↦Eα+ν₄∘β
+:
+π_{i-1}^3 ⊕ π_i^7 ≅ π_i^4
+```
+
+The Phase 60 Toda Lemma 5.4 literature is preserved as inherited provenance through the nested `lemma54_statement`.
+
+## Phase 63 representative probe
+
+```powershell
+python -m probes.probe_phase63_capabilities
+```
+
+The probe displays:
+
+```text
+Result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Phase 63 completion boundary
+```
+
+Representative machine checks include:
+
+```text
+nu_4 membership derived = True
+H(nu_4)=iota_7 derived = True
+2E nu_4=E^2 nu-prime derived = True
+Lemma 5.4 aggregate derived = True
+nu_4 specialization derived = True
+decomposition map is GIVEN = True
+Prop.4.4 specialization isomorphism derived = True
+Toda (5.6) semantics derived = True
+final aggregate derived = True
+final aggregate is GIVEN = False
+theorem dependencies are INFERENCE = True
+structural decomposition map remains GIVEN = True
+fixed point = True
+```
+
+The proof-style derivation remains a hand-authored presentation layer and is not automatic proof-text generation.
+
+## Phase 63 focused tests
+
+```text
+tests/test_phase63_nu4_prop44_specialization.py              15 passed
+tests/test_phase63_prop44_decomposition_specialization.py    19 passed
+tests/test_phase63_toda56_semantics.py                       17 passed
+tests/test_phase63_applicability_provenance.py               20 passed
+tests/test_phase63_toda56_integration.py                     19 passed
+tests/test_phase63_probe.py                                  17 passed
+```
+
+Final repository-wide regression:
+
+```text
+3657 passed in 939.47s
+```
+
+## Phase 63 representation boundary
+
+Phase 63 deliberately does not add:
+
+```text
+generic Proposition 4.4 specialization framework
+generic scalar normalization
+generic membership normalization
+generic direct-sum simplification
+stable ν:=E^∞ν₄
+stable 4ν=η³
+automatic proof narrative generation
+later Toda consequences after Equation (5.6)
+```
+
 ---
 
 # Documentation
@@ -1525,40 +1707,28 @@ Toda (5.6)
 
 # Next development boundary
 
-Phase 62 is complete.
+Phase 63 is complete.
 
-The next mathematical target is:
-
-```text
-Phase 63
-Toda (5.6) ν₄ decomposition
-```
-
-Target:
+Current verified capability:
 
 ```text
-(α,β)
-↦
-Eα+ν₄∘β
-:
 π_{i-1}^3 ⊕ π_i^7
 ≅
 π_i^4
+
+(α,β)↦Eα+ν₄∘β
 ```
 
-The intended dependency is:
+The next Phase should begin from the next concrete Toda statement or consequence after Equation (5.6) and first perform dependency / current-representation compatibility analysis before adding any new theorem semantics.
+
+Still deferred until concrete need:
 
 ```text
-Phase 47
-Toda Proposition 4.4 decomposition semantics
-+
-Phase 60
-ν₄∈π_7^4
-H(ν₄)=ι₇
-↓
-n=4, α=ν₄ specialization
-↓
-Toda (5.6)
+generic Proposition 4.4 specialization framework
+generic direct-sum simplification
+generic scalar / membership normalization
+stable ν / η³
+stable homotopy-group model
+automatic proof narrative generation
+generic theorem repository expansion
 ```
-
-Phase 63 should reuse the existing Proposition 4.4 decomposition infrastructure and add only the minimum ν₄ specialization required by Toda (5.6). Stable ν / η³, generic sign solving, generic Toda-bracket algebra, automatic proof narrative generation, and theorem-repository infrastructure remain deferred until concrete need.
