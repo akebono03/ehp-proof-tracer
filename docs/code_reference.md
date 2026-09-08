@@ -2,7 +2,7 @@
 
 この文書は EHP Proof Tracer の主要 Python module と、その責務・主要 class / function・探索方法をまとめる。
 
-対象は **Phase 62 completion 時点**。
+対象は **Phase 63 completion 時点**。
 
 この文書は全 API を機械的に列挙する reference ではない。目的は:
 
@@ -2097,7 +2097,7 @@ full regression:
 
 ---
 
-# 27. Phase 63 で最初に確認する場所
+# 27. Phase 63 開始時点で最初に確認した場所（履歴）
 
 target:
 
@@ -2157,3 +2157,354 @@ Phase 63 では concrete specialization の minimum bridge のみ追加する。
 
 stable ν / η³、generic direct-sum framework extension、automatic proof narrative generation は先取りしない。
 
+
+
+---
+
+# 28. Phase 63：Toda (5.6) ν₄ decomposition
+
+## `toda_rules.py`
+
+Phase 63 で追加した主要 statement:
+
+```text
+Toda56Nu4Prop44SpecializationStatement
+Toda56Nu4DecompositionIsomorphismStatement
+Toda56Nu4DecompositionStatement
+```
+
+### `Toda56Nu4Prop44SpecializationStatement`
+
+保持:
+
+```text
+lemma54_statement
+n
+alpha
+membership
+hopf_relation
+```
+
+Phase 60 `TodaLemma54Statement` を Phase 47 Proposition 4.4 の concrete `n=4`, `α=ν₄` specialization premise に接続する。
+
+重要 bridge:
+
+```text
+HomotopyGroupMembershipStatement(ν₄,7,4)
+↓ narrow Phase 63 specialization
+TodaPrimaryGroupMembershipStatement(ν₄, π_7^4)
+```
+
+rule:
+
+```text
+toda_56_nu4_prop44_specialization_inference_rule()
+```
+
+### `Toda56Nu4DecompositionIsomorphismStatement`
+
+field:
+
+```text
+prop44_isomorphism
+```
+
+既存 `TodaProp44IsomorphismStatement` を Toda (5.6) 専用 semantics として保持する。
+
+rule:
+
+```text
+toda_56_nu4_decomposition_isomorphism_inference_rule()
+```
+
+### `Toda56Nu4DecompositionStatement`
+
+field:
+
+```text
+decomposition_isomorphism
+lemma54_statement
+literature_statements
+```
+
+final literature-aware aggregate。
+
+helper / integration rule:
+
+```text
+toda_56_nu4_decomposition_literature_statements()
+toda_56_nu4_decomposition_integration_inference_rule()
+```
+
+---
+
+# 29. Phase 63 Proposition 4.4 specialization
+
+Phase 63-3 では新しい map / group class を追加しない。
+
+再利用:
+
+```text
+homotopy_groups.py
+  DirectSumGroup
+  TodaPrimaryGroup
+  TodaProp44DecompositionMap
+
+toda_rules.py
+  TodaProp44IsomorphismStatement
+```
+
+symbolic `i`:
+
+```text
+ScalarSymbol("i")
+```
+
+first summand:
+
+```text
+TodaPrimaryGroup(
+  group_dimension=ScalarSum(i,-1),
+  sphere_dimension=3,
+)
+```
+
+second summand:
+
+```text
+TodaPrimaryGroup(
+  group_dimension=i,
+  sphere_dimension=7,
+)
+```
+
+target:
+
+```text
+TodaPrimaryGroup(
+  group_dimension=i,
+  sphere_dimension=4,
+)
+```
+
+formula:
+
+```text
+Sum(
+  Suspension(first_variable),
+  Composition(ν₄, second_variable),
+)
+```
+
+意味:
+
+```text
+Eα+ν₄∘β
+```
+
+Phase 47 field naming:
+
+```text
+map.beta  = displayed α
+map.gamma = displayed β
+```
+
+rule:
+
+```text
+toda_56_nu4_prop44_isomorphism_inference_rule()
+```
+
+重要 boundary:
+
+```text
+TodaProp44DecompositionMap      GIVEN
+TodaProp44IsomorphismStatement  INFERENCE
+```
+
+---
+
+# 30. Phase 63 provenance / literature
+
+provenance spine:
+
+```text
+Phase 60 membership / Hopf / double relations
+↓
+TodaLemma54Statement
+↓
+Toda56Nu4Prop44SpecializationStatement
+↓
+TodaProp44IsomorphismStatement
+↓
+Toda56Nu4DecompositionIsomorphismStatement
+↓
+Toda56Nu4DecompositionStatement
+```
+
+`tests/test_phase63_applicability_provenance.py` では identity-based ancestor traversal を使う。
+
+確認:
+
+```text
+GIVEN theorem replacement rejection
+ancestor reachability
+acyclic final graph
+final conclusion absent from ancestors
+upstream independence
+```
+
+direct literature:
+
+```text
+Toda (5.6)
+Equation (5.6)
+```
+
+inherited literature:
+
+```text
+Toda56Nu4DecompositionStatement
+└─ lemma54_statement
+   └─ literature_statements
+```
+
+---
+
+# 31. Phase 63 representative probe
+
+```text
+probes/probe_phase63_capabilities.py
+```
+
+entry point:
+
+```powershell
+python -m probes.probe_phase63_capabilities
+```
+
+主要 helper:
+
+```text
+build_phase63_representative_result()
+print_phase63_results()
+print_phase63_derivation_chain()
+print_phase63_provenance()
+phase63_literature_usage()
+print_phase63_literature_statements()
+print_phase63_boundary()
+main()
+```
+
+既存 display helper を再利用:
+
+```text
+probes.probe_phase50_capabilities.print_separator
+probes.probe_phase61_capabilities.print_literature_item
+```
+
+probe は:
+
+```text
+tests/test_phase63_toda56_integration.py
+  build_phase63_6_data()
+```
+
+を representative fixture として再利用する。
+
+theorem logic は probe 側へ複製しない。
+
+proof-style derivation は hand-authored presentation layer。
+
+---
+
+# 32. Phase 63 focused tests
+
+```text
+tests/test_phase63_nu4_prop44_specialization.py              15 passed
+tests/test_phase63_prop44_decomposition_specialization.py    19 passed
+tests/test_phase63_toda56_semantics.py                       17 passed
+tests/test_phase63_applicability_provenance.py               20 passed
+tests/test_phase63_toda56_integration.py                     19 passed
+tests/test_phase63_probe.py                                  17 passed
+```
+
+full regression:
+
+```text
+3657 passed in 939.47s
+```
+
+---
+
+# 33. Phase 63 completion boundary
+
+実装済み:
+
+```text
+n=4 / α=ν₄ specialization bridge
+Toda-primary ν₄ membership bridge
+concrete Proposition 4.4 decomposition specialization
+Toda (5.6) map / isomorphism semantics
+literature-aware aggregate
+Phase 60 inherited literature
+applicability / acyclic provenance regression
+representative proof-style probe
+```
+
+未実装:
+
+```text
+generic Proposition 4.4 specialization framework
+generic scalar normalization
+generic membership normalization
+generic direct-sum simplification
+stable ν / η³
+automatic proof narrative generation
+later Toda consequences after Equation (5.6)
+```
+
+---
+
+# 34. 次 Phase で最初に確認する場所
+
+Phase 63 は COMPLETE。
+
+次の concrete Toda statement / consequence が決まったら、まず:
+
+```text
+Toda source material
+  statement / proof / equation locator
+
+toda_rules.py
+  直前 theorem family
+  Phase 63 aggregate / provenance
+
+homotopy_groups.py
+  必要 group / map representation
+
+expression.py
+  必要 expression shape
+
+tests/test_phase63_*.py
+  current ν₄ / Prop.4.4 boundary
+
+probes/probe_phase63_capabilities.py
+  current proof-style / literature display pattern
+```
+
+を確認する。
+
+引き続き:
+
+```text
+source statement
+↓
+dependency analysis
+↓
+current representation compatibility
+↓
+minimum implementation
+```
+
+を維持する。

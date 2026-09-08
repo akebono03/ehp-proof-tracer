@@ -3186,3 +3186,440 @@ Toda (5.6)
 
 Phase 63 では Phase 47 Proposition 4.4 と Phase 60 `H(ν₄)=ι₇` を再利用する。
 
+
+
+---
+
+# Phase 63：Toda (5.6) ν₄ decomposition isomorphism
+
+対象:
+
+```text
+(α,β)↦Eα+ν₄∘β
+:
+π_{i-1}^3 ⊕ π_i^7
+≅
+π_i^4
+```
+
+Phase 47 Proposition 4.4 と Phase 60 Toda Lemma 5.4 を再利用する。
+
+---
+
+## Phase 63-1：Prop.4.4 n=4 / ν₄ compatibility analysis
+
+確認:
+
+```text
+n=4
+α=ν₄
+ν₄∈π_7^4
+H(ν₄)=ι₇
+```
+
+は数学的には Proposition 4.4 の premise を満たす。
+
+既存:
+
+```text
+DirectSumGroup
+TodaPrimaryGroup
+TodaProp44DecompositionMap
+TodaProp44IsomorphismStatement
+Sum
+Suspension
+Composition
+```
+
+で target map / group は表現可能。
+
+一方 structural mismatch:
+
+```text
+2n-1 != 7
+n-1 != 3
+ι_(2n-1) != ι₇
+HomotopyGroupMembershipStatement
+!=
+TodaPrimaryGroupMembershipStatement
+```
+
+があるため generic Phase 47 rule の直接再利用は避け、専用 specialization bridge を選択。
+
+production code:
+
+```text
+変更なし
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 63-2：ν₄ specialization premise bridge
+
+追加:
+
+```text
+Toda56Nu4Prop44SpecializationStatement
+toda_56_nu4_prop44_specialization_inference_rule()
+```
+
+Phase 60 derived `TodaLemma54Statement` から:
+
+```text
+n=4
+α=ν₄
+ν₄∈π_7^4  TodaPrimaryGroup membership
+H(ν₄)=ι₇
+```
+
+を derived にする。
+
+focused:
+
+```text
+15 passed
+```
+
+full regression:
+
+```text
+3565 passed in 1146.70s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 63-3：Toda Proposition 4.4 decomposition specialization
+
+追加 rule:
+
+```text
+toda_56_nu4_prop44_isomorphism_inference_rule()
+```
+
+既存 `TodaProp44DecompositionMap` で:
+
+```text
+π_(i-1)^3 ⊕ π_i^7
+→
+π_i^4
+
+Eα+ν₄∘β
+```
+
+を structural map instance として保持。
+
+```text
+TodaProp44DecompositionMap      GIVEN
+TodaProp44IsomorphismStatement  INFERENCE
+```
+
+という境界を採用。
+
+focused:
+
+```text
+19 passed
+```
+
+full regression:
+
+```text
+3584 passed in 1153.02s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 63-4：Toda (5.6) map / isomorphism semantics
+
+追加:
+
+```text
+Toda56Nu4DecompositionIsomorphismStatement
+toda_56_nu4_decomposition_isomorphism_inference_rule()
+```
+
+Phase 63-3 derived `TodaProp44IsomorphismStatement` を Toda (5.6) 専用 semantics として認識。
+
+```text
+π_(i-1)^3 ⊕ π_i^7
+≅
+π_i^4
+
+(α,β)↦Eα+ν₄∘β
+```
+
+focused:
+
+```text
+17 passed
+```
+
+full regression:
+
+```text
+3601 passed in 1144.90s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 63-5：applicability / provenance regression
+
+production code:
+
+```text
+変更なし
+```
+
+追加:
+
+```text
+tests/test_phase63_applicability_provenance.py
+```
+
+固定した provenance:
+
+```text
+Phase 60 derived ν₄ facts
+↓
+TodaLemma54Statement
+↓
+Toda56Nu4Prop44SpecializationStatement
+↓
+TodaProp44IsomorphismStatement
+↓
+Toda56Nu4DecompositionIsomorphismStatement
+```
+
+別 branch:
+
+```text
+TodaProp44DecompositionMap GIVEN
+```
+
+確認:
+
+```text
+GIVEN Lemma 5.4 rejected
+GIVEN specialization rejected
+GIVEN Prop.4.4 isomorphism rejected
+final graph acyclic
+final conclusion absent from ancestors
+```
+
+focused:
+
+```text
+20 passed
+```
+
+full regression:
+
+```text
+3621 passed in 893.39s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 63-6：Toda (5.6) aggregate / literature provenance
+
+追加:
+
+```text
+Toda56Nu4DecompositionStatement
+toda_56_nu4_decomposition_literature_statements()
+toda_56_nu4_decomposition_integration_inference_rule()
+```
+
+final aggregate:
+
+```text
+Toda56Nu4DecompositionIsomorphismStatement  INFERENCE
++
+TodaLemma54Statement                        INFERENCE
+↓
+Toda56Nu4DecompositionStatement             INFERENCE
+```
+
+direct literature:
+
+```text
+Toda (5.6)
+Equation (5.6)
+```
+
+Phase 60 literature は nested `lemma54_statement` から継承。
+
+focused:
+
+```text
+19 passed
+```
+
+full regression:
+
+```text
+3640 passed in 923.99s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 63-7：representative proof-style probe
+
+追加:
+
+```text
+probes/probe_phase63_capabilities.py
+tests/test_phase63_probe.py
+```
+
+表示:
+
+```text
+Result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Phase 63 completion boundary
+```
+
+代表 result:
+
+```text
+π_(i-1)^3 ⊕ π_i^7
+≅
+π_i^4
+
+(α,β)↦Eα+ν₄∘β
+```
+
+代表 provenance:
+
+```text
+nu_4 membership derived = True
+H(nu_4)=iota_7 derived = True
+2E nu_4=E^2 nu-prime derived = True
+Lemma 5.4 aggregate derived = True
+nu_4 specialization derived = True
+decomposition map is GIVEN = True
+Prop.4.4 specialization isomorphism derived = True
+Toda (5.6) semantics derived = True
+final aggregate derived = True
+final aggregate is GIVEN = False
+theorem dependencies are INFERENCE = True
+structural decomposition map remains GIVEN = True
+fixed point = True
+```
+
+focused:
+
+```text
+17 passed
+```
+
+full regression:
+
+```text
+3657 passed in 939.47s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 63-8：Phase 63 completion
+
+Phase 63 完成 capability:
+
+```text
+Toda56Nu4Prop44SpecializationStatement
+Toda56Nu4DecompositionIsomorphismStatement
+Toda56Nu4DecompositionStatement
+
+n=4
+α=ν₄
+ν₄∈π_7^4
+H(ν₄)=ι₇
+
+π_(i-1)^3 ⊕ π_i^7
+≅
+π_i^4
+
+(α,β)↦Eα+ν₄∘β
+
+literature-aware provenance
+Phase 60 inherited literature
+applicability regression
+acyclic provenance regression
+representative proof-style probe
+```
+
+generic inference engine:
+
+```text
+変更なし
+```
+
+追加しなかったもの:
+
+```text
+generic Proposition 4.4 specialization framework
+generic scalar normalization
+generic membership normalization
+generic direct-sum simplification
+stable ν:=E^∞ν₄
+stable 4ν=η³
+automatic proof narrative generation
+later Toda consequences after Equation (5.6)
+```
+
+最終 full regression:
+
+```text
+3657 passed in 939.47s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 63 completion boundary
+
+最終 capability:
+
+```text
+π_(i-1)^3 ⊕ π_i^7
+≅
+π_i^4
+
+(α,β)↦Eα+ν₄∘β
+```
+
+次は Equation (5.6) の後に続く concrete Toda statement / consequence の dependency analysis から開始する。
