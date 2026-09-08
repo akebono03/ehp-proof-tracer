@@ -29,7 +29,7 @@ The implementation strategy is to formalize only the minimum theorem consequence
 
 # Current status
 
-Completed through Phase 60.
+Completed through Phase 61.
 
 ```text
 Phase 1–27   generic proof / algebra / Toda-bracket foundation
@@ -56,18 +56,21 @@ Phase 57     Toda Lemma 5.2 end-to-end integration
 Phase 58     Toda (5.3) ν′ consequence
 Phase 59     Toda Proposition 5.3 finite-dimensional result
 Phase 60     Toda Lemma 5.4 / ν₄ construction and literature-aware provenance
+Phase 61     Toda Lemma 5.5 bracket transport and literature-aware provenance
 ```
 
-Current full regression:
+Latest recorded full regression (Phase 60):
 
 ```text
 3334 passed in 132.72s
 ```
 
+Phase 61 focused / probe regression has been verified. The final repository-wide Phase 61 regression count is recorded after running `python -m pytest -q`.
+
 Representative current probe:
 
 ```powershell
-python -m probes.probe_phase60_capabilities
+python -m probes.probe_phase61_capabilities
 ```
 
 ---
@@ -1027,6 +1030,260 @@ The Phase 60 `Proof-style derivation` is a manual representative of this intende
 
 ---
 
+# Phase 61: Toda Lemma 5.5 bracket transport
+
+Phase 61 proves the Toda Lemma 5.5 consequence:
+
+```text
+β ∈ π_(t+2)(S^m)
+β∘η_(t+2)=0
+t>0
+↓
+{η_(m+2),E³β,η_(t+5)}_3
+contains
+±(E²β∘E^tν₄)
+```
+
+The implementation reuses the Phase 60 `α*` / `ν₄` provenance and does not reconstruct Lemma 5.4.
+
+## Minimum contains-up-to-sign semantics
+
+Phase 61 introduces:
+
+```text
+TodaLemma55BracketContainsUpToSignStatement
+```
+
+with:
+
+```text
+bracket
+positive_value
+```
+
+Its meaning is:
+
+```text
+bracket contains x or -x
+```
+
+This is intentionally weaker than the Phase 60 `Toda54BracketUpToSignStatement`, which represents a bracket value set of the form `{±x}`. No generic sign object or generic bracket-containment algebra is added.
+
+## α* bracket inclusion
+
+Using the derived Phase 60 Theorem 3.6 specialization together with the Lemma 5.5 hypotheses:
+
+```text
+β ∈ π_(t+2)(S^m)
+β∘η_(t+2)=0
+t≥1
+```
+
+Phase 61 derives:
+
+```text
+{η_(m+2),E³β,η_(t+5)}_3
+contains
+±(E²β∘E^tα*)
+```
+
+The `α*` is not reintroduced as a `GIVEN`; it is reused from the derived Phase 60 provenance.
+
+## ν₄ suspension correction
+
+Phase 60 stores the two Whitehead-correction branches:
+
+```text
+ν₄=α* - (-1)^u s[ι₄,ι₄]
+```
+
+and:
+
+```text
+ν₄=-α* + (-1)^u(s+1)[ι₄,ι₄].
+```
+
+Together with:
+
+```text
+E[ι₄,ι₄]=0
+t>0
+```
+
+Phase 61 derives the theorem-specific up-to-sign suspension consequence:
+
+```text
+E^tν₄=±E^tα*
+```
+
+This is stored in:
+
+```text
+TodaLemma55SuspensionUpToSignStatement
+```
+
+No generic Whitehead-correction algebra or generic up-to-sign transitivity is introduced.
+
+## α* → ν₄ composition bridge
+
+Phase 61 combines:
+
+```text
+bracket contains ±(E²β∘E^tα*)
+```
+
+with:
+
+```text
+E^tν₄=±E^tα*
+```
+
+to derive:
+
+```text
+{η_(m+2),E³β,η_(t+5)}_3
+contains
+±(E²β∘E^tν₄).
+```
+
+The bridge is Lemma-5.5-specific. The generic relation engine is unchanged.
+
+## Final aggregate and literature-aware provenance
+
+The final theorem-level aggregate is:
+
+```text
+TodaLemma55Statement
+```
+
+It retains:
+
+```text
+ν₄
+TodaLemma54Statement
+β membership
+β∘η_(t+2)=0
+t≥1
+final bracket inclusion
+literature statements
+```
+
+The final integration explicitly requires the derived `TodaLemma54Statement`, so the `ν₄` occurring in Lemma 5.5 remains connected to the Lemma 5.4 construction.
+
+Phase 61 records direct literature statements for:
+
+```text
+Toda Lemma 5.5
+Toda Lemma 5.5 proof
+```
+
+while Phase 60 literature remains inherited through the nested Lemma 5.4 aggregate.
+
+## Applicability and provenance regression
+
+Phase 61 verifies rejection of, among other cases:
+
+```text
+wrong β group
+wrong β∘η premise
+t≥0
+α* used as the final ν₄ representative
+Lemma 5.4 aggregate replaced by GIVEN
+final ν₄ inclusion replaced by GIVEN
+```
+
+The final provenance graph is also checked to be acyclic.
+
+The theorem hypotheses remain explicit `GIVEN` inputs:
+
+```text
+β membership
+β∘η_(t+2)=0
+t≥1
+```
+
+while the theorem dependency spine remains derived:
+
+```text
+Phase 60 Theorem 3.6 α*      INFERENCE
+Phase 60 ν₄ construction     INFERENCE
+Phase 60 Lemma 5.4 aggregate INFERENCE
+Phase 61 α* inclusion        INFERENCE
+Phase 61 suspension bridge   INFERENCE
+Phase 61 ν₄ inclusion        INFERENCE
+Phase 61 Lemma 5.5 aggregate INFERENCE
+```
+
+## Representative probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase61_capabilities
+```
+
+The probe displays:
+
+```text
+Result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Phase 61 completion boundary
+```
+
+Representative machine checks include:
+
+```text
+Lemma 5.4 aggregate derived = True
+alpha-star bracket inclusion derived = True
+E^tν₄=±E^tα* derived = True
+final ν₄ bracket inclusion derived = True
+final aggregate derived = True
+final aggregate is GIVEN = False
+theorem dependencies are INFERENCE = True
+Lemma 5.5 hypotheses remain GIVEN = True
+fixed point = True
+```
+
+The proof-style derivation remains a hand-authored presentation layer, not automatic proof-text generation. Phase 61 provides a second concrete proof-display example after Phase 60, which will help stabilize a future generic proof-narrative schema.
+
+## Phase 61 focused tests
+
+Verified focused suites include:
+
+```text
+tests/test_phase61_lemma55_statement.py                   8 passed
+tests/test_phase61_lemma55_alpha_star_inclusion.py       13 passed
+tests/test_phase61_lemma55_nu4_suspension.py             16 passed
+tests/test_phase61_lemma55_nu4_composition.py            14 passed
+tests/test_phase61_lemma55_integration.py                20 passed
+tests/test_phase61_lemma55_applicability_provenance.py   15 passed
+tests/test_phase61_probe.py                              16 passed
+```
+
+Related Phase 60 / Toda regression also passed during Phase 61 development. The final repository-wide Phase 61 regression count should be recorded after:
+
+```powershell
+python -m pytest -q
+```
+
+## Phase 61 representation boundary
+
+Phase 61 deliberately does not add:
+
+```text
+generic Toda-bracket containment algebra
+generic up-to-sign transitivity
+generic sign solver
+generic Whitehead correction algebra
+full Theorem 3.6 formalization
+automatic proof narrative generation
+Toda (5.5) ν-family calculation
+```
+
+---
+
 # Documentation
 
 - `README.md` — current capabilities and status
@@ -1039,29 +1296,31 @@ The Phase 60 `Proof-style derivation` is a manual representative of this intende
 
 # Next development boundary
 
-Phase 60 is complete.
+Phase 61 implementation is complete. The final repository-wide regression should be run and its pass count recorded before tagging the completion state.
 
-The next target is:
-
-```text
-Phase 61
-Toda Lemma 5.5 bracket transport
-```
-
-The intended dependency is:
+The next mathematical target is:
 
 ```text
-Phase 60 Lemma 5.4 provenance
-+
-α* bracket inclusion
-+
-E[ι₄,ι₄]=0
-↓
-E^tν₄=±E^tα*
-↓
-Toda Lemma 5.5
+Phase 62
+ν-family / Toda (5.5)
 ```
 
-Phase 61 should reuse the Phase 60 proof objects and must not reimplement the construction of `α*` or `ν₄`.
+The intended finite-dimensional dependency is:
 
-Stable `(G_1;2)=Z/2{η}`, stable `(G_2;2)=Z/2{η²}`, a general stable homotopy-group model, generic Toda-bracket coset algebra, generic sign solving, and theorem-repository infrastructure remain deferred until a concrete proof branch requires them.
+```text
+Phase 60 Lemma 5.4
+ν₄∈π_7^4
+2Eν₄=E²ν′
++
+Phase 58 Toda (5.3)
+2ν′=η₃∘η₄∘η₅
++
+η-family suspension transport
+↓
+ν_n:=E^(n-4)ν₄
+↓
+2ν_n=E^(n-3)ν′
+4ν_n=η_n³
+```
+
+The stable `ν` / `η³` branch remains separate if it requires a stable homotopy-group model. Generic sign solving, generic Toda-bracket algebra, automatic proof narrative generation, and theorem-repository infrastructure remain deferred until concrete need.
