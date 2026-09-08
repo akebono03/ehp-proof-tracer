@@ -7212,6 +7212,20 @@ class TodaLemma54Statement:
   ]
 
 
+@dataclass(frozen=True)
+class TodaLemma55Statement:
+  nu4: HomotopyElement
+  lemma54_statement: TodaLemma54Statement
+  beta_membership: HomotopyGroupMembershipStatement
+  beta_eta_zero_relation: Relation
+  t_range: ScalarGreaterEqualStatement
+  bracket_inclusion: TodaLemma55BracketContainsUpToSignStatement
+  literature_statements: tuple[
+    LiteratureStatement,
+    ...
+  ]
+
+
 def toda_lemma54_literature_statements():
   toda_reference = {
     "author": "H. Toda",
@@ -11050,6 +11064,375 @@ def toda_lemma55_alpha_star_to_nu4_composition_inference_rule():
         proof_rule=ProofRule.INFERENCE,
         statement_type=(
           TodaLemma55SuspensionUpToSignStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma55_literature_statements():
+  toda_reference = {
+    "author": "H. Toda",
+    "title": (
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    "year": 1962,
+  }
+
+  return (
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda Lemma 5.5",
+        locator="Lemma 5.5",
+        **toda_reference,
+      ),
+      statement=(
+        "If β∈π_(t+2)(S^m), "
+        "β∘η_(t+2)=0, and t>0, then "
+        "{η_(m+2),E^3β,η_(t+5)}_3 "
+        "contains "
+        "E^2β∘E^tν₄ or "
+        "-E^2β∘E^tν₄."
+      ),
+    ),
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda Lemma 5.5 proof",
+        locator="Lemma 5.5 proof",
+        **toda_reference,
+      ),
+      statement=(
+        "The preceding Lemma 5.4 proof "
+        "gives a representative "
+        "±(E^2β∘E^tα*). "
+        "Since E[ι₄,ι₄]=0, "
+        "the definition of ν₄ gives "
+        "E^tν₄=±E^tα* for t>0."
+      ),
+    ),
+  )
+
+
+def toda_lemma55_integration_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    lemma54_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    beta_membership = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    beta_eta_zero = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    t_range = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    bracket_inclusion = (
+      premises[
+        4
+      ].conclusion
+    )
+
+    nu4 = (
+      lemma54_statement
+      .nu4
+    )
+
+    beta = (
+      beta_membership
+      .element
+    )
+
+    if not isinstance(
+      beta,
+      HomotopyElement,
+    ):
+      return False
+
+    group_dimension = (
+      beta_membership
+      .group_dimension
+    )
+
+    if not isinstance(
+      group_dimension,
+      ScalarSum,
+    ):
+      return False
+
+    if (
+      group_dimension.right
+      != 2
+    ):
+      return False
+
+    t = group_dimension.left
+
+    if not isinstance(
+      t,
+      ScalarSymbol,
+    ):
+      return False
+
+    m = (
+      beta_membership
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      m,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      beta.dimension
+      != group_dimension
+    ):
+      return False
+
+    if (
+      beta.source
+      != group_dimension
+    ):
+      return False
+
+    if (
+      beta.target
+      != m
+    ):
+      return False
+
+    if (
+      t_range
+      != ScalarGreaterEqualStatement(
+        left=t,
+        right=1,
+      )
+    ):
+      return False
+
+    t_plus_two = ScalarSum(
+      left=t,
+      right=2,
+    )
+
+    t_plus_three = ScalarSum(
+      left=t,
+      right=3,
+    )
+
+    eta_t_plus_two = HomotopyElement(
+      name="η_(t+2)",
+      dimension=t_plus_two,
+      source=t_plus_three,
+      target=t_plus_two,
+      generator=GeneratorSymbol(
+        family="η",
+        index=t_plus_two,
+      ),
+    )
+
+    expected_zero = Relation(
+      lhs=Composition(
+        left=beta,
+        right=eta_t_plus_two,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    if (
+      beta_eta_zero
+      != expected_zero
+    ):
+      return False
+
+    m_plus_two = ScalarSum(
+      left=m,
+      right=2,
+    )
+
+    m_plus_three = ScalarSum(
+      left=m,
+      right=3,
+    )
+
+    t_plus_five = ScalarSum(
+      left=t,
+      right=5,
+    )
+
+    t_plus_six = ScalarSum(
+      left=t,
+      right=6,
+    )
+
+    eta_m_plus_two = HomotopyElement(
+      name="η_(m+2)",
+      dimension=m_plus_two,
+      source=m_plus_three,
+      target=m_plus_two,
+      generator=GeneratorSymbol(
+        family="η",
+        index=m_plus_two,
+      ),
+    )
+
+    eta_t_plus_five = HomotopyElement(
+      name="η_(t+5)",
+      dimension=t_plus_five,
+      source=t_plus_six,
+      target=t_plus_five,
+      generator=GeneratorSymbol(
+        family="η",
+        index=t_plus_five,
+      ),
+    )
+
+    expected_bracket = TodaBracket(
+      first=eta_m_plus_two,
+      second=IteratedSuspension(
+        expression=beta,
+        exponent=3,
+      ),
+      third=eta_t_plus_five,
+      index=3,
+    )
+
+    expected_positive_value = Composition(
+      left=IteratedSuspension(
+        expression=beta,
+        exponent=2,
+      ),
+      right=IteratedSuspension(
+        expression=nu4,
+        exponent=t,
+      ),
+    )
+
+    expected_inclusion = (
+      TodaLemma55BracketContainsUpToSignStatement(
+        bracket=expected_bracket,
+        positive_value=(
+          expected_positive_value
+        ),
+      )
+    )
+
+    return (
+      bracket_inclusion
+      == expected_inclusion
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    lemma54_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return (
+      TodaLemma55Statement(
+        nu4=(
+          lemma54_statement
+          .nu4
+        ),
+        lemma54_statement=(
+          lemma54_statement
+        ),
+        beta_membership=(
+          premises[
+            1
+          ].conclusion
+        ),
+        beta_eta_zero_relation=(
+          premises[
+            2
+          ].conclusion
+        ),
+        t_range=(
+          premises[
+            3
+          ].conclusion
+        ),
+        bracket_inclusion=(
+          premises[
+            4
+          ].conclusion
+        ),
+        literature_statements=(
+          toda_lemma55_literature_statements()
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.5 integration"
+    ),
+    description=(
+      "Integrate the derived Toda "
+      "Lemma 5.4 nu_4, the Lemma 5.5 "
+      "hypotheses on beta and t, and "
+      "the derived bracket inclusion "
+      "containing plus or minus "
+      "E^2 beta composed with E^t nu_4 "
+      "into the final Toda Lemma 5.5 "
+      "aggregate. "
+      "The aggregate records the "
+      "Lemma 5.5 literature statement "
+      "and proof consequence while "
+      "preserving the independently "
+      "derived Lemma 5.4 aggregate."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54Statement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          HomotopyGroupMembershipStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma55BracketContainsUpToSignStatement
         ),
       ),
     ),
