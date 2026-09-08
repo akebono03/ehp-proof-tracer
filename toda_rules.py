@@ -16183,6 +16183,186 @@ def toda_nu_family_definition_statement(
   )
 
 
+def toda_55_nu_family_double_suspension_transport_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    lemma54_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    definition = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    n_range = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    n = definition.index
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      n_range.left
+      != n
+    ):
+      return False
+
+    if (
+      n_range.right
+      != 5
+    ):
+      return False
+
+    expected_definition = (
+      toda_nu_family_definition_statement(
+        n
+      )
+    )
+
+    if (
+      definition
+      != expected_definition
+    ):
+      return False
+
+    nu4 = (
+      definition
+      .iterated_suspension
+      .expression
+    )
+
+    if (
+      lemma54_statement.nu4
+      != nu4
+    ):
+      return False
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    expected_double_relation = Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=Suspension(
+          expression=nu4,
+        ),
+      ),
+      rhs=IteratedSuspension(
+        expression=nu_prime,
+        exponent=2,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      lemma54_statement
+      .double_suspension_relation
+      == expected_double_relation
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    definition = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    n = definition.index
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    return Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=definition.element,
+      ),
+      rhs=IteratedSuspension(
+        expression=nu_prime,
+        exponent=ScalarSum(
+          left=n,
+          right=ScalarProduct(
+            left=-1,
+            right=3,
+          ),
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 5.5 nu-family "
+      "double suspension transport"
+    ),
+    description=(
+      "For symbolic n>=5, combine the "
+      "derived Toda Lemma 5.4 relation "
+      "2 E nu_4 = E^2 nu-prime with "
+      "the definition "
+      "nu_n = E^(n-4) nu_4. "
+      "Suspending the Lemma 5.4 "
+      "relation by E^(n-5) gives "
+      "2 nu_n = E^(n-3) nu-prime. "
+      "This is a Toda (5.5)-specific "
+      "transport rule and does not "
+      "introduce generic suspension "
+      "normalization."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54Statement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaNuFamilyDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_eta3_suspension_relation_inference_rule():
   def guard(
     premises,
