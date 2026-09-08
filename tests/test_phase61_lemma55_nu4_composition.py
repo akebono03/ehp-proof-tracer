@@ -1,4 +1,5 @@
 from dataclasses import replace
+from functools import lru_cache
 
 from expression import (
   Composition,
@@ -25,6 +26,7 @@ from toda_rules import (
 )
 
 
+@lru_cache(maxsize=1)
 def build_phase61_5_data():
   phase61_3 = (
     build_phase61_3_data()
