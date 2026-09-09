@@ -1445,6 +1445,7 @@ current code / related tests を確認
 | Toda Lemma 5.5 bracket transport | COMPLETE | 61 |
 | ν-family / Toda (5.5) finite-dimensional | COMPLETE | 62 |
 | Toda (5.6) ν₄ decomposition | COMPLETE | 63 |
+| performance stabilization | COMPLETE | 64 |
 | automatic proof narrative generation | PLANNED / DEFERRED | later |
 | stable `(G_1;2)=Z/2{η}` | DEFERRED | later |
 | stable `(G_2;2)=Z/2{η^2}` | DEFERRED | later |
@@ -1623,9 +1624,99 @@ COMPLETE
 
 ---
 
-# 20. 現在の直近ステップ
 
-Phase 63 は COMPLETE。
+# 20. Phase 64：performance stabilization 完了
+
+Phase 64 は Phase 63 の数学 capability を変更せず、regression performance を安定化する maintenance Phase とした。
+
+same-machine baseline:
+
+```text
+3657 passed in 259.11s
+```
+
+final:
+
+```text
+3657 passed in 29.97s
+```
+
+約 88.4% 短縮。
+
+主要施策:
+
+```text
+deterministic no-arg builder caching
+inference premise-binding rematch elimination
+algebra exhaustive crosscheck local precomputation
+```
+
+coverage:
+
+```text
+3657 tests unchanged
+algebra exhaustive case ranges unchanged
+checked-count thresholds unchanged
+```
+
+未導入:
+
+```text
+agenda/worklist
+premise-type indexing
+global proof cache
+global GroupMap cache
+SNF/HNF replacement
+coverage reduction
+new Toda theorem semantics
+```
+
+状態:
+
+```text
+COMPLETE
+```
+
+---
+
+# 21. 現在の直近ステップ
+
+Phase 64 は COMPLETE。
+
+数学的 frontier は Phase 63 Toda (5.6) のまま。
+
+次は Equation (5.6) の後に続く concrete Toda statement / consequence を source から確認し、その Phase の最初に compatibility analysis を行う。
+
+開始順序:
+
+```text
+source statement
+↓
+mathematical dependency
+↓
+current code / tests compatibility
+↓
+minimum missing representation
+↓
+minimum theorem rule
+```
+
+引き続き deferred:
+
+```text
+generic Proposition 4.4 specialization framework
+generic direct-sum simplifier
+generic scalar normalization
+generic membership normalization
+stable ν / η³
+stable homotopy-group model
+automatic proof narrative generation
+agenda/worklist inference architecture
+global algebra-object caching
+```
+
+次 Phase の theorem 番号 / target は source statement を確認してから確定する。
+
 
 次は Equation (5.6) の後に続く concrete Toda statement / consequence を source から確認し、その Phase の最初に compatibility analysis を行う。
 

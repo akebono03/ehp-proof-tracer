@@ -3623,3 +3623,302 @@ COMPLETE
 ```
 
 次は Equation (5.6) の後に続く concrete Toda statement / consequence の dependency analysis から開始する。
+
+---
+
+# Phase 64：performance stabilization
+
+Phase 63 completion 後、数学 capability を追加せず repository-wide regression performance を分析・改善する Phase とした。
+
+same-machine baseline:
+
+```text
+3657 passed in 259.11s
+```
+
+machine 間の absolute timing は code-level optimization の効果比較に使わない。
+
+## Phase 64-1：baseline / current bottleneck analysis
+
+候補を:
+
+```text
+repeated deterministic builder construction
+generic inference engine
+algebra exhaustive crosscheck
+```
+
+に分離。
+
+### 状態
+
+COMPLETE
+
+## Phase 64-2：pytest duration profiling / slow builder identification
+
+`pytest --durations` で slow tests と repeated builder cost を確認。
+
+### 状態
+
+COMPLETE
+
+## Phase 64-3：deterministic builder caching
+
+Phase 57–63 周辺の deterministic no-arg builder に `lru_cache(maxsize=1)` を段階的に適用。
+
+same-machine progression:
+
+```text
+259.11s
+↓
+150.42s
+↓
+81.79s
+↓
+43.54s
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 64-4：inference-engine profiling
+
+Phase 63 representative profile:
+
+```text
+3,789,332 function calls
+1.670s
+
+find_inference_matches
+1.534s cumulative
+
+find_all_matching_premises
+0.792s cumulative
+
+match_inference_rule_bindings
+31,506 calls
+0.364s cumulative
+```
+
+recursive premise search で得た bindings を同じ premises に対して再計算していることを確認。
+
+### 状態
+
+COMPLETE
+
+## Phase 64-5：premise binding rematch elimination
+
+追加 private helper:
+
+```text
+_find_all_matching_premise_bindings()
+```
+
+recursive search が:
+
+```text
+premises
++
+merged bindings
+```
+
+を返し、`find_inference_matches_for_rule()` が再利用する。
+
+after profile:
+
+```text
+2,805,851 function calls
+1.185s
+```
+
+representative:
+
+```text
+1.670s → 1.185s
+```
+
+full:
+
+```text
+3657 passed in 42.67s
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 64-6a：algebra crosscheck bottleneck analysis
+
+dominant tests:
+
+```text
+test_finite_exactness_presentation_crosscheck
+11.57s
+
+test_finite_presentation_crosscheck
+6.23s
+```
+
+coverage は削減しない方針を確定。
+
+### 状態
+
+COMPLETE
+
+## Phase 64-6b：repeated enumeration elimination
+
+same `f.image_subgroup()` を crosscheck 内で再利用。
+
+結果:
+
+```text
+finite exactness
+11.57s → 10.87s
+
+full
+42.67s → 40.69s
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 64-6c：presentation lattice duplication analysis
+
+確認:
+
+```text
+kernel_structure()
+→ kernel_lattice_basis()
+
+image_structure()
+→ kernel_lattice_basis()
+```
+
+さらに exactness crosscheck で same `f.image_lattice_basis()` / same `g.kernel_lattice_basis()` が組合せごとに再計算されていた。
+
+production `GroupMap` cache は mutable semantics のため見送る。
+
+### 状態
+
+COMPLETE
+
+## Phase 64-6d：crosscheck presentation lattice precomputation
+
+crosscheck 内だけで:
+
+```text
+f image data
+g kernel data
+shared kernel lattice
+```
+
+を map ごとに一度計算して再利用。
+
+coverage:
+
+```text
+group case set unchanged
+matrix entry ranges unchanged
+checked > 500 unchanged
+checked > 100 unchanged
+```
+
+結果:
+
+```text
+finite presentation crosscheck
+6.31s → 約5.21s
+
+finite exactness crosscheck
+10.87s → 0.82s
+
+tests/test_algebra.py
+109 passed in 7.46s
+```
+
+full:
+
+```text
+3657 passed in 29.97s
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 64-7：Phase 64 completion
+
+same-machine:
+
+```text
+259.11s → 29.97s
+```
+
+約 88.4% 短縮。
+
+数学 capability:
+
+```text
+変更なし
+```
+
+current mathematical frontier:
+
+```text
+Phase 63
+Toda (5.6)
+
+π_(i-1)^3 ⊕ π_i^7
+≅
+π_i^4
+
+(α,β)↦Eα+ν₄∘β
+```
+
+追加しなかったもの:
+
+```text
+agenda/worklist inference engine
+premise-type indexing
+global proof cache
+global GroupMap lattice cache
+SNF/HNF algorithm replacement
+parallel pytest requirement
+coverage reduction
+new Toda theorem semantics
+automatic proof narrative generation
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 64 completion boundary
+
+目的:
+
+```text
+既存 semantics / provenance / coverage を保ったまま
+regression performance を安定化する
+```
+
+達成。
+
+次の数学 Phase:
+
+```text
+Equation (5.6) 後の concrete Toda statement / consequence
+↓
+dependency analysis
+↓
+current representation compatibility
+↓
+minimum implementation
+```
+
+exact target は source statement を確認してから確定する。
+

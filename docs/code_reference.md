@@ -2,7 +2,7 @@
 
 この文書は EHP Proof Tracer の主要 Python module と、その責務・主要 class / function・探索方法をまとめる。
 
-対象は **Phase 63 completion 時点**。
+対象は **Phase 64 completion 時点**。
 
 この文書は全 API を機械的に列挙する reference ではない。目的は:
 
@@ -2466,9 +2466,234 @@ later Toda consequences after Equation (5.6)
 
 ---
 
-# 34. 次 Phase で最初に確認する場所
 
-Phase 63 は COMPLETE。
+# 34. Phase 64：performance-related code reference
+
+Phase 64 は新しい数学 theorem family を追加しない。
+
+主な変更対象:
+
+```text
+proof.py
+tests / probes の deterministic builder
+tests/test_algebra.py
+```
+
+---
+
+# 35. `proof.py` Phase 64 matching path
+
+Phase 64-5 で追加:
+
+```text
+_find_all_matching_premise_bindings()
+```
+
+責務:
+
+```text
+recursive premise assignment
++
+merged VariableBinding
+```
+
+を同時に返す。
+
+既存 public:
+
+```text
+find_all_matching_premises()
+```
+
+は従来どおり premise tuple の collection を返す。
+
+`find_inference_matches_for_rule()` は private helper の bindings を再利用し、同じ premise assignment に対する再 binding を避ける。
+
+確認対象:
+
+```text
+match_premise_pattern()
+merge_variable_bindings()
+_find_all_matching_premise_bindings()
+find_all_matching_premises()
+find_inference_matches_for_rule()
+find_inference_matches()
+```
+
+未実装:
+
+```text
+premise-type index
+agenda/worklist
+incremental fixed-point engine
+global proof memoization
+```
+
+---
+
+# 36. deterministic Phase builder cache
+
+Phase 57–63 の一部 builder は:
+
+```text
+no-arg
+deterministic
+caller が returned proof graph を mutate しない
+```
+
+場合に:
+
+```python
+@lru_cache(maxsize=1)
+```
+
+を利用する。
+
+cache 前に確認:
+
+```text
+no-arg
+deterministic
+returned data is not mutated
+identity reuse is semantically safe
+```
+
+---
+
+# 37. `tests/test_algebra.py` Phase 64 boundary
+
+主要 exhaustive crosscheck:
+
+```text
+test_finite_presentation_crosscheck()
+test_finite_exactness_presentation_crosscheck()
+```
+
+目的:
+
+```text
+finite explicit enumeration
+vs
+presentation / integer-lattice calculation
+```
+
+維持:
+
+```text
+group case set
+matrix entry ranges
+checked > 500
+checked > 100
+```
+
+local precomputation で利用する主な API:
+
+```text
+GroupMap.image_subgroup()
+GroupMap.kernel_subgroup()
+GroupMap.image_lattice_basis()
+GroupMap.kernel_lattice_basis()
+relation_matrix()
+lattice_coordinates()
+structure_from_presentation()
+lattices_equal()
+```
+
+production `GroupMap` cache は追加していない。
+
+---
+
+# 38. Phase 64 performance reference
+
+same-machine full regression:
+
+```text
+baseline
+259.11s
+
+after Phase 64-3c
+150.42s
+
+after Phase 64-3d
+81.79s
+
+after Phase 64-3e
+43.54s
+
+after Phase 64-5
+42.67s
+
+after Phase 64-6b
+40.69s
+
+after Phase 64-6d
+29.97s
+```
+
+final:
+
+```text
+3657 passed in 29.97s
+```
+
+algebra:
+
+```text
+109 passed in 7.46s
+```
+
+remaining dominant single test:
+
+```text
+test_finite_presentation_crosscheck
+約 5.2s
+```
+
+現状は許容し、production cache / SNF-HNF redesign は concrete need が再発するまで deferred。
+
+---
+
+# 39. 次 Phase で最初に確認する場所
+
+Phase 64 は COMPLETE。
+
+数学的 frontier は Phase 63 Toda (5.6)。
+
+次の concrete Toda statement / consequence が決まったら:
+
+```text
+Toda source material
+  statement / proof / equation locator
+
+toda_rules.py
+  Phase 63 aggregate / provenance
+
+homotopy_groups.py
+  必要 group / map representation
+
+expression.py
+  必要 expression shape
+
+tests/test_phase63_*.py
+  current mathematical boundary
+```
+
+を確認する。
+
+引き続き:
+
+```text
+source statement
+↓
+dependency analysis
+↓
+current representation compatibility
+↓
+minimum implementation
+```
+
+を維持する。
+
 
 次の concrete Toda statement / consequence が決まったら、まず:
 

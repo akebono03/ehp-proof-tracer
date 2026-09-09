@@ -29,7 +29,7 @@ The implementation strategy is to formalize only the minimum theorem consequence
 
 # Current status
 
-Completed through Phase 63.
+Completed through Phase 64.
 
 ```text
 Phase 1–27   generic proof / algebra / Toda-bracket foundation
@@ -59,15 +59,24 @@ Phase 60     Toda Lemma 5.4 / ν₄ construction and literature-aware provenance
 Phase 61     Toda Lemma 5.5 bracket transport and literature-aware provenance
 Phase 62     Toda (5.5) finite-dimensional ν-family integration
 Phase 63     Toda (5.6) ν₄ decomposition isomorphism
+Phase 64     performance stabilization
 ```
 
 Latest repository-wide regression:
 
 ```text
-3657 passed in 939.47s
+3657 passed in 29.97s
 ```
 
-Phase 63 specialization / applicability / provenance / integration / probe regression has been verified.
+Phase 64 same-machine baseline:
+
+```text
+3657 passed in 259.11s
+```
+
+The Phase 64 final regression is approximately 88.4% faster than the same-machine baseline while preserving the same 3657-test coverage.
+
+Phase 63 mathematical capability remains unchanged, and Phase 64 performance / regression verification has been completed.
 
 Representative current probe:
 
@@ -1695,6 +1704,218 @@ later Toda consequences after Equation (5.6)
 
 ---
 
+
+# Phase 64: performance stabilization
+
+Phase 64 adds no new Toda theorem semantics. Its purpose is to reduce repository-wide regression time while preserving mathematical semantics, provenance, API behavior, and test coverage.
+
+The optimization policy is:
+
+```text
+measure
+↓
+identify repeated work
+↓
+apply the minimum safe change
+↓
+same-machine before / after benchmark
+↓
+full regression
+```
+
+Absolute timings from different machines are not used as evidence of code-level optimization.
+
+## Same-machine baseline
+
+The Phase 64 current-machine baseline was:
+
+```text
+3657 passed in 259.11s
+```
+
+The final Phase 64 regression is:
+
+```text
+3657 passed in 29.97s
+```
+
+This is approximately an 88.4% reduction in full-regression time.
+
+## Deterministic representative-builder caching
+
+Phase 64 first identified deterministic no-argument test / probe builders that repeatedly reconstructed the same proof graph.
+
+Where callers only inspect the returned graph and do not mutate it, these builders are cached with:
+
+```text
+lru_cache(maxsize=1)
+```
+
+Representative same-machine progression:
+
+```text
+259.11s
+↓
+150.42s
+↓
+81.79s
+↓
+43.54s
+```
+
+The cache preserves identity-based provenance checks because repeated consumers receive the same nested `ProofStep` graph.
+
+No theorem semantics were changed.
+
+## Inference-engine profiling
+
+`cProfile` showed that premise matching, rather than duplicate-result classification, dominated representative inference cost.
+
+Before the Phase 64-5 optimization, the Phase 63 representative profile included approximately:
+
+```text
+3,789,332 function calls
+1.670s total
+
+find_inference_matches
+1.534s cumulative
+
+find_all_matching_premises
+0.792s cumulative
+
+match_inference_rule_bindings
+31,506 calls
+0.364s cumulative
+```
+
+The recursive premise search already computed merged variable bindings, but those bindings were discarded and recomputed for the same premise assignment.
+
+## Premise-binding rematch elimination
+
+Phase 64 introduces the private helper:
+
+```text
+_find_all_matching_premise_bindings()
+```
+
+The recursive search now preserves:
+
+```text
+matched premises
++
+merged variable bindings
+```
+
+and `find_inference_matches_for_rule()` reuses those bindings.
+
+The public behavior of `find_all_matching_premises()` remains unchanged.
+
+After the change, the Phase 63 representative profile became approximately:
+
+```text
+2,805,851 function calls
+1.185s total
+```
+
+The representative inference path improved from approximately:
+
+```text
+1.670s
+↓
+1.185s
+```
+
+while preserving inference semantics and provenance.
+
+## Algebra crosscheck optimization
+
+After test/probe caching and the inference fix, the dominant remaining tests were:
+
+```text
+test_finite_exactness_presentation_crosscheck
+test_finite_presentation_crosscheck
+```
+
+These tests intentionally compare:
+
+```text
+finite explicit enumeration
+vs
+presentation / integer-lattice calculation
+```
+
+Phase 64 does not reduce their mathematical coverage.
+
+The exhaustive crosschecks now reuse already-computed values for the same map, including:
+
+```text
+image_subgroup()
+image_lattice_basis()
+kernel_lattice_basis()
+shared kernel lattice used by kernel / image presentation calculations
+```
+
+The finite exactness crosscheck also precomputes the `f` image data and `g` kernel data once per map instead of recomputing them for every pair.
+
+The final algebra regression is:
+
+```text
+109 passed in 7.46s
+```
+
+Representative final slow-test timings:
+
+```text
+test_finite_presentation_crosscheck
+about 5.2s
+
+test_finite_exactness_presentation_crosscheck
+about 0.82s
+```
+
+The exhaustive group sets, matrix-entry ranges, and checked-count thresholds remain unchanged.
+
+## Phase 64 completion boundary
+
+Implemented:
+
+```text
+same-machine performance baseline
+pytest duration profiling
+deterministic builder caching
+inference-engine profiling
+premise-binding rematch elimination
+algebra crosscheck repeated-enumeration elimination
+algebra crosscheck lattice precomputation
+final before / after regression measurement
+```
+
+Not implemented:
+
+```text
+agenda/worklist inference architecture
+premise-type indexing
+global proof-result cache
+global GroupMap lattice cache
+Smith normal form algorithm replacement
+Hermite normal form algorithm replacement
+parallel pytest requirement
+test coverage reduction
+new Toda theorem semantics
+automatic proof narrative generation
+```
+
+Current mathematical frontier therefore remains Phase 63:
+
+```text
+π_{i-1}^3 ⊕ π_i^7
+≅
+π_i^4
+
+(α,β)↦Eα+ν₄∘β
+```
+
+
 # Documentation
 
 - `README.md` — current capabilities and status
@@ -1707,7 +1928,7 @@ later Toda consequences after Equation (5.6)
 
 # Next development boundary
 
-Phase 63 is complete.
+Phase 64 is complete.
 
 Current verified capability:
 
@@ -1719,7 +1940,7 @@ Current verified capability:
 (α,β)↦Eα+ν₄∘β
 ```
 
-The next Phase should begin from the next concrete Toda statement or consequence after Equation (5.6) and first perform dependency / current-representation compatibility analysis before adding any new theorem semantics.
+The next mathematical Phase should begin from the next concrete Toda statement or consequence after Equation (5.6) and first perform dependency / current-representation compatibility analysis before adding any new theorem semantics.
 
 Still deferred until concrete need:
 
