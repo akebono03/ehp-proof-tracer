@@ -122,6 +122,7 @@ class FiniteCyclicGroup:
 class DirectSumGroup:
   summands: tuple[
     FreeCyclicGroup
+    | FiniteCyclicGroup
     | PrimaryComponent
     | TodaPrimaryGroup,
     ...

@@ -2,7 +2,7 @@
 
 この文書は EHP Proof Tracer の主要 Python module と、その責務・主要 class / function・探索方法をまとめる。
 
-対象は **Phase 64 completion 時点**。
+対象は **Phase 65 completion 時点**。
 
 この文書は全 API を機械的に列挙する reference ではない。目的は:
 
@@ -2653,72 +2653,437 @@ test_finite_presentation_crosscheck
 
 ---
 
-# 39. 次 Phase で最初に確認する場所
+---
 
-Phase 64 は COMPLETE。
+# 39. Phase 65：Toda Proposition 5.6 code reference
 
-数学的 frontier は Phase 63 Toda (5.6)。
+Phase 65 では主に:
 
-次の concrete Toda statement / consequence が決まったら:
+```text
+toda_rules.py
+homotopy_groups.py
+probes/probe_phase65_capabilities.py
+tests/test_phase65_*.py
+```
+
+を更新 / 追加した。
+
+generic `proof.py` inference machinery は Phase 65 では変更していない。
+
+---
+
+# 40. Phase 65 主要 statement
+
+`toda_rules.py` の Phase 65 主要 statement:
+
+```text
+TodaSuspensionInjectiveStatement
+TodaIteratedSuspensionInjectiveStatement
+TodaProp56Pi8_5QuotientStatement
+TodaProp56FiniteDimensionalStatement
+```
+
+### `TodaIteratedSuspensionInjectiveStatement`
+
+保持:
+
+```text
+map: TodaIteratedSuspensionMap
+```
+
+Phase 65 concrete use:
+
+```text
+E²:π_6^3→π_8^5 injective
+```
+
+generic map-property solver を追加せず、Toda-specific iterated suspension instance を保持する。
+
+### `TodaProp56Pi8_5QuotientStatement`
+
+保持:
+
+```text
+ambient_group
+subobject_map
+quotient_order
+```
+
+Phase 65 concrete meaning:
+
+```text
+π_8^5 / E²π_6^3 ≅ Z/2
+```
+
+symbolic `QuotientGroup` algebraへの一般化はしない。
+
+### `TodaProp56FiniteDimensionalStatement`
+
+保持:
+
+```text
+pi5_2_group_relation
+pi6_3_group_relation
+pi7_4_group_relation
+pi8_5_group_relation
+higher_nu_group_relation
+higher_range
+literature_statements
+```
+
+final aggregate:
+
+```text
+ProofRule.INFERENCE
+```
+
+---
+
+# 41. Phase 65-2 / 65-3 rule family
+
+主要 rule:
+
+```text
+toda_prop56_pi5_2_eta2_cube_inference_rule()
+
+toda_57_nu_prime_eta6_hopf_inference_rule()
+toda_prop56_pi7_3_hopf_surjective_inference_rule()
+toda_prop56_pi7_5_delta_zero_inference_rule()
+toda_prop56_pi5_2_suspension_injective_inference_rule()
+```
+
+end-to-end:
+
+```text
+π_5^2=Z/2{η₂³}
+
+H(ν′∘η₆)=η₅²
++
+π_7^5=Z/2{η₅²}
+↓
+H surjective
+↓
+Δ=0
+↓
+E:π_5^2→π_6^3 injective
+```
+
+η₅ / η₆ concrete definition の structural-name 差は Phase 58 と同様に local guard / canonical construction で処理する。
+
+global η normalization は追加しない。
+
+---
+
+# 42. Phase 65-4 order / π_6^3 rule family
+
+```text
+toda_prop56_eta3_cube_order_two_inference_rule()
+toda_prop56_nu_prime_order_four_inference_rule()
+toda_prop56_pi6_3_finite_cyclic_inference_rule()
+```
+
+導出:
+
+```text
+ord(η₃³)=2
+ord(ν′)=4
+π_6^3=Z/4{ν′}
+```
+
+generic order arithmetic framework は追加しない。
+
+---
+
+# 43. Phase 65-5 π_7^4 decomposition
+
+`homotopy_groups.py`:
+
+```text
+DirectSumGroup.summands
+```
+
+は `FiniteCyclicGroup` を含められるよう拡張。
+
+低次元 fact:
+
+```text
+π_7^7=Z{ι₇}
+```
+
+を利用。
+
+rule:
+
+```text
+toda_prop56_pi7_4_decomposition_inference_rule()
+```
+
+final:
+
+```text
+π_7^4
+=
+Z{ν₄}
+⊕
+Z/4{Eν′}
+```
+
+---
+
+# 44. Phase 65-6 quotient / E² injectivity
+
+rule:
+
+```text
+toda_prop56_pi8_5_quotient_inference_rule()
+toda_prop56_pi6_3_e2_injective_inference_rule()
+```
+
+両方とも Phase 63 `Toda56Nu4DecompositionStatement` の derived theorem semantics を provenance anchor とする。
+
+generic Prop.4.4 specialization framework は追加しない。
+
+---
+
+# 45. Phase 65-7 n=5 order / group
+
+rule:
+
+```text
+toda_prop56_nu5_double_relation_inference_rule()
+toda_prop56_e2_nu_prime_order_four_inference_rule()
+toda_prop56_nu5_order_eight_inference_rule()
+toda_prop56_pi8_5_finite_cyclic_inference_rule()
+```
+
+chain:
+
+```text
+Toda (5.5), n=5
+↓
+2ν₅=E²ν′
+
+π_6^3=Z/4{ν′}
++
+E² injective
+↓
+ord(E²ν′)=4
+↓
+ord(ν₅)=8
+
+quotient order 2
++
+image order 4
+↓
+π_8^5=Z/8{ν₅}
+```
+
+---
+
+# 46. Phase 65-8 higher transport
+
+rule:
+
+```text
+toda_prop56_nu5_stable_transport_inference_rule()
+toda_prop56_higher_nu_family_bridge_inference_rule()
+toda_prop56_higher_nu_finite_cyclic_generator_inference_rule()
+```
+
+Toda (4.5):
+
+```text
+E^(n-5):π_8^5≅π_(n+3)^n
+```
+
+と ν-family definition を接続し:
+
+```text
+π_(n+3)^n=Z/8{ν_n}
+(n≥6)
+```
+
+を導出する。
+
+---
+
+# 47. Phase 65-9 aggregate / literature
+
+helper:
+
+```text
+toda_prop56_finite_dimensional_literature_statements()
+```
+
+integration:
+
+```text
+toda_prop56_finite_dimensional_integration_inference_rule()
+```
+
+premises:
+
+```text
+π_5^2 relation       INFERENCE
+π_6^3 relation       INFERENCE
+π_7^4 relation       INFERENCE
+π_8^5 relation       INFERENCE
+higher ν relation    INFERENCE
+n≥6                  GIVEN
+```
+
+final:
+
+```text
+TodaProp56FiniteDimensionalStatement
+ProofRule.INFERENCE
+```
+
+---
+
+# 48. Phase 65 representative probe
+
+module:
+
+```text
+probes/probe_phase65_capabilities.py
+```
+
+主要 function:
+
+```text
+build_phase65_representative_result()
+print_section()
+print_phase65_results()
+print_phase65_exact_sequence()
+print_phase65_derivation_chain()
+print_phase65_provenance()
+print_phase65_literature()
+print_phase65_boundary()
+main()
+```
+
+EHP display:
+
+```text
+π_7^3 ─H→ π_7^5 ─Δ→ π_5^2 ─E→ π_6^3 ─H→ π_6^5
+```
+
+`print_phase65_derivation_chain()` は presentation-only。
+
+automatic proof narrative generator ではない。
+
+probe は `tests/test_phase65_prop56_integration.py` の deterministic builder を representative fixture として再利用する。
+
+`tests/` が Python package ではないため、probe は既存 probe pattern と同様に tests directory を `sys.path` に追加して focused integration builder を import する。
+
+---
+
+# 49. Phase 65 tests
+
+主要:
+
+```text
+tests/test_phase65_pi5_2_eta2_cube.py
+tests/test_phase65_equation57_injectivity.py
+tests/test_phase65_nu_prime_order_pi6_3.py
+tests/test_phase65_pi7_4_decomposition.py
+tests/test_phase65_n5_quotient_e2_injectivity.py
+tests/test_phase65_nu5_order_pi8_5.py
+tests/test_phase65_nu5_stable_transport.py
+tests/test_phase65_prop56_integration.py
+tests/test_phase65_probe.py
+tests/test_phase65_provenance.py
+```
+
+重要な deterministic builder は:
+
+```text
+@lru_cache(maxsize=1)
+```
+
+を最初から付け、Phase 64 の performance stabilization 方針を維持する。
+
+final regression:
+
+```text
+3841 passed in 31.82s
+```
+
+---
+
+# 50. current provenance / persistence boundary
+
+current `ProofStep` graph は:
+
+```text
+in-memory provenance
+```
+
+である。
+
+```text
+same Python process
+→ cached builder reuse possible
+
+new process
+→ normally reconstruct inference
+```
+
+persistent proof repository はまだない。
+
+将来 repository を実装するときの確認対象:
+
+```text
+proof.py
+  ProofStep
+  InferenceRule
+
+toda_rules.py
+  theorem aggregates
+  literature metadata
+
+homotopy_groups.py
+  group / generator representation
+
+probes/
+  human-readable proof expectations
+```
+
+---
+
+# 51. 次 Phase で最初に確認する場所
+
+Phase 65 は COMPLETE。
+
+次の concrete Toda source statement / consequence が決まったら:
 
 ```text
 Toda source material
-  statement / proof / equation locator
+  statement / proof / locator
 
 toda_rules.py
-  Phase 63 aggregate / provenance
+  TodaProp56FiniteDimensionalStatement
+  Phase 65 rule family
 
-homotopy_groups.py
-  必要 group / map representation
+tests/test_phase65_*.py
+  current Proposition 5.6 boundary
 
-expression.py
-  必要 expression shape
-
-tests/test_phase63_*.py
-  current mathematical boundary
+probes/probe_phase65_capabilities.py
+  current proof-style / provenance display
 ```
 
 を確認する。
 
-引き続き:
+Equation (5.8) が次 target なら:
 
 ```text
-source statement
-↓
-dependency analysis
-↓
-current representation compatibility
-↓
-minimum implementation
+Δ(ι₉)=±(2ν₄-Eν′)=±[ι₄,ι₄]
 ```
 
-を維持する。
+の current representation compatibility を最初に調べる。
 
-
-次の concrete Toda statement / consequence が決まったら、まず:
-
-```text
-Toda source material
-  statement / proof / equation locator
-
-toda_rules.py
-  直前 theorem family
-  Phase 63 aggregate / provenance
-
-homotopy_groups.py
-  必要 group / map representation
-
-expression.py
-  必要 expression shape
-
-tests/test_phase63_*.py
-  current ν₄ / Prop.4.4 boundary
-
-probes/probe_phase63_capabilities.py
-  current proof-style / literature display pattern
-```
-
-を確認する。
+Proof Repository は 7-stem 程度まで concrete calculations が蓄積した時点で separate design Phase を検討し、8–10 stem で schema を実例検証する。
 
 引き続き:
 

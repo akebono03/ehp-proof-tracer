@@ -68,6 +68,28 @@ def pi_5_5_free_cyclic_fact():
   )
 
 
+def pi_7_7_free_cyclic_fact():
+  iota_7 = HomotopyElement(
+    name="ι_7",
+    dimension=7,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=7,
+    ),
+  )
+
+  return Relation(
+    lhs=TodaPrimaryGroup(
+      group_dimension=7,
+      sphere_dimension=7,
+    ),
+    rhs=FreeCyclicGroup(
+      generator=iota_7,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+
 def pi_4_5_zero_fact():
   return TodaPrimaryGroupZeroStatement(
     group=TodaPrimaryGroup(
