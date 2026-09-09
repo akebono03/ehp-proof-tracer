@@ -874,6 +874,250 @@ def toda_lemma57_nu_prime_hypothesis_inference_rule():
   )
 
 
+def toda_lemma57_pi6_2_eta2_nu_prime_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    prop56_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    isomorphism = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    expected_pi6_3_relation = Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=6,
+        sphere_dimension=3,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=4,
+        generator=nu_prime,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      prop56_statement
+      .pi6_3_group_relation
+      != expected_pi6_3_relation
+    ):
+      return False
+
+    source_group = (
+      isomorphism
+      .source_group
+    )
+
+    target_group = (
+      isomorphism
+      .target_group
+    )
+
+    if not isinstance(
+      source_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    if not isinstance(
+      target_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    i = (
+      source_group
+      .group_dimension
+    )
+
+    if not isinstance(
+      i,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      source_group
+      != TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=3,
+      )
+    ):
+      return False
+
+    if (
+      target_group
+      != TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=2,
+      )
+    ):
+      return False
+
+    composition = (
+      isomorphism
+      .composition
+    )
+
+    if not isinstance(
+      composition,
+      Composition,
+    ):
+      return False
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    if (
+      composition.left
+      != eta_2
+    ):
+      return False
+
+    gamma = (
+      composition
+      .right
+    )
+
+    if not isinstance(
+      gamma,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      gamma.dimension
+      != i
+    ):
+      return False
+
+    if (
+      gamma.source
+      != i
+    ):
+      return False
+
+    if (
+      gamma.target
+      != 3
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    prop56_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    isomorphism = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    nu_prime = (
+      prop56_statement
+      .pi6_3_group_relation
+      .rhs
+      .generator
+    )
+
+    eta_2 = (
+      isomorphism
+      .composition
+      .left
+    )
+
+    eta2_nu_prime = Composition(
+      left=eta_2,
+      right=nu_prime,
+    )
+
+    return Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=6,
+        sphere_dimension=2,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=4,
+        generator=eta2_nu_prime,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.7 "
+      "pi_6^2 eta_2 nu-prime"
+    ),
+    description=(
+      "Use the independently derived "
+      "finite-dimensional Toda "
+      "Proposition 5.6 relation "
+      "pi_6^3=Z/4{nu-prime} "
+      "together with the independently "
+      "derived Toda (5.2) composition "
+      "isomorphism "
+      "eta_2 composed with minus from "
+      "pi_i^3 to pi_i^2. "
+      "Transport the concrete generator "
+      "nu-prime to "
+      "eta_2 composed with nu-prime "
+      "and derive "
+      "pi_6^2=Z/4{eta_2 nu-prime}. "
+      "No generic cyclic-generator "
+      "transport framework is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp56FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda52CompositionIsomorphismStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_lemma52_delta_two_eta2_preimage_inference_rule():
   def guard(
     premises,
