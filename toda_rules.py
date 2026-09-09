@@ -4320,6 +4320,760 @@ def toda_prop56_pi5_2_eta2_cube_inference_rule():
   )
 
 
+def toda_57_nu_prime_eta6_hopf_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    hopf_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta5_definition = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    eta6_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    canonical_eta_5 = HomotopyElement(
+      name="η₅",
+      dimension=5,
+      source=6,
+      target=5,
+      generator=GeneratorSymbol(
+        family="η",
+        index=5,
+      ),
+    )
+
+    expected_hopf_relation = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=nu_prime,
+      ),
+      rhs=canonical_eta_5,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      hopf_relation
+      != expected_hopf_relation
+    ):
+      return False
+
+    if (
+      eta5_definition.index
+      != 5
+    ):
+      return False
+
+    if (
+      eta6_definition.index
+      != 6
+    ):
+      return False
+
+    eta5_definition_element = (
+      eta5_definition.element
+    )
+
+    if not isinstance(
+      eta5_definition_element,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta5_definition_element.dimension
+      != 5
+    ):
+      return False
+
+    if (
+      eta5_definition_element.source
+      != 6
+    ):
+      return False
+
+    if (
+      eta5_definition_element.target
+      != 5
+    ):
+      return False
+
+    if (
+      eta5_definition_element.generator
+      != GeneratorSymbol(
+        family="η",
+        index=5,
+      )
+    ):
+      return False
+
+    eta6_definition_element = (
+      eta6_definition.element
+    )
+
+    if not isinstance(
+      eta6_definition_element,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta6_definition_element.dimension
+      != 6
+    ):
+      return False
+
+    if (
+      eta6_definition_element.source
+      != 7
+    ):
+      return False
+
+    if (
+      eta6_definition_element.target
+      != 6
+    ):
+      return False
+
+    if (
+      eta6_definition_element.generator
+      != GeneratorSymbol(
+        family="η",
+        index=6,
+      )
+    ):
+      return False
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    if (
+      eta5_definition.iterated_suspension
+      != IteratedSuspension(
+        expression=eta_2,
+        exponent=3,
+      )
+    ):
+      return False
+
+    if (
+      eta6_definition.iterated_suspension
+      != IteratedSuspension(
+        expression=eta_2,
+        exponent=4,
+      )
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    hopf_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    nu_prime = (
+      hopf_relation
+      .lhs
+      .expression
+    )
+
+    eta_5 = HomotopyElement(
+      name="η₅",
+      dimension=5,
+      source=6,
+      target=5,
+      generator=GeneratorSymbol(
+        family="η",
+        index=5,
+      ),
+    )
+
+    eta_6 = HomotopyElement(
+      name="η₆",
+      dimension=6,
+      source=7,
+      target=6,
+      generator=GeneratorSymbol(
+        family="η",
+        index=6,
+      ),
+    )
+
+    eta_5_squared = Composition(
+      left=eta_5,
+      right=eta_6,
+    )
+
+    return Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=Composition(
+          left=nu_prime,
+          right=eta_6,
+        ),
+      ),
+      rhs=eta_5_squared,
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Equation 5.7 "
+      "nu-prime eta_6 Hopf value"
+    ),
+    description=(
+      "Use the independently derived "
+      "relation H(nu-prime)=eta_5 "
+      "and the concrete eta-family "
+      "definitions at indices 5 and 6. "
+      "Accept the existing eta-family "
+      "constructor names structurally "
+      "through dimension and generator "
+      "identity, then construct the "
+      "canonical Toda notation eta_5 "
+      "and eta_6 locally. "
+      "The Proposition 2.2 composition "
+      "formula gives "
+      "H(nu-prime composed with eta_6)"
+      "=eta_5 composed with eta_6, "
+      "which is eta_5 squared."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaEtaFamilyDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaEtaFamilyDefinitionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop56_pi7_3_hopf_surjective_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    equation57 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    prop53 = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    eta_5 = HomotopyElement(
+      name="η₅",
+      dimension=5,
+      source=6,
+      target=5,
+      generator=GeneratorSymbol(
+        family="η",
+        index=5,
+      ),
+    )
+
+    eta_6 = HomotopyElement(
+      name="η₆",
+      dimension=6,
+      source=7,
+      target=6,
+      generator=GeneratorSymbol(
+        family="η",
+        index=6,
+      ),
+    )
+
+    eta_5_squared = Composition(
+      left=eta_5,
+      right=eta_6,
+    )
+
+    expected_equation57 = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=Composition(
+          left=nu_prime,
+          right=eta_6,
+        ),
+      ),
+      rhs=eta_5_squared,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      equation57
+      != expected_equation57
+    ):
+      return False
+
+    higher_relation = (
+      prop53
+      .higher_eta_squared_group_relation
+    )
+
+    higher_range = (
+      prop53.higher_range
+    )
+
+    if not isinstance(
+      higher_relation.lhs,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    if not isinstance(
+      higher_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    n = (
+      higher_relation
+      .lhs
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      higher_range.left
+      != n
+    ):
+      return False
+
+    if (
+      higher_range.right
+      != 5
+    ):
+      return False
+
+    if (
+      higher_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=n,
+          right=2,
+        ),
+        sphere_dimension=n,
+      )
+    ):
+      return False
+
+    if (
+      higher_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    eta_n = HomotopyElement(
+      name="η_n",
+      dimension=n,
+      source=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      target=n,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n,
+      ),
+    )
+
+    eta_n_plus_one = HomotopyElement(
+      name="η_(n+1)",
+      dimension=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      source=ScalarSum(
+        left=n,
+        right=2,
+      ),
+      target=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      generator=GeneratorSymbol(
+        family="η",
+        index=ScalarSum(
+          left=n,
+          right=1,
+        ),
+      ),
+    )
+
+    return (
+      higher_relation
+      .rhs
+      .generator
+      == Composition(
+        left=eta_n,
+        right=eta_n_plus_one,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return TodaHopfInvariantSurjectiveStatement(
+      map=TodaHopfInvariantMap(
+        source_group=TodaPrimaryGroup(
+          group_dimension=7,
+          sphere_dimension=3,
+        ),
+        target_group=TodaPrimaryGroup(
+          group_dimension=7,
+          sphere_dimension=5,
+        ),
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.6 "
+      "pi_7^3 Hopf surjective"
+    ),
+    description=(
+      "Equation (5.7) gives an element "
+      "nu-prime composed with eta_6 "
+      "whose Hopf invariant is "
+      "eta_5 squared. Proposition 5.3 "
+      "gives pi_7^5=Z/2{eta_5 squared}. "
+      "Therefore H from pi_7^3 to "
+      "pi_7^5 is surjective."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp53FiniteDimensionalStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop56_pi7_5_delta_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    hopf_surjective = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    window = exactness.window
+
+    pi_7_3 = TodaPrimaryGroup(
+      group_dimension=7,
+      sphere_dimension=3,
+    )
+
+    pi_7_5 = TodaPrimaryGroup(
+      group_dimension=7,
+      sphere_dimension=5,
+    )
+
+    pi_5_2 = TodaPrimaryGroup(
+      group_dimension=5,
+      sphere_dimension=2,
+    )
+
+    if (
+      window.first_map
+      != EHP_H_MAP
+    ):
+      return False
+
+    if (
+      window.second_map
+      != EHP_DELTA_MAP
+    ):
+      return False
+
+    if (
+      window.source_term
+      != pi_7_3
+    ):
+      return False
+
+    if (
+      window.middle_term
+      != pi_7_5
+    ):
+      return False
+
+    if (
+      window.target_term
+      != pi_5_2
+    ):
+      return False
+
+    return (
+      hopf_surjective.map
+      == TodaHopfInvariantMap(
+        source_group=pi_7_3,
+        target_group=pi_7_5,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    window = exactness.window
+
+    return TodaDeltaZeroStatement(
+      map=TodaDeltaMap(
+        source_group=window.middle_term,
+        target_group=window.target_term,
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.6 "
+      "pi_7^5 Delta zero"
+    ),
+    description=(
+      "In the concrete exact sequence "
+      "pi_7^3 -> pi_7^5 -> pi_5^2, "
+      "surjectivity of H makes Im(H) "
+      "all of pi_7^5. Exactness gives "
+      "Ker(Delta)=pi_7^5, so Delta "
+      "is zero."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaHopfInvariantSurjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop56_pi5_2_suspension_injective_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    delta_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    window = exactness.window
+
+    pi_7_5 = TodaPrimaryGroup(
+      group_dimension=7,
+      sphere_dimension=5,
+    )
+
+    pi_5_2 = TodaPrimaryGroup(
+      group_dimension=5,
+      sphere_dimension=2,
+    )
+
+    pi_6_3 = TodaPrimaryGroup(
+      group_dimension=6,
+      sphere_dimension=3,
+    )
+
+    if (
+      window.first_map
+      != EHP_DELTA_MAP
+    ):
+      return False
+
+    if (
+      window.second_map
+      != EHP_E_MAP
+    ):
+      return False
+
+    if (
+      window.source_term
+      != pi_7_5
+    ):
+      return False
+
+    if (
+      window.middle_term
+      != pi_5_2
+    ):
+      return False
+
+    if (
+      window.target_term
+      != pi_6_3
+    ):
+      return False
+
+    return (
+      delta_zero.map
+      == TodaDeltaMap(
+        source_group=pi_7_5,
+        target_group=pi_5_2,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    window = exactness.window
+
+    return TodaSuspensionInjectiveStatement(
+      map=TodaSuspensionMap(
+        source_group=window.middle_term,
+        target_group=window.target_term,
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.6 "
+      "pi_5^2 suspension injective"
+    ),
+    description=(
+      "In the concrete exact sequence "
+      "pi_7^5 -> pi_5^2 -> pi_6^3, "
+      "Delta zero gives Im(Delta)=0. "
+      "Exactness therefore gives "
+      "Ker(E)=0, so suspension "
+      "E:pi_5^2 to pi_6^3 is injective."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaDeltaZeroStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_pi_i_minus_1_1_zero_inference_rule():
   def guard(
     premises,
