@@ -4800,6 +4800,578 @@ def toda_59_eta3_nu4_inference_rule():
   )
 
 
+def toda_510_eta5_nu6_bridge_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    toda59 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    nu6_definition = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    nu_4 = HomotopyElement(
+      name="ν₄",
+      dimension=4,
+      source=7,
+      target=4,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=4,
+      ),
+    )
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    eta_6 = HomotopyElement(
+      name="η₆",
+      dimension=6,
+      source=7,
+      target=6,
+      generator=GeneratorSymbol(
+        family="η",
+        index=6,
+      ),
+    )
+
+    expected_toda59 = Relation(
+      lhs=Composition(
+        left=eta_3,
+        right=nu_4,
+      ),
+      rhs=Composition(
+        left=nu_prime,
+        right=eta_6,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      toda59
+      != expected_toda59
+    ):
+      return False
+
+    return (
+      nu6_definition
+      == toda_nu_family_definition_statement(
+        6
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    nu6_definition = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    nu_6 = (
+      nu6_definition.element
+    )
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    eta_5 = HomotopyElement(
+      name="η₅",
+      dimension=5,
+      source=6,
+      target=5,
+      generator=GeneratorSymbol(
+        family="η",
+        index=5,
+      ),
+    )
+
+    eta_8 = HomotopyElement(
+      name="η₈",
+      dimension=8,
+      source=9,
+      target=8,
+      generator=GeneratorSymbol(
+        family="η",
+        index=8,
+      ),
+    )
+
+    return Relation(
+      lhs=Composition(
+        left=eta_5,
+        right=nu_6,
+      ),
+      rhs=Composition(
+        left=IteratedSuspension(
+          expression=nu_prime,
+          exponent=2,
+        ),
+        right=eta_8,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.8 "
+      "eta_5 nu_6 bridge"
+    ),
+    description=(
+      "Suspend Toda (5.9) twice. "
+      "The independently derived relation "
+      "eta_3 composed with nu_4 "
+      "=nu-prime composed with eta_6 "
+      "therefore gives "
+      "eta_5 composed with nu_6 "
+      "=E^2 nu-prime composed with eta_8. "
+      "The concrete nu_6 family definition "
+      "anchors the shifted nu-family term. "
+      "No generic iterated suspension "
+      "of composition normalizer is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaNuFamilyDefinitionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_510_eta5_nu6_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    bridge = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    double_nu5 = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi9_5_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    nu_5 = (
+      toda_nu_family_definition_statement(
+        5
+      ).element
+    )
+
+    nu_6 = (
+      toda_nu_family_definition_statement(
+        6
+      ).element
+    )
+
+    eta_5 = HomotopyElement(
+      name="η₅",
+      dimension=5,
+      source=6,
+      target=5,
+      generator=GeneratorSymbol(
+        family="η",
+        index=5,
+      ),
+    )
+
+    eta_8 = HomotopyElement(
+      name="η₈",
+      dimension=8,
+      source=9,
+      target=8,
+      generator=GeneratorSymbol(
+        family="η",
+        index=8,
+      ),
+    )
+
+    e2_nu_prime = IteratedSuspension(
+      expression=nu_prime,
+      exponent=2,
+    )
+
+    expected_bridge = Relation(
+      lhs=Composition(
+        left=eta_5,
+        right=nu_6,
+      ),
+      rhs=Composition(
+        left=e2_nu_prime,
+        right=eta_8,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      bridge
+      != expected_bridge
+    ):
+      return False
+
+    expected_double_nu5 = Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=nu_5,
+      ),
+      rhs=e2_nu_prime,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      double_nu5
+      != expected_double_nu5
+    ):
+      return False
+
+    nu5_eta8 = Composition(
+      left=nu_5,
+      right=eta_8,
+    )
+
+    expected_pi9_5 = Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=9,
+        sphere_dimension=5,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=2,
+        generator=nu5_eta8,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      pi9_5_relation
+      == expected_pi9_5
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    bridge = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=bridge.lhs,
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.8 "
+      "eta_5 nu_6 zero"
+    ),
+    description=(
+      "The concrete bridge gives "
+      "eta_5 nu_6=E^2 nu-prime eta_8. "
+      "The independently derived "
+      "Toda (5.5) specialization gives "
+      "2 nu_5=E^2 nu-prime. "
+      "Hence eta_5 nu_6 equals "
+      "2 nu_5 eta_8. "
+      "Phase 68-6 gives "
+      "pi_9^5=Z/2 generated by "
+      "nu_5 eta_8, so twice this "
+      "generator is zero. "
+      "Therefore eta_5 nu_6=0. "
+      "No generic composition linearity "
+      "or cyclic-group annihilator "
+      "solver is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_510_higher_eta_nu_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    base_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    toda55 = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    eta_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    eta_5 = HomotopyElement(
+      name="η₅",
+      dimension=5,
+      source=6,
+      target=5,
+      generator=GeneratorSymbol(
+        family="η",
+        index=5,
+      ),
+    )
+
+    nu_6 = (
+      toda_nu_family_definition_statement(
+        6
+      ).element
+    )
+
+    expected_base_zero = Relation(
+      lhs=Composition(
+        left=eta_5,
+        right=nu_6,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    if (
+      base_zero
+      != expected_base_zero
+    ):
+      return False
+
+    symbolic_nu_definition = (
+      toda55
+      .nu_family_definition
+    )
+
+    n = (
+      symbolic_nu_definition.index
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      toda55.n_range
+      != ScalarGreaterEqualStatement(
+        left=n,
+        right=5,
+      )
+    ):
+      return False
+
+    if (
+      symbolic_nu_definition
+      != toda_nu_family_definition_statement(
+        n
+      )
+    ):
+      return False
+
+    return (
+      eta_definition
+      == toda_eta_family_definition_statement(
+        n
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    toda55 = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    eta_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    n = (
+      toda55
+      .nu_family_definition
+      .index
+    )
+
+    n_plus_one = ScalarSum(
+      left=n,
+      right=1,
+    )
+
+    n_plus_four = ScalarSum(
+      left=n,
+      right=4,
+    )
+
+    nu_n_plus_one = HomotopyElement(
+      name="ν_(n+1)",
+      dimension=n_plus_one,
+      source=n_plus_four,
+      target=n_plus_one,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=n_plus_one,
+      ),
+    )
+
+    return Relation(
+      lhs=Composition(
+        left=eta_definition.element,
+        right=nu_n_plus_one,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.8 "
+      "higher eta nu zero"
+    ),
+    description=(
+      "Suspend the independently derived "
+      "base relation eta_5 nu_6=0 "
+      "through the finite-dimensional "
+      "eta and nu families. "
+      "For symbolic n at least 5, "
+      "E^(n-5)(eta_5 nu_6) "
+      "is eta_n composed with "
+      "nu_(n+1), hence "
+      "eta_n composed with nu_(n+1)=0. "
+      "The shifted nu_(n+1) expression "
+      "is constructed locally, following "
+      "the existing shifted eta-family "
+      "representation pattern. "
+      "No generic shifted-family "
+      "constructor or zero suspension "
+      "transport framework is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda55NuFamilyFiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaEtaFamilyDefinitionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_lemma52_delta_two_eta2_preimage_inference_rule():
   def guard(
     premises,
