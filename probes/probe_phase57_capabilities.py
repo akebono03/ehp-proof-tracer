@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 from barratt_hilton_rules import (
   HomotopyGroupMembershipStatement,
 )
@@ -54,6 +56,7 @@ from toda_rules import (
 )
 
 
+@lru_cache(maxsize=1)
 def build_phase57_representative_result():
   phase55 = (
     build_phase55_representative_result()

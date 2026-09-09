@@ -1,4 +1,5 @@
 from dataclasses import replace
+from functools import lru_cache
 
 from proof import (
   InferenceTerminationReason,
@@ -18,6 +19,7 @@ from toda_rules import (
 )
 
 
+@lru_cache(maxsize=1)
 def build_phase62_6_data():
   phase62_4 = (
     build_phase62_4_data()

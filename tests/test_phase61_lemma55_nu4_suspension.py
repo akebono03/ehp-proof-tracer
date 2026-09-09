@@ -1,4 +1,5 @@
 from dataclasses import replace
+from functools import lru_cache
 
 from expression import (
   GeneratorSymbol,
@@ -33,6 +34,7 @@ from toda_rules import (
 )
 
 
+@lru_cache(maxsize=1)
 def build_phase61_4_data():
   phase60_8 = (
     build_phase60_8_data()

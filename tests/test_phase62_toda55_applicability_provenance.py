@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 from proof import (
   ProofRule,
 )
@@ -56,6 +58,7 @@ def ancestor_ids(
   }
 
 
+@lru_cache(maxsize=1)
 def build_phase62_7_data():
   phase62_6 = (
     build_phase62_6_data()

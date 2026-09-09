@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 import pytest
 
 from proof import (
@@ -51,6 +53,7 @@ def collect_ancestor_steps(
   )
 
 
+@lru_cache(maxsize=1)
 def build_phase62_5_data():
   phase62_4 = (
     build_phase62_4_data()

@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 from expression import (
   Composition,
   GeneratorSymbol,
@@ -37,6 +39,7 @@ from toda_rules import (
 )
 
 
+@lru_cache(maxsize=1)
 def build_phase59_8_data():
   phase59_4 = (
     build_phase59_4_data()

@@ -25,7 +25,7 @@ representation != typing != theorem knowledge
 structural equality != mathematical equality
 ```
 
-Phase 63 までこの原則を維持している。
+Phase 64 までこの原則を維持している。
 
 ---
 
@@ -2965,9 +2965,238 @@ later Toda consequences after Equation (5.6)
 
 ---
 
-# 69. 次の設計境界
 
-Phase 63 は COMPLETE。
+# 69. Phase 64：performance stabilization
+
+Phase 64 は数学 capability を追加する Phase ではない。
+
+目的:
+
+```text
+既存 semantics
++
+provenance
++
+test coverage
+を維持したまま
+regression performance を安定化する
+```
+
+性能改善でも:
+
+```text
+推測で最適化しない
+↓
+pytest --durations
+↓
+cProfile
+↓
+重複計算を特定
+↓
+最小変更
+↓
+same-machine benchmark
+↓
+full regression
+```
+
+を原則とする。
+
+current-machine baseline:
+
+```text
+3657 passed in 259.11s
+```
+
+---
+
+# 70. Phase 64：deterministic builder caching
+
+Phase 57–63 の一部 builder は:
+
+```text
+no-arg
+deterministic
+returned graph を caller が mutate しない
+```
+
+ため:
+
+```text
+lru_cache(maxsize=1)
+```
+
+で同一 proof graph の再構築を避ける。
+
+identity-based provenance regression がある Phase では、同一 nested `ProofStep` graph の再利用とも整合する。
+
+---
+
+# 71. Phase 64：premise-binding rematch elimination
+
+profiling で:
+
+```text
+recursive premise search
+↓
+merged bindings を計算
+↓
+bindings を破棄
+↓
+same premises を再 binding
+```
+
+という重複を確認した。
+
+private helper:
+
+```text
+_find_all_matching_premise_bindings()
+```
+
+で:
+
+```text
+matched premises
++
+merged bindings
+```
+
+を同時に返す。
+
+`find_all_matching_premises()` の public behavior は維持し、`find_inference_matches_for_rule()` が既存 bindings を再利用する。
+
+変更しない:
+
+```text
+matching semantics
+binding consistency
+guard evaluation
+conclusion generation
+provenance
+fixed-point semantics
+```
+
+agenda/worklist や premise-type indexing は導入しない。
+
+---
+
+# 72. Phase 64：algebra crosscheck precomputation
+
+`tests/test_algebra.py` の exhaustive crosscheck は:
+
+```text
+finite explicit enumeration
+vs
+presentation / integer-lattice calculation
+```
+
+という independent regression oracle を維持する。
+
+coverage は削減しない。
+
+維持:
+
+```text
+group case set
+matrix entry ranges
+checked-count lower bounds
+enumeration-vs-presentation comparison
+```
+
+再利用:
+
+```text
+same image_subgroup()
+same image_lattice_basis()
+same kernel_lattice_basis()
+shared kernel lattice for kernel/image presentation
+```
+
+production `GroupMap` cache は追加しない。
+
+理由:
+
+```text
+GroupMap mutable
+matrix mutable
+```
+
+であり、cache invalidation semantics の変更は Phase 64 の最小変更を超えるため。
+
+---
+
+# 73. Phase 64 completion boundary
+
+same-machine progression:
+
+```text
+259.11s
+↓
+150.42s
+↓
+81.79s
+↓
+43.54s
+↓
+42.67s
+↓
+40.69s
+↓
+29.97s
+```
+
+final:
+
+```text
+3657 passed in 29.97s
+```
+
+baseline から約 88.4% 短縮。
+
+algebra:
+
+```text
+109 passed in 7.46s
+```
+
+Phase 64 では追加しない:
+
+```text
+new Toda theorem semantics
+agenda/worklist inference engine
+premise-type index
+global proof cache
+global GroupMap cache
+SNF/HNF algorithm replacement
+coverage reduction
+automatic proof narrative generation
+```
+
+数学的 frontier は Phase 63 Toda (5.6) のまま。
+
+---
+
+# 74. 次の設計境界
+
+Phase 64 は COMPLETE。
+
+次の数学 Phase は Equation (5.6) 後の concrete Toda statement / consequence を source から確認し:
+
+```text
+source statement
+↓
+dependency analysis
+↓
+current representation compatibility
+↓
+minimum implementation
+```
+
+の順で進める。
+
+Phase 64 で deferred とした performance architecture も、再び concrete bottleneck になるまで追加しない。
+
 
 次 Phase は Equation (5.6) の後に続く concrete Toda statement / consequence を確認し、まず:
 

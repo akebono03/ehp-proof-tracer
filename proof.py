@@ -687,7 +687,7 @@ def find_matching_premises(
   return matches[0]
 
 
-def find_all_matching_premises(
+def _find_all_matching_premise_bindings(
   inference_rule,
   available_steps,
 ):
@@ -713,7 +713,10 @@ def find_all_matching_premises(
 
   if not patterns:
     return (
-      (),
+      (
+        (),
+        (),
+      ),
     )
 
   results = []
@@ -728,8 +731,11 @@ def find_all_matching_premises(
       patterns
     ):
       results.append(
-        tuple(
-          matched_steps
+        (
+          tuple(
+            matched_steps
+          ),
+          bindings,
         )
       )
       return
@@ -785,6 +791,24 @@ def find_all_matching_premises(
 
   return tuple(
     results
+  )
+
+
+def find_all_matching_premises(
+  inference_rule,
+  available_steps,
+):
+  matched_premises = (
+    _find_all_matching_premise_bindings(
+      inference_rule,
+      available_steps,
+    )
+  )
+
+  return tuple(
+    premises
+    for premises, _bindings
+    in matched_premises
   )
 
 
@@ -884,8 +908,8 @@ def find_inference_matches_for_rule(
   inference_rule,
   available_steps,
 ):
-  premise_assignments = (
-    find_all_matching_premises(
+  premise_matches = (
+    _find_all_matching_premise_bindings(
       inference_rule,
       available_steps,
     )
@@ -893,18 +917,9 @@ def find_inference_matches_for_rule(
 
   matches = []
 
-  for premises in premise_assignments:
-    bindings = match_inference_rule_bindings(
-      inference_rule,
-      premises,
-    )
-
-    if bindings is None:
-      raise RuntimeError(
-        "matching premises must have "
-        "consistent bindings"
-      )
-
+  for premises, bindings in (
+    premise_matches
+  ):
     if not inference_match_guard_accepts(
       inference_rule,
       premises,

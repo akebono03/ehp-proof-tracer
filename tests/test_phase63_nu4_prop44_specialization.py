@@ -1,4 +1,5 @@
 from dataclasses import replace
+from functools import lru_cache
 
 from barratt_hilton_rules import (
   HomotopyGroupMembershipStatement,
@@ -33,6 +34,7 @@ from toda_rules import (
 )
 
 
+@lru_cache(maxsize=1)
 def build_phase63_2_data():
   phase60_9 = (
     build_phase60_9_data()

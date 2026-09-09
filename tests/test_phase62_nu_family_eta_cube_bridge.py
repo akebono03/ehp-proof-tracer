@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 from expression import (
   Composition,
   Multiple,
@@ -39,6 +41,7 @@ def require_match(
   )
 
 
+@lru_cache(maxsize=1)
 def build_phase62_4_data():
   phase62_3 = (
     build_phase62_3_data()
