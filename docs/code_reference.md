@@ -2,7 +2,7 @@
 
 この文書は EHP Proof Tracer の主要 Python module と、その責務・主要 class / function・探索方法をまとめる。
 
-対象は **Phase 65 completion 時点**。
+対象は **Phase 66 completion 時点**。
 
 この文書は全 API を機械的に列挙する reference ではない。目的は:
 
@@ -3098,3 +3098,310 @@ minimum implementation
 ```
 
 を維持する。
+
+---
+
+# 26. Phase 66：Toda Equation (5.8)
+
+Phase 66 target:
+
+```text
+Δ(ι₉)=±(2ν₄-Eν′)=±[ι₄,ι₄]
+```
+
+production change の中心は `toda_rules.py`。
+
+generic engine / expression / map infrastructure は変更しない。
+
+## statement
+
+### `Toda58WhiteheadSquareUpToSignStatement`
+
+field:
+
+```text
+whitehead_square
+positive_value
+```
+
+意味:
+
+```text
+whitehead_square
+=
+± positive_value
+```
+
+Phase 66 concrete use:
+
+```text
+[ι₄,ι₄]
+=
+±(2ν₄-Eν′)
+```
+
+Phase 52 の `TodaPi32WhiteheadSquareUpToSignStatement` は `ι₂` branch 専用なので流用しない。
+
+### `Toda58EquationStatement`
+
+field:
+
+```text
+delta_nu_relation
+whitehead_nu_relation
+delta_whitehead_relation
+literature_statements
+```
+
+Equation (5.8) の3表示をまとめる literature-aware aggregate。
+
+---
+
+# 27. Phase 66 rule family
+
+## `toda_58_delta_iota9_nu4_nu_prime_inference_rule()`
+
+input:
+
+```text
+π_7^4=Z{ν₄}⊕Z/4{Eν′}
+INFERENCE
+```
+
+output:
+
+```text
+TodaDeltaImageUpToSignStatement
+
+Δ(ι₉)=±(2ν₄-Eν′)
+```
+
+guard:
+
+```text
+exact π_7^4 decomposition
+ν₄ free summand
+Eν′ order-4 summand
+```
+
+## `toda_58_whitehead_square_nu_expression_inference_rule()`
+
+input:
+
+```text
+Phase 66-3 Δ statement     INFERENCE
+Phase 60 Whitehead data    INFERENCE
+```
+
+output:
+
+```text
+Toda58WhiteheadSquareUpToSignStatement
+
+[ι₄,ι₄]=±(2ν₄-Eν′)
+```
+
+## `toda_58_delta_iota9_whitehead_square_inference_rule()`
+
+input:
+
+```text
+Δ(ι₉)=±(2ν₄-Eν′)          INFERENCE
+[ι₄,ι₄]=±(2ν₄-Eν′)        INFERENCE
+```
+
+output:
+
+```text
+TodaDeltaImageUpToSignStatement
+
+Δ(ι₉)=±[ι₄,ι₄]
+```
+
+generic up-to-sign transitivity ではない。
+
+guard で concrete Equation (5.8) instance を確認する。
+
+## `toda_58_literature_statements()`
+
+direct literature metadata:
+
+```text
+Toda (5.8)
+Equation (5.8)
+H. Toda
+Composition Methods in Homotopy Groups of Spheres
+1962
+```
+
+## `toda_58_integration_inference_rule()`
+
+input:
+
+```text
+Phase 66-3 result  INFERENCE
+Phase 66-4 result  INFERENCE
+Phase 66-5 result  INFERENCE
+```
+
+output:
+
+```text
+Toda58EquationStatement
+INFERENCE
+```
+
+---
+
+# 28. Phase 66 tests
+
+```text
+tests/test_phase66_expression_sign_compatibility.py
+tests/test_phase66_delta_iota9_nu_expression.py
+tests/test_phase66_whitehead_square_nu_expression.py
+tests/test_phase66_delta_iota9_whitehead_square.py
+tests/test_phase66_applicability_provenance.py
+tests/test_phase66_literature_aggregate.py
+tests/test_phase66_probe.py
+```
+
+focused completion:
+
+```text
+12 + 19 + 18 + 22 + 20 + 21 + 17
+=
+129 passed
+```
+
+full regression:
+
+```text
+3970 passed in 31.96s
+```
+
+fixture builder で重い同一 object graph を再利用する場合は:
+
+```python
+@lru_cache(maxsize=1)
+```
+
+を利用する。
+
+---
+
+# 29. Phase 66 representative probe
+
+```text
+probes/probe_phase66_capabilities.py
+```
+
+entry:
+
+```powershell
+python -m probes.probe_phase66_capabilities
+```
+
+主要 function:
+
+```text
+build_phase66_representative_result()
+print_phase66_results()
+print_phase66_derivation_chain()
+print_phase66_provenance()
+print_phase66_literature()
+print_phase66_proof_record()
+print_phase66_boundary()
+main()
+```
+
+display order:
+
+```text
+Toda Equation (5.8) result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Proof record
+Phase 66 completion boundary
+```
+
+重要:
+
+```text
+print_phase66_derivation_chain()
+= presentation-only
+```
+
+automatic proof narrative generator ではない。
+
+---
+
+# 30. `docs/proof_records.md`
+
+Phase 66-8 から正式導入。
+
+責務:
+
+```text
+representative theorem / equation
+human-readable proof-style derivation
+machine provenance
+literature
+GIVEN / INFERENCE boundary
+representation boundary
+representative probe
+regression status
+```
+
+最初の正式 record:
+
+```text
+Toda Equation (5.8)
+Δ(ι₉)=±(2ν₄-Eν′)=±[ι₄,ι₄]
+```
+
+persistent Proof Repository ではない。
+
+---
+
+# 31. Phase 66 completion 後に最初に見る場所
+
+次の concrete Toda statement / consequence に進む前に:
+
+```text
+Toda source material
+  statement / proof / locator
+
+toda_rules.py
+  Phase 66 Equation (5.8) rule family
+  Toda58EquationStatement
+
+tests/test_phase66_*.py
+  current sign / Δ / Whitehead boundary
+
+probes/probe_phase66_capabilities.py
+  current proof-style / provenance display
+
+docs/proof_records.md
+  current representative proof format
+```
+
+を確認する。
+
+Proof Repository を実装する場合は別 Phase とし、
+Phase 66 の proof record documentation と混同しない。
+
+引き続き:
+
+```text
+source statement
+↓
+dependency analysis
+↓
+current code / related tests
+↓
+minimum implementation
+```
+
+を維持する。
+

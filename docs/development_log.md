@@ -4384,3 +4384,499 @@ Equation (5.8)
 automatic proof narrative generation
 persistent Proof Repository / Derived Fact Database
 ```
+
+---
+
+# Phase 66：Toda Equation (5.8)
+
+target:
+
+```text
+Δ(ι₉)=±(2ν₄-Eν′)=±[ι₄,ι₄]
+```
+
+主要 dependency:
+
+```text
+Phase 65:
+π_7^4=Z{ν₄}⊕Z/4{Eν′}
+
+Phase 60:
+[ι₄,ι₄] Whitehead correction provenance
+```
+
+generic `±` algebraは導入せず、Equation (5.8) 専用 semantics に限定した。
+
+---
+
+## Phase 66-1：source / dependency / compatibility analysis
+
+確認:
+
+```text
+TodaDeltaMap
+TodaDeltaImageUpToSignStatement
+WhiteheadProduct
+Multiple
+Sum
+Suspension
+Phase 60 Whitehead correction data
+Phase 65 π_7^4 decomposition
+```
+
+結論:
+
+```text
+既存 expression / map representation で十分
+generic PlusMinus 不要
+generic subtraction AST 不要
+generic sign solver 不要
+generic up-to-sign transitivity 不要
+```
+
+production code:
+
+```text
+変更なし
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 66-2：`2ν₄-Eν′` expression / sign compatibility
+
+新規 production semantics は追加せず、既存:
+
+```text
+Sum
+Multiple
+Suspension
+TodaDeltaImageUpToSignStatement
+```
+
+で構造表現可能であることを focused test で固定。
+
+focused:
+
+```text
+12 passed
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 66-3：`Δ(ι₉)=±(2ν₄-Eν′)`
+
+追加:
+
+```text
+toda_58_delta_iota9_nu4_nu_prime_inference_rule()
+```
+
+direct premise:
+
+```text
+Phase 65 derived
+π_7^4=Z{ν₄}⊕Z/4{Eν′}
+```
+
+導出:
+
+```text
+Δ:π_9^9→π_7^4
+Δ(ι₉)=±(2ν₄-Eν′)
+```
+
+Phase 65 aggregate 全体を premise にせず、必要な decomposition relation のみ利用。
+
+focused:
+
+```text
+19 passed
+```
+
+full regression after Phase 66-3:
+
+```text
+3872 passed in 33.03s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 66-4：`[ι₄,ι₄]=±(2ν₄-Eν′)`
+
+追加:
+
+```text
+Toda58WhiteheadSquareUpToSignStatement
+toda_58_whitehead_square_nu_expression_inference_rule()
+```
+
+input:
+
+```text
+Phase 66-3:
+Δ(ι₉)=±(2ν₄-Eν′)
+
+Phase 60:
+TodaLemma54WhiteheadCorrectionDataStatement
+```
+
+導出:
+
+```text
+[ι₄,ι₄]=±(2ν₄-Eν′)
+```
+
+Phase 60 `[ι₄,ι₄]` object と Phase 66-3 positive representative object を再利用。
+
+focused:
+
+```text
+18 passed
+```
+
+full regression:
+
+```text
+3890 passed in 33.32s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 66-5：`Δ(ι₉)=±[ι₄,ι₄]`
+
+追加:
+
+```text
+toda_58_delta_iota9_whitehead_square_inference_rule()
+```
+
+concrete bridge:
+
+```text
+Δ(ι₉)=±(2ν₄-Eν′)
+
+[ι₄,ι₄]=±(2ν₄-Eν′)
+
+same positive representative
+↓
+Δ(ι₉)=±[ι₄,ι₄]
+```
+
+generic up-to-sign transitivity は追加しない。
+
+focused:
+
+```text
+22 passed
+```
+
+full regression:
+
+```text
+3912 passed in 33.55s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 66-6：applicability / wrong-instance / provenance regression
+
+production code:
+
+```text
+変更なし
+```
+
+追加:
+
+```text
+tests/test_phase66_applicability_provenance.py
+```
+
+確認:
+
+```text
+derived spine is INFERENCE
+final reaches Phase 66-3 / 66-4
+Phase 66-3 reaches Phase 65 π_7^4
+Phase 66-4 reaches Phase 60 Whitehead data
+acyclic graph
+final conclusion absent from ancestors
+upstream independence
+GIVEN replacement rejection
+cross-rule wrong-instance rejection
+object reuse
+```
+
+focused:
+
+```text
+20 passed
+```
+
+full regression:
+
+```text
+3932 passed in 34.87s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 66-7：literature-aware aggregate
+
+追加:
+
+```text
+Toda58EquationStatement
+toda_58_literature_statements()
+toda_58_integration_inference_rule()
+```
+
+aggregate fields:
+
+```text
+delta_nu_relation
+whitehead_nu_relation
+delta_whitehead_relation
+literature_statements
+```
+
+literature:
+
+```text
+H. Toda
+Composition Methods in Homotopy Groups of Spheres
+Equation (5.8)
+1962
+```
+
+final aggregate:
+
+```text
+ProofRule.INFERENCE
+```
+
+focused:
+
+```text
+21 passed
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 66-8：representative proof-style probe / proof record foundation
+
+追加:
+
+```text
+probes/probe_phase66_capabilities.py
+tests/test_phase66_probe.py
+docs/proof_records.md
+```
+
+representative output:
+
+```text
+Δ(ι₉)
+=
+±(2ν₄-Eν′)
+=
+±[ι₄,ι₄]
+```
+
+probe sections:
+
+```text
+Toda Equation (5.8) result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Proof record
+Phase 66 completion boundary
+```
+
+provenance display:
+
+```text
+Δ(ι₉)=±(2ν₄-Eν′) derived = True
+[ι₄,ι₄]=±(2ν₄-Eν′) derived = True
+Δ(ι₉)=±[ι₄,ι₄] derived = True
+final aggregate derived = True
+final aggregate is GIVEN = False
+theorem dependencies are INFERENCE = True
+final premise count = 3
+fixed point = True
+```
+
+proof-style derivation は hand-authored presentation layer のままであり、
+`ProofStep` graph からの自動生成ではない。
+
+focused:
+
+```text
+17 passed
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 66-9：full regression
+
+Phase 66 focused suite:
+
+```text
+12 + 19 + 18 + 22 + 20 + 21 + 17
+=
+129 passed
+```
+
+repository-wide:
+
+```text
+3970 passed in 31.96s
+```
+
+Phase 64 performance stabilization 後の約30秒台 regression を維持。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 66-10：completion documentation
+
+更新対象:
+
+```text
+README.md
+docs/design.md
+docs/development_log.md
+docs/roadmap.md
+docs/code_reference.md
+docs/proof_records.md
+```
+
+文書運用方針を明確化:
+
+```text
+roadmap
+→ future-oriented
+→ completed Phase details は圧縮
+
+development_log
+→ chronological history
+→ 原則削除せず追記
+
+design
+→ current design / semantics
+→ 重要設計を追記
+
+code_reference
+→ current navigation
+→ 主要 API を追記
+
+proof_records
+→ representative proof corpus
+→ proof record を追記
+
+README
+→ current status / current capability
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 66 completion
+
+完成 capability:
+
+```text
+Δ(ι₉)=±(2ν₄-Eν′)=±[ι₄,ι₄]
+```
+
+machine semantics:
+
+```text
+Toda58WhiteheadSquareUpToSignStatement
+Toda58EquationStatement
+```
+
+provenance:
+
+```text
+Phase 65 π_7^4 branch retained
+Phase 60 Whitehead branch retained
+all theorem-spine results INFERENCE
+final aggregate not GIVEN
+acyclic ancestry
+wrong-instance rejection
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase66_capabilities
+```
+
+proof record:
+
+```text
+docs/proof_records.md
+Toda Equation (5.8)
+```
+
+final full regression:
+
+```text
+3970 passed in 31.96s
+```
+
+deferred:
+
+```text
+generic ± algebra
+automatic proof narrative generation
+persistent Proof Repository
+past proof-record backfill
+stable ν / η³
+stable homotopy-group model
+```
+
+### 状態
+
+COMPLETE
+

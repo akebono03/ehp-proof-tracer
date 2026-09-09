@@ -29,7 +29,7 @@ The implementation strategy is to formalize only the minimum theorem consequence
 
 # Current status
 
-Completed through Phase 65.
+Completed through Phase 66.
 
 ```text
 Phase 1–27   generic proof / algebra / Toda-bracket foundation
@@ -61,12 +61,13 @@ Phase 62     Toda (5.5) finite-dimensional ν-family integration
 Phase 63     Toda (5.6) ν₄ decomposition isomorphism
 Phase 64     performance stabilization
 Phase 65     Toda Proposition 5.6 finite-dimensional computation
+Phase 66     Toda Equation (5.8) integration / proof record foundation
 ```
 
 Latest repository-wide regression:
 
 ```text
-3841 passed in 31.82s
+3970 passed in 31.96s
 ```
 
 Phase 64 same-machine baseline:
@@ -82,7 +83,7 @@ Phase 63 mathematical capability remains unchanged, and Phase 64 performance / r
 Representative current probe:
 
 ```powershell
-python -m probes.probe_phase63_capabilities
+python -m probes.probe_phase66_capabilities
 ```
 
 ---
@@ -2296,3 +2297,167 @@ automatic proof narrative generation
 generic theorem repository expansion
 persistent proof database implementation
 ```
+
+---
+
+# Phase 66: Toda Equation (5.8)
+
+Phase 66 integrates:
+
+```text
+Δ(ι₉)=±(2ν₄-Eν′)=±[ι₄,ι₄]
+```
+
+without adding a generic sign algebra.
+
+The implementation reuses the independently derived Phase 65 decomposition:
+
+```text
+π_7^4=Z{ν₄}⊕Z/4{Eν′}
+```
+
+and the Phase 60 Whitehead correction provenance for:
+
+```text
+[ι₄,ι₄].
+```
+
+The three first-class derived forms are:
+
+```text
+Δ(ι₉)=±(2ν₄-Eν′)
+
+[ι₄,ι₄]=±(2ν₄-Eν′)
+
+Δ(ι₉)=±[ι₄,ι₄]
+```
+
+They are integrated into:
+
+```text
+Toda58EquationStatement
+```
+
+with direct literature metadata for:
+
+```text
+H. Toda
+Composition Methods in Homotopy Groups of Spheres
+Equation (5.8)
+1962
+```
+
+The final aggregate is `ProofRule.INFERENCE`, not `GIVEN`.
+
+## Phase 66 provenance
+
+```text
+Phase 65
+π_7^4=Z{ν₄}⊕Z/4{Eν′}
+        ↓
+Phase 66-3
+Δ(ι₉)=±(2ν₄-Eν′)
+        │
+        ├─────────────────────┐
+        │                     │
+Phase 60                      │
+[ι₄,ι₄] Whitehead data       │
+        ↓                     │
+Phase 66-4                    │
+[ι₄,ι₄]=±(2ν₄-Eν′)           │
+        │                     │
+        └──────────┬──────────┘
+                   ↓
+Phase 66-5
+Δ(ι₉)=±[ι₄,ι₄]
+        ↓
+Phase 66-7
+Toda58EquationStatement
+```
+
+Phase 66-6 fixes applicability, wrong-instance rejection, acyclic ancestry,
+and the `GIVEN` / `INFERENCE` boundary.
+
+## Representative probe
+
+```powershell
+python -m probes.probe_phase66_capabilities
+```
+
+The representative display includes:
+
+```text
+Toda Equation (5.8) result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Proof record
+Phase 66 completion boundary
+```
+
+The proof-style derivation is still hand-authored presentation code.
+It is not automatically generated from the `ProofStep` graph.
+
+## Proof records
+
+Phase 66 starts:
+
+```text
+docs/proof_records.md
+```
+
+as a curated human-readable record of representative proofs.
+
+This is intended to become a human-reviewed reference corpus for future automatic
+proof narrative generation, but it is not a persistent proof repository.
+
+## Phase 66 regression
+
+Focused Phase 66 suites:
+
+```text
+Phase 66-2   12 passed
+Phase 66-3   19 passed
+Phase 66-4   18 passed
+Phase 66-5   22 passed
+Phase 66-6   20 passed
+Phase 66-7   21 passed
+Phase 66-8   17 passed
+
+total focused Phase 66 tests:
+129 passed
+```
+
+Final repository-wide regression:
+
+```text
+3970 passed in 31.96s
+```
+
+## Phase 66 boundary
+
+Implemented:
+
+```text
+2ν₄-Eν′ structural expression
+Δ(ι₉)=±(2ν₄-Eν′)
+[ι₄,ι₄]=±(2ν₄-Eν′)
+Δ(ι₉)=±[ι₄,ι₄]
+Toda (5.8) literature-aware aggregate
+applicability / provenance regression
+representative proof-style probe
+docs/proof_records.md foundation
+```
+
+Still deferred:
+
+```text
+generic PlusMinus expression
+generic sign solver
+generic up-to-sign transitivity
+automatic proof narrative generation
+persistent Proof Repository
+stable ν / η³
+stable homotopy-group model
+```
+

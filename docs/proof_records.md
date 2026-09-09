@@ -562,7 +562,7 @@ probe 内の proof-style derivation は presentation-only であり、automatic 
 
 ## 4.12 Regression status
 
-Phase 66-6 完了時点:
+Phase 66 completion 時点:
 
 ```text
 Phase 66-2 focused       12 passed
@@ -570,12 +570,17 @@ Phase 66-3 focused       19 passed
 Phase 66-4 focused       18 passed
 Phase 66-5 focused       22 passed
 Phase 66-6 focused       20 passed
+Phase 66-7 focused       21 passed
+Phase 66-8 focused       17 passed
+
+Phase 66 focused total:
+129 passed
 
 repository-wide:
-3932 passed in 34.87s
+3970 passed in 31.96s
 ```
 
-Phase 66-7 / 66-8 の focused tests と final regression は、それぞれの実行後に completion documentation で更新する。
+Phase 66-7 / 66-8 の focused tests と final repository-wide regression まで確認済み。
 
 ---
 
@@ -669,3 +674,56 @@ Toda Equation (5.8)
 次の proof record は、今後の concrete Toda calculation の representative probe 完成時に追加する。
 
 過去 Phase の backfill は必要に応じて別途行う。
+
+
+---
+
+# 8. Phase 66 completion record
+
+Phase 66 は COMPLETE。
+
+verified representative result:
+
+```text
+Δ(ι₉)
+=
+±(2ν₄-Eν′)
+=
+±[ι₄,ι₄]
+```
+
+theorem spine:
+
+```text
+Phase 66-3  INFERENCE
+Phase 66-4  INFERENCE
+Phase 66-5  INFERENCE
+Phase 66-7  INFERENCE
+```
+
+final aggregate:
+
+```text
+Toda58EquationStatement
+not GIVEN
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase66_capabilities
+```
+
+focused Phase 66 regression:
+
+```text
+129 passed
+```
+
+repository-wide regression:
+
+```text
+3970 passed in 31.96s
+```
+
+この record は Phase 66 completion 時点の human-reviewed golden reference とする。
