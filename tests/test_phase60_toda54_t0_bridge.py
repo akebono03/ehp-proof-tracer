@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 from expression import (
   GeneratorSymbol,
   HomotopyElement,
@@ -36,6 +38,7 @@ from toda_rules import (
 )
 
 
+@lru_cache(maxsize=1)
 def build_phase60_5_data():
   phase60_3 = (
     build_phase60_3_data()
