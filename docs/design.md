@@ -25,7 +25,7 @@ representation != typing != theorem knowledge
 structural equality != mathematical equality
 ```
 
-Phase 65 までこの原則を維持している。
+Phase 66 までこの原則を維持している。
 
 ---
 
@@ -3643,3 +3643,411 @@ persistent Proof Repository
 ```
 
 次の数学 Phase は next concrete Toda source statement / consequence から開始する。
+
+---
+
+# 86. Phase 66：Toda Equation (5.8) 設計
+
+Phase 66 target:
+
+```text
+Δ(ι₉)=±(2ν₄-Eν′)=±[ι₄,ι₄]
+```
+
+基本方針:
+
+```text
+Phase 65 の π_7^4 decomposition を再利用
++
+Phase 60 の Whitehead correction provenance を再利用
+↓
+Equation (5.8) 専用の最小 statement / bridge
+↓
+literature-aware aggregate
+```
+
+generic `±` algebra は導入しない。
+
+---
+
+# 87. `2ν₄-Eν′` の表現
+
+新しい subtraction expression は追加しない。
+
+既存:
+
+```text
+Sum
+Multiple
+Suspension
+```
+
+で:
+
+```text
+2ν₄-Eν′
+```
+
+を:
+
+```text
+Sum(
+  left=Multiple(
+    coefficient=2,
+    expression=ν₄,
+  ),
+  right=Multiple(
+    coefficient=-1,
+    expression=Eν′,
+  ),
+)
+```
+
+として保持する。
+
+設計境界:
+
+```text
+subtraction notation
+!=
+new subtraction AST
+```
+
+---
+
+# 88. Phase 66-3：Δ(ι₉)=±(2ν₄-Eν′)
+
+既存:
+
+```text
+TodaDeltaImageUpToSignStatement
+```
+
+を再利用する。
+
+入力:
+
+```text
+π_7^4=Z{ν₄}⊕Z/4{Eν′}
+INFERENCE
+```
+
+から:
+
+```text
+Δ:π_9^9→π_7^4
+
+Δ(ι₉)=±(2ν₄-Eν′)
+```
+
+を theorem-specific rule で導出する。
+
+Phase 65 aggregate 全体ではなく、必要な `π_7^4` relation のみを直接 premise とし、
+不要な branch を provenance に取り込まない。
+
+---
+
+# 89. Phase 66-4：Whitehead-square connection
+
+Phase 52 の `ι₂` 専用 statement を流用しない。
+
+Equation (5.8) 専用:
+
+```text
+Toda58WhiteheadSquareUpToSignStatement
+```
+
+を追加する。
+
+意味:
+
+```text
+whitehead_square
+=
+± positive_value
+```
+
+concrete instance:
+
+```text
+[ι₄,ι₄]
+=
+±(2ν₄-Eν′)
+```
+
+Phase 60 の:
+
+```text
+TodaLemma54WhiteheadCorrectionDataStatement
+```
+
+から `[ι₄,ι₄]` object を再利用する。
+
+---
+
+# 90. Phase 66-5：concrete up-to-sign bridge
+
+premise:
+
+```text
+Δ(ι₉)=±x
+
+[ι₄,ι₄]=±x
+
+x=2ν₄-Eν′
+```
+
+から:
+
+```text
+Δ(ι₉)=±[ι₄,ι₄]
+```
+
+を Equation (5.8) 専用 rule で導出する。
+
+追加しない:
+
+```text
+A=±X
+B=±X
+→
+A=±B
+```
+
+という generic transitivity rule。
+
+rule は:
+
+```text
+Δ source = π_9^9
+Δ target = π_7^4
+element = ι₉
+whitehead square = [ι₄,ι₄]
+common positive representative = 2ν₄-Eν′
+```
+
+を concrete に検証する。
+
+---
+
+# 91. Phase 66 object provenance
+
+conclusion builder では可能な限り upstream object を再利用する。
+
+```text
+Phase 66-3:
+  ν₄
+  Eν′
+  Δ map
+  ι₉
+
+Phase 66-4:
+  Phase 60 [ι₄,ι₄]
+
+Phase 66-5:
+  Δ map      is Phase 66-3 map
+  ι₉         is Phase 66-3 element
+  [ι₄,ι₄]   is Phase 66-4 Whitehead object
+```
+
+重要:
+
+```text
+structural equality
+!=
+Python object identity
+```
+
+両者を test で区別する。
+
+---
+
+# 92. Phase 66 applicability / provenance regression
+
+Phase 66-6 では production code を変更しない。
+
+横断的に:
+
+```text
+GIVEN shortcut rejection
+wrong statement-type rejection
+wrong Δ instance rejection
+acyclic ancestry
+upstream independence
+cross-Phase object reuse
+```
+
+を固定する。
+
+主要 ancestor:
+
+```text
+final → Phase 66-3
+final → Phase 66-4
+Phase 66-3 → Phase 65 π_7^4
+Phase 66-4 → Phase 60 Whitehead data
+```
+
+---
+
+# 93. Phase 66 literature-aware aggregate
+
+最終 aggregate:
+
+```text
+Toda58EquationStatement
+```
+
+保持:
+
+```text
+delta_nu_relation
+whitehead_nu_relation
+delta_whitehead_relation
+literature_statements
+```
+
+直接 premise:
+
+```text
+Phase 66-3 result  INFERENCE
+Phase 66-4 result  INFERENCE
+Phase 66-5 result  INFERENCE
+```
+
+aggregate 自身:
+
+```text
+ProofRule.INFERENCE
+```
+
+direct literature:
+
+```text
+Toda (5.8)
+Equation (5.8)
+H. Toda
+Composition Methods in Homotopy Groups of Spheres
+1962
+```
+
+---
+
+# 94. proof record documentation
+
+Phase 66-8 から:
+
+```text
+docs/proof_records.md
+```
+
+を正式に開始する。
+
+責務:
+
+```text
+representative mathematical result
+proof-style derivation
+machine provenance
+literature
+GIVEN / INFERENCE boundary
+representation boundary
+representative probe
+regression status
+```
+
+この文書は persistent Proof Repository ではない。
+
+```text
+curated human-readable proof record
+!=
+serialized proof graph database
+```
+
+将来 automatic proof narrative generation の human-reviewed reference corpus とする。
+
+---
+
+# 95. 文書運用方針
+
+Phase 66 completion 以後は文書の役割をより明確に分離する。
+
+```text
+README.md
+= current status / current capability
+
+docs/design.md
+= current architecture / semantics / design boundary
+  既存設計を削らず、重要な新設計を追記
+
+docs/development_log.md
+= chronological history
+  原則として削除せず追記
+
+docs/code_reference.md
+= current code navigation
+  主要 class / rule / probe entry point を追記
+
+docs/proof_records.md
+= representative proofs
+  proof record を追記
+
+docs/roadmap.md
+= future-oriented plan
+  完了 Phase の詳細は保持せず圧縮
+```
+
+完了 Phase の詳細履歴は `development_log.md` に置く。
+
+roadmap は:
+
+```text
+完了済み milestone summary
++
+現在地
++
+次の Phase
++
+planned / deferred
+```
+
+に集中する。
+
+---
+
+# 96. Phase 66 completion boundary
+
+完成:
+
+```text
+2ν₄-Eν′ expression compatibility
+Δ(ι₉)=±(2ν₄-Eν′)
+[ι₄,ι₄]=±(2ν₄-Eν′)
+Δ(ι₉)=±[ι₄,ι₄]
+Toda58WhiteheadSquareUpToSignStatement
+Toda58EquationStatement
+Equation (5.8) literature metadata
+applicability / wrong-instance / provenance regression
+representative proof-style probe
+docs/proof_records.md foundation
+```
+
+final regression:
+
+```text
+3970 passed in 31.96s
+```
+
+deferred:
+
+```text
+generic PlusMinus
+generic sign solver
+generic up-to-sign transitivity
+automatic proof narrative generation
+persistent Proof Repository
+past proof-record backfill
+stable ν / η³
+stable homotopy-group model
+```
+
