@@ -11896,6 +11896,154 @@ def toda_prop56_finite_dimensional_integration_inference_rule():
   )
 
 
+def toda_58_delta_iota9_nu4_nu_prime_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    pi7_4_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    nu_4 = HomotopyElement(
+      name="ν₄",
+      dimension=4,
+      source=7,
+      target=4,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=4,
+      ),
+    )
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    expected_relation = Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=7,
+        sphere_dimension=4,
+      ),
+      rhs=DirectSumGroup(
+        summands=(
+          FreeCyclicGroup(
+            generator=nu_4,
+          ),
+          FiniteCyclicGroup(
+            order=4,
+            generator=Suspension(
+              expression=nu_prime,
+            ),
+          ),
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      pi7_4_relation
+      == expected_relation
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    pi7_4_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    nu_4 = (
+      pi7_4_relation
+      .rhs
+      .summands[
+        0
+      ]
+      .generator
+    )
+
+    e_nu_prime = (
+      pi7_4_relation
+      .rhs
+      .summands[
+        1
+      ]
+      .generator
+    )
+
+    positive_value = Sum(
+      left=Multiple(
+        coefficient=2,
+        expression=nu_4,
+      ),
+      right=Multiple(
+        coefficient=-1,
+        expression=e_nu_prime,
+      ),
+    )
+
+    return TodaDeltaImageUpToSignStatement(
+      map=TodaDeltaMap(
+        source_group=TodaPrimaryGroup(
+          group_dimension=9,
+          sphere_dimension=9,
+        ),
+        target_group=TodaPrimaryGroup(
+          group_dimension=7,
+          sphere_dimension=4,
+        ),
+      ),
+      element=HomotopyElement(
+        name="ι_9",
+        dimension=9,
+        generator=GeneratorSymbol(
+          family="ι",
+          index=9,
+        ),
+      ),
+      positive_value=positive_value,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Equation 5.8 "
+      "Delta iota_9 nu-expression"
+    ),
+    description=(
+      "For the independently derived "
+      "decomposition "
+      "pi_7^4=Z{nu_4} plus "
+      "Z/4{E nu-prime}, derive the "
+      "Equation (5.8) minimum "
+      "consequence that Delta(iota_9) "
+      "equals plus or minus "
+      "(2 nu_4 - E nu-prime)."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 @dataclass(frozen=True)
 class TodaLemma55Statement:
   nu4: HomotopyElement
