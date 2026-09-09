@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 from proof import (
   InferenceTerminationReason,
   LiteratureStatement,
@@ -15,6 +17,7 @@ from toda_rules import (
 )
 
 
+@lru_cache(maxsize=1)
 def build_phase60_9_data():
   phase60_8 = (
     build_phase60_8_data()
