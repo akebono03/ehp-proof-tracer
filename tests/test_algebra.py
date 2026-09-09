@@ -2732,14 +2732,18 @@ def test_finite_presentation_crosscheck():
           .structure()
         )
 
-        enumerated_image = (
+        image_subgroup = (
           f.image_subgroup()
+        )
+
+        enumerated_image = (
+          image_subgroup
           .structure()
         )
 
         quotient = QuotientGroup(
           ambient_group=target,
-          subgroup=f.image_subgroup(),
+          subgroup=image_subgroup,
         )
 
         enumerated_cokernel = (
@@ -2993,6 +2997,10 @@ def test_finite_exactness_presentation_crosscheck():
           ):
             continue
 
+          image_of_first = (
+            f.image_subgroup()
+          )
+
           for entries_g in product(
             range(3),
             repeat=rows_g * cols_g,
@@ -3025,7 +3033,7 @@ def test_finite_exactness_presentation_crosscheck():
             )
 
             enumerated_exact = (
-              step.image_of_first
+              image_of_first
               == step.kernel_of_second
             )
 
