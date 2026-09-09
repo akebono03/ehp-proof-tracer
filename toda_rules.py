@@ -2801,6 +2801,468 @@ def toda_prop58_pi8_4_decomposition_inference_rule():
   )
 
 
+def toda_prop25_delta_eta9_composition_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    toda58 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    delta_iota9 = (
+      toda58
+      .delta_nu_relation
+    )
+
+    expected_source = TodaPrimaryGroup(
+      group_dimension=9,
+      sphere_dimension=9,
+    )
+
+    expected_target = TodaPrimaryGroup(
+      group_dimension=7,
+      sphere_dimension=4,
+    )
+
+    if (
+      delta_iota9.map
+      != TodaDeltaMap(
+        source_group=expected_source,
+        target_group=expected_target,
+      )
+    ):
+      return False
+
+    iota_9 = HomotopyElement(
+      name="ι_9",
+      dimension=9,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=9,
+      ),
+    )
+
+    if (
+      delta_iota9.element
+      != iota_9
+    ):
+      return False
+
+    nu_4 = HomotopyElement(
+      name="ν₄",
+      dimension=4,
+      source=7,
+      target=4,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=4,
+      ),
+    )
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    expected_positive_value = Sum(
+      left=Multiple(
+        coefficient=2,
+        expression=nu_4,
+      ),
+      right=Multiple(
+        coefficient=-1,
+        expression=Suspension(
+          expression=nu_prime,
+        ),
+      ),
+    )
+
+    return (
+      delta_iota9
+      .positive_value
+      == expected_positive_value
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    toda58 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    delta_iota9 = (
+      toda58
+      .delta_nu_relation
+    )
+
+    eta_7 = HomotopyElement(
+      name="η₇",
+      dimension=7,
+      source=8,
+      target=7,
+      generator=GeneratorSymbol(
+        family="η",
+        index=7,
+      ),
+    )
+
+    eta_9 = HomotopyElement(
+      name="η₉",
+      dimension=9,
+      source=10,
+      target=9,
+      generator=GeneratorSymbol(
+        family="η",
+        index=9,
+      ),
+    )
+
+    return TodaDeltaImageUpToSignStatement(
+      map=TodaDeltaMap(
+        source_group=TodaPrimaryGroup(
+          group_dimension=10,
+          sphere_dimension=9,
+        ),
+        target_group=TodaPrimaryGroup(
+          group_dimension=8,
+          sphere_dimension=4,
+        ),
+      ),
+      element=eta_9,
+      positive_value=Composition(
+        left=(
+          delta_iota9
+          .positive_value
+        ),
+        right=eta_7,
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 2.5 "
+      "Delta eta_9 composition"
+    ),
+    description=(
+      "Apply the concrete Proposition 2.5 "
+      "composition formula to the "
+      "independently derived Toda (5.8) "
+      "relation "
+      "Delta(iota_9)=plus or minus "
+      "(2 nu_4-E nu-prime). "
+      "For eta_9, the relevant right "
+      "factor is eta_7, giving "
+      "Delta(eta_9)=plus or minus "
+      "((2 nu_4-E nu-prime) "
+      "composed with eta_7). "
+      "The expression is deliberately "
+      "left undistributed. "
+      "No generic Delta-composition, "
+      "distributivity, or sign algebra "
+      "framework is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda58EquationStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop58_delta_eta9_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    delta_eta9 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    pi8_4_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    expected_delta_map = TodaDeltaMap(
+      source_group=TodaPrimaryGroup(
+        group_dimension=10,
+        sphere_dimension=9,
+      ),
+      target_group=TodaPrimaryGroup(
+        group_dimension=8,
+        sphere_dimension=4,
+      ),
+    )
+
+    if (
+      delta_eta9.map
+      != expected_delta_map
+    ):
+      return False
+
+    eta_9 = HomotopyElement(
+      name="η₉",
+      dimension=9,
+      source=10,
+      target=9,
+      generator=GeneratorSymbol(
+        family="η",
+        index=9,
+      ),
+    )
+
+    if (
+      delta_eta9.element
+      != eta_9
+    ):
+      return False
+
+    nu_4 = HomotopyElement(
+      name="ν₄",
+      dimension=4,
+      source=7,
+      target=4,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=4,
+      ),
+    )
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    eta_7 = HomotopyElement(
+      name="η₇",
+      dimension=7,
+      source=8,
+      target=7,
+      generator=GeneratorSymbol(
+        family="η",
+        index=7,
+      ),
+    )
+
+    expected_positive_value = Composition(
+      left=Sum(
+        left=Multiple(
+          coefficient=2,
+          expression=nu_4,
+        ),
+        right=Multiple(
+          coefficient=-1,
+          expression=Suspension(
+            expression=nu_prime,
+          ),
+        ),
+      ),
+      right=eta_7,
+    )
+
+    if (
+      delta_eta9.positive_value
+      != expected_positive_value
+    ):
+      return False
+
+    pi_8_4 = TodaPrimaryGroup(
+      group_dimension=8,
+      sphere_dimension=4,
+    )
+
+    if (
+      pi8_4_relation.lhs
+      != pi_8_4
+    ):
+      return False
+
+    if not isinstance(
+      pi8_4_relation.rhs,
+      DirectSumGroup,
+    ):
+      return False
+
+    if (
+      len(
+        pi8_4_relation
+        .rhs
+        .summands
+      )
+      != 2
+    ):
+      return False
+
+    first_summand = (
+      pi8_4_relation
+      .rhs
+      .summands[
+        0
+      ]
+    )
+
+    second_summand = (
+      pi8_4_relation
+      .rhs
+      .summands[
+        1
+      ]
+    )
+
+    if not isinstance(
+      first_summand,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if not isinstance(
+      second_summand,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      first_summand.order
+      != 2
+    ):
+      return False
+
+    if (
+      second_summand.order
+      != 2
+    ):
+      return False
+
+    nu4_eta7 = Composition(
+      left=nu_4,
+      right=eta_7,
+    )
+
+    e_nu_prime_eta7 = Composition(
+      left=Suspension(
+        expression=nu_prime,
+      ),
+      right=eta_7,
+    )
+
+    if (
+      first_summand.generator
+      != nu4_eta7
+    ):
+      return False
+
+    return (
+      second_summand.generator
+      == e_nu_prime_eta7
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    pi8_4_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    e_nu_prime_eta7 = (
+      pi8_4_relation
+      .rhs
+      .summands[
+        1
+      ]
+      .generator
+    )
+
+    eta_9 = (
+      premises[
+        0
+      ].conclusion
+      .element
+    )
+
+    return Relation(
+      lhs=MapApplication(
+        map=EHP_DELTA_MAP,
+        expression=eta_9,
+      ),
+      rhs=e_nu_prime_eta7,
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.8 "
+      "Delta eta_9 value"
+    ),
+    description=(
+      "Use the Proposition 2.5 "
+      "specialization "
+      "Delta(eta_9)=plus or minus "
+      "((2 nu_4-E nu-prime) eta_7) "
+      "together with the independently "
+      "derived decomposition "
+      "pi_8^4="
+      "Z/2{nu_4 eta_7} direct sum "
+      "Z/2{E nu-prime eta_7}. "
+      "The first summand has order two, "
+      "so 2 nu_4 eta_7 is zero. "
+      "The second summand also has "
+      "order two, so negation and the "
+      "remaining up-to-sign ambiguity "
+      "do not change its generator. "
+      "Therefore "
+      "Delta(eta_9)=E nu-prime eta_7. "
+      "This is a concrete Proposition 5.8 "
+      "simplification and does not add "
+      "generic distributivity, order-two "
+      "sign elimination, or sign algebra."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaDeltaImageUpToSignStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_lemma52_delta_two_eta2_preimage_inference_rule():
   def guard(
     premises,
