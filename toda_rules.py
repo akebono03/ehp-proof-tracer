@@ -4061,6 +4061,265 @@ def toda_52_pi4_2_finite_cyclic_transport_inference_rule():
   )
 
 
+def toda_prop56_pi5_2_eta2_cube_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    source_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    isomorphism = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi_5_3 = TodaPrimaryGroup(
+      group_dimension=5,
+      sphere_dimension=3,
+    )
+
+    if (
+      source_relation.lhs
+      != pi_5_3
+    ):
+      return False
+
+    if not isinstance(
+      source_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      source_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    eta_4 = HomotopyElement(
+      name="η₄",
+      dimension=4,
+      source=5,
+      target=4,
+      generator=GeneratorSymbol(
+        family="η",
+        index=4,
+      ),
+    )
+
+    eta_3_squared = Composition(
+      left=eta_3,
+      right=eta_4,
+    )
+
+    if (
+      source_relation.rhs.generator
+      != eta_3_squared
+    ):
+      return False
+
+    source_group = (
+      isomorphism.source_group
+    )
+
+    target_group = (
+      isomorphism.target_group
+    )
+
+    if not isinstance(
+      source_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    if not isinstance(
+      target_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    i = (
+      source_group
+      .group_dimension
+    )
+
+    if not isinstance(
+      i,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      source_group
+      != TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=3,
+      )
+    ):
+      return False
+
+    if (
+      target_group
+      != TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=2,
+      )
+    ):
+      return False
+
+    composition = (
+      isomorphism.composition
+    )
+
+    if not isinstance(
+      composition,
+      Composition,
+    ):
+      return False
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    if (
+      composition.left
+      != eta_2
+    ):
+      return False
+
+    gamma = composition.right
+
+    if not isinstance(
+      gamma,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      gamma.dimension
+      != i
+    ):
+      return False
+
+    if (
+      gamma.source
+      != i
+    ):
+      return False
+
+    if (
+      gamma.target
+      != 3
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    source_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    isomorphism = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    eta_2 = (
+      isomorphism
+      .composition
+      .left
+    )
+
+    eta_3_squared = (
+      source_relation
+      .rhs
+      .generator
+    )
+
+    eta_2_cube = Composition(
+      left=eta_2,
+      right=eta_3_squared,
+    )
+
+    return Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=5,
+        sphere_dimension=2,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=2,
+        generator=eta_2_cube,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.6 "
+      "pi_5^2 eta_2 cube"
+    ),
+    description=(
+      "Use the derived Toda (5.2) "
+      "composition isomorphism "
+      "eta_2 composed with minus from "
+      "pi_i^3 to pi_i^2 together with "
+      "the independently derived "
+      "Proposition 5.3 relation "
+      "pi_5^3=Z/2{eta_3 squared}. "
+      "Transport eta_3 squared to "
+      "eta_2 composed with eta_3 "
+      "squared and derive "
+      "pi_5^2=Z/2{eta_2 cubed}."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda52CompositionIsomorphismStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_pi_i_minus_1_1_zero_inference_rule():
   def guard(
     premises,
