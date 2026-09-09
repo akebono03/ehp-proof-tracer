@@ -25,7 +25,7 @@ representation != typing != theorem knowledge
 structural equality != mathematical equality
 ```
 
-Phase 67 までこの原則を維持している。
+Phase 68 までこの原則を維持している。
 
 ---
 
@@ -4454,4 +4454,663 @@ final regression:
 ```text
 4102 passed in 32.75s
 ```
+---
 
+# 108. Phase 68：Toda Proposition 5.8 finite-dimensional 設計目標
+
+Phase 68 の target:
+
+```text
+π_6^2=Z/4{η₂ν′}
+π_7^3=Z/2{ν′η₆}
+π_8^4=Z/2{ν₄η₇}⊕Z/2{Eν′η₇}
+π_9^5=Z/2{ν₅η₈}
+π_(n+4)^n=0
+(n≥6)
+```
+
+stable conclusion:
+
+```text
+(G_4;2)=0
+```
+
+は Phase 68 aggregate に含めない。
+
+Phase 68 は Proposition 5.8 の finite-dimensional statement のみを統合する。
+
+---
+
+# 109. Phase 68 の dependency 方針
+
+主要 upstream:
+
+```text
+Phase 60
+Toda Lemma 5.4
+ν₄ / Whitehead correction
+
+Phase 62
+ν-family
+
+Phase 63
+Toda (5.6) decomposition
+
+Phase 65
+Proposition 5.6
+Equation (5.7)
+π_7^4 decomposition
+
+Phase 66
+Toda (5.8)
+
+Phase 67
+Lemma 5.7
+π_6^2=Z/4{η₂ν′}
+```
+
+Phase 68 では source ordering をそのまま machine dependency としない。
+
+```text
+source ordering
+!=
+machine proof dependency
+```
+
+特に Toda (5.9) は `π_7^3` を利用して導出し、`π_7^3` の premise には戻さない。
+
+---
+
+# 110. π_7^3 branch
+
+Phase 67:
+
+```text
+π_6^2=Z/4{η₂ν′}
+E(η₂ν′)=0
+```
+
+concrete E-H exactness:
+
+```text
+π_6^2 --E--> π_7^3 --H--> π_7^5
+```
+
+から:
+
+```text
+H injective
+```
+
+を導出する。
+
+Phase 65 Equation (5.7):
+
+```text
+H(ν′η₆)=η₅²
+```
+
+と Proposition 5.3:
+
+```text
+π_7^5=Z/2{η₅²}
+```
+
+から:
+
+```text
+H surjective
+```
+
+を得る。
+
+したがって:
+
+```text
+H:π_7^3≅π_7^5
+↓
+π_7^3=Z/2{ν′η₆}
+```
+
+generic injective/surjective → isomorphism mechanics は既存を利用し、group conclusion は theorem-specific rule とする。
+
+---
+
+# 111. π_8^4 decomposition
+
+Toda (5.6), `i=8`:
+
+```text
+π_7^3⊕π_8^7≅π_8^4
+(α,β)↦Eα+ν₄β
+```
+
+を再利用する。
+
+input:
+
+```text
+π_7^3=Z/2{ν′η₆}
+π_8^7=Z/2{η₇}
+```
+
+concrete bridge:
+
+```text
+E(ν′η₆)=Eν′η₇
+```
+
+から:
+
+```text
+π_8^4
+=
+Z/2{ν₄η₇}
+⊕
+Z/2{Eν′η₇}
+```
+
+を導出する。
+
+generic direct-sum finite-cyclic transport は追加しない。
+
+---
+
+# 112. Δ(η₉) と π_9^5 branch
+
+Phase 66:
+
+```text
+Δ(ι₉)=±(2ν₄-Eν′)
+```
+
+を利用する。
+
+Proposition 2.5 の今回必要な concrete consequence のみ:
+
+```text
+Δ(η₉)
+=
+±((2ν₄-Eν′)η₇)
+```
+
+として接続する。
+
+Phase 68 の `π_8^4` decomposition により:
+
+```text
+2ν₄η₇=0
+```
+
+かつ `Eν′η₇` は order two なので sign は無視できる。
+
+最終:
+
+```text
+Δ(η₉)=Eν′η₇
+```
+
+generic distribution / sign normalizer は追加しない。
+
+π_9^5 では Phase 66 decomposition の free component を利用して:
+
+```text
+Δ:π_9^9→π_7^4 injective
+```
+
+を導出し、exactness から:
+
+```text
+H:π_9^5→π_9^9 zero
+E:π_8^4→π_9^5 surjective
+```
+
+を得る。
+
+さらに:
+
+```text
+Δ(η₉)=Eν′η₇
+```
+
+から:
+
+```text
+ker(E)=Z/2{Eν′η₇}
+```
+
+を concrete branch で識別し:
+
+```text
+π_9^5=Z/2{ν₅η₈}
+```
+
+を導出する。
+
+generic quotient solver / cyclic-image solver は追加しない。
+
+---
+
+# 113. Toda (5.9)
+
+Phase 68 は:
+
+```text
+η₃ν₄=ν′η₆
+```
+
+を dedicated consequence として導出する。
+
+Phase 60:
+
+```text
+H(ν₄)=ι₇
+```
+
+から concrete Hopf bridge:
+
+```text
+H(η₃ν₄)=η₅²
+```
+
+を得る。
+
+Phase 65:
+
+```text
+H(ν′η₆)=η₅²
+```
+
+Phase 68 で既に:
+
+```text
+H:π_7^3→π_7^5
+```
+
+が injective / isomorphism なので:
+
+```text
+η₃ν₄=ν′η₆
+```
+
+を導出する。
+
+Toda source proof にある追加 order argument を再実装せず、既に独立導出済みの stronger map property を再利用する。
+
+---
+
+# 114. η_nν_(n+1)=0 と ν_nη_(n+3)=0
+
+Toda (5.9) を double suspension:
+
+```text
+η₅ν₆=E²ν′η₈
+```
+
+Phase 62 / Phase 65:
+
+```text
+2ν₅=E²ν′
+```
+
+Phase 68:
+
+```text
+π_9^5=Z/2{ν₅η₈}
+```
+
+したがって:
+
+```text
+η₅ν₆
+=
+2ν₅η₈
+=
+0
+```
+
+higher transport:
+
+```text
+η_nν_(n+1)=0
+(n≥5)
+```
+
+Phase 68-9 ではまず concrete specialization:
+
+```text
+η₆ν₇=0
+```
+
+を導出する。
+
+Toda Proposition 3.1 の two Barratt-Hilton formulas は structural に sign を含む。
+
+今回の specialization では raw formulas は:
+
+```text
+η₂∧ν₄ = -η₆ν₇
+η₂∧ν₄ = +ν₆η₉
+```
+
+となるため、literal positive equality:
+
+```text
+η₆ν₇=ν₆η₉
+```
+
+を generic normalization で作らない。
+
+zero consequence に必要なのは:
+
+```text
+η₆ν₇=0
+↓
+ν₆η₉=0
+```
+
+のみであり、`±0=0` を theorem-specific guard 内で扱う。
+
+higher transport:
+
+```text
+ν_nη_(n+3)=0
+(n≥6)
+```
+
+へ進む。
+
+---
+
+# 115. shifted η representation
+
+current helper:
+
+```text
+toda_eta_family_definition_statement(n)
+```
+
+は:
+
+```text
+int
+ScalarSymbol
+```
+
+のみを index として受理する。
+
+したがって:
+
+```text
+ScalarSum(n,3)
+```
+
+を helper に渡して:
+
+```text
+η_(n+3)
+```
+
+を作ることはしない。
+
+Phase 68 では必要な shifted occurrence を rule 内で局所的に:
+
+```text
+HomotopyElement
++
+GeneratorSymbol(family="η", index=n+3)
+```
+
+として構成する。
+
+helper API を symbolic scalar expression 全般へ拡張しない。
+
+---
+
+# 116. concrete family display-name boundary
+
+Phase 68-10 で:
+
+```text
+η₈
+η_8
+```
+
+の display name 差が structural equality guard を失敗させた。
+
+対処:
+
+```text
+upstream derived generator object を再利用
++
+dimension / source / target / GeneratorSymbol を検証
+```
+
+とする。
+
+current rule:
+
+```text
+表示文字列
+```
+
+を数学的 identity として扱わない。
+
+同様の generic η-name normalizer は追加しない。
+
+---
+
+# 117. π_10^6 と Toda (4.5) transport
+
+concrete exactness:
+
+```text
+π_9^5 --E--> π_10^6 --H--> π_10^11
+```
+
+foundation:
+
+```text
+π_10^11=0
+```
+
+から:
+
+```text
+E:π_9^5→π_10^6 surjective
+```
+
+を得る。
+
+Phase 68:
+
+```text
+π_9^5=Z/2{ν₅η₈}
+ν₆η₉=0
+```
+
+より:
+
+```text
+π_10^6=0
+```
+
+を theorem-specific consequence として導出する。
+
+Toda (4.5):
+
+```text
+E^(n-6):π_10^6≅π_(n+4)^n
+```
+
+を再利用し:
+
+```text
+π_(n+4)^n=0
+(n≥6)
+```
+
+へ transport。
+
+generic zero-group isomorphism transport は追加しない。
+
+---
+
+# 118. Proposition 5.8 aggregate
+
+Phase 68-11 で追加:
+
+```text
+TodaProp58FiniteDimensionalStatement
+```
+
+保持:
+
+```text
+pi6_2_group_relation
+pi7_3_group_relation
+pi8_4_group_relation
+pi9_5_group_relation
+higher_four_stem_zero
+higher_range
+literature_statements
+```
+
+integration premise:
+
+```text
+π_6^2=Z/4{η₂ν′}                     INFERENCE
+π_7^3=Z/2{ν′η₆}                     INFERENCE
+π_8^4=Z/2{ν₄η₇}⊕Z/2{Eν′η₇}         INFERENCE
+π_9^5=Z/2{ν₅η₈}                     INFERENCE
+π_(n+4)^n=0                         INFERENCE
+n≥6                                 GIVEN
+```
+
+final:
+
+```text
+TodaProp58FiniteDimensionalStatement
+ProofRule.INFERENCE
+```
+
+stable `(G_4;2)=0` は aggregate に含めない。
+
+---
+
+# 119. Phase 68 provenance / non-circularity
+
+Phase 68-12 は production code を変更せず regression のみ追加。
+
+確認:
+
+```text
+5 branch はすべて INFERENCE
+n≥6 は GIVEN
+aggregate は INFERENCE
+
+final reaches all branches
+branches do not reach final
+final is not its own ancestor
+final conclusion absent from ancestors
+```
+
+dependency boundary:
+
+```text
+Phase 66 / Toda (5.8)
+  π_7^3 ancestors に存在しない
+  π_8^4 ancestors に存在しない
+  π_9^5 / higher branch で必要箇所にのみ存在
+
+Toda (5.9)
+  π_7^3 ancestors に存在しない
+  final aggregate に依存しない
+```
+
+source order と machine dependency を分離する。
+
+---
+
+# 120. Phase 68 representative probe
+
+module:
+
+```text
+probes/probe_phase68_capabilities.py
+```
+
+representative fixture:
+
+```text
+tests/test_phase68_prop58_integration.py
+build_phase68_11_data()
+```
+
+を再利用する。
+
+表示順:
+
+```text
+Toda Proposition 5.8 finite-dimensional result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Phase 68 representative probe boundary
+```
+
+proof-style derivation は presentation-only。
+
+```text
+ProofStep graph
+→ automatic narrative generation
+```
+
+ではない。
+
+Phase 68-13 では proof record を probe 実装から分離し、documentation Phase 68-14 で `docs/proof_records.md` へ記録する。
+
+---
+
+# 121. Phase 68 completion boundary
+
+完成:
+
+```text
+π_6^2=Z/4{η₂ν′}
+π_7^3=Z/2{ν′η₆}
+π_8^4=Z/2{ν₄η₇}⊕Z/2{Eν′η₇}
+Δ(η₉)=Eν′η₇
+π_9^5=Z/2{ν₅η₈}
+Toda (5.9): η₃ν₄=ν′η₆
+η_nν_(n+1)=0, n≥5
+ν_nη_(n+3)=0, n≥6
+π_10^6=0
+π_(n+4)^n=0, n≥6
+TodaProp58FiniteDimensionalStatement
+applicability / provenance / non-circularity regression
+representative proof-style probe
+formal proof record
+```
+
+追加しない:
+
+```text
+stable (G_4;2)=0
+generic shifted-family framework
+generic η-name normalization
+generic sign solver
+generic smash-product normalization
+generic cyclic-image solver
+generic zero-group solver
+generic zero-group isomorphism transport
+automatic proof narrative generation
+persistent Proof Repository
+stable homotopy-group model
+```
+
+final regression:
+
+```text
+4343 passed in 28.06s
+```

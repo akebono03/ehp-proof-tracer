@@ -5397,4 +5397,821 @@ stable homotopy model
 ### 状態
 
 COMPLETE
+---
 
+# Phase 68：Toda Proposition 5.8 finite-dimensional computation
+
+対象:
+
+```text
+π_6^2=Z/4{η₂ν′}
+π_7^3=Z/2{ν′η₆}
+π_8^4=Z/2{ν₄η₇}⊕Z/2{Eν′η₇}
+π_9^5=Z/2{ν₅η₈}
+π_(n+4)^n=0
+(n≥6)
+```
+
+stable:
+
+```text
+(G_4;2)=0
+```
+
+は Phase 68 では扱わない。
+
+---
+
+## Phase 68-1：dependency / compatibility analysis
+
+Toda Proposition 5.8 の finite-dimensional statement と proof dependency を確認。
+
+主要 upstream:
+
+```text
+Phase 63 Toda (5.6)
+Phase 65 Proposition 5.6 / Equation (5.7)
+Phase 66 Toda (5.8)
+Phase 67 Lemma 5.7 / π_6^2
+Phase 46 Toda (4.5)
+Toda Proposition 3.1
+```
+
+方針:
+
+```text
+finite-dimensional branch のみ
+generic algebra を先取りしない
+stable (G_4;2)=0 は deferred
+source ordering と machine dependency を分離
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 68-2：Toda (5.7) reuse verification
+
+Phase 65 Equation (5.7):
+
+```text
+H(ν′η₆)=η₅²
+```
+
+と Proposition 5.3:
+
+```text
+π_7^5=Z/2{η₅²}
+```
+
+を Phase 68-3 の surjectivity branch で再利用可能であることを確認。
+
+新規 production semantics:
+
+```text
+なし
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 68-3：π_7^3=Z/2{ν′η₆}
+
+chain:
+
+```text
+Phase 67
+π_6^2=Z/4{η₂ν′}
+E(η₂ν′)=0
+↓
+E:π_6^2→π_7^3 zero
+↓ exactness
+H:π_7^3→π_7^5 injective
+
+Phase 65 Equation (5.7)
+H(ν′η₆)=η₅²
++
+π_7^5=Z/2{η₅²}
+↓
+H surjective
+↓
+H isomorphism
+↓
+π_7^3=Z/2{ν′η₆}
+```
+
+focused builder:
+
+```text
+build_phase68_3_data()
+@lru_cache(maxsize=1)
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 68-4：π_8^4 decomposition
+
+追加:
+
+```text
+toda_prop58_e_nu_prime_eta6_bridge_inference_rule()
+toda_prop58_pi8_4_decomposition_inference_rule()
+```
+
+chain:
+
+```text
+Toda (5.6), i=8
+π_7^3⊕π_8^7≅π_8^4
+
+π_7^3=Z/2{ν′η₆}
+π_8^7=Z/2{η₇}
+E(ν′η₆)=Eν′η₇
+↓
+π_8^4
+=
+Z/2{ν₄η₇}
+⊕
+Z/2{Eν′η₇}
+```
+
+generic direct-sum transport は追加しない。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 68-5：Δ(η₉)=Eν′η₇
+
+追加:
+
+```text
+toda_prop25_delta_eta9_composition_inference_rule()
+toda_prop58_delta_eta9_inference_rule()
+```
+
+chain:
+
+```text
+Phase 66
+Δ(ι₉)=±(2ν₄-Eν′)
+↓ Proposition 2.5 concrete bridge
+Δ(η₉)=±((2ν₄-Eν′)η₇)
+
+Phase 68-4
+π_8^4
+=
+Z/2{ν₄η₇}
+⊕
+Z/2{Eν′η₇}
+↓
+2ν₄η₇=0
+sign on Eν′η₇ irrelevant
+↓
+Δ(η₉)=Eν′η₇
+```
+
+expression は distribution せず theorem-specific guard で処理。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 68-6：π_9^5=Z/2{ν₅η₈}
+
+追加:
+
+```text
+toda_prop58_pi9_5_concrete_exactness_inference_rule()
+toda_prop58_pi9_9_delta_injective_inference_rule()
+toda_prop58_pi9_5_hopf_zero_inference_rule()
+toda_prop58_pi9_5_suspension_surjective_inference_rule()
+toda_prop58_e_nu4_eta7_bridge_inference_rule()
+toda_prop58_pi9_5_finite_cyclic_inference_rule()
+```
+
+chain:
+
+```text
+Phase 66
+Δ(ι₉)=±(2ν₄-Eν′)
+
+Phase 65
+π_7^4=Z{ν₄}⊕Z/4{Eν′}
+↓
+Δ:π_9^9→π_7^4 injective
+↓ exactness
+H:π_9^5→π_9^9 zero
+↓ exactness
+E:π_8^4→π_9^5 surjective
+
+Phase 68-5
+Δ(η₉)=Eν′η₇
+↓
+ker(E)=Z/2{Eν′η₇}
+
+Phase 68-4
+π_8^4
+=
+Z/2{ν₄η₇}
+⊕
+Z/2{Eν′η₇}
+↓
+π_9^5=Z/2{E(ν₄η₇)}
+
+E(ν₄η₇)=ν₅η₈
+↓
+π_9^5=Z/2{ν₅η₈}
+```
+
+generic quotient / cyclic-image solver は追加しない。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 68-7：Toda (5.9)
+
+追加:
+
+```text
+toda_prop58_eta3_nu4_hopf_inference_rule()
+toda_59_eta3_nu4_inference_rule()
+```
+
+chain:
+
+```text
+Phase 60
+H(ν₄)=ι₇
+↓
+H(η₃ν₄)=η₅²
+
+Phase 65
+H(ν′η₆)=η₅²
+
+Phase 68-3
+H:π_7^3→π_7^5 isomorphism
+↓ injectivity
+η₃ν₄=ν′η₆
+```
+
+Toda source の追加 order argument は再実装せず、既に独立導出済みの Hopf isomorphism を利用。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 68-8：η_nν_(n+1)=0
+
+追加:
+
+```text
+toda_510_eta5_nu6_bridge_inference_rule()
+toda_510_eta5_nu6_zero_inference_rule()
+toda_510_higher_eta_nu_zero_inference_rule()
+```
+
+chain:
+
+```text
+Toda (5.9)
+η₃ν₄=ν′η₆
+↓ E²
+η₅ν₆=E²ν′η₈
+
+2ν₅=E²ν′
++
+π_9^5=Z/2{ν₅η₈}
+↓
+η₅ν₆=2ν₅η₈=0
+↓
+η_nν_(n+1)=0
+(n≥5)
+```
+
+focused:
+
+```text
+21 passed in 5.82s
+```
+
+Phase 68 combined at this point:
+
+```text
+124 passed in 6.47s
+```
+
+full regression:
+
+```text
+4226 passed in 80.03s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 68-9：ν_nη_(n+3)=0
+
+### 68-9a
+
+Phase 68-8 symbolic relation から:
+
+```text
+η₆ν₇=0
+```
+
+を concrete specialization。
+
+### 68-9b
+
+Toda Proposition 3.1 の raw Barratt-Hilton formulas:
+
+```text
+η₂∧ν₄=-η₆ν₇
+η₂∧ν₄=+ν₆η₉
+```
+
+を接続。
+
+literal:
+
+```text
+η₆ν₇=ν₆η₉
+```
+
+を generic sign normalization で作らず:
+
+```text
+η₆ν₇=0
+↓
+ν₆η₉=0
+```
+
+のみを theorem-specific に導出。
+
+### 68-9c
+
+ν / η family suspension transport:
+
+```text
+ν₆η₉=0
+↓
+ν_nη_(n+3)=0
+(n≥6)
+```
+
+開発中に:
+
+```text
+toda_eta_family_definition_statement(
+  ScalarSum(n,3)
+)
+```
+
+が helper の型境界:
+
+```text
+int or ScalarSymbol only
+```
+
+により reject された。
+
+修正:
+
+```text
+η_(n+3)
+```
+
+を theorem-specific rule 内で局所構成し、existing helper を拡張しない。
+
+full regression:
+
+```text
+4247 passed in 65.75s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 68-10：π_(n+4)^n=0
+
+追加:
+
+```text
+toda_prop58_pi10_6_concrete_exactness_inference_rule()
+toda_prop58_pi10_6_suspension_surjective_inference_rule()
+toda_prop58_pi10_6_zero_inference_rule()
+toda_prop58_higher_four_stem_zero_transport_inference_rule()
+```
+
+chain:
+
+```text
+π_9^5 --E--> π_10^6 --H--> π_10^11=0
+↓
+E surjective
+
+π_9^5=Z/2{ν₅η₈}
++
+ν₆η₉=0
+↓
+π_10^6=0
+
+Toda (4.5)
+E^(n-6):π_10^6≅π_(n+4)^n
+↓
+π_(n+4)^n=0
+(n≥6)
+```
+
+開発中、Phase 68-6 generator の display name:
+
+```text
+η₈
+```
+
+と family helper の:
+
+```text
+η_8
+```
+
+の structural mismatch により zero rule が発火しなかった。
+
+修正:
+
+```text
+upstream generator object をそのまま利用
++
+dimension / source / target / GeneratorSymbol を構造検証
+```
+
+helper の global naming は変更しない。
+
+focused:
+
+```text
+21 passed in 4.64s
+```
+
+Phase 68-9 + 68-10:
+
+```text
+42 passed in 5.79s
+```
+
+full regression:
+
+```text
+4268 passed in 84.11s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 68-11：finite-dimensional aggregate integration
+
+追加:
+
+```text
+TodaProp58FiniteDimensionalStatement
+toda_prop58_finite_dimensional_literature_statements()
+toda_prop58_finite_dimensional_integration_inference_rule()
+```
+
+aggregate:
+
+```text
+π_6^2=Z/4{η₂ν′}
+π_7^3=Z/2{ν′η₆}
+π_8^4=Z/2{ν₄η₇}⊕Z/2{Eν′η₇}
+π_9^5=Z/2{ν₅η₈}
+π_(n+4)^n=0
+n≥6
+↓
+TodaProp58FiniteDimensionalStatement
+```
+
+boundary:
+
+```text
+five mathematical branches INFERENCE
+n≥6 GIVEN
+aggregate INFERENCE
+(G_4;2)=0 absent
+```
+
+focused:
+
+```text
+21 passed in 1.42s
+```
+
+main group chain:
+
+```text
+101 passed in 1.69s
+```
+
+full regression:
+
+```text
+4289 passed in 30.20s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 68-12：applicability / provenance / non-circularity regression
+
+production code:
+
+```text
+変更なし
+```
+
+追加:
+
+```text
+tests/test_phase68_applicability_provenance.py
+```
+
+確認:
+
+```text
+all five branches INFERENCE
+n≥6 GIVEN
+aggregate INFERENCE
+
+final reaches all direct dependencies
+branch does not depend on final
+final graph acyclic
+final conclusion absent from ancestors
+
+Phase 66 absent from π_7^3 / π_8^4
+Phase 66 present only where needed downstream
+
+Toda (5.9) absent from π_7^3 ancestors
+Toda (5.9) does not depend on final aggregate
+```
+
+focused:
+
+```text
+28 passed in 1.33s
+```
+
+aggregate + provenance:
+
+```text
+49 passed in 1.49s
+```
+
+Phase 68 later provenance:
+
+```text
+110 passed in 1.64s
+```
+
+full regression:
+
+```text
+4317 passed in 28.69s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 68-13：representative probe only
+
+追加:
+
+```text
+probes/probe_phase68_capabilities.py
+tests/test_phase68_probe.py
+```
+
+production theorem semantics:
+
+```text
+変更なし
+```
+
+probe は:
+
+```text
+build_phase68_11_data()
+```
+
+を representative fixture として再利用。
+
+display:
+
+```text
+Toda Proposition 5.8 finite-dimensional result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Phase 68 representative probe boundary
+```
+
+representative result:
+
+```text
+π_6^2 = Z/4{η₂ν′}
+π_7^3 = Z/2{ν′η₆}
+π_8^4 = Z/2{ν₄η₇} ⊕ Z/2{Eν′η₇}
+π_9^5 = Z/2{ν₅η₈}
+π_(n+4)^n = 0  (n ≥ 6)
+```
+
+probe は明示的に:
+
+```text
+hand-authored presentation code
+not yet generated automatically from the ProofStep graph
+```
+
+という boundary を表示。
+
+focused:
+
+```text
+26 passed in 1.38s
+```
+
+aggregate + provenance + probe:
+
+```text
+75 passed in 1.53s
+```
+
+final repository-wide regression:
+
+```text
+4343 passed in 28.06s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 68-14：completion documentation + proof record
+
+更新:
+
+```text
+README.md
+docs/design.md
+docs/development_log.md
+docs/roadmap.md
+docs/code_reference.md
+docs/proof_records.md
+```
+
+`docs/proof_records.md` に3件目の formal record:
+
+```text
+Toda Proposition 5.8
+finite-dimensional result
+```
+
+を追加。
+
+roadmap は future-oriented に保ち、Phase 68 は milestone summary に圧縮する。
+
+current regression:
+
+```text
+4343 passed in 28.06s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 68 completion
+
+完成 capability:
+
+```text
+π_6^2=Z/4{η₂ν′}
+
+π_7^3=Z/2{ν′η₆}
+
+π_8^4
+=
+Z/2{ν₄η₇}
+⊕
+Z/2{Eν′η₇}
+
+Δ(η₉)=Eν′η₇
+
+π_9^5=Z/2{ν₅η₈}
+
+η₃ν₄=ν′η₆
+
+η_nν_(n+1)=0
+(n≥5)
+
+ν_nη_(n+3)=0
+(n≥6)
+
+π_10^6=0
+
+π_(n+4)^n=0
+(n≥6)
+
+TodaProp58FiniteDimensionalStatement
+```
+
+provenance:
+
+```text
+all five aggregate mathematical branches INFERENCE
+n≥6 applicability GIVEN
+final aggregate INFERENCE
+acyclic ancestry
+source order != machine dependency
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase68_capabilities
+```
+
+proof record:
+
+```text
+docs/proof_records.md
+Toda Proposition 5.8
+```
+
+final full regression:
+
+```text
+4343 passed in 28.06s
+```
+
+performance:
+
+```text
+Phase 64 stabilization level retained
+approximately 30-second repository-wide regression
+```
+
+deferred:
+
+```text
+stable (G_4;2)=0
+generic shifted-family framework
+generic η-name normalization
+generic sign / ± algebra
+generic smash-product normalization
+generic cyclic-image / zero-group solvers
+automatic proof narrative generation
+persistent Proof Repository
+stable homotopy model
+```
+
+### 状態
+
+COMPLETE
