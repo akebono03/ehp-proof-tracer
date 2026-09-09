@@ -12,6 +12,7 @@ from expression import (
   MapApplication,
   MapSymbol,
   Multiple,
+  ScalarPower,
   ScalarProduct,
   ScalarSum,
   ScalarSymbol,
@@ -5364,6 +5365,639 @@ def toda_510_higher_eta_nu_zero_inference_rule():
         proof_rule=ProofRule.GIVEN,
         statement_type=(
           TodaEtaFamilyDefinitionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop58_eta6_nu7_zero_specialization_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    higher_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    toda55 = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    eta6_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    nu7_definition = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    symbolic_nu_definition = (
+      toda55
+      .nu_family_definition
+    )
+
+    n = (
+      symbolic_nu_definition
+      .index
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      toda55.n_range
+      != ScalarGreaterEqualStatement(
+        left=n,
+        right=5,
+      )
+    ):
+      return False
+
+    eta_n = HomotopyElement(
+      name="η_n",
+      dimension=n,
+      source=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      target=n,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n,
+      ),
+    )
+
+    n_plus_one = ScalarSum(
+      left=n,
+      right=1,
+    )
+
+    nu_n_plus_one = HomotopyElement(
+      name="ν_(n+1)",
+      dimension=n_plus_one,
+      source=ScalarSum(
+        left=n,
+        right=4,
+      ),
+      target=n_plus_one,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=n_plus_one,
+      ),
+    )
+
+    expected_higher_zero = Relation(
+      lhs=Composition(
+        left=eta_n,
+        right=nu_n_plus_one,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    if (
+      higher_zero
+      != expected_higher_zero
+    ):
+      return False
+
+    if (
+      eta6_definition
+      != toda_eta_family_definition_statement(
+        6
+      )
+    ):
+      return False
+
+    return (
+      nu7_definition
+      == toda_nu_family_definition_statement(
+        7
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    eta_6 = (
+      premises[
+        2
+      ].conclusion
+      .element
+    )
+
+    nu_7 = (
+      premises[
+        3
+      ].conclusion
+      .element
+    )
+
+    return Relation(
+      lhs=Composition(
+        left=eta_6,
+        right=nu_7,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.8 "
+      "eta_6 nu_7 zero specialization"
+    ),
+    description=(
+      "Specialize the independently "
+      "derived symbolic relation "
+      "eta_n composed with nu_(n+1)=0 "
+      "for n at least 5 at n=6. "
+      "The canonical eta_6 and nu_7 "
+      "family definitions anchor the "
+      "concrete generators. "
+      "The result is "
+      "eta_6 composed with nu_7=0. "
+      "No generic symbolic theorem "
+      "specialization framework is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda55NuFamilyFiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaEtaFamilyDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaNuFamilyDefinitionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop31_nu6_eta9_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    eta6_nu7_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    first_formula = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    second_formula = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    nu_4 = HomotopyElement(
+      name="ν₄",
+      dimension=4,
+      source=7,
+      target=4,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=4,
+      ),
+    )
+
+    eta_6 = (
+      toda_eta_family_definition_statement(
+        6
+      ).element
+    )
+
+    nu_7 = (
+      toda_nu_family_definition_statement(
+        7
+      ).element
+    )
+
+    expected_zero = Relation(
+      lhs=Composition(
+        left=eta_6,
+        right=nu_7,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    if (
+      eta6_nu7_zero
+      != expected_zero
+    ):
+      return False
+
+    smash = (
+      first_formula.lhs
+    )
+
+    if (
+      second_formula.lhs
+      != smash
+    ):
+      return False
+
+    expected_first_composition = Composition(
+      left=IteratedSuspension(
+        expression=eta_2,
+        exponent=4,
+      ),
+      right=IteratedSuspension(
+        expression=nu_4,
+        exponent=3,
+      ),
+    )
+
+    expected_second_composition = Composition(
+      left=IteratedSuspension(
+        expression=nu_4,
+        exponent=2,
+      ),
+      right=IteratedSuspension(
+        expression=eta_2,
+        exponent=7,
+      ),
+    )
+
+    if not isinstance(
+      first_formula.rhs,
+      Multiple,
+    ):
+      return False
+
+    if not isinstance(
+      second_formula.rhs,
+      Multiple,
+    ):
+      return False
+
+    first_sign = (
+      first_formula
+      .rhs
+      .coefficient
+    )
+
+    second_sign = (
+      second_formula
+      .rhs
+      .coefficient
+    )
+
+    if (
+      first_sign
+      != ScalarPower(
+        base=-1,
+        exponent=ScalarProduct(
+          left=3,
+          right=3,
+        ),
+      )
+    ):
+      return False
+
+    if (
+      second_sign
+      != ScalarPower(
+        base=-1,
+        exponent=ScalarProduct(
+          left=2,
+          right=3,
+        ),
+      )
+    ):
+      return False
+
+    if (
+      first_formula
+      .rhs
+      .expression
+      != expected_first_composition
+    ):
+      return False
+
+    return (
+      second_formula
+      .rhs
+      .expression
+      == expected_second_composition
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    nu_6 = (
+      toda_nu_family_definition_statement(
+        6
+      ).element
+    )
+
+    eta_9 = (
+      toda_eta_family_definition_statement(
+        9
+      ).element
+    )
+
+    return Relation(
+      lhs=Composition(
+        left=nu_6,
+        right=eta_9,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 3.1 "
+      "nu_6 eta_9 zero consequence"
+    ),
+    description=(
+      "Use the two independently derived "
+      "Toda Proposition 3.1 "
+      "Barratt-Hilton formulas for "
+      "eta_2 smash nu_4. "
+      "The first identifies the smash "
+      "product up to its explicit sign "
+      "with E^4 eta_2 composed with "
+      "E^3 nu_4, namely eta_6 nu_7. "
+      "The second identifies the same "
+      "smash product up to its explicit "
+      "sign with E^2 nu_4 composed with "
+      "E^7 eta_2, namely nu_6 eta_9. "
+      "Since the independently derived "
+      "eta_6 nu_7 is zero, the common "
+      "smash-product expression is zero "
+      "and therefore nu_6 eta_9 is zero. "
+      "The sign does not need to be "
+      "normalized because either sign "
+      "of zero is zero. "
+      "No generic smash-product "
+      "normalization, sign solver, or "
+      "zero substitution framework "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop58_higher_nu_eta_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    base_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    toda55 = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    n_range = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    nu_6 = (
+      toda_nu_family_definition_statement(
+        6
+      ).element
+    )
+
+    eta_9 = (
+      toda_eta_family_definition_statement(
+        9
+      ).element
+    )
+
+    expected_base_zero = Relation(
+      lhs=Composition(
+        left=nu_6,
+        right=eta_9,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    if (
+      base_zero
+      != expected_base_zero
+    ):
+      return False
+
+    symbolic_nu_definition = (
+      toda55
+      .nu_family_definition
+    )
+
+    n = (
+      symbolic_nu_definition
+      .index
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      symbolic_nu_definition
+      != toda_nu_family_definition_statement(
+        n
+      )
+    ):
+      return False
+
+    if (
+      toda55.n_range
+      != ScalarGreaterEqualStatement(
+        left=n,
+        right=5,
+      )
+    ):
+      return False
+
+    return (
+      n_range
+      == ScalarGreaterEqualStatement(
+        left=n,
+        right=6,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    toda55 = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    n = (
+      toda55
+      .nu_family_definition
+      .index
+    )
+
+    nu_n = (
+      toda55
+      .nu_family_definition
+      .element
+    )
+
+    n_plus_three = ScalarSum(
+      left=n,
+      right=3,
+    )
+
+    eta_n_plus_three = HomotopyElement(
+      name="η_(n+3)",
+      dimension=n_plus_three,
+      source=ScalarSum(
+        left=n,
+        right=4,
+      ),
+      target=n_plus_three,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n_plus_three,
+      ),
+    )
+
+    return Relation(
+      lhs=Composition(
+        left=nu_n,
+        right=eta_n_plus_three,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.8 "
+      "higher nu eta zero"
+    ),
+    description=(
+      "Suspend the independently derived "
+      "base relation nu_6 eta_9=0 "
+      "through the finite-dimensional "
+      "nu and eta families. "
+      "For symbolic n at least 6, "
+      "E^(n-6)(nu_6 eta_9) "
+      "is nu_n composed with eta_(n+3). "
+      "Therefore "
+      "nu_n composed with eta_(n+3)=0. "
+      "The shifted eta_(n+3) element "
+      "is constructed locally because "
+      "the canonical eta-family definition "
+      "accepts only integer or simple "
+      "ScalarSymbol indices. "
+      "No generic shifted-family "
+      "constructor, symbolic-index "
+      "normalizer, or zero transport "
+      "framework is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda55NuFamilyFiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          ScalarGreaterEqualStatement
         ),
       ),
     ),
