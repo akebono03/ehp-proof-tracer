@@ -5203,6 +5203,308 @@ def toda_prop56_pi6_3_finite_cyclic_inference_rule():
   )
 
 
+def toda_prop56_pi7_4_decomposition_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    toda56_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    pi6_3_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi7_7_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    decomposition_isomorphism = (
+      toda56_statement
+      .decomposition_isomorphism
+    )
+
+    prop44_isomorphism = (
+      decomposition_isomorphism
+      .prop44_isomorphism
+    )
+
+    decomposition_map = (
+      prop44_isomorphism.map
+    )
+
+    if not isinstance(
+      decomposition_map,
+      TodaProp44DecompositionMap,
+    ):
+      return False
+
+    source_group = (
+      decomposition_map.source_group
+    )
+
+    target_group = (
+      decomposition_map.target_group
+    )
+
+    if not isinstance(
+      source_group,
+      DirectSumGroup,
+    ):
+      return False
+
+    if (
+      len(
+        source_group.summands
+      )
+      != 2
+    ):
+      return False
+
+    if not isinstance(
+      target_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    i = (
+      target_group
+      .group_dimension
+    )
+
+    if not isinstance(
+      i,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      target_group
+      != TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=4,
+      )
+    ):
+      return False
+
+    if (
+      source_group.summands[
+        0
+      ]
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=i,
+          right=-1,
+        ),
+        sphere_dimension=3,
+      )
+    ):
+      return False
+
+    if (
+      source_group.summands[
+        1
+      ]
+      != TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=7,
+      )
+    ):
+      return False
+
+    nu_4 = HomotopyElement(
+      name="ν₄",
+      dimension=4,
+      source=7,
+      target=4,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=4,
+      ),
+    )
+
+    if (
+      decomposition_map.alpha
+      != nu_4
+    ):
+      return False
+
+    expected_formula = Sum(
+      left=Suspension(
+        expression=(
+          decomposition_map.beta
+        ),
+      ),
+      right=Composition(
+        left=nu_4,
+        right=(
+          decomposition_map.gamma
+        ),
+      ),
+    )
+
+    if (
+      decomposition_map.formula
+      != expected_formula
+    ):
+      return False
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    if (
+      pi6_3_relation
+      != Relation(
+        lhs=TodaPrimaryGroup(
+          group_dimension=6,
+          sphere_dimension=3,
+        ),
+        rhs=FiniteCyclicGroup(
+          order=4,
+          generator=nu_prime,
+        ),
+        relation_type=RelationType.EQUALITY,
+      )
+    ):
+      return False
+
+    iota_7 = HomotopyElement(
+      name="ι_7",
+      dimension=7,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=7,
+      ),
+    )
+
+    return (
+      pi7_7_relation
+      == Relation(
+        lhs=TodaPrimaryGroup(
+          group_dimension=7,
+          sphere_dimension=7,
+        ),
+        rhs=FreeCyclicGroup(
+          generator=iota_7,
+        ),
+        relation_type=RelationType.EQUALITY,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    toda56_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    decomposition_isomorphism = (
+      toda56_statement
+      .decomposition_isomorphism
+    )
+
+    decomposition_map = (
+      decomposition_isomorphism
+      .prop44_isomorphism
+      .map
+    )
+
+    nu_4 = (
+      decomposition_map.alpha
+    )
+
+    nu_prime = (
+      premises[
+        1
+      ].conclusion
+      .rhs
+      .generator
+    )
+
+    return Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=7,
+        sphere_dimension=4,
+      ),
+      rhs=DirectSumGroup(
+        summands=(
+          FreeCyclicGroup(
+            generator=nu_4,
+          ),
+          FiniteCyclicGroup(
+            order=4,
+            generator=Suspension(
+              expression=nu_prime,
+            ),
+          ),
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.6 "
+      "pi_7^4 decomposition"
+    ),
+    description=(
+      "Specialize the derived Toda "
+      "(5.6) decomposition "
+      "pi_(i-1)^3 direct sum pi_i^7 "
+      "isomorphic to pi_i^4 at i=7. "
+      "Use pi_6^3=Z/4{nu-prime} and "
+      "pi_7^7=Z{iota_7}. "
+      "The first generator maps to "
+      "E nu-prime and the identity "
+      "generator maps by composition "
+      "with nu_4 to nu_4. Therefore "
+      "pi_7^4 is Z{nu_4} direct sum "
+      "Z/4{E nu-prime}."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda56Nu4DecompositionStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_prop56_pi7_3_hopf_surjective_inference_rule():
   def guard(
     premises,
