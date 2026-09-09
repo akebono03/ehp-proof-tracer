@@ -66,6 +66,9 @@ Phase 59  Toda Proposition 5.3 finite-dimensional result   COMPLETE
 Phase 60  Toda Lemma 5.4 / ν₄ construction                COMPLETE
 Phase 61  Toda Lemma 5.5 bracket transport                 COMPLETE
 Phase 62  Toda (5.5) finite-dimensional ν-family           COMPLETE
+Phase 63  Toda (5.6) ν₄ decomposition                         COMPLETE
+Phase 64  performance stabilization                           COMPLETE
+Phase 65  Toda Proposition 5.6 finite-dimensional result      COMPLETE
 ```
 
 Phase 59 final regression:
@@ -1679,71 +1682,274 @@ COMPLETE
 
 ---
 
-# 21. 現在の直近ステップ
+---
 
-Phase 64 は COMPLETE。
+# 21. Phase 65：Toda Proposition 5.6 finite-dimensional result 完了
 
-数学的 frontier は Phase 63 Toda (5.6) のまま。
+Phase 65 final capability:
 
-次は Equation (5.6) の後に続く concrete Toda statement / consequence を source から確認し、その Phase の最初に compatibility analysis を行う。
+```text
+π_5^2=Z/2{η₂³}
+π_6^3=Z/4{ν′}
+π_7^4=Z{ν₄}⊕Z/4{Eν′}
+π_(n+3)^n=Z/8{ν_n}
+(n≥5)
+```
+
+dependency:
+
+```text
+Phase 58 ν′
+Phase 59 η²
+Phase 60 ν₄
+Phase 62 Toda (5.5)
+Phase 63 Toda (5.6)
+Phase 46 Toda (4.5)
+↓
+Phase 65 finite-dimensional Proposition 5.6
+```
+
+subphases:
+
+```text
+65-1 dependency / compatibility                 COMPLETE
+65-2 π_5^2=Z/2{η₂³}                            COMPLETE
+65-3 Equation (5.7) / E injectivity             COMPLETE
+65-4 ord(ν′)=4 / π_6^3                         COMPLETE
+65-5 π_7^4 decomposition                        COMPLETE
+65-6 π_8^5 quotient / E² injectivity            COMPLETE
+65-7 ord(ν₅)=8 / π_8^5                         COMPLETE
+65-8 Toda (4.5) n≥6 transport                   COMPLETE
+65-9 Proposition 5.6 aggregate                  COMPLETE
+65-10 proof-style probe / provenance regression COMPLETE
+65-11 completion documentation                  COMPLETE
+```
+
+final regression:
+
+```text
+3841 passed in 31.82s
+```
+
+---
+
+# 22. 現在の推論能力と次の目標
+
+current engine:
+
+```text
+facts / hypotheses
++
+formalized inference rules
+↓
+automatic premise matching
+↓
+automatic rule application
+↓
+derived ProofStep graph
+↓
+final conclusion
+```
+
+現在は「Toda の証明順を表示するだけ」ではない。
+
+ただし:
+
+```text
+goal
+↓
+必要 theorem を自動選択
+↓
+proof strategy を自動発見
+```
+
+まで一般化されてはいない。
+
+当面は concrete Toda calculations を進め、証明戦略に必要な rule pattern を蓄積する。
+
+---
+
+# 23. Proof Repository / Derived Fact Database milestone
+
+現在:
+
+```text
+ProofStep provenance
+= 実行中に保持
+
+@lru_cache
+= 同一 Python process 内の deterministic builder 再利用
+
+persistent proof storage
+= 未実装
+```
+
+したがって別実行では原則:
+
+```text
+facts
++
+rules
+↓
+inference replay
+↓
+ProofStep graph 再構築
+```
+
+となる。
+
+repository を導入する目安:
+
+```text
+〜7-stem
+concrete calculations を十分蓄積
+↓
+minimal repository の schema を決める
+
+8–10 stem
+↓
+より複雑な concrete examples で schema を検証
+↓
+必要に応じて拡張
+```
+
+7-stem までで repository 開始に十分と考える理由:
+
+```text
+cyclic group
+direct sum
+exact sequence
+suspension transport
+Hopf invariant
+Whitehead product
+Toda bracket
+quotient
+generator order
+family relation
+stable-range transport
+low-dimensional exception
+```
+
+の多くが実例として揃うため。
+
+8–10 stem で確認したい追加ケース:
+
+```text
+multiple generators
+extension issues
+multiple derivation paths
+primary decomposition
+larger Toda-bracket indeterminacy
+```
+
+minimal schema candidate:
+
+```text
+DerivedFact
+  conclusion
+  scope
+  group structure
+  generator information
+  proof provenance
+  dependencies
+  literature metadata
+```
+
+重要:
+
+```text
+Proof Repository
+!=
+answer-only cache
+
+Proof Repository
+=
+derived result
++
+derivation
++
+dependency
++
+literature provenance
+```
+
+状態:
+
+```text
+PLANNED AFTER SUFFICIENT CONCRETE STEM COVERAGE
+```
+
+---
+
+# 24. proof narrative generation milestone
+
+Phase 60 / 61 / 63 / 65 で手書き proof-style probe が蓄積している。
+
+導入条件:
+
+```text
+複数 concrete proofs
+↓
+display pattern の反復
+↓
+presentation metadata schema が安定
+↓
+ProofStep graph から自動生成
+```
+
+Proof Repository と proof narrative generator は関連するが同一機能ではない。
+
+```text
+repository
+= proof object の永続保存 / 再利用
+
+narrative generator
+= proof object の人間向け文章化
+```
+
+両者を同時に巨大 framework として先取りしない。
+
+---
+
+# 25. 次の数学 Phase
+
+Phase 65 は COMPLETE。
+
+次は Toda Proposition 5.6 後の concrete source statement / consequence を確認して開始する。
 
 開始順序:
 
 ```text
 source statement
 ↓
-mathematical dependency
+proof dependency
 ↓
 current code / tests compatibility
 ↓
 minimum missing representation
 ↓
 minimum theorem rule
+↓
+integration / provenance
 ```
+
+Equation (5.8):
+
+```text
+Δ(ι₉)=±(2ν₄-Eν′)=±[ι₄,ι₄]
+```
+
+は Phase 65 では deferred とした次候補である。
 
 引き続き deferred:
 
 ```text
-generic Proposition 4.4 specialization framework
-generic direct-sum simplifier
-generic scalar normalization
-generic membership normalization
 stable ν / η³
 stable homotopy-group model
+generic exact-order solver
+generic quotient solver
+generic theorem specialization engine
 automatic proof narrative generation
+persistent Proof Repository implementation
 agenda/worklist inference architecture
-global algebra-object caching
 ```
-
-次 Phase の theorem 番号 / target は source statement を確認してから確定する。
-
-
-次は Equation (5.6) の後に続く concrete Toda statement / consequence を source から確認し、その Phase の最初に compatibility analysis を行う。
-
-開始順序:
-
-```text
-source statement
-↓
-mathematical dependency
-↓
-current code / tests compatibility
-↓
-minimum missing representation
-↓
-minimum theorem rule
-```
-
-引き続き deferred:
-
-```text
-generic Proposition 4.4 specialization framework
-generic direct-sum simplifier
-generic scalar normalization
-generic membership normalization
-stable ν / η³
-stable homotopy-group model
-automatic proof narrative generation
-```
-
-次 Phase の theorem 番号 / target は source statement を確認してから確定する。

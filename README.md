@@ -29,7 +29,7 @@ The implementation strategy is to formalize only the minimum theorem consequence
 
 # Current status
 
-Completed through Phase 64.
+Completed through Phase 65.
 
 ```text
 Phase 1–27   generic proof / algebra / Toda-bracket foundation
@@ -60,12 +60,13 @@ Phase 61     Toda Lemma 5.5 bracket transport and literature-aware provenance
 Phase 62     Toda (5.5) finite-dimensional ν-family integration
 Phase 63     Toda (5.6) ν₄ decomposition isomorphism
 Phase 64     performance stabilization
+Phase 65     Toda Proposition 5.6 finite-dimensional computation
 ```
 
 Latest repository-wide regression:
 
 ```text
-3657 passed in 29.97s
+3841 passed in 31.82s
 ```
 
 Phase 64 same-machine baseline:
@@ -1915,6 +1916,323 @@ Current mathematical frontier therefore remains Phase 63:
 (α,β)↦Eα+ν₄∘β
 ```
 
+# Phase 65: Toda Proposition 5.6 finite-dimensional computation
+
+Phase 65 completes the finite-dimensional part of Toda Proposition 5.6.
+
+The final derived capability is:
+
+```text
+π_5^2 = Z/2{η₂³}
+π_6^3 = Z/4{ν′}
+π_7^4 = Z{ν₄} ⊕ Z/4{Eν′}
+π_(n+3)^n = Z/8{ν_n}, n≥5
+```
+
+where:
+
+```text
+ν_n := E^(n-4)ν₄
+```
+
+for `n≥4`.
+
+The Proposition 5.6 aggregate is not reintroduced as a `GIVEN`. Its finite-dimensional group relations are built from independently derived Phase 65 branches and stored as an `INFERENCE` result with explicit `ProofStep` provenance.
+
+## π_5^2 branch
+
+Phase 65 first combines Toda (5.2) with the already-derived η-family result to obtain:
+
+```text
+π_5^2 = Z/2{η₂³}
+```
+
+with:
+
+```text
+η₂³ = η₂∘η₃∘η₄.
+```
+
+## Equation (5.7) and π_6^3
+
+Phase 65 derives the concrete Toda (5.7) consequence:
+
+```text
+H(ν′∘η₆)=η₅².
+```
+
+Together with:
+
+```text
+π_7^5=Z/2{η₅²}
+```
+
+this yields surjectivity of:
+
+```text
+H:π_7^3→π_7^5.
+```
+
+The relevant EHP exact sequence is displayed as one connected segment:
+
+```text
+π_7^3 ─H→ π_7^5 ─Δ→ π_5^2 ─E→ π_6^3 ─H→ π_6^5
+```
+
+Exactness gives:
+
+```text
+H surjective
+↓
+Δ=0
+↓
+E:π_5^2→π_6^3 injective.
+```
+
+Using the independently derived relations:
+
+```text
+2ν′=η₃³
+ord(η₃³)=2
+```
+
+Phase 65 obtains:
+
+```text
+ord(ν′)=4
+π_6^3=Z/4{ν′}.
+```
+
+No generic exact-order solver is introduced.
+
+## π_7^4 decomposition
+
+Toda (5.6), specialized to `i=7`, gives:
+
+```text
+π_6^3 ⊕ π_7^7 ≅ π_7^4
+(α,β) ↦ Eα+ν₄∘β.
+```
+
+Using:
+
+```text
+π_6^3=Z/4{ν′}
+π_7^7=Z{ι₇}
+```
+
+Phase 65 derives:
+
+```text
+π_7^4=Z{ν₄}⊕Z/4{Eν′}.
+```
+
+## n=5 branch
+
+From Toda (5.6), Phase 65 derives:
+
+```text
+π_8^5 / E²π_6^3 ≅ Z/2
+E²:π_6^3→π_8^5 injective.
+```
+
+Since:
+
+```text
+π_6^3=Z/4{ν′}
+```
+
+injectivity gives:
+
+```text
+ord(E²ν′)=4.
+```
+
+The `n=5` specialization of Toda (5.5) gives:
+
+```text
+2ν₅=E²ν′,
+```
+
+hence:
+
+```text
+ord(ν₅)=8.
+```
+
+Combining the order-four image with the order-two quotient yields:
+
+```text
+|π_8^5|=8,
+```
+
+and therefore:
+
+```text
+π_8^5=Z/8{ν₅}.
+```
+
+No generic quotient-cardinality solver is introduced.
+
+## n≥6 transport
+
+Toda (4.5) transports the `n=5` result:
+
+```text
+E^(n-5):π_8^5 ≅ π_(n+3)^n.
+```
+
+Phase 65 first derives:
+
+```text
+π_(n+3)^n
+=
+Z/8{E^(n-5)ν₅}.
+```
+
+The ν-family definition gives the dedicated bridge:
+
+```text
+E^(n-5)ν₅=ν_n.
+```
+
+Thus:
+
+```text
+π_(n+3)^n=Z/8{ν_n}
+(n≥6).
+```
+
+Together with the concrete `n=5` branch:
+
+```text
+π_(n+3)^n=Z/8{ν_n}
+(n≥5).
+```
+
+## Proposition 5.6 aggregate
+
+The final finite-dimensional aggregate stores:
+
+```text
+π_5^2=Z/2{η₂³}
+π_6^3=Z/4{ν′}
+π_7^4=Z{ν₄}⊕Z/4{Eν′}
+π_8^5=Z/8{ν₅}
+π_(n+3)^n=Z/8{ν_n}, n≥6
+n≥6 scope
+Toda Proposition 5.6 literature metadata
+```
+
+The final aggregate itself is:
+
+```text
+ProofRule.INFERENCE
+```
+
+and its theorem dependencies remain derived.
+
+## Representative proof-style probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase65_capabilities
+```
+
+The probe displays:
+
+```text
+Result
+Proof-style derivation
+EHP exact sequence used
+Provenance / integration
+Literature statements used
+Phase 65 completion boundary
+```
+
+The EHP sequence is intentionally kept connected:
+
+```text
+π_7^3 ─H→ π_7^5 ─Δ→ π_5^2 ─E→ π_6^3 ─H→ π_6^5
+```
+
+The proof-style derivation is still hand-authored presentation code. It is not yet generated automatically from the `ProofStep` graph.
+
+## Provenance meaning
+
+The current system does more than replay a textual proof order.
+
+Given explicit facts and already-formalized inference rules, the engine searches applicable rules and constructs new `ProofStep` objects until the selected inference stage reaches a fixed point.
+
+Each derived step stores:
+
+```text
+conclusion
+premises
+inference rule
+```
+
+so the proof graph can be traced backward from the final conclusion.
+
+However, this proof graph is currently in-memory unless reconstructed by the test / probe builder. A later program invocation normally performs the inference again.
+
+`@lru_cache(maxsize=1)` is used for deterministic expensive builders so repeated use inside the same Python process does not reconstruct the same proof graph.
+
+Persistent proof-result storage remains deferred.
+
+## Phase 65 regression
+
+Focused probe / provenance regression:
+
+```text
+tests/test_phase65_probe.py        21 passed
+tests/test_phase65_provenance.py   12 passed
+```
+
+Final repository-wide regression:
+
+```text
+3841 passed in 31.82s
+```
+
+Phase 64 performance stabilization therefore remains effective while the Phase 65 theorem/test coverage is added.
+
+## Phase 65 completion boundary
+
+Implemented:
+
+```text
+Toda Proposition 5.6 finite-dimensional branch
+π_5^2=Z/2{η₂³}
+Equation (5.7) consequence
+E:π_5^2→π_6^3 injectivity
+ord(ν′)=4
+π_6^3=Z/4{ν′}
+π_7^4=Z{ν₄}⊕Z/4{Eν′}
+π_8^5/E²π_6^3≅Z/2
+E² injectivity
+ord(ν₅)=8
+π_8^5=Z/8{ν₅}
+Toda (4.5) transport
+π_(n+3)^n=Z/8{ν_n}, n≥5
+finite-dimensional Proposition 5.6 aggregate
+representative proof-style probe
+full provenance regression
+```
+
+Deferred:
+
+```text
+stable ν
+stable 4ν=η³
+stable (G_3;2)=Z/8{ν}
+Equation (5.8)
+automatic proof narrative generation
+persistent Proof Repository / Derived Fact Database
+```
+
+---
 
 # Documentation
 
@@ -1928,19 +2246,43 @@ Current mathematical frontier therefore remains Phase 63:
 
 # Next development boundary
 
-Phase 64 is complete.
+Phase 65 is complete.
 
-Current verified capability:
+Current verified finite-dimensional Proposition 5.6 capability:
 
 ```text
-π_{i-1}^3 ⊕ π_i^7
-≅
-π_i^4
-
-(α,β)↦Eα+ν₄∘β
+π_5^2 = Z/2{η₂³}
+π_6^3 = Z/4{ν′}
+π_7^4 = Z{ν₄} ⊕ Z/4{Eν′}
+π_(n+3)^n = Z/8{ν_n}, n≥5
 ```
 
-The next mathematical Phase should begin from the next concrete Toda statement or consequence after Equation (5.6) and first perform dependency / current-representation compatibility analysis before adding any new theorem semantics.
+The next mathematical Phase should begin from the next concrete Toda statement / consequence after Proposition 5.6 and first perform source-dependency / current-representation compatibility analysis.
+
+A separate repository milestone is planned after enough concrete calculations have accumulated:
+
+```text
+through roughly 7-stem
+↓
+design / implement a minimal persistent Proof Repository
+
+8–10 stem
+↓
+use real calculations to test and extend the schema
+```
+
+The first repository version should preserve at least:
+
+```text
+derived conclusion
+scope
+generator / group structure
+ProofStep provenance
+dependencies
+literature metadata
+```
+
+It should not initially become a generic theorem database or replace inference with cached answers.
 
 Still deferred until concrete need:
 
@@ -1952,4 +2294,5 @@ stable ν / η³
 stable homotopy-group model
 automatic proof narrative generation
 generic theorem repository expansion
+persistent proof database implementation
 ```

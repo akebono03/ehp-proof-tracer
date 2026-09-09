@@ -3922,3 +3922,465 @@ minimum implementation
 
 exact target は source statement を確認してから確定する。
 
+
+
+---
+
+# Phase 65：Toda Proposition 5.6 finite-dimensional computation
+
+target:
+
+```text
+π_5^2=<η₂³>≅Z/2
+π_6^3=<ν′>≅Z/4
+π_7^4=<ν₄>⊕<Eν′>≅Z⊕Z/4
+π_(n+3)^n=<ν_n>≅Z/8
+(n≥5)
+```
+
+stable `(G_3;2)=Z/8{ν}` は Phase 65 に含めない。
+
+## Phase 65-1：dependency / compatibility analysis
+
+Toda Proposition 5.6 の有限次元 proof dependency を確認。
+
+主要再利用:
+
+```text
+Phase 58  ν′ relations
+Phase 59  η² groups
+Phase 60  ν₄ construction
+Phase 62  Toda (5.5) ν-family
+Phase 63  Toda (5.6) decomposition
+Phase 46  Toda (4.5)
+```
+
+方針:
+
+```text
+generic order solver を追加しない
+generic quotient/cardinality solver を追加しない
+generic theorem specialization engine を追加しない
+stable branch は deferred
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 65-2：π_5^2=Z/2{η₂³}
+
+Toda (5.2) と既存 η-family result を接続して:
+
+```text
+π_5^2=Z/2{η₂³}
+```
+
+を導出。
+
+focused:
+
+```text
+15 passed
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 65-3：Equation (5.7) / E injectivity
+
+導出:
+
+```text
+H(ν′∘η₆)=η₅²
+```
+
+と:
+
+```text
+π_7^5=Z/2{η₅²}
+```
+
+から:
+
+```text
+H:π_7^3→π_7^5 surjective
+```
+
+EHP exactness:
+
+```text
+π_7^3 ─H→ π_7^5 ─Δ→ π_5^2 ─E→ π_6^3 ─H→ π_6^5
+```
+
+から:
+
+```text
+Δ=0
+E:π_5^2→π_6^3 injective
+```
+
+を導出。
+
+focused:
+
+```text
+18 passed
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 65-4：ord(ν′)=4 / π_6^3
+
+```text
+π_5^2=Z/2{η₂³}
+E injective
+↓
+ord(η₃³)=2
+
+2ν′=η₃³
+↓
+ord(ν′)=4
+↓
+π_6^3=Z/4{ν′}
+```
+
+generic exact-order solver は追加しない。
+
+focused:
+
+```text
+18 passed
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 65-5：π_7^4 decomposition
+
+Toda (5.6), `i=7`:
+
+```text
+π_6^3⊕π_7^7≅π_7^4
+(α,β)↦Eα+ν₄∘β
+```
+
+と:
+
+```text
+π_6^3=Z/4{ν′}
+π_7^7=Z{ι₇}
+```
+
+から:
+
+```text
+π_7^4=Z{ν₄}⊕Z/4{Eν′}
+```
+
+を導出。
+
+focused:
+
+```text
+17 passed
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 65-6：n=5 quotient / E² injectivity
+
+Toda (5.6) から:
+
+```text
+π_8^5/E²π_6^3≅Z/2
+E²:π_6^3→π_8^5 injective
+```
+
+を dedicated statement で保持。
+
+generic symbolic quotient representation は追加しない。
+
+focused:
+
+```text
+17 passed
+```
+
+full regression:
+
+```text
+3742 passed in 31.54s
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 65-7：ord(ν₅)=8 / π_8^5
+
+Toda (5.5), `n=5`:
+
+```text
+2ν₅=E²ν′
+```
+
+Phase 65-4 / 65-6:
+
+```text
+π_6^3=Z/4{ν′}
+E² injective
+↓
+ord(E²ν′)=4
+```
+
+したがって:
+
+```text
+ord(ν₅)=8
+```
+
+さらに:
+
+```text
+|E²π_6^3|=4
+π_8^5/E²π_6^3≅Z/2
+↓
+|π_8^5|=8
+↓
+π_8^5=Z/8{ν₅}
+```
+
+focused:
+
+```text
+21 passed
+```
+
+full regression:
+
+```text
+3763 passed in 30.47s
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 65-8：Toda (4.5) transport, n≥6
+
+```text
+π_8^5=Z/8{ν₅}
++
+E^(n-5):π_8^5≅π_(n+3)^n
+↓
+π_(n+3)^n=Z/8{E^(n-5)ν₅}
+```
+
+ν-family bridge:
+
+```text
+E^(n-5)ν₅=ν_n
+```
+
+から:
+
+```text
+π_(n+3)^n=Z/8{ν_n}
+(n≥6)
+```
+
+focused:
+
+```text
+24 passed
+```
+
+full regression:
+
+```text
+3787 passed in 31.58s
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 65-9：Proposition 5.6 finite-dimensional aggregate
+
+追加:
+
+```text
+TodaProp56FiniteDimensionalStatement
+toda_prop56_finite_dimensional_literature_statements()
+toda_prop56_finite_dimensional_integration_inference_rule()
+```
+
+統合:
+
+```text
+π_5^2=Z/2{η₂³}                 INFERENCE
+π_6^3=Z/4{ν′}                  INFERENCE
+π_7^4=Z{ν₄}⊕Z/4{Eν′}          INFERENCE
+π_8^5=Z/8{ν₅}                  INFERENCE
+π_(n+3)^n=Z/8{ν_n}, n≥6        INFERENCE
+n≥6                             GIVEN
+↓
+TodaProp56FiniteDimensionalStatement
+                                  INFERENCE
+```
+
+focused:
+
+```text
+21 passed
+```
+
+full regression:
+
+```text
+3808 passed in 29.94s
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 65-10：representative proof-style probe / provenance regression
+
+追加:
+
+```text
+probes/probe_phase65_capabilities.py
+tests/test_phase65_probe.py
+tests/test_phase65_provenance.py
+```
+
+probe の EHP完全列は:
+
+```text
+π_7^3 ─H→ π_7^5 ─Δ→ π_5^2 ─E→ π_6^3 ─H→ π_6^5
+```
+
+と1本につないで表示する。
+
+代表 output は:
+
+```text
+π_5^2=Z/2{η₂³}
+π_6^3=Z/4{ν′}
+π_7^4=Z{ν₄}⊕Z/4{Eν′}
+π_(n+3)^n=Z/8{ν_n}, n≥5
+```
+
+provenance:
+
+```text
+final aggregate derived = True
+final aggregate is GIVEN = False
+theorem dependencies are INFERENCE = True
+fixed point = True
+```
+
+focused:
+
+```text
+tests/test_phase65_probe.py       21 passed
+tests/test_phase65_provenance.py  12 passed
+```
+
+final repository-wide regression:
+
+```text
+3841 passed in 31.82s
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 65-11：completion documentation
+
+更新:
+
+```text
+README.md
+docs/design.md
+docs/development_log.md
+docs/roadmap.md
+docs/code_reference.md
+```
+
+追加方針:
+
+```text
+ProofStep provenance は現在 in-memory
+再起動後は原則推論を再構築
+lru_cache は同一 process 内のみ
+persistent Proof Repository は deferred
+```
+
+repository milestone:
+
+```text
+7-stem 程度
+→ minimal repository を設計 / 実装可能
+
+8–10 stem
+→ real calculations で schema を検証 / 拡張
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 65 completion boundary
+
+完成 capability:
+
+```text
+π_5^2=Z/2{η₂³}
+π_6^3=Z/4{ν′}
+π_7^4=Z{ν₄}⊕Z/4{Eν′}
+π_(n+3)^n=Z/8{ν_n}
+(n≥5)
+```
+
+machine provenance:
+
+```text
+all final group results derived
+final aggregate INFERENCE
+acyclic ancestry
+fixed-point regression
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase65_capabilities
+```
+
+final full regression:
+
+```text
+3841 passed in 31.82s
+```
+
+deferred:
+
+```text
+stable ν / η³
+stable (G_3;2)
+Equation (5.8)
+automatic proof narrative generation
+persistent Proof Repository / Derived Fact Database
+```

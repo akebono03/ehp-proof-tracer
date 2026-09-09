@@ -25,7 +25,7 @@ representation != typing != theorem knowledge
 structural equality != mathematical equality
 ```
 
-Phase 64 までこの原則を維持している。
+Phase 65 までこの原則を維持している。
 
 ---
 
@@ -3213,3 +3213,433 @@ minimum implementation
 の順で進める。
 
 Phase 63 で deferred とした generic framework は、次の concrete theorem で実際に必要になるまで追加しない。
+
+
+---
+
+# 75. Phase 65：Toda Proposition 5.6 finite-dimensional integration
+
+Phase 65 の設計目標は、Toda Proposition 5.6 の有限次元部分を、既存 Phase 58–63 の provenance を切らずに導出・統合することである。
+
+最終 target:
+
+```text
+π_5^2=Z/2{η₂³}
+π_6^3=Z/4{ν′}
+π_7^4=Z{ν₄}⊕Z/4{Eν′}
+π_(n+3)^n=Z/8{ν_n}
+(n≥5)
+```
+
+設計方針:
+
+```text
+concrete proof need
+↓
+theorem-specific narrow rule
+↓
+existing generic inference mechanics
+```
+
+を維持し、Phase 65 でも generic order solver / generic quotient solver / generic specialization engine は追加しない。
+
+---
+
+# 76. Phase 65 の推論と Toda 証明の関係
+
+current engine は Toda の証明文を単に順番通り表示するだけではない。
+
+実行モデル:
+
+```text
+GIVEN facts / hypotheses
++
+formalized InferenceRule
+↓
+premise matching
+↓
+applicable rule selection
+↓
+new ProofStep
+↓
+fixed-point / staged execution
+```
+
+したがって final conclusion 自体を `GIVEN` として検算しているわけではない。
+
+一方で、現在どの `InferenceRule` を formalize するか、どの theorem consequence が必要かの設計は Toda の proof dependency を人間が読んで決めている。
+
+現在地:
+
+```text
+proof-rule inventory
+= human-guided from Toda
+
+rule application / derived-step construction
+= automatic
+
+proof-strategy discovery from an arbitrary goal
+= not yet automatic
+```
+
+---
+
+# 77. Phase 65-3：Equation (5.7) / EHP chain
+
+Phase 65 では:
+
+```text
+H(ν′∘η₆)=η₅²
+π_7^5=Z/2{η₅²}
+```
+
+から:
+
+```text
+H:π_7^3→π_7^5 surjective
+```
+
+を導出する。
+
+使用する EHP segment:
+
+```text
+π_7^3 ─H→ π_7^5 ─Δ→ π_5^2 ─E→ π_6^3 ─H→ π_6^5
+```
+
+exactness から:
+
+```text
+H surjective
+↓
+Δ=0
+↓
+E:π_5^2→π_6^3 injective
+```
+
+を導出する。
+
+probe では完全列を縦に分割せず、この connected sequence の形で表示する。
+
+---
+
+# 78. Phase 65 order semantics boundary
+
+Phase 65 の具体的 order derivation:
+
+```text
+ord(η₃³)=2
+2ν′=η₃³
+↓
+ord(ν′)=4
+```
+
+および:
+
+```text
+π_6^3=Z/4{ν′}
+E² injective
+↓
+ord(E²ν′)=4
+
+2ν₅=E²ν′
+↓
+ord(ν₅)=8
+```
+
+は theorem-specific rule とする。
+
+追加しない:
+
+```text
+generic exact-order solver
+generic order transport under arbitrary injective maps
+generic ord(kx) arithmetic
+```
+
+複数 independent branches で同一 generic need が繰り返し現れるまで generalize しない。
+
+---
+
+# 79. Phase 65 quotient / cardinality boundary
+
+n=5 branch:
+
+```text
+π_8^5/E²π_6^3≅Z/2
+E²:π_6^3→π_8^5 injective
+π_6^3=Z/4{ν′}
+↓
+|E²π_6^3|=4
+↓
+|π_8^5|=8
+```
+
+および:
+
+```text
+ord(ν₅)=8
+↓
+π_8^5=Z/8{ν₅}
+```
+
+は Proposition-5.6-specific rule で扱う。
+
+`QuotientGroup` の concrete algebra layer を symbolic Toda group に無理に流用しない。
+
+追加しない:
+
+```text
+generic symbolic quotient object
+generic subgroup-cardinality solver
+generic extension solver
+```
+
+---
+
+# 80. Phase 65 stable transport boundary
+
+Toda (4.5):
+
+```text
+E^(n-5):π_8^5≅π_(n+3)^n
+```
+
+により:
+
+```text
+π_(n+3)^n=Z/8{E^(n-5)ν₅}
+```
+
+を導出する。
+
+その後:
+
+```text
+ν₅=Eν₄
+ν_n=E^(n-4)ν₄
+↓
+E^(n-5)ν₅=ν_n
+```
+
+を dedicated ν-family bridge で接続する。
+
+generic:
+
+```text
+E^a(E^b x)=E^(a+b)x
+```
+
+normalizer は追加しない。
+
+---
+
+# 81. Phase 65 aggregate
+
+final aggregate:
+
+```text
+TodaProp56FiniteDimensionalStatement
+```
+
+は次を保持する。
+
+```text
+π_5^2 group relation
+π_6^3 group relation
+π_7^4 group relation
+π_8^5 group relation
+higher ν group relation
+n≥6 scope
+Toda Proposition 5.6 literature
+```
+
+direct theorem premises はすべて independently derived `ProofRule.INFERENCE` とし、scope のみ `GIVEN` とする。
+
+final aggregate 自身も:
+
+```text
+ProofRule.INFERENCE
+```
+
+である。
+
+---
+
+# 82. Phase 65 proof-style presentation
+
+`probes/probe_phase65_capabilities.py` は Phase 65-9 integration builder を representative fixture として再利用する。
+
+display order:
+
+```text
+Result
+Proof-style derivation
+EHP exact sequence used
+Provenance / integration
+Literature statements used
+Phase 65 completion boundary
+```
+
+EHP display:
+
+```text
+π_7^3 ─H→ π_7^5 ─Δ→ π_5^2 ─E→ π_6^3 ─H→ π_6^5
+```
+
+proof-style derivation は presentation-only。
+
+```text
+ProofStep graph → automatic proof text
+```
+
+ではない。
+
+---
+
+# 83. provenance の永続性
+
+`ProofStep` は実行中に:
+
+```text
+conclusion
+premises
+inference_rule
+```
+
+を保持し、final conclusion から ancestor graph を復元できる。
+
+Phase 65-10 では:
+
+```text
+final aggregate is INFERENCE
+direct theorem dependencies are INFERENCE
+final graph is acyclic
+final conclusion is absent from ancestors
+upstream branches do not depend on final aggregate
+```
+
+を regression で固定する。
+
+ただし current provenance は persistent storage ではない。
+
+```text
+program run
+↓
+ProofStep graph exists in memory
+
+program exit
+↓
+graph is not automatically persisted
+
+next run
+↓
+inference is reconstructed
+```
+
+Phase 64 以降の `@lru_cache(maxsize=1)` は同一 process 内の deterministic builder 再利用であり、永続 database ではない。
+
+---
+
+# 84. Proof Repository / Derived Fact Database の導入条件
+
+persistent repository は現時点では実装しない。
+
+理由:
+
+```text
+schema を先に固定
+↓
+後続 stem で必要構造が増える
+↓
+早期設計が proof development を拘束する
+```
+
+目安:
+
+```text
+7-stem 程度まで concrete calculations を蓄積
+↓
+最小 repository を設計 / 実装するには十分
+
+8–10 stem
+↓
+複数 generator
+extension
+複数 derivation
+primary decomposition
+Toda bracket indeterminacy
+等を実例で検証
+↓
+schema を拡張 / 安定化
+```
+
+最小 repository candidate:
+
+```text
+DerivedFact
+  conclusion
+  scope
+  group / generator information
+  proof provenance
+  dependencies
+  literature metadata
+```
+
+重要な境界:
+
+```text
+repository
+!=
+answer-only cache
+
+repository
+=
+derived conclusion
++
+why it is true
++
+what it depends on
+```
+
+---
+
+# 85. Phase 65 completion boundary
+
+完成:
+
+```text
+Toda Proposition 5.6 finite-dimensional result
+Equation (5.7)
+EHP connected-sequence display
+ord(ν′)=4
+π_6^3=Z/4{ν′}
+π_7^4 decomposition
+π_8^5 quotient / E² injectivity
+ord(ν₅)=8
+π_8^5=Z/8{ν₅}
+Toda (4.5) n≥6 transport
+π_(n+3)^n=Z/8{ν_n}, n≥5
+TodaProp56FiniteDimensionalStatement
+representative proof-style probe
+full provenance regression
+```
+
+final regression:
+
+```text
+3841 passed in 31.82s
+```
+
+deferred:
+
+```text
+stable ν
+stable 4ν=η³
+stable (G_3;2)=Z/8{ν}
+Equation (5.8)
+automatic proof narrative generation
+persistent Proof Repository
+```
+
+次の数学 Phase は next concrete Toda source statement / consequence から開始する。
