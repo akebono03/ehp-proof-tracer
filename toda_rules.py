@@ -5888,6 +5888,604 @@ def toda_prop56_pi6_3_e2_injective_inference_rule():
   )
 
 
+def toda_prop56_nu5_double_relation_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    toda55_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    nu5_definition = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    symbolic_definition = (
+      toda55_statement
+      .nu_family_definition
+    )
+
+    n = symbolic_definition.index
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      toda55_statement.n_range
+      != ScalarGreaterEqualStatement(
+        left=n,
+        right=5,
+      )
+    ):
+      return False
+
+    if (
+      symbolic_definition
+      != toda_nu_family_definition_statement(
+        n
+      )
+    ):
+      return False
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    expected_symbolic_double = Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=(
+          symbolic_definition.element
+        ),
+      ),
+      rhs=IteratedSuspension(
+        expression=nu_prime,
+        exponent=ScalarSum(
+          left=n,
+          right=ScalarProduct(
+            left=-1,
+            right=3,
+          ),
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      toda55_statement.double_nu_relation
+      != expected_symbolic_double
+    ):
+      return False
+
+    return (
+      nu5_definition
+      == toda_nu_family_definition_statement(
+        5
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    nu5_definition = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    return Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=(
+          nu5_definition.element
+        ),
+      ),
+      rhs=IteratedSuspension(
+        expression=nu_prime,
+        exponent=2,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.6 "
+      "nu_5 double relation"
+    ),
+    description=(
+      "Specialize the independently "
+      "derived finite-dimensional "
+      "Toda (5.5) nu-family aggregate "
+      "to n=5. Together with the "
+      "concrete nu_5 family definition, "
+      "derive "
+      "2 nu_5=E^2 nu-prime. "
+      "No generic symbolic theorem "
+      "instantiation engine is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda55NuFamilyFiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaNuFamilyDefinitionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop56_e2_nu_prime_order_four_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    pi6_3_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    e2_injective = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    pi_6_3 = TodaPrimaryGroup(
+      group_dimension=6,
+      sphere_dimension=3,
+    )
+
+    pi_8_5 = TodaPrimaryGroup(
+      group_dimension=8,
+      sphere_dimension=5,
+    )
+
+    if (
+      pi6_3_relation
+      != Relation(
+        lhs=pi_6_3,
+        rhs=FiniteCyclicGroup(
+          order=4,
+          generator=nu_prime,
+        ),
+        relation_type=RelationType.EQUALITY,
+      )
+    ):
+      return False
+
+    return (
+      e2_injective.map
+      == TodaIteratedSuspensionMap(
+        exponent=2,
+        source_group=pi_6_3,
+        target_group=pi_8_5,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    nu_prime = (
+      premises[
+        0
+      ].conclusion
+      .rhs
+      .generator
+    )
+
+    return Relation(
+      lhs=IteratedSuspension(
+        expression=nu_prime,
+        exponent=2,
+      ),
+      rhs=4,
+      relation_type=RelationType.ORDER,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.6 "
+      "E^2 nu-prime order four"
+    ),
+    description=(
+      "Phase 65-4 gives "
+      "pi_6^3=Z/4{nu-prime}. "
+      "Phase 65-6 gives injectivity "
+      "of E^2 from pi_6^3 to pi_8^5. "
+      "An injective map preserves the "
+      "exact order of this concrete "
+      "generator, so E^2 nu-prime "
+      "has order four. "
+      "No generic injective-map "
+      "order transport rule is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaIteratedSuspensionInjectiveStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop56_nu5_order_eight_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    double_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    e2_order = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    nu5_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    if (
+      nu5_definition
+      != toda_nu_family_definition_statement(
+        5
+      )
+    ):
+      return False
+
+    nu_5 = (
+      nu5_definition.element
+    )
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    e2_nu_prime = IteratedSuspension(
+      expression=nu_prime,
+      exponent=2,
+    )
+
+    if (
+      double_relation
+      != Relation(
+        lhs=Multiple(
+          coefficient=2,
+          expression=nu_5,
+        ),
+        rhs=e2_nu_prime,
+        relation_type=RelationType.EQUALITY,
+      )
+    ):
+      return False
+
+    return (
+      e2_order
+      == Relation(
+        lhs=e2_nu_prime,
+        rhs=4,
+        relation_type=RelationType.ORDER,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    nu5_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=nu5_definition.element,
+      rhs=8,
+      relation_type=RelationType.ORDER,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.6 "
+      "nu_5 order eight"
+    ),
+    description=(
+      "The concrete Toda (5.5) "
+      "specialization gives "
+      "2 nu_5=E^2 nu-prime, and "
+      "E^2 nu-prime has exact order "
+      "four. Therefore twice nu_5 "
+      "has order four, so nu_5 has "
+      "exact order eight."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ORDER
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaNuFamilyDefinitionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop56_pi8_5_finite_cyclic_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    nu5_order = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    nu5_definition = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi6_3_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    e2_injective = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    quotient_statement = (
+      premises[
+        4
+      ].conclusion
+    )
+
+    if (
+      nu5_definition
+      != toda_nu_family_definition_statement(
+        5
+      )
+    ):
+      return False
+
+    nu_5 = (
+      nu5_definition.element
+    )
+
+    if (
+      nu5_order
+      != Relation(
+        lhs=nu_5,
+        rhs=8,
+        relation_type=RelationType.ORDER,
+      )
+    ):
+      return False
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    pi_6_3 = TodaPrimaryGroup(
+      group_dimension=6,
+      sphere_dimension=3,
+    )
+
+    pi_8_5 = TodaPrimaryGroup(
+      group_dimension=8,
+      sphere_dimension=5,
+    )
+
+    if (
+      pi6_3_relation
+      != Relation(
+        lhs=pi_6_3,
+        rhs=FiniteCyclicGroup(
+          order=4,
+          generator=nu_prime,
+        ),
+        relation_type=RelationType.EQUALITY,
+      )
+    ):
+      return False
+
+    e2_map = TodaIteratedSuspensionMap(
+      exponent=2,
+      source_group=pi_6_3,
+      target_group=pi_8_5,
+    )
+
+    if (
+      e2_injective.map
+      != e2_map
+    ):
+      return False
+
+    return (
+      quotient_statement
+      == TodaProp56Pi8_5QuotientStatement(
+        ambient_group=pi_8_5,
+        subobject_map=e2_map,
+        quotient_order=2,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    nu_5 = (
+      premises[
+        1
+      ].conclusion.element
+    )
+
+    return Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=8,
+        sphere_dimension=5,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=8,
+        generator=nu_5,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.6 "
+      "pi_8^5 finite cyclic"
+    ),
+    description=(
+      "Phase 65-4 gives "
+      "pi_6^3=Z/4{nu-prime}. "
+      "Phase 65-6 gives an injective "
+      "E^2 map into pi_8^5 and an "
+      "order-two quotient "
+      "pi_8^5/E^2 pi_6^3. "
+      "Hence E^2 pi_6^3 has order "
+      "four and pi_8^5 has order "
+      "eight. Since nu_5 belongs to "
+      "the concrete nu-family target "
+      "pi_8^5 and has exact order "
+      "eight, it generates the whole "
+      "group."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ORDER
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaNuFamilyDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaIteratedSuspensionInjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp56Pi8_5QuotientStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_prop56_pi7_3_hopf_surjective_inference_rule():
   def guard(
     premises,
