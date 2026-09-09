@@ -121,6 +121,12 @@ class TodaPi32WhiteheadSquareUpToSignStatement:
 
 
 @dataclass(frozen=True)
+class Toda58WhiteheadSquareUpToSignStatement:
+  whitehead_square: WhiteheadProduct
+  positive_value: Expression
+
+
+@dataclass(frozen=True)
 class TodaDeltaImageUpToSignStatement:
   map: TodaDeltaMap
   element: Expression
@@ -12036,6 +12042,190 @@ def toda_58_delta_iota9_nu4_nu_prime_inference_rule():
         statement_type=Relation,
         relation_type=(
           RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_58_whitehead_square_nu_expression_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    delta_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    whitehead_data = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    expected_source = TodaPrimaryGroup(
+      group_dimension=9,
+      sphere_dimension=9,
+    )
+
+    expected_target = TodaPrimaryGroup(
+      group_dimension=7,
+      sphere_dimension=4,
+    )
+
+    if (
+      delta_statement.map.source_group
+      != expected_source
+    ):
+      return False
+
+    if (
+      delta_statement.map.target_group
+      != expected_target
+    ):
+      return False
+
+    iota_9 = HomotopyElement(
+      name="ι_9",
+      dimension=9,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=9,
+      ),
+    )
+
+    if (
+      delta_statement.element
+      != iota_9
+    ):
+      return False
+
+    nu_4 = HomotopyElement(
+      name="ν₄",
+      dimension=4,
+      source=7,
+      target=4,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=4,
+      ),
+    )
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    expected_positive_value = Sum(
+      left=Multiple(
+        coefficient=2,
+        expression=nu_4,
+      ),
+      right=Multiple(
+        coefficient=-1,
+        expression=Suspension(
+          expression=nu_prime,
+        ),
+      ),
+    )
+
+    if (
+      delta_statement.positive_value
+      != expected_positive_value
+    ):
+      return False
+
+    iota_4 = HomotopyElement(
+      name="ι_4",
+      dimension=4,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=4,
+      ),
+    )
+
+    expected_whitehead_square = (
+      WhiteheadProduct(
+        left=iota_4,
+        right=iota_4,
+      )
+    )
+
+    return (
+      whitehead_data.whitehead_square
+      == expected_whitehead_square
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    delta_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    whitehead_data = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return (
+      Toda58WhiteheadSquareUpToSignStatement(
+        whitehead_square=(
+          whitehead_data
+          .whitehead_square
+        ),
+        positive_value=(
+          delta_statement
+          .positive_value
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Equation 5.8 "
+      "Whitehead-square nu-expression"
+    ),
+    description=(
+      "Connect the independently "
+      "derived Equation (5.8) result "
+      "Delta(iota_9)=plus or minus "
+      "(2 nu_4-E nu-prime) with the "
+      "independently derived "
+      "Lemma 5.4 Whitehead square "
+      "[iota_4,iota_4]. "
+      "For this concrete Equation "
+      "(5.8) instance, derive "
+      "[iota_4,iota_4]=plus or minus "
+      "(2 nu_4-E nu-prime). "
+      "No generic up-to-sign "
+      "transitivity or sign algebra "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaDeltaImageUpToSignStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54WhiteheadCorrectionDataStatement
         ),
       ),
     ),
