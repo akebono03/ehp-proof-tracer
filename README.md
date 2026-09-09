@@ -29,7 +29,7 @@ The implementation strategy is to formalize only the minimum theorem consequence
 
 # Current status
 
-Completed through Phase 66.
+Completed through Phase 67.
 
 ```text
 Phase 1–27   generic proof / algebra / Toda-bracket foundation
@@ -62,12 +62,13 @@ Phase 63     Toda (5.6) ν₄ decomposition isomorphism
 Phase 64     performance stabilization
 Phase 65     Toda Proposition 5.6 finite-dimensional computation
 Phase 66     Toda Equation (5.8) integration / proof record foundation
+Phase 67     Toda Lemma 5.7 integration / Delta generator consequence
 ```
 
 Latest repository-wide regression:
 
 ```text
-3970 passed in 31.96s
+4102 passed in 32.75s
 ```
 
 Phase 64 same-machine baseline:
@@ -83,7 +84,7 @@ Phase 63 mathematical capability remains unchanged, and Phase 64 performance / r
 Representative current probe:
 
 ```powershell
-python -m probes.probe_phase66_capabilities
+python -m probes.probe_phase67_capabilities
 ```
 
 ---
@@ -2458,6 +2459,240 @@ generic up-to-sign transitivity
 automatic proof narrative generation
 persistent Proof Repository
 stable ν / η³
+stable homotopy-group model
+```
+
+---
+
+# Phase 67: Toda Lemma 5.7
+
+Phase 67 integrates Toda Lemma 5.7 without adding a generic image-membership framework, cyclic-image solver, or sign algebra.
+
+The general hypothesis is represented minimally as:
+
+```text
+E²α ∈ 2ι₅∘π_(i+2)(S⁵)
+```
+
+by:
+
+```text
+TodaLemma57TwoIota5ImageMembershipStatement
+```
+
+and the general conclusion is derived as:
+
+```text
+E²α ∈ 2ι₅∘π_(i+2)(S⁵)
+↓
+E²(η₂∘α)=η₄∘E²α
++
+2η₄=0
+↓
+E²(η₂∘α)=0
+↓ Toda Lemma 4.5, n=3
+E(η₂∘α)=0
+```
+
+## ν′ specialization
+
+Phase 60 Toda Lemma 5.4 gives:
+
+```text
+2Eν₄=E²ν′
+```
+
+and the ν-family definition gives:
+
+```text
+ν₅=Eν₄.
+```
+
+Therefore Phase 67 derives, rather than assumes:
+
+```text
+E²ν′ ∈ 2ι₅∘π_8(S⁵)
+```
+
+and reuses the general Lemma 5.7 branch:
+
+```text
+E(η₂∘ν′)=0.
+```
+
+The concrete `ν′` representation uses `source=6`, so the general Lemma 5.7 guards read the homotopy-group index from `alpha.source`. This preserves both the symbolic `α∈π_i(S³)` branch and the canonical concrete `ν′∈π_6(S³)` branch.
+
+## π_6^2 calculation
+
+Phase 56 Toda (5.2):
+
+```text
+η₂∘- : π_i^3 ≅ π_i^2
+```
+
+and Phase 65 Proposition 5.6:
+
+```text
+π_6^3=Z/4{ν′}
+```
+
+give the concrete transport:
+
+```text
+π_6^2=Z/4{η₂∘ν′}.
+```
+
+No generic finite-cyclic generator transport framework is introduced.
+
+## Toda (4.4) exactness and Delta consequence
+
+Phase 67 recognizes the concrete exact segment:
+
+```text
+π_8^5 ─Δ→ π_6^2 ─E→ π_7^3.
+```
+
+Using:
+
+```text
+E(η₂∘ν′)=0
+π_6^2=Z/4{η₂∘ν′}
+```
+
+it derives that `E` is zero on `π_6^2`, hence exactness makes:
+
+```text
+Δ:π_8^5→π_6^2
+```
+
+surjective.
+
+Phase 65 gives:
+
+```text
+π_8^5=Z/8{ν₅}.
+```
+
+The canonical `ν₅` object is reused through `toda_nu_family_definition_statement(5).element`, avoiding a second handwritten naming convention. Therefore:
+
+```text
+π_6^2=<Δ(ν₅)>
+```
+
+and finally:
+
+```text
+Δ(ν₅)=±(η₂∘ν′).
+```
+
+The final result reuses the existing:
+
+```text
+TodaDeltaImageUpToSignStatement
+```
+
+rather than adding generic `±` algebra.
+
+## Provenance and non-circularity
+
+Phase 67 regression fixes that the final `Δ(ν₅)` result reaches all required branches:
+
+```text
+Phase 60 → Phase 67-5
+ν′ image hypothesis
+↓
+E(η₂∘ν′)=0
+
+Phase 56 + Phase 65 → Phase 67-6
+π_6^2=Z/4{η₂∘ν′}
+
+Toda (4.4) structural window
+↓
+exactness
+↓
+Δ surjective
+
+Phase 65
+π_8^5=Z/8{ν₅}
+↓
+Δ(ν₅)=±(η₂∘ν′)
+```
+
+The graph is acyclic, the final conclusion does not occur among its ancestors, and Phase 66 / Toda (5.8) is explicitly not an ancestor. Thus source ordering and machine proof dependency remain distinct.
+
+## Representative probe
+
+```powershell
+python -m probes.probe_phase67_capabilities
+```
+
+Representative output includes:
+
+```text
+Toda Lemma 5.7 result
+Proof-style derivation
+Provenance / integration
+Literature / source
+Proof record
+Phase 67 completion boundary
+```
+
+The proof-style derivation remains hand-authored presentation code and is not generated automatically from the `ProofStep` graph.
+
+## Phase 67 regression
+
+Final representative checks include:
+
+```text
+E²ν′ image hypothesis derived = True
+E(η₂∘ν′)=0 derived = True
+π_6^2=Z/4{η₂∘ν′} derived = True
+Toda (4.4) exactness derived = True
+Δ surjective derived = True
+Toda Proposition 5.6 aggregate derived = True
+Δ(ν₅)=±(η₂∘ν′) derived = True
+final result is GIVEN = False
+all final premises are INFERENCE = True
+Toda (4.4) structural window remains GIVEN = True
+Phase 66 dependency used = False
+fixed point = True
+```
+
+Final repository-wide regression:
+
+```text
+4102 passed in 32.75s
+```
+
+## Phase 67 boundary
+
+Implemented:
+
+```text
+Lemma 5.7 minimum image-membership semantics
+E²(η₂∘α)=0
+E(η₂∘α)=0
+ν′ specialization
+E(η₂∘ν′)=0
+π_6^2=Z/4{η₂∘ν′}
+concrete Toda (4.4) exactness
+Δ surjectivity
+Δ(ν₅)=±(η₂∘ν′)
+applicability / provenance / non-circularity regression
+representative proof-style probe
+proof record
+```
+
+Still deferred:
+
+```text
+generic image-membership framework
+generic existential witness
+generic cyclic-image solver
+generic sign / ± algebra
+generic Lemma 4.5 all-n reflection
+automatic proof narrative generation
+persistent Proof Repository
 stable homotopy-group model
 ```
 

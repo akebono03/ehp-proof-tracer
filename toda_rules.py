@@ -82,6 +82,11 @@ class TodaDeltaInjectiveStatement:
 
 
 @dataclass(frozen=True)
+class TodaDeltaSurjectiveStatement:
+  map: TodaDeltaMap
+
+
+@dataclass(frozen=True)
 class TodaHopfInvariantZeroStatement:
   map: TodaHopfInvariantMap
 
@@ -149,6 +154,1445 @@ class Toda58EquationStatement:
     LiteratureStatement,
     ...
   ]
+
+
+@dataclass(frozen=True)
+class TodaLemma57TwoIota5ImageMembershipStatement:
+  element: IteratedSuspension
+  source_group: TodaPrimaryGroup
+
+
+def toda_lemma57_e2_eta2_alpha_composition_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    hypothesis = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    if not isinstance(
+      hypothesis.element,
+      IteratedSuspension,
+    ):
+      return False
+
+    if (
+      hypothesis.element.exponent
+      != 2
+    ):
+      return False
+
+    alpha = (
+      hypothesis
+      .element
+      .expression
+    )
+
+    if not isinstance(
+      alpha,
+      HomotopyElement,
+    ):
+      return False
+
+    i = alpha.source
+
+    if not isinstance(
+      i,
+      (
+        int,
+        ScalarSymbol,
+      ),
+    ):
+      return False
+
+    if (
+      alpha.target
+      != 3
+    ):
+      return False
+
+    expected_source_group = (
+      TodaPrimaryGroup(
+        group_dimension=(
+          (
+            i + 2
+          )
+          if isinstance(
+            i,
+            int,
+          )
+          else ScalarSum(
+            left=i,
+            right=2,
+          )
+        ),
+        sphere_dimension=5,
+      )
+    )
+
+    return (
+      hypothesis.source_group
+      == expected_source_group
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    hypothesis = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    alpha = (
+      hypothesis
+      .element
+      .expression
+    )
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    eta_4 = HomotopyElement(
+      name="η₄",
+      dimension=4,
+      source=5,
+      target=4,
+      generator=GeneratorSymbol(
+        family="η",
+        index=4,
+      ),
+    )
+
+    return Relation(
+      lhs=IteratedSuspension(
+        expression=Composition(
+          left=eta_2,
+          right=alpha,
+        ),
+        exponent=2,
+      ),
+      rhs=Composition(
+        left=eta_4,
+        right=hypothesis.element,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.7 "
+      "double suspension composition"
+    ),
+    description=(
+      "For the Lemma 5.7 hypothesis "
+      "E^2 alpha in "
+      "2 iota_5 composed with "
+      "pi_(i+2)(S^5), derive the "
+      "specific suspension identity "
+      "E^2(eta_2 composed with alpha) "
+      "= eta_4 composed with E^2 alpha. "
+      "The homotopy-group index i is "
+      "read from the source dimension "
+      "of alpha, allowing both symbolic "
+      "alpha and concrete elements such "
+      "as nu-prime. "
+      "No generic suspension-composition "
+      "normalizer is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaLemma57TwoIota5ImageMembershipStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma57_e2_eta2_alpha_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    hypothesis = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    composition_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    eta4_zero = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    if not isinstance(
+      hypothesis.element,
+      IteratedSuspension,
+    ):
+      return False
+
+    if (
+      hypothesis.element.exponent
+      != 2
+    ):
+      return False
+
+    alpha = (
+      hypothesis
+      .element
+      .expression
+    )
+
+    if not isinstance(
+      alpha,
+      HomotopyElement,
+    ):
+      return False
+
+    i = alpha.source
+
+    if not isinstance(
+      i,
+      (
+        int,
+        ScalarSymbol,
+      ),
+    ):
+      return False
+
+    if (
+      alpha.target
+      != 3
+    ):
+      return False
+
+    expected_group_dimension = (
+      (
+        i + 2
+      )
+      if isinstance(
+        i,
+        int,
+      )
+      else ScalarSum(
+        left=i,
+        right=2,
+      )
+    )
+
+    expected_source_group = (
+      TodaPrimaryGroup(
+        group_dimension=(
+          expected_group_dimension
+        ),
+        sphere_dimension=5,
+      )
+    )
+
+    if (
+      hypothesis.source_group
+      != expected_source_group
+    ):
+      return False
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    eta_4 = HomotopyElement(
+      name="η₄",
+      dimension=4,
+      source=5,
+      target=4,
+      generator=GeneratorSymbol(
+        family="η",
+        index=4,
+      ),
+    )
+
+    expected_composition_relation = (
+      Relation(
+        lhs=IteratedSuspension(
+          expression=Composition(
+            left=eta_2,
+            right=alpha,
+          ),
+          exponent=2,
+        ),
+        rhs=Composition(
+          left=eta_4,
+          right=hypothesis.element,
+        ),
+        relation_type=RelationType.EQUALITY,
+      )
+    )
+
+    if (
+      composition_relation
+      != expected_composition_relation
+    ):
+      return False
+
+    expected_eta4_zero = Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=eta_4,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    return (
+      eta4_zero
+      == expected_eta4_zero
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    composition_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=composition_relation.lhs,
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.7 "
+      "double suspension zero"
+    ),
+    description=(
+      "For the Lemma 5.7 hypothesis "
+      "E^2 alpha in "
+      "2 iota_5 composed with "
+      "pi_(i+2)(S^5), use "
+      "E^2(eta_2 alpha)=eta_4 E^2 alpha "
+      "and the independently derived "
+      "2 eta_4=0 relation to obtain "
+      "E^2(eta_2 alpha)=0. "
+      "The homotopy-group index is read "
+      "from alpha.source so concrete "
+      "nu-prime specialization is "
+      "accepted without changing the "
+      "generic HomotopyElement model. "
+      "No generic image algebra is "
+      "introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaLemma57TwoIota5ImageMembershipStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma45_n3_suspension_zero_reflection_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    hypothesis = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    double_suspension_zero = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      hypothesis.element,
+      IteratedSuspension,
+    ):
+      return False
+
+    if (
+      hypothesis.element.exponent
+      != 2
+    ):
+      return False
+
+    alpha = (
+      hypothesis
+      .element
+      .expression
+    )
+
+    if not isinstance(
+      alpha,
+      HomotopyElement,
+    ):
+      return False
+
+    i = alpha.source
+
+    if not isinstance(
+      i,
+      (
+        int,
+        ScalarSymbol,
+      ),
+    ):
+      return False
+
+    if (
+      alpha.target
+      != 3
+    ):
+      return False
+
+    expected_group_dimension = (
+      (
+        i + 2
+      )
+      if isinstance(
+        i,
+        int,
+      )
+      else ScalarSum(
+        left=i,
+        right=2,
+      )
+    )
+
+    expected_source_group = (
+      TodaPrimaryGroup(
+        group_dimension=(
+          expected_group_dimension
+        ),
+        sphere_dimension=5,
+      )
+    )
+
+    if (
+      hypothesis.source_group
+      != expected_source_group
+    ):
+      return False
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    eta2_alpha = Composition(
+      left=eta_2,
+      right=alpha,
+    )
+
+    expected_double_suspension_zero = (
+      Relation(
+        lhs=IteratedSuspension(
+          expression=eta2_alpha,
+          exponent=2,
+        ),
+        rhs=Zero(),
+        relation_type=RelationType.ZERO,
+      )
+    )
+
+    return (
+      double_suspension_zero
+      == expected_double_suspension_zero
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    hypothesis = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    alpha = (
+      hypothesis
+      .element
+      .expression
+    )
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    return Relation(
+      lhs=Suspension(
+        expression=Composition(
+          left=eta_2,
+          right=alpha,
+        ),
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 4.5 "
+      "n=3 suspension zero reflection"
+    ),
+    description=(
+      "For the Toda Lemma 5.7 branch, "
+      "apply the n=3 injectivity "
+      "consequence of Toda Lemma 4.5. "
+      "If E^2(eta_2 composed with alpha) "
+      "is zero, then "
+      "E(eta_2 composed with alpha) "
+      "is zero. "
+      "The homotopy-group index is read "
+      "from alpha.source, supporting "
+      "both symbolic alpha and concrete "
+      "nu-prime. "
+      "No generic suspension-zero "
+      "reflection rule is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaLemma57TwoIota5ImageMembershipStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma57_nu_prime_hypothesis_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    lemma54_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    nu5_definition = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    expected_nu5_definition = (
+      toda_nu_family_definition_statement(
+        5
+      )
+    )
+
+    if (
+      nu5_definition
+      != expected_nu5_definition
+    ):
+      return False
+
+    nu_4 = (
+      lemma54_statement
+      .nu4
+    )
+
+    if (
+      nu5_definition
+      .iterated_suspension
+      .expression
+      != nu_4
+    ):
+      return False
+
+    if (
+      nu5_definition
+      .iterated_suspension
+      .exponent
+      != 1
+    ):
+      return False
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    expected_double_relation = Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=Suspension(
+          expression=nu_4,
+        ),
+      ),
+      rhs=IteratedSuspension(
+        expression=nu_prime,
+        exponent=2,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      lemma54_statement
+      .double_suspension_relation
+      == expected_double_relation
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    return (
+      TodaLemma57TwoIota5ImageMembershipStatement(
+        element=IteratedSuspension(
+          expression=nu_prime,
+          exponent=2,
+        ),
+        source_group=TodaPrimaryGroup(
+          group_dimension=8,
+          sphere_dimension=5,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.7 "
+      "nu-prime hypothesis"
+    ),
+    description=(
+      "Specialize Toda Lemma 5.4 and "
+      "the concrete nu_5 definition. "
+      "Lemma 5.4 gives "
+      "2 E nu_4 = E^2 nu-prime, while "
+      "nu_5 is defined by E nu_4. "
+      "Therefore E^2 nu-prime lies in "
+      "2 iota_5 composed with pi_8(S^5), "
+      "which is exactly the hypothesis "
+      "needed to reuse the general "
+      "Toda Lemma 5.7 inference chain. "
+      "No generic image-membership or "
+      "existential-witness machinery "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54Statement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaNuFamilyDefinitionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma57_pi6_2_eta2_nu_prime_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    prop56_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    isomorphism = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    expected_pi6_3_relation = Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=6,
+        sphere_dimension=3,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=4,
+        generator=nu_prime,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      prop56_statement
+      .pi6_3_group_relation
+      != expected_pi6_3_relation
+    ):
+      return False
+
+    source_group = (
+      isomorphism
+      .source_group
+    )
+
+    target_group = (
+      isomorphism
+      .target_group
+    )
+
+    if not isinstance(
+      source_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    if not isinstance(
+      target_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    i = (
+      source_group
+      .group_dimension
+    )
+
+    if not isinstance(
+      i,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      source_group
+      != TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=3,
+      )
+    ):
+      return False
+
+    if (
+      target_group
+      != TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=2,
+      )
+    ):
+      return False
+
+    composition = (
+      isomorphism
+      .composition
+    )
+
+    if not isinstance(
+      composition,
+      Composition,
+    ):
+      return False
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    if (
+      composition.left
+      != eta_2
+    ):
+      return False
+
+    gamma = (
+      composition
+      .right
+    )
+
+    if not isinstance(
+      gamma,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      gamma.dimension
+      != i
+    ):
+      return False
+
+    if (
+      gamma.source
+      != i
+    ):
+      return False
+
+    if (
+      gamma.target
+      != 3
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    prop56_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    isomorphism = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    nu_prime = (
+      prop56_statement
+      .pi6_3_group_relation
+      .rhs
+      .generator
+    )
+
+    eta_2 = (
+      isomorphism
+      .composition
+      .left
+    )
+
+    eta2_nu_prime = Composition(
+      left=eta_2,
+      right=nu_prime,
+    )
+
+    return Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=6,
+        sphere_dimension=2,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=4,
+        generator=eta2_nu_prime,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.7 "
+      "pi_6^2 eta_2 nu-prime"
+    ),
+    description=(
+      "Use the independently derived "
+      "finite-dimensional Toda "
+      "Proposition 5.6 relation "
+      "pi_6^3=Z/4{nu-prime} "
+      "together with the independently "
+      "derived Toda (5.2) composition "
+      "isomorphism "
+      "eta_2 composed with minus from "
+      "pi_i^3 to pi_i^2. "
+      "Transport the concrete generator "
+      "nu-prime to "
+      "eta_2 composed with nu-prime "
+      "and derive "
+      "pi_6^2=Z/4{eta_2 nu-prime}. "
+      "No generic cyclic-generator "
+      "transport framework is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp56FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda52CompositionIsomorphismStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma57_concrete_delta_e_exactness_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    window = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    if (
+      window.first_map
+      != EHP_DELTA_MAP
+    ):
+      return False
+
+    if (
+      window.second_map
+      != EHP_E_MAP
+    ):
+      return False
+
+    return (
+      window.source_term
+      == TodaPrimaryGroup(
+        group_dimension=8,
+        sphere_dimension=5,
+      )
+      and window.middle_term
+      == TodaPrimaryGroup(
+        group_dimension=6,
+        sphere_dimension=2,
+      )
+      and window.target_term
+      == TodaPrimaryGroup(
+        group_dimension=7,
+        sphere_dimension=3,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    window = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return TodaProp42ExactnessStatement(
+      window=window,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.7 "
+      "concrete Delta-E exactness"
+    ),
+    description=(
+      "Recognize the concrete Toda "
+      "(4.4) exact sequence segment "
+      "pi_8^5 -> pi_6^2 -> pi_7^3 "
+      "with Delta followed by suspension E. "
+      "This narrow bridge avoids changing "
+      "the existing symbolic Proposition 4.2 "
+      "Delta-E exactness rule."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaEHPExactnessWindow
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma57_delta_surjective_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    eta2_nu_prime_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    pi6_2_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    exactness = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    eta2_nu_prime = Composition(
+      left=eta_2,
+      right=nu_prime,
+    )
+
+    expected_zero = Relation(
+      lhs=Suspension(
+        expression=eta2_nu_prime,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    if (
+      eta2_nu_prime_zero
+      != expected_zero
+    ):
+      return False
+
+    expected_pi6_2_relation = Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=6,
+        sphere_dimension=2,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=4,
+        generator=eta2_nu_prime,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      pi6_2_relation
+      != expected_pi6_2_relation
+    ):
+      return False
+
+    window = exactness.window
+
+    if (
+      window.first_map
+      != EHP_DELTA_MAP
+    ):
+      return False
+
+    if (
+      window.second_map
+      != EHP_E_MAP
+    ):
+      return False
+
+    return (
+      window.source_term
+      == TodaPrimaryGroup(
+        group_dimension=8,
+        sphere_dimension=5,
+      )
+      and window.middle_term
+      == TodaPrimaryGroup(
+        group_dimension=6,
+        sphere_dimension=2,
+      )
+      and window.target_term
+      == TodaPrimaryGroup(
+        group_dimension=7,
+        sphere_dimension=3,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    exactness = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    window = exactness.window
+
+    return TodaDeltaSurjectiveStatement(
+      map=TodaDeltaMap(
+        source_group=window.source_term,
+        target_group=window.middle_term,
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.7 "
+      "Delta surjective"
+    ),
+    description=(
+      "Phase 67 gives "
+      "E(eta_2 composed with nu-prime)=0 "
+      "and pi_6^2=Z/4 generated by "
+      "eta_2 composed with nu-prime. "
+      "Thus suspension E is zero on "
+      "the concrete cyclic group pi_6^2. "
+      "Exactness of "
+      "pi_8^5 -> pi_6^2 -> pi_7^3 "
+      "therefore makes Delta surjective."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma57_delta_nu5_generator_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    delta_surjective = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    pi6_2_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    prop56_statement = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    eta2_nu_prime = Composition(
+      left=eta_2,
+      right=nu_prime,
+    )
+
+    expected_pi6_2_relation = Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=6,
+        sphere_dimension=2,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=4,
+        generator=eta2_nu_prime,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      pi6_2_relation
+      != expected_pi6_2_relation
+    ):
+      return False
+
+    expected_delta_map = TodaDeltaMap(
+      source_group=TodaPrimaryGroup(
+        group_dimension=8,
+        sphere_dimension=5,
+      ),
+      target_group=TodaPrimaryGroup(
+        group_dimension=6,
+        sphere_dimension=2,
+      ),
+    )
+
+    if (
+      delta_surjective.map
+      != expected_delta_map
+    ):
+      return False
+
+    pi8_5_relation = (
+      prop56_statement
+      .pi8_5_group_relation
+    )
+
+    if (
+      pi8_5_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=8,
+        sphere_dimension=5,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      pi8_5_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi8_5_relation.rhs.order
+      != 8
+    ):
+      return False
+
+    nu_5 = (
+      pi8_5_relation
+      .rhs
+      .generator
+    )
+
+    expected_nu_5 = (
+      toda_nu_family_definition_statement(
+        5
+      ).element
+    )
+
+    return (
+      nu_5
+      == expected_nu_5
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    delta_surjective = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    pi6_2_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    prop56_statement = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    nu_5 = (
+      prop56_statement
+      .pi8_5_group_relation
+      .rhs
+      .generator
+    )
+
+    eta2_nu_prime = (
+      pi6_2_relation
+      .rhs
+      .generator
+    )
+
+    return TodaDeltaImageUpToSignStatement(
+      map=delta_surjective.map,
+      element=nu_5,
+      positive_value=eta2_nu_prime,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.7 "
+      "Delta nu_5 generator"
+    ),
+    description=(
+      "For the concrete surjective Delta "
+      "from pi_8^5 to pi_6^2, "
+      "Proposition 5.6 gives "
+      "pi_8^5=Z/8{nu_5}, while "
+      "Phase 67 gives "
+      "pi_6^2=Z/4{eta_2 nu-prime}. "
+      "The image of the canonical "
+      "nu-family source generator "
+      "therefore generates the target "
+      "cyclic group. "
+      "In Toda's up-to-sign convention, "
+      "derive "
+      "Delta(nu_5)=plus or minus "
+      "(eta_2 composed with nu-prime). "
+      "No generic cyclic-image solver "
+      "or generic sign algebra is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaDeltaSurjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp56FiniteDimensionalStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
 
 
 def toda_lemma52_delta_two_eta2_preimage_inference_rule():

@@ -4880,3 +4880,521 @@ stable homotopy-group model
 
 COMPLETE
 
+---
+
+# Phase 67：Toda Lemma 5.7
+
+対象:
+
+```text
+α∈π_i(S³)
+E²α∈2ι₅∘π_(i+2)(S⁵)
+↓
+E(η₂∘α)=0
+```
+
+特に:
+
+```text
+E(η₂∘ν′)=0
+Δ(ν₅)=±(η₂∘ν′)
+```
+
+## Phase 67-1：dependency / compatibility analysis
+
+確認した主要 dependency:
+
+```text
+Phase 55  2η₄=0 consequence
+Phase 56  Toda (5.2)
+Phase 60  Lemma 5.4: 2Eν₄=E²ν′
+Phase 65  Proposition 5.6
+Toda (4.4) exactness
+```
+
+確認した方針:
+
+```text
+generic ImageMembership は不要
+ν′ specialization は general Lemma 5.7 を再利用
+π_6^2 transport は concrete に限定
+Delta generator consequence も concrete に限定
+Phase 66 は direct dependency ではない
+```
+
+production code:
+
+```text
+変更なし
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 67-2：minimum hypothesis representation
+
+追加:
+
+```text
+TodaLemma57TwoIota5ImageMembershipStatement
+```
+
+意味:
+
+```text
+E²α ∈ 2ι₅∘π_(i+2)(S⁵)
+```
+
+field は `element` / `source_group` のみ。
+
+focused:
+
+```text
+9 passed
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 67-3：general first branch
+
+追加:
+
+```text
+toda_lemma57_e2_eta2_alpha_composition_inference_rule()
+toda_lemma57_e2_eta2_alpha_zero_inference_rule()
+```
+
+chain:
+
+```text
+E²α image hypothesis
+↓
+E²(η₂∘α)=η₄∘E²α
++
+2η₄=0
+↓
+E²(η₂∘α)=0
+```
+
+Phase 67-4 / 67-5 で derived hypothesis を再利用できるよう、hypothesis premise を `GIVEN` に固定しない設計へ調整。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 67-4：Lemma 4.5 n=3 zero reflection
+
+追加:
+
+```text
+toda_lemma45_n3_suspension_zero_reflection_inference_rule()
+```
+
+推論:
+
+```text
+E²(η₂∘α)=0
+↓
+E(η₂∘α)=0
+```
+
+general all-n rule は追加しない。
+
+Phase 67-3/4 concrete ν′ compatibility のため、general α index を `alpha.dimension` ではなく `alpha.source` から読むよう修正。
+
+focused after regression addition:
+
+```text
+Phase 67-3  16 passed
+Phase 67-4  14 passed
+```
+
+full regression at Phase 67-4 completion:
+
+```text
+4007 passed in 30.61s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 67-5：ν′ specialization
+
+追加:
+
+```text
+toda_lemma57_nu_prime_hypothesis_inference_rule()
+tests/test_phase67_lemma57_nu_prime_specialization.py
+```
+
+Phase 60:
+
+```text
+2Eν₄=E²ν′
+```
+
+ν-family definition:
+
+```text
+ν₅=Eν₄
+```
+
+から:
+
+```text
+E²ν′∈2ι₅∘π_8(S⁵)
+```
+
+を `INFERENCE` として導出。
+
+general Lemma 5.7 chain を再利用して:
+
+```text
+E(η₂∘ν′)=0
+```
+
+を end-to-end 導出。
+
+focused:
+
+```text
+17 passed
+```
+
+full regression:
+
+```text
+4026 passed in 31.68s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 67-6：Toda (5.2) + Proposition 5.6
+
+追加:
+
+```text
+toda_lemma57_pi6_2_eta2_nu_prime_inference_rule()
+tests/test_phase67_pi6_2_eta2_nu_prime.py
+```
+
+推論:
+
+```text
+Phase 65:
+π_6^3=Z/4{ν′}
++
+Phase 56:
+η₂∘- : π_i^3≅π_i^2
+↓
+π_6^2=Z/4{η₂∘ν′}
+```
+
+focused:
+
+```text
+17 passed
+```
+
+full regression:
+
+```text
+4043 passed in 32.21s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 67-7：Toda (4.4) exactness / Delta generator consequence
+
+追加:
+
+```text
+TodaDeltaSurjectiveStatement
+
+toda_lemma57_concrete_delta_e_exactness_inference_rule()
+toda_lemma57_delta_surjective_inference_rule()
+toda_lemma57_delta_nu5_generator_inference_rule()
+
+tests/test_phase67_lemma57_delta_generator.py
+```
+
+chain:
+
+```text
+π_8^5 ─Δ→ π_6^2 ─E→ π_7^3
+exact
++
+E(η₂∘ν′)=0
++
+π_6^2=Z/4{η₂∘ν′}
+↓
+Δ surjective
+```
+
+Phase 65:
+
+```text
+π_8^5=Z/8{ν₅}
+```
+
+から:
+
+```text
+Δ(ν₅)=±(η₂∘ν′)
+```
+
+を導出。
+
+初回実装では handwritten `name="ν₅"` と existing canonical `name="ν_5"` の structural mismatch で final generator rule が発火しなかった。
+
+修正:
+
+```text
+toda_nu_family_definition_statement(5).element
+```
+
+を canonical generator validation に利用。
+
+focused:
+
+```text
+19 passed
+```
+
+full regression:
+
+```text
+4062 passed in 32.76s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 67-8：applicability / provenance / non-circularity
+
+production code:
+
+```text
+変更なし
+```
+
+追加:
+
+```text
+tests/test_phase67_lemma57_applicability_provenance.py
+```
+
+固定した invariants:
+
+```text
+final is INFERENCE
+final direct premises are INFERENCE
+ν′ hypothesis branch reachable
+E(η₂ν′)=0 branch reachable
+π_6^2 branch reachable
+exactness branch reachable
+Delta-surjective branch reachable
+Prop.5.6 reachable
+final graph acyclic
+final conclusion absent from ancestors
+intermediate branches do not depend on final
+Phase 66 Toda58EquationStatement is not an ancestor
+```
+
+focused:
+
+```text
+19 passed
+```
+
+full regression:
+
+```text
+4081 passed in 32.66s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 67-9：representative probe / proof record
+
+追加:
+
+```text
+probes/probe_phase67_capabilities.py
+tests/test_phase67_probe.py
+docs/proof_records.md Toda Lemma 5.7 record
+```
+
+probe entry:
+
+```powershell
+python -m probes.probe_phase67_capabilities
+```
+
+representative result:
+
+```text
+E²α ∈ 2ι₅∘π_(i+2)(S⁵)
+⇒
+E(η₂∘α)=0
+
+特に:
+E(η₂∘ν′)=0
+Δ(ν₅)=±(η₂∘ν′)
+```
+
+probe presentation で Python 3.10 の multiline f-string syntax error が一度発生。
+
+修正:
+
+```text
+all_final_premises_inference
+structural_window_given
+fixed_point
+```
+
+を先に local variable として計算し、f-string には単純値のみ埋め込む形へ変更。
+
+focused:
+
+```text
+21 passed
+```
+
+final repository-wide regression:
+
+```text
+4102 passed in 32.75s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 67-10：completion documentation
+
+更新:
+
+```text
+README.md
+docs/design.md
+docs/development_log.md
+docs/roadmap.md
+docs/code_reference.md
+docs/proof_records.md
+```
+
+current capability:
+
+```text
+Toda Lemma 5.7
+
+E²α ∈ 2ι₅∘π_(i+2)(S⁵)
+→ E(η₂∘α)=0
+
+特に:
+E(η₂∘ν′)=0
+Δ(ν₅)=±(η₂∘ν′)
+```
+
+final regression:
+
+```text
+4102 passed in 32.75s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 67 completion
+
+完成 capability:
+
+```text
+E²α∈2ι₅∘π_(i+2)(S⁵)
+→ E(η₂∘α)=0
+
+E(η₂∘ν′)=0
+π_6^2=Z/4{η₂∘ν′}
+Δ(ν₅)=±(η₂∘ν′)
+```
+
+provenance:
+
+```text
+Phase 60 Lemma 5.4 retained
+Phase 56 Toda (5.2) retained
+Phase 65 Proposition 5.6 retained
+Toda (4.4) structural window remains GIVEN
+all theorem-spine consequences INFERENCE
+Phase 66 not required
+acyclic ancestry
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase67_capabilities
+```
+
+proof record:
+
+```text
+docs/proof_records.md
+Toda Lemma 5.7
+```
+
+final full regression:
+
+```text
+4102 passed in 32.75s
+```
+
+deferred:
+
+```text
+generic image-membership framework
+generic existential witness
+generic cyclic-image solver
+generic sign / ± algebra
+automatic proof narrative generation
+persistent Proof Repository
+stable homotopy model
+```
+
+### 状態
+
+COMPLETE
+
