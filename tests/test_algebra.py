@@ -17,6 +17,7 @@ from algebra import (
   abelian_group_structure,
   relation_matrix,
   structure_from_presentation,
+  lattice_coordinates,
   lattices_equal,
 )
 from models import AbelianGroup, GroupComponent
@@ -2665,6 +2666,7 @@ def test_general_mixed_nondiagonal_to_finite():
   assert str(image) == "Z/6"
   assert str(cokernel) == "0"
 
+
 def test_finite_presentation_crosscheck():
   groups = [
     make_cyclic_group(
@@ -2750,12 +2752,33 @@ def test_finite_presentation_crosscheck():
           quotient.structure()
         )
 
+        kernel_basis = (
+          f.kernel_lattice_basis()
+        )
+
+        source_relations = (
+          relation_matrix(
+            source
+          )
+        )
+
+        kernel_relations = (
+          lattice_coordinates(
+            kernel_basis,
+            source_relations,
+          )
+        )
+
         presentation_kernel = (
-          f.kernel_structure()
+          structure_from_presentation(
+            kernel_relations
+          )
         )
 
         presentation_image = (
-          f.image_structure()
+          structure_from_presentation(
+            kernel_basis
+          )
         )
 
         presentation_cokernel = (
@@ -2795,6 +2818,7 @@ def test_finite_presentation_crosscheck():
         checked += 1
 
   assert checked > 500
+
 
 def test_presentation_exact_z_times2_mod2():
   a = make_cyclic_group(
@@ -2937,6 +2961,7 @@ def test_presentation_exact_mixed_group():
     step.is_exact()
   )
 
+
 def test_finite_exactness_presentation_crosscheck():
   groups = [
     make_cyclic_group(
@@ -2962,14 +2987,57 @@ def test_finite_exactness_presentation_crosscheck():
 
   checked = 0
 
-  for a in groups:
-    for b in groups:
-      for c in groups:
+  for b in groups:
+    for c in groups:
+      rows_g = c.direct_sum
+      cols_g = b.direct_sum
+
+      g_cases = []
+
+      for entries_g in product(
+        range(3),
+        repeat=rows_g * cols_g,
+      ):
+        matrix_g = [
+          list(
+            entries_g[
+              i * cols_g:
+              (i + 1) * cols_g
+            ]
+          )
+          for i in range(rows_g)
+        ]
+
+        g = GroupMap(
+          name="g",
+          source=b,
+          target=c,
+          matrix=matrix_g,
+        )
+
+        if not (
+          g.is_well_defined_homomorphism()
+        ):
+          continue
+
+        kernel_of_second = (
+          g.kernel_subgroup()
+        )
+
+        kernel_lattice = (
+          g.kernel_lattice_basis()
+        )
+
+        g_cases.append(
+          (
+            kernel_of_second,
+            kernel_lattice,
+          )
+        )
+
+      for a in groups:
         rows_f = b.direct_sum
         cols_f = a.direct_sum
-
-        rows_g = c.direct_sum
-        cols_g = b.direct_sum
 
         for entries_f in product(
           range(3),
@@ -3001,44 +3069,24 @@ def test_finite_exactness_presentation_crosscheck():
             f.image_subgroup()
           )
 
-          for entries_g in product(
-            range(3),
-            repeat=rows_g * cols_g,
-          ):
-            matrix_g = [
-              list(
-                entries_g[
-                  i * cols_g:
-                  (i + 1) * cols_g
-                ]
-              )
-              for i in range(rows_g)
-            ]
+          image_lattice = (
+            f.image_lattice_basis()
+          )
 
-            g = GroupMap(
-              name="g",
-              source=b,
-              target=c,
-              matrix=matrix_g,
-            )
-
-            if not (
-              g.is_well_defined_homomorphism()
-            ):
-              continue
-
-            step = ExactSequenceStep(
-              first_map=f,
-              second_map=g,
-            )
-
+          for (
+            kernel_of_second,
+            kernel_lattice,
+          ) in g_cases:
             enumerated_exact = (
               image_of_first
-              == step.kernel_of_second
+              == kernel_of_second
             )
 
             presentation_exact = (
-              step.is_presentation_exact()
+              lattices_equal(
+                image_lattice,
+                kernel_lattice,
+              )
             )
 
             assert (
@@ -3049,6 +3097,7 @@ def test_finite_exactness_presentation_crosscheck():
             checked += 1
 
   assert checked > 100
+
 
 def test_exact_sequence_general_structures_free():
   a = make_cyclic_group(
