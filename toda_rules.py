@@ -4440,6 +4440,366 @@ def toda_prop58_pi9_5_finite_cyclic_inference_rule():
   )
 
 
+def toda_prop58_eta3_nu4_hopf_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    lemma54 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    nu_4 = HomotopyElement(
+      name="ν₄",
+      dimension=4,
+      source=7,
+      target=4,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=4,
+      ),
+    )
+
+    if (
+      lemma54.nu4
+      != nu_4
+    ):
+      return False
+
+    iota_7 = HomotopyElement(
+      name="ι_7",
+      dimension=7,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=7,
+      ),
+    )
+
+    expected_hopf_relation = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=nu_4,
+      ),
+      rhs=iota_7,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      lemma54.hopf_relation
+      == expected_hopf_relation
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    lemma54 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    nu_4 = lemma54.nu4
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    eta_5 = HomotopyElement(
+      name="η₅",
+      dimension=5,
+      source=6,
+      target=5,
+      generator=GeneratorSymbol(
+        family="η",
+        index=5,
+      ),
+    )
+
+    eta_6 = HomotopyElement(
+      name="η₆",
+      dimension=6,
+      source=7,
+      target=6,
+      generator=GeneratorSymbol(
+        family="η",
+        index=6,
+      ),
+    )
+
+    return Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=Composition(
+          left=eta_3,
+          right=nu_4,
+        ),
+      ),
+      rhs=Composition(
+        left=eta_5,
+        right=eta_6,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.8 "
+      "Hopf value of eta_3 nu_4"
+    ),
+    description=(
+      "Use the independently derived "
+      "Toda Lemma 5.4 relation "
+      "H(nu_4)=iota_7. "
+      "For the concrete composition "
+      "eta_3 composed with nu_4, "
+      "the Toda Proposition 2.2 "
+      "Hopf-composition consequence gives "
+      "H(eta_3 composed with nu_4) "
+      "=eta_5 composed with eta_6, "
+      "which is eta_5 squared. "
+      "This rule records only the concrete "
+      "Toda (5.9) prerequisite and does "
+      "not introduce a generic Hopf "
+      "composition normalizer."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54Statement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_59_eta3_nu4_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    isomorphism = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta3_nu4_hopf = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    equation57 = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi_7_3 = TodaPrimaryGroup(
+      group_dimension=7,
+      sphere_dimension=3,
+    )
+
+    pi_7_5 = TodaPrimaryGroup(
+      group_dimension=7,
+      sphere_dimension=5,
+    )
+
+    if (
+      isomorphism.map
+      != TodaHopfInvariantMap(
+        source_group=pi_7_3,
+        target_group=pi_7_5,
+      )
+    ):
+      return False
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    nu_4 = HomotopyElement(
+      name="ν₄",
+      dimension=4,
+      source=7,
+      target=4,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=4,
+      ),
+    )
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    eta_5 = HomotopyElement(
+      name="η₅",
+      dimension=5,
+      source=6,
+      target=5,
+      generator=GeneratorSymbol(
+        family="η",
+        index=5,
+      ),
+    )
+
+    eta_6 = HomotopyElement(
+      name="η₆",
+      dimension=6,
+      source=7,
+      target=6,
+      generator=GeneratorSymbol(
+        family="η",
+        index=6,
+      ),
+    )
+
+    eta5_squared = Composition(
+      left=eta_5,
+      right=eta_6,
+    )
+
+    expected_eta3_nu4_hopf = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=Composition(
+          left=eta_3,
+          right=nu_4,
+        ),
+      ),
+      rhs=eta5_squared,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      eta3_nu4_hopf
+      != expected_eta3_nu4_hopf
+    ):
+      return False
+
+    expected_equation57 = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=Composition(
+          left=nu_prime,
+          right=eta_6,
+        ),
+      ),
+      rhs=eta5_squared,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      equation57
+      == expected_equation57
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    eta3_nu4_hopf = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    equation57 = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=(
+        eta3_nu4_hopf
+        .lhs
+        .expression
+      ),
+      rhs=(
+        equation57
+        .lhs
+        .expression
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Equation 5.9 "
+      "eta_3 nu_4"
+    ),
+    description=(
+      "Phase 68-3 gives the independently "
+      "derived Hopf isomorphism "
+      "H:pi_7^3 to pi_7^5. "
+      "The concrete Hopf calculation gives "
+      "H(eta_3 composed with nu_4) "
+      "=eta_5 squared, while Toda (5.7) "
+      "gives "
+      "H(nu-prime composed with eta_6) "
+      "=eta_5 squared. "
+      "Injectivity of the same Hopf map "
+      "therefore identifies the two "
+      "elements and gives Toda (5.9): "
+      "eta_3 composed with nu_4 "
+      "=nu-prime composed with eta_6. "
+      "No generic equality reflection "
+      "through injective maps is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaHopfInvariantIsomorphismStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_lemma52_delta_two_eta2_preimage_inference_rule():
   def guard(
     premises,
