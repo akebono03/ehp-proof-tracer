@@ -645,3 +645,45 @@ def test_phase67_3_reaches_fixed_point():
   )
 
 
+def test_phase67_3_composition_rule_accepts_concrete_nu_prime_hypothesis():
+  data = build_phase67_3_data()
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    source=6,
+    target=3,
+    generator=GeneratorSymbol(
+      family="ν",
+      decoration="′",
+    ),
+  )
+
+  hypothesis = (
+    TodaLemma57TwoIota5ImageMembershipStatement(
+      element=IteratedSuspension(
+        expression=nu_prime,
+        exponent=2,
+      ),
+      source_group=TodaPrimaryGroup(
+        group_dimension=8,
+        sphere_dimension=5,
+      ),
+    )
+  )
+
+  hypothesis_step = ProofStep(
+    conclusion=hypothesis,
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  assert find_inference_match(
+    data[
+      "composition_rule"
+    ],
+    (
+      hypothesis_step,
+    ),
+  ) is not None
+

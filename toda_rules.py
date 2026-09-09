@@ -192,17 +192,14 @@ def toda_lemma57_e2_eta2_alpha_composition_inference_rule():
     ):
       return False
 
-    i = alpha.dimension
+    i = alpha.source
 
     if not isinstance(
       i,
-      ScalarSymbol,
-    ):
-      return False
-
-    if (
-      alpha.source
-      != i
+      (
+        int,
+        ScalarSymbol,
+      ),
     ):
       return False
 
@@ -214,9 +211,18 @@ def toda_lemma57_e2_eta2_alpha_composition_inference_rule():
 
     expected_source_group = (
       TodaPrimaryGroup(
-        group_dimension=ScalarSum(
-          left=i,
-          right=2,
+        group_dimension=(
+          (
+            i + 2
+          )
+          if isinstance(
+            i,
+            int,
+          )
+          else ScalarSum(
+            left=i,
+            right=2,
+          )
         ),
         sphere_dimension=5,
       )
@@ -292,8 +298,11 @@ def toda_lemma57_e2_eta2_alpha_composition_inference_rule():
       "specific suspension identity "
       "E^2(eta_2 composed with alpha) "
       "= eta_4 composed with E^2 alpha. "
-      "The hypothesis may itself be "
-      "given or independently derived. "
+      "The homotopy-group index i is "
+      "read from the source dimension "
+      "of alpha, allowing both symbolic "
+      "alpha and concrete elements such "
+      "as nu-prime. "
       "No generic suspension-composition "
       "normalizer is introduced."
     ),
@@ -356,19 +365,41 @@ def toda_lemma57_e2_eta2_alpha_zero_inference_rule():
     ):
       return False
 
-    i = alpha.dimension
+    i = alpha.source
 
     if not isinstance(
       i,
-      ScalarSymbol,
+      (
+        int,
+        ScalarSymbol,
+      ),
     ):
       return False
 
+    if (
+      alpha.target
+      != 3
+    ):
+      return False
+
+    expected_group_dimension = (
+      (
+        i + 2
+      )
+      if isinstance(
+        i,
+        int,
+      )
+      else ScalarSum(
+        left=i,
+        right=2,
+      )
+    )
+
     expected_source_group = (
       TodaPrimaryGroup(
-        group_dimension=ScalarSum(
-          left=i,
-          right=2,
+        group_dimension=(
+          expected_group_dimension
         ),
         sphere_dimension=5,
       )
@@ -468,13 +499,13 @@ def toda_lemma57_e2_eta2_alpha_zero_inference_rule():
       "and the independently derived "
       "2 eta_4=0 relation to obtain "
       "E^2(eta_2 alpha)=0. "
-      "The hypothesis may itself be "
-      "given or independently derived. "
-      "The image-membership hypothesis "
-      "is consumed theorem-specifically; "
-      "no generic image algebra or "
-      "existential witness machinery "
-      "is introduced."
+      "The homotopy-group index is read "
+      "from alpha.source so concrete "
+      "nu-prime specialization is "
+      "accepted without changing the "
+      "generic HomotopyElement model. "
+      "No generic image algebra is "
+      "introduced."
     ),
     premise_patterns=(
       PremisePattern(
@@ -543,17 +574,14 @@ def toda_lemma45_n3_suspension_zero_reflection_inference_rule():
     ):
       return False
 
-    i = alpha.dimension
+    i = alpha.source
 
     if not isinstance(
       i,
-      ScalarSymbol,
-    ):
-      return False
-
-    if (
-      alpha.source
-      != i
+      (
+        int,
+        ScalarSymbol,
+      ),
     ):
       return False
 
@@ -563,11 +591,24 @@ def toda_lemma45_n3_suspension_zero_reflection_inference_rule():
     ):
       return False
 
+    expected_group_dimension = (
+      (
+        i + 2
+      )
+      if isinstance(
+        i,
+        int,
+      )
+      else ScalarSum(
+        left=i,
+        right=2,
+      )
+    )
+
     expected_source_group = (
       TodaPrimaryGroup(
-        group_dimension=ScalarSum(
-          left=i,
-          right=2,
+        group_dimension=(
+          expected_group_dimension
         ),
         sphere_dimension=5,
       )
@@ -661,8 +702,10 @@ def toda_lemma45_n3_suspension_zero_reflection_inference_rule():
       "is zero, then "
       "E(eta_2 composed with alpha) "
       "is zero. "
-      "The Lemma 5.7 hypothesis fixes "
-      "the symbolic alpha and scope. "
+      "The homotopy-group index is read "
+      "from alpha.source, supporting "
+      "both symbolic alpha and concrete "
+      "nu-prime. "
       "No generic suspension-zero "
       "reflection rule is introduced."
     ),
@@ -677,6 +720,152 @@ def toda_lemma45_n3_suspension_zero_reflection_inference_rule():
         statement_type=Relation,
         relation_type=(
           RelationType.ZERO
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma57_nu_prime_hypothesis_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    lemma54_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    nu5_definition = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    expected_nu5_definition = (
+      toda_nu_family_definition_statement(
+        5
+      )
+    )
+
+    if (
+      nu5_definition
+      != expected_nu5_definition
+    ):
+      return False
+
+    nu_4 = (
+      lemma54_statement
+      .nu4
+    )
+
+    if (
+      nu5_definition
+      .iterated_suspension
+      .expression
+      != nu_4
+    ):
+      return False
+
+    if (
+      nu5_definition
+      .iterated_suspension
+      .exponent
+      != 1
+    ):
+      return False
+
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    expected_double_relation = Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=Suspension(
+          expression=nu_4,
+        ),
+      ),
+      rhs=IteratedSuspension(
+        expression=nu_prime,
+        exponent=2,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      lemma54_statement
+      .double_suspension_relation
+      == expected_double_relation
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    nu_prime = HomotopyElement(
+      name="ν′",
+      dimension=3,
+      source=6,
+      target=3,
+      generator=GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      ),
+    )
+
+    return (
+      TodaLemma57TwoIota5ImageMembershipStatement(
+        element=IteratedSuspension(
+          expression=nu_prime,
+          exponent=2,
+        ),
+        source_group=TodaPrimaryGroup(
+          group_dimension=8,
+          sphere_dimension=5,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.7 "
+      "nu-prime hypothesis"
+    ),
+    description=(
+      "Specialize Toda Lemma 5.4 and "
+      "the concrete nu_5 definition. "
+      "Lemma 5.4 gives "
+      "2 E nu_4 = E^2 nu-prime, while "
+      "nu_5 is defined by E nu_4. "
+      "Therefore E^2 nu-prime lies in "
+      "2 iota_5 composed with pi_8(S^5), "
+      "which is exactly the hypothesis "
+      "needed to reuse the general "
+      "Toda Lemma 5.7 inference chain. "
+      "No generic image-membership or "
+      "existential-witness machinery "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54Statement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaNuFamilyDefinitionStatement
         ),
       ),
     ),
