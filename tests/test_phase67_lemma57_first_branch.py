@@ -295,7 +295,7 @@ def test_phase67_3_composition_relation_preserves_hypothesis_provenance():
   )
 
 
-def test_phase67_3_composition_rule_rejects_inference_hypothesis():
+def test_phase67_3_composition_rule_accepts_inference_hypothesis():
   data = build_phase67_3_data()
 
   inference_hypothesis = ProofStep(
@@ -313,7 +313,56 @@ def test_phase67_3_composition_rule_rejects_inference_hypothesis():
     (
       inference_hypothesis,
     ),
-  ) is None
+  ) is not None
+
+
+def test_phase67_3_zero_rule_accepts_inference_hypothesis():
+  data = build_phase67_3_data()
+
+  inference_hypothesis = ProofStep(
+    conclusion=data[
+      "hypothesis"
+    ],
+    premises=(),
+    rule=ProofRule.INFERENCE,
+  )
+
+  composition_step = next(
+    step
+    for step in data[
+      "result"
+    ].steps
+    if (
+      step.conclusion
+      == data[
+        "composition_relation"
+      ]
+    )
+  )
+
+  eta4_step = next(
+    step
+    for step in data[
+      "result"
+    ].steps
+    if (
+      step.conclusion
+      == data[
+        "eta4_zero"
+      ]
+    )
+  )
+
+  assert find_inference_match(
+    data[
+      "zero_rule"
+    ],
+    (
+      inference_hypothesis,
+      composition_step,
+      eta4_step,
+    ),
+  ) is not None
 
 
 def test_phase67_3_composition_rule_rejects_wrong_source_group():

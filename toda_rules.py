@@ -292,12 +292,13 @@ def toda_lemma57_e2_eta2_alpha_composition_inference_rule():
       "specific suspension identity "
       "E^2(eta_2 composed with alpha) "
       "= eta_4 composed with E^2 alpha. "
+      "The hypothesis may itself be "
+      "given or independently derived. "
       "No generic suspension-composition "
       "normalizer is introduced."
     ),
     premise_patterns=(
       PremisePattern(
-        proof_rule=ProofRule.GIVEN,
         statement_type=(
           TodaLemma57TwoIota5ImageMembershipStatement
         ),
@@ -467,6 +468,8 @@ def toda_lemma57_e2_eta2_alpha_zero_inference_rule():
       "and the independently derived "
       "2 eta_4=0 relation to obtain "
       "E^2(eta_2 alpha)=0. "
+      "The hypothesis may itself be "
+      "given or independently derived. "
       "The image-membership hypothesis "
       "is consumed theorem-specifically; "
       "no generic image algebra or "
@@ -475,7 +478,6 @@ def toda_lemma57_e2_eta2_alpha_zero_inference_rule():
     ),
     premise_patterns=(
       PremisePattern(
-        proof_rule=ProofRule.GIVEN,
         statement_type=(
           TodaLemma57TwoIota5ImageMembershipStatement
         ),
@@ -485,6 +487,189 @@ def toda_lemma57_e2_eta2_alpha_zero_inference_rule():
         statement_type=Relation,
         relation_type=(
           RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma45_n3_suspension_zero_reflection_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    hypothesis = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    double_suspension_zero = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      hypothesis.element,
+      IteratedSuspension,
+    ):
+      return False
+
+    if (
+      hypothesis.element.exponent
+      != 2
+    ):
+      return False
+
+    alpha = (
+      hypothesis
+      .element
+      .expression
+    )
+
+    if not isinstance(
+      alpha,
+      HomotopyElement,
+    ):
+      return False
+
+    i = alpha.dimension
+
+    if not isinstance(
+      i,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      alpha.source
+      != i
+    ):
+      return False
+
+    if (
+      alpha.target
+      != 3
+    ):
+      return False
+
+    expected_source_group = (
+      TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=i,
+          right=2,
+        ),
+        sphere_dimension=5,
+      )
+    )
+
+    if (
+      hypothesis.source_group
+      != expected_source_group
+    ):
+      return False
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    eta2_alpha = Composition(
+      left=eta_2,
+      right=alpha,
+    )
+
+    expected_double_suspension_zero = (
+      Relation(
+        lhs=IteratedSuspension(
+          expression=eta2_alpha,
+          exponent=2,
+        ),
+        rhs=Zero(),
+        relation_type=RelationType.ZERO,
+      )
+    )
+
+    return (
+      double_suspension_zero
+      == expected_double_suspension_zero
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    hypothesis = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    alpha = (
+      hypothesis
+      .element
+      .expression
+    )
+
+    eta_2 = HomotopyElement(
+      name="η₂",
+      dimension=2,
+      source=3,
+      target=2,
+      generator=GeneratorSymbol(
+        family="η",
+        index=2,
+      ),
+    )
+
+    return Relation(
+      lhs=Suspension(
+        expression=Composition(
+          left=eta_2,
+          right=alpha,
+        ),
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 4.5 "
+      "n=3 suspension zero reflection"
+    ),
+    description=(
+      "For the Toda Lemma 5.7 branch, "
+      "apply the n=3 injectivity "
+      "consequence of Toda Lemma 4.5. "
+      "If E^2(eta_2 composed with alpha) "
+      "is zero, then "
+      "E(eta_2 composed with alpha) "
+      "is zero. "
+      "The Lemma 5.7 hypothesis fixes "
+      "the symbolic alpha and scope. "
+      "No generic suspension-zero "
+      "reflection rule is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaLemma57TwoIota5ImageMembershipStatement
         ),
       ),
       PremisePattern(
