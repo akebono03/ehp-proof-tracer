@@ -25,7 +25,7 @@ representation != typing != theorem knowledge
 structural equality != mathematical equality
 ```
 
-Phase 66 までこの原則を維持している。
+Phase 67 までこの原則を維持している。
 
 ---
 
@@ -4049,5 +4049,409 @@ persistent Proof Repository
 past proof-record backfill
 stable ν / η³
 stable homotopy-group model
+```
+
+---
+
+# 96. Phase 67：Toda Lemma 5.7 設計
+
+Phase 67 target:
+
+```text
+E²α ∈ 2ι₅∘π_(i+2)(S⁵)
+→
+E(η₂∘α)=0
+
+特に:
+E(η₂∘ν′)=0
+Δ(ν₅)=±(η₂∘ν′)
+```
+
+基本方針:
+
+```text
+Toda Lemma 5.7 の実際の proof need
+↓
+minimum hypothesis semantics
+↓
+既存 Lemma 4.5 / Proposition 5.1 / Lemma 5.4 / Toda (5.2) / Proposition 5.6 / exactness を再利用
+↓
+concrete Delta consequence
+```
+
+generic image algebra や generic cyclic-image solver は追加しない。
+
+# 97. Lemma 5.7 hypothesis の minimum semantics
+
+専用 statement:
+
+```text
+TodaLemma57TwoIota5ImageMembershipStatement
+```
+
+field:
+
+```text
+element
+source_group
+```
+
+意味:
+
+```text
+element ∈ 2ι₅∘source_group
+```
+
+これは generic image object ではない。
+
+追加しない:
+
+```text
+generic ImageMembership
+generic map image
+existential witness
+generic composition-image algebra
+```
+
+# 98. symbolic α と concrete ν′ の typing boundary
+
+Toda Lemma 5.7 の α は:
+
+```text
+α∈π_i(S³)
+```
+
+であり、数学的 index `i` は source sphere dimension から読む。
+
+Phase 57 symbolic α は:
+
+```text
+dimension=i
+source=i
+target=3
+```
+
+だったが、canonical concrete ν′ は:
+
+```text
+dimension=3
+source=6
+target=3
+```
+
+である。
+
+したがって Phase 67 general guard は:
+
+```text
+i = alpha.source
+```
+
+を用いる。
+
+重要:
+
+```text
+HomotopyElement.dimension
+!=
+always the π_i group index
+```
+
+という既存 representation reality を守り、ν′ を Phase 67 用に作り直さない。
+
+# 99. General Lemma 5.7 branch
+
+Phase 67-3:
+
+```text
+E²α ∈ 2ι₅∘π_(i+2)(S⁵)
+↓
+E²(η₂∘α)=η₄∘E²α
+```
+
+Phase 55 / Proposition 5.1 consequence:
+
+```text
+2η₄=0
+```
+
+より:
+
+```text
+E²(η₂∘α)=0
+```
+
+Phase 67-4 では Toda Lemma 4.5 の今回必要な n=3 consequence のみ追加:
+
+```text
+E²(η₂∘α)=0
+↓
+E(η₂∘α)=0
+```
+
+all-n reflection framework は追加しない。
+
+# 100. ν′ specialization の再利用設計
+
+Phase 60 Lemma 5.4:
+
+```text
+2Eν₄=E²ν′
+```
+
+ν-family definition:
+
+```text
+ν₅=Eν₄
+```
+
+から:
+
+```text
+E²ν′ ∈ 2ι₅∘π_8(S⁵)
+```
+
+を専用 bridge で `INFERENCE` として導出する。
+
+その後 general Lemma 5.7 branch を再利用して:
+
+```text
+E(η₂∘ν′)=0
+```
+
+を得る。
+
+設計原則:
+
+```text
+specialization
+→ hypothesis を derived にする
+→ general theorem chain を再利用
+```
+
+ν′ 専用に general proof を複製しない。
+
+# 101. Toda (5.2) + Proposition 5.6 concrete transport
+
+Phase 56:
+
+```text
+η₂∘- : π_i^3≅π_i^2
+```
+
+Phase 65:
+
+```text
+π_6^3=Z/4{ν′}
+```
+
+から:
+
+```text
+π_6^2=Z/4{η₂∘ν′}
+```
+
+を concrete theorem-specific rule で導出する。
+
+generic finite-cyclic generator transport は追加しない。
+
+# 102. concrete Toda (4.4) exactness boundary
+
+既存 `toda_prop42_delta_e_exactness_inference_rule()` は symbolic scalar shape を前提とするため、今回の concrete:
+
+```text
+π_8^5 ─Δ→ π_6^2 ─E→ π_7^3
+```
+
+を generic rule 側へ無理に合わせない。
+
+Phase 67 は narrow bridge で exactness window を認識し:
+
+```text
+TodaProp42ExactnessStatement
+```
+
+を derived にする。
+
+設計原則:
+
+```text
+existing generic/symbolic rule の applicability を広げる
+より
+concrete theorem instance の minimum bridge
+```
+
+を優先する。
+
+# 103. Delta surjectivity semantics
+
+追加:
+
+```text
+TodaDeltaSurjectiveStatement
+```
+
+理由:
+
+```text
+E(η₂∘ν′)=0
+π_6^2=Z/4{η₂∘ν′}
+```
+
+なので concrete target 上で E は zero。
+
+exactness:
+
+```text
+Im Δ = Ker E = π_6^2
+```
+
+から Δ surjective を得る。
+
+generic map-zero solver / first-isomorphism theorem engine は追加しない。
+
+# 104. Delta generator consequence と canonical ν₅
+
+Phase 65:
+
+```text
+π_8^5=Z/8{ν₅}
+```
+
+と Δ surjective から source generator の image が target generator を生成する。
+
+final:
+
+```text
+Δ(ν₅)=±(η₂∘ν′)
+```
+
+は既存:
+
+```text
+TodaDeltaImageUpToSignStatement
+```
+
+で保持する。
+
+canonical `ν₅` は手書きせず:
+
+```text
+toda_nu_family_definition_statement(5).element
+```
+
+を利用する。
+
+Phase 67 開発中に `"ν₅"` と existing canonical `"ν_5"` の name mismatch が guard failure を起こしたため、family factory reuse を設計境界として固定する。
+
+# 105. Phase 67 provenance / non-circularity
+
+final:
+
+```text
+Δ(ν₅)=±(η₂∘ν′)
+```
+
+の ancestor graph は次を reach する:
+
+```text
+Phase 60 Lemma 5.4
+Phase 67 ν′ image hypothesis
+Phase 67 E(η₂ν′)=0
+Phase 56 Toda (5.2)
+Phase 65 Proposition 5.6
+Phase 67 π_6^2
+Toda (4.4) exactness
+Phase 67 Δ surjectivity
+Phase 65 π_8^5
+```
+
+Phase 67-8 で:
+
+```text
+graph is acyclic
+final is not its own ancestor
+final conclusion absent from ancestors
+intermediate branches do not depend on final
+```
+
+を固定する。
+
+さらに:
+
+```text
+Toda58EquationStatement
+```
+
+が final ancestor に存在しないことを確認する。
+
+したがって:
+
+```text
+source ordering
+!=
+machine proof dependency
+```
+
+を明示的に守る。
+
+# 106. Phase 67 proof-style display
+
+`probes/probe_phase67_capabilities.py` は Phase 67-7 focused builder を再利用する。
+
+表示:
+
+```text
+Toda Lemma 5.7 result
+Proof-style derivation
+Provenance / integration
+Literature / source
+Proof record
+Phase 67 completion boundary
+```
+
+`print_phase67_derivation_chain()` は hand-authored presentation layer。
+
+```text
+ProofStep graph → automatic narrative
+```
+
+はまだ実装しない。
+
+# 107. Phase 67 completion boundary
+
+完成:
+
+```text
+minimum image-membership semantics
+general Lemma 5.7 chain
+n=3 Lemma 4.5 reflection
+ν′ specialization
+π_6^2 concrete transport
+concrete Toda (4.4) exactness
+Delta surjectivity
+Δ(ν₅)=±(η₂∘ν′)
+provenance / non-circularity regression
+representative probe
+proof record
+```
+
+追加しない:
+
+```text
+generic ImageMembership
+generic existential witness
+generic cyclic-image solver
+generic sign / ± algebra
+generic all-n Lemma 4.5 reflection
+generic exactness solver
+automatic proof narrative generation
+persistent Proof Repository
+```
+
+final regression:
+
+```text
+4102 passed in 32.75s
 ```
 

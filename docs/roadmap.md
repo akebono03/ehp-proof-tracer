@@ -2,8 +2,7 @@
 
 この文書は **今後の capability dependency と Phase 順序**を記録する。
 
-現在の仕様は `README.md` / `docs/design.md` を優先し、
-過去の詳細な実装履歴は `docs/development_log.md` を参照する。
+現在の仕様は `README.md` / `docs/design.md` を優先し、過去の詳細な実装履歴は `docs/development_log.md` を参照する。
 
 ---
 
@@ -11,8 +10,7 @@
 
 roadmap は future-oriented に保つ。
 
-完了済み Phase の詳細な subphase / focused test / implementation history は
-この文書に蓄積しない。
+完了済み Phase の詳細な subphase / focused test / implementation history はこの文書に蓄積しない。
 
 ```text
 README.md
@@ -106,12 +104,20 @@ Phase 66
 Toda Equation (5.8)
 Δ(ι₉)=±(2ν₄-Eν′)=±[ι₄,ι₄]
 proof record foundation
+
+Phase 67
+Toda Lemma 5.7
+E²α∈2ι₅∘π_(i+2)(S⁵) → E(η₂∘α)=0
+E(η₂∘ν′)=0
+π_6^2=Z/4{η₂∘ν′}
+Δ(ν₅)=±(η₂∘ν′)
+second formal proof record
 ```
 
 現在の repository-wide regression:
 
 ```text
-3970 passed in 31.96s
+4102 passed in 32.75s
 ```
 
 ---
@@ -151,20 +157,28 @@ Toda Proposition 5.6
 ↓
 Toda (5.8)
 Δ(ι₉)=±(2ν₄-Eν′)=±[ι₄,ι₄]
+↓
+Toda Lemma 5.7
+E²α∈2ι₅∘π_(i+2)(S⁵)
+→ E(η₂∘α)=0
+↓
+E(η₂∘ν′)=0
+π_6^2=Z/4{η₂∘ν′}
+Δ(ν₅)=±(η₂∘ν′)
 ```
 
 ---
 
 # 5. 次の数学 Phase
 
-Phase 66 は COMPLETE。
+Phase 67 は COMPLETE。
 
-次は **Toda (5.8) 後の次の concrete source statement / consequence** を確認して開始する。
+次は **Toda Lemma 5.7 後の次の concrete source statement / consequence** を確認して開始する。
 
 Phase number:
 
 ```text
-Phase 67
+Phase 68
 ```
 
 開始内容は source を確認してから確定する。
@@ -172,7 +186,7 @@ Phase 67
 最初に行うこと:
 
 ```text
-Phase 67-1
+Phase 68-1
 source statement / proof dependency /
 current representation compatibility analysis
 ```
@@ -181,11 +195,12 @@ current representation compatibility analysis
 
 ```text
 A.
-Toda source の次 statement / proposition / lemma / equation
+Toda source の Lemma 5.7 後の
+statement / proposition / lemma / equation
 
 B.
-その proof が Phase 58–66 の
-ν′ / ν₄ / ν-family / Whitehead / Δ result を
+その proof が Phase 60–67 の
+ν′ / ν₄ / ν-family / Δ / exactness result を
 どのように利用するか
 
 C.
@@ -193,10 +208,11 @@ current Expression / TodaPrimaryGroup / map / statement で
 必要対象を structural に保持できるか
 
 D.
-不足が theorem-specific statement で済むか
+不足が theorem-specific statement / bridge で済むか
 
 E.
-generic framework が本当に複数 branch で必要になったか
+generic framework が本当に複数 independent branch で
+繰り返し必要になったか
 ```
 
 exact mathematical target は source analysis 前に固定しない。
@@ -205,16 +221,19 @@ exact mathematical target は source analysis 前に固定しない。
 
 # 6. Proof Records の運用
 
-Phase 66-8 から:
+現在の正式 record:
 
 ```text
-docs/proof_records.md
+Toda Equation (5.8)
+Δ(ι₉)=±(2ν₄-Eν′)=±[ι₄,ι₄]
+
+Toda Lemma 5.7
+E²α∈2ι₅∘π_(i+2)(S⁵) → E(η₂∘α)=0
+E(η₂∘ν′)=0
+Δ(ν₅)=±(η₂∘ν′)
 ```
 
-を開始した。
-
-今後 representative proof-style probe を完成させた Phase では、
-必要に応じて proof record を追記する。
+今後 representative proof-style probe を完成させた Phase では、必要に応じて `docs/proof_records.md` に追記する。
 
 記録対象:
 
@@ -249,6 +268,8 @@ literature metadata    = structured
 proof records          = human curated
 proof-style narrative  = hand-authored probe presentation
 ```
+
+現在 formal proof record が2件蓄積した。
 
 future target:
 
@@ -289,12 +310,13 @@ generic generator を設計
 PLANNED / DEFERRED UNTIL DISPLAY SCHEMA STABILIZES
 ```
 
+Phase 68 で先取りしない。
+
 ---
 
 # 8. Persistent Proof Repository
 
-concrete calculation をさらに蓄積した後、
-proof result の persistent storage を separate Phase として検討する。
+concrete calculation をさらに蓄積した後、proof result の persistent storage を separate Phase として検討する。
 
 目安:
 
@@ -353,13 +375,13 @@ stable ν:=E^∞ν₄
 stable homotopy-group model
 ```
 
-finite-dimensional calculationsで具体的必要が生じた時点で再評価する。
+finite-dimensional calculations で具体的必要が生じた時点で再評価する。
 
 ---
 
 # 10. Performance / inference architecture
 
-Phase 64 で:
+Phase 64:
 
 ```text
 3657 tests
@@ -368,13 +390,13 @@ Phase 64 で:
 29.97s
 ```
 
-まで performance stabilization を行った。
-
-Phase 66 completion:
+Phase 67 completion:
 
 ```text
-3970 passed in 31.96s
+4102 passed in 32.75s
 ```
+
+test 数は増えているが full regression は約30秒台を維持している。
 
 当面は現在の architecture を維持する。
 
@@ -389,7 +411,15 @@ automatic memoization of all builders
 coverage reduction
 ```
 
-再び regression time が顕著に悪化した場合に profiling を行う。
+fixture builder が heavy な同一 object graph を繰り返し構築する場合は、現在の方針どおり必要に応じて:
+
+```python
+@lru_cache(maxsize=1)
+```
+
+を利用する。
+
+再び regression time が顕著に悪化した場合のみ profiling を行う。
 
 ---
 
@@ -423,6 +453,11 @@ generic inverse-image algebra
 generic Δ-H rewrite framework
 generic theorem specialization engine
 generic theorem repository expansion
+generic ImageMembership / map-image algebra
+generic existential image witness
+generic Lemma 4.5 all-n zero reflection
+generic cyclic-image solver
+generic exactness solver
 stable homotopy-group model
 higher Toda brackets
 general-purpose CAS normalization
@@ -451,7 +486,9 @@ DEFERRED UNTIL CONCRETE NEED
 | Proposition 5.6 finite-dimensional | COMPLETE | 65 |
 | Equation (5.8) | COMPLETE | 66 |
 | proof record foundation | COMPLETE | 66 |
-| next concrete Toda calculation | NEXT | 67 |
+| Toda Lemma 5.7 | COMPLETE | 67 |
+| second formal proof record | COMPLETE | 67 |
+| next concrete Toda calculation | NEXT | 68 |
 | automatic proof narrative generation | PLANNED / DEFERRED | later |
 | persistent Proof Repository | PLANNED / DEFERRED | later |
 | stable homotopy branch | DEFERRED | later |
@@ -462,8 +499,9 @@ DEFERRED UNTIL CONCRETE NEED
 # 13. Current next step
 
 ```text
-Phase 67-1
-next Toda source statement / proof dependency /
+Phase 68-1
+Toda Lemma 5.7 後の next source statement /
+proof dependency /
 current representation compatibility analysis
 ```
 
@@ -471,7 +509,8 @@ current representation compatibility analysis
 
 ```text
 current Toda source
-Phase 66 implementation / tests
+Phase 67 implementation / tests
+probes/probe_phase67_capabilities.py
 docs/code_reference.md
 docs/proof_records.md
 ```

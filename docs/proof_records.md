@@ -727,3 +727,611 @@ repository-wide regression:
 ```
 
 この record は Phase 66 completion 時点の human-reviewed golden reference とする。
+
+---
+
+# 9. Toda Lemma 5.7
+
+## 9.1 Source / theorem
+
+```text
+H. Toda
+Composition Methods in Homotopy Groups of Spheres
+1962
+Lemma 5.7
+```
+
+対象 statement:
+
+```text
+α∈π_i(S³)
+
+E²α ∈ 2ι₅∘π_(i+2)(S⁵)
+        ↓
+E(η₂∘α)=0
+```
+
+特に:
+
+```text
+E(η₂∘ν′)=0
+
+Δ(ν₅)=±(η₂∘ν′)
+```
+
+---
+
+## 9.2 Result
+
+Phase 67 では Toda Lemma 5.7 を次の concrete capability に分解して導出した。
+
+```text
+general:
+E²α ∈ 2ι₅∘π_(i+2)(S⁵)
+→
+E(η₂∘α)=0
+
+special:
+E²ν′ ∈ 2ι₅∘π_8(S⁵)
+
+E(η₂∘ν′)=0
+
+π_6^2=Z/4{η₂∘ν′}
+
+Δ(ν₅)=±(η₂∘ν′)
+```
+
+最終 special conclusion:
+
+```text
+Δ(ν₅)=±(η₂∘ν′)
+```
+
+は:
+
+```text
+TodaDeltaImageUpToSignStatement
+```
+
+として保持する。
+
+---
+
+## 9.3 Hypothesis representation
+
+Lemma 5.7 の hypothesis:
+
+```text
+E²α ∈ 2ι₅∘π_(i+2)(S⁵)
+```
+
+は Phase 67 専用:
+
+```text
+TodaLemma57TwoIota5ImageMembershipStatement
+```
+
+で保持する。
+
+field:
+
+```text
+element
+source_group
+```
+
+generic:
+
+```text
+ImageMembership
+existential witness
+map image object
+composition image algebra
+```
+
+は導入しない。
+
+general theorem test では hypothesis を `GIVEN` として投入できる。
+
+ν′ specialization では同じ statement を upstream result から `INFERENCE` として導出し、general Lemma 5.7 rule を再利用する。
+
+---
+
+## 9.4 General proof branch
+
+Phase 67-3:
+
+```text
+E²α ∈ 2ι₅∘π_(i+2)(S⁵)
+        ↓
+E²(η₂∘α)=η₄∘E²α
+```
+
+Phase 55 / Proposition 5.1 consequence:
+
+```text
+2η₄=0
+```
+
+hypothesis と合わせて:
+
+```text
+E²(η₂∘α)=0
+```
+
+Phase 67-4:
+
+```text
+E²(η₂∘α)=0
+        ↓
+Toda Lemma 4.5, n=3
+        ↓
+E(η₂∘α)=0
+```
+
+Lemma 4.5 は generic all-n zero-reflection rule にはせず、今回必要な n=3 branch のみを実装した。
+
+---
+
+## 9.5 ν′ specialization
+
+Phase 60 Toda Lemma 5.4:
+
+```text
+2Eν₄=E²ν′
+```
+
+ν-family definition:
+
+```text
+ν₅=Eν₄
+```
+
+したがって:
+
+```text
+E²ν′
+=
+2ν₅
+∈
+2ι₅∘π_8(S⁵)
+```
+
+Phase 67-5 ではこれを:
+
+```text
+TodaLemma57TwoIota5ImageMembershipStatement
+ProofRule.INFERENCE
+```
+
+として導出する。
+
+general Lemma 5.7 branch を再利用して:
+
+```text
+E(η₂∘ν′)=0
+```
+
+を得る。
+
+ν′ 用に general proof を複製しない。
+
+---
+
+## 9.6 π_6^2 calculation
+
+Phase 56 Toda (5.2):
+
+```text
+η₂∘- : π_i^3 ≅ π_i^2
+```
+
+Phase 65 Toda Proposition 5.6:
+
+```text
+π_6^3=Z/4{ν′}
+```
+
+concrete transport:
+
+```text
+π_6^2
+=
+Z/4{η₂∘ν′}
+```
+
+結果は `ProofRule.INFERENCE`。
+
+generic finite-cyclic generator transport framework は追加しない。
+
+---
+
+## 9.7 Delta consequence
+
+Toda (4.4) の concrete exact segment:
+
+```text
+π_8^5 ─Δ→ π_6^2 ─E→ π_7^3
+```
+
+Phase 67-5:
+
+```text
+E(η₂∘ν′)=0
+```
+
+Phase 67-6:
+
+```text
+π_6^2=Z/4{η₂∘ν′}
+```
+
+したがって generator の像が zero なので、この concrete cyclic group 上で E は zero。
+
+exactness より:
+
+```text
+Im Δ
+=
+Ker E
+=
+π_6^2
+```
+
+したがって:
+
+```text
+Δ:π_8^5→π_6^2
+```
+
+は surjective。
+
+Phase 65:
+
+```text
+π_8^5=Z/8{ν₅}
+```
+
+なので:
+
+```text
+π_6^2
+=
+<Δ(ν₅)>
+```
+
+一方:
+
+```text
+π_6^2
+=
+Z/4{η₂∘ν′}
+```
+
+だから Toda の sign convention で:
+
+```text
+Δ(ν₅)=±(η₂∘ν′)
+```
+
+を得る。
+
+---
+
+## 9.8 Proof-style derivation
+
+Representative human-readable derivation:
+
+```text
+Assume
+
+E²α ∈ 2ι₅∘π_(i+2)(S⁵).
+
+Then
+
+E²(η₂∘α)
+=
+η₄∘E²α.
+
+Since 2η₄=0,
+
+E²(η₂∘α)=0.
+
+Toda Lemma 4.5, n=3 gives
+
+E(η₂∘α)=0.
+
+
+Now take α=ν′.
+
+Toda Lemma 5.4 gives
+
+2Eν₄=E²ν′.
+
+Since ν₅=Eν₄,
+
+E²ν′ ∈ 2ι₅∘π_8(S⁵).
+
+Hence
+
+E(η₂∘ν′)=0.
+
+
+Toda (5.2) and Proposition 5.6 give
+
+π_6^2
+=
+Z/4{η₂∘ν′}.
+
+Using exactness of
+
+π_8^5 ─Δ→ π_6^2 ─E→ π_7^3,
+
+and E(η₂∘ν′)=0,
+
+Δ is surjective.
+
+Proposition 5.6 gives
+
+π_8^5=Z/8{ν₅}.
+
+Therefore
+
+π_6^2=<Δ(ν₅)>.
+
+Since
+
+π_6^2=Z/4{η₂∘ν′},
+
+we obtain
+
+Δ(ν₅)=±(η₂∘ν′).
+```
+
+この proof-style derivation は hand-authored presentation layer である。
+
+---
+
+## 9.9 Machine provenance
+
+主要 branch:
+
+```text
+Phase 60
+Toda Lemma 5.4
+2Eν₄=E²ν′
+        │
+        ↓
+Phase 67-5
+E²ν′ ∈ 2ι₅∘π_8(S⁵)
+        │
+        ↓
+Phase 67-3 / 67-4
+E(η₂∘ν′)=0
+        │
+        ├───────────────────────┐
+        │                       │
+Phase 56                       │
+Toda (5.2)                     │
+        │                       │
+        + Phase 65             │
+          Prop.5.6             │
+        │                       │
+        ↓                       │
+Phase 67-6                     │
+π_6^2=Z/4{η₂∘ν′}              │
+        │                       │
+        └──────────┬────────────┘
+                   │
+Toda (4.4)         │
+exactness          │
+                   ↓
+Phase 67-7
+Δ surjective
+        │
+        + Phase 65
+          π_8^5=Z/8{ν₅}
+        │
+        ↓
+Δ(ν₅)=±(η₂∘ν′)
+```
+
+Phase 67-8 regression で:
+
+```text
+final reaches ν′ hypothesis branch
+final reaches E(η₂ν′)=0 branch
+final reaches π_6^2 branch
+final reaches exactness branch
+final reaches Δ-surjectivity branch
+final reaches Proposition 5.6
+
+graph is acyclic
+final is not its own ancestor
+final conclusion absent from ancestors
+upstream branches do not depend on final
+```
+
+を確認する。
+
+---
+
+## 9.10 Phase 66 independence
+
+Toda source ordering では Lemma 5.7 は Equation (5.8) の後に現れる。
+
+しかし machine proof dependency は:
+
+```text
+Phase 56
+Phase 60
+Phase 65
+Toda (4.4)
+Phase 67 internal branches
+```
+
+で完結する。
+
+Phase 66:
+
+```text
+Toda58EquationStatement
+```
+
+は final ancestor graph に存在しない。
+
+したがって:
+
+```text
+source ordering
+!=
+machine proof dependency
+```
+
+を維持している。
+
+---
+
+## 9.11 GIVEN / INFERENCE boundary
+
+GIVEN:
+
+```text
+general symbolic Lemma 5.7 hypothesis
+  when testing the general theorem
+
+Toda (4.4) structural exactness window
+```
+
+INFERENCE:
+
+```text
+2η₄=0
+
+E²(η₂∘α)=η₄∘E²α
+
+E²(η₂∘α)=0
+
+E(η₂∘α)=0
+
+E²ν′ image hypothesis
+
+E(η₂∘ν′)=0
+
+π_6^2=Z/4{η₂∘ν′}
+
+Toda (4.4) exactness statement
+
+Δ surjective
+
+π_8^5=Z/8{ν₅}
+through Proposition 5.6
+
+Δ(ν₅)=±(η₂∘ν′)
+```
+
+最終 theorem consequence を `GIVEN` として再投入しない。
+
+---
+
+## 9.12 Representation boundary
+
+Phase 67 で追加しないもの:
+
+```text
+generic ImageMembership
+generic existential witness
+generic image algebra
+generic suspension-composition normalizer
+generic Lemma 4.5 all-n reflection
+generic finite-cyclic generator transport
+generic cyclic-image solver
+generic sign solver
+generic ± algebra
+generic exactness solver
+automatic proof narrative generation
+persistent Proof Repository
+```
+
+必要な concrete theorem semantics のみ実装する。
+
+---
+
+## 9.13 Representative probe
+
+実行:
+
+```powershell
+python -m probes.probe_phase67_capabilities
+```
+
+表示:
+
+```text
+Toda Lemma 5.7 result
+
+Proof-style derivation
+
+Provenance / integration
+
+Literature / source
+
+Proof record
+
+Phase 67 completion boundary
+```
+
+representative result:
+
+```text
+E²α ∈ 2ι₅∘π_(i+2)(S⁵)
+⇒
+E(η₂∘α)=0
+
+In particular:
+
+E(η₂∘ν′)=0
+
+Δ(ν₅)=±(η₂∘ν′)
+```
+
+probe の derivation は presentation-only。
+
+automatic proof narrative generation ではない。
+
+---
+
+## 9.14 Regression status
+
+Phase 67 completion:
+
+```text
+Phase 67-5 focused      17 passed
+Phase 67-6 focused      17 passed
+Phase 67-7 focused      19 passed
+Phase 67-8 focused      19 passed
+Phase 67-9 probe        21 passed
+
+repository-wide:
+4102 passed in 32.75s
+```
+
+代表 provenance output:
+
+```text
+E²ν′ image hypothesis derived = True
+E(η₂∘ν′)=0 derived = True
+π_6^2=Z/4{η₂∘ν′} derived = True
+Toda (4.4) exactness derived = True
+Δ surjective derived = True
+Toda Proposition 5.6 aggregate derived = True
+Δ(ν₅)=±(η₂∘ν′) derived = True
+final result is GIVEN = False
+all final premises are INFERENCE = True
+Toda (4.4) structural window remains GIVEN = True
+Phase 66 dependency used = False
+fixed point = True
+```
+
+この record は Phase 67 completion 時点の human-reviewed golden reference とする。
+

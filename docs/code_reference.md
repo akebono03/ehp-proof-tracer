@@ -2,7 +2,7 @@
 
 この文書は EHP Proof Tracer の主要 Python module と、その責務・主要 class / function・探索方法をまとめる。
 
-対象は **Phase 66 completion 時点**。
+対象は **Phase 67 completion 時点**。
 
 この文書は全 API を機械的に列挙する reference ではない。目的は:
 
@@ -3404,4 +3404,334 @@ minimum implementation
 ```
 
 を維持する。
+
+---
+
+# 32. Phase 67：Toda Lemma 5.7
+
+Phase 67 の target:
+
+```text
+E²α ∈ 2ι₅∘π_(i+2)(S⁵)
+→
+E(η₂∘α)=0
+
+特に:
+E(η₂∘ν′)=0
+Δ(ν₅)=±(η₂∘ν′)
+```
+
+production implementation は `toda_rules.py` に theorem-specific minimum semantics を追加し、generic inference engine は変更しない。
+
+## 32.1 `TodaLemma57TwoIota5ImageMembershipStatement`
+
+field:
+
+```text
+element
+source_group
+```
+
+意味:
+
+```text
+element ∈ 2ι₅∘source_group
+```
+
+Phase 67 concrete use:
+
+```text
+E²α ∈ 2ι₅∘π_(i+2)(S⁵)
+```
+
+generic `ImageMembership` / existential witness / image object は追加しない。
+
+## 32.2 general Lemma 5.7 rule family
+
+```text
+toda_lemma57_e2_eta2_alpha_composition_inference_rule()
+toda_lemma57_e2_eta2_alpha_zero_inference_rule()
+toda_lemma45_n3_suspension_zero_reflection_inference_rule()
+```
+
+chain:
+
+```text
+E²α image hypothesis
+↓
+E²(η₂∘α)=η₄∘E²α
++
+2η₄=0
+↓
+E²(η₂∘α)=0
+↓
+E(η₂∘α)=0
+```
+
+concrete `ν′` compatibility のため、`α∈π_i(S³)` の index `i` は `alpha.source` から読む。
+
+symbolic branch:
+
+```text
+alpha.source = i
+```
+
+concrete ν′ branch:
+
+```text
+alpha.source = 6
+```
+
+を同じ rule family で扱う。
+
+## 32.3 ν′ hypothesis bridge
+
+```text
+toda_lemma57_nu_prime_hypothesis_inference_rule()
+```
+
+input:
+
+```text
+TodaLemma54Statement                         INFERENCE
+TodaNuFamilyDefinitionStatement(n=5)
+```
+
+uses:
+
+```text
+2Eν₄=E²ν′
+ν₅=Eν₄
+```
+
+output:
+
+```text
+E²ν′ ∈ 2ι₅∘π_8(S⁵)
+INFERENCE
+```
+
+ν′ 専用に general proof を複製せず、general Lemma 5.7 chain を再利用する。
+
+## 32.4 `π_6^2=Z/4{η₂∘ν′}`
+
+rule:
+
+```text
+toda_lemma57_pi6_2_eta2_nu_prime_inference_rule()
+```
+
+input:
+
+```text
+TodaProp56FiniteDimensionalStatement  INFERENCE
+Toda52CompositionIsomorphismStatement INFERENCE
+```
+
+uses:
+
+```text
+π_6^3=Z/4{ν′}
+η₂∘- : π_i^3≅π_i^2
+```
+
+output:
+
+```text
+π_6^2=Z/4{η₂∘ν′}
+INFERENCE
+```
+
+concrete transport のみに限定し、generic cyclic-generator transport は追加しない。
+
+## 32.5 `TodaDeltaSurjectiveStatement`
+
+Phase 67-7 で追加した Toda-specific map property:
+
+```text
+TodaDeltaSurjectiveStatement
+```
+
+field:
+
+```text
+map: TodaDeltaMap
+```
+
+既存 `TodaDeltaInjectiveStatement` と同じ theorem-specific level で Δ の surjectivity を保持する。
+
+## 32.6 concrete Toda (4.4) exactness
+
+```text
+toda_lemma57_concrete_delta_e_exactness_inference_rule()
+```
+
+recognizes exactly:
+
+```text
+π_8^5 ─Δ→ π_6^2 ─E→ π_7^3
+```
+
+and derives:
+
+```text
+TodaProp42ExactnessStatement
+```
+
+既存 symbolic `toda_prop42_delta_e_exactness_inference_rule()` は変更しない。
+
+## 32.7 Δ surjectivity
+
+```text
+toda_lemma57_delta_surjective_inference_rule()
+```
+
+input:
+
+```text
+E(η₂∘ν′)=0                          INFERENCE
+π_6^2=Z/4{η₂∘ν′}                    INFERENCE
+concrete Toda (4.4) exactness        INFERENCE
+```
+
+output:
+
+```text
+TodaDeltaSurjectiveStatement
+INFERENCE
+```
+
+concrete cyclic target に限定し、generic `generator maps to zero → map zero` solver は追加しない。
+
+## 32.8 `Δ(ν₅)=±(η₂∘ν′)`
+
+```text
+toda_lemma57_delta_nu5_generator_inference_rule()
+```
+
+input:
+
+```text
+Δ surjective                         INFERENCE
+π_6^2=Z/4{η₂∘ν′}                    INFERENCE
+Toda Proposition 5.6 aggregate      INFERENCE
+```
+
+Phase 65 aggregate から:
+
+```text
+π_8^5=Z/8{ν₅}
+```
+
+を利用する。
+
+canonical `ν₅` validation は:
+
+```text
+toda_nu_family_definition_statement(5).element
+```
+
+を再利用する。
+
+output:
+
+```text
+TodaDeltaImageUpToSignStatement
+Δ(ν₅)=±(η₂∘ν′)
+```
+
+## 32.9 Phase 67 tests
+
+主要 tests:
+
+```text
+tests/test_phase67_lemma57_hypothesis_statement.py
+tests/test_phase67_lemma57_first_branch.py
+tests/test_phase67_lemma57_n3_zero_reflection.py
+tests/test_phase67_lemma57_nu_prime_specialization.py
+tests/test_phase67_pi6_2_eta2_nu_prime.py
+tests/test_phase67_lemma57_delta_generator.py
+tests/test_phase67_lemma57_applicability_provenance.py
+tests/test_phase67_probe.py
+```
+
+heavy representative builders は必要に応じて:
+
+```python
+@lru_cache(maxsize=1)
+```
+
+で同一 object graph を再利用する。
+
+Phase 67-8 は production code を変更せず、ancestor reachability / acyclicity / Phase 66 independence を regression で固定する。
+
+## 32.10 representative probe
+
+module:
+
+```text
+probes/probe_phase67_capabilities.py
+```
+
+entry:
+
+```powershell
+python -m probes.probe_phase67_capabilities
+```
+
+主要 function:
+
+```text
+build_phase67_representative_result()
+print_phase67_results()
+print_phase67_derivation_chain()
+print_phase67_provenance()
+print_phase67_source()
+print_phase67_proof_record()
+print_phase67_boundary()
+main()
+```
+
+focused end-to-end builder:
+
+```text
+build_phase67_7_data()
+```
+
+を再利用し、probe 側に theorem inference を複製しない。
+
+`print_phase67_derivation_chain()` は presentation-only。automatic proof narrative generator ではない。
+
+## 32.11 Phase 67 completion regression
+
+```text
+Phase 67 probe: 21 passed
+repository-wide: 4102 passed in 32.75s
+```
+
+---
+
+# 33. Phase 67 completion 後に最初に見る場所
+
+次の concrete Toda statement に進む前に:
+
+```text
+Toda source material
+  Lemma 5.7 後の statement / proof / locator
+
+toda_rules.py
+  Phase 67 Lemma 5.7 rule family
+  Delta surjectivity / generator consequence
+
+tests/test_phase67_*.py
+  current applicability / provenance boundary
+
+probes/probe_phase67_capabilities.py
+  current proof-style / provenance display
+
+docs/proof_records.md
+  Toda Lemma 5.7 record
+```
+
+Phase 68 は source statement を確認して target を確定する。
 
