@@ -151,6 +151,12 @@ class Toda58EquationStatement:
   ]
 
 
+@dataclass(frozen=True)
+class TodaLemma57TwoIota5ImageMembershipStatement:
+  element: IteratedSuspension
+  source_group: TodaPrimaryGroup
+
+
 def toda_lemma52_delta_two_eta2_preimage_inference_rule():
   def guard(
     premises,
