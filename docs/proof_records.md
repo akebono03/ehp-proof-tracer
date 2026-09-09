@@ -659,9 +659,10 @@ Proof record documentation はその repository schema を先取りしない。
 
 # 7. Current proof-record boundary
 
-Phase 66-8 で正式記録を開始した result:
+正式な human-reviewed proof record は現在3件。
 
 ```text
+Phase 66
 Toda Equation (5.8)
 
 Δ(ι₉)
@@ -669,13 +670,34 @@ Toda Equation (5.8)
 ±(2ν₄-Eν′)
 =
 ±[ι₄,ι₄]
+
+
+Phase 67
+Toda Lemma 5.7
+
+E²α∈2ι₅∘π_(i+2)(S⁵)
+→
+E(η₂∘α)=0
+
+特に:
+E(η₂∘ν′)=0
+Δ(ν₅)=±(η₂∘ν′)
+
+
+Phase 68
+Toda Proposition 5.8
+finite-dimensional result
+
+π_6^2=Z/4{η₂ν′}
+π_7^3=Z/2{ν′η₆}
+π_8^4=Z/2{ν₄η₇}⊕Z/2{Eν′η₇}
+π_9^5=Z/2{ν₅η₈}
+π_(n+4)^n=0, n≥6
 ```
 
-次の proof record は、今後の concrete Toda calculation の representative probe 完成時に追加する。
+過去 Phase 60–65 の全面 backfill は行わない。
 
-過去 Phase の backfill は必要に応じて別途行う。
-
-
+必要になった時点で separate documentation task として追加する。
 ---
 
 # 8. Phase 66 completion record
@@ -1334,4 +1356,1030 @@ fixed point = True
 ```
 
 この record は Phase 67 completion 時点の human-reviewed golden reference とする。
+---
 
+# 10. Toda Proposition 5.8
+
+## 10.1 Source / theorem
+
+```text
+H. Toda
+Composition Methods in Homotopy Groups of Spheres
+1962
+Proposition 5.8
+```
+
+Phase 68 で正式記録するのは finite-dimensional part:
+
+```text
+π_6^2=Z/4{η₂ν′}
+π_7^3=Z/2{ν′η₆}
+π_8^4=Z/2{ν₄η₇}⊕Z/2{Eν′η₇}
+π_9^5=Z/2{ν₅η₈}
+π_(n+4)^n=0
+(n≥6)
+```
+
+stable statement:
+
+```text
+(G_4;2)=0
+```
+
+はこの record には含めない。
+
+---
+
+## 10.2 Result
+
+Phase 68 final aggregate:
+
+```text
+TodaProp58FiniteDimensionalStatement
+```
+
+保持する5 branch:
+
+```text
+π_6^2 = Z/4{η₂ν′}
+
+π_7^3 = Z/2{ν′η₆}
+
+π_8^4
+=
+Z/2{ν₄η₇}
+⊕
+Z/2{Eν′η₇}
+
+π_9^5 = Z/2{ν₅η₈}
+
+π_(n+4)^n = 0
+(n≥6)
+```
+
+aggregate 自身は:
+
+```text
+ProofRule.INFERENCE
+```
+
+である。
+
+---
+
+## 10.3 Upstream results
+
+主要 upstream:
+
+```text
+Phase 46
+Toda (4.5)
+stable-range finite-dimensional suspension isomorphism
+
+Phase 60
+Toda Lemma 5.4
+ν₄∈π_7^4
+H(ν₄)=ι₇
+2Eν₄=E²ν′
+
+Phase 62
+ν-family
+2ν_n=E^(n-3)ν′
+
+Phase 63
+Toda (5.6)
+π_(i-1)^3⊕π_i^7≅π_i^4
+
+Phase 65
+Toda Proposition 5.6
+Equation (5.7)
+π_7^4=Z{ν₄}⊕Z/4{Eν′}
+π_8^5=Z/8{ν₅}
+
+Phase 66
+Toda (5.8)
+Δ(ι₉)=±(2ν₄-Eν′)
+
+Phase 67
+Toda Lemma 5.7
+E(η₂ν′)=0
+π_6^2=Z/4{η₂ν′}
+```
+
+---
+
+## 10.4 π_7^3 derivation
+
+Phase 67:
+
+```text
+π_6^2=Z/4{η₂ν′}
+E(η₂ν′)=0
+```
+
+concrete exactness:
+
+```text
+π_6^2 --E--> π_7^3 --H--> π_7^5
+```
+
+より:
+
+```text
+H injective.
+```
+
+Phase 65 Equation (5.7):
+
+```text
+H(ν′η₆)=η₅²
+```
+
+Proposition 5.3:
+
+```text
+π_7^5=Z/2{η₅²}
+```
+
+したがって:
+
+```text
+H surjective.
+```
+
+よって:
+
+```text
+H:π_7^3→π_7^5
+isomorphism
+```
+
+であり:
+
+```text
+π_7^3=Z/2{ν′η₆}.
+```
+
+---
+
+## 10.5 π_8^4 derivation
+
+Toda (5.6), `i=8`:
+
+```text
+π_7^3⊕π_8^7≅π_8^4
+(α,β)↦Eα+ν₄β
+```
+
+Phase 68:
+
+```text
+π_7^3=Z/2{ν′η₆}
+```
+
+Proposition 5.1:
+
+```text
+π_8^7=Z/2{η₇}
+```
+
+concrete suspension bridge:
+
+```text
+E(ν′η₆)=Eν′η₇
+```
+
+したがって:
+
+```text
+π_8^4
+=
+Z/2{ν₄η₇}
+⊕
+Z/2{Eν′η₇}.
+```
+
+---
+
+## 10.6 Δ(η₉) derivation
+
+Phase 66:
+
+```text
+Δ(ι₉)=±(2ν₄-Eν′)
+```
+
+Toda Proposition 2.5 の concrete composition consequence:
+
+```text
+Δ(η₉)
+=
+±((2ν₄-Eν′)η₇).
+```
+
+Phase 68 の `π_8^4` decomposition から両 direct summand は order two。
+
+したがって:
+
+```text
+2ν₄η₇=0
+```
+
+かつ `Eν′η₇` の sign は irrelevant。
+
+よって:
+
+```text
+Δ(η₉)=Eν′η₇.
+```
+
+---
+
+## 10.7 π_9^5 derivation
+
+Phase 66:
+
+```text
+Δ(ι₉)=±(2ν₄-Eν′)
+```
+
+Phase 65:
+
+```text
+π_7^4
+=
+Z{ν₄}
+⊕
+Z/4{Eν′}
+```
+
+positive representative は free component に `2ν₄` を持つので:
+
+```text
+Δ:π_9^9→π_7^4
+```
+
+は injective。
+
+exactness:
+
+```text
+π_9^5 --H--> π_9^9 --Δ--> π_7^4
+```
+
+から:
+
+```text
+H=0.
+```
+
+さらに exactness:
+
+```text
+π_8^4 --E--> π_9^5 --H--> π_9^9
+```
+
+から:
+
+```text
+E:π_8^4→π_9^5
+```
+
+は surjective。
+
+Phase 68:
+
+```text
+Δ(η₉)=Eν′η₇
+```
+
+により:
+
+```text
+ker(E)
+=
+Z/2{Eν′η₇}.
+```
+
+したがって `π_8^4` の第一 summand が quotient に残り:
+
+```text
+π_9^5
+=
+Z/2{E(ν₄η₇)}.
+```
+
+concrete suspension bridge:
+
+```text
+E(ν₄η₇)=ν₅η₈
+```
+
+より:
+
+```text
+π_9^5=Z/2{ν₅η₈}.
+```
+
+---
+
+## 10.8 Toda (5.9)
+
+Phase 60:
+
+```text
+H(ν₄)=ι₇
+```
+
+から Phase 68 concrete Hopf bridge:
+
+```text
+H(η₃ν₄)=η₅².
+```
+
+Phase 65:
+
+```text
+H(ν′η₆)=η₅².
+```
+
+Phase 68 で既に:
+
+```text
+H:π_7^3→π_7^5
+```
+
+は injective / isomorphism。
+
+したがって:
+
+```text
+η₃ν₄=ν′η₆.
+```
+
+これが Toda (5.9)。
+
+machine proof は source proof の追加 order argument を必要とせず、独立導出済み Hopf isomorphism を再利用する。
+
+---
+
+## 10.9 η_nν_(n+1)=0
+
+Toda (5.9):
+
+```text
+η₃ν₄=ν′η₆
+```
+
+を double suspension:
+
+```text
+η₅ν₆=E²ν′η₈.
+```
+
+Phase 62 / ν-family:
+
+```text
+2ν₅=E²ν′.
+```
+
+Phase 68:
+
+```text
+π_9^5=Z/2{ν₅η₈}.
+```
+
+したがって:
+
+```text
+η₅ν₆
+=
+2ν₅η₈
+=
+0.
+```
+
+suspension transport:
+
+```text
+η_nν_(n+1)=0
+(n≥5).
+```
+
+---
+
+## 10.10 ν_nη_(n+3)=0
+
+まず `n=6` specialization:
+
+```text
+η₆ν₇=0.
+```
+
+Toda Proposition 3.1 の Barratt-Hilton formulas を:
+
+```text
+α=η₂
+β=ν₄
+p=2
+q=4
+k=1
+h=3
+```
+
+へ specialize すると raw structural formulas は:
+
+```text
+η₂∧ν₄=-η₆ν₇
+
+η₂∧ν₄=+ν₆η₉.
+```
+
+したがって `η₆ν₇=0` から sign に依存せず:
+
+```text
+ν₆η₉=0.
+```
+
+ここでは generic sign normalizer を追加しない。
+
+family transport により:
+
+```text
+ν_nη_(n+3)=0
+(n≥6).
+```
+
+---
+
+## 10.11 π_10^6=0 と higher transport
+
+concrete exact sequence:
+
+```text
+π_9^5 --E--> π_10^6 --H--> π_10^11
+```
+
+foundation:
+
+```text
+π_10^11=0.
+```
+
+したがって:
+
+```text
+E:π_9^5→π_10^6
+```
+
+は surjective。
+
+Phase 68:
+
+```text
+π_9^5=Z/2{ν₅η₈}.
+```
+
+その suspended generator は:
+
+```text
+ν₆η₉.
+```
+
+しかし既に:
+
+```text
+ν₆η₉=0.
+```
+
+したがって:
+
+```text
+π_10^6=0.
+```
+
+Toda (4.5):
+
+```text
+E^(n-6):
+π_10^6
+≅
+π_(n+4)^n
+```
+
+for `n≥6`。
+
+よって:
+
+```text
+π_(n+4)^n=0
+(n≥6).
+```
+
+---
+
+## 10.12 Proof-style derivation
+
+Representative human-readable derivation:
+
+```text
+[1] π_6^2
+
+Phase 67:
+E(η₂ν′)=0
+Δ(ν₅)=±η₂ν′
+↓
+π_6^2=Z/4{η₂ν′}
+
+
+[2] π_7^3
+
+Eπ_6^2=0
+↓
+H:π_7^3→π_7^5 injective
+
+H(ν′η₆)=η₅²
+π_7^5=Z/2{η₅²}
+↓
+H surjective
+↓
+H isomorphism
+↓
+π_7^3=Z/2{ν′η₆}
+
+
+[3] π_8^4
+
+Toda (5.6), i=8:
+π_7^3⊕π_8^7≅π_8^4
+
+π_7^3=Z/2{ν′η₆}
+π_8^7=Z/2{η₇}
+E(ν′η₆)=Eν′η₇
+↓
+π_8^4
+=
+Z/2{ν₄η₇}
+⊕
+Z/2{Eν′η₇}
+
+
+[4] π_9^5
+
+Toda (5.8):
+Δ(ι₉)=±(2ν₄-Eν′)
+↓
+Δ:π_9^9→π_7^4 injective
+↓
+H:π_9^5→π_9^9 zero
+↓
+E:π_8^4→π_9^5 surjective
+
+Δ(η₉)=Eν′η₇
+↓
+ker(E)=Z/2{Eν′η₇}
+
+π_8^4
+=
+Z/2{ν₄η₇}
+⊕
+Z/2{Eν′η₇}
+↓
+π_9^5=Z/2{E(ν₄η₇)}
+
+E(ν₄η₇)=ν₅η₈
+↓
+π_9^5=Z/2{ν₅η₈}
+
+
+[5] π_(n+4)^n
+
+Toda (5.9):
+η₃ν₄=ν′η₆
+↓ E²
+η₅ν₆=E²ν′η₈
+
+2ν₅=E²ν′
+π_9^5=Z/2{ν₅η₈}
+↓
+η₅ν₆=0
+↓
+η_nν_(n+1)=0
+(n≥5)
+
+n=6:
+η₆ν₇=0
+
+Toda Proposition 3.1:
+η₂∧ν₄ represents
+-η₆ν₇
+and
++ν₆η₉
+↓
+ν₆η₉=0
+↓
+ν_nη_(n+3)=0
+(n≥6)
+
+π_9^5=Z/2{ν₅η₈}
+E:π_9^5→π_10^6 surjective
+ν₆η₉=0
+↓
+π_10^6=0
+
+Toda (4.5):
+E^(n-6):π_10^6≅π_(n+4)^n
+↓
+π_(n+4)^n=0
+(n≥6)
+```
+
+この表示は Phase 68 probe の hand-authored presentation layer を human-reviewed record として固定したもの。
+
+automatic proof narrative generation ではない。
+
+---
+
+## 10.13 Machine provenance
+
+主要 spine:
+
+```text
+Phase 67
+π_6^2=Z/4{η₂ν′}
+        │
+        ↓
+Phase 68-3
+π_7^3=Z/2{ν′η₆}
+        │
+        ↓
+Phase 68-4
+π_8^4
+        │
+        ├─────────────────────┐
+        │                     │
+Phase 66                     │
+Toda (5.8)                   │
+        │                     │
+        ↓                     │
+Phase 68-5                   │
+Δ(η₉)=Eν′η₇                 │
+        │                     │
+        └──────────┬──────────┘
+                   ↓
+Phase 68-6
+π_9^5=Z/2{ν₅η₈}
+        │
+        │
+Phase 68-7
+Toda (5.9)
+        │
+        ↓
+Phase 68-8
+η_nν_(n+1)=0
+        │
+        ↓
+Phase 68-9
+ν_nη_(n+3)=0
+        │
+        ↓
+Phase 68-10
+π_(n+4)^n=0
+        │
+        └───────────────────┐
+
+π_6^2
+π_7^3
+π_8^4
+π_9^5
+π_(n+4)^n=0
+n≥6
+        │
+        ↓
+Phase 68-11
+TodaProp58FiniteDimensionalStatement
+```
+
+Phase 68-12 regression で:
+
+```text
+final reaches all five mathematical branches
+branches do not depend on final
+final is not its own ancestor
+final conclusion absent from ancestors
+```
+
+を確認する。
+
+---
+
+## 10.14 Source-order / dependency boundary
+
+Phase 66 Toda (5.8) は:
+
+```text
+π_7^3 branch
+π_8^4 branch
+```
+
+の ancestor ではない。
+
+一方:
+
+```text
+π_9^5
+higher zero branch
+```
+
+では必要な downstream dependency として存在する。
+
+また Toda (5.9):
+
+```text
+η₃ν₄=ν′η₆
+```
+
+は `π_7^3` を利用して derived されるが、`π_7^3` の ancestor には戻らない。
+
+したがって:
+
+```text
+source ordering
+!=
+machine proof dependency
+```
+
+を Phase 68 でも維持する。
+
+---
+
+## 10.15 GIVEN / INFERENCE boundary
+
+GIVEN:
+
+```text
+structural exactness windows
+foundational zero groups where required
+n≥6 applicability
+family / structural definitions where they are theorem hypotheses
+```
+
+aggregate direct scope:
+
+```text
+n≥6
+GIVEN
+```
+
+INFERENCE:
+
+```text
+π_6^2=Z/4{η₂ν′}
+
+π_7^3=Z/2{ν′η₆}
+
+π_8^4
+=
+Z/2{ν₄η₇}
+⊕
+Z/2{Eν′η₇}
+
+Δ(η₉)=Eν′η₇
+
+π_9^5=Z/2{ν₅η₈}
+
+η₃ν₄=ν′η₆
+
+η_nν_(n+1)=0
+
+ν_nη_(n+3)=0
+
+π_10^6=0
+
+π_(n+4)^n=0
+
+TodaProp58FiniteDimensionalStatement
+```
+
+final aggregate を `GIVEN` として投入しない。
+
+---
+
+## 10.16 Representation boundary
+
+Phase 68 では generic framework を増やさず concrete theorem need を局所処理した。
+
+追加しない:
+
+```text
+generic shifted-family constructor
+generic ScalarExpression family index support
+generic η-name normalization
+generic sign variable / sign solver
+generic smash-product normalization
+generic equality modulo sign
+generic cyclic-image solver
+generic zero-generator group solver
+generic zero-group isomorphism transport
+generic exactness solver
+stable homotopy-group model
+```
+
+特に:
+
+```text
+η_(n+3)
+```
+
+は `ScalarSum(n,3)` を family helper に渡さず theorem-specific local element として保持する。
+
+また:
+
+```text
+η₈
+η_8
+```
+
+の display-name 差は upstream object reuse と structural generator validation で処理する。
+
+---
+
+## 10.17 Literature
+
+Phase 68 aggregate の direct literature:
+
+```text
+Author:
+  H. Toda
+
+Title:
+  Composition Methods in Homotopy Groups of Spheres
+
+Year:
+  1962
+
+Label:
+  Toda Proposition 5.8
+
+Locator:
+  Proposition 5.8
+
+Statement:
+  finite-dimensional Proposition 5.8 group calculation
+```
+
+proof の内部では既存 provenance を通じて:
+
+```text
+Toda (4.5)
+Toda (5.6)
+Toda (5.8)
+Toda (5.9)
+Toda Proposition 3.1
+Toda Proposition 2.5
+```
+
+等へ遡る。
+
+literature metadata は theorem search engine ではない。
+
+---
+
+## 10.18 Representative probe
+
+実行:
+
+```powershell
+python -m probes.probe_phase68_capabilities
+```
+
+表示:
+
+```text
+Toda Proposition 5.8 finite-dimensional result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Phase 68 representative probe boundary
+```
+
+representative result:
+
+```text
+π_6^2 = Z/4{η₂ν′}
+π_7^3 = Z/2{ν′η₆}
+π_8^4 = Z/2{ν₄η₇} ⊕ Z/2{Eν′η₇}
+π_9^5 = Z/2{ν₅η₈}
+π_(n+4)^n = 0  (n ≥ 6)
+```
+
+probe 自身も:
+
+```text
+The proof-style derivation above is hand-authored presentation code.
+It is not yet generated automatically from the ProofStep graph.
+```
+
+という境界を明示する。
+
+---
+
+## 10.19 Regression status
+
+Phase 68-13 probe:
+
+```text
+26 passed in 1.38s
+```
+
+Phase 68 aggregate + provenance + probe:
+
+```text
+75 passed in 1.53s
+```
+
+repository-wide:
+
+```text
+4343 passed in 28.06s
+```
+
+Phase 64 の performance stabilization 水準を維持している。
+
+---
+
+## 10.20 Completion record
+
+Phase 68 は COMPLETE。
+
+verified finite-dimensional Proposition 5.8 result:
+
+```text
+π_6^2=Z/4{η₂ν′}
+π_7^3=Z/2{ν′η₆}
+π_8^4=Z/2{ν₄η₇}⊕Z/2{Eν′η₇}
+π_9^5=Z/2{ν₅η₈}
+π_(n+4)^n=0
+(n≥6)
+```
+
+final aggregate:
+
+```text
+TodaProp58FiniteDimensionalStatement
+INFERENCE
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase68_capabilities
+```
+
+repository-wide regression:
+
+```text
+4343 passed in 28.06s
+```
+
+この record は Phase 68 completion 時点の human-reviewed golden reference とする。
+
+stable:
+
+```text
+(G_4;2)=0
+```
+
+は別 boundary として deferred のまま。
+
+---
+
+# 11. Current proof-record status
+
+正式な curated proof record:
+
+```text
+1. Phase 66
+   Toda Equation (5.8)
+
+2. Phase 67
+   Toda Lemma 5.7
+
+3. Phase 68
+   Toda Proposition 5.8 finite-dimensional result
+```
+
+current model:
+
+```text
+proof inference        = automatic
+proof provenance       = automatic
+literature metadata    = structured
+proof-style narrative  = hand-authored representative probe
+proof records          = human curated
+persistent repository  = not implemented
+```
+
+3件の formal record が蓄積したため、future automatic proof narrative generation の display schema を比較する材料が増えた。
+
+ただし generic narrative generator はまだ実装しない。

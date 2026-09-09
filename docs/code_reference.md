@@ -2,7 +2,7 @@
 
 この文書は EHP Proof Tracer の主要 Python module と、その責務・主要 class / function・探索方法をまとめる。
 
-対象は **Phase 67 completion 時点**。
+対象は **Phase 68 completion 時点**。
 
 この文書は全 API を機械的に列挙する reference ではない。目的は:
 
@@ -3734,4 +3734,452 @@ docs/proof_records.md
 ```
 
 Phase 68 は source statement を確認して target を確定する。
+---
 
+# 34. Phase 68：Toda Proposition 5.8 finite-dimensional branch
+
+Phase 68 final aggregate:
+
+```text
+TodaProp58FiniteDimensionalStatement
+```
+
+保持:
+
+```text
+pi6_2_group_relation
+pi7_3_group_relation
+pi8_4_group_relation
+pi9_5_group_relation
+higher_four_stem_zero
+higher_range
+literature_statements
+```
+
+最終 capability:
+
+```text
+π_6^2=Z/4{η₂ν′}
+π_7^3=Z/2{ν′η₆}
+π_8^4=Z/2{ν₄η₇}⊕Z/2{Eν′η₇}
+π_9^5=Z/2{ν₅η₈}
+π_(n+4)^n=0, n≥6
+```
+
+stable `(G_4;2)=0` は保持しない。
+
+---
+
+# 35. Phase 68 π_7^3 / π_8^4 branch
+
+主要 rule:
+
+```text
+toda_prop58_e_nu_prime_eta6_bridge_inference_rule()
+toda_prop58_pi8_4_decomposition_inference_rule()
+```
+
+π_7^3 branch は Phase 67 `π_6^2` と Phase 65 Equation (5.7) を接続し:
+
+```text
+H:π_7^3→π_7^5 isomorphism
+π_7^3=Z/2{ν′η₆}
+```
+
+を導出する。
+
+π_8^4 branch:
+
+```text
+Toda (5.6), i=8
++
+π_7^3
++
+π_8^7
++
+E(ν′η₆)=Eν′η₇
+↓
+π_8^4
+=
+Z/2{ν₄η₇}
+⊕
+Z/2{Eν′η₇}
+```
+
+---
+
+# 36. Phase 68 Δ(η₉) / π_9^5
+
+主要 rule:
+
+```text
+toda_prop25_delta_eta9_composition_inference_rule()
+toda_prop58_delta_eta9_inference_rule()
+
+toda_prop58_pi9_5_concrete_exactness_inference_rule()
+toda_prop58_pi9_9_delta_injective_inference_rule()
+toda_prop58_pi9_5_hopf_zero_inference_rule()
+toda_prop58_pi9_5_suspension_surjective_inference_rule()
+toda_prop58_e_nu4_eta7_bridge_inference_rule()
+toda_prop58_pi9_5_finite_cyclic_inference_rule()
+```
+
+主要 result:
+
+```text
+Δ(η₉)=Eν′η₇
+
+π_9^5
+=
+Z/2{ν₅η₈}
+```
+
+generic quotient solver / cyclic-image solver は追加していない。
+
+---
+
+# 37. Phase 68 Toda (5.9) / zero-composition family
+
+主要 rule:
+
+```text
+toda_prop58_eta3_nu4_hopf_inference_rule()
+toda_59_eta3_nu4_inference_rule()
+
+toda_510_eta5_nu6_bridge_inference_rule()
+toda_510_eta5_nu6_zero_inference_rule()
+toda_510_higher_eta_nu_zero_inference_rule()
+
+toda_prop58_eta6_nu7_zero_specialization_inference_rule()
+toda_prop31_nu6_eta9_zero_inference_rule()
+toda_prop58_higher_nu_eta_zero_inference_rule()
+```
+
+result:
+
+```text
+η₃ν₄=ν′η₆
+
+η_nν_(n+1)=0
+n≥5
+
+ν_nη_(n+3)=0
+n≥6
+```
+
+Barratt-Hilton raw sign formula は literal equality へ generic normalize しない。
+
+zero conclusion のために必要な narrow consequence のみを実装する。
+
+---
+
+# 38. Phase 68 shifted-family / name boundary
+
+`TodaEtaFamilyDefinitionStatement` の helper:
+
+```text
+toda_eta_family_definition_statement()
+```
+
+は current API として:
+
+```text
+int
+ScalarSymbol
+```
+
+を index に受ける。
+
+Phase 68 では:
+
+```text
+η_(n+3)
+```
+
+を必要な theorem-specific rule 内で局所構成する。
+
+追加しない:
+
+```text
+generic ScalarExpression-index family helper
+generic shifted-family constructor
+```
+
+また concrete family の display name:
+
+```text
+η₈
+η_8
+```
+
+は structural equality 上同じではない。
+
+Phase 68-10 では upstream generator object を再利用し:
+
+```text
+dimension
+source
+target
+GeneratorSymbol
+```
+
+で identity を検証する。
+
+---
+
+# 39. Phase 68 π_10^6 / higher four-stem zero
+
+主要 rule:
+
+```text
+toda_prop58_pi10_6_concrete_exactness_inference_rule()
+toda_prop58_pi10_6_suspension_surjective_inference_rule()
+toda_prop58_pi10_6_zero_inference_rule()
+toda_prop58_higher_four_stem_zero_transport_inference_rule()
+```
+
+chain:
+
+```text
+π_9^5 --E--> π_10^6 --H--> π_10^11=0
+↓
+E surjective
+
+π_9^5=Z/2{ν₅η₈}
+ν₆η₉=0
+↓
+π_10^6=0
+
+Toda (4.5)
+E^(n-6):π_10^6≅π_(n+4)^n
+↓
+π_(n+4)^n=0
+```
+
+`π_10^11=0` は foundational `GIVEN`。
+
+generic zero-group solver / generic isomorphism transport は追加しない。
+
+---
+
+# 40. Phase 68 aggregate / literature
+
+class:
+
+```text
+TodaProp58FiniteDimensionalStatement
+```
+
+helper / rule:
+
+```text
+toda_prop58_finite_dimensional_literature_statements()
+toda_prop58_finite_dimensional_integration_inference_rule()
+```
+
+premises:
+
+```text
+π_6^2 relation      INFERENCE
+π_7^3 relation      INFERENCE
+π_8^4 relation      INFERENCE
+π_9^5 relation      INFERENCE
+higher zero         INFERENCE
+n≥6                 GIVEN
+```
+
+final:
+
+```text
+TodaProp58FiniteDimensionalStatement
+INFERENCE
+```
+
+direct literature:
+
+```text
+Toda Proposition 5.8
+Proposition 5.8
+H. Toda
+Composition Methods in Homotopy Groups of Spheres
+1962
+```
+
+---
+
+# 41. Phase 68 test builders
+
+主要 builder:
+
+```text
+tests/test_phase68_pi7_3_nu_prime_eta6.py
+  build_phase68_3_data()
+
+tests/test_phase68_pi8_4_decomposition.py
+  build_phase68_4_data()
+
+tests/test_phase68_delta_eta9.py
+  build_phase68_5_data()
+
+tests/test_phase68_pi9_5_nu5_eta8.py
+  build_phase68_6_data()
+
+tests/test_phase68_toda59_eta3_nu4.py
+  build_phase68_7_data()
+
+tests/test_phase68_eta_n_nu_n_plus_one_zero.py
+  build_phase68_8_data()
+
+tests/test_phase68_nu_n_eta_n_plus_three_zero.py
+  build_phase68_9_data()
+
+tests/test_phase68_pi_n_plus_4_n_zero.py
+  build_phase68_10_data()
+
+tests/test_phase68_prop58_integration.py
+  build_phase68_11_data()
+
+tests/test_phase68_applicability_provenance.py
+  build_phase68_12_data()
+```
+
+heavy / nested builder は必要に応じて:
+
+```python
+@lru_cache(maxsize=1)
+```
+
+で同一 process 内の object graph を再利用する。
+
+---
+
+# 42. Phase 68 representative probe
+
+module:
+
+```text
+probes/probe_phase68_capabilities.py
+```
+
+主要 function:
+
+```text
+build_phase68_representative_result()
+print_section()
+print_phase68_results()
+print_phase68_derivation_chain()
+print_phase68_provenance()
+print_phase68_literature()
+print_phase68_boundary()
+main()
+```
+
+representative fixture:
+
+```text
+build_phase68_11_data()
+```
+
+を再利用する。
+
+probe test:
+
+```text
+tests/test_phase68_probe.py
+```
+
+display:
+
+```text
+Result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Boundary
+```
+
+proof-style derivation は hand-authored presentation-only。
+
+---
+
+# 43. Phase 68 provenance regression
+
+module:
+
+```text
+tests/test_phase68_applicability_provenance.py
+```
+
+主要 helper:
+
+```text
+collect_ancestor_steps()
+build_phase68_12_data()
+```
+
+確認:
+
+```text
+aggregate INFERENCE
+five branches INFERENCE
+n≥6 GIVEN
+
+final graph acyclic
+final conclusion absent from ancestors
+branches do not depend on final
+
+Phase 66 dependency only where needed
+Toda (5.9) does not flow backward into π_7^3
+```
+
+---
+
+# 44. Phase 68 completion regression
+
+focused:
+
+```text
+tests/test_phase68_probe.py
+26 passed in 1.38s
+```
+
+aggregate / provenance / probe:
+
+```text
+75 passed in 1.53s
+```
+
+repository-wide:
+
+```text
+4343 passed in 28.06s
+```
+
+Phase 64 performance stabilization level を維持。
+
+---
+
+# 45. Phase 68 completion 後に最初に見る場所
+
+次の concrete Toda statement に進む前に:
+
+```text
+Toda source material
+  Proposition 5.8 後の statement / proof / locator
+  candidate: Toda (5.10)
+
+toda_rules.py
+  Phase 68 Proposition 5.8 rule family
+  Δ(η₉), Toda (5.9), zero-composition rules
+
+tests/test_phase68_*.py
+  current applicability / provenance boundary
+
+probes/probe_phase68_capabilities.py
+  current proof-style / provenance display
+
+docs/proof_records.md
+  Toda Proposition 5.8 record
+```
+
+Phase 69 は source statement / dependency / representation compatibility を確認してから実装する。
