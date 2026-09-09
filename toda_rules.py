@@ -12234,6 +12234,155 @@ def toda_58_whitehead_square_nu_expression_inference_rule():
   )
 
 
+def toda_58_delta_iota9_whitehead_square_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    delta_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    whitehead_statement = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    expected_source = TodaPrimaryGroup(
+      group_dimension=9,
+      sphere_dimension=9,
+    )
+
+    expected_target = TodaPrimaryGroup(
+      group_dimension=7,
+      sphere_dimension=4,
+    )
+
+    if (
+      delta_statement.map.source_group
+      != expected_source
+    ):
+      return False
+
+    if (
+      delta_statement.map.target_group
+      != expected_target
+    ):
+      return False
+
+    iota_9 = HomotopyElement(
+      name="ι_9",
+      dimension=9,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=9,
+      ),
+    )
+
+    if (
+      delta_statement.element
+      != iota_9
+    ):
+      return False
+
+    iota_4 = HomotopyElement(
+      name="ι_4",
+      dimension=4,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=4,
+      ),
+    )
+
+    expected_whitehead_square = (
+      WhiteheadProduct(
+        left=iota_4,
+        right=iota_4,
+      )
+    )
+
+    if (
+      whitehead_statement.whitehead_square
+      != expected_whitehead_square
+    ):
+      return False
+
+    return (
+      delta_statement.positive_value
+      == whitehead_statement.positive_value
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    delta_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    whitehead_statement = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return (
+      TodaDeltaImageUpToSignStatement(
+        map=delta_statement.map,
+        element=delta_statement.element,
+        positive_value=(
+          whitehead_statement
+          .whitehead_square
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Equation 5.8 "
+      "Delta iota_9 Whitehead-square"
+    ),
+    description=(
+      "For the concrete Toda Equation "
+      "(5.8) instance, combine the "
+      "independently derived relations "
+      "Delta(iota_9)=plus or minus "
+      "(2 nu_4-E nu-prime) and "
+      "[iota_4,iota_4]=plus or minus "
+      "(2 nu_4-E nu-prime). "
+      "Because the two concrete "
+      "up-to-sign statements have the "
+      "same positive representative, "
+      "derive "
+      "Delta(iota_9)=plus or minus "
+      "[iota_4,iota_4]. "
+      "No generic up-to-sign "
+      "transitivity or sign algebra "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaDeltaImageUpToSignStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda58WhiteheadSquareUpToSignStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 @dataclass(frozen=True)
 class TodaLemma55Statement:
   nu4: HomotopyElement
