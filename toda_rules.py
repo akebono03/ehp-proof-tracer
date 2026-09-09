@@ -6006,6 +6006,549 @@ def toda_prop58_higher_nu_eta_zero_inference_rule():
   )
 
 
+def toda_prop58_pi10_6_concrete_exactness_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    window = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return (
+      window
+      == TodaEHPExactnessWindow(
+        source_term=TodaPrimaryGroup(
+          group_dimension=9,
+          sphere_dimension=5,
+        ),
+        middle_term=TodaPrimaryGroup(
+          group_dimension=10,
+          sphere_dimension=6,
+        ),
+        target_term=TodaPrimaryGroup(
+          group_dimension=10,
+          sphere_dimension=11,
+        ),
+        first_map=EHP_E_MAP,
+        second_map=EHP_H_MAP,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return TodaProp42ExactnessStatement(
+      window=(
+        premises[
+          0
+        ].conclusion
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.8 "
+      "pi_10^6 concrete exactness"
+    ),
+    description=(
+      "Recognize the concrete E-H "
+      "exactness window "
+      "pi_9^5 -> pi_10^6 -> pi_10^11 "
+      "used in the final part of "
+      "Toda Proposition 5.8. "
+      "The structural window remains "
+      "a GIVEN premise while exactness "
+      "is derived as theorem knowledge. "
+      "No generic concrete dimension "
+      "normalizer is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaEHPExactnessWindow
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop58_pi10_6_suspension_surjective_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    zero_target = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi_9_5 = TodaPrimaryGroup(
+      group_dimension=9,
+      sphere_dimension=5,
+    )
+
+    pi_10_6 = TodaPrimaryGroup(
+      group_dimension=10,
+      sphere_dimension=6,
+    )
+
+    pi_10_11 = TodaPrimaryGroup(
+      group_dimension=10,
+      sphere_dimension=11,
+    )
+
+    if (
+      zero_target
+      != TodaPrimaryGroupZeroStatement(
+        group=pi_10_11,
+      )
+    ):
+      return False
+
+    return (
+      exactness.window
+      == TodaEHPExactnessWindow(
+        source_term=pi_9_5,
+        middle_term=pi_10_6,
+        target_term=pi_10_11,
+        first_map=EHP_E_MAP,
+        second_map=EHP_H_MAP,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return TodaSuspensionSurjectiveStatement(
+      map=TodaSuspensionMap(
+        source_group=TodaPrimaryGroup(
+          group_dimension=9,
+          sphere_dimension=5,
+        ),
+        target_group=TodaPrimaryGroup(
+          group_dimension=10,
+          sphere_dimension=6,
+        ),
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.8 "
+      "pi_10^6 suspension surjective"
+    ),
+    description=(
+      "In the concrete exact sequence "
+      "pi_9^5 -> pi_10^6 -> pi_10^11, "
+      "the final group pi_10^11 is zero. "
+      "Hence the Hopf map is zero and "
+      "exactness makes suspension "
+      "E:pi_9^5 to pi_10^6 surjective. "
+      "No generic zero-target "
+      "surjectivity solver is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaPrimaryGroupZeroStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop58_pi10_6_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    pi9_5_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    surjective = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    nu6_eta9_zero = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi_9_5 = TodaPrimaryGroup(
+      group_dimension=9,
+      sphere_dimension=5,
+    )
+
+    pi_10_6 = TodaPrimaryGroup(
+      group_dimension=10,
+      sphere_dimension=6,
+    )
+
+    if (
+      pi9_5_relation.lhs
+      != pi_9_5
+    ):
+      return False
+
+    if not isinstance(
+      pi9_5_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi9_5_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    source_generator = (
+      pi9_5_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      source_generator,
+      Composition,
+    ):
+      return False
+
+    nu_5 = (
+      toda_nu_family_definition_statement(
+        5
+      ).element
+    )
+
+    if (
+      source_generator.left
+      != nu_5
+    ):
+      return False
+
+    eta_8 = (
+      source_generator.right
+    )
+
+    if not isinstance(
+      eta_8,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_8.dimension
+      != 8
+    ):
+      return False
+
+    if (
+      eta_8.source
+      != 9
+    ):
+      return False
+
+    if (
+      eta_8.target
+      != 8
+    ):
+      return False
+
+    if (
+      eta_8.generator
+      != GeneratorSymbol(
+        family="η",
+        index=8,
+      )
+    ):
+      return False
+
+    if (
+      surjective.map
+      != TodaSuspensionMap(
+        source_group=pi_9_5,
+        target_group=pi_10_6,
+      )
+    ):
+      return False
+
+    nu_6 = (
+      toda_nu_family_definition_statement(
+        6
+      ).element
+    )
+
+    eta_9 = (
+      toda_eta_family_definition_statement(
+        9
+      ).element
+    )
+
+    return (
+      nu6_eta9_zero
+      == Relation(
+        lhs=Composition(
+          left=nu_6,
+          right=eta_9,
+        ),
+        rhs=Zero(),
+        relation_type=RelationType.ZERO,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return TodaPrimaryGroupZeroStatement(
+      group=TodaPrimaryGroup(
+        group_dimension=10,
+        sphere_dimension=6,
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.8 "
+      "pi_10^6 zero"
+    ),
+    description=(
+      "Phase 68-6 gives "
+      "pi_9^5=Z/2 generated by "
+      "nu_5 composed with eta_8. "
+      "The concrete EHP sequence gives "
+      "surjectivity of suspension "
+      "E:pi_9^5 to pi_10^6. "
+      "Thus pi_10^6 is generated by "
+      "the suspension of nu_5 eta_8, "
+      "namely nu_6 eta_9. "
+      "Phase 68-9 independently derives "
+      "nu_6 eta_9=0. "
+      "Therefore pi_10^6 is zero. "
+      "The eta_8 factor is validated "
+      "structurally from the derived "
+      "Phase 68-6 generator rather than "
+      "being reconstructed through the "
+      "canonical eta-family helper, "
+      "because the existing concrete "
+      "representations use different "
+      "display names for that same "
+      "family member. "
+      "No generic cyclic-image or "
+      "zero-generator group solver "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaSuspensionSurjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop58_higher_four_stem_zero_transport_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    source_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    isomorphism = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    higher_range = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi_10_6 = TodaPrimaryGroup(
+      group_dimension=10,
+      sphere_dimension=6,
+    )
+
+    if (
+      source_zero
+      != TodaPrimaryGroupZeroStatement(
+        group=pi_10_6,
+      )
+    ):
+      return False
+
+    suspension_map = (
+      isomorphism.map
+    )
+
+    structural_source = TodaPrimaryGroup(
+      group_dimension=ScalarSum(
+        left=6,
+        right=4,
+      ),
+      sphere_dimension=6,
+    )
+
+    if (
+      suspension_map.source_group
+      != structural_source
+    ):
+      return False
+
+    target_group = (
+      suspension_map.target_group
+    )
+
+    n = (
+      target_group
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      target_group
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=n,
+          right=4,
+        ),
+        sphere_dimension=n,
+      )
+    ):
+      return False
+
+    if (
+      suspension_map.exponent
+      != ScalarSum(
+        left=n,
+        right=ScalarProduct(
+          left=-1,
+          right=6,
+        ),
+      )
+    ):
+      return False
+
+    return (
+      higher_range
+      == ScalarGreaterEqualStatement(
+        left=n,
+        right=6,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    target_group = (
+      premises[
+        1
+      ].conclusion
+      .map
+      .target_group
+    )
+
+    return TodaPrimaryGroupZeroStatement(
+      group=target_group,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.8 "
+      "higher four-stem zero transport"
+    ),
+    description=(
+      "Transport the independently "
+      "derived zero group pi_10^6 "
+      "through the independently derived "
+      "Toda (4.5) stable-range "
+      "iterated-suspension isomorphism "
+      "E^(n-6):pi_10^6 to pi_(n+4)^n. "
+      "For n at least 6 this gives "
+      "pi_(n+4)^n=0. "
+      "No generic isomorphism transport "
+      "of zero groups is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaPrimaryGroupZeroStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda45IsomorphismStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_lemma52_delta_two_eta2_preimage_inference_rule():
   def guard(
     premises,
