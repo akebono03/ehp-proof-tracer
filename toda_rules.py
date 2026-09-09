@@ -3433,6 +3433,18 @@ class Toda45IsomorphismStatement:
   map: TodaIteratedSuspensionMap
 
 
+@dataclass(frozen=True)
+class TodaIteratedSuspensionInjectiveStatement:
+  map: TodaIteratedSuspensionMap
+
+
+@dataclass(frozen=True)
+class TodaProp56Pi8_5QuotientStatement:
+  ambient_group: TodaPrimaryGroup
+  subobject_map: TodaIteratedSuspensionMap
+  quotient_order: int
+
+
 def toda_prop27_iota2_whitehead_hopf_invariant_inference_rule():
   def guard(
     premises,
@@ -5497,6 +5509,377 @@ def toda_prop56_pi7_4_decomposition_inference_rule():
         statement_type=Relation,
         relation_type=(
           RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop56_pi8_5_quotient_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    toda56_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    decomposition_isomorphism = (
+      toda56_statement
+      .decomposition_isomorphism
+    )
+
+    prop44_isomorphism = (
+      decomposition_isomorphism
+      .prop44_isomorphism
+    )
+
+    decomposition_map = (
+      prop44_isomorphism.map
+    )
+
+    if not isinstance(
+      decomposition_map,
+      TodaProp44DecompositionMap,
+    ):
+      return False
+
+    if not isinstance(
+      decomposition_map.target_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    i = (
+      decomposition_map
+      .target_group
+      .group_dimension
+    )
+
+    if not isinstance(
+      i,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      decomposition_map.target_group
+      != TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=4,
+      )
+    ):
+      return False
+
+    source_group = (
+      decomposition_map.source_group
+    )
+
+    if not isinstance(
+      source_group,
+      DirectSumGroup,
+    ):
+      return False
+
+    if (
+      len(
+        source_group.summands
+      )
+      != 2
+    ):
+      return False
+
+    if (
+      source_group.summands[
+        0
+      ]
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=i,
+          right=-1,
+        ),
+        sphere_dimension=3,
+      )
+    ):
+      return False
+
+    if (
+      source_group.summands[
+        1
+      ]
+      != TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=7,
+      )
+    ):
+      return False
+
+    nu_4 = HomotopyElement(
+      name="ν₄",
+      dimension=4,
+      source=7,
+      target=4,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=4,
+      ),
+    )
+
+    if (
+      decomposition_map.alpha
+      != nu_4
+    ):
+      return False
+
+    expected_formula = Sum(
+      left=Suspension(
+        expression=(
+          decomposition_map.beta
+        ),
+      ),
+      right=Composition(
+        left=nu_4,
+        right=(
+          decomposition_map.gamma
+        ),
+      ),
+    )
+
+    return (
+      decomposition_map.formula
+      == expected_formula
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    pi_6_3 = TodaPrimaryGroup(
+      group_dimension=6,
+      sphere_dimension=3,
+    )
+
+    pi_8_5 = TodaPrimaryGroup(
+      group_dimension=8,
+      sphere_dimension=5,
+    )
+
+    e2_map = TodaIteratedSuspensionMap(
+      exponent=2,
+      source_group=pi_6_3,
+      target_group=pi_8_5,
+    )
+
+    return TodaProp56Pi8_5QuotientStatement(
+      ambient_group=pi_8_5,
+      subobject_map=e2_map,
+      quotient_order=2,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.6 "
+      "pi_8^5 quotient by E^2 pi_6^3"
+    ),
+    description=(
+      "Use the derived Toda (5.6) "
+      "nu_4 decomposition result and "
+      "the concrete consequence recorded "
+      "in the proof of Proposition 5.6: "
+      "pi_8^5 modulo E^2 pi_6^3 "
+      "is cyclic of order two."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda56Nu4DecompositionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop56_pi6_3_e2_injective_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    toda56_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    decomposition_isomorphism = (
+      toda56_statement
+      .decomposition_isomorphism
+    )
+
+    prop44_isomorphism = (
+      decomposition_isomorphism
+      .prop44_isomorphism
+    )
+
+    decomposition_map = (
+      prop44_isomorphism.map
+    )
+
+    if not isinstance(
+      decomposition_map,
+      TodaProp44DecompositionMap,
+    ):
+      return False
+
+    if not isinstance(
+      decomposition_map.target_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    i = (
+      decomposition_map
+      .target_group
+      .group_dimension
+    )
+
+    if not isinstance(
+      i,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      decomposition_map.target_group
+      != TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=4,
+      )
+    ):
+      return False
+
+    source_group = (
+      decomposition_map.source_group
+    )
+
+    if not isinstance(
+      source_group,
+      DirectSumGroup,
+    ):
+      return False
+
+    if (
+      len(
+        source_group.summands
+      )
+      != 2
+    ):
+      return False
+
+    if (
+      source_group.summands[
+        0
+      ]
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=i,
+          right=-1,
+        ),
+        sphere_dimension=3,
+      )
+    ):
+      return False
+
+    if (
+      source_group.summands[
+        1
+      ]
+      != TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=7,
+      )
+    ):
+      return False
+
+    nu_4 = HomotopyElement(
+      name="ν₄",
+      dimension=4,
+      source=7,
+      target=4,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=4,
+      ),
+    )
+
+    if (
+      decomposition_map.alpha
+      != nu_4
+    ):
+      return False
+
+    expected_formula = Sum(
+      left=Suspension(
+        expression=(
+          decomposition_map.beta
+        ),
+      ),
+      right=Composition(
+        left=nu_4,
+        right=(
+          decomposition_map.gamma
+        ),
+      ),
+    )
+
+    return (
+      decomposition_map.formula
+      == expected_formula
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return (
+      TodaIteratedSuspensionInjectiveStatement(
+        map=TodaIteratedSuspensionMap(
+          exponent=2,
+          source_group=TodaPrimaryGroup(
+            group_dimension=6,
+            sphere_dimension=3,
+          ),
+          target_group=TodaPrimaryGroup(
+            group_dimension=8,
+            sphere_dimension=5,
+          ),
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.6 "
+      "E^2 pi_6^3 injective"
+    ),
+    description=(
+      "Use the derived Toda (5.6) "
+      "nu_4 decomposition result and "
+      "the concrete Proposition 5.6 "
+      "proof consequence that "
+      "E^2 from pi_6^3 to pi_8^5 "
+      "is an isomorphism into, hence "
+      "injective."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda56Nu4DecompositionStatement
         ),
       ),
     ),
