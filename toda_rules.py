@@ -11128,6 +11128,917 @@ def toda_prop59_pi10_5_suspension_surjective_inference_rule():
   )
 
 
+def toda_prop59_pi10_5_delta_e_exactness_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    window = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return (
+      window
+      == TodaEHPExactnessWindow(
+        source_term=TodaPrimaryGroup(
+          group_dimension=11,
+          sphere_dimension=9,
+        ),
+        middle_term=TodaPrimaryGroup(
+          group_dimension=9,
+          sphere_dimension=4,
+        ),
+        target_term=TodaPrimaryGroup(
+          group_dimension=10,
+          sphere_dimension=5,
+        ),
+        first_map=EHP_DELTA_MAP,
+        second_map=EHP_E_MAP,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return TodaProp42ExactnessStatement(
+      window=(
+        premises[
+          0
+        ].conclusion
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.9 "
+      "pi_10^5 Delta-E exactness"
+    ),
+    description=(
+      "Recognize the concrete Toda "
+      "Proposition 4.2 exactness window "
+      "pi_11^9 -> pi_9^4 -> pi_10^5 "
+      "with Delta followed by suspension E. "
+      "This is the precise Delta-E window "
+      "required for the Proposition 5.9 "
+      "pi_10^5 calculation. "
+      "No generic symbolic EHP "
+      "specialization is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaEHPExactnessWindow
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop59_e_nu4_eta7_squared_bridge_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    pi9_4_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    phase68_bridge = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if (
+      pi9_4_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=9,
+        sphere_dimension=4,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      pi9_4_relation.rhs,
+      DirectSumGroup,
+    ):
+      return False
+
+    if (
+      len(
+        pi9_4_relation
+        .rhs
+        .summands
+      )
+      != 2
+    ):
+      return False
+
+    first = (
+      pi9_4_relation
+      .rhs
+      .summands[
+        0
+      ]
+    )
+
+    if not isinstance(
+      first,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      first.order
+      != 2
+    ):
+      return False
+
+    nu4_eta7_squared = (
+      first.generator
+    )
+
+    if not isinstance(
+      nu4_eta7_squared,
+      Composition,
+    ):
+      return False
+
+    nu_4 = (
+      nu4_eta7_squared.left
+    )
+
+    eta7_squared = (
+      nu4_eta7_squared.right
+    )
+
+    if not isinstance(
+      nu_4,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      nu_4.dimension
+      != 4
+      or nu_4.source
+      != 7
+      or nu_4.target
+      != 4
+      or nu_4.generator
+      != GeneratorSymbol(
+        family="ν",
+        index=4,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      eta7_squared,
+      Composition,
+    ):
+      return False
+
+    eta_7 = (
+      eta7_squared.left
+    )
+
+    eta_8 = (
+      eta7_squared.right
+    )
+
+    if not isinstance(
+      eta_7,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_7.dimension
+      != 7
+      or eta_7.source
+      != 8
+      or eta_7.target
+      != 7
+      or eta_7.generator
+      != GeneratorSymbol(
+        family="η",
+        index=7,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      eta_8,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_8.dimension
+      != 8
+      or eta_8.source
+      != 9
+      or eta_8.target
+      != 8
+      or eta_8.generator
+      != GeneratorSymbol(
+        family="η",
+        index=8,
+      )
+    ):
+      return False
+
+    expected_phase68_lhs = Suspension(
+      expression=Composition(
+        left=nu_4,
+        right=eta_7,
+      ),
+    )
+
+    if (
+      phase68_bridge.lhs
+      != expected_phase68_lhs
+    ):
+      return False
+
+    if not isinstance(
+      phase68_bridge.rhs,
+      Composition,
+    ):
+      return False
+
+    nu_5 = (
+      phase68_bridge
+      .rhs
+      .left
+    )
+
+    bridge_eta_8 = (
+      phase68_bridge
+      .rhs
+      .right
+    )
+
+    if not isinstance(
+      nu_5,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      nu_5.dimension
+      != 5
+      or nu_5.source
+      != 8
+      or nu_5.target
+      != 5
+      or nu_5.generator
+      != GeneratorSymbol(
+        family="ν",
+        index=5,
+      )
+    ):
+      return False
+
+    return (
+      bridge_eta_8
+      == eta_8
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    pi9_4_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    phase68_bridge = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    first_generator = (
+      pi9_4_relation
+      .rhs
+      .summands[
+        0
+      ]
+      .generator
+    )
+
+    nu_5 = (
+      phase68_bridge
+      .rhs
+      .left
+    )
+
+    eta_8 = (
+      phase68_bridge
+      .rhs
+      .right
+    )
+
+    eta_9 = HomotopyElement(
+      name="η₉",
+      dimension=9,
+      source=10,
+      target=9,
+      generator=GeneratorSymbol(
+        family="η",
+        index=9,
+      ),
+    )
+
+    eta8_squared = Composition(
+      left=eta_8,
+      right=eta_9,
+    )
+
+    nu5_eta8_squared = Composition(
+      left=nu_5,
+      right=eta8_squared,
+    )
+
+    return Relation(
+      lhs=Suspension(
+        expression=first_generator,
+      ),
+      rhs=nu5_eta8_squared,
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.9 "
+      "E nu_4 eta_7 squared bridge"
+    ),
+    description=(
+      "Use the independently derived "
+      "pi_9^4 first summand "
+      "nu_4 eta_7 squared together with "
+      "the Phase 68 bridge "
+      "E(nu_4 eta_7)=nu_5 eta_8. "
+      "For the concrete additional "
+      "eta factor, derive "
+      "E(nu_4 eta_7 squared) "
+      "=nu_5 eta_8 squared. "
+      "The existing nu_5 and eta_8 "
+      "objects are reused from the "
+      "Phase 68 bridge. "
+      "No generic suspension-composition "
+      "normalizer is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop59_pi10_5_finite_cyclic_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    pi9_4_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    delta_eta9_squared = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    prop53 = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    exactness = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    surjective = (
+      premises[
+        4
+      ].conclusion
+    )
+
+    suspension_bridge = (
+      premises[
+        5
+      ].conclusion
+    )
+
+    pi11_9 = TodaPrimaryGroup(
+      group_dimension=11,
+      sphere_dimension=9,
+    )
+
+    pi9_4 = TodaPrimaryGroup(
+      group_dimension=9,
+      sphere_dimension=4,
+    )
+
+    pi10_5 = TodaPrimaryGroup(
+      group_dimension=10,
+      sphere_dimension=5,
+    )
+
+    if (
+      pi9_4_relation.lhs
+      != pi9_4
+    ):
+      return False
+
+    if not isinstance(
+      pi9_4_relation.rhs,
+      DirectSumGroup,
+    ):
+      return False
+
+    if (
+      len(
+        pi9_4_relation
+        .rhs
+        .summands
+      )
+      != 2
+    ):
+      return False
+
+    first = (
+      pi9_4_relation
+      .rhs
+      .summands[
+        0
+      ]
+    )
+
+    second = (
+      pi9_4_relation
+      .rhs
+      .summands[
+        1
+      ]
+    )
+
+    if not isinstance(
+      first,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if not isinstance(
+      second,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      first.order
+      != 2
+      or second.order
+      != 2
+    ):
+      return False
+
+    higher_relation = (
+      prop53
+      .higher_eta_squared_group_relation
+    )
+
+    if not isinstance(
+      higher_relation.lhs,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    if not isinstance(
+      higher_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      higher_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    n = (
+      higher_relation
+      .lhs
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      higher_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=n,
+          right=2,
+        ),
+        sphere_dimension=n,
+      )
+    ):
+      return False
+
+    if (
+      prop53.higher_range
+      != ScalarGreaterEqualStatement(
+        left=n,
+        right=5,
+      )
+    ):
+      return False
+
+    eta_n_squared = (
+      higher_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      eta_n_squared,
+      Composition,
+    ):
+      return False
+
+    eta_n = (
+      eta_n_squared.left
+    )
+
+    eta_n_plus_one = (
+      eta_n_squared.right
+    )
+
+    if not isinstance(
+      eta_n,
+      HomotopyElement,
+    ):
+      return False
+
+    if not isinstance(
+      eta_n_plus_one,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_n.generator
+      != GeneratorSymbol(
+        family="η",
+        index=n,
+      )
+    ):
+      return False
+
+    n_plus_one = ScalarSum(
+      left=n,
+      right=1,
+    )
+
+    if (
+      eta_n_plus_one.generator
+      != GeneratorSymbol(
+        family="η",
+        index=n_plus_one,
+      )
+    ):
+      return False
+
+    window = (
+      exactness.window
+    )
+
+    if (
+      window
+      != TodaEHPExactnessWindow(
+        source_term=pi11_9,
+        middle_term=pi9_4,
+        target_term=pi10_5,
+        first_map=EHP_DELTA_MAP,
+        second_map=EHP_E_MAP,
+      )
+    ):
+      return False
+
+    if (
+      surjective.map
+      != TodaSuspensionMap(
+        source_group=pi9_4,
+        target_group=pi10_5,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      delta_eta9_squared.lhs,
+      MapApplication,
+    ):
+      return False
+
+    if (
+      delta_eta9_squared.lhs.map
+      != EHP_DELTA_MAP
+    ):
+      return False
+
+    eta9_squared = (
+      delta_eta9_squared
+      .lhs
+      .expression
+    )
+
+    if not isinstance(
+      eta9_squared,
+      Composition,
+    ):
+      return False
+
+    eta_9 = (
+      eta9_squared.left
+    )
+
+    eta_10 = (
+      eta9_squared.right
+    )
+
+    if not isinstance(
+      eta_9,
+      HomotopyElement,
+    ):
+      return False
+
+    if not isinstance(
+      eta_10,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_9.dimension
+      != 9
+      or eta_9.source
+      != 10
+      or eta_9.target
+      != 9
+      or eta_9.generator
+      != GeneratorSymbol(
+        family="η",
+        index=9,
+      )
+    ):
+      return False
+
+    if (
+      eta_10.dimension
+      != 10
+      or eta_10.source
+      != 11
+      or eta_10.target
+      != 10
+      or eta_10.generator
+      != GeneratorSymbol(
+        family="η",
+        index=10,
+      )
+    ):
+      return False
+
+    if (
+      delta_eta9_squared.rhs
+      != second.generator
+    ):
+      return False
+
+    if (
+      suspension_bridge.lhs
+      != Suspension(
+        expression=first.generator,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      suspension_bridge.rhs,
+      Composition,
+    ):
+      return False
+
+    nu_5 = (
+      suspension_bridge
+      .rhs
+      .left
+    )
+
+    eta8_squared = (
+      suspension_bridge
+      .rhs
+      .right
+    )
+
+    if not isinstance(
+      nu_5,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      nu_5.dimension
+      != 5
+      or nu_5.source
+      != 8
+      or nu_5.target
+      != 5
+      or nu_5.generator
+      != GeneratorSymbol(
+        family="ν",
+        index=5,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      eta8_squared,
+      Composition,
+    ):
+      return False
+
+    eta_8 = (
+      eta8_squared.left
+    )
+
+    bridge_eta_9 = (
+      eta8_squared.right
+    )
+
+    if not isinstance(
+      eta_8,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_8.dimension
+      != 8
+      or eta_8.source
+      != 9
+      or eta_8.target
+      != 8
+      or eta_8.generator
+      != GeneratorSymbol(
+        family="η",
+        index=8,
+      )
+    ):
+      return False
+
+    return (
+      bridge_eta_9
+      == eta_9
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    suspension_bridge = (
+      premises[
+        5
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=10,
+        sphere_dimension=5,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=2,
+        generator=(
+          suspension_bridge.rhs
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.9 "
+      "pi_10^5 finite cyclic"
+    ),
+    description=(
+      "Phase 70-4 gives "
+      "pi_9^4 as the direct sum of "
+      "two order-two cyclic summands. "
+      "Phase 70-5 gives "
+      "Delta(eta_9 squared) "
+      "=E nu-prime eta_7 squared, "
+      "which is exactly the second "
+      "summand generator. "
+      "Proposition 5.3 gives the "
+      "order-two source "
+      "pi_11^9 generated by "
+      "eta_9 squared, so exactness "
+      "identifies Ker(E) with precisely "
+      "the second summand. "
+      "The independently derived "
+      "surjectivity of E then makes "
+      "pi_10^5 the quotient by that "
+      "summand. "
+      "The remaining first generator "
+      "nu_4 eta_7 squared suspends to "
+      "nu_5 eta_8 squared. "
+      "Therefore "
+      "pi_10^5=Z/2 generated by "
+      "nu_5 eta_8 squared. "
+      "No generic quotient solver, "
+      "direct-sum kernel solver, or "
+      "cyclic-image solver is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp53FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaSuspensionSurjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_prop51_finite_dimensional_integration_inference_rule():
   def guard(
     premises,
