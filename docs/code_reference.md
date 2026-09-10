@@ -4824,3 +4824,290 @@ minimum implementation
 
 から開始する。
 
+---
+
+# 62. Phase 71 Toda (5.12) concrete injectivity rules
+
+module:
+
+```text
+toda_rules.py
+```
+
+existing statement reused:
+
+```text
+TodaDeltaInjectiveStatement
+```
+
+meaning:
+
+```text
+a concrete TodaDeltaMap is injective
+```
+
+new concrete rules:
+
+```text
+toda_512_n4_delta_injective_inference_rule()
+toda_512_n5_delta_injective_inference_rule()
+toda_512_n6_delta_injective_inference_rule()
+```
+
+## n=4
+
+```text
+Δ:π_11^9→π_9^4
+```
+
+requires:
+
+```text
+Δ(η₉²)=Eν′η₇²
+π_9^4=Z/2{ν₄η₇²}⊕Z/2{Eν′η₇²}
+Toda Proposition 5.3 higher η-square family
+```
+
+## n=5
+
+```text
+Δ:π_12^11→π_10^5
+```
+
+requires:
+
+```text
+Δ(η₁₁)=ν₅η₈²
+π_10^5=Z/2{ν₅η₈²}
+Toda Proposition 5.1 higher η-family
+```
+
+## n=6
+
+```text
+Δ:π_13^13→π_11^6
+```
+
+requires:
+
+```text
+π_13^13=Z{ι₁₃}
+π_11^6=Z{Δι₁₃}
+```
+
+No generic cyclic-map or free-cyclic map injectivity solver is introduced.
+
+---
+
+# 63. Phase 71 Toda (5.12) aggregate
+
+module:
+
+```text
+toda_rules.py
+```
+
+new statement:
+
+```text
+Toda512DeltaInjectivityStatement
+```
+
+fields:
+
+```text
+n4_injectivity
+n5_injectivity
+n6_injectivity
+literature_statements
+```
+
+literature helper:
+
+```text
+toda_512_delta_injectivity_literature_statements()
+```
+
+integration rule:
+
+```text
+toda_512_delta_injectivity_integration_inference_rule()
+```
+
+direct premise contract:
+
+```text
+TodaDeltaInjectiveStatement n=4  INFERENCE
+TodaDeltaInjectiveStatement n=5  INFERENCE
+TodaDeltaInjectiveStatement n=6  INFERENCE
+```
+
+final:
+
+```text
+Toda512DeltaInjectivityStatement
+ProofRule.INFERENCE
+```
+
+---
+
+# 64. Phase 71 tests
+
+new focused files:
+
+```text
+tests/test_phase71_toda512_n4_delta_injective.py
+tests/test_phase71_toda512_n5_delta_injective.py
+tests/test_phase71_toda512_n6_delta_injective.py
+tests/test_phase71_toda512_integration.py
+tests/test_phase71_applicability_provenance.py
+tests/test_phase71_probe.py
+```
+
+cached builders:
+
+```text
+build_phase71_2_data()
+build_phase71_3_data()
+build_phase71_4_data()
+build_phase71_5_data()
+build_phase71_6_data()
+build_phase71_probe_data()
+```
+
+heavy repeated object graphs use:
+
+```python
+@lru_cache(maxsize=1)
+```
+
+where appropriate.
+
+provenance regression verifies:
+
+```text
+exact direct premises
+ancestor reachability
+acyclicity
+cross-branch independence
+no reverse dependency from branch to aggregate
+GIVEN / INFERENCE boundary
+```
+
+---
+
+# 65. Phase 71 representative probe
+
+module:
+
+```text
+probes/probe_phase71_capabilities.py
+```
+
+main representative builder:
+
+```text
+build_phase71_representative_result()
+```
+
+main display functions:
+
+```text
+print_phase71_results()
+print_phase71_derivation_chain()
+print_phase71_provenance()
+print_phase71_literature()
+print_phase71_boundary()
+main()
+```
+
+representative source:
+
+```text
+build_phase71_6_data()
+```
+
+display:
+
+```text
+Toda (5.12) Delta injectivity
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Phase 71 representative probe boundary
+```
+
+boundary:
+
+```text
+proof-style derivation is hand-authored presentation code
+not automatic ProofStep narrative generation
+```
+
+Python 3.10 note:
+
+```text
+avoid multiline expressions directly inside f-string braces;
+precompute booleans before formatting
+```
+
+---
+
+# 66. Phase 71 regression
+
+latest repository-wide:
+
+```text
+4886 passed in 29.25s
+```
+
+Phase 64 performance stabilization level is retained.
+
+---
+
+# 67. Phase 71 completion 後に最初に見る場所
+
+Phase 72 Toda Lemma 5.10 に進む前に:
+
+```text
+Toda source material
+  Lemma 5.10 statement / proof / locator
+
+toda_rules.py
+  TodaBracket-related statement family
+  Phase 71 Toda512DeltaInjectivityStatement
+  Phase 71 Delta injectivity rules
+
+expression.py
+  TodaBracket
+
+proof.py / existing modulo statements
+  current quotient / modulo representation
+
+tests/test_phase71_*.py
+  reusable injectivity builders
+  provenance boundary
+
+probes/probe_phase71_capabilities.py
+  current proof-style / provenance display
+
+docs/proof_records.md
+  Toda Equation (5.12) record
+```
+
+Phase 72 starts with:
+
+```text
+source statement
+↓
+dependency analysis
+↓
+TodaBracket + modulo/coset compatibility
+↓
+minimum representation
+↓
+minimum inference
+```
+
+Do not introduce generic bracket-coset algebra before the concrete Lemma 5.10 need is confirmed.
+

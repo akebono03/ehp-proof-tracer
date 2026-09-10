@@ -3337,7 +3337,607 @@ stable:
 
 remains deferred.
 
-# 13. Current proof-record status
+# 14. Toda Equation (5.12)
+
+## 14.1 Source / theorem
+
+```text
+H. Toda
+Composition Methods in Homotopy Groups of Spheres
+1962
+Equation (5.12)
+```
+
+statement:
+
+```text
+Δ:
+π_(n+7)^(2n+1)
+→
+π_(n+5)^n
+
+is injective for n=4,5,6.
+```
+
+Phase 71 records exactly the three finite concrete cases:
+
+```text
+n=4:
+Δ:π_11^9→π_9^4 injective
+
+n=5:
+Δ:π_12^11→π_10^5 injective
+
+n=6:
+Δ:π_13^13→π_11^6 injective
+```
+
+---
+
+## 14.2 Machine result
+
+concrete statement:
+
+```text
+TodaDeltaInjectiveStatement
+```
+
+aggregate:
+
+```text
+Toda512DeltaInjectivityStatement
+```
+
+aggregate fields:
+
+```text
+n4_injectivity
+n5_injectivity
+n6_injectivity
+literature_statements
+```
+
+final aggregate rule:
+
+```text
+ProofRule.INFERENCE
+```
+
+---
+
+## 14.3 n=4 derivation
+
+source:
+
+```text
+Toda Proposition 5.3
+π_11^9=Z/2{η₉²}
+```
+
+Phase 70:
+
+```text
+π_9^4
+=
+Z/2{ν₄η₇²}
+⊕
+Z/2{Eν′η₇²}
+```
+
+and:
+
+```text
+Δ(η₉²)=Eν′η₇².
+```
+
+Thus the unique nonzero source element maps to a nonzero order-two summand generator:
+
+```text
+η₉²
+↦
+Eν′η₇².
+```
+
+Therefore:
+
+```text
+ker(
+  Δ:π_11^9→π_9^4
+)
+=
+0.
+```
+
+Hence:
+
+```text
+Δ:π_11^9→π_9^4
+```
+
+is injective.
+
+machine direct premises:
+
+```text
+Δ(η₉²)=Eν′η₇²                    INFERENCE
+π_9^4 decomposition               INFERENCE
+Toda Proposition 5.3 aggregate    INFERENCE
+```
+
+final branch:
+
+```text
+TodaDeltaInjectiveStatement
+ProofRule.INFERENCE
+```
+
+---
+
+## 14.4 n=5 derivation
+
+source:
+
+```text
+Toda Proposition 5.1
+π_12^11=Z/2{η₁₁}
+```
+
+Phase 70:
+
+```text
+π_10^5=Z/2{ν₅η₈²}
+```
+
+and:
+
+```text
+Δ(η₁₁)=ν₅η₈².
+```
+
+Thus the source generator maps to the target generator:
+
+```text
+η₁₁
+↦
+ν₅η₈².
+```
+
+Therefore:
+
+```text
+ker(
+  Δ:π_12^11→π_10^5
+)
+=
+0.
+```
+
+Hence:
+
+```text
+Δ:π_12^11→π_10^5
+```
+
+is injective.
+
+Important provenance note:
+
+```text
+π_12^11=Z/2{η₁₁}
+```
+
+comes from the Proposition 5.1 higher η-family:
+
+```text
+π_(n+1)^n=Z/2{η_n},
+```
+
+not from Proposition 5.3.
+
+machine direct premises:
+
+```text
+Δ(η₁₁)=ν₅η₈²                    INFERENCE
+π_10^5=Z/2{ν₅η₈²}               INFERENCE
+Toda Proposition 5.1 aggregate  INFERENCE
+```
+
+final branch:
+
+```text
+TodaDeltaInjectiveStatement
+ProofRule.INFERENCE
+```
+
+---
+
+## 14.5 n=6 derivation
+
+source:
+
+```text
+π_13^13=Z{ι₁₃}
+```
+
+with:
+
+```text
+ProofRule.GIVEN.
+```
+
+Phase 70 derives:
+
+```text
+π_11^6=Z{Δι₁₃}
+```
+
+with:
+
+```text
+ProofRule.INFERENCE.
+```
+
+By definition of the concrete Δ application:
+
+```text
+ι₁₃
+↦
+Δι₁₃.
+```
+
+The source is free cyclic on `ι₁₃` and the target is free cyclic on `Δι₁₃`.
+
+Therefore:
+
+```text
+Δ(kι₁₃)
+=
+kΔι₁₃.
+```
+
+If:
+
+```text
+Δ(kι₁₃)=0,
+```
+
+then freeness of the target implies:
+
+```text
+k=0.
+```
+
+Hence:
+
+```text
+Δ:π_13^13→π_11^6
+```
+
+is injective.
+
+machine direct premises:
+
+```text
+π_13^13=Z{ι₁₃}   GIVEN
+π_11^6=Z{Δι₁₃}   INFERENCE
+```
+
+The already-known Phase 70 surjectivity of the same map is not used as a premise for this injectivity branch.
+
+---
+
+## 14.6 Three-case integration
+
+Phase 71 integrates:
+
+```text
+n=4 injectivity  INFERENCE
+n=5 injectivity  INFERENCE
+n=6 injectivity  INFERENCE
+```
+
+into:
+
+```text
+Toda512DeltaInjectivityStatement
+```
+
+using:
+
+```text
+toda_512_delta_injectivity_integration_inference_rule()
+```
+
+The final aggregate has exactly three direct premises.
+
+No upstream group calculation is re-derived inside the integration rule.
+
+---
+
+## 14.7 Provenance graph
+
+representative top-level graph:
+
+```text
+n=4 injectivity
+INFERENCE
+      \
+       \
+n=5 injectivity
+INFERENCE
+         \
+          → Toda (5.12) aggregate
+         /  INFERENCE
+        /
+n=6 injectivity
+INFERENCE
+```
+
+n=4 direct provenance:
+
+```text
+Δ(η₉²)=Eν′η₇²
+π_9^4 decomposition
+Prop.5.3 aggregate
+↓
+n=4 injectivity
+```
+
+n=5 direct provenance:
+
+```text
+Δ(η₁₁)=ν₅η₈²
+π_10^5=Z/2{ν₅η₈²}
+Prop.5.1 aggregate
+↓
+n=5 injectivity
+```
+
+n=6 direct provenance:
+
+```text
+π_13^13=Z{ι₁₃}  GIVEN
+π_11^6=Z{Δι₁₃}  INFERENCE
+↓
+n=6 injectivity
+```
+
+---
+
+## 14.8 Non-circularity
+
+dedicated Phase 71 regression verifies:
+
+```text
+aggregate not ancestor of itself
+aggregate conclusion absent from ancestors
+
+n=4 branch not ancestor of itself
+n=5 branch not ancestor of itself
+n=6 branch not ancestor of itself
+
+no branch depends on aggregate
+no branch depends on another Phase 71 branch
+```
+
+The aggregate reaches all three branches and their intended upstream dependencies.
+
+---
+
+## 14.9 Applicability rejection
+
+focused tests reject inappropriate instances including:
+
+```text
+wrong source map
+wrong target map
+wrong Delta argument
+wrong Delta value
+wrong group structure
+wrong finite order
+wrong generator
+incorrect GIVEN / INFERENCE substitution
+```
+
+The integration rule also rejects any of the three branches when supplied as `GIVEN`.
+
+---
+
+## 14.10 Literature
+
+Phase 71 aggregate holds:
+
+```text
+Author:
+  H. Toda
+
+Title:
+  Composition Methods in Homotopy Groups of Spheres
+
+Year:
+  1962
+
+Label:
+  Toda (5.12)
+
+Locator:
+  Equation (5.12)
+```
+
+statement metadata:
+
+```text
+The Delta map from pi_(n+7)^(2n+1)
+to pi_(n+5)^n
+is injective for n=4, 5, 6.
+```
+
+Literature metadata remains structured provenance metadata rather than theorem-search semantics.
+
+---
+
+## 14.11 Representative probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase71_capabilities
+```
+
+The probe displays:
+
+```text
+Toda (5.12) Delta injectivity
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Phase 71 representative probe boundary
+```
+
+It explicitly reports:
+
+```text
+n=4 injectivity derived = True
+n=5 injectivity derived = True
+n=6 injectivity derived = True
+
+all three Toda (5.12) cases are INFERENCE = True
+final aggregate derived = True
+final aggregate is GIVEN = False
+final premise count = 3
+
+n=4 upstream facts are INFERENCE = True
+n=5 upstream facts are INFERENCE = True
+n=6 π_13^13 remains GIVEN = True
+n=6 π_11^6 is INFERENCE = True
+
+final graph acyclic = True
+all three branch graphs acyclic = True
+```
+
+The proof-style display remains hand-authored presentation code.
+
+It is not yet automatically generated from the `ProofStep` graph.
+
+---
+
+## 14.12 Regression status
+
+Phase 71-2:
+
+```text
+19 passed in 1.61s
+```
+
+Phase 71-3:
+
+```text
+20 passed in 1.49s
+```
+
+Phase 71-4:
+
+```text
+19 passed in 1.48s
+```
+
+Phase 71-5:
+
+```text
+19 passed in 1.43s
+```
+
+Phase 71-6:
+
+```text
+30 passed in 1.42s
+```
+
+Phase 71-7:
+
+```text
+27 passed in 1.30s
+```
+
+final repository-wide:
+
+```text
+4886 passed in 29.25s
+```
+
+Phase 64 performance stabilization remains effective.
+
+---
+
+## 14.13 Representation boundary
+
+Phase 71 does not add:
+
+```text
+Toda Lemma 5.10
+generic Toda-bracket coset algebra
+generic modulo-subgroup bracket normalization
+generic cyclic-map injectivity solver
+generic free-cyclic map injectivity solver
+generic theorem specialization engine
+automatic proof narrative generation
+persistent Proof Repository
+stable homotopy-group model
+```
+
+The three injectivity cases are implemented with theorem-specific concrete guards rather than a generic map-property solver.
+
+---
+
+## 14.14 Completion record
+
+Phase 71 is COMPLETE.
+
+verified result:
+
+```text
+Toda (5.12)
+
+Δ:
+π_(n+7)^(2n+1)
+→
+π_(n+5)^n
+
+is injective for n=4,5,6.
+```
+
+concrete machine results:
+
+```text
+Δ:π_11^9→π_9^4 injective
+Δ:π_12^11→π_10^5 injective
+Δ:π_13^13→π_11^6 injective
+```
+
+aggregate:
+
+```text
+Toda512DeltaInjectivityStatement
+ProofRule.INFERENCE
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase71_capabilities
+```
+
+repository-wide regression:
+
+```text
+4886 passed in 29.25s
+```
+
+This record is the Phase 71 completion human-reviewed golden reference.
+
+---
+
+# 15. Current proof-record status
 
 正式な curated proof record:
 
@@ -3356,6 +3956,10 @@ remains deferred.
 
 5. Phase 70
    Toda Proposition 5.9 finite-dimensional result
+
+6. Phase 71
+   Toda Equation (5.12)
+   Delta injectivity for n=4,5,6
 ```
 
 current model:
@@ -3369,6 +3973,16 @@ proof records          = human curated
 persistent repository  = not implemented
 ```
 
-5件の formal record が蓄積したため、future automatic proof narrative generation の display schema を比較する材料が増えた。
+6件の formal record が蓄積したため、future automatic proof narrative generation の display schema を比較する材料が増えた。
 
 ただし generic narrative generator はまだ実装しない。
+
+次の formal record candidate:
+
+```text
+Phase 72
+Toda Lemma 5.10
+```
+
+まず bracket / modulo-coset representation compatibility を確認する。
+
