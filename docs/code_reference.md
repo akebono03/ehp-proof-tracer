@@ -4408,3 +4408,419 @@ Toda (5.11)
 
 Phase 70 はその次の concrete source consequence を source/dependency analysis してから実装する。
 
+---
+
+# 52. Phase 70 Toda Proposition 5.9
+
+Phase 70 primary production module:
+
+```text
+toda_rules.py
+```
+
+final aggregate:
+
+```text
+TodaProp59FiniteDimensionalStatement
+```
+
+supporting new statement:
+
+```text
+TodaDeltaKernelFreeCyclicStatement
+```
+
+final result:
+
+```text
+π_7^2=Z/2{η₂ν′η₆}
+π_8^3=Z/2{ν′η₆²}
+π_9^4=Z/2{ν₄η₇²}⊕Z/2{Eν′η₇²}
+π_10^5=Z/2{ν₅η₈²}
+π_11^6=Z{Δι₁₃}
+π_(n+5)^n=0, n≥7
+```
+
+---
+
+# 53. Phase 70 branch test modules
+
+```text
+tests/test_phase70_pi7_2_eta2_nu_prime_eta6.py
+tests/test_phase70_pi8_3_nu_prime_eta6_squared.py
+tests/test_phase70_pi9_4_decomposition.py
+tests/test_phase70_pi10_5_nu5_eta8_squared.py
+tests/test_phase70_nu5_eta8_squared_zero_delta_eta11.py
+tests/test_phase70_pi11_6_delta_iota13.py
+tests/test_phase70_pi_n_plus_5_n_zero.py
+```
+
+These modules build the Phase 70 branch object graph incrementally.
+
+---
+
+# 54. Phase 70-7 builder
+
+file:
+
+```text
+tests/test_phase70_nu5_eta8_squared_zero_delta_eta11.py
+```
+
+builder:
+
+```text
+build_phase70_7_data()
+```
+
+important keys:
+
+```text
+phase70_6
+phase69_3
+pi10_5_step
+suspension_zero_step
+delta_eta11_step
+delta_iota11_step
+```
+
+results:
+
+```text
+E(ν₅η₈²)=0
+Δ(η₁₁)=ν₅η₈²
+```
+
+important compatibility boundary:
+
+```text
+η_9
+η₉
+```
+
+の display-name equality を mathematical identity 判定に使わない。
+
+---
+
+# 55. Phase 70-8 π_11^6
+
+file:
+
+```text
+tests/test_phase70_pi11_6_delta_iota13.py
+```
+
+builder:
+
+```text
+build_phase70_8_data()
+```
+
+important upstream / derived steps:
+
+```text
+phase70_7
+pi10_5_step
+suspension_zero_step
+pi11_11_step
+pi9_5_step
+delta_iota11_step
+pi13_13_step
+
+delta_e_exactness_step
+e_h_exactness_step
+hopf_injective_step
+delta_kernel_step
+hopf_value_step
+final_step
+```
+
+result:
+
+```text
+π_11^6=Z{Δι₁₃}
+```
+
+new statement:
+
+```text
+TodaDeltaKernelFreeCyclicStatement
+```
+
+non-circular boundary:
+
+```text
+π_12^7=0
+```
+
+は prerequisite ではない。
+
+---
+
+# 56. Phase 70-9 higher five-stem zero
+
+file:
+
+```text
+tests/test_phase70_pi_n_plus_5_n_zero.py
+```
+
+builder:
+
+```text
+build_phase70_9_data()
+```
+
+important keys include:
+
+```text
+phase70_8
+pi11_6_step
+pi13_13_step
+pi12_13_zero_step
+delta_surjective_step
+suspension_surjective_step
+pi12_7_zero_step
+stable_isomorphism_step
+n_ge_7_step
+higher_zero_step
+```
+
+results:
+
+```text
+π_12^7=0
+π_(n+5)^n=0
+(n≥7)
+```
+
+Toda (4.5) is reused for the higher transport.
+
+---
+
+# 57. Phase 70-10 aggregate integration
+
+file:
+
+```text
+tests/test_phase70_prop59_integration.py
+```
+
+builder:
+
+```text
+build_phase70_10_data()
+```
+
+production:
+
+```text
+TodaProp59FiniteDimensionalStatement
+toda_prop59_finite_dimensional_literature_statements()
+toda_prop59_finite_dimensional_integration_inference_rule()
+```
+
+important keys:
+
+```text
+phase70_9
+phase70_8
+phase70_7
+phase70_6
+phase70_5
+phase70_4
+phase70_3
+phase70_2
+
+pi7_2_step
+pi8_3_step
+pi9_4_step
+pi10_5_step
+pi11_6_step
+higher_zero_step
+higher_range_step
+
+premise_steps
+match
+integration_step
+```
+
+direct provenance:
+
+```text
+six mathematical branch steps INFERENCE
+n≥7 GIVEN
+aggregate INFERENCE
+```
+
+builder is cached with:
+
+```python
+@lru_cache(maxsize=1)
+```
+
+and uses staged one-shot inference.
+
+---
+
+# 58. Phase 70-11 provenance regression
+
+file:
+
+```text
+tests/test_phase70_applicability_provenance.py
+```
+
+helper:
+
+```text
+collect_ancestor_steps()
+```
+
+builder:
+
+```text
+build_phase70_11_data()
+```
+
+checks:
+
+```text
+aggregate is INFERENCE
+aggregate is not GIVEN
+six branches are INFERENCE
+scope is GIVEN
+seven direct premises are exact
+
+aggregate reaches all branches
+aggregate graph is acyclic
+aggregate conclusion is absent from ancestors
+branches do not depend on aggregate
+```
+
+dependency ordering:
+
+```text
+π_7^2
+→ π_8^3
+→ π_9^4
+→ π_10^5
+→ π_11^6
+→ higher zero
+```
+
+later supporting results are regression-tested not to flow backward.
+
+---
+
+# 59. Phase 70-12 representative probe
+
+module:
+
+```text
+probes/probe_phase70_capabilities.py
+```
+
+representative builder:
+
+```text
+build_phase70_representative_result()
+```
+
+which reuses:
+
+```text
+tests/test_phase70_prop59_integration.py
+build_phase70_10_data()
+```
+
+test:
+
+```text
+tests/test_phase70_probe.py
+```
+
+run:
+
+```powershell
+python -m probes.probe_phase70_capabilities
+```
+
+display:
+
+```text
+Toda Proposition 5.9 finite-dimensional result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Phase 70 representative probe boundary
+```
+
+boundary:
+
+```text
+proof-style derivation is hand-authored presentation code
+not automatic ProofStep narrative generation
+```
+
+---
+
+# 60. Phase 70 regression
+
+probe focused:
+
+```text
+29 passed in 1.52s
+```
+
+aggregate + provenance + probe:
+
+```text
+93 passed in 1.65s
+```
+
+repository-wide:
+
+```text
+4752 passed in 30.85s
+```
+
+Phase 64 performance stabilization level is retained.
+
+---
+
+# 61. Phase 70 completion 後に最初に見る場所
+
+次の concrete Toda statement に進む前に:
+
+```text
+Toda source material
+  Proposition 5.9 後の statement / proof / locator
+
+toda_rules.py
+  toda_prop59_* rule family
+
+tests/test_phase70_*.py
+  branch / applicability / provenance boundary
+
+probes/probe_phase70_capabilities.py
+  current proof-style / provenance display
+
+docs/proof_records.md
+  Toda Proposition 5.9 record
+```
+
+Phase 71 は:
+
+```text
+source statement
+↓
+dependency analysis
+↓
+current representation compatibility
+↓
+minimum implementation
+```
+
+から開始する。
+

@@ -25,7 +25,7 @@ representation != typing != theorem knowledge
 structural equality != mathematical equality
 ```
 
-Phase 69 までこの原則を維持している。
+Phase 70 までこの原則を維持している。
 
 ---
 
@@ -5408,5 +5408,516 @@ final regression:
 
 ```text
 4422 passed in 30.54s
+```
+
+---
+
+# 130. Phase 70 source / dependency boundary
+
+Toda Proposition 5.9 finite-dimensional target:
+
+```text
+π_7^2=Z/2{η₂ν′η₆}
+π_8^3=Z/2{ν′η₆²}
+π_9^4=Z/2{ν₄η₇²}⊕Z/2{Eν′η₇²}
+π_10^5=Z/2{ν₅η₈²}
+π_11^6=Z{Δι₁₃}
+π_(n+5)^n=0
+(n≥7)
+```
+
+stable:
+
+```text
+(G_5;2)=0
+```
+
+は Phase 70 scope に含めない。
+
+Phase 69 aggregate を shortcut premise にせず、必要な concrete derived branch を直接再利用する。
+
+---
+
+# 131. Phase 70 execution-scope design
+
+Phase 70-3 以降の concrete multi-step branch は:
+
+```text
+find_inference_match()
+↓
+apply_inference_match()
+```
+
+による staged one-shot inference を優先する。
+
+理由:
+
+```text
+repeatable Relation→Relation rule
++
+large shared object graph
+↓
+unrestricted fixed-point exploration
+↓
+combinatorial slowdown risk
+```
+
+これは generic inference engine の変更ではない。
+
+heavy deterministic builder は必要に応じて:
+
+```python
+@lru_cache(maxsize=1)
+```
+
+を使用して、同一 process 内の object graph を再利用する。
+
+---
+
+# 132. Phase 70 π_7^2 / π_8^3 branch
+
+derived:
+
+```text
+π_7^2=Z/2{η₂ν′η₆}
+
+π_8^3=Z/2{ν′η₆²}
+```
+
+両 branch は independently derived `ProofStep` として保持する。
+
+後続 aggregate に final theorem statement を `GIVEN` として再投入しない。
+
+---
+
+# 133. Phase 70 π_9^4 decomposition
+
+derived:
+
+```text
+π_9^4
+=
+Z/2{ν₄η₇²}
+⊕
+Z/2{Eν′η₇²}.
+```
+
+既存 Toda (5.6) decomposition semantics と ν / η family relation を再利用する。
+
+新しい generic direct-sum decomposition framework は追加しない。
+
+---
+
+# 134. Phase 70 Δ(η₉²) / E-surjectivity
+
+supporting derived results:
+
+```text
+Δ(η₉²)=Eν′η₇²
+
+E:π_9^4→π_10^5
+surjective
+```
+
+dependency direction:
+
+```text
+π_9^4
+↓
+Phase 70-5 support
+↓
+π_10^5
+```
+
+Phase 70-5 support を `π_9^4` の ancestor にしない。
+
+---
+
+# 135. Phase 70 π_10^5
+
+derived:
+
+```text
+π_10^5=Z/2{ν₅η₈²}.
+```
+
+proof structure:
+
+```text
+π_9^4 decomposition
++
+Δ(η₉²)=Eν′η₇²
++
+E-surjectivity
+↓
+second summand is killed by E
+
+E(ν₄η₇²)=ν₅η₈²
+↓
+π_10^5=Z/2{ν₅η₈²}.
+```
+
+generic quotient / image solver は追加しない。
+
+---
+
+# 136. Phase 70 display-name identity boundary
+
+Phase 70-7 compatibility で:
+
+```text
+η_9
+η₉
+```
+
+の dataclass equality mismatch が確認された。
+
+設計方針:
+
+```text
+display name
+!=
+mathematical identity
+```
+
+theorem-specific guard では必要に応じて:
+
+```text
+dimension
+source
+target
+GeneratorSymbol
+expression tree
+```
+
+を比較する。
+
+global η-name normalizer は追加しない。
+
+---
+
+# 137. Phase 70 E(ν₅η₈²)=0 / Δ(η₁₁)
+
+Phase 70-7 derives:
+
+```text
+E(ν₅η₈²)=0
+Δ(η₁₁)=ν₅η₈².
+```
+
+これらは sibling consequences。
+
+重要:
+
+```text
+Δ(η₁₁)=ν₅η₈²
+```
+
+を `π_11^6` calculation の prerequisite にしない。
+
+---
+
+# 138. Phase 70 Delta-kernel representation
+
+Phase 70-8 の concrete need により:
+
+```text
+TodaDeltaKernelFreeCyclicStatement
+```
+
+を追加する。
+
+意味:
+
+```text
+ker(Δ)=FreeCyclicGroup(...)
+```
+
+対象は Proposition 5.9 の concrete branch。
+
+generic arbitrary-map kernel theorem / solver には一般化しない。
+
+---
+
+# 139. Phase 70 π_11^6
+
+non-circular proof:
+
+```text
+E(ν₅η₈²)=0
+π_10^5=Z/2{ν₅η₈²}
+↓
+H:π_11^6→π_11^11 injective
+
+π_11^11=Z{ι₁₁}
+π_9^5=Z/2{ν₅η₈}
+Δ(ι₁₁)=ν₅η₈
+↓
+ker Δ=Z{2ι₁₁}
+
+Toda Proposition 2.7:
+H(Δι₁₃)=±2ι₁₁
+↓
+π_11^6=Z{Δι₁₃}.
+```
+
+禁止:
+
+```text
+π_12^7=0
+↓
+π_11^6
+```
+
+`π_12^7=0` は後続 Phase 70-9 で導出する。
+
+---
+
+# 140. Phase 70 π_12^7=0
+
+Phase 70-9:
+
+```text
+π_13^13=Z{ι₁₃}
+π_11^6=Z{Δι₁₃}
+↓
+Δ:π_13^13→π_11^6 surjective
+```
+
+concrete exactness:
+
+```text
+π_13^13 --Δ--> π_11^6 --E--> π_12^7
+```
+
+より `E` は zero。
+
+一方:
+
+```text
+π_11^6 --E--> π_12^7 --H--> π_12^13
+```
+
+と:
+
+```text
+π_12^13=0
+```
+
+から `E` は surjective。
+
+したがって:
+
+```text
+π_12^7=0.
+```
+
+generic zero-map / zero-target / exactness solver は追加しない。
+
+---
+
+# 141. Phase 70 higher five-stem transport
+
+Toda (4.5):
+
+```text
+E^(n-7):
+π_12^7
+≅
+π_(n+5)^n
+```
+
+for `n≥7`。
+
+base:
+
+```text
+π_12^7=0
+```
+
+から:
+
+```text
+π_(n+5)^n=0
+(n≥7)
+```
+
+を theorem-specific transport rule で導出する。
+
+generic zero-group isomorphism transport は追加しない。
+
+---
+
+# 142. Phase 70 finite-dimensional aggregate
+
+statement:
+
+```text
+TodaProp59FiniteDimensionalStatement
+```
+
+保持:
+
+```text
+pi7_2_group_relation
+pi8_3_group_relation
+pi9_4_group_relation
+pi10_5_group_relation
+pi11_6_group_relation
+higher_five_stem_zero
+higher_range
+literature_statements
+```
+
+direct premise boundary:
+
+```text
+π_7^2 relation        INFERENCE
+π_8^3 relation        INFERENCE
+π_9^4 relation        INFERENCE
+π_10^5 relation       INFERENCE
+π_11^6 relation       INFERENCE
+π_(n+5)^n=0           INFERENCE
+n≥7                    GIVEN
+```
+
+aggregate:
+
+```text
+ProofRule.INFERENCE
+```
+
+stable `(G_5;2)=0` を aggregate に含めない。
+
+---
+
+# 143. Phase 70 provenance / non-circular regression
+
+Phase 70-11 は production code を変更せず provenance regression のみ追加。
+
+確認:
+
+```text
+aggregate INFERENCE
+aggregate not GIVEN
+
+six mathematical branches INFERENCE
+n≥7 GIVEN
+
+seven direct premises exact
+aggregate reaches all branches
+aggregate not self-ancestor
+aggregate conclusion absent from ancestors
+branches do not depend on aggregate
+```
+
+expected ordering:
+
+```text
+π_7^2
+→
+π_8^3
+→
+π_9^4
+→
+π_10^5
+→
+π_11^6
+→
+higher zero
+```
+
+backward-flow regression:
+
+```text
+Phase 70-5 support ↛ π_9^4
+Phase 70-7 suspension zero ↛ π_10^5
+Phase 70-7 Δ(η₁₁) ↛ π_10^5
+Phase 70-7 Δ(η₁₁) ↛ π_11^6
+Phase 69 Δ(ι₁₁) ↛ π_9^4
+Phase 69 Δ(ι₁₁) ↛ π_10^5
+```
+
+---
+
+# 144. Phase 70 representative probe
+
+module:
+
+```text
+probes/probe_phase70_capabilities.py
+```
+
+representative fixture:
+
+```text
+tests/test_phase70_prop59_integration.py
+build_phase70_10_data()
+```
+
+表示:
+
+```text
+Toda Proposition 5.9 finite-dimensional result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Phase 70 representative probe boundary
+```
+
+proof-style derivation は hand-authored presentation-only。
+
+```text
+ProofStep graph
+→ automatic narrative generation
+```
+
+ではない。
+
+---
+
+# 145. Phase 70 completion boundary
+
+完成:
+
+```text
+π_7^2=Z/2{η₂ν′η₆}
+π_8^3=Z/2{ν′η₆²}
+π_9^4=Z/2{ν₄η₇²}⊕Z/2{Eν′η₇²}
+Δ(η₉²)=Eν′η₇²
+E:π_9^4→π_10^5 surjective
+π_10^5=Z/2{ν₅η₈²}
+E(ν₅η₈²)=0
+Δ(η₁₁)=ν₅η₈²
+π_11^6=Z{Δι₁₃}
+π_12^7=0
+π_(n+5)^n=0, n≥7
+TodaProp59FiniteDimensionalStatement
+applicability / provenance / non-circularity regression
+representative proof-style probe
+formal proof record
+```
+
+追加しない:
+
+```text
+stable (G_5;2)=0
+generic concrete-dimension normalizer
+generic exactness solver
+generic cyclic-image solver
+generic zero-target solver
+generic zero-map solver
+generic zero-group isomorphism transport
+generic sign / ± algebra
+generic η-name normalization
+automatic proof narrative generation
+persistent Proof Repository
+stable homotopy-group model
+```
+
+final regression:
+
+```text
+4752 passed in 30.85s
 ```
 
