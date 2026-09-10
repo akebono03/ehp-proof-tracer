@@ -7266,6 +7266,184 @@ def toda_prop58_finite_dimensional_integration_inference_rule():
   )
 
 
+def toda_eq510_concrete_delta_e_exactness_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    window = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return (
+      window
+      == TodaEHPExactnessWindow(
+        source_term=TodaPrimaryGroup(
+          group_dimension=11,
+          sphere_dimension=11,
+        ),
+        middle_term=TodaPrimaryGroup(
+          group_dimension=9,
+          sphere_dimension=5,
+        ),
+        target_term=TodaPrimaryGroup(
+          group_dimension=10,
+          sphere_dimension=6,
+        ),
+        first_map=EHP_DELTA_MAP,
+        second_map=EHP_E_MAP,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return TodaProp42ExactnessStatement(
+      window=(
+        premises[
+          0
+        ].conclusion
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Equation (5.10) "
+      "concrete Delta-E exactness"
+    ),
+    description=(
+      "Recognize the concrete Toda "
+      "Proposition 4.2 Delta-E exactness "
+      "window pi_11^11 -> pi_9^5 -> "
+      "pi_10^6 used immediately before "
+      "Toda Equation (5.10). "
+      "The structural window remains a "
+      "GIVEN premise while exactness is "
+      "derived as theorem knowledge. "
+      "No generic concrete-dimension "
+      "normalizer is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaEHPExactnessWindow
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_eq510_delta_surjective_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    zero_target = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi_11_11 = TodaPrimaryGroup(
+      group_dimension=11,
+      sphere_dimension=11,
+    )
+
+    pi_9_5 = TodaPrimaryGroup(
+      group_dimension=9,
+      sphere_dimension=5,
+    )
+
+    pi_10_6 = TodaPrimaryGroup(
+      group_dimension=10,
+      sphere_dimension=6,
+    )
+
+    if (
+      zero_target
+      != TodaPrimaryGroupZeroStatement(
+        group=pi_10_6,
+      )
+    ):
+      return False
+
+    return (
+      exactness.window
+      == TodaEHPExactnessWindow(
+        source_term=pi_11_11,
+        middle_term=pi_9_5,
+        target_term=pi_10_6,
+        first_map=EHP_DELTA_MAP,
+        second_map=EHP_E_MAP,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    window = (
+      premises[
+        1
+      ].conclusion.window
+    )
+
+    return TodaDeltaSurjectiveStatement(
+      map=TodaDeltaMap(
+        source_group=(
+          window.source_term
+        ),
+        target_group=(
+          window.middle_term
+        ),
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Equation (5.10) "
+      "Delta surjective prerequisite"
+    ),
+    description=(
+      "In the concrete exact sequence "
+      "pi_11^11 -> pi_9^5 -> pi_10^6, "
+      "Phase 68 has already derived "
+      "pi_10^6=0. Therefore suspension "
+      "E:pi_9^5 to pi_10^6 is the zero "
+      "map, so exactness gives "
+      "Im(Delta)=pi_9^5 and hence "
+      "Delta:pi_11^11 to pi_9^5 is "
+      "surjective. No generic exactness "
+      "or zero-target solver is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaPrimaryGroupZeroStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_prop51_finite_dimensional_integration_inference_rule():
   def guard(
     premises,
