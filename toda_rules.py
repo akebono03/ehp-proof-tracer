@@ -6735,6 +6735,45 @@ class TodaProp59FiniteDimensionalStatement:
   ]
 
 
+@dataclass(frozen=True)
+class Toda512DeltaInjectivityStatement:
+  n4_injectivity: TodaDeltaInjectiveStatement
+  n5_injectivity: TodaDeltaInjectiveStatement
+  n6_injectivity: TodaDeltaInjectiveStatement
+  literature_statements: tuple[
+    LiteratureStatement,
+    ...
+  ]
+
+
+def toda_512_delta_injectivity_literature_statements():
+  toda_reference = {
+    "author": "H. Toda",
+    "title": (
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    "year": 1962,
+  }
+
+  return (
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda (5.12)",
+        locator="Equation (5.12)",
+        **toda_reference,
+      ),
+      statement=(
+        "The Delta map "
+        "from pi_(n+7)^(2n+1) "
+        "to pi_(n+5)^n "
+        "is injective for "
+        "n=4, 5, 6."
+      ),
+    ),
+  )
+
+
 def toda_prop59_finite_dimensional_literature_statements():
   toda_reference = {
     "author": "H. Toda",
@@ -11305,6 +11344,151 @@ def toda_512_n6_delta_injective_inference_rule():
         statement_type=Relation,
         relation_type=(
           RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_512_delta_injectivity_integration_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    n4_injectivity = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    n5_injectivity = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    n6_injectivity = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    expected_n4 = (
+      TodaDeltaInjectiveStatement(
+        map=TodaDeltaMap(
+          source_group=TodaPrimaryGroup(
+            group_dimension=11,
+            sphere_dimension=9,
+          ),
+          target_group=TodaPrimaryGroup(
+            group_dimension=9,
+            sphere_dimension=4,
+          ),
+        )
+      )
+    )
+
+    expected_n5 = (
+      TodaDeltaInjectiveStatement(
+        map=TodaDeltaMap(
+          source_group=TodaPrimaryGroup(
+            group_dimension=12,
+            sphere_dimension=11,
+          ),
+          target_group=TodaPrimaryGroup(
+            group_dimension=10,
+            sphere_dimension=5,
+          ),
+        )
+      )
+    )
+
+    expected_n6 = (
+      TodaDeltaInjectiveStatement(
+        map=TodaDeltaMap(
+          source_group=TodaPrimaryGroup(
+            group_dimension=13,
+            sphere_dimension=13,
+          ),
+          target_group=TodaPrimaryGroup(
+            group_dimension=11,
+            sphere_dimension=6,
+          ),
+        )
+      )
+    )
+
+    return (
+      n4_injectivity
+      == expected_n4
+      and n5_injectivity
+      == expected_n5
+      and n6_injectivity
+      == expected_n6
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return Toda512DeltaInjectivityStatement(
+      n4_injectivity=(
+        premises[
+          0
+        ].conclusion
+      ),
+      n5_injectivity=(
+        premises[
+          1
+        ].conclusion
+      ),
+      n6_injectivity=(
+        premises[
+          2
+        ].conclusion
+      ),
+      literature_statements=(
+        toda_512_delta_injectivity_literature_statements()
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (5.12) "
+      "three-case Delta injectivity "
+      "integration"
+    ),
+    description=(
+      "Integrate the independently "
+      "derived Toda (5.12) Delta "
+      "injectivity cases n=4, n=5, "
+      "and n=6 into a single "
+      "literature-aware statement. "
+      "All three concrete injectivity "
+      "results must already be "
+      "ProofRule.INFERENCE. "
+      "No generic range-valued map "
+      "property theorem or Delta "
+      "injectivity framework is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaDeltaInjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaDeltaInjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaDeltaInjectiveStatement
         ),
       ),
     ),
