@@ -26109,6 +26109,14 @@ class Toda54IndeterminacyGeneratorStatement:
 
 
 @dataclass(frozen=True)
+class TodaLemma510BracketModuloStatement:
+  element: Expression
+  bracket: TodaBracket
+  ambient_group: TodaPrimaryGroup
+  modulus: int
+
+
+@dataclass(frozen=True)
 class Toda36Lemma54SpecializationStatement:
   alpha: HomotopyElement
   beta: Expression
