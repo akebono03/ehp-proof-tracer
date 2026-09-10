@@ -6663,3 +6663,586 @@ stable homotopy-group model
 
 COMPLETE
 
+---
+
+# Phase 70：Toda Proposition 5.9 finite-dimensional computation
+
+target:
+
+```text
+π_7^2=Z/2{η₂ν′η₆}
+π_8^3=Z/2{ν′η₆²}
+π_9^4=Z/2{ν₄η₇²}⊕Z/2{Eν′η₇²}
+π_10^5=Z/2{ν₅η₈²}
+π_11^6=Z{Δι₁₃}
+π_(n+5)^n=0
+(n≥7)
+```
+
+stable `(G_5;2)=0` は Phase 70 scope に含めない。
+
+---
+
+## Phase 70-1：source / dependency / compatibility analysis
+
+Toda Proposition 5.9 の finite-dimensional branches と Phase 68 / 69 の derived dependencies を確認。
+
+方針:
+
+```text
+finite-dimensional branch only
+stable branch deferred
+existing theorem semantics reuse
+generic framework not preempted
+non-circular provenance preserved
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 70-2：π_7^2
+
+導出:
+
+```text
+π_7^2=Z/2{η₂ν′η₆}
+```
+
+result は `ProofRule.INFERENCE`。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 70-3：π_8^3
+
+導出:
+
+```text
+π_8^3=Z/2{ν′η₆²}
+```
+
+この Phase 以降の new concrete branch では staged one-shot inference を優先する。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 70-4：π_9^4 decomposition
+
+導出:
+
+```text
+π_9^4
+=
+Z/2{ν₄η₇²}
+⊕
+Z/2{Eν′η₇²}
+```
+
+Toda (5.6) decomposition と既存 ν / η provenance を再利用。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 70-5：Δ(η₉²) / suspension surjectivity
+
+導出:
+
+```text
+Δ(η₉²)=Eν′η₇²
+```
+
+および:
+
+```text
+E:π_9^4→π_10^5
+surjective
+```
+
+これらは `π_10^5` 用の supporting result であり、`π_9^4` に backward dependency を作らない。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 70-6：π_10^5
+
+導出:
+
+```text
+π_10^5=Z/2{ν₅η₈²}
+```
+
+repository-wide:
+
+```text
+4532 passed in 29.76s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 70-7：E(ν₅η₈²)=0 / Δ(η₁₁)
+
+導出:
+
+```text
+E(ν₅η₈²)=0
+Δ(η₁₁)=ν₅η₈²
+```
+
+初期 guard で:
+
+```text
+η_9
+η₉
+```
+
+の display-name mismatch が確認された。
+
+修正方針:
+
+```text
+display name equality
+```
+
+を mathematical identity に使わず:
+
+```text
+dimension
+source
+target
+GeneratorSymbol
+```
+
+を比較する。
+
+focused:
+
+```text
+25 passed in 1.32s
+```
+
+repository-wide:
+
+```text
+4585 passed in 30.33s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 70-8：π_11^6
+
+追加:
+
+```text
+TodaDeltaKernelFreeCyclicStatement
+```
+
+proof:
+
+```text
+E(ν₅η₈²)=0
+π_10^5=Z/2{ν₅η₈²}
+↓
+H injective
+
+π_11^11=Z{ι₁₁}
+π_9^5=Z/2{ν₅η₈}
+Δ(ι₁₁)=ν₅η₈
+↓
+ker Δ=Z{2ι₁₁}
+
+H(Δι₁₃)=±2ι₁₁
+↓
+π_11^6=Z{Δι₁₃}
+```
+
+focused:
+
+```text
+36 passed in 1.64s
+```
+
+related:
+
+```text
+72 passed in 1.80s
+```
+
+repository-wide:
+
+```text
+4621 passed in 30.50s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 70-9：π_(n+5)^n=0, n≥7
+
+base:
+
+```text
+π_13^13=Z{ι₁₃}
+π_11^6=Z{Δι₁₃}
+↓
+Δ surjective
+
+Δ-E / E-H exactness
++
+π_12^13=0
+↓
+π_12^7=0
+```
+
+Toda (4.5):
+
+```text
+E^(n-7):
+π_12^7
+≅
+π_(n+5)^n
+```
+
+より:
+
+```text
+π_(n+5)^n=0
+(n≥7)
+```
+
+focused:
+
+```text
+38 passed in 1.48s
+```
+
+related:
+
+```text
+67 passed in 1.59s
+```
+
+repository-wide:
+
+```text
+4659 passed in 30.21s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 70-10：Toda Proposition 5.9 aggregate integration
+
+追加:
+
+```text
+TodaProp59FiniteDimensionalStatement
+toda_prop59_finite_dimensional_literature_statements()
+toda_prop59_finite_dimensional_integration_inference_rule()
+```
+
+direct premises:
+
+```text
+π_7^2                         INFERENCE
+π_8^3                         INFERENCE
+π_9^4                         INFERENCE
+π_10^5                        INFERENCE
+π_11^6                        INFERENCE
+π_(n+5)^n=0                   INFERENCE
+n≥7                           GIVEN
+```
+
+aggregate:
+
+```text
+TodaProp59FiniteDimensionalStatement
+INFERENCE
+```
+
+focused:
+
+```text
+24 passed in 1.53s
+```
+
+Phase 70 main chain:
+
+```text
+206 passed in 2.05s
+```
+
+repository-wide:
+
+```text
+4683 passed in 33.34s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 70-11：provenance / non-circular regression
+
+production code:
+
+```text
+変更なし
+```
+
+追加:
+
+```text
+tests/test_phase70_applicability_provenance.py
+```
+
+確認:
+
+```text
+aggregate INFERENCE
+six branches INFERENCE
+n≥7 GIVEN
+seven direct premises exact
+aggregate reaches all branches
+aggregate not self-ancestor
+aggregate conclusion absent from ancestors
+branches do not depend on aggregate
+```
+
+backward flow rejection:
+
+```text
+Phase 70-5 support ↛ π_9^4
+Phase 70-7 suspension zero ↛ π_10^5
+Phase 70-7 Δ(η₁₁) ↛ π_10^5
+Phase 70-7 Δ(η₁₁) ↛ π_11^6
+Phase 69 Δ(ι₁₁) ↛ π_9^4
+Phase 69 Δ(ι₁₁) ↛ π_10^5
+```
+
+focused:
+
+```text
+40 passed in 1.41s
+```
+
+aggregate + provenance:
+
+```text
+64 passed in 1.67s
+```
+
+repository-wide:
+
+```text
+4723 passed in 32.19s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 70-12：representative probe / proof-style demonstration
+
+追加:
+
+```text
+probes/probe_phase70_capabilities.py
+tests/test_phase70_probe.py
+```
+
+representative fixture:
+
+```text
+build_phase70_10_data()
+```
+
+表示:
+
+```text
+Toda Proposition 5.9 finite-dimensional result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Phase 70 representative probe boundary
+```
+
+probe は明示的に:
+
+```text
+hand-authored presentation code
+not yet generated automatically from the ProofStep graph
+```
+
+という boundary を表示。
+
+focused:
+
+```text
+29 passed in 1.52s
+```
+
+aggregate + provenance + probe:
+
+```text
+93 passed in 1.65s
+```
+
+repository-wide:
+
+```text
+4752 passed in 30.85s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 70-13：completion documentation + proof record
+
+更新:
+
+```text
+README.md
+docs/design.md
+docs/development_log.md
+docs/roadmap.md
+docs/code_reference.md
+docs/proof_records.md
+```
+
+`docs/proof_records.md` に5件目の formal record:
+
+```text
+Toda Proposition 5.9
+finite-dimensional result
+```
+
+を追加。
+
+roadmap は future-oriented に保ち、Phase 70 は milestone summary に圧縮する。
+
+current regression:
+
+```text
+4752 passed in 30.85s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 70 completion
+
+完成 capability:
+
+```text
+π_7^2=Z/2{η₂ν′η₆}
+π_8^3=Z/2{ν′η₆²}
+π_9^4=Z/2{ν₄η₇²}⊕Z/2{Eν′η₇²}
+Δ(η₉²)=Eν′η₇²
+E:π_9^4→π_10^5 surjective
+π_10^5=Z/2{ν₅η₈²}
+E(ν₅η₈²)=0
+Δ(η₁₁)=ν₅η₈²
+π_11^6=Z{Δι₁₃}
+π_12^7=0
+π_(n+5)^n=0
+(n≥7)
+TodaProp59FiniteDimensionalStatement
+```
+
+provenance:
+
+```text
+all six aggregate mathematical branches INFERENCE
+n≥7 applicability GIVEN
+final aggregate INFERENCE
+acyclic ancestry
+source order != machine dependency
+backward dependency rejected
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase70_capabilities
+```
+
+proof record:
+
+```text
+docs/proof_records.md
+Toda Proposition 5.9
+```
+
+final full regression:
+
+```text
+4752 passed in 30.85s
+```
+
+performance:
+
+```text
+Phase 64 stabilization level retained
+approximately 30-second repository-wide regression
+```
+
+deferred:
+
+```text
+stable (G_5;2)=0
+generic concrete-dimension normalization
+generic exactness solver
+generic cyclic-image solver
+generic zero-target solver
+generic zero-map solver
+generic zero-group isomorphism transport
+generic sign / ± algebra
+generic η-name normalization
+automatic proof narrative generation
+persistent Proof Repository
+stable homotopy-group model
+```
+
+### 状態
+
+COMPLETE
+

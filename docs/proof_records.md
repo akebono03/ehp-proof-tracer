@@ -2739,7 +2739,605 @@ repository-wide regression:
 
 ---
 
-# 11. Current proof-record status
+
+---
+
+# 12. Toda Proposition 5.9
+
+## 12.1 Source / theorem
+
+```text
+H. Toda
+Composition Methods in Homotopy Groups of Spheres
+1962
+Proposition 5.9
+```
+
+Phase 70 で正式記録する finite-dimensional result:
+
+```text
+π_7^2=Z/2{η₂ν′η₆}
+
+π_8^3=Z/2{ν′η₆²}
+
+π_9^4
+=
+Z/2{ν₄η₇²}
+⊕
+Z/2{Eν′η₇²}
+
+π_10^5=Z/2{ν₅η₈²}
+
+π_11^6=Z{Δι₁₃}
+
+π_(n+5)^n=0
+(n≥7)
+```
+
+stable:
+
+```text
+(G_5;2)=0
+```
+
+はこの record に含めない。
+
+---
+
+## 12.2 Final aggregate
+
+Phase 70 final aggregate:
+
+```text
+TodaProp59FiniteDimensionalStatement
+```
+
+aggregate 自身は:
+
+```text
+ProofRule.INFERENCE
+```
+
+である。
+
+direct premises:
+
+```text
+π_7^2 relation                INFERENCE
+π_8^3 relation                INFERENCE
+π_9^4 relation                INFERENCE
+π_10^5 relation               INFERENCE
+π_11^6 relation               INFERENCE
+π_(n+5)^n=0                   INFERENCE
+n≥7                           GIVEN
+```
+
+---
+
+## 12.3 Upstream results
+
+主要 upstream:
+
+```text
+Phase 46
+Toda (4.5)
+
+Phase 60
+Toda Lemma 5.4
+ν₄ / H(ν₄) / 2Eν₄
+
+Phase 62
+ν-family
+
+Phase 63
+Toda (5.6)
+
+Phase 65
+Toda Proposition 5.6
+
+Phase 68
+Toda Proposition 5.8 finite-dimensional branches
+
+Phase 69
+Δ(ι₁₁)=ν₅η₈
+```
+
+Phase 70 aggregate は upstream theorem aggregate の shortcut を増やさず、各 branch が必要とする actual derived conclusion を provenance 付きで再利用する。
+
+---
+
+## 12.4 π_7^2 branch
+
+derived:
+
+```text
+π_7^2=Z/2{η₂ν′η₆}.
+```
+
+Phase 70-2 result は:
+
+```text
+ProofRule.INFERENCE
+```
+
+であり final aggregate の direct premise になる。
+
+---
+
+## 12.5 π_8^3 branch
+
+derived:
+
+```text
+π_8^3=Z/2{ν′η₆²}.
+```
+
+machine graph は Phase 70-2 branch を upstream に保持する。
+
+---
+
+## 12.6 π_9^4 branch
+
+derived:
+
+```text
+π_9^4
+=
+Z/2{ν₄η₇²}
+⊕
+Z/2{Eν′η₇²}.
+```
+
+Toda (5.6) decomposition semantics と existing ν / η family provenance を再利用する。
+
+generic direct-sum theorem framework は追加しない。
+
+---
+
+## 12.7 Δ(η₉²) supporting result
+
+Phase 70-5 derives:
+
+```text
+Δ(η₉²)=Eν′η₇².
+```
+
+and:
+
+```text
+E:π_9^4→π_10^5
+surjective.
+```
+
+These are supporting consequences for the `π_10^5` branch.
+
+They are not ancestors of the already-derived `π_9^4` branch.
+
+---
+
+## 12.8 π_10^5 proof-style derivation
+
+```text
+π_9^4
+=
+Z/2{ν₄η₇²}
+⊕
+Z/2{Eν′η₇²}
+
+Δ(η₉²)=Eν′η₇²
+↓
+ker(E)=Z/2{Eν′η₇²}
+
+E:π_9^4→π_10^5
+is surjective
+
+E(ν₄η₇²)=ν₅η₈²
+↓
+π_10^5=Z/2{ν₅η₈²}.
+```
+
+The final group relation is derived as `INFERENCE`.
+
+---
+
+## 12.9 E(ν₅η₈²)=0 / Δ(η₁₁)
+
+Phase 70-7 derives two sibling consequences:
+
+```text
+E(ν₅η₈²)=0
+
+Δ(η₁₁)=ν₅η₈².
+```
+
+The first is required by the `π_11^6` proof.
+
+The second is recorded as a valid Toda consequence, but is not used to derive `π_10^5` or `π_11^6`.
+
+---
+
+## 12.10 π_11^6 proof-style derivation
+
+Phase 70-7 and Phase 70-6 give:
+
+```text
+E(ν₅η₈²)=0
+
+π_10^5=Z/2{ν₅η₈²}.
+```
+
+Therefore the concrete E-H exactness branch gives:
+
+```text
+H:π_11^6→π_11^11
+injective.
+```
+
+Phase 69 and Phase 68 supply:
+
+```text
+π_11^11=Z{ι₁₁}
+
+π_9^5=Z/2{ν₅η₈}
+
+Δ(ι₁₁)=ν₅η₈.
+```
+
+Hence:
+
+```text
+ker(
+  Δ:π_11^11→π_9^5
+)
+=
+Z{2ι₁₁}.
+```
+
+The concrete Toda Proposition 2.7 consequence gives:
+
+```text
+H(Δι₁₃)=±2ι₁₁.
+```
+
+Therefore:
+
+```text
+π_11^6=Z{Δι₁₃}.
+```
+
+Important non-circular boundary:
+
+```text
+π_12^7=0
+```
+
+is not used as a prerequisite for this result.
+
+---
+
+## 12.11 Higher five-stem zero proof-style derivation
+
+From:
+
+```text
+π_13^13=Z{ι₁₃}
+
+π_11^6=Z{Δι₁₃}
+```
+
+we derive:
+
+```text
+Δ:π_13^13→π_11^6
+surjective.
+```
+
+Using exactness:
+
+```text
+π_13^13 --Δ--> π_11^6 --E--> π_12^7
+```
+
+the suspension map is zero.
+
+Using:
+
+```text
+π_11^6 --E--> π_12^7 --H--> π_12^13
+```
+
+and:
+
+```text
+π_12^13=0,
+```
+
+the same suspension map is surjective.
+
+Hence:
+
+```text
+π_12^7=0.
+```
+
+Toda (4.5):
+
+```text
+E^(n-7):
+π_12^7
+≅
+π_(n+5)^n
+```
+
+therefore gives:
+
+```text
+π_(n+5)^n=0
+(n≥7).
+```
+
+---
+
+## 12.12 Machine provenance
+
+Phase 70-11 verifies:
+
+```text
+aggregate is INFERENCE
+aggregate is not GIVEN
+
+all six mathematical branches are INFERENCE
+n≥7 remains GIVEN
+
+aggregate direct premise count = 7
+
+aggregate reaches all six branches
+aggregate is not its own ancestor
+aggregate conclusion is absent from ancestors
+branches do not depend on aggregate
+```
+
+Principal ordering:
+
+```text
+π_7^2
+→
+π_8^3
+→
+π_9^4
+→
+π_10^5
+→
+π_11^6
+→
+π_12^7=0
+→
+π_(n+5)^n=0.
+```
+
+---
+
+## 12.13 Backward-dependency boundary
+
+Regression verifies:
+
+```text
+Phase 70-5 E-surjectivity
+→ π_10^5
+but not → π_9^4
+
+Phase 70-5 Δ(η₉²)
+→ π_10^5
+but not → π_9^4
+
+Phase 70-7 E(ν₅η₈²)=0
+→ π_11^6
+but not → π_10^5
+
+Phase 70-7 Δ(η₁₁)=ν₅η₈²
+not → π_10^5
+not → π_11^6
+
+Phase 69 Δ(ι₁₁)=ν₅η₈
+→ π_11^6
+but not → π_9^4
+and not → π_10^5.
+```
+
+Thus:
+
+```text
+source ordering
+!=
+machine proof dependency
+```
+
+is preserved.
+
+---
+
+## 12.14 GIVEN / INFERENCE boundary
+
+GIVEN:
+
+```text
+n≥7 structural applicability
+foundational source group facts where required
+structural EHP exactness windows where required
+```
+
+INFERENCE:
+
+```text
+π_7^2 result
+π_8^3 result
+π_9^4 result
+Δ(η₉²)
+E-surjectivity for π_10^5
+π_10^5 result
+E(ν₅η₈²)=0
+Δ(η₁₁)=ν₅η₈²
+π_11^6 result
+π_12^7=0
+π_(n+5)^n=0
+TodaProp59FiniteDimensionalStatement
+```
+
+No final theorem result is reintroduced as a `GIVEN`.
+
+---
+
+## 12.15 Representation boundary
+
+Phase 70 adds only concrete semantics required by Proposition 5.9.
+
+It does not add:
+
+```text
+generic concrete-dimension normalizer
+generic exactness solver
+generic cyclic-image solver
+generic zero-target solver
+generic zero-map solver
+generic zero-group isomorphism transport
+generic sign solver
+generic ± algebra
+generic η-name normalizer
+generic theorem specialization engine
+stable homotopy-group model
+```
+
+The Phase 70-7 compatibility issue:
+
+```text
+η_9
+η₉
+```
+
+is handled by theorem-specific structural validation rather than global renaming.
+
+---
+
+## 12.16 Literature
+
+Phase 70 aggregate holds:
+
+```text
+Author:
+  H. Toda
+
+Title:
+  Composition Methods in Homotopy Groups of Spheres
+
+Year:
+  1962
+
+Label:
+  Toda Proposition 5.9
+
+Locator:
+  Proposition 5.9
+```
+
+Literature metadata remains structured metadata rather than theorem-search semantics.
+
+---
+
+## 12.17 Representative probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase70_capabilities
+```
+
+The probe displays:
+
+```text
+Toda Proposition 5.9 finite-dimensional result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Phase 70 representative probe boundary
+```
+
+Representative detailed chains include:
+
+```text
+π_10^5
+π_11^6
+higher five-stem zero
+```
+
+The proof-style display remains hand-authored presentation code.
+
+It is not yet automatically generated from the `ProofStep` graph.
+
+---
+
+## 12.18 Regression status
+
+probe focused:
+
+```text
+29 passed in 1.52s
+```
+
+aggregate + provenance + probe:
+
+```text
+93 passed in 1.65s
+```
+
+repository-wide:
+
+```text
+4752 passed in 30.85s
+```
+
+Phase 64 performance stabilization remains effective.
+
+---
+
+## 12.19 Completion record
+
+Phase 70 is COMPLETE.
+
+verified finite-dimensional result:
+
+```text
+π_7^2=Z/2{η₂ν′η₆}
+π_8^3=Z/2{ν′η₆²}
+π_9^4=Z/2{ν₄η₇²}⊕Z/2{Eν′η₇²}
+π_10^5=Z/2{ν₅η₈²}
+π_11^6=Z{Δι₁₃}
+π_(n+5)^n=0
+(n≥7)
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase70_capabilities
+```
+
+repository-wide regression:
+
+```text
+4752 passed in 30.85s
+```
+
+This record is the Phase 70 completion human-reviewed golden reference.
+
+stable:
+
+```text
+(G_5;2)=0
+```
+
+remains deferred.
+
+# 13. Current proof-record status
 
 正式な curated proof record:
 
@@ -2755,6 +3353,9 @@ repository-wide regression:
 
 4. Phase 69
    Toda Equation (5.10)
+
+5. Phase 70
+   Toda Proposition 5.9 finite-dimensional result
 ```
 
 current model:
@@ -2768,6 +3369,6 @@ proof records          = human curated
 persistent repository  = not implemented
 ```
 
-4件の formal record が蓄積したため、future automatic proof narrative generation の display schema を比較する材料が増えた。
+5件の formal record が蓄積したため、future automatic proof narrative generation の display schema を比較する材料が増えた。
 
 ただし generic narrative generator はまだ実装しない。

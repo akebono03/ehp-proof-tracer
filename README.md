@@ -29,7 +29,7 @@ The implementation strategy is to formalize only the minimum theorem consequence
 
 # Current status
 
-Completed through Phase 69.
+Completed through Phase 70.
 
 ```text
 Phase 1–27   generic proof / algebra / Toda-bracket foundation
@@ -65,12 +65,13 @@ Phase 66     Toda Equation (5.8) integration / proof record foundation
 Phase 67     Toda Lemma 5.7 integration / Delta generator consequence
 Phase 68     Toda Proposition 5.8 finite-dimensional computation
 Phase 69     Toda Equation (5.10): Δ(ι₁₁)=ν₅η₈
+Phase 70     Toda Proposition 5.9 finite-dimensional computation
 ```
 
 Latest repository-wide regression:
 
 ```text
-4422 passed in 30.54s
+4752 passed in 30.85s
 ```
 
 Phase 64 same-machine baseline:
@@ -86,7 +87,7 @@ Phase 63 mathematical capability remains unchanged, and Phase 64 performance / r
 Representative current probe:
 
 ```powershell
-python -m probes.probe_phase69_capabilities
+python -m probes.probe_phase70_capabilities
 ```
 
 ---
@@ -2445,6 +2446,452 @@ stable homotopy-group model
 
 ---
 
+
+# Phase 70: Toda Proposition 5.9 finite-dimensional result
+
+Phase 70 implements the finite-dimensional part of Toda Proposition 5.9.
+
+The final capability is:
+
+```text
+π_7^2=Z/2{η₂ν′η₆}
+
+π_8^3=Z/2{ν′η₆²}
+
+π_9^4
+=
+Z/2{ν₄η₇²}
+⊕
+Z/2{Eν′η₇²}
+
+π_10^5=Z/2{ν₅η₈²}
+
+π_11^6=Z{Δι₁₃}
+
+π_(n+5)^n=0
+(n≥7)
+```
+
+The stable conclusion:
+
+```text
+(G_5;2)=0
+```
+
+is not included in Phase 70.
+
+## Phase 70 branch structure
+
+Phase 70 is implemented as separate derived branches before final integration.
+
+```text
+Phase 70-2
+π_7^2=Z/2{η₂ν′η₆}
+
+Phase 70-3
+π_8^3=Z/2{ν′η₆²}
+
+Phase 70-4
+π_9^4=
+Z/2{ν₄η₇²}
+⊕
+Z/2{Eν′η₇²}
+
+Phase 70-5
+Δ(η₉²)=Eν′η₇²
+E:π_9^4→π_10^5 surjective
+
+Phase 70-6
+π_10^5=Z/2{ν₅η₈²}
+
+Phase 70-7
+E(ν₅η₈²)=0
+Δ(η₁₁)=ν₅η₈²
+
+Phase 70-8
+π_11^6=Z{Δι₁₃}
+
+Phase 70-9
+π_12^7=0
+π_(n+5)^n=0, n≥7
+
+Phase 70-10
+Toda Proposition 5.9 aggregate integration
+
+Phase 70-11
+provenance / non-circular regression
+
+Phase 70-12
+representative proof-style probe
+```
+
+## π_10^5 derivation
+
+Phase 70 derives:
+
+```text
+π_9^4
+=
+Z/2{ν₄η₇²}
+⊕
+Z/2{Eν′η₇²}
+```
+
+and:
+
+```text
+Δ(η₉²)=Eν′η₇².
+```
+
+Thus the second direct summand is the kernel contribution for suspension.
+
+Together with:
+
+```text
+E:π_9^4→π_10^5
+surjective
+```
+
+and:
+
+```text
+E(ν₄η₇²)=ν₅η₈²
+```
+
+Phase 70 obtains:
+
+```text
+π_10^5=Z/2{ν₅η₈²}.
+```
+
+## π_11^6 derivation
+
+Phase 70-7 derives:
+
+```text
+E(ν₅η₈²)=0.
+```
+
+Since:
+
+```text
+π_10^5=Z/2{ν₅η₈²},
+```
+
+the concrete E-H exactness branch implies:
+
+```text
+H:π_11^6→π_11^11
+```
+
+is injective.
+
+Phase 69 and the previous finite-dimensional branch provide:
+
+```text
+π_11^11=Z{ι₁₁}
+π_9^5=Z/2{ν₅η₈}
+Δ(ι₁₁)=ν₅η₈.
+```
+
+Therefore:
+
+```text
+ker(
+  Δ:π_11^11→π_9^5
+)
+=
+Z{2ι₁₁}.
+```
+
+The concrete Toda Proposition 2.7 consequence gives:
+
+```text
+H(Δι₁₃)=±2ι₁₁.
+```
+
+Hence:
+
+```text
+π_11^6=Z{Δι₁₃}.
+```
+
+The later result:
+
+```text
+π_12^7=0
+```
+
+is not used as a premise for this calculation.
+
+## Higher five-stem zero
+
+From:
+
+```text
+π_13^13=Z{ι₁₃}
+π_11^6=Z{Δι₁₃}
+```
+
+Phase 70 obtains:
+
+```text
+Δ:π_13^13→π_11^6
+surjective.
+```
+
+Using concrete Δ-E and E-H exactness together with:
+
+```text
+π_12^13=0,
+```
+
+the suspension map:
+
+```text
+E:π_11^6→π_12^7
+```
+
+is both zero and surjective. Therefore:
+
+```text
+π_12^7=0.
+```
+
+Toda (4.5) then gives:
+
+```text
+E^(n-7):
+π_12^7
+≅
+π_(n+5)^n
+```
+
+for `n≥7`, so:
+
+```text
+π_(n+5)^n=0
+(n≥7).
+```
+
+## Proposition 5.9 aggregate
+
+Phase 70 adds:
+
+```text
+TodaProp59FiniteDimensionalStatement
+```
+
+and integrates exactly these direct premises:
+
+```text
+π_7^2 relation                INFERENCE
+π_8^3 relation                INFERENCE
+π_9^4 relation                INFERENCE
+π_10^5 relation               INFERENCE
+π_11^6 relation               INFERENCE
+π_(n+5)^n=0                   INFERENCE
+n≥7                           GIVEN
+```
+
+The aggregate itself is:
+
+```text
+ProofRule.INFERENCE
+```
+
+and is not reintroduced as a `GIVEN`.
+
+## Provenance / non-circularity
+
+Phase 70-11 verifies:
+
+```text
+final aggregate is INFERENCE
+final aggregate is not GIVEN
+
+all six mathematical branches are INFERENCE
+n≥7 remains GIVEN
+
+final direct premise count = 7
+final reaches all six branches
+final is not its own ancestor
+final conclusion is absent from ancestors
+branches do not depend on final
+```
+
+The principal machine dependency order is:
+
+```text
+π_7^2
+→
+π_8^3
+→
+π_9^4
+→
+π_10^5
+→
+π_11^6
+→
+π_12^7=0
+→
+π_(n+5)^n=0.
+```
+
+Supporting results are prevented from flowing backward.
+
+For example:
+
+```text
+Phase 70-5 E-surjectivity
+→ π_10^5
+but not → π_9^4
+
+Phase 70-7 E(ν₅η₈²)=0
+→ π_11^6
+but not → π_10^5
+
+Phase 70-7 Δ(η₁₁)=ν₅η₈²
+is not used to derive π_10^5
+and is not used to derive π_11^6.
+```
+
+Thus:
+
+```text
+source ordering
+!=
+machine proof dependency
+```
+
+remains explicit.
+
+## Structural identity boundary
+
+During Phase 70, a concrete compatibility issue appeared between display names such as:
+
+```text
+η_9
+η₉
+```
+
+The final rule guards do not use display-name equality as mathematical identity.
+
+They validate the relevant structural data instead:
+
+```text
+dimension
+source
+target
+GeneratorSymbol
+expression tree
+```
+
+This preserves the existing rule:
+
+```text
+structural equality
+!=
+mathematical equality
+```
+
+without introducing a generic η-name normalizer.
+
+## Representative probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase70_capabilities
+```
+
+The probe displays:
+
+```text
+Toda Proposition 5.9 finite-dimensional result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Phase 70 representative probe boundary
+```
+
+Representative proof-style sections include:
+
+```text
+π_10^5
+π_11^6
+higher five-stem zero
+```
+
+The probe explicitly states:
+
+```text
+The proof-style derivation above is hand-authored presentation code.
+It is not yet generated automatically from the ProofStep graph.
+```
+
+## Phase 70 regression
+
+Phase 70-12 probe:
+
+```text
+29 passed in 1.52s
+```
+
+Phase 70 aggregate + provenance + probe:
+
+```text
+93 passed in 1.65s
+```
+
+Final repository-wide regression:
+
+```text
+4752 passed in 30.85s
+```
+
+Phase 64 performance stabilization remains effective while Proposition 5.9 theorem, provenance, and probe coverage are added.
+
+## Phase 70 completion boundary
+
+Implemented:
+
+```text
+π_7^2=Z/2{η₂ν′η₆}
+π_8^3=Z/2{ν′η₆²}
+π_9^4=Z/2{ν₄η₇²}⊕Z/2{Eν′η₇²}
+Δ(η₉²)=Eν′η₇²
+E:π_9^4→π_10^5 surjective
+π_10^5=Z/2{ν₅η₈²}
+E(ν₅η₈²)=0
+Δ(η₁₁)=ν₅η₈²
+π_11^6=Z{Δι₁₃}
+π_12^7=0
+π_(n+5)^n=0, n≥7
+TodaProp59FiniteDimensionalStatement
+applicability / provenance / non-circularity regression
+representative proof-style probe
+formal proof record
+```
+
+Still deferred:
+
+```text
+stable (G_5;2)=0
+generic concrete-dimension normalization
+generic exactness solver
+generic cyclic-image / zero-target solver
+generic zero-map solver
+generic zero-group isomorphism transport
+generic sign / ± algebra
+generic η-name normalization
+automatic proof narrative generation
+persistent Proof Repository
+stable homotopy-group model
+```
+
+---
+
 # Documentation
 
 - `README.md` — current capabilities and status
@@ -2457,25 +2904,20 @@ stable homotopy-group model
 
 # Next development boundary
 
-Phase 69 is complete.
+Phase 70 is complete.
 
-The next mathematical phase should begin with source/dependency/current-representation analysis for the next concrete Toda consequence after Equation (5.10).
+The next mathematical Phase should begin with source statement / proof dependency / current representation compatibility analysis for the statement following Toda Proposition 5.9.
 
-Toda Equation (5.11):
-
-```text
-Δ(η₉)=Eν′η₇
-```
-
-is already implemented in Phase 68 and should not be reimplemented merely because it follows Equation (5.10) in source order.
-
-A likely next source candidate is the subsequent use of Equation (5.10), including the branch leading to:
+Start with:
 
 ```text
-Δ(η₁₁)=ν₅η₈²
+Phase 71-1
+source statement /
+proof dependency /
+current representation compatibility analysis
 ```
 
-but the exact source statement, locator, and prerequisites should be confirmed before Phase 70 implementation.
+A likely candidate is the next concrete low-dimensional consequence around Toda (5.12), including possible Δ-injectivity branches, but the exact theorem statement, locator, and proof dependencies must be confirmed before implementation.
 
 The following remain separate later milestones:
 

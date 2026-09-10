@@ -121,12 +121,27 @@ Toda Proposition 5.8 finite-dimensional
 π_9^5=Z/2{ν₅η₈}
 π_(n+4)^n=0, n≥6
 third formal proof record
+
+Phase 69
+Toda Equation (5.10)
+Δ(ι₁₁)=ν₅η₈
+fourth formal proof record
+
+Phase 70
+Toda Proposition 5.9 finite-dimensional
+π_7^2=Z/2{η₂ν′η₆}
+π_8^3=Z/2{ν′η₆²}
+π_9^4=Z/2{ν₄η₇²}⊕Z/2{Eν′η₇²}
+π_10^5=Z/2{ν₅η₈²}
+π_11^6=Z{Δι₁₃}
+π_(n+5)^n=0, n≥7
+fifth formal proof record
 ```
 
 現在の repository-wide regression:
 
 ```text
-4422 passed in 30.54s
+4752 passed in 30.85s
 ```
 
 ---
@@ -143,110 +158,81 @@ third formal proof record
 Toda Lemma 5.2
 ↓
 ν′
-H(ν′)=η₅
-2ν′=η₃η₄η₅
 ↓
 π_{n+2}^n=Z/2{η_n²}
 ↓
-ν₄
-H(ν₄)=ι₇
-2Eν₄=E²ν′
-↓
-ν_n
-2ν_n=E^(n-3)ν′
-4ν_n=η_n³
-↓
-π_(i-1)^3 ⊕ π_i^7 ≅ π_i^4
+ν₄ / ν_n
 ↓
 Toda Proposition 5.6
-π_5^2=Z/2{η₂³}
-π_6^3=Z/4{ν′}
-π_7^4=Z{ν₄}⊕Z/4{Eν′}
-π_(n+3)^n=Z/8{ν_n}
+π_(n+3)^n
 ↓
-Toda (5.8)
-Δ(ι₉)=±(2ν₄-Eν′)=±[ι₄,ι₄]
+Toda (5.8) / Lemma 5.7 / Proposition 5.8
+π_(n+4)^n
 ↓
-Toda Lemma 5.7
-E²α∈2ι₅∘π_(i+2)(S⁵)
-→ E(η₂∘α)=0
-↓
-E(η₂∘ν′)=0
-π_6^2=Z/4{η₂∘ν′}
-Δ(ν₅)=±(η₂∘ν′)
-↓
-Toda Proposition 5.8
-π_6^2=Z/4{η₂ν′}
-π_7^3=Z/2{ν′η₆}
-π_8^4=Z/2{ν₄η₇}⊕Z/2{Eν′η₇}
-π_9^5=Z/2{ν₅η₈}
-π_(n+4)^n=0, n≥6
-
 Toda Equation (5.10)
 Δ(ι₁₁)=ν₅η₈
+↓
+Toda Proposition 5.9
+π_7^2=Z/2{η₂ν′η₆}
+π_8^3=Z/2{ν′η₆²}
+π_9^4=Z/2{ν₄η₇²}⊕Z/2{Eν′η₇²}
+π_10^5=Z/2{ν₅η₈²}
+π_11^6=Z{Δι₁₃}
+π_(n+5)^n=0, n≥7
 ```
 
 ---
 
 # 5. 次の数学 Phase
 
-Phase 69 は COMPLETE。
+Phase 70 は COMPLETE。
 
 完成:
 
 ```text
-Toda Equation (5.10)
-Δ(ι₁₁)=ν₅η₈
+Toda Proposition 5.9 finite-dimensional
+
+π_7^2=Z/2{η₂ν′η₆}
+π_8^3=Z/2{ν′η₆²}
+π_9^4=Z/2{ν₄η₇²}⊕Z/2{Eν′η₇²}
+π_10^5=Z/2{ν₅η₈²}
+π_11^6=Z{Δι₁₃}
+π_(n+5)^n=0, n≥7
 ```
 
-次は **Phase 70**。
-
-ただし Toda Equation (5.11):
-
-```text
-Δ(η₉)=Eν′η₇
-```
-
-は Phase 68-5 で既に derived 済みなので再実装しない。
-
-第一候補は Equation (5.10) を利用する次の concrete consequence。
-
-候補:
-
-```text
-Δ(η₁₁)=ν₅η₈²
-```
+次は **Phase 71**。
 
 開始:
 
 ```text
-Phase 70-1
+Phase 71-1
 source statement / proof dependency /
 current representation compatibility analysis
 ```
+
+Toda Proposition 5.9 直後の source statement と proof を確認してから target を確定する。
+
+候補として Toda (5.12) 周辺の concrete Δ-injectivity / next low-dimensional consequence が考えられるが、source verification 前に implementation を先取りしない。
 
 確認順序:
 
 ```text
 A.
-Toda source で Equation (5.10) 後の
-exact statement / locator / proof を確認
+Toda Proposition 5.9 後の exact statement / locator / proof
 
 B.
-Phase 68 / 69 の
-π_9^5=Z/2{ν₅η₈}
-π_10^6=0
-Δ(ι₁₁)=ν₅η₈
-をどこまで direct derived prerequisite として再利用できるか確認
+Phase 70 のどの derived branch が本当に prerequisite か
 
 C.
-Proposition 2.5 の既存 concrete bridge で足りるか確認
+既存 Proposition 4.2 / Toda (4.5) / Proposition 2.x semantics で足りるか
 
 D.
 不足する場合だけ narrow theorem-specific semantics を追加
 ```
 
-stable `(G_4;2)=0` は concrete need が生じるまで deferred のままとする。
+Phase 70 aggregate を `GIVEN` shortcut として使用しない。
+
+stable `(G_5;2)=0` は concrete need が生じるまで deferred のままとする。
 
 ---
 
@@ -255,20 +241,31 @@ stable `(G_4;2)=0` は concrete need が生じるまで deferred のままとす
 現在の正式 record:
 
 ```text
-Toda Equation (5.8)
-Δ(ι₉)=±(2ν₄-Eν′)=±[ι₄,ι₄]
+1. Toda Equation (5.8)
+   Δ(ι₉)=±(2ν₄-Eν′)=±[ι₄,ι₄]
 
-Toda Lemma 5.7
-E²α∈2ι₅∘π_(i+2)(S⁵) → E(η₂∘α)=0
-E(η₂∘ν′)=0
-Δ(ν₅)=±(η₂∘ν′)
+2. Toda Lemma 5.7
+   E²α∈2ι₅∘π_(i+2)(S⁵) → E(η₂∘α)=0
+   E(η₂∘ν′)=0
+   Δ(ν₅)=±(η₂∘ν′)
 
-Toda Proposition 5.8
-π_6^2=Z/4{η₂ν′}
-π_7^3=Z/2{ν′η₆}
-π_8^4=Z/2{ν₄η₇}⊕Z/2{Eν′η₇}
-π_9^5=Z/2{ν₅η₈}
-π_(n+4)^n=0, n≥6
+3. Toda Proposition 5.8
+   π_6^2=Z/4{η₂ν′}
+   π_7^3=Z/2{ν′η₆}
+   π_8^4=Z/2{ν₄η₇}⊕Z/2{Eν′η₇}
+   π_9^5=Z/2{ν₅η₈}
+   π_(n+4)^n=0, n≥6
+
+4. Toda Equation (5.10)
+   Δ(ι₁₁)=ν₅η₈
+
+5. Toda Proposition 5.9
+   π_7^2=Z/2{η₂ν′η₆}
+   π_8^3=Z/2{ν′η₆²}
+   π_9^4=Z/2{ν₄η₇²}⊕Z/2{Eν′η₇²}
+   π_10^5=Z/2{ν₅η₈²}
+   π_11^6=Z{Δι₁₃}
+   π_(n+5)^n=0, n≥7
 ```
 
 今後 representative proof-style probe を完成させた Phase では、必要に応じて `docs/proof_records.md` に追記する。
@@ -291,8 +288,6 @@ regression status
 
 過去 Phase 60–65 の backfill は一括して行わない。
 
-必要になったとき separate documentation task として行う。
-
 ---
 
 # 7. Automatic proof narrative generation
@@ -307,7 +302,7 @@ proof records          = human curated
 proof-style narrative  = hand-authored probe presentation
 ```
 
-現在 formal proof record が4件蓄積した。
+現在 formal proof record が5件蓄積した。
 
 future target:
 
@@ -428,10 +423,10 @@ Phase 64:
 29.97s
 ```
 
-Phase 67 completion:
+Phase 70 completion:
 
 ```text
-4422 passed in 30.54s
+4752 passed in 30.85s
 ```
 
 test 数は増えているが full regression は約30秒台を維持している。
@@ -530,7 +525,9 @@ DEFERRED UNTIL CONCRETE NEED
 | third formal proof record | COMPLETE | 68 |
 | Toda Equation (5.10) | COMPLETE | 69 |
 | fourth formal proof record | COMPLETE | 69 |
-| next concrete Toda calculation | NEXT | 70 |
+| Toda Proposition 5.9 finite-dimensional | COMPLETE | 70 |
+| fifth formal proof record | COMPLETE | 70 |
+| next concrete Toda calculation | NEXT | 71 |
 | automatic proof narrative generation | PLANNED / DEFERRED | later |
 | persistent Proof Repository | PLANNED / DEFERRED | later |
 | stable homotopy branch | DEFERRED | later |
@@ -541,28 +538,10 @@ DEFERRED UNTIL CONCRETE NEED
 # 13. Current next step
 
 ```text
-Phase 70-1
-Toda Equation (5.10) 後の next concrete source consequence /
+Phase 71-1
+Toda Proposition 5.9 後の next concrete source statement /
 proof dependency /
 current representation compatibility analysis
-```
-
-重要:
-
-```text
-Toda (5.11)
-Δ(η₉)=Eν′η₇
-```
-
-は Phase 68-5 で既に derived 済み。
-
-したがって source 順だけを理由に Phase 70 で再実装しない。
-
-次 candidate:
-
-```text
-Equation (5.10) を利用する後続 consequence
-候補: Δ(η₁₁)=ν₅η₈²
 ```
 
 開始前に必ず確認する:
@@ -571,7 +550,7 @@ Equation (5.10) を利用する後続 consequence
 Toda source locator
 exact statement
 source proof dependency
-Phase 68 / Phase 69 current builders
+Phase 70 current builders
 current representation compatibility
 whether new statement / rule is actually necessary
 ```
@@ -588,4 +567,4 @@ current compatibility
 minimum change
 ```
 
-stable `(G_4;2)=0` は concrete need が生じるまで deferred のままとする。
+stable `(G_5;2)=0` は concrete need が生じるまで deferred のままとする。
