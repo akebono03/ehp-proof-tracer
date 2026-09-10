@@ -7745,3 +7745,536 @@ stable homotopy-group model
 
 COMPLETE
 
+---
+
+# Phase 72：Toda Lemma 5.10
+
+対象:
+
+```text
+Δ(ι₁₃)
+∈
+{ν₆,η₉,2ι₁₀}
+mod 2π₁₁(S⁶)
+```
+
+## Phase 72-1：source / dependency / representation compatibility
+
+確認:
+
+```text
+TodaBracket は {ν₆,η₉,2ι₁₀} を structural に表現可能
+existing TodaBracketMembershipStatement は ordinary membership であり modulo relation ではない
+Toda54IndeterminacyGeneratorStatement は indeterminacy generator 用であり final modulo statement とは役割が異なる
+generic coset algebra は不要
+```
+
+canonical reuse:
+
+```text
+ν₆ = toda_nu_family_definition_statement(6).element
+η₉ = toda_eta_family_definition_statement(9).element
+```
+
+production code:
+
+```text
+変更なし
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 72-2：minimum statement representation
+
+追加:
+
+```text
+TodaLemma510BracketModuloStatement
+```
+
+fields:
+
+```text
+element
+bracket
+ambient_group
+modulus
+```
+
+追加テスト:
+
+```text
+tests/test_phase72_lemma510_statement.py
+```
+
+focused:
+
+```text
+10 passed in 2.67s
+```
+
+related:
+
+```text
+103 passed in 13.85s
+```
+
+repository-wide:
+
+```text
+4896 passed in 91.74s
+```
+
+この run は自宅ノートPC。別PCの約30秒台 regression と wall time を直接比較しない。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 72-3：Lemma 5.10 core inference
+
+最初の実装では Phase 71 n=6 Delta injectivity を direct premise とした。
+
+initial focused:
+
+```text
+16 passed in 3.49s
+```
+
+initial related:
+
+```text
+111 passed in 5.75s
+```
+
+initial repository-wide:
+
+```text
+4912 passed in 114.31s
+```
+
+その後 Toda Lemma 5.10 の proof 本文を確認し、Phase 71 injectivity は proof dependency ではないことが判明したため revision を実施。
+
+revision target:
+
+```text
+Phase 69 / Toda (5.10): Δ(ι₁₁)=ν₅η₈
+Prop.2.6 concrete Hopf-bracket consequence
+Phase 70: H(Δι₁₃)=±2ι₁₁
+E-H exactness
+```
+
+追加 statement:
+
+```text
+TodaLemma510HopfBracketContainsStatement
+TodaLemma510BracketPlusSuspensionImageStatement
+```
+
+追加 rule:
+
+```text
+toda_lemma510_hopf_bracket_contains_inference_rule()
+toda_lemma510_exactness_core_inference_rule()
+```
+
+revision の最初の test run では Hopf bracket rule の guard が `ν₅η₈` を canonical object の完全 structural equality で比較したため 19 failed。
+
+修正:
+
+```text
+existing Δι₁₁ relation RHS を Composition として分解
+ν factor = GeneratorSymbol(family="ν", index=5)
+η factor = GeneratorSymbol(family="η", index=8)
+を検査
+```
+
+これにより structural display-name 差を theorem identity と混同しない設計へ修正。
+
+revised focused:
+
+```text
+19 passed in 4.29s
+```
+
+revised related:
+
+```text
+150 passed in 7.32s
+```
+
+repository-wide:
+
+```text
+4915 passed in 91.52s
+```
+
+最終 core conclusion:
+
+```text
+Δι₁₃
+∈
+{ν₆,η₉,2ι₁₀}
++ Eπ₁₀(S⁵)
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 72-4：mod 2π₁₁(S⁶) / indeterminacy integration
+
+追加 statement:
+
+```text
+TodaLemma510SuspensionImageInDoubleStatement
+```
+
+既存再利用:
+
+```text
+Toda54IndeterminacyGeneratorStatement
+```
+
+追加 rule:
+
+```text
+toda_lemma510_indeterminacy_inference_rule()
+toda_lemma510_suspension_image_in_double_inference_rule()
+toda_lemma510_modulo_integration_inference_rule()
+```
+
+indeterminacy branch:
+
+```text
+π₁₁⁹=Z/2{η₉²}
+ν₆η₉=0
+π₁₁⁶=Z{Δι₁₃}
+↓
+Indeterminacy=<2Δι₁₃>=2π₁₁⁶
+```
+
+image branch:
+
+```text
+π₁₀⁵=Z/2{ν₅η₈²}
+π₁₁⁶=Z{Δι₁₃}
+↓
+Eπ₁₀(S⁵)⊂2π₁₁(S⁶)
+```
+
+final:
+
+```text
+Δ(ι₁₃)∈{ν₆,η₉,2ι₁₀} mod 2π₁₁(S⁶)
+ProofRule.INFERENCE
+```
+
+focused:
+
+```text
+22 passed in 8.29s
+```
+
+related:
+
+```text
+162 passed in 7.53s
+```
+
+repository-wide:
+
+```text
+4937 passed in 90.40s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 72-5：applicability / provenance / non-circular regression
+
+production code:
+
+```text
+変更なし
+```
+
+追加:
+
+```text
+tests/test_phase72_applicability_provenance.py
+```
+
+確認:
+
+```text
+final = INFERENCE
+final != GIVEN
+exact three direct branches
+upstream provenance reachability
+final / branch acyclicity
+final conclusion absent from ancestors
+GIVEN shortcut rejection
+wrong indeterminacy generator rejection
+wrong bracket rejection
+wrong ambient group rejection
+wrong suspension map rejection
+```
+
+特に:
+
+```text
+Phase 71 n=6 Delta injectivity
+not in final ancestry
+```
+
+を regression として固定。
+
+focused:
+
+```text
+31 passed in 4.70s
+```
+
+Phase 72 regression:
+
+```text
+82 passed in 7.38s
+```
+
+related upstream regression:
+
+```text
+248 passed in 7.95s
+```
+
+repository-wide:
+
+```text
+4968 passed in 121.42s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 72-6：representative probe
+
+追加:
+
+```text
+probes/probe_phase72_capabilities.py
+tests/test_phase72_probe.py
+```
+
+probe は Phase 72-5 completed proof graph を再利用。
+
+表示:
+
+```text
+Toda Lemma 5.10 result
+Proof-style derivation
+Representative source objects
+Provenance / integration
+Phase 72 representative probe boundary
+```
+
+initial probe regression:
+
+```text
+1 failed, 21 passed
+```
+
+原因:
+
+```text
+Phase 71 non-dependency display が
+任意の TodaDeltaInjectiveStatement を ancestry から排除していた
+```
+
+修正:
+
+```text
+exact Phase 71 n=6 statement
+Δ:π₁₃¹³→π₁₁⁶ injective
+だけを比較
+```
+
+Python 3.10 parse:
+
+```powershell
+python -m py_compile probes/probe_phase72_capabilities.py
+```
+
+成功。
+
+focused:
+
+```text
+22 passed in 4.39s
+```
+
+probe output:
+
+```text
+final modulo statement derived = True
+final modulo statement is GIVEN = False
+core branch derived = True
+indeterminacy branch derived = True
+suspension-image branch derived = True
+exact three direct premises = True
+final graph acyclic = True
+Phase 71 Delta injectivity absent from ancestry = True
+```
+
+repository-wide:
+
+```text
+4990 passed in 70.11s
+```
+
+proof-style derivation は hand-authored presentation code であり automatic `ProofStep` narrative generation ではない。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 72-7：completion documentation + proof record
+
+更新:
+
+```text
+README.md
+docs/design.md
+docs/development_log.md
+docs/roadmap.md
+docs/code_reference.md
+docs/proof_records.md
+```
+
+`docs/proof_records.md` に7件目の formal record:
+
+```text
+Toda Lemma 5.10
+Δ(ι₁₃)∈{ν₆,η₉,2ι₁₀} mod 2π₁₁(S⁶)
+```
+
+を追加。
+
+roadmap は future-oriented に保ち、次 target を:
+
+```text
+Phase 73
+Toda Proposition 5.11
+π_(n+6)^n
+```
+
+へ更新。
+
+current repository-wide regression:
+
+```text
+4990 passed in 70.11s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 72 completion
+
+完成 capability:
+
+```text
+Toda Lemma 5.10
+Δ(ι₁₃)∈{ν₆,η₉,2ι₁₀} mod 2π₁₁(S⁶)
+
+minimum modulo statement
+Hopf bracket consequence
+E-H exactness core
+indeterminacy reduction
+suspension-image containment
+final modulo integration
+applicability regression
+provenance / non-circularity regression
+representative proof-style probe
+seventh formal proof record
+```
+
+provenance:
+
+```text
+Phase 59 / 68 / 69 / 70 reused
+Phase 71 n=6 injectivity absent from ancestry
+final INFERENCE
+exact three direct premises
+acyclic ancestry
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase72_capabilities
+```
+
+proof record:
+
+```text
+docs/proof_records.md
+Toda Lemma 5.10
+```
+
+final full regression on home laptop:
+
+```text
+4990 passed in 70.11s
+```
+
+performance note:
+
+```text
+development uses two PCs
+compare wall time per machine
+focused regressions remain short
+```
+
+deferred:
+
+```text
+generic Toda-bracket coset algebra
+generic modulo-subgroup normalization
+generic quotient normalization
+generic finite-subgroup solver
+automatic proof narrative generation
+persistent Proof Repository
+stable homotopy-group model
+```
+
+next:
+
+```text
+Phase 73
+Toda Proposition 5.11
+```
+
+### 状態
+
+COMPLETE
+

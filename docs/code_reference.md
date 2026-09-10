@@ -5111,3 +5111,300 @@ minimum inference
 
 Do not introduce generic bracket-coset algebra before the concrete Lemma 5.10 need is confirmed.
 
+---
+
+# 68. Phase 72 statement structures
+
+`toda_rules.py` に Phase 72 concrete statements を追加。
+
+```text
+TodaLemma510BracketModuloStatement
+TodaLemma510HopfBracketContainsStatement
+TodaLemma510BracketPlusSuspensionImageStatement
+TodaLemma510SuspensionImageInDoubleStatement
+```
+
+`TodaLemma510BracketModuloStatement`:
+
+```text
+element
+bracket
+ambient_group
+modulus
+```
+
+concrete meaning:
+
+```text
+Δ(ι₁₃)∈{ν₆,η₉,2ι₁₀} mod 2π₁₁(S⁶)
+```
+
+`TodaLemma510HopfBracketContainsStatement`:
+
+```text
+H{ν₆,η₉,2ι₁₀} contains 2ι₁₁
+```
+
+`TodaLemma510BracketPlusSuspensionImageStatement`:
+
+```text
+Δι₁₃∈{ν₆,η₉,2ι₁₀}+Eπ₁₀(S⁵)
+```
+
+`TodaLemma510SuspensionImageInDoubleStatement`:
+
+```text
+Im(E:π₁₀⁵→π₁₁⁶)⊂2π₁₁⁶
+```
+
+Phase 60 の既存:
+
+```text
+Toda54IndeterminacyGeneratorStatement
+```
+
+を再利用して bracket indeterminacy generator を保持する。
+
+---
+
+# 69. Phase 72 inference rules
+
+core:
+
+```text
+toda_lemma510_hopf_bracket_contains_inference_rule()
+toda_lemma510_exactness_core_inference_rule()
+```
+
+modulo / indeterminacy:
+
+```text
+toda_lemma510_indeterminacy_inference_rule()
+toda_lemma510_suspension_image_in_double_inference_rule()
+toda_lemma510_modulo_integration_inference_rule()
+```
+
+core dependency:
+
+```text
+Δ(ι₁₁)=ν₅η₈
+↓
+H(bracket) contains 2ι₁₁
+
+H(Δι₁₃)=±2ι₁₁
+E-H exactness
+↓
+Δι₁₃∈bracket+Eπ₁₀(S⁵)
+```
+
+modulo dependency:
+
+```text
+π₁₁⁹=Z/2{η₉²}
+ν₆η₉=0
+π₁₁⁶=Z{Δι₁₃}
+↓
+Indeterminacy=2π₁₁⁶
+
+π₁₀⁵=Z/2{ν₅η₈²}
+π₁₁⁶=Z{Δι₁₃}
+↓
+Eπ₁₀(S⁵)⊂2π₁₁(S⁶)
+
+core + indeterminacy + image containment
+↓
+TodaLemma510BracketModuloStatement
+```
+
+No generic bracket-coset algebra is added.
+
+---
+
+# 70. Phase 72 structural identity guard note
+
+Phase 72-3 revision で、`Δ(ι₁₁)=ν₅η₈` の RHS を canonical reconstructed object と直接 equality 比較すると existing Phase 69 object と structural mismatch が起きた。
+
+修正後は:
+
+```text
+RHS is Composition
+left.generator  = GeneratorSymbol("ν",5)
+right.generator = GeneratorSymbol("η",8)
+```
+
+を検査する。
+
+原則:
+
+```text
+structural equality != mathematical identity
+```
+
+を維持し、global name normalization は行わない。
+
+---
+
+# 71. Phase 72 tests
+
+focused files:
+
+```text
+tests/test_phase72_lemma510_statement.py
+tests/test_phase72_lemma510_core_inference.py
+tests/test_phase72_lemma510_modulo_integration.py
+tests/test_phase72_applicability_provenance.py
+tests/test_phase72_probe.py
+```
+
+main builders:
+
+```text
+build_phase72_2_statement()
+build_phase72_3_data()
+build_phase72_4_data()
+build_phase72_5_data()
+build_phase72_probe_data()
+```
+
+heavy repeated object graphs use:
+
+```python
+@lru_cache(maxsize=1)
+```
+
+where appropriate.
+
+focused test counts:
+
+```text
+Phase 72-2  10
+Phase 72-3  19 after revision
+Phase 72-4  22
+Phase 72-5  31
+Phase 72-6  22
+```
+
+provenance regression verifies:
+
+```text
+final = INFERENCE, not GIVEN
+exact three direct premises
+ancestor reachability
+acyclicity
+Phase 71 n=6 injectivity absence
+wrong bracket / modulus / group / generator / map rejection
+```
+
+---
+
+# 72. Phase 72 representative probe
+
+module:
+
+```text
+probes/probe_phase72_capabilities.py
+```
+
+main representative builder:
+
+```text
+build_phase72_representative_result()
+```
+
+main display functions:
+
+```text
+print_phase72_results()
+print_phase72_derivation_chain()
+print_phase72_source_reuse()
+print_phase72_provenance()
+print_phase72_boundary()
+main()
+```
+
+representative source:
+
+```text
+build_phase72_5_data()
+```
+
+display:
+
+```text
+Toda Lemma 5.10 result
+Proof-style derivation
+Representative source objects
+Provenance / integration
+Phase 72 representative probe boundary
+```
+
+boundary:
+
+```text
+proof-style derivation is hand-authored presentation code
+not automatic ProofStep narrative generation
+```
+
+Phase 71 non-dependency display checks the exact n=6 statement rather than rejecting every Delta-injectivity statement.
+
+---
+
+# 73. Phase 72 regression
+
+latest home-laptop repository-wide:
+
+```text
+4990 passed in 70.11s
+```
+
+development uses two PCs, so wall time is compared per machine.
+
+---
+
+# 74. Phase 72 completion 後に最初に見る場所
+
+Phase 73 Toda Proposition 5.11 に進む前に:
+
+```text
+Toda source material
+  Proposition 5.11 statement / proof
+  Equation (5.13)
+
+toda_rules.py
+  Phase 72 Lemma 5.10 statements / rules
+  Proposition 2.5 related rules
+  Proposition 1.4 related rules
+  ν-family definitions / relations
+
+expression.py
+  Composition / TodaBracket / Multiple
+
+homotopy_groups.py
+  relevant π_(n+6)^n groups / EHP maps
+
+tests/test_phase72_*.py
+  reusable Lemma 5.10 provenance builders
+
+probes/probe_phase72_capabilities.py
+  current proof-style / provenance display
+
+docs/proof_records.md
+  Toda Lemma 5.10 record
+```
+
+Phase 73 starts with:
+
+```text
+source statement
+↓
+proof dependency analysis
+↓
+ν_n² / Equation (5.13) representation compatibility
+↓
+minimum new representation
+↓
+minimum inference
+```
+
+Do not implement all of Proposition 5.11 or the stable `(G_6;2)` branch before the concrete finite-dimensional dependencies are separated.
+

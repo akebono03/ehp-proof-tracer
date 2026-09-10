@@ -29,7 +29,7 @@ The implementation strategy is to formalize only the minimum theorem consequence
 
 # Current status
 
-Completed through Phase 71.
+Completed through Phase 72.
 
 ```text
 Phase 1–27   generic proof / algebra / Toda-bracket foundation
@@ -67,12 +67,13 @@ Phase 68     Toda Proposition 5.8 finite-dimensional computation
 Phase 69     Toda Equation (5.10): Δ(ι₁₁)=ν₅η₈
 Phase 70     Toda Proposition 5.9 finite-dimensional computation
 Phase 71     Toda Equation (5.12): Δ injective for n=4,5,6
+Phase 72     Toda Lemma 5.10: Δ(ι₁₃)∈{ν₆,η₉,2ι₁₀} mod 2π₁₁(S⁶)
 ```
 
 Latest repository-wide regression:
 
 ```text
-4886 passed in 29.25s
+4990 passed in 70.11s
 ```
 
 Phase 64 same-machine baseline:
@@ -83,12 +84,12 @@ Phase 64 same-machine baseline:
 
 The Phase 64 final regression is approximately 88.4% faster than the same-machine baseline while preserving the same 3657-test coverage.
 
-Phase 71 mathematical capability and regression verification are complete, while the Phase 64 performance stabilization remains effective.
+Phase 72 mathematical capability and regression verification are complete. Repository-wide wall time is machine-dependent because development is performed on two PCs; the latest recorded home-laptop run is 4990 passed in 70.11s.
 
 Representative current probe:
 
 ```powershell
-python -m probes.probe_phase71_capabilities
+python -m probes.probe_phase72_capabilities
 ```
 
 ---
@@ -3185,6 +3186,243 @@ stable homotopy-group model
 
 ---
 
+# Phase 72: Toda Lemma 5.10
+
+Phase 72 formalizes the concrete Toda Lemma 5.10 conclusion:
+
+```text
+Δ(ι₁₃)
+∈
+{ν₆,η₉,2ι₁₀}
+mod 2π₁₁(S⁶)
+```
+
+The implementation deliberately avoids a generic Toda-bracket coset algebra. The theorem is represented and inferred with narrow Phase 72 statements and rules only.
+
+## Phase 72 representation
+
+Minimum statement representation:
+
+```text
+TodaLemma510BracketModuloStatement
+```
+
+with fields representing:
+
+```text
+element
+bracket
+ambient_group
+modulus
+```
+
+For Lemma 5.10 this is:
+
+```text
+element       = Δ(ι₁₃)
+bracket       = {ν₆,η₉,2ι₁₀}
+ambient_group = π₁₁(S⁶)
+modulus       = 2
+```
+
+No generic `Coset`, generic modulo-subgroup normalizer, or generic quotient theorem layer is added.
+
+## Phase 72 core proof integration
+
+Toda's proof is represented by two main branches before final modulo integration.
+
+Hopf / exactness branch:
+
+```text
+Phase 69 / Toda (5.10)
+Δ(ι₁₁)=ν₅η₈
+
++ Proposition 2.6 consequence
+↓
+H{ν₆,η₉,2ι₁₀} contains 2ι₁₁
+
+Phase 70
+H(Δι₁₃)=±2ι₁₁
+
++ E-H exactness
+π₁₀(S⁵) --E--> π₁₁(S⁶) --H--> π₁₁(S¹¹)
+↓
+Δι₁₃ ∈ {ν₆,η₉,2ι₁₀} + Eπ₁₀(S⁵)
+```
+
+The first draft of Phase 72-3 incorrectly used Phase 71 n=6 Delta injectivity as a direct prerequisite. After the full Toda proof was supplied, Phase 72-3 was revised so that Phase 71 injectivity is not part of the Lemma 5.10 ancestry.
+
+## Phase 72 indeterminacy / modulo integration
+
+Toda bracket indeterminacy branch:
+
+```text
+Phase 59 / Proposition 5.3
+π₁₁⁹=Z/2{η₉²}
+
+Phase 68
+ν₆η₉=0
+
+Phase 70
+π₁₁⁶=Z{Δι₁₃}
+↓
+Indeterminacy
+=ν₆∘π₁₁⁹ + 2π₁₁⁶
+=2π₁₁⁶
+```
+
+Suspension-image branch:
+
+```text
+Phase 70
+π₁₀⁵=Z/2{ν₅η₈²}
+π₁₁⁶=Z{Δι₁₃}
+↓
+Eπ₁₀(S⁵) ⊂ 2π₁₁(S⁶)
+```
+
+Final integration:
+
+```text
+Δι₁₃ ∈ bracket + Eπ₁₀(S⁵)
+Indeterminacy = 2π₁₁(S⁶)
+Eπ₁₀(S⁵) ⊂ 2π₁₁(S⁶)
+↓
+Δι₁₃
+∈
+{ν₆,η₉,2ι₁₀}
+mod 2π₁₁(S⁶)
+```
+
+The final statement is `ProofRule.INFERENCE`, not `GIVEN`.
+
+## Phase 72 provenance / non-circularity
+
+Dedicated regression verifies:
+
+```text
+final direct premises
+= exactly core / indeterminacy / suspension-image branches
+
+Phase 59 provenance reachable
+Phase 68 ν₆η₉=0 reachable
+Phase 69 Δι₁₁=ν₅η₈ reachable
+Phase 70 H(Δι₁₃)=±2ι₁₁ reachable
+Phase 70 E-H exactness reachable
+Phase 70 π₁₀⁵ / π₁₁⁶ reachable
+
+Phase 71 n=6 Delta injectivity reachable = False
+
+final graph acyclic
+final conclusion absent from ancestors
+three direct branch graphs acyclic
+GIVEN shortcut rejected
+wrong bracket / modulus / group / indeterminacy generator / suspension map rejected
+```
+
+## Representative probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase72_capabilities
+```
+
+The probe displays:
+
+```text
+Toda Lemma 5.10 result
+Proof-style derivation
+Representative source objects
+Provenance / integration
+Phase 72 representative probe boundary
+```
+
+It explicitly reports:
+
+```text
+final modulo statement derived = True
+final modulo statement is GIVEN = False
+core branch derived = True
+indeterminacy branch derived = True
+suspension-image branch derived = True
+exact three direct premises = True
+final graph acyclic = True
+Phase 71 Delta injectivity absent from ancestry = True
+```
+
+The proof-style derivation remains hand-authored presentation code. It is not yet generated automatically from the `ProofStep` graph.
+
+## Phase 72 regression
+
+Focused / staged results include:
+
+```text
+Phase 72-2 minimum statement:
+10 passed
+
+Phase 72-3 initial core:
+16 passed
+
+Phase 72-3 revised proof-faithful core:
+19 passed
+
+Phase 72-4 modulo / indeterminacy integration:
+22 passed
+
+Phase 72-5 provenance / non-circularity:
+31 passed
+
+Phase 72-6 representative probe:
+22 passed
+```
+
+Latest repository-wide regression on the home laptop:
+
+```text
+4990 passed in 70.11s
+```
+
+Wall-clock regression time is tracked per machine because the project is developed on two PCs.
+
+## Phase 72 completion boundary
+
+Implemented:
+
+```text
+TodaLemma510BracketModuloStatement
+TodaLemma510HopfBracketContainsStatement
+TodaLemma510BracketPlusSuspensionImageStatement
+TodaLemma510SuspensionImageInDoubleStatement
+
+toda_lemma510_hopf_bracket_contains_inference_rule()
+toda_lemma510_exactness_core_inference_rule()
+toda_lemma510_indeterminacy_inference_rule()
+toda_lemma510_suspension_image_in_double_inference_rule()
+toda_lemma510_modulo_integration_inference_rule()
+
+Toda Lemma 5.10 end-to-end inference
+applicability regression
+provenance / non-circularity regression
+representative proof-style probe
+seventh formal proof record
+```
+
+Still deferred:
+
+```text
+generic Toda-bracket coset algebra
+generic modulo-subgroup bracket normalization
+generic quotient normalization
+generic finite-subgroup solver
+automatic proof narrative generation
+persistent Proof Repository
+stable homotopy-group model
+higher Toda brackets unless concretely required
+```
+
+---
+
 # Documentation
 
 - `README.md` — current capabilities and status
@@ -3197,34 +3435,44 @@ stable homotopy-group model
 
 # Next development boundary
 
-Phase 71 is complete.
+Phase 72 is complete.
 
 The next mathematical Phase is:
 
 ```text
-Phase 72
-Toda Lemma 5.10
+Phase 73
+Toda Proposition 5.11
+The group π_(n+6)^n
 ```
 
-Source target:
+Source targets:
 
 ```text
-Δ(ι₁₃)
-∈
-{ν₆,η₉,2ι₁₀}
-mod 2π₁₁(S⁶)
+ν_n² := ν_n∘ν_(n+3),  n≥4
+
+π_8^2  = Z/2{η₂ν′η₆²}
+π_9^3  = 0
+π_10^4 = Z/8{ν₄²}
+π_(n+6)^n = Z/2{ν_n²},  n≥5
+(G_6;2)=Z/2{ν²}
 ```
 
 Start with:
 
 ```text
-Phase 72-1
-source statement /
-proof dependency /
-current TodaBracket + modulo/coset representation compatibility analysis
+Phase 73-1
+source statement / proof dependency / representation compatibility analysis
 ```
 
-The first question is whether the existing bracket and modulo representations can express the exact Lemma 5.10 statement without introducing a generic coset algebra prematurely.
+The proof introduces the intermediate Toda Equation (5.13):
+
+```text
+Δ(ν₉)=±2ν₄²
+Δ(η₁₁²)=0
+Δ(η₁₃)=0
+```
+
+Before implementation, inspect the current representations for `ν_n²`, the Phase 72 Lemma 5.10 result, Proposition 2.5 composition with Delta, Proposition 1.4 bracket composition, and the n=4,5,6 EHP exactness branches.
 
 The following remain separate later milestones:
 
@@ -3232,5 +3480,5 @@ The following remain separate later milestones:
 automatic proof narrative generation
 persistent Proof Repository
 stable homotopy branch
-higher Toda brackets
+higher Toda brackets beyond concrete need
 ```
