@@ -7266,6 +7266,430 @@ def toda_prop58_finite_dimensional_integration_inference_rule():
   )
 
 
+def toda_eq510_concrete_delta_e_exactness_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    window = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return (
+      window
+      == TodaEHPExactnessWindow(
+        source_term=TodaPrimaryGroup(
+          group_dimension=11,
+          sphere_dimension=11,
+        ),
+        middle_term=TodaPrimaryGroup(
+          group_dimension=9,
+          sphere_dimension=5,
+        ),
+        target_term=TodaPrimaryGroup(
+          group_dimension=10,
+          sphere_dimension=6,
+        ),
+        first_map=EHP_DELTA_MAP,
+        second_map=EHP_E_MAP,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return TodaProp42ExactnessStatement(
+      window=(
+        premises[
+          0
+        ].conclusion
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Equation (5.10) "
+      "concrete Delta-E exactness"
+    ),
+    description=(
+      "Recognize the concrete Toda "
+      "Proposition 4.2 Delta-E exactness "
+      "window pi_11^11 -> pi_9^5 -> "
+      "pi_10^6 used immediately before "
+      "Toda Equation (5.10). "
+      "The structural window remains a "
+      "GIVEN premise while exactness is "
+      "derived as theorem knowledge. "
+      "No generic concrete-dimension "
+      "normalizer is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaEHPExactnessWindow
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_eq510_delta_surjective_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    zero_target = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi_11_11 = TodaPrimaryGroup(
+      group_dimension=11,
+      sphere_dimension=11,
+    )
+
+    pi_9_5 = TodaPrimaryGroup(
+      group_dimension=9,
+      sphere_dimension=5,
+    )
+
+    pi_10_6 = TodaPrimaryGroup(
+      group_dimension=10,
+      sphere_dimension=6,
+    )
+
+    if (
+      zero_target
+      != TodaPrimaryGroupZeroStatement(
+        group=pi_10_6,
+      )
+    ):
+      return False
+
+    return (
+      exactness.window
+      == TodaEHPExactnessWindow(
+        source_term=pi_11_11,
+        middle_term=pi_9_5,
+        target_term=pi_10_6,
+        first_map=EHP_DELTA_MAP,
+        second_map=EHP_E_MAP,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    window = (
+      premises[
+        1
+      ].conclusion.window
+    )
+
+    return TodaDeltaSurjectiveStatement(
+      map=TodaDeltaMap(
+        source_group=(
+          window.source_term
+        ),
+        target_group=(
+          window.middle_term
+        ),
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Equation (5.10) "
+      "Delta surjective prerequisite"
+    ),
+    description=(
+      "In the concrete exact sequence "
+      "pi_11^11 -> pi_9^5 -> pi_10^6, "
+      "Phase 68 has already derived "
+      "pi_10^6=0. Therefore suspension "
+      "E:pi_9^5 to pi_10^6 is the zero "
+      "map, so exactness gives "
+      "Im(Delta)=pi_9^5 and hence "
+      "Delta:pi_11^11 to pi_9^5 is "
+      "surjective. No generic exactness "
+      "or zero-target solver is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaPrimaryGroupZeroStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_eq510_delta_iota11_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    delta_surjective = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    pi11_11_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi9_5_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi11_11 = TodaPrimaryGroup(
+      group_dimension=11,
+      sphere_dimension=11,
+    )
+
+    pi9_5 = TodaPrimaryGroup(
+      group_dimension=9,
+      sphere_dimension=5,
+    )
+
+    if (
+      delta_surjective.map
+      != TodaDeltaMap(
+        source_group=pi11_11,
+        target_group=pi9_5,
+      )
+    ):
+      return False
+
+    if (
+      pi11_11_relation.lhs
+      != pi11_11
+    ):
+      return False
+
+    if not isinstance(
+      pi11_11_relation.rhs,
+      FreeCyclicGroup,
+    ):
+      return False
+
+    iota_11 = (
+      pi11_11_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      iota_11,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      iota_11.dimension
+      != 11
+    ):
+      return False
+
+    if (
+      iota_11.generator
+      != GeneratorSymbol(
+        family="ι",
+        index=11,
+      )
+    ):
+      return False
+
+    if (
+      pi9_5_relation.lhs
+      != pi9_5
+    ):
+      return False
+
+    if not isinstance(
+      pi9_5_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi9_5_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    target_generator = (
+      pi9_5_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      target_generator,
+      Composition,
+    ):
+      return False
+
+    nu_5 = (
+      toda_nu_family_definition_statement(
+        5
+      ).element
+    )
+
+    if (
+      target_generator.left
+      != nu_5
+    ):
+      return False
+
+    eta_8 = (
+      target_generator.right
+    )
+
+    if not isinstance(
+      eta_8,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_8.dimension
+      != 8
+    ):
+      return False
+
+    if (
+      eta_8.source
+      != 9
+    ):
+      return False
+
+    if (
+      eta_8.target
+      != 8
+    ):
+      return False
+
+    return (
+      eta_8.generator
+      == GeneratorSymbol(
+        family="η",
+        index=8,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    pi11_11_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi9_5_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    iota_11 = (
+      pi11_11_relation
+      .rhs
+      .generator
+    )
+
+    nu5_eta8 = (
+      pi9_5_relation
+      .rhs
+      .generator
+    )
+
+    return Relation(
+      lhs=MapApplication(
+        map=EHP_DELTA_MAP,
+        expression=iota_11,
+      ),
+      rhs=nu5_eta8,
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Equation (5.10) "
+      "Delta iota_11"
+    ),
+    description=(
+      "For the derived surjective Delta "
+      "from pi_11^11 to pi_9^5, "
+      "use the foundational source "
+      "pi_11^11=Z generated by iota_11 "
+      "and the independently derived "
+      "Phase 68 result "
+      "pi_9^5=Z/2 generated by "
+      "nu_5 composed with eta_8. "
+      "Surjectivity forces the image "
+      "of the source generator to be "
+      "the unique nonzero element of "
+      "the order-two target. Therefore "
+      "Delta(iota_11)=nu_5 eta_8. "
+      "The target has order two, so the "
+      "possible sign is immaterial. "
+      "No generic cyclic-image solver "
+      "or generic sign algebra is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaDeltaSurjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_prop51_finite_dimensional_integration_inference_rule():
   def guard(
     premises,

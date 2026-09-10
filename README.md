@@ -29,7 +29,7 @@ The implementation strategy is to formalize only the minimum theorem consequence
 
 # Current status
 
-Completed through Phase 68.
+Completed through Phase 69.
 
 ```text
 Phase 1–27   generic proof / algebra / Toda-bracket foundation
@@ -64,12 +64,13 @@ Phase 65     Toda Proposition 5.6 finite-dimensional computation
 Phase 66     Toda Equation (5.8) integration / proof record foundation
 Phase 67     Toda Lemma 5.7 integration / Delta generator consequence
 Phase 68     Toda Proposition 5.8 finite-dimensional computation
+Phase 69     Toda Equation (5.10): Δ(ι₁₁)=ν₅η₈
 ```
 
 Latest repository-wide regression:
 
 ```text
-4343 passed in 28.06s
+4422 passed in 30.54s
 ```
 
 Phase 64 same-machine baseline:
@@ -85,7 +86,7 @@ Phase 63 mathematical capability remains unchanged, and Phase 64 performance / r
 Representative current probe:
 
 ```powershell
-python -m probes.probe_phase68_capabilities
+python -m probes.probe_phase69_capabilities
 ```
 
 ---
@@ -2237,888 +2238,193 @@ persistent Proof Repository / Derived Fact Database
 
 ---
 
-# Documentation
 
-- `README.md` — current capabilities and status
-- `docs/design.md` — current architecture, semantics, and boundaries
-- `docs/development_log.md` — chronological implementation history
-- `docs/roadmap.md` — future capability dependency
-- `docs/code_reference.md` — module responsibilities and major classes / functions
+# Phase 69: Toda Equation (5.10)
 
----
-
-# Next development boundary
-
-Phase 65 is complete.
-
-Current verified finite-dimensional Proposition 5.6 capability:
+Phase 69 implements the concrete source equation:
 
 ```text
-π_5^2 = Z/2{η₂³}
-π_6^3 = Z/4{ν′}
-π_7^4 = Z{ν₄} ⊕ Z/4{Eν′}
-π_(n+3)^n = Z/8{ν_n}, n≥5
+Δ(ι₁₁)=ν₅η₈
 ```
 
-The next mathematical Phase should begin from the next concrete Toda statement / consequence after Proposition 5.6 and first perform source-dependency / current-representation compatibility analysis.
+The implementation deliberately reuses the Phase 68 derived branches directly rather than treating the Proposition 5.8 aggregate as a new `GIVEN` prerequisite.
 
-A separate repository milestone is planned after enough concrete calculations have accumulated:
+## Concrete Δ-E exactness and surjectivity
+
+The structural EHP segment is:
 
 ```text
-through roughly 7-stem
+π_11^11 --Δ--> π_9^5 --E--> π_10^6
+```
+
+The structural window remains `GIVEN`. Phase 69 derives the concrete Proposition 4.2 exactness statement as `INFERENCE`.
+
+Phase 68 already derived:
+
+```text
+π_10^6=0
+```
+
+so:
+
+```text
+E:π_9^5→π_10^6 = 0
 ↓
-design / implement a minimal persistent Proof Repository
-
-8–10 stem
+ker(E)=π_9^5
+↓ exactness
+Im(Δ)=π_9^5
 ↓
-use real calculations to test and extend the schema
+Δ:π_11^11→π_9^5 is surjective
 ```
 
-The first repository version should preserve at least:
+The surjectivity result is `INFERENCE`.
 
-```text
-derived conclusion
-scope
-generator / group structure
-ProofStep provenance
-dependencies
-literature metadata
-```
-
-It should not initially become a generic theorem database or replace inference with cached answers.
-
-Still deferred until concrete need:
-
-```text
-generic Proposition 4.4 specialization framework
-generic direct-sum simplification
-generic scalar / membership normalization
-stable ν / η³
-stable homotopy-group model
-automatic proof narrative generation
-generic theorem repository expansion
-persistent proof database implementation
-```
-
----
-
-# Phase 66: Toda Equation (5.8)
-
-Phase 66 integrates:
-
-```text
-Δ(ι₉)=±(2ν₄-Eν′)=±[ι₄,ι₄]
-```
-
-without adding a generic sign algebra.
-
-The implementation reuses the independently derived Phase 65 decomposition:
-
-```text
-π_7^4=Z{ν₄}⊕Z/4{Eν′}
-```
-
-and the Phase 60 Whitehead correction provenance for:
-
-```text
-[ι₄,ι₄].
-```
-
-The three first-class derived forms are:
-
-```text
-Δ(ι₉)=±(2ν₄-Eν′)
-
-[ι₄,ι₄]=±(2ν₄-Eν′)
-
-Δ(ι₉)=±[ι₄,ι₄]
-```
-
-They are integrated into:
-
-```text
-Toda58EquationStatement
-```
-
-with direct literature metadata for:
-
-```text
-H. Toda
-Composition Methods in Homotopy Groups of Spheres
-Equation (5.8)
-1962
-```
-
-The final aggregate is `ProofRule.INFERENCE`, not `GIVEN`.
-
-## Phase 66 provenance
-
-```text
-Phase 65
-π_7^4=Z{ν₄}⊕Z/4{Eν′}
-        ↓
-Phase 66-3
-Δ(ι₉)=±(2ν₄-Eν′)
-        │
-        ├─────────────────────┐
-        │                     │
-Phase 60                      │
-[ι₄,ι₄] Whitehead data       │
-        ↓                     │
-Phase 66-4                    │
-[ι₄,ι₄]=±(2ν₄-Eν′)           │
-        │                     │
-        └──────────┬──────────┘
-                   ↓
-Phase 66-5
-Δ(ι₉)=±[ι₄,ι₄]
-        ↓
-Phase 66-7
-Toda58EquationStatement
-```
-
-Phase 66-6 fixes applicability, wrong-instance rejection, acyclic ancestry,
-and the `GIVEN` / `INFERENCE` boundary.
-
-## Representative probe
-
-```powershell
-python -m probes.probe_phase66_capabilities
-```
-
-The representative display includes:
-
-```text
-Toda Equation (5.8) result
-Proof-style derivation
-Provenance / integration
-Literature statements used
-Proof record
-Phase 66 completion boundary
-```
-
-The proof-style derivation is still hand-authored presentation code.
-It is not automatically generated from the `ProofStep` graph.
-
-## Proof records
-
-Phase 66 starts:
-
-```text
-docs/proof_records.md
-```
-
-as a curated human-readable record of representative proofs.
-
-This is intended to become a human-reviewed reference corpus for future automatic
-proof narrative generation, but it is not a persistent proof repository.
-
-## Phase 66 regression
-
-Focused Phase 66 suites:
-
-```text
-Phase 66-2   12 passed
-Phase 66-3   19 passed
-Phase 66-4   18 passed
-Phase 66-5   22 passed
-Phase 66-6   20 passed
-Phase 66-7   21 passed
-Phase 66-8   17 passed
-
-total focused Phase 66 tests:
-129 passed
-```
-
-Final repository-wide regression:
-
-```text
-3970 passed in 31.96s
-```
-
-## Phase 66 boundary
-
-Implemented:
-
-```text
-2ν₄-Eν′ structural expression
-Δ(ι₉)=±(2ν₄-Eν′)
-[ι₄,ι₄]=±(2ν₄-Eν′)
-Δ(ι₉)=±[ι₄,ι₄]
-Toda (5.8) literature-aware aggregate
-applicability / provenance regression
-representative proof-style probe
-docs/proof_records.md foundation
-```
-
-Still deferred:
-
-```text
-generic PlusMinus expression
-generic sign solver
-generic up-to-sign transitivity
-automatic proof narrative generation
-persistent Proof Repository
-stable ν / η³
-stable homotopy-group model
-```
-
----
-
-# Phase 67: Toda Lemma 5.7
-
-Phase 67 integrates Toda Lemma 5.7 without adding a generic image-membership framework, cyclic-image solver, or sign algebra.
-
-The general hypothesis is represented minimally as:
-
-```text
-E²α ∈ 2ι₅∘π_(i+2)(S⁵)
-```
-
-by:
-
-```text
-TodaLemma57TwoIota5ImageMembershipStatement
-```
-
-and the general conclusion is derived as:
-
-```text
-E²α ∈ 2ι₅∘π_(i+2)(S⁵)
-↓
-E²(η₂∘α)=η₄∘E²α
-+
-2η₄=0
-↓
-E²(η₂∘α)=0
-↓ Toda Lemma 4.5, n=3
-E(η₂∘α)=0
-```
-
-## ν′ specialization
-
-Phase 60 Toda Lemma 5.4 gives:
-
-```text
-2Eν₄=E²ν′
-```
-
-and the ν-family definition gives:
-
-```text
-ν₅=Eν₄.
-```
-
-Therefore Phase 67 derives, rather than assumes:
-
-```text
-E²ν′ ∈ 2ι₅∘π_8(S⁵)
-```
-
-and reuses the general Lemma 5.7 branch:
-
-```text
-E(η₂∘ν′)=0.
-```
-
-The concrete `ν′` representation uses `source=6`, so the general Lemma 5.7 guards read the homotopy-group index from `alpha.source`. This preserves both the symbolic `α∈π_i(S³)` branch and the canonical concrete `ν′∈π_6(S³)` branch.
-
-## π_6^2 calculation
-
-Phase 56 Toda (5.2):
-
-```text
-η₂∘- : π_i^3 ≅ π_i^2
-```
-
-and Phase 65 Proposition 5.6:
-
-```text
-π_6^3=Z/4{ν′}
-```
-
-give the concrete transport:
-
-```text
-π_6^2=Z/4{η₂∘ν′}.
-```
-
-No generic finite-cyclic generator transport framework is introduced.
-
-## Toda (4.4) exactness and Delta consequence
-
-Phase 67 recognizes the concrete exact segment:
-
-```text
-π_8^5 ─Δ→ π_6^2 ─E→ π_7^3.
-```
-
-Using:
-
-```text
-E(η₂∘ν′)=0
-π_6^2=Z/4{η₂∘ν′}
-```
-
-it derives that `E` is zero on `π_6^2`, hence exactness makes:
-
-```text
-Δ:π_8^5→π_6^2
-```
-
-surjective.
-
-Phase 65 gives:
-
-```text
-π_8^5=Z/8{ν₅}.
-```
-
-The canonical `ν₅` object is reused through `toda_nu_family_definition_statement(5).element`, avoiding a second handwritten naming convention. Therefore:
-
-```text
-π_6^2=<Δ(ν₅)>
-```
-
-and finally:
-
-```text
-Δ(ν₅)=±(η₂∘ν′).
-```
-
-The final result reuses the existing:
-
-```text
-TodaDeltaImageUpToSignStatement
-```
-
-rather than adding generic `±` algebra.
-
-## Provenance and non-circularity
-
-Phase 67 regression fixes that the final `Δ(ν₅)` result reaches all required branches:
-
-```text
-Phase 60 → Phase 67-5
-ν′ image hypothesis
-↓
-E(η₂∘ν′)=0
-
-Phase 56 + Phase 65 → Phase 67-6
-π_6^2=Z/4{η₂∘ν′}
-
-Toda (4.4) structural window
-↓
-exactness
-↓
-Δ surjective
-
-Phase 65
-π_8^5=Z/8{ν₅}
-↓
-Δ(ν₅)=±(η₂∘ν′)
-```
-
-The graph is acyclic, the final conclusion does not occur among its ancestors, and Phase 66 / Toda (5.8) is explicitly not an ancestor. Thus source ordering and machine proof dependency remain distinct.
-
-## Representative probe
-
-```powershell
-python -m probes.probe_phase67_capabilities
-```
-
-Representative output includes:
-
-```text
-Toda Lemma 5.7 result
-Proof-style derivation
-Provenance / integration
-Literature / source
-Proof record
-Phase 67 completion boundary
-```
-
-The proof-style derivation remains hand-authored presentation code and is not generated automatically from the `ProofStep` graph.
-
-## Phase 67 regression
-
-Final representative checks include:
-
-```text
-E²ν′ image hypothesis derived = True
-E(η₂∘ν′)=0 derived = True
-π_6^2=Z/4{η₂∘ν′} derived = True
-Toda (4.4) exactness derived = True
-Δ surjective derived = True
-Toda Proposition 5.6 aggregate derived = True
-Δ(ν₅)=±(η₂∘ν′) derived = True
-final result is GIVEN = False
-all final premises are INFERENCE = True
-Toda (4.4) structural window remains GIVEN = True
-Phase 66 dependency used = False
-fixed point = True
-```
-
-Final repository-wide regression:
-
-```text
-4102 passed in 32.75s
-```
-
-## Phase 67 boundary
-
-Implemented:
-
-```text
-Lemma 5.7 minimum image-membership semantics
-E²(η₂∘α)=0
-E(η₂∘α)=0
-ν′ specialization
-E(η₂∘ν′)=0
-π_6^2=Z/4{η₂∘ν′}
-concrete Toda (4.4) exactness
-Δ surjectivity
-Δ(ν₅)=±(η₂∘ν′)
-applicability / provenance / non-circularity regression
-representative proof-style probe
-proof record
-```
-
-Still deferred:
-
-```text
-generic image-membership framework
-generic existential witness
-generic cyclic-image solver
-generic sign / ± algebra
-generic Lemma 4.5 all-n reflection
-automatic proof narrative generation
-persistent Proof Repository
-stable homotopy-group model
-```
----
-
-# Phase 68: Toda Proposition 5.8 finite-dimensional result
-
-Phase 68 integrates the finite-dimensional part of Toda Proposition 5.8.
-
-The final capability is:
-
-```text
-π_6^2 = Z/4{η₂ν′}
-π_7^3 = Z/2{ν′η₆}
-π_8^4 = Z/2{ν₄η₇} ⊕ Z/2{Eν′η₇}
-π_9^5 = Z/2{ν₅η₈}
-π_(n+4)^n = 0  (n≥6)
-```
-
-These five conclusions are integrated into:
-
-```text
-TodaProp58FiniteDimensionalStatement
-```
-
-The aggregate is a derived `ProofRule.INFERENCE` result. The higher-range hypothesis:
-
-```text
-n≥6
-```
-
-remains an explicit `ProofRule.GIVEN` applicability premise.
-
-The stable conclusion:
-
-```text
-(G_4;2)=0
-```
-
-is not part of the Phase 68 aggregate and remains deferred.
-
-## π_7^3 branch
-
-Phase 67 gives:
-
-```text
-π_6^2 = Z/4{η₂ν′}
-E(η₂ν′)=0
-```
-
-Using the concrete E-H exactness window:
-
-```text
-π_6^2 --E--> π_7^3 --H--> π_7^5
-```
-
-the Hopf map is injective.
-
-Phase 65 Equation (5.7) and Proposition 5.3 give:
-
-```text
-H(ν′η₆)=η₅²
-π_7^5=Z/2{η₅²}
-```
-
-so the same Hopf map is surjective. Therefore:
-
-```text
-H:π_7^3≅π_7^5
-↓
-π_7^3=Z/2{ν′η₆}
-```
-
-## π_8^4 branch
-
-Toda (5.6), specialized to `i=8`, gives:
-
-```text
-π_7^3 ⊕ π_8^7 ≅ π_8^4
-(α,β) ↦ Eα + ν₄β
-```
-
-Using:
-
-```text
-π_7^3=Z/2{ν′η₆}
-π_8^7=Z/2{η₇}
-E(ν′η₆)=Eν′η₇
-```
-
-Phase 68 derives:
-
-```text
-π_8^4
-=
-Z/2{ν₄η₇}
-⊕
-Z/2{Eν′η₇}.
-```
-
-## Δ(η₉) and π_9^5
-
-Phase 66 Toda (5.8) gives:
-
-```text
-Δ(ι₉)=±(2ν₄-Eν′).
-```
-
-A Proposition 2.5 specialization gives:
-
-```text
-Δ(η₉)
-=
-±((2ν₄-Eν′)η₇).
-```
-
-The two direct summands of `π_8^4` have order two, hence:
-
-```text
-2ν₄η₇=0
-```
-
-and the sign on `Eν′η₇` is irrelevant. Therefore:
-
-```text
-Δ(η₉)=Eν′η₇.
-```
-
-Using the concrete EHP exactness branch and the Phase 66 decomposition, Phase 68 derives:
-
-```text
-H:π_9^5→π_9^9 = 0
-E:π_8^4→π_9^5 is surjective
-ker(E)=Z/2{Eν′η₇}
-```
-
-so only the first direct summand survives:
-
-```text
-π_9^5=Z/2{E(ν₄η₇)}.
-```
-
-The concrete suspension bridge:
-
-```text
-E(ν₄η₇)=ν₅η₈
-```
-
-then yields:
-
-```text
-π_9^5=Z/2{ν₅η₈}.
-```
-
-## Toda (5.9) and zero relations
-
-Phase 68 derives Toda (5.9):
-
-```text
-η₃ν₄=ν′η₆
-```
-
-by comparing Hopf invariants through the already-derived isomorphism:
-
-```text
-H:π_7^3≅π_7^5.
-```
-
-Double suspension and the ν-family relation:
-
-```text
-2ν₅=E²ν′
-```
-
-give:
-
-```text
-η₅ν₆
-=
-E²ν′η₈
-=
-2ν₅η₈
-=
-0.
-```
-
-Suspension transport then gives:
-
-```text
-η_nν_(n+1)=0
-(n≥5).
-```
-
-The `n=6` specialization gives:
-
-```text
-η₆ν₇=0.
-```
-
-Toda Proposition 3.1 relates the two Barratt-Hilton representatives up to sign:
-
-```text
-η₂∧ν₄
-=
-±η₆ν₇
-=
-±ν₆η₉.
-```
-
-Since the first representative is zero:
-
-```text
-ν₆η₉=0.
-```
-
-The sign normalization itself is not generalized; zero is unaffected by the sign.
-
-Suspension transport yields:
-
-```text
-ν_nη_(n+3)=0
-(n≥6).
-```
-
-## π_(n+4)^n=0
-
-The exact sequence:
-
-```text
-π_9^5 --E--> π_10^6 --H--> π_10^11=0
-```
-
-makes:
-
-```text
-E:π_9^5→π_10^6
-```
-
-surjective.
-
-Since `π_9^5` is generated by `ν₅η₈`, its suspended generator is `ν₆η₉`; Phase 68 already derived:
-
-```text
-ν₆η₉=0.
-```
-
-Therefore:
-
-```text
-π_10^6=0.
-```
-
-Toda (4.5) gives:
-
-```text
-E^(n-6):π_10^6≅π_(n+4)^n
-```
-
-and hence:
-
-```text
-π_(n+4)^n=0
-(n≥6).
-```
-
-No generic zero-group isomorphism transport framework was added.
-
-## Phase 68 representation boundaries
-
-Phase 68 deliberately keeps theorem-specific representation fixes local.
-
-In particular:
-
-```text
-η_(n+3)
-```
-
-is constructed locally for the symbolic shifted family occurrence. The existing:
-
-```text
-toda_eta_family_definition_statement()
-```
-
-continues to accept only an integer or simple `ScalarSymbol` index.
-
-Likewise, concrete η-family members are validated structurally by dimension, source, target, and `GeneratorSymbol` where display-name differences such as:
-
-```text
-η₈
-η_8
-```
-
-would otherwise cause structural mismatches.
-
-Phase 68 does not add:
-
-```text
-generic shifted-family constructor
-generic η-name normalizer
-generic sign solver
-generic smash-product normalization
-generic cyclic-image solver
-generic zero-generator group solver
-generic zero-group isomorphism transport
-generic exactness solver
-stable homotopy-group model
-```
-
-## Provenance / non-circularity
-
-The five direct mathematical branches are all derived:
-
-```text
-π_6^2               INFERENCE
-π_7^3               INFERENCE
-π_8^4               INFERENCE
-π_9^5               INFERENCE
-π_(n+4)^n=0         INFERENCE
-```
+## Generator consequence
 
-The applicability scope is:
+The source group is retained as a foundational fact:
 
 ```text
-n≥6                 GIVEN
+π_11^11=Z{ι₁₁}
+GIVEN
 ```
 
-and the final aggregate is:
+Phase 68 independently derived:
 
 ```text
-TodaProp58FiniteDimensionalStatement
+π_9^5=Z/2{ν₅η₈}
 INFERENCE
 ```
 
-Phase 68 regression verifies:
+Together with Δ-surjectivity:
 
 ```text
-final reaches all five branches
-branches do not depend on final
-final is not its own ancestor
-final conclusion is absent from ancestors
-
-Phase 66 / Toda (5.8)
-  absent from π_7^3 branch
-  absent from π_8^4 branch
-  present where required downstream
-
-Toda (5.9)
-  does not flow backward into π_7^3
+Δ:π_11^11→π_9^5
+surjective
+INFERENCE
 ```
 
-Thus source ordering and machine proof dependency remain distinct.
+Phase 69 derives:
+
+```text
+Δ(ι₁₁)=ν₅η₈
+INFERENCE
+```
+
+Since the target is order two, the possible sign is immaterial.
+
+## Provenance / non-circularity
+
+The final direct premises are exactly:
+
+```text
+Δ surjective              INFERENCE
+π_11^11=Z{ι₁₁}           GIVEN
+π_9^5=Z/2{ν₅η₈}          INFERENCE
+```
+
+Regression verifies:
+
+```text
+final is INFERENCE
+final is not GIVEN
+final is not its own ancestor
+final conclusion is absent from ancestors
+Δ-surjective branch does not depend on final
+π_9^5 branch does not depend on final
+Phase 68 aggregate is not a direct premise
+Phase 68 aggregate is not an ancestor of final
+```
+
+The Phase 68 aggregate is therefore not used as a shortcut prerequisite.
+
+## Representation boundary
+
+Phase 69 adds only theorem-specific rules required by Equation (5.10):
+
+```text
+toda_eq510_concrete_delta_e_exactness_inference_rule()
+toda_eq510_delta_surjective_inference_rule()
+toda_eq510_delta_iota11_inference_rule()
+```
+
+It does not add:
+
+```text
+generic concrete-dimension normalizer
+generic exactness solver
+generic cyclic-image solver
+generic zero-target solver
+generic sign / ± algebra
+stable (G_4;2)=0
+automatic proof narrative generation
+persistent Proof Repository
+```
+
+The target generator object from the Phase 68 `π_9^5` branch is reused directly instead of rebuilding a display-equivalent expression.
 
 ## Representative probe
 
 Run:
 
 ```powershell
-python -m probes.probe_phase68_capabilities
+python -m probes.probe_phase69_capabilities
 ```
 
 The probe displays:
 
 ```text
-Toda Proposition 5.8 finite-dimensional result
+Toda Equation (5.10) result
 Proof-style derivation
+EHP exact sequence used
 Provenance / integration
-Literature statements used
-Phase 68 representative probe boundary
+Literature / source
+Related previously derived result
+Phase 69 representative probe boundary
 ```
+
+Toda Equation (5.11):
+
+```text
+Δ(η₉)=Eν′η₇
+```
+
+was already derived in Phase 68 and is not reimplemented in Phase 69.
 
 The proof-style derivation remains hand-authored presentation code. It is not yet generated automatically from the `ProofStep` graph.
 
-## Phase 68 regression
+## Phase 69 regression
 
-Final representative checks include:
+Focused Phase 69 suite:
 
 ```text
-π_6^2 result derived = True
-π_7^3 result derived = True
-π_8^4 result derived = True
-π_9^5 result derived = True
-higher four-stem zero derived = True
-n>=6 scope remains GIVEN = True
-final aggregate derived = True
-final aggregate is GIVEN = False
-theorem dependencies are INFERENCE = True
-fixed point = True
+79 passed in 1.53s
 ```
 
-Focused representative verification:
+Representative probe test:
 
 ```text
-tests/test_phase68_probe.py
-26 passed in 1.38s
-
-tests/test_phase68_prop58_integration.py
-tests/test_phase68_applicability_provenance.py
-tests/test_phase68_probe.py
-75 passed in 1.53s
+22 passed in 1.18s
 ```
 
 Final repository-wide regression:
 
 ```text
-4343 passed in 28.06s
+4422 passed in 30.54s
 ```
 
-Phase 64 performance stabilization therefore remains effective while the Phase 68 theorem and provenance coverage is added.
+Phase 64 performance stabilization therefore remains effective while Phase 69 theorem and provenance coverage is added.
 
-## Phase 68 completion boundary
+## Phase 69 completion boundary
 
 Implemented:
 
 ```text
-Toda Proposition 5.8 finite-dimensional branch
-π_6^2=Z/4{η₂ν′}
-π_7^3=Z/2{ν′η₆}
-π_8^4=Z/2{ν₄η₇}⊕Z/2{Eν′η₇}
-Δ(η₉)=Eν′η₇
-π_9^5=Z/2{ν₅η₈}
-Toda (5.9): η₃ν₄=ν′η₆
-η_nν_(n+1)=0, n≥5
-ν_nη_(n+3)=0, n≥6
-π_10^6=0
-π_(n+4)^n=0, n≥6
-TodaProp58FiniteDimensionalStatement
+Toda Equation (5.10)
+π_11^11 --Δ--> π_9^5 --E--> π_10^6 concrete exactness
+Δ:π_11^11→π_9^5 surjective
+π_11^11=Z{ι₁₁} foundational source fact
+π_9^5=Z/2{ν₅η₈} Phase 68 derived branch reuse
+Δ(ι₁₁)=ν₅η₈
 applicability / provenance / non-circularity regression
 representative proof-style probe
 formal proof record
@@ -3128,11 +2434,10 @@ Still deferred:
 
 ```text
 stable (G_4;2)=0
-Toda (5.10) / later source consequences
-generic shifted-family framework
+generic concrete-dimension normalization
+generic exactness solver
+generic cyclic-image / zero-target solver
 generic sign / ± algebra
-generic smash-product normalization
-generic cyclic-image / zero-group solver
 automatic proof narrative generation
 persistent Proof Repository
 stable homotopy-group model
@@ -3147,24 +2452,30 @@ stable homotopy-group model
 - `docs/development_log.md` — chronological implementation history
 - `docs/roadmap.md` — future capability dependency
 - `docs/code_reference.md` — module responsibilities and major classes / functions
-- `docs/proof_records.md` — curated human-reviewed representative proof records
 
 ---
 
 # Next development boundary
 
-Phase 68 is complete.
+Phase 69 is complete.
 
-The next mathematical phase should begin from the next concrete Toda source statement after Proposition 5.8, with source/dependency/current-representation analysis before implementation.
+The next mathematical phase should begin with source/dependency/current-representation analysis for the next concrete Toda consequence after Equation (5.10).
 
-A likely next target is the following concrete source consequence:
+Toda Equation (5.11):
 
 ```text
-Toda (5.10)
-Δ(ι₁₁)=ν₅η₈
+Δ(η₉)=Eν′η₇
 ```
 
-It should be confirmed against the source and current implementation before Phase 69 code changes.
+is already implemented in Phase 68 and should not be reimplemented merely because it follows Equation (5.10) in source order.
+
+A likely next source candidate is the subsequent use of Equation (5.10), including the branch leading to:
+
+```text
+Δ(η₁₁)=ν₅η₈²
+```
+
+but the exact source statement, locator, and prerequisites should be confirmed before Phase 70 implementation.
 
 The following remain separate later milestones:
 

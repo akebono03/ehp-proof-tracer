@@ -6215,3 +6215,451 @@ stable homotopy model
 ### 状態
 
 COMPLETE
+
+---
+
+# Phase 69：Toda Equation (5.10)
+
+target:
+
+```text
+Δ(ι₁₁)=ν₅η₈
+```
+
+Equation (5.11):
+
+```text
+Δ(η₉)=Eν′η₇
+```
+
+は Phase 68-5 で既に実装済みなので Phase 69 では再実装しない。
+
+---
+
+## Phase 69-1：source / proof dependency / compatibility analysis
+
+確認:
+
+```text
+Toda Equation (5.10)
+Δ(ι₁₁)=ν₅η₈
+```
+
+必要 dependency:
+
+```text
+π_10^6=0
+π_9^5=Z/2{ν₅η₈}
+π_11^11=Z{ι₁₁}
+concrete Δ-E exactness
+```
+
+設計判断:
+
+```text
+Phase 68 aggregate を prerequisite shortcut にしない
+Phase 68-6 / 68-10 derived branch を直接再利用
+stable (G_4;2)=0 は不要
+```
+
+既存 symbolic Proposition 4.2 rule と concrete integer dimension の structural mismatch を確認。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 69-2：concrete Δ-E exactness / Δ surjectivity prerequisite bridge
+
+追加 production rules:
+
+```text
+toda_eq510_concrete_delta_e_exactness_inference_rule()
+toda_eq510_delta_surjective_inference_rule()
+```
+
+既存 statement:
+
+```text
+TodaProp42ExactnessStatement
+TodaDeltaSurjectiveStatement
+```
+
+を再利用。
+
+chain:
+
+```text
+π_11^11 --Δ--> π_9^5 --E--> π_10^6
+structural window GIVEN
+↓
+concrete exactness INFERENCE
+
+Phase 68-10
+π_10^6=0
+INFERENCE
+↓
+Δ:π_11^11→π_9^5
+surjective
+INFERENCE
+```
+
+追加:
+
+```text
+tests/test_phase69_delta_surjectivity.py
+```
+
+focused:
+
+```text
+13 passed in 1.88s
+```
+
+upstream regression:
+
+```text
+tests/test_phase68_pi_n_plus_4_n_zero.py
+21 passed in 1.29s
+
+tests/test_phase68_pi9_5_nu5_eta8.py
+19 passed in 1.17s
+```
+
+repository-wide:
+
+```text
+4356 passed in 30.25s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 69-3：Toda (5.10) concrete inference
+
+追加 production rule:
+
+```text
+toda_eq510_delta_iota11_inference_rule()
+```
+
+premises:
+
+```text
+Δ:π_11^11→π_9^5 surjective  INFERENCE
+π_11^11=Z{ι₁₁}              GIVEN
+π_9^5=Z/2{ν₅η₈}             INFERENCE
+```
+
+conclusion:
+
+```text
+Δ(ι₁₁)=ν₅η₈
+INFERENCE
+```
+
+target は order two なので sign ambiguity は消える。
+
+Phase 68-6 target generator object を直接再利用する。
+
+追加:
+
+```text
+tests/test_phase69_delta_iota11.py
+```
+
+focused:
+
+```text
+19 passed in 1.50s
+```
+
+Phase 69-2 regression:
+
+```text
+13 passed in 1.28s
+```
+
+Phase 68-6 regression:
+
+```text
+19 passed in 1.19s
+```
+
+repository-wide:
+
+```text
+4375 passed in 29.55s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 69-4：applicability / provenance / non-circularity
+
+production code:
+
+```text
+変更なし
+```
+
+追加:
+
+```text
+tests/test_phase69_applicability_provenance.py
+```
+
+確認:
+
+```text
+final INFERENCE
+final not GIVEN
+
+direct premises:
+  Δ surjective INFERENCE
+  π_11^11=Z{ι₁₁} GIVEN
+  π_9^5=Z/2{ν₅η₈} INFERENCE
+
+final reaches:
+  Δ surjective
+  π_10^6=0
+  concrete exactness
+  structural exactness window
+  π_9^5
+  π_11^11
+
+final graph acyclic
+final conclusion absent from ancestors
+Δ-surjective branch does not depend on final
+π_9^5 branch does not depend on final
+
+Phase 68 aggregate:
+  not direct premise
+  not final ancestor
+  not Δ-surjectivity ancestor
+```
+
+focused:
+
+```text
+25 passed in 1.35s
+```
+
+Phase 69 combined:
+
+```text
+57 passed in 1.56s
+```
+
+Phase 68 upstream:
+
+```text
+68 passed in 1.61s
+```
+
+repository-wide:
+
+```text
+4400 passed in 30.09s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 69-5：representative probe
+
+production theorem semantics:
+
+```text
+変更なし
+```
+
+追加:
+
+```text
+probes/probe_phase69_capabilities.py
+tests/test_phase69_probe.py
+```
+
+probe は:
+
+```text
+build_phase69_3_data()
+```
+
+を representative fixture として再利用。
+
+表示:
+
+```text
+Toda Equation (5.10) result
+Proof-style derivation
+EHP exact sequence used
+Provenance / integration
+Literature / source
+Related previously derived result
+Phase 69 representative probe boundary
+```
+
+provenance display:
+
+```text
+π_10^6=0 derived = True
+structural exactness window remains GIVEN = True
+Toda Proposition 4.2 exactness derived = True
+Delta surjective derived = True
+π_11^11 source group remains foundational GIVEN = True
+π_9^5 result derived = True
+Toda (5.10) derived = True
+Toda (5.10) is GIVEN = False
+final premise count = 3
+fixed point = True
+```
+
+proof-style derivation は hand-authored presentation code であり automatic proof narrative generation ではない。
+
+focused:
+
+```text
+22 passed in 1.18s
+```
+
+Phase 69 combined:
+
+```text
+79 passed in 1.53s
+```
+
+repository-wide:
+
+```text
+4422 passed in 30.54s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 69-6：completion documentation + proof record
+
+更新:
+
+```text
+README.md
+docs/design.md
+docs/development_log.md
+docs/roadmap.md
+docs/code_reference.md
+docs/proof_records.md
+```
+
+`docs/proof_records.md` に4件目の formal record:
+
+```text
+Toda Equation (5.10)
+Δ(ι₁₁)=ν₅η₈
+```
+
+を追加。
+
+roadmap は future-oriented に保ち、Phase 69 は milestone summary に圧縮する。
+
+current regression:
+
+```text
+4422 passed in 30.54s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 69 completion
+
+完成 capability:
+
+```text
+π_11^11 --Δ--> π_9^5 --E--> π_10^6
+concrete exactness
+
+π_10^6=0
+↓
+Δ:π_11^11→π_9^5 surjective
+
+π_11^11=Z{ι₁₁}
+π_9^5=Z/2{ν₅η₈}
+↓
+Δ(ι₁₁)=ν₅η₈
+```
+
+machine semantics:
+
+```text
+toda_eq510_concrete_delta_e_exactness_inference_rule()
+toda_eq510_delta_surjective_inference_rule()
+toda_eq510_delta_iota11_inference_rule()
+```
+
+provenance:
+
+```text
+Phase 68-10 π_10^6=0 retained
+Phase 68-6 π_9^5 branch retained
+Phase 68 aggregate not used as prerequisite
+final INFERENCE
+final not GIVEN
+acyclic ancestry
+final conclusion absent from ancestors
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase69_capabilities
+```
+
+proof record:
+
+```text
+docs/proof_records.md
+Toda Equation (5.10)
+```
+
+final full regression:
+
+```text
+4422 passed in 30.54s
+```
+
+deferred:
+
+```text
+stable (G_4;2)=0
+generic concrete-dimension normalization
+generic exactness solver
+generic cyclic-image solver
+generic zero-target solver
+generic sign / ± algebra
+automatic proof narrative generation
+persistent Proof Repository
+stable homotopy-group model
+```
+
+### 状態
+
+COMPLETE
+

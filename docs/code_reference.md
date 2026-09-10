@@ -2,7 +2,7 @@
 
 この文書は EHP Proof Tracer の主要 Python module と、その責務・主要 class / function・探索方法をまとめる。
 
-対象は **Phase 68 completion 時点**。
+対象は **Phase 69 completion 時点**。
 
 この文書は全 API を機械的に列挙する reference ではない。目的は:
 
@@ -4183,3 +4183,228 @@ docs/proof_records.md
 ```
 
 Phase 69 は source statement / dependency / representation compatibility を確認してから実装する。
+
+---
+
+# 46. Phase 69 concrete exactness / Δ-surjectivity
+
+追加 rule:
+
+```text
+toda_eq510_concrete_delta_e_exactness_inference_rule()
+toda_eq510_delta_surjective_inference_rule()
+```
+
+対象:
+
+```text
+π_11^11 --Δ--> π_9^5 --E--> π_10^6
+```
+
+結果:
+
+```text
+TodaProp42ExactnessStatement
+INFERENCE
+
+TodaDeltaSurjectiveStatement(
+  map=Δ:π_11^11→π_9^5
+)
+INFERENCE
+```
+
+builder:
+
+```text
+tests/test_phase69_delta_surjectivity.py
+  build_phase69_2_data()
+```
+
+重要 key:
+
+```text
+pi10_6_zero_step
+exactness_window_step
+exactness_step
+surjective_step
+```
+
+`pi10_6_zero_step` は Phase 68-10 derived object を直接再利用する。
+
+---
+
+# 47. Phase 69 Toda Equation (5.10)
+
+追加 rule:
+
+```text
+toda_eq510_delta_iota11_inference_rule()
+```
+
+premises:
+
+```text
+TodaDeltaSurjectiveStatement  INFERENCE
+π_11^11=Z{ι₁₁}               GIVEN
+π_9^5=Z/2{ν₅η₈}              INFERENCE
+```
+
+conclusion:
+
+```text
+Relation(
+  lhs=Δ(ι₁₁),
+  rhs=ν₅η₈,
+  relation_type=EQUALITY,
+)
+```
+
+builder:
+
+```text
+tests/test_phase69_delta_iota11.py
+  build_phase69_3_data()
+```
+
+重要 key:
+
+```text
+delta_surjective_step
+pi11_11_step
+pi9_5_step
+iota_11
+nu5_eta8
+final_step
+```
+
+target generator は Phase 68-6 `π_9^5` derived object を直接再利用する。
+
+---
+
+# 48. Phase 69 provenance
+
+file:
+
+```text
+tests/test_phase69_applicability_provenance.py
+```
+
+builder:
+
+```text
+build_phase69_4_data()
+```
+
+helper:
+
+```text
+collect_ancestor_steps()
+```
+
+確認:
+
+```text
+final direct premises exact
+final reaches Phase 69-2 / Phase 68-10 / Phase 68-6
+final acyclic
+final conclusion absent from ancestors
+Phase 68 aggregate absent
+```
+
+---
+
+# 49. Phase 69 representative probe
+
+module:
+
+```text
+probes/probe_phase69_capabilities.py
+```
+
+representative fixture:
+
+```text
+build_phase69_3_data()
+```
+
+run:
+
+```powershell
+python -m probes.probe_phase69_capabilities
+```
+
+probe test:
+
+```text
+tests/test_phase69_probe.py
+```
+
+表示:
+
+```text
+Toda Equation (5.10) result
+Proof-style derivation
+EHP exact sequence used
+Provenance / integration
+Literature / source
+Related previously derived result
+Phase 69 representative probe boundary
+```
+
+---
+
+# 50. Phase 69 regression
+
+focused:
+
+```text
+tests/test_phase69_delta_surjectivity.py
+tests/test_phase69_delta_iota11.py
+tests/test_phase69_applicability_provenance.py
+tests/test_phase69_probe.py
+
+79 passed in 1.53s
+```
+
+repository-wide:
+
+```text
+4422 passed in 30.54s
+```
+
+Phase 64 performance stabilization level を維持。
+
+---
+
+# 51. Phase 69 completion 後に最初に見る場所
+
+次の concrete Toda statement に進む前に:
+
+```text
+Toda source material
+  Equation (5.10) 後の statement / proof / locator
+
+toda_rules.py
+  toda_eq510_* rule family
+
+tests/test_phase69_*.py
+  current applicability / provenance boundary
+
+probes/probe_phase69_capabilities.py
+  current proof-style / provenance display
+
+docs/proof_records.md
+  Toda Equation (5.10) record
+```
+
+注意:
+
+```text
+Toda (5.11)
+Δ(η₉)=Eν′η₇
+```
+
+は Phase 68 で既に実装済み。
+
+Phase 70 はその次の concrete source consequence を source/dependency analysis してから実装する。
+

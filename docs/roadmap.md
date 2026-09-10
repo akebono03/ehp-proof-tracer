@@ -126,7 +126,7 @@ third formal proof record
 現在の repository-wide regression:
 
 ```text
-4343 passed in 28.06s
+4422 passed in 30.54s
 ```
 
 ---
@@ -181,29 +181,46 @@ Toda Proposition 5.8
 π_8^4=Z/2{ν₄η₇}⊕Z/2{Eν′η₇}
 π_9^5=Z/2{ν₅η₈}
 π_(n+4)^n=0, n≥6
+
+Toda Equation (5.10)
+Δ(ι₁₁)=ν₅η₈
 ```
 
 ---
 
 # 5. 次の数学 Phase
 
-Phase 68 は COMPLETE。
+Phase 69 は COMPLETE。
 
-次は **Phase 69**。
-
-第一候補:
+完成:
 
 ```text
-Toda (5.10)
+Toda Equation (5.10)
 Δ(ι₁₁)=ν₅η₈
 ```
 
-ただし実装前に current source と proof dependency を再確認する。
+次は **Phase 70**。
+
+ただし Toda Equation (5.11):
+
+```text
+Δ(η₉)=Eν′η₇
+```
+
+は Phase 68-5 で既に derived 済みなので再実装しない。
+
+第一候補は Equation (5.10) を利用する次の concrete consequence。
+
+候補:
+
+```text
+Δ(η₁₁)=ν₅η₈²
+```
 
 開始:
 
 ```text
-Phase 69-1
+Phase 70-1
 source statement / proof dependency /
 current representation compatibility analysis
 ```
@@ -212,37 +229,25 @@ current representation compatibility analysis
 
 ```text
 A.
-Toda Proposition 5.8 後の
-Equation (5.10) と周辺 proof
+Toda source で Equation (5.10) 後の
+exact statement / locator / proof を確認
 
 B.
-Phase 68 の
+Phase 68 / 69 の
 π_9^5=Z/2{ν₅η₈}
-および Delta / EHP semantics を
-どこまで再利用できるか
+π_10^6=0
+Δ(ι₁₁)=ν₅η₈
+をどこまで direct derived prerequisite として再利用できるか確認
 
 C.
-current expression / map / up-to-sign representation で
-Δ(ι₁₁)=ν₅η₈ を保持できるか
+Proposition 2.5 の既存 concrete bridge で足りるか確認
 
 D.
-新規 theorem-specific bridge が必要か
-
-E.
-stable (G_4;2)=0 を先に要求しないか
+不足する場合だけ narrow theorem-specific semantics を追加
 ```
 
-原則:
+stable `(G_4;2)=0` は concrete need が生じるまで deferred のままとする。
 
-```text
-source statement
-↓
-dependency analysis
-↓
-current compatibility
-↓
-minimum implementation
-```
 ---
 
 # 6. Proof Records の運用
@@ -302,7 +307,7 @@ proof records          = human curated
 proof-style narrative  = hand-authored probe presentation
 ```
 
-現在 formal proof record が3件蓄積した。
+現在 formal proof record が4件蓄積した。
 
 future target:
 
@@ -426,7 +431,7 @@ Phase 64:
 Phase 67 completion:
 
 ```text
-4343 passed in 28.06s
+4422 passed in 30.54s
 ```
 
 test 数は増えているが full regression は約30秒台を維持している。
@@ -523,7 +528,9 @@ DEFERRED UNTIL CONCRETE NEED
 | second formal proof record | COMPLETE | 67 |
 | Toda Proposition 5.8 finite-dimensional | COMPLETE | 68 |
 | third formal proof record | COMPLETE | 68 |
-| next concrete Toda calculation | NEXT | 69 |
+| Toda Equation (5.10) | COMPLETE | 69 |
+| fourth formal proof record | COMPLETE | 69 |
+| next concrete Toda calculation | NEXT | 70 |
 | automatic proof narrative generation | PLANNED / DEFERRED | later |
 | persistent Proof Repository | PLANNED / DEFERRED | later |
 | stable homotopy branch | DEFERRED | later |
@@ -534,32 +541,40 @@ DEFERRED UNTIL CONCRETE NEED
 # 13. Current next step
 
 ```text
-Phase 69-1
-Toda Proposition 5.8 後の next source statement /
+Phase 70-1
+Toda Equation (5.10) 後の next concrete source consequence /
 proof dependency /
 current representation compatibility analysis
 ```
 
-第一候補:
+重要:
 
 ```text
-Toda (5.10)
-Δ(ι₁₁)=ν₅η₈
+Toda (5.11)
+Δ(η₉)=Eν′η₇
 ```
 
-開始前に:
+は Phase 68-5 で既に derived 済み。
+
+したがって source 順だけを理由に Phase 70 で再実装しない。
+
+次 candidate:
 
 ```text
-current Toda source
-Phase 68 implementation / tests
-probes/probe_phase68_capabilities.py
-docs/code_reference.md
-docs/proof_records.md
+Equation (5.10) を利用する後続 consequence
+候補: Δ(η₁₁)=ν₅η₈²
 ```
 
-を確認する。
+開始前に必ず確認する:
 
-Phase 68 で完成した finite-dimensional Proposition 5.8 を新しい `GIVEN` として shortcut せず、必要な derived branch の provenance を再利用する。
+```text
+Toda source locator
+exact statement
+source proof dependency
+Phase 68 / Phase 69 current builders
+current representation compatibility
+whether new statement / rule is actually necessary
+```
 
 原則:
 
@@ -572,3 +587,5 @@ current compatibility
 ↓
 minimum change
 ```
+
+stable `(G_4;2)=0` は concrete need が生じるまで deferred のままとする。

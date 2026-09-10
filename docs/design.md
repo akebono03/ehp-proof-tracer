@@ -25,7 +25,7 @@ representation != typing != theorem knowledge
 structural equality != mathematical equality
 ```
 
-Phase 68 までこの原則を維持している。
+Phase 69 までこの原則を維持している。
 
 ---
 
@@ -5114,3 +5114,299 @@ final regression:
 ```text
 4343 passed in 28.06s
 ```
+
+---
+
+# 122. Phase 69 source dependency
+
+Toda Equation (5.10):
+
+```text
+Δ(ι₁₁)=ν₅η₈
+```
+
+の machine dependency は source order をそのまま theorem aggregate dependency にしない。
+
+必要な既存 branch:
+
+```text
+Phase 68-10
+π_10^6=0
+INFERENCE
+
+Phase 68-6
+π_9^5=Z/2{ν₅η₈}
+INFERENCE
+
+foundational fact
+π_11^11=Z{ι₁₁}
+GIVEN
+```
+
+Phase 68 Proposition 5.8 aggregate は prerequisite shortcut として使わない。
+
+---
+
+# 123. Phase 69 concrete Δ-E exactness
+
+対象 window:
+
+```text
+π_11^11 --Δ--> π_9^5 --E--> π_10^6
+```
+
+既存 symbolic Proposition 4.2 rule は symbolic scalar tree と concrete integer dimension が structural equality で一致しない場合がある。
+
+Phase 69 では global scalar / dimension normalizer を導入せず:
+
+```text
+toda_eq510_concrete_delta_e_exactness_inference_rule()
+```
+
+という narrow concrete bridge を追加する。
+
+```text
+structural exactness window  GIVEN
+↓
+concrete exactness           INFERENCE
+```
+
+---
+
+# 124. Phase 69 Δ-surjectivity
+
+Phase 68 derived:
+
+```text
+π_10^6=0
+INFERENCE
+```
+
+と Phase 69 concrete exactness から:
+
+```text
+E:π_9^5→π_10^6=0
+↓
+ker(E)=π_9^5
+↓ exactness
+Im(Δ)=π_9^5
+↓
+Δ:π_11^11→π_9^5 surjective
+```
+
+を導出する。
+
+既存:
+
+```text
+TodaDeltaSurjectiveStatement
+```
+
+を再利用し、新規 statement class は追加しない。
+
+rule:
+
+```text
+toda_eq510_delta_surjective_inference_rule()
+```
+
+---
+
+# 125. Phase 69 generator-image consequence
+
+premises:
+
+```text
+Δ:π_11^11→π_9^5 surjective       INFERENCE
+π_11^11=Z{ι₁₁}                   GIVEN
+π_9^5=Z/2{ν₅η₈}                  INFERENCE
+```
+
+conclusion:
+
+```text
+Δ(ι₁₁)=ν₅η₈
+INFERENCE
+```
+
+rule:
+
+```text
+toda_eq510_delta_iota11_inference_rule()
+```
+
+source generator は foundational fact として保持する。
+
+target generator は Phase 68-6 の `FiniteCyclicGroup.generator` object を直接再利用する。
+
+```text
+display-equivalent name
+!=
+structural identity
+```
+
+という既存境界を守る。
+
+---
+
+# 126. Phase 69 order-two sign boundary
+
+```text
+π_9^5=Z/2{ν₅η₈}
+```
+
+なので:
+
+```text
+-(ν₅η₈)=ν₅η₈
+```
+
+したがって Toda (5.10) は up-to-sign statement ではなく通常の:
+
+```text
+Relation(..., RelationType.EQUALITY)
+```
+
+として保持する。
+
+generic sign algebra は追加しない。
+
+---
+
+# 127. Phase 69 provenance / non-circularity
+
+final direct premises:
+
+```text
+Δ surjective              INFERENCE
+π_11^11=Z{ι₁₁}           GIVEN
+π_9^5=Z/2{ν₅η₈}          INFERENCE
+```
+
+ancestor graph:
+
+```text
+final
+→ Δ surjective
+→ π_10^6=0
+
+final
+→ Δ surjective
+→ concrete exactness
+→ structural exactness window
+
+final
+→ π_9^5
+
+final
+→ π_11^11 foundational fact
+```
+
+禁止する dependency:
+
+```text
+final
+→ Phase 68 Proposition 5.8 aggregate
+→ π_9^5
+```
+
+Phase 69-4 regression で:
+
+```text
+final is not its own ancestor
+final conclusion absent from ancestors
+Phase 68 aggregate absent from final ancestors
+```
+
+を固定する。
+
+---
+
+# 128. Phase 69 representative probe
+
+module:
+
+```text
+probes/probe_phase69_capabilities.py
+```
+
+representative fixture:
+
+```text
+tests/test_phase69_delta_iota11.py
+build_phase69_3_data()
+```
+
+表示:
+
+```text
+Toda Equation (5.10) result
+Proof-style derivation
+EHP exact sequence used
+Provenance / integration
+Literature / source
+Related previously derived result
+Phase 69 representative probe boundary
+```
+
+proof-style derivation は hand-authored presentation-only。
+
+```text
+ProofStep graph
+→ automatic narrative generation
+```
+
+ではない。
+
+Toda Equation (5.11):
+
+```text
+Δ(η₉)=Eν′η₇
+```
+
+は Phase 68 で derived 済みなので再実装しない。
+
+---
+
+# 129. Phase 69 completion boundary
+
+完成:
+
+```text
+π_11^11 --Δ--> π_9^5 --E--> π_10^6
+concrete exactness
+
+π_10^6=0
+↓
+Δ:π_11^11→π_9^5 surjective
+
+π_11^11=Z{ι₁₁}
+π_9^5=Z/2{ν₅η₈}
+↓
+Δ(ι₁₁)=ν₅η₈
+
+applicability / provenance / non-circularity regression
+representative probe
+formal proof record
+```
+
+追加しない:
+
+```text
+stable (G_4;2)=0
+generic concrete-dimension normalizer
+generic exactness solver
+generic cyclic-image solver
+generic zero-target solver
+generic sign / ± algebra
+automatic proof narrative generation
+persistent Proof Repository
+stable homotopy-group model
+```
+
+final regression:
+
+```text
+4422 passed in 30.54s
+```
+
