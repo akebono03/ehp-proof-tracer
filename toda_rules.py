@@ -88,6 +88,12 @@ class TodaDeltaSurjectiveStatement:
 
 
 @dataclass(frozen=True)
+class TodaDeltaKernelFreeCyclicStatement:
+  map: TodaDeltaMap
+  kernel_group: FreeCyclicGroup
+
+
+@dataclass(frozen=True)
 class TodaHopfInvariantZeroStatement:
   map: TodaHopfInvariantMap
 
@@ -12300,6 +12306,799 @@ def toda_prop59_e_nu5_eta8_squared_zero_inference_rule():
         statement_type=Relation,
         relation_type=(
           RelationType.ZERO
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop59_pi11_6_concrete_exactness_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    window = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    e_h_window = TodaEHPExactnessWindow(
+      source_term=TodaPrimaryGroup(
+        group_dimension=10,
+        sphere_dimension=5,
+      ),
+      middle_term=TodaPrimaryGroup(
+        group_dimension=11,
+        sphere_dimension=6,
+      ),
+      target_term=TodaPrimaryGroup(
+        group_dimension=11,
+        sphere_dimension=11,
+      ),
+      first_map=EHP_E_MAP,
+      second_map=EHP_H_MAP,
+    )
+
+    h_delta_window = TodaEHPExactnessWindow(
+      source_term=TodaPrimaryGroup(
+        group_dimension=11,
+        sphere_dimension=6,
+      ),
+      middle_term=TodaPrimaryGroup(
+        group_dimension=11,
+        sphere_dimension=11,
+      ),
+      target_term=TodaPrimaryGroup(
+        group_dimension=9,
+        sphere_dimension=5,
+      ),
+      first_map=EHP_H_MAP,
+      second_map=EHP_DELTA_MAP,
+    )
+
+    return (
+      window
+      in (
+        e_h_window,
+        h_delta_window,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return TodaProp42ExactnessStatement(
+      window=(
+        premises[
+          0
+        ].conclusion
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.9 "
+      "pi_11^6 concrete exactness"
+    ),
+    description=(
+      "Recognize only the two concrete "
+      "Toda Proposition 4.2 exactness "
+      "windows required for the "
+      "Proposition 5.9 pi_11^6 branch: "
+      "pi_10^5 -> pi_11^6 -> pi_11^11 "
+      "and "
+      "pi_11^6 -> pi_11^11 -> pi_9^5. "
+      "No generic concrete EHP "
+      "specialization framework is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          TodaEHPExactnessWindow
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop59_pi11_6_hopf_injective_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    suspension_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    pi10_5_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    exactness = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi10_5 = TodaPrimaryGroup(
+      group_dimension=10,
+      sphere_dimension=5,
+    )
+
+    pi11_6 = TodaPrimaryGroup(
+      group_dimension=11,
+      sphere_dimension=6,
+    )
+
+    pi11_11 = TodaPrimaryGroup(
+      group_dimension=11,
+      sphere_dimension=11,
+    )
+
+    if (
+      pi10_5_relation.lhs
+      != pi10_5
+    ):
+      return False
+
+    if not isinstance(
+      pi10_5_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi10_5_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    generator = (
+      pi10_5_relation
+      .rhs
+      .generator
+    )
+
+    if (
+      suspension_zero
+      != Relation(
+        lhs=Suspension(
+          expression=generator,
+        ),
+        rhs=Zero(),
+        relation_type=RelationType.ZERO,
+      )
+    ):
+      return False
+
+    return (
+      exactness.window
+      == TodaEHPExactnessWindow(
+        source_term=pi10_5,
+        middle_term=pi11_6,
+        target_term=pi11_11,
+        first_map=EHP_E_MAP,
+        second_map=EHP_H_MAP,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    exactness = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    window = (
+      exactness.window
+    )
+
+    return TodaHopfInvariantInjectiveStatement(
+      map=TodaHopfInvariantMap(
+        source_group=window.middle_term,
+        target_group=window.target_term,
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.9 "
+      "pi_11^6 Hopf injective"
+    ),
+    description=(
+      "Phase 70-7 gives that suspension "
+      "vanishes on the generator of "
+      "pi_10^5, hence "
+      "E:pi_10^5 to pi_11^6 "
+      "is the zero map. "
+      "Exactness of "
+      "pi_10^5 -> pi_11^6 -> pi_11^11 "
+      "therefore gives Ker(H)=0. "
+      "Thus H:pi_11^6 to pi_11^11 "
+      "is injective."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop59_pi11_11_delta_kernel_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    pi11_11_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    pi9_5_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    delta_iota11 = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi11_11 = TodaPrimaryGroup(
+      group_dimension=11,
+      sphere_dimension=11,
+    )
+
+    pi9_5 = TodaPrimaryGroup(
+      group_dimension=9,
+      sphere_dimension=5,
+    )
+
+    if (
+      pi11_11_relation.lhs
+      != pi11_11
+    ):
+      return False
+
+    if not isinstance(
+      pi11_11_relation.rhs,
+      FreeCyclicGroup,
+    ):
+      return False
+
+    iota_11 = (
+      pi11_11_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      iota_11,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      iota_11.dimension
+      != 11
+      or iota_11.generator
+      != GeneratorSymbol(
+        family="ι",
+        index=11,
+      )
+    ):
+      return False
+
+    if (
+      pi9_5_relation.lhs
+      != pi9_5
+    ):
+      return False
+
+    if not isinstance(
+      pi9_5_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi9_5_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    target_generator = (
+      pi9_5_relation
+      .rhs
+      .generator
+    )
+
+    expected_delta_iota11 = Relation(
+      lhs=MapApplication(
+        map=EHP_DELTA_MAP,
+        expression=iota_11,
+      ),
+      rhs=target_generator,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      delta_iota11
+      == expected_delta_iota11
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    pi11_11_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    iota_11 = (
+      pi11_11_relation
+      .rhs
+      .generator
+    )
+
+    return TodaDeltaKernelFreeCyclicStatement(
+      map=TodaDeltaMap(
+        source_group=TodaPrimaryGroup(
+          group_dimension=11,
+          sphere_dimension=11,
+        ),
+        target_group=TodaPrimaryGroup(
+          group_dimension=9,
+          sphere_dimension=5,
+        ),
+      ),
+      kernel_group=FreeCyclicGroup(
+        generator=Multiple(
+          coefficient=2,
+          expression=iota_11,
+        ),
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.9 "
+      "pi_11^11 Delta kernel"
+    ),
+    description=(
+      "Use the foundational "
+      "pi_11^11=Z generated by iota_11, "
+      "the independently derived "
+      "pi_9^5=Z/2 generated by "
+      "nu_5 eta_8, and the independently "
+      "derived Toda (5.10) equality "
+      "Delta(iota_11)=nu_5 eta_8. "
+      "The resulting concrete Delta map "
+      "has kernel freely generated by "
+      "2 iota_11. "
+      "No generic free-to-finite cyclic "
+      "kernel solver is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop59_delta_iota13_hopf_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    pi13_13_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    if (
+      pi13_13_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=13,
+        sphere_dimension=13,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      pi13_13_relation.rhs,
+      FreeCyclicGroup,
+    ):
+      return False
+
+    iota_13 = (
+      pi13_13_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      iota_13,
+      HomotopyElement,
+    ):
+      return False
+
+    return (
+      iota_13.dimension
+      == 13
+      and iota_13.generator
+      == GeneratorSymbol(
+        family="ι",
+        index=13,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    pi13_13_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    iota_13 = (
+      pi13_13_relation
+      .rhs
+      .generator
+    )
+
+    iota_11 = HomotopyElement(
+      name="ι_11",
+      dimension=11,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=11,
+      ),
+    )
+
+    delta_iota13 = MapApplication(
+      map=EHP_DELTA_MAP,
+      expression=iota_13,
+    )
+
+    return (
+      TodaProp27HopfInvariantUpToSignStatement(
+        argument=delta_iota13,
+        positive_value=Multiple(
+          coefficient=2,
+          expression=iota_11,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.9 "
+      "Delta iota_13 Hopf value"
+    ),
+    description=(
+      "Apply the concrete Toda "
+      "Proposition 2.7 consequence "
+      "needed in Proposition 5.9: "
+      "H(Delta(iota_13)) "
+      "equals plus or minus 2 iota_11. "
+      "The source identity generator "
+      "iota_13 is required to come from "
+      "the foundational free cyclic "
+      "group pi_13^13. "
+      "The existing up-to-sign Hopf "
+      "statement representation is reused. "
+      "No generic Proposition 2.7 "
+      "quantification framework is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop59_pi11_6_free_cyclic_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    hopf_injective = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    h_delta_exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    delta_kernel = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    hopf_value = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    pi11_6 = TodaPrimaryGroup(
+      group_dimension=11,
+      sphere_dimension=6,
+    )
+
+    pi11_11 = TodaPrimaryGroup(
+      group_dimension=11,
+      sphere_dimension=11,
+    )
+
+    pi9_5 = TodaPrimaryGroup(
+      group_dimension=9,
+      sphere_dimension=5,
+    )
+
+    expected_hopf_map = TodaHopfInvariantMap(
+      source_group=pi11_6,
+      target_group=pi11_11,
+    )
+
+    if (
+      hopf_injective.map
+      != expected_hopf_map
+    ):
+      return False
+
+    expected_window = TodaEHPExactnessWindow(
+      source_term=pi11_6,
+      middle_term=pi11_11,
+      target_term=pi9_5,
+      first_map=EHP_H_MAP,
+      second_map=EHP_DELTA_MAP,
+    )
+
+    if (
+      h_delta_exactness.window
+      != expected_window
+    ):
+      return False
+
+    expected_delta_map = TodaDeltaMap(
+      source_group=pi11_11,
+      target_group=pi9_5,
+    )
+
+    if (
+      delta_kernel.map
+      != expected_delta_map
+    ):
+      return False
+
+    kernel_group = (
+      delta_kernel.kernel_group
+    )
+
+    if not isinstance(
+      kernel_group,
+      FreeCyclicGroup,
+    ):
+      return False
+
+    kernel_generator = (
+      kernel_group.generator
+    )
+
+    if not isinstance(
+      kernel_generator,
+      Multiple,
+    ):
+      return False
+
+    if (
+      kernel_generator.coefficient
+      != 2
+    ):
+      return False
+
+    iota_11 = (
+      kernel_generator.expression
+    )
+
+    if not isinstance(
+      iota_11,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      iota_11.dimension
+      != 11
+      or iota_11.generator
+      != GeneratorSymbol(
+        family="ι",
+        index=11,
+      )
+    ):
+      return False
+
+    if (
+      hopf_value.positive_value
+      != kernel_generator
+    ):
+      return False
+
+    delta_iota13 = (
+      hopf_value.argument
+    )
+
+    if not isinstance(
+      delta_iota13,
+      MapApplication,
+    ):
+      return False
+
+    if (
+      delta_iota13.map
+      != EHP_DELTA_MAP
+    ):
+      return False
+
+    iota_13 = (
+      delta_iota13.expression
+    )
+
+    if not isinstance(
+      iota_13,
+      HomotopyElement,
+    ):
+      return False
+
+    return (
+      iota_13.dimension
+      == 13
+      and iota_13.generator
+      == GeneratorSymbol(
+        family="ι",
+        index=13,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    hopf_value = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=11,
+        sphere_dimension=6,
+      ),
+      rhs=FreeCyclicGroup(
+        generator=(
+          hopf_value.argument
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.9 "
+      "pi_11^6 free cyclic"
+    ),
+    description=(
+      "The concrete E-H exactness branch "
+      "makes "
+      "H:pi_11^6 to pi_11^11 injective. "
+      "Concrete H-Delta exactness gives "
+      "Im(H)=Ker(Delta). "
+      "The latter kernel is freely "
+      "generated by 2 iota_11. "
+      "Toda Proposition 2.7 gives "
+      "H(Delta(iota_13)) "
+      "=plus or minus 2 iota_11. "
+      "Therefore Delta(iota_13) generates "
+      "pi_11^6 freely. "
+      "No generic free-group preimage, "
+      "kernel-image, or generator "
+      "transport solver is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaHopfInvariantInjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaDeltaKernelFreeCyclicStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp27HopfInvariantUpToSignStatement
         ),
       ),
     ),
