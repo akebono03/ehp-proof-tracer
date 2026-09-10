@@ -7246,3 +7246,502 @@ stable homotopy-group model
 
 COMPLETE
 
+---
+
+# Phase 71：Toda Equation (5.12) Delta injectivity
+
+対象:
+
+```text
+Δ:
+π_(n+7)^(2n+1)
+→
+π_(n+5)^n
+
+n=4,5,6 で injective
+```
+
+---
+
+## Phase 71-1：source / dependency / representation compatibility
+
+確認:
+
+```text
+existing TodaDeltaInjectiveStatement is sufficient
+existing TodaDeltaMap is sufficient
+```
+
+case dependencies:
+
+```text
+n=4:
+π_11^9=Z/2{η₉²}
+Δ(η₉²)=Eν′η₇²
+π_9^4=Z/2{ν₄η₇²}⊕Z/2{Eν′η₇²}
+
+n=5:
+π_12^11=Z/2{η₁₁}
+Δ(η₁₁)=ν₅η₈²
+π_10^5=Z/2{ν₅η₈²}
+
+n=6:
+π_13^13=Z{ι₁₃}
+π_11^6=Z{Δι₁₃}
+```
+
+重要な修正:
+
+```text
+π_12^11=Z/2{η₁₁}
+```
+
+は Proposition 5.1 higher η-family の instance。
+
+Proposition 5.3 ではない。
+
+generic solver / generic specialization framework は不要と判断。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 71-2：Toda (5.12), n=4
+
+追加:
+
+```text
+toda_512_n4_delta_injective_inference_rule()
+tests/test_phase71_toda512_n4_delta_injective.py
+```
+
+direct provenance:
+
+```text
+Δ(η₉²)=Eν′η₇²      INFERENCE
+π_9^4 decomposition INFERENCE
+Prop.5.3 aggregate   INFERENCE
+↓
+Δ:π_11^9→π_9^4 injective
+INFERENCE
+```
+
+wrong argument / value / target / order / GIVEN substitution を reject。
+
+focused:
+
+```text
+19 passed in 1.61s
+```
+
+related:
+
+```text
+93 passed in 1.75s
+```
+
+repository-wide:
+
+```text
+4771 passed in 32.03s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 71-3：Toda (5.12), n=5
+
+追加:
+
+```text
+toda_512_n5_delta_injective_inference_rule()
+tests/test_phase71_toda512_n5_delta_injective.py
+```
+
+direct provenance:
+
+```text
+Δ(η₁₁)=ν₅η₈²           INFERENCE
+π_10^5=Z/2{ν₅η₈²}       INFERENCE
+Prop.5.1 higher η-family INFERENCE
+↓
+Δ:π_12^11→π_10^5 injective
+INFERENCE
+```
+
+focused:
+
+```text
+20 passed in 1.49s
+```
+
+related:
+
+```text
+73 passed in 1.62s
+```
+
+repository-wide:
+
+```text
+4791 passed in 31.14s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 71-4：Toda (5.12), n=6
+
+追加:
+
+```text
+toda_512_n6_delta_injective_inference_rule()
+tests/test_phase71_toda512_n6_delta_injective.py
+```
+
+direct provenance:
+
+```text
+π_13^13=Z{ι₁₃}  GIVEN
+π_11^6=Z{Δι₁₃}  INFERENCE
+↓
+Δ:π_13^13→π_11^6 injective
+INFERENCE
+```
+
+Phase 70 の surjectivity statement は direct premise にしない。
+
+focused:
+
+```text
+19 passed in 1.48s
+```
+
+related:
+
+```text
+93 passed in 1.53s
+```
+
+repository-wide:
+
+```text
+4810 passed in 30.85s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 71-5：Toda (5.12) three-case integration
+
+追加:
+
+```text
+Toda512DeltaInjectivityStatement
+toda_512_delta_injectivity_literature_statements()
+toda_512_delta_injectivity_integration_inference_rule()
+tests/test_phase71_toda512_integration.py
+```
+
+aggregate:
+
+```text
+n=4 injectivity INFERENCE
+n=5 injectivity INFERENCE
+n=6 injectivity INFERENCE
+↓
+Toda512DeltaInjectivityStatement
+INFERENCE
+```
+
+literature:
+
+```text
+H. Toda
+Composition Methods in Homotopy Groups of Spheres
+1962
+Equation (5.12)
+```
+
+focused:
+
+```text
+19 passed in 1.43s
+```
+
+Phase 71 aggregate regression:
+
+```text
+77 passed in 1.79s
+```
+
+repository-wide:
+
+```text
+4829 passed in 30.23s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 71-6：applicability / provenance / non-circular regression
+
+production code:
+
+```text
+変更なし
+```
+
+追加:
+
+```text
+tests/test_phase71_applicability_provenance.py
+```
+
+確認:
+
+```text
+final aggregate = INFERENCE
+three branches = INFERENCE
+final direct premises = exactly three branches
+
+aggregate reaches each branch
+aggregate reaches each branch upstream dependencies
+
+aggregate not self-ancestor
+aggregate conclusion absent from ancestors
+
+each branch acyclic
+each branch does not depend on aggregate
+each branch does not depend on another Phase 71 branch
+```
+
+boundary:
+
+```text
+n=4 upstream = INFERENCE
+n=5 upstream = INFERENCE
+
+n=6:
+π_13^13 = GIVEN
+π_11^6  = INFERENCE
+```
+
+focused:
+
+```text
+30 passed in 1.42s
+```
+
+Phase 71 regression:
+
+```text
+107 passed in 1.83s
+```
+
+repository-wide:
+
+```text
+4859 passed in 31.23s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 71-7：representative probe
+
+追加:
+
+```text
+probes/probe_phase71_capabilities.py
+tests/test_phase71_probe.py
+```
+
+表示:
+
+```text
+Toda (5.12) Delta injectivity
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Phase 71 representative probe boundary
+```
+
+最初の probe 実装で Python 3.10 が複数行 f-string expression を parse できず:
+
+```text
+SyntaxError:
+unterminated string literal
+```
+
+が発生。
+
+`print_phase71_provenance()` で表示用 boolean を事前計算する形に修正し:
+
+```powershell
+python -m py_compile probes/probe_phase71_capabilities.py
+```
+
+成功。
+
+focused:
+
+```text
+27 passed in 1.30s
+```
+
+probe:
+
+```powershell
+python -m probes.probe_phase71_capabilities
+```
+
+で3ケース、aggregate、provenance、literature、boundary を確認。
+
+repository-wide:
+
+```text
+4886 passed in 29.25s
+```
+
+proof-style derivation は:
+
+```text
+hand-authored presentation code
+```
+
+であり automatic `ProofStep` narrative generation ではない。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 71-8：completion documentation + proof record
+
+更新:
+
+```text
+README.md
+docs/design.md
+docs/development_log.md
+docs/roadmap.md
+docs/code_reference.md
+docs/proof_records.md
+```
+
+`docs/proof_records.md` に6件目の formal record:
+
+```text
+Toda Equation (5.12)
+Delta injectivity for n=4,5,6
+```
+
+を追加。
+
+roadmap は future-oriented に保ち、Phase 71 は milestone summary に圧縮。
+
+current regression:
+
+```text
+4886 passed in 29.25s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 71 completion
+
+完成 capability:
+
+```text
+TodaDeltaInjectiveStatement
+Toda512DeltaInjectivityStatement
+
+Δ:π_11^9→π_9^4 injective
+Δ:π_12^11→π_10^5 injective
+Δ:π_13^13→π_11^6 injective
+
+Toda (5.12) three-case aggregate
+structured literature metadata
+applicability regression
+provenance / non-circularity regression
+representative proof-style probe
+sixth formal proof record
+```
+
+provenance:
+
+```text
+all three injectivity branches INFERENCE
+final aggregate INFERENCE
+exact three direct premises
+acyclic ancestry
+cross-branch independence
+GIVEN / INFERENCE boundary preserved
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase71_capabilities
+```
+
+proof record:
+
+```text
+docs/proof_records.md
+Toda Equation (5.12)
+```
+
+final full regression:
+
+```text
+4886 passed in 29.25s
+```
+
+performance:
+
+```text
+Phase 64 stabilization level retained
+approximately 30-second repository-wide regression
+```
+
+deferred:
+
+```text
+Toda Lemma 5.10
+generic Toda-bracket coset algebra
+generic modulo-subgroup normalization
+generic cyclic-map injectivity solver
+generic free-cyclic map solver
+automatic proof narrative generation
+persistent Proof Repository
+stable homotopy-group model
+```
+
+### 状態
+
+COMPLETE
+

@@ -136,12 +136,20 @@ Toda Proposition 5.9 finite-dimensional
 π_11^6=Z{Δι₁₃}
 π_(n+5)^n=0, n≥7
 fifth formal proof record
+
+Phase 71
+Toda Equation (5.12)
+Δ:π_11^9→π_9^4 injective
+Δ:π_12^11→π_10^5 injective
+Δ:π_13^13→π_11^6 injective
+Toda512DeltaInjectivityStatement
+sixth formal proof record
 ```
 
 現在の repository-wide regression:
 
 ```text
-4752 passed in 30.85s
+4886 passed in 29.25s
 ```
 
 ---
@@ -185,54 +193,60 @@ Toda Proposition 5.9
 
 # 5. 次の数学 Phase
 
-Phase 70 は COMPLETE。
+Phase 71 は COMPLETE。
 
 完成:
 
 ```text
-Toda Proposition 5.9 finite-dimensional
+Toda Equation (5.12)
 
-π_7^2=Z/2{η₂ν′η₆}
-π_8^3=Z/2{ν′η₆²}
-π_9^4=Z/2{ν₄η₇²}⊕Z/2{Eν′η₇²}
-π_10^5=Z/2{ν₅η₈²}
-π_11^6=Z{Δι₁₃}
-π_(n+5)^n=0, n≥7
+Δ:π_11^9→π_9^4 injective
+Δ:π_12^11→π_10^5 injective
+Δ:π_13^13→π_11^6 injective
+
+Toda512DeltaInjectivityStatement
 ```
 
-次は **Phase 71**。
+次は **Phase 72**。
 
 開始:
 
 ```text
-Phase 71-1
+Phase 72-1
+Toda Lemma 5.10
 source statement / proof dependency /
 current representation compatibility analysis
 ```
 
-Toda Proposition 5.9 直後の source statement と proof を確認してから target を確定する。
+source target:
 
-候補として Toda (5.12) 周辺の concrete Δ-injectivity / next low-dimensional consequence が考えられるが、source verification 前に implementation を先取りしない。
+```text
+Δ(ι₁₃)
+∈
+{ν₆,η₉,2ι₁₀}
+mod 2π₁₁(S⁶)
+```
 
 確認順序:
 
 ```text
 A.
-Toda Proposition 5.9 後の exact statement / locator / proof
+Toda Lemma 5.10 exact statement / locator / proof
 
 B.
-Phase 70 のどの derived branch が本当に prerequisite か
+Phase 71 Toda (5.12) injectivity のどの case が prerequisite か
 
 C.
-既存 Proposition 4.2 / Toda (4.5) / Proposition 2.x semantics で足りるか
+existing TodaBracket / modulo / subgroup semantics で
+concrete coset-level statement を表現できるか
 
 D.
-不足する場合だけ narrow theorem-specific semantics を追加
+不足する場合だけ narrow theorem-specific representation を追加
 ```
 
-Phase 70 aggregate を `GIVEN` shortcut として使用しない。
+generic Toda-bracket coset algebra を source verification 前に先取りしない。
 
-stable `(G_5;2)=0` は concrete need が生じるまで deferred のままとする。
+automatic proof narrative generation / persistent Proof Repository / stable homotopy branch は deferred のままとする。
 
 ---
 
@@ -266,6 +280,11 @@ stable `(G_5;2)=0` は concrete need が生じるまで deferred のままとす
    π_10^5=Z/2{ν₅η₈²}
    π_11^6=Z{Δι₁₃}
    π_(n+5)^n=0, n≥7
+
+6. Toda Equation (5.12)
+   Δ:π_11^9→π_9^4 injective
+   Δ:π_12^11→π_10^5 injective
+   Δ:π_13^13→π_11^6 injective
 ```
 
 今後 representative proof-style probe を完成させた Phase では、必要に応じて `docs/proof_records.md` に追記する。
@@ -302,7 +321,7 @@ proof records          = human curated
 proof-style narrative  = hand-authored probe presentation
 ```
 
-現在 formal proof record が5件蓄積した。
+現在 formal proof record が6件蓄積した。
 
 future target:
 
@@ -423,10 +442,10 @@ Phase 64:
 29.97s
 ```
 
-Phase 70 completion:
+Phase 71 completion:
 
 ```text
-4752 passed in 30.85s
+4886 passed in 29.25s
 ```
 
 test 数は増えているが full regression は約30秒台を維持している。
@@ -527,7 +546,9 @@ DEFERRED UNTIL CONCRETE NEED
 | fourth formal proof record | COMPLETE | 69 |
 | Toda Proposition 5.9 finite-dimensional | COMPLETE | 70 |
 | fifth formal proof record | COMPLETE | 70 |
-| next concrete Toda calculation | NEXT | 71 |
+| Toda Equation (5.12) Δ-injectivity | COMPLETE | 71 |
+| sixth formal proof record | COMPLETE | 71 |
+| Toda Lemma 5.10 | NEXT | 72 |
 | automatic proof narrative generation | PLANNED / DEFERRED | later |
 | persistent Proof Repository | PLANNED / DEFERRED | later |
 | stable homotopy branch | DEFERRED | later |
@@ -538,21 +559,33 @@ DEFERRED UNTIL CONCRETE NEED
 # 13. Current next step
 
 ```text
-Phase 71-1
-Toda Proposition 5.9 後の next concrete source statement /
+Phase 72-1
+Toda Lemma 5.10 source statement /
 proof dependency /
 current representation compatibility analysis
+```
+
+source target:
+
+```text
+Δ(ι₁₃)
+∈
+{ν₆,η₉,2ι₁₀}
+mod 2π₁₁(S⁶)
 ```
 
 開始前に必ず確認する:
 
 ```text
 Toda source locator
-exact statement
-source proof dependency
-Phase 70 current builders
-current representation compatibility
-whether new statement / rule is actually necessary
+exact bracket index / typing
+existing TodaBracket representation
+existing modulo / subgroup representation
+whether current statement classes can express
+"bracket modulo 2π₁₁(S⁶)"
+without a generic coset framework
+Phase 71 Δ-injectivity aggregate reuse
+non-circular dependency direction
 ```
 
 原則:
@@ -564,7 +597,11 @@ dependency analysis
 ↓
 current compatibility
 ↓
-minimum change
+minimum representation
+↓
+minimum inference
 ```
 
-stable `(G_5;2)=0` は concrete need が生じるまで deferred のままとする。
+generic Toda-bracket coset algebra は、Lemma 5.10 の concrete statement を既存 representation で表せないことが確認された場合に限って最小追加を検討する。
+
+automatic proof narrative generation / persistent Proof Repository / stable homotopy branch は引き続き deferred。

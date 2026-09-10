@@ -29,7 +29,7 @@ The implementation strategy is to formalize only the minimum theorem consequence
 
 # Current status
 
-Completed through Phase 70.
+Completed through Phase 71.
 
 ```text
 Phase 1–27   generic proof / algebra / Toda-bracket foundation
@@ -66,12 +66,13 @@ Phase 67     Toda Lemma 5.7 integration / Delta generator consequence
 Phase 68     Toda Proposition 5.8 finite-dimensional computation
 Phase 69     Toda Equation (5.10): Δ(ι₁₁)=ν₅η₈
 Phase 70     Toda Proposition 5.9 finite-dimensional computation
+Phase 71     Toda Equation (5.12): Δ injective for n=4,5,6
 ```
 
 Latest repository-wide regression:
 
 ```text
-4752 passed in 30.85s
+4886 passed in 29.25s
 ```
 
 Phase 64 same-machine baseline:
@@ -82,12 +83,12 @@ Phase 64 same-machine baseline:
 
 The Phase 64 final regression is approximately 88.4% faster than the same-machine baseline while preserving the same 3657-test coverage.
 
-Phase 63 mathematical capability remains unchanged, and Phase 64 performance / regression verification has been completed.
+Phase 71 mathematical capability and regression verification are complete, while the Phase 64 performance stabilization remains effective.
 
 Representative current probe:
 
 ```powershell
-python -m probes.probe_phase70_capabilities
+python -m probes.probe_phase71_capabilities
 ```
 
 ---
@@ -2890,6 +2891,298 @@ persistent Proof Repository
 stable homotopy-group model
 ```
 
+
+---
+
+# Phase 71: Toda Equation (5.12) Delta injectivity
+
+Toda (5.12) states:
+
+```text
+Δ:
+π_(n+7)^(2n+1)
+→
+π_(n+5)^n
+
+is injective for n=4,5,6.
+```
+
+Phase 71 formalizes the three concrete cases independently and then integrates them into one literature-aware aggregate.
+
+## n=4 branch
+
+Phase 71 reuses:
+
+```text
+Toda Proposition 5.3:
+π_11^9=Z/2{η₉²}
+
+Phase 70:
+π_9^4
+=
+Z/2{ν₄η₇²}
+⊕
+Z/2{Eν′η₇²}
+
+Δ(η₉²)=Eν′η₇²
+```
+
+Therefore the nonzero generator of the source maps to a nonzero order-two direct-summand generator in the target:
+
+```text
+Δ:
+π_11^9
+→
+π_9^4
+
+injective.
+```
+
+The final statement is:
+
+```text
+TodaDeltaInjectiveStatement
+```
+
+with:
+
+```text
+source = π_11^9
+target = π_9^4
+```
+
+and is derived as `ProofRule.INFERENCE`.
+
+## n=5 branch
+
+Phase 71 reuses:
+
+```text
+Toda Proposition 5.1:
+π_12^11=Z/2{η₁₁}
+
+Phase 70:
+π_10^5=Z/2{ν₅η₈²}
+Δ(η₁₁)=ν₅η₈²
+```
+
+Hence:
+
+```text
+Δ:
+π_12^11
+→
+π_10^5
+
+injective.
+```
+
+The source family is specifically the Proposition 5.1 higher η-family, not Proposition 5.3.
+
+The final statement is again:
+
+```text
+TodaDeltaInjectiveStatement
+```
+
+and is derived as `ProofRule.INFERENCE`.
+
+## n=6 branch
+
+Phase 71 reuses:
+
+```text
+π_13^13=Z{ι₁₃}       GIVEN
+π_11^6=Z{Δι₁₃}       INFERENCE
+```
+
+Since the source free generator maps to the target free generator:
+
+```text
+ι₁₃
+↦
+Δι₁₃
+```
+
+the map:
+
+```text
+Δ:
+π_13^13
+→
+π_11^6
+```
+
+is injective.
+
+This branch deliberately does not use the already-derived Phase 70 surjectivity statement as a premise. The two free-cyclic group facts suffice directly.
+
+## Toda (5.12) aggregate
+
+Phase 71 adds:
+
+```text
+Toda512DeltaInjectivityStatement
+toda_512_delta_injectivity_literature_statements()
+toda_512_delta_injectivity_integration_inference_rule()
+```
+
+The aggregate stores exactly:
+
+```text
+n=4:
+Δ:π_11^9→π_9^4 injective
+
+n=5:
+Δ:π_12^11→π_10^5 injective
+
+n=6:
+Δ:π_13^13→π_11^6 injective
+```
+
+Its direct provenance boundary is:
+
+```text
+n=4 injectivity  INFERENCE
+n=5 injectivity  INFERENCE
+n=6 injectivity  INFERENCE
+↓
+Toda (5.12) aggregate  INFERENCE
+```
+
+Literature metadata:
+
+```text
+H. Toda
+Composition Methods in Homotopy Groups of Spheres
+1962
+Equation (5.12)
+```
+
+## Phase 71 provenance / non-circularity
+
+Dedicated regression verifies:
+
+```text
+aggregate direct premises
+=
+exactly the n=4,n=5,n=6 injectivity steps
+
+aggregate reaches all three branches
+
+each branch reaches its own upstream facts
+
+aggregate is not its own ancestor
+
+aggregate conclusion does not occur in its ancestors
+
+each branch is acyclic
+
+no branch depends on another Phase 71 branch
+
+no branch depends on the final aggregate
+```
+
+The `GIVEN` / `INFERENCE` boundary is preserved:
+
+```text
+n=4 upstream = INFERENCE
+n=5 upstream = INFERENCE
+
+n=6:
+π_13^13 = GIVEN
+π_11^6  = INFERENCE
+```
+
+Wrong map, wrong generator, wrong group, wrong order, and inappropriate `GIVEN` substitutions are rejected by the Phase 71 focused tests.
+
+## Representative probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase71_capabilities
+```
+
+The probe displays:
+
+```text
+Toda (5.12) Delta injectivity
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Phase 71 representative probe boundary
+```
+
+The displayed proof-style derivation is hand-authored presentation code.
+
+It is not yet generated automatically from the `ProofStep` graph.
+
+## Phase 71 regression
+
+Focused / staged results include:
+
+```text
+Phase 71-2 n=4:
+19 passed
+
+Phase 71-3 n=5:
+20 passed
+
+Phase 71-4 n=6:
+19 passed
+
+Phase 71-5 integration:
+19 passed
+
+Phase 71-6 provenance:
+30 passed
+
+Phase 71-7 probe:
+27 passed
+```
+
+Latest repository-wide regression:
+
+```text
+4886 passed in 29.25s
+```
+
+Phase 64 performance stabilization remains effective while the Phase 71 theorem, provenance, literature, and probe coverage are added.
+
+## Phase 71 completion boundary
+
+Implemented:
+
+```text
+TodaDeltaInjectiveStatement
+Toda512DeltaInjectivityStatement
+
+Δ:π_11^9→π_9^4 injective
+Δ:π_12^11→π_10^5 injective
+Δ:π_13^13→π_11^6 injective
+
+Toda (5.12) three-case integration
+literature-aware aggregate
+applicability regression
+provenance / non-circularity regression
+representative proof-style probe
+sixth formal proof record
+```
+
+Still deferred:
+
+```text
+Toda Lemma 5.10
+generic Toda-bracket coset algebra
+generic modulo-subgroup bracket normalization
+generic cyclic-map injectivity solver
+generic free-cyclic map solver
+automatic proof narrative generation
+persistent Proof Repository
+stable homotopy-group model
+```
+
 ---
 
 # Documentation
@@ -2904,20 +3197,34 @@ stable homotopy-group model
 
 # Next development boundary
 
-Phase 70 is complete.
+Phase 71 is complete.
 
-The next mathematical Phase should begin with source statement / proof dependency / current representation compatibility analysis for the statement following Toda Proposition 5.9.
+The next mathematical Phase is:
+
+```text
+Phase 72
+Toda Lemma 5.10
+```
+
+Source target:
+
+```text
+Δ(ι₁₃)
+∈
+{ν₆,η₉,2ι₁₀}
+mod 2π₁₁(S⁶)
+```
 
 Start with:
 
 ```text
-Phase 71-1
+Phase 72-1
 source statement /
 proof dependency /
-current representation compatibility analysis
+current TodaBracket + modulo/coset representation compatibility analysis
 ```
 
-A likely candidate is the next concrete low-dimensional consequence around Toda (5.12), including possible Δ-injectivity branches, but the exact theorem statement, locator, and proof dependencies must be confirmed before implementation.
+The first question is whether the existing bracket and modulo representations can express the exact Lemma 5.10 statement without introducing a generic coset algebra prematurely.
 
 The following remain separate later milestones:
 
