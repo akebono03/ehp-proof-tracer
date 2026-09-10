@@ -2354,6 +2354,391 @@ stable:
 
 ---
 
+
+# 11. Toda Equation (5.10)
+
+## 11.1 Source / theorem
+
+```text
+H. Toda
+Composition Methods in Homotopy Groups of Spheres
+1962
+Equation (5.10)
+```
+
+statement:
+
+```text
+Δ(ι₁₁)=ν₅η₈
+```
+
+---
+
+## 11.2 Source proof dependency
+
+EHP segment:
+
+```text
+π_11^11 --Δ--> π_9^5 --E--> π_10^6
+```
+
+Phase 68 で:
+
+```text
+π_10^6=0
+```
+
+が derived 済み。
+
+したがって:
+
+```text
+E:π_9^5→π_10^6=0
+↓
+ker(E)=π_9^5
+↓ exactness
+Im(Δ)=π_9^5
+↓
+Δ:π_11^11→π_9^5 surjective
+```
+
+さらに:
+
+```text
+π_11^11=Z{ι₁₁}
+π_9^5=Z/2{ν₅η₈}
+```
+
+より:
+
+```text
+Δ(ι₁₁)=ν₅η₈
+```
+
+target は order two なので sign ambiguity はない。
+
+---
+
+## 11.3 Machine prerequisite graph
+
+Phase 69-2:
+
+```text
+structural exactness window
+GIVEN
+        │
+        ↓
+concrete Proposition 4.2 exactness
+INFERENCE
+        │
+        │
+Phase 68-10
+π_10^6=0
+INFERENCE
+        │
+        ↓
+Δ:π_11^11→π_9^5
+surjective
+INFERENCE
+```
+
+Phase 69-3:
+
+```text
+Δ surjective
+INFERENCE
+
+π_11^11=Z{ι₁₁}
+GIVEN
+
+Phase 68-6
+π_9^5=Z/2{ν₅η₈}
+INFERENCE
+        │
+        ↓
+Δ(ι₁₁)=ν₅η₈
+INFERENCE
+```
+
+---
+
+## 11.4 Concrete exactness rule
+
+追加:
+
+```text
+toda_eq510_concrete_delta_e_exactness_inference_rule()
+```
+
+既存 symbolic Proposition 4.2 rule と concrete integer dimension の structural mismatch を global normalizer で解決せず、今回必要な window のみ theorem-specific に認識する。
+
+---
+
+## 11.5 Δ-surjectivity rule
+
+追加:
+
+```text
+toda_eq510_delta_surjective_inference_rule()
+```
+
+premises:
+
+```text
+π_10^6=0               INFERENCE
+concrete exactness      INFERENCE
+```
+
+conclusion:
+
+```text
+TodaDeltaSurjectiveStatement(
+  Δ:π_11^11→π_9^5
+)
+INFERENCE
+```
+
+既存 `TodaDeltaSurjectiveStatement` を再利用する。
+
+---
+
+## 11.6 Generator-image rule
+
+追加:
+
+```text
+toda_eq510_delta_iota11_inference_rule()
+```
+
+premises:
+
+```text
+Δ surjective              INFERENCE
+π_11^11=Z{ι₁₁}           GIVEN
+π_9^5=Z/2{ν₅η₈}          INFERENCE
+```
+
+conclusion:
+
+```text
+Δ(ι₁₁)=ν₅η₈
+INFERENCE
+```
+
+Phase 68 `π_9^5` branch の generator object を直接再利用する。
+
+---
+
+## 11.7 Why equality, not ±
+
+```text
+π_9^5=Z/2{ν₅η₈}
+```
+
+より:
+
+```text
+ν₅η₈=-(ν₅η₈)
+```
+
+したがって surjective な Δ による source generator の像は target の唯一の非零元そのものであり:
+
+```text
+Δ(ι₁₁)=ν₅η₈
+```
+
+を通常の equality として保持できる。
+
+---
+
+## 11.8 GIVEN / INFERENCE boundary
+
+GIVEN:
+
+```text
+π_11^11=Z{ι₁₁}
+structural exactness window
+```
+
+INFERENCE:
+
+```text
+π_10^6=0
+π_9^5=Z/2{ν₅η₈}
+concrete exactness
+Δ surjective
+Δ(ι₁₁)=ν₅η₈
+```
+
+Phase 68 Proposition 5.8 aggregate は prerequisite にしない。
+
+---
+
+## 11.9 Provenance / non-circularity
+
+final direct premises:
+
+```text
+Δ surjective
+π_11^11=Z{ι₁₁}
+π_9^5=Z/2{ν₅η₈}
+```
+
+ancestor graph は:
+
+```text
+final
+→ Phase 69-2 Δ surjective
+→ Phase 68-10 π_10^6=0
+
+final
+→ Phase 69-2 concrete exactness
+→ structural exactness window
+
+final
+→ Phase 68-6 π_9^5
+
+final
+→ π_11^11 foundational fact
+```
+
+Phase 69 regression で:
+
+```text
+final is INFERENCE
+final not GIVEN
+final is not its own ancestor
+final conclusion absent from ancestors
+Δ-surjectivity does not depend on final
+π_9^5 branch does not depend on final
+Phase 68 aggregate not direct premise
+Phase 68 aggregate not ancestor
+```
+
+を確認。
+
+---
+
+## 11.10 Representative proof-style derivation
+
+```text
+π_10^6=0
+
+π_11^11 ─Δ→ π_9^5 ─E→ π_10^6
+is exact
+
+π_10^6=0
+↓
+E=0
+↓
+ker(E)=π_9^5
+↓
+Im(Δ)=π_9^5
+↓
+Δ surjective
+
+π_11^11=Z{ι₁₁}
+π_9^5=Z/2{ν₅η₈}
+↓
+Δ(ι₁₁) is the unique nonzero target element
+↓
+Δ(ι₁₁)=ν₅η₈
+```
+
+この表示は Phase 69 probe の hand-authored presentation layer を human-reviewed record として固定したもの。
+
+automatic proof narrative generation ではない。
+
+---
+
+## 11.11 Related source equation
+
+Toda Equation (5.11):
+
+```text
+Δ(η₉)=Eν′η₇
+```
+
+は Phase 68-5 で machine-derived 済み。
+
+Phase 69 では再実装しない。
+
+---
+
+## 11.12 Representative probe
+
+```powershell
+python -m probes.probe_phase69_capabilities
+```
+
+---
+
+## 11.13 Regression
+
+focused Phase 69:
+
+```text
+79 passed in 1.53s
+```
+
+probe focused:
+
+```text
+22 passed in 1.18s
+```
+
+repository-wide:
+
+```text
+4422 passed in 30.54s
+```
+
+---
+
+## 11.14 Representation boundary
+
+Phase 69 では追加しない:
+
+```text
+stable (G_4;2)=0
+generic concrete-dimension normalizer
+generic exactness solver
+generic cyclic-image solver
+generic zero-target solver
+generic sign / ± algebra
+automatic proof narrative generation
+persistent Proof Repository
+stable homotopy-group model
+```
+
+---
+
+## 11.15 Completion record
+
+Phase 69 は COMPLETE。
+
+verified result:
+
+```text
+Δ(ι₁₁)=ν₅η₈
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase69_capabilities
+```
+
+repository-wide regression:
+
+```text
+4422 passed in 30.54s
+```
+
+この record は Phase 69 completion 時点の human-reviewed golden reference とする。
+
+---
+
 # 11. Current proof-record status
 
 正式な curated proof record:
@@ -2367,6 +2752,9 @@ stable:
 
 3. Phase 68
    Toda Proposition 5.8 finite-dimensional result
+
+4. Phase 69
+   Toda Equation (5.10)
 ```
 
 current model:
@@ -2380,6 +2768,6 @@ proof records          = human curated
 persistent repository  = not implemented
 ```
 
-3件の formal record が蓄積したため、future automatic proof narrative generation の display schema を比較する材料が増えた。
+4件の formal record が蓄積したため、future automatic proof narrative generation の display schema を比較する材料が増えた。
 
 ただし generic narrative generator はまだ実装しない。
