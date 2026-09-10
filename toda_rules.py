@@ -26117,6 +26117,455 @@ class TodaLemma510BracketModuloStatement:
 
 
 @dataclass(frozen=True)
+class TodaLemma510HopfBracketContainsStatement:
+  bracket: TodaBracket
+  value: Expression
+
+
+@dataclass(frozen=True)
+class TodaLemma510BracketPlusSuspensionImageStatement:
+  element: Expression
+  bracket: TodaBracket
+  suspension_map: TodaSuspensionMap
+
+
+def toda_lemma510_hopf_bracket_contains_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    bracket_defined = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    delta_iota11_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    nu_6 = (
+      toda_nu_family_definition_statement(
+        6
+      ).element
+    )
+
+    eta_9 = (
+      toda_eta_family_definition_statement(
+        9
+      ).element
+    )
+
+    iota_10 = HomotopyElement(
+      name="ι_10",
+      dimension=10,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=10,
+      ),
+    )
+
+    expected_bracket = TodaBracket(
+      first=nu_6,
+      second=eta_9,
+      third=Multiple(
+        coefficient=2,
+        expression=iota_10,
+      ),
+    )
+
+    if (
+      bracket_defined.bracket
+      != expected_bracket
+    ):
+      return False
+
+    if not isinstance(
+      delta_iota11_relation,
+      Relation,
+    ):
+      return False
+
+    if (
+      delta_iota11_relation
+      .relation_type
+      != RelationType.EQUALITY
+    ):
+      return False
+
+    if not isinstance(
+      delta_iota11_relation.lhs,
+      MapApplication,
+    ):
+      return False
+
+    if (
+      delta_iota11_relation
+      .lhs
+      .map
+      != EHP_DELTA_MAP
+    ):
+      return False
+
+    iota_11 = (
+      delta_iota11_relation
+      .lhs
+      .expression
+    )
+
+    if not isinstance(
+      iota_11,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      iota_11.dimension
+      != 11
+    ):
+      return False
+
+    if (
+      iota_11.generator
+      != GeneratorSymbol(
+        family="ι",
+        index=11,
+      )
+    ):
+      return False
+
+    delta_value = (
+      delta_iota11_relation
+      .rhs
+    )
+
+    if not isinstance(
+      delta_value,
+      Composition,
+    ):
+      return False
+
+    nu_5 = (
+      delta_value.left
+    )
+
+    eta_8 = (
+      delta_value.right
+    )
+
+    if not isinstance(
+      nu_5,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      nu_5.generator
+      != GeneratorSymbol(
+        family="ν",
+        index=5,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      eta_8,
+      HomotopyElement,
+    ):
+      return False
+
+    return (
+      eta_8.generator
+      == GeneratorSymbol(
+        family="η",
+        index=8,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    bracket_defined = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    delta_iota11_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    iota_11 = (
+      delta_iota11_relation
+      .lhs
+      .expression
+    )
+
+    return (
+      TodaLemma510HopfBracketContainsStatement(
+        bracket=(
+          bracket_defined
+          .bracket
+        ),
+        value=Multiple(
+          coefficient=2,
+          expression=iota_11,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.10 "
+      "Hopf bracket consequence"
+    ),
+    description=(
+      "For the defined bracket "
+      "{nu_6, eta_9, 2 iota_10}, "
+      "reuse the independently derived "
+      "Toda (5.10) relation "
+      "Delta(iota_11)=nu_5 eta_8 "
+      "and apply the concrete "
+      "Proposition 2.6 consequence used "
+      "in Toda Lemma 5.10. "
+      "Derive that the Hopf image of the "
+      "bracket contains 2 iota_11. "
+      "The nu_5 and eta_8 factors are "
+      "recognized by their generator "
+      "identities rather than by "
+      "reconstructing canonical display "
+      "objects. "
+      "No generic Hopf-of-bracket "
+      "calculus or global generator "
+      "normalization is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaBracketDefinedStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma510_exactness_core_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    hopf_bracket = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    hopf_delta = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    exactness = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    iota_11 = HomotopyElement(
+      name="ι_11",
+      dimension=11,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=11,
+      ),
+    )
+
+    expected_hopf_value = Multiple(
+      coefficient=2,
+      expression=iota_11,
+    )
+
+    if (
+      hopf_bracket.value
+      != expected_hopf_value
+    ):
+      return False
+
+    if (
+      hopf_delta.positive_value
+      != expected_hopf_value
+    ):
+      return False
+
+    delta_iota13 = (
+      hopf_delta
+      .argument
+    )
+
+    if not isinstance(
+      delta_iota13,
+      MapApplication,
+    ):
+      return False
+
+    if (
+      delta_iota13.map
+      != EHP_DELTA_MAP
+    ):
+      return False
+
+    iota_13 = (
+      delta_iota13
+      .expression
+    )
+
+    if not isinstance(
+      iota_13,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      iota_13.dimension
+      != 13
+    ):
+      return False
+
+    if (
+      iota_13.generator
+      != GeneratorSymbol(
+        family="ι",
+        index=13,
+      )
+    ):
+      return False
+
+    expected_window = (
+      TodaEHPExactnessWindow(
+        source_term=TodaPrimaryGroup(
+          group_dimension=10,
+          sphere_dimension=5,
+        ),
+        middle_term=TodaPrimaryGroup(
+          group_dimension=11,
+          sphere_dimension=6,
+        ),
+        target_term=TodaPrimaryGroup(
+          group_dimension=11,
+          sphere_dimension=11,
+        ),
+        first_map=EHP_E_MAP,
+        second_map=EHP_H_MAP,
+      )
+    )
+
+    return (
+      exactness.window
+      == expected_window
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    hopf_bracket = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    hopf_delta = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return (
+      TodaLemma510BracketPlusSuspensionImageStatement(
+        element=(
+          hopf_delta
+          .argument
+        ),
+        bracket=(
+          hopf_bracket
+          .bracket
+        ),
+        suspension_map=(
+          TodaSuspensionMap(
+            source_group=TodaPrimaryGroup(
+              group_dimension=10,
+              sphere_dimension=5,
+            ),
+            target_group=TodaPrimaryGroup(
+              group_dimension=11,
+              sphere_dimension=6,
+            ),
+          )
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.10 "
+      "E-H exactness core"
+    ),
+    description=(
+      "Toda Lemma 5.10 has "
+      "H{nu_6, eta_9, 2 iota_10} "
+      "containing 2 iota_11, while "
+      "H(Delta(iota_13)) equals "
+      "plus or minus 2 iota_11. "
+      "Using exactness of "
+      "pi_10(S^5) -> pi_11(S^6) "
+      "-> pi_11(S^11), derive the "
+      "concrete conclusion that "
+      "Delta(iota_13) lies in the "
+      "Toda bracket plus the suspension "
+      "image E pi_10(S^5). "
+      "No generic preimage, coset, or "
+      "image algebra is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma510HopfBracketContainsStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp27HopfInvariantUpToSignStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+@dataclass(frozen=True)
 class Toda36Lemma54SpecializationStatement:
   alpha: HomotopyElement
   beta: Expression
