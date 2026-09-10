@@ -3937,7 +3937,436 @@ This record is the Phase 71 completion human-reviewed golden reference.
 
 ---
 
-# 15. Current proof-record status
+---
+
+# 15. Toda Lemma 5.10
+
+## 15.1 Source / theorem
+
+Literature:
+
+```text
+H. Toda
+Composition Methods in Homotopy Groups of Spheres
+1962
+Lemma 5.10
+```
+
+Source statement:
+
+```text
+Δ(ι₁₃)
+∈
+{ν₆,η₉,2ι₁₀}
+∈
+π₁₁(S⁶)/2π₁₁(S⁶)
+```
+
+Canonical machine reading:
+
+```text
+Δ(ι₁₃)
+∈
+{ν₆,η₉,2ι₁₀}
+mod 2π₁₁(S⁶)
+```
+
+---
+
+## 15.2 Machine result
+
+Final statement:
+
+```text
+TodaLemma510BracketModuloStatement
+```
+
+concrete fields:
+
+```text
+element       = Δ(ι₁₃)
+bracket       = {ν₆,η₉,2ι₁₀}
+ambient_group = π₁₁(S⁶)
+modulus       = 2
+```
+
+proof rule:
+
+```text
+ProofRule.INFERENCE
+```
+
+The theorem conclusion is not inserted as `GIVEN`.
+
+---
+
+## 15.3 Bracket indeterminacy derivation
+
+Toda proof uses (4.7) and (5.9):
+
+```text
+Indeterminacy
+=ν₆∘π₁₁(S⁹)+π₁₁(S⁶)∘2ι₁₁
+=ν₆∘π₁₁⁹+2π₁₁(S⁶)
+```
+
+Machine provenance:
+
+```text
+Phase 59 / Proposition 5.3
+π₁₁⁹=Z/2{η₉²}
+
+Phase 68
+ν₆η₉=0
+
+Phase 70
+π₁₁⁶=Z{Δι₁₃}
+```
+
+therefore:
+
+```text
+ν₆∘π₁₁⁹=0
+Indeterminacy=<2Δι₁₃>=2π₁₁(S⁶)
+```
+
+Machine statement:
+
+```text
+Toda54IndeterminacyGeneratorStatement
+```
+
+with generator:
+
+```text
+2Δ(ι₁₃)
+```
+
+This reuses the existing minimum indeterminacy representation rather than introducing generic Toda-bracket coset algebra.
+
+---
+
+## 15.4 Hopf bracket consequence
+
+Toda proof uses (5.10) and Proposition 2.6.
+
+Machine provenance:
+
+```text
+Phase 69
+Δ(ι₁₁)=ν₅η₈
+```
+
+Concrete Phase 72 consequence:
+
+```text
+H{ν₆,η₉,2ι₁₀}
+contains
+2ι₁₁
+```
+
+Machine statement:
+
+```text
+TodaLemma510HopfBracketContainsStatement
+ProofRule.INFERENCE
+```
+
+The factor identity in `ν₅η₈` is checked by `GeneratorSymbol` identity rather than requiring reconstructed display objects to be structurally identical.
+
+---
+
+## 15.5 E-H exactness core
+
+Existing Phase 70 result:
+
+```text
+H(Δι₁₃)=±2ι₁₁
+```
+
+Existing exact sequence:
+
+```text
+π₁₀(S⁵)
+--E-->
+π₁₁(S⁶)
+--H-->
+π₁₁(S¹¹)
+```
+
+Since the bracket contains an element with Hopf value `2ι₁₁` and `Δι₁₃` has the same Hopf value up to sign, exactness gives the concrete Phase 72 core conclusion:
+
+```text
+Δι₁₃
+∈
+{ν₆,η₉,2ι₁₀}
++Eπ₁₀(S⁵)
+```
+
+Machine statement:
+
+```text
+TodaLemma510BracketPlusSuspensionImageStatement
+ProofRule.INFERENCE
+```
+
+---
+
+## 15.6 Suspension-image containment
+
+Existing Phase 70 group structures:
+
+```text
+π₁₀⁵=Z/2{ν₅η₈²}
+π₁₁⁶=Z{Δι₁₃}
+```
+
+For the concrete suspension homomorphism from the finite order-two source to the free cyclic target:
+
+```text
+Eπ₁₀(S⁵)⊂2π₁₁(S⁶)
+```
+
+Machine statement:
+
+```text
+TodaLemma510SuspensionImageInDoubleStatement
+ProofRule.INFERENCE
+```
+
+No generic finite-subgroup solver or image-subgroup algebra is added.
+
+---
+
+## 15.7 Final modulo integration
+
+Direct premises:
+
+```text
+1. Δι₁₃∈bracket+Eπ₁₀(S⁵)
+2. Indeterminacy=2π₁₁(S⁶)
+3. Eπ₁₀(S⁵)⊂2π₁₁(S⁶)
+```
+
+Final inference:
+
+```text
+Δ(ι₁₃)
+∈
+{ν₆,η₉,2ι₁₀}
+mod 2π₁₁(S⁶)
+```
+
+The final `ProofStep` has exactly these three direct premises.
+
+---
+
+## 15.8 Provenance graph
+
+Representative provenance:
+
+```text
+Phase 59 Prop.5.3 ───────────────┐
+Phase 68 ν₆η₉=0 ────────────────┼→ indeterminacy branch ─┐
+Phase 70 π₁₁⁶ ──────────────────┘                        │
+                                                        │
+Phase 69 Δι₁₁=ν₅η₈ ─→ Hopf bracket consequence ─┐      │
+Phase 70 H(Δι₁₃)=±2ι₁₁ ────────────────────────┼→ core ├→ final
+Phase 70 E-H exactness ─────────────────────────┘      │
+                                                        │
+Phase 70 π₁₀⁵ ─────────────────────────────────┐       │
+Phase 70 π₁₁⁶ ─────────────────────────────────┴→ image┘
+```
+
+Important negative dependency:
+
+```text
+Phase 71 n=6
+Δ:π₁₃¹³→π₁₁⁶ injective
+```
+
+is not an ancestor of the Lemma 5.10 final proof.
+
+This was explicitly fixed after the source proof was reviewed.
+
+---
+
+## 15.9 Non-circularity
+
+Dedicated Phase 72 regression verifies:
+
+```text
+final = INFERENCE
+final != GIVEN
+final has exactly three direct branch premises
+final not self-ancestor
+final conclusion absent from ancestors
+core branch acyclic
+indeterminacy branch acyclic
+suspension-image branch acyclic
+no branch depends on final
+Phase 71 n=6 injectivity absent from ancestry
+```
+
+---
+
+## 15.10 Applicability rejection
+
+Focused tests reject:
+
+```text
+GIVEN core shortcut
+GIVEN indeterminacy shortcut
+GIVEN image-containment shortcut
+wrong bracket
+wrong modulus
+wrong ambient group
+wrong indeterminacy generator
+wrong suspension map
+wrong Hopf bracket value
+wrong E-H exactness window
+```
+
+The implementation is theorem-specific and guarded.
+
+---
+
+## 15.11 Representative probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase72_capabilities
+```
+
+The probe displays:
+
+```text
+Toda Lemma 5.10 result
+Proof-style derivation
+Representative source objects
+Provenance / integration
+Phase 72 representative probe boundary
+```
+
+Representative status:
+
+```text
+final modulo statement derived = True
+final modulo statement is GIVEN = False
+core branch derived = True
+indeterminacy branch derived = True
+suspension-image branch derived = True
+exact three direct premises = True
+final graph acyclic = True
+Phase 71 Delta injectivity absent from ancestry = True
+```
+
+The proof-style display remains hand-authored presentation code and is not yet generated automatically from the `ProofStep` graph.
+
+---
+
+## 15.12 Regression status
+
+Phase 72-2:
+
+```text
+10 passed in 2.67s
+```
+
+Phase 72-3 revised focused:
+
+```text
+19 passed in 4.29s
+```
+
+Phase 72-4:
+
+```text
+22 passed in 8.29s
+```
+
+Phase 72-5:
+
+```text
+31 passed in 4.70s
+```
+
+Phase 72-6:
+
+```text
+22 passed in 4.39s
+```
+
+final repository-wide on the home laptop:
+
+```text
+4990 passed in 70.11s
+```
+
+The project is developed on two PCs, so wall-clock regression time is compared per machine.
+
+---
+
+## 15.13 Representation boundary
+
+Phase 72 does not add:
+
+```text
+generic Toda-bracket coset algebra
+generic modulo-subgroup bracket normalization
+generic quotient normalizer
+generic finite-subgroup solver
+generic Hopf-of-bracket calculus
+generic image-subgroup solver
+automatic proof narrative generation
+persistent Proof Repository
+stable homotopy-group model
+```
+
+The concrete Lemma 5.10 need is handled by narrow theorem-specific statement types and inference guards.
+
+---
+
+## 15.14 Completion record
+
+Phase 72 is COMPLETE.
+
+verified result:
+
+```text
+Toda Lemma 5.10
+
+Δ(ι₁₃)
+∈
+{ν₆,η₉,2ι₁₀}
+mod 2π₁₁(S⁶)
+```
+
+final:
+
+```text
+TodaLemma510BracketModuloStatement
+ProofRule.INFERENCE
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase72_capabilities
+```
+
+repository-wide regression:
+
+```text
+4990 passed in 70.11s
+```
+
+This record is the Phase 72 completion human-reviewed golden reference.
+
+---
+
+# 16. Current proof-record status
 
 正式な curated proof record:
 
@@ -3960,6 +4389,10 @@ This record is the Phase 71 completion human-reviewed golden reference.
 6. Phase 71
    Toda Equation (5.12)
    Delta injectivity for n=4,5,6
+
+7. Phase 72
+   Toda Lemma 5.10
+   Δ(ι₁₃)∈{ν₆,η₉,2ι₁₀} mod 2π₁₁(S⁶)
 ```
 
 current model:
@@ -3967,22 +4400,20 @@ current model:
 ```text
 proof inference        = automatic
 proof provenance       = automatic
-literature metadata    = structured
+literature metadata    = structured where implemented
 proof-style narrative  = hand-authored representative probe
 proof records          = human curated
 persistent repository  = not implemented
 ```
 
-6件の formal record が蓄積したため、future automatic proof narrative generation の display schema を比較する材料が増えた。
-
-ただし generic narrative generator はまだ実装しない。
+7件の formal record が蓄積した。Phase 72 では theorem source proof の確認により、最初の dependency 仮説を revision し、実際の proof ancestry を regression で固定する運用も記録された。
 
 次の formal record candidate:
 
 ```text
-Phase 72
-Toda Lemma 5.10
+Phase 73
+Toda Proposition 5.11
 ```
 
-まず bracket / modulo-coset representation compatibility を確認する。
+まず Proposition 5.11 と中間式 Toda (5.13) の dependency / representation compatibility を確認する。
 

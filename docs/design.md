@@ -25,7 +25,7 @@ representation != typing != theorem knowledge
 structural equality != mathematical equality
 ```
 
-Phase 71 までこの原則を維持している。
+Phase 72 までこの原則を維持している。
 
 ---
 
@@ -6317,4 +6317,335 @@ final regression:
 ```
 
 Phase 64 performance stabilization level is retained.
+
+---
+
+# 155. Phase 72 minimum Lemma 5.10 representation
+
+対象:
+
+```text
+Δ(ι₁₃)
+∈
+{ν₆,η₉,2ι₁₀}
+mod 2π₁₁(S⁶)
+```
+
+minimum statement:
+
+```text
+TodaLemma510BracketModuloStatement
+```
+
+fields:
+
+```text
+element
+bracket
+ambient_group
+modulus
+```
+
+設計上、この statement は generic quotient/coset object ではない。Lemma 5.10 の concrete need だけを保持する theorem-specific representation とする。
+
+追加しない:
+
+```text
+generic Coset
+generic MultipleSubgroup
+generic quotient normalizer
+generic Toda-bracket coset algebra
+```
+
+---
+
+# 156. Phase 72 Hopf / exactness core
+
+Phase 72-3 の最初の実装では Phase 71 n=6 の Delta injectivity を direct premise としていた。Toda Lemma 5.10 の proof 本文確認後、この dependency は削除した。
+
+proof-faithful dependency:
+
+```text
+Phase 69 / Toda (5.10)
+Δ(ι₁₁)=ν₅η₈
++
+Proposition 2.6 concrete consequence
+↓
+H{ν₆,η₉,2ι₁₀} contains 2ι₁₁
+
+Phase 70
+H(Δι₁₃)=±2ι₁₁
++
+π₁₀⁵ --E--> π₁₁⁶ --H--> π₁₁¹¹ exact
+↓
+Δι₁₃∈{ν₆,η₉,2ι₁₀}+Eπ₁₀(S⁵)
+```
+
+statement family:
+
+```text
+TodaLemma510HopfBracketContainsStatement
+TodaLemma510BracketPlusSuspensionImageStatement
+```
+
+rules:
+
+```text
+toda_lemma510_hopf_bracket_contains_inference_rule()
+toda_lemma510_exactness_core_inference_rule()
+```
+
+generic Hopf-of-Toda-bracket calculus や generic preimage algebra は追加しない。
+
+`Δ(ι₁₁)=ν₅η₈` の recognition では reconstructed display object との完全 structural equality を要求しない。既存 derived relation の RHS を `Composition` として分解し、`GeneratorSymbol(family="ν", index=5)` / `GeneratorSymbol(family="η", index=8)` を検査する。
+
+これは Phase 58 以降の:
+
+```text
+structural equality != mathematical identity
+```
+
+という設計方針を維持するためである。
+
+---
+
+# 157. Phase 72 indeterminacy reduction
+
+Toda proof の (4.7), (5.9) branch:
+
+```text
+Indeterminacy
+=ν₆∘π₁₁⁹ + 2π₁₁⁶
+```
+
+既存 provenance:
+
+```text
+Phase 59 / Prop.5.3
+π₁₁⁹=Z/2{η₉²}
+
+Phase 68
+ν₆η₉=0
+
+Phase 70
+π₁₁⁶=Z{Δι₁₃}
+```
+
+から concrete に:
+
+```text
+ν₆∘π₁₁⁹=0
+Indeterminacy=<2Δι₁₃>=2π₁₁⁶
+```
+
+を導出する。
+
+既存の:
+
+```text
+Toda54IndeterminacyGeneratorStatement
+```
+
+を再利用する。これは `Indeterminacy(B)=<generator>` を表す既存の minimum representation であり、新しい generic indeterminacy algebra は不要である。
+
+rule:
+
+```text
+toda_lemma510_indeterminacy_inference_rule()
+```
+
+---
+
+# 158. Phase 72 suspension-image containment
+
+Toda proof 後半の:
+
+```text
+Eπ₁₀(S⁵)⊂2π₁₁(S⁶)
+```
+
+を theorem-specific statement として保持する。
+
+```text
+TodaLemma510SuspensionImageInDoubleStatement
+```
+
+inputs:
+
+```text
+π₁₀⁵=Z/2{ν₅η₈²}
+π₁₁⁶=Z{Δι₁₃}
+```
+
+concrete source is finite order two, concrete target is free cyclic なので、この E-image は zero であり特に double subgroup に含まれる。
+
+ここでも generic finite-subgroup theorem / generic image-subgroup solver へ一般化しない。
+
+rule:
+
+```text
+toda_lemma510_suspension_image_in_double_inference_rule()
+```
+
+---
+
+# 159. Phase 72 final modulo integration
+
+final direct premises:
+
+```text
+TodaLemma510BracketPlusSuspensionImageStatement
+Toda54IndeterminacyGeneratorStatement
+TodaLemma510SuspensionImageInDoubleStatement
+```
+
+から:
+
+```text
+TodaLemma510BracketModuloStatement
+ProofRule.INFERENCE
+```
+
+を導出する。
+
+rule:
+
+```text
+toda_lemma510_modulo_integration_inference_rule()
+```
+
+この integration は generic coset addition や generic quotient equality を意味しない。Lemma 5.10 の exact bracket / exact ambient group / modulus=2 / exact suspension map / exact indeterminacy generator を guard で確認する narrow theorem edge である。
+
+---
+
+# 160. Phase 72 provenance / non-circularity
+
+Dedicated regression で:
+
+```text
+final = INFERENCE
+final != GIVEN
+final direct premises = exactly three Phase 72 branches
+```
+
+を固定する。
+
+ancestor reachability:
+
+```text
+Phase 59 Prop.5.3
+Phase 68 ν₆η₉=0
+Phase 69 Δι₁₁=ν₅η₈
+Phase 70 H(Δι₁₃)=±2ι₁₁
+Phase 70 E-H exactness
+Phase 70 π₁₀⁵
+Phase 70 π₁₁⁶
+```
+
+非依存性:
+
+```text
+Phase 71 n=6 Delta injectivity
+not in final ancestry
+```
+
+acyclicity:
+
+```text
+final not self-ancestor
+final conclusion absent from ancestors
+core branch acyclic
+indeterminacy branch acyclic
+suspension-image branch acyclic
+no reverse dependency from branches to final
+```
+
+---
+
+# 161. Phase 72 representative probe
+
+module:
+
+```text
+probes/probe_phase72_capabilities.py
+```
+
+representative source:
+
+```text
+tests/test_phase72_applicability_provenance.py
+build_phase72_5_data()
+```
+
+probe は completed proof graph を再利用し、theorem logic を presentation layer へ複製しない。
+
+表示:
+
+```text
+Toda Lemma 5.10 result
+Proof-style derivation
+Representative source objects
+Provenance / integration
+Phase 72 representative probe boundary
+```
+
+proof-style derivation は引き続き:
+
+```text
+hand-authored presentation code
+```
+
+であり automatic `ProofStep` narrative generation ではない。
+
+Phase 71 non-dependency の probe 表示は exact n=6 `TodaDeltaInjectiveStatement` を比較し、任意の `TodaDeltaInjectiveStatement` の存在を一律に拒否しない。
+
+---
+
+# 162. Phase 72 completion boundary
+
+完成:
+
+```text
+Toda Lemma 5.10
+
+Δ(ι₁₃)
+∈
+{ν₆,η₉,2ι₁₀}
+mod 2π₁₁(S⁶)
+```
+
+production additions:
+
+```text
+TodaLemma510BracketModuloStatement
+TodaLemma510HopfBracketContainsStatement
+TodaLemma510BracketPlusSuspensionImageStatement
+TodaLemma510SuspensionImageInDoubleStatement
+
+toda_lemma510_hopf_bracket_contains_inference_rule()
+toda_lemma510_exactness_core_inference_rule()
+toda_lemma510_indeterminacy_inference_rule()
+toda_lemma510_suspension_image_in_double_inference_rule()
+toda_lemma510_modulo_integration_inference_rule()
+```
+
+final regression on the home laptop:
+
+```text
+4990 passed in 70.11s
+```
+
+The project is used on two PCs, so wall-clock regression time must be compared per machine. Test count and semantic/provenance coverage remain the primary cross-machine regression signals.
+
+追加しない:
+
+```text
+generic Toda-bracket coset algebra
+generic modulo-subgroup normalization
+generic quotient normalizer
+generic finite-subgroup solver
+automatic proof narrative generation
+persistent Proof Repository
+stable homotopy-group model
+```
 
