@@ -18300,6 +18300,833 @@ def toda_prop511_513_delta_eta11_squared_zero_inference_rule():
   )
 
 
+def toda_prop511_513_delta_eta13_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    lemma510 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    prop51 = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    toda54 = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    toda55 = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    delta_nu9 = (
+      premises[
+        4
+      ].conclusion
+    )
+
+    #
+    # Corrected Phase 72R Lemma 5.10:
+    #
+    # Delta(iota_13)
+    # in
+    # {nu_6, eta_9, 2 iota_10}
+    # mod 2 pi_11(S^6)
+    #
+    # The ambient group must remain
+    # the ordinary HomotopyGroup.
+    #
+    if not isinstance(
+      lemma510,
+      TodaLemma510BracketModuloStatement,
+    ):
+      return False
+
+    if (
+      lemma510.ambient_group
+      != HomotopyGroup(
+        group_dimension=11,
+        sphere_dimension=6,
+      )
+    ):
+      return False
+
+    if (
+      lemma510.modulus
+      != 2
+    ):
+      return False
+
+    if not isinstance(
+      lemma510.element,
+      MapApplication,
+    ):
+      return False
+
+    if (
+      lemma510.element.map
+      != EHP_DELTA_MAP
+    ):
+      return False
+
+    iota_13 = (
+      lemma510
+      .element
+      .expression
+    )
+
+    if not isinstance(
+      iota_13,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      iota_13.dimension
+      != 13
+      or iota_13.generator
+      != GeneratorSymbol(
+        family="ι",
+        index=13,
+      )
+    ):
+      return False
+
+    lemma510_bracket = (
+      lemma510.bracket
+    )
+
+    if not isinstance(
+      lemma510_bracket,
+      TodaBracket,
+    ):
+      return False
+
+    if (
+      lemma510_bracket.index
+      is not None
+    ):
+      return False
+
+    nu_6 = (
+      toda_nu_family_definition_statement(
+        6
+      ).element
+    )
+
+    eta_9 = (
+      toda_eta_family_definition_statement(
+        9
+      ).element
+    )
+
+    if (
+      lemma510_bracket.first
+      != nu_6
+    ):
+      return False
+
+    if (
+      lemma510_bracket.second
+      != eta_9
+    ):
+      return False
+
+    if not isinstance(
+      lemma510_bracket.third,
+      Multiple,
+    ):
+      return False
+
+    if (
+      lemma510_bracket
+      .third
+      .coefficient
+      != 2
+    ):
+      return False
+
+    iota_10 = (
+      lemma510_bracket
+      .third
+      .expression
+    )
+
+    if not isinstance(
+      iota_10,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      iota_10.dimension
+      != 10
+      or iota_10.generator
+      != GeneratorSymbol(
+        family="ι",
+        index=10,
+      )
+    ):
+      return False
+
+    #
+    # Proposition 5.1:
+    #
+    # pi_(n+1)^n = Z/2{eta_n}
+    #
+    # This supplies the order-two fact
+    # for eta_11, which kills the
+    # 2*pi_11(S^6) modulo ambiguity
+    # after right composition.
+    #
+    if not isinstance(
+      prop51,
+      TodaProp51FiniteDimensionalStatement,
+    ):
+      return False
+
+    higher_eta_relation = (
+      prop51
+      .higher_eta_group_relation
+    )
+
+    if not isinstance(
+      higher_eta_relation.lhs,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    if not isinstance(
+      higher_eta_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      higher_eta_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    eta_index = (
+      higher_eta_relation
+      .lhs
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      eta_index,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      higher_eta_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=eta_index,
+          right=1,
+        ),
+        sphere_dimension=eta_index,
+      )
+    ):
+      return False
+
+    eta_family_generator = (
+      higher_eta_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      eta_family_generator,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_family_generator.generator
+      != GeneratorSymbol(
+        family="η",
+        index=eta_index,
+      )
+    ):
+      return False
+
+    #
+    # Toda (5.4), t=0:
+    #
+    # {eta_n, 2 iota_(n+1), eta_(n+1)}
+    # =
+    # {+/- E^(n-3) nu-prime}.
+    #
+    if not isinstance(
+      toda54,
+      Toda54BracketUpToSignStatement,
+    ):
+      return False
+
+    toda54_bracket = (
+      toda54.bracket
+    )
+
+    if not isinstance(
+      toda54_bracket,
+      TodaBracket,
+    ):
+      return False
+
+    if (
+      toda54_bracket.index
+      is not None
+    ):
+      return False
+
+    eta_n = (
+      toda54_bracket.first
+    )
+
+    if not isinstance(
+      eta_n,
+      HomotopyElement,
+    ):
+      return False
+
+    n = eta_n.dimension
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    n_plus_one = ScalarSum(
+      left=n,
+      right=1,
+    )
+
+    if (
+      eta_n.generator
+      != GeneratorSymbol(
+        family="η",
+        index=n,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      toda54_bracket.second,
+      Multiple,
+    ):
+      return False
+
+    if (
+      toda54_bracket
+      .second
+      .coefficient
+      != 2
+    ):
+      return False
+
+    iota_n_plus_one = (
+      toda54_bracket
+      .second
+      .expression
+    )
+
+    if not isinstance(
+      iota_n_plus_one,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      iota_n_plus_one.generator
+      != GeneratorSymbol(
+        family="ι",
+        index=n_plus_one,
+      )
+    ):
+      return False
+
+    eta_n_plus_one = (
+      toda54_bracket.third
+    )
+
+    if not isinstance(
+      eta_n_plus_one,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_n_plus_one.generator
+      != GeneratorSymbol(
+        family="η",
+        index=n_plus_one,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      toda54.positive_value,
+      IteratedSuspension,
+    ):
+      return False
+
+    suspended_nu_prime = (
+      toda54.positive_value
+    )
+
+    nu_prime = (
+      suspended_nu_prime
+      .expression
+    )
+
+    if not isinstance(
+      nu_prime,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      nu_prime.generator
+      != GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      )
+    ):
+      return False
+
+    if (
+      suspended_nu_prime.exponent
+      != ScalarSum(
+        left=n,
+        right=ScalarProduct(
+          left=-1,
+          right=3,
+        ),
+      )
+    ):
+      return False
+
+    #
+    # Toda (5.5):
+    #
+    # 2 nu_n = E^(n-3) nu-prime,
+    # n >= 5.
+    #
+    if not isinstance(
+      toda55,
+      Toda55NuFamilyFiniteDimensionalStatement,
+    ):
+      return False
+
+    definition = (
+      toda55
+      .nu_family_definition
+    )
+
+    nu_index = definition.index
+
+    if not isinstance(
+      nu_index,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      toda55.n_range
+      != ScalarGreaterEqualStatement(
+        left=nu_index,
+        right=5,
+      )
+    ):
+      return False
+
+    double_relation = (
+      toda55
+      .double_nu_relation
+    )
+
+    if not isinstance(
+      double_relation,
+      Relation,
+    ):
+      return False
+
+    if (
+      double_relation.relation_type
+      != RelationType.EQUALITY
+    ):
+      return False
+
+    if not isinstance(
+      double_relation.lhs,
+      Multiple,
+    ):
+      return False
+
+    if (
+      double_relation
+      .lhs
+      .coefficient
+      != 2
+    ):
+      return False
+
+    if (
+      double_relation
+      .lhs
+      .expression
+      != definition.element
+    ):
+      return False
+
+    if not isinstance(
+      double_relation.rhs,
+      IteratedSuspension,
+    ):
+      return False
+
+    if (
+      double_relation
+      .rhs
+      .exponent
+      != ScalarSum(
+        left=nu_index,
+        right=ScalarProduct(
+          left=-1,
+          right=3,
+        ),
+      )
+    ):
+      return False
+
+    double_relation_nu_prime = (
+      double_relation
+      .rhs
+      .expression
+    )
+
+    if not isinstance(
+      double_relation_nu_prime,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      double_relation_nu_prime.generator
+      != GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      )
+    ):
+      return False
+
+    #
+    # Phase 73-6A:
+    #
+    # Delta(nu_9) = +/- 2 nu_4^2.
+    #
+    if not isinstance(
+      delta_nu9,
+      TodaDeltaImageUpToSignStatement,
+    ):
+      return False
+
+    nu_9 = (
+      toda_nu_family_definition_statement(
+        9
+      ).element
+    )
+
+    if (
+      delta_nu9.element
+      != nu_9
+    ):
+      return False
+
+    if (
+      delta_nu9.map
+      != TodaDeltaMap(
+        source_group=TodaPrimaryGroup(
+          group_dimension=12,
+          sphere_dimension=9,
+        ),
+        target_group=TodaPrimaryGroup(
+          group_dimension=10,
+          sphere_dimension=4,
+        ),
+      )
+    ):
+      return False
+
+    if not isinstance(
+      delta_nu9.positive_value,
+      Multiple,
+    ):
+      return False
+
+    if (
+      delta_nu9
+      .positive_value
+      .coefficient
+      != 2
+    ):
+      return False
+
+    nu4_squared = (
+      delta_nu9
+      .positive_value
+      .expression
+    )
+
+    if not isinstance(
+      nu4_squared,
+      Composition,
+    ):
+      return False
+
+    nu_4 = (
+      nu4_squared.left
+    )
+
+    nu_7 = (
+      nu4_squared.right
+    )
+
+    if not isinstance(
+      nu_4,
+      HomotopyElement,
+    ):
+      return False
+
+    if not isinstance(
+      nu_7,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      nu_4.dimension
+      != 4
+      or nu_4.source
+      != 7
+      or nu_4.target
+      != 4
+      or nu_4.generator
+      != GeneratorSymbol(
+        family="ν",
+        index=4,
+      )
+    ):
+      return False
+
+    if (
+      nu_7
+      != toda_nu_family_definition_statement(
+        7
+      ).element
+    ):
+      return False
+
+    if not (
+      nu4_squared
+      .is_type_compatible()
+    ):
+      return False
+
+    #
+    # Concrete n=9 specialization of
+    # Toda (5.4) and Toda (5.5):
+    #
+    # {eta_9, 2 iota_10, eta_10}
+    # = {+/- E^6 nu-prime}
+    #
+    # E^6 nu-prime = 2 nu_9.
+    #
+    eta_10 = (
+      toda_eta_family_definition_statement(
+        10
+      ).element
+    )
+
+    target_bracket = TodaBracket(
+      first=eta_9,
+      second=Multiple(
+        coefficient=2,
+        expression=iota_10,
+      ),
+      third=eta_10,
+    )
+
+    e6_nu_prime = IteratedSuspension(
+      expression=HomotopyElement(
+        name="ν′",
+        dimension=3,
+        source=6,
+        target=3,
+        generator=GeneratorSymbol(
+          family="ν",
+          decoration="′",
+        ),
+      ),
+      exponent=6,
+    )
+
+    nu6_squared = Composition(
+      left=nu_6,
+      right=nu_9,
+    )
+
+    if not (
+      nu6_squared
+      .is_type_compatible()
+    ):
+      return False
+
+    #
+    # The following checks are the
+    # concrete specialization boundary.
+    #
+    # Prop.1.4 transports
+    #
+    # {nu_6, eta_9, 2 iota_10} eta_11
+    #
+    # to
+    #
+    # nu_6 {eta_9, 2 iota_10, eta_10}.
+    #
+    # Toda (5.4) then gives
+    # +/- nu_6 E^6 nu-prime,
+    # and Toda (5.5) gives
+    # +/- 2 nu_6^2.
+    #
+    if (
+      target_bracket.first
+      != eta_9
+      or target_bracket.third
+      != eta_10
+    ):
+      return False
+
+    if (
+      e6_nu_prime.exponent
+      != 6
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    eta_13 = (
+      toda_eta_family_definition_statement(
+        13
+      ).element
+    )
+
+    return Relation(
+      lhs=MapApplication(
+        map=EHP_DELTA_MAP,
+        expression=eta_13,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Equation 5.13 "
+      "Delta eta_13 zero"
+    ),
+    description=(
+      "Derive the third relation of "
+      "Toda Equation (5.13). "
+      "The corrected Phase 72R "
+      "Lemma 5.10 gives "
+      "Delta(iota_13) in "
+      "{nu_6,eta_9,2 iota_10} "
+      "modulo 2 pi_11(S^6), with the "
+      "ambient group kept as the ordinary "
+      "HomotopyGroup. "
+      "Toda Proposition 5.1 gives eta_11 "
+      "order two, so right composition by "
+      "eta_11 kills the modulo-two "
+      "ambiguity. "
+      "The concrete Proposition 1.4 "
+      "specialization transports the "
+      "right-composed bracket to "
+      "nu_6 composed with "
+      "{eta_9,2 iota_10,eta_10}. "
+      "Toda (5.4) identifies that bracket "
+      "up to sign with E^6 nu-prime, and "
+      "Toda (5.5) identifies E^6 nu-prime "
+      "with 2 nu_9. "
+      "Hence the possible value is "
+      "plus or minus 2 nu_6 squared. "
+      "Finally the independently derived "
+      "first relation of (5.13), "
+      "Delta(nu_9)=plus or minus "
+      "2 nu_4 squared, suspends twice to "
+      "2 nu_6 squared=E^2 Delta(nu_9)=0 "
+      "by EHP exactness. "
+      "Therefore Delta(eta_13)=0. "
+      "No generic ordinary-primary bridge, "
+      "Toda-bracket composition algebra, "
+      "quotient algebra, Proposition 1.4 "
+      "engine, or suspension normalizer "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma510BracketModuloStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp51FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda54BracketUpToSignStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda55NuFamilyFiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaDeltaImageUpToSignStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_prop511_zero_suspension_left_implies_hopf_injective_inference_rule():
   def guard(
     premises,
