@@ -146,18 +146,24 @@ Toda512DeltaInjectivityStatement
 sixth formal proof record
 
 Phase 72
-Toda Lemma 5.10
+Toda Lemma 5.10 first implementation
 Δ(ι₁₃)∈{ν₆,η₉,2ι₁₀} mod 2π₁₁(S⁶)
-proof-faithful Hopf / exactness core
-indeterminacy + E-image modulo integration
-Phase 71 injectivity excluded from ancestry
-seventh formal proof record
+
+Phase 72R
+Toda Lemma 5.10 semantic correction
+ordinary / 2-primary separation
+ordinary Toda (2.11)
+ordinary image bridge
+composition-level primary reduction
+Prop.2.6 indexed bracket + Toda (1.15)
+corrected provenance / retirement audit
+seventh formal proof record revised canonically
 ```
 
 現在の repository-wide regression:
 
 ```text
-4886 passed in 29.25s
+5117 passed in 113.34s
 ```
 
 ---
@@ -562,8 +568,9 @@ DEFERRED UNTIL CONCRETE NEED
 | fifth formal proof record | COMPLETE | 70 |
 | Toda Equation (5.12) Δ-injectivity | COMPLETE | 71 |
 | sixth formal proof record | COMPLETE | 71 |
-| Toda Lemma 5.10 | COMPLETE | 72 |
-| seventh formal proof record | COMPLETE | 72 |
+| Toda Lemma 5.10 first implementation | HISTORICAL / REGRESSION | 72 |
+| Toda Lemma 5.10 semantic correction | COMPLETE | 72R |
+| seventh formal proof record canonical revision | COMPLETE | 72R |
 | Toda Proposition 5.11 / π_(n+6)^n | NEXT | 73 |
 | automatic proof narrative generation | PLANNED / DEFERRED | later |
 | persistent Proof Repository | PLANNED / DEFERRED | later |
@@ -628,7 +635,7 @@ Toda (4.5)
 ```text
 ν_n² / ν₄² composition representation
 Delta composition rule from Proposition 2.5
-Lemma 5.10 modulo-bracket result の再利用方法
+Phase 72R corrected Lemma 5.10 modulo-bracket result の再利用方法
 Prop.1.4 bracket-composition transformation
 Toda (5.13) three concrete Delta relations
 n=4,5,6 EHP exactness branch
@@ -653,3 +660,36 @@ minimum theorem-specific inference
 Proposition 5.11 全体や stable `(G_6;2)` を最初から一括実装しない。finite-dimensional concrete branches を先に分解する。
 
 automatic proof narrative generation / persistent Proof Repository / stable homotopy branch は引き続き deferred。
+
+---
+
+# 14. Phase 72R completion boundary
+
+Phase 72R is COMPLETE.
+
+canonical prerequisite for future phases:
+
+```text
+Toda Lemma 5.10
+TodaLemma510BracketModuloStatement
+ambient_group=HomotopyGroup(11,6)
+```
+
+Do not use the historical Phase 72 primary-group shortcut graph as a new Phase prerequisite.
+
+verified final regression:
+
+```text
+5117 passed in 113.34s
+```
+
+Phase 73 remains NEXT:
+
+```text
+Phase 73-1
+Toda Proposition 5.11
+source statement / proof dependency / representation compatibility analysis
+```
+
+Phase 73 should reuse the corrected Phase 72R result only where the Toda source proof actually requires Lemma 5.10.
+

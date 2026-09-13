@@ -4390,9 +4390,10 @@ This record is the Phase 72 completion human-reviewed golden reference.
    Toda Equation (5.12)
    Delta injectivity for n=4,5,6
 
-7. Phase 72
-   Toda Lemma 5.10
+7. Phase 72R
+   Toda Lemma 5.10 corrected canonical record
    Δ(ι₁₃)∈{ν₆,η₉,2ι₁₀} mod 2π₁₁(S⁶)
+   (original Phase 72 record retained as historical first implementation)
 ```
 
 current model:
@@ -4406,7 +4407,7 @@ proof records          = human curated
 persistent repository  = not implemented
 ```
 
-7件の formal record が蓄積した。Phase 72 では theorem source proof の確認により、最初の dependency 仮説を revision し、実際の proof ancestry を regression で固定する運用も記録された。
+7件の formal record が蓄積した。Phase 72R では theorem source proof の確認により、最初の dependency 仮説を revision し、実際の proof ancestry を regression で固定する運用も記録された。
 
 次の formal record candidate:
 
@@ -4416,4 +4417,325 @@ Toda Proposition 5.11
 ```
 
 まず Proposition 5.11 と中間式 Toda (5.13) の dependency / representation compatibility を確認する。
+
+---
+
+# 17. Phase 72R canonical revision of Proof Record 7
+
+The original Phase 72 proof record is retained above as the historical first implementation.
+
+Phase 72R is now the canonical machine/provenance record for Toda Lemma 5.10.
+
+## 17.1 Source / theorem
+
+```text
+H. Toda
+Composition Methods in Homotopy Groups of Spheres
+
+Toda Lemma 5.10
+Toda Proposition 2.6
+Toda Equation (1.15)
+Toda Equation (2.11)
+Toda Lemma 4.3 / (4.6) / (4.7)
+Toda Equation (5.10)
+```
+
+## 17.2 Result
+
+```text
+Δ(ι₁₃)
+∈
+{ν₆,η₉,2ι₁₀}
+mod 2π₁₁(S⁶)
+```
+
+canonical representation:
+
+```text
+TodaLemma510BracketModuloStatement
+ambient_group=HomotopyGroup(11,6)
+modulus=2
+ProofRule.INFERENCE
+```
+
+## 17.3 Ordinary / 2-primary boundary
+
+```text
+HomotopyGroup(i,n)
+=
+ordinary π_i(S^n)
+
+TodaPrimaryGroup(i,n)
+=
+Toda π_i^n
+=
+current 2-primary representation
+```
+
+They are not structurally identified.
+
+## 17.4 Ordinary EHP branch
+
+Serre (4.2):
+
+```text
+π₁₀(S⁵) finite
+```
+
+Toda (2.11), `m=5,i=10`:
+
+```text
+π₁₀(S⁵)
+ --E-->
+π₁₁(S⁶)
+ --H-->
+π₁₁(S¹¹)
+```
+
+ordinary exact.
+
+## 17.5 Proposition 2.6 indexed branch
+
+Take:
+
+```text
+α=ν₅
+β=η₈
+γ=2ι₉.
+```
+
+Derived hypotheses:
+
+```text
+ν₆η₉=0
+η₈∘2ι₉=0
+Δ(ι₁₁)=ν₅η₈.
+```
+
+Therefore:
+
+```text
+H{ν₆,η₉,2ι₁₀}_1
+contains 2ι₁₁.
+```
+
+Toda (1.15), `n=1,m=0`:
+
+```text
+{ν₆,η₉,2ι₁₀}_1
+⊂
+{ν₆,η₉,2ι₁₀}.
+```
+
+Hence:
+
+```text
+H{ν₆,η₉,2ι₁₀}
+contains 2ι₁₁.
+```
+
+Phase 70:
+
+```text
+H(Δι₁₃)=±2ι₁₁.
+```
+
+Thus ordinary exactness gives:
+
+```text
+Δι₁₃
+∈
+{ν₆,η₉,2ι₁₀}
++
+Eπ₁₀(S⁵).
+```
+
+## 17.6 Corrected indeterminacy
+
+Serre:
+
+```text
+π₁₁(S⁹) finite.
+```
+
+Because `ν₆` is 2-primary:
+
+```text
+ν₆∘π₁₁(S⁹)
+=
+ν₆∘π₁₁⁹.
+```
+
+This is composition-level reduction only.
+
+Using:
+
+```text
+π₁₁⁹=Z/2{η₉²}
+ν₆η₉=0
+```
+
+derive:
+
+```text
+ν₆∘π₁₁(S⁹)=0.
+```
+
+Therefore:
+
+```text
+Indeterminacy
+=
+2π₁₁(S⁶).
+```
+
+## 17.7 Corrected ordinary suspension image
+
+Serre:
+
+```text
+π₁₀(S⁵) finite
+↓
+Eπ₁₀(S⁵) finite.
+```
+
+Phase 70:
+
+```text
+π₁₀⁵=Z/2{ν₅η₈²}
+E(ν₅η₈²)=0
+```
+
+therefore the 2-primary part of the ordinary image vanishes.
+
+Since the image is finite:
+
+```text
+Eπ₁₀(S⁵)
+```
+
+has odd order, so multiplication by 2 is onto:
+
+```text
+Eπ₁₀(S⁵)
+⊂
+2π₁₁(S⁶).
+```
+
+## 17.8 Final proof-style derivation
+
+```text
+ν₆η₉=0
+η₈∘2ι₉=0
+Δ(ι₁₁)=ν₅η₈
+        ↓
+Proposition 2.6
+        ↓
+H{ν₆,η₉,2ι₁₀}_1 contains 2ι₁₁
+        ↓
+Toda (1.15)
+        ↓
+H{ν₆,η₉,2ι₁₀} contains 2ι₁₁
+
+H(Δι₁₃)=±2ι₁₁
+ordinary Toda (2.11)
+        ↓
+Δι₁₃
+∈
+{ν₆,η₉,2ι₁₀}
++
+Eπ₁₀(S⁵)
+
+ν₆∘π₁₁(S⁹)
+=
+ν₆∘π₁₁⁹
+=
+0
+        ↓
+Indeterminacy
+=
+2π₁₁(S⁶)
+
+π₁₀(S⁵) finite
++
+2-primary image zero
+        ↓
+Eπ₁₀(S⁵)
+⊂
+2π₁₁(S⁶)
+
+therefore
+
+Δ(ι₁₃)
+∈
+{ν₆,η₉,2ι₁₀}
+mod 2π₁₁(S⁶).
+```
+
+## 17.9 Machine provenance
+
+final direct premises:
+
+```text
+TodaLemma510OrdinaryBracketPlusSuspensionImageStatement
+TodaLemma510OrdinaryIndeterminacyDoubleStatement
+TodaLemma510OrdinarySuspensionImageInDoubleStatement
+```
+
+reachable corrected ancestry includes:
+
+```text
+Toda211OrdinaryEHPExactnessStatement
+TodaLemma510IndexedHopfBracketContainsStatement
+TodaLemma510Split115Statement
+TodaLemma510Nu6OrdinaryCompositionReductionStatement
+TodaLemma510Nu6OrdinaryCompositionZeroStatement
+TodaLemma510OrdinarySuspensionImageFiniteStatement
+TodaLemma510OrdinarySuspensionImageTwoPrimaryZeroStatement
+```
+
+## 17.10 Legacy retirement audit
+
+The canonical final does not reuse these specific historical Phase 72 steps:
+
+```text
+legacy core step
+legacy indeterminacy step
+legacy image step
+legacy exactness step
+```
+
+and does not use the exact Phase 71 `n=6` injectivity statement:
+
+```text
+Δ:π₁₃¹³→π₁₁⁶ injective.
+```
+
+This is proof-instance / exact-statement retirement, not type-wide prohibition.
+
+## 17.11 Representative probe
+
+```powershell
+python -m probes.probe_phase72_capabilities
+```
+
+reports the corrected ordinary semantics and retirement audit.
+
+## 17.12 Regression status
+
+```text
+Phase 72R focused:
+149 passed in 9.34s
+
+repository-wide:
+5117 passed in 113.34s
+```
+
+## 17.13 Completion status
+
+Phase 72R is COMPLETE.
+
+Proof Record 7 should now be read canonically through this Phase 72R revision.
+
+The earlier Phase 72 record remains a historical record of the first implementation.
 

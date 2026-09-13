@@ -8,6 +8,26 @@ from expression import (
 
 
 @dataclass(frozen=True)
+class HomotopyGroup:
+  group_dimension: ScalarValue
+  sphere_dimension: ScalarValue
+
+
+@dataclass(frozen=True)
+class HomotopyEHPExactnessWindow:
+  source_term: HomotopyGroup
+  middle_term: HomotopyGroup
+  target_term: HomotopyGroup
+  first_map: MapSymbol
+  second_map: MapSymbol
+
+
+@dataclass(frozen=True)
+class FiniteHomotopyGroupStatement:
+  group: HomotopyGroup
+
+
+@dataclass(frozen=True)
 class PrimaryComponent:
   group_dimension: ScalarValue
   sphere_dimension: ScalarValue

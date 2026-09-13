@@ -6649,3 +6649,369 @@ persistent Proof Repository
 stable homotopy-group model
 ```
 
+---
+
+# 163. Phase 72R：ordinary / 2-primary semantic correction
+
+Phase 72 first implementation reached the intended printed formula, but a later semantic audit found that ordinary homotopy groups and Toda 2-primary groups had been used interchangeably in parts of the graph.
+
+Phase 72R makes the distinction explicit:
+
+```text
+HomotopyGroup(i,n)
+=
+ordinary π_i(S^n)
+
+TodaPrimaryGroup(i,n)
+=
+Toda π_i^n
+=
+current 2-primary group representation
+```
+
+These are not structurally equal.
+
+This correction applies specifically to the Lemma 5.10 ordinary EHP / indeterminacy / image branches.
+
+---
+
+# 164. Phase 72R：Serre (4.2) finite ordinary groups
+
+Phase 72R adds:
+
+```text
+FiniteHomotopyGroupStatement
+```
+
+and a narrow Serre (4.2) inference rule for concrete integer dimensions.
+
+For the current use:
+
+```text
+π₁₀(S⁵) finite
+π₁₁(S⁹) finite
+```
+
+The rule rejects the exceptional dimensions:
+
+```text
+i=n
+i=2n-1
+```
+
+and does not attempt a generic symbolic inequality solver.
+
+---
+
+# 165. Phase 72R：ordinary Toda (2.11)
+
+ordinary EHP exactness is represented separately:
+
+```text
+HomotopyEHPExactnessWindow
+Toda211OrdinaryEHPApplicabilityStatement
+Toda211OrdinaryEHPExactnessStatement
+```
+
+Applicability:
+
+```text
+m>1
+and
+(
+  m odd
+  or
+  i<3m-1
+)
+```
+
+For:
+
+```text
+m=5
+i=10
+```
+
+derive:
+
+```text
+π₁₀(S⁵)
+ --E-->
+π₁₁(S⁶)
+ --H-->
+π₁₁(S¹¹)
+```
+
+as an ordinary exactness window.
+
+The existing `TodaEHPExactnessWindow` remains 2-primary and is not used as an ordinary substitute.
+
+---
+
+# 166. Phase 72R：ordinary / 2-primary image bridge
+
+The corrected image branch is theorem-specific:
+
+```text
+π₁₀(S⁵) finite
+↓
+Eπ₁₀(S⁵) finite
+```
+
+and:
+
+```text
+π₁₀⁵=Z/2{ν₅η₈²}
+E(ν₅η₈²)=0
+↓
+the 2-primary part of Eπ₁₀(S⁵) is zero
+```
+
+therefore:
+
+```text
+finite image
++
+no 2-primary part
+↓
+finite odd-order image
+↓
+multiplication by 2 is onto
+↓
+Eπ₁₀(S⁵)⊂2π₁₁(S⁶)
+```
+
+No generic finite-group decomposition or automorphism solver is added.
+
+---
+
+# 167. Phase 72R：composition-level primary reduction
+
+The corrected indeterminacy branch distinguishes:
+
+```text
+ν₆∘π₁₁(S⁹)
+=
+ν₆∘π₁₁⁹
+```
+
+from the invalid stronger statement:
+
+```text
+π₁₁(S⁹)
+=
+π₁₁⁹.
+```
+
+The first equality is composition-level primary reduction, justified by the primary nature of `ν₆` together with the finite ordinary source group and Toda Lemma 4.3 / (4.6) / (4.7) as the source principle.
+
+Then:
+
+```text
+π₁₁⁹=Z/2{η₉²}
+ν₆η₉=0
+↓
+ν₆∘π₁₁(S⁹)=0
+```
+
+and:
+
+```text
+Indeterminacy
+=
+2π₁₁(S⁶).
+```
+
+Toda (4.7) is not generalized into an ordinary unindexed bracket theorem.
+
+---
+
+# 168. Phase 72R：Proposition 2.6 indexed bracket
+
+The source-faithful specialization is:
+
+```text
+α=ν₅
+β=η₈
+γ=2ι₉
+```
+
+with:
+
+```text
+E(ν₅η₈)=ν₆η₉=0
+η₈∘2ι₉=0
+Δ(ι₁₁)=ν₅η₈.
+```
+
+Therefore:
+
+```text
+H{ν₆,η₉,2ι₁₀}_1
+contains 2ι₁₁.
+```
+
+The indexed bracket is first-class:
+
+```text
+TodaBracket(index=1)
+```
+
+and is not silently identified with the ordinary bracket.
+
+---
+
+# 169. Phase 72R：Toda (1.15) indexed-to-ordinary bridge
+
+Specialize:
+
+```text
+n=1
+m=0
+```
+
+to obtain:
+
+```text
+{ν₆,η₉,2ι₁₀}_1
+⊂
+{ν₆,η₉,2ι₁₀}.
+```
+
+This is represented by:
+
+```text
+TodaLemma510Split115Statement
+```
+
+and transported to:
+
+```text
+TodaLemma510HopfBracketContainsStatement
+```
+
+for the ordinary bracket.
+
+No generic indexed-bracket inclusion framework is added.
+
+---
+
+# 170. Phase 72R：corrected final graph
+
+Corrected core:
+
+```text
+H{ν₆,η₉,2ι₁₀} contains 2ι₁₁
+H(Δι₁₃)=±2ι₁₁
+ordinary E-H exactness
+↓
+Δι₁₃
+∈
+{ν₆,η₉,2ι₁₀}
++
+Eπ₁₀(S⁵)
+```
+
+Corrected indeterminacy:
+
+```text
+Indeterminacy
+=
+2π₁₁(S⁶)
+```
+
+Corrected image:
+
+```text
+Eπ₁₀(S⁵)
+⊂
+2π₁₁(S⁶)
+```
+
+Final:
+
+```text
+Δ(ι₁₃)
+∈
+{ν₆,η₉,2ι₁₀}
+mod 2π₁₁(S⁶)
+```
+
+with:
+
+```text
+ambient_group=HomotopyGroup(11,6)
+ProofRule.INFERENCE
+```
+
+---
+
+# 171. Phase 72R：legacy retirement semantics
+
+Original Phase 72 rules remain in the repository for historical regression.
+
+The canonical corrected graph is tested not to reuse these specific proof instances:
+
+```text
+legacy Phase 72 core step
+legacy Phase 72 indeterminacy step
+legacy Phase 72 image step
+legacy Phase 72 exactness step
+```
+
+The regression does not ban entire statement classes, because those classes may legitimately appear in older upstream theorem proofs.
+
+Phase 71 independence is also exact-statement based:
+
+```text
+Δ:π₁₃¹³→π₁₁⁶ injective
+```
+
+must not be an ancestor of the corrected Lemma 5.10 final.
+
+---
+
+# 172. Phase 72R：probe / regression boundary
+
+canonical probe:
+
+```powershell
+python -m probes.probe_phase72_capabilities
+```
+
+representative source:
+
+```text
+build_phase72r9_data()
+```
+
+Phase 72R focused regression:
+
+```text
+149 passed in 9.34s
+```
+
+repository-wide:
+
+```text
+5117 passed in 113.34s
+```
+
+The project uses two PCs; compare wall-clock time per machine.
+
+The proof-style derivation remains hand-authored presentation code.
+
+Still deferred:
+
+```text
+generic primary-decomposition solver
+generic finite-group solver
+generic Toda-bracket coset algebra
+generic quotient normalizer
+generic indexed-bracket inclusion framework
+generic Proposition 2.6 specialization engine
+automatic proof narrative generation
+persistent Proof Repository
+stable homotopy-group model
+```
+
