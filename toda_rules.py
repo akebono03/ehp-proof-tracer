@@ -26479,6 +26479,765 @@ class TodaLemma510SuspensionImageInDoubleStatement:
 
 
 @dataclass(frozen=True)
+class TodaLemma510Nu6OrdinaryCompositionReductionStatement:
+  left_element: Expression
+  ordinary_right_group: HomotopyGroup
+  two_primary_right_group: TodaPrimaryGroup
+
+
+@dataclass(frozen=True)
+class TodaLemma510Nu6OrdinaryCompositionZeroStatement:
+  left_element: Expression
+  ordinary_right_group: HomotopyGroup
+
+
+@dataclass(frozen=True)
+class TodaLemma510OrdinaryIndeterminacyDoubleStatement:
+  bracket: TodaBracket
+  ambient_group: HomotopyGroup
+  modulus: int
+
+
+def toda_lemma510_nu6_ordinary_composition_reduction_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    prop56 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    finite_group = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      prop56,
+      TodaProp56FiniteDimensionalStatement,
+    ):
+      return False
+
+    if not isinstance(
+      finite_group,
+      FiniteHomotopyGroupStatement,
+    ):
+      return False
+
+    if (
+      finite_group.group
+      != HomotopyGroup(
+        group_dimension=11,
+        sphere_dimension=9,
+      )
+    ):
+      return False
+
+    higher_relation = (
+      prop56
+      .higher_nu_group_relation
+    )
+
+    higher_range = (
+      prop56
+      .higher_range
+    )
+
+    if not isinstance(
+      higher_relation.lhs,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    if not isinstance(
+      higher_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      higher_relation.rhs.order
+      != 8
+    ):
+      return False
+
+    n = (
+      higher_relation
+      .lhs
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      higher_range
+      != ScalarGreaterEqualStatement(
+        left=n,
+        right=6,
+      )
+    ):
+      return False
+
+    if (
+      higher_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=n,
+          right=3,
+        ),
+        sphere_dimension=n,
+      )
+    ):
+      return False
+
+    nu_n = (
+      higher_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      nu_n,
+      HomotopyElement,
+    ):
+      return False
+
+    return (
+      nu_n.generator
+      == GeneratorSymbol(
+        family="ν",
+        index=n,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    nu_6 = (
+      toda_nu_family_definition_statement(
+        6
+      ).element
+    )
+
+    return (
+      TodaLemma510Nu6OrdinaryCompositionReductionStatement(
+        left_element=nu_6,
+        ordinary_right_group=HomotopyGroup(
+          group_dimension=11,
+          sphere_dimension=9,
+        ),
+        two_primary_right_group=TodaPrimaryGroup(
+          group_dimension=11,
+          sphere_dimension=9,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.10 "
+      "nu_6 ordinary composition "
+      "primary reduction"
+    ),
+    description=(
+      "Use Toda Proposition 5.6 to "
+      "recognize nu_6 as a 2-primary "
+      "element and Serre (4.2) to know "
+      "that pi_11(S^9) is finite. "
+      "By the primary-composition "
+      "principle reflected in Toda "
+      "Lemma 4.3 / (4.7), odd-primary "
+      "summands of pi_11(S^9) vanish "
+      "after left composition by nu_6. "
+      "Therefore "
+      "nu_6 composed with pi_11(S^9) "
+      "equals nu_6 composed with its "
+      "2-primary component pi_11^9. "
+      "This is a composition-level "
+      "statement, not an equality "
+      "pi_11(S^9)=pi_11^9."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp56FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          FiniteHomotopyGroupStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma510_nu6_ordinary_composition_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    reduction = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    prop53 = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    nu6_eta9_zero = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    nu_6 = (
+      toda_nu_family_definition_statement(
+        6
+      ).element
+    )
+
+    if (
+      reduction
+      != TodaLemma510Nu6OrdinaryCompositionReductionStatement(
+        left_element=nu_6,
+        ordinary_right_group=HomotopyGroup(
+          group_dimension=11,
+          sphere_dimension=9,
+        ),
+        two_primary_right_group=TodaPrimaryGroup(
+          group_dimension=11,
+          sphere_dimension=9,
+        ),
+      )
+    ):
+      return False
+
+    higher_relation = (
+      prop53
+      .higher_eta_squared_group_relation
+    )
+
+    higher_range = (
+      prop53
+      .higher_range
+    )
+
+    if not isinstance(
+      higher_relation.lhs,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    if not isinstance(
+      higher_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      higher_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    n = (
+      higher_relation
+      .lhs
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      higher_range
+      != ScalarGreaterEqualStatement(
+        left=n,
+        right=5,
+      )
+    ):
+      return False
+
+    if (
+      higher_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=n,
+          right=2,
+        ),
+        sphere_dimension=n,
+      )
+    ):
+      return False
+
+    eta_n_squared = (
+      higher_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      eta_n_squared,
+      Composition,
+    ):
+      return False
+
+    if (
+      nu6_eta9_zero.relation_type
+      != RelationType.ZERO
+    ):
+      return False
+
+    if (
+      nu6_eta9_zero.rhs
+      != Zero()
+    ):
+      return False
+
+    if not isinstance(
+      nu6_eta9_zero.lhs,
+      Composition,
+    ):
+      return False
+
+    zero_nu = (
+      nu6_eta9_zero
+      .lhs
+      .left
+    )
+
+    zero_eta = (
+      nu6_eta9_zero
+      .lhs
+      .right
+    )
+
+    if (
+      zero_nu
+      != nu_6
+    ):
+      return False
+
+    if not isinstance(
+      zero_eta,
+      HomotopyElement,
+    ):
+      return False
+
+    return (
+      zero_eta.generator
+      == GeneratorSymbol(
+        family="η",
+        index=9,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    reduction = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return (
+      TodaLemma510Nu6OrdinaryCompositionZeroStatement(
+        left_element=(
+          reduction.left_element
+        ),
+        ordinary_right_group=(
+          reduction.ordinary_right_group
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.10 "
+      "nu_6 ordinary composition zero"
+    ),
+    description=(
+      "Use Proposition 5.3 at n=9: "
+      "pi_11^9 is Z/2 generated by "
+      "eta_9 squared. "
+      "The independently derived "
+      "Phase 68 relation nu_6 eta_9=0 "
+      "therefore kills the generator "
+      "eta_9 squared. "
+      "Together with the ordinary-to-"
+      "2-primary composition reduction, "
+      "derive "
+      "nu_6 composed with pi_11(S^9)=0."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma510Nu6OrdinaryCompositionReductionStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp53FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma510_eta9_two_iota10_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    prop51 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    higher_relation = (
+      prop51
+      .higher_eta_group_relation
+    )
+
+    if not isinstance(
+      higher_relation.lhs,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    if not isinstance(
+      higher_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      higher_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    n = (
+      higher_relation
+      .lhs
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      higher_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=n,
+          right=1,
+        ),
+        sphere_dimension=n,
+      )
+    ):
+      return False
+
+    eta_n = (
+      higher_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      eta_n,
+      HomotopyElement,
+    ):
+      return False
+
+    return (
+      eta_n.generator
+      == GeneratorSymbol(
+        family="η",
+        index=n,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    eta_9 = (
+      toda_eta_family_definition_statement(
+        9
+      ).element
+    )
+
+    iota_10 = HomotopyElement(
+      name="ι_10",
+      dimension=10,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=10,
+      ),
+    )
+
+    return Relation(
+      lhs=Composition(
+        left=eta_9,
+        right=Multiple(
+          coefficient=2,
+          expression=iota_10,
+        ),
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.10 "
+      "eta_9 two iota_10 zero"
+    ),
+    description=(
+      "Specialize the independently "
+      "derived Proposition 5.1 relation "
+      "pi_(n+1)^n=Z/2{eta_n} to n=9. "
+      "Therefore 2 eta_9=0, equivalently "
+      "eta_9 composed with 2 iota_10=0. "
+      "This replaces the former GIVEN "
+      "second zero-composition premise."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp51FiniteDimensionalStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma510_ordinary_indeterminacy_double_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    ordinary_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    nu6_eta9_zero = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    eta9_two_iota10_zero = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    nu_6 = (
+      toda_nu_family_definition_statement(
+        6
+      ).element
+    )
+
+    eta_9 = (
+      toda_eta_family_definition_statement(
+        9
+      ).element
+    )
+
+    if (
+      ordinary_zero
+      != TodaLemma510Nu6OrdinaryCompositionZeroStatement(
+        left_element=nu_6,
+        ordinary_right_group=HomotopyGroup(
+          group_dimension=11,
+          sphere_dimension=9,
+        ),
+      )
+    ):
+      return False
+
+    expected_first_zero = Relation(
+      lhs=Composition(
+        left=nu_6,
+        right=eta_9,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    if (
+      nu6_eta9_zero
+      != expected_first_zero
+    ):
+      return False
+
+    iota_10 = HomotopyElement(
+      name="ι_10",
+      dimension=10,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=10,
+      ),
+    )
+
+    expected_second_zero = Relation(
+      lhs=Composition(
+        left=eta_9,
+        right=Multiple(
+          coefficient=2,
+          expression=iota_10,
+        ),
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    return (
+      eta9_two_iota10_zero
+      == expected_second_zero
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    ordinary_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    nu_6 = (
+      ordinary_zero
+      .left_element
+    )
+
+    eta_9 = (
+      toda_eta_family_definition_statement(
+        9
+      ).element
+    )
+
+    iota_10 = HomotopyElement(
+      name="ι_10",
+      dimension=10,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=10,
+      ),
+    )
+
+    bracket = TodaBracket(
+      first=nu_6,
+      second=eta_9,
+      third=Multiple(
+        coefficient=2,
+        expression=iota_10,
+      ),
+    )
+
+    return (
+      TodaLemma510OrdinaryIndeterminacyDoubleStatement(
+        bracket=bracket,
+        ambient_group=HomotopyGroup(
+          group_dimension=11,
+          sphere_dimension=6,
+        ),
+        modulus=2,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.10 "
+      "ordinary indeterminacy double"
+    ),
+    description=(
+      "For the ordinary Toda bracket "
+      "{nu_6, eta_9, 2 iota_10}, "
+      "the indeterminacy is "
+      "nu_6 composed with pi_11(S^9) "
+      "+ pi_11(S^6) composed with "
+      "2 iota_11. "
+      "The first summand is independently "
+      "derived to be zero. "
+      "The second summand is exactly "
+      "2 pi_11(S^6). "
+      "Therefore the indeterminacy is "
+      "2 pi_11(S^6). "
+      "Toda (4.7) is used only as the "
+      "primary-composition reference; "
+      "this rule does not identify "
+      "ordinary and 2-primary groups."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma510Nu6OrdinaryCompositionZeroStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+@dataclass(frozen=True)
 class TodaLemma510OrdinarySuspensionImageFiniteStatement:
   suspension_map: MapSymbol
   source_group: HomotopyGroup
