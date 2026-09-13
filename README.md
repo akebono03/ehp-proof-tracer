@@ -40,7 +40,7 @@ Phase 41     PreimageSubgroup
 Phase 42     WhiteheadProduct
 Phase 43     Toda Lemma 4.1 premise representation
 Phase 44     Toda Lemma 4.1 case semantics
-Phase 45     Toda Proposition 4.2 2-primary EHP exactness
+Phase 45     Toda Proposition 4.2 Toda-π EHP exactness
 Phase 46     Toda (4.5) stable-range iterated-suspension isomorphism
 Phase 47     Toda Proposition 4.4 decomposition isomorphism
 Phase 48     Toda Proposition 4.4 suspension injectivity consequence
@@ -3456,9 +3456,18 @@ and keeps it distinct from:
 ```text
 TodaPrimaryGroup(i,n)
 =
-Toda π_i^n
-=
-the 2-primary group used by the current Toda layer
+Toda π_i^n as defined by Toda (4.3)
+
+with branch semantics:
+
+i=n:
+  π_n^n = π_n(S^n)
+
+i=2n-1:
+  π_(2n-1)^n = E^(-1)(π_(2n)(S^(n+1);2))
+
+otherwise:
+  π_i^n = π_i(S^n;2)
 ```
 
 The corrected Lemma 5.10 final ambient group is:
@@ -3525,7 +3534,7 @@ therefore the ordinary exactness window is:
 
 represented by `HomotopyEHPExactnessWindow`.
 
-The corrected core does not reuse the 2-primary `TodaEHPExactnessWindow` as an ordinary sequence.
+The corrected core does not reuse the Toda-`π_i^n` `TodaEHPExactnessWindow` as an ordinary sequence. A Toda window can contain diagonal, exceptional, or 2-primary terms according to Toda (4.3).
 
 ## Proposition 2.6 and Toda (1.15)
 
@@ -3762,3 +3771,61 @@ persistent Proof Repository
 stable homotopy branch
 higher Toda brackets beyond concrete need
 ```
+
+
+---
+
+# Phase 72R-A1: Toda (4.3) semantic correction / documentation and regression audit
+
+Phase 72R-A1 corrects the project-level interpretation of `TodaPrimaryGroup`.
+
+Toda defines:
+
+```text
+π_i^n :=
+
+  π_n(S^n)
+    if i=n
+
+  E^(-1)(π_(2n)(S^(n+1);2))
+    if i=2n-1
+
+  π_i(S^n;2)
+    otherwise
+```
+
+Therefore `TodaPrimaryGroup(i,n)` is the historical implementation name for Toda's subgroup `π_i^n`; it is not uniformly a 2-primary component.
+
+Important examples already present in the repository:
+
+```text
+π_10^5
+  regular branch
+  = π_10(S^5;2)
+
+π_11^6
+  exceptional branch, because 11=2*6-1
+  may contain a free summand
+  Phase 70 derives Z{Δι₁₃}
+
+π_11^11
+  diagonal branch
+  = π_11(S^11)
+
+π_13^13
+  diagonal branch
+  = π_13(S^13)
+```
+
+The ordinary representation remains separate:
+
+```text
+HomotopyGroup(i,n)
+= ordinary π_i(S^n)
+```
+
+Structural distinction between `HomotopyGroup(i,n)` and `TodaPrimaryGroup(i,n)` remains intentional even when Toda (4.3) identifies their mathematical groups in the diagonal case. The distinction records which notation/theorem layer a proof step belongs to.
+
+Phase 72R remains mathematically necessary because Lemma 5.10 explicitly uses ordinary groups such as `π_10(S^5)`, `π_11(S^6)`, and `π_11(S^9)`, whereas `π_10^5`, `π_11^6`, and `π_11^9` are Toda-(4.3) groups.
+
+Phase 72R-A1 adds regression coverage for the existing three branch examples and does not rename `TodaPrimaryGroup`, add a generic Toda-(4.3) classifier, or change theorem inference logic.
