@@ -16117,6 +16117,374 @@ def toda_prop59_finite_dimensional_integration_inference_rule():
   )
 
 
+def toda_prop511_pi8_2_eta2_nu_prime_eta6_squared_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    prop59_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    isomorphism = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi8_3_relation = (
+      prop59_statement
+      .pi8_3_group_relation
+    )
+
+    expected_pi8_3 = TodaPrimaryGroup(
+      group_dimension=8,
+      sphere_dimension=3,
+    )
+
+    if (
+      pi8_3_relation.lhs
+      != expected_pi8_3
+    ):
+      return False
+
+    if not isinstance(
+      pi8_3_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi8_3_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    nu_prime_eta6_squared = (
+      pi8_3_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      nu_prime_eta6_squared,
+      Composition,
+    ):
+      return False
+
+    nu_prime = (
+      nu_prime_eta6_squared
+      .left
+    )
+
+    eta6_squared = (
+      nu_prime_eta6_squared
+      .right
+    )
+
+    if not isinstance(
+      nu_prime,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      nu_prime.dimension
+      != 3
+    ):
+      return False
+
+    if (
+      nu_prime.source
+      != 6
+    ):
+      return False
+
+    if (
+      nu_prime.target
+      != 3
+    ):
+      return False
+
+    if (
+      nu_prime.generator
+      != GeneratorSymbol(
+        family="ν",
+        decoration="′",
+      )
+    ):
+      return False
+
+    if not isinstance(
+      eta6_squared,
+      Composition,
+    ):
+      return False
+
+    eta_6 = (
+      eta6_squared.left
+    )
+
+    eta_7 = (
+      eta6_squared.right
+    )
+
+    if not isinstance(
+      eta_6,
+      HomotopyElement,
+    ):
+      return False
+
+    if not isinstance(
+      eta_7,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_6.dimension
+      != 6
+    ):
+      return False
+
+    if (
+      eta_6.source
+      != 7
+    ):
+      return False
+
+    if (
+      eta_6.target
+      != 6
+    ):
+      return False
+
+    if (
+      eta_6.generator
+      != GeneratorSymbol(
+        family="η",
+        index=6,
+      )
+    ):
+      return False
+
+    if (
+      eta_7.dimension
+      != 7
+    ):
+      return False
+
+    if (
+      eta_7.source
+      != 8
+    ):
+      return False
+
+    if (
+      eta_7.target
+      != 7
+    ):
+      return False
+
+    if (
+      eta_7.generator
+      != GeneratorSymbol(
+        family="η",
+        index=7,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      isomorphism,
+      Toda52CompositionIsomorphismStatement,
+    ):
+      return False
+
+    source_group = (
+      isomorphism
+      .source_group
+    )
+
+    target_group = (
+      isomorphism
+      .target_group
+    )
+
+    if not isinstance(
+      source_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    if not isinstance(
+      target_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    i = (
+      source_group
+      .group_dimension
+    )
+
+    if not isinstance(
+      i,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      source_group
+      != TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=3,
+      )
+    ):
+      return False
+
+    if (
+      target_group
+      != TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=2,
+      )
+    ):
+      return False
+
+    composition = (
+      isomorphism
+      .composition
+    )
+
+    if not isinstance(
+      composition,
+      Composition,
+    ):
+      return False
+
+    eta_2 = (
+      composition.left
+    )
+
+    if not isinstance(
+      eta_2,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_2.dimension
+      != 2
+    ):
+      return False
+
+    if (
+      eta_2.source
+      != 3
+    ):
+      return False
+
+    if (
+      eta_2.target
+      != 2
+    ):
+      return False
+
+    return (
+      eta_2.generator
+      == GeneratorSymbol(
+        family="η",
+        index=2,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    prop59_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    isomorphism = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    source_generator = (
+      prop59_statement
+      .pi8_3_group_relation
+      .rhs
+      .generator
+    )
+
+    eta_2 = (
+      isomorphism
+      .composition
+      .left
+    )
+
+    return Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=8,
+        sphere_dimension=2,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=2,
+        generator=Composition(
+          left=eta_2,
+          right=source_generator,
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.11 "
+      "pi_8^2 from Proposition 5.9 "
+      "and Toda (5.2)"
+    ),
+    description=(
+      "Use the independently derived "
+      "Toda Proposition 5.9 result "
+      "pi_8^3=Z/2 generated by "
+      "nu-prime composed with eta_6 "
+      "squared, together with the "
+      "derived Toda (5.2) isomorphism "
+      "given by composition with eta_2, "
+      "to obtain pi_8^2=Z/2 generated "
+      "by eta_2 composed with nu-prime "
+      "composed with eta_6 squared. "
+      "This is a concrete Proposition "
+      "5.11 consequence and does not "
+      "introduce a generic cyclic-group "
+      "isomorphism transport rule."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp59FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda52CompositionIsomorphismStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_prop51_finite_dimensional_integration_inference_rule():
   def guard(
     premises,
