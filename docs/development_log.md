@@ -8278,3 +8278,516 @@ Toda Proposition 5.11
 
 COMPLETE
 
+---
+
+# Phase 72R：Toda Lemma 5.10 semantic correction
+
+Phase 72 completion 後の source / semantics audit により、ordinary homotopy group と Toda 2-primary group の境界を修正する revision Phase を追加した。
+
+printed target は変更しない:
+
+```text
+Δ(ι₁₃)
+∈
+{ν₆,η₉,2ι₁₀}
+mod 2π₁₁(S⁶)
+```
+
+---
+
+## Phase 72R-2：semantic audit
+
+確認:
+
+```text
+ordinary π_i(S^n)
+!=
+Toda π_i^n
+```
+
+旧 Phase 72 では ordinary EHP / image / indeterminacy の一部で `TodaPrimaryGroup` / `TodaEHPExactnessWindow` を shortcut として利用していた。
+
+また:
+
+```text
+Eπ₁₀⁵=0
+```
+
+から ordinary:
+
+```text
+Eπ₁₀(S⁵)=0
+```
+
+は導けない。
+
+さらに:
+
+```text
+ν₆∘π₁₁(S⁹)
+=
+ν₆∘π₁₁⁹
+```
+
+は composition-level primary reduction であり:
+
+```text
+π₁₁(S⁹)=π₁₁⁹
+```
+
+ではない。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 72R-3：ordinary HomotopyGroup
+
+追加:
+
+```text
+HomotopyGroup
+```
+
+意味:
+
+```text
+π_i(S^n)
+```
+
+`TodaPrimaryGroup` と structural に区別。
+
+repository-wide:
+
+```text
+4998 passed in 118.84s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 72R-4：Serre (4.2) finite applicability
+
+追加:
+
+```text
+FiniteHomotopyGroupStatement
+serre_42_finite_homotopy_group_inference_rule()
+```
+
+concrete rule:
+
+```text
+i != n
+i != 2n-1
+```
+
+導出:
+
+```text
+π₁₀(S⁵) finite
+```
+
+repository-wide:
+
+```text
+5008 passed in 104.25s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 72R-5：ordinary Toda (2.11) EHP exactness
+
+追加:
+
+```text
+HomotopyEHPExactnessWindow
+Toda211OrdinaryEHPApplicabilityStatement
+Toda211OrdinaryEHPExactnessStatement
+```
+
+applicability:
+
+```text
+m>1
+and
+(m odd or i<3m-1)
+```
+
+Lemma 5.10 specialization:
+
+```text
+m=5
+i=10
+```
+
+より:
+
+```text
+π₁₀(S⁵) --E--> π₁₁(S⁶) --H--> π₁₁(S¹¹)
+```
+
+を ordinary exactness として導出。
+
+repository-wide:
+
+```text
+5027 passed in 109.46s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 72R-6：ordinary / 2-primary image bridge
+
+追加:
+
+```text
+TodaLemma510OrdinarySuspensionImageFiniteStatement
+TodaLemma510OrdinarySuspensionImageTwoPrimaryZeroStatement
+TodaLemma510OrdinarySuspensionImageInDoubleStatement
+```
+
+chain:
+
+```text
+π₁₀(S⁵) finite
+↓
+Eπ₁₀(S⁵) finite
+
+π₁₀⁵=Z/2{ν₅η₈²}
+E(ν₅η₈²)=0
+↓
+2-primary part of Eπ₁₀(S⁵)=0
+
+finite + 2-primary zero
+↓
+Eπ₁₀(S⁵)⊂2π₁₁(S⁶)
+```
+
+旧 `π₁₁⁶=Z{Δι₁₃}` shortcut は corrected image branch では不要。
+
+repository-wide:
+
+```text
+5045 passed in 108.20s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 72R-7：composition-level primary reduction / indeterminacy
+
+追加:
+
+```text
+TodaLemma510Nu6OrdinaryCompositionReductionStatement
+TodaLemma510Nu6OrdinaryCompositionZeroStatement
+TodaLemma510OrdinaryIndeterminacyDoubleStatement
+```
+
+導出:
+
+```text
+ν₆∘π₁₁(S⁹)
+=
+ν₆∘π₁₁⁹
+```
+
+を group equality ではなく composition-level reduction として保持。
+
+Phase 59 / 65 / 68 と Serre finite provenance から:
+
+```text
+ν₆∘π₁₁(S⁹)=0
+```
+
+よって:
+
+```text
+Indeterminacy=2π₁₁(S⁶)
+```
+
+また Prop.5.1 から:
+
+```text
+η₉∘2ι₁₀=0
+```
+
+を derived にした。
+
+focused:
+
+```text
+18 passed in 6.69s
+```
+
+repository-wide:
+
+```text
+5063 passed in 108.73s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 72R-8：Prop.2.6 / Toda (1.15) corrected integration
+
+追加:
+
+```text
+TodaLemma510IndexedHopfBracketContainsStatement
+TodaLemma510Split115Statement
+TodaLemma510OrdinaryBracketPlusSuspensionImageStatement
+```
+
+Prop.2.6 specialization:
+
+```text
+α=ν₅
+β=η₈
+γ=2ι₉
+```
+
+から:
+
+```text
+H{ν₆,η₉,2ι₁₀}_1 contains 2ι₁₁
+```
+
+を導出。
+
+Toda (1.15), `n=1,m=0`:
+
+```text
+{ν₆,η₉,2ι₁₀}_1
+⊂
+{ν₆,η₉,2ι₁₀}
+```
+
+により ordinary bracket へ transport。
+
+ordinary exactness と統合:
+
+```text
+Δι₁₃
+∈
+{ν₆,η₉,2ι₁₀}
++
+Eπ₁₀(S⁵)
+```
+
+さらに 72R-6 / 72R-7 と統合して corrected final:
+
+```text
+Δι₁₃
+∈
+{ν₆,η₉,2ι₁₀}
+mod 2π₁₁(S⁶)
+```
+
+ambient:
+
+```text
+HomotopyGroup(11,6)
+```
+
+focused:
+
+```text
+15 passed in 4.14s
+```
+
+repository-wide:
+
+```text
+5078 passed in 111.49s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 72R-9：provenance / legacy retirement audit
+
+production code:
+
+```text
+変更なし
+```
+
+追加 regression:
+
+```text
+tests/test_phase72r9_corrected_provenance_retirement.py
+```
+
+positive ancestry:
+
+```text
+ordinary Toda (2.11)
+Prop.2.6 indexed consequence
+Toda (1.15)
+finite ordinary E-image
+2-primary image zero
+composition-level primary reduction
+ordinary composition zero
+```
+
+negative proof-instance ancestry:
+
+```text
+legacy Phase 72 core step absent
+legacy Phase 72 indeterminacy step absent
+legacy Phase 72 image step absent
+legacy Phase 72 exactness step absent
+Phase 71 n=6 injectivity exact statement absent
+```
+
+重要な設計修正:
+
+```text
+legacy statement type を全面禁止しない
+↓
+legacy proof instance / exact statement を禁止する
+```
+
+focused:
+
+```text
+33 passed in 7.06s
+```
+
+repository-wide:
+
+```text
+5111 passed in 106.64s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 72R-10：corrected probe / documentation / completion
+
+`probes/probe_phase72_capabilities.py` を corrected representative graph に切り替え。
+
+representative source:
+
+```text
+build_phase72r9_data()
+```
+
+追加:
+
+```text
+tests/test_phase72r10_corrected_probe.py
+```
+
+旧 `tests/test_phase72_probe.py` も canonical corrected probe expectation に更新。
+
+corrected probe reports:
+
+```text
+ambient group = ordinary π₁₁(S⁶)
+derived = True
+ordinary Toda (2.11) exactness reachable = True
+Prop.2.6 indexed bracket reachable = True
+Toda (1.15) split reachable = True
+composition-level primary reduction reachable = True
+ordinary finite E-image reachable = True
+ordinary E-image 2-primary zero reachable = True
+legacy Phase 72 core step absent = True
+legacy Phase 72 indeterminacy step absent = True
+legacy Phase 72 image step absent = True
+Phase 71 n=6 Delta injectivity absent = True
+```
+
+regression:
+
+```text
+tests/test_phase72_probe.py
+19 passed in 5.67s
+
+old + corrected probe
+28 passed in 7.61s
+
+Phase 72R focused
+149 passed in 9.34s
+
+repository-wide
+5117 passed in 113.34s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 72R completion
+
+canonical capability:
+
+```text
+Toda Lemma 5.10
+
+Δ(ι₁₃)
+∈
+{ν₆,η₉,2ι₁₀}
+mod 2π₁₁(S⁶)
+```
+
+semantic corrections:
+
+```text
+ordinary HomotopyGroup separated from TodaPrimaryGroup
+ordinary Toda (2.11) applicability explicit
+Serre finite ordinary groups explicit
+ordinary / 2-primary image bridge explicit
+composition-level primary reduction explicit
+Prop.2.6 indexed bracket explicit
+Toda (1.15) indexed-to-ordinary bridge explicit
+legacy shortcut proof instances retired from canonical ancestry
+```
+
+final full regression:
+
+```text
+5117 passed in 113.34s
+```
+
+next:
+
+```text
+Phase 73-1
+Toda Proposition 5.11
+source / dependency / representation compatibility analysis
+```
+
+### 状態
+
+COMPLETE
+

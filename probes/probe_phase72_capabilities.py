@@ -2,6 +2,7 @@ from pathlib import Path
 import sys
 
 from homotopy_groups import (
+  HomotopyGroup,
   TodaDeltaMap,
   TodaPrimaryGroup,
 )
@@ -12,14 +13,16 @@ from probes.probe_phase50_capabilities import (
   print_separator,
 )
 from toda_rules import (
+  Toda211OrdinaryEHPExactnessStatement,
   TodaDeltaInjectiveStatement,
+  TodaLemma510IndexedHopfBracketContainsStatement,
+  TodaLemma510Nu6OrdinaryCompositionReductionStatement,
+  TodaLemma510OrdinarySuspensionImageFiniteStatement,
+  TodaLemma510OrdinarySuspensionImageTwoPrimaryZeroStatement,
+  TodaLemma510Split115Statement,
 )
 
 
-# Phase 72-5 の provenance builder を
-# representative fixture としてそのまま再利用する。
-# theorem logic や provenance traversal を
-# probe 側へ複製しない。
 _TESTS_DIR = (
   Path(__file__)
   .resolve()
@@ -33,13 +36,13 @@ if str(_TESTS_DIR) not in sys.path:
     str(_TESTS_DIR),
   )
 
-from test_phase72_applicability_provenance import (  # noqa: E402
-  build_phase72_5_data,
+from test_phase72r9_corrected_provenance_retirement import (  # noqa: E402
+  build_phase72r9_data,
 )
 
 
 def build_phase72_representative_result():
-  return build_phase72_5_data()
+  return build_phase72r9_data()
 
 
 def print_section(
@@ -69,7 +72,7 @@ def print_phase72_results(
   )
 
   print_section(
-    "Toda Lemma 5.10 result"
+    "Toda Lemma 5.10 corrected result"
   )
 
   print(
@@ -87,6 +90,9 @@ def print_phase72_results(
   print()
 
   print(
+    "ambient group = ordinary π₁₁(S⁶)"
+  )
+  print(
     "statement type = "
     f"{type(statement).__name__}"
   )
@@ -100,353 +106,149 @@ def print_phase72_derivation_chain(
   representative,
 ):
   print_section(
-    "Proof-style derivation"
+    "Corrected proof-style derivation"
   )
 
-  print(
-    "[1] Toda bracket indeterminacy"
-  )
+  print("[1] Ordinary EHP exactness")
   print()
-
-  print(
-    "Toda Proposition 5.3 / (5.9):"
-  )
-  print(
-    "π₁₁⁹ = Z/2{η₉²}"
-  )
-  print()
-
-  print(
-    "Phase 68:"
-  )
-  print(
-    "ν₆η₉ = 0"
-  )
-  print()
-
-  print(
-    "Phase 70:"
-  )
-  print(
-    "π₁₁⁶ = Z{Δι₁₃}"
-  )
-  print()
-
-  print(
-    "Toda (4.7) indeterminacy:"
-  )
-  print(
-    "ν₆∘π₁₁⁹ + 2π₁₁⁶"
-  )
+  print("Toda (2.11), m=5, i=10:")
+  print("m>1, m odd, 10 < 3*5-1 = 14")
   print("↓")
-  print(
-    "ν₆∘π₁₁⁹ = 0"
-  )
+  print("π₁₀(S⁵) --E--> π₁₁(S⁶) --H--> π₁₁(S¹¹)")
+  print("is an ordinary exactness window.")
+  print()
+
+  print("[2] Proposition 2.6 and Toda (1.15)")
+  print()
+  print("ν₆η₉ = 0")
+  print("η₈∘2ι₉ = 0")
+  print("Δ(ι₁₁) = ν₅η₈")
   print("↓")
-  print(
-    "Indeterminacy"
-  )
-  print(
-    "= 2π₁₁⁶"
-  )
+  print("H{ν₆,η₉,2ι₁₀}_1 contains 2ι₁₁")
   print()
-
-  print(
-    "[2] Hopf image of the bracket"
-  )
-  print()
-
-  print(
-    "Phase 69 / Toda (5.10):"
-  )
-  print(
-    "Δ(ι₁₁) = ν₅η₈"
-  )
-  print()
-
-  print(
-    "Toda Proposition 2.6:"
-  )
-  print(
-    "H{ν₆,η₉,2ι₁₀}"
-  )
-  print(
-    "contains 2ι₁₁"
-  )
-  print()
-
-  print(
-    "[3] E-H exactness core"
-  )
-  print()
-
-  print(
-    "Phase 70:"
-  )
-  print(
-    "H(Δι₁₃) = ±2ι₁₁"
-  )
-  print()
-
-  print(
-    "Exact sequence:"
-  )
-  print(
-    "π₁₀(S⁵)"
-  )
-  print(
-    "  --E-->"
-  )
-  print(
-    "π₁₁(S⁶)"
-  )
-  print(
-    "  --H-->"
-  )
-  print(
-    "π₁₁(S¹¹)"
-  )
-  print()
-
-  print(
-    "The bracket and Δ(ι₁₃)"
-  )
-  print(
-    "have the same Hopf value "
-    "up to sign"
-  )
+  print("Toda (1.15), n=1, m=0:")
+  print("{ν₆,η₉,2ι₁₀}_1 ⊂ {ν₆,η₉,2ι₁₀}")
   print("↓")
-  print(
-    "Δ(ι₁₃)"
-  )
-  print(
-    "∈"
-  )
-  print(
-    "{ν₆,η₉,2ι₁₀}"
-  )
-  print(
-    "+ Eπ₁₀(S⁵)"
-  )
+  print("H{ν₆,η₉,2ι₁₀} contains 2ι₁₁")
   print()
 
-  print(
-    "[4] Suspension-image containment"
-  )
+  print("[3] Ordinary E-H core")
   print()
-
-  print(
-    "Phase 70:"
-  )
-  print(
-    "π₁₀⁵ = Z/2{ν₅η₈²}"
-  )
-  print(
-    "π₁₁⁶ = Z{Δι₁₃}"
-  )
-  print()
-
-  print(
-    "The suspension image from the "
-    "finite order-two source"
-  )
-  print(
-    "into the free cyclic target "
-    "is contained in"
-  )
-  print(
-    "2π₁₁(S⁶)"
-  )
-  print()
-
-  print(
-    "[5] Toda Lemma 5.10"
-  )
-  print()
-
-  print(
-    "Δ(ι₁₃)"
-  )
-  print(
-    "∈"
-  )
-  print(
-    "{ν₆,η₉,2ι₁₀}"
-  )
-  print(
-    "+ Eπ₁₀(S⁵)"
-  )
-  print()
-
-  print(
-    "Indeterminacy = 2π₁₁(S⁶)"
-  )
-  print(
-    "Eπ₁₀(S⁵) ⊂ 2π₁₁(S⁶)"
-  )
+  print("H(Δι₁₃) = ±2ι₁₁")
+  print("+ ordinary E-H exactness")
   print("↓")
-  print(
-    "Δ(ι₁₃)"
-  )
-  print(
-    "∈"
-  )
-  print(
-    "{ν₆,η₉,2ι₁₀}"
-  )
-  print(
-    "mod 2π₁₁(S⁶)"
-  )
+  print("Δ(ι₁₃) ∈ {ν₆,η₉,2ι₁₀} + Eπ₁₀(S⁵)")
   print()
+
+  print("[4] Corrected ordinary indeterminacy")
+  print()
+  print("Serre (4.2): π₁₁(S⁹) is finite.")
+  print("ν₆ is 2-primary.")
+  print("↓")
+  print("ν₆∘π₁₁(S⁹) = ν₆∘π₁₁⁹")
+  print()
+  print("π₁₁⁹ = Z/2{η₉²}")
+  print("ν₆η₉ = 0")
+  print("↓")
+  print("ν₆∘π₁₁(S⁹) = 0")
+  print("↓")
+  print("Indeterminacy = 2π₁₁(S⁶)")
+  print()
+
+  print("[5] Corrected ordinary suspension image")
+  print()
+  print("Serre (4.2): π₁₀(S⁵) is finite.")
+  print("↓")
+  print("Eπ₁₀(S⁵) is finite.")
+  print()
+  print("π₁₀⁵ = Z/2{ν₅η₈²}")
+  print("E(ν₅η₈²)=0")
+  print("↓")
+  print("the 2-primary part of Eπ₁₀(S⁵) is zero")
+  print("↓")
+  print("Eπ₁₀(S⁵) ⊂ 2π₁₁(S⁶)")
+  print()
+
+  print("[6] Toda Lemma 5.10")
+  print()
+  print("Δ(ι₁₃) ∈ {ν₆,η₉,2ι₁₀} + Eπ₁₀(S⁵)")
+  print("Indeterminacy = 2π₁₁(S⁶)")
+  print("Eπ₁₀(S⁵) ⊂ 2π₁₁(S⁶)")
+  print("↓")
+  print("Δ(ι₁₃) ∈ {ν₆,η₉,2ι₁₀} mod 2π₁₁(S⁶)")
 
 
 def print_phase72_source_reuse(
   representative,
 ):
   print_section(
-    "Representative source objects"
+    "Corrected representative source objects"
   )
 
-  prop53_is_inference = (
-    representative[
-      "prop53_step"
-    ].rule
-    == ProofRule.INFERENCE
+  final_ancestors = representative[
+    "final_ancestors"
+  ]
+
+  checks = (
+    (
+      "ordinary Toda (2.11) exactness reachable",
+      Toda211OrdinaryEHPExactnessStatement,
+    ),
+    (
+      "Prop.2.6 indexed bracket reachable",
+      TodaLemma510IndexedHopfBracketContainsStatement,
+    ),
+    (
+      "Toda (1.15) split reachable",
+      TodaLemma510Split115Statement,
+    ),
+    (
+      "composition-level primary reduction reachable",
+      TodaLemma510Nu6OrdinaryCompositionReductionStatement,
+    ),
+    (
+      "ordinary finite E-image reachable",
+      TodaLemma510OrdinarySuspensionImageFiniteStatement,
+    ),
+    (
+      "ordinary E-image 2-primary zero reachable",
+      TodaLemma510OrdinarySuspensionImageTwoPrimaryZeroStatement,
+    ),
   )
 
-  nu6_eta9_is_inference = (
-    representative[
-      "nu6_eta9_zero_step"
-    ].rule
-    == ProofRule.INFERENCE
-  )
-
-  delta_iota11_is_inference = (
-    representative[
-      "delta_iota11_step"
-    ].rule
-    == ProofRule.INFERENCE
-  )
-
-  hopf_delta_is_inference = (
-    representative[
-      "hopf_delta_step"
-    ].rule
-    == ProofRule.INFERENCE
-  )
-
-  exactness_is_inference = (
-    representative[
-      "exactness_step"
-    ].rule
-    == ProofRule.INFERENCE
-  )
-
-  pi10_5_is_inference = (
-    representative[
-      "pi10_5_step"
-    ].rule
-    == ProofRule.INFERENCE
-  )
-
-  pi11_6_is_inference = (
-    representative[
-      "pi11_6_step"
-    ].rule
-    == ProofRule.INFERENCE
-  )
-
-  print(
-    "Proposition 5.3 reused = "
-    f"{prop53_is_inference}"
-  )
-
-  print(
-    "ν₆η₉=0 reused = "
-    f"{nu6_eta9_is_inference}"
-  )
-
-  print(
-    "Δ(ι₁₁)=ν₅η₈ reused = "
-    f"{delta_iota11_is_inference}"
-  )
-
-  print(
-    "H(Δι₁₃)=±2ι₁₁ reused = "
-    f"{hopf_delta_is_inference}"
-  )
-
-  print(
-    "E-H exactness reused = "
-    f"{exactness_is_inference}"
-  )
-
-  print(
-    "π₁₀⁵ reused = "
-    f"{pi10_5_is_inference}"
-  )
-
-  print(
-    "π₁₁⁶ reused = "
-    f"{pi11_6_is_inference}"
-  )
+  for label, statement_type in checks:
+    present = any(
+      isinstance(
+        ancestor.conclusion,
+        statement_type,
+      )
+      for ancestor
+      in final_ancestors
+    )
+    print(
+      f"{label} = {present}"
+    )
 
 
 def print_phase72_provenance(
   representative,
 ):
   print_section(
-    "Provenance / integration"
+    "Corrected provenance / retirement audit"
   )
 
-  final_step = (
-    representative[
-      "final_step"
-    ]
-  )
-
-  core_step = (
-    representative[
-      "core_step"
-    ]
-  )
-
-  indeterminacy_step = (
-    representative[
-      "indeterminacy_step"
-    ]
-  )
-
-  image_step = (
-    representative[
-      "image_step"
-    ]
-  )
-
-  final_is_inference = (
-    final_step.rule
-    == ProofRule.INFERENCE
-  )
-
-  final_is_given = (
-    final_step.rule
-    == ProofRule.GIVEN
-  )
-
-  core_is_inference = (
-    core_step.rule
-    == ProofRule.INFERENCE
-  )
-
-  indeterminacy_is_inference = (
-    indeterminacy_step.rule
-    == ProofRule.INFERENCE
-  )
-
-  image_is_inference = (
-    image_step.rule
-    == ProofRule.INFERENCE
-  )
+  final_step = representative[
+    "final_step"
+  ]
+  core_step = representative[
+    "core_step"
+  ]
+  indeterminacy_step = representative[
+    "indeterminacy_step"
+  ]
+  image_step = representative[
+    "image_step"
+  ]
 
   exact_three_direct_premises = (
     final_step.premises
@@ -460,6 +262,45 @@ def print_phase72_provenance(
   final_is_acyclic = (
     id(
       final_step
+    )
+    not in representative[
+      "final_ancestor_ids"
+    ]
+  )
+
+  legacy_core_absent = (
+    id(
+      representative[
+        "legacy"
+      ][
+        "core_step"
+      ]
+    )
+    not in representative[
+      "final_ancestor_ids"
+    ]
+  )
+
+  legacy_indeterminacy_absent = (
+    id(
+      representative[
+        "legacy"
+      ][
+        "indeterminacy_step"
+      ]
+    )
+    not in representative[
+      "final_ancestor_ids"
+    ]
+  )
+
+  legacy_image_absent = (
+    id(
+      representative[
+        "legacy"
+      ][
+        "image_step"
+      ]
     )
     not in representative[
       "final_ancestor_ids"
@@ -490,115 +331,96 @@ def print_phase72_provenance(
     ]
   )
 
+  final_ordinary = (
+    final_step
+    .conclusion
+    .ambient_group
+    == HomotopyGroup(
+      group_dimension=11,
+      sphere_dimension=6,
+    )
+  )
+
   print(
     "final modulo statement derived = "
-    f"{final_is_inference}"
+    f"{final_step.rule == ProofRule.INFERENCE}"
   )
-
   print(
     "final modulo statement is GIVEN = "
-    f"{final_is_given}"
+    f"{final_step.rule == ProofRule.GIVEN}"
   )
-
+  print(
+    "final ambient group is ordinary = "
+    f"{final_ordinary}"
+  )
   print(
     "core branch derived = "
-    f"{core_is_inference}"
+    f"{core_step.rule == ProofRule.INFERENCE}"
   )
-
   print(
     "indeterminacy branch derived = "
-    f"{indeterminacy_is_inference}"
+    f"{indeterminacy_step.rule == ProofRule.INFERENCE}"
   )
-
   print(
     "suspension-image branch derived = "
-    f"{image_is_inference}"
+    f"{image_step.rule == ProofRule.INFERENCE}"
   )
-
   print(
     "exact three direct premises = "
     f"{exact_three_direct_premises}"
   )
-
   print(
     "final graph acyclic = "
     f"{final_is_acyclic}"
   )
-
   print(
-    "Phase 71 Delta injectivity "
-    "absent from ancestry = "
+    "legacy Phase 72 core step absent = "
+    f"{legacy_core_absent}"
+  )
+  print(
+    "legacy Phase 72 indeterminacy step absent = "
+    f"{legacy_indeterminacy_absent}"
+  )
+  print(
+    "legacy Phase 72 image step absent = "
+    f"{legacy_image_absent}"
+  )
+  print(
+    "Phase 71 n=6 Delta injectivity absent = "
     f"{phase71_n6_absent}"
   )
 
 
 def print_phase72_boundary():
   print_section(
-    "Phase 72 representative probe boundary"
+    "Phase 72R corrected representative probe boundary"
   )
 
-  print(
-    "Displayed:"
-  )
-  print(
-    "  Toda Lemma 5.10"
-  )
-  print(
-    "  bracket indeterminacy reduction"
-  )
-  print(
-    "  Hopf image consequence"
-  )
-  print(
-    "  E-H exactness core"
-  )
-  print(
-    "  suspension-image containment"
-  )
-  print(
-    "  final modulo statement"
-  )
-  print(
-    "  representative proof-style display"
-  )
-  print(
-    "  machine provenance status"
-  )
-  print(
-    "  non-circularity status"
-  )
+  print("Canonical after Phase 72R:")
+  print("  ordinary HomotopyGroup semantics")
+  print("  Serre (4.2) finite-group applicability")
+  print("  ordinary Toda (2.11) EHP exactness")
+  print("  ordinary / 2-primary bridge")
+  print("  composition-level primary reduction")
+  print("  Prop.2.6 indexed bracket")
+  print("  Toda (1.15) indexed-to-ordinary bracket inclusion")
+  print("  ordinary indeterminacy")
+  print("  ordinary suspension-image containment")
+  print("  corrected final modulo integration")
   print()
 
-  print(
-    "Not added in Phase 72-6:"
-  )
-  print(
-    "  new mathematical inference rules"
-  )
-  print(
-    "  new theorem representation"
-  )
-  print(
-    "  generic Toda-bracket coset algebra"
-  )
-  print(
-    "  generic quotient normalization"
-  )
-  print(
-    "  generic finite-subgroup solver"
-  )
-  print(
-    "  automatic proof narrative generation"
-  )
-  print(
-    "  persistent Proof Repository"
-  )
-  print(
-    "  completion documentation"
-  )
-  print(
-    "  next Toda theorem"
-  )
+  print("Historical only:")
+  print("  original Phase 72 primary-group shortcuts")
+  print("  original Phase 72 representative graph")
+  print()
+
+  print("Still not added:")
+  print("  generic primary-decomposition solver")
+  print("  generic Toda-bracket coset algebra")
+  print("  generic quotient normalization")
+  print("  generic finite-group automorphism solver")
+  print("  automatic proof narrative generation")
+  print("  persistent Proof Repository")
   print()
 
   print(
@@ -612,12 +434,8 @@ def print_phase72_boundary():
 
 
 def main():
-  print(
-    "EHP Proof Tracer"
-  )
-  print(
-    "Phase 72 capability demonstration"
-  )
+  print("EHP Proof Tracer")
+  print("Phase 72R corrected capability demonstration")
 
   representative = (
     build_phase72_representative_result()
@@ -626,23 +444,17 @@ def main():
   print_phase72_results(
     representative
   )
-
   print_phase72_derivation_chain(
     representative
   )
-
   print_phase72_source_reuse(
     representative
   )
-
   print_phase72_provenance(
     representative
   )
-
   print_phase72_boundary()
 
 
 if __name__ == "__main__":
   main()
-
-

@@ -5408,3 +5408,259 @@ minimum inference
 
 Do not implement all of Proposition 5.11 or the stable `(G_6;2)` branch before the concrete finite-dimensional dependencies are separated.
 
+---
+
+# 75. Phase 72R ordinary group foundation
+
+`homotopy_groups.py`:
+
+```text
+HomotopyGroup
+FiniteHomotopyGroupStatement
+HomotopyEHPExactnessWindow
+```
+
+`TodaPrimaryGroup` / `TodaEHPExactnessWindow` remain the 2-primary Toda layer.
+
+---
+
+# 76. Phase 72R ordinary Toda (2.11)
+
+`toda_rules.py`:
+
+```text
+Toda211OrdinaryEHPApplicabilityStatement
+Toda211OrdinaryEHPExactnessStatement
+
+toda_211_ordinary_ehp_applicability_inference_rule()
+toda_211_ordinary_ehp_exactness_inference_rule()
+```
+
+Serre finite rule:
+
+```text
+serre_42_finite_homotopy_group_inference_rule()
+```
+
+---
+
+# 77. Phase 72R ordinary suspension-image bridge
+
+statements:
+
+```text
+TodaLemma510OrdinarySuspensionImageFiniteStatement
+TodaLemma510OrdinarySuspensionImageTwoPrimaryZeroStatement
+TodaLemma510OrdinarySuspensionImageInDoubleStatement
+```
+
+rules:
+
+```text
+toda_lemma510_ordinary_suspension_image_finite_inference_rule()
+toda_lemma510_ordinary_suspension_image_two_primary_zero_inference_rule()
+toda_lemma510_ordinary_suspension_image_in_double_inference_rule()
+```
+
+target:
+
+```text
+Eπ₁₀(S⁵)⊂2π₁₁(S⁶)
+```
+
+---
+
+# 78. Phase 72R ordinary indeterminacy branch
+
+statements:
+
+```text
+TodaLemma510Nu6OrdinaryCompositionReductionStatement
+TodaLemma510Nu6OrdinaryCompositionZeroStatement
+TodaLemma510OrdinaryIndeterminacyDoubleStatement
+```
+
+rules:
+
+```text
+toda_lemma510_nu6_ordinary_composition_reduction_inference_rule()
+toda_lemma510_nu6_ordinary_composition_zero_inference_rule()
+toda_lemma510_eta9_two_iota10_zero_inference_rule()
+toda_lemma510_ordinary_indeterminacy_double_inference_rule()
+```
+
+semantic boundary:
+
+```text
+ν₆∘π₁₁(S⁹)=ν₆∘π₁₁⁹
+```
+
+is composition-level only.
+
+---
+
+# 79. Phase 72R Prop.2.6 / Toda (1.15)
+
+statements:
+
+```text
+TodaLemma510IndexedHopfBracketContainsStatement
+TodaLemma510Split115Statement
+TodaLemma510OrdinaryBracketPlusSuspensionImageStatement
+```
+
+rules:
+
+```text
+toda_lemma510_eta8_two_iota9_zero_inference_rule()
+toda_lemma510_prop26_indexed_hopf_inference_rule()
+toda_lemma510_split_115_inference_rule()
+toda_lemma510_hopf_from_split_inference_rule()
+toda_lemma510_corrected_exactness_core_inference_rule()
+toda_lemma510_corrected_modulo_integration_inference_rule()
+```
+
+canonical final:
+
+```text
+TodaLemma510BracketModuloStatement
+ambient_group=HomotopyGroup(11,6)
+```
+
+---
+
+# 80. Phase 72R tests / builders
+
+tests:
+
+```text
+tests/test_phase72r3_homotopy_group_representation.py
+tests/test_phase72r4_serre_finiteness.py
+tests/test_phase72r5_ordinary_ehp_211_exactness.py
+tests/test_phase72r6_ordinary_primary_bridge.py
+tests/test_phase72r7_primary_composition_indeterminacy.py
+tests/test_phase72r8_corrected_lemma510_integration.py
+tests/test_phase72r9_corrected_provenance_retirement.py
+tests/test_phase72r10_corrected_probe.py
+tests/test_phase72_probe.py
+```
+
+main corrected builders:
+
+```text
+build_phase72r4_pi10_s5_data()
+build_phase72r5_pi10_s5_data()
+build_phase72r6_data()
+build_phase72r7_data()
+build_phase72r8_data()
+build_phase72r9_data()
+build_phase72_representative_result()
+```
+
+heavy shared graphs continue to use:
+
+```python
+@lru_cache(maxsize=1)
+```
+
+where appropriate.
+
+---
+
+# 81. Corrected Phase 72 representative probe
+
+module:
+
+```text
+probes/probe_phase72_capabilities.py
+```
+
+representative source:
+
+```text
+build_phase72r9_data()
+```
+
+display:
+
+```text
+Toda Lemma 5.10 corrected result
+Corrected proof-style derivation
+Corrected representative source objects
+Corrected provenance / retirement audit
+Phase 72R corrected representative probe boundary
+```
+
+The display remains presentation-only.
+
+---
+
+# 82. Legacy Phase 72 boundary
+
+Historical Phase 72 rules remain for regression:
+
+```text
+TodaLemma510BracketPlusSuspensionImageStatement
+TodaLemma510SuspensionImageInDoubleStatement
+
+toda_lemma510_exactness_core_inference_rule()
+toda_lemma510_indeterminacy_inference_rule()
+toda_lemma510_suspension_image_in_double_inference_rule()
+toda_lemma510_modulo_integration_inference_rule()
+```
+
+Canonical Phase 72R uses the corrected ordinary rule family instead.
+
+Do not remove legacy code only to simplify navigation unless a later dedicated cleanup Phase explicitly retires historical regression.
+
+---
+
+# 83. Phase 72R regression
+
+```text
+Phase 72R focused:
+149 passed in 9.34s
+
+repository-wide:
+5117 passed in 113.34s
+```
+
+---
+
+# 84. Phase 73 で最初に見る場所
+
+Use the canonical Phase 72R result, not the historical Phase 72 shortcut graph.
+
+```text
+Toda source material
+  Proposition 5.11
+  Equation (5.13)
+
+toda_rules.py
+  corrected Phase 72R Lemma 5.10 statements / rules
+  Proposition 2.5
+  Proposition 1.4
+  ν-family
+
+expression.py
+  Composition
+  TodaBracket
+  Multiple
+
+homotopy_groups.py
+  HomotopyGroup
+  TodaPrimaryGroup
+  relevant EHP windows
+
+tests/test_phase72r*.py
+  corrected reusable provenance builders
+
+probes/probe_phase72_capabilities.py
+  canonical corrected representative graph
+
+docs/proof_records.md
+  revised Lemma 5.10 canonical record
+```
+
+Phase 73 starts with analysis only.
+

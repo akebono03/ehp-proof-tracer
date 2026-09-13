@@ -29,7 +29,7 @@ The implementation strategy is to formalize only the minimum theorem consequence
 
 # Current status
 
-Completed through Phase 72.
+Completed through Phase 72R.
 
 ```text
 Phase 1–27   generic proof / algebra / Toda-bracket foundation
@@ -67,13 +67,14 @@ Phase 68     Toda Proposition 5.8 finite-dimensional computation
 Phase 69     Toda Equation (5.10): Δ(ι₁₁)=ν₅η₈
 Phase 70     Toda Proposition 5.9 finite-dimensional computation
 Phase 71     Toda Equation (5.12): Δ injective for n=4,5,6
-Phase 72     Toda Lemma 5.10: Δ(ι₁₃)∈{ν₆,η₉,2ι₁₀} mod 2π₁₁(S⁶)
+Phase 72     Toda Lemma 5.10 first implementation
+Phase 72R    Toda Lemma 5.10 semantic correction / canonical implementation
 ```
 
 Latest repository-wide regression:
 
 ```text
-4990 passed in 70.11s
+5117 passed in 113.34s
 ```
 
 Phase 64 same-machine baseline:
@@ -84,7 +85,7 @@ Phase 64 same-machine baseline:
 
 The Phase 64 final regression is approximately 88.4% faster than the same-machine baseline while preserving the same 3657-test coverage.
 
-Phase 72 mathematical capability and regression verification are complete. Repository-wide wall time is machine-dependent because development is performed on two PCs; the latest recorded home-laptop run is 4990 passed in 70.11s.
+Phase 72R semantic correction, provenance audit, corrected probe, and regression verification are complete. Repository-wide wall time is machine-dependent because development is performed on two PCs; the latest recorded home-laptop run is 5117 passed in 113.34s.
 
 Representative current probe:
 
@@ -3423,6 +3424,285 @@ higher Toda brackets unless concretely required
 
 ---
 
+---
+
+# Phase 72R: Toda Lemma 5.10 semantic correction
+
+Phase 72R revises the original Phase 72 implementation while preserving the original Phase 72 code and tests as historical regression.
+
+The printed mathematical conclusion is unchanged:
+
+```text
+Δ(ι₁₃)
+∈
+{ν₆,η₉,2ι₁₀}
+mod 2π₁₁(S⁶)
+```
+
+The canonical machine semantics are corrected.
+
+## Ordinary / 2-primary separation
+
+Phase 72R adds the ordinary homotopy-group representation:
+
+```text
+HomotopyGroup(i,n)
+=
+π_i(S^n)
+```
+
+and keeps it distinct from:
+
+```text
+TodaPrimaryGroup(i,n)
+=
+Toda π_i^n
+=
+the 2-primary group used by the current Toda layer
+```
+
+The corrected Lemma 5.10 final ambient group is:
+
+```text
+HomotopyGroup(11,6)
+```
+
+not `TodaPrimaryGroup(11,6)`.
+
+## Serre (4.2) finite-group bridge
+
+The corrected graph derives:
+
+```text
+π₁₀(S⁵) finite
+π₁₁(S⁹) finite
+```
+
+as ordinary-group statements.
+
+For the suspension-image branch:
+
+```text
+π₁₀(S⁵) finite
+↓
+Eπ₁₀(S⁵) finite
+
+π₁₀⁵=Z/2{ν₅η₈²}
+E(ν₅η₈²)=0
+↓
+the 2-primary part of Eπ₁₀(S⁵) is zero
+
+finite + 2-primary part zero
+↓
+Eπ₁₀(S⁵) has odd order
+↓
+Eπ₁₀(S⁵) ⊂ 2π₁₁(S⁶)
+```
+
+The old shortcut `Eπ₁₀⁵=0 ⇒ Eπ₁₀(S⁵)=0` is not used.
+
+## Ordinary Toda (2.11)
+
+For Lemma 5.10:
+
+```text
+m=5
+i=10
+m>1
+m is odd
+10 < 3*5-1
+```
+
+therefore the ordinary exactness window is:
+
+```text
+π₁₀(S⁵)
+ --E-->
+π₁₁(S⁶)
+ --H-->
+π₁₁(S¹¹)
+```
+
+represented by `HomotopyEHPExactnessWindow`.
+
+The corrected core does not reuse the 2-primary `TodaEHPExactnessWindow` as an ordinary sequence.
+
+## Proposition 2.6 and Toda (1.15)
+
+Phase 72R makes the indexed-bracket step explicit.
+
+Use:
+
+```text
+α=ν₅
+β=η₈
+γ=2ι₉
+```
+
+with:
+
+```text
+ν₆η₉=0
+η₈∘2ι₉=0
+Δ(ι₁₁)=ν₅η₈
+```
+
+to derive:
+
+```text
+H{ν₆,η₉,2ι₁₀}_1 contains 2ι₁₁.
+```
+
+Then Toda (1.15), `n=1,m=0`, gives:
+
+```text
+{ν₆,η₉,2ι₁₀}_1
+⊂
+{ν₆,η₉,2ι₁₀}.
+```
+
+Hence:
+
+```text
+H{ν₆,η₉,2ι₁₀}
+contains 2ι₁₁.
+```
+
+Together with:
+
+```text
+H(Δι₁₃)=±2ι₁₁
+```
+
+and ordinary E-H exactness:
+
+```text
+Δι₁₃
+∈
+{ν₆,η₉,2ι₁₀}
++
+Eπ₁₀(S⁵).
+```
+
+## Composition-level primary reduction
+
+The corrected indeterminacy branch uses:
+
+```text
+ν₆∘π₁₁(S⁹)
+=
+ν₆∘π₁₁⁹
+```
+
+as a composition-level primary reduction.
+
+It does not assert:
+
+```text
+π₁₁(S⁹)=π₁₁⁹.
+```
+
+Using:
+
+```text
+π₁₁⁹=Z/2{η₉²}
+ν₆η₉=0
+```
+
+gives:
+
+```text
+ν₆∘π₁₁(S⁹)=0
+```
+
+and therefore:
+
+```text
+Indeterminacy
+=
+2π₁₁(S⁶).
+```
+
+## Corrected final integration
+
+The canonical three direct branches are:
+
+```text
+TodaLemma510OrdinaryBracketPlusSuspensionImageStatement
+TodaLemma510OrdinaryIndeterminacyDoubleStatement
+TodaLemma510OrdinarySuspensionImageInDoubleStatement
+```
+
+and the final statement is:
+
+```text
+TodaLemma510BracketModuloStatement
+ambient_group=HomotopyGroup(11,6)
+modulus=2
+ProofRule.INFERENCE
+```
+
+Phase 72R provenance regression verifies:
+
+```text
+final graph is acyclic
+exact three corrected direct premises
+legacy Phase 72 core step not reused
+legacy Phase 72 indeterminacy step not reused
+legacy Phase 72 image step not reused
+legacy Phase 72 exactness step not reused
+Phase 71 n=6 Δ-injectivity statement absent
+```
+
+The retirement audit is proof-instance based. It does not ban whole statement classes that may occur legitimately in older upstream derivations.
+
+## Phase 72R representative probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase72_capabilities
+```
+
+The corrected probe reports:
+
+```text
+ambient group = ordinary π₁₁(S⁶)
+derived = True
+
+ordinary Toda (2.11) exactness reachable = True
+Prop.2.6 indexed bracket reachable = True
+Toda (1.15) split reachable = True
+composition-level primary reduction reachable = True
+ordinary finite E-image reachable = True
+ordinary E-image 2-primary zero reachable = True
+
+legacy Phase 72 core step absent = True
+legacy Phase 72 indeterminacy step absent = True
+legacy Phase 72 image step absent = True
+Phase 71 n=6 Delta injectivity absent = True
+```
+
+The proof-style derivation remains hand-authored presentation code, not automatic `ProofStep` narrative generation.
+
+## Phase 72R final regression
+
+```text
+tests/test_phase72_probe.py:
+19 passed in 5.67s
+
+legacy + corrected probe:
+28 passed in 7.61s
+
+Phase 72R focused:
+149 passed in 9.34s
+
+repository-wide:
+5117 passed in 113.34s
+```
+
+---
+
 # Documentation
 
 - `README.md` — current capabilities and status
@@ -3435,7 +3715,7 @@ higher Toda brackets unless concretely required
 
 # Next development boundary
 
-Phase 72 is complete.
+Phase 72R is complete.
 
 The next mathematical Phase is:
 
@@ -3472,7 +3752,7 @@ The proof introduces the intermediate Toda Equation (5.13):
 Δ(η₁₃)=0
 ```
 
-Before implementation, inspect the current representations for `ν_n²`, the Phase 72 Lemma 5.10 result, Proposition 2.5 composition with Delta, Proposition 1.4 bracket composition, and the n=4,5,6 EHP exactness branches.
+Before implementation, inspect the current representations for `ν_n²`, the canonical Phase 72R Lemma 5.10 result, Proposition 2.5 composition with Delta, Proposition 1.4 bracket composition, and the n=4,5,6 EHP exactness branches.
 
 The following remain separate later milestones:
 

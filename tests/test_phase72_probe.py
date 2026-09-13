@@ -1,5 +1,8 @@
 from functools import lru_cache
 
+from homotopy_groups import (
+  HomotopyGroup,
+)
 from proof import (
   ProofRule,
 )
@@ -8,10 +11,10 @@ from probes.probe_phase72_capabilities import (
   main,
 )
 from toda_rules import (
-  Toda54IndeterminacyGeneratorStatement,
   TodaLemma510BracketModuloStatement,
-  TodaLemma510BracketPlusSuspensionImageStatement,
-  TodaLemma510SuspensionImageInDoubleStatement,
+  TodaLemma510OrdinaryBracketPlusSuspensionImageStatement,
+  TodaLemma510OrdinaryIndeterminacyDoubleStatement,
+  TodaLemma510OrdinarySuspensionImageInDoubleStatement,
 )
 
 
@@ -22,7 +25,7 @@ def build_phase72_probe_data():
   )
 
 
-def test_phase72_probe_derives_final_statement():
+def test_phase72_probe_derives_corrected_final_statement():
   data = build_phase72_probe_data()
 
   step = (
@@ -41,6 +44,14 @@ def test_phase72_probe_derives_final_statement():
     == ProofRule.INFERENCE
   )
 
+  assert (
+    step.conclusion.ambient_group
+    == HomotopyGroup(
+      group_dimension=11,
+      sphere_dimension=6,
+    )
+  )
+
 
 def test_phase72_probe_final_is_not_given():
   data = build_phase72_probe_data()
@@ -53,82 +64,111 @@ def test_phase72_probe_final_is_not_given():
   )
 
 
-def test_phase72_probe_core_is_derived():
+def test_phase72_probe_core_is_corrected_and_derived():
   data = build_phase72_probe_data()
 
-  assert isinstance(
+  step = (
     data[
       "core_step"
-    ].conclusion,
-    TodaLemma510BracketPlusSuspensionImageStatement,
+    ]
   )
-
-  assert (
-    data[
-      "core_step"
-    ].rule
-    == ProofRule.INFERENCE
-  )
-
-
-def test_phase72_probe_indeterminacy_is_derived():
-  data = build_phase72_probe_data()
 
   assert isinstance(
-    data[
-      "indeterminacy_step"
-    ].conclusion,
-    Toda54IndeterminacyGeneratorStatement,
+    step.conclusion,
+    TodaLemma510OrdinaryBracketPlusSuspensionImageStatement,
   )
 
   assert (
-    data[
-      "indeterminacy_step"
-    ].rule
+    step.rule
     == ProofRule.INFERENCE
   )
 
 
-def test_phase72_probe_image_containment_is_derived():
+def test_phase72_probe_indeterminacy_is_corrected_and_derived():
   data = build_phase72_probe_data()
+
+  step = (
+    data[
+      "indeterminacy_step"
+    ]
+  )
 
   assert isinstance(
-    data[
-      "image_step"
-    ].conclusion,
-    TodaLemma510SuspensionImageInDoubleStatement,
+    step.conclusion,
+    TodaLemma510OrdinaryIndeterminacyDoubleStatement,
   )
 
   assert (
-    data[
-      "image_step"
-    ].rule
+    step.rule
     == ProofRule.INFERENCE
   )
 
 
-def test_phase72_probe_final_premises_are_expected():
+def test_phase72_probe_image_containment_is_corrected_and_derived():
   data = build_phase72_probe_data()
 
+  step = (
+    data[
+      "image_step"
+    ]
+  )
+
+  assert isinstance(
+    step.conclusion,
+    TodaLemma510OrdinarySuspensionImageInDoubleStatement,
+  )
+
   assert (
+    step.rule
+    == ProofRule.INFERENCE
+  )
+
+
+def test_phase72_probe_final_premises_are_corrected_three_branches():
+  data = build_phase72_probe_data()
+
+  premises = (
     data[
       "final_step"
     ].premises
-    == (
-      data[
-        "core_step"
-      ],
-      data[
-        "indeterminacy_step"
-      ],
-      data[
-        "image_step"
-      ],
+  )
+
+  assert (
+    len(
+      premises
     )
+    == 3
+  )
+
+  assert (
+    premises[
+      0
+    ]
+    is data[
+      "core_step"
+    ]
+  )
+
+  assert (
+    premises[
+      1
+    ]
+    is data[
+      "indeterminacy_step"
+    ]
+  )
+
+  assert (
+    premises[
+      2
+    ]
+    is data[
+      "image_step"
+    ]
   )
 
 
-def test_phase72_probe_builder_reuses_phase72_5_data():
+def test_phase72_probe_builder_reuses_corrected_representative_graph():
   data = build_phase72_probe_data()
 
   direct = (
@@ -145,7 +185,7 @@ def test_phase72_probe_builder_reuses_phase72_5_data():
   )
 
 
-def test_phase72_probe_output_contains_heading(
+def test_phase72_probe_output_contains_corrected_heading(
   capsys,
 ):
   main()
@@ -162,12 +202,12 @@ def test_phase72_probe_output_contains_heading(
   )
 
   assert (
-    "Phase 72 capability demonstration"
+    "Phase 72R corrected capability demonstration"
     in output
   )
 
   assert (
-    "Toda Lemma 5.10 result"
+    "Toda Lemma 5.10 corrected result"
     in output
   )
 
@@ -199,8 +239,7 @@ def test_phase72_probe_output_contains_final_result(
   )
 
   assert (
-    "statement type = "
-    "TodaLemma510BracketModuloStatement"
+    "ambient group = ordinary π₁₁(S⁶)"
     in output
   )
 
@@ -210,7 +249,7 @@ def test_phase72_probe_output_contains_final_result(
   )
 
 
-def test_phase72_probe_output_contains_proof_style_heading(
+def test_phase72_probe_output_contains_ordinary_exactness(
   capsys,
 ):
   main()
@@ -222,12 +261,27 @@ def test_phase72_probe_output_contains_proof_style_heading(
   )
 
   assert (
-    "Proof-style derivation"
+    "[1] Ordinary EHP exactness"
+    in output
+  )
+
+  assert (
+    "Toda (2.11), m=5, i=10:"
+    in output
+  )
+
+  assert (
+    "π₁₀(S⁵) --E--> π₁₁(S⁶) --H--> π₁₁(S¹¹)"
+    in output
+  )
+
+  assert (
+    "ordinary exactness window"
     in output
   )
 
 
-def test_phase72_probe_output_contains_indeterminacy_derivation(
+def test_phase72_probe_output_contains_prop26_and_toda115(
   capsys,
 ):
   main()
@@ -239,42 +293,27 @@ def test_phase72_probe_output_contains_indeterminacy_derivation(
   )
 
   assert (
-    "[1] Toda bracket indeterminacy"
+    "[2] Proposition 2.6 and Toda (1.15)"
     in output
   )
 
   assert (
-    "π₁₁⁹ = Z/2{η₉²}"
+    "H{ν₆,η₉,2ι₁₀}_1 contains 2ι₁₁"
     in output
   )
 
   assert (
-    "ν₆η₉ = 0"
+    "Toda (1.15), n=1, m=0:"
     in output
   )
 
   assert (
-    "π₁₁⁶ = Z{Δι₁₃}"
-    in output
-  )
-
-  assert (
-    "ν₆∘π₁₁⁹ + 2π₁₁⁶"
-    in output
-  )
-
-  assert (
-    "Indeterminacy"
-    in output
-  )
-
-  assert (
-    "= 2π₁₁⁶"
+    "{ν₆,η₉,2ι₁₀}_1 ⊂ {ν₆,η₉,2ι₁₀}"
     in output
   )
 
 
-def test_phase72_probe_output_contains_hopf_bracket_derivation(
+def test_phase72_probe_output_contains_corrected_indeterminacy(
   capsys,
 ):
   main()
@@ -286,32 +325,27 @@ def test_phase72_probe_output_contains_hopf_bracket_derivation(
   )
 
   assert (
-    "[2] Hopf image of the bracket"
+    "[4] Corrected ordinary indeterminacy"
     in output
   )
 
   assert (
-    "Δ(ι₁₁) = ν₅η₈"
+    "ν₆∘π₁₁(S⁹) = ν₆∘π₁₁⁹"
     in output
   )
 
   assert (
-    "Toda Proposition 2.6:"
+    "ν₆∘π₁₁(S⁹) = 0"
     in output
   )
 
   assert (
-    "H{ν₆,η₉,2ι₁₀}"
-    in output
-  )
-
-  assert (
-    "contains 2ι₁₁"
+    "Indeterminacy = 2π₁₁(S⁶)"
     in output
   )
 
 
-def test_phase72_probe_output_contains_exactness_core(
+def test_phase72_probe_output_contains_corrected_image_containment(
   capsys,
 ):
   main()
@@ -323,64 +357,22 @@ def test_phase72_probe_output_contains_exactness_core(
   )
 
   assert (
-    "[3] E-H exactness core"
+    "[5] Corrected ordinary suspension image"
     in output
   )
 
   assert (
-    "H(Δι₁₃) = ±2ι₁₁"
+    "Eπ₁₀(S⁵) is finite."
     in output
   )
 
   assert (
-    "π₁₀(S⁵)"
+    "the 2-primary part of Eπ₁₀(S⁵) is zero"
     in output
   )
 
   assert (
-    "π₁₁(S⁶)"
-    in output
-  )
-
-  assert (
-    "π₁₁(S¹¹)"
-    in output
-  )
-
-  assert (
-    "+ Eπ₁₀(S⁵)"
-    in output
-  )
-
-
-def test_phase72_probe_output_contains_image_containment(
-  capsys,
-):
-  main()
-
-  output = (
-    capsys
-    .readouterr()
-    .out
-  )
-
-  assert (
-    "[4] Suspension-image containment"
-    in output
-  )
-
-  assert (
-    "π₁₀⁵ = Z/2{ν₅η₈²}"
-    in output
-  )
-
-  assert (
-    "π₁₁⁶ = Z{Δι₁₃}"
-    in output
-  )
-
-  assert (
-    "2π₁₁(S⁶)"
+    "Eπ₁₀(S⁵) ⊂ 2π₁₁(S⁶)"
     in output
   )
 
@@ -397,7 +389,7 @@ def test_phase72_probe_output_contains_final_derivation(
   )
 
   assert (
-    "[5] Toda Lemma 5.10"
+    "[6] Toda Lemma 5.10"
     in output
   )
 
@@ -417,7 +409,7 @@ def test_phase72_probe_output_contains_final_derivation(
   )
 
 
-def test_phase72_probe_output_contains_source_reuse(
+def test_phase72_probe_output_contains_corrected_source_reuse(
   capsys,
 ):
   main()
@@ -429,47 +421,42 @@ def test_phase72_probe_output_contains_source_reuse(
   )
 
   assert (
-    "Representative source objects"
+    "Corrected representative source objects"
     in output
   )
 
   assert (
-    "Proposition 5.3 reused = True"
+    "ordinary Toda (2.11) exactness reachable = True"
     in output
   )
 
   assert (
-    "ν₆η₉=0 reused = True"
+    "Prop.2.6 indexed bracket reachable = True"
     in output
   )
 
   assert (
-    "Δ(ι₁₁)=ν₅η₈ reused = True"
+    "Toda (1.15) split reachable = True"
     in output
   )
 
   assert (
-    "H(Δι₁₃)=±2ι₁₁ reused = True"
+    "composition-level primary reduction reachable = True"
     in output
   )
 
   assert (
-    "E-H exactness reused = True"
+    "ordinary finite E-image reachable = True"
     in output
   )
 
   assert (
-    "π₁₀⁵ reused = True"
-    in output
-  )
-
-  assert (
-    "π₁₁⁶ reused = True"
+    "ordinary E-image 2-primary zero reachable = True"
     in output
   )
 
 
-def test_phase72_probe_output_contains_provenance_heading(
+def test_phase72_probe_output_contains_corrected_provenance(
   capsys,
 ):
   main()
@@ -481,20 +468,8 @@ def test_phase72_probe_output_contains_provenance_heading(
   )
 
   assert (
-    "Provenance / integration"
+    "Corrected provenance / retirement audit"
     in output
-  )
-
-
-def test_phase72_probe_output_contains_final_provenance(
-  capsys,
-):
-  main()
-
-  output = (
-    capsys
-    .readouterr()
-    .out
   )
 
   assert (
@@ -508,47 +483,13 @@ def test_phase72_probe_output_contains_final_provenance(
   )
 
   assert (
+    "final ambient group is ordinary = True"
+    in output
+  )
+
+  assert (
     "exact three direct premises = True"
     in output
-  )
-
-
-def test_phase72_probe_output_contains_branch_provenance(
-  capsys,
-):
-  main()
-
-  output = (
-    capsys
-    .readouterr()
-    .out
-  )
-
-  assert (
-    "core branch derived = True"
-    in output
-  )
-
-  assert (
-    "indeterminacy branch derived = True"
-    in output
-  )
-
-  assert (
-    "suspension-image branch derived = True"
-    in output
-  )
-
-
-def test_phase72_probe_output_contains_non_circularity(
-  capsys,
-):
-  main()
-
-  output = (
-    capsys
-    .readouterr()
-    .out
   )
 
   assert (
@@ -556,9 +497,35 @@ def test_phase72_probe_output_contains_non_circularity(
     in output
   )
 
+
+def test_phase72_probe_output_contains_retirement_audit(
+  capsys,
+):
+  main()
+
+  output = (
+    capsys
+    .readouterr()
+    .out
+  )
+
   assert (
-    "Phase 71 Delta injectivity "
-    "absent from ancestry = True"
+    "legacy Phase 72 core step absent = True"
+    in output
+  )
+
+  assert (
+    "legacy Phase 72 indeterminacy step absent = True"
+    in output
+  )
+
+  assert (
+    "legacy Phase 72 image step absent = True"
+    in output
+  )
+
+  assert (
+    "Phase 71 n=6 Delta injectivity absent = True"
     in output
   )
 
@@ -575,17 +542,17 @@ def test_phase72_probe_output_contains_boundary(
   )
 
   assert (
-    "Phase 72 representative probe boundary"
+    "Phase 72R corrected representative probe boundary"
     in output
   )
 
   assert (
-    "new mathematical inference rules"
+    "Historical only:"
     in output
   )
 
   assert (
-    "generic Toda-bracket coset algebra"
+    "generic primary-decomposition solver"
     in output
   )
 
@@ -616,5 +583,4 @@ def test_phase72_probe_output_marks_hand_authored_presentation(
     "automatically from the ProofStep graph"
     in output
   )
-
 
