@@ -21981,6 +21981,183 @@ def toda_prop511_pi14_8_prop44_zero_second_summand_suspension_isomorphism_infere
   )
 
 
+def toda_prop511_pi14_8_nu8_squared_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    pi13_7_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    suspension_isomorphism = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi13_7 = TodaPrimaryGroup(
+      group_dimension=13,
+      sphere_dimension=7,
+    )
+
+    pi14_8 = TodaPrimaryGroup(
+      group_dimension=14,
+      sphere_dimension=8,
+    )
+
+    if (
+      pi13_7_relation.lhs
+      != pi13_7
+    ):
+      return False
+
+    if not isinstance(
+      pi13_7_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi13_7_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    nu_7 = (
+      toda_nu_family_definition_statement(
+        7
+      ).element
+    )
+
+    nu_10 = (
+      toda_nu_family_definition_statement(
+        10
+      ).element
+    )
+
+    nu7_squared = Composition(
+      left=nu_7,
+      right=nu_10,
+    )
+
+    if (
+      pi13_7_relation
+      .rhs
+      .generator
+      != nu7_squared
+    ):
+      return False
+
+    if (
+      suspension_isomorphism.map
+      != TodaSuspensionMap(
+        source_group=pi13_7,
+        target_group=pi14_8,
+      )
+    ):
+      return False
+
+    nu_8 = (
+      toda_nu_family_definition_statement(
+        8
+      ).element
+    )
+
+    nu_11 = (
+      toda_nu_family_definition_statement(
+        11
+      ).element
+    )
+
+    nu8_squared = Composition(
+      left=nu_8,
+      right=nu_11,
+    )
+
+    return (
+      nu8_squared
+      .is_type_compatible()
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    nu_8 = (
+      toda_nu_family_definition_statement(
+        8
+      ).element
+    )
+
+    nu_11 = (
+      toda_nu_family_definition_statement(
+        11
+      ).element
+    )
+
+    nu8_squared = Composition(
+      left=nu_8,
+      right=nu_11,
+    )
+
+    return Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=14,
+        sphere_dimension=8,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=2,
+        generator=nu8_squared,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.11 "
+      "pi_14^8 nu_8 squared"
+    ),
+    description=(
+      "Use the independently derived "
+      "pi_13^7=Z/2{nu_7 squared} "
+      "and the independently derived "
+      "Proposition 4.4 suspension "
+      "isomorphism "
+      "E:pi_13^7 to pi_14^8. "
+      "For this concrete Proposition 5.11 "
+      "branch, suspension transports "
+      "nu_7 squared to nu_8 squared. "
+      "Therefore "
+      "pi_14^8=Z/2{nu_8 squared}. "
+      "The canonical nu-square remains "
+      "the composition "
+      "nu_n composed with nu_(n+3). "
+      "No generic transport-of-generator "
+      "or suspension-composition "
+      "normalizer is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaSuspensionIsomorphismStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_prop511_pi12_6_suspension_isomorphism_inference_rule():
   def guard(
     premises,
