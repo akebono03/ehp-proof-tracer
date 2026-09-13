@@ -17744,6 +17744,562 @@ def toda_prop511_513_delta_nu9_inference_rule():
   )
 
 
+def toda_prop511_513_delta_eta11_squared_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    delta_iota11 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    toda55 = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    delta_nu9 = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    #
+    # Toda (5.10)
+    #
+    if not isinstance(
+      delta_iota11,
+      Relation,
+    ):
+      return False
+
+    if (
+      delta_iota11.relation_type
+      != RelationType.EQUALITY
+    ):
+      return False
+
+    if not isinstance(
+      delta_iota11.lhs,
+      MapApplication,
+    ):
+      return False
+
+    if (
+      delta_iota11.lhs.map
+      != EHP_DELTA_MAP
+    ):
+      return False
+
+    iota_11 = (
+      delta_iota11
+      .lhs
+      .expression
+    )
+
+    if not isinstance(
+      iota_11,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      iota_11.dimension
+      != 11
+    ):
+      return False
+
+    if (
+      iota_11.generator
+      != GeneratorSymbol(
+        family="ι",
+        index=11,
+      )
+    ):
+      return False
+
+    nu5_eta8 = (
+      delta_iota11.rhs
+    )
+
+    if not isinstance(
+      nu5_eta8,
+      Composition,
+    ):
+      return False
+
+    nu_5 = (
+      nu5_eta8.left
+    )
+
+    eta_8 = (
+      nu5_eta8.right
+    )
+
+    if (
+      nu_5
+      != toda_nu_family_definition_statement(
+        5
+      ).element
+    ):
+      return False
+
+    if not isinstance(
+      eta_8,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_8.dimension
+      != 8
+      or eta_8.source
+      != 9
+      or eta_8.target
+      != 8
+      or eta_8.generator
+      != GeneratorSymbol(
+        family="η",
+        index=8,
+      )
+    ):
+      return False
+
+    #
+    # Toda (5.5):
+    # 4 nu_n = eta_n eta_(n+1) eta_(n+2),
+    # n >= 5.
+    #
+    if not isinstance(
+      toda55,
+      Toda55NuFamilyFiniteDimensionalStatement,
+    ):
+      return False
+
+    definition = (
+      toda55
+      .nu_family_definition
+    )
+
+    n = definition.index
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      toda55.n_range
+      != ScalarGreaterEqualStatement(
+        left=n,
+        right=5,
+      )
+    ):
+      return False
+
+    if (
+      definition
+      != toda_nu_family_definition_statement(
+        n
+      )
+    ):
+      return False
+
+    quadruple_relation = (
+      toda55
+      .quadruple_nu_relation
+    )
+
+    if not isinstance(
+      quadruple_relation,
+      Relation,
+    ):
+      return False
+
+    if (
+      quadruple_relation.relation_type
+      != RelationType.EQUALITY
+    ):
+      return False
+
+    if not isinstance(
+      quadruple_relation.lhs,
+      Multiple,
+    ):
+      return False
+
+    if (
+      quadruple_relation.lhs.coefficient
+      != 4
+    ):
+      return False
+
+    if (
+      quadruple_relation.lhs.expression
+      != definition.element
+    ):
+      return False
+
+    eta_cube = (
+      quadruple_relation.rhs
+    )
+
+    if not isinstance(
+      eta_cube,
+      Composition,
+    ):
+      return False
+
+    eta_n = (
+      eta_cube.left
+    )
+
+    eta_tail = (
+      eta_cube.right
+    )
+
+    if not isinstance(
+      eta_n,
+      HomotopyElement,
+    ):
+      return False
+
+    if not isinstance(
+      eta_tail,
+      Composition,
+    ):
+      return False
+
+    eta_n_plus_one = (
+      eta_tail.left
+    )
+
+    eta_n_plus_two = (
+      eta_tail.right
+    )
+
+    if not isinstance(
+      eta_n_plus_one,
+      HomotopyElement,
+    ):
+      return False
+
+    if not isinstance(
+      eta_n_plus_two,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_n.generator.family
+      != "η"
+    ):
+      return False
+
+    if (
+      eta_n_plus_one.generator.family
+      != "η"
+    ):
+      return False
+
+    if (
+      eta_n_plus_two.generator.family
+      != "η"
+    ):
+      return False
+
+    if not Composition(
+      left=eta_n,
+      right=eta_n_plus_one,
+    ).is_type_compatible():
+      return False
+
+    if not Composition(
+      left=eta_n_plus_one,
+      right=eta_n_plus_two,
+    ).is_type_compatible():
+      return False
+
+    #
+    # Toda (5.13)-1:
+    # Delta(nu_9) = +/- 2 nu_4^2.
+    #
+    if not isinstance(
+      delta_nu9,
+      TodaDeltaImageUpToSignStatement,
+    ):
+      return False
+
+    nu_9 = (
+      toda_nu_family_definition_statement(
+        9
+      ).element
+    )
+
+    if (
+      delta_nu9.element
+      != nu_9
+    ):
+      return False
+
+    if (
+      delta_nu9.map
+      != TodaDeltaMap(
+        source_group=TodaPrimaryGroup(
+          group_dimension=12,
+          sphere_dimension=9,
+        ),
+        target_group=TodaPrimaryGroup(
+          group_dimension=10,
+          sphere_dimension=4,
+        ),
+      )
+    ):
+      return False
+
+    if not isinstance(
+      delta_nu9.positive_value,
+      Multiple,
+    ):
+      return False
+
+    if (
+      delta_nu9
+      .positive_value
+      .coefficient
+      != 2
+    ):
+      return False
+
+    nu4_squared = (
+      delta_nu9
+      .positive_value
+      .expression
+    )
+
+    if not isinstance(
+      nu4_squared,
+      Composition,
+    ):
+      return False
+
+    if not (
+      nu4_squared
+      .is_type_compatible()
+    ):
+      return False
+
+    nu_4 = (
+      nu4_squared.left
+    )
+
+    nu_7 = (
+      nu4_squared.right
+    )
+
+    if not isinstance(
+      nu_4,
+      HomotopyElement,
+    ):
+      return False
+
+    if not isinstance(
+      nu_7,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      nu_4.dimension
+      != 4
+      or nu_4.source
+      != 7
+      or nu_4.target
+      != 4
+      or nu_4.generator
+      != GeneratorSymbol(
+        family="ν",
+        index=4,
+      )
+    ):
+      return False
+
+    if (
+      nu_7
+      != toda_nu_family_definition_statement(
+        7
+      ).element
+    ):
+      return False
+
+    #
+    # Concrete typing used in
+    #
+    # nu_5 eta_8^3
+    # = 4 nu_5 nu_8
+    # = 4 E(nu_4^2).
+    #
+    nu_8 = (
+      toda_nu_family_definition_statement(
+        8
+      ).element
+    )
+
+    nu5_nu8 = Composition(
+      left=nu_5,
+      right=nu_8,
+    )
+
+    if not (
+      nu5_nu8
+      .is_type_compatible()
+    ):
+      return False
+
+    eta_9 = HomotopyElement(
+      name="η₉",
+      dimension=9,
+      source=10,
+      target=9,
+      generator=GeneratorSymbol(
+        family="η",
+        index=9,
+      ),
+    )
+
+    eta_10 = HomotopyElement(
+      name="η₁₀",
+      dimension=10,
+      source=11,
+      target=10,
+      generator=GeneratorSymbol(
+        family="η",
+        index=10,
+      ),
+    )
+
+    eta8_cubed = Composition(
+      left=eta_8,
+      right=Composition(
+        left=eta_9,
+        right=eta_10,
+      ),
+    )
+
+    if not Composition(
+      left=eta_8,
+      right=eta_9,
+    ).is_type_compatible():
+      return False
+
+    if not Composition(
+      left=eta_9,
+      right=eta_10,
+    ).is_type_compatible():
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    eta_11 = HomotopyElement(
+      name="η₁₁",
+      dimension=11,
+      source=12,
+      target=11,
+      generator=GeneratorSymbol(
+        family="η",
+        index=11,
+      ),
+    )
+
+    eta_12 = HomotopyElement(
+      name="η₁₂",
+      dimension=12,
+      source=13,
+      target=12,
+      generator=GeneratorSymbol(
+        family="η",
+        index=12,
+      ),
+    )
+
+    eta11_squared = Composition(
+      left=eta_11,
+      right=eta_12,
+    )
+
+    return Relation(
+      lhs=MapApplication(
+        map=EHP_DELTA_MAP,
+        expression=eta11_squared,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Equation 5.13 "
+      "Delta eta_11 squared zero"
+    ),
+    description=(
+      "For the second relation of "
+      "Toda Equation (5.13), use the "
+      "derived Toda Equation (5.10) "
+      "relation Delta(iota_11)="
+      "nu_5 eta_8, the derived "
+      "Toda (5.5) relation "
+      "4 nu_n=eta_n cubed for n>=5, "
+      "and the first Equation (5.13) "
+      "relation Delta(nu_9)="
+      "plus or minus 2 nu_4 squared. "
+      "The concrete Proposition 2.5 "
+      "calculation gives "
+      "Delta(eta_11 squared)="
+      "nu_5 eta_8 cubed="
+      "4 nu_5 nu_8="
+      "4 E(nu_4 squared). "
+      "Suspending the first (5.13) "
+      "relation identifies this with "
+      "E Delta(plus or minus 2 nu_9), "
+      "which is zero by EHP exactness. "
+      "No generic Proposition 2.5, "
+      "suspension-composition, or "
+      "E-Delta rewrite framework "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda55NuFamilyFiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaDeltaImageUpToSignStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_prop511_zero_suspension_left_implies_hopf_injective_inference_rule():
   def guard(
     premises,
