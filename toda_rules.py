@@ -26478,6 +26478,28 @@ class TodaLemma510SuspensionImageInDoubleStatement:
   modulus: int
 
 
+@dataclass(frozen=True)
+class TodaLemma510OrdinarySuspensionImageFiniteStatement:
+  suspension_map: MapSymbol
+  source_group: HomotopyGroup
+  target_group: HomotopyGroup
+
+
+@dataclass(frozen=True)
+class TodaLemma510OrdinarySuspensionImageTwoPrimaryZeroStatement:
+  suspension_map: MapSymbol
+  source_group: HomotopyGroup
+  target_group: HomotopyGroup
+
+
+@dataclass(frozen=True)
+class TodaLemma510OrdinarySuspensionImageInDoubleStatement:
+  suspension_map: MapSymbol
+  source_group: HomotopyGroup
+  target_group: HomotopyGroup
+  modulus: int
+
+
 def toda_lemma510_indeterminacy_inference_rule():
   def guard(
     premises,
@@ -26880,6 +26902,334 @@ def toda_lemma510_suspension_image_in_double_inference_rule():
         statement_type=Relation,
         relation_type=(
           RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma510_ordinary_suspension_image_finite_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    finite_group = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    if not isinstance(
+      finite_group,
+      FiniteHomotopyGroupStatement,
+    ):
+      return False
+
+    return (
+      finite_group.group
+      == HomotopyGroup(
+        group_dimension=10,
+        sphere_dimension=5,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    finite_group = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return (
+      TodaLemma510OrdinarySuspensionImageFiniteStatement(
+        suspension_map=EHP_E_MAP,
+        source_group=finite_group.group,
+        target_group=HomotopyGroup(
+          group_dimension=11,
+          sphere_dimension=6,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.10 "
+      "ordinary suspension image finite"
+    ),
+    description=(
+      "Use the independently derived "
+      "Serre (4.2) finiteness of "
+      "pi_10(S^5). "
+      "The image of the suspension "
+      "homomorphism "
+      "E: pi_10(S^5) -> pi_11(S^6) "
+      "is therefore finite. "
+      "This rule records only the "
+      "concrete finite-image consequence "
+      "needed for Toda Lemma 5.10."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          FiniteHomotopyGroupStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma510_ordinary_suspension_image_two_primary_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    pi10_5_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    suspension_zero = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      pi10_5_relation,
+      Relation,
+    ):
+      return False
+
+    if (
+      pi10_5_relation.relation_type
+      != RelationType.EQUALITY
+    ):
+      return False
+
+    if (
+      pi10_5_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=10,
+        sphere_dimension=5,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      pi10_5_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi10_5_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    generator = (
+      pi10_5_relation
+      .rhs
+      .generator
+    )
+
+    expected_suspension_zero = Relation(
+      lhs=Suspension(
+        expression=generator,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    return (
+      suspension_zero
+      == expected_suspension_zero
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return (
+      TodaLemma510OrdinarySuspensionImageTwoPrimaryZeroStatement(
+        suspension_map=EHP_E_MAP,
+        source_group=HomotopyGroup(
+          group_dimension=10,
+          sphere_dimension=5,
+        ),
+        target_group=HomotopyGroup(
+          group_dimension=11,
+          sphere_dimension=6,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.10 "
+      "ordinary suspension image "
+      "two-primary zero"
+    ),
+    description=(
+      "Use the independently derived "
+      "pi_10^5=Z/2{nu_5 eta_8^2} "
+      "and E(nu_5 eta_8^2)=0. "
+      "Since pi_10^5 is the concrete "
+      "2-primary component of "
+      "pi_10(S^5), the suspension image "
+      "of that 2-primary component is "
+      "zero. "
+      "This is the narrow ordinary/"
+      "2-primary bridge needed for "
+      "Toda Lemma 5.10."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma510_ordinary_suspension_image_in_double_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    finite_image = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    two_primary_zero = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    expected_source = HomotopyGroup(
+      group_dimension=10,
+      sphere_dimension=5,
+    )
+
+    expected_target = HomotopyGroup(
+      group_dimension=11,
+      sphere_dimension=6,
+    )
+
+    if (
+      finite_image.suspension_map
+      != EHP_E_MAP
+    ):
+      return False
+
+    if (
+      two_primary_zero.suspension_map
+      != EHP_E_MAP
+    ):
+      return False
+
+    if (
+      finite_image.source_group
+      != expected_source
+    ):
+      return False
+
+    if (
+      two_primary_zero.source_group
+      != expected_source
+    ):
+      return False
+
+    if (
+      finite_image.target_group
+      != expected_target
+    ):
+      return False
+
+    if (
+      two_primary_zero.target_group
+      != expected_target
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    finite_image = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return (
+      TodaLemma510OrdinarySuspensionImageInDoubleStatement(
+        suspension_map=finite_image.suspension_map,
+        source_group=finite_image.source_group,
+        target_group=finite_image.target_group,
+        modulus=2,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.10 "
+      "ordinary suspension image "
+      "in double subgroup"
+    ),
+    description=(
+      "Let I=E pi_10(S^5). "
+      "The independently derived Serre "
+      "branch shows that I is finite. "
+      "The independently derived "
+      "2-primary branch shows that "
+      "the 2-primary component of I "
+      "is zero. "
+      "Therefore I has odd order. "
+      "Multiplication by 2 is an "
+      "automorphism of the finite "
+      "odd-order group I, so I=2I. "
+      "Hence "
+      "E pi_10(S^5) is contained in "
+      "2 pi_11(S^6). "
+      "No generic primary-decomposition "
+      "or finite-group image solver "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma510OrdinarySuspensionImageFiniteStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma510OrdinarySuspensionImageTwoPrimaryZeroStatement
         ),
       ),
     ),
