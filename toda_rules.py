@@ -22158,6 +22158,304 @@ def toda_prop511_pi14_8_nu8_squared_inference_rule():
   )
 
 
+def toda_prop511_higher_six_stem_nu_squared_transport_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    pi14_8_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    isomorphism = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    higher_range = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi14_8 = TodaPrimaryGroup(
+      group_dimension=14,
+      sphere_dimension=8,
+    )
+
+    if (
+      pi14_8_relation.lhs
+      != pi14_8
+    ):
+      return False
+
+    if not isinstance(
+      pi14_8_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi14_8_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    nu_8 = (
+      toda_nu_family_definition_statement(
+        8
+      ).element
+    )
+
+    nu_11 = (
+      toda_nu_family_definition_statement(
+        11
+      ).element
+    )
+
+    nu8_squared = Composition(
+      left=nu_8,
+      right=nu_11,
+    )
+
+    if (
+      pi14_8_relation
+      .rhs
+      .generator
+      != nu8_squared
+    ):
+      return False
+
+    suspension_map = (
+      isomorphism.map
+    )
+
+    structural_source = (
+      TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=8,
+          right=6,
+        ),
+        sphere_dimension=8,
+      )
+    )
+
+    if (
+      suspension_map.source_group
+      != structural_source
+    ):
+      return False
+
+    target_group = (
+      suspension_map.target_group
+    )
+
+    if not isinstance(
+      target_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    n = (
+      target_group
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      target_group
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=n,
+          right=6,
+        ),
+        sphere_dimension=n,
+      )
+    ):
+      return False
+
+    if (
+      suspension_map.exponent
+      != ScalarSum(
+        left=n,
+        right=ScalarProduct(
+          left=-1,
+          right=8,
+        ),
+      )
+    ):
+      return False
+
+    if (
+      higher_range
+      != ScalarGreaterEqualStatement(
+        left=n,
+        right=9,
+      )
+    ):
+      return False
+
+    nu_n = (
+      toda_nu_family_definition_statement(
+        n
+      ).element
+    )
+
+    n_plus_three = ScalarSum(
+      left=n,
+      right=3,
+    )
+
+    n_plus_six = ScalarSum(
+      left=n,
+      right=6,
+    )
+
+    nu_n_plus_three = HomotopyElement(
+      name="ν_(n+3)",
+      dimension=n_plus_three,
+      source=n_plus_six,
+      target=n_plus_three,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=n_plus_three,
+      ),
+    )
+
+    nu_n_squared = Composition(
+      left=nu_n,
+      right=nu_n_plus_three,
+    )
+
+    return (
+      nu_n_squared
+      .is_type_compatible()
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    isomorphism = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    n = (
+      isomorphism
+      .map
+      .target_group
+      .sphere_dimension
+    )
+
+    nu_n = (
+      toda_nu_family_definition_statement(
+        n
+      ).element
+    )
+
+    n_plus_three = ScalarSum(
+      left=n,
+      right=3,
+    )
+
+    n_plus_six = ScalarSum(
+      left=n,
+      right=6,
+    )
+
+    nu_n_plus_three = HomotopyElement(
+      name="ν_(n+3)",
+      dimension=n_plus_three,
+      source=n_plus_six,
+      target=n_plus_three,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=n_plus_three,
+      ),
+    )
+
+    nu_n_squared = Composition(
+      left=nu_n,
+      right=nu_n_plus_three,
+    )
+
+    return Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=n_plus_six,
+        sphere_dimension=n,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=2,
+        generator=nu_n_squared,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.11 "
+      "higher six-stem nu squared "
+      "transport"
+    ),
+    description=(
+      "Transport the independently "
+      "derived group "
+      "pi_14^8=Z/2{nu_8 squared} "
+      "through the independently derived "
+      "Toda (4.5) stable-range "
+      "iterated-suspension isomorphism "
+      "E^(n-8):pi_14^8 to pi_(n+6)^n. "
+      "For the Proposition 5.11 "
+      "higher branch n at least 9, "
+      "the canonical generator "
+      "nu_8 squared transports to "
+      "nu_n squared, represented by "
+      "nu_n composed with nu_(n+3). "
+      "The shifted nu_(n+3) element "
+      "is constructed locally because "
+      "the canonical nu-family helper "
+      "accepts only integer or simple "
+      "ScalarSymbol indices. "
+      "No generic suspension-of-composition "
+      "normalizer, shifted-family helper, "
+      "or cyclic-generator transport "
+      "framework is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda45IsomorphismStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_prop511_pi12_6_suspension_isomorphism_inference_rule():
   def guard(
     premises,
