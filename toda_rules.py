@@ -21814,6 +21814,173 @@ def toda_prop511_pi13_7_nu7_squared_inference_rule():
   )
 
 
+def toda_prop511_pi14_8_prop44_zero_second_summand_suspension_isomorphism_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    prop44_isomorphism = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    zero_statement = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    decomposition_map = (
+      prop44_isomorphism.map
+    )
+
+    if not isinstance(
+      decomposition_map,
+      TodaProp44DecompositionMap,
+    ):
+      return False
+
+    source_group = (
+      decomposition_map.source_group
+    )
+
+    if not isinstance(
+      source_group,
+      DirectSumGroup,
+    ):
+      return False
+
+    if (
+      len(
+        source_group.summands
+      )
+      != 2
+    ):
+      return False
+
+    pi13_7 = TodaPrimaryGroup(
+      group_dimension=13,
+      sphere_dimension=7,
+    )
+
+    pi14_15 = TodaPrimaryGroup(
+      group_dimension=14,
+      sphere_dimension=15,
+    )
+
+    pi14_8 = TodaPrimaryGroup(
+      group_dimension=14,
+      sphere_dimension=8,
+    )
+
+    if (
+      source_group.summands
+      != (
+        pi13_7,
+        pi14_15,
+      )
+    ):
+      return False
+
+    if (
+      decomposition_map.target_group
+      != pi14_8
+    ):
+      return False
+
+    if (
+      zero_statement
+      != TodaPrimaryGroupZeroStatement(
+        group=pi14_15,
+      )
+    ):
+      return False
+
+    expected_formula = Sum(
+      left=Suspension(
+        expression=(
+          decomposition_map.beta
+        ),
+      ),
+      right=Composition(
+        left=(
+          decomposition_map.alpha
+        ),
+        right=(
+          decomposition_map.gamma
+        ),
+      ),
+    )
+
+    return (
+      decomposition_map.formula
+      == expected_formula
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return TodaSuspensionIsomorphismStatement(
+      map=TodaSuspensionMap(
+        source_group=TodaPrimaryGroup(
+          group_dimension=13,
+          sphere_dimension=7,
+        ),
+        target_group=TodaPrimaryGroup(
+          group_dimension=14,
+          sphere_dimension=8,
+        ),
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.11 "
+      "pi_14^8 Proposition 4.4 "
+      "zero-second-summand suspension "
+      "isomorphism"
+    ),
+    description=(
+      "Specialize the independently "
+      "derived Toda Proposition 4.4 "
+      "decomposition isomorphism to "
+      "pi_13^7 direct sum pi_14^15 "
+      "isomorphic to pi_14^8. "
+      "The second summand pi_14^15 "
+      "is zero, so the decomposition "
+      "isomorphism reduces to its "
+      "first-summand component, which "
+      "is suspension E. Therefore "
+      "E:pi_13^7 to pi_14^8 "
+      "is an isomorphism. "
+      "This is a concrete "
+      "Proposition 5.11 consequence. "
+      "No generic direct-sum "
+      "simplifier, zero-summand "
+      "isomorphism transport rule, "
+      "or sigma-family framework "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp44IsomorphismStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaPrimaryGroupZeroStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_prop511_pi12_6_suspension_isomorphism_inference_rule():
   def guard(
     premises,
