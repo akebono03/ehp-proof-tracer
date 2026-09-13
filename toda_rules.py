@@ -25,7 +25,9 @@ from expression import (
 from homotopy_groups import (
   DirectSumGroup,
   FiniteCyclicGroup,
+  FiniteHomotopyGroupStatement,
   FreeCyclicGroup,
+  HomotopyGroup,
   PrimaryComponent,
   PrimaryComponentMembershipStatement,
   TodaDeltaMap,
@@ -167,6 +169,102 @@ class Toda58EquationStatement:
 class TodaLemma57TwoIota5ImageMembershipStatement:
   element: IteratedSuspension
   source_group: TodaPrimaryGroup
+
+
+def serre_42_finite_homotopy_group_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    group = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    if not isinstance(
+      group,
+      HomotopyGroup,
+    ):
+      return False
+
+    i = (
+      group
+      .group_dimension
+    )
+
+    n = (
+      group
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      i,
+      int,
+    ):
+      return False
+
+    if not isinstance(
+      n,
+      int,
+    ):
+      return False
+
+    if (
+      i
+      == n
+    ):
+      return False
+
+    if (
+      i
+      == 2 * n - 1
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    group = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return (
+      FiniteHomotopyGroupStatement(
+        group=group,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Serre (4.2) "
+      "finite homotopy group"
+    ),
+    description=(
+      "Apply Serre's finiteness theorem "
+      "as quoted in Toda (4.2): "
+      "pi_i(S^n) is finite except when "
+      "i=n or i=2n-1. "
+      "This Phase 72R-4 rule is limited "
+      "to concrete integer dimensions. "
+      "It does not introduce symbolic "
+      "inequality reasoning or primary "
+      "decomposition semantics."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        statement_type=(
+          HomotopyGroup
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
 
 
 def toda_lemma57_e2_eta2_alpha_composition_inference_rule():

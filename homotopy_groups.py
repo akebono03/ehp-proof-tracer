@@ -14,6 +14,11 @@ class HomotopyGroup:
 
 
 @dataclass(frozen=True)
+class FiniteHomotopyGroupStatement:
+  group: HomotopyGroup
+
+
+@dataclass(frozen=True)
 class PrimaryComponent:
   group_dimension: ScalarValue
   sphere_dimension: ScalarValue
