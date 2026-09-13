@@ -29,7 +29,7 @@ The implementation strategy is to formalize only the minimum theorem consequence
 
 # Current status
 
-Completed through Phase 72R.
+Completed through Phase 73.
 
 ```text
 Phase 1–27   generic proof / algebra / Toda-bracket foundation
@@ -69,12 +69,14 @@ Phase 70     Toda Proposition 5.9 finite-dimensional computation
 Phase 71     Toda Equation (5.12): Δ injective for n=4,5,6
 Phase 72     Toda Lemma 5.10 first implementation
 Phase 72R    Toda Lemma 5.10 semantic correction / canonical implementation
+Phase 72R-A1 Toda (4.3) semantic audit
+Phase 73     Toda Proposition 5.11 finite-dimensional computation
 ```
 
 Latest repository-wide regression:
 
 ```text
-5117 passed in 113.34s
+5386 passed in 124.02s
 ```
 
 Phase 64 same-machine baseline:
@@ -85,12 +87,12 @@ Phase 64 same-machine baseline:
 
 The Phase 64 final regression is approximately 88.4% faster than the same-machine baseline while preserving the same 3657-test coverage.
 
-Phase 72R semantic correction, provenance audit, corrected probe, and regression verification are complete. Repository-wide wall time is machine-dependent because development is performed on two PCs; the latest recorded home-laptop run is 5117 passed in 113.34s.
+Phase 72R semantic correction, provenance audit, corrected probe, and regression verification are complete. Repository-wide wall time is machine-dependent because development is performed on two PCs; the latest recorded home-laptop run is 5386 passed in 124.02s.
 
 Representative current probe:
 
 ```powershell
-python -m probes.probe_phase72_capabilities
+python -m probes.probe_phase73_capabilities
 ```
 
 ---
@@ -3712,6 +3714,168 @@ repository-wide:
 
 ---
 
+# Phase 73: Toda Proposition 5.11 finite-dimensional computation
+
+Phase 73 implements the finite-dimensional part of Toda Proposition 5.11.
+
+The notation
+
+```text
+ν_n² := ν_n∘ν_(n+3)
+```
+
+is represented by the existing `Composition` expression. No dedicated `NuSquare` class is introduced.
+
+The final finite-dimensional capability is:
+
+```text
+π_8^2  = Z/2{η₂ν′η₆²}
+π_9^3  = 0
+π_10^4 = Z/8{ν₄²}
+π_(n+6)^n = Z/2{ν_n²}, n≥5
+```
+
+Supporting Toda Equation (5.13) relations are also derived:
+
+```text
+Δ(ν₉)=±2ν₄²
+Δ(η₁₁²)=0
+Δ(η₁₃)=0
+```
+
+## Six-stem branch
+
+The six-stem computation is split into:
+
+```text
+n=5   π_11^5 = Z/2{ν₅²}
+n=6   π_12^6 = Z/2{ν₆²}
+n=7   π_13^7 = Z/2{ν₇²}
+n=8   π_14^8 = Z/2{ν₈²}
+n≥9   π_(n+6)^n = Z/2{ν_n²}
+```
+
+For `n=8`, Toda Proposition 4.4 is reused:
+
+```text
+π_13^7 ⊕ π_14^15 ≅ π_14^8
+π_14^15 = 0
+↓
+E:π_13^7 ≅ π_14^8
+```
+
+and the independently derived generator `ν₇²` is transported to `ν₈²`.
+
+For `n≥9`, Toda (4.5) gives:
+
+```text
+E^(n-8):π_14^8 ≅ π_(n+6)^n
+```
+
+and a Proposition-5.11-specific bridge transports `ν₈²` to `ν_n²`.
+
+No generic suspension-of-composition normalizer is added.
+
+## Final aggregate
+
+Phase 73 introduces:
+
+```text
+TodaProp511NuSquaredFiniteDimensionalStatement
+TodaProp511FiniteDimensionalStatement
+```
+
+The final Proposition 5.11 aggregate has exactly four direct mathematical premises:
+
+```text
+π_8^2 branch                     INFERENCE
+π_9^3 zero branch                INFERENCE
+π_10^4 branch                    INFERENCE
+ν_n² finite-dimensional aggregate INFERENCE
+```
+
+and the final aggregate itself is:
+
+```text
+ProofRule.INFERENCE
+```
+
+The provenance regression checks:
+
+```text
+final reaches all four branches
+final is not its own ancestor
+final conclusion is absent from ancestors
+branches do not depend on the final aggregate
+```
+
+## Stable branch boundary
+
+Toda's stable conclusion
+
+```text
+(G_6;2)=Z/2{ν²}
+```
+
+is intentionally deferred.
+
+This follows the existing project policy of deferring stable groups such as:
+
+```text
+(G_1;2)=Z/2{η}
+(G_2;2)=Z/2{η²}
+(G_3;2)=Z/8{ν}
+(G_4;2)=0
+```
+
+until a concrete need justifies a stable homotopy-group model.
+
+Phase 73 therefore does not introduce:
+
+```text
+stable homotopy-group model
+stable ν
+E^∞ semantics
+stable ν² representation
+```
+
+## Representative probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase73_capabilities
+```
+
+The probe reports:
+
+```text
+π_8^2 = Z/2{η₂ν′η₆²}
+π_9^3 = 0
+π_10^4 = Z/8{ν₄²}
+π_(n+6)^n = Z/2{ν_n²}  (n ≥ 5)
+
+all four direct Proposition 5.11 branches are INFERENCE = True
+final aggregate derived = True
+final aggregate is GIVEN = False
+stable branch included = False
+stable (G_6;2) remains deferred = True
+```
+
+The proof-style derivation remains hand-authored presentation code, not automatic `ProofStep` narrative generation.
+
+## Phase 73 regression
+
+```text
+tests/test_phase73_probe.py:
+31 passed
+
+repository-wide:
+5386 passed in 124.02s
+```
+
+---
+
 # Documentation
 
 - `README.md` — current capabilities and status
@@ -3724,54 +3888,34 @@ repository-wide:
 
 # Next development boundary
 
-Phase 72R is complete.
+Phase 73 is complete.
 
-The next mathematical Phase is:
+The next development Phase is:
 
 ```text
-Phase 73
-Toda Proposition 5.11
-The group π_(n+6)^n
+Phase 74-1
+next Toda source statement
+source / proof dependency / representation compatibility analysis
 ```
 
-Source targets:
+The exact mathematical target for Phase 74 should be fixed only after checking the next statement in Toda's source and its proof dependencies.
+
+The following remain separate deferred milestones:
 
 ```text
-ν_n² := ν_n∘ν_(n+3),  n≥4
-
-π_8^2  = Z/2{η₂ν′η₆²}
-π_9^3  = 0
-π_10^4 = Z/8{ν₄²}
-π_(n+6)^n = Z/2{ν_n²},  n≥5
-(G_6;2)=Z/2{ν²}
-```
-
-Start with:
-
-```text
-Phase 73-1
-source statement / proof dependency / representation compatibility analysis
-```
-
-The proof introduces the intermediate Toda Equation (5.13):
-
-```text
-Δ(ν₉)=±2ν₄²
-Δ(η₁₁²)=0
-Δ(η₁₃)=0
-```
-
-Before implementation, inspect the current representations for `ν_n²`, the canonical Phase 72R Lemma 5.10 result, Proposition 2.5 composition with Delta, Proposition 1.4 bracket composition, and the n=4,5,6 EHP exactness branches.
-
-The following remain separate later milestones:
-
-```text
+stable homotopy branch
 automatic proof narrative generation
 persistent Proof Repository
-stable homotopy branch
 higher Toda brackets beyond concrete need
 ```
 
+Phase 73's stable conclusion:
+
+```text
+(G_6;2)=Z/2{ν²}
+```
+
+is not automatically carried into Phase 74. It remains part of the deferred stable branch.
 
 ---
 

@@ -319,7 +319,7 @@ H(β)=E²α
 
 source proof ending の `η_{i+2}` は型が合わず、直後の `α=η₃`, `i=4` specialization も `η₅` を与えるため、`η_{i+1}` を canonical target と決定。
 
-production code:
+本体コード:
 
 ```text
 変更なし
@@ -351,7 +351,7 @@ toda_lemma45_n4_two_iota3_composition_inference_rule()
 2ι₃∘α=0
 ```
 
-focused:
+focused テスト:
 
 ```text
 10 passed
@@ -390,7 +390,7 @@ H(β) ∈ -Δ^-1(η₂∘2ι₃)∘E²α
 
 `PreimageSubgroup` は変更しない。
 
-focused:
+focused テスト:
 
 ```text
 14 passed
@@ -427,7 +427,7 @@ toda_lemma52_delta_two_eta2_preimage_inference_rule()
 
 Phase 52 derived result を provenance 付きで再利用。
 
-focused:
+focused テスト:
 
 ```text
 14 passed
@@ -478,7 +478,7 @@ explicit representative
 
 generic coset algebra は追加しない。
 
-focused:
+focused テスト:
 
 ```text
 17 passed
@@ -521,7 +521,7 @@ E(η₃∘γ∘2ι_{i+2})=0
 η₃∘γ∘2ι_{i+2}=0
 ```
 
-focused:
+focused テスト:
 
 ```text
 15 passed
@@ -602,7 +602,7 @@ representative inference rounds:
 18
 ```
 
-focused:
+focused テスト:
 
 ```text
 tests/test_phase57_lemma52_integration.py  13 passed
@@ -750,7 +750,7 @@ Phase 58 concrete index
 → dedicated narrow specialization が必要
 ```
 
-production code:
+本体コード:
 
 ```text
 変更なし
@@ -794,7 +794,7 @@ i=4
 
 Toda bracket 自体を `ν′` と同一視せず、membership を出発点とする。
 
-focused:
+focused テスト:
 
 ```text
 11 passed
@@ -841,7 +841,7 @@ H(ν′)=E²η₃
 
 を導出。
 
-focused:
+focused テスト:
 
 ```text
 14 passed
@@ -890,7 +890,7 @@ H(ν′)=η₅
 
 を得る。
 
-focused:
+focused テスト:
 
 ```text
 13 passed
@@ -969,7 +969,7 @@ apply_inference_match()
 
 で one-shot application とする。
 
-focused:
+focused テスト:
 
 ```text
 15 passed
@@ -1022,13 +1022,13 @@ composition propagation one-shot = True
 shared raw specialization = True
 ```
 
-focused:
+focused テスト:
 
 ```text
 tests/test_phase58_probe.py  9 passed
 ```
 
-Phase 58 focused:
+Phase 58 focused テスト:
 
 ```text
 tests/test_phase58_double_eta4_bridge.py       15 passed
@@ -1206,7 +1206,7 @@ COMPLETE
 π_4^2=Z/2{η₂∘η₃}
 ```
 
-focused:
+focused テスト:
 
 ```text
 15 passed
@@ -1256,7 +1256,7 @@ E:π_4^2→π_5^3 injective
 E:π_4^2≅π_5^3
 ```
 
-focused:
+focused テスト:
 
 ```text
 13 passed
@@ -1284,7 +1284,7 @@ Eη₂²=η₃²
 π_5^3=Z/2{η₃²}
 ```
 
-focused:
+focused テスト:
 
 ```text
 18 passed
@@ -1328,7 +1328,7 @@ E:π_5^3→π_6^4 injective
 E:π_5^3≅π_6^4
 ```
 
-focused:
+focused テスト:
 
 ```text
 17 passed
@@ -1356,7 +1356,7 @@ Eη₃²=η₄²
 π_6^4=Z/2{η₄²}
 ```
 
-focused:
+focused テスト:
 
 ```text
 19 passed
@@ -1397,7 +1397,7 @@ ScalarSum(n,ScalarProduct(-1,4))
 
 をそのまま保持した。
 
-focused:
+focused テスト:
 
 ```text
 18 passed
@@ -1446,7 +1446,7 @@ E^(n-4)η₄²=η_n²
 TodaProp53FiniteDimensionalStatement
 ```
 
-focused:
+focused テスト:
 
 ```text
 18 passed in 19.94s
@@ -1604,7 +1604,7 @@ generic existential witness framework
 generic Whitehead correction algebra
 ```
 
-production code:
+本体コード:
 
 ```text
 変更なし
@@ -1632,7 +1632,7 @@ bracket={±positive_value}
 
 inference rule はまだ追加せず structural semantics のみ導入。
 
-focused:
+focused テスト:
 
 ```text
 7 passed
@@ -1672,7 +1672,7 @@ Phase 58:
 Indeterminacy=<2E^(n-3)ν′>
 ```
 
-focused:
+focused テスト:
 
 ```text
 19 passed
@@ -1707,7 +1707,7 @@ E^(n-3)ν′
 
 generic bracket specialization framework は追加しない。
 
-focused:
+focused テスト:
 
 ```text
 17 passed
@@ -1749,7 +1749,7 @@ Toda (1.15)
 unindexed bracket={±E^(n-3)ν′}
 ```
 
-focused:
+focused テスト:
 
 ```text
 21 passed
@@ -1815,7 +1815,7 @@ Toda (5.4), `n=5,t=3`:
 2Eα*=±E²ν′
 ```
 
-focused:
+focused テスト:
 
 ```text
 20 passed
@@ -1858,7 +1858,7 @@ H(α*)=(2s+1)ι₇
 
 generic divisibility / parity solver は追加しない。
 
-focused:
+focused テスト:
 
 ```text
 18 passed
@@ -1925,7 +1925,7 @@ H(ν₄)=ι₇
 
 を derived。
 
-focused:
+focused テスト:
 
 ```text
 19 passed
@@ -2001,7 +2001,7 @@ Toda Lemma 5.4 proof Whitehead facts
 
 の statement text を保持。
 
-focused:
+focused テスト:
 
 ```text
 20 passed
@@ -2110,7 +2110,7 @@ E^(n-3)ν′
 
 これは automatic proof narrative generation ではなく、Phase 60 probe に hand-authored した presentation-only code。将来 ProofStep graph からこの形式を自動生成する構想を roadmap / design に追加した。
 
-probe focused:
+probe focused テスト:
 
 ```text
 16 passed
@@ -2296,7 +2296,7 @@ final aggregate
 
 へ限定。
 
-production code:
+本体コード:
 
 ```text
 変更なし
@@ -2330,7 +2330,7 @@ Phase 60 の `Toda54BracketUpToSignStatement` の `{±x}` value-set semantics �
 tests/test_phase61_lemma55_statement.py
 ```
 
-focused:
+focused テスト:
 
 ```text
 8 passed
@@ -2366,7 +2366,7 @@ contains
 toda_lemma55_alpha_star_bracket_inclusion_inference_rule()
 ```
 
-focused:
+focused テスト:
 
 ```text
 13 passed
@@ -2403,7 +2403,7 @@ t≥1
 E^tν₄=±E^tα*
 ```
 
-focused:
+focused テスト:
 
 ```text
 16 passed
@@ -2440,7 +2440,7 @@ toda_lemma55_alpha_star_to_nu4_composition_inference_rule()
 
 generic up-to-sign transitivity は追加しない。
 
-focused:
+focused テスト:
 
 ```text
 14 passed
@@ -2487,7 +2487,7 @@ Toda Lemma 5.5 proof
 
 Phase 60 literature は nested `lemma54_statement` 経由で維持。
 
-focused:
+focused テスト:
 
 ```text
 20 passed
@@ -2501,7 +2501,7 @@ COMPLETE
 
 ## Phase 61-7：applicability / provenance regression
 
-production code:
+本体コード:
 
 ```text
 変更なし
@@ -2535,7 +2535,7 @@ Phase 61-6 → Phase 60 Lemma 5.4 aggregate
 
 acyclicity も確認。
 
-focused:
+focused テスト:
 
 ```text
 15 passed
@@ -2644,7 +2644,7 @@ automatic proof narrative generation
 Toda (5.5) ν-family calculation
 ```
 
-focused completion suites verified:
+focused テスト completion suites verified:
 
 ```text
 test_phase61_lemma55_statement.py                   8 passed
@@ -2656,7 +2656,7 @@ test_phase61_lemma55_applicability_provenance.py   15 passed
 test_phase61_probe.py                              16 passed
 ```
 
-最終 repository-wide regression は:
+最終 リポジトリ全体 regression は:
 
 ```powershell
 python -m pytest -q
@@ -2733,7 +2733,7 @@ Phase 62 では finite-dimensional branch のみ実装した。
 
 stable ν / η³ は separate deferred boundary とした。
 
-production code:
+本体コード:
 
 ```text
 変更なし
@@ -2769,7 +2769,7 @@ symbolic exponent:
 ScalarSum(n,-4)
 ```
 
-focused:
+focused テスト:
 
 ```text
 9 passed
@@ -2827,7 +2827,7 @@ wrong ν-family definition
 wrong Lemma 5.4 relation
 ```
 
-focused:
+focused テスト:
 
 ```text
 14 passed
@@ -2888,7 +2888,7 @@ Phase 60:
 
 を導出。
 
-focused:
+focused テスト:
 
 ```text
 13 passed
@@ -2930,7 +2930,7 @@ Lemma 5.4        INFERENCE
 
 identity-based ancestor test は `build_phase62_4_data()` 内の same nested fixture tree を共有するよう修正した。
 
-focused:
+focused テスト:
 
 ```text
 17 passed
@@ -2982,7 +2982,7 @@ Phase 60 literature は nested Lemma 5.4 aggregate から継承。
 
 stable `4ν=η³` は aggregate に含めない。
 
-focused:
+focused テスト:
 
 ```text
 24 passed
@@ -3029,7 +3029,7 @@ final aggregate not ancestor of 4ν_n
 final aggregate conclusion absent from ancestors
 ```
 
-focused:
+focused テスト:
 
 ```text
 19 passed
@@ -3093,7 +3093,7 @@ definition / applicability remain GIVEN = True
 fixed point = True
 ```
 
-focused:
+focused テスト:
 
 ```text
 18 passed
@@ -3246,7 +3246,7 @@ TodaPrimaryGroupMembershipStatement
 
 があるため generic Phase 47 rule の直接再利用は避け、専用 specialization bridge を選択。
 
-production code:
+本体コード:
 
 ```text
 変更なし
@@ -3278,7 +3278,7 @@ H(ν₄)=ι₇
 
 を derived にする。
 
-focused:
+focused テスト:
 
 ```text
 15 passed
@@ -3323,7 +3323,7 @@ TodaProp44IsomorphismStatement  INFERENCE
 
 という境界を採用。
 
-focused:
+focused テスト:
 
 ```text
 19 passed
@@ -3360,7 +3360,7 @@ Phase 63-3 derived `TodaProp44IsomorphismStatement` を Toda (5.6) 専用 semant
 (α,β)↦Eα+ν₄∘β
 ```
 
-focused:
+focused テスト:
 
 ```text
 17 passed
@@ -3380,7 +3380,7 @@ COMPLETE
 
 ## Phase 63-5：applicability / provenance regression
 
-production code:
+本体コード:
 
 ```text
 変更なし
@@ -3422,7 +3422,7 @@ final graph acyclic
 final conclusion absent from ancestors
 ```
 
-focused:
+focused テスト:
 
 ```text
 20 passed
@@ -3469,7 +3469,7 @@ Equation (5.6)
 
 Phase 60 literature は nested `lemma54_statement` から継承。
 
-focused:
+focused テスト:
 
 ```text
 19 passed
@@ -3534,7 +3534,7 @@ structural decomposition map remains GIVEN = True
 fixed point = True
 ```
 
-focused:
+focused テスト:
 
 ```text
 17 passed
@@ -3628,7 +3628,7 @@ COMPLETE
 
 # Phase 64：performance stabilization
 
-Phase 63 completion 後、数学 capability を追加せず repository-wide regression performance を分析・改善する Phase とした。
+Phase 63 completion 後、数学 capability を追加せず リポジトリ全体 regression performance を分析・改善する Phase とした。
 
 same-machine baseline:
 
@@ -3978,7 +3978,7 @@ Toda (5.2) と既存 η-family result を接続して:
 
 を導出。
 
-focused:
+focused テスト:
 
 ```text
 15 passed
@@ -4023,7 +4023,7 @@ E:π_5^2→π_6^3 injective
 
 を導出。
 
-focused:
+focused テスト:
 
 ```text
 18 passed
@@ -4050,7 +4050,7 @@ ord(ν′)=4
 
 generic exact-order solver は追加しない。
 
-focused:
+focused テスト:
 
 ```text
 18 passed
@@ -4084,7 +4084,7 @@ Toda (5.6), `i=7`:
 
 を導出。
 
-focused:
+focused テスト:
 
 ```text
 17 passed
@@ -4107,7 +4107,7 @@ E²:π_6^3→π_8^5 injective
 
 generic symbolic quotient representation は追加しない。
 
-focused:
+focused テスト:
 
 ```text
 17 passed
@@ -4157,7 +4157,7 @@ ord(ν₅)=8
 π_8^5=Z/8{ν₅}
 ```
 
-focused:
+focused テスト:
 
 ```text
 21 passed
@@ -4196,7 +4196,7 @@ E^(n-5)ν₅=ν_n
 (n≥6)
 ```
 
-focused:
+focused テスト:
 
 ```text
 24 passed
@@ -4236,7 +4236,7 @@ TodaProp56FiniteDimensionalStatement
                                   INFERENCE
 ```
 
-focused:
+focused テスト:
 
 ```text
 21 passed
@@ -4288,14 +4288,14 @@ theorem dependencies are INFERENCE = True
 fixed point = True
 ```
 
-focused:
+focused テスト:
 
 ```text
 tests/test_phase65_probe.py       21 passed
 tests/test_phase65_provenance.py  12 passed
 ```
 
-final repository-wide regression:
+final リポジトリ全体 regression:
 
 ```text
 3841 passed in 31.82s
@@ -4369,7 +4369,7 @@ representative probe:
 python -m probes.probe_phase65_capabilities
 ```
 
-final full regression:
+最終全体回帰:
 
 ```text
 3841 passed in 31.82s
@@ -4434,7 +4434,7 @@ generic sign solver 不要
 generic up-to-sign transitivity 不要
 ```
 
-production code:
+本体コード:
 
 ```text
 変更なし
@@ -4457,9 +4457,9 @@ Suspension
 TodaDeltaImageUpToSignStatement
 ```
 
-で構造表現可能であることを focused test で固定。
+で構造表現可能であることを focused テスト test で固定。
 
-focused:
+focused テスト:
 
 ```text
 12 passed
@@ -4495,7 +4495,7 @@ Phase 65 derived
 
 Phase 65 aggregate 全体を premise にせず、必要な decomposition relation のみ利用。
 
-focused:
+focused テスト:
 
 ```text
 19 passed
@@ -4540,7 +4540,7 @@ TodaLemma54WhiteheadCorrectionDataStatement
 
 Phase 60 `[ι₄,ι₄]` object と Phase 66-3 positive representative object を再利用。
 
-focused:
+focused テスト:
 
 ```text
 18 passed
@@ -4580,7 +4580,7 @@ same positive representative
 
 generic up-to-sign transitivity は追加しない。
 
-focused:
+focused テスト:
 
 ```text
 22 passed
@@ -4600,7 +4600,7 @@ COMPLETE
 
 ## Phase 66-6：applicability / wrong-instance / provenance regression
 
-production code:
+本体コード:
 
 ```text
 変更なし
@@ -4627,7 +4627,7 @@ cross-rule wrong-instance rejection
 object reuse
 ```
 
-focused:
+focused テスト:
 
 ```text
 20 passed
@@ -4679,7 +4679,7 @@ final aggregate:
 ProofRule.INFERENCE
 ```
 
-focused:
+focused テスト:
 
 ```text
 21 passed
@@ -4738,7 +4738,7 @@ fixed point = True
 proof-style derivation は hand-authored presentation layer のままであり、
 `ProofStep` graph からの自動生成ではない。
 
-focused:
+focused テスト:
 
 ```text
 17 passed
@@ -4752,7 +4752,7 @@ COMPLETE
 
 ## Phase 66-9：full regression
 
-Phase 66 focused suite:
+Phase 66 focused テスト suite:
 
 ```text
 12 + 19 + 18 + 22 + 20 + 21 + 17
@@ -4760,7 +4760,7 @@ Phase 66 focused suite:
 129 passed
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 3970 passed in 31.96s
@@ -4859,7 +4859,7 @@ docs/proof_records.md
 Toda Equation (5.8)
 ```
 
-final full regression:
+最終全体回帰:
 
 ```text
 3970 passed in 31.96s
@@ -4922,7 +4922,7 @@ Delta generator consequence も concrete に限定
 Phase 66 は direct dependency ではない
 ```
 
-production code:
+本体コード:
 
 ```text
 変更なし
@@ -4950,7 +4950,7 @@ E²α ∈ 2ι₅∘π_(i+2)(S⁵)
 
 field は `element` / `source_group` のみ。
 
-focused:
+focused テスト:
 
 ```text
 9 passed
@@ -5011,7 +5011,7 @@ general all-n rule は追加しない。
 
 Phase 67-3/4 concrete ν′ compatibility のため、general α index を `alpha.dimension` ではなく `alpha.source` から読むよう修正。
 
-focused after regression addition:
+focused テスト after regression addition:
 
 ```text
 Phase 67-3  16 passed
@@ -5067,7 +5067,7 @@ E(η₂∘ν′)=0
 
 を end-to-end 導出。
 
-focused:
+focused テスト:
 
 ```text
 17 passed
@@ -5106,7 +5106,7 @@ Phase 56:
 π_6^2=Z/4{η₂∘ν′}
 ```
 
-focused:
+focused テスト:
 
 ```text
 17 passed
@@ -5175,7 +5175,7 @@ toda_nu_family_definition_statement(5).element
 
 を canonical generator validation に利用。
 
-focused:
+focused テスト:
 
 ```text
 19 passed
@@ -5195,7 +5195,7 @@ COMPLETE
 
 ## Phase 67-8：applicability / provenance / non-circularity
 
-production code:
+本体コード:
 
 ```text
 変更なし
@@ -5224,7 +5224,7 @@ intermediate branches do not depend on final
 Phase 66 Toda58EquationStatement is not an ancestor
 ```
 
-focused:
+focused テスト:
 
 ```text
 19 passed
@@ -5282,13 +5282,13 @@ fixed_point
 
 を先に local variable として計算し、f-string には単純値のみ埋め込む形へ変更。
 
-focused:
+focused テスト:
 
 ```text
 21 passed
 ```
 
-final repository-wide regression:
+final リポジトリ全体 regression:
 
 ```text
 4102 passed in 32.75s
@@ -5376,7 +5376,7 @@ docs/proof_records.md
 Toda Lemma 5.7
 ```
 
-final full regression:
+最終全体回帰:
 
 ```text
 4102 passed in 32.75s
@@ -5505,7 +5505,7 @@ H isomorphism
 π_7^3=Z/2{ν′η₆}
 ```
 
-focused builder:
+focused テスト builder:
 
 ```text
 build_phase68_3_data()
@@ -5707,7 +5707,7 @@ Toda (5.9)
 (n≥5)
 ```
 
-focused:
+focused テスト:
 
 ```text
 21 passed in 5.82s
@@ -5872,7 +5872,7 @@ dimension / source / target / GeneratorSymbol を構造検証
 
 helper の global naming は変更しない。
 
-focused:
+focused テスト:
 
 ```text
 21 passed in 4.64s
@@ -5928,7 +5928,7 @@ aggregate INFERENCE
 (G_4;2)=0 absent
 ```
 
-focused:
+focused テスト:
 
 ```text
 21 passed in 1.42s
@@ -5954,7 +5954,7 @@ COMPLETE
 
 ## Phase 68-12：applicability / provenance / non-circularity regression
 
-production code:
+本体コード:
 
 ```text
 変更なし
@@ -5985,7 +5985,7 @@ Toda (5.9) absent from π_7^3 ancestors
 Toda (5.9) does not depend on final aggregate
 ```
 
-focused:
+focused テスト:
 
 ```text
 28 passed in 1.33s
@@ -6067,7 +6067,7 @@ not yet generated automatically from the ProofStep graph
 
 という boundary を表示。
 
-focused:
+focused テスト:
 
 ```text
 26 passed in 1.38s
@@ -6079,7 +6079,7 @@ aggregate + provenance + probe:
 75 passed in 1.53s
 ```
 
-final repository-wide regression:
+final リポジトリ全体 regression:
 
 ```text
 4343 passed in 28.06s
@@ -6185,7 +6185,7 @@ docs/proof_records.md
 Toda Proposition 5.8
 ```
 
-final full regression:
+最終全体回帰:
 
 ```text
 4343 passed in 28.06s
@@ -6195,7 +6195,7 @@ performance:
 
 ```text
 Phase 64 stabilization level retained
-approximately 30-second repository-wide regression
+approximately 30-second リポジトリ全体 regression
 ```
 
 deferred:
@@ -6311,7 +6311,7 @@ INFERENCE
 tests/test_phase69_delta_surjectivity.py
 ```
 
-focused:
+focused テスト:
 
 ```text
 13 passed in 1.88s
@@ -6327,7 +6327,7 @@ tests/test_phase68_pi9_5_nu5_eta8.py
 19 passed in 1.17s
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 4356 passed in 30.25s
@@ -6372,7 +6372,7 @@ Phase 68-6 target generator object を直接再利用する。
 tests/test_phase69_delta_iota11.py
 ```
 
-focused:
+focused テスト:
 
 ```text
 19 passed in 1.50s
@@ -6390,7 +6390,7 @@ Phase 68-6 regression:
 19 passed in 1.19s
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 4375 passed in 29.55s
@@ -6404,7 +6404,7 @@ COMPLETE
 
 ## Phase 69-4：applicability / provenance / non-circularity
 
-production code:
+本体コード:
 
 ```text
 変更なし
@@ -6446,7 +6446,7 @@ Phase 68 aggregate:
   not Δ-surjectivity ancestor
 ```
 
-focused:
+focused テスト:
 
 ```text
 25 passed in 1.35s
@@ -6464,7 +6464,7 @@ Phase 68 upstream:
 68 passed in 1.61s
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 4400 passed in 30.09s
@@ -6528,7 +6528,7 @@ fixed point = True
 
 proof-style derivation は hand-authored presentation code であり automatic proof narrative generation ではない。
 
-focused:
+focused テスト:
 
 ```text
 22 passed in 1.18s
@@ -6540,7 +6540,7 @@ Phase 69 combined:
 79 passed in 1.53s
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 4422 passed in 30.54s
@@ -6639,7 +6639,7 @@ docs/proof_records.md
 Toda Equation (5.10)
 ```
 
-final full regression:
+最終全体回帰:
 
 ```text
 4422 passed in 30.54s
@@ -6786,7 +6786,7 @@ COMPLETE
 π_10^5=Z/2{ν₅η₈²}
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 4532 passed in 29.76s
@@ -6833,13 +6833,13 @@ GeneratorSymbol
 
 を比較する。
 
-focused:
+focused テスト:
 
 ```text
 25 passed in 1.32s
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 4585 passed in 30.33s
@@ -6878,7 +6878,7 @@ H(Δι₁₃)=±2ι₁₁
 π_11^6=Z{Δι₁₃}
 ```
 
-focused:
+focused テスト:
 
 ```text
 36 passed in 1.64s
@@ -6890,7 +6890,7 @@ related:
 72 passed in 1.80s
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 4621 passed in 30.50s
@@ -6935,7 +6935,7 @@ E^(n-7):
 (n≥7)
 ```
 
-focused:
+focused テスト:
 
 ```text
 38 passed in 1.48s
@@ -6947,7 +6947,7 @@ related:
 67 passed in 1.59s
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 4659 passed in 30.21s
@@ -6988,7 +6988,7 @@ TodaProp59FiniteDimensionalStatement
 INFERENCE
 ```
 
-focused:
+focused テスト:
 
 ```text
 24 passed in 1.53s
@@ -7000,7 +7000,7 @@ Phase 70 main chain:
 206 passed in 2.05s
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 4683 passed in 33.34s
@@ -7014,7 +7014,7 @@ COMPLETE
 
 ## Phase 70-11：provenance / non-circular regression
 
-production code:
+本体コード:
 
 ```text
 変更なし
@@ -7050,7 +7050,7 @@ Phase 69 Δ(ι₁₁) ↛ π_9^4
 Phase 69 Δ(ι₁₁) ↛ π_10^5
 ```
 
-focused:
+focused テスト:
 
 ```text
 40 passed in 1.41s
@@ -7062,7 +7062,7 @@ aggregate + provenance:
 64 passed in 1.67s
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 4723 passed in 32.19s
@@ -7108,7 +7108,7 @@ not yet generated automatically from the ProofStep graph
 
 という boundary を表示。
 
-focused:
+focused テスト:
 
 ```text
 29 passed in 1.52s
@@ -7120,7 +7120,7 @@ aggregate + provenance + probe:
 93 passed in 1.65s
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 4752 passed in 30.85s
@@ -7212,7 +7212,7 @@ docs/proof_records.md
 Toda Proposition 5.9
 ```
 
-final full regression:
+最終全体回帰:
 
 ```text
 4752 passed in 30.85s
@@ -7222,7 +7222,7 @@ performance:
 
 ```text
 Phase 64 stabilization level retained
-approximately 30-second repository-wide regression
+approximately 30-second リポジトリ全体 regression
 ```
 
 deferred:
@@ -7330,7 +7330,7 @@ INFERENCE
 
 wrong argument / value / target / order / GIVEN substitution を reject。
 
-focused:
+focused テスト:
 
 ```text
 19 passed in 1.61s
@@ -7342,7 +7342,7 @@ related:
 93 passed in 1.75s
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 4771 passed in 32.03s
@@ -7374,7 +7374,7 @@ Prop.5.1 higher η-family INFERENCE
 INFERENCE
 ```
 
-focused:
+focused テスト:
 
 ```text
 20 passed in 1.49s
@@ -7386,7 +7386,7 @@ related:
 73 passed in 1.62s
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 4791 passed in 31.14s
@@ -7419,7 +7419,7 @@ INFERENCE
 
 Phase 70 の surjectivity statement は direct premise にしない。
 
-focused:
+focused テスト:
 
 ```text
 19 passed in 1.48s
@@ -7431,7 +7431,7 @@ related:
 93 passed in 1.53s
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 4810 passed in 30.85s
@@ -7474,7 +7474,7 @@ Composition Methods in Homotopy Groups of Spheres
 Equation (5.12)
 ```
 
-focused:
+focused テスト:
 
 ```text
 19 passed in 1.43s
@@ -7486,7 +7486,7 @@ Phase 71 aggregate regression:
 77 passed in 1.79s
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 4829 passed in 30.23s
@@ -7500,7 +7500,7 @@ COMPLETE
 
 ## Phase 71-6：applicability / provenance / non-circular regression
 
-production code:
+本体コード:
 
 ```text
 変更なし
@@ -7541,7 +7541,7 @@ n=6:
 π_11^6  = INFERENCE
 ```
 
-focused:
+focused テスト:
 
 ```text
 30 passed in 1.42s
@@ -7553,7 +7553,7 @@ Phase 71 regression:
 107 passed in 1.83s
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 4859 passed in 31.23s
@@ -7601,7 +7601,7 @@ python -m py_compile probes/probe_phase71_capabilities.py
 
 成功。
 
-focused:
+focused テスト:
 
 ```text
 27 passed in 1.30s
@@ -7615,7 +7615,7 @@ python -m probes.probe_phase71_capabilities
 
 で3ケース、aggregate、provenance、literature、boundary を確認。
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 4886 passed in 29.25s
@@ -7715,7 +7715,7 @@ docs/proof_records.md
 Toda Equation (5.12)
 ```
 
-final full regression:
+最終全体回帰:
 
 ```text
 4886 passed in 29.25s
@@ -7725,7 +7725,7 @@ performance:
 
 ```text
 Phase 64 stabilization level retained
-approximately 30-second repository-wide regression
+approximately 30-second リポジトリ全体 regression
 ```
 
 deferred:
@@ -7776,7 +7776,7 @@ canonical reuse:
 η₉ = toda_eta_family_definition_statement(9).element
 ```
 
-production code:
+本体コード:
 
 ```text
 変更なし
@@ -7811,7 +7811,7 @@ modulus
 tests/test_phase72_lemma510_statement.py
 ```
 
-focused:
+focused テスト:
 
 ```text
 10 passed in 2.67s
@@ -7823,7 +7823,7 @@ related:
 103 passed in 13.85s
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 4896 passed in 91.74s
@@ -7841,7 +7841,7 @@ COMPLETE
 
 最初の実装では Phase 71 n=6 Delta injectivity を direct premise とした。
 
-initial focused:
+initial focused テスト:
 
 ```text
 16 passed in 3.49s
@@ -7853,7 +7853,7 @@ initial related:
 111 passed in 5.75s
 ```
 
-initial repository-wide:
+initial リポジトリ全体:
 
 ```text
 4912 passed in 114.31s
@@ -7897,7 +7897,7 @@ existing Δι₁₁ relation RHS を Composition として分解
 
 これにより structural display-name 差を theorem identity と混同しない設計へ修正。
 
-revised focused:
+revised focused テスト:
 
 ```text
 19 passed in 4.29s
@@ -7909,7 +7909,7 @@ revised related:
 150 passed in 7.32s
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 4915 passed in 91.52s
@@ -7978,7 +7978,7 @@ final:
 ProofRule.INFERENCE
 ```
 
-focused:
+focused テスト:
 
 ```text
 22 passed in 8.29s
@@ -7990,7 +7990,7 @@ related:
 162 passed in 7.53s
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 4937 passed in 90.40s
@@ -8004,7 +8004,7 @@ COMPLETE
 
 ## Phase 72-5：applicability / provenance / non-circular regression
 
-production code:
+本体コード:
 
 ```text
 変更なし
@@ -8041,7 +8041,7 @@ not in final ancestry
 
 を regression として固定。
 
-focused:
+focused テスト:
 
 ```text
 31 passed in 4.70s
@@ -8059,7 +8059,7 @@ related upstream regression:
 248 passed in 7.95s
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 4968 passed in 121.42s
@@ -8121,7 +8121,7 @@ python -m py_compile probes/probe_phase72_capabilities.py
 
 成功。
 
-focused:
+focused テスト:
 
 ```text
 22 passed in 4.39s
@@ -8140,7 +8140,7 @@ final graph acyclic = True
 Phase 71 Delta injectivity absent from ancestry = True
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 4990 passed in 70.11s
@@ -8186,7 +8186,7 @@ Toda Proposition 5.11
 
 へ更新。
 
-current repository-wide regression:
+current リポジトリ全体 regression:
 
 ```text
 4990 passed in 70.11s
@@ -8241,7 +8241,7 @@ docs/proof_records.md
 Toda Lemma 5.10
 ```
 
-final full regression on home laptop:
+最終全体回帰 on home laptop:
 
 ```text
 4990 passed in 70.11s
@@ -8252,7 +8252,7 @@ performance note:
 ```text
 development uses two PCs
 compare wall time per machine
-focused regressions remain short
+focused テスト regressions remain short
 ```
 
 deferred:
@@ -8361,7 +8361,7 @@ HomotopyGroup
 
 `TodaPrimaryGroup` と structural に区別。
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 4998 passed in 118.84s
@@ -8395,7 +8395,7 @@ i != 2n-1
 π₁₀(S⁵) finite
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 5008 passed in 104.25s
@@ -8440,7 +8440,7 @@ i=10
 
 を ordinary exactness として導出。
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 5027 passed in 109.46s
@@ -8481,7 +8481,7 @@ Eπ₁₀(S⁵)⊂2π₁₁(S⁶)
 
 旧 `π₁₁⁶=Z{Δι₁₃}` shortcut は corrected image branch では不要。
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 5045 passed in 108.20s
@@ -8533,13 +8533,13 @@ Indeterminacy=2π₁₁(S⁶)
 
 を derived にした。
 
-focused:
+focused テスト:
 
 ```text
 18 passed in 6.69s
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 5063 passed in 108.73s
@@ -8612,13 +8612,13 @@ ambient:
 HomotopyGroup(11,6)
 ```
 
-focused:
+focused テスト:
 
 ```text
 15 passed in 4.14s
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 5078 passed in 111.49s
@@ -8632,7 +8632,7 @@ COMPLETE
 
 ## Phase 72R-9：provenance / legacy retirement audit
 
-production code:
+本体コード:
 
 ```text
 変更なし
@@ -8674,13 +8674,13 @@ legacy statement type を全面禁止しない
 legacy proof instance / exact statement を禁止する
 ```
 
-focused:
+focused テスト:
 
 ```text
 33 passed in 7.06s
 ```
 
-repository-wide:
+リポジトリ全体:
 
 ```text
 5111 passed in 106.64s
@@ -8736,10 +8736,10 @@ tests/test_phase72_probe.py
 old + corrected probe
 28 passed in 7.61s
 
-Phase 72R focused
+Phase 72R focused テスト
 149 passed in 9.34s
 
-repository-wide
+リポジトリ全体
 5117 passed in 113.34s
 ```
 
@@ -8775,7 +8775,7 @@ Toda (1.15) indexed-to-ordinary bridge explicit
 legacy shortcut proof instances retired from canonical ancestry
 ```
 
-final full regression:
+最終全体回帰:
 
 ```text
 5117 passed in 113.34s
@@ -8821,7 +8821,7 @@ Phase 71  OK: Δ:π_13^13 -> π_11^6 uses diagonal -> exceptional branches
 
 したがって Phase 66R–71R は不要。
 
-production code:
+本体コード:
 
 ```text
 変更なし
@@ -8862,17 +8862,675 @@ docs/roadmap.md
 ```text
 Phase 73-1
 Toda Proposition 5.11
-source statement / proof dependency / representation compatibility analysis
+原典 statement / 証明依存 / 表現互換性の解析
 ```
 
 ### 状態
 
-PENDING REGRESSION
+COMPLETE
 
-完了条件:
+完了確認:
 
 ```text
-Phase 72R-A1 focused tests pass
-Phase 72R corrected tests pass
-repository-wide regression pass
+Phase 72R-A1 focused テスト tests passed
+Phase 72R corrected tests passed
+リポジトリ全体 regression passed
 ```
+Phase 73 開始前の semantic audit として完了。
+
+---
+
+# Phase 73：Toda Proposition 5.11 finite-dimensional result
+
+対象:
+
+```text
+ν_n² := ν_n∘ν_(n+3), n≥4
+
+π_8^2  = Z/2{η₂ν′η₆²}
+π_9^3  = 0
+π_10^4 = Z/8{ν₄²}
+π_(n+6)^n = Z/2{ν_n²}, n≥5
+```
+
+Toda 原典に含まれる stable statement:
+
+```text
+(G_6;2)=Z/2{ν²}
+```
+
+は、これまで stable group を飛ばしてきた方針に合わせて deferred とする。
+
+---
+
+## Phase 73-1：dependency / representation compatibility analysis
+
+確認対象:
+
+```text
+Proposition 5.9
+Toda (5.2)
+Lemma 5.7
+Proposition 5.8
+Proposition 5.6
+Toda (5.6)
+Toda (5.12)
+Proposition 2.5
+Toda (5.8)
+Toda (5.10)
+Toda (5.5)
+Lemma 5.10
+Proposition 1.4
+Toda (5.4)
+Proposition 4.4
+Toda (4.5)
+```
+
+Phase 72R corrected Lemma 5.10 を canonical prerequisite とし、historical Phase 72 shortcut graph は新しい dependency に使わない。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 73-2：ν_n² representation
+
+`ν_n²` は新しい class を追加せず:
+
+```text
+Composition(
+  ν_n,
+  ν_(n+3),
+)
+```
+
+として表現。
+
+追加しない:
+
+```text
+NuSquare
+generic suspension-of-composition normalizer
+generic shifted-family helper
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 73-3：π_8^2
+
+Phase 70:
+
+```text
+π_8^3=Z/2{ν′η₆²}
+```
+
+Toda (5.2):
+
+```text
+η₂∘- : π_8^3 ≅ π_8^2
+```
+
+より:
+
+```text
+π_8^2=Z/2{η₂ν′η₆²}
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 73-4：π_9^3=0
+
+n=3 concrete branch を独立に導出。
+
+```text
+π_9^3=0
+```
+
+final representation:
+
+```text
+TodaPrimaryGroupZeroStatement
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 73-5：π_10^4
+
+```text
+ν₄²:=ν₄∘ν₇
+```
+
+として:
+
+```text
+π_10^4=Z/8{ν₄²}
+```
+
+を導出。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 73-6：Toda (5.13)
+
+Phase 73-6A:
+
+```text
+Δ(ν₉)=±2ν₄²
+```
+
+Phase 73-6B:
+
+```text
+Δ(η₁₁²)=0
+```
+
+Phase 73-6C:
+
+```text
+Δ(η₁₃)=0
+```
+
+を derived provenance 付きで統合。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 73-7A：π_11^5
+
+```text
+π_11^5=Z/2{ν₅²}
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 73-7B：π_12^6
+
+```text
+π_12^6=Z/2{ν₆²}
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 73-7C：π_13^7
+
+```text
+π_13^7=Z/2{ν₇²}
+```
+
+focused テスト completion:
+
+```text
+18 passed
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 73-8A2：n=8 suspension isomorphism
+
+Toda Proposition 4.4:
+
+```text
+π_13^7 ⊕ π_14^15 ≅ π_14^8
+```
+
+と:
+
+```text
+π_14^15=0
+```
+
+から theorem-specific に:
+
+```text
+E:π_13^7≅π_14^8
+```
+
+を導出。
+
+generic direct-sum simplifier は追加しない。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 73-8A3：π_14^8
+
+```text
+π_13^7=Z/2{ν₇²}
++
+E:π_13^7≅π_14^8
+↓
+π_14^8=Z/2{ν₈²}
+```
+
+regression:
+
+```text
+tests/test_phase73_pi14_8_nu8_squared.py
+11 passed in 6.24s
+```
+
+Phase 73-7C + 8A2 + 8A3:
+
+```text
+36 passed in 4.52s
+```
+
+リポジトリ全体 at that point:
+
+```text
+5312 passed in 136.39s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 73-8B：n≥9 stable-range finite-dimensional transport
+
+Toda (4.5):
+
+```text
+E^(n-8):π_14^8≅π_(n+6)^n
+```
+
+と:
+
+```text
+π_14^8=Z/2{ν₈²}
+```
+
+から:
+
+```text
+π_(n+6)^n=Z/2{ν_n²}, n≥9
+```
+
+を導出。
+
+`ν_(n+3)` は family helper を無理に拡張せず、必要な symbolic element を rule 内で局所構築。
+
+focused テスト:
+
+```text
+16 passed in 8.79s
+```
+
+Toda (4.5) dependency regression:
+
+```text
+41 passed in 5.68s
+```
+
+リポジトリ全体:
+
+```text
+5328 passed in 144.06s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 73-8C：finite-dimensional six-stem aggregate
+
+統合:
+
+```text
+n=5  π_11^5=Z/2{ν₅²}
+n=6  π_12^6=Z/2{ν₆²}
+n=7  π_13^7=Z/2{ν₇²}
+n=8  π_14^8=Z/2{ν₈²}
+n≥9 π_(n+6)^n=Z/2{ν_n²}
+```
+
+追加:
+
+```text
+TodaProp511NuSquaredFiniteDimensionalStatement
+toda_prop511_nu_squared_finite_dimensional_integration_inference_rule()
+```
+
+数学的には:
+
+```text
+π_(n+6)^n=Z/2{ν_n²}, n≥5
+```
+
+を表すが、内部では provenance を保つため branch aggregate として保持。
+
+focused テスト:
+
+```text
+12 passed
+```
+
+関連 chain:
+
+```text
+64 passed in 6.76s
+```
+
+リポジトリ全体:
+
+```text
+5340 passed in 141.27s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 73-8D：stable branch の扱い
+
+Toda source の:
+
+```text
+(G_6;2)=Z/2{ν²}
+```
+
+は実装しない。
+
+これまで deferred としてきた:
+
+```text
+(G_1;2)=Z/2{η}
+(G_2;2)=Z/2{η²}
+(G_3;2)=Z/8{ν}
+(G_4;2)=0
+```
+
+と同じ扱い。
+
+理由:
+
+```text
+stable homotopy-group model
+stable ν
+E^∞ semantics
+unstable ν_n² と stable ν² の bridge
+```
+
+を初めて設計する必要があり、Phase 73 finite-dimensional scope を超えるため。
+
+### 状態
+
+DEFERRED
+
+---
+
+## Phase 73-8E1：finite-dimensional final aggregate
+
+追加:
+
+```text
+TodaProp511FiniteDimensionalStatement
+toda_prop511_finite_dimensional_literature_statements()
+toda_prop511_finite_dimensional_integration_inference_rule()
+```
+
+direct premise:
+
+```text
+π_8^2 branch                     INFERENCE
+π_9^3 zero branch                INFERENCE
+π_10^4 branch                    INFERENCE
+ν_n² finite-dimensional aggregate INFERENCE
+```
+
+final:
+
+```text
+TodaProp511FiniteDimensionalStatement
+ProofRule.INFERENCE
+```
+
+focused テスト:
+
+```text
+8 passed
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 73-8E2：provenance / non-circularity regression
+
+確認:
+
+```text
+all four direct branches are INFERENCE
+final aggregate is not GIVEN
+final reaches all four branches
+final is not its own ancestor
+final conclusion absent from ancestors
+branches do not depend on final
+stable fields absent
+```
+
+focused テスト:
+
+```text
+7 passed
+```
+
+integration + provenance:
+
+```text
+15 passed
+```
+
+8C + 8E:
+
+```text
+27 passed in 3.89s
+```
+
+リポジトリ全体:
+
+```text
+5355 passed in 152.07s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 73-8E3：representative probe
+
+追加:
+
+```text
+probes/probe_phase73_capabilities.py
+tests/test_phase73_probe.py
+```
+
+probe source:
+
+```text
+build_phase73_8e_data()
+```
+
+を再利用し、probe 側へ theorem logic を複製しない。
+
+表示:
+
+```text
+Toda Proposition 5.11 finite-dimensional result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Phase 73 representative probe boundary
+```
+
+主要 machine output:
+
+```text
+π_8^2 result derived = True
+π_9^3 zero derived = True
+π_10^4 result derived = True
+ν_n² finite-dimensional aggregate derived = True
+all four direct Proposition 5.11 branches are INFERENCE = True
+final aggregate derived = True
+final aggregate is GIVEN = False
+final premise count = 4
+stable branch included = False
+stable (G_6;2) remains deferred = True
+```
+
+focused テスト:
+
+```text
+31 passed in 4.13s
+```
+
+リポジトリ全体:
+
+```text
+5386 passed in 124.02s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 73-8E4：completion documentation + proof record
+
+更新:
+
+```text
+README.md
+docs/design.md
+docs/development_log.md
+docs/code_reference.md
+docs/proof_records.md
+docs/roadmap.md
+```
+
+方針:
+
+```text
+直前の文書を土台として過去の詳細を保持
+README は英語を維持
+その他は日本語中心
+Phase 73 completion を追記
+stable branch deferred を明記
+formal proof record 8 を追加
+```
+
+final リポジトリ全体 regression:
+
+```text
+5386 passed in 124.02s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 73 completion
+
+最終 finite-dimensional capability:
+
+```text
+π_8^2=Z/2{η₂ν′η₆²}
+π_9^3=0
+π_10^4=Z/8{ν₄²}
+π_(n+6)^n=Z/2{ν_n²}, n≥5
+```
+
+supporting Toda (5.13):
+
+```text
+Δ(ν₉)=±2ν₄²
+Δ(η₁₁²)=0
+Δ(η₁₃)=0
+```
+
+final aggregate:
+
+```text
+TodaProp511FiniteDimensionalStatement
+ProofRule.INFERENCE
+```
+
+stable:
+
+```text
+(G_6;2)=Z/2{ν²}
+DEFERRED
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase73_capabilities
+```
+
+最終全体回帰:
+
+```text
+5386 passed in 124.02s
+```
+
+next:
+
+```text
+Phase 74-1
+next Toda source statement
+source / proof dependency / representation compatibility analysis
+```
+
+### 状態
+
+COMPLETE
+
