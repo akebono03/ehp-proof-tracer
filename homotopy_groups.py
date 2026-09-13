@@ -8,6 +8,12 @@ from expression import (
 
 
 @dataclass(frozen=True)
+class HomotopyGroup:
+  group_dimension: ScalarValue
+  sphere_dimension: ScalarValue
+
+
+@dataclass(frozen=True)
 class PrimaryComponent:
   group_dimension: ScalarValue
   sphere_dimension: ScalarValue
