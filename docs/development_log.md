@@ -8301,8 +8301,10 @@ mod 2π₁₁(S⁶)
 
 ```text
 ordinary π_i(S^n)
-!=
+!= as a representation object
 Toda π_i^n
+
+while Toda (4.3) gives equality of the underlying groups in the diagonal case i=n
 ```
 
 旧 Phase 72 では ordinary EHP / image / indeterminacy の一部で `TodaPrimaryGroup` / `TodaEHPExactnessWindow` を shortcut として利用していた。
@@ -8791,3 +8793,86 @@ source / dependency / representation compatibility analysis
 
 COMPLETE
 
+
+
+---
+
+# Phase 72R-A1：Toda (4.3) semantic correction / documentation and regression audit
+
+Phase 72R 後の historical semantic audit で、`TodaPrimaryGroup` を一様な 2-primary group と説明していた documentation が Toda (4.3) と一致しないことを確認。
+
+Toda (4.3):
+
+```text
+π_i^n = π_n(S^n)                              if i=n
+π_i^n = E^(-1)(π_(2n)(S^(n+1);2))           if i=2n-1
+π_i^n = π_i(S^n;2)                           otherwise
+```
+
+監査結果:
+
+```text
+Phase 66  OK: π_9^9 is diagonal
+Phase 68  OK: Toda Proposition 4.2 uses π_i^n exactness
+Phase 69  OK: π_11^11 is diagonal
+Phase 70  OK: π_11^6 is exceptional; π_11^11 / π_13^13 are diagonal
+Phase 71  OK: Δ:π_13^13 -> π_11^6 uses diagonal -> exceptional branches
+```
+
+したがって Phase 66R–71R は不要。
+
+production code:
+
+```text
+変更なし
+```
+
+追加 regression:
+
+```text
+tests/test_phase72ra1_toda43_semantics.py
+```
+
+固定する semantics:
+
+```text
+π_10^5   regular 2-primary branch
+π_11^6   exceptional branch and free cyclic in Phase 70
+π_11^11  diagonal branch and free cyclic
+π_13^13  diagonal branch and free cyclic
+Phase 71 n=6 reuses π_13^13 -> π_11^6
+HomotopyGroup(11,6) != TodaPrimaryGroup(11,6) structurally
+```
+
+documentation correction:
+
+```text
+README.md
+docs/design.md
+docs/development_log.md
+docs/code_reference.md
+docs/proof_records.md
+docs/roadmap.md
+```
+
+`TodaPrimaryGroup` class name is retained as a historical API name. A rename or generic branch-classification framework is not introduced.
+
+次:
+
+```text
+Phase 73-1
+Toda Proposition 5.11
+source statement / proof dependency / representation compatibility analysis
+```
+
+### 状態
+
+PENDING REGRESSION
+
+完了条件:
+
+```text
+Phase 72R-A1 focused tests pass
+Phase 72R corrected tests pass
+repository-wide regression pass
+```

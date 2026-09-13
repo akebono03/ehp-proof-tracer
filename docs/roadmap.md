@@ -151,7 +151,7 @@ Toda Lemma 5.10 first implementation
 
 Phase 72R
 Toda Lemma 5.10 semantic correction
-ordinary / 2-primary separation
+ordinary / Toda-(4.3) separation
 ordinary Toda (2.11)
 ordinary image bridge
 composition-level primary reduction
@@ -693,3 +693,28 @@ source statement / proof dependency / representation compatibility analysis
 
 Phase 73 should reuse the corrected Phase 72R result only where the Toda source proof actually requires Lemma 5.10.
 
+
+
+---
+
+# Phase 72R-A1 semantic audit note
+
+Toda (4.3) semantic audit completed before Phase 73.
+
+```text
+TodaPrimaryGroup(i,n) = Toda π_i^n
+
+branch 1: i=n       -> ordinary diagonal group
+branch 2: i=2n-1    -> exceptional E-preimage subgroup
+branch 3: otherwise -> 2-primary component
+```
+
+No Phase 66R–71R remediation is required solely because those phases use `TodaPrimaryGroup` on diagonal or exceptional terms.
+
+Next mathematical phase remains:
+
+```text
+Phase 73-1
+Toda Proposition 5.11
+source statement / proof dependency / representation compatibility analysis
+```

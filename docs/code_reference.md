@@ -5420,7 +5420,7 @@ FiniteHomotopyGroupStatement
 HomotopyEHPExactnessWindow
 ```
 
-`TodaPrimaryGroup` / `TodaEHPExactnessWindow` remain the 2-primary Toda layer.
+`TodaPrimaryGroup` / `TodaEHPExactnessWindow` represent the Toda `π_i^n` layer defined by Toda (4.3). Only the non-diagonal, non-exceptional branch is uniformly the 2-primary component.
 
 ---
 
@@ -5664,3 +5664,32 @@ docs/proof_records.md
 
 Phase 73 starts with analysis only.
 
+
+
+---
+
+# 85. Phase 72R-A1 Toda (4.3) semantic boundary
+
+`homotopy_groups.py`:
+
+```text
+HomotopyGroup(i,n)
+  ordinary π_i(S^n)
+
+TodaPrimaryGroup(i,n)
+  historical class name for Toda π_i^n
+```
+
+Toda (4.3) branches:
+
+```text
+i=n       -> ordinary diagonal group
+i=2n-1    -> exceptional E-preimage subgroup
+otherwise -> 2-primary component
+```
+
+No production classifier is added in Phase 72R-A1. Regression anchors are in:
+
+```text
+tests/test_phase72ra1_toda43_semantics.py
+```

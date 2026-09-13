@@ -4469,7 +4469,12 @@ TodaPrimaryGroup(i,n)
 =
 Toda π_i^n
 =
-current 2-primary representation
+Toda (4.3) subgroup representation
+
+with:
+  i=n -> ordinary diagonal group
+  i=2n-1 -> exceptional E-preimage subgroup
+  otherwise -> 2-primary component
 ```
 
 They are not structurally identified.
@@ -4739,3 +4744,18 @@ Proof Record 7 should now be read canonically through this Phase 72R revision.
 
 The earlier Phase 72 record remains a historical record of the first implementation.
 
+
+
+---
+
+# 18. Phase 72R-A1 semantic audit note
+
+The canonical reading of `TodaPrimaryGroup(i,n)` is Toda's `π_i^n` from Equation (4.3), not a uniformly 2-primary group.
+
+```text
+π_n^n = π_n(S^n)
+π_(2n-1)^n = E^(-1)(π_(2n)(S^(n+1);2))
+π_i^n = π_i(S^n;2) otherwise
+```
+
+This audit leaves the Phase 66–71 proof records canonical. Their diagonal and exceptional `TodaPrimaryGroup` uses are consistent with Toda (4.3). Phase 72R remains canonical for Lemma 5.10 because its proof requires ordinary groups outside the Toda `π_i^n` shorthand.

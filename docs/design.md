@@ -154,7 +154,20 @@ FiniteCyclicGroup
 DirectSumGroup
 ```
 
-`TodaPrimaryGroup(i,n)` は Toda 記法 `π_i^n` を保持する。
+`TodaPrimaryGroup(i,n)` は Toda 記法 `π_i^n` を保持する。historical class name に `Primary` を含むが、Toda (4.3) により `π_i^n` は一様な 2-primary component ではない。
+
+```text
+i=n
+  π_n^n = π_n(S^n)
+
+i=2n-1
+  π_(2n-1)^n = E^(-1)(π_(2n)(S^(n+1);2))
+
+otherwise
+  π_i^n = π_i(S^n;2)
+```
+
+したがって `TodaPrimaryGroup` は Toda (4.3) subgroup representation と解釈する。class rename は既存 API への影響が大きいため Phase 72R-A1 では行わない。
 
 `PreimageSubgroup` は subgroup inverse image であり、specific value の `Δ^-1(x)` を表す generic object ではない。
 
@@ -6666,7 +6679,12 @@ TodaPrimaryGroup(i,n)
 =
 Toda π_i^n
 =
-current 2-primary group representation
+Toda (4.3) subgroup representation
+
+branch semantics:
+  diagonal i=n -> ordinary π_n(S^n)
+  exceptional i=2n-1 -> E-preimage subgroup
+  otherwise -> 2-primary component
 ```
 
 These are not structurally equal.
@@ -6744,7 +6762,7 @@ derive:
 
 as an ordinary exactness window.
 
-The existing `TodaEHPExactnessWindow` remains 2-primary and is not used as an ordinary substitute.
+The existing `TodaEHPExactnessWindow` remains the Toda-`π_i^n` exactness representation and is not used as an ordinary-group substitute. Its terms follow the three Toda (4.3) branches.
 
 ---
 
@@ -7015,3 +7033,69 @@ persistent Proof Repository
 stable homotopy-group model
 ```
 
+
+
+---
+
+# 173. Phase 72R-A1：Toda (4.3) canonical semantics
+
+Phase 72R-A1 は production theorem logic を変更せず、`TodaPrimaryGroup` の canonical meaning を Toda (4.3) に固定する。
+
+```text
+TodaPrimaryGroup(i,n)
+= Toda π_i^n
+!= uniformly π_i(S^n;2)
+```
+
+three branches:
+
+```text
+i=n
+  diagonal branch
+  π_n^n = π_n(S^n)
+
+i=2n-1
+  exceptional branch
+  π_(2n-1)^n = E^(-1)(π_(2n)(S^(n+1);2))
+
+otherwise
+  regular 2-primary branch
+  π_i^n = π_i(S^n;2)
+```
+
+`HomotopyGroup(i,n)` remains ordinary `π_i(S^n)`. Structural equality is intentionally not introduced between `HomotopyGroup(n,n)` and `TodaPrimaryGroup(n,n)`: the mathematical groups agree by definition, but the objects record distinct representation/provenance layers.
+
+Current historical examples used as regression anchors:
+
+```text
+π_10^5   regular 2-primary branch
+π_11^6   exceptional branch
+π_11^11  diagonal branch
+π_13^13  diagonal branch
+```
+
+Phase 70 demonstrates that the exceptional branch is not uniformly 2-primary by deriving:
+
+```text
+π_11^6 = Z{Δι₁₃}.
+```
+
+Phase 71 n=6 correctly uses:
+
+```text
+Δ:π_13^13 -> π_11^6
+```
+
+with a diagonal source and exceptional target.
+
+Phase 72R ordinary semantics remain separate because Lemma 5.10 uses ordinary ambient/source groups rather than merely Toda `π_i^n` notation.
+
+Not added in Phase 72R-A1:
+
+```text
+TodaPrimaryGroup rename
+generic Toda (4.3) branch enum/classifier
+automatic structural identification of diagonal Toda/ordinary groups
+new theorem rules
+Phase 73 functionality
+```
