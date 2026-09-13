@@ -158,12 +158,23 @@ composition-level primary reduction
 Prop.2.6 indexed bracket + Toda (1.15)
 corrected provenance / retirement audit
 seventh formal proof record revised canonically
+
+Phase 72R-A1
+Toda (4.3) semantic audit
+
+Phase 73
+Toda Proposition 5.11 finite-dimensional
+π_8^2=Z/2{η₂ν′η₆²}
+π_9^3=0
+π_10^4=Z/8{ν₄²}
+π_(n+6)^n=Z/2{ν_n²}, n≥5
+eighth formal proof record
 ```
 
 現在の repository-wide regression:
 
 ```text
-5117 passed in 113.34s
+5386 passed in 124.02s
 ```
 
 ---
@@ -543,7 +554,7 @@ DEFERRED UNTIL CONCRETE NEED
 
 ---
 
-# 12. Current completion table
+# 12. 現在の完了表
 
 | Capability | State | Phase |
 |---|---|---:|
@@ -570,8 +581,9 @@ DEFERRED UNTIL CONCRETE NEED
 | sixth formal proof record | COMPLETE | 71 |
 | Toda Lemma 5.10 first implementation | HISTORICAL / REGRESSION | 72 |
 | Toda Lemma 5.10 semantic correction | COMPLETE | 72R |
+| Toda (4.3) semantic audit | COMPLETE | 72R-A1 |
 | seventh formal proof record canonical revision | COMPLETE | 72R |
-| Toda Proposition 5.11 / π_(n+6)^n | NEXT | 73 |
+| Toda Proposition 5.11 finite-dimensional / π_(n+6)^n | COMPLETE | 73 |
 | automatic proof narrative generation | PLANNED / DEFERRED | later |
 | persistent Proof Repository | PLANNED / DEFERRED | later |
 | stable homotopy branch | DEFERRED | later |
@@ -579,142 +591,140 @@ DEFERRED UNTIL CONCRETE NEED
 
 ---
 
-# 13. Current next step
+# 13. 現在の次ステップ
+
+Phase 73 は COMPLETE。
 
 ```text
-Phase 73-1
-Toda Proposition 5.11
-source statement / proof dependency / representation compatibility analysis
+π_8^2=Z/2{η₂ν′η₆²}
+π_9^3=0
+π_10^4=Z/8{ν₄²}
+π_(n+6)^n=Z/2{ν_n²}, n≥5
 ```
 
-source definitions / targets:
+supporting Toda (5.13):
 
 ```text
-ν_n² := ν_n∘ν_(n+3),  n≥4
-ν² := ν∘ν
-
-π_8^2  = Z/2{η₂∘ν′∘η₆²}
-π_9^3  = 0
-π_10^4 = Z/8{ν₄²}
-π_(n+6)^n = Z/2{ν_n²}, n≥5
-(G_6;2)=Z/2{ν²}
-```
-
-source proof also introduces:
-
-```text
-Toda (5.13)
 Δ(ν₉)=±2ν₄²
 Δ(η₁₁²)=0
 Δ(η₁₃)=0
 ```
 
-Phase 73-1 で最初に確認する dependency:
+次は:
 
 ```text
-Proposition 5.9
-Toda (5.2)
-Lemma 5.7
-Proposition 5.8
-Proposition 5.6
-Toda (5.6)
-Toda (5.12)
-Proposition 2.5
-Toda (5.8)
-Toda (5.10)
-Toda (5.5)
-Lemma 5.10
-Proposition 1.4
-Toda (5.4)
-Proposition 4.4
-Toda (4.5)
+Phase 74-1
+Toda 原典の次 statement
+原典 / 証明依存 / 現在表現との互換性解析
 ```
 
-特に current representation で確認する:
+Phase 74 の具体的 target は、Toda 原典の次 statement と proof dependency を確認してから確定する。
+
+stable:
 
 ```text
-ν_n² / ν₄² composition representation
-Delta composition rule from Proposition 2.5
-Phase 72R corrected Lemma 5.10 modulo-bracket result の再利用方法
-Prop.1.4 bracket-composition transformation
-Toda (5.13) three concrete Delta relations
-n=4,5,6 EHP exactness branch
-n=8 Proposition 4.4 transport
-n≥9 stable transport via (4.5)
+(G_6;2)=Z/2{ν²}
 ```
 
-原則:
-
-```text
-source proof
-↓
-dependency analysis
-↓
-current compatibility
-↓
-minimum new representation
-↓
-minimum theorem-specific inference
-```
-
-Proposition 5.11 全体や stable `(G_6;2)` を最初から一括実装しない。finite-dimensional concrete branches を先に分解する。
-
-automatic proof narrative generation / persistent Proof Repository / stable homotopy branch は引き続き deferred。
+は Phase 74 へ自動的に持ち越さず、stable branch 全体の concrete need が生じた時点で再評価する。
 
 ---
 
-# 14. Phase 72R completion boundary
+# 14. Phase 73 completion boundary
 
-Phase 72R is COMPLETE.
-
-canonical prerequisite for future phases:
+完成:
 
 ```text
-Toda Lemma 5.10
-TodaLemma510BracketModuloStatement
-ambient_group=HomotopyGroup(11,6)
+ν_n² := ν_n∘ν_(n+3)
+
+π_8^2=Z/2{η₂ν′η₆²}
+π_9^3=0
+π_10^4=Z/8{ν₄²}
+
+Δ(ν₉)=±2ν₄²
+Δ(η₁₁²)=0
+Δ(η₁₃)=0
+
+π_11^5=Z/2{ν₅²}
+π_12^6=Z/2{ν₆²}
+π_13^7=Z/2{ν₇²}
+π_14^8=Z/2{ν₈²}
+π_(n+6)^n=Z/2{ν_n²}, n≥9
+
+π_(n+6)^n=Z/2{ν_n²}, n≥5
+TodaProp511FiniteDimensionalStatement
+representative probe
+formal proof record 8
 ```
 
-Do not use the historical Phase 72 primary-group shortcut graph as a new Phase prerequisite.
-
-verified final regression:
+provenance:
 
 ```text
-5117 passed in 113.34s
+all four direct Proposition 5.11 branches are INFERENCE
+final aggregate is INFERENCE
+final aggregate is not GIVEN
+final graph acyclic
+stable fields absent
 ```
 
-Phase 73 remains NEXT:
+representative probe:
+
+```powershell
+python -m probes.probe_phase73_capabilities
+```
+
+final regression:
 
 ```text
-Phase 73-1
-Toda Proposition 5.11
-source statement / proof dependency / representation compatibility analysis
+5386 passed in 124.02s
 ```
 
-Phase 73 should reuse the corrected Phase 72R result only where the Toda source proof actually requires Lemma 5.10.
+### stable branch
 
+```text
+(G_6;2)=Z/2{ν²}
+```
 
+は deferred。
+
+これまでの:
+
+```text
+(G_1;2)=Z/2{η}
+(G_2;2)=Z/2{η²}
+ν:=E^∞ν₄
+4ν=η³
+(G_3;2)=Z/8{ν}
+(G_4;2)=0
+```
+
+と同じ stable branch に残す。
 
 ---
 
-# Phase 72R-A1 semantic audit note
-
-Toda (4.3) semantic audit completed before Phase 73.
+# 15. Phase 74 開始時の原則
 
 ```text
-TodaPrimaryGroup(i,n) = Toda π_i^n
-
-branch 1: i=n       -> ordinary diagonal group
-branch 2: i=2n-1    -> exceptional E-preimage subgroup
-branch 3: otherwise -> 2-primary component
+Toda source
+↓
+proof dependency
+↓
+ordinary / Toda-(4.3) semantics
+↓
+finite-dimensional / stable branch separation
+↓
+current representation compatibility
+↓
+minimum theorem-specific implementation
 ```
 
-No Phase 66R–71R remediation is required solely because those phases use `TodaPrimaryGroup` on diagonal or exceptional terms.
-
-Next mathematical phase remains:
+先取りしない:
 
 ```text
-Phase 73-1
-Toda Proposition 5.11
-source statement / proof dependency / representation compatibility analysis
+stable homotopy-group model
+automatic proof narrative generation
+persistent Proof Repository
+generic symbolic solver
+generic suspension-of-composition normalizer
 ```
+

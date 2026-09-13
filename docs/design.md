@@ -25,7 +25,7 @@ representation != typing != theorem knowledge
 structural equality != mathematical equality
 ```
 
-Phase 72 までこの原則を維持している。
+Phase 73 までこの原則を維持している。
 
 ---
 
@@ -715,7 +715,7 @@ full regression:
 
 ---
 
-# 24. Phase 57 completion boundary
+# 24. Phase 57 完了境界
 
 完成:
 
@@ -1073,7 +1073,7 @@ full regression:
 
 ---
 
-# 33. Phase 58 completion boundary
+# 33. Phase 58 完了境界
 
 完成:
 
@@ -1300,7 +1300,7 @@ test_phase59_eta4_squared_stable_transport.py  18 passed
 
 ---
 
-# 36. Phase 59 completion boundary
+# 36. Phase 59 完了境界
 
 完成:
 
@@ -1373,7 +1373,7 @@ docs/code_reference.md
 = 主要 module / class / function の責務と探索ガイド
 ```
 
-current specification は latest README / design を優先する。
+現在仕様 は latest README / design を優先する。
 
 ---
 
@@ -1508,7 +1508,7 @@ E:π_(n+2)^n→π_(n+3)^(n+1)
 
 の `n≥3` surjectivity を専用 consequence として導出し、Toda (1.15) と接続する。
 
-`t=0` は current representation では unindexed `TodaBracket` として保持する。
+`t=0` は 現在の表現 では unindexed `TodaBracket` として保持する。
 
 一般の indexed bracket equivalence や generic bracket-index normalization は追加しない。
 
@@ -1783,7 +1783,7 @@ test_phase60_probe.py                        16 passed
 
 ---
 
-# 46. Phase 60 completion boundary
+# 46. Phase 60 完了境界
 
 完成:
 
@@ -2081,7 +2081,7 @@ Result
 Proof-style derivation
 Provenance / integration
 Literature statements used
-Phase 61 completion boundary
+Phase 61 完了境界
 ```
 
 Phase 61 aggregate では theorem dependencies と hypotheses が混在するため、Phase 60 の `all final premises are INFERENCE` 表示を流用せず:
@@ -2095,7 +2095,7 @@ Lemma 5.5 hypotheses remain GIVEN = True
 
 proof-style derivation は Phase 60 と同様に presentation-only の hand-authored output であり、自動 proof narrative generator ではない。
 
-## 47.10 Phase 61 completion boundary
+## 47.10 Phase 61 完了境界
 
 実装:
 
@@ -2525,7 +2525,7 @@ Result
 Proof-style derivation
 Provenance / integration
 Literature statements used
-Phase 62 completion boundary
+Phase 62 完了境界
 ```
 
 theorem logic は focused integration builder を再利用し、probe 側へ複製しない。
@@ -2534,7 +2534,7 @@ proof-style derivation は presentation-only の hand-authored output。
 
 ---
 
-# 59. Phase 62 completion boundary
+# 59. Phase 62 完了境界
 
 完成:
 
@@ -2911,7 +2911,7 @@ Result
 Proof-style derivation
 Provenance / integration
 Literature statements used
-Phase 63 completion boundary
+Phase 63 完了境界
 ```
 
 representative derivation:
@@ -2932,7 +2932,7 @@ proof-style derivation は引き続き presentation-only の hand-authored outpu
 
 ---
 
-# 68. Phase 63 completion boundary
+# 68. Phase 63 完了境界
 
 完成:
 
@@ -3139,7 +3139,7 @@ matrix mutable
 
 ---
 
-# 73. Phase 64 completion boundary
+# 73. Phase 64 完了境界
 
 same-machine progression:
 
@@ -3201,7 +3201,7 @@ source statement
 ↓
 dependency analysis
 ↓
-current representation compatibility
+現在の表現 compatibility
 ↓
 minimum implementation
 ```
@@ -3218,7 +3218,7 @@ source statement
 ↓
 dependency analysis
 ↓
-current representation compatibility
+現在の表現 compatibility
 ↓
 minimum implementation
 ```
@@ -3491,7 +3491,7 @@ Proof-style derivation
 EHP exact sequence used
 Provenance / integration
 Literature statements used
-Phase 65 completion boundary
+Phase 65 完了境界
 ```
 
 EHP display:
@@ -3617,7 +3617,7 @@ what it depends on
 
 ---
 
-# 85. Phase 65 completion boundary
+# 85. Phase 65 完了境界
 
 完成:
 
@@ -4028,7 +4028,7 @@ planned / deferred
 
 ---
 
-# 96. Phase 66 completion boundary
+# 96. Phase 66 完了境界
 
 完成:
 
@@ -4420,7 +4420,7 @@ Proof-style derivation
 Provenance / integration
 Literature / source
 Proof record
-Phase 67 completion boundary
+Phase 67 完了境界
 ```
 
 `print_phase67_derivation_chain()` は hand-authored presentation layer。
@@ -4431,7 +4431,7 @@ ProofStep graph → automatic narrative
 
 はまだ実装しない。
 
-# 107. Phase 67 completion boundary
+# 107. Phase 67 完了境界
 
 完成:
 
@@ -5085,7 +5085,7 @@ Phase 68-13 では proof record を probe 実装から分離し、documentation 
 
 ---
 
-# 121. Phase 68 completion boundary
+# 121. Phase 68 完了境界
 
 完成:
 
@@ -5381,7 +5381,7 @@ Toda Equation (5.11):
 
 ---
 
-# 129. Phase 69 completion boundary
+# 129. Phase 69 完了境界
 
 完成:
 
@@ -5889,7 +5889,7 @@ ProofStep graph
 
 ---
 
-# 145. Phase 70 completion boundary
+# 145. Phase 70 完了境界
 
 完成:
 
@@ -6289,7 +6289,7 @@ Python 3.10 compatibility のため、複数行 f-string expression を避け、
 
 ---
 
-# 154. Phase 71 completion boundary
+# 154. Phase 71 完了境界
 
 完成:
 
@@ -6614,7 +6614,7 @@ Phase 71 non-dependency の probe 表示は exact n=6 `TodaDeltaInjectiveStateme
 
 ---
 
-# 162. Phase 72 completion boundary
+# 162. Phase 72 完了境界
 
 完成:
 
@@ -7099,3 +7099,263 @@ automatic structural identification of diagonal Toda/ordinary groups
 new theorem rules
 Phase 73 functionality
 ```
+
+---
+
+# Phase 73：Toda Proposition 5.11 の設計
+
+Phase 73 の finite-dimensional target:
+
+```text
+π_8^2=Z/2{η₂ν′η₆²}
+π_9^3=0
+π_10^4=Z/8{ν₄²}
+π_(n+6)^n=Z/2{ν_n²}, n≥5
+```
+
+stable target:
+
+```text
+(G_6;2)=Z/2{ν²}
+```
+
+は既存方針に従って deferred。
+
+## ν_n² の表現
+
+```text
+ν_n²:=ν_n∘ν_(n+3)
+```
+
+は dedicated class を追加せず:
+
+```text
+Composition(
+  left=ν_n,
+  right=ν_(n+3),
+)
+```
+
+として保持する。
+
+追加しない:
+
+```text
+NuSquare
+generic suspension-of-composition normalizer
+generic shifted-family helper
+```
+
+## Toda (5.13)
+
+中間式:
+
+```text
+Δ(ν₉)=±2ν₄²
+Δ(η₁₁²)=0
+Δ(η₁₃)=0
+```
+
+は独立した derived statement として provenance に保持する。
+
+final Proposition aggregate の field には重複保存しない。
+
+## n=8 branch
+
+Toda Proposition 4.4:
+
+```text
+π_13^7 ⊕ π_14^15 ≅ π_14^8
+```
+
+と:
+
+```text
+π_14^15=0
+```
+
+から theorem-specific に:
+
+```text
+E:π_13^7≅π_14^8
+```
+
+を導出。
+
+generic direct-sum simplifier は追加しない。
+
+## n≥9 branch
+
+Toda (4.5):
+
+```text
+E^(n-8):π_14^8≅π_(n+6)^n
+```
+
+を再利用。
+
+symbolic shifted `ν_(n+3)` は family helper の型を拡張せず、必要箇所で局所構築する。
+
+## six-stem aggregate
+
+```text
+TodaProp511NuSquaredFiniteDimensionalStatement
+```
+
+は:
+
+```text
+n=5
+n=6
+n=7
+n=8
+n≥9
+```
+
+の独立 branch をそのまま保持する。
+
+数学的には:
+
+```text
+π_(n+6)^n=Z/2{ν_n²}, n≥5
+```
+
+を表すが、単一 symbolic solver に潰さない。
+
+## final aggregate
+
+```text
+TodaProp511FiniteDimensionalStatement
+```
+
+direct field:
+
+```text
+pi8_2_group_relation
+pi9_3_zero
+pi10_4_group_relation
+nu_squared_finite_dimensional
+literature_statements
+```
+
+direct mathematical premises は全て:
+
+```text
+ProofRule.INFERENCE
+```
+
+final aggregate も:
+
+```text
+ProofRule.INFERENCE
+```
+
+## provenance boundary
+
+regression で:
+
+```text
+final reaches all four branches
+final is not its own ancestor
+final conclusion absent from ancestors
+branches do not depend on final
+```
+
+を固定する。
+
+## stable branch boundary
+
+`(G_6;2)=Z/2{ν²}` を Phase 73 に入れない。
+
+既存 deferred:
+
+```text
+(G_1;2)=Z/2{η}
+(G_2;2)=Z/2{η²}
+ν:=E^∞ν₄
+4ν=η³
+(G_3;2)=Z/8{ν}
+(G_4;2)=0
+```
+
+と一貫させる。
+
+stable branch を実装する際には:
+
+```text
+stable group representation
+stable element ν
+E^∞ semantics
+unstable ν_n² / stable ν² relation
+```
+
+を別途設計する。
+
+## representative probe
+
+```text
+probes/probe_phase73_capabilities.py
+```
+
+は:
+
+```text
+build_phase73_8e_data()
+```
+
+をそのまま再利用する。
+
+theorem logic を presentation layer へ複製しない。
+
+表示:
+
+```text
+結果
+証明形式の導出
+provenance / integration
+文献 statement
+Phase 73 境界
+```
+
+proof-style derivation は引き続き hand-authored presentation であり automatic proof narrative generation ではない。
+
+## Phase 73 完了境界
+
+追加したもの:
+
+```text
+ν_n² finite-dimensional representation
+π_8^2
+π_9^3
+π_10^4
+Toda (5.13)
+π_11^5
+π_12^6
+π_13^7
+π_14^8
+π_(n+6)^n, n≥9
+π_(n+6)^n, n≥5 aggregate
+TodaProp511FiniteDimensionalStatement
+provenance regression
+literature metadata
+representative probe
+```
+
+追加しないもの:
+
+```text
+stable (G_6;2)=Z/2{ν²}
+stable homotopy-group model
+NuSquare
+generic suspension-of-composition normalizer
+generic direct-sum simplifier
+automatic proof narrative generation
+persistent Proof Repository
+```
+
+最終全体回帰:
+
+```text
+5386 passed in 124.02s
+```
+

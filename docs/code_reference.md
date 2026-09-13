@@ -2,7 +2,7 @@
 
 この文書は EHP Proof Tracer の主要 Python module と、その責務・主要 class / function・探索方法をまとめる。
 
-対象は **Phase 69 completion 時点**。
+対象は **Phase 73 completion 時点**。
 
 この文書は全 API を機械的に列挙する reference ではない。目的は:
 
@@ -18,7 +18,7 @@
 
 を速く判断できるようにすることである。
 
-実際の実装前には必ず current code と関連 test を確認する。
+実際の実装前には必ず 現在のコード と関連 test を確認する。
 
 ---
 
@@ -1833,7 +1833,7 @@ source statement
 ↓
 dependency analysis
 ↓
-current representation compatibility
+現在の表現 compatibility
 ↓
 minimum implementation
 ```
@@ -2437,7 +2437,7 @@ full regression:
 
 ---
 
-# 33. Phase 63 completion boundary
+# 33. Phase 63 完了境界
 
 実装済み:
 
@@ -3081,7 +3081,7 @@ Equation (5.8) が次 target なら:
 Δ(ι₉)=±(2ν₄-Eν′)=±[ι₄,ι₄]
 ```
 
-の current representation compatibility を最初に調べる。
+の 現在の表現 compatibility を最初に調べる。
 
 Proof Repository は 7-stem 程度まで concrete calculations が蓄積した時点で separate design Phase を検討し、8–10 stem で schema を実例検証する。
 
@@ -3092,7 +3092,7 @@ source statement
 ↓
 dependency analysis
 ↓
-current representation compatibility
+現在の表現 compatibility
 ↓
 minimum implementation
 ```
@@ -3322,7 +3322,7 @@ Proof-style derivation
 Provenance / integration
 Literature statements used
 Proof record
-Phase 66 completion boundary
+Phase 66 完了境界
 ```
 
 重要:
@@ -3398,7 +3398,7 @@ source statement
 ↓
 dependency analysis
 ↓
-current code / related tests
+現在のコード / related tests
 ↓
 minimum implementation
 ```
@@ -4817,7 +4817,7 @@ source statement
 ↓
 dependency analysis
 ↓
-current representation compatibility
+現在の表現 compatibility
 ↓
 minimum implementation
 ```
@@ -5693,3 +5693,197 @@ No production classifier is added in Phase 72R-A1. Regression anchors are in:
 ```text
 tests/test_phase72ra1_toda43_semantics.py
 ```
+
+---
+
+# Phase 73：Toda Proposition 5.11 関連コード
+
+## 主要 final statement
+
+```text
+TodaProp511NuSquaredFiniteDimensionalStatement
+TodaProp511FiniteDimensionalStatement
+```
+
+### `TodaProp511NuSquaredFiniteDimensionalStatement`
+
+保持:
+
+```text
+π_11^5 relation
+π_12^6 relation
+π_13^7 relation
+π_14^8 relation
+π_(n+6)^n relation, n≥9
+higher_range
+literature_statements
+```
+
+数学的には:
+
+```text
+π_(n+6)^n=Z/2{ν_n²}, n≥5
+```
+
+を branch aggregate として保持。
+
+### `TodaProp511FiniteDimensionalStatement`
+
+保持:
+
+```text
+pi8_2_group_relation
+pi9_3_zero
+pi10_4_group_relation
+nu_squared_finite_dimensional
+literature_statements
+```
+
+stable `(G_6;2)` field は持たない。
+
+---
+
+## Phase 73 の主要 inference rule
+
+```text
+toda_prop511_pi14_8_prop44_zero_second_summand_suspension_isomorphism_inference_rule()
+toda_prop511_pi14_8_nu8_squared_inference_rule()
+toda_prop511_higher_six_stem_nu_squared_transport_inference_rule()
+toda_prop511_nu_squared_finite_dimensional_integration_inference_rule()
+toda_prop511_finite_dimensional_integration_inference_rule()
+```
+
+literature helper:
+
+```text
+toda_prop511_nu_squared_finite_dimensional_literature_statements()
+toda_prop511_finite_dimensional_literature_statements()
+```
+
+---
+
+## ν_n² representation
+
+専用 class はない。
+
+```text
+ν_n²
+=
+Composition(
+  left=ν_n,
+  right=ν_(n+3),
+)
+```
+
+symbolic shifted family index は必要な theorem-specific rule 内で局所構築する。
+
+---
+
+## Phase 73 tests
+
+主要 completion tests:
+
+```text
+tests/test_phase73_pi13_7_nu7_squared.py
+tests/test_phase73_pi14_8_prop44_suspension_isomorphism.py
+tests/test_phase73_pi14_8_nu8_squared.py
+tests/test_phase73_pi_n_plus_6_n_nu_squared.py
+tests/test_phase73_prop511_nu_squared_finite_dimensional.py
+tests/test_phase73_prop511_finite_dimensional_integration.py
+tests/test_phase73_prop511_provenance.py
+tests/test_phase73_probe.py
+```
+
+主要 builder:
+
+```text
+build_phase73_7c_data()
+build_phase73_8a2_data()
+build_phase73_8a3_data()
+build_phase73_8b_data()
+build_phase73_8c_data()
+build_phase73_8e_data()
+```
+
+heavy reusable object graph には必要に応じて:
+
+```python
+@lru_cache(maxsize=1)
+```
+
+を使用。
+
+---
+
+## Phase 73 representative probe
+
+```text
+probes/probe_phase73_capabilities.py
+```
+
+entry:
+
+```text
+build_phase73_representative_result()
+main()
+```
+
+representative source:
+
+```text
+build_phase73_8e_data()
+```
+
+表示:
+
+```text
+Toda Proposition 5.11 finite-dimensional result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Phase 73 representative probe boundary
+```
+
+確認:
+
+```text
+final aggregate derived = True
+final aggregate is GIVEN = False
+stable branch included = False
+stable (G_6;2) remains deferred = True
+```
+
+---
+
+## Phase 73 completion regression
+
+```text
+tests/test_phase73_probe.py
+31 passed
+
+repository-wide
+5386 passed in 124.02s
+```
+
+---
+
+# Phase 73 後に最初に確認する場所
+
+Phase 74 を開始するとき:
+
+```text
+Toda source の次 statement
+↓
+toda_rules.py の Phase 73 final aggregate
+↓
+Phase 72R canonical Lemma 5.10
+↓
+expression.py / homotopy_groups.py
+↓
+Phase 73 tests / probe / proof record
+```
+
+を確認する。
+
+stable `(G_6;2)` は Phase 74 へ自動継続せず、stable branch 全体の concrete need が生じたときに再評価する。
+

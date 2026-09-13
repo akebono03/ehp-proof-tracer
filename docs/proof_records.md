@@ -4420,13 +4420,13 @@ Toda Proposition 5.11
 
 ---
 
-# 17. Phase 72R canonical revision of Proof Record 7
+# 17. Phase 72R：証明記録7の canonical revision
 
 The original Phase 72 proof record is retained above as the historical first implementation.
 
 Phase 72R is now the canonical machine/provenance record for Toda Lemma 5.10.
 
-## 17.1 Source / theorem
+## 17.1 出典 / 定理
 
 ```text
 H. Toda
@@ -4440,7 +4440,7 @@ Toda Lemma 4.3 / (4.6) / (4.7)
 Toda Equation (5.10)
 ```
 
-## 17.2 Result
+## 17.2 結果
 
 ```text
 Δ(ι₁₃)
@@ -4458,7 +4458,7 @@ modulus=2
 ProofRule.INFERENCE
 ```
 
-## 17.3 Ordinary / 2-primary boundary
+## 17.3 ordinary / 2-primary 境界
 
 ```text
 HomotopyGroup(i,n)
@@ -4479,7 +4479,7 @@ with:
 
 They are not structurally identified.
 
-## 17.4 Ordinary EHP branch
+## 17.4 ordinary EHP branch
 
 Serre (4.2):
 
@@ -4555,7 +4555,7 @@ Thus ordinary exactness gives:
 Eπ₁₀(S⁵).
 ```
 
-## 17.6 Corrected indeterminacy
+## 17.6 修正後の不定性
 
 Serre:
 
@@ -4594,7 +4594,7 @@ Indeterminacy
 2π₁₁(S⁶).
 ```
 
-## 17.7 Corrected ordinary suspension image
+## 17.7 修正後の ordinary suspension image
 
 Serre:
 
@@ -4627,7 +4627,7 @@ Eπ₁₀(S⁵)
 2π₁₁(S⁶).
 ```
 
-## 17.8 Final proof-style derivation
+## 17.8 最終 proof-style derivation
 
 ```text
 ν₆η₉=0
@@ -4677,7 +4677,7 @@ therefore
 mod 2π₁₁(S⁶).
 ```
 
-## 17.9 Machine provenance
+## 17.9 機械 provenance
 
 final direct premises:
 
@@ -4699,7 +4699,7 @@ TodaLemma510OrdinarySuspensionImageFiniteStatement
 TodaLemma510OrdinarySuspensionImageTwoPrimaryZeroStatement
 ```
 
-## 17.10 Legacy retirement audit
+## 17.10 legacy retirement audit
 
 The canonical final does not reuse these specific historical Phase 72 steps:
 
@@ -4718,7 +4718,7 @@ and does not use the exact Phase 71 `n=6` injectivity statement:
 
 This is proof-instance / exact-statement retirement, not type-wide prohibition.
 
-## 17.11 Representative probe
+## 17.11 代表 probe
 
 ```powershell
 python -m probes.probe_phase72_capabilities
@@ -4726,7 +4726,7 @@ python -m probes.probe_phase72_capabilities
 
 reports the corrected ordinary semantics and retirement audit.
 
-## 17.12 Regression status
+## 17.12 回帰テスト状況
 
 ```text
 Phase 72R focused:
@@ -4736,7 +4736,7 @@ repository-wide:
 5117 passed in 113.34s
 ```
 
-## 17.13 Completion status
+## 17.13 完了状況
 
 Phase 72R is COMPLETE.
 
@@ -4748,7 +4748,7 @@ The earlier Phase 72 record remains a historical record of the first implementat
 
 ---
 
-# 18. Phase 72R-A1 semantic audit note
+# 18. Phase 72R-A1 semantic audit メモ
 
 The canonical reading of `TodaPrimaryGroup(i,n)` is Toda's `π_i^n` from Equation (4.3), not a uniformly 2-primary group.
 
@@ -4759,3 +4759,506 @@ The canonical reading of `TodaPrimaryGroup(i,n)` is Toda's `π_i^n` from Equatio
 ```
 
 This audit leaves the Phase 66–71 proof records canonical. Their diagonal and exceptional `TodaPrimaryGroup` uses are consistent with Toda (4.3). Phase 72R remains canonical for Lemma 5.10 because its proof requires ordinary groups outside the Toda `π_i^n` shorthand.
+
+---
+
+# 19. Toda Proposition 5.11
+
+## 19.1 出典 / 定理
+
+```text
+H. Toda
+Composition Methods in Homotopy Groups of Spheres
+1962
+Proposition 5.11
+```
+
+Phase 73 で正式記録するのは finite-dimensional part。
+
+Toda 原典の stable conclusion:
+
+```text
+(G_6;2)=Z/2{ν²}
+```
+
+はこの記録には含めず deferred。
+
+---
+
+## 19.2 結果
+
+```text
+π_8^2=Z/2{η₂ν′η₆²}
+π_9^3=0
+π_10^4=Z/8{ν₄²}
+π_(n+6)^n=Z/2{ν_n²}, n≥5
+```
+
+definition:
+
+```text
+ν_n²:=ν_n∘ν_(n+3)
+```
+
+---
+
+## 19.3 上流結果
+
+主要 upstream:
+
+```text
+Phase 70
+π_8^3=Z/2{ν′η₆²}
+
+Phase 56
+Toda (5.2)
+
+Phase 65
+Proposition 5.6
+
+Phase 68
+Proposition 5.8
+
+Phase 70
+Proposition 5.9
+
+Phase 71
+Toda (5.12)
+
+Phase 72R
+corrected Toda Lemma 5.10
+
+Toda Proposition 4.4
+Toda (4.5)
+```
+
+historical Phase 72 shortcut graph は canonical dependency として使わない。
+
+---
+
+## 19.4 Toda (5.13)
+
+Phase 73 で derived:
+
+```text
+Δ(ν₉)=±2ν₄²
+Δ(η₁₁²)=0
+Δ(η₁₃)=0
+```
+
+これらは final aggregate の direct field に重複保存せず ancestry に保持する。
+
+---
+
+## 19.5 π_8^2 branch
+
+Phase 70:
+
+```text
+π_8^3=Z/2{ν′η₆²}
+```
+
+Toda (5.2):
+
+```text
+η₂∘- : π_8^3≅π_8^2
+```
+
+より:
+
+```text
+π_8^2=Z/2{η₂ν′η₆²}.
+```
+
+---
+
+## 19.6 π_9^3 branch
+
+Phase 73-4 concrete branch:
+
+```text
+π_9^3=0.
+```
+
+final aggregate では derived `TodaPrimaryGroupZeroStatement` を利用する。
+
+---
+
+## 19.7 π_10^4 branch
+
+```text
+ν₄²:=ν₄∘ν₇
+```
+
+として:
+
+```text
+π_10^4=Z/8{ν₄²}.
+```
+
+---
+
+## 19.8 n=5,6,7 branch
+
+```text
+π_11^5=Z/2{ν₅²}
+π_12^6=Z/2{ν₆²}
+π_13^7=Z/2{ν₇²}
+```
+
+を独立に derived。
+
+必要な EHP / Δ injectivity branch は `INFERENCE` provenance を保持して再利用する。
+
+---
+
+## 19.9 n=8 branch
+
+Toda Proposition 4.4:
+
+```text
+π_13^7 ⊕ π_14^15
+≅
+π_14^8
+```
+
+Phase 73:
+
+```text
+π_14^15=0
+```
+
+より:
+
+```text
+E:π_13^7≅π_14^8.
+```
+
+さらに:
+
+```text
+π_13^7=Z/2{ν₇²}
+```
+
+から:
+
+```text
+π_14^8=Z/2{ν₈²}.
+```
+
+generic direct-sum simplifier は使わない。
+
+---
+
+## 19.10 n≥9 branch
+
+Toda (4.5):
+
+```text
+E^(n-8):π_14^8≅π_(n+6)^n
+```
+
+を再利用。
+
+theorem-specific generator transport:
+
+```text
+ν₈²
+→
+ν_n²
+```
+
+により:
+
+```text
+π_(n+6)^n=Z/2{ν_n²}, n≥9.
+```
+
+generic suspension-of-composition normalizer は追加しない。
+
+---
+
+## 19.11 six-stem aggregate
+
+```text
+n=5,6,7,8
++
+n≥9
+```
+
+を:
+
+```text
+TodaProp511NuSquaredFiniteDimensionalStatement
+```
+
+へ統合。
+
+数学的には:
+
+```text
+π_(n+6)^n=Z/2{ν_n²}, n≥5.
+```
+
+---
+
+## 19.12 final aggregate
+
+direct premises:
+
+```text
+π_8^2 branch                     INFERENCE
+π_9^3 zero branch                INFERENCE
+π_10^4 branch                    INFERENCE
+ν_n² finite-dimensional aggregate INFERENCE
+```
+
+final:
+
+```text
+TodaProp511FiniteDimensionalStatement
+ProofRule.INFERENCE
+```
+
+---
+
+## 19.13 proof-style derivation
+
+代表表示:
+
+```text
+π_8^3=Z/2{ν′η₆²}
++
+η₂∘- : π_8^3≅π_8^2
+↓
+π_8^2=Z/2{η₂ν′η₆²}
+
+π_9^3=0
+
+π_10^4=Z/8{ν₄²}
+
+π_11^5=Z/2{ν₅²}
+π_12^6=Z/2{ν₆²}
+π_13^7=Z/2{ν₇²}
+
+π_13^7⊕π_14^15≅π_14^8
+π_14^15=0
+↓
+π_14^8=Z/2{ν₈²}
+
+Toda (4.5)
+↓
+π_(n+6)^n=Z/2{ν_n²}, n≥9
+
+n=5,6,7,8 + n≥9
+↓
+π_(n+6)^n=Z/2{ν_n²}, n≥5
+
+therefore
+
+π_8^2=Z/2{η₂ν′η₆²}
+π_9^3=0
+π_10^4=Z/8{ν₄²}
+π_(n+6)^n=Z/2{ν_n²}, n≥5.
+```
+
+この proof-style derivation は hand-authored presentation layer。
+
+---
+
+## 19.14 機械 provenance
+
+representative probe:
+
+```text
+π_8^2 result derived = True
+π_9^3 zero derived = True
+π_10^4 result derived = True
+ν_n² finite-dimensional aggregate derived = True
+
+all four direct Proposition 5.11 branches are INFERENCE = True
+
+final aggregate derived = True
+final aggregate is GIVEN = False
+final premise count = 4
+```
+
+non-circularity regression:
+
+```text
+final reaches all four branches
+final is not its own ancestor
+final conclusion absent from ancestors
+branches do not depend on final
+```
+
+---
+
+## 19.15 GIVEN / INFERENCE 境界
+
+final direct mathematical branches:
+
+```text
+INFERENCE
+```
+
+final aggregate:
+
+```text
+INFERENCE
+```
+
+禁止 shortcut:
+
+```text
+π_8^2 branch を GIVEN へ差し替える
+π_9^3 branch を GIVEN へ差し替える
+π_10^4 branch を GIVEN へ差し替える
+ν_n² aggregate を GIVEN へ差し替える
+```
+
+final theorem aggregate を `GIVEN` として再投入しない。
+
+---
+
+## 19.16 表現境界
+
+追加しない:
+
+```text
+NuSquare class
+generic shifted-family constructor
+generic suspension-of-composition normalizer
+generic cyclic-generator transport
+generic direct-sum simplifier
+stable homotopy-group model
+stable ν² representation
+automatic proof narrative generation
+persistent Proof Repository
+```
+
+---
+
+## 19.17 Stable branch 境界
+
+source stable result:
+
+```text
+(G_6;2)=Z/2{ν²}
+```
+
+は deferred。
+
+既存 deferred stable results と同じ扱い。
+
+representative probe:
+
+```text
+stable branch included = False
+stable (G_6;2) remains deferred = True
+```
+
+---
+
+## 19.18 文献
+
+final aggregate に保持:
+
+```text
+Label:
+  Toda Proposition 5.11
+
+Locator:
+  Proposition 5.11
+
+Author:
+  H. Toda
+
+Title:
+  Composition Methods in Homotopy Groups of Spheres
+
+Year:
+  1962
+```
+
+statement metadata には finite-dimensional part のみを記述し、stable conclusion を含めないことを明示する。
+
+---
+
+## 19.19 代表 probe
+
+```powershell
+python -m probes.probe_phase73_capabilities
+```
+
+表示:
+
+```text
+Toda Proposition 5.11 finite-dimensional result
+Proof-style derivation
+Provenance / integration
+Literature statements used
+Phase 73 representative probe boundary
+```
+
+---
+
+## 19.20 回帰テスト状況
+
+probe focused:
+
+```text
+31 passed
+```
+
+repository-wide:
+
+```text
+5386 passed in 124.02s
+```
+
+---
+
+## 19.21 完了状況
+
+Phase 73 は COMPLETE。
+
+verified finite-dimensional result:
+
+```text
+π_8^2=Z/2{η₂ν′η₆²}
+π_9^3=0
+π_10^4=Z/8{ν₄²}
+π_(n+6)^n=Z/2{ν_n²}, n≥5
+```
+
+stable:
+
+```text
+(G_6;2)=Z/2{ν²}
+DEFERRED
+```
+
+この record を Phase 73 completion 時点の human-reviewed golden reference とする。
+
+---
+
+# 20. 現在の proof-record 状況
+
+正式な curated record:
+
+```text
+1 Phase 66   Toda Equation (5.8)
+2 Phase 67   Toda Lemma 5.7
+3 Phase 68   Toda Proposition 5.8
+4 Phase 69   Toda Equation (5.10)
+5 Phase 70   Toda Proposition 5.9
+6 Phase 71   Toda Equation (5.12)
+7 Phase 72R  Toda Lemma 5.10 canonical revision
+8 Phase 73   Toda Proposition 5.11 finite-dimensional
+```
+
+formal record は8件。
+
+stable homotopy branch は引き続き deferred。
+
