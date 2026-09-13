@@ -27,6 +27,7 @@ from homotopy_groups import (
   FiniteCyclicGroup,
   FiniteHomotopyGroupStatement,
   FreeCyclicGroup,
+  HomotopyEHPExactnessWindow,
   HomotopyGroup,
   PrimaryComponent,
   PrimaryComponentMembershipStatement,
@@ -62,6 +63,249 @@ from scalar_rules import (
   OddScalarStatement,
   ScalarGreaterEqualStatement,
 )
+
+
+@dataclass(frozen=True)
+class Toda211OrdinaryEHPApplicabilityStatement:
+  window: HomotopyEHPExactnessWindow
+  m_is_odd: bool
+  i_less_than_3m_minus_1: bool
+
+
+@dataclass(frozen=True)
+class Toda211OrdinaryEHPExactnessStatement:
+  window: HomotopyEHPExactnessWindow
+
+
+def toda_211_ordinary_ehp_applicability_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    window = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    if not isinstance(
+      window,
+      HomotopyEHPExactnessWindow,
+    ):
+      return False
+
+    if (
+      window.first_map
+      != EHP_E_MAP
+    ):
+      return False
+
+    if (
+      window.second_map
+      != EHP_H_MAP
+    ):
+      return False
+
+    source = (
+      window.source_term
+    )
+
+    middle = (
+      window.middle_term
+    )
+
+    target = (
+      window.target_term
+    )
+
+    if not isinstance(
+      source,
+      HomotopyGroup,
+    ):
+      return False
+
+    if not isinstance(
+      middle,
+      HomotopyGroup,
+    ):
+      return False
+
+    if not isinstance(
+      target,
+      HomotopyGroup,
+    ):
+      return False
+
+    i = (
+      source.group_dimension
+    )
+
+    m = (
+      source.sphere_dimension
+    )
+
+    if not isinstance(
+      i,
+      int,
+    ):
+      return False
+
+    if not isinstance(
+      m,
+      int,
+    ):
+      return False
+
+    if (
+      m
+      <= 1
+    ):
+      return False
+
+    expected_middle = HomotopyGroup(
+      group_dimension=i + 1,
+      sphere_dimension=m + 1,
+    )
+
+    expected_target = HomotopyGroup(
+      group_dimension=i + 1,
+      sphere_dimension=2 * m + 1,
+    )
+
+    if (
+      middle
+      != expected_middle
+    ):
+      return False
+
+    if (
+      target
+      != expected_target
+    ):
+      return False
+
+    m_is_odd = (
+      m % 2
+      == 1
+    )
+
+    i_less_than_threshold = (
+      i
+      < 3 * m - 1
+    )
+
+    return (
+      m_is_odd
+      or i_less_than_threshold
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    window = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    i = (
+      window
+      .source_term
+      .group_dimension
+    )
+
+    m = (
+      window
+      .source_term
+      .sphere_dimension
+    )
+
+    return (
+      Toda211OrdinaryEHPApplicabilityStatement(
+        window=window,
+        m_is_odd=(
+          m % 2
+          == 1
+        ),
+        i_less_than_3m_minus_1=(
+          i
+          < 3 * m - 1
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (2.11) ordinary "
+      "EHP applicability"
+    ),
+    description=(
+      "For m>1, Toda equation (2.11) "
+      "is an exact sequence of ordinary "
+      "homotopy groups when m is odd "
+      "or i<3m-1. "
+      "When m is even and i>=3m-1, "
+      "Toda (2.11) is instead interpreted "
+      "on the 2-primary components. "
+      "This rule derives only the ordinary "
+      "applicability case and is limited "
+      "to concrete integer dimensions."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          HomotopyEHPExactnessWindow
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_211_ordinary_ehp_exactness_inference_rule():
+  def build_conclusion(
+    premises,
+  ):
+    applicability = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return (
+      Toda211OrdinaryEHPExactnessStatement(
+        window=(
+          applicability.window
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (2.11) ordinary "
+      "EHP exactness"
+    ),
+    description=(
+      "Derive ordinary EHP exactness "
+      "from an independently derived "
+      "Toda (2.11) ordinary applicability "
+      "statement. "
+      "The structural EHP window remains "
+      "an upstream premise through the "
+      "applicability proof step."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda211OrdinaryEHPApplicabilityStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+  )
 
 
 @dataclass(frozen=True)

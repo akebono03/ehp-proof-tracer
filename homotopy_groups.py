@@ -14,6 +14,15 @@ class HomotopyGroup:
 
 
 @dataclass(frozen=True)
+class HomotopyEHPExactnessWindow:
+  source_term: HomotopyGroup
+  middle_term: HomotopyGroup
+  target_term: HomotopyGroup
+  first_map: MapSymbol
+  second_map: MapSymbol
+
+
+@dataclass(frozen=True)
 class FiniteHomotopyGroupStatement:
   group: HomotopyGroup
 
