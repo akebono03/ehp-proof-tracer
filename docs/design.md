@@ -25,7 +25,7 @@ representation != typing != theorem knowledge
 structural equality != mathematical equality
 ```
 
-Phase 73 までこの原則を維持している。
+Phase 74 までこの原則を維持している。
 
 ---
 
@@ -7359,3 +7359,471 @@ persistent Proof Repository
 5386 passed in 124.02s
 ```
 
+
+
+---
+
+# 174. Phase 74：Toda Lemma 5.12 設計目標
+
+対象:
+
+```text
+{η_n,ν_(n+1),η_(n+4)}={ν_n²}
+(n≥6)
+```
+
+ただし:
+
+```text
+ν_n²
+=
+Composition(
+  left=ν_n,
+  right=ν_(n+3),
+)
+```
+
+Phase 73 と同じく `NuSquare` class は追加しない。
+
+実装原則:
+
+```text
+bracket definedness
+↓
+first indeterminacy zero
+↓
+second indeterminacy zero
+↓
+singleton mod two
+↓
+coefficient stability
++
+concrete nonzero anchor
+↓
+final Lemma 5.12
+```
+
+generic Toda-bracket algebra に拡張しない。
+
+---
+
+# 175. Phase 74：bracket definedness boundary
+
+必要条件:
+
+```text
+η_n∘ν_(n+1)=0
+ν_(n+1)∘η_(n+4)=0
+```
+
+Phase 68 には:
+
+```text
+η_n∘ν_(n+1)=0
+ν_n∘η_(n+3)=0
+```
+
+がある。
+
+symbolic family helper は arbitrary shifted `ScalarExpression` を受ける generic constructor へ拡張せず、Lemma 5.12 専用 rule 内で:
+
+```text
+ν_(n+1)
+η_(n+4)
+```
+
+を局所構築する。
+
+追加しない:
+
+```text
+generic symbolic substitution
+generic family shift
+generic zero-composition transport
+```
+
+---
+
+# 176. Phase 74：first indeterminacy semantics
+
+first indeterminacy:
+
+```text
+η_n∘π_(n+6)(S^(n+1))
+```
+
+は ordinary homotopy group を含むため:
+
+```text
+HomotopyGroup(n+6,n+1)
+```
+
+を statement に明示保持する。
+
+```text
+HomotopyGroup
+!=
+TodaPrimaryGroup
+```
+
+を structural に維持する。
+
+Toda (4.3) が与える mathematical relation を class equality へ潰さない。
+
+---
+
+# 177. Phase 74：second indeterminacy split
+
+second indeterminacy:
+
+```text
+π_(n+5)(S^n)∘η_(n+5)
+```
+
+は一括 generic rule にせず、数学的証明に合わせて分岐する。
+
+higher branch:
+
+```text
+n≥7
+Proposition 5.9
+π_(n+5)^n=0
+↓
+second indeterminacy=0
+```
+
+concrete n=6 branch:
+
+```text
+π_11^6=Z{Δι₁₃}
+Δ(η₁₃)=0
+Δι₁₃∘η₁₁=Δ(η₁₃)
+↓
+second indeterminacy=0
+```
+
+最後に:
+
+```text
+TodaLemma512SecondIndeterminacyZeroStatement
+```
+
+へ theorem-specific integration する。
+
+---
+
+# 178. Phase 74：singleton mod two
+
+両 indeterminacy が zero なので bracket は singleton。
+
+Phase 73 Proposition 5.11:
+
+```text
+π_(n+6)^n=Z/2{ν_n²}
+(n≥5)
+```
+
+を使い `n≥6` で:
+
+```text
+unique value = 0 or ν_n²
+```
+
+を:
+
+```text
+TodaLemma512BracketSingletonMod2Statement
+```
+
+として保持する。
+
+explicit に:
+
+```text
+x_n
+CoefficientSymbol
+ModTwoCoefficient
+```
+
+等を expression layer に追加しない。
+
+statement semantics が:
+
+```text
+{x_nν_n²}, x_n∈{0,1}
+```
+
+という二択を表す。
+
+---
+
+# 179. Phase 74：coefficient stability
+
+Toda Proposition 1.3 と Toda (1.15) の必要 consequence のみを Lemma-5.12-specific rule として使用する。
+
+数学的意味:
+
+```text
+B_n={x_nν_n²}
+E(B_n) relates to B_(n+1)
+E(ν_n²)=ν_(n+1)²
+order two removes sign
+↓
+x_n=x_(n+1)
+```
+
+machine statement:
+
+```text
+TodaLemma512CoefficientStabilityStatement
+```
+
+追加しない:
+
+```text
+generic Proposition 1.3 engine
+generic Toda (1.15) engine
+generic bracket suspension
+generic suspension-of-composition normalizer
+generic sign solver
+generic coefficient equality solver
+```
+
+---
+
+# 180. Phase 74：nonzero anchor
+
+coefficient stability と独立に concrete anchor を作る。
+
+Toda Lemma 5.5 を:
+
+```text
+m=6
+t=7
+β=ν₆
+```
+
+へ narrow specialization。
+
+Phase 68:
+
+```text
+ν₆η₉=0
+```
+
+を hypothesis として:
+
+```text
+{η₈,ν₉,η₁₂}_3 contains ±ν₈²
+```
+
+を derived にする。
+
+Toda (1.15) と Phase 74 singleton result を使い:
+
+```text
+{η₈,ν₉,η₁₂}={ν₈²}
+```
+
+を:
+
+```text
+TodaLemma512NonzeroAnchorStatement
+anchor_dimension=8
+```
+
+として保持する。
+
+Phase 74-6 coefficient stability を anchor branch の premise に入れない。
+
+したがって:
+
+```text
+stability branch
+!= dependency on anchor
+
+anchor branch
+!= dependency on stability
+```
+
+を regression で固定できる。
+
+---
+
+# 181. Phase 74：final integration
+
+final premise は exactly:
+
+```text
+TodaLemma512BracketSingletonMod2Statement
+TodaLemma512CoefficientStabilityStatement
+TodaLemma512NonzeroAnchorStatement
+```
+
+すべて:
+
+```text
+ProofRule.INFERENCE
+```
+
+anchor:
+
+```text
+x_8=1
+```
+
+stability:
+
+```text
+x_n=x_(n+1), n≥6
+```
+
+から theorem-specific integration として:
+
+```text
+x_n=1 for every n≥6
+```
+
+を使い:
+
+```text
+TodaLemma512Statement(
+  bracket={η_n,ν_(n+1),η_(n+4)},
+  generator=ν_n²,
+  n_range=n≥6,
+)
+```
+
+を導出する。
+
+generic induction engine や integer-range propagation framework は追加しない。
+
+---
+
+# 182. Phase 74：provenance / applicability boundary
+
+専用 regression で確認:
+
+```text
+final direct premises exactly three
+all direct premises INFERENCE
+final INFERENCE
+n≥6 preserved
+n≥5 misuse rejected
+GIVEN shortcut rejected
+missing branch rejected
+```
+
+final ancestry は少なくとも:
+
+```text
+Phase 73 Proposition 5.11
+Phase 62 ν-family
+Phase 68 ν₆η₉=0
+Toda Lemma 5.5 indexed inclusion
+```
+
+へ到達する。
+
+non-circularity:
+
+```text
+stability does not depend on anchor
+anchor does not depend on stability
+final is not its own ancestor
+final conclusion absent from ancestors
+branches do not depend on final
+all relevant graphs acyclic
+```
+
+を固定する。
+
+---
+
+# 183. Phase 74：representative probe boundary
+
+probe:
+
+```text
+probes/probe_phase74_capabilities.py
+```
+
+representative source:
+
+```text
+build_phase74_9_data()
+```
+
+を再利用する。
+
+probe は theorem logic を複製せず、既存 proof graph の主要結果と人間向け hand-authored narrative を表示する。
+
+表示:
+
+```text
+Toda Lemma 5.12 result
+Proof-style derivation
+Provenance / integration
+Applicability / non-circularity
+Phase 74 representative probe boundary
+```
+
+probe 自体は automatic proof narrative generation ではない。
+
+最初の実装では Python 3.10 の multi-line f-string expression により syntax error が発生したため、表示用 boolean:
+
+```text
+exact_three_direct_premises
+```
+
+を事前計算する形へ修正した。
+
+---
+
+# 184. Phase 74 完了境界
+
+完成:
+
+```text
+Toda Lemma 5.12
+{η_n,ν_(n+1),η_(n+4)}={ν_n²}, n≥6
+
+bracket definedness
+first indeterminacy zero
+second indeterminacy zero
+singleton mod two
+coefficient stability
+n=8 nonzero anchor
+final integration
+applicability regression
+provenance / non-circularity regression
+representative probe
+formal proof record 9
+```
+
+representation:
+
+```text
+ν_n² = Composition(ν_n,ν_(n+3))
+no NuSquare
+no explicit coefficient object
+```
+
+追加しない:
+
+```text
+generic Toda-bracket coset algebra
+generic symbolic shift framework
+generic coefficient solver
+generic induction engine
+generic suspension normalizer
+stable homotopy-group model
+automatic proof narrative generation
+persistent Proof Repository
+```
+
+final regression:
+
+```text
+5609 passed in 31.59s
+```

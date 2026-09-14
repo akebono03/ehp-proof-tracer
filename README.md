@@ -29,7 +29,7 @@ The implementation strategy is to formalize only the minimum theorem consequence
 
 # Current status
 
-Completed through Phase 73.
+Completed through Phase 74.
 
 ```text
 Phase 1–27   generic proof / algebra / Toda-bracket foundation
@@ -71,12 +71,13 @@ Phase 72     Toda Lemma 5.10 first implementation
 Phase 72R    Toda Lemma 5.10 semantic correction / canonical implementation
 Phase 72R-A1 Toda (4.3) semantic audit
 Phase 73     Toda Proposition 5.11 finite-dimensional computation
+Phase 74     Toda Lemma 5.12 bracket identification
 ```
 
 Latest repository-wide regression:
 
 ```text
-5386 passed in 124.02s
+5609 passed in 31.59s
 ```
 
 Phase 64 same-machine baseline:
@@ -87,12 +88,12 @@ Phase 64 same-machine baseline:
 
 The Phase 64 final regression is approximately 88.4% faster than the same-machine baseline while preserving the same 3657-test coverage.
 
-Phase 72R semantic correction, provenance audit, corrected probe, and regression verification are complete. Repository-wide wall time is machine-dependent because development is performed on two PCs; the latest recorded home-laptop run is 5386 passed in 124.02s.
+Phase 74 Toda Lemma 5.12 integration, applicability/provenance regression, and representative probe are complete. Repository-wide wall time is machine-dependent because development is performed on two PCs; the latest recorded run is 5609 passed in 31.59s.
 
 Representative current probe:
 
 ```powershell
-python -m probes.probe_phase73_capabilities
+python -m probes.probe_phase74_capabilities
 ```
 
 ---
@@ -3876,6 +3877,246 @@ repository-wide:
 
 ---
 
+
+---
+
+# Phase 74: Toda Lemma 5.12
+
+Phase 74 proves the finite-dimensional Toda-bracket identity:
+
+```text
+{η_n,ν_(n+1),η_(n+4)}
+=
+{ν_n²}
+for n≥6
+```
+
+with:
+
+```text
+ν_n² := ν_n∘ν_(n+3)
+```
+
+represented by the existing `Composition` expression. No dedicated `NuSquare` expression class is introduced.
+
+## Definedness
+
+The two zero compositions required for the bracket are obtained from existing Phase 68 relations. The shifted second relation is implemented by a Lemma-5.12-specific bridge:
+
+```text
+η_n∘ν_(n+1)=0
+ν_n∘η_(n+3)=0
+↓ shift only for this theorem
+ν_(n+1)∘η_(n+4)=0
+↓
+{η_n,ν_(n+1),η_(n+4)} is defined
+```
+
+No generic symbolic substitution or shifted-family framework is added.
+
+## First indeterminacy
+
+The first indeterminacy term is represented using the ordinary group explicitly:
+
+```text
+η_n∘π_(n+6)(S^(n+1))=0
+```
+
+The implementation keeps `HomotopyGroup` separate from `TodaPrimaryGroup`; Toda (4.3) is not used as a structural identity between those objects.
+
+## Second indeterminacy
+
+The second term is handled by two branches:
+
+```text
+n≥7:
+π_(n+5)^n=0
+↓
+π_(n+5)(S^n)∘η_(n+5)=0
+```
+
+and the exceptional concrete branch:
+
+```text
+n=6:
+π_11^6=Z{Δι₁₃}
+Δ(η₁₃)=0
+Δι₁₃∘η₁₁=Δ(η₁₃)
+↓
+π_11(S^6)∘η₁₁=0
+```
+
+These are then integrated into a theorem-specific second-indeterminacy-zero statement for `n≥6`.
+
+## Singleton mod two
+
+With both indeterminacies zero, the bracket is a singleton. Phase 73 Proposition 5.11 gives:
+
+```text
+π_(n+6)^n=Z/2{ν_n²}
+(n≥5)
+```
+
+so for `n≥6` the unique bracket value is either zero or `ν_n²`:
+
+```text
+{η_n,ν_(n+1),η_(n+4)}
+=
+{x_n ν_n²}
+
+x_n∈{0,1}
+```
+
+The coefficient is not introduced as a first-class expression object; the two-choice semantics is kept inside the dedicated Phase 74 statement.
+
+## Coefficient stability
+
+Toda Proposition 1.3 together with Toda (1.15) and the ν-family suspension behavior gives the theorem-specific consequence:
+
+```text
+x_n=x_(n+1)
+(n≥6)
+```
+
+The implementation does not add a generic Toda-bracket suspension engine, generic suspension-of-composition normalizer, coefficient solver, sign solver, or generic induction framework.
+
+## Nonzero anchor
+
+Phase 74 specializes the already implemented Toda Lemma 5.5 with:
+
+```text
+m=6
+t=7
+β=ν₆
+```
+
+using the independently derived Phase 68 relation:
+
+```text
+ν₆η₉=0
+```
+
+to obtain:
+
+```text
+{η₈,ν₉,η₁₂}_3 contains ±ν₈²
+```
+
+Toda (1.15), the singleton result, and the order-two ambient group give:
+
+```text
+{η₈,ν₉,η₁₂}={ν₈²}
+```
+
+so:
+
+```text
+x_8=1
+```
+
+## Final integration
+
+Coefficient stability plus the `n=8` nonzero anchor gives:
+
+```text
+x_n=1
+for every n≥6
+```
+
+therefore:
+
+```text
+{η_n,ν_(n+1),η_(n+4)}={ν_n²}
+(n≥6)
+```
+
+The final machine statement is:
+
+```text
+TodaLemma512Statement
+ProofRule.INFERENCE
+```
+
+Its exact three direct premises are:
+
+```text
+TodaLemma512BracketSingletonMod2Statement   INFERENCE
+TodaLemma512CoefficientStabilityStatement  INFERENCE
+TodaLemma512NonzeroAnchorStatement          INFERENCE
+```
+
+## Provenance / non-circularity
+
+Phase 74 regression verifies that the final ancestry reaches:
+
+```text
+Phase 73  Toda Proposition 5.11
+Phase 62  ν-family / Toda (5.5)
+Phase 68  ν₆η₉=0
+Toda Lemma 5.5 indexed inclusion
+```
+
+and also verifies:
+
+```text
+coefficient stability does not depend on the anchor
+anchor does not depend on coefficient stability
+final graph is acyclic
+final conclusion is absent from ancestors
+GIVEN shortcuts are rejected
+missing direct branches are rejected
+n≥5 misuse is rejected
+```
+
+## Representative probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase74_capabilities
+```
+
+The probe displays:
+
+```text
+Toda Lemma 5.12 result
+Proof-style derivation
+Provenance / integration
+Applicability / non-circularity
+Phase 74 representative probe boundary
+```
+
+Representative machine output includes:
+
+```text
+final Lemma 5.12 derived = True
+final Lemma 5.12 is GIVEN = False
+exact three direct final premises = True
+Proposition 5.11 reachable = True
+nu-family reachable = True
+ν₆η₉=0 reachable = True
+Lemma 5.5 indexed inclusion reachable = True
+stability does not depend on anchor = True
+anchor does not depend on stability = True
+ν_n² remains Composition = True
+explicit coefficient field present = False
+stable branch field present = False
+```
+
+The proof-style derivation remains hand-authored presentation code, not automatic `ProofStep` narrative generation.
+
+## Phase 74 regression
+
+```text
+tests/test_phase74_probe.py:
+27 passed in 1.57s
+
+repository-wide:
+5609 passed in 31.59s
+```
+
+---
+
 # Documentation
 
 - `README.md` — current capabilities and status
@@ -3888,17 +4129,17 @@ repository-wide:
 
 # Next development boundary
 
-Phase 73 is complete.
+Phase 74 is complete.
 
 The next development Phase is:
 
 ```text
-Phase 74-1
+Phase 75-1
 next Toda source statement
 source / proof dependency / representation compatibility analysis
 ```
 
-The exact mathematical target for Phase 74 should be fixed only after checking the next statement in Toda's source and its proof dependencies.
+The exact mathematical target for Phase 75 should be fixed only after checking the next statement in Toda's source and its proof dependencies.
 
 The following remain separate deferred milestones:
 

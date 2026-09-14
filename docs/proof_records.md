@@ -5243,7 +5243,422 @@ DEFERRED
 
 ---
 
-# 20. 現在の proof-record 状況
+
+# 20. Formal Proof Record 9 — Phase 74 Toda Lemma 5.12
+
+## 20.1 Source / theorem
+
+Toda Lemma 5.12.
+
+source result:
+
+```text
+{η_n,ν_(n+1),η_(n+4)}={ν_n²}
+(n≥6)
+```
+
+with:
+
+```text
+ν_n²:=ν_n∘ν_(n+3)
+```
+
+---
+
+## 20.2 Result
+
+EHP Proof Tracer derives:
+
+```text
+TodaLemma512Statement
+```
+
+representing:
+
+```text
+{η_n,ν_(n+1),η_(n+4)}={ν_n²}
+(n≥6)
+```
+
+The final `ProofStep` has:
+
+```text
+ProofRule.INFERENCE
+```
+
+and is not a `GIVEN` shortcut.
+
+---
+
+## 20.3 Upstream results
+
+Principal reusable upstream results:
+
+```text
+Phase 68
+η_nν_(n+1)=0
+ν_nη_(n+3)=0
+ν₆η₉=0
+
+Phase 70 / Proposition 5.9
+π_(n+5)^n=0, n≥7
+π_11^6=Z{Δι₁₃}
+
+Phase 73 / Proposition 5.11
+π_(n+6)^n=Z/2{ν_n²}, n≥5
+
+Phase 62
+ν-family
+
+Phase 61
+Toda Lemma 5.5
+```
+
+Also used as theorem-specific literature consequences:
+
+```text
+Toda Proposition 1.3
+Toda (1.15)
+Toda (3.2)
+Toda (4.7)
+Toda Proposition 2.5
+```
+
+---
+
+## 20.4 Derived ingredients
+
+### Bracket definedness
+
+```text
+η_nν_(n+1)=0
+ν_nη_(n+3)=0
+↓
+ν_(n+1)η_(n+4)=0
+↓
+{η_n,ν_(n+1),η_(n+4)} defined
+```
+
+### First indeterminacy
+
+```text
+η_n∘π_(n+6)(S^(n+1))=0
+```
+
+The ordinary group remains represented by `HomotopyGroup`.
+
+### Second indeterminacy
+
+```text
+n≥7:
+π_(n+5)^n=0
+↓
+π_(n+5)(S^n)η_(n+5)=0
+```
+
+and:
+
+```text
+n=6:
+π_11^6=Z{Δι₁₃}
+Δ(η₁₃)=0
+Δι₁₃η₁₁=Δ(η₁₃)
+↓
+π_11(S^6)η₁₁=0
+```
+
+### Singleton mod two
+
+```text
+first indeterminacy=0
+second indeterminacy=0
+↓
+bracket is singleton
+```
+
+with Proposition 5.11:
+
+```text
+π_(n+6)^n=Z/2{ν_n²}
+↓
+{η_n,ν_(n+1),η_(n+4)}={x_nν_n²}
+x_n∈{0,1}
+```
+
+### Coefficient stability
+
+```text
+Toda Proposition 1.3
++
+Toda (1.15)
++
+E(ν_n²)=ν_(n+1)²
+↓
+x_n=x_(n+1)
+```
+
+### Nonzero anchor
+
+Toda Lemma 5.5 with:
+
+```text
+m=6
+t=7
+β=ν₆
+```
+
+and `ν₆η₉=0` gives:
+
+```text
+{η₈,ν₉,η₁₂}_3 contains ±ν₈²
+```
+
+then:
+
+```text
+{η₈,ν₉,η₁₂}={ν₈²}
+```
+
+so:
+
+```text
+x_8=1
+```
+
+---
+
+## 20.5 Proof-style derivation
+
+```text
+η_nν_(n+1)=0
+ν_(n+1)η_(n+4)=0
+↓
+B_n={η_n,ν_(n+1),η_(n+4)} defined
+
+first indeterminacy=0
+second indeterminacy=0
+↓
+B_n is singleton
+
+π_(n+6)^n=Z/2{ν_n²}
+↓
+B_n={x_nν_n²}, x_n∈{0,1}
+
+Toda Proposition 1.3 + Toda (1.15)
+↓
+x_n=x_(n+1)
+
+Toda Lemma 5.5, β=ν₆
+↓
+B_8={ν₈²}
+↓
+x_8=1
+
+x_n=x_(n+1) and x_8=1
+↓
+x_n=1 for every n≥6
+↓
+{η_n,ν_(n+1),η_(n+4)}={ν_n²}
+```
+
+---
+
+## 20.6 Machine provenance
+
+final direct premises exactly:
+
+```text
+TodaLemma512BracketSingletonMod2Statement
+TodaLemma512CoefficientStabilityStatement
+TodaLemma512NonzeroAnchorStatement
+```
+
+all three are:
+
+```text
+ProofRule.INFERENCE
+```
+
+provenance regression confirms final ancestry reaches:
+
+```text
+Toda Proposition 5.11 aggregate
+ν-family aggregate
+ν₆η₉=0
+Toda Lemma 5.5 indexed inclusion
+```
+
+non-circularity:
+
+```text
+stability does not depend on anchor
+anchor does not depend on stability
+final graph acyclic
+final not its own ancestor
+final conclusion absent from ancestors
+branches do not depend on final
+```
+
+---
+
+## 20.7 Literature
+
+Human-facing source identification:
+
+```text
+Label:
+  Toda Lemma 5.12
+
+Locator:
+  Lemma 5.12
+
+Author:
+  H. Toda
+
+Title:
+  Composition Methods in Homotopy Groups of Spheres
+
+Year:
+  1962
+```
+
+Phase 74 does not introduce a new generic literature/theorem engine. The theorem-specific rules preserve the project boundary between literature knowledge and generic inference mechanics.
+
+---
+
+## 20.8 GIVEN / INFERENCE boundary
+
+Final theorem:
+
+```text
+INFERENCE
+```
+
+Direct final branches:
+
+```text
+singleton mod two   INFERENCE
+coefficient stability INFERENCE
+n=8 anchor          INFERENCE
+```
+
+Regression rejects replacing any of these three direct premises with a `GIVEN` step.
+
+Missing direct branch also fails to match the final rule.
+
+---
+
+## 20.9 Representation boundary
+
+`ν_n²` remains:
+
+```text
+Composition(
+  left=ν_n,
+  right=ν_(n+3),
+)
+```
+
+not:
+
+```text
+NuSquare
+```
+
+The project also does not add:
+
+```text
+explicit coefficient expression x_n
+generic bracket coset algebra
+generic symbolic family shift
+generic bracket suspension engine
+generic sign solver
+generic induction engine
+stable homotopy-group model
+```
+
+`HomotopyGroup` and `TodaPrimaryGroup` remain structurally distinct where the proof uses ordinary versus Toda-(4.3) group semantics.
+
+---
+
+## 20.10 Applicability
+
+final scope:
+
+```text
+n≥6
+```
+
+Regression confirms:
+
+```text
+n≥6 accepted
+n≥5 misuse rejected
+anchor dimension exactly 8
+```
+
+The concrete anchor does not become a symbolic all-`n` theorem by itself; propagation requires the independently derived coefficient-stability branch.
+
+---
+
+## 20.11 Representative probe
+
+```powershell
+python -m probes.probe_phase74_capabilities
+```
+
+probe sections:
+
+```text
+Toda Lemma 5.12 result
+Proof-style derivation
+Provenance / integration
+Applicability / non-circularity
+Phase 74 representative probe boundary
+```
+
+The narrative remains hand-authored presentation code and is not automatically generated from the `ProofStep` graph.
+
+---
+
+## 20.12 Regression status
+
+Phase 74 applicability / provenance:
+
+```text
+40 passed in 1.68s
+```
+
+Phase 74 probe:
+
+```text
+27 passed in 1.57s
+```
+
+repository-wide at Phase 74 completion:
+
+```text
+5609 passed in 31.59s
+```
+
+---
+
+## 20.13 Completion status
+
+Phase 74 is COMPLETE.
+
+verified result:
+
+```text
+{η_n,ν_(n+1),η_(n+4)}={ν_n²}
+(n≥6)
+```
+
+This record is the human-reviewed golden reference for Toda Lemma 5.12 at Phase 74 completion.
+
+---
+
+# 21. 現在の proof-record 状況
 
 正式な curated record:
 
@@ -5256,9 +5671,9 @@ DEFERRED
 6 Phase 71   Toda Equation (5.12)
 7 Phase 72R  Toda Lemma 5.10 canonical revision
 8 Phase 73   Toda Proposition 5.11 finite-dimensional
+9 Phase 74   Toda Lemma 5.12
 ```
 
-formal record は8件。
+formal record は9件。
 
 stable homotopy branch は引き続き deferred。
-

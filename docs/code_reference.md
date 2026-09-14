@@ -2,7 +2,7 @@
 
 この文書は EHP Proof Tracer の主要 Python module と、その責務・主要 class / function・探索方法をまとめる。
 
-対象は **Phase 73 completion 時点**。
+対象は **Phase 74 completion 時点**。
 
 この文書は全 API を機械的に列挙する reference ではない。目的は:
 
@@ -5887,3 +5887,154 @@ Phase 73 tests / probe / proof record
 
 stable `(G_6;2)` は Phase 74 へ自動継続せず、stable branch 全体の concrete need が生じたときに再評価する。
 
+
+
+---
+
+# Phase 74：Toda Lemma 5.12 関連コード
+
+## final statement
+
+`toda_rules.py`:
+
+```text
+TodaLemma512Statement
+```
+
+意味:
+
+```text
+{η_n,ν_(n+1),η_(n+4)}={ν_n²}
+(n≥6)
+```
+
+`ν_n²` は:
+
+```text
+Composition(ν_n,ν_(n+3))
+```
+
+のまま。
+
+## intermediate statements
+
+```text
+TodaLemma512FirstIndeterminacyZeroStatement
+TodaLemma512SecondIndeterminacyHigherZeroStatement
+TodaLemma512SecondIndeterminacyN6ZeroStatement
+TodaLemma512SecondIndeterminacyZeroStatement
+TodaLemma512BracketSingletonMod2Statement
+TodaLemma512CoefficientStabilityStatement
+TodaLemma512NonzeroAnchorStatement
+TodaLemma512Statement
+```
+
+## principal rules
+
+```text
+toda_lemma512_shifted_nu_eta_zero_inference_rule()
+toda_lemma512_first_indeterminacy_zero_inference_rule()
+toda_lemma512_second_indeterminacy_higher_zero_inference_rule()
+toda_lemma512_second_indeterminacy_n6_zero_inference_rule()
+toda_lemma512_second_indeterminacy_zero_integration_inference_rule()
+toda_lemma512_bracket_singleton_mod2_inference_rule()
+toda_lemma512_coefficient_stability_inference_rule()
+toda_lemma512_lemma55_n8_inclusion_inference_rule()
+toda_lemma512_nonzero_anchor_inference_rule()
+toda_lemma512_final_integration_inference_rule()
+```
+
+## principal tests / builders
+
+```text
+tests/test_phase74_lemma512_bracket_defined.py
+tests/test_phase74_lemma512_first_indeterminacy_zero.py
+tests/test_phase74_lemma512_second_indeterminacy_zero.py
+tests/test_phase74_lemma512_bracket_singleton_mod2.py
+tests/test_phase74_lemma512_coefficient_stability.py
+tests/test_phase74_lemma512_nonzero_anchor.py
+tests/test_phase74_lemma512_final_integration.py
+tests/test_phase74_lemma512_applicability_provenance.py
+tests/test_phase74_probe.py
+```
+
+representative builders:
+
+```text
+build_phase74_2_data()
+build_phase74_3_data()
+build_phase74_5_data()
+build_phase74_6_data()
+build_phase74_7_data()
+build_phase74_8_data()
+build_phase74_9_data()
+```
+
+heavy reusable fixture graph は:
+
+```python
+@lru_cache(maxsize=1)
+```
+
+を使用。
+
+## representative probe
+
+```text
+probes/probe_phase74_capabilities.py
+```
+
+entry:
+
+```text
+build_phase74_representative_result()
+main()
+```
+
+representative source:
+
+```text
+build_phase74_9_data()
+```
+
+## completion regression
+
+```text
+tests/test_phase74_probe.py
+27 passed in 1.57s
+
+repository-wide
+5609 passed in 31.59s
+```
+
+---
+
+# Phase 74 後に最初に確認する場所
+
+Phase 75 を開始するとき:
+
+```text
+Toda source の次 statement
+↓
+toda_rules.py の TodaLemma512Statement
+↓
+Phase 74 applicability / provenance regression
+↓
+Phase 74 representative probe / proof record
+↓
+必要な upstream Phase statement
+```
+
+を確認する。
+
+先取りしない:
+
+```text
+generic Toda-bracket coset algebra
+generic symbolic family shifting
+generic coefficient solver
+generic induction engine
+automatic proof narrative generation
+persistent Proof Repository
+stable homotopy-group model
+```

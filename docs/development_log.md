@@ -9534,3 +9534,637 @@ source / proof dependency / representation compatibility analysis
 
 COMPLETE
 
+
+
+---
+
+# Phase 74：Toda Lemma 5.12
+
+対象:
+
+```text
+{η_n,ν_(n+1),η_(n+4)}={ν_n²}
+(n≥6)
+```
+
+Phase 73 の:
+
+```text
+ν_n²:=ν_n∘ν_(n+3)
+π_(n+6)^n=Z/2{ν_n²}, n≥5
+```
+
+を直接再利用する。
+
+---
+
+## Phase 74-1：dependency / compatibility analysis
+
+確認:
+
+```text
+bracket definedness
+Toda bracket indeterminacy formula
+Proposition 5.9
+Proposition 5.11
+Toda Proposition 1.3
+Toda (1.15)
+Toda Lemma 5.5
+ν-family
+ν₆η₉=0
+```
+
+重要な representation boundary:
+
+```text
+HomotopyGroup != TodaPrimaryGroup structurally
+ν_n² remains Composition
+symbolic shifted family helper is intentionally narrow
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 74-2：bracket defined
+
+Phase 68 relations:
+
+```text
+η_nν_(n+1)=0
+ν_nη_(n+3)=0
+```
+
+から Lemma 5.12 専用 shifted bridge で:
+
+```text
+ν_(n+1)η_(n+4)=0
+```
+
+を導出し:
+
+```text
+{η_n,ν_(n+1),η_(n+4)}
+```
+
+の definedness を確立。
+
+full regression:
+
+```text
+5400 passed in 35.15s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 74-3：first indeterminacy zero
+
+導出:
+
+```text
+η_n∘π_(n+6)(S^(n+1))=0
+```
+
+ordinary group を:
+
+```text
+HomotopyGroup(n+6,n+1)
+```
+
+として明示保持。
+
+追加:
+
+```text
+TodaLemma512FirstIndeterminacyZeroStatement
+```
+
+full regression:
+
+```text
+5415 passed in 31.86s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 74-4：second indeterminacy zero
+
+split:
+
+```text
+n≥7:
+Proposition 5.9 π_(n+5)^n=0
+
+n=6:
+π_11^6=Z{Δι₁₃}
+Δ(η₁₃)=0
+Δι₁₃η₁₁=Δ(η₁₃)
+```
+
+integration:
+
+```text
+TodaLemma512SecondIndeterminacyZeroStatement
+```
+
+focused:
+
+```text
+23 passed in 1.58s
+```
+
+full:
+
+```text
+5438 passed in 33.67s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 74-5：singleton mod two
+
+両 indeterminacy zero と Phase 73 Proposition 5.11 から:
+
+```text
+{η_n,ν_(n+1),η_(n+4)}
+=
+{x_nν_n²}
+
+x_n∈{0,1}
+n≥6
+```
+
+を theorem-specific semantics として保持。
+
+追加:
+
+```text
+TodaLemma512BracketSingletonMod2Statement
+```
+
+explicit coefficient object は追加しない。
+
+focused:
+
+```text
+27 passed in 1.64s
+```
+
+full:
+
+```text
+5465 passed in 33.66s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 74-6：coefficient independent of n
+
+Toda Proposition 1.3 + Toda (1.15) と:
+
+```text
+E(ν_n²)=ν_(n+1)²
+```
+
+の Lemma-5.12-specific consequence から:
+
+```text
+x_n=x_(n+1)
+(n≥6)
+```
+
+を導出。
+
+追加:
+
+```text
+TodaLemma512CoefficientStabilityStatement
+```
+
+focused:
+
+```text
+27 passed in 2.02s
+```
+
+direct dependencies:
+
+```text
+65 passed in 2.04s
+```
+
+full:
+
+```text
+5492 passed in 33.64s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 74-7：Lemma 5.5 nonzero anchor
+
+specialization:
+
+```text
+m=6
+t=7
+β=ν₆
+```
+
+Phase 68:
+
+```text
+ν₆η₉=0
+```
+
+から:
+
+```text
+{η₈,ν₉,η₁₂}_3 contains ±ν₈²
+```
+
+Toda (1.15) と singleton mod two から:
+
+```text
+{η₈,ν₉,η₁₂}={ν₈²}
+```
+
+すなわち:
+
+```text
+x_8=1
+```
+
+追加:
+
+```text
+TodaLemma512NonzeroAnchorStatement
+```
+
+focused:
+
+```text
+25 passed in 1.98s
+```
+
+direct dependencies:
+
+```text
+72 passed in 1.81s
+```
+
+full:
+
+```text
+5517 passed in 32.92s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 74-8：final integration
+
+premises:
+
+```text
+Phase 74-5 singleton mod two
+Phase 74-6 coefficient stability
+Phase 74-7 n=8 anchor
+```
+
+から:
+
+```text
+x_n=1 for every n≥6
+```
+
+を theorem-specific に統合し:
+
+```text
+{η_n,ν_(n+1),η_(n+4)}={ν_n²}
+(n≥6)
+```
+
+を導出。
+
+追加:
+
+```text
+TodaLemma512Statement
+```
+
+final:
+
+```text
+ProofRule.INFERENCE
+```
+
+focused:
+
+```text
+25 passed in 1.86s
+```
+
+direct dependencies:
+
+```text
+79 passed in 1.82s
+```
+
+full:
+
+```text
+5542 passed in 34.93s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 74-9：applicability / provenance regression
+
+production code 変更なし。
+
+確認:
+
+```text
+final direct premises exactly three
+all direct premises INFERENCE
+n≥6 preserved
+n≥5 misuse rejected
+GIVEN shortcuts rejected
+missing branches rejected
+```
+
+provenance:
+
+```text
+Phase 73 Proposition 5.11 reachable
+Phase 62 ν-family reachable
+Phase 68 ν₆η₉=0 reachable
+Lemma 5.5 indexed inclusion reachable
+```
+
+non-circularity:
+
+```text
+stability !-> anchor
+anchor !-> stability
+all relevant graphs acyclic
+final conclusion absent from ancestors
+no branch depends on final
+```
+
+focused:
+
+```text
+40 passed in 1.68s
+```
+
+Phase 74-5〜9:
+
+```text
+144 passed in 2.24s
+```
+
+full:
+
+```text
+5582 passed in 32.96s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 74-10：representative probe
+
+追加:
+
+```text
+probes/probe_phase74_capabilities.py
+tests/test_phase74_probe.py
+```
+
+representative source:
+
+```text
+build_phase74_9_data()
+```
+
+表示:
+
+```text
+Toda Lemma 5.12 result
+Proof-style derivation
+Provenance / integration
+Applicability / non-circularity
+Phase 74 representative probe boundary
+```
+
+最初の probe 実装では Python 3.10 が複数行 f-string expression を parse できず:
+
+```text
+SyntaxError: unterminated string literal
+```
+
+が発生。
+
+表示用 boolean:
+
+```text
+exact_three_direct_premises
+```
+
+を事前計算する形に修正。
+
+syntax check:
+
+```powershell
+python -m py_compile probes/probe_phase74_capabilities.py
+```
+
+成功。
+
+probe:
+
+```powershell
+python -m probes.probe_phase74_capabilities
+```
+
+主要表示:
+
+```text
+final Lemma 5.12 derived = True
+final Lemma 5.12 is GIVEN = False
+exact three direct final premises = True
+Proposition 5.11 reachable = True
+nu-family reachable = True
+ν₆η₉=0 reachable = True
+Lemma 5.5 indexed inclusion reachable = True
+stability does not depend on anchor = True
+anchor does not depend on stability = True
+ν_n² remains Composition = True
+explicit coefficient field present = False
+stable branch field present = False
+```
+
+focused:
+
+```text
+27 passed in 1.57s
+```
+
+repository-wide:
+
+```text
+5609 passed in 31.59s
+```
+
+proof-style derivation は hand-authored presentation code であり automatic `ProofStep` narrative generation ではない。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 74-11：completion documentation + proof record
+
+更新:
+
+```text
+README.md
+docs/design.md
+docs/development_log.md
+docs/code_reference.md
+docs/proof_records.md
+docs/roadmap.md
+```
+
+方針:
+
+```text
+Phase 73 completion 文書を土台に過去内容を保持
+README は英語を維持
+design / development_log / proof_records は日本語中心
+Phase 74 completion を追記
+formal proof record 9 を追加
+roadmap は future-oriented に圧縮
+```
+
+current repository-wide regression:
+
+```text
+5609 passed in 31.59s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 74 completion
+
+final capability:
+
+```text
+Toda Lemma 5.12
+{η_n,ν_(n+1),η_(n+4)}={ν_n²}
+(n≥6)
+```
+
+proof spine:
+
+```text
+bracket defined
+↓
+first indeterminacy = 0
+second indeterminacy = 0
+↓
+singleton mod two
+↓
+x_n=x_(n+1)
++
+x_8=1
+↓
+x_n=1 for every n≥6
+↓
+{η_n,ν_(n+1),η_(n+4)}={ν_n²}
+```
+
+final statement:
+
+```text
+TodaLemma512Statement
+ProofRule.INFERENCE
+```
+
+representation:
+
+```text
+ν_n²=Composition(ν_n,ν_(n+3))
+```
+
+provenance:
+
+```text
+Phase 73 Proposition 5.11
+Phase 62 ν-family
+Phase 68 ν₆η₉=0
+Toda Lemma 5.5
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase74_capabilities
+```
+
+final full regression:
+
+```text
+5609 passed in 31.59s
+```
+
+next:
+
+```text
+Phase 75-1
+next Toda source statement
+source / proof dependency / representation compatibility analysis
+```
+
+### 状態
+
+COMPLETE
