@@ -32060,6 +32060,14 @@ class TodaNuFamilyDefinitionStatement:
 
 
 @dataclass(frozen=True)
+class TodaSigmaFamilyDefinitionStatement:
+  index: int | ScalarSymbol
+  element: HomotopyElement
+  iterated_suspension: IteratedSuspension
+  sigma8_statement: "TodaLemma514Sigma8Statement"
+
+
+@dataclass(frozen=True)
 class TodaDeltaImageFreeCyclicStatement:
   map: TodaDeltaMap
   image_group: FreeCyclicGroup
@@ -58753,6 +58761,294 @@ def toda_55_nu_family_double_suspension_transport_inference_rule():
         ),
       ),
       PremisePattern(
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_sigma_family_definition_statement(
+  n,
+  sigma8_statement,
+):
+  if not isinstance(
+    n,
+    (
+      int,
+      ScalarSymbol,
+    ),
+  ):
+    raise TypeError(
+      "n must be an int or ScalarSymbol"
+    )
+
+  if (
+    isinstance(
+      n,
+      int,
+    )
+    and n < 8
+  ):
+    raise ValueError(
+      "sigma family requires n >= 8"
+    )
+
+  if not isinstance(
+    sigma8_statement,
+    TodaLemma514Sigma8Statement,
+  ):
+    raise TypeError(
+      "sigma8_statement must be "
+      "a TodaLemma514Sigma8Statement"
+    )
+
+  sigma8 = (
+    sigma8_statement
+    .sigma8
+  )
+
+  if (
+    sigma8.source
+    != 15
+  ):
+    raise ValueError(
+      "sigma8 source must be 15"
+    )
+
+  if (
+    sigma8.target
+    != 8
+  ):
+    raise ValueError(
+      "sigma8 target must be 8"
+    )
+
+  if (
+    sigma8.generator
+    != GeneratorSymbol(
+      family="σ",
+      index=8,
+    )
+  ):
+    raise ValueError(
+      "sigma8 must be the sigma_8 generator"
+    )
+
+  if n == 8:
+    name = "σ₈"
+    source = 15
+    exponent = 0
+  elif isinstance(
+    n,
+    int,
+  ):
+    name = (
+      "σ_"
+      + str(
+        n
+      )
+    )
+    source = n + 7
+    exponent = n - 8
+  else:
+    name = "σ_n"
+    source = ScalarSum(
+      left=n,
+      right=7,
+    )
+    exponent = ScalarSum(
+      left=n,
+      right=-8,
+    )
+
+  sigma_n = HomotopyElement(
+    name=name,
+    dimension=n,
+    source=source,
+    target=n,
+    generator=GeneratorSymbol(
+      family="σ",
+      index=n,
+    ),
+  )
+
+  return TodaSigmaFamilyDefinitionStatement(
+    index=n,
+    element=sigma_n,
+    iterated_suspension=(
+      IteratedSuspension(
+        expression=sigma8,
+        exponent=exponent,
+      )
+    ),
+    sigma8_statement=(
+      sigma8_statement
+    ),
+  )
+
+
+def toda_lemma514_sigma_family_definition_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    sigma8_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    n_range = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      sigma8_statement,
+      TodaLemma514Sigma8Statement,
+    ):
+      return False
+
+    n = (
+      n_range.left
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      n_range
+      != ScalarGreaterEqualStatement(
+        left=n,
+        right=8,
+      )
+    ):
+      return False
+
+    sigma8 = (
+      sigma8_statement
+      .sigma8
+    )
+
+    if (
+      sigma8.source
+      != 15
+    ):
+      return False
+
+    if (
+      sigma8.target
+      != 8
+    ):
+      return False
+
+    if (
+      sigma8.generator
+      != GeneratorSymbol(
+        family="σ",
+        index=8,
+      )
+    ):
+      return False
+
+    if (
+      sigma8_statement
+      .hopf_relation
+      .lhs
+      != MapApplication(
+        map=EHP_H_MAP,
+        expression=sigma8,
+      )
+    ):
+      return False
+
+    iota_15 = (
+      sigma8_statement
+      .hopf_relation
+      .rhs
+    )
+
+    if not isinstance(
+      iota_15,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      iota_15.generator
+      != GeneratorSymbol(
+        family="ι",
+        index=15,
+      )
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    sigma8_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    n_range = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return (
+      toda_sigma_family_definition_statement(
+        n_range.left,
+        sigma8_statement,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.14 "
+      "sigma-family definition"
+    ),
+    description=(
+      "Starting from the independently "
+      "derived Toda Lemma 5.14 "
+      "element sigma_8 in pi_15^8, "
+      "define for symbolic n at least 8 "
+      "sigma_n=E^(n-8) sigma_8. "
+      "The resulting family definition "
+      "retains the complete sigma_8 "
+      "statement so that the upstream "
+      "Theorem 3.6 and Lemma 5.14 "
+      "provenance remains reachable. "
+      "This phase introduces only the "
+      "finite-dimensional sigma-family "
+      "notation. It does not use "
+      "Toda (4.5), prove suspension "
+      "isomorphisms, determine the order "
+      "of sigma_n, derive "
+      "pi_(n+7)^n, or introduce a "
+      "stable sigma element."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma514Sigma8Statement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
         statement_type=(
           ScalarGreaterEqualStatement
         ),
