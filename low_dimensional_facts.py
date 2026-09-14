@@ -112,6 +112,28 @@ def pi_15_15_free_cyclic_fact():
   )
 
 
+def pi_17_17_free_cyclic_fact():
+  iota_17 = HomotopyElement(
+    name="ι_17",
+    dimension=17,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=17,
+    ),
+  )
+
+  return Relation(
+    lhs=TodaPrimaryGroup(
+      group_dimension=17,
+      sphere_dimension=17,
+    ),
+    rhs=FreeCyclicGroup(
+      generator=iota_17,
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+
 def pi_4_5_zero_fact():
   return TodaPrimaryGroupZeroStatement(
     group=TodaPrimaryGroup(

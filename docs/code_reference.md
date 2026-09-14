@@ -6213,3 +6213,243 @@ stable homotopy-group model
 automatic proof narrative generation
 persistent Proof Repository
 ```
+
+
+---
+
+# Phase 76：Toda Equation (5.16)
+
+## source
+
+```text
+Toda_05_2.tex
+Equation (5.16)
+```
+
+target:
+
+```text
+Ker(E:π_15^8→π_16^9)
+=
+Z{2σ₈-Eσ'}
+
+Δ(ι₁₇)
+=
+±(2σ₈-Eσ')
+```
+
+## foundational fact
+
+```text
+low_dimensional_facts.py
+pi_17_17_free_cyclic_fact()
+```
+
+returns:
+
+```text
+π_17^17=Z{ι₁₇}
+```
+
+as a foundational relation.
+
+## Phase 76 rules
+
+```text
+toda_rules.py
+
+toda_516_sigma8_suspension_kernel_inference_rule()
+
+toda_516_concrete_delta_e_exactness_inference_rule()
+
+toda_516_exactness_kernel_to_delta_image_inference_rule()
+
+toda_516_delta_iota17_generator_inference_rule()
+```
+
+## reused statements
+
+```text
+TodaSuspensionKernelFreeCyclicStatement
+
+TodaProp42ExactnessStatement
+
+TodaDeltaImageFreeCyclicStatement
+
+TodaDeltaImageUpToSignStatement
+```
+
+No Phase-76-specific statement class is required.
+
+## Phase 76-2 builder
+
+```text
+tests/test_phase76_sigma8_suspension_kernel.py
+
+build_phase76_2_data()
+@lru_cache(maxsize=1)
+```
+
+derives:
+
+```text
+Ker(
+  E:π_15^8→π_16^9
+)
+=
+Z{2σ₈-Eσ'}
+```
+
+## Phase 76-3 builder
+
+```text
+tests/test_phase76_delta_e_exactness_bridge.py
+
+build_phase76_3_data()
+@lru_cache(maxsize=1)
+```
+
+derives:
+
+```text
+π_17^17 --Δ--> π_15^8 --E--> π_16^9
+exact
+```
+
+and:
+
+```text
+Im Δ
+=
+Z{2σ₈-Eσ'}.
+```
+
+## Phase 76-4 builder
+
+```text
+tests/test_phase76_delta_iota17.py
+
+build_phase76_4_data()
+@lru_cache(maxsize=1)
+```
+
+derives:
+
+```text
+Δ(ι₁₇)
+=
+±(2σ₈-Eσ').
+```
+
+## Phase 76-5 builder
+
+```text
+tests/test_phase76_applicability_provenance.py
+
+build_phase76_5_data()
+@lru_cache(maxsize=1)
+```
+
+provides the representative integrated graph and checks:
+
+```text
+Phase 75 reachability
+GIVEN / INFERENCE boundary
+exact direct premises
+non-circularity
+Phase 75 aggregate non-dependency
+```
+
+## representative probe
+
+```text
+probes/probe_phase76_capabilities.py
+```
+
+entry:
+
+```text
+build_phase76_representative_result()
+main()
+```
+
+representative source:
+
+```text
+build_phase76_5_data()
+```
+
+## probe test
+
+```text
+tests/test_phase76_probe.py
+```
+
+checks:
+
+```text
+kernel / exactness / image / final provenance
+structural window GIVEN
+diagonal source fact GIVEN
+human-readable derivation
+Phase 75 reachability
+non-circularity output
+source locator
+completion boundary
+next Toda Lemma 5.16 boundary
+```
+
+## Phase 76 completion baseline before probe
+
+```text
+tests/test_phase76_applicability_provenance.py
+26 passed in 9.89s
+
+Phase 76-2 through 76-5
+104 passed in 7.92s
+
+Phase 75 upstream + Phase 76
+184 passed in 6.89s
+
+repository-wide
+6117 passed in 109.84s
+```
+
+---
+
+# Phase 76 後に最初に確認する場所
+
+Phase 77:
+
+```text
+Toda Lemma 5.16
+```
+
+source:
+
+```text
+Toda_05_2.tex
+immediately after Equation (5.16)
+```
+
+first audit targets:
+
+```text
+Toda bracket typing
+first bracket middle term E^nβ source notation
+sum of two bracket terms
+odd integer x
+Lemma 5.14 proof / σ₈ definition dependency
+Theorem 3.6 dependency
+```
+
+先取りしない:
+
+```text
+generic sum-of-brackets framework
+generic existential odd coefficient solver
+generic coefficient normalization
+generic sign solver
+automatic proof narrative generation
+persistent Proof Repository
+```

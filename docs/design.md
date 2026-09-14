@@ -25,7 +25,7 @@ representation != typing != theorem knowledge
 structural equality != mathematical equality
 ```
 
-Phase 74 までこの原則を維持している。
+Phase 76 までこの原則を維持している。
 
 ---
 
@@ -8235,4 +8235,293 @@ generic direct-sum commutativity
 generic cyclic-generator transport
 automatic proof narrative generation
 persistent Proof Repository
+```
+
+
+---
+
+# 108. Phase 76 design target
+
+Toda Equation (5.16):
+
+```text
+Ker(E:π_15^8→π_16^9)
+=
+Z{2σ₈-Eσ'}
+
+Δ(ι₁₇)
+=
+±(2σ₈-Eσ')
+```
+
+を Phase 75 の concrete data から provenance 付きで導出する。
+
+---
+
+# 109. Phase 76 kernel representation
+
+既存:
+
+```text
+TodaSuspensionKernelFreeCyclicStatement
+TodaSuspensionMap
+FreeCyclicGroup
+Sum
+Multiple
+Suspension
+```
+
+を再利用する。
+
+kernel generator:
+
+```text
+2σ₈-Eσ'
+```
+
+は:
+
+```text
+Sum(
+  left=Multiple(
+    coefficient=2,
+    expression=σ₈,
+  ),
+  right=Multiple(
+    coefficient=-1,
+    expression=Eσ',
+  ),
+)
+```
+
+として表現する。
+
+新しい subtraction node や generic sign expression は追加しない。
+
+---
+
+# 110. Phase 76 concrete mixed-group calculation boundary
+
+Phase 75:
+
+```text
+π_15^8=Z{σ₈}⊕Z/8{Eσ'}
+π_16^9=Z/16{σ₉}
+σ₉=Eσ₈
+2Eσ₈=E²σ'
+```
+
+から:
+
+```text
+E(aσ₈+bEσ')
+=
+(a+2b)σ₉
+```
+
+を concrete theorem-specific calculation として読む。
+
+Phase 76 では generic:
+
+```text
+mixed free/torsion kernel solver
+integer matrix kernel framework
+cyclic-coordinate solver
+```
+
+へ拡張しない。
+
+---
+
+# 111. Phase 76 concrete Delta-E exactness
+
+対象 window:
+
+```text
+π_17^17 --Δ--> π_15^8 --E--> π_16^9
+```
+
+既存 symbolic Proposition 4.2 rule の scalar AST を global normalize せず、Phase 67 / Phase 69 と同じく narrow concrete bridge を追加する。
+
+```text
+TodaEHPExactnessWindow
+GIVEN
+↓
+TodaProp42ExactnessStatement
+INFERENCE
+```
+
+structural exactness window と theorem exactness を区別する。
+
+---
+
+# 112. Phase 76 kernel-to-image bridge
+
+Phase 76-2:
+
+```text
+Ker E
+=
+Z{2σ₈-Eσ'}
+```
+
+Phase 76-3:
+
+```text
+exactness
+Im Δ = Ker E
+```
+
+から:
+
+```text
+TodaDeltaImageFreeCyclicStatement
+```
+
+を derived にする。
+
+generic exactness solver / generic image solver にはしない。
+
+---
+
+# 113. Phase 76 diagonal fact and up-to-sign image
+
+diagonal Toda-(4.3) fact:
+
+```text
+π_17^17
+=
+π_17(S^17)
+=
+Z{ι₁₇}
+```
+
+を concrete foundational relation として保持する。
+
+Phase 76-3:
+
+```text
+Im Δ
+=
+Z{2σ₈-Eσ'}
+```
+
+と合わせて:
+
+```text
+Δ(ι₁₇)
+=
+±(2σ₈-Eσ')
+```
+
+を:
+
+```text
+TodaDeltaImageUpToSignStatement
+```
+
+として derived にする。
+
+generic free-cyclic generator theorem / generic sign algebraは追加しない。
+
+---
+
+# 114. Phase 76 provenance / non-circularity
+
+final direct premises:
+
+```text
+π_17^17=Z{ι₁₇}              GIVEN
+Im Δ=Z{2σ₈-Eσ'}             INFERENCE
+```
+
+final ancestry reaches:
+
+```text
+Phase 76-2 kernel
+Phase 76-3 exactness
+Phase 75 σ₈
+Phase 75 σ₉ definition
+Phase 75 π_15^8
+Phase 75 π_16^9
+```
+
+but does not require:
+
+```text
+Phase 75 final Proposition 5.15 aggregate
+```
+
+`π_17^17` fact is not used for kernel or exactness.
+
+non-circularity regression:
+
+```text
+final not in ancestors(final)
+final conclusion absent from ancestor conclusions
+kernel branch does not depend on final
+exactness branch does not depend on final
+Delta-image branch does not depend on final
+diagonal fact branch does not depend on final
+```
+
+---
+
+# 115. Phase 76 representative probe
+
+追加:
+
+```text
+probes/probe_phase76_capabilities.py
+```
+
+representative source:
+
+```text
+build_phase76_5_data()
+```
+
+表示:
+
+```text
+Toda Equation (5.16) result
+Proof-style derivation
+Provenance / integration
+Applicability / non-circularity
+Literature / source
+Phase 76 representative probe boundary
+```
+
+probe は production theorem logic を追加しない。
+
+proof-style derivation は hand-authored presentation layer であり automatic `ProofStep` narrative generation ではない。
+
+---
+
+# 116. Phase 76 completion boundary
+
+完成:
+
+```text
+Ker(E:π_15^8→π_16^9)=Z{2σ₈-Eσ'}
+concrete Delta-E exactness
+Im Δ=Z{2σ₈-Eσ'}
+π_17^17=Z{ι₁₇}
+Δ(ι₁₇)=±(2σ₈-Eσ')
+applicability / provenance regression
+representative probe
+formal proof record 11
+```
+
+先取りしない:
+
+```text
+generic mixed free/torsion kernel solver
+generic homomorphism matrix framework
+generic sign algebra
+generic exactness/image solver
+stable homotopy-group model
+automatic proof narrative generation
+persistent Proof Repository
+Toda Lemma 5.16 semantics
 ```
