@@ -919,57 +919,78 @@ pre-probe full regression:
 6117 passed in 109.84s
 ```
 
-## Next mathematical Phase
-
-The source statement immediately after Toda (5.16) is:
+## Phase 77 completion milestone
 
 ```text
 Toda Lemma 5.16
 ```
 
-Source target:
+completed capability:
 
 ```text
 t>0
-
 β∈π_(t+4)(S^m)
-
 β∘ν_(t+4)=0
-```
-
-implies that for some odd integer `x`:
-
-```text
+↓
 E^4β∘σ_(t+8)
 ∈
-(-1)^m x
-{ν_(m+4), E^nβ, ν_(t+11)}_7
-
+(-1)^m x {ν_(m+4),E^7β,ν_(t+11)}_7
 +
-(-1)^t x
-{E^4β, ν_(t+8), 2ν_(t+11)}_(t+3).
+(-1)^t x {E^4β,ν_(t+8),2ν_(t+11)}_(t+3)
 ```
 
-Before implementation, Phase 77 should verify:
+completion spine:
 
 ```text
-exact source indices
-the apparent E^nβ index in the first bracket
-Toda-bracket typing
-sum of two bracket-valued terms
-odd coefficient representation
-dependencies on Lemma 5.14 / σ₈ definition / Theorem 3.6
-current representation compatibility
+source / typing audit
+E^nβ -> E^7β correction
+typed bracket setup
+first / second Theorem 3.6 branches
+Theorem 3.6 bracket-sum consequence
+Phase 75 odd x provenance reuse
+E^tσ₈=xE^tα*
+σ_(t+8)=E^tσ₈
+scaled composition
+final scaled bracket-sum consequence
+applicability / provenance / non-circularity
+representative probe
+formal proof record 12
+```
+
+pre-probe repository-wide regression:
+
+```text
+6262 passed in 114.35s
+```
+
+## Next mathematical Phase
+
+Toda Proposition 5.15 also states the stable clause:
+
+```text
+(G_7;2)=Z/16{σ}.
+```
+
+The finite-dimensional Proposition 5.15 branch and Lemma 5.16 are now complete, while this stable clause remains deferred.
+
+The next Phase should begin with:
+
+```text
+source / dependency audit for the stable σ-class conclusion
+current stable-group representation compatibility
+whether an actual stable-group model is now required
+minimum transport from π_(n+7)^n=Z/16{σ_n}, n≥9
 ```
 
 Do not preemptively add:
 
 ```text
-generic sum-of-Toda-brackets algebra
-generic odd-integer existential solver
-generic sign algebra
-generic coefficient solver
-stable homotopy-group model
+generic stable homotopy-group database
+generic stabilization theorem engine
+generic limit/colimit machinery
+generic bracket-sum algebra
+generic odd existential solver
 automatic proof narrative generation
 persistent Proof Repository
 ```
+

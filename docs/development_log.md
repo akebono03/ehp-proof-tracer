@@ -11150,3 +11150,513 @@ generic sign algebra
 automatic proof narrative generation
 persistent Proof Repository
 ```
+
+
+---
+
+# Phase 77：Toda Lemma 5.16
+
+## Phase 77-1：source / dependency / representation compatibility
+
+source statement:
+
+```text
+t>0
+β∈π_(t+4)(S^m)
+β∘ν_(t+4)=0
+```
+
+then for an odd integer `x`:
+
+```text
+E^4β∘σ_(t+8)
+∈
+(-1)^m x {ν_(m+4),E^nβ,ν_(t+11)}_7
++
+(-1)^t x {E^4β,ν_(t+8),2ν_(t+11)}_(t+3)
+```
+
+analysis:
+
+```text
+source E^nβ has unbound n
+Toda-bracket typing forces exponent 7
+immediately following proof text explicitly uses E^7β
+canonical implementation uses E^7β
+```
+
+confirmed dependency:
+
+```text
+Phase 75 Lemma 5.14 / Theorem 3.6 bridge
+Phase 75 σ₈ construction
+same odd parameter x
+```
+
+Phase 76 Equation (5.16) final result is not required.
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 77-2：typed setup
+
+implemented:
+
+```text
+TodaLemma516TypedSetupStatement
+TodaLemma516BracketSumContainmentStatement
+```
+
+`TodaBracket.index` widened from narrow `int | ScalarSymbol | None` annotation to existing scalar-value abstraction so symbolic `t+3` is representable without making `TodaBracket` an `Expression`.
+
+typed objects:
+
+```text
+E^4β
+E^7β
+{ν_(m+4),E^7β,ν_(t+11)}_7
+{E^4β,ν_(t+8),2ν_(t+11)}_(t+3)
+```
+
+focused:
+
+```text
+12 passed in 2.43s
+```
+
+related:
+
+```text
+157 passed in 5.29s
+86 passed in 3.63s
+```
+
+repository-wide:
+
+```text
+6148 passed in 107.55s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 77-3：Theorem 3.6 first bracket branch
+
+added:
+
+```text
+Toda36Lemma516FirstBracketTermStatement
+toda_36_lemma516_first_bracket_term_inference_rule()
+tests/test_phase77_theorem36_first_bracket.py
+```
+
+records first summand data:
+
+```text
+E^4β∘E^tα*
+(-1)^m
+{ν_(m+4),E^7β,ν_(t+11)}_7
+```
+
+It deliberately does not assert containment in the first bracket alone.
+
+related regression:
+
+```text
+92 passed in 6.79s
+```
+
+repository-wide:
+
+```text
+6161 passed in 108.82s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 77-4：Theorem 3.6 second bracket branch
+
+added:
+
+```text
+Toda36Lemma516SecondBracketTermStatement
+toda_36_lemma516_second_bracket_term_inference_rule()
+tests/test_phase77_theorem36_second_bracket.py
+```
+
+records sibling second summand data:
+
+```text
+E^4β∘E^tα*
+(-1)^t
+{E^4β,ν_(t+8),2ν_(t+11)}_(t+3)
+```
+
+first branch is not a direct premise of second branch.
+
+focused:
+
+```text
+15 passed in 8.59s
+```
+
+repository-wide:
+
+```text
+6176 passed in 115.94s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 77-5A：Theorem 3.6 bracket-sum consequence
+
+added:
+
+```text
+Toda36Lemma516BracketSumContainmentStatement
+toda_36_lemma516_bracket_sum_containment_inference_rule()
+tests/test_phase77_theorem36_bracket_sum.py
+```
+
+first-class consequence:
+
+```text
+E^4β∘E^tα*
+∈
+(-1)^m {ν_(m+4),E^7β,ν_(t+11)}_7
++
+(-1)^t {E^4β,ν_(t+8),2ν_(t+11)}_(t+3)
+```
+
+odd `x` is not yet introduced at this step.
+
+focused:
+
+```text
+17 passed in 4.52s
+```
+
+repository-wide:
+
+```text
+6193 passed in 114.08s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 77-5B：odd x + E^tσ₈ bridge
+
+added:
+
+```text
+TodaLemma516Sigma8IteratedSuspensionBridgeStatement
+toda_lemma516_sigma8_iterated_suspension_bridge_inference_rule()
+tests/test_phase77_sigma8_iterated_suspension_bridge.py
+```
+
+reuses Phase 75:
+
+```text
+same x
+OddScalarStatement(x)
+Eσ₈=xEα*
+```
+
+and derives for `t≥1`:
+
+```text
+E^tσ₈=xE^tα*
+```
+
+without generic symbolic suspension induction.
+
+repository-wide:
+
+```text
+6210 passed in 138.55s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 77-5C：scaled composition / final bracket-sum
+
+added:
+
+```text
+TodaLemma516SigmaTPlus8DefinitionStatement
+TodaLemma516ScaledCompositionBridgeStatement
+
+toda_lemma516_sigma_t_plus_8_definition_inference_rule()
+toda_lemma516_scaled_composition_bridge_inference_rule()
+toda_lemma516_scaled_bracket_sum_inference_rule()
+
+tests/test_phase77_lemma516_scaled_bracket_sum.py
+```
+
+narrow symbolic σ instance:
+
+```text
+σ_(t+8)=E^tσ₈
+```
+
+scaled composition:
+
+```text
+E^4β∘σ_(t+8)
+=
+x(E^4β∘E^tα*)
+```
+
+final:
+
+```text
+E^4β∘σ_(t+8)
+∈
+(-1)^m x {ν_(m+4),E^7β,ν_(t+11)}_7
++
+(-1)^t x {E^4β,ν_(t+8),2ν_(t+11)}_(t+3)
+```
+
+machine statement:
+
+```text
+TodaLemma516BracketSumContainmentStatement
+ProofRule.INFERENCE
+```
+
+focused:
+
+```text
+19 passed in 4.66s
+```
+
+repository-wide:
+
+```text
+6229 passed in 112.70s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 77-6：integration / applicability / provenance / non-circularity
+
+added:
+
+```text
+tests/test_phase77_applicability_provenance.py
+```
+
+production theorem semantics:
+
+```text
+変更なし
+```
+
+fixed provenance:
+
+```text
+Phase 75 Theorem 3.6 bridge reachable
+Phase 75 σ₈ statement reachable
+77-3 first branch reachable
+77-4 second branch reachable
+77-5A bracket sum reachable
+77-5B suspension bridge reachable
+77-5C scaled composition reachable
+same α* / σ₈ / odd x preserved
+E^7β correction preserved
+```
+
+non-circularity:
+
+```text
+final not self-ancestor
+final conclusion absent from ancestors
+proof graph acyclic
+upstream branches do not depend on final
+```
+
+Phase 76 non-dependency regression was corrected from statement-class absence to inference-provenance absence because generic statement classes are reused by earlier phases:
+
+```text
+representation reuse != phase dependency
+```
+
+final check:
+
+```text
+no ancestor inference rule name starts with "Toda (5.16)"
+```
+
+focused:
+
+```text
+33 passed in 4.63s
+```
+
+repository-wide:
+
+```text
+6262 passed in 114.35s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 77-7：representative probe / proof record / completion documentation
+
+added:
+
+```text
+probes/probe_phase77_capabilities.py
+tests/test_phase77_probe.py
+```
+
+representative source:
+
+```text
+build_phase77_6_data()
+```
+
+probe sections:
+
+```text
+Toda Lemma 5.16 result
+Proof-style derivation
+Provenance / integration
+Applicability / non-circularity
+Literature / source
+Phase 77 representative probe boundary
+```
+
+formal proof record:
+
+```text
+docs/proof_records.md
+record 12
+Toda Lemma 5.16
+```
+
+updated completion docs:
+
+```text
+README.md
+docs/design.md
+docs/development_log.md
+docs/code_reference.md
+docs/proof_records.md
+docs/roadmap.md
+```
+
+production theorem semantics:
+
+```text
+変更なし
+```
+
+proof-style derivation remains hand-authored presentation code.
+
+pre-probe repository-wide regression:
+
+```text
+6262 passed in 114.35s
+```
+
+### 状態
+
+IMPLEMENTATION READY / verify probe regression
+
+---
+
+# Phase 77 completion
+
+final capability:
+
+```text
+t>0
+β∈π_(t+4)(S^m)
+β∘ν_(t+4)=0
+↓
+there is the Phase 75 odd x such that
+
+E^4β∘σ_(t+8)
+∈
+(-1)^m x {ν_(m+4),E^7β,ν_(t+11)}_7
++
+(-1)^t x {E^4β,ν_(t+8),2ν_(t+11)}_(t+3)
+```
+
+provenance:
+
+```text
+Phase 75 Theorem 3.6 / σ₈ construction retained
+same odd x retained
+all theorem-spine results INFERENCE
+hypothesis setup GIVEN
+acyclic ancestry
+Phase 76 Toda (5.16) rules not required
+```
+
+source correction:
+
+```text
+printed E^nβ
+→ canonical E^7β
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase77_capabilities
+```
+
+formal proof record:
+
+```text
+record 12
+Toda Lemma 5.16
+```
+
+next natural mathematical boundary:
+
+```text
+stable (G_7;2)=Z/16{σ}
+```
+
+still deferred:
+
+```text
+generic bracket-sum algebra
+generic odd existential solver
+generic sign / coefficient solver
+automatic proof narrative generation
+persistent Proof Repository
+```

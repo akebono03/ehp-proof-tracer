@@ -6907,3 +6907,380 @@ Formal curated records:
 ```
 
 Stable homotopy results remain deferred.
+
+
+---
+
+# 26. Toda Lemma 5.16
+
+## 26.1 Source / theorem
+
+```text
+H. Toda
+Composition Methods in Homotopy Groups of Spheres
+1962
+Lemma 5.16
+```
+
+Source hypothesis:
+
+```text
+t>0
+β∈π_(t+4)(S^m)
+β∘ν_(t+4)=0
+```
+
+Printed conclusion contains:
+
+```text
+{ν_(m+4),E^nβ,ν_(t+11)}_7
+```
+
+but `n` is unbound there.
+
+The immediately following proof text gives:
+
+```text
+{ν_(m+4),E^7β,ν_(t+11)}_7
+```
+
+and bracket typing also forces exponent `7`.
+
+Canonical proof record therefore uses `E^7β`.
+
+---
+
+## 26.2 Verified result
+
+For the same odd integer `x` inherited from the Phase 75 `σ₈` construction:
+
+```text
+E^4β∘σ_(t+8)
+∈
+(-1)^m x {ν_(m+4),E^7β,ν_(t+11)}_7
++
+(-1)^t x {E^4β,ν_(t+8),2ν_(t+11)}_(t+3).
+```
+
+Final machine statement:
+
+```text
+TodaLemma516BracketSumContainmentStatement
+ProofRule.INFERENCE
+```
+
+---
+
+## 26.3 Typed setup
+
+Phase 77-2 stores:
+
+```text
+β∈π_(t+4)(S^m)
+β∘ν_(t+4)=0
+t≥1
+E^4β
+E^7β
+B₁={ν_(m+4),E^7β,ν_(t+11)}_7
+B₂={E^4β,ν_(t+8),2ν_(t+11)}_(t+3)
+```
+
+The setup is `GIVEN`; it packages hypotheses and lossless typed expressions rather than asserting the theorem conclusion.
+
+---
+
+## 26.4 Theorem 3.6 branch
+
+Phase 75 already provides the derived `α*` used in Lemma 5.14.
+
+Phase 77-3 and 77-4 derive sibling summand data:
+
+```text
+first:
+(-1)^m B₁
+
+second:
+(-1)^t B₂
+```
+
+Neither branch asserts standalone membership.
+
+They combine in Phase 77-5A to:
+
+```text
+E^4β∘E^tα*
+∈
+(-1)^m B₁
++
+(-1)^t B₂.
+```
+
+Machine statement:
+
+```text
+Toda36Lemma516BracketSumContainmentStatement
+INFERENCE
+```
+
+---
+
+## 26.5 Odd parameter / sigma bridge
+
+Phase 75 `TodaLemma514Sigma8Statement` preserves:
+
+```text
+x odd
+Eσ₈=xEα*
+```
+
+Phase 77 reuses the same object `x`; no fresh existential witness is created.
+
+For `t≥1`:
+
+```text
+E^tσ₈=xE^tα*
+```
+
+Machine statement:
+
+```text
+TodaLemma516Sigma8IteratedSuspensionBridgeStatement
+INFERENCE
+```
+
+---
+
+## 26.6 Symbolic sigma instance
+
+A narrow Lemma-5.16-specific definition records:
+
+```text
+σ_(t+8)=E^tσ₈.
+```
+
+Machine statement:
+
+```text
+TodaLemma516SigmaTPlus8DefinitionStatement
+INFERENCE
+```
+
+The generic σ-family constructor is not widened to arbitrary `ScalarSum` indices.
+
+---
+
+## 26.7 Scaled composition
+
+Combining the previous bridge with left composition by `E^4β` gives:
+
+```text
+E^4β∘σ_(t+8)
+=
+x(E^4β∘E^tα*).
+```
+
+Machine statement:
+
+```text
+TodaLemma516ScaledCompositionBridgeStatement
+INFERENCE
+```
+
+No generic scalar-distribution or composition-bilinearity solver is added.
+
+---
+
+## 26.8 Final bracket-sum consequence
+
+Combining:
+
+```text
+E^4β∘E^tα* ∈ (-1)^mB₁+(-1)^tB₂
+```
+
+with:
+
+```text
+E^4β∘σ_(t+8)=x(E^4β∘E^tα*)
+```
+
+derives:
+
+```text
+E^4β∘σ_(t+8)
+∈
+(-1)^m xB₁
++
+(-1)^t xB₂.
+```
+
+The two bracket objects are preserved rather than converted into generic expression-sum AST nodes.
+
+---
+
+## 26.9 Provenance
+
+Final ancestry reaches:
+
+```text
+Phase 75 Theorem 3.6 bridge
+Phase 75 σ₈ statement
+Phase 77 typed setup
+Phase 77 first bracket branch
+Phase 77 second bracket branch
+Phase 77 Theorem 3.6 bracket sum
+Phase 77 E^tσ₈ bridge
+Phase 77 σ_(t+8) definition
+Phase 77 scaled composition
+```
+
+Preserved identities:
+
+```text
+same α*
+same σ₈
+same odd x
+same first bracket object
+same second bracket object
+```
+
+---
+
+## 26.10 Phase 76 non-dependency
+
+Toda Equation (5.16) immediately precedes Lemma 5.16 in the source, but it is not a machine proof dependency.
+
+The project reuses generic statement classes across multiple phases, so dependency is checked by actual inference provenance rather than statement class occurrence.
+
+Phase 77 regression verifies that no ancestor inference rule name begins with:
+
+```text
+Toda (5.16)
+```
+
+Thus:
+
+```text
+source ordering != proof dependency
+representation reuse != phase dependency
+```
+
+---
+
+## 26.11 Non-circularity
+
+Verified:
+
+```text
+final is not self-ancestor
+final conclusion absent from ancestors
+proof graph acyclic
+first branch does not depend on final
+second branch does not depend on final
+Theorem 3.6 sum branch does not depend on final
+sigma bridge does not depend on final
+scaled composition does not depend on final
+```
+
+Wrong-instance regression also rejects mismatched:
+
+```text
+β
+t
+m
+```
+
+---
+
+## 26.12 Representative probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase77_capabilities
+```
+
+probe sections:
+
+```text
+Toda Lemma 5.16 result
+Proof-style derivation
+Provenance / integration
+Applicability / non-circularity
+Literature / source
+Phase 77 representative probe boundary
+```
+
+The probe reuses:
+
+```text
+build_phase77_6_data()
+```
+
+and adds no theorem semantics.
+
+The proof-style derivation is hand-authored presentation code and is not automatic `ProofStep` narrative generation.
+
+---
+
+## 26.13 Regression status
+
+Before adding the representative probe:
+
+```text
+tests/test_phase77_applicability_provenance.py
+33 passed in 4.63s
+```
+
+repository-wide:
+
+```text
+6262 passed in 114.35s
+```
+
+---
+
+## 26.14 Completion status
+
+Phase 77 mathematics / integration / provenance are COMPLETE.
+
+Verified canonical result:
+
+```text
+E^4β∘σ_(t+8)
+∈
+(-1)^m x {ν_(m+4),E^7β,ν_(t+11)}_7
++
+(-1)^t x {E^4β,ν_(t+8),2ν_(t+11)}_(t+3).
+```
+
+The formal proof-record corpus now contains 12 records.
+
+Natural next mathematical boundary:
+
+```text
+(G_7;2)=Z/16{σ}
+```
+
+---
+
+# 27. Current proof-record status after Phase 77
+
+Formal curated records:
+
+```text
+1  Phase 66   Toda Equation (5.8)
+2  Phase 67   Toda Lemma 5.7
+3  Phase 68   Toda Proposition 5.8
+4  Phase 69   Toda Equation (5.10)
+5  Phase 70   Toda Proposition 5.9
+6  Phase 71   Toda Equation (5.12)
+7  Phase 72R  Toda Lemma 5.10 canonical revision
+8  Phase 73   Toda Proposition 5.11 finite-dimensional
+9  Phase 74   Toda Lemma 5.12
+10 Phase 75   Toda Proposition 5.15 finite-dimensional
+11 Phase 76   Toda Equation (5.16)
+12 Phase 77   Toda Lemma 5.16
+```
+
+Stable homotopy results remain deferred.
