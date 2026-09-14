@@ -6038,3 +6038,178 @@ automatic proof narrative generation
 persistent Proof Repository
 stable homotopy-group model
 ```
+
+---
+
+# 32. Phase 75：Toda Proposition 5.15 finite-dimensional
+
+## principal production statements
+
+```text
+TodaLemma513Statement
+Toda514FirstShortExactStatement
+Toda36Lemma514SigmaDoublePrimeBridgeStatement
+TodaLemma514SigmaDoublePrimeStatement
+Toda514SecondShortExactStatement
+TodaLemma514SigmaPrimeStatement
+TodaLemma514Sigma8Statement
+TodaSigmaFamilyDefinitionStatement
+Toda48Pi16_9OrderAndE4InjectiveStatement
+Toda515Sigma8Prop44SpecializationStatement
+Toda515Sigma8TransportedDecompositionStatement
+TodaProp515FiniteDimensionalStatement
+```
+
+## principal Phase 75 rules
+
+```text
+toda_prop515_pi9_2_zero_inference_rule()
+toda_prop515_pi10_3_concrete_exactness_inference_rule()
+toda_prop515_pi11_4_zero_inference_rule()
+
+toda_lemma513_sigma_triple_prime_definition_inference_rule()
+toda_prop515_pi12_5_finite_cyclic_inference_rule()
+
+toda_lemma514_sigma_double_prime_inference_rule()
+toda_prop515_pi13_6_finite_cyclic_inference_rule()
+
+toda_lemma514_sigma_prime_inference_rule()
+toda_prop515_pi14_7_finite_cyclic_inference_rule()
+
+toda_lemma514_sigma8_inference_rule()
+toda_lemma514_sigma_family_definition_inference_rule()
+
+toda_prop515_pi16_9_sigma9_inference_rule()
+toda_45_sigma9_finite_cyclic_transport_inference_rule()
+
+toda_prop515_sigma8_prop44_specialization_inference_rule()
+toda_prop515_sigma8_prop44_isomorphism_inference_rule()
+toda_prop515_sigma8_transported_decomposition_inference_rule()
+toda_prop515_pi15_8_final_group_inference_rule()
+
+toda_prop515_finite_dimensional_integration_inference_rule()
+```
+
+## n=8 critical decomposition
+
+```text
+Toda515Sigma8Prop44SpecializationStatement
+↓
+TodaProp44DecompositionMap GIVEN
+↓
+TodaProp44IsomorphismStatement
+↓
+Toda515Sigma8TransportedDecompositionStatement
+↓
+π_15^8=Z{σ₈}⊕Z/8{Eσ'}
+```
+
+source group fact:
+
+```text
+low_dimensional_facts.py
+pi_15_15_free_cyclic_fact()
+```
+
+## aggregate builder
+
+```text
+tests/test_phase75_prop515_integration.py
+build_phase75_9_data()
+```
+
+nested fixture reuse:
+
+```text
+phase75_5
+└─ phase75_4
+   └─ phase75_3
+```
+
+low zero `ProofStep` objects はこの graph を直接辿る。
+
+heavy builder:
+
+```python
+@lru_cache(maxsize=1)
+```
+
+## representative probe
+
+```text
+probes/probe_phase75_capabilities.py
+```
+
+entry:
+
+```text
+build_phase75_representative_result()
+main()
+```
+
+representative source:
+
+```text
+build_phase75_9_data()
+```
+
+## probe test
+
+```text
+tests/test_phase75_probe.py
+```
+
+確認対象:
+
+```text
+aggregate INFERENCE
+8 mathematical direct branches INFERENCE
+n≥9 scope GIVEN
+π_15^8 mixed DirectSumGroup representation
+stable branch absent
+literature metadata
+human-readable derivation output
+presentation-only boundary
+```
+
+## completion baseline before probe
+
+```text
+tests/test_phase75_prop515_integration.py
+22 passed in 5.18s
+
+repository-wide
+5991 passed in 114.31s
+```
+
+---
+
+# Phase 75 後に最初に確認する場所
+
+Phase 76 / next mathematical work:
+
+```text
+Toda (5.16)
+↓
+π_15^8 mixed decomposition
+↓
+π_16^9=Z/16{σ₉}
+↓
+suspension E
+↓
+kernel generator
+2σ₈-Eσ'
+↓
+Δ(ι₁₇)
+```
+
+先取りしない:
+
+```text
+generic kernel decomposition solver
+generic mixed free/torsion homomorphism solver
+generic sign solver
+stable homotopy-group model
+automatic proof narrative generation
+persistent Proof Repository
+```

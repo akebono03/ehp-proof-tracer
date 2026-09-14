@@ -10168,3 +10168,501 @@ source / proof dependency / representation compatibility analysis
 ### 状態
 
 COMPLETE
+
+---
+
+# Phase 75：Toda Proposition 5.15 finite-dimensional
+
+対象:
+
+```text
+π_9^2=0
+π_10^3=0
+π_11^4=0
+π_12^5=Z/2{σ'''}
+π_13^6=Z/4{σ''}
+π_14^7=Z/8{σ'}
+π_15^8=Z{σ₈}⊕Z/8{Eσ'}
+π_(n+7)^n=Z/16{σ_n}, n≥9
+```
+
+stable `(G_7;2)` は separate deferred branch。
+
+## Phase 75-1〜4：low zero branches
+
+Toda Proposition 5.15 の低次:
+
+```text
+π_9^2=0
+π_10^3=0
+π_11^4=0
+```
+
+を既存 Proposition 5.11 / Toda (5.2) / concrete EHP exactness から導出。
+
+generic zero-group solver は追加しない。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 75-5：π_12^5=Z/2{σ'''} / Lemma 5.13
+
+Toda Lemma 5.13 の σ''' construction と Hopf image を既存 Phase 73 / ν-family provenance に接続。
+
+最終:
+
+```text
+π_12^5=Z/2{σ'''}
+```
+
+`ProofRule.INFERENCE`。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 75-6：σ'' / π_13^6
+
+Toda (5.14) first short exact sequence:
+
+```text
+0→π_12^5→π_13^6→π_13^11→0
+```
+
+と:
+
+```text
+2σ''=Eσ'''
+```
+
+を利用し:
+
+```text
+π_13^6=Z/4{σ''}
+```
+
+を導出。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 75-7：σ' / π_14^7
+
+Toda (5.14) second short exact sequence:
+
+```text
+0→π_13^6→π_14^7→π_14^13→0
+```
+
+と:
+
+```text
+2σ'=Eσ''
+```
+
+を利用し:
+
+```text
+π_14^7=Z/8{σ'}
+```
+
+を導出。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 75-8A〜8D：σ₈ / sigma family / n≥9
+
+Toda Lemma 5.14 から:
+
+```text
+σ₈∈π_15^8
+H(σ₈)=ι₁₅
+2Eσ₈=E²σ'
+```
+
+を導出。
+
+family:
+
+```text
+σ_n:=E^(n-8)σ₈
+(n≥8)
+```
+
+anchor:
+
+```text
+π_16^9=Z/16{σ₉}
+```
+
+Toda (4.5) transport:
+
+```text
+π_(n+7)^n=Z/16{σ_n}
+(n≥9)
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 75-8E1：n=8 Prop.4.4 specialization
+
+Phase 75-8A derived:
+
+```text
+σ₈∈π_15^8
+H(σ₈)=ι₁₅
+```
+
+を:
+
+```text
+n=8
+α=σ₈
+```
+
+の Proposition 4.4 specialization premise へ接続。
+
+追加:
+
+```text
+Toda515Sigma8Prop44SpecializationStatement
+```
+
+focused:
+
+```text
+14 passed in 1.95s
+```
+
+full:
+
+```text
+5893 passed in 35.19s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 75-8E2：Toda (5.15) concrete decomposition isomorphism
+
+structural map:
+
+```text
+π_14^7⊕π_15^15→π_15^8
+(α,β)↦Eα+σ₈∘β
+```
+
+を `GIVEN` とし:
+
+```text
+TodaProp44IsomorphismStatement
+```
+
+を `INFERENCE` で導出。
+
+focused:
+
+```text
+25 passed in 1.88s
+```
+
+full:
+
+```text
+5918 passed in 34.86s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 75-8E3：source component transport
+
+追加 foundational fact:
+
+```text
+π_15^15=Z{ι₁₅}
+```
+
+source:
+
+```text
+π_14^7=Z/8{σ'}
+π_15^15=Z{ι₁₅}
+```
+
+generator image:
+
+```text
+σ'↦Eσ'
+ι₁₅↦σ₈
+```
+
+から source order:
+
+```text
+Z/8{Eσ'}⊕Z{σ₈}
+```
+
+を導出。
+
+追加:
+
+```text
+Toda515Sigma8TransportedDecompositionStatement
+```
+
+focused:
+
+```text
+28 passed in 2.01s
+```
+
+full:
+
+```text
+5946 passed in 35.05s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 75-8E4：reorder / final π_15^8
+
+E3 source order:
+
+```text
+Z/8{Eσ'}⊕Z{σ₈}
+```
+
+を Proposition 5.15 表示順へ theorem-specific に reorder:
+
+```text
+π_15^8
+=
+Z{σ₈}
+⊕
+Z/8{Eσ'}
+```
+
+generic direct-sum commutativity rule は追加しない。
+
+focused:
+
+```text
+23 passed in 1.98s
+```
+
+upstream + E1〜E4:
+
+```text
+129 passed in 2.38s
+```
+
+full:
+
+```text
+5969 passed in 33.30s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 75-9：Proposition 5.15 finite-dimensional aggregate
+
+追加:
+
+```text
+TodaProp515FiniteDimensionalStatement
+toda_prop515_finite_dimensional_literature_statements()
+toda_prop515_finite_dimensional_integration_inference_rule()
+```
+
+aggregate:
+
+```text
+π_9^2=0
+π_10^3=0
+π_11^4=0
+π_12^5=Z/2{σ'''}
+π_13^6=Z/4{σ''}
+π_14^7=Z/8{σ'}
+π_15^8=Z{σ₈}⊕Z/8{Eσ'}
+π_(n+7)^n=Z/16{σ_n}, n≥9
+```
+
+boundary:
+
+```text
+8 mathematical branches INFERENCE
+n≥9 GIVEN
+aggregate INFERENCE
+stable (G_7;2) absent
+```
+
+initial builder では:
+
+```text
+phase75_5["result"].steps
+```
+
+から `π_9^2`, `π_10^3`, `π_11^4` を再検索しようとして `StopIteration` が発生。
+
+修正:
+
+```text
+phase75_5
+└─ phase75_4
+   └─ phase75_3
+```
+
+の nested fixture graph を辿り、既存 `ProofStep` object を再利用。
+
+focused:
+
+```text
+22 passed in 5.18s
+```
+
+full:
+
+```text
+5991 passed in 114.31s
+```
+
+この full regression は別 PC で実行されたため、wall-clock time は過去の30秒台 run と直接比較しない。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 75-10：representative probe / completion documentation / proof record
+
+追加:
+
+```text
+probes/probe_phase75_capabilities.py
+tests/test_phase75_probe.py
+```
+
+representative source:
+
+```text
+build_phase75_9_data()
+```
+
+表示:
+
+```text
+Toda Proposition 5.15 finite-dimensional result
+Proof-style derivation
+Provenance / integration
+Representation / completion boundary
+Literature statements used
+Phase 75 representative probe boundary
+```
+
+formal proof record:
+
+```text
+docs/proof_records.md
+record 10
+Toda Proposition 5.15 finite-dimensional
+```
+
+更新:
+
+```text
+README.md
+docs/design.md
+docs/development_log.md
+docs/code_reference.md
+docs/proof_records.md
+docs/roadmap.md
+```
+
+production theorem semantics:
+
+```text
+変更なし
+```
+
+proof-style derivation は hand-authored presentation code。
+
+### 状態
+
+IMPLEMENTATION READY / verify probe regression
+
+---
+
+# Phase 75 completion
+
+final capability:
+
+```text
+π_9^2=0
+π_10^3=0
+π_11^4=0
+π_12^5=Z/2{σ'''}
+π_13^6=Z/4{σ''}
+π_14^7=Z/8{σ'}
+π_15^8=Z{σ₈}⊕Z/8{Eσ'}
+π_(n+7)^n=Z/16{σ_n}, n≥9
+```
+
+final aggregate:
+
+```text
+TodaProp515FiniteDimensionalStatement
+ProofRule.INFERENCE
+```
+
+verified pre-probe repository-wide regression:
+
+```text
+5991 passed in 114.31s
+```
+
+next mathematical boundary:
+
+```text
+Toda (5.16)
+source / dependency / representation compatibility analysis
+```
+
+deferred:
+
+```text
+stable (G_7;2)=Z/16{σ}
+automatic proof narrative generation
+persistent Proof Repository
+```

@@ -4214,3 +4214,296 @@ Structural distinction between `HomotopyGroup(i,n)` and `TodaPrimaryGroup(i,n)` 
 Phase 72R remains mathematically necessary because Lemma 5.10 explicitly uses ordinary groups such as `π_10(S^5)`, `π_11(S^6)`, and `π_11(S^9)`, whereas `π_10^5`, `π_11^6`, and `π_11^9` are Toda-(4.3) groups.
 
 Phase 72R-A1 adds regression coverage for the existing three branch examples and does not rename `TodaPrimaryGroup`, add a generic Toda-(4.3) classifier, or change theorem inference logic.
+
+---
+
+# Phase 75: Toda Proposition 5.15 finite-dimensional completion
+
+Phase 75 integrates the finite-dimensional part of Toda Proposition 5.15.
+
+The final machine-derived aggregate is:
+
+```text
+π_9^2 = 0
+π_10^3 = 0
+π_11^4 = 0
+π_12^5 = Z/2{σ'''}
+π_13^6 = Z/4{σ''}
+π_14^7 = Z/8{σ'}
+π_15^8 = Z{σ₈} ⊕ Z/8{Eσ'}
+π_(n+7)^n = Z/16{σ_n}, n≥9
+```
+
+The final statement is:
+
+```text
+TodaProp515FiniteDimensionalStatement
+ProofRule.INFERENCE
+```
+
+The stable conclusion:
+
+```text
+(G_7;2)=Z/16{σ}
+```
+
+is deliberately excluded and remains in the deferred stable branch.
+
+## Low-dimensional zero branches
+
+Phase 75 first derives:
+
+```text
+π_9^2=0
+π_10^3=0
+π_11^4=0
+```
+
+from previously derived Proposition 5.11 data, Toda (5.2), and concrete EHP exactness consequences.
+
+These are theorem results with `ProofRule.INFERENCE`, not foundational `GIVEN` replacements.
+
+## Lemma 5.13 / σ'''
+
+Toda Lemma 5.13 provides the concrete element:
+
+```text
+σ''' ∈ π_12^5
+```
+
+and the Phase 75 calculation derives:
+
+```text
+π_12^5=Z/2{σ'''}.
+```
+
+The implementation uses the independently derived Hopf-image and exactness data required by the source proof. It does not introduce a generic cyclic-group classification engine.
+
+## Lemma 5.14 / σ'', σ', σ₈
+
+The first short exact sequence of Toda (5.14),
+
+```text
+0 → π_12^5 → π_13^6 → π_13^11 → 0,
+```
+
+together with the derived relation:
+
+```text
+2σ''=Eσ'''
+```
+
+gives:
+
+```text
+π_13^6=Z/4{σ''}.
+```
+
+The second short exact sequence,
+
+```text
+0 → π_13^6 → π_14^7 → π_14^13 → 0,
+```
+
+with:
+
+```text
+2σ'=Eσ''
+```
+
+gives:
+
+```text
+π_14^7=Z/8{σ'}.
+```
+
+Toda Lemma 5.14 then constructs:
+
+```text
+σ₈∈π_15^8
+H(σ₈)=ι₁₅
+2Eσ₈=E²σ'.
+```
+
+The sigma family is represented by:
+
+```text
+σ_n:=E^(n-8)σ₈
+(n≥8).
+```
+
+## n=9 anchor and n≥9 transport
+
+Phase 75 derives:
+
+```text
+π_16^9=Z/16{σ₉}.
+```
+
+Toda (4.5) then transports this result to:
+
+```text
+π_(n+7)^n=Z/16{σ_n}
+(n≥9).
+```
+
+The symbolic `n≥9` applicability condition remains an explicit `GIVEN` scope statement, while the group relation is `INFERENCE`.
+
+## n=8 critical branch / Toda (5.15)
+
+The `n=8` case is not obtained by the stable transport.
+
+Instead, Phase 75 specializes Proposition 4.4 using:
+
+```text
+σ₈∈π_15^8
+H(σ₈)=ι₁₅.
+```
+
+This gives the concrete decomposition isomorphism:
+
+```text
+π_14^7 ⊕ π_15^15
+≅
+π_15^8
+
+(α,β) ↦ Eα + σ₈∘β.
+```
+
+Using:
+
+```text
+π_14^7=Z/8{σ'}
+π_15^15=Z{ι₁₅},
+```
+
+the two source generators map as:
+
+```text
+σ'   ↦ Eσ'
+ι₁₅ ↦ σ₈.
+```
+
+The source-ordered transported decomposition is therefore:
+
+```text
+Z/8{Eσ'} ⊕ Z{σ₈}.
+```
+
+The final Proposition 5.15 presentation reorders the summands:
+
+```text
+π_15^8
+=
+Z{σ₈}
+⊕
+Z/8{Eσ'}.
+```
+
+No generic direct-sum commutativity theorem is added; the reorder is confined to the concrete Proposition 5.15 rule.
+
+## Proposition 5.15 aggregate
+
+The finite-dimensional integration requires exactly:
+
+```text
+π_9^2=0                            INFERENCE
+π_10^3=0                           INFERENCE
+π_11^4=0                           INFERENCE
+π_12^5=Z/2{σ'''}                  INFERENCE
+π_13^6=Z/4{σ''}                   INFERENCE
+π_14^7=Z/8{σ'}                    INFERENCE
+π_15^8=Z{σ₈}⊕Z/8{Eσ'}            INFERENCE
+π_(n+7)^n=Z/16{σ_n}               INFERENCE
+n≥9                                GIVEN
+```
+
+and derives:
+
+```text
+TodaProp515FiniteDimensionalStatement
+INFERENCE
+```
+
+The aggregate contains literature metadata for Toda Proposition 5.15 and no stable-group field.
+
+## Representative probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase75_capabilities
+```
+
+The probe displays:
+
+```text
+Toda Proposition 5.15 finite-dimensional result
+Proof-style derivation
+Provenance / integration
+Representation / completion boundary
+Literature statements used
+Phase 75 representative probe boundary
+```
+
+The proof-style derivation is hand-authored presentation code. It is not yet generated automatically from the `ProofStep` graph.
+
+## Phase 75 regression
+
+Before the representative probe/documentation step, the verified repository-wide regression is:
+
+```text
+5991 passed in 114.31s
+```
+
+The longer wall-clock time was measured on a different development PC than several earlier ~30-second runs, so test count and semantics are the cross-machine regression signal.
+
+## Phase 75 completion boundary
+
+Implemented:
+
+```text
+Toda Proposition 5.15 finite-dimensional calculation
+low zero branches
+Lemma 5.13 σ''' branch
+Lemma 5.14 σ'' / σ' / σ₈ construction
+sigma-family definition
+π_16^9=Z/16{σ₉}
+n≥9 stable-range finite-dimensional transport
+n=8 Proposition 4.4 critical decomposition
+Toda (5.15)
+finite-dimensional aggregate
+representative probe
+formal proof record 10
+```
+
+Not implemented in Phase 75:
+
+```text
+stable (G_7;2)=Z/16{σ}
+Toda (5.16)
+ker(E:π_15^8→π_16^9)=<2σ₈-Eσ'>
+Δ(ι₁₇)=±(2σ₈-Eσ')
+generic direct-sum commutativity
+generic cyclic-generator transport
+automatic proof narrative generation
+persistent Proof Repository
+```
+
+# Next development boundary
+
+Phase 75 is complete.
+
+The next mathematical step should begin with source/dependency/representation analysis of Toda (5.16), in particular:
+
+```text
+ker(E:π_15^8→π_16^9)
+=
+<2σ₈-Eσ'>
+
+Δ(ι₁₇)
+=
+±(2σ₈-Eσ').
+```
+
+Do not derive these as part of the Proposition 5.15 aggregate.

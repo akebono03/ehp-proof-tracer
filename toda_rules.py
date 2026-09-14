@@ -6359,6 +6359,1537 @@ def toda_prop58_higher_nu_eta_zero_inference_rule():
   )
 
 
+@dataclass(frozen=True)
+class TodaProp515Pi12_5HopfIsomorphismStatement:
+  map: TodaHopfInvariantMap
+  image_group: FiniteCyclicGroup
+  source_generator: HomotopyElement
+  image_generator: Multiple
+
+
+def toda_prop515_pi12_5_concrete_exactness_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    window = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    pi11_4 = TodaPrimaryGroup(
+      group_dimension=11,
+      sphere_dimension=4,
+    )
+
+    pi12_5 = TodaPrimaryGroup(
+      group_dimension=12,
+      sphere_dimension=5,
+    )
+
+    pi12_9 = TodaPrimaryGroup(
+      group_dimension=12,
+      sphere_dimension=9,
+    )
+
+    pi10_4 = TodaPrimaryGroup(
+      group_dimension=10,
+      sphere_dimension=4,
+    )
+
+    expected_windows = (
+      TodaEHPExactnessWindow(
+        source_term=pi11_4,
+        middle_term=pi12_5,
+        target_term=pi12_9,
+        first_map=EHP_E_MAP,
+        second_map=EHP_H_MAP,
+      ),
+      TodaEHPExactnessWindow(
+        source_term=pi12_5,
+        middle_term=pi12_9,
+        target_term=pi10_4,
+        first_map=EHP_H_MAP,
+        second_map=EHP_DELTA_MAP,
+      ),
+    )
+
+    return (
+      window
+      in expected_windows
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return (
+      TodaProp42ExactnessStatement(
+        window=(
+          premises[
+            0
+          ].conclusion
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "pi_12^5 concrete EHP exactness"
+    ),
+    description=(
+      "Recognize exactly the two "
+      "Toda EHP exactness windows "
+      "needed for the Proposition 5.15 "
+      "calculation of pi_12^5: "
+      "pi_11^4-E-pi_12^5-H-pi_12^9 "
+      "and "
+      "pi_12^5-H-pi_12^9-Delta-pi_10^4. "
+      "No general concrete exactness "
+      "specialization framework is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaEHPExactnessWindow
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_pi12_5_hopf_isomorphism_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    hopf_injective = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    h_delta_exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi12_9_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    prop511 = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    delta_nu9 = (
+      premises[
+        4
+      ].conclusion
+    )
+
+    toda55 = (
+      premises[
+        5
+      ].conclusion
+    )
+
+    pi12_5 = TodaPrimaryGroup(
+      group_dimension=12,
+      sphere_dimension=5,
+    )
+
+    pi12_9 = TodaPrimaryGroup(
+      group_dimension=12,
+      sphere_dimension=9,
+    )
+
+    pi10_4 = TodaPrimaryGroup(
+      group_dimension=10,
+      sphere_dimension=4,
+    )
+
+    expected_hopf_map = (
+      TodaHopfInvariantMap(
+        source_group=pi12_5,
+        target_group=pi12_9,
+      )
+    )
+
+    if (
+      hopf_injective.map
+      != expected_hopf_map
+    ):
+      return False
+
+    if (
+      h_delta_exactness.window
+      != TodaEHPExactnessWindow(
+        source_term=pi12_5,
+        middle_term=pi12_9,
+        target_term=pi10_4,
+        first_map=EHP_H_MAP,
+        second_map=EHP_DELTA_MAP,
+      )
+    ):
+      return False
+
+    if (
+      pi12_9_relation.lhs
+      != pi12_9
+    ):
+      return False
+
+    if not isinstance(
+      pi12_9_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi12_9_relation.rhs.order
+      != 8
+    ):
+      return False
+
+    nu_9 = (
+      toda_nu_family_definition_statement(
+        9
+      ).element
+    )
+
+    if (
+      pi12_9_relation
+      .rhs
+      .generator
+      != nu_9
+    ):
+      return False
+
+    pi10_4_relation = (
+      prop511
+      .pi10_4_group_relation
+    )
+
+    if (
+      pi10_4_relation.lhs
+      != pi10_4
+    ):
+      return False
+
+    if not isinstance(
+      pi10_4_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi10_4_relation.rhs.order
+      != 8
+    ):
+      return False
+
+    nu4_squared = (
+      pi10_4_relation
+      .rhs
+      .generator
+    )
+
+    if (
+      delta_nu9.map
+      != TodaDeltaMap(
+        source_group=pi12_9,
+        target_group=pi10_4,
+      )
+    ):
+      return False
+
+    if (
+      delta_nu9.element
+      != nu_9
+    ):
+      return False
+
+    if (
+      delta_nu9.positive_value
+      != Multiple(
+        coefficient=2,
+        expression=nu4_squared,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      toda55,
+      Toda55NuFamilyFiniteDimensionalStatement,
+    ):
+      return False
+
+    definition = (
+      toda55
+      .nu_family_definition
+    )
+
+    n = definition.index
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      toda55.n_range
+      != ScalarGreaterEqualStatement(
+        left=n,
+        right=5,
+      )
+    ):
+      return False
+
+    quadruple_relation = (
+      toda55
+      .quadruple_nu_relation
+    )
+
+    if not isinstance(
+      quadruple_relation,
+      Relation,
+    ):
+      return False
+
+    if (
+      quadruple_relation
+      .relation_type
+      != RelationType.EQUALITY
+    ):
+      return False
+
+    if (
+      quadruple_relation.lhs
+      != Multiple(
+        coefficient=4,
+        expression=definition.element,
+      )
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    pi12_5 = TodaPrimaryGroup(
+      group_dimension=12,
+      sphere_dimension=5,
+    )
+
+    pi12_9 = TodaPrimaryGroup(
+      group_dimension=12,
+      sphere_dimension=9,
+    )
+
+    nu_9 = (
+      toda_nu_family_definition_statement(
+        9
+      ).element
+    )
+
+    four_nu9 = Multiple(
+      coefficient=4,
+      expression=nu_9,
+    )
+
+    sigma_triple_prime = (
+      HomotopyElement(
+        name="σ'''",
+        dimension=5,
+        source=12,
+        target=5,
+        generator=GeneratorSymbol(
+          family="σ",
+          decoration="'''",
+        ),
+      )
+    )
+
+    return (
+      TodaProp515Pi12_5HopfIsomorphismStatement(
+        map=TodaHopfInvariantMap(
+          source_group=pi12_5,
+          target_group=pi12_9,
+        ),
+        image_group=FiniteCyclicGroup(
+          order=2,
+          generator=four_nu9,
+        ),
+        source_generator=(
+          sigma_triple_prime
+        ),
+        image_generator=(
+          four_nu9
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "pi_12^5 Hopf isomorphism"
+    ),
+    description=(
+      "Use H injectivity, H-Delta "
+      "exactness, "
+      "pi_12^9=Z/8{nu_9}, "
+      "pi_10^4=Z/8{nu_4 squared}, "
+      "and Toda (5.13) "
+      "Delta(nu_9)=plus or minus "
+      "2 nu_4 squared. "
+      "The kernel of this concrete "
+      "Delta map is therefore the "
+      "order-two subgroup generated "
+      "by 4 nu_9. "
+      "Exactness identifies Im(H) "
+      "with that kernel, while "
+      "H injectivity identifies "
+      "pi_12^5 with it. "
+      "Introduce sigma triple-prime "
+      "only as the concrete source "
+      "generator satisfying "
+      "H(sigma triple-prime)=4 nu_9. "
+      "The independently derived "
+      "Toda (5.5) relation "
+      "4 nu_9=eta_9 cubed supplies "
+      "the source-proof normalization. "
+      "No generic finite-kernel or "
+      "cyclic-map solver is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaHopfInvariantInjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp511FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaDeltaImageUpToSignStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda55NuFamilyFiniteDimensionalStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_pi12_5_finite_cyclic_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    hopf_isomorphism = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    lemma513 = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      hopf_isomorphism,
+      TodaProp515Pi12_5HopfIsomorphismStatement,
+    ):
+      return False
+
+    if not isinstance(
+      lemma513,
+      TodaLemma513Statement,
+    ):
+      return False
+
+    expected_map = (
+      TodaHopfInvariantMap(
+        source_group=TodaPrimaryGroup(
+          group_dimension=12,
+          sphere_dimension=5,
+        ),
+        target_group=TodaPrimaryGroup(
+          group_dimension=12,
+          sphere_dimension=9,
+        ),
+      )
+    )
+
+    if (
+      hopf_isomorphism.map
+      != expected_map
+    ):
+      return False
+
+    if (
+      hopf_isomorphism
+      .image_group
+      .order
+      != 2
+    ):
+      return False
+
+    if (
+      hopf_isomorphism
+      .image_group
+      .generator
+      != hopf_isomorphism
+      .image_generator
+    ):
+      return False
+
+    if (
+      lemma513.sigma_triple_prime
+      != hopf_isomorphism.source_generator
+    ):
+      return False
+
+    if (
+      lemma513.hopf_image
+      != hopf_isomorphism.image_generator
+    ):
+      return False
+
+    if (
+      lemma513.bracket_membership.element
+      != lemma513.sigma_triple_prime
+    ):
+      return False
+
+    if (
+      lemma513.bracket_membership.bracket
+      != lemma513.bracket
+    ):
+      return False
+
+    sigma_triple_prime = (
+      lemma513.sigma_triple_prime
+    )
+
+    return (
+      sigma_triple_prime.generator
+      == GeneratorSymbol(
+        family="σ",
+        decoration="'''",
+      )
+      and sigma_triple_prime.source == 12
+      and sigma_triple_prime.target == 5
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    lemma513 = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=12,
+        sphere_dimension=5,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=2,
+        generator=(
+          lemma513
+          .sigma_triple_prime
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "pi_12^5 finite cyclic"
+    ),
+    description=(
+      "Combine the independently "
+      "derived Hopf isomorphism "
+      "pi_12^5 -> <4 nu_9> "
+      "with Toda Lemma 5.13, which "
+      "identifies the corresponding "
+      "element as sigma triple-prime "
+      "in the bracket "
+      "{nu_5,8 iota_8,nu_8}_3. "
+      "Therefore pi_12^5 is cyclic "
+      "of order two generated by "
+      "sigma triple-prime. "
+      "No generic isomorphism transport "
+      "or Toda-bracket solver is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp515Pi12_5HopfIsomorphismStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma513Statement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_pi9_2_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    prop511 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    isomorphism = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      prop511,
+      TodaProp511FiniteDimensionalStatement,
+    ):
+      return False
+
+    if not isinstance(
+      isomorphism,
+      Toda52CompositionIsomorphismStatement,
+    ):
+      return False
+
+    expected_pi9_3_zero = (
+      TodaPrimaryGroupZeroStatement(
+        group=TodaPrimaryGroup(
+          group_dimension=9,
+          sphere_dimension=3,
+        ),
+      )
+    )
+
+    if (
+      prop511.pi9_3_zero
+      != expected_pi9_3_zero
+    ):
+      return False
+
+    source_group = (
+      isomorphism
+      .source_group
+    )
+
+    target_group = (
+      isomorphism
+      .target_group
+    )
+
+    if not isinstance(
+      source_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    if not isinstance(
+      target_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    i = (
+      source_group
+      .group_dimension
+    )
+
+    if not isinstance(
+      i,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      source_group
+      != TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=3,
+      )
+    ):
+      return False
+
+    if (
+      target_group
+      != TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=2,
+      )
+    ):
+      return False
+
+    composition = (
+      isomorphism
+      .composition
+    )
+
+    if not isinstance(
+      composition,
+      Composition,
+    ):
+      return False
+
+    eta_2 = (
+      composition.left
+    )
+
+    if not isinstance(
+      eta_2,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_2.dimension
+      != 2
+    ):
+      return False
+
+    if (
+      eta_2.source
+      != 3
+    ):
+      return False
+
+    if (
+      eta_2.target
+      != 2
+    ):
+      return False
+
+    return (
+      eta_2.generator
+      == GeneratorSymbol(
+        family="η",
+        index=2,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return (
+      TodaPrimaryGroupZeroStatement(
+        group=TodaPrimaryGroup(
+          group_dimension=9,
+          sphere_dimension=2,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "pi_9^2 zero from Toda (5.2)"
+    ),
+    description=(
+      "Use the independently derived "
+      "Toda Proposition 5.11 result "
+      "pi_9^3=0 together with the "
+      "derived Toda (5.2) isomorphism "
+      "eta_2 composed with - from "
+      "pi_i^3 to pi_i^2 to obtain "
+      "the concrete consequence "
+      "pi_9^2=0. "
+      "This Phase 75 rule is limited "
+      "to the concrete pi_9 branch "
+      "required for Proposition 5.15. "
+      "It does not introduce a generic "
+      "zero-group transport theorem."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp511FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda52CompositionIsomorphismStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_pi10_3_concrete_exactness_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    window = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    pi9_2 = TodaPrimaryGroup(
+      group_dimension=9,
+      sphere_dimension=2,
+    )
+
+    pi10_3 = TodaPrimaryGroup(
+      group_dimension=10,
+      sphere_dimension=3,
+    )
+
+    pi10_5 = TodaPrimaryGroup(
+      group_dimension=10,
+      sphere_dimension=5,
+    )
+
+    pi8_2 = TodaPrimaryGroup(
+      group_dimension=8,
+      sphere_dimension=2,
+    )
+
+    pi9_3 = TodaPrimaryGroup(
+      group_dimension=9,
+      sphere_dimension=3,
+    )
+
+    expected_windows = (
+      TodaEHPExactnessWindow(
+        source_term=pi9_2,
+        middle_term=pi10_3,
+        target_term=pi10_5,
+        first_map=EHP_E_MAP,
+        second_map=EHP_H_MAP,
+      ),
+      TodaEHPExactnessWindow(
+        source_term=pi10_3,
+        middle_term=pi10_5,
+        target_term=pi8_2,
+        first_map=EHP_H_MAP,
+        second_map=EHP_DELTA_MAP,
+      ),
+      TodaEHPExactnessWindow(
+        source_term=pi10_5,
+        middle_term=pi8_2,
+        target_term=pi9_3,
+        first_map=EHP_DELTA_MAP,
+        second_map=EHP_E_MAP,
+      ),
+    )
+
+    return (
+      window
+      in expected_windows
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return TodaProp42ExactnessStatement(
+      window=(
+        premises[
+          0
+        ].conclusion
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "pi_10^3 concrete EHP exactness"
+    ),
+    description=(
+      "Recognize exactly the three "
+      "Toda Proposition 4.2 EHP "
+      "segments used in the proof of "
+      "pi_10^3=0: "
+      "pi_9^2-E-pi_10^3-H-pi_10^5, "
+      "pi_10^3-H-pi_10^5-Delta-pi_8^2, "
+      "and "
+      "pi_10^5-Delta-pi_8^2-E-pi_9^3. "
+      "The existing symbolic "
+      "Proposition 4.2 rules are not "
+      "changed."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaEHPExactnessWindow
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_pi10_3_delta_surjective_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    prop511 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi10_5 = TodaPrimaryGroup(
+      group_dimension=10,
+      sphere_dimension=5,
+    )
+
+    pi8_2 = TodaPrimaryGroup(
+      group_dimension=8,
+      sphere_dimension=2,
+    )
+
+    pi9_3 = TodaPrimaryGroup(
+      group_dimension=9,
+      sphere_dimension=3,
+    )
+
+    if (
+      prop511.pi9_3_zero
+      != TodaPrimaryGroupZeroStatement(
+        group=pi9_3,
+      )
+    ):
+      return False
+
+    return (
+      exactness.window
+      == TodaEHPExactnessWindow(
+        source_term=pi10_5,
+        middle_term=pi8_2,
+        target_term=pi9_3,
+        first_map=EHP_DELTA_MAP,
+        second_map=EHP_E_MAP,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return TodaDeltaSurjectiveStatement(
+      map=TodaDeltaMap(
+        source_group=TodaPrimaryGroup(
+          group_dimension=10,
+          sphere_dimension=5,
+        ),
+        target_group=TodaPrimaryGroup(
+          group_dimension=8,
+          sphere_dimension=2,
+        ),
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "pi_10^5 to pi_8^2 "
+      "Delta surjective"
+    ),
+    description=(
+      "Toda Proposition 5.11 gives "
+      "pi_9^3=0. "
+      "In the concrete exact sequence "
+      "pi_10^5 -> pi_8^2 -> pi_9^3, "
+      "the suspension target is zero, "
+      "so Ker(E)=pi_8^2. "
+      "Exactness therefore gives "
+      "Im(Delta)=pi_8^2, hence "
+      "Delta:pi_10^5 to pi_8^2 "
+      "is surjective. "
+      "No generic zero-target "
+      "surjectivity solver is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp511FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_pi10_3_delta_injective_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    delta_surjective = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    prop59 = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    prop511 = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi10_5 = TodaPrimaryGroup(
+      group_dimension=10,
+      sphere_dimension=5,
+    )
+
+    pi8_2 = TodaPrimaryGroup(
+      group_dimension=8,
+      sphere_dimension=2,
+    )
+
+    if (
+      delta_surjective.map
+      != TodaDeltaMap(
+        source_group=pi10_5,
+        target_group=pi8_2,
+      )
+    ):
+      return False
+
+    source_relation = (
+      prop59
+      .pi10_5_group_relation
+    )
+
+    if (
+      source_relation.lhs
+      != pi10_5
+    ):
+      return False
+
+    if not isinstance(
+      source_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      source_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    target_relation = (
+      prop511
+      .pi8_2_group_relation
+    )
+
+    if (
+      target_relation.lhs
+      != pi8_2
+    ):
+      return False
+
+    if not isinstance(
+      target_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    return (
+      target_relation.rhs.order
+      == 2
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return TodaDeltaInjectiveStatement(
+      map=(
+        premises[
+          0
+        ].conclusion
+        .map
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "pi_10^5 to pi_8^2 "
+      "Delta injective"
+    ),
+    description=(
+      "The concrete Delta map "
+      "from pi_10^5 to pi_8^2 "
+      "is surjective. "
+      "Toda Proposition 5.9 identifies "
+      "pi_10^5 as cyclic of order 2, "
+      "and Proposition 5.11 identifies "
+      "pi_8^2 as cyclic of order 2. "
+      "Therefore this concrete "
+      "surjection is injective. "
+      "No generic finite-cyclic "
+      "homomorphism solver is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaDeltaSurjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp59FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp511FiniteDimensionalStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_pi10_3_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    hopf_injective = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    delta_injective = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    exactness = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi10_3 = TodaPrimaryGroup(
+      group_dimension=10,
+      sphere_dimension=3,
+    )
+
+    pi10_5 = TodaPrimaryGroup(
+      group_dimension=10,
+      sphere_dimension=5,
+    )
+
+    pi8_2 = TodaPrimaryGroup(
+      group_dimension=8,
+      sphere_dimension=2,
+    )
+
+    expected_window = (
+      TodaEHPExactnessWindow(
+        source_term=pi10_3,
+        middle_term=pi10_5,
+        target_term=pi8_2,
+        first_map=EHP_H_MAP,
+        second_map=EHP_DELTA_MAP,
+      )
+    )
+
+    if (
+      exactness.window
+      != expected_window
+    ):
+      return False
+
+    expected_hopf = (
+      TodaHopfInvariantMap(
+        source_group=pi10_3,
+        target_group=pi10_5,
+      )
+    )
+
+    expected_delta = (
+      TodaDeltaMap(
+        source_group=pi10_5,
+        target_group=pi8_2,
+      )
+    )
+
+    return (
+      hopf_injective.map
+      == expected_hopf
+      and delta_injective.map
+      == expected_delta
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return TodaPrimaryGroupZeroStatement(
+      group=TodaPrimaryGroup(
+        group_dimension=10,
+        sphere_dimension=3,
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "pi_10^3 zero"
+    ),
+    description=(
+      "Use injectivity of "
+      "H:pi_10^3 to pi_10^5, "
+      "exactness of "
+      "pi_10^3-H-pi_10^5-Delta-pi_8^2, "
+      "and injectivity of Delta. "
+      "Delta injectivity gives "
+      "Ker(Delta)=0, hence exactness "
+      "gives Im(H)=0. "
+      "Since H is injective, "
+      "its source pi_10^3 is zero."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaHopfInvariantInjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaDeltaInjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_pi11_4_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    pi10_3_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    prop58 = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    toda56 = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    expected_pi10_3_zero = (
+      TodaPrimaryGroupZeroStatement(
+        group=TodaPrimaryGroup(
+          group_dimension=10,
+          sphere_dimension=3,
+        ),
+      )
+    )
+
+    if (
+      pi10_3_zero
+      != expected_pi10_3_zero
+    ):
+      return False
+
+    if not isinstance(
+      prop58,
+      TodaProp58FiniteDimensionalStatement,
+    ):
+      return False
+
+    higher_zero = (
+      prop58
+      .higher_four_stem_zero
+    )
+
+    higher_range = (
+      prop58
+      .higher_range
+    )
+
+    if not isinstance(
+      higher_zero,
+      TodaPrimaryGroupZeroStatement,
+    ):
+      return False
+
+    higher_group = (
+      higher_zero.group
+    )
+
+    if not isinstance(
+      higher_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    n = (
+      higher_group
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      higher_group
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=n,
+          right=4,
+        ),
+        sphere_dimension=n,
+      )
+    ):
+      return False
+
+    if (
+      higher_range
+      != ScalarGreaterEqualStatement(
+        left=n,
+        right=6,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      toda56,
+      Toda56Nu4DecompositionIsomorphismStatement,
+    ):
+      return False
+
+    decomposition_map = (
+      toda56
+      .prop44_isomorphism
+      .map
+    )
+
+    target_group = (
+      decomposition_map
+      .target_group
+    )
+
+    if not isinstance(
+      target_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    i = (
+      target_group
+      .group_dimension
+    )
+
+    if not isinstance(
+      i,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      target_group
+      != TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=4,
+      )
+    ):
+      return False
+
+    expected_source_group = (
+      DirectSumGroup(
+        summands=(
+          TodaPrimaryGroup(
+            group_dimension=ScalarSum(
+              left=i,
+              right=-1,
+            ),
+            sphere_dimension=3,
+          ),
+          TodaPrimaryGroup(
+            group_dimension=i,
+            sphere_dimension=7,
+          ),
+        ),
+      )
+    )
+
+    return (
+      decomposition_map
+      .source_group
+      == expected_source_group
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return (
+      TodaPrimaryGroupZeroStatement(
+        group=TodaPrimaryGroup(
+          group_dimension=11,
+          sphere_dimension=4,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "pi_11^4 zero"
+    ),
+    description=(
+      "Use the derived pi_10^3=0, "
+      "Toda Proposition 5.8 "
+      "pi_(n+4)^n=0 for n>=6, "
+      "specialized at n=7 to obtain "
+      "pi_11^7=0, and the derived "
+      "Toda equation (5.6) "
+      "decomposition "
+      "pi_(i-1)^3 direct sum pi_i^7 "
+      "isomorphic to pi_i^4, "
+      "specialized at i=11. "
+      "Both summands are zero, so "
+      "pi_11^4=0. "
+      "This Phase 75 rule is limited "
+      "to the concrete pi_11 branch. "
+      "It does not introduce generic "
+      "zero direct-sum simplification "
+      "or generic zero-group "
+      "isomorphism transport."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaPrimaryGroupZeroStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp58FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda56Nu4DecompositionIsomorphismStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_lemma512_shifted_nu_eta_zero_inference_rule():
   def guard(
     premises,
@@ -7357,6 +8888,23 @@ class TodaProp511FiniteDimensionalStatement:
   nu_squared_finite_dimensional: (
     TodaProp511NuSquaredFiniteDimensionalStatement
   )
+  literature_statements: tuple[
+    LiteratureStatement,
+    ...
+  ]
+
+
+@dataclass(frozen=True)
+class TodaProp515FiniteDimensionalStatement:
+  pi9_2_zero: TodaPrimaryGroupZeroStatement
+  pi10_3_zero: TodaPrimaryGroupZeroStatement
+  pi11_4_zero: TodaPrimaryGroupZeroStatement
+  pi12_5_group_relation: Relation
+  pi13_6_group_relation: Relation
+  pi14_7_group_relation: Relation
+  pi15_8_group_relation: Relation
+  higher_seven_stem_group_relation: Relation
+  higher_range: ScalarGreaterEqualStatement
   literature_statements: tuple[
     LiteratureStatement,
     ...
@@ -30529,6 +32077,14 @@ class TodaNuFamilyDefinitionStatement:
 
 
 @dataclass(frozen=True)
+class TodaSigmaFamilyDefinitionStatement:
+  index: int | ScalarSymbol
+  element: HomotopyElement
+  iterated_suspension: IteratedSuspension
+  sigma8_statement: "TodaLemma514Sigma8Statement"
+
+
+@dataclass(frozen=True)
 class TodaDeltaImageFreeCyclicStatement:
   map: TodaDeltaMap
   image_group: FreeCyclicGroup
@@ -37695,6 +39251,7105 @@ class TodaBracketMembershipStatement:
   bracket: TodaBracket
   source: LiteratureReference | str | None = None
   note: str | None = None
+
+
+@dataclass(frozen=True)
+class TodaLemma513Statement:
+  bracket: TodaBracket
+  sigma_triple_prime: HomotopyElement
+  bracket_membership: TodaBracketMembershipStatement
+  hopf_image: Multiple
+
+
+def toda_lemma513_sigma_triple_prime_definition_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    hopf_isomorphism = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    toda55 = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      hopf_isomorphism,
+      TodaProp515Pi12_5HopfIsomorphismStatement,
+    ):
+      return False
+
+    expected_map = TodaHopfInvariantMap(
+      source_group=TodaPrimaryGroup(
+        group_dimension=12,
+        sphere_dimension=5,
+      ),
+      target_group=TodaPrimaryGroup(
+        group_dimension=12,
+        sphere_dimension=9,
+      ),
+    )
+
+    if (
+      hopf_isomorphism.map
+      != expected_map
+    ):
+      return False
+
+    nu_9 = (
+      toda_nu_family_definition_statement(
+        9
+      ).element
+    )
+
+    four_nu9 = Multiple(
+      coefficient=4,
+      expression=nu_9,
+    )
+
+    if (
+      hopf_isomorphism.image_generator
+      != four_nu9
+    ):
+      return False
+
+    if not isinstance(
+      toda55,
+      Toda55NuFamilyFiniteDimensionalStatement,
+    ):
+      return False
+
+    definition = (
+      toda55
+      .nu_family_definition
+    )
+
+    n = definition.index
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      toda55.n_range
+      != ScalarGreaterEqualStatement(
+        left=n,
+        right=5,
+      )
+    ):
+      return False
+
+    quadruple_relation = (
+      toda55
+      .quadruple_nu_relation
+    )
+
+    if (
+      quadruple_relation.relation_type
+      != RelationType.EQUALITY
+    ):
+      return False
+
+    if (
+      quadruple_relation.lhs
+      != Multiple(
+        coefficient=4,
+        expression=definition.element,
+      )
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    hopf_isomorphism = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    sigma_triple_prime = (
+      hopf_isomorphism
+      .source_generator
+    )
+
+    nu_5 = (
+      toda_nu_family_definition_statement(
+        5
+      ).element
+    )
+
+    nu_8 = (
+      toda_nu_family_definition_statement(
+        8
+      ).element
+    )
+
+    iota_8 = HomotopyElement(
+      name="ι₈",
+      dimension=8,
+      source=8,
+      target=8,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=8,
+      ),
+    )
+
+    bracket = TodaBracket(
+      first=nu_5,
+      second=Multiple(
+        coefficient=8,
+        expression=iota_8,
+      ),
+      third=nu_8,
+      index=3,
+    )
+
+    membership = (
+      TodaBracketMembershipStatement(
+        element=sigma_triple_prime,
+        bracket=bracket,
+        source="Toda Lemma 5.13",
+        note=(
+          "Toda Lemma 5.13 defines "
+          "sigma triple-prime by the "
+          "indexed bracket "
+          "{nu_5,8 iota_8,nu_8}_3."
+        ),
+      )
+    )
+
+    return TodaLemma513Statement(
+      bracket=bracket,
+      sigma_triple_prime=(
+        sigma_triple_prime
+      ),
+      bracket_membership=membership,
+      hopf_image=(
+        hopf_isomorphism
+        .image_generator
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.13 "
+      "sigma triple-prime definition"
+    ),
+    description=(
+      "Attach the Toda Lemma 5.13 "
+      "bracket provenance to the "
+      "concrete element whose Hopf image "
+      "has independently been derived "
+      "to be 4 nu_9. "
+      "The element is recorded as "
+      "sigma triple-prime in the indexed "
+      "Toda bracket "
+      "{nu_5,8 iota_8,nu_8}_3. "
+      "This refinement does not add "
+      "generic Toda-bracket "
+      "indeterminacy algebra."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp515Pi12_5HopfIsomorphismStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda55NuFamilyFiniteDimensionalStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+@dataclass(frozen=True)
+class Toda514FirstShortExactStatement:
+  source_group: TodaPrimaryGroup
+  middle_group: TodaPrimaryGroup
+  target_group: TodaPrimaryGroup
+  suspension_map: TodaSuspensionMap
+  hopf_map: TodaHopfInvariantMap
+
+
+@dataclass(frozen=True)
+class Toda514SecondShortExactStatement:
+  source_group: TodaPrimaryGroup
+  middle_group: TodaPrimaryGroup
+  target_group: TodaPrimaryGroup
+  suspension_map: TodaSuspensionMap
+  hopf_map: TodaHopfInvariantMap
+
+
+def toda_514_delta_eta13_squared_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    delta_eta13_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    prop53 = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    eta_13 = (
+      toda_eta_family_definition_statement(
+        13
+      ).element
+    )
+
+    expected_delta_eta13_zero = Relation(
+      lhs=MapApplication(
+        map=EHP_DELTA_MAP,
+        expression=eta_13,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    if (
+      delta_eta13_zero
+      != expected_delta_eta13_zero
+    ):
+      return False
+
+    if not isinstance(
+      prop53,
+      TodaProp53FiniteDimensionalStatement,
+    ):
+      return False
+
+    higher_relation = (
+      prop53
+      .higher_eta_squared_group_relation
+    )
+
+    higher_range = (
+      prop53
+      .higher_range
+    )
+
+    if not isinstance(
+      higher_relation.lhs,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    if not isinstance(
+      higher_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    n = (
+      higher_relation
+      .lhs
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      higher_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=n,
+          right=2,
+        ),
+        sphere_dimension=n,
+      )
+    ):
+      return False
+
+    if (
+      higher_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    if (
+      higher_range
+      != ScalarGreaterEqualStatement(
+        left=n,
+        right=5,
+      )
+    ):
+      return False
+
+    eta_n = HomotopyElement(
+      name="η_n",
+      dimension=n,
+      source=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      target=n,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n,
+      ),
+    )
+
+    n_plus_one = ScalarSum(
+      left=n,
+      right=1,
+    )
+
+    eta_n_plus_one = HomotopyElement(
+      name="η_(n+1)",
+      dimension=n_plus_one,
+      source=ScalarSum(
+        left=n,
+        right=2,
+      ),
+      target=n_plus_one,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n_plus_one,
+      ),
+    )
+
+    return (
+      higher_relation
+      .rhs
+      .generator
+      == Composition(
+        left=eta_n,
+        right=eta_n_plus_one,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    eta_13 = (
+      toda_eta_family_definition_statement(
+        13
+      ).element
+    )
+
+    eta_14 = (
+      toda_eta_family_definition_statement(
+        14
+      ).element
+    )
+
+    eta13_squared = Composition(
+      left=eta_13,
+      right=eta_14,
+    )
+
+    return Relation(
+      lhs=MapApplication(
+        map=EHP_DELTA_MAP,
+        expression=eta13_squared,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (5.14) "
+      "Delta eta_13 squared zero"
+    ),
+    description=(
+      "Use the independently derived "
+      "Toda (5.13) relation "
+      "Delta(eta_13)=0 and "
+      "Proposition 5.3 "
+      "pi_(n+2)^n=Z/2{eta_n squared}. "
+      "The concrete Proposition 2.5 "
+      "composition identity gives "
+      "Delta(eta_13 squared)="
+      "Delta(eta_13) composed with eta_12 "
+      "in Toda's indexing convention, "
+      "hence zero. "
+      "The structured expression uses "
+      "the canonical eta_13 and eta_14 "
+      "family elements for eta_13 squared. "
+      "No generic Delta-composition "
+      "or zero-composition transport "
+      "framework is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=RelationType.ZERO,
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp53FiniteDimensionalStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_514_second_short_exact_concrete_exactness_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    window = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    pi15_13 = TodaPrimaryGroup(
+      group_dimension=15,
+      sphere_dimension=13,
+    )
+
+    pi13_6 = TodaPrimaryGroup(
+      group_dimension=13,
+      sphere_dimension=6,
+    )
+
+    pi14_7 = TodaPrimaryGroup(
+      group_dimension=14,
+      sphere_dimension=7,
+    )
+
+    pi14_13 = TodaPrimaryGroup(
+      group_dimension=14,
+      sphere_dimension=13,
+    )
+
+    pi12_6 = TodaPrimaryGroup(
+      group_dimension=12,
+      sphere_dimension=6,
+    )
+
+    expected_windows = (
+      TodaEHPExactnessWindow(
+        source_term=pi15_13,
+        middle_term=pi13_6,
+        target_term=pi14_7,
+        first_map=EHP_DELTA_MAP,
+        second_map=EHP_E_MAP,
+      ),
+      TodaEHPExactnessWindow(
+        source_term=pi13_6,
+        middle_term=pi14_7,
+        target_term=pi14_13,
+        first_map=EHP_E_MAP,
+        second_map=EHP_H_MAP,
+      ),
+      TodaEHPExactnessWindow(
+        source_term=pi14_7,
+        middle_term=pi14_13,
+        target_term=pi12_6,
+        first_map=EHP_H_MAP,
+        second_map=EHP_DELTA_MAP,
+      ),
+    )
+
+    return (
+      window
+      in expected_windows
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return TodaProp42ExactnessStatement(
+      window=(
+        premises[
+          0
+        ].conclusion
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (5.14) second short exact "
+      "concrete EHP exactness"
+    ),
+    description=(
+      "Recognize exactly the three "
+      "Toda Proposition 4.2 EHP windows "
+      "needed for the second short exact "
+      "sequence of Toda (5.14): "
+      "pi_15^13-Delta-pi_13^6-E-pi_14^7, "
+      "pi_13^6-E-pi_14^7-H-pi_14^13, "
+      "and "
+      "pi_14^7-H-pi_14^13-Delta-pi_12^6. "
+      "No generic concrete EHP "
+      "specialization framework is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaEHPExactnessWindow
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_514_second_short_exact_inference_rule():
+  def is_eta13_squared(
+    expression,
+  ):
+    if not isinstance(
+      expression,
+      Composition,
+    ):
+      return False
+
+    eta_13 = (
+      expression.left
+    )
+
+    eta_14 = (
+      expression.right
+    )
+
+    if not isinstance(
+      eta_13,
+      HomotopyElement,
+    ):
+      return False
+
+    if not isinstance(
+      eta_14,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_13.dimension
+      != 13
+      or eta_13.source
+      != 14
+      or eta_13.target
+      != 13
+      or eta_13.generator
+      != GeneratorSymbol(
+        family="η",
+        index=13,
+      )
+    ):
+      return False
+
+    return (
+      eta_14.dimension
+      == 14
+      and eta_14.source
+      == 15
+      and eta_14.target
+      == 14
+      and eta_14.generator
+      == GeneratorSymbol(
+        family="η",
+        index=14,
+      )
+    )
+
+  def guard(
+    premises,
+    bindings,
+  ):
+    delta_eta13_squared_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    delta_eta13_zero = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    prop53 = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi14_13_relation = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    delta_e_exactness = (
+      premises[
+        4
+      ].conclusion
+    )
+
+    e_h_exactness = (
+      premises[
+        5
+      ].conclusion
+    )
+
+    h_delta_exactness = (
+      premises[
+        6
+      ].conclusion
+    )
+
+    pi15_13 = TodaPrimaryGroup(
+      group_dimension=15,
+      sphere_dimension=13,
+    )
+
+    pi13_6 = TodaPrimaryGroup(
+      group_dimension=13,
+      sphere_dimension=6,
+    )
+
+    pi14_7 = TodaPrimaryGroup(
+      group_dimension=14,
+      sphere_dimension=7,
+    )
+
+    pi14_13 = TodaPrimaryGroup(
+      group_dimension=14,
+      sphere_dimension=13,
+    )
+
+    pi12_6 = TodaPrimaryGroup(
+      group_dimension=12,
+      sphere_dimension=6,
+    )
+
+    if not isinstance(
+      prop53,
+      TodaProp53FiniteDimensionalStatement,
+    ):
+      return False
+
+    higher_relation = (
+      prop53
+      .higher_eta_squared_group_relation
+    )
+
+    higher_range = (
+      prop53
+      .higher_range
+    )
+
+    if not isinstance(
+      higher_relation.lhs,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    if not isinstance(
+      higher_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    n = (
+      higher_relation
+      .lhs
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      higher_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=n,
+          right=2,
+        ),
+        sphere_dimension=n,
+      )
+    ):
+      return False
+
+    if (
+      higher_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    if (
+      higher_range
+      != ScalarGreaterEqualStatement(
+        left=n,
+        right=5,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      delta_eta13_squared_zero,
+      Relation,
+    ):
+      return False
+
+    if (
+      delta_eta13_squared_zero.relation_type
+      != RelationType.ZERO
+    ):
+      return False
+
+    if (
+      delta_eta13_squared_zero.rhs
+      != Zero()
+    ):
+      return False
+
+    if not isinstance(
+      delta_eta13_squared_zero.lhs,
+      MapApplication,
+    ):
+      return False
+
+    if (
+      delta_eta13_squared_zero
+      .lhs
+      .map
+      != EHP_DELTA_MAP
+    ):
+      return False
+
+    if not is_eta13_squared(
+      delta_eta13_squared_zero
+      .lhs
+      .expression
+    ):
+      return False
+
+    eta_13 = (
+      toda_eta_family_definition_statement(
+        13
+      ).element
+    )
+
+    if (
+      delta_eta13_zero
+      != Relation(
+        lhs=MapApplication(
+          map=EHP_DELTA_MAP,
+          expression=eta_13,
+        ),
+        rhs=Zero(),
+        relation_type=RelationType.ZERO,
+      )
+    ):
+      return False
+
+    if (
+      pi14_13_relation.lhs
+      != pi14_13
+    ):
+      return False
+
+    if not isinstance(
+      pi14_13_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi14_13_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    if (
+      pi14_13_relation.rhs.generator
+      != eta_13
+    ):
+      return False
+
+    if (
+      delta_e_exactness.window
+      != TodaEHPExactnessWindow(
+        source_term=pi15_13,
+        middle_term=pi13_6,
+        target_term=pi14_7,
+        first_map=EHP_DELTA_MAP,
+        second_map=EHP_E_MAP,
+      )
+    ):
+      return False
+
+    if (
+      e_h_exactness.window
+      != TodaEHPExactnessWindow(
+        source_term=pi13_6,
+        middle_term=pi14_7,
+        target_term=pi14_13,
+        first_map=EHP_E_MAP,
+        second_map=EHP_H_MAP,
+      )
+    ):
+      return False
+
+    return (
+      h_delta_exactness.window
+      == TodaEHPExactnessWindow(
+        source_term=pi14_7,
+        middle_term=pi14_13,
+        target_term=pi12_6,
+        first_map=EHP_H_MAP,
+        second_map=EHP_DELTA_MAP,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    pi13_6 = TodaPrimaryGroup(
+      group_dimension=13,
+      sphere_dimension=6,
+    )
+
+    pi14_7 = TodaPrimaryGroup(
+      group_dimension=14,
+      sphere_dimension=7,
+    )
+
+    pi14_13 = TodaPrimaryGroup(
+      group_dimension=14,
+      sphere_dimension=13,
+    )
+
+    return (
+      Toda514SecondShortExactStatement(
+        source_group=pi13_6,
+        middle_group=pi14_7,
+        target_group=pi14_13,
+        suspension_map=TodaSuspensionMap(
+          source_group=pi13_6,
+          target_group=pi14_7,
+        ),
+        hopf_map=TodaHopfInvariantMap(
+          source_group=pi14_7,
+          target_group=pi14_13,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (5.14) "
+      "second short exact sequence"
+    ),
+    description=(
+      "Proposition 5.3 gives "
+      "pi_15^13=Z/2{eta_13 squared}, "
+      "and Proposition 2.5 together with "
+      "Toda (5.13) gives "
+      "Delta(eta_13 squared)=0. "
+      "Proposition 5.1 gives "
+      "pi_14^13=Z/2{eta_13}, while "
+      "Toda (5.13) gives "
+      "Delta(eta_13)=0. "
+      "Together with the three concrete "
+      "Toda Proposition 4.2 exactness "
+      "windows, derive "
+      "0 -> pi_13^6 -> pi_14^7 "
+      "-> pi_14^13 -> 0. "
+      "No generic short exact sequence "
+      "solver is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=RelationType.ZERO,
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=RelationType.ZERO,
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp53FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=RelationType.EQUALITY,
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_514_delta_nu11_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    delta_iota11 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta_n_nu_n_plus_one_zero = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    prop56 = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    if not isinstance(
+      prop56,
+      TodaProp56FiniteDimensionalStatement,
+    ):
+      return False
+
+    higher_relation = (
+      prop56
+      .higher_nu_group_relation
+    )
+
+    if not isinstance(
+      higher_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      higher_relation.rhs.order
+      != 8
+    ):
+      return False
+
+    if not isinstance(
+      delta_iota11,
+      Relation,
+    ):
+      return False
+
+    if (
+      delta_iota11.relation_type
+      != RelationType.EQUALITY
+    ):
+      return False
+
+    if not isinstance(
+      delta_iota11.lhs,
+      MapApplication,
+    ):
+      return False
+
+    if (
+      delta_iota11.lhs.map
+      != EHP_DELTA_MAP
+    ):
+      return False
+
+    iota_11 = (
+      delta_iota11
+      .lhs
+      .expression
+    )
+
+    if not isinstance(
+      iota_11,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      iota_11.generator
+      != GeneratorSymbol(
+        family="ι",
+        index=11,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      delta_iota11.rhs,
+      Composition,
+    ):
+      return False
+
+    nu_5 = (
+      delta_iota11
+      .rhs
+      .left
+    )
+
+    eta_8 = (
+      delta_iota11
+      .rhs
+      .right
+    )
+
+    if (
+      nu_5.generator
+      != GeneratorSymbol(
+        family="ν",
+        index=5,
+      )
+    ):
+      return False
+
+    if (
+      eta_8.generator
+      != GeneratorSymbol(
+        family="η",
+        index=8,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      eta_n_nu_n_plus_one_zero,
+      Relation,
+    ):
+      return False
+
+    if (
+      eta_n_nu_n_plus_one_zero.relation_type
+      != RelationType.ZERO
+    ):
+      return False
+
+    if not isinstance(
+      eta_n_nu_n_plus_one_zero.lhs,
+      Composition,
+    ):
+      return False
+
+    eta_n = (
+      eta_n_nu_n_plus_one_zero
+      .lhs
+      .left
+    )
+
+    nu_n_plus_one = (
+      eta_n_nu_n_plus_one_zero
+      .lhs
+      .right
+    )
+
+    if not isinstance(
+      eta_n,
+      HomotopyElement,
+    ):
+      return False
+
+    n = (
+      eta_n.dimension
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      eta_n.generator
+      != GeneratorSymbol(
+        family="η",
+        index=n,
+      )
+    ):
+      return False
+
+    return (
+      nu_n_plus_one.generator
+      == GeneratorSymbol(
+        family="ν",
+        index=ScalarSum(
+          left=n,
+          right=1,
+        ),
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    nu_11 = (
+      toda_nu_family_definition_statement(
+        11
+      ).element
+    )
+
+    return Relation(
+      lhs=MapApplication(
+        map=EHP_DELTA_MAP,
+        expression=nu_11,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (5.14) "
+      "Delta nu_11 zero"
+    ),
+    description=(
+      "Use the independently derived "
+      "Delta(iota_11)=nu_5 eta_8 "
+      "and the higher relation "
+      "eta_n nu_(n+1)=0. "
+      "Toda Proposition 2.5 gives "
+      "Delta(nu_11)="
+      "Delta(iota_11) composed with nu_9, "
+      "hence nu_5 eta_8 nu_9=0. "
+      "Proposition 5.6 supplies "
+      "pi_14^11=Z/8{nu_11}. "
+      "This is the concrete zero image "
+      "needed for Toda (5.14)."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp56FiniteDimensionalStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_514_first_short_exact_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    delta_nu11_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    delta_eta11_squared_zero = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    prop56 = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    prop53 = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    nu_11 = (
+      toda_nu_family_definition_statement(
+        11
+      ).element
+    )
+
+    expected_delta_nu11_zero = Relation(
+      lhs=MapApplication(
+        map=EHP_DELTA_MAP,
+        expression=nu_11,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    if (
+      delta_nu11_zero
+      != expected_delta_nu11_zero
+    ):
+      return False
+
+    if not isinstance(
+      prop56,
+      TodaProp56FiniteDimensionalStatement,
+    ):
+      return False
+
+    if not isinstance(
+      prop53,
+      TodaProp53FiniteDimensionalStatement,
+    ):
+      return False
+
+    pi13_11_relation = (
+      prop53
+      .higher_eta_squared_group_relation
+    )
+
+    n = (
+      pi13_11_relation
+      .lhs
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    eta_n = HomotopyElement(
+      name="η_n",
+      dimension=n,
+      source=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      target=n,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n,
+      ),
+    )
+
+    eta_n_plus_one = HomotopyElement(
+      name="η_(n+1)",
+      dimension=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      source=ScalarSum(
+        left=n,
+        right=2,
+      ),
+      target=ScalarSum(
+        left=n,
+        right=1,
+      ),
+      generator=GeneratorSymbol(
+        family="η",
+        index=ScalarSum(
+          left=n,
+          right=1,
+        ),
+      ),
+    )
+
+    if (
+      pi13_11_relation
+      .rhs
+      .generator
+      != Composition(
+        left=eta_n,
+        right=eta_n_plus_one,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      delta_eta11_squared_zero,
+      Relation,
+    ):
+      return False
+
+    if (
+      delta_eta11_squared_zero.relation_type
+      != RelationType.ZERO
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    pi12_5 = TodaPrimaryGroup(
+      group_dimension=12,
+      sphere_dimension=5,
+    )
+
+    pi13_6 = TodaPrimaryGroup(
+      group_dimension=13,
+      sphere_dimension=6,
+    )
+
+    pi13_11 = TodaPrimaryGroup(
+      group_dimension=13,
+      sphere_dimension=11,
+    )
+
+    return (
+      Toda514FirstShortExactStatement(
+        source_group=pi12_5,
+        middle_group=pi13_6,
+        target_group=pi13_11,
+        suspension_map=TodaSuspensionMap(
+          source_group=pi12_5,
+          target_group=pi13_6,
+        ),
+        hopf_map=TodaHopfInvariantMap(
+          source_group=pi13_6,
+          target_group=pi13_11,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (5.14) "
+      "first short exact sequence"
+    ),
+    description=(
+      "Use the two concrete vanishing "
+      "Delta images required by Toda's "
+      "proof of (5.14): "
+      "Delta(pi_14^11)=0 and "
+      "Delta(pi_13^11)=0. "
+      "Together with Proposition 5.6 "
+      "and Proposition 5.3, this gives "
+      "0 -> pi_12^5 -> pi_13^6 "
+      "-> pi_13^11 -> 0. "
+      "No generic short exact sequence "
+      "representation or solver is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp56FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp53FiniteDimensionalStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+@dataclass(frozen=True)
+class Toda514FirstShortExactStatement:
+  source_group: TodaPrimaryGroup
+  middle_group: TodaPrimaryGroup
+  target_group: TodaPrimaryGroup
+  suspension_map: TodaSuspensionMap
+  hopf_map: TodaHopfInvariantMap
+
+
+def toda_514_delta_nu11_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    delta_iota11 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta_n_nu_n_plus_one_zero = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    toda55 = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    prop56 = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    if not isinstance(
+      delta_iota11,
+      Relation,
+    ):
+      return False
+
+    if (
+      delta_iota11.relation_type
+      != RelationType.EQUALITY
+    ):
+      return False
+
+    if not isinstance(
+      delta_iota11.lhs,
+      MapApplication,
+    ):
+      return False
+
+    if (
+      delta_iota11.lhs.map
+      != EHP_DELTA_MAP
+    ):
+      return False
+
+    iota_11 = (
+      delta_iota11
+      .lhs
+      .expression
+    )
+
+    if not isinstance(
+      iota_11,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      iota_11.dimension
+      != 11
+    ):
+      return False
+
+    if (
+      iota_11.generator
+      != GeneratorSymbol(
+        family="ι",
+        index=11,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      delta_iota11.rhs,
+      Composition,
+    ):
+      return False
+
+    nu_5 = (
+      delta_iota11
+      .rhs
+      .left
+    )
+
+    eta_8 = (
+      delta_iota11
+      .rhs
+      .right
+    )
+
+    if (
+      nu_5
+      != toda_nu_family_definition_statement(
+        5
+      ).element
+    ):
+      return False
+
+    if not isinstance(
+      eta_8,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_8.dimension
+      != 8
+    ):
+      return False
+
+    if (
+      eta_8.source
+      != 9
+    ):
+      return False
+
+    if (
+      eta_8.target
+      != 8
+    ):
+      return False
+
+    if (
+      eta_8.generator
+      != GeneratorSymbol(
+        family="η",
+        index=8,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      toda55,
+      Toda55NuFamilyFiniteDimensionalStatement,
+    ):
+      return False
+
+    symbolic_n = (
+      toda55
+      .nu_family_definition
+      .index
+    )
+
+    if not isinstance(
+      symbolic_n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      toda55.n_range
+      != ScalarGreaterEqualStatement(
+        left=symbolic_n,
+        right=5,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      eta_n_nu_n_plus_one_zero,
+      Relation,
+    ):
+      return False
+
+    if (
+      eta_n_nu_n_plus_one_zero.relation_type
+      != RelationType.ZERO
+    ):
+      return False
+
+    if (
+      eta_n_nu_n_plus_one_zero.rhs
+      != Zero()
+    ):
+      return False
+
+    if not isinstance(
+      eta_n_nu_n_plus_one_zero.lhs,
+      Composition,
+    ):
+      return False
+
+    eta_n = (
+      eta_n_nu_n_plus_one_zero
+      .lhs
+      .left
+    )
+
+    nu_n_plus_one = (
+      eta_n_nu_n_plus_one_zero
+      .lhs
+      .right
+    )
+
+    if not isinstance(
+      eta_n,
+      HomotopyElement,
+    ):
+      return False
+
+    if not isinstance(
+      nu_n_plus_one,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_n.dimension
+      != symbolic_n
+    ):
+      return False
+
+    if (
+      eta_n.source
+      != ScalarSum(
+        left=symbolic_n,
+        right=1,
+      )
+    ):
+      return False
+
+    if (
+      eta_n.target
+      != symbolic_n
+    ):
+      return False
+
+    if (
+      eta_n.generator
+      != GeneratorSymbol(
+        family="η",
+        index=symbolic_n,
+      )
+    ):
+      return False
+
+    symbolic_n_plus_one = ScalarSum(
+      left=symbolic_n,
+      right=1,
+    )
+
+    if (
+      nu_n_plus_one.dimension
+      != symbolic_n_plus_one
+    ):
+      return False
+
+    if (
+      nu_n_plus_one.generator
+      != GeneratorSymbol(
+        family="ν",
+        index=symbolic_n_plus_one,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      prop56,
+      TodaProp56FiniteDimensionalStatement,
+    ):
+      return False
+
+    higher_relation = (
+      prop56
+      .higher_nu_group_relation
+    )
+
+    higher_range = (
+      prop56
+      .higher_range
+    )
+
+    if not isinstance(
+      higher_relation.lhs,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    higher_n = (
+      higher_relation
+      .lhs
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      higher_n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      higher_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=higher_n,
+          right=3,
+        ),
+        sphere_dimension=higher_n,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      higher_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      higher_relation.rhs.order
+      != 8
+    ):
+      return False
+
+    if (
+      higher_relation.rhs.generator
+      != toda_nu_family_definition_statement(
+        higher_n
+      ).element
+    ):
+      return False
+
+    return (
+      higher_range
+      == ScalarGreaterEqualStatement(
+        left=higher_n,
+        right=6,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    nu_11 = (
+      toda_nu_family_definition_statement(
+        11
+      ).element
+    )
+
+    return Relation(
+      lhs=MapApplication(
+        map=EHP_DELTA_MAP,
+        expression=nu_11,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (5.14) "
+      "Delta nu_11 zero"
+    ),
+    description=(
+      "Use Toda (5.10) "
+      "Delta(iota_11)=nu_5 eta_8, "
+      "the independently derived "
+      "eta_n nu_(n+1)=0 family "
+      "for n at least 5, and "
+      "Proposition 5.6 "
+      "pi_(n+3)^n=Z/8{nu_n}. "
+      "Toda Proposition 2.5 gives "
+      "Delta(nu_11)="
+      "Delta(iota_11) composed with nu_9 "
+      "=nu_5 eta_8 nu_9=0. "
+      "This rule records only the "
+      "concrete vanishing required "
+      "for the first sequence in (5.14)."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda55NuFamilyFiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp56FiniteDimensionalStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_514_first_short_exact_concrete_exactness_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    window = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    pi14_11 = TodaPrimaryGroup(
+      group_dimension=14,
+      sphere_dimension=11,
+    )
+
+    pi12_5 = TodaPrimaryGroup(
+      group_dimension=12,
+      sphere_dimension=5,
+    )
+
+    pi13_6 = TodaPrimaryGroup(
+      group_dimension=13,
+      sphere_dimension=6,
+    )
+
+    pi13_11 = TodaPrimaryGroup(
+      group_dimension=13,
+      sphere_dimension=11,
+    )
+
+    pi11_5 = TodaPrimaryGroup(
+      group_dimension=11,
+      sphere_dimension=5,
+    )
+
+    expected_windows = (
+      TodaEHPExactnessWindow(
+        source_term=pi14_11,
+        middle_term=pi12_5,
+        target_term=pi13_6,
+        first_map=EHP_DELTA_MAP,
+        second_map=EHP_E_MAP,
+      ),
+      TodaEHPExactnessWindow(
+        source_term=pi12_5,
+        middle_term=pi13_6,
+        target_term=pi13_11,
+        first_map=EHP_E_MAP,
+        second_map=EHP_H_MAP,
+      ),
+      TodaEHPExactnessWindow(
+        source_term=pi13_6,
+        middle_term=pi13_11,
+        target_term=pi11_5,
+        first_map=EHP_H_MAP,
+        second_map=EHP_DELTA_MAP,
+      ),
+    )
+
+    return (
+      window
+      in expected_windows
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return TodaProp42ExactnessStatement(
+      window=(
+        premises[
+          0
+        ].conclusion
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (5.14) first short exact "
+      "concrete EHP exactness"
+    ),
+    description=(
+      "Recognize exactly the three "
+      "Toda Proposition 4.2 EHP "
+      "windows required to derive "
+      "the first short exact sequence "
+      "of Toda (5.14): "
+      "pi_14^11-Delta-pi_12^5-E-pi_13^6, "
+      "pi_12^5-E-pi_13^6-H-pi_13^11, "
+      "and "
+      "pi_13^6-H-pi_13^11-Delta-pi_11^5. "
+      "No generic concrete EHP "
+      "specialization framework is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaEHPExactnessWindow
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_514_first_short_exact_inference_rule():
+  def is_eta11_squared(
+    expression,
+  ):
+    if not isinstance(
+      expression,
+      Composition,
+    ):
+      return False
+
+    eta_11 = expression.left
+    eta_12 = expression.right
+
+    if not isinstance(
+      eta_11,
+      HomotopyElement,
+    ):
+      return False
+
+    if not isinstance(
+      eta_12,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_11.dimension
+      != 11
+      or eta_11.source
+      != 12
+      or eta_11.target
+      != 11
+      or eta_11.generator
+      != GeneratorSymbol(
+        family="η",
+        index=11,
+      )
+    ):
+      return False
+
+    return (
+      eta_12.dimension
+      == 12
+      and eta_12.source
+      == 13
+      and eta_12.target
+      == 12
+      and eta_12.generator
+      == GeneratorSymbol(
+        family="η",
+        index=12,
+      )
+    )
+
+  def guard(
+    premises,
+    bindings,
+  ):
+    delta_nu11_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    delta_eta11_squared_zero = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    prop56 = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi13_11_relation = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    delta_e_exactness = (
+      premises[
+        4
+      ].conclusion
+    )
+
+    e_h_exactness = (
+      premises[
+        5
+      ].conclusion
+    )
+
+    h_delta_exactness = (
+      premises[
+        6
+      ].conclusion
+    )
+
+    pi14_11 = TodaPrimaryGroup(
+      group_dimension=14,
+      sphere_dimension=11,
+    )
+
+    pi12_5 = TodaPrimaryGroup(
+      group_dimension=12,
+      sphere_dimension=5,
+    )
+
+    pi13_6 = TodaPrimaryGroup(
+      group_dimension=13,
+      sphere_dimension=6,
+    )
+
+    pi13_11 = TodaPrimaryGroup(
+      group_dimension=13,
+      sphere_dimension=11,
+    )
+
+    pi11_5 = TodaPrimaryGroup(
+      group_dimension=11,
+      sphere_dimension=5,
+    )
+
+    nu_11 = (
+      toda_nu_family_definition_statement(
+        11
+      ).element
+    )
+
+    if (
+      delta_nu11_zero
+      != Relation(
+        lhs=MapApplication(
+          map=EHP_DELTA_MAP,
+          expression=nu_11,
+        ),
+        rhs=Zero(),
+        relation_type=RelationType.ZERO,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      prop56,
+      TodaProp56FiniteDimensionalStatement,
+    ):
+      return False
+
+    higher_relation = (
+      prop56
+      .higher_nu_group_relation
+    )
+
+    higher_range = (
+      prop56
+      .higher_range
+    )
+
+    if not isinstance(
+      higher_relation.lhs,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    higher_n = (
+      higher_relation
+      .lhs
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      higher_n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      higher_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=higher_n,
+          right=3,
+        ),
+        sphere_dimension=higher_n,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      higher_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      higher_relation.rhs.order
+      != 8
+    ):
+      return False
+
+    if (
+      higher_relation.rhs.generator
+      != toda_nu_family_definition_statement(
+        higher_n
+      ).element
+    ):
+      return False
+
+    if (
+      higher_range
+      != ScalarGreaterEqualStatement(
+        left=higher_n,
+        right=6,
+      )
+    ):
+      return False
+
+    if (
+      pi13_11_relation.lhs
+      != pi13_11
+    ):
+      return False
+
+    if not isinstance(
+      pi13_11_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi13_11_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    eta11_squared = (
+      pi13_11_relation
+      .rhs
+      .generator
+    )
+
+    if not is_eta11_squared(
+      eta11_squared
+    ):
+      return False
+
+    if not isinstance(
+      delta_eta11_squared_zero,
+      Relation,
+    ):
+      return False
+
+    if (
+      delta_eta11_squared_zero.relation_type
+      != RelationType.ZERO
+    ):
+      return False
+
+    if (
+      delta_eta11_squared_zero.rhs
+      != Zero()
+    ):
+      return False
+
+    if not isinstance(
+      delta_eta11_squared_zero.lhs,
+      MapApplication,
+    ):
+      return False
+
+    if (
+      delta_eta11_squared_zero
+      .lhs
+      .map
+      != EHP_DELTA_MAP
+    ):
+      return False
+
+    if not is_eta11_squared(
+      delta_eta11_squared_zero
+      .lhs
+      .expression
+    ):
+      return False
+
+    if (
+      delta_e_exactness.window
+      != TodaEHPExactnessWindow(
+        source_term=pi14_11,
+        middle_term=pi12_5,
+        target_term=pi13_6,
+        first_map=EHP_DELTA_MAP,
+        second_map=EHP_E_MAP,
+      )
+    ):
+      return False
+
+    if (
+      e_h_exactness.window
+      != TodaEHPExactnessWindow(
+        source_term=pi12_5,
+        middle_term=pi13_6,
+        target_term=pi13_11,
+        first_map=EHP_E_MAP,
+        second_map=EHP_H_MAP,
+      )
+    ):
+      return False
+
+    return (
+      h_delta_exactness.window
+      == TodaEHPExactnessWindow(
+        source_term=pi13_6,
+        middle_term=pi13_11,
+        target_term=pi11_5,
+        first_map=EHP_H_MAP,
+        second_map=EHP_DELTA_MAP,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    pi12_5 = TodaPrimaryGroup(
+      group_dimension=12,
+      sphere_dimension=5,
+    )
+
+    pi13_6 = TodaPrimaryGroup(
+      group_dimension=13,
+      sphere_dimension=6,
+    )
+
+    pi13_11 = TodaPrimaryGroup(
+      group_dimension=13,
+      sphere_dimension=11,
+    )
+
+    return (
+      Toda514FirstShortExactStatement(
+        source_group=pi12_5,
+        middle_group=pi13_6,
+        target_group=pi13_11,
+        suspension_map=TodaSuspensionMap(
+          source_group=pi12_5,
+          target_group=pi13_6,
+        ),
+        hopf_map=TodaHopfInvariantMap(
+          source_group=pi13_6,
+          target_group=pi13_11,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (5.14) "
+      "first short exact sequence"
+    ),
+    description=(
+      "Proposition 5.6 gives "
+      "pi_14^11=Z/8{nu_11}, and the "
+      "derived relation Delta(nu_11)=0 "
+      "makes the preceding Delta map zero. "
+      "Proposition 5.3 gives "
+      "pi_13^11=Z/2{eta_11 squared}, and "
+      "Toda (5.13) gives "
+      "Delta(eta_11 squared)=0, making "
+      "the following Delta map zero. "
+      "Together with the three concrete "
+      "Toda Proposition 4.2 exactness "
+      "windows, derive the first "
+      "short exact sequence of (5.14): "
+      "0 -> pi_12^5 -> pi_13^6 "
+      "-> pi_13^11 -> 0. "
+      "No generic short exact sequence "
+      "solver is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp56FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+@dataclass(frozen=True)
+class Toda36Lemma514SigmaDoublePrimeBridgeStatement:
+  nu4: HomotopyElement
+  alpha_star: HomotopyElement
+  alpha_star_membership: HomotopyGroupMembershipStatement
+  lemma513_statement: TodaLemma513Statement
+  odd_parameter: ScalarSymbol
+  odd_parameter_statement: OddScalarStatement
+  bridge_relation: Relation
+
+
+@dataclass(frozen=True)
+class TodaLemma514SigmaDoublePrimeStatement:
+  sigma_double_prime: HomotopyElement
+  sigma_triple_prime: HomotopyElement
+  alpha_star: HomotopyElement
+  odd_parameter: ScalarSymbol
+  iterated_suspension_relation: Relation
+  double_relation: Relation
+  hopf_relation: Relation
+  theorem36_bridge: Toda36Lemma514SigmaDoublePrimeBridgeStatement
+  short_exact_statement: Toda514FirstShortExactStatement
+
+
+@dataclass(frozen=True)
+class TodaLemma514SigmaPrimeStatement:
+  sigma_prime: HomotopyElement
+  sigma_double_prime: HomotopyElement
+  double_relation: Relation
+  hopf_relation: Relation
+  sigma_double_prime_statement: (
+    TodaLemma514SigmaDoublePrimeStatement
+  )
+  short_exact_statement: (
+    Toda514SecondShortExactStatement
+  )
+
+
+@dataclass(frozen=True)
+class TodaLemma514Sigma8Statement:
+  sigma8: HomotopyElement
+  sigma_prime: HomotopyElement
+  alpha_star: HomotopyElement
+  odd_parameter: ScalarSymbol
+  correction_parameter: ScalarSymbol
+  definition_relation: Relation
+  hopf_relation: Relation
+  suspension_relation: Relation
+  double_suspension_relation: Relation
+  theorem36_bridge: (
+    Toda36Lemma514SigmaDoublePrimeBridgeStatement
+  )
+  sigma_prime_statement: (
+    TodaLemma514SigmaPrimeStatement
+  )
+
+
+@dataclass(frozen=True)
+class Toda515Sigma8Prop44SpecializationStatement:
+  sigma8_statement: TodaLemma514Sigma8Statement
+  n: int
+  alpha: HomotopyElement
+  membership: TodaPrimaryGroupMembershipStatement
+  hopf_relation: Relation
+
+
+@dataclass(frozen=True)
+class Toda515Sigma8TransportedDecompositionStatement:
+  prop44_isomorphism: TodaProp44IsomorphismStatement
+  pi14_7_group_relation: Relation
+  pi15_15_group_relation: Relation
+  first_generator_image: Expression
+  second_generator_image: Expression
+  transported_group: DirectSumGroup
+
+
+@dataclass(frozen=True)
+class Toda48Pi16_9OrderAndE4InjectiveStatement:
+  source_group: TodaPrimaryGroup
+  target_group: TodaPrimaryGroup
+  iterated_suspension_map: TodaIteratedSuspensionMap
+  target_order: int
+
+
+def toda_48_pi16_9_order_and_e4_injective_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    pi12_5_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    if (
+      pi12_5_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=12,
+        sphere_dimension=5,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      pi12_5_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi12_5_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    sigma_triple_prime = (
+      pi12_5_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      sigma_triple_prime,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      sigma_triple_prime.source
+      != 12
+    ):
+      return False
+
+    if (
+      sigma_triple_prime.target
+      != 5
+    ):
+      return False
+
+    return (
+      sigma_triple_prime.generator
+      == GeneratorSymbol(
+        family="σ",
+        decoration="'''",
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    source_group = TodaPrimaryGroup(
+      group_dimension=12,
+      sphere_dimension=5,
+    )
+
+    target_group = TodaPrimaryGroup(
+      group_dimension=16,
+      sphere_dimension=9,
+    )
+
+    return (
+      Toda48Pi16_9OrderAndE4InjectiveStatement(
+        source_group=source_group,
+        target_group=target_group,
+        iterated_suspension_map=(
+          TodaIteratedSuspensionMap(
+            exponent=4,
+            source_group=source_group,
+            target_group=target_group,
+          )
+        ),
+        target_order=16,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (4.8) "
+      "pi_16^9 order sixteen "
+      "and E4 injective"
+    ),
+    description=(
+      "Specialize Toda (4.8) to the "
+      "concrete branch used in the proof "
+      "of Lemma 5.14. "
+      "With the independently derived "
+      "pi_12^5=Z/2{sigma triple-prime}, "
+      "Toda (4.8) gives that "
+      "pi_16^9 has order 16 and that "
+      "E^4:pi_12^5->pi_16^9 "
+      "is injective. "
+      "This statement records only this "
+      "concrete consequence. "
+      "No generic Proposition 4.8 "
+      "specialization or iterated-"
+      "suspension injectivity framework "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_pi16_9_sigma9_finite_cyclic_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    prop48 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    sigma8_statement = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    sigma9_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi12_5_relation = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    if not isinstance(
+      prop48,
+      Toda48Pi16_9OrderAndE4InjectiveStatement,
+    ):
+      return False
+
+    if not isinstance(
+      sigma8_statement,
+      TodaLemma514Sigma8Statement,
+    ):
+      return False
+
+    if not isinstance(
+      sigma9_definition,
+      TodaSigmaFamilyDefinitionStatement,
+    ):
+      return False
+
+    pi12_5 = TodaPrimaryGroup(
+      group_dimension=12,
+      sphere_dimension=5,
+    )
+
+    pi16_9 = TodaPrimaryGroup(
+      group_dimension=16,
+      sphere_dimension=9,
+    )
+
+    if (
+      prop48.source_group
+      != pi12_5
+    ):
+      return False
+
+    if (
+      prop48.target_group
+      != pi16_9
+    ):
+      return False
+
+    if (
+      prop48.target_order
+      != 16
+    ):
+      return False
+
+    if (
+      prop48.iterated_suspension_map
+      != TodaIteratedSuspensionMap(
+        exponent=4,
+        source_group=pi12_5,
+        target_group=pi16_9,
+      )
+    ):
+      return False
+
+    if (
+      pi12_5_relation.lhs
+      != pi12_5
+    ):
+      return False
+
+    if not isinstance(
+      pi12_5_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi12_5_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    sigma_triple_prime = (
+      pi12_5_relation
+      .rhs
+      .generator
+    )
+
+    if (
+      sigma_triple_prime
+      != sigma8_statement
+      .theorem36_bridge
+      .lemma513_statement
+      .sigma_triple_prime
+    ):
+      return False
+
+    if (
+      sigma9_definition.index
+      != 9
+    ):
+      return False
+
+    sigma9 = (
+      sigma9_definition.element
+    )
+
+    if (
+      sigma9.source
+      != 16
+    ):
+      return False
+
+    if (
+      sigma9.target
+      != 9
+    ):
+      return False
+
+    if (
+      sigma9.generator
+      != GeneratorSymbol(
+        family="σ",
+        index=9,
+      )
+    ):
+      return False
+
+    if (
+      sigma9_definition
+      .sigma8_statement
+      != sigma8_statement
+    ):
+      return False
+
+    if (
+      sigma9_definition
+      .iterated_suspension
+      != IteratedSuspension(
+        expression=(
+          sigma8_statement
+          .sigma8
+        ),
+        exponent=1,
+      )
+    ):
+      return False
+
+    expected_suspension_relation = Relation(
+      lhs=Suspension(
+        expression=(
+          sigma8_statement
+          .sigma8
+        ),
+      ),
+      rhs=Multiple(
+        coefficient=(
+          sigma8_statement
+          .odd_parameter
+        ),
+        expression=Suspension(
+          expression=(
+            sigma8_statement
+            .alpha_star
+          ),
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      sigma8_statement
+      .suspension_relation
+      != expected_suspension_relation
+    ):
+      return False
+
+    bridge = (
+      sigma8_statement
+      .theorem36_bridge
+    )
+
+    expected_bridge = Relation(
+      lhs=Multiple(
+        coefficient=ScalarProduct(
+          left=8,
+          right=(
+            bridge
+            .odd_parameter
+          ),
+        ),
+        expression=Suspension(
+          expression=(
+            bridge
+            .alpha_star
+          ),
+        ),
+      ),
+      rhs=IteratedSuspension(
+        expression=sigma_triple_prime,
+        exponent=4,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      bridge.bridge_relation
+      != expected_bridge
+    ):
+      return False
+
+    return (
+      bridge.odd_parameter
+      == sigma8_statement.odd_parameter
+      and bridge.alpha_star
+      == sigma8_statement.alpha_star
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    sigma9_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=16,
+        sphere_dimension=9,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=16,
+        generator=(
+          sigma9_definition.element
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "pi_16^9 generated by sigma_9"
+    ),
+    description=(
+      "Toda (4.8) gives that "
+      "pi_16^9 has order 16 and that "
+      "E^4:pi_12^5->pi_16^9 is "
+      "injective. "
+      "Phase 75 Lemma 5.14 gives "
+      "E sigma_8=x E alpha-star "
+      "for odd x, while the "
+      "Theorem 3.6 bridge gives "
+      "8x E alpha-star="
+      "E^4 sigma triple-prime. "
+      "Since "
+      "pi_12^5=Z/2{sigma triple-prime} "
+      "and E^4 is injective, "
+      "E^4 sigma triple-prime is "
+      "nonzero. "
+      "Thus 8 sigma_9 is nonzero. "
+      "Since the ambient group has "
+      "order 16, sigma_9 has order 16 "
+      "and generates pi_16^9. "
+      "Therefore "
+      "pi_16^9=Z/16{sigma_9}. "
+      "No generic order arithmetic, "
+      "finite-group classification, or "
+      "injective-map order-preservation "
+      "solver is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda48Pi16_9OrderAndE4InjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma514Sigma8Statement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaSigmaFamilyDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_45_sigma9_finite_cyclic_transport_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    source_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    isomorphism = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    sigma_family = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    if not isinstance(
+      isomorphism,
+      Toda45IsomorphismStatement,
+    ):
+      return False
+
+    if not isinstance(
+      sigma_family,
+      TodaSigmaFamilyDefinitionStatement,
+    ):
+      return False
+
+    n = (
+      sigma_family.index
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    source_group = TodaPrimaryGroup(
+      group_dimension=16,
+      sphere_dimension=9,
+    )
+
+    if (
+      source_relation.lhs
+      != source_group
+    ):
+      return False
+
+    if not isinstance(
+      source_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      source_relation.rhs.order
+      != 16
+    ):
+      return False
+
+    sigma9 = (
+      source_relation
+      .rhs
+      .generator
+    )
+
+    expected_sigma9 = (
+      toda_sigma_family_definition_statement(
+        9,
+        sigma_family.sigma8_statement,
+      )
+      .element
+    )
+
+    if (
+      sigma9
+      != expected_sigma9
+    ):
+      return False
+
+    if (
+      sigma_family.element.source
+      != ScalarSum(
+        left=n,
+        right=7,
+      )
+    ):
+      return False
+
+    if (
+      sigma_family.element.target
+      != n
+    ):
+      return False
+
+    if (
+      sigma_family.element.generator
+      != GeneratorSymbol(
+        family="σ",
+        index=n,
+      )
+    ):
+      return False
+
+    expected_sigma_family_suspension = (
+      IteratedSuspension(
+        expression=(
+          sigma_family
+          .sigma8_statement
+          .sigma8
+        ),
+        exponent=ScalarSum(
+          left=n,
+          right=-8,
+        ),
+      )
+    )
+
+    if (
+      sigma_family.iterated_suspension
+      != expected_sigma_family_suspension
+    ):
+      return False
+
+    transport_map = (
+      isomorphism.map
+    )
+
+    if (
+      transport_map.source_group
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=9,
+          right=7,
+        ),
+        sphere_dimension=9,
+      )
+    ):
+      return False
+
+    if (
+      transport_map.target_group
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=n,
+          right=7,
+        ),
+        sphere_dimension=n,
+      )
+    ):
+      return False
+
+    return (
+      transport_map.exponent
+      == ScalarSum(
+        left=n,
+        right=ScalarProduct(
+          left=-1,
+          right=9,
+        ),
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    isomorphism = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    sigma_family = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=(
+        isomorphism
+        .map
+        .target_group
+      ),
+      rhs=FiniteCyclicGroup(
+        order=16,
+        generator=(
+          sigma_family.element
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (4.5) sigma_9 "
+      "finite cyclic transport"
+    ),
+    description=(
+      "Transport the independently "
+      "derived "
+      "pi_16^9=Z/16{sigma_9} "
+      "through the specific Toda (4.5) "
+      "isomorphism "
+      "E^(n-9):pi_16^9 -> pi_(n+7)^n "
+      "for n at least 9. "
+      "The independently derived "
+      "sigma-family definition "
+      "sigma_n=E^(n-8)sigma_8 "
+      "identifies the transported "
+      "generator with sigma_n. "
+      "Therefore "
+      "pi_(n+7)^n=Z/16{sigma_n} "
+      "for n at least 9. "
+      "This is a sigma-family-specific "
+      "finite-cyclic transport rule. "
+      "No generic isomorphism transport, "
+      "generic generator transport, "
+      "or generic suspension "
+      "normalization is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda45IsomorphismStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaSigmaFamilyDefinitionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_36_lemma514_sigma_double_prime_bridge_inference_rule():
+  def is_nu5_squared(
+    expression,
+  ):
+    if not isinstance(
+      expression,
+      Composition,
+    ):
+      return False
+
+    nu_5 = expression.left
+    nu_8 = expression.right
+
+    if not isinstance(
+      nu_5,
+      HomotopyElement,
+    ):
+      return False
+
+    if not isinstance(
+      nu_8,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      nu_5
+      != toda_nu_family_definition_statement(
+        5
+      ).element
+    ):
+      return False
+
+    return (
+      nu_8
+      == toda_nu_family_definition_statement(
+        8
+      ).element
+    )
+
+  def guard(
+    premises,
+    bindings,
+  ):
+    lemma54 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    prop511 = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    prop58 = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    lemma513 = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    pi12_5_relation = (
+      premises[
+        4
+      ].conclusion
+    )
+
+    if not isinstance(
+      lemma54,
+      TodaLemma54Statement,
+    ):
+      return False
+
+    nu_4 = (
+      lemma54.nu4
+    )
+
+    expected_nu4 = HomotopyElement(
+      name="ν₄",
+      dimension=4,
+      source=7,
+      target=4,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=4,
+      ),
+    )
+
+    if (
+      nu_4
+      != expected_nu4
+    ):
+      return False
+
+    if not isinstance(
+      prop511,
+      TodaProp511FiniteDimensionalStatement,
+    ):
+      return False
+
+    six_stem = (
+      prop511
+      .nu_squared_finite_dimensional
+    )
+
+    pi11_5_relation = (
+      six_stem
+      .pi11_5_group_relation
+    )
+
+    if (
+      pi11_5_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=11,
+        sphere_dimension=5,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      pi11_5_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi11_5_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    if not is_nu5_squared(
+      pi11_5_relation
+      .rhs
+      .generator
+    ):
+      return False
+
+    if not isinstance(
+      prop58,
+      TodaProp58FiniteDimensionalStatement,
+    ):
+      return False
+
+    pi9_5_relation = (
+      prop58
+      .pi9_5_group_relation
+    )
+
+    if (
+      pi9_5_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=9,
+        sphere_dimension=5,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      pi9_5_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi9_5_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    if not isinstance(
+      pi9_5_relation.rhs.generator,
+      Composition,
+    ):
+      return False
+
+    nu_5 = (
+      pi9_5_relation
+      .rhs
+      .generator
+      .left
+    )
+
+    eta_8 = (
+      pi9_5_relation
+      .rhs
+      .generator
+      .right
+    )
+
+    if (
+      nu_5
+      != toda_nu_family_definition_statement(
+        5
+      ).element
+    ):
+      return False
+
+    if not isinstance(
+      eta_8,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_8.generator
+      != GeneratorSymbol(
+        family="η",
+        index=8,
+      )
+    ):
+      return False
+
+    higher_zero = (
+      prop58
+      .higher_four_stem_zero
+    )
+
+    higher_range = (
+      prop58
+      .higher_range
+    )
+
+    if not isinstance(
+      higher_zero,
+      TodaPrimaryGroupZeroStatement,
+    ):
+      return False
+
+    higher_group = (
+      higher_zero.group
+    )
+
+    if not isinstance(
+      higher_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    higher_n = (
+      higher_group
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      higher_n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      higher_group
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=higher_n,
+          right=4,
+        ),
+        sphere_dimension=higher_n,
+      )
+    ):
+      return False
+
+    if (
+      higher_range
+      != ScalarGreaterEqualStatement(
+        left=higher_n,
+        right=6,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      lemma513,
+      TodaLemma513Statement,
+    ):
+      return False
+
+    bracket = (
+      lemma513.bracket
+    )
+
+    if (
+      bracket.index
+      != 3
+    ):
+      return False
+
+    if (
+      bracket.first
+      != toda_nu_family_definition_statement(
+        5
+      ).element
+    ):
+      return False
+
+    if not isinstance(
+      bracket.second,
+      Multiple,
+    ):
+      return False
+
+    if (
+      bracket.second.coefficient
+      != 8
+    ):
+      return False
+
+    iota_8 = (
+      bracket.second.expression
+    )
+
+    if not isinstance(
+      iota_8,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      iota_8.generator
+      != GeneratorSymbol(
+        family="ι",
+        index=8,
+      )
+    ):
+      return False
+
+    if (
+      bracket.third
+      != toda_nu_family_definition_statement(
+        8
+      ).element
+    ):
+      return False
+
+    if (
+      lemma513
+      .bracket_membership
+      .element
+      != lemma513
+      .sigma_triple_prime
+    ):
+      return False
+
+    if (
+      lemma513
+      .bracket_membership
+      .bracket
+      != bracket
+    ):
+      return False
+
+    if (
+      pi12_5_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=12,
+        sphere_dimension=5,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      pi12_5_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi12_5_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    return (
+      pi12_5_relation
+      .rhs
+      .generator
+      == lemma513
+      .sigma_triple_prime
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    lemma54 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    lemma513 = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    alpha_star = HomotopyElement(
+      name="α*",
+      dimension=8,
+      source=15,
+      target=8,
+      generator=GeneratorSymbol(
+        family="α*",
+      ),
+    )
+
+    alpha_star_membership = (
+      HomotopyGroupMembershipStatement(
+        element=alpha_star,
+        group_dimension=15,
+        sphere_dimension=8,
+      )
+    )
+
+    x = ScalarSymbol(
+      name="x",
+    )
+
+    x_odd = OddScalarStatement(
+      scalar=x,
+    )
+
+    bridge_relation = Relation(
+      lhs=Multiple(
+        coefficient=ScalarProduct(
+          left=8,
+          right=x,
+        ),
+        expression=Suspension(
+          expression=alpha_star,
+        ),
+      ),
+      rhs=IteratedSuspension(
+        expression=(
+          lemma513
+          .sigma_triple_prime
+        ),
+        exponent=4,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      Toda36Lemma514SigmaDoublePrimeBridgeStatement(
+        nu4=lemma54.nu4,
+        alpha_star=alpha_star,
+        alpha_star_membership=(
+          alpha_star_membership
+        ),
+        lemma513_statement=(
+          lemma513
+        ),
+        odd_parameter=x,
+        odd_parameter_statement=(
+          x_odd
+        ),
+        bridge_relation=(
+          bridge_relation
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Theorem 3.6 "
+      "Lemma 5.14 sigma double-prime bridge"
+    ),
+    description=(
+      "Specialize Toda Theorem 3.6 "
+      "to alpha=nu_4 as in the proof "
+      "of Toda Lemma 5.14. "
+      "Proposition 5.11 supplies "
+      "the order-two nu_5-squared branch "
+      "needed for condition (3.1). "
+      "Proposition 5.8 supplies the "
+      "four-stem information used in "
+      "the source bracket calculation. "
+      "Lemma 5.13 supplies "
+      "sigma triple-prime in "
+      "{nu_5,8 iota_8,nu_8}_3, and "
+      "pi_12^5=Z/2{sigma triple-prime} "
+      "supplies the concrete two-primary "
+      "input used to remove the residual "
+      "odd-order term. "
+      "Thus there exist alpha-star in "
+      "pi_15(S^8) and an odd integer x "
+      "such that "
+      "8x E alpha-star=E^4 sigma "
+      "triple-prime. "
+      "This is only the Lemma 5.14 "
+      "consequence of Theorem 3.6; "
+      "no generic Theorem 3.6 engine, "
+      "Toda-bracket sum algebra, or "
+      "odd-order-group solver is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma54Statement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp511FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp58FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma513Statement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma514_sigma_double_prime_inference_rule():
+  def is_eta11_squared(
+    expression,
+  ):
+    if not isinstance(
+      expression,
+      Composition,
+    ):
+      return False
+
+    eta_11 = expression.left
+    eta_12 = expression.right
+
+    if not isinstance(
+      eta_11,
+      HomotopyElement,
+    ):
+      return False
+
+    if not isinstance(
+      eta_12,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_11.dimension
+      != 11
+      or eta_11.source
+      != 12
+      or eta_11.target
+      != 11
+      or eta_11.generator
+      != GeneratorSymbol(
+        family="η",
+        index=11,
+      )
+    ):
+      return False
+
+    return (
+      eta_12.dimension
+      == 12
+      and eta_12.source
+      == 13
+      and eta_12.target
+      == 12
+      and eta_12.generator
+      == GeneratorSymbol(
+        family="η",
+        index=12,
+      )
+    )
+
+  def guard(
+    premises,
+    bindings,
+  ):
+    bridge = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    short_exact = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi12_5_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi13_11_relation = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    if not isinstance(
+      bridge,
+      Toda36Lemma514SigmaDoublePrimeBridgeStatement,
+    ):
+      return False
+
+    if not isinstance(
+      short_exact,
+      Toda514FirstShortExactStatement,
+    ):
+      return False
+
+    pi12_5 = TodaPrimaryGroup(
+      group_dimension=12,
+      sphere_dimension=5,
+    )
+
+    pi13_6 = TodaPrimaryGroup(
+      group_dimension=13,
+      sphere_dimension=6,
+    )
+
+    pi13_11 = TodaPrimaryGroup(
+      group_dimension=13,
+      sphere_dimension=11,
+    )
+
+    if (
+      short_exact.source_group
+      != pi12_5
+    ):
+      return False
+
+    if (
+      short_exact.middle_group
+      != pi13_6
+    ):
+      return False
+
+    if (
+      short_exact.target_group
+      != pi13_11
+    ):
+      return False
+
+    if (
+      short_exact.suspension_map
+      != TodaSuspensionMap(
+        source_group=pi12_5,
+        target_group=pi13_6,
+      )
+    ):
+      return False
+
+    if (
+      short_exact.hopf_map
+      != TodaHopfInvariantMap(
+        source_group=pi13_6,
+        target_group=pi13_11,
+      )
+    ):
+      return False
+
+    if (
+      pi12_5_relation.lhs
+      != pi12_5
+    ):
+      return False
+
+    if not isinstance(
+      pi12_5_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi12_5_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    sigma_triple_prime = (
+      pi12_5_relation
+      .rhs
+      .generator
+    )
+
+    if (
+      sigma_triple_prime
+      != bridge
+      .lemma513_statement
+      .sigma_triple_prime
+    ):
+      return False
+
+    x = (
+      bridge.odd_parameter
+    )
+
+    if (
+      bridge.odd_parameter_statement
+      != OddScalarStatement(
+        scalar=x,
+      )
+    ):
+      return False
+
+    expected_bridge = Relation(
+      lhs=Multiple(
+        coefficient=ScalarProduct(
+          left=8,
+          right=x,
+        ),
+        expression=Suspension(
+          expression=(
+            bridge.alpha_star
+          ),
+        ),
+      ),
+      rhs=IteratedSuspension(
+        expression=sigma_triple_prime,
+        exponent=4,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      bridge.bridge_relation
+      != expected_bridge
+    ):
+      return False
+
+    if (
+      pi13_11_relation.lhs
+      != pi13_11
+    ):
+      return False
+
+    if not isinstance(
+      pi13_11_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi13_11_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    return is_eta11_squared(
+      pi13_11_relation
+      .rhs
+      .generator
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    bridge = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    short_exact = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi12_5_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi13_11_relation = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    sigma_triple_prime = (
+      pi12_5_relation
+      .rhs
+      .generator
+    )
+
+    eta11_squared = (
+      pi13_11_relation
+      .rhs
+      .generator
+    )
+
+    sigma_double_prime = HomotopyElement(
+      name="σ''",
+      dimension=6,
+      source=13,
+      target=6,
+      generator=GeneratorSymbol(
+        family="σ",
+        decoration="''",
+      ),
+    )
+
+    iterated_suspension_relation = Relation(
+      lhs=IteratedSuspension(
+        expression=sigma_double_prime,
+        exponent=3,
+      ),
+      rhs=Multiple(
+        coefficient=ScalarProduct(
+          left=4,
+          right=(
+            bridge
+            .odd_parameter
+          ),
+        ),
+        expression=Suspension(
+          expression=(
+            bridge
+            .alpha_star
+          ),
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    double_relation = Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=sigma_double_prime,
+      ),
+      rhs=Suspension(
+        expression=sigma_triple_prime,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    hopf_relation = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=sigma_double_prime,
+      ),
+      rhs=eta11_squared,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      TodaLemma514SigmaDoublePrimeStatement(
+        sigma_double_prime=(
+          sigma_double_prime
+        ),
+        sigma_triple_prime=(
+          sigma_triple_prime
+        ),
+        alpha_star=(
+          bridge.alpha_star
+        ),
+        odd_parameter=(
+          bridge.odd_parameter
+        ),
+        iterated_suspension_relation=(
+          iterated_suspension_relation
+        ),
+        double_relation=(
+          double_relation
+        ),
+        hopf_relation=(
+          hopf_relation
+        ),
+        theorem36_bridge=bridge,
+        short_exact_statement=(
+          short_exact
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.14 "
+      "sigma double-prime branch"
+    ),
+    description=(
+      "Use the Lemma 5.14-specific "
+      "Theorem 3.6 bridge "
+      "8x E alpha-star=E^4 sigma "
+      "triple-prime with x odd, "
+      "the first short exact sequence "
+      "of Toda (5.14), "
+      "pi_12^5=Z/2{sigma triple-prime}, "
+      "and "
+      "pi_13^11=Z/2{eta_11 squared}. "
+      "The source proof gives the unique "
+      "sigma double-prime in pi_13^6 "
+      "satisfying "
+      "E^3 sigma double-prime="
+      "4x E alpha-star. "
+      "Consequently "
+      "2 sigma double-prime="
+      "E sigma triple-prime, and "
+      "exactness gives "
+      "H(sigma double-prime)="
+      "eta_11 squared. "
+      "This rule records only the "
+      "sigma double-prime branch of "
+      "Toda Lemma 5.14. "
+      "It does not construct sigma-prime, "
+      "sigma_8, or add a generic "
+      "lifting or group-extension solver."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda36Lemma514SigmaDoublePrimeBridgeStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda514FirstShortExactStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma514_sigma_prime_inference_rule():
+  def is_eta13(
+    expression,
+  ):
+    if not isinstance(
+      expression,
+      HomotopyElement,
+    ):
+      return False
+
+    return (
+      expression.dimension
+      == 13
+      and expression.source
+      == 14
+      and expression.target
+      == 13
+      and expression.generator
+      == GeneratorSymbol(
+        family="η",
+        index=13,
+      )
+    )
+
+  def guard(
+    premises,
+    bindings,
+  ):
+    sigma_double_prime_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    short_exact = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi13_6_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi14_13_relation = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    if not isinstance(
+      sigma_double_prime_statement,
+      TodaLemma514SigmaDoublePrimeStatement,
+    ):
+      return False
+
+    if not isinstance(
+      short_exact,
+      Toda514SecondShortExactStatement,
+    ):
+      return False
+
+    pi13_6 = TodaPrimaryGroup(
+      group_dimension=13,
+      sphere_dimension=6,
+    )
+
+    pi14_7 = TodaPrimaryGroup(
+      group_dimension=14,
+      sphere_dimension=7,
+    )
+
+    pi14_13 = TodaPrimaryGroup(
+      group_dimension=14,
+      sphere_dimension=13,
+    )
+
+    if (
+      short_exact.source_group
+      != pi13_6
+    ):
+      return False
+
+    if (
+      short_exact.middle_group
+      != pi14_7
+    ):
+      return False
+
+    if (
+      short_exact.target_group
+      != pi14_13
+    ):
+      return False
+
+    if (
+      short_exact.suspension_map
+      != TodaSuspensionMap(
+        source_group=pi13_6,
+        target_group=pi14_7,
+      )
+    ):
+      return False
+
+    if (
+      short_exact.hopf_map
+      != TodaHopfInvariantMap(
+        source_group=pi14_7,
+        target_group=pi14_13,
+      )
+    ):
+      return False
+
+    if (
+      pi13_6_relation.lhs
+      != pi13_6
+    ):
+      return False
+
+    if not isinstance(
+      pi13_6_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi13_6_relation.rhs.order
+      != 4
+    ):
+      return False
+
+    sigma_double_prime = (
+      sigma_double_prime_statement
+      .sigma_double_prime
+    )
+
+    if (
+      pi13_6_relation
+      .rhs
+      .generator
+      != sigma_double_prime
+    ):
+      return False
+
+    if (
+      sigma_double_prime.source
+      != 13
+    ):
+      return False
+
+    if (
+      sigma_double_prime.target
+      != 6
+    ):
+      return False
+
+    if (
+      sigma_double_prime.generator
+      != GeneratorSymbol(
+        family="σ",
+        decoration="''",
+      )
+    ):
+      return False
+
+    if (
+      pi14_13_relation.lhs
+      != pi14_13
+    ):
+      return False
+
+    if not isinstance(
+      pi14_13_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi14_13_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    eta_13 = (
+      pi14_13_relation
+      .rhs
+      .generator
+    )
+
+    if not is_eta13(
+      eta_13
+    ):
+      return False
+
+    if (
+      sigma_double_prime_statement
+      .short_exact_statement
+      .middle_group
+      != pi13_6
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    sigma_double_prime_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    short_exact = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi14_13_relation = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    sigma_double_prime = (
+      sigma_double_prime_statement
+      .sigma_double_prime
+    )
+
+    eta_13 = (
+      pi14_13_relation
+      .rhs
+      .generator
+    )
+
+    sigma_prime = HomotopyElement(
+      name="σ'",
+      dimension=7,
+      source=14,
+      target=7,
+      generator=GeneratorSymbol(
+        family="σ",
+        decoration="'",
+      ),
+    )
+
+    double_relation = Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=sigma_prime,
+      ),
+      rhs=Suspension(
+        expression=sigma_double_prime,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    hopf_relation = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=sigma_prime,
+      ),
+      rhs=eta_13,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      TodaLemma514SigmaPrimeStatement(
+        sigma_prime=sigma_prime,
+        sigma_double_prime=(
+          sigma_double_prime
+        ),
+        double_relation=(
+          double_relation
+        ),
+        hopf_relation=(
+          hopf_relation
+        ),
+        sigma_double_prime_statement=(
+          sigma_double_prime_statement
+        ),
+        short_exact_statement=(
+          short_exact
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.14 "
+      "sigma-prime branch"
+    ),
+    description=(
+      "Continue the independently derived "
+      "Toda Lemma 5.14 "
+      "sigma double-prime construction "
+      "through the second short exact "
+      "sequence of Toda (5.14), "
+      "0 -> pi_13^6 -> pi_14^7 "
+      "-> pi_14^13 -> 0. "
+      "Using "
+      "pi_13^6=Z/4{sigma double-prime} "
+      "and "
+      "pi_14^13=Z/2{eta_13}, "
+      "the Lemma 5.14 source construction "
+      "selects sigma-prime in pi_14^7 "
+      "with "
+      "H(sigma-prime)=eta_13 "
+      "and "
+      "2 sigma-prime="
+      "E sigma double-prime. "
+      "The sigma double-prime statement "
+      "already carries the upstream "
+      "Theorem 3.6 / Lemma 5.13 "
+      "provenance, so no new "
+      "Theorem 3.6 specialization "
+      "is introduced here. "
+      "This rule does not derive the "
+      "order of sigma-prime or "
+      "pi_14^7=Z/8{sigma-prime}; "
+      "those remain for the next phase."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma514SigmaDoublePrimeStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda514SecondShortExactStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_pi14_7_finite_cyclic_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    sigma_prime_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    short_exact = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi13_6_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi14_13_relation = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    if not isinstance(
+      sigma_prime_statement,
+      TodaLemma514SigmaPrimeStatement,
+    ):
+      return False
+
+    if not isinstance(
+      short_exact,
+      Toda514SecondShortExactStatement,
+    ):
+      return False
+
+    pi13_6 = TodaPrimaryGroup(
+      group_dimension=13,
+      sphere_dimension=6,
+    )
+
+    pi14_7 = TodaPrimaryGroup(
+      group_dimension=14,
+      sphere_dimension=7,
+    )
+
+    pi14_13 = TodaPrimaryGroup(
+      group_dimension=14,
+      sphere_dimension=13,
+    )
+
+    if (
+      short_exact.source_group
+      != pi13_6
+    ):
+      return False
+
+    if (
+      short_exact.middle_group
+      != pi14_7
+    ):
+      return False
+
+    if (
+      short_exact.target_group
+      != pi14_13
+    ):
+      return False
+
+    if (
+      short_exact.suspension_map
+      != TodaSuspensionMap(
+        source_group=pi13_6,
+        target_group=pi14_7,
+      )
+    ):
+      return False
+
+    if (
+      short_exact.hopf_map
+      != TodaHopfInvariantMap(
+        source_group=pi14_7,
+        target_group=pi14_13,
+      )
+    ):
+      return False
+
+    if (
+      pi13_6_relation.lhs
+      != pi13_6
+    ):
+      return False
+
+    if not isinstance(
+      pi13_6_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi13_6_relation.rhs.order
+      != 4
+    ):
+      return False
+
+    sigma_double_prime = (
+      pi13_6_relation
+      .rhs
+      .generator
+    )
+
+    if (
+      sigma_double_prime
+      != sigma_prime_statement
+      .sigma_double_prime
+    ):
+      return False
+
+    if (
+      sigma_double_prime.source
+      != 13
+    ):
+      return False
+
+    if (
+      sigma_double_prime.target
+      != 6
+    ):
+      return False
+
+    if (
+      sigma_double_prime.generator
+      != GeneratorSymbol(
+        family="σ",
+        decoration="''",
+      )
+    ):
+      return False
+
+    sigma_prime = (
+      sigma_prime_statement
+      .sigma_prime
+    )
+
+    if not isinstance(
+      sigma_prime,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      sigma_prime.source
+      != 14
+    ):
+      return False
+
+    if (
+      sigma_prime.target
+      != 7
+    ):
+      return False
+
+    if (
+      sigma_prime.generator
+      != GeneratorSymbol(
+        family="σ",
+        decoration="'",
+      )
+    ):
+      return False
+
+    expected_double_relation = Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=sigma_prime,
+      ),
+      rhs=Suspension(
+        expression=sigma_double_prime,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      sigma_prime_statement
+      .double_relation
+      != expected_double_relation
+    ):
+      return False
+
+    if (
+      pi14_13_relation.lhs
+      != pi14_13
+    ):
+      return False
+
+    if not isinstance(
+      pi14_13_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi14_13_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    eta_13 = (
+      pi14_13_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      eta_13,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_13.dimension
+      != 13
+      or eta_13.source
+      != 14
+      or eta_13.target
+      != 13
+      or eta_13.generator
+      != GeneratorSymbol(
+        family="η",
+        index=13,
+      )
+    ):
+      return False
+
+    expected_hopf_relation = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=sigma_prime,
+      ),
+      rhs=eta_13,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      sigma_prime_statement
+      .hopf_relation
+      != expected_hopf_relation
+    ):
+      return False
+
+    if (
+      sigma_prime_statement
+      .short_exact_statement
+      != short_exact
+    ):
+      return False
+
+    return (
+      sigma_prime_statement
+      .sigma_double_prime_statement
+      .sigma_double_prime
+      == sigma_double_prime
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    sigma_prime_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=14,
+        sphere_dimension=7,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=8,
+        generator=(
+          sigma_prime_statement
+          .sigma_prime
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "pi_14^7 finite cyclic"
+    ),
+    description=(
+      "Use the second short exact sequence "
+      "of Toda (5.14), "
+      "0 -> pi_13^6 -> pi_14^7 "
+      "-> pi_14^13 -> 0, "
+      "together with "
+      "pi_13^6=Z/4{sigma double-prime}, "
+      "pi_14^13=Z/2{eta_13}, "
+      "and the independently derived "
+      "Toda Lemma 5.14 relations "
+      "2 sigma-prime="
+      "E sigma double-prime and "
+      "H(sigma-prime)=eta_13. "
+      "Injectivity of E preserves the "
+      "order-four element "
+      "sigma double-prime, so "
+      "2 sigma-prime has order four. "
+      "Therefore sigma-prime has "
+      "order eight. "
+      "Its Hopf image generates the "
+      "order-two quotient, while its "
+      "double generates the kernel, "
+      "so sigma-prime generates all of "
+      "pi_14^7. "
+      "Thus "
+      "pi_14^7=Z/8{sigma-prime}. "
+      "No generic short-exact-sequence "
+      "extension classifier, "
+      "finite-group order solver, or "
+      "cyclic-extension framework "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma514SigmaPrimeStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda514SecondShortExactStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_pi13_6_finite_cyclic_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    sigma_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    short_exact = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi12_5_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi13_11_relation = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    if not isinstance(
+      sigma_statement,
+      TodaLemma514SigmaDoublePrimeStatement,
+    ):
+      return False
+
+    if not isinstance(
+      short_exact,
+      Toda514FirstShortExactStatement,
+    ):
+      return False
+
+    pi12_5 = TodaPrimaryGroup(
+      group_dimension=12,
+      sphere_dimension=5,
+    )
+
+    pi13_6 = TodaPrimaryGroup(
+      group_dimension=13,
+      sphere_dimension=6,
+    )
+
+    pi13_11 = TodaPrimaryGroup(
+      group_dimension=13,
+      sphere_dimension=11,
+    )
+
+    if (
+      short_exact.source_group
+      != pi12_5
+    ):
+      return False
+
+    if (
+      short_exact.middle_group
+      != pi13_6
+    ):
+      return False
+
+    if (
+      short_exact.target_group
+      != pi13_11
+    ):
+      return False
+
+    if (
+      short_exact.suspension_map
+      != TodaSuspensionMap(
+        source_group=pi12_5,
+        target_group=pi13_6,
+      )
+    ):
+      return False
+
+    if (
+      short_exact.hopf_map
+      != TodaHopfInvariantMap(
+        source_group=pi13_6,
+        target_group=pi13_11,
+      )
+    ):
+      return False
+
+    if (
+      pi12_5_relation.lhs
+      != pi12_5
+    ):
+      return False
+
+    if not isinstance(
+      pi12_5_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi12_5_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    sigma_triple_prime = (
+      pi12_5_relation
+      .rhs
+      .generator
+    )
+
+    if (
+      sigma_triple_prime
+      != sigma_statement
+      .sigma_triple_prime
+    ):
+      return False
+
+    sigma_double_prime = (
+      sigma_statement
+      .sigma_double_prime
+    )
+
+    if not isinstance(
+      sigma_double_prime,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      sigma_double_prime.source
+      != 13
+    ):
+      return False
+
+    if (
+      sigma_double_prime.target
+      != 6
+    ):
+      return False
+
+    if (
+      sigma_double_prime.generator
+      != GeneratorSymbol(
+        family="σ",
+        decoration="''",
+      )
+    ):
+      return False
+
+    expected_double_relation = Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=sigma_double_prime,
+      ),
+      rhs=Suspension(
+        expression=sigma_triple_prime,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      sigma_statement.double_relation
+      != expected_double_relation
+    ):
+      return False
+
+    if (
+      pi13_11_relation.lhs
+      != pi13_11
+    ):
+      return False
+
+    if not isinstance(
+      pi13_11_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi13_11_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    eta11_squared = (
+      pi13_11_relation
+      .rhs
+      .generator
+    )
+
+    expected_hopf_relation = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=sigma_double_prime,
+      ),
+      rhs=eta11_squared,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      sigma_statement.hopf_relation
+      != expected_hopf_relation
+    ):
+      return False
+
+    if (
+      sigma_statement.short_exact_statement
+      != short_exact
+    ):
+      return False
+
+    return (
+      sigma_statement
+      .theorem36_bridge
+      .lemma513_statement
+      .sigma_triple_prime
+      == sigma_triple_prime
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    sigma_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=13,
+        sphere_dimension=6,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=4,
+        generator=(
+          sigma_statement
+          .sigma_double_prime
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "pi_13^6 finite cyclic"
+    ),
+    description=(
+      "Use the first short exact sequence "
+      "of Toda (5.14), "
+      "0 -> pi_12^5 -> pi_13^6 "
+      "-> pi_13^11 -> 0, "
+      "together with "
+      "pi_12^5=Z/2{sigma triple-prime}, "
+      "pi_13^11=Z/2{eta_11 squared}, "
+      "and the independently derived "
+      "Toda Lemma 5.14 relations "
+      "2 sigma double-prime="
+      "E sigma triple-prime and "
+      "H(sigma double-prime)="
+      "eta_11 squared. "
+      "Injectivity of E makes "
+      "E sigma triple-prime nonzero, "
+      "so 2 sigma double-prime is "
+      "nonzero. Since sigma triple-prime "
+      "has order two, "
+      "4 sigma double-prime is zero. "
+      "Thus sigma double-prime has "
+      "order four. Its Hopf image "
+      "generates the quotient and its "
+      "double generates the kernel, "
+      "so sigma double-prime generates "
+      "all of pi_13^6. "
+      "Therefore "
+      "pi_13^6=Z/4{sigma double-prime}. "
+      "No generic short-exact-sequence "
+      "extension classifier, "
+      "finite-group order solver, or "
+      "cyclic-extension framework "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma514SigmaDoublePrimeStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda514FirstShortExactStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma514_sigma8_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    bridge = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    sigma_prime_statement = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi14_7_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    if not isinstance(
+      bridge,
+      Toda36Lemma514SigmaDoublePrimeBridgeStatement,
+    ):
+      return False
+
+    if not isinstance(
+      sigma_prime_statement,
+      TodaLemma514SigmaPrimeStatement,
+    ):
+      return False
+
+    pi14_7 = TodaPrimaryGroup(
+      group_dimension=14,
+      sphere_dimension=7,
+    )
+
+    if (
+      pi14_7_relation.lhs
+      != pi14_7
+    ):
+      return False
+
+    if not isinstance(
+      pi14_7_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi14_7_relation.rhs.order
+      != 8
+    ):
+      return False
+
+    sigma_prime = (
+      sigma_prime_statement
+      .sigma_prime
+    )
+
+    if (
+      pi14_7_relation
+      .rhs
+      .generator
+      != sigma_prime
+    ):
+      return False
+
+    if (
+      sigma_prime.source
+      != 14
+    ):
+      return False
+
+    if (
+      sigma_prime.target
+      != 7
+    ):
+      return False
+
+    if (
+      sigma_prime.generator
+      != GeneratorSymbol(
+        family="σ",
+        decoration="'",
+      )
+    ):
+      return False
+
+    if (
+      sigma_prime_statement
+      .sigma_double_prime_statement
+      .theorem36_bridge
+      != bridge
+    ):
+      return False
+
+    if (
+      bridge.odd_parameter_statement
+      != OddScalarStatement(
+        scalar=(
+          bridge
+          .odd_parameter
+        ),
+      )
+    ):
+      return False
+
+    alpha_star = (
+      bridge.alpha_star
+    )
+
+    if (
+      alpha_star.source
+      != 15
+    ):
+      return False
+
+    if (
+      alpha_star.target
+      != 8
+    ):
+      return False
+
+    return (
+      sigma_prime_statement
+      .sigma_double_prime
+      == sigma_prime_statement
+      .sigma_double_prime_statement
+      .sigma_double_prime
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    bridge = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    sigma_prime_statement = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    alpha_star = (
+      bridge.alpha_star
+    )
+
+    x = (
+      bridge.odd_parameter
+    )
+
+    sigma_prime = (
+      sigma_prime_statement
+      .sigma_prime
+    )
+
+    y = ScalarSymbol(
+      name="y",
+    )
+
+    iota_17 = HomotopyElement(
+      name="ι_17",
+      dimension=17,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=17,
+      ),
+    )
+
+    delta_iota17 = MapApplication(
+      map=EHP_DELTA_MAP,
+      expression=iota_17,
+    )
+
+    sigma8 = HomotopyElement(
+      name="σ₈",
+      dimension=8,
+      source=15,
+      target=8,
+      generator=GeneratorSymbol(
+        family="σ",
+        index=8,
+      ),
+    )
+
+    definition_relation = Relation(
+      lhs=sigma8,
+      rhs=Sum(
+        left=Multiple(
+          coefficient=x,
+          expression=alpha_star,
+        ),
+        right=Multiple(
+          coefficient=ScalarProduct(
+            left=-1,
+            right=y,
+          ),
+          expression=delta_iota17,
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    iota_15 = HomotopyElement(
+      name="ι_15",
+      dimension=15,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=15,
+      ),
+    )
+
+    hopf_relation = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=sigma8,
+      ),
+      rhs=iota_15,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    suspension_relation = Relation(
+      lhs=Suspension(
+        expression=sigma8,
+      ),
+      rhs=Multiple(
+        coefficient=x,
+        expression=Suspension(
+          expression=alpha_star,
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    double_suspension_relation = Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=Suspension(
+          expression=sigma8,
+        ),
+      ),
+      rhs=IteratedSuspension(
+        expression=sigma_prime,
+        exponent=2,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      TodaLemma514Sigma8Statement(
+        sigma8=sigma8,
+        sigma_prime=sigma_prime,
+        alpha_star=alpha_star,
+        odd_parameter=x,
+        correction_parameter=y,
+        definition_relation=(
+          definition_relation
+        ),
+        hopf_relation=(
+          hopf_relation
+        ),
+        suspension_relation=(
+          suspension_relation
+        ),
+        double_suspension_relation=(
+          double_suspension_relation
+        ),
+        theorem36_bridge=bridge,
+        sigma_prime_statement=(
+          sigma_prime_statement
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.14 "
+      "sigma_8 branch"
+    ),
+    description=(
+      "Continue the Lemma 5.14 "
+      "Theorem 3.6 construction from "
+      "the same odd multiple "
+      "x alpha-star used in the "
+      "sigma double-prime and "
+      "sigma-prime branches. "
+      "Toda Proposition 4.8 shows that "
+      "the Hopf invariant of "
+      "x alpha-star is odd. "
+      "Toda Proposition 2.7 gives "
+      "H Delta(iota_17)=plus-or-minus "
+      "2 iota_15, so an integral "
+      "multiple of Delta(iota_17) "
+      "can be subtracted to define "
+      "sigma_8 with "
+      "H(sigma_8)=iota_15. "
+      "Since suspension kills the "
+      "Delta correction, "
+      "E sigma_8=x E alpha-star. "
+      "The source construction of "
+      "sigma-prime then gives "
+      "2 E sigma_8=E squared sigma-prime. "
+      "This rule records only the "
+      "sigma_8 branch of Toda "
+      "Lemma 5.14. "
+      "It does not derive "
+      "pi_15^8, the sigma-family, "
+      "pi_(n+7)^n, or equation (5.15)."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda36Lemma514SigmaDoublePrimeBridgeStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma514SigmaPrimeStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_sigma8_prop44_specialization_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    sigma8_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    sigma8 = HomotopyElement(
+      name="σ₈",
+      dimension=8,
+      source=15,
+      target=8,
+      generator=GeneratorSymbol(
+        family="σ",
+        index=8,
+      ),
+    )
+
+    if (
+      sigma8_statement.sigma8
+      != sigma8
+    ):
+      return False
+
+    iota_15 = HomotopyElement(
+      name="ι_15",
+      dimension=15,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=15,
+      ),
+    )
+
+    expected_hopf_relation = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=sigma8,
+      ),
+      rhs=iota_15,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      sigma8_statement.hopf_relation
+      == expected_hopf_relation
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    sigma8_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    sigma8 = (
+      sigma8_statement.sigma8
+    )
+
+    return (
+      Toda515Sigma8Prop44SpecializationStatement(
+        sigma8_statement=(
+          sigma8_statement
+        ),
+        n=8,
+        alpha=sigma8,
+        membership=(
+          TodaPrimaryGroupMembershipStatement(
+            element=sigma8,
+            group=TodaPrimaryGroup(
+              group_dimension=15,
+              sphere_dimension=8,
+            ),
+          )
+        ),
+        hopf_relation=(
+          sigma8_statement
+          .hopf_relation
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "sigma_8 Proposition 4.4 "
+      "specialization premises"
+    ),
+    description=(
+      "The independently derived "
+      "Toda Lemma 5.14 sigma_8 statement "
+      "gives sigma_8 in the critical "
+      "Toda group pi_15^8 together with "
+      "H(sigma_8)=iota_15. "
+      "Record these as the concrete "
+      "n=8, alpha=sigma_8 premises "
+      "needed for the Proposition 4.4 "
+      "specialization used in "
+      "Toda equation (5.15)."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma514Sigma8Statement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_sigma8_prop44_isomorphism_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    specialization = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    decomposition_map = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if (
+      specialization.n
+      != 8
+    ):
+      return False
+
+    sigma8 = HomotopyElement(
+      name="σ₈",
+      dimension=8,
+      source=15,
+      target=8,
+      generator=GeneratorSymbol(
+        family="σ",
+        index=8,
+      ),
+    )
+
+    if (
+      specialization.alpha
+      != sigma8
+    ):
+      return False
+
+    expected_membership = (
+      TodaPrimaryGroupMembershipStatement(
+        element=sigma8,
+        group=TodaPrimaryGroup(
+          group_dimension=15,
+          sphere_dimension=8,
+        ),
+      )
+    )
+
+    if (
+      specialization.membership
+      != expected_membership
+    ):
+      return False
+
+    iota_15 = HomotopyElement(
+      name="ι_15",
+      dimension=15,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=15,
+      ),
+    )
+
+    expected_hopf_relation = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=sigma8,
+      ),
+      rhs=iota_15,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      specialization.hopf_relation
+      != expected_hopf_relation
+    ):
+      return False
+
+    if (
+      decomposition_map.alpha
+      != sigma8
+    ):
+      return False
+
+    source_group = (
+      decomposition_map.source_group
+    )
+
+    if not isinstance(
+      source_group,
+      DirectSumGroup,
+    ):
+      return False
+
+    if (
+      source_group.summands
+      != (
+        TodaPrimaryGroup(
+          group_dimension=14,
+          sphere_dimension=7,
+        ),
+        TodaPrimaryGroup(
+          group_dimension=15,
+          sphere_dimension=15,
+        ),
+      )
+    ):
+      return False
+
+    target_group = (
+      decomposition_map.target_group
+    )
+
+    if (
+      target_group
+      != TodaPrimaryGroup(
+        group_dimension=15,
+        sphere_dimension=8,
+      )
+    ):
+      return False
+
+    expected_formula = Sum(
+      left=Suspension(
+        expression=(
+          decomposition_map.beta
+        ),
+      ),
+      right=Composition(
+        left=sigma8,
+        right=(
+          decomposition_map.gamma
+        ),
+      ),
+    )
+
+    return (
+      decomposition_map.formula
+      == expected_formula
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    decomposition_map = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return (
+      TodaProp44IsomorphismStatement(
+        map=decomposition_map,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "sigma_8 n=8 Proposition 4.4 "
+      "decomposition specialization"
+    ),
+    description=(
+      "Specialize Toda Proposition 4.4 "
+      "to n=8, i=15, and alpha=sigma_8 "
+      "using the independently derived "
+      "Phase 75-8E1 specialization. "
+      "The structural map from "
+      "pi_14^7 direct sum pi_15^15 "
+      "to pi_15^8 sending "
+      "(alpha,beta) to "
+      "E(alpha)+sigma_8 composed with beta "
+      "is therefore an isomorphism. "
+      "This rule records only the "
+      "concrete Toda (5.15) "
+      "decomposition isomorphism. "
+      "It does not transport the "
+      "source group structures or derive "
+      "pi_15^8="
+      "Z{sigma_8} direct sum "
+      "Z/8{E sigma-prime}."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda515Sigma8Prop44SpecializationStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaProp44DecompositionMap
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_sigma8_transported_decomposition_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    prop44_isomorphism = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    pi14_7_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi15_15_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    decomposition_map = (
+      prop44_isomorphism.map
+    )
+
+    if not isinstance(
+      decomposition_map,
+      TodaProp44DecompositionMap,
+    ):
+      return False
+
+    expected_pi14_7 = (
+      TodaPrimaryGroup(
+        group_dimension=14,
+        sphere_dimension=7,
+      )
+    )
+
+    expected_pi15_15 = (
+      TodaPrimaryGroup(
+        group_dimension=15,
+        sphere_dimension=15,
+      )
+    )
+
+    expected_pi15_8 = (
+      TodaPrimaryGroup(
+        group_dimension=15,
+        sphere_dimension=8,
+      )
+    )
+
+    if (
+      decomposition_map.source_group
+      != DirectSumGroup(
+        summands=(
+          expected_pi14_7,
+          expected_pi15_15,
+        ),
+      )
+    ):
+      return False
+
+    if (
+      decomposition_map.target_group
+      != expected_pi15_8
+    ):
+      return False
+
+    sigma8 = (
+      decomposition_map.alpha
+    )
+
+    if not isinstance(
+      sigma8,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      sigma8.source
+      != 15
+      or sigma8.target
+      != 8
+      or sigma8.generator
+      != GeneratorSymbol(
+        family="σ",
+        index=8,
+      )
+    ):
+      return False
+
+    expected_formula = Sum(
+      left=Suspension(
+        expression=(
+          decomposition_map.beta
+        ),
+      ),
+      right=Composition(
+        left=sigma8,
+        right=(
+          decomposition_map.gamma
+        ),
+      ),
+    )
+
+    if (
+      decomposition_map.formula
+      != expected_formula
+    ):
+      return False
+
+    if (
+      pi14_7_relation.lhs
+      != expected_pi14_7
+    ):
+      return False
+
+    if not isinstance(
+      pi14_7_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi14_7_relation.rhs.order
+      != 8
+    ):
+      return False
+
+    sigma_prime = (
+      pi14_7_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      sigma_prime,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      sigma_prime.source
+      != 14
+      or sigma_prime.target
+      != 7
+      or sigma_prime.generator
+      != GeneratorSymbol(
+        family="σ",
+        decoration="'",
+      )
+    ):
+      return False
+
+    if (
+      pi15_15_relation.lhs
+      != expected_pi15_15
+    ):
+      return False
+
+    if not isinstance(
+      pi15_15_relation.rhs,
+      FreeCyclicGroup,
+    ):
+      return False
+
+    iota_15 = (
+      pi15_15_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      iota_15,
+      HomotopyElement,
+    ):
+      return False
+
+    return (
+      iota_15.dimension
+      == 15
+      and iota_15.generator
+      == GeneratorSymbol(
+        family="ι",
+        index=15,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    prop44_isomorphism = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    pi14_7_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi15_15_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    decomposition_map = (
+      prop44_isomorphism.map
+    )
+
+    sigma8 = (
+      decomposition_map.alpha
+    )
+
+    sigma_prime = (
+      pi14_7_relation
+      .rhs
+      .generator
+    )
+
+    first_generator_image = (
+      Suspension(
+        expression=sigma_prime,
+      )
+    )
+
+    second_generator_image = (
+      sigma8
+    )
+
+    transported_group = (
+      DirectSumGroup(
+        summands=(
+          FiniteCyclicGroup(
+            order=8,
+            generator=(
+              first_generator_image
+            ),
+          ),
+          FreeCyclicGroup(
+            generator=(
+              second_generator_image
+            ),
+          ),
+        ),
+      )
+    )
+
+    return (
+      Toda515Sigma8TransportedDecompositionStatement(
+        prop44_isomorphism=(
+          prop44_isomorphism
+        ),
+        pi14_7_group_relation=(
+          pi14_7_relation
+        ),
+        pi15_15_group_relation=(
+          pi15_15_relation
+        ),
+        first_generator_image=(
+          first_generator_image
+        ),
+        second_generator_image=(
+          second_generator_image
+        ),
+        transported_group=(
+          transported_group
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "sigma_8 transported decomposition"
+    ),
+    description=(
+      "Use the concrete n=8, i=15 "
+      "Toda Proposition 4.4 "
+      "decomposition isomorphism "
+      "together with "
+      "pi_14^7=Z/8{sigma-prime} "
+      "and the foundational "
+      "pi_15^15=Z{iota_15}. "
+      "The first source generator "
+      "sigma-prime maps to "
+      "E sigma-prime. "
+      "The second source generator "
+      "iota_15 maps to "
+      "sigma_8 composed with iota_15, "
+      "which is sigma_8. "
+      "Therefore the source-ordered "
+      "transported decomposition is "
+      "Z/8{E sigma-prime} direct sum "
+      "Z{sigma_8}. "
+      "This rule does not reorder "
+      "the summands and does not yet "
+      "derive the final Proposition "
+      "5.15 group relation "
+      "pi_15^8="
+      "Z{sigma_8} direct sum "
+      "Z/8{E sigma-prime}."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp44IsomorphismStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_pi15_8_final_group_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    transported = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    if not isinstance(
+      transported,
+      Toda515Sigma8TransportedDecompositionStatement,
+    ):
+      return False
+
+    prop44_isomorphism = (
+      transported
+      .prop44_isomorphism
+    )
+
+    if not isinstance(
+      prop44_isomorphism,
+      TodaProp44IsomorphismStatement,
+    ):
+      return False
+
+    decomposition_map = (
+      prop44_isomorphism.map
+    )
+
+    if not isinstance(
+      decomposition_map,
+      TodaProp44DecompositionMap,
+    ):
+      return False
+
+    pi15_8 = TodaPrimaryGroup(
+      group_dimension=15,
+      sphere_dimension=8,
+    )
+
+    if (
+      decomposition_map.target_group
+      != pi15_8
+    ):
+      return False
+
+    transported_group = (
+      transported
+      .transported_group
+    )
+
+    if not isinstance(
+      transported_group,
+      DirectSumGroup,
+    ):
+      return False
+
+    if (
+      len(
+        transported_group.summands
+      )
+      != 2
+    ):
+      return False
+
+    first = (
+      transported_group
+      .summands[
+        0
+      ]
+    )
+
+    second = (
+      transported_group
+      .summands[
+        1
+      ]
+    )
+
+    if not isinstance(
+      first,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if not isinstance(
+      second,
+      FreeCyclicGroup,
+    ):
+      return False
+
+    if (
+      first.order
+      != 8
+    ):
+      return False
+
+    e_sigma_prime = (
+      first.generator
+    )
+
+    if not isinstance(
+      e_sigma_prime,
+      Suspension,
+    ):
+      return False
+
+    sigma_prime = (
+      e_sigma_prime.expression
+    )
+
+    if not isinstance(
+      sigma_prime,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      sigma_prime.source
+      != 14
+    ):
+      return False
+
+    if (
+      sigma_prime.target
+      != 7
+    ):
+      return False
+
+    if (
+      sigma_prime.generator
+      != GeneratorSymbol(
+        family="σ",
+        decoration="'",
+      )
+    ):
+      return False
+
+    sigma8 = (
+      second.generator
+    )
+
+    if not isinstance(
+      sigma8,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      sigma8.source
+      != 15
+    ):
+      return False
+
+    if (
+      sigma8.target
+      != 8
+    ):
+      return False
+
+    if (
+      sigma8.generator
+      != GeneratorSymbol(
+        family="σ",
+        index=8,
+      )
+    ):
+      return False
+
+    if (
+      transported
+      .first_generator_image
+      != e_sigma_prime
+    ):
+      return False
+
+    if (
+      transported
+      .second_generator_image
+      != sigma8
+    ):
+      return False
+
+    if (
+      transported
+      .pi14_7_group_relation
+      .lhs
+      != TodaPrimaryGroup(
+        group_dimension=14,
+        sphere_dimension=7,
+      )
+    ):
+      return False
+
+    if (
+      transported
+      .pi15_15_group_relation
+      .lhs
+      != TodaPrimaryGroup(
+        group_dimension=15,
+        sphere_dimension=15,
+      )
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    transported = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    source_order = (
+      transported
+      .transported_group
+    )
+
+    torsion_summand = (
+      source_order
+      .summands[
+        0
+      ]
+    )
+
+    free_summand = (
+      source_order
+      .summands[
+        1
+      ]
+    )
+
+    return Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=15,
+        sphere_dimension=8,
+      ),
+      rhs=DirectSumGroup(
+        summands=(
+          free_summand,
+          torsion_summand,
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "pi_15^8 final decomposition"
+    ),
+    description=(
+      "Use the independently derived "
+      "source-ordered transported "
+      "Proposition 4.4 decomposition "
+      "Z/8{E sigma-prime} direct sum "
+      "Z{sigma_8}. "
+      "Reorder the two direct summands "
+      "into the Proposition 5.15 "
+      "presentation order and conclude "
+      "pi_15^8="
+      "Z{sigma_8} direct sum "
+      "Z/8{E sigma-prime}. "
+      "This is a narrow Proposition 5.15 "
+      "n=8 conclusion. "
+      "No generic direct-sum "
+      "commutativity inference rule "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda515Sigma8TransportedDecompositionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_finite_dimensional_literature_statements():
+  toda_reference = {
+    "author": "H. Toda",
+    "title": (
+      "Composition Methods in "
+      "Homotopy Groups of Spheres"
+    ),
+    "year": 1962,
+  }
+
+  return (
+    LiteratureStatement(
+      reference=LiteratureReference(
+        label="Toda Proposition 5.15",
+        locator="Proposition 5.15",
+        **toda_reference,
+      ),
+      statement=(
+        "Finite-dimensional part: "
+        "pi_9^2, pi_10^3, and pi_11^4 "
+        "are zero; "
+        "pi_12^5 is cyclic of order 2 "
+        "generated by sigma triple-prime; "
+        "pi_13^6 is cyclic of order 4 "
+        "generated by sigma double-prime; "
+        "pi_14^7 is cyclic of order 8 "
+        "generated by sigma-prime; "
+        "pi_15^8 is the direct sum of "
+        "the infinite cyclic group "
+        "generated by sigma_8 and "
+        "the cyclic group of order 8 "
+        "generated by E sigma-prime; "
+        "and pi_(n+7)^n is cyclic of "
+        "order 16 generated by sigma_n "
+        "for n at least 9. "
+        "The stable conclusion "
+        "(G_7;2)=Z/16{sigma} "
+        "is not included in this "
+        "finite-dimensional aggregate."
+      ),
+    ),
+  )
+
+
+def toda_prop515_finite_dimensional_integration_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    pi9_2_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    pi10_3_zero = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi11_4_zero = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi12_5_relation = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    pi13_6_relation = (
+      premises[
+        4
+      ].conclusion
+    )
+
+    pi14_7_relation = (
+      premises[
+        5
+      ].conclusion
+    )
+
+    pi15_8_relation = (
+      premises[
+        6
+      ].conclusion
+    )
+
+    higher_relation = (
+      premises[
+        7
+      ].conclusion
+    )
+
+    higher_range = (
+      premises[
+        8
+      ].conclusion
+    )
+
+    if (
+      pi9_2_zero
+      != TodaPrimaryGroupZeroStatement(
+        group=TodaPrimaryGroup(
+          group_dimension=9,
+          sphere_dimension=2,
+        ),
+      )
+    ):
+      return False
+
+    if (
+      pi10_3_zero
+      != TodaPrimaryGroupZeroStatement(
+        group=TodaPrimaryGroup(
+          group_dimension=10,
+          sphere_dimension=3,
+        ),
+      )
+    ):
+      return False
+
+    if (
+      pi11_4_zero
+      != TodaPrimaryGroupZeroStatement(
+        group=TodaPrimaryGroup(
+          group_dimension=11,
+          sphere_dimension=4,
+        ),
+      )
+    ):
+      return False
+
+    if (
+      pi12_5_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=12,
+        sphere_dimension=5,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      pi12_5_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi12_5_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    sigma_triple_prime = (
+      pi12_5_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      sigma_triple_prime,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      sigma_triple_prime.source
+      != 12
+      or sigma_triple_prime.target
+      != 5
+      or sigma_triple_prime.generator
+      != GeneratorSymbol(
+        family="σ",
+        decoration="'''",
+      )
+    ):
+      return False
+
+    if (
+      pi13_6_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=13,
+        sphere_dimension=6,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      pi13_6_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi13_6_relation.rhs.order
+      != 4
+    ):
+      return False
+
+    sigma_double_prime = (
+      pi13_6_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      sigma_double_prime,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      sigma_double_prime.source
+      != 13
+      or sigma_double_prime.target
+      != 6
+      or sigma_double_prime.generator
+      != GeneratorSymbol(
+        family="σ",
+        decoration="''",
+      )
+    ):
+      return False
+
+    if (
+      pi14_7_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=14,
+        sphere_dimension=7,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      pi14_7_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi14_7_relation.rhs.order
+      != 8
+    ):
+      return False
+
+    sigma_prime = (
+      pi14_7_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      sigma_prime,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      sigma_prime.source
+      != 14
+      or sigma_prime.target
+      != 7
+      or sigma_prime.generator
+      != GeneratorSymbol(
+        family="σ",
+        decoration="'",
+      )
+    ):
+      return False
+
+    if (
+      pi15_8_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=15,
+        sphere_dimension=8,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      pi15_8_relation.rhs,
+      DirectSumGroup,
+    ):
+      return False
+
+    if (
+      len(
+        pi15_8_relation
+        .rhs
+        .summands
+      )
+      != 2
+    ):
+      return False
+
+    free_summand = (
+      pi15_8_relation
+      .rhs
+      .summands[
+        0
+      ]
+    )
+
+    torsion_summand = (
+      pi15_8_relation
+      .rhs
+      .summands[
+        1
+      ]
+    )
+
+    if not isinstance(
+      free_summand,
+      FreeCyclicGroup,
+    ):
+      return False
+
+    if not isinstance(
+      torsion_summand,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      torsion_summand.order
+      != 8
+    ):
+      return False
+
+    sigma8 = (
+      free_summand.generator
+    )
+
+    if not isinstance(
+      sigma8,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      sigma8.source
+      != 15
+      or sigma8.target
+      != 8
+      or sigma8.generator
+      != GeneratorSymbol(
+        family="σ",
+        index=8,
+      )
+    ):
+      return False
+
+    if (
+      torsion_summand.generator
+      != Suspension(
+        expression=sigma_prime,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      higher_relation.lhs,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    n = (
+      higher_relation
+      .lhs
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      higher_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=n,
+          right=7,
+        ),
+        sphere_dimension=n,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      higher_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      higher_relation.rhs.order
+      != 16
+    ):
+      return False
+
+    sigma_n = (
+      higher_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      sigma_n,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      sigma_n.source
+      != ScalarSum(
+        left=n,
+        right=7,
+      )
+      or sigma_n.target
+      != n
+      or sigma_n.generator
+      != GeneratorSymbol(
+        family="σ",
+        index=n,
+      )
+    ):
+      return False
+
+    return (
+      higher_range
+      == ScalarGreaterEqualStatement(
+        left=n,
+        right=9,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return (
+      TodaProp515FiniteDimensionalStatement(
+        pi9_2_zero=(
+          premises[
+            0
+          ].conclusion
+        ),
+        pi10_3_zero=(
+          premises[
+            1
+          ].conclusion
+        ),
+        pi11_4_zero=(
+          premises[
+            2
+          ].conclusion
+        ),
+        pi12_5_group_relation=(
+          premises[
+            3
+          ].conclusion
+        ),
+        pi13_6_group_relation=(
+          premises[
+            4
+          ].conclusion
+        ),
+        pi14_7_group_relation=(
+          premises[
+            5
+          ].conclusion
+        ),
+        pi15_8_group_relation=(
+          premises[
+            6
+          ].conclusion
+        ),
+        higher_seven_stem_group_relation=(
+          premises[
+            7
+          ].conclusion
+        ),
+        higher_range=(
+          premises[
+            8
+          ].conclusion
+        ),
+        literature_statements=(
+          toda_prop515_finite_dimensional_literature_statements()
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "finite-dimensional integration"
+    ),
+    description=(
+      "Integrate the independently "
+      "derived finite-dimensional "
+      "branches of Toda Proposition 5.15: "
+      "pi_9^2=0, pi_10^3=0, pi_11^4=0, "
+      "pi_12^5=Z/2{sigma triple-prime}, "
+      "pi_13^6=Z/4{sigma double-prime}, "
+      "pi_14^7=Z/8{sigma-prime}, "
+      "pi_15^8=Z{sigma_8} direct sum "
+      "Z/8{E sigma-prime}, and "
+      "pi_(n+7)^n=Z/16{sigma_n} "
+      "for n at least 9. "
+      "The stable group "
+      "(G_7;2)=Z/16{sigma} "
+      "is deliberately excluded."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaPrimaryGroupZeroStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaPrimaryGroupZeroStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaPrimaryGroupZeroStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
 
 
 @dataclass(frozen=True)
@@ -52388,6 +61043,294 @@ def toda_55_nu_family_double_suspension_transport_inference_rule():
         ),
       ),
       PremisePattern(
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_sigma_family_definition_statement(
+  n,
+  sigma8_statement,
+):
+  if not isinstance(
+    n,
+    (
+      int,
+      ScalarSymbol,
+    ),
+  ):
+    raise TypeError(
+      "n must be an int or ScalarSymbol"
+    )
+
+  if (
+    isinstance(
+      n,
+      int,
+    )
+    and n < 8
+  ):
+    raise ValueError(
+      "sigma family requires n >= 8"
+    )
+
+  if not isinstance(
+    sigma8_statement,
+    TodaLemma514Sigma8Statement,
+  ):
+    raise TypeError(
+      "sigma8_statement must be "
+      "a TodaLemma514Sigma8Statement"
+    )
+
+  sigma8 = (
+    sigma8_statement
+    .sigma8
+  )
+
+  if (
+    sigma8.source
+    != 15
+  ):
+    raise ValueError(
+      "sigma8 source must be 15"
+    )
+
+  if (
+    sigma8.target
+    != 8
+  ):
+    raise ValueError(
+      "sigma8 target must be 8"
+    )
+
+  if (
+    sigma8.generator
+    != GeneratorSymbol(
+      family="σ",
+      index=8,
+    )
+  ):
+    raise ValueError(
+      "sigma8 must be the sigma_8 generator"
+    )
+
+  if n == 8:
+    name = "σ₈"
+    source = 15
+    exponent = 0
+  elif isinstance(
+    n,
+    int,
+  ):
+    name = (
+      "σ_"
+      + str(
+        n
+      )
+    )
+    source = n + 7
+    exponent = n - 8
+  else:
+    name = "σ_n"
+    source = ScalarSum(
+      left=n,
+      right=7,
+    )
+    exponent = ScalarSum(
+      left=n,
+      right=-8,
+    )
+
+  sigma_n = HomotopyElement(
+    name=name,
+    dimension=n,
+    source=source,
+    target=n,
+    generator=GeneratorSymbol(
+      family="σ",
+      index=n,
+    ),
+  )
+
+  return TodaSigmaFamilyDefinitionStatement(
+    index=n,
+    element=sigma_n,
+    iterated_suspension=(
+      IteratedSuspension(
+        expression=sigma8,
+        exponent=exponent,
+      )
+    ),
+    sigma8_statement=(
+      sigma8_statement
+    ),
+  )
+
+
+def toda_lemma514_sigma_family_definition_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    sigma8_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    n_range = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      sigma8_statement,
+      TodaLemma514Sigma8Statement,
+    ):
+      return False
+
+    n = (
+      n_range.left
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      n_range
+      != ScalarGreaterEqualStatement(
+        left=n,
+        right=8,
+      )
+    ):
+      return False
+
+    sigma8 = (
+      sigma8_statement
+      .sigma8
+    )
+
+    if (
+      sigma8.source
+      != 15
+    ):
+      return False
+
+    if (
+      sigma8.target
+      != 8
+    ):
+      return False
+
+    if (
+      sigma8.generator
+      != GeneratorSymbol(
+        family="σ",
+        index=8,
+      )
+    ):
+      return False
+
+    if (
+      sigma8_statement
+      .hopf_relation
+      .lhs
+      != MapApplication(
+        map=EHP_H_MAP,
+        expression=sigma8,
+      )
+    ):
+      return False
+
+    iota_15 = (
+      sigma8_statement
+      .hopf_relation
+      .rhs
+    )
+
+    if not isinstance(
+      iota_15,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      iota_15.generator
+      != GeneratorSymbol(
+        family="ι",
+        index=15,
+      )
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    sigma8_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    n_range = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return (
+      toda_sigma_family_definition_statement(
+        n_range.left,
+        sigma8_statement,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.14 "
+      "sigma-family definition"
+    ),
+    description=(
+      "Starting from the independently "
+      "derived Toda Lemma 5.14 "
+      "element sigma_8 in pi_15^8, "
+      "define for symbolic n at least 8 "
+      "sigma_n=E^(n-8) sigma_8. "
+      "The resulting family definition "
+      "retains the complete sigma_8 "
+      "statement so that the upstream "
+      "Theorem 3.6 and Lemma 5.14 "
+      "provenance remains reachable. "
+      "This phase introduces only the "
+      "finite-dimensional sigma-family "
+      "notation. It does not use "
+      "Toda (4.5), prove suspension "
+      "isomorphisms, determine the order "
+      "of sigma_n, derive "
+      "pi_(n+7)^n, or introduce a "
+      "stable sigma element."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma514Sigma8Statement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
         statement_type=(
           ScalarGreaterEqualStatement
         ),
