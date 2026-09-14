@@ -45463,6 +45463,294 @@ def toda_prop515_sigma8_transported_decomposition_inference_rule():
   )
 
 
+def toda_prop515_pi15_8_final_group_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    transported = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    if not isinstance(
+      transported,
+      Toda515Sigma8TransportedDecompositionStatement,
+    ):
+      return False
+
+    prop44_isomorphism = (
+      transported
+      .prop44_isomorphism
+    )
+
+    if not isinstance(
+      prop44_isomorphism,
+      TodaProp44IsomorphismStatement,
+    ):
+      return False
+
+    decomposition_map = (
+      prop44_isomorphism.map
+    )
+
+    if not isinstance(
+      decomposition_map,
+      TodaProp44DecompositionMap,
+    ):
+      return False
+
+    pi15_8 = TodaPrimaryGroup(
+      group_dimension=15,
+      sphere_dimension=8,
+    )
+
+    if (
+      decomposition_map.target_group
+      != pi15_8
+    ):
+      return False
+
+    transported_group = (
+      transported
+      .transported_group
+    )
+
+    if not isinstance(
+      transported_group,
+      DirectSumGroup,
+    ):
+      return False
+
+    if (
+      len(
+        transported_group.summands
+      )
+      != 2
+    ):
+      return False
+
+    first = (
+      transported_group
+      .summands[
+        0
+      ]
+    )
+
+    second = (
+      transported_group
+      .summands[
+        1
+      ]
+    )
+
+    if not isinstance(
+      first,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if not isinstance(
+      second,
+      FreeCyclicGroup,
+    ):
+      return False
+
+    if (
+      first.order
+      != 8
+    ):
+      return False
+
+    e_sigma_prime = (
+      first.generator
+    )
+
+    if not isinstance(
+      e_sigma_prime,
+      Suspension,
+    ):
+      return False
+
+    sigma_prime = (
+      e_sigma_prime.expression
+    )
+
+    if not isinstance(
+      sigma_prime,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      sigma_prime.source
+      != 14
+    ):
+      return False
+
+    if (
+      sigma_prime.target
+      != 7
+    ):
+      return False
+
+    if (
+      sigma_prime.generator
+      != GeneratorSymbol(
+        family="σ",
+        decoration="'",
+      )
+    ):
+      return False
+
+    sigma8 = (
+      second.generator
+    )
+
+    if not isinstance(
+      sigma8,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      sigma8.source
+      != 15
+    ):
+      return False
+
+    if (
+      sigma8.target
+      != 8
+    ):
+      return False
+
+    if (
+      sigma8.generator
+      != GeneratorSymbol(
+        family="σ",
+        index=8,
+      )
+    ):
+      return False
+
+    if (
+      transported
+      .first_generator_image
+      != e_sigma_prime
+    ):
+      return False
+
+    if (
+      transported
+      .second_generator_image
+      != sigma8
+    ):
+      return False
+
+    if (
+      transported
+      .pi14_7_group_relation
+      .lhs
+      != TodaPrimaryGroup(
+        group_dimension=14,
+        sphere_dimension=7,
+      )
+    ):
+      return False
+
+    if (
+      transported
+      .pi15_15_group_relation
+      .lhs
+      != TodaPrimaryGroup(
+        group_dimension=15,
+        sphere_dimension=15,
+      )
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    transported = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    source_order = (
+      transported
+      .transported_group
+    )
+
+    torsion_summand = (
+      source_order
+      .summands[
+        0
+      ]
+    )
+
+    free_summand = (
+      source_order
+      .summands[
+        1
+      ]
+    )
+
+    return Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=15,
+        sphere_dimension=8,
+      ),
+      rhs=DirectSumGroup(
+        summands=(
+          free_summand,
+          torsion_summand,
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "pi_15^8 final decomposition"
+    ),
+    description=(
+      "Use the independently derived "
+      "source-ordered transported "
+      "Proposition 4.4 decomposition "
+      "Z/8{E sigma-prime} direct sum "
+      "Z{sigma_8}. "
+      "Reorder the two direct summands "
+      "into the Proposition 5.15 "
+      "presentation order and conclude "
+      "pi_15^8="
+      "Z{sigma_8} direct sum "
+      "Z/8{E sigma-prime}. "
+      "This is a narrow Proposition 5.15 "
+      "n=8 conclusion. "
+      "No generic direct-sum "
+      "commutativity inference rule "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda515Sigma8TransportedDecompositionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 @dataclass(frozen=True)
 class Toda54BracketUpToSignStatement:
   bracket: TodaBracket
