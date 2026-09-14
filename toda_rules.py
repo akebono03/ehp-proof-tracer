@@ -6359,6 +6359,259 @@ def toda_prop58_higher_nu_eta_zero_inference_rule():
   )
 
 
+def toda_lemma512_shifted_nu_eta_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    base_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    n_range = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      base_zero,
+      Relation,
+    ):
+      return False
+
+    if (
+      base_zero.relation_type
+      != RelationType.ZERO
+    ):
+      return False
+
+    if not isinstance(
+      base_zero.lhs,
+      Composition,
+    ):
+      return False
+
+    nu_n = (
+      base_zero
+      .lhs
+      .left
+    )
+
+    eta_n_plus_three = (
+      base_zero
+      .lhs
+      .right
+    )
+
+    if not isinstance(
+      nu_n,
+      HomotopyElement,
+    ):
+      return False
+
+    if not isinstance(
+      eta_n_plus_three,
+      HomotopyElement,
+    ):
+      return False
+
+    n = (
+      nu_n.dimension
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      nu_n.source
+      != ScalarSum(
+        left=n,
+        right=3,
+      )
+    ):
+      return False
+
+    if (
+      nu_n.target
+      != n
+    ):
+      return False
+
+    if (
+      nu_n.generator
+      != GeneratorSymbol(
+        family="ν",
+        index=n,
+      )
+    ):
+      return False
+
+    n_plus_three = ScalarSum(
+      left=n,
+      right=3,
+    )
+
+    n_plus_four = ScalarSum(
+      left=n,
+      right=4,
+    )
+
+    if (
+      eta_n_plus_three.dimension
+      != n_plus_three
+    ):
+      return False
+
+    if (
+      eta_n_plus_three.source
+      != n_plus_four
+    ):
+      return False
+
+    if (
+      eta_n_plus_three.target
+      != n_plus_three
+    ):
+      return False
+
+    if (
+      eta_n_plus_three.generator
+      != GeneratorSymbol(
+        family="η",
+        index=n_plus_three,
+      )
+    ):
+      return False
+
+    if (
+      base_zero.rhs
+      != Zero()
+    ):
+      return False
+
+    return (
+      n_range
+      == ScalarGreaterEqualStatement(
+        left=n,
+        right=6,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    base_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    nu_n = (
+      base_zero
+      .lhs
+      .left
+    )
+
+    n = (
+      nu_n.dimension
+    )
+
+    n_plus_one = ScalarSum(
+      left=n,
+      right=1,
+    )
+
+    n_plus_four = ScalarSum(
+      left=n,
+      right=4,
+    )
+
+    n_plus_five = ScalarSum(
+      left=n,
+      right=5,
+    )
+
+    nu_n_plus_one = HomotopyElement(
+      name="ν_(n+1)",
+      dimension=n_plus_one,
+      source=n_plus_four,
+      target=n_plus_one,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=n_plus_one,
+      ),
+    )
+
+    eta_n_plus_four = HomotopyElement(
+      name="η_(n+4)",
+      dimension=n_plus_four,
+      source=n_plus_five,
+      target=n_plus_four,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n_plus_four,
+      ),
+    )
+
+    return Relation(
+      lhs=Composition(
+        left=nu_n_plus_one,
+        right=eta_n_plus_four,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.12 "
+      "shifted nu eta zero"
+    ),
+    description=(
+      "Specialize the independently derived "
+      "Toda Proposition 5.8 relation "
+      "nu_n composed with eta_(n+3)=0 "
+      "for symbolic n at least 6 to the "
+      "shifted composition required by "
+      "Toda Lemma 5.12. "
+      "The conclusion is "
+      "nu_(n+1) composed with eta_(n+4)=0. "
+      "The shifted nu and eta expressions "
+      "are constructed locally because the "
+      "current family helpers intentionally "
+      "do not accept arbitrary shifted "
+      "ScalarExpression indices. "
+      "No generic symbolic substitution, "
+      "shifted-family constructor, or "
+      "zero-composition transport framework "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_prop58_pi10_6_concrete_exactness_inference_rule():
   def guard(
     premises,
