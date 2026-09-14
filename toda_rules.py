@@ -41720,6 +41720,469 @@ class TodaLemma514Sigma8Statement:
   )
 
 
+@dataclass(frozen=True)
+class Toda48Pi16_9OrderAndE4InjectiveStatement:
+  source_group: TodaPrimaryGroup
+  target_group: TodaPrimaryGroup
+  iterated_suspension_map: TodaIteratedSuspensionMap
+  target_order: int
+
+
+def toda_48_pi16_9_order_and_e4_injective_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    pi12_5_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    if (
+      pi12_5_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=12,
+        sphere_dimension=5,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      pi12_5_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi12_5_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    sigma_triple_prime = (
+      pi12_5_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      sigma_triple_prime,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      sigma_triple_prime.source
+      != 12
+    ):
+      return False
+
+    if (
+      sigma_triple_prime.target
+      != 5
+    ):
+      return False
+
+    return (
+      sigma_triple_prime.generator
+      == GeneratorSymbol(
+        family="σ",
+        decoration="'''",
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    source_group = TodaPrimaryGroup(
+      group_dimension=12,
+      sphere_dimension=5,
+    )
+
+    target_group = TodaPrimaryGroup(
+      group_dimension=16,
+      sphere_dimension=9,
+    )
+
+    return (
+      Toda48Pi16_9OrderAndE4InjectiveStatement(
+        source_group=source_group,
+        target_group=target_group,
+        iterated_suspension_map=(
+          TodaIteratedSuspensionMap(
+            exponent=4,
+            source_group=source_group,
+            target_group=target_group,
+          )
+        ),
+        target_order=16,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (4.8) "
+      "pi_16^9 order sixteen "
+      "and E4 injective"
+    ),
+    description=(
+      "Specialize Toda (4.8) to the "
+      "concrete branch used in the proof "
+      "of Lemma 5.14. "
+      "With the independently derived "
+      "pi_12^5=Z/2{sigma triple-prime}, "
+      "Toda (4.8) gives that "
+      "pi_16^9 has order 16 and that "
+      "E^4:pi_12^5->pi_16^9 "
+      "is injective. "
+      "This statement records only this "
+      "concrete consequence. "
+      "No generic Proposition 4.8 "
+      "specialization or iterated-"
+      "suspension injectivity framework "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_pi16_9_sigma9_finite_cyclic_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    prop48 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    sigma8_statement = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    sigma9_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi12_5_relation = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    if not isinstance(
+      prop48,
+      Toda48Pi16_9OrderAndE4InjectiveStatement,
+    ):
+      return False
+
+    if not isinstance(
+      sigma8_statement,
+      TodaLemma514Sigma8Statement,
+    ):
+      return False
+
+    if not isinstance(
+      sigma9_definition,
+      TodaSigmaFamilyDefinitionStatement,
+    ):
+      return False
+
+    pi12_5 = TodaPrimaryGroup(
+      group_dimension=12,
+      sphere_dimension=5,
+    )
+
+    pi16_9 = TodaPrimaryGroup(
+      group_dimension=16,
+      sphere_dimension=9,
+    )
+
+    if (
+      prop48.source_group
+      != pi12_5
+    ):
+      return False
+
+    if (
+      prop48.target_group
+      != pi16_9
+    ):
+      return False
+
+    if (
+      prop48.target_order
+      != 16
+    ):
+      return False
+
+    if (
+      prop48.iterated_suspension_map
+      != TodaIteratedSuspensionMap(
+        exponent=4,
+        source_group=pi12_5,
+        target_group=pi16_9,
+      )
+    ):
+      return False
+
+    if (
+      pi12_5_relation.lhs
+      != pi12_5
+    ):
+      return False
+
+    if not isinstance(
+      pi12_5_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi12_5_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    sigma_triple_prime = (
+      pi12_5_relation
+      .rhs
+      .generator
+    )
+
+    if (
+      sigma_triple_prime
+      != sigma8_statement
+      .theorem36_bridge
+      .lemma513_statement
+      .sigma_triple_prime
+    ):
+      return False
+
+    if (
+      sigma9_definition.index
+      != 9
+    ):
+      return False
+
+    sigma9 = (
+      sigma9_definition.element
+    )
+
+    if (
+      sigma9.source
+      != 16
+    ):
+      return False
+
+    if (
+      sigma9.target
+      != 9
+    ):
+      return False
+
+    if (
+      sigma9.generator
+      != GeneratorSymbol(
+        family="σ",
+        index=9,
+      )
+    ):
+      return False
+
+    if (
+      sigma9_definition
+      .sigma8_statement
+      != sigma8_statement
+    ):
+      return False
+
+    if (
+      sigma9_definition
+      .iterated_suspension
+      != IteratedSuspension(
+        expression=(
+          sigma8_statement
+          .sigma8
+        ),
+        exponent=1,
+      )
+    ):
+      return False
+
+    expected_suspension_relation = Relation(
+      lhs=Suspension(
+        expression=(
+          sigma8_statement
+          .sigma8
+        ),
+      ),
+      rhs=Multiple(
+        coefficient=(
+          sigma8_statement
+          .odd_parameter
+        ),
+        expression=Suspension(
+          expression=(
+            sigma8_statement
+            .alpha_star
+          ),
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      sigma8_statement
+      .suspension_relation
+      != expected_suspension_relation
+    ):
+      return False
+
+    bridge = (
+      sigma8_statement
+      .theorem36_bridge
+    )
+
+    expected_bridge = Relation(
+      lhs=Multiple(
+        coefficient=ScalarProduct(
+          left=8,
+          right=(
+            bridge
+            .odd_parameter
+          ),
+        ),
+        expression=Suspension(
+          expression=(
+            bridge
+            .alpha_star
+          ),
+        ),
+      ),
+      rhs=IteratedSuspension(
+        expression=sigma_triple_prime,
+        exponent=4,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      bridge.bridge_relation
+      != expected_bridge
+    ):
+      return False
+
+    return (
+      bridge.odd_parameter
+      == sigma8_statement.odd_parameter
+      and bridge.alpha_star
+      == sigma8_statement.alpha_star
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    sigma9_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=16,
+        sphere_dimension=9,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=16,
+        generator=(
+          sigma9_definition.element
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "pi_16^9 generated by sigma_9"
+    ),
+    description=(
+      "Toda (4.8) gives that "
+      "pi_16^9 has order 16 and that "
+      "E^4:pi_12^5->pi_16^9 is "
+      "injective. "
+      "Phase 75 Lemma 5.14 gives "
+      "E sigma_8=x E alpha-star "
+      "for odd x, while the "
+      "Theorem 3.6 bridge gives "
+      "8x E alpha-star="
+      "E^4 sigma triple-prime. "
+      "Since "
+      "pi_12^5=Z/2{sigma triple-prime} "
+      "and E^4 is injective, "
+      "E^4 sigma triple-prime is "
+      "nonzero. "
+      "Thus 8 sigma_9 is nonzero. "
+      "Since the ambient group has "
+      "order 16, sigma_9 has order 16 "
+      "and generates pi_16^9. "
+      "Therefore "
+      "pi_16^9=Z/16{sigma_9}. "
+      "No generic order arithmetic, "
+      "finite-group classification, or "
+      "injective-map order-preservation "
+      "solver is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda48Pi16_9OrderAndE4InjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma514Sigma8Statement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaSigmaFamilyDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_36_lemma514_sigma_double_prime_bridge_inference_rule():
   def is_nu5_squared(
     expression,
