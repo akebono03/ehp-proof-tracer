@@ -46748,6 +46748,19 @@ class Toda36Lemma516SecondBracketTermStatement:
   bracket: TodaBracket
 
 
+@dataclass(frozen=True)
+class Toda36Lemma516BracketSumContainmentStatement:
+  element: Expression
+  alpha_star: HomotopyElement
+  beta: HomotopyElement
+  t: ScalarSymbol
+  m: ScalarSymbol
+  first_coefficient: ScalarPower
+  first_bracket: TodaBracket
+  second_coefficient: ScalarPower
+  second_bracket: TodaBracket
+
+
 def toda_lemma516_typed_setup_statement(
   beta_membership,
   beta_nu_zero_relation,
@@ -47641,6 +47654,203 @@ def toda_36_lemma516_second_bracket_term_inference_rule():
         proof_rule=ProofRule.GIVEN,
         statement_type=(
           TodaLemma516TypedSetupStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_36_lemma516_bracket_sum_containment_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    first_term = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    second_term = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      first_term,
+      Toda36Lemma516FirstBracketTermStatement,
+    ):
+      return False
+
+    if not isinstance(
+      second_term,
+      Toda36Lemma516SecondBracketTermStatement,
+    ):
+      return False
+
+    if (
+      first_term.composed_value
+      != second_term.composed_value
+    ):
+      return False
+
+    if (
+      first_term.alpha_star
+      != second_term.alpha_star
+    ):
+      return False
+
+    if (
+      first_term.alpha_star_membership
+      != second_term.alpha_star_membership
+    ):
+      return False
+
+    if (
+      first_term.beta
+      != second_term.beta
+    ):
+      return False
+
+    if (
+      first_term.t
+      != second_term.t
+    ):
+      return False
+
+    if (
+      first_term.m
+      != second_term.m
+    ):
+      return False
+
+    expected_first_coefficient = (
+      ScalarPower(
+        base=-1,
+        exponent=first_term.m,
+      )
+    )
+
+    if (
+      first_term.coefficient
+      != expected_first_coefficient
+    ):
+      return False
+
+    expected_second_coefficient = (
+      ScalarPower(
+        base=-1,
+        exponent=first_term.t,
+      )
+    )
+
+    if (
+      second_term.coefficient
+      != expected_second_coefficient
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    first_term = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    second_term = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return (
+      Toda36Lemma516BracketSumContainmentStatement(
+        element=(
+          first_term
+          .composed_value
+        ),
+        alpha_star=(
+          first_term
+          .alpha_star
+        ),
+        beta=(
+          first_term
+          .beta
+        ),
+        t=(
+          first_term
+          .t
+        ),
+        m=(
+          first_term
+          .m
+        ),
+        first_coefficient=(
+          first_term
+          .coefficient
+        ),
+        first_bracket=(
+          first_term
+          .bracket
+        ),
+        second_coefficient=(
+          second_term
+          .coefficient
+        ),
+        second_bracket=(
+          second_term
+          .bracket
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Theorem 3.6 "
+      "Lemma 5.16 bracket-sum containment"
+    ),
+    description=(
+      "Integrate the independently derived "
+      "first and second bracket terms of "
+      "the Toda Theorem 3.6 specialization "
+      "used in Lemma 5.16. "
+      "The two branches must share the same "
+      "composed value "
+      "E^4 beta composed with E^t alpha-star, "
+      "the same alpha-star, beta, t, and m. "
+      "Derive the theorem-specific "
+      "containment of that composed value in "
+      "the sum "
+      "(-1)^m "
+      "{nu_(m+4), E^7 beta, nu_(t+11)}_7 "
+      "+ "
+      "(-1)^t "
+      "{E^4 beta, nu_(t+8), "
+      "2 nu_(t+11)}_(t+3). "
+      "This rule does not introduce the odd "
+      "coefficient x from Lemma 5.16, "
+      "does not replace alpha-star by sigma_8, "
+      "and does not introduce generic "
+      "sum-of-Toda-brackets algebra."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda36Lemma516FirstBracketTermStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda36Lemma516SecondBracketTermStatement
         ),
       ),
     ),
