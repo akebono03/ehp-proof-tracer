@@ -41721,6 +41721,15 @@ class TodaLemma514Sigma8Statement:
 
 
 @dataclass(frozen=True)
+class Toda515Sigma8Prop44SpecializationStatement:
+  sigma8_statement: TodaLemma514Sigma8Statement
+  n: int
+  alpha: HomotopyElement
+  membership: TodaPrimaryGroupMembershipStatement
+  hopf_relation: Relation
+
+
+@dataclass(frozen=True)
 class Toda48Pi16_9OrderAndE4InjectiveStatement:
   source_group: TodaPrimaryGroup
   target_group: TodaPrimaryGroup
@@ -44780,6 +44789,124 @@ def toda_lemma514_sigma8_inference_rule():
         statement_type=Relation,
         relation_type=(
           RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_sigma8_prop44_specialization_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    sigma8_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    sigma8 = HomotopyElement(
+      name="σ₈",
+      dimension=8,
+      source=15,
+      target=8,
+      generator=GeneratorSymbol(
+        family="σ",
+        index=8,
+      ),
+    )
+
+    if (
+      sigma8_statement.sigma8
+      != sigma8
+    ):
+      return False
+
+    iota_15 = HomotopyElement(
+      name="ι_15",
+      dimension=15,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=15,
+      ),
+    )
+
+    expected_hopf_relation = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=sigma8,
+      ),
+      rhs=iota_15,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      sigma8_statement.hopf_relation
+      == expected_hopf_relation
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    sigma8_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    sigma8 = (
+      sigma8_statement.sigma8
+    )
+
+    return (
+      Toda515Sigma8Prop44SpecializationStatement(
+        sigma8_statement=(
+          sigma8_statement
+        ),
+        n=8,
+        alpha=sigma8,
+        membership=(
+          TodaPrimaryGroupMembershipStatement(
+            element=sigma8,
+            group=TodaPrimaryGroup(
+              group_dimension=15,
+              sphere_dimension=8,
+            ),
+          )
+        ),
+        hopf_relation=(
+          sigma8_statement
+          .hopf_relation
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "sigma_8 Proposition 4.4 "
+      "specialization premises"
+    ),
+    description=(
+      "The independently derived "
+      "Toda Lemma 5.14 sigma_8 statement "
+      "gives sigma_8 in the critical "
+      "Toda group pi_15^8 together with "
+      "H(sigma_8)=iota_15. "
+      "Record these as the concrete "
+      "n=8, alpha=sigma_8 premises "
+      "needed for the Proposition 4.4 "
+      "specialization used in "
+      "Toda equation (5.15)."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma514Sigma8Statement
         ),
       ),
     ),
