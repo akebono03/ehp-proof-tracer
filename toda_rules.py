@@ -46761,6 +46761,18 @@ class Toda36Lemma516BracketSumContainmentStatement:
   second_bracket: TodaBracket
 
 
+@dataclass(frozen=True)
+class TodaLemma516Sigma8IteratedSuspensionBridgeStatement:
+  sigma8: HomotopyElement
+  alpha_star: HomotopyElement
+  t: ScalarSymbol
+  odd_parameter: ScalarSymbol
+  odd_parameter_statement: OddScalarStatement
+  base_suspension_relation: Relation
+  iterated_suspension_relation: Relation
+  sigma8_statement: TodaLemma514Sigma8Statement
+
+
 def toda_lemma516_typed_setup_statement(
   beta_membership,
   beta_nu_zero_relation,
@@ -47851,6 +47863,271 @@ def toda_36_lemma516_bracket_sum_containment_inference_rule():
         proof_rule=ProofRule.INFERENCE,
         statement_type=(
           Toda36Lemma516SecondBracketTermStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma516_sigma8_iterated_suspension_bridge_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    sigma8_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    setup = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      sigma8_statement,
+      TodaLemma514Sigma8Statement,
+    ):
+      return False
+
+    if not isinstance(
+      setup,
+      TodaLemma516TypedSetupStatement,
+    ):
+      return False
+
+    t = setup.t
+
+    if not isinstance(
+      t,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      setup.t_range
+      != ScalarGreaterEqualStatement(
+        left=t,
+        right=1,
+      )
+    ):
+      return False
+
+    sigma8 = (
+      sigma8_statement
+      .sigma8
+    )
+
+    alpha_star = (
+      sigma8_statement
+      .alpha_star
+    )
+
+    x = (
+      sigma8_statement
+      .odd_parameter
+    )
+
+    if not isinstance(
+      sigma8,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      sigma8.source
+      != 15
+    ):
+      return False
+
+    if (
+      sigma8.target
+      != 8
+    ):
+      return False
+
+    if (
+      sigma8.generator
+      != GeneratorSymbol(
+        family="σ",
+        index=8,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      alpha_star,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      alpha_star.source
+      != 15
+    ):
+      return False
+
+    if (
+      alpha_star.target
+      != 8
+    ):
+      return False
+
+    bridge = (
+      sigma8_statement
+      .theorem36_bridge
+    )
+
+    if (
+      bridge.alpha_star
+      != alpha_star
+    ):
+      return False
+
+    if (
+      bridge.odd_parameter
+      != x
+    ):
+      return False
+
+    expected_odd_statement = (
+      OddScalarStatement(
+        scalar=x,
+      )
+    )
+
+    if (
+      bridge.odd_parameter_statement
+      != expected_odd_statement
+    ):
+      return False
+
+    expected_base_relation = Relation(
+      lhs=Suspension(
+        expression=sigma8,
+      ),
+      rhs=Multiple(
+        coefficient=x,
+        expression=Suspension(
+          expression=alpha_star,
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      sigma8_statement
+      .suspension_relation
+      == expected_base_relation
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    sigma8_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    setup = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    sigma8 = (
+      sigma8_statement
+      .sigma8
+    )
+
+    alpha_star = (
+      sigma8_statement
+      .alpha_star
+    )
+
+    x = (
+      sigma8_statement
+      .odd_parameter
+    )
+
+    t = setup.t
+
+    iterated_relation = Relation(
+      lhs=IteratedSuspension(
+        expression=sigma8,
+        exponent=t,
+      ),
+      rhs=Multiple(
+        coefficient=x,
+        expression=IteratedSuspension(
+          expression=alpha_star,
+          exponent=t,
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      TodaLemma516Sigma8IteratedSuspensionBridgeStatement(
+        sigma8=sigma8,
+        alpha_star=alpha_star,
+        t=t,
+        odd_parameter=x,
+        odd_parameter_statement=(
+          sigma8_statement
+          .theorem36_bridge
+          .odd_parameter_statement
+        ),
+        base_suspension_relation=(
+          sigma8_statement
+          .suspension_relation
+        ),
+        iterated_suspension_relation=(
+          iterated_relation
+        ),
+        sigma8_statement=(
+          sigma8_statement
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.16 "
+      "sigma_8 iterated suspension bridge"
+    ),
+    description=(
+      "Reuse the independently derived "
+      "Toda Lemma 5.14 sigma_8 statement. "
+      "It provides the same odd parameter x "
+      "and the relation "
+      "E sigma_8 = x E alpha-star. "
+      "For the Lemma 5.16 range t>=1, "
+      "derive the theorem-specific relation "
+      "E^t sigma_8 = x E^t alpha-star. "
+      "The odd parameter and alpha-star are "
+      "preserved from the Phase 75 "
+      "Theorem 3.6 provenance. "
+      "No generic symbolic suspension "
+      "induction, scalar transport engine, "
+      "or coefficient solver is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma514Sigma8Statement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaLemma516TypedSetupStatement
         ),
       ),
     ),
