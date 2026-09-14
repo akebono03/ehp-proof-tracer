@@ -6552,6 +6552,489 @@ def toda_prop515_pi9_2_zero_inference_rule():
   )
 
 
+def toda_prop515_pi10_3_concrete_exactness_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    window = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    pi9_2 = TodaPrimaryGroup(
+      group_dimension=9,
+      sphere_dimension=2,
+    )
+
+    pi10_3 = TodaPrimaryGroup(
+      group_dimension=10,
+      sphere_dimension=3,
+    )
+
+    pi10_5 = TodaPrimaryGroup(
+      group_dimension=10,
+      sphere_dimension=5,
+    )
+
+    pi8_2 = TodaPrimaryGroup(
+      group_dimension=8,
+      sphere_dimension=2,
+    )
+
+    pi9_3 = TodaPrimaryGroup(
+      group_dimension=9,
+      sphere_dimension=3,
+    )
+
+    expected_windows = (
+      TodaEHPExactnessWindow(
+        source_term=pi9_2,
+        middle_term=pi10_3,
+        target_term=pi10_5,
+        first_map=EHP_E_MAP,
+        second_map=EHP_H_MAP,
+      ),
+      TodaEHPExactnessWindow(
+        source_term=pi10_3,
+        middle_term=pi10_5,
+        target_term=pi8_2,
+        first_map=EHP_H_MAP,
+        second_map=EHP_DELTA_MAP,
+      ),
+      TodaEHPExactnessWindow(
+        source_term=pi10_5,
+        middle_term=pi8_2,
+        target_term=pi9_3,
+        first_map=EHP_DELTA_MAP,
+        second_map=EHP_E_MAP,
+      ),
+    )
+
+    return (
+      window
+      in expected_windows
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return TodaProp42ExactnessStatement(
+      window=(
+        premises[
+          0
+        ].conclusion
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "pi_10^3 concrete EHP exactness"
+    ),
+    description=(
+      "Recognize exactly the three "
+      "Toda Proposition 4.2 EHP "
+      "segments used in the proof of "
+      "pi_10^3=0: "
+      "pi_9^2-E-pi_10^3-H-pi_10^5, "
+      "pi_10^3-H-pi_10^5-Delta-pi_8^2, "
+      "and "
+      "pi_10^5-Delta-pi_8^2-E-pi_9^3. "
+      "The existing symbolic "
+      "Proposition 4.2 rules are not "
+      "changed."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaEHPExactnessWindow
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_pi10_3_delta_surjective_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    prop511 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi10_5 = TodaPrimaryGroup(
+      group_dimension=10,
+      sphere_dimension=5,
+    )
+
+    pi8_2 = TodaPrimaryGroup(
+      group_dimension=8,
+      sphere_dimension=2,
+    )
+
+    pi9_3 = TodaPrimaryGroup(
+      group_dimension=9,
+      sphere_dimension=3,
+    )
+
+    if (
+      prop511.pi9_3_zero
+      != TodaPrimaryGroupZeroStatement(
+        group=pi9_3,
+      )
+    ):
+      return False
+
+    return (
+      exactness.window
+      == TodaEHPExactnessWindow(
+        source_term=pi10_5,
+        middle_term=pi8_2,
+        target_term=pi9_3,
+        first_map=EHP_DELTA_MAP,
+        second_map=EHP_E_MAP,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return TodaDeltaSurjectiveStatement(
+      map=TodaDeltaMap(
+        source_group=TodaPrimaryGroup(
+          group_dimension=10,
+          sphere_dimension=5,
+        ),
+        target_group=TodaPrimaryGroup(
+          group_dimension=8,
+          sphere_dimension=2,
+        ),
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "pi_10^5 to pi_8^2 "
+      "Delta surjective"
+    ),
+    description=(
+      "Toda Proposition 5.11 gives "
+      "pi_9^3=0. "
+      "In the concrete exact sequence "
+      "pi_10^5 -> pi_8^2 -> pi_9^3, "
+      "the suspension target is zero, "
+      "so Ker(E)=pi_8^2. "
+      "Exactness therefore gives "
+      "Im(Delta)=pi_8^2, hence "
+      "Delta:pi_10^5 to pi_8^2 "
+      "is surjective. "
+      "No generic zero-target "
+      "surjectivity solver is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp511FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_pi10_3_delta_injective_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    delta_surjective = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    prop59 = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    prop511 = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi10_5 = TodaPrimaryGroup(
+      group_dimension=10,
+      sphere_dimension=5,
+    )
+
+    pi8_2 = TodaPrimaryGroup(
+      group_dimension=8,
+      sphere_dimension=2,
+    )
+
+    if (
+      delta_surjective.map
+      != TodaDeltaMap(
+        source_group=pi10_5,
+        target_group=pi8_2,
+      )
+    ):
+      return False
+
+    source_relation = (
+      prop59
+      .pi10_5_group_relation
+    )
+
+    if (
+      source_relation.lhs
+      != pi10_5
+    ):
+      return False
+
+    if not isinstance(
+      source_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      source_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    target_relation = (
+      prop511
+      .pi8_2_group_relation
+    )
+
+    if (
+      target_relation.lhs
+      != pi8_2
+    ):
+      return False
+
+    if not isinstance(
+      target_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    return (
+      target_relation.rhs.order
+      == 2
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return TodaDeltaInjectiveStatement(
+      map=(
+        premises[
+          0
+        ].conclusion
+        .map
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "pi_10^5 to pi_8^2 "
+      "Delta injective"
+    ),
+    description=(
+      "The concrete Delta map "
+      "from pi_10^5 to pi_8^2 "
+      "is surjective. "
+      "Toda Proposition 5.9 identifies "
+      "pi_10^5 as cyclic of order 2, "
+      "and Proposition 5.11 identifies "
+      "pi_8^2 as cyclic of order 2. "
+      "Therefore this concrete "
+      "surjection is injective. "
+      "No generic finite-cyclic "
+      "homomorphism solver is added."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaDeltaSurjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp59FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp511FiniteDimensionalStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_pi10_3_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    hopf_injective = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    delta_injective = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    exactness = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi10_3 = TodaPrimaryGroup(
+      group_dimension=10,
+      sphere_dimension=3,
+    )
+
+    pi10_5 = TodaPrimaryGroup(
+      group_dimension=10,
+      sphere_dimension=5,
+    )
+
+    pi8_2 = TodaPrimaryGroup(
+      group_dimension=8,
+      sphere_dimension=2,
+    )
+
+    expected_window = (
+      TodaEHPExactnessWindow(
+        source_term=pi10_3,
+        middle_term=pi10_5,
+        target_term=pi8_2,
+        first_map=EHP_H_MAP,
+        second_map=EHP_DELTA_MAP,
+      )
+    )
+
+    if (
+      exactness.window
+      != expected_window
+    ):
+      return False
+
+    expected_hopf = (
+      TodaHopfInvariantMap(
+        source_group=pi10_3,
+        target_group=pi10_5,
+      )
+    )
+
+    expected_delta = (
+      TodaDeltaMap(
+        source_group=pi10_5,
+        target_group=pi8_2,
+      )
+    )
+
+    return (
+      hopf_injective.map
+      == expected_hopf
+      and delta_injective.map
+      == expected_delta
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return TodaPrimaryGroupZeroStatement(
+      group=TodaPrimaryGroup(
+        group_dimension=10,
+        sphere_dimension=3,
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "pi_10^3 zero"
+    ),
+    description=(
+      "Use injectivity of "
+      "H:pi_10^3 to pi_10^5, "
+      "exactness of "
+      "pi_10^3-H-pi_10^5-Delta-pi_8^2, "
+      "and injectivity of Delta. "
+      "Delta injectivity gives "
+      "Ker(Delta)=0, hence exactness "
+      "gives Im(H)=0. "
+      "Since H is injective, "
+      "its source pi_10^3 is zero."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaHopfInvariantInjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaDeltaInjectiveStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_lemma512_shifted_nu_eta_zero_inference_rule():
   def guard(
     premises,
