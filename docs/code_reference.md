@@ -6453,3 +6453,177 @@ generic sign solver
 automatic proof narrative generation
 persistent Proof Repository
 ```
+
+
+---
+
+# Phase 77：Toda Lemma 5.16
+
+## source
+
+```text
+Toda_05_2.tex
+Lemma 5.16
+```
+
+canonical target:
+
+```text
+t>0
+β∈π_(t+4)(S^m)
+β∘ν_(t+4)=0
+↓
+E^4β∘σ_(t+8)
+∈
+(-1)^m x {ν_(m+4),E^7β,ν_(t+11)}_7
++
+(-1)^t x {E^4β,ν_(t+8),2ν_(t+11)}_(t+3)
+```
+
+`x` is the same odd parameter inherited from Phase 75.
+
+## source correction
+
+```text
+printed: E^nβ
+canonical: E^7β
+```
+
+reason:
+
+```text
+n is unbound in the printed lemma
+bracket typing forces 7
+immediately following proof text uses E^7β
+```
+
+## Phase 77 statements
+
+`toda_rules.py`:
+
+```text
+TodaLemma516TypedSetupStatement
+TodaLemma516BracketSumContainmentStatement
+Toda36Lemma516FirstBracketTermStatement
+Toda36Lemma516SecondBracketTermStatement
+Toda36Lemma516BracketSumContainmentStatement
+TodaLemma516Sigma8IteratedSuspensionBridgeStatement
+TodaLemma516SigmaTPlus8DefinitionStatement
+TodaLemma516ScaledCompositionBridgeStatement
+```
+
+## Phase 77 rules
+
+```text
+toda_lemma516_typed_setup_statement()
+toda_36_lemma516_first_bracket_term_inference_rule()
+toda_36_lemma516_second_bracket_term_inference_rule()
+toda_36_lemma516_bracket_sum_containment_inference_rule()
+toda_lemma516_sigma8_iterated_suspension_bridge_inference_rule()
+toda_lemma516_sigma_t_plus_8_definition_inference_rule()
+toda_lemma516_scaled_composition_bridge_inference_rule()
+toda_lemma516_scaled_bracket_sum_inference_rule()
+```
+
+## Phase 77 builders
+
+```text
+tests/test_phase77_lemma516_typed_setup.py
+  build_phase77_2_data()
+
+tests/test_phase77_theorem36_first_bracket.py
+  build_phase77_3_data()
+
+tests/test_phase77_theorem36_second_bracket.py
+  build_phase77_4_data()
+
+tests/test_phase77_theorem36_bracket_sum.py
+  build_phase77_5a_data()
+
+tests/test_phase77_sigma8_iterated_suspension_bridge.py
+  build_phase77_5b_data()
+
+tests/test_phase77_lemma516_scaled_bracket_sum.py
+  build_phase77_5c_data()
+
+tests/test_phase77_applicability_provenance.py
+  build_phase77_6_data()
+```
+
+heavy deterministic builders use:
+
+```text
+@lru_cache(maxsize=1)
+```
+
+## representative probe
+
+```text
+probes/probe_phase77_capabilities.py
+```
+
+entry:
+
+```text
+build_phase77_representative_result()
+main()
+```
+
+representative source:
+
+```text
+build_phase77_6_data()
+```
+
+## probe test
+
+```text
+tests/test_phase77_probe.py
+```
+
+checks:
+
+```text
+final result INFERENCE
+hypothesis setup GIVEN
+Phase 75 Theorem 3.6 / σ₈ provenance reachable
+both bracket branches reachable
+same odd x preserved
+E^7β correction preserved
+Phase 76 Toda (5.16) rule non-dependency
+acyclicity
+human-readable proof-style output
+source correction note
+completion boundary
+```
+
+## Phase 77 completion baseline before probe
+
+```text
+tests/test_phase77_applicability_provenance.py
+33 passed in 4.63s
+
+repository-wide
+6262 passed in 114.35s
+```
+
+## Phase 77 completion boundary
+
+Do not introduce:
+
+```text
+generic sum-of-Toda-brackets algebra
+generic odd existential solver
+generic coefficient normalization
+generic sign solver
+generic symbolic suspension induction
+generic σ-family ScalarSum constructor
+automatic proof narrative generation
+persistent Proof Repository
+```
+
+next natural mathematical boundary:
+
+```text
+(G_7;2)=Z/16{σ}
+```

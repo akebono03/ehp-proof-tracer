@@ -52,7 +52,7 @@ class TodaBracket:
   first: Expression
   second: Expression
   third: Expression
-  index: int | ScalarSymbol | None = None
+  index: ScalarValue | None = None
 
   def are_defining_compositions_type_compatible(
     self,

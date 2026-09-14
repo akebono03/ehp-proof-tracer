@@ -29,7 +29,7 @@ The implementation strategy is to formalize only the minimum theorem consequence
 
 # Current status
 
-Completed through Phase 76.
+Completed through Phase 77.
 
 ```text
 Phase 1–27   generic proof / algebra / Toda-bracket foundation
@@ -74,12 +74,13 @@ Phase 73     Toda Proposition 5.11 finite-dimensional computation
 Phase 74     Toda Lemma 5.12 bracket identification
 Phase 75     Toda Proposition 5.15 finite-dimensional computation
 Phase 76     Toda Equation (5.16): Ker E and Δ(ι₁₇)
+Phase 77     Toda Lemma 5.16 bracket-sum consequence
 ```
 
-Latest repository-wide regression:
+Latest repository-wide pre-probe regression:
 
 ```text
-6117 passed in 109.84s
+6262 passed in 114.35s
 ```
 
 Phase 64 same-machine baseline:
@@ -90,12 +91,12 @@ Phase 64 same-machine baseline:
 
 The Phase 64 final regression is approximately 88.4% faster than the same-machine baseline while preserving the same 3657-test coverage.
 
-Phase 76 Toda Equation (5.16) integration and applicability/provenance regression are complete. Repository-wide wall time is machine-dependent because development is performed on two PCs; the latest recorded pre-probe run is 6117 passed in 109.84s.
+Phase 77 Toda Lemma 5.16 mathematics, integration, applicability, provenance, and non-circularity regression are complete. Repository-wide wall time is machine-dependent because development is performed on two PCs; the latest recorded pre-probe run is 6262 passed in 114.35s.
 
 Representative current probe:
 
 ```powershell
-python -m probes.probe_phase76_capabilities
+python -m probes.probe_phase77_capabilities
 ```
 
 ---
@@ -4758,14 +4759,178 @@ automatic proof narrative generation
 persistent Proof Repository
 ```
 
-# Next development boundary
+# Phase 77: Toda Lemma 5.16
 
-Phase 76 is complete.
-
-The next source statement immediately following Toda (5.16) is:
+Phase 77 implements the Toda Lemma 5.16 consequence:
 
 ```text
-Toda Lemma 5.16
+t>0
+β∈π_(t+4)(S^m)
+β∘ν_(t+4)=0
 ```
 
-Phase 77 should begin with source statement / typing / proof dependency / current representation compatibility analysis of that lemma.
+implies that for the odd parameter `x` inherited from the Phase 75 `σ₈` construction:
+
+```text
+E^4β∘σ_(t+8)
+∈
+(-1)^m x {ν_(m+4),E^7β,ν_(t+11)}_7
++
+(-1)^t x {E^4β,ν_(t+8),2ν_(t+11)}_(t+3).
+```
+
+## Source-index correction
+
+The printed lemma contains `E^nβ` in the first bracket, but `n` is unbound there. The immediately following proof text uses `E^7β`, and Toda-bracket typing also forces exponent `7`. The canonical implementation therefore uses:
+
+```text
+{ν_(m+4),E^7β,ν_(t+11)}_7.
+```
+
+No generic source-correction framework is introduced.
+
+## Phase 77 proof spine
+
+```text
+Phase 77-2 typed setup
+β∈π_(t+4)(S^m)
+β∘ν_(t+4)=0
+t≥1
+        │
+        ├──────────────────────────────────────────┐
+        │                                          │
+        ▼                                          ▼
+Phase 77-3                                  Phase 77-4
+first Theorem 3.6 term                     second Theorem 3.6 term
+        │                                          │
+        └──────────────────┬───────────────────────┘
+                           ▼
+Phase 77-5A
+E^4β∘E^tα*
+∈
+(-1)^m B₁+(-1)^t B₂
+
+Phase 75 σ₈ construction
+x odd
+Eσ₈=xEα*
+        │
+        ▼
+Phase 77-5B
+E^tσ₈=xE^tα*
+        │
+        ▼
+Phase 77-5C
+σ_(t+8)=E^tσ₈
+E^4β∘σ_(t+8)=x(E^4β∘E^tα*)
+        │
+        ▼
+final scaled bracket-sum consequence
+```
+
+The final machine statement is:
+
+```text
+TodaLemma516BracketSumContainmentStatement
+ProofRule.INFERENCE
+```
+
+The typed hypothesis bundle remains `GIVEN`; the theorem-spine consequences are `INFERENCE`.
+
+## Phase 77 provenance boundary
+
+Dedicated Phase 77-6 regression verifies:
+
+```text
+Phase 75 Theorem 3.6 bridge reachable
+Phase 75 σ₈ statement reachable
+first / second bracket branches reachable
+Theorem 3.6 bracket-sum reachable
+E^tσ₈ bridge reachable
+σ_(t+8) definition reachable
+scaled composition reachable
+same α* preserved
+same σ₈ preserved
+same odd x preserved
+first bracket uses E^7β
+final is not its own ancestor
+final conclusion is absent from ancestors
+proof graph is acyclic
+```
+
+Phase 76 Equation (5.16) is not a proof dependency. Because Phase 76 reuses generic statement classes that also occur earlier in the project, the regression checks absence of Phase-76-specific inference rules (`"Toda (5.16) ..."`) rather than absence of those reusable statement classes.
+
+## Representative probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase77_capabilities
+```
+
+The probe displays:
+
+```text
+Toda Lemma 5.16 result
+Proof-style derivation
+Provenance / integration
+Applicability / non-circularity
+Literature / source
+Phase 77 representative probe boundary
+```
+
+The proof-style derivation is hand-authored presentation code. It is not generated automatically from the `ProofStep` graph.
+
+## Phase 77 regression
+
+Before the representative probe/documentation step:
+
+```text
+tests/test_phase77_applicability_provenance.py
+33 passed in 4.63s
+
+repository-wide
+6262 passed in 114.35s
+```
+
+## Phase 77 completion boundary
+
+Implemented:
+
+```text
+typed Lemma 5.16 hypotheses
+E^nβ -> E^7β canonical correction
+first / second Theorem 3.6 summand data
+Theorem 3.6 bracket-sum consequence
+Phase 75 odd x reuse
+E^tσ₈=xE^tα*
+σ_(t+8)=E^tσ₈
+scaled composition bridge
+final Lemma 5.16 bracket-sum consequence
+applicability / provenance / non-circularity regression
+representative probe
+formal proof record 12
+```
+
+Not introduced:
+
+```text
+generic sum-of-Toda-brackets algebra
+generic odd-integer existential solver
+generic sign / coefficient solver
+generic symbolic suspension induction
+generic σ-family ScalarSum extension
+automatic proof narrative generation
+persistent Proof Repository
+```
+
+# Next development boundary
+
+Phase 77 mathematics / integration / provenance are complete.
+
+The stable clause stated in Toda Proposition 5.15 remains deferred:
+
+```text
+(G_7;2)=Z/16{σ}.
+```
+
+This is the natural next mathematical boundary before moving beyond the current finite-dimensional / Lemma 5.16 source segment.

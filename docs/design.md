@@ -25,7 +25,7 @@ representation != typing != theorem knowledge
 structural equality != mathematical equality
 ```
 
-Phase 76 までこの原則を維持している。
+Phase 77 までこの原則を維持している。
 
 ---
 
@@ -8524,4 +8524,312 @@ stable homotopy-group model
 automatic proof narrative generation
 persistent Proof Repository
 Toda Lemma 5.16 semantics
+```
+
+
+---
+
+# 122. Phase 77：Toda Lemma 5.16 design
+
+Phase 77 target:
+
+```text
+t>0
+β∈π_(t+4)(S^m)
+β∘ν_(t+4)=0
+```
+
+から、Phase 75 の `σ₈` construction と同じ odd parameter `x` を用いて:
+
+```text
+E^4β∘σ_(t+8)
+∈
+(-1)^m x {ν_(m+4),E^7β,ν_(t+11)}_7
++
+(-1)^t x {E^4β,ν_(t+8),2ν_(t+11)}_(t+3)
+```
+
+を derived provenance 付きで保持する。
+
+## 122.1 Source index correction
+
+source lemma の first bracket は `E^nβ` と印刷されているが `n` は unbound。
+
+直後の proof text:
+
+```text
+{ν_(m+4),E^7β,ν_(t+11)}_7
+```
+
+および bracket typing の両方から exponent は `7` に一意に決まる。
+
+canonical machine representation:
+
+```text
+E^7β
+```
+
+とする。
+
+一般 source typo corrector は導入しない。
+
+## 122.2 TodaBracket representation boundary
+
+`TodaBracket` は `Expression` にしない。
+
+したがって:
+
+```text
+(-1)^m B₁ + (-1)^t B₂
+```
+
+を generic `Sum(Multiple(...),Multiple(...))` AST として表さない。
+
+Phase 77 専用 statement:
+
+```text
+Toda36Lemma516FirstBracketTermStatement
+Toda36Lemma516SecondBracketTermStatement
+Toda36Lemma516BracketSumContainmentStatement
+TodaLemma516BracketSumContainmentStatement
+```
+
+で bracket-valued sum semantics を保持する。
+
+## 122.3 Phase 77 typed setup
+
+```text
+TodaLemma516TypedSetupStatement
+```
+
+が保持:
+
+```text
+β membership
+β∘ν_(t+4)=0
+t≥1
+m
+t
+E^4β
+E^7β
+first bracket
+second bracket
+```
+
+setup は structural hypothesis package であり `GIVEN`。
+
+## 122.4 Theorem 3.6 two-branch design
+
+first / second summand は sibling branch とする。
+
+```text
+Phase 75 Theorem 3.6 bridge + typed setup
+↓
+first term
+
+Phase 75 Theorem 3.6 bridge + typed setup
+↓
+second term
+```
+
+first term から second term を導出しない。
+
+Theorem 3.6 が与えるのは sum への containment なので:
+
+```text
+E^4β∘E^tα* ∈ first bracket alone
+```
+
+または:
+
+```text
+E^4β∘E^tα* ∈ second bracket alone
+```
+
+を導出しない。
+
+両 branch を統合して初めて:
+
+```text
+Toda36Lemma516BracketSumContainmentStatement
+```
+
+を導出する。
+
+## 122.5 odd x reuse
+
+Lemma 5.16 の odd integer `x` は fresh existential として生成しない。
+
+Phase 75 `TodaLemma514Sigma8Statement` に保持された同じ:
+
+```text
+x
+OddScalarStatement(x)
+Eσ₈=xEα*
+```
+
+を provenance ごと再利用する。
+
+## 122.6 symbolic iterated suspension bridge
+
+`t≥1` と Phase 75 relation から:
+
+```text
+E^tσ₈=xE^tα*
+```
+
+を:
+
+```text
+TodaLemma516Sigma8IteratedSuspensionBridgeStatement
+```
+
+として theorem-specific に導出する。
+
+generic symbolic suspension induction / scalar transport engine は追加しない。
+
+## 122.7 σ_(t+8) symbolic-index boundary
+
+既存 generic σ-family constructor を `ScalarSum` 全般へ拡張しない。
+
+Lemma 5.16 の concrete need に限定して:
+
+```text
+TodaLemma516SigmaTPlus8DefinitionStatement
+σ_(t+8)=E^tσ₈
+```
+
+を導出する。
+
+## 122.8 scaled composition bridge
+
+専用 statement:
+
+```text
+TodaLemma516ScaledCompositionBridgeStatement
+```
+
+が:
+
+```text
+E^4β∘σ_(t+8)
+=
+x(E^4β∘E^tα*)
+```
+
+を保持する。
+
+generic composition bilinearity / scalar distribution は導入しない。
+
+## 122.9 final scaled bracket-sum semantics
+
+final:
+
+```text
+TodaLemma516BracketSumContainmentStatement
+```
+
+保持:
+
+```text
+element = E^4β∘σ_(t+8)
+first coefficient = (-1)^m x
+first bracket = {ν_(m+4),E^7β,ν_(t+11)}_7
+second coefficient = (-1)^t x
+second bracket = {E^4β,ν_(t+8),2ν_(t+11)}_(t+3)
+odd parameter = same Phase 75 x
+oddness evidence = same Phase 75 OddScalarStatement(x)
+```
+
+final は `ProofRule.INFERENCE`。
+
+## 122.10 provenance / non-circularity boundary
+
+Phase 77-6 では production theorem semantics を追加せず test-local ancestry audit を行う。
+
+確認:
+
+```text
+Phase 75 Theorem 3.6 bridge reachable
+Phase 75 σ₈ statement reachable
+all Phase 77 branches reachable
+same α* / σ₈ / x preserved
+first bracket exponent = 7
+final not self-ancestor
+final conclusion absent from ancestors
+proof graph acyclic
+wrong β / t / m rejected
+```
+
+Phase 76 non-dependency は reusable statement class の型ではなく Phase-76-specific inference rule name:
+
+```text
+Toda (5.16) ...
+```
+
+が ancestry にないことで判定する。
+
+```text
+representation reuse != phase dependency
+```
+
+を明示的に維持する。
+
+## 122.11 Phase 77 representative probe
+
+```text
+probes/probe_phase77_capabilities.py
+```
+
+は:
+
+```text
+build_phase77_6_data()
+```
+
+を representative source として再利用する。
+
+表示:
+
+```text
+Toda Lemma 5.16 result
+Proof-style derivation
+Provenance / integration
+Applicability / non-circularity
+Literature / source
+Phase 77 representative probe boundary
+```
+
+presentation-only narrative であり automatic proof narrative generation ではない。
+
+## 122.12 Phase 77 completion boundary
+
+完成:
+
+```text
+source / typing audit
+E^nβ -> E^7β correction
+typed setup
+first / second Theorem 3.6 branches
+Theorem 3.6 sum containment
+odd x provenance reuse
+E^tσ₈ bridge
+σ_(t+8) narrow symbolic definition
+scaled composition
+final scaled bracket-sum consequence
+applicability / provenance / non-circularity regression
+representative probe
+formal proof record 12
+```
+
+先取りしない:
+
+```text
+generic bracket-sum algebra
+generic odd existential solver
+generic coefficient / sign solver
+generic symbolic suspension induction
+generic σ-family ScalarSum support
+automatic proof narrative generation
+persistent Proof Repository
 ```
