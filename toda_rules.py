@@ -42183,6 +42183,261 @@ def toda_prop515_pi16_9_sigma9_finite_cyclic_inference_rule():
   )
 
 
+def toda_45_sigma9_finite_cyclic_transport_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    source_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    isomorphism = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    sigma_family = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    if not isinstance(
+      isomorphism,
+      Toda45IsomorphismStatement,
+    ):
+      return False
+
+    if not isinstance(
+      sigma_family,
+      TodaSigmaFamilyDefinitionStatement,
+    ):
+      return False
+
+    n = (
+      sigma_family.index
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    source_group = TodaPrimaryGroup(
+      group_dimension=16,
+      sphere_dimension=9,
+    )
+
+    if (
+      source_relation.lhs
+      != source_group
+    ):
+      return False
+
+    if not isinstance(
+      source_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      source_relation.rhs.order
+      != 16
+    ):
+      return False
+
+    sigma9 = (
+      source_relation
+      .rhs
+      .generator
+    )
+
+    expected_sigma9 = (
+      toda_sigma_family_definition_statement(
+        9,
+        sigma_family.sigma8_statement,
+      )
+      .element
+    )
+
+    if (
+      sigma9
+      != expected_sigma9
+    ):
+      return False
+
+    if (
+      sigma_family.element.source
+      != ScalarSum(
+        left=n,
+        right=7,
+      )
+    ):
+      return False
+
+    if (
+      sigma_family.element.target
+      != n
+    ):
+      return False
+
+    if (
+      sigma_family.element.generator
+      != GeneratorSymbol(
+        family="σ",
+        index=n,
+      )
+    ):
+      return False
+
+    expected_sigma_family_suspension = (
+      IteratedSuspension(
+        expression=(
+          sigma_family
+          .sigma8_statement
+          .sigma8
+        ),
+        exponent=ScalarSum(
+          left=n,
+          right=-8,
+        ),
+      )
+    )
+
+    if (
+      sigma_family.iterated_suspension
+      != expected_sigma_family_suspension
+    ):
+      return False
+
+    transport_map = (
+      isomorphism.map
+    )
+
+    if (
+      transport_map.source_group
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=9,
+          right=7,
+        ),
+        sphere_dimension=9,
+      )
+    ):
+      return False
+
+    if (
+      transport_map.target_group
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=n,
+          right=7,
+        ),
+        sphere_dimension=n,
+      )
+    ):
+      return False
+
+    return (
+      transport_map.exponent
+      == ScalarSum(
+        left=n,
+        right=ScalarProduct(
+          left=-1,
+          right=9,
+        ),
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    isomorphism = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    sigma_family = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=(
+        isomorphism
+        .map
+        .target_group
+      ),
+      rhs=FiniteCyclicGroup(
+        order=16,
+        generator=(
+          sigma_family.element
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (4.5) sigma_9 "
+      "finite cyclic transport"
+    ),
+    description=(
+      "Transport the independently "
+      "derived "
+      "pi_16^9=Z/16{sigma_9} "
+      "through the specific Toda (4.5) "
+      "isomorphism "
+      "E^(n-9):pi_16^9 -> pi_(n+7)^n "
+      "for n at least 9. "
+      "The independently derived "
+      "sigma-family definition "
+      "sigma_n=E^(n-8)sigma_8 "
+      "identifies the transported "
+      "generator with sigma_n. "
+      "Therefore "
+      "pi_(n+7)^n=Z/16{sigma_n} "
+      "for n at least 9. "
+      "This is a sigma-family-specific "
+      "finite-cyclic transport rule. "
+      "No generic isomorphism transport, "
+      "generic generator transport, "
+      "or generic suspension "
+      "normalization is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda45IsomorphismStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaSigmaFamilyDefinitionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_36_lemma514_sigma_double_prime_bridge_inference_rule():
   def is_nu5_squared(
     expression,
