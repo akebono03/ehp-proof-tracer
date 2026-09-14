@@ -45768,6 +45768,417 @@ def toda_prop515_pi15_8_final_group_inference_rule():
   )
 
 
+def toda_516_sigma8_suspension_kernel_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    sigma8_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    sigma9_definition = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi15_8_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi16_9_relation = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    if not isinstance(
+      sigma8_statement,
+      TodaLemma514Sigma8Statement,
+    ):
+      return False
+
+    sigma8 = (
+      sigma8_statement
+      .sigma8
+    )
+
+    sigma_prime = (
+      sigma8_statement
+      .sigma_prime
+    )
+
+    if not isinstance(
+      sigma8,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      sigma8.source
+      != 15
+    ):
+      return False
+
+    if (
+      sigma8.target
+      != 8
+    ):
+      return False
+
+    if (
+      sigma8.generator
+      != GeneratorSymbol(
+        family="σ",
+        index=8,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      sigma_prime,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      sigma_prime.source
+      != 14
+    ):
+      return False
+
+    if (
+      sigma_prime.target
+      != 7
+    ):
+      return False
+
+    if (
+      sigma_prime.generator
+      != GeneratorSymbol(
+        family="σ",
+        decoration="'",
+      )
+    ):
+      return False
+
+    expected_double_suspension_relation = (
+      Relation(
+        lhs=Multiple(
+          coefficient=2,
+          expression=Suspension(
+            expression=sigma8,
+          ),
+        ),
+        rhs=IteratedSuspension(
+          expression=sigma_prime,
+          exponent=2,
+        ),
+        relation_type=RelationType.EQUALITY,
+      )
+    )
+
+    if (
+      sigma8_statement
+      .double_suspension_relation
+      != expected_double_suspension_relation
+    ):
+      return False
+
+    if not isinstance(
+      sigma9_definition,
+      TodaSigmaFamilyDefinitionStatement,
+    ):
+      return False
+
+    if (
+      sigma9_definition.index
+      != 9
+    ):
+      return False
+
+    if (
+      sigma9_definition
+      .sigma8_statement
+      != sigma8_statement
+    ):
+      return False
+
+    expected_sigma9_suspension = (
+      IteratedSuspension(
+        expression=sigma8,
+        exponent=1,
+      )
+    )
+
+    if (
+      sigma9_definition
+      .iterated_suspension
+      != expected_sigma9_suspension
+    ):
+      return False
+
+    sigma9 = (
+      sigma9_definition
+      .element
+    )
+
+    if not isinstance(
+      sigma9,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      sigma9.source
+      != 16
+    ):
+      return False
+
+    if (
+      sigma9.target
+      != 9
+    ):
+      return False
+
+    if (
+      sigma9.generator
+      != GeneratorSymbol(
+        family="σ",
+        index=9,
+      )
+    ):
+      return False
+
+    expected_pi15_8 = (
+      TodaPrimaryGroup(
+        group_dimension=15,
+        sphere_dimension=8,
+      )
+    )
+
+    if (
+      pi15_8_relation.lhs
+      != expected_pi15_8
+    ):
+      return False
+
+    if not isinstance(
+      pi15_8_relation.rhs,
+      DirectSumGroup,
+    ):
+      return False
+
+    if (
+      len(
+        pi15_8_relation
+        .rhs
+        .summands
+      )
+      != 2
+    ):
+      return False
+
+    free_summand = (
+      pi15_8_relation
+      .rhs
+      .summands[
+        0
+      ]
+    )
+
+    torsion_summand = (
+      pi15_8_relation
+      .rhs
+      .summands[
+        1
+      ]
+    )
+
+    if not isinstance(
+      free_summand,
+      FreeCyclicGroup,
+    ):
+      return False
+
+    if (
+      free_summand.generator
+      != sigma8
+    ):
+      return False
+
+    if not isinstance(
+      torsion_summand,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      torsion_summand.order
+      != 8
+    ):
+      return False
+
+    expected_e_sigma_prime = (
+      Suspension(
+        expression=sigma_prime,
+      )
+    )
+
+    if (
+      torsion_summand.generator
+      != expected_e_sigma_prime
+    ):
+      return False
+
+    expected_pi16_9 = (
+      TodaPrimaryGroup(
+        group_dimension=16,
+        sphere_dimension=9,
+      )
+    )
+
+    if (
+      pi16_9_relation.lhs
+      != expected_pi16_9
+    ):
+      return False
+
+    if not isinstance(
+      pi16_9_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi16_9_relation.rhs.order
+      != 16
+    ):
+      return False
+
+    return (
+      pi16_9_relation
+      .rhs
+      .generator
+      == sigma9
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    sigma8_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    sigma8 = (
+      sigma8_statement
+      .sigma8
+    )
+
+    sigma_prime = (
+      sigma8_statement
+      .sigma_prime
+    )
+
+    kernel_generator = Sum(
+      left=Multiple(
+        coefficient=2,
+        expression=sigma8,
+      ),
+      right=Multiple(
+        coefficient=-1,
+        expression=Suspension(
+          expression=sigma_prime,
+        ),
+      ),
+    )
+
+    return (
+      TodaSuspensionKernelFreeCyclicStatement(
+        map=TodaSuspensionMap(
+          source_group=TodaPrimaryGroup(
+            group_dimension=15,
+            sphere_dimension=8,
+          ),
+          target_group=TodaPrimaryGroup(
+            group_dimension=16,
+            sphere_dimension=9,
+          ),
+        ),
+        kernel_group=FreeCyclicGroup(
+          generator=kernel_generator,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (5.16) "
+      "sigma_8 suspension kernel"
+    ),
+    description=(
+      "Use the independently derived "
+      "Phase 75 relations "
+      "pi_15^8="
+      "Z{sigma_8} direct sum "
+      "Z/8{E sigma-prime}, "
+      "pi_16^9=Z/16{sigma_9}, "
+      "sigma_9=E sigma_8, and "
+      "2 E sigma_8=E squared sigma-prime. "
+      "On the concrete source generators, "
+      "E sends sigma_8 to sigma_9 and "
+      "E sigma-prime to 2 sigma_9. "
+      "Therefore the kernel of "
+      "E:pi_15^8->pi_16^9 "
+      "is freely generated by "
+      "2 sigma_8 minus E sigma-prime. "
+      "This rule is limited to the "
+      "concrete Toda (5.16) calculation. "
+      "It does not introduce a generic "
+      "mixed free/torsion kernel solver "
+      "or a generic homomorphism-matrix "
+      "framework."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma514Sigma8Statement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaSigmaFamilyDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_prop515_finite_dimensional_literature_statements():
   toda_reference = {
     "author": "H. Toda",
