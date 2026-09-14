@@ -46773,6 +46773,30 @@ class TodaLemma516Sigma8IteratedSuspensionBridgeStatement:
   sigma8_statement: TodaLemma514Sigma8Statement
 
 
+@dataclass(frozen=True)
+class TodaLemma516SigmaTPlus8DefinitionStatement:
+  t: ScalarSymbol
+  sigma_t_plus_8: HomotopyElement
+  iterated_suspension: IteratedSuspension
+  sigma8_statement: TodaLemma514Sigma8Statement
+
+
+@dataclass(frozen=True)
+class TodaLemma516ScaledCompositionBridgeStatement:
+  beta: HomotopyElement
+  t: ScalarSymbol
+  m: ScalarSymbol
+  sigma_t_plus_8: HomotopyElement
+  alpha_star: HomotopyElement
+  odd_parameter: ScalarSymbol
+  odd_parameter_statement: OddScalarStatement
+  scaled_composed_value: Composition
+  unscaled_composed_value: Composition
+  relation: Relation
+  sigma_definition: TodaLemma516SigmaTPlus8DefinitionStatement
+  suspension_bridge: TodaLemma516Sigma8IteratedSuspensionBridgeStatement
+
+
 def toda_lemma516_typed_setup_statement(
   beta_membership,
   beta_nu_zero_relation,
@@ -48128,6 +48152,609 @@ def toda_lemma516_sigma8_iterated_suspension_bridge_inference_rule():
         proof_rule=ProofRule.GIVEN,
         statement_type=(
           TodaLemma516TypedSetupStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma516_sigma_t_plus_8_definition_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    suspension_bridge = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    if not isinstance(
+      suspension_bridge,
+      TodaLemma516Sigma8IteratedSuspensionBridgeStatement,
+    ):
+      return False
+
+    t = suspension_bridge.t
+
+    if not isinstance(
+      t,
+      ScalarSymbol,
+    ):
+      return False
+
+    sigma8 = (
+      suspension_bridge
+      .sigma8
+    )
+
+    if (
+      sigma8.generator
+      != GeneratorSymbol(
+        family="σ",
+        index=8,
+      )
+    ):
+      return False
+
+    if (
+      sigma8.source
+      != 15
+    ):
+      return False
+
+    if (
+      sigma8.target
+      != 8
+    ):
+      return False
+
+    if (
+      suspension_bridge
+      .sigma8_statement
+      .sigma8
+      != sigma8
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    suspension_bridge = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    t = suspension_bridge.t
+
+    t_plus_8 = ScalarSum(
+      left=t,
+      right=8,
+    )
+
+    t_plus_15 = ScalarSum(
+      left=t,
+      right=15,
+    )
+
+    sigma_t_plus_8 = HomotopyElement(
+      name="σ_(t+8)",
+      dimension=t_plus_8,
+      source=t_plus_15,
+      target=t_plus_8,
+      generator=GeneratorSymbol(
+        family="σ",
+        index=t_plus_8,
+      ),
+    )
+
+    return (
+      TodaLemma516SigmaTPlus8DefinitionStatement(
+        t=t,
+        sigma_t_plus_8=sigma_t_plus_8,
+        iterated_suspension=(
+          IteratedSuspension(
+            expression=(
+              suspension_bridge
+              .sigma8
+            ),
+            exponent=t,
+          )
+        ),
+        sigma8_statement=(
+          suspension_bridge
+          .sigma8_statement
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.16 "
+      "sigma_(t+8) definition"
+    ),
+    description=(
+      "For the Lemma 5.16 symbolic "
+      "parameter t, record the narrow "
+      "sigma-family instance "
+      "sigma_(t+8)=E^t sigma_8. "
+      "The existing generic sigma-family "
+      "constructor is not widened to accept "
+      "arbitrary ScalarSum indices. "
+      "This rule exists only for the "
+      "concrete symbolic index t+8 needed "
+      "by Lemma 5.16."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma516Sigma8IteratedSuspensionBridgeStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma516_scaled_composition_bridge_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    bracket_sum = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    suspension_bridge = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    sigma_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    if not isinstance(
+      bracket_sum,
+      Toda36Lemma516BracketSumContainmentStatement,
+    ):
+      return False
+
+    if not isinstance(
+      suspension_bridge,
+      TodaLemma516Sigma8IteratedSuspensionBridgeStatement,
+    ):
+      return False
+
+    if not isinstance(
+      sigma_definition,
+      TodaLemma516SigmaTPlus8DefinitionStatement,
+    ):
+      return False
+
+    if (
+      bracket_sum.alpha_star
+      != suspension_bridge.alpha_star
+    ):
+      return False
+
+    if (
+      bracket_sum.t
+      != suspension_bridge.t
+    ):
+      return False
+
+    if (
+      bracket_sum.t
+      != sigma_definition.t
+    ):
+      return False
+
+    if (
+      sigma_definition.sigma8_statement
+      != suspension_bridge.sigma8_statement
+    ):
+      return False
+
+    expected_iterated_suspension = (
+      IteratedSuspension(
+        expression=(
+          suspension_bridge
+          .sigma8
+        ),
+        exponent=bracket_sum.t,
+      )
+    )
+
+    if (
+      sigma_definition
+      .iterated_suspension
+      != expected_iterated_suspension
+    ):
+      return False
+
+    expected_suspension_relation = Relation(
+      lhs=expected_iterated_suspension,
+      rhs=Multiple(
+        coefficient=(
+          suspension_bridge
+          .odd_parameter
+        ),
+        expression=IteratedSuspension(
+          expression=(
+            bracket_sum
+            .alpha_star
+          ),
+          exponent=bracket_sum.t,
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      suspension_bridge
+      .iterated_suspension_relation
+      != expected_suspension_relation
+    ):
+      return False
+
+    if not isinstance(
+      bracket_sum.element,
+      Composition,
+    ):
+      return False
+
+    expected_unscaled_value = Composition(
+      left=IteratedSuspension(
+        expression=bracket_sum.beta,
+        exponent=4,
+      ),
+      right=IteratedSuspension(
+        expression=bracket_sum.alpha_star,
+        exponent=bracket_sum.t,
+      ),
+    )
+
+    return (
+      bracket_sum.element
+      == expected_unscaled_value
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    bracket_sum = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    suspension_bridge = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    sigma_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    e4_beta = (
+      bracket_sum
+      .element
+      .left
+    )
+
+    scaled_value = Composition(
+      left=e4_beta,
+      right=(
+        sigma_definition
+        .sigma_t_plus_8
+      ),
+    )
+
+    relation = Relation(
+      lhs=scaled_value,
+      rhs=Multiple(
+        coefficient=(
+          suspension_bridge
+          .odd_parameter
+        ),
+        expression=(
+          bracket_sum
+          .element
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      TodaLemma516ScaledCompositionBridgeStatement(
+        beta=bracket_sum.beta,
+        t=bracket_sum.t,
+        m=bracket_sum.m,
+        sigma_t_plus_8=(
+          sigma_definition
+          .sigma_t_plus_8
+        ),
+        alpha_star=(
+          bracket_sum
+          .alpha_star
+        ),
+        odd_parameter=(
+          suspension_bridge
+          .odd_parameter
+        ),
+        odd_parameter_statement=(
+          suspension_bridge
+          .odd_parameter_statement
+        ),
+        scaled_composed_value=(
+          scaled_value
+        ),
+        unscaled_composed_value=(
+          bracket_sum
+          .element
+        ),
+        relation=relation,
+        sigma_definition=(
+          sigma_definition
+        ),
+        suspension_bridge=(
+          suspension_bridge
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.16 "
+      "scaled composition bridge"
+    ),
+    description=(
+      "Combine the Lemma 5.16 relation "
+      "E^t sigma_8=x E^t alpha-star "
+      "with the narrow definition "
+      "sigma_(t+8)=E^t sigma_8. "
+      "After left composition by E^4 beta, "
+      "derive the theorem-specific relation "
+      "E^4 beta composed with sigma_(t+8) "
+      "= x times "
+      "(E^4 beta composed with "
+      "E^t alpha-star). "
+      "No generic scalar-composition "
+      "distributivity or symbolic "
+      "composition solver is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda36Lemma516BracketSumContainmentStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma516Sigma8IteratedSuspensionBridgeStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma516SigmaTPlus8DefinitionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma516_scaled_bracket_sum_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    bracket_sum = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    composition_bridge = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      bracket_sum,
+      Toda36Lemma516BracketSumContainmentStatement,
+    ):
+      return False
+
+    if not isinstance(
+      composition_bridge,
+      TodaLemma516ScaledCompositionBridgeStatement,
+    ):
+      return False
+
+    if (
+      composition_bridge
+      .unscaled_composed_value
+      != bracket_sum.element
+    ):
+      return False
+
+    if (
+      composition_bridge.beta
+      != bracket_sum.beta
+    ):
+      return False
+
+    if (
+      composition_bridge.alpha_star
+      != bracket_sum.alpha_star
+    ):
+      return False
+
+    if (
+      composition_bridge.t
+      != bracket_sum.t
+    ):
+      return False
+
+    if (
+      composition_bridge.m
+      != bracket_sum.m
+    ):
+      return False
+
+    x = (
+      composition_bridge
+      .odd_parameter
+    )
+
+    if (
+      composition_bridge
+      .odd_parameter_statement
+      != OddScalarStatement(
+        scalar=x,
+      )
+    ):
+      return False
+
+    expected_relation = Relation(
+      lhs=(
+        composition_bridge
+        .scaled_composed_value
+      ),
+      rhs=Multiple(
+        coefficient=x,
+        expression=bracket_sum.element,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      composition_bridge.relation
+      == expected_relation
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    bracket_sum = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    composition_bridge = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    x = (
+      composition_bridge
+      .odd_parameter
+    )
+
+    first_coefficient = ScalarProduct(
+      left=(
+        bracket_sum
+        .first_coefficient
+      ),
+      right=x,
+    )
+
+    second_coefficient = ScalarProduct(
+      left=(
+        bracket_sum
+        .second_coefficient
+      ),
+      right=x,
+    )
+
+    return (
+      TodaLemma516BracketSumContainmentStatement(
+        element=(
+          composition_bridge
+          .scaled_composed_value
+        ),
+        first_coefficient=(
+          first_coefficient
+        ),
+        first_bracket=(
+          bracket_sum
+          .first_bracket
+        ),
+        second_coefficient=(
+          second_coefficient
+        ),
+        second_bracket=(
+          bracket_sum
+          .second_bracket
+        ),
+        odd_parameter=x,
+        odd_parameter_statement=(
+          composition_bridge
+          .odd_parameter_statement
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.16 "
+      "scaled bracket-sum consequence"
+    ),
+    description=(
+      "Combine the independently derived "
+      "Toda Theorem 3.6 bracket-sum "
+      "containment with the Lemma 5.16 "
+      "scaled composition bridge. "
+      "Using the same odd parameter x from "
+      "the Phase 75 sigma_8 construction, "
+      "derive "
+      "E^4 beta composed with sigma_(t+8) "
+      "in "
+      "(-1)^m x times the first bracket "
+      "plus "
+      "(-1)^t x times the second bracket. "
+      "This is a Lemma 5.16-specific "
+      "containment rule and does not "
+      "introduce generic scalar action on "
+      "Toda-bracket sets or generic "
+      "sum-of-brackets algebra."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda36Lemma516BracketSumContainmentStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma516ScaledCompositionBridgeStatement
         ),
       ),
     ),
