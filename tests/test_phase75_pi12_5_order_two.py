@@ -5,6 +5,7 @@ from expression import (
   GeneratorSymbol,
   HomotopyElement,
   Multiple,
+  TodaBracket,
 )
 from homotopy_groups import (
   FiniteCyclicGroup,
@@ -46,10 +47,12 @@ from toda_rules import (
   Toda55NuFamilyFiniteDimensionalStatement,
   TodaDeltaImageUpToSignStatement,
   TodaHopfInvariantInjectiveStatement,
+  TodaLemma513Statement,
   TodaProp42ExactnessStatement,
   TodaProp511FiniteDimensionalStatement,
   TodaProp515Pi12_5HopfIsomorphismStatement,
   toda_exactness_zero_left_implies_hopf_injective_inference_rule,
+  toda_lemma513_sigma_triple_prime_definition_inference_rule,
   toda_nu_family_definition_statement,
   toda_prop511_pi12_9_nu9_inference_rule,
   toda_prop515_pi12_5_concrete_exactness_inference_rule,
@@ -194,6 +197,10 @@ def build_phase75_5_data():
     toda_prop515_pi12_5_hopf_isomorphism_inference_rule()
   )
 
+  lemma513_rule = (
+    toda_lemma513_sigma_triple_prime_definition_inference_rule()
+  )
+
   finite_cyclic_rule = (
     toda_prop515_pi12_5_finite_cyclic_inference_rule()
   )
@@ -202,6 +209,7 @@ def build_phase75_5_data():
     exactness_rule,
     hopf_injective_rule,
     hopf_isomorphism_rule,
+    lemma513_rule,
     finite_cyclic_rule,
   )
 
@@ -277,10 +285,19 @@ def build_phase75_5_data():
     )
   )
 
+  lemma513_step = next(
+    step
+    for step in result.steps
+    if isinstance(
+      step.conclusion,
+      TodaLemma513Statement,
+    )
+  )
+
   sigma_triple_prime = (
-    hopf_isomorphism_step
+    lemma513_step
     .conclusion
-    .source_generator
+    .sigma_triple_prime
   )
 
   expected_final = Relation(
@@ -335,6 +352,8 @@ def build_phase75_5_data():
     "hopf_isomorphism_step": (
       hopf_isomorphism_step
     ),
+    "lemma513_rule": lemma513_rule,
+    "lemma513_step": lemma513_step,
     "sigma_triple_prime": (
       sigma_triple_prime
     ),
@@ -689,13 +708,112 @@ def test_phase75_5_reaches_fixed_point():
     == InferenceTerminationReason.FIXED_POINT
   )
 
+def test_phase75_5r_derives_lemma513():
+  data = build_phase75_5_data()
 
-def test_phase75_5_sigma_triple_prime_is_unique_hopf_preimage_definition():
+  assert isinstance(
+    data[
+      "lemma513_step"
+    ].conclusion,
+    TodaLemma513Statement,
+  )
+
+  assert (
+    data[
+      "lemma513_step"
+    ].rule
+    == ProofRule.INFERENCE
+  )
+
+
+def test_phase75_5r_lemma513_has_expected_bracket():
   data = build_phase75_5_data()
 
   statement = (
     data[
-      "hopf_isomorphism_step"
+      "lemma513_step"
+    ].conclusion
+  )
+
+  nu_5 = (
+    toda_nu_family_definition_statement(
+      5
+    ).element
+  )
+
+  nu_8 = (
+    toda_nu_family_definition_statement(
+      8
+    ).element
+  )
+
+  bracket = statement.bracket
+
+  assert isinstance(
+    bracket,
+    TodaBracket,
+  )
+
+  assert (
+    bracket.first
+    == nu_5
+  )
+
+  assert (
+    bracket.second.coefficient
+    == 8
+  )
+
+  assert (
+    bracket.second.expression.generator
+    == GeneratorSymbol(
+      family="ι",
+      index=8,
+    )
+  )
+
+  assert (
+    bracket.third
+    == nu_8
+  )
+
+  assert (
+    bracket.index
+    == 3
+  )
+
+
+def test_phase75_5r_sigma_is_bracket_member():
+  data = build_phase75_5_data()
+
+  statement = (
+    data[
+      "lemma513_step"
+    ].conclusion
+  )
+
+  assert (
+    statement
+    .bracket_membership
+    .element
+    == statement
+    .sigma_triple_prime
+  )
+
+  assert (
+    statement
+    .bracket_membership
+    .bracket
+    == statement.bracket
+  )
+
+
+def test_phase75_5r_lemma513_hopf_image_is_four_nu9():
+  data = build_phase75_5_data()
+
+  statement = (
+    data[
+      "lemma513_step"
     ].conclusion
   )
 
@@ -706,25 +824,132 @@ def test_phase75_5_sigma_triple_prime_is_unique_hopf_preimage_definition():
   )
 
   assert (
-    statement.image_generator
+    statement.hopf_image
     == Multiple(
       coefficient=4,
       expression=nu_9,
     )
   )
 
+
+def test_phase75_5r_sigma_matches_hopf_isomorphism_witness():
+  data = build_phase75_5_data()
+
   assert (
-    statement.source_generator
+    data[
+      "lemma513_step"
+    ].conclusion
+    .sigma_triple_prime
     == data[
-      "sigma_triple_prime"
-    ]
+      "hopf_isomorphism_step"
+    ].conclusion
+    .source_generator
   )
 
   assert (
     data[
-      "hopf_injective_step"
+      "lemma513_step"
+    ].conclusion
+    .hopf_image
+    == data[
+      "hopf_isomorphism_step"
+    ].conclusion
+    .image_generator
+  )
+
+
+def test_phase75_5r_final_generator_comes_from_lemma513():
+  data = build_phase75_5_data()
+
+  assert (
+    data[
+      "final_step"
+    ].conclusion
+    .rhs
+    .generator
+    == data[
+      "lemma513_step"
+    ].conclusion
+    .sigma_triple_prime
+  )
+
+
+def test_phase75_5r_final_requires_derived_lemma513():
+  data = build_phase75_5_data()
+
+  given_lemma513 = ProofStep(
+    conclusion=(
+      data[
+        "lemma513_step"
+      ].conclusion
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  assert find_inference_match(
+    toda_prop515_pi12_5_finite_cyclic_inference_rule(),
+    (
+      data[
+        "hopf_isomorphism_step"
+      ],
+      given_lemma513,
+    ),
+  ) is None
+
+
+def test_phase75_5r_lemma513_uses_derived_hopf_isomorphism():
+  data = build_phase75_5_data()
+
+  assert (
+    data[
+      "lemma513_step"
+    ].premises
+    == (
+      data[
+        "hopf_isomorphism_step"
+      ],
+      data[
+        "toda55_step"
+      ],
+    )
+  )
+
+  assert (
+    data[
+      "lemma513_step"
+    ].premises[
+      0
     ].rule
     == ProofRule.INFERENCE
   )
+
+  assert (
+    data[
+      "lemma513_step"
+    ].premises[
+      1
+    ].rule
+    == ProofRule.INFERENCE
+  )
+
+
+def test_phase75_5r_final_uses_exact_two_premises():
+  data = build_phase75_5_data()
+
+  assert (
+    data[
+      "final_step"
+    ].premises
+    == (
+      data[
+        "hopf_isomorphism_step"
+      ],
+      data[
+        "lemma513_step"
+      ],
+    )
+  )
+
 
 
