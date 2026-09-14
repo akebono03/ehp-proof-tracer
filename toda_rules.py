@@ -41730,6 +41730,16 @@ class Toda515Sigma8Prop44SpecializationStatement:
 
 
 @dataclass(frozen=True)
+class Toda515Sigma8TransportedDecompositionStatement:
+  prop44_isomorphism: TodaProp44IsomorphismStatement
+  pi14_7_group_relation: Relation
+  pi15_15_group_relation: Relation
+  first_generator_image: Expression
+  second_generator_image: Expression
+  transported_group: DirectSumGroup
+
+
+@dataclass(frozen=True)
 class Toda48Pi16_9OrderAndE4InjectiveStatement:
   source_group: TodaPrimaryGroup
   target_group: TodaPrimaryGroup
@@ -45109,6 +45119,342 @@ def toda_prop515_sigma8_prop44_isomorphism_inference_rule():
       PremisePattern(
         statement_type=(
           TodaProp44DecompositionMap
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_sigma8_transported_decomposition_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    prop44_isomorphism = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    pi14_7_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi15_15_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    decomposition_map = (
+      prop44_isomorphism.map
+    )
+
+    if not isinstance(
+      decomposition_map,
+      TodaProp44DecompositionMap,
+    ):
+      return False
+
+    expected_pi14_7 = (
+      TodaPrimaryGroup(
+        group_dimension=14,
+        sphere_dimension=7,
+      )
+    )
+
+    expected_pi15_15 = (
+      TodaPrimaryGroup(
+        group_dimension=15,
+        sphere_dimension=15,
+      )
+    )
+
+    expected_pi15_8 = (
+      TodaPrimaryGroup(
+        group_dimension=15,
+        sphere_dimension=8,
+      )
+    )
+
+    if (
+      decomposition_map.source_group
+      != DirectSumGroup(
+        summands=(
+          expected_pi14_7,
+          expected_pi15_15,
+        ),
+      )
+    ):
+      return False
+
+    if (
+      decomposition_map.target_group
+      != expected_pi15_8
+    ):
+      return False
+
+    sigma8 = (
+      decomposition_map.alpha
+    )
+
+    if not isinstance(
+      sigma8,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      sigma8.source
+      != 15
+      or sigma8.target
+      != 8
+      or sigma8.generator
+      != GeneratorSymbol(
+        family="σ",
+        index=8,
+      )
+    ):
+      return False
+
+    expected_formula = Sum(
+      left=Suspension(
+        expression=(
+          decomposition_map.beta
+        ),
+      ),
+      right=Composition(
+        left=sigma8,
+        right=(
+          decomposition_map.gamma
+        ),
+      ),
+    )
+
+    if (
+      decomposition_map.formula
+      != expected_formula
+    ):
+      return False
+
+    if (
+      pi14_7_relation.lhs
+      != expected_pi14_7
+    ):
+      return False
+
+    if not isinstance(
+      pi14_7_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi14_7_relation.rhs.order
+      != 8
+    ):
+      return False
+
+    sigma_prime = (
+      pi14_7_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      sigma_prime,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      sigma_prime.source
+      != 14
+      or sigma_prime.target
+      != 7
+      or sigma_prime.generator
+      != GeneratorSymbol(
+        family="σ",
+        decoration="'",
+      )
+    ):
+      return False
+
+    if (
+      pi15_15_relation.lhs
+      != expected_pi15_15
+    ):
+      return False
+
+    if not isinstance(
+      pi15_15_relation.rhs,
+      FreeCyclicGroup,
+    ):
+      return False
+
+    iota_15 = (
+      pi15_15_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      iota_15,
+      HomotopyElement,
+    ):
+      return False
+
+    return (
+      iota_15.dimension
+      == 15
+      and iota_15.generator
+      == GeneratorSymbol(
+        family="ι",
+        index=15,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    prop44_isomorphism = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    pi14_7_relation = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi15_15_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    decomposition_map = (
+      prop44_isomorphism.map
+    )
+
+    sigma8 = (
+      decomposition_map.alpha
+    )
+
+    sigma_prime = (
+      pi14_7_relation
+      .rhs
+      .generator
+    )
+
+    first_generator_image = (
+      Suspension(
+        expression=sigma_prime,
+      )
+    )
+
+    second_generator_image = (
+      sigma8
+    )
+
+    transported_group = (
+      DirectSumGroup(
+        summands=(
+          FiniteCyclicGroup(
+            order=8,
+            generator=(
+              first_generator_image
+            ),
+          ),
+          FreeCyclicGroup(
+            generator=(
+              second_generator_image
+            ),
+          ),
+        ),
+      )
+    )
+
+    return (
+      Toda515Sigma8TransportedDecompositionStatement(
+        prop44_isomorphism=(
+          prop44_isomorphism
+        ),
+        pi14_7_group_relation=(
+          pi14_7_relation
+        ),
+        pi15_15_group_relation=(
+          pi15_15_relation
+        ),
+        first_generator_image=(
+          first_generator_image
+        ),
+        second_generator_image=(
+          second_generator_image
+        ),
+        transported_group=(
+          transported_group
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "sigma_8 transported decomposition"
+    ),
+    description=(
+      "Use the concrete n=8, i=15 "
+      "Toda Proposition 4.4 "
+      "decomposition isomorphism "
+      "together with "
+      "pi_14^7=Z/8{sigma-prime} "
+      "and the foundational "
+      "pi_15^15=Z{iota_15}. "
+      "The first source generator "
+      "sigma-prime maps to "
+      "E sigma-prime. "
+      "The second source generator "
+      "iota_15 maps to "
+      "sigma_8 composed with iota_15, "
+      "which is sigma_8. "
+      "Therefore the source-ordered "
+      "transported decomposition is "
+      "Z/8{E sigma-prime} direct sum "
+      "Z{sigma_8}. "
+      "This rule does not reorder "
+      "the summands and does not yet "
+      "derive the final Proposition "
+      "5.15 group relation "
+      "pi_15^8="
+      "Z{sigma_8} direct sum "
+      "Z/8{E sigma-prime}."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp44IsomorphismStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
         ),
       ),
     ),
