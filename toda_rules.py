@@ -7364,6 +7364,356 @@ class TodaProp511FiniteDimensionalStatement:
 
 
 @dataclass(frozen=True)
+class TodaLemma512FirstIndeterminacyZeroStatement:
+  bracket: TodaBracket
+  ordinary_group: HomotopyGroup
+
+
+def toda_lemma512_first_indeterminacy_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    defined_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    prop59 = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    n_range = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    if not isinstance(
+      defined_statement,
+      TodaBracketDefinedStatement,
+    ):
+      return False
+
+    bracket = (
+      defined_statement
+      .bracket
+    )
+
+    if not isinstance(
+      bracket,
+      TodaBracket,
+    ):
+      return False
+
+    if (
+      bracket.index
+      is not None
+    ):
+      return False
+
+    eta_n = (
+      bracket.first
+    )
+
+    nu_n_plus_one = (
+      bracket.second
+    )
+
+    eta_n_plus_four = (
+      bracket.third
+    )
+
+    if not isinstance(
+      eta_n,
+      HomotopyElement,
+    ):
+      return False
+
+    if not isinstance(
+      nu_n_plus_one,
+      HomotopyElement,
+    ):
+      return False
+
+    if not isinstance(
+      eta_n_plus_four,
+      HomotopyElement,
+    ):
+      return False
+
+    n = (
+      eta_n.dimension
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    n_plus_one = ScalarSum(
+      left=n,
+      right=1,
+    )
+
+    n_plus_four = ScalarSum(
+      left=n,
+      right=4,
+    )
+
+    n_plus_five = ScalarSum(
+      left=n,
+      right=5,
+    )
+
+    if (
+      eta_n.source
+      != n_plus_one
+    ):
+      return False
+
+    if (
+      eta_n.target
+      != n
+    ):
+      return False
+
+    if (
+      eta_n.generator
+      != GeneratorSymbol(
+        family="η",
+        index=n,
+      )
+    ):
+      return False
+
+    if (
+      nu_n_plus_one.dimension
+      != n_plus_one
+    ):
+      return False
+
+    if (
+      nu_n_plus_one.source
+      != n_plus_four
+    ):
+      return False
+
+    if (
+      nu_n_plus_one.target
+      != n_plus_one
+    ):
+      return False
+
+    if (
+      nu_n_plus_one.generator
+      != GeneratorSymbol(
+        family="ν",
+        index=n_plus_one,
+      )
+    ):
+      return False
+
+    if (
+      eta_n_plus_four.dimension
+      != n_plus_four
+    ):
+      return False
+
+    if (
+      eta_n_plus_four.source
+      != n_plus_five
+    ):
+      return False
+
+    if (
+      eta_n_plus_four.target
+      != n_plus_four
+    ):
+      return False
+
+    if (
+      eta_n_plus_four.generator
+      != GeneratorSymbol(
+        family="η",
+        index=n_plus_four,
+      )
+    ):
+      return False
+
+    if (
+      n_range
+      != ScalarGreaterEqualStatement(
+        left=n,
+        right=6,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      prop59,
+      TodaProp59FiniteDimensionalStatement,
+    ):
+      return False
+
+    higher_zero = (
+      prop59
+      .higher_five_stem_zero
+    )
+
+    higher_range = (
+      prop59
+      .higher_range
+    )
+
+    if not isinstance(
+      higher_zero,
+      TodaPrimaryGroupZeroStatement,
+    ):
+      return False
+
+    higher_group = (
+      higher_zero
+      .group
+    )
+
+    if not isinstance(
+      higher_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    higher_n = (
+      higher_group
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      higher_n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      higher_group
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=higher_n,
+          right=5,
+        ),
+        sphere_dimension=higher_n,
+      )
+    ):
+      return False
+
+    if (
+      higher_range
+      != ScalarGreaterEqualStatement(
+        left=higher_n,
+        right=7,
+      )
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    defined_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    bracket = (
+      defined_statement
+      .bracket
+    )
+
+    n = (
+      bracket
+      .first
+      .dimension
+    )
+
+    return (
+      TodaLemma512FirstIndeterminacyZeroStatement(
+        bracket=bracket,
+        ordinary_group=HomotopyGroup(
+          group_dimension=ScalarSum(
+            left=n,
+            right=6,
+          ),
+          sphere_dimension=ScalarSum(
+            left=n,
+            right=1,
+          ),
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.12 "
+      "first indeterminacy zero"
+    ),
+    description=(
+      "For the defined Toda Lemma 5.12 "
+      "bracket "
+      "{eta_n, nu_(n+1), eta_(n+4)} "
+      "with n>=6, derive that its first "
+      "indeterminacy term "
+      "eta_n composed with "
+      "pi_(n+6)(S^(n+1)) is zero. "
+      "Toda (3.2) identifies the ordinary "
+      "group pi_(n+6)(S^(n+1)) as the "
+      "suspension of pi_(n+5)(S^n). "
+      "Toda (4.7) reduces the relevant "
+      "composition to the Toda pi-group "
+      "branch, and the independently "
+      "derived Proposition 5.9 "
+      "five-stem vanishing makes the "
+      "result zero for n>=6. "
+      "The rule keeps the ordinary "
+      "homotopy group explicit and does "
+      "not identify HomotopyGroup with "
+      "TodaPrimaryGroup. "
+      "No generic subgroup-composition "
+      "algebra, symbolic substitution "
+      "engine, or suspension-image "
+      "normalizer is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaBracketDefinedStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp59FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+@dataclass(frozen=True)
 class Toda512DeltaInjectivityStatement:
   n4_injectivity: TodaDeltaInjectiveStatement
   n5_injectivity: TodaDeltaInjectiveStatement
