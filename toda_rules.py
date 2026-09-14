@@ -41693,6 +41693,25 @@ class TodaLemma514SigmaPrimeStatement:
   )
 
 
+@dataclass(frozen=True)
+class TodaLemma514Sigma8Statement:
+  sigma8: HomotopyElement
+  sigma_prime: HomotopyElement
+  alpha_star: HomotopyElement
+  odd_parameter: ScalarSymbol
+  correction_parameter: ScalarSymbol
+  definition_relation: Relation
+  hopf_relation: Relation
+  suspension_relation: Relation
+  double_suspension_relation: Relation
+  theorem36_bridge: (
+    Toda36Lemma514SigmaDoublePrimeBridgeStatement
+  )
+  sigma_prime_statement: (
+    TodaLemma514SigmaPrimeStatement
+  )
+
+
 def toda_36_lemma514_sigma_double_prime_bridge_inference_rule():
   def is_nu5_squared(
     expression,
@@ -43686,6 +43705,348 @@ def toda_prop515_pi13_6_finite_cyclic_inference_rule():
         statement_type=Relation,
         relation_type=(
           RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma514_sigma8_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    bridge = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    sigma_prime_statement = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi14_7_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    if not isinstance(
+      bridge,
+      Toda36Lemma514SigmaDoublePrimeBridgeStatement,
+    ):
+      return False
+
+    if not isinstance(
+      sigma_prime_statement,
+      TodaLemma514SigmaPrimeStatement,
+    ):
+      return False
+
+    pi14_7 = TodaPrimaryGroup(
+      group_dimension=14,
+      sphere_dimension=7,
+    )
+
+    if (
+      pi14_7_relation.lhs
+      != pi14_7
+    ):
+      return False
+
+    if not isinstance(
+      pi14_7_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi14_7_relation.rhs.order
+      != 8
+    ):
+      return False
+
+    sigma_prime = (
+      sigma_prime_statement
+      .sigma_prime
+    )
+
+    if (
+      pi14_7_relation
+      .rhs
+      .generator
+      != sigma_prime
+    ):
+      return False
+
+    if (
+      sigma_prime.source
+      != 14
+    ):
+      return False
+
+    if (
+      sigma_prime.target
+      != 7
+    ):
+      return False
+
+    if (
+      sigma_prime.generator
+      != GeneratorSymbol(
+        family="σ",
+        decoration="'",
+      )
+    ):
+      return False
+
+    if (
+      sigma_prime_statement
+      .sigma_double_prime_statement
+      .theorem36_bridge
+      != bridge
+    ):
+      return False
+
+    if (
+      bridge.odd_parameter_statement
+      != OddScalarStatement(
+        scalar=(
+          bridge
+          .odd_parameter
+        ),
+      )
+    ):
+      return False
+
+    alpha_star = (
+      bridge.alpha_star
+    )
+
+    if (
+      alpha_star.source
+      != 15
+    ):
+      return False
+
+    if (
+      alpha_star.target
+      != 8
+    ):
+      return False
+
+    return (
+      sigma_prime_statement
+      .sigma_double_prime
+      == sigma_prime_statement
+      .sigma_double_prime_statement
+      .sigma_double_prime
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    bridge = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    sigma_prime_statement = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    alpha_star = (
+      bridge.alpha_star
+    )
+
+    x = (
+      bridge.odd_parameter
+    )
+
+    sigma_prime = (
+      sigma_prime_statement
+      .sigma_prime
+    )
+
+    y = ScalarSymbol(
+      name="y",
+    )
+
+    iota_17 = HomotopyElement(
+      name="ι_17",
+      dimension=17,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=17,
+      ),
+    )
+
+    delta_iota17 = MapApplication(
+      map=EHP_DELTA_MAP,
+      expression=iota_17,
+    )
+
+    sigma8 = HomotopyElement(
+      name="σ₈",
+      dimension=8,
+      source=15,
+      target=8,
+      generator=GeneratorSymbol(
+        family="σ",
+        index=8,
+      ),
+    )
+
+    definition_relation = Relation(
+      lhs=sigma8,
+      rhs=Sum(
+        left=Multiple(
+          coefficient=x,
+          expression=alpha_star,
+        ),
+        right=Multiple(
+          coefficient=ScalarProduct(
+            left=-1,
+            right=y,
+          ),
+          expression=delta_iota17,
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    iota_15 = HomotopyElement(
+      name="ι_15",
+      dimension=15,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=15,
+      ),
+    )
+
+    hopf_relation = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=sigma8,
+      ),
+      rhs=iota_15,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    suspension_relation = Relation(
+      lhs=Suspension(
+        expression=sigma8,
+      ),
+      rhs=Multiple(
+        coefficient=x,
+        expression=Suspension(
+          expression=alpha_star,
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    double_suspension_relation = Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=Suspension(
+          expression=sigma8,
+        ),
+      ),
+      rhs=IteratedSuspension(
+        expression=sigma_prime,
+        exponent=2,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      TodaLemma514Sigma8Statement(
+        sigma8=sigma8,
+        sigma_prime=sigma_prime,
+        alpha_star=alpha_star,
+        odd_parameter=x,
+        correction_parameter=y,
+        definition_relation=(
+          definition_relation
+        ),
+        hopf_relation=(
+          hopf_relation
+        ),
+        suspension_relation=(
+          suspension_relation
+        ),
+        double_suspension_relation=(
+          double_suspension_relation
+        ),
+        theorem36_bridge=bridge,
+        sigma_prime_statement=(
+          sigma_prime_statement
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.14 "
+      "sigma_8 branch"
+    ),
+    description=(
+      "Continue the Lemma 5.14 "
+      "Theorem 3.6 construction from "
+      "the same odd multiple "
+      "x alpha-star used in the "
+      "sigma double-prime and "
+      "sigma-prime branches. "
+      "Toda Proposition 4.8 shows that "
+      "the Hopf invariant of "
+      "x alpha-star is odd. "
+      "Toda Proposition 2.7 gives "
+      "H Delta(iota_17)=plus-or-minus "
+      "2 iota_15, so an integral "
+      "multiple of Delta(iota_17) "
+      "can be subtracted to define "
+      "sigma_8 with "
+      "H(sigma_8)=iota_15. "
+      "Since suspension kills the "
+      "Delta correction, "
+      "E sigma_8=x E alpha-star. "
+      "The source construction of "
+      "sigma-prime then gives "
+      "2 E sigma_8=E squared sigma-prime. "
+      "This rule records only the "
+      "sigma_8 branch of Toda "
+      "Lemma 5.14. "
+      "It does not derive "
+      "pi_15^8, the sigma-family, "
+      "pi_(n+7)^n, or equation (5.15)."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda36Lemma514SigmaDoublePrimeBridgeStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma514SigmaPrimeStatement
         ),
       ),
       PremisePattern(
