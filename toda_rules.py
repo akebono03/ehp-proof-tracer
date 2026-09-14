@@ -31,6 +31,8 @@ from homotopy_groups import (
   HomotopyGroup,
   PrimaryComponent,
   PrimaryComponentMembershipStatement,
+  StableHomotopyGroup,
+  StablePrimaryComponent,
   TodaDeltaMap,
   TodaEHPExactnessWindow,
   TodaHopfInvariantMap,
@@ -1079,6 +1081,123 @@ def toda_lemma45_n3_suspension_zero_reflection_inference_rule():
         statement_type=Relation,
         relation_type=(
           RelationType.ZERO
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_45_stable_two_primary_identification_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    source_group = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    if not isinstance(
+      source_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    group_dimension = (
+      source_group
+      .group_dimension
+    )
+
+    sphere_dimension = (
+      source_group
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      group_dimension,
+      int,
+    ):
+      return False
+
+    if not isinstance(
+      sphere_dimension,
+      int,
+    ):
+      return False
+
+    stem = (
+      group_dimension
+      - sphere_dimension
+    )
+
+    if (
+      stem
+      <= 0
+    ):
+      return False
+
+    return (
+      sphere_dimension
+      >= stem + 2
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    source_group = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    stem = (
+      source_group
+      .group_dimension
+      - source_group
+      .sphere_dimension
+    )
+
+    return (
+      Toda45StableTwoPrimaryIdentificationStatement(
+        source_group=source_group,
+        target_component=StablePrimaryComponent(
+          group=StableHomotopyGroup(
+            stem=stem,
+          ),
+          prime=2,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (4.5) stable "
+      "2-primary identification"
+    ),
+    description=(
+      "For a concrete Toda group "
+      "pi_(n+k)^n with positive stem k "
+      "in the stable range n>=k+2, "
+      "derive its Toda (4.5) stable "
+      "identification with the "
+      "2-primary component (G_k;2). "
+      "This rule records only the "
+      "finite-stage-to-stable group "
+      "identification. "
+      "It does not introduce an "
+      "E-infinity map object, transport "
+      "a generator or group structure, "
+      "handle G_0, or add symbolic "
+      "stable-range arithmetic."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaPrimaryGroup
         ),
       ),
     ),
@@ -32104,6 +32223,12 @@ class TodaSuspensionSurjectiveStatement:
 @dataclass(frozen=True)
 class Toda45IsomorphismStatement:
   map: TodaIteratedSuspensionMap
+
+
+@dataclass(frozen=True)
+class Toda45StableTwoPrimaryIdentificationStatement:
+  source_group: TodaPrimaryGroup
+  target_component: StablePrimaryComponent
 
 
 @dataclass(frozen=True)
