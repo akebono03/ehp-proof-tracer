@@ -8946,6 +8946,475 @@ def toda_lemma512_bracket_singleton_mod2_inference_rule():
 
 
 @dataclass(frozen=True)
+class TodaLemma512CoefficientStabilityStatement:
+  source_bracket: TodaBracket
+  target_bracket: TodaBracket
+  source_generator: Composition
+  target_generator: Composition
+  source_group: TodaPrimaryGroup
+  target_group: TodaPrimaryGroup
+  n_range: ScalarGreaterEqualStatement
+
+
+def toda_lemma512_coefficient_stability_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    singleton = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    n_range = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      singleton,
+      TodaLemma512BracketSingletonMod2Statement,
+    ):
+      return False
+
+    bracket = (
+      singleton.bracket
+    )
+
+    if not isinstance(
+      bracket,
+      TodaBracket,
+    ):
+      return False
+
+    if (
+      bracket.index
+      is not None
+    ):
+      return False
+
+    eta_n = bracket.first
+    nu_n_plus_one = bracket.second
+    eta_n_plus_four = bracket.third
+
+    if not isinstance(
+      eta_n,
+      HomotopyElement,
+    ):
+      return False
+
+    n = eta_n.dimension
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    n_plus_one = ScalarSum(
+      left=n,
+      right=1,
+    )
+
+    n_plus_three = ScalarSum(
+      left=n,
+      right=3,
+    )
+
+    n_plus_four = ScalarSum(
+      left=n,
+      right=4,
+    )
+
+    n_plus_five = ScalarSum(
+      left=n,
+      right=5,
+    )
+
+    n_plus_six = ScalarSum(
+      left=n,
+      right=6,
+    )
+
+    n_plus_seven = ScalarSum(
+      left=n,
+      right=7,
+    )
+
+    if (
+      eta_n.dimension
+      != n
+    ):
+      return False
+
+    if (
+      eta_n.source
+      != n_plus_one
+    ):
+      return False
+
+    if (
+      eta_n.target
+      != n
+    ):
+      return False
+
+    if (
+      eta_n.generator
+      != GeneratorSymbol(
+        family="η",
+        index=n,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      nu_n_plus_one,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      nu_n_plus_one.dimension
+      != n_plus_one
+    ):
+      return False
+
+    if (
+      nu_n_plus_one.source
+      != n_plus_four
+    ):
+      return False
+
+    if (
+      nu_n_plus_one.target
+      != n_plus_one
+    ):
+      return False
+
+    if (
+      nu_n_plus_one.generator
+      != GeneratorSymbol(
+        family="ν",
+        index=n_plus_one,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      eta_n_plus_four,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_n_plus_four.dimension
+      != n_plus_four
+    ):
+      return False
+
+    if (
+      eta_n_plus_four.source
+      != n_plus_five
+    ):
+      return False
+
+    if (
+      eta_n_plus_four.target
+      != n_plus_four
+    ):
+      return False
+
+    if (
+      eta_n_plus_four.generator
+      != GeneratorSymbol(
+        family="η",
+        index=n_plus_four,
+      )
+    ):
+      return False
+
+    if (
+      singleton.ambient_group
+      != TodaPrimaryGroup(
+        group_dimension=n_plus_six,
+        sphere_dimension=n,
+      )
+    ):
+      return False
+
+    source_generator = (
+      singleton.generator
+    )
+
+    if not isinstance(
+      source_generator,
+      Composition,
+    ):
+      return False
+
+    nu_n = source_generator.left
+    nu_n_plus_three = source_generator.right
+
+    expected_nu_n = (
+      toda_nu_family_definition_statement(
+        n
+      ).element
+    )
+
+    if (
+      nu_n
+      != expected_nu_n
+    ):
+      return False
+
+    if not isinstance(
+      nu_n_plus_three,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      nu_n_plus_three.dimension
+      != n_plus_three
+    ):
+      return False
+
+    if (
+      nu_n_plus_three.source
+      != n_plus_six
+    ):
+      return False
+
+    if (
+      nu_n_plus_three.target
+      != n_plus_three
+    ):
+      return False
+
+    if (
+      nu_n_plus_three.generator
+      != GeneratorSymbol(
+        family="ν",
+        index=n_plus_three,
+      )
+    ):
+      return False
+
+    if (
+      singleton.n_range
+      != ScalarGreaterEqualStatement(
+        left=n,
+        right=6,
+      )
+    ):
+      return False
+
+    if (
+      n_range
+      != ScalarGreaterEqualStatement(
+        left=n,
+        right=6,
+      )
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    singleton = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    n_range = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    source_bracket = (
+      singleton.bracket
+    )
+
+    n = (
+      source_bracket
+      .first
+      .dimension
+    )
+
+    n_plus_one = ScalarSum(
+      left=n,
+      right=1,
+    )
+
+    n_plus_two = ScalarSum(
+      left=n,
+      right=2,
+    )
+
+    n_plus_four = ScalarSum(
+      left=n,
+      right=4,
+    )
+
+    n_plus_five = ScalarSum(
+      left=n,
+      right=5,
+    )
+
+    n_plus_six = ScalarSum(
+      left=n,
+      right=6,
+    )
+
+    n_plus_seven = ScalarSum(
+      left=n,
+      right=7,
+    )
+
+    eta_n_plus_one = HomotopyElement(
+      name="η_(n+1)",
+      dimension=n_plus_one,
+      source=n_plus_two,
+      target=n_plus_one,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n_plus_one,
+      ),
+    )
+
+    nu_n_plus_two = HomotopyElement(
+      name="ν_(n+2)",
+      dimension=n_plus_two,
+      source=n_plus_five,
+      target=n_plus_two,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=n_plus_two,
+      ),
+    )
+
+    eta_n_plus_five = HomotopyElement(
+      name="η_(n+5)",
+      dimension=n_plus_five,
+      source=n_plus_six,
+      target=n_plus_five,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n_plus_five,
+      ),
+    )
+
+    target_bracket = TodaBracket(
+      first=eta_n_plus_one,
+      second=nu_n_plus_two,
+      third=eta_n_plus_five,
+    )
+
+    nu_n_plus_one = HomotopyElement(
+      name="ν_(n+1)",
+      dimension=n_plus_one,
+      source=n_plus_four,
+      target=n_plus_one,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=n_plus_one,
+      ),
+    )
+
+    nu_n_plus_four = HomotopyElement(
+      name="ν_(n+4)",
+      dimension=n_plus_four,
+      source=n_plus_seven,
+      target=n_plus_four,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=n_plus_four,
+      ),
+    )
+
+    target_generator = Composition(
+      left=nu_n_plus_one,
+      right=nu_n_plus_four,
+    )
+
+    return (
+      TodaLemma512CoefficientStabilityStatement(
+        source_bracket=source_bracket,
+        target_bracket=target_bracket,
+        source_generator=singleton.generator,
+        target_generator=target_generator,
+        source_group=singleton.ambient_group,
+        target_group=TodaPrimaryGroup(
+          group_dimension=n_plus_seven,
+          sphere_dimension=n_plus_one,
+        ),
+        n_range=n_range,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.12 "
+      "coefficient stability"
+    ),
+    description=(
+      "For the Toda Lemma 5.12 singleton "
+      "bracket at symbolic n>=6, "
+      "write its unique value as either "
+      "zero or nu_n squared. "
+      "Toda Proposition 1.3 suspends the "
+      "bracket into the corresponding "
+      "bracket one dimension higher, "
+      "and Toda equation (1.15) removes "
+      "the indexed-bracket presentation "
+      "needed in that suspension step. "
+      "The nu-family definition gives the "
+      "specific suspension consequence "
+      "E(nu_n squared)=nu_(n+1) squared. "
+      "Because the ambient six-stem groups "
+      "have order two, the minus sign in "
+      "Toda Proposition 1.3 is immaterial. "
+      "Therefore the zero/nonzero choice "
+      "for the singleton bracket is the "
+      "same at n and n+1. "
+      "Equivalently, if the unique value "
+      "is x_n nu_n squared with "
+      "x_n in {0,1}, then "
+      "x_n=x_(n+1). "
+      "No explicit coefficient symbol, "
+      "generic bracket-suspension engine, "
+      "generic suspension-of-composition "
+      "normalizer, generic sign solver, "
+      "or generic symbolic-index shift "
+      "framework is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma512BracketSingletonMod2Statement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+@dataclass(frozen=True)
 class Toda512DeltaInjectivityStatement:
   n4_injectivity: TodaDeltaInjectiveStatement
   n5_injectivity: TodaDeltaInjectiveStatement
