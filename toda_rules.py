@@ -9415,6 +9415,579 @@ def toda_lemma512_coefficient_stability_inference_rule():
 
 
 @dataclass(frozen=True)
+class TodaLemma512NonzeroAnchorStatement:
+  bracket: TodaBracket
+  generator: Composition
+  anchor_dimension: int
+
+
+def toda_lemma512_lemma55_n8_inclusion_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    nu_family = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    nu6_eta9_zero = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      nu_family,
+      Toda55NuFamilyFiniteDimensionalStatement,
+    ):
+      return False
+
+    definition = (
+      nu_family
+      .nu_family_definition
+    )
+
+    n = definition.index
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      definition
+      != toda_nu_family_definition_statement(
+        n
+      )
+    ):
+      return False
+
+    if (
+      nu_family.n_range
+      != ScalarGreaterEqualStatement(
+        left=n,
+        right=5,
+      )
+    ):
+      return False
+
+    nu_6 = (
+      toda_nu_family_definition_statement(
+        6
+      ).element
+    )
+
+    eta_9 = (
+      toda_eta_family_definition_statement(
+        9
+      ).element
+    )
+
+    expected_zero = Relation(
+      lhs=Composition(
+        left=nu_6,
+        right=eta_9,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+    return (
+      nu6_eta9_zero
+      == expected_zero
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    eta_8 = (
+      toda_eta_family_definition_statement(
+        8
+      ).element
+    )
+
+    nu_9 = (
+      toda_nu_family_definition_statement(
+        9
+      ).element
+    )
+
+    eta_12 = (
+      toda_eta_family_definition_statement(
+        12
+      ).element
+    )
+
+    nu_8 = (
+      toda_nu_family_definition_statement(
+        8
+      ).element
+    )
+
+    nu_11 = (
+      toda_nu_family_definition_statement(
+        11
+      ).element
+    )
+
+    nu8_squared = Composition(
+      left=nu_8,
+      right=nu_11,
+    )
+
+    return (
+      TodaLemma55BracketContainsUpToSignStatement(
+        bracket=TodaBracket(
+          first=eta_8,
+          second=nu_9,
+          third=eta_12,
+          index=3,
+        ),
+        positive_value=nu8_squared,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.12 "
+      "Lemma 5.5 n=8 inclusion"
+    ),
+    description=(
+      "Specialize Toda Lemma 5.5 with "
+      "m=6, t=7, and beta=nu_6. "
+      "The finite-dimensional nu-family "
+      "gives beta=nu_6 in pi_9(S^6), "
+      "and the independently derived "
+      "Phase 68 relation "
+      "nu_6 composed with eta_9=0 "
+      "supplies the zero-composition "
+      "hypothesis. "
+      "Lemma 5.5 therefore gives "
+      "{eta_8, E^3 nu_6, eta_12}_3 "
+      "containing plus or minus "
+      "(E^2 nu_6 composed with E^7 nu_4). "
+      "Using the concrete nu-family "
+      "definitions, this is "
+      "{eta_8, nu_9, eta_12}_3 "
+      "containing plus or minus "
+      "nu_8 squared. "
+      "No generic Lemma 5.5 "
+      "specialization engine, "
+      "iterated-suspension normalizer, "
+      "or shifted-family framework "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda55NuFamilyFiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma512_nonzero_anchor_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    lemma55_inclusion = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    singleton = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      lemma55_inclusion,
+      TodaLemma55BracketContainsUpToSignStatement,
+    ):
+      return False
+
+    indexed_bracket = (
+      lemma55_inclusion.bracket
+    )
+
+    eta_8 = (
+      toda_eta_family_definition_statement(
+        8
+      ).element
+    )
+
+    nu_9 = (
+      toda_nu_family_definition_statement(
+        9
+      ).element
+    )
+
+    eta_12 = (
+      toda_eta_family_definition_statement(
+        12
+      ).element
+    )
+
+    nu_8 = (
+      toda_nu_family_definition_statement(
+        8
+      ).element
+    )
+
+    nu_11 = (
+      toda_nu_family_definition_statement(
+        11
+      ).element
+    )
+
+    nu8_squared = Composition(
+      left=nu_8,
+      right=nu_11,
+    )
+
+    expected_indexed_bracket = TodaBracket(
+      first=eta_8,
+      second=nu_9,
+      third=eta_12,
+      index=3,
+    )
+
+    if (
+      indexed_bracket
+      != expected_indexed_bracket
+    ):
+      return False
+
+    if (
+      lemma55_inclusion.positive_value
+      != nu8_squared
+    ):
+      return False
+
+    if not isinstance(
+      singleton,
+      TodaLemma512BracketSingletonMod2Statement,
+    ):
+      return False
+
+    symbolic_bracket = singleton.bracket
+
+    if not isinstance(
+      symbolic_bracket,
+      TodaBracket,
+    ):
+      return False
+
+    if (
+      symbolic_bracket.index
+      is not None
+    ):
+      return False
+
+    eta_n = symbolic_bracket.first
+    nu_n_plus_one = symbolic_bracket.second
+    eta_n_plus_four = symbolic_bracket.third
+
+    if not isinstance(
+      eta_n,
+      HomotopyElement,
+    ):
+      return False
+
+    n = eta_n.dimension
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    n_plus_one = ScalarSum(
+      left=n,
+      right=1,
+    )
+
+    n_plus_three = ScalarSum(
+      left=n,
+      right=3,
+    )
+
+    n_plus_four = ScalarSum(
+      left=n,
+      right=4,
+    )
+
+    n_plus_five = ScalarSum(
+      left=n,
+      right=5,
+    )
+
+    n_plus_six = ScalarSum(
+      left=n,
+      right=6,
+    )
+
+    if (
+      eta_n.source
+      != n_plus_one
+    ):
+      return False
+
+    if (
+      eta_n.target
+      != n
+    ):
+      return False
+
+    if (
+      eta_n.generator
+      != GeneratorSymbol(
+        family="η",
+        index=n,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      nu_n_plus_one,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      nu_n_plus_one.dimension
+      != n_plus_one
+    ):
+      return False
+
+    if (
+      nu_n_plus_one.source
+      != n_plus_four
+    ):
+      return False
+
+    if (
+      nu_n_plus_one.target
+      != n_plus_one
+    ):
+      return False
+
+    if (
+      nu_n_plus_one.generator
+      != GeneratorSymbol(
+        family="ν",
+        index=n_plus_one,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      eta_n_plus_four,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_n_plus_four.dimension
+      != n_plus_four
+    ):
+      return False
+
+    if (
+      eta_n_plus_four.source
+      != n_plus_five
+    ):
+      return False
+
+    if (
+      eta_n_plus_four.target
+      != n_plus_four
+    ):
+      return False
+
+    if (
+      eta_n_plus_four.generator
+      != GeneratorSymbol(
+        family="η",
+        index=n_plus_four,
+      )
+    ):
+      return False
+
+    if (
+      singleton.ambient_group
+      != TodaPrimaryGroup(
+        group_dimension=n_plus_six,
+        sphere_dimension=n,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      singleton.generator,
+      Composition,
+    ):
+      return False
+
+    symbolic_nu_n = (
+      singleton.generator.left
+    )
+
+    symbolic_nu_n_plus_three = (
+      singleton.generator.right
+    )
+
+    if (
+      symbolic_nu_n
+      != toda_nu_family_definition_statement(
+        n
+      ).element
+    ):
+      return False
+
+    if not isinstance(
+      symbolic_nu_n_plus_three,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      symbolic_nu_n_plus_three.dimension
+      != n_plus_three
+    ):
+      return False
+
+    if (
+      symbolic_nu_n_plus_three.source
+      != n_plus_six
+    ):
+      return False
+
+    if (
+      symbolic_nu_n_plus_three.target
+      != n_plus_three
+    ):
+      return False
+
+    if (
+      symbolic_nu_n_plus_three.generator
+      != GeneratorSymbol(
+        family="ν",
+        index=n_plus_three,
+      )
+    ):
+      return False
+
+    return (
+      singleton.n_range
+      == ScalarGreaterEqualStatement(
+        left=n,
+        right=6,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    lemma55_inclusion = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    indexed_bracket = (
+      lemma55_inclusion.bracket
+    )
+
+    ordinary_bracket = TodaBracket(
+      first=indexed_bracket.first,
+      second=indexed_bracket.second,
+      third=indexed_bracket.third,
+    )
+
+    return (
+      TodaLemma512NonzeroAnchorStatement(
+        bracket=ordinary_bracket,
+        generator=(
+          lemma55_inclusion
+          .positive_value
+        ),
+        anchor_dimension=8,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.12 "
+      "nonzero anchor at n=8"
+    ),
+    description=(
+      "The specialized Toda Lemma 5.5 "
+      "statement gives the indexed "
+      "bracket "
+      "{eta_8, nu_9, eta_12}_3 "
+      "containing plus or minus "
+      "nu_8 squared. "
+      "Toda equation (1.15), specialized "
+      "from index 3 to the ordinary "
+      "bracket, carries this member into "
+      "{eta_8, nu_9, eta_12}. "
+      "Phase 74-5 independently shows "
+      "that every Lemma 5.12 bracket "
+      "for n>=6 is a singleton whose "
+      "only possible values are zero "
+      "and nu_n squared. "
+      "At n=8 the bracket contains "
+      "nu_8 squared, so the singleton "
+      "cannot be zero. "
+      "Because nu_8 squared generates "
+      "an order-two group, the sign is "
+      "irrelevant. "
+      "Therefore the n=8 bracket has "
+      "the unique nonzero value "
+      "nu_8 squared. "
+      "No generic indexed-bracket "
+      "inclusion framework, sign solver, "
+      "or singleton membership algebra "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma55BracketContainsUpToSignStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma512BracketSingletonMod2Statement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+@dataclass(frozen=True)
 class Toda512DeltaInjectivityStatement:
   n4_injectivity: TodaDeltaInjectiveStatement
   n5_injectivity: TodaDeltaInjectiveStatement
