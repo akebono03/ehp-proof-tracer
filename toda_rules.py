@@ -46736,6 +46736,18 @@ class Toda36Lemma516FirstBracketTermStatement:
   bracket: TodaBracket
 
 
+@dataclass(frozen=True)
+class Toda36Lemma516SecondBracketTermStatement:
+  alpha_star: HomotopyElement
+  alpha_star_membership: HomotopyGroupMembershipStatement
+  beta: HomotopyElement
+  t: ScalarSymbol
+  m: ScalarSymbol
+  composed_value: Composition
+  coefficient: ScalarPower
+  bracket: TodaBracket
+
+
 def toda_lemma516_typed_setup_statement(
   beta_membership,
   beta_nu_zero_relation,
@@ -47300,6 +47312,320 @@ def toda_36_lemma516_first_bracket_term_inference_rule():
       "The second bracket term and the "
       "sum containment remain for later "
       "Phase 77 steps. "
+      "No generic sum-of-brackets algebra "
+      "or generic Theorem 3.6 engine "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda36Lemma514SigmaDoublePrimeBridgeStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaLemma516TypedSetupStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_36_lemma516_second_bracket_term_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    theorem36 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    setup = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      theorem36,
+      Toda36Lemma514SigmaDoublePrimeBridgeStatement,
+    ):
+      return False
+
+    if not isinstance(
+      setup,
+      TodaLemma516TypedSetupStatement,
+    ):
+      return False
+
+    alpha_star = (
+      theorem36
+      .alpha_star
+    )
+
+    expected_alpha_star_membership = (
+      HomotopyGroupMembershipStatement(
+        element=alpha_star,
+        group_dimension=15,
+        sphere_dimension=8,
+      )
+    )
+
+    if (
+      theorem36
+      .alpha_star_membership
+      != expected_alpha_star_membership
+    ):
+      return False
+
+    if (
+      alpha_star.source
+      != 15
+    ):
+      return False
+
+    if (
+      alpha_star.target
+      != 8
+    ):
+      return False
+
+    nu4 = (
+      theorem36
+      .nu4
+    )
+
+    if not isinstance(
+      nu4,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      nu4.source
+      != 7
+    ):
+      return False
+
+    if (
+      nu4.target
+      != 4
+    ):
+      return False
+
+    if (
+      nu4.generator
+      != GeneratorSymbol(
+        family="ν",
+        index=4,
+      )
+    ):
+      return False
+
+    beta = setup.beta
+
+    if not isinstance(
+      beta,
+      HomotopyElement,
+    ):
+      return False
+
+    t = setup.t
+    m = setup.m
+
+    if not isinstance(
+      t,
+      ScalarSymbol,
+    ):
+      return False
+
+    if not isinstance(
+      m,
+      ScalarSymbol,
+    ):
+      return False
+
+    expected_beta_membership = (
+      HomotopyGroupMembershipStatement(
+        element=beta,
+        group_dimension=ScalarSum(
+          left=t,
+          right=4,
+        ),
+        sphere_dimension=m,
+      )
+    )
+
+    if (
+      setup.beta_membership
+      != expected_beta_membership
+    ):
+      return False
+
+    if (
+      setup.t_range
+      != ScalarGreaterEqualStatement(
+        left=t,
+        right=1,
+      )
+    ):
+      return False
+
+    expected_e4_beta = (
+      IteratedSuspension(
+        expression=beta,
+        exponent=4,
+      )
+    )
+
+    if (
+      setup.e4_beta
+      != expected_e4_beta
+    ):
+      return False
+
+    t_plus_8 = ScalarSum(
+      left=t,
+      right=8,
+    )
+
+    t_plus_11 = ScalarSum(
+      left=t,
+      right=11,
+    )
+
+    t_plus_14 = ScalarSum(
+      left=t,
+      right=14,
+    )
+
+    nu_t_plus_8 = HomotopyElement(
+      name="ν_(t+8)",
+      dimension=t_plus_8,
+      source=t_plus_11,
+      target=t_plus_8,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=t_plus_8,
+      ),
+    )
+
+    nu_t_plus_11 = HomotopyElement(
+      name="ν_(t+11)",
+      dimension=t_plus_11,
+      source=t_plus_14,
+      target=t_plus_11,
+      generator=GeneratorSymbol(
+        family="ν",
+        index=t_plus_11,
+      ),
+    )
+
+    expected_second_bracket = TodaBracket(
+      first=expected_e4_beta,
+      second=nu_t_plus_8,
+      third=Multiple(
+        coefficient=2,
+        expression=nu_t_plus_11,
+      ),
+      index=ScalarSum(
+        left=t,
+        right=3,
+      ),
+    )
+
+    return (
+      setup.second_bracket
+      == expected_second_bracket
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    theorem36 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    setup = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    alpha_star = (
+      theorem36
+      .alpha_star
+    )
+
+    et_alpha_star = (
+      IteratedSuspension(
+        expression=alpha_star,
+        exponent=setup.t,
+      )
+    )
+
+    composed_value = Composition(
+      left=setup.e4_beta,
+      right=et_alpha_star,
+    )
+
+    coefficient = ScalarPower(
+      base=-1,
+      exponent=setup.t,
+    )
+
+    return (
+      Toda36Lemma516SecondBracketTermStatement(
+        alpha_star=alpha_star,
+        alpha_star_membership=(
+          theorem36
+          .alpha_star_membership
+        ),
+        beta=setup.beta,
+        t=setup.t,
+        m=setup.m,
+        composed_value=composed_value,
+        coefficient=coefficient,
+        bracket=setup.second_bracket,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Theorem 3.6 "
+      "Lemma 5.16 second bracket term"
+    ),
+    description=(
+      "Reuse the independently derived "
+      "Toda Lemma 5.14 Theorem 3.6 "
+      "alpha-star in pi_15(S^8), "
+      "together with the typed "
+      "Toda Lemma 5.16 hypotheses. "
+      "Record the second summand appearing "
+      "in the Theorem 3.6 consequence: "
+      "the composed value "
+      "E^4 beta composed with "
+      "E^t alpha-star, and the second "
+      "bracket term "
+      "(-1)^t "
+      "{E^4 beta, nu_(t+8), "
+      "2 nu_(t+11)}_(t+3). "
+      "This statement does not assert "
+      "that the composed value belongs "
+      "to the second bracket alone. "
+      "Theorem 3.6 gives containment "
+      "only in the sum of the first and "
+      "second bracket terms. "
+      "The sum containment remains for "
+      "the next Phase 77 step. "
       "No generic sum-of-brackets algebra "
       "or generic Theorem 3.6 engine "
       "is introduced."
