@@ -46179,6 +46179,242 @@ def toda_516_sigma8_suspension_kernel_inference_rule():
   )
 
 
+def toda_516_concrete_delta_e_exactness_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    window = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    expected_window = (
+      TodaEHPExactnessWindow(
+        source_term=TodaPrimaryGroup(
+          group_dimension=17,
+          sphere_dimension=17,
+        ),
+        middle_term=TodaPrimaryGroup(
+          group_dimension=15,
+          sphere_dimension=8,
+        ),
+        target_term=TodaPrimaryGroup(
+          group_dimension=16,
+          sphere_dimension=9,
+        ),
+        first_map=EHP_DELTA_MAP,
+        second_map=EHP_E_MAP,
+      )
+    )
+
+    return (
+      window
+      == expected_window
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    window = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return (
+      TodaProp42ExactnessStatement(
+        window=window,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (5.16) concrete "
+      "Delta-E exactness"
+    ),
+    description=(
+      "Recognize the concrete Toda "
+      "Proposition 4.2 Delta-E exactness "
+      "window "
+      "pi_17^17 -> pi_15^8 -> pi_16^9 "
+      "used in Toda equation (5.16). "
+      "The structural EHP window remains "
+      "a GIVEN premise, while exactness "
+      "is derived as theorem knowledge. "
+      "This narrow concrete bridge avoids "
+      "changing the existing symbolic "
+      "Toda Proposition 4.2 Delta-E rule."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaEHPExactnessWindow
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_516_exactness_kernel_to_delta_image_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    suspension_kernel = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    window = (
+      exactness
+      .window
+    )
+
+    expected_source = (
+      TodaPrimaryGroup(
+        group_dimension=17,
+        sphere_dimension=17,
+      )
+    )
+
+    expected_middle = (
+      TodaPrimaryGroup(
+        group_dimension=15,
+        sphere_dimension=8,
+      )
+    )
+
+    expected_target = (
+      TodaPrimaryGroup(
+        group_dimension=16,
+        sphere_dimension=9,
+      )
+    )
+
+    expected_window = (
+      TodaEHPExactnessWindow(
+        source_term=expected_source,
+        middle_term=expected_middle,
+        target_term=expected_target,
+        first_map=EHP_DELTA_MAP,
+        second_map=EHP_E_MAP,
+      )
+    )
+
+    if (
+      window
+      != expected_window
+    ):
+      return False
+
+    expected_suspension_map = (
+      TodaSuspensionMap(
+        source_group=expected_middle,
+        target_group=expected_target,
+      )
+    )
+
+    if (
+      suspension_kernel.map
+      != expected_suspension_map
+    ):
+      return False
+
+    return isinstance(
+      suspension_kernel.kernel_group,
+      FreeCyclicGroup,
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    suspension_kernel = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    exactness = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    window = (
+      exactness
+      .window
+    )
+
+    return (
+      TodaDeltaImageFreeCyclicStatement(
+        map=TodaDeltaMap(
+          source_group=(
+            window
+            .source_term
+          ),
+          target_group=(
+            window
+            .middle_term
+          ),
+        ),
+        image_group=(
+          suspension_kernel
+          .kernel_group
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (5.16) exactness "
+      "kernel to Delta image"
+    ),
+    description=(
+      "For the concrete exact sequence "
+      "pi_17^17 -> pi_15^8 -> pi_16^9 "
+      "with Delta followed by suspension E, "
+      "exactness identifies Im(Delta) "
+      "with Ker(E). "
+      "Using the independently derived "
+      "Phase 76-2 suspension kernel "
+      "Z{2 sigma_8 - E sigma-prime}, "
+      "derive that the image of Delta "
+      "is the same free cyclic subgroup. "
+      "This rule is limited to Toda (5.16) "
+      "and does not introduce a generic "
+      "exactness-to-image solver."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaSuspensionKernelFreeCyclicStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp42ExactnessStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_prop515_finite_dimensional_literature_statements():
   toda_reference = {
     "author": "H. Toda",
