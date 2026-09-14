@@ -46697,6 +46697,293 @@ def toda_516_delta_iota17_generator_inference_rule():
   )
 
 
+@dataclass(frozen=True)
+class TodaLemma516TypedSetupStatement:
+  beta: HomotopyElement
+  beta_membership: HomotopyGroupMembershipStatement
+  beta_nu_zero_relation: Relation
+  t_range: ScalarGreaterEqualStatement
+  m: ScalarSymbol
+  t: ScalarSymbol
+  e4_beta: IteratedSuspension
+  e4_beta_membership: HomotopyGroupMembershipStatement
+  e7_beta: IteratedSuspension
+  e7_beta_membership: HomotopyGroupMembershipStatement
+  first_bracket: TodaBracket
+  second_bracket: TodaBracket
+
+
+@dataclass(frozen=True)
+class TodaLemma516BracketSumContainmentStatement:
+  element: Expression
+  first_coefficient: ScalarProduct
+  first_bracket: TodaBracket
+  second_coefficient: ScalarProduct
+  second_bracket: TodaBracket
+  odd_parameter: ScalarSymbol
+  odd_parameter_statement: OddScalarStatement
+
+
+def toda_lemma516_typed_setup_statement(
+  beta_membership,
+  beta_nu_zero_relation,
+  t_range,
+):
+  if not isinstance(
+    beta_membership,
+    HomotopyGroupMembershipStatement,
+  ):
+    raise TypeError(
+      "beta_membership must be a "
+      "HomotopyGroupMembershipStatement"
+    )
+
+  beta = (
+    beta_membership
+    .element
+  )
+
+  if not isinstance(
+    beta,
+    HomotopyElement,
+  ):
+    raise TypeError(
+      "beta must be a HomotopyElement"
+    )
+
+  group_dimension = (
+    beta_membership
+    .group_dimension
+  )
+
+  if not isinstance(
+    group_dimension,
+    ScalarSum,
+  ):
+    raise ValueError(
+      "beta group dimension must have "
+      "the structural form t+4"
+    )
+
+  t = (
+    group_dimension
+    .left
+  )
+
+  if not isinstance(
+    t,
+    ScalarSymbol,
+  ):
+    raise ValueError(
+      "t must be a ScalarSymbol"
+    )
+
+  if (
+    group_dimension
+    != ScalarSum(
+      left=t,
+      right=4,
+    )
+  ):
+    raise ValueError(
+      "beta membership must be "
+      "beta in pi_(t+4)(S^m)"
+    )
+
+  m = (
+    beta_membership
+    .sphere_dimension
+  )
+
+  if not isinstance(
+    m,
+    ScalarSymbol,
+  ):
+    raise ValueError(
+      "m must be a ScalarSymbol"
+    )
+
+  expected_t_range = (
+    ScalarGreaterEqualStatement(
+      left=t,
+      right=1,
+    )
+  )
+
+  if (
+    t_range
+    != expected_t_range
+  ):
+    raise ValueError(
+      "Toda Lemma 5.16 requires t>0, "
+      "represented as t>=1"
+    )
+
+  t_plus_4 = ScalarSum(
+    left=t,
+    right=4,
+  )
+
+  t_plus_7 = ScalarSum(
+    left=t,
+    right=7,
+  )
+
+  t_plus_8 = ScalarSum(
+    left=t,
+    right=8,
+  )
+
+  t_plus_11 = ScalarSum(
+    left=t,
+    right=11,
+  )
+
+  t_plus_14 = ScalarSum(
+    left=t,
+    right=14,
+  )
+
+  m_plus_4 = ScalarSum(
+    left=m,
+    right=4,
+  )
+
+  m_plus_7 = ScalarSum(
+    left=m,
+    right=7,
+  )
+
+  nu_t_plus_4 = HomotopyElement(
+    name="ν_(t+4)",
+    dimension=t_plus_4,
+    source=t_plus_7,
+    target=t_plus_4,
+    generator=GeneratorSymbol(
+      family="ν",
+      index=t_plus_4,
+    ),
+  )
+
+  expected_beta_nu_zero = Relation(
+    lhs=Composition(
+      left=beta,
+      right=nu_t_plus_4,
+    ),
+    rhs=Zero(),
+    relation_type=RelationType.ZERO,
+  )
+
+  if (
+    beta_nu_zero_relation
+    != expected_beta_nu_zero
+  ):
+    raise ValueError(
+      "beta_nu_zero_relation must be "
+      "beta composed with nu_(t+4)=0"
+    )
+
+  e4_beta = IteratedSuspension(
+    expression=beta,
+    exponent=4,
+  )
+
+  e7_beta = IteratedSuspension(
+    expression=beta,
+    exponent=7,
+  )
+
+  e4_beta_membership = (
+    HomotopyGroupMembershipStatement(
+      element=e4_beta,
+      group_dimension=t_plus_8,
+      sphere_dimension=m_plus_4,
+    )
+  )
+
+  e7_beta_membership = (
+    HomotopyGroupMembershipStatement(
+      element=e7_beta,
+      group_dimension=t_plus_11,
+      sphere_dimension=m_plus_7,
+    )
+  )
+
+  nu_m_plus_4 = HomotopyElement(
+    name="ν_(m+4)",
+    dimension=m_plus_4,
+    source=m_plus_7,
+    target=m_plus_4,
+    generator=GeneratorSymbol(
+      family="ν",
+      index=m_plus_4,
+    ),
+  )
+
+  nu_t_plus_8 = HomotopyElement(
+    name="ν_(t+8)",
+    dimension=t_plus_8,
+    source=t_plus_11,
+    target=t_plus_8,
+    generator=GeneratorSymbol(
+      family="ν",
+      index=t_plus_8,
+    ),
+  )
+
+  nu_t_plus_11 = HomotopyElement(
+    name="ν_(t+11)",
+    dimension=t_plus_11,
+    source=t_plus_14,
+    target=t_plus_11,
+    generator=GeneratorSymbol(
+      family="ν",
+      index=t_plus_11,
+    ),
+  )
+
+  first_bracket = TodaBracket(
+    first=nu_m_plus_4,
+    second=e7_beta,
+    third=nu_t_plus_11,
+    index=7,
+  )
+
+  second_bracket = TodaBracket(
+    first=e4_beta,
+    second=nu_t_plus_8,
+    third=Multiple(
+      coefficient=2,
+      expression=nu_t_plus_11,
+    ),
+    index=ScalarSum(
+      left=t,
+      right=3,
+    ),
+  )
+
+  return TodaLemma516TypedSetupStatement(
+    beta=beta,
+    beta_membership=beta_membership,
+    beta_nu_zero_relation=(
+      beta_nu_zero_relation
+    ),
+    t_range=t_range,
+    m=m,
+    t=t,
+    e4_beta=e4_beta,
+    e4_beta_membership=(
+      e4_beta_membership
+    ),
+    e7_beta=e7_beta,
+    e7_beta_membership=(
+      e7_beta_membership
+    ),
+    first_bracket=first_bracket,
+    second_bracket=second_bracket,
+  )
+
+
 def toda_prop515_finite_dimensional_literature_statements():
   toda_reference = {
     "author": "H. Toda",
