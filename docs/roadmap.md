@@ -873,3 +873,103 @@ stable homotopy-group model
 automatic proof narrative generation
 persistent Proof Repository
 ```
+
+
+---
+
+# 18. Phase 76 completion / Phase 77 boundary
+
+Phase 76 is COMPLETE.
+
+Completed Toda Equation (5.16):
+
+```text
+Ker(E:π_15^8→π_16^9)
+=
+Z{2σ₈-Eσ'}
+
+Im(Δ:π_17^17→π_15^8)
+=
+Z{2σ₈-Eσ'}
+
+π_17^17=Z{ι₁₇}
+
+Δ(ι₁₇)
+=
+±(2σ₈-Eσ')
+```
+
+completion spine:
+
+```text
+source / dependency / representation audit
+concrete mixed kernel calculation
+concrete Proposition 4.2 Delta-E exactness
+Ker E -> Im Delta bridge
+π_17^17 diagonal free-cyclic fact
+Delta generator up-to-sign consequence
+applicability / provenance / non-circularity regression
+representative probe
+formal proof record 11
+```
+
+pre-probe full regression:
+
+```text
+6117 passed in 109.84s
+```
+
+## Next mathematical Phase
+
+The source statement immediately after Toda (5.16) is:
+
+```text
+Toda Lemma 5.16
+```
+
+Source target:
+
+```text
+t>0
+
+β∈π_(t+4)(S^m)
+
+β∘ν_(t+4)=0
+```
+
+implies that for some odd integer `x`:
+
+```text
+E^4β∘σ_(t+8)
+∈
+(-1)^m x
+{ν_(m+4), E^nβ, ν_(t+11)}_7
+
++
+(-1)^t x
+{E^4β, ν_(t+8), 2ν_(t+11)}_(t+3).
+```
+
+Before implementation, Phase 77 should verify:
+
+```text
+exact source indices
+the apparent E^nβ index in the first bracket
+Toda-bracket typing
+sum of two bracket-valued terms
+odd coefficient representation
+dependencies on Lemma 5.14 / σ₈ definition / Theorem 3.6
+current representation compatibility
+```
+
+Do not preemptively add:
+
+```text
+generic sum-of-Toda-brackets algebra
+generic odd-integer existential solver
+generic sign algebra
+generic coefficient solver
+stable homotopy-group model
+automatic proof narrative generation
+persistent Proof Repository
+```
