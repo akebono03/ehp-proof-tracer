@@ -5677,3 +5677,593 @@ This record is the human-reviewed golden reference for Toda Lemma 5.12 at Phase 
 formal record は9件。
 
 stable homotopy branch は引き続き deferred。
+
+---
+
+# 22. Toda Proposition 5.15 finite-dimensional
+
+## 22.1 Source / theorem
+
+```text
+H. Toda
+Composition Methods in Homotopy Groups of Spheres
+1962
+Proposition 5.15
+```
+
+Phase 75 で正式記録するのは finite-dimensional part:
+
+```text
+π_9^2=0
+π_10^3=0
+π_11^4=0
+π_12^5=Z/2{σ'''}
+π_13^6=Z/4{σ''}
+π_14^7=Z/8{σ'}
+π_15^8=Z{σ₈}⊕Z/8{Eσ'}
+π_(n+7)^n=Z/16{σ_n}, n≥9
+```
+
+stable:
+
+```text
+(G_7;2)=Z/16{σ}
+```
+
+は record 対象外。
+
+---
+
+## 22.2 Result
+
+final aggregate:
+
+```text
+TodaProp515FiniteDimensionalStatement
+ProofRule.INFERENCE
+```
+
+保持:
+
+```text
+pi9_2_zero
+pi10_3_zero
+pi11_4_zero
+pi12_5_group_relation
+pi13_6_group_relation
+pi14_7_group_relation
+pi15_8_group_relation
+higher_seven_stem_group_relation
+higher_range
+literature_statements
+```
+
+---
+
+## 22.3 Upstream results
+
+主要 upstream:
+
+```text
+Phase 56
+Toda (5.2)
+
+Phase 62
+ν-family / Toda (5.5)
+
+Phase 68
+Proposition 5.8
+
+Phase 73
+Proposition 5.11
+
+Phase 74
+Lemma 5.12
+
+Phase 75 internal:
+Lemma 5.13
+Lemma 5.14
+Toda (5.14)
+Toda (5.15)
+Proposition 4.4
+Toda (4.5)
+```
+
+---
+
+## 22.4 Low zero branches
+
+Phase 73 gives:
+
+```text
+π_9^3=0.
+```
+
+Toda (5.2):
+
+```text
+η₂∘-:π_9^3≅π_9^2
+```
+
+therefore:
+
+```text
+π_9^2=0.
+```
+
+Concrete EHP exactness consequences then yield:
+
+```text
+π_10^3=0
+π_11^4=0.
+```
+
+All three final zero statements are `INFERENCE`.
+
+---
+
+## 22.5 π_12^5 and σ'''
+
+Toda Lemma 5.13 selects:
+
+```text
+σ'''∈π_12^5
+```
+
+with the required Hopf-image relation.
+
+Using the concrete Hopf isomorphism / order-two target branch, Phase 75 derives:
+
+```text
+π_12^5=Z/2{σ'''}.
+```
+
+---
+
+## 22.6 π_13^6 and σ''
+
+Toda (5.14) first short exact sequence:
+
+```text
+0→π_12^5→π_13^6→π_13^11→0.
+```
+
+Lemma 5.14 gives:
+
+```text
+2σ''=Eσ'''.
+```
+
+Since `σ'''` has order two and its suspension is nonzero in the required injection branch:
+
+```text
+ord(σ'')=4.
+```
+
+Together with the quotient generator relation:
+
+```text
+π_13^6=Z/4{σ''}.
+```
+
+---
+
+## 22.7 π_14^7 and σ'
+
+Toda (5.14) second short exact sequence:
+
+```text
+0→π_13^6→π_14^7→π_14^13→0.
+```
+
+Lemma 5.14 gives:
+
+```text
+2σ'=Eσ''.
+```
+
+The kernel generator has order four and the quotient has order two, so the derived σ' has order eight and generates:
+
+```text
+π_14^7=Z/8{σ'}.
+```
+
+No generic extension-classification solver is introduced.
+
+---
+
+## 22.8 σ₈
+
+Toda Lemma 5.14 constructs:
+
+```text
+σ₈∈π_15^8
+H(σ₈)=ι₁₅
+2Eσ₈=E²σ'.
+```
+
+The family definition is:
+
+```text
+σ_n:=E^(n-8)σ₈
+(n≥8).
+```
+
+---
+
+## 22.9 n≥9 branch
+
+Phase 75 derives the anchor:
+
+```text
+π_16^9=Z/16{σ₉}.
+```
+
+Toda (4.5) transports it:
+
+```text
+E^(n-9):
+π_16^9
+≅
+π_(n+7)^n.
+```
+
+The family bridge identifies the transported generator with `σ_n`, giving:
+
+```text
+π_(n+7)^n=Z/16{σ_n}
+(n≥9).
+```
+
+---
+
+## 22.10 n=8 critical branch / Toda (5.15)
+
+`n=8` is handled separately because:
+
+```text
+15=2*8-1.
+```
+
+The derived Hopf relation:
+
+```text
+H(σ₈)=ι₁₅
+```
+
+specializes Proposition 4.4 to:
+
+```text
+π_14^7⊕π_15^15
+≅
+π_15^8
+
+(α,β)
+↦
+Eα+σ₈∘β.
+```
+
+The source groups are:
+
+```text
+π_14^7=Z/8{σ'}
+π_15^15=Z{ι₁₅}.
+```
+
+Generator images:
+
+```text
+σ'   ↦ Eσ'
+ι₁₅ ↦ σ₈.
+```
+
+Thus the source-order transported group is:
+
+```text
+Z/8{Eσ'}⊕Z{σ₈}.
+```
+
+After the theorem-specific reorder:
+
+```text
+π_15^8
+=
+Z{σ₈}
+⊕
+Z/8{Eσ'}.
+```
+
+---
+
+## 22.11 Proof-style derivation
+
+```text
+[1] low zero branches
+
+π_9^3=0
++
+Toda (5.2)
+↓
+π_9^2=0
+↓ concrete EHP exactness
+π_10^3=0
+↓
+π_11^4=0
+
+
+[2] σ'''
+
+Toda Lemma 5.13
+↓
+σ'''∈π_12^5
+↓ Hopf/order-two calculation
+π_12^5=Z/2{σ'''}
+
+
+[3] σ''
+
+0→π_12^5→π_13^6→π_13^11→0
++
+2σ''=Eσ'''
+↓
+π_13^6=Z/4{σ''}
+
+
+[4] σ'
+
+0→π_13^6→π_14^7→π_14^13→0
++
+2σ'=Eσ''
+↓
+π_14^7=Z/8{σ'}
+
+
+[5] σ₈ / family
+
+H(σ₈)=ι₁₅
+2Eσ₈=E²σ'
+
+σ_n:=E^(n-8)σ₈
+
+
+[6] n=8
+
+π_14^7⊕π_15^15≅π_15^8
+(α,β)↦Eα+σ₈β
+
+σ'↦Eσ'
+ι₁₅↦σ₈
+↓
+π_15^8=Z{σ₈}⊕Z/8{Eσ'}
+
+
+[7] n≥9
+
+π_16^9=Z/16{σ₉}
+↓ Toda (4.5)
+π_(n+7)^n=Z/16{σ_n}
+
+
+[8] integration
+
+all finite-dimensional branches
+↓
+TodaProp515FiniteDimensionalStatement
+```
+
+This is the human-reviewed proof-style presentation; the current probe does not automatically generate it from the `ProofStep` graph.
+
+---
+
+## 22.12 Machine provenance
+
+Direct aggregate premises:
+
+```text
+π_9^2 result                   INFERENCE
+π_10^3 result                  INFERENCE
+π_11^4 result                  INFERENCE
+π_12^5 result                  INFERENCE
+π_13^6 result                  INFERENCE
+π_14^7 result                  INFERENCE
+π_15^8 result                  INFERENCE
+π_(n+7)^n result               INFERENCE
+n≥9 scope                      GIVEN
+```
+
+Final:
+
+```text
+TodaProp515FiniteDimensionalStatement
+INFERENCE
+```
+
+The final theorem result is not reintroduced as `GIVEN`.
+
+---
+
+## 22.13 Object provenance boundary
+
+The Phase 75-9 builder reuses the existing nested object graph.
+
+For the low zero branches:
+
+```text
+phase75_5
+└─ phase75_4
+   └─ phase75_3
+```
+
+The exact upstream `ProofStep` objects are reused.
+
+This avoids creating structurally equal but provenance-distinct replacement steps.
+
+The `n=8` branch similarly preserves the same `σ₈` and `Eσ'` objects through the transported decomposition and final relation.
+
+---
+
+## 22.14 GIVEN / INFERENCE boundary
+
+GIVEN:
+
+```text
+n≥9 symbolic scope
+structural Proposition 4.4 decomposition map
+foundational π_15^15=Z{ι₁₅}
+structural exactness windows where required
+```
+
+INFERENCE:
+
+```text
+all eight final mathematical group branches
+σ-element theorem statements
+Proposition 4.4 n=8 specialization
+n=8 decomposition isomorphism
+source generator transport
+π_15^8 final relation
+n≥9 Z/16 transport
+TodaProp515FiniteDimensionalStatement
+```
+
+---
+
+## 22.15 Representation boundary
+
+Phase 75 does not add:
+
+```text
+generic direct-sum commutativity
+generic group-extension classifier
+generic cyclic-generator transport
+generic exact-order solver
+generic mixed free/torsion map solver
+generic symbolic normalization
+stable homotopy-group model
+```
+
+`π_15^8` remains:
+
+```text
+DirectSumGroup(
+  FreeCyclicGroup(σ₈),
+  FiniteCyclicGroup(8,Eσ'),
+)
+```
+
+and the critical Toda-(4.3) semantics remain distinct from ordinary 2-primary group semantics.
+
+---
+
+## 22.16 Literature
+
+Direct aggregate metadata:
+
+```text
+Label:
+  Toda Proposition 5.15
+
+Locator:
+  Proposition 5.15
+
+Author:
+  H. Toda
+
+Title:
+  Composition Methods in Homotopy Groups of Spheres
+
+Year:
+  1962
+```
+
+The stable `(G_7;2)` clause is explicitly excluded from the finite-dimensional aggregate.
+
+---
+
+## 22.17 Representative probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase75_capabilities
+```
+
+probe sections:
+
+```text
+Toda Proposition 5.15 finite-dimensional result
+Proof-style derivation
+Provenance / integration
+Representation / completion boundary
+Literature statements used
+Phase 75 representative probe boundary
+```
+
+The probe reuses `build_phase75_9_data()` and adds no theorem semantics.
+
+---
+
+## 22.18 Regression status
+
+Before adding the Phase 75 representative probe:
+
+```text
+tests/test_phase75_prop515_integration.py
+22 passed in 5.18s
+```
+
+repository-wide:
+
+```text
+5991 passed in 114.31s
+```
+
+The run was performed on a different development PC than several earlier ~30-second full regressions, so the test count is the cross-machine comparison signal.
+
+---
+
+## 22.19 Completion status
+
+Phase 75 finite-dimensional mathematics is COMPLETE.
+
+verified result:
+
+```text
+π_9^2=0
+π_10^3=0
+π_11^4=0
+π_12^5=Z/2{σ'''}
+π_13^6=Z/4{σ''}
+π_14^7=Z/8{σ'}
+π_15^8=Z{σ₈}⊕Z/8{Eσ'}
+π_(n+7)^n=Z/16{σ_n}, n≥9
+```
+
+Next:
+
+```text
+Toda (5.16)
+```
+
+The formal proof-record corpus now contains 10 records.
+
+---
+
+# 23. Current proof-record status
+
+Formal curated records:
+
+```text
+1  Phase 66   Toda Equation (5.8)
+2  Phase 67   Toda Lemma 5.7
+3  Phase 68   Toda Proposition 5.8
+4  Phase 69   Toda Equation (5.10)
+5  Phase 70   Toda Proposition 5.9
+6  Phase 71   Toda Equation (5.12)
+7  Phase 72R  Toda Lemma 5.10 canonical revision
+8  Phase 73   Toda Proposition 5.11 finite-dimensional
+9  Phase 74   Toda Lemma 5.12
+10 Phase 75   Toda Proposition 5.15 finite-dimensional
+```
+
+Stable homotopy results remain deferred.

@@ -782,3 +782,94 @@ generic induction engine
 automatic proof narrative generation
 persistent Proof Repository
 ```
+
+---
+
+# 17. Phase 75 completion / next boundary
+
+Phase 75 is COMPLETE.
+
+Completed finite-dimensional Proposition 5.15:
+
+```text
+π_9^2=0
+π_10^3=0
+π_11^4=0
+π_12^5=Z/2{σ'''}
+π_13^6=Z/4{σ''}
+π_14^7=Z/8{σ'}
+π_15^8=Z{σ₈}⊕Z/8{Eσ'}
+π_(n+7)^n=Z/16{σ_n}, n≥9
+```
+
+completion spine:
+
+```text
+low zero branches
+Lemma 5.13 σ'''
+Lemma 5.14 σ'' / σ' / σ₈
+sigma-family definition
+π_16^9=Z/16{σ₉}
+n≥9 Toda (4.5) transport
+n=8 Proposition 4.4 / Toda (5.15)
+finite-dimensional aggregate
+representative probe
+formal proof record 10
+```
+
+pre-probe full regression:
+
+```text
+5991 passed in 114.31s
+```
+
+The stable clause:
+
+```text
+(G_7;2)=Z/16{σ}
+```
+
+remains in the deferred stable branch.
+
+## Next mathematical Phase
+
+Start with source/dependency/representation compatibility analysis of Toda (5.16).
+
+Primary targets:
+
+```text
+ker(E:π_15^8→π_16^9)
+=
+<2σ₈-Eσ'>
+
+Δ(ι₁₇)
+=
+±(2σ₈-Eσ').
+```
+
+First dependencies to inspect:
+
+```text
+Phase 75:
+π_15^8=Z{σ₈}⊕Z/8{Eσ'}
+π_16^9=Z/16{σ₉}
+σ₉=Eσ₈
+2Eσ₈=E²σ'
+
+Toda EHP exactness around:
+π_17^17 --Δ--> π_15^8 --E--> π_16^9
+
+critical Toda-(4.3) semantics for π_15^8
+ordinary / Toda group distinction
+```
+
+Do not preemptively add:
+
+```text
+generic mixed free/torsion kernel solver
+generic homomorphism matrix framework
+generic sign algebra
+stable homotopy-group model
+automatic proof narrative generation
+persistent Proof Repository
+```

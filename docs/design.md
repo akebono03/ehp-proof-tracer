@@ -7827,3 +7827,412 @@ final regression:
 ```text
 5609 passed in 31.59s
 ```
+
+---
+
+# 96. Phase 75：Toda Proposition 5.15 finite-dimensional 設計
+
+Phase 75 の final target:
+
+```text
+π_9^2=0
+π_10^3=0
+π_11^4=0
+π_12^5=Z/2{σ'''}
+π_13^6=Z/4{σ''}
+π_14^7=Z/8{σ'}
+π_15^8=Z{σ₈}⊕Z/8{Eσ'}
+π_(n+7)^n=Z/16{σ_n}, n≥9
+```
+
+stable:
+
+```text
+(G_7;2)=Z/16{σ}
+```
+
+は finite-dimensional aggregate に含めない。
+
+設計原則:
+
+```text
+source statement
+↓
+low-dimensional concrete branches
+↓
+σ-element construction
+↓
+critical n=8 branch / stable-range n≥9 branch separation
+↓
+finite-dimensional aggregate
+```
+
+---
+
+# 97. Phase 75 low zero branch
+
+低次 branch:
+
+```text
+π_9^2=0
+π_10^3=0
+π_11^4=0
+```
+
+は generic zero-group transport framework を追加せず、Toda Proposition 5.15 に必要な concrete EHP / composition consequences に限定して導出する。
+
+theorem result はすべて:
+
+```text
+ProofRule.INFERENCE
+```
+
+を維持する。
+
+---
+
+# 98. Lemma 5.13 / Lemma 5.14 sigma construction
+
+Phase 75 では dedicated statement を使って:
+
+```text
+σ''' ∈ π_12^5
+σ''  ∈ π_13^6
+σ'   ∈ π_14^7
+σ₈   ∈ π_15^8
+```
+
+を構成する。
+
+主要 relation:
+
+```text
+2σ''=Eσ'''
+2σ'=Eσ''
+H(σ₈)=ι₁₅
+2Eσ₈=E²σ'
+```
+
+generic sigma-family algebra や exact-order solver は追加しない。
+
+---
+
+# 99. sigma-family definition
+
+追加する structural family:
+
+```text
+TodaSigmaFamilyDefinitionStatement
+```
+
+意味:
+
+```text
+σ_n:=E^(n-8)σ₈
+(n≥8)
+```
+
+concrete / symbolic index の current representation を維持し、global scalar normalization は追加しない。
+
+---
+
+# 100. n≥9 finite-dimensional transport
+
+anchor:
+
+```text
+π_16^9=Z/16{σ₉}
+```
+
+Toda (4.5):
+
+```text
+E^(n-9):π_16^9≅π_(n+7)^n
+```
+
+を利用し:
+
+```text
+π_(n+7)^n=Z/16{σ_n}
+(n≥9)
+```
+
+を導出する。
+
+group relation は:
+
+```text
+INFERENCE
+```
+
+scope:
+
+```text
+n≥9
+```
+
+は:
+
+```text
+GIVEN
+```
+
+として保持する。
+
+---
+
+# 101. n=8 critical branch
+
+`n=8` は Toda (4.5) transport を使わない。
+
+Toda (4.3) により:
+
+```text
+π_15^8
+```
+
+は critical-degree branch:
+
+```text
+15=2*8-1
+```
+
+である。
+
+Phase 75 は Phase 63 と同じ設計境界を使う。
+
+```text
+derived theorem data
+↓
+dedicated specialization statement INFERENCE
++
+TodaProp44DecompositionMap GIVEN
+↓
+TodaProp44IsomorphismStatement INFERENCE
+```
+
+具体的に:
+
+```text
+H(σ₈)=ι₁₅
+↓
+n=8, α=σ₈ specialization
+↓
+π_14^7⊕π_15^15≅π_15^8
+
+(α,β)↦Eα+σ₈∘β
+```
+
+generic Proposition 4.4 symbolic rule の scalar AST を global normalize しない。
+
+---
+
+# 102. source component transport
+
+source groups:
+
+```text
+π_14^7=Z/8{σ'}
+π_15^15=Z{ι₁₅}
+```
+
+generator images:
+
+```text
+σ'   ↦ Eσ'
+ι₁₅ ↦ σ₈
+```
+
+source order の transported group:
+
+```text
+Z/8{Eσ'}⊕Z{σ₈}
+```
+
+を:
+
+```text
+Toda515Sigma8TransportedDecompositionStatement
+```
+
+で保持する。
+
+この intermediate statement ではまだ final `π_15^8=...` relation を作らない。
+
+---
+
+# 103. Proposition 5.15 final n=8 relation
+
+Toda source の表示順へ:
+
+```text
+Z/8{Eσ'}⊕Z{σ₈}
+↓ theorem-specific reorder
+Z{σ₈}⊕Z/8{Eσ'}
+```
+
+として:
+
+```text
+π_15^8
+=
+Z{σ₈}
+⊕
+Z/8{Eσ'}
+```
+
+を `Relation` として導出する。
+
+generic:
+
+```text
+A⊕B ≅ B⊕A
+```
+
+inference rule は追加しない。
+
+---
+
+# 104. Proposition 5.15 finite-dimensional aggregate
+
+追加:
+
+```text
+TodaProp515FiniteDimensionalStatement
+```
+
+保持:
+
+```text
+pi9_2_zero
+pi10_3_zero
+pi11_4_zero
+pi12_5_group_relation
+pi13_6_group_relation
+pi14_7_group_relation
+pi15_8_group_relation
+higher_seven_stem_group_relation
+higher_range
+literature_statements
+```
+
+direct mathematical branches:
+
+```text
+8 branches
+all INFERENCE
+```
+
+scope:
+
+```text
+n≥9
+GIVEN
+```
+
+final aggregate:
+
+```text
+INFERENCE
+```
+
+stable field:
+
+```text
+absent
+```
+
+---
+
+# 105. Phase 75 provenance / object graph
+
+Phase 75-9 builder は nested fixture graph を再利用する。
+
+特に zero branches は:
+
+```text
+Phase 75-5
+└─ Phase 75-4
+   └─ Phase 75-3
+```
+
+を辿り:
+
+```text
+π_9^2
+π_10^3
+π_11^4
+```
+
+の既存 `ProofStep` object を再利用する。
+
+同じ conclusion を持つ別 object の再構築や local result からの誤った再検索を避ける。
+
+heavy deterministic builder は:
+
+```python
+@lru_cache(maxsize=1)
+```
+
+を使用する。
+
+---
+
+# 106. Phase 75 representative probe
+
+追加:
+
+```text
+probes/probe_phase75_capabilities.py
+```
+
+representative source:
+
+```text
+build_phase75_9_data()
+```
+
+表示:
+
+```text
+Toda Proposition 5.15 finite-dimensional result
+Proof-style derivation
+Provenance / integration
+Representation / completion boundary
+Literature statements used
+Phase 75 representative probe boundary
+```
+
+probe は production theorem logic を実装しない。
+
+proof-style derivation は hand-authored presentation code であり automatic `ProofStep` narrative generation ではない。
+
+---
+
+# 107. Phase 75 completion boundary
+
+完成:
+
+```text
+Toda Proposition 5.15 finite-dimensional
+σ''' / σ'' / σ' / σ₈
+σ-family
+n=8 critical decomposition
+n≥9 Z/16 transport
+TodaProp515FiniteDimensionalStatement
+representative probe
+formal proof record 10
+```
+
+先取りしない:
+
+```text
+stable (G_7;2)=Z/16{σ}
+Toda (5.16)
+ker(E:π_15^8→π_16^9)=<2σ₈-Eσ'>
+Δ(ι₁₇)=±(2σ₈-Eσ')
+generic direct-sum commutativity
+generic cyclic-generator transport
+automatic proof narrative generation
+persistent Proof Repository
+```
