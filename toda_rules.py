@@ -44915,6 +44915,208 @@ def toda_prop515_sigma8_prop44_specialization_inference_rule():
   )
 
 
+def toda_prop515_sigma8_prop44_isomorphism_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    specialization = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    decomposition_map = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if (
+      specialization.n
+      != 8
+    ):
+      return False
+
+    sigma8 = HomotopyElement(
+      name="σ₈",
+      dimension=8,
+      source=15,
+      target=8,
+      generator=GeneratorSymbol(
+        family="σ",
+        index=8,
+      ),
+    )
+
+    if (
+      specialization.alpha
+      != sigma8
+    ):
+      return False
+
+    expected_membership = (
+      TodaPrimaryGroupMembershipStatement(
+        element=sigma8,
+        group=TodaPrimaryGroup(
+          group_dimension=15,
+          sphere_dimension=8,
+        ),
+      )
+    )
+
+    if (
+      specialization.membership
+      != expected_membership
+    ):
+      return False
+
+    iota_15 = HomotopyElement(
+      name="ι_15",
+      dimension=15,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=15,
+      ),
+    )
+
+    expected_hopf_relation = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=sigma8,
+      ),
+      rhs=iota_15,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      specialization.hopf_relation
+      != expected_hopf_relation
+    ):
+      return False
+
+    if (
+      decomposition_map.alpha
+      != sigma8
+    ):
+      return False
+
+    source_group = (
+      decomposition_map.source_group
+    )
+
+    if not isinstance(
+      source_group,
+      DirectSumGroup,
+    ):
+      return False
+
+    if (
+      source_group.summands
+      != (
+        TodaPrimaryGroup(
+          group_dimension=14,
+          sphere_dimension=7,
+        ),
+        TodaPrimaryGroup(
+          group_dimension=15,
+          sphere_dimension=15,
+        ),
+      )
+    ):
+      return False
+
+    target_group = (
+      decomposition_map.target_group
+    )
+
+    if (
+      target_group
+      != TodaPrimaryGroup(
+        group_dimension=15,
+        sphere_dimension=8,
+      )
+    ):
+      return False
+
+    expected_formula = Sum(
+      left=Suspension(
+        expression=(
+          decomposition_map.beta
+        ),
+      ),
+      right=Composition(
+        left=sigma8,
+        right=(
+          decomposition_map.gamma
+        ),
+      ),
+    )
+
+    return (
+      decomposition_map.formula
+      == expected_formula
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    decomposition_map = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return (
+      TodaProp44IsomorphismStatement(
+        map=decomposition_map,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "sigma_8 n=8 Proposition 4.4 "
+      "decomposition specialization"
+    ),
+    description=(
+      "Specialize Toda Proposition 4.4 "
+      "to n=8, i=15, and alpha=sigma_8 "
+      "using the independently derived "
+      "Phase 75-8E1 specialization. "
+      "The structural map from "
+      "pi_14^7 direct sum pi_15^15 "
+      "to pi_15^8 sending "
+      "(alpha,beta) to "
+      "E(alpha)+sigma_8 composed with beta "
+      "is therefore an isomorphism. "
+      "This rule records only the "
+      "concrete Toda (5.15) "
+      "decomposition isomorphism. "
+      "It does not transport the "
+      "source group structures or derive "
+      "pi_15^8="
+      "Z{sigma_8} direct sum "
+      "Z/8{E sigma-prime}."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda515Sigma8Prop44SpecializationStatement
+        ),
+      ),
+      PremisePattern(
+        statement_type=(
+          TodaProp44DecompositionMap
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 @dataclass(frozen=True)
 class Toda54BracketUpToSignStatement:
   bracket: TodaBracket
