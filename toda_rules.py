@@ -7714,6 +7714,672 @@ def toda_lemma512_first_indeterminacy_zero_inference_rule():
 
 
 @dataclass(frozen=True)
+class TodaLemma512SecondIndeterminacyHigherZeroStatement:
+  ordinary_group: HomotopyGroup
+  right_factor: HomotopyElement
+  n_range: ScalarGreaterEqualStatement
+
+
+@dataclass(frozen=True)
+class TodaLemma512SecondIndeterminacyN6ZeroStatement:
+  ordinary_group: HomotopyGroup
+  generator: MapApplication
+  right_factor: HomotopyElement
+  zero_composition: Composition
+
+
+@dataclass(frozen=True)
+class TodaLemma512SecondIndeterminacyZeroStatement:
+  bracket: TodaBracket
+  ordinary_group: HomotopyGroup
+  n_range: ScalarGreaterEqualStatement
+
+
+def toda_lemma512_second_indeterminacy_higher_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    prop59 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    if not isinstance(
+      prop59,
+      TodaProp59FiniteDimensionalStatement,
+    ):
+      return False
+
+    higher_zero = (
+      prop59
+      .higher_five_stem_zero
+    )
+
+    higher_range = (
+      prop59
+      .higher_range
+    )
+
+    if not isinstance(
+      higher_zero,
+      TodaPrimaryGroupZeroStatement,
+    ):
+      return False
+
+    higher_group = (
+      higher_zero.group
+    )
+
+    if not isinstance(
+      higher_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    n = (
+      higher_group
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      higher_group
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=n,
+          right=5,
+        ),
+        sphere_dimension=n,
+      )
+    ):
+      return False
+
+    return (
+      higher_range
+      == ScalarGreaterEqualStatement(
+        left=n,
+        right=7,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    prop59 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    higher_group = (
+      prop59
+      .higher_five_stem_zero
+      .group
+    )
+
+    n = (
+      higher_group
+      .sphere_dimension
+    )
+
+    n_plus_five = ScalarSum(
+      left=n,
+      right=5,
+    )
+
+    n_plus_six = ScalarSum(
+      left=n,
+      right=6,
+    )
+
+    eta_n_plus_five = HomotopyElement(
+      name="η_(n+5)",
+      dimension=n_plus_five,
+      source=n_plus_six,
+      target=n_plus_five,
+      generator=GeneratorSymbol(
+        family="η",
+        index=n_plus_five,
+      ),
+    )
+
+    return (
+      TodaLemma512SecondIndeterminacyHigherZeroStatement(
+        ordinary_group=HomotopyGroup(
+          group_dimension=n_plus_five,
+          sphere_dimension=n,
+        ),
+        right_factor=eta_n_plus_five,
+        n_range=prop59.higher_range,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.12 "
+      "second indeterminacy higher zero"
+    ),
+    description=(
+      "For n>6, use the independently "
+      "derived Toda Proposition 5.9 "
+      "vanishing pi_(n+5)^n=0 for n>=7. "
+      "Together with the Toda (4.7) "
+      "composition-level reduction used "
+      "in the source proof, this makes "
+      "pi_(n+5)(S^n) composed with "
+      "eta_(n+5) zero. "
+      "The ordinary HomotopyGroup is kept "
+      "explicit and is not structurally "
+      "identified with TodaPrimaryGroup. "
+      "No generic subgroup-composition "
+      "or ordinary-primary equality "
+      "framework is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp59FiniteDimensionalStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma512_second_indeterminacy_n6_zero_inference_rule():
+  def is_eta13(
+    expression,
+  ):
+    if not isinstance(
+      expression,
+      HomotopyElement,
+    ):
+      return False
+
+    return (
+      expression.dimension
+      == 13
+      and expression.source
+      == 14
+      and expression.target
+      == 13
+      and expression.generator
+      == GeneratorSymbol(
+        family="η",
+        index=13,
+      )
+    )
+
+  def guard(
+    premises,
+    bindings,
+  ):
+    prop59 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    delta_eta13_zero = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      prop59,
+      TodaProp59FiniteDimensionalStatement,
+    ):
+      return False
+
+    pi11_6_relation = (
+      prop59
+      .pi11_6_group_relation
+    )
+
+    if not isinstance(
+      pi11_6_relation,
+      Relation,
+    ):
+      return False
+
+    if (
+      pi11_6_relation.relation_type
+      != RelationType.EQUALITY
+    ):
+      return False
+
+    if (
+      pi11_6_relation.lhs
+      != TodaPrimaryGroup(
+        group_dimension=11,
+        sphere_dimension=6,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      pi11_6_relation.rhs,
+      FreeCyclicGroup,
+    ):
+      return False
+
+    delta_iota13 = (
+      pi11_6_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      delta_iota13,
+      MapApplication,
+    ):
+      return False
+
+    if (
+      delta_iota13.map
+      != EHP_DELTA_MAP
+    ):
+      return False
+
+    iota_13 = (
+      delta_iota13.expression
+    )
+
+    if not isinstance(
+      iota_13,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      iota_13.dimension
+      != 13
+      or iota_13.generator
+      != GeneratorSymbol(
+        family="ι",
+        index=13,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      delta_eta13_zero,
+      Relation,
+    ):
+      return False
+
+    if (
+      delta_eta13_zero.relation_type
+      != RelationType.ZERO
+    ):
+      return False
+
+    if not isinstance(
+      delta_eta13_zero.lhs,
+      MapApplication,
+    ):
+      return False
+
+    if (
+      delta_eta13_zero
+      .lhs
+      .map
+      != EHP_DELTA_MAP
+    ):
+      return False
+
+    if not is_eta13(
+      delta_eta13_zero
+      .lhs
+      .expression
+    ):
+      return False
+
+    return (
+      delta_eta13_zero.rhs
+      == Zero()
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    prop59 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    delta_iota13 = (
+      prop59
+      .pi11_6_group_relation
+      .rhs
+      .generator
+    )
+
+    eta_11 = HomotopyElement(
+      name="η₁₁",
+      dimension=11,
+      source=12,
+      target=11,
+      generator=GeneratorSymbol(
+        family="η",
+        index=11,
+      ),
+    )
+
+    return (
+      TodaLemma512SecondIndeterminacyN6ZeroStatement(
+        ordinary_group=HomotopyGroup(
+          group_dimension=11,
+          sphere_dimension=6,
+        ),
+        generator=delta_iota13,
+        right_factor=eta_11,
+        zero_composition=Composition(
+          left=delta_iota13,
+          right=eta_11,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.12 "
+      "second indeterminacy n=6 zero"
+    ),
+    description=(
+      "For n=6, Proposition 5.9 gives "
+      "pi_11^6 free cyclic generated by "
+      "Delta(iota_13). "
+      "The independently derived third "
+      "relation of Toda (5.13) gives "
+      "Delta(eta_13)=0. "
+      "Using the concrete Proposition 2.5 "
+      "composition identity "
+      "Delta(iota_13) composed with eta_11 "
+      "=Delta(eta_13), the generator of "
+      "pi_11^6 composes trivially with "
+      "eta_11. "
+      "Therefore the n=6 second "
+      "indeterminacy term is zero. "
+      "No generic Delta-composition rewrite "
+      "or free-cyclic subgroup composition "
+      "solver is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp59FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.ZERO
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma512_second_indeterminacy_zero_integration_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    defined_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    higher_zero = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    n6_zero = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    n_range = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    if not isinstance(
+      defined_statement,
+      TodaBracketDefinedStatement,
+    ):
+      return False
+
+    bracket = (
+      defined_statement.bracket
+    )
+
+    if not isinstance(
+      bracket,
+      TodaBracket,
+    ):
+      return False
+
+    if (
+      bracket.index
+      is not None
+    ):
+      return False
+
+    eta_n = bracket.first
+    nu_n_plus_one = bracket.second
+    eta_n_plus_four = bracket.third
+
+    if not isinstance(
+      eta_n,
+      HomotopyElement,
+    ):
+      return False
+
+    n = eta_n.dimension
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    n_plus_one = ScalarSum(
+      left=n,
+      right=1,
+    )
+
+    n_plus_four = ScalarSum(
+      left=n,
+      right=4,
+    )
+
+    if (
+      eta_n.generator
+      != GeneratorSymbol(
+        family="η",
+        index=n,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      nu_n_plus_one,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      nu_n_plus_one.generator
+      != GeneratorSymbol(
+        family="ν",
+        index=n_plus_one,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      eta_n_plus_four,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_n_plus_four.generator
+      != GeneratorSymbol(
+        family="η",
+        index=n_plus_four,
+      )
+    ):
+      return False
+
+    if (
+      n_range
+      != ScalarGreaterEqualStatement(
+        left=n,
+        right=6,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      higher_zero,
+      TodaLemma512SecondIndeterminacyHigherZeroStatement,
+    ):
+      return False
+
+    if (
+      higher_zero.n_range.right
+      != 7
+    ):
+      return False
+
+    if not isinstance(
+      n6_zero,
+      TodaLemma512SecondIndeterminacyN6ZeroStatement,
+    ):
+      return False
+
+    if (
+      n6_zero.ordinary_group
+      != HomotopyGroup(
+        group_dimension=11,
+        sphere_dimension=6,
+      )
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    defined_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    n_range = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    n = (
+      defined_statement
+      .bracket
+      .first
+      .dimension
+    )
+
+    return (
+      TodaLemma512SecondIndeterminacyZeroStatement(
+        bracket=(
+          defined_statement.bracket
+        ),
+        ordinary_group=HomotopyGroup(
+          group_dimension=ScalarSum(
+            left=n,
+            right=5,
+          ),
+          sphere_dimension=n,
+        ),
+        n_range=n_range,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.12 "
+      "second indeterminacy zero integration"
+    ),
+    description=(
+      "Combine the n>6 Proposition 5.9 "
+      "vanishing branch with the concrete "
+      "n=6 branch based on "
+      "pi_11^6=Z{Delta(iota_13)} and "
+      "Delta(eta_13)=0. "
+      "Therefore "
+      "pi_(n+5)(S^n) composed with "
+      "eta_(n+5) is zero for all n>=6. "
+      "No generic symbolic range union "
+      "or subgroup-composition algebra "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaBracketDefinedStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma512SecondIndeterminacyHigherZeroStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma512SecondIndeterminacyN6ZeroStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          ScalarGreaterEqualStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+@dataclass(frozen=True)
 class Toda512DeltaInjectivityStatement:
   n4_injectivity: TodaDeltaInjectiveStatement
   n5_injectivity: TodaDeltaInjectiveStatement
