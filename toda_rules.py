@@ -6359,6 +6359,199 @@ def toda_prop58_higher_nu_eta_zero_inference_rule():
   )
 
 
+def toda_prop515_pi9_2_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    prop511 = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    isomorphism = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      prop511,
+      TodaProp511FiniteDimensionalStatement,
+    ):
+      return False
+
+    if not isinstance(
+      isomorphism,
+      Toda52CompositionIsomorphismStatement,
+    ):
+      return False
+
+    expected_pi9_3_zero = (
+      TodaPrimaryGroupZeroStatement(
+        group=TodaPrimaryGroup(
+          group_dimension=9,
+          sphere_dimension=3,
+        ),
+      )
+    )
+
+    if (
+      prop511.pi9_3_zero
+      != expected_pi9_3_zero
+    ):
+      return False
+
+    source_group = (
+      isomorphism
+      .source_group
+    )
+
+    target_group = (
+      isomorphism
+      .target_group
+    )
+
+    if not isinstance(
+      source_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    if not isinstance(
+      target_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    i = (
+      source_group
+      .group_dimension
+    )
+
+    if not isinstance(
+      i,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      source_group
+      != TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=3,
+      )
+    ):
+      return False
+
+    if (
+      target_group
+      != TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=2,
+      )
+    ):
+      return False
+
+    composition = (
+      isomorphism
+      .composition
+    )
+
+    if not isinstance(
+      composition,
+      Composition,
+    ):
+      return False
+
+    eta_2 = (
+      composition.left
+    )
+
+    if not isinstance(
+      eta_2,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_2.dimension
+      != 2
+    ):
+      return False
+
+    if (
+      eta_2.source
+      != 3
+    ):
+      return False
+
+    if (
+      eta_2.target
+      != 2
+    ):
+      return False
+
+    return (
+      eta_2.generator
+      == GeneratorSymbol(
+        family="η",
+        index=2,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return (
+      TodaPrimaryGroupZeroStatement(
+        group=TodaPrimaryGroup(
+          group_dimension=9,
+          sphere_dimension=2,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "pi_9^2 zero from Toda (5.2)"
+    ),
+    description=(
+      "Use the independently derived "
+      "Toda Proposition 5.11 result "
+      "pi_9^3=0 together with the "
+      "derived Toda (5.2) isomorphism "
+      "eta_2 composed with - from "
+      "pi_i^3 to pi_i^2 to obtain "
+      "the concrete consequence "
+      "pi_9^2=0. "
+      "This Phase 75 rule is limited "
+      "to the concrete pi_9 branch "
+      "required for Proposition 5.15. "
+      "It does not introduce a generic "
+      "zero-group transport theorem."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp511FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda52CompositionIsomorphismStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_lemma512_shifted_nu_eta_zero_inference_rule():
   def guard(
     premises,
