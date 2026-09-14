@@ -41679,6 +41679,20 @@ class TodaLemma514SigmaDoublePrimeStatement:
   short_exact_statement: Toda514FirstShortExactStatement
 
 
+@dataclass(frozen=True)
+class TodaLemma514SigmaPrimeStatement:
+  sigma_prime: HomotopyElement
+  sigma_double_prime: HomotopyElement
+  double_relation: Relation
+  hopf_relation: Relation
+  sigma_double_prime_statement: (
+    TodaLemma514SigmaDoublePrimeStatement
+  )
+  short_exact_statement: (
+    Toda514SecondShortExactStatement
+  )
+
+
 def toda_36_lemma514_sigma_double_prime_bridge_inference_rule():
   def is_nu5_squared(
     expression,
@@ -42623,6 +42637,364 @@ def toda_lemma514_sigma_double_prime_inference_rule():
         proof_rule=ProofRule.INFERENCE,
         statement_type=(
           Toda514FirstShortExactStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_lemma514_sigma_prime_inference_rule():
+  def is_eta13(
+    expression,
+  ):
+    if not isinstance(
+      expression,
+      HomotopyElement,
+    ):
+      return False
+
+    return (
+      expression.dimension
+      == 13
+      and expression.source
+      == 14
+      and expression.target
+      == 13
+      and expression.generator
+      == GeneratorSymbol(
+        family="η",
+        index=13,
+      )
+    )
+
+  def guard(
+    premises,
+    bindings,
+  ):
+    sigma_double_prime_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    short_exact = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi13_6_relation = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    pi14_13_relation = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    if not isinstance(
+      sigma_double_prime_statement,
+      TodaLemma514SigmaDoublePrimeStatement,
+    ):
+      return False
+
+    if not isinstance(
+      short_exact,
+      Toda514SecondShortExactStatement,
+    ):
+      return False
+
+    pi13_6 = TodaPrimaryGroup(
+      group_dimension=13,
+      sphere_dimension=6,
+    )
+
+    pi14_7 = TodaPrimaryGroup(
+      group_dimension=14,
+      sphere_dimension=7,
+    )
+
+    pi14_13 = TodaPrimaryGroup(
+      group_dimension=14,
+      sphere_dimension=13,
+    )
+
+    if (
+      short_exact.source_group
+      != pi13_6
+    ):
+      return False
+
+    if (
+      short_exact.middle_group
+      != pi14_7
+    ):
+      return False
+
+    if (
+      short_exact.target_group
+      != pi14_13
+    ):
+      return False
+
+    if (
+      short_exact.suspension_map
+      != TodaSuspensionMap(
+        source_group=pi13_6,
+        target_group=pi14_7,
+      )
+    ):
+      return False
+
+    if (
+      short_exact.hopf_map
+      != TodaHopfInvariantMap(
+        source_group=pi14_7,
+        target_group=pi14_13,
+      )
+    ):
+      return False
+
+    if (
+      pi13_6_relation.lhs
+      != pi13_6
+    ):
+      return False
+
+    if not isinstance(
+      pi13_6_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi13_6_relation.rhs.order
+      != 4
+    ):
+      return False
+
+    sigma_double_prime = (
+      sigma_double_prime_statement
+      .sigma_double_prime
+    )
+
+    if (
+      pi13_6_relation
+      .rhs
+      .generator
+      != sigma_double_prime
+    ):
+      return False
+
+    if (
+      sigma_double_prime.source
+      != 13
+    ):
+      return False
+
+    if (
+      sigma_double_prime.target
+      != 6
+    ):
+      return False
+
+    if (
+      sigma_double_prime.generator
+      != GeneratorSymbol(
+        family="σ",
+        decoration="''",
+      )
+    ):
+      return False
+
+    if (
+      pi14_13_relation.lhs
+      != pi14_13
+    ):
+      return False
+
+    if not isinstance(
+      pi14_13_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      pi14_13_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    eta_13 = (
+      pi14_13_relation
+      .rhs
+      .generator
+    )
+
+    if not is_eta13(
+      eta_13
+    ):
+      return False
+
+    if (
+      sigma_double_prime_statement
+      .short_exact_statement
+      .middle_group
+      != pi13_6
+    ):
+      return False
+
+    return True
+
+  def build_conclusion(
+    premises,
+  ):
+    sigma_double_prime_statement = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    short_exact = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    pi14_13_relation = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    sigma_double_prime = (
+      sigma_double_prime_statement
+      .sigma_double_prime
+    )
+
+    eta_13 = (
+      pi14_13_relation
+      .rhs
+      .generator
+    )
+
+    sigma_prime = HomotopyElement(
+      name="σ'",
+      dimension=7,
+      source=14,
+      target=7,
+      generator=GeneratorSymbol(
+        family="σ",
+        decoration="'",
+      ),
+    )
+
+    double_relation = Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=sigma_prime,
+      ),
+      rhs=Suspension(
+        expression=sigma_double_prime,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    hopf_relation = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=sigma_prime,
+      ),
+      rhs=eta_13,
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      TodaLemma514SigmaPrimeStatement(
+        sigma_prime=sigma_prime,
+        sigma_double_prime=(
+          sigma_double_prime
+        ),
+        double_relation=(
+          double_relation
+        ),
+        hopf_relation=(
+          hopf_relation
+        ),
+        sigma_double_prime_statement=(
+          sigma_double_prime_statement
+        ),
+        short_exact_statement=(
+          short_exact
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Lemma 5.14 "
+      "sigma-prime branch"
+    ),
+    description=(
+      "Continue the independently derived "
+      "Toda Lemma 5.14 "
+      "sigma double-prime construction "
+      "through the second short exact "
+      "sequence of Toda (5.14), "
+      "0 -> pi_13^6 -> pi_14^7 "
+      "-> pi_14^13 -> 0. "
+      "Using "
+      "pi_13^6=Z/4{sigma double-prime} "
+      "and "
+      "pi_14^13=Z/2{eta_13}, "
+      "the Lemma 5.14 source construction "
+      "selects sigma-prime in pi_14^7 "
+      "with "
+      "H(sigma-prime)=eta_13 "
+      "and "
+      "2 sigma-prime="
+      "E sigma double-prime. "
+      "The sigma double-prime statement "
+      "already carries the upstream "
+      "Theorem 3.6 / Lemma 5.13 "
+      "provenance, so no new "
+      "Theorem 3.6 specialization "
+      "is introduced here. "
+      "This rule does not derive the "
+      "order of sigma-prime or "
+      "pi_14^7=Z/8{sigma-prime}; "
+      "those remain for the next phase."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaLemma514SigmaDoublePrimeStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda514SecondShortExactStatement
         ),
       ),
       PremisePattern(
