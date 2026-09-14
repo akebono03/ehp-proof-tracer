@@ -7035,6 +7035,237 @@ def toda_prop515_pi10_3_zero_inference_rule():
   )
 
 
+def toda_prop515_pi11_4_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    pi10_3_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    prop58 = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    toda56 = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    expected_pi10_3_zero = (
+      TodaPrimaryGroupZeroStatement(
+        group=TodaPrimaryGroup(
+          group_dimension=10,
+          sphere_dimension=3,
+        ),
+      )
+    )
+
+    if (
+      pi10_3_zero
+      != expected_pi10_3_zero
+    ):
+      return False
+
+    if not isinstance(
+      prop58,
+      TodaProp58FiniteDimensionalStatement,
+    ):
+      return False
+
+    higher_zero = (
+      prop58
+      .higher_four_stem_zero
+    )
+
+    higher_range = (
+      prop58
+      .higher_range
+    )
+
+    if not isinstance(
+      higher_zero,
+      TodaPrimaryGroupZeroStatement,
+    ):
+      return False
+
+    higher_group = (
+      higher_zero.group
+    )
+
+    if not isinstance(
+      higher_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    n = (
+      higher_group
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      n,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      higher_group
+      != TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=n,
+          right=4,
+        ),
+        sphere_dimension=n,
+      )
+    ):
+      return False
+
+    if (
+      higher_range
+      != ScalarGreaterEqualStatement(
+        left=n,
+        right=6,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      toda56,
+      Toda56Nu4DecompositionIsomorphismStatement,
+    ):
+      return False
+
+    decomposition_map = (
+      toda56
+      .prop44_isomorphism
+      .map
+    )
+
+    target_group = (
+      decomposition_map
+      .target_group
+    )
+
+    if not isinstance(
+      target_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    i = (
+      target_group
+      .group_dimension
+    )
+
+    if not isinstance(
+      i,
+      ScalarSymbol,
+    ):
+      return False
+
+    if (
+      target_group
+      != TodaPrimaryGroup(
+        group_dimension=i,
+        sphere_dimension=4,
+      )
+    ):
+      return False
+
+    expected_source_group = (
+      DirectSumGroup(
+        summands=(
+          TodaPrimaryGroup(
+            group_dimension=ScalarSum(
+              left=i,
+              right=-1,
+            ),
+            sphere_dimension=3,
+          ),
+          TodaPrimaryGroup(
+            group_dimension=i,
+            sphere_dimension=7,
+          ),
+        ),
+      )
+    )
+
+    return (
+      decomposition_map
+      .source_group
+      == expected_source_group
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return (
+      TodaPrimaryGroupZeroStatement(
+        group=TodaPrimaryGroup(
+          group_dimension=11,
+          sphere_dimension=4,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "pi_11^4 zero"
+    ),
+    description=(
+      "Use the derived pi_10^3=0, "
+      "Toda Proposition 5.8 "
+      "pi_(n+4)^n=0 for n>=6, "
+      "specialized at n=7 to obtain "
+      "pi_11^7=0, and the derived "
+      "Toda equation (5.6) "
+      "decomposition "
+      "pi_(i-1)^3 direct sum pi_i^7 "
+      "isomorphic to pi_i^4, "
+      "specialized at i=11. "
+      "Both summands are zero, so "
+      "pi_11^4=0. "
+      "This Phase 75 rule is limited "
+      "to the concrete pi_11 branch. "
+      "It does not introduce generic "
+      "zero direct-sum simplification "
+      "or generic zero-group "
+      "isomorphism transport."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaPrimaryGroupZeroStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaProp58FiniteDimensionalStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda56Nu4DecompositionIsomorphismStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_lemma512_shifted_nu_eta_zero_inference_rule():
   def guard(
     premises,
