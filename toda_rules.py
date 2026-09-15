@@ -32664,6 +32664,19 @@ class TodaStableNuSquaredDefinitionStatement:
 
 
 @dataclass(frozen=True)
+class Toda33StableOrdinaryIdentificationStatement:
+  source_group: HomotopyGroup
+  target_group: StableHomotopyGroup
+
+
+@dataclass(frozen=True)
+class TodaStableIotaDefinitionStatement:
+  source_element: HomotopyElement
+  stable_group: StableHomotopyGroup
+  stable_element: HomotopyElement
+
+
+@dataclass(frozen=True)
 class TodaIteratedSuspensionInjectiveStatement:
   map: TodaIteratedSuspensionMap
 
@@ -40685,6 +40698,541 @@ def toda_prop511_stable_nu_squared_definition_inference_rule():
         proof_rule=ProofRule.INFERENCE,
         statement_type=(
           Toda45StableTwoPrimaryIdentificationStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_43_pi3_3_ordinary_free_cyclic_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    toda_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    expected_iota_3 = HomotopyElement(
+      name="ι_3",
+      dimension=3,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=3,
+      ),
+    )
+
+    expected_relation = Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=3,
+        sphere_dimension=3,
+      ),
+      rhs=FreeCyclicGroup(
+        generator=expected_iota_3,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      toda_relation
+      == expected_relation
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    toda_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=HomotopyGroup(
+        group_dimension=3,
+        sphere_dimension=3,
+      ),
+      rhs=FreeCyclicGroup(
+        generator=(
+          toda_relation
+          .rhs
+          .generator
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (4.3) pi_3^3 "
+      "diagonal ordinary bridge"
+    ),
+    description=(
+      "Use the concrete Toda diagonal "
+      "fact pi_3^3=Z{iota_3}. "
+      "Toda (4.3) identifies the "
+      "underlying diagonal group with "
+      "the ordinary homotopy group "
+      "pi_3(S^3). "
+      "Derive the ordinary relation "
+      "pi_3(S^3)=Z{iota_3}. "
+      "This rule does not structurally "
+      "identify TodaPrimaryGroup with "
+      "HomotopyGroup and is restricted "
+      "to the concrete pi_3^3 branch."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_33_g0_stable_identification_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    ordinary_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    expected_iota_3 = HomotopyElement(
+      name="ι_3",
+      dimension=3,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=3,
+      ),
+    )
+
+    expected_relation = Relation(
+      lhs=HomotopyGroup(
+        group_dimension=3,
+        sphere_dimension=3,
+      ),
+      rhs=FreeCyclicGroup(
+        generator=expected_iota_3,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      ordinary_relation
+      == expected_relation
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    ordinary_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return (
+      Toda33StableOrdinaryIdentificationStatement(
+        source_group=(
+          ordinary_relation
+          .lhs
+        ),
+        target_group=StableHomotopyGroup(
+          stem=0,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (3.3) stable "
+      "ordinary G_0 identification"
+    ),
+    description=(
+      "Use the independently derived "
+      "ordinary diagonal relation "
+      "pi_3(S^3)=Z{iota_3}. "
+      "Record the Toda (3.3) stable "
+      "ordinary identification of "
+      "pi_3(S^3) with G_0. "
+      "The target is StableHomotopyGroup "
+      "with stem zero, not a "
+      "StablePrimaryComponent. "
+      "No E-infinity map object or "
+      "generic ordinary stable-range "
+      "framework is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_33_stable_iota_definition_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    ordinary_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    expected_source_group = HomotopyGroup(
+      group_dimension=3,
+      sphere_dimension=3,
+    )
+
+    if (
+      ordinary_relation.lhs
+      != expected_source_group
+    ):
+      return False
+
+    if not isinstance(
+      ordinary_relation.rhs,
+      FreeCyclicGroup,
+    ):
+      return False
+
+    iota_3 = (
+      ordinary_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      iota_3,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      iota_3.dimension
+      != 3
+    ):
+      return False
+
+    if (
+      iota_3.generator
+      != GeneratorSymbol(
+        family="ι",
+        index=3,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      identification,
+      Toda33StableOrdinaryIdentificationStatement,
+    ):
+      return False
+
+    if (
+      identification.source_group
+      != expected_source_group
+    ):
+      return False
+
+    return (
+      identification.target_group
+      == StableHomotopyGroup(
+        stem=0,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    ordinary_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    stable_iota = HomotopyElement(
+      name="ι",
+      dimension=0,
+      generator=GeneratorSymbol(
+        family="ι",
+      ),
+    )
+
+    return (
+      TodaStableIotaDefinitionStatement(
+        source_element=(
+          ordinary_relation
+          .rhs
+          .generator
+        ),
+        stable_group=(
+          identification
+          .target_group
+        ),
+        stable_element=stable_iota,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (3.3) stable "
+      "identity generator definition"
+    ),
+    description=(
+      "Use the ordinary diagonal "
+      "generator iota_3 together with "
+      "the independently derived stable "
+      "identification pi_3(S^3) "
+      "isomorphic to G_0. "
+      "Record its stable identity class "
+      "iota. "
+      "The stable identity has stem zero "
+      "and no finite source or target "
+      "sphere. "
+      "No generic stable-generator "
+      "transport framework is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda33StableOrdinaryIdentificationStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_33_g0_free_cyclic_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    ordinary_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    stable_iota_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    expected_source_group = HomotopyGroup(
+      group_dimension=3,
+      sphere_dimension=3,
+    )
+
+    if (
+      ordinary_relation.lhs
+      != expected_source_group
+    ):
+      return False
+
+    if not isinstance(
+      ordinary_relation.rhs,
+      FreeCyclicGroup,
+    ):
+      return False
+
+    if not isinstance(
+      identification,
+      Toda33StableOrdinaryIdentificationStatement,
+    ):
+      return False
+
+    if (
+      identification.source_group
+      != expected_source_group
+    ):
+      return False
+
+    expected_stable_group = (
+      StableHomotopyGroup(
+        stem=0,
+      )
+    )
+
+    if (
+      identification.target_group
+      != expected_stable_group
+    ):
+      return False
+
+    if not isinstance(
+      stable_iota_definition,
+      TodaStableIotaDefinitionStatement,
+    ):
+      return False
+
+    if (
+      stable_iota_definition
+      .source_element
+      != ordinary_relation
+      .rhs
+      .generator
+    ):
+      return False
+
+    if (
+      stable_iota_definition
+      .stable_group
+      != expected_stable_group
+    ):
+      return False
+
+    stable_iota = (
+      stable_iota_definition
+      .stable_element
+    )
+
+    if (
+      stable_iota.name
+      != "ι"
+    ):
+      return False
+
+    if (
+      stable_iota.dimension
+      != 0
+    ):
+      return False
+
+    if (
+      stable_iota.source
+      is not None
+    ):
+      return False
+
+    if (
+      stable_iota.target
+      is not None
+    ):
+      return False
+
+    return (
+      stable_iota.generator
+      == GeneratorSymbol(
+        family="ι",
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    stable_iota_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=(
+        identification
+        .target_group
+      ),
+      rhs=FreeCyclicGroup(
+        generator=(
+          stable_iota_definition
+          .stable_element
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (3.3) "
+      "stable G_0 free cyclic group"
+    ),
+    description=(
+      "Transport the independently "
+      "derived ordinary diagonal group "
+      "pi_3(S^3)=Z{iota_3} across the "
+      "Toda (3.3) stable identification, "
+      "using the independently derived "
+      "stable identity generator. "
+      "Derive G_0=Z{iota}. "
+      "This is an ordinary stable group, "
+      "not a 2-primary component. "
+      "No generic free-cyclic stable "
+      "transport framework is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda33StableOrdinaryIdentificationStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaStableIotaDefinitionStatement
         ),
       ),
     ),
