@@ -1307,6 +1307,24 @@ def _normalize_proof_steps(
   return normalized
 
 
+def find_goal_step(
+  steps,
+  goal,
+):
+  normalized_steps = (
+    _normalize_proof_steps(
+      steps,
+      "steps",
+    )
+  )
+
+  for step in normalized_steps:
+    if step.conclusion == goal:
+      return step
+
+  return None
+
+
 def _normalize_inference_rules(
   inference_rules,
 ):
