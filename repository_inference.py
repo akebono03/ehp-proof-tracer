@@ -68,6 +68,303 @@ class MissingPremiseProducerLookup:
   ]
 
 
+@dataclass(frozen=True)
+class BoundedProducerSearchNode:
+  requesting_rule: InferenceRule
+  premise_index: int
+  premise_pattern: PremisePattern
+  producer_rule: InferenceRule
+  producer_availability: (
+    PremiseAvailability
+  )
+  depths: tuple[
+    int,
+    ...,
+  ]
+  dependencies: tuple[
+    "BoundedProducerSearchNode",
+    ...,
+  ] = ()
+
+  def __post_init__(
+    self,
+  ) -> None:
+    if not isinstance(
+      self.requesting_rule,
+      InferenceRule,
+    ):
+      raise TypeError(
+        "requesting_rule must be an "
+        "InferenceRule"
+      )
+
+    if (
+      isinstance(
+        self.premise_index,
+        bool,
+      )
+      or not isinstance(
+        self.premise_index,
+        int,
+      )
+    ):
+      raise TypeError(
+        "premise_index must be an int"
+      )
+
+    if (
+      self.premise_index < 0
+      or self.premise_index
+      >= len(
+        self.requesting_rule
+        .premise_patterns
+      )
+    ):
+      raise ValueError(
+        "premise_index must identify a "
+        "requesting_rule premise"
+      )
+
+    if not isinstance(
+      self.premise_pattern,
+      PremisePattern,
+    ):
+      raise TypeError(
+        "premise_pattern must be a "
+        "PremisePattern"
+      )
+
+    if (
+      self.requesting_rule
+      .premise_patterns[
+        self.premise_index
+      ]
+      != self.premise_pattern
+    ):
+      raise ValueError(
+        "premise_pattern must match the "
+        "requesting_rule premise"
+      )
+
+    if not isinstance(
+      self.producer_rule,
+      InferenceRule,
+    ):
+      raise TypeError(
+        "producer_rule must be an "
+        "InferenceRule"
+      )
+
+    if not isinstance(
+      self.producer_availability,
+      PremiseAvailability,
+    ):
+      raise TypeError(
+        "producer_availability must be a "
+        "PremiseAvailability"
+      )
+
+    if (
+      self.producer_availability
+      .inference_rule
+      is not self.producer_rule
+    ):
+      raise ValueError(
+        "producer_availability must "
+        "describe producer_rule"
+      )
+
+    if not isinstance(
+      self.depths,
+      tuple,
+    ):
+      raise TypeError(
+        "depths must be a tuple"
+      )
+
+    if not self.depths:
+      raise ValueError(
+        "depths must not be empty"
+      )
+
+    if any(
+      isinstance(
+        depth,
+        bool,
+      )
+      or not isinstance(
+        depth,
+        int,
+      )
+      for depth in self.depths
+    ):
+      raise TypeError(
+        "depths must contain only ints"
+      )
+
+    if any(
+      depth < 1
+      for depth in self.depths
+    ):
+      raise ValueError(
+        "depths must contain only "
+        "positive values"
+      )
+
+    if (
+      self.depths
+      != tuple(
+        sorted(
+          set(
+            self.depths
+          )
+        )
+      )
+    ):
+      raise ValueError(
+        "depths must be unique and sorted"
+      )
+
+    if not isinstance(
+      self.dependencies,
+      tuple,
+    ):
+      raise TypeError(
+        "dependencies must be a tuple"
+      )
+
+    if any(
+      not isinstance(
+        dependency,
+        BoundedProducerSearchNode,
+      )
+      for dependency
+      in self.dependencies
+    ):
+      raise TypeError(
+        "dependencies must contain only "
+        "BoundedProducerSearchNode objects"
+      )
+
+  @property
+  def minimum_depth(
+    self,
+  ) -> int:
+    return min(
+      self.depths
+    )
+
+  @property
+  def maximum_depth(
+    self,
+  ) -> int:
+    return max(
+      self.depths
+    )
+
+  @property
+  def is_shared(
+    self,
+  ) -> bool:
+    return len(
+      self.depths
+    ) > 1
+
+
+@dataclass(frozen=True)
+class BoundedProducerSearchResult:
+  goal: object
+  final_rule: InferenceRule
+  final_availability: (
+    PremiseAvailability
+  )
+  producer_nodes: tuple[
+    BoundedProducerSearchNode,
+    ...,
+  ]
+  max_depth: int
+
+  def __post_init__(
+    self,
+  ) -> None:
+    if not isinstance(
+      self.final_rule,
+      InferenceRule,
+    ):
+      raise TypeError(
+        "final_rule must be an "
+        "InferenceRule"
+      )
+
+    if not isinstance(
+      self.final_availability,
+      PremiseAvailability,
+    ):
+      raise TypeError(
+        "final_availability must be a "
+        "PremiseAvailability"
+      )
+
+    if (
+      self.final_availability
+      .inference_rule
+      is not self.final_rule
+    ):
+      raise ValueError(
+        "final_availability must describe "
+        "final_rule"
+      )
+
+    if not isinstance(
+      self.producer_nodes,
+      tuple,
+    ):
+      raise TypeError(
+        "producer_nodes must be a tuple"
+      )
+
+    if any(
+      not isinstance(
+        node,
+        BoundedProducerSearchNode,
+      )
+      for node in self.producer_nodes
+    ):
+      raise TypeError(
+        "producer_nodes must contain only "
+        "BoundedProducerSearchNode objects"
+      )
+
+    if (
+      isinstance(
+        self.max_depth,
+        bool,
+      )
+      or not isinstance(
+        self.max_depth,
+        int,
+      )
+    ):
+      raise TypeError(
+        "max_depth must be an int"
+      )
+
+    if self.max_depth < 1:
+      raise ValueError(
+        "max_depth must be positive"
+      )
+
+  @property
+  def is_within_depth_limit(
+    self,
+  ) -> bool:
+    return all(
+      node.maximum_depth
+      <= self.max_depth
+      for node in self.producer_nodes
+    )
+
+
 def repository_available_steps(
   repository: ProofRepository,
 ) -> tuple[
@@ -586,5 +883,3 @@ def derive_goal_from_repository_with_one_level_producers(
     inference_result=final_result,
     goal_step=goal_step,
   )
-
-
