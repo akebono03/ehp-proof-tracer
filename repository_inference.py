@@ -426,28 +426,40 @@ def derive_goal_from_repository_with_one_level_producers(
       ]
     )
 
-    for producer_rule in (
+    candidate_producer_rules = (
       find_premise_producer_rules(
         rule_catalog,
         missing_pattern,
       )
+    )
+
+    if len(
+      candidate_producer_rules
+    ) != 1:
+      continue
+
+    producer_rule = (
+      candidate_producer_rules[
+        0
+      ]
+    )
+
+    producer_rule_id = id(
+      producer_rule
+    )
+
+    if (
+      producer_rule_id
+      in seen_producer_rule_ids
     ):
-      producer_rule_id = id(
-        producer_rule
-      )
+      continue
 
-      if (
-        producer_rule_id
-        in seen_producer_rule_ids
-      ):
-        continue
-
-      seen_producer_rule_ids.add(
-        producer_rule_id
-      )
-      producer_rules.append(
-        producer_rule
-      )
+    seen_producer_rule_ids.add(
+      producer_rule_id
+    )
+    producer_rules.append(
+      producer_rule
+    )
 
   if producer_rules:
     producer_result = (
