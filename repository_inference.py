@@ -6,6 +6,7 @@ from proof import (
   InferenceRunResult,
   PremisePattern,
   ProofStep,
+  derive_inference_round_result,
   find_goal_step,
   match_premise_pattern,
   merge_variable_bindings,
@@ -735,6 +736,89 @@ class BoundedProducerSearchReport:
       raise ValueError(
         "diagnostic status must match "
         "report status"
+      )
+
+
+@dataclass(frozen=True)
+class BoundedProducerExecutionResult:
+  report: BoundedProducerSearchReport
+  repository_inference_result: (
+    RepositoryInferenceResult | None
+  ) = None
+
+  def __post_init__(
+    self,
+  ) -> None:
+    if not isinstance(
+      self.report,
+      BoundedProducerSearchReport,
+    ):
+      raise TypeError(
+        "report must be a "
+        "BoundedProducerSearchReport"
+      )
+
+    if (
+      self.repository_inference_result
+      is not None
+      and not isinstance(
+        self.repository_inference_result,
+        RepositoryInferenceResult,
+      )
+    ):
+      raise TypeError(
+        "repository_inference_result must "
+        "be a RepositoryInferenceResult "
+        "or None"
+      )
+
+    successful_statuses = (
+      BoundedProducerSearchStatus.SUCCESS,
+      BoundedProducerSearchStatus
+      .GOAL_ALREADY_AVAILABLE,
+    )
+
+    if self.report.status in successful_statuses:
+      if (
+        self.repository_inference_result
+        is None
+      ):
+        raise ValueError(
+          "successful execution result "
+          "requires a "
+          "repository_inference_result"
+        )
+
+      goal_step = (
+        self.repository_inference_result
+        .goal_step
+      )
+
+      if goal_step is None:
+        raise ValueError(
+          "successful execution result "
+          "requires a goal_step"
+        )
+
+      if (
+        goal_step.conclusion
+        != self.report.goal
+      ):
+        raise ValueError(
+          "goal_step conclusion must match "
+          "report goal"
+        )
+
+      return
+
+    if (
+      self.repository_inference_result
+      is not None
+    ):
+      raise ValueError(
+        "failed execution result must not "
+        "contain a "
+        "repository_inference_result"
       )
 
 
@@ -1546,6 +1630,172 @@ def diagnose_depth_two_producer_search_failure(
   return None
 
 
+def diagnose_depth_two_producer_execution_failure(
+  repository,
+  search_result,
+) -> BoundedProducerSearchDiagnostic | None:
+  if not isinstance(
+    repository,
+    ProofRepository,
+  ):
+    raise TypeError(
+      "repository must be a ProofRepository"
+    )
+
+  if not isinstance(
+    search_result,
+    BoundedProducerSearchResult,
+  ):
+    raise TypeError(
+      "search_result must be a "
+      "BoundedProducerSearchResult"
+    )
+
+  current_steps = repository_available_steps(
+    repository
+  )
+
+  for node in search_result.producer_nodes:
+    round_result = derive_inference_round_result(
+      (
+        node.producer_rule,
+      ),
+      current_steps,
+    )
+
+    if not round_result.matches:
+      if (
+        node.requesting_rule
+        is search_result.final_rule
+      ):
+        ancestor_rules = (
+          search_result.final_rule,
+        )
+      else:
+        ancestor_rules = (
+          search_result.final_rule,
+          node.requesting_rule,
+        )
+
+      return BoundedProducerSearchDiagnostic(
+        status=(
+          BoundedProducerSearchStatus
+          .PRODUCER_NOT_APPLICABLE
+        ),
+        goal=search_result.goal,
+        final_rule=search_result.final_rule,
+        requesting_rule=node.requesting_rule,
+        premise_index=node.premise_index,
+        premise_pattern=node.premise_pattern,
+        current_depth=(
+          node.minimum_depth - 1
+        ),
+        required_next_depth=(
+          node.minimum_depth
+        ),
+        producer_candidates=(
+          node.producer_rule,
+        ),
+        ancestor_rules=ancestor_rules,
+      )
+
+    next_steps = (
+      current_steps
+      + round_result.new_steps
+    )
+
+    premise_is_available = any(
+      match_premise_pattern(
+        node.premise_pattern,
+        step,
+      )
+      is not None
+      for step in next_steps
+    )
+
+    if not premise_is_available:
+      if (
+        node.requesting_rule
+        is search_result.final_rule
+      ):
+        ancestor_rules = (
+          search_result.final_rule,
+        )
+      else:
+        ancestor_rules = (
+          search_result.final_rule,
+          node.requesting_rule,
+        )
+
+      return BoundedProducerSearchDiagnostic(
+        status=(
+          BoundedProducerSearchStatus
+          .PRODUCER_OUTPUT_NOT_USABLE
+        ),
+        goal=search_result.goal,
+        final_rule=search_result.final_rule,
+        requesting_rule=node.requesting_rule,
+        premise_index=node.premise_index,
+        premise_pattern=node.premise_pattern,
+        current_depth=(
+          node.minimum_depth - 1
+        ),
+        required_next_depth=(
+          node.minimum_depth
+        ),
+        producer_candidates=(
+          node.producer_rule,
+        ),
+        ancestor_rules=ancestor_rules,
+      )
+
+    current_steps = next_steps
+
+  final_round_result = (
+    derive_inference_round_result(
+      (
+        search_result.final_rule,
+      ),
+      current_steps,
+    )
+  )
+
+  if not final_round_result.matches:
+    return BoundedProducerSearchDiagnostic(
+      status=(
+        BoundedProducerSearchStatus
+        .FINAL_RULE_NOT_APPLICABLE
+      ),
+      goal=search_result.goal,
+      final_rule=search_result.final_rule,
+      ancestor_rules=(
+        search_result.final_rule,
+      ),
+    )
+
+  goal_is_derived = any(
+    step.conclusion
+    == search_result.goal
+    for step
+    in final_round_result.candidate_steps
+  )
+
+  if not goal_is_derived:
+    return BoundedProducerSearchDiagnostic(
+      status=(
+        BoundedProducerSearchStatus
+        .GOAL_NOT_DERIVED
+      ),
+      goal=search_result.goal,
+      final_rule=search_result.final_rule,
+      ancestor_rules=(
+        search_result.final_rule,
+      ),
+    )
+
+  return None
+
+
 def select_unique_depth_two_producer_chain(
   repository,
   rule_catalog,
@@ -1881,6 +2131,225 @@ def select_unique_depth_two_producer_chain(
       producer_nodes
     ),
     max_depth=2,
+  )
+
+
+def build_depth_two_producer_search_report(
+  repository,
+  rule_catalog,
+  goal,
+) -> BoundedProducerSearchReport:
+  if not isinstance(
+    repository,
+    ProofRepository,
+  ):
+    raise TypeError(
+      "repository must be a ProofRepository"
+    )
+
+  if not isinstance(
+    rule_catalog,
+    InferenceRuleCatalog,
+  ):
+    raise TypeError(
+      "rule_catalog must be an "
+      "InferenceRuleCatalog"
+    )
+
+  initial_steps = repository_available_steps(
+    repository
+  )
+
+  if find_goal_step(
+    initial_steps,
+    goal,
+  ) is not None:
+    return BoundedProducerSearchReport(
+      status=(
+        BoundedProducerSearchStatus
+        .GOAL_ALREADY_AVAILABLE
+      ),
+      goal=goal,
+    )
+
+  search_diagnostic = (
+    diagnose_depth_two_producer_search_failure(
+      repository,
+      rule_catalog,
+      goal,
+    )
+  )
+
+  if search_diagnostic is not None:
+    return BoundedProducerSearchReport(
+      status=search_diagnostic.status,
+      goal=goal,
+      diagnostic=search_diagnostic,
+    )
+
+  search_result = (
+    select_unique_depth_two_producer_chain(
+      repository,
+      rule_catalog,
+      goal,
+    )
+  )
+
+  if search_result is None:
+    raise RuntimeError(
+      "search diagnostics passed but no "
+      "search result was selected"
+    )
+
+  execution_diagnostic = (
+    diagnose_depth_two_producer_execution_failure(
+      repository,
+      search_result,
+    )
+  )
+
+  if execution_diagnostic is not None:
+    return BoundedProducerSearchReport(
+      status=execution_diagnostic.status,
+      goal=goal,
+      search_result=search_result,
+      diagnostic=execution_diagnostic,
+    )
+
+  return BoundedProducerSearchReport(
+    status=BoundedProducerSearchStatus.SUCCESS,
+    goal=goal,
+    search_result=search_result,
+  )
+
+
+def execute_depth_two_producer_search(
+  repository,
+  rule_catalog,
+  goal,
+) -> BoundedProducerExecutionResult:
+  if not isinstance(
+    repository,
+    ProofRepository,
+  ):
+    raise TypeError(
+      "repository must be a ProofRepository"
+    )
+
+  if not isinstance(
+    rule_catalog,
+    InferenceRuleCatalog,
+  ):
+    raise TypeError(
+      "rule_catalog must be an "
+      "InferenceRuleCatalog"
+    )
+
+  report = (
+    build_depth_two_producer_search_report(
+      repository,
+      rule_catalog,
+      goal,
+    )
+  )
+
+  initial_steps = repository_available_steps(
+    repository
+  )
+
+  if report.status is (
+    BoundedProducerSearchStatus
+    .GOAL_ALREADY_AVAILABLE
+  ):
+    inference_result = (
+      run_inference_until_stable_with_history(
+        (),
+        initial_steps,
+        max_rounds=1,
+      )
+    )
+
+    repository_inference_result = (
+      RepositoryInferenceResult(
+        inference_result=inference_result,
+        goal_step=find_goal_step(
+          inference_result.steps,
+          goal,
+        ),
+      )
+    )
+
+    return BoundedProducerExecutionResult(
+      report=report,
+      repository_inference_result=(
+        repository_inference_result
+      ),
+    )
+
+  if report.status is not (
+    BoundedProducerSearchStatus.SUCCESS
+  ):
+    return BoundedProducerExecutionResult(
+      report=report,
+    )
+
+  search_result = report.search_result
+
+  if search_result is None:
+    raise RuntimeError(
+      "successful report must contain a "
+      "search result"
+    )
+
+  current_steps = initial_steps
+
+  for node in search_result.producer_nodes:
+    producer_result = (
+      run_inference_until_stable_with_history(
+        (
+          node.producer_rule,
+        ),
+        current_steps,
+        max_rounds=1,
+      )
+    )
+
+    current_steps = producer_result.steps
+
+  final_result = (
+    run_inference_until_stable_with_history(
+      (
+        search_result.final_rule,
+      ),
+      current_steps,
+      max_rounds=1,
+    )
+  )
+
+  repository_inference_result = (
+    RepositoryInferenceResult(
+      inference_result=final_result,
+      goal_step=find_goal_step(
+        final_result.steps,
+        goal,
+      ),
+    )
+  )
+
+  if (
+    repository_inference_result.goal_step
+    is None
+  ):
+    raise RuntimeError(
+      "successful bounded search execution "
+      "did not derive the requested goal"
+    )
+
+  return BoundedProducerExecutionResult(
+    report=report,
+    repository_inference_result=(
+      repository_inference_result
+    ),
   )
 
 

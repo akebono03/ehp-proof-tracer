@@ -6408,3 +6408,388 @@ generic theorem prover
 ```
 
 Phase 84 should begin with a separate compatibility audit before deciding whether producer rules may themselves request missing premises.
+
+---
+
+# Phase 84: bounded depth=2 producer search
+
+Phase 84 extends the Phase 83 one-level producer search by exactly one bounded dependency level.
+
+The supported search shape is:
+
+```text
+goal
+↓
+direct producer                  depth 1
+↓
+producer premise producer       depth 2
+↓
+direct producer
+↓
+goal
+```
+
+The main infrastructure is:
+
+```text
+BoundedProducerSearchNode
+BoundedProducerSearchResult
+analyze_producer_premise_availabilities()
+select_unique_depth_two_producer_chain()
+derive_goal_from_repository_with_depth_two_producers()
+```
+
+A producer node records:
+
+```text
+requesting_rule
+premise_index
+premise_pattern
+producer_rule
+producer_availability
+depths
+dependencies
+```
+
+The `depths` field records every path depth at which the same producer rule is required. This allows a shared producer to remain one node even when it is needed through multiple paths.
+
+For the actual Toda Lemma 5.16 representative proof:
+
+```text
+final
+├─ bracket-sum producer             depth 1
+└─ composition producer             depth 1
+   └─ bracket-sum producer          depth 2
+```
+
+the bracket-sum producer is shared:
+
+```text
+depths = (1, 2)
+is_shared = True
+```
+
+Execution is dependency-first. Each producer rule is run with:
+
+```text
+max_rounds = 1
+```
+
+and a shared producer is executed only once.
+
+The actual theorem integration derives:
+
+```text
+first bracket term + second bracket term
+→ bracket-sum
+
+bracket-sum + suspension bridge + sigma definition
+→ scaled-composition bridge
+
+bracket-sum + scaled-composition bridge
+→ final Toda Lemma 5.16 consequence
+```
+
+The same generated bracket-sum `ProofStep` is reused by both the composition proof and the final proof.
+
+Phase 84 safety regression fixes the following boundary:
+
+```text
+missing / unsafe producer      → stop
+distinct ambiguity             → stop
+same-rule alias                → identity deduplicate
+cycle-shaped dependency        → stop
+depth 3 requirement            → stop
+partial applicability          → no goal
+repository                     → unchanged
+```
+
+Representative probe:
+
+```powershell
+python -m probes.probe_phase84_capabilities
+```
+
+Phase 84 final repository-wide regression:
+
+```text
+6859 passed
+```
+
+Phase 84 does not implement arbitrary recursive search, DFS / BFS / A*, proof ranking, or depth greater than two.
+
+---
+
+# Phase 85: bounded-search diagnostics and integrated execution
+
+Phase 85 adds structured diagnostics and a single integrated execution surface above the Phase 84 bounded depth=2 producer search.
+
+The completed pipeline is:
+
+```text
+goal
+↓
+bounded depth=2 search
+↓
+search-failure diagnostics
+↓
+execution-failure diagnostics
+↓
+unified report
+↓
+selected search path
+↓
+integrated execution
+↓
+goal ProofStep
+```
+
+## Diagnostic status model
+
+`BoundedProducerSearchStatus` now covers successful outcomes, search failures, and execution failures:
+
+```text
+SUCCESS
+GOAL_ALREADY_AVAILABLE
+
+NO_FINAL_RULE
+AMBIGUOUS_FINAL_RULE
+NO_PRODUCER
+UNSAFE_PRODUCER
+AMBIGUOUS_PRODUCER
+CYCLE_DETECTED
+DEPTH_LIMIT
+
+PRODUCER_NOT_APPLICABLE
+PRODUCER_OUTPUT_NOT_USABLE
+FINAL_RULE_NOT_APPLICABLE
+GOAL_NOT_DERIVED
+```
+
+Search diagnostics explain why a bounded producer path could not be selected. Execution diagnostics explain why an already selected path could not be executed successfully.
+
+The execution diagnostic layer distinguishes:
+
+```text
+producer has no applicable match
+→ PRODUCER_NOT_APPLICABLE
+
+producer executes but does not make the requested premise usable
+→ PRODUCER_OUTPUT_NOT_USABLE
+
+producer chain succeeds but final rule has no match
+→ FINAL_RULE_NOT_APPLICABLE
+
+final rule has candidates but does not derive the requested goal
+→ GOAL_NOT_DERIVED
+```
+
+## Unified report
+
+The high-level diagnostic entry point is:
+
+```text
+build_depth_two_producer_search_report(
+  repository,
+  rule_catalog,
+  goal,
+)
+```
+
+Its semantics are:
+
+```text
+goal already in repository
+→ GOAL_ALREADY_AVAILABLE
+→ no search_result
+→ no diagnostic
+
+search failure
+→ failure status
+→ no search_result
+→ search diagnostic
+
+search succeeds but execution diagnostic fails
+→ execution-failure status
+→ selected search_result preserved
+→ execution diagnostic preserved
+
+search and diagnostic execution both succeed
+→ SUCCESS
+→ selected search_result preserved
+→ no diagnostic
+```
+
+Preserving `search_result` on execution failure makes it possible to distinguish:
+
+```text
+no valid bounded path was selected
+```
+
+from:
+
+```text
+a bounded path was selected, but execution failed at a concrete point
+```
+
+## Integrated bounded-search execution
+
+Phase 85 adds:
+
+```text
+BoundedProducerExecutionResult
+execute_depth_two_producer_search()
+```
+
+The execution result contains:
+
+```text
+report
+repository_inference_result
+```
+
+Successful statuses require a `RepositoryInferenceResult` with a matching `goal_step`. Failure statuses do not return a proof result.
+
+A key invariant is:
+
+```text
+diagnosed search path
+=
+executed search path
+```
+
+`execute_depth_two_producer_search()` executes the exact `search_result` already stored in the report. It does not perform a second producer search before execution.
+
+This prevents diagnostic selection and actual execution from silently diverging.
+
+The repository remains read-only. Generated proof steps are returned through inference results and are not automatically registered.
+
+## Actual Toda Lemma 5.16 integration
+
+Phase 85 completion reuses the actual Phase 84 / Phase 77 Toda Lemma 5.16 proof data.
+
+Initial repository:
+
+```text
+first bracket term
+second bracket term
+suspension bridge
+sigma definition
+```
+
+Initially absent:
+
+```text
+bracket-sum proof
+scaled-composition bridge
+final goal
+```
+
+The integrated API selects:
+
+```text
+bracket-sum producer
+  depths = (1, 2)
+  shared = True
+
+composition producer
+  depends on bracket-sum
+```
+
+and derives:
+
+```text
+first + second
+→ bracket-sum
+
+bracket-sum + suspension bridge + sigma definition
+→ scaled composition
+
+bracket-sum + scaled composition
+→ final Toda Lemma 5.16 goal
+```
+
+The actual integration verifies:
+
+```text
+status = success
+diagnostic present = False
+search result present = True
+producer node count = 2
+bracket-sum depths = (1, 2)
+shared bracket-sum proof step = True
+existing bracket-sum rule reused = True
+existing composition rule reused = True
+existing final rule reused = True
+derived graph acyclic = True
+repository mutated = False
+```
+
+Representative probe:
+
+```powershell
+python -m probes.probe_phase85_capabilities
+```
+
+## Phase 85 verification
+
+Final Phase 85 checks:
+
+```text
+actual theorem integration:
+12 passed
+
+probe:
+7 passed
+
+Phase 85-7 + Phase 85-8:
+26 passed
+
+Phase 84 actual + Phase 85 actual:
+28 passed
+
+Phase 85 focused:
+86 passed in 6.69s
+
+repository-wide:
+6945 passed in 108.60s
+```
+
+Wall-clock time remains machine-dependent because development is performed on multiple PCs.
+
+## Phase 85 completion boundary
+
+Implemented:
+
+```text
+search-failure diagnostics
+execution-failure diagnostics
+bounded-search diagnostic status model
+unified BoundedProducerSearchReport flow
+execution failure with preserved selected search path
+BoundedProducerExecutionResult
+integrated bounded-search execution API
+exact selected-path execution
+actual Toda Lemma 5.16 end-to-end integration
+representative probe
+repository non-mutation
+acyclic provenance
+```
+
+Still intentionally not implemented:
+
+```text
+depth > 2
+arbitrary recursive producer search
+retry / backtracking
+producer ranking
+proof-cost model
+best-proof selection
+DFS / BFS / A*
+persistent search cache
+mathematical-equivalence goal normalization
+automatic proof narrative generation
+generic theorem prover
+```
+
+The next natural boundary is a Phase 86 audit of hard-coded depth=2 behavior and possible explicit depth-limit parameterization. Any such generalization should preserve current depth=2 behavior before enabling deeper search.

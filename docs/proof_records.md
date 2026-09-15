@@ -8526,3 +8526,356 @@ COMPLETE
 ```
 
 Phase 84完了後も数学的proof record数は13のまま。
+
+---
+
+# 36. Phase 85 bounded-search diagnostics / integrated execution infrastructure record
+
+## 36.1 記録種別
+
+```text
+infrastructure record
+```
+
+Phase 85 は新しい数学 theorem を追加しない。
+
+既存の Toda Lemma 5.16 proof と Phase 84 bounded depth=2 producer graph を用いて:
+
+```text
+search failure diagnostics
+execution failure diagnostics
+unified report
+integrated execution
+```
+
+を検証する。
+
+したがって数学的 formal proof record 数は13のまま。
+
+---
+
+## 36.2 対象 proof
+
+代表 target:
+
+```text
+Toda Lemma 5.16 final bracket-sum consequence
+```
+
+initial repository:
+
+```text
+first bracket term
+second bracket term
+suspension bridge
+sigma definition
+```
+
+初期状態にない:
+
+```text
+bracket-sum proof
+scaled-composition bridge
+final goal
+```
+
+---
+
+## 36.3 search diagnostic record
+
+search failure status:
+
+```text
+NO_FINAL_RULE
+AMBIGUOUS_FINAL_RULE
+NO_PRODUCER
+UNSAFE_PRODUCER
+AMBIGUOUS_PRODUCER
+CYCLE_DETECTED
+DEPTH_LIMIT
+```
+
+diagnostic context:
+
+```text
+final rule / candidate rules
+requesting rule
+premise index / pattern
+current depth
+required next depth
+producer candidates
+unsafe producer candidates
+ancestor rules
+```
+
+これにより:
+
+```text
+どのgoal ruleを選べなかったか
+どのpremiseのproducerが不足したか
+安全性で除外されたか
+曖昧だったか
+cycleか
+depth boundaryか
+```
+
+を machine-readable に保持する。
+
+---
+
+## 36.4 execution diagnostic record
+
+selected search path を実行可能性の観点から分類:
+
+```text
+PRODUCER_NOT_APPLICABLE
+PRODUCER_OUTPUT_NOT_USABLE
+FINAL_RULE_NOT_APPLICABLE
+GOAL_NOT_DERIVED
+```
+
+意味:
+
+```text
+selected producer ruleにmatchなし
+selected producer出力がrequesting premiseへ使えない
+producer chain後にfinal rule matchなし
+final ruleがrequested goalを生成しない
+```
+
+search failure と execution failure を明確に分離する。
+
+---
+
+## 36.5 unified report record
+
+```text
+BoundedProducerSearchReport
+```
+
+success:
+
+```text
+status = SUCCESS
+search_result = selected bounded path
+diagnostic = None
+```
+
+already available:
+
+```text
+status = GOAL_ALREADY_AVAILABLE
+search_result = None
+diagnostic = None
+```
+
+search failure:
+
+```text
+search_result = None
+diagnostic = search failure diagnostic
+```
+
+execution failure:
+
+```text
+search_result = successfully selected path
+diagnostic = execution failure diagnostic
+```
+
+execution failure でも selected path を保持することが重要。
+
+---
+
+## 36.6 integrated execution record
+
+Phase 85-7:
+
+```text
+BoundedProducerExecutionResult
+execute_depth_two_producer_search()
+```
+
+execution result:
+
+```text
+report
+repository_inference_result
+```
+
+最重要 invariant:
+
+```text
+diagnosed selected path
+=
+actually executed path
+```
+
+report 作成後に producer search を再実行せず:
+
+```text
+report.search_result
+```
+
+をそのまま実行する。
+
+これにより diagnostic provenance と actual execution provenance が一致する。
+
+---
+
+## 36.7 actual Toda Lemma 5.16 record
+
+selected producer graph:
+
+```text
+final
+├─ bracket-sum              depths=(1,2)
+└─ composition
+   └─ bracket-sum
+```
+
+execution:
+
+```text
+first term + second term
+→ bracket-sum
+
+bracket-sum + suspension bridge + sigma definition
+→ composition
+
+bracket-sum + composition
+→ final
+```
+
+shared proof identity:
+
+```text
+final.premises[0]
+is composition.premises[0]
+is bracket_sum_step
+```
+
+rule identity:
+
+```text
+bracket-sum rule reused
+composition rule reused
+final rule reused
+```
+
+safety:
+
+```text
+proof graph acyclic
+repository unchanged
+generated steps not auto-registered
+```
+
+---
+
+## 36.8 representative probe
+
+```powershell
+python -m probes.probe_phase85_capabilities
+```
+
+代表出力:
+
+```text
+status = success
+diagnostic present = False
+search result present = True
+
+producer node count = 2
+bracket-sum depths = (1, 2)
+bracket-sum shared = True
+composition depends on bracket-sum = True
+within depth limit = True
+
+final goal derived = True
+shared bracket-sum proof step = True
+
+existing bracket-sum rule reused = True
+existing composition rule reused = True
+existing final rule reused = True
+derived graph acyclic = True
+repository mutated = False
+```
+
+---
+
+## 36.9 regression record
+
+```text
+Phase 85 actual theorem integration:
+12 passed in 5.23s
+
+Phase 85 probe:
+7 passed in 5.77s
+
+Phase 85-7 + Phase 85-8:
+26 passed in 5.98s
+
+Phase 84 actual + Phase 85 actual:
+28 passed in 6.28s
+
+Phase 85 focused:
+86 passed in 6.69s
+
+repository-wide:
+6945 passed in 108.60s
+```
+
+---
+
+## 36.10 completion boundary
+
+Phase 85 完了時点:
+
+```text
+search-failure diagnostics = enabled
+execution-failure diagnostics = enabled
+unified diagnostic report = enabled
+integrated bounded-search execution = enabled
+actual Toda Lemma 5.16 integration = verified
+producer execution depth = 2
+```
+
+未実装:
+
+```text
+retry / backtracking
+producer ranking
+proof-cost model
+depth > 2
+arbitrary recursive search
+DFS / BFS / A*
+persistent search cache
+automatic proof narrative generation
+generic theorem prover
+```
+
+---
+
+## 36.11 記録状態
+
+```text
+Phase 85 infrastructure record
+COMPLETE
+```
+
+現在の正式な記録数:
+
+```text
+数学的 formal proof records = 13
+
+infrastructure records:
+Phase 79
+Phase 80
+Phase 81
+Phase 82
+Phase 83
+Phase 84
+Phase 85
+= 7
+```
