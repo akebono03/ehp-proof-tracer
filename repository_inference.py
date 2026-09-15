@@ -1323,11 +1323,40 @@ def diagnose_direct_producer_failure(
   return None
 
 
+def _validate_depth_two_max_depth(
+  max_depth,
+) -> None:
+  if (
+    isinstance(
+      max_depth,
+      bool,
+    )
+    or not isinstance(
+      max_depth,
+      int,
+    )
+  ):
+    raise TypeError(
+      "max_depth must be an int"
+    )
+
+  if max_depth != 2:
+    raise ValueError(
+      "max_depth must be 2 for "
+      "depth-two producer search"
+    )
+
+
 def diagnose_depth_two_producer_search_failure(
   repository,
   rule_catalog,
   goal,
+  max_depth=2,
 ) -> BoundedProducerSearchDiagnostic | None:
+  _validate_depth_two_max_depth(
+    max_depth
+  )
+
   direct_diagnostic = (
     diagnose_direct_producer_failure(
       repository,
@@ -1579,7 +1608,7 @@ def diagnose_depth_two_producer_search_failure(
         lookup_failure = failure_for_lookup(
           boundary_lookup,
           nested_rule,
-          2,
+          max_depth,
           boundary_ancestors,
         )
 
@@ -1619,8 +1648,10 @@ def diagnose_depth_two_producer_search_failure(
           premise_pattern=(
             boundary_lookup.premise_pattern
           ),
-          current_depth=2,
-          required_next_depth=3,
+          current_depth=max_depth,
+          required_next_depth=(
+            max_depth + 1
+          ),
           producer_candidates=(
             next_rule,
           ),
@@ -1800,7 +1831,12 @@ def select_unique_depth_two_producer_chain(
   repository,
   rule_catalog,
   goal,
+  max_depth=2,
 ) -> BoundedProducerSearchResult | None:
+  _validate_depth_two_max_depth(
+    max_depth
+  )
+
   if not isinstance(
     repository,
     ProofRepository,
@@ -1980,7 +2016,7 @@ def select_unique_depth_two_producer_chain(
         nested_lookup.premise_pattern,
         nested_rule,
         nested_availability,
-        2,
+        max_depth,
       )
 
       if (
@@ -2130,7 +2166,7 @@ def select_unique_depth_two_producer_chain(
     producer_nodes=tuple(
       producer_nodes
     ),
-    max_depth=2,
+    max_depth=max_depth,
   )
 
 
@@ -2138,7 +2174,12 @@ def build_depth_two_producer_search_report(
   repository,
   rule_catalog,
   goal,
+  max_depth=2,
 ) -> BoundedProducerSearchReport:
+  _validate_depth_two_max_depth(
+    max_depth
+  )
+
   if not isinstance(
     repository,
     ProofRepository,
@@ -2177,6 +2218,7 @@ def build_depth_two_producer_search_report(
       repository,
       rule_catalog,
       goal,
+      max_depth=max_depth,
     )
   )
 
@@ -2192,6 +2234,7 @@ def build_depth_two_producer_search_report(
       repository,
       rule_catalog,
       goal,
+      max_depth=max_depth,
     )
   )
 
@@ -2227,7 +2270,12 @@ def execute_depth_two_producer_search(
   repository,
   rule_catalog,
   goal,
+  max_depth=2,
 ) -> BoundedProducerExecutionResult:
+  _validate_depth_two_max_depth(
+    max_depth
+  )
+
   if not isinstance(
     repository,
     ProofRepository,
@@ -2250,6 +2298,7 @@ def execute_depth_two_producer_search(
       repository,
       rule_catalog,
       goal,
+      max_depth=max_depth,
     )
   )
 
