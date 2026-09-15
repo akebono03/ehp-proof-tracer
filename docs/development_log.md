@@ -13014,3 +13014,504 @@ automatic proof narrative generation
 
 Final Phase 80 completion status becomes COMPLETE after the Phase 80-7 probe test and full regression pass.
 
+
+
+---
+
+# Phase 81：automatic rule selection / proof-search foundation
+
+Phase 80 ended with:
+
+```text
+repository
++
+explicit rule set
++
+goal
+↓
+repository-assisted inference
+```
+
+Phase 81 removes direct rule selection from the caller while keeping backward search deferred.
+
+---
+
+## Phase 81-1：existing InferenceRule inventory / search-safety audit
+
+Production code:
+
+```text
+変更なし
+```
+
+Audited:
+
+```text
+InferenceRule.premise_patterns
+InferenceRule.conclusion_pattern
+InferenceRule.conclusion_builder
+InferenceRule.match_guard
+fixed-point-safe / repeatable rule behavior
+```
+
+Key finding:
+
+```text
+actual Phase 77 final rule
+uses conclusion_builder
+```
+
+so goal filtering cannot depend only on `conclusion_pattern`.
+
+Classified rules conceptually as:
+
+```text
+automatic-selection safe
+conditional
+automatic fixed-point excluded
+```
+
+Repeatable suspension / composition propagation remains outside unrestricted automatic fixed-point execution.
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 81-2：minimal rule catalog
+
+Added:
+
+```text
+rule_catalog.py
+tests/test_rule_catalog.py
+```
+
+Production structures:
+
+```text
+InferenceRuleCatalogEntry
+InferenceRuleCatalog
+```
+
+Entry fields:
+
+```text
+key
+rule
+conclusion_type
+fixed_point_safe=False
+```
+
+Catalog APIs:
+
+```text
+register()
+get()
+entries()
+rules()
+```
+
+Important boundary:
+
+```text
+catalog entry identity
+!= InferenceRule identity
+```
+
+same rule / different keys is allowed.
+
+Focused:
+
+```text
+14 passed in 0.24s
+```
+
+Phase 79/80 regression:
+
+```text
+63 passed in 3.20s
+```
+
+Repository-wide:
+
+```text
+6587 passed in 35.42s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 81-3：goal-compatible rule filtering
+
+Added to `rule_catalog.py`:
+
+```text
+find_goal_compatible_rule_entries()
+find_goal_compatible_rules()
+```
+
+Selection:
+
+```text
+exact conclusion type
++
+fixed_point_safe=True
+```
+
+Entry aliases remain visible; execution rule tuple identity-deduplicates the same `InferenceRule` object.
+
+Focused:
+
+```text
+23 passed in 0.26s
+```
+
+Phase 79/80 regression:
+
+```text
+63 passed in 2.68s
+```
+
+Repository-wide:
+
+```text
+6596 passed in 34.54s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 81-4：repository + automatically selected rules
+
+Added to `repository_inference.py`:
+
+```text
+derive_goal_from_repository_with_catalog()
+```
+
+Flow:
+
+```text
+repository
++
+catalog
++
+goal
+↓
+find_goal_compatible_rules()
+↓
+existing derive_goal_from_repository()
+↓
+RepositoryInferenceResult
+```
+
+Existing Phase 80 runner unchanged.
+
+Focused:
+
+```text
+9 passed in 0.22s
+```
+
+Phase 80 runner + Phase 81:
+
+```text
+41 passed in 0.54s
+```
+
+Phase 79/80/81 focused:
+
+```text
+111 passed in 3.17s
+```
+
+Repository-wide:
+
+```text
+6605 passed in 36.03s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 81-5：actual theorem integration
+
+Added:
+
+```text
+tests/test_phase81_actual_theorem_integration.py
+```
+
+Representative actual theorem:
+
+```text
+Toda Lemma 5.16
+Phase 77
+```
+
+Reused:
+
+```text
+build_phase80_5_data()
+actual repository
+actual goal
+actual Phase 77 final_rule
+```
+
+Phase 81 catalog registers the existing final rule as fixed-point-safe for the exact actual goal type.
+
+Execution no longer passes `final_rule` directly:
+
+```text
+actual repository
++
+catalog
++
+actual goal
+↓
+automatic selection
+↓
+actual Phase 77 final_rule
+↓
+new final ProofStep
+```
+
+Verified:
+
+```text
+goal absent initially
+new final is not original Phase 77 final_step
+final = INFERENCE
+exact repository premises retained
+exact existing Phase 77 rule retained
+fixed point reached
+goal absent from ancestors
+graph acyclic
+repository unchanged
+```
+
+Focused:
+
+```text
+12 passed in 1.83s
+```
+
+Phase 80 + Phase 81 actual integration:
+
+```text
+22 passed in 1.85s
+```
+
+Phase 77/80/81 actual regression:
+
+```text
+74 passed in 2.28s
+```
+
+Repository-wide:
+
+```text
+6617 passed in 35.83s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 81-6：wrong-rule / ambiguity / non-circularity regression
+
+Added:
+
+```text
+tests/test_phase81_rule_selection_regression.py
+```
+
+Representative catalog intentionally includes:
+
+```text
+correct actual rule
+same-rule alias
+same goal type / wrong guard
+same goal type / missing premise
+same goal type / unsafe
+unrelated conclusion type
+```
+
+Verified:
+
+```text
+unsafe candidate filtered
+unrelated candidate filtered
+alias deduplicated for execution
+wrong-guard candidate not matched
+missing-premise candidate not matched
+correct rule derives actual goal
+exactly one accepted goal proof
+goal absent from ancestry
+graph acyclic
+repository unchanged
+seed GIVEN goal distinguished from derived INFERENCE goal
+```
+
+Focused:
+
+```text
+14 passed in 1.67s
+```
+
+Phase 81-5 + 81-6:
+
+```text
+26 passed in 1.98s
+```
+
+Phase 81 focused:
+
+```text
+58 passed in 2.34s
+```
+
+Phase 77/80/81 applicability regression:
+
+```text
+69 passed in 2.20s
+```
+
+Repository-wide:
+
+```text
+6631 passed in 34.70s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 81-7：representative probe + completion documentation
+
+Added:
+
+```text
+probes/probe_phase81_capabilities.py
+tests/test_phase81_probe.py
+```
+
+Representative fixture:
+
+```text
+build_phase81_6_data()
+```
+
+The probe displays:
+
+```text
+actual Toda Lemma 5.16 target
+catalog entry / candidate counts
+unsafe exclusion
+unrelated-type exclusion
+alias identity deduplication
+wrong-guard rejection
+missing-premise rejection
+correct Phase 77 rule selection
+exact repository premise reuse
+one accepted goal proof
+non-circularity
+repository non-mutation
+Phase 82 boundary
+```
+
+Updated completion documentation in full:
+
+```text
+README.md
+docs/design.md
+docs/development_log.md
+docs/roadmap.md
+```
+
+Additional navigation / infrastructure record updates:
+
+```text
+docs/code_reference.md
+docs/proof_records.md
+```
+
+Pre-probe repository-wide baseline:
+
+```text
+6631 passed in 34.70s
+```
+
+### 状態
+
+IMPLEMENTED / FINAL PROBE REGRESSION PENDING
+
+---
+
+# Phase 81 completion boundary
+
+Completed implementation through Phase 81-7:
+
+```text
+InferenceRule inventory / safety audit
+minimal rule catalog
+exact-type goal-compatible filtering
+fixed-point-safe opt-in
+rule alias identity deduplication
+catalog-aware repository inference wrapper
+actual Toda Lemma 5.16 automatic rule selection
+wrong-rule / missing-premise / unsafe ambiguity regression
+seed-goal / derived-goal distinction
+non-circularity / acyclicity regression
+representative probe
+completion documentation
+```
+
+Current exact automation boundary:
+
+```text
+repository ProofStep premises
++
+goal
++
+registered safe rules
+↓
+goal-compatible rule selection
+↓
+existing premise matching / match_guard
+↓
+forward fixed-point inference
+↓
+new proof
+```
+
+Still deferred:
+
+```text
+recursive missing-premise generation
+backward chaining
+multi-step goal-directed proof search
+DFS / BFS / A* strategy
+proof ranking
+mathematical goal normalization
+persistent repository
+automatic proof narrative generation
+generic theorem prover
+```
+
+Phase 81 becomes COMPLETE after the Phase 81-7 probe test and final full regression pass.

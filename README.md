@@ -29,7 +29,7 @@ The implementation strategy is to formalize only the minimum theorem consequence
 
 # Current status
 
-Completed through Phase 80.
+Completed through Phase 81.
 
 ```text
 Phase 1–27   generic proof / algebra / Toda-bracket foundation
@@ -78,12 +78,13 @@ Phase 77     Toda Lemma 5.16 bracket-sum consequence
 Phase 78     stable G_0 through G_7 integration
 Phase 79     minimal in-memory Proof Repository / cross-phase retrieval
 Phase 80     repository-assisted automatic inference
+Phase 81     automatic rule selection / proof-search foundation
 ```
 
 Latest pre-probe repository-wide regression:
 
 ```text
-6565 passed in 36.33s
+6631 passed in 34.70s
 ```
 
 Phase 64 same-machine baseline:
@@ -94,12 +95,12 @@ Phase 64 same-machine baseline:
 
 The Phase 64 final regression is approximately 88.4% faster than the same-machine baseline while preserving the same 3657-test coverage.
 
-Phase 80 repository-assisted automatic inference is implemented through actual Phase 77 / Toda Lemma 5.16 proof integration. The repository can now provide existing `ProofStep` premises to the existing inference engine, structurally detect a goal, and return a newly derived final `ProofStep` while preserving provenance and non-circularity. Repository-wide wall time is machine-dependent because development is performed on two PCs; the latest pre-probe full regression is 6565 passed in 36.33s.
+Phase 81 automatic rule selection is implemented through actual Phase 77 / Toda Lemma 5.16 proof integration. The project can now inspect a goal, select fixed-point-safe rules from an `InferenceRuleCatalog` by exact conclusion type, preserve aliases at the catalog layer while identity-deduplicating execution rules, and reuse existing repository premises to derive a previously unregistered theorem goal. Applicability remains owned by existing premise patterns and `match_guard`. Repository-wide wall time is machine-dependent because development is performed on two PCs; the latest pre-probe full regression is 6631 passed in 34.70s.
 
 Representative current probe:
 
 ```powershell
-python -m probes.probe_phase80_capabilities
+python -m probes.probe_phase81_capabilities
 ```
 
 ---
@@ -5741,3 +5742,356 @@ multi-step proof search policy
 
 This should begin with an audit of existing rule families and search-safety constraints. Do not preemptively add a general theorem prover, persistent database, or global normalization engine.
 
+
+
+# Phase 81: automatic rule selection / proof-search foundation
+
+Phase 81 removes the largest remaining manual input from the Phase 80 repository-assisted inference path: directly supplying the final `InferenceRule` to the runner.
+
+The Phase 80 execution boundary was:
+
+```text
+ProofRepository
++
+explicitly supplied InferenceRule set
++
+goal
+↓
+fixed-point inference
+↓
+new proof
+```
+
+Phase 81 adds a separate rule catalog and goal-compatible selection layer:
+
+```text
+goal
+↓
+exact conclusion type
+↓
+InferenceRuleCatalog
+↓
+fixed-point-safe candidate filtering
+↓
+rule identity deduplication
+↓
+existing premise matching / match_guard
+↓
+repository-assisted fixed-point inference
+↓
+new proof
+```
+
+## Phase 81-1 rule inventory / safety audit
+
+The existing rule population was audited before implementation.
+
+The key finding is that `InferenceRule` supports both:
+
+```text
+conclusion_pattern
+conclusion_builder
+```
+
+and the actual Phase 77 Toda Lemma 5.16 final rule uses a builder-style conclusion. Therefore goal filtering cannot rely only on `InferenceRule.conclusion_pattern`.
+
+Rules were conceptually separated into:
+
+```text
+safe theorem-specific fixed-point candidates
+conditional generic candidates
+repeatable / scope-sensitive rules excluded from automatic fixed-point selection
+```
+
+In particular, suspension and composition propagation rules that can create indefinitely deeper expressions remain outside automatic fixed-point selection.
+
+## Phase 81-2 minimal rule catalog
+
+Added:
+
+```text
+rule_catalog.py
+
+InferenceRuleCatalogEntry
+  key
+  rule
+  conclusion_type
+  fixed_point_safe
+
+InferenceRuleCatalog
+  register()
+  get()
+  entries()
+  rules()
+```
+
+`fixed_point_safe` defaults to `False`, so automatic execution is opt-in.
+
+Catalog identity remains distinct from rule identity:
+
+```text
+same InferenceRule object
++
+different catalog keys
+→ allowed
+```
+
+Focused regression:
+
+```text
+23 passed in 0.26s
+```
+
+## Phase 81-3 goal-compatible rule filtering
+
+Added:
+
+```text
+find_goal_compatible_rule_entries()
+find_goal_compatible_rules()
+```
+
+Selection semantics are intentionally narrow:
+
+```text
+entry.conclusion_type is type(goal)
+AND
+entry.fixed_point_safe is True
+```
+
+The selector does not inspect goal fields, premises, or theorem semantics.
+
+Catalog aliases are retained by entry-level filtering, while execution rules are identity-deduplicated before inference.
+
+Full regression after Phase 81-3:
+
+```text
+6596 passed in 34.54s
+```
+
+## Phase 81-4 repository + automatically selected rules
+
+Added to `repository_inference.py`:
+
+```text
+derive_goal_from_repository_with_catalog()
+```
+
+Execution:
+
+```text
+repository
++
+rule catalog
++
+goal
+↓
+find_goal_compatible_rules()
+↓
+derive_goal_from_repository()
+↓
+RepositoryInferenceResult
+```
+
+The existing Phase 80 `derive_goal_from_repository()` API remains unchanged.
+
+Focused regression:
+
+```text
+Phase 81-4: 9 passed in 0.22s
+Phase 79/80/81 focused: 111 passed in 3.17s
+repository-wide: 6605 passed in 36.03s
+```
+
+## Phase 81-5 actual theorem integration
+
+Representative actual theorem remains:
+
+```text
+Toda Lemma 5.16
+Phase 77
+```
+
+Initial repository:
+
+```text
+actual bracket-sum premise
+actual scaled-composition premise
+```
+
+The final conclusion is not registered initially.
+
+Execution now requires no explicit final rule argument:
+
+```text
+actual repository premises
++
+InferenceRuleCatalog
++
+actual Toda Lemma 5.16 goal
+↓
+automatic rule selection
+↓
+existing Phase 77 final rule
+↓
+new final ProofStep
+```
+
+Verified:
+
+```text
+goal absent initially
+actual rule automatically selected
+new final step created
+final = INFERENCE
+exact repository-premise identity retained
+exact Phase 77 rule identity retained
+fixed point reached
+goal absent from ancestry
+graph acyclic
+repository unchanged
+```
+
+Focused regression:
+
+```text
+12 passed in 1.83s
+```
+
+Repository-wide regression:
+
+```text
+6617 passed in 35.83s
+```
+
+## Phase 81-6 wrong-rule / ambiguity / non-circularity regression
+
+The representative catalog deliberately contains:
+
+```text
+correct actual rule
+same-rule alias
+same goal type / wrong guard candidate
+same goal type / missing-premise candidate
+same goal type / unsafe candidate
+unrelated conclusion-type candidate
+```
+
+Verified execution boundary:
+
+```text
+unsafe candidate
+→ filtered before execution
+
+unrelated conclusion type
+→ filtered before execution
+
+wrong-guard candidate
+→ coarse selector may retain it
+→ match_guard rejects it
+
+missing-premise candidate
+→ coarse selector may retain it
+→ premise matching rejects it
+
+correct rule alias
+→ catalog entries remain distinct
+→ execution rule identity deduplicated
+
+actual goal
+→ exactly one accepted derived proof
+```
+
+The regression also distinguishes:
+
+```text
+goal absent initially
+→ derived INFERENCE proof
+
+goal already seeded
+→ existing GIVEN step returned
+```
+
+Repository-wide regression before the representative probe:
+
+```text
+6631 passed in 34.70s
+```
+
+## Phase 81-7 representative probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase81_capabilities
+```
+
+The probe demonstrates:
+
+```text
+actual Toda Lemma 5.16 goal
+multiple catalog candidates
+goal-compatible safe filtering
+unsafe / unrelated exclusion
+rule-alias identity deduplication
+premise / match_guard applicability filtering
+correct actual Phase 77 rule selection
+exact repository premise reuse
+new INFERENCE proof
+one accepted goal proof
+non-circular ancestry
+repository non-mutation
+```
+
+## Phase 81 completion boundary
+
+Implemented:
+
+```text
+minimal InferenceRuleCatalog
+goal-compatible exact-type filtering
+fixed-point-safe opt-in metadata
+rule alias identity deduplication
+repository + catalog + goal orchestration
+actual Toda Lemma 5.16 automatic rule selection
+wrong-rule / ambiguity regression
+non-circularity / acyclicity regression
+representative probe
+```
+
+Current automatic inference boundary:
+
+```text
+existing repository ProofStep premises
++
+goal
++
+registered fixed-point-safe rules
+↓
+coarse goal-compatible selection
+↓
+existing premise matching / match_guard
+↓
+forward fixed-point inference
+↓
+new proof
+```
+
+Still not implemented:
+
+```text
+backward chaining
+multi-step unknown-premise generation
+goal-directed recursive premise search
+proof ranking / best-proof selection
+mathematical-equivalence goal normalization
+persistent repository
+automatic proof narrative generation
+generic theorem prover
+```
+
+# Next development boundary
+
+The next natural milestone is Phase 82: multi-step / goal-directed proof-search foundation.
+
+Phase 82 should begin by defining how a selected final rule can request missing premises and how candidate producer rules are discovered without immediately introducing unrestricted backward chaining, search ranking, or a general theorem prover.

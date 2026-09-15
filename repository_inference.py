@@ -7,6 +7,10 @@ from proof import (
   run_inference_until_stable_with_history,
 )
 from proof_repository import ProofRepository
+from rule_catalog import (
+  InferenceRuleCatalog,
+  find_goal_compatible_rules,
+)
 
 
 @dataclass(frozen=True)
@@ -81,3 +85,25 @@ def derive_goal_from_repository(
     inference_result=inference_result,
     goal_step=goal_step,
   )
+
+
+def derive_goal_from_repository_with_catalog(
+  repository: ProofRepository,
+  rule_catalog: InferenceRuleCatalog,
+  goal,
+  max_rounds=None,
+) -> RepositoryInferenceResult:
+  inference_rules = (
+    find_goal_compatible_rules(
+      rule_catalog,
+      goal,
+    )
+  )
+
+  return derive_goal_from_repository(
+    repository,
+    inference_rules,
+    goal,
+    max_rounds=max_rounds,
+  )
+

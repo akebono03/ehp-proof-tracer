@@ -7168,3 +7168,159 @@ persistent repository
 automatic proof narrative generation
 ```
 
+
+
+# 121. Phase 81 rule catalog
+
+`rule_catalog.py`:
+
+```text
+InferenceRuleCatalogEntry
+InferenceRuleCatalog
+find_goal_compatible_rule_entries()
+find_goal_compatible_rules()
+```
+
+`InferenceRuleCatalogEntry`:
+
+```text
+key
+rule
+conclusion_type
+fixed_point_safe
+```
+
+`fixed_point_safe` defaults to `False`.
+
+# 122. Phase 81 catalog filtering
+
+`find_goal_compatible_rule_entries(catalog, goal)`:
+
+```text
+exact conclusion type
++
+fixed_point_safe=True
+↓
+matching catalog entries
+```
+
+`find_goal_compatible_rules(catalog, goal)` additionally identity-deduplicates aliased `InferenceRule` objects.
+
+# 123. Phase 81 catalog-aware repository inference
+
+`repository_inference.py` adds:
+
+```text
+derive_goal_from_repository_with_catalog()
+```
+
+Flow:
+
+```text
+find_goal_compatible_rules()
+↓
+existing derive_goal_from_repository()
+```
+
+The Phase 80 API remains available unchanged.
+
+# 124. Phase 81 actual theorem integration
+
+```text
+tests/test_phase81_actual_theorem_integration.py
+  build_phase81_5_data()
+```
+
+Uses:
+
+```text
+@lru_cache(maxsize=1)
+```
+
+Representative actual theorem:
+
+```text
+Phase 77 Toda Lemma 5.16
+```
+
+The runner receives repository + catalog + goal, not the final rule directly.
+
+# 125. Phase 81 ambiguity regression
+
+```text
+tests/test_phase81_rule_selection_regression.py
+  build_phase81_6_data()
+```
+
+Catalog includes:
+
+```text
+correct rule
+alias
+wrong guard
+missing premise
+unsafe candidate
+unrelated candidate
+```
+
+Verifies selector / applicability / duplicate / circularity boundaries.
+
+# 126. Phase 81 representative probe
+
+```text
+probes/probe_phase81_capabilities.py
+```
+
+Entry:
+
+```text
+build_phase81_representative_result()
+main()
+```
+
+Representative source:
+
+```text
+build_phase81_6_data()
+```
+
+Probe test:
+
+```text
+tests/test_phase81_probe.py
+```
+
+Displays:
+
+```text
+actual theorem goal
+catalog candidate counts
+safe filtering
+alias deduplication
+applicability rejection
+correct selected rule identity
+exact repository premises
+accepted proof count
+non-circularity
+current Phase 82 boundary
+```
+
+# 127. Current inference boundary after Phase 81
+
+Implemented:
+
+```text
+automatic goal-compatible rule selection
+repository-assisted forward inference
+```
+
+Not implemented:
+
+```text
+recursive missing-premise producer search
+backward chaining
+multi-step goal-directed search
+proof ranking
+persistent rule/proof database
+automatic proof narrative generation
+```
