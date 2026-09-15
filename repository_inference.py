@@ -57,6 +57,17 @@ class PremiseAvailability:
     return not self.missing_indices
 
 
+@dataclass(frozen=True)
+class MissingPremiseProducerLookup:
+  inference_rule: InferenceRule
+  premise_index: int
+  premise_pattern: PremisePattern
+  producer_rules: tuple[
+    InferenceRule,
+    ...,
+  ]
+
+
 def repository_available_steps(
   repository: ProofRepository,
 ) -> tuple[
@@ -263,6 +274,54 @@ def detect_missing_premises(
     missing_indices=(
       missing_indices
     ),
+  )
+
+
+def find_missing_premise_producer_lookups(
+  availability,
+  rule_catalog,
+) -> tuple[
+  MissingPremiseProducerLookup,
+  ...,
+]:
+  if not isinstance(
+    availability,
+    PremiseAvailability,
+  ):
+    raise TypeError(
+      "availability must be a "
+      "PremiseAvailability"
+    )
+
+  if not isinstance(
+    rule_catalog,
+    InferenceRuleCatalog,
+  ):
+    raise TypeError(
+      "rule_catalog must be an "
+      "InferenceRuleCatalog"
+    )
+
+  return tuple(
+    MissingPremiseProducerLookup(
+      inference_rule=(
+        availability.inference_rule
+      ),
+      premise_index=index,
+      premise_pattern=(
+        availability.inference_rule
+        .premise_patterns[index]
+      ),
+      producer_rules=(
+        find_premise_producer_rules(
+          rule_catalog,
+          availability.inference_rule
+          .premise_patterns[index],
+        )
+      ),
+    )
+    for index
+    in availability.missing_indices
   )
 
 
@@ -497,6 +556,5 @@ def derive_goal_from_repository_with_one_level_producers(
     inference_result=final_result,
     goal_step=goal_step,
   )
-
 
 
