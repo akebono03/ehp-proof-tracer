@@ -9479,3 +9479,322 @@ repository-wide: 6520 passed in 35.07s
 ```
 
 Phase 79 is COMPLETE.
+
+---
+
+# 112. Phase 80 repository-assisted inference layering
+
+Phase 80 does not change the Phase 79 responsibility boundary.
+
+```text
+proof.py
+= generic proof semantics / inference / provenance
+
+proof_repository.py
+= registration / catalog metadata / lookup
+
+repository_inference.py
+= repository → inference orchestration
+```
+
+Dependency direction:
+
+```text
+repository_inference.py
+↓ imports
+proof.py
+proof_repository.py
+```
+
+`ProofRepository` itself still does not apply inference rules.
+
+This corrects only the current project capability statement, not the historical Phase 79 statement:
+
+```text
+Phase 79
+automatic inference on repository lookup
+= not implemented
+
+Phase 80
+repository-assisted inference through a separate orchestration layer
+= implemented
+```
+
+---
+
+# 113. Phase 80 repository seed bridge
+
+`ProofRepository.entries()` exposes registered entries in registration order without inference semantics.
+
+`repository_available_steps(repository)` converts entries into inference seeds.
+
+Identity policy:
+
+```text
+same ProofStep object
+registered through multiple metadata entries
+→ include once
+
+different ProofStep objects
+with structurally equal conclusions
+→ retain both
+```
+
+Reason:
+
+```text
+repository metadata alias
+must not create an artificial extra premise
+
+distinct derivations
+must not be collapsed by conclusion equality
+```
+
+Deduplication is therefore by Python object identity inside the current process, not by conclusion equality.
+
+The bridge does not:
+
+```text
+expand ancestors recursively
+copy ProofStep objects
+normalize conclusions
+rank proofs
+register new steps
+```
+
+---
+
+# 114. Phase 80 structural goal detection
+
+`find_goal_step(steps, goal)` uses:
+
+```text
+step.conclusion == goal
+```
+
+only.
+
+This follows the existing project rule:
+
+```text
+structural equality
+!= mathematical equality
+```
+
+Mathematical equivalence must still be represented by explicit relations and inference rules before goal detection can succeed.
+
+Current semantics:
+
+```text
+first matching ProofStep
+→ returned
+
+no matching ProofStep
+→ None
+```
+
+Phase 80 does not add:
+
+```text
+find all proof alternatives
+best-proof selection
+shortest-proof selection
+semantic normalization
+```
+
+---
+
+# 115. Phase 80 orchestration result
+
+`RepositoryInferenceResult` contains:
+
+```text
+inference_result: InferenceRunResult
+goal_step: ProofStep | None
+```
+
+`derive_goal_from_repository(...)` performs:
+
+```text
+repository_available_steps()
+↓
+run_inference_until_stable_with_history()
+↓
+find_goal_step()
+```
+
+Execution policy remains owned by the existing inference runner.
+
+In particular:
+
+```text
+FIXED_POINT
+MAX_ROUNDS
+```
+
+are not redefined by the repository layer.
+
+Derived results are returned but not automatically registered into the repository.
+
+---
+
+# 116. Phase 80 actual-proof integration policy
+
+Representative actual proof:
+
+```text
+Phase 77 Toda Lemma 5.16
+```
+
+Repository seeds are the exact existing direct premise steps:
+
+```text
+bracket_sum_step
+composition_step
+```
+
+The final goal is structurally equal to the existing Phase 77 final conclusion but is not registered initially.
+
+The existing Phase 77 `final_rule` is supplied to the runner.
+
+Required success conditions:
+
+```text
+goal initially absent
+new final ProofStep created
+new final is not original builder final_step
+final rule = INFERENCE
+exact repository seed objects become direct premises
+exact existing final_rule retained in inference_rule
+repository unchanged
+fixed point reached
+```
+
+This distinguishes actual inference from retrieval of a pre-existing final result.
+
+---
+
+# 117. Phase 80 non-circularity / shortcut policy
+
+Repository-assisted inference must not succeed because the answer is already hidden in the seed graph.
+
+Regression verifies:
+
+```text
+goal absent from initial steps
+goal absent from initial-step ancestors
+new final is not self-ancestor
+final conclusion absent from ancestors
+proof graph acyclic
+```
+
+For the representative Phase 77 final rule:
+
+```text
+missing either direct premise
+→ not applicable
+
+replace required derived bracket-sum premise with GIVEN
+→ not applicable
+
+replace required derived composition premise with GIVEN
+→ not applicable
+```
+
+Repository metadata remains outside theorem applicability:
+
+```text
+key / phase / theorem labels
+→ may change
+
+mathematical applicability
+→ unchanged
+```
+
+---
+
+# 118. Phase 80 representative probe boundary
+
+Representative probe:
+
+```text
+probes/probe_phase80_capabilities.py
+```
+
+Representative source:
+
+```text
+build_phase80_5_data()
+```
+
+Displays:
+
+```text
+actual repository seeds
+initial goal absence
+derived goal
+new ProofStep identity
+INFERENCE status
+exact premise identity
+existing Phase 77 rule reuse
+fixed-point termination
+non-circularity
+acyclicity
+repository non-mutation
+current automation boundary
+```
+
+The probe is still hand-authored presentation code.
+
+It is not automatic proof narrative generation.
+
+---
+
+# 119. Current automation boundary after Phase 80
+
+Implemented:
+
+```text
+repository lookup
+repository → inference seed bridge
+structural goal detection
+fixed-point orchestration
+actual existing-rule proof replay from repository premises
+new final ProofStep construction
+provenance preservation
+applicability / non-circularity regression
+```
+
+Not implemented:
+
+```text
+automatic rule discovery
+automatic rule selection
+backward proof search
+goal-directed rule indexing
+multi-step search strategy
+proof ranking
+persistent repository
+cross-process proof identity
+automatic proof narrative generation
+generic theorem database
+```
+
+Terminology correction:
+
+```text
+repository-assisted automatic inference
+```
+
+means:
+
+```text
+repository premises
++
+explicitly supplied InferenceRule set
++
+existing fixed-point engine
+```
+
+It does not mean a general theorem prover.
+

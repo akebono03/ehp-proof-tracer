@@ -7661,3 +7661,244 @@ Infrastructure records:
 ```text
 1  Phase 79  minimal in-memory Proof Repository
 ```
+
+---
+
+# 31. Proof Repository Inference Infrastructure Record — Phase 80
+
+Phase 80 is an infrastructure / execution record, not a new mathematical theorem record.
+
+The mathematical theorem reused as the representative is the existing Phase 77 Toda Lemma 5.16 record.
+
+## 31.1 Purpose
+
+Phase 79 established:
+
+```text
+ProofStep
+↓
+ProofRepository
+↓
+lookup / reuse
+```
+
+Phase 80 establishes:
+
+```text
+ProofRepository
+↓
+existing proof premises
+↓
+existing InferenceRule
+↓
+new ProofStep
+```
+
+without turning `ProofRepository` itself into an inference engine.
+
+## 31.2 Representative actual proof
+
+Representative theorem:
+
+```text
+Toda Lemma 5.16
+Phase 77
+```
+
+Initial repository contains the exact existing direct premise steps:
+
+```text
+bracket_sum_step
+composition_step
+```
+
+Initial repository does not contain the final Toda Lemma 5.16 conclusion.
+
+## 31.3 Automatic derivation
+
+Execution:
+
+```text
+repository_available_steps()
+↓
+run_inference_until_stable_with_history()
+↓
+existing Phase 77 final_rule
+↓
+new final ProofStep
+↓
+find_goal_step()
+```
+
+Verified:
+
+```text
+new final conclusion
+= existing Phase 77 final conclusion
+
+new final step
+is not original Phase 77 final_step
+
+new final rule
+= ProofRule.INFERENCE
+
+new final inference_rule
+is exact existing Phase 77 final_rule
+```
+
+## 31.4 Provenance
+
+Direct premises of the newly derived final are exactly the repository seed objects:
+
+```text
+new_final.premises[0] is bracket_sum_step
+new_final.premises[1] is composition_step
+```
+
+Thus Phase 80 does not merely copy the previous final proof object.
+
+It re-applies the existing rule to existing repository proofs.
+
+## 31.5 Goal / circularity boundary
+
+Verified:
+
+```text
+goal absent from initial repository
+goal absent from initial ancestry
+new final not self-ancestor
+new final conclusion absent from ancestors
+derived graph acyclic
+```
+
+This distinguishes repository-assisted inference from retrieving a final answer that was already present.
+
+## 31.6 Applicability boundary
+
+Representative final rule requires both exact derived premise kinds.
+
+Verified:
+
+```text
+missing bracket-sum premise
+→ no match
+
+missing composition premise
+→ no match
+
+replace bracket-sum result with structurally equal GIVEN step
+→ no match
+
+replace composition result with structurally equal GIVEN step
+→ no match
+```
+
+This preserves the Phase 77 provenance requirement.
+
+Repository metadata changes do not alter applicability.
+
+## 31.7 Repository mutation boundary
+
+`derive_goal_from_repository()` does not register the newly derived result.
+
+```text
+repository before inference
+=
+repository after inference
+```
+
+Repository persistence and result promotion remain separate future concerns.
+
+## 31.8 Structural goal boundary
+
+Goal detection uses:
+
+```text
+ProofStep.conclusion == goal
+```
+
+only.
+
+No mathematical normalizer, theorem search, or semantic equivalence solver is used.
+
+## 31.9 Representative probe
+
+```powershell
+python -m probes.probe_phase80_capabilities
+```
+
+The probe reports:
+
+```text
+goal initially present = False
+goal derived = True
+new ProofStep created = True
+final is INFERENCE = True
+exact repository premises = True
+existing Phase 77 rule reused = True
+termination = fixed_point
+goal absent from initial ancestry = True
+derived graph acyclic = True
+repository mutated = False
+```
+
+## 31.10 Automation boundary correction
+
+Phase 79 record remains historically correct:
+
+```text
+automatic inference on repository lookup
+= not implemented in Phase 79
+```
+
+Current Phase 80 state:
+
+```text
+repository-assisted automatic inference
+with explicitly supplied rules
+= implemented
+```
+
+Still absent:
+
+```text
+automatic rule selection
+backward proof search
+generic theorem search
+persistent repository
+automatic proof narrative generation
+```
+
+## 31.11 Regression baseline before probe
+
+```text
+Phase 80-6 focused:
+10 passed in 1.90s
+
+Phase 80-2 through Phase 80-6:
+45 passed in 2.48s
+
+Phase 77 + repository + Phase 79 + Phase 80:
+126 passed in 3.11s
+
+repository-wide:
+6565 passed in 36.33s
+```
+
+## 31.12 Record status
+
+Mathematical proof records remain:
+
+```text
+13
+```
+
+Infrastructure records:
+
+```text
+1  Phase 79  minimal in-memory Proof Repository
+2  Phase 80  repository-assisted automatic inference
+```
+
+Phase 80 does not increment the mathematical theorem record count because it reuses the already-recorded Phase 77 theorem as an execution/infrastructure demonstration.
+
