@@ -215,7 +215,7 @@ COMPLETE
 
 ---
 
-# Phase 55：Toda Proposition 5.1 finite-dimensional integration
+# Phase 55：Toda Proposition 5.1 有限次元統合
 
 independently derived:
 
@@ -280,7 +280,7 @@ COMPLETE
 
 ---
 
-# Phase 57：Toda Lemma 5.2 proof integration
+# Phase 57：Toda Lemma 5.2 証明統合
 
 対象:
 
@@ -301,7 +301,7 @@ H(β)=E²α
 
 ---
 
-## Phase 57-1：statement / proof index / typing compatibility
+## Phase 57-1：statement / proof index / typing 互換性
 
 確認:
 
@@ -331,7 +331,7 @@ COMPLETE
 
 ---
 
-## Phase 57-2：Lemma 4.5 minimum consequence
+## Phase 57-2：Lemma 4.5 最小 consequence
 
 追加:
 
@@ -539,7 +539,7 @@ COMPLETE
 
 ---
 
-## Phase 57-7：Lemma 5.2 end-to-end integration / provenance / probe
+## Phase 57-7：Lemma 5.2 end-to-end 統合 / provenance / probe
 
 追加 integration rule:
 
@@ -680,7 +680,7 @@ stable homotopy model
 2997 passed in 38.45s
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase57_capabilities
@@ -987,7 +987,7 @@ COMPLETE
 
 ---
 
-## Phase 58-6：provenance / representative probe / staged same-run
+## Phase 58-6：provenance / 代表 probe / staged same-run
 
 追加:
 
@@ -1096,7 +1096,7 @@ stable homotopy model
 3059 passed in 38.23s
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase58_capabilities
@@ -1108,7 +1108,7 @@ COMPLETE
 
 ---
 
-# Phase 58 completion boundary
+# Phase 58 完了境界
 
 最終 capability:
 
@@ -1155,7 +1155,7 @@ docs/code_reference.md
 
 ---
 
-# Phase 59：Toda Proposition 5.3 finite-dimensional result
+# Phase 59：Toda Proposition 5.3 有限次元結果
 
 対象:
 
@@ -1167,7 +1167,7 @@ docs/code_reference.md
 
 stable `(G_2;2)=Z/2{η²}` は Phase 59 に含めない。
 
-## Phase 59-1：dependency / compatibility check
+## Phase 59-1：依存関係 / 互換性確認
 
 確認した再利用対象:
 
@@ -1511,7 +1511,7 @@ stable homotopy-group model
 stable (G_2;2)=Z/2{η²}
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase59_capabilities
@@ -1529,7 +1529,7 @@ COMPLETE
 
 ---
 
-# Phase 59 completion boundary
+# Phase 59 完了境界
 
 最終 capability:
 
@@ -1578,7 +1578,7 @@ Phase 59:
 
 ---
 
-## Phase 60-1：dependency / current compatibility analysis
+## Phase 60-1：依存関係 / 現行互換性解析
 
 確認:
 
@@ -2019,7 +2019,7 @@ COMPLETE
 
 ---
 
-## Phase 60-10：representative probe / full regression
+## Phase 60-10：代表 probe / full regression
 
 追加:
 
@@ -2175,7 +2175,7 @@ Toda Lemma 5.5
 3334 passed in 132.72s
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase60_capabilities
@@ -2187,7 +2187,7 @@ COMPLETE
 
 ---
 
-# Phase 60 completion boundary
+# Phase 60 完了境界
 
 最終 capability:
 
@@ -2207,7 +2207,7 @@ H(ν₄)=ι₇
 その statement は何か
 ```
 
-を representative probe で確認可能。
+を 代表 probe で確認可能。
 
 証明表示:
 
@@ -2221,7 +2221,7 @@ Machine provenance
 Literature / Used in / Statement
 ```
 
-を representative probe で確認可能。
+を 代表 probe で確認可能。
 
 現在の proof-style derivation は自動生成ではない。将来は:
 
@@ -2271,7 +2271,7 @@ contains
 
 Phase 60 の `α*` / `ν₄` provenance を再利用し、Lemma 5.4 proof は再実装しない。
 
-## Phase 61-1：statement / dependency / current compatibility analysis
+## Phase 61-1：statement / 依存関係 / 現行互換性解析
 
 確認:
 
@@ -2547,7 +2547,7 @@ COMPLETE
 
 ---
 
-## Phase 61-8：representative probe
+## Phase 61-8：代表 probe
 
 追加:
 
@@ -2662,7 +2662,7 @@ test_phase61_probe.py                              16 passed
 python -m pytest -q
 ```
 
-を実行し、pass 数 / elapsed time を completion record に追記する。
+を実行し、pass 数 / elapsed time を 完了記録 に追記する。
 
 ### 状態
 
@@ -2670,7 +2670,7 @@ IMPLEMENTATION COMPLETE / FINAL FULL REGRESSION TO RECORD
 
 ---
 
-# Phase 61 completion boundary
+# Phase 61 完了境界
 
 最終 capability:
 
@@ -2712,7 +2712,7 @@ stable:
 4ν=η³
 ```
 
-Phase 62 では finite-dimensional branch のみ実装した。
+Phase 62 では 有限次元 branch のみ実装した。
 
 ---
 
@@ -2731,7 +2731,7 @@ Phase 62 では finite-dimensional branch のみ実装した。
 → Phase 60 transport を再利用可能
 ```
 
-stable ν / η³ は separate deferred boundary とした。
+stable ν / η³ は separate 保留境界 とした。
 
 本体コード:
 
@@ -3047,7 +3047,7 @@ COMPLETE
 
 ---
 
-## Phase 62-8：representative probe
+## Phase 62-8：代表 probe
 
 追加:
 
@@ -3163,7 +3163,7 @@ COMPLETE
 
 ---
 
-# Phase 62 completion boundary
+# Phase 62 完了境界
 
 最終 capability:
 
@@ -3610,7 +3610,7 @@ COMPLETE
 
 ---
 
-# Phase 63 completion boundary
+# Phase 63 完了境界
 
 最終 capability:
 
@@ -3638,7 +3638,7 @@ same-machine baseline:
 
 machine 間の absolute timing は code-level optimization の効果比較に使わない。
 
-## Phase 64-1：baseline / current bottleneck analysis
+## Phase 64-1：baseline / 現在の bottleneck analysis
 
 候補を:
 
@@ -3864,7 +3864,7 @@ same-machine:
 変更なし
 ```
 
-current mathematical frontier:
+現在の mathematical frontier:
 
 ```text
 Phase 63
@@ -3897,7 +3897,7 @@ COMPLETE
 
 ---
 
-# Phase 64 completion boundary
+# Phase 64 完了境界
 
 目的:
 
@@ -3926,7 +3926,7 @@ exact target は source statement を確認してから確定する。
 
 ---
 
-# Phase 65：Toda Proposition 5.6 finite-dimensional computation
+# Phase 65：Toda Proposition 5.6 有限次元計算
 
 target:
 
@@ -4305,7 +4305,7 @@ final リポジトリ全体 regression:
 
 COMPLETE
 
-## Phase 65-11：completion documentation
+## Phase 65-11：完了文書化
 
 更新:
 
@@ -4342,7 +4342,7 @@ COMPLETE
 
 ---
 
-# Phase 65 completion boundary
+# Phase 65 完了境界
 
 完成 capability:
 
@@ -4363,7 +4363,7 @@ acyclic ancestry
 fixed-point regression
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase65_capabilities
@@ -4774,7 +4774,7 @@ COMPLETE
 
 ---
 
-## Phase 66-10：completion documentation
+## Phase 66-10：完了文書化
 
 更新対象:
 
@@ -4846,7 +4846,7 @@ acyclic ancestry
 wrong-instance rejection
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase66_capabilities
@@ -5242,7 +5242,7 @@ COMPLETE
 
 ---
 
-## Phase 67-9：representative probe / proof record
+## Phase 67-9：代表 probe / proof record
 
 追加:
 
@@ -5300,7 +5300,7 @@ COMPLETE
 
 ---
 
-## Phase 67-10：completion documentation
+## Phase 67-10：完了文書化
 
 更新:
 
@@ -5313,7 +5313,7 @@ docs/code_reference.md
 docs/proof_records.md
 ```
 
-current capability:
+現在の capability:
 
 ```text
 Toda Lemma 5.7
@@ -5363,7 +5363,7 @@ Phase 66 not required
 acyclic ancestry
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase67_capabilities
@@ -5399,7 +5399,7 @@ stable homotopy model
 COMPLETE
 ---
 
-# Phase 68：Toda Proposition 5.8 finite-dimensional computation
+# Phase 68：Toda Proposition 5.8 有限次元計算
 
 対象:
 
@@ -6015,7 +6015,7 @@ COMPLETE
 
 ---
 
-## Phase 68-13：representative probe only
+## Phase 68-13：代表 probe only
 
 追加:
 
@@ -6091,7 +6091,7 @@ COMPLETE
 
 ---
 
-## Phase 68-14：completion documentation + proof record
+## Phase 68-14：完了文書化 + proof record
 
 更新:
 
@@ -6115,7 +6115,7 @@ finite-dimensional result
 
 roadmap は future-oriented に保ち、Phase 68 は milestone summary に圧縮する。
 
-current regression:
+現在の regression:
 
 ```text
 4343 passed in 28.06s
@@ -6172,7 +6172,7 @@ acyclic ancestry
 source order != machine dependency
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase68_capabilities
@@ -6476,7 +6476,7 @@ COMPLETE
 
 ---
 
-## Phase 69-5：representative probe
+## Phase 69-5：代表 probe
 
 production theorem semantics:
 
@@ -6552,7 +6552,7 @@ COMPLETE
 
 ---
 
-## Phase 69-6：completion documentation + proof record
+## Phase 69-6：完了文書化 + proof record
 
 更新:
 
@@ -6576,7 +6576,7 @@ Toda Equation (5.10)
 
 roadmap は future-oriented に保ち、Phase 69 は milestone summary に圧縮する。
 
-current regression:
+現在の regression:
 
 ```text
 4422 passed in 30.54s
@@ -6626,7 +6626,7 @@ acyclic ancestry
 final conclusion absent from ancestors
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase69_capabilities
@@ -6665,7 +6665,7 @@ COMPLETE
 
 ---
 
-# Phase 70：Toda Proposition 5.9 finite-dimensional computation
+# Phase 70：Toda Proposition 5.9 有限次元計算
 
 target:
 
@@ -6685,7 +6685,7 @@ stable `(G_5;2)=0` は Phase 70 scope に含めない。
 
 ## Phase 70-1：source / dependency / compatibility analysis
 
-Toda Proposition 5.9 の finite-dimensional branches と Phase 68 / 69 の derived dependencies を確認。
+Toda Proposition 5.9 の 有限次元 branches と Phase 68 / 69 の derived dependencies を確認。
 
 方針:
 
@@ -7074,7 +7074,7 @@ COMPLETE
 
 ---
 
-## Phase 70-12：representative probe / proof-style demonstration
+## Phase 70-12：代表 probe / proof-style demonstration
 
 追加:
 
@@ -7132,7 +7132,7 @@ COMPLETE
 
 ---
 
-## Phase 70-13：completion documentation + proof record
+## Phase 70-13：完了文書化 + proof record
 
 更新:
 
@@ -7156,7 +7156,7 @@ finite-dimensional result
 
 roadmap は future-oriented に保ち、Phase 70 は milestone summary に圧縮する。
 
-current regression:
+現在の regression:
 
 ```text
 4752 passed in 30.85s
@@ -7199,7 +7199,7 @@ source order != machine dependency
 backward dependency rejected
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase70_capabilities
@@ -7565,7 +7565,7 @@ COMPLETE
 
 ---
 
-## Phase 71-7：representative probe
+## Phase 71-7：代表 probe
 
 追加:
 
@@ -7635,7 +7635,7 @@ COMPLETE
 
 ---
 
-## Phase 71-8：completion documentation + proof record
+## Phase 71-8：完了文書化 + proof record
 
 更新:
 
@@ -7659,7 +7659,7 @@ Delta injectivity for n=4,5,6
 
 roadmap は future-oriented に保ち、Phase 71 は milestone summary に圧縮。
 
-current regression:
+現在の regression:
 
 ```text
 4886 passed in 29.25s
@@ -7702,7 +7702,7 @@ cross-branch independence
 GIVEN / INFERENCE boundary preserved
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase71_capabilities
@@ -8071,7 +8071,7 @@ COMPLETE
 
 ---
 
-## Phase 72-6：representative probe
+## Phase 72-6：代表 probe
 
 追加:
 
@@ -8080,7 +8080,7 @@ probes/probe_phase72_capabilities.py
 tests/test_phase72_probe.py
 ```
 
-probe は Phase 72-5 completed proof graph を再利用。
+probe は Phase 72-5 完了済み proof graph を再利用。
 
 表示:
 
@@ -8154,7 +8154,7 @@ COMPLETE
 
 ---
 
-## Phase 72-7：completion documentation + proof record
+## Phase 72-7：完了文書化 + proof record
 
 更新:
 
@@ -8186,7 +8186,7 @@ Toda Proposition 5.11
 
 へ更新。
 
-current リポジトリ全体 regression:
+現在の リポジトリ全体 regression:
 
 ```text
 4990 passed in 70.11s
@@ -8228,7 +8228,7 @@ exact three direct premises
 acyclic ancestry
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase72_capabilities
@@ -8880,7 +8880,7 @@ Phase 73 開始前の semantic audit として完了。
 
 ---
 
-# Phase 73：Toda Proposition 5.11 finite-dimensional result
+# Phase 73：Toda Proposition 5.11 有限次元結果
 
 対象:
 
@@ -9381,7 +9381,7 @@ COMPLETE
 
 ---
 
-## Phase 73-8E3：representative probe
+## Phase 73-8E3：代表 probe
 
 追加:
 
@@ -9441,7 +9441,7 @@ COMPLETE
 
 ---
 
-## Phase 73-8E4：completion documentation + proof record
+## Phase 73-8E4：完了文書化 + proof record
 
 更新:
 
@@ -9510,7 +9510,7 @@ stable:
 DEFERRED
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase73_capabilities
@@ -9966,7 +9966,7 @@ COMPLETE
 
 ---
 
-## Phase 74-10：representative probe
+## Phase 74-10：代表 probe
 
 追加:
 
@@ -10058,7 +10058,7 @@ COMPLETE
 
 ---
 
-## Phase 74-11：completion documentation + proof record
+## Phase 74-11：完了文書化 + proof record
 
 更新:
 
@@ -10082,7 +10082,7 @@ formal proof record 9 を追加
 roadmap は future-oriented に圧縮
 ```
 
-current repository-wide regression:
+現在の repository-wide regression:
 
 ```text
 5609 passed in 31.59s
@@ -10145,7 +10145,7 @@ Phase 68 ν₆η₉=0
 Toda Lemma 5.5
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase74_capabilities
@@ -10565,7 +10565,7 @@ COMPLETE
 
 ---
 
-## Phase 75-10：representative probe / completion documentation / proof record
+## Phase 75-10：代表 probe / 完了文書化 / proof record
 
 追加:
 
@@ -11023,7 +11023,7 @@ COMPLETE
 
 ---
 
-## Phase 76-6：representative probe / proof record / completion documentation
+## Phase 76-6：代表 probe / proof record / 完了文書化
 
 追加:
 
@@ -11121,7 +11121,7 @@ acyclic ancestry
 Phase 75 aggregate shortcut not required
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase76_capabilities
@@ -11531,7 +11531,7 @@ COMPLETE
 
 ---
 
-## Phase 77-7：representative probe / proof record / completion documentation
+## Phase 77-7：代表 probe / proof record / 完了文書化
 
 added:
 
@@ -11582,7 +11582,7 @@ production theorem semantics:
 変更なし
 ```
 
-proof-style derivation remains hand-authored presentation code.
+proof-style derivation は引き続き hand-authored presentation code.
 
 pre-probe repository-wide regression:
 
@@ -11632,7 +11632,7 @@ printed E^nβ
 → canonical E^7β
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase77_capabilities
@@ -12026,7 +12026,7 @@ COMPLETE
 
 ---
 
-## Phase 78-12：completion documentation / formal proof record
+## Phase 78-12：完了文書化 / formal proof record
 
 updated:
 
@@ -12065,7 +12065,7 @@ COMPLETE
 
 # Phase 78 completion
 
-Phase 78 mathematics, representation, integration, provenance, representative probe, regression, and documentation are COMPLETE.
+Phase 78 mathematics, representation, integration, provenance, 代表 probe, regression, and documentation are COMPLETE.
 
 Final repository-wide regression:
 
@@ -12098,7 +12098,7 @@ persistent storage や automatic proof search は Phase 79 の対象外とした
 
 ---
 
-## Phase 79-1：current proof storage / retrieval audit
+## Phase 79-1：現在の proof storage / retrieval audit
 
 確認:
 
@@ -12389,7 +12389,7 @@ repository-wide:
 6507 passed in 33.63s
 ```
 
-representative probe confirms:
+代表 probe confirms:
 
 ```text
 cross-phase lookup = True
@@ -12454,7 +12454,7 @@ COMPLETE
 
 ---
 
-## Phase 79-9：completion documentation / repository infrastructure record
+## Phase 79-9：完了文書化 / repository infrastructure record
 
 更新:
 
@@ -12493,7 +12493,7 @@ COMPLETE
 
 # Phase 79 completion
 
-Completed capability:
+完了済み capability:
 
 ```text
 existing ProofStep
@@ -12522,7 +12522,7 @@ repository does not merge equal conclusions
 repository does not introduce circularity
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase79_capabilities
@@ -12552,7 +12552,7 @@ automatic proof narrative generation
 
 # Phase 80：repository-assisted automatic inference
 
-Phase 79 completed the minimal in-memory proof catalog. Phase 80 connects that catalog to the existing inference engine without adding inference responsibility to `ProofRepository`.
+Phase 79 完了済み the minimal in-memory proof catalog. Phase 80 connects that catalog to the existing inference engine without adding inference responsibility to `ProofRepository`.
 
 Target:
 
@@ -12570,7 +12570,7 @@ The Phase is intentionally narrower than general proof search.
 
 ---
 
-## Phase 80-1：current inference / repository compatibility audit
+## Phase 80-1：現在の inference / repository compatibility audit
 
 Confirmed:
 
@@ -12775,7 +12775,7 @@ COMPLETE
 
 ---
 
-## Phase 80-5：actual proof integration
+## Phase 80-5：actual 証明統合
 
 Selected representative:
 
@@ -12908,7 +12908,7 @@ COMPLETE
 
 ---
 
-## Phase 80-7：representative probe + completion documentation
+## Phase 80-7：代表 probe + 完了文書化
 
 Added:
 
@@ -12957,7 +12957,7 @@ still not implemented:
 automatic rule selection / backward proof search
 ```
 
-Pre-probe repository-wide baseline:
+probe 前のリポジトリ全体 baseline:
 
 ```text
 6565 passed in 36.33s
@@ -12969,9 +12969,9 @@ IMPLEMENTED / FINAL REGRESSION PENDING
 
 ---
 
-# Phase 80 completion boundary
+# Phase 80 完了境界
 
-Completed implementation through Phase 80-7:
+完了済み implementation through Phase 80-7:
 
 ```text
 repository entries → available_steps
@@ -12987,7 +12987,7 @@ representative probe
 completion documentation
 ```
 
-Current exact automation boundary:
+現在の厳密な自動化境界:
 
 ```text
 existing repository ProofStep premises
@@ -13001,7 +13001,7 @@ structural goal detection
 new proof result
 ```
 
-Still deferred:
+引き続き保留:
 
 ```text
 automatic rule selection
@@ -13012,7 +13012,7 @@ proof replay persistence
 automatic proof narrative generation
 ```
 
-Final Phase 80 completion status becomes COMPLETE after the Phase 80-7 probe test and full regression pass.
+Final Phase 80 completion status は COMPLETE となる after the Phase 80-7 probe test and full regression pass.
 
 
 
@@ -13071,7 +13071,7 @@ conditional
 automatic fixed-point excluded
 ```
 
-Repeatable suspension / composition propagation remains outside unrestricted automatic fixed-point execution.
+Repeatable suspension / composition propagation は引き続き outside unrestricted automatic fixed-point execution.
 
 ### 状態
 
@@ -13245,7 +13245,7 @@ COMPLETE
 
 ---
 
-## Phase 81-5：actual theorem integration
+## Phase 81-5：actual theorem 統合
 
 Added:
 
@@ -13253,7 +13253,7 @@ Added:
 tests/test_phase81_actual_theorem_integration.py
 ```
 
-Representative actual theorem:
+代表 actual theorem:
 
 ```text
 Toda Lemma 5.16
@@ -13339,7 +13339,7 @@ Added:
 tests/test_phase81_rule_selection_regression.py
 ```
 
-Representative catalog intentionally includes:
+代表 catalog intentionally includes:
 
 ```text
 correct actual rule
@@ -13402,7 +13402,7 @@ COMPLETE
 
 ---
 
-## Phase 81-7：representative probe + completion documentation
+## Phase 81-7：代表 probe + 完了文書化
 
 Added:
 
@@ -13417,7 +13417,7 @@ Representative fixture:
 build_phase81_6_data()
 ```
 
-The probe displays:
+probe の表示:
 
 ```text
 actual Toda Lemma 5.16 target
@@ -13435,7 +13435,7 @@ repository non-mutation
 Phase 82 boundary
 ```
 
-Updated completion documentation in full:
+Updated 完了文書化 in full:
 
 ```text
 README.md
@@ -13444,14 +13444,14 @@ docs/development_log.md
 docs/roadmap.md
 ```
 
-Additional navigation / infrastructure record updates:
+追加の navigation / infrastructure record 更新:
 
 ```text
 docs/code_reference.md
 docs/proof_records.md
 ```
 
-Pre-probe repository-wide baseline:
+probe 前のリポジトリ全体 baseline:
 
 ```text
 6631 passed in 34.70s
@@ -13463,9 +13463,9 @@ IMPLEMENTED / FINAL PROBE REGRESSION PENDING
 
 ---
 
-# Phase 81 completion boundary
+# Phase 81 完了境界
 
-Completed implementation through Phase 81-7:
+完了済み implementation through Phase 81-7:
 
 ```text
 InferenceRule inventory / safety audit
@@ -13482,7 +13482,7 @@ representative probe
 completion documentation
 ```
 
-Current exact automation boundary:
+現在の厳密な自動化境界:
 
 ```text
 repository ProofStep premises
@@ -13500,7 +13500,7 @@ forward fixed-point inference
 new proof
 ```
 
-Still deferred:
+引き続き保留:
 
 ```text
 recursive missing-premise generation
@@ -13514,4 +13514,421 @@ automatic proof narrative generation
 generic theorem prover
 ```
 
-Phase 81 becomes COMPLETE after the Phase 81-7 probe test and final full regression pass.
+Phase 81 は COMPLETE となる after the Phase 81-7 probe test and final full regression pass.
+
+---
+
+# Phase 82：multi-step / goal-directed proof-search foundation
+
+Phase 82 の目標:
+
+```text
+final rule の premise が1つ不足していても、
+その premise を1段だけ自動生成して goal を証明する。
+```
+
+generic backward chaining は導入しない。
+
+## Phase 82-1：two-step proof-search compatibility audit
+
+actual representative として Phase 77 Toda Lemma 5.16 を選定。
+
+initial repository に:
+
+```text
+bracket_sum_step
+suspension_bridge_step
+sigma_definition_step
+```
+
+を置き、
+
+```text
+composition_step
+final_step
+```
+
+を初期状態から外す構成が current representation で可能と確認。
+
+既存:
+
+```text
+PremisePattern
+InferenceRuleCatalog
+ProofRepository
+match_guard
+```
+
+で depth=1 search を表現可能。
+
+production code:
+
+```text
+変更なし
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 82-2：missing-premise detection
+
+追加:
+
+```text
+PremiseAvailability
+detect_missing_premises()
+detect_goal_rule_missing_premises()
+```
+
+actual representative:
+
+```text
+available:
+Toda36Lemma516BracketSumContainmentStatement
+
+missing:
+TodaLemma516ScaledCompositionBridgeStatement
+```
+
+テスト:
+
+```text
+tests/test_phase82_missing_premise_detection.py
+10 passed in 1.94s
+```
+
+関連:
+
+```text
+Phase 80/81/82 compatibility
+54 passed in 2.47s
+
+Phase 77 actual proof + Phase 81/82
+74 passed in 2.29s
+```
+
+repository-wide:
+
+```text
+6649 passed in 37.79s
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 82-3：one-level premise-rule lookup
+
+`rule_catalog.py` に追加:
+
+```text
+find_premise_producer_rule_entries()
+find_premise_producer_rules()
+```
+
+lookup:
+
+```text
+missing PremisePattern.statement_type
+↓
+exact conclusion_type
++
+fixed_point_safe=True
+↓
+candidate producer rule
+```
+
+catalog alias は entry level で保持し、execution rule は identity deduplicate。
+
+テスト:
+
+```text
+tests/test_phase82_premise_rule_lookup.py
+12 passed in 1.75s
+```
+
+Phase 82-2 + 82-3:
+
+```text
+22 passed in 1.96s
+```
+
+Phase 81 catalog + Phase 82:
+
+```text
+80 passed in 2.58s
+```
+
+repository-wide:
+
+```text
+6661 passed in 35.42s
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 82-4：two-step forward execution
+
+`repository_inference.py` に追加:
+
+```text
+derive_goal_from_repository_with_one_level_producers()
+```
+
+実行:
+
+```text
+goal
+↓
+final rule
+↓
+missing premise
+↓
+unique producer
+↓
+producer stage max_rounds=1
+↓
+new intermediate
+↓
+final rule retry
+↓
+new final
+```
+
+actual Toda Lemma 5.16 で:
+
+```text
+new intermediate != original Phase 77 composition_step
+new final        != original Phase 77 final_step
+```
+
+かつ existing rule identity を保持。
+
+テスト:
+
+```text
+tests/test_phase82_two_step_forward_execution.py
+16 passed in 1.74s
+```
+
+Phase 82-2〜82-4:
+
+```text
+38 passed in 2.27s
+```
+
+repository-wide:
+
+```text
+6677 passed in 36.50s
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 82-5：actual theorem integration
+
+production code:
+
+```text
+変更なし
+```
+
+actual two-step proof graph に対して:
+
+```text
+goal absent from initial repository
+intermediate absent from initial repository
+goal absent from initial ancestry
+intermediate absent from initial ancestry
+new intermediate / final
+exact rule identity retention
+exact premise identity retention
+final → intermediate → repository provenance
+acyclicity
+GIVEN shortcut rejection
+repository immutability
+```
+
+を regression 化。
+
+テスト:
+
+```text
+tests/test_phase82_actual_theorem_integration.py
+25 passed in 1.98s
+```
+
+Phase 82-2〜82-5:
+
+```text
+63 passed in 2.24s
+```
+
+Phase 77 / 81 / 82 actual theorem regression:
+
+```text
+86 passed in 2.23s
+```
+
+repository-wide:
+
+```text
+6702 passed in 35.83s
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 82-6：search-safety regression
+
+producer ambiguity にだけ最小 production guard を追加。
+
+policy:
+
+```text
+0 producer
+→ expand しない
+
+1 producer
+→ one-level execution
+
+2+ distinct producers
+→ ambiguity
+→ expand しない
+```
+
+同一 rule alias は identity dedup 後1件として扱う。
+
+regression:
+
+```text
+producer not found
+unsafe producer
+wrong producer
+self-dependent producer
+distinct producer ambiguity
+same-rule alias
+duplicate intermediate
+already-seeded intermediate
+multiple missing final premises
+producer itself missing a premise
+depth > 1
+cycle-shaped catalog
+failed-search repository immutability
+```
+
+テスト:
+
+```text
+tests/test_phase82_search_safety_regression.py
+14 passed in 2.02s
+```
+
+Phase 82 全体:
+
+```text
+77 passed in 2.51s
+```
+
+Phase 81/82 search regression:
+
+```text
+81 passed in 2.32s
+```
+
+repository-wide:
+
+```text
+6716 passed in 35.78s
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 82-7：代表 probe + 完了文書化
+
+追加:
+
+```text
+probes/probe_phase82_capabilities.py
+tests/test_phase82_probe.py
+```
+
+probe 表示:
+
+```text
+goal
+↓
+final rule premise analysis
+↓
+missing premise detected
+↓
+unique safe producer selected
+↓
+new intermediate derived
+↓
+final goal derived
+```
+
+文書更新:
+
+```text
+README.md
+docs/design.md
+docs/development_log.md
+docs/roadmap.md
+docs/code_reference.md
+docs/proof_records.md
+```
+
+今回の文書は直前版を正本として保持し、README 以外は過去部分の英語見出し・説明も日本語化した。
+
+probe 前 baseline:
+
+```text
+6716 passed in 35.78s
+```
+
+### 状態
+
+IMPLEMENTED / FINAL PROBE REGRESSION PENDING
+
+# Phase 82 完了境界
+
+実装済み:
+
+```text
+missing-premise detection
+one-level producer lookup
+unique-producer safety policy
+one-level producer execution
+intermediate generation
+final-rule retry
+actual theorem integration
+search-safety regression
+representative probe
+completion documentation
+```
+
+引き続き未実装:
+
+```text
+recursive backward chaining
+arbitrary-depth producer search
+DFS / BFS / A*
+multiple-missing-premise planning
+producer ranking
+proof-cost model
+persistent search cache
+automatic proof narrative generation
+generic theorem prover
+```
+
+Phase 82 は Phase 82-7 probe test と final repository-wide regression が通れば COMPLETE。

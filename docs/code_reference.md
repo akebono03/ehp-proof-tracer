@@ -236,7 +236,7 @@ Phase 58 の representative input:
 
 が必要な場合。
 
-## Literature metadata
+## 文献 metadata
 
 ### `LiteratureReference`
 
@@ -273,7 +273,7 @@ LiteratureStatement
 
 これは metadata object であり、statement text を generic inference engine が自動適用することはない。
 
-Phase 60 representative probe の `Used in:` は `LiteratureStatement` の field ではなく probe-local display metadata。
+Phase 60 代表 probe の `Used in:` は `LiteratureStatement` の field ではなく probe-local display metadata。
 
 ## ここに追加しないもの
 
@@ -363,7 +363,7 @@ match_guard
 
 matching された rule と premise を保持。
 
-### `InferenceRunResult`
+### `InferenceRun結果`
 
 fixed-point run の結果。
 
@@ -587,7 +587,7 @@ Barratt–Hilton / Toda Proposition 3.1 周辺。
 element ∈ π_k(S^n)
 ```
 
-の current generic membership statement。
+の 現在の generic membership statement。
 
 Phase 57 / 58 では:
 
@@ -909,7 +909,7 @@ generic inverse-image solver
 ```
 
 
-## 10.7 Phase 59：Toda Proposition 5.3 finite-dimensional branch
+## 10.7 Phase 59：Toda Proposition 5.3 有限次元 branch
 
 主要 aggregate:
 
@@ -1316,7 +1316,7 @@ tests/test_phase61_probe.py
 
 Phase 61-7 は production code を変更せず、wrong-instance rejection / GIVEN-INFERENCE boundary / ancestry reachability / acyclicity を regression で固定する。
 
-### deferred boundary
+### 保留境界
 
 ```text
 generic bracket containment algebra
@@ -1459,7 +1459,7 @@ proof semantics を生成しない
 ProofStep graph から自動生成していない
 ```
 
-current `main()` display order:
+現在の `main()` display order:
 
 ```text
 Result
@@ -1469,7 +1469,7 @@ Literature statements used
 Completion boundary
 ```
 
-将来は `ProofStep` / `Expression` / `InferenceRule` / `LiteratureStatement` から同種の表示を自動生成する proof narrative generator を検討する。current Phase 60 code をその generic framework と誤認しないこと。
+将来は `ProofStep` / `Expression` / `InferenceRule` / `LiteratureStatement` から同種の表示を自動生成する proof narrative generator を検討する。現在の Phase 60 code をその generic framework と誤認しないこと。
 
 ---
 
@@ -1723,7 +1723,7 @@ execution-scope 上の重要な注意が増えた
 
 # 18. 将来 proof narrative generation で確認する場所
 
-current manual representative:
+現在の manual representative:
 
 ```text
 probes/probe_phase60_capabilities.py
@@ -2046,7 +2046,7 @@ id() ancestor check
 
 ---
 
-# 25. Phase 62 representative probe
+# 25. Phase 62 代表 probe
 
 module:
 
@@ -2371,7 +2371,7 @@ Toda56Nu4DecompositionStatement
 
 ---
 
-# 31. Phase 63 representative probe
+# 31. Phase 63 代表 probe
 
 ```text
 probes/probe_phase63_capabilities.py
@@ -2941,7 +2941,7 @@ ProofRule.INFERENCE
 
 ---
 
-# 48. Phase 65 representative probe
+# 48. Phase 65 代表 probe
 
 module:
 
@@ -3012,9 +3012,9 @@ final regression:
 
 ---
 
-# 50. current provenance / persistence boundary
+# 50. 現在の provenance / persistence boundary
 
-current `ProofStep` graph は:
+現在の `ProofStep` graph は:
 
 ```text
 in-memory provenance
@@ -3289,7 +3289,7 @@ fixture builder で重い同一 object graph を再利用する場合は:
 
 ---
 
-# 29. Phase 66 representative probe
+# 29. Phase 66 代表 probe
 
 ```text
 probes/probe_phase66_capabilities.py
@@ -3665,7 +3665,7 @@ heavy representative builders は必要に応じて:
 
 Phase 67-8 は production code を変更せず、ancestor reachability / acyclicity / Phase 66 independence を regression で固定する。
 
-## 32.10 representative probe
+## 32.10 代表 probe
 
 module:
 
@@ -3736,7 +3736,7 @@ docs/proof_records.md
 Phase 68 は source statement を確認して target を確定する。
 ---
 
-# 34. Phase 68：Toda Proposition 5.8 finite-dimensional branch
+# 34. Phase 68：Toda Proposition 5.8 有限次元 branch
 
 Phase 68 final aggregate:
 
@@ -3881,7 +3881,7 @@ zero conclusion のために必要な narrow consequence のみを実装する�
 toda_eta_family_definition_statement()
 ```
 
-は current API として:
+は 現在の API として:
 
 ```text
 int
@@ -4053,7 +4053,7 @@ heavy / nested builder は必要に応じて:
 
 ---
 
-# 42. Phase 68 representative probe
+# 42. Phase 68 代表 probe
 
 module:
 
@@ -4313,7 +4313,7 @@ Phase 68 aggregate absent
 
 ---
 
-# 49. Phase 69 representative probe
+# 49. Phase 69 代表 probe
 
 module:
 
@@ -4713,7 +4713,7 @@ later supporting results are regression-tested not to flow backward.
 
 ---
 
-# 59. Phase 70-12 representative probe
+# 59. Phase 70-12 代表 probe
 
 module:
 
@@ -4996,7 +4996,7 @@ GIVEN / INFERENCE boundary
 
 ---
 
-# 65. Phase 71 representative probe
+# 65. Phase 71 代表 probe
 
 module:
 
@@ -5297,7 +5297,7 @@ wrong bracket / modulus / group / generator / map rejection
 
 ---
 
-# 72. Phase 72 representative probe
+# 72. Phase 72 代表 probe
 
 module:
 
@@ -5567,7 +5567,7 @@ where appropriate.
 
 ---
 
-# 81. Corrected Phase 72 representative probe
+# 81. Corrected Phase 72 代表 probe
 
 module:
 
@@ -5591,7 +5591,7 @@ Corrected provenance / retirement audit
 Phase 72R corrected representative probe boundary
 ```
 
-The display remains presentation-only.
+The display は引き続き presentation-only.
 
 ---
 
@@ -5815,7 +5815,7 @@ heavy reusable object graph には必要に応じて:
 
 ---
 
-## Phase 73 representative probe
+## Phase 73 代表 probe
 
 ```text
 probes/probe_phase73_capabilities.py
@@ -5978,7 +5978,7 @@ heavy reusable fixture graph は:
 
 を使用。
 
-## representative probe
+## 代表 probe
 
 ```text
 probes/probe_phase74_capabilities.py
@@ -6134,7 +6134,7 @@ heavy builder:
 @lru_cache(maxsize=1)
 ```
 
-## representative probe
+## 代表 probe
 
 ```text
 probes/probe_phase75_capabilities.py
@@ -6360,7 +6360,7 @@ non-circularity
 Phase 75 aggregate non-dependency
 ```
 
-## representative probe
+## 代表 probe
 
 ```text
 probes/probe_phase76_capabilities.py
@@ -6556,7 +6556,7 @@ heavy deterministic builders use:
 @lru_cache(maxsize=1)
 ```
 
-## representative probe
+## 代表 probe
 
 ```text
 probes/probe_phase77_capabilities.py
@@ -6607,7 +6607,7 @@ repository-wide
 6262 passed in 114.35s
 ```
 
-## Phase 77 completion boundary
+## Phase 77 完了境界
 
 Do not introduce:
 
@@ -6746,7 +6746,7 @@ toda_stable_g0_to_g7_integration_inference_rule()
 
 all 8 direct branches are `ProofRule.INFERENCE`.
 
-# 102. Phase 78 representative probe
+# 102. Phase 78 代表 probe
 
 ```text
 probes/probe_phase78_capabilities.py
@@ -6768,7 +6768,7 @@ integrated stable suite: 164 passed in 2.99s
 repository-wide: 6472 passed in 35.18s
 ```
 
-Phase 78 is COMPLETE.
+Phase 78 は COMPLETE。
 
 
 ---
@@ -6908,7 +6908,7 @@ Focused result:
 13 passed in 1.95s
 ```
 
-# 109. Phase 79 representative probe
+# 109. Phase 79 代表 probe
 
 ```text
 probes/probe_phase79_capabilities.py
@@ -6921,7 +6921,7 @@ build_phase79_representative_result()
 main()
 ```
 
-Representative source:
+代表 source:
 
 ```text
 build_phase79_7_data()
@@ -6960,7 +6960,7 @@ proof replay
 automatic proof narrative generation
 ```
 
-Phase 79 is COMPLETE.
+Phase 79 は COMPLETE。
 
 ---
 
@@ -6974,7 +6974,7 @@ repository_available_steps()
 derive_goal_from_repository()
 ```
 
-`RepositoryInferenceResult`:
+`RepositoryInference結果`:
 
 ```text
 inference_result
@@ -7059,7 +7059,7 @@ Uses:
 @lru_cache(maxsize=1)
 ```
 
-Representative actual proof:
+代表 actual proof:
 
 ```text
 Phase 77 Toda Lemma 5.16
@@ -7078,7 +7078,7 @@ Reused rule:
 phase77["data"]["final_rule"]
 ```
 
-# 117. Phase 80 applicability / non-circularity tests
+# 117. Phase 80 適用性 / 非循環性テスト
 
 ```text
 tests/test_phase80_applicability_non_circularity.py
@@ -7098,7 +7098,7 @@ ancestor-conclusion exclusion
 acyclicity
 ```
 
-# 118. Phase 80 representative probe
+# 118. Phase 80 代表 probe
 
 ```text
 probes/probe_phase80_capabilities.py
@@ -7111,7 +7111,7 @@ build_phase80_representative_result()
 main()
 ```
 
-Representative source:
+代表 source:
 
 ```text
 build_phase80_5_data()
@@ -7138,7 +7138,7 @@ acyclicity
 automation boundary
 ```
 
-# 119. Phase 80 regression baseline before probe
+# 119. Phase 80 probe 前の回帰 baseline
 
 ```text
 Phase 80-6 focused: 10 passed in 1.90s
@@ -7148,16 +7148,16 @@ Phase 77 + repository + Phase 79 + Phase 80: 126 passed in 3.11s
 repository-wide: 6565 passed in 36.33s
 ```
 
-# 120. Current inference boundary
+# 120. 現在の推論境界
 
-Implemented:
+実装済み:
 
 ```text
 repository-assisted automatic inference
 with explicitly supplied rule sets
 ```
 
-Not implemented:
+未実装:
 
 ```text
 automatic rule selection
@@ -7206,7 +7206,7 @@ matching catalog entries
 
 `find_goal_compatible_rules(catalog, goal)` additionally identity-deduplicates aliased `InferenceRule` objects.
 
-# 123. Phase 81 catalog-aware repository inference
+# 123. Phase 81 catalog-aware repository 推論
 
 `repository_inference.py` adds:
 
@@ -7222,9 +7222,9 @@ find_goal_compatible_rules()
 existing derive_goal_from_repository()
 ```
 
-The Phase 80 API remains available unchanged.
+Phase 80 API は変更せず引き続き利用できる。
 
-# 124. Phase 81 actual theorem integration
+# 124. Phase 81 actual theorem 統合
 
 ```text
 tests/test_phase81_actual_theorem_integration.py
@@ -7237,15 +7237,15 @@ Uses:
 @lru_cache(maxsize=1)
 ```
 
-Representative actual theorem:
+代表 actual theorem:
 
 ```text
 Phase 77 Toda Lemma 5.16
 ```
 
-The runner receives repository + catalog + goal, not the final rule directly.
+runner は final rule を直接受け取らず、repository + catalog + goal を受け取る。
 
-# 125. Phase 81 ambiguity regression
+# 125. Phase 81 ambiguity 回帰テスト
 
 ```text
 tests/test_phase81_rule_selection_regression.py
@@ -7263,9 +7263,9 @@ unsafe candidate
 unrelated candidate
 ```
 
-Verifies selector / applicability / duplicate / circularity boundaries.
+selector / applicability / duplicate / circularity の境界を検証する。
 
-# 126. Phase 81 representative probe
+# 126. Phase 81 代表 probe
 
 ```text
 probes/probe_phase81_capabilities.py
@@ -7278,7 +7278,7 @@ build_phase81_representative_result()
 main()
 ```
 
-Representative source:
+代表 source:
 
 ```text
 build_phase81_6_data()
@@ -7305,16 +7305,16 @@ non-circularity
 current Phase 82 boundary
 ```
 
-# 127. Current inference boundary after Phase 81
+# 127. 現在の推論境界 after Phase 81
 
-Implemented:
+実装済み:
 
 ```text
 automatic goal-compatible rule selection
 repository-assisted forward inference
 ```
 
-Not implemented:
+未実装:
 
 ```text
 recursive missing-premise producer search
@@ -7322,5 +7322,195 @@ backward chaining
 multi-step goal-directed search
 proof ranking
 persistent rule/proof database
+automatic proof narrative generation
+```
+
+---
+
+# 128. Phase 82 missing-premise detection
+
+対象:
+
+```text
+repository_inference.py
+```
+
+追加:
+
+```text
+PremiseAvailability
+detect_missing_premises()
+detect_goal_rule_missing_premises()
+```
+
+`PremiseAvailability`:
+
+```text
+inference_rule
+matched_steps
+missing_indices
+missing_patterns
+is_complete
+```
+
+責務:
+
+```text
+final rule の PremisePattern に対して、
+現在 available な ProofStep の最大互換 assignment を求め、
+不足 pattern を first-class に返す。
+```
+
+theorem-specific applicability を複製せず、existing matcher の structural consistency を利用する。
+
+# 129. Phase 82 producer lookup
+
+対象:
+
+```text
+rule_catalog.py
+```
+
+追加:
+
+```text
+find_premise_producer_rule_entries()
+find_premise_producer_rules()
+```
+
+policy:
+
+```text
+fixed_point_safe=True
+conclusion_type is premise_pattern.statement_type
+```
+
+entry alias は保持し、rule execution list では identity deduplicate する。
+
+# 130. Phase 82 one-level execution
+
+対象:
+
+```text
+repository_inference.py
+```
+
+追加 entry point:
+
+```text
+derive_goal_from_repository_with_one_level_producers(
+  repository,
+  rule_catalog,
+  goal,
+  max_rounds=None,
+)
+```
+
+処理:
+
+```text
+goal-compatible final rules
+↓
+missing premise detection
+↓
+unique producer lookup
+↓
+producer stage max_rounds=1
+↓
+final stage
+↓
+RepositoryInferenceResult
+```
+
+producer rule が0件または複数 distinct rule の場合、その path は展開しない。
+
+# 131. Phase 82 search-safety tests
+
+主要 test:
+
+```text
+tests/test_phase82_missing_premise_detection.py
+tests/test_phase82_premise_rule_lookup.py
+tests/test_phase82_two_step_forward_execution.py
+tests/test_phase82_actual_theorem_integration.py
+tests/test_phase82_search_safety_regression.py
+tests/test_phase82_probe.py
+```
+
+確認:
+
+```text
+missing premise index
+producer exact-type lookup
+unsafe exclusion
+alias identity dedup
+new intermediate generation
+new final generation
+rule identity retention
+GIVEN shortcut rejection
+non-circularity
+ambiguity rejection
+depth=1 enforcement
+repository immutability
+```
+
+# 132. Phase 82 representative probe
+
+```text
+probes/probe_phase82_capabilities.py
+```
+
+主要 function:
+
+```text
+build_phase82_representative_result()
+main()
+```
+
+代表 source:
+
+```text
+build_phase82_5_data()
+```
+
+表示:
+
+```text
+Toda Lemma 5.16 actual goal
+missing premise count / index / type
+safe producer candidate count
+unique producer selection
+new intermediate generation
+final goal generation
+rule identity reuse
+acyclicity
+repository non-mutation
+Phase 82 completion boundary
+```
+
+# 133. 現在の proof-search 境界
+
+実装済み:
+
+```text
+repository-assisted forward inference
+goal-compatible automatic final-rule selection
+missing-premise detection
+one-level producer lookup
+one-level intermediate generation
+final-rule retry
+unique-producer safety policy
+```
+
+未実装:
+
+```text
+recursive missing-premise producer search
+arbitrary-depth backward chaining
+DFS / BFS / A*
+multiple-premise planning
+proof ranking
+proof-cost model
+persistent search cache
 automatic proof narrative generation
 ```

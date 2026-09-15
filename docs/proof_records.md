@@ -1,6 +1,6 @@
-# EHP Proof Tracer — Proof Records
+# EHP Proof Tracer — 証明記録
 
-この文書は、EHP Proof Tracer が実際に導出し、representative probe で人間向けに表示した代表的な数学的証明を記録する。
+この文書は、EHP Proof Tracer が実際に導出し、代表 probe で人間向けに表示した代表的な数学的証明を記録する。
 
 目的は、単なる実装履歴ではなく、
 
@@ -9,11 +9,11 @@
 - どの文献 statement に対応するか
 - `GIVEN` と `INFERENCE` の境界がどこにあるか
 - machine provenance がどの Phase へ遡るか
-- representative probe がどのように人間向けに表示するか
+- 代表 probe がどのように人間向けに表示するか
 
 を、長期的に追跡可能な形で残すことである。
 
-現在の `Proof-style derivation` は、`ProofStep` graph から自動生成された証明文ではない。各 Phase で確認済みの machine provenance と数学的依存関係に基づいて、probe 側に hand-authored presentation layer として記述している。
+現在の `証明形式の導出` は、`ProofStep` graph から自動生成された証明文ではない。各 Phase で確認済みの machine provenance と数学的依存関係に基づいて、probe 側に hand-authored presentation layer として記述している。
 
 将来 automatic proof narrative generation を実装するとき、この文書に蓄積した representative proof を human-reviewed golden reference として利用する。
 
@@ -82,7 +82,7 @@ automatic theorem replay cache
 
 ---
 
-# 3. Earlier representative probes
+# 3. 過去の代表 probe
 
 Phase 66-8 から正式な proof record を開始する。
 
@@ -125,7 +125,7 @@ Phase 66-8 ではこれらを全面的に backfill しない。
 
 # 4. Toda Equation (5.8)
 
-## 4.1 Source / theorem
+## 4.1 出典 / 定理
 
 ```text
 H. Toda
@@ -142,7 +142,7 @@ Equation (5.8)
 
 ---
 
-## 4.2 Result
+## 4.2 結果
 
 Phase 66 では Equation (5.8) を次の3つの first-class derived statement に分解して統合する。
 
@@ -172,7 +172,7 @@ ProofRule.INFERENCE
 
 ---
 
-## 4.3 Upstream results
+## 4.3 上流結果
 
 ### Phase 65 branch
 
@@ -219,7 +219,7 @@ Phase 66 では、この既存 `[ι₄,ι₄]` object を再利用する。
 
 ---
 
-## 4.4 Derived ingredients
+## 4.4 導出要素
 
 Phase 66-3:
 
@@ -270,7 +270,7 @@ Toda58EquationStatement
 
 ---
 
-## 4.5 Proof-style derivation
+## 4.5 証明形式の導出
 
 Representative human-readable derivation:
 
@@ -311,11 +311,11 @@ Hence:
 ±[ι₄,ι₄].
 ```
 
-この表示は current Phase 66 representative probe の hand-authored presentation layer である。
+この表示は 現在の Phase 66 代表 probe の hand-authored presentation layer である。
 
 ---
 
-## 4.6 Machine provenance
+## 4.6 機械的 provenance
 
 最終 provenance graph の主要 branch:
 
@@ -395,7 +395,7 @@ literature metadata は generic inference engine に theorem knowledge を追加
 
 ---
 
-## 4.8 GIVEN / INFERENCE boundary
+## 4.8 GIVEN / INFERENCE 境界
 
 Phase 66 の Equation (5.8) spine:
 
@@ -440,7 +440,7 @@ Equation (5.8) の最終 theorem aggregate を `GIVEN` として投入しない�
 
 ---
 
-## 4.9 Representation boundary
+## 4.9 表現境界
 
 Phase 66 で追加しないもの:
 
@@ -494,7 +494,7 @@ generic ± algebra は導入しない。
 
 ---
 
-## 4.10 Object provenance boundary
+## 4.10 オブジェクト provenance 境界
 
 Phase 66 の bridge / aggregate は可能な限り upstream conclusion object を再利用する。
 
@@ -522,7 +522,7 @@ structural equality と Python object identity は区別する。
 
 ---
 
-## 4.11 Representative probe
+## 4.11 代表 probe
 
 実行:
 
@@ -560,7 +560,7 @@ probe 内の proof-style derivation は presentation-only であり、automatic 
 
 ---
 
-## 4.12 Regression status
+## 4.12 回帰テスト状況
 
 Phase 66 completion 時点:
 
@@ -584,7 +584,7 @@ Phase 66-7 / 66-8 の focused tests と final repository-wide regression まで�
 
 ---
 
-# 5. Automatic proof narrative generation との関係
+# 5. 自動証明 narrative 生成 との関係
 
 現在:
 
@@ -626,7 +626,7 @@ console / Markdown / LaTeX
 
 ---
 
-# 6. Persistent Proof Repository との境界
+# 6. 永続 Proof Repository との境界
 
 `docs/proof_records.md` は persistent proof repository ではない。
 
@@ -657,7 +657,7 @@ Proof record documentation はその repository schema を先取りしない。
 
 ---
 
-# 7. Current proof-record boundary
+# 7. 現在の証明記録境界
 
 正式な human-reviewed proof record は現在3件。
 
@@ -700,7 +700,7 @@ finite-dimensional result
 必要になった時点で separate documentation task として追加する。
 ---
 
-# 8. Phase 66 completion record
+# 8. Phase 66 完了記録
 
 Phase 66 は COMPLETE。
 
@@ -730,7 +730,7 @@ Toda58EquationStatement
 not GIVEN
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase66_capabilities
@@ -754,7 +754,7 @@ repository-wide regression:
 
 # 9. Toda Lemma 5.7
 
-## 9.1 Source / theorem
+## 9.1 出典 / 定理
 
 ```text
 H. Toda
@@ -783,7 +783,7 @@ E(η₂∘ν′)=0
 
 ---
 
-## 9.2 Result
+## 9.2 結果
 
 Phase 67 では Toda Lemma 5.7 を次の concrete capability に分解して導出した。
 
@@ -1040,7 +1040,7 @@ Z/4{η₂∘ν′}
 
 ---
 
-## 9.8 Proof-style derivation
+## 9.8 証明形式の導出
 
 Representative human-readable derivation:
 
@@ -1114,7 +1114,7 @@ we obtain
 
 ---
 
-## 9.9 Machine provenance
+## 9.9 機械的 provenance
 
 主要 branch:
 
@@ -1214,7 +1214,7 @@ machine proof dependency
 
 ---
 
-## 9.11 GIVEN / INFERENCE boundary
+## 9.11 GIVEN / INFERENCE 境界
 
 GIVEN:
 
@@ -1256,7 +1256,7 @@ through Proposition 5.6
 
 ---
 
-## 9.12 Representation boundary
+## 9.12 表現境界
 
 Phase 67 で追加しないもの:
 
@@ -1279,7 +1279,7 @@ persistent Proof Repository
 
 ---
 
-## 9.13 Representative probe
+## 9.13 代表 probe
 
 実行:
 
@@ -1323,7 +1323,7 @@ automatic proof narrative generation ではない。
 
 ---
 
-## 9.14 Regression status
+## 9.14 回帰テスト状況
 
 Phase 67 completion:
 
@@ -1360,7 +1360,7 @@ fixed point = True
 
 # 10. Toda Proposition 5.8
 
-## 10.1 Source / theorem
+## 10.1 出典 / 定理
 
 ```text
 H. Toda
@@ -1390,7 +1390,7 @@ stable statement:
 
 ---
 
-## 10.2 Result
+## 10.2 結果
 
 Phase 68 final aggregate:
 
@@ -1427,7 +1427,7 @@ ProofRule.INFERENCE
 
 ---
 
-## 10.3 Upstream results
+## 10.3 上流結果
 
 主要 upstream:
 
@@ -1878,7 +1878,7 @@ for `n≥6`。
 
 ---
 
-## 10.12 Proof-style derivation
+## 10.12 証明形式の導出
 
 Representative human-readable derivation:
 
@@ -2000,7 +2000,7 @@ automatic proof narrative generation ではない。
 
 ---
 
-## 10.13 Machine provenance
+## 10.13 機械的 provenance
 
 主要 spine:
 
@@ -2113,7 +2113,7 @@ machine proof dependency
 
 ---
 
-## 10.15 GIVEN / INFERENCE boundary
+## 10.15 GIVEN / INFERENCE 境界
 
 GIVEN:
 
@@ -2165,7 +2165,7 @@ final aggregate を `GIVEN` として投入しない。
 
 ---
 
-## 10.16 Representation boundary
+## 10.16 表現境界
 
 Phase 68 では generic framework を増やさず concrete theorem need を局所処理した。
 
@@ -2245,7 +2245,7 @@ literature metadata は theorem search engine ではない。
 
 ---
 
-## 10.18 Representative probe
+## 10.18 代表 probe
 
 実行:
 
@@ -2284,7 +2284,7 @@ It is not yet generated automatically from the ProofStep graph.
 
 ---
 
-## 10.19 Regression status
+## 10.19 回帰テスト状況
 
 Phase 68-13 probe:
 
@@ -2330,7 +2330,7 @@ TodaProp58FiniteDimensionalStatement
 INFERENCE
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase68_capabilities
@@ -2357,7 +2357,7 @@ stable:
 
 # 11. Toda Equation (5.10)
 
-## 11.1 Source / theorem
+## 11.1 出典 / 定理
 
 ```text
 H. Toda
@@ -2551,7 +2551,7 @@ Phase 68 `π_9^5` branch の generator object を直接再利用する。
 
 ---
 
-## 11.8 GIVEN / INFERENCE boundary
+## 11.8 GIVEN / INFERENCE 境界
 
 GIVEN:
 
@@ -2665,7 +2665,7 @@ Phase 69 では再実装しない。
 
 ---
 
-## 11.12 Representative probe
+## 11.12 代表 probe
 
 ```powershell
 python -m probes.probe_phase69_capabilities
@@ -2695,7 +2695,7 @@ repository-wide:
 
 ---
 
-## 11.14 Representation boundary
+## 11.14 表現境界
 
 Phase 69 では追加しない:
 
@@ -2723,7 +2723,7 @@ verified result:
 Δ(ι₁₁)=ν₅η₈
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase69_capabilities
@@ -2744,7 +2744,7 @@ repository-wide regression:
 
 # 12. Toda Proposition 5.9
 
-## 12.1 Source / theorem
+## 12.1 出典 / 定理
 
 ```text
 H. Toda
@@ -2753,7 +2753,7 @@ Composition Methods in Homotopy Groups of Spheres
 Proposition 5.9
 ```
 
-Phase 70 で正式記録する finite-dimensional result:
+Phase 70 で正式記録する 有限次元結果:
 
 ```text
 π_7^2=Z/2{η₂ν′η₆}
@@ -2814,7 +2814,7 @@ n≥7                           GIVEN
 
 ---
 
-## 12.3 Upstream results
+## 12.3 上流結果
 
 主要 upstream:
 
@@ -3078,7 +3078,7 @@ therefore gives:
 
 ---
 
-## 12.12 Machine provenance
+## 12.12 機械的 provenance
 
 Phase 70-11 verifies:
 
@@ -3156,7 +3156,7 @@ is preserved.
 
 ---
 
-## 12.14 GIVEN / INFERENCE boundary
+## 12.14 GIVEN / INFERENCE 境界
 
 GIVEN:
 
@@ -3187,7 +3187,7 @@ No final theorem result is reintroduced as a `GIVEN`.
 
 ---
 
-## 12.15 Representation boundary
+## 12.15 表現境界
 
 Phase 70 adds only concrete semantics required by Proposition 5.9.
 
@@ -3239,19 +3239,19 @@ Locator:
   Proposition 5.9
 ```
 
-Literature metadata remains structured metadata rather than theorem-search semantics.
+文献 metadata は引き続き structured metadata rather than theorem-search semantics.
 
 ---
 
-## 12.17 Representative probe
+## 12.17 代表 probe
 
-Run:
+実行:
 
 ```powershell
 python -m probes.probe_phase70_capabilities
 ```
 
-The probe displays:
+probe の表示:
 
 ```text
 Toda Proposition 5.9 finite-dimensional result
@@ -3269,13 +3269,13 @@ Representative detailed chains include:
 higher five-stem zero
 ```
 
-The proof-style display remains hand-authored presentation code.
+The proof-style display は引き続き hand-authored presentation code.
 
 It is not yet automatically generated from the `ProofStep` graph.
 
 ---
 
-## 12.18 Regression status
+## 12.18 回帰テスト状況
 
 probe focused:
 
@@ -3295,15 +3295,15 @@ repository-wide:
 4752 passed in 30.85s
 ```
 
-Phase 64 performance stabilization remains effective.
+Phase 64 performance stabilization は引き続き effective.
 
 ---
 
 ## 12.19 Completion record
 
-Phase 70 is COMPLETE.
+Phase 70 は COMPLETE。
 
-verified finite-dimensional result:
+verified 有限次元結果:
 
 ```text
 π_7^2=Z/2{η₂ν′η₆}
@@ -3315,7 +3315,7 @@ verified finite-dimensional result:
 (n≥7)
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase70_capabilities
@@ -3339,7 +3339,7 @@ remains deferred.
 
 # 14. Toda Equation (5.12)
 
-## 14.1 Source / theorem
+## 14.1 出典 / 定理
 
 ```text
 H. Toda
@@ -3772,19 +3772,19 @@ to pi_(n+5)^n
 is injective for n=4, 5, 6.
 ```
 
-Literature metadata remains structured provenance metadata rather than theorem-search semantics.
+文献 metadata は引き続き structured provenance metadata rather than theorem-search semantics.
 
 ---
 
-## 14.11 Representative probe
+## 14.11 代表 probe
 
-Run:
+実行:
 
 ```powershell
 python -m probes.probe_phase71_capabilities
 ```
 
-The probe displays:
+probe の表示:
 
 ```text
 Toda (5.12) Delta injectivity
@@ -3815,13 +3815,13 @@ final graph acyclic = True
 all three branch graphs acyclic = True
 ```
 
-The proof-style display remains hand-authored presentation code.
+The proof-style display は引き続き hand-authored presentation code.
 
 It is not yet automatically generated from the `ProofStep` graph.
 
 ---
 
-## 14.12 Regression status
+## 14.12 回帰テスト状況
 
 Phase 71-2:
 
@@ -3865,11 +3865,11 @@ final repository-wide:
 4886 passed in 29.25s
 ```
 
-Phase 64 performance stabilization remains effective.
+Phase 64 performance stabilization は引き続き effective.
 
 ---
 
-## 14.13 Representation boundary
+## 14.13 表現境界
 
 Phase 71 does not add:
 
@@ -3891,7 +3891,7 @@ The three injectivity cases are implemented with theorem-specific concrete guard
 
 ## 14.14 Completion record
 
-Phase 71 is COMPLETE.
+Phase 71 は COMPLETE。
 
 verified result:
 
@@ -3921,7 +3921,7 @@ Toda512DeltaInjectivityStatement
 ProofRule.INFERENCE
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase71_capabilities
@@ -3941,7 +3941,7 @@ This record is the Phase 71 completion human-reviewed golden reference.
 
 # 15. Toda Lemma 5.10
 
-## 15.1 Source / theorem
+## 15.1 出典 / 定理
 
 Literature:
 
@@ -4010,7 +4010,7 @@ Indeterminacy
 =ν₆∘π₁₁⁹+2π₁₁(S⁶)
 ```
 
-Machine provenance:
+機械的 provenance:
 
 ```text
 Phase 59 / Proposition 5.3
@@ -4050,7 +4050,7 @@ This reuses the existing minimum indeterminacy representation rather than introd
 
 Toda proof uses (5.10) and Proposition 2.6.
 
-Machine provenance:
+機械的 provenance:
 
 ```text
 Phase 69
@@ -4231,15 +4231,15 @@ The implementation is theorem-specific and guarded.
 
 ---
 
-## 15.11 Representative probe
+## 15.11 代表 probe
 
-Run:
+実行:
 
 ```powershell
 python -m probes.probe_phase72_capabilities
 ```
 
-The probe displays:
+probe の表示:
 
 ```text
 Toda Lemma 5.10 result
@@ -4262,11 +4262,11 @@ final graph acyclic = True
 Phase 71 Delta injectivity absent from ancestry = True
 ```
 
-The proof-style display remains hand-authored presentation code and is not yet generated automatically from the `ProofStep` graph.
+The proof-style display は引き続き hand-authored presentation code and is not yet generated automatically from the `ProofStep` graph.
 
 ---
 
-## 15.12 Regression status
+## 15.12 回帰テスト状況
 
 Phase 72-2:
 
@@ -4308,7 +4308,7 @@ The project is developed on two PCs, so wall-clock regression time is compared p
 
 ---
 
-## 15.13 Representation boundary
+## 15.13 表現境界
 
 Phase 72 does not add:
 
@@ -4330,7 +4330,7 @@ The concrete Lemma 5.10 need is handled by narrow theorem-specific statement typ
 
 ## 15.14 Completion record
 
-Phase 72 is COMPLETE.
+Phase 72 は COMPLETE。
 
 verified result:
 
@@ -4350,7 +4350,7 @@ TodaLemma510BracketModuloStatement
 ProofRule.INFERENCE
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase72_capabilities
@@ -4366,7 +4366,7 @@ This record is the Phase 72 completion human-reviewed golden reference.
 
 ---
 
-# 16. Current proof-record status
+# 16. 現在の proof-記録状態
 
 正式な curated proof record:
 
@@ -4396,7 +4396,7 @@ This record is the Phase 72 completion human-reviewed golden reference.
    (original Phase 72 record retained as historical first implementation)
 ```
 
-current model:
+現在の model:
 
 ```text
 proof inference        = automatic
@@ -4738,11 +4738,11 @@ repository-wide:
 
 ## 17.13 完了状況
 
-Phase 72R is COMPLETE.
+Phase 72R は COMPLETE。
 
 Proof Record 7 should now be read canonically through this Phase 72R revision.
 
-The earlier Phase 72 record remains a historical record of the first implementation.
+The earlier Phase 72 record は引き続き a historical record of the first implementation.
 
 
 
@@ -4758,7 +4758,7 @@ The canonical reading of `TodaPrimaryGroup(i,n)` is Toda's `π_i^n` from Equatio
 π_i^n = π_i(S^n;2) otherwise
 ```
 
-This audit leaves the Phase 66–71 proof records canonical. Their diagonal and exceptional `TodaPrimaryGroup` uses are consistent with Toda (4.3). Phase 72R remains canonical for Lemma 5.10 because its proof requires ordinary groups outside the Toda `π_i^n` shorthand.
+This audit leaves the Phase 66–71 proof records canonical. Their diagonal and exceptional `TodaPrimaryGroup` uses are consistent with Toda (4.3). Phase 72R は引き続き canonical for Lemma 5.10 because its proof requires ordinary groups outside the Toda `π_i^n` shorthand.
 
 ---
 
@@ -5068,7 +5068,7 @@ therefore
 
 ## 19.14 機械 provenance
 
-representative probe:
+代表 probe:
 
 ```text
 π_8^2 result derived = True
@@ -5139,7 +5139,7 @@ persistent Proof Repository
 
 ---
 
-## 19.17 Stable branch 境界
+## 19.17 安定群 branch 境界
 
 source stable result:
 
@@ -5151,7 +5151,7 @@ source stable result:
 
 既存 deferred stable results と同じ扱い。
 
-representative probe:
+代表 probe:
 
 ```text
 stable branch included = False
@@ -5223,7 +5223,7 @@ repository-wide:
 
 Phase 73 は COMPLETE。
 
-verified finite-dimensional result:
+verified 有限次元結果:
 
 ```text
 π_8^2=Z/2{η₂ν′η₆²}
@@ -5246,7 +5246,7 @@ DEFERRED
 
 # 20. Formal Proof Record 9 — Phase 74 Toda Lemma 5.12
 
-## 20.1 Source / theorem
+## 20.1 出典 / 定理
 
 Toda Lemma 5.12.
 
@@ -5265,7 +5265,7 @@ with:
 
 ---
 
-## 20.2 Result
+## 20.2 結果
 
 EHP Proof Tracer derives:
 
@@ -5290,7 +5290,7 @@ and is not a `GIVEN` shortcut.
 
 ---
 
-## 20.3 Upstream results
+## 20.3 上流結果
 
 Principal reusable upstream results:
 
@@ -5326,7 +5326,7 @@ Toda Proposition 2.5
 
 ---
 
-## 20.4 Derived ingredients
+## 20.4 導出要素
 
 ### Bracket definedness
 
@@ -5345,7 +5345,7 @@ Toda Proposition 2.5
 η_n∘π_(n+6)(S^(n+1))=0
 ```
 
-The ordinary group remains represented by `HomotopyGroup`.
+The ordinary group は引き続き represented by `HomotopyGroup`.
 
 ### Second indeterminacy
 
@@ -5427,7 +5427,7 @@ x_8=1
 
 ---
 
-## 20.5 Proof-style derivation
+## 20.5 証明形式の導出
 
 ```text
 η_nν_(n+1)=0
@@ -5463,7 +5463,7 @@ x_n=1 for every n≥6
 
 ---
 
-## 20.6 Machine provenance
+## 20.6 機械的 provenance
 
 final direct premises exactly:
 
@@ -5526,7 +5526,7 @@ Phase 74 does not introduce a new generic literature/theorem engine. The theorem
 
 ---
 
-## 20.8 GIVEN / INFERENCE boundary
+## 20.8 GIVEN / INFERENCE 境界
 
 Final theorem:
 
@@ -5548,7 +5548,7 @@ Missing direct branch also fails to match the final rule.
 
 ---
 
-## 20.9 Representation boundary
+## 20.9 表現境界
 
 `ν_n²` remains:
 
@@ -5601,7 +5601,7 @@ The concrete anchor does not become a symbolic all-`n` theorem by itself; propag
 
 ---
 
-## 20.11 Representative probe
+## 20.11 代表 probe
 
 ```powershell
 python -m probes.probe_phase74_capabilities
@@ -5617,11 +5617,11 @@ Applicability / non-circularity
 Phase 74 representative probe boundary
 ```
 
-The narrative remains hand-authored presentation code and is not automatically generated from the `ProofStep` graph.
+The narrative は引き続き hand-authored presentation code and is not automatically generated from the `ProofStep` graph.
 
 ---
 
-## 20.12 Regression status
+## 20.12 回帰テスト状況
 
 Phase 74 applicability / provenance:
 
@@ -5645,7 +5645,7 @@ repository-wide at Phase 74 completion:
 
 ## 20.13 Completion status
 
-Phase 74 is COMPLETE.
+Phase 74 は COMPLETE。
 
 verified result:
 
@@ -5682,7 +5682,7 @@ stable homotopy branch は引き続き deferred。
 
 # 22. Toda Proposition 5.15 finite-dimensional
 
-## 22.1 Source / theorem
+## 22.1 出典 / 定理
 
 ```text
 H. Toda
@@ -5714,7 +5714,7 @@ stable:
 
 ---
 
-## 22.2 Result
+## 22.2 結果
 
 final aggregate:
 
@@ -5740,7 +5740,7 @@ literature_statements
 
 ---
 
-## 22.3 Upstream results
+## 22.3 上流結果
 
 主要 upstream:
 
@@ -5975,7 +5975,7 @@ Z/8{Eσ'}.
 
 ---
 
-## 22.11 Proof-style derivation
+## 22.11 証明形式の導出
 
 ```text
 [1] low zero branches
@@ -6051,11 +6051,11 @@ all finite-dimensional branches
 TodaProp515FiniteDimensionalStatement
 ```
 
-This is the human-reviewed proof-style presentation; the current probe does not automatically generate it from the `ProofStep` graph.
+This is the human-reviewed proof-style presentation; the 現在の probe does not automatically generate it from the `ProofStep` graph.
 
 ---
 
-## 22.12 Machine provenance
+## 22.12 機械的 provenance
 
 Direct aggregate premises:
 
@@ -6082,7 +6082,7 @@ The final theorem result is not reintroduced as `GIVEN`.
 
 ---
 
-## 22.13 Object provenance boundary
+## 22.13 オブジェクト provenance 境界
 
 The Phase 75-9 builder reuses the existing nested object graph.
 
@@ -6102,7 +6102,7 @@ The `n=8` branch similarly preserves the same `σ₈` and `Eσ'` objects through
 
 ---
 
-## 22.14 GIVEN / INFERENCE boundary
+## 22.14 GIVEN / INFERENCE 境界
 
 GIVEN:
 
@@ -6128,7 +6128,7 @@ TodaProp515FiniteDimensionalStatement
 
 ---
 
-## 22.15 Representation boundary
+## 22.15 表現境界
 
 Phase 75 does not add:
 
@@ -6180,9 +6180,9 @@ The stable `(G_7;2)` clause is explicitly excluded from the finite-dimensional a
 
 ---
 
-## 22.17 Representative probe
+## 22.17 代表 probe
 
-Run:
+実行:
 
 ```powershell
 python -m probes.probe_phase75_capabilities
@@ -6203,9 +6203,9 @@ The probe reuses `build_phase75_9_data()` and adds no theorem semantics.
 
 ---
 
-## 22.18 Regression status
+## 22.18 回帰テスト状況
 
-Before adding the Phase 75 representative probe:
+Before adding the Phase 75 代表 probe:
 
 ```text
 tests/test_phase75_prop515_integration.py
@@ -6224,7 +6224,7 @@ The run was performed on a different development PC than several earlier ~30-sec
 
 ## 22.19 Completion status
 
-Phase 75 finite-dimensional mathematics is COMPLETE.
+Phase 75 finite-dimensional mathematics は COMPLETE。
 
 verified result:
 
@@ -6254,7 +6254,7 @@ The formal proof-record corpus now contains 10 records.
 
 # 24. Toda Equation (5.16)
 
-## 24.1 Source / theorem
+## 24.1 出典 / 定理
 
 ```text
 H. Toda
@@ -6289,7 +6289,7 @@ Therefore:
 
 ---
 
-## 24.2 Result
+## 24.2 結果
 
 Phase 76 final result:
 
@@ -6533,7 +6533,7 @@ ProofRule.INFERENCE
 
 ---
 
-## 24.8 Proof-style derivation
+## 24.8 証明形式の導出
 
 Representative human-readable derivation:
 
@@ -6605,7 +6605,7 @@ This display is hand-authored presentation code based on the verified `ProofStep
 
 ---
 
-## 24.9 Machine provenance
+## 24.9 機械的 provenance
 
 Main graph:
 
@@ -6662,7 +6662,7 @@ Phase 75 final aggregate is not required.
 
 ---
 
-## 24.10 GIVEN / INFERENCE boundary
+## 24.10 GIVEN / INFERENCE 境界
 
 ```text
 Phase 75 σ₈ statement                  INFERENCE
@@ -6729,7 +6729,7 @@ where appropriate.
 
 ---
 
-## 24.12 Representation boundary
+## 24.12 表現境界
 
 Phase 76 reuses:
 
@@ -6796,9 +6796,9 @@ Therefore:
 
 ---
 
-## 24.14 Representative probe
+## 24.14 代表 probe
 
-Run:
+実行:
 
 ```powershell
 python -m probes.probe_phase76_capabilities
@@ -6825,9 +6825,9 @@ and adds no mathematical theorem semantics.
 
 ---
 
-## 24.15 Regression status
+## 24.15 回帰テスト状況
 
-Before adding the representative probe:
+Before adding the 代表 probe:
 
 ```text
 tests/test_phase76_applicability_provenance.py
@@ -6888,7 +6888,7 @@ The formal proof-record corpus now contains 11 records.
 
 ---
 
-# 25. Current proof-record status
+# 25. 現在の proof-記録状態
 
 Formal curated records:
 
@@ -6913,7 +6913,7 @@ Stable homotopy results remain deferred.
 
 # 26. Toda Lemma 5.16
 
-## 26.1 Source / theorem
+## 26.1 出典 / 定理
 
 ```text
 H. Toda
@@ -7192,9 +7192,9 @@ m
 
 ---
 
-## 26.12 Representative probe
+## 26.12 代表 probe
 
-Run:
+実行:
 
 ```powershell
 python -m probes.probe_phase77_capabilities
@@ -7223,9 +7223,9 @@ The proof-style derivation is hand-authored presentation code and is not automat
 
 ---
 
-## 26.13 Regression status
+## 26.13 回帰テスト状況
 
-Before adding the representative probe:
+Before adding the 代表 probe:
 
 ```text
 tests/test_phase77_applicability_provenance.py
@@ -7264,7 +7264,7 @@ Natural next mathematical boundary:
 
 ---
 
-# 27. Current proof-record status after Phase 77
+# 27. 現在の proof-記録状態 after Phase 77
 
 Formal curated records:
 
@@ -7314,7 +7314,7 @@ TodaStableG0ToG7Statement
 ProofRule.INFERENCE
 ```
 
-## 28.3 Representation boundary
+## 28.3 表現境界
 
 ```text
 G_0 = StableHomotopyGroup(stem=0)
@@ -7337,7 +7337,7 @@ Zero stem uses:
 Toda33StableOrdinaryIdentificationStatement
 ```
 
-Finite-stage `Toda45IsomorphismStatement` remains separate.
+Finite-stage `Toda45IsomorphismStatement` は引き続き separate.
 
 ## 28.5 G_0 branch
 
@@ -7428,7 +7428,7 @@ upstream branches do not depend on aggregate
 proof graph acyclic
 ```
 
-## 28.14 Representative probe
+## 28.14 代表 probe
 
 ```powershell
 python -m probes.probe_phase78_capabilities
@@ -7436,7 +7436,7 @@ python -m probes.probe_phase78_capabilities
 
 The proof-style derivation is hand-authored presentation code and is not automatic `ProofStep` narrative generation.
 
-## 28.15 Regression status
+## 28.15 回帰テスト状況
 
 ```text
 aggregate: 18 passed in 2.15s
@@ -7447,13 +7447,13 @@ repository-wide: 6472 passed in 35.18s
 
 ## 28.16 Completion status
 
-Phase 78 mathematics / representation / integration / provenance / non-circularity / representative probe are COMPLETE.
+Phase 78 mathematics / representation / integration / provenance / non-circularity / 代表 probe are COMPLETE.
 
 Formal proof record corpus now contains 13 records.
 
 ---
 
-# 29. Current proof-record status after Phase 78
+# 29. 現在の proof-記録状態 after Phase 78
 
 ```text
 1  Phase 66   Toda Equation (5.8)
@@ -7484,7 +7484,7 @@ Phase 79 does not prove a new homotopy-theoretic theorem.
 
 Therefore this entry is explicitly an infrastructure record rather than mathematical Proof Record 14.
 
-The mathematical formal proof-record corpus remains at 13 records through Phase 78.
+The mathematical formal proof-record corpus は引き続き at 13 records through Phase 78.
 
 ## 30.2 Scope
 
@@ -7614,9 +7614,9 @@ builder auto-execution
 automatic inference on lookup
 ```
 
-Future persistence must preserve proof meaning and provenance rather than Python execution state.
+将来の persistence must preserve proof meaning and provenance rather than Python execution state.
 
-## 30.10 Representative probe
+## 30.10 代表 probe
 
 ```powershell
 python -m probes.probe_phase79_capabilities
@@ -7635,7 +7635,7 @@ Phase 78 direct dependencies = 8
 Persistence remains disabled.
 ```
 
-## 30.11 Regression status
+## 30.11 回帰テスト状況
 
 ```text
 repository unit tests: 21 passed in 2.42s
@@ -7648,7 +7648,7 @@ repository-wide: 6520 passed in 35.07s
 
 ## 30.12 Completion status
 
-Phase 79 minimum in-memory Proof Repository / cross-phase retrieval / duplicate semantics / applicability isolation / non-circularity regression / representative probe are COMPLETE.
+Phase 79 minimum in-memory Proof Repository / cross-phase retrieval / duplicate semantics / applicability isolation / non-circularity regression / 代表 probe are COMPLETE.
 
 Mathematical proof-record corpus:
 
@@ -7696,7 +7696,7 @@ new ProofStep
 
 without turning `ProofRepository` itself into an inference engine.
 
-## 31.2 Representative actual proof
+## 31.2 代表 actual proof
 
 Representative theorem:
 
@@ -7807,7 +7807,7 @@ repository before inference
 repository after inference
 ```
 
-Repository persistence and result promotion remain separate future concerns.
+Repository persistence and result promotion remain separate 将来の concerns.
 
 ## 31.8 Structural goal boundary
 
@@ -7821,7 +7821,7 @@ only.
 
 No mathematical normalizer, theorem search, or semantic equivalence solver is used.
 
-## 31.9 Representative probe
+## 31.9 代表 probe
 
 ```powershell
 python -m probes.probe_phase80_capabilities
@@ -7842,16 +7842,16 @@ derived graph acyclic = True
 repository mutated = False
 ```
 
-## 31.10 Automation boundary correction
+## 31.10 自動化境界 correction
 
-Phase 79 record remains historically correct:
+Phase 79 record は引き続き historically correct:
 
 ```text
 automatic inference on repository lookup
 = not implemented in Phase 79
 ```
 
-Current Phase 80 state:
+現在の Phase 80 state:
 
 ```text
 repository-assisted automatic inference
@@ -7859,7 +7859,7 @@ with explicitly supplied rules
 = implemented
 ```
 
-Still absent:
+引き続き未実装:
 
 ```text
 automatic rule selection
@@ -7885,9 +7885,9 @@ repository-wide:
 6565 passed in 36.33s
 ```
 
-## 31.12 Record status
+## 31.12 記録状態
 
-Mathematical proof records remain:
+数学的 proof record 数は次のまま:
 
 ```text
 13
@@ -7900,7 +7900,7 @@ Infrastructure records:
 2  Phase 80  repository-assisted automatic inference
 ```
 
-Phase 80 does not increment the mathematical theorem record count because it reuses the already-recorded Phase 77 theorem as an execution/infrastructure demonstration.
+Phase 80 は、既に記録済みの Phase 77 theorem を execution / infrastructure demonstration として再利用するため、数学 theorem record 数を増やさない。
 
 
 
@@ -7932,20 +7932,20 @@ goal
 
 and automatically selects goal-compatible fixed-point-safe rules.
 
-This is an infrastructure capability record, not a new mathematical theorem proof record.
+これは新しい数学定理の証明記録ではなく、infrastructure capability の記録である。
 
-## 32.2 Representative actual theorem
+## 32.2 代表 actual theorem
 
-Representative theorem remains:
+代表 theorem は引き続き次である:
 
 ```text
 Toda Lemma 5.16
 Phase 77
 ```
 
-The initial repository contains the exact existing direct premise steps and does not contain the final conclusion.
+初期 repository は既存の exact direct premise step を含むが、final conclusion は含まない。
 
-## 32.3 Rule-selection path
+## 32.3 rule 選択経路
 
 ```text
 goal
@@ -7965,7 +7965,7 @@ new final ProofStep
 
 ## 32.4 Ambiguity boundary
 
-Representative catalog contains intentional decoys:
+代表 catalog contains intentional decoys:
 
 ```text
 same-rule alias
@@ -7998,7 +7998,7 @@ graph acyclic
 repository unchanged
 ```
 
-## 32.6 Seed-goal distinction
+## 32.6 seed goal と derived goal の区別
 
 If the repository already contains the goal as a `GIVEN` step, structural goal detection returns that existing seed.
 
@@ -8012,24 +8012,24 @@ newly derived INFERENCE
 
 remains observable.
 
-## 32.7 Representative probe
+## 32.7 代表 probe
 
 ```powershell
 python -m probes.probe_phase81_capabilities
 ```
 
-The probe reports the candidate-selection, applicability, actual-rule reuse, accepted-proof count, provenance, and Phase 82 boundary.
+probe は the candidate-selection, applicability, actual-rule reuse, accepted-proof count, provenance, and Phase 82 boundary.
 
-## 32.8 Automation boundary
+## 32.8 自動化境界
 
-Implemented:
+実装済み:
 
 ```text
 automatic goal-compatible rule selection
 repository-assisted forward inference
 ```
 
-Still absent:
+引き続き未実装:
 
 ```text
 recursive premise production
@@ -8040,15 +8040,15 @@ persistent repository
 automatic proof narrative generation
 ```
 
-## 32.9 Record status
+## 32.9 記録状態
 
-Mathematical proof records remain:
+数学的 proof record 数は次のまま:
 
 ```text
 13
 ```
 
-Infrastructure records become:
+infrastructure record は次のとおり:
 
 ```text
 1  Phase 79  minimal in-memory Proof Repository
@@ -8056,4 +8056,224 @@ Infrastructure records become:
 3  Phase 81  automatic rule selection
 ```
 
-Phase 81 does not increment the mathematical theorem record count because it reuses the already-recorded Phase 77 theorem as its actual execution demonstration.
+Phase 81 は、既に記録済みの Phase 77 theorem を actual execution demonstration として再利用するため、数学 theorem record 数を増やさない。
+
+---
+
+# 33. Phase 82 infrastructure record — 1段階 goal-directed proof search
+
+## 33.1 記録種別
+
+Phase 82 は新しい数学 theorem を追加する Phase ではない。
+
+既存の Phase 77 Toda Lemma 5.16 を actual theorem として再利用し、
+
+```text
+final premise が1つ不足
+↓
+producer rule lookup
+↓
+intermediate 自動生成
+↓
+final goal 自動生成
+```
+
+を確認する infrastructure capability record である。
+
+数学的 proof record 数:
+
+```text
+13
+```
+
+のまま。
+
+infrastructure record は:
+
+```text
+1  Phase 79  minimal in-memory Proof Repository
+2  Phase 80  repository-assisted automatic inference
+3  Phase 81  automatic rule selection
+4  Phase 82  one-level goal-directed proof search
+```
+
+となる。
+
+## 33.2 代表 actual theorem
+
+Toda Lemma 5.16。
+
+initial repository:
+
+```text
+Toda36Lemma516BracketSumContainmentStatement
+TodaLemma516Sigma8IteratedSuspensionBridgeStatement
+TodaLemma516SigmaTPlus8DefinitionStatement
+```
+
+initially absent:
+
+```text
+TodaLemma516ScaledCompositionBridgeStatement
+final TodaLemma516BracketSumContainmentStatement
+```
+
+## 33.3 missing-premise detection
+
+final rule の premise analysis:
+
+```text
+premise #0
+Toda36Lemma516BracketSumContainmentStatement
+→ available
+
+premise #1
+TodaLemma516ScaledCompositionBridgeStatement
+→ missing
+```
+
+`PremiseAvailability` で missing index / pattern を保持する。
+
+## 33.4 producer lookup
+
+missing statement type:
+
+```text
+TodaLemma516ScaledCompositionBridgeStatement
+```
+
+から catalog を exact type + fixed-point-safe で検索。
+
+representative path では existing Phase 77 producer rule が unique candidate となる。
+
+## 33.5 intermediate 自動生成
+
+producer rule を1 roundだけ実行し:
+
+```text
+new TodaLemma516ScaledCompositionBridgeStatement
+```
+
+を `ProofRule.INFERENCE` として導出する。
+
+new intermediate は original Phase 77 `composition_step` と別 object だが:
+
+```text
+new_intermediate.inference_rule
+is existing Phase 77 producer rule
+```
+
+を満たす。
+
+## 33.6 final goal 自動生成
+
+repository の exact bracket-sum premise と new intermediate を使い、existing Phase 77 final rule を再実行。
+
+```text
+new final
+```
+
+を `ProofRule.INFERENCE` として導出する。
+
+```text
+new_final.inference_rule
+is existing Phase 77 final rule
+```
+
+を保持する。
+
+## 33.7 provenance / non-circularity
+
+確認:
+
+```text
+goal absent from initial repository
+intermediate absent from initial repository
+goal absent from initial ancestry
+intermediate absent from initial ancestry
+
+final
+→ new intermediate
+→ exact repository premises
+
+graph acyclic
+final conclusion absent from ancestors
+intermediate conclusion absent from its ancestors
+intermediate does not depend on final
+repository unchanged
+```
+
+GIVEN shortcut:
+
+```text
+bracket_sum
+suspension_bridge
+sigma_definition
+```
+
+のいずれかを `GIVEN` に差し替えると actual theorem path は成立しない。
+
+## 33.8 search safety
+
+Phase 82 の search は recursive ではない。
+
+```text
+producer candidates = 0
+→ stop
+
+producer candidates = 1
+→ execute one level
+
+producer candidates >= 2
+→ ambiguity, stop
+```
+
+さらに:
+
+```text
+producer itself missing a premise
+depth > 1
+A → B → A
+```
+
+は producer lookup を再帰しないため traversal されない。
+
+## 33.9 代表 probe
+
+```powershell
+python -m probes.probe_phase82_capabilities
+```
+
+表示:
+
+```text
+actual theorem goal
+missing premise count / index / type
+safe producer count
+unique producer selected
+intermediate derived
+final goal derived
+existing Phase 77 rule identity reuse
+acyclicity
+repository non-mutation
+Phase 82 boundary
+```
+
+## 33.10 回帰 baseline
+
+Phase 82-6 完了時:
+
+```text
+6716 passed in 35.78s
+```
+
+Phase 82-7 probe regression と final full regression は completion 時に追記する。
+
+## 33.11 記録状態
+
+```text
+Phase 82 infrastructure record
+IMPLEMENTED / FINAL PROBE REGRESSION PENDING
+```
+
+Phase 82 は数学 proof record 数を増やさない。
