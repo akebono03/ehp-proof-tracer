@@ -57,6 +57,17 @@ class PremiseAvailability:
     return not self.missing_indices
 
 
+@dataclass(frozen=True)
+class MissingPremiseProducerLookup:
+  inference_rule: InferenceRule
+  premise_index: int
+  premise_pattern: PremisePattern
+  producer_rules: tuple[
+    InferenceRule,
+    ...,
+  ]
+
+
 def repository_available_steps(
   repository: ProofRepository,
 ) -> tuple[
@@ -266,6 +277,92 @@ def detect_missing_premises(
   )
 
 
+def find_missing_premise_producer_lookups(
+  availability,
+  rule_catalog,
+) -> tuple[
+  MissingPremiseProducerLookup,
+  ...,
+]:
+  if not isinstance(
+    availability,
+    PremiseAvailability,
+  ):
+    raise TypeError(
+      "availability must be a "
+      "PremiseAvailability"
+    )
+
+  if not isinstance(
+    rule_catalog,
+    InferenceRuleCatalog,
+  ):
+    raise TypeError(
+      "rule_catalog must be an "
+      "InferenceRuleCatalog"
+    )
+
+  return tuple(
+    MissingPremiseProducerLookup(
+      inference_rule=(
+        availability.inference_rule
+      ),
+      premise_index=index,
+      premise_pattern=(
+        availability.inference_rule
+        .premise_patterns[index]
+      ),
+      producer_rules=(
+        find_premise_producer_rules(
+          rule_catalog,
+          availability.inference_rule
+          .premise_patterns[index],
+        )
+      ),
+    )
+    for index
+    in availability.missing_indices
+  )
+
+
+def all_missing_premises_uniquely_producible(
+  lookups,
+) -> bool:
+  if not isinstance(
+    lookups,
+    (tuple, list),
+  ):
+    raise TypeError(
+      "lookups must be a tuple/list of "
+      "MissingPremiseProducerLookup"
+    )
+
+  normalized_lookups = tuple(
+    lookups
+  )
+
+  for lookup in normalized_lookups:
+    if not isinstance(
+      lookup,
+      MissingPremiseProducerLookup,
+    ):
+      raise TypeError(
+        "lookups must contain only "
+        "MissingPremiseProducerLookup "
+        "objects"
+      )
+
+  if not normalized_lookups:
+    return False
+
+  return all(
+    len(
+      lookup.producer_rules
+    ) == 1
+    for lookup in normalized_lookups
+  )
+
+
 def detect_goal_rule_missing_premises(
   repository,
   rule_catalog,
@@ -415,51 +512,43 @@ def derive_goal_from_repository_with_one_level_producers(
       )
     )
 
-    if len(
-      availability.missing_patterns
-    ) != 1:
-      continue
-
-    missing_pattern = (
-      availability.missing_patterns[
-        0
-      ]
-    )
-
-    candidate_producer_rules = (
-      find_premise_producer_rules(
+    lookups = (
+      find_missing_premise_producer_lookups(
+        availability,
         rule_catalog,
-        missing_pattern,
       )
     )
 
-    if len(
-      candidate_producer_rules
-    ) != 1:
-      continue
-
-    producer_rule = (
-      candidate_producer_rules[
-        0
-      ]
-    )
-
-    producer_rule_id = id(
-      producer_rule
-    )
-
-    if (
-      producer_rule_id
-      in seen_producer_rule_ids
+    if not (
+      all_missing_premises_uniquely_producible(
+        lookups
+      )
     ):
       continue
 
-    seen_producer_rule_ids.add(
-      producer_rule_id
-    )
-    producer_rules.append(
-      producer_rule
-    )
+    for lookup in lookups:
+      producer_rule = (
+        lookup.producer_rules[
+          0
+        ]
+      )
+
+      producer_rule_id = id(
+        producer_rule
+      )
+
+      if (
+        producer_rule_id
+        in seen_producer_rule_ids
+      ):
+        continue
+
+      seen_producer_rule_ids.add(
+        producer_rule_id
+      )
+      producer_rules.append(
+        producer_rule
+      )
 
   if producer_rules:
     producer_result = (
@@ -497,6 +586,5 @@ def derive_goal_from_repository_with_one_level_producers(
     inference_result=final_result,
     goal_step=goal_step,
   )
-
 
 

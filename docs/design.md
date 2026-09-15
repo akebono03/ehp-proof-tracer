@@ -10419,3 +10419,169 @@ automatic proof narrative generation
 ```
 
 Phase 82 完了後も generic theorem prover へ自動的に拡張しない。
+
+---
+
+# 141. Phase 83：複数 missing premise の1段 producer 設計
+
+Phase 83 は Phase 82 の depth を増やさず、breadth だけを拡張する。
+
+```text
+Phase 82
+missing premise = 1
+producer depth = 1
+
+Phase 83
+missing premise >= 1
+producer depth = 1
+```
+
+recursive search、DFS、BFS、A* は導入しない。
+
+# 142. missing premise ごとの producer lookup result
+
+`repository_inference.py` に次を追加した。
+
+```text
+MissingPremiseProducerLookup
+find_missing_premise_producer_lookups()
+```
+
+各lookupは次を保持する。
+
+```text
+inference_rule
+premise_index
+premise_pattern
+producer_rules
+```
+
+これにより、複数のmissing premiseについて、final rule上の位置とproducer候補を失わずに対応付けられる。
+
+# 143. all-missing-premises unique policy
+
+`all_missing_premises_uniquely_producible()` は、lookupが1件以上あり、すべての `producer_rules` がちょうど1件の場合だけ `True` を返す。
+
+```text
+(1, 1, 1) → True
+(1, 0, 1) → False
+(1, 2, 1) → False
+()        → False
+```
+
+同一 rule のcatalog aliasは既存のidentity deduplication後に1件となる。
+
+# 144. multiple one-level producer execution
+
+`derive_goal_from_repository_with_one_level_producers()` は、final ruleごとの全lookupがuniqueの場合に限り、選択されたproducer rulesを収集する。
+
+```text
+all unique
+↓
+producer rulesをidentity deduplicate
+↓
+run_inference_until_stable_with_history(
+  producer_rules,
+  initial_steps,
+  max_rounds=1,
+)
+```
+
+全producerは同じinitial stepsに対して1ラウンドで評価される。同ラウンドにproducer Aが生成したstepをproducer Bが利用することはない。
+
+# 145. actual theorem integration
+
+代表実定理は、Toda Lemma 5.16内部のTheorem 3.6 bracket-sum containment。
+
+初期repository:
+
+```text
+Toda36Lemma514SigmaDoublePrimeBridgeStatement
+TodaLemma516TypedSetupStatement
+```
+
+missing direct premises:
+
+```text
+Toda36Lemma516FirstBracketTermStatement
+Toda36Lemma516SecondBracketTermStatement
+```
+
+両producerは同じ初期2前提から独立に1段で成立する。
+
+```text
+bridge + setup → first term
+bridge + setup → second term
+first + second → bracket-sum containment
+```
+
+# 146. partial applicability とbinding safety
+
+unique producer ruleがcatalogに存在することと、そのruleがinitial stepsへ適用可能であることは別である。
+
+一部producerだけが適用可能な場合、その中間stepは一時的inference resultへ残り得る。ただし全final premiseが揃わないためgoalは生成されない。
+
+独立に生成されたbranchのvariable bindingが不整合な場合も、final ruleの既存pattern matchingが拒否する。
+
+# 147. duplicate / repository safety
+
+既存のinference engineによって次を維持する。
+
+```text
+same conclusion duplicate → 1 step
+existing premise          → 再生成しない
+repository                → mutationしない
+```
+
+複数final rulesが同一goalを生成できる場合も、同一結論は重複登録されない。
+
+# 148. Phase 83代表probe
+
+```text
+probes/probe_phase83_capabilities.py
+tests/test_phase83_probe.py
+```
+
+表示内容:
+
+```text
+actual theorem target
+missing premise count = 2
+各premiseのtype / producer count
+all-unique判定
+2つのintermediate生成
+final goal生成
+existing rule identity再利用
+acyclicity
+repository非変更
+depth=1 completion boundary
+```
+
+# 149. Phase 83完了境界
+
+実装済み:
+
+```text
+multiple missing-premise representation
+per-premise producer lookup
+all-unique producer selection
+multiple one-level producer execution
+actual theorem integration
+safety regression
+representative probe
+```
+
+未実装:
+
+```text
+recursive producer search
+depth > 1
+arbitrary-depth backward chaining
+DFS / BFS / A*
+proof ranking
+proof-cost model
+persistent search cache
+automatic proof narrative generation
+```
+
+Phase 84でdepth=2を検討する場合も、最初にcompatibility auditを行う。
