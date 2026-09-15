@@ -112,3 +112,66 @@ class InferenceRuleCatalog:
     )
 
 
+def find_goal_compatible_rule_entries(
+  catalog,
+  goal,
+):
+  if not isinstance(
+    catalog,
+    InferenceRuleCatalog,
+  ):
+    raise TypeError(
+      "catalog must be an "
+      "InferenceRuleCatalog"
+    )
+
+  goal_type = type(
+    goal
+  )
+
+  return tuple(
+    entry
+    for entry in catalog.entries()
+    if (
+      entry.fixed_point_safe
+      and entry.conclusion_type
+      is goal_type
+    )
+  )
+
+
+def find_goal_compatible_rules(
+  catalog,
+  goal,
+):
+  entries = (
+    find_goal_compatible_rule_entries(
+      catalog,
+      goal,
+    )
+  )
+
+  rules = []
+  seen_rule_ids = set()
+
+  for entry in entries:
+    rule_id = id(
+      entry.rule
+    )
+
+    if rule_id in seen_rule_ids:
+      continue
+
+    seen_rule_ids.add(
+      rule_id
+    )
+
+    rules.append(
+      entry.rule
+    )
+
+  return tuple(
+    rules
+  )
+
+

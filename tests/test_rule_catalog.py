@@ -6,6 +6,8 @@ from proof import InferenceRule
 from rule_catalog import (
   InferenceRuleCatalog,
   InferenceRuleCatalogEntry,
+  find_goal_compatible_rule_entries,
+  find_goal_compatible_rules,
 )
 
 
@@ -366,5 +368,353 @@ def test_rule_catalog_allows_same_rule_with_different_keys():
     catalog.rules()[1]
     is rule
   )
+
+
+def test_find_goal_compatible_rule_entries_selects_safe_exact_type():
+  catalog = InferenceRuleCatalog()
+
+  compatible_entry = InferenceRuleCatalogEntry(
+    key="phase81.compatible",
+    rule=make_rule(
+      "compatible rule"
+    ),
+    conclusion_type=ExampleStatement,
+    fixed_point_safe=True,
+  )
+
+  unrelated_entry = InferenceRuleCatalogEntry(
+    key="phase81.unrelated",
+    rule=make_rule(
+      "unrelated rule"
+    ),
+    conclusion_type=OtherStatement,
+    fixed_point_safe=True,
+  )
+
+  catalog.register(
+    compatible_entry
+  )
+
+  catalog.register(
+    unrelated_entry
+  )
+
+  goal = ExampleStatement(
+    value="goal"
+  )
+
+  assert (
+    find_goal_compatible_rule_entries(
+      catalog,
+      goal,
+    )
+    == (
+      compatible_entry,
+    )
+  )
+
+
+def test_find_goal_compatible_rule_entries_excludes_unsafe_rule():
+  catalog = InferenceRuleCatalog()
+
+  unsafe_entry = InferenceRuleCatalogEntry(
+    key="phase81.unsafe",
+    rule=make_rule(
+      "unsafe rule"
+    ),
+    conclusion_type=ExampleStatement,
+    fixed_point_safe=False,
+  )
+
+  catalog.register(
+    unsafe_entry
+  )
+
+  goal = ExampleStatement(
+    value="goal"
+  )
+
+  assert (
+    find_goal_compatible_rule_entries(
+      catalog,
+      goal,
+    )
+    == ()
+  )
+
+
+def test_find_goal_compatible_rule_entries_requires_exact_conclusion_type():
+  @dataclass(frozen=True)
+  class DerivedExampleStatement(
+    ExampleStatement
+  ):
+    pass
+
+  catalog = InferenceRuleCatalog()
+
+  entry = InferenceRuleCatalogEntry(
+    key="phase81.base",
+    rule=make_rule(
+      "base rule"
+    ),
+    conclusion_type=ExampleStatement,
+    fixed_point_safe=True,
+  )
+
+  catalog.register(
+    entry
+  )
+
+  goal = DerivedExampleStatement(
+    value="goal"
+  )
+
+  assert (
+    find_goal_compatible_rule_entries(
+      catalog,
+      goal,
+    )
+    == ()
+  )
+
+
+def test_find_goal_compatible_rule_entries_preserves_registration_order():
+  catalog = InferenceRuleCatalog()
+
+  first_entry = InferenceRuleCatalogEntry(
+    key="phase81.first",
+    rule=make_rule(
+      "first compatible rule"
+    ),
+    conclusion_type=ExampleStatement,
+    fixed_point_safe=True,
+  )
+
+  second_entry = InferenceRuleCatalogEntry(
+    key="phase81.second",
+    rule=make_rule(
+      "second compatible rule"
+    ),
+    conclusion_type=ExampleStatement,
+    fixed_point_safe=True,
+  )
+
+  catalog.register(
+    first_entry
+  )
+
+  catalog.register(
+    second_entry
+  )
+
+  goal = ExampleStatement(
+    value="goal"
+  )
+
+  assert (
+    find_goal_compatible_rule_entries(
+      catalog,
+      goal,
+    )
+    == (
+      first_entry,
+      second_entry,
+    )
+  )
+
+
+def test_find_goal_compatible_rule_entries_preserves_rule_alias_entries():
+  catalog = InferenceRuleCatalog()
+
+  rule = make_rule(
+    "shared rule"
+  )
+
+  first_entry = InferenceRuleCatalogEntry(
+    key="phase81.first",
+    rule=rule,
+    conclusion_type=ExampleStatement,
+    fixed_point_safe=True,
+  )
+
+  second_entry = InferenceRuleCatalogEntry(
+    key="phase81.alias",
+    rule=rule,
+    conclusion_type=ExampleStatement,
+    fixed_point_safe=True,
+  )
+
+  catalog.register(
+    first_entry
+  )
+
+  catalog.register(
+    second_entry
+  )
+
+  goal = ExampleStatement(
+    value="goal"
+  )
+
+  assert (
+    find_goal_compatible_rule_entries(
+      catalog,
+      goal,
+    )
+    == (
+      first_entry,
+      second_entry,
+    )
+  )
+
+
+def test_find_goal_compatible_rules_returns_rule_objects():
+  catalog = InferenceRuleCatalog()
+
+  first_rule = make_rule(
+    "first compatible rule"
+  )
+
+  second_rule = make_rule(
+    "second compatible rule"
+  )
+
+  catalog.register(
+    InferenceRuleCatalogEntry(
+      key="phase81.first",
+      rule=first_rule,
+      conclusion_type=ExampleStatement,
+      fixed_point_safe=True,
+    )
+  )
+
+  catalog.register(
+    InferenceRuleCatalogEntry(
+      key="phase81.second",
+      rule=second_rule,
+      conclusion_type=ExampleStatement,
+      fixed_point_safe=True,
+    )
+  )
+
+  goal = ExampleStatement(
+    value="goal"
+  )
+
+  rules = find_goal_compatible_rules(
+    catalog,
+    goal,
+  )
+
+  assert (
+    rules
+    == (
+      first_rule,
+      second_rule,
+    )
+  )
+
+  assert (
+    rules[0]
+    is first_rule
+  )
+
+  assert (
+    rules[1]
+    is second_rule
+  )
+
+
+def test_find_goal_compatible_rules_deduplicates_rule_alias_by_identity():
+  catalog = InferenceRuleCatalog()
+
+  rule = make_rule(
+    "shared rule"
+  )
+
+  catalog.register(
+    InferenceRuleCatalogEntry(
+      key="phase81.first",
+      rule=rule,
+      conclusion_type=ExampleStatement,
+      fixed_point_safe=True,
+    )
+  )
+
+  catalog.register(
+    InferenceRuleCatalogEntry(
+      key="phase81.alias",
+      rule=rule,
+      conclusion_type=ExampleStatement,
+      fixed_point_safe=True,
+    )
+  )
+
+  goal = ExampleStatement(
+    value="goal"
+  )
+
+  rules = find_goal_compatible_rules(
+    catalog,
+    goal,
+  )
+
+  assert (
+    rules
+    == (
+      rule,
+    )
+  )
+
+  assert (
+    rules[0]
+    is rule
+  )
+
+
+def test_find_goal_compatible_rule_entries_rejects_non_catalog():
+  goal = ExampleStatement(
+    value="goal"
+  )
+
+  with pytest.raises(
+    TypeError,
+    match=(
+      "catalog must be an "
+      "InferenceRuleCatalog"
+    ),
+  ):
+    find_goal_compatible_rule_entries(
+      "not-a-catalog",
+      goal,
+    )
+
+
+def test_find_goal_compatible_rules_returns_empty_when_no_candidate_exists():
+  catalog = InferenceRuleCatalog()
+
+  catalog.register(
+    InferenceRuleCatalogEntry(
+      key="phase81.unrelated",
+      rule=make_rule(
+        "unrelated rule"
+      ),
+      conclusion_type=OtherStatement,
+      fixed_point_safe=True,
+    )
+  )
+
+  goal = ExampleStatement(
+    value="goal"
+  )
+
+  assert (
+    find_goal_compatible_rules(
+      catalog,
+      goal,
+    )
+    == ()
+  )
+
 
 
