@@ -1371,6 +1371,335 @@ def toda_prop515_stable_sigma_definition_inference_rule():
   )
 
 
+def toda_stable_g0_to_g7_integration_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    g0_relation = premises[0].conclusion
+    g1_relation = premises[1].conclusion
+    g2_relation = premises[2].conclusion
+    g3_relation = premises[3].conclusion
+    g4_zero = premises[4].conclusion
+    g5_zero = premises[5].conclusion
+    g6_relation = premises[6].conclusion
+    g7_relation = premises[7].conclusion
+
+    stable_iota = HomotopyElement(
+      name="ι",
+      dimension=0,
+      generator=GeneratorSymbol(
+        family="ι",
+      ),
+    )
+
+    expected_g0 = Relation(
+      lhs=StableHomotopyGroup(
+        stem=0,
+      ),
+      rhs=FreeCyclicGroup(
+        generator=stable_iota,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      g0_relation
+      != expected_g0
+    ):
+      return False
+
+    stable_eta = HomotopyElement(
+      name="η",
+      dimension=1,
+      generator=GeneratorSymbol(
+        family="η",
+      ),
+    )
+
+    expected_g1 = Relation(
+      lhs=StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=1,
+        ),
+        prime=2,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=2,
+        generator=stable_eta,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      g1_relation
+      != expected_g1
+    ):
+      return False
+
+    stable_eta_squared = Composition(
+      left=stable_eta,
+      right=stable_eta,
+    )
+
+    expected_g2 = Relation(
+      lhs=StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=2,
+        ),
+        prime=2,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=2,
+        generator=stable_eta_squared,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      g2_relation
+      != expected_g2
+    ):
+      return False
+
+    stable_nu = HomotopyElement(
+      name="ν",
+      dimension=3,
+      generator=GeneratorSymbol(
+        family="ν",
+      ),
+    )
+
+    expected_g3 = Relation(
+      lhs=StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=3,
+        ),
+        prime=2,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=8,
+        generator=stable_nu,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      g3_relation
+      != expected_g3
+    ):
+      return False
+
+    if not isinstance(
+      g4_zero,
+      Toda45StableTwoPrimaryZeroStatement,
+    ):
+      return False
+
+    if (
+      g4_zero.stable_component
+      != StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=4,
+        ),
+        prime=2,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      g5_zero,
+      Toda45StableTwoPrimaryZeroStatement,
+    ):
+      return False
+
+    if (
+      g5_zero.stable_component
+      != StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=5,
+        ),
+        prime=2,
+      )
+    ):
+      return False
+
+    stable_nu_squared = Composition(
+      left=stable_nu,
+      right=stable_nu,
+    )
+
+    expected_g6 = Relation(
+      lhs=StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=6,
+        ),
+        prime=2,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=2,
+        generator=stable_nu_squared,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      g6_relation
+      != expected_g6
+    ):
+      return False
+
+    stable_sigma = HomotopyElement(
+      name="σ",
+      dimension=7,
+      generator=GeneratorSymbol(
+        family="σ",
+      ),
+    )
+
+    expected_g7 = Relation(
+      lhs=StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=7,
+        ),
+        prime=2,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=16,
+        generator=stable_sigma,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      g7_relation
+      == expected_g7
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return TodaStableG0ToG7Statement(
+      g0_group_relation=(
+        premises[
+          0
+        ].conclusion
+      ),
+      g1_group_relation=(
+        premises[
+          1
+        ].conclusion
+      ),
+      g2_group_relation=(
+        premises[
+          2
+        ].conclusion
+      ),
+      g3_group_relation=(
+        premises[
+          3
+        ].conclusion
+      ),
+      g4_zero=(
+        premises[
+          4
+        ].conclusion
+      ),
+      g5_zero=(
+        premises[
+          5
+        ].conclusion
+      ),
+      g6_group_relation=(
+        premises[
+          6
+        ].conclusion
+      ),
+      g7_group_relation=(
+        premises[
+          7
+        ].conclusion
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Phase 78 stable G_0 through G_7 "
+      "integration"
+    ),
+    description=(
+      "Integrate the independently derived "
+      "stable ordinary result "
+      "G_0=Z{iota} and the independently "
+      "derived 2-primary stable results "
+      "(G_1;2) through (G_7;2). "
+      "All eight mathematical branches "
+      "must already be derived. "
+      "This rule adds no new stable-group "
+      "calculation, no generic stable solver, "
+      "and no new E-infinity semantics."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda45StableTwoPrimaryZeroStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda45StableTwoPrimaryZeroStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
 def toda_prop515_g7_two_primary_finite_cyclic_inference_rule():
   def guard(
     premises,
@@ -32674,6 +33003,18 @@ class TodaStableIotaDefinitionStatement:
   source_element: HomotopyElement
   stable_group: StableHomotopyGroup
   stable_element: HomotopyElement
+
+
+@dataclass(frozen=True)
+class TodaStableG0ToG7Statement:
+  g0_group_relation: Relation
+  g1_group_relation: Relation
+  g2_group_relation: Relation
+  g3_group_relation: Relation
+  g4_zero: Toda45StableTwoPrimaryZeroStatement
+  g5_zero: Toda45StableTwoPrimaryZeroStatement
+  g6_group_relation: Relation
+  g7_group_relation: Relation
 
 
 @dataclass(frozen=True)
