@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from enum import Enum
 
 from proof import (
   InferenceRule,
@@ -363,6 +364,369 @@ class BoundedProducerSearchResult:
       <= self.max_depth
       for node in self.producer_nodes
     )
+
+
+class BoundedProducerSearchStatus(Enum):
+  SUCCESS = "success"
+  GOAL_ALREADY_AVAILABLE = (
+    "goal_already_available"
+  )
+  NO_FINAL_RULE = "no_final_rule"
+  AMBIGUOUS_FINAL_RULE = (
+    "ambiguous_final_rule"
+  )
+  NO_PRODUCER = "no_producer"
+  UNSAFE_PRODUCER = "unsafe_producer"
+  AMBIGUOUS_PRODUCER = (
+    "ambiguous_producer"
+  )
+  CYCLE_DETECTED = "cycle_detected"
+  DEPTH_LIMIT = "depth_limit"
+  PRODUCER_NOT_APPLICABLE = (
+    "producer_not_applicable"
+  )
+  PRODUCER_OUTPUT_NOT_USABLE = (
+    "producer_output_not_usable"
+  )
+  FINAL_RULE_NOT_APPLICABLE = (
+    "final_rule_not_applicable"
+  )
+  GOAL_NOT_DERIVED = "goal_not_derived"
+
+
+@dataclass(frozen=True)
+class BoundedProducerSearchDiagnostic:
+  status: BoundedProducerSearchStatus
+  goal: object
+  final_rule: InferenceRule | None = None
+  requesting_rule: InferenceRule | None = None
+  premise_index: int | None = None
+  premise_pattern: PremisePattern | None = None
+  current_depth: int | None = None
+  required_next_depth: int | None = None
+  producer_candidates: tuple[
+    InferenceRule,
+    ...,
+  ] = ()
+  unsafe_producer_candidates: tuple[
+    InferenceRule,
+    ...,
+  ] = ()
+  ancestor_rules: tuple[
+    InferenceRule,
+    ...,
+  ] = ()
+
+  def __post_init__(
+    self,
+  ) -> None:
+    if not isinstance(
+      self.status,
+      BoundedProducerSearchStatus,
+    ):
+      raise TypeError(
+        "status must be a "
+        "BoundedProducerSearchStatus"
+      )
+
+    if self.status in (
+      BoundedProducerSearchStatus.SUCCESS,
+      BoundedProducerSearchStatus
+      .GOAL_ALREADY_AVAILABLE,
+    ):
+      raise ValueError(
+        "diagnostic status must describe "
+        "a failure"
+      )
+
+    for name, rule in (
+      (
+        "final_rule",
+        self.final_rule,
+      ),
+      (
+        "requesting_rule",
+        self.requesting_rule,
+      ),
+    ):
+      if (
+        rule is not None
+        and not isinstance(
+          rule,
+          InferenceRule,
+        )
+      ):
+        raise TypeError(
+          f"{name} must be an "
+          "InferenceRule or None"
+        )
+
+    premise_context = (
+      self.requesting_rule,
+      self.premise_index,
+      self.premise_pattern,
+    )
+
+    if (
+      any(
+        value is None
+        for value in premise_context
+      )
+      and any(
+        value is not None
+        for value in premise_context
+      )
+    ):
+      raise ValueError(
+        "requesting_rule, premise_index, "
+        "and premise_pattern must be "
+        "provided together"
+      )
+
+    if self.premise_index is not None:
+      if (
+        isinstance(
+          self.premise_index,
+          bool,
+        )
+        or not isinstance(
+          self.premise_index,
+          int,
+        )
+      ):
+        raise TypeError(
+          "premise_index must be an int "
+          "or None"
+        )
+
+      if (
+        self.premise_index < 0
+        or self.premise_index
+        >= len(
+          self.requesting_rule
+          .premise_patterns
+        )
+      ):
+        raise ValueError(
+          "premise_index must identify a "
+          "requesting_rule premise"
+        )
+
+      if not isinstance(
+        self.premise_pattern,
+        PremisePattern,
+      ):
+        raise TypeError(
+          "premise_pattern must be a "
+          "PremisePattern or None"
+        )
+
+      if (
+        self.requesting_rule
+        .premise_patterns[
+          self.premise_index
+        ]
+        != self.premise_pattern
+      ):
+        raise ValueError(
+          "premise_pattern must match the "
+          "requesting_rule premise"
+        )
+
+    for name, depth in (
+      (
+        "current_depth",
+        self.current_depth,
+      ),
+      (
+        "required_next_depth",
+        self.required_next_depth,
+      ),
+    ):
+      if depth is None:
+        continue
+
+      if (
+        isinstance(
+          depth,
+          bool,
+        )
+        or not isinstance(
+          depth,
+          int,
+        )
+      ):
+        raise TypeError(
+          f"{name} must be an int or None"
+        )
+
+      if depth < 0:
+        raise ValueError(
+          f"{name} must be non-negative"
+        )
+
+    if (
+      self.current_depth is not None
+      and self.required_next_depth
+      is not None
+      and self.required_next_depth
+      <= self.current_depth
+    ):
+      raise ValueError(
+        "required_next_depth must be "
+        "greater than current_depth"
+      )
+
+    for name, rules in (
+      (
+        "producer_candidates",
+        self.producer_candidates,
+      ),
+      (
+        "unsafe_producer_candidates",
+        self.unsafe_producer_candidates,
+      ),
+      (
+        "ancestor_rules",
+        self.ancestor_rules,
+      ),
+    ):
+      if not isinstance(
+        rules,
+        tuple,
+      ):
+        raise TypeError(
+          f"{name} must be a tuple"
+        )
+
+      if any(
+        not isinstance(
+          rule,
+          InferenceRule,
+        )
+        for rule in rules
+      ):
+        raise TypeError(
+          f"{name} must contain only "
+          "InferenceRule objects"
+        )
+
+
+@dataclass(frozen=True)
+class BoundedProducerSearchReport:
+  status: BoundedProducerSearchStatus
+  goal: object
+  search_result: (
+    BoundedProducerSearchResult | None
+  ) = None
+  diagnostic: (
+    BoundedProducerSearchDiagnostic | None
+  ) = None
+
+  def __post_init__(
+    self,
+  ) -> None:
+    if not isinstance(
+      self.status,
+      BoundedProducerSearchStatus,
+    ):
+      raise TypeError(
+        "status must be a "
+        "BoundedProducerSearchStatus"
+      )
+
+    if (
+      self.search_result is not None
+      and not isinstance(
+        self.search_result,
+        BoundedProducerSearchResult,
+      )
+    ):
+      raise TypeError(
+        "search_result must be a "
+        "BoundedProducerSearchResult or "
+        "None"
+      )
+
+    if (
+      self.diagnostic is not None
+      and not isinstance(
+        self.diagnostic,
+        BoundedProducerSearchDiagnostic,
+      )
+    ):
+      raise TypeError(
+        "diagnostic must be a "
+        "BoundedProducerSearchDiagnostic "
+        "or None"
+      )
+
+    if (
+      self.search_result is not None
+      and self.search_result.goal
+      != self.goal
+    ):
+      raise ValueError(
+        "search_result goal must match "
+        "report goal"
+      )
+
+    if (
+      self.diagnostic is not None
+      and self.diagnostic.goal
+      != self.goal
+    ):
+      raise ValueError(
+        "diagnostic goal must match "
+        "report goal"
+      )
+
+    if self.status is (
+      BoundedProducerSearchStatus.SUCCESS
+    ):
+      if self.search_result is None:
+        raise ValueError(
+          "successful report requires a "
+          "search_result"
+        )
+
+      if self.diagnostic is not None:
+        raise ValueError(
+          "successful report must not "
+          "contain a diagnostic"
+        )
+
+      return
+
+    if self.status is (
+      BoundedProducerSearchStatus
+      .GOAL_ALREADY_AVAILABLE
+    ):
+      if (
+        self.search_result is not None
+        or self.diagnostic is not None
+      ):
+        raise ValueError(
+          "goal-already-available report "
+          "must not contain search or "
+          "diagnostic data"
+        )
+
+      return
+
+    if self.diagnostic is None:
+      raise ValueError(
+        "failure report requires a "
+        "diagnostic"
+      )
+
+    if self.diagnostic.status is not (
+      self.status
+    ):
+      raise ValueError(
+        "diagnostic status must match "
+        "report status"
+      )
 
 
 def repository_available_steps(
