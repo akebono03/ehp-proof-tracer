@@ -6627,3 +6627,146 @@ next natural mathematical boundary:
 ```text
 (G_7;2)=Z/16{σ}
 ```
+
+---
+
+# 96. Phase 78 stable-group representation
+
+`homotopy_groups.py`:
+
+```text
+StableHomotopyGroup
+StablePrimaryComponent
+```
+
+semantics:
+
+```text
+StableHomotopyGroup(stem=0) -> G_0
+StablePrimaryComponent(StableHomotopyGroup(stem=k), prime=2) -> (G_k;2)
+```
+
+# 97. Phase 78 stable-identification statements
+
+`toda_rules.py`:
+
+```text
+Toda45StableTwoPrimaryIdentificationStatement
+Toda33StableOrdinaryIdentificationStatement
+Toda45StableTwoPrimaryZeroStatement
+```
+
+No generic `EInfinityMap` exists.
+
+# 98. Phase 78 stable generator statements
+
+```text
+TodaStableIotaDefinitionStatement
+TodaStableEtaDefinitionStatement
+TodaStableEtaSquaredDefinitionStatement
+TodaStableNuDefinitionStatement
+TodaStableNuSquaredDefinitionStatement
+TodaStableSigmaDefinitionStatement
+```
+
+bridges:
+
+```text
+ι₃ -> ι
+η₃ -> η
+η₄² -> η²
+ν₅ -> ν
+ν₈² -> ν²
+σ₉ -> σ
+```
+
+# 99. Phase 78 concrete stable-group rules
+
+```text
+toda_43_pi3_3_ordinary_free_cyclic_inference_rule()
+toda_33_g0_stable_identification_inference_rule()
+toda_33_stable_iota_definition_inference_rule()
+toda_33_g0_free_cyclic_inference_rule()
+
+toda_prop51_stable_eta_definition_inference_rule()
+toda_prop51_g1_two_primary_finite_cyclic_inference_rule()
+
+toda_prop53_stable_eta_squared_definition_inference_rule()
+toda_prop53_g2_two_primary_finite_cyclic_inference_rule()
+
+toda_prop56_stable_nu_definition_inference_rule()
+toda_prop56_g3_two_primary_finite_cyclic_inference_rule()
+
+toda_prop58_g4_two_primary_zero_inference_rule()
+toda_prop59_g5_two_primary_zero_inference_rule()
+
+toda_prop511_stable_nu_squared_definition_inference_rule()
+toda_prop511_g6_two_primary_finite_cyclic_inference_rule()
+
+toda_prop515_stable_sigma_definition_inference_rule()
+toda_prop515_g7_two_primary_finite_cyclic_inference_rule()
+```
+
+# 100. Phase 78 builders
+
+```text
+tests/test_phase78_g7_stable_sigma_transport.py
+  build_phase78_6_data()
+
+tests/test_phase78_g1_stable_eta_transport.py
+  build_phase78_8a_data()
+
+tests/test_phase78_g2_stable_eta_squared_transport.py
+  build_phase78_8b_data()
+
+tests/test_phase78_g3_stable_nu_transport.py
+  build_phase78_8c_data()
+
+tests/test_phase78_g6_stable_nu_squared_transport.py
+  build_phase78_8d_data()
+
+tests/test_phase78_g4_g5_stable_zero_transport.py
+  build_phase78_9_data()
+
+tests/test_phase78_g0_stable_ordinary_transport.py
+  build_phase78_10_data()
+
+tests/test_phase78_stable_g0_to_g7_integration.py
+  build_phase78_11_data()
+```
+
+Heavy deterministic builders use `@lru_cache(maxsize=1)` when reused.
+
+# 101. Phase 78 integration
+
+```text
+TodaStableG0ToG7Statement
+toda_stable_g0_to_g7_integration_inference_rule()
+```
+
+all 8 direct branches are `ProofRule.INFERENCE`.
+
+# 102. Phase 78 representative probe
+
+```text
+probes/probe_phase78_capabilities.py
+```
+
+entry:
+
+```text
+build_phase78_representative_result()
+main()
+```
+
+# 103. Phase 78 regression
+
+```text
+aggregate: 18 passed
+probe: 10 passed
+integrated stable suite: 164 passed in 2.99s
+repository-wide: 6472 passed in 35.18s
+```
+
+Phase 78 is COMPLETE.
+
