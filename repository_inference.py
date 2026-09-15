@@ -325,6 +325,44 @@ def find_missing_premise_producer_lookups(
   )
 
 
+def all_missing_premises_uniquely_producible(
+  lookups,
+) -> bool:
+  if not isinstance(
+    lookups,
+    (tuple, list),
+  ):
+    raise TypeError(
+      "lookups must be a tuple/list of "
+      "MissingPremiseProducerLookup"
+    )
+
+  normalized_lookups = tuple(
+    lookups
+  )
+
+  for lookup in normalized_lookups:
+    if not isinstance(
+      lookup,
+      MissingPremiseProducerLookup,
+    ):
+      raise TypeError(
+        "lookups must contain only "
+        "MissingPremiseProducerLookup "
+        "objects"
+      )
+
+  if not normalized_lookups:
+    return False
+
+  return all(
+    len(
+      lookup.producer_rules
+    ) == 1
+    for lookup in normalized_lookups
+  )
+
+
 def detect_goal_rule_missing_premises(
   repository,
   rule_catalog,
