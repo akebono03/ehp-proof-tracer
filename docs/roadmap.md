@@ -346,7 +346,7 @@ proof records          = human curated
 proof-style narrative  = hand-authored probe presentation
 ```
 
-現在 formal proof record が6件蓄積した。
+現在 formal mathematical proof record は Phase 78 までに13件蓄積し、Phase 79/80 は infrastructure capability records として分離している。
 
 future target:
 
@@ -387,7 +387,7 @@ generic generator を設計
 PLANNED / DEFERRED UNTIL DISPLAY SCHEMA STABILIZES
 ```
 
-Phase 68 で先取りしない。
+automatic proof narrative generation は Phase 80 完了後も未実装であり、rule selection / proof search とは別 capability として deferred のままとする。
 
 ---
 
@@ -614,9 +614,12 @@ DEFERRED UNTIL CONCRETE NEED
 | Toda (4.3) semantic audit | COMPLETE | 72R-A1 |
 | seventh formal proof record canonical revision | COMPLETE | 72R |
 | Toda Proposition 5.11 finite-dimensional / π_(n+6)^n | COMPLETE | 73 |
+| stable homotopy branch through G_7 | COMPLETE | 78 |
+| minimal in-memory Proof Repository | COMPLETE | 79 |
+| repository-assisted automatic inference | COMPLETE IMPLEMENTATION / FINAL PROBE REGRESSION PENDING | 80 |
+| automatic rule selection / proof search | PLANNED / DEFERRED | 81+ |
 | automatic proof narrative generation | PLANNED / DEFERRED | later |
 | persistent Proof Repository | PLANNED / DEFERRED | later |
-| stable homotopy branch | DEFERRED | later |
 | higher Toda brackets | DEFERRED | concrete need |
 
 ---
@@ -1132,3 +1135,114 @@ repository persistence
 ```
 
 Do not merge these into a generic theorem-prover / database framework prematurely.
+
+
+---
+
+# 20. Phase 80 completion / proof-search boundary
+
+Phase 80 implements the first repository-assisted automatic inference path.
+
+Completed implementation:
+
+```text
+ProofRepository.entries()
+repository_available_steps()
+find_goal_step()
+RepositoryInferenceResult
+derive_goal_from_repository()
+actual Phase 77 / Toda Lemma 5.16 integration
+applicability / non-circularity regression
+representative Phase 80 probe
+```
+
+Current flow:
+
+```text
+registered existing ProofStep premises
+↓
+identity-safe repository seed bridge
+↓
+explicitly supplied InferenceRule set
+↓
+existing fixed-point inference
+↓
+structural goal detection
+↓
+new final ProofStep
+```
+
+Representative actual proof guarantees:
+
+```text
+goal not initially registered
+goal absent from initial ancestry
+new final not original builder final_step
+new final = INFERENCE
+exact repository premises retained
+exact existing Phase 77 rule retained
+fixed point reached
+graph acyclic
+repository not mutated
+```
+
+Pre-probe repository-wide regression:
+
+```text
+6565 passed in 36.33s
+```
+
+## Correction to earlier future boundaries
+
+Earlier Phase 79 roadmap text correctly treated automatic inference as not part of Phase 79. After Phase 80, the current state must be distinguished as:
+
+```text
+repository lookup alone
+→ does not auto-infer
+
+repository-assisted runner with explicit rules
+→ can infer automatically
+```
+
+Therefore `automatic theorem search` remains deferred, but repository-assisted inference is no longer deferred.
+
+Similarly, the older roadmap entry describing the stable branch as deferred is superseded by Phase 78:
+
+```text
+low-stem stable branch G_0...G_7
+= COMPLETE
+```
+
+The remaining stable deferrals concern generic stable machinery, not the concrete G_0...G_7 branch.
+
+## Next capability dependency
+
+Natural next milestone:
+
+```text
+Phase 81+
+rule selection / proof-search audit
+```
+
+Questions to resolve before implementation:
+
+```text
+which existing InferenceRule families are safe for unrestricted fixed-point use?
+which rules are one-shot / scope-sensitive?
+how should goal shape restrict candidate rules?
+how should repository facts be indexed without moving theorem knowledge into ProofRepository?
+how should search avoid cycles and repeated equivalent states?
+how should multiple derivations be ranked or retained?
+```
+
+Do not jump directly to:
+
+```text
+general theorem prover
+global backward-chaining engine
+generic mathematical normalization
+persistent database
+automatic theorem generation
+```
+
+The next Phase should first audit current rule families and define the minimum safe search policy.

@@ -6961,3 +6961,210 @@ automatic proof narrative generation
 ```
 
 Phase 79 is COMPLETE.
+
+---
+
+# 111. Phase 80 repository inference bridge
+
+`repository_inference.py`:
+
+```text
+RepositoryInferenceResult
+repository_available_steps()
+derive_goal_from_repository()
+```
+
+`RepositoryInferenceResult`:
+
+```text
+inference_result
+goal_step
+```
+
+# 112. Phase 80 repository API extension
+
+`proof_repository.py` adds:
+
+```text
+ProofRepository.entries()
+```
+
+Purpose:
+
+```text
+return registered ProofRepositoryEntry objects
+in registration order
+```
+
+It is a catalog API, not an inference API.
+
+# 113. Phase 80 goal detection
+
+`proof.py` adds:
+
+```text
+find_goal_step(steps, goal)
+```
+
+Semantics:
+
+```text
+step.conclusion == goal
+```
+
+Returns the first exact existing matching `ProofStep`, otherwise `None`.
+
+No mathematical normalization or theorem search occurs here.
+
+# 114. Phase 80 available-step bridge semantics
+
+`repository_available_steps(repository)`:
+
+```text
+same ProofStep object aliases
+→ identity deduplicated
+
+different ProofStep objects / same conclusion
+→ both retained
+```
+
+The returned tuple contains the exact original objects.
+
+# 115. Phase 80 orchestration semantics
+
+`derive_goal_from_repository(...)`:
+
+```text
+repository_available_steps(repository)
+↓
+run_inference_until_stable_with_history(...)
+↓
+find_goal_step(result.steps,goal)
+↓
+RepositoryInferenceResult
+```
+
+The repository is read-only during this operation.
+
+# 116. Phase 80 actual proof builder
+
+```text
+tests/test_phase80_actual_proof_integration.py
+  build_phase80_5_data()
+```
+
+Uses:
+
+```text
+@lru_cache(maxsize=1)
+```
+
+Representative actual proof:
+
+```text
+Phase 77 Toda Lemma 5.16
+```
+
+Registered seeds:
+
+```text
+bracket_sum_step
+composition_step
+```
+
+Reused rule:
+
+```text
+phase77["data"]["final_rule"]
+```
+
+# 117. Phase 80 applicability / non-circularity tests
+
+```text
+tests/test_phase80_applicability_non_circularity.py
+```
+
+Checks:
+
+```text
+initial goal exclusion
+initial-ancestry goal exclusion
+INFERENCE / not GIVEN
+missing-premise rejection
+GIVEN-shortcut rejection
+metadata independence
+self-ancestor rejection
+ancestor-conclusion exclusion
+acyclicity
+```
+
+# 118. Phase 80 representative probe
+
+```text
+probes/probe_phase80_capabilities.py
+```
+
+entry:
+
+```text
+build_phase80_representative_result()
+main()
+```
+
+Representative source:
+
+```text
+build_phase80_5_data()
+```
+
+Probe test:
+
+```text
+tests/test_phase80_probe.py
+```
+
+Displays:
+
+```text
+actual repository premises
+initial goal absence
+derived goal
+new ProofStep
+exact premise identity
+existing rule identity
+fixed-point status
+non-circularity
+acyclicity
+automation boundary
+```
+
+# 119. Phase 80 regression baseline before probe
+
+```text
+Phase 80-6 focused: 10 passed in 1.90s
+Phase 80-5 + 80-6: 20 passed in 1.91s
+Phase 80-2 through 80-6: 45 passed in 2.48s
+Phase 77 + repository + Phase 79 + Phase 80: 126 passed in 3.11s
+repository-wide: 6565 passed in 36.33s
+```
+
+# 120. Current inference boundary
+
+Implemented:
+
+```text
+repository-assisted automatic inference
+with explicitly supplied rule sets
+```
+
+Not implemented:
+
+```text
+automatic rule selection
+backward proof search
+rule indexing by goal
+proof ranking
+persistent repository
+automatic proof narrative generation
+```
+

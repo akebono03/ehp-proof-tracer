@@ -12547,3 +12547,470 @@ automatic builder execution
 automatic theorem search
 automatic proof narrative generation
 ```
+
+---
+
+# Phase 80：repository-assisted automatic inference
+
+Phase 79 completed the minimal in-memory proof catalog. Phase 80 connects that catalog to the existing inference engine without adding inference responsibility to `ProofRepository`.
+
+Target:
+
+```text
+goal
+↓
+repository から既存 proof を取得
+↓
+既存 InferenceRule を適用
+↓
+goal が導出できるか判定
+```
+
+The Phase is intentionally narrower than general proof search.
+
+---
+
+## Phase 80-1：current inference / repository compatibility audit
+
+Confirmed:
+
+```text
+ProofRepositoryEntry.step
+= exact existing ProofStep
+
+existing inference runner
+= accepts ProofStep / tuple / list
+
+repository metadata
+= outside inference applicability
+
+repository retrieval
+= preserves existing ancestry / identity
+```
+
+Gap identified:
+
+```text
+registered entries → inference available_steps
+```
+
+Also identified an important duplicate boundary:
+
+```text
+same ProofStep object under multiple metadata entries
+→ must not appear twice as independent premises
+
+different ProofStep objects with equal conclusion
+→ must remain distinct
+```
+
+production code:
+
+```text
+no change
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 80-2：minimal repository → available_steps bridge
+
+Added to `ProofRepository`:
+
+```text
+entries()
+```
+
+Added production module:
+
+```text
+repository_inference.py
+```
+
+Added:
+
+```text
+repository_available_steps()
+```
+
+Semantics:
+
+```text
+registration order retained
+exact ProofStep identity retained
+same-step aliases deduplicated by identity
+same-conclusion distinct proofs retained
+ancestor graph not expanded automatically
+```
+
+Focused:
+
+```text
+7 passed in 0.34s
+```
+
+Phase 79 + Phase 80-2 repository regression:
+
+```text
+55 passed in 3.34s
+```
+
+repository-wide:
+
+```text
+6527 passed in 39.13s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 80-3：minimal structural goal detection
+
+Added to `proof.py`:
+
+```text
+find_goal_step()
+```
+
+Semantics:
+
+```text
+step.conclusion == goal
+→ first matching ProofStep
+
+no match
+→ None
+```
+
+No mathematical normalization is performed.
+
+Focused:
+
+```text
+9 passed in 0.22s
+```
+
+Phase 80-2 + 80-3:
+
+```text
+16 passed in 0.47s
+```
+
+repository / Phase 79 / Phase 80 regression:
+
+```text
+64 passed in 2.50s
+```
+
+repository-wide:
+
+```text
+6536 passed in 35.93s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 80-4：repository-assisted inference runner
+
+Added:
+
+```text
+RepositoryInferenceResult
+derive_goal_from_repository()
+```
+
+Flow:
+
+```text
+ProofRepository
+↓
+repository_available_steps()
+↓
+run_inference_until_stable_with_history()
+↓
+find_goal_step()
+↓
+RepositoryInferenceResult
+```
+
+The runner does not register derived steps back into the repository.
+
+Focused:
+
+```text
+9 passed in 0.24s
+```
+
+Phase 80-2 through 80-4:
+
+```text
+25 passed in 0.47s
+```
+
+repository / Phase 79 / Phase 80:
+
+```text
+73 passed in 2.74s
+```
+
+repository-wide:
+
+```text
+6545 passed in 34.91s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 80-5：actual proof integration
+
+Selected representative:
+
+```text
+Phase 77
+Toda Lemma 5.16
+```
+
+Repository contains only the actual direct premises:
+
+```text
+bracket_sum_step
+composition_step
+```
+
+The final goal is not registered.
+
+Execution:
+
+```text
+actual repository premise 1
++
+actual repository premise 2
+↓
+existing Phase 77 final_rule
+↓
+derive_goal_from_repository()
+↓
+new final ProofStep
+```
+
+Verified:
+
+```text
+goal absent initially
+new final is not original final_step
+conclusion matches actual Phase 77 final
+rule = INFERENCE
+exact repository steps are direct premises
+exact existing final_rule recorded
+fixed point reached
+repository unchanged
+```
+
+Focused:
+
+```text
+10 passed in 2.03s
+```
+
+Phase 80-2 through 80-5:
+
+```text
+35 passed in 2.17s
+```
+
+Phase 77 + repository + Phase 79 + Phase 80:
+
+```text
+116 passed in 2.99s
+```
+
+repository-wide:
+
+```text
+6555 passed in 34.54s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 80-6：applicability / non-circularity regression
+
+Added:
+
+```text
+tests/test_phase80_applicability_non_circularity.py
+```
+
+Verified for repository-assisted actual Phase 77 inference:
+
+```text
+goal absent from initial repository
+goal absent from initial ancestry
+final INFERENCE / not GIVEN
+missing either direct premise rejects rule
+GIVEN shortcut for required derived premises rejected
+metadata does not change applicability
+new final not self-ancestor
+final conclusion absent from ancestors
+derived graph acyclic
+```
+
+Focused:
+
+```text
+10 passed in 1.90s
+```
+
+Phase 80-5 + 80-6:
+
+```text
+20 passed in 1.91s
+```
+
+Phase 80-2 through 80-6:
+
+```text
+45 passed in 2.48s
+```
+
+Phase 77 + repository + Phase 79 + Phase 80:
+
+```text
+126 passed in 3.11s
+```
+
+repository-wide:
+
+```text
+6565 passed in 36.33s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 80-7：representative probe + completion documentation
+
+Added:
+
+```text
+probes/probe_phase80_capabilities.py
+tests/test_phase80_probe.py
+```
+
+Probe displays:
+
+```text
+actual Phase 77 repository premises
+goal absent initially
+new final ProofStep
+INFERENCE provenance
+exact repository-premise identity
+existing Phase 77 final-rule identity
+fixed-point termination
+goal absent from ancestry
+acyclic proof graph
+repository non-mutation
+current automation boundary
+```
+
+Updated in full:
+
+```text
+README.md
+docs/design.md
+docs/development_log.md
+docs/roadmap.md
+docs/code_reference.md
+docs/proof_records.md
+```
+
+Documentation correction:
+
+```text
+historical Phase 79:
+automatic inference on lookup was not implemented
+
+current Phase 80:
+repository-assisted inference with explicitly supplied rules is implemented
+
+still not implemented:
+automatic rule selection / backward proof search
+```
+
+Pre-probe repository-wide baseline:
+
+```text
+6565 passed in 36.33s
+```
+
+### 状態
+
+IMPLEMENTED / FINAL REGRESSION PENDING
+
+---
+
+# Phase 80 completion boundary
+
+Completed implementation through Phase 80-7:
+
+```text
+repository entries → available_steps
+identity-safe alias deduplication
+structural goal detection
+repository-assisted inference orchestration
+actual Phase 77 theorem integration
+new final ProofStep construction
+provenance preservation
+shortcut rejection
+non-circularity / acyclicity regression
+representative probe
+completion documentation
+```
+
+Current exact automation boundary:
+
+```text
+existing repository ProofStep premises
++
+explicitly supplied InferenceRule set
+↓
+fixed-point inference
+↓
+structural goal detection
+↓
+new proof result
+```
+
+Still deferred:
+
+```text
+automatic rule selection
+backward proof search
+generic theorem prover
+persistent repository
+proof replay persistence
+automatic proof narrative generation
+```
+
+Final Phase 80 completion status becomes COMPLETE after the Phase 80-7 probe test and full regression pass.
+

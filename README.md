@@ -29,7 +29,7 @@ The implementation strategy is to formalize only the minimum theorem consequence
 
 # Current status
 
-Completed through Phase 79.
+Completed through Phase 80.
 
 ```text
 Phase 1–27   generic proof / algebra / Toda-bracket foundation
@@ -77,12 +77,13 @@ Phase 76     Toda Equation (5.16): Ker E and Δ(ι₁₇)
 Phase 77     Toda Lemma 5.16 bracket-sum consequence
 Phase 78     stable G_0 through G_7 integration
 Phase 79     minimal in-memory Proof Repository / cross-phase retrieval
+Phase 80     repository-assisted automatic inference
 ```
 
-Latest repository-wide regression:
+Latest pre-probe repository-wide regression:
 
 ```text
-6520 passed in 35.07s
+6565 passed in 36.33s
 ```
 
 Phase 64 same-machine baseline:
@@ -93,12 +94,12 @@ Phase 64 same-machine baseline:
 
 The Phase 64 final regression is approximately 88.4% faster than the same-machine baseline while preserving the same 3657-test coverage.
 
-Phase 79 minimal in-memory Proof Repository, cross-phase registration / retrieval, duplicate semantics, applicability isolation, non-circularity regression, and representative probe are complete. Repository-wide wall time is machine-dependent because development is performed on two PCs; the latest recorded full regression is 6520 passed in 35.07s.
+Phase 80 repository-assisted automatic inference is implemented through actual Phase 77 / Toda Lemma 5.16 proof integration. The repository can now provide existing `ProofStep` premises to the existing inference engine, structurally detect a goal, and return a newly derived final `ProofStep` while preserving provenance and non-circularity. Repository-wide wall time is machine-dependent because development is performed on two PCs; the latest pre-probe full regression is 6565 passed in 36.33s.
 
 Representative current probe:
 
 ```powershell
-python -m probes.probe_phase79_capabilities
+python -m probes.probe_phase80_capabilities
 ```
 
 ---
@@ -5453,3 +5454,290 @@ persistence design driven by a concrete requirement to reuse proofs across Pytho
 ```
 
 Do not preemptively introduce a persistent database, automatic theorem search, proof replay engine, or a broader repository query framework without a concrete requirement.
+
+# Phase 80: repository-assisted automatic inference
+
+Phase 80 connects the Phase 79 in-memory Proof Repository to the existing generic inference engine without moving inference responsibility into `ProofRepository`.
+
+The completed flow is:
+
+```text
+ProofRepository
+↓
+repository_available_steps()
+↓
+tuple[ProofStep, ...]
+↓
+run_inference_until_stable_with_history()
+↓
+InferenceRunResult.steps
+↓
+find_goal_step()
+↓
+RepositoryInferenceResult
+```
+
+## Phase 80-1 compatibility audit
+
+The existing repository and inference engine were already structurally compatible.
+
+Confirmed:
+
+```text
+repository entries retain exact existing ProofStep objects
+inference runner accepts ProofStep / tuple / list
+repository retrieval preserves provenance
+repository metadata is outside inference applicability
+proof.py does not need repository awareness
+```
+
+The only missing bridge was a public way to expose registered entries and convert them to inference seeds.
+
+## Phase 80-2 repository → available_steps bridge
+
+Added:
+
+```text
+ProofRepository.entries()
+
+repository_inference.py
+  repository_available_steps()
+```
+
+Semantics:
+
+```text
+registration order preserved
+exact ProofStep identity preserved
+
+same ProofStep object through multiple metadata entries
+→ deduplicated by object identity
+
+different ProofStep objects with equal conclusions
+→ both retained
+```
+
+The bridge does not recursively expand ancestry and does not copy proof graphs.
+
+## Phase 80-3 structural goal detection
+
+Added to `proof.py`:
+
+```text
+find_goal_step(steps, goal)
+```
+
+Goal matching is exactly:
+
+```text
+step.conclusion == goal
+```
+
+This is structural equality only.
+
+Not performed:
+
+```text
+mathematical normalization
+theorem search
+relation solving
+proof ranking
+multiple-proof selection
+```
+
+The first matching existing `ProofStep` is returned; absence returns `None`.
+
+## Phase 80-4 repository-assisted runner
+
+Added:
+
+```text
+RepositoryInferenceResult
+derive_goal_from_repository()
+```
+
+The orchestration layer is intentionally thin:
+
+```text
+repository
+→ available_steps
+→ existing fixed-point inference
+→ structural goal detection
+```
+
+The result retains:
+
+```text
+InferenceRunResult
+goal_step
+```
+
+Derived results are not automatically registered back into the repository.
+
+## Phase 80-5 actual proof integration
+
+The first actual repository-assisted mathematical proof uses the existing Phase 77 Toda Lemma 5.16 final rule.
+
+Initial repository:
+
+```text
+Phase 77 bracket-sum premise
+Phase 77 scaled-composition premise
+```
+
+Important condition:
+
+```text
+Toda Lemma 5.16 final conclusion
+is not registered initially
+```
+
+Execution:
+
+```text
+actual Phase 77 repository premises
+↓
+existing Phase 77 final InferenceRule
+↓
+derive_goal_from_repository(...)
+↓
+new final ProofStep
+```
+
+Verified:
+
+```text
+final conclusion equals the existing Phase 77 final conclusion
+new final step is not the original builder final_step
+final rule = ProofRule.INFERENCE
+exact repository ProofStep objects are direct premises
+exact existing Phase 77 InferenceRule is recorded
+fixed point reached
+repository remains unchanged
+```
+
+This is the first implemented capability where the project can reuse existing repository proofs and an existing mathematical rule to derive a previously unregistered goal.
+
+## Phase 80-6 applicability / non-circularity
+
+Actual Phase 77 repository-assisted inference is protected by regression verifying:
+
+```text
+goal absent from initial repository steps
+goal absent from initial-step ancestry
+final is INFERENCE
+final is not GIVEN
+missing bracket-sum premise rejects applicability
+missing composition premise rejects applicability
+GIVEN replacement of either required derived premise is rejected
+repository metadata does not alter applicability
+new final is not its own ancestor
+final conclusion absent from ancestors
+derived proof graph acyclic
+```
+
+## Phase 80-7 representative probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase80_capabilities
+```
+
+The probe demonstrates:
+
+```text
+actual Phase 77 premises loaded through ProofRepository
+goal absent initially
+repository-assisted inference succeeds
+new final ProofStep is created
+existing Phase 77 final rule is reused
+exact repository premises are retained
+fixed point is reached
+goal absent from ancestry
+derived graph acyclic
+repository is not mutated
+```
+
+The probe also prints the current boundary:
+
+```text
+repository-assisted inference = enabled
+rule set = explicitly supplied
+automatic rule selection = not implemented
+backward proof search = not implemented
+persistent repository = not implemented
+automatic proof narrative = not implemented
+```
+
+## Phase 80 regression before representative probe
+
+Recorded successful regression before Phase 80-7:
+
+```text
+Phase 80-6 focused:
+10 passed in 1.90s
+
+Phase 80-5 + Phase 80-6:
+20 passed in 1.91s
+
+Phase 80-2 through Phase 80-6:
+45 passed in 2.48s
+
+Phase 77 + repository + Phase 79 + Phase 80:
+126 passed in 3.11s
+
+repository-wide:
+6565 passed in 36.33s
+```
+
+## Corrected project boundary after Phase 80
+
+Earlier documentation correctly stated that Phase 79 itself did not perform automatic inference on lookup. That remains historically true for Phase 79.
+
+The current project state is now:
+
+```text
+ProofRepository
+= catalog / lookup layer
+
+repository_inference.py
+= thin orchestration / bridge layer
+
+proof.py
+= generic inference / provenance
+```
+
+Therefore the current statement is no longer:
+
+```text
+automatic inference is not implemented
+```
+
+but rather:
+
+```text
+repository-assisted inference with an explicitly supplied rule set
+= implemented
+
+automatic rule selection / proof search
+= not implemented
+```
+
+Persistence also remains separate and deferred.
+
+# Next development boundary
+
+Phase 80 completes the first repository-assisted automatic inference milestone.
+
+The next natural capability is not a larger repository API. It is proof-search automation above the current explicit-rule runner, for example:
+
+```text
+Phase 81+
+rule selection
+goal-directed / backward search
+multi-step proof search policy
+```
+
+This should begin with an audit of existing rule families and search-safety constraints. Do not preemptively add a general theorem prover, persistent database, or global normalization engine.
+
