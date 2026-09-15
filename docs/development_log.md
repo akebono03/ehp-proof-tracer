@@ -14170,3 +14170,219 @@ generic theorem prover
 ```
 
 Phase 84はdepth=2 producer searchのcompatibility auditから開始する候補とする。
+
+# Phase 84：bounded depth=2 producer search
+
+## Phase 84-1：compatibility / dependency audit
+
+Toda Lemma 5.16で次の共有依存を確認した。
+
+```text
+final → bracket-sum
+final → composition → bracket-sum
+```
+
+`bracket-sum`はcycleではなく共有dependency。depthはproducer edge数で数える。
+
+### 状態
+
+COMPLETE
+
+## Phase 84-2：bounded search表現
+
+追加:
+
+```text
+BoundedProducerSearchNode
+BoundedProducerSearchResult
+```
+
+共有nodeの複数depth、依存DAG、max depthを表現可能にした。
+
+テスト:
+
+```text
+11 passed
+repository-wide: 6796 passed
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 84-3：producer premise availability analysis
+
+追加:
+
+```text
+analyze_producer_premise_availabilities()
+```
+
+実際のToda ruleで、bracket-sum producerはcomplete、composition producerはbracket-sumだけmissingと確認した。
+
+テスト:
+
+```text
+10 passed
+repository-wide: 6806 passed
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 84-4：unique depth=2 producer-chain selection
+
+追加:
+
+```text
+select_unique_depth_two_producer_chain()
+```
+
+共有bracket-sum producerを1 nodeへ統合し、`depths=(1, 2)`として保持する。node順はdependency-first。
+
+テスト:
+
+```text
+10 passed
+repository-wide: 6816 passed
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 84-5：bounded depth=2 execution
+
+追加:
+
+```text
+derive_goal_from_repository_with_depth_two_producers()
+```
+
+各producerを依存順に`max_rounds=1`で実行する。共有producerは1回だけ実行する。
+
+テスト:
+
+```text
+10 passed
+repository-wide: 6826 passed
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 84-6：actual theorem integration
+
+Toda Lemma 5.16で次をend-to-end導出した。
+
+```text
+first bracket term + second bracket term
+→ bracket-sum
+→ scaled-composition bridge
+→ final goal
+```
+
+テスト:
+
+```text
+16 passed
+repository-wide: 6842 passed
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 84-7：safety regression
+
+固定:
+
+```text
+missing / unsafe producer
+direct / nested / final ambiguity
+same-rule alias deduplication
+cycle-shaped dependency
+depth 3 requirement
+partial applicability
+failed-search repository immutability
+```
+
+テスト:
+
+```text
+10 passed
+repository-wide: 6852 passed
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 84-8：代表probe + 完了文書化
+
+追加:
+
+```text
+probes/probe_phase84_capabilities.py
+tests/test_phase84_probe.py
+```
+
+probe表示:
+
+```text
+actual Toda Lemma 5.16 target
+producer node count = 2
+bracket-sum depths = (1, 2)
+shared dependency = True
+bracket-sum / composition / final derived
+existing rule identities reused
+graph acyclic
+repository unchanged
+depth=2 completion boundary
+```
+
+probe test:
+
+```text
+7 passed
+```
+
+最終repository-wide regression:
+
+```text
+6859 passed
+```
+
+### 状態
+
+COMPLETE
+
+# Phase 84完了境界
+
+実装済み:
+
+```text
+bounded depth=2 representation
+producer availability analysis
+unique chain selection
+shared dependency reuse
+dependency-first execution
+actual theorem integration
+safety regression
+representative probe
+completion documentation
+```
+
+引き続き未実装:
+
+```text
+depth > 2
+arbitrary recursive backward search
+DFS / BFS / A*
+proof ranking / cost model
+persistent search cache
+automatic proof narrative generation
+generic theorem prover
+```

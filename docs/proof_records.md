@@ -8416,3 +8416,113 @@ COMPLETE
 ```
 
 Phase 83完了後も数学的proof record数は13のまま。
+
+# 35. Phase 84 bounded depth=2 producer-search infrastructure record
+
+## 35.1 対象
+
+Toda Lemma 5.16 final bracket-sum consequence。
+
+Phase 84は新しい数学定理を追加せず、既存Phase 77 ruleをbounded depth=2 searchで再実行するinfrastructure phase。
+
+## 35.2 initial repository
+
+```text
+Toda36Lemma516FirstBracketTermStatement
+Toda36Lemma516SecondBracketTermStatement
+TodaLemma516Sigma8IteratedSuspensionBridgeStatement
+TodaLemma516SigmaTPlus8DefinitionStatement
+```
+
+初期状態に次は存在しない。
+
+```text
+Toda36Lemma516BracketSumContainmentStatement
+TodaLemma516ScaledCompositionBridgeStatement
+TodaLemma516BracketSumContainmentStatement
+```
+
+## 35.3 selected dependency record
+
+```text
+final goal
+├─ bracket-sum producer             depth 1
+└─ composition producer             depth 1
+   └─ bracket-sum producer          depth 2
+```
+
+共有bracket-sum node:
+
+```text
+depths = (1, 2)
+is_shared = True
+```
+
+## 35.4 execution record
+
+```text
+first term + second term
+→ new bracket-sum ProofStep
+
+new bracket-sum + suspension bridge + sigma definition
+→ new scaled-composition ProofStep
+
+new bracket-sum + new scaled-composition
+→ new final ProofStep
+```
+
+各producer executionは`max_rounds=1`。
+
+## 35.5 provenance record
+
+```text
+new bracket-sum.inference_rule is existing bracket-sum rule
+new composition.inference_rule is existing composition rule
+new final.inference_rule is existing final rule
+
+new composition.premises[0] is new bracket-sum
+new final.premises[0] is new bracket-sum
+```
+
+同じ生成bracket-sum objectを2箇所で共有する。
+
+## 35.6 safety record
+
+```text
+missing / unsafe producer      → stop
+distinct ambiguity             → stop
+same-rule alias                → identity deduplicate
+cycle-shaped catalog           → stop
+depth 3 requirement            → stop
+partial applicability          → no goal
+repository                     → unchanged
+```
+
+proof graphはacyclic。生成stepはrepositoryへ永続登録されない。
+
+## 35.7 代表probe
+
+```powershell
+python -m probes.probe_phase84_capabilities
+```
+
+probe regression:
+
+```text
+7 passed
+```
+
+repository-wide regression:
+
+```text
+6859 passed
+```
+
+## 35.8 記録状態
+
+```text
+Phase 84 infrastructure record
+COMPLETE
+```
+
+Phase 84完了後も数学的proof record数は13のまま。

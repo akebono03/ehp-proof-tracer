@@ -10585,3 +10585,138 @@ automatic proof narrative generation
 ```
 
 Phase 84でdepth=2を検討する場合も、最初にcompatibility auditを行う。
+
+# 150. Phase 84 bounded depth=2 producer search
+
+Phase 84は、Phase 83の横方向のmultiple producer searchを、縦方向へちょうど1段だけ拡張する。
+
+対象形状:
+
+```text
+goal
+↓
+direct producer                  depth 1
+↓
+producer premiseのproducer       depth 2
+↓
+direct producer
+↓
+goal
+```
+
+一般的な再帰探索、DFS、BFS、A*は導入しない。
+
+# 151. bounded search表現
+
+```text
+BoundedProducerSearchNode
+BoundedProducerSearchResult
+```
+
+nodeは次を保持する。
+
+```text
+requesting_rule
+premise_index
+premise_pattern
+producer_rule
+producer_availability
+depths
+dependencies
+```
+
+`depths`は単一値ではなく、同じproducerへ到達する全path depthを保持する。
+
+```text
+final → bracket-sum                 depth 1
+final → composition → bracket-sum   depth 2
+```
+
+この場合の共有nodeは次となる。
+
+```text
+depths = (1, 2)
+is_shared = True
+```
+
+# 152. producer premise availability
+
+`analyze_producer_premise_availabilities()`は、lookup内の各producer候補に既存`detect_missing_premises()`を適用する。
+
+全候補は同じinitial repository stepsに対して分析する。分析中にproducerを実行せず、repositoryも変更しない。
+
+# 153. unique depth=2 chain selection
+
+`select_unique_depth_two_producer_chain()`は次の固定2段だけを検査する。
+
+```text
+final missing premises
+→ unique direct producers
+→ direct producer missing premises
+→ unique depth=2 producers
+```
+
+depth=2 producerがinitial stepsだけでcompleteでなければ停止する。これによりdepth 3へ進まない。
+
+同じproducer rule objectが複数pathから要求された場合、rule identityで1 nodeへ統合する。catalog aliasも同じidentityなら曖昧性に数えない。
+
+# 154. bounded execution
+
+`derive_goal_from_repository_with_depth_two_producers()`は、選択されたnodeをdependency-first orderで処理する。
+
+各producer ruleの実行条件:
+
+```text
+inference rules = 1 producer rule
+max_rounds = 1
+```
+
+producer群の後でfinal ruleを実行する。選択失敗時はproducerとfinal ruleを実行せず、initial repository内のgoal確認だけを行う。
+
+# 155. actual theorem integration
+
+代表実定理はToda Lemma 5.16 final bracket-sum consequence。
+
+initial repository:
+
+```text
+first bracket term
+second bracket term
+suspension bridge
+sigma definition
+```
+
+自動生成:
+
+```text
+first + second
+→ bracket-sum
+→ scaled-composition bridge
+→ final bracket-sum consequence
+```
+
+生成bracket-sumはcompositionとfinalの両方が同じ`ProofStep` objectを参照する。
+
+# 156. safety boundary
+
+```text
+missing / unsafe producer        → stop
+distinct ambiguity               → stop
+same-rule alias                  → identity deduplicate
+cycle形状                        → stop
+depth 3 requirement              → stop
+partial producer applicability   → no goal
+repository                       → unchanged
+```
+
+Phase 84完了後も未実装:
+
+```text
+depth > 2
+arbitrary recursive search
+DFS / BFS / A*
+proof ranking / cost model
+persistent search cache
+automatic proof narrative generation
+generic theorem prover
+```
