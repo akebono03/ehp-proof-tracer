@@ -6,6 +6,7 @@ from proof import (
   InferenceRunResult,
   PremisePattern,
   ProofStep,
+  derive_inference_round_result,
   find_goal_step,
   match_premise_pattern,
   merge_variable_bindings,
@@ -1542,6 +1543,172 @@ def diagnose_depth_two_producer_search_failure(
           ),
           ancestor_rules=boundary_ancestors,
         )
+
+  return None
+
+
+def diagnose_depth_two_producer_execution_failure(
+  repository,
+  search_result,
+) -> BoundedProducerSearchDiagnostic | None:
+  if not isinstance(
+    repository,
+    ProofRepository,
+  ):
+    raise TypeError(
+      "repository must be a ProofRepository"
+    )
+
+  if not isinstance(
+    search_result,
+    BoundedProducerSearchResult,
+  ):
+    raise TypeError(
+      "search_result must be a "
+      "BoundedProducerSearchResult"
+    )
+
+  current_steps = repository_available_steps(
+    repository
+  )
+
+  for node in search_result.producer_nodes:
+    round_result = derive_inference_round_result(
+      (
+        node.producer_rule,
+      ),
+      current_steps,
+    )
+
+    if not round_result.matches:
+      if (
+        node.requesting_rule
+        is search_result.final_rule
+      ):
+        ancestor_rules = (
+          search_result.final_rule,
+        )
+      else:
+        ancestor_rules = (
+          search_result.final_rule,
+          node.requesting_rule,
+        )
+
+      return BoundedProducerSearchDiagnostic(
+        status=(
+          BoundedProducerSearchStatus
+          .PRODUCER_NOT_APPLICABLE
+        ),
+        goal=search_result.goal,
+        final_rule=search_result.final_rule,
+        requesting_rule=node.requesting_rule,
+        premise_index=node.premise_index,
+        premise_pattern=node.premise_pattern,
+        current_depth=(
+          node.minimum_depth - 1
+        ),
+        required_next_depth=(
+          node.minimum_depth
+        ),
+        producer_candidates=(
+          node.producer_rule,
+        ),
+        ancestor_rules=ancestor_rules,
+      )
+
+    next_steps = (
+      current_steps
+      + round_result.new_steps
+    )
+
+    premise_is_available = any(
+      match_premise_pattern(
+        node.premise_pattern,
+        step,
+      )
+      is not None
+      for step in next_steps
+    )
+
+    if not premise_is_available:
+      if (
+        node.requesting_rule
+        is search_result.final_rule
+      ):
+        ancestor_rules = (
+          search_result.final_rule,
+        )
+      else:
+        ancestor_rules = (
+          search_result.final_rule,
+          node.requesting_rule,
+        )
+
+      return BoundedProducerSearchDiagnostic(
+        status=(
+          BoundedProducerSearchStatus
+          .PRODUCER_OUTPUT_NOT_USABLE
+        ),
+        goal=search_result.goal,
+        final_rule=search_result.final_rule,
+        requesting_rule=node.requesting_rule,
+        premise_index=node.premise_index,
+        premise_pattern=node.premise_pattern,
+        current_depth=(
+          node.minimum_depth - 1
+        ),
+        required_next_depth=(
+          node.minimum_depth
+        ),
+        producer_candidates=(
+          node.producer_rule,
+        ),
+        ancestor_rules=ancestor_rules,
+      )
+
+    current_steps = next_steps
+
+  final_round_result = (
+    derive_inference_round_result(
+      (
+        search_result.final_rule,
+      ),
+      current_steps,
+    )
+  )
+
+  if not final_round_result.matches:
+    return BoundedProducerSearchDiagnostic(
+      status=(
+        BoundedProducerSearchStatus
+        .FINAL_RULE_NOT_APPLICABLE
+      ),
+      goal=search_result.goal,
+      final_rule=search_result.final_rule,
+      ancestor_rules=(
+        search_result.final_rule,
+      ),
+    )
+
+  goal_is_derived = any(
+    step.conclusion
+    == search_result.goal
+    for step
+    in final_round_result.candidate_steps
+  )
+
+  if not goal_is_derived:
+    return BoundedProducerSearchDiagnostic(
+      status=(
+        BoundedProducerSearchStatus
+        .GOAL_NOT_DERIVED
+      ),
+      goal=search_result.goal,
+      final_rule=search_result.final_rule,
+      ancestor_rules=(
+        search_result.final_rule,
+      ),
+    )
 
   return None
 
