@@ -7473,3 +7473,191 @@ Formal proof record corpus now contains 13 records.
 
 Low-stem stable homotopy results through stem 7 are no longer deferred.
 
+
+---
+
+# 30. Proof Repository Infrastructure Record — Phase 79
+
+## 30.1 Record type
+
+Phase 79 does not prove a new homotopy-theoretic theorem.
+
+Therefore this entry is explicitly an infrastructure record rather than mathematical Proof Record 14.
+
+The mathematical formal proof-record corpus remains at 13 records through Phase 78.
+
+## 30.2 Scope
+
+Phase 79 records the first reusable machine catalog for already-derived `ProofStep` objects.
+
+Target capability:
+
+```text
+existing ProofStep
+↓
+register
+↓
+lookup
+↓
+reuse exact proof graph
+```
+
+## 30.3 Data model
+
+```text
+ProofRepositoryEntry
+  key
+  step
+  phase
+  theorem
+
+ProofRepository
+```
+
+Proof semantics remain owned by:
+
+```text
+ProofStep.conclusion
+ProofStep.premises
+ProofStep.rule
+ProofStep.note
+ProofStep.inference_rule
+```
+
+## 30.4 Lookup capability
+
+```text
+register(entry)
+get(key)
+find_by_conclusion(conclusion)
+find_by_statement_type(statement_type)
+find_by_phase(phase)
+find_by_theorem(theorem)
+dependencies(entry)
+```
+
+## 30.5 Cross-phase representative corpus
+
+Registered representative final proofs:
+
+```text
+Phase 76  Toda Equation (5.16)
+Phase 77  Toda Lemma 5.16
+Phase 78  stable G_0 through G_7 integration
+```
+
+Verified direct dependencies:
+
+```text
+Phase 76 = 2
+Phase 77 = 2
+Phase 78 = 8
+```
+
+Exact original `ProofStep` identity is retained within the running Python process.
+
+## 30.6 Duplicate semantics
+
+```text
+same key
+→ rejected
+
+same conclusion
+→ allowed
+```
+
+Distinct proofs of an equal conclusion retain distinct direct-premise graphs.
+
+The repository does not deduplicate proofs by conclusion.
+
+## 30.7 Applicability boundary
+
+Repository metadata:
+
+```text
+key
+phase
+theorem
+```
+
+does not affect inference applicability.
+
+Phase 77 regression verifies that the same final rule matches the original direct premises and the premises retrieved through the repository.
+
+## 30.8 Provenance / non-circularity
+
+Verified:
+
+```text
+repository lookup creates no new ProofStep nodes
+repository registration adds no premise edges
+Phase 76 ancestry unchanged
+Phase 77 ancestry unchanged
+Phase 78 ancestry unchanged
+retrieved final proofs are not self-ancestors
+retrieved final conclusions are absent from ancestors
+```
+
+## 30.9 Persistence boundary
+
+Phase 79 is in-memory only.
+
+Not introduced:
+
+```text
+JSON / pickle / SQLite persistence
+persistent proof-node identity
+schema migration
+cross-process object identity
+proof replay / validation
+builder auto-execution
+automatic inference on lookup
+```
+
+Future persistence must preserve proof meaning and provenance rather than Python execution state.
+
+## 30.10 Representative probe
+
+```powershell
+python -m probes.probe_phase79_capabilities
+```
+
+Observed representative output includes:
+
+```text
+Phase 76 lookup by phase = True
+Phase 77 lookup by theorem = True
+Phase 78 lookup by conclusion = True
+original ProofStep identity preserved = True
+Phase 76 direct dependencies = 2
+Phase 77 direct dependencies = 2
+Phase 78 direct dependencies = 8
+Persistence remains disabled.
+```
+
+## 30.11 Regression status
+
+```text
+repository unit tests: 21 passed in 2.42s
+cross-phase integration: 14 passed in 1.89s
+repository regression: 13 passed in 1.95s
+Phase 79 repository suite: 48 passed in 2.39s
+Phase 76–79 focused provenance regression: 125 passed in 2.64s
+repository-wide: 6520 passed in 35.07s
+```
+
+## 30.12 Completion status
+
+Phase 79 minimum in-memory Proof Repository / cross-phase retrieval / duplicate semantics / applicability isolation / non-circularity regression / representative probe are COMPLETE.
+
+Mathematical proof-record corpus:
+
+```text
+13 records
+```
+
+Infrastructure records:
+
+```text
+1  Phase 79  minimal in-memory Proof Repository
+```

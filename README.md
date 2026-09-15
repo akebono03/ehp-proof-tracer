@@ -29,7 +29,7 @@ The implementation strategy is to formalize only the minimum theorem consequence
 
 # Current status
 
-Completed through Phase 78.
+Completed through Phase 79.
 
 ```text
 Phase 1–27   generic proof / algebra / Toda-bracket foundation
@@ -76,12 +76,13 @@ Phase 75     Toda Proposition 5.15 finite-dimensional computation
 Phase 76     Toda Equation (5.16): Ker E and Δ(ι₁₇)
 Phase 77     Toda Lemma 5.16 bracket-sum consequence
 Phase 78     stable G_0 through G_7 integration
+Phase 79     minimal in-memory Proof Repository / cross-phase retrieval
 ```
 
 Latest repository-wide regression:
 
 ```text
-6472 passed in 35.18s
+6520 passed in 35.07s
 ```
 
 Phase 64 same-machine baseline:
@@ -92,12 +93,12 @@ Phase 64 same-machine baseline:
 
 The Phase 64 final regression is approximately 88.4% faster than the same-machine baseline while preserving the same 3657-test coverage.
 
-Phase 78 stable `G_0...G_7` mathematics, integration, provenance, non-circularity audit, and representative probe are complete. Repository-wide wall time is machine-dependent because development is performed on two PCs; the latest recorded full regression is 6472 passed in 35.18s.
+Phase 79 minimal in-memory Proof Repository, cross-phase registration / retrieval, duplicate semantics, applicability isolation, non-circularity regression, and representative probe are complete. Repository-wide wall time is machine-dependent because development is performed on two PCs; the latest recorded full regression is 6520 passed in 35.07s.
 
 Representative current probe:
 
 ```powershell
-python -m probes.probe_phase78_capabilities
+python -m probes.probe_phase79_capabilities
 ```
 
 ---
@@ -4133,6 +4134,9 @@ repository-wide:
 
 ---
 
+
+---
+
 # Next development boundary
 
 Phase 74 is complete.
@@ -5177,11 +5181,275 @@ automatic proof narrative generation
 persistent Proof Repository
 ```
 
+# Phase 79: minimal in-memory Proof Repository
+
+Phase 79 introduces the first reusable proof catalog without changing the existing inference engine or theorem-specific builders.
+
+The core flow is:
+
+```text
+existing builder / inference
+↓
+existing ProofStep
+↓
+ProofRepositoryEntry
+↓
+ProofRepository.register(...)
+↓
+lookup
+↓
+exact original ProofStep reused
+```
+
+The repository is deliberately a catalog / lookup layer. It does not construct, normalize, validate, replay, or persist proof graphs.
+
+## Minimum data model
+
+`proof_repository.py` adds:
+
+```text
+ProofRepositoryEntry
+  key: str
+  step: ProofStep
+  phase: str | None
+  theorem: str | None
+
+ProofRepository
+```
+
+The authoritative proof data remains in `ProofStep`:
+
+```text
+conclusion
+premises
+rule
+note
+inference_rule
+```
+
+Repository metadata is not copied into the proof graph, and proof semantics are not copied into the repository entry.
+
+## Repository API
+
+The minimum API is:
+
+```text
+register(entry)
+get(key)
+find_by_conclusion(conclusion)
+find_by_statement_type(statement_type)
+find_by_phase(phase)
+find_by_theorem(theorem)
+dependencies(entry)
+```
+
+Semantics:
+
+```text
+key uniqueness required
+same conclusion allowed
+lookup preserves registration order
+conclusion lookup uses structural equality
+statement-type lookup uses isinstance
+phase / theorem lookup use exact metadata match
+dependencies(entry) returns entry.step.premises unchanged
+```
+
+No generic query language, fuzzy theorem lookup, recursive ancestry API, reverse-dependency index, builder registry, or automatic inference is added.
+
+## Cross-phase integration
+
+Phase 79 registers representative existing final proofs from:
+
+```text
+Phase 76  Toda Equation (5.16)
+Phase 77  Toda Lemma 5.16
+Phase 78  stable G_0 through G_7 integration
+```
+
+The same repository supports lookup by:
+
+```text
+key
+phase
+theorem
+conclusion
+statement type
+```
+
+and returns the exact existing `ProofStep` objects.
+
+Direct dependencies remain the existing proof-graph edges:
+
+```text
+Phase 76 direct dependencies = 2
+Phase 77 direct dependencies = 2
+Phase 78 direct dependencies = 8
+```
+
+Premise nodes do not need to be individually registered in the repository in order to remain reachable through `ProofStep.premises`.
+
+## Duplicate / applicability / non-circularity boundary
+
+Phase 79 regression fixes the following behavior:
+
+```text
+same conclusion may have multiple repository entries
+separate proofs of the same conclusion retain separate premise graphs
+same ProofStep may be referenced by different catalog metadata
+repository metadata does not affect inference applicability
+repository lookup creates no new ProofStep nodes
+repository registration adds no proof-graph edges
+Phase 76 / 77 / 78 ancestry remains unchanged
+retrieved Phase 76 / 77 / 78 proofs remain non-circular
+```
+
+Therefore:
+
+```text
+ProofRepository
+= catalog / lookup layer
+
+ProofRepository
+!= inference engine
+!= proof transformer
+!= proof validator
+```
+
+## Representative probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase79_capabilities
+```
+
+The representative probe demonstrates:
+
+```text
+cross-phase registration
+lookup by phase / theorem / conclusion
+original ProofStep identity preservation
+direct dependency access
+in-memory-only repository boundary
+```
+
+## Phase 79 regression
+
+Repository unit tests:
+
+```text
+tests/test_proof_repository.py
+21 passed in 2.42s
+```
+
+Cross-phase integration:
+
+```text
+tests/test_phase79_cross_phase_repository.py
+14 passed in 1.89s
+```
+
+Repository regression:
+
+```text
+tests/test_phase79_repository_regression.py
+13 passed in 1.95s
+```
+
+Phase 79 repository suite:
+
+```text
+48 passed in 2.39s
+```
+
+Phase 76–79 focused provenance regression:
+
+```text
+125 passed in 2.64s
+```
+
+Repository-wide:
+
+```text
+6520 passed in 35.07s
+```
+
+## Phase 79 persistence boundary
+
+Phase 79 is intentionally in-memory only.
+
+Future persistence must preserve at least:
+
+```text
+repository key / catalog metadata
+typed conclusion structure
+ProofRule
+premise edges
+inference-rule identity
+literature provenance
+version / compatibility information
+```
+
+It must not be confused with serializing the live Python process. In particular, future persistence does not need to persist:
+
+```text
+builder functions
+builder result dictionaries
+Python callables
+lru_cache state
+probe presentation text
+Python object `is` identity
+```
+
+Persistent node IDs, serialization schema, schema migration, replay / validation, and a durable backing store remain deferred.
+
+## Phase 79 completion boundary
+
+Implemented:
+
+```text
+minimal in-memory Proof Repository
+ProofRepositoryEntry catalog metadata
+registration / exact key lookup
+conclusion / statement-type / phase / theorem lookup
+direct dependency access
+cross-phase Phase 76 / 77 / 78 reuse
+duplicate-conclusion separation
+applicability isolation
+non-circularity / ancestry preservation
+representative probe
+repository infrastructure record
+```
+
+Not introduced:
+
+```text
+persistent Proof Repository
+JSON / pickle / SQLite persistence
+persistent proof-node IDs
+schema versioning / migration
+builder auto-execution
+automatic inference on lookup
+reverse-dependency index
+recursive ancestry production API
+generic theorem search
+proof replay engine
+automatic proof narrative generation
+```
+
 # Next development boundary
 
-Phase 78 mathematics, integration, provenance, representative probe, and documentation are complete.
+Phase 79 is complete. The project now has a minimal in-memory cross-phase proof catalog while preserving the existing `ProofStep` provenance model.
 
-Before selecting the next mathematical implementation target, begin the next phase with a source/dependency audit of the material following the current Toda Lemma 5.16 segment.
+The next Phase should begin from a concrete need. Two separate future directions remain:
 
-Do not pre-commit to an 8-stem theorem or introduce a generic stable-group framework before that source audit identifies a concrete need.
+```text
+mathematical continuation after the current Toda / stable G_0...G_7 boundary
 
+or
+
+persistence design driven by a concrete requirement to reuse proofs across Python processes
+```
+
+Do not preemptively introduce a persistent database, automatic theorem search, proof replay engine, or a broader repository query framework without a concrete requirement.
