@@ -14,6 +14,11 @@ class HomotopyGroup:
 
 
 @dataclass(frozen=True)
+class StableHomotopyGroup:
+  stem: int
+
+
+@dataclass(frozen=True)
 class HomotopyEHPExactnessWindow:
   source_term: HomotopyGroup
   middle_term: HomotopyGroup
@@ -31,6 +36,12 @@ class FiniteHomotopyGroupStatement:
 class PrimaryComponent:
   group_dimension: ScalarValue
   sphere_dimension: ScalarValue
+  prime: int
+
+
+@dataclass(frozen=True)
+class StablePrimaryComponent:
+  group: StableHomotopyGroup
   prime: int
 
 

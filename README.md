@@ -29,7 +29,7 @@ The implementation strategy is to formalize only the minimum theorem consequence
 
 # Current status
 
-Completed through Phase 77.
+Completed through Phase 78.
 
 ```text
 Phase 1–27   generic proof / algebra / Toda-bracket foundation
@@ -75,12 +75,13 @@ Phase 74     Toda Lemma 5.12 bracket identification
 Phase 75     Toda Proposition 5.15 finite-dimensional computation
 Phase 76     Toda Equation (5.16): Ker E and Δ(ι₁₇)
 Phase 77     Toda Lemma 5.16 bracket-sum consequence
+Phase 78     stable G_0 through G_7 integration
 ```
 
-Latest repository-wide pre-probe regression:
+Latest repository-wide regression:
 
 ```text
-6262 passed in 114.35s
+6472 passed in 35.18s
 ```
 
 Phase 64 same-machine baseline:
@@ -91,12 +92,12 @@ Phase 64 same-machine baseline:
 
 The Phase 64 final regression is approximately 88.4% faster than the same-machine baseline while preserving the same 3657-test coverage.
 
-Phase 77 Toda Lemma 5.16 mathematics, integration, applicability, provenance, and non-circularity regression are complete. Repository-wide wall time is machine-dependent because development is performed on two PCs; the latest recorded pre-probe run is 6262 passed in 114.35s.
+Phase 78 stable `G_0...G_7` mathematics, integration, provenance, non-circularity audit, and representative probe are complete. Repository-wide wall time is machine-dependent because development is performed on two PCs; the latest recorded full regression is 6472 passed in 35.18s.
 
 Representative current probe:
 
 ```powershell
-python -m probes.probe_phase77_capabilities
+python -m probes.probe_phase78_capabilities
 ```
 
 ---
@@ -140,6 +141,8 @@ Core group / map structures include:
 ```text
 PrimaryComponent
 TodaPrimaryGroup
+StableHomotopyGroup
+StablePrimaryComponent
 PreimageSubgroup
 FreeCyclicGroup
 FiniteCyclicGroup
@@ -4923,14 +4926,262 @@ automatic proof narrative generation
 persistent Proof Repository
 ```
 
-# Next development boundary
+# Phase 78: stable \(G_0\) through \(G_7\)
 
-Phase 77 mathematics / integration / provenance are complete.
+Phase 78 consolidates the low stable stems already supported by the finite-dimensional Toda calculations.
 
-The stable clause stated in Toda Proposition 5.15 remains deferred:
+The final machine-derived results are:
 
 ```text
-(G_7;2)=Z/16{σ}.
+G_0 = Z{ι}
+
+(G_1;2) = Z/2{η}
+(G_2;2) = Z/2{η²}
+(G_3;2) = Z/8{ν}
+(G_4;2) = 0
+(G_5;2) = 0
+(G_6;2) = Z/2{ν²}
+(G_7;2) = Z/16{σ}
 ```
 
-This is the natural next mathematical boundary before moving beyond the current finite-dimensional / Lemma 5.16 source segment.
+## Stable representation
+
+Phase 78 adds:
+
+```text
+StableHomotopyGroup(stem)
+StablePrimaryComponent(group, prime)
+```
+
+Semantic boundary:
+
+```text
+G_0
+= ordinary StableHomotopyGroup(stem=0)
+
+(G_k;2), k>=1
+= StablePrimaryComponent(
+    StableHomotopyGroup(stem=k),
+    prime=2
+  )
+```
+
+`G_0` is intentionally not represented as a 2-primary component.
+
+## Toda (4.5) stable identification
+
+For positive stable stems in the concrete stable range, Phase 78 records:
+
+```text
+π_(n+k)^n
+≅
+(G_k;2)
+```
+
+through:
+
+```text
+Toda45StableTwoPrimaryIdentificationStatement
+```
+
+This is separate from the existing finite-stage:
+
+```text
+Toda45IsomorphismStatement
+TodaIteratedSuspensionMap
+```
+
+No generic `E^∞` map object was introduced.
+
+## Stable generators
+
+Finite generators are transported only through theorem-specific bridges:
+
+```text
+η₃  -> η
+ν₅  -> ν
+σ₉  -> σ
+```
+
+Composite stable generators remain ordinary `Composition` expressions:
+
+```text
+η² = η∘η
+ν² = ν∘ν
+```
+
+No stable composition type checker or generic stabilization-of-composition framework was added.
+
+## Stable zero branches
+
+Phase 78 transports the derived finite zero results:
+
+```text
+π_10^6=0
+π_12^7=0
+```
+
+to:
+
+```text
+(G_4;2)=0
+(G_5;2)=0
+```
+
+using theorem-specific stable-zero statements. No generic zero-group transport framework was introduced.
+
+## Ordinary \(G_0\) branch
+
+The zero stem is kept separate from the 2-primary branches:
+
+```text
+π_3^3=Z{ι₃}
+↓ explicit diagonal bridge
+π_3(S³)=Z{ι₃}
+↓ Toda (3.3) stable ordinary identification
+π_3(S³)≅G_0
+↓
+ι₃↦ι
+↓
+G_0=Z{ι}
+```
+
+This preserves the Phase 72R-A1 boundary:
+
+```text
+TodaPrimaryGroup
+!=
+HomotopyGroup
+```
+
+at the representation level.
+
+## Final aggregate
+
+Phase 78 adds:
+
+```text
+TodaStableG0ToG7Statement
+toda_stable_g0_to_g7_integration_inference_rule()
+```
+
+Its eight direct mathematical premises are exactly:
+
+```text
+G_0=Z{ι}
+(G_1;2)=Z/2{η}
+(G_2;2)=Z/2{η²}
+(G_3;2)=Z/8{ν}
+(G_4;2)=0
+(G_5;2)=0
+(G_6;2)=Z/2{ν²}
+(G_7;2)=Z/16{σ}
+```
+
+All eight direct branches are `ProofRule.INFERENCE`, and the aggregate itself is also `ProofRule.INFERENCE`.
+
+## Provenance / non-circularity
+
+Phase 78 regression verifies:
+
+```text
+all eight branches reachable
+exact existing branch ProofStep objects reused
+aggregate is not GIVEN
+aggregate is not its own ancestor
+aggregate conclusion absent from ancestors
+upstream branches do not depend on aggregate
+proof graph acyclic
+```
+
+## Representative probe
+
+Run:
+
+```powershell
+python -m probes.probe_phase78_capabilities
+```
+
+The probe displays:
+
+```text
+Stable G_0 through G_7 result
+Proof-style derivation
+Provenance / integration
+Representation boundary
+Applicability / non-circularity
+Phase 78 representative probe boundary
+```
+
+The proof-style derivation remains hand-authored presentation code. It is not automatically generated from the `ProofStep` graph.
+
+## Phase 78 regression
+
+Focused aggregate:
+
+```text
+tests/test_phase78_stable_g0_to_g7_integration.py
+18 passed
+```
+
+Representative probe:
+
+```text
+tests/test_phase78_probe.py
+10 passed
+```
+
+Integrated Phase 78 stable suite:
+
+```text
+164 passed
+```
+
+Repository-wide:
+
+```text
+6472 passed in 35.18s
+```
+
+## Phase 78 completion boundary
+
+Implemented:
+
+```text
+stable-group structural identities
+Toda (4.5) finite-to-stable 2-primary identification
+ordinary G_0 branch
+stable η
+stable η²
+stable ν
+stable ν²
+stable σ
+stable zero branches G_4 / G_5
+stable G_0...G_7 aggregate
+representative probe
+formal proof record 13
+```
+
+Not introduced:
+
+```text
+generic E^∞ map object
+generic stable homotopy-group database
+generic stable theorem engine
+generic cyclic transport
+generic zero transport
+generic free-cyclic transport
+generic stable composition typing
+stable ring machinery
+automatic proof narrative generation
+persistent Proof Repository
+```
+
+# Next development boundary
+
+Phase 78 mathematics, integration, provenance, representative probe, and documentation are complete.
+
+Before selecting the next mathematical implementation target, begin the next phase with a source/dependency audit of the material following the current Toda Lemma 5.16 segment.
+
+Do not pre-commit to an 8-stem theorem or introduce a generic stable-group framework before that source audit identifies a concrete need.
+

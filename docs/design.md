@@ -25,7 +25,7 @@ representation != typing != theorem knowledge
 structural equality != mathematical equality
 ```
 
-Phase 77 までこの原則を維持している。
+Phase 78 までこの原則を維持している。
 
 ---
 
@@ -8833,3 +8833,344 @@ generic σ-family ScalarSum support
 automatic proof narrative generation
 persistent Proof Repository
 ```
+
+---
+
+# 95. Phase 78 stable homotopy-group representation
+
+Phase 78 introduces only the structural identities required by the concrete low-stem calculations:
+
+```text
+StableHomotopyGroup(stem)
+StablePrimaryComponent(group, prime)
+```
+
+The semantic split is:
+
+```text
+G_0
+  ordinary StableHomotopyGroup(stem=0)
+
+(G_k;2), k>=1
+  StablePrimaryComponent(
+    group=StableHomotopyGroup(stem=k),
+    prime=2
+  )
+```
+
+`StableHomotopyGroup` carries a stable stem, not finite source / target sphere dimensions.
+
+`StablePrimaryComponent` records a prime-primary component of a stable group.
+
+Phase 78 does not reuse `PrimaryComponent` or `TodaPrimaryGroup` as stable identities.
+
+---
+
+# 96. Finite-stage Toda (4.5) と stable identification の分離
+
+Existing finite-stage semantics remain:
+
+```text
+Toda45IsomorphismStatement
+TodaIteratedSuspensionMap
+```
+
+for:
+
+```text
+π_(n+k)^n
+  --E^(m-n)-->
+π_(m+k)^m
+```
+
+Phase 78 separately adds:
+
+```text
+Toda45StableTwoPrimaryIdentificationStatement
+```
+
+for the concrete stable identification:
+
+```text
+π_(n+k)^n
+≅
+(G_k;2)
+```
+
+with positive stem and concrete stable-range applicability.
+
+Therefore:
+
+```text
+finite-stage suspension isomorphism
+!=
+stable-group identity
+```
+
+No `EInfinityMap` object is introduced.
+
+---
+
+# 97. Stable generator transport boundary
+
+Stable family classes are created only when a concrete finite generator must be connected to a stable generator.
+
+Implemented theorem-specific definitions:
+
+```text
+TodaStableEtaDefinitionStatement
+TodaStableNuDefinitionStatement
+TodaStableSigmaDefinitionStatement
+```
+
+with:
+
+```text
+η₃ -> η
+ν₅ -> ν
+σ₉ -> σ
+```
+
+Stable elements are represented by existing `HomotopyElement` / `GeneratorSymbol` structures and have no finite source / target sphere.
+
+No generic stable-family transport class or rule is added.
+
+---
+
+# 98. Stable composite-generator boundary
+
+Phase 78 keeps:
+
+```text
+η²
+ν²
+```
+
+as existing `Composition` structures:
+
+```text
+η² = Composition(η,η)
+ν² = Composition(ν,ν)
+```
+
+The finite anchors remain:
+
+```text
+η₄² = Composition(η₄,η₅)
+ν₈² = Composition(ν₈,ν₁₁)
+```
+
+The theorem-specific statements:
+
+```text
+TodaStableEtaSquaredDefinitionStatement
+TodaStableNuSquaredDefinitionStatement
+```
+
+connect those finite composites to the stable composites.
+
+Important boundary:
+
+```text
+finite composition typing
+!=
+stable composition theorem semantics
+```
+
+Stable `Composition.is_type_compatible()` is not widened. No `StableComposition` class or stable composition type checker is introduced.
+
+---
+
+# 99. Stable zero boundary
+
+Phase 78 adds:
+
+```text
+Toda45StableTwoPrimaryZeroStatement
+```
+
+as a provenance holder for:
+
+```text
+finite Toda zero result
++
+Toda (4.5) stable identification
+↓
+stable 2-primary zero result
+```
+
+Concrete branches:
+
+```text
+π_10^6=0
+↓
+(G_4;2)=0
+
+π_12^7=0
+↓
+(G_5;2)=0
+```
+
+This is not a generic zero-group representation or generic isomorphism transport theorem.
+
+---
+
+# 100. Ordinary \(G_0\) boundary
+
+`G_0` does not use `StablePrimaryComponent`.
+
+The machine path is:
+
+```text
+TodaPrimaryGroup(3,3)=Z{ι₃}
+↓ theorem-specific diagonal bridge
+HomotopyGroup(3,3)=Z{ι₃}
+↓ Toda (3.3) stable ordinary identification
+StableHomotopyGroup(0)
+↓ stable identity generator
+G_0=Z{ι}
+```
+
+Phase 72R-A1 semantics remain intact:
+
+```text
+TodaPrimaryGroup
+!=
+HomotopyGroup
+```
+
+Structural equality is not used to cross that boundary.
+
+---
+
+# 101. Phase 78 aggregate design
+
+Final integration object:
+
+```text
+TodaStableG0ToG7Statement
+```
+
+It stores eight independently derived branches:
+
+```text
+g0_group_relation
+g1_group_relation
+g2_group_relation
+g3_group_relation
+g4_zero
+g5_zero
+g6_group_relation
+g7_group_relation
+```
+
+The zero branches retain `Toda45StableTwoPrimaryZeroStatement`; they are not rewritten into a new generic zero AST.
+
+The integration rule:
+
+```text
+toda_stable_g0_to_g7_integration_inference_rule()
+```
+
+adds no mathematical content. It validates and bundles already-derived exact branch results.
+
+Canonical direct-premise order:
+
+```text
+G_0
+G_1
+G_2
+G_3
+G_4
+G_5
+G_6
+G_7
+```
+
+All direct premises must be `ProofRule.INFERENCE`.
+
+---
+
+# 102. Phase 78 provenance / non-circularity policy
+
+The final aggregate reuses the exact branch `ProofStep` objects produced by the Phase 78 builders.
+
+Regression verifies:
+
+```text
+all 8 direct branch steps are INFERENCE
+aggregate step is INFERENCE
+exact branch conclusion objects are retained
+all 8 branch steps are reachable ancestors
+aggregate is not self-ancestor
+aggregate conclusion absent from ancestors
+upstream branches do not depend on aggregate
+proof graph acyclic
+```
+
+---
+
+# 103. Phase 78 representative probe boundary
+
+Representative probe:
+
+```text
+probes/probe_phase78_capabilities.py
+```
+
+Representative source:
+
+```text
+build_phase78_11_data()
+```
+
+Displays:
+
+```text
+G_0...G_7 final results
+finite anchor -> stable result chains
+aggregate provenance
+ordinary / primary representation boundary
+non-circularity
+```
+
+The probe remains hand-authored presentation code.
+
+Not introduced:
+
+```text
+automatic ProofStep narrative generation
+persistent Proof Repository
+generic stable-group database
+generic E^∞ map
+generic stable ring / product machinery
+```
+
+---
+
+# 104. Phase 78 completion state
+
+Machine-derived stable results:
+
+```text
+G_0=Z{ι}
+
+(G_1;2)=Z/2{η}
+(G_2;2)=Z/2{η²}
+(G_3;2)=Z/8{ν}
+(G_4;2)=0
+(G_5;2)=0
+(G_6;2)=Z/2{ν²}
+(G_7;2)=Z/16{σ}
+```
+
+Final repository-wide regression:
+
+```text
+6472 passed in 35.18s
+```
+
+Phase 78 is COMPLETE.
+
+The next implementation target must be selected by a new source / dependency audit rather than by preemptively expanding the stable framework.
+

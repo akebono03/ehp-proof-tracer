@@ -441,18 +441,48 @@ PLANNED / DEFERRED UNTIL CONCRETE NEED
 
 # 9. Stable branch
 
-引き続き deferred:
+Phase 78 で low stable stems の concrete branch を実装済み:
 
 ```text
+G_0=Z{ι}
+
 (G_1;2)=Z/2{η}
 (G_2;2)=Z/2{η²}
-stable ν:=E^∞ν₄
-4ν=η³
 (G_3;2)=Z/8{ν}
-stable homotopy-group model
+(G_4;2)=0
+(G_5;2)=0
+(G_6;2)=Z/2{ν²}
+(G_7;2)=Z/16{σ}
 ```
 
-finite-dimensional calculations で具体的必要が生じた時点で再評価する。
+current representation:
+
+```text
+G_0
+  StableHomotopyGroup(stem=0)
+
+(G_k;2), k>=1
+  StablePrimaryComponent(
+    StableHomotopyGroup(stem=k),
+    prime=2
+  )
+```
+
+still deferred:
+
+```text
+generic E^∞ map object
+generic stable homotopy-group database
+generic stable theorem engine
+stable ring / product machinery
+generic stable composition typing
+```
+
+状態:
+
+```text
+LOW-STEM CONCRETE BRANCH COMPLETE THROUGH G_7
+```
 
 ---
 
@@ -963,34 +993,63 @@ pre-probe repository-wide regression:
 6262 passed in 114.35s
 ```
 
+## Phase 78 completion milestone
+
+Phase 78 is COMPLETE.
+
+Machine-derived stable results:
+
+```text
+G_0=Z{ι}
+
+(G_1;2)=Z/2{η}
+(G_2;2)=Z/2{η²}
+(G_3;2)=Z/8{ν}
+(G_4;2)=0
+(G_5;2)=0
+(G_6;2)=Z/2{ν²}
+(G_7;2)=Z/16{σ}
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase78_capabilities
+```
+
+final repository-wide regression:
+
+```text
+6472 passed in 35.18s
+```
+
+formal proof record:
+
+```text
+record 13
+Phase 78 stable G_0 through G_7 integration
+```
+
 ## Next mathematical Phase
 
-Toda Proposition 5.15 also states the stable clause:
+Begin with:
 
 ```text
-(G_7;2)=Z/16{σ}.
+source audit after the current Toda Lemma 5.16 segment
+dependency analysis
+representation compatibility
+minimum missing theorem edge
 ```
 
-The finite-dimensional Proposition 5.15 branch and Lemma 5.16 are now complete, while this stable clause remains deferred.
-
-The next Phase should begin with:
-
-```text
-source / dependency audit for the stable σ-class conclusion
-current stable-group representation compatibility
-whether an actual stable-group model is now required
-minimum transport from π_(n+7)^n=Z/16{σ_n}, n≥9
-```
+Only after that audit should the next implementation Phase be named.
 
 Do not preemptively add:
 
 ```text
 generic stable homotopy-group database
-generic stabilization theorem engine
-generic limit/colimit machinery
-generic bracket-sum algebra
-generic odd existential solver
+generic E^∞ theorem engine
+generic limit / colimit machinery
+generic stable composition algebra
 automatic proof narrative generation
 persistent Proof Repository
 ```
-

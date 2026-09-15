@@ -31,6 +31,8 @@ from homotopy_groups import (
   HomotopyGroup,
   PrimaryComponent,
   PrimaryComponentMembershipStatement,
+  StableHomotopyGroup,
+  StablePrimaryComponent,
   TodaDeltaMap,
   TodaEHPExactnessWindow,
   TodaHopfInvariantMap,
@@ -1079,6 +1081,840 @@ def toda_lemma45_n3_suspension_zero_reflection_inference_rule():
         statement_type=Relation,
         relation_type=(
           RelationType.ZERO
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_45_stable_two_primary_identification_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    source_group = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    if not isinstance(
+      source_group,
+      TodaPrimaryGroup,
+    ):
+      return False
+
+    group_dimension = (
+      source_group
+      .group_dimension
+    )
+
+    sphere_dimension = (
+      source_group
+      .sphere_dimension
+    )
+
+    if not isinstance(
+      group_dimension,
+      int,
+    ):
+      return False
+
+    if not isinstance(
+      sphere_dimension,
+      int,
+    ):
+      return False
+
+    stem = (
+      group_dimension
+      - sphere_dimension
+    )
+
+    if (
+      stem
+      <= 0
+    ):
+      return False
+
+    return (
+      sphere_dimension
+      >= stem + 2
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    source_group = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    stem = (
+      source_group
+      .group_dimension
+      - source_group
+      .sphere_dimension
+    )
+
+    return (
+      Toda45StableTwoPrimaryIdentificationStatement(
+        source_group=source_group,
+        target_component=StablePrimaryComponent(
+          group=StableHomotopyGroup(
+            stem=stem,
+          ),
+          prime=2,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (4.5) stable "
+      "2-primary identification"
+    ),
+    description=(
+      "For a concrete Toda group "
+      "pi_(n+k)^n with positive stem k "
+      "in the stable range n>=k+2, "
+      "derive its Toda (4.5) stable "
+      "identification with the "
+      "2-primary component (G_k;2). "
+      "This rule records only the "
+      "finite-stage-to-stable group "
+      "identification. "
+      "It does not introduce an "
+      "E-infinity map object, transport "
+      "a generator or group structure, "
+      "handle G_0, or add symbolic "
+      "stable-range arithmetic."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaPrimaryGroup
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_stable_sigma_definition_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    sigma9_definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      sigma9_definition,
+      TodaSigmaFamilyDefinitionStatement,
+    ):
+      return False
+
+    if (
+      sigma9_definition.index
+      != 9
+    ):
+      return False
+
+    sigma9 = (
+      sigma9_definition
+      .element
+    )
+
+    if (
+      sigma9.source
+      != 16
+    ):
+      return False
+
+    if (
+      sigma9.target
+      != 9
+    ):
+      return False
+
+    if (
+      sigma9.generator
+      != GeneratorSymbol(
+        family="σ",
+        index=9,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      identification,
+      Toda45StableTwoPrimaryIdentificationStatement,
+    ):
+      return False
+
+    expected_source_group = (
+      TodaPrimaryGroup(
+        group_dimension=16,
+        sphere_dimension=9,
+      )
+    )
+
+    if (
+      identification.source_group
+      != expected_source_group
+    ):
+      return False
+
+    expected_component = (
+      StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=7,
+        ),
+        prime=2,
+      )
+    )
+
+    return (
+      identification.target_component
+      == expected_component
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    sigma9_definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    stable_sigma = HomotopyElement(
+      name="σ",
+      dimension=7,
+      generator=GeneratorSymbol(
+        family="σ",
+      ),
+    )
+
+    return (
+      TodaStableSigmaDefinitionStatement(
+        source_definition=(
+          sigma9_definition
+        ),
+        stable_component=(
+          identification
+          .target_component
+        ),
+        stable_element=stable_sigma,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "stable sigma definition"
+    ),
+    description=(
+      "Use the concrete Phase 75 "
+      "sigma_9 family definition "
+      "together with the independently "
+      "derived Toda (4.5) stable "
+      "identification "
+      "pi_16^9 isomorphic to (G_7;2). "
+      "Record the stable class sigma "
+      "represented by the stabilization "
+      "of sigma_9. "
+      "The stable class has stem 7 and "
+      "no finite source or target sphere. "
+      "This rule does not introduce an "
+      "E-infinity map object, generic "
+      "stable generator transport, or "
+      "stable composition algebra."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaSigmaFamilyDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda45StableTwoPrimaryIdentificationStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_stable_g0_to_g7_integration_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    g0_relation = premises[0].conclusion
+    g1_relation = premises[1].conclusion
+    g2_relation = premises[2].conclusion
+    g3_relation = premises[3].conclusion
+    g4_zero = premises[4].conclusion
+    g5_zero = premises[5].conclusion
+    g6_relation = premises[6].conclusion
+    g7_relation = premises[7].conclusion
+
+    stable_iota = HomotopyElement(
+      name="ι",
+      dimension=0,
+      generator=GeneratorSymbol(
+        family="ι",
+      ),
+    )
+
+    expected_g0 = Relation(
+      lhs=StableHomotopyGroup(
+        stem=0,
+      ),
+      rhs=FreeCyclicGroup(
+        generator=stable_iota,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      g0_relation
+      != expected_g0
+    ):
+      return False
+
+    stable_eta = HomotopyElement(
+      name="η",
+      dimension=1,
+      generator=GeneratorSymbol(
+        family="η",
+      ),
+    )
+
+    expected_g1 = Relation(
+      lhs=StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=1,
+        ),
+        prime=2,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=2,
+        generator=stable_eta,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      g1_relation
+      != expected_g1
+    ):
+      return False
+
+    stable_eta_squared = Composition(
+      left=stable_eta,
+      right=stable_eta,
+    )
+
+    expected_g2 = Relation(
+      lhs=StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=2,
+        ),
+        prime=2,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=2,
+        generator=stable_eta_squared,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      g2_relation
+      != expected_g2
+    ):
+      return False
+
+    stable_nu = HomotopyElement(
+      name="ν",
+      dimension=3,
+      generator=GeneratorSymbol(
+        family="ν",
+      ),
+    )
+
+    expected_g3 = Relation(
+      lhs=StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=3,
+        ),
+        prime=2,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=8,
+        generator=stable_nu,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      g3_relation
+      != expected_g3
+    ):
+      return False
+
+    if not isinstance(
+      g4_zero,
+      Toda45StableTwoPrimaryZeroStatement,
+    ):
+      return False
+
+    if (
+      g4_zero.stable_component
+      != StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=4,
+        ),
+        prime=2,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      g5_zero,
+      Toda45StableTwoPrimaryZeroStatement,
+    ):
+      return False
+
+    if (
+      g5_zero.stable_component
+      != StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=5,
+        ),
+        prime=2,
+      )
+    ):
+      return False
+
+    stable_nu_squared = Composition(
+      left=stable_nu,
+      right=stable_nu,
+    )
+
+    expected_g6 = Relation(
+      lhs=StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=6,
+        ),
+        prime=2,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=2,
+        generator=stable_nu_squared,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      g6_relation
+      != expected_g6
+    ):
+      return False
+
+    stable_sigma = HomotopyElement(
+      name="σ",
+      dimension=7,
+      generator=GeneratorSymbol(
+        family="σ",
+      ),
+    )
+
+    expected_g7 = Relation(
+      lhs=StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=7,
+        ),
+        prime=2,
+      ),
+      rhs=FiniteCyclicGroup(
+        order=16,
+        generator=stable_sigma,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      g7_relation
+      == expected_g7
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    return TodaStableG0ToG7Statement(
+      g0_group_relation=(
+        premises[
+          0
+        ].conclusion
+      ),
+      g1_group_relation=(
+        premises[
+          1
+        ].conclusion
+      ),
+      g2_group_relation=(
+        premises[
+          2
+        ].conclusion
+      ),
+      g3_group_relation=(
+        premises[
+          3
+        ].conclusion
+      ),
+      g4_zero=(
+        premises[
+          4
+        ].conclusion
+      ),
+      g5_zero=(
+        premises[
+          5
+        ].conclusion
+      ),
+      g6_group_relation=(
+        premises[
+          6
+        ].conclusion
+      ),
+      g7_group_relation=(
+        premises[
+          7
+        ].conclusion
+      ),
+    )
+
+  return InferenceRule(
+    name=(
+      "Phase 78 stable G_0 through G_7 "
+      "integration"
+    ),
+    description=(
+      "Integrate the independently derived "
+      "stable ordinary result "
+      "G_0=Z{iota} and the independently "
+      "derived 2-primary stable results "
+      "(G_1;2) through (G_7;2). "
+      "All eight mathematical branches "
+      "must already be derived. "
+      "This rule adds no new stable-group "
+      "calculation, no generic stable solver, "
+      "and no new E-infinity semantics."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda45StableTwoPrimaryZeroStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda45StableTwoPrimaryZeroStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop515_g7_two_primary_finite_cyclic_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    source_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    stable_sigma_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    expected_source_group = (
+      TodaPrimaryGroup(
+        group_dimension=16,
+        sphere_dimension=9,
+      )
+    )
+
+    if (
+      source_relation.lhs
+      != expected_source_group
+    ):
+      return False
+
+    if not isinstance(
+      source_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      source_relation.rhs.order
+      != 16
+    ):
+      return False
+
+    if not isinstance(
+      identification,
+      Toda45StableTwoPrimaryIdentificationStatement,
+    ):
+      return False
+
+    if (
+      identification.source_group
+      != expected_source_group
+    ):
+      return False
+
+    expected_component = (
+      StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=7,
+        ),
+        prime=2,
+      )
+    )
+
+    if (
+      identification.target_component
+      != expected_component
+    ):
+      return False
+
+    if not isinstance(
+      stable_sigma_definition,
+      TodaStableSigmaDefinitionStatement,
+    ):
+      return False
+
+    if (
+      stable_sigma_definition
+      .stable_component
+      != expected_component
+    ):
+      return False
+
+    if (
+      stable_sigma_definition
+      .source_definition
+      .element
+      != source_relation
+      .rhs
+      .generator
+    ):
+      return False
+
+    stable_sigma = (
+      stable_sigma_definition
+      .stable_element
+    )
+
+    if (
+      stable_sigma.name
+      != "σ"
+    ):
+      return False
+
+    if (
+      stable_sigma.dimension
+      != 7
+    ):
+      return False
+
+    if (
+      stable_sigma.source
+      is not None
+    ):
+      return False
+
+    if (
+      stable_sigma.target
+      is not None
+    ):
+      return False
+
+    return (
+      stable_sigma.generator
+      == GeneratorSymbol(
+        family="σ",
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    source_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    stable_sigma_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=(
+        identification
+        .target_component
+      ),
+      rhs=FiniteCyclicGroup(
+        order=(
+          source_relation
+          .rhs
+          .order
+        ),
+        generator=(
+          stable_sigma_definition
+          .stable_element
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.15 "
+      "stable G_7 2-primary group"
+    ),
+    description=(
+      "Transport the independently "
+      "derived finite cyclic structure "
+      "pi_16^9=Z/16{sigma_9} across "
+      "the Toda (4.5) stable "
+      "identification "
+      "pi_16^9 isomorphic to (G_7;2), "
+      "using the independently derived "
+      "stable sigma definition. "
+      "Derive "
+      "(G_7;2)=Z/16{sigma}. "
+      "This rule is specific to the "
+      "Toda Proposition 5.15 sigma "
+      "branch. "
+      "It does not introduce a generic "
+      "finite-cyclic stable transport "
+      "framework."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda45StableTwoPrimaryIdentificationStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaStableSigmaDefinitionStatement
         ),
       ),
     ),
@@ -32107,6 +32943,81 @@ class Toda45IsomorphismStatement:
 
 
 @dataclass(frozen=True)
+class Toda45StableTwoPrimaryIdentificationStatement:
+  source_group: TodaPrimaryGroup
+  target_component: StablePrimaryComponent
+
+
+@dataclass(frozen=True)
+class Toda45StableTwoPrimaryZeroStatement:
+  source_zero: TodaPrimaryGroupZeroStatement
+  identification: Toda45StableTwoPrimaryIdentificationStatement
+  stable_component: StablePrimaryComponent
+
+
+@dataclass(frozen=True)
+class TodaStableSigmaDefinitionStatement:
+  source_definition: TodaSigmaFamilyDefinitionStatement
+  stable_component: StablePrimaryComponent
+  stable_element: HomotopyElement
+
+
+@dataclass(frozen=True)
+class TodaStableEtaDefinitionStatement:
+  source_definition: TodaEtaFamilyDefinitionStatement
+  stable_component: StablePrimaryComponent
+  stable_element: HomotopyElement
+
+
+@dataclass(frozen=True)
+class TodaStableEtaSquaredDefinitionStatement:
+  source_generator: Composition
+  stable_eta_definition: TodaStableEtaDefinitionStatement
+  stable_component: StablePrimaryComponent
+  stable_element: Composition
+
+
+@dataclass(frozen=True)
+class TodaStableNuDefinitionStatement:
+  source_definition: TodaNuFamilyDefinitionStatement
+  stable_component: StablePrimaryComponent
+  stable_element: HomotopyElement
+
+
+@dataclass(frozen=True)
+class TodaStableNuSquaredDefinitionStatement:
+  source_generator: Composition
+  stable_nu_definition: TodaStableNuDefinitionStatement
+  stable_component: StablePrimaryComponent
+  stable_element: Composition
+
+
+@dataclass(frozen=True)
+class Toda33StableOrdinaryIdentificationStatement:
+  source_group: HomotopyGroup
+  target_group: StableHomotopyGroup
+
+
+@dataclass(frozen=True)
+class TodaStableIotaDefinitionStatement:
+  source_element: HomotopyElement
+  stable_group: StableHomotopyGroup
+  stable_element: HomotopyElement
+
+
+@dataclass(frozen=True)
+class TodaStableG0ToG7Statement:
+  g0_group_relation: Relation
+  g1_group_relation: Relation
+  g2_group_relation: Relation
+  g3_group_relation: Relation
+  g4_zero: Toda45StableTwoPrimaryZeroStatement
+  g5_zero: Toda45StableTwoPrimaryZeroStatement
+  g6_group_relation: Relation
+  g7_group_relation: Relation
+
+
+@dataclass(frozen=True)
 class TodaIteratedSuspensionInjectiveStatement:
   map: TodaIteratedSuspensionMap
 
@@ -39259,6 +40170,2625 @@ class TodaLemma513Statement:
   sigma_triple_prime: HomotopyElement
   bracket_membership: TodaBracketMembershipStatement
   hopf_image: Multiple
+
+
+def toda_prop51_stable_eta_definition_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    eta3_definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      eta3_definition,
+      TodaEtaFamilyDefinitionStatement,
+    ):
+      return False
+
+    if (
+      eta3_definition
+      != toda_eta_family_definition_statement(
+        3
+      )
+    ):
+      return False
+
+    eta_3 = (
+      eta3_definition.element
+    )
+
+    if (
+      eta_3.dimension
+      != 3
+    ):
+      return False
+
+    if (
+      eta_3.source
+      != 4
+    ):
+      return False
+
+    if (
+      eta_3.target
+      != 3
+    ):
+      return False
+
+    if (
+      eta_3.generator
+      != GeneratorSymbol(
+        family="η",
+        index=3,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      identification,
+      Toda45StableTwoPrimaryIdentificationStatement,
+    ):
+      return False
+
+    expected_source_group = (
+      TodaPrimaryGroup(
+        group_dimension=4,
+        sphere_dimension=3,
+      )
+    )
+
+    if (
+      identification.source_group
+      != expected_source_group
+    ):
+      return False
+
+    expected_component = (
+      StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=1,
+        ),
+        prime=2,
+      )
+    )
+
+    return (
+      identification.target_component
+      == expected_component
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    eta3_definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    stable_eta = HomotopyElement(
+      name="η",
+      dimension=1,
+      generator=GeneratorSymbol(
+        family="η",
+      ),
+    )
+
+    return (
+      TodaStableEtaDefinitionStatement(
+        source_definition=(
+          eta3_definition
+        ),
+        stable_component=(
+          identification
+          .target_component
+        ),
+        stable_element=stable_eta,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.1 "
+      "stable eta definition"
+    ),
+    description=(
+      "Use the concrete eta_3 family "
+      "definition together with the "
+      "independently derived Toda (4.5) "
+      "stable identification "
+      "pi_4^3 isomorphic to (G_1;2). "
+      "Record the stable class eta "
+      "represented by the stabilization "
+      "of eta_3. "
+      "The stable eta class has stem 1 "
+      "and no finite source or target "
+      "sphere. "
+      "This rule does not introduce an "
+      "E-infinity map object or a generic "
+      "stable family transport framework."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaEtaFamilyDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda45StableTwoPrimaryIdentificationStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop53_stable_eta_squared_definition_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    eta4_definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta5_definition = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    stable_eta_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    if (
+      eta4_definition
+      != toda_eta_family_definition_statement(
+        4
+      )
+    ):
+      return False
+
+    if (
+      eta5_definition
+      != toda_eta_family_definition_statement(
+        5
+      )
+    ):
+      return False
+
+    if not isinstance(
+      stable_eta_definition,
+      TodaStableEtaDefinitionStatement,
+    ):
+      return False
+
+    expected_eta3_definition = (
+      toda_eta_family_definition_statement(
+        3
+      )
+    )
+
+    if (
+      stable_eta_definition
+      .source_definition
+      != expected_eta3_definition
+    ):
+      return False
+
+    expected_g1_component = (
+      StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=1,
+        ),
+        prime=2,
+      )
+    )
+
+    if (
+      stable_eta_definition
+      .stable_component
+      != expected_g1_component
+    ):
+      return False
+
+    stable_eta = (
+      stable_eta_definition
+      .stable_element
+    )
+
+    if (
+      stable_eta.name
+      != "η"
+    ):
+      return False
+
+    if (
+      stable_eta.dimension
+      != 1
+    ):
+      return False
+
+    if (
+      stable_eta.source
+      is not None
+    ):
+      return False
+
+    if (
+      stable_eta.target
+      is not None
+    ):
+      return False
+
+    if (
+      stable_eta.generator
+      != GeneratorSymbol(
+        family="η",
+      )
+    ):
+      return False
+
+    if not isinstance(
+      identification,
+      Toda45StableTwoPrimaryIdentificationStatement,
+    ):
+      return False
+
+    expected_source_group = (
+      TodaPrimaryGroup(
+        group_dimension=6,
+        sphere_dimension=4,
+      )
+    )
+
+    if (
+      identification.source_group
+      != expected_source_group
+    ):
+      return False
+
+    expected_g2_component = (
+      StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=2,
+        ),
+        prime=2,
+      )
+    )
+
+    return (
+      identification.target_component
+      == expected_g2_component
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    eta4_definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    eta5_definition = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    stable_eta_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    source_generator = Composition(
+      left=(
+        eta4_definition
+        .element
+      ),
+      right=(
+        eta5_definition
+        .element
+      ),
+    )
+
+    stable_eta = (
+      stable_eta_definition
+      .stable_element
+    )
+
+    stable_eta_squared = Composition(
+      left=stable_eta,
+      right=stable_eta,
+    )
+
+    return (
+      TodaStableEtaSquaredDefinitionStatement(
+        source_generator=(
+          source_generator
+        ),
+        stable_eta_definition=(
+          stable_eta_definition
+        ),
+        stable_component=(
+          identification
+          .target_component
+        ),
+        stable_element=(
+          stable_eta_squared
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.3 "
+      "stable eta squared definition"
+    ),
+    description=(
+      "Use the concrete eta_4 and eta_5 "
+      "family definitions, the independently "
+      "derived stable eta definition, and "
+      "the Toda (4.5) stable identification "
+      "pi_6^4 isomorphic to (G_2;2). "
+      "Record the stabilization of "
+      "eta_4 composed with eta_5 as the "
+      "stable composite eta composed with eta. "
+      "The stable square remains an ordinary "
+      "Composition expression. "
+      "No stable composition typing rule, "
+      "E-infinity map object, EtaSquare class, "
+      "or generic stabilization-of-composition "
+      "framework is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaEtaFamilyDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaEtaFamilyDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaStableEtaDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda45StableTwoPrimaryIdentificationStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop56_stable_nu_definition_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    nu5_definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    if not isinstance(
+      nu5_definition,
+      TodaNuFamilyDefinitionStatement,
+    ):
+      return False
+
+    if (
+      nu5_definition
+      != toda_nu_family_definition_statement(
+        5
+      )
+    ):
+      return False
+
+    nu_5 = (
+      nu5_definition.element
+    )
+
+    if (
+      nu_5.dimension
+      != 5
+    ):
+      return False
+
+    if (
+      nu_5.source
+      != 8
+    ):
+      return False
+
+    if (
+      nu_5.target
+      != 5
+    ):
+      return False
+
+    if (
+      nu_5.generator
+      != GeneratorSymbol(
+        family="ν",
+        index=5,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      identification,
+      Toda45StableTwoPrimaryIdentificationStatement,
+    ):
+      return False
+
+    expected_source_group = (
+      TodaPrimaryGroup(
+        group_dimension=8,
+        sphere_dimension=5,
+      )
+    )
+
+    if (
+      identification.source_group
+      != expected_source_group
+    ):
+      return False
+
+    expected_component = (
+      StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=3,
+        ),
+        prime=2,
+      )
+    )
+
+    return (
+      identification.target_component
+      == expected_component
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    nu5_definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    stable_nu = HomotopyElement(
+      name="ν",
+      dimension=3,
+      generator=GeneratorSymbol(
+        family="ν",
+      ),
+    )
+
+    return (
+      TodaStableNuDefinitionStatement(
+        source_definition=(
+          nu5_definition
+        ),
+        stable_component=(
+          identification
+          .target_component
+        ),
+        stable_element=stable_nu,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.6 "
+      "stable nu definition"
+    ),
+    description=(
+      "Use the concrete nu_5 family "
+      "definition together with the "
+      "independently derived Toda (4.5) "
+      "stable identification "
+      "pi_8^5 isomorphic to (G_3;2). "
+      "Record the stable class nu "
+      "represented by the stabilization "
+      "of nu_5. "
+      "The stable nu class has stem 3 "
+      "and no finite source or target "
+      "sphere. "
+      "This rule does not introduce an "
+      "E-infinity map object or generic "
+      "stable family transport machinery."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaNuFamilyDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda45StableTwoPrimaryIdentificationStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop511_stable_nu_squared_definition_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    nu8_definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    nu11_definition = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    stable_nu_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    if (
+      nu8_definition
+      != toda_nu_family_definition_statement(
+        8
+      )
+    ):
+      return False
+
+    if (
+      nu11_definition
+      != toda_nu_family_definition_statement(
+        11
+      )
+    ):
+      return False
+
+    if not isinstance(
+      stable_nu_definition,
+      TodaStableNuDefinitionStatement,
+    ):
+      return False
+
+    if (
+      stable_nu_definition
+      .source_definition
+      != toda_nu_family_definition_statement(
+        5
+      )
+    ):
+      return False
+
+    expected_g3_component = (
+      StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=3,
+        ),
+        prime=2,
+      )
+    )
+
+    if (
+      stable_nu_definition
+      .stable_component
+      != expected_g3_component
+    ):
+      return False
+
+    stable_nu = (
+      stable_nu_definition
+      .stable_element
+    )
+
+    if (
+      stable_nu.name
+      != "ν"
+    ):
+      return False
+
+    if (
+      stable_nu.dimension
+      != 3
+    ):
+      return False
+
+    if (
+      stable_nu.source
+      is not None
+    ):
+      return False
+
+    if (
+      stable_nu.target
+      is not None
+    ):
+      return False
+
+    if (
+      stable_nu.generator
+      != GeneratorSymbol(
+        family="ν",
+      )
+    ):
+      return False
+
+    if not isinstance(
+      identification,
+      Toda45StableTwoPrimaryIdentificationStatement,
+    ):
+      return False
+
+    expected_source_group = (
+      TodaPrimaryGroup(
+        group_dimension=14,
+        sphere_dimension=8,
+      )
+    )
+
+    if (
+      identification.source_group
+      != expected_source_group
+    ):
+      return False
+
+    expected_g6_component = (
+      StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=6,
+        ),
+        prime=2,
+      )
+    )
+
+    return (
+      identification.target_component
+      == expected_g6_component
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    nu8_definition = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    nu11_definition = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    stable_nu_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        3
+      ].conclusion
+    )
+
+    source_generator = Composition(
+      left=(
+        nu8_definition
+        .element
+      ),
+      right=(
+        nu11_definition
+        .element
+      ),
+    )
+
+    stable_nu = (
+      stable_nu_definition
+      .stable_element
+    )
+
+    stable_nu_squared = Composition(
+      left=stable_nu,
+      right=stable_nu,
+    )
+
+    return (
+      TodaStableNuSquaredDefinitionStatement(
+        source_generator=(
+          source_generator
+        ),
+        stable_nu_definition=(
+          stable_nu_definition
+        ),
+        stable_component=(
+          identification
+          .target_component
+        ),
+        stable_element=(
+          stable_nu_squared
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.11 "
+      "stable nu squared definition"
+    ),
+    description=(
+      "Use the concrete nu_8 and nu_11 "
+      "family definitions, the independently "
+      "derived stable nu definition, and "
+      "the Toda (4.5) stable identification "
+      "pi_14^8 isomorphic to (G_6;2). "
+      "Record the stabilization of "
+      "nu_8 composed with nu_11 as the "
+      "stable composite nu composed with nu. "
+      "The stable square remains an ordinary "
+      "Composition expression. "
+      "No StableComposition class, "
+      "stable composition typing rule, "
+      "E-infinity map object, or generic "
+      "composition-stabilization framework "
+      "is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaNuFamilyDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=(
+          TodaNuFamilyDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaStableNuDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda45StableTwoPrimaryIdentificationStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_43_pi3_3_ordinary_free_cyclic_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    toda_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    expected_iota_3 = HomotopyElement(
+      name="ι_3",
+      dimension=3,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=3,
+      ),
+    )
+
+    expected_relation = Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=3,
+        sphere_dimension=3,
+      ),
+      rhs=FreeCyclicGroup(
+        generator=expected_iota_3,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      toda_relation
+      == expected_relation
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    toda_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=HomotopyGroup(
+        group_dimension=3,
+        sphere_dimension=3,
+      ),
+      rhs=FreeCyclicGroup(
+        generator=(
+          toda_relation
+          .rhs
+          .generator
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (4.3) pi_3^3 "
+      "diagonal ordinary bridge"
+    ),
+    description=(
+      "Use the concrete Toda diagonal "
+      "fact pi_3^3=Z{iota_3}. "
+      "Toda (4.3) identifies the "
+      "underlying diagonal group with "
+      "the ordinary homotopy group "
+      "pi_3(S^3). "
+      "Derive the ordinary relation "
+      "pi_3(S^3)=Z{iota_3}. "
+      "This rule does not structurally "
+      "identify TodaPrimaryGroup with "
+      "HomotopyGroup and is restricted "
+      "to the concrete pi_3^3 branch."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.GIVEN,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_33_g0_stable_identification_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    ordinary_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    expected_iota_3 = HomotopyElement(
+      name="ι_3",
+      dimension=3,
+      generator=GeneratorSymbol(
+        family="ι",
+        index=3,
+      ),
+    )
+
+    expected_relation = Relation(
+      lhs=HomotopyGroup(
+        group_dimension=3,
+        sphere_dimension=3,
+      ),
+      rhs=FreeCyclicGroup(
+        generator=expected_iota_3,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    return (
+      ordinary_relation
+      == expected_relation
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    ordinary_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    return (
+      Toda33StableOrdinaryIdentificationStatement(
+        source_group=(
+          ordinary_relation
+          .lhs
+        ),
+        target_group=StableHomotopyGroup(
+          stem=0,
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (3.3) stable "
+      "ordinary G_0 identification"
+    ),
+    description=(
+      "Use the independently derived "
+      "ordinary diagonal relation "
+      "pi_3(S^3)=Z{iota_3}. "
+      "Record the Toda (3.3) stable "
+      "ordinary identification of "
+      "pi_3(S^3) with G_0. "
+      "The target is StableHomotopyGroup "
+      "with stem zero, not a "
+      "StablePrimaryComponent. "
+      "No E-infinity map object or "
+      "generic ordinary stable-range "
+      "framework is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_33_stable_iota_definition_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    ordinary_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    expected_source_group = HomotopyGroup(
+      group_dimension=3,
+      sphere_dimension=3,
+    )
+
+    if (
+      ordinary_relation.lhs
+      != expected_source_group
+    ):
+      return False
+
+    if not isinstance(
+      ordinary_relation.rhs,
+      FreeCyclicGroup,
+    ):
+      return False
+
+    iota_3 = (
+      ordinary_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      iota_3,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      iota_3.dimension
+      != 3
+    ):
+      return False
+
+    if (
+      iota_3.generator
+      != GeneratorSymbol(
+        family="ι",
+        index=3,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      identification,
+      Toda33StableOrdinaryIdentificationStatement,
+    ):
+      return False
+
+    if (
+      identification.source_group
+      != expected_source_group
+    ):
+      return False
+
+    return (
+      identification.target_group
+      == StableHomotopyGroup(
+        stem=0,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    ordinary_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    stable_iota = HomotopyElement(
+      name="ι",
+      dimension=0,
+      generator=GeneratorSymbol(
+        family="ι",
+      ),
+    )
+
+    return (
+      TodaStableIotaDefinitionStatement(
+        source_element=(
+          ordinary_relation
+          .rhs
+          .generator
+        ),
+        stable_group=(
+          identification
+          .target_group
+        ),
+        stable_element=stable_iota,
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (3.3) stable "
+      "identity generator definition"
+    ),
+    description=(
+      "Use the ordinary diagonal "
+      "generator iota_3 together with "
+      "the independently derived stable "
+      "identification pi_3(S^3) "
+      "isomorphic to G_0. "
+      "Record its stable identity class "
+      "iota. "
+      "The stable identity has stem zero "
+      "and no finite source or target "
+      "sphere. "
+      "No generic stable-generator "
+      "transport framework is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda33StableOrdinaryIdentificationStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_33_g0_free_cyclic_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    ordinary_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    stable_iota_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    expected_source_group = HomotopyGroup(
+      group_dimension=3,
+      sphere_dimension=3,
+    )
+
+    if (
+      ordinary_relation.lhs
+      != expected_source_group
+    ):
+      return False
+
+    if not isinstance(
+      ordinary_relation.rhs,
+      FreeCyclicGroup,
+    ):
+      return False
+
+    if not isinstance(
+      identification,
+      Toda33StableOrdinaryIdentificationStatement,
+    ):
+      return False
+
+    if (
+      identification.source_group
+      != expected_source_group
+    ):
+      return False
+
+    expected_stable_group = (
+      StableHomotopyGroup(
+        stem=0,
+      )
+    )
+
+    if (
+      identification.target_group
+      != expected_stable_group
+    ):
+      return False
+
+    if not isinstance(
+      stable_iota_definition,
+      TodaStableIotaDefinitionStatement,
+    ):
+      return False
+
+    if (
+      stable_iota_definition
+      .source_element
+      != ordinary_relation
+      .rhs
+      .generator
+    ):
+      return False
+
+    if (
+      stable_iota_definition
+      .stable_group
+      != expected_stable_group
+    ):
+      return False
+
+    stable_iota = (
+      stable_iota_definition
+      .stable_element
+    )
+
+    if (
+      stable_iota.name
+      != "ι"
+    ):
+      return False
+
+    if (
+      stable_iota.dimension
+      != 0
+    ):
+      return False
+
+    if (
+      stable_iota.source
+      is not None
+    ):
+      return False
+
+    if (
+      stable_iota.target
+      is not None
+    ):
+      return False
+
+    return (
+      stable_iota.generator
+      == GeneratorSymbol(
+        family="ι",
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    stable_iota_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=(
+        identification
+        .target_group
+      ),
+      rhs=FreeCyclicGroup(
+        generator=(
+          stable_iota_definition
+          .stable_element
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda (3.3) "
+      "stable G_0 free cyclic group"
+    ),
+    description=(
+      "Transport the independently "
+      "derived ordinary diagonal group "
+      "pi_3(S^3)=Z{iota_3} across the "
+      "Toda (3.3) stable identification, "
+      "using the independently derived "
+      "stable identity generator. "
+      "Derive G_0=Z{iota}. "
+      "This is an ordinary stable group, "
+      "not a 2-primary component. "
+      "No generic free-cyclic stable "
+      "transport framework is introduced."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda33StableOrdinaryIdentificationStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaStableIotaDefinitionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop58_g4_two_primary_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    source_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    expected_source_group = (
+      TodaPrimaryGroup(
+        group_dimension=10,
+        sphere_dimension=6,
+      )
+    )
+
+    if (
+      source_zero
+      != TodaPrimaryGroupZeroStatement(
+        group=expected_source_group,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      identification,
+      Toda45StableTwoPrimaryIdentificationStatement,
+    ):
+      return False
+
+    if (
+      identification.source_group
+      != expected_source_group
+    ):
+      return False
+
+    expected_component = (
+      StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=4,
+        ),
+        prime=2,
+      )
+    )
+
+    return (
+      identification.target_component
+      == expected_component
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    source_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return (
+      Toda45StableTwoPrimaryZeroStatement(
+        source_zero=source_zero,
+        identification=identification,
+        stable_component=(
+          identification
+          .target_component
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.8 "
+      "stable G_4 2-primary zero"
+    ),
+    description=(
+      "Use the independently derived "
+      "finite-dimensional result "
+      "pi_10^6=0 together with the "
+      "Toda (4.5) stable identification "
+      "pi_10^6 isomorphic to (G_4;2). "
+      "Conclude that (G_4;2)=0. "
+      "This rule is specific to the "
+      "Toda Proposition 5.8 four-stem "
+      "branch. "
+      "It does not introduce a generic "
+      "zero-group isomorphism transport "
+      "framework."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaPrimaryGroupZeroStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda45StableTwoPrimaryIdentificationStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop59_g5_two_primary_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    source_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    expected_source_group = (
+      TodaPrimaryGroup(
+        group_dimension=12,
+        sphere_dimension=7,
+      )
+    )
+
+    if (
+      source_zero
+      != TodaPrimaryGroupZeroStatement(
+        group=expected_source_group,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      identification,
+      Toda45StableTwoPrimaryIdentificationStatement,
+    ):
+      return False
+
+    if (
+      identification.source_group
+      != expected_source_group
+    ):
+      return False
+
+    expected_component = (
+      StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=5,
+        ),
+        prime=2,
+      )
+    )
+
+    return (
+      identification.target_component
+      == expected_component
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    source_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return (
+      Toda45StableTwoPrimaryZeroStatement(
+        source_zero=source_zero,
+        identification=identification,
+        stable_component=(
+          identification
+          .target_component
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.9 "
+      "stable G_5 2-primary zero"
+    ),
+    description=(
+      "Use the independently derived "
+      "finite-dimensional result "
+      "pi_12^7=0 together with the "
+      "Toda (4.5) stable identification "
+      "pi_12^7 isomorphic to (G_5;2). "
+      "Conclude that (G_5;2)=0. "
+      "This rule is specific to the "
+      "Toda Proposition 5.9 five-stem "
+      "branch. "
+      "It does not introduce a generic "
+      "zero-group isomorphism transport "
+      "framework."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaPrimaryGroupZeroStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda45StableTwoPrimaryIdentificationStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop511_g6_two_primary_finite_cyclic_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    source_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    stable_nu_squared_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    expected_source_group = (
+      TodaPrimaryGroup(
+        group_dimension=14,
+        sphere_dimension=8,
+      )
+    )
+
+    if (
+      source_relation.lhs
+      != expected_source_group
+    ):
+      return False
+
+    if not isinstance(
+      source_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      source_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    nu_8 = (
+      toda_nu_family_definition_statement(
+        8
+      ).element
+    )
+
+    nu_11 = (
+      toda_nu_family_definition_statement(
+        11
+      ).element
+    )
+
+    expected_source_generator = (
+      Composition(
+        left=nu_8,
+        right=nu_11,
+      )
+    )
+
+    if (
+      source_relation
+      .rhs
+      .generator
+      != expected_source_generator
+    ):
+      return False
+
+    if not isinstance(
+      identification,
+      Toda45StableTwoPrimaryIdentificationStatement,
+    ):
+      return False
+
+    if (
+      identification.source_group
+      != expected_source_group
+    ):
+      return False
+
+    expected_component = (
+      StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=6,
+        ),
+        prime=2,
+      )
+    )
+
+    if (
+      identification.target_component
+      != expected_component
+    ):
+      return False
+
+    if not isinstance(
+      stable_nu_squared_definition,
+      TodaStableNuSquaredDefinitionStatement,
+    ):
+      return False
+
+    if (
+      stable_nu_squared_definition
+      .source_generator
+      != expected_source_generator
+    ):
+      return False
+
+    if (
+      stable_nu_squared_definition
+      .stable_component
+      != expected_component
+    ):
+      return False
+
+    stable_nu = (
+      stable_nu_squared_definition
+      .stable_nu_definition
+      .stable_element
+    )
+
+    expected_stable_generator = Composition(
+      left=stable_nu,
+      right=stable_nu,
+    )
+
+    return (
+      stable_nu_squared_definition
+      .stable_element
+      == expected_stable_generator
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    source_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    stable_nu_squared_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=(
+        identification
+        .target_component
+      ),
+      rhs=FiniteCyclicGroup(
+        order=(
+          source_relation
+          .rhs
+          .order
+        ),
+        generator=(
+          stable_nu_squared_definition
+          .stable_element
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.11 "
+      "stable G_6 2-primary group"
+    ),
+    description=(
+      "Transport the independently derived "
+      "finite cyclic structure "
+      "pi_14^8=Z/2{nu_8 squared} across "
+      "the Toda (4.5) stable identification "
+      "pi_14^8 isomorphic to (G_6;2), "
+      "using the independently derived "
+      "stable nu-squared definition. "
+      "Derive "
+      "(G_6;2)=Z/2{nu squared}. "
+      "This rule is specific to the "
+      "Toda Proposition 5.11 nu-squared "
+      "branch and does not introduce "
+      "generic stable finite-cyclic or "
+      "composition transport machinery."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda45StableTwoPrimaryIdentificationStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaStableNuSquaredDefinitionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop56_g3_two_primary_finite_cyclic_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    source_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    stable_nu_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    expected_source_group = (
+      TodaPrimaryGroup(
+        group_dimension=8,
+        sphere_dimension=5,
+      )
+    )
+
+    if (
+      source_relation.lhs
+      != expected_source_group
+    ):
+      return False
+
+    if not isinstance(
+      source_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      source_relation.rhs.order
+      != 8
+    ):
+      return False
+
+    nu_5 = (
+      source_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      nu_5,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      nu_5.dimension
+      != 5
+    ):
+      return False
+
+    if (
+      nu_5.source
+      != 8
+    ):
+      return False
+
+    if (
+      nu_5.target
+      != 5
+    ):
+      return False
+
+    if (
+      nu_5.generator
+      != GeneratorSymbol(
+        family="ν",
+        index=5,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      identification,
+      Toda45StableTwoPrimaryIdentificationStatement,
+    ):
+      return False
+
+    if (
+      identification.source_group
+      != expected_source_group
+    ):
+      return False
+
+    expected_component = (
+      StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=3,
+        ),
+        prime=2,
+      )
+    )
+
+    if (
+      identification.target_component
+      != expected_component
+    ):
+      return False
+
+    if not isinstance(
+      stable_nu_definition,
+      TodaStableNuDefinitionStatement,
+    ):
+      return False
+
+    if (
+      stable_nu_definition
+      .stable_component
+      != expected_component
+    ):
+      return False
+
+    if (
+      stable_nu_definition
+      .source_definition
+      .element
+      != nu_5
+    ):
+      return False
+
+    stable_nu = (
+      stable_nu_definition
+      .stable_element
+    )
+
+    if (
+      stable_nu.name
+      != "ν"
+    ):
+      return False
+
+    if (
+      stable_nu.dimension
+      != 3
+    ):
+      return False
+
+    if (
+      stable_nu.source
+      is not None
+    ):
+      return False
+
+    if (
+      stable_nu.target
+      is not None
+    ):
+      return False
+
+    return (
+      stable_nu.generator
+      == GeneratorSymbol(
+        family="ν",
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    source_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    stable_nu_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=(
+        identification
+        .target_component
+      ),
+      rhs=FiniteCyclicGroup(
+        order=(
+          source_relation
+          .rhs
+          .order
+        ),
+        generator=(
+          stable_nu_definition
+          .stable_element
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.6 "
+      "stable G_3 2-primary group"
+    ),
+    description=(
+      "Transport the independently "
+      "derived finite cyclic structure "
+      "pi_8^5=Z/8{nu_5} across the "
+      "Toda (4.5) stable identification "
+      "pi_8^5 isomorphic to (G_3;2), "
+      "using the independently derived "
+      "stable nu definition. "
+      "Derive "
+      "(G_3;2)=Z/8{nu}. "
+      "This rule is specific to the "
+      "Toda Proposition 5.6 nu branch "
+      "and does not introduce generic "
+      "stable finite-cyclic transport."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda45StableTwoPrimaryIdentificationStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaStableNuDefinitionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop53_g2_two_primary_finite_cyclic_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    source_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    stable_eta_squared_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    expected_source_group = (
+      TodaPrimaryGroup(
+        group_dimension=6,
+        sphere_dimension=4,
+      )
+    )
+
+    if (
+      source_relation.lhs
+      != expected_source_group
+    ):
+      return False
+
+    if not isinstance(
+      source_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      source_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    if not isinstance(
+      stable_eta_squared_definition,
+      TodaStableEtaSquaredDefinitionStatement,
+    ):
+      return False
+
+    if (
+      source_relation
+      .rhs
+      .generator
+      != stable_eta_squared_definition
+      .source_generator
+    ):
+      return False
+
+    eta_4 = (
+      toda_eta_family_definition_statement(
+        4
+      ).element
+    )
+
+    eta_5 = (
+      toda_eta_family_definition_statement(
+        5
+      ).element
+    )
+
+    expected_source_generator = (
+      Composition(
+        left=eta_4,
+        right=eta_5,
+      )
+    )
+
+    if (
+      source_relation
+      .rhs
+      .generator
+      != expected_source_generator
+    ):
+      return False
+
+    if not isinstance(
+      identification,
+      Toda45StableTwoPrimaryIdentificationStatement,
+    ):
+      return False
+
+    if (
+      identification.source_group
+      != expected_source_group
+    ):
+      return False
+
+    expected_component = (
+      StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=2,
+        ),
+        prime=2,
+      )
+    )
+
+    if (
+      identification.target_component
+      != expected_component
+    ):
+      return False
+
+    if (
+      stable_eta_squared_definition
+      .stable_component
+      != expected_component
+    ):
+      return False
+
+    stable_eta_squared = (
+      stable_eta_squared_definition
+      .stable_element
+    )
+
+    if not isinstance(
+      stable_eta_squared,
+      Composition,
+    ):
+      return False
+
+    stable_eta = (
+      stable_eta_squared_definition
+      .stable_eta_definition
+      .stable_element
+    )
+
+    return (
+      stable_eta_squared
+      == Composition(
+        left=stable_eta,
+        right=stable_eta,
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    source_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    stable_eta_squared_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=(
+        identification
+        .target_component
+      ),
+      rhs=FiniteCyclicGroup(
+        order=(
+          source_relation
+          .rhs
+          .order
+        ),
+        generator=(
+          stable_eta_squared_definition
+          .stable_element
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.3 "
+      "stable G_2 2-primary group"
+    ),
+    description=(
+      "Transport the independently derived "
+      "finite cyclic structure "
+      "pi_6^4=Z/2{eta_4 squared} across "
+      "the Toda (4.5) stable identification "
+      "pi_6^4 isomorphic to (G_2;2), "
+      "using the independently derived "
+      "stable eta-squared definition. "
+      "Derive "
+      "(G_2;2)=Z/2{eta squared}. "
+      "This rule is specific to the "
+      "Toda Proposition 5.3 eta-squared "
+      "branch and does not introduce "
+      "generic stable finite-cyclic or "
+      "composition transport machinery."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda45StableTwoPrimaryIdentificationStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaStableEtaSquaredDefinitionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop51_g1_two_primary_finite_cyclic_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    source_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    stable_eta_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    expected_source_group = (
+      TodaPrimaryGroup(
+        group_dimension=4,
+        sphere_dimension=3,
+      )
+    )
+
+    if (
+      source_relation.lhs
+      != expected_source_group
+    ):
+      return False
+
+    if not isinstance(
+      source_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      source_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    eta_3 = (
+      source_relation
+      .rhs
+      .generator
+    )
+
+    if not isinstance(
+      eta_3,
+      HomotopyElement,
+    ):
+      return False
+
+    if (
+      eta_3.dimension
+      != 3
+      or eta_3.source
+      != 4
+      or eta_3.target
+      != 3
+      or eta_3.generator
+      != GeneratorSymbol(
+        family="η",
+        index=3,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      identification,
+      Toda45StableTwoPrimaryIdentificationStatement,
+    ):
+      return False
+
+    if (
+      identification.source_group
+      != expected_source_group
+    ):
+      return False
+
+    expected_component = (
+      StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=1,
+        ),
+        prime=2,
+      )
+    )
+
+    if (
+      identification.target_component
+      != expected_component
+    ):
+      return False
+
+    if not isinstance(
+      stable_eta_definition,
+      TodaStableEtaDefinitionStatement,
+    ):
+      return False
+
+    if (
+      stable_eta_definition
+      .stable_component
+      != expected_component
+    ):
+      return False
+
+    if (
+      stable_eta_definition
+      .source_definition
+      .element
+      != eta_3
+    ):
+      return False
+
+    stable_eta = (
+      stable_eta_definition
+      .stable_element
+    )
+
+    if (
+      stable_eta.name
+      != "η"
+    ):
+      return False
+
+    if (
+      stable_eta.dimension
+      != 1
+    ):
+      return False
+
+    if (
+      stable_eta.source
+      is not None
+    ):
+      return False
+
+    if (
+      stable_eta.target
+      is not None
+    ):
+      return False
+
+    return (
+      stable_eta.generator
+      == GeneratorSymbol(
+        family="η",
+      )
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    source_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    stable_eta_definition = (
+      premises[
+        2
+      ].conclusion
+    )
+
+    return Relation(
+      lhs=(
+        identification
+        .target_component
+      ),
+      rhs=FiniteCyclicGroup(
+        order=(
+          source_relation
+          .rhs
+          .order
+        ),
+        generator=(
+          stable_eta_definition
+          .stable_element
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.1 "
+      "stable G_1 2-primary group"
+    ),
+    description=(
+      "Transport the independently "
+      "derived finite cyclic structure "
+      "pi_4^3=Z/2{eta_3} across the "
+      "Toda (4.5) stable identification "
+      "pi_4^3 isomorphic to (G_1;2), "
+      "using the independently derived "
+      "stable eta definition. "
+      "Derive "
+      "(G_1;2)=Z/2{eta}. "
+      "This rule is specific to the "
+      "Toda Proposition 5.1 eta branch "
+      "and does not introduce a generic "
+      "stable finite-cyclic transport "
+      "framework."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda45StableTwoPrimaryIdentificationStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaStableEtaDefinitionStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
 
 
 def toda_lemma513_sigma_triple_prime_definition_inference_rule():

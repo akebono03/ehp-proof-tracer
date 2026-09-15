@@ -11660,3 +11660,418 @@ generic sign / coefficient solver
 automatic proof narrative generation
 persistent Proof Repository
 ```
+
+---
+
+# Phase 78：stable \(G_0...G_7\) consolidation
+
+Phase 78 revisits the stable branches deliberately deferred by earlier finite-dimensional phases.
+
+Final target:
+
+```text
+G_0=Z{ι}
+
+(G_1;2)=Z/2{η}
+(G_2;2)=Z/2{η²}
+(G_3;2)=Z/8{ν}
+(G_4;2)=0
+(G_5;2)=0
+(G_6;2)=Z/2{ν²}
+(G_7;2)=Z/16{σ}
+```
+
+## Phase 78-1〜78-3：source / repository / representation audit
+
+Confirmed:
+
+```text
+G_0 is ordinary stable homotopy
+G_1...G_7 use 2-primary stable components
+Toda (4.5) finite-stage isomorphism must remain unchanged
+stable identities need separate representation
+```
+
+selected representation:
+
+```text
+StableHomotopyGroup
+StablePrimaryComponent
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 78-4：stable group representation
+
+added:
+
+```text
+StableHomotopyGroup
+StablePrimaryComponent
+tests/test_phase78_stable_group_representation.py
+```
+
+repository-wide:
+
+```text
+6288 passed in 38.54s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 78-5：Toda stable 2-primary identification
+
+added:
+
+```text
+Toda45StableTwoPrimaryIdentificationStatement
+toda_45_stable_two_primary_identification_inference_rule()
+tests/test_phase78_stable_two_primary_identification.py
+```
+
+repository-wide:
+
+```text
+6308 passed in 34.37s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 78-6：stable σ / G_7
+
+added:
+
+```text
+TodaStableSigmaDefinitionStatement
+toda_prop515_stable_sigma_definition_inference_rule()
+toda_prop515_g7_two_primary_finite_cyclic_inference_rule()
+tests/test_phase78_g7_stable_sigma_transport.py
+```
+
+derived:
+
+```text
+(G_7;2)=Z/16{σ}
+```
+
+repository-wide:
+
+```text
+6325 passed in 35.16s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 78-7：η / η² / ν / ν² compatibility audit
+
+Confirmed:
+
+```text
+η₃ -> η
+η₄²=η₄∘η₅ -> η²=η∘η
+ν₅ -> ν
+ν₈²=ν₈∘ν₁₁ -> ν²=ν∘ν
+```
+
+No generic stable composition typing is required.
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 78-8A：stable η / G_1
+
+added:
+
+```text
+TodaStableEtaDefinitionStatement
+toda_prop51_stable_eta_definition_inference_rule()
+toda_prop51_g1_two_primary_finite_cyclic_inference_rule()
+```
+
+derived:
+
+```text
+(G_1;2)=Z/2{η}
+```
+
+repository-wide:
+
+```text
+6343 passed in 34.28s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 78-8B：stable η² / G_2
+
+added:
+
+```text
+TodaStableEtaSquaredDefinitionStatement
+toda_prop53_stable_eta_squared_definition_inference_rule()
+toda_prop53_g2_two_primary_finite_cyclic_inference_rule()
+```
+
+derived:
+
+```text
+(G_2;2)=Z/2{η²}
+```
+
+repository-wide:
+
+```text
+6363 passed in 34.48s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 78-8C：stable ν / G_3
+
+added:
+
+```text
+TodaStableNuDefinitionStatement
+toda_prop56_stable_nu_definition_inference_rule()
+toda_prop56_g3_two_primary_finite_cyclic_inference_rule()
+```
+
+derived:
+
+```text
+(G_3;2)=Z/8{ν}
+```
+
+repository-wide:
+
+```text
+6383 passed in 33.65s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 78-8D：stable ν² / G_6
+
+added:
+
+```text
+TodaStableNuSquaredDefinitionStatement
+toda_prop511_stable_nu_squared_definition_inference_rule()
+toda_prop511_g6_two_primary_finite_cyclic_inference_rule()
+```
+
+derived:
+
+```text
+(G_6;2)=Z/2{ν²}
+```
+
+repository-wide:
+
+```text
+6404 passed in 35.23s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 78-9：stable zero transport G_4 / G_5
+
+added:
+
+```text
+Toda45StableTwoPrimaryZeroStatement
+toda_prop58_g4_two_primary_zero_inference_rule()
+toda_prop59_g5_two_primary_zero_inference_rule()
+```
+
+derived:
+
+```text
+(G_4;2)=0
+(G_5;2)=0
+```
+
+repository-wide:
+
+```text
+6423 passed in 33.97s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 78-10：ordinary stable G_0
+
+added:
+
+```text
+Toda33StableOrdinaryIdentificationStatement
+TodaStableIotaDefinitionStatement
+
+toda_43_pi3_3_ordinary_free_cyclic_inference_rule()
+toda_33_g0_stable_identification_inference_rule()
+toda_33_stable_iota_definition_inference_rule()
+toda_33_g0_free_cyclic_inference_rule()
+```
+
+derived:
+
+```text
+G_0=Z{ι}
+```
+
+repository-wide:
+
+```text
+6444 passed in 35.94s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 78-11：G_0...G_7 integration / probe / provenance audit
+
+added:
+
+```text
+TodaStableG0ToG7Statement
+toda_stable_g0_to_g7_integration_inference_rule()
+
+tests/test_phase78_stable_g0_to_g7_integration.py
+probes/probe_phase78_capabilities.py
+tests/test_phase78_probe.py
+```
+
+provenance audit:
+
+```text
+all 8 direct branches INFERENCE
+exact branch ProofStep objects reused
+all branches reachable
+aggregate not GIVEN
+aggregate not self-ancestor
+final conclusion absent from ancestors
+upstream branches do not depend on aggregate
+proof graph acyclic
+```
+
+focused aggregate:
+
+```text
+18 passed in 2.15s
+```
+
+probe:
+
+```text
+10 passed in 1.64s
+```
+
+integrated Phase 78 stable suite:
+
+```text
+164 passed in 2.99s
+```
+
+repository-wide:
+
+```text
+6472 passed in 35.18s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 78-12：completion documentation / formal proof record
+
+updated:
+
+```text
+README.md
+docs/design.md
+docs/development_log.md
+docs/roadmap.md
+docs/code_reference.md
+docs/proof_records.md
+```
+
+formal proof record:
+
+```text
+record 13
+Phase 78 stable G_0 through G_7 integration
+```
+
+still not introduced:
+
+```text
+generic E^∞ map
+generic stable-group database
+generic stable theorem engine
+generic stable composition typing
+automatic proof narrative generation
+persistent Proof Repository
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 78 completion
+
+Phase 78 mathematics, representation, integration, provenance, representative probe, regression, and documentation are COMPLETE.
+
+Final repository-wide regression:
+
+```text
+6472 passed in 35.18s
+```
+
+Next phase must begin with a new source / dependency audit before choosing the next theorem implementation target.
+
