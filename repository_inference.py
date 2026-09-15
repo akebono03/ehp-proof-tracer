@@ -14,6 +14,7 @@ from proof_repository import ProofRepository
 from rule_catalog import (
   InferenceRuleCatalog,
   find_goal_compatible_rules,
+  find_premise_producer_rules,
 )
 
 
@@ -364,4 +365,126 @@ def derive_goal_from_repository_with_catalog(
     goal,
     max_rounds=max_rounds,
   )
+
+
+def derive_goal_from_repository_with_one_level_producers(
+  repository: ProofRepository,
+  rule_catalog: InferenceRuleCatalog,
+  goal,
+  max_rounds=None,
+) -> RepositoryInferenceResult:
+  if not isinstance(
+    repository,
+    ProofRepository,
+  ):
+    raise TypeError(
+      "repository must be a "
+      "ProofRepository"
+    )
+
+  if not isinstance(
+    rule_catalog,
+    InferenceRuleCatalog,
+  ):
+    raise TypeError(
+      "rule_catalog must be an "
+      "InferenceRuleCatalog"
+    )
+
+  initial_steps = (
+    repository_available_steps(
+      repository
+    )
+  )
+
+  final_rules = (
+    find_goal_compatible_rules(
+      rule_catalog,
+      goal,
+    )
+  )
+
+  producer_rules = []
+  seen_producer_rule_ids = set()
+
+  for final_rule in final_rules:
+    availability = (
+      detect_missing_premises(
+        final_rule,
+        initial_steps,
+      )
+    )
+
+    if len(
+      availability.missing_patterns
+    ) != 1:
+      continue
+
+    missing_pattern = (
+      availability.missing_patterns[
+        0
+      ]
+    )
+
+    for producer_rule in (
+      find_premise_producer_rules(
+        rule_catalog,
+        missing_pattern,
+      )
+    ):
+      producer_rule_id = id(
+        producer_rule
+      )
+
+      if (
+        producer_rule_id
+        in seen_producer_rule_ids
+      ):
+        continue
+
+      seen_producer_rule_ids.add(
+        producer_rule_id
+      )
+      producer_rules.append(
+        producer_rule
+      )
+
+  if producer_rules:
+    producer_result = (
+      run_inference_until_stable_with_history(
+        tuple(
+          producer_rules
+        ),
+        initial_steps,
+        max_rounds=1,
+      )
+    )
+
+    final_available_steps = (
+      producer_result.steps
+    )
+  else:
+    final_available_steps = (
+      initial_steps
+    )
+
+  final_result = (
+    run_inference_until_stable_with_history(
+      final_rules,
+      final_available_steps,
+      max_rounds=max_rounds,
+    )
+  )
+
+  goal_step = find_goal_step(
+    final_result.steps,
+    goal,
+  )
+
+  return RepositoryInferenceResult(
+    inference_result=final_result,
+    goal_step=goal_step,
+  )
+
+
 
