@@ -622,6 +622,32 @@ def find_missing_premise_producer_lookups(
   )
 
 
+def analyze_producer_premise_availabilities(
+  lookup,
+  available_steps,
+) -> tuple[
+  PremiseAvailability,
+  ...,
+]:
+  if not isinstance(
+    lookup,
+    MissingPremiseProducerLookup,
+  ):
+    raise TypeError(
+      "lookup must be a "
+      "MissingPremiseProducerLookup"
+    )
+
+  return tuple(
+    detect_missing_premises(
+      producer_rule,
+      available_steps,
+    )
+    for producer_rule
+    in lookup.producer_rules
+  )
+
+
 def all_missing_premises_uniquely_producible(
   lookups,
 ) -> bool:
