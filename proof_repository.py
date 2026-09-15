@@ -95,6 +95,16 @@ class ProofRepository:
       key
     ]
 
+  def entries(
+    self,
+  ) -> tuple[
+    ProofRepositoryEntry,
+    ...,
+  ]:
+    return tuple(
+      self._entries.values()
+    )
+
   def find_by_conclusion(
     self,
     conclusion,
@@ -177,5 +187,3 @@ class ProofRepository:
       )
 
     return entry.step.premises
-
-
