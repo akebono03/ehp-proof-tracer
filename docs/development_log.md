@@ -12075,3 +12075,475 @@ Final repository-wide regression:
 
 Next phase must begin with a new source / dependency audit before choosing the next theorem implementation target.
 
+
+---
+
+# Phase 79：minimal in-memory Proof Repository
+
+Phase 78 までに stable `G_0...G_7` を含む concrete proof graph が十分蓄積したため、Phase 65 以来 deferred としていた minimum Proof Repository milestone を開始した。
+
+目的:
+
+```text
+既存 ProofStep を作る
+↓
+repository に登録する
+↓
+key / statement / theorem / phase から探す
+↓
+既存 ProofStep graph をそのまま再利用する
+```
+
+persistent storage や automatic proof search は Phase 79 の対象外とした。
+
+---
+
+## Phase 79-1：current proof storage / retrieval audit
+
+確認:
+
+```text
+machine proof
+= in-memory ProofStep graph
+
+proof construction
+= Phase-specific builder / fixture
+
+human record
+= docs/proof_records.md
+
+process-local reuse
+= @lru_cache(maxsize=1)
+```
+
+現状 retrieval:
+
+```text
+Phase / theorem を人間が知る
+↓
+builder を import
+↓
+builder 実行
+↓
+result dict から ProofStep を取得
+```
+
+不足:
+
+```text
+statement -> ProofStep
+theorem -> ProofStep
+phase -> ProofStep
+cross-phase catalog lookup
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 79-2：repository responsibility boundary
+
+決定:
+
+```text
+repository
+= registration / metadata / lookup / dependency access
+
+repository
+!= proof construction
+!= inference engine
+!= graph transformer
+!= proof validator
+!= presentation generator
+```
+
+`ProofStep` を authoritative proof object として維持。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 79-3：minimum data model
+
+決定:
+
+```text
+1 entry = 1 ProofStep
+
+ProofRepositoryEntry
+  key
+  step
+  phase
+  theorem
+```
+
+追加しない:
+
+```text
+dependency copy
+statement_type field
+proof_rule field
+tags
+UUID
+version
+builder reference
+```
+
+`dependency` は `ProofStep.premises` を authoritative source とする。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 79-4：lookup / registration API compatibility
+
+minimum API:
+
+```text
+register()
+get()
+find_by_conclusion()
+find_by_statement_type()
+find_by_phase()
+find_by_theorem()
+dependencies()
+```
+
+semantics:
+
+```text
+same key rejected
+same conclusion allowed
+structural conclusion equality
+isinstance statement-type lookup
+exact phase / theorem match
+registration-order results
+direct premise passthrough
+```
+
+existing builder / inference API を変更しない方針を確定。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 79-5：persistence requirement audit
+
+Phase 79 では persistence を実装しないと決定。
+
+将来 persistence で必要:
+
+```text
+repository key / metadata
+ProofStep conclusion structure
+ProofRule
+premise edges
+inference-rule identity
+literature metadata
+schema / semantic compatibility
+```
+
+保存対象にしない:
+
+```text
+builder functions
+builder dictionaries
+Python callables
+lru_cache state
+probe presentation text
+Python object `is` identity
+```
+
+persistent node identity / serialization / replay は後段へ deferred。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 79-6：minimal in-memory repository implementation
+
+追加 production file:
+
+```text
+proof_repository.py
+```
+
+追加:
+
+```text
+ProofRepositoryEntry
+ProofRepository
+```
+
+API:
+
+```text
+register()
+get()
+find_by_conclusion()
+find_by_statement_type()
+find_by_phase()
+find_by_theorem()
+dependencies()
+```
+
+追加 test:
+
+```text
+tests/test_proof_repository.py
+```
+
+focused:
+
+```text
+21 passed in 2.42s
+```
+
+Phase 78 integration included:
+
+```text
+39 passed in 1.89s
+```
+
+repository-wide:
+
+```text
+6493 passed in 36.61s
+```
+
+`proof.py` / inference engine は変更なし。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 79-7：cross-phase registration / retrieval integration
+
+追加:
+
+```text
+tests/test_phase79_cross_phase_repository.py
+probes/probe_phase79_capabilities.py
+```
+
+representative registration:
+
+```text
+Phase 76  Toda Equation (5.16)
+Phase 77  Toda Lemma 5.16
+Phase 78  stable G_0 through G_7 integration
+```
+
+verified:
+
+```text
+lookup by key
+lookup by phase
+lookup by theorem
+lookup by conclusion
+lookup by statement type
+exact original ProofStep identity preserved
+```
+
+direct dependencies:
+
+```text
+Phase 76 = 2
+Phase 77 = 2
+Phase 78 = 8
+```
+
+focused:
+
+```text
+14 passed in 1.89s
+```
+
+Phase 79 repository tests:
+
+```text
+35 passed in 2.14s
+```
+
+Phase 76–79 focused:
+
+```text
+112 passed in 2.43s
+```
+
+repository-wide:
+
+```text
+6507 passed in 33.63s
+```
+
+representative probe confirms:
+
+```text
+cross-phase lookup = True
+original ProofStep identity preserved = True
+persistence enabled = False
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 79-8：repository applicability / duplicate / non-circularity regression
+
+追加:
+
+```text
+tests/test_phase79_repository_regression.py
+```
+
+verified:
+
+```text
+same conclusion can retain multiple distinct entries
+same conclusion proofs retain distinct dependencies
+same ProofStep can have different repository metadata without mutation
+repository metadata does not affect inference applicability
+repository lookup creates no new ProofStep nodes
+repository registration adds no proof edges
+Phase 76 / 77 / 78 retrieved proofs remain non-circular
+Phase 76 / 77 / 78 ancestry remains unchanged
+```
+
+focused:
+
+```text
+13 passed in 1.95s
+```
+
+Phase 79 repository suite:
+
+```text
+48 passed in 2.39s
+```
+
+Phase 76–79 focused provenance regression:
+
+```text
+125 passed in 2.64s
+```
+
+repository-wide:
+
+```text
+6520 passed in 35.07s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 79-9：completion documentation / repository infrastructure record
+
+更新:
+
+```text
+README.md
+docs/design.md
+docs/development_log.md
+docs/roadmap.md
+docs/code_reference.md
+docs/proof_records.md
+```
+
+formal distinction:
+
+```text
+Phase 66–78 records
+= mathematical proof records
+
+Phase 79 record
+= Proof Repository infrastructure record
+```
+
+Phase 79 does not add a new mathematical theorem result.
+
+Final repository-wide regression:
+
+```text
+6520 passed in 35.07s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 79 completion
+
+Completed capability:
+
+```text
+existing ProofStep
+↓
+register in in-memory ProofRepository
+↓
+lookup by key / conclusion / statement type / phase / theorem
+↓
+reuse exact existing ProofStep and direct premise graph
+```
+
+Cross-phase representative coverage:
+
+```text
+Phase 76
+Phase 77
+Phase 78
+```
+
+provenance boundary:
+
+```text
+repository catalog metadata does not affect inference
+repository does not rewrite proof graph
+repository does not merge equal conclusions
+repository does not introduce circularity
+```
+
+representative probe:
+
+```powershell
+python -m probes.probe_phase79_capabilities
+```
+
+final repository-wide regression:
+
+```text
+6520 passed in 35.07s
+```
+
+still deferred:
+
+```text
+persistent repository
+serialization / SQLite
+persistent proof-node identity
+schema migration
+proof replay / validation
+reverse dependency index
+automatic builder execution
+automatic theorem search
+automatic proof narrative generation
+```

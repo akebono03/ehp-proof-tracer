@@ -6770,3 +6770,194 @@ repository-wide: 6472 passed in 35.18s
 
 Phase 78 is COMPLETE.
 
+
+---
+
+# 104. Phase 79 Proof Repository module
+
+`proof_repository.py`:
+
+```text
+ProofRepositoryEntry
+ProofRepository
+```
+
+`ProofRepositoryEntry` fields:
+
+```text
+key
+step
+phase
+theorem
+```
+
+The entry stores the existing `ProofStep`; it does not copy conclusion / premises / rule / inference metadata.
+
+# 105. Phase 79 repository API
+
+```text
+ProofRepository.register(entry)
+ProofRepository.get(key)
+ProofRepository.find_by_conclusion(conclusion)
+ProofRepository.find_by_statement_type(statement_type)
+ProofRepository.find_by_phase(phase)
+ProofRepository.find_by_theorem(theorem)
+ProofRepository.dependencies(entry)
+```
+
+Semantics:
+
+```text
+key unique
+same conclusion allowed
+registration order preserved
+conclusion uses ==
+statement type uses isinstance
+phase / theorem exact match
+dependencies returns exact step.premises tuple
+```
+
+# 106. Phase 79 unit tests
+
+```text
+tests/test_proof_repository.py
+```
+
+Coverage:
+
+```text
+entry validation
+register / get
+object identity preservation
+duplicate key rejection
+same conclusion support
+same step / multiple metadata entries
+conclusion lookup
+statement-type lookup
+phase lookup
+theorem lookup
+direct dependency passthrough
+Phase 78 actual ProofStep compatibility
+```
+
+Focused result:
+
+```text
+21 passed in 2.42s
+```
+
+# 107. Phase 79 cross-phase integration
+
+```text
+tests/test_phase79_cross_phase_repository.py
+```
+
+builder:
+
+```text
+build_phase79_7_data()
+```
+
+The builder uses `@lru_cache(maxsize=1)` because it reuses heavy deterministic Phase 76 / 77 / 78 object graphs.
+
+Registered representatives:
+
+```text
+phase76.delta_iota17
+phase77.lemma516
+phase78.stable_g0_to_g7
+```
+
+Direct dependency counts:
+
+```text
+2
+2
+8
+```
+
+Focused result:
+
+```text
+14 passed in 1.89s
+```
+
+# 108. Phase 79 repository regression
+
+```text
+tests/test_phase79_repository_regression.py
+```
+
+Checks:
+
+```text
+same conclusion / distinct proofs remain distinct
+registration order retained
+separate dependency graphs retained
+metadata does not mutate ProofStep
+Phase 77 inference applicability unchanged
+metadata ignored by applicability
+lookup creates no graph nodes
+Phase 76 / 77 / 78 non-circularity retained
+Phase 76 / 77 / 78 ancestry retained
+```
+
+Focused result:
+
+```text
+13 passed in 1.95s
+```
+
+# 109. Phase 79 representative probe
+
+```text
+probes/probe_phase79_capabilities.py
+```
+
+entry:
+
+```text
+build_phase79_representative_result()
+main()
+```
+
+Representative source:
+
+```text
+build_phase79_7_data()
+```
+
+Displays:
+
+```text
+registered Phase 76 / 77 / 78 proofs
+cross-phase lookup
+original ProofStep identity preservation
+direct dependency counts
+in-memory / no-auto-inference / no-persistence boundary
+```
+
+# 110. Phase 79 regression / boundary
+
+```text
+Phase 79 repository suite: 48 passed in 2.39s
+Phase 76–79 focused provenance regression: 125 passed in 2.64s
+repository-wide: 6520 passed in 35.07s
+```
+
+Not introduced:
+
+```text
+persistent storage
+serialization
+persistent node IDs
+reverse dependency production index
+recursive ancestry production API
+auto-run builders
+auto-run inference
+generic theorem search
+proof replay
+automatic proof narrative generation
+```
+
+Phase 79 is COMPLETE.

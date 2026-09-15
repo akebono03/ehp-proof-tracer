@@ -9174,3 +9174,308 @@ Phase 78 is COMPLETE.
 
 The next implementation target must be selected by a new source / dependency audit rather than by preemptively expanding the stable framework.
 
+
+---
+
+# 105. Phase 79 Proof Repository responsibility boundary
+
+Phase 79 introduces a repository layer without changing the proof / inference layer.
+
+```text
+proof.py
+= proof semantics / inference / provenance
+
+proof_repository.py
+= registration / catalog metadata / lookup
+```
+
+Dependency direction:
+
+```text
+proof_repository.py
+↓ imports
+proof.py
+```
+
+`proof.py` does not import or know about the repository.
+
+The repository does not:
+
+```text
+apply inference rules
+run fixed-point inference
+auto-run builders
+copy proof graphs
+normalize conclusions
+rewrite premises
+validate acyclicity
+serialize proof graphs
+generate proof narrative
+```
+
+---
+
+# 106. Phase 79 minimum repository data model
+
+Canonical entry:
+
+```text
+ProofRepositoryEntry
+  key: str
+  step: ProofStep
+  phase: str | None
+  theorem: str | None
+```
+
+Design rule:
+
+```text
+1 entry = 1 ProofStep
+```
+
+`ProofStep` remains authoritative for:
+
+```text
+conclusion
+premises
+rule
+note
+inference_rule
+```
+
+Do not duplicate these fields into repository metadata.
+
+The `key` is repository identity. Conclusion equality is not repository identity.
+
+Therefore:
+
+```text
+same key
+→ invalid
+
+same conclusion
+→ allowed
+```
+
+This leaves room for multiple derivations of the same mathematical conclusion.
+
+---
+
+# 107. Phase 79 lookup semantics
+
+Minimum API:
+
+```text
+register(entry)
+get(key)
+find_by_conclusion(conclusion)
+find_by_statement_type(statement_type)
+find_by_phase(phase)
+find_by_theorem(theorem)
+dependencies(entry)
+```
+
+Rules:
+
+```text
+get(key)
+→ exact key lookup
+→ KeyError if absent
+
+find_by_conclusion(x)
+→ entry.step.conclusion == x
+→ zero / one / many results
+
+find_by_statement_type(T)
+→ isinstance(entry.step.conclusion,T)
+
+find_by_phase(p)
+→ exact metadata match
+
+find_by_theorem(t)
+→ exact metadata match
+
+lookup collections
+→ registration order
+
+dependencies(entry)
+→ entry.step.premises
+```
+
+No generic query DSL or fuzzy matching is introduced.
+
+---
+
+# 108. Phase 79 proof identity / duplicate policy
+
+Within one Python process:
+
+```text
+repository.get(key).step is original_step
+```
+
+The repository does not clone, replace, serialize, or reconstruct registered `ProofStep` objects.
+
+Regression verifies that two distinct proofs may share a structurally equal conclusion while retaining distinct premise graphs.
+
+Catalog metadata:
+
+```text
+key
+phase
+theorem
+```
+
+does not participate in inference applicability.
+
+The same `ProofStep` may be referenced through different metadata entries without changing:
+
+```text
+step.conclusion
+step.premises
+step.rule
+step.inference_rule
+```
+
+---
+
+# 109. Phase 79 cross-phase / non-circularity policy
+
+Representative registered proofs:
+
+```text
+Phase 76  Toda Equation (5.16)
+Phase 77  Toda Lemma 5.16
+Phase 78  stable G_0 through G_7 integration
+```
+
+Expected direct dependency counts:
+
+```text
+Phase 76 = 2
+Phase 77 = 2
+Phase 78 = 8
+```
+
+Registration coverage is intentionally independent from proof-graph completeness:
+
+```text
+registered final ProofStep
+↓
+ProofStep.premises
+↓
+unregistered premise nodes remain reachable
+```
+
+Regression verifies:
+
+```text
+repository lookup creates no new ProofStep nodes
+registration adds no premise edges
+Phase 76 ancestry unchanged
+Phase 77 ancestry unchanged
+Phase 78 ancestry unchanged
+retrieved final step is not self-ancestor
+retrieved final conclusion is absent from ancestors
+```
+
+---
+
+# 110. Phase 79 persistence boundary
+
+Phase 79 repository is in-memory only.
+
+Current lifecycle:
+
+```text
+program run
+↓
+build / infer ProofStep graph
+↓
+register exact ProofStep objects
+↓
+lookup / reuse within process
+
+program exit
+↓
+repository contents disappear
+```
+
+`@lru_cache(maxsize=1)` remains process-local builder reuse and is not persistence.
+
+Future persistence must preserve proof meaning rather than Python process state.
+
+Required or likely-required durable information:
+
+```text
+repository identity / metadata
+typed conclusion structure
+ProofRule
+premise graph edges
+inference-rule identity
+literature metadata
+schema / semantic compatibility version
+```
+
+Not durable canonical data:
+
+```text
+builder function objects
+builder result dictionaries
+Python executable callables
+lru_cache state
+probe output
+Python `is` identity
+```
+
+Future persistence may require persistent node identity because Python object identity cannot survive process boundaries.
+
+Deferred:
+
+```text
+serialization format
+persistent node IDs
+JSON / SQLite backing store
+schema migration
+proof replay / validation
+reverse dependency indexing
+```
+
+---
+
+# 111. Phase 79 representative probe / regression boundary
+
+Representative probe:
+
+```text
+probes/probe_phase79_capabilities.py
+```
+
+Representative source:
+
+```text
+build_phase79_7_data()
+```
+
+Displays:
+
+```text
+registered Phase 76 / 77 / 78 representatives
+cross-phase lookup
+original ProofStep identity preservation
+direct dependency counts
+repository responsibility boundary
+```
+
+Phase 79 regression:
+
+```text
+repository unit tests: 21 passed
+cross-phase integration: 14 passed
+repository regression: 13 passed
+Phase 79 repository suite: 48 passed in 2.39s
+Phase 76–79 focused provenance regression: 125 passed in 2.64s
+repository-wide: 6520 passed in 35.07s
+```
+
+Phase 79 is COMPLETE.
