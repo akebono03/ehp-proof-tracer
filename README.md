@@ -29,7 +29,7 @@ The implementation strategy is to formalize only the minimum theorem consequence
 
 # Current status
 
-Completed through Phase 81.
+Completed through Phase 81. Phase 82 implementation is complete through Phase 82-7, with final probe/full regression pending.
 
 ```text
 Phase 1–27   generic proof / algebra / Toda-bracket foundation
@@ -79,12 +79,13 @@ Phase 78     stable G_0 through G_7 integration
 Phase 79     minimal in-memory Proof Repository / cross-phase retrieval
 Phase 80     repository-assisted automatic inference
 Phase 81     automatic rule selection / proof-search foundation
+Phase 82     one-level goal-directed proof search / missing-premise production
 ```
 
-Latest pre-probe repository-wide regression:
+Latest pre-Phase-82-probe repository-wide regression:
 
 ```text
-6631 passed in 34.70s
+6716 passed in 35.78s
 ```
 
 Phase 64 same-machine baseline:
@@ -97,10 +98,10 @@ The Phase 64 final regression is approximately 88.4% faster than the same-machin
 
 Phase 81 automatic rule selection is implemented through actual Phase 77 / Toda Lemma 5.16 proof integration. The project can now inspect a goal, select fixed-point-safe rules from an `InferenceRuleCatalog` by exact conclusion type, preserve aliases at the catalog layer while identity-deduplicating execution rules, and reuse existing repository premises to derive a previously unregistered theorem goal. Applicability remains owned by existing premise patterns and `match_guard`. Repository-wide wall time is machine-dependent because development is performed on two PCs; the latest pre-probe full regression is 6631 passed in 34.70s.
 
-Representative current probe:
+Representative current probe after Phase 82-7:
 
 ```powershell
-python -m probes.probe_phase81_capabilities
+python -m probes.probe_phase82_capabilities
 ```
 
 ---
@@ -6095,3 +6096,171 @@ generic theorem prover
 The next natural milestone is Phase 82: multi-step / goal-directed proof-search foundation.
 
 Phase 82 should begin by defining how a selected final rule can request missing premises and how candidate producer rules are discovered without immediately introducing unrestricted backward chaining, search ranking, or a general theorem prover.
+
+---
+
+# Phase 82: one-level goal-directed proof search
+
+Phase 82 extends Phase 81 from automatic final-rule selection to one-level missing-premise production.
+
+The representative actual theorem remains Toda Lemma 5.16. The initial repository intentionally omits the final scaled-composition premise and the final goal.
+
+The implemented flow is:
+
+```text
+goal
+↓
+goal-compatible final rule
+↓
+premise availability analysis
+↓
+exactly one missing premise
+↓
+exact-type producer lookup
+↓
+exactly one fixed-point-safe producer
+↓
+one producer round
+↓
+new intermediate ProofStep
+↓
+final-rule retry
+↓
+new goal ProofStep
+```
+
+The main Phase 82 infrastructure is:
+
+```text
+PremiseAvailability
+detect_missing_premises()
+detect_goal_rule_missing_premises()
+
+find_premise_producer_rule_entries()
+find_premise_producer_rules()
+
+derive_goal_from_repository_with_one_level_producers()
+```
+
+The actual Toda Lemma 5.16 representative path is:
+
+```text
+repository
+├─ Toda36Lemma516BracketSumContainmentStatement
+├─ TodaLemma516Sigma8IteratedSuspensionBridgeStatement
+└─ TodaLemma516SigmaTPlus8DefinitionStatement
+
+missing:
+TodaLemma516ScaledCompositionBridgeStatement
+
+↓
+existing Phase 77 producer rule
+
+new TodaLemma516ScaledCompositionBridgeStatement
+(INFERENCE)
+
+↓
+existing Phase 77 final rule
+
+TodaLemma516BracketSumContainmentStatement
+(INFERENCE)
+```
+
+Phase 82 preserves the existing proof semantics:
+
+```text
+new intermediate != original Phase 77 intermediate
+new final        != original Phase 77 final
+
+intermediate.inference_rule
+= existing Phase 77 producer rule
+
+final.inference_rule
+= existing Phase 77 final rule
+```
+
+Search safety is intentionally narrow:
+
+```text
+0 producer candidates
+→ do not expand
+
+1 producer candidate
+→ execute one level
+
+2 or more distinct producer candidates
+→ ambiguity, do not expand
+
+same-rule catalog aliases
+→ identity-deduplicated and allowed
+
+producer missing its own premise
+→ do not recurse
+
+multiple missing final premises
+→ do not search
+
+cycle-shaped producer catalog
+→ not traversed
+```
+
+Phase 82 does not implement recursive backward search. Safety is obtained from:
+
+```text
+no recursive producer lookup
++
+producer execution max_rounds=1
++
+unique-producer policy
+```
+
+Phase 82 pre-probe repository-wide regression:
+
+```text
+6716 passed in 35.78s
+```
+
+Representative probe:
+
+```powershell
+python -m probes.probe_phase82_capabilities
+```
+
+Phase 82-7 adds only the representative probe, probe regression, and completion documentation. The production search algorithm is unchanged from the Phase 82-6 safety-complete implementation.
+
+## Phase 82 boundary
+
+Implemented:
+
+```text
+missing-premise detection
+one-level producer lookup
+fixed-point-safe producer filtering
+producer identity deduplication
+unique-producer safety policy
+one-level intermediate generation
+final-rule retry
+actual theorem integration
+provenance / non-circularity regression
+search-safety regression
+representative probe
+```
+
+Still not implemented:
+
+```text
+recursive backward chaining
+arbitrary-depth producer search
+DFS / BFS / A*
+multiple-missing-premise planning
+producer ranking
+proof-cost model
+best-proof selection
+mathematical-equivalence goal normalization
+persistent search cache
+automatic proof narrative generation
+generic theorem prover
+```
+
+The next phase should be selected only after a separate capability/dependency audit. Phase 82 does not commit the project to recursive theorem search.
+

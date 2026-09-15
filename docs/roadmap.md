@@ -60,7 +60,7 @@ full regression
 completion documentation
 ```
 
-future Phase の generic framework を先取りしない。
+将来の Phase の generic framework を先取りしない。
 
 ---
 
@@ -275,7 +275,7 @@ automatic proof narrative generation / persistent Proof Repository / stable homo
 
 ---
 
-# 6. Proof Records の運用
+# 6. 証明記録 の運用
 
 現在の正式 record:
 
@@ -334,9 +334,9 @@ regression status
 
 ---
 
-# 7. Automatic proof narrative generation
+# 7. 自動証明 narrative 生成
 
-current state:
+現在の state:
 
 ```text
 proof inference        = automatic
@@ -348,7 +348,7 @@ proof-style narrative  = hand-authored probe presentation
 
 現在 formal mathematical proof record は Phase 78 までに13件蓄積し、Phase 79/80 は infrastructure capability records として分離している。
 
-future target:
+将来の target:
 
 ```text
 ProofStep graph
@@ -391,7 +391,7 @@ automatic proof narrative generation は Phase 80 完了後も未実装であり
 
 ---
 
-# 8. Persistent Proof Repository
+# 8. 永続 Proof Repository
 
 concrete calculation をさらに蓄積した後、proof result の persistent storage を separate Phase として検討する。
 
@@ -439,7 +439,7 @@ PLANNED / DEFERRED UNTIL CONCRETE NEED
 
 ---
 
-# 9. Stable branch
+# 9. 安定群 branch
 
 Phase 78 で low stable stems の concrete branch を実装済み:
 
@@ -455,7 +455,7 @@ G_0=Z{ι}
 (G_7;2)=Z/16{σ}
 ```
 
-current representation:
+現在の representation:
 
 ```text
 G_0
@@ -486,7 +486,7 @@ LOW-STEM CONCRETE BRANCH COMPLETE THROUGH G_7
 
 ---
 
-# 10. Performance / inference architecture
+# 10. 性能 / 推論アーキテクチャ
 
 Phase 64:
 
@@ -617,8 +617,8 @@ DEFERRED UNTIL CONCRETE NEED
 | stable homotopy branch through G_7 | COMPLETE | 78 |
 | minimal in-memory Proof Repository | COMPLETE | 79 |
 | repository-assisted automatic inference | COMPLETE | 80 |
-| automatic rule selection / proof-search foundation | COMPLETE IMPLEMENTATION / FINAL PROBE REGRESSION PENDING | 81 |
-| multi-step / goal-directed proof-search foundation | NEXT | 82 |
+| automatic rule selection / proof-search foundation | COMPLETE | 81 |
+| multi-step / goal-directed proof-search foundation | IMPLEMENTED / FINAL PROBE REGRESSION PENDING | 82 |
 | automatic proof narrative generation | PLANNED / DEFERRED | later |
 | persistent Proof Repository | PLANNED / DEFERRED | later |
 | higher Toda brackets | DEFERRED | concrete need |
@@ -664,7 +664,7 @@ stable:
 
 ---
 
-# 14. Phase 73 completion boundary
+# 14. Phase 73 完了境界
 
 完成:
 
@@ -701,7 +701,7 @@ final graph acyclic
 stable fields absent
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase73_capabilities
@@ -821,9 +821,9 @@ persistent Proof Repository
 
 # 17. Phase 75 completion / next boundary
 
-Phase 75 is COMPLETE.
+Phase 75 は COMPLETE。
 
-Completed finite-dimensional Proposition 5.15:
+完了済み finite-dimensional Proposition 5.15:
 
 ```text
 π_9^2=0
@@ -865,7 +865,7 @@ The stable clause:
 
 remains in the deferred stable branch.
 
-## Next mathematical Phase
+## 次の数学 Phase
 
 Start with source/dependency/representation compatibility analysis of Toda (5.16).
 
@@ -913,9 +913,9 @@ persistent Proof Repository
 
 # 18. Phase 76 completion / Phase 77 boundary
 
-Phase 76 is COMPLETE.
+Phase 76 は COMPLETE。
 
-Completed Toda Equation (5.16):
+完了済み Toda Equation (5.16):
 
 ```text
 Ker(E:π_15^8→π_16^9)
@@ -959,7 +959,7 @@ pre-probe full regression:
 Toda Lemma 5.16
 ```
 
-completed capability:
+完了済み capability:
 
 ```text
 t>0
@@ -999,7 +999,7 @@ pre-probe repository-wide regression:
 
 ## Phase 78 completion milestone
 
-Phase 78 is COMPLETE.
+Phase 78 は COMPLETE。
 
 Machine-derived stable results:
 
@@ -1015,7 +1015,7 @@ G_0=Z{ι}
 (G_7;2)=Z/16{σ}
 ```
 
-representative probe:
+代表 probe:
 
 ```powershell
 python -m probes.probe_phase78_capabilities
@@ -1034,7 +1034,7 @@ record 13
 Phase 78 stable G_0 through G_7 integration
 ```
 
-## Next mathematical Phase
+## 次の数学 Phase
 
 Begin with:
 
@@ -1063,11 +1063,11 @@ persistent Proof Repository
 
 # 19. Phase 79 completion / repository milestone
 
-Phase 79 is COMPLETE.
+Phase 79 は COMPLETE。
 
 The planned post-7-stem minimum repository milestone has now been reached.
 
-Implemented:
+実装済み:
 
 ```text
 ProofRepositoryEntry
@@ -1086,7 +1086,7 @@ non-circularity regression
 representative repository probe
 ```
 
-Current flow:
+現在の流れ:
 
 ```text
 existing concrete proof builder
@@ -1100,15 +1100,15 @@ search / reuse within the same Python process
 
 The milestone is intentionally narrower than the older `DerivedFact` candidate. Concrete implementation showed that the existing `ProofStep` already owns proof semantics and dependency edges, so the minimum repository only needs a thin catalog layer rather than duplicated group / generator / dependency fields.
 
-Current repository-wide regression:
+現在のリポジトリ全体回帰:
 
 ```text
 6520 passed in 35.07s
 ```
 
-## Persistence remains a later milestone
+## 永続化は後続 milestone のまま
 
-Not implemented:
+未実装:
 
 ```text
 persistent backing store
@@ -1121,7 +1121,7 @@ reverse dependency index
 
 Persistence should be added only when cross-process reuse becomes a concrete requirement.
 
-## Next development boundary
+## 次の開発境界
 
 Two paths remain independent:
 
@@ -1140,11 +1140,11 @@ Do not merge these into a generic theorem-prover / database framework prematurel
 
 ---
 
-# 20. Phase 80 completion / proof-search boundary
+# 20. Phase 80 completion / proof-search 境界
 
 Phase 80 implements the first repository-assisted automatic inference path.
 
-Completed implementation:
+完了済み implementation:
 
 ```text
 ProofRepository.entries()
@@ -1157,7 +1157,7 @@ applicability / non-circularity regression
 representative Phase 80 probe
 ```
 
-Current flow:
+現在の流れ:
 
 ```text
 registered existing ProofStep premises
@@ -1173,7 +1173,7 @@ structural goal detection
 new final ProofStep
 ```
 
-Representative actual proof guarantees:
+代表 actual proof guarantees:
 
 ```text
 goal not initially registered
@@ -1193,9 +1193,9 @@ Pre-probe repository-wide regression:
 6565 passed in 36.33s
 ```
 
-## Correction to earlier future boundaries
+## 以前の将来境界の訂正
 
-Earlier Phase 79 roadmap text correctly treated automatic inference as not part of Phase 79. After Phase 80, the current state must be distinguished as:
+Earlier Phase 79 roadmap text correctly treated automatic inference as not part of Phase 79. After Phase 80, the 現在の state must be distinguished as:
 
 ```text
 repository lookup alone
@@ -1205,7 +1205,7 @@ repository-assisted runner with explicit rules
 → can infer automatically
 ```
 
-Therefore `automatic theorem search` remains deferred, but repository-assisted inference is no longer deferred.
+Therefore `automatic theorem search` は引き続き保留, but repository-assisted inference is no longer deferred.
 
 Similarly, the older roadmap entry describing the stable branch as deferred is superseded by Phase 78:
 
@@ -1216,16 +1216,16 @@ low-stem stable branch G_0...G_7
 
 The remaining stable deferrals concern generic stable machinery, not the concrete G_0...G_7 branch.
 
-## Next capability dependency
+## 次の capability 依存
 
-Natural next milestone:
+自然な次 milestone:
 
 ```text
 Phase 81+
 rule selection / proof-search audit
 ```
 
-Questions to resolve before implementation:
+実装前に確認する事項:
 
 ```text
 which existing InferenceRule families are safe for unrestricted fixed-point use?
@@ -1246,7 +1246,7 @@ persistent database
 automatic theorem generation
 ```
 
-The next Phase should first audit current rule families and define the minimum safe search policy.
+The next Phase should first audit 現在の rule families and define the minimum safe search policy.
 
 
 ---
@@ -1270,7 +1270,7 @@ non-circularity / acyclicity regression
 representative probe
 ```
 
-Current flow:
+現在の流れ:
 
 ```text
 actual goal
@@ -1288,13 +1288,13 @@ repository-assisted forward fixed-point inference
 new proof
 ```
 
-Representative actual theorem:
+代表 actual theorem:
 
 ```text
 Toda Lemma 5.16
 ```
 
-Phase 81 demonstrates that the caller no longer needs to supply the final rule directly.
+Phase 81 により、caller は final rule を直接指定する必要がなくなった。
 
 Pre-probe repository-wide regression:
 
@@ -1304,9 +1304,9 @@ Pre-probe repository-wide regression:
 
 ## Phase 82 next capability dependency
 
-Phase 81 still requires all premises needed by the automatically selected rule to already be available from the repository / forward closure.
+Phase 81 では、自動選択された rule が必要とする premise はすべて repository / forward closure に既に存在する必要がある。
 
-Phase 82 should address the next missing capability:
+Phase 82 では次の不足 capability を扱う:
 
 ```text
 selected goal-producing rule
@@ -1318,7 +1318,7 @@ identify rule(s) that could produce that premise
 limited multi-step goal-directed search
 ```
 
-Start narrowly.
+狭い範囲から開始する。
 
 Recommended Phase 82-1:
 
@@ -1337,7 +1337,7 @@ how to preserve current fixed-point-safe boundaries?
 how to distinguish structural producer compatibility from actual applicability?
 ```
 
-Do not immediately introduce:
+次を直ちに導入しない:
 
 ```text
 full backward chaining
@@ -1349,4 +1349,122 @@ mathematical-equivalence normalization
 generic theorem synthesis
 ```
 
-Phase 82 should first prove one concrete two-stage search path where the final rule requires a premise not initially present but producible by a known safe rule.
+Phase 82 ではまず、final rule が初期状態に存在しない premise を要求し、その premise を既知の safe rule で生成できる concrete two-stage search path を1つ証明する。
+
+---
+
+# 22. Phase 82 completion / 次境界
+
+Phase 82 で実装した capability:
+
+```text
+goal
+↓
+automatic final-rule selection
+↓
+missing-premise detection
+↓
+one-level producer lookup
+↓
+unique safe producer
+↓
+intermediate ProofStep
+↓
+final-rule retry
+↓
+goal ProofStep
+```
+
+主要 infrastructure:
+
+```text
+PremiseAvailability
+detect_missing_premises()
+detect_goal_rule_missing_premises()
+
+find_premise_producer_rule_entries()
+find_premise_producer_rules()
+
+derive_goal_from_repository_with_one_level_producers()
+```
+
+actual representative:
+
+```text
+Toda Lemma 5.16
+```
+
+search safety:
+
+```text
+0 producer
+→ stop
+
+1 producer
+→ execute one level
+
+2+ distinct producers
+→ ambiguity, stop
+
+same-rule aliases
+→ identity dedup
+
+producer premise missing
+→ do not recurse
+
+multiple final premises missing
+→ do not search
+
+cycle-shaped catalog
+→ do not traverse
+```
+
+Phase 82-6 repository-wide regression:
+
+```text
+6716 passed in 35.78s
+```
+
+Phase 82-7:
+
+```text
+representative probe
+completion documentation
+```
+
+まで実装済み。final probe regression pending。
+
+## Phase 82 後も保留するもの
+
+```text
+arbitrary-depth backward chaining
+recursive theorem graph traversal
+DFS / BFS / A*
+multiple-missing-premise planning
+producer ranking
+proof-cost model
+best-proof selection
+persistent search cache
+automatic proof narrative generation
+generic theorem prover
+```
+
+## 次 Phase の決め方
+
+Phase 83 の具体的 target はここでは先取りしない。
+
+次の作業開始時に:
+
+```text
+現在の capability
+↓
+具体的な次の必要
+↓
+current code / tests audit
+↓
+最小 Phase target
+```
+
+で決定する。
+
+Phase 82 の成功を理由に unrestricted recursive theorem search へ自動的に進まない。
