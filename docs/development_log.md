@@ -13931,4 +13931,242 @@ automatic proof narrative generation
 generic theorem prover
 ```
 
-Phase 82 は Phase 82-7 probe test と final repository-wide regression が通れば COMPLETE。
+Phase 82 は Phase 82-7 probe test と final repository-wide regressionを通過し、COMPLETE。
+
+---
+
+# Phase 83：multiple one-level producers
+
+Phase 83の目標:
+
+```text
+final ruleのmissing premiseが複数でも、
+各premiseのproducerが一意なら、
+すべてを1段だけ生成してgoalを証明する。
+```
+
+depthはPhase 82と同じ1に固定する。
+
+## Phase 83-1：multiple-missing-premise compatibility audit
+
+確認:
+
+```text
+PremiseAvailabilityは複数missing_indicesを保持可能
+producer lookupはpremiseごとに再利用可能
+複数InferenceRuleを同一roundで実行可能
+max_rounds=1でdepthを維持可能
+```
+
+production code変更なし。
+
+### 状態
+
+COMPLETE
+
+## Phase 83-2：missing premiseごとのproducer lookup result
+
+追加:
+
+```text
+MissingPremiseProducerLookup
+find_missing_premise_producer_lookups()
+```
+
+保持:
+
+```text
+final inference rule
+premise index
+exact premise pattern
+candidate producer rules
+```
+
+テスト:
+
+```text
+11 passed
+repository-wide: 6734 passed
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 83-3：all-missing-premises uniquely producible判定
+
+追加:
+
+```text
+all_missing_premises_uniquely_producible()
+```
+
+全lookupのproducer rule数がそれぞれ1件の場合だけTrue。空lookup、producerなし、distinct ambiguityはFalse。同一rule aliasはidentity dedup後1件。
+
+テスト:
+
+```text
+11 passed
+repository-wide: 6745 passed
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 83-4：multiple one-level producer execution
+
+`derive_goal_from_repository_with_one_level_producers()` を一般化。
+
+```text
+all lookup unique
+↓
+producer rule identity deduplication
+↓
+multiple producer rules
+↓
+one shared round, max_rounds=1
+↓
+final-rule retry
+```
+
+synthetic integrationで、2つの独立producer、all-or-nothing ambiguity、repository非変更、depth=2非追跡を確認。
+
+テスト:
+
+```text
+9 passed
+repository-wide: 6754 passed
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 83-5：actual theorem integration
+
+代表実定理:
+
+```text
+Toda Lemma 5.16内部
+Theorem 3.6 bracket-sum containment
+```
+
+```text
+bridge + typed setup
+├→ first bracket term
+└→ second bracket term
+
+first + second
+→ bracket-sum containment
+```
+
+actual existing rule identity、exact repository premise identity、provenance、non-circularity、repository非変更を確認。
+
+テスト:
+
+```text
+14 passed
+repository-wide: 6768 passed
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 83-6：ambiguity / partial producibility / duplicate / safety regression
+
+固定:
+
+```text
+missing producer
+unsafe producer
+distinct ambiguity
+same-rule alias
+existing premise reuse
+producer premise不足
+partial producer applicability
+incompatible generated branches
+duplicate final rules / conclusions
+failed-search repository immutability
+```
+
+テスト:
+
+```text
+10 passed
+Phase 83 + Phase 82 safety: 69 passed
+repository-wide: 6778 passed
+```
+
+### 状態
+
+COMPLETE
+
+## Phase 83-7：代表probe + 完了文書化
+
+追加:
+
+```text
+probes/probe_phase83_capabilities.py
+tests/test_phase83_probe.py
+```
+
+probe:
+
+```text
+missing premise count = 2
+producer candidates = 1, 1
+all unique = True
+first / second intermediate derived
+final goal derived
+existing 3 rule identities reused
+graph acyclic
+repository unchanged
+depth = 1
+```
+
+probe test:
+
+```text
+7 passed
+```
+
+最終repository-wide regression:
+
+```text
+6785 passed
+```
+
+### 状態
+
+COMPLETE
+
+# Phase 83完了境界
+
+実装済み:
+
+```text
+multiple missing-premise lookup result
+all-unique producer policy
+multiple one-level producer execution
+actual theorem integration
+safety / duplicate / non-circularity regression
+representative probe
+completion documentation
+```
+
+引き続き未実装:
+
+```text
+recursive producer search
+depth > 1
+DFS / BFS / A*
+proof ranking
+proof-cost model
+persistent search cache
+automatic proof narrative generation
+generic theorem prover
+```
+
+Phase 84はdepth=2 producer searchのcompatibility auditから開始する候補とする。

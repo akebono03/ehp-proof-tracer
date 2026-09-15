@@ -6264,3 +6264,147 @@ generic theorem prover
 
 The next phase should be selected only after a separate capability/dependency audit. Phase 82 does not commit the project to recursive theorem search.
 
+---
+
+# Phase 83: multiple one-level producers
+
+Phase 83 extends Phase 82 horizontally. A selected final rule may now have multiple missing premises, provided every missing premise has exactly one safe producer rule.
+
+The implemented flow is:
+
+```text
+goal
+↓
+goal-compatible final rule
+↓
+multiple missing premises
+↓
+one producer lookup result per missing premise
+↓
+all missing premises uniquely producible
+↓
+all selected producers executed in one shared round
+↓
+multiple new intermediate ProofSteps
+↓
+final-rule retry
+↓
+new goal ProofStep
+```
+
+The main Phase 83 infrastructure is:
+
+```text
+MissingPremiseProducerLookup
+find_missing_premise_producer_lookups()
+all_missing_premises_uniquely_producible()
+derive_goal_from_repository_with_one_level_producers()
+```
+
+The representative actual theorem is the Theorem 3.6 bracket-sum containment used inside Toda Lemma 5.16:
+
+```text
+Toda36Lemma514SigmaDoublePrimeBridgeStatement
++
+TodaLemma516TypedSetupStatement
+├─ one-level producer
+│  → Toda36Lemma516FirstBracketTermStatement
+└─ one-level producer
+   → Toda36Lemma516SecondBracketTermStatement
+
+first bracket term
++
+second bracket term
+↓
+Toda36Lemma516BracketSumContainmentStatement
+```
+
+Both sibling producers use only the initial repository steps. They run in the same producer round, and neither producer may consume a result created by the other producer in that round.
+
+The all-or-nothing lookup policy is:
+
+```text
+every missing premise has exactly one distinct safe producer
+→ select all producers
+
+any missing premise has zero producers
+→ select none
+
+any missing premise has two or more distinct producers
+→ ambiguity; select none
+
+same-rule catalog aliases
+→ identity-deduplicated; still unique
+```
+
+Execution remains intentionally bounded:
+
+```text
+producer execution rounds = 1
+recursive producer lookup = disabled
+depth > 1 = disabled
+```
+
+Final-rule matching remains the semantic safety check. If only some producer rules apply, or independently produced branches have inconsistent variable bindings, the final goal is not derived.
+
+Phase 83 safety regression covers:
+
+```text
+missing producer
+unsafe producer
+distinct-producer ambiguity
+same-rule alias
+existing premise reuse
+unavailable producer premise
+partial producer applicability
+incompatible generated branches
+duplicate final rules and conclusions
+repository immutability
+non-circular proof ancestry
+```
+
+Representative probe:
+
+```powershell
+python -m probes.probe_phase83_capabilities
+```
+
+Phase 83 final regression:
+
+```text
+probe regression: 7 passed
+repository-wide regression: 6785 passed
+```
+
+## Phase 83 completion boundary
+
+Implemented:
+
+```text
+multiple missing-premise lookup results
+all-missing-premises unique-producer policy
+multiple one-level producer execution
+actual theorem integration
+ambiguity / partial-producibility / duplicate safety regression
+provenance and non-circularity regression
+representative probe
+completion documentation
+```
+
+Still not implemented:
+
+```text
+recursive producer search
+producer depth > 1
+arbitrary-depth backward chaining
+DFS / BFS / A*
+proof ranking
+proof-cost model
+best-proof selection
+mathematical-equivalence goal normalization
+persistent search cache
+automatic proof narrative generation
+generic theorem prover
+```
+
+Phase 84 should begin with a separate compatibility audit before deciding whether producer rules may themselves request missing premises.

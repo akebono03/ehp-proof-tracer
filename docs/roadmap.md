@@ -1468,3 +1468,46 @@ current code / tests audit
 で決定する。
 
 Phase 82 の成功を理由に unrestricted recursive theorem search へ自動的に進まない。
+
+---
+
+# Phase 83 完了：multiple one-level producers
+
+完了した拡張:
+
+```text
+one missing premise
+→ multiple missing premises
+
+one unique producer
+→ one unique producer per missing premise
+
+one producer execution
+→ multiple producers in one shared round
+```
+
+維持した制約:
+
+```text
+producer depth = 1
+recursive lookup = なし
+ranking = なし
+repository mutation = なし
+```
+
+代表actual theorem:
+
+```text
+Toda Lemma 5.16内部の
+Theorem 3.6 bracket-sum containment
+```
+
+次候補:
+
+```text
+Phase 84
+producer itself has a missing premise
+→ depth=2 compatibility audit
+```
+
+Phase 84でも、最初から一般DFS/BFSへ進まず、bounded depth=2の表現・停止条件・cycle safetyを先に監査する。

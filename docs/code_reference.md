@@ -6960,6 +6960,84 @@ proof replay
 automatic proof narrative generation
 ```
 
+---
+
+# Phase 83 code reference
+
+## `repository_inference.MissingPremiseProducerLookup`
+
+複数missing premiseの各要素について、次を保持するimmutable result。
+
+```text
+inference_rule: InferenceRule
+premise_index: int
+premise_pattern: PremisePattern
+producer_rules: tuple[InferenceRule, ...]
+```
+
+## `repository_inference.find_missing_premise_producer_lookups()`
+
+```text
+PremiseAvailability
++
+InferenceRuleCatalog
+↓
+tuple[MissingPremiseProducerLookup, ...]
+```
+
+`missing_indices`の順序とexact premise pattern identityを保持する。producerを実行しない。
+
+## `repository_inference.all_missing_premises_uniquely_producible()`
+
+lookup collectionが空でなく、すべての `producer_rules` が1件の場合だけTrue。
+
+## `repository_inference.derive_goal_from_repository_with_one_level_producers()`
+
+Phase 83で複数missing premiseへ一般化。
+
+```text
+final rule availability
+↓
+per-missing-premise lookups
+↓
+all unique check
+↓
+producer rule identity deduplication
+↓
+producer inference max_rounds=1
+↓
+final-rule retry
+```
+
+関数名はPhase 82から維持し、既存API互換性を保つ。
+
+## Phase 83 tests
+
+```text
+tests/test_phase83_missing_premise_producer_lookup.py
+tests/test_phase83_all_missing_premises_uniquely_producible.py
+tests/test_phase83_multiple_one_level_producer_execution.py
+tests/test_phase83_actual_theorem_integration.py
+tests/test_phase83_multiple_producer_safety_regression.py
+tests/test_phase83_probe.py
+```
+
+## Phase 83 probe
+
+```text
+probes/probe_phase83_capabilities.py
+```
+
+## 非対応境界
+
+```text
+recursive producer lookup
+producer depth > 1
+arbitrary-depth backward chaining
+DFS / BFS / A*
+proof ranking / cost model
+```
+
 Phase 79 は COMPLETE。
 
 ---
