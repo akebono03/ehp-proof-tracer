@@ -1,6 +1,9 @@
 from dataclasses import dataclass
 
-from proof import InferenceRule
+from proof import (
+  InferenceRule,
+  PremisePattern,
+)
 
 
 @dataclass(frozen=True)
@@ -148,6 +151,74 @@ def find_goal_compatible_rules(
     find_goal_compatible_rule_entries(
       catalog,
       goal,
+    )
+  )
+
+  rules = []
+  seen_rule_ids = set()
+
+  for entry in entries:
+    rule_id = id(
+      entry.rule
+    )
+
+    if rule_id in seen_rule_ids:
+      continue
+
+    seen_rule_ids.add(
+      rule_id
+    )
+
+    rules.append(
+      entry.rule
+    )
+
+  return tuple(
+    rules
+  )
+
+
+def find_premise_producer_rule_entries(
+  catalog,
+  premise_pattern,
+):
+  if not isinstance(
+    catalog,
+    InferenceRuleCatalog,
+  ):
+    raise TypeError(
+      "catalog must be an "
+      "InferenceRuleCatalog"
+    )
+
+  if not isinstance(
+    premise_pattern,
+    PremisePattern,
+  ):
+    raise TypeError(
+      "premise_pattern must be a "
+      "PremisePattern"
+    )
+
+  return tuple(
+    entry
+    for entry in catalog.entries()
+    if (
+      entry.fixed_point_safe
+      and entry.conclusion_type
+      is premise_pattern.statement_type
+    )
+  )
+
+
+def find_premise_producer_rules(
+  catalog,
+  premise_pattern,
+):
+  entries = (
+    find_premise_producer_rule_entries(
+      catalog,
+      premise_pattern,
     )
   )
 
