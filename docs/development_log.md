@@ -14386,3 +14386,503 @@ persistent search cache
 automatic proof narrative generation
 generic theorem prover
 ```
+
+---
+
+# Phase 85：bounded-search diagnostics and integrated execution
+
+Phase 85 は Phase 84 の bounded depth=2 producer search / execution に、search failure と execution failure の診断、統一 report、高水準 integrated execution API を追加した。
+
+新しい数学 theorem semantics は追加していない。代表実定理は引き続き Toda Lemma 5.16 を使用する。
+
+## Phase 85-2：bounded-search diagnostic representation
+
+追加:
+
+```text
+BoundedProducerSearchStatus
+BoundedProducerSearchDiagnostic
+BoundedProducerSearchReport
+```
+
+status family は success / search failure / execution failure を同じ enum で表現できる形とした。
+
+report は:
+
+```text
+SUCCESS
+→ search_result required
+→ diagnostic absent
+
+GOAL_ALREADY_AVAILABLE
+→ search_result absent
+→ diagnostic absent
+
+failure
+→ diagnostic required
+```
+
+execution failure では:
+
+```text
+search_result
++
+diagnostic
+```
+
+を同時保持可能とした。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 85-3：direct producer failure classification
+
+追加:
+
+```text
+diagnose_direct_producer_failure()
+```
+
+分類:
+
+```text
+NO_FINAL_RULE
+AMBIGUOUS_FINAL_RULE
+NO_PRODUCER
+UNSAFE_PRODUCER
+AMBIGUOUS_PRODUCER
+```
+
+same-rule catalog alias は rule identity で deduplicate し、safe producer が存在する場合は unsafe alias によって failure にしない。
+
+repository は変更しない。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 85-4：nested producer / cycle / depth classification
+
+追加:
+
+```text
+diagnose_depth_two_producer_search_failure()
+```
+
+depth=2 bounded search の nested producer failure を分類:
+
+```text
+NO_PRODUCER
+UNSAFE_PRODUCER
+AMBIGUOUS_PRODUCER
+CYCLE_DETECTED
+DEPTH_LIMIT
+```
+
+diagnostic は:
+
+```text
+requesting_rule
+premise_index
+premise_pattern
+current_depth
+required_next_depth
+producer candidates
+ancestor rules
+```
+
+を保持し、「どの premise からどの深さへ進めなかったか」を説明可能にした。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 85-5：execution failure diagnostics
+
+追加:
+
+```text
+diagnose_depth_two_producer_execution_failure()
+```
+
+producer execution を `derive_inference_round_result()` で1 roundずつ検査する。
+
+分類:
+
+```text
+PRODUCER_NOT_APPLICABLE
+PRODUCER_OUTPUT_NOT_USABLE
+FINAL_RULE_NOT_APPLICABLE
+GOAL_NOT_DERIVED
+```
+
+意味:
+
+```text
+producer matchなし
+→ PRODUCER_NOT_APPLICABLE
+
+producerを実行してもrequesting premiseが利用不能
+→ PRODUCER_OUTPUT_NOT_USABLE
+
+producer chain後にfinal rule matchなし
+→ FINAL_RULE_NOT_APPLICABLE
+
+final rule candidateはあるがrequested goalなし
+→ GOAL_NOT_DERIVED
+```
+
+検証:
+
+```text
+Phase 85-5 standalone:
+6 passed
+
+Phase 85 diagnostic related:
+41 passed
+
+Phase 84 execution + Phase 85-5:
+16 passed
+
+repository-wide:
+6912 passed in 109.52s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 85-6：execution diagnostic report integration
+
+追加:
+
+```text
+build_depth_two_producer_search_report()
+```
+
+統合 flow:
+
+```text
+existing goal
+→ GOAL_ALREADY_AVAILABLE
+
+search failure
+→ diagnostic report
+→ search_result=None
+
+search success + execution failure
+→ search_result preserved
+→ execution diagnostic preserved
+
+search success + execution success
+→ SUCCESS
+→ search_result preserved
+→ diagnostic=None
+```
+
+「経路を選べなかった」と「経路を選べたが実行に失敗した」を同じ API から区別可能にした。
+
+検証:
+
+```text
+Phase 85-6:
+7 passed
+
+Phase 85-5 + 85-6:
+13 passed
+
+Phase 85 diagnostic regression:
+60 passed
+
+Phase 84 execution + Phase 85-6:
+17 passed
+
+repository-wide:
+6919 passed in 106.87s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 85-7：integrated bounded-search execution API
+
+追加:
+
+```text
+BoundedProducerExecutionResult
+execute_depth_two_producer_search()
+```
+
+`BoundedProducerExecutionResult`:
+
+```text
+report
+repository_inference_result
+```
+
+successful status:
+
+```text
+RepositoryInferenceResult required
+goal_step required
+goal_step.conclusion == report.goal
+```
+
+failure status:
+
+```text
+repository_inference_result is None
+```
+
+重要設計:
+
+```text
+diagnostic reportで選択したsearch_result
+↓
+同じsearch_resultをそのままexecution
+```
+
+既存 depth-two executor を再呼び出して search し直さない。
+
+これにより:
+
+```text
+diagnosed path
+=
+executed path
+```
+
+を保証する。
+
+GOAL_ALREADY_AVAILABLE では既存 goal step を返す。
+
+repository は非変更。
+
+検証:
+
+```text
+Phase 85-7:
+7 passed
+
+Phase 85-5〜85-7:
+20 passed
+
+Phase 84 execution compatibility:
+24 passed
+
+Phase 85 regression:
+67 passed
+
+repository-wide:
+6926 passed in 114.43s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 85-8：actual theorem integration + probe / completion
+
+production code:
+
+```text
+変更なし
+```
+
+追加:
+
+```text
+tests/test_phase85_actual_theorem_integration.py
+probes/probe_phase85_capabilities.py
+tests/test_phase85_probe.py
+```
+
+actual fixture:
+
+```text
+build_phase84_3_data()
+```
+
+を再利用。
+
+Phase 85 builder:
+
+```text
+build_phase85_8_data()
+```
+
+は同一 proof object graph を複数 test / probe で再利用するため:
+
+```python
+@lru_cache(maxsize=1)
+```
+
+を使用する。
+
+初期 repository:
+
+```text
+first bracket term
+second bracket term
+suspension bridge
+sigma definition
+```
+
+初期状態にないもの:
+
+```text
+bracket-sum
+scaled-composition bridge
+final goal
+```
+
+integrated API の selected path:
+
+```text
+producer node count = 2
+
+bracket-sum:
+  depths = (1, 2)
+  shared = True
+
+composition:
+  depends on bracket-sum
+```
+
+end-to-end execution:
+
+```text
+first + second
+→ bracket-sum
+
+bracket-sum + suspension bridge + sigma definition
+→ composition
+
+bracket-sum + composition
+→ final Toda Lemma 5.16 goal
+```
+
+verified:
+
+```text
+status = success
+diagnostic absent
+search result present
+final goal derived
+shared bracket-sum ProofStep reused
+existing three rule identities reused
+proof graph acyclic
+repository unchanged
+generated steps not registered
+```
+
+probe:
+
+```powershell
+python -m probes.probe_phase85_capabilities
+```
+
+検証:
+
+```text
+actual theorem integration:
+12 passed in 5.23s
+
+probe:
+7 passed in 5.77s
+
+Phase 85-7 + Phase 85-8:
+26 passed in 5.98s
+
+Phase 84 actual + Phase 85 actual:
+28 passed in 6.28s
+
+Phase 85 focused:
+86 passed in 6.69s
+
+repository-wide:
+6945 passed in 108.60s
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 85 完了境界
+
+最終 capability:
+
+```text
+goal
+↓
+bounded depth=2 search
+↓
+search failure diagnostics
+↓
+execution failure diagnostics
+↓
+unified report
+↓
+selected search path
+↓
+integrated execution
+↓
+goal ProofStep
+```
+
+実装済み:
+
+```text
+search-failure diagnostics
+execution-failure diagnostics
+unified diagnostic report
+selected-path preservation
+integrated bounded-search execution
+actual Toda Lemma 5.16 verification
+repository non-mutation
+acyclic provenance
+representative probe
+```
+
+引き続き未実装:
+
+```text
+depth > 2
+arbitrary recursive backward search
+retry / backtracking
+producer ranking
+proof-cost model
+best-proof selection
+DFS / BFS / A*
+persistent search cache
+mathematical-equivalence goal normalization
+automatic proof narrative generation
+generic theorem prover
+```
+
+Phase 85 は COMPLETE。
+
+次の自然な候補:
+
+```text
+Phase 86
+bounded search generalization / depth parameterization
+```
+
+ただし最初は hard-coded depth=2 の監査と compatibility regression を行い、現在の depth=2 behavior を変えない parameterization から検討する。

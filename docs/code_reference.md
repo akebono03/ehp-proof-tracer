@@ -7592,3 +7592,497 @@ proof-cost model
 persistent search cache
 automatic proof narrative generation
 ```
+
+---
+
+# 134. Phase 83 multiple one-level producer search
+
+`repository_inference.py`:
+
+```text
+MissingPremiseProducerLookup
+find_missing_premise_producer_lookups()
+all_missing_premises_uniquely_producible()
+derive_goal_from_repository_with_one_level_producers()
+```
+
+`MissingPremiseProducerLookup`:
+
+```text
+inference_rule
+premise_index
+premise_pattern
+producer_rules
+```
+
+Phase 83 semantics:
+
+```text
+multiple missing final premises
+↓
+one lookup per missing premise
+↓
+all producer sets must be uniquely producible
+↓
+producer rule identity deduplication
+↓
+all selected producers execute in one shared round
+↓
+final-rule retry
+```
+
+All producers in the shared producer round see the same initial available-step set. A producer result created in that round is not used by another sibling producer in the same round.
+
+Representative tests:
+
+```text
+tests/test_phase83_missing_premise_producer_lookup.py
+tests/test_phase83_all_missing_premises_uniquely_producible.py
+tests/test_phase83_multiple_one_level_producer_execution.py
+tests/test_phase83_actual_theorem_integration.py
+tests/test_phase83_multiple_producer_safety_regression.py
+tests/test_phase83_probe.py
+```
+
+Representative probe:
+
+```text
+probes/probe_phase83_capabilities.py
+```
+
+Boundary:
+
+```text
+producer depth = 1
+multiple missing premises supported
+recursive producer search not supported
+```
+
+---
+
+# 135. Phase 84 bounded depth=2 search structures
+
+`repository_inference.py` adds:
+
+```text
+BoundedProducerSearchNode
+BoundedProducerSearchResult
+analyze_producer_premise_availabilities()
+select_unique_depth_two_producer_chain()
+derive_goal_from_repository_with_depth_two_producers()
+```
+
+`BoundedProducerSearchNode`:
+
+```text
+requesting_rule
+premise_index
+premise_pattern
+producer_rule
+producer_availability
+depths
+dependencies
+```
+
+properties:
+
+```text
+minimum_depth
+maximum_depth
+is_shared
+```
+
+`depths` records every path depth for an identity-deduplicated producer rule.
+
+Example:
+
+```text
+final → bracket-sum                 depth 1
+final → composition → bracket-sum   depth 2
+```
+
+becomes:
+
+```text
+bracket_sum_node.depths == (1, 2)
+bracket_sum_node.is_shared == True
+```
+
+`BoundedProducerSearchResult`:
+
+```text
+goal
+final_rule
+final_availability
+producer_nodes
+max_depth
+```
+
+property:
+
+```text
+is_within_depth_limit
+```
+
+Phase 84 execution is dependency-first. Each producer node is executed with one rule and `max_rounds=1`.
+
+Representative tests:
+
+```text
+tests/test_phase84_bounded_search_representation.py
+tests/test_phase84_producer_premise_availability.py
+tests/test_phase84_unique_depth_two_producer_chain.py
+tests/test_phase84_bounded_depth_two_execution.py
+tests/test_phase84_actual_theorem_integration.py
+tests/test_phase84_depth_two_safety_regression.py
+tests/test_phase84_probe.py
+```
+
+Representative probe:
+
+```text
+probes/probe_phase84_capabilities.py
+```
+
+Boundary:
+
+```text
+max producer depth = 2
+unique producer policy
+shared dependency reuse
+no arbitrary recursive search
+```
+
+---
+
+# 136. Phase 85 diagnostic status model
+
+`repository_inference.py` adds / extends:
+
+```text
+BoundedProducerSearchStatus
+BoundedProducerSearchDiagnostic
+BoundedProducerSearchReport
+```
+
+statuses:
+
+```text
+SUCCESS
+GOAL_ALREADY_AVAILABLE
+
+NO_FINAL_RULE
+AMBIGUOUS_FINAL_RULE
+NO_PRODUCER
+UNSAFE_PRODUCER
+AMBIGUOUS_PRODUCER
+CYCLE_DETECTED
+DEPTH_LIMIT
+
+PRODUCER_NOT_APPLICABLE
+PRODUCER_OUTPUT_NOT_USABLE
+FINAL_RULE_NOT_APPLICABLE
+GOAL_NOT_DERIVED
+```
+
+`BoundedProducerSearchDiagnostic` may retain:
+
+```text
+final_rule
+final_rule_candidates
+requesting_rule
+premise_index
+premise_pattern
+current_depth
+required_next_depth
+producer_candidates
+unsafe_producer_candidates
+ancestor_rules
+```
+
+`BoundedProducerSearchReport`:
+
+```text
+status
+goal
+search_result
+diagnostic
+```
+
+Report invariants distinguish success, already-available goal, search failure, and execution failure.
+
+---
+
+# 137. Phase 85 search-failure diagnostics
+
+Main functions:
+
+```text
+diagnose_direct_producer_failure()
+diagnose_depth_two_producer_search_failure()
+```
+
+They classify:
+
+```text
+missing / ambiguous final rule
+missing / unsafe / ambiguous producer
+cycle
+depth limit
+```
+
+without executing a proof path or mutating the repository.
+
+Nested diagnostics preserve:
+
+```text
+requesting rule
+missing premise
+current depth
+required next depth
+candidate producer
+ancestor rule path
+```
+
+---
+
+# 138. Phase 85 execution-failure diagnostics
+
+Main function:
+
+```text
+diagnose_depth_two_producer_execution_failure(
+  repository,
+  search_result,
+)
+```
+
+Uses:
+
+```text
+derive_inference_round_result()
+```
+
+to inspect one producer round without changing the generic inference engine.
+
+Classification:
+
+```text
+no producer match
+→ PRODUCER_NOT_APPLICABLE
+
+producer output does not satisfy requested premise
+→ PRODUCER_OUTPUT_NOT_USABLE
+
+final rule has no match
+→ FINAL_RULE_NOT_APPLICABLE
+
+final rule does not derive requested goal
+→ GOAL_NOT_DERIVED
+```
+
+Returns:
+
+```text
+BoundedProducerSearchDiagnostic | None
+```
+
+`None` means the selected path is execution-valid for the requested goal.
+
+---
+
+# 139. Phase 85 unified report API
+
+High-level entry point:
+
+```text
+build_depth_two_producer_search_report(
+  repository,
+  rule_catalog,
+  goal,
+)
+```
+
+Return:
+
+```text
+BoundedProducerSearchReport
+```
+
+Semantics:
+
+```text
+goal already available
+→ GOAL_ALREADY_AVAILABLE
+
+search failure
+→ search diagnostic
+→ search_result=None
+
+execution failure
+→ selected search_result retained
+→ execution diagnostic retained
+
+success
+→ SUCCESS
+→ selected search_result retained
+→ diagnostic=None
+```
+
+This API is diagnostic / planning oriented. It does not expose a separate proof result field.
+
+---
+
+# 140. Phase 85 integrated execution API
+
+Result type:
+
+```text
+BoundedProducerExecutionResult
+```
+
+fields:
+
+```text
+report
+repository_inference_result
+```
+
+Entry point:
+
+```text
+execute_depth_two_producer_search(
+  repository,
+  rule_catalog,
+  goal,
+)
+```
+
+Key invariant:
+
+```text
+report-selected search_result
+=
+executed search_result
+```
+
+The API does not re-run producer selection after the report has been built.
+
+Successful execution returns:
+
+```text
+RepositoryInferenceResult
+goal_step
+```
+
+Failure returns no proof result.
+
+Existing repository steps are seeds only; generated steps are not automatically registered.
+
+---
+
+# 141. Phase 85 actual theorem integration / probe
+
+Actual integration:
+
+```text
+tests/test_phase85_actual_theorem_integration.py
+```
+
+Representative cached builder:
+
+```text
+build_phase85_8_data()
+@lru_cache(maxsize=1)
+```
+
+Representative probe:
+
+```text
+probes/probe_phase85_capabilities.py
+```
+
+Probe test:
+
+```text
+tests/test_phase85_probe.py
+```
+
+Actual proof target:
+
+```text
+Toda Lemma 5.16 final bracket-sum consequence
+```
+
+Verified search graph:
+
+```text
+producer nodes = 2
+bracket-sum depths = (1, 2)
+bracket-sum shared = True
+composition depends on bracket-sum = True
+```
+
+Verified execution:
+
+```text
+bracket-sum derived
+composition derived
+final goal derived
+shared ProofStep reused
+existing rule identity preserved
+proof graph acyclic
+repository unchanged
+```
+
+Phase 85 final regression:
+
+```text
+86 focused tests passed
+6945 repository-wide tests passed
+```
+
+---
+
+# 142. Current proof-search API boundary after Phase 85
+
+Implemented:
+
+```text
+repository-assisted inference
+goal-compatible rule selection
+one-level producer search
+multiple one-level producers
+bounded depth=2 producer dependency search
+shared producer reuse
+search-failure diagnostics
+execution-failure diagnostics
+unified report
+integrated selected-path execution
+actual theorem end-to-end validation
+```
+
+Not implemented:
+
+```text
+depth > 2
+arbitrary recursive producer search
+retry / backtracking
+producer ranking
+proof-cost model
+best-proof selection
+DFS / BFS / A*
+persistent search cache
+mathematical-equivalence goal normalization
+automatic proof narrative generation
+generic theorem prover
+```
+
+Next candidate:
+
+```text
+Phase 86
+bounded-search generalization / depth parameterization audit
+```
+
+Start by locating hard-coded depth=2 assumptions and preserving current semantics before enabling any deeper search.
