@@ -15,6 +15,7 @@ from proof_repository import ProofRepository
 from rule_catalog import (
   InferenceRuleCatalog,
   find_goal_compatible_rules,
+  find_premise_producer_candidate_entries,
   find_premise_producer_rules,
 )
 
@@ -399,6 +400,10 @@ class BoundedProducerSearchDiagnostic:
   status: BoundedProducerSearchStatus
   goal: object
   final_rule: InferenceRule | None = None
+  final_rule_candidates: tuple[
+    InferenceRule,
+    ...,
+  ] = ()
   requesting_rule: InferenceRule | None = None
   premise_index: int | None = None
   premise_pattern: PremisePattern | None = None
@@ -578,6 +583,10 @@ class BoundedProducerSearchDiagnostic:
       )
 
     for name, rules in (
+      (
+        "final_rule_candidates",
+        self.final_rule_candidates,
+      ),
       (
         "producer_candidates",
         self.producer_candidates,
@@ -1048,6 +1057,186 @@ def all_missing_premises_uniquely_producible(
     ) == 1
     for lookup in normalized_lookups
   )
+
+
+def diagnose_direct_producer_failure(
+  repository,
+  rule_catalog,
+  goal,
+) -> BoundedProducerSearchDiagnostic | None:
+  if not isinstance(
+    repository,
+    ProofRepository,
+  ):
+    raise TypeError(
+      "repository must be a ProofRepository"
+    )
+
+  if not isinstance(
+    rule_catalog,
+    InferenceRuleCatalog,
+  ):
+    raise TypeError(
+      "rule_catalog must be an "
+      "InferenceRuleCatalog"
+    )
+
+  initial_steps = (
+    repository_available_steps(
+      repository
+    )
+  )
+
+  final_rules = (
+    find_goal_compatible_rules(
+      rule_catalog,
+      goal,
+    )
+  )
+
+  if not final_rules:
+    return BoundedProducerSearchDiagnostic(
+      status=(
+        BoundedProducerSearchStatus
+        .NO_FINAL_RULE
+      ),
+      goal=goal,
+    )
+
+  if len(
+    final_rules
+  ) > 1:
+    return BoundedProducerSearchDiagnostic(
+      status=(
+        BoundedProducerSearchStatus
+        .AMBIGUOUS_FINAL_RULE
+      ),
+      goal=goal,
+      final_rule_candidates=final_rules,
+    )
+
+  final_rule = final_rules[
+    0
+  ]
+
+  final_availability = (
+    detect_missing_premises(
+      final_rule,
+      initial_steps,
+    )
+  )
+
+  direct_lookups = (
+    find_missing_premise_producer_lookups(
+      final_availability,
+      rule_catalog,
+    )
+  )
+
+  for lookup in direct_lookups:
+    safe_producer_rules = (
+      lookup.producer_rules
+    )
+
+    if len(
+      safe_producer_rules
+    ) > 1:
+      return BoundedProducerSearchDiagnostic(
+        status=(
+          BoundedProducerSearchStatus
+          .AMBIGUOUS_PRODUCER
+        ),
+        goal=goal,
+        final_rule=final_rule,
+        requesting_rule=final_rule,
+        premise_index=lookup.premise_index,
+        premise_pattern=(
+          lookup.premise_pattern
+        ),
+        current_depth=0,
+        required_next_depth=1,
+        producer_candidates=(
+          safe_producer_rules
+        ),
+        ancestor_rules=(
+          final_rule,
+        ),
+      )
+
+    if safe_producer_rules:
+      continue
+
+    candidate_entries = (
+      find_premise_producer_candidate_entries(
+        rule_catalog,
+        lookup.premise_pattern,
+      )
+    )
+
+    unsafe_producer_rules = []
+    seen_unsafe_rule_ids = set()
+
+    for entry in candidate_entries:
+      if entry.fixed_point_safe:
+        continue
+
+      rule_id = id(
+        entry.rule
+      )
+
+      if rule_id in seen_unsafe_rule_ids:
+        continue
+
+      seen_unsafe_rule_ids.add(
+        rule_id
+      )
+      unsafe_producer_rules.append(
+        entry.rule
+      )
+
+    if unsafe_producer_rules:
+      return BoundedProducerSearchDiagnostic(
+        status=(
+          BoundedProducerSearchStatus
+          .UNSAFE_PRODUCER
+        ),
+        goal=goal,
+        final_rule=final_rule,
+        requesting_rule=final_rule,
+        premise_index=lookup.premise_index,
+        premise_pattern=(
+          lookup.premise_pattern
+        ),
+        current_depth=0,
+        required_next_depth=1,
+        unsafe_producer_candidates=tuple(
+          unsafe_producer_rules
+        ),
+        ancestor_rules=(
+          final_rule,
+        ),
+      )
+
+    return BoundedProducerSearchDiagnostic(
+      status=(
+        BoundedProducerSearchStatus
+        .NO_PRODUCER
+      ),
+      goal=goal,
+      final_rule=final_rule,
+      requesting_rule=final_rule,
+      premise_index=lookup.premise_index,
+      premise_pattern=(
+        lookup.premise_pattern
+      ),
+      current_depth=0,
+      required_next_depth=1,
+      ancestor_rules=(
+        final_rule,
+      ),
+    )
+
+  return None
 
 
 def select_unique_depth_two_producer_chain(

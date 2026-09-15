@@ -107,6 +107,9 @@ def test_phase85_2_diagnostic_preserves_failure_context():
       ),
       goal=goal,
       final_rule=requesting_rule,
+      final_rule_candidates=(
+        requesting_rule,
+      ),
       requesting_rule=requesting_rule,
       premise_index=0,
       premise_pattern=premise_pattern,
@@ -126,6 +129,9 @@ def test_phase85_2_diagnostic_preserves_failure_context():
 
   assert diagnostic.goal == goal
   assert diagnostic.final_rule is requesting_rule
+  assert diagnostic.final_rule_candidates == (
+    requesting_rule,
+  )
   assert diagnostic.requesting_rule is requesting_rule
   assert diagnostic.premise_index == 0
   assert diagnostic.premise_pattern == premise_pattern

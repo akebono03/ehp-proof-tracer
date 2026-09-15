@@ -182,6 +182,21 @@ def find_premise_producer_rule_entries(
   catalog,
   premise_pattern,
 ):
+  return tuple(
+    entry
+    for entry
+    in find_premise_producer_candidate_entries(
+      catalog,
+      premise_pattern,
+    )
+    if entry.fixed_point_safe
+  )
+
+
+def find_premise_producer_candidate_entries(
+  catalog,
+  premise_pattern,
+):
   if not isinstance(
     catalog,
     InferenceRuleCatalog,
@@ -204,8 +219,7 @@ def find_premise_producer_rule_entries(
     entry
     for entry in catalog.entries()
     if (
-      entry.fixed_point_safe
-      and entry.conclusion_type
+      entry.conclusion_type
       is premise_pattern.statement_type
     )
   )
