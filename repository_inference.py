@@ -2051,6 +2051,95 @@ def select_unique_depth_two_producer_chain(
   )
 
 
+def build_depth_two_producer_search_report(
+  repository,
+  rule_catalog,
+  goal,
+) -> BoundedProducerSearchReport:
+  if not isinstance(
+    repository,
+    ProofRepository,
+  ):
+    raise TypeError(
+      "repository must be a ProofRepository"
+    )
+
+  if not isinstance(
+    rule_catalog,
+    InferenceRuleCatalog,
+  ):
+    raise TypeError(
+      "rule_catalog must be an "
+      "InferenceRuleCatalog"
+    )
+
+  initial_steps = repository_available_steps(
+    repository
+  )
+
+  if find_goal_step(
+    initial_steps,
+    goal,
+  ) is not None:
+    return BoundedProducerSearchReport(
+      status=(
+        BoundedProducerSearchStatus
+        .GOAL_ALREADY_AVAILABLE
+      ),
+      goal=goal,
+    )
+
+  search_diagnostic = (
+    diagnose_depth_two_producer_search_failure(
+      repository,
+      rule_catalog,
+      goal,
+    )
+  )
+
+  if search_diagnostic is not None:
+    return BoundedProducerSearchReport(
+      status=search_diagnostic.status,
+      goal=goal,
+      diagnostic=search_diagnostic,
+    )
+
+  search_result = (
+    select_unique_depth_two_producer_chain(
+      repository,
+      rule_catalog,
+      goal,
+    )
+  )
+
+  if search_result is None:
+    raise RuntimeError(
+      "search diagnostics passed but no "
+      "search result was selected"
+    )
+
+  execution_diagnostic = (
+    diagnose_depth_two_producer_execution_failure(
+      repository,
+      search_result,
+    )
+  )
+
+  if execution_diagnostic is not None:
+    return BoundedProducerSearchReport(
+      status=execution_diagnostic.status,
+      goal=goal,
+      search_result=search_result,
+      diagnostic=execution_diagnostic,
+    )
+
+  return BoundedProducerSearchReport(
+    status=BoundedProducerSearchStatus.SUCCESS,
+    goal=goal,
+    search_result=search_result,
+  )
+
+
 def detect_goal_rule_missing_premises(
   repository,
   rule_catalog,
