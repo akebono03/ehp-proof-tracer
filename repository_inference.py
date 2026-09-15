@@ -512,51 +512,43 @@ def derive_goal_from_repository_with_one_level_producers(
       )
     )
 
-    if len(
-      availability.missing_patterns
-    ) != 1:
-      continue
-
-    missing_pattern = (
-      availability.missing_patterns[
-        0
-      ]
-    )
-
-    candidate_producer_rules = (
-      find_premise_producer_rules(
+    lookups = (
+      find_missing_premise_producer_lookups(
+        availability,
         rule_catalog,
-        missing_pattern,
       )
     )
 
-    if len(
-      candidate_producer_rules
-    ) != 1:
-      continue
-
-    producer_rule = (
-      candidate_producer_rules[
-        0
-      ]
-    )
-
-    producer_rule_id = id(
-      producer_rule
-    )
-
-    if (
-      producer_rule_id
-      in seen_producer_rule_ids
+    if not (
+      all_missing_premises_uniquely_producible(
+        lookups
+      )
     ):
       continue
 
-    seen_producer_rule_ids.add(
-      producer_rule_id
-    )
-    producer_rules.append(
-      producer_rule
-    )
+    for lookup in lookups:
+      producer_rule = (
+        lookup.producer_rules[
+          0
+        ]
+      )
+
+      producer_rule_id = id(
+        producer_rule
+      )
+
+      if (
+        producer_rule_id
+        in seen_producer_rule_ids
+      ):
+        continue
+
+      seen_producer_rule_ids.add(
+        producer_rule_id
+      )
+      producer_rules.append(
+        producer_rule
+      )
 
   if producer_rules:
     producer_result = (
