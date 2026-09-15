@@ -616,8 +616,9 @@ DEFERRED UNTIL CONCRETE NEED
 | Toda Proposition 5.11 finite-dimensional / π_(n+6)^n | COMPLETE | 73 |
 | stable homotopy branch through G_7 | COMPLETE | 78 |
 | minimal in-memory Proof Repository | COMPLETE | 79 |
-| repository-assisted automatic inference | COMPLETE IMPLEMENTATION / FINAL PROBE REGRESSION PENDING | 80 |
-| automatic rule selection / proof search | PLANNED / DEFERRED | 81+ |
+| repository-assisted automatic inference | COMPLETE | 80 |
+| automatic rule selection / proof-search foundation | COMPLETE IMPLEMENTATION / FINAL PROBE REGRESSION PENDING | 81 |
+| multi-step / goal-directed proof-search foundation | NEXT | 82 |
 | automatic proof narrative generation | PLANNED / DEFERRED | later |
 | persistent Proof Repository | PLANNED / DEFERRED | later |
 | higher Toda brackets | DEFERRED | concrete need |
@@ -1246,3 +1247,106 @@ automatic theorem generation
 ```
 
 The next Phase should first audit current rule families and define the minimum safe search policy.
+
+
+---
+
+# 21. Phase 81 completion / Phase 82 boundary
+
+Phase 81 implements the first automatic rule-selection layer above the Phase 80 repository-assisted runner.
+
+Completed:
+
+```text
+InferenceRule safety audit
+minimal InferenceRuleCatalog
+goal-compatible exact-type filtering
+fixed-point-safe opt-in metadata
+rule identity deduplication
+catalog-aware repository inference wrapper
+actual Toda Lemma 5.16 integration
+wrong-rule / ambiguity regression
+non-circularity / acyclicity regression
+representative probe
+```
+
+Current flow:
+
+```text
+actual goal
+↓
+InferenceRuleCatalog
+↓
+exact conclusion-type + fixed-point-safe filtering
+↓
+execution-rule identity deduplication
+↓
+existing premise matching / match_guard
+↓
+repository-assisted forward fixed-point inference
+↓
+new proof
+```
+
+Representative actual theorem:
+
+```text
+Toda Lemma 5.16
+```
+
+Phase 81 demonstrates that the caller no longer needs to supply the final rule directly.
+
+Pre-probe repository-wide regression:
+
+```text
+6631 passed in 34.70s
+```
+
+## Phase 82 next capability dependency
+
+Phase 81 still requires all premises needed by the automatically selected rule to already be available from the repository / forward closure.
+
+Phase 82 should address the next missing capability:
+
+```text
+selected goal-producing rule
+↓
+required premise missing
+↓
+identify rule(s) that could produce that premise
+↓
+limited multi-step goal-directed search
+```
+
+Start narrowly.
+
+Recommended Phase 82-1:
+
+```text
+existing rule-producer / premise-demand audit
+```
+
+Questions:
+
+```text
+how to represent a missing premise target without generic theorem unification?
+how to locate producer rules safely?
+how to prevent recursive cycles?
+how to bound depth / breadth?
+how to preserve current fixed-point-safe boundaries?
+how to distinguish structural producer compatibility from actual applicability?
+```
+
+Do not immediately introduce:
+
+```text
+full backward chaining
+general DFS / BFS theorem prover
+A* proof search
+proof ranking
+persistent theorem database
+mathematical-equivalence normalization
+generic theorem synthesis
+```
+
+Phase 82 should first prove one concrete two-stage search path where the final rule requires a premise not initially present but producible by a known safe rule.

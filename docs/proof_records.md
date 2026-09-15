@@ -7902,3 +7902,158 @@ Infrastructure records:
 
 Phase 80 does not increment the mathematical theorem record count because it reuses the already-recorded Phase 77 theorem as an execution/infrastructure demonstration.
 
+
+
+---
+
+# 32. Phase 81 infrastructure record — automatic rule selection
+
+## 32.1 Purpose
+
+Phase 80 required:
+
+```text
+repository premises
++
+explicit final InferenceRule
++
+goal
+```
+
+Phase 81 changes the execution interface to:
+
+```text
+repository premises
++
+InferenceRuleCatalog
++
+goal
+```
+
+and automatically selects goal-compatible fixed-point-safe rules.
+
+This is an infrastructure capability record, not a new mathematical theorem proof record.
+
+## 32.2 Representative actual theorem
+
+Representative theorem remains:
+
+```text
+Toda Lemma 5.16
+Phase 77
+```
+
+The initial repository contains the exact existing direct premise steps and does not contain the final conclusion.
+
+## 32.3 Rule-selection path
+
+```text
+goal
+↓
+exact conclusion type
+↓
+fixed-point-safe catalog entries
+↓
+InferenceRule identity deduplication
+↓
+premise matching / match_guard
+↓
+correct existing Phase 77 final rule
+↓
+new final ProofStep
+```
+
+## 32.4 Ambiguity boundary
+
+Representative catalog contains intentional decoys:
+
+```text
+same-rule alias
+wrong-guard rule
+missing-premise rule
+unsafe rule
+unrelated conclusion type
+```
+
+Verified:
+
+```text
+unsafe / unrelated excluded before execution
+wrong-guard / missing-premise rejected by existing applicability machinery
+alias does not duplicate execution
+exactly one accepted actual-goal proof
+```
+
+## 32.5 Provenance / non-circularity
+
+Verified:
+
+```text
+final = INFERENCE
+exact existing Phase 77 rule identity retained
+exact repository premise identity retained
+goal absent initially
+goal absent from ancestors
+graph acyclic
+repository unchanged
+```
+
+## 32.6 Seed-goal distinction
+
+If the repository already contains the goal as a `GIVEN` step, structural goal detection returns that existing seed.
+
+Thus:
+
+```text
+GIVEN
+!=
+newly derived INFERENCE
+```
+
+remains observable.
+
+## 32.7 Representative probe
+
+```powershell
+python -m probes.probe_phase81_capabilities
+```
+
+The probe reports the candidate-selection, applicability, actual-rule reuse, accepted-proof count, provenance, and Phase 82 boundary.
+
+## 32.8 Automation boundary
+
+Implemented:
+
+```text
+automatic goal-compatible rule selection
+repository-assisted forward inference
+```
+
+Still absent:
+
+```text
+recursive premise production
+backward chaining
+multi-step goal-directed proof search
+proof ranking
+persistent repository
+automatic proof narrative generation
+```
+
+## 32.9 Record status
+
+Mathematical proof records remain:
+
+```text
+13
+```
+
+Infrastructure records become:
+
+```text
+1  Phase 79  minimal in-memory Proof Repository
+2  Phase 80  repository-assisted automatic inference
+3  Phase 81  automatic rule selection
+```
+
+Phase 81 does not increment the mathematical theorem record count because it reuses the already-recorded Phase 77 theorem as its actual execution demonstration.

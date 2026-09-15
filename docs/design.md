@@ -9798,3 +9798,345 @@ existing fixed-point engine
 
 It does not mean a general theorem prover.
 
+
+
+# 120. Phase 81 rule-catalog boundary
+
+Phase 81 introduces a rule catalog separate from both proof storage and the generic inference engine.
+
+```text
+ProofRepository
+= existing proof facts / ProofStep catalog
+
+InferenceRuleCatalog
+= selectable rule metadata
+
+proof.py
+= generic applicability / inference execution
+
+repository_inference.py
+= orchestration
+```
+
+`ProofRepository` does not store theorem rules.
+
+`InferenceRuleCatalog` does not store proof facts.
+
+This preserves:
+
+```text
+proof result knowledge
+!= theorem rule knowledge
+```
+
+---
+
+# 121. InferenceRuleCatalogEntry semantics
+
+Minimum entry fields:
+
+```text
+key
+rule
+conclusion_type
+fixed_point_safe
+```
+
+`conclusion_type` is catalog metadata because existing `InferenceRule` objects may produce conclusions via `conclusion_builder` rather than `conclusion_pattern`.
+
+`fixed_point_safe` defaults to `False`.
+
+Therefore:
+
+```text
+registered rule
+!= automatically executable rule
+```
+
+Automatic execution requires explicit opt-in.
+
+The catalog deliberately does not add:
+
+```text
+priority
+score
+phase metadata
+theorem metadata
+premise index
+producer graph
+backward-search metadata
+persistent IDs
+```
+
+---
+
+# 122. Phase 81 goal-compatible filtering semantics
+
+Initial filtering is intentionally coarse:
+
+```text
+entry.conclusion_type is type(goal)
+AND
+entry.fixed_point_safe
+```
+
+Exact type identity is used instead of broad `isinstance()` matching.
+
+This avoids silently selecting theorem rules registered for a base statement class when the concrete goal uses a more specific subclass.
+
+The selector does not inspect:
+
+```text
+goal field values
+premise availability
+match_guard
+mathematical equivalence
+normal forms
+```
+
+Those remain later applicability / inference concerns.
+
+---
+
+# 123. Catalog identity / execution identity
+
+Catalog entries may alias the same exact `InferenceRule` object:
+
+```text
+entry A ─┐
+         ├→ same InferenceRule
+entry B ─┘
+```
+
+This is allowed because:
+
+```text
+catalog metadata identity
+!= execution rule identity
+```
+
+`find_goal_compatible_rule_entries()` preserves entry aliases.
+
+`find_goal_compatible_rules()` identity-deduplicates the rule tuple before execution.
+
+This prevents catalog aliases from creating duplicate inference work while preserving catalog-level naming flexibility.
+
+---
+
+# 124. Phase 81 repository orchestration
+
+`derive_goal_from_repository_with_catalog()` performs:
+
+```text
+find_goal_compatible_rules(catalog, goal)
+↓
+derive_goal_from_repository(
+  repository,
+  selected_rules,
+  goal,
+)
+```
+
+The Phase 80 runner remains unchanged and reusable.
+
+Therefore Phase 81 is composition above existing infrastructure, not a replacement inference engine.
+
+---
+
+# 125. Applicability responsibility after rule selection
+
+Goal-compatible selection is not theorem applicability.
+
+A candidate rule may survive catalog filtering but still be rejected because:
+
+```text
+required premise is unavailable
+proof-rule provenance does not match
+statement instance does not match
+variable bindings conflict
+match_guard rejects the instance
+```
+
+Responsibility remains:
+
+```text
+InferenceRuleCatalog
+→ coarse candidate selection
+
+PremisePattern / variable binding / match_guard
+→ actual applicability
+
+fixed-point runner
+→ execution / duplicate classification
+```
+
+Phase 81 intentionally does not duplicate `match_guard` semantics inside the catalog.
+
+---
+
+# 126. Phase 81 actual-theorem integration policy
+
+Representative theorem:
+
+```text
+Toda Lemma 5.16
+Phase 77
+```
+
+Repository seeds remain exactly the existing direct premise `ProofStep` objects.
+
+The actual final conclusion is absent initially.
+
+The catalog contains the existing actual Phase 77 final rule with:
+
+```text
+conclusion_type = exact goal type
+fixed_point_safe = True
+```
+
+The caller supplies:
+
+```text
+repository
+catalog
+goal
+```
+
+but not the final `InferenceRule` directly.
+
+Success requires:
+
+```text
+new final ProofStep
+ProofRule.INFERENCE
+exact existing Phase 77 rule identity
+exact repository premise identity
+fixed-point termination
+repository non-mutation
+acyclic provenance
+```
+
+---
+
+# 127. Phase 81 ambiguity / wrong-rule policy
+
+Representative regression deliberately includes multiple candidates.
+
+Catalog-level exclusions:
+
+```text
+unsafe candidate
+unrelated conclusion type
+```
+
+Applicability-level exclusions:
+
+```text
+wrong-guard candidate
+missing-premise candidate
+```
+
+Alias handling:
+
+```text
+same actual rule registered under multiple keys
+→ one execution rule
+```
+
+Required final behavior:
+
+```text
+exactly one accepted proof of the actual goal
+using the correct existing Phase 77 rule
+```
+
+No ranking policy is required when only one selected rule becomes applicable.
+
+---
+
+# 128. Seed-goal / derived-goal distinction
+
+Structural goal detection remains unchanged from Phase 80.
+
+If the repository already contains the goal:
+
+```text
+find_goal_step()
+→ existing seed ProofStep
+```
+
+Therefore callers can distinguish:
+
+```text
+ProofRule.GIVEN
+→ goal was already seeded
+
+ProofRule.INFERENCE
+→ goal was derived by inference
+```
+
+Phase 81 does not hide this distinction behind a success boolean.
+
+---
+
+# 129. Phase 81 representative probe boundary
+
+Representative probe:
+
+```text
+probes/probe_phase81_capabilities.py
+```
+
+Representative data source:
+
+```text
+build_phase81_6_data()
+```
+
+The probe is presentation-only and must not reconstruct theorem logic.
+
+It displays:
+
+```text
+actual Toda Lemma 5.16 target
+catalog candidate counts
+unsafe / unrelated filtering
+alias deduplication
+wrong-guard / missing-premise rejection
+selected actual rule identity
+exact repository premise identity
+one accepted goal proof
+non-circularity
+repository non-mutation
+Phase 82 boundary
+```
+
+---
+
+# 130. Current proof-search boundary after Phase 81
+
+Implemented:
+
+```text
+goal-compatible automatic rule selection
+repository-assisted forward inference
+actual theorem integration
+safe-rule metadata boundary
+applicability delegation to existing engine
+```
+
+Not implemented:
+
+```text
+producer-rule discovery for missing premises
+recursive goal decomposition
+backward chaining
+depth-first / breadth-first proof search
+search ranking
+best-proof selection
+proof-cost model
+mathematical goal normalization
+persistent proof/rule database
+```
+
+Phase 82 should begin with a minimum goal-directed missing-premise policy rather than a general backward theorem prover.
