@@ -32620,6 +32620,13 @@ class Toda45StableTwoPrimaryIdentificationStatement:
 
 
 @dataclass(frozen=True)
+class Toda45StableTwoPrimaryZeroStatement:
+  source_zero: TodaPrimaryGroupZeroStatement
+  identification: Toda45StableTwoPrimaryIdentificationStatement
+  stable_component: StablePrimaryComponent
+
+
+@dataclass(frozen=True)
 class TodaStableSigmaDefinitionStatement:
   source_definition: TodaSigmaFamilyDefinitionStatement
   stable_component: StablePrimaryComponent
@@ -40672,6 +40679,250 @@ def toda_prop511_stable_nu_squared_definition_inference_rule():
         proof_rule=ProofRule.INFERENCE,
         statement_type=(
           TodaStableNuDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda45StableTwoPrimaryIdentificationStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop58_g4_two_primary_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    source_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    expected_source_group = (
+      TodaPrimaryGroup(
+        group_dimension=10,
+        sphere_dimension=6,
+      )
+    )
+
+    if (
+      source_zero
+      != TodaPrimaryGroupZeroStatement(
+        group=expected_source_group,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      identification,
+      Toda45StableTwoPrimaryIdentificationStatement,
+    ):
+      return False
+
+    if (
+      identification.source_group
+      != expected_source_group
+    ):
+      return False
+
+    expected_component = (
+      StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=4,
+        ),
+        prime=2,
+      )
+    )
+
+    return (
+      identification.target_component
+      == expected_component
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    source_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return (
+      Toda45StableTwoPrimaryZeroStatement(
+        source_zero=source_zero,
+        identification=identification,
+        stable_component=(
+          identification
+          .target_component
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.8 "
+      "stable G_4 2-primary zero"
+    ),
+    description=(
+      "Use the independently derived "
+      "finite-dimensional result "
+      "pi_10^6=0 together with the "
+      "Toda (4.5) stable identification "
+      "pi_10^6 isomorphic to (G_4;2). "
+      "Conclude that (G_4;2)=0. "
+      "This rule is specific to the "
+      "Toda Proposition 5.8 four-stem "
+      "branch. "
+      "It does not introduce a generic "
+      "zero-group isomorphism transport "
+      "framework."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaPrimaryGroupZeroStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          Toda45StableTwoPrimaryIdentificationStatement
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+  )
+
+
+def toda_prop59_g5_two_primary_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    source_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    expected_source_group = (
+      TodaPrimaryGroup(
+        group_dimension=12,
+        sphere_dimension=7,
+      )
+    )
+
+    if (
+      source_zero
+      != TodaPrimaryGroupZeroStatement(
+        group=expected_source_group,
+      )
+    ):
+      return False
+
+    if not isinstance(
+      identification,
+      Toda45StableTwoPrimaryIdentificationStatement,
+    ):
+      return False
+
+    if (
+      identification.source_group
+      != expected_source_group
+    ):
+      return False
+
+    expected_component = (
+      StablePrimaryComponent(
+        group=StableHomotopyGroup(
+          stem=5,
+        ),
+        prime=2,
+      )
+    )
+
+    return (
+      identification.target_component
+      == expected_component
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    source_zero = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    identification = (
+      premises[
+        1
+      ].conclusion
+    )
+
+    return (
+      Toda45StableTwoPrimaryZeroStatement(
+        source_zero=source_zero,
+        identification=identification,
+        stable_component=(
+          identification
+          .target_component
+        ),
+      )
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda Proposition 5.9 "
+      "stable G_5 2-primary zero"
+    ),
+    description=(
+      "Use the independently derived "
+      "finite-dimensional result "
+      "pi_12^7=0 together with the "
+      "Toda (4.5) stable identification "
+      "pi_12^7 isomorphic to (G_5;2). "
+      "Conclude that (G_5;2)=0. "
+      "This rule is specific to the "
+      "Toda Proposition 5.9 five-stem "
+      "branch. "
+      "It does not introduce a generic "
+      "zero-group isomorphism transport "
+      "framework."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=(
+          TodaPrimaryGroupZeroStatement
         ),
       ),
       PremisePattern(
