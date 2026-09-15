@@ -739,6 +739,89 @@ class BoundedProducerSearchReport:
       )
 
 
+@dataclass(frozen=True)
+class BoundedProducerExecutionResult:
+  report: BoundedProducerSearchReport
+  repository_inference_result: (
+    RepositoryInferenceResult | None
+  ) = None
+
+  def __post_init__(
+    self,
+  ) -> None:
+    if not isinstance(
+      self.report,
+      BoundedProducerSearchReport,
+    ):
+      raise TypeError(
+        "report must be a "
+        "BoundedProducerSearchReport"
+      )
+
+    if (
+      self.repository_inference_result
+      is not None
+      and not isinstance(
+        self.repository_inference_result,
+        RepositoryInferenceResult,
+      )
+    ):
+      raise TypeError(
+        "repository_inference_result must "
+        "be a RepositoryInferenceResult "
+        "or None"
+      )
+
+    successful_statuses = (
+      BoundedProducerSearchStatus.SUCCESS,
+      BoundedProducerSearchStatus
+      .GOAL_ALREADY_AVAILABLE,
+    )
+
+    if self.report.status in successful_statuses:
+      if (
+        self.repository_inference_result
+        is None
+      ):
+        raise ValueError(
+          "successful execution result "
+          "requires a "
+          "repository_inference_result"
+        )
+
+      goal_step = (
+        self.repository_inference_result
+        .goal_step
+      )
+
+      if goal_step is None:
+        raise ValueError(
+          "successful execution result "
+          "requires a goal_step"
+        )
+
+      if (
+        goal_step.conclusion
+        != self.report.goal
+      ):
+        raise ValueError(
+          "goal_step conclusion must match "
+          "report goal"
+        )
+
+      return
+
+    if (
+      self.repository_inference_result
+      is not None
+    ):
+      raise ValueError(
+        "failed execution result must not "
+        "contain a "
+        "repository_inference_result"
+      )
+
+
 def repository_available_steps(
   repository: ProofRepository,
 ) -> tuple[
@@ -2137,6 +2220,136 @@ def build_depth_two_producer_search_report(
     status=BoundedProducerSearchStatus.SUCCESS,
     goal=goal,
     search_result=search_result,
+  )
+
+
+def execute_depth_two_producer_search(
+  repository,
+  rule_catalog,
+  goal,
+) -> BoundedProducerExecutionResult:
+  if not isinstance(
+    repository,
+    ProofRepository,
+  ):
+    raise TypeError(
+      "repository must be a ProofRepository"
+    )
+
+  if not isinstance(
+    rule_catalog,
+    InferenceRuleCatalog,
+  ):
+    raise TypeError(
+      "rule_catalog must be an "
+      "InferenceRuleCatalog"
+    )
+
+  report = (
+    build_depth_two_producer_search_report(
+      repository,
+      rule_catalog,
+      goal,
+    )
+  )
+
+  initial_steps = repository_available_steps(
+    repository
+  )
+
+  if report.status is (
+    BoundedProducerSearchStatus
+    .GOAL_ALREADY_AVAILABLE
+  ):
+    inference_result = (
+      run_inference_until_stable_with_history(
+        (),
+        initial_steps,
+        max_rounds=1,
+      )
+    )
+
+    repository_inference_result = (
+      RepositoryInferenceResult(
+        inference_result=inference_result,
+        goal_step=find_goal_step(
+          inference_result.steps,
+          goal,
+        ),
+      )
+    )
+
+    return BoundedProducerExecutionResult(
+      report=report,
+      repository_inference_result=(
+        repository_inference_result
+      ),
+    )
+
+  if report.status is not (
+    BoundedProducerSearchStatus.SUCCESS
+  ):
+    return BoundedProducerExecutionResult(
+      report=report,
+    )
+
+  search_result = report.search_result
+
+  if search_result is None:
+    raise RuntimeError(
+      "successful report must contain a "
+      "search result"
+    )
+
+  current_steps = initial_steps
+
+  for node in search_result.producer_nodes:
+    producer_result = (
+      run_inference_until_stable_with_history(
+        (
+          node.producer_rule,
+        ),
+        current_steps,
+        max_rounds=1,
+      )
+    )
+
+    current_steps = producer_result.steps
+
+  final_result = (
+    run_inference_until_stable_with_history(
+      (
+        search_result.final_rule,
+      ),
+      current_steps,
+      max_rounds=1,
+    )
+  )
+
+  repository_inference_result = (
+    RepositoryInferenceResult(
+      inference_result=final_result,
+      goal_step=find_goal_step(
+        final_result.steps,
+        goal,
+      ),
+    )
+  )
+
+  if (
+    repository_inference_result.goal_step
+    is None
+  ):
+    raise RuntimeError(
+      "successful bounded search execution "
+      "did not derive the requested goal"
+    )
+
+  return BoundedProducerExecutionResult(
+    report=report,
+    repository_inference_result=(
+      repository_inference_result
+    ),
   )
 
 
