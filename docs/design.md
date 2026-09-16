@@ -11432,3 +11432,97 @@ search / diagnostics / report / execution のいずれも元 `ProofRepository` �
 Phase 86-4 では `max_depth>4` の formal regression、unbounded recursion、general backtracking、producer ranking、proof-cost model、best-proof selection は追加しない。
 
 次 Phase は既存 roadmap に従い Phase 87 とし、producer ambiguity と explicit finite retry policy の監査から開始する。
+
+---
+
+# Phase 87：finite producer retry 設計
+
+Phase 87 は Phase 86 の bounded producer search に対し、producer ambiguity を全面的な backtracking へ拡張せず、明示的かつ有限の retry policy だけを追加する。
+
+policy:
+
+```text
+FiniteProducerRetryPolicy(max_attempts=N)
+```
+
+基本境界:
+
+```text
+retry_policy=None
+-> 従来の unique safe producer policy
+-> 複数 safe producer candidate は AMBIGUOUS_PRODUCER
+```
+
+明示 policy あり:
+
+```text
+safe producer candidates
+-> catalog registration order
+-> 先頭から max_attempts 個まで selection を試行
+```
+
+selection failure 時には、その candidate のために作成した一時的な node / dependency state を rollback する。
+
+```text
+failed candidate state
+-> selected BoundedProducerSearchResult に残さない
+```
+
+retry budget 内で candidate が成功した場合:
+
+```text
+selected producer path
+-> BoundedProducerSearchResult
+-> diagnostics / report
+-> exact selected-path execution
+-> ProofStep provenance
+```
+
+execution layer は候補探索をやり直さない。
+
+```text
+report.search_result.producer_nodes
+```
+
+に確定した path だけを実行する。
+
+retry exhausted は:
+
+```text
+PRODUCER_RETRY_EXHAUSTED
+```
+
+で表し、従来の:
+
+```text
+AMBIGUOUS_PRODUCER
+```
+
+とは区別する。
+
+Phase 87 で維持する invariant:
+
+```text
+finite explicit depth bound
+finite explicit retry bound
+safe producer policy
+catalog-order deterministic retry
+cycle safety
+failed-attempt rollback
+shared dependency identity preservation
+dependency-first selected-path execution
+ProofStep provenance
+repository non-mutation
+default retry compatibility
+```
+
+Phase 87 では導入しない:
+
+```text
+general backtracking
+producer ranking
+proof-cost model
+best-proof selection
+DFS / BFS / A*
+unbounded recursive search
+```

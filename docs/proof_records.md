@@ -9466,3 +9466,65 @@ producer ranking
 proof-cost model
 best-proof selection
 ```
+
+---
+
+# Phase 87 representative proof-search record
+
+対象は synthetic producer ambiguity fixture。
+
+初期状態:
+
+```text
+goal
+<- A premise
+
+A producer candidates:
+  candidate 1
+  candidate 2
+```
+
+policy なし:
+
+```text
+multiple safe producer candidates
+-> AMBIGUOUS_PRODUCER
+```
+
+有限 policy:
+
+```text
+FiniteProducerRetryPolicy(max_attempts=1)
+-> candidate 1 selection failure
+-> retry budget exhausted
+-> PRODUCER_RETRY_EXHAUSTED
+```
+
+```text
+FiniteProducerRetryPolicy(max_attempts=2)
+-> candidate 1 selection failure
+-> temporary state rollback
+-> candidate 2 selection success
+-> report SUCCESS
+```
+
+execution:
+
+```text
+candidate 2 ProofStep
+-> final rule
+-> goal ProofStep
+```
+
+provenance:
+
+```text
+selected candidate inference_rule preserved
+goal premise is selected candidate ProofStep
+final inference_rule preserved
+candidate 1 absent from executed rules
+candidate 1 dependency branch absent from executed rules
+repository non-mutation
+```
+
+この record が示す範囲は有限 retry のみであり、general backtracking / ranking / best-proof selection を意味しない。

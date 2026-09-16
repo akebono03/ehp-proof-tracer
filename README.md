@@ -4,7 +4,7 @@ EHP Proof Tracer is an experimental Python project for representing and checking
 
 ## Current mathematical frontier
 
-The repository currently formalizes the concrete proof spine through Toda Lemma 5.16 and consolidates the stable groups through stem 7:
+The repository formalizes the concrete proof spine through Toda Lemma 5.16 and consolidates the stable groups through stem 7:
 
 ```text
 G_0 = Z{iota}
@@ -17,7 +17,7 @@ G_0 = Z{iota}
 (G_7;2) = Z/16{sigma}
 ```
 
-The project records proof provenance with `ProofStep` objects rather than storing only final conclusions.
+Proof provenance is preserved with `ProofStep` objects instead of storing only final conclusions.
 
 ## Current proof-search capability
 
@@ -28,18 +28,20 @@ goal
 -> goal-compatible final-rule selection
 -> missing-premise analysis
 -> bounded producer search
--> search-failure diagnostics
--> execution-failure diagnostics
+-> finite explicit producer retry when authorized
+-> search diagnostics
+-> execution diagnostics
 -> unified search report
 -> exact selected-path execution
 -> goal ProofStep
 ```
 
-Phase 86 adds an explicit bounded depth parameter. The supported values are currently:
+The bounded search uses an explicit `max_depth`. The validator accepts integer values `>= 2`, with formal regression coverage through:
 
 ```text
 max_depth = 2
 max_depth = 3
+max_depth = 4
 ```
 
 The default remains:
@@ -48,7 +50,7 @@ The default remains:
 max_depth = 2
 ```
 
-The following APIs support both depth 2 and depth 3 while preserving the existing API names for compatibility:
+The existing compatibility API names are intentionally preserved:
 
 ```text
 select_unique_depth_two_producer_chain()
@@ -57,61 +59,77 @@ build_depth_two_producer_search_report()
 execute_depth_two_producer_search()
 ```
 
-The names still contain `depth_two` because Phase 86 intentionally avoids a compatibility-breaking rename.
+## Phase 87: finite producer retry
 
-## Depth-3 behavior
-
-For a unique chain
+Phase 87 adds an explicit, finite retry policy:
 
 ```text
-final
-<- A   depth 1
-<- B   depth 2
-<- C   depth 3
+FiniteProducerRetryPolicy(max_attempts=N)
 ```
 
-Phase 86-3 verifies the paired behavior:
+The default remains conservative:
 
 ```text
-max_depth=2
--> DEPTH_LIMIT
-
-max_depth=3
--> select C, B, A in dependency-first order
--> execute C
--> execute B using C's ProofStep
--> execute A using B's ProofStep
--> execute final using A's ProofStep
--> derive the requested goal ProofStep
+retry_policy=None
+-> multiple safe producer candidates
+-> AMBIGUOUS_PRODUCER
+-> stop
 ```
 
-The repository remains unchanged during search and execution; generated steps are returned in inference results rather than auto-registered.
+With an explicit retry policy, safe producer candidates are attempted in deterministic catalog registration order, bounded by `max_attempts`.
+
+Representative behavior:
+
+```text
+no retry policy
+-> AMBIGUOUS_PRODUCER
+
+max_attempts=1
+-> first candidate fails during selection
+-> PRODUCER_RETRY_EXHAUSTED
+
+max_attempts=2
+-> first candidate fails during selection
+-> temporary selection state is rolled back
+-> second candidate is selected
+-> report SUCCESS
+-> selected second producer is executed
+-> final rule uses the selected producer ProofStep
+-> requested goal ProofStep is derived
+```
+
+A failed candidate and its discarded dependency branch do not appear in execution provenance.
 
 ## Search policy and safety boundaries
 
-The bounded search intentionally remains conservative:
+The current bounded search preserves:
 
 ```text
 finite explicit depth limit
-unique safe producer policy
+finite explicit retry budget
+safe producer filtering
+catalog-order deterministic attempts
 cycle detection
 shared producer identity reuse
 deterministic dependency-first ordering
+failed-attempt state rollback
 exact selected-path execution
+ProofStep provenance
 repository non-mutation
+default retry-policy compatibility
+default max_depth=2 compatibility
 ```
 
 Still intentionally not implemented:
 
 ```text
-max_depth > 3
-retry / backtracking
-alternative producer planning
+unbounded search
+general backtracking
 producer ranking
 proof-cost models
 best-proof selection
 DFS / BFS / A*
-unbounded recursive theorem search
+formal max_depth > 4 regression coverage
 persistent search cache
 automatic proof narrative generation
 generic theorem proving
@@ -119,55 +137,67 @@ generic theorem proving
 
 ## Representative probes
 
-Phase 86 representative probe:
+Phase 86 bounded-depth probe:
 
 ```powershell
 python -m probes.probe_phase86_capabilities
 ```
 
-It checks both:
+Phase 87 finite-retry probe:
 
-```text
-Phase 86-2 compatibility baseline
-+
-Phase 86-3 depth=3 end-to-end execution
+```powershell
+python -m probes.probe_phase87_capabilities
 ```
 
-The representative synthetic depth-3 chain is deliberately small so that bounded-search semantics, diagnostic depth, dependency ordering, provenance, and repository non-mutation are directly visible.
+The Phase 87 probe verifies:
+
+```text
+retry_policy=None -> AMBIGUOUS_PRODUCER
+max_attempts=1 -> PRODUCER_RETRY_EXHAUSTED
+max_attempts=2 -> SUCCESS
+selected second producer -> final -> goal
+failed first branch absent from execution provenance
+repository non-mutation
+```
 
 ## Verification
 
-Latest confirmed repository-wide regression before the Phase 86-3-6 completion update:
+Latest confirmed repository-wide regression before the Phase 87-6 probe/documentation additions:
 
 ```text
-6989 passed in 35.32s
+7043 passed in 41.53s
 ```
 
-Phase 86-3-6 adds representative-probe and completion-regression coverage. Run:
+Run the Phase 87 completion verification with:
 
 ```powershell
 python -m py_compile `
   repository_inference.py `
-  probes/probe_phase86_capabilities.py `
-  tests/test_phase86_depth_three_bounded_search.py `
-  tests/test_phase86_explicit_max_depth_parameterization.py `
-  tests/test_phase86_probe.py
+  probes/probe_phase87_capabilities.py `
+  tests/test_phase87_minimal_retry_policy_representation.py `
+  tests/test_phase87_selection_side_finite_retry.py `
+  tests/test_phase87_retry_diagnostics_report.py `
+  tests/test_phase87_selected_path_execution_retry_provenance.py `
+  tests/test_phase87_probe.py
 
 python -m pytest `
-  tests/test_phase86_depth_three_bounded_search.py `
+  tests/test_phase87_minimal_retry_policy_representation.py `
+  tests/test_phase87_selection_side_finite_retry.py `
+  tests/test_phase87_retry_diagnostics_report.py `
+  tests/test_phase87_selected_path_execution_retry_provenance.py `
+  tests/test_phase87_probe.py `
+  tests/test_phase85_execution_failure_diagnostics.py `
   tests/test_phase86_explicit_max_depth_parameterization.py `
-  tests/test_phase86_probe.py `
-  tests/test_phase84_bounded_depth_two_execution.py `
-  tests/test_phase84_depth_two_safety_regression.py `
-  tests/test_phase85_nested_producer_cycle_depth_classification.py `
+  tests/test_phase86_depth_three_bounded_search.py `
+  tests/test_phase86_depth_four_bounded_search.py `
   -x --tb=line -q
 
-python -m probes.probe_phase86_capabilities
+python -m probes.probe_phase87_capabilities
 python -m pytest -q
 git diff --check
 ```
 
-Wall-clock time is machine-dependent; test count, semantics, provenance coverage, and focused regression are the primary cross-machine signals.
+Wall-clock time is machine-dependent. Test count, semantic coverage, provenance coverage, focused regression, and repository-wide regression are the primary cross-machine signals.
 
 ## Documentation
 
@@ -202,61 +232,3 @@ actual mathematical or proof-search need
 -> add focused regression coverage
 -> do not pre-implement future phases
 ```
-
----
-# Phase 86-4: bounded depth=4 completion
-
-Phase 86-4 extends the bounded producer-search regression boundary from depth 3 to depth 4 without changing the default depth.
-
-The validator accepts every integer `max_depth >= 2`, while formal regression coverage is currently fixed through:
-
-```text
-max_depth = 2
-max_depth = 3
-max_depth = 4
-```
-
-The default remains `max_depth = 2`.
-
-Representative boundary:
-
-```text
-max_depth=3
--> DEPTH_LIMIT
--> current depth = 3
--> required next depth = 4
-
-max_depth=4
--> SUCCESS
--> dependency-first producer order = D, C, B, A
--> producer depths = ((4,), (3,), (2,), (1,))
--> D -> C -> B -> A -> final -> goal
-```
-
-Phase 86-4 verifies selection, diagnostics, report integration, exact selected-path execution, ProofStep provenance, deterministic dependency-first order, and repository non-mutation at depth 4.
-
-Representative probe:
-
-```powershell
-python -m probes.probe_phase86_capabilities
-```
-
-Verified repository-wide baseline before the Phase 86-4-6 probe/documentation additions:
-
-```text
-7000 passed in 36.32s
-```
-
-Still outside the Phase 86-4 boundary:
-
-```text
-formal max_depth > 4 regression coverage
-unbounded recursive search
-general backtracking
-producer ranking
-proof-cost modeling
-best-proof selection
-DFS / BFS / A*
-```
-
-The next planned phase remains Phase 87, beginning with an audit of producer ambiguity and an explicit finite retry policy.

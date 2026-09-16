@@ -72,6 +72,33 @@ class MissingPremiseProducerLookup:
 
 
 @dataclass(frozen=True)
+class FiniteProducerRetryPolicy:
+  max_attempts: int
+
+  def __post_init__(
+    self,
+  ) -> None:
+    if (
+      isinstance(
+        self.max_attempts,
+        bool,
+      )
+      or not isinstance(
+        self.max_attempts,
+        int,
+      )
+    ):
+      raise TypeError(
+        "max_attempts must be an int"
+      )
+
+    if self.max_attempts < 1:
+      raise ValueError(
+        "max_attempts must be positive"
+      )
+
+
+@dataclass(frozen=True)
 class BoundedProducerSearchNode:
   requesting_rule: InferenceRule
   premise_index: int
@@ -382,6 +409,9 @@ class BoundedProducerSearchStatus(Enum):
   AMBIGUOUS_PRODUCER = (
     "ambiguous_producer"
   )
+  PRODUCER_RETRY_EXHAUSTED = (
+    "producer_retry_exhausted"
+  )
   CYCLE_DETECTED = "cycle_detected"
   DEPTH_LIMIT = "depth_limit"
   PRODUCER_NOT_APPLICABLE = (
@@ -394,7 +424,6 @@ class BoundedProducerSearchStatus(Enum):
     "final_rule_not_applicable"
   )
   GOAL_NOT_DERIVED = "goal_not_derived"
-
 
 @dataclass(frozen=True)
 class BoundedProducerSearchDiagnostic:
@@ -1364,12 +1393,9 @@ def _validate_bounded_search_selection_max_depth(
       "max_depth must be an int"
     )
 
-  if max_depth not in (
-    2,
-    3,
-  ):
+  if max_depth < 2:
     raise ValueError(
-      "max_depth must be 2 or 3 for "
+      "max_depth must be at least 2 for "
       "bounded producer search selection"
     )
 
@@ -1379,10 +1405,94 @@ def diagnose_depth_two_producer_search_failure(
   rule_catalog,
   goal,
   max_depth=2,
+  retry_policy=None,
 ) -> BoundedProducerSearchDiagnostic | None:
   _validate_bounded_search_selection_max_depth(
     max_depth
   )
+
+  if (
+    retry_policy is not None
+    and not isinstance(
+      retry_policy,
+      FiniteProducerRetryPolicy,
+    )
+  ):
+    raise TypeError(
+      "retry_policy must be a "
+      "FiniteProducerRetryPolicy or None"
+    )
+
+  if retry_policy is not None:
+    legacy_diagnostic = (
+      diagnose_depth_two_producer_search_failure(
+        repository,
+        rule_catalog,
+        goal,
+        max_depth=max_depth,
+        retry_policy=None,
+      )
+    )
+
+    if legacy_diagnostic is None:
+      return None
+
+    if legacy_diagnostic.status is not (
+      BoundedProducerSearchStatus
+      .AMBIGUOUS_PRODUCER
+    ):
+      return legacy_diagnostic
+
+    retry_selection = (
+      select_unique_depth_two_producer_chain(
+        repository,
+        rule_catalog,
+        goal,
+        max_depth=max_depth,
+        retry_policy=retry_policy,
+      )
+    )
+
+    if retry_selection is not None:
+      return None
+
+    return BoundedProducerSearchDiagnostic(
+      status=(
+        BoundedProducerSearchStatus
+        .PRODUCER_RETRY_EXHAUSTED
+      ),
+      goal=legacy_diagnostic.goal,
+      final_rule=legacy_diagnostic.final_rule,
+      requesting_rule=(
+        legacy_diagnostic.requesting_rule
+      ),
+      premise_index=(
+        legacy_diagnostic.premise_index
+      ),
+      premise_pattern=(
+        legacy_diagnostic.premise_pattern
+      ),
+      current_depth=(
+        legacy_diagnostic.current_depth
+      ),
+      required_next_depth=(
+        legacy_diagnostic
+        .required_next_depth
+      ),
+      producer_candidates=(
+        legacy_diagnostic
+        .producer_candidates[
+          :retry_policy.max_attempts
+        ]
+      ),
+      unsafe_producer_candidates=(
+        legacy_diagnostic
+        .unsafe_producer_candidates
+      ),
+      ancestor_rules=(
+        legacy_diagnostic.ancestor_rules
+      ),
+    )
 
   direct_diagnostic = (
     diagnose_direct_producer_failure(
@@ -1884,6 +1994,7 @@ def select_unique_depth_two_producer_chain(
   rule_catalog,
   goal,
   max_depth=2,
+  retry_policy=None,
 ) -> BoundedProducerSearchResult | None:
   _validate_bounded_search_selection_max_depth(
     max_depth
@@ -1904,6 +2015,18 @@ def select_unique_depth_two_producer_chain(
     raise TypeError(
       "rule_catalog must be an "
       "InferenceRuleCatalog"
+    )
+
+  if (
+    retry_policy is not None
+    and not isinstance(
+      retry_policy,
+      FiniteProducerRetryPolicy,
+    )
+  ):
+    raise TypeError(
+      "retry_policy must be a "
+      "FiniteProducerRetryPolicy or None"
     )
 
   initial_steps = (
@@ -1942,12 +2065,13 @@ def select_unique_depth_two_producer_chain(
     )
   )
 
-  if not (
-    all_missing_premises_uniquely_producible(
-      direct_lookups
-    )
-  ):
-    return None
+  if retry_policy is None:
+    if not (
+      all_missing_premises_uniquely_producible(
+        direct_lookups
+      )
+    ):
+      return None
 
   node_specs = {}
   dependency_rule_ids = {}
@@ -1997,17 +2121,70 @@ def select_unique_depth_two_producer_chain(
 
     return producer_rule_id
 
-  def register_producer_lookup(
+  def snapshot_selection_state():
+    return (
+      {
+        rule_id: {
+          **spec,
+          "depths": set(
+            spec[
+              "depths"
+            ]
+          ),
+        }
+        for rule_id, spec
+        in node_specs.items()
+      },
+      {
+        rule_id: list(
+          dependency_ids
+        )
+        for rule_id, dependency_ids
+        in dependency_rule_ids.items()
+      },
+    )
+
+  def restore_selection_state(
+    snapshot,
+  ):
+    snapshot_node_specs, (
+      snapshot_dependency_rule_ids
+    ) = snapshot
+
+    node_specs.clear()
+    node_specs.update(
+      snapshot_node_specs
+    )
+
+    dependency_rule_ids.clear()
+    dependency_rule_ids.update(
+      snapshot_dependency_rule_ids
+    )
+
+  def candidate_rules_for_lookup(
+    producer_lookup,
+  ):
+    if retry_policy is None:
+      if len(
+        producer_lookup.producer_rules
+      ) != 1:
+        return ()
+
+      return producer_lookup.producer_rules
+
+    return (
+      producer_lookup.producer_rules[
+        :retry_policy.max_attempts
+      ]
+    )
+
+  def register_producer_candidate(
     requesting_rule,
     producer_lookup,
+    producer_rule,
     depth,
     ancestor_rule_ids,
   ):
-    producer_rule = (
-      producer_lookup.producer_rules[
-        0
-      ]
-    )
     producer_rule_id = id(
       producer_rule
     )
@@ -2016,12 +2193,10 @@ def select_unique_depth_two_producer_chain(
       return None
 
     producer_availability = (
-      analyze_producer_premise_availabilities(
-        producer_lookup,
+      detect_missing_premises(
+        producer_rule,
         initial_steps,
-      )[
-        0
-      ]
+      )
     )
 
     registered_rule_id = register_node_spec(
@@ -2046,12 +2221,13 @@ def select_unique_depth_two_producer_chain(
       )
     )
 
-    if not (
-      all_missing_premises_uniquely_producible(
-        nested_lookups
-      )
-    ):
-      return None
+    if retry_policy is None:
+      if not (
+        all_missing_premises_uniquely_producible(
+          nested_lookups
+        )
+      ):
+        return None
 
     nested_ancestor_rule_ids = (
       ancestor_rule_ids
@@ -2084,6 +2260,45 @@ def select_unique_depth_two_producer_chain(
         )
 
     return registered_rule_id
+
+  def register_producer_lookup(
+    requesting_rule,
+    producer_lookup,
+    depth,
+    ancestor_rule_ids,
+  ):
+    candidate_rules = (
+      candidate_rules_for_lookup(
+        producer_lookup
+      )
+    )
+
+    if not candidate_rules:
+      return None
+
+    for producer_rule in candidate_rules:
+      snapshot = (
+        snapshot_selection_state()
+      )
+
+      producer_rule_id = (
+        register_producer_candidate(
+          requesting_rule,
+          producer_lookup,
+          producer_rule,
+          depth,
+          ancestor_rule_ids,
+        )
+      )
+
+      if producer_rule_id is not None:
+        return producer_rule_id
+
+      restore_selection_state(
+        snapshot
+      )
+
+    return None
 
   for direct_lookup in direct_lookups:
     direct_rule_id = register_producer_lookup(
@@ -2202,12 +2417,12 @@ def select_unique_depth_two_producer_chain(
     max_depth=max_depth,
   )
 
-
 def build_depth_two_producer_search_report(
   repository,
   rule_catalog,
   goal,
   max_depth=2,
+  retry_policy=None,
 ) -> BoundedProducerSearchReport:
   _validate_bounded_search_selection_max_depth(
     max_depth
@@ -2228,6 +2443,18 @@ def build_depth_two_producer_search_report(
     raise TypeError(
       "rule_catalog must be an "
       "InferenceRuleCatalog"
+    )
+
+  if (
+    retry_policy is not None
+    and not isinstance(
+      retry_policy,
+      FiniteProducerRetryPolicy,
+    )
+  ):
+    raise TypeError(
+      "retry_policy must be a "
+      "FiniteProducerRetryPolicy or None"
     )
 
   initial_steps = repository_available_steps(
@@ -2252,6 +2479,7 @@ def build_depth_two_producer_search_report(
       rule_catalog,
       goal,
       max_depth=max_depth,
+      retry_policy=retry_policy,
     )
   )
 
@@ -2268,6 +2496,7 @@ def build_depth_two_producer_search_report(
       rule_catalog,
       goal,
       max_depth=max_depth,
+      retry_policy=retry_policy,
     )
   )
 
@@ -2297,7 +2526,6 @@ def build_depth_two_producer_search_report(
     goal=goal,
     search_result=search_result,
   )
-
 
 def execute_depth_two_producer_search(
   repository,

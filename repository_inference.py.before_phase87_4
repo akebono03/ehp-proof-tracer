@@ -409,9 +409,6 @@ class BoundedProducerSearchStatus(Enum):
   AMBIGUOUS_PRODUCER = (
     "ambiguous_producer"
   )
-  PRODUCER_RETRY_EXHAUSTED = (
-    "producer_retry_exhausted"
-  )
   CYCLE_DETECTED = "cycle_detected"
   DEPTH_LIMIT = "depth_limit"
   PRODUCER_NOT_APPLICABLE = (
@@ -424,6 +421,7 @@ class BoundedProducerSearchStatus(Enum):
     "final_rule_not_applicable"
   )
   GOAL_NOT_DERIVED = "goal_not_derived"
+
 
 @dataclass(frozen=True)
 class BoundedProducerSearchDiagnostic:
@@ -1405,94 +1403,10 @@ def diagnose_depth_two_producer_search_failure(
   rule_catalog,
   goal,
   max_depth=2,
-  retry_policy=None,
 ) -> BoundedProducerSearchDiagnostic | None:
   _validate_bounded_search_selection_max_depth(
     max_depth
   )
-
-  if (
-    retry_policy is not None
-    and not isinstance(
-      retry_policy,
-      FiniteProducerRetryPolicy,
-    )
-  ):
-    raise TypeError(
-      "retry_policy must be a "
-      "FiniteProducerRetryPolicy or None"
-    )
-
-  if retry_policy is not None:
-    legacy_diagnostic = (
-      diagnose_depth_two_producer_search_failure(
-        repository,
-        rule_catalog,
-        goal,
-        max_depth=max_depth,
-        retry_policy=None,
-      )
-    )
-
-    if legacy_diagnostic is None:
-      return None
-
-    if legacy_diagnostic.status is not (
-      BoundedProducerSearchStatus
-      .AMBIGUOUS_PRODUCER
-    ):
-      return legacy_diagnostic
-
-    retry_selection = (
-      select_unique_depth_two_producer_chain(
-        repository,
-        rule_catalog,
-        goal,
-        max_depth=max_depth,
-        retry_policy=retry_policy,
-      )
-    )
-
-    if retry_selection is not None:
-      return None
-
-    return BoundedProducerSearchDiagnostic(
-      status=(
-        BoundedProducerSearchStatus
-        .PRODUCER_RETRY_EXHAUSTED
-      ),
-      goal=legacy_diagnostic.goal,
-      final_rule=legacy_diagnostic.final_rule,
-      requesting_rule=(
-        legacy_diagnostic.requesting_rule
-      ),
-      premise_index=(
-        legacy_diagnostic.premise_index
-      ),
-      premise_pattern=(
-        legacy_diagnostic.premise_pattern
-      ),
-      current_depth=(
-        legacy_diagnostic.current_depth
-      ),
-      required_next_depth=(
-        legacy_diagnostic
-        .required_next_depth
-      ),
-      producer_candidates=(
-        legacy_diagnostic
-        .producer_candidates[
-          :retry_policy.max_attempts
-        ]
-      ),
-      unsafe_producer_candidates=(
-        legacy_diagnostic
-        .unsafe_producer_candidates
-      ),
-      ancestor_rules=(
-        legacy_diagnostic.ancestor_rules
-      ),
-    )
 
   direct_diagnostic = (
     diagnose_direct_producer_failure(
@@ -2422,7 +2336,6 @@ def build_depth_two_producer_search_report(
   rule_catalog,
   goal,
   max_depth=2,
-  retry_policy=None,
 ) -> BoundedProducerSearchReport:
   _validate_bounded_search_selection_max_depth(
     max_depth
@@ -2443,18 +2356,6 @@ def build_depth_two_producer_search_report(
     raise TypeError(
       "rule_catalog must be an "
       "InferenceRuleCatalog"
-    )
-
-  if (
-    retry_policy is not None
-    and not isinstance(
-      retry_policy,
-      FiniteProducerRetryPolicy,
-    )
-  ):
-    raise TypeError(
-      "retry_policy must be a "
-      "FiniteProducerRetryPolicy or None"
     )
 
   initial_steps = repository_available_steps(
@@ -2479,7 +2380,6 @@ def build_depth_two_producer_search_report(
       rule_catalog,
       goal,
       max_depth=max_depth,
-      retry_policy=retry_policy,
     )
   )
 
@@ -2496,7 +2396,6 @@ def build_depth_two_producer_search_report(
       rule_catalog,
       goal,
       max_depth=max_depth,
-      retry_policy=retry_policy,
     )
   )
 
@@ -2527,12 +2426,12 @@ def build_depth_two_producer_search_report(
     search_result=search_result,
   )
 
+
 def execute_depth_two_producer_search(
   repository,
   rule_catalog,
   goal,
   max_depth=2,
-  retry_policy=None,
 ) -> BoundedProducerExecutionResult:
   _validate_bounded_search_selection_max_depth(
     max_depth
@@ -2555,25 +2454,12 @@ def execute_depth_two_producer_search(
       "InferenceRuleCatalog"
     )
 
-  if (
-    retry_policy is not None
-    and not isinstance(
-      retry_policy,
-      FiniteProducerRetryPolicy,
-    )
-  ):
-    raise TypeError(
-      "retry_policy must be a "
-      "FiniteProducerRetryPolicy or None"
-    )
-
   report = (
     build_depth_two_producer_search_report(
       repository,
       rule_catalog,
       goal,
       max_depth=max_depth,
-      retry_policy=retry_policy,
     )
   )
 
@@ -2675,6 +2561,7 @@ def execute_depth_two_producer_search(
       repository_inference_result
     ),
   )
+
 
 def detect_goal_rule_missing_premises(
   repository,

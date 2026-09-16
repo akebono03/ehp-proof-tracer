@@ -11375,3 +11375,60 @@ generic theorem prover
 ```
 
 Phase 86-3 は「bounded depth を 3 に広げる」ことだけを行い、探索 policy の一般化は次 Phase 以降へ分離する。
+
+---
+# Phase 86-4：bounded depth=4 completion 設計
+
+Phase 86-4 は Phase 86-3 の bounded producer-search 設計を depth=4 で再検証する。
+
+validator は列挙型の `2 or 3` ではなく `integer max_depth >= 2` を受理する。ただし validator の一般化と formal regression coverage は区別し、Phase 86-4 完了時点で正式回帰済みなのは `max_depth=2,3,4` とする。
+
+代表 fixture:
+
+```text
+D(no premise)
+-> C
+-> B
+-> A
+-> final
+-> goal
+```
+
+同じ chain に対する boundary pair:
+
+```text
+max_depth=3
+-> DEPTH_LIMIT
+-> current_depth=3
+-> required_next_depth=4
+
+max_depth=4
+-> SUCCESS
+```
+
+成功時:
+
+```text
+diagnostic = None
+report.status = SUCCESS
+report.search_result.max_depth = 4
+producer order = D, C, B, A
+depths = ((4,), (3,), (2,), (1,))
+```
+
+execution provenance:
+
+```text
+D ProofStep
+-> C uses D
+-> B uses C
+-> A uses B
+-> final uses A
+-> goal
+```
+
+search / diagnostics / report / execution のいずれも元 `ProofRepository` を mutate しない。
+
+Phase 86-4 では `max_depth>4` の formal regression、unbounded recursion、general backtracking、producer ranking、proof-cost model、best-proof selection は追加しない。
+
+次 Phase は既存 roadmap に従い Phase 87 とし、producer ambiguity と explicit finite retry policy の監査から開始する。
