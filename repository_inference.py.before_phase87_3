@@ -1908,7 +1908,6 @@ def select_unique_depth_two_producer_chain(
   rule_catalog,
   goal,
   max_depth=2,
-  retry_policy=None,
 ) -> BoundedProducerSearchResult | None:
   _validate_bounded_search_selection_max_depth(
     max_depth
@@ -1929,18 +1928,6 @@ def select_unique_depth_two_producer_chain(
     raise TypeError(
       "rule_catalog must be an "
       "InferenceRuleCatalog"
-    )
-
-  if (
-    retry_policy is not None
-    and not isinstance(
-      retry_policy,
-      FiniteProducerRetryPolicy,
-    )
-  ):
-    raise TypeError(
-      "retry_policy must be a "
-      "FiniteProducerRetryPolicy or None"
     )
 
   initial_steps = (
@@ -1979,13 +1966,12 @@ def select_unique_depth_two_producer_chain(
     )
   )
 
-  if retry_policy is None:
-    if not (
-      all_missing_premises_uniquely_producible(
-        direct_lookups
-      )
-    ):
-      return None
+  if not (
+    all_missing_premises_uniquely_producible(
+      direct_lookups
+    )
+  ):
+    return None
 
   node_specs = {}
   dependency_rule_ids = {}
@@ -2035,70 +2021,17 @@ def select_unique_depth_two_producer_chain(
 
     return producer_rule_id
 
-  def snapshot_selection_state():
-    return (
-      {
-        rule_id: {
-          **spec,
-          "depths": set(
-            spec[
-              "depths"
-            ]
-          ),
-        }
-        for rule_id, spec
-        in node_specs.items()
-      },
-      {
-        rule_id: list(
-          dependency_ids
-        )
-        for rule_id, dependency_ids
-        in dependency_rule_ids.items()
-      },
-    )
-
-  def restore_selection_state(
-    snapshot,
-  ):
-    snapshot_node_specs, (
-      snapshot_dependency_rule_ids
-    ) = snapshot
-
-    node_specs.clear()
-    node_specs.update(
-      snapshot_node_specs
-    )
-
-    dependency_rule_ids.clear()
-    dependency_rule_ids.update(
-      snapshot_dependency_rule_ids
-    )
-
-  def candidate_rules_for_lookup(
-    producer_lookup,
-  ):
-    if retry_policy is None:
-      if len(
-        producer_lookup.producer_rules
-      ) != 1:
-        return ()
-
-      return producer_lookup.producer_rules
-
-    return (
-      producer_lookup.producer_rules[
-        :retry_policy.max_attempts
-      ]
-    )
-
-  def register_producer_candidate(
+  def register_producer_lookup(
     requesting_rule,
     producer_lookup,
-    producer_rule,
     depth,
     ancestor_rule_ids,
   ):
+    producer_rule = (
+      producer_lookup.producer_rules[
+        0
+      ]
+    )
     producer_rule_id = id(
       producer_rule
     )
@@ -2107,10 +2040,12 @@ def select_unique_depth_two_producer_chain(
       return None
 
     producer_availability = (
-      detect_missing_premises(
-        producer_rule,
+      analyze_producer_premise_availabilities(
+        producer_lookup,
         initial_steps,
-      )
+      )[
+        0
+      ]
     )
 
     registered_rule_id = register_node_spec(
@@ -2135,13 +2070,12 @@ def select_unique_depth_two_producer_chain(
       )
     )
 
-    if retry_policy is None:
-      if not (
-        all_missing_premises_uniquely_producible(
-          nested_lookups
-        )
-      ):
-        return None
+    if not (
+      all_missing_premises_uniquely_producible(
+        nested_lookups
+      )
+    ):
+      return None
 
     nested_ancestor_rule_ids = (
       ancestor_rule_ids
@@ -2174,45 +2108,6 @@ def select_unique_depth_two_producer_chain(
         )
 
     return registered_rule_id
-
-  def register_producer_lookup(
-    requesting_rule,
-    producer_lookup,
-    depth,
-    ancestor_rule_ids,
-  ):
-    candidate_rules = (
-      candidate_rules_for_lookup(
-        producer_lookup
-      )
-    )
-
-    if not candidate_rules:
-      return None
-
-    for producer_rule in candidate_rules:
-      snapshot = (
-        snapshot_selection_state()
-      )
-
-      producer_rule_id = (
-        register_producer_candidate(
-          requesting_rule,
-          producer_lookup,
-          producer_rule,
-          depth,
-          ancestor_rule_ids,
-        )
-      )
-
-      if producer_rule_id is not None:
-        return producer_rule_id
-
-      restore_selection_state(
-        snapshot
-      )
-
-    return None
 
   for direct_lookup in direct_lookups:
     direct_rule_id = register_producer_lookup(
@@ -2330,6 +2225,7 @@ def select_unique_depth_two_producer_chain(
     ),
     max_depth=max_depth,
   )
+
 
 def build_depth_two_producer_search_report(
   repository,
