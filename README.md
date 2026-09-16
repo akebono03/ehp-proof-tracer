@@ -1,6 +1,6 @@
 # EHP Proof Tracer
 
-EHP Proof Tracer is an experimental Python project for representing and checking proof dependencies in Toda-style calculations of homotopy groups of spheres, with a particular focus on EHP sequences and low stable stems.
+EHP Proof Tracer is an experimental Python project for representing, checking, and increasingly automating proof dependencies in Toda-style calculations of homotopy groups of spheres, with a particular focus on EHP sequences and low stable stems.
 
 ## Current mathematical frontier
 
@@ -17,7 +17,7 @@ G_0 = Z{iota}
 (G_7;2) = Z/16{sigma}
 ```
 
-Proof provenance is preserved with `ProofStep` objects instead of storing only final conclusions.
+Proof provenance is preserved with `ProofStep` objects rather than storing only final conclusions.
 
 ## Current proof-search capability
 
@@ -27,16 +27,20 @@ The current high-level flow is:
 goal
 -> goal-compatible final-rule selection
 -> missing-premise analysis
+-> binding preservation
+-> concrete requested-statement construction when fully bound
+-> concrete producer compatibility filtering
 -> bounded producer search
--> finite explicit producer retry when authorized
+-> finite explicit producer retry only for remaining true ambiguity
 -> search diagnostics
 -> execution diagnostics
 -> unified search report
 -> exact selected-path execution
+-> concrete producer-output validation
 -> goal ProofStep
 ```
 
-The bounded search uses an explicit `max_depth`. The validator accepts integer values `>= 2`, with formal regression coverage through:
+The bounded search uses an explicit `max_depth`. Formal regression currently covers:
 
 ```text
 max_depth = 2
@@ -61,7 +65,7 @@ execute_depth_two_producer_search()
 
 ## Phase 87: finite producer retry
 
-Phase 87 adds an explicit, finite retry policy:
+Phase 87 introduced:
 
 ```text
 FiniteProducerRetryPolicy(max_attempts=N)
@@ -93,12 +97,96 @@ max_attempts=2
 -> temporary selection state is rolled back
 -> second candidate is selected
 -> report SUCCESS
--> selected second producer is executed
+-> selected producer is executed
 -> final rule uses the selected producer ProofStep
 -> requested goal ProofStep is derived
 ```
 
 A failed candidate and its discarded dependency branch do not appear in execution provenance.
+
+## Phase 88: concrete theorem-instance producer compatibility
+
+Phase 88 distinguishes a type-level producer collision from a real ambiguity for one concrete theorem instance.
+
+Representative realistic collision:
+
+```text
+TodaDeltaImageUpToSignStatement producers:
+
+Delta(iota_5)
+Delta(iota_9)
+Delta(iota_17)
+```
+
+A type-only lookup can see all three rules. When the requesting premise is concrete, the search now carries that concrete requested statement forward:
+
+```text
+known sibling premises
+-> variable bindings
+-> fully bound missing premise
+-> requested_statement
+-> producer conclusion-type filter
+-> goal_compatibility(requested_statement)
+-> concrete-compatible producer candidates
+```
+
+For example:
+
+```text
+requested statement = Delta(iota_17)
+
+type-level candidates:
+  Delta(iota_5) rule
+  Delta(iota_9) rule
+  Delta(iota_17) rule
+
+concrete-compatible candidates:
+  Delta(iota_17) rule
+```
+
+This removes false `AMBIGUOUS_PRODUCER` failures before retry is considered.
+
+The boundary is now:
+
+```text
+different theorem instances with the same conclusion type
+-> Phase 88 concrete compatibility filtering
+
+multiple producers still compatible with the same concrete requested statement
+-> true ambiguity
+-> Phase 87 finite retry, if explicitly authorized
+```
+
+Phase 88 also makes unsafe-producer diagnostics use the same concrete compatibility semantics, preserves the concrete requested statement in the selected search node, and validates producer output against that concrete statement during execution.
+
+If no concrete requested statement can safely be constructed, the legacy type-only behavior remains in effect.
+
+## Phase 88 end-to-end regression
+
+The final Phase 88 regression uses real Delta producer rules from the existing Toda development:
+
+```text
+Phase 52: Delta(iota_5)
+Phase 66: Delta(iota_9)
+Phase 76: Delta(iota_17)
+```
+
+with real Phase 76 prerequisites and a minimal synthetic final shell.
+
+It verifies:
+
+```text
+type-only lookup sees the realistic collision
+-> concrete Delta(iota_17) request
+-> unrelated Delta rules are filtered out
+-> unique Delta(iota_17) producer is selected
+-> selected node preserves requested_statement
+-> search report is SUCCESS
+-> execution derives the concrete producer ProofStep
+-> final goal ProofStep is derived
+-> selected rule identity is preserved
+-> repository is not mutated
+```
 
 ## Search policy and safety boundaries
 
@@ -107,13 +195,16 @@ The current bounded search preserves:
 ```text
 finite explicit depth limit
 finite explicit retry budget
-safe producer filtering
-catalog-order deterministic attempts
+fixed-point-safe producer filtering
+concrete theorem-instance filtering when available
+legacy type-only compatibility when concrete context is unavailable
+catalog-order deterministic retry attempts
 cycle detection
 shared producer identity reuse
 deterministic dependency-first ordering
 failed-attempt state rollback
 exact selected-path execution
+concrete producer-output validation
 ProofStep provenance
 repository non-mutation
 default retry-policy compatibility
@@ -149,52 +240,33 @@ Phase 87 finite-retry probe:
 python -m probes.probe_phase87_capabilities
 ```
 
-The Phase 87 probe verifies:
-
-```text
-retry_policy=None -> AMBIGUOUS_PRODUCER
-max_attempts=1 -> PRODUCER_RETRY_EXHAUSTED
-max_attempts=2 -> SUCCESS
-selected second producer -> final -> goal
-failed first branch absent from execution provenance
-repository non-mutation
-```
+Phase 88 is currently fixed by focused and end-to-end regression tests rather than a new production probe.
 
 ## Verification
 
-Latest confirmed repository-wide regression before the Phase 87-6 probe/documentation additions:
+Latest confirmed repository-wide regression after Phase 88-17:
 
 ```text
-7043 passed in 41.53s
+7096 passed in 35.90s
 ```
 
-Run the Phase 87 completion verification with:
+Key Phase 88 completion checks:
 
-```powershell
-python -m py_compile `
-  repository_inference.py `
-  probes/probe_phase87_capabilities.py `
-  tests/test_phase87_minimal_retry_policy_representation.py `
-  tests/test_phase87_selection_side_finite_retry.py `
-  tests/test_phase87_retry_diagnostics_report.py `
-  tests/test_phase87_selected_path_execution_retry_provenance.py `
-  tests/test_phase87_probe.py
+```text
+Phase 88 end-to-end regression:
+8 passed in 2.06s
 
-python -m pytest `
-  tests/test_phase87_minimal_retry_policy_representation.py `
-  tests/test_phase87_selection_side_finite_retry.py `
-  tests/test_phase87_retry_diagnostics_report.py `
-  tests/test_phase87_selected_path_execution_retry_provenance.py `
-  tests/test_phase87_probe.py `
-  tests/test_phase85_execution_failure_diagnostics.py `
-  tests/test_phase86_explicit_max_depth_parameterization.py `
-  tests/test_phase86_depth_three_bounded_search.py `
-  tests/test_phase86_depth_four_bounded_search.py `
-  -x --tb=line -q
+Phase 88 related regression:
+47 passed in 2.96s
 
-python -m probes.probe_phase87_capabilities
-python -m pytest -q
-git diff --check
+search / retry / execution related regression:
+34 passed in 2.41s
+
+repository-wide:
+7096 passed in 35.90s
+
+git diff --check:
+clean
 ```
 
 Wall-clock time is machine-dependent. Test count, semantic coverage, provenance coverage, focused regression, and repository-wide regression are the primary cross-machine signals.
@@ -206,13 +278,13 @@ README.md
 = current status and capabilities
 
 docs/design.md
-= architecture, semantics, and design boundaries
+= current architecture, semantics, and design boundaries
 
 docs/development_log.md
 = chronological implementation history
 
 docs/code_reference.md
-= code navigation
+= current code navigation
 
 docs/proof_records.md
 = representative mathematical and infrastructure records

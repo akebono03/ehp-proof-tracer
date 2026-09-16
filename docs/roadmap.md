@@ -6,24 +6,31 @@
 
 # 1. 現在地
 
-数学面では Toda Lemma 5.16 までの concrete proof spine と stable stem 0〜7 を formalize 済み。
+数学面:
 
-proof infrastructure は Phase 87 で次の境界まで到達した。
+```text
+Toda Lemma 5.16 までの concrete proof spine
+stable G_0 through G_7
+```
+
+proof infrastructure:
 
 ```text
 Proof Repository
--> automatic final-rule selection
--> missing-premise producer search
--> bounded dependency DAG selection
--> finite explicit producer retry
--> search diagnostics
--> retry-exhaustion diagnostics
--> unified report
--> exact selected-path execution
--> goal ProofStep
+→ automatic final-rule selection
+→ missing-premise producer analysis
+→ multiple producer generation
+→ bounded dependency DAG selection
+→ max_depth parameterization
+→ search / execution diagnostics
+→ finite explicit producer retry
+→ concrete theorem-instance compatibility filtering
+→ selected concrete requested-premise provenance
+→ concrete execution-output validation
+→ goal ProofStep
 ```
 
-formal regression 済み bounded depth:
+formal bounded-depth regression:
 
 ```text
 max_depth = 2
@@ -31,26 +38,24 @@ max_depth = 3
 max_depth = 4
 ```
 
-default:
+defaults:
 
 ```text
 max_depth = 2
 retry_policy = None
 ```
 
-retry policy:
+latest confirmed repository-wide regression:
 
 ```text
-FiniteProducerRetryPolicy(max_attempts=N)
+7096 passed in 35.90s
 ```
 
 ---
 
 # 2. Phase 86 完了境界
 
-Phase 86 では bounded producer search の depth parameterization を完成した。
-
-代表:
+Phase 86 で bounded producer search の explicit depth parameterization を完成した。
 
 ```text
 max_depth=2
@@ -58,16 +63,15 @@ max_depth=3
 max_depth=4
 ```
 
-維持 invariant:
+維持:
 
 ```text
 finite explicit depth bound
-cycle-safe
-shared dependency identity preservation
-deterministic dependency-first order
-diagnostic context preservation
-exact selected-path execution
-ProofStep provenance preservation
+cycle-safe search
+shared dependency identity reuse
+dependency-first execution
+diagnostic context
+ProofStep provenance
 repository non-mutation
 default max_depth=2 compatibility
 ```
@@ -76,93 +80,155 @@ default max_depth=2 compatibility
 
 # 3. Phase 87 完了境界
 
-Phase 87 では producer ambiguity に対し general backtracking を導入せず、明示的な有限 retry policy のみを追加した。
+Phase 87 で producer ambiguity に対する finite retry を追加した。
 
-代表:
+```text
+FiniteProducerRetryPolicy(max_attempts=N)
+```
+
+default:
 
 ```text
 retry_policy=None
--> AMBIGUOUS_PRODUCER
-
-max_attempts=1
--> first candidate selection failure
--> PRODUCER_RETRY_EXHAUSTED
-
-max_attempts=2
--> first candidate selection failure
--> rollback
--> second candidate selection success
--> SUCCESS
--> selected-path execution
--> goal ProofStep
+→ multiple safe producers
+→ AMBIGUOUS_PRODUCER
 ```
 
-維持 invariant:
+explicit retry:
 
 ```text
-finite explicit retry bound
-catalog-order deterministic attempts
-safe-producer filtering
-failed-attempt state rollback
-selected path only execution
-ProofStep provenance
-repository non-mutation
-default ambiguity compatibility
+candidate failure
+→ temporary selection rollback
+→ next candidate
 ```
 
-Phase 87 で導入しなかったもの:
+budget exhaustion:
+
+```text
+PRODUCER_RETRY_EXHAUSTED
+```
+
+Phase 87 は general backtracking を導入しない。
+
+---
+
+# 4. Phase 88 完了境界
+
+Phase 88 の目的は、same conclusion type collision を concrete theorem-instance ambiguity と区別することだった。
+
+代表 collision:
+
+```text
+TodaDeltaImageUpToSignStatement
+
+Δ(ι₅)
+Δ(ι₉)
+Δ(ι₁₇)
+```
+
+完成 flow:
+
+```text
+known sibling premises
+→ bindings
+→ concrete requested_statement
+→ producer conclusion type
+→ goal_compatibility
+→ concrete-compatible producer candidates
+→ bounded search
+→ selected node preserves requested_statement
+→ execution validates exact concrete output
+```
+
+結果:
+
+```text
+false ambiguity
+→ Phase 88 filtering で除去
+
+same concrete target に複数 producer
+→ true ambiguity
+→ Phase 87 finite retry の対象
+```
+
+safe lookup と unsafe diagnostic は同じ concrete compatibility semantics を使う。
+
+Phase 88 end-to-end regression:
+
+```text
+real Δι5 / Δι9 / Δι17 collision
+→ concrete Δι17 request
+→ Δι17 only
+→ unique selection
+→ report SUCCESS
+→ execution SUCCESS
+→ correct ProofStep provenance
+→ repository non-mutation
+```
+
+Phase 88 は COMPLETE。
+
+---
+
+# 5. 次候補：Phase 89
+
+Phase 89 は新しい search algorithm を直ちに実装しない。
+
+最初の自然な段階:
+
+```text
+Phase 89-1
+post-Phase88 proof-search pressure / true-ambiguity necessity audit
+```
+
+確認する中心:
+
+```text
+actual theorem-backed search で
+same concrete requested statement に
+複数 viable producer が残る実例があるか
+
+Phase 87 finite retry で十分か
+
+candidate 1 が deeper branch で失敗し、
+candidate 2 へ戻る general backtracking が
+実際に必要な theorem-backed case があるか
+
+producer ranking / proof cost に
+具体的な need があるか
+
+現在の deterministic registration order が
+どこまで十分か
+
+search cache / persistence が
+現在の performance bottleneck か
+```
+
+この監査で具体的 need が確認された場合のみ次の最小実装を決める。
+
+---
+
+# 6. Phase 89 で先取りしないもの
+
+監査前に次を実装しない:
 
 ```text
 general backtracking
 producer ranking
 proof-cost model
 best-proof selection
-DFS / BFS / A*
-unbounded recursive search
+DFS
+BFS
+A*
+unbounded recursion
+generic theorem prover
 ```
+
+アルゴリズム名から設計を始めず、実際の proof-search failure から必要 capability を決める。
 
 ---
 
-# 4. 次候補：Phase 88
-
-次の自然な候補は、finite retry infrastructure を実際の theorem-backed proof target で必要とする場面があるかを監査すること。
-
-最初は実装を広げず:
-
-```text
-Phase 88-1
-actual-theorem retry necessity / compatibility audit
-```
-
-を行う。
-
-確認対象:
-
-```text
-actual Toda / EHP proof targets
-producer ambiguity が現実に発生する箇所
-synthetic retry と theorem-backed retry の意味論差
-current retry diagnostics で十分か
-selected-path provenance が theorem-backed case でも十分か
-```
-
-監査結果として concrete need が確認された場合だけ、最小の theorem integration を追加する。
-
-先取りしない:
-
-```text
-general backtracking
-ranking
-cost model
-best-proof selection
-DFS / BFS / A*
-```
-
----
-
-# 5. 継続して保留する一般化
-
-数学 / representation:
+# 7. 継続保留：数学 / representation
 
 ```text
 general existential quantification
@@ -173,33 +239,29 @@ generic symbolic dimension solver
 generic map typing solver
 generic stable theorem engine
 stable ring machinery
-```
-
-proof search:
-
-```text
-formal max_depth > 4 regression
-unbounded recursion
-general backtracking
-ranking
-cost model
-best-proof selection
-DFS / BFS / A*
-generic theorem prover
-```
-
-storage / presentation:
-
-```text
-persistent Proof Repository
-persistent search cache
-proof graph serialization
-automatic proof narrative generation
+generic mathematical-equivalence normalizer
 ```
 
 ---
 
-# 6. 性能方針
+# 8. 継続保留：storage / presentation
+
+```text
+persistent Proof Repository
+proof graph serialization
+schema migration
+persistent search cache
+proof replay persistence
+automatic proof narrative generation
+```
+
+現在の `ProofRepository` は in-memory。
+
+現在の proof-style probe は hand-authored presentation layer。
+
+---
+
+# 9. 性能方針
 
 wall-clock time は複数 PC 間で直接比較しない。
 
@@ -213,10 +275,23 @@ focused regression
 repository-wide regression
 ```
 
-重い deterministic fixture builder が同一 object graph を繰り返し利用する場合は:
+重い deterministic fixture builder が同一 object graph を繰り返し利用する場合:
 
 ```python
 @lru_cache(maxsize=1)
 ```
 
 を優先する。
+
+最適化は:
+
+```text
+pytest --durations
+→ profiler
+→ concrete bottleneck
+→ minimum change
+→ same-machine comparison
+→ full regression
+```
+
+の順で行う。

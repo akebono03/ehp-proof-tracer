@@ -226,7 +226,6 @@ def find_goal_compatible_rules(
 def find_premise_producer_rule_entries(
   catalog,
   premise_pattern,
-  requested_statement=None,
 ):
   return tuple(
     entry
@@ -234,9 +233,6 @@ def find_premise_producer_rule_entries(
     in find_premise_producer_candidate_entries(
       catalog,
       premise_pattern,
-      requested_statement=(
-        requested_statement
-      ),
     )
     if entry.fixed_point_safe
   )
@@ -245,7 +241,6 @@ def find_premise_producer_rule_entries(
 def find_premise_producer_candidate_entries(
   catalog,
   premise_pattern,
-  requested_statement=None,
 ):
   if not isinstance(
     catalog,
@@ -271,14 +266,6 @@ def find_premise_producer_candidate_entries(
     if (
       entry.conclusion_type
       is premise_pattern.statement_type
-      and (
-        requested_statement
-        is None
-        or _entry_accepts_goal(
-          entry,
-          requested_statement,
-        )
-      )
     )
   )
 
@@ -286,15 +273,11 @@ def find_premise_producer_candidate_entries(
 def find_premise_producer_rules(
   catalog,
   premise_pattern,
-  requested_statement=None,
 ):
   entries = (
     find_premise_producer_rule_entries(
       catalog,
       premise_pattern,
-      requested_statement=(
-        requested_statement
-      ),
     )
   )
 

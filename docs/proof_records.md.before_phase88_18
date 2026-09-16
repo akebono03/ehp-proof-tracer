@@ -8882,125 +8882,598 @@ Phase 85
 
 ---
 
----
+# 37. Phase 86 explicit max_depth compatibility infrastructure record
 
-# 37. Phase 86 bounded-depth parameterization infrastructure record
-
-## 37.1 記録種別
+## 37.1 險倬鹸遞ｮ蛻･
 
 ```text
 infrastructure record
 ```
 
-新しい数学 theorem は追加しない。
+Phase 86-2 縺ｯ譁ｰ縺励＞謨ｰ蟄ｦ theorem 繧定ｿｽ蜉縺励↑縺・・
+譌｢蟄倥・ Toda Lemma 5.16 final bracket-sum consequence 繧・actual theorem 縺ｨ縺励※蜀榊茜逕ｨ縺励・Phase 85 depth=2 bounded-search semantics 縺ｨ explicit `max_depth=2` 縺ｮ螳悟・莠呈鋤諤ｧ繧定ｨ倬鹸縺吶ｋ縲・
+謨ｰ蟄ｦ逧・formal proof record 謨ｰ縺ｯ13縺ｮ縺ｾ縺ｾ縲・
+---
 
-Phase 85 の bounded depth=2 proof-search semantics を explicit `max_depth` へ一般化した記録。
+## 37.2 蟇ｾ雎｡ capability
 
-数学的 formal proof record 数は13のまま。
-
-## 37.2 compatibility baseline
+Phase 85:
 
 ```text
-default max_depth=2
+implicit depth=2 bounded producer search
+竊・diagnostics
+竊・selected-path execution
+竊・goal ProofStep
+```
+
+Phase 86-2:
+
+```text
+same API family
++
 explicit max_depth=2
+竊・same result
 ```
 
-で:
+---
+
+## 37.3 representative actual theorem
 
 ```text
-same selected path
-same shared dependency
-same diagnostics
-same goal ProofStep semantics
-repository non-mutation
+Toda Lemma 5.16 final bracket-sum consequence
 ```
 
-を確認。
-
-## 37.3 bounded depth=3
-
-representative chain:
+selected producer graph:
 
 ```text
-final <- A <- B <- C
+final
+笏懌楳 bracket-sum              depths=(1,2)
+笏披楳 composition              depths=(1,)
+   笏披楳 bracket-sum
 ```
+
+shared producer node:
+
+```text
+depths=(1,2)
+is_shared=True
+```
+
+---
+
+## 37.4 compatibility record
+
+Verified:
+
+```text
+default max_depth = 2
+explicit max_depth = 2
+
+default status = SUCCESS
+explicit status = SUCCESS
+
+same final rule = True
+same producer path = True
+same depths = True
+same dependencies = True
+```
+
+Thus explicit parameterization does not change the selected proof plan.
+
+---
+
+## 37.5 shared dependency record
+
+Both default and explicit `max_depth=2` preserve:
+
+```text
+producer node count = 2
+bracket-sum depths = (1,2)
+composition depends on bracket-sum
+```
+
+The same logical shared-dependency DAG remains the Phase 85 baseline.
+
+---
+
+## 37.6 execution / provenance record
+
+Verified:
+
+```text
+default goal derived = True
+explicit goal derived = True
+
+same goal conclusion = True
+same goal inference rule = True
+same goal premise conclusions = True
+same goal premise rules = True
+```
+
+The parameterization therefore preserves the existing Toda Lemma 5.16 `ProofStep` provenance structure.
+
+---
+
+## 37.7 diagnostic compatibility
+
+Representative depth-limit diagnostic:
+
+```text
+status = DEPTH_LIMIT
+current_depth = 2
+required_next_depth = 3
+```
+
+The Phase 85 diagnostic boundary is preserved under explicit `max_depth=2`.
+
+---
+
+## 37.8 safety / phase boundary
+
+Repository behavior:
+
+```text
+repository mutated = False
+```
+
+Phase 86-2 accepted value:
 
 ```text
 max_depth=2
-→ DEPTH_LIMIT
-
-max_depth=3
-→ SUCCESS
 ```
 
-selected order:
+Explicitly rejected:
 
 ```text
-C, B, A
+max_depth=1
+max_depth=3
 ```
 
-dependency-first execution と ProofStep provenance を保持。
+Non-integer / bool misuse is also rejected by validation.
 
-## 37.4 bounded depth=4
+This is deliberate: Phase 86-2 parameterizes the existing depth=2 behavior without implementing depth>2 search.
 
-representative chain:
+---
+
+## 37.9 representative probe
+
+```powershell
+python -m probes.probe_phase86_capabilities
+```
+
+Representative output includes:
+
+```text
+default max depth = 2
+explicit max depth = 2
+same producer path = True
+same dependencies = True
+default shared depths = (1, 2)
+explicit shared depths = (1, 2)
+same goal inference rule = True
+status = depth_limit
+current depth = 2
+required next depth = 3
+repository mutated = False
+max_depth=1 rejected = True
+max_depth=3 rejected = True
+```
+
+---
+
+## 37.10 regression record
+
+Phase 86-2 parameterization focused:
+
+```text
+15 passed in 1.93s
+```
+
+Phase 84窶・6-2 related regression:
+
+```text
+116 passed in 3.40s
+```
+
+Phase 86-2 + representative probe:
+
+```text
+24 passed in 2.18s
+```
+
+repository-wide after probe:
+
+```text
+6969 passed in 34.72s
+```
+
+---
+
+## 37.11 completion boundary
+
+Phase 86-2 is COMPLETE.
+
+Implemented:
+
+```text
+explicit max_depth input
+max_depth=2 compatibility
+selected-path compatibility
+shared dependency compatibility
+diagnostic compatibility
+execution provenance compatibility
+repository non-mutation
+representative probe
+full regression
+```
+
+Still not implemented:
+
+```text
+max_depth > 2
+retry / backtracking
+producer ranking
+proof-cost model
+best-proof selection
+DFS / BFS / A*
+arbitrary recursive theorem search
+```
+
+Next infrastructure boundary:
+
+```text
+Phase 86-3
+bounded depth > 2
+```
+
+The first intended test pair is:
+
+```text
+same unique depth=3 dependency
+
+max_depth=2
+竊・DEPTH_LIMIT
+
+max_depth=3
+竊・success
+```
+
+---
+
+# 38. 迴ｾ蝨ｨ縺ｮ proof-record 迥ｶ諷・after Phase 86-2
+
+謨ｰ蟄ｦ逧・formal proof records:
+
+```text
+13
+```
+
+Infrastructure records:
+
+```text
+Phase 79
+Phase 80
+Phase 81
+Phase 82
+Phase 83
+Phase 84
+Phase 85
+Phase 86
+
+total = 8
+```
+
+Phase 86 infrastructure record 縺ｯ explicit `max_depth=2` compatibility 縺ｨ Phase 86-3 boundary 繧定ｨ倬鹸縺吶ｋ縲・
+
+
+---
+
+# 39. Phase 86-3 infrastructure record：bounded depth=3
+
+Phase 86-3 は数学 theorem の新規 formal proof record ではなく、Proof Repository 上の bounded proof-search infrastructure record である。
+
+## 39.1 representative dependency
+
+synthetic unique chain:
+
+```text
+final
+<- A
+<- B
+<- C
+```
+
+depth assignment:
+
+```text
+A = 1
+B = 2
+C = 3
+```
+
+## 39.2 bounded-depth contrast
+
+同一 dependency に対して:
+
+```text
+max_depth=2
+-> DEPTH_LIMIT
+current_depth=2
+required_next_depth=3
+```
+
+```text
+max_depth=3
+-> SUCCESS
+```
+
+この pair が Phase 86-3 の中心 regression である。
+
+## 39.3 selected dependency DAG
+
+`max_depth=3` selection:
+
+```text
+producer_nodes = C, B, A
+```
+
+with:
+
+```text
+C.depths = (3,)
+B.depths = (2,)
+A.depths = (1,)
+
+B.dependencies = (C,)
+A.dependencies = (B,)
+```
+
+ordering invariant:
+
+```text
+dependency-first
+```
+
+## 39.4 depth-limit and cycle classification
+
+depth 4 requirement:
 
 ```text
 final <- A <- B <- C <- D
+max_depth=3
+-> DEPTH_LIMIT
 ```
+
+ancestor recurrence:
+
+```text
+final <- A <- B <- C
+        ^         |
+        +---------+
+```
+
+returns:
+
+```text
+CYCLE_DETECTED
+```
+
+cycle detection wins over depth-limit classification at the same boundary.
+
+## 39.5 report record
+
+`build_depth_two_producer_search_report(..., max_depth=3)` supports:
+
+```text
+SUCCESS
+DEPTH_LIMIT
+CYCLE_DETECTED
+```
+
+while preserving selected-path diagnostic context and repository non-mutation.
+
+## 39.6 execution / provenance record
+
+selected path execution:
+
+```text
+C
+-> B
+-> A
+-> final
+```
+
+ProofStep provenance:
+
+```text
+C_step.premises == ()
+B_step.premises == (C_step,)
+A_step.premises == (B_step,)
+goal_step.premises == (A_step,)
+```
+
+rule identity is preserved for every step.
+
+最重要 invariant:
+
+```text
+selected dependency path
+=
+executed dependency path
+```
+
+## 39.7 representative probe
+
+```powershell
+python -m probes.probe_phase86_capabilities
+```
+
+Phase 86-3-6 probe displays:
+
+```text
+Phase 86-2 compatibility baseline
+max_depth=2 status = depth_limit
+current depth = 2
+required next depth = 3
+max_depth=3 status = success
+selected max depth = 3
+producer depths = ((3,), (2,), (1,))
+dependency-first order = True
+goal derived = True
+B uses C ProofStep = True
+A uses B ProofStep = True
+final uses A ProofStep = True
+repository mutated = False
+max_depth=3 accepted = True
+max_depth=4 rejected = True
+```
+
+## 39.8 compatibility boundary
+
+Phase 86-2 default compatibility remains:
+
+```text
+default call = max_depth=2
+```
+
+Phase 86-3 capability:
+
+```text
+selection     max_depth=2,3
+diagnostics   max_depth=2,3
+report        max_depth=2,3
+execution     max_depth=2,3
+```
+
+## 39.9 repository safety
+
+```text
+repository before
+=
+repository after
+```
+
+Generated ProofSteps remain in the returned inference result and are not automatically registered.
+
+## 39.10 regression record
+
+Latest confirmed baseline before Phase 86-3-6:
+
+```text
+Phase 86-3-5 related: 76 passed in 2.64s
+repository-wide: 6989 passed in 35.32s
+```
+
+Phase 86-3-6 final count is recorded after the completion regression is run.
+
+## 39.11 completion boundary
+
+Implemented:
+
+```text
+bounded depth=3 selection
+depth=3 search diagnostics
+depth=3 unified report
+depth=3 selected-path execution
+ProofStep provenance preservation
+cycle-safe boundary
+max_depth=2 compatibility
+repository non-mutation
+representative depth=3 probe
+```
+
+Not implemented:
+
+```text
+max_depth > 3
+retry / backtracking
+alternative producer planning
+producer ranking
+proof-cost model
+best-proof selection
+DFS / BFS / A*
+unbounded recursive theorem search
+generic theorem prover
+```
+
+Phase 86-3 infrastructure record status:
+
+```text
+IMPLEMENTED / FINAL REGRESSION PENDING
+```
+
+---
+# Phase 86-4 representative proof-search record
+
+この記録は数学定理そのものではなく、bounded proof-search infrastructure の代表 trace を記録する。
+
+```text
+Goal = Phase86DepthFourGoalStatement
+
+D(no premise)
+-> C
+-> B
+-> A
+-> final
+-> goal
+```
+
+Depth boundary:
 
 ```text
 max_depth=3
-→ DEPTH_LIMIT
+-> DEPTH_LIMIT
+-> current_depth=3
+-> required_next_depth=4
 
 max_depth=4
-→ SUCCESS
+-> SUCCESS
 ```
 
-formal regression boundary:
+Selected producer nodes:
+
+```text
+dependency-first order = D, C, B, A
+depths = ((4,), (3,), (2,), (1,))
+```
+
+Execution provenance:
+
+```text
+D ProofStep: premises=()
+C ProofStep: premises=(D ProofStep,)
+B ProofStep: premises=(C ProofStep,)
+A ProofStep: premises=(B ProofStep,)
+goal ProofStep: premises=(A ProofStep,)
+```
+
+最終 goal conclusion は requested goal と一致し、元 repository は mutate しない。
+
+formal regression 済み:
 
 ```text
 max_depth=2
 max_depth=3
 max_depth=4
-```
-
-## 37.5 completion boundary
-
-実装済み:
-
-```text
-explicit max_depth
-depth 2 / 3 / 4
-cycle-safe diagnostics
-dependency-first selected-path execution
-repository non-mutation
 ```
 
 未実装:
 
 ```text
-formal max_depth>4 regression
+max_depth > 4 formal regression
 retry / backtracking
-ranking
-proof cost
+producer ranking
+proof-cost model
 best-proof selection
-DFS / BFS / A*
-```
-
-Phase 86:
-
-```text
-COMPLETE
 ```
 
 ---
 
-# 38. Phase 87 finite-retry infrastructure record
+# Phase 87 representative proof-search record
 
-## 38.1 対象
+対象は synthetic producer ambiguity fixture。
 
-synthetic producer ambiguity fixture。
+初期状態:
 
 ```text
 goal
@@ -9011,432 +9484,47 @@ A producer candidates:
   candidate 2
 ```
 
-## 38.2 default behavior
+policy なし:
 
 ```text
-retry_policy=None
-→ AMBIGUOUS_PRODUCER
+multiple safe producer candidates
+-> AMBIGUOUS_PRODUCER
 ```
 
-legacy conservative behavior を維持。
-
-## 38.3 finite retry
+有限 policy:
 
 ```text
 FiniteProducerRetryPolicy(max_attempts=1)
-→ candidate 1 selection failure
-→ PRODUCER_RETRY_EXHAUSTED
+-> candidate 1 selection failure
+-> retry budget exhausted
+-> PRODUCER_RETRY_EXHAUSTED
 ```
 
 ```text
 FiniteProducerRetryPolicy(max_attempts=2)
-→ candidate 1 selection failure
-→ temporary state rollback
-→ candidate 2 selection success
-→ report SUCCESS
+-> candidate 1 selection failure
+-> temporary state rollback
+-> candidate 2 selection success
+-> report SUCCESS
 ```
 
-## 38.4 execution provenance
+execution:
 
 ```text
 candidate 2 ProofStep
-→ final rule
-→ goal ProofStep
+-> final rule
+-> goal ProofStep
 ```
 
-verified:
+provenance:
 
 ```text
 selected candidate inference_rule preserved
 goal premise is selected candidate ProofStep
 final inference_rule preserved
 candidate 1 absent from executed rules
-candidate 1 dependency branch absent from executed provenance
+candidate 1 dependency branch absent from executed rules
 repository non-mutation
 ```
 
-## 38.5 boundary
-
-この record が示すのは有限 retry のみ。
-
-意味しない:
-
-```text
-general backtracking
-ranking
-proof-cost model
-best-proof selection
-```
-
-Phase 87:
-
-```text
-COMPLETE
-```
-
----
-
-# 39. Phase 88 concrete theorem-instance filtering infrastructure record
-
-## 39.1 記録種別
-
-```text
-infrastructure record
-```
-
-新しい数学 theorem を追加しない。
-
-Phase 52 / 66 / 76 の既存 Toda Δ relations を representative real-rule collision として再利用する。
-
-数学的 formal proof record 数は13のまま。
-
-## 39.2 問題
-
-同じ conclusion type:
-
-```text
-TodaDeltaImageUpToSignStatement
-```
-
-を持つ実在 producer:
-
-```text
-Phase 52  Δ(ι₅)
-Phase 66  Δ(ι₉)
-Phase 76  Δ(ι₁₇)
-```
-
-type-only lookup では:
-
-```text
-3 candidates
-```
-
-となる。
-
-しかし concrete theorem target が:
-
-```text
-Δ(ι₁₇)
-```
-
-なら、これは本来 ambiguity ではない。
-
-## 39.3 goal-side compatibility
-
-`InferenceRuleCatalogEntry` に:
-
-```text
-goal_compatibility
-```
-
-を追加。
-
-semantics:
-
-```text
-None
-→ legacy type-only compatibility
-
-callable(goal)
-→ concrete goal compatibility
-```
-
-`match_guard` は premise-dependent なので early filter として使わない。
-
-## 39.4 binding preservation
-
-`PremiseAvailability` は:
-
-```text
-bindings
-```
-
-を保持する。
-
-known sibling premises から得た binding を missing statement pattern へ反映する。
-
-## 39.5 concrete requested statement
-
-`MissingPremiseProducerLookup`:
-
-```text
-requested_statement
-```
-
-を保持。
-
-完全 binding のときだけ concrete statement を作る。
-
-```text
-unbound PatternVariable
-→ requested_statement=None
-```
-
-とし、誤った `None` concrete value を生成しない。
-
-## 39.6 producer-side filtering
-
-```text
-premise statement_type
-↓
-candidate conclusion_type
-↓
-goal_compatibility(requested_statement)
-↓
-safe producer filtering
-```
-
-代表:
-
-```text
-requested Δ(ι₁₇)
-
-Δι5 rule  → excluded
-Δι9 rule  → excluded
-Δι17 rule → retained
-```
-
-false `AMBIGUOUS_PRODUCER` を search 前段で除去する。
-
-## 39.7 safe / unsafe diagnostic consistency
-
-unsafe producer diagnostic も同じ:
-
-```text
-requested_statement
-```
-
-で filter する。
-
-したがって safe selection と unsafe diagnostic で concrete theorem semantics がずれない。
-
-## 39.8 selected-node provenance
-
-`BoundedProducerSearchNode` に:
-
-```text
-requested_statement
-```
-
-を保持。
-
-flow:
-
-```text
-MissingPremiseProducerLookup
-→ selected node
-→ search result
-→ report
-→ execution diagnostic
-```
-
-concrete request が search plan から消えない。
-
-## 39.9 concrete execution validation
-
-producer output:
-
-```text
-requested_statement present
-→ step.conclusion == requested_statement
-```
-
-を要求。
-
-wrong concrete output:
-
-```text
-requested Target("wanted")
-actual    Target("wrong")
-```
-
-は:
-
-```text
-PRODUCER_OUTPUT_NOT_USABLE
-```
-
-として producer node で停止。
-
-`requested_statement=None` は legacy premise-pattern validation を維持する。
-
-## 39.10 false ambiguity / true ambiguity boundary
-
-```text
-different theorem instances with same conclusion type
-→ Phase 88 concrete filtering
-```
-
-```text
-multiple producers remain for same concrete requested statement
-→ true ambiguity
-→ Phase 87 finite retry, when explicitly authorized
-```
-
-retry を false ambiguity の代替 filter として使わない。
-
-## 39.11 end-to-end representative trace
-
-fixture:
-
-```text
-real Δι5 / Δι9 / Δι17 rules
-+
-real Phase 76 Δι17 prerequisites
-+
-minimal synthetic final shell
-```
-
-trace:
-
-```text
-type-only lookup
-→ 3 producers
-
-concrete requested_statement
-→ Δ(ι₁₇)
-
-goal_compatibility
-→ Δι17 producer only
-
-bounded selection
-→ unique selected node
-
-selected node
-→ requested_statement=Δ(ι₁₇)
-
-report
-→ SUCCESS
-
-execution
-→ real Δι17 ProofStep
-→ synthetic final ProofStep
-→ requested goal
-```
-
-unrelated:
-
-```text
-Δι5 rule
-Δι9 rule
-```
-
-は selected path に入らない。
-
-## 39.12 provenance
-
-verified:
-
-```text
-selected producer rule identity retained
-producer ProofStep inference_rule = real Phase 76 Δι17 rule
-goal ProofStep inference_rule = synthetic final rule
-producer ProofStep is a final premise
-repository unchanged
-```
-
-## 39.13 regression record
-
-Phase 88-17:
-
-```text
-8 passed in 2.06s
-```
-
-Phase 88 related:
-
-```text
-47 passed in 2.96s
-```
-
-search / retry / execution related:
-
-```text
-34 passed in 2.41s
-```
-
-repository-wide:
-
-```text
-7096 passed in 35.90s
-```
-
-`git diff --check`:
-
-```text
-clean
-```
-
-## 39.14 completion boundary
-
-Phase 88 adds:
-
-```text
-goal_compatibility
-binding preservation for producer requests
-concrete requested_statement
-producer-side concrete filtering
-unsafe diagnostic concrete filtering
-selected-node requested-statement provenance
-concrete producer-output validation
-real-rule end-to-end regression
-```
-
-Still not implemented:
-
-```text
-general backtracking
-producer ranking
-proof-cost model
-best-proof selection
-DFS / BFS / A*
-unbounded recursive theorem search
-persistent search cache
-automatic proof narrative generation
-generic theorem prover
-```
-
-Phase 88:
-
-```text
-COMPLETE
-```
-
----
-
-# 40. 現在の proof-record 状態 after Phase 88
-
-数学的 formal proof records:
-
-```text
-13
-```
-
-最新 mathematical frontier:
-
-```text
-Toda Lemma 5.16
-stable G_0 through G_7
-```
-
-proof-search infrastructure records は Phase 79 以降継続して蓄積している。
-
-最新 infrastructure capability:
-
-```text
-Phase 88
-concrete theorem-instance producer filtering
-false-ambiguity elimination
-selected concrete request provenance
-concrete execution validation
-```
-
-次の infrastructure Phase は、実装を先に決めず:
-
-```text
-Phase 89-1
-post-Phase88 proof-search pressure / true-ambiguity necessity audit
-```
-
-から開始する。
+この record が示す範囲は有限 retry のみであり、general backtracking / ranking / best-proof selection を意味しない。
