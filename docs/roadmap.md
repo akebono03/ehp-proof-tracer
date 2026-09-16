@@ -1,6 +1,8 @@
 # EHP Proof Tracer ロードマップ
 
-この文書は今後の capability dependency と Phase 順序を記録する。過去の詳細な実装履歴は `docs/development_log.md`、現在の設計は `docs/design.md`、代表記録は `docs/proof_records.md` を参照する。
+この文書は今後の capability dependency と Phase 順序を記録する。
+
+過去の詳細な実装履歴は `docs/development_log.md`、現在の設計は `docs/design.md`、代表的な証明・infrastructure trace は `docs/proof_records.md` を参照する。
 
 ---
 
@@ -11,6 +13,7 @@
 ```text
 Toda Lemma 5.16 までの concrete proof spine
 stable G_0 through G_7
+0-stem から 7-stem までの主要な 2-primary / Toda π_i^n 計算材料
 ```
 
 proof infrastructure:
@@ -45,7 +48,7 @@ max_depth = 2
 retry_policy = None
 ```
 
-latest confirmed repository-wide regression:
+Phase 88 までの latest confirmed repository-wide regression:
 
 ```text
 7096 passed in 35.90s
@@ -170,98 +173,556 @@ Phase 88 は COMPLETE。
 
 ---
 
-# 5. 次候補：Phase 89
+# 5. Phase 89 完了境界
 
-Phase 89 は新しい search algorithm を直ちに実装しない。
+Phase 89-1 では post-Phase88 proof-search pressure / true-ambiguity necessity audit を行った。
 
-最初の自然な段階:
-
-```text
-Phase 89-1
-post-Phase88 proof-search pressure / true-ambiguity necessity audit
-```
-
-確認する中心:
+監査結果:
 
 ```text
 actual theorem-backed search で
 same concrete requested statement に
-複数 viable producer が残る実例があるか
+複数 viable producer が残る実例
+→ 現時点では確認されない
 
-Phase 87 finite retry で十分か
+Phase 87 finite retry
+→ synthetic ambiguity / deeper dependency failure では有効
 
-candidate 1 が deeper branch で失敗し、
-candidate 2 へ戻る general backtracking が
-実際に必要な theorem-backed case があるか
+general backtracking
+→ actual theorem-backed need は確認されない
 
-producer ranking / proof cost に
-具体的な need があるか
+producer ranking / proof cost
+→ concrete need は確認されない
 
-現在の deterministic registration order が
-どこまで十分か
+registration order が actual proof を変える例
+→ 現時点では確認されない
 
-search cache / persistence が
-現在の performance bottleneck か
+max_depth > 4 が必要な actual theorem-backed path
+→ 現時点では確認されない
 ```
 
-この監査で具体的 need が確認された場合のみ次の最小実装を決める。
+したがって Phase 89 では新しい search algorithm を実装しない。
+
+```text
+general backtracking deferred
+producer ranking deferred
+proof-cost model deferred
+depth > 4 generalization deferred
+```
+
+Phase 89 は COMPLETE。
 
 ---
 
-# 6. Phase 89 で先取りしないもの
+# 6. 次の中期目標
 
-監査前に次を実装しない:
+次の中期目標は、既存の数学表現・定理・proof-search を束ねて、
 
 ```text
+input:
+n, k
+
+target:
+π_{n+k}^n
+```
+
+から、計算結果だけでなく計算に使った数学的情報全体を取得できるようにすることである。
+
+目標出力:
+
+```text
+target
+group structure
+generators
+generator orders
+relevant EHP exact sequence
+exactness points used
+required propositions
+required lemmas
+required relations
+previously known groups actually used
+proof trace
+proofs of required lemmas / relations when available
+distinction between derived / proved / imported / assumed facts
+```
+
+重要:
+
+```text
+π_{n+k}(S^n)
+```
+
+全体を現在の target としない。
+
+現時点では奇素数 primary component を一般的に統合していないため、Toda の記法
+
+```text
+π_{n+k}^n
+```
+
+を正式な query target とする。
+
+---
+
+# 7. Phase 90：π_{n+k}^n query / calculation architecture
+
+## Phase 90-1：current calculation representation / orchestration audit
+
+実装前に、現在の表現と証明基盤だけで
+
+```text
+(n,k)
+→ TodaPrimaryGroup(n+k,n)
+→ known / derivable group statement
+→ EHP data
+→ dependency proof
+```
+
+をどこまで構成できるか監査する。
+
+中心対象:
+
+```text
+TodaPrimaryGroup
+TodaEHPSequence
+TodaEHPExactnessWindow
+FiniteCyclicGroup
+FreeCyclicGroup
+DirectSumGroup
+group-structure statements
+generator / order statements
+ProofStep
+ProofRepository
+InferenceRuleCatalog
+repository_inference
+Toda-specific rules
+```
+
+確認事項:
+
+```text
+query target を既存型だけで表現できるか
+group structure result の canonical statement は何か
+generator / order 情報をどこから回収できるか
+EHP sequence / exactness provenance がどこまで残っているか
+補題・命題・関係式の dependency を ProofStep から辿れるか
+previous-group dependency を識別できるか
+proof available / unavailable を区別できるか
+```
+
+Phase 90-1 では実装しない。
+
+## Phase 90-2：minimal query representation
+
+最小 query object を導入する。
+
+概念:
+
+```text
+TodaGroupQuery(n,k)
+
+group_dimension = n + k
+sphere_dimension = n
+
+→ TodaPrimaryGroup(n+k,n)
+```
+
+責務:
+
+```text
+input validation
+target construction
+```
+
+責務ではない:
+
+```text
+proof search
+group computation
+presentation
+```
+
+## Phase 90-3：known-result lookup
+
+query target に対して、既に repository / registered facts に存在する group-structure result を取得できるようにする。
+
+最初は新しい数学推論を追加しない。
+
+```text
+query
+→ target
+→ existing proven result lookup
+```
+
+を完成条件とする。
+
+---
+
+# 8. Phase 91：group structure / generator result
+
+query result を machine-readable に集約する。
+
+目標表現:
+
+```text
+target
+group_structure
+generators
+generator_orders
+named_relations
+proof_step
+```
+
+ここでは表示文字列を truth source にしない。
+
+```text
+structured mathematical facts
+→ calculation result
+→ presentation
+```
+
+の順を維持する。
+
+---
+
+# 9. Phase 92：EHP sequence / exactness extraction
+
+既存の:
+
+```text
+TodaEHPSequence
+TodaEHPExactnessWindow
+```
+
+を計算結果と接続する。
+
+## Phase 92-1：relevant EHP window
+
+target の計算で実際に利用した EHP sequence / exactness window を取得する。
+
+## Phase 92-2：group structures in EHP display
+
+EHP sequence の各項に、利用可能な既知群構造を対応付ける。
+
+概念:
+
+```text
+A ─P→ B ─E→ π_{n+k}^n ─H→ C ─P→ D
+     ↓          ↓            ↓
+   known      target        known
+```
+
+## Phase 92-3：exactness-use provenance
+
+単に「EHP を使った」と表示せず、
+
+```text
+exactness at B:
+im(P) = ker(E)
+
+exactness at π_{n+k}^n:
+im(E) = ker(H)
+```
+
+のように、どの項で完全性を使用したかを proof provenance と接続する。
+
+---
+
+# 10. Phase 93：mathematical dependency extraction
+
+final group result の `ProofStep` から、実際に使用した mathematical dependency を抽出する。
+
+対象:
+
+```text
+propositions
+lemmas
+relations
+previously known groups
+EHP exactness facts
+map properties
+generator / order facts
+```
+
+重要:
+
+```text
+potentially relevant facts
+```
+
+ではなく、
+
+```text
+actually used facts
+```
+
+を出力する。
+
+dependency role も保持する。
+
+例:
+
+```text
+Lemma A
+→ Relation B を導出するために使用
+
+Relation B
+→ generator order を決定するために使用
+
+previous group C
+→ EHP exactness の source term として使用
+```
+
+---
+
+# 11. Phase 94：recursive proof provenance
+
+補題・命題・関係式が単なる dependency label ではなく、証明が repository に存在する場合はその proof まで再帰的に辿れるようにする。
+
+概念:
+
+```text
+final result
+├─ dependency A
+│  ├─ premise A1
+│  ├─ premise A2
+│  └─ proof of A
+├─ dependency B
+│  └─ proof of B
+└─ dependency C
+   └─ imported / assumed
+```
+
+dependency provenance status は少なくとも次を区別する。
+
+```text
+derived
+proved
+imported
+assumed
+```
+
+意味:
+
+```text
+derived
+= 今回の calculation run で導出された
+
+proved
+= repository 内に derivation / ProofStep provenance がある
+
+imported
+= 文献由来 theorem / explicit fact として登録され、内部証明は未符号化
+
+assumed
+= この calculation の前提として与えられた
+```
+
+同じ statement が複数 role を持つ場合の扱いは Phase 94 の concrete need に基づいて決定する。
+
+---
+
+# 12. Phase 95：calculation orchestration
+
+ここで初めて上位 API を束ねる。
+
+概念:
+
+```text
+(n,k)
+↓
+target π_{n+k}^n
+↓
+known-result lookup
+or
+goal-directed bounded proof search
+↓
+group structure
+↓
+generator information
+↓
+EHP information
+↓
+dependency extraction
+↓
+recursive provenance
+↓
+calculation result
+```
+
+重要:
+
+```text
+calculation orchestration
+!= new theorem truth
+```
+
+数学固有の theorem knowledge は既存 / 新規の Toda rule に置き、orchestrator に埋め込まない。
+
+---
+
+# 13. Phase 96：human-readable hierarchical report
+
+structured calculation result から人間向け report を生成する。
+
+表示モード候補:
+
+```text
+summary
+proof
+full
+```
+
+## summary
+
+```text
+target
+group structure
+generators
+```
+
+## proof
+
+```text
+summary
++ EHP sequence
++ exactness
++ required lemmas / propositions / relations
++ main proof trace
+```
+
+## full
+
+```text
+proof
++ recursive dependency proofs
++ previous-group derivations when available
++ provenance status
+```
+
+presentation layer は数学的 truth source にしない。
+
+---
+
+# 14. Phase 97：0-stem through 7-stem end-to-end validation
+
+最初の大きな完成点。
+
+0-stem から 7-stem までの既実装数学を代表ケースとして、
+
+```text
+(n,k)
+→ π_{n+k}^n
+→ group structure
+→ generators
+→ EHP sequence
+→ exactness
+→ lemmas / propositions / relations
+→ recursive proof provenance
+```
+
+が一貫して取得できることを確認する。
+
+Phase 97 completion 後に初めて、
+
+```text
+7-stem までの既実装範囲について、
+n,k を入力し、
+π_{n+k}^n の計算結果と証明依存を再構成できる
+```
+
+ことを代表 capability とする。
+
+全組合せを一度に一般化するのではなく、実装済み theorem coverage に沿った representative matrix から始める。
+
+---
+
+# 15. Phase 97 後の開発方向
+
+主方向:
+
+```text
+8-stem 以降の Toda / EHP 数学を追加
+```
+
+従方向:
+
+```text
+新しい数学を query orchestration で実行
+↓
+具体的な不足 capability を発見
+↓
+必要最小限の representation / inference / search を追加
+```
+
+原則:
+
+```text
+新しい generic capability を先に作らない
+actual theorem-backed pressure から必要性を決める
+```
+
+---
+
+# 16. 当面の scope boundary
+
+現時点で対象:
+
+```text
+Toda π_i^n
+free part where Toda π_i^n definition includes it
+2-primary calculations already represented in the project
+EHP exactness
+Toda propositions / lemmas / relations already encoded
+bounded proof search
+```
+
+現時点では対象外:
+
+```text
+odd-primary components の一般統合
+π_{n+k}(S^n) 全体の自動計算
+general theorem prover
+unbounded recursive search
 general backtracking
 producer ranking
-proof-cost model
+proof-cost optimization
 best-proof selection
-DFS
-BFS
-A*
-unbounded recursion
-generic theorem prover
-```
-
-アルゴリズム名から設計を始めず、実際の proof-search failure から必要 capability を決める。
-
----
-
-# 7. 継続保留：数学 / representation
-
-```text
-general existential quantification
-general witness / uniqueness framework
-generic sign algebra
-generic Toda-bracket coset algebra
+generic CAS normalization
 generic symbolic dimension solver
 generic map typing solver
-generic stable theorem engine
-stable ring machinery
-generic mathematical-equivalence normalizer
 ```
+
+奇素数成分を将来追加する場合も、現在の `π_i^n` query semantics を壊さず別 Phase で拡張する。
 
 ---
 
-# 8. 継続保留：storage / presentation
+# 17. presentation / storage の境界
+
+Phase 90-97 で必要になる presentation:
+
+```text
+EHP sequence rendering
+dependency rendering
+hierarchical proof rendering
+```
+
+ただし次は先取りしない:
 
 ```text
 persistent Proof Repository
 proof graph serialization
 schema migration
 persistent search cache
-proof replay persistence
-automatic proof narrative generation
+interactive GUI
+web visualization
 ```
 
-現在の `ProofRepository` は in-memory。
-
-現在の proof-style probe は hand-authored presentation layer。
+最初は in-memory structured result と deterministic text report を優先する。
 
 ---
 
-# 9. 性能方針
+# 18. 性能方針
 
 wall-clock time は複数 PC 間で直接比較しない。
 
@@ -295,3 +756,28 @@ pytest --durations
 ```
 
 の順で行う。
+
+---
+
+# 19. 次に着手する Phase
+
+```text
+Phase 90-1
+current π_{n+k}^n calculation representation / orchestration audit
+```
+
+Phase 90-1 ではコードを変更しない。
+
+最初に現行コードと関連テストを確認し、
+
+```text
+n,k
+→ target
+→ group result
+→ generators
+→ EHP
+→ dependencies
+→ nested proofs
+```
+
+の各 edge が現在どこまで存在し、どこが不足しているかを具体的に記録する。
