@@ -1,17 +1,12 @@
-# EHP Proof Tracer ロードマップ
+﻿# EHP Proof Tracer 繝ｭ繝ｼ繝峨・繝・・
 
-この文書は **今後の capability dependency と Phase 順序**を記録する。
-
-現在の仕様は `README.md` / `docs/design.md` を優先し、過去の詳細な実装履歴は `docs/development_log.md`、代表証明・infrastructure record は `docs/proof_records.md` を参照する。
-
+縺薙・譁・嶌縺ｯ **莉雁ｾ後・ capability dependency 縺ｨ Phase 鬆・ｺ・*繧定ｨ倬鹸縺吶ｋ縲・
+迴ｾ蝨ｨ縺ｮ莉墓ｧ倥・ `README.md` / `docs/design.md` 繧貞━蜈医＠縲・℃蜴ｻ縺ｮ隧ｳ邏ｰ縺ｪ螳溯｣・ｱ･豁ｴ縺ｯ `docs/development_log.md`縲∽ｻ｣陦ｨ險ｼ譏弱・infrastructure record 縺ｯ `docs/proof_records.md` 繧貞盾辣ｧ縺吶ｋ縲・
 ---
 
-# 1. 文書運用方針
-
-roadmap は future-oriented に保つ。
-
-完了済み Phase の詳細な subphase、focused test、implementation history は roadmap に蓄積せず、milestone summary のみに圧縮する。
-
+# 1. 譁・嶌驕狗畑譁ｹ驥・
+roadmap 縺ｯ future-oriented 縺ｫ菫昴▽縲・
+螳御ｺ・ｸ医∩ Phase 縺ｮ隧ｳ邏ｰ縺ｪ subphase縲’ocused test縲（mplementation history 縺ｯ roadmap 縺ｫ闢・ｩ阪○縺壹［ilestone summary 縺ｮ縺ｿ縺ｫ蝨ｧ邵ｮ縺吶ｋ縲・
 ```text
 README.md
 = current status / current capability
@@ -35,50 +30,35 @@ docs/roadmap.md
 
 ---
 
-# 2. 開発原則
+# 2. 髢狗匱蜴溷援
 
 ```text
-実際の数学的必要 / capability need
-↓
-current code / related tests audit
-↓
-既存 semantics / API compatibility
-↓
-不足している最小 representation / orchestration
-↓
-focused implementation
-↓
-actual integration
-↓
-applicability / provenance / safety
-↓
-representative probe
-↓
-full regression
-↓
-completion documentation
+螳滄圀縺ｮ謨ｰ蟄ｦ逧・ｿ・ｦ・/ capability need
+竊・current code / related tests audit
+竊・譌｢蟄・semantics / API compatibility
+竊・荳崎ｶｳ縺励※縺・ｋ譛蟆・representation / orchestration
+竊・focused implementation
+竊・actual integration
+竊・applicability / provenance / safety
+竊・representative probe
+竊・full regression
+竊・completion documentation
 ```
 
-原則:
+蜴溷援:
 
 ```text
-future Phase の framework を先取りしない
-既存 API を不必要に壊さない
-generic theorem prover 化しない
-representation と theorem knowledge を混同しない
-診断結果と実行経路を一致させる
-repository は明示しない限り非破壊
-```
+future Phase 縺ｮ framework 繧貞・蜿悶ｊ縺励↑縺・譌｢蟄・API 繧剃ｸ榊ｿ・ｦ√↓螢翫＆縺ｪ縺・generic theorem prover 蛹悶＠縺ｪ縺・representation 縺ｨ theorem knowledge 繧呈ｷｷ蜷後＠縺ｪ縺・險ｺ譁ｭ邨先棡縺ｨ螳溯｡檎ｵ瑚ｷｯ繧剃ｸ閾ｴ縺輔○繧・repository 縺ｯ譏守､ｺ縺励↑縺・剞繧企撼遐ｴ螢・```
 
 ---
 
-# 3. 完了済み milestone summary
+# 3. 螳御ｺ・ｸ医∩ milestone summary
 
 ```text
-Phase 1–27
+Phase 1窶・7
 generic proof / algebra / Toda-bracket foundation
 
-Phase 28–48
+Phase 28窶・8
 actual H branch
 PrimaryComponent / TodaPrimaryGroup
 WhiteheadProduct
@@ -87,8 +67,8 @@ Proposition 4.2
 Toda (4.5)
 Proposition 4.4
 
-Phase 49–63
-η-family / ν-family concrete branch
+Phase 49窶・3
+ﾎｷ-family / ﾎｽ-family concrete branch
 Proposition 5.1
 Lemma 5.2
 Proposition 5.3
@@ -100,7 +80,7 @@ Toda (5.6)
 Phase 64
 performance stabilization
 
-Phase 65–77
+Phase 65窶・7
 Toda Chapter V finite-dimensional continuation
 Proposition 5.6
 Equation (5.8)
@@ -145,88 +125,83 @@ execution-failure diagnostics
 unified bounded-search report
 integrated selected-path execution
 actual Toda Lemma 5.16 verification
+
+Phase 86-1
+hard-coded depth=2 compatibility audit
+
+Phase 86-2
+explicit max_depth parameterization
+max_depth=2 Phase 85 compatibility
+representative compatibility probe
 ```
 
-Phase 85 completion repository-wide regression:
+Phase 86-2 completion repository-wide regression:
 
 ```text
-6945 passed in 108.60s
+6969 passed in 34.72s
 ```
 
 Wall-clock time is machine-dependent because development is performed on multiple PCs. Test count, semantics, provenance coverage, and focused regression remain the primary cross-machine signals.
 
 ---
 
-# 4. 現在の数学 capability
+# 4. 迴ｾ蝨ｨ縺ｮ謨ｰ蟄ｦ capability
 
 Low stable stems:
 
 ```text
-G_0=Z{ι}
+G_0=Z{ﾎｹ}
 
-(G_1;2)=Z/2{η}
-(G_2;2)=Z/2{η²}
-(G_3;2)=Z/8{ν}
+(G_1;2)=Z/2{ﾎｷ}
+(G_2;2)=Z/2{ﾎｷﾂｲ}
+(G_3;2)=Z/8{ﾎｽ}
 (G_4;2)=0
 (G_5;2)=0
-(G_6;2)=Z/2{ν²}
-(G_7;2)=Z/16{σ}
+(G_6;2)=Z/2{ﾎｽﾂｲ}
+(G_7;2)=Z/16{ﾏマ
 ```
 
-Toda Lemma 5.16 までの concrete proof spine は provenance 付きで formalized されている。
-
-代表 actual theorem:
+Toda Lemma 5.16 縺ｾ縺ｧ縺ｮ concrete proof spine 縺ｯ provenance 莉倥″縺ｧ formalized 縺輔ｌ縺ｦ縺・ｋ縲・
+莉｣陦ｨ actual theorem:
 
 ```text
 Toda Lemma 5.16 final bracket-sum consequence
 ```
 
-は現在:
+縺ｯ迴ｾ蝨ｨ:
 
 ```text
 initial repository facts
-↓
-automatic bounded search
-↓
-selected producer dependency DAG
-↓
-integrated execution
-↓
-final ProofStep
+竊・automatic bounded search
+竊・selected producer dependency DAG
+竊・integrated execution
+竊・final ProofStep
 ```
 
-として再導出可能。
-
+縺ｨ縺励※蜀榊ｰ主・蜿ｯ閭ｽ縲・
 ---
 
-# 5. 現在の proof-search capability
+# 5. 迴ｾ蝨ｨ縺ｮ proof-search capability
 
-現在の high-level flow:
+迴ｾ蝨ｨ縺ｮ high-level flow:
 
 ```text
 goal
-↓
-goal-compatible final-rule selection
-↓
-missing-premise analysis
-↓
-bounded producer search
-↓
-search-failure diagnostics
-↓
-execution-failure diagnostics
-↓
-unified report
-↓
-exact selected-path execution
-↓
-goal ProofStep
+竊・goal-compatible final-rule selection
+竊・missing-premise analysis
+竊・bounded producer search
+竊・search-failure diagnostics
+竊・execution-failure diagnostics
+竊・unified report
+竊・exact selected-path execution
+竊・goal ProofStep
 ```
 
-現在の bounded search:
+迴ｾ蝨ｨ縺ｮ bounded search:
 
 ```text
-maximum producer depth = 2
+explicit max_depth API present
+currently supported max_depth = 2
 unique producer policy
 shared producer identity deduplication
 dependency-first execution
@@ -234,7 +209,15 @@ producer max_rounds = 1
 repository non-mutation
 ```
 
-Phase 85 status model:
+default call 縺ｨ explicit call:
+
+```text
+default
+=
+max_depth=2
+```
+
+Phase 85/86 status model:
 
 ```text
 SUCCESS
@@ -258,9 +241,9 @@ Actual Toda Lemma 5.16 representative path:
 
 ```text
 final
-├─ bracket-sum              depth 1 and 2
-└─ composition              depth 1
-   └─ bracket-sum           depth 2
+笏懌楳 bracket-sum              depth 1 and 2
+笏披楳 composition              depth 1
+   笏披楳 bracket-sum           depth 2
 ```
 
 shared bracket-sum:
@@ -270,14 +253,16 @@ depths = (1, 2)
 is_shared = True
 ```
 
+Phase 86-2 regression confirms default behavior and explicit `max_depth=2` behavior are identical in selected path, dependencies, diagnostics, execution result, and provenance.
+
 ---
 
-# 6. 現在の安全境界
+# 6. 迴ｾ蝨ｨ縺ｮ螳牙・蠅・阜
 
-Phase 85 完了時点で意図的に未実装:
+Phase 86-2 螳御ｺ・凾轤ｹ縺ｧ諢丞峙逧・↓譛ｪ螳溯｣・
 
 ```text
-depth > 2
+max_depth > 2
 arbitrary recursive producer search
 retry / backtracking
 multiple alternative-path planning
@@ -292,12 +277,13 @@ automatic proof narrative generation
 generic theorem prover
 ```
 
-これらは互いに独立した capability として扱う。
-
-特に:
+縺薙ｌ繧峨・莠偵＞縺ｫ迢ｬ遶九＠縺・capability 縺ｨ縺励※謇ｱ縺・・
+迚ｹ縺ｫ:
 
 ```text
 depth parameterization
+!=
+depth > 2 search
 !=
 backtracking
 !=
@@ -306,163 +292,127 @@ ranking
 general theorem proving
 ```
 
-を維持する。
-
+繧堤ｶｭ謖√☆繧九・
 ---
 
-# 7. 次 Phase：Phase 86 bounded-search generalization / depth parameterization
+# 7. 谺｡ Phase・啀hase 86-3 bounded depth > 2
 
-Phase 86 の第一目的は **現在の depth=2 semantics を壊さず、depth limit を明示的に扱える設計へ一般化可能か監査すること**。
+Phase 86-1 / 86-2 縺ｯ COMPLETE縲・
+Phase 86-3 縺ｮ逶ｮ逧・・縲￣hase 86-2 縺ｧ蝗ｺ螳壹＠縺・`max_depth=2` compatibility 繧貞｣翫＆縺壹∵怏髯舌↑ explicit depth limit 縺ｮ遽・峇縺ｧ depth > 2 縺ｮ荳諢・producer chain 繧呈桶縺医ｋ繧医≧縺ｫ縺吶ｋ縺薙→縲・
+譛蛻昴°繧・arbitrary recursive theorem search 繧貞ｮ溯｣・＠縺ｪ縺・・
+## Phase 86-3 譛蟆・target
 
-最初から arbitrary recursive theorem search を実装しない。
-
-## Phase 86-1：hard-coded depth=2 compatibility audit
-
-確認対象:
-
-```text
-BoundedProducerSearchNode
-BoundedProducerSearchResult
-
-diagnose_depth_two_producer_search_failure()
-select_unique_depth_two_producer_chain()
-diagnose_depth_two_producer_execution_failure()
-build_depth_two_producer_search_report()
-execute_depth_two_producer_search()
-
-depth-related tests / probe
-```
-
-確認事項:
+譛蛻昴・莉｣陦ｨ synthetic dependency:
 
 ```text
-どのAPI名・分岐・diagnosticがdepth=2を仮定しているか
-shared-node depths semantics
-cycle detection semantics
-DEPTH_LIMIT diagnostic semantics
-dependency-first order
-repository non-mutation
-actual Toda Lemma 5.16 compatibility
+final
+竊・depth 1 producer
+竊・depth 2 producer
+竊・depth 3 producer
 ```
 
-Phase 86-1 は audit を先行し、必要性が確定するまで production generalization を行わない。
-
-## Phase 86-2：explicit depth-limit representation / API
-
-監査で安全と確認できた場合のみ:
-
-```text
-max_depth
-```
-
-を明示的な入力として扱う最小 API を検討する。
-
-最初の完了条件:
+蜷後§ dependency 縺ｫ蟇ｾ縺励※:
 
 ```text
 max_depth=2
-→ Phase 85 と同じ selected path
-→ 同じ diagnostics
-→ 同じ proof result
-→ 同じ provenance
+竊・DEPTH_LIMIT
+
+max_depth=3
+竊・success
 ```
 
-既存 depth=2 API は不必要に壊さない。
-
-## Phase 86-3：bounded depth > 2
-
-Phase 86-2 が成立し、具体的 proof need がある場合のみ検討する。
-
-必要条件:
+繧貞ｯｾ縺ｧ遒ｺ隱阪☆繧九・
+## 蠢・・invariant
 
 ```text
 finite explicit max_depth
 cycle-safe
 unique producer policy preserved
-deterministic dependency ordering
+shared dependency identity preserved
+deterministic dependency-first ordering
 diagnostic context preserved
 exact selected-path execution
+ProofStep provenance preserved
 repository non-mutation
 ```
 
-depth > 2 を許しても:
+Phase 86-2 baseline:
+
+```text
+default
+=
+max_depth=2
+```
+
+縺ｯ regression 縺ｧ邯咏ｶ壼崋螳壹☆繧九・
+## Phase 86-3 縺ｧ蜷梧凾蟆主・縺励↑縺・ｂ縺ｮ
 
 ```text
 retry / backtracking
-ranking
-A*
+producer ranking
+proof-cost model
 best-proof selection
+DFS / BFS / A*
+alternative path retry
+generic theorem prover
 ```
-
-は同時導入しない。
 
 ---
 
-# 8. Phase 86 以降の別候補
-
-Phase 86 と独立して、将来以下を検討できる。
-
+# 8. Phase 86 莉･髯阪・蛻･蛟呵｣・
+Phase 86 縺ｨ迢ｬ遶九＠縺ｦ縲∝ｰ・擂莉･荳九ｒ讀懆ｨ弱〒縺阪ｋ縲・
 ## Alternative producer planning
 
-現在:
+迴ｾ蝨ｨ:
 
 ```text
 distinct producer ambiguity
-→ stop
+竊・stop
 ```
 
-将来候補:
+蟆・擂蛟呵｣・
 
 ```text
 multiple safe producer alternatives
-↓
-explicit planning policy
+竊・explicit planning policy
 ```
 
-ただし ranking / cost model が必要になるまで先取りしない。
-
+縺溘□縺・ranking / cost model 縺悟ｿ・ｦ√↓縺ｪ繧九∪縺ｧ蜈亥叙繧翫＠縺ｪ縺・・
 ## Retry / backtracking
 
-現在:
+迴ｾ蝨ｨ:
 
 ```text
 selected unique path fails execution
-→ diagnostic failure
+竊・diagnostic failure
 ```
 
-将来候補:
+蟆・擂蛟呵｣・
 
 ```text
 execution failure
-↓
-alternative path retry
+竊・alternative path retry
 ```
 
-これは depth parameterization とは別 Phase とする。
-
+縺薙ｌ縺ｯ depth parameterization 縺ｨ縺ｯ蛻･ Phase 縺ｨ縺吶ｋ縲・
 ## Proof ranking / cost model
 
-将来候補:
+蟆・擂蛟呵｣・
 
 ```text
 multiple valid proofs
-↓
-cost / provenance / depth policy
-↓
-preferred proof
+竊・cost / provenance / depth policy
+竊・preferred proof
 ```
 
-現在は不要。
-
+迴ｾ蝨ｨ縺ｯ荳崎ｦ√・
 ---
 
 # 9. Persistent Proof Repository / search cache
 
-現在の `ProofRepository` は process-local in-memory catalog。
-
-Phase 85 の generated proof steps は repository に自動登録されない。
-
-将来 persistence を導入する場合、少なくとも:
+迴ｾ蝨ｨ縺ｮ `ProofRepository` 縺ｯ process-local in-memory catalog縲・
+generated proof steps 縺ｯ repository 縺ｫ閾ｪ蜍慕匳骭ｲ縺輔ｌ縺ｪ縺・・
+蟆・擂 persistence 繧貞ｰ主・縺吶ｋ蝣ｴ蜷医∝ｰ代↑縺上→繧・
 
 ```text
 typed conclusion
@@ -474,32 +424,31 @@ repository metadata
 schema / semantic compatibility version
 ```
 
-を保存する必要がある。
-
-現在は:
+繧剃ｿ晏ｭ倥☆繧句ｿ・ｦ√′縺ゅｋ縲・
+迴ｾ蝨ｨ縺ｯ:
 
 ```text
 DEFERRED
 ```
 
-persistent search cache と persistent Proof Repository は同一 capability とみなさない。
-
+persistent search cache 縺ｨ persistent Proof Repository 縺ｯ蜷御ｸ capability 縺ｨ縺ｿ縺ｪ縺輔↑縺・・
 ---
 
 # 10. Automatic proof narrative generation
 
-現在:
+迴ｾ蝨ｨ:
 
 ```text
 proof inference       = automatic
 proof provenance      = automatic
 bounded proof search  = automatic through depth 2
+explicit max_depth    = implemented for value 2
 diagnostics           = automatic
 proof records         = human curated
 probe narrative       = hand-authored
 ```
 
-将来 target:
+蟆・擂 target:
 
 ```text
 ProofStep graph
@@ -507,23 +456,16 @@ ProofStep graph
 + InferenceRule provenance
 + LiteratureStatement
 + search diagnostic / execution metadata
-↓
-relevant-path extraction
-↓
-step grouping / compression
-↓
-equation-chain generation
-↓
-citation insertion
-↓
-console / Markdown / LaTeX narrative
+竊・relevant-path extraction
+竊・step grouping / compression
+竊・equation-chain generation
+竊・citation insertion
+竊・console / Markdown / LaTeX narrative
 ```
 
-formal mathematical proof records は現在13件。
-
-Phase 79–85 infrastructure records は数学的 proof record とは別に管理する。
-
-状態:
+formal mathematical proof records 縺ｯ迴ｾ蝨ｨ13莉ｶ縲・
+Phase 79窶・6 infrastructure records 縺ｯ謨ｰ蟄ｦ逧・proof record 縺ｨ縺ｯ蛻･縺ｫ邂｡逅・☆繧九・
+迥ｶ諷・
 
 ```text
 DEFERRED
@@ -531,9 +473,9 @@ DEFERRED
 
 ---
 
-# 11. 証明記録
+# 11. 險ｼ譏手ｨ倬鹸
 
-数学的 formal proof records:
+謨ｰ蟄ｦ逧・formal proof records:
 
 ```text
 13
@@ -549,42 +491,39 @@ Phase 82
 Phase 83
 Phase 84
 Phase 85
+Phase 86
 
-total = 7
+total = 8
 ```
 
-Phase 85 infrastructure record は:
+Phase 86 infrastructure record 縺ｯ:
 
 ```text
-bounded-search diagnostics
-unified report
-integrated selected-path execution
-actual Toda Lemma 5.16 verification
+hard-coded depth=2 audit
+explicit max_depth=2 compatibility
+representative compatibility probe
+Phase 86-3 boundary
 ```
 
-を記録する。
-
+繧定ｨ倬鹸縺吶ｋ縲・
 ---
 
-# 12. 性能方針
-
+# 12. 諤ｧ閭ｽ譁ｹ驥・
 Phase 64 same-machine baseline:
 
 ```text
 3657 passed in 259.11s
-↓
-3657 passed in 29.97s
+竊・3657 passed in 29.97s
 ```
 
-Phase 85 final regression:
+Phase 86-2 final regression:
 
 ```text
-6945 passed in 108.60s
+6969 passed in 34.72s
 ```
 
-異なるPC間の wall-clock time をコード性能の直接比較に使用しない。
-
-performance regression が顕著になった場合のみ:
+逡ｰ縺ｪ繧輝C髢薙・ wall-clock time 繧偵さ繝ｼ繝画ｧ閭ｽ縺ｮ逶ｴ謗･豈碑ｼ・↓菴ｿ逕ｨ縺励↑縺・・
+performance regression 縺碁｡戊送縺ｫ縺ｪ縺｣縺溷ｴ蜷医・縺ｿ:
 
 ```text
 pytest duration
@@ -594,21 +533,18 @@ premise matching
 algebra crosscheck
 ```
 
-を再調査する。
-
-heavy deterministic builder が同じ object graph を繰り返し利用する場合は:
+繧貞・隱ｿ譟ｻ縺吶ｋ縲・
+heavy deterministic builder 縺悟酔縺・object graph 繧堤ｹｰ繧願ｿ斐＠蛻ｩ逕ｨ縺吶ｋ蝣ｴ蜷医・:
 
 ```python
 @lru_cache(maxsize=1)
 ```
 
-を優先する。
-
+繧貞━蜈医☆繧九・
 ---
 
-# 13. 保留中の一般化
-
-数学 / representation:
+# 13. 菫晉蕗荳ｭ縺ｮ荳闊ｬ蛹・
+謨ｰ蟄ｦ / representation:
 
 ```text
 general existential quantification
@@ -624,7 +560,7 @@ stable ring machinery
 proof search:
 
 ```text
-arbitrary recursion
+unbounded / arbitrary recursion
 backtracking
 alternative-path planning
 ranking
@@ -642,11 +578,10 @@ proof graph serialization
 automatic proof narrative generation
 ```
 
-これらは concrete need が発生した時点で個別 Phase として設計する。
-
+縺薙ｌ繧峨・ concrete need 縺檎匱逕溘＠縺滓凾轤ｹ縺ｧ蛟句挨 Phase 縺ｨ縺励※險ｭ險医☆繧九・
 ---
 
-# 14. 現在地点
+# 14. 迴ｾ蝨ｨ蝨ｰ轤ｹ
 
 ```text
 mathematical frontier:
@@ -655,19 +590,20 @@ stable G_0 through G_7
 
 proof infrastructure frontier:
 bounded depth=2 producer search
+explicit max_depth=2
 search / execution diagnostics
 unified report
 integrated selected-path execution
 
 repository-wide regression:
-6945 passed
+6969 passed in 34.72s
 ```
 
-次の開発開始点:
+谺｡縺ｮ髢狗匱髢句ｧ狗せ:
 
 ```text
-Phase 86-1
-bounded-search depth parameterization compatibility audit
+Phase 86-3
+bounded depth > 2
 ```
 
-Phase 86 でも最小変更原則を維持し、現在の Phase 85 depth=2 semantics を regression baseline とする。
+Phase 86-3 縺ｧ繧よ怙蟆丞､画峩蜴溷援繧堤ｶｭ謖√＠縲￣hase 86-2 縺ｮ explicit `max_depth=2` 螳悟・莠呈鋤繧・regression baseline 縺ｨ縺吶ｋ縲・
