@@ -1169,13 +1169,6 @@ def find_missing_premise_producer_lookups(
           rule_catalog,
           availability.inference_rule
           .premise_patterns[index],
-          requested_statement=(
-            _concrete_requested_statement(
-              availability.inference_rule
-              .premise_patterns[index],
-              availability.bindings,
-            )
-          ),
         )
       ),
       requested_statement=(
