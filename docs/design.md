@@ -11206,3 +11206,172 @@ hard-coded depth=2 箇所を監査
 ```
 
 の順で進め、future depth capability を先取りしない。
+
+
+---
+
+# 168. Phase 86-3：bounded depth=3 search / execution 設計
+
+Phase 86-3 では Phase 86-2 の explicit `max_depth` を、互換性を維持したまま depth=3 まで実際に有効化する。
+
+現在受理する値:
+
+```text
+max_depth=2
+max_depth=3
+```
+
+default は引き続き:
+
+```text
+max_depth=2
+```
+
+既存 API 名は互換性維持のため変更しない。
+
+```text
+select_unique_depth_two_producer_chain()
+diagnose_depth_two_producer_search_failure()
+build_depth_two_producer_search_report()
+execute_depth_two_producer_search()
+```
+
+名称中の `depth_two` は historical API name であり、現在の capability 上限を意味しない。
+
+## 168.1 depth=3 selection semantics
+
+代表 chain:
+
+```text
+final
+<- A   depth 1
+<- B   depth 2
+<- C   depth 3
+```
+
+selection result は dependency-first:
+
+```text
+C, B, A
+```
+
+node depths:
+
+```text
+C: (3,)
+B: (2,)
+A: (1,)
+```
+
+依存:
+
+```text
+B.dependencies = (C,)
+A.dependencies = (B,)
+```
+
+## 168.2 diagnostic semantics
+
+同じ dependency に `max_depth=2` を与えると:
+
+```text
+DEPTH_LIMIT
+current_depth = 2
+required_next_depth = 3
+```
+
+`max_depth=3` 境界で depth 4 producer が必要なら:
+
+```text
+DEPTH_LIMIT
+current_depth = 3
+required_next_depth = 4
+```
+
+境界候補が ancestor rule の場合は depth limit より cycle classification を優先する。
+
+```text
+CYCLE_DETECTED > DEPTH_LIMIT
+```
+
+producer 自体が存在しない / unsafe / ambiguous の場合も既存 Phase 85 semantics を保持する。
+
+## 168.3 report / execution semantics
+
+Phase 86-3 完了時点では:
+
+```text
+selection     max_depth=2,3
+diagnostics   max_depth=2,3
+report        max_depth=2,3
+execution     max_depth=2,3
+```
+
+execution は search を再計画せず:
+
+```text
+report.search_result.producer_nodes
+```
+
+をそのまま dependency-first に実行する。
+
+代表 execution:
+
+```text
+C ProofStep
+-> B(C) ProofStep
+-> A(B) ProofStep
+-> final(A) ProofStep
+-> goal
+```
+
+最重要 invariant:
+
+```text
+selected path = executed path
+```
+
+## 168.4 repository semantics
+
+search / report / execution は repository を自動変更しない。
+
+```text
+repository before
+=
+repository after
+```
+
+生成された ProofStep は inference result に保持する。
+
+## 168.5 Phase 86-3 completion boundary
+
+実装済み:
+
+```text
+depth=3 fixture
+max_depth=3 recursive selection
+depth=3 DEPTH_LIMIT diagnostics
+depth=3 cycle diagnostics
+depth=3 search report
+depth=3 selected-path execution
+dependency-first provenance
+representative probe
+max_depth=2 compatibility
+repository non-mutation
+```
+
+意図的に未実装:
+
+```text
+max_depth > 3
+retry / backtracking
+alternative producer planning
+producer ranking
+proof-cost model
+best-proof selection
+DFS / BFS / A*
+unbounded theorem search
+generic theorem prover
+```
+
+Phase 86-3 は「bounded depth を 3 に広げる」ことだけを行い、探索 policy の一般化は次 Phase 以降へ分離する。

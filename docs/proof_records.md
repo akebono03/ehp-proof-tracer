@@ -9164,3 +9164,240 @@ total = 8
 ```
 
 Phase 86 infrastructure record 縺ｯ explicit `max_depth=2` compatibility 縺ｨ Phase 86-3 boundary 繧定ｨ倬鹸縺吶ｋ縲・
+
+
+---
+
+# 39. Phase 86-3 infrastructure record：bounded depth=3
+
+Phase 86-3 は数学 theorem の新規 formal proof record ではなく、Proof Repository 上の bounded proof-search infrastructure record である。
+
+## 39.1 representative dependency
+
+synthetic unique chain:
+
+```text
+final
+<- A
+<- B
+<- C
+```
+
+depth assignment:
+
+```text
+A = 1
+B = 2
+C = 3
+```
+
+## 39.2 bounded-depth contrast
+
+同一 dependency に対して:
+
+```text
+max_depth=2
+-> DEPTH_LIMIT
+current_depth=2
+required_next_depth=3
+```
+
+```text
+max_depth=3
+-> SUCCESS
+```
+
+この pair が Phase 86-3 の中心 regression である。
+
+## 39.3 selected dependency DAG
+
+`max_depth=3` selection:
+
+```text
+producer_nodes = C, B, A
+```
+
+with:
+
+```text
+C.depths = (3,)
+B.depths = (2,)
+A.depths = (1,)
+
+B.dependencies = (C,)
+A.dependencies = (B,)
+```
+
+ordering invariant:
+
+```text
+dependency-first
+```
+
+## 39.4 depth-limit and cycle classification
+
+depth 4 requirement:
+
+```text
+final <- A <- B <- C <- D
+max_depth=3
+-> DEPTH_LIMIT
+```
+
+ancestor recurrence:
+
+```text
+final <- A <- B <- C
+        ^         |
+        +---------+
+```
+
+returns:
+
+```text
+CYCLE_DETECTED
+```
+
+cycle detection wins over depth-limit classification at the same boundary.
+
+## 39.5 report record
+
+`build_depth_two_producer_search_report(..., max_depth=3)` supports:
+
+```text
+SUCCESS
+DEPTH_LIMIT
+CYCLE_DETECTED
+```
+
+while preserving selected-path diagnostic context and repository non-mutation.
+
+## 39.6 execution / provenance record
+
+selected path execution:
+
+```text
+C
+-> B
+-> A
+-> final
+```
+
+ProofStep provenance:
+
+```text
+C_step.premises == ()
+B_step.premises == (C_step,)
+A_step.premises == (B_step,)
+goal_step.premises == (A_step,)
+```
+
+rule identity is preserved for every step.
+
+最重要 invariant:
+
+```text
+selected dependency path
+=
+executed dependency path
+```
+
+## 39.7 representative probe
+
+```powershell
+python -m probes.probe_phase86_capabilities
+```
+
+Phase 86-3-6 probe displays:
+
+```text
+Phase 86-2 compatibility baseline
+max_depth=2 status = depth_limit
+current depth = 2
+required next depth = 3
+max_depth=3 status = success
+selected max depth = 3
+producer depths = ((3,), (2,), (1,))
+dependency-first order = True
+goal derived = True
+B uses C ProofStep = True
+A uses B ProofStep = True
+final uses A ProofStep = True
+repository mutated = False
+max_depth=3 accepted = True
+max_depth=4 rejected = True
+```
+
+## 39.8 compatibility boundary
+
+Phase 86-2 default compatibility remains:
+
+```text
+default call = max_depth=2
+```
+
+Phase 86-3 capability:
+
+```text
+selection     max_depth=2,3
+diagnostics   max_depth=2,3
+report        max_depth=2,3
+execution     max_depth=2,3
+```
+
+## 39.9 repository safety
+
+```text
+repository before
+=
+repository after
+```
+
+Generated ProofSteps remain in the returned inference result and are not automatically registered.
+
+## 39.10 regression record
+
+Latest confirmed baseline before Phase 86-3-6:
+
+```text
+Phase 86-3-5 related: 76 passed in 2.64s
+repository-wide: 6989 passed in 35.32s
+```
+
+Phase 86-3-6 final count is recorded after the completion regression is run.
+
+## 39.11 completion boundary
+
+Implemented:
+
+```text
+bounded depth=3 selection
+depth=3 search diagnostics
+depth=3 unified report
+depth=3 selected-path execution
+ProofStep provenance preservation
+cycle-safe boundary
+max_depth=2 compatibility
+repository non-mutation
+representative depth=3 probe
+```
+
+Not implemented:
+
+```text
+max_depth > 3
+retry / backtracking
+alternative producer planning
+producer ranking
+proof-cost model
+best-proof selection
+DFS / BFS / A*
+unbounded recursive theorem search
+generic theorem prover
+```
+
+Phase 86-3 infrastructure record status:
+
+```text
+IMPLEMENTED / FINAL REGRESSION PENDING
+```

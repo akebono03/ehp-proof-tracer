@@ -2,6 +2,7 @@ from repository_inference import (
   BoundedProducerSearchStatus,
 )
 from probes.probe_phase86_capabilities import (
+  build_phase86_depth_three_representative_result,
   build_phase86_representative_result,
   main,
 )
@@ -177,100 +178,132 @@ def test_phase86_probe_prints_completion_flow(
   output = capsys.readouterr().out
 
   assert (
-    "Phase 86-2: explicit max_depth "
-    "parameterization compatibility"
+    "Phase 86-3: bounded depth=3 completion"
     in output
   )
-
-  assert (
-    "Toda Lemma 5.16 final "
-    "bracket-sum consequence"
-    in output
-  )
-
   assert (
     "default max depth = 2"
     in output
   )
-
   assert (
     "explicit max depth = 2"
     in output
   )
-
   assert (
     "same producer path = True"
     in output
   )
-
   assert (
-    "same dependencies = True"
+    "max_depth=2 status = depth_limit"
     in output
   )
-
-  assert (
-    "default shared depths = (1, 2)"
-    in output
-  )
-
-  assert (
-    "explicit shared depths = (1, 2)"
-    in output
-  )
-
-  assert (
-    "same goal inference rule = True"
-    in output
-  )
-
-  assert (
-    "status = depth_limit"
-    in output
-  )
-
-  assert (
-    "current depth = 2"
-    in output
-  )
-
   assert (
     "required next depth = 3"
     in output
   )
-
+  assert (
+    "max_depth=3 status = success"
+    in output
+  )
+  assert (
+    "selected max depth = 3"
+    in output
+  )
+  assert (
+    "producer depths = ((3,), (2,), (1,))"
+    in output
+  )
+  assert (
+    "dependency-first order = True"
+    in output
+  )
+  assert (
+    "goal derived = True"
+    in output
+  )
+  assert (
+    "B uses C ProofStep = True"
+    in output
+  )
+  assert (
+    "A uses B ProofStep = True"
+    in output
+  )
+  assert (
+    "final uses A ProofStep = True"
+    in output
+  )
   assert (
     "repository mutated = False"
     in output
   )
-
-  assert (
-    "max_depth=1 rejected = True"
-    in output
-  )
-
   assert (
     "max_depth=3 accepted = True"
     in output
   )
-
   assert (
     "max_depth=4 rejected = True"
     in output
   )
-
   assert (
-    "explicit max_depth=2 = enabled"
-    in output
-  )
-
-  assert (
-    "max_depth=3 = enabled"
-    in output
-  )
-
-  assert (
-    "max_depth > 3 = not implemented"
+    "selection / diagnostics / report / execution "
+    "support max_depth=2,3"
     in output
   )
 
 
+def test_phase86_3_6_probe_reports_depth_three_boundary_pair():
+  result = (
+    build_phase86_depth_three_representative_result()
+  )
+
+  assert result[
+    "depth_two_status"
+  ] is BoundedProducerSearchStatus.DEPTH_LIMIT
+  assert result[
+    "depth_two_current_depth"
+  ] == 2
+  assert result[
+    "depth_two_required_next_depth"
+  ] == 3
+  assert result[
+    "depth_three_status"
+  ] is BoundedProducerSearchStatus.SUCCESS
+  assert result[
+    "depth_three_max_depth"
+  ] == 3
+  assert result[
+    "producer_depths"
+  ] == (
+    (3,),
+    (2,),
+    (1,),
+  )
+
+
+def test_phase86_3_6_probe_reports_depth_three_execution_provenance():
+  result = (
+    build_phase86_depth_three_representative_result()
+  )
+
+  assert result[
+    "dependency_first_order"
+  ]
+  assert result[
+    "goal_derived"
+  ]
+  assert result[
+    "c_rule_reused"
+  ]
+  assert result[
+    "b_uses_c_step"
+  ]
+  assert result[
+    "a_uses_b_step"
+  ]
+  assert result[
+    "final_uses_a_step"
+  ]
+  assert not result[
+    "repository_mutated"
+  ]
