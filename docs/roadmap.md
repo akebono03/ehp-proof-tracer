@@ -8,21 +8,22 @@
 
 数学面では Toda Lemma 5.16 までの concrete proof spine と stable stem 0〜7 を formalize 済み。
 
-proof infrastructure は Phase 86-4 で次の境界まで到達した。
+proof infrastructure は Phase 87 で次の境界まで到達した。
 
 ```text
 Proof Repository
 -> automatic final-rule selection
 -> missing-premise producer search
 -> bounded dependency DAG selection
+-> finite explicit producer retry
 -> search diagnostics
--> execution diagnostics
+-> retry-exhaustion diagnostics
 -> unified report
 -> exact selected-path execution
 -> goal ProofStep
 ```
 
-現在 formal regression 済みの bounded depth:
+formal regression 済み bounded depth:
 
 ```text
 max_depth = 2
@@ -34,101 +35,34 @@ default:
 
 ```text
 max_depth = 2
+retry_policy = None
 ```
 
-Phase 86-4-6 は depth=4 representative probe / regression / completion documentation の段階であり、機能追加ではなく completion 固定を目的とする。
-
-最新確認済み repository-wide baseline:
+retry policy:
 
 ```text
-Phase 86-4-5
-7000 passed in 36.32s
+FiniteProducerRetryPolicy(max_attempts=N)
 ```
-
-Phase 86-4-6 の最終 regression 値は実行後に確定する。
 
 ---
 
 # 2. Phase 86 完了境界
 
-Phase 86-1:
+Phase 86 では bounded producer search の depth parameterization を完成した。
+
+代表:
 
 ```text
-hard-coded depth=2 compatibility audit
-```
-
-Phase 86-2:
-
-```text
-explicit max_depth parameterization
-max_depth=2 backward compatibility
-```
-
-Phase 86-3:
-
-```text
-depth=3 synthetic boundary fixture
-max_depth=3 selection
-DEPTH_LIMIT / cycle diagnostics
-search report integration
-selected-path execution
-representative probe
-completion regression / documentation
-```
-
-
-Phase 86-4:
-
-```text
-max_depth > 3 compatibility / hard-coded depth audit
-validator generalization to integer max_depth >= 2
-depth=4 synthetic fixture
-max_depth=4 selection
-depth=4 diagnostics / report integration
-selected-path execution
-representative probe
-completion regression / documentation
-```
-
-Phase 86-3 の代表 pair:
-
-```text
-同じ unique dependency chain
-
 max_depth=2
--> DEPTH_LIMIT
-
 max_depth=3
--> SUCCESS
--> dependency-first C, B, A
--> C -> B -> A -> final
--> goal ProofStep
-```
-
-
-Phase 86-4 の代表 pair:
-
-```text
-同じ unique dependency chain
-
-max_depth=3
--> DEPTH_LIMIT
--> current_depth=3
--> required_next_depth=4
-
 max_depth=4
--> SUCCESS
--> dependency-first D, C, B, A
--> D -> C -> B -> A -> final
--> goal ProofStep
 ```
 
-維持する invariant:
+維持 invariant:
 
 ```text
 finite explicit depth bound
 cycle-safe
-unique safe producer policy
 shared dependency identity preservation
 deterministic dependency-first order
 diagnostic context preservation
@@ -140,26 +74,43 @@ default max_depth=2 compatibility
 
 ---
 
-# 3. 次の proof-search 候補
+# 3. Phase 87 完了境界
 
-Phase 86 完了後の次候補は、depth をさらに増やすことよりも producer ambiguity の扱いを明示化すること。
+Phase 87 では producer ambiguity に対し general backtracking を導入せず、明示的な有限 retry policy のみを追加した。
 
-現在:
+代表:
 
 ```text
-複数の safe producer candidate
+retry_policy=None
 -> AMBIGUOUS_PRODUCER
--> stop
+
+max_attempts=1
+-> first candidate selection failure
+-> PRODUCER_RETRY_EXHAUSTED
+
+max_attempts=2
+-> first candidate selection failure
+-> rollback
+-> second candidate selection success
+-> SUCCESS
+-> selected-path execution
+-> goal ProofStep
 ```
 
-次候補:
+維持 invariant:
 
 ```text
-Phase 87
-alternative producer planning / explicit retry policy
+finite explicit retry bound
+catalog-order deterministic attempts
+safe-producer filtering
+failed-attempt state rollback
+selected path only execution
+ProofStep provenance
+repository non-mutation
+default ambiguity compatibility
 ```
 
-ただし Phase 87 の開始時には、まず現行 ambiguity semantics と関連テストを監査し、以下を先取りしない。
+Phase 87 で導入しなかったもの:
 
 ```text
 general backtracking
@@ -167,13 +118,49 @@ producer ranking
 proof-cost model
 best-proof selection
 DFS / BFS / A*
+unbounded recursive search
 ```
-
-最初の target は「複数候補のうち一方が失敗した場合に、明示された有限 policy の範囲で次候補を試す必要があるか」を設計監査することとする。
 
 ---
 
-# 4. 継続して保留する一般化
+# 4. 次候補：Phase 88
+
+次の自然な候補は、finite retry infrastructure を実際の theorem-backed proof target で必要とする場面があるかを監査すること。
+
+最初は実装を広げず:
+
+```text
+Phase 88-1
+actual-theorem retry necessity / compatibility audit
+```
+
+を行う。
+
+確認対象:
+
+```text
+actual Toda / EHP proof targets
+producer ambiguity が現実に発生する箇所
+synthetic retry と theorem-backed retry の意味論差
+current retry diagnostics で十分か
+selected-path provenance が theorem-backed case でも十分か
+```
+
+監査結果として concrete need が確認された場合だけ、最小の theorem integration を追加する。
+
+先取りしない:
+
+```text
+general backtracking
+ranking
+cost model
+best-proof selection
+DFS / BFS / A*
+```
+
+---
+
+# 5. 継続して保留する一般化
 
 数学 / representation:
 
@@ -191,7 +178,7 @@ stable ring machinery
 proof search:
 
 ```text
-max_depth > 4 formal regression
+formal max_depth > 4 regression
 unbounded recursion
 general backtracking
 ranking
@@ -210,11 +197,9 @@ proof graph serialization
 automatic proof narrative generation
 ```
 
-これらは concrete need が発生した時点で個別 Phase として設計する。
-
 ---
 
-# 5. 性能方針
+# 6. 性能方針
 
 wall-clock time は複数 PC 間で直接比較しない。
 
