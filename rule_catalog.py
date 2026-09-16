@@ -12,6 +12,7 @@ class InferenceRuleCatalogEntry:
   rule: InferenceRule
   conclusion_type: type
   fixed_point_safe: bool = False
+  goal_compatibility: object = None
 
   def __post_init__(
     self,
@@ -51,6 +52,18 @@ class InferenceRuleCatalogEntry:
     ):
       raise TypeError(
         "fixed_point_safe must be a bool"
+      )
+
+    if (
+      self.goal_compatibility
+      is not None
+      and not callable(
+        self.goal_compatibility
+      )
+    ):
+      raise TypeError(
+        "goal_compatibility must be "
+        "callable or None"
       )
 
 
@@ -115,6 +128,34 @@ class InferenceRuleCatalog:
     )
 
 
+def _entry_accepts_goal(
+  entry,
+  goal,
+):
+  if (
+    entry.goal_compatibility
+    is None
+  ):
+    return True
+
+  result = (
+    entry.goal_compatibility(
+      goal
+    )
+  )
+
+  if not isinstance(
+    result,
+    bool,
+  ):
+    raise TypeError(
+      "goal_compatibility must "
+      "return a bool"
+    )
+
+  return result
+
+
 def find_goal_compatible_rule_entries(
   catalog,
   goal,
@@ -139,6 +180,10 @@ def find_goal_compatible_rule_entries(
       entry.fixed_point_safe
       and entry.conclusion_type
       is goal_type
+      and _entry_accepts_goal(
+        entry,
+        goal,
+      )
     )
   )
 
@@ -258,5 +303,3 @@ def find_premise_producer_rules(
   return tuple(
     rules
   )
-
-
