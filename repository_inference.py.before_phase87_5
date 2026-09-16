@@ -2532,7 +2532,6 @@ def execute_depth_two_producer_search(
   rule_catalog,
   goal,
   max_depth=2,
-  retry_policy=None,
 ) -> BoundedProducerExecutionResult:
   _validate_bounded_search_selection_max_depth(
     max_depth
@@ -2555,25 +2554,12 @@ def execute_depth_two_producer_search(
       "InferenceRuleCatalog"
     )
 
-  if (
-    retry_policy is not None
-    and not isinstance(
-      retry_policy,
-      FiniteProducerRetryPolicy,
-    )
-  ):
-    raise TypeError(
-      "retry_policy must be a "
-      "FiniteProducerRetryPolicy or None"
-    )
-
   report = (
     build_depth_two_producer_search_report(
       repository,
       rule_catalog,
       goal,
       max_depth=max_depth,
-      retry_policy=retry_policy,
     )
   )
 
@@ -2675,6 +2661,7 @@ def execute_depth_two_producer_search(
       repository_inference_result
     ),
   )
+
 
 def detect_goal_rule_missing_premises(
   repository,
