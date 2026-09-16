@@ -2305,7 +2305,7 @@ def execute_depth_two_producer_search(
   goal,
   max_depth=2,
 ) -> BoundedProducerExecutionResult:
-  _validate_depth_two_max_depth(
+  _validate_bounded_search_selection_max_depth(
     max_depth
   )
 

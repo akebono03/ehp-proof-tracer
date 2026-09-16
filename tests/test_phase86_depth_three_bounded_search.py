@@ -11,6 +11,7 @@ from repository_inference import (
   BoundedProducerSearchStatus,
   build_depth_two_producer_search_report,
   diagnose_depth_two_producer_search_failure,
+  execute_depth_two_producer_search,
   repository_available_steps,
   select_unique_depth_two_producer_chain,
 )
@@ -815,6 +816,181 @@ def test_phase86_3_4_max_depth_three_report_preserves_repository():
   )
 
   assert report.status is (
+    BoundedProducerSearchStatus.SUCCESS
+  )
+  assert repository_available_steps(
+    data[
+      "repository"
+    ]
+  ) == initial_steps
+
+
+def test_phase86_3_5_max_depth_three_execution_derives_goal():
+  data = build_phase86_3_1_data()
+
+  result = execute_depth_two_producer_search(
+    data[
+      "repository"
+    ],
+    data[
+      "catalog"
+    ],
+    data[
+      "goal"
+    ],
+    max_depth=3,
+  )
+
+  assert result.report.status is (
+    BoundedProducerSearchStatus.SUCCESS
+  )
+  assert result.report.search_result is not None
+  assert result.report.search_result.max_depth == 3
+  assert result.repository_inference_result is not None
+  assert (
+    result.repository_inference_result.goal_step
+    is not None
+  )
+  assert (
+    result.repository_inference_result
+    .goal_step.conclusion
+    == data[
+      "goal"
+    ]
+  )
+
+
+def test_phase86_3_5_max_depth_three_execution_preserves_dependency_provenance():
+  data = build_phase86_3_1_data()
+
+  result = execute_depth_two_producer_search(
+    data[
+      "repository"
+    ],
+    data[
+      "catalog"
+    ],
+    data[
+      "goal"
+    ],
+    max_depth=3,
+  )
+
+  repository_result = (
+    result.repository_inference_result
+  )
+  assert repository_result is not None
+
+  steps = repository_result.inference_result.steps
+
+  c_step = next(
+    step
+    for step in steps
+    if isinstance(
+      step.conclusion,
+      Phase86DepthThreeCStatement,
+    )
+  )
+  b_step = next(
+    step
+    for step in steps
+    if isinstance(
+      step.conclusion,
+      Phase86DepthThreeBStatement,
+    )
+  )
+  a_step = next(
+    step
+    for step in steps
+    if isinstance(
+      step.conclusion,
+      Phase86DepthThreeAStatement,
+    )
+  )
+  goal_step = repository_result.goal_step
+
+  assert goal_step is not None
+  assert c_step.premises == ()
+  assert c_step.inference_rule is data[
+    "c_rule"
+  ]
+  assert b_step.premises == (
+    c_step,
+  )
+  assert b_step.inference_rule is data[
+    "b_rule"
+  ]
+  assert a_step.premises == (
+    b_step,
+  )
+  assert a_step.inference_rule is data[
+    "a_rule"
+  ]
+  assert goal_step.premises == (
+    a_step,
+  )
+  assert goal_step.inference_rule is data[
+    "final_rule"
+  ]
+
+
+def test_phase86_3_5_max_depth_three_execution_uses_selected_dependency_first_order():
+  data = build_phase86_3_1_data()
+
+  result = execute_depth_two_producer_search(
+    data[
+      "repository"
+    ],
+    data[
+      "catalog"
+    ],
+    data[
+      "goal"
+    ],
+    max_depth=3,
+  )
+
+  search_result = result.report.search_result
+  assert search_result is not None
+  assert tuple(
+    node.producer_rule
+    for node
+    in search_result.producer_nodes
+  ) == (
+    data[
+      "c_rule"
+    ],
+    data[
+      "b_rule"
+    ],
+    data[
+      "a_rule"
+    ],
+  )
+
+
+def test_phase86_3_5_max_depth_three_execution_preserves_repository():
+  data = build_phase86_3_1_data()
+  initial_steps = repository_available_steps(
+    data[
+      "repository"
+    ]
+  )
+
+  result = execute_depth_two_producer_search(
+    data[
+      "repository"
+    ],
+    data[
+      "catalog"
+    ],
+    data[
+      "goal"
+    ],
+    max_depth=3,
+  )
+
+  assert result.report.status is (
     BoundedProducerSearchStatus.SUCCESS
   )
   assert repository_available_steps(

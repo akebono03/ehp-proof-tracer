@@ -79,6 +79,31 @@ def _dependency_rule_ids(
   )
 
 
+def _depth_is_accepted(
+  data,
+  max_depth,
+):
+  try:
+    result = execute_depth_two_producer_search(
+      data[
+        "repository"
+      ],
+      data[
+        "catalog"
+      ],
+      data[
+        "goal"
+      ],
+      max_depth=max_depth,
+    )
+  except (TypeError, ValueError):
+    return False
+
+  return result.report.status is (
+    BoundedProducerSearchStatus.SUCCESS
+  )
+
+
 def _unsupported_depth_is_rejected(
   data,
   max_depth,
@@ -359,10 +384,16 @@ def build_phase86_representative_result():
         1,
       )
     ),
-    "max_depth_three_rejected": (
-      _unsupported_depth_is_rejected(
+    "max_depth_three_accepted": (
+      _depth_is_accepted(
         data,
         3,
+      )
+    ),
+    "max_depth_four_rejected": (
+      _unsupported_depth_is_rejected(
+        data,
+        4,
       )
     ),
   }
@@ -567,15 +598,21 @@ def main():
     ],
   )
   print(
-    "  max_depth=3 rejected =",
+    "  max_depth=3 accepted =",
     result[
-      "max_depth_three_rejected"
+      "max_depth_three_accepted"
+    ],
+  )
+  print(
+    "  max_depth=4 rejected =",
+    result[
+      "max_depth_four_rejected"
     ],
   )
   print()
 
   print(
-    "Phase 86-2 completion boundary:"
+    "Phase 86-3-5 boundary update:"
   )
   print(
     "  explicit max_depth=2 = enabled"
@@ -583,6 +620,9 @@ def main():
   print(
     "  implicit depth=2 API compatibility "
     "= preserved"
+  )
+  print(
+    "  max_depth=3 = enabled"
   )
   print(
     "  selected producer path compatibility "
@@ -599,7 +639,7 @@ def main():
     "  repository non-mutation = verified"
   )
   print(
-    "  max_depth > 2 = not implemented"
+    "  max_depth > 3 = not implemented"
   )
   print(
     "  retry / backtracking = not implemented"
@@ -615,5 +655,3 @@ def main():
 
 if __name__ == "__main__":
   main()
-
-

@@ -161,7 +161,11 @@ def test_phase86_probe_preserves_phase_boundary():
   ]
 
   assert result[
-    "max_depth_three_rejected"
+    "max_depth_three_accepted"
+  ]
+
+  assert result[
+    "max_depth_four_rejected"
   ]
 
 
@@ -245,7 +249,12 @@ def test_phase86_probe_prints_completion_flow(
   )
 
   assert (
-    "max_depth=3 rejected = True"
+    "max_depth=3 accepted = True"
+    in output
+  )
+
+  assert (
+    "max_depth=4 rejected = True"
     in output
   )
 
@@ -255,7 +264,12 @@ def test_phase86_probe_prints_completion_flow(
   )
 
   assert (
-    "max_depth > 2 = not implemented"
+    "max_depth=3 = enabled"
+    in output
+  )
+
+  assert (
+    "max_depth > 3 = not implemented"
     in output
   )
 

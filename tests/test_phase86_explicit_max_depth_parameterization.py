@@ -563,10 +563,10 @@ def test_phase86_3_4_report_rejects_unsupported_depths(
   "max_depth",
   (
     1,
-    3,
+    4,
   ),
 )
-def test_phase86_2_execution_rejects_unsupported_depths(
+def test_phase86_3_5_execution_rejects_unsupported_depths(
   max_depth,
 ):
   data = build_phase84_3_data()
@@ -574,8 +574,8 @@ def test_phase86_2_execution_rejects_unsupported_depths(
   with pytest.raises(
     ValueError,
     match=(
-      "max_depth must be 2 for "
-      "depth-two producer search"
+      "max_depth must be 2 or 3 for "
+      "bounded producer search selection"
     ),
   ):
     execute_depth_two_producer_search(
