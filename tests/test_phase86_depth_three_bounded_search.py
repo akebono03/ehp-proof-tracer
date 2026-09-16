@@ -665,3 +665,160 @@ def test_phase86_3_3_diagnostics_preserve_repository():
       "repository"
     ]
   ) == initial_steps
+
+
+def test_phase86_3_4_max_depth_three_report_succeeds_for_valid_chain():
+  data = build_phase86_3_1_data()
+
+  report = build_depth_two_producer_search_report(
+    data[
+      "repository"
+    ],
+    data[
+      "catalog"
+    ],
+    data[
+      "goal"
+    ],
+    max_depth=3,
+  )
+
+  assert report.status is (
+    BoundedProducerSearchStatus.SUCCESS
+  )
+  assert report.diagnostic is None
+  assert report.search_result is not None
+  assert report.search_result.max_depth == 3
+  assert tuple(
+    node.producer_rule
+    for node
+    in report.search_result.producer_nodes
+  ) == (
+    data[
+      "c_rule"
+    ],
+    data[
+      "b_rule"
+    ],
+    data[
+      "a_rule"
+    ],
+  )
+  assert tuple(
+    node.depths
+    for node
+    in report.search_result.producer_nodes
+  ) == (
+    (
+      3,
+    ),
+    (
+      2,
+    ),
+    (
+      1,
+    ),
+  )
+
+
+def test_phase86_3_4_max_depth_three_report_wraps_depth_limit_diagnostic():
+  data = build_phase86_3_3_depth_limit_data()
+
+  report = build_depth_two_producer_search_report(
+    data[
+      "repository"
+    ],
+    data[
+      "catalog"
+    ],
+    data[
+      "goal"
+    ],
+    max_depth=3,
+  )
+
+  assert report.status is (
+    BoundedProducerSearchStatus.DEPTH_LIMIT
+  )
+  assert report.search_result is None
+  assert report.diagnostic is not None
+  assert report.diagnostic.status is (
+    BoundedProducerSearchStatus.DEPTH_LIMIT
+  )
+  assert report.diagnostic.requesting_rule is data[
+    "c_rule"
+  ]
+  assert report.diagnostic.current_depth == 3
+  assert report.diagnostic.required_next_depth == 4
+  assert report.diagnostic.producer_candidates == (
+    data[
+      "d_rule"
+    ],
+  )
+
+
+def test_phase86_3_4_max_depth_three_report_wraps_cycle_diagnostic():
+  data = build_phase86_3_3_cycle_data()
+
+  report = build_depth_two_producer_search_report(
+    data[
+      "repository"
+    ],
+    data[
+      "catalog"
+    ],
+    data[
+      "goal"
+    ],
+    max_depth=3,
+  )
+
+  assert report.status is (
+    BoundedProducerSearchStatus.CYCLE_DETECTED
+  )
+  assert report.search_result is None
+  assert report.diagnostic is not None
+  assert report.diagnostic.status is (
+    BoundedProducerSearchStatus.CYCLE_DETECTED
+  )
+  assert report.diagnostic.requesting_rule is data[
+    "c_rule"
+  ]
+  assert report.diagnostic.current_depth == 3
+  assert report.diagnostic.required_next_depth == 4
+  assert report.diagnostic.producer_candidates == (
+    data[
+      "a_rule"
+    ],
+  )
+
+
+def test_phase86_3_4_max_depth_three_report_preserves_repository():
+  data = build_phase86_3_1_data()
+  initial_steps = repository_available_steps(
+    data[
+      "repository"
+    ]
+  )
+
+  report = build_depth_two_producer_search_report(
+    data[
+      "repository"
+    ],
+    data[
+      "catalog"
+    ],
+    data[
+      "goal"
+    ],
+    max_depth=3,
+  )
+
+  assert report.status is (
+    BoundedProducerSearchStatus.SUCCESS
+  )
+  assert repository_available_steps(
+    data[
+      "repository"
+    ]
+  ) == initial_steps
