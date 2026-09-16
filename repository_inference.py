@@ -72,6 +72,33 @@ class MissingPremiseProducerLookup:
 
 
 @dataclass(frozen=True)
+class FiniteProducerRetryPolicy:
+  max_attempts: int
+
+  def __post_init__(
+    self,
+  ) -> None:
+    if (
+      isinstance(
+        self.max_attempts,
+        bool,
+      )
+      or not isinstance(
+        self.max_attempts,
+        int,
+      )
+    ):
+      raise TypeError(
+        "max_attempts must be an int"
+      )
+
+    if self.max_attempts < 1:
+      raise ValueError(
+        "max_attempts must be positive"
+      )
+
+
+@dataclass(frozen=True)
 class BoundedProducerSearchNode:
   requesting_rule: InferenceRule
   premise_index: int
