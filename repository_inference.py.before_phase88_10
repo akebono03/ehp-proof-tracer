@@ -1,19 +1,16 @@
-from dataclasses import dataclass, fields, is_dataclass
+from dataclasses import dataclass
 from enum import Enum
 
 from proof import (
   InferenceRule,
   InferenceRunResult,
-  PatternVariable,
   PremisePattern,
   ProofStep,
-  VariableBinding,
   derive_inference_round_result,
   find_goal_step,
   match_premise_pattern,
   merge_variable_bindings,
   run_inference_until_stable_with_history,
-  substitute_statement_pattern,
 )
 from proof_repository import ProofRepository
 from rule_catalog import (
@@ -41,10 +38,6 @@ class PremiseAvailability:
     int,
     ...,
   ]
-  bindings: tuple[
-    VariableBinding,
-    ...,
-  ] = ()
 
   @property
   def missing_patterns(
@@ -76,7 +69,6 @@ class MissingPremiseProducerLookup:
     InferenceRule,
     ...,
   ]
-  requested_statement: object = None
 
 
 @dataclass(frozen=True)
@@ -949,11 +941,9 @@ def detect_missing_premises(
       inference_rule=inference_rule,
       matched_steps=(),
       missing_indices=(),
-      bindings=(),
     )
 
   best_matched_steps = None
-  best_bindings = ()
   best_match_count = -1
 
   def search(
@@ -963,7 +953,6 @@ def detect_missing_premises(
     bindings,
   ):
     nonlocal best_matched_steps
-    nonlocal best_bindings
     nonlocal best_match_count
 
     if pattern_index == len(
@@ -984,7 +973,6 @@ def detect_missing_premises(
         best_matched_steps = tuple(
           matched_steps
         )
-        best_bindings = bindings
 
       return
 
@@ -1051,7 +1039,6 @@ def detect_missing_premises(
       None
       for _ in patterns
     )
-    best_bindings = ()
 
   missing_indices = tuple(
     index
@@ -1070,62 +1057,6 @@ def detect_missing_premises(
     missing_indices=(
       missing_indices
     ),
-    bindings=best_bindings,
-  )
-
-def _pattern_value_is_fully_bound(
-  value,
-  bindings,
-):
-  if isinstance(
-    value,
-    PatternVariable,
-  ):
-    return any(
-      binding.variable
-      == value
-      for binding in bindings
-    )
-
-  if is_dataclass(
-    value
-  ):
-    return all(
-      _pattern_value_is_fully_bound(
-        getattr(
-          value,
-          field.name,
-        ),
-        bindings,
-      )
-      for field in fields(
-        value
-      )
-    )
-
-  return True
-
-
-def _concrete_requested_statement(
-  premise_pattern,
-  bindings,
-):
-  statement_pattern = (
-    premise_pattern.statement_pattern
-  )
-
-  if statement_pattern is None:
-    return None
-
-  if not _pattern_value_is_fully_bound(
-    statement_pattern,
-    bindings,
-  ):
-    return None
-
-  return substitute_statement_pattern(
-    statement_pattern,
-    bindings,
   )
 
 
@@ -1171,17 +1102,11 @@ def find_missing_premise_producer_lookups(
           .premise_patterns[index],
         )
       ),
-      requested_statement=(
-        _concrete_requested_statement(
-          availability.inference_rule
-          .premise_patterns[index],
-          availability.bindings,
-        )
-      ),
     )
     for index
     in availability.missing_indices
   )
+
 
 def analyze_producer_premise_availabilities(
   lookup,
