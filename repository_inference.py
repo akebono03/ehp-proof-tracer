@@ -1347,13 +1347,40 @@ def _validate_depth_two_max_depth(
     )
 
 
+def _validate_bounded_search_selection_max_depth(
+  max_depth,
+) -> None:
+  if (
+    isinstance(
+      max_depth,
+      bool,
+    )
+    or not isinstance(
+      max_depth,
+      int,
+    )
+  ):
+    raise TypeError(
+      "max_depth must be an int"
+    )
+
+  if max_depth not in (
+    2,
+    3,
+  ):
+    raise ValueError(
+      "max_depth must be 2 or 3 for "
+      "bounded producer search selection"
+    )
+
+
 def diagnose_depth_two_producer_search_failure(
   repository,
   rule_catalog,
   goal,
   max_depth=2,
 ) -> BoundedProducerSearchDiagnostic | None:
-  _validate_depth_two_max_depth(
+  _validate_bounded_search_selection_max_depth(
     max_depth
   )
 
@@ -1505,58 +1532,106 @@ def diagnose_depth_two_producer_search_failure(
       ancestor_rules=ancestor_rules,
     )
 
-  for direct_lookup in direct_lookups:
-    direct_rule = (
-      direct_lookup.producer_rules[
+  def diagnose_lookup(
+    lookup,
+    requesting_rule,
+    current_depth,
+    ancestor_rules,
+  ):
+    lookup_failure = failure_for_lookup(
+      lookup,
+      requesting_rule,
+      current_depth,
+      ancestor_rules,
+    )
+
+    if lookup_failure is not None:
+      return lookup_failure
+
+    producer_rule = (
+      lookup.producer_rules[
         0
       ]
     )
 
-    direct_availability = (
+    if id(
+      producer_rule
+    ) in {
+      id(rule)
+      for rule in ancestor_rules
+    }:
+      return BoundedProducerSearchDiagnostic(
+        status=(
+          BoundedProducerSearchStatus
+          .CYCLE_DETECTED
+        ),
+        goal=goal,
+        final_rule=final_rule,
+        requesting_rule=requesting_rule,
+        premise_index=lookup.premise_index,
+        premise_pattern=(
+          lookup.premise_pattern
+        ),
+        current_depth=current_depth,
+        required_next_depth=(
+          current_depth + 1
+        ),
+        producer_candidates=(
+          producer_rule,
+        ),
+        ancestor_rules=ancestor_rules,
+      )
+
+    producer_availability = (
       analyze_producer_premise_availabilities(
-        direct_lookup,
+        lookup,
         initial_steps,
       )[
         0
       ]
     )
 
-    if direct_availability.is_complete:
-      continue
+    if producer_availability.is_complete:
+      return None
 
+    producer_depth = (
+      current_depth + 1
+    )
     nested_lookups = (
       find_missing_premise_producer_lookups(
-        direct_availability,
+        producer_availability,
         rule_catalog,
+      )
+    )
+    nested_ancestor_rules = (
+      ancestor_rules
+      + (
+        producer_rule,
       )
     )
 
     for nested_lookup in nested_lookups:
-      ancestor_rules = (
-        final_rule,
-        direct_rule,
-      )
-      lookup_failure = failure_for_lookup(
+      nested_failure = failure_for_lookup(
         nested_lookup,
-        direct_rule,
-        1,
-        ancestor_rules,
+        producer_rule,
+        producer_depth,
+        nested_ancestor_rules,
       )
 
-      if lookup_failure is not None:
-        return lookup_failure
+      if nested_failure is not None:
+        return nested_failure
 
-      nested_rule = (
+      next_rule = (
         nested_lookup.producer_rules[
           0
         ]
       )
 
       if id(
-        nested_rule
+        next_rule
       ) in {
         id(rule)
-        for rule in ancestor_rules
+        for rule in nested_ancestor_rules
       }:
         return BoundedProducerSearchDiagnostic(
           status=(
@@ -1565,101 +1640,78 @@ def diagnose_depth_two_producer_search_failure(
           ),
           goal=goal,
           final_rule=final_rule,
-          requesting_rule=direct_rule,
+          requesting_rule=producer_rule,
           premise_index=(
             nested_lookup.premise_index
           ),
           premise_pattern=(
             nested_lookup.premise_pattern
           ),
-          current_depth=1,
-          required_next_depth=2,
-          producer_candidates=(
-            nested_rule,
-          ),
-          ancestor_rules=ancestor_rules,
-        )
-
-      nested_availability = (
-        analyze_producer_premise_availabilities(
-          nested_lookup,
-          initial_steps,
-        )[
-          0
-        ]
-      )
-
-      if nested_availability.is_complete:
-        continue
-
-      boundary_lookups = (
-        find_missing_premise_producer_lookups(
-          nested_availability,
-          rule_catalog,
-        )
-      )
-
-      for boundary_lookup in boundary_lookups:
-        boundary_ancestors = (
-          final_rule,
-          direct_rule,
-          nested_rule,
-        )
-        lookup_failure = failure_for_lookup(
-          boundary_lookup,
-          nested_rule,
-          max_depth,
-          boundary_ancestors,
-        )
-
-        if lookup_failure is not None:
-          return lookup_failure
-
-        next_rule = (
-          boundary_lookup.producer_rules[
-            0
-          ]
-        )
-
-        if id(
-          next_rule
-        ) in {
-          id(rule)
-          for rule in boundary_ancestors
-        }:
-          status = (
-            BoundedProducerSearchStatus
-            .CYCLE_DETECTED
-          )
-        else:
-          status = (
-            BoundedProducerSearchStatus
-            .DEPTH_LIMIT
-          )
-
-        return BoundedProducerSearchDiagnostic(
-          status=status,
-          goal=goal,
-          final_rule=final_rule,
-          requesting_rule=nested_rule,
-          premise_index=(
-            boundary_lookup.premise_index
-          ),
-          premise_pattern=(
-            boundary_lookup.premise_pattern
-          ),
-          current_depth=max_depth,
+          current_depth=producer_depth,
           required_next_depth=(
-            max_depth + 1
+            producer_depth + 1
           ),
           producer_candidates=(
             next_rule,
           ),
-          ancestor_rules=boundary_ancestors,
+          ancestor_rules=(
+            nested_ancestor_rules
+          ),
         )
 
-  return None
+      if producer_depth >= max_depth:
+        return BoundedProducerSearchDiagnostic(
+          status=(
+            BoundedProducerSearchStatus
+            .DEPTH_LIMIT
+          ),
+          goal=goal,
+          final_rule=final_rule,
+          requesting_rule=producer_rule,
+          premise_index=(
+            nested_lookup.premise_index
+          ),
+          premise_pattern=(
+            nested_lookup.premise_pattern
+          ),
+          current_depth=producer_depth,
+          required_next_depth=(
+            producer_depth + 1
+          ),
+          producer_candidates=(
+            next_rule,
+          ),
+          ancestor_rules=(
+            nested_ancestor_rules
+          ),
+        )
 
+      nested_diagnostic = diagnose_lookup(
+        nested_lookup,
+        producer_rule,
+        producer_depth,
+        nested_ancestor_rules,
+      )
+
+      if nested_diagnostic is not None:
+        return nested_diagnostic
+
+    return None
+
+  for direct_lookup in direct_lookups:
+    diagnostic = diagnose_lookup(
+      direct_lookup,
+      final_rule,
+      0,
+      (
+        final_rule,
+      ),
+    )
+
+    if diagnostic is not None:
+      return diagnostic
+
+  return None
 
 def diagnose_depth_two_producer_execution_failure(
   repository,
@@ -1833,7 +1885,7 @@ def select_unique_depth_two_producer_chain(
   goal,
   max_depth=2,
 ) -> BoundedProducerSearchResult | None:
-  _validate_depth_two_max_depth(
+  _validate_bounded_search_selection_max_depth(
     max_depth
   )
 
@@ -1945,41 +1997,51 @@ def select_unique_depth_two_producer_chain(
 
     return producer_rule_id
 
-  for direct_lookup in direct_lookups:
-    direct_rule = (
-      direct_lookup.producer_rules[
+  def register_producer_lookup(
+    requesting_rule,
+    producer_lookup,
+    depth,
+    ancestor_rule_ids,
+  ):
+    producer_rule = (
+      producer_lookup.producer_rules[
         0
       ]
     )
+    producer_rule_id = id(
+      producer_rule
+    )
 
-    direct_availability = (
+    if producer_rule_id in ancestor_rule_ids:
+      return None
+
+    producer_availability = (
       analyze_producer_premise_availabilities(
-        direct_lookup,
+        producer_lookup,
         initial_steps,
       )[
         0
       ]
     )
 
-    direct_rule_id = register_node_spec(
-      final_rule,
-      direct_lookup.premise_index,
-      direct_lookup.premise_pattern,
-      direct_rule,
-      direct_availability,
-      1,
+    registered_rule_id = register_node_spec(
+      requesting_rule,
+      producer_lookup.premise_index,
+      producer_lookup.premise_pattern,
+      producer_rule,
+      producer_availability,
+      depth,
     )
 
-    direct_rule_ids.append(
-      direct_rule_id
-    )
+    if producer_availability.is_complete:
+      return registered_rule_id
 
-    if direct_availability.is_complete:
-      continue
+    if depth >= max_depth:
+      return None
 
     nested_lookups = (
       find_missing_premise_producer_lookups(
-        direct_availability,
+        producer_availability,
         rule_catalog,
       )
     )
@@ -1991,91 +2053,72 @@ def select_unique_depth_two_producer_chain(
     ):
       return None
 
+    nested_ancestor_rule_ids = (
+      ancestor_rule_ids
+      | {
+        producer_rule_id,
+      }
+    )
+
     for nested_lookup in nested_lookups:
-      nested_rule = (
-        nested_lookup.producer_rules[
-          0
-        ]
+      nested_rule_id = register_producer_lookup(
+        producer_rule,
+        nested_lookup,
+        depth + 1,
+        nested_ancestor_rule_ids,
       )
 
-      nested_availability = (
-        analyze_producer_premise_availabilities(
-          nested_lookup,
-          initial_steps,
-        )[
-          0
-        ]
-      )
-
-      if not nested_availability.is_complete:
+      if nested_rule_id is None:
         return None
-
-      nested_rule_id = register_node_spec(
-        direct_rule,
-        nested_lookup.premise_index,
-        nested_lookup.premise_pattern,
-        nested_rule,
-        nested_availability,
-        max_depth,
-      )
 
       if (
         nested_rule_id
         not in dependency_rule_ids[
-          direct_rule_id
+          registered_rule_id
         ]
       ):
         dependency_rule_ids[
-          direct_rule_id
+          registered_rule_id
         ].append(
           nested_rule_id
         )
 
-  nodes_by_rule_id = {}
+    return registered_rule_id
 
-  for producer_rule_id, spec in (
-    node_specs.items()
-  ):
-    if dependency_rule_ids[
-      producer_rule_id
-    ]:
-      continue
-
-    nodes_by_rule_id[
-      producer_rule_id
-    ] = BoundedProducerSearchNode(
-      requesting_rule=spec[
-        "requesting_rule"
-      ],
-      premise_index=spec[
-        "premise_index"
-      ],
-      premise_pattern=spec[
-        "premise_pattern"
-      ],
-      producer_rule=spec[
-        "producer_rule"
-      ],
-      producer_availability=spec[
-        "producer_availability"
-      ],
-      depths=tuple(
-        sorted(
-          spec[
-            "depths"
-          ]
-        )
-      ),
+  for direct_lookup in direct_lookups:
+    direct_rule_id = register_producer_lookup(
+      final_rule,
+      direct_lookup,
+      1,
+      {
+        id(
+          final_rule
+        ),
+      },
     )
 
-  for producer_rule_id, spec in (
-    node_specs.items()
+    if direct_rule_id is None:
+      return None
+
+    direct_rule_ids.append(
+      direct_rule_id
+    )
+
+  nodes_by_rule_id = {}
+
+  def build_node(
+    producer_rule_id,
   ):
     if producer_rule_id in nodes_by_rule_id:
-      continue
+      return nodes_by_rule_id[
+        producer_rule_id
+      ]
 
+    spec = node_specs[
+      producer_rule_id
+    ]
     dependencies = tuple(
-      nodes_by_rule_id.get(
+      build_node(
         dependency_rule_id
       )
       for dependency_rule_id
@@ -2084,15 +2127,7 @@ def select_unique_depth_two_producer_chain(
       ]
     )
 
-    if any(
-      dependency is None
-      for dependency in dependencies
-    ):
-      return None
-
-    nodes_by_rule_id[
-      producer_rule_id
-    ] = BoundedProducerSearchNode(
+    node = BoundedProducerSearchNode(
       requesting_rule=spec[
         "requesting_rule"
       ],
@@ -2118,43 +2153,41 @@ def select_unique_depth_two_producer_chain(
       dependencies=dependencies,
     )
 
+    nodes_by_rule_id[
+      producer_rule_id
+    ] = node
+    return node
+
   producer_nodes = []
   seen_producer_rule_ids = set()
 
-  for direct_rule_id in direct_rule_ids:
-    direct_node = nodes_by_rule_id[
-      direct_rule_id
-    ]
+  def append_dependency_first(
+    node,
+  ):
+    producer_rule_id = id(
+      node.producer_rule
+    )
 
-    for dependency in direct_node.dependencies:
-      dependency_rule_id = id(
-        dependency.producer_rule
-      )
+    if producer_rule_id in seen_producer_rule_ids:
+      return
 
-      if (
-        dependency_rule_id
-        in seen_producer_rule_ids
-      ):
-        continue
-
-      seen_producer_rule_ids.add(
-        dependency_rule_id
-      )
-      producer_nodes.append(
+    for dependency in node.dependencies:
+      append_dependency_first(
         dependency
       )
 
-    if (
-      direct_rule_id
-      in seen_producer_rule_ids
-    ):
-      continue
-
     seen_producer_rule_ids.add(
-      direct_rule_id
+      producer_rule_id
     )
     producer_nodes.append(
-      direct_node
+      node
+    )
+
+  for direct_rule_id in direct_rule_ids:
+    append_dependency_first(
+      build_node(
+        direct_rule_id
+      )
     )
 
   return BoundedProducerSearchResult(
@@ -2176,7 +2209,7 @@ def build_depth_two_producer_search_report(
   goal,
   max_depth=2,
 ) -> BoundedProducerSearchReport:
-  _validate_depth_two_max_depth(
+  _validate_bounded_search_selection_max_depth(
     max_depth
   )
 
@@ -2272,7 +2305,7 @@ def execute_depth_two_producer_search(
   goal,
   max_depth=2,
 ) -> BoundedProducerExecutionResult:
-  _validate_depth_two_max_depth(
+  _validate_bounded_search_selection_max_depth(
     max_depth
   )
 

@@ -15201,3 +15201,241 @@ general theorem proving
 ```
 
 縺ｯ蟆主・縺励↑縺・・
+
+
+---
+
+# Phase 86-3：bounded depth=3 producer search
+
+Phase 86-2 で導入した explicit `max_depth` を、実際の depth=3 search / diagnostics / report / execution まで段階的に拡張した。
+
+## Phase 86-3-1：depth=3 fixture / boundary baseline
+
+追加した代表 synthetic chain:
+
+```text
+final <- A <- B <- C
+```
+
+深さ:
+
+```text
+A depth 1
+B depth 2
+C depth 3
+```
+
+確認:
+
+```text
+max_depth=2 -> DEPTH_LIMIT
+repository unchanged
+```
+
+### 状態
+COMPLETE
+
+---
+
+## Phase 86-3-2：max_depth=3 search selection
+
+selection を bounded recursive selection に変更。
+
+確認:
+
+```text
+max_depth=3 -> success
+producer order = C, B, A
+depths = (3,), (2,), (1,)
+B depends on C
+A depends on B
+repository unchanged
+```
+
+cycle shape は無限再帰せず selection failure となる。formal diagnostic classification は 86-3-3 に分離した。
+
+### 状態
+COMPLETE
+
+---
+
+## Phase 86-3-3：DEPTH_LIMIT / cycle diagnostics
+
+search diagnostics を `max_depth=3` に対応。
+
+代表 depth-limit:
+
+```text
+final <- A <- B <- C <- D
+max_depth=3
+-> DEPTH_LIMIT
+current_depth=3
+required_next_depth=4
+requesting_rule=C
+producer=D
+```
+
+代表 cycle:
+
+```text
+final <- A <- B <- C
+        ^         |
+        +---------+
+```
+
+結果:
+
+```text
+CYCLE_DETECTED
+current_depth=3
+required_next_depth=4
+```
+
+cycle classification は depth limit より優先。
+
+### 状態
+COMPLETE
+
+---
+
+## Phase 86-3-4：search report integration
+
+`build_depth_two_producer_search_report()` を `max_depth=3` に対応。
+
+確認:
+
+```text
+valid depth=3 chain -> SUCCESS report
+depth=4 requirement -> DEPTH_LIMIT report
+cycle -> CYCLE_DETECTED report
+repository unchanged
+```
+
+この時点では execution はまだ max_depth=2 のみ。
+
+### 状態
+COMPLETE
+
+---
+
+## Phase 86-3-5：selected-path execution
+
+`execute_depth_two_producer_search()` を `max_depth=3` に対応。
+
+既存 execution algorithm はすでに `search_result.producer_nodes` を dependency-first に実行する構造だったため、production change は validator 境界の拡張のみ。
+
+代表 provenance:
+
+```text
+C
+-> B(C)
+-> A(B)
+-> final(A)
+-> goal
+```
+
+object identity まで確認:
+
+```text
+B.premises == (C_step,)
+A.premises == (B_step,)
+final.premises == (A_step,)
+```
+
+Phase 86-2 probe に残っていた旧 boundary:
+
+```text
+max_depth=3 rejected
+```
+
+を current boundary に更新:
+
+```text
+max_depth=3 accepted
+max_depth=4 rejected
+```
+
+関連回帰:
+
+```text
+76 passed in 2.64s
+```
+
+repository-wide regression:
+
+```text
+6989 passed in 35.32s
+```
+
+### 状態
+COMPLETE
+
+---
+
+## Phase 86-3-6：depth=3 regression / representative probe / completion documentation
+
+production proof-search logic は変更しない。
+
+更新対象:
+
+```text
+probes/probe_phase86_capabilities.py
+tests/test_phase86_probe.py
+README.md
+docs/design.md
+docs/development_log.md
+docs/roadmap.md
+docs/proof_records.md
+```
+
+representative probe は Phase 86-2 compatibility baseline と depth=3 synthetic end-to-end を同時に表示する。
+
+代表 pair:
+
+```text
+max_depth=2
+-> DEPTH_LIMIT
+
+max_depth=3
+-> SUCCESS
+-> producer depths ((3,), (2,), (1,))
+-> dependency-first C, B, A
+-> C -> B -> A -> final
+-> goal ProofStep
+```
+
+probe で確認する provenance:
+
+```text
+C rule reused
+B uses C ProofStep
+A uses B ProofStep
+final uses A ProofStep
+repository unchanged
+```
+
+Phase boundary:
+
+```text
+selection     2,3
+diagnostics   2,3
+report        2,3
+execution     2,3
+```
+
+未実装:
+
+```text
+max_depth > 3
+retry / backtracking
+producer ranking
+proof-cost model
+best-proof selection
+DFS / BFS / A*
+arbitrary recursive search
+```
+
+Phase 86-3-6 の final repository-wide regression 値は実行後に確定する。
+
+### 状態
+IMPLEMENTED / FINAL REGRESSION PENDING

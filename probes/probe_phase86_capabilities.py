@@ -41,6 +41,12 @@ from test_phase85_nested_producer_cycle_depth_classification import (
   _base_rules,
   _catalog,
 )
+from test_phase86_depth_three_bounded_search import (
+  Phase86DepthThreeAStatement,
+  Phase86DepthThreeBStatement,
+  Phase86DepthThreeCStatement,
+  build_phase86_3_1_data,
+)
 
 
 def _producer_rules(
@@ -76,6 +82,31 @@ def _dependency_rule_ids(
     )
     for node
     in search_result.producer_nodes
+  )
+
+
+def _depth_is_accepted(
+  data,
+  max_depth,
+):
+  try:
+    result = execute_depth_two_producer_search(
+      data[
+        "repository"
+      ],
+      data[
+        "catalog"
+      ],
+      data[
+        "goal"
+      ],
+      max_depth=max_depth,
+    )
+  except (TypeError, ValueError):
+    return False
+
+  return result.report.status is (
+    BoundedProducerSearchStatus.SUCCESS
   )
 
 
@@ -359,130 +390,270 @@ def build_phase86_representative_result():
         1,
       )
     ),
-    "max_depth_three_rejected": (
-      _unsupported_depth_is_rejected(
+    "max_depth_three_accepted": (
+      _depth_is_accepted(
         data,
         3,
+      )
+    ),
+    "max_depth_four_rejected": (
+      _unsupported_depth_is_rejected(
+        data,
+        4,
       )
     ),
   }
 
 
+
+@lru_cache(maxsize=1)
+def build_phase86_depth_three_representative_result():
+  data = build_phase86_3_1_data()
+
+  repository = data[
+    "repository"
+  ]
+  catalog = data[
+    "catalog"
+  ]
+  goal = data[
+    "goal"
+  ]
+
+  initial_steps = repository_available_steps(
+    repository
+  )
+
+  depth_two_result = (
+    execute_depth_two_producer_search(
+      repository,
+      catalog,
+      goal,
+      max_depth=2,
+    )
+  )
+
+  depth_three_result = (
+    execute_depth_two_producer_search(
+      repository,
+      catalog,
+      goal,
+      max_depth=3,
+    )
+  )
+
+  search_result = (
+    depth_three_result.report.search_result
+  )
+  repository_result = (
+    depth_three_result
+    .repository_inference_result
+  )
+
+  assert search_result is not None
+  assert repository_result is not None
+  assert repository_result.goal_step is not None
+
+  steps = repository_result.inference_result.steps
+
+  c_step = next(
+    step
+    for step in steps
+    if isinstance(
+      step.conclusion,
+      Phase86DepthThreeCStatement,
+    )
+  )
+  b_step = next(
+    step
+    for step in steps
+    if isinstance(
+      step.conclusion,
+      Phase86DepthThreeBStatement,
+    )
+  )
+  a_step = next(
+    step
+    for step in steps
+    if isinstance(
+      step.conclusion,
+      Phase86DepthThreeAStatement,
+    )
+  )
+  goal_step = repository_result.goal_step
+
+  producer_rules = tuple(
+    node.producer_rule
+    for node in search_result.producer_nodes
+  )
+  producer_depths = tuple(
+    node.depths
+    for node in search_result.producer_nodes
+  )
+
+  return {
+    "depth_two_status": (
+      depth_two_result.report.status
+    ),
+    "depth_two_current_depth": (
+      depth_two_result.report
+      .diagnostic.current_depth
+      if depth_two_result.report.diagnostic
+      is not None
+      else None
+    ),
+    "depth_two_required_next_depth": (
+      depth_two_result.report
+      .diagnostic.required_next_depth
+      if depth_two_result.report.diagnostic
+      is not None
+      else None
+    ),
+    "depth_three_status": (
+      depth_three_result.report.status
+    ),
+    "depth_three_max_depth": (
+      search_result.max_depth
+    ),
+    "producer_rules": producer_rules,
+    "producer_depths": producer_depths,
+    "dependency_first_order": (
+      producer_rules
+      == (
+        data[
+          "c_rule"
+        ],
+        data[
+          "b_rule"
+        ],
+        data[
+          "a_rule"
+        ],
+      )
+    ),
+    "goal_derived": (
+      goal_step.conclusion == goal
+    ),
+    "c_rule_reused": (
+      c_step.inference_rule
+      is data[
+        "c_rule"
+      ]
+    ),
+    "b_uses_c_step": (
+      b_step.premises == (
+        c_step,
+      )
+    ),
+    "a_uses_b_step": (
+      a_step.premises == (
+        b_step,
+      )
+    ),
+    "final_uses_a_step": (
+      goal_step.premises == (
+        a_step,
+      )
+    ),
+    "repository_mutated": (
+      repository_available_steps(
+        repository
+      )
+      != initial_steps
+    ),
+  }
+
 def main():
-  result = (
+  compatibility = (
     build_phase86_representative_result()
   )
+  depth_three = (
+    build_phase86_depth_three_representative_result()
+  )
 
   print(
-    "=== Phase 86-2: explicit max_depth "
-    "parameterization compatibility ==="
+    "=== Phase 86-3: bounded depth=3 completion ==="
   )
   print()
 
   print(
-    "Actual proof target:"
-  )
-  print(
-    "  Toda Lemma 5.16 final "
-    "bracket-sum consequence"
-  )
-  print()
-
-  print(
-    "Depth parameterization:"
+    "Phase 86-2 compatibility baseline:"
   )
   print(
     "  default max depth =",
-    result[
+    compatibility[
       "default_max_depth"
     ],
   )
   print(
     "  explicit max depth =",
-    result[
+    compatibility[
       "explicit_max_depth"
-    ],
-  )
-  print()
-
-  print(
-    "Compatibility:"
-  )
-  print(
-    "  default status =",
-    result[
-      "default_status"
-    ].value,
-  )
-  print(
-    "  explicit status =",
-    result[
-      "explicit_status"
-    ].value,
-  )
-  print(
-    "  same final rule =",
-    result[
-      "same_final_rule"
     ],
   )
   print(
     "  same producer path =",
-    result[
+    compatibility[
       "same_producer_path"
     ],
   )
   print(
-    "  same depths =",
-    result[
-      "same_depths"
+    "  same dependencies =",
+    compatibility[
+      "same_dependencies"
     ],
   )
   print(
-    "  same dependencies =",
-    result[
-      "same_dependencies"
+    "  same goal inference rule =",
+    compatibility[
+      "same_goal_rule"
     ],
   )
   print()
 
   print(
-    "Selected producer path:"
+    "Depth=3 representative chain:"
   )
   print(
-    "  default producer node count =",
-    result[
-      "default_producer_node_count"
+    "  max_depth=2 status =",
+    depth_three[
+      "depth_two_status"
+    ].value,
+  )
+  print(
+    "  current depth =",
+    depth_three[
+      "depth_two_current_depth"
     ],
   )
   print(
-    "  explicit producer node count =",
-    result[
-      "explicit_producer_node_count"
+    "  required next depth =",
+    depth_three[
+      "depth_two_required_next_depth"
     ],
   )
   print(
-    "  default shared depths =",
-    result[
-      "default_shared_depths"
+    "  max_depth=3 status =",
+    depth_three[
+      "depth_three_status"
+    ].value,
+  )
+  print(
+    "  selected max depth =",
+    depth_three[
+      "depth_three_max_depth"
     ],
   )
   print(
-    "  explicit shared depths =",
-    result[
-      "explicit_shared_depths"
+    "  producer depths =",
+    depth_three[
+      "producer_depths"
     ],
   )
   print(
-    "  default shared dependency =",
-    result[
-      "default_shared_dependency"
-    ],
-  )
-  print(
-    "  explicit shared dependency =",
-    result[
-      "explicit_shared_dependency"
+    "  dependency-first order =",
+    depth_three[
+      "dependency_first_order"
     ],
   )
   print()
@@ -491,115 +662,67 @@ def main():
     "Execution / provenance:"
   )
   print(
-    "  default goal derived =",
-    result[
-      "default_goal_derived"
+    "  goal derived =",
+    depth_three[
+      "goal_derived"
     ],
   )
   print(
-    "  explicit goal derived =",
-    result[
-      "explicit_goal_derived"
+    "  C rule reused =",
+    depth_three[
+      "c_rule_reused"
     ],
   )
   print(
-    "  same goal conclusion =",
-    result[
-      "same_goal_conclusion"
+    "  B uses C ProofStep =",
+    depth_three[
+      "b_uses_c_step"
     ],
   )
   print(
-    "  same goal inference rule =",
-    result[
-      "same_goal_rule"
+    "  A uses B ProofStep =",
+    depth_three[
+      "a_uses_b_step"
     ],
   )
   print(
-    "  same goal premise conclusions =",
-    result[
-      "same_goal_premise_conclusions"
+    "  final uses A ProofStep =",
+    depth_three[
+      "final_uses_a_step"
     ],
-  )
-  print(
-    "  same goal premise rules =",
-    result[
-      "same_goal_premise_rules"
-    ],
-  )
-  print()
-
-  print(
-    "Depth-limit diagnostic:"
-  )
-  print(
-    "  status =",
-    result[
-      "diagnostic_status"
-    ].value,
-  )
-  print(
-    "  current depth =",
-    result[
-      "diagnostic_current_depth"
-    ],
-  )
-  print(
-    "  required next depth =",
-    result[
-      "diagnostic_required_next_depth"
-    ],
-  )
-  print()
-
-  print(
-    "Safety / phase boundary:"
   )
   print(
     "  repository mutated =",
-    result[
+    depth_three[
       "repository_mutated"
     ],
   )
+  print()
+
+  print(
+    "Safety / completion boundary:"
+  )
   print(
     "  max_depth=1 rejected =",
-    result[
+    compatibility[
       "max_depth_one_rejected"
     ],
   )
   print(
-    "  max_depth=3 rejected =",
-    result[
-      "max_depth_three_rejected"
+    "  max_depth=3 accepted =",
+    compatibility[
+      "max_depth_three_accepted"
     ],
   )
-  print()
-
   print(
-    "Phase 86-2 completion boundary:"
+    "  max_depth=4 rejected =",
+    compatibility[
+      "max_depth_four_rejected"
+    ],
   )
   print(
-    "  explicit max_depth=2 = enabled"
-  )
-  print(
-    "  implicit depth=2 API compatibility "
-    "= preserved"
-  )
-  print(
-    "  selected producer path compatibility "
-    "= verified"
-  )
-  print(
-    "  diagnostic compatibility = verified"
-  )
-  print(
-    "  execution provenance compatibility "
-    "= verified"
-  )
-  print(
-    "  repository non-mutation = verified"
-  )
-  print(
-    "  max_depth > 2 = not implemented"
+    "  selection / diagnostics / report / execution "
+    "support max_depth=2,3"
   )
   print(
     "  retry / backtracking = not implemented"
@@ -608,12 +731,9 @@ def main():
     "  producer ranking = not implemented"
   )
   print(
-    "  arbitrary recursive search = "
-    "not implemented"
+    "  arbitrary recursive search = not implemented"
   )
 
 
 if __name__ == "__main__":
   main()
-
-
