@@ -8,7 +8,7 @@
 
 数学面では Toda Lemma 5.16 までの concrete proof spine と stable stem 0〜7 を formalize 済み。
 
-proof infrastructure は Phase 86-4 で次の境界まで到達した。
+proof infrastructure は Phase 86-3 で次の境界まで到達した。
 
 ```text
 Proof Repository
@@ -22,12 +22,11 @@ Proof Repository
 -> goal ProofStep
 ```
 
-現在 formal regression 済みの bounded depth:
+現在サポートする bounded depth:
 
 ```text
 max_depth = 2
 max_depth = 3
-max_depth = 4
 ```
 
 default:
@@ -36,16 +35,16 @@ default:
 max_depth = 2
 ```
 
-Phase 86-4-6 は depth=4 representative probe / regression / completion documentation の段階であり、機能追加ではなく completion 固定を目的とする。
+Phase 86-3-6 は depth=3 representative probe / regression / completion documentation の段階であり、機能追加ではなく completion 固定を目的とする。
 
 最新確認済み repository-wide baseline:
 
 ```text
-Phase 86-4-5
-7000 passed in 36.32s
+Phase 86-3-5
+6989 passed in 35.32s
 ```
 
-Phase 86-4-6 の最終 regression 値は実行後に確定する。
+Phase 86-3-6 の最終 regression 値は実行後に確定する。
 
 ---
 
@@ -76,20 +75,6 @@ representative probe
 completion regression / documentation
 ```
 
-
-Phase 86-4:
-
-```text
-max_depth > 3 compatibility / hard-coded depth audit
-validator generalization to integer max_depth >= 2
-depth=4 synthetic fixture
-max_depth=4 selection
-depth=4 diagnostics / report integration
-selected-path execution
-representative probe
-completion regression / documentation
-```
-
 Phase 86-3 の代表 pair:
 
 ```text
@@ -102,24 +87,6 @@ max_depth=3
 -> SUCCESS
 -> dependency-first C, B, A
 -> C -> B -> A -> final
--> goal ProofStep
-```
-
-
-Phase 86-4 の代表 pair:
-
-```text
-同じ unique dependency chain
-
-max_depth=3
--> DEPTH_LIMIT
--> current_depth=3
--> required_next_depth=4
-
-max_depth=4
--> SUCCESS
--> dependency-first D, C, B, A
--> D -> C -> B -> A -> final
 -> goal ProofStep
 ```
 
@@ -191,7 +158,7 @@ stable ring machinery
 proof search:
 
 ```text
-max_depth > 4 formal regression
+max_depth > 3
 unbounded recursion
 general backtracking
 ranking

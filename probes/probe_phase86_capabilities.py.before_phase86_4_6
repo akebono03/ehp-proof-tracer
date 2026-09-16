@@ -47,13 +47,6 @@ from test_phase86_depth_three_bounded_search import (
   Phase86DepthThreeCStatement,
   build_phase86_3_1_data,
 )
-from test_phase86_depth_four_bounded_search import (
-  Phase86DepthFourAStatement,
-  Phase86DepthFourBStatement,
-  Phase86DepthFourCStatement,
-  Phase86DepthFourDStatement,
-  build_phase86_4_2_data,
-)
 
 
 def _producer_rules(
@@ -570,89 +563,6 @@ def build_phase86_depth_three_representative_result():
     ),
   }
 
-
-@lru_cache(maxsize=1)
-def build_phase86_depth_four_representative_result():
-  data = build_phase86_4_2_data()
-  repository = data['repository']
-  catalog = data['catalog']
-  goal = data['goal']
-  initial_steps = repository_available_steps(repository)
-
-  depth_three_result = execute_depth_two_producer_search(
-    repository,
-    catalog,
-    goal,
-    max_depth=3,
-  )
-  depth_four_result = execute_depth_two_producer_search(
-    repository,
-    catalog,
-    goal,
-    max_depth=4,
-  )
-
-  search_result = depth_four_result.report.search_result
-  repository_result = depth_four_result.repository_inference_result
-
-  assert search_result is not None
-  assert repository_result is not None
-  assert repository_result.goal_step is not None
-  assert depth_three_result.report.diagnostic is not None
-
-  steps = repository_result.inference_result.steps
-
-  d_step = next(
-    step for step in steps
-    if isinstance(step.conclusion, Phase86DepthFourDStatement)
-  )
-  c_step = next(
-    step for step in steps
-    if isinstance(step.conclusion, Phase86DepthFourCStatement)
-  )
-  b_step = next(
-    step for step in steps
-    if isinstance(step.conclusion, Phase86DepthFourBStatement)
-  )
-  a_step = next(
-    step for step in steps
-    if isinstance(step.conclusion, Phase86DepthFourAStatement)
-  )
-  goal_step = repository_result.goal_step
-
-  producer_rules = tuple(
-    node.producer_rule
-    for node in search_result.producer_nodes
-  )
-  producer_depths = tuple(
-    node.depths
-    for node in search_result.producer_nodes
-  )
-
-  return {
-    'depth_three_status': depth_three_result.report.status,
-    'depth_three_current_depth': depth_three_result.report.diagnostic.current_depth,
-    'depth_three_required_next_depth': depth_three_result.report.diagnostic.required_next_depth,
-    'depth_four_status': depth_four_result.report.status,
-    'depth_four_max_depth': search_result.max_depth,
-    'producer_rules': producer_rules,
-    'producer_depths': producer_depths,
-    'dependency_first_order': producer_rules == (
-      data['d_rule'],
-      data['c_rule'],
-      data['b_rule'],
-      data['a_rule'],
-    ),
-    'goal_derived': goal_step.conclusion == goal,
-    'd_rule_reused': d_step.inference_rule is data['d_rule'],
-    'c_uses_d_step': c_step.premises == (d_step,),
-    'b_uses_c_step': b_step.premises == (c_step,),
-    'a_uses_b_step': a_step.premises == (b_step,),
-    'final_uses_a_step': goal_step.premises == (a_step,),
-    'repository_mutated': repository_available_steps(repository) != initial_steps,
-  }
-
-
 def main():
   compatibility = (
     build_phase86_representative_result()
@@ -660,12 +570,9 @@ def main():
   depth_three = (
     build_phase86_depth_three_representative_result()
   )
-  depth_four = (
-    build_phase86_depth_four_representative_result()
-  )
 
   print(
-    "=== Phase 86-4: bounded depth=4 completion ==="
+    "=== Phase 86-3: bounded depth=3 completion ==="
   )
   print()
 
@@ -790,30 +697,6 @@ def main():
       "repository_mutated"
     ],
   )
-  print()
-
-  print(
-    "Depth=4 representative chain:"
-  )
-  print("  max_depth=3 status =", depth_four['depth_three_status'].value)
-  print("  current depth =", depth_four['depth_three_current_depth'])
-  print("  required next depth =", depth_four['depth_three_required_next_depth'])
-  print("  max_depth=4 status =", depth_four['depth_four_status'].value)
-  print("  selected max depth =", depth_four['depth_four_max_depth'])
-  print("  producer depths =", depth_four['producer_depths'])
-  print("  dependency-first order =", depth_four['dependency_first_order'])
-  print()
-
-  print(
-    "Depth=4 execution / provenance:"
-  )
-  print("  goal derived =", depth_four['goal_derived'])
-  print("  D rule reused =", depth_four['d_rule_reused'])
-  print("  C uses D ProofStep =", depth_four['c_uses_d_step'])
-  print("  B uses C ProofStep =", depth_four['b_uses_c_step'])
-  print("  A uses B ProofStep =", depth_four['a_uses_b_step'])
-  print("  final uses A ProofStep =", depth_four['final_uses_a_step'])
-  print("  repository mutated =", depth_four['repository_mutated'])
   print()
 
   print(
