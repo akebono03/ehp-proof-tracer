@@ -1364,9 +1364,12 @@ def _validate_bounded_search_selection_max_depth(
       "max_depth must be an int"
     )
 
-  if max_depth < 2:
+  if max_depth not in (
+    2,
+    3,
+  ):
     raise ValueError(
-      "max_depth must be at least 2 for "
+      "max_depth must be 2 or 3 for "
       "bounded producer search selection"
     )
 

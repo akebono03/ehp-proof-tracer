@@ -396,8 +396,8 @@ def build_phase86_representative_result():
         3,
       )
     ),
-    "max_depth_four_rejected": (
-      _unsupported_depth_is_rejected(
+    "max_depth_four_accepted": (
+      _depth_is_accepted(
         data,
         4,
       )
@@ -715,14 +715,13 @@ def main():
     ],
   )
   print(
-    "  max_depth=4 rejected =",
+    "  max_depth=4 accepted =",
     compatibility[
-      "max_depth_four_rejected"
+      "max_depth_four_accepted"
     ],
   )
   print(
-    "  selection / diagnostics / report / execution "
-    "support max_depth=2,3"
+    "  max_depth=4 validator baseline = enabled"
   )
   print(
     "  retry / backtracking = not implemented"

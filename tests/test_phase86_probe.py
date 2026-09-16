@@ -166,7 +166,7 @@ def test_phase86_probe_preserves_phase_boundary():
   ]
 
   assert result[
-    "max_depth_four_rejected"
+    "max_depth_four_accepted"
   ]
 
 
@@ -242,12 +242,11 @@ def test_phase86_probe_prints_completion_flow(
     in output
   )
   assert (
-    "max_depth=4 rejected = True"
+    "max_depth=4 accepted = True"
     in output
   )
   assert (
-    "selection / diagnostics / report / execution "
-    "support max_depth=2,3"
+    "max_depth=4 validator baseline = enabled"
     in output
   )
 
