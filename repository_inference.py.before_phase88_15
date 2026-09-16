@@ -119,7 +119,6 @@ class BoundedProducerSearchNode:
     int,
     ...,
   ]
-  requested_statement: object = None
   dependencies: tuple[
     "BoundedProducerSearchNode",
     ...,
@@ -1986,21 +1985,14 @@ def diagnose_depth_two_producer_execution_failure(
       + round_result.new_steps
     )
 
-    if node.requested_statement is None:
-      premise_is_available = any(
-        match_premise_pattern(
-          node.premise_pattern,
-          step,
-        )
-        is not None
-        for step in next_steps
+    premise_is_available = any(
+      match_premise_pattern(
+        node.premise_pattern,
+        step,
       )
-    else:
-      premise_is_available = any(
-        step.conclusion
-        == node.requested_statement
-        for step in next_steps
-      )
+      is not None
+      for step in next_steps
+    )
 
     if not premise_is_available:
       if (
@@ -2177,7 +2169,6 @@ def select_unique_depth_two_producer_chain(
     requesting_rule,
     premise_index,
     premise_pattern,
-    requested_statement,
     producer_rule,
     producer_availability,
     depth,
@@ -2196,9 +2187,6 @@ def select_unique_depth_two_producer_chain(
         "premise_index": premise_index,
         "premise_pattern": (
           premise_pattern
-        ),
-        "requested_statement": (
-          requested_statement
         ),
         "producer_rule": producer_rule,
         "producer_availability": (
@@ -2303,7 +2291,6 @@ def select_unique_depth_two_producer_chain(
       requesting_rule,
       producer_lookup.premise_index,
       producer_lookup.premise_pattern,
-      producer_lookup.requested_statement,
       producer_rule,
       producer_availability,
       depth,
@@ -2452,9 +2439,6 @@ def select_unique_depth_two_producer_chain(
       ],
       premise_pattern=spec[
         "premise_pattern"
-      ],
-      requested_statement=spec[
-        "requested_statement"
       ],
       producer_rule=spec[
         "producer_rule"
