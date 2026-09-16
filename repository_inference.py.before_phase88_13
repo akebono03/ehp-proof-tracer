@@ -1365,9 +1365,6 @@ def diagnose_direct_producer_failure(
       find_premise_producer_candidate_entries(
         rule_catalog,
         lookup.premise_pattern,
-        requested_statement=(
-          lookup.requested_statement
-        ),
       )
     )
 
@@ -1661,9 +1658,6 @@ def diagnose_depth_two_producer_search_failure(
       find_premise_producer_candidate_entries(
         rule_catalog,
         lookup.premise_pattern,
-        requested_statement=(
-          lookup.requested_statement
-        ),
       )
     )
 
