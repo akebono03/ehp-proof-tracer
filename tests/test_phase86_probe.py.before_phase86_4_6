@@ -2,7 +2,6 @@ from repository_inference import (
   BoundedProducerSearchStatus,
 )
 from probes.probe_phase86_capabilities import (
-  build_phase86_depth_four_representative_result,
   build_phase86_depth_three_representative_result,
   build_phase86_representative_result,
   main,
@@ -179,7 +178,7 @@ def test_phase86_probe_prints_completion_flow(
   output = capsys.readouterr().out
 
   assert (
-    "Phase 86-4: bounded depth=4 completion"
+    "Phase 86-3: bounded depth=3 completion"
     in output
   )
   assert (
@@ -240,22 +239,6 @@ def test_phase86_probe_prints_completion_flow(
   )
   assert (
     "max_depth=3 accepted = True"
-    in output
-  )
-  assert (
-    "max_depth=4 status = success"
-    in output
-  )
-  assert (
-    "producer depths = ((4,), (3,), (2,), (1,))"
-    in output
-  )
-  assert (
-    "D rule reused = True"
-    in output
-  )
-  assert (
-    "C uses D ProofStep = True"
     in output
   )
   assert (
@@ -323,32 +306,3 @@ def test_phase86_3_6_probe_reports_depth_three_execution_provenance():
   assert not result[
     "repository_mutated"
   ]
-
-
-def test_phase86_4_6_probe_reports_depth_four_boundary_pair():
-  result = build_phase86_depth_four_representative_result()
-
-  assert result['depth_three_status'] is BoundedProducerSearchStatus.DEPTH_LIMIT
-  assert result['depth_three_current_depth'] == 3
-  assert result['depth_three_required_next_depth'] == 4
-  assert result['depth_four_status'] is BoundedProducerSearchStatus.SUCCESS
-  assert result['depth_four_max_depth'] == 4
-  assert result['producer_depths'] == (
-    (4,),
-    (3,),
-    (2,),
-    (1,),
-  )
-  assert result['dependency_first_order']
-
-
-def test_phase86_4_6_probe_reports_depth_four_execution_provenance():
-  result = build_phase86_depth_four_representative_result()
-
-  assert result['goal_derived']
-  assert result['d_rule_reused']
-  assert result['c_uses_d_step']
-  assert result['b_uses_c_step']
-  assert result['a_uses_b_step']
-  assert result['final_uses_a_step']
-  assert not result['repository_mutated']
