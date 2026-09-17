@@ -1,0 +1,688 @@
+# EHP Proof Tracer — ロードマップ
+
+この文書は future-oriented roadmap である。
+
+完了済み Phase の詳細な履歴は `docs/development_log.md`、代表的な数学証明と infrastructure record は `docs/proof_records.md` を参照する。
+
+---
+
+# 1. 現在地
+
+EHP Proof Tracer は、Toda の低 stem 計算を theorem-specific な `ProofStep` graph として保持し、in-memory `ProofRepository` と bounded producer search を用いて既存証明を再利用できる段階にある。
+
+数学的には stable 0-stem から 7-stem まで:
+
+```text
+G_0=Z{ι}
+
+(G_1;2)=Z/2{η}
+(G_2;2)=Z/2{η²}
+(G_3;2)=Z/8{ν}
+(G_4;2)=0
+(G_5;2)=0
+(G_6;2)=Z/2{ν²}
+(G_7;2)=Z/16{σ}
+```
+
+を machine provenance 付きで保持している。
+
+proof-search infrastructure は:
+
+```text
+ProofRepository
+→ rule catalog
+→ missing-premise detection
+→ bounded producer search
+→ max_depth=2/3/4
+→ diagnostics
+→ selected-path execution
+→ finite explicit retry
+→ concrete theorem-instance filtering
+```
+
+まで実装済み。
+
+Phase 89 の監査では、現在の actual theorem corpus に general backtracking / ranking / proof-cost model を必要とする具体例は確認されなかった。
+
+Phase 90 では計算 query の最初の縦断経路:
+
+```text
+(n,k)
+→ TodaPrimaryGroup(n+k,n)
+→ existing theorem-backed group result
+→ actual ProofStep
+```
+
+まで完成した。
+
+---
+
+# 2. query の数学的対象
+
+当面の query target は:
+
+```text
+input:
+  n, k
+
+target:
+  π_(n+k)^n
+```
+
+である。
+
+ここで `π_i^n` は Toda (4.3) の notation / semantics を表す。
+
+したがって一般の ordinary homotopy group:
+
+```text
+π_(n+k)(S^n)
+```
+
+を無条件に返す API とはしない。
+
+Toda (4.3):
+
+```text
+i=n
+→ ordinary diagonal group
+
+i=2n-1
+→ exceptional E-preimage subgroup
+
+otherwise
+→ 2-primary component
+```
+
+ordinary groups が proof 中で必要な場合は `HomotopyGroup` として別に扱う。
+
+---
+
+# 3. 長期的に query から返したい情報
+
+最終的には:
+
+```text
+input:
+  n, k
+
+output:
+  target
+  group structure
+  generators
+  generator orders
+
+  relevant EHP exact sequence
+  exactness points actually used
+
+  required propositions
+  required lemmas
+  required relations
+  previously known groups actually used
+
+  proof trace
+
+  proofs of required lemmas / relations when available
+
+  distinction between:
+    derived
+    proved
+    imported
+    assumed
+```
+
+を structured data と human-readable report の両方で返したい。
+
+重要なのは、単に「答えの群」を返すだけでなく:
+
+```text
+なぜその群になるか
+どの EHP exactness を使ったか
+何を既知として使ったか
+どの証明へ遡れるか
+```
+
+を machine-readable に保持することである。
+
+---
+
+# 4. Phase 90 — query / known-result lookup
+
+## 状態
+
+```text
+COMPLETE
+```
+
+## 4.1 Phase 90-1
+
+current calculation representation / orchestration audit。
+
+確認:
+
+```text
+TodaPrimaryGroup
+Relation
+FreeCyclicGroup
+FiniteCyclicGroup
+DirectSumGroup
+TodaPrimaryGroupZeroStatement
+TodaEHPSequence
+TodaEHPExactnessWindow
+ProofStep
+ProofRepositoryEntry
+```
+
+で、query architecture の下層 representation はほぼ存在している。
+
+## 4.2 Phase 90-2
+
+追加:
+
+```text
+TodaGroupQuery(n,k)
+```
+
+validation:
+
+```text
+n>=1
+k>=0
+bool / non-int reject
+```
+
+target:
+
+```text
+TodaGroupQuery(n,k).target
+=
+TodaPrimaryGroup(n+k,n)
+```
+
+## 4.3 Phase 90-3
+
+追加:
+
+```text
+is_toda_group_result_for_target()
+find_known_toda_group_results()
+```
+
+query:
+
+```text
+TodaGroupQuery
+→ target
+→ ProofRepository.entries()
+→ group-result predicate
+→ matching ProofRepositoryEntry tuple
+```
+
+actual integration:
+
+```text
+(4,3) → π_7^4
+(4,6) → π_10^4
+(2,7) → π_9^2=0
+```
+
+まで確認済み。
+
+Phase 90 は既存 result lookup のみであり、miss から proof search は起動しない。
+
+---
+
+# 5. Phase 91 — structured group result
+
+次の target。
+
+## Phase 91-1：current group-result normalization / generator-order extraction audit
+
+監査対象:
+
+```text
+Relation + FreeCyclicGroup
+Relation + FiniteCyclicGroup
+Relation + DirectSumGroup
+TodaPrimaryGroupZeroStatement
+```
+
+確認すること:
+
+```text
+どの情報を canonical result とするか
+
+zero / free / finite cyclic / direct sum
+をどう同じ result schema に載せるか
+
+generator list
+generator order list
+をどう lossless に取り出すか
+
+ProofRepositoryEntry / ProofStep を
+result provenance としてどう保持するか
+```
+
+この Phase ではまだ新しい数学推論を追加しない。
+
+## Phase 91-2：minimal normalized result representation
+
+候補責務:
+
+```text
+target
+group structure
+generators
+generator orders
+source repository entry
+source proof step
+```
+
+zero group でも無理に fake generator を作らない。
+
+## Phase 91-3：actual theorem-backed normalization
+
+代表:
+
+```text
+π_7^4
+π_10^4
+π_9^2=0
+```
+
+で end-to-end validation。
+
+### Phase 91 完了条件
+
+```text
+TodaGroupQuery
+→ known result
+→ normalized machine-readable group result
+```
+
+---
+
+# 6. Phase 92 — EHP / exactness extraction
+
+目的:
+
+```text
+group result proof
+→ 実際に使われた EHP sequence / exactness window
+```
+
+を抽出する。
+
+## Phase 92-1：current exactness provenance audit
+
+対象:
+
+```text
+TodaEHPSequence
+TodaEHPExactnessWindow
+HomotopyEHPExactnessWindow
+TodaProp42ExactnessStatement
+Toda211OrdinaryEHPExactnessStatement
+ProofStep.premises
+```
+
+確認:
+
+```text
+sequence 全体を保持している場合
+window のみ保持している場合
+ordinary / Toda EHP の区別
+```
+
+## Phase 92-2：exactness-window extraction
+
+recursive proof traversal はまだ最小限に留め、direct / reachable exactness statement を lossless に取得する。
+
+## Phase 92-3：actual calculation validation
+
+代表計算で:
+
+```text
+どの3項 exactness window が使われたか
+どの map property を exactness から得たか
+```
+
+を返せることを確認。
+
+---
+
+# 7. Phase 93 — mathematical dependency extraction
+
+目的:
+
+```text
+proof graph
+→ mathematical dependencies
+```
+
+を theorem / lemma / relation / group result に分類する。
+
+返したい分類:
+
+```text
+required propositions
+required lemmas
+required equations / relations
+required group results
+foundational facts
+range / applicability hypotheses
+```
+
+重要:
+
+```text
+source-book order
+!=
+machine dependency
+```
+
+を維持する。
+
+Phase 66–77 で繰り返し確認してきた non-circularity を query report に反映する。
+
+---
+
+# 8. Phase 94 — recursive proof provenance / fact classification
+
+目的:
+
+```text
+ProofStep
+→ recursive ancestry
+→ provenance tree / DAG
+```
+
+を query result から取得できるようにする。
+
+## 分類候補
+
+```text
+derived
+proved
+imported
+assumed
+```
+
+ただし現在の `ProofRule.GIVEN` とこれらを単純に1対1対応させない。
+
+例えば:
+
+```text
+structural exactness window
+low-dimensional foundational fact
+literature-imported statement
+theorem hypothesis
+```
+
+は同じ `GIVEN` でも意味が異なる可能性がある。
+
+先に audit してから最小 representation を設計する。
+
+---
+
+# 9. Phase 95 — calculation orchestration
+
+ここで初めて query から必要処理をまとめる top-level orchestration を検討する。
+
+期待 flow:
+
+```text
+TodaGroupQuery
+↓
+target
+↓
+known-result lookup
+↓
+normalized group result
+↓
+EHP / exactness extraction
+↓
+dependency extraction
+↓
+recursive provenance extraction
+↓
+TodaGroupCalculationResult
+```
+
+lookup miss への対応はこの Phase 以前には自動拡張しない。
+
+Phase 95 で初めて:
+
+```text
+known result がない
+→ existing proof-search infrastructure を使うべきか
+```
+
+を再監査する。
+
+Phase 89 の結論により、general backtracking を先取りしない。
+
+---
+
+# 10. Phase 96 — human-readable calculation report
+
+structured calculation result から:
+
+```text
+target
+answer
+generators / orders
+EHP sequence
+exactness
+dependencies
+proof flow
+fact provenance
+```
+
+を人間向けに表示する。
+
+目標例:
+
+```text
+Query:
+π_10^4
+
+Result:
+π_10^4 = Z/8{ν₄²}
+
+Used:
+π_9^3=0
+π_10^7=Z/8{ν₇}
+Toda (5.6)
+...
+
+Proof:
+...
+```
+
+現在の representative probe の hand-authored proof-style text を golden reference として利用する。
+
+automatic proof narrative generation は、この段階で初めて具体的な生成器として設計する。
+
+---
+
+# 11. Phase 97 — 0-stem through 7-stem end-to-end validation
+
+最終 validation target:
+
+```text
+G_0
+(G_1;2)
+...
+(G_7;2)
+```
+
+に至る代表 unstable query を入力し:
+
+```text
+query
+→ group result
+→ generator / order
+→ EHP exactness
+→ dependencies
+→ proof provenance
+→ readable report
+```
+
+まで end-to-end で通す。
+
+重要:
+
+```text
+既に数学的には Phase 78 で証明済み
+```
+
+であり、Phase 97 は新しい低 stem theorem を証明する Phase ではない。
+
+Phase 90–96 で作った calculation architecture の validation である。
+
+---
+
+# 12. proof-search 拡張の保留条件
+
+Phase 89 の audit により、現時点では次を実装しない。
+
+```text
+general backtracking
+producer ranking
+proof-cost model
+best-proof selection
+DFS / BFS / A*
+unbounded recursive proof search
+persistent search cache
+```
+
+再検討条件:
+
+```text
+actual theorem-backed query / calculation で
+同じ concrete requested statement に
+複数 viable producer が残る
+
+かつ
+
+Phase 87 finite retry では
+正しい proof path を選べない
+```
+
+という具体例が得られた場合。
+
+---
+
+# 13. persistence の将来境界
+
+現在:
+
+```text
+ProofRepository
+= in-memory
+```
+
+将来候補:
+
+```text
+JSON
+SQLite
+dedicated proof store
+```
+
+ただし persistence を導入する前に、Phase 90–97 の query/result schema から本当に必要な保存対象を確定する。
+
+保存候補:
+
+```text
+statement identity
+proof-node identity
+premise edges
+inference-rule identity
+literature metadata
+queryable theorem metadata
+schema / semantic version
+```
+
+保存しないもの:
+
+```text
+Python callable
+lru_cache state
+builder-local dict
+probe presentation text
+cross-process object identity
+```
+
+---
+
+# 14. automatic proof narrative generation
+
+現在:
+
+```text
+ProofStep graph
++ hand-authored representative probes
++ human-reviewed proof_records.md
+```
+
+将来:
+
+```text
+ProofStep graph
+↓
+dependency selection
+↓
+proof-chain compression
+↓
+equation-chain generation
+↓
+literature citation placement
+↓
+rule-specific narrative
+↓
+Markdown / LaTeX / console
+```
+
+Phase 96 まで一般 generator を先取りしない。
+
+---
+
+# 15. 現在の次 Phase
+
+```text
+Phase 91-1
+current group-result normalization /
+generator-order extraction audit
+```
+
+実装前に必ず current GitHub code と関連 tests を再監査する。
+
+---
+
+# 16. 現在の milestone
+
+```text
+Phase 78
+数学:
+stable G_0 through G_7
+
+Phase 79–88
+proof repository / bounded producer search
+
+Phase 89
+search-pressure audit
+
+Phase 90
+query → target → existing theorem-backed result
+
+Phase 91–97
+calculation result / proof extraction / reporting
+```
+
+Phase 90 completion repository-wide regression:
+
+```text
+7135 passed in 101.39s
+```

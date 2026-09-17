@@ -116,17 +116,9 @@ tests/
 = semantic / regression / provenance verification
 ```
 
-Phase 90 audit 後、query / lookup の最小 module は次に確定した。
+Phase 90 以降の orchestration module の配置は Phase 90-1 audit 後に決める。
 
-```text
-toda_group_query.py
-= query validation / Toda target construction
-
-toda_group_lookup.py
-= Toda-specific existing group-result lookup
-```
-
-上位 calculation orchestration module は Phase 95 まで先取りして固定しない。
+audit 前に新規 module 名を固定しない。
 
 ---
 
@@ -554,38 +546,16 @@ actual theorem-backed max_depth > 4 need
 
 # 15. calculation query の基本意味論
 
-Phase 90 で query representation を実装した。
-
-module:
+Phase 90 以降の基本 query:
 
 ```text
-toda_group_query.py
-```
-
-class:
-
-```text
-TodaGroupQuery(
-  n: int,
-  k: int,
-)
-```
-
-validation:
-
-```text
-n is int and not bool
-n >= 1
-
-k is int and not bool
-k >= 0
+input:
+n, k
 ```
 
 target:
 
 ```text
-query.target
-=
 TodaPrimaryGroup(
   group_dimension=n+k,
   sphere_dimension=n,
@@ -598,173 +568,15 @@ user-facing notation:
 π_{n+k}^n
 ```
 
-query object の責務:
+query object は target construction のみを責務とし、proof truth を持たない。
 
-```text
-input validation
-target construction
-```
-
-責務ではない:
-
-```text
-proof truth
-repository mutation
-proof search
-group computation
-presentation
-```
-
----
-
-# 15A. known-result lookup
-
-Phase 90 で Toda-specific known-result lookup を実装した。
-
-module:
-
-```text
-toda_group_lookup.py
-```
-
-functions:
-
-```text
-is_toda_group_result_for_target()
-find_known_toda_group_results()
-```
-
-canonical nonzero group result:
-
-```text
-Relation(
-  lhs=target,
-  rhs=FreeCyclicGroup
-      | FiniteCyclicGroup
-      | DirectSumGroup,
-  relation_type=RelationType.EQUALITY,
-)
-```
-
-canonical zero result:
-
-```text
-TodaPrimaryGroupZeroStatement(
-  group=target,
-)
-```
-
-lookup flow:
+概念:
 
 ```text
 TodaGroupQuery
-↓
-query.target
-↓
-ProofRepository.entries()
-↓
-entry.step.conclusion
-↓
-Toda group-result predicate
-↓
-tuple[ProofRepositoryEntry, ...]
 ```
 
-`ProofRepository.find_by_conclusion()` は complete conclusion equality lookup であり、RHS group structure が未知の target-only query には直接使わない。
-
-`ProofRepository` 自体へ Toda-specific method は追加しない。
-
-```text
-generic repository
-!=
-Toda query semantics
-```
-
-を維持する。
-
-lookup result semantics:
-
-```text
-0 match
-→ ()
-
-1 match
-→ one entry
-
-multiple matches
-→ all entries in registration order
-```
-
-Phase 90 では:
-
-```text
-winner selection
-ranking
-conflict resolution
-canonical proof selection
-```
-
-を行わない。
-
-`ProofRule.GIVEN` / `ProofRule.INFERENCE` のどちらも lookup 対象にできる。
-
-truth source:
-
-```text
-entry.step.conclusion
-```
-
-であり:
-
-```text
-entry.key
-entry.phase
-entry.theorem
-```
-
-は mathematical truth 判定に使わない。
-
-lookup miss:
-
-```text
-()
-```
-
-であり、自動 proof search は起動しない。
-
----
-
-# 15B. actual theorem-backed query integration
-
-Phase 90-3-3 で actual proof objects を用いて確認した。
-
-```text
-TodaGroupQuery(4,3)
-→ Phase 65
-→ π_7^4=Z{ν₄}⊕Z/4{Eν′}
-
-TodaGroupQuery(4,6)
-→ Phase 73
-→ π_10^4=Z/8{ν₄²}
-
-TodaGroupQuery(2,7)
-→ Phase 75
-→ π_9^2=0
-```
-
-verified:
-
-```text
-returned repository entry is the expected actual entry
-returned step is the exact original ProofStep object
-premises preserved
-cross-target matching absent
-repository unchanged
-```
-
-したがって query layer は proof graph を copy / rebuild せず、既存 theorem-backed provenance への参照を維持する。
-
----
+実際の class 名・module placement は Phase 90-1 audit 後に決定する。
 
 ---
 
@@ -1476,77 +1288,43 @@ pytest --durations
 
 ---
 
-# 38. Phase 90 completion / Phase 91 audit boundary
+# 38. Phase 90-1 audit boundary
 
-Phase 90 completion capability:
-
-```text
-(n,k)
-↓
-TodaGroupQuery
-↓
-TodaPrimaryGroup(n+k,n)
-↓
-existing theorem-backed group-result lookup
-↓
-actual ProofRepositoryEntry
-↓
-actual ProofStep
-```
-
-Phase 90 completion regression:
+次に行う:
 
 ```text
-7135 passed in 101.39s
-git diff --check clean
+Phase 90-1
+current π_{n+k}^n calculation representation / orchestration audit
 ```
 
-Phase 90 では意図的に未実装:
+実装前に必ず現行 GitHub のコードと関連テストを確認する。
+
+中心確認対象:
 
 ```text
-normalized calculation result
-generator / order extraction
-EHP exactness extraction
-mathematical dependency extraction
-recursive proof provenance
-derived / proved / imported / assumed classification
-proof search on lookup miss
-top-level calculation orchestration
-human-readable report
+TodaPrimaryGroup
+TodaEHPSequence
+TodaEHPExactnessWindow
+group-structure statements
+generator / order statements
+existing EHP rules
+Toda proposition / lemma integration rules
+ProofStep provenance
+ProofRepository
+InferenceRuleCatalog
+repository_inference
+0-stem through 7-stem representative probes/tests
 ```
 
-次:
+監査結果から:
 
 ```text
-Phase 91-1
-current group-result normalization /
-generator-order extraction audit
+既存型で足りる部分
+不足 representation
+不足 provenance
+不足 orchestration
 ```
 
-Phase 91-1 は current GitHub code と actual theorem-backed tests を再確認してから開始する。
+を分離する。
 
-中心対象:
-
-```text
-Relation + FreeCyclicGroup
-Relation + FiniteCyclicGroup
-Relation + DirectSumGroup
-TodaPrimaryGroupZeroStatement
-ProofRepositoryEntry
-ProofStep
-```
-
-監査では:
-
-```text
-group_structure
-generators
-generator_orders
-zero result
-direct-sum summand ordering
-source proof identity
-```
-
-を lossless に normalized result へ移せるか確認する。
-
-EHP extraction / recursive provenance / report generation は Phase 92 以降の責務として先取りしない。
+Phase 90-1 では将来 Phase の class hierarchy や presentation API を先取り実装しない。

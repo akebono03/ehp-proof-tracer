@@ -48,10 +48,10 @@ max_depth = 2
 retry_policy = None
 ```
 
-Phase 90 までの latest confirmed repository-wide regression:
+Phase 88 までの latest confirmed repository-wide regression:
 
 ```text
-7135 passed in 101.39s
+7096 passed in 35.90s
 ```
 
 ---
@@ -266,92 +266,65 @@ distinction between derived / proved / imported / assumed facts
 
 # 7. Phase 90：π_{n+k}^n query / calculation architecture
 
-Phase 90 は COMPLETE。
+## Phase 90-1：current calculation representation / orchestration audit
 
-完成した最小 flow:
+実装前に、現在の表現と証明基盤だけで
 
 ```text
 (n,k)
-↓
-TodaGroupQuery
-↓
-TodaPrimaryGroup(n+k,n)
-↓
-ProofRepository
-↓
-existing theorem-backed group result lookup
-↓
-actual ProofStep
+→ TodaPrimaryGroup(n+k,n)
+→ known / derivable group statement
+→ EHP data
+→ dependency proof
 ```
 
-## Phase 90-1：current calculation representation / orchestration audit
+をどこまで構成できるか監査する。
 
-現行 representation を監査し、既存で次が利用可能と確認した。
+中心対象:
 
 ```text
 TodaPrimaryGroup
 TodaEHPSequence
 TodaEHPExactnessWindow
-FreeCyclicGroup
 FiniteCyclicGroup
+FreeCyclicGroup
 DirectSumGroup
-TodaPrimaryGroupZeroStatement
-Relation
+group-structure statements
+generator / order statements
 ProofStep
-ProofRepositoryEntry
 ProofRepository
+InferenceRuleCatalog
+repository_inference
+Toda-specific rules
 ```
 
-nonzero group result:
+確認事項:
 
 ```text
-Relation(
-  lhs=target,
-  rhs=FreeCyclicGroup
-      | FiniteCyclicGroup
-      | DirectSumGroup,
-  relation_type=EQUALITY,
-)
+query target を既存型だけで表現できるか
+group structure result の canonical statement は何か
+generator / order 情報をどこから回収できるか
+EHP sequence / exactness provenance がどこまで残っているか
+補題・命題・関係式の dependency を ProofStep から辿れるか
+previous-group dependency を識別できるか
+proof available / unavailable を区別できるか
 ```
 
-zero group result:
-
-```text
-TodaPrimaryGroupZeroStatement(group=target)
-```
-
-generator / order と EHP exactness provenance は既存 proof graph に保持されている一方、query / normalization / recursive provenance / report が不足していることを確認した。
-
-Phase 90-1:
-
-```text
-COMPLETE
-```
+Phase 90-1 では実装しない。
 
 ## Phase 90-2：minimal query representation
 
-追加:
+最小 query object を導入する。
+
+概念:
 
 ```text
-toda_group_query.py
 TodaGroupQuery(n,k)
-```
 
-validation:
+group_dimension = n + k
+sphere_dimension = n
 
-```text
-n>=1
-k>=0
-int only
-bool rejected
-```
-
-target:
-
-```text
-TodaGroupQuery(n,k).target
-=
-TodaPrimaryGroup(n+k,n)
+→ TodaPrimaryGroup(n+k,n)
 ```
 
 責務:
@@ -361,106 +334,27 @@ input validation
 target construction
 ```
 
-Phase 90-2 repository-wide regression:
+責務ではない:
 
 ```text
-7109 passed in 118.26s
-```
-
-Phase 90-2:
-
-```text
-COMPLETE
+proof search
+group computation
+presentation
 ```
 
 ## Phase 90-3：known-result lookup
 
-追加:
+query target に対して、既に repository / registered facts に存在する group-structure result を取得できるようにする。
 
-```text
-toda_group_lookup.py
-is_toda_group_result_for_target()
-find_known_toda_group_results()
-```
-
-lookup:
+最初は新しい数学推論を追加しない。
 
 ```text
 query
 → target
-→ repository.entries()
-→ entry.step.conclusion
-→ Toda group-result shape filter
-→ matching entries
+→ existing proven result lookup
 ```
 
-semantics:
-
-```text
-GIVEN / INFERENCE を両方対象
-0件 → ()
-複数件 → 全件
-registration order 保持
-winner selection なし
-proof search on miss なし
-repository mutation なし
-```
-
-actual theorem-backed integration:
-
-```text
-TodaGroupQuery(4,3)
-→ π_7^4=Z{ν₄}⊕Z/4{Eν′}
-
-TodaGroupQuery(4,6)
-→ π_10^4=Z/8{ν₄²}
-
-TodaGroupQuery(2,7)
-→ π_9^2=0
-```
-
-verified:
-
-```text
-actual ProofStep identity preserved
-actual premises preserved
-cross-match absent
-repository unchanged
-```
-
-Phase 90-3 completion repository-wide regression:
-
-```text
-7135 passed in 101.39s
-```
-
-`git diff --check`:
-
-```text
-clean
-```
-
-Phase 90-3:
-
-```text
-COMPLETE
-```
-
-Phase 90 全体でまだ行わない:
-
-```text
-normalized group-result object
-generator / order extraction
-EHP / exactness extraction
-dependency extraction
-recursive proof traversal
-fact classification
-proof search on lookup miss
-top-level calculation orchestration
-human-readable report
-```
-
----
+を完成条件とする。
 
 ---
 
@@ -868,31 +762,22 @@ pytest --durations
 # 19. 次に着手する Phase
 
 ```text
-Phase 91-1
-current group-result normalization /
-generator-order extraction audit
+Phase 90-1
+current π_{n+k}^n calculation representation / orchestration audit
 ```
 
-最初に現行 GitHub code と actual theorem-backed tests を確認し:
+Phase 90-1 ではコードを変更しない。
+
+最初に現行コードと関連テストを確認し、
 
 ```text
-Relation + FreeCyclicGroup
-Relation + FiniteCyclicGroup
-Relation + DirectSumGroup
-TodaPrimaryGroupZeroStatement
+n,k
+→ target
+→ group result
+→ generators
+→ EHP
+→ dependencies
+→ nested proofs
 ```
 
-の4系統から:
-
-```text
-target
-group structure
-generators
-generator orders
-source ProofRepositoryEntry
-source ProofStep
-```
-
-を lossless に取り出すために、現在の表現でどこまで足りるかを監査する。
-
-Phase 91-1 では future Phase の EHP extraction / recursive provenance / presentation を先取り実装しない。
+の各 edge が現在どこまで存在し、どこが不足しているかを具体的に記録する。
