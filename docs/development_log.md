@@ -16272,3 +16272,388 @@ generator-order extraction audit
 ### 状態
 
 COMPLETE
+---
+
+# Phase 91：group structure / generator result
+
+Phase 90 で取得可能になった actual theorem-backed group result を、計算結果として machine-readable に正規化する。
+
+target flow:
+
+```text
+TodaGroupQuery(n,k)
+↓
+known ProofRepositoryEntry
+↓
+ProofStep.conclusion
+↓
+group structure
+↓
+generators
+↓
+generator orders
+```
+
+Phase 91 では EHP extraction / dependency extraction / report generation を先取りしない。
+
+---
+
+## Phase 91-1：current group-result normalization / generator-order extraction audit
+
+production code:
+
+```text
+変更なし
+```
+
+current GitHub code と actual theorem-backed tests を監査。
+
+対象:
+
+```text
+Relation + FreeCyclicGroup
+Relation + FiniteCyclicGroup
+Relation + DirectSumGroup
+TodaPrimaryGroupZeroStatement
+```
+
+確認:
+
+```text
+FreeCyclicGroup
+→ generator を lossless に取得可能
+→ finite order field は存在しない
+
+FiniteCyclicGroup
+→ generator
+→ positive integer order
+
+DirectSumGroup
+→ summands tuple の順序を保持可能
+→ summand ごとの generator / order を対応可能
+
+TodaPrimaryGroupZeroStatement
+→ generators=()
+→ generator_orders=()
+```
+
+設計決定:
+
+```text
+free generator order
+→ None
+
+finite generator order
+→ positive int
+
+generator / order
+→ parallel tuple
+
+DirectSumGroup
+→ summand 順序を保持
+
+group_structure
+→ normalized result に保持
+
+source_entry
+→ 保持
+
+proof_step
+→ actual object identity を保持
+
+Relation.source / note
+→ normalized result に複製しない
+```
+
+Phase 91-2 candidate:
+
+```text
+TodaGroupResult
+
+target
+group_structure
+generators
+generator_orders
+source_entry
+proof_step
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 91-2：minimal normalized result representation
+
+新規:
+
+```text
+toda_group_result.py
+```
+
+追加:
+
+```text
+TodaGroupStructure
+TodaGroupResult
+```
+
+fields:
+
+```text
+target
+group_structure
+generators
+generator_orders
+source_entry
+proof_step
+```
+
+order semantics:
+
+```text
+None
+= infinite order
+
+positive int
+= finite order
+```
+
+zero semantics:
+
+```text
+group_structure=None
+generators=()
+generator_orders=()
+```
+
+invariants:
+
+```text
+target is TodaPrimaryGroup
+group_structure is supported type or None
+generators is tuple[Expression,...]
+generator_orders is tuple[int|None,...]
+len(generators) == len(generator_orders)
+finite order > 0
+bool is rejected as order
+zero result cannot contain generators
+source_entry is ProofRepositoryEntry
+proof_step is ProofStep
+proof_step is source_entry.step
+```
+
+追加 test:
+
+```text
+tests/test_phase91_minimal_group_result.py
+```
+
+focused:
+
+```text
+10 passed in 0.90s
+```
+
+Phase 90 + Phase 91-2 regression:
+
+```text
+49 passed in 6.00s
+```
+
+repository-wide:
+
+```text
+7145 passed in 107.78s
+```
+
+`git diff --check`:
+
+```text
+clean
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 91-3：actual theorem-backed normalization integration
+
+更新:
+
+```text
+toda_group_result.py
+toda_group_lookup.py
+```
+
+追加:
+
+```text
+_extract_toda_group_generators_and_orders()
+normalize_toda_group_result()
+find_normalized_toda_group_results()
+```
+
+新規 test:
+
+```text
+tests/test_phase91_actual_group_normalization.py
+```
+
+flow:
+
+```text
+TodaGroupQuery
+↓
+find_known_toda_group_results()
+↓
+actual ProofRepositoryEntry
+↓
+normalize_toda_group_result()
+↓
+TodaGroupResult
+```
+
+代表 actual results:
+
+```text
+Phase 65:
+π_7^4
+=
+Z{ν₄}⊕Z/4{Eν′}
+
+↓
+generators = (ν₄, Eν′)
+generator_orders = (None, 4)
+```
+
+```text
+Phase 73:
+π_10^4
+=
+Z/8{ν₄²}
+
+↓
+generators = (ν₄²,)
+generator_orders = (8,)
+```
+
+```text
+Phase 75:
+π_9^2
+=
+0
+
+↓
+group_structure = None
+generators = ()
+generator_orders = ()
+```
+
+verified:
+
+```text
+actual group_structure identity preserved
+actual source_entry identity preserved
+actual ProofStep identity preserved
+actual premises / provenance preserved
+repository not mutated
+unregistered query → ()
+```
+
+focused:
+
+```text
+9 passed in 6.39s
+```
+
+Phase 90-91 regression:
+
+```text
+58 passed in 7.82s
+```
+
+repository-wide:
+
+```text
+7154 passed in 100.44s
+```
+
+`git diff --check`:
+
+```text
+clean
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 91 completion
+
+完成 capability:
+
+```text
+(n,k)
+↓
+TodaGroupQuery
+↓
+existing theorem-backed group result
+↓
+actual ProofRepositoryEntry
+↓
+actual ProofStep
+↓
+TodaGroupResult
+↓
+group_structure
+generators
+generator_orders
+```
+
+保証:
+
+```text
+free order = None
+finite order = positive int
+zero group = None + empty tuples
+DirectSumGroup summand ordering preserved
+source_entry identity preserved
+ProofStep identity preserved
+premise provenance preserved
+lookup / normalization do not mutate repository
+```
+
+未実装:
+
+```text
+EHP sequence / exactness extraction
+dependency extraction
+recursive proof traversal
+fact classification
+proof search on lookup miss
+top-level calculation orchestration
+human-readable report
+```
+
+final repository-wide regression:
+
+```text
+7154 passed in 100.44s
+```
+
+next:
+
+```text
+Phase 92-1
+current EHP sequence / exactness representation audit
+```
+
+### 状態
+
+COMPLETE

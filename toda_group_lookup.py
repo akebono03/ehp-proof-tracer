@@ -16,6 +16,10 @@ from proof_repository import (
 from toda_group_query import (
   TodaGroupQuery,
 )
+from toda_group_result import (
+  TodaGroupResult,
+  normalize_toda_group_result,
+)
 
 
 def is_toda_group_result_for_target(
@@ -93,4 +97,24 @@ def find_known_toda_group_results(
       entry.step.conclusion,
       target,
     )
+  )
+
+
+def find_normalized_toda_group_results(
+  repository: ProofRepository,
+  query: TodaGroupQuery,
+) -> tuple[
+  TodaGroupResult,
+  ...,
+]:
+  entries = find_known_toda_group_results(
+    repository,
+    query,
+  )
+
+  return tuple(
+    normalize_toda_group_result(
+      entry
+    )
+    for entry in entries
   )
