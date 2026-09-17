@@ -13,25 +13,25 @@
 ```text
 Toda Lemma 5.16 までの concrete proof spine
 stable G_0 through G_7
-0-stem から 7-stem までの主要な 2-primary / Toda π_i^n 計算材料
+0-stem から 7-stem までの主要 2-primary / Toda π_i^n 計算材料
 ```
 
-proof infrastructure:
+proof-search infrastructure:
 
 ```text
 Proof Repository
 → automatic final-rule selection
 → missing-premise producer analysis
-→ bounded dependency search
-→ max_depth parameterization
-→ diagnostics
-→ finite explicit producer retry
 → concrete theorem-instance compatibility filtering
+→ bounded dependency search
+→ explicit max_depth
+→ finite producer retry
+→ search / execution diagnostics
 → exact selected-path execution
 → goal ProofStep
 ```
 
-calculation / extraction infrastructure:
+calculation / explanation infrastructure:
 
 ```text
 TodaGroupQuery
@@ -40,12 +40,15 @@ TodaGroupQuery
 → actual EHP extraction
 → EHP term group enrichment
 → exactness-use provenance
+→ proof dependency extraction
+→ dependency role classification
+→ representative explanation integration
 ```
 
 latest confirmed repository-wide regression:
 
 ```text
-7203 passed in 109.03s
+7269 passed in 102.15s
 ```
 
 `git diff --check`:
@@ -56,73 +59,7 @@ clean
 
 ---
 
-# 2. completed infrastructure boundary: Phase 86–89
-
-## Phase 86
-
-explicit bounded-search depth parameterization:
-
-```text
-max_depth=2
-max_depth=3
-max_depth=4
-```
-
-default:
-
-```text
-max_depth=2
-```
-
-## Phase 87
-
-finite explicit producer retry:
-
-```text
-FiniteProducerRetryPolicy(max_attempts=N)
-```
-
-default:
-
-```text
-retry_policy=None
-→ ambiguity stops
-```
-
-general backtracking は導入しない。
-
-## Phase 88
-
-concrete theorem-instance producer compatibility:
-
-```text
-bindings
-→ requested_statement
-→ concrete-compatible producers
-```
-
-same conclusion type collision と same concrete theorem ambiguity を区別する。
-
-## Phase 89
-
-post-Phase88 audit:
-
-```text
-general backtracking の actual theorem-backed need
-→ 未確認
-
-producer ranking / proof-cost model
-→ concrete need 未確認
-
-max_depth > 4
-→ actual need 未確認
-```
-
-したがって proof-search algorithm の抽象的一般化は deferred。
-
----
-
-# 3. Phase 90 COMPLETE：Toda group query / known-result lookup
+# 2. Phase 90 COMPLETE：Toda group query / known-result lookup
 
 完成:
 
@@ -138,14 +75,6 @@ theorem-backed group result
 original ProofStep
 ```
 
-actual verification:
-
-```text
-π_7^4
-π_10^4
-π_9^2=0
-```
-
 lookup miss:
 
 ```text
@@ -156,7 +85,7 @@ proof search on miss は行わない。
 
 ---
 
-# 4. Phase 91 COMPLETE：normalized group result
+# 3. Phase 91 COMPLETE：normalized group result
 
 完成:
 
@@ -181,79 +110,17 @@ group-structure object identity
 repository non-mutation
 ```
 
-zero:
-
-```text
-group_structure=None
-generators=()
-generator_orders=()
-```
-
 ---
 
-# 5. Phase 92 COMPLETE：EHP extraction / enrichment / exactness provenance
+# 4. Phase 92 COMPLETE：EHP extraction / enrichment / exactness provenance
 
-Phase 92 は旧3分割計画ではなく、実装結果に合わせて次の5段階で確定する。
-
-## Phase 92-1：current EHP representation audit
-
-確認:
+完成:
 
 ```text
-TodaEHPSequence
-TodaEHPExactnessWindow
-TodaProp42ExactnessStatement
-ProofStep provenance
-TodaGroupResult
-```
-
-は既存。
-
-不足:
-
-```text
-result aggregation
-actual theorem-backed extraction
-group enrichment
-exactness-use connection
-```
-
-### 状態
-
-COMPLETE
-
-## Phase 92-2：minimal EHP sequence / window result representation
-
-追加:
-
-```text
-TodaEHPExactnessWindowResult
 TodaEHPSequenceResult
+TodaEHPGroupEnrichmentResult
+TodaEHPExactnessUseProvenanceResult
 ```
-
-保持:
-
-```text
-existing sequence/window identity
-target
-window order
-contiguous-window validation
-subset-window support
-```
-
-### 状態
-
-COMPLETE
-
-## Phase 92-3：actual theorem-backed EHP extraction integration
-
-入口:
-
-```text
-TodaGroupResult.proof_step
-```
-
-actual proof ancestry から `TodaProp42ExactnessStatement` を抽出し、contiguous EHP chain を構成する。
 
 actual `π_9^5`:
 
@@ -261,183 +128,210 @@ actual `π_9^5`:
 π_10^9 --Δ--> π_8^4 --E--> π_9^5 --H--> π_9^9 --Δ--> π_7^4
 ```
 
-重要:
+原則:
 
 ```text
-repository 内の全 EHP facts
+repository 内の potentially relevant facts
 ```
 
 ではなく:
 
 ```text
-final proof ancestry から到達可能な EHP facts
-```
-
-を取得する。
-
-### 状態
-
-COMPLETE
-
-## Phase 92-4：connect known group structures to EHP terms
-
-追加:
-
-```text
-TodaEHPGroupTermResult
-TodaEHPGroupEnrichmentResult
-connect_known_toda_group_results()
-```
-
-actual integration:
-
-```text
-π_10^9 -> unknown
-π_8^4  -> known
-π_9^5  -> known
-π_9^9  -> unknown
-π_7^4  -> known
-```
-
-区別:
-
-```text
-unknown
-→ group_results=()
-
-known zero
-→ TodaGroupResult(group_structure=None)
-```
-
-### 状態
-
-COMPLETE
-
-## Phase 92-5：exactness-use provenance integration
-
-追加:
-
-```text
-TodaEHPExactnessUseResult
-TodaEHPExactnessUseProvenanceResult
-extract_toda_ehp_exactness_use_provenance()
-```
-
-各 window:
-
-```text
-window_result
-↓
-actual exactness ProofStep
-↓
-direct consumer ProofSteps
-```
-
-まで接続する。
-
-例:
-
-```text
-H-Δ exactness
-→ actual TodaProp42ExactnessStatement
-→ hopf-zero derivation consumer
-```
-
-Phase 92-5 latest regression:
-
-```text
-68 passed in 8.90s
-repository-wide:
-7203 passed in 109.03s
-```
-
-### 状態
-
-COMPLETE
-
----
-
-# 6. Phase 93：proof dependency extraction / explanation layer
-
-次の Phase。
-
-目的:
-
-```text
-final theorem-backed result
-↓
-actually used intermediate mathematical facts
-↓
-machine-readable dependency structure
-```
-
-対象候補:
-
-```text
-propositions
-lemmas
-relations
-known groups
-EHP exactness facts
-map properties
-generator / order facts
-```
-
-最初は audit から開始する。
-
-推奨分割:
-
-```text
-Phase 93-1
-current proof-dependency representation / traversal audit
-
-Phase 93-2
-minimal dependency-result representation
-
-Phase 93-3
-actual theorem-backed dependency extraction
-
-Phase 93-4
-dependency role classification
-
-Phase 93-5
-representative explanation integration
-```
-
-Phase 93 の重要原則:
-
-```text
-potentially relevant facts
-```
-
-ではなく:
-
-```text
-actually reachable / actually used facts
+final proof ancestry から actually reachable な facts
 ```
 
 を扱う。
 
-Phase 92 の EHP-specific traversal をそのまま generic 化せず、actual need を確認してから最小設計する。
+---
+
+# 5. Phase 93 COMPLETE：proof dependency extraction / explanation integration
+
+## Phase 93-1
+
+current dependency representation / traversal audit。
+
+確定:
+
+```text
+direct vs transitive dependency
+shared ProofStep identity
+actual proof ancestry as truth source
+Phase 92 EHP traversal と generic dependency layer の境界
+Phase 94 recursive provenance との境界
+```
+
+## Phase 93-2
+
+追加:
+
+```text
+TodaProofDependency
+TodaProofDependencyResult
+```
+
+最低限:
+
+```text
+proof_step
+depth
+is_direct
+```
+
+を表現。
+
+## Phase 93-3
+
+追加:
+
+```text
+extract_toda_proof_dependencies()
+```
+
+semantics:
+
+```text
+breadth-first traversal
+shortest depth
+premises-order stable traversal
+identity-based deduplication
+cycle-safe
+non-ProofStep premise exclusion
+```
+
+actual `π_9^5` で theorem-backed dependency extraction を確認。
+
+## Phase 93-4
+
+追加:
+
+```text
+TodaProofDependencyRole
+classify_toda_proof_step_role()
+```
+
+roles:
+
+```text
+EHP_EXACTNESS
+EHP_WINDOW
+GROUP_STRUCTURE
+RELATION
+ORDER
+MAP_PROPERTY
+DEFINITION
+LITERATURE
+OTHER
+```
+
+未知 statement を文字列推測で分類しない。
+
+## Phase 93-5
+
+追加:
+
+```text
+TodaRepresentativeExplanationResult
+build_toda_representative_explanation()
+```
+
+統合:
+
+```text
+TodaGroupResult
++
+TodaEHPSequenceResult
++
+TodaEHPExactnessUseProvenanceResult
++
+TodaProofDependencyResult
+```
+
+Phase 93 completion regression:
+
+```text
+Phase 93 focused:
+66 passed in 7.61s
+
+Phase 92 -> 93:
+88 passed in 5.05s
+
+repository-wide:
+7269 passed in 102.15s
+```
+
+### 状態
+
+COMPLETE
 
 ---
 
-# 7. Phase 94：recursive proof provenance
+# 6. Phase 94：recursive proof provenance
 
-Phase 93 で dependency node / role が安定した後に進む。
+次の Phase。
 
-目的:
+Phase 93 の flat dependency view:
+
+```text
+dependency
+proof_step
+depth
+role
+```
+
+から、proof edge を first-class にする。
+
+目標イメージ:
 
 ```text
 final result
 ├─ dependency A
 │  ├─ premise A1
-│  ├─ premise A2
-│  └─ proof of A
+│  └─ premise A2
 ├─ dependency B
-│  └─ proof of B
+│  └─ shared dependency
 └─ dependency C
-   └─ imported / assumed
+```
+
+重要:
+
+```text
+proof structure is generally a DAG
+not necessarily a tree
+```
+
+shared dependency を複製しない representation が必要。
+
+---
+
+# 7. Phase 94 推奨分割
+
+```text
+Phase 94-1
+current recursive provenance / DAG representation audit
+
+Phase 94-2
+minimal proof-node / edge representation
+
+Phase 94-3
+actual theorem-backed recursive provenance extraction
+
+Phase 94-4
+shared-node / cycle / stable-order regression
+
+Phase 94-5
+representative Phase 93 explanation integration
+```
+
+Phase 94-1 で確認する中心:
+
+```text
+ProofStep.premises
+object identity
+shared ProofStep
+edge order
+cycle handling
+root inclusion
+Phase 93 shortest-depth semantics との整合
 ```
 
 status 候補:
@@ -449,13 +343,13 @@ imported
 assumed
 ```
 
-これらの正式 semantics は Phase 94 audit で確定する。
+は、actual need が確認できるまで schema に入れない。
 
 ---
 
 # 8. Phase 95：calculation orchestration
 
-Phase 90–94 の layer を user-facing calculation API に束ねる。
+Phase 90–94 layer を user-facing calculation API に束ねる。
 
 概念:
 
@@ -472,7 +366,7 @@ normalized group result
 ↓
 EHP context
 ↓
-dependencies / provenance
+dependencies / recursive provenance
 ↓
 structured calculation result
 ```
@@ -496,7 +390,7 @@ EHP sequence
 known groups on EHP terms
 exactness uses
 required lemmas / propositions / relations
-proof dependencies
+recursive proof provenance
 literature references
 ```
 
@@ -509,13 +403,15 @@ LaTeX
 JSON-like structured report
 ```
 
-automatic narrative は proof data と分離する。
+重要:
 
 ```text
 presentation != proof truth
 ```
 
 を維持する。
+
+Phase 93 の `TodaRepresentativeExplanationResult` は structured integration であり、Phase 96 の natural-language narrator ではない。
 
 ---
 
@@ -556,7 +452,7 @@ git diff --check
 実装前:
 
 ```text
-current code
+current GitHub code
 related tests
 actual theorem-backed need
 ```
@@ -572,29 +468,28 @@ actual theorem-backed need
 次:
 
 ```text
-Phase 93-1
-current proof-dependency representation / traversal audit
+Phase 94-1
+current recursive provenance / DAG representation audit
 ```
 
 監査対象:
 
 ```text
 ProofStep.premises
-ProofStep.inference_rule
-LiteratureStatement
-ProofRepositoryEntry metadata
-TodaGroupResult
-Phase 92 EHP-specific traversal
-existing probe presentation helpers
+TodaProofDependencyResult
+extract_toda_proof_dependencies()
+TodaRepresentativeExplanationResult
+Phase 92 exactness provenance traversal
+actual π_9^5 proof graph
 ```
 
 確認する中心:
 
 ```text
-どこまで既存 provenance だけで dependency を分類できるか
-同一 ProofStep 再訪をどう扱うか
-shared dependency をどう表現するか
-direct dependency と transitive dependency をどう区別するか
-role classification をどこまで Phase 93 で必要とするか
-Phase 94 recursive proof presentation と何を分離するか
+flat dependency list から何を追加すれば DAG を lossless に表現できるか
+shared node を identity でどう保持するか
+edge order をどう保持するか
+shortest depth と recursive edge structure をどう分離するか
+cycle guard を representation と extraction のどちらに置くか
+Phase 96 narrative layer と何を分離するか
 ```
