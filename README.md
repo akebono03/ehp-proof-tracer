@@ -1,6 +1,8 @@
 # EHP Proof Tracer
 
-EHP Proof Tracer is an experimental Python project for representing, checking, querying, and increasingly explaining Toda-style calculations of homotopy groups of spheres. The current emphasis is theorem-backed calculations, EHP exactness, low stable stems, bounded proof search, and preservation of machine-readable proof provenance.
+EHP Proof Tracer is an experimental Python project for representing, checking, querying, and explaining Toda-style calculations of homotopy groups of spheres.
+
+The current emphasis is theorem-backed calculations, EHP exactness, low stable stems, bounded proof search, and machine-readable proof provenance.
 
 ## Current mathematical frontier
 
@@ -96,7 +98,7 @@ None
 = infinite order
 ```
 
-Zero group semantics:
+Zero-group semantics:
 
 ```text
 group_structure = None
@@ -128,114 +130,189 @@ The original `ProofRepositoryEntry`, `ProofStep`, premises, and group-structure 
 
 Phase 92 is complete.
 
-### Phase 92-1: current-representation audit
-
-The audit confirmed that the repository already had the structural building blocks:
-
-```text
-TodaEHPSequence
-TodaEHPExactnessWindow
-TodaProp42ExactnessStatement
-TodaPrimaryGroup
-ProofStep provenance
-TodaGroupResult
-```
-
-The missing layer was aggregation and connection of those objects to an actual theorem-backed group result.
-
-### Phase 92-2: minimal EHP result representation
-
-Added:
+The implemented layers are:
 
 ```text
 TodaEHPExactnessWindowResult
 TodaEHPSequenceResult
-```
+extract_toda_ehp_sequence_result()
 
-The result layer preserves the identity of the existing structural EHP objects and supports a selected subset of contiguous exactness windows.
-
-### Phase 92-3: actual theorem-backed EHP extraction
-
-Added theorem-backed extraction from the final group-result proof ancestry.
-
-For the actual `pi_9^5` proof, the extracted chain is:
-
-```text
-pi_10^9 --Delta--> pi_8^4 --E--> pi_9^5 --H--> pi_9^9 --Delta--> pi_7^4
-```
-
-The extraction is provenance-based: it follows reachable `ProofStep.premises` and collects the actual `TodaProp42ExactnessStatement` objects used in the proof ancestry.
-
-It does not enumerate unrelated repository facts.
-
-### Phase 92-4: connect known group structures to EHP terms
-
-Added:
-
-```text
 TodaEHPGroupTermResult
 TodaEHPGroupEnrichmentResult
 connect_known_toda_group_results()
-```
 
-Each EHP term can now be connected to the available normalized theorem-backed `TodaGroupResult` values in a `ProofRepository`.
-
-Unknown and known-zero remain distinct:
-
-```text
-unknown group
--> group_results == ()
-
-known zero group
--> TodaGroupResult(group_structure=None)
-```
-
-Representative Phase 92 integration:
-
-```text
-pi_10^9 -> unresolved
-pi_8^4  -> known theorem-backed group
-pi_9^5  -> known theorem-backed group
-pi_9^9  -> unresolved
-pi_7^4  -> known theorem-backed group
-```
-
-### Phase 92-5: exactness-use provenance
-
-Added:
-
-```text
 TodaEHPExactnessUseResult
 TodaEHPExactnessUseProvenanceResult
 extract_toda_ehp_exactness_use_provenance()
 ```
 
-Each extracted exactness window is connected to:
+For the actual `pi_9^5` proof, the extracted EHP chain is:
 
 ```text
-TodaEHPExactnessWindowResult
--> actual TodaProp42ExactnessStatement ProofStep
--> direct reachable consumer ProofSteps
+pi_10^9 --Delta--> pi_8^4 --E--> pi_9^5 --H--> pi_9^9 --Delta--> pi_7^4
 ```
 
-This makes it possible to distinguish the existence of an exactness window from its actual use in the theorem-backed proof.
+The extraction follows reachable `ProofStep.premises`; it does not enumerate unrelated repository facts.
 
-The Phase 92-5 layer remains intentionally EHP-specific. A generic dependency graph / mathematical explanation layer is deferred to Phase 93.
+Each extracted exactness window can also be connected to the actual `TodaProp42ExactnessStatement` proof step and its direct reachable consumers.
 
-## Current Phase 92 end-to-end picture
+## Phase 93: proof dependency extraction and explanation integration
 
-The current theorem-backed flow is:
+Phase 93 is complete.
+
+### Phase 93-1: dependency traversal audit
+
+The audit established the following boundaries:
+
+```text
+direct dependency
+= ProofStep appearing directly in root_step.premises
+
+transitive dependency
+= recursively reachable ProofStep
+
+shared dependency
+= one ProofStep object reachable by multiple paths
+
+truth source
+= actual ProofStep ancestry
+```
+
+Repository metadata such as `key`, `phase`, and `theorem` is provenance metadata and is not used as mathematical truth.
+
+### Phase 93-2: minimal dependency result
+
+Added:
+
+```text
+TodaProofDependency
+TodaProofDependencyResult
+```
+
+Core semantics:
+
+```text
+proof_step
+depth
+is_direct
+```
+
+The root proof step is kept separately and cannot appear in `dependencies`.
+
+Equal-but-distinct `ProofStep` objects remain distinct. Repeated references to the same `ProofStep` object are identity-deduplicated.
+
+### Phase 93-3: actual theorem-backed dependency extraction
+
+Added:
+
+```text
+extract_toda_proof_dependencies()
+```
+
+The traversal is breadth-first.
+
+This gives:
+
+```text
+shortest depth for shared dependencies
+stable order derived from premises tuple order
+identity-based deduplication
+cycle-safe traversal
+```
+
+For actual `pi_9^5`, the result includes theorem-backed EHP exactness steps, Hopf-zero, suspension-surjectivity, known-group facts, relations, and definitions reachable from the final proof.
+
+### Phase 93-4: dependency role classification
+
+Added:
+
+```text
+TodaProofDependencyRole
+classify_toda_proof_step_role()
+```
+
+Current roles:
+
+```text
+EHP_EXACTNESS
+EHP_WINDOW
+GROUP_STRUCTURE
+RELATION
+ORDER
+MAP_PROPERTY
+DEFINITION
+LITERATURE
+OTHER
+```
+
+Classification is primarily based on first-class statement types and `RelationType`, not theorem-name strings.
+
+`OTHER` is deliberate: unreviewed Toda-specific statements are not guessed into a role.
+
+### Phase 93-5: representative explanation integration
+
+Added:
+
+```text
+TodaRepresentativeExplanationResult
+build_toda_representative_explanation()
+```
+
+The integrated result combines:
+
+```text
+TodaGroupResult
+TodaEHPSequenceResult
+TodaEHPExactnessUseProvenanceResult
+TodaProofDependencyResult
+```
+
+while preserving the original theorem-backed proof graph.
+
+Representative flow:
 
 ```text
 TodaGroupQuery
--> theorem-backed ProofRepositoryEntry
+-> theorem-backed group result
 -> TodaGroupResult
--> final ProofStep provenance
--> actual EHP exactness windows
+-> EHP context
+-> exactness-use provenance
+-> classified proof dependencies
+-> TodaRepresentativeExplanationResult
+```
+
+For `pi_9^5`, the integrated result can expose dependencies such as:
+
+```text
+EHP exactness
+EHP windows
+pi_8^4 group structure
+Delta injectivity
+Hopf-zero
+E surjectivity
+Delta eta_9 relation
+generator bridge
+nu_5 definition
+```
+
+The explanation result is still structured data. It does not yet recursively explain how every dependency was itself proved.
+
+## Current end-to-end picture
+
+The current theorem-backed calculation/explanation flow is:
+
+```text
+(n,k)
+-> TodaGroupQuery
+-> ProofRepositoryEntry
+-> TodaGroupResult
+-> actual ProofStep provenance
 -> TodaEHPSequenceResult
--> known group structures for EHP terms
--> exactness ProofSteps
--> direct exactness consumers
+-> EHP term group enrichment
+-> TodaEHPExactnessUseProvenanceResult
+-> TodaProofDependencyResult
+-> dependency roles
+-> TodaRepresentativeExplanationResult
 ```
 
 Representative target:
@@ -260,28 +337,32 @@ general backtracking
 producer ranking
 proof-cost models
 best-proof selection
-DFS / BFS / A*
 persistent search cache
-generic mathematical dependency extraction
-recursive explanation of every proof dependency
+recursive proof-provenance tree/DAG result
 automatic proof narrative generation
 generic theorem proving
 ```
 
-These boundaries are deliberate. New machinery is added only when an actual theorem-backed calculation requires it.
+Phase 93 dependency extraction is a read-only view over the actual proof ancestry. It does not rewrite or mutate the proof graph.
 
 ## Verification
 
-Latest confirmed Phase 92-5 focused regression:
+Latest confirmed Phase 93 focused regression:
 
 ```text
-68 passed in 8.90s
+66 passed in 7.61s
+```
+
+Latest confirmed Phase 92 -> Phase 93 integration regression:
+
+```text
+88 passed in 5.05s
 ```
 
 Latest confirmed repository-wide regression:
 
 ```text
-7203 passed in 109.03s
+7269 passed in 102.15s
 ```
 
 `git diff --check`:
@@ -297,23 +378,32 @@ Wall-clock time is machine-dependent. Test count, semantic coverage, provenance 
 The next planned phase is:
 
 ```text
-Phase 93
-proof dependency extraction / explanation layer
+Phase 94
+recursive proof provenance
 ```
 
-The goal is to generalize beyond EHP-specific provenance and extract the mathematical dependencies actually used by a final theorem-backed result.
+The first step should be:
+
+```text
+Phase 94-1
+current recursive provenance / DAG representation audit
+```
 
 The intended direction is:
 
 ```text
 final result
--> actually used intermediate conclusions
--> propositions / lemmas / relations / known groups / map properties
--> dependency roles
--> machine-readable explanation structure
+├─ dependency A
+│  ├─ premise A1
+│  └─ premise A2
+├─ dependency B
+│  └─ shared dependency
+└─ dependency C
 ```
 
-Phase 93 should not pre-implement recursive full proof narration or a generic theorem prover.
+Phase 94 should represent how each dependency was proved while preserving sharing and avoiding accidental tree duplication.
+
+Full human-readable proof narration remains a later presentation layer.
 
 ## Documentation
 
