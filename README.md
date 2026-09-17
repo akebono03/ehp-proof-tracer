@@ -1,6 +1,6 @@
 # EHP Proof Tracer
 
-EHP Proof Tracer is an experimental Python project for representing, checking, and increasingly automating proof dependencies in Toda-style calculations of homotopy groups of spheres, with a particular focus on EHP sequences and low stable stems.
+EHP Proof Tracer is an experimental Python project for representing, checking, querying, and increasingly explaining Toda-style calculations of homotopy groups of spheres. The current emphasis is theorem-backed calculations, EHP exactness, low stable stems, bounded proof search, and preservation of machine-readable proof provenance.
 
 ## Current mathematical frontier
 
@@ -19,9 +19,9 @@ G_0 = Z{iota}
 
 Proof provenance is preserved with `ProofStep` objects rather than storing only final conclusions.
 
-## Current proof-search capability
+## Proof-search capability
 
-The current high-level flow is:
+The current high-level proof-search flow is:
 
 ```text
 goal
@@ -40,7 +40,9 @@ goal
 -> goal ProofStep
 ```
 
-The bounded search uses an explicit `max_depth`. Formal regression currently covers:
+The bounded search uses an explicit `max_depth`.
+
+Formal regression covers:
 
 ```text
 max_depth = 2
@@ -52,145 +54,14 @@ The default remains:
 
 ```text
 max_depth = 2
+retry_policy = None
 ```
 
-The existing compatibility API names are intentionally preserved:
+Phase 87 added finite producer retry. Phase 88 added concrete theorem-instance compatibility filtering. Phase 89 audited the remaining pressure for general backtracking and found no current theorem-backed need for a new general search algorithm.
 
-```text
-select_unique_depth_two_producer_chain()
-diagnose_depth_two_producer_search_failure()
-build_depth_two_producer_search_report()
-execute_depth_two_producer_search()
-```
+## Theorem-backed Toda group queries
 
-## Phase 87: finite producer retry
-
-Phase 87 introduced:
-
-```text
-FiniteProducerRetryPolicy(max_attempts=N)
-```
-
-The default remains conservative:
-
-```text
-retry_policy=None
--> multiple safe producer candidates
--> AMBIGUOUS_PRODUCER
--> stop
-```
-
-With an explicit retry policy, safe producer candidates are attempted in deterministic catalog registration order, bounded by `max_attempts`.
-
-Representative behavior:
-
-```text
-no retry policy
--> AMBIGUOUS_PRODUCER
-
-max_attempts=1
--> first candidate fails during selection
--> PRODUCER_RETRY_EXHAUSTED
-
-max_attempts=2
--> first candidate fails during selection
--> temporary selection state is rolled back
--> second candidate is selected
--> report SUCCESS
--> selected producer is executed
--> final rule uses the selected producer ProofStep
--> requested goal ProofStep is derived
-```
-
-A failed candidate and its discarded dependency branch do not appear in execution provenance.
-
-## Phase 88: concrete theorem-instance producer compatibility
-
-Phase 88 distinguishes a type-level producer collision from a real ambiguity for one concrete theorem instance.
-
-Representative realistic collision:
-
-```text
-TodaDeltaImageUpToSignStatement producers:
-
-Delta(iota_5)
-Delta(iota_9)
-Delta(iota_17)
-```
-
-A type-only lookup can see all three rules. When the requesting premise is concrete, the search now carries that concrete requested statement forward:
-
-```text
-known sibling premises
--> variable bindings
--> fully bound missing premise
--> requested_statement
--> producer conclusion-type filter
--> goal_compatibility(requested_statement)
--> concrete-compatible producer candidates
-```
-
-For example:
-
-```text
-requested statement = Delta(iota_17)
-
-type-level candidates:
-  Delta(iota_5) rule
-  Delta(iota_9) rule
-  Delta(iota_17) rule
-
-concrete-compatible candidates:
-  Delta(iota_17) rule
-```
-
-This removes false `AMBIGUOUS_PRODUCER` failures before retry is considered.
-
-The boundary is now:
-
-```text
-different theorem instances with the same conclusion type
--> Phase 88 concrete compatibility filtering
-
-multiple producers still compatible with the same concrete requested statement
--> true ambiguity
--> Phase 87 finite retry, if explicitly authorized
-```
-
-Phase 88 also makes unsafe-producer diagnostics use the same concrete compatibility semantics, preserves the concrete requested statement in the selected search node, and validates producer output against that concrete statement during execution.
-
-If no concrete requested statement can safely be constructed, the legacy type-only behavior remains in effect.
-
-## Phase 88 end-to-end regression
-
-The final Phase 88 regression uses real Delta producer rules from the existing Toda development:
-
-```text
-Phase 52: Delta(iota_5)
-Phase 66: Delta(iota_9)
-Phase 76: Delta(iota_17)
-```
-
-with real Phase 76 prerequisites and a minimal synthetic final shell.
-
-It verifies:
-
-```text
-type-only lookup sees the realistic collision
--> concrete Delta(iota_17) request
--> unrelated Delta rules are filtered out
--> unique Delta(iota_17) producer is selected
--> selected node preserves requested_statement
--> search report is SUCCESS
--> execution derives the concrete producer ProofStep
--> final goal ProofStep is derived
--> selected rule identity is preserved
--> repository is not mutated
-```
-
-## Phase 90-91: theorem-backed group queries and normalized results
-
-Phase 90 added a minimal query and lookup layer for Toda groups:
+Phase 90 introduced:
 
 ```text
 TodaGroupQuery(n,k)
@@ -200,18 +71,9 @@ TodaGroupQuery(n,k)
 -> original ProofStep
 ```
 
-The lookup recognizes:
-
-```text
-Relation + FreeCyclicGroup
-Relation + FiniteCyclicGroup
-Relation + DirectSumGroup
-TodaPrimaryGroupZeroStatement
-```
-
 A lookup miss returns an empty tuple and does not start proof search.
 
-Phase 91 adds a machine-readable normalized result:
+Phase 91 introduced normalized machine-readable group results:
 
 ```text
 TodaGroupResult
@@ -224,7 +86,7 @@ source_entry
 proof_step
 ```
 
-Order semantics are:
+Order semantics:
 
 ```text
 positive int
@@ -234,7 +96,7 @@ None
 = infinite order
 ```
 
-For the zero group:
+Zero group semantics:
 
 ```text
 group_structure = None
@@ -242,62 +104,155 @@ generators = ()
 generator_orders = ()
 ```
 
-The normalization preserves the original theorem-backed objects:
-
-```text
-result.source_entry is the original ProofRepositoryEntry
-result.proof_step is the original ProofStep
-result.group_structure is the original relation RHS when nonzero
-```
-
-Representative actual results:
+Representative theorem-backed results include:
 
 ```text
 TodaGroupQuery(4,3)
 -> pi_7^4
 -> Z{nu_4} + Z/4{E nu'}
--> generators = (nu_4, E nu')
 -> generator_orders = (None, 4)
 
 TodaGroupQuery(4,6)
 -> pi_10^4
 -> Z/8{nu_4^2}
--> generators = (nu_4^2,)
 -> generator_orders = (8,)
 
 TodaGroupQuery(2,7)
 -> pi_9^2
 -> 0
--> generators = ()
--> generator_orders = ()
 ```
 
-The next layer is Phase 92, which connects these normalized group results to existing EHP sequence and exactness representations.
+The original `ProofRepositoryEntry`, `ProofStep`, premises, and group-structure objects are preserved rather than reconstructed.
 
-## Search policy and safety boundaries
+## Phase 92: theorem-backed EHP extraction and provenance
 
-The current bounded search preserves:
+Phase 92 is complete.
+
+### Phase 92-1: current-representation audit
+
+The audit confirmed that the repository already had the structural building blocks:
 
 ```text
-finite explicit depth limit
-finite explicit retry budget
-fixed-point-safe producer filtering
-concrete theorem-instance filtering when available
-legacy type-only compatibility when concrete context is unavailable
-catalog-order deterministic retry attempts
-cycle detection
-shared producer identity reuse
-deterministic dependency-first ordering
-failed-attempt state rollback
-exact selected-path execution
-concrete producer-output validation
+TodaEHPSequence
+TodaEHPExactnessWindow
+TodaProp42ExactnessStatement
+TodaPrimaryGroup
 ProofStep provenance
-repository non-mutation
-default retry-policy compatibility
-default max_depth=2 compatibility
+TodaGroupResult
 ```
 
-Still intentionally not implemented:
+The missing layer was aggregation and connection of those objects to an actual theorem-backed group result.
+
+### Phase 92-2: minimal EHP result representation
+
+Added:
+
+```text
+TodaEHPExactnessWindowResult
+TodaEHPSequenceResult
+```
+
+The result layer preserves the identity of the existing structural EHP objects and supports a selected subset of contiguous exactness windows.
+
+### Phase 92-3: actual theorem-backed EHP extraction
+
+Added theorem-backed extraction from the final group-result proof ancestry.
+
+For the actual `pi_9^5` proof, the extracted chain is:
+
+```text
+pi_10^9 --Delta--> pi_8^4 --E--> pi_9^5 --H--> pi_9^9 --Delta--> pi_7^4
+```
+
+The extraction is provenance-based: it follows reachable `ProofStep.premises` and collects the actual `TodaProp42ExactnessStatement` objects used in the proof ancestry.
+
+It does not enumerate unrelated repository facts.
+
+### Phase 92-4: connect known group structures to EHP terms
+
+Added:
+
+```text
+TodaEHPGroupTermResult
+TodaEHPGroupEnrichmentResult
+connect_known_toda_group_results()
+```
+
+Each EHP term can now be connected to the available normalized theorem-backed `TodaGroupResult` values in a `ProofRepository`.
+
+Unknown and known-zero remain distinct:
+
+```text
+unknown group
+-> group_results == ()
+
+known zero group
+-> TodaGroupResult(group_structure=None)
+```
+
+Representative Phase 92 integration:
+
+```text
+pi_10^9 -> unresolved
+pi_8^4  -> known theorem-backed group
+pi_9^5  -> known theorem-backed group
+pi_9^9  -> unresolved
+pi_7^4  -> known theorem-backed group
+```
+
+### Phase 92-5: exactness-use provenance
+
+Added:
+
+```text
+TodaEHPExactnessUseResult
+TodaEHPExactnessUseProvenanceResult
+extract_toda_ehp_exactness_use_provenance()
+```
+
+Each extracted exactness window is connected to:
+
+```text
+TodaEHPExactnessWindowResult
+-> actual TodaProp42ExactnessStatement ProofStep
+-> direct reachable consumer ProofSteps
+```
+
+This makes it possible to distinguish the existence of an exactness window from its actual use in the theorem-backed proof.
+
+The Phase 92-5 layer remains intentionally EHP-specific. A generic dependency graph / mathematical explanation layer is deferred to Phase 93.
+
+## Current Phase 92 end-to-end picture
+
+The current theorem-backed flow is:
+
+```text
+TodaGroupQuery
+-> theorem-backed ProofRepositoryEntry
+-> TodaGroupResult
+-> final ProofStep provenance
+-> actual EHP exactness windows
+-> TodaEHPSequenceResult
+-> known group structures for EHP terms
+-> exactness ProofSteps
+-> direct exactness consumers
+```
+
+Representative target:
+
+```text
+pi_9^5 = Z/2{nu_5 eta_8}
+```
+
+Representative EHP context:
+
+```text
+pi_10^9 --Delta--> pi_8^4 --E--> pi_9^5 --H--> pi_9^9 --Delta--> pi_7^4
+```
+
+## Search and architecture boundaries
+
+The current implementation intentionally does not provide:
 
 ```text
 unbounded search
@@ -306,60 +261,59 @@ producer ranking
 proof-cost models
 best-proof selection
 DFS / BFS / A*
-formal max_depth > 4 regression coverage
 persistent search cache
+generic mathematical dependency extraction
+recursive explanation of every proof dependency
 automatic proof narrative generation
 generic theorem proving
 ```
 
-## Representative probes
-
-Phase 86 bounded-depth probe:
-
-```powershell
-python -m probes.probe_phase86_capabilities
-```
-
-Phase 87 finite-retry probe:
-
-```powershell
-python -m probes.probe_phase87_capabilities
-```
-
-Phase 88 is currently fixed by focused and end-to-end regression tests rather than a new production probe.
+These boundaries are deliberate. New machinery is added only when an actual theorem-backed calculation requires it.
 
 ## Verification
 
-Latest confirmed repository-wide regression after Phase 91-3:
+Latest confirmed Phase 92-5 focused regression:
 
 ```text
-7154 passed in 100.44s
+68 passed in 8.90s
 ```
 
-Phase 91 focused checks:
+Latest confirmed repository-wide regression:
 
 ```text
-Phase 91-2 minimal normalized result:
-10 passed in 0.90s
+7203 passed in 109.03s
+```
 
-Phase 90-91 regression after Phase 91-2:
-49 passed in 6.00s
+`git diff --check`:
 
-Phase 91-3 actual theorem-backed normalization:
-9 passed in 6.39s
-
-Phase 90-91 regression after Phase 91-3:
-58 passed in 7.82s
-
-repository-wide:
-7154 passed in 100.44s
-
-git diff --check:
+```text
 clean
 ```
 
 Wall-clock time is machine-dependent. Test count, semantic coverage, provenance coverage, focused regression, and repository-wide regression are the primary cross-machine signals.
 
+## Next phase
+
+The next planned phase is:
+
+```text
+Phase 93
+proof dependency extraction / explanation layer
+```
+
+The goal is to generalize beyond EHP-specific provenance and extract the mathematical dependencies actually used by a final theorem-backed result.
+
+The intended direction is:
+
+```text
+final result
+-> actually used intermediate conclusions
+-> propositions / lemmas / relations / known groups / map properties
+-> dependency roles
+-> machine-readable explanation structure
+```
+
+Phase 93 should not pre-implement recursive full proof narration or a generic theorem prover.
 
 ## Documentation
 
