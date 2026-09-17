@@ -1,169 +1,13 @@
 from dataclasses import dataclass
-from enum import Enum
 
-from homotopy_groups import (
-  DirectSumGroup,
-  FiniteCyclicGroup,
-  FreeCyclicGroup,
-  TodaEHPExactnessWindow,
-  TodaPrimaryGroup,
-  TodaPrimaryGroupZeroStatement,
-)
-from proof import (
-  LiteratureStatement,
-  ProofStep,
-  Relation,
-  RelationType,
-)
+from proof import ProofStep
 from toda_group_result import TodaGroupResult
-from toda_rules import (
-  TodaDeltaImageUpToSignStatement,
-  TodaDeltaInjectiveStatement,
-  TodaHopfInvariantZeroStatement,
-  TodaNuFamilyDefinitionStatement,
-  TodaProp42ExactnessStatement,
-  TodaSuspensionSurjectiveStatement,
-)
-
-
-class TodaProofDependencyRole(Enum):
-  EHP_EXACTNESS = "ehp_exactness"
-  EHP_WINDOW = "ehp_window"
-  GROUP_STRUCTURE = "group_structure"
-  RELATION = "relation"
-  ORDER = "order"
-  MAP_PROPERTY = "map_property"
-  DEFINITION = "definition"
-  LITERATURE = "literature"
-  OTHER = "other"
-
-
-def classify_toda_proof_step_role(
-  proof_step: ProofStep,
-) -> TodaProofDependencyRole:
-  if not isinstance(
-    proof_step,
-    ProofStep,
-  ):
-    raise TypeError(
-      "proof_step must be a ProofStep"
-    )
-
-  conclusion = (
-    proof_step.conclusion
-  )
-
-  if isinstance(
-    conclusion,
-    TodaProp42ExactnessStatement,
-  ):
-    return (
-      TodaProofDependencyRole
-      .EHP_EXACTNESS
-    )
-
-  if isinstance(
-    conclusion,
-    TodaEHPExactnessWindow,
-  ):
-    return (
-      TodaProofDependencyRole
-      .EHP_WINDOW
-    )
-
-  if isinstance(
-    conclusion,
-    TodaPrimaryGroupZeroStatement,
-  ):
-    return (
-      TodaProofDependencyRole
-      .GROUP_STRUCTURE
-    )
-
-  if isinstance(
-    conclusion,
-    Relation,
-  ):
-    if (
-      conclusion.relation_type
-      == RelationType.ORDER
-    ):
-      return (
-        TodaProofDependencyRole
-        .ORDER
-      )
-
-    if (
-      conclusion.relation_type
-      == RelationType.EQUALITY
-      and isinstance(
-        conclusion.lhs,
-        TodaPrimaryGroup,
-      )
-      and isinstance(
-        conclusion.rhs,
-        (
-          FreeCyclicGroup,
-          FiniteCyclicGroup,
-          DirectSumGroup,
-        ),
-      )
-    ):
-      return (
-        TodaProofDependencyRole
-        .GROUP_STRUCTURE
-      )
-
-    return (
-      TodaProofDependencyRole
-      .RELATION
-    )
-
-  if isinstance(
-    conclusion,
-    (
-      TodaDeltaImageUpToSignStatement,
-      TodaDeltaInjectiveStatement,
-      TodaHopfInvariantZeroStatement,
-      TodaSuspensionSurjectiveStatement,
-    ),
-  ):
-    return (
-      TodaProofDependencyRole
-      .MAP_PROPERTY
-    )
-
-  if isinstance(
-    conclusion,
-    TodaNuFamilyDefinitionStatement,
-  ):
-    return (
-      TodaProofDependencyRole
-      .DEFINITION
-    )
-
-  if isinstance(
-    conclusion,
-    LiteratureStatement,
-  ):
-    return (
-      TodaProofDependencyRole
-      .LITERATURE
-    )
-
-  return (
-    TodaProofDependencyRole
-    .OTHER
-  )
 
 
 @dataclass(frozen=True)
 class TodaProofDependency:
   proof_step: ProofStep
   depth: int
-  role: TodaProofDependencyRole = (
-    TodaProofDependencyRole.OTHER
-  )
 
   def __post_init__(
     self,
@@ -193,15 +37,6 @@ class TodaProofDependency:
     if self.depth <= 0:
       raise ValueError(
         "depth must be positive"
-      )
-
-    if not isinstance(
-      self.role,
-      TodaProofDependencyRole,
-    ):
-      raise TypeError(
-        "role must be a "
-        "TodaProofDependencyRole"
       )
 
   @property
@@ -352,11 +187,6 @@ def extract_toda_proof_dependencies(
       TodaProofDependency(
         proof_step=step,
         depth=depth,
-        role=(
-          classify_toda_proof_step_role(
-            step
-          )
-        ),
       )
     )
 
