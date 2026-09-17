@@ -188,6 +188,92 @@ type-only lookup sees the realistic collision
 -> repository is not mutated
 ```
 
+## Phase 90-91: theorem-backed group queries and normalized results
+
+Phase 90 added a minimal query and lookup layer for Toda groups:
+
+```text
+TodaGroupQuery(n,k)
+-> TodaPrimaryGroup(n+k,n)
+-> ProofRepository
+-> matching theorem-backed ProofRepositoryEntry
+-> original ProofStep
+```
+
+The lookup recognizes:
+
+```text
+Relation + FreeCyclicGroup
+Relation + FiniteCyclicGroup
+Relation + DirectSumGroup
+TodaPrimaryGroupZeroStatement
+```
+
+A lookup miss returns an empty tuple and does not start proof search.
+
+Phase 91 adds a machine-readable normalized result:
+
+```text
+TodaGroupResult
+
+target
+group_structure
+generators
+generator_orders
+source_entry
+proof_step
+```
+
+Order semantics are:
+
+```text
+positive int
+= finite generator order
+
+None
+= infinite order
+```
+
+For the zero group:
+
+```text
+group_structure = None
+generators = ()
+generator_orders = ()
+```
+
+The normalization preserves the original theorem-backed objects:
+
+```text
+result.source_entry is the original ProofRepositoryEntry
+result.proof_step is the original ProofStep
+result.group_structure is the original relation RHS when nonzero
+```
+
+Representative actual results:
+
+```text
+TodaGroupQuery(4,3)
+-> pi_7^4
+-> Z{nu_4} + Z/4{E nu'}
+-> generators = (nu_4, E nu')
+-> generator_orders = (None, 4)
+
+TodaGroupQuery(4,6)
+-> pi_10^4
+-> Z/8{nu_4^2}
+-> generators = (nu_4^2,)
+-> generator_orders = (8,)
+
+TodaGroupQuery(2,7)
+-> pi_9^2
+-> 0
+-> generators = ()
+-> generator_orders = ()
+```
+
+The next layer is Phase 92, which connects these normalized group results to existing EHP sequence and exactness representations.
+
 ## Search policy and safety boundaries
 
 The current bounded search preserves:
@@ -244,32 +330,36 @@ Phase 88 is currently fixed by focused and end-to-end regression tests rather th
 
 ## Verification
 
-Latest confirmed repository-wide regression after Phase 88-17:
+Latest confirmed repository-wide regression after Phase 91-3:
 
 ```text
-7096 passed in 35.90s
+7154 passed in 100.44s
 ```
 
-Key Phase 88 completion checks:
+Phase 91 focused checks:
 
 ```text
-Phase 88 end-to-end regression:
-8 passed in 2.06s
+Phase 91-2 minimal normalized result:
+10 passed in 0.90s
 
-Phase 88 related regression:
-47 passed in 2.96s
+Phase 90-91 regression after Phase 91-2:
+49 passed in 6.00s
 
-search / retry / execution related regression:
-34 passed in 2.41s
+Phase 91-3 actual theorem-backed normalization:
+9 passed in 6.39s
+
+Phase 90-91 regression after Phase 91-3:
+58 passed in 7.82s
 
 repository-wide:
-7096 passed in 35.90s
+7154 passed in 100.44s
 
 git diff --check:
 clean
 ```
 
 Wall-clock time is machine-dependent. Test count, semantic coverage, provenance coverage, focused regression, and repository-wide regression are the primary cross-machine signals.
+
 
 ## Documentation
 

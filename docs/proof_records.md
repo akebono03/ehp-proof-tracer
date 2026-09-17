@@ -9711,7 +9711,359 @@ COMPLETE
 
 ---
 
-# 43. 現在の proof-record 状態 after Phase 90
+---
+
+# 44. Phase 91 infrastructure record：normalized theorem-backed group result
+
+Phase 91 は新しい数学 theorem を証明する Phase ではない。
+
+Phase 90 で取得可能になった actual theorem-backed group result を:
+
+```text
+group structure
+generator
+generator order
+proof provenance
+```
+
+を失わず machine-readable に正規化する infrastructure Phase である。
+
+## 44.1 normalized result
+
+追加:
+
+```text
+TodaGroupResult
+```
+
+fields:
+
+```text
+target
+group_structure
+generators
+generator_orders
+source_entry
+proof_step
+```
+
+truth source は引き続き:
+
+```text
+source_entry.step.conclusion
+```
+
+であり、normalized object が theorem truth を新規に作るわけではない。
+
+## 44.2 generator-order semantics
+
+```text
+FiniteCyclicGroup
+→ positive integer order
+
+FreeCyclicGroup
+→ None
+```
+
+`None` は:
+
+```text
+infinite order
+```
+
+を表す。
+
+zero group:
+
+```text
+group_structure=None
+generators=()
+generator_orders=()
+```
+
+## 44.3 DirectSumGroup ordering
+
+`DirectSumGroup.summands` の tuple 順序を保持して:
+
+```text
+summand[0]
+→ generators[0]
+→ generator_orders[0]
+
+summand[1]
+→ generators[1]
+→ generator_orders[1]
+```
+
+の対応を維持する。
+
+normalization 時の sorting や canonical direct-sum rearrangement は行わない。
+
+## 44.4 actual theorem-backed π_7^4
+
+Phase 65 actual ProofStep:
+
+```text
+π_7^4
+=
+Z{ν₄}
+⊕
+Z/4{Eν′}
+```
+
+Phase 91 normalized result:
+
+```text
+target
+=
+π_7^4
+
+group_structure
+=
+DirectSumGroup(
+  FreeCyclicGroup(ν₄),
+  FiniteCyclicGroup(4,Eν′),
+)
+
+generators
+=
+(ν₄,Eν′)
+
+generator_orders
+=
+(None,4)
+```
+
+verified:
+
+```text
+normalized group_structure
+is
+actual conclusion.rhs
+```
+
+## 44.5 actual theorem-backed π_10^4
+
+Phase 73 actual ProofStep:
+
+```text
+π_10^4
+=
+Z/8{ν₄²}
+```
+
+normalized:
+
+```text
+group_structure
+=
+FiniteCyclicGroup(
+  order=8,
+  generator=ν₄²,
+)
+
+generators
+=
+(ν₄²,)
+
+generator_orders
+=
+(8,)
+```
+
+## 44.6 actual theorem-backed π_9^2
+
+Phase 75 actual ProofStep:
+
+```text
+π_9^2=0
+```
+
+normalized:
+
+```text
+group_structure=None
+generators=()
+generator_orders=()
+```
+
+zero result を synthetic `ZeroGroup` class に変換せず、Phase 91 の最小表現では `None` を使用する。
+
+## 44.7 proof identity / provenance
+
+Phase 91 の重要 invariant:
+
+```text
+result.source_entry
+is
+actual repository entry
+```
+
+かつ:
+
+```text
+result.proof_step
+is
+actual ProofStep
+```
+
+さらに:
+
+```text
+result.proof_step
+is
+result.source_entry.step
+```
+
+を `TodaGroupResult` 自体の invariant として要求する。
+
+これにより:
+
+```text
+TodaGroupResult
+↓
+ProofRepositoryEntry
+↓
+actual ProofStep
+↓
+premises
+↓
+upstream theorem-backed proof graph
+```
+
+へ戻れる。
+
+normalized result は proof graph を複製しない。
+
+## 44.8 lookup integration
+
+Phase 90:
+
+```text
+find_known_toda_group_results()
+```
+
+はそのまま残す。
+
+Phase 91 追加:
+
+```text
+normalize_toda_group_result()
+find_normalized_toda_group_results()
+```
+
+flow:
+
+```text
+query
+↓
+known-result lookup
+↓
+actual entries
+↓
+normalization
+↓
+TodaGroupResult tuple
+```
+
+lookup miss:
+
+```text
+()
+```
+
+の semantics は Phase 90 から変更しない。
+
+automatic proof search はまだ起動しない。
+
+## 44.9 repository non-mutation
+
+Phase 91 normalization 前後で:
+
+```text
+repository.entries()
+```
+
+が structural equality だけでなく object identity の並びも維持されることを確認した。
+
+したがって:
+
+```text
+query
+lookup
+normalization
+```
+
+はいずれも repository read-only layer である。
+
+## 44.10 regression
+
+Phase 91-2:
+
+```text
+minimal normalized result:
+10 passed in 0.90s
+
+Phase 90-91 regression:
+49 passed in 6.00s
+
+repository-wide:
+7145 passed in 107.78s
+```
+
+Phase 91-3:
+
+```text
+actual theorem-backed normalization:
+9 passed in 6.39s
+
+Phase 90-91 regression:
+58 passed in 7.82s
+
+repository-wide:
+7154 passed in 100.44s
+
+git diff --check:
+clean
+```
+
+## 44.11 completion boundary
+
+完成:
+
+```text
+(n,k)
+→ Toda target
+→ theorem-backed entry
+→ actual ProofStep
+→ normalized group structure
+→ generators
+→ generator orders
+```
+
+未実装:
+
+```text
+EHP sequence extraction
+exactness-use extraction
+dependency extraction
+recursive proof traversal
+fact classification
+proof search on lookup miss
+top-level calculation orchestration
+automatic human-readable report
+```
+
+## 44.12 記録状態
+
+```text
+Phase 91
+COMPLETE
+```
+
+---
+
+# 45. 現在の proof-record 状態 after Phase 91
 
 数学的 formal proof records:
 
@@ -9734,6 +10086,7 @@ Phase 87  finite retry
 Phase 88  concrete theorem-instance filtering
 Phase 89  proof-search pressure audit
 Phase 90  query / known-result lookup
+Phase 91  normalized group structure / generator result
 ```
 
 最新 mathematical frontier:
@@ -9742,19 +10095,20 @@ Phase 90  query / known-result lookup
 stable G_0 through G_7
 ```
 
-最新 query capability:
+最新 calculation-result capability:
 
 ```text
 (n,k)
 → TodaPrimaryGroup(n+k,n)
 → existing theorem-backed group result
 → actual ProofStep
+→ TodaGroupResult
+→ group structure / generators / generator orders
 ```
 
 次:
 
 ```text
-Phase 91-1
-current group-result normalization /
-generator-order extraction audit
+Phase 92-1
+current EHP sequence / exactness representation audit
 ```

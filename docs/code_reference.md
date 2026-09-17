@@ -2,7 +2,7 @@
 
 この文書は EHP Proof Tracer の主要 Python module と、その責務・主要 class / function・探索方法をまとめる。
 
-対象は **Phase 74 completion 時点**。
+対象は **Phase 91 completion 時点**。
 
 この文書は全 API を機械的に列挙する reference ではない。目的は:
 
@@ -8086,3 +8086,553 @@ bounded-search generalization / depth parameterization audit
 ```
 
 Start by locating hard-coded depth=2 assumptions and preserving current semantics before enabling any deeper search.
+
+---
+
+# 143. Phase 86–89 proof-search completion reference
+
+Phase 86–89 で proof-search layer は次まで完成している。
+
+```text
+Phase 86
+explicit max_depth parameterization
+
+Phase 87
+finite explicit producer retry
+
+Phase 88
+concrete theorem-instance compatibility filtering
+
+Phase 89
+post-Phase88 necessity audit
+```
+
+current default:
+
+```text
+max_depth=2
+retry_policy=None
+```
+
+formal regression:
+
+```text
+max_depth=2
+max_depth=3
+max_depth=4
+```
+
+Phase 89 audit では actual theorem-backed general backtracking need は確認されなかった。
+
+したがって calculation orchestration から concrete pressure が出るまで:
+
+```text
+general backtracking
+producer ranking
+proof-cost model
+best-proof selection
+unbounded search
+```
+
+は deferred。
+
+---
+
+# 144. Phase 90 query / known-result lookup
+
+新規 module:
+
+```text
+toda_group_query.py
+toda_group_lookup.py
+```
+
+## `TodaGroupQuery`
+
+fields:
+
+```text
+n
+k
+```
+
+validation:
+
+```text
+n: positive int, bool rejected
+k: nonnegative int, bool rejected
+```
+
+property:
+
+```text
+target
+=
+TodaPrimaryGroup(
+  group_dimension=n+k,
+  sphere_dimension=n,
+)
+```
+
+責務:
+
+```text
+input validation
+Toda target construction
+```
+
+## `is_toda_group_result_for_target()`
+
+認識:
+
+```text
+TodaPrimaryGroupZeroStatement(group=target)
+```
+
+または:
+
+```text
+Relation(
+  lhs=target,
+  rhs=FreeCyclicGroup
+      | FiniteCyclicGroup
+      | DirectSumGroup,
+  relation_type=EQUALITY,
+)
+```
+
+## `find_known_toda_group_results()`
+
+input:
+
+```text
+ProofRepository
+TodaGroupQuery
+```
+
+output:
+
+```text
+tuple[ProofRepositoryEntry,...]
+```
+
+semantics:
+
+```text
+0 match → ()
+multiple matches → all matches
+registration order preserved
+repository not mutated
+proof search not started on miss
+```
+
+---
+
+# 145. `toda_group_result.py`
+
+Phase 91 で追加した normalized calculation-result module。
+
+imports / dependencies:
+
+```text
+expression.Expression
+
+homotopy_groups:
+  FreeCyclicGroup
+  FiniteCyclicGroup
+  DirectSumGroup
+  TodaPrimaryGroup
+  TodaPrimaryGroupZeroStatement
+
+proof:
+  ProofStep
+  Relation
+  RelationType
+
+proof_repository:
+  ProofRepositoryEntry
+```
+
+主要型:
+
+```text
+TodaGroupStructure
+TodaGroupResult
+```
+
+---
+
+# 146. `TodaGroupResult`
+
+fields:
+
+```text
+target: TodaPrimaryGroup
+
+group_structure:
+  FreeCyclicGroup
+  | FiniteCyclicGroup
+  | DirectSumGroup
+  | None
+
+generators:
+  tuple[Expression,...]
+
+generator_orders:
+  tuple[int|None,...]
+
+source_entry:
+  ProofRepositoryEntry
+
+proof_step:
+  ProofStep
+```
+
+invariants:
+
+```text
+len(generators)
+==
+len(generator_orders)
+```
+
+```text
+finite order
+→ positive int
+→ bool rejected
+```
+
+```text
+None order
+→ infinite-order generator
+```
+
+```text
+group_structure is None
+→ generators == ()
+→ generator_orders == ()
+```
+
+```text
+proof_step
+is
+source_entry.step
+```
+
+`@dataclass(frozen=True)` で immutable。
+
+---
+
+# 147. Phase 91 generator/order extractor
+
+private helper:
+
+```text
+_extract_toda_group_generators_and_orders()
+```
+
+input supported:
+
+```text
+FreeCyclicGroup
+FiniteCyclicGroup
+DirectSumGroup
+```
+
+output:
+
+```text
+(
+  tuple[Expression,...],
+  tuple[int|None,...],
+)
+```
+
+mapping:
+
+```text
+FreeCyclicGroup(g)
+→
+((g,), (None,))
+```
+
+```text
+FiniteCyclicGroup(order=m,generator=g)
+→
+((g,), (m,))
+```
+
+```text
+DirectSumGroup(summands=(...))
+→
+summand order で再帰 extraction
+→
+flattened generator tuple
+→
+parallel order tuple
+```
+
+unsupported summand type は reject。
+
+generic group isomorphism normalization / sorting はしない。
+
+---
+
+# 148. `normalize_toda_group_result()`
+
+input:
+
+```text
+ProofRepositoryEntry
+```
+
+zero conclusion:
+
+```text
+TodaPrimaryGroupZeroStatement
+```
+
+なら:
+
+```text
+TodaGroupResult(
+  target=conclusion.group,
+  group_structure=None,
+  generators=(),
+  generator_orders=(),
+  source_entry=entry,
+  proof_step=entry.step,
+)
+```
+
+nonzero conclusion:
+
+```text
+Relation(
+  lhs=TodaPrimaryGroup,
+  rhs=FreeCyclicGroup
+      | FiniteCyclicGroup
+      | DirectSumGroup,
+  relation_type=EQUALITY,
+)
+```
+
+を要求する。
+
+result は original object identity を保持する。
+
+```text
+result.source_entry is entry
+result.proof_step is entry.step
+result.group_structure is conclusion.rhs
+```
+
+---
+
+# 149. `find_normalized_toda_group_results()`
+
+module:
+
+```text
+toda_group_lookup.py
+```
+
+flow:
+
+```text
+find_known_toda_group_results(
+  repository,
+  query,
+)
+↓
+normalize_toda_group_result(entry)
+↓
+tuple[TodaGroupResult,...]
+```
+
+Phase 90 API:
+
+```text
+find_known_toda_group_results()
+```
+
+はそのまま残す。
+
+したがって caller は:
+
+```text
+raw theorem-backed repository entries
+```
+
+と:
+
+```text
+normalized calculation result
+```
+
+を用途に応じて選択できる。
+
+---
+
+# 150. Phase 91 actual theorem-backed normalization tests
+
+new:
+
+```text
+tests/test_phase91_minimal_group_result.py
+tests/test_phase91_actual_group_normalization.py
+```
+
+reused actual builder:
+
+```text
+tests/test_phase90_actual_known_group_lookup.py
+  build_phase90_3_3_data()
+```
+
+Phase 91 actual builder:
+
+```text
+build_phase91_3_data()
+@lru_cache(maxsize=1)
+```
+
+representatives:
+
+```text
+π_7^4
+=
+Z{ν₄}⊕Z/4{Eν′}
+
+π_10^4
+=
+Z/8{ν₄²}
+
+π_9^2
+=
+0
+```
+
+verified normalization:
+
+```text
+π_7^4
+generators=(ν₄,Eν′)
+orders=(None,4)
+
+π_10^4
+generators=(ν₄²,)
+orders=(8,)
+
+π_9^2
+group_structure=None
+generators=()
+orders=()
+```
+
+verified provenance:
+
+```text
+source entry identity
+ProofStep identity
+premises preserved
+repository non-mutation
+```
+
+---
+
+# 151. Phase 91 regression / current calculation-result boundary
+
+Phase 91-2:
+
+```text
+10 passed in 0.90s
+
+Phase 90-91 regression:
+49 passed in 6.00s
+
+repository-wide:
+7145 passed in 107.78s
+```
+
+Phase 91-3:
+
+```text
+9 passed in 6.39s
+
+Phase 90-91 regression:
+58 passed in 7.82s
+
+repository-wide:
+7154 passed in 100.44s
+
+git diff --check:
+clean
+```
+
+current capability:
+
+```text
+(n,k)
+↓
+TodaGroupQuery
+↓
+known theorem-backed ProofRepositoryEntry
+↓
+actual ProofStep
+↓
+TodaGroupResult
+↓
+group structure
+generators
+generator orders
+```
+
+not yet implemented:
+
+```text
+EHP extraction
+exactness-use extraction
+dependency extraction
+recursive proof traversal
+fact classification
+proof search on lookup miss
+top-level calculation orchestration
+human-readable report
+```
+
+next:
+
+```text
+Phase 92-1
+current EHP sequence / exactness representation audit
+```
+
+最初に確認する場所:
+
+```text
+homotopy_groups.py
+  TodaEHPSequence
+  TodaEHPExactnessWindow
+  TodaSuspensionMap
+  TodaHopfInvariantMap
+  TodaDeltaMap
+
+toda_rules.py
+  EHP exactness / concrete exactness consequences
+
+proof.py
+  ProofStep provenance
+
+tests/test_phase45_*.py
+tests/test_phase59_*.py
+tests/test_phase67_*.py
+tests/test_phase68_*.py
+tests/test_phase69_*.py
+tests/test_phase70_*.py
+
+toda_group_result.py
+toda_group_lookup.py
+```
+
+Phase 92-1 では current representation audit を先に行い、EHP result class hierarchy を先取りして固定しない。

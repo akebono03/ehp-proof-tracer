@@ -48,10 +48,10 @@ max_depth = 2
 retry_policy = None
 ```
 
-Phase 90 までの latest confirmed repository-wide regression:
+Phase 91 までの latest confirmed repository-wide regression:
 
 ```text
-7135 passed in 101.39s
+7154 passed in 100.44s
 ```
 
 ---
@@ -466,30 +466,148 @@ human-readable report
 
 # 8. Phase 91：group structure / generator result
 
-query result を machine-readable に集約する。
+Phase 91 は COMPLETE。
 
-目標表現:
+Phase 90 の theorem-backed lookup result を machine-readable に正規化した。
+
+追加:
+
+```text
+toda_group_result.py
+
+TodaGroupStructure
+TodaGroupResult
+```
+
+`TodaGroupResult`:
 
 ```text
 target
 group_structure
 generators
 generator_orders
-named_relations
+source_entry
 proof_step
 ```
 
-ここでは表示文字列を truth source にしない。
+order semantics:
 
 ```text
-structured mathematical facts
-→ calculation result
-→ presentation
+None
+= infinite order
+
+positive int
+= finite order
 ```
 
-の順を維持する。
+zero group:
 
----
+```text
+group_structure=None
+generators=()
+generator_orders=()
+```
+
+normalization:
+
+```text
+normalize_toda_group_result()
+```
+
+query integration:
+
+```text
+find_normalized_toda_group_results()
+```
+
+flow:
+
+```text
+TodaGroupQuery
+↓
+known theorem-backed entry
+↓
+actual ProofStep
+↓
+TodaGroupResult
+↓
+group structure
+generators
+generator orders
+```
+
+actual theorem-backed verification:
+
+```text
+π_7^4
+=
+Z{ν₄}⊕Z/4{Eν′}
+
+→
+generators=(ν₄,Eν′)
+generator_orders=(None,4)
+```
+
+```text
+π_10^4
+=
+Z/8{ν₄²}
+
+→
+generators=(ν₄²,)
+generator_orders=(8,)
+```
+
+```text
+π_9^2=0
+
+→
+group_structure=None
+generators=()
+generator_orders=()
+```
+
+preserved:
+
+```text
+source_entry identity
+ProofStep identity
+premise provenance
+DirectSumGroup summand ordering
+repository non-mutation
+```
+
+Phase 91-2:
+
+```text
+10 passed in 0.90s
+repository-wide:
+7145 passed in 107.78s
+```
+
+Phase 91-3:
+
+```text
+9 passed in 6.39s
+Phase 90-91 regression:
+58 passed in 7.82s
+repository-wide:
+7154 passed in 100.44s
+git diff --check clean
+```
+
+Phase 91 ではまだ行わない:
+
+```text
+EHP / exactness extraction
+dependency extraction
+recursive proof traversal
+fact classification
+proof search on lookup miss
+top-level calculation orchestration
+presentation
+```
+
 
 # 9. Phase 92：EHP sequence / exactness extraction
 
@@ -868,31 +986,44 @@ pytest --durations
 # 19. 次に着手する Phase
 
 ```text
-Phase 91-1
-current group-result normalization /
-generator-order extraction audit
+Phase 92-1
+current EHP sequence / exactness representation audit
 ```
 
-最初に現行 GitHub code と actual theorem-backed tests を確認し:
+最初に現行 GitHub code と actual EHP-related tests を確認する。
+
+中心対象:
 
 ```text
-Relation + FreeCyclicGroup
-Relation + FiniteCyclicGroup
-Relation + DirectSumGroup
-TodaPrimaryGroupZeroStatement
+TodaEHPSequence
+TodaEHPExactnessWindow
+TodaSuspensionMap
+TodaHopfInvariantMap
+TodaDeltaMap
+ProofStep
+actual EHP-related theorem consequences
 ```
 
-の4系統から:
+確認する中心:
 
 ```text
-target
-group structure
-generators
-generator orders
-source ProofRepositoryEntry
-source ProofStep
+existing EHP sequence object から terms / maps を lossless に取得できるか
+
+target π_i^n が sequence / exactness window のどこに位置するかを
+既存表現から判定できるか
+
+実際に group proof で使用した EHP exactness window を
+ProofStep provenance から特定できるか
+
+structural EHP window と
+derived exactness statement をどう区別するか
+
+E / H / Δ map object identity を保持すべきか
+
+normalized TodaGroupResult と
+EHP term の known group structure をどう接続するか
 ```
 
-を lossless に取り出すために、現在の表現でどこまで足りるかを監査する。
+Phase 92-1 では class を先取りせず、current representation と actual theorem-backed provenance の監査を優先する。
 
-Phase 91-1 では future Phase の EHP extraction / recursive provenance / presentation を先取り実装しない。
+Phase 93 の dependency classification、Phase 94 の recursive proof provenance、Phase 95 の top-level calculation orchestration、Phase 96 の presentation はまだ実装しない。

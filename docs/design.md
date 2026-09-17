@@ -1476,7 +1476,7 @@ pytest --durations
 
 ---
 
-# 38. Phase 90 completion / Phase 91 audit boundary
+# 38. Phase 90 completion / Phase 91 normalized-result layer
 
 Phase 90 completion capability:
 
@@ -1501,7 +1501,7 @@ Phase 90 completion regression:
 git diff --check clean
 ```
 
-Phase 90 では意図的に未実装:
+Phase 90 では意図的に未実装だった:
 
 ```text
 normalized calculation result
@@ -1515,38 +1515,361 @@ top-level calculation orchestration
 human-readable report
 ```
 
+---
+
+# 39. Phase 91 normalized group-result semantics
+
+Phase 91 では、既知 theorem-backed group result を calculation result として machine-readable に正規化する最小 layer を追加した。
+
+module:
+
+```text
+toda_group_result.py
+```
+
+主要型:
+
+```text
+TodaGroupStructure
+TodaGroupResult
+```
+
+`TodaGroupResult` fields:
+
+```text
+target
+group_structure
+generators
+generator_orders
+source_entry
+proof_step
+```
+
+`group_structure` は:
+
+```text
+FreeCyclicGroup
+FiniteCyclicGroup
+DirectSumGroup
+None
+```
+
+のいずれか。
+
+`None` は zero group を表す。
+
+---
+
+# 40. generator-order semantics
+
+generator と order は parallel tuple として保持する。
+
+```text
+generators[i]
+↔
+generator_orders[i]
+```
+
+order semantics:
+
+```text
+positive int
+= finite order
+
+None
+= infinite order
+```
+
+したがって:
+
+```text
+Z{ν₄}⊕Z/4{Eν′}
+
+generators
+=
+(ν₄, Eν′)
+
+generator_orders
+=
+(None, 4)
+```
+
+となる。
+
+zero group:
+
+```text
+group_structure=None
+generators=()
+generator_orders=()
+```
+
+`0` を infinite order の sentinel には使わない。
+
+---
+
+# 41. DirectSumGroup normalization
+
+`DirectSumGroup.summands` の既存 tuple 順序をそのまま保持して generator / order を抽出する。
+
+```text
+summand order
+↓
+generator order
+```
+
+を維持し、normalization layer では sorting を行わない。
+
+現在の extractor は:
+
+```text
+_extract_toda_group_generators_and_orders()
+```
+
+であり、以下を扱う。
+
+```text
+FreeCyclicGroup
+FiniteCyclicGroup
+DirectSumGroup
+```
+
+DirectSumGroup は nested structure も再帰的に平坦化できるが、generic abelian-group normal form や isomorphism simplification は行わない。
+
+---
+
+# 42. theorem-backed normalization
+
+public normalization:
+
+```text
+normalize_toda_group_result(entry)
+```
+
+input:
+
+```text
+ProofRepositoryEntry
+```
+
+認識する conclusion:
+
+```text
+TodaPrimaryGroupZeroStatement
+
+or
+
+Relation(
+  lhs=TodaPrimaryGroup(...),
+  rhs=FreeCyclicGroup
+      | FiniteCyclicGroup
+      | DirectSumGroup,
+  relation_type=EQUALITY,
+)
+```
+
+output:
+
+```text
+TodaGroupResult
+```
+
+Phase 90 lookup との integration:
+
+```text
+find_normalized_toda_group_results(
+  repository,
+  query,
+)
+```
+
+flow:
+
+```text
+TodaGroupQuery
+↓
+find_known_toda_group_results()
+↓
+ProofRepositoryEntry tuple
+↓
+normalize_toda_group_result()
+↓
+TodaGroupResult tuple
+```
+
+Phase 90 の lookup semantics 自体は変更しない。
+
+---
+
+# 43. provenance preservation invariant
+
+Phase 91 の重要 invariant:
+
+```text
+result.source_entry
+is
+original ProofRepositoryEntry
+```
+
+かつ:
+
+```text
+result.proof_step
+is
+result.source_entry.step
+```
+
+である。
+
+nonzero result では:
+
+```text
+result.group_structure
+is
+result.proof_step.conclusion.rhs
+```
+
+も actual theorem-backed integration で確認する。
+
+したがって normalized result は proof graph を copy / rebuild せず、既存 theorem-backed provenance への参照を保持する。
+
+`Relation.source` / `Relation.note` も別 field に複製しない。
+
+必要なら:
+
+```text
+result.proof_step.conclusion.source
+result.proof_step.conclusion.note
+```
+
+から取得する。
+
+---
+
+# 44. Phase 91 actual theorem-backed verification
+
+actual results:
+
+```text
+Phase 65:
+π_7^4
+=
+Z{ν₄}⊕Z/4{Eν′}
+
+Phase 73:
+π_10^4
+=
+Z/8{ν₄²}
+
+Phase 75:
+π_9^2
+=
+0
+```
+
+normalized:
+
+```text
+π_7^4
+group_structure = DirectSumGroup
+generators = (ν₄, Eν′)
+generator_orders = (None, 4)
+
+π_10^4
+group_structure = FiniteCyclicGroup(order=8,...)
+generators = (ν₄²,)
+generator_orders = (8,)
+
+π_9^2
+group_structure = None
+generators = ()
+generator_orders = ()
+```
+
+verified:
+
+```text
+source entry identity preserved
+ProofStep identity preserved
+premises preserved
+repository unchanged
+unregistered query → ()
+```
+
+Phase 91-2:
+
+```text
+10 passed in 0.90s
+Phase 90-91 regression:
+49 passed in 6.00s
+repository-wide:
+7145 passed in 107.78s
+```
+
+Phase 91-3:
+
+```text
+9 passed in 6.39s
+Phase 90-91 regression:
+58 passed in 7.82s
+repository-wide:
+7154 passed in 100.44s
+git diff --check clean
+```
+
+---
+
+# 45. Phase 91 completion boundary / Phase 92 start
+
+Phase 91 は COMPLETE。
+
+完成 capability:
+
+```text
+(n,k)
+↓
+TodaGroupQuery
+↓
+known theorem-backed entry
+↓
+actual ProofStep
+↓
+TodaGroupResult
+↓
+group structure
+generators
+generator orders
+```
+
+意図的に未実装:
+
+```text
+EHP sequence extraction
+exactness-use extraction
+mathematical dependency extraction
+recursive proof provenance
+derived / proved / imported / assumed classification
+proof search on lookup miss
+top-level calculation orchestration
+human-readable report
+```
+
 次:
 
 ```text
-Phase 91-1
-current group-result normalization /
-generator-order extraction audit
+Phase 92-1
+current EHP sequence / exactness representation audit
 ```
-
-Phase 91-1 は current GitHub code と actual theorem-backed tests を再確認してから開始する。
 
 中心対象:
 
 ```text
-Relation + FreeCyclicGroup
-Relation + FiniteCyclicGroup
-Relation + DirectSumGroup
-TodaPrimaryGroupZeroStatement
-ProofRepositoryEntry
-ProofStep
+TodaEHPSequence
+TodaEHPExactnessWindow
+TodaSuspensionMap
+TodaHopfInvariantMap
+TodaDeltaMap
+actual EHP-related ProofStep
 ```
 
-監査では:
-
-```text
-group_structure
-generators
-generator_orders
-zero result
-direct-sum summand ordering
-source proof identity
-```
-
-を lossless に normalized result へ移せるか確認する。
-
-EHP extraction / recursive provenance / report generation は Phase 92 以降の責務として先取りしない。
+Phase 92 では normalized group result と EHP / exactness representation を接続するが、Phase 93 以降の dependency extraction / recursive proof report は先取りしない。
