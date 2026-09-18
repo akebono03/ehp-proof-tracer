@@ -1,430 +1,388 @@
 # EHP Proof Tracer ロードマップ
 
-この文書は今後の capability dependency と Phase 順序を記録する。
+この文書は**今後の capability dependency と Phase 順序**を記録する。
 
-過去の詳細な実装履歴は `docs/development_log.md`、現在の設計は `docs/design.md`、代表的な証明・infrastructure trace は `docs/proof_records.md` を参照する。
+過去の実装履歴は `docs/development_log.md`、現在の設計は `docs/design.md`、代表的な証明記録は `docs/proof_records.md` を参照する。
 
 ---
 
 # 1. 現在地
 
-数学面:
+数学面では、Toda の finite-dimensional calculation spine と stable \(G_0\) through \(G_7\) の主要 2-primary data を実装済み。
 
-```text
-Toda Lemma 5.16 までの concrete proof spine
-stable G_0 through G_7
-0-stem から 7-stem までの主要 2-primary / Toda π_i^n 計算材料
-```
-
-proof-search infrastructure:
+proof infrastructure では:
 
 ```text
 Proof Repository
-→ automatic final-rule selection
-→ missing-premise producer analysis
-→ concrete theorem-instance compatibility filtering
+→ automatic rule selection
+→ concrete producer compatibility
 → bounded dependency search
-→ explicit max_depth
-→ finite producer retry
-→ search / execution diagnostics
-→ exact selected-path execution
-→ goal ProofStep
+→ max_depth parameterization
+→ finite retry
+→ diagnostics
+→ selected-path execution
+→ ProofStep provenance
 ```
 
-calculation / explanation infrastructure:
+まで完成している。
+
+calculation / explanation infrastructure では:
 
 ```text
 TodaGroupQuery
-→ theorem-backed group lookup
-→ TodaGroupResult
-→ actual EHP extraction
-→ EHP term group enrichment
-→ exactness-use provenance
-→ flat proof dependency extraction
-→ dependency role classification
-→ recursive proof-node / edge extraction
-→ representative explanation integration
+→ direct theorem-backed lookup
+→ aggregate concrete-branch fallback
+→ branch ProofStep recovery
+→ TodaGroupResult normalization
+→ EHP / exactness provenance
+→ flat dependencies
+→ recursive proof provenance
+→ TodaCalculationResult
 ```
 
-latest confirmed repository-wide regression:
+まで完成している。
+
+Phase 95-20 の representative end-to-end regression では:
+
+\[
+\pi_7^4,\quad
+\pi_9^5,\quad
+\pi_{10}^4,\quad
+\pi_{11}^5,\quad
+\pi_9^2,\quad
+\pi_{12}^5
+\]
+
+を aggregate theorem entries だけから top-level API で取得できることを確認済み。
+
+最新 repository-wide regression:
 
 ```text
-7313 passed in 36.98s
-```
-
-`git diff --check`:
-
-```text
-clean
+7419 passed in 38.11s
 ```
 
 ---
 
-# 2. Phase 90 COMPLETE：Toda group query / known-result lookup
+# 2. 完了済み capability 群
 
-完成:
-
-```text
-TodaGroupQuery(n,k)
-↓
-TodaPrimaryGroup(n+k,n)
-↓
-ProofRepository
-↓
-theorem-backed group result
-↓
-original ProofStep
-```
-
-lookup miss:
+Phase 90–95 で次を完成させた。
 
 ```text
-()
+query target construction
+theorem-backed known-result lookup
+normalized group structure / generators / orders
+actual EHP extraction
+exactness-use provenance
+flat proof dependency extraction
+dependency role classification
+recursive proof provenance
+aggregate theorem concrete-branch discovery
+original branch ProofStep recovery
+aggregate provenance preservation
+direct-result precedence
+multiple-result preservation
+top-level calculation orchestration
+representative end-to-end regression
 ```
 
-proof search on miss は行わない。
+Phase 95 の implementation capability は完了している。
+
+正式な completion record は Phase 95-22D で development / proof record archive に追記する。
 
 ---
 
-# 3. Phase 91 COMPLETE：normalized group result
+# 3. Phase 95 documentation completion
 
-完成:
-
-```text
-TodaGroupResult
-
-target
-group_structure
-generators
-generator_orders
-source_entry
-proof_step
-```
-
-保持:
+現在の documentation synchronization sequence:
 
 ```text
-source_entry identity
-ProofStep identity
-premise provenance
-group-structure object identity
-repository non-mutation
+Phase 95-22A
+documentation structure audit
+→ COMPLETE
+
+Phase 95-22B
+development_log / proof_records archival split
+→ implemented
+
+Phase 95-22C
+README / design / roadmap current-state rewrite
+→ current step
+
+Phase 95-22D
+Phase 95 completion record
+→ next
+
+Phase 95-22E
+document links / consistency / final verification
+→ Phase 95 formal completion
 ```
+
+Phase 95-22C では current-state docs から古い Phase 94-era future statements を除去し、Phase 95 architecture を正式に反映する。
 
 ---
 
-# 4. Phase 92 COMPLETE：EHP extraction / enrichment / exactness provenance
+# 4. 次 Phase：Phase 96
 
-完成:
-
-```text
-TodaEHPSequenceResult
-TodaEHPGroupEnrichmentResult
-TodaEHPExactnessUseProvenanceResult
-```
-
-actual `π_9^5`:
+Phase 96 の主題:
 
 ```text
-π_10^9 --Δ--> π_8^4 --E--> π_9^5 --H--> π_9^9 --Δ--> π_7^4
+human-readable explanation / proof report
 ```
+
+Phase 95 までで structured calculation result は揃った。
+
+Phase 96 ではこれを presentation に変換する。
 
 原則:
 
 ```text
-final proof ancestry から actually reachable な facts
+structured proof truth
+!=
+presentation
 ```
 
-を扱う。
+presentation layer は proof truth を生成・変更しない。
 
 ---
 
-# 5. Phase 93 COMPLETE：flat proof dependency / role / explanation integration
+# 5. Phase 96 の初期監査候補
 
-完成:
+最初は実装せず、current structured result から何を安全に説明できるかを監査する。
 
-```text
-TodaProofDependency
-TodaProofDependencyResult
-TodaProofDependencyRole
-extract_toda_proof_dependencies()
-classify_toda_proof_step_role()
-TodaRepresentativeExplanationResult
-build_toda_representative_explanation()
-```
-
-semantics:
+推奨:
 
 ```text
-breadth-first traversal
-shortest depth
-premises-order stable traversal
-identity-based deduplication
-cycle-safe
-non-ProofStep premise exclusion
-```
-
-actual `π_9^5` で theorem-backed dependency extraction を確認。
-
----
-
-# 6. Phase 94 COMPLETE：recursive proof provenance
-
-Phase 93 の flat dependency view から proof edge を first-class に拡張した。
-
-## Phase 94-1 COMPLETE
-
-current recursive provenance / DAG representation audit。
-
-確定:
-
-```text
-node identity = ProofStep object identity
-edge order = original premises order
-premise_index = original unfiltered tuple index
-shortest_depth = BFS shortest path
-recursive edge structure と shortest depth は別概念
-non-ProofStep premise は graph へ含めない
-status taxonomy は actual need が出るまで追加しない
-```
-
-## Phase 94-2 COMPLETE
-
-追加:
-
-```text
-TodaProofNode
-TodaProofEdge
-TodaRecursiveProofProvenanceResult
-```
-
-shared dependency を一つの node と複数 incoming edge で表現する。
-
-## Phase 94-3 COMPLETE
-
-追加:
-
-```text
-extract_toda_recursive_proof_provenance()
-```
-
-actual `π_9^5` で:
-
-```text
-actual Phase 68 final_step root identity
-all reachable ProofStep nodes
-all parent -> premise proof edges
-original premise_index
-Phase 93 shortest-depth compatibility
-role compatibility
-```
-
-を確認。
-
-## Phase 94-4 COMPLETE
-
-regression-only。
-
-固定:
-
-```text
-shared node
-multiple incoming edges
-BFS stable node order
-stable edge order
-original premise_index
-cycle safety
-self-cycle safety
-cycle back-edge preservation
-```
-
-production code は変更しない。
-
-## Phase 94-5 COMPLETE
-
-`TodaRepresentativeExplanationResult` に:
-
-```text
-recursive_provenance
-```
-
-を統合。
-
-identity invariant:
-
-```text
-dependency_result.root_step
-is recursive_provenance.root_step
-is group_result.proof_step
-```
-
-Phase 94 completion regression:
-
-```text
-Phase 94-5 related:
-48 passed in 2.98s
-
-repository-wide:
-7313 passed in 36.98s
-
-git diff --check:
-clean
-```
-
-### 状態
-
-COMPLETE
-
----
-
-# 7. Phase 95：calculation orchestration
-
-次の Phase。
-
-Phase 90–94 の既存 capability を、user-facing calculation entry point へどう束ねるかを決める。
-
-概念候補:
-
-```text
-(n,k)
-↓
-target π_{n+k}^n
-↓
-known-result lookup
-↓
-normalized group result
-↓
-EHP context
-↓
-flat dependencies
-↓
-recursive provenance
-↓
-structured calculation result
-```
-
-lookup miss 時に:
-
-```text
-authorized bounded proof search
-```
-
-を起動するかどうかは Phase 95-1 監査で決める。
-
-Phase 95 前に top-level result class や fallback policy を固定しない。
-
----
-
-# 8. Phase 95 推奨開始
-
-まず:
-
-```text
-Phase 95-1
-current calculation entry points / orchestration boundary audit
+Phase 96-1
+current presentation inputs / explanation boundary audit
 ```
 
 監査対象:
 
 ```text
-TodaGroupQuery
-find_known_toda_group_results()
-find_normalized_toda_group_results()
+TodaCalculationResult
+TodaCalculationCandidate
 TodaGroupResult
-build_toda_representative_explanation()
-ProofRepository
-repository-assisted bounded proof search
+TodaRepresentativeExplanationResult
+TodaEHPSequenceResult
+TodaEHPExactnessUseProvenanceResult
+TodaProofDependencyResult
+TodaRecursiveProofProvenanceResult
+TodaCalculationGoalSource
 ```
 
 確認する中心:
 
 ```text
-1. 現在 user が (n,k) から辿る必要がある entry point は何個あるか
+1. user-facing report に必要な field は何か
 
-2. known-result lookup と explanation build を
-   どの layer が束ねるべきか
+2. direct result と aggregate-derived result を
+   どう表示上区別するか
 
-3. lookup miss を
-   "unknown" として返すか
-   authorized proof search へ渡すか
+3. group structure / generators / orders を
+   どこまで canonical に表示できるか
 
-4. multiple theorem-backed matches の扱いを
-   orchestration が勝手に ranking してよいか
+4. EHP sequence を
+   machine truth を壊さず表示できるか
 
-5. TodaGroupResult と TodaRepresentativeExplanationResult の
-   identity / provenance をどう保持するか
+5. recursive provenance を
+   proof narrative にどう変換するか
 
-6. orchestration result に最低限必要な field は何か
+6. shared dependency / repeated use / cycle を
+   presentation でどう扱うか
 
-7. Phase 96 presentation を Phase 95 schema に混ぜないための境界
+7. theorem / phase metadata と
+   mathematical proof truth をどう区別するか
+
+8. Markdown / console / LaTeX / structured export の
+   最小共通 representation は何か
 ```
-
-監査後にのみ Phase 95-2 以降を確定する。
 
 ---
 
-# 9. Phase 96：human-readable explanation / proof report
+# 6. Phase 96 の候補 capability
 
-structured calculation result から presentation を生成する。
+監査後に必要性を確認してから段階的に追加する。
 
-目標候補:
-
-```text
-target
-group structure
-generators
-orders
-EHP sequence
-known groups on EHP terms
-exactness uses
-required lemmas / propositions / relations
-recursive proof provenance
-literature references
-```
-
-出力候補:
+候補:
 
 ```text
-Markdown
-console
-LaTeX
-JSON-like structured report
+structured presentation model
+group-result formatter
+EHP formatter
+proof-dependency formatter
+recursive proof-tree / DAG formatter
+literature-reference formatter
+Markdown report
+LaTeX report
+console report
 ```
 
-重要:
-
-```text
-presentation != proof truth
-```
-
-を維持する。
-
-Phase 94 の recursive provenance は structured graph であり、natural-language narrator ではない。
+自然言語 narrator は machine-readable structure を入力として構築し、証明 facts の追加推測を避ける。
 
 ---
 
-# 10. deferred capabilities
+# 7. Deferred：symbolic higher-range instantiation
 
-actual theorem-backed need が出るまで実装しない:
+現在 concrete aggregate branches は top-level calculation 可能。
+
+一方、例えば:
+
+\[
+\pi_{n+3}^n=\mathbb Z/8\{\nu_n\},
+\]
+
+\[
+\pi_{n+6}^n=\mathbb Z/2\{\nu_n^2\},
+\]
+
+\[
+\pi_{n+7}^n=\mathbb Z/16\{\sigma_n\}
+\]
+
+のような symbolic theorem branch を concrete `TodaGroupQuery` に instantiate する capability は未実装。
+
+必要なのは:
 
 ```text
-unbounded proof search
+symbolic theorem statement
++
+range condition
++
+concrete query
+↓
+safe theorem specialization
+```
+
+であり、Phase 95 orchestration の単純 extension ではない。
+
+actual need が生じた時点で独立 Phase として扱う。
+
+---
+
+# 8. Deferred：target-only proof-search fallback
+
+現在の bounded proof search は concrete goal を必要とする。
+
+query が持つのは:
+
+```text
+target group
+```
+
+だけであり、
+
+```text
+π_{n+k}^n = ?
+```
+
+の RHS は未知である。
+
+したがって:
+
+```text
+target-only query
+→ concrete unknown-RHS theorem goal
+```
+
+を生成する一般機構はまだない。
+
+Phase 95 では aggregate theorem 内の既存 concrete statement を発見することで安全に fallback を実現した。
+
+target-only bounded-search fallback は、target-to-goal generation の actual requirement が生じたときに別 Phase で扱う。
+
+---
+
+# 9. Deferred：calculation failure diagnostics
+
+現在の top-level status:
+
+```text
+NOT_FOUND
+FOUND
+MULTIPLE_RESULTS
+```
+
+`NOT_FOUND` の細分類:
+
+```text
+no direct result
+no aggregate candidate
+candidate found but branch recovery failed
+normalization failed
+symbolic-only theorem coverage
+```
+
+などは未導入。
+
+user-facing report で actual need が確認されるまで追加しない。
+
+---
+
+# 10. Deferred：proof optimization
+
+現時点で不要:
+
+```text
 general backtracking
 producer ranking
 proof-cost optimization
 best-proof selection
-persistent global proof cache
-persistent Proof Repository
-general CAS normalization
-generic sign algebra
-generic theorem proving
-odd-primary full integration
-ordinary π_{n+k}(S^n) all-primary calculator
+persistent proof cache
+global proof optimization
 ```
+
+multiple valid candidates は保持し、orchestration が勝手に優劣をつけない。
 
 ---
 
-# 11. completion policy
+# 11. Deferred：mathematical scope expansion
+
+将来候補:
+
+```text
+odd-primary integration
+broader unstable stems
+additional Toda propositions / lemmas
+symbolic stable-range theorem specialization
+ordinary all-primary π_{n+k}(S^n)
+```
+
+ただし既存 2-primary Toda semantics を壊さない形で actual need に応じて追加する。
+
+---
+
+# 12. 文書整備
+
+Phase 95 completion に合わせて文書体系を整理した。
+
+```text
+README.md
+→ concise current status
+
+docs/design.md
+→ current architecture only
+
+docs/roadmap.md
+→ future-oriented plan
+
+docs/development_log.md
+→ history index
+
+docs/development_log/
+→ chronological archives
+
+docs/proof_records.md
+→ proof-record index
+
+docs/proof_records/
+→ mathematical / infrastructure archives
+```
+
+長期履歴を current-state document に重複掲載しない。
+
+---
+
+# 13. Completion policy
 
 各 Phase は最低限:
 
@@ -435,9 +393,9 @@ repository-wide pytest
 git diff --check
 ```
 
-を確認して COMPLETE とする。
+を確認する。
 
-実装前:
+実装前には:
 
 ```text
 current GitHub code
@@ -447,17 +405,35 @@ actual theorem-backed need
 
 を確認する。
 
-将来 Phase の capability を先取りしない。
+文書変更では current implementation と記述が一致していることを確認する。
 
 ---
 
-# 12. 直近の次作業
+# 14. 直近の次作業
 
-次:
+Phase 95-22C 完了後:
 
 ```text
-Phase 95-1
-current calculation entry points / orchestration boundary audit
+Phase 95-22D
+Phase 95 completion record
 ```
 
-まず実装せず、Phase 90–94 の entry point と責務の重複・境界を監査する。
+development archive と proof-record archive に Phase 95 の完成内容を追記する。
+
+その後:
+
+```text
+Phase 95-22E
+document links / consistency / final verification
+```
+
+を行い、Phase 95 を正式 COMPLETE とする。
+
+正式 completion 後は:
+
+```text
+Phase 96-1
+current presentation inputs / explanation boundary audit
+```
+
+へ進む。
