@@ -630,3 +630,120 @@ def extract_toda_proof_dependencies(
       dependencies
     ),
   )
+
+
+def extract_toda_recursive_proof_provenance(
+  group_result: TodaGroupResult,
+) -> TodaRecursiveProofProvenanceResult:
+  if not isinstance(
+    group_result,
+    TodaGroupResult,
+  ):
+    raise TypeError(
+      "group_result must be "
+      "a TodaGroupResult"
+    )
+
+  root_step = (
+    group_result.proof_step
+  )
+
+  queue: list[
+    tuple[
+      ProofStep,
+      int,
+    ]
+  ] = [
+    (
+      root_step,
+      0,
+    ),
+  ]
+
+  seen_step_ids: set[int] = set()
+
+  nodes: list[
+    TodaProofNode
+  ] = []
+
+  edges: list[
+    TodaProofEdge
+  ] = []
+
+  queue_index = 0
+
+  while queue_index < len(
+    queue
+  ):
+    (
+      step,
+      depth,
+    ) = queue[
+      queue_index
+    ]
+
+    queue_index += 1
+
+    step_id = id(
+      step
+    )
+
+    if step_id in seen_step_ids:
+      continue
+
+    seen_step_ids.add(
+      step_id
+    )
+
+    nodes.append(
+      TodaProofNode(
+        proof_step=step,
+        shortest_depth=depth,
+        role=(
+          classify_toda_proof_step_role(
+            step
+          )
+        ),
+      )
+    )
+
+    for (
+      premise_index,
+      premise,
+    ) in enumerate(
+      step.premises
+    ):
+      if not isinstance(
+        premise,
+        ProofStep,
+      ):
+        continue
+
+      edges.append(
+        TodaProofEdge(
+          parent_step=step,
+          premise_step=premise,
+          premise_index=(
+            premise_index
+          ),
+        )
+      )
+
+      queue.append(
+        (
+          premise,
+          depth + 1,
+        )
+      )
+
+  return (
+    TodaRecursiveProofProvenanceResult(
+      root_step=root_step,
+      nodes=tuple(
+        nodes
+      ),
+      edges=tuple(
+        edges
+      ),
+    )
+  )
