@@ -1,4 +1,10 @@
 from proof_repository import ProofRepository
+from toda_calculation_goal_discovery import (
+  discover_concrete_toda_calculation_goal_candidates,
+)
+from toda_calculation_goal_normalization import (
+  normalize_recovered_toda_calculation_goal_candidate,
+)
 from toda_calculation_result import (
   TodaCalculationCandidate,
   TodaCalculationResult,
@@ -38,4 +44,59 @@ def build_known_toda_calculation_result(
   return TodaCalculationResult(
     query=query,
     candidates=candidates,
+  )
+
+
+def build_toda_calculation_result(
+  repository: ProofRepository,
+  query: TodaGroupQuery,
+) -> TodaCalculationResult:
+  known_result = (
+    build_known_toda_calculation_result(
+      repository,
+      query,
+    )
+  )
+
+  if known_result.candidates:
+    return known_result
+
+  discovery_result = (
+    discover_concrete_toda_calculation_goal_candidates(
+      repository,
+      query,
+    )
+  )
+
+  candidates = []
+
+  for goal_candidate in (
+    discovery_result.candidates
+  ):
+    group_results = (
+      normalize_recovered_toda_calculation_goal_candidate(
+        goal_candidate
+      )
+    )
+
+    for group_result in group_results:
+      candidates.append(
+        TodaCalculationCandidate(
+          group_result=group_result,
+          explanation=(
+            build_toda_representative_explanation(
+              group_result
+            )
+          ),
+          goal_source=(
+            goal_candidate.source
+          ),
+        )
+      )
+
+  return TodaCalculationResult(
+    query=query,
+    candidates=tuple(
+      candidates
+    ),
   )
