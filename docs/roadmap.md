@@ -10,7 +10,7 @@
 
 数学面では、Toda の finite-dimensional calculation spine と stable \(G_0\) through \(G_7\) の主要 2-primary data を実装済み。
 
-proof infrastructure では:
+proof infrastructure:
 
 ```text
 Proof Repository
@@ -24,9 +24,7 @@ Proof Repository
 → ProofStep provenance
 ```
 
-まで完成している。
-
-calculation / explanation infrastructure では:
+calculation / explanation:
 
 ```text
 TodaGroupQuery
@@ -40,9 +38,20 @@ TodaGroupQuery
 → TodaCalculationResult
 ```
 
-まで完成している。
+presentation / report:
 
-Phase 95-20 の representative end-to-end regression では:
+```text
+structured presentation
+→ EHP / exactness presentation
+→ proof source presentation
+→ dependency-first proof flow
+→ LaTeX / Markdown rendering
+→ mathematical statement rendering
+→ readable proof narrative
+→ unified full proof report
+```
+
+代表 target:
 
 \[
 \pi_7^4,\quad
@@ -50,22 +59,20 @@ Phase 95-20 の representative end-to-end regression では:
 \pi_{10}^4,\quad
 \pi_{11}^5,\quad
 \pi_9^2,\quad
-\pi_{12}^5
+\pi_{12}^5.
 \]
 
-を aggregate theorem entries だけから top-level API で取得できることを確認済み。
-
-最新 repository-wide regression:
+最新 regression:
 
 ```text
-7419 passed in 38.11s
+7577 passed in 43.70s
 ```
 
 ---
 
-# 2. 完了済み capability 群
+# 2. 完了済み capability
 
-Phase 90–95 で次を完成させた。
+Phase 90–96:
 
 ```text
 query target construction
@@ -73,175 +80,128 @@ theorem-backed known-result lookup
 normalized group structure / generators / orders
 actual EHP extraction
 exactness-use provenance
-flat proof dependency extraction
+flat proof dependencies
 dependency role classification
 recursive proof provenance
-aggregate theorem concrete-branch discovery
+aggregate theorem branch discovery
 original branch ProofStep recovery
-aggregate provenance preservation
+aggregate provenance
 direct-result precedence
 multiple-result preservation
 top-level calculation orchestration
-representative end-to-end regression
+structured presentation
+group / generator / order presentation
+EHP / exactness presentation
+proof source presentation
+dependency-first proof flow
+shared-dependency presentation
+LaTeX / Markdown rendering
+mathematical statement rendering
+readable narrative
+unified full proof report
+final representative report audit
 ```
 
-Phase 95 の implementation capability は完了している。
-
-正式な completion record は Phase 95-22D で development / proof record archive に追記する。
+Phase 96 は正式 COMPLETE。
 
 ---
 
-# 3. Phase 95 COMPLETE
+# 3. 次 Phase：Phase 97
 
-Phase 95 の calculation orchestration と documentation synchronization は完了した。
-
-completion sequence:
+主題:
 
 ```text
-Phase 95-22A
-documentation structure audit
-→ COMPLETE
-
-Phase 95-22B
-development_log / proof_records archival split
-→ COMPLETE
-
-Phase 95-22C
-README / design / roadmap current-state rewrite
-→ COMPLETE
-
-Phase 95-22D
-Phase 95 completion record
-→ COMPLETE
-
-Phase 95-22E
-document links / consistency / final verification
-→ COMPLETE
+user-facing proof-report query / calculation-to-report API
 ```
 
-Phase 95 の正式な最終状態:
+現状:
 
 ```text
-implementation capability
-→ COMPLETE
-
-representative end-to-end regression
-→ COMPLETE
-
-documentation synchronization
-→ COMPLETE
-
-formal Phase status
-→ COMPLETE
+TodaGroupQuery
+→ TodaCalculationResult
+→ candidate
+→ end-to-end presentation
+→ full proof report Markdown
 ```
 
----
+Phase 97 ではこれを user-facing top-level API にまとめる。
 
-# 4. 次 Phase：Phase 96
-
-Phase 96 の主題:
+目標:
 
 ```text
-human-readable explanation / proof report
-```
-
-Phase 95 までで structured calculation result は揃った。
-
-Phase 96 ではこれを presentation に変換する。
-
-原則:
-
-```text
-structured proof truth
-!=
+(n, k)
+↓
+query
+↓
+calculation
+↓
+candidate handling
+↓
 presentation
+↓
+human-readable proof report
 ```
-
-presentation layer は proof truth を生成・変更しない。
 
 ---
 
-# 5. Phase 96 の初期監査候補
-
-最初は実装せず、current structured result から何を安全に説明できるかを監査する。
-
-推奨:
+# 4. Phase 97-1 推奨監査
 
 ```text
-Phase 96-1
-current presentation inputs / explanation boundary audit
+current calculation-to-report orchestration boundary audit
 ```
 
 監査対象:
 
 ```text
+TodaGroupQuery
+build_toda_calculation_result()
 TodaCalculationResult
+TodaCalculationStatus
 TodaCalculationCandidate
-TodaGroupResult
-TodaRepresentativeExplanationResult
-TodaEHPSequenceResult
-TodaEHPExactnessUseProvenanceResult
-TodaProofDependencyResult
-TodaRecursiveProofProvenanceResult
-TodaCalculationGoalSource
+build_toda_end_to_end_candidate_presentation()
+render_toda_full_proof_report_markdown()
 ```
 
-確認する中心:
+確認点:
 
 ```text
-1. user-facing report に必要な field は何か
-
-2. direct result と aggregate-derived result を
-   どう表示上区別するか
-
-3. group structure / generators / orders を
-   どこまで canonical に表示できるか
-
-4. EHP sequence を
-   machine truth を壊さず表示できるか
-
-5. recursive provenance を
-   proof narrative にどう変換するか
-
-6. shared dependency / repeated use / cycle を
-   presentation でどう扱うか
-
-7. theorem / phase metadata と
-   mathematical proof truth をどう区別するか
-
-8. Markdown / console / LaTeX / structured export の
-   最小共通 representation は何か
+1. user-facing API の最小 input
+2. repository の受け渡し
+3. single FOUND convenience
+4. MULTIPLE_RESULTS の保持
+5. NOT_FOUND の扱い
+6. string-only か structured result object か
+7. direct / aggregate source preservation
+8. proof truth / presentation boundary
 ```
 
 ---
 
-# 6. Phase 96 の候補 capability
+# 5. Phase 97 で守る境界
 
-監査後に必要性を確認してから段階的に追加する。
-
-候補:
+再実装しない:
 
 ```text
-structured presentation model
-group-result formatter
-EHP formatter
-proof-dependency formatter
-recursive proof-tree / DAG formatter
-literature-reference formatter
-Markdown report
-LaTeX report
-console report
+group lookup semantics
+aggregate branch discovery
+proof recovery
+group normalization
+EHP extraction
+dependency extraction
+presentation model
+mathematical renderer
+narrative renderer
 ```
 
-自然言語 narrator は machine-readable structure を入力として構築し、証明 facts の追加推測を避ける。
+既存 API を compose する。
+
+multiple candidate に対する ranking / best selection は行わない。
 
 ---
 
-# 7. Deferred：symbolic higher-range instantiation
+# 6. Deferred：symbolic higher-range instantiation
 
-現在 concrete aggregate branches は top-level calculation 可能。
-
-一方、例えば:
+例えば:
 
 \[
 \pi_{n+3}^n=\mathbb Z/8\{\nu_n\},
@@ -255,62 +215,21 @@ console report
 \pi_{n+7}^n=\mathbb Z/16\{\sigma_n\}
 \]
 
-のような symbolic theorem branch を concrete `TodaGroupQuery` に instantiate する capability は未実装。
-
-必要なのは:
-
-```text
-symbolic theorem statement
-+
-range condition
-+
-concrete query
-↓
-safe theorem specialization
-```
-
-であり、Phase 95 orchestration の単純 extension ではない。
-
-actual need が生じた時点で独立 Phase として扱う。
+の concrete specialization は別 capability とする。
 
 ---
 
-# 8. Deferred：target-only proof-search fallback
+# 7. Deferred：target-only proof-search fallback
 
-現在の bounded proof search は concrete goal を必要とする。
+query は target group だけを持ち、unknown RHS theorem goal は生成しない。
 
-query が持つのは:
-
-```text
-target group
-```
-
-だけであり、
-
-```text
-π_{n+k}^n = ?
-```
-
-の RHS は未知である。
-
-したがって:
-
-```text
-target-only query
-→ concrete unknown-RHS theorem goal
-```
-
-を生成する一般機構はまだない。
-
-Phase 95 では aggregate theorem 内の既存 concrete statement を発見することで安全に fallback を実現した。
-
-target-only bounded-search fallback は、target-to-goal generation の actual requirement が生じたときに別 Phase で扱う。
+target-to-goal generation の actual need が生じたときに別 Phase で扱う。
 
 ---
 
-# 9. Deferred：calculation failure diagnostics
+# 8. Deferred：calculation failure diagnostics
 
-現在の top-level status:
+現在:
 
 ```text
 NOT_FOUND
@@ -318,19 +237,22 @@ FOUND
 MULTIPLE_RESULTS
 ```
 
-`NOT_FOUND` の細分類:
+のみ。
+
+`NOT_FOUND` の細分類は Phase 97 で actual need が確認された場合にのみ検討する。
+
+---
+
+# 9. Deferred：renderer coverage expansion
+
+historical aggregate statement の一部は explicit type-name fallback。
 
 ```text
-no direct result
-no aggregate candidate
-candidate found but branch recovery failed
-normalization failed
-symbolic-only theorem coverage
+unknown statement
+→ safe fallback
 ```
 
-などは未導入。
-
-user-facing report で actual need が確認されるまで追加しない。
+を維持し、readability pressure が確認された型から最小追加する。
 
 ---
 
@@ -347,8 +269,6 @@ persistent proof cache
 global proof optimization
 ```
 
-multiple valid candidates は保持し、orchestration が勝手に優劣をつけない。
-
 ---
 
 # 11. Deferred：mathematical scope expansion
@@ -359,27 +279,23 @@ multiple valid candidates は保持し、orchestration が勝手に優劣をつ�
 odd-primary integration
 broader unstable stems
 additional Toda propositions / lemmas
-symbolic stable-range theorem specialization
+symbolic stable-range specialization
 ordinary all-primary π_{n+k}(S^n)
 ```
 
-ただし既存 2-primary Toda semantics を壊さない形で actual need に応じて追加する。
-
 ---
 
-# 12. 文書整備
-
-Phase 95 completion に合わせて文書体系を整理した。
+# 12. 文書体系
 
 ```text
 README.md
 → concise current status
 
 docs/design.md
-→ current architecture only
+→ current architecture
 
 docs/roadmap.md
-→ future-oriented plan
+→ future plan
 
 docs/development_log.md
 → history index
@@ -394,13 +310,11 @@ docs/proof_records/
 → mathematical / infrastructure archives
 ```
 
-長期履歴を current-state document に重複掲載しない。
-
 ---
 
 # 13. Completion policy
 
-各 Phase は最低限:
+各 Phase:
 
 ```text
 focused pytest
@@ -409,9 +323,7 @@ repository-wide pytest
 git diff --check
 ```
 
-を確認する。
-
-実装前には:
+実装前:
 
 ```text
 current GitHub code
@@ -421,19 +333,15 @@ actual theorem-backed need
 
 を確認する。
 
-文書変更では current implementation と記述が一致していることを確認する。
-
 ---
 
 # 14. 直近の次作業
 
-Phase 95 は正式 COMPLETE。
+Phase 96 は正式 COMPLETE。
 
 次:
 
 ```text
-Phase 96-1
-current presentation inputs / explanation boundary audit
+Phase 97-1
+current calculation-to-report orchestration boundary audit
 ```
-
-まず実装せず、Phase 95 の structured calculation result から human-readable presentation に安全に渡せる情報と presentation boundary を監査する。

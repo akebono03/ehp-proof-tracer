@@ -29,6 +29,7 @@ catalog metadata != proof truth
 search plan != proof result
 calculation result != proof truth
 presentation != proof truth
+rendered prose != proof truth
 ```
 
 将来 Phase の一般化を先取りせず、既存 API・既存 provenance・既存 tests を不必要に壊さない。
@@ -36,8 +37,6 @@ presentation != proof truth
 ---
 
 # 2. 現在のレイヤー構造
-
-全体は概ね次の layer に分かれる。
 
 ```text
 expression / statement representation
@@ -62,7 +61,11 @@ flat / recursive proof provenance
 ↓
 structured calculation result
 ↓
-future presentation layer
+structured presentation
+↓
+human-readable renderer
+↓
+unified proof report
 ```
 
 上位 layer は下位 layer の proof truth を変更しない。
@@ -85,9 +88,7 @@ rule_catalog.py
 = inference-rule registration / search metadata
 
 repository_inference.py
-= bounded producer search
-  diagnostics
-  selected-path execution
+= bounded producer search / diagnostics / selected-path execution
 
 homotopy_groups.py
 = homotopy / Toda / EHP structural data
@@ -96,7 +97,7 @@ toda_rules.py
 = Toda-specific theorem knowledge
 ```
 
-Phase 90 以降の calculation / explanation layer:
+Phase 90 以降:
 
 ```text
 toda_group_query.py
@@ -142,12 +143,38 @@ toda_ehp_exactness_provenance.py
 = exactness-use provenance
 
 toda_proof_dependency.py
-= flat dependency
-  role classification
-  recursive proof provenance
+= flat dependency / role classification / recursive provenance
 
 toda_explanation.py
 = group / EHP / dependency / recursive provenance integration
+```
+
+Phase 96:
+
+```text
+toda_presentation.py
+= target / group / generator / order presentation
+
+toda_ehp_presentation.py
+= EHP / exactness presentation
+
+toda_proof_presentation.py
+= proof-step role / literature / repository / goal-source presentation
+
+toda_proof_flow_presentation.py
+= dependency-first readable proof flow
+
+toda_end_to_end_presentation.py
+= calculation candidate から end-to-end presentation への統合
+
+toda_human_readable_renderer.py
+= target / group / EHP の LaTeX と base Markdown report
+
+toda_proof_narrative_renderer.py
+= proof-step mathematical statement と readable narrative
+
+toda_full_proof_report_renderer.py
+= base report と narrative の unified report
 ```
 
 ---
@@ -162,7 +189,7 @@ toda_explanation.py
 
 を query する。
 
-target は:
+target:
 
 ```text
 TodaPrimaryGroup(
@@ -171,32 +198,13 @@ TodaPrimaryGroup(
 )
 ```
 
-である。
-
-`TodaPrimaryGroup(i,n)` は Toda (4.3) の \(\pi_i^n\) を表す historical class name であり、一般の all-primary ordinary \(\pi_i(S^n)\) calculator ではない。
-
-query object の責務は:
-
-```text
-input validation
-target construction
-```
-
-である。
-
-責務ではない:
-
-```text
-proof search
-group computation
-presentation
-```
+`TodaPrimaryGroup(i,n)` は Toda (4.3) の \(\pi_i^n\) を表す historical class name であり、all-primary ordinary \(\pi_i(S^n)\) calculator ではない。
 
 ---
 
 # 5. Proof truth と metadata
 
-proof truth の中心は:
+proof truth の中心:
 
 ```text
 ProofStep.conclusion
@@ -204,30 +212,13 @@ ProofStep.premises
 ProofStep.inference_rule
 ```
 
-である。
+`ProofRepositoryEntry.key / phase / theorem` は provenance metadata であり、数学的 truth 判定そのものには使用しない。
 
-`ProofRepositoryEntry` の:
-
-```text
-key
-phase
-theorem
-```
-
-は provenance metadata であり、数学的 truth 判定そのものには使用しない。
+presentation / renderer は metadata を表示できるが、metadata から数学的 truth を推論してはならない。
 
 ---
 
 # 6. Structural equality と object identity
-
-dataclass equality は syntax tree の一致を表す。
-
-```text
-equal
-→ structurally equal
-```
-
-しかし provenance では:
 
 ```text
 equal ProofStep
@@ -235,17 +226,15 @@ equal ProofStep
 same ProofStep identity
 ```
 
-である。
+proof dependency / recursive provenance / presentation では `ProofStep` object identity を保持する。
 
-そのため proof dependency / recursive provenance では `ProofStep` object identity を保持する。
-
-equal-but-distinct `ProofStep` は、必要に応じて別 provenance として扱う。
+equal-but-distinct `ProofStep` は必要に応じて別 provenance として扱う。
 
 ---
 
 # 7. Proof Repository
 
-`ProofRepository` の責務:
+責務:
 
 ```text
 registration
@@ -261,16 +250,17 @@ proof construction
 theorem truth
 persistent storage
 presentation
+rendering
 automatic mutation by calculation
 ```
 
-calculation / explanation layer は repository を read-only に利用する。
+calculation / explanation / presentation / renderer layer は repository を read-only に利用する。
 
 ---
 
 # 8. Bounded proof search
 
-現在維持する安全 invariant:
+安全 invariant:
 
 ```text
 finite max_depth
@@ -287,17 +277,13 @@ ProofStep provenance
 repository non-mutation
 ```
 
-現在の bounded search は**concrete goal が既知であること**を前提とする。
-
-したがって target group だけから未知の RHS を推測して proof goal を生成する責務は持たない。
+現在の bounded search は concrete goal が既知であることを前提とする。
 
 ---
 
 # 9. Direct theorem-backed lookup
 
-direct lookup は repository に登録された top-level entry のうち、query target と一致する group result を返す。
-
-対象:
+direct lookup は query target と一致する:
 
 ```text
 TodaPrimaryGroupZeroStatement
@@ -310,15 +296,13 @@ Relation(
 )
 ```
 
-複数一致は registration order を保持したまま全件返す。
+を返す。
 
-silent selection はしない。
+複数一致は registration order を保持し、silent selection はしない。
 
 ---
 
 # 10. TodaGroupResult
-
-`TodaGroupResult` は theorem-backed group result の normalized representation である。
 
 fields:
 
@@ -331,14 +315,11 @@ source_entry
 proof_step
 ```
 
-order semantics:
+order:
 
 ```text
-None
-= infinite order
-
-positive int
-= finite order
+None = infinite
+positive int = finite
 ```
 
 zero group:
@@ -349,7 +330,7 @@ generators = ()
 generator_orders = ()
 ```
 
-identity invariant:
+invariant:
 
 ```text
 proof_step is source_entry.step
@@ -359,9 +340,7 @@ proof_step is source_entry.step
 
 # 11. Aggregate theorem fallback
 
-direct lookup が miss した場合、現在の calculation orchestration は concrete aggregate theorem branch を探索する。
-
-流れ:
+direct lookup miss 時:
 
 ```text
 repository entries
@@ -373,32 +352,22 @@ query.target と一致する concrete branch
 TodaCalculationGoalCandidate
 ```
 
-現在は explicit supported aggregate type / branch のみ扱う。
-
-generic dataclass recursive scan は行わない。
-
-symbolic higher-range branch の自動 instantiation も行わない。
+explicit supported branch のみ扱い、generic dataclass recursive scan や symbolic higher-range auto-instantiation は行わない。
 
 ---
 
 # 12. Calculation goal source
 
-aggregate-derived candidate は:
+aggregate-derived candidate:
 
 ```text
-TodaCalculationGoalSource
+TodaCalculationGoalSource(
+  source_entry,
+  branch_name,
+)
 ```
 
-を持つ。
-
-内容:
-
-```text
-source_entry
-branch_name
-```
-
-`branch_name` は nested aggregate の場合 dotted path を許す。
+nested branch は dotted path を許す。
 
 例:
 
@@ -406,53 +375,26 @@ branch_name
 nu_squared_finite_dimensional.pi11_5_group_relation
 ```
 
-これは aggregate theorem provenance を表す。
-
 ---
 
 # 13. Original branch ProofStep recovery
 
-aggregate branch から新しい proof を作らず、aggregate `ProofStep.premises` 内にすでに存在する original branch `ProofStep` を回収する。
-
-回収規則:
+aggregate wrapper から新しい proof を作らず、actual premise の original branch `ProofStep` を回収する。
 
 ```text
-branch path を statement field として解決
-↓
-対応 branch statement を得る
-↓
-premise.conclusion == branch statement
-↓
-original ProofStep identity を保持
+branch path
+→ branch statement
+→ premise.conclusion == branch statement
+→ original ProofStep identity
 ```
 
 premise index を hard-code しない。
-
-同一 object の重複は identity deduplication する。
-
-equal-but-distinct steps は複数候補として保持する。
 
 ---
 
 # 14. Recovered branch normalization
 
-`normalize_toda_group_result()` は `ProofRepositoryEntry` を要求する。
-
-recovered branch は top-level repository entry ではないため、normalization adapter として ephemeral `ProofRepositoryEntry` を構築する。
-
-重要:
-
-```text
-ephemeral entry
-→ repository に register しない
-
-ephemeral_entry.step
-is original recovered branch ProofStep
-```
-
-aggregate provenance は `goal_source` に別途保持する。
-
-したがって:
+recovered branch 用に ephemeral `ProofRepositoryEntry` を作るが repository へ register しない。
 
 ```text
 goal_source
@@ -465,13 +407,9 @@ group_result.proof_step
 → original branch proof
 ```
 
-となる。
-
 ---
 
 # 15. Top-level calculation orchestration
-
-主要 API:
 
 ```text
 build_toda_calculation_result(
@@ -485,10 +423,9 @@ semantics:
 ```text
 direct lookup
 ├─ one or more results
-│  → direct results を返す
-│  → aggregate fallback は起動しない
+│  → direct results
 │
-└─ no direct result
+└─ none
    ↓
    aggregate discovery
    ↓
@@ -498,83 +435,34 @@ direct lookup
    ↓
    explanation build
    ↓
-   final TodaCalculationResult
+   TodaCalculationResult
 ```
 
-direct result が常に aggregate fallback より優先される。
+direct result が aggregate fallback より優先される。
 
 ---
 
 # 16. TodaCalculationResult
 
-status:
-
 ```text
-NOT_FOUND
-FOUND
-MULTIPLE_RESULTS
-```
-
-cardinality semantics:
-
-```text
-0 candidates
-→ NOT_FOUND
-
-1 candidate
-→ FOUND
-
-2+ candidates
-→ MULTIPLE_RESULTS
+0 candidates → NOT_FOUND
+1 candidate  → FOUND
+2+ candidates → MULTIPLE_RESULTS
 ```
 
 multiple candidate を勝手に ranking / selection しない。
 
 ---
 
-# 17. TodaCalculationCandidate provenance
+# 17. EHP extraction
 
-fields:
-
-```text
-group_result
-explanation
-goal_source
-```
-
-direct result:
-
-```text
-goal_source = None
-```
-
-aggregate-derived result:
-
-```text
-goal_source = original aggregate provenance
-```
-
-invariant:
-
-```text
-explanation.group_result is group_result
-```
-
----
-
-# 18. EHP extraction
-
-EHP extraction の truth source は:
+truth source:
 
 ```text
 TodaGroupResult.proof_step
 ↓
 actually reachable ProofStep ancestry
 ```
-
-である。
-
-reachable ancestry から actual `TodaProp42ExactnessStatement` を抽出し、contiguous EHP chain を構成する。
 
 代表:
 
@@ -590,37 +478,25 @@ reachable ancestry から actual `TodaProp42ExactnessStatement` を抽出し、c
 \pi_7^4.
 \]
 
-repository 全体から関係ありそうな EHP fact を集める方式ではない。
+repository 全体から関連しそうな fact を集める方式ではない。
 
 ---
 
-# 19. Exactness-use provenance
+# 18. Exactness-use provenance
 
-exactness provenance は:
+保持するもの:
 
 ```text
 actual exactness ProofStep
 actual direct consumer ProofSteps
+window identity
 ```
 
-を保持する。
-
-EHP window object identity も可能な限りそのまま保持する。
+presentation でも source identity を保持する。
 
 ---
 
-# 20. Flat proof dependency
-
-flat dependency representation は:
-
-```text
-TodaProofDependency
-TodaProofDependencyResult
-```
-
-を用いる。
-
-semantics:
+# 19. Flat proof dependency
 
 ```text
 breadth-first traversal
@@ -634,9 +510,7 @@ non-`ProofStep` premise は dependency node に含めない。
 
 ---
 
-# 21. Dependency role classification
-
-current role categories:
+# 20. Dependency role classification
 
 ```text
 EHP_EXACTNESS
@@ -650,15 +524,11 @@ LITERATURE
 OTHER
 ```
 
-主に first-class conclusion type と `RelationType` から分類する。
-
-theorem name や class-name substring に依存した推測は避ける。
+first-class conclusion type と `RelationType` を中心に分類し、class-name substring 推測を避ける。
 
 ---
 
-# 22. Recursive proof provenance
-
-recursive representation:
+# 21. Recursive proof provenance
 
 ```text
 TodaProofNode
@@ -666,13 +536,9 @@ TodaProofEdge
 TodaRecursiveProofProvenanceResult
 ```
 
-node identity:
+node は `ProofStep` identity ごとに1つ。
 
-```text
-one node per ProofStep identity
-```
-
-edge:
+edge は:
 
 ```text
 parent_step
@@ -680,17 +546,11 @@ premise_step
 premise_index
 ```
 
-`premise_index` は original unfiltered `ProofStep.premises` index を保持する。
-
 shared dependency は node を複製せず、複数 incoming edge を保持する。
-
-cycle / self-cycle は traversal を停止しつつ edge 自体は保持できる。
 
 ---
 
-# 23. Root identity invariant
-
-representative explanation では:
+# 22. Root identity invariant
 
 ```text
 group_result.proof_step
@@ -698,34 +558,128 @@ is dependency_result.root_step
 is recursive_provenance.root_step
 ```
 
-を維持する。
-
-aggregate fallback 後でも root は aggregate wrapper step ではなく original branch `ProofStep` である。
+aggregate fallback 後も root は original branch `ProofStep`。
 
 ---
 
-# 24. Repository non-mutation
-
-Phase 90–95 の query / calculation / explanation layer は repository を mutate しない。
-
-特に:
+# 23. Structured presentation boundary
 
 ```text
-aggregate discovery
-branch recovery
-ephemeral normalization
-EHP extraction
-dependency extraction
-recursive provenance extraction
+proof / calculation model
+↓
+presentation model
+↓
+renderer
 ```
 
-はいずれも read-only operation である。
+主要 object:
+
+```text
+TodaCalculationPresentationCandidate
+TodaTargetPresentation
+TodaGeneratorPresentation
+TodaGroupStructurePresentation
+TodaGroupResultPresentation
+TodaEHPSequencePresentation
+TodaEHPExactnessPresentation
+TodaProofStepPresentation
+TodaReadableProofFlowPresentation
+TodaEndToEndCandidatePresentation
+```
 
 ---
 
-# 25. 現在の representative end-to-end coverage
+# 24. Mathematical atomic presentation
 
-actual aggregate entries だけから top-level API で regression 済み:
+group structure:
+
+```text
+ZERO
+FREE_CYCLIC
+FINITE_CYCLIC
+DIRECT_SUM
+```
+
+generator order:
+
+```text
+INFINITE
+FINITE
+```
+
+Phase 91 の raw `None` order は semantic `INFINITE` に変換する。
+
+---
+
+# 25. EHP / exactness presentation
+
+end-to-end presentation 内では:
+
+```text
+exactness.sequence is ehp
+```
+
+を維持。
+
+source EHP result / exactness provenance identity を保持する。
+
+---
+
+# 26. Proof-step source presentation
+
+区別するもの:
+
+```text
+mathematical role
+literature source
+repository metadata
+calculation goal source
+```
+
+aggregate goal-source metadata を internal dependency へ伝播させない。
+
+---
+
+# 27. Dependency-first readable proof flow
+
+Phase 94 recursive provenance の BFS order は変更しない。
+
+presentation layer で cycle-safe DFS/postorder により:
+
+```text
+premise before parent
+```
+
+を導出。
+
+shared dependency:
+
+```text
+incoming_use_count
+is_shared_dependency
+```
+
+を保持する。
+
+---
+
+# 28. End-to-end presentation
+
+1 candidate について:
+
+```text
+calculation candidate
+group
+EHP
+exactness
+dependencies
+proof flow
+source metadata
+```
+
+を統合。
+
+代表 target:
 
 \[
 \pi_7^4,\quad
@@ -736,110 +690,216 @@ actual aggregate entries だけから top-level API で regression 済み:
 \pi_{12}^5.
 \]
 
-これにより以下を確認している。
+---
+
+# 29. Human-readable rendering
+
+主要 API:
 
 ```text
-direct sum
-finite cyclic group
-zero group
-outer aggregate branch
-nested aggregate branch
-generator orders
-original branch identity
-aggregate provenance
-EHP provenance
-flat dependencies
-recursive provenance
-repository non-mutation
+render_toda_expression_latex()
+render_toda_target_latex()
+render_toda_group_structure_latex()
+render_toda_group_result_latex()
+render_toda_ehp_sequence_latex()
+render_toda_end_to_end_markdown()
 ```
+
+\(\Delta\) は `\Delta` として LaTeX 正規化する。
 
 ---
 
-# 26. 現在の明示的境界
+# 30. Proof-step mathematical statement renderer
 
-未実装だが、現在の Phase 95 correctness を壊す未完ではないもの:
+actual \(\pi_9^5\) で:
+
+\[
+\Delta:\pi_9^9\to\pi_7^4
+\]
+
+が injective、
+
+\[
+H:\pi_9^5\to\pi_9^9
+\]
+
+が zero map、
+
+\[
+E:\pi_8^4\to\pi_9^5
+\]
+
+が surjective、
+
+\[
+\pi_9^5=\mathbb Z/2\{\nu_5\eta_8\}
+\]
+
+を出力可能。
+
+未対応 statement type は type-name fallback とする。
+
+---
+
+# 31. Readable proof narrative
+
+dependency-first flow の順序を narrative に使用する。
+
+renderer は provenance 以上の因果関係を推測しない。
+
+generic `MAP_PROPERTY` lead は:
+
+```text
+From the preceding statements
+```
+
+と中立化している。
+
+---
+
+# 32. Unified full proof report
+
+main API:
+
+```text
+render_toda_full_proof_report_markdown(
+  presentation,
+)
+```
+
+sections:
+
+```text
+Result
+Source
+EHP sequence
+Exactness
+Proof flow
+Readable proof narrative
+```
+
+`Proof flow` は provenance-oriented、`Readable proof narrative` は human-facing であり責務が異なる。
+
+---
+
+# 33. Safe fallback policy
+
+未対応 historical aggregate statement は:
+
+```text
+`TodaProp56FiniteDimensionalStatement`
+```
+
+のように explicit fallback。
+
+guess prose は生成しない。
+
+user-facing report に Python object repr を漏らさない。
+
+---
+
+# 34. Repository non-mutation
+
+Phase 90–96 の query / calculation / explanation / presentation / renderer layer は repository を mutate しない。
+
+---
+
+# 35. Representative coverage
+
+\[
+\pi_7^4,\quad
+\pi_9^5,\quad
+\pi_{10}^4,\quad
+\pi_{11}^5,\quad
+\pi_9^2,\quad
+\pi_{12}^5
+\]
+
+について:
+
+```text
+direct sum / finite cyclic / zero
+outer / nested aggregate branch
+generator orders
+EHP provenance
+flat / recursive provenance
+dependency-first flow
+LaTeX rendering
+mathematical statement rendering
+readable narrative
+unified report
+deterministic rendering
+repository non-mutation
+```
+
+を regression 済み。
+
+---
+
+# 36. 現在の明示的境界
 
 ```text
 symbolic higher-range theorem instantiation
 target-only unknown-RHS goal generation
 target-only bounded-search fallback
 detailed calculation failure taxonomy
-proof ranking
-best-proof selection
+proof ranking / best-proof selection
 unbounded search
 persistent proof cache
+full prose rendering for every historical statement type
 generic theorem proving
 odd-primary full integration
 all-primary ordinary sphere-homotopy calculator
 ```
 
-これらは別 capability として deferred とする。
+---
+
+# 37. Phase 97 との境界
+
+Phase 96 までで:
+
+```text
+TodaGroupQuery
+→ TodaCalculationResult
+→ candidate
+→ presentation
+→ full proof report
+```
+
+が揃った。
+
+Phase 97 は user-facing orchestration のみを扱う。
+
+```text
+(n, k)
+→ calculation
+→ candidate handling
+→ presentation
+→ report
+```
+
+presentation semantics や proof truth を再実装しない。
 
 ---
 
-# 27. Phase 96 との境界
+# 38. Verification policy
 
-Phase 96 は human-readable explanation / proof report layer とする。
-
-入力は Phase 95 までの structured result。
-
-```text
-structured proof truth
-↓
-presentation
-```
-
-とし、presentation layer が proof truth を変更してはならない。
-
-Phase 96 で扱いうるもの:
-
-```text
-human-readable target summary
-group structure
-generator / order display
-EHP sequence display
-exactness-use explanation
-required lemma / proposition summary
-recursive proof trace presentation
-literature reference presentation
-Markdown / console / LaTeX report
-```
-
-Phase 95 schema を prose generation の都合で不必要に変更しない。
-
----
-
-# 28. Verification policy
-
-各 Phase completion は最低限:
-
-```text
-focused pytest
-related regression
-repository-wide pytest
-git diff --check
-```
-
-で確認する。
-
-Phase 95-20 時点の最新確認:
+Phase 96-12 完了時:
 
 ```text
 focused / related:
-106 passed in 4.40s
+75 passed in 6.50s
 
 repository-wide:
-7419 passed in 38.11s
+7577 passed in 43.70s
 
 git diff --check:
 clean
 ```
 
-wall-clock time は machine-dependent。
-
 ---
 
-# 29. 文書運用
+# 39. 文書運用
 
 ```text
 README.md
@@ -852,7 +912,7 @@ docs/roadmap.md
 = future-oriented plan
 
 docs/development_log.md
-= development-history index
+= history index
 
 docs/development_log/
 = chronological archive
@@ -861,12 +921,10 @@ docs/proof_records.md
 = proof-record index
 
 docs/proof_records/
-= mathematical / infrastructure record archive
+= mathematical / infrastructure archive
 
 docs/code_reference.md
 = code navigation
 ```
 
 `development_log` と `proof_records` の詳細 archive は原則追記型とする。
-
-`design.md` と `roadmap.md` は current state に合わせて古い計画を削除・訂正する。

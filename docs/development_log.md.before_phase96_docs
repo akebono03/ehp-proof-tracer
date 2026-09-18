@@ -39,15 +39,9 @@ Proof Repository、automatic inference、rule selection、bounded producer searc
 
 `docs/development_log/phases_090_095.md`
 
-Toda group query、normalized group result、EHP provenance、flat / recursive proof provenance、calculation orchestration の記録。Phase 95 completion record を含む。
+Toda group query、normalized group result、EHP provenance、flat / recursive proof provenance、calculation orchestration の記録。
 
-## Phase 96
-
-`docs/development_log/phases_096.md`
-
-structured presentation、EHP / exactness presentation、proof source presentation、dependency-first proof flow、actual \(\pi_9^5\) end-to-end presentation、代表 target 展開、Markdown / LaTeX renderer、mathematical statement renderer、readable narrative、unified full proof report、final audit の記録。
-
-Phase 96 は COMPLETE。
+Phase 95 completion record は Phase 95-22D でこの archive に追記する。
 
 ---
 
