@@ -17601,3 +17601,485 @@ current recursive provenance / DAG representation audit
 ### 状態
 
 COMPLETE
+
+---
+
+# Phase 94：recursive proof provenance
+
+Phase 94 は、Phase 93 の flat dependency view を、shared-node-preserving な recursive proof graph へ拡張する infrastructure Phase。
+
+新しい Toda theorem を証明する Phase ではない。
+
+代表 target は引き続き:
+
+```text
+π_9^5=Z/2{ν₅η₈}
+```
+
+であり、Phase 68 の actual theorem-backed final `ProofStep` を root として利用する。
+
+## Phase 94-1：current recursive provenance / DAG representation audit
+
+実装前に確認:
+
+```text
+ProofStep.premises
+TodaProofDependency
+TodaProofDependencyResult
+extract_toda_proof_dependencies()
+TodaRepresentativeExplanationResult
+Phase 92 exactness provenance traversal
+actual π_9^5 proof graph
+```
+
+確定した設計:
+
+```text
+node identity
+= ProofStep object identity
+```
+
+structural equality ではない。
+
+equal-but-distinct `ProofStep` は別 node とする。
+
+edge semantics:
+
+```text
+parent_step
+premise_step
+premise_index
+```
+
+`premise_index` は ProofStep だけを filter した後の index ではなく、元の:
+
+```text
+parent_step.premises
+```
+
+における index を保持する。
+
+Phase 93 の `depth` は:
+
+```text
+root からの shortest depth
+```
+
+という summary であり、recursive edge structure そのものではない。
+
+non-`ProofStep` premise は graph node / edge にしない。
+
+`derived / proved / imported / assumed` status taxonomy は actual need が確認できないため追加しない。
+
+本体コード:
+
+```text
+変更なし
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 94-2：minimal proof-node / edge representation
+
+`toda_proof_dependency.py` に追加:
+
+```text
+TodaProofNode
+TodaProofEdge
+TodaRecursiveProofProvenanceResult
+```
+
+`TodaProofNode`:
+
+```text
+proof_step
+shortest_depth
+role
+```
+
+`TodaProofEdge`:
+
+```text
+parent_step
+premise_step
+premise_index
+```
+
+`TodaRecursiveProofProvenanceResult`:
+
+```text
+root_step
+nodes
+edges
+```
+
+主要 invariant:
+
+```text
+root node shortest_depth = 0
+non-root node shortest_depth > 0
+same ProofStep identity appears at most once in nodes
+root appears exactly once
+edge endpoints must appear in nodes
+edge premise identity must match parent_step.premises[premise_index]
+duplicate proof edge rejected
+```
+
+shared dependency は一つの node と複数 incoming edge で表現可能。
+
+関連回帰:
+
+```text
+45 passed in 1.84s
+```
+
+repository-wide:
+
+```text
+7282 passed in 36.82s
+```
+
+Windows 上の適用 script で `toda_proof_dependency.py` が CRLF へ変わり `git diff --check` が `^M` を報告したが、LF normalization で修正した。
+
+これは実装 semantics の不具合ではない。
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 94-3：actual theorem-backed recursive provenance extraction
+
+追加:
+
+```text
+extract_toda_recursive_proof_provenance()
+```
+
+入口:
+
+```text
+TodaGroupResult.proof_step
+```
+
+traversal:
+
+```text
+breadth-first
+```
+
+node deduplication:
+
+```text
+id(ProofStep)
+```
+
+edge は parent node を処理するとき、すべての `ProofStep` premise に対して追加する。
+
+これにより shared node 自体は1回だけでも、複数 parent からの edge は失わない。
+
+actual `π_9^5` で確認:
+
+```text
+root
+is
+Phase 68 final_step
+```
+
+さらに:
+
+```text
+recursive node identities
+=
+Phase 93 flat dependency identities
++
+root identity
+```
+
+各 dependency について:
+
+```text
+node.shortest_depth
+=
+dependency.depth
+```
+
+を確認。
+
+actual edge として:
+
+```text
+hopf_zero_step
+→ delta_injective_step
+
+hopf_zero_step
+→ h_delta_exactness_step
+```
+
+および exactness step → structural window step を確認。
+
+関連回帰:
+
+```text
+68 passed in 3.06s
+```
+
+repository-wide:
+
+```text
+7295 passed in 36.52s
+```
+
+`git diff --check`:
+
+```text
+clean
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 94-4：shared-node / cycle / stable-order regression
+
+production code:
+
+```text
+変更なし
+```
+
+synthetic graph regression のみ追加。
+
+固定した semantics:
+
+```text
+shared node
+→ node identity は1個
+→ incoming edge は複数保持
+
+node order
+→ breadth-first
+→ premise order preserving
+
+edge order
+→ parent traversal order
+→ original premise_index order
+
+cycle
+→ traversal terminates
+→ back-edge retained
+
+self-cycle
+→ traversal terminates
+→ self-edge retained
+```
+
+`ProofStep` は frozen dataclass なので cycle fixture 構築時だけ test 内で:
+
+```text
+object.__setattr__()
+```
+
+を利用した。
+
+これは production proof construction semantics を変更しない。
+
+shared revisit と cycle revisit のための新規 enum / status は追加せず、graph structure 自体で区別する。
+
+関連回帰:
+
+```text
+50 passed in 2.77s
+```
+
+repository-wide:
+
+```text
+7303 passed in 36.63s
+```
+
+`git diff --check`:
+
+```text
+clean
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 94-5：representative explanation integration
+
+`toda_explanation.py` を更新。
+
+`TodaRepresentativeExplanationResult` に追加:
+
+```text
+recursive_provenance:
+  TodaRecursiveProofProvenanceResult
+```
+
+builder:
+
+```text
+build_toda_representative_explanation()
+```
+
+から:
+
+```text
+extract_toda_recursive_proof_provenance()
+```
+
+を呼び、existing structured explanation へ統合。
+
+追加 invariant:
+
+```text
+recursive_provenance.root_step
+is
+group_result.proof_step
+```
+
+既存 invariant と合わせて:
+
+```text
+dependency_result.root_step
+is recursive_provenance.root_step
+is group_result.proof_step
+```
+
+を保証する。
+
+Phase 93 の:
+
+```text
+dependencies_for_role()
+```
+
+API は維持。
+
+関連回帰:
+
+```text
+48 passed in 2.98s
+```
+
+repository-wide:
+
+```text
+7313 passed in 36.98s
+```
+
+`git diff --check`:
+
+```text
+clean
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+## Phase 94 completion
+
+Phase 94 で完成:
+
+```text
+ProofStep identity-based proof nodes
+first-class parent -> premise edges
+original premise_index preservation
+BFS shortest depth
+stable node order
+stable edge order
+shared-node preservation
+multiple incoming edges
+cycle-safe traversal
+cycle back-edge preservation
+self-cycle regression
+actual theorem-backed π_9^5 recursive extraction
+flat / recursive root identity integration
+TodaRepresentativeExplanationResult integration
+```
+
+追加しなかったもの:
+
+```text
+derived / imported / assumed status taxonomy
+automatic natural-language proof narration
+proof ranking
+best-proof selection
+general graph database
+top-level calculation orchestration
+Phase 95 lookup/search policy
+Phase 96 presentation layer
+```
+
+最終全体回帰:
+
+```text
+7313 passed in 36.98s
+```
+
+`git diff --check`:
+
+```text
+clean
+```
+
+### 状態
+
+COMPLETE
+
+---
+
+# Phase 94 完了境界
+
+現在:
+
+```text
+TodaGroupResult
++
+EHP context
++
+exactness-use provenance
++
+flat dependency view
++
+recursive proof DAG
++
+representative structured explanation
+```
+
+まで machine-readable に取得可能。
+
+次:
+
+```text
+Phase 95-1
+current calculation entry points / orchestration boundary audit
+```
+
+まず実装せず:
+
+```text
+TodaGroupQuery
+known-result lookup
+TodaGroupResult
+build_toda_representative_explanation()
+ProofRepository
+bounded proof search
+```
+
+の責務と接続境界を監査する。

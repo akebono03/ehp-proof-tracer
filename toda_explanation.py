@@ -16,7 +16,9 @@ from toda_proof_dependency import (
   TodaProofDependency,
   TodaProofDependencyResult,
   TodaProofDependencyRole,
+  TodaRecursiveProofProvenanceResult,
   extract_toda_proof_dependencies,
+  extract_toda_recursive_proof_provenance,
 )
 
 
@@ -29,6 +31,9 @@ class TodaRepresentativeExplanationResult:
     | None
   )
   dependency_result: TodaProofDependencyResult
+  recursive_provenance: (
+    TodaRecursiveProofProvenanceResult
+  )
 
   def __post_init__(
     self,
@@ -78,12 +83,30 @@ class TodaRepresentativeExplanationResult:
         "a TodaProofDependencyResult"
       )
 
+    if not isinstance(
+      self.recursive_provenance,
+      TodaRecursiveProofProvenanceResult,
+    ):
+      raise TypeError(
+        "recursive_provenance must be "
+        "a TodaRecursiveProofProvenanceResult"
+      )
+
     if (
       self.dependency_result.root_step
       is not self.group_result.proof_step
     ):
       raise ValueError(
         "dependency_result.root_step must be "
+        "group_result.proof_step"
+      )
+
+    if (
+      self.recursive_provenance.root_step
+      is not self.group_result.proof_step
+    ):
+      raise ValueError(
+        "recursive_provenance.root_step must be "
         "group_result.proof_step"
       )
 
@@ -190,6 +213,12 @@ def build_toda_representative_explanation(
     )
   )
 
+  recursive_provenance = (
+    extract_toda_recursive_proof_provenance(
+      group_result
+    )
+  )
+
   return (
     TodaRepresentativeExplanationResult(
       group_result=group_result,
@@ -199,6 +228,9 @@ def build_toda_representative_explanation(
       ),
       dependency_result=(
         dependency_result
+      ),
+      recursive_provenance=(
+        recursive_provenance
       ),
     )
   )

@@ -160,78 +160,30 @@ Each extracted exactness window can also be connected to the actual `TodaProp42E
 
 Phase 93 is complete.
 
-### Phase 93-1: dependency traversal audit
-
-The audit established the following boundaries:
-
-```text
-direct dependency
-= ProofStep appearing directly in root_step.premises
-
-transitive dependency
-= recursively reachable ProofStep
-
-shared dependency
-= one ProofStep object reachable by multiple paths
-
-truth source
-= actual ProofStep ancestry
-```
-
-Repository metadata such as `key`, `phase`, and `theorem` is provenance metadata and is not used as mathematical truth.
-
-### Phase 93-2: minimal dependency result
-
-Added:
+Phase 93 introduced:
 
 ```text
 TodaProofDependency
 TodaProofDependencyResult
+TodaProofDependencyRole
+extract_toda_proof_dependencies()
+classify_toda_proof_step_role()
+TodaRepresentativeExplanationResult
+build_toda_representative_explanation()
 ```
 
-Core semantics:
+The flat dependency view records:
 
 ```text
 proof_step
-depth
-is_direct
+shortest depth
+direct/transitive status
+semantic role
 ```
 
-The root proof step is kept separately and cannot appear in `dependencies`.
+Traversal is breadth-first, identity-based, stable with respect to `ProofStep.premises`, and cycle-safe.
 
-Equal-but-distinct `ProofStep` objects remain distinct. Repeated references to the same `ProofStep` object are identity-deduplicated.
-
-### Phase 93-3: actual theorem-backed dependency extraction
-
-Added:
-
-```text
-extract_toda_proof_dependencies()
-```
-
-The traversal is breadth-first.
-
-This gives:
-
-```text
-shortest depth for shared dependencies
-stable order derived from premises tuple order
-identity-based deduplication
-cycle-safe traversal
-```
-
-For actual `pi_9^5`, the result includes theorem-backed EHP exactness steps, Hopf-zero, suspension-surjectivity, known-group facts, relations, and definitions reachable from the final proof.
-
-### Phase 93-4: dependency role classification
-
-Added:
-
-```text
-TodaProofDependencyRole
-classify_toda_proof_step_role()
-```
-
-Current roles:
+Current dependency roles are:
 
 ```text
 EHP_EXACTNESS
@@ -245,57 +197,145 @@ LITERATURE
 OTHER
 ```
 
-Classification is primarily based on first-class statement types and `RelationType`, not theorem-name strings.
+The truth source remains the actual reachable `ProofStep` ancestry, not repository metadata.
 
-`OTHER` is deliberate: unreviewed Toda-specific statements are not guessed into a role.
+## Phase 94: recursive proof provenance
 
-### Phase 93-5: representative explanation integration
+Phase 94 is complete.
+
+### Phase 94-1: DAG representation audit
+
+The audit established these semantics:
+
+```text
+node identity
+= ProofStep object identity
+
+edge order
+= original ProofStep.premises order
+
+premise_index
+= index in the unfiltered original premises tuple
+
+shortest_depth
+= breadth-first shortest path from the root
+
+recursive structure
+= first-class proof edges
+```
+
+Equal-but-distinct `ProofStep` objects remain distinct nodes.
+
+Non-`ProofStep` premises are not represented as proof nodes or proof edges.
+
+No derived/imported/assumed status taxonomy was added because there is no current theorem-backed need for it.
+
+### Phase 94-2: minimal proof graph representation
 
 Added:
 
 ```text
-TodaRepresentativeExplanationResult
-build_toda_representative_explanation()
+TodaProofNode
+TodaProofEdge
+TodaRecursiveProofProvenanceResult
 ```
 
-The integrated result combines:
+`TodaProofNode` keeps:
+
+```text
+proof_step
+shortest_depth
+role
+```
+
+`TodaProofEdge` keeps:
+
+```text
+parent_step
+premise_step
+premise_index
+```
+
+`TodaRecursiveProofProvenanceResult` keeps:
+
+```text
+root_step
+nodes
+edges
+```
+
+Shared dependencies are represented by one node with multiple incoming edges.
+
+### Phase 94-3: actual theorem-backed recursive extraction
+
+Added:
+
+```text
+extract_toda_recursive_proof_provenance()
+```
+
+The extractor starts at `TodaGroupResult.proof_step` and performs breadth-first traversal.
+
+For the actual `pi_9^5` theorem-backed result, the recursive graph preserves:
+
+```text
+the Phase 68 final ProofStep as the root
+all reachable ProofStep nodes
+all ProofStep parent -> premise edges
+original premise_index values
+Phase 93 shortest-depth semantics
+existing dependency-role classification
+```
+
+### Phase 94-4: shared-node, cycle, and stable-order regression
+
+Regression now fixes these semantics:
+
+```text
+shared node
+-> one node identity
+-> multiple incoming edges preserved
+
+node order
+-> breadth-first
+-> premises-order stable
+
+edge order
+-> parent traversal order
+-> original premise_index order
+
+cycle
+-> traversal terminates
+-> back-edge is preserved
+
+self-cycle
+-> traversal terminates
+-> self-edge is preserved
+```
+
+Cycle fixtures are synthetic regression fixtures. The implementation does not claim that the representative Toda proof graph itself contains cycles.
+
+### Phase 94-5: representative explanation integration
+
+`TodaRepresentativeExplanationResult` now combines:
 
 ```text
 TodaGroupResult
 TodaEHPSequenceResult
 TodaEHPExactnessUseProvenanceResult
 TodaProofDependencyResult
+TodaRecursiveProofProvenanceResult
 ```
 
-while preserving the original theorem-backed proof graph.
-
-Representative flow:
+with the identity invariant:
 
 ```text
-TodaGroupQuery
--> theorem-backed group result
--> TodaGroupResult
--> EHP context
--> exactness-use provenance
--> classified proof dependencies
--> TodaRepresentativeExplanationResult
+dependency_result.root_step
+is recursive_provenance.root_step
+is group_result.proof_step
 ```
 
-For `pi_9^5`, the integrated result can expose dependencies such as:
-
-```text
-EHP exactness
-EHP windows
-pi_8^4 group structure
-Delta injectivity
-Hopf-zero
-E surjectivity
-Delta eta_9 relation
-generator bridge
-nu_5 definition
-```
-
-The explanation result is still structured data. It does not yet recursively explain how every dependency was itself proved.
+The existing Phase 93 role-filter API remains available.
 
 ## Current end-to-end picture
 
@@ -312,6 +352,7 @@ The current theorem-backed calculation/explanation flow is:
 -> TodaEHPExactnessUseProvenanceResult
 -> TodaProofDependencyResult
 -> dependency roles
+-> TodaRecursiveProofProvenanceResult
 -> TodaRepresentativeExplanationResult
 ```
 
@@ -327,6 +368,20 @@ Representative EHP context:
 pi_10^9 --Delta--> pi_8^4 --E--> pi_9^5 --H--> pi_9^9 --Delta--> pi_7^4
 ```
 
+The representative explanation can now answer both:
+
+```text
+what facts were used?
+```
+
+and:
+
+```text
+how are those facts connected through proof premises?
+```
+
+as structured machine-readable data.
+
 ## Search and architecture boundaries
 
 The current implementation intentionally does not provide:
@@ -338,31 +393,25 @@ producer ranking
 proof-cost models
 best-proof selection
 persistent search cache
-recursive proof-provenance tree/DAG result
-automatic proof narrative generation
+automatic natural-language proof narration
+top-level calculation orchestration
 generic theorem proving
 ```
 
-Phase 93 dependency extraction is a read-only view over the actual proof ancestry. It does not rewrite or mutate the proof graph.
+Recursive proof provenance is a read-only view over the actual proof ancestry. It does not rewrite or mutate the proof graph.
 
 ## Verification
 
-Latest confirmed Phase 93 focused regression:
+Latest confirmed Phase 94-5 related regression:
 
 ```text
-66 passed in 7.61s
-```
-
-Latest confirmed Phase 92 -> Phase 93 integration regression:
-
-```text
-88 passed in 5.05s
+48 passed in 2.98s
 ```
 
 Latest confirmed repository-wide regression:
 
 ```text
-7269 passed in 102.15s
+7313 passed in 36.98s
 ```
 
 `git diff --check`:
@@ -378,30 +427,29 @@ Wall-clock time is machine-dependent. Test count, semantic coverage, provenance 
 The next planned phase is:
 
 ```text
-Phase 94
-recursive proof provenance
+Phase 95
+calculation orchestration
 ```
 
-The first step should be:
+The first step is an audit:
 
 ```text
-Phase 94-1
-current recursive provenance / DAG representation audit
+Phase 95-1
+current calculation entry points / orchestration boundary audit
 ```
 
-The intended direction is:
+The audit should examine:
 
 ```text
-final result
-├─ dependency A
-│  ├─ premise A1
-│  └─ premise A2
-├─ dependency B
-│  └─ shared dependency
-└─ dependency C
+TodaGroupQuery
+known-result lookup
+TodaGroupResult
+build_toda_representative_explanation()
+ProofRepository
+bounded proof search
 ```
 
-Phase 94 should represent how each dependency was proved while preserving sharing and avoiding accidental tree duplication.
+before fixing a top-level calculation result or proof-search fallback policy.
 
 Full human-readable proof narration remains a later presentation layer.
 
