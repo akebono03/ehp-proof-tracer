@@ -324,7 +324,7 @@ query
 → top-level calculation orchestration
 ```
 
-Phase 95 implementation capability is complete through the representative end-to-end regression. The formal Phase 95 completion record is finalized in the documentation-completion step.
+Phase 95 is formally COMPLETE. The structured calculation/orchestration layer is fixed through the representative end-to-end regression and the Phase 95 documentation completion sequence.
 
 The next development phase is Phase 96:
 

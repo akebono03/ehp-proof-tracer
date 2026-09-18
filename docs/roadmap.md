@@ -91,9 +91,11 @@ Phase 95 の implementation capability は完了している。
 
 ---
 
-# 3. Phase 95 documentation completion
+# 3. Phase 95 COMPLETE
 
-現在の documentation synchronization sequence:
+Phase 95 の calculation orchestration と documentation synchronization は完了した。
+
+completion sequence:
 
 ```text
 Phase 95-22A
@@ -102,22 +104,36 @@ documentation structure audit
 
 Phase 95-22B
 development_log / proof_records archival split
-→ implemented
+→ COMPLETE
 
 Phase 95-22C
 README / design / roadmap current-state rewrite
-→ current step
+→ COMPLETE
 
 Phase 95-22D
 Phase 95 completion record
-→ next
+→ COMPLETE
 
 Phase 95-22E
 document links / consistency / final verification
-→ Phase 95 formal completion
+→ COMPLETE
 ```
 
-Phase 95-22C では current-state docs から古い Phase 94-era future statements を除去し、Phase 95 architecture を正式に反映する。
+Phase 95 の正式な最終状態:
+
+```text
+implementation capability
+→ COMPLETE
+
+representative end-to-end regression
+→ COMPLETE
+
+documentation synchronization
+→ COMPLETE
+
+formal Phase status
+→ COMPLETE
+```
 
 ---
 
@@ -411,29 +427,13 @@ actual theorem-backed need
 
 # 14. 直近の次作業
 
-Phase 95-22C 完了後:
+Phase 95 は正式 COMPLETE。
 
-```text
-Phase 95-22D
-Phase 95 completion record
-```
-
-development archive と proof-record archive に Phase 95 の完成内容を追記する。
-
-その後:
-
-```text
-Phase 95-22E
-document links / consistency / final verification
-```
-
-を行い、Phase 95 を正式 COMPLETE とする。
-
-正式 completion 後は:
+次:
 
 ```text
 Phase 96-1
 current presentation inputs / explanation boundary audit
 ```
 
-へ進む。
+まず実装せず、Phase 95 の structured calculation result から human-readable presentation に安全に渡せる情報と presentation boundary を監査する。
