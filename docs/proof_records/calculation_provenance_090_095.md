@@ -1785,3 +1785,486 @@ current calculation entry points / orchestration boundary audit
 ### 状態
 
 COMPLETE
+
+# Phase 95 infrastructure record：top-level calculation orchestration
+
+Phase 95 は、既存 theorem-backed proof truth を変更せず、\(\pi_{n+k}^n\) query から structured calculation / explanation result までを一つの top-level orchestration に統合した。
+
+---
+
+## 1. Calculation entry point
+
+主要 API:
+
+```text
+build_toda_calculation_result(
+  repository,
+  query,
+)
+```
+
+input:
+
+```text
+ProofRepository
+TodaGroupQuery(n,k)
+```
+
+target:
+
+\[
+\pi_{n+k}^n.
+\]
+
+output:
+
+```text
+TodaCalculationResult
+```
+
+---
+
+## 2. Result representation
+
+```text
+TodaCalculationStatus
+TodaCalculationCandidate
+TodaCalculationResult
+```
+
+status semantics:
+
+```text
+0 candidates
+→ NOT_FOUND
+
+1 candidate
+→ FOUND
+
+2+ candidates
+→ MULTIPLE_RESULTS
+```
+
+multiple valid result は ranking / silent selection せず保持する。
+
+---
+
+## 3. Direct theorem-backed path
+
+direct path:
+
+```text
+TodaGroupQuery
+↓
+find_normalized_toda_group_results()
+↓
+TodaGroupResult
+↓
+build_toda_representative_explanation()
+↓
+TodaCalculationCandidate
+```
+
+direct candidate:
+
+```text
+goal_source = None
+```
+
+original `ProofRepositoryEntry` / `ProofStep` identity を保持する。
+
+---
+
+## 4. Aggregate fallback path
+
+direct lookup miss 時のみ aggregate fallback を起動する。
+
+```text
+repository entries
+↓
+supported aggregate theorem
+↓
+concrete matching branch
+↓
+TodaCalculationGoalCandidate
+↓
+original branch ProofStep recovery
+↓
+normalization
+↓
+explanation
+↓
+TodaCalculationCandidate
+```
+
+direct result が1件以上存在する場合、aggregate fallback は起動しない。
+
+---
+
+## 5. Aggregate goal provenance
+
+```text
+TodaCalculationGoalSource
+```
+
+fields:
+
+```text
+source_entry
+branch_name
+```
+
+outer branch example:
+
+```text
+pi10_4_group_relation
+```
+
+nested branch example:
+
+```text
+nu_squared_finite_dimensional.pi11_5_group_relation
+```
+
+この source は aggregate theorem provenance を表す。
+
+---
+
+## 6. Original branch recovery
+
+aggregate wrapper を final proof root として使用しない。
+
+既存 aggregate `ProofStep.premises` から:
+
+```text
+premise.conclusion == branch_statement
+```
+
+を満たす original branch `ProofStep` を回収する。
+
+重要:
+
+```text
+premise index hard-coding なし
+identity preservation
+equal-but-distinct step preservation
+```
+
+---
+
+## 7. Ephemeral normalization entry
+
+recovered branch は top-level repository entry ではない。
+
+そのため normalization adapter として ephemeral `ProofRepositoryEntry` を使用する。
+
+```text
+ephemeral_entry.step
+is recovered original branch ProofStep
+```
+
+ephemeral entry は repository に register しない。
+
+したがって:
+
+```text
+goal_source.source_entry
+→ original aggregate entry
+
+group_result.source_entry
+→ ephemeral normalization entry
+
+group_result.proof_step
+→ original branch ProofStep
+```
+
+という provenance separation を維持する。
+
+---
+
+## 8. Explanation root invariant
+
+aggregate fallback 後も:
+
+```text
+candidate.group_result.proof_step
+is candidate.explanation.dependency_result.root_step
+is candidate.explanation.recursive_provenance.root_step
+```
+
+を維持する。
+
+aggregate wrapper `ProofStep` は explanation root に置き換えない。
+
+---
+
+## 9. Representative actual coverage
+
+Phase 95-20 で actual aggregate entries のみを repository に登録し、次を top-level API から取得した。
+
+\[
+\pi_7^4
+=
+\mathbb Z\{\nu_4\}
+\oplus
+\mathbb Z/4\{E\nu'\},
+\]
+
+\[
+\pi_9^5
+=
+\mathbb Z/2\{\nu_5\eta_8\},
+\]
+
+\[
+\pi_{10}^4
+=
+\mathbb Z/8\{\nu_4^2\},
+\]
+
+\[
+\pi_{11}^5
+=
+\mathbb Z/2\{\nu_5^2\},
+\]
+
+\[
+\pi_9^2=0,
+\]
+
+\[
+\pi_{12}^5
+=
+\mathbb Z/2\{\sigma'''\}.
+\]
+
+---
+
+## 10. Representative provenance coverage
+
+\(\pi_7^4\):
+
+```text
+DirectSumGroup
+generator_orders = (None, 4)
+Phase 65 branch ProofStep identity
+Toda Proposition 5.6 aggregate provenance
+```
+
+\(\pi_9^5\):
+
+```text
+FiniteCyclicGroup
+generator_orders = (2,)
+Phase 68 branch ProofStep identity
+Toda Proposition 5.8 aggregate provenance
+actual EHP sequence
+exactness-use provenance
+flat dependency root
+recursive provenance root
+```
+
+actual EHP context:
+
+\[
+\pi_{10}^9
+\xrightarrow{\Delta}
+\pi_8^4
+\xrightarrow{E}
+\pi_9^5
+\xrightarrow{H}
+\pi_9^9
+\xrightarrow{\Delta}
+\pi_7^4.
+\]
+
+\(\pi_{10}^4\):
+
+```text
+generator_orders = (8,)
+Phase 73 outer branch
+```
+
+\(\pi_{11}^5\):
+
+```text
+generator_orders = (2,)
+Phase 73 nested branch
+branch_name =
+nu_squared_finite_dimensional.pi11_5_group_relation
+```
+
+\(\pi_9^2\):
+
+```text
+group_structure = None
+generators = ()
+generator_orders = ()
+Phase 75 zero branch
+```
+
+\(\pi_{12}^5\):
+
+```text
+FiniteCyclicGroup
+generator_orders = (2,)
+σ''' generator identity preserved
+Phase 75 aggregate provenance
+```
+
+---
+
+## 11. Repository mutation boundary
+
+Phase 95 calculation flow は read-only。
+
+```text
+direct lookup
+aggregate discovery
+branch recovery
+ephemeral normalization
+EHP extraction
+flat dependency extraction
+recursive provenance extraction
+```
+
+のいずれも repository を mutate しない。
+
+Phase 95-20 regression で calculation 前後の repository entry identity を確認済み。
+
+---
+
+## 12. Ambiguity policy
+
+direct / aggregate のいずれでも:
+
+```text
+multiple valid results
+→ preserve all
+```
+
+とする。
+
+禁止:
+
+```text
+silent ranking
+registration-order winner selection
+best-proof assumption
+```
+
+final candidate count が `TodaCalculationStatus` を決定する。
+
+---
+
+## 13. Deliberate non-capabilities
+
+Phase 95 completion に含めない:
+
+```text
+symbolic higher-range theorem instantiation
+target-only unknown-RHS goal generation
+target-only bounded proof-search fallback
+detailed NOT_FOUND diagnostics
+proof ranking
+best-proof selection
+unbounded proof search
+natural-language narration
+```
+
+これらは current concrete finite-dimensional orchestration の proof truth を欠くものではなく、独立した将来 capability とする。
+
+---
+
+## 14. Verification
+
+Phase 95-15:
+
+```text
+82 passed in 3.42s
+repository-wide: 7395 passed in 36.98s
+```
+
+Phase 95-17:
+
+```text
+89 passed in 4.23s
+repository-wide: 7402 passed in 37.93s
+```
+
+Phase 95-18:
+
+```text
+97 passed in 3.61s
+repository-wide: 7410 passed in 37.50s
+```
+
+Phase 95-20:
+
+```text
+106 passed in 4.40s
+repository-wide: 7419 passed in 38.11s
+git diff --check: clean
+```
+
+---
+
+## 15. Phase 95 proof-infrastructure boundary
+
+Phase 95 が固定した machine-readable chain:
+
+```text
+query target
+↓
+theorem-backed result discovery
+↓
+actual branch proof identity
+↓
+normalized group structure
+↓
+EHP / exactness provenance
+↓
+flat proof dependencies
+↓
+recursive proof graph
+↓
+structured calculation candidate
+↓
+structured calculation result
+```
+
+この chain は presentation を含まない。
+
+次 Phase:
+
+```text
+Phase 96
+human-readable explanation / proof report
+```
+
+では、この structured result を input として presentation を構築する。
+
+```text
+presentation != proof truth
+```
+
+を維持する。
+
+---
+
+## 16. Status
+
+Phase 95 implementation capability:
+
+```text
+COMPLETE
+```
+
+formal Phase 95 completion:
+
+```text
+Phase 95-22E
+document links / consistency / final verification
+```
+
+の完了後に確定する。
