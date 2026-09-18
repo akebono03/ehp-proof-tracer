@@ -40,15 +40,16 @@ TodaGroupQuery
 → actual EHP extraction
 → EHP term group enrichment
 → exactness-use provenance
-→ proof dependency extraction
+→ flat proof dependency extraction
 → dependency role classification
+→ recursive proof-node / edge extraction
 → representative explanation integration
 ```
 
 latest confirmed repository-wide regression:
 
 ```text
-7269 passed in 102.15s
+7313 passed in 36.98s
 ```
 
 `git diff --check`:
@@ -131,12 +132,6 @@ actual `π_9^5`:
 原則:
 
 ```text
-repository 内の potentially relevant facts
-```
-
-ではなく:
-
-```text
 final proof ancestry から actually reachable な facts
 ```
 
@@ -144,47 +139,18 @@ final proof ancestry から actually reachable な facts
 
 ---
 
-# 5. Phase 93 COMPLETE：proof dependency extraction / explanation integration
+# 5. Phase 93 COMPLETE：flat proof dependency / role / explanation integration
 
-## Phase 93-1
-
-current dependency representation / traversal audit。
-
-確定:
-
-```text
-direct vs transitive dependency
-shared ProofStep identity
-actual proof ancestry as truth source
-Phase 92 EHP traversal と generic dependency layer の境界
-Phase 94 recursive provenance との境界
-```
-
-## Phase 93-2
-
-追加:
+完成:
 
 ```text
 TodaProofDependency
 TodaProofDependencyResult
-```
-
-最低限:
-
-```text
-proof_step
-depth
-is_direct
-```
-
-を表現。
-
-## Phase 93-3
-
-追加:
-
-```text
+TodaProofDependencyRole
 extract_toda_proof_dependencies()
+classify_toda_proof_step_role()
+TodaRepresentativeExplanationResult
+build_toda_representative_explanation()
 ```
 
 semantics:
@@ -200,63 +166,109 @@ non-ProofStep premise exclusion
 
 actual `π_9^5` で theorem-backed dependency extraction を確認。
 
-## Phase 93-4
+---
+
+# 6. Phase 94 COMPLETE：recursive proof provenance
+
+Phase 93 の flat dependency view から proof edge を first-class に拡張した。
+
+## Phase 94-1 COMPLETE
+
+current recursive provenance / DAG representation audit。
+
+確定:
+
+```text
+node identity = ProofStep object identity
+edge order = original premises order
+premise_index = original unfiltered tuple index
+shortest_depth = BFS shortest path
+recursive edge structure と shortest depth は別概念
+non-ProofStep premise は graph へ含めない
+status taxonomy は actual need が出るまで追加しない
+```
+
+## Phase 94-2 COMPLETE
 
 追加:
 
 ```text
-TodaProofDependencyRole
-classify_toda_proof_step_role()
+TodaProofNode
+TodaProofEdge
+TodaRecursiveProofProvenanceResult
 ```
 
-roles:
+shared dependency を一つの node と複数 incoming edge で表現する。
 
-```text
-EHP_EXACTNESS
-EHP_WINDOW
-GROUP_STRUCTURE
-RELATION
-ORDER
-MAP_PROPERTY
-DEFINITION
-LITERATURE
-OTHER
-```
-
-未知 statement を文字列推測で分類しない。
-
-## Phase 93-5
+## Phase 94-3 COMPLETE
 
 追加:
 
 ```text
-TodaRepresentativeExplanationResult
-build_toda_representative_explanation()
+extract_toda_recursive_proof_provenance()
 ```
 
-統合:
+actual `π_9^5` で:
 
 ```text
-TodaGroupResult
-+
-TodaEHPSequenceResult
-+
-TodaEHPExactnessUseProvenanceResult
-+
-TodaProofDependencyResult
+actual Phase 68 final_step root identity
+all reachable ProofStep nodes
+all parent -> premise proof edges
+original premise_index
+Phase 93 shortest-depth compatibility
+role compatibility
 ```
 
-Phase 93 completion regression:
+を確認。
+
+## Phase 94-4 COMPLETE
+
+regression-only。
+
+固定:
 
 ```text
-Phase 93 focused:
-66 passed in 7.61s
+shared node
+multiple incoming edges
+BFS stable node order
+stable edge order
+original premise_index
+cycle safety
+self-cycle safety
+cycle back-edge preservation
+```
 
-Phase 92 -> 93:
-88 passed in 5.05s
+production code は変更しない。
+
+## Phase 94-5 COMPLETE
+
+`TodaRepresentativeExplanationResult` に:
+
+```text
+recursive_provenance
+```
+
+を統合。
+
+identity invariant:
+
+```text
+dependency_result.root_step
+is recursive_provenance.root_step
+is group_result.proof_step
+```
+
+Phase 94 completion regression:
+
+```text
+Phase 94-5 related:
+48 passed in 2.98s
 
 repository-wide:
-7269 passed in 102.15s
+7313 passed in 36.98s
+
+git diff --check:
+clean
 ```
 
 ### 状態
@@ -265,93 +277,13 @@ COMPLETE
 
 ---
 
-# 6. Phase 94：recursive proof provenance
+# 7. Phase 95：calculation orchestration
 
 次の Phase。
 
-Phase 93 の flat dependency view:
+Phase 90–94 の既存 capability を、user-facing calculation entry point へどう束ねるかを決める。
 
-```text
-dependency
-proof_step
-depth
-role
-```
-
-から、proof edge を first-class にする。
-
-目標イメージ:
-
-```text
-final result
-├─ dependency A
-│  ├─ premise A1
-│  └─ premise A2
-├─ dependency B
-│  └─ shared dependency
-└─ dependency C
-```
-
-重要:
-
-```text
-proof structure is generally a DAG
-not necessarily a tree
-```
-
-shared dependency を複製しない representation が必要。
-
----
-
-# 7. Phase 94 推奨分割
-
-```text
-Phase 94-1
-current recursive provenance / DAG representation audit
-
-Phase 94-2
-minimal proof-node / edge representation
-
-Phase 94-3
-actual theorem-backed recursive provenance extraction
-
-Phase 94-4
-shared-node / cycle / stable-order regression
-
-Phase 94-5
-representative Phase 93 explanation integration
-```
-
-Phase 94-1 で確認する中心:
-
-```text
-ProofStep.premises
-object identity
-shared ProofStep
-edge order
-cycle handling
-root inclusion
-Phase 93 shortest-depth semantics との整合
-```
-
-status 候補:
-
-```text
-derived
-proved
-imported
-assumed
-```
-
-は、actual need が確認できるまで schema に入れない。
-
----
-
-# 8. Phase 95：calculation orchestration
-
-Phase 90–94 layer を user-facing calculation API に束ねる。
-
-概念:
+概念候補:
 
 ```text
 (n,k)
@@ -359,19 +291,75 @@ Phase 90–94 layer を user-facing calculation API に束ねる。
 target π_{n+k}^n
 ↓
 known-result lookup
-or
-authorized bounded proof search
 ↓
 normalized group result
 ↓
 EHP context
 ↓
-dependencies / recursive provenance
+flat dependencies
+↓
+recursive provenance
 ↓
 structured calculation result
 ```
 
-Phase 95 前に orchestration class を固定しない。
+lookup miss 時に:
+
+```text
+authorized bounded proof search
+```
+
+を起動するかどうかは Phase 95-1 監査で決める。
+
+Phase 95 前に top-level result class や fallback policy を固定しない。
+
+---
+
+# 8. Phase 95 推奨開始
+
+まず:
+
+```text
+Phase 95-1
+current calculation entry points / orchestration boundary audit
+```
+
+監査対象:
+
+```text
+TodaGroupQuery
+find_known_toda_group_results()
+find_normalized_toda_group_results()
+TodaGroupResult
+build_toda_representative_explanation()
+ProofRepository
+repository-assisted bounded proof search
+```
+
+確認する中心:
+
+```text
+1. 現在 user が (n,k) から辿る必要がある entry point は何個あるか
+
+2. known-result lookup と explanation build を
+   どの layer が束ねるべきか
+
+3. lookup miss を
+   "unknown" として返すか
+   authorized proof search へ渡すか
+
+4. multiple theorem-backed matches の扱いを
+   orchestration が勝手に ranking してよいか
+
+5. TodaGroupResult と TodaRepresentativeExplanationResult の
+   identity / provenance をどう保持するか
+
+6. orchestration result に最低限必要な field は何か
+
+7. Phase 96 presentation を Phase 95 schema に混ぜないための境界
+```
+
+監査後にのみ Phase 95-2 以降を確定する。
 
 ---
 
@@ -379,7 +367,7 @@ Phase 95 前に orchestration class を固定しない。
 
 structured calculation result から presentation を生成する。
 
-目標:
+目標候補:
 
 ```text
 target
@@ -411,7 +399,7 @@ presentation != proof truth
 
 を維持する。
 
-Phase 93 の `TodaRepresentativeExplanationResult` は structured integration であり、Phase 96 の natural-language narrator ではない。
+Phase 94 の recursive provenance は structured graph であり、natural-language narrator ではない。
 
 ---
 
@@ -468,28 +456,8 @@ actual theorem-backed need
 次:
 
 ```text
-Phase 94-1
-current recursive provenance / DAG representation audit
+Phase 95-1
+current calculation entry points / orchestration boundary audit
 ```
 
-監査対象:
-
-```text
-ProofStep.premises
-TodaProofDependencyResult
-extract_toda_proof_dependencies()
-TodaRepresentativeExplanationResult
-Phase 92 exactness provenance traversal
-actual π_9^5 proof graph
-```
-
-確認する中心:
-
-```text
-flat dependency list から何を追加すれば DAG を lossless に表現できるか
-shared node を identity でどう保持するか
-edge order をどう保持するか
-shortest depth と recursive edge structure をどう分離するか
-cycle guard を representation と extraction のどちらに置くか
-Phase 96 narrative layer と何を分離するか
-```
+まず実装せず、Phase 90–94 の entry point と責務の重複・境界を監査する。

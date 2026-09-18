@@ -10725,3 +10725,508 @@ clean
 ### 状態
 
 COMPLETE
+
+---
+
+# Phase 94 infrastructure record：recursive proof provenance
+
+## 18.1 記録の位置づけ
+
+Phase 94 は新しい Toda theorem を証明した Phase ではない。
+
+Phase 93 で machine-readable になった:
+
+```text
+何を使ったか
+```
+
+という flat dependency view を、
+
+```text
+各 dependency がどの premise から導かれたか
+```
+
+まで保持する recursive proof graph へ拡張した infrastructure record である。
+
+代表 target:
+
+```text
+π_9^5=Z/2{ν₅η₈}
+```
+
+root は Phase 68 actual theorem-backed:
+
+```text
+final_step
+```
+
+をそのまま使用する。
+
+---
+
+## 18.2 node representation
+
+追加:
+
+```text
+TodaProofNode
+```
+
+fields:
+
+```text
+proof_step
+shortest_depth
+role
+```
+
+identity rule:
+
+```text
+same node
+iff
+same ProofStep object identity
+```
+
+したがって:
+
+```text
+equal-but-distinct ProofStep
+```
+
+は別 node。
+
+shared dependency は copy せず一つの node として保持する。
+
+---
+
+## 18.3 edge representation
+
+追加:
+
+```text
+TodaProofEdge
+```
+
+fields:
+
+```text
+parent_step
+premise_step
+premise_index
+```
+
+edge truth:
+
+```text
+parent_step.premises[premise_index]
+is
+premise_step
+```
+
+`premise_index` は元の unfiltered premise tuple の index。
+
+例:
+
+```text
+parent.premises = (
+  "non-ProofStep premise",
+  child_step,
+)
+```
+
+なら:
+
+```text
+edge.premise_index = 1
+```
+
+となる。
+
+---
+
+## 18.4 recursive result
+
+追加:
+
+```text
+TodaRecursiveProofProvenanceResult
+```
+
+fields:
+
+```text
+root_step
+nodes
+edges
+```
+
+主要 invariant:
+
+```text
+root appears exactly once in nodes
+root shortest_depth = 0
+node ProofStep identities are unique
+edge endpoints appear in nodes
+duplicate proof edges are rejected
+```
+
+---
+
+## 18.5 actual theorem-backed extraction
+
+追加:
+
+```text
+extract_toda_recursive_proof_provenance()
+```
+
+入口:
+
+```text
+TodaGroupResult.proof_step
+```
+
+代表 `π_9^5`:
+
+```text
+group_result.proof_step
+is
+Phase 68 final_step
+```
+
+traversal は breadth-first。
+
+node identity は `id(ProofStep)` で deduplicate する。
+
+edge は parent を処理するときに original premise order で追加する。
+
+---
+
+## 18.6 Phase 93 flat view との整合
+
+Phase 93:
+
+```text
+TodaProofDependencyResult
+```
+
+Phase 94:
+
+```text
+TodaRecursiveProofProvenanceResult
+```
+
+について:
+
+```text
+recursive nodes
+=
+root
++
+flat dependencies
+```
+
+を identity set として確認。
+
+また各 flat dependency について:
+
+```text
+dependency.depth
+=
+corresponding node.shortest_depth
+```
+
+が成立する。
+
+shortest depth は graph structure そのものではなく summary metadata。
+
+recursive truth は edges に保持される。
+
+---
+
+## 18.7 representative actual edges
+
+actual `π_9^5` proof graph では代表的に:
+
+```text
+hopf_zero_step
+├─ delta_injective_step
+└─ h_delta_exactness_step
+```
+
+を edge として取得する。
+
+さらに:
+
+```text
+delta_e_exactness_step
+→ delta_e_window_step
+```
+
+のように actual exactness theorem step から structural EHP window step への dependency edge も保持する。
+
+これらは repository theorem-name metadata から再構築した edge ではない。
+
+truth source は:
+
+```text
+ProofStep.premises
+```
+
+そのもの。
+
+---
+
+## 18.8 shared-node semantics
+
+synthetic DAG:
+
+```text
+root
+├─ A
+│  └─ shared
+└─ B
+   └─ shared
+```
+
+result:
+
+```text
+nodes:
+root
+A
+B
+shared
+```
+
+`shared` node は1回だけ。
+
+edges:
+
+```text
+root -> A
+root -> B
+A -> shared
+B -> shared
+```
+
+はすべて保持する。
+
+したがって DAG を tree copy へ展開しない。
+
+---
+
+## 18.9 stable order
+
+node order:
+
+```text
+breadth-first
++
+premise tuple order
+```
+
+edge order:
+
+```text
+parent traversal order
++
+premise_index order
+```
+
+を regression で固定。
+
+同一 proof graph に対して deterministic な representation を得る。
+
+---
+
+## 18.10 cycle semantics
+
+synthetic regression で:
+
+```text
+A -> B -> A
+```
+
+および:
+
+```text
+A -> A
+```
+
+を確認。
+
+`seen_step_ids` により traversal は終了する。
+
+ただし edge は:
+
+```text
+B -> A
+A -> A
+```
+
+も失わない。
+
+重要:
+
+```text
+cycle regression exists
+!=
+actual Toda proof graph is cyclic
+```
+
+である。
+
+cycle fixture は traversal safety semantics を固定するためだけに用いる。
+
+---
+
+## 18.11 representative explanation integration
+
+Phase 94-5 で:
+
+```text
+TodaRepresentativeExplanationResult
+```
+
+へ:
+
+```text
+recursive_provenance
+```
+
+を追加。
+
+現在の fields:
+
+```text
+group_result
+ehp_result
+exactness_provenance
+dependency_result
+recursive_provenance
+```
+
+identity invariant:
+
+```text
+dependency_result.root_step
+is recursive_provenance.root_step
+is group_result.proof_step
+```
+
+したがって flat view と recursive view は同じ theorem-backed proof root を参照する。
+
+---
+
+## 18.12 non-destructive provenance
+
+Phase 94 は existing proof graph を変更しない。
+
+保持:
+
+```text
+group_result.proof_step identity
+source_entry.step identity
+dependency ProofStep identity
+recursive node ProofStep identity
+recursive edge endpoint ProofStep identity
+premise ordering
+premise index
+```
+
+repository も mutate しない。
+
+---
+
+## 18.13 regression record
+
+Phase 94-2:
+
+```text
+related:
+45 passed in 1.84s
+
+repository-wide:
+7282 passed in 36.82s
+```
+
+Phase 94-3:
+
+```text
+related:
+68 passed in 3.06s
+
+repository-wide:
+7295 passed in 36.52s
+```
+
+Phase 94-4:
+
+```text
+related:
+50 passed in 2.77s
+
+repository-wide:
+7303 passed in 36.63s
+```
+
+Phase 94-5:
+
+```text
+related:
+48 passed in 2.98s
+
+repository-wide:
+7313 passed in 36.98s
+
+git diff --check:
+clean
+```
+
+---
+
+## 18.14 Phase 94 completion boundary
+
+Phase 94 で完成:
+
+```text
+flat dependency provenance
++
+first-class proof nodes
++
+first-class proof edges
++
+shared-node-preserving DAG representation
++
+cycle-safe traversal
++
+stable ordering
++
+actual π_9^5 recursive extraction
++
+representative explanation integration
+```
+
+Phase 94 で行わない:
+
+```text
+automatic natural-language proof narration
+top-level calculation orchestration
+proof ranking
+best-proof selection
+persistent graph database
+generic theorem proving
+```
+
+次:
+
+```text
+Phase 95-1
+current calculation entry points / orchestration boundary audit
+```
+
+### 状態
+
+COMPLETE
