@@ -50,15 +50,7 @@ Proof Repository、repository-assisted inference、automatic rule selection、bo
 
 Toda group query、normalized theorem-backed group result、actual EHP extraction、proof dependency / explanation、recursive proof provenance、および Phase 95 calculation orchestration の記録。
 
-Phase 95 completion record を含む。
-
-## Phase 96
-
-`docs/proof_records/presentation_reporting_096.md`
-
-structured presentation、EHP / exactness presentation、proof source presentation、dependency-first proof flow、human-readable Markdown / LaTeX、mathematical statement renderer、readable narrative、unified full proof report、Phase 96 final audit の記録。
-
-actual \(\pi_9^5\) を中心とした proof-report provenance と representative target coverage を含む。
+Phase 95 completion record は Phase 95-22D でこの archive に追記する。
 
 ---
 
@@ -67,13 +59,11 @@ actual \(\pi_9^5\) を中心とした proof-report provenance と representative
 数学的 truth source は `ProofStep` とその actual premise ancestry である。
 
 ```text
-proof record != proof truth
-presentation != proof truth
-rendered prose != proof truth
+proof record
+!=
+proof truth
 ```
 
 この文書群は、実装済み proof object と provenance を人間が追跡しやすくするための記録であり、独立した theorem database ではない。
-
-renderer が未対応 statement を推測で補完してはならない。
 
 既存記録は原則として削除せず、確定した semantic correction がある場合のみ訂正する。
