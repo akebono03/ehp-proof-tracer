@@ -180,7 +180,7 @@ def test_phase96_10_renders_actual_h_delta_exactness_statement():
       r"\pi_{9}^{5} "
       r"\xrightarrow{H} "
       r"\pi_{9}^{9} "
-      r"\xrightarrow{\Delta} "
+      r"\xrightarrow{Δ} "
       r"\pi_{7}^{4} "
       r"\text{ is exact}"
     )

@@ -152,37 +152,6 @@ def _render_toda_group_map_latex(
   )
 
 
-def _render_toda_ehp_map_symbol_latex(
-  map_symbol,
-) -> str:
-  names = {
-    "E": "E",
-    "H": "H",
-    "Δ": r"\Delta",
-  }
-
-  name = getattr(
-    map_symbol,
-    "name",
-    None,
-  )
-
-  if (
-    not isinstance(
-      name,
-      str,
-    )
-    or name not in names
-  ):
-    raise TypeError(
-      "unsupported EHP map symbol"
-    )
-
-  return names[
-    name
-  ]
-
-
 def _render_toda_exactness_window_latex(
   window: TodaEHPExactnessWindow,
 ) -> str:
@@ -200,17 +169,13 @@ def _render_toda_exactness_window_latex(
       window.source_term
     )
     + r" \xrightarrow{"
-    + _render_toda_ehp_map_symbol_latex(
-      window.first_map
-    )
+    + window.first_map.name
     + "} "
     + render_toda_primary_group_latex(
       window.middle_term
     )
     + r" \xrightarrow{"
-    + _render_toda_ehp_map_symbol_latex(
-      window.second_map
-    )
+    + window.second_map.name
     + "} "
     + render_toda_primary_group_latex(
       window.target_term
@@ -547,7 +512,7 @@ def _narrative_lead_for_step(
     step.role
     is TodaProofDependencyRole.MAP_PROPERTY
   ):
-    return "From the preceding statements"
+    return "From the preceding exactness and map information"
 
   if (
     step.role
