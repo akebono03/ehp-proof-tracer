@@ -5,13 +5,8 @@ from homotopy_groups import (
   TodaPrimaryGroupZeroStatement,
 )
 from proof import (
-  ProofRule,
-  ProofStep,
   Relation,
   RelationType,
-)
-from proof_repository import (
-  ProofRepositoryEntry,
 )
 from test_phase90_known_group_lookup import (
   make_generator,
@@ -20,7 +15,6 @@ from toda_calculation_goal import (
   TodaCalculationGoalCandidate,
   TodaCalculationGoalDiscoveryResult,
   TodaCalculationGoalDiscoveryStatus,
-  TodaCalculationGoalSource,
 )
 from toda_group_query import TodaGroupQuery
 
@@ -47,21 +41,6 @@ def make_phase95_5_finite_goal(
   )
 
 
-def make_phase95_8_source_entry(
-  conclusion,
-):
-  return ProofRepositoryEntry(
-    key="phase95.aggregate",
-    step=ProofStep(
-      conclusion=conclusion,
-      premises=(),
-      rule=ProofRule.GIVEN,
-    ),
-    phase="95",
-    theorem="aggregate fixture",
-  )
-
-
 def test_phase95_5_candidate_preserves_target_and_goal():
   query = TodaGroupQuery(
     n=4,
@@ -83,7 +62,6 @@ def test_phase95_5_candidate_preserves_target_and_goal():
     == query.target
   )
   assert candidate.goal is goal
-  assert candidate.source is None
 
 
 def test_phase95_5_candidate_accepts_zero_group_goal():
@@ -180,130 +158,6 @@ def test_phase95_5_candidate_rejects_non_target():
     TodaCalculationGoalCandidate(
       target="not-a-target",
       goal=goal,
-    )
-
-
-def test_phase95_8_source_preserves_entry_identity_and_branch_name():
-  source_entry = (
-    make_phase95_8_source_entry(
-      conclusion="aggregate conclusion",
-    )
-  )
-
-  source = TodaCalculationGoalSource(
-    source_entry=source_entry,
-    branch_name="pi10_4_group_relation",
-  )
-
-  assert (
-    source.source_entry
-    is source_entry
-  )
-  assert (
-    source.branch_name
-    == "pi10_4_group_relation"
-  )
-
-
-def test_phase95_8_candidate_preserves_source_identity():
-  query = TodaGroupQuery(
-    n=4,
-    k=6,
-  )
-  goal = make_phase95_5_finite_goal(
-    query
-  )
-  source = TodaCalculationGoalSource(
-    source_entry=(
-      make_phase95_8_source_entry(
-        conclusion="aggregate conclusion",
-      )
-    ),
-    branch_name="pi10_4_group_relation",
-  )
-
-  candidate = (
-    TodaCalculationGoalCandidate(
-      target=query.target,
-      goal=goal,
-      source=source,
-    )
-  )
-
-  assert candidate.source is source
-
-
-def test_phase95_8_source_rejects_non_repository_entry():
-  with pytest.raises(
-    TypeError,
-    match=(
-      "source_entry must be "
-      "a ProofRepositoryEntry"
-    ),
-  ):
-    TodaCalculationGoalSource(
-      source_entry="not-an-entry",
-      branch_name="pi10_4_group_relation",
-    )
-
-
-def test_phase95_8_source_rejects_non_string_branch_name():
-  source_entry = (
-    make_phase95_8_source_entry(
-      conclusion="aggregate conclusion",
-    )
-  )
-
-  with pytest.raises(
-    TypeError,
-    match="branch_name must be a str",
-  ):
-    TodaCalculationGoalSource(
-      source_entry=source_entry,
-      branch_name=10,
-    )
-
-
-def test_phase95_8_source_rejects_empty_branch_name():
-  source_entry = (
-    make_phase95_8_source_entry(
-      conclusion="aggregate conclusion",
-    )
-  )
-
-  with pytest.raises(
-    ValueError,
-    match=(
-      "branch_name must not be empty"
-    ),
-  ):
-    TodaCalculationGoalSource(
-      source_entry=source_entry,
-      branch_name="",
-    )
-
-
-def test_phase95_8_candidate_rejects_invalid_source_type():
-  query = TodaGroupQuery(
-    n=4,
-    k=6,
-  )
-  goal = make_phase95_5_finite_goal(
-    query
-  )
-
-  with pytest.raises(
-    TypeError,
-    match=(
-      "source must be a "
-      "TodaCalculationGoalSource "
-      "or None"
-    ),
-  ):
-    TodaCalculationGoalCandidate(
-      target=query.target,
-      goal=goal,
-      source="not-a-source",
     )
 
 
