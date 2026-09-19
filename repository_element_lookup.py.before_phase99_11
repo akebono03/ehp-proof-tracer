@@ -1,10 +1,6 @@
 from dataclasses import dataclass
 
 from expression import GeneratorSymbol
-from generator_occurrence_roles import (
-  GeneratorOccurrenceRole,
-  classify_generator_occurrence_roles,
-)
 from proof_repository import (
   ProofRepository,
   ProofRepositoryEntry,
@@ -23,10 +19,6 @@ class RepositoryGeneratorOccurrence:
     ...,
   ]
   matched_generator: GeneratorSymbol
-  roles: tuple[
-    GeneratorOccurrenceRole,
-    ...,
-  ] = ()
 
   def __post_init__(
     self,
@@ -63,24 +55,6 @@ class RepositoryGeneratorOccurrence:
       raise TypeError(
         "matched_generator must be a GeneratorSymbol"
       )
-
-    if not isinstance(
-      self.roles,
-      tuple,
-    ):
-      raise TypeError(
-        "roles must be a tuple"
-      )
-
-    for role in self.roles:
-      if not isinstance(
-        role,
-        GeneratorOccurrenceRole,
-      ):
-        raise TypeError(
-          "roles must contain only "
-          "GeneratorOccurrenceRole values"
-        )
 
 
 def _value_at_structural_path(
@@ -193,19 +167,11 @@ def find_repository_generator_occurrences(
           "resolve to a GeneratorSymbol"
         )
 
-      roles = (
-        classify_generator_occurrence_roles(
-          entry.step.conclusion,
-          path,
-        )
-      )
-
       occurrences.append(
         RepositoryGeneratorOccurrence(
           entry=entry,
           path=path,
           matched_generator=matched_generator,
-          roles=roles,
         )
       )
 
