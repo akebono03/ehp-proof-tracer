@@ -14,9 +14,6 @@ from repository_proof_scope_facade import (
 from rule_catalog import (
   InferenceRuleCatalog,
 )
-from standard_production_applicability_catalog import (
-  build_standard_production_applicability_catalog,
-)
 
 
 @dataclass(frozen=True)
@@ -193,7 +190,7 @@ def explore_repository_generator_applicability(
 
 def explore_standard_repository_generator_applicability_input(
   generator_input,
-  catalog=None,
+  catalog,
 ):
   if not isinstance(
     generator_input,
@@ -203,17 +200,13 @@ def explore_standard_repository_generator_applicability_input(
       "generator_input must be a str"
     )
 
-  if catalog is None:
-    catalog = (
-      build_standard_production_applicability_catalog()
-    )
-  elif not isinstance(
+  if not isinstance(
     catalog,
     InferenceRuleCatalog,
   ):
     raise TypeError(
       "catalog must be an "
-      "InferenceRuleCatalog or None"
+      "InferenceRuleCatalog"
     )
 
   proof_scope_exploration = (

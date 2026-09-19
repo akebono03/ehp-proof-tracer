@@ -6,8 +6,7 @@ from repository_proof_scope import (
 )
 from rule_applicability import (
   InferenceRuleApplicabilityCandidate,
-  build_inference_rule_premise_pattern_index,
-  find_indexed_inference_rule_applicability_candidates,
+  find_inference_rule_applicability_candidates,
 )
 from rule_catalog import (
   InferenceRuleCatalog,
@@ -84,18 +83,12 @@ def find_repository_proof_scope_applicability_candidates(
       "InferenceRuleCatalog"
     )
 
-  index = (
-    build_inference_rule_premise_pattern_index(
-      catalog
-    )
-  )
-
   results = []
 
   for scope_node in scope.nodes:
     candidates = (
-      find_indexed_inference_rule_applicability_candidates(
-        index,
+      find_inference_rule_applicability_candidates(
+        catalog,
         scope_node.proof_step,
       )
     )

@@ -287,7 +287,7 @@ def test_phase103_5_standard_facade_rejects_invalid_catalog():
     TypeError,
     match=(
       "catalog must be an "
-      "InferenceRuleCatalog or None"
+      "InferenceRuleCatalog"
     ),
   ):
     explore_standard_repository_generator_applicability_input(
