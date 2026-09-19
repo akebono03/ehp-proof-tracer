@@ -31,6 +31,7 @@ calculation result != proof truth
 presentation != proof truth
 rendered prose != proof truth
 report orchestration != proof truth
+convenience facade != proof truth
 ```
 
 将来 Phase の一般化を先取りせず、既存 API・既存 provenance・既存 tests を不必要に壊さない。
@@ -69,6 +70,8 @@ human-readable renderer
 unified proof report
 ↓
 top-level calculation-to-report result
+↓
+thin user-facing convenience facade
 ```
 
 上位 layer は下位 layer の proof truth を変更しない。
@@ -190,6 +193,19 @@ toda_calculation_report.py
 = calculation -> candidate handling -> presentation -> report orchestration
 ```
 
+Phase 98:
+
+```text
+toda_calculation_facade.py
+= raw n,k -> TodaGroupQuery -> existing reporting API の thin facade
+
+TodaCalculationReportResult.report
+= FOUND 専用 single report convenience
+
+TodaCalculationReportResult.reports
+= 全 report の ordered tuple convenience
+```
+
 ---
 
 # 4. Toda group semantics
@@ -227,7 +243,7 @@ ProofStep.inference_rule
 
 `ProofRepositoryEntry.key / phase / theorem` は provenance metadata であり、数学的 truth 判定そのものには使用しない。
 
-presentation / renderer / report orchestration は metadata を表示・保持できるが、metadata から数学的 truth を推論してはならない。
+presentation / renderer / report orchestration / convenience facade は metadata を表示・保持できるが、metadata から数学的 truth を推論してはならない。
 
 ---
 
@@ -267,7 +283,7 @@ rendering
 automatic mutation by calculation/reporting
 ```
 
-calculation / explanation / presentation / renderer / report orchestration layer は repository を read-only に利用する。
+calculation / explanation / presentation / renderer / report orchestration / convenience facade layer は repository を read-only に利用する。
 
 ---
 
@@ -629,6 +645,13 @@ report_result.candidates[i].source_candidate
 is report_result.calculation_result.candidates[i]
 ```
 
+Phase 98 convenience:
+
+```text
+report
+reports
+```
+
 ---
 
 # 36. Top-level calculation-to-report orchestration
@@ -642,7 +665,7 @@ build_toda_calculation_report_result(
 )
 ```
 
-single-FOUND convenience:
+single-FOUND query-object convenience:
 
 ```text
 build_toda_found_calculation_report_result(
@@ -651,32 +674,81 @@ build_toda_found_calculation_report_result(
 )
 ```
 
+raw input facade:
+
+```text
+build_toda_report(
+  repository,
+  n,
+  k,
+)
+```
+
+`build_toda_report()` は `TodaGroupQuery(n,k)` を生成し、既存 general reporting API に委譲するだけである。
+
 ---
 
 # 37. NOT_FOUND / FOUND / MULTIPLE_RESULTS semantics
 
 ```text
 NOT_FOUND
-→ report candidates = ()
+→ candidates = ()
+→ reports = ()
+→ report は ValueError
 
 FOUND
-→ report candidate 1件
+→ candidate 1件
+→ report はその candidate.report
+→ reports = (report,)
 
 MULTIPLE_RESULTS
-→ 全 report candidate を calculation order で保持
+→ 全 candidate を calculation order で保持
+→ reports は全 candidate.report を同じ順序で保持
+→ report は ValueError
 ```
 
 ranking / preferred result / silent first-candidate selection は行わない。
 
 ---
 
-# 38. Repository non-mutation
+# 38. User-facing convenience boundary
 
-Phase 90–97 の query / calculation / explanation / presentation / renderer / report orchestration layer は repository を mutate しない。
+Phase 98 後の最短 user-facing path:
+
+```text
+raw n,k
+↓
+build_toda_report()
+↓
+TodaCalculationReportResult
+↓
+report / reports
+```
+
+重要な境界:
+
+```text
+build_toda_report()
+= query construction + delegation only
+
+report
+= FOUND-only convenience
+
+reports
+= lossless ordered projection of candidate.report
+```
+
+`NOT_FOUND` の固定 human-facing message は core model に持たせない。
 
 ---
 
-# 39. Representative top-level coverage
+# 39. Repository non-mutation
+
+Phase 90–98 の query / calculation / explanation / presentation / renderer / report orchestration / convenience layer は repository を mutate しない。
+
+---
+
+# 40. Representative top-level coverage
 
 \[
 \pi_7^4,\quad
@@ -687,39 +759,15 @@ Phase 90–97 の query / calculation / explanation / presentation / renderer / 
 \pi_{12}^5
 \]
 
-を一般 top-level API だけから validation 済み。
-
----
-
-# 40. User-facing input boundary
-
-現行 API の user-facing input は:
-
-```text
-ProofRepository
-TodaGroupQuery(n, k)
-```
-
-すなわち:
-
-```text
-(n, k)
-↓
-TodaGroupQuery
-↓
-build_toda_calculation_report_result()
-```
-
-という明示的 query-object boundary。
-
-raw `n, k` overload は convenience のため deferred。
+を raw `n,k` facade から `result.report / result.reports` まで validation 済み。
 
 ---
 
 # 41. 現在の明示的境界
 
 ```text
-raw n,k convenience overload
+fixed NOT_FOUND human message in core model
+CLI / Web UI
 symbolic higher-range theorem instantiation
 target-only unknown-RHS goal generation
 target-only bounded-search fallback
@@ -735,23 +783,36 @@ all-primary ordinary sphere-homotopy calculator
 
 ---
 
-# 42. Phase 97 completion boundary
+# 42. Phase 98 completion boundary
 
-Phase 97 は既存 API の composition に限定。
+Phase 98 は user-facing convenience の最小追加に限定。
 
 追加 capability:
 
 ```text
-calculation-report representation
-single FOUND calculation-to-report orchestration
-NOT_FOUND / FOUND / MULTIPLE_RESULTS handling
-representative six-target top-level validation
+raw n,k facade
+actual-use facade validation
+FOUND-only result.report
+ordered result.reports
+representative shortest-path validation
+```
+
+追加しなかったもの:
+
+```text
+new facade class
+new proof logic
+new calculation logic
+new provenance schema
+NOT_FOUND message
+candidate ranking
+silent selection
 ```
 
 formal status:
 
 ```text
-Phase 97
+Phase 98
 → COMPLETE
 ```
 
@@ -759,17 +820,17 @@ Phase 97
 
 # 43. Verification policy
 
-Phase 97-5 完了時:
+Phase 98-6 完了時:
 
 ```text
 focused:
-8 passed in 9.99s
+8 passed in 8.64s
 
-Phase 97 related:
-32 passed in 9.44s
+Phase 98 related:
+27 passed in 9.94s
 
 repository-wide:
-7609 passed in 121.63s
+7643 passed in 123.73s
 
 git diff --check:
 clean

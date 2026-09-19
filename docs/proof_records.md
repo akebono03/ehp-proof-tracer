@@ -68,6 +68,16 @@ structured presentation、EHP / exactness presentation、proof source presentati
 
 Phase 97 completion record を含む。
 
+## Phase 98
+
+`docs/proof_records/user_facing_convenience_098.md`
+
+raw `n,k` facade、`FOUND` 専用 `result.report`、全 candidate を順序保持する `result.reports`、代表6 target の shortest user-facing path validation を記録する。
+
+proof truth、candidate identity/order、direct / aggregate provenance、EHP / exactness、repository non-mutation が convenience layer を通して保持されることを記録する。
+
+Phase 98 completion record を含む。
+
 ---
 
 # 記録原則
@@ -79,12 +89,13 @@ proof record != proof truth
 presentation != proof truth
 rendered prose != proof truth
 report orchestration != proof truth
+convenience facade != proof truth
 ```
 
 この文書群は、実装済み proof object と provenance を人間が追跡しやすくするための記録であり、独立した theorem database ではない。
 
 renderer が未対応 statement を推測で補完してはならない。
 
-report orchestration が multiple candidate を勝手に ranking / selection してはならない。
+report orchestration / convenience layer が multiple candidate を勝手に ranking / selection してはならない。
 
 既存記録は原則として削除せず、確定した semantic correction がある場合のみ訂正する。
