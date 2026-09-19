@@ -610,9 +610,18 @@ def _inference_rule_factory_name(
   ):
     return None
 
-  qualname = getattr(
+  code = getattr(
     conclusion_builder,
-    "__qualname__",
+    "__code__",
+    None,
+  )
+
+  if code is None:
+    return None
+
+  qualname = getattr(
+    code,
+    "co_qualname",
     "",
   )
 

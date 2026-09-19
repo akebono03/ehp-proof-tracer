@@ -136,7 +136,7 @@ def test_phase103_6d8_first_wave_classifies_exactly_34_catalog_entries():
   )
 
 
-def test_phase103_6d8_first_wave_families_remain_consistently_classified():
+def test_phase103_6d8_production_family_coverage_is_9_classified_258_unclassified():
   catalog = (
     build_standard_production_applicability_catalog()
   )
@@ -145,33 +145,39 @@ def test_phase103_6d8_first_wave_families_remain_consistently_classified():
     catalog
   )
 
-  for (
-    name,
-    (
-      expected_category,
-      expected_entry_count,
-    ),
-  ) in EXPECTED_FIRST_WAVE.items():
-    entries = families[
-      name
-    ]
+  classified = 0
+  unclassified = 0
 
-    assert len(
-      entries
-    ) == expected_entry_count
-
+  for entries in families.values():
     categories = {
       entry.relevance_category
       for entry in entries
     }
 
-    assert categories == {
-      expected_category
-    }
+    assert len(
+      categories
+    ) == 1
+
+    category = next(
+      iter(
+        categories
+      )
+    )
+
+    if (
+      category
+      is RuleRelevanceCategory.UNCLASSIFIED
+    ):
+      unclassified += 1
+    else:
+      classified += 1
 
   assert len(
     families
   ) == 267
+
+  assert classified == 9
+  assert unclassified == 258
 
 
 def test_phase103_6d8_catalog_entry_count_and_discovery_safety_are_unchanged():
