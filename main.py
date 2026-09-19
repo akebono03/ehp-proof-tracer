@@ -1,40 +1,74 @@
-from pathlib import Path
+import argparse
+from collections.abc import Sequence
 
-from ehp import EHPSegment
-from repository import SphereRepository
-
-
-BASE_DIR = Path(__file__).resolve().parent
-
-repo = SphereRepository(
-  BASE_DIR / "data" / "sphere.csv"
+from toda_calculation_facade import (
+  build_standard_toda_report,
+)
+from toda_calculation_result import (
+  TodaCalculationStatus,
 )
 
-segment = EHPSegment(
-  repo,
-  n=11,
-  k=18,
-)
 
-for result in segment.check():
-  print(result.middle_group)
-  print(
-    f"Im({result.left_map.name}) =",
-    result.image()
-  )
-  print(
-    f"Ker({result.right_map.name}) =",
-    result.kernel()
+def build_argument_parser(
+) -> argparse.ArgumentParser:
+  parser = argparse.ArgumentParser(
+    description=(
+      "Build a Toda homotopy-group proof report "
+      "from the standard production repository."
+    ),
   )
 
-  if result.is_exact():
-    print(
-      f"Im({result.left_map.name}) "
-      f"= Ker({result.right_map.name})"
+  parser.add_argument(
+    "n",
+    type=int,
+    help="sphere dimension n",
+  )
+
+  parser.add_argument(
+    "k",
+    type=int,
+    help="stem k for pi_{n+k}(S^n)",
+  )
+
+  return parser
+
+
+def main(
+  argv: Sequence[str] | None = None,
+) -> int:
+  parser = build_argument_parser()
+
+  args = parser.parse_args(
+    argv
+  )
+
+  result = (
+    build_standard_toda_report(
+      n=args.n,
+      k=args.k,
     )
-    print("✓ exact")
-  else:
-    print("✗ not exact")
+  )
 
-  print()
-  
+  if (
+    result.status
+    is TodaCalculationStatus.NOT_FOUND
+  ):
+    print(
+      "No proof report found for "
+      f"pi_{{{args.n + args.k}}}^{{{args.n}}}."
+    )
+    return 1
+
+  print(
+    "\n\n---\n\n".join(
+      result.reports
+    )
+  )
+
+  return 0
+
+
+if __name__ == "__main__":
+  raise SystemExit(
+    main()
+  )
