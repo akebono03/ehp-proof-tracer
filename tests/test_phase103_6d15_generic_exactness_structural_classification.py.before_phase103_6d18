@@ -272,17 +272,12 @@ def test_phase103_6d15_exactness_semantic_shapes_are_structural():
 
 
 def test_phase103_6d15_promotes_only_previously_unclassified_targets():
+  catalog = _build_catalog()
   original_builder = getattr(
     production_catalog,
     "_phase103_6d15_original_builder",
   )
-  phase6d15_builder = getattr(
-    production_catalog,
-    "_phase103_6d18_original_builder",
-  )
-
   baseline = original_builder()
-  phase6d15_catalog = phase6d15_builder()
 
   before = {
     entry.key: entry
@@ -290,7 +285,7 @@ def test_phase103_6d15_promotes_only_previously_unclassified_targets():
   }
   after = {
     entry.key: entry
-    for entry in phase6d15_catalog.entries()
+    for entry in catalog.entries()
   }
 
   assert before.keys() == after.keys()
@@ -365,8 +360,8 @@ def test_phase103_6d15_family_coverage_counts():
 
   assert len(entries) == 1188
   assert len(families) == 267
-  assert classified == 90
-  assert unclassified == 177
+  assert classified == 86
+  assert unclassified == 181
 
 
 def test_phase103_6d15_entry_coverage_counts():
@@ -393,4 +388,4 @@ def test_phase103_6d15_entry_coverage_counts():
   )
 
   assert structural == 183
-  assert unclassified == 495
+  assert unclassified == 511

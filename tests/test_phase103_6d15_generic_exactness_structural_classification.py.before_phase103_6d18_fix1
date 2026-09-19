@@ -272,17 +272,12 @@ def test_phase103_6d15_exactness_semantic_shapes_are_structural():
 
 
 def test_phase103_6d15_promotes_only_previously_unclassified_targets():
+  catalog = _build_catalog()
   original_builder = getattr(
     production_catalog,
     "_phase103_6d15_original_builder",
   )
-  phase6d15_builder = getattr(
-    production_catalog,
-    "_phase103_6d18_original_builder",
-  )
-
   baseline = original_builder()
-  phase6d15_catalog = phase6d15_builder()
 
   before = {
     entry.key: entry
@@ -290,7 +285,7 @@ def test_phase103_6d15_promotes_only_previously_unclassified_targets():
   }
   after = {
     entry.key: entry
-    for entry in phase6d15_catalog.entries()
+    for entry in catalog.entries()
   }
 
   assert before.keys() == after.keys()
