@@ -5,6 +5,17 @@ import sys
 from repository_element_facade import (
   explore_standard_repository_generator_input,
 )
+from repository_generator_applicability_facade import (
+  explore_standard_repository_generator_applicability_input,
+)
+from repository_generator_applicability_renderer import (
+  render_repository_generator_applicability_compact_markdown,
+  render_repository_generator_applicability_detailed_markdown,
+)
+
+render_repository_generator_applicability_markdown = (
+  render_repository_generator_applicability_compact_markdown
+)
 from repository_proof_scope_facade import (
   explore_standard_repository_generator_proof_scope_input,
 )
@@ -115,6 +126,36 @@ def build_explore_proof_argument_parser(
 
   return parser
 
+def build_explore_applicable_argument_parser(
+) -> argparse.ArgumentParser:
+  parser = argparse.ArgumentParser(
+    prog="main.py explore-applicable",
+    description=(
+      "Find theorem / lemma applicability "
+      "candidates for one generator across the "
+      "recursive proof ancestry of the standard "
+      "production repository."
+    ),
+  )
+
+  parser.add_argument(
+    "generator",
+    help=(
+      "generator input such as "
+      "nu_prime, nu_5, or eta_2"
+    ),
+  )
+
+  parser.add_argument(
+    "--detailed",
+    action="store_true",
+    help=(
+      "show full catalog-entry, premise-index, "
+      "binding, and fixed-point provenance"
+    ),
+  )
+
+  return parser
 
 def _run_explore_command(
   generator_input: str,
@@ -181,6 +222,45 @@ def _run_explore_proof_command(
 
   return 0
 
+def _run_explore_applicable_command(
+  generator_input: str,
+  detailed: bool = False,
+) -> int:
+  try:
+    result = (
+      explore_standard_repository_generator_applicability_input(
+        generator_input
+      )
+    )
+  except (
+    TypeError,
+    ValueError,
+  ) as error:
+    parser = (
+      build_explore_applicable_argument_parser()
+    )
+    parser.error(
+      str(
+        error
+      )
+    )
+
+  renderer = (
+    render_repository_generator_applicability_detailed_markdown
+    if detailed
+    else render_repository_generator_applicability_markdown
+  )
+
+  markdown = renderer(
+    result
+  )
+
+  print(
+    markdown,
+    end="",
+  )
+
+  return 0
 
 def main(
   argv: Sequence[str] | None = None,
@@ -233,6 +313,27 @@ def main(
 
     return _run_explore_proof_command(
       args.generator
+    )
+
+  if (
+    raw_argv
+    and raw_argv[
+      0
+    ] == "explore-applicable"
+  ):
+    parser = (
+      build_explore_applicable_argument_parser()
+    )
+
+    args = parser.parse_args(
+      raw_argv[
+        1:
+      ]
+    )
+
+    return _run_explore_applicable_command(
+      args.generator,
+      detailed=args.detailed,
     )
 
   parser = build_argument_parser()
