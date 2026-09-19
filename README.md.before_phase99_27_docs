@@ -1,8 +1,8 @@
 # EHP Proof Tracer
 
-EHP Proof Tracer is a Python project for representing, checking, searching, explaining, presenting, and exploring theorem-backed Toda-style homotopy-group calculations.
+EHP Proof Tracer is a Python project for representing, checking, searching, explaining, and presenting theorem-backed Toda-style homotopy-group calculations.
 
-The project currently focuses on the 2-primary Toda groups \(\pi_i^n\), EHP exactness, explicit proof provenance, the calculation spine through stable stems \(G_0\) to \(G_7\), and generator-centered exploration of theorem-backed repository entries.
+The project currently focuses on the 2-primary Toda groups \(\pi_i^n\), EHP exactness, explicit proof provenance, and the calculation spine leading through stable stems \(G_0\) to \(G_7\).
 
 ## Current mathematical coverage
 
@@ -64,7 +64,7 @@ This is not an all-primary calculator for ordinary homotopy groups of spheres.
 
 ## Proof infrastructure
 
-The proof-search infrastructure supports:
+The current proof-search infrastructure supports:
 
 - an in-memory `ProofRepository`,
 - inference-rule catalogs,
@@ -282,11 +282,24 @@ render_toda_full_proof_report_markdown(
 )
 ```
 
+It combines:
+
+```text
+Result
+Source
+EHP sequence
+Exactness
+Proof flow
+Readable proof narrative
+```
+
 Unknown statement types are kept as explicit safe fallbacks rather than guessed into mathematical prose.
 
 ## User-facing calculation-to-report API
 
-The lowest-level general reporting entry point is:
+Phase 97 added the structured top-level reporting layer. Phase 98 adds a thin convenience boundary without changing calculation or proof semantics.
+
+The lowest-level general reporting entry point remains:
 
 ```python
 build_toda_calculation_report_result(
@@ -295,7 +308,16 @@ build_toda_calculation_report_result(
 )
 ```
 
-The thin raw-input convenience entry point is:
+with:
+
+```python
+query = TodaGroupQuery(
+  n=n,
+  k=k,
+)
+```
+
+The user-facing convenience entry point is:
 
 ```python
 build_toda_report(
@@ -319,7 +341,24 @@ build_toda_calculation_report_result()
 TodaCalculationReportResult
 ```
 
-`build_toda_report()` constructs `TodaGroupQuery` and delegates to the reporting API. It does not reimplement validation, lookup, normalization, provenance, presentation, or rendering.
+`build_toda_report()` is intentionally thin. It constructs `TodaGroupQuery` and delegates to the existing Phase 97 reporting API. It does not reimplement validation, lookup, normalization, provenance, presentation, or rendering.
+
+`TodaCalculationReportResult` retains the original `TodaCalculationResult` and an ordered tuple of `TodaCalculationReportCandidate` objects.
+
+Each report candidate retains:
+
+```text
+source_candidate
+presentation
+report
+```
+
+The identity invariant is:
+
+```text
+report_result.candidates[i].source_candidate
+is report_result.calculation_result.candidates[i]
+```
 
 For `NOT_FOUND`:
 
@@ -347,103 +386,20 @@ report_result.report raises ValueError
 
 The reporting layer never silently selects a preferred result.
 
-## Generator-centered repository exploration
-
-Phase 99 adds a separate exploration path for asking where a known `GeneratorSymbol` occurs inside theorem-backed repository conclusions.
-
-The exploration stack is:
-
-```text
-structural generator containment
-↓
-generator occurrence path extraction
-↓
-repository-level occurrence lookup
-↓
-semantic role classification
-↓
-element-centered exploration result
-↓
-grouped presentation
-↓
-Markdown rendering
-↓
-one-shot exploration facade
-```
-
-Representative modules are:
-
-```text
-structural_containment.py
-repository_element_lookup.py
-generator_occurrence_roles.py
-repository_element_exploration.py
-repository_element_presentation.py
-repository_element_renderer.py
-repository_element_facade.py
-```
-
-The one-shot entry point is:
+A stricter query-object-based single-result API is also available:
 
 ```python
-explore_repository_generator(
+build_toda_found_calculation_report_result(
   repository,
-  generator,
+  query,
 )
 ```
 
-It returns a structured report that retains:
+It requires calculation status `FOUND`.
 
-```text
-exploration
-presentation
-markdown
-```
+A fixed human-readable `NOT_FOUND` message is intentionally not part of the core result model. Message wording belongs to a future CLI, Web UI, or other presentation surface.
 
-The exploration result is occurrence-based, not entry-deduplicated. If the same generator occurs at two distinct structural paths in one repository entry, both occurrences remain observable.
-
-The current semantic views include generator occurrences such as:
-
-```text
-group generator
-composition left
-composition right
-Toda bracket occurrence
-map input
-```
-
-Only roles actually present in the result are rendered as populated Markdown sections.
-
-### Actual representative validation
-
-Using actual theorem-backed Phase 67 and Phase 68 proof steps, exploration of \(\nu'\) finds both
-
-\[
-\pi_6^2=\mathbb Z/4\{\eta_2\nu'\}
-\]
-
-and
-
-\[
-\pi_7^3=\mathbb Z/2\{\nu'\eta_6\}.
-\]
-
-The same generator is therefore observable as a composition-right occurrence in the first result and a composition-left occurrence in the second.
-
-Boundary regression also confirms:
-
-```text
-unknown generator -> zero occurrences
-single occurrence preservation
-same-entry multiple structural occurrences
-left/right role separation
-repository registration-order preservation
-presentation-order preservation
-Markdown-order preservation
-repository non-mutation
-```
-
-## Representative end-to-end calculation coverage
+## Representative end-to-end coverage
 
 Using aggregate theorem entries in a `ProofRepository`, the shortest user-facing calculation-to-report path is regression-tested for:
 
@@ -456,9 +412,55 @@ Using aggregate theorem entries in a `ProofRepository`, the shortest user-facing
 \pi_{12}^5.
 \]
 
-These cases cover direct sums, finite cyclic groups, zero groups, nested aggregate branches, generator orders, goal-source provenance, EHP provenance, exactness provenance, recursive provenance, dependency-first presentation, LaTeX / Markdown rendering, unified reports, report access, and repository non-mutation.
+These cases cover:
+
+```text
+raw n,k facade input
+direct sums
+finite cyclic groups
+zero groups
+nested aggregate branches
+generator orders
+goal-source provenance
+EHP provenance
+exactness provenance
+recursive provenance
+dependency-first presentation
+LaTeX / Markdown rendering
+mathematical statement rendering
+unified reports
+single FOUND report access
+ordered report collection access
+repository non-mutation
+```
+
+For actual \(\pi_9^5\), the report can present:
+
+\[
+\Delta:\pi_9^9\to\pi_7^4
+\]
+
+as injective,
+
+\[
+H:\pi_9^5\to\pi_9^9
+\]
+
+as the zero map,
+
+\[
+E:\pi_8^4\to\pi_9^5
+\]
+
+as surjective, and the final result
+
+\[
+\pi_9^5=\mathbb Z/2\{\nu_5\eta_8\}.
+\]
 
 ## Current boundaries
+
+The calculation and reporting layers currently handle concrete finite-dimensional theorem branches.
 
 The following are intentionally deferred:
 
@@ -469,11 +471,6 @@ The following are intentionally deferred:
 - automatic ranking or best-result selection,
 - full mathematical prose rendering for every historical aggregate statement type,
 - fixed human-readable `NOT_FOUND` messages in the core result model,
-- string-to-`GeneratorSymbol` parsing and name resolution,
-- free-form element search,
-- general composition evaluation,
-- general Toda-bracket solving or coset computation,
-- automatic applicable-lemma discovery,
 - CLI and Web UI surfaces,
 - general theorem proving,
 - odd-primary full integration,
@@ -481,27 +478,27 @@ The following are intentionally deferred:
 
 ## Verification
 
-Latest confirmed Phase 99 validation:
+Latest confirmed Phase 98 validation:
 
 ```text
-Phase 99-24 actual-repository integration:
-13 passed in 4.59s
+Phase 98-6 focused:
+8 passed in 8.64s
 
-Phase 99-26 boundary regression:
-12 passed in 5.70s
+Phase 98 related:
+27 passed in 9.94s
 
 repository-wide:
-7824 passed in 136.59s
+7643 passed in 123.73s
 
 git diff --check:
 clean
 ```
 
-Wall-clock time is machine-dependent. Test count, semantic coverage, identity preservation, ordering, provenance coverage, deterministic rendering, and repository-wide regression are the primary cross-machine signals.
+Wall-clock time is machine-dependent. Test count, semantic coverage, identity preservation, provenance coverage, report determinism, and repository-wide regression are the primary cross-machine signals.
 
 ## Current project state
 
-Phases 90 through 99 establish:
+Phases 90 through 98 establish:
 
 ```text
 query
@@ -514,22 +511,18 @@ query
 → structured presentation
 → dependency-first proof flow
 → LaTeX / Markdown rendering
+→ mathematical statement rendering
 → readable proof narrative
 → unified full proof report
 → top-level calculation-to-report result
 → raw n,k convenience facade
-→ generator structural containment
-→ repository-wide generator occurrence lookup
-→ semantic occurrence roles
-→ element-centered exploration
-→ grouped exploration presentation
-→ exploration Markdown
-→ one-shot generator exploration facade
+→ single FOUND report access
+→ ordered report collection access
 ```
 
-Phase 99 is formally COMPLETE after the final audit and documentation update.
+Phase 98 is formally COMPLETE after the final documentation audit.
 
-The next phase should begin with a CLI / input-boundary audit rather than adding speculative parsing or UI behavior directly.
+The next development phase should start with an audit of the next actual user-facing need rather than adding speculative convenience. Natural candidates include CLI / Web UI work or mathematical exploration/query capabilities, but the exact next phase should be chosen from observed usage pressure.
 
 ## Documentation
 

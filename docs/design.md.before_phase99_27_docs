@@ -32,7 +32,6 @@ presentation != proof truth
 rendered prose != proof truth
 report orchestration != proof truth
 convenience facade != proof truth
-exploration result != new theorem truth
 ```
 
 将来 Phase の一般化を先取りせず、既存 API・既存 provenance・既存 tests を不必要に壊さない。
@@ -40,8 +39,6 @@ exploration result != new theorem truth
 ---
 
 # 2. 現在のレイヤー構造
-
-計算・証明経路:
 
 ```text
 expression / statement representation
@@ -74,29 +71,7 @@ unified proof report
 ↓
 top-level calculation-to-report result
 ↓
-thin user-facing calculation facade
-```
-
-Phase 99 の探索経路:
-
-```text
-repository theorem conclusions
-↓
-structural generator containment
-↓
-generator occurrence path extraction
-↓
-repository-level occurrence lookup
-↓
-semantic role classification
-↓
-element-centered exploration
-↓
-grouped presentation
-↓
-Markdown renderer
-↓
-one-shot exploration facade
+thin user-facing convenience facade
 ```
 
 上位 layer は下位 layer の proof truth を変更しない。
@@ -104,8 +79,6 @@ one-shot exploration facade
 ---
 
 # 3. 主要モジュールの責務
-
-基礎:
 
 ```text
 expression.py
@@ -130,41 +103,87 @@ toda_rules.py
 = Toda-specific theorem knowledge
 ```
 
-Phase 90–95:
+Phase 90 以降:
 
 ```text
 toda_group_query.py
+= query validation / target construction
+
 toda_group_lookup.py
+= direct theorem-backed result lookup
+
 toda_group_result.py
+= normalized group result
+
 toda_calculation_goal.py
+= calculation-goal candidate / source representation
+
 toda_calculation_goal_extraction.py
+= concrete aggregate branch extraction
+
 toda_calculation_goal_discovery.py
+= repository-wide aggregate candidate discovery
+
 toda_calculation_goal_recovery.py
+= original branch ProofStep recovery
+
 toda_calculation_goal_normalization.py
+= recovered branch -> TodaGroupResult adapter
+
 toda_calculation_result.py
+= top-level calculation result representation
+
 toda_calculation.py
+= direct lookup + aggregate fallback orchestration
+
 toda_ehp_result.py
+= EHP sequence / window result representation
+
 toda_ehp_extraction.py
+= actual proof ancestry から EHP extraction
+
 toda_ehp_group_enrichment.py
+= EHP term と known group result の接続
+
 toda_ehp_exactness_provenance.py
+= exactness-use provenance
+
 toda_proof_dependency.py
+= flat dependency / role classification / recursive provenance
+
 toda_explanation.py
+= group / EHP / dependency / recursive provenance integration
 ```
 
 Phase 96:
 
 ```text
 toda_presentation.py
+= target / group / generator / order presentation
+
 toda_ehp_presentation.py
+= EHP / exactness presentation
+
 toda_proof_presentation.py
+= proof-step role / literature / repository / goal-source presentation
+
 toda_proof_flow_presentation.py
+= dependency-first readable proof flow
+
 toda_end_to_end_presentation.py
+= calculation candidate から end-to-end presentation への統合
+
 toda_human_readable_renderer.py
+= target / group / EHP の LaTeX と base Markdown report
+
 toda_proof_narrative_renderer.py
+= proof-step mathematical statement と readable narrative
+
 toda_full_proof_report_renderer.py
+= base report と narrative の unified report
 ```
 
-Phase 97–98:
+Phase 97:
 
 ```text
 toda_calculation_report_result.py
@@ -172,34 +191,19 @@ toda_calculation_report_result.py
 
 toda_calculation_report.py
 = calculation -> candidate handling -> presentation -> report orchestration
-
-toda_calculation_facade.py
-= raw n,k -> TodaGroupQuery -> existing reporting API の thin facade
 ```
 
-Phase 99:
+Phase 98:
 
 ```text
-structural_containment.py
-= nested structure 内の GeneratorSymbol containment / structural occurrence
+toda_calculation_facade.py
+= raw n,k -> TodaGroupQuery -> existing reporting API の thin facade
 
-repository_element_lookup.py
-= ProofRepository 全体から generator occurrence を収集
+TodaCalculationReportResult.report
+= FOUND 専用 single report convenience
 
-generator_occurrence_roles.py
-= occurrence path から semantic role を分類
-
-repository_element_exploration.py
-= element-centered exploration result と role view
-
-repository_element_presentation.py
-= exploration result の grouped presentation
-
-repository_element_renderer.py
-= exploration presentation の Markdown rendering
-
-repository_element_facade.py
-= repository + GeneratorSymbol -> exploration/presentation/Markdown の one-shot API
+TodaCalculationReportResult.reports
+= 全 report の ordered tuple convenience
 ```
 
 ---
@@ -239,7 +243,7 @@ ProofStep.inference_rule
 
 `ProofRepositoryEntry.key / phase / theorem` は provenance metadata であり、数学的 truth 判定そのものには使用しない。
 
-presentation / renderer / report orchestration / convenience facade / exploration facade は metadata を表示・保持できるが、metadata から数学的 truth を推論してはならない。
+presentation / renderer / report orchestration / convenience facade は metadata を表示・保持できるが、metadata から数学的 truth を推論してはならない。
 
 ---
 
@@ -253,7 +257,7 @@ same ProofStep identity
 
 proof dependency / recursive provenance / presentation / report result では object identity を必要な境界で保持する。
 
-generator exploration では generator equality により containment を判定する一方、repository entry と actual `ProofStep` の provenance は既存 object を保持する。
+equal-but-distinct `ProofStep` は必要に応じて別 provenance として扱う。
 
 ---
 
@@ -276,10 +280,10 @@ theorem truth
 persistent storage
 presentation
 rendering
-automatic mutation by calculation/reporting/exploration
+automatic mutation by calculation/reporting
 ```
 
-calculation / explanation / presentation / renderer / report orchestration / convenience / exploration layer は repository を read-only に利用する。
+calculation / explanation / presentation / renderer / report orchestration / convenience facade layer は repository を read-only に利用する。
 
 ---
 
@@ -505,7 +509,7 @@ presentation model
 renderer
 ```
 
-presentation は proof truth を変更しない。
+主要 object は target / group / generator / EHP / exactness / proof source / readable proof flow / end-to-end candidate presentation。
 
 ---
 
@@ -559,7 +563,7 @@ presentation layer で premise-before-parent order を導出し、shared depende
 
 # 29. Human-readable rendering
 
-LaTeX / Markdown renderer は presentation model のみを読む。
+LaTeX / Markdown renderer は presentation model のみを読む。`\Delta` を含む map symbol を一貫して LaTeX 化する。
 
 ---
 
@@ -583,6 +587,17 @@ presentation-level API:
 render_toda_full_proof_report_markdown(
   presentation,
 )
+```
+
+sections:
+
+```text
+Result
+Source
+EHP sequence
+Exactness
+Proof flow
+Readable proof narrative
 ```
 
 ---
@@ -620,6 +635,8 @@ fields:
 calculation_result
 candidates
 ```
+
+`query`、`target`、`status` は `calculation_result` から委譲。
 
 candidate alignment:
 
@@ -667,6 +684,8 @@ build_toda_report(
 )
 ```
 
+`build_toda_report()` は `TodaGroupQuery(n,k)` を生成し、既存 general reporting API に委譲するだけである。
+
 ---
 
 # 37. NOT_FOUND / FOUND / MULTIPLE_RESULTS semantics
@@ -692,9 +711,9 @@ ranking / preferred result / silent first-candidate selection は行わない。
 
 ---
 
-# 38. User-facing calculation convenience boundary
+# 38. User-facing convenience boundary
 
-Phase 98 後の最短 path:
+Phase 98 後の最短 user-facing path:
 
 ```text
 raw n,k
@@ -706,193 +725,49 @@ TodaCalculationReportResult
 report / reports
 ```
 
+重要な境界:
+
+```text
+build_toda_report()
+= query construction + delegation only
+
+report
+= FOUND-only convenience
+
+reports
+= lossless ordered projection of candidate.report
+```
+
 `NOT_FOUND` の固定 human-facing message は core model に持たせない。
 
 ---
 
-# 39. Generator structural containment
+# 39. Repository non-mutation
 
-Phase 99 の探索は `GeneratorSymbol` を既知入力として受け取る。
-
-structural containment は theorem conclusion の nested structure を走査し、対象 generator が現れる structural path を保持する。
-
-重要:
-
-```text
-same repository entry
-+
-different structural path
-=
-different occurrence
-```
-
-entry 単位で deduplicate しない。
+Phase 90–98 の query / calculation / explanation / presentation / renderer / report orchestration / convenience layer は repository を mutate しない。
 
 ---
 
-# 40. Repository-level generator occurrence
-
-repository lookup は `ProofRepository.entries()` の順序を尊重する。
-
-探索は repository を mutate せず、既存 `ProofRepositoryEntry` と `ProofStep` provenance を保持する。
-
-unknown generator は正常な empty result であり例外ではない。
-
----
-
-# 41. Generator occurrence semantic role
-
-structural path を semantic role view に分類する。
-
-現在の代表 role:
-
-```text
-group generator
-composition left
-composition right
-Toda bracket occurrence
-map input
-```
-
-role classification は theorem truth を追加しない。structural occurrence の読みやすい view である。
-
----
-
-# 42. Element-centered exploration result
-
-element-centered exploration は raw occurrence と role 別 view をまとめる。
-
-代表 invariant:
-
-```text
-exploration.generator
-= requested GeneratorSymbol
-
-exploration.occurrences
-= lossless structural occurrences
-
-role views
-= occurrences の projection
-```
-
-同一 occurrence を entry 単位で潰さない。
-
----
-
-# 43. Exploration presentation boundary
-
-```text
-exploration truth
-↓
-RepositoryGeneratorOccurrencePresentation
-↓
-grouped presentation
-↓
-Markdown
-```
-
-presentation object は元 occurrence を `source_occurrence` として保持する。
-
----
-
-# 44. Exploration Markdown rendering
-
-Markdown は grouped presentation のみを読む。
-
-保証するもの:
-
-```text
-occurrence count
-phase metadata
-theorem metadata
-role group sections
-presentation order
-```
-
-repository key の textual rendering は public invariant としない。
-
----
-
-# 45. One-shot exploration facade
-
-最短 API:
-
-```text
-explore_repository_generator(
-  repository,
-  generator,
-)
-```
-
-返却 report:
-
-```text
-exploration
-presentation
-markdown
-```
-
-facade は lookup / classification / presentation / rendering を再実装せず、既存 layer を compose する。
-
----
-
-# 46. Actual repository validation
-
-actual Phase 67 / 68 proof steps を使い、\(\nu'\) が
+# 40. Representative top-level coverage
 
 \[
-\eta_2\nu'
+\pi_7^4,\quad
+\pi_9^5,\quad
+\pi_{10}^4,\quad
+\pi_{11}^5,\quad
+\pi_9^2,\quad
+\pi_{12}^5
 \]
 
-では composition right、
-
-\[
-\nu'\eta_6
-\]
-
-では composition left
-
-として横断探索できることを validation 済み。
-
-actual `ProofStep` identity、phase/theorem metadata、presentation、Markdown、repository non-mutation を確認済み。
+を raw `n,k` facade から `result.report / result.reports` まで validation 済み。
 
 ---
 
-# 47. Exploration boundary semantics
-
-Phase 99-26 で次を regression 固定した。
-
-```text
-unknown generator -> zero occurrences
-single occurrence
-same-entry multiple structural occurrences
-composition left/right separation
-repository registration-order preservation
-presentation-order preservation
-Markdown-order preservation
-repository non-mutation
-```
-
----
-
-# 48. Repository non-mutation
-
-Phase 90–99 の query / calculation / explanation / presentation / renderer / report orchestration / convenience / exploration layer は repository を mutate しない。
-
----
-
-# 49. 現在の明示的境界
+# 41. 現在の明示的境界
 
 ```text
 fixed NOT_FOUND human message in core model
-string -> GeneratorSymbol parser / resolver
-free-form element query
 CLI / Web UI
-general composition evaluation
-general Toda bracket solver
-coset / indeterminacy calculator
-automatic applicable-lemma discovery
-derived-result enumeration beyond current repository lookup semantics
 symbolic higher-range theorem instantiation
 target-only unknown-RHS goal generation
 target-only bounded-search fallback
@@ -908,60 +783,54 @@ all-primary ordinary sphere-homotopy calculator
 
 ---
 
-# 50. Phase 99 completion boundary
+# 42. Phase 98 completion boundary
 
-Phase 99 の追加 capability:
+Phase 98 は user-facing convenience の最小追加に限定。
+
+追加 capability:
 
 ```text
-structural generator containment
-repository-wide generator occurrence lookup
-structural occurrence path preservation
-semantic occurrence-role classification
-element-centered exploration result
-grouped exploration presentation
-Markdown exploration rendering
-one-shot generator exploration facade
-actual theorem-backed integration validation
-boundary regression
+raw n,k facade
+actual-use facade validation
+FOUND-only result.report
+ordered result.reports
+representative shortest-path validation
 ```
 
 追加しなかったもの:
 
 ```text
-string parser
-CLI
-Web UI
-new proof rule
+new facade class
+new proof logic
 new calculation logic
-new theorem truth
-repository mutation
-entry-level occurrence deduplication
-free-form query language
-general bracket/coset computation
+new provenance schema
+NOT_FOUND message
+candidate ranking
+silent selection
 ```
 
 formal status:
 
 ```text
-Phase 99
+Phase 98
 → COMPLETE
 ```
 
 ---
 
-# 51. Verification policy
+# 43. Verification policy
 
-Phase 99 の最終確認:
+Phase 98-6 完了時:
 
 ```text
-Phase 99-24 actual-repository integration:
-13 passed in 4.59s
+focused:
+8 passed in 8.64s
 
-Phase 99-26 boundary regression:
-12 passed in 5.70s
+Phase 98 related:
+27 passed in 9.94s
 
 repository-wide:
-7824 passed in 136.59s
+7643 passed in 123.73s
 
 git diff --check:
 clean
@@ -969,7 +838,7 @@ clean
 
 ---
 
-# 52. 文書運用
+# 44. 文書運用
 
 `README.md` は current status、`docs/design.md` は current architecture、`docs/roadmap.md` は future plan、`docs/development_log.md` と `docs/proof_records.md` は index として維持する。
 
