@@ -1,0 +1,489 @@
+from expression import (
+  ScalarProduct,
+  ScalarSum,
+  ScalarSymbol,
+)
+from homotopy_groups import (
+  FiniteCyclicGroup,
+  TodaEHPExactnessWindow,
+  TodaPrimaryGroup,
+)
+from low_dimensional_facts import (
+  pi_7_7_free_cyclic_fact,
+)
+from map_facts import (
+  EHP_DELTA_MAP,
+  EHP_E_MAP,
+  EHP_H_MAP,
+)
+from proof import (
+  ProofRule,
+  ProofStep,
+  Relation,
+  RelationType,
+  run_inference_until_stable_with_history,
+)
+from scalar_rules import (
+  ScalarGreaterEqualStatement,
+)
+from toda_proof_builders import (
+  build_toda_prop56_proof_step,
+)
+from toda_rules import (
+  TodaIteratedSuspensionInjectiveStatement,
+  TodaProp42ExactnessStatement,
+  TodaProp56Pi8_5QuotientStatement,
+  TodaSuspensionInjectiveStatement,
+  toda_eta_family_definition_statement,
+  toda_nu_family_definition_statement,
+  toda_57_nu_prime_eta6_hopf_inference_rule,
+  toda_prop56_e2_nu_prime_order_four_inference_rule,
+  toda_prop56_eta3_cube_order_two_inference_rule,
+  toda_prop56_higher_nu_family_bridge_inference_rule,
+  toda_prop56_higher_nu_finite_cyclic_generator_inference_rule,
+  toda_prop56_nu5_double_relation_inference_rule,
+  toda_prop56_nu5_order_eight_inference_rule,
+  toda_prop56_nu5_stable_transport_inference_rule,
+  toda_prop56_nu_prime_order_four_inference_rule,
+  toda_prop56_pi5_2_eta2_cube_inference_rule,
+  toda_prop56_pi5_2_suspension_injective_inference_rule,
+  toda_prop56_pi6_3_e2_injective_inference_rule,
+  toda_prop56_pi6_3_finite_cyclic_inference_rule,
+  toda_prop56_pi7_3_hopf_surjective_inference_rule,
+  toda_prop56_pi7_4_decomposition_inference_rule,
+  toda_prop56_pi7_5_delta_zero_inference_rule,
+  toda_prop56_pi8_5_finite_cyclic_inference_rule,
+  toda_prop56_pi8_5_quotient_inference_rule,
+)
+
+
+def _find_unique_step(
+  steps: tuple[ProofStep, ...],
+  predicate,
+  description: str,
+) -> ProofStep:
+  matches = tuple(
+    step
+    for step in steps
+    if predicate(step)
+  )
+
+  if len(matches) != 1:
+    raise ValueError(
+      "expected exactly one "
+      f"{description} step, "
+      f"found {len(matches)}"
+    )
+
+  return matches[0]
+
+
+def build_toda_prop56_bootstrap_step(
+  toda52_step: ProofStep,
+  pi5_3_step: ProofStep,
+  hopf_nu_prime_step: ProofStep,
+  prop53_step: ProofStep,
+  double_step: ProofStep,
+  membership_step: ProofStep,
+  hopf_surjective_step: ProofStep,
+  pi6_5_step: ProofStep,
+  toda55_step: ProofStep,
+  toda56_step: ProofStep,
+  stable_isomorphism_step: ProofStep,
+) -> ProofStep:
+  pi5_2_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_prop56_pi5_2_eta2_cube_inference_rule(),
+      ),
+      (
+        pi5_3_step,
+        toda52_step,
+      ),
+    )
+  )
+
+  pi5_2_step = _find_unique_step(
+    pi5_2_result.steps,
+    lambda step: (
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and step.conclusion.relation_type
+      == RelationType.EQUALITY
+      and step.conclusion.lhs
+      == TodaPrimaryGroup(
+        group_dimension=5,
+        sphere_dimension=2,
+      )
+    ),
+    "pi_5^2",
+  )
+
+  eta5_definition_step = ProofStep(
+    conclusion=(
+      toda_eta_family_definition_statement(
+        5
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  eta6_definition_step = ProofStep(
+    conclusion=(
+      toda_eta_family_definition_statement(
+        6
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  pi_7_3 = TodaPrimaryGroup(
+    group_dimension=7,
+    sphere_dimension=3,
+  )
+
+  pi_7_5 = TodaPrimaryGroup(
+    group_dimension=7,
+    sphere_dimension=5,
+  )
+
+  pi_5_2 = TodaPrimaryGroup(
+    group_dimension=5,
+    sphere_dimension=2,
+  )
+
+  pi_6_3 = TodaPrimaryGroup(
+    group_dimension=6,
+    sphere_dimension=3,
+  )
+
+  h_delta_exactness_step = ProofStep(
+    conclusion=(
+      TodaProp42ExactnessStatement(
+        window=TodaEHPExactnessWindow(
+          source_term=pi_7_3,
+          middle_term=pi_7_5,
+          target_term=pi_5_2,
+          first_map=EHP_H_MAP,
+          second_map=EHP_DELTA_MAP,
+        ),
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  delta_e_exactness_step = ProofStep(
+    conclusion=(
+      TodaProp42ExactnessStatement(
+        window=TodaEHPExactnessWindow(
+          source_term=pi_7_5,
+          middle_term=pi_5_2,
+          target_term=pi_6_3,
+          first_map=EHP_DELTA_MAP,
+          second_map=EHP_E_MAP,
+        ),
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  equation57_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_57_nu_prime_eta6_hopf_inference_rule(),
+        toda_prop56_pi7_3_hopf_surjective_inference_rule(),
+        toda_prop56_pi7_5_delta_zero_inference_rule(),
+        toda_prop56_pi5_2_suspension_injective_inference_rule(),
+      ),
+      (
+        hopf_nu_prime_step,
+        prop53_step,
+        eta5_definition_step,
+        eta6_definition_step,
+        h_delta_exactness_step,
+        delta_e_exactness_step,
+      ),
+    )
+  )
+
+  suspension_injective_step = (
+    _find_unique_step(
+      equation57_result.steps,
+      lambda step: (
+        isinstance(
+          step.conclusion,
+          TodaSuspensionInjectiveStatement,
+        )
+        and (
+          step.conclusion
+          .map
+          .source_group
+          == pi_5_2
+        )
+        and (
+          step.conclusion
+          .map
+          .target_group
+          == pi_6_3
+        )
+      ),
+      "pi_5^2 suspension injective",
+    )
+  )
+
+  pi_6_5 = TodaPrimaryGroup(
+    group_dimension=6,
+    sphere_dimension=5,
+  )
+
+  e_h_exactness_step = ProofStep(
+    conclusion=(
+      TodaProp42ExactnessStatement(
+        window=TodaEHPExactnessWindow(
+          source_term=pi_5_2,
+          middle_term=pi_6_3,
+          target_term=pi_6_5,
+          first_map=EHP_E_MAP,
+          second_map=EHP_H_MAP,
+        ),
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  pi6_3_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_prop56_eta3_cube_order_two_inference_rule(),
+        toda_prop56_nu_prime_order_four_inference_rule(),
+        toda_prop56_pi6_3_finite_cyclic_inference_rule(),
+      ),
+      (
+        pi5_2_step,
+        suspension_injective_step,
+        double_step,
+        membership_step,
+        e_h_exactness_step,
+        hopf_surjective_step,
+        pi6_5_step,
+      ),
+    )
+  )
+
+  pi6_3_step = _find_unique_step(
+    pi6_3_result.steps,
+    lambda step: (
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and step.conclusion.relation_type
+      == RelationType.EQUALITY
+      and step.conclusion.lhs
+      == pi_6_3
+    ),
+    "pi_6^3",
+  )
+
+  pi7_7_step = ProofStep(
+    conclusion=(
+      pi_7_7_free_cyclic_fact()
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  pi7_4_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_prop56_pi7_4_decomposition_inference_rule(),
+      ),
+      (
+        toda56_step,
+        pi6_3_step,
+        pi7_7_step,
+      ),
+    )
+  )
+
+  pi7_4_step = _find_unique_step(
+    pi7_4_result.steps,
+    lambda step: (
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and step.conclusion.relation_type
+      == RelationType.EQUALITY
+      and step.conclusion.lhs
+      == TodaPrimaryGroup(
+        group_dimension=7,
+        sphere_dimension=4,
+      )
+    ),
+    "pi_7^4",
+  )
+
+  e2_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_prop56_pi8_5_quotient_inference_rule(),
+        toda_prop56_pi6_3_e2_injective_inference_rule(),
+      ),
+      (
+        toda56_step,
+      ),
+    )
+  )
+
+  quotient_step = _find_unique_step(
+    e2_result.steps,
+    lambda step: isinstance(
+      step.conclusion,
+      TodaProp56Pi8_5QuotientStatement,
+    ),
+    "pi_8^5 quotient",
+  )
+
+  e2_injective_step = _find_unique_step(
+    e2_result.steps,
+    lambda step: isinstance(
+      step.conclusion,
+      TodaIteratedSuspensionInjectiveStatement,
+    ),
+    "E^2 injective",
+  )
+
+  nu5_definition_step = ProofStep(
+    conclusion=(
+      toda_nu_family_definition_statement(
+        5
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  pi8_5_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_prop56_nu5_double_relation_inference_rule(),
+        toda_prop56_e2_nu_prime_order_four_inference_rule(),
+        toda_prop56_nu5_order_eight_inference_rule(),
+        toda_prop56_pi8_5_finite_cyclic_inference_rule(),
+      ),
+      (
+        toda55_step,
+        nu5_definition_step,
+        pi6_3_step,
+        e2_injective_step,
+        quotient_step,
+      ),
+    )
+  )
+
+  pi8_5_step = _find_unique_step(
+    pi8_5_result.steps,
+    lambda step: (
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and step.conclusion.relation_type
+      == RelationType.EQUALITY
+      and step.conclusion.lhs
+      == TodaPrimaryGroup(
+        group_dimension=8,
+        sphere_dimension=5,
+      )
+    ),
+    "pi_8^5",
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  higher_range_step = ProofStep(
+    conclusion=(
+      ScalarGreaterEqualStatement(
+        left=n,
+        right=6,
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  nu_n_definition_step = ProofStep(
+    conclusion=(
+      toda_nu_family_definition_statement(
+        n
+      )
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  stable_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_prop56_nu5_stable_transport_inference_rule(),
+        toda_prop56_higher_nu_family_bridge_inference_rule(),
+        toda_prop56_higher_nu_finite_cyclic_generator_inference_rule(),
+      ),
+      (
+        pi8_5_step,
+        stable_isomorphism_step,
+        higher_range_step,
+        nu5_definition_step,
+        nu_n_definition_step,
+      ),
+    )
+  )
+
+  higher_group = TodaPrimaryGroup(
+    group_dimension=ScalarSum(
+      left=n,
+      right=3,
+    ),
+    sphere_dimension=n,
+  )
+
+  expected_final_relation = Relation(
+    lhs=higher_group,
+    rhs=FiniteCyclicGroup(
+      order=8,
+      generator=(
+        nu_n_definition_step
+        .conclusion
+        .element
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  higher_step = _find_unique_step(
+    stable_result.steps,
+    lambda step: (
+      step.conclusion
+      == expected_final_relation
+    ),
+    "higher nu family",
+  )
+
+  return build_toda_prop56_proof_step(
+    pi5_2_step,
+    pi6_3_step,
+    pi7_4_step,
+    pi8_5_step,
+    higher_step,
+    higher_range_step,
+  )
