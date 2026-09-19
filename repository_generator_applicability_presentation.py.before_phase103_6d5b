@@ -11,56 +11,7 @@ from repository_proof_scope_applicability import (
 )
 from rule_catalog import (
   InferenceRuleCatalogEntry,
-  RuleRelevanceCategory,
 )
-
-
-_RELEVANCE_PRESENTATION_ORDER = (
-  RuleRelevanceCategory.THEOREM_SPECIFIC,
-  RuleRelevanceCategory.MAP_PROPERTY,
-  RuleRelevanceCategory.STRUCTURAL,
-  RuleRelevanceCategory.BRIDGE,
-  RuleRelevanceCategory.GENERIC_RELATION,
-  RuleRelevanceCategory.UNCLASSIFIED,
-)
-
-
-def _rule_family_relevance_category(
-  rule_family,
-) -> RuleRelevanceCategory:
-  categories = {
-    entry.relevance_category
-    for entry in rule_family.catalog_entries
-  }
-
-  if len(
-    categories
-  ) == 1:
-    return next(
-      iter(
-        categories
-      )
-    )
-
-  return (
-    RuleRelevanceCategory.UNCLASSIFIED
-  )
-
-
-def _rule_family_relevance_sort_key(
-  rule_family,
-) -> int:
-  category = (
-    _rule_family_relevance_category(
-      rule_family
-    )
-  )
-
-  return (
-    _RELEVANCE_PRESENTATION_ORDER.index(
-      category
-    )
-  )
 
 
 @dataclass(frozen=True)
@@ -386,7 +337,7 @@ class ApplicabilitySourceGroupPresentation:
         rule_group
       )
 
-    rule_families = tuple(
+    return tuple(
       ApplicabilityRuleFamilyPresentation(
         name=family_record[
           "name"
@@ -398,15 +349,6 @@ class ApplicabilitySourceGroupPresentation:
         ),
       )
       for family_record in family_records
-    )
-
-    return tuple(
-      sorted(
-        rule_families,
-        key=(
-          _rule_family_relevance_sort_key
-        ),
-      )
     )
 
 
