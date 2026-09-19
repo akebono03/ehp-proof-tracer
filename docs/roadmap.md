@@ -18,27 +18,38 @@ raw n,k
 → proof report
 ```
 
-production generator exploration:
+top-level generator exploration:
 
 ```text
 generator string
 → python main.py explore <generator>
   or explore_standard_repository_generator_input()
 → canonical GeneratorSymbol
-→ standard production repository
+→ registered production conclusions
 → structural occurrence lookup
 → semantic roles
 → grouped Markdown
 ```
 
+recursive proof-scope exploration:
+
+```text
+generator string
+→ python main.py explore-proof <generator>
+  or explore_standard_repository_generator_proof_scope_input()
+→ canonical GeneratorSymbol
+→ standard production repository
+→ recursive ProofStep ancestry
+→ generator occurrence lookup
+→ Toda memberships
+→ known map relations
+```
+
 最新確認:
 
 ```text
-Phase 101-5 related:
-57 passed in 8.49s
-
 repository-wide:
-8058 passed in 133.01s
+8142 passed in 129.93s
 
 git diff --check:
 clean
@@ -85,7 +96,7 @@ Phase 101:
 
 ```text
 production generator-input audit
-production exploration facade
+production top-level exploration facade
 aggregate occurrence presentation bridge
 main.py explore dispatch
 alias / indexed / zero / invalid validation
@@ -95,9 +106,25 @@ CLI boundary regression
 legacy n,k compatibility
 ```
 
+Phase 102:
+
+```text
+theorem-pattern exploration
+Toda membership filtering
+known map-relation exploration
+production search-scope audit
+recursive proof-scope traversal
+ancestry semantic exploration
+production proof-scope facade
+main.py explore-proof
+end-to-end validation
+```
+
 ---
 
 # 3. 現在の user-facing APIs
+
+calculation:
 
 ```text
 build_toda_report(repository, n, k)
@@ -105,111 +132,147 @@ build_standard_toda_report(n, k)
 python main.py n k
 ```
 
+top-level generator exploration:
+
 ```text
 explore_repository_generator(repository, generator)
 explore_standard_repository_generator_input(generator_input)
 python main.py explore "nu'"
 ```
 
----
-
-# 4. Phase 101 で確定した境界
-
-resolver:
+recursive proof-scope exploration:
 
 ```text
-explicit alias
-exact indexed generator
-prime decoration
+explore_repository_generator_proof_scope(repository, generator)
+explore_standard_repository_generator_proof_scope_input(generator_input)
+python main.py explore-proof nu_prime
 ```
-
-を扱う。
-
-扱わない:
-
-```text
-natural-language interpretation
-wildcard family
-automatic typo correction
-mathematical equivalence inference
-```
-
-occurrence:
-
-```text
-same entry + different structural path
-= different occurrence
-```
-
-valid zero occurrence は normal result / exit 0。
 
 ---
 
-# 5. 次の候補
+# 4. Phase 102 で確定した境界
 
-Phase 101 で「既知 generator の production exploration」は closure。
-
-次の自然な候補:
+proof-scope search は:
 
 ```text
-Phase 102-1
-relation / theorem-pattern exploration pressure audit
+already represented ProofStep ancestry
+```
+
+のみを対象にする。
+
+行わない:
+
+```text
+new theorem generation
+general map evaluation
+general Toda-bracket solving
+general indeterminacy computation
+recursive theorem solver
+```
+
+同一 `ProofStep` identity は root ごとに provenance を保持する。
+
+Toda membership は:
+
+```text
+membership element
+bracket first
+bracket second
+bracket third
+```
+
+を区別する。
+
+known map relation は:
+
+```text
+Relation equality
++
+MapApplication on lhs
++
+generator in map input
+```
+
+を structural に抽出する。
+
+---
+
+# 5. 次の自然な候補
+
+Phase 102 で「already represented relation / membership discovery」は closure。
+
+次の候補は、**探索結果を theorem applicability へ接続する read-only capability** が自然。
+
+```text
+Phase 103-1
+applicable theorem / lemma discovery pressure audit
 ```
 
 監査候補:
 
 ```text
-指定 generator を含む Toda bracket relation
-nu' in {a,b,c} 型 membership query
-map input / known map image relation
-applicable lemma discovery
+既存 theorem / inference rule の premise pattern
+generator / relation / membership の型
+catalog metadata
+concrete compatibility 判定
+actual proof-search executionとの境界
 ```
 
-最初に audit し、general solver を先取りしない。
+最初は read-only candidate discovery のみを監査し、proof execution や general solver を先取りしない。
 
 ---
 
-# 6. Deferred：Toda bracket exploration
-
-既存 role:
-
-```text
-TODA_BRACKET_FIRST
-TODA_BRACKET_SECOND
-TODA_BRACKET_THIRD
-```
-
-を利用し、TodaBracketMembershipStatement / theorem source を絞り込めるか監査する。
-
-bracket value の一般計算とは別 capability。
-
----
-
-# 7. Deferred：map exploration
+# 6. Deferred：applicable lemma discovery
 
 候補:
 
 ```text
-E / H / Δ の input occurrence
-既知 map image relation
-map property と element occurrence の接続
-```
-
-`MAP_INPUT` role は structural occurrence であり、一般 map evaluator ではない。
-
----
-
-# 8. Deferred：applicable lemma discovery
-
-候補:
-
-```text
-element / relation
+element / relation / membership
 → premise-pattern compatibility
-→ theorem / lemma candidates
+→ theorem / lemma candidate metadata
 ```
 
-proof-search executionと read-only discovery を分離する。
+必要な設計境界:
+
+```text
+candidate discovery != proof execution
+compatibility != theorem truth
+catalog metadata != successful proof
+```
+
+---
+
+# 7. Deferred：Toda bracket evaluation
+
+Phase 102 で membership discovery は実装済み。
+
+未実装:
+
+```text
+bracket value computation
+general bracket solver
+indeterminacy computation
+coset normalization
+```
+
+existing theorem-specific bracket statements を general solver とみなさない。
+
+---
+
+# 8. Deferred：map evaluation
+
+Phase 102 で known relation discovery は実装済み。
+
+未実装:
+
+```text
+E(x) の一般評価
+H(x) の一般評価
+Δ(x) の一般評価
+unknown map-image inference
+```
+
+既知 `Relation(MapApplication(...), ...)` の検索とは分離する。
 
 ---
 
@@ -217,19 +280,43 @@ proof-search executionと read-only discovery を分離する。
 
 既存 theorem-specific indeterminacy statement を一般 coset engine とみなさない。
 
+候補:
+
+```text
+subgroup representation
+coset representative
+modulo relation
+indeterminacy subgroup
+normalization
+```
+
+は actual mathematical pressure が出てから設計する。
+
 ---
 
 # 10. Deferred：composition evaluation
 
-known relation lookup から開始し、general composition calculator を先取りしない。
+known composition relation lookup から開始し、general composition calculator を先取りしない。
 
 ---
 
 # 11. Deferred：derived-but-not-explicit result discovery
 
-まず actual proof ancestry に既に存在する `ProofStep` の discovery を監査する。
+Phase 102 は actual proof ancestry に既に存在する `ProofStep` discovery まで。
 
-「既存導出済み結果」と「新規 theorem search」を区別する。
+次段階では:
+
+```text
+already represented but not root-visible
+```
+
+と
+
+```text
+not yet derived
+```
+
+を厳密に分離する。
 
 ---
 
@@ -267,7 +354,8 @@ actual pressure が出るまで deferred。
 
 ```text
 minimal calculation CLI
-minimal generator-exploration CLI
+minimal top-level generator-exploration CLI
+minimal recursive proof-scope CLI
 ```
 
 将来:
@@ -294,13 +382,13 @@ all-primary ordinary sphere-homotopy calculation
 
 # 16. 直近の次作業
 
-Phase 101 は COMPLETE。
+Phase 102 は COMPLETE。
 
 次候補:
 
 ```text
-Phase 102-1
-relation / theorem-pattern exploration pressure audit
+Phase 103-1
+applicable theorem / lemma discovery pressure audit
 ```
 
-まず existing structural occurrence、Toda bracket role、map-input role、theorem statement 型を監査する。
+まず existing inference-rule catalog、premise matcher、proof-scope exploration result の接続可能性を監査する。

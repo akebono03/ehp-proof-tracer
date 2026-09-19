@@ -21,13 +21,13 @@
 
 `docs/development_log/phases_049_064.md`
 
-$\pi_3^2$、$\pi_4^3$、Toda Proposition 5.1、Lemma 5.2、$\nu'$、$\nu_4$、$\nu$-family、performance stabilization まで。
+\(\pi_3^2\)、\(\pi_4^3\)、Toda Proposition 5.1、Lemma 5.2、\(\nu'\)、\(\nu_4\)、\(\nu\)-family、performance stabilization まで。
 
 ## Phase 65–78
 
 `docs/development_log/phases_065_078.md`
 
-Toda Proposition 5.6 から Lemma 5.16、stable $G_0$ through $G_7$ までの主要 mathematical proof spine。
+Toda Proposition 5.6 から Lemma 5.16、stable \(G_0\) through \(G_7\) までの主要 mathematical proof spine。
 
 ## Phase 79–89
 
@@ -157,6 +157,35 @@ Phase 99-27
 final audit / documentation
 ```
 
+actual representative validation では Phase 67 / 68 の既存 theorem-backed `ProofStep` を使い、\(\nu'\) が
+
+\[
+\eta_2\nu'
+\]
+
+の右因子、および
+
+\[
+\nu'\eta_6
+\]
+
+の左因子として横断探索されることを確認した。
+
+boundary regression では、
+
+```text
+unknown generator
+single occurrence
+same-entry multiple structural occurrences
+composition left/right
+repository order
+presentation order
+Markdown order
+repository non-mutation
+```
+
+を固定した。
+
 Phase 99 は COMPLETE。
 
 最終確認:
@@ -179,6 +208,29 @@ clean
 
 Phase 100 では user-facing production path を構成するため、既存 theorem-backed bootstrap を標準 production repository へ統合し、repository-free facade と minimal CLI へ接続した。
 
+Phase 100-12 の closure spine:
+
+```text
+Phase 100-12B
+standard production repository integration
+
+Phase 100-12C-1
+minimal production one-shot facade integration
+
+Phase 100-12C-2
+minimal CLI integration
+
+Phase 100-12C-3
+CLI boundary / error-path / direct invocation audit
+
+Phase 100-12C-4
+minimal CLI semantic-validation hardening
+
+Phase 100-12D
+production user-facing path final closure audit
+documentation integration
+```
+
 production path:
 
 ```text
@@ -197,6 +249,56 @@ TodaCalculationReportResult
 human-readable proof report
 ```
 
+Phase 100-12C-1 では既存
+
+```text
+build_toda_report(repository,n,k)
+```
+
+を維持したまま、
+
+```text
+build_standard_toda_report(n,k)
+```
+
+を追加した。
+
+Phase 100-12C-2 では旧 `main.py` の固定 EHP demo を minimal CLI entry point に置換した。
+
+Phase 100-12C-3 の監査では、semantic invalid input が facade 内 validation まで進むため user-facing traceback / unnecessary repository construction の pressure が確認された。
+
+Phase 100-12C-4 では CLI boundary で
+
+\[
+n>0,\qquad k\ge0
+\]
+
+を検証し、invalid input では production facade を呼ばないことを regression 固定した。
+
+direct CLI probe では、
+
+```text
+python main.py 5 7
+→ proof report
+
+python main.py 20 20
+→ NOT_FOUND
+
+python main.py 0 7
+→ argparse error
+
+python main.py -1 7
+→ argparse error
+
+python main.py 5 -1
+→ argparse error
+
+python main.py --help
+→ help
+```
+
+を確認した。
+
 Phase 100-12 production user-facing path は COMPLETE。
 
 最終確認:
@@ -214,6 +316,29 @@ repository-wide:
 git diff --check:
 clean
 ```
+
+---
+
+# 現在の運用方針
+
+`development_log.md` は索引として維持する。
+
+詳細な新規開発記録は、該当する archive file に追記するか、将来の Phase 範囲に応じて新しい archive file を追加する。
+
+既存履歴は原則として削除せず、誤りが確定した場合のみ必要な訂正を行う。
+
+現在の capability を確認する目的では、この開発履歴よりも次を優先する。
+
+```text
+README.md
+docs/design.md
+docs/roadmap.md
+docs/code_reference.md
+docs/proof_records.md
+```
+
+
+---
 
 ## Phase 101
 
@@ -253,7 +378,9 @@ Phase 101-6
 final audit / documentation
 ```
 
-Phase 101 は COMPLETE。
+Phase 101-4 では alias equivalence、indexed exact match、zero occurrence、invalid input、distinct structural paths、deterministic order、grouped order、repository non-mutation を固定した。
+
+Phase 101-5 では help、missing / extra argument、malformed input、stdout / stderr、exit code、legacy `(n,k)` compatibility を固定した。
 
 最終確認:
 
@@ -274,119 +401,4 @@ git diff --check:
 clean
 ```
 
-## Phase 102
-
-`docs/development_log/phases_102.md`
-
-Phase 102 は top-level registered conclusion exploration を actual production proof ancestry へ拡張し、Toda membership と known map relation を read-only に探索する capability を追加した。
-
-主要段階:
-
-```text
-Phase 102-1
-production search-scope / relation-pattern audit
-
-Phase 102-2
-minimal theorem-pattern exploration result
-
-Phase 102-3
-Toda bracket / membership filter
-
-Phase 102-4
-known map-relation exploration
-
-Phase 102-5
-production search-scope integration audit
-
-Phase 102-5A
-minimal production proof-scope traversal
-
-Phase 102-5B
-Toda membership / map-relation ancestry integration
-
-Phase 102-6
-production proof-scope facade
-
-Phase 102-7
-CLI / validation / final audit
-```
-
-production path:
-
-```text
-generator string
-↓
-resolve_generator_input()
-↓
-standard production repository
-↓
-registered root entry
-↓
-recursive ProofStep.premises ancestry
-↓
-generator occurrences
-↓
-Toda memberships / known map relations
-↓
-structured result
-↓
-python main.py explore-proof
-```
-
-代表 production ancestry では:
-
-$$
-\nu' \in \{\eta_3,2\iota_4,\eta_4\}_1
-$$
-
-および
-
-$$
-H(\nu')=\eta_5
-$$
-
-を取得できることを確認した。
-
-Phase 102 は COMPLETE。
-
-最終確認:
-
-```text
-Phase 102-5A focused:
-11 passed in 4.67s
-
-Phase 102-5B focused:
-22 passed in 10.29s
-
-Phase 102-6 focused:
-42 passed in 23.46s
-
-Phase 102-6 related:
-89 passed in 23.32s
-
-repository-wide after Phase 102-7:
-8142 passed in 129.93s
-
-git diff --check:
-clean
-```
-
----
-
-# 現在の運用方針
-
-`development_log.md` は索引として維持する。
-
-詳細な新規開発記録は、該当する archive file に追記するか、将来の Phase 範囲に応じて新しい archive file を追加する。
-
-既存履歴は原則として削除せず、誤りが確定した場合のみ必要な訂正を行う。
-
-現在の capability を確認する目的では、この開発履歴よりも次を優先する。
-
-```text
-README.md
-docs/design.md
-docs/roadmap.md
-docs/code_reference.md
-docs/proof_records.md
-```
+Phase 101 は COMPLETE。
