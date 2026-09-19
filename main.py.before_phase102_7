@@ -5,12 +5,6 @@ import sys
 from repository_element_facade import (
   explore_standard_repository_generator_input,
 )
-from repository_proof_scope_facade import (
-  explore_standard_repository_generator_proof_scope_input,
-)
-from repository_proof_scope_renderer import (
-  render_repository_proof_scope_exploration_markdown,
-)
 from toda_calculation_facade import (
   build_standard_toda_report,
 )
@@ -94,28 +88,6 @@ def build_explore_argument_parser(
   return parser
 
 
-def build_explore_proof_argument_parser(
-) -> argparse.ArgumentParser:
-  parser = argparse.ArgumentParser(
-    prog="main.py explore-proof",
-    description=(
-      "Explore one generator across the recursive "
-      "proof ancestry of the standard production "
-      "repository."
-    ),
-  )
-
-  parser.add_argument(
-    "generator",
-    help=(
-      "generator input such as "
-      "nu_prime, nu_5, or eta_2"
-    ),
-  )
-
-  return parser
-
-
 def _run_explore_command(
   generator_input: str,
 ) -> int:
@@ -140,42 +112,6 @@ def _run_explore_command(
 
   print(
     report.markdown,
-    end="",
-  )
-
-  return 0
-
-
-def _run_explore_proof_command(
-  generator_input: str,
-) -> int:
-  try:
-    result = (
-      explore_standard_repository_generator_proof_scope_input(
-        generator_input
-      )
-    )
-  except (
-    TypeError,
-    ValueError,
-  ) as error:
-    parser = (
-      build_explore_proof_argument_parser()
-    )
-    parser.error(
-      str(
-        error
-      )
-    )
-
-  markdown = (
-    render_repository_proof_scope_exploration_markdown(
-      result
-    )
-  )
-
-  print(
-    markdown,
     end="",
   )
 
@@ -212,26 +148,6 @@ def main(
     )
 
     return _run_explore_command(
-      args.generator
-    )
-
-  if (
-    raw_argv
-    and raw_argv[
-      0
-    ] == "explore-proof"
-  ):
-    parser = (
-      build_explore_proof_argument_parser()
-    )
-
-    args = parser.parse_args(
-      raw_argv[
-        1:
-      ]
-    )
-
-    return _run_explore_proof_command(
       args.generator
     )
 

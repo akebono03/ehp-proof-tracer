@@ -28,11 +28,11 @@ Toda Lemma 5.7、Proposition 5.8、Equation (5.10)、Proposition 5.9、Equation 
 
 Toda Proposition 5.11、Lemma 5.12、Proposition 5.15、Equation (5.16)、Lemma 5.16 を含む。
 
-## Stable stems $G_0$ through $G_7$
+## Stable stems \(G_0\) through \(G_7\)
 
 `docs/proof_records/stable_stems_g0_g7.md`
 
-Phase 78 の stable $G_0$ through $G_7$ consolidation 記録を含む。
+Phase 78 の stable \(G_0\) through \(G_7\) consolidation 記録を含む。
 
 ---
 
@@ -50,6 +50,8 @@ Proof Repository、repository-assisted inference、automatic rule selection、bo
 
 Toda group query、normalized theorem-backed group result、actual EHP extraction、proof dependency / explanation、recursive proof provenance、および Phase 95 calculation orchestration の記録。
 
+Phase 95 completion record を含む。
+
 ## Phase 96
 
 `docs/proof_records/presentation_reporting_096.md`
@@ -62,11 +64,19 @@ structured presentation、EHP / exactness presentation、proof source presentati
 
 `TodaCalculationResult` から end-to-end presentation / full proof report までを compose する top-level reporting layer の記録。
 
+`NOT_FOUND / FOUND / MULTIPLE_RESULTS` semantics、candidate identity/order、direct / aggregate provenance preservation、代表6 target の top-level validation、repository non-mutation を含む。
+
+Phase 97 completion record を含む。
+
 ## Phase 98
 
 `docs/proof_records/user_facing_convenience_098.md`
 
 raw `n,k` facade、`FOUND` 専用 `result.report`、全 candidate を順序保持する `result.reports`、代表6 target の shortest user-facing path validation を記録する。
+
+proof truth、candidate identity/order、direct / aggregate provenance、EHP / exactness、repository non-mutation が convenience layer を通して保持されることを記録する。
+
+Phase 98 completion record を含む。
 
 ## Phase 99
 
@@ -101,11 +111,45 @@ same entry + different structural path
 = different occurrence
 ```
 
+entry 単位の deduplication はしない。
+
+actual representative validation:
+
+\[
+\pi_6^2=\mathbb Z/4\{\eta_2\nu'\}
+\]
+
+では \(\nu'\) を composition right として検出し、
+
+\[
+\pi_7^3=\mathbb Z/2\{\nu'\eta_6\}
+\]
+
+では composition left として検出する。
+
+Phase 99 completion verification:
+
+```text
+Phase 99-24 actual-repository integration:
+13 passed in 4.59s
+
+Phase 99-26 boundary regression:
+12 passed in 5.70s
+
+repository-wide:
+7824 passed in 136.59s
+
+git diff --check:
+clean
+```
+
 Phase 99 は COMPLETE。
 
 ## Phase 100 production user-facing path
 
 Phase 100-12 は、既存 theorem-backed proof infrastructure を production user-facing calculation path へ接続した記録である。
+
+重要な点は、新しい数学的 theorem truth を追加することではなく、既存 proof truth を標準 repository と user-facing orchestration から再利用可能にしたことである。
 
 production repository:
 
@@ -128,89 +172,115 @@ CLI:
 python main.py n k
 ```
 
-Phase 100-12 production user-facing path は COMPLETE。
-
-## Phase 101 production generator exploration
-
-`docs/proof_records/production_exploration_101.md`
-
-Phase 101 は Phase 99 の structural generator exploration を standard production repository と user-facing input / CLI に接続した。
-
-CLI:
+production path:
 
 ```text
-python main.py explore "nu'"
+raw n,k
+↓
+CLI or build_standard_toda_report()
+↓
+standard production repository
+↓
+build_toda_report(repository,n,k)
+↓
+TodaCalculationReportResult
+↓
+human-readable proof report
 ```
 
-Phase 101 は COMPLETE。
-
-## Phase 102 recursive proof-scope exploration
-
-`docs/proof_records/production_proof_scope_exploration_102.md`
-
-Phase 102 は registered repository conclusion だけでは見えない actual `ProofStep.premises` ancestry を read-only に探索可能にした。
-
-proof-scope node:
+代表 production probe:
 
 ```text
-root_entry
-proof_step
-shortest_depth
+python main.py 5 7
 ```
 
-探索対象:
+は theorem-backed proof chain を辿り、
+
+\[
+\pi_{12}^5=\mathbb Z/2\{\sigma'''\}
+\]
+
+を含む full proof report を出力する。
+
+`NOT_FOUND` probe:
 
 ```text
-generator structural occurrences
-Toda bracket membership statements
-known equality map relations
+python main.py 20 20
 ```
 
-代表 result:
+は explicit not-found message を返す。
 
-$$
-\nu' \in \{\eta_3,2\iota_4,\eta_4\}_1
-$$
+CLI semantic boundary:
 
-および
+\[
+n>0,\qquad k\ge0
+\]
 
-$$
-H(\nu')=\eta_5.
-$$
+invalid input は production repository construction より前に argparse error として終了する。
+
+```text
+n = 0
+n < 0
+k < 0
+→ exit 2
+→ traceback なし
+→ production facade 未呼出し
+```
+
+result boundary:
+
+```text
+FOUND
+→ reports
+→ exit 0
+
+MULTIPLE_RESULTS
+→ all reports in candidate order
+→ exit 0
+
+NOT_FOUND
+→ explicit message
+→ exit 1
+```
 
 重要 invariant:
 
 ```text
-same ProofStep under one root
-→ shortest-depth node only
+standard production repository assembly
+!= theorem truth
 
-same ProofStep under different roots
-→ distinct root provenance
+production facade
+!= proof logic
 
-repository
-→ read-only
-
-semantic source occurrence
-→ master occurrence identity reused
+CLI
+!= calculation engine
 ```
 
-CLI:
+既存
 
 ```text
-python main.py explore-proof nu_prime
+build_toda_report(repository,n,k)
 ```
 
-Phase 102 は COMPLETE。
+は維持され、production one-shot facade はその上に compose される。
 
-最終確認:
+Phase 100-12 closure verification:
 
 ```text
+Phase 100-12C-1 related:
+38 passed in 9.07s
+
+Phase 100-12C-4 related:
+21 passed in 9.74s
+
 repository-wide:
-8142 passed in 129.93s
+8010 passed in 179.65s
 
 git diff --check:
 clean
 ```
+
+Phase 100-12 production user-facing path は COMPLETE。
 
 ---
 
@@ -227,9 +297,6 @@ convenience facade != proof truth
 production repository assembly != theorem truth
 CLI != proof truth
 exploration result != new theorem truth
-proof-scope traversal != theorem search
-known relation discovery != map evaluation
-Toda membership discovery != bracket solving
 ```
 
 この文書群は、実装済み proof object と provenance を人間が追跡しやすくするための記録であり、独立した theorem database ではない。
@@ -241,3 +308,76 @@ report orchestration / convenience layer が multiple candidate を勝手に ran
 generator exploration が structural occurrence を mathematical equality や新規 theorem として扱ってはならない。
 
 既存記録は原則として削除せず、確定した semantic correction がある場合のみ訂正する。
+
+
+---
+
+## Phase 101 production generator exploration
+
+`docs/proof_records/production_exploration_101.md`
+
+Phase 101 は Phase 99 の structural generator exploration を standard production repository と user-facing input / CLI に接続した。
+
+```text
+generator string
+↓
+resolve_generator_input()
+↓
+GeneratorSymbol
+↓
+standard production repository
+↓
+structural occurrence lookup
+↓
+semantic role classification
+↓
+presentation
+↓
+Markdown
+```
+
+CLI:
+
+```text
+python main.py explore "nu'"
+```
+
+production `nu_prime` 代表結果:
+
+$$
+\pi_6^3=\mathbb Z/4\{\nu'\},
+$$
+
+$$
+\pi_7^4=\mathbb Z\{\nu_4\}\oplus\mathbb Z/4\{E\nu'\},
+$$
+
+$$
+\pi_6^2=\mathbb Z/4\{\eta_2\nu'\},
+$$
+
+$$
+\pi_7^3=\mathbb Z/2\{\nu'\eta_6\}.
+$$
+
+valid `eta_999` は `Occurrences: 0` / exit 0。
+
+invalid generator は argparse error / exit 2。
+
+追加 invariant:
+
+```text
+generator input resolution != mathematical equality
+```
+
+Phase 101 は COMPLETE。
+
+最終確認:
+
+```text
+repository-wide:
+8058 passed in 133.01s
+
+git diff --check:
+clean
+```

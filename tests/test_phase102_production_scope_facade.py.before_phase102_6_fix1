@@ -1,0 +1,322 @@
+import pytest
+
+from expression import GeneratorSymbol
+from generator_facts import (
+  NU_PRIME_GENERATOR,
+)
+from generator_input import (
+  resolve_generator_input,
+)
+from proof_repository import ProofRepository
+from repository_proof_scope_facade import (
+  RepositoryProofScopeExplorationResult,
+  explore_repository_generator_proof_scope,
+  explore_standard_repository_generator_proof_scope_input,
+)
+from standard_production_repository import (
+  build_standard_production_proof_repository,
+)
+
+
+def _signature(
+  result,
+):
+  return (
+    tuple(
+      (
+        occurrence.scope_node.root_entry.key,
+        occurrence.scope_node.shortest_depth,
+        occurrence.path,
+        occurrence.roles,
+      )
+      for occurrence in result.occurrences
+    ),
+    tuple(
+      (
+        membership
+        .source_occurrence
+        .scope_node
+        .root_entry
+        .key,
+        membership
+        .source_occurrence
+        .scope_node
+        .shortest_depth,
+        membership.is_membership_element,
+        membership.bracket_positions,
+      )
+      for membership in result.toda_memberships
+    ),
+    tuple(
+      (
+        map_relation
+        .source_occurrence
+        .scope_node
+        .root_entry
+        .key,
+        map_relation
+        .source_occurrence
+        .scope_node
+        .shortest_depth,
+        map_relation.map,
+      )
+      for map_relation in result.map_relations
+    ),
+  )
+
+
+def test_phase102_6_returns_structured_scope_exploration_result():
+  result = (
+    explore_standard_repository_generator_proof_scope_input(
+      "nu_prime"
+    )
+  )
+
+  assert isinstance(
+    result,
+    RepositoryProofScopeExplorationResult,
+  )
+
+  assert (
+    result.generator
+    == NU_PRIME_GENERATOR
+  )
+
+  assert result.scope.nodes
+  assert result.occurrences
+  assert result.toda_memberships
+  assert result.map_relations
+
+
+@pytest.mark.parametrize(
+  "value",
+  (
+    "ν′",
+    "ν'",
+    "nu'",
+    "nu_prime",
+  ),
+)
+def test_phase102_6_reuses_existing_nu_prime_alias_resolution(
+  value,
+):
+  result = (
+    explore_standard_repository_generator_proof_scope_input(
+      value
+    )
+  )
+
+  assert (
+    result.generator
+    == NU_PRIME_GENERATOR
+  )
+
+
+def test_phase102_6_matches_manual_production_path():
+  repository = (
+    build_standard_production_proof_repository()
+  )
+
+  generator = (
+    resolve_generator_input(
+      "nu_prime"
+    )
+  )
+
+  expected = (
+    explore_repository_generator_proof_scope(
+      repository,
+      generator,
+    )
+  )
+
+  actual = (
+    explore_standard_repository_generator_proof_scope_input(
+      "nu_prime"
+    )
+  )
+
+  assert (
+    _signature(
+      actual
+    )
+    == _signature(
+      expected
+    )
+  )
+
+
+def test_phase102_6_nu_prime_result_includes_membership_element_occurrence():
+  result = (
+    explore_standard_repository_generator_proof_scope_input(
+      "nu_prime"
+    )
+  )
+
+  assert any(
+    membership.is_membership_element
+    for membership in result.toda_memberships
+  )
+
+
+def test_phase102_6_nu_prime_result_includes_map_relation():
+  result = (
+    explore_standard_repository_generator_proof_scope_input(
+      "nu_prime"
+    )
+  )
+
+  assert result.map_relations
+
+  assert any(
+    getattr(
+      map_relation.map,
+      "name",
+      None,
+    ) == "H"
+    for map_relation in result.map_relations
+  )
+
+
+def test_phase102_6_unknown_generator_is_normal_zero_semantic_result():
+  result = (
+    explore_standard_repository_generator_proof_scope_input(
+      "eta_999"
+    )
+  )
+
+  assert (
+    result.generator
+    == GeneratorSymbol(
+      family="η",
+      index=999,
+    )
+  )
+
+  assert (
+    result.occurrences
+    == ()
+  )
+
+  assert (
+    result.toda_memberships
+    == ()
+  )
+
+  assert (
+    result.map_relations
+    == ()
+  )
+
+
+@pytest.mark.parametrize(
+  "value",
+  (
+    "",
+    "   ",
+    "not_a_generator",
+    "nu prime",
+    "eta_0",
+  ),
+)
+def test_phase102_6_reuses_existing_invalid_string_input_validation(
+  value,
+):
+  with pytest.raises(
+    ValueError,
+  ):
+    explore_standard_repository_generator_proof_scope_input(
+      value
+    )
+
+
+def test_phase102_6_reuses_existing_non_string_validation():
+  with pytest.raises(
+    TypeError,
+    match="value must be a str",
+  ):
+    explore_standard_repository_generator_proof_scope_input(
+      None
+    )
+
+
+def test_phase102_6_repository_facade_rejects_non_repository():
+  with pytest.raises(
+    TypeError,
+    match=(
+      "repository must be a ProofRepository"
+    ),
+  ):
+    explore_repository_generator_proof_scope(
+      "not-a-repository",
+      NU_PRIME_GENERATOR,
+    )
+
+
+def test_phase102_6_repository_facade_rejects_non_generator():
+  with pytest.raises(
+    TypeError,
+    match=(
+      "generator must be a GeneratorSymbol"
+    ),
+  ):
+    explore_repository_generator_proof_scope(
+      ProofRepository(),
+      "ν′",
+    )
+
+
+def test_phase102_6_production_facade_is_deterministic():
+  first = (
+    explore_standard_repository_generator_proof_scope_input(
+      "nu_prime"
+    )
+  )
+
+  second = (
+    explore_standard_repository_generator_proof_scope_input(
+      "nu_prime"
+    )
+  )
+
+  assert (
+    _signature(
+      first
+    )
+    == _signature(
+      second
+    )
+  )
+
+
+def test_phase102_6_repository_is_not_mutated():
+  repository = (
+    build_standard_production_proof_repository()
+  )
+
+  before = (
+    repository.entries()
+  )
+
+  result = (
+    explore_repository_generator_proof_scope(
+      repository,
+      NU_PRIME_GENERATOR,
+    )
+  )
+
+  after = (
+    repository.entries()
+  )
+
+  assert result.occurrences
+
+  assert after == before
+
+  assert all(
+    actual is expected
+    for actual, expected in zip(
+      after,
+      before,
+    )
+  )

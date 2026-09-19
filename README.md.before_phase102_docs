@@ -2,7 +2,7 @@
 
 EHP Proof Tracer is a Python project for representing, checking, searching, explaining, presenting, and exploring theorem-backed Toda-style homotopy-group calculations.
 
-The project currently focuses on the 2-primary Toda groups, EHP exactness, explicit proof provenance, the calculation spine through stable stems $G_0$ to $G_7$, theorem-backed repository exploration, recursive proof-ancestry exploration, and production user-facing paths for both group calculation and generator-centered exploration.
+The project currently focuses on the 2-primary Toda groups, EHP exactness, explicit proof provenance, the calculation spine through stable stems $G_0$ to $G_7$, theorem-backed repository exploration, and production user-facing paths for both group calculation and generator-centered exploration.
 
 ## Current mathematical coverage
 
@@ -75,8 +75,7 @@ The proof-search infrastructure supports:
 - selected-path execution,
 - search and execution diagnostics,
 - proof-step provenance,
-- recursive proof ancestry,
-- repository-nonmutating execution and exploration.
+- repository-nonmutating execution.
 
 General unbounded proof search, proof ranking, proof-cost optimization, and best-proof selection are intentionally not implemented.
 
@@ -297,7 +296,7 @@ sigma_triple_prime
 
 Resolution produces an exact `GeneratorSymbol`. An unindexed family is not a wildcard.
 
-## Top-level repository exploration
+## Generator-centered repository exploration
 
 The repository-explicit entry point is:
 
@@ -316,71 +315,43 @@ explore_standard_repository_generator_input(
 )
 ```
 
-This path searches registered repository-entry conclusions only.
-
-Exploration is occurrence-based, not entry-deduplicated. Different structural paths remain distinct occurrences even when they occur in the same repository entry.
-
-Unknown but syntactically valid indexed generators return a normal zero-occurrence report.
-
-## Recursive proof-scope exploration
-
-Phase 102 adds a second exploration path that searches the actual recursive `ProofStep.premises` ancestry below each registered production root.
-
-The production entry point is:
-
-```python
-explore_standard_repository_generator_proof_scope_input(
-  generator_input,
-)
-```
-
-The path is:
+The production exploration path is:
 
 ```text
 generator string
 ↓
 resolve_generator_input()
 ↓
-standard production repository
+build_standard_production_proof_repository()
 ↓
-registered root entries
+explore_repository_generator()
 ↓
-recursive ProofStep ancestry
+RepositoryGeneratorExplorationReport
 ↓
-generator occurrences
-↓
-Toda membership extraction
-↓
-map-relation extraction
-↓
-RepositoryProofScopeExplorationResult
+grouped Markdown
 ```
 
-Each proof-scope node keeps:
+Exploration is occurrence-based, not entry-deduplicated. Different structural paths remain distinct occurrences even when they occur in the same repository entry.
 
-```text
-root_entry
-proof_step
-shortest_depth
-```
-
-Traversal is breadth-first, cycle-safe, identity-preserving, deterministic, and read-only.
-
-Within the same root, the same `ProofStep` identity is reported once at its shortest depth. If the same `ProofStep` is reachable from different registered roots, the distinct root provenance is preserved.
-
-Representative production results for `nu_prime` include the Toda membership
+For `nu_prime`, the current production repository yields six structural occurrences, including:
 
 $$
-\nu' \in \{\eta_3,2\iota_4,\eta_4\}_1
+\pi_6^3=\mathbb Z/4\{\nu'\},
 $$
 
-and the known map relation
-
 $$
-H(\nu')=\eta_5.
+\pi_7^4=\mathbb Z\{\nu_4\}\oplus\mathbb Z/4\{E\nu'\},
 $$
 
-The exploration layer only finds already represented and already proven statements. It does not evaluate $E$, $H$, or $\Delta$, and it does not solve Toda brackets.
+$$
+\pi_6^2=\mathbb Z/4\{\eta_2\nu'\},
+$$
+
+$$
+\pi_7^3=\mathbb Z/2\{\nu'\eta_6\}.
+$$
+
+Unknown but syntactically valid indexed generators return a normal zero-occurrence report.
 
 ## Command-line interface
 
@@ -398,19 +369,19 @@ python main.py 5 7
 
 prints the human-readable proof report for $\pi_{12}^5$.
 
-Top-level registered-entry generator exploration remains:
+Phase 101 adds generator exploration without breaking the positional calculation command:
 
 ```powershell
 python main.py explore "nu'"
 ```
 
-Phase 102 adds recursive proof-ancestry exploration:
+Equivalent aliases such as `nu_prime` are accepted.
+
+Exploration help:
 
 ```powershell
-python main.py explore-proof nu_prime
+python main.py explore --help
 ```
-
-`explore-proof` prints counts plus Toda memberships and map relations with their root repository key and ancestry depth.
 
 Calculation CLI behavior:
 
@@ -436,22 +407,22 @@ Exploration CLI behavior:
 
 ```text
 valid input with occurrence(s)
-→ report
+→ grouped Markdown
 → exit 0
 
 valid input with zero occurrences
-→ zero-count report
+→ Occurrences: 0
 → exit 0
 
 invalid / malformed generator
 → argparse error
 → exit 2
 
-missing / extra argument
+missing / extra explore argument
 → argparse error
 → exit 2
 
---help
+explore --help
 → stdout
 → exit 0
 ```
@@ -478,11 +449,8 @@ The following are intentionally deferred:
 - wildcard family search,
 - general composition evaluation,
 - general Toda-bracket solving,
-- bracket-value computation,
-- general coset / indeterminacy computation,
-- general $E/H/\Delta$ evaluation,
+- coset / indeterminacy computation,
 - automatic applicable-lemma discovery,
-- recursive theorem solving beyond already represented proof ancestry,
 - automatic enumeration of unstated mathematical consequences,
 - Web UI,
 - odd-primary full integration,
@@ -490,23 +458,20 @@ The following are intentionally deferred:
 
 ## Verification
 
-Latest confirmed Phase 102 validation:
+Latest confirmed Phase 101 validation:
 
 ```text
-Phase 102-5A focused:
-11 passed in 4.67s
+Phase 101-2 related:
+108 passed in 9.43s
 
-Phase 102-5B focused:
-22 passed in 10.29s
+Phase 101-4 related:
+104 passed in 11.12s
 
-Phase 102-6 focused:
-42 passed in 23.46s
+Phase 101-5 related:
+57 passed in 8.49s
 
-Phase 102-6 related:
-89 passed in 23.32s
-
-repository-wide after Phase 102-7:
-8142 passed in 129.93s
+repository-wide:
+8058 passed in 133.01s
 
 git diff --check:
 clean
@@ -527,38 +492,22 @@ raw n,k
 → human-readable proof report
 ```
 
-Top-level generator exploration:
+Generator exploration:
 
 ```text
 generator string
 → CLI or production one-shot facade
 → canonical generator resolution
 → standard production repository
-→ registered-entry structural occurrence lookup
+→ structural occurrence lookup
 → role classification
 → grouped presentation
 → Markdown report
 ```
 
-Recursive proof-scope exploration:
-
-```text
-generator string
-→ CLI or production proof-scope facade
-→ canonical generator resolution
-→ standard production repository
-→ recursive proof ancestry
-→ generator occurrences
-→ Toda memberships
-→ map relations
-→ Markdown report
-```
-
 Phase 100 closes the production calculation path.
 
-Phase 101 closes the production top-level generator-exploration path.
-
-Phase 102 closes recursive proof-scope exploration for already represented Toda memberships and known map relations.
+Phase 101 closes the production generator-exploration path.
 
 ## Documentation
 
