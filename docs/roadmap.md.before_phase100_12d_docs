@@ -28,11 +28,13 @@ calculation / explanation:
 
 ```text
 TodaGroupQuery
-→ theorem-backed lookup
+→ direct theorem-backed lookup
 → aggregate concrete-branch fallback
-→ TodaGroupResult
+→ branch ProofStep recovery
+→ TodaGroupResult normalization
 → EHP / exactness provenance
-→ flat / recursive proof provenance
+→ flat dependencies
+→ recursive proof provenance
 → TodaCalculationResult
 ```
 
@@ -40,23 +42,26 @@ presentation / report:
 
 ```text
 structured presentation
+→ EHP / exactness presentation
+→ proof source presentation
 → dependency-first proof flow
 → LaTeX / Markdown rendering
 → readable proof narrative
 → unified full proof report
 ```
 
-production user-facing calculation:
+top-level calculation convenience:
 
 ```text
 raw n,k
-→ CLI or build_standard_toda_report()
-→ semantic validation
-→ standard production repository
 → build_toda_report()
-→ calculation / provenance / presentation
+→ TodaGroupQuery
+→ calculation
+→ candidate handling
+→ presentation
+→ report
 → TodaCalculationReportResult
-→ human-readable proof report
+→ report / reports access
 ```
 
 element-centered exploration:
@@ -65,7 +70,7 @@ element-centered exploration:
 GeneratorSymbol
 → structural containment
 → repository occurrence lookup
-→ semantic role
+→ occurrence role
 → exploration
 → grouped presentation
 → Markdown
@@ -75,8 +80,7 @@ GeneratorSymbol
 最新 regression:
 
 ```text
-8010 passed in 179.65s
-git diff --check: clean
+7824 passed in 136.59s
 ```
 
 ---
@@ -94,48 +98,49 @@ exactness-use provenance
 flat / recursive proof provenance
 aggregate theorem branch discovery
 original branch ProofStep recovery
+direct-result precedence
 multiple-result preservation
 calculation orchestration
 structured presentation
+proof source presentation
 dependency-first proof flow
 LaTeX / Markdown rendering
 readable narrative
 unified full proof report
-raw n,k repository-explicit facade
+calculation-report representation
+single FOUND calculation-to-report API
+NOT_FOUND / FOUND / MULTIPLE_RESULTS top-level handling
+representative six-target top-level validation
+raw n,k user-facing facade
+FOUND-only result.report
+ordered result.reports
+representative shortest-path validation
 ```
 
 Phase 99:
 
 ```text
 structural generator containment
+structural occurrence path preservation
 repository-wide generator occurrence lookup
 semantic occurrence-role classification
-element-centered exploration
+element-centered exploration result
 grouped exploration presentation
 exploration Markdown
 one-shot generator exploration facade
 actual theorem-backed integration validation
-boundary regression
+unknown / single / repeated occurrence boundaries
+repository / presentation / Markdown ordering preservation
+repository non-mutation
 ```
 
-Phase 100-12:
-
-```text
-standard production repository integration
-repository-free production one-shot facade
-minimal CLI integration
-FOUND / MULTIPLE_RESULTS / NOT_FOUND output boundary
-CLI semantic validation
-invalid-input early rejection
-direct invocation audit
-production user-facing path closure
-```
+Phase 99 は正式 COMPLETE。
 
 ---
 
 # 3. 現在の user-facing APIs
 
-repository-explicit calculation:
+計算の最短経路:
 
 ```text
 build_toda_report(
@@ -145,22 +150,25 @@ build_toda_report(
 )
 ```
 
-production repository-free calculation:
+output:
 
 ```text
-build_standard_toda_report(
-  n,
-  k,
-)
+TodaCalculationReportResult
 ```
 
-CLI:
+single `FOUND`:
 
 ```text
-python main.py n k
+result.report
 ```
 
-generator exploration:
+全 candidate report:
+
+```text
+result.reports
+```
+
+generator exploration の最短経路:
 
 ```text
 explore_repository_generator(
@@ -169,78 +177,80 @@ explore_repository_generator(
 )
 ```
 
-CLI は現在 calculation path のみを対象とする。
+output は exploration / presentation / Markdown をまとめて保持する。
 
-element exploration はまだ CLI subcommand 化していない。
+現在の generator exploration 入力は `GeneratorSymbol` であり、文字列 parser / resolver は未実装。
 
 ---
 
-# 4. Phase 100-12 で守った境界
+# 4. Phase 99 で守った境界
 
 再実装しなかったもの:
 
 ```text
-proof truth
+proof construction
+theorem truth
+calculation logic
 group normalization
 EHP extraction
 recursive provenance
-presentation logic
-renderer logic
-result ranking
+ProofRepository mutation
 ```
 
 追加しなかったもの:
 
 ```text
-large CLI framework
-subcommand hierarchy
-element string parser
-element-exploration CLI
+string parser
+free-form query language
+CLI
 Web UI
 general composition evaluator
 general Toda bracket solver
 coset calculator
 automatic lemma applicability engine
+entry-level deduplication
 ```
+
+occurrence は entry 単位ではなく structural path 単位で保持する。
 
 ---
 
-# 5. 次の大きな方向
+# 5. Phase 100 の開始方針
 
-production calculation CLI が closure したため、次は UI を無秩序に広げず、**どの user-facing capability を次に production 化するか**を監査する。
+Phase 99 で generator-centered exploration の core API は一度完成した。
 
-候補は Phase 99 で完成している element exploration path である。
+次は UI を直接実装せず、まず入力・CLI boundary を監査する。
 
 推奨開始点:
 
 ```text
-Phase 101-1
-element-exploration production-input / CLI pressure audit
+Phase 100-1
+current CLI / user-input boundary audit
 ```
 
 確認対象:
 
 ```text
-GeneratorSymbol を CLI 入力へどう写すか
-canonical name / alias policy
-Unicode / ASCII input
-index / prime decoration
-calculation CLI と exploration CLI の command separation
-zero occurrence の exit semantics
-Markdown output responsibility
-repository construction reuse
-core parser と CLI parser の境界
+"ν′" のような文字列入力をどこで GeneratorSymbol に解決するか
+既存 generator naming / decoration / index semantics
+CLI が repository をどう受け取るか
+calculation query と element exploration query をどう区別するか
+stdout / stderr / exit code の責務
+NOT_FOUND / zero occurrence の human-facing wording
+multiple calculation result の表示
+Markdown report の直接出力可否
+core model と CLI message の境界
 ```
 
-最初から subcommand framework や resolver を実装しない。
+Phase 100-1 では parser や CLI framework を先取り実装しない。
 
 ---
 
 # 6. Deferred：string-to-generator resolution
 
-現在の exploration core は `GeneratorSymbol` を既知入力とする。
+Phase 99 は `GeneratorSymbol` を既知入力とした。
 
-将来候補:
+将来必要:
 
 ```text
 "ν′"
@@ -249,31 +259,13 @@ core parser と CLI parser の境界
 "η_2"
 ```
 
-から canonical generator を解決する input layer。
+等から canonical generator を解決する入力 layer。
 
-alias policy、Unicode、index、decoration を structural equality と混同しない。
-
----
-
-# 7. Deferred：advanced element exploration
-
-候補:
-
-```text
-指定した元を含む Toda bracket の検索拡張
-nu' in {a,b,c} 型 containment query
-coset / indeterminacy の表示・計算
-写像による元の行き先検索
-補題・命題を適用できる元の検索
-本に明示されていない導出済み結果の列挙
-composition evaluation
-```
-
-既存 occurrence search と数学的 evaluation / proving を混同しない。
+alias policy、Unicode、index、decoration を core structural equality と混同しない。
 
 ---
 
-# 8. Deferred：symbolic higher-range instantiation
+# 7. Deferred：symbolic higher-range instantiation
 
 \[
 \pi_{n+3}^n=\mathbb Z/8\{\nu_n\},
@@ -287,15 +279,15 @@ composition evaluation
 
 ---
 
-# 9. Deferred：target-only proof-search fallback
+# 8. Deferred：target-only proof-search fallback
 
 query は target group だけを持ち、unknown RHS theorem goal は生成しない。
 
 ---
 
-# 10. Deferred：calculation failure diagnostics
+# 9. Deferred：calculation failure diagnostics
 
-core status は現在、
+現在:
 
 ```text
 NOT_FOUND
@@ -303,11 +295,27 @@ FOUND
 MULTIPLE_RESULTS
 ```
 
-である。
+のみ。細分類は actual need が確認された場合に検討する。
 
-詳細 taxonomy は actual need が確認された場合のみ追加する。
+core model の fixed human-readable `NOT_FOUND` message も deferred。
 
-CLI message と core result model を混同しない。
+---
+
+# 10. Deferred：advanced element exploration
+
+候補:
+
+```text
+指定した元を含む Toda bracket の検索拡張
+nu' in {a,b,c} 型 containment query
+coset / indeterminacy の表示・計算
+写像による元の行き先検索
+補題・命題を適用できる元の検索
+本に明示されていない導出済み結果の列挙
+composition evaluation
+```
+
+Phase 99 の occurrence search と、数学的計算・推論 capability を混同しない。
 
 ---
 
@@ -336,16 +344,15 @@ global proof optimization
 
 # 13. Deferred：user interfaces
 
-実装済み:
+次候補:
 
 ```text
-minimal calculation CLI
+CLI
 ```
 
 将来候補:
 
 ```text
-element-exploration CLI
 Web UI
 structured export
 interactive proof graph
@@ -421,13 +428,13 @@ actual theorem-backed need
 
 # 17. 直近の次作業
 
-Phase 100-12 production user-facing calculation path は COMPLETE。
+Phase 99 は正式 COMPLETE。
 
-次候補:
+次:
 
 ```text
-Phase 101-1
-element-exploration production-input / CLI pressure audit
+Phase 100-1
+current CLI / user-input boundary audit
 ```
 
-まず input ownership、name resolution、subcommand necessity、exit/output semantics を監査する。
+最初に input ownership、generator resolution、output responsibility、core/CLI 境界を監査する。
