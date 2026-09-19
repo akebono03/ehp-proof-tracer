@@ -68,21 +68,34 @@ def _required_parameter_count(
 
 
 def _build_catalog():
-  builder = getattr(
-    production_catalog,
-    "_phase103_6d27_original_builder",
+  preferred_names = (
+    "build_standard_production_applicability_catalog",
+    "standard_production_applicability_catalog",
+    "build_standard_production_rule_catalog",
+    "build_standard_production_catalog",
   )
 
-  value = builder()
+  for name in preferred_names:
+    candidate = getattr(
+      production_catalog,
+      name,
+      None,
+    )
 
-  if hasattr(
-    value,
-    "entries",
-  ):
-    return value
+    if (
+      callable(candidate)
+      and _required_parameter_count(candidate) == 0
+    ):
+      value = candidate()
+
+      if hasattr(
+        value,
+        "entries",
+      ):
+        return value
 
   raise AssertionError(
-    "Phase 103-6D24 catalog builder did not return a catalog"
+    "standard production catalog builder not found"
   )
 
 

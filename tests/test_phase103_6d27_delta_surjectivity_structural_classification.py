@@ -10,7 +10,17 @@ from rule_catalog import RuleRelevanceCategory
 TARGET_SHAPES = frozenset(
   (
     (
-      ("TodaHopfInvariantInjectiveStatement",),
+      ("TodaDeltaSurjectiveStatement",),
+      (
+        "TodaPrimaryGroupZeroStatement",
+        "TodaProp42ExactnessStatement",
+      ),
+      True,
+      False,
+      True,
+    ),
+    (
+      ("TodaDeltaSurjectiveStatement",),
       (
         "TodaSuspensionZeroStatement",
         "TodaProp42ExactnessStatement",
@@ -20,7 +30,7 @@ TARGET_SHAPES = frozenset(
       True,
     ),
     (
-      ("TodaHopfInvariantInjectiveStatement",),
+      ("TodaDeltaSurjectiveStatement",),
       (
         "Relation",
         "Relation",
@@ -30,18 +40,32 @@ TARGET_SHAPES = frozenset(
       False,
       True,
     ),
+    (
+      ("TodaDeltaSurjectiveStatement",),
+      (
+        "TodaProp511FiniteDimensionalStatement",
+        "TodaProp42ExactnessStatement",
+      ),
+      True,
+      False,
+      True,
+    ),
   )
 )
 
-ROUTE_B_PREMISES = (
-  "TodaSuspensionZeroStatement",
-  "TodaProp42ExactnessStatement",
+RESIDUAL_SHAPE = (
+  ("TodaDeltaSurjectiveStatement",),
+  (
+    "Relation",
+    "Relation",
+  ),
+  True,
+  False,
+  True,
 )
 
-ROUTE_C_PREMISES = (
-  "Relation",
-  "Relation",
-  "TodaProp42ExactnessStatement",
+RESIDUAL_FAMILY = (
+  "Toda Proposition 5.9 pi_13^13 Delta surjective"
 )
 
 
@@ -68,6 +92,38 @@ def _required_parameter_count(
 
 
 def _build_catalog():
+  preferred_names = (
+    "build_standard_production_applicability_catalog",
+    "standard_production_applicability_catalog",
+    "build_standard_production_rule_catalog",
+    "build_standard_production_catalog",
+  )
+
+  for name in preferred_names:
+    candidate = getattr(
+      production_catalog,
+      name,
+      None,
+    )
+
+    if (
+      callable(candidate)
+      and _required_parameter_count(candidate) == 0
+    ):
+      value = candidate()
+
+      if hasattr(
+        value,
+        "entries",
+      ):
+        return value
+
+  raise AssertionError(
+    "standard production catalog builder not found"
+  )
+
+
+def _build_phase6d24_catalog():
   builder = getattr(
     production_catalog,
     "_phase103_6d27_original_builder",
@@ -84,15 +140,6 @@ def _build_catalog():
   raise AssertionError(
     "Phase 103-6D24 catalog builder did not return a catalog"
   )
-
-
-def _build_phase6d20_catalog():
-  builder = getattr(
-    production_catalog,
-    "_phase103_6d24_original_builder",
-  )
-
-  return builder()
 
 
 def _type_names(
@@ -243,7 +290,7 @@ def _family_groups(
   return grouped
 
 
-def test_phase103_6d24_target_routes_are_structural():
+def test_phase103_6d27_target_routes_are_structural():
   catalog = _build_catalog()
 
   matching = tuple(
@@ -259,28 +306,13 @@ def test_phase103_6d24_target_routes_are_structural():
     matching
   )
 
-  route_counts = Counter(
-    _premise_signature(
-      entry.rule
-    )
-    for entry in matching
-  )
-
   assert len(
     matching
-  ) == 6
+  ) == 4
 
   assert len(
     families
   ) == 4
-
-  assert route_counts[
-    ROUTE_B_PREMISES
-  ] == 1
-
-  assert route_counts[
-    ROUTE_C_PREMISES
-  ] == 5
 
   assert all(
     entry.relevance_category
@@ -289,9 +321,9 @@ def test_phase103_6d24_target_routes_are_structural():
   )
 
 
-def test_phase103_6d24_promotes_only_the_audited_routes():
+def test_phase103_6d27_promotes_only_the_audited_routes():
   catalog = _build_catalog()
-  baseline = _build_phase6d20_catalog()
+  baseline = _build_phase6d24_catalog()
 
   before = {
     entry.key: entry
@@ -346,15 +378,15 @@ def test_phase103_6d24_promotes_only_the_audited_routes():
 
   assert len(
     changed
-  ) == 6
+  ) == 4
 
   assert len(
     changed_families
   ) == 4
 
 
-def test_phase103_6d24_baseline_targets_were_unclassified():
-  baseline = _build_phase6d20_catalog()
+def test_phase103_6d27_baseline_targets_were_unclassified():
+  baseline = _build_phase6d24_catalog()
 
   matching = tuple(
     entry
@@ -367,7 +399,7 @@ def test_phase103_6d24_baseline_targets_were_unclassified():
 
   assert len(
     matching
-  ) == 6
+  ) == 4
 
   assert all(
     entry.relevance_category
@@ -376,7 +408,33 @@ def test_phase103_6d24_baseline_targets_were_unclassified():
   )
 
 
-def test_phase103_6d24_closes_hopf_injectivity_relevance():
+def test_phase103_6d27_preserves_generator_image_route_unclassified():
+  catalog = _build_catalog()
+
+  matching = tuple(
+    entry
+    for entry in catalog.entries()
+    if _shape(
+      entry
+    )
+    == RESIDUAL_SHAPE
+    and entry.rule.name
+    == RESIDUAL_FAMILY
+  )
+
+  assert len(
+    matching
+  ) == 1
+
+  assert (
+    matching[
+      0
+    ].relevance_category
+    is RuleRelevanceCategory.UNCLASSIFIED
+  )
+
+
+def test_phase103_6d27_delta_surjectivity_boundary():
   catalog = _build_catalog()
 
   matching = tuple(
@@ -386,13 +444,13 @@ def test_phase103_6d24_closes_hopf_injectivity_relevance():
       entry.conclusion_type
     )
     == (
-      "TodaHopfInvariantInjectiveStatement",
+      "TodaDeltaSurjectiveStatement",
     )
   )
 
   assert len(
     matching
-  ) == 22
+  ) == 5
 
   category_counts = Counter(
     entry.relevance_category
@@ -403,18 +461,38 @@ def test_phase103_6d24_closes_hopf_injectivity_relevance():
     category_counts[
       RuleRelevanceCategory.STRUCTURAL
     ]
-    == 22
+    == 4
   )
 
   assert (
     category_counts[
       RuleRelevanceCategory.UNCLASSIFIED
     ]
-    == 0
+    == 1
+  )
+
+  residual = tuple(
+    entry
+    for entry in matching
+    if (
+      entry.relevance_category
+      is RuleRelevanceCategory.UNCLASSIFIED
+    )
+  )
+
+  assert len(
+    residual
+  ) == 1
+
+  assert (
+    residual[
+      0
+    ].rule.name
+    == RESIDUAL_FAMILY
   )
 
 
-def test_phase103_6d24_family_coverage_counts():
+def test_phase103_6d27_family_coverage_counts():
   catalog = _build_catalog()
   entries = tuple(
     catalog.entries()
@@ -461,11 +539,11 @@ def test_phase103_6d24_family_coverage_counts():
     families
   ) == 267
 
-  assert classified == 95
-  assert unclassified == 172
+  assert classified == 99
+  assert unclassified == 168
 
 
-def test_phase103_6d24_entry_coverage_counts():
+def test_phase103_6d27_entry_coverage_counts():
   catalog = _build_catalog()
   entries = tuple(
     catalog.entries()
@@ -499,5 +577,5 @@ def test_phase103_6d24_entry_coverage_counts():
   )
 
   assert map_property == 47
-  assert structural == 190
-  assert unclassified == 488
+  assert structural == 194
+  assert unclassified == 484
