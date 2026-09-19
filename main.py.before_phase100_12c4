@@ -9,36 +9,6 @@ from toda_calculation_result import (
 )
 
 
-def _parse_positive_int(
-  value: str,
-) -> int:
-  parsed = int(
-    value
-  )
-
-  if parsed <= 0:
-    raise argparse.ArgumentTypeError(
-      "must be positive"
-    )
-
-  return parsed
-
-
-def _parse_nonnegative_int(
-  value: str,
-) -> int:
-  parsed = int(
-    value
-  )
-
-  if parsed < 0:
-    raise argparse.ArgumentTypeError(
-      "must be nonnegative"
-    )
-
-  return parsed
-
-
 def build_argument_parser(
 ) -> argparse.ArgumentParser:
   parser = argparse.ArgumentParser(
@@ -50,13 +20,13 @@ def build_argument_parser(
 
   parser.add_argument(
     "n",
-    type=_parse_positive_int,
+    type=int,
     help="sphere dimension n",
   )
 
   parser.add_argument(
     "k",
-    type=_parse_nonnegative_int,
+    type=int,
     help="stem k for pi_{n+k}(S^n)",
   )
 
