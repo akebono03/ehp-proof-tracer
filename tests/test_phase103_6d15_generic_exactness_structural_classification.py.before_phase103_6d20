@@ -365,8 +365,8 @@ def test_phase103_6d15_family_coverage_counts():
 
   assert len(entries) == 1188
   assert len(families) == 267
-  assert classified == 91
-  assert unclassified == 176
+  assert classified == 90
+  assert unclassified == 177
 
 
 def test_phase103_6d15_entry_coverage_counts():
@@ -392,5 +392,5 @@ def test_phase103_6d15_entry_coverage_counts():
     )
   )
 
-  assert structural == 184
-  assert unclassified == 494
+  assert structural == 183
+  assert unclassified == 495

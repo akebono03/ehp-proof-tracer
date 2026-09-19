@@ -124,7 +124,7 @@ def test_phase103_6d12_deferred_boundary_affects_exactly_88_catalog_entries():
   )
 
 
-def test_phase103_6d12_production_coverage_is_91_classified_176_unclassified():
+def test_phase103_6d12_production_coverage_is_90_classified_177_unclassified():
   catalog = (
     build_standard_production_applicability_catalog()
   )
@@ -164,8 +164,8 @@ def test_phase103_6d12_production_coverage_is_91_classified_176_unclassified():
     families
   ) == 267
 
-  assert classified == 91
-  assert unclassified == 176
+  assert classified == 90
+  assert unclassified == 177
 
 
 def test_phase103_6d12_adds_no_structural_or_map_property_family():

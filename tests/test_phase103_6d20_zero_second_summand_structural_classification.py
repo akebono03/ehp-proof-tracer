@@ -1,71 +1,27 @@
 from __future__ import annotations
 
-from collections import defaultdict
+from collections import Counter, defaultdict
 import inspect
 
 import standard_production_applicability_catalog as production_catalog
 from rule_catalog import RuleRelevanceCategory
 
 
-EXPECTED_TARGETS = {
+TARGET_SHAPE = (
+  ("TodaSuspensionIsomorphismStatement",),
   (
-    ("TodaProp42ExactnessStatement",),
-    ("TodaEHPExactnessWindow",),
-    True,
-    False,
-    True,
-  ): (19, 36),
-  (
-    ("TodaHopfInvariantZeroStatement",),
-    (
-      "TodaDeltaInjectiveStatement",
-      "TodaProp42ExactnessStatement",
-    ),
-    True,
-    False,
-    True,
-  ): (6, 14),
-  (
-    ("TodaSuspensionSurjectiveStatement",),
-    (
-      "TodaHopfInvariantZeroStatement",
-      "TodaProp42ExactnessStatement",
-    ),
-    True,
-    False,
-    True,
-  ): (6, 14),
-  (
-    ("TodaSuspensionSurjectiveStatement",),
-    (
-      "TodaPrimaryGroupZeroStatement",
-      "TodaProp42ExactnessStatement",
-    ),
-    True,
-    False,
-    True,
-  ): (4, 32),
-  (
-    ("TodaDeltaZeroStatement",),
-    (
-      "TodaHopfInvariantSurjectiveStatement",
-      "TodaProp42ExactnessStatement",
-    ),
-    True,
-    False,
-    True,
-  ): (2, 11),
-  (
-    ("TodaSuspensionInjectiveStatement",),
-    (
-      "TodaDeltaZeroStatement",
-      "TodaProp42ExactnessStatement",
-    ),
-    True,
-    False,
-    True,
-  ): (2, 11),
-}
+    "TodaProp44IsomorphismStatement",
+    "TodaPrimaryGroupZeroStatement",
+  ),
+  True,
+  False,
+  True,
+)
+
+TARGET_FAMILY = (
+  "Toda Proposition 5.11 pi_14^8 Proposition 4.4 "
+  "zero-second-summand suspension isomorphism"
+)
 
 
 def _required_parameter_count(
@@ -104,12 +60,17 @@ def _build_catalog():
       name,
       None,
     )
+
     if (
       callable(candidate)
       and _required_parameter_count(candidate) == 0
     ):
       value = candidate()
-      if hasattr(value, "entries"):
+
+      if hasattr(
+        value,
+        "entries",
+      ):
         return value
 
   raise AssertionError(
@@ -125,20 +86,38 @@ def _type_names(
 
   values = (
     value
-    if isinstance(value, tuple)
-    else (value,)
+    if isinstance(
+      value,
+      tuple,
+    )
+    else (
+      value,
+    )
   )
 
   result = []
+
   for item in values:
     if item is None:
       continue
-    if isinstance(item, type):
-      result.append(item.__name__)
-    else:
-      result.append(type(item).__name__)
 
-  return tuple(result)
+    if isinstance(
+      item,
+      type,
+    ):
+      result.append(
+        item.__name__
+      )
+    else:
+      result.append(
+        type(
+          item
+        ).__name__
+      )
+
+  return tuple(
+    result
+  )
 
 
 def _premise_signature(
@@ -156,6 +135,7 @@ def _premise_signature(
       "statement_type",
       None,
     )
+
     if statement_type is not None:
       names.extend(
         _type_names(
@@ -169,6 +149,7 @@ def _premise_signature(
       "statement_pattern",
       None,
     )
+
     if statement_pattern is not None:
       names.extend(
         _type_names(
@@ -176,7 +157,9 @@ def _premise_signature(
         )
       )
 
-  return tuple(names)
+  return tuple(
+    names
+  )
 
 
 def _shape(
@@ -233,6 +216,7 @@ def _family_groups(
         entry.key,
       )
     )
+
     grouped[
       family
     ].append(
@@ -242,96 +226,142 @@ def _family_groups(
   return grouped
 
 
-def test_phase103_6d15_exactness_semantic_shapes_are_structural():
+def test_phase103_6d20_target_route_is_structural():
   catalog = _build_catalog()
-  entries = tuple(
-    catalog.entries()
+
+  matching = tuple(
+    entry
+    for entry in catalog.entries()
+    if _shape(
+      entry
+    )
+    == TARGET_SHAPE
   )
 
-  for shape, expected in EXPECTED_TARGETS.items():
-    matching = tuple(
-      entry
-      for entry in entries
-      if _shape(entry) == shape
-    )
+  assert len(
+    matching
+  ) == 1
 
-    families = _family_groups(
-      matching
-    )
+  assert (
+    matching[
+      0
+    ].rule.name
+    == TARGET_FAMILY
+  )
 
-    assert (
-      len(families),
-      len(matching),
-    ) == expected
-
-    assert all(
-      entry.relevance_category
-      is RuleRelevanceCategory.STRUCTURAL
-      for entry in matching
-    )
+  assert (
+    matching[
+      0
+    ].relevance_category
+    is RuleRelevanceCategory.STRUCTURAL
+  )
 
 
-def test_phase103_6d15_promotes_only_previously_unclassified_targets():
+def test_phase103_6d20_promotes_only_the_audited_route():
+  catalog = _build_catalog()
+
   original_builder = getattr(
     production_catalog,
-    "_phase103_6d15_original_builder",
-  )
-  phase6d15_builder = getattr(
-    production_catalog,
-    "_phase103_6d18_original_builder",
+    "_phase103_6d20_original_builder",
   )
 
   baseline = original_builder()
-  phase6d15_catalog = phase6d15_builder()
 
   before = {
     entry.key: entry
     for entry in baseline.entries()
   }
+
   after = {
     entry.key: entry
-    for entry in phase6d15_catalog.entries()
+    for entry in catalog.entries()
   }
 
   assert before.keys() == after.keys()
 
-  promoted = []
+  changed = []
 
   for key, before_entry in before.items():
-    after_entry = after[key]
+    after_entry = after[
+      key
+    ]
 
-    if (
-      before_entry.relevance_category
-      is not RuleRelevanceCategory.UNCLASSIFIED
-    ):
+    if _shape(
+      before_entry
+    ) == TARGET_SHAPE:
       assert (
-        after_entry.relevance_category
-        is before_entry.relevance_category
+        before_entry.relevance_category
+        is RuleRelevanceCategory.UNCLASSIFIED
       )
-      continue
-
-    if _shape(before_entry) in EXPECTED_TARGETS:
       assert (
         after_entry.relevance_category
         is RuleRelevanceCategory.STRUCTURAL
       )
-      promoted.append(
+      changed.append(
         key
       )
     else:
       assert (
         after_entry.relevance_category
-        is RuleRelevanceCategory.UNCLASSIFIED
+        is before_entry.relevance_category
       )
 
-  assert len(promoted) == 97
+  assert len(
+    changed
+  ) == 1
 
 
-def test_phase103_6d15_family_coverage_counts():
+def test_phase103_6d20_closes_suspension_isomorphism_relevance():
+  catalog = _build_catalog()
+
+  matching = tuple(
+    entry
+    for entry in catalog.entries()
+    if _type_names(
+      entry.conclusion_type
+    )
+    == (
+      "TodaSuspensionIsomorphismStatement",
+    )
+  )
+
+  assert len(
+    matching
+  ) == 17
+
+  category_counts = Counter(
+    entry.relevance_category
+    for entry in matching
+  )
+
+  assert (
+    category_counts[
+      RuleRelevanceCategory.MAP_PROPERTY
+    ]
+    == 16
+  )
+
+  assert (
+    category_counts[
+      RuleRelevanceCategory.STRUCTURAL
+    ]
+    == 1
+  )
+
+  assert (
+    category_counts[
+      RuleRelevanceCategory.UNCLASSIFIED
+    ]
+    == 0
+  )
+
+
+def test_phase103_6d20_family_coverage_counts():
   catalog = _build_catalog()
   entries = tuple(
     catalog.entries()
   )
+
   families = _family_groups(
     entries
   )
@@ -341,7 +371,8 @@ def test_phase103_6d15_family_coverage_counts():
       entry.relevance_category
       for entry in members
     }
-    for family, members in families.items()
+    for family, members
+    in families.items()
   }
 
   classified = sum(
@@ -353,6 +384,7 @@ def test_phase103_6d15_family_coverage_counts():
       RuleRelevanceCategory.UNCLASSIFIED
     }
   )
+
   unclassified = sum(
     1
     for categories
@@ -363,16 +395,31 @@ def test_phase103_6d15_family_coverage_counts():
     }
   )
 
-  assert len(entries) == 1188
-  assert len(families) == 267
+  assert len(
+    entries
+  ) == 1188
+
+  assert len(
+    families
+  ) == 267
+
   assert classified == 91
   assert unclassified == 176
 
 
-def test_phase103_6d15_entry_coverage_counts():
+def test_phase103_6d20_entry_coverage_counts():
   catalog = _build_catalog()
   entries = tuple(
     catalog.entries()
+  )
+
+  map_property = sum(
+    1
+    for entry in entries
+    if (
+      entry.relevance_category
+      is RuleRelevanceCategory.MAP_PROPERTY
+    )
   )
 
   structural = sum(
@@ -383,6 +430,7 @@ def test_phase103_6d15_entry_coverage_counts():
       is RuleRelevanceCategory.STRUCTURAL
     )
   )
+
   unclassified = sum(
     1
     for entry in entries
@@ -392,5 +440,6 @@ def test_phase103_6d15_entry_coverage_counts():
     )
   )
 
+  assert map_property == 47
   assert structural == 184
   assert unclassified == 494

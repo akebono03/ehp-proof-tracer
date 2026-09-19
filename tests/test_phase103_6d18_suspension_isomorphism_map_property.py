@@ -87,6 +87,16 @@ def _build_catalog():
   )
 
 
+
+def _build_phase6d18_catalog():
+  builder = getattr(
+    production_catalog,
+    "_phase103_6d20_original_builder",
+  )
+
+  return builder()
+
+
 def _type_names(
   value,
 ) -> tuple[str, ...]:
@@ -236,7 +246,7 @@ def _family_groups(
 
 
 def test_phase103_6d18_target_shapes_are_map_property():
-  catalog = _build_catalog()
+  catalog = _build_phase6d18_catalog()
   entries = tuple(
     catalog.entries()
   )
@@ -270,7 +280,7 @@ def test_phase103_6d18_target_shapes_are_map_property():
 
 
 def test_phase103_6d18_promotes_only_previously_unclassified_targets():
-  catalog = _build_catalog()
+  catalog = _build_phase6d18_catalog()
 
   original_builder = getattr(
     production_catalog,
@@ -330,7 +340,7 @@ def test_phase103_6d18_promotes_only_previously_unclassified_targets():
 
 
 def test_phase103_6d18_non_target_suspension_isomorphism_remains_unclassified():
-  catalog = _build_catalog()
+  catalog = _build_phase6d18_catalog()
 
   matching = tuple(
     entry
@@ -392,7 +402,7 @@ def test_phase103_6d18_non_target_suspension_isomorphism_remains_unclassified():
 
 
 def test_phase103_6d18_family_coverage_counts():
-  catalog = _build_catalog()
+  catalog = _build_phase6d18_catalog()
   entries = tuple(
     catalog.entries()
   )
@@ -443,7 +453,7 @@ def test_phase103_6d18_family_coverage_counts():
 
 
 def test_phase103_6d18_entry_coverage_counts():
-  catalog = _build_catalog()
+  catalog = _build_phase6d18_catalog()
   entries = tuple(
     catalog.entries()
   )
