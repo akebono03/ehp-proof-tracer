@@ -1,19 +1,9 @@
 from dataclasses import dataclass
-from enum import Enum
 
 from proof import (
   InferenceRule,
   PremisePattern,
 )
-
-
-class RuleRelevanceCategory(Enum):
-  THEOREM_SPECIFIC = "theorem_specific"
-  MAP_PROPERTY = "map_property"
-  STRUCTURAL = "structural"
-  GENERIC_RELATION = "generic_relation"
-  BRIDGE = "bridge"
-  UNCLASSIFIED = "unclassified"
 
 
 @dataclass(frozen=True)
@@ -23,9 +13,6 @@ class InferenceRuleCatalogEntry:
   conclusion_type: type
   fixed_point_safe: bool = False
   goal_compatibility: object = None
-  relevance_category: RuleRelevanceCategory = (
-    RuleRelevanceCategory.UNCLASSIFIED
-  )
 
   def __post_init__(
     self,
@@ -77,15 +64,6 @@ class InferenceRuleCatalogEntry:
       raise TypeError(
         "goal_compatibility must be "
         "callable or None"
-      )
-
-    if not isinstance(
-      self.relevance_category,
-      RuleRelevanceCategory,
-    ):
-      raise TypeError(
-        "relevance_category must be a "
-        "RuleRelevanceCategory"
       )
 
 
