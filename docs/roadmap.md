@@ -8,75 +8,40 @@
 
 # 1. 現在地
 
-数学面では、Toda の finite-dimensional calculation spine と stable \(G_0\) through \(G_7\) の主要 2-primary data を実装済み。
-
-proof infrastructure:
-
-```text
-Proof Repository
-→ automatic rule selection
-→ concrete producer compatibility
-→ bounded dependency search
-→ max_depth parameterization
-→ finite retry
-→ diagnostics
-→ selected-path execution
-→ ProofStep provenance
-```
-
-calculation / explanation:
-
-```text
-TodaGroupQuery
-→ theorem-backed lookup
-→ aggregate concrete-branch fallback
-→ TodaGroupResult
-→ EHP / exactness provenance
-→ flat / recursive proof provenance
-→ TodaCalculationResult
-```
-
-presentation / report:
-
-```text
-structured presentation
-→ dependency-first proof flow
-→ LaTeX / Markdown rendering
-→ readable proof narrative
-→ unified full proof report
-```
-
-production user-facing calculation:
+production calculation:
 
 ```text
 raw n,k
-→ CLI or build_standard_toda_report()
-→ semantic validation
+→ python main.py n k
+  or build_standard_toda_report()
 → standard production repository
-→ build_toda_report()
-→ calculation / provenance / presentation
-→ TodaCalculationReportResult
-→ human-readable proof report
+→ proof report
 ```
 
-element-centered exploration:
+production generator exploration:
 
 ```text
-GeneratorSymbol
-→ structural containment
-→ repository occurrence lookup
-→ semantic role
-→ exploration
-→ grouped presentation
-→ Markdown
-→ one-shot exploration facade
+generator string
+→ python main.py explore <generator>
+  or explore_standard_repository_generator_input()
+→ canonical GeneratorSymbol
+→ standard production repository
+→ structural occurrence lookup
+→ semantic roles
+→ grouped Markdown
 ```
 
-最新 regression:
+最新確認:
 
 ```text
-8010 passed in 179.65s
-git diff --check: clean
+Phase 101-5 related:
+57 passed in 8.49s
+
+repository-wide:
+8058 passed in 133.01s
+
+git diff --check:
+clean
 ```
 
 ---
@@ -86,242 +51,203 @@ git diff --check: clean
 Phase 90–98:
 
 ```text
-query target construction
-theorem-backed known-result lookup
-normalized group structure / generators / orders
-actual EHP extraction
-exactness-use provenance
+query
+group normalization
+EHP / exactness provenance
 flat / recursive proof provenance
-aggregate theorem branch discovery
-original branch ProofStep recovery
-multiple-result preservation
 calculation orchestration
 structured presentation
-dependency-first proof flow
-LaTeX / Markdown rendering
-readable narrative
-unified full proof report
-raw n,k repository-explicit facade
+readable full proof report
+raw n,k facade
 ```
 
 Phase 99:
 
 ```text
 structural generator containment
-repository-wide generator occurrence lookup
-semantic occurrence-role classification
-element-centered exploration
-grouped exploration presentation
-exploration Markdown
-one-shot generator exploration facade
-actual theorem-backed integration validation
-boundary regression
+repository occurrence lookup
+semantic roles
+element exploration
+grouped Markdown
+repository-explicit one-shot facade
 ```
 
-Phase 100-12:
+Phase 100:
 
 ```text
-standard production repository integration
-repository-free production one-shot facade
-minimal CLI integration
-FOUND / MULTIPLE_RESULTS / NOT_FOUND output boundary
-CLI semantic validation
-invalid-input early rejection
-direct invocation audit
-production user-facing path closure
+standard production repository
+repository-free calculation facade
+minimal calculation CLI
+production calculation closure
+```
+
+Phase 101:
+
+```text
+production generator-input audit
+production exploration facade
+aggregate occurrence presentation bridge
+main.py explore dispatch
+alias / indexed / zero / invalid validation
+deterministic structural occurrence semantics
+repository non-mutation
+CLI boundary regression
+legacy n,k compatibility
 ```
 
 ---
 
 # 3. 現在の user-facing APIs
 
-repository-explicit calculation:
-
 ```text
-build_toda_report(
-  repository,
-  n,
-  k,
-)
-```
-
-production repository-free calculation:
-
-```text
-build_standard_toda_report(
-  n,
-  k,
-)
-```
-
-CLI:
-
-```text
+build_toda_report(repository, n, k)
+build_standard_toda_report(n, k)
 python main.py n k
 ```
 
-generator exploration:
-
 ```text
-explore_repository_generator(
-  repository,
-  generator,
-)
-```
-
-CLI は現在 calculation path のみを対象とする。
-
-element exploration はまだ CLI subcommand 化していない。
-
----
-
-# 4. Phase 100-12 で守った境界
-
-再実装しなかったもの:
-
-```text
-proof truth
-group normalization
-EHP extraction
-recursive provenance
-presentation logic
-renderer logic
-result ranking
-```
-
-追加しなかったもの:
-
-```text
-large CLI framework
-subcommand hierarchy
-element string parser
-element-exploration CLI
-Web UI
-general composition evaluator
-general Toda bracket solver
-coset calculator
-automatic lemma applicability engine
+explore_repository_generator(repository, generator)
+explore_standard_repository_generator_input(generator_input)
+python main.py explore "nu'"
 ```
 
 ---
 
-# 5. 次の大きな方向
+# 4. Phase 101 で確定した境界
 
-production calculation CLI が closure したため、次は UI を無秩序に広げず、**どの user-facing capability を次に production 化するか**を監査する。
-
-候補は Phase 99 で完成している element exploration path である。
-
-推奨開始点:
+resolver:
 
 ```text
-Phase 101-1
-element-exploration production-input / CLI pressure audit
+explicit alias
+exact indexed generator
+prime decoration
 ```
 
-確認対象:
+を扱う。
+
+扱わない:
 
 ```text
-GeneratorSymbol を CLI 入力へどう写すか
-canonical name / alias policy
-Unicode / ASCII input
-index / prime decoration
-calculation CLI と exploration CLI の command separation
-zero occurrence の exit semantics
-Markdown output responsibility
-repository construction reuse
-core parser と CLI parser の境界
+natural-language interpretation
+wildcard family
+automatic typo correction
+mathematical equivalence inference
 ```
 
-最初から subcommand framework や resolver を実装しない。
+occurrence:
+
+```text
+same entry + different structural path
+= different occurrence
+```
+
+valid zero occurrence は normal result / exit 0。
 
 ---
 
-# 6. Deferred：string-to-generator resolution
+# 5. 次の候補
 
-現在の exploration core は `GeneratorSymbol` を既知入力とする。
+Phase 101 で「既知 generator の production exploration」は closure。
 
-将来候補:
+次の自然な候補:
 
 ```text
-"ν′"
-"nu'"
-"nu_prime"
-"η_2"
+Phase 102-1
+relation / theorem-pattern exploration pressure audit
 ```
 
-から canonical generator を解決する input layer。
+監査候補:
 
-alias policy、Unicode、index、decoration を structural equality と混同しない。
+```text
+指定 generator を含む Toda bracket relation
+nu' in {a,b,c} 型 membership query
+map input / known map image relation
+applicable lemma discovery
+```
+
+最初に audit し、general solver を先取りしない。
 
 ---
 
-# 7. Deferred：advanced element exploration
+# 6. Deferred：Toda bracket exploration
+
+既存 role:
+
+```text
+TODA_BRACKET_FIRST
+TODA_BRACKET_SECOND
+TODA_BRACKET_THIRD
+```
+
+を利用し、TodaBracketMembershipStatement / theorem source を絞り込めるか監査する。
+
+bracket value の一般計算とは別 capability。
+
+---
+
+# 7. Deferred：map exploration
 
 候補:
 
 ```text
-指定した元を含む Toda bracket の検索拡張
-nu' in {a,b,c} 型 containment query
-coset / indeterminacy の表示・計算
-写像による元の行き先検索
-補題・命題を適用できる元の検索
-本に明示されていない導出済み結果の列挙
-composition evaluation
+E / H / Δ の input occurrence
+既知 map image relation
+map property と element occurrence の接続
 ```
 
-既存 occurrence search と数学的 evaluation / proving を混同しない。
+`MAP_INPUT` role は structural occurrence であり、一般 map evaluator ではない。
 
 ---
 
-# 8. Deferred：symbolic higher-range instantiation
+# 8. Deferred：applicable lemma discovery
 
-\[
+候補:
+
+```text
+element / relation
+→ premise-pattern compatibility
+→ theorem / lemma candidates
+```
+
+proof-search executionと read-only discovery を分離する。
+
+---
+
+# 9. Deferred：coset / indeterminacy
+
+既存 theorem-specific indeterminacy statement を一般 coset engine とみなさない。
+
+---
+
+# 10. Deferred：composition evaluation
+
+known relation lookup から開始し、general composition calculator を先取りしない。
+
+---
+
+# 11. Deferred：derived-but-not-explicit result discovery
+
+まず actual proof ancestry に既に存在する `ProofStep` の discovery を監査する。
+
+「既存導出済み結果」と「新規 theorem search」を区別する。
+
+---
+
+# 12. Deferred：symbolic higher-range instantiation
+
+$$
 \pi_{n+3}^n=\mathbb Z/8\{\nu_n\},
 \qquad
 \pi_{n+6}^n=\mathbb Z/2\{\nu_n^2\},
 \qquad
 \pi_{n+7}^n=\mathbb Z/16\{\sigma_n\}
-\]
+$$
 
-の concrete specialization は別 capability とする。
-
----
-
-# 9. Deferred：target-only proof-search fallback
-
-query は target group だけを持ち、unknown RHS theorem goal は生成しない。
+の concrete specialization は別 capability。
 
 ---
 
-# 10. Deferred：calculation failure diagnostics
-
-core status は現在、
-
-```text
-NOT_FOUND
-FOUND
-MULTIPLE_RESULTS
-```
-
-である。
-
-詳細 taxonomy は actual need が確認された場合のみ追加する。
-
-CLI message と core result model を混同しない。
-
----
-
-# 11. Deferred：renderer coverage expansion
-
-historical aggregate statement の一部は explicit type-name fallback。
-
-readability pressure が確認された型から最小追加する。
-
----
-
-# 12. Deferred：proof optimization
-
-現時点で不要:
+# 13. Deferred：proof optimization
 
 ```text
 general backtracking
@@ -329,105 +255,52 @@ producer ranking
 proof-cost optimization
 best-proof selection
 persistent proof cache
-global proof optimization
 ```
+
+actual pressure が出るまで deferred。
 
 ---
 
-# 13. Deferred：user interfaces
+# 14. Deferred：user interfaces
 
 実装済み:
 
 ```text
 minimal calculation CLI
+minimal generator-exploration CLI
 ```
 
-将来候補:
+将来:
 
 ```text
-element-exploration CLI
 Web UI
 structured export
 interactive proof graph
+filterable exploration UI
 ```
-
-UI の都合で proof truth / provenance schema を変更しない。
 
 ---
 
-# 14. Deferred：mathematical scope expansion
-
-将来候補:
+# 15. Deferred：mathematical scope
 
 ```text
 odd-primary integration
 broader unstable stems
 additional Toda propositions / lemmas
-symbolic stable-range specialization
-ordinary all-primary π_{n+k}(S^n)
+all-primary ordinary sphere-homotopy calculation
 ```
 
 ---
 
-# 15. 文書体系
+# 16. 直近の次作業
 
-```text
-README.md
-→ concise current status
-
-docs/design.md
-→ current architecture
-
-docs/roadmap.md
-→ future plan
-
-docs/development_log.md
-→ history index
-
-docs/development_log/
-→ chronological archives
-
-docs/proof_records.md
-→ proof-record index
-
-docs/proof_records/
-→ mathematical / infrastructure archives
-```
-
----
-
-# 16. Completion policy
-
-各 Phase:
-
-```text
-focused pytest
-related regression
-repository-wide pytest
-git diff --check
-```
-
-実装前:
-
-```text
-current GitHub code
-related tests
-actual theorem-backed need
-```
-
-を確認する。
-
----
-
-# 17. 直近の次作業
-
-Phase 100-12 production user-facing calculation path は COMPLETE。
+Phase 101 は COMPLETE。
 
 次候補:
 
 ```text
-Phase 101-1
-element-exploration production-input / CLI pressure audit
+Phase 102-1
+relation / theorem-pattern exploration pressure audit
 ```
 
-まず input ownership、name resolution、subcommand necessity、exit/output semantics を監査する。
+まず existing structural occurrence、Toda bracket role、map-input role、theorem statement 型を監査する。

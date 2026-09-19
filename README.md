@@ -2,63 +2,61 @@
 
 EHP Proof Tracer is a Python project for representing, checking, searching, explaining, presenting, and exploring theorem-backed Toda-style homotopy-group calculations.
 
-The project currently focuses on the 2-primary Toda groups \(\pi_i^n\), EHP exactness, explicit proof provenance, the calculation spine through stable stems \(G_0\) to \(G_7\), theorem-backed repository exploration, and a production user-facing calculation path from raw \((n,k)\) input to a human-readable proof report.
+The project currently focuses on the 2-primary Toda groups, EHP exactness, explicit proof provenance, the calculation spine through stable stems $G_0$ to $G_7$, theorem-backed repository exploration, and production user-facing paths for both group calculation and generator-centered exploration.
 
 ## Current mathematical coverage
 
 Representative finite-dimensional results include:
 
-\[
+$$
 \pi_5^2=\mathbb Z/2\{\eta_2^3\},
 \qquad
-\pi_6^3=\mathbb Z/4\{\nu'\},
-\]
+\pi_6^3=\mathbb Z/4\{\nu'\}.
+$$
 
-\[
-\pi_7^4=\mathbb Z\{\nu_4\}\oplus \mathbb Z/4\{E\nu'\},
-\]
+$$
+\pi_7^4=\mathbb Z\{\nu_4\}\oplus\mathbb Z/4\{E\nu'\}.
+$$
 
-\[
+$$
 \pi_9^5=\mathbb Z/2\{\nu_5\eta_8\},
 \qquad
-\pi_{10}^4=\mathbb Z/8\{\nu_4^2\},
-\]
+\pi_{10}^4=\mathbb Z/8\{\nu_4^2\}.
+$$
 
-\[
+$$
 \pi_{11}^5=\mathbb Z/2\{\nu_5^2\},
 \qquad
-\pi_9^2=0,
-\]
+\pi_9^2=0.
+$$
 
-\[
+$$
 \pi_{12}^5=\mathbb Z/2\{\sigma'''\}.
-\]
+$$
 
 The stable 2-primary stem data currently consolidated in the project is:
 
-\[
+$$
 G_0=\mathbb Z\{\iota\},
-\]
-
-\[
+\quad
 (G_1;2)=\mathbb Z/2\{\eta\},
-\qquad
+\quad
 (G_2;2)=\mathbb Z/2\{\eta^2\},
-\]
+$$
 
-\[
+$$
 (G_3;2)=\mathbb Z/8\{\nu\},
-\]
+\quad
+(G_4;2)=0,
+\quad
+(G_5;2)=0,
+$$
 
-\[
-(G_4;2)=0,\qquad (G_5;2)=0,
-\]
-
-\[
+$$
 (G_6;2)=\mathbb Z/2\{\nu^2\},
-\qquad
+\quad
 (G_7;2)=\mathbb Z/16\{\sigma\}.
-\]
+$$
 
 This is not an all-primary calculator for ordinary homotopy groups of spheres.
 
@@ -94,9 +92,9 @@ build_toda_calculation_result(
 
 where `query` is a `TodaGroupQuery(n, k)` representing
 
-\[
+$$
 \pi_{n+k}^n.
-\]
+$$
 
 The calculation flow is:
 
@@ -156,16 +154,6 @@ source_entry
 proof_step
 ```
 
-Order semantics are:
-
-```text
-None
-= infinite order
-
-positive integer
-= finite order
-```
-
 For the zero group:
 
 ```text
@@ -176,16 +164,11 @@ generator_orders = ()
 
 ## EHP and exactness provenance
 
-For theorem-backed proofs containing actual EHP ancestry, the project can extract:
+For theorem-backed proofs containing actual EHP ancestry, the project can extract EHP exactness windows, a contiguous EHP sequence, exactness-use provenance, and known group information on EHP terms.
 
-- EHP exactness windows,
-- a contiguous EHP sequence,
-- exactness-use provenance,
-- known group information on EHP terms.
+The representative $\pi_9^5$ proof yields
 
-The representative \(\pi_9^5\) proof yields
-
-\[
+$$
 \pi_{10}^9
 \xrightarrow{\Delta}
 \pi_8^4
@@ -195,28 +178,7 @@ The representative \(\pi_9^5\) proof yields
 \pi_9^9
 \xrightarrow{\Delta}
 \pi_7^4.
-\]
-
-Extraction is based on proof ancestry actually reachable from the final theorem-backed `ProofStep`.
-
-## Flat and recursive proof provenance
-
-The explanation layer exposes both:
-
-```text
-flat dependency view
-recursive proof graph
-```
-
-The recursive representation preserves one node per `ProofStep` identity, all proof edges, original premise indices, shared dependencies, stable traversal order, cycle-safe traversal, and shortest-depth metadata.
-
-The key identity invariant is:
-
-```text
-group_result.proof_step
-is dependency_result.root_step
-is recursive_provenance.root_step
-```
+$$
 
 ## Presentation and proof-report layer
 
@@ -242,46 +204,7 @@ render_toda_full_proof_report_markdown(
 
 Unknown statement types are kept as explicit safe fallbacks rather than guessed into mathematical prose.
 
-## Repository-explicit reporting API
-
-The general reporting entry point is:
-
-```python
-build_toda_calculation_report_result(
-  repository,
-  query,
-)
-```
-
-The repository-explicit raw-input convenience entry point is:
-
-```python
-build_toda_report(
-  repository,
-  n=n,
-  k=k,
-)
-```
-
-It preserves the existing result semantics:
-
-```text
-NOT_FOUND
-→ candidates == ()
-→ reports == ()
-
-FOUND
-→ one report candidate
-→ report is directly available
-
-MULTIPLE_RESULTS
-→ all report candidates preserved in calculation order
-→ no silent preferred-result selection
-```
-
 ## Standard production repository
-
-Phase 100 establishes a standard production repository construction path.
 
 The production builder is:
 
@@ -289,13 +212,13 @@ The production builder is:
 build_standard_production_proof_repository()
 ```
 
-Its purpose is to assemble the theorem-backed entries needed by the supported production calculation path without requiring each caller to manually reproduce Phase-specific bootstrap registration.
+It assembles theorem-backed entries needed by the supported production paths without reproducing Phase-specific bootstrap logic at each call site.
 
-The standard production repository remains an in-memory `ProofRepository`. It does not change theorem truth, proof provenance, or the existing repository semantics.
+Production repository assembly does not create new theorem truth.
 
 ## Repository-free one-shot calculation API
 
-The production one-shot entry point is:
+The production calculation entry point is:
 
 ```python
 build_standard_toda_report(
@@ -304,7 +227,7 @@ build_standard_toda_report(
 )
 ```
 
-The complete production path is:
+The production calculation path is:
 
 ```text
 raw n,k
@@ -318,9 +241,7 @@ build_toda_report(repository, n, k)
 TodaCalculationReportResult
 ```
 
-The older repository-explicit API remains available and compatible.
-
-A representative production call is:
+A representative call:
 
 ```python
 result = build_standard_toda_report(
@@ -329,15 +250,112 @@ result = build_standard_toda_report(
 )
 ```
 
-which reaches the theorem-backed result
+reaches
 
-\[
+$$
 \pi_{12}^5=\mathbb Z/2\{\sigma'''\}.
-\]
+$$
+
+## Generator input resolution
+
+Generator-centered exploration accepts a small explicit input language.
+
+Supported family aliases include:
+
+```text
+η / eta
+ν / nu
+σ / sigma
+ι / iota
+```
+
+Indexed examples include:
+
+```text
+eta_2
+nu_5
+sigma_8
+iota_4
+```
+
+Decorated aliases include:
+
+```text
+ν′
+ν'
+nu'
+nu_prime
+
+σ'
+sigma_prime
+σ''
+sigma_double_prime
+σ'''
+sigma_triple_prime
+```
+
+Resolution produces an exact `GeneratorSymbol`. An unindexed family is not a wildcard.
+
+## Generator-centered repository exploration
+
+The repository-explicit entry point is:
+
+```python
+explore_repository_generator(
+  repository,
+  generator,
+)
+```
+
+The production one-shot entry point is:
+
+```python
+explore_standard_repository_generator_input(
+  generator_input,
+)
+```
+
+The production exploration path is:
+
+```text
+generator string
+↓
+resolve_generator_input()
+↓
+build_standard_production_proof_repository()
+↓
+explore_repository_generator()
+↓
+RepositoryGeneratorExplorationReport
+↓
+grouped Markdown
+```
+
+Exploration is occurrence-based, not entry-deduplicated. Different structural paths remain distinct occurrences even when they occur in the same repository entry.
+
+For `nu_prime`, the current production repository yields six structural occurrences, including:
+
+$$
+\pi_6^3=\mathbb Z/4\{\nu'\},
+$$
+
+$$
+\pi_7^4=\mathbb Z\{\nu_4\}\oplus\mathbb Z/4\{E\nu'\},
+$$
+
+$$
+\pi_6^2=\mathbb Z/4\{\eta_2\nu'\},
+$$
+
+$$
+\pi_7^3=\mathbb Z/2\{\nu'\eta_6\}.
+$$
+
+Unknown but syntactically valid indexed generators return a normal zero-occurrence report.
 
 ## Command-line interface
 
-The minimal production CLI is:
+The existing group-calculation command remains:
 
 ```powershell
 python main.py n k
@@ -349,9 +367,23 @@ For example:
 python main.py 5 7
 ```
 
-prints the human-readable proof report for \(\pi_{12}^5\).
+prints the human-readable proof report for $\pi_{12}^5$.
 
-CLI result behavior is:
+Phase 101 adds generator exploration without breaking the positional calculation command:
+
+```powershell
+python main.py explore "nu'"
+```
+
+Equivalent aliases such as `nu_prime` are accepted.
+
+Exploration help:
+
+```powershell
+python main.py explore --help
+```
+
+Calculation CLI behavior:
 
 ```text
 FOUND
@@ -363,143 +395,119 @@ MULTIPLE_RESULTS
 → exit 0
 
 NOT_FOUND
-→ print an explicit not-found message
+→ explicit not-found message
 → exit 1
 
-invalid CLI syntax or semantic input
+invalid calculation syntax or semantic input
 → argparse error
 → exit 2
 ```
 
-The CLI validates:
+Exploration CLI behavior:
 
-\[
+```text
+valid input with occurrence(s)
+→ grouped Markdown
+→ exit 0
+
+valid input with zero occurrences
+→ Occurrences: 0
+→ exit 0
+
+invalid / malformed generator
+→ argparse error
+→ exit 2
+
+missing / extra explore argument
+→ argparse error
+→ exit 2
+
+explore --help
+→ stdout
+→ exit 0
+```
+
+The calculation CLI validates
+
+$$
 n>0,
 \qquad
 k\ge 0
-\]
+$$
 
 before constructing the production repository.
-
-This avoids traceback-based handling for ordinary user-input errors and avoids unnecessary repository construction for invalid input.
-
-Importing `main` does not execute the CLI.
-
-## Generator-centered repository exploration
-
-Phase 99 provides a separate exploration path for asking where a known `GeneratorSymbol` occurs inside theorem-backed repository conclusions.
-
-The one-shot entry point remains:
-
-```python
-explore_repository_generator(
-  repository,
-  generator,
-)
-```
-
-The exploration result is occurrence-based, not entry-deduplicated. Distinct structural paths remain observable even when they occur in the same repository entry.
-
-Representative validation with \(\nu'\) finds both
-
-\[
-\pi_6^2=\mathbb Z/4\{\eta_2\nu'\}
-\]
-
-and
-
-\[
-\pi_7^3=\mathbb Z/2\{\nu'\eta_6\}.
-\]
-
-The current exploration input is still a known `GeneratorSymbol`; general string-to-generator resolution remains separate from the calculation CLI.
-
-## Representative end-to-end coverage
-
-The theorem-backed reporting path is regression-tested across representative direct-sum, cyclic, zero-group, EHP, aggregate-branch, provenance, and rendering cases, including
-
-\[
-\pi_7^4,\quad
-\pi_9^5,\quad
-\pi_{10}^4,\quad
-\pi_{11}^5,\quad
-\pi_9^2,\quad
-\pi_{12}^5.
-\]
-
-Phase 100 additionally validates that the standard production repository can drive the repository-free facade and the CLI without duplicating proof logic.
 
 ## Current boundaries
 
 The following are intentionally deferred:
 
-- automatic instantiation of symbolic higher-range branches,
-- target-only generation of unknown right-hand-side proof goals,
-- bounded proof-search fallback from a target-only query,
-- detailed calculation-failure taxonomy beyond `NOT_FOUND / FOUND / MULTIPLE_RESULTS`,
-- automatic ranking or best-result selection,
-- full mathematical prose rendering for every historical aggregate statement type,
-- string-to-`GeneratorSymbol` parsing and name resolution,
-- free-form element search,
+- automatic symbolic higher-range instantiation,
+- target-only unknown-right-hand-side proof search,
+- best-proof ranking or proof-cost optimization,
+- full prose rendering for every historical aggregate statement,
+- free-form natural-language element search,
+- wildcard family search,
 - general composition evaluation,
-- general Toda-bracket solving or coset computation,
+- general Toda-bracket solving,
+- coset / indeterminacy computation,
 - automatic applicable-lemma discovery,
-- element-exploration CLI subcommands,
+- automatic enumeration of unstated mathematical consequences,
 - Web UI,
-- general theorem proving,
 - odd-primary full integration,
 - an all-primary ordinary sphere-homotopy calculator.
 
 ## Verification
 
-Latest confirmed Phase 100 production-path validation:
+Latest confirmed Phase 101 validation:
 
 ```text
-Phase 100-12C-1 related:
-38 passed in 9.07s
+Phase 101-2 related:
+108 passed in 9.43s
 
-Phase 100-12C-4 related:
-21 passed in 9.74s
+Phase 101-4 related:
+104 passed in 11.12s
+
+Phase 101-5 related:
+57 passed in 8.49s
 
 repository-wide:
-8010 passed in 179.65s
+8058 passed in 133.01s
 
 git diff --check:
 clean
 ```
 
-The Phase 100 CLI was also directly probed for:
-
-```text
-valid FOUND input
-NOT_FOUND input
-n = 0
-n < 0
-k < 0
---help
-```
-
-Wall-clock time is machine-dependent. Test count, semantic coverage, identity preservation, ordering, provenance coverage, deterministic rendering, CLI exit semantics, and repository-wide regression are the primary cross-machine signals.
-
 ## Current project state
 
-The current user-facing production calculation spine is:
+Calculation:
 
 ```text
 raw n,k
 → CLI or direct Python call
-→ semantic input validation
+→ semantic validation
 → standard production repository
-→ repository-explicit reporting facade
 → calculation
 → provenance extraction
 → structured presentation
 → human-readable proof report
 ```
 
-Phase 99 remains the completed generator-centered exploration layer.
+Generator exploration:
 
-Phase 100-12 establishes and closes the production user-facing calculation path.
+```text
+generator string
+→ CLI or production one-shot facade
+→ canonical generator resolution
+→ standard production repository
+→ structural occurrence lookup
+→ role classification
+→ grouped presentation
+→ Markdown report
+```
+
+Phase 100 closes the production calculation path.
+
+Phase 101 closes the production generator-exploration path.
 
 ## Documentation
 
@@ -523,15 +531,13 @@ docs/proof_records.md
 = proof-record index
 
 docs/proof_records/
-= archived mathematical and infrastructure proof records
+= mathematical and infrastructure proof records
 
 docs/code_reference.md
 = code navigation reference
 ```
 
 ## Project principle
-
-The project follows a narrow-extension policy:
 
 ```text
 actual mathematical or proof-search need
