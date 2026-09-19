@@ -5,10 +5,8 @@ from proof import (
   PremisePattern,
   ProofStep,
   VariableBinding,
-  match_premise_pattern,
 )
 from rule_catalog import (
-  InferenceRuleCatalog,
   InferenceRuleCatalogEntry,
 )
 
@@ -133,60 +131,3 @@ class InferenceRuleApplicabilityCandidate:
     self,
   ) -> bool:
     return self.catalog_entry.fixed_point_safe
-
-
-def find_inference_rule_applicability_candidates(
-  catalog,
-  source_step,
-):
-  if not isinstance(
-    catalog,
-    InferenceRuleCatalog,
-  ):
-    raise TypeError(
-      "catalog must be an "
-      "InferenceRuleCatalog"
-    )
-
-  if not isinstance(
-    source_step,
-    ProofStep,
-  ):
-    raise TypeError(
-      "source_step must be a ProofStep"
-    )
-
-  candidates = []
-
-  for entry in catalog.entries():
-    for (
-      premise_index,
-      premise_pattern,
-    ) in enumerate(
-      entry.rule.premise_patterns
-    ):
-      bindings = (
-        match_premise_pattern(
-          premise_pattern,
-          source_step,
-        )
-      )
-
-      if bindings is None:
-        continue
-
-      candidates.append(
-        InferenceRuleApplicabilityCandidate(
-          catalog_entry=entry,
-          premise_index=premise_index,
-          premise_pattern=(
-            premise_pattern
-          ),
-          source_step=source_step,
-          bindings=bindings,
-        )
-      )
-
-  return tuple(
-    candidates
-  )
