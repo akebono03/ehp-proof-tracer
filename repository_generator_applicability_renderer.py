@@ -86,60 +86,92 @@ def _append_source_group(
           )
         )
       ),
+      (
+        "- Rule groups: "
+        + str(
+          len(
+            source_group.rule_groups
+          )
+        )
+      ),
+      (
+        "- Rule families: "
+        + str(
+          len(
+            source_group.rule_families
+          )
+        )
+      ),
     )
   )
 
-  for rule_group in (
-    source_group.rule_groups
+  for rule_family in (
+    source_group.rule_families
   ):
     lines.extend(
       (
         "",
         (
           "- Rule: "
-          + rule_group
-          .inference_rule
-          .name
+          + rule_family.name
         ),
         (
-          "  - Catalog: `"
-          + rule_group
-          .catalog_entry
-          .key
-          + "`"
+          "  - Catalog entries: "
+          + str(
+            len(
+              rule_family.rule_groups
+            )
+          )
         ),
         (
-          "  - Fixed-point safe: "
-          + (
-            "yes"
-            if rule_group.fixed_point_safe
-            else "no"
+          "  - Raw candidates: "
+          + str(
+            rule_family
+            .raw_candidate_count
           )
         ),
       )
     )
 
-    for candidate in (
-      rule_group.candidates
+    for rule_group in (
+      rule_family.rule_groups
     ):
       lines.append(
         (
-          "  - Premise index: "
-          + str(
-            candidate
-            .candidate
-            .premise_index
-          )
-          + "; Bindings: "
-          + str(
-            len(
-              candidate
-              .candidate
-              .bindings
-            )
+          "  - Catalog: `"
+          + rule_group
+          .catalog_entry
+          .key
+          + "`; Fixed-point safe: "
+          + (
+            "yes"
+            if rule_group.fixed_point_safe
+            else "no"
           )
         )
       )
+
+      for candidate in (
+        rule_group.candidates
+      ):
+        lines.append(
+          (
+            "    - Premise index: "
+            + str(
+              candidate
+              .candidate
+              .premise_index
+            )
+            + "; Bindings: "
+            + str(
+              len(
+                candidate
+                .candidate
+                .bindings
+              )
+            )
+          )
+        )
 
 
 def _append_source_section(
@@ -213,6 +245,12 @@ def _render_grouped_presentation_markdown(
       "Rule groups: "
       + str(
         presentation.rule_group_count
+      )
+    ),
+    (
+      "Rule families: "
+      + str(
+        presentation.rule_family_count
       )
     ),
   ]

@@ -97,6 +97,113 @@ class ApplicabilityRuleGroupPresentation:
 
 
 @dataclass(frozen=True)
+class ApplicabilityRuleFamilyPresentation:
+  name: str
+  rule_groups: tuple[
+    ApplicabilityRuleGroupPresentation,
+    ...,
+  ]
+
+  def __post_init__(
+    self,
+  ) -> None:
+    if not isinstance(
+      self.name,
+      str,
+    ):
+      raise TypeError(
+        "name must be a str"
+      )
+
+    if not self.name:
+      raise ValueError(
+        "name must not be empty"
+      )
+
+    if not isinstance(
+      self.rule_groups,
+      tuple,
+    ):
+      raise TypeError(
+        "rule_groups must be a tuple"
+      )
+
+    if not self.rule_groups:
+      raise ValueError(
+        "rule_groups must not be empty"
+      )
+
+    seen_entry_ids = set()
+
+    for rule_group in self.rule_groups:
+      if not isinstance(
+        rule_group,
+        ApplicabilityRuleGroupPresentation,
+      ):
+        raise TypeError(
+          "rule_groups must contain only "
+          "ApplicabilityRuleGroupPresentation "
+          "objects"
+        )
+
+      if (
+        rule_group.inference_rule.name
+        != self.name
+      ):
+        raise ValueError(
+          "all rule_groups must have the "
+          "family name"
+        )
+
+      entry_id = id(
+        rule_group.catalog_entry
+      )
+
+      if entry_id in seen_entry_ids:
+        raise ValueError(
+          "rule_groups must not repeat the same "
+          "catalog_entry identity"
+        )
+
+      seen_entry_ids.add(
+        entry_id
+      )
+
+  @property
+  def catalog_entries(
+    self,
+  ) -> tuple[
+    InferenceRuleCatalogEntry,
+    ...,
+  ]:
+    return tuple(
+      rule_group.catalog_entry
+      for rule_group in self.rule_groups
+    )
+
+  @property
+  def candidates(
+    self,
+  ) -> tuple[
+    RepositoryProofScopeApplicabilityCandidate,
+    ...,
+  ]:
+    return tuple(
+      candidate
+      for rule_group in self.rule_groups
+      for candidate in rule_group.candidates
+    )
+
+  @property
+  def raw_candidate_count(
+    self,
+  ) -> int:
+    return len(
+      self.candidates
+    )
+
+
+@dataclass(frozen=True)
 class ApplicabilitySourceGroupPresentation:
   scope_node: RepositoryProofScopeNode
   rule_groups: tuple[
@@ -186,6 +293,63 @@ class ApplicabilitySourceGroupPresentation:
     self,
   ):
     return self.scope_node.proof_step.conclusion
+
+  @property
+  def rule_families(
+    self,
+  ) -> tuple[
+    ApplicabilityRuleFamilyPresentation,
+    ...,
+  ]:
+    family_records = []
+    family_record_by_name = {}
+
+    for rule_group in self.rule_groups:
+      name = (
+        rule_group
+        .inference_rule
+        .name
+      )
+
+      family_record = (
+        family_record_by_name.get(
+          name
+        )
+      )
+
+      if family_record is None:
+        family_record = {
+          "name": name,
+          "rule_groups": [],
+        }
+
+        family_record_by_name[
+          name
+        ] = family_record
+
+        family_records.append(
+          family_record
+        )
+
+      family_record[
+        "rule_groups"
+      ].append(
+        rule_group
+      )
+
+    return tuple(
+      ApplicabilityRuleFamilyPresentation(
+        name=family_record[
+          "name"
+        ],
+        rule_groups=tuple(
+          family_record[
+            "rule_groups"
+          ]
+        ),
+      )
+      for family_record in family_records
+    )
 
 
 @dataclass(frozen=True)
@@ -384,6 +548,17 @@ class RepositoryGeneratorApplicabilityPresentation:
     return sum(
       len(
         source_group.rule_groups
+      )
+      for source_group in self.source_groups
+    )
+
+  @property
+  def rule_family_count(
+    self,
+  ) -> int:
+    return sum(
+      len(
+        source_group.rule_families
       )
       for source_group in self.source_groups
     )
