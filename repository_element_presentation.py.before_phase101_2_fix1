@@ -329,80 +329,6 @@ def render_repository_conclusion_latex(
   )
 
 
-def _value_at_repository_occurrence_path_prefix(
-  value,
-  path: tuple[
-    str,
-    ...,
-  ],
-):
-  current = value
-
-  for segment in path:
-    if isinstance(
-      current,
-      tuple,
-    ):
-      current = current[
-        int(
-          segment
-        )
-      ]
-      continue
-
-    current = getattr(
-      current,
-      segment,
-    )
-
-  return current
-
-
-def _render_repository_occurrence_latex(
-  occurrence: RepositoryGeneratorOccurrence,
-) -> str:
-  conclusion = (
-    occurrence
-    .entry
-    .step
-    .conclusion
-  )
-
-  try:
-    return render_repository_conclusion_latex(
-      conclusion
-    )
-  except TypeError:
-    pass
-
-  for prefix_length in range(
-    1,
-    len(
-      occurrence.path
-    ) + 1,
-  ):
-    candidate = (
-      _value_at_repository_occurrence_path_prefix(
-        conclusion,
-        occurrence.path[
-          :prefix_length
-        ],
-      )
-    )
-
-    try:
-      return render_repository_conclusion_latex(
-        candidate
-      )
-    except TypeError:
-      continue
-
-  raise TypeError(
-    "generator occurrence has no renderable "
-    "repository conclusion ancestor"
-  )
-
-
 def build_repository_generator_exploration_presentation(
   result: RepositoryGeneratorExplorationResult,
 ) -> RepositoryGeneratorExplorationPresentation:
@@ -419,8 +345,11 @@ def build_repository_generator_exploration_presentation(
     RepositoryGeneratorOccurrencePresentation(
       source_occurrence=occurrence,
       conclusion_latex=(
-        _render_repository_occurrence_latex(
+        render_repository_conclusion_latex(
           occurrence
+          .entry
+          .step
+          .conclusion
         )
       ),
     )

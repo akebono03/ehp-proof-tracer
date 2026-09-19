@@ -1,23 +1,32 @@
-# EHP Proof Tracer 繧ｳ繝ｼ繝峨Μ繝輔ぃ繝ｬ繝ｳ繧ｹ
+# EHP Proof Tracer コードリファレンス
 
-縺薙・譁・嶌縺ｯ EHP Proof Tracer 縺ｮ荳ｻ隕・Python module 縺ｨ縲√◎縺ｮ雋ｬ蜍吶・荳ｻ隕・class / function繝ｻ謗｢邏｢譁ｹ豕輔ｒ縺ｾ縺ｨ繧√ｋ縲・
-譌｢蟄俶悽譁・・ **Phase 91 completion 譎らせ**繧剃ｸｭ蠢・↓險倩ｿｰ縺輔ｌ縺ｦ縺・ｋ縲よ忰蟆ｾ縺ｮ Phase 92窶・01 supplement 縺ｨ縲∵怙譁ｰ縺ｮ `README.md` / `docs/design.md` 繧貞━蜈医☆繧九・
-縺薙・譁・嶌縺ｯ蜈ｨ API 繧呈ｩ滓｢ｰ逧・↓蛻玲嫌縺吶ｋ reference 縺ｧ縺ｯ縺ｪ縺・ら岼逧・・:
+この文書は EHP Proof Tracer の主要 Python module と、その責務・主要 class / function・探索方法をまとめる。
+
+対象は **Phase 91 completion 時点**。
+
+この文書は全 API を機械的に列挙する reference ではない。目的は:
 
 ```text
-譁ｰ縺励＞ Phase 縺ｮ蠢・ｦ∵焚蟄ｦ
-竊・縺ｩ縺ｮ module 繧堤｢ｺ隱阪☆縺ｹ縺阪°
-竊・譌｢蟄・class / rule 縺ｮ蜀榊茜逕ｨ蛟呵｣・竊・譛蟆丞､画峩
+新しい Phase の必要数学
+↓
+どの module を確認すべきか
+↓
+既存 class / rule の再利用候補
+↓
+最小変更
 ```
 
-繧帝溘￥蛻､譁ｭ縺ｧ縺阪ｋ繧医≧縺ｫ縺吶ｋ縺薙→縺ｧ縺ゅｋ縲・
-螳滄圀縺ｮ螳溯｣・燕縺ｫ縺ｯ蠢・★ 迴ｾ蝨ｨ縺ｮ繧ｳ繝ｼ繝・縺ｨ髢｢騾｣ test 繧堤｢ｺ隱阪☆繧九・
+を速く判断できるようにすることである。
+
+実際の実装前には必ず 現在のコード と関連 test を確認する。
+
 ---
 
-# 1. module 蠅・阜縺ｮ讎りｦ・
+# 1. module 境界の概要
+
 ```text
 expression.py
-  謨ｰ蟄ｦ蠑上・ structural representation
+  数学式の structural representation
 
 proof.py
   generic proof / inference engine
@@ -26,18 +35,19 @@ relation_rules.py
   generic equality / zero / composition propagation
 
 scalar_rules.py
-  scalar parity / congruence / inequality 遲・
+  scalar parity / congruence / inequality 等
+
 homotopy_groups.py
   homotopy-group / Toda-specific group and map data
 
 map_facts.py
-  canonical E / H / ﾎ・map symbols
+  canonical E / H / Δ map symbols
 
 map_property_rules.py
-  injective / surjective / isomorphism 遲峨・ map property
+  injective / surjective / isomorphism 等の map property
 
 barratt_hilton_rules.py
-  Barratt窶滴ilton / Toda Prop.3.1 蜻ｨ霎ｺ
+  Barratt–Hilton / Toda Prop.3.1 周辺
 
 toda_rules.py
   Toda-specific theorem statements / inference rules
@@ -46,10 +56,10 @@ probes/
   representative end-to-end capability demonstrations
 
 tests/
-  generic regression 縺ｨ Phase-specific tests
+  generic regression と Phase-specific tests
 ```
 
-險ｭ險亥次蜑・
+設計原則:
 
 ```text
 generic mechanics
@@ -61,17 +71,19 @@ theorem knowledge
 
 # 2. expression.py
 
-## 蠖ｹ蜑ｲ
+## 役割
 
-謨ｰ蟄ｦ逧・↑蠑上ｒ syntax tree 縺ｨ縺励※菫晄戟縺吶ｋ縲・
-縺薙％縺ｧ縺ｯ theorem 繧帝←逕ｨ縺励↑縺・・
+数学的な式を syntax tree として保持する。
+
+ここでは theorem を適用しない。
+
 ```text
 representation
 !=
 theorem knowledge
 ```
 
-## 荳ｻ縺ｪ scalar structure
+## 主な scalar structure
 
 ```text
 ScalarExpression
@@ -82,7 +94,7 @@ ScalarPower
 ScalarValue
 ```
 
-逕ｨ騾・
+用途:
 
 ```text
 i
@@ -93,13 +105,15 @@ n-3
 (-1)^k
 ```
 
-縺ｪ縺ｩ縺ｮ symbolic index / coefficient縲・
-## 荳ｻ縺ｪ expression
+などの symbolic index / coefficient。
+
+## 主な expression
 
 ### `HomotopyElement`
 
-繝帙Δ繝医ヴ繝ｼ鬘槭ｒ陦ｨ縺吶・
-莉｣陦ｨ field:
+ホモトピー類を表す。
+
+代表 field:
 
 ```text
 name
@@ -109,107 +123,126 @@ target
 generator
 ```
 
-萓・
+例:
 
 ```text
-ﾎｷ竄・ﾎｷ竄・ﾎｷ竄・ﾎｷ竄・ﾎｽ窶ｲ
-ﾎｹ竄・ﾎｱ
-ﾎｲ
+η₂
+η₃
+η₄
+η₅
+ν′
+ι₅
+α
+β
 ```
 
 ### `GeneratorSymbol`
 
-逕滓・蜈・family縲（ndex縲‥ecoration 繧剃ｿ晄戟縺吶ｋ縲・
-Phase 58 縺ｮ `ﾎｽ窶ｲ` 縺ｯ:
+生成元 family、index、decoration を保持する。
+
+Phase 58 の `ν′` は:
 
 ```text
-family="ﾎｽ"
-decoration="窶ｲ"
+family="ν"
+decoration="′"
 ```
 
-繧剃ｿ晄戟縺吶ｋ縲・
+を保持する。
+
 ### `Multiple`
 
 ```text
-2ﾎｱ
--ﾎｱ
-rﾎｹ_n
+2α
+-α
+rι_n
 ```
 
-繧・structural 縺ｫ陦ｨ迴ｾ縺吶ｋ縲・
+を structural に表現する。
+
 ### `Sum`
 
-蜉豕・expression縲・
+加法 expression。
+
 ### `Composition`
 
 ```text
-ﾎｱ竏佩ｲ
+α∘β
 ```
 
-繧定｡ｨ縺吶・
-`is_type_compatible()` 縺ｯ菫晄戟縺励※縺・ｋ source / target 縺九ｉ structural compatibility 繧堤｢ｺ隱阪☆繧九・
-縺溘□縺・general symbolic dimension solver 縺ｧ縺ｯ縺ｪ縺・・
+を表す。
+
+`is_type_compatible()` は保持している source / target から structural compatibility を確認する。
+
+ただし general symbolic dimension solver ではない。
+
 ### `Suspension`
 
 ```text
-Eﾎｱ
+Eα
 ```
 
 ### `IteratedSuspension`
 
 ```text
-E^k ﾎｱ
+E^k α
 ```
 
 ### `MapApplication`
 
 ```text
-H(ﾎｱ)
-ﾎ・ﾎｱ)
+H(α)
+Δ(α)
 ```
 
-縺ｮ繧医≧縺ｪ map application縲・
+のような map application。
+
 ### `SmashProduct`
 
-Barratt窶滴ilton 縺ｧ蠢・ｦ√↑:
+Barratt–Hilton で必要な:
 
 ```text
-ﾎｱ竏ｧﾎｲ
+α∧β
 ```
 
 ### `WhiteheadProduct`
 
 ```text
-[ﾎｱ,ﾎｲ]
+[α,β]
 ```
 
 ### `TodaBracket`
 
 ```text
-{ﾎｱ,ﾎｲ,ﾎｳ}_n
+{α,β,γ}_n
 ```
 
-縺ｮ structural representation縲・
-indexed bracket 繧・`index` 縺ｧ菫晄戟縺吶ｋ縲・
-Phase 58 縺ｮ representative input:
+の structural representation。
+
+indexed bracket も `index` で保持する。
+
+Phase 58 の representative input:
 
 ```text
-{ﾎｷ竄・2ﾎｹ竄・ﾎｷ竄м_1
+{η₃,2ι₄,η₄}_1
 ```
 
-繧よ里蟄・`TodaBracket` 縺ｧ陦ｨ迴ｾ縺吶ｋ縲・
-## 縺薙％縺ｫ霑ｽ蜉縺吶∋縺阪ｂ縺ｮ
+も既存 `TodaBracket` で表現する。
+
+## ここに追加すべきもの
 
 ```text
-譁ｰ縺励＞縲悟ｼ上・蠖｢縲・```
+新しい「式の形」
+```
 
-縺悟ｿ・ｦ√↑蝣ｴ蜷医・
-## 譁・鍵 metadata
+が必要な場合。
+
+## 文献 metadata
 
 ### `LiteratureReference`
 
-譁・鍵縺ｮ謇蝨ｨ繧呈ｧ矩蛹悶☆繧九・
-莉｣陦ｨ field:
+文献の所在を構造化する。
+
+代表 field:
 
 ```text
 label
@@ -221,25 +254,28 @@ locator
 
 ### `LiteratureStatement`
 
-Phase 60-9 縺ｧ霑ｽ蜉縲・
+Phase 60-9 で追加。
+
 ```text
 reference: LiteratureReference
 statement: str
 ```
 
-雋ｬ蜍・
+責務:
 
 ```text
 LiteratureReference
-= 縺ｩ縺ｮ譁・鍵縺ｮ縺ｩ縺薙°
+= どの文献のどこか
 
 LiteratureStatement
-= 縺昴％縺ｧ蛻ｩ逕ｨ縺吶ｋ謨ｰ蟄ｦ statement
+= そこで利用する数学 statement
 ```
 
-縺薙ｌ縺ｯ metadata object 縺ｧ縺ゅｊ縲《tatement text 繧・generic inference engine 縺瑚・蜍暮←逕ｨ縺吶ｋ縺薙→縺ｯ縺ｪ縺・・
-Phase 60 莉｣陦ｨ probe 縺ｮ `Used in:` 縺ｯ `LiteratureStatement` 縺ｮ field 縺ｧ縺ｯ縺ｪ縺・probe-local display metadata縲・
-## 縺薙％縺ｫ霑ｽ蜉縺励↑縺・ｂ縺ｮ
+これは metadata object であり、statement text を generic inference engine が自動適用することはない。
+
+Phase 60 代表 probe の `Used in:` は `LiteratureStatement` の field ではなく probe-local display metadata。
+
+## ここに追加しないもの
 
 ```text
 Toda theorem applicability
@@ -252,10 +288,11 @@ generic proof search
 
 # 3. proof.py
 
-## 蠖ｹ蜑ｲ
+## 役割
 
-謨ｰ蟄ｦ theorem 縺ｮ蜀・ｮｹ繧堤衍繧峨↑縺・generic proof / inference engine縲・
-## 荳ｻ縺ｪ class
+数学 theorem の内容を知らない generic proof / inference engine。
+
+## 主な class
 
 ### `RelationType`
 
@@ -278,7 +315,7 @@ note
 
 ### `ProofRule`
 
-莉｣陦ｨ:
+代表:
 
 ```text
 GIVEN
@@ -301,13 +338,16 @@ note
 inference_rule
 ```
 
-provenance 縺ｮ荳ｭ蠢・・
+provenance の中心。
+
 ### `PremisePattern`
 
-rule applicability 縺ｮ premise specification縲・
+rule applicability の premise specification。
+
 ### `PatternVariable`
 
-generic structural matching 逕ｨ variable縲・
+generic structural matching 用 variable。
+
 ### `InferenceRule`
 
 ```text
@@ -321,11 +361,13 @@ match_guard
 
 ### `InferenceMatch`
 
-matching 縺輔ｌ縺・rule 縺ｨ premise 繧剃ｿ晄戟縲・
-### `InferenceRun邨先棡`
+matching された rule と premise を保持。
 
-fixed-point run 縺ｮ邨先棡縲・
-## 荳ｻ縺ｪ function
+### `InferenceRun結果`
+
+fixed-point run の結果。
+
+## 主な function
 
 ```text
 find_inference_match()
@@ -335,22 +377,23 @@ derive_inference_round_result()
 run_inference_until_stable_with_history()
 ```
 
-Phase 58 縺ｧ縺ｯ fixed-point-safe stage 縺ｨ one-shot stage 繧貞・縺代ｋ縲・
+Phase 58 では fixed-point-safe stage と one-shot stage を分ける。
+
 ```text
 fixed-point-safe rule family
-竊・run_inference_until_stable_with_history()
+→ run_inference_until_stable_with_history()
 
 repeatable composition propagation
-竊・find_inference_match()
-竊・apply_inference_match()
+→ find_inference_match()
+→ apply_inference_match()
 ```
 
-## 縺薙％縺ｫ霑ｽ蜉縺励↑縺・ｂ縺ｮ
+## ここに追加しないもの
 
 ```text
 Toda Lemma 5.2
 Toda (5.3)
-ﾎｷ-family normalization
+η-family normalization
 concrete homotopy-group fact
 ```
 
@@ -358,10 +401,11 @@ concrete homotopy-group fact
 
 # 4. relation_rules.py
 
-## 蠖ｹ蜑ｲ
+## 役割
 
-domain-independent 縺ｪ relation propagation縲・
-## 荳ｻ縺ｪ rule family
+domain-independent な relation propagation。
+
+## 主な rule family
 
 ```text
 additive_inverse_inference_rule()
@@ -386,40 +430,50 @@ equality_symmetry_inference_rule()
 equality_transitivity_inference_rule()
 ```
 
-Phase 57-2 縺ｧ縺ｯ:
+Phase 57-2 では:
 
 ```text
-2ﾎｹ竄・・ﾎｱ=2ﾎｱ
+2ι₃∘α=2α
 +
-2ﾎｱ=0
-竊・2ﾎｹ竄・・ﾎｱ=0
+2α=0
+↓
+2ι₃∘α=0
 ```
 
-縺ｮ蠕悟濠繧・generic `zero_equality_implies_zero_inference_rule()` 縺ｫ莉ｻ縺帙◆縲・
-Phase 58-5 縺ｧ縺ｯ:
+の後半を generic `zero_equality_implies_zero_inference_rule()` に任せた。
+
+Phase 58-5 では:
 
 ```text
-Eﾎｷ竄・ﾎｷ竄・竊・Eﾎｷ竄・・ﾎｷ竄・ﾎｷ竄・・ﾎｷ竄・竊・ﾎｷ竄・・(Eﾎｷ竄・・ﾎｷ竄・=ﾎｷ竄・・(ﾎｷ竄・・ﾎｷ竄・
+Eη₃=η₄
+↓
+Eη₃∘η₅=η₄∘η₅
+↓
+η₃∘(Eη₃∘η₅)=η₃∘(η₄∘η₅)
 ```
 
-縺ｫ蟾ｦ蜿ｳ composition preservation rule 繧貞茜逕ｨ縺吶ｋ縲・
-驥崎ｦ√↑ API:
+に左右 composition preservation rule を利用する。
+
+重要な API:
 
 ```text
 equality_preserved_under_right_composition_inference_rule(right_expression)
 equality_preserved_under_left_composition_inference_rule(left_expression)
 ```
 
-factor 縺ｯ premise 縺ｧ縺ｯ縺ｪ縺・rule constructor 縺ｫ貂｡縺吶・
-縺薙ｌ繧峨・蜃ｺ蜉・Relation 縺ｫ蜀埼←逕ｨ蜿ｯ閭ｽ縺ｪ縺ｮ縺ｧ縲￣hase 58 representative flow 縺ｧ縺ｯ one-shot application 縺ｨ縺吶ｋ縲・
+factor は premise ではなく rule constructor に渡す。
+
+これらは出力 Relation に再適用可能なので、Phase 58 representative flow では one-shot application とする。
+
 ---
 
 # 5. scalar_rules.py
 
-## 蠖ｹ蜑ｲ
+## 役割
 
-symbolic scalar 縺ｫ髢｢縺吶ｋ statement / rule縲・
-莉｣陦ｨ:
+symbolic scalar に関する statement / rule。
+
+代表:
 
 ```text
 OddScalarStatement
@@ -428,16 +482,19 @@ ScalarGreaterEqualStatement
 ScalarCongruenceStatement
 ```
 
-Phase 46 stable range縲￣hase 56 `i竕･3` 縺ｪ縺ｩ縺ｧ蛻ｩ逕ｨ縲・
-荳闊ｬ symbolic CAS 縺ｧ縺ｯ縺ｪ縺・・
+Phase 46 stable range、Phase 56 `i≥3` などで利用。
+
+一般 symbolic CAS ではない。
+
 ---
 
 # 6. homotopy_groups.py
 
-## 蠖ｹ蜑ｲ
+## 役割
 
-繝帙Δ繝医ヴ繝ｼ鄒､繝ｻprimary component繝ｻToda-specific group / map instance 縺ｮ structural data縲・
-## 荳ｻ縺ｪ class family
+ホモトピー群・primary component・Toda-specific group / map instance の structural data。
+
+## 主な class family
 
 ```text
 PrimaryComponent
@@ -462,45 +519,49 @@ TodaProp44DecompositionMap
 TodaEHPExactnessWindow
 ```
 
-驥崎ｦ・
+重要:
 
 ```text
 PreimageSubgroup
 !=
-specific element preimage ﾎ膿-1(x)
+specific element preimage Δ^-1(x)
 ```
 
-Phase 57 縺ｧ縺ｯ蠕瑚・ｒ dedicated statement 縺ｧ謇ｱ縺・・
+Phase 57 では後者を dedicated statement で扱う。
+
 ---
 
 # 7. map_facts.py
 
-## 蠖ｹ蜑ｲ
+## 役割
 
-canonical map symbols縲・
+canonical map symbols。
+
 ```text
 EHP_E_MAP
 EHP_H_MAP
 EHP_DELTA_MAP
 ```
 
-`MapApplication` 縺ｨ邨・∩蜷医ｏ縺帙※:
+`MapApplication` と組み合わせて:
 
 ```text
-H(ﾎｲ)
-ﾎ・Eﾂｲﾎｱ)
-H(ﾎｽ窶ｲ)
+H(β)
+Δ(E²α)
+H(ν′)
 ```
 
-繧定｡ｨ縺吶・
+を表す。
+
 ---
 
 # 8. map_property_rules.py
 
-## 蠖ｹ蜑ｲ
+## 役割
 
-injective / surjective / isomorphism 遲峨・ generic map property縲・
-莉｣陦ｨ statement:
+injective / surjective / isomorphism 等の generic map property。
+
+代表 statement:
 
 ```text
 InjectiveMapStatement
@@ -508,65 +569,77 @@ SurjectiveMapStatement
 IsomorphismStatement
 ```
 
-Toda-specific theorem instance 縺ｨ generic map property 繧貞・髮｢縺吶ｋ縲・
+Toda-specific theorem instance と generic map property を分離する。
+
 ---
 
 # 9. barratt_hilton_rules.py
 
-## 蠖ｹ蜑ｲ
+## 役割
 
-Barratt窶滴ilton / Toda Proposition 3.1 蜻ｨ霎ｺ縲・
-## 荳ｻ縺ｪ class
+Barratt–Hilton / Toda Proposition 3.1 周辺。
+
+## 主な class
 
 ### `HomotopyGroupMembershipStatement`
 
 ```text
-element 竏・ﾏ_k(S^n)
+element ∈ π_k(S^n)
 ```
 
-縺ｮ 迴ｾ蝨ｨ縺ｮ generic membership statement縲・
-Phase 57 / 58 縺ｧ縺ｯ:
+の 現在の generic membership statement。
+
+Phase 57 / 58 では:
 
 ```text
-ﾎｱ竏委_i(Sﾂｳ)
-ﾎｲ竏委_{i+2}(Sﾂｳ)
-ﾎｳ竏委_{i+2}(S竅ｴ)
-ﾎｽ窶ｲ竏委_6(Sﾂｳ)
+α∈π_i(S³)
+β∈π_{i+2}(S³)
+γ∈π_{i+2}(S⁴)
+ν′∈π_6(S³)
 ```
 
-縺ｫ蛻ｩ逕ｨ縲・
-## 荳ｻ縺ｪ rule
+に利用。
+
+## 主な rule
 
 ```text
 barratt_hilton_first_inference_rule()
 barratt_hilton_second_inference_rule()
 ```
 
-## 險ｭ險井ｸ翫・豕ｨ諢・
-`HomotopyGroupMembershipStatement` 縺後％縺ｮ module 縺ｫ縺ゅｋ驟咲ｽｮ縺ｯ豁ｴ蜿ｲ逧・ｵ檎ｷｯ縺ｫ繧医ｋ縲・
-Phase 58 縺ｧ縺ｯ遘ｻ蜍輔＠縺ｪ縺・・
-蟆・擂 concrete need 縺檎函縺倥◆蝣ｴ蜷医・縺ｿ驟咲ｽｮ螟画峩繧呈､懆ｨ弱☆繧九・
+## 設計上の注意
+
+`HomotopyGroupMembershipStatement` がこの module にある配置は歴史的経緯による。
+
+Phase 58 では移動しない。
+
+将来 concrete need が生じた場合のみ配置変更を検討する。
+
 ---
 
 # 10. toda_rules.py
 
-## 蠖ｹ蜑ｲ
+## 役割
 
-Toda 蝗ｺ譛峨・ theorem knowledge 繧堤ｽｮ縺丈ｸｭ蠢・module縲・
-Phase 59 縺ｾ縺ｧ縺ｯ:
+Toda 固有の theorem knowledge を置く中心 module。
+
+Phase 59 までは:
 
 ```text
 actual proof need
-竊・minimum consequence
+↓
+minimum consequence
 ```
 
-繧定ｿｽ蜉縺吶ｋ譁ｹ驥昴・
-full theorem CAS 縺ｧ縺ｯ縺ｪ縺・・
+を追加する方針。
+
+full theorem CAS ではない。
+
 ---
 
-## 10.1 Toda bracket 蝓ｺ逶､
+## 10.1 Toda bracket 基盤
 
-莉｣陦ｨ statement:
+代表 statement:
 
 ```text
 TodaBracketMembershipStatement
@@ -574,7 +647,7 @@ TodaBracketMembershipTheoremStatement
 TodaBracketDefinedStatement
 ```
 
-莉｣陦ｨ rule:
+代表 rule:
 
 ```text
 toda_bracket_membership_from_theorem_inference_rule()
@@ -587,7 +660,7 @@ indexed_toda_bracket_index1_defined_inference_rule()
 
 ## 10.2 Toda Lemma 4.1 / Proposition 4.2 / (4.5) / Proposition 4.4
 
-莉｣陦ｨ statement:
+代表 statement:
 
 ```text
 TodaProp42ExactnessStatement
@@ -598,7 +671,7 @@ TodaProp44SecondSummandRestrictionStatement
 TodaProp44SuspensionInjectiveStatement
 ```
 
-莉｣陦ｨ rule:
+代表 rule:
 
 ```text
 toda_lemma41_odd_case_inference_rule()
@@ -617,9 +690,9 @@ toda_prop44_eta2_second_summand_restriction_inference_rule()
 
 ---
 
-## 10.3 concrete ﾏ_3^2 / ﾏ_4^3 branch
+## 10.3 concrete π_3^2 / π_4^3 branch
 
-莉｣陦ｨ statement:
+代表 statement:
 
 ```text
 TodaPi32Eta2DefinitionStatement
@@ -628,18 +701,19 @@ TodaPi32WhiteheadSquareUpToSignStatement
 TodaDeltaImageUpToSignStatement
 ```
 
-莉｣陦ｨ邨先棡:
+代表結果:
 
 ```text
-ﾏ_3^2=Z{ﾎｷ竄・
-ﾏ_4^3=Z/2{ﾎｷ竄マ
-ﾎ・ﾎｹ竄・=ﾂｱ2ﾎｷ竄・```
+π_3^2=Z{η₂}
+π_4^3=Z/2{η₃}
+Δ(ι₅)=±2η₂
+```
 
 ---
 
-## 10.4 ﾎｷ-family / Proposition 5.1 / Toda (5.2)
+## 10.4 η-family / Proposition 5.1 / Toda (5.2)
 
-莉｣陦ｨ:
+代表:
 
 ```text
 TodaEtaFamilyDefinitionStatement
@@ -647,7 +721,7 @@ TodaProp51FiniteDimensionalStatement
 Toda52CompositionIsomorphismStatement
 ```
 
-莉｣陦ｨ rule:
+代表 rule:
 
 ```text
 toda_eta_family_definition_statement()
@@ -657,12 +731,13 @@ toda_prop51_finite_dimensional_integration_inference_rule()
 toda_52_eta2_composition_isomorphism_inference_rule()
 ```
 
-Phase 54 symbolic higher ﾎｷ bridge 縺ｯ `ScalarSymbol` index 繧貞ｯｾ雎｡縺ｨ縺吶ｋ縲・
+Phase 54 symbolic higher η bridge は `ScalarSymbol` index を対象とする。
+
 ---
 
-## 10.5 Phase 57・哭emma 5.2
+## 10.5 Phase 57：Lemma 5.2
 
-Phase 57 縺ｧ霑ｽ蜉縺輔ｌ縺滉ｸｻ隕・statement:
+Phase 57 で追加された主要 statement:
 
 ```text
 TodaProp26HopfBracketConsequenceStatement
@@ -683,7 +758,7 @@ toda_lemma45_n4_two_iota3_composition_inference_rule()
 toda_prop26_lemma52_hopf_bracket_inference_rule()
 ```
 
-### ﾎ・inverse bridge
+### Δ inverse bridge
 
 ```text
 toda_lemma52_delta_two_eta2_preimage_inference_rule()
@@ -715,40 +790,42 @@ toda_lemma52_beta_membership_inference_rule()
 toda_lemma52_delta_e2_alpha_zero_inference_rule()
 ```
 
-譛邨・
+最終:
 
 ```text
-H(ﾎｲ)=Eﾂｲﾎｱ
-2ﾎｲ=ﾎｷ竄・・Eﾎｱ竏佩ｷ_{i+1}
-ﾎｲ竏委_{i+2}^3
-ﾎ・Eﾂｲﾎｱ)=0
+H(β)=E²α
+2β=η₃∘Eα∘η_{i+1}
+β∈π_{i+2}^3
+Δ(E²α)=0
 ```
 
 ---
 
-## 10.6 Phase 58・啜oda (5.3) ﾎｽ窶ｲ consequence
+## 10.6 Phase 58：Toda (5.3) ν′ consequence
 
-荳ｻ隕・statement:
+主要 statement:
 
 ```text
 Toda53NuPrimeBracketSpecializationStatement
 ```
 
-### ﾎｽ窶ｲ bracket specialization
+### ν′ bracket specialization
 
 ```text
 toda_53_nu_prime_bracket_specialization_inference_rule()
 ```
 
-隱崎ｭ・
+認識:
 
 ```text
-ﾎｽ窶ｲ竏・ﾎｷ竄・2ﾎｹ竄・ﾎｷ竄м_1
-竊・ﾎｱ=ﾎｷ竄・i=4
-ﾎｲ=ﾎｽ窶ｲ
+ν′∈{η₃,2ι₄,η₄}_1
+↓
+α=η₃
+i=4
+β=ν′
 ```
 
-### 2ﾎｷ竄・0
+### 2η₃=0
 
 ```text
 toda_53_eta3_twice_zero_inference_rule()
@@ -757,8 +834,9 @@ toda_53_eta3_twice_zero_inference_rule()
 derived:
 
 ```text
-ﾏ_4^3=Z/2{ﾎｷ竄マ
-竊・2ﾎｷ竄・0
+π_4^3=Z/2{η₃}
+↓
+2η₃=0
 ```
 
 ### raw Lemma 5.2 specialization
@@ -772,47 +850,57 @@ toda_53_nu_prime_lemma52_membership_inference_rule()
 raw result:
 
 ```text
-H(ﾎｽ窶ｲ)=Eﾂｲﾎｷ竄・2ﾎｽ窶ｲ=ﾎｷ竄・・Eﾎｷ竄・・ﾎｷ竄・ﾎｽ窶ｲ竏委_6^3
+H(ν′)=E²η₃
+2ν′=η₃∘Eη₃∘η₅
+ν′∈π_6^3
 ```
 
-### concrete ﾎｷ竄・bridge
+### concrete η₅ bridge
 
 ```text
 toda_53_eta5_iterated_suspension_bridge_inference_rule()
 ```
 
 ```text
-Eﾂｲﾎｷ竄・ﾎｷ竄・```
+E²η₃=η₅
+```
 
-### concrete ﾎｷ竄・bridge
+### concrete η₄ bridge
 
 ```text
 toda_53_eta4_suspension_bridge_inference_rule()
 ```
 
 ```text
-Eﾎｷ竄・ﾎｷ竄・```
+Eη₃=η₄
+```
 
-Phase 58 蟆ら畑 bridge 縺ｯ concrete constructor 縺ｮ `ﾎｷ_4` / `ﾎｷ_5` 縺ｨ canonical `ﾎｷ竄Я / `ﾎｷ竄・ 繧貞ｱ謇逧・↓謗･邯壹☆繧九・
-global ﾎｷ-name normalization 縺ｯ縺励↑縺・・
+Phase 58 専用 bridge は concrete constructor の `η_4` / `η_5` と canonical `η₄` / `η₅` を局所的に接続する。
+
+global η-name normalization はしない。
+
 ### final relation
 
-generic relation rule 繧貞・蛻ｩ逕ｨ縺励※:
+generic relation rule を再利用して:
 
 ```text
-H(ﾎｽ窶ｲ)=ﾎｷ竄・2ﾎｽ窶ｲ=ﾎｷ竄・・ﾎｷ竄・・ﾎｷ竄・```
+H(ν′)=η₅
+2ν′=η₃∘η₄∘η₅
+```
 
-繧貞ｰ主・縺吶ｋ縲・
-`toda_rules.py` 縺ｫ generic composition rewrite 縺ｯ霑ｽ蜉縺励※縺・↑縺・・
+を導出する。
+
+`toda_rules.py` に generic composition rewrite は追加していない。
+
 ---
 
-### `toda_rules.py` 縺ｫ霑ｽ蜉縺励↑縺・ｂ縺ｮ
+### `toda_rules.py` に追加しないもの
 
 ```text
 generic equality transitivity
 generic fixed-point engine
 generic scalar normalization
-generic concrete ﾎｷ normalization
+generic concrete η normalization
 generic Toda-bracket CAS normalization
 generic Toda-bracket specialization framework
 generic coset algebra
@@ -821,15 +909,15 @@ generic inverse-image solver
 ```
 
 
-## 10.7 Phase 59・啜oda Proposition 5.3 譛蛾剞谺｡蜈・branch
+## 10.7 Phase 59：Toda Proposition 5.3 有限次元 branch
 
-荳ｻ隕・aggregate:
+主要 aggregate:
 
 ```text
 TodaProp53FiniteDimensionalStatement
 ```
 
-菫晄戟:
+保持:
 
 ```text
 pi4_2_group_relation
@@ -839,7 +927,7 @@ higher_eta_squared_group_relation
 higher_range
 ```
 
-荳ｻ隕・Phase 59 rule family:
+主要 Phase 59 rule family:
 
 ```text
 toda_52_pi4_2_finite_cyclic_transport_inference_rule()
@@ -868,54 +956,56 @@ toda_prop53_higher_eta_squared_finite_cyclic_generator_inference_rule()
 toda_prop53_finite_dimensional_integration_inference_rule()
 ```
 
-荳ｻ隕・final results:
+主要 final results:
 
 ```text
-ﾏ_4^2=Z/2{ﾎｷ竄つｲ}
-ﾏ_5^3=Z/2{ﾎｷ竄δｲ}
-ﾏ_6^4=Z/2{ﾎｷ竄・ｲ}
-ﾏ_{n+2}^n=Z/2{ﾎｷ_nﾂｲ}, n竕･5
+π_4^2=Z/2{η₂²}
+π_5^3=Z/2{η₃²}
+π_6^4=Z/2{η₄²}
+π_{n+2}^n=Z/2{η_n²}, n≥5
 ```
 
-`ﾎｷ_nﾂｲ` 縺ｯ dedicated class 縺ｧ縺ｯ縺ｪ縺・
+`η_n²` は dedicated class ではなく:
 
 ```text
-Composition(ﾎｷ_n,ﾎｷ_{n+1})
+Composition(η_n,η_{n+1})
 ```
 
-縺ｨ縺励※菫晄戟縺吶ｋ縲・
-Phase 46 縺ｮ symbolic exponent 縺ｯ structural 縺ｫ:
+として保持する。
+
+Phase 46 の symbolic exponent は structural に:
 
 ```text
 ScalarSum(n,ScalarProduct(-1,4))
 ```
 
-繧堤ｶｭ謖√☆繧九ＡScalarSum(n,-4)` 縺ｸ縺ｮ global scalar normalization 縺ｯ陦後ｏ縺ｪ縺・・
-Phase 59 縺ｧ霑ｽ蜉縺励↑縺・ｂ縺ｮ:
+を維持する。`ScalarSum(n,-4)` への global scalar normalization は行わない。
+
+Phase 59 で追加しないもの:
 
 ```text
 EtaSquare
 generic cyclic-generator transport
 generic suspension/composition normalization
-generic ﾎｷ-family normalization
+generic η-family normalization
 stable homotopy-group model
 ```
 
 ---
 
 
-## 10.8 Phase 60・啜oda Lemma 5.4 / ﾎｽ竄・construction
+## 10.8 Phase 60：Toda Lemma 5.4 / ν₄ construction
 
 ### Toda (5.4) statement / indeterminacy
 
-荳ｻ隕・statement:
+主要 statement:
 
 ```text
 Toda54BracketUpToSignStatement
 Toda54IndeterminacyGeneratorStatement
 ```
 
-荳ｻ隕・rule:
+主要 rule:
 
 ```text
 toda_54_t_ge_1_indeterminacy_eta_cube_inference_rule()
@@ -930,22 +1020,23 @@ toda_54_t0_bridge_inference_rule()
 final symbolic result:
 
 ```text
-{ﾎｷ_n,2ﾎｹ_(n+1),ﾎｷ_(n+1)}_t
+{η_n,2ι_(n+1),η_(n+1)}_t
 =
-{ﾂｱE^(n-3)ﾎｽ窶ｲ}
+{±E^(n-3)ν′}
 ```
 
-`t=0` 縺ｯ unindexed `TodaBracket` 縺ｧ菫晄戟縺吶ｋ縲・
+`t=0` は unindexed `TodaBracket` で保持する。
+
 ### Theorem 3.6 specialization
 
-荳ｻ隕・statement:
+主要 statement:
 
 ```text
 Toda36Lemma54SpecializationStatement
 TodaLemma54DoubleSuspensionUpToSignStatement
 ```
 
-荳ｻ隕・rule:
+主要 rule:
 
 ```text
 toda_lemma54_eta6_twice_zero_inference_rule()
@@ -957,8 +1048,8 @@ toda_lemma54_double_suspension_up_to_sign_inference_rule()
 final:
 
 ```text
-ﾎｱ*竏委_7^4
-2Eﾎｱ*=ﾂｱEﾂｲﾎｽ窶ｲ
+α*∈π_7^4
+2Eα*=±E²ν′
 ```
 
 ### Hopf parity
@@ -976,12 +1067,14 @@ toda_lemma54_pi6_5_finite_cyclic_inference_rule()
 toda_48_lemma54_hopf_odd_multiple_inference_rule()
 ```
 
-諢丞袖:
+意味:
 
 ```text
-H(ﾎｱ*)=(2s+1)ﾎｹ竄・```
+H(α*)=(2s+1)ι₇
+```
 
-`parameter=s` 繧・Whitehead correction 縺ｸ貂｡縺吶・
+`parameter=s` を Whitehead correction へ渡す。
+
 ### Whitehead correction
 
 statement:
@@ -1005,8 +1098,9 @@ toda_lemma54_nu4_double_suspension_inference_rule()
 final:
 
 ```text
-ﾎｽ竄・・ﾏ_7^4
-H(ﾎｽ竄・=ﾎｹ竄・2Eﾎｽ竄・Eﾂｲﾎｽ窶ｲ
+ν₄∈π_7^4
+H(ν₄)=ι₇
+2Eν₄=E²ν′
 ```
 
 ### Lemma 5.4 aggregate
@@ -1024,15 +1118,17 @@ toda_lemma54_literature_statements()
 toda_lemma54_integration_inference_rule()
 ```
 
-aggregate 縺ｯ Phase 60-8 縺ｮ3 derived result 縺ｮ縺ｿ繧・premise 縺ｨ縺吶ｋ縲・
+aggregate は Phase 60-8 の3 derived result のみを premise とする。
+
 ```text
 membership        INFERENCE
 Hopf relation     INFERENCE
 double suspension INFERENCE
-竊・TodaLemma54Statement INFERENCE
+↓
+TodaLemma54Statement INFERENCE
 ```
 
-### Phase 60 縺ｧ霑ｽ蜉縺励↑縺・ｂ縺ｮ
+### Phase 60 で追加しないもの
 
 ```text
 generic Toda-bracket coset algebra
@@ -1048,7 +1144,7 @@ theorem statement repository / search
 ---
 
 
-## 10.9 Phase 61・啜oda Lemma 5.5 bracket transport
+## 10.9 Phase 61：Toda Lemma 5.5 bracket transport
 
 ### statement
 
@@ -1065,13 +1161,14 @@ bracket
 positive_value
 ```
 
-諢丞袖:
+意味:
 
 ```text
 bracket contains positive_value or -positive_value
 ```
 
-Phase 60 `Toda54BracketUpToSignStatement` 縺ｮ `{ﾂｱx}` value-set semantics 縺ｨ縺ｯ逡ｰ縺ｪ繧九・
+Phase 60 `Toda54BracketUpToSignStatement` の `{±x}` value-set semantics とは異なる。
+
 #### `TodaLemma55SuspensionUpToSignStatement`
 
 ```text
@@ -1082,18 +1179,19 @@ positive_value
 Phase 61 concrete use:
 
 ```text
-left = E^tﾎｽ竄・positive_value = E^tﾎｱ*
+left = E^tν₄
+positive_value = E^tα*
 ```
 
-諢丞袖:
+意味:
 
 ```text
-E^tﾎｽ竄・ﾂｱE^tﾎｱ*
+E^tν₄=±E^tα*
 ```
 
 #### `TodaLemma55Statement`
 
-final aggregate縲ゆｿ晄戟:
+final aggregate。保持:
 
 ```text
 nu4
@@ -1105,7 +1203,8 @@ bracket_inclusion
 literature_statements
 ```
 
-`lemma54_statement` 繧・nested 縺ｫ菫晄戟縺励￣hase 60 theorem-level provenance 繧貞・繧峨↑縺・・
+`lemma54_statement` を nested に保持し、Phase 60 theorem-level provenance を切らない。
+
 ### rule
 
 ```text
@@ -1115,44 +1214,49 @@ toda_lemma55_alpha_star_to_nu4_composition_inference_rule()
 toda_lemma55_integration_inference_rule()
 ```
 
-#### ﾎｱ* bracket inclusion
+#### α* bracket inclusion
 
 ```text
 Toda36Lemma54SpecializationStatement  INFERENCE
-ﾎｲ竏委_(t+2)(S^m)
-ﾎｲ竏佩ｷ_(t+2)=0
-t竕･1
-竊・bracket contains ﾂｱ(Eﾂｲﾎｲ竏櫓^tﾎｱ*)
+β∈π_(t+2)(S^m)
+β∘η_(t+2)=0
+t≥1
+↓
+bracket contains ±(E²β∘E^tα*)
 ```
 
-#### ﾎｽ竄・suspension correction
+#### ν₄ suspension correction
 
 ```text
 TodaLemma54Nu4ConstructionStatement INFERENCE
-+ t竕･1
-+ E[ﾎｹ竄・ﾎｹ竄Ь=0 stored in whitehead_data
-竊・E^tﾎｽ竄・ﾂｱE^tﾎｱ*
++ t≥1
++ E[ι₄,ι₄]=0 stored in whitehead_data
+↓
+E^tν₄=±E^tα*
 ```
 
 #### composition bridge
 
 ```text
-bracket contains ﾂｱ(Eﾂｲﾎｲ竏櫓^tﾎｱ*)
+bracket contains ±(E²β∘E^tα*)
 +
-E^tﾎｽ竄・ﾂｱE^tﾎｱ*
-竊・bracket contains ﾂｱ(Eﾂｲﾎｲ竏櫓^tﾎｽ竄・
+E^tν₄=±E^tα*
+↓
+bracket contains ±(E²β∘E^tν₄)
 ```
 
-Lemma-5.5-specific rule縲Ｈeneric up-to-sign transitivity 縺ｧ縺ｯ縺ｪ縺・・
+Lemma-5.5-specific rule。generic up-to-sign transitivity ではない。
+
 #### integration
 
 ```text
 TodaLemma54Statement                  INFERENCE
-ﾎｲ membership                         GIVEN
-ﾎｲ竏佩ｷ zero                             GIVEN
-t竕･1                                  GIVEN
-final ﾎｽ竄・bracket inclusion           INFERENCE
-竊・TodaLemma55Statement                 INFERENCE
+β membership                         GIVEN
+β∘η zero                             GIVEN
+t≥1                                  GIVEN
+final ν₄ bracket inclusion           INFERENCE
+↓
+TodaLemma55Statement                 INFERENCE
 ```
 
 ### literature helper
@@ -1161,21 +1265,22 @@ final ﾎｽ竄・bracket inclusion           INFERENCE
 toda_lemma55_literature_statements()
 ```
 
-逶ｴ謗･菫晄戟:
+直接保持:
 
 ```text
 Toda Lemma 5.5
 Toda Lemma 5.5 proof
 ```
 
-Phase 60 literature 縺ｯ `TodaLemma55Statement.lemma54_statement.literature_statements` 縺九ｉ蜿ら・縺吶ｋ縲・
+Phase 60 literature は `TodaLemma55Statement.lemma54_statement.literature_statements` から参照する。
+
 ### probe
 
 ```text
 probes/probe_phase61_capabilities.py
 ```
 
-荳ｻ隕・function:
+主要 function:
 
 ```text
 build_phase61_representative_result()
@@ -1188,8 +1293,9 @@ print_phase61_boundary()
 main()
 ```
 
-Phase 60 縺ｨ蜷後§縺・focused integration builder 繧・representative fixture 縺ｨ縺励※蜀榊茜逕ｨ縺励｝robe 蛛ｴ縺ｸ theorem logic 繧定､・｣ｽ縺励↑縺・・
-Phase 61 蝗ｺ譛芽｡ｨ遉ｺ:
+Phase 60 と同じく focused integration builder を representative fixture として再利用し、probe 側へ theorem logic を複製しない。
+
+Phase 61 固有表示:
 
 ```text
 theorem dependencies are INFERENCE = True
@@ -1208,8 +1314,9 @@ tests/test_phase61_lemma55_applicability_provenance.py
 tests/test_phase61_probe.py
 ```
 
-Phase 61-7 縺ｯ production code 繧貞､画峩縺帙★縲『rong-instance rejection / GIVEN-INFERENCE boundary / ancestry reachability / acyclicity 繧・regression 縺ｧ蝗ｺ螳壹☆繧九・
-### 菫晉蕗蠅・阜
+Phase 61-7 は production code を変更せず、wrong-instance rejection / GIVEN-INFERENCE boundary / ancestry reachability / acyclicity を regression で固定する。
+
+### 保留境界
 
 ```text
 generic bracket containment algebra
@@ -1222,20 +1329,23 @@ automatic proof narrative generator
 
 # 11. probes/
 
-## 蠖ｹ蜑ｲ
+## 役割
 
-莠ｺ髢薙′ capability 繧堤｢ｺ隱阪〒縺阪ｋ莉｣陦ｨ螳溯｡後・
-probe 縺ｯ:
+人間が capability を確認できる代表実行。
+
+probe は:
 
 ```text
 actual representative GIVEN
 +
 production inference rules
-竊・derived result
+↓
+derived result
 ```
 
-繧堤ｵ・∩遶九※繧・integration fixture 縺ｨ縺励※繧ゆｽｿ縺・・
-莉｣陦ｨ:
+を組み立てる integration fixture としても使う。
+
+代表:
 
 ```text
 probes/probe_phase49_capabilities.py
@@ -1256,11 +1366,13 @@ Phase 58:
 python -m probes.probe_phase58_capabilities
 ```
 
-遒ｺ隱・
+確認:
 
 ```text
-ﾎｽ窶ｲ 竏・ﾏ_6^3
-H(ﾎｽ窶ｲ) = ﾎｷ竄・2ﾎｽ窶ｲ = ﾎｷ竄・・ﾎｷ竄・・ﾎｷ竄・```
+ν′ ∈ π_6^3
+H(ν′) = η₅
+2ν′ = η₃∘η₄∘η₅
+```
 
 provenance:
 
@@ -1286,11 +1398,12 @@ Phase 60:
 python -m probes.probe_phase60_capabilities
 ```
 
-遒ｺ隱・
+確認:
 
 ```text
-ﾎｽ竄・竏・ﾏ_7^4
-H(ﾎｽ竄・ = ﾎｹ竄・2Eﾎｽ竄・= Eﾂｲﾎｽ窶ｲ
+ν₄ ∈ π_7^4
+H(ν₄) = ι₇
+2Eν₄ = E²ν′
 ```
 
 provenance:
@@ -1310,37 +1423,43 @@ Used in: Phase 60-x ...
 Statement: ...
 ```
 
-`phase60_literature_usage()` 縺ｯ probe-local display mapping 縺ｧ縺ゅｊ production theorem model 縺ｧ縺ｯ縺ｪ縺・・
+`phase60_literature_usage()` は probe-local display mapping であり production theorem model ではない。
+
 ### `print_phase60_derivation_chain()`
 
-Phase 60-10 proof-style derivation improvement 縺ｧ霑ｽ蜉縲・
-雋ｬ蜍・
+Phase 60-10 proof-style derivation improvement で追加。
+
+責務:
 
 ```text
-Phase 60-3縲・ 縺ｮ proof flow 繧・Toda 縺ｮ險ｼ譏取悽譁・↓霑代＞鬆・ｺ上〒陦ｨ遉ｺ縺吶ｋ
+Phase 60-3〜8 の proof flow を
+Toda の証明本文に近い順序で表示する
 ```
 
-莉｣陦ｨ陦ｨ遉ｺ:
+代表表示:
 
 ```text
 Phase 60-4: bracket inclusion
 
-ﾎｽ窶ｲ 竏・{ﾎｷ竄・2ﾎｹ竄・ﾎｷ竄м_1
-竊・E^(n-3)ﾎｽ窶ｲ
-竏・E^(n-3){ﾎｷ竄・2ﾎｹ竄・ﾎｷ竄м_1
-竓・(-1)^(n-3){ﾎｷ_n,2ﾎｹ_(n+1),ﾎｷ_(n+1)}_(n-2)
+ν′ ∈ {η₃,2ι₄,η₄}_1
+↓
+E^(n-3)ν′
+∈ E^(n-3){η₃,2ι₄,η₄}_1
+⊂ (-1)^(n-3){η_n,2ι_(n+1),η_(n+1)}_(n-2)
   [Toda Proposition 1.3]
-竓・(-1)^(n-3){ﾎｷ_n,2ﾎｹ_(n+1),ﾎｷ_(n+1)}_t
+⊂ (-1)^(n-3){η_n,2ι_(n+1),η_(n+1)}_t
   [Toda (1.15)]
 ```
 
-驥崎ｦ√↑蠅・阜:
+重要な境界:
 
 ```text
-縺薙・髢｢謨ｰ縺ｯ presentation-only
-proof semantics 繧堤函謌舌＠縺ｪ縺・ProofStep graph 縺九ｉ閾ｪ蜍慕函謌舌＠縺ｦ縺・↑縺・```
+この関数は presentation-only
+proof semantics を生成しない
+ProofStep graph から自動生成していない
+```
 
-迴ｾ蝨ｨ縺ｮ `main()` display order:
+現在の `main()` display order:
 
 ```text
 Result
@@ -1350,12 +1469,13 @@ Literature statements used
 Completion boundary
 ```
 
-蟆・擂縺ｯ `ProofStep` / `Expression` / `InferenceRule` / `LiteratureStatement` 縺九ｉ蜷檎ｨｮ縺ｮ陦ｨ遉ｺ繧定・蜍慕函謌舌☆繧・proof narrative generator 繧呈､懆ｨ弱☆繧九ら樟蝨ｨ縺ｮ Phase 60 code 繧偵◎縺ｮ generic framework 縺ｨ隱､隱阪＠縺ｪ縺・％縺ｨ縲・
+将来は `ProofStep` / `Expression` / `InferenceRule` / `LiteratureStatement` から同種の表示を自動生成する proof narrative generator を検討する。現在の Phase 60 code をその generic framework と誤認しないこと。
+
 ---
 
 # 12. tests/
 
-## 蠖ｹ蜑ｲ
+## 役割
 
 ```text
 representation
@@ -1367,7 +1487,8 @@ scope
 fixed point / execution scope
 ```
 
-繧呈､懆ｨｼ縺吶ｋ縲・
+を検証する。
+
 Phase-specific naming:
 
 ```text
@@ -1427,33 +1548,36 @@ Phase 60 completion full regression:
 
 ---
 
-# 13. 譁ｰ縺励＞ Phase 縺ｧ譛蛻昴↓隕九ｋ蝣ｴ謇
+# 13. 新しい Phase で最初に見る場所
 
-## 譁ｰ縺励＞蠑上′蠢・ｦ・
+## 新しい式が必要
+
 ```text
 expression.py
-髢｢騾｣ expression tests
+関連 expression tests
 ```
 
-## 譁ｰ縺励＞ group / map object 縺悟ｿ・ｦ・
+## 新しい group / map object が必要
+
 ```text
 homotopy_groups.py
 map_facts.py
 ```
 
-## generic relation mechanics 縺御ｸ崎ｶｳ
+## generic relation mechanics が不足
 
 ```text
 relation_rules.py
 proof.py
 ```
 
-縺溘□縺・theorem 蝗ｺ譛峨↑繧・theorem-specific module 繧貞━蜈医・
-## Toda 縺ｮ theorem / lemma
+ただし theorem 固有なら theorem-specific module を優先。
+
+## Toda の theorem / lemma
 
 ```text
 toda_rules.py
-譌｢蟄・Phase-specific tests
+既存 Phase-specific tests
 source material
 ```
 
@@ -1466,112 +1590,140 @@ integration tests
 
 ---
 
-# 14. provenance 繧貞｣翫＆縺ｪ縺・◆繧√・遒ｺ隱・
-theorem-specific final rule 縺ｧ:
+# 14. provenance を壊さないための確認
+
+theorem-specific final rule で:
 
 ```text
 proof_rule=ProofRule.INFERENCE
 ```
 
-繧・premise pattern 縺ｫ隕∵ｱゅ☆繧句ｴ蜷医′縺ゅｋ縲・
-逶ｮ逧・
+を premise pattern に要求する場合がある。
+
+目的:
 
 ```text
-驕主悉 Phase 縺ｧ derived 縺励◆ theorem result
+過去 Phase で derived した theorem result
 ```
 
-繧・`GIVEN` 縺ｨ縺励※蜀肴兜蜈･縺励※蠕ｪ迺ｰ繝ｻshortcut 繧剃ｽ懊ｉ縺ｪ縺・％縺ｨ縲・
-Phase 55 / 56 / 57 / 58 縺ｮ integration 縺ｧ縺ｯ迚ｹ縺ｫ驥崎ｦ√・
-Phase 58 probe 縺ｧ縺ｯ `2ﾎｷ竄・0` 縺ｮ step 繧貞腰縺ｫ:
+を `GIVEN` として再投入して循環・shortcut を作らないこと。
+
+Phase 55 / 56 / 57 / 58 の integration では特に重要。
+
+Phase 58 probe では `2η₃=0` の step を単に:
 
 ```text
 rule == INFERENCE
 ```
 
-縺ｧ驕ｸ縺ｰ縺壹∵悄蠕・☆繧・conclusion:
+で選ばず、期待する conclusion:
 
 ```text
-2ﾎｷ竄・0
+2η₃=0
 ```
 
-縺昴・繧ゅ・縺ｫ荳閾ｴ縺吶ｋ step 繧帝∈縺ｶ縲・
-蜈･蜉・step 閾ｪ菴薙ｂ `INFERENCE` 縺ｮ蝣ｴ蜷医′縺ゅｋ縺溘ａ縲〉ule 遞ｮ蛻･縺縺代〒縺ｯ provenance source 繧堤音螳壹〒縺阪↑縺・・
+そのものに一致する step を選ぶ。
+
+入力 step 自体も `INFERENCE` の場合があるため、rule 種別だけでは provenance source を特定できない。
+
 ---
 
-# 15. structural normalization 繧定ｿｽ蜉縺吶ｋ蜑阪・遒ｺ隱・
-萓九∴縺ｰ:
+# 15. structural normalization を追加する前の確認
+
+例えば:
 
 ```text
-2*2-1 竊・3
-E^1ﾎｱ 竊・Eﾎｱ
--(order-two element) 竊・element
-ﾎｷ_4 竊・ﾎｷ竄・ﾎｷ_5 竊・ﾎｷ竄・```
+2*2-1 → 3
+E^1α → Eα
+-(order-two element) → element
+η_4 → η₄
+η_5 → η₅
+```
 
-繧・global normalizer 縺ｫ縺吶ｋ蜑阪↓:
+を global normalizer にする前に:
 
 ```text
-莉雁屓縺ｮ concrete theorem 縺ｫ縺縺大ｿ・ｦ√°・・```
+今回の concrete theorem にだけ必要か？
+```
 
-繧堤｢ｺ隱阪☆繧九・
-YES 縺ｮ蝣ｴ蜷・
+を確認する。
+
+YES の場合:
 
 ```text
 dedicated bridge / specialization
 ```
 
-繧貞━蜈医☆繧九・
-隍・焚 independent branch 縺ｧ蜷後§ generic need 縺檎ｹｰ繧願ｿ斐＠逋ｺ逕溘＠縺滓凾轤ｹ縺ｧ generalization 繧呈､懆ｨ弱☆繧九・
+を優先する。
+
+複数 independent branch で同じ generic need が繰り返し発生した時点で generalization を検討する。
+
 ---
 
-# 16. repeatable inference rule 縺ｮ螳溯｡悟｢・阜
+# 16. repeatable inference rule の実行境界
 
-`Relation 竊・Relation` 縺ｮ rule 縺ｯ縲∝・蜉帙′蜀阪・蜷後§ rule 縺ｮ premise 縺ｫ縺ｪ繧句庄閭ｽ諤ｧ縺後≠繧九・
-Phase 58 縺ｧ遒ｺ隱阪＠縺滉ｾ・
+`Relation → Relation` の rule は、出力が再び同じ rule の premise になる可能性がある。
+
+Phase 58 で確認した例:
 
 ```text
-equality_preserved_under_right_composition_inference_rule(ﾎｷ竄・
-equality_preserved_under_left_composition_inference_rule(ﾎｷ竄・
+equality_preserved_under_right_composition_inference_rule(η₅)
+equality_preserved_under_left_composition_inference_rule(η₃)
 ```
 
-unrestricted fixed-point 縺ｫ蜈･繧後ｋ縺ｨ:
+unrestricted fixed-point に入れると:
 
 ```text
 a=b
-竊・a竏佩ｷ竄・b竏佩ｷ竄・竊・(a竏佩ｷ竄・竏佩ｷ竄・(b竏佩ｷ竄・竏佩ｷ竄・竊・...
+↓
+a∘η₅=b∘η₅
+↓
+(a∘η₅)∘η₅=(b∘η₅)∘η₅
+↓
+...
 ```
 
-縺ｮ繧医≧縺ｫ distinct conclusion 縺悟｢励∴邯壹￠繧九・
-縺励◆縺後▲縺ｦ:
+のように distinct conclusion が増え続ける。
+
+したがって:
 
 ```text
 fixed-point-safe
-竊・fixed-point runner
+→ fixed-point runner
 
 repeatable / scope-sensitive
-竊・one-shot or staged application
+→ one-shot or staged application
 ```
 
-繧剃ｽｿ縺・・縺代ｋ縲・
-generic engine 繧貞､画峩縺励※閾ｪ蜍墓椛蛻ｶ縺吶ｋ縺薙→縺ｯ Phase 58 縺ｮ scope 螟悶・
+を使い分ける。
+
+generic engine を変更して自動抑制することは Phase 58 の scope 外。
+
 ---
 
-# 17. code_reference.md 縺ｮ譖ｴ譁ｰ繝ｫ繝ｼ繝ｫ
+# 17. code_reference.md の更新ルール
 
-豈・Phase 蠢・医〒縺ｯ縺ｪ縺・・
-譖ｴ譁ｰ縺吶ｋ縺ｮ縺ｯ荳ｻ縺ｫ:
+毎 Phase 必須ではない。
+
+更新するのは主に:
 
 ```text
-譁ｰ隕・module 繧定ｿｽ蜉縺励◆
-荳ｻ隕・class family 繧定ｿｽ蜉縺励◆
-module 縺ｮ雋ｬ蜍吶′螟峨ｏ縺｣縺・驥崎ｦ√↑ end-to-end entry point 縺悟｢励∴縺・execution-scope 荳翫・驥崎ｦ√↑豕ｨ諢上′蠅励∴縺・```
+新規 module を追加した
+主要 class family を追加した
+module の責務が変わった
+重要な end-to-end entry point が増えた
+execution-scope 上の重要な注意が増えた
+```
 
-蝣ｴ蜷医・
-邏ｰ縺九↑ helper 繧偵☆縺ｹ縺ｦ霑ｽ險倥＠縺ｪ縺・・
+場合。
+
+細かな helper をすべて追記しない。
+
 ---
 
-# 18. 蟆・擂 proof narrative generation 縺ｧ遒ｺ隱阪☆繧句ｴ謇
+# 18. 将来 proof narrative generation で確認する場所
 
-迴ｾ蝨ｨ縺ｮ manual representative:
+現在の manual representative:
 
 ```text
 probes/probe_phase60_capabilities.py
@@ -1579,7 +1731,7 @@ probes/probe_phase60_capabilities.py
   phase60_literature_usage()
 ```
 
-蟆・擂 generic generator 繧呈､懆ｨ弱☆繧九→縺阪・荳ｻ隕・input:
+将来 generic generator を検討するときの主要 input:
 
 ```text
 proof.py
@@ -1599,31 +1751,39 @@ probes/
   concrete human-readable output examples
 ```
 
-蛟呵｣・pipeline:
+候補 pipeline:
 
 ```text
 ProofStep graph
-竊・path extraction
-竊・step grouping / compression
-竊・equation rendering
-竊・citation insertion
-竊・narrative template
-竊・console / Markdown / LaTeX
+↓
+path extraction
+↓
+step grouping / compression
+↓
+equation rendering
+↓
+citation insertion
+↓
+narrative template
+↓
+console / Markdown / LaTeX
 ```
 
-隍・焚 Phase 縺ｧ display pattern 縺悟ｮ牙ｮ壹☆繧九∪縺ｧ縺ｯ蟆ら畑 probe 陦ｨ遉ｺ繧貞━蜈医☆繧九・
+複数 Phase で display pattern が安定するまでは専用 probe 表示を優先する。
+
 ---
 
-# 19. Phase 62 縺ｧ譛蛻昴↓遒ｺ隱阪☆繧句ｴ謇
+# 19. Phase 62 で最初に確認する場所
 
-Phase 61 implementation 縺ｯ螳御ｺ・・
+Phase 61 implementation は完了。
+
 Phase 62 target:
 
 ```text
-ﾎｽ-family / Toda (5.5)
+ν-family / Toda (5.5)
 ```
 
-譛蛻昴↓遒ｺ隱・
+最初に確認:
 
 ```text
 Toda source material
@@ -1632,8 +1792,8 @@ Toda source material
 toda_rules.py
   TodaLemma54Statement
   TodaLemma55Statement
-  Phase 58 ﾎｽ窶ｲ relation
-  ﾎｷ-family bridge rule family
+  Phase 58 ν′ relation
+  η-family bridge rule family
 
 expression.py
   Composition
@@ -1641,40 +1801,48 @@ expression.py
   HomotopyElement
 
 relation_rules.py
-  suspension / equality transport 縺ｮ譌｢蟄・rule
+  suspension / equality transport の既存 rule
 
 probes/probe_phase61_capabilities.py
-  current ﾎｽ竄・provenance / proof-display boundary
+  current ν₄ provenance / proof-display boundary
 
 tests/test_phase60_*.py
 tests/test_phase61_*.py
-  ﾎｽ竄・/ provenance regression
+  ν₄ / provenance regression
 
 docs/roadmap.md
   Phase 62 finite-dimensional / stable boundary
 ```
 
-Phase 62 縺ｧ縺ｯ:
+Phase 62 では:
 
 ```text
-ﾎｽ_n:=E^(n-4)ﾎｽ竄・竊・2ﾎｽ_n=E^(n-3)ﾎｽ窶ｲ
-竊・4ﾎｽ_n=ﾎｷ_nﾂｳ
+ν_n:=E^(n-4)ν₄
+↓
+2ν_n=E^(n-3)ν′
+↓
+4ν_n=η_n³
 ```
 
-縺ｮ minimum bridge 繧貞・縺ｫ隱ｿ縺ｹ繧九・
-蠑輔″邯壹″:
+の minimum bridge を先に調べる。
+
+引き続き:
 
 ```text
 source statement
-竊・dependency analysis
-竊・迴ｾ蝨ｨ縺ｮ陦ｨ迴ｾ compatibility
-竊・minimum implementation
+↓
+dependency analysis
+↓
+現在の表現 compatibility
+↓
+minimum implementation
 ```
 
-繧堤ｶｭ謖√☆繧九・
+を維持する。
+
 ---
 
-# 20. Phase 62・墅ｽ-family / Toda (5.5)
+# 20. Phase 62：ν-family / Toda (5.5)
 
 ## statement
 
@@ -1699,12 +1867,14 @@ helper:
 toda_nu_family_definition_statement(n)
 ```
 
-諢丞袖:
+意味:
 
 ```text
-ﾎｽ_n:=E^(n-4)ﾎｽ竄・```
+ν_n:=E^(n-4)ν₄
+```
 
-concrete `n<4` 縺ｯ reject縲・
+concrete `n<4` は reject。
+
 symbolic exponent:
 
 ```text
@@ -1713,7 +1883,7 @@ ScalarSum(n,-4)
 
 ### `Toda55NuFamilyFiniteDimensionalStatement`
 
-菫晄戟:
+保持:
 
 ```text
 nu_family_definition
@@ -1746,21 +1916,21 @@ validate:
 
 ```text
 definition matches symbolic n
-base ﾎｽ竄・matches Lemma 5.4
-Lemma 5.4 relation is exactly 2Eﾎｽ竄・Eﾂｲﾎｽ窶ｲ
+base ν₄ matches Lemma 5.4
+Lemma 5.4 relation is exactly 2Eν₄=E²ν′
 ```
 
 output:
 
 ```text
-2ﾎｽ_n=E^(n-3)ﾎｽ窶ｲ
+2ν_n=E^(n-3)ν′
 ```
 
 reject:
 
 ```text
 GIVEN Lemma 5.4
-n竕･4
+n≥4
 wrong symbolic index
 wrong family definition
 wrong Lemma 5.4 relation
@@ -1773,7 +1943,8 @@ wrong Lemma 5.4 relation
 production theorem rule:
 
 ```text
-霑ｽ蜉縺ｪ縺・```
+追加なし
+```
 
 test builder:
 
@@ -1791,15 +1962,16 @@ equality_symmetry_inference_rule()
 equality_transitivity_inference_rule()
 ```
 
-Phase 60 builder 縺九ｉ:
+Phase 60 builder から:
 
 ```text
-2E^(n-3)ﾎｽ窶ｲ
+2E^(n-3)ν′
 =
-ﾎｷ_n竏佩ｷ_(n+1)竏佩ｷ_(n+2)
+η_n∘η_(n+1)∘η_(n+2)
 ```
 
-繧貞・蛻ｩ逕ｨ縲・
+を再利用。
+
 ---
 
 # 23. Phase 62 integration / literature
@@ -1822,8 +1994,8 @@ premises:
 TodaLemma54Statement                INFERENCE
 TodaNuFamilyDefinitionStatement     GIVEN
 ScalarGreaterEqualStatement         GIVEN
-2ﾎｽ_n relation                       INFERENCE
-4ﾎｽ_n relation                       INFERENCE
+2ν_n relation                       INFERENCE
+4ν_n relation                       INFERENCE
 ```
 
 final:
@@ -1840,7 +2012,8 @@ Toda (5.5)
 Equation (5.5)
 ```
 
-Phase 60 literature 縺ｯ nested `lemma54_statement` 縺九ｉ蜿ら・縲・
+Phase 60 literature は nested `lemma54_statement` から参照。
+
 ---
 
 # 24. Phase 62 test builders
@@ -1862,16 +2035,18 @@ tests/test_phase62_toda55_applicability_provenance.py
   build_phase62_7_data()
 ```
 
-驥崎ｦ・
+重要:
 
 ```text
 id() ancestor check
-竊・same nested fixture tree 繧貞・譛・```
+→ same nested fixture tree を共有
+```
 
-蜷後§ conclusion 繧呈戟縺､蛻･ `ProofStep` instance 繧貞・讒狗ｯ峨＠縺ｪ縺・・
+同じ conclusion を持つ別 `ProofStep` instance を再構築しない。
+
 ---
 
-# 25. Phase 62 莉｣陦ｨ probe
+# 25. Phase 62 代表 probe
 
 module:
 
@@ -1879,7 +2054,7 @@ module:
 probes/probe_phase62_capabilities.py
 ```
 
-荳ｻ隕・function:
+主要 function:
 
 ```text
 build_phase62_representative_result()
@@ -1898,7 +2073,8 @@ focused integration builder:
 build_phase62_6_data()
 ```
 
-繧・representative fixture 縺ｨ縺励※蜀榊茜逕ｨ縺励｝robe 蛛ｴ縺ｸ theorem logic 繧定､・｣ｽ縺励↑縺・・
+を representative fixture として再利用し、probe 側へ theorem logic を複製しない。
+
 ---
 
 # 26. Phase 62 focused tests
@@ -1921,14 +2097,15 @@ full regression:
 
 ---
 
-# 27. Phase 63 髢句ｧ区凾轤ｹ縺ｧ譛蛻昴↓遒ｺ隱阪＠縺溷ｴ謇・亥ｱ･豁ｴ・・
+# 27. Phase 63 開始時点で最初に確認した場所（履歴）
+
 target:
 
 ```text
 Toda (5.6)
 ```
 
-遒ｺ隱・
+確認:
 
 ```text
 Toda source
@@ -1938,7 +2115,7 @@ toda_rules.py
   TodaProp44IsomorphismStatement
   Prop.4.4 rule family
   TodaLemma54Statement
-  ﾎｽ竄・Hopf relation
+  ν₄ Hopf relation
 
 homotopy_groups.py
   TodaProp44DecompositionMap
@@ -1949,7 +2126,7 @@ tests/test_phase47_*.py
   Prop.4.4 decomposition behavior
 
 tests/test_phase60_*.py
-  ﾎｽ竄・/ H(ﾎｽ竄・=ﾎｹ竄・provenance
+  ν₄ / H(ν₄)=ι₇ provenance
 
 probes/probe_phase62_capabilities.py
   current proof-display pattern
@@ -1959,30 +2136,36 @@ compatibility target:
 
 ```text
 n=4
-ﾎｱ=ﾎｽ竄・H(ﾎｽ竄・=ﾎｹ竄・竊・Prop.4.4
-ﾏ_{i-1}^3 竓・ﾏ_i^7
-竕・ﾏ_i^4
+α=ν₄
+H(ν₄)=ι₇
+↓
+Prop.4.4
+π_{i-1}^3 ⊕ π_i^7
+≅
+π_i^4
 ```
 
 map formula:
 
 ```text
-(ﾎｱ,ﾎｲ)
-竊ｦ
-Eﾎｱ+ﾎｽ竄・・ﾎｲ
+(α,β)
+↦
+Eα+ν₄∘β
 ```
 
-Phase 63 縺ｧ縺ｯ concrete specialization 縺ｮ minimum bridge 縺ｮ縺ｿ霑ｽ蜉縺吶ｋ縲・
-stable ﾎｽ / ﾎｷﾂｳ縲“eneric direct-sum framework extension縲∥utomatic proof narrative generation 縺ｯ蜈亥叙繧翫＠縺ｪ縺・・
+Phase 63 では concrete specialization の minimum bridge のみ追加する。
+
+stable ν / η³、generic direct-sum framework extension、automatic proof narrative generation は先取りしない。
+
 
 
 ---
 
-# 28. Phase 63・啜oda (5.6) ﾎｽ竄・decomposition
+# 28. Phase 63：Toda (5.6) ν₄ decomposition
 
 ## `toda_rules.py`
 
-Phase 63 縺ｧ霑ｽ蜉縺励◆荳ｻ隕・statement:
+Phase 63 で追加した主要 statement:
 
 ```text
 Toda56Nu4Prop44SpecializationStatement
@@ -1992,7 +2175,7 @@ Toda56Nu4DecompositionStatement
 
 ### `Toda56Nu4Prop44SpecializationStatement`
 
-菫晄戟:
+保持:
 
 ```text
 lemma54_statement
@@ -2002,13 +2185,14 @@ membership
 hopf_relation
 ```
 
-Phase 60 `TodaLemma54Statement` 繧・Phase 47 Proposition 4.4 縺ｮ concrete `n=4`, `ﾎｱ=ﾎｽ竄Я specialization premise 縺ｫ謗･邯壹☆繧九・
-驥崎ｦ・bridge:
+Phase 60 `TodaLemma54Statement` を Phase 47 Proposition 4.4 の concrete `n=4`, `α=ν₄` specialization premise に接続する。
+
+重要 bridge:
 
 ```text
-HomotopyGroupMembershipStatement(ﾎｽ竄・7,4)
-竊・narrow Phase 63 specialization
-TodaPrimaryGroupMembershipStatement(ﾎｽ竄・ ﾏ_7^4)
+HomotopyGroupMembershipStatement(ν₄,7,4)
+↓ narrow Phase 63 specialization
+TodaPrimaryGroupMembershipStatement(ν₄, π_7^4)
 ```
 
 rule:
@@ -2025,7 +2209,8 @@ field:
 prop44_isomorphism
 ```
 
-譌｢蟄・`TodaProp44IsomorphismStatement` 繧・Toda (5.6) 蟆ら畑 semantics 縺ｨ縺励※菫晄戟縺吶ｋ縲・
+既存 `TodaProp44IsomorphismStatement` を Toda (5.6) 専用 semantics として保持する。
+
 rule:
 
 ```text
@@ -2042,7 +2227,8 @@ lemma54_statement
 literature_statements
 ```
 
-final literature-aware aggregate縲・
+final literature-aware aggregate。
+
 helper / integration rule:
 
 ```text
@@ -2054,8 +2240,9 @@ toda_56_nu4_decomposition_integration_inference_rule()
 
 # 29. Phase 63 Proposition 4.4 specialization
 
-Phase 63-3 縺ｧ縺ｯ譁ｰ縺励＞ map / group class 繧定ｿｽ蜉縺励↑縺・・
-蜀榊茜逕ｨ:
+Phase 63-3 では新しい map / group class を追加しない。
+
+再利用:
 
 ```text
 homotopy_groups.py
@@ -2105,21 +2292,21 @@ formula:
 ```text
 Sum(
   Suspension(first_variable),
-  Composition(ﾎｽ竄・ second_variable),
+  Composition(ν₄, second_variable),
 )
 ```
 
-諢丞袖:
+意味:
 
 ```text
-Eﾎｱ+ﾎｽ竄・・ﾎｲ
+Eα+ν₄∘β
 ```
 
 Phase 47 field naming:
 
 ```text
-map.beta  = displayed ﾎｱ
-map.gamma = displayed ﾎｲ
+map.beta  = displayed α
+map.gamma = displayed β
 ```
 
 rule:
@@ -2128,7 +2315,7 @@ rule:
 toda_56_nu4_prop44_isomorphism_inference_rule()
 ```
 
-驥崎ｦ・boundary:
+重要 boundary:
 
 ```text
 TodaProp44DecompositionMap      GIVEN
@@ -2143,15 +2330,21 @@ provenance spine:
 
 ```text
 Phase 60 membership / Hopf / double relations
-竊・TodaLemma54Statement
-竊・Toda56Nu4Prop44SpecializationStatement
-竊・TodaProp44IsomorphismStatement
-竊・Toda56Nu4DecompositionIsomorphismStatement
-竊・Toda56Nu4DecompositionStatement
+↓
+TodaLemma54Statement
+↓
+Toda56Nu4Prop44SpecializationStatement
+↓
+TodaProp44IsomorphismStatement
+↓
+Toda56Nu4DecompositionIsomorphismStatement
+↓
+Toda56Nu4DecompositionStatement
 ```
 
-`tests/test_phase63_applicability_provenance.py` 縺ｧ縺ｯ identity-based ancestor traversal 繧剃ｽｿ縺・・
-遒ｺ隱・
+`tests/test_phase63_applicability_provenance.py` では identity-based ancestor traversal を使う。
+
+確認:
 
 ```text
 GIVEN theorem replacement rejection
@@ -2172,13 +2365,13 @@ inherited literature:
 
 ```text
 Toda56Nu4DecompositionStatement
-笏披楳 lemma54_statement
-   笏披楳 literature_statements
+└─ lemma54_statement
+   └─ literature_statements
 ```
 
 ---
 
-# 31. Phase 63 莉｣陦ｨ probe
+# 31. Phase 63 代表 probe
 
 ```text
 probes/probe_phase63_capabilities.py
@@ -2190,7 +2383,7 @@ entry point:
 python -m probes.probe_phase63_capabilities
 ```
 
-荳ｻ隕・helper:
+主要 helper:
 
 ```text
 build_phase63_representative_result()
@@ -2203,23 +2396,26 @@ print_phase63_boundary()
 main()
 ```
 
-譌｢蟄・display helper 繧貞・蛻ｩ逕ｨ:
+既存 display helper を再利用:
 
 ```text
 probes.probe_phase50_capabilities.print_separator
 probes.probe_phase61_capabilities.print_literature_item
 ```
 
-probe 縺ｯ:
+probe は:
 
 ```text
 tests/test_phase63_toda56_integration.py
   build_phase63_6_data()
 ```
 
-繧・representative fixture 縺ｨ縺励※蜀榊茜逕ｨ縺吶ｋ縲・
-theorem logic 縺ｯ probe 蛛ｴ縺ｸ隍・｣ｽ縺励↑縺・・
-proof-style derivation 縺ｯ hand-authored presentation layer縲・
+を representative fixture として再利用する。
+
+theorem logic は probe 側へ複製しない。
+
+proof-style derivation は hand-authored presentation layer。
+
 ---
 
 # 32. Phase 63 focused tests
@@ -2241,13 +2437,13 @@ full regression:
 
 ---
 
-# 33. Phase 63 螳御ｺ・｢・阜
+# 33. Phase 63 完了境界
 
-螳溯｣・ｸ医∩:
+実装済み:
 
 ```text
-n=4 / ﾎｱ=ﾎｽ竄・specialization bridge
-Toda-primary ﾎｽ竄・membership bridge
+n=4 / α=ν₄ specialization bridge
+Toda-primary ν₄ membership bridge
 concrete Proposition 4.4 decomposition specialization
 Toda (5.6) map / isomorphism semantics
 literature-aware aggregate
@@ -2256,14 +2452,14 @@ applicability / acyclic provenance regression
 representative proof-style probe
 ```
 
-譛ｪ螳溯｣・
+未実装:
 
 ```text
 generic Proposition 4.4 specialization framework
 generic scalar normalization
 generic membership normalization
 generic direct-sum simplification
-stable ﾎｽ / ﾎｷﾂｳ
+stable ν / η³
 automatic proof narrative generation
 later Toda consequences after Equation (5.6)
 ```
@@ -2271,14 +2467,15 @@ later Toda consequences after Equation (5.6)
 ---
 
 
-# 34. Phase 64・嗔erformance-related code reference
+# 34. Phase 64：performance-related code reference
 
-Phase 64 縺ｯ譁ｰ縺励＞謨ｰ蟄ｦ theorem family 繧定ｿｽ蜉縺励↑縺・・
-荳ｻ縺ｪ螟画峩蟇ｾ雎｡:
+Phase 64 は新しい数学 theorem family を追加しない。
+
+主な変更対象:
 
 ```text
 proof.py
-tests / probes 縺ｮ deterministic builder
+tests / probes の deterministic builder
 tests/test_algebra.py
 ```
 
@@ -2286,13 +2483,13 @@ tests/test_algebra.py
 
 # 35. `proof.py` Phase 64 matching path
 
-Phase 64-5 縺ｧ霑ｽ蜉:
+Phase 64-5 で追加:
 
 ```text
 _find_all_matching_premise_bindings()
 ```
 
-雋ｬ蜍・
+責務:
 
 ```text
 recursive premise assignment
@@ -2300,16 +2497,19 @@ recursive premise assignment
 merged VariableBinding
 ```
 
-繧貞酔譎ゅ↓霑斐☆縲・
-譌｢蟄・public:
+を同時に返す。
+
+既存 public:
 
 ```text
 find_all_matching_premises()
 ```
 
-縺ｯ蠕捺擂縺ｩ縺翫ｊ premise tuple 縺ｮ collection 繧定ｿ斐☆縲・
-`find_inference_matches_for_rule()` 縺ｯ private helper 縺ｮ bindings 繧貞・蛻ｩ逕ｨ縺励∝酔縺・premise assignment 縺ｫ蟇ｾ縺吶ｋ蜀・binding 繧帝∩縺代ｋ縲・
-遒ｺ隱榊ｯｾ雎｡:
+は従来どおり premise tuple の collection を返す。
+
+`find_inference_matches_for_rule()` は private helper の bindings を再利用し、同じ premise assignment に対する再 binding を避ける。
+
+確認対象:
 
 ```text
 match_premise_pattern()
@@ -2320,7 +2520,7 @@ find_inference_matches_for_rule()
 find_inference_matches()
 ```
 
-譛ｪ螳溯｣・
+未実装:
 
 ```text
 premise-type index
@@ -2333,21 +2533,23 @@ global proof memoization
 
 # 36. deterministic Phase builder cache
 
-Phase 57窶・3 縺ｮ荳驛ｨ builder 縺ｯ:
+Phase 57–63 の一部 builder は:
 
 ```text
 no-arg
 deterministic
-caller 縺・returned proof graph 繧・mutate 縺励↑縺・```
+caller が returned proof graph を mutate しない
+```
 
-蝣ｴ蜷医↓:
+場合に:
 
 ```python
 @lru_cache(maxsize=1)
 ```
 
-繧貞茜逕ｨ縺吶ｋ縲・
-cache 蜑阪↓遒ｺ隱・
+を利用する。
+
+cache 前に確認:
 
 ```text
 no-arg
@@ -2360,14 +2562,14 @@ identity reuse is semantically safe
 
 # 37. `tests/test_algebra.py` Phase 64 boundary
 
-荳ｻ隕・exhaustive crosscheck:
+主要 exhaustive crosscheck:
 
 ```text
 test_finite_presentation_crosscheck()
 test_finite_exactness_presentation_crosscheck()
 ```
 
-逶ｮ逧・
+目的:
 
 ```text
 finite explicit enumeration
@@ -2375,7 +2577,7 @@ vs
 presentation / integer-lattice calculation
 ```
 
-邯ｭ謖・
+維持:
 
 ```text
 group case set
@@ -2384,7 +2586,7 @@ checked > 500
 checked > 100
 ```
 
-local precomputation 縺ｧ蛻ｩ逕ｨ縺吶ｋ荳ｻ縺ｪ API:
+local precomputation で利用する主な API:
 
 ```text
 GroupMap.image_subgroup()
@@ -2397,7 +2599,8 @@ structure_from_presentation()
 lattices_equal()
 ```
 
-production `GroupMap` cache 縺ｯ霑ｽ蜉縺励※縺・↑縺・・
+production `GroupMap` cache は追加していない。
+
 ---
 
 # 38. Phase 64 performance reference
@@ -2443,17 +2646,18 @@ remaining dominant single test:
 
 ```text
 test_finite_presentation_crosscheck
-邏・5.2s
+約 5.2s
 ```
 
-迴ｾ迥ｶ縺ｯ險ｱ螳ｹ縺励｝roduction cache / SNF-HNF redesign 縺ｯ concrete need 縺悟・逋ｺ縺吶ｋ縺ｾ縺ｧ deferred縲・
----
+現状は許容し、production cache / SNF-HNF redesign は concrete need が再発するまで deferred。
 
 ---
 
-# 39. Phase 65・啜oda Proposition 5.6 code reference
+---
 
-Phase 65 縺ｧ縺ｯ荳ｻ縺ｫ:
+# 39. Phase 65：Toda Proposition 5.6 code reference
+
+Phase 65 では主に:
 
 ```text
 toda_rules.py
@@ -2462,13 +2666,15 @@ probes/probe_phase65_capabilities.py
 tests/test_phase65_*.py
 ```
 
-繧呈峩譁ｰ / 霑ｽ蜉縺励◆縲・
-generic `proof.py` inference machinery 縺ｯ Phase 65 縺ｧ縺ｯ螟画峩縺励※縺・↑縺・・
+を更新 / 追加した。
+
+generic `proof.py` inference machinery は Phase 65 では変更していない。
+
 ---
 
-# 40. Phase 65 荳ｻ隕・statement
+# 40. Phase 65 主要 statement
 
-`toda_rules.py` 縺ｮ Phase 65 荳ｻ隕・statement:
+`toda_rules.py` の Phase 65 主要 statement:
 
 ```text
 TodaSuspensionInjectiveStatement
@@ -2479,7 +2685,7 @@ TodaProp56FiniteDimensionalStatement
 
 ### `TodaIteratedSuspensionInjectiveStatement`
 
-菫晄戟:
+保持:
 
 ```text
 map: TodaIteratedSuspensionMap
@@ -2488,13 +2694,14 @@ map: TodaIteratedSuspensionMap
 Phase 65 concrete use:
 
 ```text
-Eﾂｲ:ﾏ_6^3竊佃_8^5 injective
+E²:π_6^3→π_8^5 injective
 ```
 
-generic map-property solver 繧定ｿｽ蜉縺帙★縲ゝoda-specific iterated suspension instance 繧剃ｿ晄戟縺吶ｋ縲・
+generic map-property solver を追加せず、Toda-specific iterated suspension instance を保持する。
+
 ### `TodaProp56Pi8_5QuotientStatement`
 
-菫晄戟:
+保持:
 
 ```text
 ambient_group
@@ -2505,13 +2712,14 @@ quotient_order
 Phase 65 concrete meaning:
 
 ```text
-ﾏ_8^5 / Eﾂｲﾏ_6^3 竕・Z/2
+π_8^5 / E²π_6^3 ≅ Z/2
 ```
 
-symbolic `QuotientGroup` algebra縺ｸ縺ｮ荳闊ｬ蛹悶・縺励↑縺・・
+symbolic `QuotientGroup` algebraへの一般化はしない。
+
 ### `TodaProp56FiniteDimensionalStatement`
 
-菫晄戟:
+保持:
 
 ```text
 pi5_2_group_relation
@@ -2533,7 +2741,7 @@ ProofRule.INFERENCE
 
 # 41. Phase 65-2 / 65-3 rule family
 
-荳ｻ隕・rule:
+主要 rule:
 
 ```text
 toda_prop56_pi5_2_eta2_cube_inference_rule()
@@ -2547,21 +2755,26 @@ toda_prop56_pi5_2_suspension_injective_inference_rule()
 end-to-end:
 
 ```text
-ﾏ_5^2=Z/2{ﾎｷ竄つｳ}
+π_5^2=Z/2{η₂³}
 
-H(ﾎｽ窶ｲ竏佩ｷ竄・=ﾎｷ竄・ｲ
+H(ν′∘η₆)=η₅²
 +
-ﾏ_7^5=Z/2{ﾎｷ竄・ｲ}
-竊・H surjective
-竊・ﾎ・0
-竊・E:ﾏ_5^2竊佃_6^3 injective
+π_7^5=Z/2{η₅²}
+↓
+H surjective
+↓
+Δ=0
+↓
+E:π_5^2→π_6^3 injective
 ```
 
-ﾎｷ竄・/ ﾎｷ竄・concrete definition 縺ｮ structural-name 蟾ｮ縺ｯ Phase 58 縺ｨ蜷梧ｧ倥↓ local guard / canonical construction 縺ｧ蜃ｦ逅・☆繧九・
-global ﾎｷ normalization 縺ｯ霑ｽ蜉縺励↑縺・・
+η₅ / η₆ concrete definition の structural-name 差は Phase 58 と同様に local guard / canonical construction で処理する。
+
+global η normalization は追加しない。
+
 ---
 
-# 42. Phase 65-4 order / ﾏ_6^3 rule family
+# 42. Phase 65-4 order / π_6^3 rule family
 
 ```text
 toda_prop56_eta3_cube_order_two_inference_rule()
@@ -2569,18 +2782,19 @@ toda_prop56_nu_prime_order_four_inference_rule()
 toda_prop56_pi6_3_finite_cyclic_inference_rule()
 ```
 
-蟆主・:
+導出:
 
 ```text
-ord(ﾎｷ竄δｳ)=2
-ord(ﾎｽ窶ｲ)=4
-ﾏ_6^3=Z/4{ﾎｽ窶ｲ}
+ord(η₃³)=2
+ord(ν′)=4
+π_6^3=Z/4{ν′}
 ```
 
-generic order arithmetic framework 縺ｯ霑ｽ蜉縺励↑縺・・
+generic order arithmetic framework は追加しない。
+
 ---
 
-# 43. Phase 65-5 ﾏ_7^4 decomposition
+# 43. Phase 65-5 π_7^4 decomposition
 
 `homotopy_groups.py`:
 
@@ -2588,14 +2802,16 @@ generic order arithmetic framework 縺ｯ霑ｽ蜉縺励↑縺・・
 DirectSumGroup.summands
 ```
 
-縺ｯ `FiniteCyclicGroup` 繧貞性繧√ｉ繧後ｋ繧医≧諡｡蠑ｵ縲・
-菴取ｬ｡蜈・fact:
+は `FiniteCyclicGroup` を含められるよう拡張。
+
+低次元 fact:
 
 ```text
-ﾏ_7^7=Z{ﾎｹ竄・
+π_7^7=Z{ι₇}
 ```
 
-繧貞茜逕ｨ縲・
+を利用。
+
 rule:
 
 ```text
@@ -2605,15 +2821,16 @@ toda_prop56_pi7_4_decomposition_inference_rule()
 final:
 
 ```text
-ﾏ_7^4
+π_7^4
 =
-Z{ﾎｽ竄м
-竓・Z/4{Eﾎｽ窶ｲ}
+Z{ν₄}
+⊕
+Z/4{Eν′}
 ```
 
 ---
 
-# 44. Phase 65-6 quotient / Eﾂｲ injectivity
+# 44. Phase 65-6 quotient / E² injectivity
 
 rule:
 
@@ -2622,8 +2839,10 @@ toda_prop56_pi8_5_quotient_inference_rule()
 toda_prop56_pi6_3_e2_injective_inference_rule()
 ```
 
-荳｡譁ｹ縺ｨ繧・Phase 63 `Toda56Nu4DecompositionStatement` 縺ｮ derived theorem semantics 繧・provenance anchor 縺ｨ縺吶ｋ縲・
-generic Prop.4.4 specialization framework 縺ｯ霑ｽ蜉縺励↑縺・・
+両方とも Phase 63 `Toda56Nu4DecompositionStatement` の derived theorem semantics を provenance anchor とする。
+
+generic Prop.4.4 specialization framework は追加しない。
+
 ---
 
 # 45. Phase 65-7 n=5 order / group
@@ -2641,18 +2860,22 @@ chain:
 
 ```text
 Toda (5.5), n=5
-竊・2ﾎｽ竄・Eﾂｲﾎｽ窶ｲ
+↓
+2ν₅=E²ν′
 
-ﾏ_6^3=Z/4{ﾎｽ窶ｲ}
+π_6^3=Z/4{ν′}
 +
-Eﾂｲ injective
-竊・ord(Eﾂｲﾎｽ窶ｲ)=4
-竊・ord(ﾎｽ竄・=8
+E² injective
+↓
+ord(E²ν′)=4
+↓
+ord(ν₅)=8
 
 quotient order 2
 +
 image order 4
-竊・ﾏ_8^5=Z/8{ﾎｽ竄・
+↓
+π_8^5=Z/8{ν₅}
 ```
 
 ---
@@ -2670,17 +2893,18 @@ toda_prop56_higher_nu_finite_cyclic_generator_inference_rule()
 Toda (4.5):
 
 ```text
-E^(n-5):ﾏ_8^5竕・_(n+3)^n
+E^(n-5):π_8^5≅π_(n+3)^n
 ```
 
-縺ｨ ﾎｽ-family definition 繧呈磁邯壹＠:
+と ν-family definition を接続し:
 
 ```text
-ﾏ_(n+3)^n=Z/8{ﾎｽ_n}
-(n竕･6)
+π_(n+3)^n=Z/8{ν_n}
+(n≥6)
 ```
 
-繧貞ｰ主・縺吶ｋ縲・
+を導出する。
+
 ---
 
 # 47. Phase 65-9 aggregate / literature
@@ -2700,12 +2924,12 @@ toda_prop56_finite_dimensional_integration_inference_rule()
 premises:
 
 ```text
-ﾏ_5^2 relation       INFERENCE
-ﾏ_6^3 relation       INFERENCE
-ﾏ_7^4 relation       INFERENCE
-ﾏ_8^5 relation       INFERENCE
-higher ﾎｽ relation    INFERENCE
-n竕･6                  GIVEN
+π_5^2 relation       INFERENCE
+π_6^3 relation       INFERENCE
+π_7^4 relation       INFERENCE
+π_8^5 relation       INFERENCE
+higher ν relation    INFERENCE
+n≥6                  GIVEN
 ```
 
 final:
@@ -2717,7 +2941,7 @@ ProofRule.INFERENCE
 
 ---
 
-# 48. Phase 65 莉｣陦ｨ probe
+# 48. Phase 65 代表 probe
 
 module:
 
@@ -2725,7 +2949,7 @@ module:
 probes/probe_phase65_capabilities.py
 ```
 
-荳ｻ隕・function:
+主要 function:
 
 ```text
 build_phase65_representative_result()
@@ -2742,18 +2966,22 @@ main()
 EHP display:
 
 ```text
-ﾏ_7^3 笏H竊・ﾏ_7^5 笏ﾎ披・ ﾏ_5^2 笏E竊・ﾏ_6^3 笏H竊・ﾏ_6^5
+π_7^3 ─H→ π_7^5 ─Δ→ π_5^2 ─E→ π_6^3 ─H→ π_6^5
 ```
 
-`print_phase65_derivation_chain()` 縺ｯ presentation-only縲・
-automatic proof narrative generator 縺ｧ縺ｯ縺ｪ縺・・
-probe 縺ｯ `tests/test_phase65_prop56_integration.py` 縺ｮ deterministic builder 繧・representative fixture 縺ｨ縺励※蜀榊茜逕ｨ縺吶ｋ縲・
-`tests/` 縺・Python package 縺ｧ縺ｯ縺ｪ縺・◆繧√｝robe 縺ｯ譌｢蟄・probe pattern 縺ｨ蜷梧ｧ倥↓ tests directory 繧・`sys.path` 縺ｫ霑ｽ蜉縺励※ focused integration builder 繧・import 縺吶ｋ縲・
+`print_phase65_derivation_chain()` は presentation-only。
+
+automatic proof narrative generator ではない。
+
+probe は `tests/test_phase65_prop56_integration.py` の deterministic builder を representative fixture として再利用する。
+
+`tests/` が Python package ではないため、probe は既存 probe pattern と同様に tests directory を `sys.path` に追加して focused integration builder を import する。
+
 ---
 
 # 49. Phase 65 tests
 
-荳ｻ隕・
+主要:
 
 ```text
 tests/test_phase65_pi5_2_eta2_cube.py
@@ -2768,13 +2996,14 @@ tests/test_phase65_probe.py
 tests/test_phase65_provenance.py
 ```
 
-驥崎ｦ√↑ deterministic builder 縺ｯ:
+重要な deterministic builder は:
 
 ```text
 @lru_cache(maxsize=1)
 ```
 
-繧呈怙蛻昴°繧我ｻ倥￠縲￣hase 64 縺ｮ performance stabilization 譁ｹ驥昴ｒ邯ｭ謖√☆繧九・
+を最初から付け、Phase 64 の performance stabilization 方針を維持する。
+
 final regression:
 
 ```text
@@ -2783,25 +3012,27 @@ final regression:
 
 ---
 
-# 50. 迴ｾ蝨ｨ縺ｮ provenance / persistence boundary
+# 50. 現在の provenance / persistence boundary
 
-迴ｾ蝨ｨ縺ｮ `ProofStep` graph 縺ｯ:
+現在の `ProofStep` graph は:
 
 ```text
 in-memory provenance
 ```
 
-縺ｧ縺ゅｋ縲・
+である。
+
 ```text
 same Python process
-竊・cached builder reuse possible
+→ cached builder reuse possible
 
 new process
-竊・normally reconstruct inference
+→ normally reconstruct inference
 ```
 
-persistent proof repository 縺ｯ縺ｾ縺縺ｪ縺・・
-蟆・擂 repository 繧貞ｮ溯｣・☆繧九→縺阪・遒ｺ隱榊ｯｾ雎｡:
+persistent proof repository はまだない。
+
+将来 repository を実装するときの確認対象:
 
 ```text
 proof.py
@@ -2821,10 +3052,11 @@ probes/
 
 ---
 
-# 51. 谺｡ Phase 縺ｧ譛蛻昴↓遒ｺ隱阪☆繧句ｴ謇
+# 51. 次 Phase で最初に確認する場所
 
-Phase 65 縺ｯ COMPLETE縲・
-谺｡縺ｮ concrete Toda source statement / consequence 縺梧ｱｺ縺ｾ縺｣縺溘ｉ:
+Phase 65 は COMPLETE。
+
+次の concrete Toda source statement / consequence が決まったら:
 
 ```text
 Toda source material
@@ -2841,37 +3073,46 @@ probes/probe_phase65_capabilities.py
   current proof-style / provenance display
 ```
 
-繧堤｢ｺ隱阪☆繧九・
-Equation (5.8) 縺梧ｬ｡ target 縺ｪ繧・
+を確認する。
+
+Equation (5.8) が次 target なら:
 
 ```text
-ﾎ・ﾎｹ竄・=ﾂｱ(2ﾎｽ竄・Eﾎｽ窶ｲ)=ﾂｱ[ﾎｹ竄・ﾎｹ竄Ь
+Δ(ι₉)=±(2ν₄-Eν′)=±[ι₄,ι₄]
 ```
 
-縺ｮ 迴ｾ蝨ｨ縺ｮ陦ｨ迴ｾ compatibility 繧呈怙蛻昴↓隱ｿ縺ｹ繧九・
-Proof Repository 縺ｯ 7-stem 遞句ｺｦ縺ｾ縺ｧ concrete calculations 縺瑚塘遨阪＠縺滓凾轤ｹ縺ｧ separate design Phase 繧呈､懆ｨ弱＠縲・窶・0 stem 縺ｧ schema 繧貞ｮ滉ｾ区､懆ｨｼ縺吶ｋ縲・
-蠑輔″邯壹″:
+の 現在の表現 compatibility を最初に調べる。
+
+Proof Repository は 7-stem 程度まで concrete calculations が蓄積した時点で separate design Phase を検討し、8–10 stem で schema を実例検証する。
+
+引き続き:
 
 ```text
 source statement
-竊・dependency analysis
-竊・迴ｾ蝨ｨ縺ｮ陦ｨ迴ｾ compatibility
-竊・minimum implementation
+↓
+dependency analysis
+↓
+現在の表現 compatibility
+↓
+minimum implementation
 ```
 
-繧堤ｶｭ謖√☆繧九・
+を維持する。
+
 ---
 
-# 26. Phase 66・啜oda Equation (5.8)
+# 26. Phase 66：Toda Equation (5.8)
 
 Phase 66 target:
 
 ```text
-ﾎ・ﾎｹ竄・=ﾂｱ(2ﾎｽ竄・Eﾎｽ窶ｲ)=ﾂｱ[ﾎｹ竄・ﾎｹ竄Ь
+Δ(ι₉)=±(2ν₄-Eν′)=±[ι₄,ι₄]
 ```
 
-production change 縺ｮ荳ｭ蠢・・ `toda_rules.py`縲・
-generic engine / expression / map infrastructure 縺ｯ螟画峩縺励↑縺・・
+production change の中心は `toda_rules.py`。
+
+generic engine / expression / map infrastructure は変更しない。
+
 ## statement
 
 ### `Toda58WhiteheadSquareUpToSignStatement`
@@ -2883,23 +3124,24 @@ whitehead_square
 positive_value
 ```
 
-諢丞袖:
+意味:
 
 ```text
 whitehead_square
 =
-ﾂｱ positive_value
+± positive_value
 ```
 
 Phase 66 concrete use:
 
 ```text
-[ﾎｹ竄・ﾎｹ竄Ь
+[ι₄,ι₄]
 =
-ﾂｱ(2ﾎｽ竄・Eﾎｽ窶ｲ)
+±(2ν₄-Eν′)
 ```
 
-Phase 52 縺ｮ `TodaPi32WhiteheadSquareUpToSignStatement` 縺ｯ `ﾎｹ竄Ａ branch 蟆ら畑縺ｪ縺ｮ縺ｧ豬∫畑縺励↑縺・・
+Phase 52 の `TodaPi32WhiteheadSquareUpToSignStatement` は `ι₂` branch 専用なので流用しない。
+
 ### `Toda58EquationStatement`
 
 field:
@@ -2911,7 +3153,8 @@ delta_whitehead_relation
 literature_statements
 ```
 
-Equation (5.8) 縺ｮ3陦ｨ遉ｺ繧偵∪縺ｨ繧√ｋ literature-aware aggregate縲・
+Equation (5.8) の3表示をまとめる literature-aware aggregate。
+
 ---
 
 # 27. Phase 66 rule family
@@ -2921,7 +3164,7 @@ Equation (5.8) 縺ｮ3陦ｨ遉ｺ繧偵∪縺ｨ繧√ｋ literature-aware aggr
 input:
 
 ```text
-ﾏ_7^4=Z{ﾎｽ竄м竓瓢/4{Eﾎｽ窶ｲ}
+π_7^4=Z{ν₄}⊕Z/4{Eν′}
 INFERENCE
 ```
 
@@ -2930,15 +3173,15 @@ output:
 ```text
 TodaDeltaImageUpToSignStatement
 
-ﾎ・ﾎｹ竄・=ﾂｱ(2ﾎｽ竄・Eﾎｽ窶ｲ)
+Δ(ι₉)=±(2ν₄-Eν′)
 ```
 
 guard:
 
 ```text
-exact ﾏ_7^4 decomposition
-ﾎｽ竄・free summand
-Eﾎｽ窶ｲ order-4 summand
+exact π_7^4 decomposition
+ν₄ free summand
+Eν′ order-4 summand
 ```
 
 ## `toda_58_whitehead_square_nu_expression_inference_rule()`
@@ -2946,7 +3189,7 @@ Eﾎｽ窶ｲ order-4 summand
 input:
 
 ```text
-Phase 66-3 ﾎ・statement     INFERENCE
+Phase 66-3 Δ statement     INFERENCE
 Phase 60 Whitehead data    INFERENCE
 ```
 
@@ -2955,7 +3198,7 @@ output:
 ```text
 Toda58WhiteheadSquareUpToSignStatement
 
-[ﾎｹ竄・ﾎｹ竄Ь=ﾂｱ(2ﾎｽ竄・Eﾎｽ窶ｲ)
+[ι₄,ι₄]=±(2ν₄-Eν′)
 ```
 
 ## `toda_58_delta_iota9_whitehead_square_inference_rule()`
@@ -2963,8 +3206,8 @@ Toda58WhiteheadSquareUpToSignStatement
 input:
 
 ```text
-ﾎ・ﾎｹ竄・=ﾂｱ(2ﾎｽ竄・Eﾎｽ窶ｲ)          INFERENCE
-[ﾎｹ竄・ﾎｹ竄Ь=ﾂｱ(2ﾎｽ竄・Eﾎｽ窶ｲ)        INFERENCE
+Δ(ι₉)=±(2ν₄-Eν′)          INFERENCE
+[ι₄,ι₄]=±(2ν₄-Eν′)        INFERENCE
 ```
 
 output:
@@ -2972,11 +3215,13 @@ output:
 ```text
 TodaDeltaImageUpToSignStatement
 
-ﾎ・ﾎｹ竄・=ﾂｱ[ﾎｹ竄・ﾎｹ竄Ь
+Δ(ι₉)=±[ι₄,ι₄]
 ```
 
-generic up-to-sign transitivity 縺ｧ縺ｯ縺ｪ縺・・
-guard 縺ｧ concrete Equation (5.8) instance 繧堤｢ｺ隱阪☆繧九・
+generic up-to-sign transitivity ではない。
+
+guard で concrete Equation (5.8) instance を確認する。
+
 ## `toda_58_literature_statements()`
 
 direct literature metadata:
@@ -3034,16 +3279,17 @@ full regression:
 3970 passed in 31.96s
 ```
 
-fixture builder 縺ｧ驥阪＞蜷御ｸ object graph 繧貞・蛻ｩ逕ｨ縺吶ｋ蝣ｴ蜷医・:
+fixture builder で重い同一 object graph を再利用する場合は:
 
 ```python
 @lru_cache(maxsize=1)
 ```
 
-繧貞茜逕ｨ縺吶ｋ縲・
+を利用する。
+
 ---
 
-# 29. Phase 66 莉｣陦ｨ probe
+# 29. Phase 66 代表 probe
 
 ```text
 probes/probe_phase66_capabilities.py
@@ -3055,7 +3301,7 @@ entry:
 python -m probes.probe_phase66_capabilities
 ```
 
-荳ｻ隕・function:
+主要 function:
 
 ```text
 build_phase66_representative_result()
@@ -3076,23 +3322,25 @@ Proof-style derivation
 Provenance / integration
 Literature statements used
 Proof record
-Phase 66 螳御ｺ・｢・阜
+Phase 66 完了境界
 ```
 
-驥崎ｦ・
+重要:
 
 ```text
 print_phase66_derivation_chain()
 = presentation-only
 ```
 
-automatic proof narrative generator 縺ｧ縺ｯ縺ｪ縺・・
+automatic proof narrative generator ではない。
+
 ---
 
 # 30. `docs/proof_records.md`
 
-Phase 66-8 縺九ｉ豁｣蠑丞ｰ主・縲・
-雋ｬ蜍・
+Phase 66-8 から正式導入。
+
+責務:
 
 ```text
 representative theorem / equation
@@ -3105,19 +3353,20 @@ representative probe
 regression status
 ```
 
-譛蛻昴・豁｣蠑・record:
+最初の正式 record:
 
 ```text
 Toda Equation (5.8)
-ﾎ・ﾎｹ竄・=ﾂｱ(2ﾎｽ竄・Eﾎｽ窶ｲ)=ﾂｱ[ﾎｹ竄・ﾎｹ竄Ь
+Δ(ι₉)=±(2ν₄-Eν′)=±[ι₄,ι₄]
 ```
 
-persistent Proof Repository 縺ｧ縺ｯ縺ｪ縺・・
+persistent Proof Repository ではない。
+
 ---
 
-# 31. Phase 66 completion 蠕後↓譛蛻昴↓隕九ｋ蝣ｴ謇
+# 31. Phase 66 completion 後に最初に見る場所
 
-谺｡縺ｮ concrete Toda statement / consequence 縺ｫ騾ｲ繧蜑阪↓:
+次の concrete Toda statement / consequence に進む前に:
 
 ```text
 Toda source material
@@ -3128,7 +3377,7 @@ toda_rules.py
   Toda58EquationStatement
 
 tests/test_phase66_*.py
-  current sign / ﾎ・/ Whitehead boundary
+  current sign / Δ / Whitehead boundary
 
 probes/probe_phase66_capabilities.py
   current proof-style / provenance display
@@ -3137,34 +3386,43 @@ docs/proof_records.md
   current representative proof format
 ```
 
-繧堤｢ｺ隱阪☆繧九・
-Proof Repository 繧貞ｮ溯｣・☆繧句ｴ蜷医・蛻･ Phase 縺ｨ縺励・Phase 66 縺ｮ proof record documentation 縺ｨ豺ｷ蜷後＠縺ｪ縺・・
-蠑輔″邯壹″:
+を確認する。
+
+Proof Repository を実装する場合は別 Phase とし、
+Phase 66 の proof record documentation と混同しない。
+
+引き続き:
 
 ```text
 source statement
-竊・dependency analysis
-竊・迴ｾ蝨ｨ縺ｮ繧ｳ繝ｼ繝・/ related tests
-竊・minimum implementation
+↓
+dependency analysis
+↓
+現在のコード / related tests
+↓
+minimum implementation
 ```
 
-繧堤ｶｭ謖√☆繧九・
+を維持する。
+
 ---
 
-# 32. Phase 67・啜oda Lemma 5.7
+# 32. Phase 67：Toda Lemma 5.7
 
-Phase 67 縺ｮ target:
+Phase 67 の target:
 
 ```text
-Eﾂｲﾎｱ 竏・2ﾎｹ竄・・ﾏ_(i+2)(S竅ｵ)
-竊・E(ﾎｷ竄や・ﾎｱ)=0
+E²α ∈ 2ι₅∘π_(i+2)(S⁵)
+→
+E(η₂∘α)=0
 
-迚ｹ縺ｫ:
-E(ﾎｷ竄や・ﾎｽ窶ｲ)=0
-ﾎ・ﾎｽ竄・=ﾂｱ(ﾎｷ竄や・ﾎｽ窶ｲ)
+特に:
+E(η₂∘ν′)=0
+Δ(ν₅)=±(η₂∘ν′)
 ```
 
-production implementation 縺ｯ `toda_rules.py` 縺ｫ theorem-specific minimum semantics 繧定ｿｽ蜉縺励“eneric inference engine 縺ｯ螟画峩縺励↑縺・・
+production implementation は `toda_rules.py` に theorem-specific minimum semantics を追加し、generic inference engine は変更しない。
+
 ## 32.1 `TodaLemma57TwoIota5ImageMembershipStatement`
 
 field:
@@ -3174,19 +3432,20 @@ element
 source_group
 ```
 
-諢丞袖:
+意味:
 
 ```text
-element 竏・2ﾎｹ竄・・source_group
+element ∈ 2ι₅∘source_group
 ```
 
 Phase 67 concrete use:
 
 ```text
-Eﾂｲﾎｱ 竏・2ﾎｹ竄・・ﾏ_(i+2)(S竅ｵ)
+E²α ∈ 2ι₅∘π_(i+2)(S⁵)
 ```
 
-generic `ImageMembership` / existential witness / image object 縺ｯ霑ｽ蜉縺励↑縺・・
+generic `ImageMembership` / existential witness / image object は追加しない。
+
 ## 32.2 general Lemma 5.7 rule family
 
 ```text
@@ -3198,29 +3457,34 @@ toda_lemma45_n3_suspension_zero_reflection_inference_rule()
 chain:
 
 ```text
-Eﾂｲﾎｱ image hypothesis
-竊・Eﾂｲ(ﾎｷ竄や・ﾎｱ)=ﾎｷ竄・・Eﾂｲﾎｱ
+E²α image hypothesis
+↓
+E²(η₂∘α)=η₄∘E²α
 +
-2ﾎｷ竄・0
-竊・Eﾂｲ(ﾎｷ竄や・ﾎｱ)=0
-竊・E(ﾎｷ竄や・ﾎｱ)=0
+2η₄=0
+↓
+E²(η₂∘α)=0
+↓
+E(η₂∘α)=0
 ```
 
-concrete `ﾎｽ窶ｲ` compatibility 縺ｮ縺溘ａ縲～ﾎｱ竏委_i(Sﾂｳ)` 縺ｮ index `i` 縺ｯ `alpha.source` 縺九ｉ隱ｭ繧縲・
+concrete `ν′` compatibility のため、`α∈π_i(S³)` の index `i` は `alpha.source` から読む。
+
 symbolic branch:
 
 ```text
 alpha.source = i
 ```
 
-concrete ﾎｽ窶ｲ branch:
+concrete ν′ branch:
 
 ```text
 alpha.source = 6
 ```
 
-繧貞酔縺・rule family 縺ｧ謇ｱ縺・・
-## 32.3 ﾎｽ窶ｲ hypothesis bridge
+を同じ rule family で扱う。
+
+## 32.3 ν′ hypothesis bridge
 
 ```text
 toda_lemma57_nu_prime_hypothesis_inference_rule()
@@ -3236,18 +3500,20 @@ TodaNuFamilyDefinitionStatement(n=5)
 uses:
 
 ```text
-2Eﾎｽ竄・Eﾂｲﾎｽ窶ｲ
-ﾎｽ竄・Eﾎｽ竄・```
+2Eν₄=E²ν′
+ν₅=Eν₄
+```
 
 output:
 
 ```text
-Eﾂｲﾎｽ窶ｲ 竏・2ﾎｹ竄・・ﾏ_8(S竅ｵ)
+E²ν′ ∈ 2ι₅∘π_8(S⁵)
 INFERENCE
 ```
 
-ﾎｽ窶ｲ 蟆ら畑縺ｫ general proof 繧定､・｣ｽ縺帙★縲“eneral Lemma 5.7 chain 繧貞・蛻ｩ逕ｨ縺吶ｋ縲・
-## 32.4 `ﾏ_6^2=Z/4{ﾎｷ竄や・ﾎｽ窶ｲ}`
+ν′ 専用に general proof を複製せず、general Lemma 5.7 chain を再利用する。
+
+## 32.4 `π_6^2=Z/4{η₂∘ν′}`
 
 rule:
 
@@ -3265,21 +3531,22 @@ Toda52CompositionIsomorphismStatement INFERENCE
 uses:
 
 ```text
-ﾏ_6^3=Z/4{ﾎｽ窶ｲ}
-ﾎｷ竄や・- : ﾏ_i^3竕・_i^2
+π_6^3=Z/4{ν′}
+η₂∘- : π_i^3≅π_i^2
 ```
 
 output:
 
 ```text
-ﾏ_6^2=Z/4{ﾎｷ竄や・ﾎｽ窶ｲ}
+π_6^2=Z/4{η₂∘ν′}
 INFERENCE
 ```
 
-concrete transport 縺ｮ縺ｿ縺ｫ髯仙ｮ壹＠縲“eneric cyclic-generator transport 縺ｯ霑ｽ蜉縺励↑縺・・
+concrete transport のみに限定し、generic cyclic-generator transport は追加しない。
+
 ## 32.5 `TodaDeltaSurjectiveStatement`
 
-Phase 67-7 縺ｧ霑ｽ蜉縺励◆ Toda-specific map property:
+Phase 67-7 で追加した Toda-specific map property:
 
 ```text
 TodaDeltaSurjectiveStatement
@@ -3291,7 +3558,8 @@ field:
 map: TodaDeltaMap
 ```
 
-譌｢蟄・`TodaDeltaInjectiveStatement` 縺ｨ蜷後§ theorem-specific level 縺ｧ ﾎ・縺ｮ surjectivity 繧剃ｿ晄戟縺吶ｋ縲・
+既存 `TodaDeltaInjectiveStatement` と同じ theorem-specific level で Δ の surjectivity を保持する。
+
 ## 32.6 concrete Toda (4.4) exactness
 
 ```text
@@ -3301,7 +3569,7 @@ toda_lemma57_concrete_delta_e_exactness_inference_rule()
 recognizes exactly:
 
 ```text
-ﾏ_8^5 笏ﾎ披・ ﾏ_6^2 笏E竊・ﾏ_7^3
+π_8^5 ─Δ→ π_6^2 ─E→ π_7^3
 ```
 
 and derives:
@@ -3310,8 +3578,9 @@ and derives:
 TodaProp42ExactnessStatement
 ```
 
-譌｢蟄・symbolic `toda_prop42_delta_e_exactness_inference_rule()` 縺ｯ螟画峩縺励↑縺・・
-## 32.7 ﾎ・surjectivity
+既存 symbolic `toda_prop42_delta_e_exactness_inference_rule()` は変更しない。
+
+## 32.7 Δ surjectivity
 
 ```text
 toda_lemma57_delta_surjective_inference_rule()
@@ -3320,8 +3589,8 @@ toda_lemma57_delta_surjective_inference_rule()
 input:
 
 ```text
-E(ﾎｷ竄や・ﾎｽ窶ｲ)=0                          INFERENCE
-ﾏ_6^2=Z/4{ﾎｷ竄や・ﾎｽ窶ｲ}                    INFERENCE
+E(η₂∘ν′)=0                          INFERENCE
+π_6^2=Z/4{η₂∘ν′}                    INFERENCE
 concrete Toda (4.4) exactness        INFERENCE
 ```
 
@@ -3332,8 +3601,9 @@ TodaDeltaSurjectiveStatement
 INFERENCE
 ```
 
-concrete cyclic target 縺ｫ髯仙ｮ壹＠縲“eneric `generator maps to zero 竊・map zero` solver 縺ｯ霑ｽ蜉縺励↑縺・・
-## 32.8 `ﾎ・ﾎｽ竄・=ﾂｱ(ﾎｷ竄や・ﾎｽ窶ｲ)`
+concrete cyclic target に限定し、generic `generator maps to zero → map zero` solver は追加しない。
+
+## 32.8 `Δ(ν₅)=±(η₂∘ν′)`
 
 ```text
 toda_lemma57_delta_nu5_generator_inference_rule()
@@ -3342,35 +3612,37 @@ toda_lemma57_delta_nu5_generator_inference_rule()
 input:
 
 ```text
-ﾎ・surjective                         INFERENCE
-ﾏ_6^2=Z/4{ﾎｷ竄や・ﾎｽ窶ｲ}                    INFERENCE
+Δ surjective                         INFERENCE
+π_6^2=Z/4{η₂∘ν′}                    INFERENCE
 Toda Proposition 5.6 aggregate      INFERENCE
 ```
 
-Phase 65 aggregate 縺九ｉ:
+Phase 65 aggregate から:
 
 ```text
-ﾏ_8^5=Z/8{ﾎｽ竄・
+π_8^5=Z/8{ν₅}
 ```
 
-繧貞茜逕ｨ縺吶ｋ縲・
-canonical `ﾎｽ竄・ validation 縺ｯ:
+を利用する。
+
+canonical `ν₅` validation は:
 
 ```text
 toda_nu_family_definition_statement(5).element
 ```
 
-繧貞・蛻ｩ逕ｨ縺吶ｋ縲・
+を再利用する。
+
 output:
 
 ```text
 TodaDeltaImageUpToSignStatement
-ﾎ・ﾎｽ竄・=ﾂｱ(ﾎｷ竄や・ﾎｽ窶ｲ)
+Δ(ν₅)=±(η₂∘ν′)
 ```
 
 ## 32.9 Phase 67 tests
 
-荳ｻ隕・tests:
+主要 tests:
 
 ```text
 tests/test_phase67_lemma57_hypothesis_statement.py
@@ -3383,15 +3655,17 @@ tests/test_phase67_lemma57_applicability_provenance.py
 tests/test_phase67_probe.py
 ```
 
-heavy representative builders 縺ｯ蠢・ｦ√↓蠢懊§縺ｦ:
+heavy representative builders は必要に応じて:
 
 ```python
 @lru_cache(maxsize=1)
 ```
 
-縺ｧ蜷御ｸ object graph 繧貞・蛻ｩ逕ｨ縺吶ｋ縲・
-Phase 67-8 縺ｯ production code 繧貞､画峩縺帙★縲∥ncestor reachability / acyclicity / Phase 66 independence 繧・regression 縺ｧ蝗ｺ螳壹☆繧九・
-## 32.10 莉｣陦ｨ probe
+で同一 object graph を再利用する。
+
+Phase 67-8 は production code を変更せず、ancestor reachability / acyclicity / Phase 66 independence を regression で固定する。
+
+## 32.10 代表 probe
 
 module:
 
@@ -3405,7 +3679,7 @@ entry:
 python -m probes.probe_phase67_capabilities
 ```
 
-荳ｻ隕・function:
+主要 function:
 
 ```text
 build_phase67_representative_result()
@@ -3424,8 +3698,10 @@ focused end-to-end builder:
 build_phase67_7_data()
 ```
 
-繧貞・蛻ｩ逕ｨ縺励｝robe 蛛ｴ縺ｫ theorem inference 繧定､・｣ｽ縺励↑縺・・
-`print_phase67_derivation_chain()` 縺ｯ presentation-only縲Ｂutomatic proof narrative generator 縺ｧ縺ｯ縺ｪ縺・・
+を再利用し、probe 側に theorem inference を複製しない。
+
+`print_phase67_derivation_chain()` は presentation-only。automatic proof narrative generator ではない。
+
 ## 32.11 Phase 67 completion regression
 
 ```text
@@ -3435,13 +3711,13 @@ repository-wide: 4102 passed in 32.75s
 
 ---
 
-# 33. Phase 67 completion 蠕後↓譛蛻昴↓隕九ｋ蝣ｴ謇
+# 33. Phase 67 completion 後に最初に見る場所
 
-谺｡縺ｮ concrete Toda statement 縺ｫ騾ｲ繧蜑阪↓:
+次の concrete Toda statement に進む前に:
 
 ```text
 Toda source material
-  Lemma 5.7 蠕後・ statement / proof / locator
+  Lemma 5.7 後の statement / proof / locator
 
 toda_rules.py
   Phase 67 Lemma 5.7 rule family
@@ -3457,9 +3733,10 @@ docs/proof_records.md
   Toda Lemma 5.7 record
 ```
 
-Phase 68 縺ｯ source statement 繧堤｢ｺ隱阪＠縺ｦ target 繧堤｢ｺ螳壹☆繧九・---
+Phase 68 は source statement を確認して target を確定する。
+---
 
-# 34. Phase 68・啜oda Proposition 5.8 譛蛾剞谺｡蜈・branch
+# 34. Phase 68：Toda Proposition 5.8 有限次元 branch
 
 Phase 68 final aggregate:
 
@@ -3467,7 +3744,7 @@ Phase 68 final aggregate:
 TodaProp58FiniteDimensionalStatement
 ```
 
-菫晄戟:
+保持:
 
 ```text
 pi6_2_group_relation
@@ -3479,56 +3756,61 @@ higher_range
 literature_statements
 ```
 
-譛邨・capability:
+最終 capability:
 
 ```text
-ﾏ_6^2=Z/4{ﾎｷ竄ばｽ窶ｲ}
-ﾏ_7^3=Z/2{ﾎｽ窶ｲﾎｷ竄・
-ﾏ_8^4=Z/2{ﾎｽ竄・ｷ竄・竓瓢/2{Eﾎｽ窶ｲﾎｷ竄・
-ﾏ_9^5=Z/2{ﾎｽ竄・ｷ竄・
-ﾏ_(n+4)^n=0, n竕･6
+π_6^2=Z/4{η₂ν′}
+π_7^3=Z/2{ν′η₆}
+π_8^4=Z/2{ν₄η₇}⊕Z/2{Eν′η₇}
+π_9^5=Z/2{ν₅η₈}
+π_(n+4)^n=0, n≥6
 ```
 
-stable `(G_4;2)=0` 縺ｯ菫晄戟縺励↑縺・・
+stable `(G_4;2)=0` は保持しない。
+
 ---
 
-# 35. Phase 68 ﾏ_7^3 / ﾏ_8^4 branch
+# 35. Phase 68 π_7^3 / π_8^4 branch
 
-荳ｻ隕・rule:
+主要 rule:
 
 ```text
 toda_prop58_e_nu_prime_eta6_bridge_inference_rule()
 toda_prop58_pi8_4_decomposition_inference_rule()
 ```
 
-ﾏ_7^3 branch 縺ｯ Phase 67 `ﾏ_6^2` 縺ｨ Phase 65 Equation (5.7) 繧呈磁邯壹＠:
+π_7^3 branch は Phase 67 `π_6^2` と Phase 65 Equation (5.7) を接続し:
 
 ```text
-H:ﾏ_7^3竊佃_7^5 isomorphism
-ﾏ_7^3=Z/2{ﾎｽ窶ｲﾎｷ竄・
+H:π_7^3→π_7^5 isomorphism
+π_7^3=Z/2{ν′η₆}
 ```
 
-繧貞ｰ主・縺吶ｋ縲・
-ﾏ_8^4 branch:
+を導出する。
+
+π_8^4 branch:
 
 ```text
 Toda (5.6), i=8
 +
-ﾏ_7^3
+π_7^3
 +
-ﾏ_8^7
+π_8^7
 +
-E(ﾎｽ窶ｲﾎｷ竄・=Eﾎｽ窶ｲﾎｷ竄・竊・ﾏ_8^4
+E(ν′η₆)=Eν′η₇
+↓
+π_8^4
 =
-Z/2{ﾎｽ竄・ｷ竄・
-竓・Z/2{Eﾎｽ窶ｲﾎｷ竄・
+Z/2{ν₄η₇}
+⊕
+Z/2{Eν′η₇}
 ```
 
 ---
 
-# 36. Phase 68 ﾎ・ﾎｷ竄・ / ﾏ_9^5
+# 36. Phase 68 Δ(η₉) / π_9^5
 
-荳ｻ隕・rule:
+主要 rule:
 
 ```text
 toda_prop25_delta_eta9_composition_inference_rule()
@@ -3542,21 +3824,23 @@ toda_prop58_e_nu4_eta7_bridge_inference_rule()
 toda_prop58_pi9_5_finite_cyclic_inference_rule()
 ```
 
-荳ｻ隕・result:
+主要 result:
 
 ```text
-ﾎ・ﾎｷ竄・=Eﾎｽ窶ｲﾎｷ竄・
-ﾏ_9^5
+Δ(η₉)=Eν′η₇
+
+π_9^5
 =
-Z/2{ﾎｽ竄・ｷ竄・
+Z/2{ν₅η₈}
 ```
 
-generic quotient solver / cyclic-image solver 縺ｯ霑ｽ蜉縺励※縺・↑縺・・
+generic quotient solver / cyclic-image solver は追加していない。
+
 ---
 
 # 37. Phase 68 Toda (5.9) / zero-composition family
 
-荳ｻ隕・rule:
+主要 rule:
 
 ```text
 toda_prop58_eta3_nu4_hopf_inference_rule()
@@ -3574,56 +3858,63 @@ toda_prop58_higher_nu_eta_zero_inference_rule()
 result:
 
 ```text
-ﾎｷ竄πｽ竄・ﾎｽ窶ｲﾎｷ竄・
-ﾎｷ_nﾎｽ_(n+1)=0
-n竕･5
+η₃ν₄=ν′η₆
 
-ﾎｽ_nﾎｷ_(n+3)=0
-n竕･6
+η_nν_(n+1)=0
+n≥5
+
+ν_nη_(n+3)=0
+n≥6
 ```
 
-Barratt-Hilton raw sign formula 縺ｯ literal equality 縺ｸ generic normalize 縺励↑縺・・
-zero conclusion 縺ｮ縺溘ａ縺ｫ蠢・ｦ√↑ narrow consequence 縺ｮ縺ｿ繧貞ｮ溯｣・☆繧九・
+Barratt-Hilton raw sign formula は literal equality へ generic normalize しない。
+
+zero conclusion のために必要な narrow consequence のみを実装する。
+
 ---
 
 # 38. Phase 68 shifted-family / name boundary
 
-`TodaEtaFamilyDefinitionStatement` 縺ｮ helper:
+`TodaEtaFamilyDefinitionStatement` の helper:
 
 ```text
 toda_eta_family_definition_statement()
 ```
 
-縺ｯ 迴ｾ蝨ｨ縺ｮ API 縺ｨ縺励※:
+は 現在の API として:
 
 ```text
 int
 ScalarSymbol
 ```
 
-繧・index 縺ｫ蜿励￠繧九・
-Phase 68 縺ｧ縺ｯ:
+を index に受ける。
+
+Phase 68 では:
 
 ```text
-ﾎｷ_(n+3)
+η_(n+3)
 ```
 
-繧貞ｿ・ｦ√↑ theorem-specific rule 蜀・〒螻謇讒区・縺吶ｋ縲・
-霑ｽ蜉縺励↑縺・
+を必要な theorem-specific rule 内で局所構成する。
+
+追加しない:
 
 ```text
 generic ScalarExpression-index family helper
 generic shifted-family constructor
 ```
 
-縺ｾ縺・concrete family 縺ｮ display name:
+また concrete family の display name:
 
 ```text
-ﾎｷ竄・ﾎｷ_8
+η₈
+η_8
 ```
 
-縺ｯ structural equality 荳雁酔縺倥〒縺ｯ縺ｪ縺・・
-Phase 68-10 縺ｧ縺ｯ upstream generator object 繧貞・蛻ｩ逕ｨ縺・
+は structural equality 上同じではない。
+
+Phase 68-10 では upstream generator object を再利用し:
 
 ```text
 dimension
@@ -3632,12 +3923,13 @@ target
 GeneratorSymbol
 ```
 
-縺ｧ identity 繧呈､懆ｨｼ縺吶ｋ縲・
+で identity を検証する。
+
 ---
 
-# 39. Phase 68 ﾏ_10^6 / higher four-stem zero
+# 39. Phase 68 π_10^6 / higher four-stem zero
 
-荳ｻ隕・rule:
+主要 rule:
 
 ```text
 toda_prop58_pi10_6_concrete_exactness_inference_rule()
@@ -3649,20 +3941,25 @@ toda_prop58_higher_four_stem_zero_transport_inference_rule()
 chain:
 
 ```text
-ﾏ_9^5 --E--> ﾏ_10^6 --H--> ﾏ_10^11=0
-竊・E surjective
+π_9^5 --E--> π_10^6 --H--> π_10^11=0
+↓
+E surjective
 
-ﾏ_9^5=Z/2{ﾎｽ竄・ｷ竄・
-ﾎｽ竄・ｷ竄・0
-竊・ﾏ_10^6=0
+π_9^5=Z/2{ν₅η₈}
+ν₆η₉=0
+↓
+π_10^6=0
 
 Toda (4.5)
-E^(n-6):ﾏ_10^6竕・_(n+4)^n
-竊・ﾏ_(n+4)^n=0
+E^(n-6):π_10^6≅π_(n+4)^n
+↓
+π_(n+4)^n=0
 ```
 
-`ﾏ_10^11=0` 縺ｯ foundational `GIVEN`縲・
-generic zero-group solver / generic isomorphism transport 縺ｯ霑ｽ蜉縺励↑縺・・
+`π_10^11=0` は foundational `GIVEN`。
+
+generic zero-group solver / generic isomorphism transport は追加しない。
+
 ---
 
 # 40. Phase 68 aggregate / literature
@@ -3683,12 +3980,12 @@ toda_prop58_finite_dimensional_integration_inference_rule()
 premises:
 
 ```text
-ﾏ_6^2 relation      INFERENCE
-ﾏ_7^3 relation      INFERENCE
-ﾏ_8^4 relation      INFERENCE
-ﾏ_9^5 relation      INFERENCE
+π_6^2 relation      INFERENCE
+π_7^3 relation      INFERENCE
+π_8^4 relation      INFERENCE
+π_9^5 relation      INFERENCE
 higher zero         INFERENCE
-n竕･6                 GIVEN
+n≥6                 GIVEN
 ```
 
 final:
@@ -3712,7 +4009,7 @@ Composition Methods in Homotopy Groups of Spheres
 
 # 41. Phase 68 test builders
 
-荳ｻ隕・builder:
+主要 builder:
 
 ```text
 tests/test_phase68_pi7_3_nu_prime_eta6.py
@@ -3746,16 +4043,17 @@ tests/test_phase68_applicability_provenance.py
   build_phase68_12_data()
 ```
 
-heavy / nested builder 縺ｯ蠢・ｦ√↓蠢懊§縺ｦ:
+heavy / nested builder は必要に応じて:
 
 ```python
 @lru_cache(maxsize=1)
 ```
 
-縺ｧ蜷御ｸ process 蜀・・ object graph 繧貞・蛻ｩ逕ｨ縺吶ｋ縲・
+で同一 process 内の object graph を再利用する。
+
 ---
 
-# 42. Phase 68 莉｣陦ｨ probe
+# 42. Phase 68 代表 probe
 
 module:
 
@@ -3763,7 +4061,7 @@ module:
 probes/probe_phase68_capabilities.py
 ```
 
-荳ｻ隕・function:
+主要 function:
 
 ```text
 build_phase68_representative_result()
@@ -3782,7 +4080,8 @@ representative fixture:
 build_phase68_11_data()
 ```
 
-繧貞・蛻ｩ逕ｨ縺吶ｋ縲・
+を再利用する。
+
 probe test:
 
 ```text
@@ -3799,7 +4098,8 @@ Literature statements used
 Boundary
 ```
 
-proof-style derivation 縺ｯ hand-authored presentation-only縲・
+proof-style derivation は hand-authored presentation-only。
+
 ---
 
 # 43. Phase 68 provenance regression
@@ -3810,26 +4110,26 @@ module:
 tests/test_phase68_applicability_provenance.py
 ```
 
-荳ｻ隕・helper:
+主要 helper:
 
 ```text
 collect_ancestor_steps()
 build_phase68_12_data()
 ```
 
-遒ｺ隱・
+確認:
 
 ```text
 aggregate INFERENCE
 five branches INFERENCE
-n竕･6 GIVEN
+n≥6 GIVEN
 
 final graph acyclic
 final conclusion absent from ancestors
 branches do not depend on final
 
 Phase 66 dependency only where needed
-Toda (5.9) does not flow backward into ﾏ_7^3
+Toda (5.9) does not flow backward into π_7^3
 ```
 
 ---
@@ -3855,21 +4155,22 @@ repository-wide:
 4343 passed in 28.06s
 ```
 
-Phase 64 performance stabilization level 繧堤ｶｭ謖√・
+Phase 64 performance stabilization level を維持。
+
 ---
 
-# 45. Phase 68 completion 蠕後↓譛蛻昴↓隕九ｋ蝣ｴ謇
+# 45. Phase 68 completion 後に最初に見る場所
 
-谺｡縺ｮ concrete Toda statement 縺ｫ騾ｲ繧蜑阪↓:
+次の concrete Toda statement に進む前に:
 
 ```text
 Toda source material
-  Proposition 5.8 蠕後・ statement / proof / locator
+  Proposition 5.8 後の statement / proof / locator
   candidate: Toda (5.10)
 
 toda_rules.py
   Phase 68 Proposition 5.8 rule family
-  ﾎ・ﾎｷ竄・, Toda (5.9), zero-composition rules
+  Δ(η₉), Toda (5.9), zero-composition rules
 
 tests/test_phase68_*.py
   current applicability / provenance boundary
@@ -3881,32 +4182,33 @@ docs/proof_records.md
   Toda Proposition 5.8 record
 ```
 
-Phase 69 縺ｯ source statement / dependency / representation compatibility 繧堤｢ｺ隱阪＠縺ｦ縺九ｉ螳溯｣・☆繧九・
+Phase 69 は source statement / dependency / representation compatibility を確認してから実装する。
+
 ---
 
-# 46. Phase 69 concrete exactness / ﾎ・surjectivity
+# 46. Phase 69 concrete exactness / Δ-surjectivity
 
-霑ｽ蜉 rule:
+追加 rule:
 
 ```text
 toda_eq510_concrete_delta_e_exactness_inference_rule()
 toda_eq510_delta_surjective_inference_rule()
 ```
 
-蟇ｾ雎｡:
+対象:
 
 ```text
-ﾏ_11^11 --ﾎ・-> ﾏ_9^5 --E--> ﾏ_10^6
+π_11^11 --Δ--> π_9^5 --E--> π_10^6
 ```
 
-邨先棡:
+結果:
 
 ```text
 TodaProp42ExactnessStatement
 INFERENCE
 
 TodaDeltaSurjectiveStatement(
-  map=ﾎ・ﾏ_11^11竊佃_9^5
+  map=Δ:π_11^11→π_9^5
 )
 INFERENCE
 ```
@@ -3918,7 +4220,7 @@ tests/test_phase69_delta_surjectivity.py
   build_phase69_2_data()
 ```
 
-驥崎ｦ・key:
+重要 key:
 
 ```text
 pi10_6_zero_step
@@ -3927,12 +4229,13 @@ exactness_step
 surjective_step
 ```
 
-`pi10_6_zero_step` 縺ｯ Phase 68-10 derived object 繧堤峩謗･蜀榊茜逕ｨ縺吶ｋ縲・
+`pi10_6_zero_step` は Phase 68-10 derived object を直接再利用する。
+
 ---
 
 # 47. Phase 69 Toda Equation (5.10)
 
-霑ｽ蜉 rule:
+追加 rule:
 
 ```text
 toda_eq510_delta_iota11_inference_rule()
@@ -3942,16 +4245,16 @@ premises:
 
 ```text
 TodaDeltaSurjectiveStatement  INFERENCE
-ﾏ_11^11=Z{ﾎｹ竄≫ａ}               GIVEN
-ﾏ_9^5=Z/2{ﾎｽ竄・ｷ竄・              INFERENCE
+π_11^11=Z{ι₁₁}               GIVEN
+π_9^5=Z/2{ν₅η₈}              INFERENCE
 ```
 
 conclusion:
 
 ```text
 Relation(
-  lhs=ﾎ・ﾎｹ竄≫ａ),
-  rhs=ﾎｽ竄・ｷ竄・
+  lhs=Δ(ι₁₁),
+  rhs=ν₅η₈,
   relation_type=EQUALITY,
 )
 ```
@@ -3963,7 +4266,7 @@ tests/test_phase69_delta_iota11.py
   build_phase69_3_data()
 ```
 
-驥崎ｦ・key:
+重要 key:
 
 ```text
 delta_surjective_step
@@ -3974,7 +4277,8 @@ nu5_eta8
 final_step
 ```
 
-target generator 縺ｯ Phase 68-6 `ﾏ_9^5` derived object 繧堤峩謗･蜀榊茜逕ｨ縺吶ｋ縲・
+target generator は Phase 68-6 `π_9^5` derived object を直接再利用する。
+
 ---
 
 # 48. Phase 69 provenance
@@ -3997,7 +4301,7 @@ helper:
 collect_ancestor_steps()
 ```
 
-遒ｺ隱・
+確認:
 
 ```text
 final direct premises exact
@@ -4009,7 +4313,7 @@ Phase 68 aggregate absent
 
 ---
 
-# 49. Phase 69 莉｣陦ｨ probe
+# 49. Phase 69 代表 probe
 
 module:
 
@@ -4035,7 +4339,7 @@ probe test:
 tests/test_phase69_probe.py
 ```
 
-陦ｨ遉ｺ:
+表示:
 
 ```text
 Toda Equation (5.10) result
@@ -4068,16 +4372,17 @@ repository-wide:
 4422 passed in 30.54s
 ```
 
-Phase 64 performance stabilization level 繧堤ｶｭ謖√・
+Phase 64 performance stabilization level を維持。
+
 ---
 
-# 51. Phase 69 completion 蠕後↓譛蛻昴↓隕九ｋ蝣ｴ謇
+# 51. Phase 69 completion 後に最初に見る場所
 
-谺｡縺ｮ concrete Toda statement 縺ｫ騾ｲ繧蜑阪↓:
+次の concrete Toda statement に進む前に:
 
 ```text
 Toda source material
-  Equation (5.10) 蠕後・ statement / proof / locator
+  Equation (5.10) 後の statement / proof / locator
 
 toda_rules.py
   toda_eq510_* rule family
@@ -4092,14 +4397,17 @@ docs/proof_records.md
   Toda Equation (5.10) record
 ```
 
-豕ｨ諢・
+注意:
 
 ```text
 Toda (5.11)
-ﾎ・ﾎｷ竄・=Eﾎｽ窶ｲﾎｷ竄・```
+Δ(η₉)=Eν′η₇
+```
 
-縺ｯ Phase 68 縺ｧ譌｢縺ｫ螳溯｣・ｸ医∩縲・
-Phase 70 縺ｯ縺昴・谺｡縺ｮ concrete source consequence 繧・source/dependency analysis 縺励※縺九ｉ螳溯｣・☆繧九・
+は Phase 68 で既に実装済み。
+
+Phase 70 はその次の concrete source consequence を source/dependency analysis してから実装する。
+
 ---
 
 # 52. Phase 70 Toda Proposition 5.9
@@ -4125,12 +4433,12 @@ TodaDeltaKernelFreeCyclicStatement
 final result:
 
 ```text
-ﾏ_7^2=Z/2{ﾎｷ竄ばｽ窶ｲﾎｷ竄・
-ﾏ_8^3=Z/2{ﾎｽ窶ｲﾎｷ竄・ｲ}
-ﾏ_9^4=Z/2{ﾎｽ竄・ｷ竄・ｲ}竓瓢/2{Eﾎｽ窶ｲﾎｷ竄・ｲ}
-ﾏ_10^5=Z/2{ﾎｽ竄・ｷ竄按ｲ}
-ﾏ_11^6=Z{ﾎ釆ｹ竄≫ｃ}
-ﾏ_(n+5)^n=0, n竕･7
+π_7^2=Z/2{η₂ν′η₆}
+π_8^3=Z/2{ν′η₆²}
+π_9^4=Z/2{ν₄η₇²}⊕Z/2{Eν′η₇²}
+π_10^5=Z/2{ν₅η₈²}
+π_11^6=Z{Δι₁₃}
+π_(n+5)^n=0, n≥7
 ```
 
 ---
@@ -4179,20 +4487,22 @@ delta_iota11_step
 results:
 
 ```text
-E(ﾎｽ竄・ｷ竄按ｲ)=0
-ﾎ・ﾎｷ竄≫ａ)=ﾎｽ竄・ｷ竄按ｲ
+E(ν₅η₈²)=0
+Δ(η₁₁)=ν₅η₈²
 ```
 
 important compatibility boundary:
 
 ```text
-ﾎｷ_9
-ﾎｷ竄・```
+η_9
+η₉
+```
 
-縺ｮ display-name equality 繧・mathematical identity 蛻､螳壹↓菴ｿ繧上↑縺・・
+の display-name equality を mathematical identity 判定に使わない。
+
 ---
 
-# 55. Phase 70-8 ﾏ_11^6
+# 55. Phase 70-8 π_11^6
 
 file:
 
@@ -4228,7 +4538,7 @@ final_step
 result:
 
 ```text
-ﾏ_11^6=Z{ﾎ釆ｹ竄≫ｃ}
+π_11^6=Z{Δι₁₃}
 ```
 
 new statement:
@@ -4240,10 +4550,11 @@ TodaDeltaKernelFreeCyclicStatement
 non-circular boundary:
 
 ```text
-ﾏ_12^7=0
+π_12^7=0
 ```
 
-縺ｯ prerequisite 縺ｧ縺ｯ縺ｪ縺・・
+は prerequisite ではない。
+
 ---
 
 # 56. Phase 70-9 higher five-stem zero
@@ -4278,9 +4589,9 @@ higher_zero_step
 results:
 
 ```text
-ﾏ_12^7=0
-ﾏ_(n+5)^n=0
-(n竕･7)
+π_12^7=0
+π_(n+5)^n=0
+(n≥7)
 ```
 
 Toda (4.5) is reused for the higher transport.
@@ -4338,7 +4649,7 @@ direct provenance:
 
 ```text
 six mathematical branch steps INFERENCE
-n竕･7 GIVEN
+n≥7 GIVEN
 aggregate INFERENCE
 ```
 
@@ -4390,19 +4701,19 @@ branches do not depend on aggregate
 dependency ordering:
 
 ```text
-ﾏ_7^2
-竊・ﾏ_8^3
-竊・ﾏ_9^4
-竊・ﾏ_10^5
-竊・ﾏ_11^6
-竊・higher zero
+π_7^2
+→ π_8^3
+→ π_9^4
+→ π_10^5
+→ π_11^6
+→ higher zero
 ```
 
 later supporting results are regression-tested not to flow backward.
 
 ---
 
-# 59. Phase 70-12 莉｣陦ｨ probe
+# 59. Phase 70-12 代表 probe
 
 module:
 
@@ -4478,13 +4789,13 @@ Phase 64 performance stabilization level is retained.
 
 ---
 
-# 61. Phase 70 completion 蠕後↓譛蛻昴↓隕九ｋ蝣ｴ謇
+# 61. Phase 70 completion 後に最初に見る場所
 
-谺｡縺ｮ concrete Toda statement 縺ｫ騾ｲ繧蜑阪↓:
+次の concrete Toda statement に進む前に:
 
 ```text
 Toda source material
-  Proposition 5.9 蠕後・ statement / proof / locator
+  Proposition 5.9 後の statement / proof / locator
 
 toda_rules.py
   toda_prop59_* rule family
@@ -4499,16 +4810,20 @@ docs/proof_records.md
   Toda Proposition 5.9 record
 ```
 
-Phase 71 縺ｯ:
+Phase 71 は:
 
 ```text
 source statement
-竊・dependency analysis
-竊・迴ｾ蝨ｨ縺ｮ陦ｨ迴ｾ compatibility
-竊・minimum implementation
+↓
+dependency analysis
+↓
+現在の表現 compatibility
+↓
+minimum implementation
 ```
 
-縺九ｉ髢句ｧ九☆繧九・
+から開始する。
+
 ---
 
 # 62. Phase 71 Toda (5.12) concrete injectivity rules
@@ -4542,42 +4857,42 @@ toda_512_n6_delta_injective_inference_rule()
 ## n=4
 
 ```text
-ﾎ・ﾏ_11^9竊佃_9^4
+Δ:π_11^9→π_9^4
 ```
 
 requires:
 
 ```text
-ﾎ・ﾎｷ竄可ｲ)=Eﾎｽ窶ｲﾎｷ竄・ｲ
-ﾏ_9^4=Z/2{ﾎｽ竄・ｷ竄・ｲ}竓瓢/2{Eﾎｽ窶ｲﾎｷ竄・ｲ}
-Toda Proposition 5.3 higher ﾎｷ-square family
+Δ(η₉²)=Eν′η₇²
+π_9^4=Z/2{ν₄η₇²}⊕Z/2{Eν′η₇²}
+Toda Proposition 5.3 higher η-square family
 ```
 
 ## n=5
 
 ```text
-ﾎ・ﾏ_12^11竊佃_10^5
+Δ:π_12^11→π_10^5
 ```
 
 requires:
 
 ```text
-ﾎ・ﾎｷ竄≫ａ)=ﾎｽ竄・ｷ竄按ｲ
-ﾏ_10^5=Z/2{ﾎｽ竄・ｷ竄按ｲ}
-Toda Proposition 5.1 higher ﾎｷ-family
+Δ(η₁₁)=ν₅η₈²
+π_10^5=Z/2{ν₅η₈²}
+Toda Proposition 5.1 higher η-family
 ```
 
 ## n=6
 
 ```text
-ﾎ・ﾏ_13^13竊佃_11^6
+Δ:π_13^13→π_11^6
 ```
 
 requires:
 
 ```text
-ﾏ_13^13=Z{ﾎｹ竄≫ｃ}
-ﾏ_11^6=Z{ﾎ釆ｹ竄≫ｃ}
+π_13^13=Z{ι₁₃}
+π_11^6=Z{Δι₁₃}
 ```
 
 No generic cyclic-map or free-cyclic map injectivity solver is introduced.
@@ -4681,7 +4996,7 @@ GIVEN / INFERENCE boundary
 
 ---
 
-# 65. Phase 71 莉｣陦ｨ probe
+# 65. Phase 71 代表 probe
 
 module:
 
@@ -4750,9 +5065,9 @@ Phase 64 performance stabilization level is retained.
 
 ---
 
-# 67. Phase 71 completion 蠕後↓譛蛻昴↓隕九ｋ蝣ｴ謇
+# 67. Phase 71 completion 後に最初に見る場所
 
-Phase 72 Toda Lemma 5.10 縺ｫ騾ｲ繧蜑阪↓:
+Phase 72 Toda Lemma 5.10 に進む前に:
 
 ```text
 Toda source material
@@ -4784,10 +5099,14 @@ Phase 72 starts with:
 
 ```text
 source statement
-竊・dependency analysis
-竊・TodaBracket + modulo/coset compatibility
-竊・minimum representation
-竊・minimum inference
+↓
+dependency analysis
+↓
+TodaBracket + modulo/coset compatibility
+↓
+minimum representation
+↓
+minimum inference
 ```
 
 Do not introduce generic bracket-coset algebra before the concrete Lemma 5.10 need is confirmed.
@@ -4796,7 +5115,8 @@ Do not introduce generic bracket-coset algebra before the concrete Lemma 5.10 ne
 
 # 68. Phase 72 statement structures
 
-`toda_rules.py` 縺ｫ Phase 72 concrete statements 繧定ｿｽ蜉縲・
+`toda_rules.py` に Phase 72 concrete statements を追加。
+
 ```text
 TodaLemma510BracketModuloStatement
 TodaLemma510HopfBracketContainsStatement
@@ -4816,34 +5136,35 @@ modulus
 concrete meaning:
 
 ```text
-ﾎ・ﾎｹ竄≫ｃ)竏・ﾎｽ竄・ﾎｷ竄・2ﾎｹ竄≫・} mod 2ﾏ竄≫ａ(S竅ｶ)
+Δ(ι₁₃)∈{ν₆,η₉,2ι₁₀} mod 2π₁₁(S⁶)
 ```
 
 `TodaLemma510HopfBracketContainsStatement`:
 
 ```text
-H{ﾎｽ竄・ﾎｷ竄・2ﾎｹ竄≫・} contains 2ﾎｹ竄≫ａ
+H{ν₆,η₉,2ι₁₀} contains 2ι₁₁
 ```
 
 `TodaLemma510BracketPlusSuspensionImageStatement`:
 
 ```text
-ﾎ釆ｹ竄≫ｃ竏・ﾎｽ竄・ﾎｷ竄・2ﾎｹ竄≫・}+Eﾏ竄≫・(S竅ｵ)
+Δι₁₃∈{ν₆,η₉,2ι₁₀}+Eπ₁₀(S⁵)
 ```
 
 `TodaLemma510SuspensionImageInDoubleStatement`:
 
 ```text
-Im(E:ﾏ竄≫・竅ｵ竊佃竄≫ａ竅ｶ)竓・ﾏ竄≫ａ竅ｶ
+Im(E:π₁₀⁵→π₁₁⁶)⊂2π₁₁⁶
 ```
 
-Phase 60 縺ｮ譌｢蟄・
+Phase 60 の既存:
 
 ```text
 Toda54IndeterminacyGeneratorStatement
 ```
 
-繧貞・蛻ｩ逕ｨ縺励※ bracket indeterminacy generator 繧剃ｿ晄戟縺吶ｋ縲・
+を再利用して bracket indeterminacy generator を保持する。
+
 ---
 
 # 69. Phase 72 inference rules
@@ -4866,27 +5187,33 @@ toda_lemma510_modulo_integration_inference_rule()
 core dependency:
 
 ```text
-ﾎ・ﾎｹ竄≫ａ)=ﾎｽ竄・ｷ竄・竊・H(bracket) contains 2ﾎｹ竄≫ａ
+Δ(ι₁₁)=ν₅η₈
+↓
+H(bracket) contains 2ι₁₁
 
-H(ﾎ釆ｹ竄≫ｃ)=ﾂｱ2ﾎｹ竄≫ａ
+H(Δι₁₃)=±2ι₁₁
 E-H exactness
-竊・ﾎ釆ｹ竄≫ｃ竏・racket+Eﾏ竄≫・(S竅ｵ)
+↓
+Δι₁₃∈bracket+Eπ₁₀(S⁵)
 ```
 
 modulo dependency:
 
 ```text
-ﾏ竄≫ａ竅ｹ=Z/2{ﾎｷ竄可ｲ}
-ﾎｽ竄・ｷ竄・0
-ﾏ竄≫ａ竅ｶ=Z{ﾎ釆ｹ竄≫ｃ}
-竊・Indeterminacy=2ﾏ竄≫ａ竅ｶ
+π₁₁⁹=Z/2{η₉²}
+ν₆η₉=0
+π₁₁⁶=Z{Δι₁₃}
+↓
+Indeterminacy=2π₁₁⁶
 
-ﾏ竄≫・竅ｵ=Z/2{ﾎｽ竄・ｷ竄按ｲ}
-ﾏ竄≫ａ竅ｶ=Z{ﾎ釆ｹ竄≫ｃ}
-竊・Eﾏ竄≫・(S竅ｵ)竓・ﾏ竄≫ａ(S竅ｶ)
+π₁₀⁵=Z/2{ν₅η₈²}
+π₁₁⁶=Z{Δι₁₃}
+↓
+Eπ₁₀(S⁵)⊂2π₁₁(S⁶)
 
 core + indeterminacy + image containment
-竊・TodaLemma510BracketModuloStatement
+↓
+TodaLemma510BracketModuloStatement
 ```
 
 No generic bracket-coset algebra is added.
@@ -4895,23 +5222,26 @@ No generic bracket-coset algebra is added.
 
 # 70. Phase 72 structural identity guard note
 
-Phase 72-3 revision 縺ｧ縲～ﾎ・ﾎｹ竄≫ａ)=ﾎｽ竄・ｷ竄・ 縺ｮ RHS 繧・canonical reconstructed object 縺ｨ逶ｴ謗･ equality 豈碑ｼ・☆繧九→ existing Phase 69 object 縺ｨ structural mismatch 縺瑚ｵｷ縺阪◆縲・
-菫ｮ豁｣蠕後・:
+Phase 72-3 revision で、`Δ(ι₁₁)=ν₅η₈` の RHS を canonical reconstructed object と直接 equality 比較すると existing Phase 69 object と structural mismatch が起きた。
+
+修正後は:
 
 ```text
 RHS is Composition
-left.generator  = GeneratorSymbol("ﾎｽ",5)
-right.generator = GeneratorSymbol("ﾎｷ",8)
+left.generator  = GeneratorSymbol("ν",5)
+right.generator = GeneratorSymbol("η",8)
 ```
 
-繧呈､懈渊縺吶ｋ縲・
-蜴溷援:
+を検査する。
+
+原則:
 
 ```text
 structural equality != mathematical identity
 ```
 
-繧堤ｶｭ謖√＠縲“lobal name normalization 縺ｯ陦後ｏ縺ｪ縺・・
+を維持し、global name normalization は行わない。
+
 ---
 
 # 71. Phase 72 tests
@@ -4967,7 +5297,7 @@ wrong bracket / modulus / group / generator / map rejection
 
 ---
 
-# 72. Phase 72 莉｣陦ｨ probe
+# 72. Phase 72 代表 probe
 
 module:
 
@@ -5031,9 +5361,9 @@ development uses two PCs, so wall time is compared per machine.
 
 ---
 
-# 74. Phase 72 completion 蠕後↓譛蛻昴↓隕九ｋ蝣ｴ謇
+# 74. Phase 72 completion 後に最初に見る場所
 
-Phase 73 Toda Proposition 5.11 縺ｫ騾ｲ繧蜑阪↓:
+Phase 73 Toda Proposition 5.11 に進む前に:
 
 ```text
 Toda source material
@@ -5044,13 +5374,13 @@ toda_rules.py
   Phase 72 Lemma 5.10 statements / rules
   Proposition 2.5 related rules
   Proposition 1.4 related rules
-  ﾎｽ-family definitions / relations
+  ν-family definitions / relations
 
 expression.py
   Composition / TodaBracket / Multiple
 
 homotopy_groups.py
-  relevant ﾏ_(n+6)^n groups / EHP maps
+  relevant π_(n+6)^n groups / EHP maps
 
 tests/test_phase72_*.py
   reusable Lemma 5.10 provenance builders
@@ -5066,10 +5396,14 @@ Phase 73 starts with:
 
 ```text
 source statement
-竊・proof dependency analysis
-竊・ﾎｽ_nﾂｲ / Equation (5.13) representation compatibility
-竊・minimum new representation
-竊・minimum inference
+↓
+proof dependency analysis
+↓
+ν_n² / Equation (5.13) representation compatibility
+↓
+minimum new representation
+↓
+minimum inference
 ```
 
 Do not implement all of Proposition 5.11 or the stable `(G_6;2)` branch before the concrete finite-dimensional dependencies are separated.
@@ -5086,7 +5420,7 @@ FiniteHomotopyGroupStatement
 HomotopyEHPExactnessWindow
 ```
 
-`TodaPrimaryGroup` / `TodaEHPExactnessWindow` represent the Toda `ﾏ_i^n` layer defined by Toda (4.3). Only the non-diagonal, non-exceptional branch is uniformly the 2-primary component.
+`TodaPrimaryGroup` / `TodaEHPExactnessWindow` represent the Toda `π_i^n` layer defined by Toda (4.3). Only the non-diagonal, non-exceptional branch is uniformly the 2-primary component.
 
 ---
 
@@ -5131,7 +5465,7 @@ toda_lemma510_ordinary_suspension_image_in_double_inference_rule()
 target:
 
 ```text
-Eﾏ竄≫・(S竅ｵ)竓・ﾏ竄≫ａ(S竅ｶ)
+Eπ₁₀(S⁵)⊂2π₁₁(S⁶)
 ```
 
 ---
@@ -5158,7 +5492,7 @@ toda_lemma510_ordinary_indeterminacy_double_inference_rule()
 semantic boundary:
 
 ```text
-ﾎｽ竄・・ﾏ竄≫ａ(S竅ｹ)=ﾎｽ竄・・ﾏ竄≫ａ竅ｹ
+ν₆∘π₁₁(S⁹)=ν₆∘π₁₁⁹
 ```
 
 is composition-level only.
@@ -5233,7 +5567,7 @@ where appropriate.
 
 ---
 
-# 81. Corrected Phase 72 莉｣陦ｨ probe
+# 81. Corrected Phase 72 代表 probe
 
 module:
 
@@ -5257,7 +5591,7 @@ Corrected provenance / retirement audit
 Phase 72R corrected representative probe boundary
 ```
 
-The display 縺ｯ蠑輔″邯壹″ presentation-only.
+The display は引き続き presentation-only.
 
 ---
 
@@ -5293,7 +5627,7 @@ repository-wide:
 
 ---
 
-# 84. Phase 73 縺ｧ譛蛻昴↓隕九ｋ蝣ｴ謇
+# 84. Phase 73 で最初に見る場所
 
 Use the canonical Phase 72R result, not the historical Phase 72 shortcut graph.
 
@@ -5306,7 +5640,7 @@ toda_rules.py
   corrected Phase 72R Lemma 5.10 statements / rules
   Proposition 2.5
   Proposition 1.4
-  ﾎｽ-family
+  ν-family
 
 expression.py
   Composition
@@ -5340,10 +5674,10 @@ Phase 73 starts with analysis only.
 
 ```text
 HomotopyGroup(i,n)
-  ordinary ﾏ_i(S^n)
+  ordinary π_i(S^n)
 
 TodaPrimaryGroup(i,n)
-  historical class name for Toda ﾏ_i^n
+  historical class name for Toda π_i^n
 ```
 
 Toda (4.3) branches:
@@ -5362,8 +5696,9 @@ tests/test_phase72ra1_toda43_semantics.py
 
 ---
 
-# Phase 73・啜oda Proposition 5.11 髢｢騾｣繧ｳ繝ｼ繝・
-## 荳ｻ隕・final statement
+# Phase 73：Toda Proposition 5.11 関連コード
+
+## 主要 final statement
 
 ```text
 TodaProp511NuSquaredFiniteDimensionalStatement
@@ -5372,28 +5707,29 @@ TodaProp511FiniteDimensionalStatement
 
 ### `TodaProp511NuSquaredFiniteDimensionalStatement`
 
-菫晄戟:
+保持:
 
 ```text
-ﾏ_11^5 relation
-ﾏ_12^6 relation
-ﾏ_13^7 relation
-ﾏ_14^8 relation
-ﾏ_(n+6)^n relation, n竕･9
+π_11^5 relation
+π_12^6 relation
+π_13^7 relation
+π_14^8 relation
+π_(n+6)^n relation, n≥9
 higher_range
 literature_statements
 ```
 
-謨ｰ蟄ｦ逧・↓縺ｯ:
+数学的には:
 
 ```text
-ﾏ_(n+6)^n=Z/2{ﾎｽ_nﾂｲ}, n竕･5
+π_(n+6)^n=Z/2{ν_n²}, n≥5
 ```
 
-繧・branch aggregate 縺ｨ縺励※菫晄戟縲・
+を branch aggregate として保持。
+
 ### `TodaProp511FiniteDimensionalStatement`
 
-菫晄戟:
+保持:
 
 ```text
 pi8_2_group_relation
@@ -5403,10 +5739,11 @@ nu_squared_finite_dimensional
 literature_statements
 ```
 
-stable `(G_6;2)` field 縺ｯ謖√◆縺ｪ縺・・
+stable `(G_6;2)` field は持たない。
+
 ---
 
-## Phase 73 縺ｮ荳ｻ隕・inference rule
+## Phase 73 の主要 inference rule
 
 ```text
 toda_prop511_pi14_8_prop44_zero_second_summand_suspension_isomorphism_inference_rule()
@@ -5425,24 +5762,26 @@ toda_prop511_finite_dimensional_literature_statements()
 
 ---
 
-## ﾎｽ_nﾂｲ representation
+## ν_n² representation
 
-蟆ら畑 class 縺ｯ縺ｪ縺・・
+専用 class はない。
+
 ```text
-ﾎｽ_nﾂｲ
+ν_n²
 =
 Composition(
-  left=ﾎｽ_n,
-  right=ﾎｽ_(n+3),
+  left=ν_n,
+  right=ν_(n+3),
 )
 ```
 
-symbolic shifted family index 縺ｯ蠢・ｦ√↑ theorem-specific rule 蜀・〒螻謇讒狗ｯ峨☆繧九・
+symbolic shifted family index は必要な theorem-specific rule 内で局所構築する。
+
 ---
 
 ## Phase 73 tests
 
-荳ｻ隕・completion tests:
+主要 completion tests:
 
 ```text
 tests/test_phase73_pi13_7_nu7_squared.py
@@ -5455,7 +5794,7 @@ tests/test_phase73_prop511_provenance.py
 tests/test_phase73_probe.py
 ```
 
-荳ｻ隕・builder:
+主要 builder:
 
 ```text
 build_phase73_7c_data()
@@ -5466,16 +5805,17 @@ build_phase73_8c_data()
 build_phase73_8e_data()
 ```
 
-heavy reusable object graph 縺ｫ縺ｯ蠢・ｦ√↓蠢懊§縺ｦ:
+heavy reusable object graph には必要に応じて:
 
 ```python
 @lru_cache(maxsize=1)
 ```
 
-繧剃ｽｿ逕ｨ縲・
+を使用。
+
 ---
 
-## Phase 73 莉｣陦ｨ probe
+## Phase 73 代表 probe
 
 ```text
 probes/probe_phase73_capabilities.py
@@ -5494,7 +5834,7 @@ representative source:
 build_phase73_8e_data()
 ```
 
-陦ｨ遉ｺ:
+表示:
 
 ```text
 Toda Proposition 5.11 finite-dimensional result
@@ -5504,7 +5844,7 @@ Literature statements used
 Phase 73 representative probe boundary
 ```
 
-遒ｺ隱・
+確認:
 
 ```text
 final aggregate derived = True
@@ -5527,25 +5867,32 @@ repository-wide
 
 ---
 
-# Phase 73 蠕後↓譛蛻昴↓遒ｺ隱阪☆繧句ｴ謇
+# Phase 73 後に最初に確認する場所
 
-Phase 74 繧帝幕蟋九☆繧九→縺・
+Phase 74 を開始するとき:
 
 ```text
-Toda source 縺ｮ谺｡ statement
-竊・toda_rules.py 縺ｮ Phase 73 final aggregate
-竊・Phase 72R canonical Lemma 5.10
-竊・expression.py / homotopy_groups.py
-竊・Phase 73 tests / probe / proof record
+Toda source の次 statement
+↓
+toda_rules.py の Phase 73 final aggregate
+↓
+Phase 72R canonical Lemma 5.10
+↓
+expression.py / homotopy_groups.py
+↓
+Phase 73 tests / probe / proof record
 ```
 
-繧堤｢ｺ隱阪☆繧九・
-stable `(G_6;2)` 縺ｯ Phase 74 縺ｸ閾ｪ蜍慕ｶ咏ｶ壹○縺壹《table branch 蜈ｨ菴薙・ concrete need 縺檎函縺倥◆縺ｨ縺阪↓蜀崎ｩ穂ｾ｡縺吶ｋ縲・
+を確認する。
+
+stable `(G_6;2)` は Phase 74 へ自動継続せず、stable branch 全体の concrete need が生じたときに再評価する。
+
 
 
 ---
 
-# Phase 74・啜oda Lemma 5.12 髢｢騾｣繧ｳ繝ｼ繝・
+# Phase 74：Toda Lemma 5.12 関連コード
+
 ## final statement
 
 `toda_rules.py`:
@@ -5554,20 +5901,21 @@ stable `(G_6;2)` 縺ｯ Phase 74 縺ｸ閾ｪ蜍慕ｶ咏ｶ壹○縺壹《tab
 TodaLemma512Statement
 ```
 
-諢丞袖:
+意味:
 
 ```text
-{ﾎｷ_n,ﾎｽ_(n+1),ﾎｷ_(n+4)}={ﾎｽ_nﾂｲ}
-(n竕･6)
+{η_n,ν_(n+1),η_(n+4)}={ν_n²}
+(n≥6)
 ```
 
-`ﾎｽ_nﾂｲ` 縺ｯ:
+`ν_n²` は:
 
 ```text
-Composition(ﾎｽ_n,ﾎｽ_(n+3))
+Composition(ν_n,ν_(n+3))
 ```
 
-縺ｮ縺ｾ縺ｾ縲・
+のまま。
+
 ## intermediate statements
 
 ```text
@@ -5622,14 +5970,15 @@ build_phase74_8_data()
 build_phase74_9_data()
 ```
 
-heavy reusable fixture graph 縺ｯ:
+heavy reusable fixture graph は:
 
 ```python
 @lru_cache(maxsize=1)
 ```
 
-繧剃ｽｿ逕ｨ縲・
-## 莉｣陦ｨ probe
+を使用。
+
+## 代表 probe
 
 ```text
 probes/probe_phase74_capabilities.py
@@ -5660,20 +6009,25 @@ repository-wide
 
 ---
 
-# Phase 74 蠕後↓譛蛻昴↓遒ｺ隱阪☆繧句ｴ謇
+# Phase 74 後に最初に確認する場所
 
-Phase 75 繧帝幕蟋九☆繧九→縺・
+Phase 75 を開始するとき:
 
 ```text
-Toda source 縺ｮ谺｡ statement
-竊・toda_rules.py 縺ｮ TodaLemma512Statement
-竊・Phase 74 applicability / provenance regression
-竊・Phase 74 representative probe / proof record
-竊・蠢・ｦ√↑ upstream Phase statement
+Toda source の次 statement
+↓
+toda_rules.py の TodaLemma512Statement
+↓
+Phase 74 applicability / provenance regression
+↓
+Phase 74 representative probe / proof record
+↓
+必要な upstream Phase statement
 ```
 
-繧堤｢ｺ隱阪☆繧九・
-蜈亥叙繧翫＠縺ｪ縺・
+を確認する。
+
+先取りしない:
 
 ```text
 generic Toda-bracket coset algebra
@@ -5687,7 +6041,7 @@ stable homotopy-group model
 
 ---
 
-# 32. Phase 75・啜oda Proposition 5.15 finite-dimensional
+# 32. Phase 75：Toda Proposition 5.15 finite-dimensional
 
 ## principal production statements
 
@@ -5740,10 +6094,14 @@ toda_prop515_finite_dimensional_integration_inference_rule()
 
 ```text
 Toda515Sigma8Prop44SpecializationStatement
-竊・TodaProp44DecompositionMap GIVEN
-竊・TodaProp44IsomorphismStatement
-竊・Toda515Sigma8TransportedDecompositionStatement
-竊・ﾏ_15^8=Z{ﾏ・ｈ}竓瓢/8{Eﾏ・}
+↓
+TodaProp44DecompositionMap GIVEN
+↓
+TodaProp44IsomorphismStatement
+↓
+Toda515Sigma8TransportedDecompositionStatement
+↓
+π_15^8=Z{σ₈}⊕Z/8{Eσ'}
 ```
 
 source group fact:
@@ -5764,18 +6122,19 @@ nested fixture reuse:
 
 ```text
 phase75_5
-笏披楳 phase75_4
-   笏披楳 phase75_3
+└─ phase75_4
+   └─ phase75_3
 ```
 
-low zero `ProofStep` objects 縺ｯ縺薙・ graph 繧堤峩謗･霎ｿ繧九・
+low zero `ProofStep` objects はこの graph を直接辿る。
+
 heavy builder:
 
 ```python
 @lru_cache(maxsize=1)
 ```
 
-## 莉｣陦ｨ probe
+## 代表 probe
 
 ```text
 probes/probe_phase75_capabilities.py
@@ -5800,13 +6159,13 @@ build_phase75_9_data()
 tests/test_phase75_probe.py
 ```
 
-遒ｺ隱榊ｯｾ雎｡:
+確認対象:
 
 ```text
 aggregate INFERENCE
 8 mathematical direct branches INFERENCE
-n竕･9 scope GIVEN
-ﾏ_15^8 mixed DirectSumGroup representation
+n≥9 scope GIVEN
+π_15^8 mixed DirectSumGroup representation
 stable branch absent
 literature metadata
 human-readable derivation output
@@ -5825,21 +6184,26 @@ repository-wide
 
 ---
 
-# Phase 75 蠕後↓譛蛻昴↓遒ｺ隱阪☆繧句ｴ謇
+# Phase 75 後に最初に確認する場所
 
 Phase 76 / next mathematical work:
 
 ```text
 Toda (5.16)
-竊・ﾏ_15^8 mixed decomposition
-竊・ﾏ_16^9=Z/16{ﾏ・ｉ}
-竊・suspension E
-竊・kernel generator
-2ﾏ・ｈ-Eﾏ・
-竊・ﾎ・ﾎｹ竄≫ｇ)
+↓
+π_15^8 mixed decomposition
+↓
+π_16^9=Z/16{σ₉}
+↓
+suspension E
+↓
+kernel generator
+2σ₈-Eσ'
+↓
+Δ(ι₁₇)
 ```
 
-蜈亥叙繧翫＠縺ｪ縺・
+先取りしない:
 
 ```text
 generic kernel decomposition solver
@@ -5853,7 +6217,7 @@ persistent Proof Repository
 
 ---
 
-# Phase 76・啜oda Equation (5.16)
+# Phase 76：Toda Equation (5.16)
 
 ## source
 
@@ -5865,13 +6229,13 @@ Equation (5.16)
 target:
 
 ```text
-Ker(E:ﾏ_15^8竊佃_16^9)
+Ker(E:π_15^8→π_16^9)
 =
-Z{2ﾏ・ｈ-Eﾏ・}
+Z{2σ₈-Eσ'}
 
-ﾎ・ﾎｹ竄≫ｇ)
+Δ(ι₁₇)
 =
-ﾂｱ(2ﾏ・ｈ-Eﾏ・)
+±(2σ₈-Eσ')
 ```
 
 ## foundational fact
@@ -5884,7 +6248,7 @@ pi_17_17_free_cyclic_fact()
 returns:
 
 ```text
-ﾏ_17^17=Z{ﾎｹ竄≫ｇ}
+π_17^17=Z{ι₁₇}
 ```
 
 as a foundational relation.
@@ -5930,10 +6294,10 @@ derives:
 
 ```text
 Ker(
-  E:ﾏ_15^8竊佃_16^9
+  E:π_15^8→π_16^9
 )
 =
-Z{2ﾏ・ｈ-Eﾏ・}
+Z{2σ₈-Eσ'}
 ```
 
 ## Phase 76-3 builder
@@ -5948,15 +6312,16 @@ build_phase76_3_data()
 derives:
 
 ```text
-ﾏ_17^17 --ﾎ・-> ﾏ_15^8 --E--> ﾏ_16^9
+π_17^17 --Δ--> π_15^8 --E--> π_16^9
 exact
 ```
 
 and:
 
 ```text
-Im ﾎ・=
-Z{2ﾏ・ｈ-Eﾏ・}.
+Im Δ
+=
+Z{2σ₈-Eσ'}.
 ```
 
 ## Phase 76-4 builder
@@ -5971,9 +6336,9 @@ build_phase76_4_data()
 derives:
 
 ```text
-ﾎ・ﾎｹ竄≫ｇ)
+Δ(ι₁₇)
 =
-ﾂｱ(2ﾏ・ｈ-Eﾏ・).
+±(2σ₈-Eσ').
 ```
 
 ## Phase 76-5 builder
@@ -5995,7 +6360,7 @@ non-circularity
 Phase 75 aggregate non-dependency
 ```
 
-## 莉｣陦ｨ probe
+## 代表 probe
 
 ```text
 probes/probe_phase76_capabilities.py
@@ -6052,7 +6417,7 @@ repository-wide
 
 ---
 
-# Phase 76 蠕後↓譛蛻昴↓遒ｺ隱阪☆繧句ｴ謇
+# Phase 76 後に最初に確認する場所
 
 Phase 77:
 
@@ -6071,14 +6436,14 @@ first audit targets:
 
 ```text
 Toda bracket typing
-first bracket middle term E^nﾎｲ source notation
+first bracket middle term E^nβ source notation
 sum of two bracket terms
 odd integer x
-Lemma 5.14 proof / ﾏ・ｈ definition dependency
+Lemma 5.14 proof / σ₈ definition dependency
 Theorem 3.6 dependency
 ```
 
-蜈亥叙繧翫＠縺ｪ縺・
+先取りしない:
 
 ```text
 generic sum-of-brackets framework
@@ -6092,7 +6457,7 @@ persistent Proof Repository
 
 ---
 
-# Phase 77・啜oda Lemma 5.16
+# Phase 77：Toda Lemma 5.16
 
 ## source
 
@@ -6105,12 +6470,14 @@ canonical target:
 
 ```text
 t>0
-ﾎｲ竏委_(t+4)(S^m)
-ﾎｲ竏佩ｽ_(t+4)=0
-竊・E^4ﾎｲ竏佰ダ(t+8)
-竏・(-1)^m x {ﾎｽ_(m+4),E^7ﾎｲ,ﾎｽ_(t+11)}_7
+β∈π_(t+4)(S^m)
+β∘ν_(t+4)=0
+↓
+E^4β∘σ_(t+8)
+∈
+(-1)^m x {ν_(m+4),E^7β,ν_(t+11)}_7
 +
-(-1)^t x {E^4ﾎｲ,ﾎｽ_(t+8),2ﾎｽ_(t+11)}_(t+3)
+(-1)^t x {E^4β,ν_(t+8),2ν_(t+11)}_(t+3)
 ```
 
 `x` is the same odd parameter inherited from Phase 75.
@@ -6118,8 +6485,8 @@ t>0
 ## source correction
 
 ```text
-printed: E^nﾎｲ
-canonical: E^7ﾎｲ
+printed: E^nβ
+canonical: E^7β
 ```
 
 reason:
@@ -6127,7 +6494,7 @@ reason:
 ```text
 n is unbound in the printed lemma
 bracket typing forces 7
-immediately following proof text uses E^7ﾎｲ
+immediately following proof text uses E^7β
 ```
 
 ## Phase 77 statements
@@ -6189,7 +6556,7 @@ heavy deterministic builders use:
 @lru_cache(maxsize=1)
 ```
 
-## 莉｣陦ｨ probe
+## 代表 probe
 
 ```text
 probes/probe_phase77_capabilities.py
@@ -6219,10 +6586,10 @@ checks:
 ```text
 final result INFERENCE
 hypothesis setup GIVEN
-Phase 75 Theorem 3.6 / ﾏ・ｈ provenance reachable
+Phase 75 Theorem 3.6 / σ₈ provenance reachable
 both bracket branches reachable
 same odd x preserved
-E^7ﾎｲ correction preserved
+E^7β correction preserved
 Phase 76 Toda (5.16) rule non-dependency
 acyclicity
 human-readable proof-style output
@@ -6240,7 +6607,7 @@ repository-wide
 6262 passed in 114.35s
 ```
 
-## Phase 77 螳御ｺ・｢・阜
+## Phase 77 完了境界
 
 Do not introduce:
 
@@ -6250,7 +6617,7 @@ generic odd existential solver
 generic coefficient normalization
 generic sign solver
 generic symbolic suspension induction
-generic ﾏ・family ScalarSum constructor
+generic σ-family ScalarSum constructor
 automatic proof narrative generation
 persistent Proof Repository
 ```
@@ -6258,7 +6625,7 @@ persistent Proof Repository
 next natural mathematical boundary:
 
 ```text
-(G_7;2)=Z/16{ﾏマ
+(G_7;2)=Z/16{σ}
 ```
 
 ---
@@ -6305,12 +6672,13 @@ TodaStableSigmaDefinitionStatement
 bridges:
 
 ```text
-ﾎｹ竄・-> ﾎｹ
-ﾎｷ竄・-> ﾎｷ
-ﾎｷ竄・ｲ -> ﾎｷﾂｲ
-ﾎｽ竄・-> ﾎｽ
-ﾎｽ竄按ｲ -> ﾎｽﾂｲ
-ﾏ・ｉ -> ﾏ・```
+ι₃ -> ι
+η₃ -> η
+η₄² -> η²
+ν₅ -> ν
+ν₈² -> ν²
+σ₉ -> σ
+```
 
 # 99. Phase 78 concrete stable-group rules
 
@@ -6378,7 +6746,7 @@ toda_stable_g0_to_g7_integration_inference_rule()
 
 all 8 direct branches are `ProofRule.INFERENCE`.
 
-# 102. Phase 78 莉｣陦ｨ probe
+# 102. Phase 78 代表 probe
 
 ```text
 probes/probe_phase78_capabilities.py
@@ -6400,7 +6768,8 @@ integrated stable suite: 164 passed in 2.99s
 repository-wide: 6472 passed in 35.18s
 ```
 
-Phase 78 縺ｯ COMPLETE縲・
+Phase 78 は COMPLETE。
+
 
 ---
 
@@ -6539,7 +6908,7 @@ Focused result:
 13 passed in 1.95s
 ```
 
-# 109. Phase 79 莉｣陦ｨ probe
+# 109. Phase 79 代表 probe
 
 ```text
 probes/probe_phase79_capabilities.py
@@ -6552,7 +6921,7 @@ build_phase79_representative_result()
 main()
 ```
 
-莉｣陦ｨ source:
+代表 source:
 
 ```text
 build_phase79_7_data()
@@ -6572,7 +6941,7 @@ in-memory / no-auto-inference / no-persistence boundary
 
 ```text
 Phase 79 repository suite: 48 passed in 2.39s
-Phase 76窶・9 focused provenance regression: 125 passed in 2.64s
+Phase 76–79 focused provenance regression: 125 passed in 2.64s
 repository-wide: 6520 passed in 35.07s
 ```
 
@@ -6597,7 +6966,8 @@ automatic proof narrative generation
 
 ## `repository_inference.MissingPremiseProducerLookup`
 
-隍・焚missing premise縺ｮ蜷・ｦ∫ｴ縺ｫ縺､縺・※縲∵ｬ｡繧剃ｿ晄戟縺吶ｋimmutable result縲・
+複数missing premiseの各要素について、次を保持するimmutable result。
+
 ```text
 inference_rule: InferenceRule
 premise_index: int
@@ -6611,26 +6981,36 @@ producer_rules: tuple[InferenceRule, ...]
 PremiseAvailability
 +
 InferenceRuleCatalog
-竊・tuple[MissingPremiseProducerLookup, ...]
+↓
+tuple[MissingPremiseProducerLookup, ...]
 ```
 
-`missing_indices`縺ｮ鬆・ｺ上→exact premise pattern identity繧剃ｿ晄戟縺吶ｋ縲Ｑroducer繧貞ｮ溯｡後＠縺ｪ縺・・
+`missing_indices`の順序とexact premise pattern identityを保持する。producerを実行しない。
+
 ## `repository_inference.all_missing_premises_uniquely_producible()`
 
-lookup collection縺檎ｩｺ縺ｧ縺ｪ縺上√☆縺ｹ縺ｦ縺ｮ `producer_rules` 縺・莉ｶ縺ｮ蝣ｴ蜷医□縺禅rue縲・
+lookup collectionが空でなく、すべての `producer_rules` が1件の場合だけTrue。
+
 ## `repository_inference.derive_goal_from_repository_with_one_level_producers()`
 
-Phase 83縺ｧ隍・焚missing premise縺ｸ荳闊ｬ蛹悶・
+Phase 83で複数missing premiseへ一般化。
+
 ```text
 final rule availability
-竊・per-missing-premise lookups
-竊・all unique check
-竊・producer rule identity deduplication
-竊・producer inference max_rounds=1
-竊・final-rule retry
+↓
+per-missing-premise lookups
+↓
+all unique check
+↓
+producer rule identity deduplication
+↓
+producer inference max_rounds=1
+↓
+final-rule retry
 ```
 
-髢｢謨ｰ蜷阪・Phase 82縺九ｉ邯ｭ謖√＠縲∵里蟄連PI莠呈鋤諤ｧ繧剃ｿ昴▽縲・
+関数名はPhase 82から維持し、既存API互換性を保つ。
+
 ## Phase 83 tests
 
 ```text
@@ -6648,7 +7028,7 @@ tests/test_phase83_probe.py
 probes/probe_phase83_capabilities.py
 ```
 
-## 髱槫ｯｾ蠢懷｢・阜
+## 非対応境界
 
 ```text
 recursive producer lookup
@@ -6658,7 +7038,8 @@ DFS / BFS / A*
 proof ranking / cost model
 ```
 
-Phase 79 縺ｯ COMPLETE縲・
+Phase 79 は COMPLETE。
+
 ---
 
 # 111. Phase 80 repository inference bridge
@@ -6671,7 +7052,7 @@ repository_available_steps()
 derive_goal_from_repository()
 ```
 
-`RepositoryInference邨先棡`:
+`RepositoryInference結果`:
 
 ```text
 inference_result
@@ -6719,10 +7100,10 @@ No mathematical normalization or theorem search occurs here.
 
 ```text
 same ProofStep object aliases
-竊・identity deduplicated
+→ identity deduplicated
 
 different ProofStep objects / same conclusion
-竊・both retained
+→ both retained
 ```
 
 The returned tuple contains the exact original objects.
@@ -6733,9 +7114,12 @@ The returned tuple contains the exact original objects.
 
 ```text
 repository_available_steps(repository)
-竊・run_inference_until_stable_with_history(...)
-竊・find_goal_step(result.steps,goal)
-竊・RepositoryInferenceResult
+↓
+run_inference_until_stable_with_history(...)
+↓
+find_goal_step(result.steps,goal)
+↓
+RepositoryInferenceResult
 ```
 
 The repository is read-only during this operation.
@@ -6753,7 +7137,7 @@ Uses:
 @lru_cache(maxsize=1)
 ```
 
-莉｣陦ｨ actual proof:
+代表 actual proof:
 
 ```text
 Phase 77 Toda Lemma 5.16
@@ -6772,7 +7156,8 @@ Reused rule:
 phase77["data"]["final_rule"]
 ```
 
-# 117. Phase 80 驕ｩ逕ｨ諤ｧ / 髱槫ｾｪ迺ｰ諤ｧ繝・せ繝・
+# 117. Phase 80 適用性 / 非循環性テスト
+
 ```text
 tests/test_phase80_applicability_non_circularity.py
 ```
@@ -6791,7 +7176,7 @@ ancestor-conclusion exclusion
 acyclicity
 ```
 
-# 118. Phase 80 莉｣陦ｨ probe
+# 118. Phase 80 代表 probe
 
 ```text
 probes/probe_phase80_capabilities.py
@@ -6804,7 +7189,7 @@ build_phase80_representative_result()
 main()
 ```
 
-莉｣陦ｨ source:
+代表 source:
 
 ```text
 build_phase80_5_data()
@@ -6831,7 +7216,7 @@ acyclicity
 automation boundary
 ```
 
-# 119. Phase 80 probe 蜑阪・蝗槫ｸｰ baseline
+# 119. Phase 80 probe 前の回帰 baseline
 
 ```text
 Phase 80-6 focused: 10 passed in 1.90s
@@ -6841,16 +7226,16 @@ Phase 77 + repository + Phase 79 + Phase 80: 126 passed in 3.11s
 repository-wide: 6565 passed in 36.33s
 ```
 
-# 120. 迴ｾ蝨ｨ縺ｮ謗ｨ隲門｢・阜
+# 120. 現在の推論境界
 
-螳溯｣・ｸ医∩:
+実装済み:
 
 ```text
 repository-assisted automatic inference
 with explicitly supplied rule sets
 ```
 
-譛ｪ螳溯｣・
+未実装:
 
 ```text
 automatic rule selection
@@ -6893,12 +7278,14 @@ fixed_point_safe
 exact conclusion type
 +
 fixed_point_safe=True
-竊・matching catalog entries
+↓
+matching catalog entries
 ```
 
 `find_goal_compatible_rules(catalog, goal)` additionally identity-deduplicates aliased `InferenceRule` objects.
 
-# 123. Phase 81 catalog-aware repository 謗ｨ隲・
+# 123. Phase 81 catalog-aware repository 推論
+
 `repository_inference.py` adds:
 
 ```text
@@ -6909,11 +7296,14 @@ Flow:
 
 ```text
 find_goal_compatible_rules()
-竊・existing derive_goal_from_repository()
+↓
+existing derive_goal_from_repository()
 ```
 
-Phase 80 API 縺ｯ螟画峩縺帙★蠑輔″邯壹″蛻ｩ逕ｨ縺ｧ縺阪ｋ縲・
-# 124. Phase 81 actual theorem 邨ｱ蜷・
+Phase 80 API は変更せず引き続き利用できる。
+
+# 124. Phase 81 actual theorem 統合
+
 ```text
 tests/test_phase81_actual_theorem_integration.py
   build_phase81_5_data()
@@ -6925,14 +7315,16 @@ Uses:
 @lru_cache(maxsize=1)
 ```
 
-莉｣陦ｨ actual theorem:
+代表 actual theorem:
 
 ```text
 Phase 77 Toda Lemma 5.16
 ```
 
-runner 縺ｯ final rule 繧堤峩謗･蜿励￠蜿悶ｉ縺壹〉epository + catalog + goal 繧貞女縺大叙繧九・
-# 125. Phase 81 ambiguity 蝗槫ｸｰ繝・せ繝・
+runner は final rule を直接受け取らず、repository + catalog + goal を受け取る。
+
+# 125. Phase 81 ambiguity 回帰テスト
+
 ```text
 tests/test_phase81_rule_selection_regression.py
   build_phase81_6_data()
@@ -6949,8 +7341,9 @@ unsafe candidate
 unrelated candidate
 ```
 
-selector / applicability / duplicate / circularity 縺ｮ蠅・阜繧呈､懆ｨｼ縺吶ｋ縲・
-# 126. Phase 81 莉｣陦ｨ probe
+selector / applicability / duplicate / circularity の境界を検証する。
+
+# 126. Phase 81 代表 probe
 
 ```text
 probes/probe_phase81_capabilities.py
@@ -6963,7 +7356,7 @@ build_phase81_representative_result()
 main()
 ```
 
-莉｣陦ｨ source:
+代表 source:
 
 ```text
 build_phase81_6_data()
@@ -6990,16 +7383,16 @@ non-circularity
 current Phase 82 boundary
 ```
 
-# 127. 迴ｾ蝨ｨ縺ｮ謗ｨ隲門｢・阜 after Phase 81
+# 127. 現在の推論境界 after Phase 81
 
-螳溯｣・ｸ医∩:
+実装済み:
 
 ```text
 automatic goal-compatible rule selection
 repository-assisted forward inference
 ```
 
-譛ｪ螳溯｣・
+未実装:
 
 ```text
 recursive missing-premise producer search
@@ -7014,13 +7407,13 @@ automatic proof narrative generation
 
 # 128. Phase 82 missing-premise detection
 
-蟇ｾ雎｡:
+対象:
 
 ```text
 repository_inference.py
 ```
 
-霑ｽ蜉:
+追加:
 
 ```text
 PremiseAvailability
@@ -7038,21 +7431,25 @@ missing_patterns
 is_complete
 ```
 
-雋ｬ蜍・
+責務:
 
 ```text
-final rule 縺ｮ PremisePattern 縺ｫ蟇ｾ縺励※縲・迴ｾ蝨ｨ available 縺ｪ ProofStep 縺ｮ譛螟ｧ莠呈鋤 assignment 繧呈ｱゅａ縲・荳崎ｶｳ pattern 繧・first-class 縺ｫ霑斐☆縲・```
+final rule の PremisePattern に対して、
+現在 available な ProofStep の最大互換 assignment を求め、
+不足 pattern を first-class に返す。
+```
 
-theorem-specific applicability 繧定､・｣ｽ縺帙★縲‘xisting matcher 縺ｮ structural consistency 繧貞茜逕ｨ縺吶ｋ縲・
+theorem-specific applicability を複製せず、existing matcher の structural consistency を利用する。
+
 # 129. Phase 82 producer lookup
 
-蟇ｾ雎｡:
+対象:
 
 ```text
 rule_catalog.py
 ```
 
-霑ｽ蜉:
+追加:
 
 ```text
 find_premise_producer_rule_entries()
@@ -7066,16 +7463,17 @@ fixed_point_safe=True
 conclusion_type is premise_pattern.statement_type
 ```
 
-entry alias 縺ｯ菫晄戟縺励〉ule execution list 縺ｧ縺ｯ identity deduplicate 縺吶ｋ縲・
+entry alias は保持し、rule execution list では identity deduplicate する。
+
 # 130. Phase 82 one-level execution
 
-蟇ｾ雎｡:
+対象:
 
 ```text
 repository_inference.py
 ```
 
-霑ｽ蜉 entry point:
+追加 entry point:
 
 ```text
 derive_goal_from_repository_with_one_level_producers(
@@ -7086,21 +7484,27 @@ derive_goal_from_repository_with_one_level_producers(
 )
 ```
 
-蜃ｦ逅・
+処理:
 
 ```text
 goal-compatible final rules
-竊・missing premise detection
-竊・unique producer lookup
-竊・producer stage max_rounds=1
-竊・final stage
-竊・RepositoryInferenceResult
+↓
+missing premise detection
+↓
+unique producer lookup
+↓
+producer stage max_rounds=1
+↓
+final stage
+↓
+RepositoryInferenceResult
 ```
 
-producer rule 縺・莉ｶ縺ｾ縺溘・隍・焚 distinct rule 縺ｮ蝣ｴ蜷医√◎縺ｮ path 縺ｯ螻暮幕縺励↑縺・・
+producer rule が0件または複数 distinct rule の場合、その path は展開しない。
+
 # 131. Phase 82 search-safety tests
 
-荳ｻ隕・test:
+主要 test:
 
 ```text
 tests/test_phase82_missing_premise_detection.py
@@ -7111,7 +7515,7 @@ tests/test_phase82_search_safety_regression.py
 tests/test_phase82_probe.py
 ```
 
-遒ｺ隱・
+確認:
 
 ```text
 missing premise index
@@ -7134,20 +7538,20 @@ repository immutability
 probes/probe_phase82_capabilities.py
 ```
 
-荳ｻ隕・function:
+主要 function:
 
 ```text
 build_phase82_representative_result()
 main()
 ```
 
-莉｣陦ｨ source:
+代表 source:
 
 ```text
 build_phase82_5_data()
 ```
 
-陦ｨ遉ｺ:
+表示:
 
 ```text
 Toda Lemma 5.16 actual goal
@@ -7162,9 +7566,9 @@ repository non-mutation
 Phase 82 completion boundary
 ```
 
-# 133. 迴ｾ蝨ｨ縺ｮ proof-search 蠅・阜
+# 133. 現在の proof-search 境界
 
-螳溯｣・ｸ医∩:
+実装済み:
 
 ```text
 repository-assisted forward inference
@@ -7176,7 +7580,7 @@ final-rule retry
 unique-producer safety policy
 ```
 
-譛ｪ螳溯｣・
+未実装:
 
 ```text
 recursive missing-premise producer search
@@ -7215,11 +7619,16 @@ Phase 83 semantics:
 
 ```text
 multiple missing final premises
-竊・one lookup per missing premise
-竊・all producer sets must be uniquely producible
-竊・producer rule identity deduplication
-竊・all selected producers execute in one shared round
-竊・final-rule retry
+↓
+one lookup per missing premise
+↓
+all producer sets must be uniquely producible
+↓
+producer rule identity deduplication
+↓
+all selected producers execute in one shared round
+↓
+final-rule retry
 ```
 
 All producers in the shared producer round see the same initial available-step set. A producer result created in that round is not used by another sibling producer in the same round.
@@ -7288,8 +7697,8 @@ is_shared
 Example:
 
 ```text
-final 竊・bracket-sum                 depth 1
-final 竊・composition 竊・bracket-sum   depth 2
+final → bracket-sum                 depth 1
+final → composition → bracket-sum   depth 2
 ```
 
 becomes:
@@ -7460,16 +7869,16 @@ Classification:
 
 ```text
 no producer match
-竊・PRODUCER_NOT_APPLICABLE
+→ PRODUCER_NOT_APPLICABLE
 
 producer output does not satisfy requested premise
-竊・PRODUCER_OUTPUT_NOT_USABLE
+→ PRODUCER_OUTPUT_NOT_USABLE
 
 final rule has no match
-竊・FINAL_RULE_NOT_APPLICABLE
+→ FINAL_RULE_NOT_APPLICABLE
 
 final rule does not derive requested goal
-竊・GOAL_NOT_DERIVED
+→ GOAL_NOT_DERIVED
 ```
 
 Returns:
@@ -7504,20 +7913,20 @@ Semantics:
 
 ```text
 goal already available
-竊・GOAL_ALREADY_AVAILABLE
+→ GOAL_ALREADY_AVAILABLE
 
 search failure
-竊・search diagnostic
-竊・search_result=None
+→ search diagnostic
+→ search_result=None
 
 execution failure
-竊・selected search_result retained
-竊・execution diagnostic retained
+→ selected search_result retained
+→ execution diagnostic retained
 
 success
-竊・SUCCESS
-竊・selected search_result retained
-竊・diagnostic=None
+→ SUCCESS
+→ selected search_result retained
+→ diagnostic=None
 ```
 
 This API is diagnostic / planning oriented. It does not expose a separate proof result field.
@@ -7680,9 +8089,10 @@ Start by locating hard-coded depth=2 assumptions and preserving current semantic
 
 ---
 
-# 143. Phase 86窶・9 proof-search completion reference
+# 143. Phase 86–89 proof-search completion reference
 
-Phase 86窶・9 縺ｧ proof-search layer 縺ｯ谺｡縺ｾ縺ｧ螳梧・縺励※縺・ｋ縲・
+Phase 86–89 で proof-search layer は次まで完成している。
+
 ```text
 Phase 86
 explicit max_depth parameterization
@@ -7712,8 +8122,9 @@ max_depth=3
 max_depth=4
 ```
 
-Phase 89 audit 縺ｧ縺ｯ actual theorem-backed general backtracking need 縺ｯ遒ｺ隱阪＆繧後↑縺九▲縺溘・
-縺励◆縺後▲縺ｦ calculation orchestration 縺九ｉ concrete pressure 縺悟・繧九∪縺ｧ:
+Phase 89 audit では actual theorem-backed general backtracking need は確認されなかった。
+
+したがって calculation orchestration から concrete pressure が出るまで:
 
 ```text
 general backtracking
@@ -7723,12 +8134,13 @@ best-proof selection
 unbounded search
 ```
 
-縺ｯ deferred縲・
+は deferred。
+
 ---
 
 # 144. Phase 90 query / known-result lookup
 
-譁ｰ隕・module:
+新規 module:
 
 ```text
 toda_group_query.py
@@ -7762,7 +8174,7 @@ TodaPrimaryGroup(
 )
 ```
 
-雋ｬ蜍・
+責務:
 
 ```text
 input validation
@@ -7771,13 +8183,13 @@ Toda target construction
 
 ## `is_toda_group_result_for_target()`
 
-隱崎ｭ・
+認識:
 
 ```text
 TodaPrimaryGroupZeroStatement(group=target)
 ```
 
-縺ｾ縺溘・:
+または:
 
 ```text
 Relation(
@@ -7807,8 +8219,8 @@ tuple[ProofRepositoryEntry,...]
 semantics:
 
 ```text
-0 match 竊・()
-multiple matches 竊・all matches
+0 match → ()
+multiple matches → all matches
 registration order preserved
 repository not mutated
 proof search not started on miss
@@ -7818,7 +8230,8 @@ proof search not started on miss
 
 # 145. `toda_group_result.py`
 
-Phase 91 縺ｧ霑ｽ蜉縺励◆ normalized calculation-result module縲・
+Phase 91 で追加した normalized calculation-result module。
+
 imports / dependencies:
 
 ```text
@@ -7840,7 +8253,7 @@ proof_repository:
   ProofRepositoryEntry
 ```
 
-荳ｻ隕∝梛:
+主要型:
 
 ```text
 TodaGroupStructure
@@ -7885,19 +8298,19 @@ len(generator_orders)
 
 ```text
 finite order
-竊・positive int
-竊・bool rejected
+→ positive int
+→ bool rejected
 ```
 
 ```text
 None order
-竊・infinite-order generator
+→ infinite-order generator
 ```
 
 ```text
 group_structure is None
-竊・generators == ()
-竊・generator_orders == ()
+→ generators == ()
+→ generator_orders == ()
 ```
 
 ```text
@@ -7906,7 +8319,8 @@ is
 source_entry.step
 ```
 
-`@dataclass(frozen=True)` 縺ｧ immutable縲・
+`@dataclass(frozen=True)` で immutable。
+
 ---
 
 # 147. Phase 91 generator/order extractor
@@ -7938,23 +8352,30 @@ mapping:
 
 ```text
 FreeCyclicGroup(g)
-竊・((g,), (None,))
+→
+((g,), (None,))
 ```
 
 ```text
 FiniteCyclicGroup(order=m,generator=g)
-竊・((g,), (m,))
+→
+((g,), (m,))
 ```
 
 ```text
 DirectSumGroup(summands=(...))
-竊・summand order 縺ｧ蜀榊ｸｰ extraction
-竊・flattened generator tuple
-竊・parallel order tuple
+→
+summand order で再帰 extraction
+→
+flattened generator tuple
+→
+parallel order tuple
 ```
 
-unsupported summand type 縺ｯ reject縲・
-generic group isomorphism normalization / sorting 縺ｯ縺励↑縺・・
+unsupported summand type は reject。
+
+generic group isomorphism normalization / sorting はしない。
+
 ---
 
 # 148. `normalize_toda_group_result()`
@@ -7971,7 +8392,7 @@ zero conclusion:
 TodaPrimaryGroupZeroStatement
 ```
 
-縺ｪ繧・
+なら:
 
 ```text
 TodaGroupResult(
@@ -7996,8 +8417,10 @@ Relation(
 )
 ```
 
-繧定ｦ∵ｱゅ☆繧九・
-result 縺ｯ original object identity 繧剃ｿ晄戟縺吶ｋ縲・
+を要求する。
+
+result は original object identity を保持する。
+
 ```text
 result.source_entry is entry
 result.proof_step is entry.step
@@ -8021,8 +8444,10 @@ find_known_toda_group_results(
   repository,
   query,
 )
-竊・normalize_toda_group_result(entry)
-竊・tuple[TodaGroupResult,...]
+↓
+normalize_toda_group_result(entry)
+↓
+tuple[TodaGroupResult,...]
 ```
 
 Phase 90 API:
@@ -8031,20 +8456,22 @@ Phase 90 API:
 find_known_toda_group_results()
 ```
 
-縺ｯ縺昴・縺ｾ縺ｾ谿九☆縲・
-縺励◆縺後▲縺ｦ caller 縺ｯ:
+はそのまま残す。
+
+したがって caller は:
 
 ```text
 raw theorem-backed repository entries
 ```
 
-縺ｨ:
+と:
 
 ```text
 normalized calculation result
 ```
 
-繧堤畑騾斐↓蠢懊§縺ｦ驕ｸ謚槭〒縺阪ｋ縲・
+を用途に応じて選択できる。
+
 ---
 
 # 150. Phase 91 actual theorem-backed normalization tests
@@ -8073,15 +8500,15 @@ build_phase91_3_data()
 representatives:
 
 ```text
-ﾏ_7^4
+π_7^4
 =
-Z{ﾎｽ竄м竓瓢/4{Eﾎｽ窶ｲ}
+Z{ν₄}⊕Z/4{Eν′}
 
-ﾏ_10^4
+π_10^4
 =
-Z/8{ﾎｽ竄・ｲ}
+Z/8{ν₄²}
 
-ﾏ_9^2
+π_9^2
 =
 0
 ```
@@ -8089,15 +8516,15 @@ Z/8{ﾎｽ竄・ｲ}
 verified normalization:
 
 ```text
-ﾏ_7^4
-generators=(ﾎｽ竄・Eﾎｽ窶ｲ)
+π_7^4
+generators=(ν₄,Eν′)
 orders=(None,4)
 
-ﾏ_10^4
-generators=(ﾎｽ竄・ｲ,)
+π_10^4
+generators=(ν₄²,)
 orders=(8,)
 
-ﾏ_9^2
+π_9^2
 group_structure=None
 generators=()
 orders=()
@@ -8147,11 +8574,16 @@ current capability:
 
 ```text
 (n,k)
-竊・TodaGroupQuery
-竊・known theorem-backed ProofRepositoryEntry
-竊・actual ProofStep
-竊・TodaGroupResult
-竊・group structure
+↓
+TodaGroupQuery
+↓
+known theorem-backed ProofRepositoryEntry
+↓
+actual ProofStep
+↓
+TodaGroupResult
+↓
+group structure
 generators
 generator orders
 ```
@@ -8176,7 +8608,7 @@ Phase 92-1
 current EHP sequence / exactness representation audit
 ```
 
-譛蛻昴↓遒ｺ隱阪☆繧句ｴ謇:
+最初に確認する場所:
 
 ```text
 homotopy_groups.py
@@ -8203,56 +8635,4 @@ toda_group_result.py
 toda_group_lookup.py
 ```
 
-Phase 92-1 縺ｧ縺ｯ current representation audit 繧貞・縺ｫ陦後＞縲・HP result class hierarchy 繧貞・蜿悶ｊ縺励※蝗ｺ螳壹＠縺ｪ縺・・
----
-
-# Phase 92窶・01 current-scope supplement
-
-譌｢蟄俶悽譁・・ Phase 91 completion 譎らせ繧剃ｸｭ蠢・↓險倩ｿｰ縺輔ｌ縺ｦ縺・ｋ縲よ怙譁ｰ莉墓ｧ倥・ `README.md` 縺ｨ `docs/design.md` 繧貞━蜈医☆繧九・
-## Phase 92窶・8
-
-EHP / exactness provenance縲’lat / recursive proof provenance縲《tructured presentation縲〉eadable full proof report縲〉aw `n,k` facade 繧定ｿｽ蜉縲・
-## Phase 99
-
-```text
-structural_containment.py
-repository_element_lookup.py
-generator_occurrence_roles.py
-repository_element_exploration.py
-repository_element_presentation.py
-repository_element_renderer.py
-repository_element_facade.py
-```
-
-## Phase 100
-
-```text
-standard_production_repository.py
-toda_calculation_facade.py
-main.py
-```
-
-```text
-python main.py n k
-```
-
-## Phase 101
-
-```text
-generator_input.py
-repository_element_facade.py
-repository_element_presentation.py
-main.py
-```
-
-```text
-explore_standard_repository_generator_input(generator_input)
-python main.py explore "nu'"
-```
-
-驥崎ｦ・invariant:
-
-```text
-same repository entry + different structural path
-= different occurrence
-```
+Phase 92-1 では current representation audit を先に行い、EHP result class hierarchy を先取りして固定しない。

@@ -1,10 +1,6 @@
 import argparse
 from collections.abc import Sequence
-import sys
 
-from repository_element_facade import (
-  explore_standard_repository_generator_input,
-)
 from toda_calculation_facade import (
   build_standard_toda_report,
 )
@@ -67,94 +63,13 @@ def build_argument_parser(
   return parser
 
 
-def build_explore_argument_parser(
-) -> argparse.ArgumentParser:
-  parser = argparse.ArgumentParser(
-    prog="main.py explore",
-    description=(
-      "Explore occurrences of one generator "
-      "in the standard production repository."
-    ),
-  )
-
-  parser.add_argument(
-    "generator",
-    help=(
-      "generator input such as "
-      "nu_prime, nu_5, or eta_2"
-    ),
-  )
-
-  return parser
-
-
-def _run_explore_command(
-  generator_input: str,
-) -> int:
-  try:
-    report = (
-      explore_standard_repository_generator_input(
-        generator_input
-      )
-    )
-  except (
-    TypeError,
-    ValueError,
-  ) as error:
-    parser = (
-      build_explore_argument_parser()
-    )
-    parser.error(
-      str(
-        error
-      )
-    )
-
-  print(
-    report.markdown,
-    end="",
-  )
-
-  return 0
-
-
 def main(
   argv: Sequence[str] | None = None,
 ) -> int:
-  raw_argv = (
-    list(
-      argv
-    )
-    if argv is not None
-    else sys.argv[
-      1:
-    ]
-  )
-
-  if (
-    raw_argv
-    and raw_argv[
-      0
-    ] == "explore"
-  ):
-    parser = (
-      build_explore_argument_parser()
-    )
-
-    args = parser.parse_args(
-      raw_argv[
-        1:
-      ]
-    )
-
-    return _run_explore_command(
-      args.generator
-    )
-
   parser = build_argument_parser()
 
   args = parser.parse_args(
-    raw_argv
+    argv
   )
 
   result = (

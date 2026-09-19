@@ -1,9 +1,6 @@
 from dataclasses import dataclass
 
 from expression import GeneratorSymbol
-from generator_input import (
-  resolve_generator_input,
-)
 from proof_repository import ProofRepository
 from repository_element_exploration import (
   RepositoryGeneratorExplorationResult,
@@ -15,9 +12,6 @@ from repository_element_presentation import (
 )
 from repository_element_renderer import (
   render_repository_generator_exploration_markdown,
-)
-from standard_production_repository import (
-  build_standard_production_proof_repository,
 )
 
 
@@ -93,23 +87,4 @@ def explore_repository_generator(
     exploration=exploration,
     presentation=presentation,
     markdown=markdown,
-  )
-
-
-def explore_standard_repository_generator_input(
-  generator_input: str,
-) -> RepositoryGeneratorExplorationReport:
-  generator = (
-    resolve_generator_input(
-      generator_input
-    )
-  )
-
-  repository = (
-    build_standard_production_proof_repository()
-  )
-
-  return explore_repository_generator(
-    repository,
-    generator,
   )
