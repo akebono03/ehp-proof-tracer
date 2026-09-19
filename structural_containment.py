@@ -6,16 +6,25 @@ from dataclasses import (
 from expression import GeneratorSymbol
 
 
-def _contains_generator_symbol(
+def _find_generator_occurrence_paths(
   value,
   generator: GeneratorSymbol,
-  visited_ids: set[int],
-) -> bool:
+  path: tuple[str, ...],
+  ancestor_ids: frozenset[int],
+) -> tuple[
+  tuple[str, ...],
+  ...,
+]:
   if isinstance(
     value,
     GeneratorSymbol,
   ):
-    return value == generator
+    if value == generator:
+      return (
+        path,
+      )
+
+    return ()
 
   if isinstance(
     value,
@@ -25,20 +34,39 @@ def _contains_generator_symbol(
       value
     )
 
-    if value_id in visited_ids:
-      return False
+    if value_id in ancestor_ids:
+      return ()
 
-    visited_ids.add(
-      value_id
+    next_ancestor_ids = (
+      ancestor_ids
+      | frozenset(
+        (
+          value_id,
+        )
+      )
     )
 
-    return any(
-      _contains_generator_symbol(
-        item,
-        generator,
-        visited_ids,
+    paths = []
+
+    for index, item in enumerate(
+      value
+    ):
+      paths.extend(
+        _find_generator_occurrence_paths(
+          item,
+          generator,
+          path
+          + (
+            str(
+              index
+            ),
+          ),
+          next_ancestor_ids,
+        )
       )
-      for item in value
+
+    return tuple(
+      paths
     )
 
   if (
@@ -54,34 +82,52 @@ def _contains_generator_symbol(
       value
     )
 
-    if value_id in visited_ids:
-      return False
+    if value_id in ancestor_ids:
+      return ()
 
-    visited_ids.add(
-      value_id
-    )
-
-    return any(
-      _contains_generator_symbol(
-        getattr(
-          value,
-          field.name,
-        ),
-        generator,
-        visited_ids,
-      )
-      for field in fields(
-        value
+    next_ancestor_ids = (
+      ancestor_ids
+      | frozenset(
+        (
+          value_id,
+        )
       )
     )
 
-  return False
+    paths = []
+
+    for field in fields(
+      value
+    ):
+      paths.extend(
+        _find_generator_occurrence_paths(
+          getattr(
+            value,
+            field.name,
+          ),
+          generator,
+          path
+          + (
+            field.name,
+          ),
+          next_ancestor_ids,
+        )
+      )
+
+    return tuple(
+      paths
+    )
+
+  return ()
 
 
-def contains_generator_symbol(
+def find_generator_occurrence_paths(
   value,
   generator: GeneratorSymbol,
-) -> bool:
+) -> tuple[
+  tuple[str, ...],
+  ...,
+]:
   if not isinstance(
     generator,
     GeneratorSymbol,
@@ -90,8 +136,21 @@ def contains_generator_symbol(
       "generator must be a GeneratorSymbol"
     )
 
-  return _contains_generator_symbol(
+  return _find_generator_occurrence_paths(
     value,
     generator,
-    set(),
+    (),
+    frozenset(),
+  )
+
+
+def contains_generator_symbol(
+  value,
+  generator: GeneratorSymbol,
+) -> bool:
+  return bool(
+    find_generator_occurrence_paths(
+      value,
+      generator,
+    )
   )
