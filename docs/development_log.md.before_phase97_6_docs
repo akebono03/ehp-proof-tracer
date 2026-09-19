@@ -45,33 +45,9 @@ Toda group query、normalized group result、EHP provenance、flat / recursive p
 
 `docs/development_log/phases_096.md`
 
-structured presentation、EHP / exactness presentation、proof source presentation、dependency-first proof flow、代表 target 展開、Markdown / LaTeX renderer、readable narrative、unified full proof report、final audit の記録。
+structured presentation、EHP / exactness presentation、proof source presentation、dependency-first proof flow、actual \(\pi_9^5\) end-to-end presentation、代表 target 展開、Markdown / LaTeX renderer、mathematical statement renderer、readable narrative、unified full proof report、final audit の記録。
 
 Phase 96 は COMPLETE。
-
-## Phase 97
-
-`docs/development_log/phases_097.md`
-
-calculation-to-report orchestration boundary audit、minimal top-level report result representation、single `FOUND` API、`NOT_FOUND / FOUND / MULTIPLE_RESULTS` handling、actual representative six-target top-level validation、final audit の記録。
-
-Phase 97 は COMPLETE。
-
-最終確認:
-
-```text
-Phase 97-5 focused:
-8 passed in 9.99s
-
-Phase 97 related:
-32 passed in 9.44s
-
-repository-wide:
-7609 passed in 121.63s
-
-git diff --check:
-clean
-```
 
 ---
 

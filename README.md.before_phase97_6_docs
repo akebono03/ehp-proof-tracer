@@ -83,7 +83,7 @@ General unbounded proof search, proof ranking, proof-cost optimization, and best
 
 ## Toda group calculation API
 
-The calculation entry point is:
+The main calculation entry point is:
 
 ```python
 build_toda_calculation_result(
@@ -98,7 +98,7 @@ where `query` is a `TodaGroupQuery(n, k)` representing
 \pi_{n+k}^n.
 \]
 
-The calculation flow is:
+The current orchestration flow is:
 
 ```text
 TodaGroupQuery
@@ -121,7 +121,7 @@ representative explanation
 TodaCalculationResult
 ```
 
-Direct results take precedence over aggregate fallback results. Multiple valid results are preserved; the calculation layer does not silently rank or choose one result.
+Direct results always take precedence over aggregate fallback results. Multiple valid results are preserved; the calculation layer does not silently rank or choose one result.
 
 ## Calculation result structure
 
@@ -142,14 +142,6 @@ goal_source = None
 ```
 
 For aggregate-derived results, `goal_source` preserves the original aggregate `ProofRepositoryEntry` and branch path, while `group_result.proof_step` preserves the original branch `ProofStep`.
-
-Status semantics are:
-
-```text
-0 candidates  -> NOT_FOUND
-1 candidate   -> FOUND
-2+ candidates -> MULTIPLE_RESULTS
-```
 
 ## Group normalization
 
@@ -228,7 +220,7 @@ is recursive_provenance.root_step
 
 ## Presentation and proof-report layer
 
-The presentation architecture is one-way:
+Phase 96 adds a one-way presentation architecture:
 
 ```text
 proof / calculation truth
@@ -274,7 +266,7 @@ toda_proof_narrative_renderer.py
 toda_full_proof_report_renderer.py
 ```
 
-The unified presentation-level report renderer is:
+The unified proof-report entry point is:
 
 ```python
 render_toda_full_proof_report_markdown(
@@ -295,97 +287,9 @@ Readable proof narrative
 
 Unknown statement types are kept as explicit safe fallbacks rather than guessed into mathematical prose.
 
-## User-facing calculation-to-report API
-
-Phase 97 adds a structured top-level reporting layer.
-
-The general entry point is:
-
-```python
-build_toda_calculation_report_result(
-  repository,
-  query,
-)
-```
-
-with:
-
-```python
-query = TodaGroupQuery(
-  n=n,
-  k=k,
-)
-```
-
-The complete user-facing flow is:
-
-```text
-(n, k)
-↓
-TodaGroupQuery
-↓
-build_toda_calculation_result()
-↓
-candidate handling
-↓
-end-to-end presentation
-↓
-full Markdown proof report
-↓
-TodaCalculationReportResult
-```
-
-`TodaCalculationReportResult` retains the original `TodaCalculationResult` and an ordered tuple of `TodaCalculationReportCandidate` objects.
-
-Each report candidate retains:
-
-```text
-source_candidate
-presentation
-report
-```
-
-The identity invariant is:
-
-```text
-report_result.candidates[i].source_candidate
-is report_result.calculation_result.candidates[i]
-```
-
-For `NOT_FOUND`:
-
-```text
-report candidates = ()
-```
-
-For `FOUND`:
-
-```text
-one report candidate
-```
-
-For `MULTIPLE_RESULTS`:
-
-```text
-all report candidates are preserved in calculation order
-```
-
-The reporting layer never silently selects a preferred result.
-
-A stricter single-result convenience API is also available:
-
-```python
-build_toda_found_calculation_report_result(
-  repository,
-  query,
-)
-```
-
-It requires calculation status `FOUND`.
-
 ## Representative end-to-end coverage
 
-Using aggregate theorem entries in a `ProofRepository`, the top-level calculation-to-report API is regression-tested for:
+Using only aggregate theorem entries in a `ProofRepository`, the calculation and presentation APIs are regression-tested for:
 
 \[
 \pi_7^4,\quad
@@ -396,24 +300,7 @@ Using aggregate theorem entries in a `ProofRepository`, the top-level calculatio
 \pi_{12}^5.
 \]
 
-These cases cover:
-
-```text
-direct sums
-finite cyclic groups
-zero groups
-nested aggregate branches
-generator orders
-goal-source provenance
-EHP provenance
-exactness provenance
-recursive provenance
-dependency-first presentation
-LaTeX / Markdown rendering
-mathematical statement rendering
-unified reports
-repository non-mutation
-```
+These cases cover direct sums, finite cyclic groups, zero groups, nested aggregate branches, generator orders, EHP provenance, recursive provenance, dependency-first presentation, LaTeX rendering, mathematical statement rendering, and unified reports.
 
 For actual \(\pi_9^5\), the report can present:
 
@@ -448,37 +335,33 @@ The following are intentionally deferred:
 - automatic instantiation of symbolic higher-range branches,
 - target-only generation of unknown right-hand-side proof goals,
 - bounded proof-search fallback from a target-only query,
-- detailed calculation-failure taxonomy beyond `NOT_FOUND / FOUND / MULTIPLE_RESULTS`,
-- automatic ranking or best-result selection,
+- detailed calculation-failure taxonomy,
 - full mathematical prose rendering for every historical aggregate statement type,
-- a convenience overload taking raw `n, k` instead of an explicit `TodaGroupQuery`,
 - general theorem proving,
 - odd-primary full integration,
 - an all-primary ordinary sphere-homotopy calculator.
 
 ## Verification
 
-Latest confirmed Phase 97 validation:
+Latest confirmed repository-wide regression after Phase 96 completion:
 
 ```text
-Phase 97-5 focused:
-8 passed in 9.99s
-
-Phase 97 related:
-32 passed in 9.44s
-
-repository-wide:
-7609 passed in 121.63s
-
-git diff --check:
-clean
+7577 passed in 43.70s
 ```
+
+Latest focused Phase 96 final-report audit:
+
+```text
+75 passed in 6.50s
+```
+
+`git diff --check` was clean.
 
 Wall-clock time is machine-dependent. Test count, semantic coverage, identity preservation, provenance coverage, report determinism, and repository-wide regression are the primary cross-machine signals.
 
 ## Current project state
 
-Phases 90 through 97 establish:
+Phases 90 through 96 establish:
 
 ```text
 query
@@ -487,25 +370,22 @@ query
 → EHP / exactness provenance
 → flat proof dependencies
 → recursive proof provenance
-→ calculation orchestration
+→ top-level calculation orchestration
 → structured presentation
 → dependency-first proof flow
 → LaTeX / Markdown rendering
 → mathematical statement rendering
 → readable proof narrative
 → unified full proof report
-→ top-level calculation-to-report result
 ```
 
-Phase 97 is formally COMPLETE.
+Phase 96 is formally COMPLETE.
 
-The next recommended development phase is Phase 98:
+The next development phase is Phase 97:
 
 ```text
-user-facing input / report-access convenience audit
+user-facing proof-report query / calculation-to-report API
 ```
-
-The first step should be an audit before adding any new convenience API.
 
 ## Documentation
 
