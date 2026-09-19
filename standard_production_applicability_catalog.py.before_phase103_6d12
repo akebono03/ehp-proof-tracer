@@ -595,37 +595,6 @@ _SECOND_WAVE_RELEVANCE_BY_FACTORY = {
   "toda_53_eta5_iterated_suspension_bridge_inference_rule": (
     RuleRelevanceCategory.BRIDGE
   ),
-  "toda_pi3_2_define_eta2_inference_rule": (
-    RuleRelevanceCategory.BRIDGE
-  ),
-  "toda_pi3_2_eta2_hopf_relation_inference_rule": (
-    RuleRelevanceCategory.BRIDGE
-  ),
-  "toda_54_indeterminacy_double_nu_prime_generator_inference_rule": (
-    RuleRelevanceCategory.BRIDGE
-  ),
-  "toda_delta_iota5_two_eta2_up_to_sign_inference_rule": (
-    RuleRelevanceCategory.BRIDGE
-  ),
-  "toda_54_nu_prime_bracket_inclusion_inference_rule": (
-    RuleRelevanceCategory.THEOREM_SPECIFIC
-  ),
-  "toda_54_t_ge_1_indeterminacy_eta_cube_inference_rule": (
-    RuleRelevanceCategory.THEOREM_SPECIFIC
-  ),
-  "toda_54_t_ge_1_up_to_sign_inference_rule": (
-    RuleRelevanceCategory.THEOREM_SPECIFIC
-  ),
-  "toda_45_pi4_3_finite_cyclic_transport_inference_rule": (
-    RuleRelevanceCategory.THEOREM_SPECIFIC
-  ),
-  "toda_52_pi4_2_finite_cyclic_transport_inference_rule": (
-    RuleRelevanceCategory.THEOREM_SPECIFIC
-  ),
-  "toda_55_nu_family_double_suspension_transport_inference_rule": (
-    RuleRelevanceCategory.THEOREM_SPECIFIC
-  ),
-
 }
 
 

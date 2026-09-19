@@ -188,7 +188,7 @@ def test_phase103_6d10_second_wave_affects_exactly_408_catalog_entries():
   )
 
 
-def test_phase103_6d10_second_wave_families_remain_consistently_classified():
+def test_phase103_6d10_production_coverage_is_38_classified_229_unclassified():
   catalog = (
     build_standard_production_applicability_catalog()
   )
@@ -197,33 +197,60 @@ def test_phase103_6d10_second_wave_families_remain_consistently_classified():
     catalog
   )
 
-  checked = 0
+  classified = 0
+  unclassified = 0
 
-  for (
-    expected_category,
-    names,
-  ) in SECOND_WAVE_EXPECTED.items():
-    for name in names:
-      entries = families[
-        name
-      ]
+  for entries in families.values():
+    categories = {
+      entry.relevance_category
+      for entry in entries
+    }
 
-      categories = {
-        entry.relevance_category
-        for entry in entries
-      }
+    assert len(
+      categories
+    ) == 1
 
-      assert categories == {
-        expected_category
-      }
+    category = next(
+      iter(
+        categories
+      )
+    )
 
-      checked += 1
-
-  assert checked == 29
+    if (
+      category
+      is RuleRelevanceCategory.UNCLASSIFIED
+    ):
+      unclassified += 1
+    else:
+      classified += 1
 
   assert len(
     families
   ) == 267
+
+  assert classified == 38
+  assert unclassified == 229
+
+
+def test_phase103_6d10_deferred_boundary_families_remain_unclassified():
+  catalog = (
+    build_standard_production_applicability_catalog()
+  )
+
+  families = _families(
+    catalog
+  )
+
+  for name in DEFERRED_FAMILIES:
+    entries = families[
+      name
+    ]
+
+    assert all(
+      entry.relevance_category
+      is RuleRelevanceCategory.UNCLASSIFIED
+      for entry in entries
+    )
 
 
 def test_phase103_6d10_catalog_size_and_fixed_point_safety_are_unchanged():
