@@ -56,17 +56,9 @@ Phase 95 completion record を含む。
 
 `docs/proof_records/presentation_reporting_096.md`
 
-structured presentation、EHP / exactness presentation、proof source presentation、dependency-first proof flow、human-readable Markdown / LaTeX、readable narrative、unified full proof report、Phase 96 final audit の記録。
+structured presentation、EHP / exactness presentation、proof source presentation、dependency-first proof flow、human-readable Markdown / LaTeX、mathematical statement renderer、readable narrative、unified full proof report、Phase 96 final audit の記録。
 
-## Phase 97
-
-`docs/proof_records/calculation_reporting_097.md`
-
-`TodaCalculationResult` から end-to-end presentation / full proof report までを compose する top-level reporting layer の記録。
-
-`NOT_FOUND / FOUND / MULTIPLE_RESULTS` semantics、candidate identity/order、direct / aggregate provenance preservation、代表6 target の top-level validation、repository non-mutation を含む。
-
-Phase 97 completion record を含む。
+actual \(\pi_9^5\) を中心とした proof-report provenance と representative target coverage を含む。
 
 ---
 
@@ -78,13 +70,10 @@ Phase 97 completion record を含む。
 proof record != proof truth
 presentation != proof truth
 rendered prose != proof truth
-report orchestration != proof truth
 ```
 
 この文書群は、実装済み proof object と provenance を人間が追跡しやすくするための記録であり、独立した theorem database ではない。
 
 renderer が未対応 statement を推測で補完してはならない。
-
-report orchestration が multiple candidate を勝手に ranking / selection してはならない。
 
 既存記録は原則として削除せず、確定した semantic correction がある場合のみ訂正する。
