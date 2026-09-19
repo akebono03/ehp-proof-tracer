@@ -73,6 +73,7 @@ def test_phase103_6_explore_applicable_dispatches_to_facade(
     == ""
   )
 
+
 def test_phase103_6_actual_explore_applicable_renders_production_result(
   capsys,
 ):
@@ -87,10 +88,13 @@ def test_phase103_6_actual_explore_applicable_renders_production_result(
     capsys.readouterr()
   )
 
-  assert exit_code == 0
+  assert (
+    exit_code
+    == 0
+  )
 
   assert (
-    "# Applicable theorem / lemma candidates for $\\nu'$"
+    "Applicable theorem / lemma candidates for $\\nu'$"
     in captured.out
   )
 
@@ -105,56 +109,25 @@ def test_phase103_6_actual_explore_applicable_renders_production_result(
   )
 
   assert (
-    "Source statements with candidates:"
-    in captured.out
-  )
-
-  assert (
-    "Rule groups:"
-    in captured.out
-  )
-
-  assert (
-    "Rule families:"
-    in captured.out
-  )
-
-  assert (
     "## Candidates"
     in captured.out
   )
 
   assert (
-    "### Toda memberships"
-    in captured.out
-  )
-
-  assert (
-    "Rule: Toda 5.3 nu-prime Lemma 5.2 bracket specialization"
-    in captured.out
-  )
-
-  assert (
-    "Catalog entries:"
+    "Root:"
     in captured.out
   )
 
   assert (
     "Premise index:"
-    not in captured.out
+    in captured.out
   )
 
   assert (
-    "Bindings:"
-    not in captured.out
+    captured.err
+    == ""
   )
 
-  assert (
-    "Fixed-point safe:"
-    not in captured.out
-  )
-
-  assert captured.err == ""
 
 def test_phase103_6_explore_applicable_zero_result_is_zero_exit(
   capsys,

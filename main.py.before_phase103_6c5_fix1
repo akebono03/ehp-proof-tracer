@@ -12,10 +12,6 @@ from repository_generator_applicability_renderer import (
   render_repository_generator_applicability_compact_markdown,
   render_repository_generator_applicability_detailed_markdown,
 )
-
-render_repository_generator_applicability_markdown = (
-  render_repository_generator_applicability_compact_markdown
-)
 from repository_proof_scope_facade import (
   explore_standard_repository_generator_proof_scope_input,
 )
@@ -248,7 +244,7 @@ def _run_explore_applicable_command(
   renderer = (
     render_repository_generator_applicability_detailed_markdown
     if detailed
-    else render_repository_generator_applicability_markdown
+    else render_repository_generator_applicability_compact_markdown
   )
 
   markdown = renderer(

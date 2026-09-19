@@ -45,145 +45,7 @@ def _source_heading(
   )
 
 
-def _summary_lines(
-  presentation: RepositoryGeneratorApplicabilityPresentation,
-) -> list[str]:
-  result = (
-    presentation.source_result
-  )
-
-  return [
-    (
-      "# Applicable theorem / lemma candidates for $"
-      + _render_generator_symbol_latex(
-        result.generator
-      )
-      + "$"
-    ),
-    "",
-    (
-      "Proof-scope occurrences: "
-      + str(
-        len(
-          result
-          .proof_scope_exploration
-          .occurrences
-        )
-      )
-    ),
-    (
-      "Applicability candidates: "
-      + str(
-        len(
-          result.candidates
-        )
-      )
-    ),
-    (
-      "Source statements with candidates: "
-      + str(
-        len(
-          presentation.source_groups
-        )
-      )
-    ),
-    (
-      "Rule groups: "
-      + str(
-        presentation.rule_group_count
-      )
-    ),
-    (
-      "Rule families: "
-      + str(
-        presentation.rule_family_count
-      )
-    ),
-  ]
-
-
-def _append_compact_source_group(
-  lines: list[str],
-  source_group: ApplicabilitySourceGroupPresentation,
-) -> None:
-  lines.extend(
-    (
-      "",
-      _source_heading(
-        source_group
-      ),
-      "",
-      (
-        "- Root: "
-        + source_group
-        .scope_node
-        .root_entry
-        .key
-      ),
-      (
-        "- Depth: "
-        + str(
-          source_group
-          .scope_node
-          .shortest_depth
-        )
-      ),
-      (
-        "- Source statement type: "
-        + type(
-          source_group
-          .source_statement
-        ).__name__
-      ),
-      (
-        "- Raw candidates: "
-        + str(
-          len(
-            source_group.candidates
-          )
-        )
-      ),
-      (
-        "- Rule families: "
-        + str(
-          len(
-            source_group.rule_families
-          )
-        )
-      ),
-    )
-  )
-
-  for rule_family in (
-    source_group.rule_families
-  ):
-    lines.extend(
-      (
-        "",
-        (
-          "- Rule: "
-          + rule_family.name
-        ),
-        (
-          "  - Catalog entries: "
-          + str(
-            len(
-              rule_family.rule_groups
-            )
-          )
-        ),
-        (
-          "  - Raw candidates: "
-          + str(
-            rule_family
-            .raw_candidate_count
-          )
-        ),
-      )
-    )
-
-
-def _append_detailed_source_group(
+def _append_source_group(
   lines: list[str],
   source_group: ApplicabilitySourceGroupPresentation,
 ) -> None:
@@ -319,7 +181,6 @@ def _append_source_section(
     ApplicabilitySourceGroupPresentation,
     ...,
   ],
-  detailed: bool,
 ) -> None:
   if not source_groups:
     return
@@ -331,30 +192,68 @@ def _append_source_section(
     )
   )
 
-  append_source_group = (
-    _append_detailed_source_group
-    if detailed
-    else _append_compact_source_group
-  )
-
   for source_group in source_groups:
-    append_source_group(
+    _append_source_group(
       lines,
       source_group,
     )
 
 
-def _render_presentation_markdown(
+def _render_grouped_presentation_markdown(
   presentation: RepositoryGeneratorApplicabilityPresentation,
-  detailed: bool,
 ) -> str:
-  lines = _summary_lines(
-    presentation
-  )
-
   result = (
     presentation.source_result
   )
+
+  lines = [
+    (
+      "# Applicable theorem / lemma candidates for $"
+      + _render_generator_symbol_latex(
+        result.generator
+      )
+      + "$"
+    ),
+    "",
+    (
+      "Proof-scope occurrences: "
+      + str(
+        len(
+          result
+          .proof_scope_exploration
+          .occurrences
+        )
+      )
+    ),
+    (
+      "Applicability candidates: "
+      + str(
+        len(
+          result.candidates
+        )
+      )
+    ),
+    (
+      "Source statements with candidates: "
+      + str(
+        len(
+          presentation.source_groups
+        )
+      )
+    ),
+    (
+      "Rule groups: "
+      + str(
+        presentation.rule_group_count
+      )
+    ),
+    (
+      "Rule families: "
+      + str(
+        presentation.rule_family_count
+      )
+    ),
+  ]
 
   if result.candidates:
     lines.extend(
@@ -369,7 +268,6 @@ def _render_presentation_markdown(
       "Toda memberships",
       presentation
       .toda_membership_source_groups,
-      detailed=detailed,
     )
 
     _append_source_section(
@@ -377,7 +275,6 @@ def _render_presentation_markdown(
       "Map relations",
       presentation
       .map_relation_source_groups,
-      detailed=detailed,
     )
 
     _append_source_section(
@@ -385,7 +282,6 @@ def _render_presentation_markdown(
       "Other statements",
       presentation
       .other_source_groups,
-      detailed=detailed,
     )
 
   return "\n".join(
@@ -393,9 +289,9 @@ def _render_presentation_markdown(
   ) + "\n"
 
 
-def _build_presentation(
+def render_repository_generator_applicability_markdown(
   result: RepositoryGeneratorApplicabilityExplorationResult,
-) -> RepositoryGeneratorApplicabilityPresentation:
+) -> str:
   if not isinstance(
     result,
     RepositoryGeneratorApplicabilityExplorationResult,
@@ -405,48 +301,12 @@ def _build_presentation(
       "RepositoryGeneratorApplicabilityExplorationResult"
     )
 
-  return (
+  presentation = (
     build_repository_generator_applicability_presentation(
       result
     )
   )
 
-
-def render_repository_generator_applicability_compact_markdown(
-  result: RepositoryGeneratorApplicabilityExplorationResult,
-) -> str:
-  presentation = (
-    _build_presentation(
-      result
-    )
-  )
-
-  return _render_presentation_markdown(
-    presentation,
-    detailed=False,
-  )
-
-
-def render_repository_generator_applicability_detailed_markdown(
-  result: RepositoryGeneratorApplicabilityExplorationResult,
-) -> str:
-  presentation = (
-    _build_presentation(
-      result
-    )
-  )
-
-  return _render_presentation_markdown(
-    presentation,
-    detailed=True,
-  )
-
-
-def render_repository_generator_applicability_markdown(
-  result: RepositoryGeneratorApplicabilityExplorationResult,
-) -> str:
-  return (
-    render_repository_generator_applicability_detailed_markdown(
-      result
-    )
+  return _render_grouped_presentation_markdown(
+    presentation
   )
