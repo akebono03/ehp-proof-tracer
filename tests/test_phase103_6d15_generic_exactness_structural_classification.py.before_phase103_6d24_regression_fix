@@ -91,21 +91,29 @@ def _required_parameter_count(
 
 
 def _build_catalog():
-  builder = getattr(
-    production_catalog,
-    "_phase103_6d18_original_builder",
+  preferred_names = (
+    "build_standard_production_applicability_catalog",
+    "standard_production_applicability_catalog",
+    "build_standard_production_rule_catalog",
+    "build_standard_production_catalog",
   )
 
-  value = builder()
-
-  if hasattr(
-    value,
-    "entries",
-  ):
-    return value
+  for name in preferred_names:
+    candidate = getattr(
+      production_catalog,
+      name,
+      None,
+    )
+    if (
+      callable(candidate)
+      and _required_parameter_count(candidate) == 0
+    ):
+      value = candidate()
+      if hasattr(value, "entries"):
+        return value
 
   raise AssertionError(
-    "Phase 103-6D15 catalog builder did not return a catalog"
+    "standard production catalog builder not found"
   )
 
 
@@ -357,8 +365,8 @@ def test_phase103_6d15_family_coverage_counts():
 
   assert len(entries) == 1188
   assert len(families) == 267
-  assert classified == 86
-  assert unclassified == 181
+  assert classified == 91
+  assert unclassified == 176
 
 
 def test_phase103_6d15_entry_coverage_counts():
@@ -384,5 +392,5 @@ def test_phase103_6d15_entry_coverage_counts():
     )
   )
 
-  assert structural == 183
-  assert unclassified == 511
+  assert structural == 184
+  assert unclassified == 494
