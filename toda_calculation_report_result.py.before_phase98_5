@@ -159,15 +159,3 @@ class TodaCalculationReportResult:
     return self.candidates[
       0
     ].report
-
-  @property
-  def reports(
-    self,
-  ) -> tuple[
-    str,
-    ...,
-  ]:
-    return tuple(
-      candidate.report
-      for candidate in self.candidates
-    )
