@@ -297,9 +297,9 @@ Unknown statement types are kept as explicit safe fallbacks rather than guessed 
 
 ## User-facing calculation-to-report API
 
-Phase 97 adds a structured top-level reporting layer.
+Phase 97 added the structured top-level reporting layer. Phase 98 adds a thin convenience boundary without changing calculation or proof semantics.
 
-The general entry point is:
+The lowest-level general reporting entry point remains:
 
 ```python
 build_toda_calculation_report_result(
@@ -317,23 +317,31 @@ query = TodaGroupQuery(
 )
 ```
 
-The complete user-facing flow is:
+The user-facing convenience entry point is:
+
+```python
+build_toda_report(
+  repository,
+  n=n,
+  k=k,
+)
+```
+
+The complete convenience flow is:
 
 ```text
-(n, k)
+raw n, k
+↓
+build_toda_report()
 ↓
 TodaGroupQuery
 ↓
-build_toda_calculation_result()
-↓
-candidate handling
-↓
-end-to-end presentation
-↓
-full Markdown proof report
+build_toda_calculation_report_result()
 ↓
 TodaCalculationReportResult
 ```
+
+`build_toda_report()` is intentionally thin. It constructs `TodaGroupQuery` and delegates to the existing Phase 97 reporting API. It does not reimplement validation, lookup, normalization, provenance, presentation, or rendering.
 
 `TodaCalculationReportResult` retains the original `TodaCalculationResult` and an ordered tuple of `TodaCalculationReportCandidate` objects.
 
@@ -355,24 +363,30 @@ is report_result.calculation_result.candidates[i]
 For `NOT_FOUND`:
 
 ```text
-report candidates = ()
+report_result.candidates == ()
+report_result.reports == ()
+report_result.report raises ValueError
 ```
 
 For `FOUND`:
 
 ```text
 one report candidate
+report_result.report
+report_result.reports == (report_result.report,)
 ```
 
 For `MULTIPLE_RESULTS`:
 
 ```text
 all report candidates are preserved in calculation order
+report_result.reports contains every report in candidate order
+report_result.report raises ValueError
 ```
 
 The reporting layer never silently selects a preferred result.
 
-A stricter single-result convenience API is also available:
+A stricter query-object-based single-result API is also available:
 
 ```python
 build_toda_found_calculation_report_result(
@@ -383,9 +397,11 @@ build_toda_found_calculation_report_result(
 
 It requires calculation status `FOUND`.
 
+A fixed human-readable `NOT_FOUND` message is intentionally not part of the core result model. Message wording belongs to a future CLI, Web UI, or other presentation surface.
+
 ## Representative end-to-end coverage
 
-Using aggregate theorem entries in a `ProofRepository`, the top-level calculation-to-report API is regression-tested for:
+Using aggregate theorem entries in a `ProofRepository`, the shortest user-facing calculation-to-report path is regression-tested for:
 
 \[
 \pi_7^4,\quad
@@ -399,6 +415,7 @@ Using aggregate theorem entries in a `ProofRepository`, the top-level calculatio
 These cases cover:
 
 ```text
+raw n,k facade input
 direct sums
 finite cyclic groups
 zero groups
@@ -412,6 +429,8 @@ dependency-first presentation
 LaTeX / Markdown rendering
 mathematical statement rendering
 unified reports
+single FOUND report access
+ordered report collection access
 repository non-mutation
 ```
 
@@ -451,24 +470,25 @@ The following are intentionally deferred:
 - detailed calculation-failure taxonomy beyond `NOT_FOUND / FOUND / MULTIPLE_RESULTS`,
 - automatic ranking or best-result selection,
 - full mathematical prose rendering for every historical aggregate statement type,
-- a convenience overload taking raw `n, k` instead of an explicit `TodaGroupQuery`,
+- fixed human-readable `NOT_FOUND` messages in the core result model,
+- CLI and Web UI surfaces,
 - general theorem proving,
 - odd-primary full integration,
 - an all-primary ordinary sphere-homotopy calculator.
 
 ## Verification
 
-Latest confirmed Phase 97 validation:
+Latest confirmed Phase 98 validation:
 
 ```text
-Phase 97-5 focused:
-8 passed in 9.99s
+Phase 98-6 focused:
+8 passed in 8.64s
 
-Phase 97 related:
-32 passed in 9.44s
+Phase 98 related:
+27 passed in 9.94s
 
 repository-wide:
-7609 passed in 121.63s
+7643 passed in 123.73s
 
 git diff --check:
 clean
@@ -478,7 +498,7 @@ Wall-clock time is machine-dependent. Test count, semantic coverage, identity pr
 
 ## Current project state
 
-Phases 90 through 97 establish:
+Phases 90 through 98 establish:
 
 ```text
 query
@@ -495,17 +515,14 @@ query
 → readable proof narrative
 → unified full proof report
 → top-level calculation-to-report result
+→ raw n,k convenience facade
+→ single FOUND report access
+→ ordered report collection access
 ```
 
-Phase 97 is formally COMPLETE.
+Phase 98 is formally COMPLETE after the final documentation audit.
 
-The next recommended development phase is Phase 98:
-
-```text
-user-facing input / report-access convenience audit
-```
-
-The first step should be an audit before adding any new convenience API.
+The next development phase should start with an audit of the next actual user-facing need rather than adding speculative convenience. Natural candidates include CLI / Web UI work or mathematical exploration/query capabilities, but the exact next phase should be chosen from observed usage pressure.
 
 ## Documentation
 

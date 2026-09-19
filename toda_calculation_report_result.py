@@ -142,3 +142,32 @@ class TodaCalculationReportResult:
     self,
   ) -> TodaCalculationStatus:
     return self.calculation_result.status
+
+  @property
+  def report(
+    self,
+  ) -> str:
+    if (
+      self.status
+      is not TodaCalculationStatus.FOUND
+    ):
+      raise ValueError(
+        "report is available only when "
+        "status is FOUND"
+      )
+
+    return self.candidates[
+      0
+    ].report
+
+  @property
+  def reports(
+    self,
+  ) -> tuple[
+    str,
+    ...,
+  ]:
+    return tuple(
+      candidate.report
+      for candidate in self.candidates
+    )

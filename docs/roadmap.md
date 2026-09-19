@@ -50,15 +50,18 @@ structured presentation
 → unified full proof report
 ```
 
-top-level reporting:
+top-level reporting / convenience:
 
 ```text
-TodaGroupQuery
+raw n,k
+→ build_toda_report()
+→ TodaGroupQuery
 → calculation
 → candidate handling
 → presentation
 → report
 → TodaCalculationReportResult
+→ report / reports access
 ```
 
 代表 target:
@@ -75,14 +78,14 @@ TodaGroupQuery
 最新 regression:
 
 ```text
-7609 passed in 121.63s
+7643 passed in 123.73s
 ```
 
 ---
 
 # 2. 完了済み capability
 
-Phase 90–97:
+Phase 90–98:
 
 ```text
 query target construction
@@ -106,28 +109,26 @@ calculation-report representation
 single FOUND calculation-to-report API
 NOT_FOUND / FOUND / MULTIPLE_RESULTS top-level handling
 representative six-target top-level validation
+raw n,k user-facing facade
+FOUND-only result.report
+ordered result.reports
+representative shortest-path validation
 ```
 
-Phase 97 は正式 COMPLETE。
+Phase 98 は正式 COMPLETE。
 
 ---
 
-# 3. Phase 97 完了状態
+# 3. 現在の user-facing API
 
-一般 API:
+最短経路:
 
 ```text
-build_toda_calculation_report_result(
+build_toda_report(
   repository,
-  query,
+  n,
+  k,
 )
-```
-
-input:
-
-```text
-ProofRepository
-TodaGroupQuery(n, k)
 ```
 
 output:
@@ -136,15 +137,44 @@ output:
 TodaCalculationReportResult
 ```
 
+single `FOUND`:
+
+```text
+result.report
+```
+
+全 candidate report:
+
+```text
+result.reports
+```
+
+status semantics:
+
+```text
+NOT_FOUND
+→ reports == ()
+→ report は ValueError
+
+FOUND
+→ report 使用可能
+→ reports == (report,)
+
+MULTIPLE_RESULTS
+→ reports は全 candidate report
+→ report は ValueError
+```
+
 multiple candidate の ranking / best selection はしない。
 
 ---
 
-# 4. Phase 97 で守った境界
+# 4. Phase 98 で守った境界
 
 再実装しなかったもの:
 
 ```text
+query validation
 group lookup semantics
 aggregate branch discovery
 proof recovery
@@ -154,39 +184,49 @@ dependency extraction
 presentation model
 mathematical renderer
 narrative renderer
+candidate ranking
 ```
 
-direct / aggregate provenance、candidate identity、repository non-mutation を保持。
+追加しなかったもの:
+
+```text
+new facade class
+NOT_FOUND fixed message
+silent first-candidate selection
+new proof or calculation logic
+```
+
+direct / aggregate provenance、candidate identity/order、repository non-mutation を保持。
 
 ---
 
-# 5. 次 Phase 候補：Phase 98
+# 5. 次 Phase の選定方針
 
-推奨主題:
+Phase 98 で convenience pressure は一度解消した。
 
-```text
-user-facing input / report-access convenience audit
-```
+次は speculative convenience を増やさず、actual usage pressure から主題を選ぶ。
 
-まず実装せず:
+有力候補:
 
 ```text
-Phase 98-1
-current user-facing convenience pressure audit
+A. CLI / Web UI boundary audit
+B. symbolic exploration / query capability audit
+C. element-centered search audit
+D. mathematical scope expansion audit
 ```
 
-確認候補:
+特に user-facing exploration の候補:
 
 ```text
-1. raw n,k convenience overload が本当に必要か
-2. single FOUND の report access property が必要か
-3. NOT_FOUND の user-facing message が必要か
-4. MULTIPLE_RESULTS の report collection をどう見せるか
-5. CLI / Web UI より先に必要な facade は何か
-6. structured result を維持したまま convenience を追加できるか
+指定した元を含む Toda bracket の検索
+nu' in {a,b,c} 型 containment query
+coset / indeterminacy の表示・計算
+写像による元の行き先検索
+補題・命題を適用できる元の検索
+本に明示されていない導出済み結果の列挙
 ```
 
-actual usage pressure がない convenience は追加しない。
+次 Phase はこれらを一度に実装せず、最初に current representation / actual need audit を行う。
 
 ---
 
@@ -221,6 +261,8 @@ MULTIPLE_RESULTS
 ```
 
 のみ。細分類は actual need が確認された場合に検討する。
+
+core model の fixed human-readable `NOT_FOUND` message も deferred。
 
 ---
 
@@ -328,11 +370,26 @@ actual theorem-backed need
 
 # 15. 直近の次作業
 
-Phase 97 は正式 COMPLETE。
+Phase 98 は正式 COMPLETE。
 
-次の推奨監査:
+次の Phase は user-facing convenience の追加ではなく、actual usage pressure を監査して選定する。
+
+有力な最初の監査候補:
 
 ```text
-Phase 98-1
-current user-facing convenience pressure audit
+Phase 99-1
+current exploration / query capability pressure audit
 ```
+
+確認候補:
+
+```text
+element-centered search
+Toda bracket containment
+map-image lookup
+applicable lemma discovery
+coset / indeterminacy representation
+derived-result enumeration
+```
+
+CLI / Web UI を先に進める場合も、まず boundary audit から開始する。

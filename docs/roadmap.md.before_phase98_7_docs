@@ -46,9 +46,19 @@ structured presentation
 → proof source presentation
 → dependency-first proof flow
 → LaTeX / Markdown rendering
-→ mathematical statement rendering
 → readable proof narrative
 → unified full proof report
+```
+
+top-level reporting:
+
+```text
+TodaGroupQuery
+→ calculation
+→ candidate handling
+→ presentation
+→ report
+→ TodaCalculationReportResult
 ```
 
 代表 target:
@@ -65,14 +75,14 @@ structured presentation
 最新 regression:
 
 ```text
-7577 passed in 43.70s
+7609 passed in 121.63s
 ```
 
 ---
 
 # 2. 完了済み capability
 
-Phase 90–96:
+Phase 90–97:
 
 ```text
 query target construction
@@ -80,106 +90,59 @@ theorem-backed known-result lookup
 normalized group structure / generators / orders
 actual EHP extraction
 exactness-use provenance
-flat proof dependencies
-dependency role classification
-recursive proof provenance
+flat / recursive proof provenance
 aggregate theorem branch discovery
 original branch ProofStep recovery
-aggregate provenance
 direct-result precedence
 multiple-result preservation
-top-level calculation orchestration
+calculation orchestration
 structured presentation
-group / generator / order presentation
-EHP / exactness presentation
 proof source presentation
 dependency-first proof flow
-shared-dependency presentation
 LaTeX / Markdown rendering
-mathematical statement rendering
 readable narrative
 unified full proof report
-final representative report audit
+calculation-report representation
+single FOUND calculation-to-report API
+NOT_FOUND / FOUND / MULTIPLE_RESULTS top-level handling
+representative six-target top-level validation
 ```
 
-Phase 96 は正式 COMPLETE。
+Phase 97 は正式 COMPLETE。
 
 ---
 
-# 3. 次 Phase：Phase 97
+# 3. Phase 97 完了状態
 
-主題:
-
-```text
-user-facing proof-report query / calculation-to-report API
-```
-
-現状:
+一般 API:
 
 ```text
-TodaGroupQuery
-→ TodaCalculationResult
-→ candidate
-→ end-to-end presentation
-→ full proof report Markdown
+build_toda_calculation_report_result(
+  repository,
+  query,
+)
 ```
 
-Phase 97 ではこれを user-facing top-level API にまとめる。
-
-目標:
+input:
 
 ```text
-(n, k)
-↓
-query
-↓
-calculation
-↓
-candidate handling
-↓
-presentation
-↓
-human-readable proof report
+ProofRepository
+TodaGroupQuery(n, k)
 ```
+
+output:
+
+```text
+TodaCalculationReportResult
+```
+
+multiple candidate の ranking / best selection はしない。
 
 ---
 
-# 4. Phase 97-1 推奨監査
+# 4. Phase 97 で守った境界
 
-```text
-current calculation-to-report orchestration boundary audit
-```
-
-監査対象:
-
-```text
-TodaGroupQuery
-build_toda_calculation_result()
-TodaCalculationResult
-TodaCalculationStatus
-TodaCalculationCandidate
-build_toda_end_to_end_candidate_presentation()
-render_toda_full_proof_report_markdown()
-```
-
-確認点:
-
-```text
-1. user-facing API の最小 input
-2. repository の受け渡し
-3. single FOUND convenience
-4. MULTIPLE_RESULTS の保持
-5. NOT_FOUND の扱い
-6. string-only か structured result object か
-7. direct / aggregate source preservation
-8. proof truth / presentation boundary
-```
-
----
-
-# 5. Phase 97 で守る境界
-
-再実装しない:
+再実装しなかったもの:
 
 ```text
 group lookup semantics
@@ -193,25 +156,47 @@ mathematical renderer
 narrative renderer
 ```
 
-既存 API を compose する。
+direct / aggregate provenance、candidate identity、repository non-mutation を保持。
 
-multiple candidate に対する ranking / best selection は行わない。
+---
+
+# 5. 次 Phase 候補：Phase 98
+
+推奨主題:
+
+```text
+user-facing input / report-access convenience audit
+```
+
+まず実装せず:
+
+```text
+Phase 98-1
+current user-facing convenience pressure audit
+```
+
+確認候補:
+
+```text
+1. raw n,k convenience overload が本当に必要か
+2. single FOUND の report access property が必要か
+3. NOT_FOUND の user-facing message が必要か
+4. MULTIPLE_RESULTS の report collection をどう見せるか
+5. CLI / Web UI より先に必要な facade は何か
+6. structured result を維持したまま convenience を追加できるか
+```
+
+actual usage pressure がない convenience は追加しない。
 
 ---
 
 # 6. Deferred：symbolic higher-range instantiation
 
-例えば:
-
 \[
 \pi_{n+3}^n=\mathbb Z/8\{\nu_n\},
-\]
-
-\[
+\qquad
 \pi_{n+6}^n=\mathbb Z/2\{\nu_n^2\},
-\]
-
-\[
+\qquad
 \pi_{n+7}^n=\mathbb Z/16\{\sigma_n\}
 \]
 
@@ -222,8 +207,6 @@ multiple candidate に対する ranking / best selection は行わない。
 # 7. Deferred：target-only proof-search fallback
 
 query は target group だけを持ち、unknown RHS theorem goal は生成しない。
-
-target-to-goal generation の actual need が生じたときに別 Phase で扱う。
 
 ---
 
@@ -237,9 +220,7 @@ FOUND
 MULTIPLE_RESULTS
 ```
 
-のみ。
-
-`NOT_FOUND` の細分類は Phase 97 で actual need が確認された場合にのみ検討する。
+のみ。細分類は actual need が確認された場合に検討する。
 
 ---
 
@@ -247,12 +228,7 @@ MULTIPLE_RESULTS
 
 historical aggregate statement の一部は explicit type-name fallback。
 
-```text
-unknown statement
-→ safe fallback
-```
-
-を維持し、readability pressure が確認された型から最小追加する。
+readability pressure が確認された型から最小追加する。
 
 ---
 
@@ -271,7 +247,22 @@ global proof optimization
 
 ---
 
-# 11. Deferred：mathematical scope expansion
+# 11. Deferred：user interfaces
+
+将来候補:
+
+```text
+CLI
+Web UI
+structured export
+interactive proof graph
+```
+
+UI の都合で proof truth / provenance schema を変更しない。
+
+---
+
+# 12. Deferred：mathematical scope expansion
 
 将来候補:
 
@@ -285,7 +276,7 @@ ordinary all-primary π_{n+k}(S^n)
 
 ---
 
-# 12. 文書体系
+# 13. 文書体系
 
 ```text
 README.md
@@ -312,7 +303,7 @@ docs/proof_records/
 
 ---
 
-# 13. Completion policy
+# 14. Completion policy
 
 各 Phase:
 
@@ -335,13 +326,13 @@ actual theorem-backed need
 
 ---
 
-# 14. 直近の次作業
+# 15. 直近の次作業
 
-Phase 96 は正式 COMPLETE。
+Phase 97 は正式 COMPLETE。
 
-次:
+次の推奨監査:
 
 ```text
-Phase 97-1
-current calculation-to-report orchestration boundary audit
+Phase 98-1
+current user-facing convenience pressure audit
 ```
