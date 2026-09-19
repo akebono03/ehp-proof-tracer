@@ -113,6 +113,8 @@ same entry + different structural path
 
 entry 単位の deduplication はしない。
 
+semantic role は structural path の読みやすい分類であり、new theorem fact ではない。
+
 actual representative validation:
 
 \[
@@ -126,6 +128,23 @@ actual representative validation:
 \]
 
 では composition left として検出する。
+
+Phase 99-24 では actual Phase 67 / 68 `ProofStep` identity、phase/theorem metadata、grouped presentation、Markdown、repository non-mutation を検証した。
+
+Phase 99-26 では、
+
+```text
+unknown generator -> zero occurrences
+single occurrence
+same-entry multiple structural occurrences
+left/right role separation
+repository registration order
+presentation order
+Markdown order
+repository non-mutation
+```
+
+を boundary regression として固定した。
 
 Phase 99 completion verification:
 
@@ -145,143 +164,6 @@ clean
 
 Phase 99 は COMPLETE。
 
-## Phase 100 production user-facing path
-
-Phase 100-12 は、既存 theorem-backed proof infrastructure を production user-facing calculation path へ接続した記録である。
-
-重要な点は、新しい数学的 theorem truth を追加することではなく、既存 proof truth を標準 repository と user-facing orchestration から再利用可能にしたことである。
-
-production repository:
-
-```text
-build_standard_production_proof_repository()
-```
-
-repository-free one-shot facade:
-
-```text
-build_standard_toda_report(
-  n,
-  k,
-)
-```
-
-CLI:
-
-```text
-python main.py n k
-```
-
-production path:
-
-```text
-raw n,k
-↓
-CLI or build_standard_toda_report()
-↓
-standard production repository
-↓
-build_toda_report(repository,n,k)
-↓
-TodaCalculationReportResult
-↓
-human-readable proof report
-```
-
-代表 production probe:
-
-```text
-python main.py 5 7
-```
-
-は theorem-backed proof chain を辿り、
-
-\[
-\pi_{12}^5=\mathbb Z/2\{\sigma'''\}
-\]
-
-を含む full proof report を出力する。
-
-`NOT_FOUND` probe:
-
-```text
-python main.py 20 20
-```
-
-は explicit not-found message を返す。
-
-CLI semantic boundary:
-
-\[
-n>0,\qquad k\ge0
-\]
-
-invalid input は production repository construction より前に argparse error として終了する。
-
-```text
-n = 0
-n < 0
-k < 0
-→ exit 2
-→ traceback なし
-→ production facade 未呼出し
-```
-
-result boundary:
-
-```text
-FOUND
-→ reports
-→ exit 0
-
-MULTIPLE_RESULTS
-→ all reports in candidate order
-→ exit 0
-
-NOT_FOUND
-→ explicit message
-→ exit 1
-```
-
-重要 invariant:
-
-```text
-standard production repository assembly
-!= theorem truth
-
-production facade
-!= proof logic
-
-CLI
-!= calculation engine
-```
-
-既存
-
-```text
-build_toda_report(repository,n,k)
-```
-
-は維持され、production one-shot facade はその上に compose される。
-
-Phase 100-12 closure verification:
-
-```text
-Phase 100-12C-1 related:
-38 passed in 9.07s
-
-Phase 100-12C-4 related:
-21 passed in 9.74s
-
-repository-wide:
-8010 passed in 179.65s
-
-git diff --check:
-clean
-```
-
-Phase 100-12 production user-facing path は COMPLETE。
-
 ---
 
 # 記録原則
@@ -294,8 +176,6 @@ presentation != proof truth
 rendered prose != proof truth
 report orchestration != proof truth
 convenience facade != proof truth
-production repository assembly != theorem truth
-CLI != proof truth
 exploration result != new theorem truth
 ```
 

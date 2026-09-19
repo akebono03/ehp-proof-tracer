@@ -1,0 +1,161 @@
+from proof import (
+  ProofStep,
+  apply_inference_match,
+  find_inference_match,
+)
+from toda_rules import (
+  toda_prop56_finite_dimensional_integration_inference_rule,
+  toda_prop58_finite_dimensional_integration_inference_rule,
+  toda_prop511_finite_dimensional_integration_inference_rule,
+  toda_prop515_finite_dimensional_integration_inference_rule,
+)
+
+
+def build_toda_prop56_proof_step(
+  pi5_2_step: ProofStep,
+  pi6_3_step: ProofStep,
+  pi7_4_step: ProofStep,
+  pi8_5_step: ProofStep,
+  higher_step: ProofStep,
+  higher_range_step: ProofStep,
+) -> ProofStep:
+  premise_steps = (
+    pi5_2_step,
+    pi6_3_step,
+    pi7_4_step,
+    pi8_5_step,
+    higher_step,
+    higher_range_step,
+  )
+
+  rule = (
+    toda_prop56_finite_dimensional_integration_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    premise_steps,
+  )
+
+  if match is None:
+    raise ValueError(
+      "premises do not derive "
+      "Toda Proposition 5.6"
+    )
+
+  return apply_inference_match(
+    match
+  )
+
+
+def build_toda_prop58_proof_step(
+  pi6_2_step: ProofStep,
+  pi7_3_step: ProofStep,
+  pi8_4_step: ProofStep,
+  pi9_5_step: ProofStep,
+  higher_zero_step: ProofStep,
+  higher_range_step: ProofStep,
+) -> ProofStep:
+  premise_steps = (
+    pi6_2_step,
+    pi7_3_step,
+    pi8_4_step,
+    pi9_5_step,
+    higher_zero_step,
+    higher_range_step,
+  )
+
+  rule = (
+    toda_prop58_finite_dimensional_integration_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    premise_steps,
+  )
+
+  if match is None:
+    raise ValueError(
+      "premises do not derive "
+      "Toda Proposition 5.8"
+    )
+
+  return apply_inference_match(
+    match
+  )
+
+
+def build_toda_prop511_proof_step(
+  pi8_2_step: ProofStep,
+  pi9_3_zero_step: ProofStep,
+  pi10_4_step: ProofStep,
+  nu_squared_step: ProofStep,
+) -> ProofStep:
+  premise_steps = (
+    pi8_2_step,
+    pi9_3_zero_step,
+    pi10_4_step,
+    nu_squared_step,
+  )
+
+  rule = (
+    toda_prop511_finite_dimensional_integration_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    premise_steps,
+  )
+
+  if match is None:
+    raise ValueError(
+      "premises do not derive "
+      "Toda Proposition 5.11"
+    )
+
+  return apply_inference_match(
+    match
+  )
+
+
+def build_toda_prop515_proof_step(
+  pi9_2_step: ProofStep,
+  pi10_3_step: ProofStep,
+  pi11_4_step: ProofStep,
+  pi12_5_step: ProofStep,
+  pi13_6_step: ProofStep,
+  pi14_7_step: ProofStep,
+  pi15_8_step: ProofStep,
+  higher_step: ProofStep,
+  higher_range_step: ProofStep,
+) -> ProofStep:
+  premise_steps = (
+    pi9_2_step,
+    pi10_3_step,
+    pi11_4_step,
+    pi12_5_step,
+    pi13_6_step,
+    pi14_7_step,
+    pi15_8_step,
+    higher_step,
+    higher_range_step,
+  )
+
+  rule = (
+    toda_prop515_finite_dimensional_integration_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    premise_steps,
+  )
+
+  if match is None:
+    raise ValueError(
+      "premises do not derive "
+      "Toda Proposition 5.15"
+    )
+
+  return apply_inference_match(
+    match
+  )

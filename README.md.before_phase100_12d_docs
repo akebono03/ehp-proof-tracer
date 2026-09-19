@@ -2,7 +2,7 @@
 
 EHP Proof Tracer is a Python project for representing, checking, searching, explaining, presenting, and exploring theorem-backed Toda-style homotopy-group calculations.
 
-The project currently focuses on the 2-primary Toda groups \(\pi_i^n\), EHP exactness, explicit proof provenance, the calculation spine through stable stems \(G_0\) to \(G_7\), theorem-backed repository exploration, and a production user-facing calculation path from raw \((n,k)\) input to a human-readable proof report.
+The project currently focuses on the 2-primary Toda groups \(\pi_i^n\), EHP exactness, explicit proof provenance, the calculation spine through stable stems \(G_0\) to \(G_7\), and generator-centered exploration of theorem-backed repository entries.
 
 ## Current mathematical coverage
 
@@ -135,6 +135,14 @@ explanation
 goal_source
 ```
 
+For direct theorem-backed results:
+
+```text
+goal_source = None
+```
+
+For aggregate-derived results, `goal_source` preserves the original aggregate `ProofRepositoryEntry` and branch path, while `group_result.proof_step` preserves the original branch `ProofStep`.
+
 Status semantics are:
 
 ```text
@@ -232,6 +240,40 @@ human-readable renderer
 
 Presentation never changes proof truth.
 
+The structured presentation layer covers:
+
+```text
+target
+group structure
+generators
+generator orders
+EHP sequence
+exactness uses
+proof-step role
+repository / theorem / phase metadata
+calculation goal source
+dependency-first proof flow
+shared-dependency information
+```
+
+The main presentation modules are:
+
+```text
+toda_presentation.py
+toda_ehp_presentation.py
+toda_proof_presentation.py
+toda_proof_flow_presentation.py
+toda_end_to_end_presentation.py
+```
+
+The renderer modules are:
+
+```text
+toda_human_readable_renderer.py
+toda_proof_narrative_renderer.py
+toda_full_proof_report_renderer.py
+```
+
 The unified presentation-level report renderer is:
 
 ```python
@@ -242,9 +284,9 @@ render_toda_full_proof_report_markdown(
 
 Unknown statement types are kept as explicit safe fallbacks rather than guessed into mathematical prose.
 
-## Repository-explicit reporting API
+## User-facing calculation-to-report API
 
-The general reporting entry point is:
+The lowest-level general reporting entry point is:
 
 ```python
 build_toda_calculation_report_result(
@@ -253,7 +295,7 @@ build_toda_calculation_report_result(
 )
 ```
 
-The repository-explicit raw-input convenience entry point is:
+The thin raw-input convenience entry point is:
 
 ```python
 build_toda_report(
@@ -263,133 +305,85 @@ build_toda_report(
 )
 ```
 
-It preserves the existing result semantics:
+The complete convenience flow is:
 
 ```text
-NOT_FOUND
-→ candidates == ()
-→ reports == ()
-
-FOUND
-→ one report candidate
-→ report is directly available
-
-MULTIPLE_RESULTS
-→ all report candidates preserved in calculation order
-→ no silent preferred-result selection
-```
-
-## Standard production repository
-
-Phase 100 establishes a standard production repository construction path.
-
-The production builder is:
-
-```python
-build_standard_production_proof_repository()
-```
-
-Its purpose is to assemble the theorem-backed entries needed by the supported production calculation path without requiring each caller to manually reproduce Phase-specific bootstrap registration.
-
-The standard production repository remains an in-memory `ProofRepository`. It does not change theorem truth, proof provenance, or the existing repository semantics.
-
-## Repository-free one-shot calculation API
-
-The production one-shot entry point is:
-
-```python
-build_standard_toda_report(
-  n,
-  k,
-)
-```
-
-The complete production path is:
-
-```text
-raw n,k
+raw n, k
 ↓
-build_standard_toda_report()
+build_toda_report()
 ↓
-build_standard_production_proof_repository()
+TodaGroupQuery
 ↓
-build_toda_report(repository, n, k)
+build_toda_calculation_report_result()
 ↓
 TodaCalculationReportResult
 ```
 
-The older repository-explicit API remains available and compatible.
+`build_toda_report()` constructs `TodaGroupQuery` and delegates to the reporting API. It does not reimplement validation, lookup, normalization, provenance, presentation, or rendering.
 
-A representative production call is:
-
-```python
-result = build_standard_toda_report(
-  5,
-  7,
-)
-```
-
-which reaches the theorem-backed result
-
-\[
-\pi_{12}^5=\mathbb Z/2\{\sigma'''\}.
-\]
-
-## Command-line interface
-
-The minimal production CLI is:
-
-```powershell
-python main.py n k
-```
-
-For example:
-
-```powershell
-python main.py 5 7
-```
-
-prints the human-readable proof report for \(\pi_{12}^5\).
-
-CLI result behavior is:
+For `NOT_FOUND`:
 
 ```text
-FOUND
-→ print report(s)
-→ exit 0
-
-MULTIPLE_RESULTS
-→ print all reports in candidate order
-→ exit 0
-
-NOT_FOUND
-→ print an explicit not-found message
-→ exit 1
-
-invalid CLI syntax or semantic input
-→ argparse error
-→ exit 2
+report_result.candidates == ()
+report_result.reports == ()
+report_result.report raises ValueError
 ```
 
-The CLI validates:
+For `FOUND`:
 
-\[
-n>0,
-\qquad
-k\ge 0
-\]
+```text
+one report candidate
+report_result.report
+report_result.reports == (report_result.report,)
+```
 
-before constructing the production repository.
+For `MULTIPLE_RESULTS`:
 
-This avoids traceback-based handling for ordinary user-input errors and avoids unnecessary repository construction for invalid input.
+```text
+all report candidates are preserved in calculation order
+report_result.reports contains every report in candidate order
+report_result.report raises ValueError
+```
 
-Importing `main` does not execute the CLI.
+The reporting layer never silently selects a preferred result.
 
 ## Generator-centered repository exploration
 
-Phase 99 provides a separate exploration path for asking where a known `GeneratorSymbol` occurs inside theorem-backed repository conclusions.
+Phase 99 adds a separate exploration path for asking where a known `GeneratorSymbol` occurs inside theorem-backed repository conclusions.
 
-The one-shot entry point remains:
+The exploration stack is:
+
+```text
+structural generator containment
+↓
+generator occurrence path extraction
+↓
+repository-level occurrence lookup
+↓
+semantic role classification
+↓
+element-centered exploration result
+↓
+grouped presentation
+↓
+Markdown rendering
+↓
+one-shot exploration facade
+```
+
+Representative modules are:
+
+```text
+structural_containment.py
+repository_element_lookup.py
+generator_occurrence_roles.py
+repository_element_exploration.py
+repository_element_presentation.py
+repository_element_renderer.py
+repository_element_facade.py
+```
+
+The one-shot entry point is:
 
 ```python
 explore_repository_generator(
@@ -398,9 +392,31 @@ explore_repository_generator(
 )
 ```
 
-The exploration result is occurrence-based, not entry-deduplicated. Distinct structural paths remain observable even when they occur in the same repository entry.
+It returns a structured report that retains:
 
-Representative validation with \(\nu'\) finds both
+```text
+exploration
+presentation
+markdown
+```
+
+The exploration result is occurrence-based, not entry-deduplicated. If the same generator occurs at two distinct structural paths in one repository entry, both occurrences remain observable.
+
+The current semantic views include generator occurrences such as:
+
+```text
+group generator
+composition left
+composition right
+Toda bracket occurrence
+map input
+```
+
+Only roles actually present in the result are rendered as populated Markdown sections.
+
+### Actual representative validation
+
+Using actual theorem-backed Phase 67 and Phase 68 proof steps, exploration of \(\nu'\) finds both
 
 \[
 \pi_6^2=\mathbb Z/4\{\eta_2\nu'\}
@@ -412,11 +428,24 @@ and
 \pi_7^3=\mathbb Z/2\{\nu'\eta_6\}.
 \]
 
-The current exploration input is still a known `GeneratorSymbol`; general string-to-generator resolution remains separate from the calculation CLI.
+The same generator is therefore observable as a composition-right occurrence in the first result and a composition-left occurrence in the second.
 
-## Representative end-to-end coverage
+Boundary regression also confirms:
 
-The theorem-backed reporting path is regression-tested across representative direct-sum, cyclic, zero-group, EHP, aggregate-branch, provenance, and rendering cases, including
+```text
+unknown generator -> zero occurrences
+single occurrence preservation
+same-entry multiple structural occurrences
+left/right role separation
+repository registration-order preservation
+presentation-order preservation
+Markdown-order preservation
+repository non-mutation
+```
+
+## Representative end-to-end calculation coverage
+
+Using aggregate theorem entries in a `ProofRepository`, the shortest user-facing calculation-to-report path is regression-tested for:
 
 \[
 \pi_7^4,\quad
@@ -427,7 +456,7 @@ The theorem-backed reporting path is regression-tested across representative dir
 \pi_{12}^5.
 \]
 
-Phase 100 additionally validates that the standard production repository can drive the repository-free facade and the CLI without duplicating proof logic.
+These cases cover direct sums, finite cyclic groups, zero groups, nested aggregate branches, generator orders, goal-source provenance, EHP provenance, exactness provenance, recursive provenance, dependency-first presentation, LaTeX / Markdown rendering, unified reports, report access, and repository non-mutation.
 
 ## Current boundaries
 
@@ -439,67 +468,68 @@ The following are intentionally deferred:
 - detailed calculation-failure taxonomy beyond `NOT_FOUND / FOUND / MULTIPLE_RESULTS`,
 - automatic ranking or best-result selection,
 - full mathematical prose rendering for every historical aggregate statement type,
+- fixed human-readable `NOT_FOUND` messages in the core result model,
 - string-to-`GeneratorSymbol` parsing and name resolution,
 - free-form element search,
 - general composition evaluation,
 - general Toda-bracket solving or coset computation,
 - automatic applicable-lemma discovery,
-- element-exploration CLI subcommands,
-- Web UI,
+- CLI and Web UI surfaces,
 - general theorem proving,
 - odd-primary full integration,
 - an all-primary ordinary sphere-homotopy calculator.
 
 ## Verification
 
-Latest confirmed Phase 100 production-path validation:
+Latest confirmed Phase 99 validation:
 
 ```text
-Phase 100-12C-1 related:
-38 passed in 9.07s
+Phase 99-24 actual-repository integration:
+13 passed in 4.59s
 
-Phase 100-12C-4 related:
-21 passed in 9.74s
+Phase 99-26 boundary regression:
+12 passed in 5.70s
 
 repository-wide:
-8010 passed in 179.65s
+7824 passed in 136.59s
 
 git diff --check:
 clean
 ```
 
-The Phase 100 CLI was also directly probed for:
-
-```text
-valid FOUND input
-NOT_FOUND input
-n = 0
-n < 0
-k < 0
---help
-```
-
-Wall-clock time is machine-dependent. Test count, semantic coverage, identity preservation, ordering, provenance coverage, deterministic rendering, CLI exit semantics, and repository-wide regression are the primary cross-machine signals.
+Wall-clock time is machine-dependent. Test count, semantic coverage, identity preservation, ordering, provenance coverage, deterministic rendering, and repository-wide regression are the primary cross-machine signals.
 
 ## Current project state
 
-The current user-facing production calculation spine is:
+Phases 90 through 99 establish:
 
 ```text
-raw n,k
-→ CLI or direct Python call
-→ semantic input validation
-→ standard production repository
-→ repository-explicit reporting facade
-→ calculation
-→ provenance extraction
+query
+→ theorem-backed lookup
+→ normalized group result
+→ EHP / exactness provenance
+→ flat proof dependencies
+→ recursive proof provenance
+→ calculation orchestration
 → structured presentation
-→ human-readable proof report
+→ dependency-first proof flow
+→ LaTeX / Markdown rendering
+→ readable proof narrative
+→ unified full proof report
+→ top-level calculation-to-report result
+→ raw n,k convenience facade
+→ generator structural containment
+→ repository-wide generator occurrence lookup
+→ semantic occurrence roles
+→ element-centered exploration
+→ grouped exploration presentation
+→ exploration Markdown
+→ one-shot generator exploration facade
 ```
 
-Phase 99 remains the completed generator-centered exploration layer.
+Phase 99 is formally COMPLETE after the final audit and documentation update.
 
-Phase 100-12 establishes and closes the production user-facing calculation path.
+The next phase should begin with a CLI / input-boundary audit rather than adding speculative parsing or UI behavior directly.
 
 ## Documentation
 
