@@ -26,19 +26,6 @@ PHASE103_6D32_N6_MAP_PROPERTY_FAMILY = (
 )
 
 
-def _build_catalog():
-  from standard_production_applicability_catalog import (
-    _phase103_6d32_apply_theorem_specific_classification,
-    _phase103_6d32_original_builder,
-  )
-
-  return (
-    _phase103_6d32_apply_theorem_specific_classification(
-      _phase103_6d32_original_builder()
-    )
-  )
-
-
 def _families(
   catalog,
 ):
@@ -81,7 +68,7 @@ def _delta_injective_entries(
 
 def test_phase103_6d32_classifies_all_7_residual_delta_injectivity_families_as_theorem_specific():
   catalog = (
-    _build_catalog()
+    build_standard_production_applicability_catalog()
   )
 
   families = _families(
@@ -106,7 +93,7 @@ def test_phase103_6d32_classifies_all_7_residual_delta_injectivity_families_as_t
 
 def test_phase103_6d32_classifies_exactly_15_residual_delta_injectivity_entries():
   catalog = (
-    _build_catalog()
+    build_standard_production_applicability_catalog()
   )
 
   families = _families(
@@ -136,7 +123,7 @@ def test_phase103_6d32_classifies_exactly_15_residual_delta_injectivity_entries(
 
 def test_phase103_6d32_preserves_n6_generator_image_delta_injectivity_as_map_property():
   catalog = (
-    _build_catalog()
+    build_standard_production_applicability_catalog()
   )
 
   families = _families(
@@ -160,7 +147,7 @@ def test_phase103_6d32_preserves_n6_generator_image_delta_injectivity_as_map_pro
 
 def test_phase103_6d32_closes_delta_injectivity_relevance_classification():
   catalog = (
-    _build_catalog()
+    build_standard_production_applicability_catalog()
   )
 
   entries = (
@@ -202,7 +189,7 @@ def test_phase103_6d32_closes_delta_injectivity_relevance_classification():
 
 def test_phase103_6d32_updates_production_family_coverage_only_by_7_families():
   catalog = (
-    _build_catalog()
+    build_standard_production_applicability_catalog()
   )
 
   families = _families(
@@ -246,7 +233,7 @@ def test_phase103_6d32_updates_production_family_coverage_only_by_7_families():
 
 def test_phase103_6d32_updates_only_unclassified_entry_count_from_6d30_baseline():
   catalog = (
-    _build_catalog()
+    build_standard_production_applicability_catalog()
   )
 
   counts = Counter(
@@ -278,7 +265,7 @@ def test_phase103_6d32_updates_only_unclassified_entry_count_from_6d30_baseline(
 
 def test_phase103_6d32_catalog_size_and_fixed_point_safety_are_unchanged():
   catalog = (
-    _build_catalog()
+    build_standard_production_applicability_catalog()
   )
 
   entries = (
