@@ -1834,3 +1834,82 @@ def build_standard_production_applicability_catalog():
       _phase103_6d44_original_builder()
     )
   )
+
+
+# Phase 103-6D47 explicit stable-zero-transport structural classifier
+
+_PHASE103_6D47_STRUCTURAL_STABLE_ZERO_TRANSPORT_FACTORIES = frozenset(
+  (
+    "toda_prop58_higher_four_stem_zero_transport_inference_rule",
+    "toda_prop59_higher_five_stem_zero_transport_inference_rule",
+  )
+)
+
+
+def _phase103_6d47_classify_entry(
+  entry,
+):
+  if (
+    entry.relevance_category
+    is not _Phase1036D15RuleRelevanceCategory.UNCLASSIFIED
+  ):
+    return entry
+
+  if (
+    _phase103_6d15_type_names(
+      entry.conclusion_type
+    )
+    != (
+      "TodaPrimaryGroupZeroStatement",
+    )
+  ):
+    return entry
+
+  factory_name = (
+    _inference_rule_factory_name(
+      entry.rule
+    )
+  )
+
+  if (
+    factory_name
+    not in _PHASE103_6D47_STRUCTURAL_STABLE_ZERO_TRANSPORT_FACTORIES
+  ):
+    return entry
+
+  return _phase103_6d15_replace(
+    entry,
+    relevance_category=(
+      _Phase1036D15RuleRelevanceCategory.STRUCTURAL
+    ),
+  )
+
+
+def _phase103_6d47_apply_structural_classification(
+  catalog,
+):
+  classified_catalog = (
+    _Phase1036D15InferenceRuleCatalog()
+  )
+
+  for entry in catalog.entries():
+    classified_catalog.register(
+      _phase103_6d47_classify_entry(
+        entry
+      )
+    )
+
+  return classified_catalog
+
+
+_phase103_6d47_original_builder = (
+  build_standard_production_applicability_catalog
+)
+
+
+def build_standard_production_applicability_catalog():
+  return (
+    _phase103_6d47_apply_structural_classification(
+      _phase103_6d47_original_builder()
+    )
+  )
