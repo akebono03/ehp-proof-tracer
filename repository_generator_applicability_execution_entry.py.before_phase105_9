@@ -56,26 +56,6 @@ def _candidate_inference_rule_factory_name(
   ]
 
 
-def is_first_qualified_production_execution_candidate(
-  candidate,
-) -> bool:
-  if not isinstance(
-    candidate,
-    RepositoryProofScopeApplicabilityCandidate,
-  ):
-    raise TypeError(
-      "candidate must be a "
-      "RepositoryProofScopeApplicabilityCandidate"
-    )
-
-  return (
-    _candidate_inference_rule_factory_name(
-      candidate
-    )
-    == _FIRST_QUALIFIED_PRODUCTION_EXECUTION_FACTORY
-  )
-
-
 def build_first_qualified_production_execution_entry(
   candidate,
   goal,
@@ -89,10 +69,15 @@ def build_first_qualified_production_execution_entry(
       "RepositoryProofScopeApplicabilityCandidate"
     )
 
-  if not (
-    is_first_qualified_production_execution_candidate(
+  factory_name = (
+    _candidate_inference_rule_factory_name(
       candidate
     )
+  )
+
+  if (
+    factory_name
+    != _FIRST_QUALIFIED_PRODUCTION_EXECUTION_FACTORY
   ):
     raise ValueError(
       "candidate rule is not the first qualified "

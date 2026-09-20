@@ -1,0 +1,307 @@
+import pytest
+
+import repository_generator_qualified_execution_handoff as handoff_module
+from expression import (
+  GeneratorSymbol,
+)
+from proof_repository import (
+  ProofRepository,
+)
+from repository_generator_applicability_facade import (
+  RepositoryGeneratorApplicabilityExplorationResult,
+)
+from repository_generator_qualified_execution_handoff import (
+  RepositoryGeneratorQualifiedExecutionHandoffResult,
+  execute_unique_qualified_repository_generator_applicability_selection,
+)
+from repository_generator_qualified_execution_selection import (
+  RepositoryGeneratorQualifiedExecutionSelectionStatus,
+  select_qualified_repository_generator_applicability_candidates,
+)
+from repository_inference import (
+  BoundedProducerSearchStatus,
+)
+from repository_proof_scope import (
+  RepositoryProofScopeResult,
+)
+from repository_proof_scope_exploration import (
+  RepositoryProofScopeGeneratorOccurrence,
+)
+from repository_proof_scope_facade import (
+  RepositoryProofScopeExplorationResult,
+)
+from test_phase105_5_minimal_production_execution_seed_adapter import (
+  build_phase105_5_actual_data,
+)
+from test_phase105_9_qualified_applicability_candidate_filtering import (
+  _build_phase105_9_synthetic_result,
+)
+
+
+def _build_unique_actual_selection():
+  data = build_phase105_5_actual_data()
+
+  candidate = data[
+    "candidate"
+  ]
+  scope_node = candidate.scope_node
+  root_entry = candidate.root_entry
+
+  repository = ProofRepository()
+  repository.register(
+    root_entry
+  )
+
+  scope = RepositoryProofScopeResult(
+    repository=repository,
+    nodes=(
+      scope_node,
+    ),
+  )
+
+  generator = GeneratorSymbol(
+    family="ν",
+    decoration="′",
+  )
+
+  occurrence = (
+    RepositoryProofScopeGeneratorOccurrence(
+      scope_node=scope_node,
+      path=(),
+      matched_generator=generator,
+      roles=(),
+    )
+  )
+
+  proof_scope_exploration = (
+    RepositoryProofScopeExplorationResult(
+      generator=generator,
+      scope=scope,
+      occurrences=(
+        occurrence,
+      ),
+      toda_memberships=(),
+      map_relations=(),
+    )
+  )
+
+  applicability_result = (
+    RepositoryGeneratorApplicabilityExplorationResult(
+      proof_scope_exploration=(
+        proof_scope_exploration
+      ),
+      candidates=(
+        candidate,
+      ),
+    )
+  )
+
+  selection = (
+    select_qualified_repository_generator_applicability_candidates(
+      applicability_result
+    )
+  )
+
+  return {
+    "data": data,
+    "applicability_result": applicability_result,
+    "selection": selection,
+  }
+
+
+def test_phase105_10_unique_selection_executes_orchestration():
+  fixture = _build_unique_actual_selection()
+  selection = fixture[
+    "selection"
+  ]
+  data = fixture[
+    "data"
+  ]
+
+  result = (
+    execute_unique_qualified_repository_generator_applicability_selection(
+      selection,
+      data[
+        "goal"
+      ],
+    )
+  )
+
+  assert isinstance(
+    result,
+    RepositoryGeneratorQualifiedExecutionHandoffResult,
+  )
+  assert result.status is (
+    RepositoryGeneratorQualifiedExecutionSelectionStatus
+    .UNIQUE
+  )
+  assert result.executed is True
+  assert result.execution is not None
+
+
+def test_phase105_10_unique_selection_preserves_candidate_identity():
+  fixture = _build_unique_actual_selection()
+  selection = fixture[
+    "selection"
+  ]
+  data = fixture[
+    "data"
+  ]
+
+  result = (
+    execute_unique_qualified_repository_generator_applicability_selection(
+      selection,
+      data[
+        "goal"
+      ],
+    )
+  )
+
+  assert result.execution is not None
+  assert (
+    result.execution.candidate
+    is selection.unique_candidate
+    is data[
+      "candidate"
+    ]
+  )
+
+
+def test_phase105_10_unique_selection_reaches_actual_goal():
+  fixture = _build_unique_actual_selection()
+  selection = fixture[
+    "selection"
+  ]
+  data = fixture[
+    "data"
+  ]
+
+  result = (
+    execute_unique_qualified_repository_generator_applicability_selection(
+      selection,
+      data[
+        "goal"
+      ],
+    )
+  )
+
+  assert result.execution is not None
+
+  search_report = (
+    result.execution.search_report
+  )
+  assert search_report.report.status is (
+    BoundedProducerSearchStatus.SUCCESS
+  )
+
+  repository_result = (
+    result
+    .execution
+    .execution
+    .execution_result
+    .repository_inference_result
+  )
+  assert repository_result is not None
+
+  goal_step = repository_result.goal_step
+  assert goal_step is not None
+  assert goal_step.conclusion == data[
+    "goal"
+  ]
+
+
+def test_phase105_10_none_selection_does_not_execute(
+  monkeypatch,
+):
+  applicability_result = (
+    _build_phase105_9_synthetic_result(
+      0
+    )
+  )
+  selection = (
+    select_qualified_repository_generator_applicability_candidates(
+      applicability_result
+    )
+  )
+
+  def fail_if_executed(*args, **kwargs):
+    raise AssertionError(
+      "NONE selection must not execute orchestration"
+    )
+
+  monkeypatch.setattr(
+    handoff_module,
+    "execute_first_qualified_production_applicability_candidate",
+    fail_if_executed,
+  )
+
+  result = (
+    execute_unique_qualified_repository_generator_applicability_selection(
+      selection,
+      object(),
+    )
+  )
+
+  assert result.status is (
+    RepositoryGeneratorQualifiedExecutionSelectionStatus
+    .NONE
+  )
+  assert result.executed is False
+  assert result.execution is None
+
+
+def test_phase105_10_ambiguous_selection_does_not_execute(
+  monkeypatch,
+):
+  applicability_result = (
+    _build_phase105_9_synthetic_result(
+      2
+    )
+  )
+  selection = (
+    select_qualified_repository_generator_applicability_candidates(
+      applicability_result
+    )
+  )
+
+  def fail_if_executed(*args, **kwargs):
+    raise AssertionError(
+      "AMBIGUOUS selection must not execute orchestration"
+    )
+
+  monkeypatch.setattr(
+    handoff_module,
+    "execute_first_qualified_production_applicability_candidate",
+    fail_if_executed,
+  )
+
+  result = (
+    execute_unique_qualified_repository_generator_applicability_selection(
+      selection,
+      object(),
+    )
+  )
+
+  assert result.status is (
+    RepositoryGeneratorQualifiedExecutionSelectionStatus
+    .AMBIGUOUS
+  )
+  assert result.executed is False
+  assert result.execution is None
+  assert len(
+    result.selection.candidates
+  ) == 2
+
+
+def test_phase105_10_rejects_non_qualified_selection():
+  with pytest.raises(
+    TypeError,
+    match=(
+      "selection must be a "
+      "RepositoryGeneratorQualifiedExecutionSelection"
+    ),
+  ):
+    execute_unique_qualified_repository_generator_applicability_selection(
+      object(),
+      object(),
+    )
