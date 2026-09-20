@@ -35,6 +35,11 @@ generator input resolution != mathematical equality
 proof-scope traversal != theorem search
 known relation discovery != map evaluation
 Toda membership discovery != bracket solving
+applicability candidate != successful proof
+relevance category != theorem ranking
+candidate selection != proof success
+handoff validation != theorem truth
+bounded search result != executed proof
 ```
 
 ---
@@ -75,7 +80,7 @@ standard production repository
 minimal calculation CLI
 ```
 
-top-level generator exploration 経路:
+generator exploration / applicability 経路:
 
 ```text
 generator string
@@ -86,49 +91,47 @@ GeneratorSymbol
 ↓
 standard production repository
 ↓
-registered entry conclusion
+registered conclusion / recursive ProofStep ancestry
 ↓
-structural occurrence path extraction
+structural occurrences
 ↓
-semantic role classification
+Toda memberships / known map relations
 ↓
-grouped presentation
+premise-pattern compatibility
 ↓
-Markdown renderer
+applicability candidates
 ↓
-production one-shot facade
+rule groups / rule families
 ↓
-main.py explore
+relevance-classified presentation
 ```
 
-recursive proof-scope exploration 経路:
+Phase 104 bounded handoff / execution 経路:
 
 ```text
-generator string
+selected applicability candidate
 ↓
-resolve_generator_input()
+RepositoryGeneratorApplicabilityCandidateHandoff
 ↓
-GeneratorSymbol
+RepositoryGeneratorApplicabilityHandoffValidation
 ↓
-standard production repository
+READY + execution_entry
 ↓
-registered root entry
+explicit-final-rule bounded search
 ↓
-recursive ProofStep.premises ancestry
+RepositoryGeneratorApplicabilityHandoffSearchReport
 ↓
-RepositoryProofScopeNode
+prebuilt BoundedProducerSearchReport
 ↓
-generator structural occurrence
+selected producer_nodes / final_rule
 ↓
-Toda membership extraction
+RepositoryGeneratorApplicabilityHandoffExecutionResult
 ↓
-map-relation extraction
+BoundedProducerExecutionResult
 ↓
-production proof-scope facade
+RepositoryInferenceResult
 ↓
-Markdown renderer
-↓
-main.py explore-proof
+actual ProofStep provenance
 ```
 
 ---
@@ -196,13 +199,21 @@ repository_element_renderer.py
 repository_element_facade.py
 ```
 
-recursive proof-scope exploration:
+recursive proof-scope / applicability:
 
 ```text
 repository_proof_scope.py
 repository_proof_scope_exploration.py
 repository_proof_scope_facade.py
 repository_proof_scope_renderer.py
+repository_proof_scope_applicability.py
+```
+
+Phase 104 handoff / bounded execution:
+
+```text
+repository_generator_applicability_handoff.py
+repository_inference.py
 ```
 
 ---
@@ -238,16 +249,18 @@ ProofStep.inference_rule
 
 `ProofRepositoryEntry.key / phase / theorem` は provenance metadata。
 
-presentation、renderer、facade、production repository、CLI、exploration、resolver、proof-scope traversal は proof truth を追加してはならない。
+presentation、renderer、facade、production repository、CLI、exploration、resolver、proof-scope traversal、applicability classification は proof truth を追加してはならない。
 
 ---
 
 # 6. Repository read-only invariant
 
-query / calculation / reporting / exploration は repository を read-only に扱う。
+query / calculation / reporting / exploration / applicability discovery / bounded execution planning は repository を read-only に扱う。
+
+execution は inference result を構成するが、元の `ProofRepository` 自体を mutate しない。
 
 ```text
-before entries == after entries
+repository entries before == repository entries after
 ```
 
 必要な箇所では `ProofStep` identity も保持する。
@@ -461,7 +474,7 @@ TodaBracketMembershipStatement
 TodaBracketMembershipTheoremStatement
 ```
 
-Phase 102 では次を区別する。
+次を区別する。
 
 ```text
 generator appears as membership element
@@ -475,8 +488,6 @@ generator appears in bracket third
 $$
 \nu' \in \{\eta_3,2\iota_4,\eta_4\}_1.
 $$
-
-ここで $\nu'$ は bracket 成分ではなく membership の `element` 側にある。
 
 Toda membership discovery は bracket value の計算ではない。
 
@@ -508,17 +519,6 @@ MAP_INPUT
 $$
 H(\nu')=\eta_5.
 $$
-
-保持する情報:
-
-```text
-relation
-map_application
-map
-input_expression
-output_expression
-source_occurrence
-```
 
 これは既知 relation の discovery であり、一般 $E/H/\Delta$ evaluator ではない。
 
@@ -557,164 +557,9 @@ Toda membership / map relation の `source_occurrence` は master `occurrences` 
 
 ---
 
-# 18. Exploration presentation
+# 18. Applicability discovery semantics
 
-top-level `explore` は既存 grouped renderer を使う。
-
-recursive `explore-proof` は Phase 102 renderer により:
-
-```text
-generator
-proof-scope occurrence count
-Toda membership count
-map relation count
-root repository key
-shortest depth
-renderable known conclusion
-```
-
-を表示する。
-
-renderer は新しい theorem truth を生成しない。
-
----
-
-# 19. CLI boundary
-
-calculation:
-
-```text
-python main.py 5 7
-```
-
-top-level exploration:
-
-```text
-python main.py explore "nu'"
-```
-
-recursive proof-scope exploration:
-
-```text
-python main.py explore-proof nu_prime
-```
-
-calculation exit:
-
-```text
-FOUND / MULTIPLE_RESULTS → 0
-NOT_FOUND                → 1
-invalid input            → 2
-```
-
-exploration exit:
-
-```text
-valid occurrence(s)      → 0
-valid zero occurrence    → 0
-invalid generator        → 2
-missing / extra argument → 2
---help                   → 0
-```
-
-既存 positional `(n,k)` path と既存 `explore` path は維持する。
-
----
-
-# 20. Phase 102 validation
-
-Phase 102 で固定した項目:
-
-```text
-registered root → recursive ProofStep ancestry
-BFS shortest depth
-cycle safety
-shared dependency dedup per root
-same proof under different roots preserves root provenance
-repository non-mutation
-ancestry generator occurrence search
-membership element search
-Toda bracket position search
-known map relation search
-actual ProofStep identity
-facade source-occurrence identity canonicalization
-string alias reuse
-valid zero result
-CLI help / invalid / missing
-legacy explore compatibility
-legacy n,k compatibility
-```
-
-最終確認:
-
-```text
-Phase 102-5A focused:
-11 passed in 4.67s
-
-Phase 102-5B focused:
-22 passed in 10.29s
-
-Phase 102-6 focused:
-42 passed in 23.46s
-
-Phase 102-6 related:
-89 passed in 23.32s
-
-repository-wide after Phase 102-7:
-8142 passed in 129.93s
-
-git diff --check:
-clean
-```
-
----
-
-# 21. 現在の境界
-
-未実装:
-
-```text
-free-form natural-language search
-wildcard family search
-general composition evaluation
-general Toda-bracket solving
-bracket-value computation
-general coset / indeterminacy computation
-general E / H / Δ evaluation
-automatic applicable-lemma discovery
-recursive theorem solving beyond represented ancestry
-automatic enumeration of unstated consequences
-symbolic higher-range auto-instantiation
-general proof ranking
-Web UI
-odd-primary full integration
-all-primary ordinary sphere-homotopy calculation
-```
-
----
-
-# 22. 文書 TeX 方針
-
-GitHub Markdown では数式に:
-
-```text
-inline:  $...$
-display: $$...$$
-```
-
-を使用する。
-
-`\(...\)` / `\[...\]` を標準表示方法として前提にしない。
-
-コードや CLI は backtick / code block、数式は数式 delimiter を使う。
-
----
-
-# 23. Phase 103 applicability discovery
-
-Phase 103 は proof-scope source statement と inference-rule premise pattern の structural compatibility を read-only に探索する。
-
-candidate は概念的に:
+Phase 103 の applicability candidate は概念的に:
 
 ```text
 catalog_entry
@@ -735,25 +580,6 @@ applicability candidate != proof success
 applicability candidate != theorem truth
 ```
 
-production entry point:
-
-```text
-explore_standard_repository_generator_applicability_input(
-  generator_input,
-)
-```
-
-CLI:
-
-```text
-python main.py explore-applicable nu_prime
-python main.py explore-applicable nu_prime --detailed
-```
-
----
-
-# 24. Phase 103 relevance metadata
-
 `RuleRelevanceCategory`:
 
 ```text
@@ -765,18 +591,7 @@ BRIDGE
 UNCLASSIFIED
 ```
 
-presentation order:
-
-```text
-THEOREM_SPECIFIC
-→ MAP_PROPERTY
-→ STRUCTURAL
-→ BRIDGE
-→ GENERIC_RELATION
-→ UNCLASSIFIED
-```
-
-この順序は theorem ranking、proof strength、proof success probability ではない。
+category 順序は theorem ranking、proof strength、proof success probability ではない。
 
 Phase 103 closure baseline:
 
@@ -792,28 +607,429 @@ THEOREM_SPECIFIC = 424
 GENERIC_RELATION = 63
 BRIDGE = 140
 UNCLASSIFIED = 300
-
-mixed-category families = 0
-strict nu-prime residual UNCLASSIFIED entries = 0
-non-strict multi-family residual factories = 0
 ```
-
-残る109 families / 300 entries は intentional closure-deferred residual。
 
 ---
 
-# 25. Completion baseline
+# 19. Phase 104 candidate selection boundary
 
-Phase 103 は COMPLETE。
+Phase 104 は applicability presentation から直接 automatic execution を行わない。
+
+candidate-set reduction / source-scoped selection は:
 
 ```text
-Phase 103-7 closure audit:
+candidate filtering
+candidate-set reduction
+source-scoped selection
+rule-family selection
+```
+
+までを担う。
+
+重要:
+
+```text
+candidate filtering != theorem ranking
+candidate selection != proof success
+selection order != proof quality
+```
+
+選択された candidate object の identity を後続 handoff に保持する。
+
+---
+
+# 20. Phase 104 handoff representation
+
+`RepositoryGeneratorApplicabilityCandidateHandoff` は最小に:
+
+```text
+candidate
+goal
+```
+
+を保持する。
+
+handoff は candidate の copy や rule の再構成を行わない。
+
+```text
+handoff.candidate is selected candidate
+```
+
+が provenance の起点になる。
+
+---
+
+# 21. READY validation semantics
+
+`RepositoryGeneratorApplicabilityHandoffValidation` は execution catalog に対して selected rule を確認する。
+
+status:
+
+```text
+READY
+RULE_NOT_IN_EXECUTION_CATALOG
+RULE_NOT_FIXED_POINT_SAFE
+GOAL_INCOMPATIBLE
+```
+
+`READY` のみ `execution_entry` を持つ。
+
+validation は identity ベースで selected rule と execution entry を接続する。
+
+```text
+handoff.candidate.candidate.inference_rule
+is validation.execution_entry.rule
+```
+
+意味:
+
+```text
+candidate discovery
+!=
+execution safety validation
+```
+
+execution catalog は theorem truth を生成しない。
+
+---
+
+# 22. Explicit-final-rule bounded search
+
+Phase 104 の bounded search は READY validation で確定した final rule を再選択しない。
+
+概念的な入口:
+
+```text
+_build_bounded_producer_search_report_for_final_rule(
+  repository,
+  rule_catalog,
+  goal,
+  final_rule,
+  ...
+)
+```
+
+ここでは final rule は authoritative input。
+
+producer search、`max_depth`、retry policy は search-time concern である。
+
+search report が `SUCCESS` なら:
+
+```text
+search_result.final_rule
+is validation.execution_entry.rule
+```
+
+を handoff wrapper が保証する。
+
+---
+
+# 23. Prebuilt-search-report execution
+
+Phase 104-4M では bounded execution loop を prebuilt report 入力で共有可能にした。
+
+internal execution core:
+
+```text
+repository
++
+BoundedProducerSearchReport
+↓
+execution
+```
+
+execution core は次を受け取らない。
+
+```text
+rule_catalog
+execution_catalog
+max_depth
+retry_policy
+goal-selection policy
+```
+
+これらは search 時点までで消費済みである。
+
+legacy `execute_depth_two_producer_search()` は従来 signature を維持し、
+
+```text
+build report
+↓
+shared report execution core
+```
+
+へ委譲する。
+
+Phase 104 handoff path は 4K で作成した report を直接 shared core に渡す。
+
+---
+
+# 24. Search-report identity invariant
+
+Phase 104 execution wrapper の最重要 invariant:
+
+```text
+execution_result.report
+is search_report.report
+```
+
+`==` ではなく `is` を要求する。
+
+これは「同じ内容の report」ではなく、
+
+```text
+4K で作ったその report object を
+再探索せず execution が消費した
+```
+
+ことを表す。
+
+`SUCCESS` の場合、同じ `BoundedProducerSearchResult` 内の:
+
+```text
+producer_nodes
+final_rule
+```
+
+が authoritative execution plan になる。
+
+---
+
+# 25. Actual ProofStep provenance
+
+`apply_inference_match()` は実行した `InferenceRule` object をそのまま:
+
+```text
+ProofStep.inference_rule
+```
+
+へ格納する。
+
+したがって Phase 104-4O で固定した final-rule identity chain は:
+
+```text
+candidate rule
+is validation.execution_entry.rule
+is search_result.final_rule
+is goal_step.inference_rule
+```
+
+である。
+
+selected producer についても:
+
+```text
+producer_node.producer_rule
+is executed_producer_step.inference_rule
+```
+
+が成立する。
+
+代表 premise chain:
+
+```text
+source_step
+→ producer_step
+→ goal_step
+```
+
+も actual `ProofStep.premises` で保持される。
+
+---
+
+# 26. GOAL_ALREADY_AVAILABLE semantics
+
+READY validation 後、search 時点で goal が repository に既に存在する場合:
+
+```text
+status = GOAL_ALREADY_AVAILABLE
+search_result = None
+```
+
+execution は producer rule / final rule を実行しない。
+
+ただし wrapper は:
+
+```text
+candidate
+handoff
+validation
+search report
+```
+
+の provenance を保持する。
+
+意味は:
+
+```text
+selected candidate は READY まで validation された
+しかし goal は既存だったため rule execution は不要だった
+```
+
+である。
+
+---
+
+# 27. Failure report semantics
+
+search report が:
+
+```text
+NO_PRODUCER
+UNSAFE_PRODUCER
+AMBIGUOUS_PRODUCER
+PRODUCER_RETRY_EXHAUSTED
+CYCLE_DETECTED
+DEPTH_LIMIT
+PRODUCER_NOT_APPLICABLE
+PRODUCER_OUTPUT_NOT_USABLE
+FINAL_RULE_NOT_APPLICABLE
+GOAL_NOT_DERIVED
+```
+
+等なら、execution adapter は再探索しない。
+
+```text
+search failure
+→ same failure report preserved
+→ no execution result proof
+```
+
+execution diagnostic も search report 成功判定後に再実行しない。
+
+---
+
+# 28. Repository drift boundary
+
+Phase 104 は repository snapshot/versioning を導入しない。
+
+未実装:
+
+```text
+STALE_SEARCH_REPORT
+REPOSITORY_CHANGED
+repository version token
+snapshot hash
+```
+
+Phase 104 の責務は:
+
+```text
+同じ repository workflow 内で
+確定済み report をそのまま execution する
+```
+
+ことまで。
+
+repository drift 検知は actual pressure が出た場合の将来 capability とする。
+
+---
+
+# 29. CLI boundary
+
+calculation:
+
+```text
+python main.py 5 7
+```
+
+top-level exploration:
+
+```text
+python main.py explore "nu'"
+```
+
+recursive proof-scope exploration:
+
+```text
+python main.py explore-proof nu_prime
+```
+
+applicability exploration:
+
+```text
+python main.py explore-applicable nu_prime
+python main.py explore-applicable nu_prime --detailed
+```
+
+Phase 104 は新しい CLI を追加しない。
+
+---
+
+# 30. 現在の未実装境界
+
+```text
+free-form natural-language search
+wildcard family search
+general composition evaluation
+general Toda-bracket solving
+bracket-value computation
+general coset / indeterminacy computation
+general E / H / Δ evaluation
+recursive theorem solving beyond represented ancestry
+automatic enumeration of unstated consequences
+symbolic higher-range auto-instantiation
+general theorem ranking
+producer ranking
+proof-cost optimization
+best-proof selection
+general unbounded backtracking
+persistent proof cache
+repository snapshot/versioning
+stale-search-report detection
+Web UI
+odd-primary full integration
+all-primary ordinary sphere-homotopy calculation
+```
+
+---
+
+# 31. 文書 TeX 方針
+
+GitHub Markdown では数式に:
+
+```text
+inline:  $...$
+display: $$...$$
+```
+
+を使用する。
+
+`\(...\)` / `\[...\]` を標準表示方法として前提にしない。
+
+コードや CLI は backtick / code block、数式は数式 delimiter を使う。
+
+---
+
+# 32. Completion baseline
+
+Phase 103:
+
+```text
 PHASE103_7_CLOSURE_AUDIT = PASS
 
 Phase 103 regression:
 54 test files
 409 passed in 186.07s
-
-git diff --check:
-clean
 ```
+
+Phase 104:
+
+```text
+Phase 104-4M focused:
+32 passed in 8.26s
+
+repository-wide after Phase 104-4M:
+8641 passed in 381.78s
+
+Phase 104-4O focused:
+9 passed in 1.63s
+
+repository-wide after Phase 104-4P closure check:
+8644 passed in 374.63s
+
+Phase 104-4P:
+PASS — no residual production implementation required
+```
+
+Phase 104 は COMPLETE。

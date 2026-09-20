@@ -18,46 +18,56 @@ raw n,k
 → proof report
 ```
 
-top-level generator exploration:
+generator exploration:
 
 ```text
 generator string
-→ python main.py explore <generator>
-  or explore_standard_repository_generator_input()
-→ canonical GeneratorSymbol
-→ registered production conclusions
-→ structural occurrence lookup
-→ semantic roles
-→ grouped Markdown
+→ top-level / recursive proof-scope exploration
+→ Toda memberships / known map relations
+→ applicable theorem / lemma candidates
+→ relevance-classified presentation
 ```
 
-recursive proof-scope exploration:
+safe candidate consumption:
 
 ```text
-generator string
-→ python main.py explore-proof <generator>
-  or explore_standard_repository_generator_proof_scope_input()
-→ canonical GeneratorSymbol
-→ standard production repository
-→ recursive ProofStep ancestry
-→ generator occurrence lookup
-→ Toda memberships
-→ known map relations
+selected applicability candidate
+↓
+explicit handoff
+↓
+execution-catalog validation
+↓
+READY
+↓
+explicit-final-rule bounded search
+↓
+prebuilt search report
+↓
+selected-path execution
+↓
+actual ProofStep provenance
 ```
 
 最新確認:
 
 ```text
-Phase 103-7 closure audit:
-PHASE103_7_CLOSURE_AUDIT = PASS
+Phase 104-4M focused:
+32 passed in 8.26s
 
-Phase 103 regression:
-54 test files
-409 passed in 186.07s
+repository-wide after Phase 104-4M:
+8641 passed in 381.78s
 
-git diff --check:
-clean
+Phase 104-4O focused:
+9 passed in 1.63s
+
+repository-wide after Phase 104-4P closure check:
+8644 passed in 374.63s
+
+Phase 104-4P:
+PASS — no residual production implementation required
 ```
+
+Phase 104 は COMPLETE。
 
 ---
 
@@ -116,7 +126,6 @@ Phase 102:
 theorem-pattern exploration
 Toda membership filtering
 known map-relation exploration
-production search-scope audit
 recursive proof-scope traversal
 ancestry semantic exploration
 production proof-scope facade
@@ -137,6 +146,27 @@ main.py explore-applicable
 RuleRelevanceCategory metadata
 production relevance classification
 final closure audit
+```
+
+Phase 104:
+
+```text
+candidate filtering / reduction
+source-scoped candidate selection
+rule-family selection
+candidate handoff representation
+execution-catalog validation
+READY boundary
+explicit-final-rule bounded search
+READY search-report adapter
+prebuilt-search-report shared execution core
+READY execution adapter
+report identity preservation
+selected producer-path preservation
+final-rule identity preservation
+actual ProofStep provenance
+end-to-end provenance regression
+closure audit
 ```
 
 ---
@@ -167,105 +197,121 @@ explore_standard_repository_generator_proof_scope_input(generator_input)
 python main.py explore-proof nu_prime
 ```
 
----
-
-# 4. Phase 102 で確定した境界
-
-proof-scope search は:
+applicability exploration:
 
 ```text
-already represented ProofStep ancestry
+explore_standard_repository_generator_applicability_input(generator_input)
+python main.py explore-applicable nu_prime
+python main.py explore-applicable nu_prime --detailed
 ```
 
-のみを対象にする。
-
-行わない:
-
-```text
-new theorem generation
-general map evaluation
-general Toda-bracket solving
-general indeterminacy computation
-recursive theorem solver
-```
-
-同一 `ProofStep` identity は root ごとに provenance を保持する。
-
-Toda membership は:
-
-```text
-membership element
-bracket first
-bracket second
-bracket third
-```
-
-を区別する。
-
-known map relation は:
-
-```text
-Relation equality
-+
-MapApplication on lhs
-+
-generator in map input
-```
-
-を structural に抽出する。
+Phase 104 の handoff / execution path は現在 Python infrastructure capability であり、新しい CLI は追加していない。
 
 ---
 
-# 5. 次の自然な候補
-
-Phase 103 で applicable theorem / lemma candidate discovery と relevance-classified presentation は closure。
-
-次は、candidate discovery の結果を**どのように安全に消費するか**を監査する。
-
-```text
-Phase 104-1
-post-applicability consumption / handoff pressure audit
-```
-
-監査候補:
-
-```text
-relevance category filtering
-candidate-set reduction
-source-statement / family-level navigation
-existing bounded proof-search infrastructure との接続可能性
-proof execution へ渡す場合の境界
-```
+# 4. Phase 104 で確定した境界
 
 次を分離する。
 
 ```text
+applicability candidate != proof success
+relevance category != theorem ranking
 candidate filtering != theorem ranking
 candidate selection != proof success
 candidate handoff != automatic proof execution
 ```
 
-automatic execution や theorem ranking は監査で必要性が確認されるまで実装しない。
+READY validation は:
+
+```text
+selected rule identity
+execution catalog membership
+fixed-point-safe metadata
+goal compatibility
+```
+
+のみを確認する。
+
+bounded search が確定した後、execution は:
+
+```text
+same report
+same producer_nodes
+same final_rule
+```
+
+を消費し、search を再実行しない。
+
+最重要 identity:
+
+```text
+candidate rule
+is validation.execution_entry.rule
+is search_result.final_rule
+is goal_step.inference_rule
+```
+
+および:
+
+```text
+execution_result.report
+is search_report.report
+```
 
 ---
 
-# 6. Deferred：applicable lemma discovery
+# 5. 次の自然な候補
 
-候補:
+Phase 104 で applicability candidate の安全な bounded execution まで closure した。
 
-```text
-element / relation / membership
-→ premise-pattern compatibility
-→ theorem / lemma candidate metadata
-```
+次は、この capability をさらに広げる前に**実際の production workflow で次に不足しているものを監査する**。
 
-必要な設計境界:
+自然な開始点:
 
 ```text
-candidate discovery != proof execution
-compatibility != theorem truth
-catalog metadata != successful proof
+Phase 105-1
+post-handoff production workflow / next-capability pressure audit
 ```
+
+監査候補:
+
+```text
+Phase 104 handoff/execution capability を
+どの production workflow から実際に利用するか
+
+derived-but-not-explicit result discovery への圧力があるか
+
+user-facing orchestration が本当に必要か
+
+execution result を既存 calculation / exploration result と
+どこまで統合すべきか
+```
+
+Phase 105-1 では先に実装せず、actual pressure を確認する。
+
+---
+
+# 6. Deferred：derived-but-not-explicit result discovery
+
+Phase 102 は actual proof ancestry に既に存在する `ProofStep` discovery。
+
+Phase 103 はそこから applicable candidate discovery。
+
+Phase 104 は明示的に選択された candidate の bounded execution。
+
+今後は必要性が確認された場合のみ:
+
+```text
+already represented but not root-visible
+```
+
+と
+
+```text
+not yet derived but derivable through validated bounded execution
+```
+
+を明確に分離した production workflow を検討する。
 
 ---
 
@@ -305,10 +351,6 @@ unknown map-image inference
 
 # 9. Deferred：coset / indeterminacy
 
-既存 theorem-specific indeterminacy statement を一般 coset engine とみなさない。
-
-候補:
-
 ```text
 subgroup representation
 coset representative
@@ -327,27 +369,7 @@ known composition relation lookup から開始し、general composition calculat
 
 ---
 
-# 11. Deferred：derived-but-not-explicit result discovery
-
-Phase 102 は actual proof ancestry に既に存在する `ProofStep` discovery まで。
-
-次段階では:
-
-```text
-already represented but not root-visible
-```
-
-と
-
-```text
-not yet derived
-```
-
-を厳密に分離する。
-
----
-
-# 12. Deferred：symbolic higher-range instantiation
+# 11. Deferred：symbolic higher-range instantiation
 
 $$
 \pi_{n+3}^n=\mathbb Z/8\{\nu_n\},
@@ -361,10 +383,11 @@ $$
 
 ---
 
-# 13. Deferred：proof optimization
+# 12. Deferred：proof optimization
 
 ```text
 general backtracking
+theorem ranking
 producer ranking
 proof-cost optimization
 best-proof selection
@@ -372,6 +395,24 @@ persistent proof cache
 ```
 
 actual pressure が出るまで deferred。
+
+---
+
+# 13. Deferred：repository versioning
+
+Phase 104 の prebuilt search-report execution は、同じ workflow 内で report をそのまま消費するところまで。
+
+未実装:
+
+```text
+repository version token
+repository snapshot
+STALE_SEARCH_REPORT
+REPOSITORY_CHANGED
+cross-session execution-plan persistence
+```
+
+これらは actual concurrency / persistence pressure が出てから扱う。
 
 ---
 
@@ -383,16 +424,20 @@ actual pressure が出るまで deferred。
 minimal calculation CLI
 minimal top-level generator-exploration CLI
 minimal recursive proof-scope CLI
+applicability exploration CLI
 ```
 
-将来:
+将来候補:
 
 ```text
+Phase 104 execution workflow の user-facing orchestration
 Web UI
 structured export
 interactive proof graph
 filterable exploration UI
 ```
+
+user-facing execution は Phase 105-1 監査で必要性を確認するまで実装しない。
 
 ---
 
@@ -409,13 +454,22 @@ all-primary ordinary sphere-homotopy calculation
 
 # 16. 直近の次作業
 
-Phase 103 は COMPLETE。
+Phase 104 は COMPLETE。
 
 次候補:
 
 ```text
-Phase 104-1
-post-applicability consumption / handoff pressure audit
+Phase 105-1
+post-handoff production workflow / next-capability pressure audit
 ```
 
-Phase 103 の relevance-classified applicability result と、既存 bounded proof-search / producer-selection infrastructure の間に本当に不足している最小 capability を確認する。
+目的は、Phase 104 で完成した
+
+```text
+selected candidate
+→ READY
+→ bounded search
+→ actual execution
+```
+
+を無条件に user-facing 化することではなく、次に本当に必要な production capability を監査して最小境界を決めることである。
