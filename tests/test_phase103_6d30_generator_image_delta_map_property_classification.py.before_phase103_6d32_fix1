@@ -61,17 +61,35 @@ def _required_parameter_count(
 
 
 def _build_catalog():
-  from standard_production_applicability_catalog import (
-    _phase103_6d30_apply_map_property_classification,
-    _phase103_6d30_original_builder,
+  preferred_names = (
+    "build_standard_production_applicability_catalog",
+    "standard_production_applicability_catalog",
+    "build_standard_production_rule_catalog",
+    "build_standard_production_catalog",
   )
 
-  return (
-    _phase103_6d30_apply_map_property_classification(
-      _phase103_6d30_original_builder()
+  for name in preferred_names:
+    candidate = getattr(
+      production_catalog,
+      name,
+      None,
     )
-  )
 
+    if (
+      callable(candidate)
+      and _required_parameter_count(candidate) == 0
+    ):
+      value = candidate()
+
+      if hasattr(
+        value,
+        "entries",
+      ):
+        return value
+
+  raise AssertionError(
+    "standard production catalog builder not found"
+  )
 
 
 def _build_phase6d27_catalog():
