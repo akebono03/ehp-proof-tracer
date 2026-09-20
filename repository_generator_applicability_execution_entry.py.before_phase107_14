@@ -11,17 +11,6 @@ _FIRST_QUALIFIED_PRODUCTION_EXECUTION_FACTORY = (
   "toda_58_delta_iota9_nu4_nu_prime_inference_rule"
 )
 
-_SECOND_QUALIFIED_PRODUCTION_EXECUTION_FACTORY = (
-  "toda_lemma57_pi6_2_eta2_nu_prime_inference_rule"
-)
-
-_QUALIFIED_PRODUCTION_EXECUTION_FACTORIES = frozenset(
-  (
-    _FIRST_QUALIFIED_PRODUCTION_EXECUTION_FACTORY,
-    _SECOND_QUALIFIED_PRODUCTION_EXECUTION_FACTORY,
-  )
-)
-
 
 def _candidate_inference_rule_factory_name(
   candidate,
@@ -65,56 +54,6 @@ def _candidate_inference_rule_factory_name(
   )[
     -1
   ]
-
-
-def qualified_production_execution_family_name(
-  candidate,
-) -> str:
-  if not isinstance(
-    candidate,
-    RepositoryProofScopeApplicabilityCandidate,
-  ):
-    raise TypeError(
-      "candidate must be a "
-      "RepositoryProofScopeApplicabilityCandidate"
-    )
-
-  factory_name = (
-    _candidate_inference_rule_factory_name(
-      candidate
-    )
-  )
-
-  if (
-    factory_name
-    not in _QUALIFIED_PRODUCTION_EXECUTION_FACTORIES
-  ):
-    raise ValueError(
-      "candidate rule is not a qualified "
-      "production execution rule"
-    )
-
-  return factory_name
-
-
-def is_qualified_production_execution_candidate(
-  candidate,
-) -> bool:
-  if not isinstance(
-    candidate,
-    RepositoryProofScopeApplicabilityCandidate,
-  ):
-    raise TypeError(
-      "candidate must be a "
-      "RepositoryProofScopeApplicabilityCandidate"
-    )
-
-  return (
-    _candidate_inference_rule_factory_name(
-      candidate
-    )
-    in _QUALIFIED_PRODUCTION_EXECUTION_FACTORIES
-  )
 
 
 def first_qualified_production_execution_family_name(

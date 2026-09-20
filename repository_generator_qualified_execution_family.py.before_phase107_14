@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from repository_generator_applicability_execution_entry import (
-  qualified_production_execution_family_name,
+  first_qualified_production_execution_family_name,
 )
 from repository_generator_qualified_execution_selection import (
   RepositoryGeneratorQualifiedExecutionSelection,
@@ -34,7 +34,7 @@ def _family_group_key(
     id(
       candidate.candidate.source_step
     ),
-    qualified_production_execution_family_name(
+    first_qualified_production_execution_family_name(
       candidate
     ),
     candidate.candidate.premise_index,
@@ -152,7 +152,7 @@ class RepositoryGeneratorQualifiedExecutionFamilyGroup:
     self,
   ) -> str:
     return (
-      qualified_production_execution_family_name(
+      first_qualified_production_execution_family_name(
         self.representative
       )
     )
