@@ -1,6 +1,6 @@
 # EHP Proof Tracer — 証明記録
 
-この文書は、代表的な数学的証明および proof infrastructure 記録の索引である。
+この文書は、代表的な数学的証明および証明基盤の記録索引である。
 
 詳細な過去記録は内容を削除せず `docs/proof_records/` 以下へ分割して保存する。
 
@@ -8,7 +8,7 @@
 
 ---
 
-# 数学的 proof records
+# 数学的証明記録
 
 ## 初期記録 / Toda Equation (5.8)
 
@@ -20,7 +20,7 @@
 
 `docs/proof_records/toda_5_7_to_5_10.md`
 
-Toda Lemma 5.7、Proposition 5.8、Equation (5.10)、Proposition 5.9、Equation (5.12)、Lemma 5.10、Phase 72R / 72R-A1 semantic correction 記録を含む。
+Toda Lemma 5.7、Proposition 5.8、Equation (5.10)、Proposition 5.9、Equation (5.12)、Lemma 5.10、Phase 72R / 72R-A1 の意味論訂正記録を含む。
 
 ## Toda Proposition 5.11 から Lemma 5.16
 
@@ -28,145 +28,52 @@ Toda Lemma 5.7、Proposition 5.8、Equation (5.10)、Proposition 5.9、Equation 
 
 Toda Proposition 5.11、Lemma 5.12、Proposition 5.15、Equation (5.16)、Lemma 5.16 を含む。
 
-## Stable stems $G_0$ through $G_7$
+## Stable stems $G_0$ から $G_7$
 
 `docs/proof_records/stable_stems_g0_g7.md`
 
-Phase 78 の stable $G_0$ through $G_7$ consolidation 記録を含む。
+Phase 78 の stable $G_0$ から $G_7$ までの統合記録を含む。
 
 ---
 
-# Proof infrastructure records
+# 証明基盤の記録
 
 ## Phase 79–89
 
 `docs/proof_records/proof_infrastructure_079_089.md`
 
-Proof Repository、repository-assisted inference、automatic rule selection、bounded producer search、diagnostics、depth parameterization、finite retry、concrete theorem-instance filtering の記録。
+Proof Repository、repository-assisted inference、自動 rule 選択、bounded producer search、診断、depth parameterization、有限 retry、具体的 theorem-instance filtering の記録。
 
-## Phase 90–95
+## Phase 90–98
 
-`docs/proof_records/calculation_provenance_090_095.md`
+`docs/proof_records/calculation_provenance_090_095.md` ほか
 
-Toda group query、normalized theorem-backed group result、actual EHP extraction、proof dependency / explanation、recursive proof provenance、および Phase 95 calculation orchestration の記録。
+Toda group query、正規化済み theorem-backed group result、EHP extraction、proof dependency / explanation、recursive proof provenance、structured presentation、full proof report、user-facing convenience facade の記録。
 
-## Phase 96
+## Phase 99–101
 
-`docs/proof_records/presentation_reporting_096.md`
-
-structured presentation、EHP / exactness presentation、proof source presentation、dependency-first proof flow、human-readable Markdown / LaTeX、readable narrative、unified full proof report、Phase 96 final audit の記録。
-
-## Phase 97
-
-`docs/proof_records/calculation_reporting_097.md`
-
-`TodaCalculationResult` から end-to-end presentation / full proof report までを compose する top-level reporting layer の記録。
-
-## Phase 98
-
-`docs/proof_records/user_facing_convenience_098.md`
-
-raw `n,k` facade、`FOUND` 専用 `result.report`、全 candidate を順序保持する `result.reports`、代表6 target の shortest user-facing path validation を記録する。
-
-## Phase 99
-
-Phase 99 は既存 theorem-backed repository に対する generator-centered exploration capability を記録する。
-
-探索 semantics:
+repository 内の generator occurrence 探索を standard production repository と CLI に接続した。
 
 ```text
 GeneratorSymbol
-↓
-structural occurrence
-↓
-repository occurrence
-↓
-semantic role
-↓
-exploration
-↓
-presentation
-↓
-Markdown
-↓
-one-shot facade
+→ structural occurrence
+→ repository occurrence
+→ semantic role
+→ exploration
+→ presentation
+→ Markdown
+→ production facade
 ```
 
-proof truth は新規生成せず、既存 `ProofRepositoryEntry.step.conclusion` 内の structural occurrence を探索する。
+新しい証明事実は生成しない。
 
-重要 invariant:
-
-```text
-same entry + different structural path
-= different occurrence
-```
-
-Phase 99 は COMPLETE。
-
-## Phase 100 production user-facing path
-
-Phase 100-12 は、既存 theorem-backed proof infrastructure を production user-facing calculation path へ接続した記録である。
-
-production repository:
-
-```text
-build_standard_production_proof_repository()
-```
-
-repository-free one-shot facade:
-
-```text
-build_standard_toda_report(
-  n,
-  k,
-)
-```
-
-CLI:
-
-```text
-python main.py n k
-```
-
-Phase 100-12 production user-facing path は COMPLETE。
-
-## Phase 101 production generator exploration
-
-`docs/proof_records/production_exploration_101.md`
-
-Phase 101 は Phase 99 の structural generator exploration を standard production repository と user-facing input / CLI に接続した。
-
-CLI:
-
-```text
-python main.py explore "nu'"
-```
-
-Phase 101 は COMPLETE。
-
-## Phase 102 recursive proof-scope exploration
+## Phase 102
 
 `docs/proof_records/production_proof_scope_exploration_102.md`
 
-Phase 102 は registered repository conclusion だけでは見えない actual `ProofStep.premises` ancestry を read-only に探索可能にした。
+actual `ProofStep.premises` ancestry を read-only に探索可能にした。
 
-proof-scope node:
-
-```text
-root_entry
-proof_step
-shortest_depth
-```
-
-探索対象:
-
-```text
-generator structural occurrences
-Toda bracket membership statements
-known equality map relations
-```
-
-代表 result:
+代表結果:
 
 $$
 \nu' \in \{\eta_3,2\iota_4,\eta_4\}_1
@@ -178,7 +85,7 @@ $$
 H(\nu')=\eta_5.
 $$
 
-重要 invariant:
+重要:
 
 ```text
 same ProofStep under one root
@@ -186,39 +93,15 @@ same ProofStep under one root
 
 same ProofStep under different roots
 → distinct root provenance
-
-repository
-→ read-only
-
-semantic source occurrence
-→ master occurrence identity reused
-```
-
-CLI:
-
-```text
-python main.py explore-proof nu_prime
 ```
 
 Phase 102 は COMPLETE。
 
-最終確認:
-
-```text
-repository-wide:
-8142 passed in 129.93s
-
-git diff --check:
-clean
-```
-
-## Phase 103 applicable theorem / lemma discovery and relevance
+## Phase 103
 
 `docs/proof_records/applicable_theorem_relevance_103.md`
 
-Phase 103 は actual production proof scope に現れる statement と inference-rule premise pattern の compatibility を利用し、generator に関連する applicable theorem / lemma candidates を read-only に探索する capability を追加した。
-
-重要 invariant:
+proof-scope source statement と inference-rule premise pattern の compatibility から applicable theorem / lemma candidate を read-only に探索する capability を追加した。
 
 ```text
 applicability candidate != proof success
@@ -227,7 +110,7 @@ presentation order != theorem ranking
 candidate discovery = repository read-only
 ```
 
-Phase 103 final catalog:
+最終 catalog:
 
 ```text
 catalog entries = 1188
@@ -243,19 +126,11 @@ BRIDGE = 140
 UNCLASSIFIED = 300
 ```
 
-Phase 103-7:
-
-```text
-PHASE103_7_CLOSURE_AUDIT = PASS
-```
-
 Phase 103 は COMPLETE。
 
 ## Phase 104 applicability handoff / bounded execution provenance
 
-Phase 104 は Phase 103 で得た applicability candidate を、安全な explicit handoff と bounded execution に接続した proof infrastructure record である。
-
-対象は automatic theorem ranking ではなく、**既に選択された candidate の provenance を失わず実行経路へ渡すこと**。
+Phase 104 は applicability candidate を explicit handoff と bounded execution に接続した。
 
 中心経路:
 
@@ -266,11 +141,7 @@ RepositoryGeneratorApplicabilityCandidateHandoff
 ↓
 READY validation
 ↓
-validation.execution_entry.rule
-↓
 explicit-final-rule bounded search
-↓
-RepositoryGeneratorApplicabilityHandoffSearchReport
 ↓
 same BoundedProducerSearchReport object
 ↓
@@ -280,12 +151,10 @@ same selected final_rule
 ↓
 execution
 ↓
-actual producer ProofStep
-↓
-actual goal ProofStep
+actual ProofStep
 ```
 
-重要 identity invariant:
+重要な identity 不変条件:
 
 ```text
 candidate rule
@@ -294,97 +163,198 @@ is search_result.final_rule
 is goal_step.inference_rule
 ```
 
-search-report identity:
-
 ```text
 execution_result.report
 is search_report.report
 ```
 
-selected producer provenance:
+Phase 104 は COMPLETE。
 
 ```text
-producer_node.producer_rule
-is executed_producer_step.inference_rule
-```
-
-actual proof chain は `ProofStep.premises` により:
-
-```text
-source_step
-→ producer_step
-→ goal_step
-```
-
-として追跡できる。
-
-Phase 104 execution は prebuilt report を authoritative execution plan とするため、execution 時に:
-
-```text
-final-rule selection
-producer lookup
-producer ambiguity evaluation
-retry selection
-bounded search
-execution-catalog selection
-```
-
-を再実行しない。
-
-`GOAL_ALREADY_AVAILABLE` の場合は:
-
-```text
-candidate / handoff / validation provenance
-→ preserved
-
-producer / final rule execution
-→ none
-```
-
-となる。
-
-failure search report も再探索せず、その report をそのまま execution result に保持する。
-
-Phase 104 では repository snapshot/versioning、stale report status、proof ranking、proof-cost optimization は導入していない。
-
-検証:
-
-```text
-Phase 104-4M focused:
-32 passed in 8.26s
-
-repository-wide after Phase 104-4M:
-8641 passed in 381.78s
-
-Phase 104-4O focused:
-9 passed in 1.63s
-
 repository-wide after Phase 104-4P closure check:
 8644 passed in 374.63s
 ```
 
-Phase 104-4P:
+## Phase 105 production-qualified applicability execution
+
+Phase 105 は、Phase 104 の selected-candidate bounded execution を実際の standard production applicability workflow に接続した証明基盤記録である。
+
+最初の境界:
 
 ```text
-PASS — no residual production implementation required
+relevance category
+!=
+execution safety
 ```
 
-Phase 104 は COMPLETE。
+対象 family:
+
+```text
+toda_58_delta_iota9_nu4_nu_prime_inference_rule
+```
+
+これは Toda Equation (5.8)
+
+$$
+\Delta(\iota_9)=\pm(2\nu_4-E\nu')
+$$
+
+に対応する production rule family である。
+
+### Execution seed / qualification
+
+actual applicability candidate が保持する exact source `ProofStep` を execution seed repository に登録し、discovery rule object と同一 identity を持つ fixed-point-safe execution entry を構成した。
+
+```text
+execution entry rule
+is discovery candidate rule
+```
+
+standard applicability catalog 自体は変更しない。
+
+### Qualified ambiguity
+
+standard `nu_prime` applicability:
+
+```text
+qualified candidates = 744
+
+full identity groups = 744
+source+rule groups = 744
+source+rule-name groups = 248
+scope+source groups = 248
+source-step identities = 124
+```
+
+完全同一 duplicate ではなく、同一 source 上に3つの distinct rule identity が存在する。
+
+### Rule equivalence
+
+3 catalog entry の比較:
+
+```text
+same factory = True
+same rule signature = True
+same entry metadata signature = True
+same rule identity = False
+same entry identity = False
+```
+
+そのため raw catalog を deduplicate せず、execution selection 層で family grouping する。
+
+### Execution-family grouping
+
+```text
+744 raw qualified candidates
+↓
+248 execution-family groups
+```
+
+各 group は original candidate 3件を保持する。
+
+代表 candidate は discovery order 上の先頭 original candidate だが、theorem ranking ではない。
+
+### Root/source disambiguation
+
+```text
+root-only unique = False
+source-step-only unique = False
+root+source unique = True
+```
+
+root ごとの group 数:
+
+```text
+standard.toda.prop56  = 14
+standard.toda.prop58  = 34
+standard.toda.prop511 = 76
+standard.toda.prop515 = 124
+```
+
+124個の source-step identity はすべて2 root に現れる。
+
+global minimum depth = 1 にも6 group が残るため、`shortest_depth` を implicit ranking に使用しない。
+
+### Explicit selection
+
+```text
+root_entry identity
++
+source_step identity
+```
+
+で0件または1件の execution-family group を選択する。
+
+全248 standard root/source pair が一意に選択できる。
+
+### Standard execution facade
+
+```text
+standard applicability result
+→ qualified filtering
+→ execution-family grouping
+→ explicit root + source selection
+→ representative
+→ production execution orchestration
+→ actual ProofStep
+```
+
+identity chain:
+
+```text
+qualified_selection.applicability_result
+is original applicability_result
+
+family_grouping.selection
+is qualified_selection
+
+family_selection.grouping
+is family_grouping
+
+execution.candidate
+is family representative
+```
+
+Phase 105 では次を実装していない。
+
+```text
+automatic root selection
+automatic source selection
+shortest-depth ranking
+theorem ranking
+automatic goal discovery
+new execution CLI
+general qualification of every production rule family
+raw applicability-catalog deduplication
+```
+
+最終検証:
+
+```text
+Phase 105-17 focused:
+8 passed in 142.33s
+
+Phase 105-7 / 10 / 14 / 16 / 17 related:
+40 passed in 174.89s
+
+repository-wide Phase 105 closure:
+8709 passed in 659.02s
+```
+
+Phase 105 は COMPLETE。
 
 ---
 
 # 記録原則
 
-数学的 truth source は `ProofStep` とその actual premise ancestry である。
+数学的な根拠は `ProofStep` と、その実際の premise ancestry である。
 
 ```text
 proof record != proof truth
 presentation != proof truth
 rendered prose != proof truth
 report orchestration != proof truth
-convenience facade != proof truth
 production repository assembly != theorem truth
-CLI != proof truth
 exploration result != new theorem truth
 proof-scope traversal != theorem search
 known relation discovery != map evaluation
@@ -395,16 +365,12 @@ candidate ordering != theorem ranking
 candidate selection != proof success
 handoff validation != theorem truth
 bounded search report != executed proof
+qualified candidate != unique execution target
+execution-family representative != theorem ranking
 ```
 
 この文書群は、実装済み proof object と provenance を人間が追跡しやすくするための記録であり、独立した theorem database ではない。
 
-renderer が未対応 statement を推測で補完してはならない。
+Phase 105 qualified execution layer が relevance category、root order、shortest depth、candidate order を暗黙の theorem ranking として使用してはならない。
 
-report orchestration / convenience layer が multiple candidate を勝手に ranking / selection してはならない。
-
-generator exploration が structural occurrence を mathematical equality や新規 theorem として扱ってはならない。
-
-Phase 104 handoff / execution layer が search report を再生成して selected rule / producer path を silently 再選択してはならない。
-
-既存記録は原則として削除せず、確定した semantic correction がある場合のみ訂正する。
+既存記録は原則として削除せず、確定した意味論訂正がある場合のみ訂正する。

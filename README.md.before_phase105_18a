@@ -2,7 +2,7 @@
 
 EHP Proof Tracer is a Python project for representing, checking, searching, explaining, presenting, exploring, and safely executing theorem-backed Toda-style homotopy-group calculations.
 
-The project currently focuses on the 2-primary Toda groups, EHP exactness, explicit proof provenance, the calculation spine through stable stems $G_0$ to $G_7$, theorem-backed repository exploration, recursive proof-ancestry exploration, applicable theorem / lemma discovery, relevance classification, bounded candidate handoff, and an explicit production execution path from standard applicability exploration to an actual derived `ProofStep`.
+The project currently focuses on the 2-primary Toda groups, EHP exactness, explicit proof provenance, the calculation spine through stable stems \(G_0\) to \(G_7\), theorem-backed repository exploration, recursive proof-ancestry exploration, applicable theorem / lemma discovery, relevance classification, bounded candidate handoff, and an explicit production execution path from standard applicability exploration to an actual derived `ProofStep`.
 
 ## Current mathematical coverage
 
@@ -161,7 +161,7 @@ generator_orders = ()
 
 For theorem-backed proofs containing actual EHP ancestry, the project can extract EHP exactness windows, a contiguous EHP sequence, exactness-use provenance, and known group information on EHP terms.
 
-A representative $\pi_9^5$ proof yields
+A representative \(\pi_9^5\) proof yields
 
 $$
 \pi_{10}^9
@@ -306,7 +306,7 @@ $$
 H(\nu')=\eta_5.
 $$
 
-The exploration layer only finds already represented and already proven statements. It does not evaluate $E$, $H$, or $\Delta$, and it does not solve Toda brackets.
+The exploration layer only finds already represented and already proven statements. It does not evaluate \(E\), \(H\), or \(\Delta\), and it does not solve Toda brackets.
 
 ## Applicable theorem / lemma discovery
 
@@ -426,7 +426,7 @@ The first qualified production execution family is the rule produced by
 toda_58_delta_iota9_nu4_nu_prime_inference_rule
 ```
 
-for the Toda Equation (5.8) $\Delta(\iota_9)$ relation.
+for the Toda Equation (5.8) \(\Delta(\iota_9)\) relation.
 
 Important Phase 105 boundaries:
 
@@ -510,7 +510,7 @@ The following remain intentionally deferred:
 - general Toda-bracket solving,
 - bracket-value computation,
 - general coset / indeterminacy computation,
-- general $E/H/\Delta$ evaluation,
+- general \(E/H/\Delta\) evaluation,
 - recursive theorem solving beyond already represented proof ancestry,
 - automatic enumeration of unstated mathematical consequences,
 - automatic production root/source selection,
