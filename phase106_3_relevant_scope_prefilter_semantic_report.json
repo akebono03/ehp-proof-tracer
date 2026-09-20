@@ -1,0 +1,46 @@
+{
+  "phase": "106-3",
+  "audit": "relevant-scope prefilter semantic and performance audit",
+  "generator_input": "nu_prime",
+  "measurements": [
+    {
+      "name": "current_generator_applicability_facade",
+      "seconds": 32.63617350003915,
+      "peak_bytes": 287391059,
+      "extra": {
+        "candidate_count": 176616,
+        "scope_node_count": 3889,
+        "occurrence_count": 626
+      }
+    },
+    {
+      "name": "audit_only_relevant_scope_prefilter_materialization",
+      "seconds": 4.919675299955998,
+      "peak_bytes": 64606784,
+      "extra": {
+        "candidate_count": 176616
+      }
+    }
+  ],
+  "semantic_equivalence": {
+    "full_scope_nodes": 3889,
+    "generator_occurrences": 626,
+    "unique_relevant_scope_nodes": 542,
+    "current_candidate_count": 176616,
+    "proposed_candidate_count": 176616,
+    "candidate_signature_sequence_equal": false,
+    "scope_identity_sequence_equal": false,
+    "source_identity_sequence_equal": true,
+    "catalog_entry_identity_sequence_equal": true,
+    "rule_identity_sequence_equal": true,
+    "candidate_signature_multiset_equal": false,
+    "all_current_scope_nodes_relevant": false
+  },
+  "performance_comparison": {
+    "time_ratio_proposed_over_current": 0.1507430183244398,
+    "time_reduction_fraction": 0.8492569816755602,
+    "peak_ratio_proposed_over_current": 0.2248044327642079,
+    "peak_reduction_fraction": 0.7751955672357921,
+    "scope_node_reduction_fraction": 0.8606325533556184
+  }
+}

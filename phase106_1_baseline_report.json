@@ -1,0 +1,73 @@
+{
+  "phase": "106-1",
+  "audit": "post-Phase105 performance and complexity baseline audit",
+  "environment": {
+    "python": "3.10.3 (tags/v3.10.3:a342a49, Mar 16 2022, 13:07:40) [MSC v.1929 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.22000-SP0",
+    "cwd": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof",
+    "processor_count": 4
+  },
+  "static_size": {
+    "production_python_files": 169,
+    "production_python_lines": 148708,
+    "test_python_files": 512,
+    "test_python_lines": 333906,
+    "phase_103_test_files": 54,
+    "phase_103_test_lines": 19349,
+    "phase_104_test_files": 11,
+    "phase_104_test_lines": 3208,
+    "phase_105_test_files": 8,
+    "phase_105_test_lines": 2739
+  },
+  "measurements": [
+    {
+      "name": "build_standard_production_applicability_catalog",
+      "seconds": 4.728138200007379,
+      "peak_bytes": 4578500,
+      "extra": {
+        "catalog_entry_count": 1188
+      }
+    },
+    {
+      "name": "explore_standard_repository_generator_applicability_input",
+      "seconds": 8.072800199966878,
+      "peak_bytes": 65449178,
+      "extra": {
+        "scope_node_count": 3889,
+        "occurrence_count": 626,
+        "raw_candidate_count": 176616
+      }
+    },
+    {
+      "name": "select_qualified_repository_generator_applicability_candidates",
+      "seconds": 1.1074083000421524,
+      "peak_bytes": 26218774,
+      "extra": {
+        "qualified_candidate_count": 744,
+        "selection_status": "ambiguous"
+      }
+    },
+    {
+      "name": "group_qualified_repository_generator_execution_families",
+      "seconds": 0.025202499993611127,
+      "peak_bytes": 294916,
+      "extra": {
+        "family_group_count": 248,
+        "representative_count": 248,
+        "unique_source_step_identity_count": 124,
+        "unique_root_identity_count": 4
+      }
+    },
+    {
+      "name": "execute_standard_repository_generator_applicability_result_by_root_and_source",
+      "seconds": 1.087606799963396,
+      "peak_bytes": 26215440,
+      "extra": {
+        "executed": true,
+        "selected_family_size": 3,
+        "qualified_candidate_count": 744,
+        "family_group_count": 248
+      }
+    }
+  ]
+}
