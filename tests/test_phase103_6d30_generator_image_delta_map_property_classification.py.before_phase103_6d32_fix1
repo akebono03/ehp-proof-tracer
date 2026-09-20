@@ -7,21 +7,35 @@ import standard_production_applicability_catalog as production_catalog
 from rule_catalog import RuleRelevanceCategory
 
 
-TARGET_SHAPE = (
-  ("TodaSuspensionIsomorphismStatement",),
+TARGET_SHAPES = frozenset(
   (
-    "TodaProp44IsomorphismStatement",
-    "TodaPrimaryGroupZeroStatement",
-  ),
-  True,
-  False,
-  True,
+    (
+      ("TodaDeltaSurjectiveStatement",),
+      (
+        "Relation",
+        "Relation",
+      ),
+      True,
+      False,
+      True,
+    ),
+    (
+      ("TodaDeltaInjectiveStatement",),
+      (
+        "Relation",
+        "Relation",
+      ),
+      True,
+      False,
+      True,
+    ),
+  )
 )
 
-TARGET_FAMILY = (
-  "Toda Proposition 5.11 pi_14^8 Proposition 4.4 "
-  "zero-second-summand suspension isomorphism"
-)
+EXPECTED_FAMILIES = {
+  "Toda Proposition 5.9 pi_13^13 Delta surjective",
+  "Toda (5.12) n=6 Delta injective",
+}
 
 
 def _required_parameter_count(
@@ -47,9 +61,41 @@ def _required_parameter_count(
 
 
 def _build_catalog():
+  preferred_names = (
+    "build_standard_production_applicability_catalog",
+    "standard_production_applicability_catalog",
+    "build_standard_production_rule_catalog",
+    "build_standard_production_catalog",
+  )
+
+  for name in preferred_names:
+    candidate = getattr(
+      production_catalog,
+      name,
+      None,
+    )
+
+    if (
+      callable(candidate)
+      and _required_parameter_count(candidate) == 0
+    ):
+      value = candidate()
+
+      if hasattr(
+        value,
+        "entries",
+      ):
+        return value
+
+  raise AssertionError(
+    "standard production catalog builder not found"
+  )
+
+
+def _build_phase6d27_catalog():
   builder = getattr(
     production_catalog,
-    "_phase103_6d24_original_builder",
+    "_phase103_6d30_original_builder",
   )
 
   value = builder()
@@ -61,7 +107,7 @@ def _build_catalog():
     return value
 
   raise AssertionError(
-    "Phase 103-6D20 catalog builder did not return a catalog"
+    "Phase 103-6D27 catalog builder did not return a catalog"
   )
 
 
@@ -213,7 +259,7 @@ def _family_groups(
   return grouped
 
 
-def test_phase103_6d20_target_route_is_structural():
+def test_phase103_6d30_target_routes_are_map_property():
   catalog = _build_catalog()
 
   matching = tuple(
@@ -222,37 +268,59 @@ def test_phase103_6d20_target_route_is_structural():
     if _shape(
       entry
     )
-    == TARGET_SHAPE
+    in TARGET_SHAPES
+  )
+
+  families = _family_groups(
+    matching
   )
 
   assert len(
     matching
-  ) == 1
+  ) == 2
 
-  assert (
-    matching[
-      0
-    ].rule.name
-    == TARGET_FAMILY
-  )
+  assert set(
+    families
+  ) == EXPECTED_FAMILIES
 
-  assert (
-    matching[
-      0
-    ].relevance_category
-    is RuleRelevanceCategory.STRUCTURAL
+  assert all(
+    entry.relevance_category
+    is RuleRelevanceCategory.MAP_PROPERTY
+    for entry in matching
   )
 
 
-def test_phase103_6d20_promotes_only_the_audited_route():
+def test_phase103_6d30_baseline_targets_were_unclassified():
+  baseline = _build_phase6d27_catalog()
+
+  matching = tuple(
+    entry
+    for entry in baseline.entries()
+    if _shape(
+      entry
+    )
+    in TARGET_SHAPES
+  )
+
+  assert len(
+    matching
+  ) == 2
+
+  assert {
+    entry.rule.name
+    for entry in matching
+  } == EXPECTED_FAMILIES
+
+  assert all(
+    entry.relevance_category
+    is RuleRelevanceCategory.UNCLASSIFIED
+    for entry in matching
+  )
+
+
+def test_phase103_6d30_promotes_only_the_audited_routes():
   catalog = _build_catalog()
-
-  original_builder = getattr(
-    production_catalog,
-    "_phase103_6d20_original_builder",
-  )
-
-  baseline = original_builder()
+  baseline = _build_phase6d27_catalog()
 
   before = {
     entry.key: entry
@@ -273,16 +341,17 @@ def test_phase103_6d20_promotes_only_the_audited_route():
       key
     ]
 
-    if _shape(
-      before_entry
-    ) == TARGET_SHAPE:
-      assert (
-        before_entry.relevance_category
-        is RuleRelevanceCategory.UNCLASSIFIED
+    if (
+      before_entry.relevance_category
+      is RuleRelevanceCategory.UNCLASSIFIED
+      and _shape(
+        before_entry
       )
+      in TARGET_SHAPES
+    ):
       assert (
         after_entry.relevance_category
-        is RuleRelevanceCategory.STRUCTURAL
+        is RuleRelevanceCategory.MAP_PROPERTY
       )
       changed.append(
         key
@@ -293,12 +362,24 @@ def test_phase103_6d20_promotes_only_the_audited_route():
         is before_entry.relevance_category
       )
 
+  changed_entries = tuple(
+    after[
+      key
+    ]
+    for key in changed
+  )
+
   assert len(
-    changed
-  ) == 1
+    changed_entries
+  ) == 2
+
+  assert {
+    entry.rule.name
+    for entry in changed_entries
+  } == EXPECTED_FAMILIES
 
 
-def test_phase103_6d20_closes_suspension_isomorphism_relevance():
+def test_phase103_6d30_closes_delta_surjectivity_relevance():
   catalog = _build_catalog()
 
   matching = tuple(
@@ -308,13 +389,13 @@ def test_phase103_6d20_closes_suspension_isomorphism_relevance():
       entry.conclusion_type
     )
     == (
-      "TodaSuspensionIsomorphismStatement",
+      "TodaDeltaSurjectiveStatement",
     )
   )
 
   assert len(
     matching
-  ) == 17
+  ) == 5
 
   category_counts = Counter(
     entry.relevance_category
@@ -323,14 +404,14 @@ def test_phase103_6d20_closes_suspension_isomorphism_relevance():
 
   assert (
     category_counts[
-      RuleRelevanceCategory.MAP_PROPERTY
+      RuleRelevanceCategory.STRUCTURAL
     ]
-    == 16
+    == 4
   )
 
   assert (
     category_counts[
-      RuleRelevanceCategory.STRUCTURAL
+      RuleRelevanceCategory.MAP_PROPERTY
     ]
     == 1
   )
@@ -343,7 +424,35 @@ def test_phase103_6d20_closes_suspension_isomorphism_relevance():
   )
 
 
-def test_phase103_6d20_family_coverage_counts():
+def test_phase103_6d30_marks_only_generator_image_delta_injective_map_property():
+  catalog = _build_catalog()
+
+  matching = tuple(
+    entry
+    for entry in catalog.entries()
+    if _type_names(
+      entry.conclusion_type
+    )
+    == (
+      "TodaDeltaInjectiveStatement",
+    )
+    and entry.relevance_category
+    is RuleRelevanceCategory.MAP_PROPERTY
+  )
+
+  assert len(
+    matching
+  ) == 1
+
+  assert (
+    matching[
+      0
+    ].rule.name
+    == "Toda (5.12) n=6 Delta injective"
+  )
+
+
+def test_phase103_6d30_family_coverage_counts():
   catalog = _build_catalog()
   entries = tuple(
     catalog.entries()
@@ -390,11 +499,11 @@ def test_phase103_6d20_family_coverage_counts():
     families
   ) == 267
 
-  assert classified == 91
-  assert unclassified == 176
+  assert classified == 101
+  assert unclassified == 166
 
 
-def test_phase103_6d20_entry_coverage_counts():
+def test_phase103_6d30_entry_coverage_counts():
   catalog = _build_catalog()
   entries = tuple(
     catalog.entries()
@@ -427,6 +536,6 @@ def test_phase103_6d20_entry_coverage_counts():
     )
   )
 
-  assert map_property == 47
-  assert structural == 184
-  assert unclassified == 494
+  assert map_property == 49
+  assert structural == 194
+  assert unclassified == 482

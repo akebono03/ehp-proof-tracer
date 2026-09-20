@@ -3,7 +3,9 @@ from collections import defaultdict
 from rule_catalog import (
   RuleRelevanceCategory,
 )
-import standard_production_applicability_catalog as production_catalog
+from standard_production_applicability_catalog import (
+  build_standard_production_applicability_catalog,
+)
 
 
 DEFERRED_BOUNDARY_EXPECTED = {
@@ -33,25 +35,6 @@ DEFERRED_BOUNDARY_EXPECTED = {
 }
 
 
-def _build_phase6d12_catalog():
-  builder = getattr(
-    production_catalog,
-    "_phase103_6d15_original_builder",
-  )
-
-  value = builder()
-
-  if hasattr(
-    value,
-    "entries",
-  ):
-    return value
-
-  raise AssertionError(
-    "Phase 103-6D12 catalog builder did not return a catalog"
-  )
-
-
 def _families(
   catalog,
 ):
@@ -77,7 +60,7 @@ def _families(
 
 def test_phase103_6d12_assigns_all_10_deferred_boundary_categories():
   catalog = (
-    _build_phase6d12_catalog()
+    build_standard_production_applicability_catalog()
   )
 
   families = _families(
@@ -108,7 +91,7 @@ def test_phase103_6d12_assigns_all_10_deferred_boundary_categories():
 
 def test_phase103_6d12_deferred_boundary_affects_exactly_88_catalog_entries():
   catalog = (
-    _build_phase6d12_catalog()
+    build_standard_production_applicability_catalog()
   )
 
   families = _families(
@@ -141,9 +124,9 @@ def test_phase103_6d12_deferred_boundary_affects_exactly_88_catalog_entries():
   )
 
 
-def test_phase103_6d12_production_coverage_is_48_classified_219_unclassified():
+def test_phase103_6d12_production_coverage_is_91_classified_176_unclassified():
   catalog = (
-    _build_phase6d12_catalog()
+    build_standard_production_applicability_catalog()
   )
 
   families = _families(
@@ -181,13 +164,13 @@ def test_phase103_6d12_production_coverage_is_48_classified_219_unclassified():
     families
   ) == 267
 
-  assert classified == 48
-  assert unclassified == 219
+  assert classified == 91
+  assert unclassified == 176
 
 
 def test_phase103_6d12_adds_no_structural_or_map_property_family():
   catalog = (
-    _build_phase6d12_catalog()
+    build_standard_production_applicability_catalog()
   )
 
   families = _families(
@@ -216,7 +199,7 @@ def test_phase103_6d12_adds_no_structural_or_map_property_family():
 
 def test_phase103_6d12_catalog_size_and_fixed_point_safety_are_unchanged():
   catalog = (
-    _build_phase6d12_catalog()
+    build_standard_production_applicability_catalog()
   )
 
   entries = (
