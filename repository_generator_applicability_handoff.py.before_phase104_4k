@@ -1,13 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum
 
-from proof_repository import (
-  ProofRepository,
-)
-from repository_inference import (
-  BoundedProducerSearchReport,
-  _build_bounded_producer_search_report_for_final_rule,
-)
 from repository_proof_scope_applicability import (
   RepositoryProofScopeApplicabilityCandidate,
 )
@@ -102,69 +95,6 @@ class RepositoryGeneratorApplicabilityHandoffValidation:
     if self.execution_entry is not None:
       raise ValueError(
         "failed validation must not contain an execution_entry"
-      )
-
-
-@dataclass(frozen=True)
-class RepositoryGeneratorApplicabilityHandoffSearchReport:
-  validation: RepositoryGeneratorApplicabilityHandoffValidation
-  report: BoundedProducerSearchReport
-
-  def __post_init__(
-    self,
-  ) -> None:
-    if not isinstance(
-      self.validation,
-      RepositoryGeneratorApplicabilityHandoffValidation,
-    ):
-      raise TypeError(
-        "validation must be a "
-        "RepositoryGeneratorApplicabilityHandoffValidation"
-      )
-
-    if (
-      self.validation.status
-      is not RepositoryGeneratorApplicabilityHandoffValidationStatus.READY
-    ):
-      raise ValueError(
-        "validation must be READY"
-      )
-
-    if not isinstance(
-      self.report,
-      BoundedProducerSearchReport,
-    ):
-      raise TypeError(
-        "report must be a BoundedProducerSearchReport"
-      )
-
-    if (
-      self.report.goal
-      != self.validation.handoff.goal
-    ):
-      raise ValueError(
-        "report goal must match handoff goal"
-      )
-
-    if self.report.search_result is None:
-      return
-
-    execution_entry = (
-      self.validation.execution_entry
-    )
-
-    if execution_entry is None:
-      raise ValueError(
-        "READY validation requires an execution_entry"
-      )
-
-    if (
-      self.report.search_result.final_rule
-      is not execution_entry.rule
-    ):
-      raise ValueError(
-        "search result final_rule must be "
-        "validation execution_entry.rule"
       )
 
 
@@ -265,73 +195,4 @@ def validate_repository_generator_applicability_handoff(
     execution_entry=goal_compatible_entries[
       0
     ],
-  )
-
-
-def build_repository_generator_applicability_handoff_search_report(
-  validation,
-  repository,
-  execution_catalog,
-  max_depth=2,
-  retry_policy=None,
-):
-  if not isinstance(
-    validation,
-    RepositoryGeneratorApplicabilityHandoffValidation,
-  ):
-    raise TypeError(
-      "validation must be a "
-      "RepositoryGeneratorApplicabilityHandoffValidation"
-    )
-
-  if (
-    validation.status
-    is not RepositoryGeneratorApplicabilityHandoffValidationStatus.READY
-  ):
-    raise ValueError(
-      "validation must be READY"
-    )
-
-  if not isinstance(
-    repository,
-    ProofRepository,
-  ):
-    raise TypeError(
-      "repository must be a ProofRepository"
-    )
-
-  if not isinstance(
-    execution_catalog,
-    InferenceRuleCatalog,
-  ):
-    raise TypeError(
-      "execution_catalog must be an "
-      "InferenceRuleCatalog"
-    )
-
-  execution_entry = (
-    validation.execution_entry
-  )
-
-  if execution_entry is None:
-    raise ValueError(
-      "READY validation requires an execution_entry"
-    )
-
-  report = (
-    _build_bounded_producer_search_report_for_final_rule(
-      repository,
-      execution_catalog,
-      validation.handoff.goal,
-      execution_entry.rule,
-      max_depth=max_depth,
-      retry_policy=retry_policy,
-    )
-  )
-
-  return (
-    RepositoryGeneratorApplicabilityHandoffSearchReport(
-      validation=validation,
-      report=report,
-    )
   )
