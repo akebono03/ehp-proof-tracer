@@ -2,7 +2,7 @@
 
 EHP Proof Tracer is a Python project for representing, checking, searching, explaining, presenting, exploring, and safely executing theorem-backed Toda-style homotopy-group calculations.
 
-The project currently focuses on the 2-primary Toda groups, EHP exactness, explicit proof provenance, the calculation spine through stable stems $G_0$ to $G_7$, theorem-backed repository exploration, recursive proof-ancestry exploration, applicable theorem / lemma discovery, relevance classification, bounded candidate handoff, and an explicit production execution path from standard applicability exploration to an actual derived `ProofStep`.
+The project currently focuses on the 2-primary Toda groups, EHP exactness, explicit proof provenance, the calculation spine through stable stems $G_0$ to $G_7$, theorem-backed repository exploration, recursive proof-ancestry exploration, applicable theorem / lemma discovery, relevance classification, bounded candidate handoff, explicit production execution from standard applicability exploration to a derived `ProofStep`, and applicability-performance stabilization.
 
 ## Current mathematical coverage
 
@@ -34,7 +34,7 @@ $$
 \pi_{12}^5=\mathbb Z/2\{\sigma'''\}.
 $$
 
-The stable 2-primary stem data consolidated in the project is
+The consolidated stable 2-primary stem data is
 
 $$
 G_0=\mathbb Z\{\iota\},
@@ -189,7 +189,7 @@ human-readable renderer
 
 Presentation never changes proof truth.
 
-The unified presentation-level renderer is
+The unified renderer is
 
 ```python
 render_toda_full_proof_report_markdown(
@@ -420,7 +420,7 @@ production execution orchestration
 actual ProofStep
 ```
 
-The first qualified production execution family is the rule produced by
+The first qualified production execution family is produced by
 
 ```text
 toda_58_delta_iota9_nu4_nu_prime_inference_rule
@@ -428,19 +428,7 @@ toda_58_delta_iota9_nu4_nu_prime_inference_rule
 
 for the Toda Equation (5.8) $\Delta(\iota_9)$ relation.
 
-Important Phase 105 boundaries:
-
-```text
-relevance != execution safety
-qualified != uniquely selected
-source identity alone != unique provenance
-root identity alone != unique provenance
-shortest depth != selection policy
-clone-family grouping != raw-catalog deduplication
-representative selection != theorem ranking
-```
-
-The standard `nu_prime` applicability exploration currently yields
+The standard `nu_prime` applicability exploration yields
 
 ```text
 qualified raw candidates = 744
@@ -458,8 +446,6 @@ root_entry identity
 source_step identity
 ```
 
-This pair uniquely selects one execution-family group across all 248 standard groups.
-
 The production facade is
 
 ```python
@@ -475,7 +461,65 @@ execute_standard_repository_generator_applicability_result_by_root_and_source(
 
 The facade intentionally consumes an already-built applicability result so that root and source object identities remain from the same proof graph.
 
-Phase 105 does not add automatic root selection, shortest-depth ranking, theorem ranking, automatic goal discovery, a new execution CLI, general qualification for every production rule family, or raw applicability-catalog deduplication.
+## Applicability performance stabilization
+
+Phase 106 audited the post-Phase-105 execution path before expanding execution qualification.
+
+The main bottleneck was not bounded execution. It was full-scope applicability materialization followed by generator filtering:
+
+```text
+3889 proof-scope nodes
+→ 797573 full-scope candidates
+→ generator-node filtering
+→ 176616 retained candidates
+```
+
+A generator-relevant scope prefilter was validated on the same proof graph and then implemented in `repository_generator_applicability_facade.py`.
+
+The optimization preserves:
+
+```text
+candidate order
+scope-node identity
+root-entry identity
+source-step identity
+catalog-entry identity
+rule identity
+premise index
+premise pattern
+bindings
+```
+
+Measured `nu_prime` applicability exploration improved from approximately
+
+```text
+27.89 s / 274.10 MiB peak
+```
+
+to
+
+```text
+8.16 s / 62.42 MiB peak
+```
+
+while preserving the production counts:
+
+```text
+raw candidates = 176616
+qualified candidates = 744
+execution-family groups = 248
+unique source-step identities = 124
+selected family size = 3
+execution = successful
+```
+
+Repository-wide Phase 106 closure:
+
+```text
+8712 passed in 337.86s
+```
+
+The additional warmed audit run completed in `220.35s`; the standalone `337.86s` run is retained as the formal closure reference.
 
 ## Command-line interface
 
@@ -489,7 +533,7 @@ python main.py explore-applicable nu_prime
 python main.py explore-applicable nu_prime --detailed
 ```
 
-Phase 105 does not add a new CLI command.
+Phase 106 adds no new CLI command.
 
 ## Current boundaries
 
@@ -519,21 +563,6 @@ The following remain intentionally deferred:
 - Web UI,
 - odd-primary full integration,
 - an all-primary ordinary sphere-homotopy calculator.
-
-## Verification
-
-Latest Phase 105 closure validation:
-
-```text
-Phase 105-17 focused:
-8 passed in 142.33s
-
-Phase 105-7 / 10 / 14 / 16 / 17 related regression:
-40 passed in 174.89s
-
-repository-wide Phase 105 closure:
-8709 passed in 659.02s
-```
 
 ## Current project state
 
@@ -593,7 +622,11 @@ Phase 103 closed read-only applicable theorem / lemma discovery and the first pr
 
 Phase 104 closed safe applicability-candidate consumption through bounded search and actual execution while preserving rule identity and proof provenance.
 
-Phase 105 closed the first explicit standard-production path from applicability discovery to actual execution, including execution qualification, clone-family grouping, root/source disambiguation, and facade integration.
+Phase 105 closed the first explicit standard-production path from applicability discovery to actual execution.
+
+Phase 106 identified and removed the dominant applicability-materialization bottleneck while preserving applicability semantics and provenance identity.
+
+Phase 107 starts from qualified-execution expansion pressure, not from further performance optimization.
 
 ## Documentation
 
@@ -602,7 +635,7 @@ README.md
 = concise current project status
 
 docs/design.md
-= current architecture, semantics, and invariants
+= current architecture, semantics, invariants, and performance boundary
 
 docs/roadmap.md
 = future-oriented plan and deferred capabilities
@@ -614,7 +647,7 @@ docs/development_log/
 = archived chronological development records
 
 docs/proof_records.md
-= proof-record index
+= mathematical and infrastructure proof-record index
 
 docs/proof_records/
 = mathematical and infrastructure proof records
@@ -630,5 +663,6 @@ actual mathematical or proof-search need
 → smallest missing representation or orchestration
 → preserve existing semantics and provenance
 → add focused regression coverage
+→ measure performance before optimizing
 → do not pre-implement future phases
 ```

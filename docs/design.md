@@ -23,23 +23,24 @@
 ```text
 表現 != 型付け != 定理知識
 構造的等値 != 数学的等値
-catalog metadata != 証明事実
-search plan != 証明結果
-calculation result != 証明事実
-presentation != 証明事実
-production repository assembly != 定理事実
-exploration result != 新しい定理事実
-proof-scope traversal != 定理探索
-known relation discovery != 写像評価
-Toda membership discovery != bracket solving
-applicability candidate != 証明成功
-relevance category != 定理順位
-candidate selection != 証明成功
-handoff validation != 定理事実
-bounded search result != 実行済み証明
-qualified candidate != 一意な実行対象
-execution-family grouping != raw catalog deduplication
-representative selection != 定理順位付け
+カタログのメタデータ != 証明事実
+探索計画 != 証明結果
+計算結果 != 証明事実
+表示層 != 証明事実
+運用リポジトリの組み立て != 定理事実
+探索結果 != 新しい定理事実
+証明範囲の走査 != 定理探索
+既知関係の発見 != 写像評価
+Toda bracket membership の発見 != bracket の解法
+適用可能候補 != 証明成功
+関連度カテゴリ != 定理順位
+候補選択 != 証明成功
+handoff 検証 != 定理事実
+有界探索結果 != 実行済み証明
+実行資格を満たす候補 != 一意な実行対象
+実行ファミリーのグループ化 != 生カタログの重複除去
+代表候補の選択 != 定理順位付け
+性能最適化 != 数学的意味論の変更
 ```
 
 ---
@@ -55,85 +56,97 @@ representative selection != 定理順位付け
 ↓
 Toda 固有の定理知識
 ↓
-Proof Repository / rule catalog
+ProofRepository / rule catalog
 ↓
-bounded proof search
+有界証明探索
 ↓
-Toda group query / lookup
+TodaGroupQuery / lookup
 ↓
 計算 goal の発見 / 復元 / 正規化
 ↓
-group result
+群結果
 ↓
-EHP / exactness provenance
+EHP / 完全性の provenance
 ↓
-proof provenance
+証明 provenance
 ↓
-構造化 presentation
+構造化表示
 ↓
-人間向け proof report
+人間向け証明レポート
 ```
 
 generator 探索 / applicability 経路:
 
 ```text
-generator string
+generator 文字列
 ↓
 resolve_generator_input()
 ↓
 GeneratorSymbol
 ↓
-standard production repository
+標準運用リポジトリ
 ↓
-registered conclusion / recursive ProofStep ancestry
+登録済み結論 / 再帰的 ProofStep ancestry
 ↓
 構造的 occurrence
 ↓
 Toda membership / 既知 map relation
 ↓
-premise-pattern compatibility
+premise pattern compatibility
 ↓
-applicability candidate
+適用可能候補
 ↓
 rule group / rule family
 ↓
-relevance 分類済み presentation
+関連度分類済み表示
 ```
 
-Phase 104 handoff / execution:
+Phase 104 の handoff / execution:
 
 ```text
-selected applicability candidate
+選択済み適用可能候補
 ↓
 RepositoryGeneratorApplicabilityCandidateHandoff
 ↓
-READY validation
+READY 検証
 ↓
-explicit-final-rule bounded search
+最終 rule 明示の有界探索
 ↓
-prebuilt BoundedProducerSearchReport
+事前構築済み BoundedProducerSearchReport
 ↓
-selected-path execution
+選択経路の実行
 ↓
-actual ProofStep provenance
+実際の ProofStep provenance
 ```
 
-Phase 105 standard production-qualified execution:
+Phase 105 の標準運用・実行資格付き経路:
 
 ```text
 RepositoryGeneratorApplicabilityExplorationResult
 ↓
-qualified candidate filtering
+実行資格を満たす候補の抽出
 ↓
-execution-family grouping
+実行ファミリーのグループ化
 ↓
-explicit root_entry + source_step selection
+root_entry + source_step の明示選択
 ↓
-representative candidate
+代表候補
 ↓
-production execution orchestration
+運用実行オーケストレーション
 ↓
-actual ProofStep
+実際の ProofStep
+```
+
+Phase 106 の applicability 性能経路:
+
+```text
+generator occurrence を含む scope_node identity 集合
+↓
+関連する証明範囲だけを構成
+↓
+既存 applicability finder
+↓
+既存と同一順序・同一 provenance の候補
 ```
 
 ---
@@ -179,7 +192,7 @@ repository_generator_applicability_facade.py
 repository_generator_applicability_selection.py
 ```
 
-Phase 105:
+実行資格判定 / 実行:
 
 ```text
 repository_generator_applicability_execution_seed.py
@@ -194,9 +207,9 @@ repository_generator_standard_qualified_execution_facade.py
 
 ---
 
-# 4. Proof truth と metadata
+# 4. 証明事実とメタデータ
 
-証明事実の中心:
+証明事実の中心は次である。
 
 ```text
 ProofStep.conclusion
@@ -204,41 +217,41 @@ ProofStep.premises
 ProofStep.inference_rule
 ```
 
-`ProofRepositoryEntry.key / phase / theorem` は provenance metadata である。
+`ProofRepositoryEntry.key / phase / theorem` は provenance のメタデータである。
 
-presentation、renderer、facade、production repository、CLI、exploration、resolver、proof-scope traversal、applicability classification は証明事実を追加してはならない。
+表示、renderer、facade、標準運用リポジトリ、CLI、探索、resolver、証明範囲走査、applicability 分類は、証明事実を追加してはならない。
 
 ---
 
-# 5. Repository read-only 不変条件
+# 5. リポジトリ読み取り専用の不変条件
 
-query / calculation / reporting / exploration / applicability discovery / bounded execution planning は repository を read-only に扱う。
+query / calculation / reporting / exploration / applicability discovery / bounded execution planning は、元のリポジトリを読み取り専用として扱う。
 
-execution は inference result を構成するが、元の `ProofRepository` 自体を変更しない。
+実行は新しい inference result を構成できるが、元の `ProofRepository` 自体を変更しない。
 
 ```text
-repository entries before == repository entries after
+実行前の repository entries == 実行後の repository entries
 ```
 
-必要な箇所では `ProofStep` identity も保持する。
+必要な経路では `ProofStep` identity も保持する。
 
 ---
 
-# 6. Calculation result の意味論
+# 6. 計算結果の意味論
 
 ```text
-0 candidates  → NOT_FOUND
-1 candidate   → FOUND
-2+ candidates → MULTIPLE_RESULTS
+候補0件  → NOT_FOUND
+候補1件  → FOUND
+候補2件以上 → MULTIPLE_RESULTS
 ```
 
-複数 candidate を自動で順位付け・選択しない。
+複数候補を暗黙に順位付けしたり、自動選択したりしない。
 
 ---
 
-# 7. EHP / exactness provenance
+# 7. EHP / 完全性 provenance
 
-根拠は final theorem-backed `ProofStep` から到達可能な ancestry である。
+根拠は最終的な theorem-backed `ProofStep` から到達可能な ancestry である。
 
 代表例:
 
@@ -275,14 +288,14 @@ $$
 重要:
 
 ```text
-unindexed generator != wildcard
+添字なし generator != wildcard
 ```
 
 自由形式の typo correction や数学的同値判定は行わない。
 
 ---
 
-# 9. Proof-scope traversal の意味論
+# 9. 証明範囲走査の意味論
 
 `RepositoryProofScopeNode`:
 
@@ -297,21 +310,21 @@ shortest_depth
 ```text
 depth 0 = root_entry.step
 
-same ProofStep identity under one root
-= one node at shortest depth
+同じ root 配下の同一 ProofStep identity
+= 最短 depth の1 node のみ
 
-same ProofStep identity under different roots
-= distinct provenance nodes
+異なる root 配下の同一 ProofStep identity
+= provenance が異なる別 node
 
 cycle
-= safe termination
+= 安全に停止
 ```
 
 ---
 
 # 10. Applicability discovery の意味論
 
-candidate は概念的に次を保持する。
+候補は概念的に次を保持する。
 
 ```text
 catalog_entry
@@ -324,10 +337,10 @@ bindings
 重要:
 
 ```text
-premise compatibility != all premises satisfied
-applicability candidate != rule execution
-applicability candidate != proof success
-applicability candidate != theorem truth
+premise compatibility != 全 premise 成立
+適用可能候補 != rule 実行
+適用可能候補 != 証明成功
+適用可能候補 != 定理事実
 ```
 
 `RuleRelevanceCategory`:
@@ -341,13 +354,13 @@ BRIDGE
 UNCLASSIFIED
 ```
 
-category 順序は theorem ranking ではない。
+カテゴリ順序は定理順位ではない。
 
 ---
 
-# 11. Phase 104 handoff 不変条件
+# 11. Phase 104 handoff の不変条件
 
-`READY` validation 後の final rule は再選択しない。
+`READY` 検証後の最終 rule は再選択しない。
 
 ```text
 candidate rule
@@ -356,14 +369,14 @@ is search_result.final_rule
 is goal_step.inference_rule
 ```
 
-prebuilt report は再生成しない。
+事前構築済み report は再生成しない。
 
 ```text
 execution_result.report
 is search_report.report
 ```
 
-selected producer も identity を保持する。
+選択された producer も identity を保持する。
 
 ```text
 producer_node.producer_rule
@@ -372,17 +385,17 @@ is executed_producer_step.inference_rule
 
 ---
 
-# 12. Phase 105 execution qualification
+# 12. Phase 105 の実行資格判定
 
 Phase 105 は relevance 分類を execution safety とみなさない。
 
-最初に production-qualified とした family:
+最初に標準運用で実行資格を与えた family:
 
 ```text
 toda_58_delta_iota9_nu4_nu_prime_inference_rule
 ```
 
-standard applicability catalog では、この factory に由来する構造的に同値な3つの clone entry が存在する。
+標準 applicability catalog では、この factory に由来する構造的に同値な3つの clone entry が存在する。
 
 監査結果:
 
@@ -392,27 +405,27 @@ source+rule-name groups = 248
 unique source-step identities = 124
 ```
 
-3 clone は
+3つの clone は
 
 ```text
-same factory
-same rule signature
-same entry metadata signature
-different catalog-entry identity
-different rule identity
+同じ factory
+同じ rule signature
+同じ entry metadata signature
+異なる catalog-entry identity
+異なる rule identity
 ```
 
 である。
 
-raw catalog から重複除去せず、execution selection 層で family grouping を行う。
+生の catalog から重複除去せず、実行選択層で family grouping を行う。
 
 ---
 
-# 13. Execution-family grouping
+# 13. 実行ファミリーのグループ化
 
-同一 source 上の structurally equivalent qualified clone candidates を1 family group にまとめる。
+同一 source 上の構造的に同値な qualified clone candidate を1つの family group にまとめる。
 
-概念的 grouping key:
+概念的な grouping key:
 
 ```text
 scope_node identity
@@ -422,21 +435,21 @@ premise_index
 bindings
 ```
 
-group は original candidate を全件保持する。
+group は元の候補を全件保持する。
 
-代表 candidate:
+代表候補:
 
 ```text
 group.representative is group.candidates[0]
 ```
 
-これは theorem ranking ではなく、同一 clone family 内の execution identity を選ぶ規約である。
+これは定理順位付けではなく、同一 clone family 内で実行 identity を1つ選ぶ規約である。
 
 ---
 
-# 14. Root/source disambiguation
+# 14. Root/source の曖昧性解消
 
-standard `nu_prime` では 248 execution-family groups がある。
+標準 `nu_prime` には248個の execution-family group がある。
 
 ```text
 standard.toda.prop56  = 14
@@ -445,11 +458,11 @@ standard.toda.prop511 = 76
 standard.toda.prop515 = 124
 ```
 
-124個の source-step identity はすべて2 root に現れる。
+124個の source-step identity はすべて2つの root に現れる。
 
 ```text
-source-step identity alone
-!= unique execution provenance
+source-step identity のみ
+!= 一意な実行 provenance
 ```
 
 root だけでも複数 group が残る。
@@ -458,7 +471,7 @@ global minimum `shortest_depth = 1` にも6 group が残るため、
 
 ```text
 shortest_depth
-!= implicit selection policy
+!= 暗黙の選択方針
 ```
 
 とする。
@@ -475,17 +488,17 @@ source_step identity
 
 ---
 
-# 15. Explicit family selection
+# 15. 明示的 family 選択
 
-`RepositoryGeneratorQualifiedExecutionFamilySelection` は explicit `root_entry` と `source_step` identity を入力として0件または1件の group を返す。
+`RepositoryGeneratorQualifiedExecutionFamilySelection` は、明示された `root_entry` と `source_step` identity を入力として0件または1件の group を返す。
 
-foreign identity は拒否する。
+外部の別 graph に属する identity は拒否する。
 
-root の自動優先、depth ranking、group-order ranking は行わない。
+root の自動優先、depth ranking、group order ranking は行わない。
 
 ---
 
-# 16. Standard execution facade
+# 16. 標準実行 facade
 
 ```text
 execute_standard_repository_generator_applicability_result_by_root_and_source(
@@ -498,19 +511,19 @@ execute_standard_repository_generator_applicability_result_by_root_and_source(
 )
 ```
 
-この facade は generator string から proof graph を作り直さない。
+この facade は generator 文字列から proof graph を作り直さない。
 
 ```text
 root_entry / source_step identity
-must belong to the same applicability_result graph
+は同一 applicability_result graph に属していなければならない
 ```
 
-を守るためである。
+という不変条件を守るためである。
 
 identity chain:
 
 ```text
-original applicability_result
+元の applicability_result
 → qualified_selection.applicability_result
 → family_grouping.selection
 → family_selection.grouping
@@ -520,20 +533,80 @@ original applicability_result
 
 ---
 
-# 17. Phase 105 で実装しないもの
+# 17. Phase 106 の性能境界
+
+Phase 106 では、Phase 105 の実行経路を拡張する前に性能と複雑性を監査した。
+
+初期計測:
 
 ```text
-automatic root selection
-automatic source selection
-shortest-depth ranking
-theorem ranking
-proof ranking
-automatic goal discovery
-new execution CLI
-general qualification of every production rule family
-raw applicability-catalog deduplication
-repository snapshot/versioning
+catalog 構築:
+4.44 s / 4.37 MiB
+
+nu_prime applicability exploration:
+27.89 s / 274.10 MiB
+
+qualified filtering:
+1.11 s / 25.00 MiB
+
+family grouping:
+0.025 s / 0.28 MiB
+
+標準実行 facade:
+1.09 s / 25.00 MiB
 ```
+
+主要な圧力は bounded execution ではなく applicability discovery にあった。
+
+詳細監査:
+
+```text
+証明範囲 node = 3889
+generator occurrence = 626
+generator に関係する一意な scope_node = 542
+
+full-scope candidates = 797573
+最終 candidates = 176616
+
+compatible references = 797573
+match attempts = 797573
+successful matches = 797573
+```
+
+したがって問題は「大量の失敗 match」ではなく、**generator に無関係な証明範囲も含めて正当な candidate object を大量構築し、その後で捨てていること**だった。
+
+同一 proof graph 上の監査で、generator-relevant scope prefilter は次を完全に保持した。
+
+```text
+candidate sequence
+candidate multiset
+scope_node identity
+root_entry identity
+source_step identity
+catalog_entry identity
+rule identity
+premise_index
+premise_pattern
+bindings
+```
+
+実装は `_build_generator_applicability_result()` のみを対象とし、既存の finder や Phase 105 execution layer は変更していない。
+
+Phase 106 完了時:
+
+```text
+nu_prime applicability exploration:
+8.16 s / 62.42 MiB
+
+raw candidates = 176616
+qualified candidates = 744
+family groups = 248
+unique source-step identities = 124
+selected family size = 3
+execution = True
+```
+
+性能改善は**証明事実、候補意味論、provenance identity を変更しない**。
 
 ---
 
@@ -547,7 +620,7 @@ python main.py explore-applicable nu_prime
 python main.py explore-applicable nu_prime --detailed
 ```
 
-Phase 105 は execution CLI を追加しない。
+Phase 106 は新しい execution CLI を追加しない。
 
 ---
 
@@ -558,22 +631,22 @@ Phase 105 は execution CLI を追加しない。
 wildcard family search
 一般 composition evaluation
 一般 Toda-bracket solving
-bracket-value computation
+bracket value computation
 一般 coset / indeterminacy computation
 一般 E / H / Δ evaluation
-represented ancestry を超える recursive theorem solving
+既に表現された ancestry を超える recursive theorem solving
 未記載数学的帰結の自動列挙
 symbolic higher-range auto-instantiation
-general theorem ranking
+一般 theorem ranking
 producer ranking
 proof-cost optimization
 best-proof selection
-general unbounded backtracking
+一般 unbounded backtracking
 persistent proof cache
-repository snapshot/versioning
+repository snapshot / versioning
 stale-search-report detection
-automatic production root/source selection
-general production-rule execution qualification
+production root/source の自動選択
+全 production-rule family への一般 execution qualification
 user-facing execution CLI
 Web UI
 odd-primary full integration
@@ -587,8 +660,8 @@ all-primary ordinary sphere-homotopy calculation
 GitHub Markdown では数式に
 
 ```text
-inline:  $...$
-display: $$...$$
+行内数式: $...$
+独立数式: $$...$$
 ```
 
 を使用する。
@@ -612,7 +685,7 @@ Phase 104:
 repository-wide after Phase 104-4P closure check:
 8644 passed in 374.63s
 
-PASS — no residual production implementation required
+残存する運用実装は不要
 ```
 
 Phase 105:
@@ -628,4 +701,40 @@ repository-wide Phase 105 closure:
 8709 passed in 659.02s
 ```
 
-Phase 105 は COMPLETE。
+Phase 106:
+
+```text
+Phase 106-4 focused:
+22 passed in 57.94s
+
+repository-wide Phase 106 closure:
+8712 passed in 337.86s
+
+監査内の再実行:
+8712 passed in 220.35s
+```
+
+正式な Phase 106 closure の基準値は、独立実行した `337.86s` を採用する。
+
+Phase 106 は完了。
+
+---
+
+# 22. 次 Phase との境界
+
+Phase 107-1 は、Phase 106 で性能問題を閉じた後の **qualified-execution expansion pressure audit** とする。
+
+最初から複数 family を実装しない。
+
+監査対象は次である。
+
+```text
+複数 production rule family への qualification 拡張が本当に必要か
+user-facing workflow で root/source をどう指定するか
+goal の明示入力を維持するか
+goal discovery が必要か
+execution CLI が必要か
+execution result と表示層の接続が必要か
+```
+
+Phase 107 は性能最適化の続きではなく、実際の利用圧力に基づいて実行経路を広げるかどうかを判断する段階である。

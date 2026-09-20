@@ -2,6 +2,9 @@ from dataclasses import dataclass
 
 from expression import GeneratorSymbol
 from proof_repository import ProofRepository
+from repository_proof_scope import (
+  RepositoryProofScopeResult,
+)
 from repository_proof_scope_applicability import (
   RepositoryProofScopeApplicabilityCandidate,
   find_repository_proof_scope_applicability_candidates,
@@ -115,13 +118,6 @@ def _build_generator_applicability_result(
       "InferenceRuleCatalog"
     )
 
-  all_candidates = (
-    find_repository_proof_scope_applicability_candidates(
-      proof_scope_exploration.scope,
-      catalog,
-    )
-  )
-
   occurrence_node_ids = {
     id(
       occurrence.scope_node
@@ -130,12 +126,29 @@ def _build_generator_applicability_result(
     in proof_scope_exploration.occurrences
   }
 
-  candidates = tuple(
-    candidate
-    for candidate in all_candidates
-    if id(
-      candidate.scope_node
-    ) in occurrence_node_ids
+  relevant_scope = (
+    RepositoryProofScopeResult(
+      repository=(
+        proof_scope_exploration
+        .scope
+        .repository
+      ),
+      nodes=tuple(
+        scope_node
+        for scope_node
+        in proof_scope_exploration.scope.nodes
+        if id(
+          scope_node
+        ) in occurrence_node_ids
+      ),
+    )
+  )
+
+  candidates = (
+    find_repository_proof_scope_applicability_candidates(
+      relevant_scope,
+      catalog,
+    )
   )
 
   return (

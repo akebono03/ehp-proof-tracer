@@ -1,0 +1,612 @@
+{
+  "phase": "106-2",
+  "audit": "applicability discovery scale / duplication audit",
+  "generator_input": "nu_prime",
+  "measurements": [
+    {
+      "name": "catalog_build",
+      "seconds": 5.640819600026589,
+      "peak_bytes": 4578500,
+      "extra": {
+        "catalog_entries": 1188
+      }
+    },
+    {
+      "name": "proof_scope_exploration",
+      "seconds": 2.655763799964916,
+      "peak_bytes": 1720872,
+      "extra": {
+        "scope_nodes": 3889,
+        "occurrences": 626
+      }
+    },
+    {
+      "name": "premise_pattern_index_build",
+      "seconds": 0.029932299978099763,
+      "peak_bytes": 561754,
+      "extra": {
+        "pattern_references": 2549
+      }
+    },
+    {
+      "name": "candidate_materialization_over_full_scope",
+      "seconds": 23.830016499967314,
+      "peak_bytes": 286573879,
+      "extra": {
+        "candidate_count": 797573
+      }
+    },
+    {
+      "name": "generator_filtered_applicability_facade",
+      "seconds": 28.085111499996856,
+      "peak_bytes": 287378581,
+      "extra": {
+        "filtered_candidate_count": 176616,
+        "occurrence_count": 626,
+        "scope_node_count": 3889
+      }
+    }
+  ],
+  "analysis": {
+    "compatible_reference_scan": {
+      "seconds": 0.8874671999947168,
+      "total_compatible_references": 797573,
+      "mean_per_scope_node": 205.0843404474158,
+      "median_per_scope_node": 65,
+      "p90_per_scope_node": 686,
+      "p99_per_scope_node": 686,
+      "max_per_scope_node": 686,
+      "top_statement_types_by_compatible_reference_count": [
+        [
+          "proof.Relation",
+          622687
+        ],
+        [
+          "toda_rules.TodaProp42ExactnessStatement",
+          50506
+        ],
+        [
+          "scalar_rules.ScalarGreaterEqualStatement",
+          41895
+        ],
+        [
+          "toda_rules.TodaEtaFamilyDefinitionStatement",
+          26656
+        ],
+        [
+          "homotopy_groups.TodaPrimaryGroupZeroStatement",
+          6751
+        ],
+        [
+          "toda_rules.TodaSuspensionSurjectiveStatement",
+          4418
+        ],
+        [
+          "toda_rules.TodaDeltaImageUpToSignStatement",
+          4368
+        ],
+        [
+          "toda_rules.TodaHopfInvariantInjectiveStatement",
+          3402
+        ],
+        [
+          "toda_rules.TodaPi32Eta2DefinitionStatement",
+          3136
+        ],
+        [
+          "homotopy_groups.TodaEHPExactnessWindow",
+          3132
+        ],
+        [
+          "toda_rules.TodaNuFamilyDefinitionStatement",
+          3100
+        ],
+        [
+          "toda_rules.TodaHopfInvariantSurjectiveStatement",
+          2048
+        ],
+        [
+          "toda_rules.TodaSuspensionInjectiveStatement",
+          1674
+        ],
+        [
+          "expression.WhiteheadProduct",
+          1568
+        ],
+        [
+          "homotopy_groups.TodaSuspensionIsomorphismStatement",
+          1446
+        ],
+        [
+          "toda_rules.TodaProp44IsomorphismStatement",
+          1350
+        ],
+        [
+          "toda_rules.TodaDeltaZeroStatement",
+          1250
+        ],
+        [
+          "homotopy_groups.TodaProp44DecompositionMap",
+          1247
+        ],
+        [
+          "toda_rules.TodaPi32WhiteheadSquareUpToSignStatement",
+          1176
+        ],
+        [
+          "toda_rules.Toda45IsomorphismStatement",
+          1035
+        ]
+      ]
+    },
+    "match_only_scan": {
+      "seconds": 12.733597000013106,
+      "peak_bytes": 81479,
+      "match_attempts": 797573,
+      "successful_matches": 797573,
+      "success_ratio": 1.0,
+      "top_statement_types_by_successful_matches": [
+        [
+          "proof.Relation",
+          622687
+        ],
+        [
+          "toda_rules.TodaProp42ExactnessStatement",
+          50506
+        ],
+        [
+          "scalar_rules.ScalarGreaterEqualStatement",
+          41895
+        ],
+        [
+          "toda_rules.TodaEtaFamilyDefinitionStatement",
+          26656
+        ],
+        [
+          "homotopy_groups.TodaPrimaryGroupZeroStatement",
+          6751
+        ],
+        [
+          "toda_rules.TodaSuspensionSurjectiveStatement",
+          4418
+        ],
+        [
+          "toda_rules.TodaDeltaImageUpToSignStatement",
+          4368
+        ],
+        [
+          "toda_rules.TodaHopfInvariantInjectiveStatement",
+          3402
+        ],
+        [
+          "toda_rules.TodaPi32Eta2DefinitionStatement",
+          3136
+        ],
+        [
+          "homotopy_groups.TodaEHPExactnessWindow",
+          3132
+        ],
+        [
+          "toda_rules.TodaNuFamilyDefinitionStatement",
+          3100
+        ],
+        [
+          "toda_rules.TodaHopfInvariantSurjectiveStatement",
+          2048
+        ],
+        [
+          "toda_rules.TodaSuspensionInjectiveStatement",
+          1674
+        ],
+        [
+          "expression.WhiteheadProduct",
+          1568
+        ],
+        [
+          "homotopy_groups.TodaSuspensionIsomorphismStatement",
+          1446
+        ],
+        [
+          "toda_rules.TodaProp44IsomorphismStatement",
+          1350
+        ],
+        [
+          "toda_rules.TodaDeltaZeroStatement",
+          1250
+        ],
+        [
+          "homotopy_groups.TodaProp44DecompositionMap",
+          1247
+        ],
+        [
+          "toda_rules.TodaPi32WhiteheadSquareUpToSignStatement",
+          1176
+        ],
+        [
+          "toda_rules.Toda45IsomorphismStatement",
+          1035
+        ]
+      ],
+      "top_families_by_successful_matches": [
+        [
+          "equality transitivity",
+          56560
+        ],
+        [
+          "toda_pi4_3_eta3_generator_inference_rule",
+          42420
+        ],
+        [
+          "toda_pi3_2_whitehead_square_up_to_sign_inference_rule",
+          25368
+        ],
+        [
+          "toda_prop53_finite_dimensional_integration_inference_rule",
+          24927
+        ],
+        [
+          "toda_pi4_3_finite_cyclic_inference_rule",
+          24066
+        ],
+        [
+          "toda_pi4_3_delta_image_free_cyclic_inference_rule",
+          23730
+        ],
+        [
+          "toda_prop51_finite_dimensional_integration_inference_rule",
+          17955
+        ],
+        [
+          "toda_prop56_finite_dimensional_integration_inference_rule",
+          17560
+        ],
+        [
+          "toda_54_nu_prime_triple_eta_transport_inference_rule",
+          16110
+        ],
+        [
+          "toda_pi3_2_define_eta2_inference_rule",
+          14616
+        ],
+        [
+          "toda_higher_eta_finite_cyclic_generator_inference_rule",
+          14140
+        ],
+        [
+          "toda_55_nu_family_finite_dimensional_integration_inference_rule",
+          13853
+        ],
+        [
+          "toda_45_isomorphism_inference_rule",
+          12305
+        ],
+        [
+          "toda_prop53_n3_pi5_3_finite_cyclic_transport_inference_rule",
+          11844
+        ],
+        [
+          "toda_prop53_n4_pi6_4_finite_cyclic_transport_inference_rule",
+          11844
+        ],
+        [
+          "toda_48_lemma54_hopf_odd_multiple_inference_rule",
+          11802
+        ],
+        [
+          "toda_lemma54_integration_inference_rule",
+          11760
+        ],
+        [
+          "toda_53_eta3_twice_zero_inference_rule",
+          11606
+        ],
+        [
+          "toda_prop53_higher_eta_squared_finite_cyclic_generator_inference_rule",
+          11606
+        ],
+        [
+          "toda_pi4_3_zero_right_implies_suspension_surjective_inference_rule",
+          9996
+        ],
+        [
+          "toda_53_n3_hopf_eta5_surjective_inference_rule",
+          9273
+        ],
+        [
+          "toda_57_nu_prime_eta6_hopf_inference_rule",
+          8939
+        ],
+        [
+          "toda_prop56_pi6_3_finite_cyclic_inference_rule",
+          8716
+        ],
+        [
+          "toda_higher_eta_family_bridge_inference_rule",
+          8638
+        ],
+        [
+          "toda_pi4_3_exactness_delta_image_to_suspension_kernel_inference_rule",
+          8211
+        ],
+        [
+          "toda_prop58_pi9_5_finite_cyclic_inference_rule",
+          8046
+        ],
+        [
+          "toda_prop53_eta4_squared_stable_transport_inference_rule",
+          7833
+        ],
+        [
+          "toda_pi3_2_free_cyclic_generator_inference_rule",
+          7798
+        ],
+        [
+          "toda_exactness_zero_left_implies_hopf_injective_inference_rule",
+          7616
+        ],
+        [
+          "toda_prop56_higher_nu_finite_cyclic_generator_inference_rule",
+          7612
+        ]
+      ]
+    },
+    "candidate_population": {
+      "candidate_count": 797573,
+      "unique_source_step_identities": 1975,
+      "unique_scope_node_identities": 3888,
+      "mean_candidates_per_source_identity": 403.83443037974683,
+      "max_candidates_for_one_source_identity": 1372,
+      "sources_seen_under_multiple_roots": 1913,
+      "top_families_by_candidate_count": [
+        [
+          "equality transitivity",
+          56560
+        ],
+        [
+          "toda_pi4_3_eta3_generator_inference_rule",
+          42420
+        ],
+        [
+          "toda_pi3_2_whitehead_square_up_to_sign_inference_rule",
+          25368
+        ],
+        [
+          "toda_prop53_finite_dimensional_integration_inference_rule",
+          24927
+        ],
+        [
+          "toda_pi4_3_finite_cyclic_inference_rule",
+          24066
+        ],
+        [
+          "toda_pi4_3_delta_image_free_cyclic_inference_rule",
+          23730
+        ],
+        [
+          "toda_prop51_finite_dimensional_integration_inference_rule",
+          17955
+        ],
+        [
+          "toda_prop56_finite_dimensional_integration_inference_rule",
+          17560
+        ],
+        [
+          "toda_54_nu_prime_triple_eta_transport_inference_rule",
+          16110
+        ],
+        [
+          "toda_pi3_2_define_eta2_inference_rule",
+          14616
+        ],
+        [
+          "toda_higher_eta_finite_cyclic_generator_inference_rule",
+          14140
+        ],
+        [
+          "toda_55_nu_family_finite_dimensional_integration_inference_rule",
+          13853
+        ],
+        [
+          "toda_45_isomorphism_inference_rule",
+          12305
+        ],
+        [
+          "toda_prop53_n3_pi5_3_finite_cyclic_transport_inference_rule",
+          11844
+        ],
+        [
+          "toda_prop53_n4_pi6_4_finite_cyclic_transport_inference_rule",
+          11844
+        ],
+        [
+          "toda_48_lemma54_hopf_odd_multiple_inference_rule",
+          11802
+        ],
+        [
+          "toda_lemma54_integration_inference_rule",
+          11760
+        ],
+        [
+          "toda_53_eta3_twice_zero_inference_rule",
+          11606
+        ],
+        [
+          "toda_prop53_higher_eta_squared_finite_cyclic_generator_inference_rule",
+          11606
+        ],
+        [
+          "toda_pi4_3_zero_right_implies_suspension_surjective_inference_rule",
+          9996
+        ],
+        [
+          "toda_53_n3_hopf_eta5_surjective_inference_rule",
+          9273
+        ],
+        [
+          "toda_57_nu_prime_eta6_hopf_inference_rule",
+          8939
+        ],
+        [
+          "toda_prop56_pi6_3_finite_cyclic_inference_rule",
+          8716
+        ],
+        [
+          "toda_higher_eta_family_bridge_inference_rule",
+          8638
+        ],
+        [
+          "toda_pi4_3_exactness_delta_image_to_suspension_kernel_inference_rule",
+          8211
+        ],
+        [
+          "toda_prop58_pi9_5_finite_cyclic_inference_rule",
+          8046
+        ],
+        [
+          "toda_prop53_eta4_squared_stable_transport_inference_rule",
+          7833
+        ],
+        [
+          "toda_pi3_2_free_cyclic_generator_inference_rule",
+          7798
+        ],
+        [
+          "toda_exactness_zero_left_implies_hopf_injective_inference_rule",
+          7616
+        ],
+        [
+          "toda_prop56_higher_nu_finite_cyclic_generator_inference_rule",
+          7612
+        ]
+      ],
+      "top_catalog_entries_by_candidate_count": [
+        [
+          "standard.production.applicability.1150",
+          4489
+        ],
+        [
+          "standard.production.applicability.0444",
+          4423
+        ],
+        [
+          "standard.production.applicability.0000",
+          4390
+        ],
+        [
+          "standard.production.applicability.0146",
+          4390
+        ],
+        [
+          "standard.production.applicability.0443",
+          4390
+        ],
+        [
+          "standard.production.applicability.0469",
+          4390
+        ],
+        [
+          "standard.production.applicability.0548",
+          4390
+        ],
+        [
+          "standard.production.applicability.0140",
+          3594
+        ],
+        [
+          "standard.production.applicability.0468",
+          3594
+        ],
+        [
+          "standard.production.applicability.0066",
+          3561
+        ],
+        [
+          "standard.production.applicability.0150",
+          3561
+        ],
+        [
+          "standard.production.applicability.0318",
+          3561
+        ],
+        [
+          "standard.production.applicability.0485",
+          3561
+        ],
+        [
+          "standard.production.applicability.0552",
+          3561
+        ],
+        [
+          "standard.production.applicability.0840",
+          3561
+        ],
+        [
+          "standard.production.applicability.0969",
+          3561
+        ],
+        [
+          "standard.production.applicability.0144",
+          2682
+        ],
+        [
+          "standard.production.applicability.0459",
+          2682
+        ],
+        [
+          "standard.production.applicability.0505",
+          2682
+        ],
+        [
+          "standard.production.applicability.0540",
+          2682
+        ],
+        [
+          "standard.production.applicability.0031",
+          2565
+        ],
+        [
+          "standard.production.applicability.0152",
+          2565
+        ],
+        [
+          "standard.production.applicability.0239",
+          2565
+        ],
+        [
+          "standard.production.applicability.0554",
+          2565
+        ],
+        [
+          "standard.production.applicability.0609",
+          2565
+        ],
+        [
+          "standard.production.applicability.0657",
+          2565
+        ],
+        [
+          "standard.production.applicability.0800",
+          2565
+        ],
+        [
+          "standard.production.applicability.0306",
+          2487
+        ],
+        [
+          "standard.production.applicability.0877",
+          2487
+        ],
+        [
+          "standard.production.applicability.0915",
+          2487
+        ]
+      ]
+    },
+    "generator_filter_effect": {
+      "full_scope_candidate_count": 797573,
+      "generator_filtered_candidate_count": 176616,
+      "relevant_full_scope_candidates_by_occurrence_identity": 176616,
+      "retained_ratio": 0.22144179905789188
+    }
+  }
+}

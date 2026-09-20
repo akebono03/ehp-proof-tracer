@@ -42,17 +42,17 @@ Phase 78 の stable $G_0$ から $G_7$ までの統合記録を含む。
 
 `docs/proof_records/proof_infrastructure_079_089.md`
 
-Proof Repository、repository-assisted inference、自動 rule 選択、bounded producer search、診断、depth parameterization、有限 retry、具体的 theorem-instance filtering の記録。
+Proof Repository、repository-assisted inference、自動 rule 選択、有界 producer search、診断、depth parameterization、有限 retry、具体的 theorem-instance filtering の記録。
 
 ## Phase 90–98
 
 `docs/proof_records/calculation_provenance_090_095.md` ほか
 
-Toda group query、正規化済み theorem-backed group result、EHP extraction、proof dependency / explanation、recursive proof provenance、structured presentation、full proof report、user-facing convenience facade の記録。
+Toda group query、正規化済み theorem-backed group result、EHP extraction、proof dependency / explanation、recursive proof provenance、structured presentation、full proof report、利用者向け convenience facade の記録。
 
 ## Phase 99–101
 
-repository 内の generator occurrence 探索を standard production repository と CLI に接続した。
+repository 内の generator occurrence 探索を標準運用リポジトリと CLI に接続した。
 
 ```text
 GeneratorSymbol
@@ -71,7 +71,7 @@ GeneratorSymbol
 
 `docs/proof_records/production_proof_scope_exploration_102.md`
 
-actual `ProofStep.premises` ancestry を read-only に探索可能にした。
+実際の `ProofStep.premises` ancestry を読み取り専用で探索可能にした。
 
 代表結果:
 
@@ -88,25 +88,25 @@ $$
 重要:
 
 ```text
-same ProofStep under one root
-→ shortest-depth node only
+同じ ProofStep が同じ root 配下にある
+→ 最短 depth の node のみ
 
-same ProofStep under different roots
-→ distinct root provenance
+同じ ProofStep が異なる root 配下にある
+→ 異なる root provenance
 ```
 
-Phase 102 は COMPLETE。
+Phase 102 は完了。
 
 ## Phase 103
 
 `docs/proof_records/applicable_theorem_relevance_103.md`
 
-proof-scope source statement と inference-rule premise pattern の compatibility から applicable theorem / lemma candidate を read-only に探索する capability を追加した。
+proof-scope source statement と inference-rule premise pattern の compatibility から applicable theorem / lemma candidate を読み取り専用で探索する capability を追加した。
 
 ```text
-applicability candidate != proof success
-relevance category != proof truth
-presentation order != theorem ranking
+適用可能候補 != 証明成功
+関連度カテゴリ != 証明事実
+表示順 != 定理順位
 candidate discovery = repository read-only
 ```
 
@@ -126,32 +126,32 @@ BRIDGE = 140
 UNCLASSIFIED = 300
 ```
 
-Phase 103 は COMPLETE。
+Phase 103 は完了。
 
 ## Phase 104 applicability handoff / bounded execution provenance
 
-Phase 104 は applicability candidate を explicit handoff と bounded execution に接続した。
+Phase 104 は applicability candidate を明示的 handoff と bounded execution に接続した。
 
 中心経路:
 
 ```text
-selected applicability candidate
+選択済み applicability candidate
 ↓
 RepositoryGeneratorApplicabilityCandidateHandoff
 ↓
 READY validation
 ↓
-explicit-final-rule bounded search
+最終 rule 明示の bounded search
 ↓
-same BoundedProducerSearchReport object
+同一 BoundedProducerSearchReport object
 ↓
-same selected producer_nodes
+同一 selected producer_nodes
 ↓
-same selected final_rule
+同一 selected final_rule
 ↓
 execution
 ↓
-actual ProofStep
+実際の ProofStep
 ```
 
 重要な identity 不変条件:
@@ -168,16 +168,16 @@ execution_result.report
 is search_report.report
 ```
 
-Phase 104 は COMPLETE。
+Phase 104 は完了。
 
 ```text
 repository-wide after Phase 104-4P closure check:
 8644 passed in 374.63s
 ```
 
-## Phase 105 production-qualified applicability execution
+## Phase 105 標準運用 applicability execution
 
-Phase 105 は、Phase 104 の selected-candidate bounded execution を実際の standard production applicability workflow に接続した証明基盤記録である。
+Phase 105 は、Phase 104 の selected-candidate bounded execution を実際の標準運用 applicability workflow に接続した証明基盤記録である。
 
 最初の境界:
 
@@ -199,22 +199,22 @@ $$
 \Delta(\iota_9)=\pm(2\nu_4-E\nu')
 $$
 
-に対応する production rule family である。
+に対応する運用 rule family である。
 
 ### Execution seed / qualification
 
-actual applicability candidate が保持する exact source `ProofStep` を execution seed repository に登録し、discovery rule object と同一 identity を持つ fixed-point-safe execution entry を構成した。
+実際の applicability candidate が保持する exact source `ProofStep` を execution seed repository に登録し、discovery rule object と同一 identity を持つ fixed-point-safe execution entry を構成した。
 
 ```text
 execution entry rule
 is discovery candidate rule
 ```
 
-standard applicability catalog 自体は変更しない。
+標準 applicability catalog 自体は変更しない。
 
 ### Qualified ambiguity
 
-standard `nu_prime` applicability:
+標準 `nu_prime` applicability:
 
 ```text
 qualified candidates = 744
@@ -226,7 +226,7 @@ scope+source groups = 248
 source-step identities = 124
 ```
 
-完全同一 duplicate ではなく、同一 source 上に3つの distinct rule identity が存在する。
+完全同一 duplicate ではなく、同一 source 上に3つの異なる rule identity が存在する。
 
 ### Rule equivalence
 
@@ -250,11 +250,11 @@ same entry identity = False
 248 execution-family groups
 ```
 
-各 group は original candidate 3件を保持する。
+各 group は元の candidate 3件を保持する。
 
 代表 candidate は discovery order 上の先頭 original candidate だが、theorem ranking ではない。
 
-### Root/source disambiguation
+### Root/source の曖昧性解消
 
 ```text
 root-only unique = False
@@ -275,7 +275,7 @@ standard.toda.prop515 = 124
 
 global minimum depth = 1 にも6 group が残るため、`shortest_depth` を implicit ranking に使用しない。
 
-### Explicit selection
+### 明示選択
 
 ```text
 root_entry identity
@@ -287,10 +287,10 @@ source_step identity
 
 全248 standard root/source pair が一意に選択できる。
 
-### Standard execution facade
+### 標準 execution facade
 
 ```text
-standard applicability result
+標準 applicability result
 → qualified filtering
 → execution-family grouping
 → explicit root + source selection
@@ -341,7 +341,103 @@ repository-wide Phase 105 closure:
 8709 passed in 659.02s
 ```
 
-Phase 105 は COMPLETE。
+Phase 105 は完了。
+
+## Phase 106 applicability 性能・複雑性記録
+
+`docs/proof_records/performance_applicability_106.md`
+
+Phase 106 は新しい証明事実を追加していない。
+
+目的は、Phase 105 までに完成した applicability / execution 経路の意味論と provenance を保持したまま、性能圧力の所在を確認することだった。
+
+初期監査:
+
+```text
+build_standard_production_applicability_catalog:
+4.44 s / 4.37 MiB
+
+explore_standard_repository_generator_applicability_input:
+27.89 s / 274.10 MiB
+
+select_qualified_repository_generator_applicability_candidates:
+1.11 s / 25.00 MiB
+
+group_qualified_repository_generator_execution_families:
+0.025 s / 0.28 MiB
+
+execute_standard_repository_generator_applicability_result_by_root_and_source:
+1.09 s / 25.00 MiB
+```
+
+applicability discovery が支配的だった。
+
+詳細監査:
+
+```text
+proof-scope nodes = 3889
+generator occurrences = 626
+pattern references = 2549
+
+compatible references = 797573
+match attempts = 797573
+successful matches = 797573
+
+full-scope candidates = 797573
+generator-relevant candidates = 176616
+retained ratio = 22.1442%
+```
+
+問題は失敗 match ではなく、generator に関係しない scope node についても candidate object を大量に materialize していたことだった。
+
+同一 proof graph 上の監査で、relevant-scope prefilter が現在の結果と完全一致することを確認した。
+
+```text
+candidate_signature_sequence_equal = True
+candidate_signature_multiset_equal = True
+scope_identity_sequence_equal = True
+root_identity_sequence_equal = True
+source_identity_sequence_equal = True
+catalog_entry_identity_sequence_equal = True
+rule_identity_sequence_equal = True
+```
+
+実装後:
+
+```text
+applicability exploration:
+8.16 s / 62.42 MiB
+
+raw candidates = 176616
+qualified candidates = 744
+family groups = 248
+unique source-step identities = 124
+selected family size = 3
+execution = True
+```
+
+重要:
+
+```text
+性能改善
+!=
+証明事実の変更
+
+relevant-scope prefilter
+!=
+candidate ranking
+
+materialization の削減
+!=
+raw catalog deduplication
+```
+
+Phase 106 は完了。
+
+```text
+repository-wide:
+8712 passed in 337.86s
+```
 
 ---
 
@@ -367,10 +463,13 @@ handoff validation != theorem truth
 bounded search report != executed proof
 qualified candidate != unique execution target
 execution-family representative != theorem ranking
+performance optimization != theorem truth
 ```
 
 この文書群は、実装済み proof object と provenance を人間が追跡しやすくするための記録であり、独立した theorem database ではない。
 
-Phase 105 qualified execution layer が relevance category、root order、shortest depth、candidate order を暗黙の theorem ranking として使用してはならない。
+実行資格付き execution layer が relevance category、root order、shortest depth、candidate order を暗黙の theorem ranking として使用してはならない。
+
+Phase 106 の性能最適化も、candidate の意味論、順序、identity、provenance を変更してはならない。
 
 既存記録は原則として削除せず、確定した意味論訂正がある場合のみ訂正する。
