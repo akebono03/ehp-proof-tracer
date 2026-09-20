@@ -2926,10 +2926,17 @@ def _build_bounded_producer_search_report_for_final_rule(
     search_result=search_result,
   )
 
-def _execute_bounded_producer_search_report(
+def execute_depth_two_producer_search(
   repository,
-  report,
+  rule_catalog,
+  goal,
+  max_depth=2,
+  retry_policy=None,
 ) -> BoundedProducerExecutionResult:
+  _validate_bounded_search_selection_max_depth(
+    max_depth
+  )
+
   if not isinstance(
     repository,
     ProofRepository,
@@ -2939,13 +2946,35 @@ def _execute_bounded_producer_search_report(
     )
 
   if not isinstance(
-    report,
-    BoundedProducerSearchReport,
+    rule_catalog,
+    InferenceRuleCatalog,
   ):
     raise TypeError(
-      "report must be a "
-      "BoundedProducerSearchReport"
+      "rule_catalog must be an "
+      "InferenceRuleCatalog"
     )
+
+  if (
+    retry_policy is not None
+    and not isinstance(
+      retry_policy,
+      FiniteProducerRetryPolicy,
+    )
+  ):
+    raise TypeError(
+      "retry_policy must be a "
+      "FiniteProducerRetryPolicy or None"
+    )
+
+  report = (
+    build_depth_two_producer_search_report(
+      repository,
+      rule_catalog,
+      goal,
+      max_depth=max_depth,
+      retry_policy=retry_policy,
+    )
+  )
 
   initial_steps = repository_available_steps(
     repository
@@ -2968,7 +2997,7 @@ def _execute_bounded_producer_search_report(
         inference_result=inference_result,
         goal_step=find_goal_step(
           inference_result.steps,
-          report.goal,
+          goal,
         ),
       )
     )
@@ -3025,7 +3054,7 @@ def _execute_bounded_producer_search_report(
       inference_result=final_result,
       goal_step=find_goal_step(
         final_result.steps,
-        report.goal,
+        goal,
       ),
     )
   )
@@ -3044,62 +3073,6 @@ def _execute_bounded_producer_search_report(
     repository_inference_result=(
       repository_inference_result
     ),
-  )
-
-
-def execute_depth_two_producer_search(
-  repository,
-  rule_catalog,
-  goal,
-  max_depth=2,
-  retry_policy=None,
-) -> BoundedProducerExecutionResult:
-  _validate_bounded_search_selection_max_depth(
-    max_depth
-  )
-
-  if not isinstance(
-    repository,
-    ProofRepository,
-  ):
-    raise TypeError(
-      "repository must be a ProofRepository"
-    )
-
-  if not isinstance(
-    rule_catalog,
-    InferenceRuleCatalog,
-  ):
-    raise TypeError(
-      "rule_catalog must be an "
-      "InferenceRuleCatalog"
-    )
-
-  if (
-    retry_policy is not None
-    and not isinstance(
-      retry_policy,
-      FiniteProducerRetryPolicy,
-    )
-  ):
-    raise TypeError(
-      "retry_policy must be a "
-      "FiniteProducerRetryPolicy or None"
-    )
-
-  report = (
-    build_depth_two_producer_search_report(
-      repository,
-      rule_catalog,
-      goal,
-      max_depth=max_depth,
-      retry_policy=retry_policy,
-    )
-  )
-
-  return _execute_bounded_producer_search_report(
-    repository,
-    report,
   )
 
 def detect_goal_rule_missing_premises(

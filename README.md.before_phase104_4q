@@ -1,8 +1,8 @@
 # EHP Proof Tracer
 
-EHP Proof Tracer is a Python project for representing, checking, searching, explaining, presenting, exploring, and safely executing theorem-backed Toda-style homotopy-group calculations.
+EHP Proof Tracer is a Python project for representing, checking, searching, explaining, presenting, and exploring theorem-backed Toda-style homotopy-group calculations.
 
-The project currently focuses on the 2-primary Toda groups, EHP exactness, explicit proof provenance, the calculation spine through stable stems $G_0$ to $G_7$, theorem-backed repository exploration, recursive proof-ancestry exploration, applicable theorem / lemma discovery, relevance classification, and a bounded handoff path from a selected applicability candidate to actual proof execution.
+The project currently focuses on the 2-primary Toda groups, EHP exactness, explicit proof provenance, the calculation spine through stable stems $G_0$ to $G_7$, theorem-backed repository exploration, recursive proof-ancestry exploration, and production user-facing paths for both group calculation and generator-centered exploration.
 
 ## Current mathematical coverage
 
@@ -76,12 +76,9 @@ The proof-search infrastructure supports:
 - search and execution diagnostics,
 - proof-step provenance,
 - recursive proof ancestry,
-- repository-nonmutating execution and exploration,
-- explicit-final-rule bounded search,
-- execution of a prebuilt bounded-search report without rebuilding the search,
-- end-to-end rule-identity provenance from applicability candidate to derived `ProofStep`.
+- repository-nonmutating execution and exploration.
 
-General unbounded proof search, theorem ranking, producer ranking, proof-cost optimization, and best-proof selection are intentionally not implemented.
+General unbounded proof search, proof ranking, proof-cost optimization, and best-proof selection are intentionally not implemented.
 
 ## Toda group calculation API
 
@@ -369,13 +366,15 @@ shortest_depth
 
 Traversal is breadth-first, cycle-safe, identity-preserving, deterministic, and read-only.
 
-Representative production results for `nu_prime` include
+Within the same root, the same `ProofStep` identity is reported once at its shortest depth. If the same `ProofStep` is reachable from different registered roots, the distinct root provenance is preserved.
+
+Representative production results for `nu_prime` include the Toda membership
 
 $$
 \nu' \in \{\eta_3,2\iota_4,\eta_4\}_1
 $$
 
-and
+and the known map relation
 
 $$
 H(\nu')=\eta_5.
@@ -451,93 +450,89 @@ UNCLASSIFIED = 300
 
 The remaining 109 `UNCLASSIFIED` families / 300 entries are intentional closure-deferred residuals.
 
-## Safe applicability-candidate handoff and execution
-
-Phase 104 adds a bounded, explicit consumption path for an already selected applicability candidate.
-
-The path is:
-
-```text
-applicability candidate
-↓
-candidate selection / source-scoped reduction
-↓
-RepositoryGeneratorApplicabilityCandidateHandoff
-↓
-execution-catalog validation
-↓
-READY validation
-↓
-explicit validated final rule
-↓
-bounded producer search
-↓
-RepositoryGeneratorApplicabilityHandoffSearchReport
-↓
-same prebuilt BoundedProducerSearchReport object
-↓
-same selected producer path
-↓
-same selected final rule
-↓
-execution
-↓
-actual producer ProofStep objects
-↓
-actual goal ProofStep
-```
-
-Phase 104 deliberately keeps these distinctions:
-
-```text
-candidate filtering != theorem ranking
-candidate selection != proof success
-candidate handoff != automatic proof execution
-applicability compatibility != theorem truth
-```
-
-The execution adapter does not rerun final-rule selection, producer selection, retry, or bounded search. Search-time `max_depth`, retry policy, and execution-catalog checks are consumed before execution.
-
-The central identity invariants are:
-
-```text
-candidate rule
-is validation.execution_entry.rule
-is search_result.final_rule
-is goal_step.inference_rule
-```
-
-and
-
-```text
-execution_result.report
-is search_report.report
-```
-
-For selected producers:
-
-```text
-producer_node.producer_rule
-is executed_producer_step.inference_rule
-```
-
-`GOAL_ALREADY_AVAILABLE` preserves the candidate / validation provenance but executes no producer or final rule.
-
-Repository snapshot/versioning and stale-search-report detection are not part of Phase 104.
-
 ## Command-line interface
 
-The existing commands remain:
+The existing group-calculation command remains:
 
 ```powershell
 python main.py n k
-python main.py explore "nu'"
-python main.py explore-proof nu_prime
-python main.py explore-applicable nu_prime
-python main.py explore-applicable nu_prime --detailed
 ```
 
-Phase 104 does not add a new CLI command.
+For example:
+
+```powershell
+python main.py 5 7
+```
+
+prints the human-readable proof report for $\pi_{12}^5$.
+
+Top-level registered-entry generator exploration remains:
+
+```powershell
+python main.py explore "nu'"
+```
+
+Phase 102 adds recursive proof-ancestry exploration:
+
+```powershell
+python main.py explore-proof nu_prime
+```
+
+`explore-proof` prints counts plus Toda memberships and map relations with their root repository key and ancestry depth.
+
+Calculation CLI behavior:
+
+```text
+FOUND
+→ print report(s)
+→ exit 0
+
+MULTIPLE_RESULTS
+→ print all reports in candidate order
+→ exit 0
+
+NOT_FOUND
+→ explicit not-found message
+→ exit 1
+
+invalid calculation syntax or semantic input
+→ argparse error
+→ exit 2
+```
+
+Exploration CLI behavior:
+
+```text
+valid input with occurrence(s)
+→ report
+→ exit 0
+
+valid input with zero occurrences
+→ zero-count report
+→ exit 0
+
+invalid / malformed generator
+→ argparse error
+→ exit 2
+
+missing / extra argument
+→ argparse error
+→ exit 2
+
+--help
+→ stdout
+→ exit 0
+```
+
+The calculation CLI validates
+
+$$
+n>0,
+\qquad
+k\ge 0
+$$
+
+before constructing the production repository.
 
 ## Current boundaries
 
@@ -546,12 +541,6 @@ The following are intentionally deferred:
 - automatic symbolic higher-range instantiation,
 - target-only unknown-right-hand-side proof search,
 - best-proof ranking or proof-cost optimization,
-- theorem ranking,
-- producer ranking,
-- general unbounded backtracking,
-- persistent proof cache,
-- repository snapshot/versioning,
-- stale-search-report detection,
 - full prose rendering for every historical aggregate statement,
 - free-form natural-language element search,
 - wildcard family search,
@@ -560,6 +549,7 @@ The following are intentionally deferred:
 - bracket-value computation,
 - general coset / indeterminacy computation,
 - general $E/H/\Delta$ evaluation,
+- automatic applicable-lemma discovery,
 - recursive theorem solving beyond already represented proof ancestry,
 - automatic enumeration of unstated mathematical consequences,
 - Web UI,
@@ -568,26 +558,18 @@ The following are intentionally deferred:
 
 ## Verification
 
-Latest confirmed Phase 104 validation:
+Latest confirmed Phase 103 validation:
 
 ```text
-Phase 104-4M focused:
-32 passed in 8.26s
+Phase 103-7 closure audit:
+PHASE103_7_CLOSURE_AUDIT = PASS
 
-repository-wide after Phase 104-4M:
-8641 passed in 381.78s
+Phase 103 regression:
+54 test files
+409 passed in 186.07s
 
-Phase 104-4O focused:
-9 passed in 1.63s
-
-repository-wide after Phase 104-4P closure check:
-8644 passed in 374.63s
-```
-
-Phase 104-4P closure audit:
-
-```text
-PASS — no residual production implementation required
+git diff --check:
+clean
 ```
 
 ## Current project state
@@ -605,25 +587,31 @@ raw n,k
 → human-readable proof report
 ```
 
-Generator exploration:
+Top-level generator exploration:
 
 ```text
 generator string
-→ structural / proof-scope exploration
-→ applicability discovery
-→ relevance-classified candidates
+→ CLI or production one-shot facade
+→ canonical generator resolution
+→ standard production repository
+→ registered-entry structural occurrence lookup
+→ role classification
+→ grouped presentation
+→ Markdown report
 ```
 
-Safe candidate consumption:
+Recursive proof-scope exploration:
 
 ```text
-selected applicability candidate
-→ explicit handoff
-→ READY execution validation
-→ explicit-final-rule bounded search
-→ prebuilt search report
-→ selected-path execution
-→ actual ProofStep provenance
+generator string
+→ CLI or production proof-scope facade
+→ canonical generator resolution
+→ standard production repository
+→ recursive proof ancestry
+→ generator occurrences
+→ Toda memberships
+→ map relations
+→ Markdown report
 ```
 
 Phase 100 closes the production calculation path.
@@ -633,8 +621,6 @@ Phase 101 closes the production top-level generator-exploration path.
 Phase 102 closes recursive proof-scope exploration for already represented Toda memberships and known map relations.
 
 Phase 103 closes read-only applicable theorem / lemma discovery and the first production relevance-classification pass.
-
-Phase 104 closes safe applicability-candidate consumption through bounded search and actual execution while preserving rule identity and proof provenance.
 
 ## Documentation
 

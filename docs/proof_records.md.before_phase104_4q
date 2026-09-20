@@ -251,126 +251,6 @@ PHASE103_7_CLOSURE_AUDIT = PASS
 
 Phase 103 は COMPLETE。
 
-## Phase 104 applicability handoff / bounded execution provenance
-
-Phase 104 は Phase 103 で得た applicability candidate を、安全な explicit handoff と bounded execution に接続した proof infrastructure record である。
-
-対象は automatic theorem ranking ではなく、**既に選択された candidate の provenance を失わず実行経路へ渡すこと**。
-
-中心経路:
-
-```text
-selected applicability candidate
-↓
-RepositoryGeneratorApplicabilityCandidateHandoff
-↓
-READY validation
-↓
-validation.execution_entry.rule
-↓
-explicit-final-rule bounded search
-↓
-RepositoryGeneratorApplicabilityHandoffSearchReport
-↓
-same BoundedProducerSearchReport object
-↓
-same selected producer_nodes
-↓
-same selected final_rule
-↓
-execution
-↓
-actual producer ProofStep
-↓
-actual goal ProofStep
-```
-
-重要 identity invariant:
-
-```text
-candidate rule
-is validation.execution_entry.rule
-is search_result.final_rule
-is goal_step.inference_rule
-```
-
-search-report identity:
-
-```text
-execution_result.report
-is search_report.report
-```
-
-selected producer provenance:
-
-```text
-producer_node.producer_rule
-is executed_producer_step.inference_rule
-```
-
-actual proof chain は `ProofStep.premises` により:
-
-```text
-source_step
-→ producer_step
-→ goal_step
-```
-
-として追跡できる。
-
-Phase 104 execution は prebuilt report を authoritative execution plan とするため、execution 時に:
-
-```text
-final-rule selection
-producer lookup
-producer ambiguity evaluation
-retry selection
-bounded search
-execution-catalog selection
-```
-
-を再実行しない。
-
-`GOAL_ALREADY_AVAILABLE` の場合は:
-
-```text
-candidate / handoff / validation provenance
-→ preserved
-
-producer / final rule execution
-→ none
-```
-
-となる。
-
-failure search report も再探索せず、その report をそのまま execution result に保持する。
-
-Phase 104 では repository snapshot/versioning、stale report status、proof ranking、proof-cost optimization は導入していない。
-
-検証:
-
-```text
-Phase 104-4M focused:
-32 passed in 8.26s
-
-repository-wide after Phase 104-4M:
-8641 passed in 381.78s
-
-Phase 104-4O focused:
-9 passed in 1.63s
-
-repository-wide after Phase 104-4P closure check:
-8644 passed in 374.63s
-```
-
-Phase 104-4P:
-
-```text
-PASS — no residual production implementation required
-```
-
-Phase 104 は COMPLETE。
-
 ---
 
 # 記録原則
@@ -392,9 +272,6 @@ Toda membership discovery != bracket solving
 applicability candidate != successful proof
 relevance category != theorem truth
 candidate ordering != theorem ranking
-candidate selection != proof success
-handoff validation != theorem truth
-bounded search report != executed proof
 ```
 
 この文書群は、実装済み proof object と provenance を人間が追跡しやすくするための記録であり、独立した theorem database ではない。
@@ -404,7 +281,5 @@ renderer が未対応 statement を推測で補完してはならない。
 report orchestration / convenience layer が multiple candidate を勝手に ranking / selection してはならない。
 
 generator exploration が structural occurrence を mathematical equality や新規 theorem として扱ってはならない。
-
-Phase 104 handoff / execution layer が search report を再生成して selected rule / producer path を silently 再選択してはならない。
 
 既存記録は原則として削除せず、確定した semantic correction がある場合のみ訂正する。
