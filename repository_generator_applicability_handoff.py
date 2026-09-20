@@ -5,8 +5,10 @@ from proof_repository import (
   ProofRepository,
 )
 from repository_inference import (
+  BoundedProducerExecutionResult,
   BoundedProducerSearchReport,
   _build_bounded_producer_search_report_for_final_rule,
+  _execute_bounded_producer_search_report,
 )
 from repository_proof_scope_applicability import (
   RepositoryProofScopeApplicabilityCandidate,
@@ -166,6 +168,78 @@ class RepositoryGeneratorApplicabilityHandoffSearchReport:
         "search result final_rule must be "
         "validation execution_entry.rule"
       )
+
+
+@dataclass(frozen=True)
+class RepositoryGeneratorApplicabilityHandoffExecutionResult:
+  search_report: RepositoryGeneratorApplicabilityHandoffSearchReport
+  execution_result: BoundedProducerExecutionResult
+
+  def __post_init__(
+    self,
+  ) -> None:
+    if not isinstance(
+      self.search_report,
+      RepositoryGeneratorApplicabilityHandoffSearchReport,
+    ):
+      raise TypeError(
+        "search_report must be a "
+        "RepositoryGeneratorApplicabilityHandoffSearchReport"
+      )
+
+    if not isinstance(
+      self.execution_result,
+      BoundedProducerExecutionResult,
+    ):
+      raise TypeError(
+        "execution_result must be a "
+        "BoundedProducerExecutionResult"
+      )
+
+    if (
+      self.execution_result.report
+      is not self.search_report.report
+    ):
+      raise ValueError(
+        "execution_result.report must be "
+        "search_report.report"
+      )
+
+
+def execute_repository_generator_applicability_handoff_search_report(
+  search_report,
+  repository,
+):
+  if not isinstance(
+    search_report,
+    RepositoryGeneratorApplicabilityHandoffSearchReport,
+  ):
+    raise TypeError(
+      "search_report must be a "
+      "RepositoryGeneratorApplicabilityHandoffSearchReport"
+    )
+
+  if not isinstance(
+    repository,
+    ProofRepository,
+  ):
+    raise TypeError(
+      "repository must be a ProofRepository"
+    )
+
+  execution_result = (
+    _execute_bounded_producer_search_report(
+      repository,
+      search_report.report,
+    )
+  )
+
+  return (
+    RepositoryGeneratorApplicabilityHandoffExecutionResult(
+      search_report=search_report,
+      execution_result=execution_result,
+    )
+  )
 
 
 def validate_repository_generator_applicability_handoff(
