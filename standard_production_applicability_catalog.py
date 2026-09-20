@@ -3174,3 +3174,80 @@ def build_standard_production_applicability_catalog():
       _phase103_6d94_original_builder()
     )
   )
+
+# Phase 103-6D98 explicit Toda 5.3 eta_3 twice-zero theorem-specific classifier
+
+_PHASE103_6D98_THEOREM_SPECIFIC_TODA53_ETA3_TWICE_ZERO_FACTORIES = frozenset(
+  (
+    "toda_53_eta3_twice_zero_inference_rule",
+  )
+)
+
+
+def _phase103_6d98_classify_entry(
+  entry,
+):
+  if (
+    entry.relevance_category
+    is not _Phase1036D15RuleRelevanceCategory.UNCLASSIFIED
+  ):
+    return entry
+
+  if (
+    _phase103_6d15_type_names(
+      entry.conclusion_type
+    )
+    != (
+      "Relation",
+    )
+  ):
+    return entry
+
+  factory_name = (
+    _inference_rule_factory_name(
+      entry.rule
+    )
+  )
+
+  if (
+    factory_name
+    not in _PHASE103_6D98_THEOREM_SPECIFIC_TODA53_ETA3_TWICE_ZERO_FACTORIES
+  ):
+    return entry
+
+  return _phase103_6d15_replace(
+    entry,
+    relevance_category=(
+      _Phase1036D15RuleRelevanceCategory.THEOREM_SPECIFIC
+    ),
+  )
+
+
+def _phase103_6d98_apply_theorem_specific_classification(
+  catalog,
+):
+  classified_catalog = (
+    _Phase1036D15InferenceRuleCatalog()
+  )
+
+  for entry in catalog.entries():
+    classified_catalog.register(
+      _phase103_6d98_classify_entry(
+        entry
+      )
+    )
+
+  return classified_catalog
+
+
+_phase103_6d98_original_builder = (
+  build_standard_production_applicability_catalog
+)
+
+
+def build_standard_production_applicability_catalog():
+  return (
+    _phase103_6d98_apply_theorem_specific_classification(
+      _phase103_6d98_original_builder()
+    )
+  )
