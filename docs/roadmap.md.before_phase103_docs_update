@@ -48,12 +48,8 @@ generator string
 最新確認:
 
 ```text
-Phase 103-7 closure audit:
-PHASE103_7_CLOSURE_AUDIT = PASS
-
-Phase 103 regression:
-54 test files
-409 passed in 186.07s
+repository-wide:
+8142 passed in 129.93s
 
 git diff --check:
 clean
@@ -122,21 +118,6 @@ ancestry semantic exploration
 production proof-scope facade
 main.py explore-proof
 end-to-end validation
-```
-
-Phase 103:
-
-```text
-applicability candidate representation
-indexed premise-pattern compatibility search
-proof-scope applicability integration
-production applicability facade
-rule-group / rule-family presentation
-compact / detailed renderer
-main.py explore-applicable
-RuleRelevanceCategory metadata
-production relevance classification
-final closure audit
 ```
 
 ---
@@ -218,34 +199,26 @@ generator in map input
 
 # 5. 次の自然な候補
 
-Phase 103 で applicable theorem / lemma candidate discovery と relevance-classified presentation は closure。
+Phase 102 で「already represented relation / membership discovery」は closure。
 
-次は、candidate discovery の結果を**どのように安全に消費するか**を監査する。
+次の候補は、**探索結果を theorem applicability へ接続する read-only capability** が自然。
 
 ```text
-Phase 104-1
-post-applicability consumption / handoff pressure audit
+Phase 103-1
+applicable theorem / lemma discovery pressure audit
 ```
 
 監査候補:
 
 ```text
-relevance category filtering
-candidate-set reduction
-source-statement / family-level navigation
-existing bounded proof-search infrastructure との接続可能性
-proof execution へ渡す場合の境界
+既存 theorem / inference rule の premise pattern
+generator / relation / membership の型
+catalog metadata
+concrete compatibility 判定
+actual proof-search executionとの境界
 ```
 
-次を分離する。
-
-```text
-candidate filtering != theorem ranking
-candidate selection != proof success
-candidate handoff != automatic proof execution
-```
-
-automatic execution や theorem ranking は監査で必要性が確認されるまで実装しない。
+最初は read-only candidate discovery のみを監査し、proof execution や general solver を先取りしない。
 
 ---
 
@@ -409,13 +382,13 @@ all-primary ordinary sphere-homotopy calculation
 
 # 16. 直近の次作業
 
-Phase 103 は COMPLETE。
+Phase 102 は COMPLETE。
 
 次候補:
 
 ```text
-Phase 104-1
-post-applicability consumption / handoff pressure audit
+Phase 103-1
+applicable theorem / lemma discovery pressure audit
 ```
 
-Phase 103 の relevance-classified applicability result と、既存 bounded proof-search / producer-selection infrastructure の間に本当に不足している最小 capability を確認する。
+まず existing inference-rule catalog、premise matcher、proof-scope exploration result の接続可能性を監査する。

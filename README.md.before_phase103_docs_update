@@ -382,74 +382,6 @@ $$
 
 The exploration layer only finds already represented and already proven statements. It does not evaluate $E$, $H$, or $\Delta$, and it does not solve Toda brackets.
 
-## Applicable theorem / lemma discovery
-
-Phase 103 adds read-only discovery of inference rules whose premise patterns are structurally compatible with statements found in the production proof scope.
-
-The production entry point is:
-
-```python
-explore_standard_repository_generator_applicability_input(
-  generator_input,
-)
-```
-
-The command-line entry points are:
-
-```powershell
-python main.py explore-applicable nu_prime
-python main.py explore-applicable nu_prime --detailed
-```
-
-The applicability path is:
-
-```text
-generator input
-↓
-proof-scope source statements
-↓
-premise-pattern compatibility
-↓
-applicability candidates
-↓
-rule groups
-↓
-rule families
-↓
-relevance-classified presentation
-```
-
-Applicability discovery does not execute a rule and does not establish a theorem conclusion.
-
-Relevance categories are:
-
-```text
-THEOREM_SPECIFIC
-MAP_PROPERTY
-STRUCTURAL
-BRIDGE
-GENERIC_RELATION
-UNCLASSIFIED
-```
-
-Phase 103 closure baseline:
-
-```text
-catalog entries = 1188
-families = 267
-classified families = 158
-unclassified families = 109
-
-STRUCTURAL = 201
-MAP_PROPERTY = 60
-THEOREM_SPECIFIC = 424
-GENERIC_RELATION = 63
-BRIDGE = 140
-UNCLASSIFIED = 300
-```
-
-The remaining 109 `UNCLASSIFIED` families / 300 entries are intentional closure-deferred residuals.
-
 ## Command-line interface
 
 The existing group-calculation command remains:
@@ -558,15 +490,23 @@ The following are intentionally deferred:
 
 ## Verification
 
-Latest confirmed Phase 103 validation:
+Latest confirmed Phase 102 validation:
 
 ```text
-Phase 103-7 closure audit:
-PHASE103_7_CLOSURE_AUDIT = PASS
+Phase 102-5A focused:
+11 passed in 4.67s
 
-Phase 103 regression:
-54 test files
-409 passed in 186.07s
+Phase 102-5B focused:
+22 passed in 10.29s
+
+Phase 102-6 focused:
+42 passed in 23.46s
+
+Phase 102-6 related:
+89 passed in 23.32s
+
+repository-wide after Phase 102-7:
+8142 passed in 129.93s
 
 git diff --check:
 clean
@@ -619,8 +559,6 @@ Phase 100 closes the production calculation path.
 Phase 101 closes the production top-level generator-exploration path.
 
 Phase 102 closes recursive proof-scope exploration for already represented Toda memberships and known map relations.
-
-Phase 103 closes read-only applicable theorem / lemma discovery and the first production relevance-classification pass.
 
 ## Documentation
 

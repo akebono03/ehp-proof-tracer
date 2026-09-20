@@ -1,0 +1,491 @@
+# EHP Proof Tracer 設計
+
+この文書は EHP Proof Tracer の**現在有効なアーキテクチャ、意味論、invariant、設計境界**を記録する。
+
+過去の実装経緯は `docs/development_log.md`、証明記録は `docs/proof_records.md`、今後の計画は `docs/roadmap.md`、コード探索は `docs/code_reference.md` を参照する。
+
+---
+
+# 1. 基本設計原則
+
+```text
+実際の数学的・proof-search 上の必要
+↓
+不足している最小表現
+↓
+必要な domain rule / orchestration
+↓
+既存 generic infrastructure
+```
+
+次を混同しない。
+
+```text
+representation != typing != theorem knowledge
+structural equality != mathematical equality
+catalog metadata != proof truth
+search plan != proof result
+calculation result != proof truth
+presentation != proof truth
+rendered prose != proof truth
+production repository assembly != theorem truth
+CLI != proof truth
+exploration result != new theorem truth
+generator input resolution != mathematical equality
+proof-scope traversal != theorem search
+known relation discovery != map evaluation
+Toda membership discovery != bracket solving
+applicability candidate != successful proof
+relevance category != theorem truth
+candidate ordering != theorem ranking
+```
+
+---
+
+# 2. 現在のレイヤー構造
+
+計算経路:
+
+```text
+expression / statement representation
+↓
+generic proof / inference mechanics
+↓
+Toda-specific theorem knowledge
+↓
+Proof Repository / rule catalog
+↓
+bounded proof search
+↓
+Toda group query / lookup
+↓
+calculation orchestration
+↓
+group result
+↓
+EHP / exactness provenance
+↓
+structured presentation
+↓
+human-readable proof report
+↓
+standard production repository
+↓
+calculation CLI
+```
+
+探索経路:
+
+```text
+generator string
+↓
+GeneratorSymbol
+↓
+standard production repository
+↓
+registered conclusion / recursive ProofStep ancestry
+↓
+generator occurrence
+↓
+Toda membership / known map relation
+```
+
+applicability discovery:
+
+```text
+generator string
+↓
+proof-scope exploration
+↓
+source statements
+↓
+indexed inference-rule premise-pattern matcher
+↓
+applicability candidate
+↓
+rule group
+↓
+rule family
+↓
+relevance category
+↓
+compact / detailed presentation
+```
+
+---
+
+# 3. 主要モジュール
+
+基礎:
+
+```text
+expression.py
+proof.py
+proof_repository.py
+rule_catalog.py
+repository_inference.py
+homotopy_groups.py
+toda_rules.py
+```
+
+計算 / provenance:
+
+```text
+toda_group_query.py
+toda_group_lookup.py
+toda_group_result.py
+toda_calculation_goal*.py
+toda_calculation.py
+toda_calculation_result.py
+toda_ehp_*.py
+toda_proof_dependency.py
+toda_explanation.py
+```
+
+generator / proof-scope exploration:
+
+```text
+generator_input.py
+structural_containment.py
+repository_element_lookup.py
+generator_occurrence_roles.py
+repository_element_exploration.py
+repository_proof_scope.py
+repository_proof_scope_exploration.py
+repository_proof_scope_facade.py
+repository_proof_scope_renderer.py
+```
+
+applicability discovery / relevance:
+
+```text
+rule_applicability.py
+repository_proof_scope_applicability.py
+repository_generator_applicability_facade.py
+repository_generator_applicability_presentation.py
+repository_generator_applicability_renderer.py
+standard_production_applicability_catalog.py
+rule_catalog.py
+```
+
+---
+
+# 4. Proof truth と metadata
+
+proof truth の中心:
+
+```text
+ProofStep.conclusion
+ProofStep.premises
+ProofStep.inference_rule
+```
+
+次は proof truth を追加しない:
+
+```text
+presentation
+renderer
+facade
+production repository
+CLI
+exploration
+generator resolver
+proof-scope traversal
+applicability candidate discovery
+relevance classification
+```
+
+---
+
+# 5. Repository read-only invariant
+
+query / calculation / reporting / exploration / applicability discovery は repository を read-only に扱う。
+
+```text
+before entries == after entries
+```
+
+必要な箇所では `ProofStep` identity も保持する。
+
+---
+
+# 6. Toda group query
+
+`TodaGroupQuery(n, k)` は
+
+$$
+\pi_{n+k}^n
+$$
+
+を query する。
+
+valid domain:
+
+```text
+n > 0
+k >= 0
+```
+
+---
+
+# 7. EHP / exactness provenance
+
+truth source は final theorem-backed `ProofStep` から reachable な ancestry。
+
+代表:
+
+$$
+\pi_{10}^9
+\xrightarrow{\Delta}
+\pi_8^4
+\xrightarrow{E}
+\pi_9^5
+\xrightarrow{H}
+\pi_9^9
+\xrightarrow{\Delta}
+\pi_7^4.
+$$
+
+---
+
+# 8. Generator input semantics
+
+`resolve_generator_input()` は explicit user input を exact `GeneratorSymbol` へ変換する。
+
+重要:
+
+```text
+unindexed generator != wildcard
+```
+
+free-form typo correctionや数学的同値判定は行わない。
+
+---
+
+# 9. Proof-scope traversal semantics
+
+`RepositoryProofScopeNode`:
+
+```text
+root_entry
+proof_step
+shortest_depth
+```
+
+invariant:
+
+```text
+depth 0 = root_entry.step
+
+same ProofStep identity under one root
+= one node at shortest depth
+
+same ProofStep identity under different roots
+= distinct provenance nodes
+
+cycle = safe termination
+
+repository = not mutated
+```
+
+---
+
+# 10. Toda membership / known map relation
+
+代表:
+
+$$
+\nu' \in \{\eta_3,2\iota_4,\eta_4\}_1
+$$
+
+$$
+H(\nu')=\eta_5.
+$$
+
+Toda membership discovery は bracket solving ではない。
+
+known map-relation discovery は一般 $E/H/\Delta$ evaluator ではない。
+
+---
+
+# 11. Applicability candidate semantics
+
+Phase 103 の applicability candidate は、proof-scope source statement が既存 inference rule の premise pattern と structural に compatible であることを表す。
+
+candidate は概念的に次を保持する:
+
+```text
+catalog_entry
+premise_index
+premise_pattern
+source_step
+bindings
+```
+
+重要:
+
+```text
+premise compatibility != all premises satisfied
+candidate discovery != rule execution
+candidate discovery != proof success
+candidate discovery != new theorem truth
+```
+
+---
+
+# 12. Rule group / rule family semantics
+
+presentation では candidate を:
+
+```text
+source statement
+↓
+catalog entry / rule group
+↓
+rule family
+```
+
+として整理する。
+
+同一 family に複数 catalog entry が存在しても、entry identity と premise index を失わない。
+
+---
+
+# 13. Relevance category semantics
+
+`RuleRelevanceCategory`:
+
+```text
+THEOREM_SPECIFIC
+MAP_PROPERTY
+STRUCTURAL
+GENERIC_RELATION
+BRIDGE
+UNCLASSIFIED
+```
+
+category は proof truth ではない。
+
+presentation order:
+
+```text
+THEOREM_SPECIFIC
+→ MAP_PROPERTY
+→ STRUCTURAL
+→ BRIDGE
+→ GENERIC_RELATION
+→ UNCLASSIFIED
+```
+
+これは proof strength、重要度、成功確率の ranking ではない。
+
+---
+
+# 14. Phase 103 closure invariants
+
+Phase 103 final catalog:
+
+```text
+catalog entries = 1188
+families = 267
+classified families = 158
+unclassified families = 109
+
+STRUCTURAL = 201
+MAP_PROPERTY = 60
+THEOREM_SPECIFIC = 424
+GENERIC_RELATION = 63
+BRIDGE = 140
+UNCLASSIFIED = 300
+```
+
+closure invariant:
+
+```text
+mixed-category families = 0
+strict nu-prime residual UNCLASSIFIED entries = 0
+residual factories = 109
+residual families = 109
+non-strict multi-family residual factories = 0
+```
+
+残る109 families / 300 entries は intentional closure-deferred residual である。
+
+---
+
+# 15. Phase 103 ν′ strict cluster
+
+Phase 103-6D108 で分類した strict `ν′` factories:
+
+```text
+MAP_PROPERTY
+toda_57_nu_prime_eta6_hopf_inference_rule
+toda_58_delta_iota9_nu4_nu_prime_inference_rule
+toda_prop59_nu_prime_eta6_squared_hopf_inference_rule
+
+THEOREM_SPECIFIC
+toda_prop56_e2_nu_prime_order_four_inference_rule
+toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
+toda_prop511_pi8_2_eta2_nu_prime_eta6_squared_inference_rule
+
+BRIDGE
+toda_lemma57_nu_prime_hypothesis_inference_rule
+toda_prop58_e_nu_prime_eta6_bridge_inference_rule
+```
+
+---
+
+# 16. CLI boundary
+
+```text
+python main.py 5 7
+python main.py explore "nu'"
+python main.py explore-proof nu_prime
+python main.py explore-applicable nu_prime
+python main.py explore-applicable nu_prime --detailed
+```
+
+既存 path を壊さない。
+
+---
+
+# 17. 現在の境界
+
+未実装:
+
+```text
+free-form natural-language search
+wildcard family search
+general composition evaluation
+general Toda-bracket solving
+general coset / indeterminacy computation
+general E / H / Δ evaluation
+automatic proof execution from applicability candidates
+automatic theorem ranking / recommendation
+recursive theorem solving beyond represented ancestry
+automatic enumeration of unstated consequences
+symbolic higher-range auto-instantiation
+general proof ranking
+classification of every residual applicability family
+Web UI
+odd-primary full integration
+all-primary ordinary sphere-homotopy calculation
+```
+
+---
+
+# 18. Completion baseline
+
+Phase 103 は COMPLETE。
+
+```text
+Phase 103-7 closure audit:
+PHASE103_7_CLOSURE_AUDIT = PASS
+
+Phase 103 regression:
+54 test files
+409 passed in 186.07s
+
+git diff --check:
+clean
+```

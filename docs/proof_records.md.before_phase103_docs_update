@@ -212,45 +212,6 @@ git diff --check:
 clean
 ```
 
-## Phase 103 applicable theorem / lemma discovery and relevance
-
-`docs/proof_records/applicable_theorem_relevance_103.md`
-
-Phase 103 は actual production proof scope に現れる statement と inference-rule premise pattern の compatibility を利用し、generator に関連する applicable theorem / lemma candidates を read-only に探索する capability を追加した。
-
-重要 invariant:
-
-```text
-applicability candidate != proof success
-relevance category != proof truth
-presentation order != theorem ranking
-candidate discovery = repository read-only
-```
-
-Phase 103 final catalog:
-
-```text
-catalog entries = 1188
-families = 267
-classified families = 158
-unclassified families = 109
-
-STRUCTURAL = 201
-MAP_PROPERTY = 60
-THEOREM_SPECIFIC = 424
-GENERIC_RELATION = 63
-BRIDGE = 140
-UNCLASSIFIED = 300
-```
-
-Phase 103-7:
-
-```text
-PHASE103_7_CLOSURE_AUDIT = PASS
-```
-
-Phase 103 は COMPLETE。
-
 ---
 
 # 記録原則
@@ -269,9 +230,6 @@ exploration result != new theorem truth
 proof-scope traversal != theorem search
 known relation discovery != map evaluation
 Toda membership discovery != bracket solving
-applicability candidate != successful proof
-relevance category != theorem truth
-candidate ordering != theorem ranking
 ```
 
 この文書群は、実装済み proof object と provenance を人間が追跡しやすくするための記録であり、独立した theorem database ではない。
