@@ -2325,17 +2325,6 @@ def _select_bounded_producer_chain_for_final_rule(
     )
   )
 
-  if final_availability.is_complete:
-    return BoundedProducerSearchResult(
-      goal=goal,
-      final_rule=final_rule,
-      final_availability=(
-        final_availability
-      ),
-      producer_nodes=(),
-      max_depth=max_depth,
-    )
-
   direct_lookups = (
     find_missing_premise_producer_lookups(
       final_availability,
