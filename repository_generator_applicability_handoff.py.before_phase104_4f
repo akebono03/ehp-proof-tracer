@@ -5,9 +5,7 @@ from repository_proof_scope_applicability import (
   RepositoryProofScopeApplicabilityCandidate,
 )
 from rule_catalog import (
-  InferenceRuleCatalog,
   InferenceRuleCatalogEntry,
-  find_goal_compatible_rule_entries,
 )
 
 
@@ -96,103 +94,3 @@ class RepositoryGeneratorApplicabilityHandoffValidation:
       raise ValueError(
         "failed validation must not contain an execution_entry"
       )
-
-
-def validate_repository_generator_applicability_handoff(
-  handoff,
-  execution_catalog,
-):
-  if not isinstance(
-    handoff,
-    RepositoryGeneratorApplicabilityCandidateHandoff,
-  ):
-    raise TypeError(
-      "handoff must be a "
-      "RepositoryGeneratorApplicabilityCandidateHandoff"
-    )
-
-  if not isinstance(
-    execution_catalog,
-    InferenceRuleCatalog,
-  ):
-    raise TypeError(
-      "execution_catalog must be an "
-      "InferenceRuleCatalog"
-    )
-
-  selected_rule = (
-    handoff
-    .candidate
-    .candidate
-    .inference_rule
-  )
-
-  same_rule_entries = tuple(
-    entry
-    for entry in execution_catalog.entries()
-    if entry.rule is selected_rule
-  )
-
-  if not same_rule_entries:
-    return (
-      RepositoryGeneratorApplicabilityHandoffValidation(
-        handoff=handoff,
-        status=(
-          RepositoryGeneratorApplicabilityHandoffValidationStatus
-          .RULE_NOT_IN_EXECUTION_CATALOG
-        ),
-      )
-    )
-
-  safe_same_rule_entries = tuple(
-    entry
-    for entry in same_rule_entries
-    if entry.fixed_point_safe
-  )
-
-  if not safe_same_rule_entries:
-    return (
-      RepositoryGeneratorApplicabilityHandoffValidation(
-        handoff=handoff,
-        status=(
-          RepositoryGeneratorApplicabilityHandoffValidationStatus
-          .RULE_NOT_FIXED_POINT_SAFE
-        ),
-      )
-    )
-
-  same_rule_catalog = InferenceRuleCatalog()
-
-  for entry in safe_same_rule_entries:
-    same_rule_catalog.register(
-      entry
-    )
-
-  goal_compatible_entries = (
-    find_goal_compatible_rule_entries(
-      same_rule_catalog,
-      handoff.goal,
-    )
-  )
-
-  if not goal_compatible_entries:
-    return (
-      RepositoryGeneratorApplicabilityHandoffValidation(
-        handoff=handoff,
-        status=(
-          RepositoryGeneratorApplicabilityHandoffValidationStatus
-          .GOAL_INCOMPATIBLE
-        ),
-      )
-    )
-
-  return RepositoryGeneratorApplicabilityHandoffValidation(
-    handoff=handoff,
-    status=(
-      RepositoryGeneratorApplicabilityHandoffValidationStatus
-      .READY
-    ),
-    execution_entry=goal_compatible_entries[
-      0
-    ],
-  )
