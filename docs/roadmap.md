@@ -13,7 +13,7 @@ production calculation:
 ```text
 raw n,k
 → python main.py n k
-  or build_standard_toda_report()
+  または build_standard_toda_report()
 → standard production repository
 → proof report
 ```
@@ -23,51 +23,43 @@ generator exploration:
 ```text
 generator string
 → top-level / recursive proof-scope exploration
-→ Toda memberships / known map relations
+→ Toda membership / 既知 map relation
 → applicable theorem / lemma candidates
-→ relevance-classified presentation
+→ relevance 分類済み presentation
 ```
 
-safe candidate consumption:
+standard production-qualified execution:
 
 ```text
-selected applicability candidate
+standard applicability result
 ↓
-explicit handoff
+qualified candidate filtering
 ↓
-execution-catalog validation
+execution-family grouping
 ↓
-READY
+explicit root_entry + source_step selection
 ↓
-explicit-final-rule bounded search
+family representative
 ↓
-prebuilt search report
+production execution orchestration
 ↓
-selected-path execution
-↓
-actual ProofStep provenance
+actual ProofStep
 ```
 
 最新確認:
 
 ```text
-Phase 104-4M focused:
-32 passed in 8.26s
+Phase 105-17 focused:
+8 passed in 142.33s
 
-repository-wide after Phase 104-4M:
-8641 passed in 381.78s
+Phase 105-7 / 10 / 14 / 16 / 17 related:
+40 passed in 174.89s
 
-Phase 104-4O focused:
-9 passed in 1.63s
-
-repository-wide after Phase 104-4P closure check:
-8644 passed in 374.63s
-
-Phase 104-4P:
-PASS — no residual production implementation required
+repository-wide Phase 105 closure:
+8709 passed in 659.02s
 ```
 
-Phase 104 は COMPLETE。
+Phase 105 は COMPLETE。
 
 ---
 
@@ -86,92 +78,46 @@ readable full proof report
 raw n,k facade
 ```
 
-Phase 99:
+Phase 99–104:
 
 ```text
 structural generator containment
 repository occurrence lookup
 semantic roles
-element exploration
-grouped Markdown
-repository-explicit one-shot facade
-```
-
-Phase 100:
-
-```text
+generator exploration
 standard production repository
-repository-free calculation facade
-minimal calculation CLI
-production calculation closure
-```
-
-Phase 101:
-
-```text
-production generator-input audit
-production top-level exploration facade
-aggregate occurrence presentation bridge
-main.py explore dispatch
-alias / indexed / zero / invalid validation
-deterministic structural occurrence semantics
-repository non-mutation
-CLI boundary regression
-legacy n,k compatibility
-```
-
-Phase 102:
-
-```text
-theorem-pattern exploration
-Toda membership filtering
-known map-relation exploration
-recursive proof-scope traversal
-ancestry semantic exploration
-production proof-scope facade
-main.py explore-proof
-end-to-end validation
-```
-
-Phase 103:
-
-```text
-applicability candidate representation
-indexed premise-pattern compatibility search
-proof-scope applicability integration
-production applicability facade
-rule-group / rule-family presentation
-compact / detailed renderer
-main.py explore-applicable
-RuleRelevanceCategory metadata
-production relevance classification
-final closure audit
-```
-
-Phase 104:
-
-```text
-candidate filtering / reduction
-source-scoped candidate selection
-rule-family selection
-candidate handoff representation
-execution-catalog validation
-READY boundary
+calculation CLI
+production generator-input handling
+recursive proof-scope exploration
+Toda membership / known map relation discovery
+applicability discovery
+relevance classification
+candidate handoff
+READY validation
 explicit-final-rule bounded search
-READY search-report adapter
-prebuilt-search-report shared execution core
-READY execution adapter
-report identity preservation
-selected producer-path preservation
-final-rule identity preservation
+prebuilt-report execution
 actual ProofStep provenance
-end-to-end provenance regression
-closure audit
+```
+
+Phase 105:
+
+```text
+production execution-safety pressure audit
+exact source-step execution seed
+first qualified production execution entry
+candidate execution orchestration
+qualified NONE / UNIQUE / AMBIGUOUS representation
+execution-family clone audit
+execution-family grouping
+root/source disambiguation audit
+explicit root + source family selection
+standard applicability-to-execution facade
+repository-wide closure regression
 ```
 
 ---
 
-# 3. 現在の user-facing APIs
+# 3. 現在の user-facing API
 
 calculation:
 
@@ -181,7 +127,7 @@ build_standard_toda_report(n, k)
 python main.py n k
 ```
 
-top-level generator exploration:
+generator exploration:
 
 ```text
 explore_repository_generator(repository, generator)
@@ -205,185 +151,166 @@ python main.py explore-applicable nu_prime
 python main.py explore-applicable nu_prime --detailed
 ```
 
-Phase 104 の handoff / execution path は現在 Python infrastructure capability であり、新しい CLI は追加していない。
+qualified execution facade:
+
+```text
+execute_standard_repository_generator_applicability_result_by_root_and_source(
+  applicability_result,
+  root_entry,
+  source_step,
+  goal,
+  max_depth=2,
+  retry_policy=None,
+)
+```
+
+qualified execution は現在 Python infrastructure capability であり、新しい CLI はない。
 
 ---
 
-# 4. Phase 104 で確定した境界
-
-次を分離する。
+# 4. Phase 105 で確定した境界
 
 ```text
-applicability candidate != proof success
-relevance category != theorem ranking
-candidate filtering != theorem ranking
-candidate selection != proof success
-candidate handoff != automatic proof execution
+relevance
+!=
+execution qualification
 ```
 
-READY validation は:
+standard `nu_prime` applicability:
 
 ```text
-selected rule identity
-execution catalog membership
-fixed-point-safe metadata
-goal compatibility
+qualified raw candidates = 744
+execution-family groups = 248
+unique source-step identities = 124
 ```
 
-のみを確認する。
+同一 source 上の3つの qualified candidate は、factory / rule signature / entry metadata が同じだが、rule identity / catalog-entry identity が異なる。
 
-bounded search が確定した後、execution は:
+したがって:
 
 ```text
-same report
-same producer_nodes
-same final_rule
+raw applicability catalog
+→ 保持
+
+execution selection layer
+→ family grouping
 ```
 
-を消費し、search を再実行しない。
+とする。
 
-最重要 identity:
+さらに:
 
 ```text
-candidate rule
-is validation.execution_entry.rule
-is search_result.final_rule
-is goal_step.inference_rule
+root only
+→ 一意ではない
+
+source_step only
+→ 一意ではない
+
+shortest_depth
+→ selection policy にしない
+
+root_entry identity + source_step identity
+→ 248 group すべてで一意
 ```
 
-および:
-
-```text
-execution_result.report
-is search_report.report
-```
+Phase 105 はこの explicit selection を production facade に接続した。
 
 ---
 
-# 5. 次の自然な候補
+# 5. 次 Phase の開始境界
 
-Phase 104 で applicability candidate の安全な bounded execution まで closure した。
+Phase 105 は first qualified production rule family の end-to-end integration まで完了した。
 
-次は、この capability をさらに広げる前に**実際の production workflow で次に不足しているものを監査する**。
+次 Phase では、機能を無条件に一般化せず、まず **どの拡張圧力が実際に必要か** を監査する。
 
 自然な開始点:
 
 ```text
-Phase 105-1
-post-handoff production workflow / next-capability pressure audit
+Phase 106-1
+post-Phase105 qualified-execution expansion pressure audit
 ```
 
 監査候補:
 
 ```text
-Phase 104 handoff/execution capability を
-どの production workflow から実際に利用するか
+1. qualified production rule family を
+   1 family から複数 family へ広げる必要があるか
 
-derived-but-not-explicit result discovery への圧力があるか
+2. explicit root/source selection を
+   user-facing workflow からどう指定するか
 
-user-facing orchestration が本当に必要か
+3. goal を呼び出し側が与える現在の境界を
+   維持すべきか、goal discovery が必要か
 
-execution result を既存 calculation / exploration result と
-どこまで統合すべきか
+4. execution CLI が本当に必要か
+
+5. execution result を calculation / exploration presentation に
+   接続する実需要があるか
 ```
 
-Phase 105-1 では先に実装せず、actual pressure を確認する。
+Phase 106-1 では実装を先取りせず、actual pressure を確認してから最小境界を決める。
 
 ---
 
-# 6. Deferred：derived-but-not-explicit result discovery
+# 6. Deferred：複数 production rule family の qualification
 
-Phase 102 は actual proof ancestry に既に存在する `ProofStep` discovery。
-
-Phase 103 はそこから applicable candidate discovery。
-
-Phase 104 は明示的に選択された candidate の bounded execution。
-
-今後は必要性が確認された場合のみ:
+現在 production-qualified な family は
 
 ```text
-already represented but not root-visible
+toda_58_delta_iota9_nu4_nu_prime_inference_rule
 ```
 
-と
+のみである。
+
+今後 family を増やす場合は、各 family ごとに
 
 ```text
-not yet derived but derivable through validated bounded execution
+actual production source
+execution safety
+goal compatibility
+required seed context
+rule identity preservation
+producer-search behavior
 ```
 
-を明確に分離した production workflow を検討する。
+を確認する。
+
+relevance category を qualification の根拠にしない。
 
 ---
 
-# 7. Deferred：Toda bracket evaluation
+# 7. Deferred：goal discovery
 
-Phase 102 で membership discovery は実装済み。
+現在の production execution facade は `goal` を明示入力とする。
 
 未実装:
 
 ```text
+source candidate から goal を自動推定
+unknown RHS を含む target search
+複数 goal 候補の ranking
+```
+
+---
+
+# 8. Deferred：数学的 evaluator
+
+未実装:
+
+```text
+general Toda-bracket solver
 bracket value computation
-general bracket solver
-indeterminacy computation
-coset normalization
+indeterminacy / coset normalization
+general composition evaluation
+general E(x) / H(x) / Δ(x) evaluation
 ```
 
-existing theorem-specific bracket statements を general solver とみなさない。
+既知 relation / membership の探索とは分離する。
 
 ---
 
-# 8. Deferred：map evaluation
-
-Phase 102 で known relation discovery は実装済み。
-
-未実装:
-
-```text
-E(x) の一般評価
-H(x) の一般評価
-Δ(x) の一般評価
-unknown map-image inference
-```
-
-既知 `Relation(MapApplication(...), ...)` の検索とは分離する。
-
----
-
-# 9. Deferred：coset / indeterminacy
-
-```text
-subgroup representation
-coset representative
-modulo relation
-indeterminacy subgroup
-normalization
-```
-
-は actual mathematical pressure が出てから設計する。
-
----
-
-# 10. Deferred：composition evaluation
-
-known composition relation lookup から開始し、general composition calculator を先取りしない。
-
----
-
-# 11. Deferred：symbolic higher-range instantiation
-
-$$
-\pi_{n+3}^n=\mathbb Z/8\{\nu_n\},
-\qquad
-\pi_{n+6}^n=\mathbb Z/2\{\nu_n^2\},
-\qquad
-\pi_{n+7}^n=\mathbb Z/16\{\sigma_n\}
-$$
-
-の concrete specialization は別 capability。
-
----
-
-# 12. Deferred：proof optimization
+# 9. Deferred：proof optimization
 
 ```text
 general backtracking
@@ -394,13 +321,11 @@ best-proof selection
 persistent proof cache
 ```
 
-actual pressure が出るまで deferred。
+actual pressure が出るまで deferred とする。
 
 ---
 
-# 13. Deferred：repository versioning
-
-Phase 104 の prebuilt search-report execution は、同じ workflow 内で report をそのまま消費するところまで。
+# 10. Deferred：repository versioning
 
 未実装:
 
@@ -412,36 +337,24 @@ REPOSITORY_CHANGED
 cross-session execution-plan persistence
 ```
 
-これらは actual concurrency / persistence pressure が出てから扱う。
-
 ---
 
-# 14. Deferred：user interfaces
-
-実装済み:
-
-```text
-minimal calculation CLI
-minimal top-level generator-exploration CLI
-minimal recursive proof-scope CLI
-applicability exploration CLI
-```
+# 11. Deferred：user interface
 
 将来候補:
 
 ```text
-Phase 104 execution workflow の user-facing orchestration
+qualified execution workflow の user-facing orchestration
+execution CLI
 Web UI
 structured export
 interactive proof graph
 filterable exploration UI
 ```
 
-user-facing execution は Phase 105-1 監査で必要性を確認するまで実装しない。
-
 ---
 
-# 15. Deferred：mathematical scope
+# 12. Deferred：mathematical scope
 
 ```text
 odd-primary integration
@@ -452,24 +365,21 @@ all-primary ordinary sphere-homotopy calculation
 
 ---
 
-# 16. 直近の次作業
-
-Phase 104 は COMPLETE。
-
-次候補:
+# 13. 直近の次作業
 
 ```text
-Phase 105-1
-post-handoff production workflow / next-capability pressure audit
+Phase 106-1
+post-Phase105 qualified-execution expansion pressure audit
 ```
 
-目的は、Phase 104 で完成した
+目的は Phase 105 の first-family integration をそのまま一般化することではなく、
 
 ```text
-selected candidate
-→ READY
-→ bounded search
-→ actual execution
+複数 family qualification
+user-facing root/source selection
+goal discovery
+execution CLI
+result presentation integration
 ```
 
-を無条件に user-facing 化することではなく、次に本当に必要な production capability を監査して最小境界を決めることである。
+のどれが次に本当に必要かを監査し、最小の Phase 106 境界を決めることである。

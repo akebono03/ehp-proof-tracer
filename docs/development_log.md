@@ -3,49 +3,49 @@
 この文書は開発履歴の索引である。
 
 現在の仕様・設計は `README.md` と `docs/design.md` を優先する。
-今後の計画は `docs/roadmap.md`、代表的な数学的証明・infrastructure 記録は `docs/proof_records.md` を参照する。
+今後の計画は `docs/roadmap.md`、代表的な数学的証明・証明基盤の記録は `docs/proof_records.md` を参照する。
 
 過去の詳細な開発記録は、内容を削除せず `docs/development_log/` 以下へ分割して保存する。
 
 ---
 
-# 開発履歴 archive
+# 開発履歴アーカイブ
 
 ## Phase 1–48
 
 `docs/development_log/phases_001_048.md`
 
-可換群計算、generic inference、EHP、Toda の基礎表現から Proposition 4.4 周辺まで。
+可換群計算、汎用推論、EHP、Toda の基礎表現から Proposition 4.4 周辺まで。
 
 ## Phase 49–64
 
 `docs/development_log/phases_049_064.md`
 
-$\pi_3^2$、$\pi_4^3$、Toda Proposition 5.1、Lemma 5.2、$\nu'$、$\nu_4$、$\nu$-family、performance stabilization まで。
+$\pi_3^2$、$\pi_4^3$、Toda Proposition 5.1、Lemma 5.2、$\nu'$、$\nu_4$、$\nu$-family、性能安定化まで。
 
 ## Phase 65–78
 
 `docs/development_log/phases_065_078.md`
 
-Toda Proposition 5.6 から Lemma 5.16、stable $G_0$ through $G_7$ までの主要 mathematical proof spine。
+Toda Proposition 5.6 から Lemma 5.16、stable $G_0$ から $G_7$ までの主要な数学的証明経路。
 
 ## Phase 79–89
 
 `docs/development_log/phases_079_089.md`
 
-Proof Repository、automatic inference、rule selection、bounded producer search、diagnostics、depth parameterization、finite retry、concrete theorem-instance compatibility まで。
+Proof Repository、repository-assisted inference、自動 rule 選択、bounded producer search、診断、depth parameterization、有限 retry、具体的 theorem-instance compatibility まで。
 
 ## Phase 90–95
 
 `docs/development_log/phases_090_095.md`
 
-Toda group query、normalized group result、EHP provenance、flat / recursive proof provenance、calculation orchestration の記録。Phase 95 completion record を含む。
+Toda group query、正規化済み group result、EHP provenance、flat / recursive proof provenance、計算オーケストレーションの記録。Phase 95 完了記録を含む。
 
 ## Phase 96
 
 `docs/development_log/phases_096.md`
 
-structured presentation、EHP / exactness presentation、proof source presentation、dependency-first proof flow、代表 target 展開、Markdown / LaTeX renderer、readable narrative、unified full proof report、final audit の記録。
+構造化 presentation、EHP / exactness presentation、proof source presentation、依存関係順の proof flow、Markdown / LaTeX renderer、読みやすい narrative、統合 full proof report、最終監査の記録。
 
 Phase 96 は COMPLETE。
 
@@ -53,166 +53,69 @@ Phase 96 は COMPLETE。
 
 `docs/development_log/phases_097.md`
 
-calculation-to-report orchestration boundary audit、minimal top-level report result representation、single `FOUND` API、`NOT_FOUND / FOUND / MULTIPLE_RESULTS` handling、actual representative six-target top-level validation、final audit の記録。
+calculation-to-report オーケストレーション境界監査、最小 top-level report result 表現、`NOT_FOUND / FOUND / MULTIPLE_RESULTS` 処理、代表6 target の top-level validation、最終監査の記録。
 
 Phase 97 は COMPLETE。
 
-最終確認:
-
 ```text
-Phase 97-5 focused:
-8 passed in 9.99s
-
-Phase 97 related:
-32 passed in 9.44s
-
 repository-wide:
 7609 passed in 121.63s
-
-git diff --check:
-clean
 ```
 
 ## Phase 98
 
 `docs/development_log/phases_098.md`
 
-user-facing convenience pressure audit、raw `n,k` thin facade、actual-use facade validation、single `FOUND` report access、ordered report collection access、representative shortest-path validation、final audit の記録。
+user-facing convenience の必要性監査、raw `n,k` thin facade、single `FOUND` report access、順序保持した report collection access、代表経路の validation、最終監査の記録。
 
 Phase 98 は COMPLETE。
 
-最終確認:
-
 ```text
-Phase 98-6 focused:
-8 passed in 8.64s
-
-Phase 98 related:
-27 passed in 9.94s
-
 repository-wide:
 7643 passed in 123.73s
-
-git diff --check:
-clean
 ```
 
 ## Phase 99
 
 Phase 99 は element-centered repository exploration を段階的に追加した。
 
-中心 capability:
-
 ```text
-GeneratorSymbol structural containment
-→ structural occurrence path
-→ repository-wide occurrence lookup
-→ semantic role classification
+GeneratorSymbol の構造的包含
+→ 構造的 occurrence path
+→ repository 全体の occurrence lookup
+→ semantic role 分類
 → element-centered exploration
 → grouped presentation
 → Markdown rendering
 → one-shot exploration facade
 ```
 
-主要な段階:
-
-```text
-Phase 99-1
-current exploration / query capability pressure audit
-
-Phase 99-3
-structural generator containment
-
-Phase 99-8
-repository-level occurrence result / lookup
-
-Phase 99-10
-generator occurrence semantic role
-
-Phase 99-15
-element-centered exploration
-
-Phase 99-20
-grouped exploration presentation
-
-Phase 99-21
-minimal exploration Markdown
-
-Phase 99-22
-one-shot element exploration facade / end-to-end API audit
-
-Phase 99-23
-minimal one-shot element exploration facade implementation
-
-Phase 99-24
-actual-repository integration validation
-
-Phase 99-25
-robustness / boundary audit
-
-Phase 99-26
-minimal facade boundary regression tests
-
-Phase 99-27
-final audit / documentation
-```
-
 Phase 99 は COMPLETE。
 
-最終確認:
-
 ```text
-Phase 99-24 actual-repository integration:
-13 passed in 4.59s
-
-Phase 99-26 boundary regression:
-12 passed in 5.70s
-
 repository-wide:
 7824 passed in 136.59s
-
-git diff --check:
-clean
 ```
 
 ## Phase 100
 
-Phase 100 では user-facing production path を構成するため、既存 theorem-backed bootstrap を標準 production repository へ統合し、repository-free facade と minimal CLI へ接続した。
-
-production path:
+Phase 100 では既存 theorem-backed bootstrap を standard production repository へ統合し、repository-free facade と minimal CLI へ接続した。
 
 ```text
 raw n,k
-↓
-build_standard_toda_report(n,k)
-or
-python main.py n k
-↓
-standard production repository
-↓
-existing build_toda_report(repository,n,k)
-↓
-TodaCalculationReportResult
-↓
-human-readable proof report
+→ build_standard_toda_report(n,k)
+  または python main.py n k
+→ standard production repository
+→ existing build_toda_report(repository,n,k)
+→ TodaCalculationReportResult
+→ 人間向け proof report
 ```
 
-Phase 100-12 production user-facing path は COMPLETE。
-
-最終確認:
+Phase 100-12 は COMPLETE。
 
 ```text
-Phase 100-12C-1 related:
-38 passed in 9.07s
-
-Phase 100-12C-4 related:
-21 passed in 9.74s
-
 repository-wide:
 8010 passed in 179.65s
-
-git diff --check:
-clean
 ```
 
 ## Phase 101
@@ -230,110 +133,20 @@ generator string
 → main.py explore
 ```
 
-主要段階:
-
-```text
-Phase 101-1
-production-input / CLI pressure audit
-
-Phase 101-2
-production element-exploration one-shot facade
-+ production aggregate occurrence presentation bridge
-
-Phase 101-3
-main.py minimal explore dispatch
-
-Phase 101-4
-production exploration validation
-
-Phase 101-5
-CLI boundary / alias / unknown regression
-
-Phase 101-6
-final audit / documentation
-```
-
 Phase 101 は COMPLETE。
 
-最終確認:
-
 ```text
-Phase 101-2 related:
-108 passed in 9.43s
-
-Phase 101-4 related:
-104 passed in 11.12s
-
-Phase 101-5 related:
-57 passed in 8.49s
-
 repository-wide:
 8058 passed in 133.01s
-
-git diff --check:
-clean
 ```
 
 ## Phase 102
 
 `docs/development_log/phases_102.md`
 
-Phase 102 は top-level registered conclusion exploration を actual production proof ancestry へ拡張し、Toda membership と known map relation を read-only に探索する capability を追加した。
+Phase 102 は top-level registered conclusion exploration を actual production proof ancestry へ拡張し、Toda membership と既知 map relation を read-only に探索する capability を追加した。
 
-主要段階:
-
-```text
-Phase 102-1
-production search-scope / relation-pattern audit
-
-Phase 102-2
-minimal theorem-pattern exploration result
-
-Phase 102-3
-Toda bracket / membership filter
-
-Phase 102-4
-known map-relation exploration
-
-Phase 102-5
-production search-scope integration audit
-
-Phase 102-5A
-minimal production proof-scope traversal
-
-Phase 102-5B
-Toda membership / map-relation ancestry integration
-
-Phase 102-6
-production proof-scope facade
-
-Phase 102-7
-CLI / validation / final audit
-```
-
-production path:
-
-```text
-generator string
-↓
-resolve_generator_input()
-↓
-standard production repository
-↓
-registered root entry
-↓
-recursive ProofStep.premises ancestry
-↓
-generator occurrences
-↓
-Toda memberships / known map relations
-↓
-structured result
-↓
-python main.py explore-proof
-```
-
-代表 production ancestry では:
+代表結果:
 
 $$
 \nu' \in \{\eta_3,2\iota_4,\eta_4\}_1
@@ -345,37 +158,18 @@ $$
 H(\nu')=\eta_5
 $$
 
-を取得できることを確認した。
-
 Phase 102 は COMPLETE。
 
-最終確認:
-
 ```text
-Phase 102-5A focused:
-11 passed in 4.67s
-
-Phase 102-5B focused:
-22 passed in 10.29s
-
-Phase 102-6 focused:
-42 passed in 23.46s
-
-Phase 102-6 related:
-89 passed in 23.32s
-
 repository-wide after Phase 102-7:
 8142 passed in 129.93s
-
-git diff --check:
-clean
 ```
 
 ## Phase 103
 
 `docs/development_log/phases_103.md`
 
-Phase 103 は Phase 102 の proof-scope exploration を、既存 inference-rule catalog に対する applicable theorem / lemma candidate discovery へ接続した。
+Phase 103 は proof-scope exploration を applicable theorem / lemma candidate discovery へ接続した。
 
 ```text
 generator
@@ -416,28 +210,17 @@ BRIDGE = 140
 UNCLASSIFIED = 300
 ```
 
-Phase 103-7:
-
-```text
-PHASE103_7_CLOSURE_AUDIT = PASS
-```
-
 Phase 103 は COMPLETE。
-
-最終確認:
 
 ```text
 Phase 103 regression:
 54 test files
 409 passed in 186.07s
-
-git diff --check:
-clean
 ```
 
 ## Phase 104
 
-Phase 104 は Phase 103 の relevance-classified applicability candidate を、theorem ranking や automatic unbounded execution に拡張せず、既存 bounded proof-search infrastructure へ安全に接続する capability を段階的に実装した。
+Phase 104 は relevance-classified applicability candidate を、theorem ranking や automatic unbounded execution に拡張せず、既存 bounded proof-search infrastructure へ安全に接続した。
 
 中心経路:
 
@@ -460,58 +243,12 @@ prebuilt search report
 ↓
 selected producer path
 ↓
-selected final rule
-↓
 actual execution
 ↓
 ProofStep provenance
 ```
 
-主要な段階:
-
-```text
-Phase 104-1
-post-applicability consumption / handoff pressure audit
-
-Phase 104-2
-candidate selection / relevance filtering representation
-
-Phase 104-3
-source-scoped candidate / rule-family selection
-
-Phase 104-4C
-candidate handoff representation
-
-Phase 104-4E / 4F
-handoff validation representation and execution-catalog validation
-
-Phase 104-4I
-explicit-final-rule bounded search core
-
-Phase 104-4K
-READY handoff → bounded search-report adapter
-
-Phase 104-4L
-prebuilt search-report execution boundary audit
-
-Phase 104-4M
-shared prebuilt-search-report execution core
-+ READY execution adapter
-
-Phase 104-4N
-READY handoff → search → execution end-to-end provenance audit
-
-Phase 104-4O
-end-to-end provenance regression coverage
-
-Phase 104-4P
-post-execution closure / residual boundary audit
-
-Phase 104-4Q
-final closure documentation
-```
-
-Phase 104 で固定した主要 invariant:
+主要不変条件:
 
 ```text
 candidate filtering != theorem ranking
@@ -531,50 +268,165 @@ execution_result.report
 is search_report.report
 ```
 
-selected producer について:
+Phase 104 は COMPLETE。
 
 ```text
-producer_node.producer_rule
-is executed_producer_step.inference_rule
-```
-
-execution 時には次を再実行しない。
-
-```text
-final-rule selection
-producer lookup
-bounded search
-retry selection
-execution-catalog selection
-```
-
-`GOAL_ALREADY_AVAILABLE` は validation provenance を保持するが inference rule を実行しない。
-
-repository snapshot/versioning、stale-report detection、theorem ranking、proof-cost optimization は Phase 104 の範囲外として保持した。
-
-最終確認:
-
-```text
-Phase 104-4M focused:
-32 passed in 8.26s
-
-repository-wide after Phase 104-4M:
-8641 passed in 381.78s
-
-Phase 104-4O focused:
-9 passed in 1.63s
-
 repository-wide after Phase 104-4P closure check:
 8644 passed in 374.63s
 ```
 
-Phase 104-4P:
+## Phase 105
+
+Phase 105 は、Phase 104 で完成した selected applicability candidate の bounded execution capability を、**実際の standard production applicability workflow に接続できるか**を監査し、最初の qualified production rule family について end-to-end integration を完成させた。
+
+基本方針:
 
 ```text
-PASS — no residual production implementation required
+relevance classification
+!=
+execution safety qualification
 ```
 
-Phase 104 は COMPLETE。
+主要段階:
+
+```text
+Phase 105-1 / 105-2
+production workflow pressure と safe-catalog 境界監査
+
+Phase 105-3 / 105-4
+Toda Equation (5.8) rule の execution safety と source provenance 監査
+
+Phase 105-5
+exact source ProofStep を使う execution-seed repository adapter
+
+Phase 105-6
+最初の qualified production execution entry / catalog adapter
+
+Phase 105-7
+candidate → seed → execution catalog → handoff → search → execution
+
+Phase 105-8
+selection boundary 監査
+
+Phase 105-9
+qualified candidate filtering と NONE / UNIQUE / AMBIGUOUS 表現
+
+Phase 105-10
+UNIQUE qualified candidate → orchestration handoff
+
+Phase 105-11
+standard applicability → qualified selection → handoff 境界監査
+
+Phase 105-12
+source-identity deduplication / disambiguation 境界監査
+
+Phase 105-13
+qualified rule-equivalence / repeated catalog-entry provenance 監査
+
+Phase 105-14
+qualified execution-family grouping / representative selection 実装
+
+Phase 105-15
+root/source scoped disambiguation 監査
+
+Phase 105-16
+explicit root + source scoped family selection 実装
+
+Phase 105-17
+standard applicability → qualified grouping → explicit selection → execution facade integration
+
+Phase 105-18
+final documentation / closure
+```
+
+Phase 105-12 の監査:
+
+```text
+qualified candidates = 744
+source+rule-name groups = 248
+scope+source groups = 248
+unique source-step identities = 124
+```
+
+Phase 105-13:
+
+```text
+same factory
+same rule signature
+same entry metadata signature
+different entry identity
+different rule identity
+```
+
+そのため raw applicability catalog は保持し、execution selection 層で family grouping した。
+
+```text
+744 raw qualified candidates
+↓
+248 execution-family groups
+```
+
+Phase 105-15:
+
+```text
+root-only unique = False
+source-step-only unique = False
+root+source unique = True
+```
+
+global minimum depth にも6 group が残るため、`shortest_depth` を暗黙の選択規則にしない。
+
+Phase 105-16 では
+
+```text
+explicit root_entry identity
++
+explicit source_step identity
+```
+
+で execution-family group を0件または1件へ絞る API を実装した。
+
+Phase 105-17 では
+
+```text
+standard applicability result
+→ qualified filtering
+→ execution-family grouping
+→ explicit root + source selection
+→ representative candidate
+→ production execution orchestration
+→ actual ProofStep
+```
+
+までを1本の facade に接続した。
+
+Phase 105 で実装しなかったもの:
+
+```text
+automatic root selection
+automatic source selection
+shortest-depth ranking
+theorem ranking
+automatic goal discovery
+new execution CLI
+general qualification of every production rule family
+raw applicability-catalog deduplication
+```
+
+最終確認:
+
+```text
+Phase 105-17 focused:
+8 passed in 142.33s
+
+Phase 105-7 / 10 / 14 / 16 / 17 related:
+40 passed in 174.89s
+
+repository-wide Phase 105 closure:
+8709 passed in 659.02s
+```
+
+Phase 105 は COMPLETE。
 
 ---
 
