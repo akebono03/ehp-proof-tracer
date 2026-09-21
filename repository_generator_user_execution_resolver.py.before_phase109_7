@@ -360,24 +360,13 @@ def resolve_standard_repository_generator_executable_targets_input(
     ) != 1:
       continue
 
-    target = (
+    targets.append(
       RepositoryGeneratorExecutableTarget(
         group=group,
         target_step=matching_target_steps[
           0
         ],
       )
-    )
-
-    if any(
-      target.goal
-      == existing_target.goal
-      for existing_target in targets
-    ):
-      continue
-
-    targets.append(
-      target
     )
 
   return StandardRepositoryGeneratorExecutableTargetResolution(

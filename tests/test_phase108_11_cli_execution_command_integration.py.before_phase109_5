@@ -23,8 +23,7 @@ def test_phase108_11_execute_ambiguous_renders_candidate_list(
     ),
   )
 
-  fake_known_group_presentation = object()
-  fake_candidate_presentation = object()
+  fake_presentation = object()
 
   def fake_workflow(
     generator_input,
@@ -50,33 +49,10 @@ def test_phase108_11_execute_ambiguous_renders_candidate_list(
   monkeypatch.setattr(
     cli_main,
     (
-      "build_standard_repository_generator_"
-      "known_group_identity_presentation_input"
-    ),
-    lambda generator_input: fake_known_group_presentation,
-  )
-
-  monkeypatch.setattr(
-    cli_main,
-    (
-      "render_repository_generator_"
-      "known_group_identity_markdown"
-    ),
-    lambda presentation: (
-      "# Generator\n\n"
-      "$\\nu'$\n\n"
-      "# Known group\n\n"
-      "$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$\n"
-    ),
-  )
-
-  monkeypatch.setattr(
-    cli_main,
-    (
       "build_repository_generator_user_"
       "execution_candidate_list_presentation"
     ),
-    lambda result: fake_candidate_presentation,
+    lambda result: fake_presentation,
   )
 
   monkeypatch.setattr(
@@ -111,11 +87,6 @@ def test_phase108_11_execute_ambiguous_renders_candidate_list(
   ]
 
   assert captured.out == (
-    "# Generator\n\n"
-    "$\\nu'$\n\n"
-    "# Known group\n\n"
-    "$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$\n"
-    "\n"
     "# Executable candidates\n\n"
     "1. target one\n"
     "2. target two\n"

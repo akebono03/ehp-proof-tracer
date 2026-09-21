@@ -340,14 +340,6 @@ def render_toda_expression_latex(
     expression,
     Multiple,
   ):
-    if expression.coefficient == -1:
-      return (
-        "-"
-        + render_toda_expression_latex(
-          expression.expression
-        )
-      )
-
     coefficient = (
       _render_scalar_latex(
         expression.coefficient
@@ -365,51 +357,10 @@ def render_toda_expression_latex(
     expression,
     Sum,
   ):
-    left_latex = (
+    return (
       render_toda_expression_latex(
         expression.left
       )
-    )
-
-    if (
-      isinstance(
-        expression.right,
-        Multiple,
-      )
-      and isinstance(
-        expression.right.coefficient,
-        int,
-      )
-      and not isinstance(
-        expression.right.coefficient,
-        bool,
-      )
-      and expression.right.coefficient < 0
-    ):
-      magnitude = -expression.right.coefficient
-
-      right_latex = (
-        render_toda_expression_latex(
-          expression.right.expression
-        )
-      )
-
-      if magnitude != 1:
-        right_latex = (
-          str(
-            magnitude
-          )
-          + right_latex
-        )
-
-      return (
-        left_latex
-        + " - "
-        + right_latex
-      )
-
-    return (
-      left_latex
       + " + "
       + render_toda_expression_latex(
         expression.right
