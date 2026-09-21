@@ -126,52 +126,22 @@ def _parse_nonnegative_int(
 def build_argument_parser(
 ) -> argparse.ArgumentParser:
   parser = argparse.ArgumentParser(
-    prog="main.py",
     description=(
       "Build a Toda homotopy-group proof report "
       "from the standard production repository."
-    ),
-    formatter_class=(
-      argparse.RawDescriptionHelpFormatter
-    ),
-    epilog=(
-      "Other commands:\n"
-      "  explore             find repository occurrences "
-      "of one generator\n"
-      "  explore-proof       explore recursive proof ancestry "
-      "for one generator\n"
-      "  explore-applicable  find applicable theorem / lemma "
-      "candidates\n"
-      "  show-proof          replay the known-group proof "
-      "for one generator\n"
-      "  execute             execute one qualified theorem / "
-      "lemma target\n"
-      "  query               look up an existing operation "
-      "fact\n"
-      "  query-proof         replay one selected operation "
-      "fact proof\n"
-      "\n"
-      "Use 'python main.py <command> --help' "
-      "for command-specific help."
     ),
   )
 
   parser.add_argument(
     "n",
     type=_parse_positive_int,
-    help=(
-      "sphere dimension n for the project quantity "
-      "pi_{n+k}^n"
-    ),
+    help="sphere dimension n",
   )
 
   parser.add_argument(
     "k",
     type=_parse_nonnegative_int,
-    help=(
-      "stem k for the project quantity pi_{n+k}^n "
-      "(free part plus 2-primary component)"
-    ),
+    help="stem k for pi_{n+k}(S^n)",
   )
 
   return parser
