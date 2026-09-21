@@ -225,6 +225,18 @@ goal は caller-explicit。
 
 companion premise は exact production-application recovery から取得する。
 
+### Deferred
+
+```text
+automatic root/source/family selection
+automatic goal discovery
+theorem ranking
+execution CLI
+execution-result presentation
+third qualified family
+persistent cache / parallelization
+```
+
 ### Closure
 
 ```text
@@ -239,118 +251,6 @@ repository-wide:
 ```
 
 Phase 107 は完了。
-
-## Phase 108 user-facing execution provenance
-
-Phase 108 は新しい数学的 theorem truth を追加していない。
-
-Phase 107 までに実装済みの qualified execution と actual `ProofStep` provenance を、数学的 generator input から利用できる user-facing path に接続した。
-
-### Executable-target resolution
-
-resolver は generator applicability の qualified family group から original target `ProofStep` を照合する。
-
-照合条件:
-
-```text
-root_entry identity
-inference_rule identity
-candidate premise_index
-candidate source_step identity
-```
-
-target が一意に照合できる場合だけ executable target として採用する。
-
-### Ambiguity safety
-
-```text
-0 targets
-→ NONE
-
-1 target
-→ candidate number 省略時に自動実行可能
-
-multiple targets
-→ candidate number 省略時は AMBIGUOUS
-→ 自動で先頭を選ばない
-```
-
-candidate number は 1-based addressing であり theorem ranking ではない。
-
-### Final executed ProofStep
-
-user-facing result は repository の original target step を直接 presentation しない。
-
-実際の execution が生成した
-
-```text
-repository_inference_result.goal_step
-```
-
-を final executed `ProofStep` とする。
-
-```text
-presentation.proof_step
-is extracted executed goal_step
-```
-
-repository target goal とは
-
-```text
-executed conclusion == target goal
-```
-
-で対応し、同一 object であることは要求しない。
-
-### Direct-premise provenance
-
-minimal proof presentation は final executed `ProofStep.premises` の direct premises をそのまま使う。
-
-```text
-presented premise
-is executed ProofStep premise
-```
-
-再帰的 proof tree の再構成や premise clone は行わない。
-
-### Candidate-list boundary
-
-`AMBIGUOUS` result は numbered target conclusion list として表示する。
-
-通常表示に出さない:
-
-```text
-family_name
-root_entry.key
-catalog key
-bindings
-```
-
-### CLI boundary
-
-```text
-python main.py execute nu_prime
-python main.py execute nu_prime --candidate 1
-```
-
-実 subprocess smoke で argument parsing から execution / renderer / stdout までを確認した。
-
-Windows CP932 では `η₂`、`ν₄` などを出力できないため、script entry point の stdout / stderr を UTF-8 に統一した。
-
-### Closure
-
-```text
-Phase 108-12 end-to-end smoke:
-3 passed in 21.55s
-
-Phase 108 focused regression:
-64 passed in 67.18s
-
-repository-wide:
-8850 passed in 380.25s
-```
-
-Phase 108 は完了。
 
 ---
 
@@ -375,11 +275,6 @@ generic qualification != concrete execution success
 production-application recovery != new theorem truth
 family dispatch != theorem ranking
 performance optimization != theorem truth
-user-facing resolver != theorem ranking
-candidate number != theorem priority
-candidate-list presentation != proof truth
-executed conclusion equality != repository target object identity
-CLI rendering != new theorem truth
 ```
 
 既存記録は原則として削除せず、確定した意味論訂正がある場合のみ訂正する。

@@ -2,7 +2,7 @@
 
 EHP Proof Tracer is a Python project for representing, checking, searching, explaining, presenting, exploring, and safely executing theorem-backed Toda-style homotopy-group calculations.
 
-The project currently focuses on the 2-primary Toda groups, EHP exactness, explicit proof provenance, the calculation spine through stable stems $G_0$ to $G_7$, theorem-backed repository exploration, recursive proof-ancestry exploration, applicable theorem / lemma discovery, relevance classification, bounded candidate handoff, multi-family qualified production execution, exact multi-premise production-application recovery, applicability-performance stabilization, and user-facing execution through the CLI.
+The project currently focuses on the 2-primary Toda groups, EHP exactness, explicit proof provenance, the calculation spine through stable stems $G_0$ to $G_7$, theorem-backed repository exploration, recursive proof-ancestry exploration, applicable theorem / lemma discovery, relevance classification, bounded candidate handoff, multi-family qualified production execution, exact multi-premise production-application recovery, and applicability-performance stabilization.
 
 ## Current mathematical coverage
 
@@ -83,13 +83,7 @@ The proof infrastructure supports:
 - exact recovery of an existing production application from candidate / goal / source identity,
 - exact multi-premise seed reconstruction without cloning proof steps,
 - explicit family-name dispatch,
-- a multi-family standard execution facade,
-- user-facing executable-target resolution,
-- ambiguity-safe candidate selection,
-- extraction of the actual executed final `ProofStep`,
-- minimal Result + Proof presentation,
-- executable-candidate presentation,
-- an `execute` CLI path.
+- a multi-family standard execution facade.
 
 General unbounded proof search, theorem ranking, producer ranking, proof-cost optimization, and best-proof selection are intentionally not implemented.
 
@@ -257,28 +251,17 @@ is search_result.final_rule
 is goal_step.inference_rule
 ```
 
-## Qualified production execution
+## First-family standard execution
 
-Phase 105 connected the first qualified production family to standard applicability execution.
+Phase 105 connected one qualified production family to standard applicability execution.
 
-Phase 107 extended the supported path to more than one qualified family.
-
-The currently admitted qualified production execution families are
+The first qualified family is
 
 ```text
 toda_58_delta_iota9_nu4_nu_prime_inference_rule
-toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
 ```
 
-The second family derives
-
-$$
-\pi_6^2=\mathbb Z/4\{\eta_2\nu'\}.
-$$
-
-For multi-premise rules, the engine does not search arbitrarily for companion premises. It recovers the unique existing production application under the same root and reuses the exact premise tuple by `ProofStep` identity and original order.
-
-The compatibility and multi-family facades remain available:
+The Phase 105 compatibility facade remains available:
 
 ```python
 execute_standard_repository_generator_applicability_result_by_root_and_source(
@@ -291,17 +274,7 @@ execute_standard_repository_generator_applicability_result_by_root_and_source(
 )
 ```
 
-```python
-execute_standard_repository_generator_applicability_result_by_root_source_and_family(
-  applicability_result,
-  root_entry,
-  source_step,
-  family_name,
-  goal,
-  max_depth=2,
-  retry_policy=None,
-)
-```
+It remains intentionally first-family-only.
 
 ## Applicability performance stabilization
 
@@ -334,87 +307,99 @@ Repository-wide Phase 106 closure:
 8712 passed in 337.86s
 ```
 
-## User-facing execution
+## Multi-family qualified execution
 
-Phase 108 connects mathematical generator input to qualified execution without exposing proof-graph addressing as CLI arguments.
+Phase 107 expanded qualified production execution only where a concrete production need was demonstrated.
 
-The standard workflow is
+The currently admitted qualified production execution families are
 
 ```text
-generator input
-→ executable target resolution
-→ ambiguity handling
-→ candidate list / candidate selection
-→ qualified execution
-→ final executed ProofStep
-→ Result + Proof presentation
-→ Markdown
-→ CLI
+toda_58_delta_iota9_nu4_nu_prime_inference_rule
+toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
 ```
 
-The workflow facade is
+The second family derives
+
+$$
+\pi_6^2=\mathbb Z/4\{\eta_2\nu'\}.
+$$
+
+Because the second family has two direct premises, a single applicability candidate is not enough to seed execution. Phase 107 therefore recovers the unique existing production application under the same root using
+
+```text
+same root_entry identity
+same inference_rule identity
+same explicit goal
+candidate premise index
+candidate source_step identity
+```
+
+A unique recovery contributes the exact original `premises` tuple. Those `ProofStep` objects are reused by identity and in original order; they are not cloned.
+
+The explicit multi-family selection contract is
+
+```text
+root_entry identity
++
+source_step identity
++
+family_name
++
+caller-supplied goal
+```
+
+The standard multi-family facade is
 
 ```python
-run_standard_repository_generator_user_execution_workflow(
-  generator_input,
-  candidate_number=None,
+execute_standard_repository_generator_applicability_result_by_root_source_and_family(
+  applicability_result,
+  root_entry,
+  source_step,
+  family_name,
+  goal,
   max_depth=2,
   retry_policy=None,
 )
 ```
 
-Candidate numbers are one-based.
-
-If the generator has multiple executable targets and no candidate number is supplied, the workflow returns an ambiguous result instead of silently choosing a target.
-
-The execution CLI is
-
-```powershell
-python main.py execute nu_prime
-python main.py execute nu_prime --candidate 1
-```
-
-For an ambiguous request, the first command renders a numbered list of mathematical target conclusions.
-
-For an executed request, the CLI renders a minimal result and direct proof presentation:
+The operational path is
 
 ```text
-# Result
-
-<mathematical conclusion>
-
-## Proof
-
-Premises:
-1. <direct premise>
-...
-
-Rule: <rule>
-
-Conclusion:
-<mathematical conclusion>
+standard applicability result
+↓
+all-qualified candidate filtering
+↓
+execution-family grouping
+↓
+explicit root + source + family selection
+↓
+family representative
+↓
+family-name dispatch
+├─ first family
+│  → exact one-source seed
+│  → bounded execution
+└─ second family
+   → exact production-application recovery
+   → exact two-premise seed
+   → bounded execution
+↓
+actual ProofStep provenance
 ```
 
-Internal root keys, catalog bindings, and execution-family addressing are not part of the normal candidate-list presentation.
+For `nu_prime` standard applicability exploration, the second family is visible through the premise containing `nu_prime`. The companion premise is recovered from the existing production application rather than discovered by an arbitrary cross-root search.
 
-The CLI script boundary configures stdout and stderr as UTF-8 so that mathematical Unicode such as `η₂` and `ν₄` is safe on Windows systems whose default console encoding is CP932.
+Phase 107 deliberately does not add automatic root/source/family selection, automatic goal discovery, theorem ranking, a new execution CLI, execution-result presentation integration, or a third qualified family without new architectural pressure.
 
-Phase 108 closure:
+Repository-wide Phase 107 closure:
 
 ```text
-end-to-end subprocess smoke:
-3 passed in 21.55s
-
-Phase 108 focused regression:
-64 passed in 67.18s
-
-repository-wide:
-8850 passed in 380.25s
+8783 passed in 290.63s
 ```
 
 ## Command-line interface
 
-Current commands are
+Existing commands remain
 
 ```powershell
 python main.py n k
@@ -422,9 +407,9 @@ python main.py explore "nu'"
 python main.py explore-proof nu_prime
 python main.py explore-applicable nu_prime
 python main.py explore-applicable nu_prime --detailed
-python main.py execute nu_prime
-python main.py execute nu_prime --candidate 1
 ```
+
+Phase 107 adds no new CLI command. Qualified execution remains a Python infrastructure capability because the current contract depends on proof-graph object identity and an explicit goal.
 
 ## Current boundaries
 
@@ -446,9 +431,12 @@ The following remain intentionally deferred:
 - general $E/H/\Delta$ evaluation,
 - recursive theorem solving beyond already represented proof ancestry,
 - automatic enumeration of unstated mathematical consequences,
+- automatic production root/source/family selection,
+- automatic execution-goal discovery,
 - execution qualification across all production rule families,
-- automatic semantic selection among multiple executable targets,
-- third and later qualified families without demonstrated production pressure,
+- user-facing execution addressing / serialization,
+- user-facing execution CLI,
+- execution-result presentation integration,
 - Web UI,
 - odd-primary full integration,
 - an all-primary ordinary sphere-homotopy calculator.
@@ -466,13 +454,14 @@ generator
 → applicability discovery
 → relevance-classified candidates
 
-generator
-→ executable-target resolution
-→ ambiguity-safe candidate selection
-→ qualified execution
-→ final ProofStep
-→ Result + Proof
-→ CLI
+standard applicability result
+→ all-qualified filtering
+→ execution-family grouping
+→ explicit root + source + family selection
+→ family-name dispatch
+→ exact one- or multi-premise execution seed
+→ bounded execution
+→ actual ProofStep provenance
 ```
 
 Phase 100 closed the production calculation path.
@@ -490,8 +479,6 @@ Phase 105 closed the first explicit standard-production applicability-to-executi
 Phase 106 removed the dominant applicability-materialization bottleneck while preserving semantics and provenance.
 
 Phase 107 closed the first multi-family qualified-production execution path, including exact multi-premise recovery, family dispatch, and a standard multi-family facade.
-
-Phase 108 closed the first user-facing execution path from mathematical generator input through candidate selection, execution, final `ProofStep`, Result + Proof presentation, and the `execute` CLI.
 
 ## Project principle
 

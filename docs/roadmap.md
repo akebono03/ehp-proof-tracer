@@ -27,27 +27,27 @@ generator
 → relevance-classified presentation
 ```
 
-multi-family qualified execution:
+user-facing qualified execution:
 
 ```text
-standard applicability result
-→ all-qualified selection
-→ execution-family grouping
-→ explicit root + source + family selection
-→ family-name dispatch
-→ exact one- or multi-premise seed
-→ bounded execution
-→ actual ProofStep
+generator input
+→ executable-target resolution
+→ NONE / AMBIGUOUS / executable target
+→ candidate list / one-based candidate selection
+→ qualified execution
+→ final executed ProofStep
+→ Result + Proof
+→ python main.py execute ...
 ```
 
 最新:
 
 ```text
-Phase 107 closure:
-8783 passed in 290.63s
+Phase 108 closure:
+8850 passed in 380.25s
 ```
 
-Phase 107 は完了。
+Phase 108 は完了。
 
 ---
 
@@ -95,6 +95,20 @@ family dispatch
 multi-family standard facade
 ```
 
+Phase 108:
+
+```text
+user-facing executable-target resolver
+ambiguity-safe workflow
+one-based candidate addressing
+final executed ProofStep extraction
+minimal Result + Proof presentation
+candidate-list presentation
+execute CLI
+Windows UTF-8 CLI boundary
+end-to-end subprocess smoke
+```
+
 ---
 
 # 3. 現在の execution API
@@ -126,6 +140,17 @@ execute_standard_repository_generator_applicability_result_by_root_source_and_fa
 )
 ```
 
+Phase 108 user workflow:
+
+```text
+run_standard_repository_generator_user_execution_workflow(
+  generator_input,
+  candidate_number=None,
+  max_depth=2,
+  retry_policy=None,
+)
+```
+
 admission 済み family:
 
 ```text
@@ -135,89 +160,94 @@ toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
 
 ---
 
-# 4. 確定した境界
-
-selection:
+# 4. 現在の CLI
 
 ```text
-root_entry identity
-+
-source_step identity
-+
-family_name
+python main.py n k
+python main.py explore "nu'"
+python main.py explore-proof nu_prime
+python main.py explore-applicable nu_prime
+python main.py explore-applicable nu_prime --detailed
+python main.py execute nu_prime
+python main.py execute nu_prime --candidate 1
 ```
 
-goal:
+`execute` は proof-graph の root/source/family internal identifier を user input に要求しない。
+
+---
+
+# 5. 確定した user-facing execution 境界
+
+ambiguity:
 
 ```text
-caller explicit
+multiple executable targets
+→ 自動選択しない
+→ numbered candidate list
 ```
 
-multi-premise context:
+candidate number:
 
 ```text
-arbitrary search しない
-→ same-root exact production application recovery
-→ UNIQUE exact premise tuple
-```
-
-ranking:
-
-```text
-candidate order / root order / shortest depth
+1-based addressing
 != theorem ranking
 ```
 
----
-
-# 5. 保留：automatic execution targeting
+executed result:
 
 ```text
-automatic root selection
-automatic source selection
-automatic family selection
-automatic goal discovery
-shortest-depth ranking
+actual repository_inference_result.goal_step
+→ final ProofStep
+```
+
+presentation:
+
+```text
+final conclusion
+direct premises
+rule
+conclusion
+```
+
+internal addressing は通常表示に出さない。
+
+---
+
+# 6. Phase 109 候補：post-Phase-108 operational audit
+
+次 Phase の第一候補は implementation ではなく operational audit。
+
+確認対象:
+
+```text
+どの generator input が executable target を持つか
+NONE / UNIQUE / AMBIGUOUS の分布
+現在の2 family がどの production target をカバーするか
+実際に candidate list が有用な対象
+追加 family の具体的需要
+execution 時間 / applicability 時間の新しい性能圧力
+presentation 上の不足
+```
+
+この audit で追加実装の圧力を確認してから Phase 109 の scope を固定する。
+
+---
+
+# 7. 保留：semantic automatic target selection
+
+Phase 108 は user-facing addressing を実現したが、複数候補から数学的に「最善」を選ぶ機能は実装していない。
+
+保留:
+
+```text
 theorem ranking
+shortest-proof ranking
+proof-cost optimization
+semantic goal priority
+automatic target preference
 ```
 
-Phase 107 では explicit contract で execution が成立したため保留する。
-
----
-
-# 6. 保留：execution addressing / CLI
-
-現行 contract は proof graph object identity を直接扱う。
-
-CLI 化には
-
-```text
-stable root identifier
-source ProofStep addressing
-family identifier
-goal serialization / parsing
-identity recovery
-```
-
-が必要である。
-
-単純な CLI command 追加ではないため保留する。
-
----
-
-# 7. 保留：execution presentation
-
-将来候補:
-
-```text
-selected family
-recovery status
-recovered premises
-bounded-search result
-executed ProofStep provenance
-```
-
-Phase 107 closure には不要だった。
+候補順を ranking と解釈しない。
 
 ---
 
@@ -234,6 +264,7 @@ goal compatibility
 required seed context
 rule identity preservation
 producer-search behavior
+user-facing need
 new architectural pressure
 ```
 
@@ -266,22 +297,37 @@ repository snapshot / versioning
 stale-search-report detection
 ```
 
-Phase 106 の prefilter 以外に、現時点で新しい実性能圧力は確認されていない。
+Phase 106 の prefilter 以降、次の optimization は実測圧力を確認してから行う。
 
 ---
 
-# 11. 次 Phase の開始境界
+# 11. 保留：UI 拡張
 
-Phase 107 の保留事項を機械的に実装しない。
+CLI は Phase 108 で実装済み。
 
-次 Phase は、次のどこに新しい実需要があるかを監査して開始する。
+未実装:
 
 ```text
-additional qualified family
-user-facing execution addressing
-goal discovery
-execution presentation
-新しい数学的 theorem / stem coverage
+Web UI
+interactive candidate selection
+persistent execution history
+rich recursive proof visualization
 ```
 
-最初の作業は実装ではなく pressure audit とする。
+必要性を operational audit で確認する。
+
+---
+
+# 12. 次 Phase の開始境界
+
+Phase 108 の完了事項を機械的に拡張しない。
+
+次はまず:
+
+```text
+Phase 109
+post-Phase-108 operational audit
+/ next execution scope diagnosis
+```
+
+その結果から、additional family、presentation、性能、数学 coverage のどこに実需要があるかを決める。

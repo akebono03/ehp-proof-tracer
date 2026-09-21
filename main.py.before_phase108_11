@@ -12,16 +12,6 @@ from repository_generator_applicability_renderer import (
   render_repository_generator_applicability_compact_markdown,
   render_repository_generator_applicability_detailed_markdown,
 )
-from repository_generator_user_execution_candidate_presentation import (
-  build_repository_generator_user_execution_candidate_list_presentation,
-)
-from repository_generator_user_execution_candidate_renderer import (
-  render_repository_generator_user_execution_candidate_list_markdown,
-)
-from repository_generator_user_execution_facade import (
-  RepositoryGeneratorUserExecutionWorkflowStatus,
-  run_standard_repository_generator_user_execution_workflow,
-)
 
 render_repository_generator_applicability_markdown = (
   render_repository_generator_applicability_compact_markdown
@@ -38,26 +28,6 @@ from toda_calculation_facade import (
 from toda_calculation_result import (
   TodaCalculationStatus,
 )
-
-
-def _configure_cli_utf8_streams(
-) -> None:
-  for stream in (
-    sys.stdout,
-    sys.stderr,
-  ):
-    reconfigure = getattr(
-      stream,
-      "reconfigure",
-      None,
-    )
-
-    if reconfigure is None:
-      continue
-
-    reconfigure(
-      encoding="utf-8",
-    )
 
 
 def _parse_positive_int(
@@ -156,7 +126,6 @@ def build_explore_proof_argument_parser(
 
   return parser
 
-
 def build_explore_applicable_argument_parser(
 ) -> argparse.ArgumentParser:
   parser = argparse.ArgumentParser(
@@ -187,38 +156,6 @@ def build_explore_applicable_argument_parser(
   )
 
   return parser
-
-
-def build_execute_argument_parser(
-) -> argparse.ArgumentParser:
-  parser = argparse.ArgumentParser(
-    prog="main.py execute",
-    description=(
-      "Execute one qualified theorem / lemma target "
-      "for a generator in the standard production "
-      "repository."
-    ),
-  )
-
-  parser.add_argument(
-    "generator",
-    help=(
-      "generator input such as "
-      "nu_prime, nu_5, or eta_2"
-    ),
-  )
-
-  parser.add_argument(
-    "--candidate",
-    type=_parse_positive_int,
-    help=(
-      "1-based executable candidate number; "
-      "omit to list candidates when ambiguous"
-    ),
-  )
-
-  return parser
-
 
 def _run_explore_command(
   generator_input: str,
@@ -285,7 +222,6 @@ def _run_explore_proof_command(
 
   return 0
 
-
 def _run_explore_applicable_command(
   generator_input: str,
   detailed: bool = False,
@@ -325,85 +261,6 @@ def _run_explore_applicable_command(
   )
 
   return 0
-
-
-def _run_execute_command(
-  generator_input: str,
-  candidate_number: int | None = None,
-) -> int:
-  try:
-    result = (
-      run_standard_repository_generator_user_execution_workflow(
-        generator_input,
-        candidate_number=candidate_number,
-      )
-    )
-  except (
-    TypeError,
-    ValueError,
-  ) as error:
-    parser = (
-      build_execute_argument_parser()
-    )
-    parser.error(
-      str(
-        error
-      )
-    )
-
-  if (
-    result.status
-    is RepositoryGeneratorUserExecutionWorkflowStatus.NONE
-  ):
-    print(
-      "No executable target found for "
-      f"{generator_input}."
-    )
-    return 1
-
-  if (
-    result.status
-    is RepositoryGeneratorUserExecutionWorkflowStatus.AMBIGUOUS
-  ):
-    presentation = (
-      build_repository_generator_user_execution_candidate_list_presentation(
-        result
-      )
-    )
-
-    markdown = (
-      render_repository_generator_user_execution_candidate_list_markdown(
-        presentation
-      )
-    )
-
-    print(
-      markdown,
-      end="",
-    )
-
-    return 0
-
-  if (
-    result.status
-    is RepositoryGeneratorUserExecutionWorkflowStatus.EXECUTED
-  ):
-    if result.markdown is None:
-      raise RuntimeError(
-        "executed workflow result must contain markdown"
-      )
-
-    print(
-      result.markdown,
-      end="",
-    )
-
-    return 0
-
-  raise RuntimeError(
-    "unsupported user execution workflow status"
-  )
-
 
 def main(
   argv: Sequence[str] | None = None,
@@ -479,27 +336,6 @@ def main(
       detailed=args.detailed,
     )
 
-  if (
-    raw_argv
-    and raw_argv[
-      0
-    ] == "execute"
-  ):
-    parser = (
-      build_execute_argument_parser()
-    )
-
-    args = parser.parse_args(
-      raw_argv[
-        1:
-      ]
-    )
-
-    return _run_execute_command(
-      args.generator,
-      candidate_number=args.candidate,
-    )
-
   parser = build_argument_parser()
 
   args = parser.parse_args(
@@ -533,8 +369,6 @@ def main(
 
 
 if __name__ == "__main__":
-  _configure_cli_utf8_streams()
-
   raise SystemExit(
     main()
   )
