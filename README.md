@@ -2,84 +2,84 @@
 
 EHP Proof Tracer is a Python project for representing, checking, searching, explaining, presenting, exploring, replaying, and safely executing theorem-backed Toda-style homotopy-group calculations.
 
-The project currently focuses on the 2-primary Toda groups, EHP exactness, explicit proof provenance, the calculation spine through stable stems $G_0$ to $G_7$, theorem-backed repository exploration, recursive proof-ancestry exploration, applicable theorem / lemma discovery, relevance classification, bounded candidate handoff, multi-family qualified production execution, proof-derived known-group identity lookup, generic indexed $\sigma_n$ specialization, and separate user-facing proof replay / theorem execution paths.
+The project currently focuses on the free part plus the 2-primary Toda groups, EHP exactness, explicit proof provenance, the calculation spine through stable stems \(G_0\) to \(G_7\), theorem-backed repository exploration, recursive proof-ancestry exploration, applicable theorem / lemma discovery, relevance classification, bounded candidate handoff, multi-family qualified production execution, proof-derived known-group identity lookup, indexed \(\sigma_n\) specialization, user-facing known-group proof replay, existing-operation-fact lookup, and operation-query proof replay.
+
+This is not an all-primary calculator for ordinary homotopy groups of spheres.
 
 ## Current mathematical coverage
 
 Representative finite-dimensional results include
 
-$$
+\[
 \pi_5^2=\mathbb Z/2\{\eta_2^3\},
 \qquad
-\pi_6^3=\mathbb Z/4\{\nu'\}.
-$$
+\pi_6^3=\mathbb Z/4\{\nu'\},
+\]
 
-$$
-\pi_7^4=\mathbb Z\{\nu_4\}\oplus\mathbb Z/4\{E\nu'\}.
-$$
+\[
+\pi_7^4=\mathbb Z\{\nu_4\}\oplus\mathbb Z/4\{E\nu'\},
+\]
 
-$$
+\[
 \pi_9^5=\mathbb Z/2\{\nu_5\eta_8\},
 \qquad
-\pi_{10}^4=\mathbb Z/8\{\nu_4^2\}.
-$$
+\pi_{10}^4=\mathbb Z/8\{\nu_4^2\},
+\]
 
-$$
+\[
 \pi_{11}^5=\mathbb Z/2\{\nu_5^2\},
 \qquad
 \pi_9^2=0.
-$$
+\]
 
 Toda Proposition 5.15 coverage includes
 
-$$
+\[
 \pi_{12}^5=\mathbb Z/2\{\sigma'''\},
 \qquad
 \pi_{13}^6=\mathbb Z/4\{\sigma''\},
 \qquad
 \pi_{14}^7=\mathbb Z/8\{\sigma'\},
-$$
+\]
 
-$$
+\[
 \pi_{15}^8
 =
 \mathbb Z\{\sigma_8\}
 \oplus
 \mathbb Z/8\{E\sigma'\},
-$$
+\]
 
 and
 
-$$
+\[
 \pi_{n+7}^n=\mathbb Z/16\{\sigma_n\},
 \qquad n\ge 9.
-$$
+\]
 
 The consolidated stable 2-primary stem data is
 
-$$
+\[
 G_0=\mathbb Z\{\iota\},
 \quad
 (G_1;2)=\mathbb Z/2\{\eta\},
 \quad
 (G_2;2)=\mathbb Z/2\{\eta^2\},
-$$
+\]
 
-$$
+\[
 (G_3;2)=\mathbb Z/8\{\nu\},
 \quad
 (G_4;2)=0,
 \quad
 (G_5;2)=0,
-$$
+\]
 
-$$
+\[
 (G_6;2)=\mathbb Z/2\{\nu^2\},
 \quad
 (G_7;2)=\mathbb Z/16\{\sigma\}.
-$$
-
-This is not an all-primary calculator for ordinary homotopy groups of spheres.
+\]
 
 ## Proof infrastructure
 
@@ -89,32 +89,22 @@ The proof infrastructure supports:
 - inference-rule catalogs,
 - fixed-point-safe producer selection,
 - concrete theorem-instance compatibility,
-- bounded dependency search,
-- explicit `max_depth`,
-- finite producer retry,
-- cycle detection,
+- bounded dependency search with explicit `max_depth`,
+- finite producer retry and cycle detection,
 - selected-path execution,
-- search and execution diagnostics,
 - recursive proof ancestry,
 - repository-nonmutating exploration and execution planning,
 - explicit-final-rule bounded search,
-- execution of a prebuilt bounded-search report without rebuilding the search,
-- end-to-end rule-identity provenance from applicability candidate to derived `ProofStep`,
-- qualified execution across more than one production rule family,
-- exact recovery of an existing production application from candidate / goal / source identity,
-- exact multi-premise seed reconstruction without cloning proof steps,
-- explicit family-name dispatch,
-- a multi-family standard execution facade,
-- user-facing executable-target resolution,
-- ambiguity-safe candidate selection,
-- extraction of the actual executed final `ProofStep`,
+- end-to-end rule-identity provenance,
+- qualified execution across multiple admitted production rule families,
+- exact multi-premise production-application recovery,
 - proof-derived known-group identity lookup,
-- theorem-specific indexed $\sigma_n$ specialization for concrete $n\ge 10$,
-- generator proof-scope integration of those concrete specializations,
-- dedicated known-group proof replay,
-- minimal Result + Proof presentation,
-- executable-candidate presentation,
-- `execute` and `show-proof` CLI paths.
+- theorem-specific indexed \(\sigma_n\) specialization,
+- user-facing known-group proof replay,
+- existing operation-fact lookup,
+- operation-query result deduplication without losing raw provenance,
+- operation-query proof replay rooted at the selected fact's actual `ProofStep`,
+- safe mathematical rendering with explicit type-name fallback for unsupported aggregate statements.
 
 General unbounded proof search, theorem ranking, producer ranking, proof-cost optimization, best-proof selection, and semantic automatic target preference are intentionally not implemented.
 
@@ -129,11 +119,13 @@ build_toda_calculation_result(
 )
 ```
 
-where `query` is a `TodaGroupQuery(n, k)` representing
+where `query` is a `TodaGroupQuery(n, k)` representing the project quantity
 
-$$
-\pi_{n+k}^n.
-$$
+\[
+\pi_{n+k}^n,
+\]
+
+meaning the free part plus the 2-primary component used by this project.
 
 The production one-shot entry point is
 
@@ -156,9 +148,9 @@ Direct theorem-backed results take precedence over aggregate fallback results. M
 
 For theorem-backed proofs containing actual EHP ancestry, the project can extract EHP exactness windows, a contiguous EHP sequence, exactness-use provenance, and known group information on EHP terms.
 
-A representative $\pi_9^5$ proof yields
+A representative \(\pi_9^5\) proof yields
 
-$$
+\[
 \pi_{10}^9
 \xrightarrow{\Delta}
 \pi_8^4
@@ -168,7 +160,7 @@ $$
 \pi_9^9
 \xrightarrow{\Delta}
 \pi_7^4.
-$$
+\]
 
 ## Standard production repository
 
@@ -180,7 +172,7 @@ build_standard_production_proof_repository()
 
 It assembles theorem-backed entries needed by supported production paths without creating new theorem truth.
 
-The standard repository remains rooted in the existing production theorem entries. Phase 109 does not add a new repository root for indexed $\sigma_n$ specialization; concrete specialization is derived from the existing Proposition 5.15 proof scope.
+Concrete indexed \(\sigma_n\) specialization is derived from the existing Proposition 5.15 proof scope rather than registered as a new independent theorem root.
 
 ## Generator-centered exploration
 
@@ -210,23 +202,23 @@ explore_standard_repository_generator_proof_scope_input(
 
 Representative `nu_prime` results include
 
-$$
+\[
 \nu' \in \{\eta_3,2\iota_4,\eta_4\}_1
-$$
+\]
 
 and
 
-$$
+\[
 H(\nu')=\eta_5.
-$$
+\]
 
-For generic indexed $\sigma_n$ with concrete $n\ge 10$, proof-scope exploration can materialize the theorem-specific Proposition 5.15 specialization
+For concrete indexed \(\sigma_n\) with \(n\ge 10\), proof-scope exploration can materialize the theorem-specific Proposition 5.15 specialization
 
-$$
+\[
 \pi_{n+7}^n=\mathbb Z/16\{\sigma_n\}.
-$$
+\]
 
-The exploration layer finds or specializes already represented proof facts. It does not evaluate $E$, $H$, or $\Delta$, and it does not solve Toda brackets.
+The exploration layer finds or specializes already represented proof facts. It does not evaluate \(E\), \(H\), or \(\Delta\), and it does not solve Toda brackets.
 
 ## Applicable theorem / lemma discovery
 
@@ -258,46 +250,9 @@ GENERIC_RELATION
 UNCLASSIFIED
 ```
 
-## Safe applicability-candidate handoff
-
-Phase 104 established
-
-```text
-selected applicability candidate
-↓
-candidate handoff
-↓
-execution-catalog validation
-↓
-READY
-↓
-explicit validated final rule
-↓
-bounded producer search
-↓
-prebuilt search report
-↓
-selected-path execution
-↓
-actual ProofStep provenance
-```
-
-The central identity invariant is
-
-```text
-candidate rule
-is validation.execution_entry.rule
-is search_result.final_rule
-is goal_step.inference_rule
-```
-
 ## Qualified production execution
 
-Phase 105 connected the first qualified production family to standard applicability execution.
-
-Phase 107 extended the supported path to more than one qualified family.
-
-The currently admitted qualified production execution families are
+The admitted qualified production execution families are
 
 ```text
 toda_58_delta_iota9_nu4_nu_prime_inference_rule
@@ -306,75 +261,33 @@ toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
 
 The second family derives
 
-$$
+\[
 \pi_6^2=\mathbb Z/4\{\eta_2\nu'\}.
-$$
+\]
 
 For multi-premise rules, the engine does not search arbitrarily for companion premises. It recovers the unique existing production application under the same root and reuses the exact premise tuple by `ProofStep` identity and original order.
 
-Phase 109 audited whether Proposition 5.15 transport should become a third qualified family for a concrete source such as $\sigma_{11}$. It must not: the concrete $\sigma_{11}$ group step is a specialization result of the symbolic Proposition 5.15 proof, not an original source premise from which an existing production application should be executed.
-
-The compatibility and multi-family facades remain available:
+The standard user-facing workflow is
 
 ```python
-execute_standard_repository_generator_applicability_result_by_root_and_source(
-  applicability_result,
-  root_entry,
-  source_step,
-  goal,
+run_standard_repository_generator_user_execution_workflow(
+  generator_input,
+  candidate_number=None,
   max_depth=2,
   retry_policy=None,
 )
 ```
 
-```python
-execute_standard_repository_generator_applicability_result_by_root_source_and_family(
-  applicability_result,
-  root_entry,
-  source_step,
-  family_name,
-  goal,
-  max_depth=2,
-  retry_policy=None,
-)
-```
-
-## Applicability performance stabilization
-
-Phase 106 identified full-scope applicability materialization as the main bottleneck.
+Candidate numbers are one-based addressing only:
 
 ```text
-3889 proof-scope nodes
-→ 797573 full-scope candidates
-→ generator-node filtering
-→ 176616 retained candidates
-```
-
-A generator-relevant scope prefilter reduced measured `nu_prime` applicability exploration from approximately
-
-```text
-27.89 s / 274.10 MiB peak
-```
-
-to
-
-```text
-8.16 s / 62.42 MiB peak
-```
-
-while preserving candidate semantics and provenance identity.
-
-Repository-wide Phase 106 closure:
-
-```text
-8712 passed in 337.86s
+candidate number != theorem ranking
+candidate order != mathematical priority
 ```
 
 ## Known-group identity and proof replay
 
-Phase 109 separates two user-facing operations that must not be conflated.
-
-Known-group proof replay:
+Known-group proof replay is separate from qualified theorem execution.
 
 ```text
 generator
@@ -383,18 +296,6 @@ generator
 → direct provenance replay
 → show-proof
 ```
-
-Qualified theorem application:
-
-```text
-generator
-→ executable-target resolution
-→ qualified theorem application
-→ bounded execution
-→ execute
-```
-
-In particular,
 
 ```text
 show-proof != execute
@@ -409,106 +310,150 @@ build_standard_repository_generator_known_group_proof_replay_input(
 )
 ```
 
-The default replay depth is one direct premise level.
-
 Examples:
 
 ```powershell
 python main.py show-proof nu_prime
 python main.py show-proof sigma_11
-python main.py show-proof sigma_12
 ```
 
 For `nu_prime`, the replay begins with
 
-$$
-\pi_6^3=\mathbb Z/4\{\nu'\}
-$$
-
-and presents direct proof premises, including
-
-$$
-\nu'\in\pi_6^3,
-$$
-
-$$
-E:\pi_5^2\to\pi_6^3
-\quad\text{is injective},
-$$
-
-and
-
-$$
-H:\pi_6^3\to\pi_6^5
-\quad\text{is surjective}.
-$$
+\[
+\pi_6^3=\mathbb Z/4\{\nu'\}.
+\]
 
 For `sigma_11`, the replay begins with
 
-$$
+\[
 \pi_{18}^{11}=\mathbb Z/16\{\sigma_{11}\}
-$$
+\]
 
-and its direct symbolic provenance
+and preserves the symbolic Proposition 5.15 provenance.
 
-$$
-\pi_{n+7}^{n}=\mathbb Z/16\{\sigma_n\}.
-$$
+## Existing operation-fact query
 
-## User-facing execution
+Phase 110 added a read-only operation-query path for already represented proof facts.
 
-The standard workflow is
-
-```text
-generator input
-→ executable target resolution
-→ ambiguity handling
-→ candidate list / candidate selection
-→ qualified execution
-→ final executed ProofStep
-→ Result + Proof presentation
-→ Markdown
-→ execute CLI
-```
-
-The workflow facade is
-
-```python
-run_standard_repository_generator_user_execution_workflow(
-  generator_input,
-  candidate_number=None,
-  max_depth=2,
-  retry_policy=None,
-)
-```
-
-Candidate numbers are one-based addressing only.
-
-```text
-candidate number != theorem ranking
-candidate order != mathematical priority
-```
-
-If the generator has multiple executable targets and no candidate number is supplied, the workflow returns an ambiguous result instead of silently choosing a target.
-
-For `nu_prime`, the ambiguous CLI displays the generator and known group before the executable candidate list. The known group is
-
-$$
-\pi_6^3=\mathbb Z/4\{\nu'\}.
-$$
-
-The execution CLI is
+Examples:
 
 ```powershell
-python main.py execute nu_prime
-python main.py execute nu_prime --candidate 1
+python main.py query "H(nu_prime)"
+python main.py query "Delta(iota_9)"
+python main.py query "E(eta_2 o nu_prime)"
+python main.py query "eta_2 o nu_prime"
 ```
 
-For an executed request, the CLI renders the actual executed conclusion and direct premises.
+The minimal query grammar currently supports:
 
-Internal root keys, catalog bindings, and execution-family addressing are not part of the normal candidate-list presentation.
+```text
+H(<expression>)
+E(<expression>)
+Delta(<expression>)
+<generator> o <generator>
+```
 
-The CLI script boundary configures stdout and stderr as UTF-8 so that mathematical Unicode such as `η₂` and `ν₄` is safe on Windows systems whose default console encoding is CP932.
+Representative results include
+
+\[
+H(\nu')=\eta_5,
+\]
+
+\[
+H(\nu')=E^2\eta_3,
+\]
+
+\[
+\Delta(\iota_9)
+=
+\pm(2\nu_4-E\nu'),
+\]
+
+\[
+E(\eta_2\nu')=0.
+\]
+
+The operation-query layer is intentionally a lookup over existing repository / proof-scope facts:
+
+```text
+lookup != inference != evaluation
+```
+
+No result means that no matching represented repository fact was found. It does not prove mathematical nonexistence.
+
+## Operation-query deduplication and provenance
+
+Raw proof-scope occurrences remain intact.
+
+User-facing presentation groups equal mathematical statements while preserving all contributing provenance matches.
+
+For example,
+
+```powershell
+python main.py query "H(nu_prime)"
+```
+
+presents two mathematical facts rather than every repeated proof-scope occurrence:
+
+\[
+H(\nu')=\eta_5,
+\qquad
+H(\nu')=E^2\eta_3.
+\]
+
+Presentation order is based on shallowest proof-scope depth and stable source order. This is not theorem ranking.
+
+## Operation-query proof replay
+
+Phase 110 also added proof replay for a selected query fact.
+
+Examples:
+
+```powershell
+python main.py query-proof "H(nu_prime)" --fact 1
+python main.py query-proof "H(nu_prime)" --fact 2
+python main.py query-proof "E(eta_2 o nu_prime)"
+python main.py query-proof "eta_2 o nu_prime" --fact 4
+```
+
+If a query has exactly one presented fact, `--fact` is optional. If multiple facts are available, no fact is selected automatically.
+
+The replay root is the selected fact's own `ProofStep`, not the enclosing repository theorem root.
+
+For
+
+\[
+H(\nu')=\eta_5,
+\]
+
+the direct replay includes
+
+\[
+H(\nu')=E^2\eta_3,
+\qquad
+E^2\eta_3=\eta_5.
+\]
+
+The default operation-query replay depth is one direct premise level.
+
+Known special statement types are rendered mathematically, for example
+
+\[
+\nu'\in\{\eta_3,2\iota_4,\eta_4\}_1,
+\]
+
+\[
+E^2\nu'\in2\iota_5\circ\pi_8^5,
+\]
+
+and
+
+\[
+\Delta:\pi_8^5\to\pi_6^2
+\quad\text{is surjective}.
+\]
+
+Unsupported aggregate statements use a safe type-name fallback instead of leaking a Python dataclass representation.
 
 ## Command-line interface
 
@@ -524,39 +469,54 @@ python main.py show-proof nu_prime
 python main.py show-proof sigma_11
 python main.py execute nu_prime
 python main.py execute nu_prime --candidate 1
+python main.py query "H(nu_prime)"
+python main.py query "Delta(iota_9)"
+python main.py query "E(eta_2 o nu_prime)"
+python main.py query "eta_2 o nu_prime"
+python main.py query-proof "H(nu_prime)" --fact 1
+python main.py query-proof "E(eta_2 o nu_prime)"
 ```
 
-## Phase 109 closure
+The CLI script boundary configures stdout and stderr as UTF-8 so that mathematical Unicode is safe on Windows systems whose default console encoding is CP932.
 
-Phase 109 closed the post-Phase-108 operational audit and the known-group / replay integration path.
+## Phase 110 closure
+
+Phase 110 closed the first user-facing existing-operation-fact lookup and proof-replay path.
 
 Major outcomes:
 
 ```text
-known-group identity lookup
-→ explicit ambient fact when available
-→ proof-derived ambient fallback when needed
+operation query input
+→ parsed query specification
+→ existing repository / proof-scope lookup
+→ raw occurrence preservation
+→ mathematical-statement deduplication
+→ prioritized presentation
+→ query CLI
 ```
 
 ```text
-symbolic Proposition 5.15 higher sigma theorem
-→ narrow concrete specialization
-→ generic indexed sigma_n specialization for n >= 10
-→ proof-scope integration
+selected query fact
+→ primary provenance
+→ fact's own ProofStep
+→ bounded direct proof replay
+→ safe mathematical statement rendering
+→ query-proof CLI
 ```
 
-```text
-known-group proof
-→ replay presentation
-→ show-proof CLI
-```
-
-The phase also confirmed that concrete indexed $\sigma_n$ proof replay is not a reason to admit a third qualified execution family and that candidate numbering must not be reinterpreted as theorem ranking.
+The phase deliberately did not introduce a general composition evaluator or a general \(E/H/\Delta\) evaluator.
 
 Final repository-wide regression:
 
 ```text
-8998 passed in 493.70s (0:08:13)
+9055 passed in 455.09s (0:07:35)
+```
+
+Final whitespace check:
+
+```text
+git diff --check
+clean
 ```
 
 ## Current boundaries
@@ -573,15 +533,18 @@ The following remain intentionally deferred:
 - stale-search-report detection,
 - free-form natural-language element search,
 - wildcard family search,
+- arbitrary nested operation-query grammar,
+- Unicode-composition and LaTeX input parsing,
 - general composition evaluation,
 - general Toda-bracket solving,
 - bracket-value and coset / indeterminacy computation,
-- general $E/H/\Delta$ evaluation,
+- general \(E/H/\Delta\) evaluation,
 - recursive theorem solving beyond already represented proof ancestry,
 - automatic enumeration of unstated mathematical consequences,
 - execution qualification across all production rule families,
 - third and later qualified families without demonstrated production pressure,
 - unrestricted symbolic AST substitution,
+- rich recursive proof visualization,
 - Web UI,
 - odd-primary full integration,
 - an all-primary ordinary sphere-homotopy calculator.
@@ -611,6 +574,18 @@ generator
 → final ProofStep
 → Result + Proof
 → execute
+
+operation query
+→ existing proof fact lookup
+→ deduplicated mathematical facts
+→ preserved provenance
+→ query
+
+selected operation fact
+→ primary provenance
+→ direct proof replay
+→ safe mathematical rendering
+→ query-proof
 ```
 
 Phase 100 closed the production calculation path.
@@ -627,11 +602,13 @@ Phase 105 closed the first explicit standard-production applicability-to-executi
 
 Phase 106 removed the dominant applicability-materialization bottleneck while preserving semantics and provenance.
 
-Phase 107 closed the first multi-family qualified-production execution path, including exact multi-premise recovery, family dispatch, and a standard multi-family facade.
+Phase 107 closed the first multi-family qualified-production execution path.
 
-Phase 108 closed the first user-facing execution path from mathematical generator input through candidate selection, execution, final `ProofStep`, Result + Proof presentation, and the `execute` CLI.
+Phase 108 closed the first user-facing execution path.
 
-Phase 109 closed known-group identity fallback, generic indexed $\sigma_n$ specialization, proof-scope integration, known-group proof replay, `show-proof`, and the final user-facing replay / execution boundary.
+Phase 109 closed known-group identity fallback, indexed \(\sigma_n\) specialization, known-group proof replay, and the `show-proof` / `execute` boundary.
+
+Phase 110 closed existing operation-fact query, deduplicated presentation, provenance-preserving query output, selected-fact proof replay, and safe replay statement rendering.
 
 ## Project principle
 

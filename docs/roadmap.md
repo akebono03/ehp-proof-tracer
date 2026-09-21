@@ -51,14 +51,36 @@ generator input
 → python main.py execute ...
 ```
 
+operation query:
+
+```text
+operation query
+→ existing repository / proof-scope fact lookup
+→ deduplicated mathematical presentation
+→ preserved provenance
+→ python main.py query ...
+```
+
+operation-query proof replay:
+
+```text
+selected query fact
+→ primary provenance
+→ fact's own ProofStep
+→ bounded direct replay
+→ safe mathematical rendering
+→ python main.py query-proof ...
+```
+
 最新:
 
 ```text
-Phase 109 closure:
-8998 passed in 493.70s (0:08:13)
+Phase 110 closure:
+9055 passed in 455.09s (0:07:35)
+git diff --check: clean
 ```
 
-Phase 109 は完了。
+Phase 110 は完了。
 
 ---
 
@@ -117,7 +139,6 @@ minimal Result + Proof presentation
 candidate-list presentation
 execute CLI
 Windows UTF-8 CLI boundary
-end-to-end subprocess smoke
 ```
 
 Phase 109:
@@ -125,33 +146,34 @@ Phase 109:
 ```text
 known-group identity integration
 proof-derived ambient-group fallback
-decorated sigma / sigma_8 / sigma_9 known-group fallback
 generic concrete indexed sigma_n specialization
 proof-scope specialization integration
-qualified-execution semantic boundary audit
 known-group proof replay
 show-proof CLI
-narrow replay statement rendering coverage
 known-group-first ambiguous execute presentation
 candidate-order / theorem-ranking boundary closure
+```
+
+Phase 110:
+
+```text
+minimal operation-query parser
+existing H / E / Delta / composition fact lookup
+query CLI
+raw occurrence preservation
+equal-statement deduplicated presentation
+shallow-depth prioritization
+query fact selection
+fact-rooted proof replay
+query-proof CLI
+narrow mathematical statement presentation
+safe aggregate type fallback
+completion regression
 ```
 
 ---
 
 # 3. 現在の execution API
-
-Phase 105 compatibility:
-
-```text
-execute_standard_repository_generator_applicability_result_by_root_and_source(
-  applicability_result,
-  root_entry,
-  source_step,
-  goal,
-  max_depth=2,
-  retry_policy=None,
-)
-```
 
 Phase 107 multi-family:
 
@@ -185,11 +207,13 @@ toda_58_delta_iota9_nu4_nu_prime_inference_rule
 toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
 ```
 
-Phase 109 では third qualified family を追加していない。
+third qualified family はまだ追加していない。
 
 ---
 
-# 4. 現在の known-group replay API
+# 4. 現在の replay API
+
+known-group replay:
 
 ```text
 build_standard_repository_generator_known_group_proof_replay_input(
@@ -198,14 +222,25 @@ build_standard_repository_generator_known_group_proof_replay_input(
 )
 ```
 
-default replay depth:
+operation-query replay:
 
 ```text
-result
-+ direct premises
+build_repository_operation_query_proof_replay(
+  presentation,
+  fact_number=None,
+  max_depth=1,
+)
 ```
 
-`show-proof` は既知 group の proof replay であり、qualified theorem application ではない。
+両者は別 semantics。
+
+```text
+show-proof
+→ known-group identity proof replay
+
+query-proof
+→ selected operation fact proof replay
+```
 
 ---
 
@@ -221,9 +256,13 @@ python main.py show-proof nu_prime
 python main.py show-proof sigma_11
 python main.py execute nu_prime
 python main.py execute nu_prime --candidate 1
+python main.py query "H(nu_prime)"
+python main.py query "Delta(iota_9)"
+python main.py query "E(eta_2 o nu_prime)"
+python main.py query "eta_2 o nu_prime"
+python main.py query-proof "H(nu_prime)" --fact 1
+python main.py query-proof "E(eta_2 o nu_prime)"
 ```
-
-`execute` は proof-graph の root/source/family internal identifier を user input に要求しない。
 
 ---
 
@@ -234,7 +273,6 @@ ambiguity:
 ```text
 multiple executable targets
 → 自動選択しない
-→ numbered candidate list
 ```
 
 candidate number:
@@ -251,61 +289,129 @@ show-proof
 != execute
 ```
 
-indexed sigma specialization:
+operation query:
 
 ```text
-symbolic Proposition 5.15 theorem
-→ concrete specialization
-!= arbitrary AST rewrite
-!= third qualified execution family
+lookup
+!= inference
+!= evaluator
 ```
 
-presentation:
+deduplication:
 
 ```text
-known group / result
-direct premises
-rule labels
+deduplicated presentation
+!= raw provenance deletion
 ```
 
-internal addressing は通常表示に出さない。
+query-proof:
+
+```text
+selected fact's ProofStep
+!= enclosing repository theorem root
+```
+
+multiple query facts:
+
+```text
+--fact omitted
+→ silent auto-selection しない
+```
+
+unknown replay statement:
+
+```text
+safe type-name fallback
+!= invented branch explanation
+```
 
 ---
 
-# 7. Phase 110 第一候補：user-facing mathematical operation query audit
+# 7. Phase 111 第一候補：CLI capability / user pressure audit
 
-Phase 109 の次は、既存の relation / proof 表現を user-facing operation query に接続する必要性を監査する。
+Phase 110 までで calculation、exploration、applicability、known-group replay、qualified execution、operation fact query、operation fact proof replay が CLI から利用可能になった。
 
-第一候補:
+次は general evaluator を先に実装せず、利用者視点で現在の CLI capability を監査する。
 
-```text
-composition result query
-E result query
-H result query
-Δ result query
-operation result + proof display
-```
-
-監査対象:
+監査候補:
 
 ```text
-既存 repository に表現済みの relation
-既存 map statement / relation renderer
-operation input の最小表現
-query と evaluator の境界
-known relation lookup と新規計算の境界
-proof replay の再利用可能性
+どの操作が discoverable か
+query / query-proof / show-proof / execute の役割分離
+operation query grammar の実際の不足
+proof replay depth 1 の十分性
+alternate provenance 選択の必要性
+composition query の見つけやすさ
+CLI help / command discoverability
+既存 full proof report の presentation 残課題
 ```
 
-Phase 110 では、一般 evaluator を先に実装しない。
+実需要が確認された項目だけを次の実装 Phase にする。
 
 ---
 
-# 8. 保留：semantic automatic target selection
+# 8. 保留：operation query grammar expansion
 
-複数候補から数学的に「最善」を選ぶ機能は未実装。
+現在の最小 grammar:
+
+```text
+H(<operand>)
+E(<operand>)
+Delta(<operand>)
+<generator> o <generator>
+```
 
 保留:
+
+```text
+nested composition
+3-term composition
+Unicode ∘
+LaTeX input
+implicit composition
+general expression parser
+```
+
+grammar 拡張だけを目的に先取りしない。
+
+---
+
+# 9. 保留：operation evaluator
+
+未実装:
+
+```text
+general composition evaluator
+general E evaluator
+general H evaluator
+general Delta evaluator
+repository に未表現の fact の自動導出
+```
+
+Phase 110 の `query` は lookup のまま維持する。
+
+---
+
+# 10. 保留：proof replay 拡張
+
+現在の `show-proof` / `query-proof` は default direct-premise depth 1。
+
+必要性が確認された場合のみ検討:
+
+```text
+CLI --depth
+recursive ancestry presentation
+dependency-first narrative
+shared dependency display
+alternate provenance selection
+rich proof visualization
+```
+
+---
+
+# 11. 保留：semantic automatic target selection
+
+複数候補から数学的に「最善」を選ぶ機能は未実装。
 
 ```text
 theorem ranking
@@ -319,7 +425,7 @@ automatic target preference
 
 ---
 
-# 9. 保留：additional qualified families
+# 12. 保留：additional qualified families
 
 third family 以降は coverage 拡張だけを目的に admission しない。
 
@@ -338,28 +444,10 @@ new architectural pressure
 
 ---
 
-# 10. 保留：proof replay 拡張
-
-Phase 109 の `show-proof` は default direct-premise depth 1。
-
-必要性が確認された場合のみ検討:
-
-```text
-CLI --depth
-recursive ancestry presentation
-dependency-first narrative
-shared dependency display
-rich proof visualization
-```
-
----
-
-# 11. 保留：数学的 evaluator / broader coverage
+# 13. 保留：数学的 broader coverage
 
 ```text
 general Toda-bracket solver
-general composition evaluation
-general E / H / Δ evaluation
 indeterminacy / coset normalization
 broader unstable stems
 odd-primary integration
@@ -368,7 +456,7 @@ all-primary ordinary sphere-homotopy calculation
 
 ---
 
-# 12. 保留：optimization / versioning
+# 14. 保留：optimization / versioning
 
 ```text
 general backtracking
@@ -385,9 +473,9 @@ Phase 106 の prefilter 以降、次の optimization は実測圧力を確認し
 
 ---
 
-# 13. 保留：UI 拡張
+# 15. 保留：UI 拡張
 
-現在 CLI で calculation / exploration / applicability / replay / execution が利用できる。
+現在 CLI で calculation / exploration / applicability / replay / execution / operation query が利用できる。
 
 未実装:
 
@@ -400,15 +488,15 @@ rich recursive proof visualization
 
 ---
 
-# 14. 次 Phase の開始境界
+# 16. 次 Phase の開始境界
 
-Phase 109 の known-group / replay capability を機械的に拡張しない。
+Phase 110 の operation-query capability を機械的に拡張しない。
 
 次はまず:
 
 ```text
-Phase 110
-user-facing mathematical operation query audit
+Phase 111
+CLI capability / user pressure audit
 ```
 
-その監査結果から、既存 relation lookup、operation query、general evaluator のどこまでを次の実装範囲にするかを決める。
+その監査結果から、実際に不足している最小 capability を次の実装範囲にする。
