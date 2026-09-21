@@ -1,0 +1,251 @@
+from types import SimpleNamespace
+
+import pytest
+
+import main as cli_main
+
+
+def test_phase110_6_query_dispatches_to_operation_query_facade(
+  monkeypatch,
+  capsys,
+):
+  calls = []
+
+  fake_result = SimpleNamespace(
+    found=True,
+  )
+
+  fake_presentation = SimpleNamespace(
+    items=(
+      object(),
+    ),
+  )
+
+  def fake_query(
+    query_input,
+  ):
+    calls.append(
+      query_input
+    )
+    return fake_result
+
+  monkeypatch.setattr(
+    cli_main,
+    "query_standard_repository_operation_input",
+    fake_query,
+  )
+
+  monkeypatch.setattr(
+    cli_main,
+    "build_repository_operation_query_presentation",
+    lambda result: fake_presentation,
+  )
+
+  monkeypatch.setattr(
+    cli_main,
+    "render_repository_operation_query_markdown",
+    lambda presentation: (
+      "# Known repository facts\n\n"
+      "1. $H\\left(\\nu'\\right) = \\eta_{5}$\n"
+    ),
+  )
+
+  exit_code = cli_main.main(
+    [
+      "query",
+      "H(nu_prime)",
+    ]
+  )
+
+  captured = capsys.readouterr()
+
+  assert exit_code == 0
+
+  assert calls == [
+    "H(nu_prime)",
+  ]
+
+  assert captured.out == (
+    "# Known repository facts\n\n"
+    "1. $H\\left(\\nu'\\right) = \\eta_{5}$\n"
+  )
+
+  assert captured.err == ""
+
+
+def test_phase110_6_query_not_found_is_exit_one(
+  monkeypatch,
+  capsys,
+):
+  fake_result = SimpleNamespace(
+    found=False,
+  )
+
+  monkeypatch.setattr(
+    cli_main,
+    "query_standard_repository_operation_input",
+    lambda query_input: fake_result,
+  )
+
+  exit_code = cli_main.main(
+    [
+      "query",
+      "H(eta_999)",
+    ]
+  )
+
+  captured = capsys.readouterr()
+
+  assert exit_code == 1
+
+  assert captured.out == (
+    "No known repository fact found for "
+    "H(eta_999).\n"
+  )
+
+  assert captured.err == ""
+
+
+def test_phase110_6_query_value_error_is_argparse_error(
+  monkeypatch,
+  capsys,
+):
+  def fake_query(
+    query_input,
+  ):
+    raise ValueError(
+      "unsupported operation query"
+    )
+
+  monkeypatch.setattr(
+    cli_main,
+    "query_standard_repository_operation_input",
+    fake_query,
+  )
+
+  with pytest.raises(
+    SystemExit,
+  ) as exc_info:
+    cli_main.main(
+      [
+        "query",
+        "h(nu_prime)",
+      ]
+    )
+
+  captured = capsys.readouterr()
+
+  assert exc_info.value.code == 2
+  assert captured.out == ""
+  assert "unsupported operation query" in captured.err
+  assert "Traceback" not in captured.err
+
+
+def test_phase110_6_query_missing_argument_is_parser_error(
+  capsys,
+):
+  with pytest.raises(
+    SystemExit,
+  ) as exc_info:
+    cli_main.main(
+      [
+        "query",
+      ]
+    )
+
+  captured = capsys.readouterr()
+
+  assert exc_info.value.code == 2
+  assert captured.out == ""
+  assert "query" in captured.err
+  assert "Traceback" not in captured.err
+
+
+def test_phase110_6_query_help_documents_examples(
+  capsys,
+):
+  with pytest.raises(
+    SystemExit,
+  ) as exc_info:
+    cli_main.main(
+      [
+        "query",
+        "--help",
+      ]
+    )
+
+  captured = capsys.readouterr()
+
+  assert exc_info.value.code == 0
+  assert "main.py query" in captured.out
+  assert "H(nu_prime)" in captured.out
+  assert "Delta(iota_9)" in captured.out
+  assert "eta_2 o nu_prime" in captured.out
+  assert captured.err == ""
+
+
+def test_phase110_6_existing_execute_path_is_unchanged(
+  monkeypatch,
+  capsys,
+):
+  fake_result = SimpleNamespace(
+    status=(
+      cli_main
+      .RepositoryGeneratorUserExecutionWorkflowStatus
+      .NONE
+    ),
+  )
+
+  monkeypatch.setattr(
+    cli_main,
+    "run_standard_repository_generator_user_execution_workflow",
+    lambda generator_input, candidate_number=None: fake_result,
+  )
+
+  exit_code = cli_main.main(
+    [
+      "execute",
+      "eta_999",
+    ]
+  )
+
+  captured = capsys.readouterr()
+
+  assert exit_code == 1
+  assert captured.out == (
+    "No executable target found for eta_999.\n"
+  )
+  assert captured.err == ""
+
+
+def test_phase110_6_legacy_n_k_path_is_unchanged(
+  monkeypatch,
+  capsys,
+):
+  fake_result = SimpleNamespace(
+    status=(
+      cli_main.TodaCalculationStatus.FOUND
+    ),
+    reports=(
+      "LEGACY REPORT",
+    ),
+  )
+
+  monkeypatch.setattr(
+    cli_main,
+    "build_standard_toda_report",
+    lambda n, k: fake_result,
+  )
+
+  exit_code = cli_main.main(
+    [
+      "5",
+      "7",
+    ]
+  )
+
+  captured = capsys.readouterr()
+
+  assert exit_code == 0
+  assert captured.out == "LEGACY REPORT\n"
+  assert captured.err == ""

@@ -22,7 +22,7 @@
 
 `docs/proof_records/toda_5_11_to_5_16.md`
 
-## Stable stems $G_0$ から $G_7$
+## Stable stems \(G_0\) から \(G_7\)
 
 `docs/proof_records/stable_stems_g0_g7.md`
 
@@ -46,11 +46,11 @@ Toda group query、group normalization、EHP / proof provenance、presentation /
 
 代表結果:
 
-$$
+\[
 \nu' \in \{\eta_3,2\iota_4,\eta_4\}_1,
 \qquad
 H(\nu')=\eta_5.
-$$
+\]
 
 ## Phase 103
 
@@ -86,19 +86,6 @@ toda_58_delta_iota9_nu4_nu_prime_inference_rule
 ```
 
 ```text
-744 raw qualified candidates
-→ 248 execution-family groups
-```
-
-明示選択:
-
-```text
-root_entry identity
-+
-source_step identity
-```
-
-```text
 8709 passed in 659.02s
 ```
 
@@ -110,8 +97,6 @@ source_step identity
 797573 full-scope candidates
 → 176616 generator-relevant candidates
 ```
-
-generator-relevant scope prefilter 後:
 
 ```text
 8.16 s / 62.42 MiB
@@ -131,110 +116,17 @@ toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
 
 second family は既存の
 
-$$
+\[
 \pi_6^2=\mathbb Z/4\{\eta_2\nu'\}
-$$
+\]
 
 を導く2-premise production rule である。
 
-### Exact production-application recovery
-
-multi-premise candidate から companion premise を任意探索しない。
-
-```text
-same root_entry identity
-same inference_rule identity
-same explicit goal
-target premises[candidate premise_index] is candidate.source_step
-```
-
-status:
-
-```text
-NONE
-UNIQUE
-AMBIGUOUS
-```
-
-`UNIQUE` の場合だけ exact premise tuple を利用する。
-
-### Exact premise-tuple seed
-
-```text
-same premise order
-same ProofStep identities
-target step itself is not seeded
-source repository is not mutated
-```
-
-execution で得る新しい goal step の premises は recovered tuple と一致する。
-
-### Generic qualification / dispatch
-
-```text
-family 1
-→ first-family orchestration
-
-family 2
-→ exact recovery
-→ exact 2-premise seed
-→ bounded execution
-```
-
-premise 数を dispatch policy に使わない。
-
-### Explicit selection
-
-```text
-root_entry identity
-+
-source_step identity
-+
-family_name
-```
-
-automatic theorem ranking は行わない。
-
-### Standard multi-family facade
-
-```text
-standard applicability result
-→ all-qualified filtering
-→ family grouping
-→ explicit root + source + family
-→ representative
-→ dispatch
-→ actual ProofStep
-```
-
-public contract:
-
-```text
-applicability_result
-+ root_entry
-+ source_step
-+ family_name
-+ goal
-```
-
-goal は caller-explicit。
-
-### `nu_prime` visibility
-
-`nu_prime` standard applicability exploration では、second family の `nu_prime` を含む premise 側 candidate が visible である。
-
-companion premise は exact production-application recovery から取得する。
-
-### Closure
-
-```text
-Phase 107-18:
-10 passed in 13.69s
-
-Phase 107-16 dispatch:
-10 passed in 1.71s
+multi-premise candidate から companion premise を任意探索せず、同じ root / rule / goal / source identity を満たす既存 production application を一意に recovery する。
 
 repository-wide:
+
+```text
 8783 passed in 290.63s
 ```
 
@@ -244,109 +136,28 @@ Phase 107 は完了。
 
 Phase 108 は新しい数学的 theorem truth を追加していない。
 
-Phase 107 までに実装済みの qualified execution と actual `ProofStep` provenance を、数学的 generator input から利用できる user-facing path に接続した。
-
-### Executable-target resolution
-
-resolver は generator applicability の qualified family group から original target `ProofStep` を照合する。
-
-照合条件:
+generator input から qualified execution と actual `ProofStep` provenance を利用できる user-facing path を追加した。
 
 ```text
-root_entry identity
-inference_rule identity
-candidate premise_index
-candidate source_step identity
-```
-
-target が一意に照合できる場合だけ executable target として採用する。
-
-### Ambiguity safety
-
-```text
-0 targets
-→ NONE
-
-1 target
-→ candidate number 省略時に自動実行可能
-
-multiple targets
-→ candidate number 省略時は AMBIGUOUS
-→ 自動で先頭を選ばない
+generator input
+→ executable target resolution
+→ ambiguity-safe candidate selection
+→ qualified execution
+→ executed goal_step
+→ Result + Proof
 ```
 
 candidate number は 1-based addressing であり theorem ranking ではない。
 
-### Final executed ProofStep
-
-user-facing result は repository の original target step を直接 presentation しない。
-
-実際の execution が生成した
-
 ```text
-repository_inference_result.goal_step
+candidate number != theorem ranking
 ```
 
-を final executed `ProofStep` とする。
-
-```text
-presentation.proof_step
-is extracted executed goal_step
-```
-
-repository target goal とは
-
-```text
-executed conclusion == target goal
-```
-
-で対応し、同一 object であることは要求しない。
-
-### Direct-premise provenance
-
-minimal proof presentation は final executed `ProofStep.premises` の direct premises をそのまま使う。
-
-```text
-presented premise
-is executed ProofStep premise
-```
-
-再帰的 proof tree の再構成や premise clone は行わない。
-
-### Candidate-list boundary
-
-`AMBIGUOUS` result は numbered target conclusion list として表示する。
-
-通常表示に出さない:
-
-```text
-family_name
-root_entry.key
-catalog key
-bindings
-```
-
-### CLI boundary
-
-```text
-python main.py execute nu_prime
-python main.py execute nu_prime --candidate 1
-```
-
-実 subprocess smoke で argument parsing から execution / renderer / stdout までを確認した。
-
-Windows CP932 では `η₂`、`ν₄` などを出力できないため、script entry point の stdout / stderr を UTF-8 に統一した。
-
-### Closure
-
-```text
-Phase 108-12 end-to-end smoke:
-3 passed in 21.55s
-
-Phase 108 focused regression:
-64 passed in 67.18s
+Windows CP932 boundary を実 subprocess smoke で検出し、script entry point の stdout / stderr を UTF-8 に統一した。
 
 repository-wide:
+
+```text
 8850 passed in 380.25s
 ```
 
@@ -377,22 +188,22 @@ sigma_9
 
 Toda Proposition 5.15:
 
-$$
+\[
 \pi_{n+7}^{n}=\mathbb Z/16\{\sigma_n\},
 \qquad n\ge 9.
-$$
+\]
 
-Phase 109 では concrete integer index $n\ge 10$ に対して theorem-specific specialization を導入した。
+concrete integer index \(n\ge 10\) に対して theorem-specific specialization を導入した。
 
 例:
 
-$$
+\[
 \pi_{18}^{11}=\mathbb Z/16\{\sigma_{11}\},
-$$
+\]
 
-$$
+\[
 \pi_{19}^{12}=\mathbb Z/16\{\sigma_{12}\}.
-$$
+\]
 
 concrete specialization step は symbolic higher step を direct premise とする。
 
@@ -403,43 +214,7 @@ concrete specialization
 
 arbitrary symbolic AST rewrite は行わない。
 
-specialization step に production inference rule を偽装しない。
-
-```text
-specialization inference_rule = None
-```
-
-### Proof-scope integration
-
-generator proof-scope exploration 時に concrete indexed sigma specialization を加える。
-
-これにより `sigma_11` などが occurrence / applicability source として visible になる。
-
-ただし、
-
-```text
-proof-scope visibility
-!= qualified executable target
-```
-
-である。
-
-### Third-family audit
-
-Toda (4.5) sigma transport は symbolic higher sigma group の provenance であり、concrete specialized `sigma_11` source から新 target を生成する既存 production application ではない。
-
-したがって、
-
-```text
-concrete sigma_11 specialization
-!= third qualified execution family
-```
-
-と確定した。
-
 ### Known-group proof replay
-
-known-group proof replay は次の path とする。
 
 ```text
 generator
@@ -451,89 +226,9 @@ generator
 
 qualified execution wrapper を流用しない。
 
-fake executable target を作らない。
-
-### `show-proof`
-
-CLI:
-
-```text
-python main.py show-proof nu_prime
-python main.py show-proof sigma_11
-```
-
-`show-proof nu_prime` の root:
-
-$$
-\pi_6^3=\mathbb Z/4\{\nu'\}.
-$$
-
-direct premise presentation には例えば
-
-$$
-\nu'\in\pi_6^3,
-$$
-
-$$
-E:\pi_5^2\to\pi_6^3
-\quad\text{is injective},
-$$
-
-$$
-H:\pi_6^3\to\pi_6^5
-\quad\text{is surjective}
-$$
-
-を含む。
-
-`show-proof sigma_11` の root:
-
-$$
-\pi_{18}^{11}=\mathbb Z/16\{\sigma_{11}\}.
-$$
-
-direct symbolic premise:
-
-$$
-\pi_{n+7}^{n}=\mathbb Z/16\{\sigma_n\}.
-$$
-
-### `show-proof` / `execute` semantic boundary
-
-```text
-show-proof
-→ proof of an already established known-group identity
-
-execute
-→ qualified theorem application from a generator-related source
-```
-
-したがって、
-
 ```text
 show-proof != execute
 ```
-
-`sigma_11` は replay 可能だが executable target を持たない。
-
-### Candidate-order boundary
-
-`execute nu_prime` の ambiguous 表示では known group
-
-$$
-\pi_6^3=\mathbb Z/4\{\nu'\}
-$$
-
-を candidate list より先に表示する。
-
-candidate number は stable 1-based addressing であり、数学的優先順位ではない。
-
-```text
-candidate number != theorem priority
-candidate order != theorem ranking
-```
-
-### Closure
 
 repository-wide:
 
@@ -542,6 +237,217 @@ repository-wide:
 ```
 
 Phase 109 は完了。
+
+## Phase 110 operation query / proof replay provenance
+
+Phase 110 は新しい数学的 theorem truth を追加していない。
+
+既存 repository / proof-scope にすでに存在する relation・map statement・composition-containing statement を user-facing query から検索し、その既存 `ProofStep` provenance を保持したまま表示・replay する経路を追加した。
+
+### Operation query parser
+
+最小 grammar:
+
+```text
+H(<operand>)
+E(<operand>)
+Delta(<operand>)
+<generator> o <generator>
+```
+
+代表:
+
+```text
+H(nu_prime)
+Delta(iota_9)
+E(eta_2 o nu_prime)
+eta_2 o nu_prime
+```
+
+parser は evaluator input を作らない。
+
+```text
+query specification
+!= mathematical evaluation request
+```
+
+### Existing fact lookup
+
+`H` は既存 map-relation exploration を再利用する。
+
+`E` は既存 repository 表現の `MapApplication(E, ...)` と `Suspension(...)` を lookup semantics で認識する。
+
+\(\Delta\) は既存 `TodaDeltaImageUpToSignStatement` を保持する。
+
+composition query は exact `Composition` containment を探索する。
+
+代表結果:
+
+\[
+H(\nu')=\eta_5,
+\]
+
+\[
+H(\nu')=E^2\eta_3,
+\]
+
+\[
+\Delta(\iota_9)
+=
+\pm(2\nu_4-E\nu'),
+\]
+
+\[
+\Delta(\iota_9)
+=
+\pm[\iota_4,\iota_4],
+\]
+
+\[
+E\eta_2\nu'=0.
+\]
+
+重要:
+
+```text
+lookup != inference != evaluator
+```
+
+### Raw provenance preservation
+
+同じ `ProofStep` が複数 repository root の ancestry に現れることは provenance 上正当である。
+
+したがって raw lookup occurrence は削除しない。
+
+presentation layer のみ equal statement を group 化する。
+
+```text
+raw matches
+→ equal mathematical statement grouping
+→ presentation item
+```
+
+各 presentation item は元の全 match を保持する。
+
+```text
+deduplicated presentation
+!= raw provenance deletion
+```
+
+### Presentation priority
+
+primary display order は shallowest proof-scope depth と stable source order に基づく。
+
+これは theorem ranking ではない。
+
+### Operation-query proof replay
+
+`query-proof` は selected fact の primary match を使う。
+
+replay root:
+
+```text
+selected presentation item
+→ primary_match
+→ scope_node.proof_step
+```
+
+enclosing repository theorem root ではない。
+
+例えば
+
+\[
+H(\nu')=\eta_5
+\]
+
+を replay すると depth 0 はこの relation 自身であり、direct premises として
+
+\[
+H(\nu')=E^2\eta_3,
+\qquad
+E^2\eta_3=\eta_5
+\]
+
+を保持する。
+
+```text
+operation-query proof replay
+!= repository theorem replay
+```
+
+### Multiple fact safety
+
+multiple facts では silent auto-selection をしない。
+
+```text
+1 fact
+→ --fact 省略可
+
+multiple facts
+→ --fact N が必要
+```
+
+`--fact` は 1-based addressing であり theorem ranking ではない。
+
+### Statement presentation
+
+既存 generic renderer で数学表示できる statement はそのまま利用する。
+
+Phase 110 で追加した narrow presentation:
+
+\[
+\nu'\in\{\eta_3,2\iota_4,\eta_4\}_1,
+\]
+
+\[
+E^2\nu'\in2\iota_5\circ\pi_8^5,
+\]
+
+\[
+\Delta:\pi_8^5\to\pi_6^2
+\quad\text{is surjective}.
+\]
+
+未知 aggregate は意味を推測せず safe type-name fallback とする。
+
+```text
+`TodaProp56FiniteDimensionalStatement`
+```
+
+raw dataclass repr を user-facing replay に漏らさない。
+
+### CLI
+
+```text
+python main.py query "H(nu_prime)"
+python main.py query "Delta(iota_9)"
+python main.py query "E(eta_2 o nu_prime)"
+python main.py query "eta_2 o nu_prime"
+
+python main.py query-proof "H(nu_prime)" --fact 1
+python main.py query-proof "H(nu_prime)" --fact 2
+python main.py query-proof "E(eta_2 o nu_prime)"
+python main.py query-proof "eta_2 o nu_prime" --fact 4
+```
+
+### Closure
+
+最終 repository-wide regression:
+
+```text
+9055 passed in 455.09s (0:07:35)
+```
+
+whitespace check:
+
+```text
+git diff --check
+clean
+```
+
+representative smoke では `query`、`query-proof`、`execute`、`show-proof`、`python main.py 5 3` が正常に動作した。
+
+Phase 110 は完了。
 
 ---
 
@@ -577,6 +483,13 @@ symbolic specialization != arbitrary AST rewriting
 proof-scope specialization != theorem execution
 known-group proof replay != theorem application execution
 show-proof != execute
+operation query lookup != evaluator
+operation query result != new theorem truth
+deduplicated presentation != provenance deletion
+presentation order != theorem ranking
+query-proof fact number != theorem priority
+query-proof replay != enclosing theorem replay
+safe type fallback != invented theorem branch
 ```
 
 既存記録は原則として削除せず、確定した意味論訂正がある場合のみ訂正する。

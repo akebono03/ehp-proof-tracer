@@ -46,15 +46,6 @@ from repository_operation_query_presentation import (
 from repository_operation_query_renderer import (
   render_repository_operation_query_markdown,
 )
-from repository_operation_query_proof_replay import (
-  build_repository_operation_query_proof_replay,
-)
-from repository_operation_query_proof_replay_presentation import (
-  build_repository_operation_query_proof_replay_presentation,
-)
-from repository_operation_query_proof_replay_renderer import (
-  render_repository_operation_query_proof_replay_markdown,
-)
 
 render_repository_generator_applicability_markdown = (
   render_repository_generator_applicability_compact_markdown
@@ -291,37 +282,6 @@ def build_query_argument_parser(
       "operation query such as H(nu_prime), "
       "Delta(iota_9), E(eta_2 o nu_prime), "
       "or eta_2 o nu_prime"
-    ),
-  )
-
-  return parser
-
-
-def build_query_proof_argument_parser(
-) -> argparse.ArgumentParser:
-  parser = argparse.ArgumentParser(
-    prog="main.py query-proof",
-    description=(
-      "Replay the proof of one known operation-query "
-      "fact from its primary repository provenance."
-    ),
-  )
-
-  parser.add_argument(
-    "query",
-    help=(
-      "operation query such as H(nu_prime), "
-      "Delta(iota_9), E(eta_2 o nu_prime), "
-      "or eta_2 o nu_prime"
-    ),
-  )
-
-  parser.add_argument(
-    "--fact",
-    type=_parse_positive_int,
-    help=(
-      "1-based fact number; required when the "
-      "query has multiple known facts"
     ),
   )
 
@@ -625,106 +585,6 @@ def _run_query_command(
   return 0
 
 
-def _run_query_proof_command(
-  query_input: str,
-  fact_number: int | None = None,
-) -> int:
-  try:
-    result = (
-      query_standard_repository_operation_input(
-        query_input
-      )
-    )
-  except (
-    TypeError,
-    ValueError,
-  ) as error:
-    parser = (
-      build_query_proof_argument_parser()
-    )
-    parser.error(
-      str(
-        error
-      )
-    )
-
-  if not result.found:
-    print(
-      "No known repository fact found for "
-      f"{query_input}."
-    )
-    return 1
-
-  query_presentation = (
-    build_repository_operation_query_presentation(
-      result
-    )
-  )
-
-  if not query_presentation.items:
-    print(
-      "No directly renderable repository fact found for "
-      f"{query_input}."
-    )
-    return 1
-
-  if (
-    fact_number is None
-    and len(
-      query_presentation.items
-    ) > 1
-  ):
-    print(
-      render_repository_operation_query_markdown(
-        query_presentation
-      ),
-      end="",
-    )
-    print(
-      "\nSpecify --fact N to replay one fact."
-    )
-    return 1
-
-  try:
-    replay = (
-      build_repository_operation_query_proof_replay(
-        query_presentation,
-        fact_number=fact_number,
-      )
-    )
-  except (
-    TypeError,
-    ValueError,
-  ) as error:
-    parser = (
-      build_query_proof_argument_parser()
-    )
-    parser.error(
-      str(
-        error
-      )
-    )
-
-  replay_presentation = (
-    build_repository_operation_query_proof_replay_presentation(
-      replay
-    )
-  )
-
-  markdown = (
-    render_repository_operation_query_proof_replay_markdown(
-      replay_presentation
-    )
-  )
-
-  print(
-    markdown,
-    end="",
-  )
-
-  return 0
-
-
 def main(
   argv: Sequence[str] | None = None,
 ) -> int:
@@ -858,27 +718,6 @@ def main(
 
     return _run_query_command(
       args.query
-    )
-
-  if (
-    raw_argv
-    and raw_argv[
-      0
-    ] == "query-proof"
-  ):
-    parser = (
-      build_query_proof_argument_parser()
-    )
-
-    args = parser.parse_args(
-      raw_argv[
-        1:
-      ]
-    )
-
-    return _run_query_proof_command(
-      args.query,
-      fact_number=args.fact,
     )
 
   parser = build_argument_parser()

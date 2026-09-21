@@ -21,13 +21,13 @@
 
 `docs/development_log/phases_049_064.md`
 
-$\pi_3^2$、$\pi_4^3$、Toda Proposition 5.1、Lemma 5.2、$\nu'$、$\nu_4$、$\nu$-family、性能安定化まで。
+\(\pi_3^2\)、\(\pi_4^3\)、Toda Proposition 5.1、Lemma 5.2、\(\nu'\)、\(\nu_4\)、\(\nu\)-family、性能安定化まで。
 
 ## Phase 65–78
 
 `docs/development_log/phases_065_078.md`
 
-Toda Proposition 5.6 から Lemma 5.16、stable $G_0$ から $G_7$ までの主要な数学的証明経路。
+Toda Proposition 5.6 から Lemma 5.16、stable \(G_0\) から \(G_7\) までの主要な数学的証明経路。
 
 ## Phase 79–89
 
@@ -108,11 +108,11 @@ recursive proof-scope exploration、Toda membership、known map relation discove
 
 代表結果:
 
-$$
+\[
 \nu' \in \{\eta_3,2\iota_4,\eta_4\}_1,
 \qquad
 H(\nu')=\eta_5.
-$$
+\]
 
 ```text
 8142 passed in 129.93s
@@ -146,18 +146,6 @@ first qualified production family を standard applicability workflow へ接続�
 toda_58_delta_iota9_nu4_nu_prime_inference_rule
 ```
 
-主要 capability:
-
-```text
-exact source-step seed
-qualified execution entry/catalog
-candidate orchestration
-qualified selection
-execution-family grouping
-explicit root + source selection
-standard first-family facade
-```
-
 ```text
 8709 passed in 659.02s
 ```
@@ -184,7 +172,7 @@ generator-relevant scope prefilter を実装。
 
 `docs/development_log/phases_107.md`
 
-Phase 107 は、Phase 106 後の qualified-execution expansion pressure を監査し、実需要が確認された範囲だけで first-family-only execution を multi-family execution へ拡張した。
+first-family-only execution を multi-family execution へ拡張。
 
 second qualified family:
 
@@ -205,38 +193,6 @@ family-name dispatch
 multi-family standard facade
 ```
 
-multi-family public contract:
-
-```text
-applicability_result
-+ root_entry
-+ source_step
-+ family_name
-+ goal
-```
-
-Phase 107 で実装しなかったもの:
-
-```text
-automatic root/source/family selection
-automatic goal discovery
-theorem ranking
-execution CLI
-execution-result presentation integration
-third qualified family
-persistent cache / parallelization
-```
-
-focused:
-
-```text
-Phase 107-18:
-10 passed in 13.69s
-
-Phase 107-16:
-10 passed in 1.71s
-```
-
 repository-wide:
 
 ```text
@@ -247,7 +203,7 @@ Phase 107 は完了。
 
 ## Phase 108
 
-Phase 108 は、Phase 107 の internal qualified execution を user-facing workflow と CLI へ接続した。
+Phase 107 の internal qualified execution を user-facing workflow と CLI へ接続。
 
 主要 capability:
 
@@ -263,59 +219,6 @@ generator input
 → CLI
 ```
 
-主要サブフェーズ:
-
-```text
-108-5:
-minimal user-facing executable-target resolver
-
-108-6:
-executable target → qualified execution handoff
-
-108-7:
-executed target → final ProofStep extraction
-
-108-8:
-final ProofStep → minimal Result + Proof presentation
-
-108-9:
-minimal user-facing execution workflow facade
-
-108-10:
-user-facing executable candidate-list presentation / renderer
-
-108-11:
-CLI execute command integration
-
-108-12:
-end-to-end subprocess smoke / closure audit
-Windows CP932 boundary detection and UTF-8 CLI fix
-```
-
-user-facing workflow status:
-
-```text
-NONE
-AMBIGUOUS
-EXECUTED
-```
-
-ambiguity policy:
-
-```text
-0 targets
-→ NONE
-
-1 target + no candidate number
-→ execute
-
-multiple targets + no candidate number
-→ AMBIGUOUS
-
-candidate number supplied
-→ execute selected 1-based target
-```
-
 CLI:
 
 ```text
@@ -323,24 +226,7 @@ python main.py execute nu_prime
 python main.py execute nu_prime --candidate 1
 ```
 
-Phase 108-12 の実 subprocess smoke で Windows CP932 が `η₂`、`ν₄` 等を encode できないことを検出した。
-
-対応:
-
-```text
-script entry point
-→ stdout / stderr UTF-8
-```
-
-focused:
-
-```text
-Phase 108-12 smoke:
-3 passed in 21.55s
-
-Phase 108-5–11 focused regression:
-64 passed in 67.18s
-```
+Windows CP932 boundary を実 subprocess smoke で検出し、script entry point の stdout / stderr を UTF-8 化した。
 
 repository-wide:
 
@@ -352,7 +238,7 @@ Phase 108 は完了。
 
 ## Phase 109
 
-Phase 109 は Phase 108 後の operational audit から開始し、generator query の user-facing semantics と known-group proof replay を閉じた。
+Phase 108 後の operational audit から開始し、generator query の user-facing semantics と known-group proof replay を閉じた。
 
 主要な流れ:
 
@@ -368,72 +254,14 @@ known-group identity
 → user-facing ordering closure
 ```
 
-主要サブフェーズ:
+Toda Proposition 5.15:
 
-```text
-109-12:
-nu_5 proof-derived ambient-group fallback
-
-109-14:
-decorated sigma finite-cyclic fallback
-sigma''' / sigma'' / sigma'
-
-109-16:
-sigma_8 direct-sum known-group fallback
-
-109-18:
-sigma_9 finite-cyclic fallback
-
-109-19–22:
-symbolic sigma_n specialization strategy audit
-→ sigma_10 minimal specialization
-→ generic indexed sigma_n specialization for concrete n >= 10
-
-109-23–24:
-generic indexed sigma query / proof-scope integration
-
-109-25–27:
-qualified execution selection / family semantics / replay semantics audits
-
-109-28:
-known-group proof replay command / API boundary audit
-
-109-29:
-minimal known-group proof replay API
-show-proof CLI
-
-109-30–31:
-proof replay statement rendering coverage audit
-→ narrow rendering implementation
-
-109-32:
-final user-facing ordering / ranking residual audit
-```
-
-Toda Proposition 5.15 の symbolic higher sigma step:
-
-$$
+\[
 \pi_{n+7}^{n}=\mathbb Z/16\{\sigma_n\},
 \qquad n\ge 9.
-$$
+\]
 
-concrete indexed specialization は $n\ge 10$ に限定し、symbolic higher step を direct premise として保持する。
-
-例:
-
-$$
-\pi_{18}^{11}=\mathbb Z/16\{\sigma_{11}\},
-\qquad
-\pi_{19}^{12}=\mathbb Z/16\{\sigma_{12}\}.
-$$
-
-specialization では arbitrary symbolic AST rewrite を導入しない。
-
-また、specialization step に実際には適用していない production inference rule を付与しない。
-
-```text
-specialization inference_rule = None
-```
+concrete indexed specialization は \(n\ge 10\) に限定し、symbolic higher step を direct premise として保持する。
 
 known-group proof replay:
 
@@ -459,47 +287,9 @@ generator
 
 ```text
 show-proof != execute
-```
-
-```text
 candidate number != theorem ranking
-```
-
-```text
 concrete sigma_n specialization != third qualified execution family
 ```
-
-`show-proof nu_prime` は
-
-$$
-\pi_6^3=\mathbb Z/4\{\nu'\}
-$$
-
-を Result として表示し、direct premise として membership、suspension injectivity、EHP exactness、Hopf surjectivity などを表示する。
-
-`show-proof sigma_11` は
-
-$$
-\pi_{18}^{11}=\mathbb Z/16\{\sigma_{11}\}
-$$
-
-と、その直接 symbolic provenance
-
-$$
-\pi_{n+7}^{n}=\mathbb Z/16\{\sigma_n\}
-$$
-
-を表示する。
-
-`execute nu_prime` の ambiguous 表示では、known group
-
-$$
-\pi_6^3=\mathbb Z/4\{\nu'\}
-$$
-
-を executable candidate list より先に表示する。
-
-candidate order は resolver order の stable 1-based addressing であり、mathematical priority を意味しない。
 
 最終 repository-wide regression:
 
@@ -508,6 +298,170 @@ candidate order は resolver order の stable 1-based addressing であり、mat
 ```
 
 Phase 109 は完了。
+
+## Phase 110
+
+Phase 110 は user-facing mathematical operation query の実需要監査から開始し、既存 repository / proof-scope にすでに表現されている数学的 operation fact を直接検索・表示・proof replay できる経路を追加した。
+
+主要サブフェーズ:
+
+```text
+110-1:
+user-facing mathematical operation query capability audit
+
+110-2:
+query input / syntax boundary audit
+
+110-3:
+existing-relation lookup design
+
+110-4:
+minimal operation query implementation boundary audit
+
+110-5:
+minimal operation query core implementation
+
+110-6:
+operation query CLI integration
+
+110-7:
+operation query result deduplication / prioritization audit
+
+110-8:
+deduplicated presentation implementation
+
+110-9:
+operation query proof replay / provenance detail audit
+
+110-10:
+operation query proof replay implementation
+
+110-11:
+proof replay statement presentation audit
+
+110-12:
+proof replay statement presentation implementation
+
+110-13:
+feature completion / regression audit
+```
+
+最小 query grammar:
+
+```text
+H(<operand>)
+E(<operand>)
+Delta(<operand>)
+<generator> o <generator>
+```
+
+代表 CLI:
+
+```text
+python main.py query "H(nu_prime)"
+python main.py query "Delta(iota_9)"
+python main.py query "E(eta_2 o nu_prime)"
+python main.py query "eta_2 o nu_prime"
+```
+
+代表結果:
+
+\[
+H(\nu')=\eta_5,
+\qquad
+H(\nu')=E^2\eta_3,
+\]
+
+\[
+\Delta(\iota_9)
+=
+\pm(2\nu_4-E\nu'),
+\]
+
+\[
+E\eta_2\nu'=0.
+\]
+
+operation query は evaluator ではない。
+
+```text
+lookup != inference != evaluation
+```
+
+raw proof-scope occurrences は保持し、presentation layer だけで equal mathematical statement を group 化する。
+
+```text
+deduplicated display
+!= provenance deletion
+```
+
+`query-proof` を追加。
+
+```text
+python main.py query-proof "H(nu_prime)" --fact 1
+python main.py query-proof "H(nu_prime)" --fact 2
+python main.py query-proof "E(eta_2 o nu_prime)"
+python main.py query-proof "eta_2 o nu_prime" --fact 4
+```
+
+proof replay root は enclosing theorem aggregate ではなく、選択された fact 自身の `ProofStep`。
+
+\[
+H(\nu')=\eta_5
+\]
+
+の direct replay は
+
+\[
+H(\nu')=E^2\eta_3,
+\qquad
+E^2\eta_3=\eta_5
+\]
+
+を表示する。
+
+multiple facts のときは silent auto-selection を行わず `--fact N` を要求する。
+
+proof replay statement presentation では既知 semantics を数学表示し、未知 aggregate は raw Python repr ではなく safe type-name fallback にする。
+
+代表:
+
+\[
+\nu'\in\{\eta_3,2\iota_4,\eta_4\}_1,
+\]
+
+\[
+E^2\nu'\in2\iota_5\circ\pi_8^5,
+\]
+
+\[
+\Delta:\pi_8^5\to\pi_6^2
+\quad\text{is surjective}.
+\]
+
+Phase 110 最終確認:
+
+```text
+python -m pytest -q
+9055 passed in 455.09s (0:07:35)
+
+git diff --check
+clean
+```
+
+representative smoke:
+
+```text
+query
+query-proof
+execute
+show-proof
+python main.py 5 3
+```
+
+すべて正常。
+
+Phase 110 は完了。
 
 ---
 
@@ -529,4 +483,4 @@ docs/code_reference.md
 docs/proof_records.md
 ```
 
-次 Phase は、Phase 109 で分離した `show-proof` / `execute` semantics を前提に、composition / E / H / Δ 等の user-facing mathematical operation query の実需要を監査して開始する。
+次 Phase は Phase 110 の operation query / proof replay を前提に、CLI 全体の利用者視点の残課題と、次に実需要のある最小 capability を監査して開始する。
