@@ -122,23 +122,23 @@ def test_phase109_18_sigma9_input_facade_uses_same_fallback():
   )
 
 
-def test_phase109_18_sigma11_remains_unsupported_without_further_symbolic_specialization():
-  sigma_11 = GeneratorSymbol(
+def test_phase109_18_sigma10_remains_unsupported_without_symbolic_specialization():
+  sigma_10 = GeneratorSymbol(
     family="σ",
-    index=11,
+    index=10,
   )
 
   assert (
     GENERATOR_FACT_REPOSITORY
     .lookup_ambient_group(
-      sigma_11
+      sigma_10
     )
     is None
   )
 
   assert (
     find_standard_repository_generator_known_group_identity_nodes(
-      sigma_11
+      sigma_10
     )
     == ()
   )

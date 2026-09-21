@@ -24,9 +24,6 @@ from repository_proof_scope import (
   RepositoryProofScopeResult,
   build_repository_proof_scope,
 )
-from repository_symbolic_sigma_specialization import (
-  specialize_repository_proof_scope_for_generator,
-)
 from standard_production_repository import (
   build_standard_production_proof_repository,
 )
@@ -65,10 +62,6 @@ def _supports_proof_derived_ambient_group(
     GeneratorSymbol(
       family="σ",
       index=9,
-    ),
-    GeneratorSymbol(
-      family="σ",
-      index=10,
     ),
   )
 
@@ -234,13 +227,6 @@ def find_repository_generator_known_group_identity_nodes(
 
   scope = build_repository_proof_scope(
     repository
-  )
-
-  scope = (
-    specialize_repository_proof_scope_for_generator(
-      scope,
-      generator,
-    )
   )
 
   ambient_group_fact = (
