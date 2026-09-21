@@ -12,12 +12,6 @@ from repository_generator_applicability_renderer import (
   render_repository_generator_applicability_compact_markdown,
   render_repository_generator_applicability_detailed_markdown,
 )
-from repository_generator_known_group_identity_presentation import (
-  build_standard_repository_generator_known_group_identity_presentation_input,
-)
-from repository_generator_known_group_identity_renderer import (
-  render_repository_generator_known_group_identity_markdown,
-)
 from repository_generator_user_execution_candidate_presentation import (
   build_repository_generator_user_execution_candidate_list_presentation,
 )
@@ -371,34 +365,20 @@ def _run_execute_command(
     result.status
     is RepositoryGeneratorUserExecutionWorkflowStatus.AMBIGUOUS
   ):
-    known_group_presentation = (
-      build_standard_repository_generator_known_group_identity_presentation_input(
-        generator_input
-      )
-    )
-
-    known_group_markdown = (
-      render_repository_generator_known_group_identity_markdown(
-        known_group_presentation
-      )
-    )
-
-    candidate_presentation = (
+    presentation = (
       build_repository_generator_user_execution_candidate_list_presentation(
         result
       )
     )
 
-    candidate_markdown = (
+    markdown = (
       render_repository_generator_user_execution_candidate_list_markdown(
-        candidate_presentation
+        presentation
       )
     )
 
     print(
-      known_group_markdown
-      + "\n"
-      + candidate_markdown,
+      markdown,
       end="",
     )
 
