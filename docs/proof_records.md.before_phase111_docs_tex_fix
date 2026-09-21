@@ -22,7 +22,7 @@
 
 `docs/proof_records/toda_5_11_to_5_16.md`
 
-## 安定 stem $G_0$ から $G_7$
+## 安定 stem \(G_0\) から \(G_7\)
 
 `docs/proof_records/stable_stems_g0_g7.md`
 
@@ -46,11 +46,11 @@ Toda 群問い合わせ、群正規化、EHP / 証明 provenance、表示 / レ�
 
 代表結果:
 
-$$
+\[
 \nu' \in \{\eta_3,2\iota_4,\eta_4\}_1,
 \qquad
 H(\nu')=\eta_5.
-$$
+\]
 
 ## Phase 103
 
@@ -105,9 +105,9 @@ toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
 
 第2 family は既存の
 
-$$
+\[
 \pi_6^2=\mathbb Z/4\{\eta_2\nu'\}
-$$
+\]
 
 を導く2前提 production rule である。
 
@@ -148,20 +148,20 @@ Phase 108 は完了。
 
 Toda Proposition 5.15:
 
-$$
+\[
 \pi_{n+7}^{n}=\mathbb Z/16\{\sigma_n\},
 \qquad n\ge 9.
-$$
+\]
 
-具体 integer index $n\ge 10$ に対して定理固有の具体化を導入。
+具体 integer index \(n\ge 10\) に対して定理固有の具体化を導入。
 
 例:
 
-$$
+\[
 \pi_{18}^{11}=\mathbb Z/16\{\sigma_{11}\},
 \qquad
 \pi_{19}^{12}=\mathbb Z/16\{\sigma_{12}\}.
-$$
+\]
 
 ```text
 concrete specialization
@@ -205,21 +205,21 @@ Delta(<operand>)
 
 代表結果:
 
-$$
+\[
 H(\nu')=\eta_5,
 \qquad
 H(\nu')=E^2\eta_3,
-$$
+\]
 
-$$
+\[
 \Delta(\iota_9)
 =
 \pm(2\nu_4-E\nu'),
-$$
+\]
 
-$$
+\[
 E\eta_2\nu'=0.
-$$
+\]
 
 ```text
 検索 != 推論 != evaluator
@@ -259,9 +259,9 @@ Phase 111 は新しい数学的定理事実を追加していない。
 
 `n,k` は project quantity
 
-$$
+\[
 \pi_{n+k}^{n}
-$$
+\]
 
 すなわち free part + 2-primary component と明示し、通常の all-primary sphere homotopy group と混同しないようにした。
 
@@ -269,9 +269,9 @@ $$
 
 Toda group の symbolic dimension で Python AST repr が露出する問題を修正。
 
-$$
+\[
 \pi_{n+7}^{n}
-$$
+\]
 
 のように表示する。
 
@@ -281,9 +281,9 @@ $$
 
 実際に repository に存在する
 
-$$
+\[
 \eta_2\circ(\nu'\circ\eta_6)
-$$
+\]
 
 への問い合わせ需要に対して、
 
@@ -295,15 +295,15 @@ eta_2 o nu_prime o eta_6
 
 代表既存 fact:
 
-$$
+\[
 \pi_7^2
 =
 \mathbb Z/2\{\eta_2\nu'\eta_6\},
-$$
+\]
 
-$$
+\[
 E\eta_2\nu'\eta_6=0.
-$$
+\]
 
 この対応は既存 proof fact lookup であり、新しい演算 evaluator ではない。
 
@@ -337,17 +337,17 @@ query-proof --depth N
 
 既に数式表示可能な
 
-$$
+\[
 \pi_{18}^{11}=\mathbb Z/16\{\sigma_{11}\},
-$$
+\]
 
-$$
+\[
 \pi_{n+7}^{n}=\mathbb Z/16\{\sigma_n\},
-$$
+\]
 
-$$
+\[
 \pi_{16}^{9}=\mathbb Z/16\{\sigma_9\}
-$$
+\]
 
 は維持した。
 

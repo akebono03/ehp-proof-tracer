@@ -35,12 +35,8 @@ def _render_known_group_proof_replay_statement(
     )
 
     if latex is None:
-      return (
-        "`"
-        + type(
-          statement
-        ).__name__
-        + "`"
+      return format_statement(
+        statement
       )
 
   return (

@@ -45,38 +45,6 @@ class RepositoryCompositionQuery:
       )
 
 
-@dataclass(frozen=True)
-class RepositoryThreeTermCompositionQuery:
-  first: RepositoryGeneratorQuery
-  second: RepositoryGeneratorQuery
-  third: RepositoryGeneratorQuery
-
-  def __post_init__(
-    self,
-  ) -> None:
-    for name, value in (
-      (
-        "first",
-        self.first,
-      ),
-      (
-        "second",
-        self.second,
-      ),
-      (
-        "third",
-        self.third,
-      ),
-    ):
-      if not isinstance(
-        value,
-        RepositoryGeneratorQuery,
-      ):
-        raise TypeError(
-          f"{name} must be a RepositoryGeneratorQuery"
-        )
-
-
 RepositoryOperationOperand = (
   RepositoryGeneratorQuery
   | RepositoryCompositionQuery
@@ -116,7 +84,6 @@ class RepositoryMapOperationQuery:
 RepositoryOperationQuery = (
   RepositoryMapOperationQuery
   | RepositoryCompositionQuery
-  | RepositoryThreeTermCompositionQuery
 )
 
 
@@ -168,69 +135,12 @@ def _parse_composition_query(
   )
 
 
-def _parse_three_term_composition_query(
-  value: str,
-) -> RepositoryThreeTermCompositionQuery:
-  pieces = tuple(
-    piece.strip()
-    for piece in value.split(
-      " o "
-    )
-  )
-
-  if len(
-    pieces
-  ) != 3:
-    raise ValueError(
-      "three-term composition query must contain "
-      "exactly two ' o ' operators"
-    )
-
-  if any(
-    not piece
-    for piece in pieces
-  ):
-    raise ValueError(
-      "composition operands must not be empty"
-    )
-
-  return RepositoryThreeTermCompositionQuery(
-    first=_parse_generator_query(
-      pieces[
-        0
-      ]
-    ),
-    second=_parse_generator_query(
-      pieces[
-        1
-      ]
-    ),
-    third=_parse_generator_query(
-      pieces[
-        2
-      ]
-    ),
-  )
-
-
 def _parse_operand(
   value: str,
 ) -> RepositoryOperationOperand:
   normalized = value.strip()
 
   if " o " in normalized:
-    pieces = normalized.split(
-      " o "
-    )
-
-    if len(
-      pieces
-    ) != 2:
-      raise ValueError(
-        "map-operation composition operands support "
-        "exactly two generators"
-      )
-
     return _parse_composition_query(
       normalized
     )
@@ -308,27 +218,8 @@ def parse_repository_operation_query(
     )
 
   if " o " in normalized:
-    pieces = normalized.split(
-      " o "
-    )
-
-    if len(
-      pieces
-    ) == 2:
-      return _parse_composition_query(
-        normalized
-      )
-
-    if len(
-      pieces
-    ) == 3:
-      return _parse_three_term_composition_query(
-        normalized
-      )
-
-    raise ValueError(
-      "composition query supports exactly two "
-      "or three generators"
+    return _parse_composition_query(
+      normalized
     )
 
   raise ValueError(
