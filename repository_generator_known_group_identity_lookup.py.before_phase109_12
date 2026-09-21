@@ -7,19 +7,13 @@ from generator_input import (
   resolve_generator_input,
 )
 from homotopy_groups import (
-  FiniteCyclicGroup,
   TodaPrimaryGroup,
-)
-from proof import (
-  Relation,
-  RelationType,
 )
 from proof_repository import (
   ProofRepository,
 )
 from repository_proof_scope import (
   RepositoryProofScopeNode,
-  RepositoryProofScopeResult,
   build_repository_proof_scope,
 )
 from standard_production_repository import (
@@ -31,105 +25,6 @@ from structural_containment import (
 from toda_group_lookup import (
   is_toda_group_result_for_target,
 )
-
-
-def _is_phase109_12_nu5_generator(
-  generator: GeneratorSymbol,
-) -> bool:
-  return (
-    generator
-    == GeneratorSymbol(
-      family="ν",
-      index=5,
-    )
-  )
-
-
-def _find_phase109_12_proof_derived_ambient_group_targets(
-  scope: RepositoryProofScopeResult,
-  generator: GeneratorSymbol,
-) -> tuple[
-  TodaPrimaryGroup,
-  ...,
-]:
-  if not isinstance(
-    scope,
-    RepositoryProofScopeResult,
-  ):
-    raise TypeError(
-      "scope must be a RepositoryProofScopeResult"
-    )
-
-  if not isinstance(
-    generator,
-    GeneratorSymbol,
-  ):
-    raise TypeError(
-      "generator must be a GeneratorSymbol"
-    )
-
-  if not _is_phase109_12_nu5_generator(
-    generator
-  ):
-    return ()
-
-  targets = []
-
-  for node in scope.nodes:
-    conclusion = (
-      node
-      .proof_step
-      .conclusion
-    )
-
-    if not isinstance(
-      conclusion,
-      Relation,
-    ):
-      continue
-
-    if (
-      conclusion.relation_type
-      is not RelationType.EQUALITY
-    ):
-      continue
-
-    if not isinstance(
-      conclusion.lhs,
-      TodaPrimaryGroup,
-    ):
-      continue
-
-    if not isinstance(
-      conclusion.rhs,
-      FiniteCyclicGroup,
-    ):
-      continue
-
-    direct_generator = (
-      getattr(
-        conclusion.rhs.generator,
-        "generator",
-        None,
-      )
-    )
-
-    if direct_generator != generator:
-      continue
-
-    if any(
-      conclusion.lhs == target
-      for target in targets
-    ):
-      continue
-
-    targets.append(
-      conclusion.lhs
-    )
-
-  return tuple(
-    targets
-  )
 
 
 def find_repository_generator_known_group_identity_nodes(
@@ -167,10 +62,6 @@ def find_repository_generator_known_group_identity_nodes(
       "GeneratorFactRepository"
     )
 
-  scope = build_repository_proof_scope(
-    repository
-  )
-
   ambient_group_fact = (
     generator_fact_repository
     .lookup_ambient_group(
@@ -178,35 +69,23 @@ def find_repository_generator_known_group_identity_nodes(
     )
   )
 
-  if ambient_group_fact is not None:
-    targets = (
-      TodaPrimaryGroup(
-        group_dimension=(
-          ambient_group_fact
-          .group_dimension
-        ),
-        sphere_dimension=(
-          ambient_group_fact
-          .sphere_dimension
-        ),
-      ),
-    )
-  else:
-    targets = (
-      _find_phase109_12_proof_derived_ambient_group_targets(
-        scope,
-        generator,
-      )
-    )
-
-  if len(
-    targets
-  ) != 1:
+  if ambient_group_fact is None:
     return ()
 
-  target = targets[
-    0
-  ]
+  target = TodaPrimaryGroup(
+    group_dimension=(
+      ambient_group_fact
+      .group_dimension
+    ),
+    sphere_dimension=(
+      ambient_group_fact
+      .sphere_dimension
+    ),
+  )
+
+  scope = build_repository_proof_scope(
+    repository
+  )
 
   results = []
   seen_conclusions = []

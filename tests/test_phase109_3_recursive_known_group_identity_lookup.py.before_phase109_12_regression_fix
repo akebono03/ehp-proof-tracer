@@ -344,7 +344,7 @@ def test_phase109_3_standard_input_facade_resolves_nu_prime():
   )
 
 
-def test_phase109_3_missing_ambient_group_fact_without_fallback_returns_empty_tuple():
+def test_phase109_3_missing_ambient_group_fact_returns_empty_tuple():
   data = _phase109_3_data()
 
   result = (
@@ -354,7 +354,7 @@ def test_phase109_3_missing_ambient_group_fact_without_fallback_returns_empty_tu
       ],
       GeneratorSymbol(
         family="ν",
-        index=6,
+        index=5,
       ),
     )
   )
