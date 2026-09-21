@@ -7,9 +7,7 @@ from generator_input import (
   resolve_generator_input,
 )
 from homotopy_groups import (
-  DirectSumGroup,
   FiniteCyclicGroup,
-  FreeCyclicGroup,
   TodaPrimaryGroup,
 )
 from proof import (
@@ -35,7 +33,7 @@ from toda_group_lookup import (
 )
 
 
-def _supports_proof_derived_ambient_group(
+def _supports_proof_derived_finite_cyclic_ambient_group(
   generator: GeneratorSymbol,
 ) -> bool:
   return generator in (
@@ -55,62 +53,10 @@ def _supports_proof_derived_ambient_group(
       family="σ",
       decoration="'",
     ),
-    GeneratorSymbol(
-      family="σ",
-      index=8,
-    ),
   )
 
 
-def _cyclic_group_has_direct_generator(
-  group,
-  generator: GeneratorSymbol,
-) -> bool:
-  if not isinstance(
-    group,
-    (
-      FreeCyclicGroup,
-      FiniteCyclicGroup,
-    ),
-  ):
-    return False
-
-  return (
-    getattr(
-      group.generator,
-      "generator",
-      None,
-    )
-    == generator
-  )
-
-
-def _group_structure_has_direct_generator(
-  group,
-  generator: GeneratorSymbol,
-) -> bool:
-  if _cyclic_group_has_direct_generator(
-    group,
-    generator,
-  ):
-    return True
-
-  if not isinstance(
-    group,
-    DirectSumGroup,
-  ):
-    return False
-
-  return any(
-    _cyclic_group_has_direct_generator(
-      summand,
-      generator,
-    )
-    for summand in group.summands
-  )
-
-
-def _find_proof_derived_ambient_group_targets(
+def _find_proof_derived_finite_cyclic_ambient_group_targets(
   scope: RepositoryProofScopeResult,
   generator: GeneratorSymbol,
 ) -> tuple[
@@ -133,7 +79,7 @@ def _find_proof_derived_ambient_group_targets(
       "generator must be a GeneratorSymbol"
     )
 
-  if not _supports_proof_derived_ambient_group(
+  if not _supports_proof_derived_finite_cyclic_ambient_group(
     generator
   ):
     return ()
@@ -165,10 +111,21 @@ def _find_proof_derived_ambient_group_targets(
     ):
       continue
 
-    if not _group_structure_has_direct_generator(
+    if not isinstance(
       conclusion.rhs,
-      generator,
+      FiniteCyclicGroup,
     ):
+      continue
+
+    direct_generator = (
+      getattr(
+        conclusion.rhs.generator,
+        "generator",
+        None,
+      )
+    )
+
+    if direct_generator != generator:
       continue
 
     if any(
@@ -247,7 +204,7 @@ def find_repository_generator_known_group_identity_nodes(
     )
   else:
     targets = (
-      _find_proof_derived_ambient_group_targets(
+      _find_proof_derived_finite_cyclic_ambient_group_targets(
         scope,
         generator,
       )
