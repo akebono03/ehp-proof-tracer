@@ -28,20 +28,14 @@
 運用 repository の組み立て != 定理事実
 proof-scope 走査 != 定理探索
 既知関係の発見 != 写像評価
-Toda bracket membership の発見 != bracket の解法
 適用可能候補 != 証明成功
-関連度カテゴリ != 定理順位
-引き渡し検証 != 定理事実
-実行資格を満たす候補 != 一意な実行対象
 候補番号 != 数学的優先度
 既知群同一性検索 != qualified execution
-既知群の証明再生 != 定理適用実行
 symbolic theorem の具体化 != 任意の symbolic AST 書き換え
 演算問い合わせ検索 != 演算 evaluator
-重複除去済み表示 != 生 provenance の削除
-演算問い合わせの証明再生 != 包含する定理の再生
-安全な型 fallback != 推測した数学的説明
 CLI --depth != 新しい proof search
+TodaGroupQuery specialization reuse != 新しい定理 root
+LOOKUP_MISS != evaluator 不足の確定
 ```
 
 ---
@@ -51,164 +45,98 @@ CLI --depth != 新しい proof search
 計算:
 
 ```text
-式 / statement
-→ proof / inference
-→ Toda 固有知識
-→ ProofRepository / rule catalog
-→ bounded search
-→ TodaGroupQuery / lookup
+ProofRepository
+→ TodaGroupQuery
+→ direct group lookup
+→ 必要なら限定的 theorem-specific specialization
 → group result
-→ EHP / proof provenance
-→ presentation
+→ proof / EHP provenance
 → report
 ```
 
-生成元 / 適用可能性:
+生成元探索:
 
 ```text
-生成元文字列
+generator input
 → GeneratorSymbol
-→ 標準運用 repository
-→ 再帰的 ProofStep ancestry
-→ 生成元固有の proof-scope 具体化
-→ 出現
-→ Toda membership / 既知の写像関係
-→ 前提 pattern 適合性
-→ 適用候補
-→ 関連度分類済み表示
+→ recursive proof scope
+→ generator-specific specialization
+→ occurrence / applicability
 ```
 
-既知群の証明再生:
+known-group replay:
 
 ```text
-生成元
-→ 既知群同一性
+generator
+→ known-group identity
 → source ProofStep
-→ max_depth で制限された ancestry
-→ 再生表示
+→ bounded ancestry
 → show-proof
 ```
 
-qualified execution:
+operation query:
 
 ```text
-生成元
-→ 実行可能対象 resolver
-→ 候補選択
-→ qualified execution 引き渡し
-→ 有界実行
-→ 実際に実行された ProofStep
-→ 結果 + 証明
-→ execute
+query string
+→ minimal parser
+→ repository / proof-scope lookup
+→ presentation grouping
+→ query
 ```
 
-演算問い合わせ:
+現在の基本意味論:
 
 ```text
-演算問い合わせ文字列
-→ 最小 query parser
-→ repository / proof-scope 検索
-→ 生 match
-→ 数学 statement の表示 grouping
-→ 安定した表示順
-→ query CLI
-```
-
-演算問い合わせの証明再生:
-
-```text
-query 結果
-→ 選択された表示事実
-→ primary provenance match
-→ 選択事実自身の ProofStep
-→ max_depth で制限された前提再生
-→ statement 表示
-→ query-proof CLI
+query = existing fact lookup
+lookup != inference != evaluator
 ```
 
 ---
 
 # 3. 主要モジュール
 
-基礎:
+Toda group calculation:
 
 ```text
-expression.py
-proof.py
-proof_repository.py
-rule_catalog.py
-repository_inference.py
-homotopy_groups.py
-toda_rules.py
+toda_group_query.py
+toda_group_lookup.py
+toda_group_result.py
+toda_calculation.py
+toda_calculation_facade.py
+toda_calculation_report.py
 ```
 
-探索 / 適用可能性:
+proof scope / specialization:
 
 ```text
-generator_input.py
 repository_proof_scope.py
-repository_proof_scope_exploration.py
-repository_proof_scope_facade.py
-repository_proof_scope_applicability.py
-repository_generator_applicability_facade.py
-repository_generator_applicability_selection.py
-repository_generator_applicability_presentation.py
-repository_generator_applicability_renderer.py
-```
-
-既知群 / 具体化 / 再生:
-
-```text
-repository_generator_known_group_identity_lookup.py
-repository_generator_known_group_identity_presentation.py
-repository_generator_known_group_identity_renderer.py
 repository_symbolic_sigma_specialization.py
-repository_generator_known_group_proof_replay.py
-repository_generator_known_group_proof_replay_presentation.py
-repository_generator_known_group_proof_replay_renderer.py
+repository_generator_known_group_identity_lookup.py
 ```
 
-演算問い合わせ / 再生:
+operation query:
 
 ```text
 repository_operation_query.py
 repository_operation_query_lookup.py
 repository_operation_query_facade.py
 repository_operation_query_presentation.py
-repository_operation_query_renderer.py
 repository_operation_query_proof_replay.py
-repository_operation_query_proof_replay_presentation.py
-repository_operation_query_proof_replay_statement_presentation.py
-repository_operation_query_proof_replay_renderer.py
 ```
 
 qualified execution:
 
 ```text
-repository_generator_applicability_execution_seed.py
-repository_generator_applicability_execution_entry.py
-repository_generator_applicability_execution_orchestration.py
 repository_generator_production_application_recovery.py
-repository_generator_production_application_execution_seed.py
-repository_generator_two_premise_execution_integration.py
 repository_generator_qualified_execution_selection.py
 repository_generator_qualified_execution_family.py
-repository_generator_qualified_execution_family_selection.py
 repository_generator_qualified_execution_dispatch.py
 repository_generator_standard_qualified_execution_facade.py
 ```
 
-利用者向け実行:
+CLI:
 
 ```text
-repository_generator_user_execution_resolver.py
-repository_generator_user_execution_handoff.py
-repository_generator_user_execution_proof_step.py
-repository_generator_user_execution_presentation.py
-repository_generator_user_execution_renderer.py
-repository_generator_user_execution_facade.py
-repository_generator_user_execution_candidate_presentation.py
-repository_generator_user_execution_candidate_renderer.py
 main.py
 ```
 
@@ -226,64 +154,32 @@ ProofStep.inference_rule
 
 `ProofRepositoryEntry.key / phase / theorem` は provenance metadata である。
 
-renderer、facade、CLI、resolver、探索、applicability 分類、表示 grouping は証明事実を追加しない。
+renderer、facade、CLI、resolver、探索、表示 grouping は証明事実を追加しない。
 
 ---
 
 # 5. Repository 非破壊
 
-query / 探索 / 適用可能性 / 実行計画 / 既知群再生 / 演算問い合わせ / 演算問い合わせ証明再生 は元の repository を読み取り専用として扱う。
+元 repository は読み取り専用として扱う。
 
-execution は新しい inference result を構成できるが、元 repository を変更しない。
+Phase 113 の TodaGroupQuery specialization も元 repository に root を追加しない。
 
 ```text
 entries before == entries after
 ```
 
-必要な経路では既存 `ProofStep` identity を保持する。
-
 ---
 
-# 6. Qualified execution の境界
+# 6. Indexed sigma specialization
 
-admission 済み family:
-
-```text
-toda_58_delta_iota9_nu4_nu_prime_inference_rule
-toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
-```
-
-複数前提候補から companion premise を任意探索しない。
-
-一致条件:
-
-```text
-同じ root_entry identity
-同じ inference_rule identity
-target conclusion == 明示的 goal
-target premises[candidate premise_index] is candidate.source_step
-```
-
-`UNIQUE` のときだけ正確な `premises` tuple を利用する。
-
-候補番号は 1-based addressing であり数学的優先度ではない。
-
----
-
-# 7. 既知群同一性と indexed sigma 具体化
-
-既知群同一性 lookup は明示的 ambient-group 事実を優先する。
-
-明示 fact がない場合でも、限定された生成元について既存 proof scope の群 relation から ambient group が一意に定まれば利用できる。
-
-Toda Proposition 5.15 の symbolic higher step:
+Toda Proposition 5.15:
 
 $$
 \pi_{n+7}^{n}=\mathbb Z/16\{\sigma_n\},
 \qquad n\ge 9.
 $$
 
-concrete indexed $\sigma_n$ の定理固有具体化は具体整数 $n\ge 10$ に限定する。
+concrete indexed $\sigma_n$ の theorem-specific specialization は整数 $n\ge 10$ に限定する。
 
 ```text
 concrete sigma_n group step
@@ -294,6 +190,55 @@ concrete sigma_n group step
 
 ---
 
+# 7. Phase 113: TodaGroupQuery specialization reuse
+
+Phase 113 では既存の specialization capability を `TodaGroupQuery` 経路から再利用する。
+
+対象:
+
+```text
+query.k == 7
+query.n >= 10
+```
+
+流れ:
+
+```text
+build_known_toda_calculation_result
+→ direct normalized group lookup
+→ direct result が無い場合のみ
+→ build_repository_proof_scope(repository)
+→ GeneratorSymbol(family="σ", index=query.n)
+→ specialize_repository_proof_scope_for_generator(...)
+→ added specialized node
+→ query.target と一致する concrete group relation
+→ TodaGroupResult
+→ existing report pipeline
+```
+
+不変条件:
+
+```text
+direct lookup first
+specialization is fallback only
+empty repository → NOT_FOUND
+specialized result premise = symbolic Proposition 5.15 step
+root phase / theorem provenance を保持
+repository root entries は変更しない
+k != 7 では使わない
+n < 10 では使わない
+```
+
+例:
+
+$$
+\pi_{18}^{11}=\mathbb Z/16\{\sigma_{11}\}.
+$$
+
+これは新しい数学的定理の追加ではない。
+
+---
+
 # 8. show-proof と execute の分離
 
 ```text
@@ -301,63 +246,36 @@ show-proof
 → 既知群 proof を表示 / 再生
 
 execute
-→ 生成元に関連する qualified 定理適用を実行
+→ qualified theorem application
 ```
 
 ```text
 show-proof != execute
 ```
 
+Phase 113 は `execute sigma_11` の意味論を変更しない。
+
 ---
 
 # 9. 演算問い合わせの意味論
 
-operation query は「既存 proof 事実を探す」ための経路である。
-
-現在の top-level query 文法:
-
-```text
-<generator> o <generator>
-<generator> o <generator> o <generator>
-```
-
-map-operation query の operand は現在、生成元または二項合成まで:
-
-```text
-H(<generator>)
-H(<generator> o <generator>)
-E(<generator>)
-E(<generator> o <generator>)
-Delta(<generator>)
-```
-
-代表:
-
-```text
-H(nu_prime)
-Delta(iota_9)
-E(eta_2 o nu_prime)
-eta_2 o nu_prime
-eta_2 o nu_prime o eta_6
-```
-
-三項 top-level composition は既存 production AST の
-
-$$
-a\circ(b\circ c)
-$$
-
-に対応する right-nested 構造として照合する。
-
-重要:
+現在の operation query は既存 fact lookup である。
 
 ```text
 operation query lookup
 != inference
-!= 数学的評価
+!= mathematical evaluation
 ```
 
-該当事実が見つからない場合も、「repository / proof scope に対応する既知 fact がない」ことだけを意味する。
+Phase 112 で、`E(nu_5)` のように lookup miss でも既存 symbolic inference に関連数学が存在する例を確認した。
+
+したがって:
+
+```text
+LOOKUP_MISS
+!= mathematical unknown
+!= evaluator required
+```
 
 ---
 
@@ -366,89 +284,27 @@ operation query lookup
 現在対応:
 
 ```text
-ASCII " o " による二項 top-level composition
-ASCII " o " による三項 top-level composition
-E / H の生成元 operand
+二項 top-level composition
+三項 top-level composition
+E / H の generator operand
 E / H の二項 composition operand
-Delta の生成元 operand
+Delta の generator operand
 ```
 
 意図的に未対応:
 
 ```text
-四項以上の composition
+四項以上
 E(a o b o c)
 H(a o b o c)
 Delta(a o b o c)
-括弧付き一般式
 Unicode ∘
-LaTeX 入力
-暗黙合成
 一般再帰 parser
 ```
 
-三項対応のために一般 expression parser を先取りしない。
-
 ---
 
-# 11. Raw 出現と表示 grouping
-
-proof scope は同じ `ProofStep` が複数 repository root から到達可能なことを provenance として保持する。
-
-したがって生 lookup 結果を削除しない。
-
-```text
-raw lookup result
-→ 同一数学 statement の grouping
-→ 表示 item
-```
-
-各表示 item は、その statement に対応する全生 match を保持する。
-
-```text
-重複除去済み表示
-!= provenance 削除
-```
-
-表示順は概念的に
-
-```text
-最小 proof-scope depth
-→ 安定した source 順
-```
-
-であり、定理順位付けではない。
-
----
-
-# 12. 演算問い合わせ証明再生の境界
-
-query 事実再生の root は包含する repository 定理 root ではない。
-
-```text
-表示 item
-→ primary_match
-→ primary_match.scope_node.proof_step
-→ replay root
-```
-
-複数事実では暗黙の自動選択をしない。
-
-```text
-1 fact
-→ --fact 省略可
-
-multiple facts
-→ --fact N が必要
-```
-
-`--fact` は 1-based addressing であり theorem ranking ではない。
-
----
-
-# 13. 証明再生 depth
-
-known-group replay と operation-query replay は内部 API で `max_depth` を持つ。
+# 11. 証明再生
 
 default:
 
@@ -463,98 +319,11 @@ python main.py show-proof sigma_11 --depth 2
 python main.py query-proof "H(nu_prime)" --fact 1 --depth 2
 ```
 
-規則:
-
-```text
---depth 省略
-→ 既存 API default 1 を利用
-
---depth 0
-→ root のみ
-
---depth N
-→ N 以下の既存 ancestry を再生
-
-negative depth
-→ argparse error
-```
-
-これは既存 proof ancestry の表示範囲を変えるだけであり、新しい theorem search を行わない。
+`--depth` は既存 ancestry の表示範囲であり、新しい proof search ではない。
 
 ---
 
-# 14. Statement 表示
-
-表示の優先順位:
-
-```text
-既存 repository conclusion renderer
-→ 既存 Toda proof statement renderer
-→ query-proof 固有の narrow renderer
-→ 安全な type-name fallback
-```
-
-unsupported aggregate statement について dataclass の巨大な raw repr を利用者向け出力に漏らさない。
-
-known-group deep replay でも同じ原則を採用する。
-
-例:
-
-```text
-`Toda45IsomorphismStatement`
-`TodaSigmaFamilyDefinitionStatement`
-```
-
-safe fallback は数学的内容を推測しない。
-
----
-
-# 15. Symbolic dimension 表示
-
-`TodaPrimaryGroup` の symbolic dimension は Python AST repr ではなく scalar renderer を通す。
-
-例:
-
-$$
-\pi_{n+7}^{n}
-$$
-
-を
-
-```text
-ScalarSum(left=ScalarSymbol(...), right=7)
-```
-
-のように表示してはならない。
-
-具体次元の表示も同じ renderer 経路で維持する。
-
----
-
-# 16. CLI 境界
-
-現行主要 CLI:
-
-```text
-python main.py n k
-python main.py explore "nu'"
-python main.py explore-proof nu_prime
-python main.py explore-applicable nu_prime
-python main.py explore-applicable nu_prime --detailed
-python main.py show-proof nu_prime
-python main.py show-proof sigma_11 --depth 2
-python main.py execute nu_prime
-python main.py execute nu_prime --candidate 1
-python main.py query "H(nu_prime)"
-python main.py query "Delta(iota_9)"
-python main.py query "E(eta_2 o nu_prime)"
-python main.py query "eta_2 o nu_prime"
-python main.py query "eta_2 o nu_prime o eta_6"
-python main.py query-proof "H(nu_prime)" --fact 1
-python main.py query-proof "H(nu_prime)" --fact 1 --depth 2
-```
-
-global help は主要コマンド一覧を提示する。
+# 12. CLI 境界
 
 `n,k` は project quantity
 
@@ -562,100 +331,70 @@ $$
 \pi_{n+k}^n
 $$
 
-すなわち free part + 2-primary component を表す。通常の all-primary $\pi_{n+k}(S^n)$ と混同しない。
+すなわち free part + 2-primary component を表す。
 
----
-
-# 17. Windows UTF-8 CLI 境界
-
-Windows の既定 CP932 では `η₂`、`ν₄` などの Unicode 数学文字を stdout に出力できない場合がある。
-
-実プロセス CLI のみ stdout / stderr を UTF-8 に再構成する。
-
----
-
-# 18. Phase 111 完了
-
-Phase 111 は CLI capability / user pressure audit として実施した。
-
-主要な結論:
+stable 7-stem 例:
 
 ```text
-query / query-proof / show-proof / execute
-→ semantics を統合しない
-
-operation query grammar
-→ 実需要が確認された三項 top-level composition のみ追加
-
-proof replay
-→ 既存 max_depth を --depth として最小公開
-
-full report / replay presentation
-→ symbolic dimension repr 漏出を修正
-→ deep show-proof raw dataclass repr を禁止
-```
-
-Phase 111 では一般 parser、一般 evaluator、alternate provenance selection を追加していない。
-
-最終 repository 全体 regression:
-
-```text
-9074 passed in 446.27s (0:07:26)
-```
-
-whitespace:
-
-```text
-git diff --check
-clean
+python main.py 10 7
+python main.py 11 7
+python main.py 12 7
 ```
 
 ---
 
-# 19. 保留中の機能
+# 13. Phase 112 / 113 closure
+
+Phase 112:
 
 ```text
-複数実行可能対象からの意味論的自動選択
-定理順位付け
-証明コスト最適化
-producer 順位付け
-一般的な無制限 backtracking
-永続 cache / 並列化
-repository snapshot / versioning
-古い search report の検出
-新たな production 上の必要がない第3 qualified family
-任意に入れ子可能な operation-query grammar
-Unicode 合成入力
-LaTeX operation-query parser
-四項以上の composition query
-三項 composition の map-operation operand
-別 provenance の手動選択
-一般 Toda bracket solver
-一般 composition evaluator
-一般 E / H / Δ evaluator
-coset / 不定性計算
-より広い unstable stem
-奇素数成分の完全統合
-全素数成分を含む通常の球面ホモトピー群計算
-無制限 symbolic AST substitution
-高度な再帰的証明可視化
-Web UI
+real workflow pressure audit
+→ gap classification
+→ lookup vs inference vs evaluator boundary
+→ highest-pressure minimal capability selection
+```
+
+Phase 113:
+
+```text
+existing sigma_n specialization
+→ TodaGroupQuery integration
+```
+
+full regression:
+
+```text
+9081 passed in 434.58s (0:07:14)
 ```
 
 ---
 
-# 20. 次 Phase との境界
+# 14. 次 Phase との境界
 
-Phase 111 は完了。
-
-Phase 112 では Phase 111 で defer した小粒な CLI grammar 拡張を機械的に消化しない。
-
-まず現在の CLI を実際の数学的問い合わせ・証明探索に使い、
+次候補 Phase 114:
 
 ```text
-current operational capability
-→ actual mathematical workflow pressure
-→ 次に不足している最小 capability
+operation query
+→ direct lookup
+→ lookup miss
+→ 許可された最小 existing inference handoff
 ```
 
-を監査する。
+最初の代表対象:
+
+$$
+E(\nu_5)=\nu_6.
+$$
+
+先取りしない:
+
+```text
+general E evaluator
+general H evaluator
+general Delta evaluator
+arbitrary query-to-inference fallback
+four-term composition
+three-term map-operation operand
+Unicode composition parser
+execute sigma_11 expansion
+```
