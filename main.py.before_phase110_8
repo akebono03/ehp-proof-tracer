@@ -40,9 +40,6 @@ from repository_generator_user_execution_facade import (
 from repository_operation_query_facade import (
   query_standard_repository_operation_input,
 )
-from repository_operation_query_presentation import (
-  build_repository_operation_query_presentation,
-)
 from repository_operation_query_renderer import (
   render_repository_operation_query_markdown,
 )
@@ -558,22 +555,9 @@ def _run_query_command(
     )
     return 1
 
-  presentation = (
-    build_repository_operation_query_presentation(
-      result
-    )
-  )
-
-  if not presentation.items:
-    print(
-      "No directly renderable repository fact found for "
-      f"{query_input}."
-    )
-    return 1
-
   markdown = (
     render_repository_operation_query_markdown(
-      presentation
+      result
     )
   )
 
