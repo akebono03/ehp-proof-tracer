@@ -42,11 +42,21 @@ $$
 operation query
 → direct repository / proof-scope lookup
 → direct hit はそのまま返す
-→ exact E(nu_5) miss の場合だけ既存 symbolic bridge へ handoff
+→ direct miss のうち exact E(nu_5) / E(sigma_11) のみ限定 handoff
 → 重複除去済み数学表示
 → 保持された provenance
 → python main.py query ...
 ```
+
+現在利用できる限定 handoff:
+
+$$
+E(\nu_5)=\nu_6,
+$$
+
+$$
+E(\sigma_{11})=\sigma_{12}.
+$$
 
 現在の境界:
 
@@ -54,16 +64,17 @@ operation query
 direct lookup first
 limited theorem-specific handoff != general query inference
 query != general evaluator
+LOOKUP_MISS != evaluator required
 ```
 
 最新:
 
 ```text
-Phase 114 closure:
-9097 passed in 449.47s (0:07:29)
+Phase 115 closure:
+9111 passed in 432.54s (0:07:12)
 ```
 
-Phase 114 は完了。
+Phase 115 は完了。
 
 ---
 
@@ -130,6 +141,20 @@ direct lookup priority を維持
 general E/H/Delta evaluator は追加しない
 ```
 
+Phase 115:
+
+```text
+post-Phase 114 operation / workflow pressure audit
+→ existing mathematics reuse audit
+→ exact E(sigma_11) を最小対象として選定
+→ Toda Lemma 5.14 sigma-family definition を再利用
+→ E(sigma_11) = sigma_12
+→ operation-query / query-proof handoff
+→ post-implementation boundary audit
+```
+
+Phase 115 でも general $E/H/\Delta$ evaluator は追加していない。
+
 ---
 
 # 3. 現在の CLI
@@ -148,12 +173,15 @@ python main.py query "H(nu_prime)"
 python main.py query "Delta(iota_9)"
 python main.py query "E(eta_2 o nu_prime)"
 python main.py query "E(nu_5)"
+python main.py query "E(sigma_11)"
 python main.py query "eta_2 o nu_prime"
 python main.py query "eta_2 o nu_prime o eta_6"
 python main.py query-proof "H(nu_prime)" --fact 1
 python main.py query-proof "H(nu_prime)" --fact 1 --depth 2
 python main.py query-proof "E(nu_5)"
 python main.py query-proof "E(nu_5)" --depth 2
+python main.py query-proof "E(sigma_11)"
+python main.py query-proof "E(sigma_11)" --depth 2
 ```
 
 stable 7-stem concrete query 例:
@@ -166,14 +194,18 @@ python main.py 12 7
 
 ---
 
-# 4. Phase 112 で確定した capability 分類
+# 4. Capability gap の現在分類
+
+Phase 112 以降、問い合わせ失敗を次のように区別する。
 
 ```text
 parser boundary
 repository lookup miss
 existing inference capability but no query handoff
 existing specialization but no workflow handoff
-possible genuinely new inference / evaluator need
+new inference required
+presentation-only issue
+execution boundary
 ```
 
 Phase 113 で解消:
@@ -193,16 +225,50 @@ query "E(nu_5)"
 → E(nu_5) = nu_6
 ```
 
-未解消 / 未分類の代表例:
+Phase 115 で解消:
 
 ```text
 query "E(sigma_11)"
-H(nu_5)
-H(sigma_11)
-Delta(sigma_11)
+→ direct lookup miss
+→ existing TodaSigmaFamilyDefinitionStatement
+→ sigma_11 / sigma_12 concrete definition
+→ E(sigma_11) = sigma_12
 ```
 
-これらは general evaluator が必要と決めつけず、次の pressure audit で再分類する。
+Phase 115-5 で残存 pressure を再分類した。
+
+```text
+H(nu_5)
+→ new mathematical inference required
+
+H(sigma_11)
+→ related low-dimensional mathematics exists
+→ reusable sigma-family H bridge is not currently present
+
+Delta(sigma_11)
+→ reusable concrete / family relation is not currently present
+
+E(nu_prime)
+→ E nu_prime appears inside existing expressions
+→ no operation-result relation E(nu_prime) = ... is present
+
+Delta(nu_prime)
+→ direct / reusable family inference is not currently present
+
+E(nu_5 o eta_8)
+→ composition-operation inference boundary
+
+E(a o b o c)
+→ parser boundary
+
+four-term composition
+→ parser boundary
+
+execute sigma_11
+→ execution coverage boundary
+```
+
+これらを general evaluator が必要と決めつけない。
 
 ---
 
@@ -214,7 +280,7 @@ $$
 E(\nu_5)=\nu_6
 $$
 
-だけである。
+だけであった。
 
 source:
 
@@ -235,73 +301,105 @@ query input
 → query / query-proof
 ```
 
-非拡張を回帰テストで固定:
-
-```text
-H(nu_5)
-Delta(nu_5)
-E(nu_6)
-E(sigma_11)
-E(nu_5 o eta_8)
-```
-
-parser 境界も維持:
-
-```text
-三項 map-operation operand
-四項 composition
-```
+Phase 115 の追加後も Phase 114 の $\nu_5$-specific guard 自体は $\sigma$-family を受理しない。
 
 ---
 
-# 6. Phase 115 の開始方針
+# 6. Phase 115 完了境界
 
-次 Phase は、
+Phase 115 は Phase 114 の handoff pattern を機械的に一般化せず、まず残存 pressure を分類した。
+
+最小再利用対象として
+
+$$
+E(\sigma_{11})=\sigma_{12}
+$$
+
+を選定した。
+
+既存 Toda Lemma 5.14 の family definition:
+
+$$
+\sigma_n=E^{n-8}\sigma_8
+$$
+
+から concrete definition
+
+$$
+\sigma_{11}=E^3\sigma_8,
+\qquad
+\sigma_{12}=E^4\sigma_8
+$$
+
+を利用し、operation-query 用 concrete `Relation`
+
+$$
+E(\sigma_{11})=\sigma_{12}
+$$
+
+を構成する。
+
+provenance:
 
 ```text
-Phase 115
-post-Phase 114 operation / workflow pressure audit
+concrete E(sigma_11) = sigma_12 step
+→ symbolic TodaSigmaFamilyDefinitionStatement
+→ TodaLemma514Sigma8Statement
+→ n >= 8
 ```
 
-から始める。
-
-目的は Phase 114 の handoff pattern を機械的に横展開することではない。
-
-まず、残存する問い合わせを
+実装境界:
 
 ```text
-existing direct fact
-existing symbolic inference / specialization
-new inference required
-presentation-only issue
-parser boundary
-execution boundary
+query input
+→ existing direct lookup
+→ direct fact があれば従来どおり返す
+→ lookup miss
+→ exact E(sigma_11) guard
+→ theorem-specific definitional specialization
+→ proof provenance
+→ query / query-proof
 ```
 
-に分類する。
-
-監査候補:
+変更:
 
 ```text
-E(sigma_11)
-H(nu_5)
+repository_sigma11_suspension_specialization.py
+repository_operation_query_facade.py
+tests/test_phase115_sigma11_operation_query_handoff.py
+```
+
+`repository_operation_query_lookup.py`、renderer、parser、repository root は変更していない。
+
+意図的な非拡張:
+
+```text
+E(sigma_10)
+E(sigma_12)
+E(sigma_100)
 H(sigma_11)
 Delta(sigma_11)
-E(nu_prime)
-Delta(nu_prime)
-symbolic scalar LaTeX presentation
+E(sigma_11 o eta_18)
 ```
 
-Phase 115 でどれを実装するかは audit 後に決める。
+したがって:
+
+```text
+exact E(sigma_11) handoff
+!= general E(sigma_n) evaluator
+!= general E evaluator
+!= arbitrary symbolic substitution
+```
 
 ---
 
-# 7. Phase 115 で先取りしないもの
+# 7. Phase 115 で先取りしなかったもの
 
 ```text
 general E evaluator
 general H evaluator
 general Delta evaluator
+general E(sigma_n) family handoff
 任意の operation-query inference fallback
 四項以上 composition
 三項 map-operation operand
@@ -333,6 +431,19 @@ odd-primary integration
 all-primary ordinary sphere-homotopy calculation
 ```
 
+operation-query の具体的残件:
+
+```text
+H(nu_5)
+H(sigma_11)
+Delta(sigma_11)
+E(nu_prime)
+Delta(nu_prime)
+E(nu_5 o eta_8)
+```
+
+これらは Phase 115 と同じ「既存 family definition の未接続」とは分類しない。
+
 ---
 
 # 9. 表示上の既知残件
@@ -340,7 +451,7 @@ all-primary ordinary sphere-homotopy calculation
 Phase 114 の query-proof で symbolic bridge が
 
 ```text
-E^{n + -1\,5}nu_5 = nu_n
+E^{n + -1\,5}ν_5 = ν_n
 ```
 
 の形で表示される場合がある。
@@ -351,15 +462,44 @@ $$
 E^{n-5}\nu_5=\nu_n.
 $$
 
-これは Phase 114 の handoff / proof correctness ではなく scalar LaTeX presentation の残件である。
+これは inference handoff / proof correctness ではなく scalar LaTeX presentation の残件である。
 
-次 Phase の pressure audit で優先度を評価する。
+Phase 115 の機能追加とは分離して保留する。
 
 ---
 
-# 10. 次 Phase の完了判断原則
+# 10. 次 Phase の方針
 
-Phase 115 以降も次を維持する。
+Phase 116 は、残存 operation miss のどれかを自動的に実装することから始めない。
+
+まず、
+
+```text
+remaining mathematical pressure
+presentation-only residual
+parser / execution boundary
+actual user workflow need
+```
+
+を比較し、次の最小対象を選定する。
+
+候補:
+
+```text
+symbolic scalar LaTeX presentation
+H(nu_5) の数学的 dependency audit
+H(sigma_11) の suspension / Hopf relation audit
+Delta(sigma_11) の dependency audit
+E(nu_prime) / Delta(nu_prime) semantics audit
+```
+
+優先度は audit 前に固定しない。
+
+---
+
+# 11. 完了判断原則
+
+Phase 116 以降も次を維持する。
 
 ```text
 既存数学を先に再利用する
@@ -370,4 +510,20 @@ provenance を失わない
 parser を需要なしに一般化しない
 focused regression で境界を固定する
 repository-wide regression で閉じる
+```
+
+Phase 115 closure:
+
+```text
+Phase 115 dedicated:
+14 passed
+
+Phase 114 compatibility:
+16 passed
+
+related regression:
+97 passed
+
+repository-wide:
+9111 passed in 432.54s (0:07:12)
 ```
