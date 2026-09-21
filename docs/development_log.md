@@ -27,33 +27,33 @@
 
 `docs/development_log/phases_065_078.md`
 
-Toda Proposition 5.6 から Lemma 5.16、stable \(G_0\) から \(G_7\) までの主要な数学的証明経路。
+Toda Proposition 5.6 から Lemma 5.16、安定 \(G_0\) から \(G_7\) までの主要な数学的証明経路。
 
 ## Phase 79–89
 
 `docs/development_log/phases_079_089.md`
 
-Proof Repository、repository-assisted inference、自動 rule 選択、有界 producer search、診断、depth parameterization、有限 retry、具体的 theorem-instance compatibility まで。
+証明 Repository、repository 支援推論、自動規則選択、有界 producer 探索、診断、depth パラメータ化、有限 retry、具体的 定理 instance 適合性 まで。
 
 ## Phase 90–95
 
 `docs/development_log/phases_090_095.md`
 
-Toda group query、正規化済み group result、EHP provenance、flat / recursive proof provenance、計算オーケストレーションの記録。
+Toda 群問い合わせ、正規化済み 群結果、EHP provenance、flat / recursive 証明 provenance、計算オーケストレーションの記録。
 
 ## Phase 96–98
 
 ```text
 Phase 96:
-structured presentation / readable full proof report
+構造化表示 / 読みやすい完全証明レポート
 7609 passed in 121.63s
 
 Phase 97:
-calculation-to-report orchestration
+計算からレポートまでのオーケストレーション
 7609 passed in 121.63s
 
 Phase 98:
-raw n,k convenience facade
+生の n,k 入力用簡易 facade
 7643 passed in 123.73s
 ```
 
@@ -67,15 +67,15 @@ docs/development_log/phases_098.md
 
 ## Phase 99
 
-element-centered repository exploration を追加。
+元中心の repository 探索 を追加。
 
 ```text
 GeneratorSymbol
-→ occurrence
-→ semantic role
-→ grouped presentation
+→ 出現
+→ 意味論的役割
+→ グループ化表示
 → Markdown
-→ one-shot exploration facade
+→ 一括探索 facade
 ```
 
 ```text
@@ -84,7 +84,7 @@ GeneratorSymbol
 
 ## Phase 100
 
-standard production repository、`build_standard_toda_report(n,k)`、`python main.py n k` を統合。
+標準運用 repository、`build_standard_toda_report(n,k)`、`python main.py n k` を統合。
 
 ```text
 8010 passed in 179.65s
@@ -94,7 +94,7 @@ standard production repository、`build_standard_toda_report(n,k)`、`python mai
 
 `docs/development_log/phases_101.md`
 
-generator-centered exploration を標準 repository と `main.py explore` へ接続。
+生成元中心の探索 を標準 repository と `main.py explore` へ接続。
 
 ```text
 8058 passed in 133.01s
@@ -104,7 +104,7 @@ generator-centered exploration を標準 repository と `main.py explore` へ接
 
 `docs/development_log/phases_102.md`
 
-recursive proof-scope exploration、Toda membership、known map relation discovery を追加。
+再帰的 proof-scope 探索、Toda membership、既知の写像関係探索 を追加。
 
 代表結果:
 
@@ -122,7 +122,7 @@ H(\nu')=\eta_5.
 
 `docs/development_log/phases_103.md`
 
-applicable theorem / lemma discovery と relevance classification を追加。
+適用可能な定理 / 補題の探索 と 関連度分類 を追加。
 
 ```text
 409 passed in 186.07s
@@ -130,7 +130,7 @@ applicable theorem / lemma discovery と relevance classification を追加。
 
 ## Phase 104
 
-selected applicability candidate を READY validation、explicit-final-rule bounded search、prebuilt-report execution へ接続。
+選択された適用候補 を READY 検証、明示的 final rule による有界探索、事前構築済み report の実行 へ接続。
 
 ```text
 8644 passed in 374.63s
@@ -138,7 +138,7 @@ selected applicability candidate を READY validation、explicit-final-rule boun
 
 ## Phase 105
 
-first qualified production family を standard applicability workflow へ接続。
+第1 qualified production family を 標準 applicability workflow へ接続。
 
 対象:
 
@@ -154,14 +154,14 @@ toda_58_delta_iota9_nu4_nu_prime_inference_rule
 
 `docs/development_log/phases_106.md`
 
-applicability performance / complexity audit。
+適用可能性の性能 / 複雑性監査。
 
 ```text
-797573 full-scope candidates
-→ 176616 generator-relevant candidates
+797573 全 scope 候補
+→ 176616 生成元関連候補
 ```
 
-generator-relevant scope prefilter を実装。
+生成元関連 scope prefilter を実装。
 
 ```text
 8.16 s / 62.42 MiB
@@ -172,28 +172,28 @@ generator-relevant scope prefilter を実装。
 
 `docs/development_log/phases_107.md`
 
-first-family-only execution を multi-family execution へ拡張。
+第1 family 限定実行 を multi-family 実行 へ拡張。
 
-second qualified family:
+第2 qualified family:
 
 ```text
 toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
 ```
 
-主要 capability:
+主要機能:
 
 ```text
-exact production-application recovery
-NONE / UNIQUE / AMBIGUOUS recovery status
-exact multi-premise seed
-two-premise bounded execution integration
-explicit root + source + family selection
-generic qualified-family admission
-family-name dispatch
-multi-family standard facade
+正確な production application recovery
+NONE / UNIQUE / AMBIGUOUS recovery 状態
+正確な複数前提 seed
+2前提有界実行の統合
+明示的 root + source + family 選択
+一般 qualified-family admission
+family 名 dispatch
+multi-family 標準 facade
 ```
 
-repository-wide:
+repository 全体:
 
 ```text
 8783 passed in 290.63s
@@ -203,19 +203,19 @@ Phase 107 は完了。
 
 ## Phase 108
 
-Phase 107 の internal qualified execution を user-facing workflow と CLI へ接続。
+Phase 107 の 内部 qualified execution を 利用者向け workflow と CLI へ接続。
 
-主要 capability:
+主要機能:
 
 ```text
-generator input
-→ executable target resolution
-→ ambiguity handling
-→ candidate list
-→ candidate selection
+生成元入力
+→ 実行可能対象の解決
+→ 曖昧性処理
+→ 候補一覧
+→ 候補選択
 → qualified execution
-→ final executed ProofStep
-→ Result + Proof presentation
+→ 最終実行済み ProofStep
+→ 結果 + 証明表示
 → CLI
 ```
 
@@ -228,7 +228,7 @@ python main.py execute nu_prime --candidate 1
 
 Windows CP932 boundary を実 subprocess smoke で検出し、script entry point の stdout / stderr を UTF-8 化した。
 
-repository-wide:
+repository 全体:
 
 ```text
 8850 passed in 380.25s
@@ -238,20 +238,20 @@ Phase 108 は完了。
 
 ## Phase 109
 
-Phase 108 後の operational audit から開始し、generator query の user-facing semantics と known-group proof replay を閉じた。
+Phase 108 後の 運用監査 から開始し、生成元問い合わせ の 利用者向け意味論 と 既知群の証明再生 を閉じた。
 
 主要な流れ:
 
 ```text
-known-group identity
-→ proof-derived ambient fallback
-→ indexed sigma specialization
-→ proof-scope integration
-→ qualified-execution boundary audit
-→ known-group proof replay
+既知群同一性
+→ 証明由来の ambient fallback
+→ indexed sigma 具体化
+→ proof-scope 統合
+→ qualified execution 境界監査
+→ 既知群の証明再生
 → show-proof
-→ statement rendering coverage
-→ user-facing ordering closure
+→ statement 表示 coverage
+→ 利用者向け表示順の確定
 ```
 
 Toda Proposition 5.15:
@@ -261,25 +261,25 @@ Toda Proposition 5.15:
 \qquad n\ge 9.
 \]
 
-concrete indexed specialization は \(n\ge 10\) に限定し、symbolic higher step を direct premise として保持する。
+concrete indexed 具体化 は \(n\ge 10\) に限定し、symbolic higher step を 直接 premise として保持する。
 
-known-group proof replay:
+既知群の証明再生:
 
 ```text
 generator
-→ unique known-group identity node
+→ unique 既知群同一性 node
 → existing ProofStep
 → direct provenance
 → show-proof
 ```
 
-qualified theorem execution:
+qualified 定理実行:
 
 ```text
 generator
-→ executable-target resolver
-→ qualified theorem application
-→ bounded execution
+→ 実行可能対象 resolver
+→ qualified 定理適用
+→ 有界実行
 → execute
 ```
 
@@ -287,11 +287,11 @@ generator
 
 ```text
 show-proof != execute
-candidate number != theorem ranking
-concrete sigma_n specialization != third qualified execution family
+候補番号 != 定理順位付け
+concrete sigma_n specialization != 第3 qualified execution family
 ```
 
-最終 repository-wide regression:
+最終 repository 全体 regression:
 
 ```text
 8998 passed in 493.70s (0:08:13)
@@ -301,52 +301,52 @@ Phase 109 は完了。
 
 ## Phase 110
 
-Phase 110 は user-facing mathematical operation query の実需要監査から開始し、既存 repository / proof-scope にすでに表現されている数学的 operation fact を直接検索・表示・proof replay できる経路を追加した。
+Phase 110 は 利用者向け数学演算問い合わせ の実需要監査から開始し、既存 repository / proof-scope にすでに表現されている数学的 演算事実 を直接検索・表示・証明再生 できる経路を追加した。
 
 主要サブフェーズ:
 
 ```text
 110-1:
-user-facing mathematical operation query capability audit
+利用者向け数学演算問い合わせ capability audit
 
 110-2:
-query input / syntax boundary audit
+query 入力 / 構文境界監査
 
 110-3:
-existing-relation lookup design
+既存 relation 検索設計
 
 110-4:
-minimal operation query implementation boundary audit
+最小演算問い合わせ実装境界監査
 
 110-5:
-minimal operation query core implementation
+最小演算問い合わせ core 実装
 
 110-6:
-operation query CLI integration
+演算問い合わせ CLI 統合
 
 110-7:
-operation query result deduplication / prioritization audit
+演算問い合わせ結果の重複除去 / 表示優先順監査
 
 110-8:
-deduplicated presentation implementation
+重複除去表示実装
 
 110-9:
-operation query proof replay / provenance detail audit
+operation query 証明再生 / provenance detail audit
 
 110-10:
-operation query proof replay implementation
+operation query 証明再生 implementation
 
 110-11:
-proof replay statement presentation audit
+証明再生 statement presentation audit
 
 110-12:
-proof replay statement presentation implementation
+証明再生 statement presentation implementation
 
 110-13:
-feature completion / regression audit
+機能完了 / regression 監査
 ```
 
-最小 query grammar:
+最小 query 文法:
 
 ```text
 H(<operand>)
@@ -385,14 +385,14 @@ E\eta_2\nu'=0.
 operation query は evaluator ではない。
 
 ```text
-lookup != inference != evaluation
+検索 != 推論 != 評価
 ```
 
-raw proof-scope occurrences は保持し、presentation layer だけで equal mathematical statement を group 化する。
+raw proof-scope 出現s は保持し、表示層 だけで 同一数学 statement を グループ化する。
 
 ```text
-deduplicated display
-!= provenance deletion
+重複除去済み表示
+!= provenance 削除
 ```
 
 `query-proof` を追加。
@@ -404,13 +404,13 @@ python main.py query-proof "E(eta_2 o nu_prime)"
 python main.py query-proof "eta_2 o nu_prime" --fact 4
 ```
 
-proof replay root は enclosing theorem aggregate ではなく、選択された fact 自身の `ProofStep`。
+証明再生 root は 包含する定理 aggregate ではなく、選択された 事実自身の `ProofStep`。
 
 \[
 H(\nu')=\eta_5
 \]
 
-の direct replay は
+の 直接再生 は
 
 \[
 H(\nu')=E^2\eta_3,
@@ -420,9 +420,9 @@ E^2\eta_3=\eta_5
 
 を表示する。
 
-multiple facts のときは silent auto-selection を行わず `--fact N` を要求する。
+複数事実 のときは 暗黙の自動選択 を行わず `--fact N` を要求する。
 
-proof replay statement presentation では既知 semantics を数学表示し、未知 aggregate は raw Python repr ではなく safe type-name fallback にする。
+証明再生 statement presentation では既知の意味論 を数学表示し、未知の aggregate は 生の Python repr ではなく 安全な型名 fallback にする。
 
 代表:
 
@@ -449,7 +449,7 @@ git diff --check
 clean
 ```
 
-representative smoke:
+代表 smoke:
 
 ```text
 query
@@ -473,7 +473,7 @@ Phase 110 は完了。
 
 既存履歴は原則として削除せず、誤りが確定した場合のみ必要な訂正を行う。
 
-現在 capability の確認では次を優先する。
+現在機能 の確認では次を優先する。
 
 ```text
 README.md
@@ -483,4 +483,4 @@ docs/code_reference.md
 docs/proof_records.md
 ```
 
-次 Phase は Phase 110 の operation query / proof replay を前提に、CLI 全体の利用者視点の残課題と、次に実需要のある最小 capability を監査して開始する。
+次 Phase は Phase 110 の operation query / 証明再生 を前提に、CLI 全体の利用者視点での残課題と、次に実需要のある最小機能 を監査して開始する。

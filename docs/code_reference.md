@@ -14,7 +14,7 @@
 
 Toda / EHP で使う式表現。
 
-代表型:
+代表的な型:
 
 ```text
 GeneratorSymbol
@@ -34,7 +34,7 @@ Zero
 
 証明事実と provenance の中心。
 
-重要型:
+重要な型:
 
 ```text
 ProofStep
@@ -43,7 +43,7 @@ Relation
 RelationType
 ```
 
-`ProofStep` の重要 field:
+`ProofStep` の重要な field:
 
 ```text
 conclusion
@@ -60,19 +60,19 @@ ProofRepository
 ProofRepositoryEntry
 ```
 
-repository entry の `key / phase / theorem` は provenance metadata。
+repository entry の `key / phase / theorem` は provenance metadata である。
 
 ## `rule_catalog.py`
 
-inference rule catalog と applicability / producer lookup。
+inference rule catalog と applicability / producer 検索。
 
 ---
 
-# 2. Homotopy / Toda 基礎
+# 2. ホモトピー / Toda 基礎
 
 ## `homotopy_groups.py`
 
-Toda primary group、可換群構造、EHP sequence / map representation。
+Toda primary group、可換群構造、EHP sequence / map 表現。
 
 ## `toda_rules.py`
 
@@ -80,7 +80,7 @@ Toda 固有の inference rule / theorem rule。
 
 ## `standard_production_repository.py`
 
-standard production repository の構築。
+標準運用 repository の構築。
 
 入口:
 
@@ -90,28 +90,28 @@ build_standard_production_proof_repository()
 
 ---
 
-# 3. Bounded proof search
+# 3. 有界証明探索
 
 ## `repository_inference.py`
 
-repository-assisted inference と bounded producer search の中心。
+repository 支援推論と有界 producer 探索の中心。
 
-主要 capability:
+主要機能:
 
 ```text
-goal-compatible final-rule selection
-missing-premise detection
-producer lookup
-bounded producer dependency search
-cycle detection
+goal に適合する final rule の選択
+不足 premise の検出
+producer 検索
+有界 producer 依存探索
+cycle 検出
 max_depth
-finite retry
-search diagnostics
-execution diagnostics
-selected-path execution
+有限 retry
+探索診断
+実行診断
+選択経路の実行
 ```
 
-重要 result:
+重要な result:
 
 ```text
 RepositoryInferenceResult
@@ -120,17 +120,17 @@ BoundedProducerSearchReport
 BoundedProducerExecutionResult
 ```
 
-successful execution では:
+実行成功時には:
 
 ```text
 RepositoryInferenceResult.goal_step
 ```
 
-が実際に導出された final `ProofStep`。
+が実際に導出された最終 `ProofStep` である。
 
 ---
 
-# 4. Toda group calculation
+# 4. Toda 群計算
 
 ## `toda_group_query.py`
 
@@ -138,7 +138,7 @@ RepositoryInferenceResult.goal_step
 TodaGroupQuery(n, k)
 ```
 
-target:
+対象:
 
 ```text
 π_{n+k}^n
@@ -146,15 +146,15 @@ target:
 
 ## `toda_group_lookup.py`
 
-known theorem-backed group result lookup。
+既知の定理に基づく群結果検索。
 
 ## `toda_group_result.py`
 
-normalized Toda group result。
+正規化済み Toda 群結果。
 
 ## `toda_calculation_facade.py`
 
-production convenience facade。
+運用用 convenience facade。
 
 ```text
 build_standard_toda_report(n, k)
@@ -168,13 +168,13 @@ python main.py n k
 
 ---
 
-# 5. Generator input
+# 5. 生成元入力
 
 ## `generator_input.py`
 
-generator string → `GeneratorSymbol`。
+生成元文字列 → `GeneratorSymbol`。
 
-代表入力:
+代表的な入力:
 
 ```text
 eta_2
@@ -189,11 +189,11 @@ sigma_double_prime
 sigma_triple_prime
 ```
 
-unindexed family は wildcard ではない。
+index なし family は wildcard ではない。
 
 ---
 
-# 6. Element-centered exploration
+# 6. 元中心の探索
 
 ## `repository_element_lookup.py`
 ## `repository_element_exploration.py`
@@ -201,7 +201,7 @@ unindexed family は wildcard ではない。
 ## `repository_element_renderer.py`
 ## `repository_element_facade.py`
 
-generator occurrence、semantic role、grouped presentation、Markdown、one-shot exploration。
+生成元の出現、意味論的 role、グループ化表示、Markdown、一括探索。
 
 CLI:
 
@@ -215,17 +215,17 @@ python main.py explore "nu'"
 render_repository_conclusion_latex()
 ```
 
-は Phase 108 user-facing renderer でも数学 statement の LaTeX 表示に再利用する。
+は Phase 108 の利用者向け renderer でも数学 statement の LaTeX 表示に再利用する。
 
 ---
 
-# 7. Recursive proof-scope exploration
+# 7. 再帰的 proof-scope 探索
 
 ## `repository_proof_scope.py`
 ## `repository_proof_scope_exploration.py`
 ## `repository_proof_scope_facade.py`
 
-recursive `ProofStep` ancestry を走査する。
+再帰的な `ProofStep` ancestry を走査する。
 
 CLI:
 
@@ -233,26 +233,26 @@ CLI:
 python main.py explore-proof nu_prime
 ```
 
-代表 discovery:
+代表的な探索結果:
 
 ```text
 ν′ ∈ {η₃, 2ι₄, η₄}_1
 H(ν′) = η₅
 ```
 
-これは既存 proof fact の発見であり、新しい theorem solving ではない。
+これは既存 proof 事実の発見であり、新しい定理 solving ではない。
 
 ---
 
-# 8. Applicability discovery
+# 8. 適用可能性探索
 
 ## `repository_proof_scope_applicability.py`
 
-proof-scope source step と inference-rule premise pattern の compatibility を調べる。
+proof-scope の source step と inference-rule premise pattern の適合性を調べる。
 
 ## `repository_generator_applicability_facade.py`
 
-standard generator applicability entry point。
+標準 generator applicability の入口。
 
 ```text
 explore_standard_repository_generator_applicability_input()
@@ -260,12 +260,12 @@ explore_standard_repository_generator_applicability_input()
 
 ## `repository_generator_applicability_selection.py`
 
-candidate selection。
+候補選択。
 
 ## `repository_generator_applicability_presentation.py`
 ## `repository_generator_applicability_renderer.py`
 
-compact / detailed applicability presentation。
+compact / detailed な適用可能性表示。
 
 CLI:
 
@@ -276,36 +276,36 @@ python main.py explore-applicable nu_prime --detailed
 
 ---
 
-# 9. Phase 104 safe candidate handoff
+# 9. Phase 104 安全な候補引き渡し
 
 主な module:
 
 ```text
 repository_generator_applicability_handoff.py
-repository_generator_applicability_execution_validation.py
+repository_generator_applicability_execution_検証.py
 repository_generator_applicability_execution_search.py
 repository_generator_applicability_execution.py
 ```
 
-概念経路:
+概念的な経路:
 
 ```text
-candidate
-→ validation
+候補
+→ 検証
 → READY
-→ explicit final rule
-→ bounded search
-→ prebuilt report execution
-→ actual ProofStep
+→ 明示的 final rule
+→ 有界探索
+→ 事前構築済み report の実行
+→ 実際の ProofStep
 ```
 
-重要 identity invariant:
+重要な identity 不変条件:
 
 ```text
-candidate rule
-is execution entry rule
-is selected final rule
-is executed goal_step.inference_rule
+候補 rule
+は execution entry rule と同一
+は選択 final rule と同一
+は 実行d goal_step.inference_rule と同一
 ```
 
 ---
@@ -314,30 +314,30 @@ is executed goal_step.inference_rule
 
 ## `repository_generator_applicability_execution_seed.py`
 
-candidate source から exact seed を構成。
+候補 source から exact seed を構成。
 
 ## `repository_generator_applicability_execution_entry.py`
 
-qualified production execution family / entry 判定。
+qualified production execution family / entry を判定。
 
 ## `repository_generator_applicability_execution_orchestration.py`
 
-first qualified family の orchestration。
+第1 qualified family のオーケストレーション。
 
 ## `repository_generator_production_application_recovery.py`
 
-multi-premise rule の exact existing production application recovery。
+複数前提 rule の既存 production application を正確に recovery。
 
-照合:
+照合条件:
 
 ```text
-same root_entry identity
-same inference_rule identity
-same explicit goal
-candidate premise slot contains same source_step identity
+同一 root_entry identity
+同一 inference_rule identity
+同一の明示的 goal
+候補 premise slot contains same source_step identity
 ```
 
-status:
+状態:
 
 ```text
 NONE
@@ -347,54 +347,54 @@ AMBIGUOUS
 
 ## `repository_generator_production_application_execution_seed.py`
 
-recovered exact premise tuple を execution seed に変換。
+recovery された正確な premise tuple を execution seed に変換。
 
 ## `repository_generator_two_premise_execution_integration.py`
 
-second qualified family の 2-premise execution integration。
+第2 qualified family の 2前提 execution 統合。
 
 ## `repository_generator_qualified_execution_selection.py`
 
-qualified candidate selection。
+qualified 候補選択。
 
 ## `repository_generator_qualified_execution_family.py`
 
-qualified family grouping。
+qualified family の grouping。
 
 grouping key は概念的に:
 
 ```text
 scope_node identity
 source_step identity
-family name
+family 名
 premise_index
 bindings
 ```
 
 ## `repository_generator_qualified_execution_family_selection.py`
 
-root / source / family selection。
+root / source / family 選択。
 
 ## `repository_generator_qualified_execution_dispatch.py`
 
-family-name dispatch。
+family 名 dispatch。
 
 premise 数では dispatch しない。
 
 ## `repository_generator_standard_qualified_execution_facade.py`
 
-standard execution facade。
+標準 execution facade。
 
-Phase 105 compatibility:
+Phase 105 互換経路:
 
 ```text
-execute_standard_repository_generator_applicability_result_by_root_and_source()
+実行_standard_repository_generator_applicability_result_by_root_and_source()
 ```
 
 Phase 107 multi-family:
 
 ```text
-execute_standard_repository_generator_applicability_result_by_root_source_and_family()
+実行_standard_repository_generator_applicability_result_by_root_source_and_family()
 ```
 
 admission 済み family:
@@ -406,7 +406,7 @@ toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
 
 ---
 
-# 11. Phase 108 executable-target resolver
+# 11. Phase 108 実行可能対象 resolver
 
 ## `repository_generator_user_execution_resolver.py`
 
@@ -417,7 +417,7 @@ RepositoryGeneratorExecutableTarget
 StandardRepositoryGeneratorExecutableTargetResolution
 ```
 
-entry point:
+入口:
 
 ```text
 resolve_standard_repository_generator_executable_targets_input(
@@ -428,34 +428,34 @@ resolve_standard_repository_generator_executable_targets_input(
 役割:
 
 ```text
-generator input
-→ applicability result
-→ qualified family groups
-→ original target ProofStep matching
-→ executable targets
+生成元入力
+→ 適用可能性 result
+→ qualified family 群
+→ 元 target ProofStep の照合
+→ 実行可能対象
 ```
 
-target matching は proof-graph identity を使う。
+target 照合には proof graph の identity を使う。
 
 ---
 
-# 12. Phase 108 execution handoff
+# 12. Phase 108 実行引き渡し
 
 ## `repository_generator_user_execution_handoff.py`
 
-entry point:
+入口:
 
 ```text
-execute_repository_generator_executable_target()
+実行_repository_generator_executable_target()
 ```
 
-user-facing target object を Phase 107 qualified execution facade へ渡す。
+利用者向け target object を Phase 107 qualified execution facade へ渡す。
 
-内部の root/source/family addressing は target object が保持し、CLI user に直接入力させない。
+内部の root/source/family addressing は target object が保持し、CLI 利用者には直接入力させない。
 
 ---
 
-# 13. Phase 108 final ProofStep extraction
+# 13. Phase 108 最終 ProofStep 抽出
 
 ## `repository_generator_user_execution_proof_step.py`
 
@@ -465,13 +465,13 @@ user-facing target object を Phase 107 qualified execution facade へ渡す。
 RepositoryGeneratorExecutedProofStepResult
 ```
 
-entry point:
+入口:
 
 ```text
-extract_repository_generator_executed_target_proof_step()
+extract_repository_generator_実行d_target_proof_step()
 ```
 
-実際に使う final proof:
+実際に使う最終 proof:
 
 ```text
 execution_result
@@ -479,11 +479,11 @@ execution_result
 → goal_step
 ```
 
-original repository target step を final result と誤認しない。
+元の repository target step を最終結果と誤認しない。
 
 ---
 
-# 14. Phase 108 Result + Proof presentation
+# 14. Phase 108 結果 + 証明表示
 
 ## `repository_generator_user_execution_presentation.py`
 
@@ -499,18 +499,18 @@ builder:
 build_repository_generator_user_execution_presentation()
 ```
 
-保持:
+保持内容:
 
 ```text
-executed ProofStep
+実行済み ProofStep
 conclusion
-direct premises
-rule name
+直接 premises
+rule 名
 ```
 
 ## `repository_generator_user_execution_renderer.py`
 
-entry point:
+入口:
 
 ```text
 render_repository_generator_user_execution_markdown()
@@ -540,7 +540,7 @@ Conclusion:
 
 ## `repository_generator_user_execution_facade.py`
 
-status:
+状態:
 
 ```text
 RepositoryGeneratorUserExecutionWorkflowStatus.NONE
@@ -554,38 +554,38 @@ result:
 RepositoryGeneratorUserExecutionWorkflowResult
 ```
 
-entry point:
+入口:
 
 ```text
 run_standard_repository_generator_user_execution_workflow(
   generator_input,
-  candidate_number=None,
+  候補_number=None,
   max_depth=2,
   retry_policy=None,
 )
 ```
 
-policy:
+方針:
 
 ```text
-0 target
+対象 0 件
 → NONE
 
-1 target + no candidate number
-→ execute
+1 target + no 候補 number
+→ 実行
 
-multiple targets + no candidate number
+multiple targets + no 候補 number
 → AMBIGUOUS
 
-candidate number
-→ one-based explicit selection
+候補 number
+→ 1-based の明示選択
 ```
 
 ---
 
-# 16. Phase 108 candidate-list presentation
+# 16. Phase 108 候補-list presentation
 
-## `repository_generator_user_execution_candidate_presentation.py`
+## `repository_generator_user_execution_候補_presentation.py`
 
 主な型:
 
@@ -597,29 +597,29 @@ RepositoryGeneratorUserExecutionCandidateListPresentation
 builder:
 
 ```text
-build_repository_generator_user_execution_candidate_list_presentation()
+build_repository_generator_user_execution_候補_list_presentation()
 ```
 
-## `repository_generator_user_execution_candidate_renderer.py`
+## `repository_generator_user_execution_候補_renderer.py`
 
-entry point:
+入口:
 
 ```text
-render_repository_generator_user_execution_candidate_list_markdown()
+render_repository_generator_user_execution_候補_list_markdown()
 ```
 
 通常出力:
 
 ```text
-# Executable candidates
+# Executable 候補s
 
 1. <target>
 2. <target>
 
-Select a candidate number to execute.
+Select a 候補 number to 実行.
 ```
 
-表示しない内部情報:
+通常表示しない内部情報:
 
 ```text
 family_name
@@ -634,7 +634,7 @@ bindings
 
 ## `main.py`
 
-現行 command:
+現行コマンド:
 
 ```text
 python main.py n k
@@ -642,53 +642,52 @@ python main.py explore <generator>
 python main.py explore-proof <generator>
 python main.py explore-applicable <generator>
 python main.py explore-applicable <generator> --detailed
-python main.py execute <generator>
-python main.py execute <generator> --candidate N
+python main.py 実行 <generator>
+python main.py 実行 <generator> --候補 N
 ```
 
-execute status mapping:
+実行 status mapping:
 
 ```text
 NONE
 → stdout message / exit 1
 
 AMBIGUOUS
-→ candidate list / exit 0
+→ 候補 list / exit 0
 
 EXECUTED
 → Result + Proof / exit 0
 
-invalid input
+不正入力
 → argparse error / exit 2
 ```
 
-Windows script executionでは stdout / stderr を UTF-8 に設定する。
+Windows script 実行では stdout / stderr を UTF-8 に設定する。
 
 理由:
 
 ```text
-CP932 cannot encode some mathematical Unicode,
-including subscript characters used in η₂, ν₄, etc.
+CP932 では η₂、ν₄ などで使う一部の数学 Unicode 文字を encode できない。
 ```
 
 ---
 
-# 18. Phase 108 tests
+# 18. Phase 108 テスト
 
-主な test:
+主なテスト:
 
 ```text
 tests/test_phase108_5_minimal_user_facing_executable_target_resolver.py
 tests/test_phase108_6_executable_target_qualified_execution_handoff.py
-tests/test_phase108_7_executed_target_final_proof_step_extraction.py
+tests/test_phase108_7_実行d_target_final_proof_step_extraction.py
 tests/test_phase108_8_minimal_user_facing_result_proof_presentation.py
 tests/test_phase108_9_minimal_user_facing_execution_workflow_facade.py
-tests/test_phase108_10_user_facing_executable_candidate_list.py
+tests/test_phase108_10_user_facing_executable_候補_list.py
 tests/test_phase108_11_cli_execution_command_integration.py
 tests/test_phase108_12_end_to_end_cli_smoke_closure_audit.py
 ```
 
-closure:
+完了時:
 
 ```text
 Phase 108-12 subprocess smoke:
@@ -697,7 +696,7 @@ Phase 108-12 subprocess smoke:
 Phase 108 focused regression:
 64 passed in 67.18s
 
-full repository:
+repository 全体:
 8850 passed in 380.25s
 ```
 
@@ -705,31 +704,31 @@ full repository:
 
 # 19. どこを見ればよいか
 
-generator parser:
+生成元 parser:
 
 ```text
 generator_input.py
 ```
 
-既存 generator occurrence:
+既存 generator 出現:
 
 ```text
 repository_element_*.py
 ```
 
-recursive proof ancestry:
+再帰的 proof ancestry:
 
 ```text
 repository_proof_scope*.py
 ```
 
-applicability:
+適用可能性:
 
 ```text
 repository_generator_applicability_*.py
 ```
 
-bounded proof search:
+有界証明探索:
 
 ```text
 repository_inference.py
@@ -742,7 +741,7 @@ repository_generator_qualified_execution_*.py
 repository_generator_standard_qualified_execution_facade.py
 ```
 
-user-facing execution:
+利用者向け実行:
 
 ```text
 repository_generator_user_execution_*.py
@@ -754,7 +753,7 @@ CLI:
 main.py
 ```
 
-Toda group calculation:
+Toda 群計算:
 
 ```text
 toda_group_*.py
@@ -763,28 +762,28 @@ toda_calculation_facade.py
 
 ---
 
-# 20. 現在の重要 boundary
+# 20. 現在の重要な境界
 
 ```text
-candidate != proof
-candidate order != theorem ranking
-qualified family != guaranteed execution success
-repository target step != executed goal_step identity
-candidate number != theorem priority
-presentation != proof truth
-CLI != new theorem truth
+候補 != proof
+候補 order != theorem ranking
+qualified family != 実行成功保証
+repository target step != 実行d goal_step identity
+候補 number != theorem priority
+表示 != 証明事実
+CLI != 新しい定理事実
 ```
 
 未実装:
 
 ```text
-general theorem ranking
-best-proof selection
-general unbounded backtracking
-automatic semantic target preference
-general Toda-bracket solver
-general composition evaluator
-general E / H / Δ evaluator
-odd-primary full integration
+一般的な定理順位付け
+最良証明の選択
+一般的な無制限 backtracking
+意味論的な自動 target 優先
+一般 Toda bracket solver
+一般合成 evaluator
+一般 E / H / Δ evaluator
+奇素数成分の完全統合
 Web UI
 ```
