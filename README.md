@@ -43,11 +43,8 @@ $$
 $$
 
 $$
-\pi_{15}^8
-=
-\mathbb Z\{\sigma_8\}
-\oplus
-\mathbb Z/8\{E\sigma'\},
+\pi_{15}^8=\mathbb Z\{\sigma_8\}
+\oplus \mathbb Z/8\{E\sigma'\},
 $$
 
 and
