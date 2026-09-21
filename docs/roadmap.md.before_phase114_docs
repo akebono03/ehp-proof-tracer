@@ -40,30 +40,29 @@ $$
 
 ```text
 operation query
-→ direct repository / proof-scope lookup
-→ direct hit はそのまま返す
-→ exact E(nu_5) miss の場合だけ既存 symbolic bridge へ handoff
+→ 既存 repository / proof-scope 事実検索
 → 重複除去済み数学表示
 → 保持された provenance
 → python main.py query ...
 ```
 
-現在の境界:
+現在も
 
 ```text
-direct lookup first
-limited theorem-specific handoff != general query inference
-query != general evaluator
+query = lookup
+lookup != inference != evaluator
 ```
+
+である。
 
 最新:
 
 ```text
-Phase 114 closure:
-9097 passed in 449.47s (0:07:29)
+Phase 113 closure:
+9081 passed in 434.58s (0:07:14)
 ```
 
-Phase 114 は完了。
+Phase 113 は完了。
 
 ---
 
@@ -117,19 +116,6 @@ n=10,11,12 の 7-stem で確認
 Toda Proposition 5.15 provenance を保持
 ```
 
-Phase 114:
-
-```text
-existing symbolic E^(n-5)nu_5 = nu_n bridge
-→ n=6 theorem-specific specialization
-→ E(nu_5) = nu_6
-→ operation-query minimal handoff
-→ query-proof provenance
-
-direct lookup priority を維持
-general E/H/Delta evaluator は追加しない
-```
-
 ---
 
 # 3. 現在の CLI
@@ -147,13 +133,10 @@ python main.py execute nu_prime --candidate 1
 python main.py query "H(nu_prime)"
 python main.py query "Delta(iota_9)"
 python main.py query "E(eta_2 o nu_prime)"
-python main.py query "E(nu_5)"
 python main.py query "eta_2 o nu_prime"
 python main.py query "eta_2 o nu_prime o eta_6"
 python main.py query-proof "H(nu_prime)" --fact 1
 python main.py query-proof "H(nu_prime)" --fact 1 --depth 2
-python main.py query-proof "E(nu_5)"
-python main.py query-proof "E(nu_5)" --depth 2
 ```
 
 stable 7-stem concrete query 例:
@@ -176,127 +159,62 @@ existing specialization but no workflow handoff
 possible genuinely new inference / evaluator need
 ```
 
-Phase 113 で解消:
+代表例:
 
 ```text
 python main.py 11 7
-→ existing sigma_n specialization を TodaGroupQuery が再利用
-```
+→ Phase 113 で orchestration gap を解消済み
 
-Phase 114 で解消:
-
-```text
 query "E(nu_5)"
-→ direct lookup miss
-→ existing nu-family symbolic bridge
-→ exact concrete specialization
-→ E(nu_5) = nu_6
-```
+→ lookup miss
+→ 既存 nu-family stable transport に数学的情報あり
+→ general evaluator を作る前に最小 handoff を検討
 
-未解消 / 未分類の代表例:
-
-```text
 query "E(sigma_11)"
-H(nu_5)
-H(sigma_11)
-Delta(sigma_11)
-```
+→ lookup miss
+→ sigma-family definition に既存情報あり
+→ general evaluator を作る前に最小 handoff を検討
 
-これらは general evaluator が必要と決めつけず、次の pressure audit で再分類する。
+H(nu_5), H(sigma_11), Delta(sigma_11)
+→ 新 inference / evaluator 候補として保留
+```
 
 ---
 
-# 5. Phase 114 完了境界
+# 5. Phase 114 第一候補
 
-Phase 114 の対象は
+次 Phase:
+
+```text
+Phase 114
+operation query → existing inference minimal handoff
+```
+
+最初の代表対象は
 
 $$
 E(\nu_5)=\nu_6
 $$
 
-だけである。
+とする。
 
-source:
+ただし最初から general operation evaluator を作らない。
 
-$$
-E^{n-5}\nu_5=\nu_n.
-$$
-
-実装境界:
+想定する境界:
 
 ```text
 query input
 → existing direct lookup
 → direct fact があれば従来どおり返す
 → lookup miss
-→ exact E(nu_5) guard
-→ theorem-specific concrete specialization
+→ Phase 114 で許可した最小既存 inference handoff
 → proof provenance
 → query / query-proof
 ```
 
-非拡張を回帰テストで固定:
-
-```text
-H(nu_5)
-Delta(nu_5)
-E(nu_6)
-E(sigma_11)
-E(nu_5 o eta_8)
-```
-
-parser 境界も維持:
-
-```text
-三項 map-operation operand
-四項 composition
-```
-
 ---
 
-# 6. Phase 115 の開始方針
-
-次 Phase は、
-
-```text
-Phase 115
-post-Phase 114 operation / workflow pressure audit
-```
-
-から始める。
-
-目的は Phase 114 の handoff pattern を機械的に横展開することではない。
-
-まず、残存する問い合わせを
-
-```text
-existing direct fact
-existing symbolic inference / specialization
-new inference required
-presentation-only issue
-parser boundary
-execution boundary
-```
-
-に分類する。
-
-監査候補:
-
-```text
-E(sigma_11)
-H(nu_5)
-H(sigma_11)
-Delta(sigma_11)
-E(nu_prime)
-Delta(nu_prime)
-symbolic scalar LaTeX presentation
-```
-
-Phase 115 でどれを実装するかは audit 後に決める。
-
----
-
-# 7. Phase 115 で先取りしないもの
+# 6. Phase 114 で先取りしないもの
 
 ```text
 general E evaluator
@@ -309,12 +227,11 @@ Unicode ∘
 一般 expression parser
 execute sigma_11
 第3 qualified execution family
-odd-primary integration
 ```
 
 ---
 
-# 8. 保留中の機能
+# 7. 保留中の機能
 
 ```text
 operation-query grammar generalization
@@ -335,39 +252,25 @@ all-primary ordinary sphere-homotopy calculation
 
 ---
 
-# 9. 表示上の既知残件
+# 8. 次 Phase の開始境界
 
-Phase 114 の query-proof で symbolic bridge が
-
-```text
-E^{n + -1\,5}nu_5 = nu_n
-```
-
-の形で表示される場合がある。
-
-数学的内容は
-
-$$
-E^{n-5}\nu_5=\nu_n.
-$$
-
-これは Phase 114 の handoff / proof correctness ではなく scalar LaTeX presentation の残件である。
-
-次 Phase の pressure audit で優先度を評価する。
-
----
-
-# 10. 次 Phase の完了判断原則
-
-Phase 115 以降も次を維持する。
+Phase 114 開始前に、
 
 ```text
-既存数学を先に再利用する
-direct fact を上書きしない
-新しい定理 root を不要に作らない
-provenance を失わない
-一般 evaluator を必要性なしに作らない
-parser を需要なしに一般化しない
-focused regression で境界を固定する
-repository-wide regression で閉じる
+E(nu_5)
+→ どの既存 ProofStep / symbolic relation を使うか
+→ concrete n=6 specialization が既存 machinery だけで成立するか
+→ query result と query-proof provenance をどう保持するか
 ```
+
+を現行 GitHub コードと関連テストで確認する。
+
+目的は「query を一般 evaluator に変えること」ではない。
+
+```text
+既存数学
+→ 最小 handoff
+→ provenance を保持した利用者向け query
+```
+
+に限定する。

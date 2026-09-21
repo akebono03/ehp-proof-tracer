@@ -2,7 +2,7 @@
 
 EHP Proof Tracer is a Python project for representing, checking, searching, explaining, presenting, exploring, replaying, and safely executing theorem-backed Toda-style homotopy-group calculations.
 
-The project currently focuses on the free part plus the 2-primary Toda groups, EHP exactness, explicit proof provenance, the calculation spine through stable stems $G_0$ to $G_7$, theorem-backed repository exploration, recursive proof-ancestry exploration, applicable theorem / lemma discovery, bounded qualified execution, proof-derived known-group identity lookup, indexed $\sigma_n$ specialization, group-query specialization reuse, user-facing proof replay, existing-operation-fact lookup, operation-query proof replay, and one deliberately narrow operation-query handoff from an existing symbolic proof to the concrete fact $E(\nu_5)=\nu_6$.
+The project currently focuses on the free part plus the 2-primary Toda groups, EHP exactness, explicit proof provenance, the calculation spine through stable stems $G_0$ to $G_7$, theorem-backed repository exploration, recursive proof-ancestry exploration, applicable theorem / lemma discovery, bounded qualified execution, proof-derived known-group identity lookup, indexed $\sigma_n$ specialization, group-query specialization reuse, user-facing proof replay, existing-operation-fact lookup, and operation-query proof replay.
 
 This is not an all-primary calculator for ordinary homotopy groups of spheres.
 
@@ -102,11 +102,10 @@ The proof infrastructure supports:
 - existing operation-fact lookup,
 - operation-query result deduplication without losing raw provenance,
 - operation-query proof replay rooted at the selected fact's actual `ProofStep`,
-- one theorem-specific `E(nu_5)` handoff that preserves the existing symbolic Toda Proposition 5.6 bridge as provenance,
 - user-selected replay depth through `--depth`,
 - safe mathematical rendering with explicit type-name fallback for unsupported aggregate statements.
 
-General unbounded proof search, theorem ranking, producer ranking, proof-cost optimization, best-proof selection, arbitrary operation-query inference fallback, and general $E/H/\Delta$ evaluation are intentionally not implemented.
+General unbounded proof search, theorem ranking, producer ranking, proof-cost optimization, best-proof selection, and general $E/H/\Delta$ evaluation are intentionally not implemented.
 
 ## Toda group calculation API
 
@@ -180,8 +179,6 @@ It assembles theorem-backed entries needed by supported production paths without
 
 Concrete indexed $\sigma_n$ specialization is derived from the existing Proposition 5.15 proof scope rather than registered as a new independent theorem root.
 
-The Phase 114 $\nu_5$ operation handoff is likewise derived from an existing symbolic Proposition 5.6 bridge and does not add a new repository root.
-
 ## Generator-centered exploration
 
 Generator-centered exploration supports exact aliases such as
@@ -226,7 +223,7 @@ $$
 \pi_{n+7}^n=\mathbb Z/16\{\sigma_n\}.
 $$
 
-The exploration layer finds or theorem-specifically specializes already represented proof facts. It does not generally evaluate $E$, $H$, or $\Delta$, and it does not solve Toda brackets.
+The exploration layer finds or specializes already represented proof facts. It does not generally evaluate $E$, $H$, or $\Delta$, and it does not solve Toda brackets.
 
 ## Applicable theorem / lemma discovery
 
@@ -308,9 +305,9 @@ python main.py show-proof sigma_11 --depth 2
 
 The default depth is one direct premise level. `--depth 0` shows only the replay root.
 
-## Operation query
+## Existing operation-fact query
 
-Operation query is lookup-first.
+The operation-query path remains a read-only lookup over already represented repository / proof-scope facts.
 
 Examples:
 
@@ -318,7 +315,6 @@ Examples:
 python main.py query "H(nu_prime)"
 python main.py query "Delta(iota_9)"
 python main.py query "E(eta_2 o nu_prime)"
-python main.py query "E(nu_5)"
 python main.py query "eta_2 o nu_prime"
 python main.py query "eta_2 o nu_prime o eta_6"
 ```
@@ -353,50 +349,21 @@ $$
 E(\eta_2\nu')=0,
 $$
 
-$$
-E(\nu_5)=\nu_6,
-$$
-
 and
 
 $$
 \pi_7^2=\mathbb Z/2\{\eta_2\nu'\eta_6\}.
 $$
 
-The normal operation-query path remains direct repository / proof-scope lookup. Phase 114 adds one deliberately narrow exception:
+The operation-query layer is intentionally a lookup:
 
 ```text
-query
-→ direct lookup
-→ direct hit: return unchanged
-→ direct miss
-→ only if query is exactly E(nu_5)
-→ theorem-specific concrete specialization of the existing symbolic bridge
-→ result + preserved provenance
+lookup != inference != evaluation
 ```
 
-The symbolic source is the existing Toda Proposition 5.6 bridge
+A miss means that no matching represented repository fact was found. It does not prove mathematical nonexistence.
 
-$$
-E^{n-5}\nu_5=\nu_n.
-$$
-
-At $n=6$, the Phase 114 specialization produces
-
-$$
-E(\nu_5)=\nu_6.
-$$
-
-This does not turn `query` into a general inference engine or an evaluator.
-
-```text
-direct lookup first
-limited theorem-specific handoff != general query inference
-query != general E/H/Delta evaluator
-LOOKUP_MISS != mathematical nonexistence
-```
-
-The Phase 114 handoff does not extend to `H(nu_5)`, `Delta(nu_5)`, `E(nu_6)`, `E(sigma_11)`, or `E(nu_5 o eta_8)`.
+Phase 112 confirmed that some lookup misses, such as `E(nu_5)`, correspond to mathematics already represented elsewhere in symbolic inference infrastructure. That observation does not change the current `query` semantics.
 
 ## Operation-query proof replay
 
@@ -408,16 +375,12 @@ Examples:
 python main.py query-proof "H(nu_prime)" --fact 1
 python main.py query-proof "H(nu_prime)" --fact 2
 python main.py query-proof "E(eta_2 o nu_prime)"
-python main.py query-proof "E(nu_5)"
-python main.py query-proof "E(nu_5)" --depth 2
 python main.py query-proof "H(nu_prime)" --fact 1 --depth 2
 ```
 
 If a query has exactly one presented fact, `--fact` is optional. If multiple facts are available, no fact is selected automatically.
 
 The replay root is the selected fact's own `ProofStep`, not the enclosing repository theorem root.
-
-For `E(nu_5)`, replay depth one shows the concrete specialization followed by the existing symbolic Proposition 5.6 bridge. Greater replay depth follows the existing bridge premises.
 
 ## Command-line interface
 
@@ -437,14 +400,11 @@ python main.py execute nu_prime --candidate 1
 python main.py query "H(nu_prime)"
 python main.py query "Delta(iota_9)"
 python main.py query "E(eta_2 o nu_prime)"
-python main.py query "E(nu_5)"
 python main.py query "eta_2 o nu_prime"
 python main.py query "eta_2 o nu_prime o eta_6"
 python main.py query-proof "H(nu_prime)" --fact 1
 python main.py query-proof "H(nu_prime)" --fact 1 --depth 2
 python main.py query-proof "E(eta_2 o nu_prime)"
-python main.py query-proof "E(nu_5)"
-python main.py query-proof "E(nu_5)" --depth 2
 ```
 
 `n,k` refers to the project quantity $\pi_{n+k}^n$, i.e. free part plus the 2-primary component.
@@ -473,13 +433,19 @@ workflow orchestration gap
 possible genuinely new inference / evaluator need
 ```
 
-It established the principle
+The highest-pressure minimal gap was:
 
 ```text
-LOOKUP_MISS != evaluator required
+show-proof sigma_11
+→ knows pi_18^11 = Z/16{sigma_11}
+
+python main.py 11 7
+→ previously failed to reuse the same existing specialization
 ```
 
-and identified both the `sigma_11` group-query orchestration gap and the `E(nu_5)` operation-query handoff gap as cases where existing mathematics should be reused before adding a general evaluator.
+This was classified as an orchestration gap, not as missing mathematics.
+
+Phase 112 deliberately did not introduce a general expression parser or a general $E/H/\Delta$ evaluator.
 
 ## Phase 113 closure
 
@@ -498,48 +464,10 @@ TodaGroupQuery(n, 7), n >= 10
 
 It does not mutate the repository and does not synthesize a result from an empty repository.
 
-Full repository regression:
+Focused Phase 113 and relevant regression tests passed, followed by the full repository regression:
 
 ```text
 9081 passed in 434.58s (0:07:14)
-```
-
-## Phase 114 closure
-
-Phase 114 connected one existing symbolic inference result to operation query without creating a general evaluator.
-
-The supported handoff is exactly
-
-$$
-E(\nu_5)=\nu_6.
-$$
-
-The flow is
-
-```text
-query "E(nu_5)"
-→ direct lookup
-→ miss
-→ exact Phase 114 handoff guard
-→ concrete specialization
-→ existing symbolic Proposition 5.6 bridge as premise
-→ query / query-proof
-```
-
-The concrete `ProofStep` preserves the existing symbolic bridge
-
-$$
-E^{n-5}\nu_5=\nu_n
-$$
-
-as its direct premise.
-
-Focused boundary coverage verifies that direct `E`, `H`, and `Delta` facts retain priority, the repository remains unchanged, and the handoff does not expand to nearby unsupported operations or parser forms.
-
-Full repository regression:
-
-```text
-9097 passed in 449.47s (0:07:29)
 ```
 
 ## Current boundaries
@@ -562,7 +490,6 @@ The following remain intentionally deferred:
 - general Toda-bracket solving,
 - bracket-value and coset / indeterminacy computation,
 - general $E/H/\Delta$ evaluation,
-- arbitrary operation-query inference fallback,
 - automatic enumeration of unstated mathematical consequences,
 - unrestricted symbolic AST substitution,
 - alternate provenance selection,
@@ -604,9 +531,7 @@ generator
 → execute
 
 operation query
-→ direct existing-fact lookup
-→ if direct hit: preserve existing result
-→ if exact E(nu_5) miss: limited existing-proof handoff
+→ existing proof fact lookup
 → deduplicated mathematical facts
 → preserved provenance
 → query
@@ -618,9 +543,9 @@ selected operation fact
 → query-proof
 ```
 
-Phase 113 connected the existing indexed $\sigma_n$ specialization to `TodaGroupQuery`.
+Phase 112 classified actual workflow pressure and selected the highest-pressure minimal orchestration gap.
 
-Phase 114 connected exactly one existing $\nu$-family bridge to operation query while preserving direct-lookup priority and the general evaluator boundary.
+Phase 113 connected the existing indexed $\sigma_n$ specialization to `TodaGroupQuery`.
 
 ## Project principle
 
