@@ -25,7 +25,6 @@ from repository_proof_scope import (
   build_repository_proof_scope,
 )
 from repository_symbolic_sigma_specialization import (
-  is_toda_prop515_generic_sigma_specialization_generator,
   specialize_repository_proof_scope_for_generator,
 )
 from standard_production_repository import (
@@ -42,13 +41,6 @@ from toda_group_lookup import (
 def _supports_proof_derived_ambient_group(
   generator: GeneratorSymbol,
 ) -> bool:
-  if (
-    is_toda_prop515_generic_sigma_specialization_generator(
-      generator
-    )
-  ):
-    return True
-
   return generator in (
     GeneratorSymbol(
       family="ν",
@@ -73,6 +65,10 @@ def _supports_proof_derived_ambient_group(
     GeneratorSymbol(
       family="σ",
       index=9,
+    ),
+    GeneratorSymbol(
+      family="σ",
+      index=10,
     ),
   )
 

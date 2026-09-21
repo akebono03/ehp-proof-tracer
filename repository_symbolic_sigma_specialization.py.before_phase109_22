@@ -23,43 +23,10 @@ from toda_rules import (
 )
 
 
-def is_toda_prop515_generic_sigma_specialization_generator(
-  generator: GeneratorSymbol,
-) -> bool:
-  if not isinstance(
-    generator,
-    GeneratorSymbol,
-  ):
-    return False
-
-  if (
-    generator.family
-    != "σ"
-  ):
-    return False
-
-  if (
-    generator.decoration
-    is not None
-  ):
-    return False
-
-  if (
-    isinstance(
-      generator.index,
-      bool,
-    )
-    or not isinstance(
-      generator.index,
-      int,
-    )
-  ):
-    return False
-
-  return (
-    generator.index
-    >= 10
-  )
+SIGMA_10 = GeneratorSymbol(
+  family="σ",
+  index=10,
+)
 
 
 def _is_symbolic_prop515_sigma_group_step(
@@ -134,9 +101,8 @@ def _is_symbolic_prop515_sigma_group_step(
   )
 
 
-def specialize_toda_prop515_sigma_index_step(
+def specialize_toda_prop515_sigma10_step(
   symbolic_step: ProofStep,
-  index: int,
 ) -> ProofStep:
   if not isinstance(
     symbolic_step,
@@ -144,25 +110,6 @@ def specialize_toda_prop515_sigma_index_step(
   ):
     raise TypeError(
       "symbolic_step must be a ProofStep"
-    )
-
-  if (
-    isinstance(
-      index,
-      bool,
-    )
-    or not isinstance(
-      index,
-      int,
-    )
-  ):
-    raise TypeError(
-      "index must be an int"
-    )
-
-  if index < 10:
-    raise ValueError(
-      "index must be at least 10"
     )
 
   if not _is_symbolic_prop515_sigma_group_step(
@@ -208,9 +155,9 @@ def specialize_toda_prop515_sigma_index_step(
     ].conclusion
   )
 
-  sigma_definition = (
+  sigma10_definition = (
     toda_sigma_family_definition_statement(
-      index,
+      10,
       sigma_family_statement
       .sigma8_statement,
     )
@@ -218,16 +165,13 @@ def specialize_toda_prop515_sigma_index_step(
 
   conclusion = Relation(
     lhs=TodaPrimaryGroup(
-      group_dimension=(
-        index
-        + 7
-      ),
-      sphere_dimension=index,
+      group_dimension=17,
+      sphere_dimension=10,
     ),
     rhs=FiniteCyclicGroup(
       order=16,
       generator=(
-        sigma_definition.element
+        sigma10_definition.element
       ),
     ),
     relation_type=RelationType.EQUALITY,
@@ -240,21 +184,9 @@ def specialize_toda_prop515_sigma_index_step(
     ),
     rule=ProofRule.INFERENCE,
     note=(
-      "Phase 109-22 theorem-specific concrete "
-      "specialization of Toda Proposition 5.15 "
-      f"at n={index}"
+      "Phase 109-20 concrete specialization "
+      "of Toda Proposition 5.15 at n=10"
     ),
-  )
-
-
-def specialize_toda_prop515_sigma10_step(
-  symbolic_step: ProofStep,
-) -> ProofStep:
-  return (
-    specialize_toda_prop515_sigma_index_step(
-      symbolic_step,
-      10,
-    )
   )
 
 
@@ -278,10 +210,9 @@ def specialize_repository_proof_scope_for_generator(
       "generator must be a GeneratorSymbol"
     )
 
-  if not (
-    is_toda_prop515_generic_sigma_specialization_generator(
-      generator
-    )
+  if (
+    generator
+    != SIGMA_10
   ):
     return scope
 
@@ -294,9 +225,8 @@ def specialize_repository_proof_scope_for_generator(
       continue
 
     specialized_step = (
-      specialize_toda_prop515_sigma_index_step(
-        node.proof_step,
-        generator.index,
+      specialize_toda_prop515_sigma10_step(
+        node.proof_step
       )
     )
 

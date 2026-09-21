@@ -209,7 +209,7 @@ def test_phase109_20_sigma10_input_facade_uses_specialization_boundary():
   )
 
 
-def test_phase109_20_sigma11_now_resolves_through_phase109_22_generalization():
+def test_phase109_20_sigma11_remains_out_of_scope():
   assert (
     GENERATOR_FACT_REPOSITORY
     .lookup_ambient_group(
@@ -218,24 +218,11 @@ def test_phase109_20_sigma11_now_resolves_through_phase109_22_generalization():
     is None
   )
 
-  nodes = (
+  assert (
     find_standard_repository_generator_known_group_identity_nodes(
       SIGMA_11
     )
-  )
-
-  assert len(
-    nodes
-  ) == 1
-
-  assert (
-    nodes[
-      0
-    ].proof_step.conclusion.lhs
-    == TodaPrimaryGroup(
-      group_dimension=18,
-      sphere_dimension=11,
-    )
+    == ()
   )
 
 
