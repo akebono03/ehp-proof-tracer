@@ -670,6 +670,154 @@ full regression:
 
 Phase 114 は完了。
 
+## Phase 115 `E(sigma_11)` existing-mathematics handoff provenance
+
+Phase 115 は新しい独立 theorem root や general operation evaluator を追加していない。
+
+既存 Toda Lemma 5.14 の $\sigma$-family definition:
+
+$$
+\sigma_n=E^{n-8}\sigma_8,
+\qquad n\ge 8
+$$
+
+を再利用する。
+
+具体的には、
+
+$$
+\sigma_{11}=E^3\sigma_8,
+\qquad
+\sigma_{12}=E^4\sigma_8
+$$
+
+を同じ `sigma8_statement` provenance から構成し、
+
+$$
+E(\sigma_{11})=\sigma_{12}
+$$
+
+を operation-query 用 concrete `Relation` として生成する。
+
+provenance:
+
+```text
+concrete E(sigma_11) = sigma_12 step
+→ symbolic TodaSigmaFamilyDefinitionStatement
+→ TodaLemma514Sigma8Statement
+→ ScalarGreaterEqualStatement
+```
+
+concrete step の rule は inference であり、direct premise は existing symbolic $\sigma$-family definition である。
+
+したがって:
+
+```text
+concrete definitional specialization
+!= new theorem root
+!= general E(sigma_n) evaluator
+!= general E evaluator
+!= arbitrary symbolic substitution
+```
+
+operation-query handoff:
+
+```text
+query
+→ direct lookup
+→ direct hit なら既存結果
+→ miss
+→ exact E(sigma_11) guard
+→ concrete specialization
+→ query / query-proof
+```
+
+CLI で確認した結果:
+
+$$
+E\sigma_{11}=\sigma_{12}.
+$$
+
+`query-proof "E(sigma_11)" --depth 2` は、
+
+```text
+Depth 0:
+E sigma_11 = sigma_12
+
+Depth 1:
+TodaSigmaFamilyDefinitionStatement
+
+Depth 2:
+TodaLemma514Sigma8Statement
+ScalarGreaterEqualStatement
+```
+
+を再生する。
+
+重要な boundary:
+
+```text
+direct lookup has priority
+E(sigma_10) は対象外
+E(sigma_12) は対象外
+E(sigma_100) は対象外
+H(sigma_11) は対象外
+Delta(sigma_11) は対象外
+E(sigma_11 o eta_18) は対象外
+repository roots は変更しない
+parser grammar は変更しない
+```
+
+Phase 115-5 では残存 pressure を次のように再分類した。
+
+```text
+H(nu_5)
+→ new mathematical inference required
+
+H(sigma_11)
+→ related low-dimensional mathematics exists
+→ reusable family operation bridge is not currently present
+
+Delta(sigma_11)
+→ reusable concrete / family relation is not currently present
+
+E(nu_prime)
+→ E nu_prime appears as a subexpression
+→ operation-result relation is not present
+
+Delta(nu_prime)
+→ direct / reusable family inference is not currently present
+
+E(nu_5 o eta_8)
+→ composition-operation inference boundary
+```
+
+したがって Phase 115 は exact `E(sigma_11)` handoff で停止した。
+
+focused:
+
+```text
+Phase 115 dedicated:
+14 passed
+
+Phase 114 compatibility:
+16 passed
+```
+
+関連回帰:
+
+```text
+97 passed in 19.14s
+```
+
+full regression:
+
+```text
+9111 passed in 432.54s (0:07:12)
+```
+
+Phase 115 は完了。
+
 ---
 
 # 記録原則
@@ -711,6 +859,8 @@ LOOKUP_MISS != evaluator required
 TodaGroupQuery specialization reuse != new theorem
 limited operation handoff != general query inference
 theorem-specific concrete specialization != general evaluator
+expression occurrence != operation result relation
+related mathematics exists != reusable operation bridge
 ```
 
 既存記録は原則として削除せず、確定した意味論訂正がある場合のみ訂正する。
