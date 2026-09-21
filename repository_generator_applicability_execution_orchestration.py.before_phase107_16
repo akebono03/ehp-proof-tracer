@@ -3,7 +3,6 @@ from dataclasses import dataclass
 from proof_repository import ProofRepository
 from repository_generator_applicability_execution_entry import (
   build_first_qualified_production_execution_catalog,
-  build_second_qualified_production_execution_catalog,
 )
 from repository_generator_applicability_execution_seed import (
   build_repository_generator_applicability_execution_seed_repository,
@@ -17,10 +16,6 @@ from repository_generator_applicability_handoff import (
   build_repository_generator_applicability_handoff_search_report,
   execute_repository_generator_applicability_handoff_search_report,
   validate_repository_generator_applicability_handoff,
-)
-from repository_generator_two_premise_execution_integration import (
-  TwoPremiseProductionApplicationExecutionResult,
-  execute_two_premise_repository_generator_production_application_candidate,
 )
 from repository_proof_scope_applicability import (
   RepositoryProofScopeApplicabilityCandidate,
@@ -193,37 +188,4 @@ def execute_first_qualified_production_applicability_candidate(
     validation=validation,
     search_report=search_report,
     execution=execution,
-  )
-
-
-def execute_second_qualified_production_applicability_candidate(
-  candidate,
-  goal,
-  max_depth=2,
-  retry_policy=None,
-) -> TwoPremiseProductionApplicationExecutionResult:
-  if not isinstance(
-    candidate,
-    RepositoryProofScopeApplicabilityCandidate,
-  ):
-    raise TypeError(
-      "candidate must be a "
-      "RepositoryProofScopeApplicabilityCandidate"
-    )
-
-  execution_catalog = (
-    build_second_qualified_production_execution_catalog(
-      candidate,
-      goal,
-    )
-  )
-
-  return (
-    execute_two_premise_repository_generator_production_application_candidate(
-      candidate,
-      goal,
-      execution_catalog,
-      max_depth=max_depth,
-      retry_policy=retry_policy,
-    )
   )

@@ -39,87 +39,54 @@ Proof Repository、repository-assisted inference、自動 rule 選択、有界 p
 
 `docs/development_log/phases_090_095.md`
 
-Toda group query、正規化済み group result、EHP provenance、flat / recursive proof provenance、計算オーケストレーションの記録。Phase 95 完了記録を含む。
+Toda group query、正規化済み group result、EHP provenance、flat / recursive proof provenance、計算オーケストレーションの記録。
 
-## Phase 96
-
-`docs/development_log/phases_096.md`
-
-構造化 presentation、EHP / exactness presentation、proof source presentation、依存関係順の proof flow、Markdown / LaTeX renderer、読みやすい narrative、統合 full proof report、最終監査の記録。
-
-Phase 96 は完了。
+## Phase 96–98
 
 ```text
-repository-wide:
+Phase 96:
+structured presentation / readable full proof report
 7609 passed in 121.63s
-```
 
-## Phase 97
-
-`docs/development_log/phases_097.md`
-
-calculation-to-report オーケストレーション境界監査、最小 top-level report result 表現、`NOT_FOUND / FOUND / MULTIPLE_RESULTS` 処理、代表6 target の top-level validation、最終監査の記録。
-
-Phase 97 は完了。
-
-```text
-repository-wide:
+Phase 97:
+calculation-to-report orchestration
 7609 passed in 121.63s
-```
 
-## Phase 98
-
-`docs/development_log/phases_098.md`
-
-利用者向け convenience の必要性監査、raw `n,k` の薄い facade、単一 `FOUND` report access、順序保持した report collection access、代表経路の validation、最終監査の記録。
-
-Phase 98 は完了。
-
-```text
-repository-wide:
+Phase 98:
+raw n,k convenience facade
 7643 passed in 123.73s
+```
+
+詳細:
+
+```text
+docs/development_log/phases_096.md
+docs/development_log/phases_097.md
+docs/development_log/phases_098.md
 ```
 
 ## Phase 99
 
-Phase 99 は element-centered repository exploration を段階的に追加した。
+element-centered repository exploration を追加。
 
 ```text
-GeneratorSymbol の構造的包含
-→ 構造的 occurrence path
-→ repository 全体の occurrence lookup
-→ semantic role 分類
-→ element-centered exploration
+GeneratorSymbol
+→ occurrence
+→ semantic role
 → grouped presentation
-→ Markdown rendering
+→ Markdown
 → one-shot exploration facade
 ```
 
-Phase 99 は完了。
-
 ```text
-repository-wide:
 7824 passed in 136.59s
 ```
 
 ## Phase 100
 
-Phase 100 では既存 theorem-backed bootstrap を標準運用リポジトリへ統合し、repository-free facade と最小 CLI へ接続した。
+standard production repository、`build_standard_toda_report(n,k)`、`python main.py n k` を統合。
 
 ```text
-raw n,k
-→ build_standard_toda_report(n,k)
-  または python main.py n k
-→ 標準運用リポジトリ
-→ build_toda_report(repository,n,k)
-→ TodaCalculationReportResult
-→ 人間向け proof report
-```
-
-Phase 100-12 は完了。
-
-```text
-repository-wide:
 8010 passed in 179.65s
 ```
 
@@ -127,21 +94,9 @@ repository-wide:
 
 `docs/development_log/phases_101.md`
 
-Phase 101 は Phase 99 の generator-centered exploration を運用利用者向け経路へ接続した。
+generator-centered exploration を標準 repository と `main.py explore` へ接続。
 
 ```text
-generator 文字列
-→ canonical GeneratorSymbol
-→ 標準運用リポジトリ
-→ structural occurrence exploration
-→ grouped Markdown
-→ main.py explore
-```
-
-Phase 101 は完了。
-
-```text
-repository-wide:
 8058 passed in 133.01s
 ```
 
@@ -149,24 +104,17 @@ repository-wide:
 
 `docs/development_log/phases_102.md`
 
-Phase 102 は top-level registered conclusion exploration を実際の運用 proof ancestry へ拡張し、Toda membership と既知 map relation を読み取り専用で探索する capability を追加した。
+recursive proof-scope exploration、Toda membership、known map relation discovery を追加。
 
 代表結果:
 
 $$
-\nu' \in \{\eta_3,2\iota_4,\eta_4\}_1
+\nu' \in \{\eta_3,2\iota_4,\eta_4\}_1,
+\qquad
+H(\nu')=\eta_5.
 $$
-
-および
-
-$$
-H(\nu')=\eta_5
-$$
-
-Phase 102 は完了。
 
 ```text
-repository-wide after Phase 102-7:
 8142 passed in 129.93s
 ```
 
@@ -174,351 +122,128 @@ repository-wide after Phase 102-7:
 
 `docs/development_log/phases_103.md`
 
-Phase 103 は proof-scope exploration を applicable theorem / lemma candidate discovery へ接続した。
+applicable theorem / lemma discovery と relevance classification を追加。
 
 ```text
-generator
-→ proof-scope source statements
-→ premise-pattern compatibility
-→ applicability candidates
-→ rule groups
-→ rule families
-→ relevance categories
-→ compact / detailed presentation
-→ main.py explore-applicable
-```
-
-Phase 103-6 では relevance metadata を導入した。
-
-```text
-THEOREM_SPECIFIC
-MAP_PROPERTY
-STRUCTURAL
-BRIDGE
-GENERIC_RELATION
-UNCLASSIFIED
-```
-
-最終 catalog:
-
-```text
-catalog entries = 1188
-families = 267
-classified families = 158
-unclassified families = 109
-
-STRUCTURAL = 201
-MAP_PROPERTY = 60
-THEOREM_SPECIFIC = 424
-GENERIC_RELATION = 63
-BRIDGE = 140
-UNCLASSIFIED = 300
-```
-
-Phase 103 は完了。
-
-```text
-Phase 103 regression:
-54 test files
 409 passed in 186.07s
 ```
 
 ## Phase 104
 
-Phase 104 は relevance-classified applicability candidate を、theorem ranking や automatic unbounded execution に拡張せず、既存の有界 proof-search infrastructure へ安全に接続した。
-
-中心経路:
+selected applicability candidate を READY validation、explicit-final-rule bounded search、prebuilt-report execution へ接続。
 
 ```text
-適用可能候補
-↓
-候補の絞り込み / source 範囲での選択
-↓
-明示的 handoff
-↓
-execution-catalog 検証
-↓
-READY
-↓
-検証済み最終 rule の明示
-↓
-有界 producer search
-↓
-事前構築済み search report
-↓
-選択 producer path
-↓
-実行
-↓
-ProofStep provenance
-```
-
-主要不変条件:
-
-```text
-候補の絞り込み != theorem ranking
-候補選択 != proof success
-candidate handoff != automatic proof execution
-```
-
-```text
-candidate rule
-is validation.execution_entry.rule
-is search_result.final_rule
-is goal_step.inference_rule
-```
-
-```text
-execution_result.report
-is search_report.report
-```
-
-Phase 104 は完了。
-
-```text
-repository-wide after Phase 104-4P closure check:
 8644 passed in 374.63s
 ```
 
 ## Phase 105
 
-Phase 105 は、Phase 104 で完成した selected applicability candidate の bounded execution capability を、**実際の標準運用 applicability workflow に接続できるか**を監査し、最初の qualified production rule family について端から端までの統合を完成させた。
+first qualified production family を standard applicability workflow へ接続。
 
-基本方針:
+対象:
 
 ```text
-relevance classification
-!=
-execution safety qualification
+toda_58_delta_iota9_nu4_nu_prime_inference_rule
 ```
 
-主要段階:
+主要 capability:
 
 ```text
-Phase 105-1 / 105-2
-運用 workflow pressure と safe-catalog 境界監査
-
-Phase 105-3 / 105-4
-Toda Equation (5.8) rule の execution safety と source provenance 監査
-
-Phase 105-5
-exact source ProofStep を使う execution-seed repository adapter
-
-Phase 105-6
-最初の qualified production execution entry / catalog adapter
-
-Phase 105-7
-candidate → seed → execution catalog → handoff → search → execution
-
-Phase 105-8
-selection boundary 監査
-
-Phase 105-9
-qualified candidate filtering と NONE / UNIQUE / AMBIGUOUS 表現
-
-Phase 105-10
-UNIQUE qualified candidate → orchestration handoff
-
-Phase 105-11
-standard applicability → qualified selection → handoff 境界監査
-
-Phase 105-12
-source-identity deduplication / disambiguation 境界監査
-
-Phase 105-13
-qualified rule-equivalence / repeated catalog-entry provenance 監査
-
-Phase 105-14
-qualified execution-family grouping / representative selection 実装
-
-Phase 105-15
-root/source scoped disambiguation 監査
-
-Phase 105-16
-explicit root + source scoped family selection 実装
-
-Phase 105-17
-standard applicability → qualified grouping → explicit selection → execution facade integration
-
-Phase 105-18
-最終文書更新 / 完了
+exact source-step seed
+qualified execution entry/catalog
+candidate orchestration
+qualified selection
+execution-family grouping
+explicit root + source selection
+standard first-family facade
 ```
 
-Phase 105-12 の監査:
-
 ```text
-qualified candidates = 744
-source+rule-name groups = 248
-scope+source groups = 248
-unique source-step identities = 124
-```
-
-Phase 105-13:
-
-```text
-same factory
-same rule signature
-same entry metadata signature
-different entry identity
-different rule identity
-```
-
-そのため raw applicability catalog は保持し、execution selection 層で family grouping した。
-
-```text
-744 raw qualified candidates
-↓
-248 execution-family groups
-```
-
-Phase 105-15:
-
-```text
-root-only unique = False
-source-step-only unique = False
-root+source unique = True
-```
-
-global minimum depth にも6 group が残るため、`shortest_depth` を暗黙の選択規則にしない。
-
-Phase 105-16 では
-
-```text
-explicit root_entry identity
-+
-explicit source_step identity
-```
-
-で execution-family group を0件または1件へ絞る API を実装した。
-
-Phase 105-17 では
-
-```text
-標準 applicability result
-→ qualified filtering
-→ execution-family grouping
-→ explicit root + source selection
-→ representative candidate
-→ production execution orchestration
-→ actual ProofStep
-```
-
-までを1本の facade に接続した。
-
-Phase 105 で実装しなかったもの:
-
-```text
-automatic root selection
-automatic source selection
-shortest-depth ranking
-theorem ranking
-automatic goal discovery
-new execution CLI
-general qualification of every production rule family
-raw applicability-catalog deduplication
-```
-
-最終確認:
-
-```text
-Phase 105-17 focused:
-8 passed in 142.33s
-
-Phase 105-7 / 10 / 14 / 16 / 17 related:
-40 passed in 174.89s
-
-repository-wide Phase 105 closure:
 8709 passed in 659.02s
 ```
-
-Phase 105 は完了。
 
 ## Phase 106
 
 `docs/development_log/phases_106.md`
 
-Phase 106 は Phase 105 後の機能拡張を始める前に、性能と複雑性の健全性を監査した。
-
-基準監査:
+applicability performance / complexity audit。
 
 ```text
-catalog build:
-4.44 s / 4.37 MiB
-
-nu_prime applicability exploration:
-27.89 s / 274.10 MiB
-
-qualified filtering:
-1.11 s / 25.00 MiB
-
-family grouping:
-0.025 s / 0.28 MiB
-
-標準実行 facade:
-1.09 s / 25.00 MiB
+797573 full-scope candidates
+→ 176616 generator-relevant candidates
 ```
 
-主要ボトルネックは execution ではなく applicability discovery だった。
-
-詳細監査:
+generator-relevant scope prefilter を実装。
 
 ```text
-proof-scope nodes = 3889
-generator occurrences = 626
-full-scope candidates = 797573
-generator-relevant candidates = 176616
-retained = 22.1442%
-```
-
-同一 proof graph 上で relevant-scope prefilter を監査し、候補列と provenance identity が完全一致することを確認した。
-
-```text
-candidate_signature_sequence_equal = True
-candidate_signature_multiset_equal = True
-scope_identity_sequence_equal = True
-root_identity_sequence_equal = True
-source_identity_sequence_equal = True
-catalog_entry_identity_sequence_equal = True
-rule_identity_sequence_equal = True
-```
-
-Phase 106-4 で `_build_generator_applicability_result()` に最小変更を行い、generator-relevant scope のみを既存 finder へ渡すようにした。
-
-focused regression:
-
-```text
-22 passed in 57.94s
-```
-
-実装後の基準:
-
-```text
-nu_prime applicability exploration:
 8.16 s / 62.42 MiB
+8712 passed in 337.86s
+```
 
-raw candidates = 176616
-qualified candidates = 744
-family groups = 248
-unique source-step identities = 124
-selected family size = 3
-executed = True
+## Phase 107
+
+`docs/development_log/phases_107.md`
+
+Phase 107 は、Phase 106 後の qualified-execution expansion pressure を監査し、実需要が確認された範囲だけで first-family-only execution を multi-family execution へ拡張した。
+
+second qualified family:
+
+```text
+toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
+```
+
+主要 capability:
+
+```text
+exact production-application recovery
+NONE / UNIQUE / AMBIGUOUS recovery status
+exact multi-premise seed
+two-premise bounded execution integration
+explicit root + source + family selection
+generic qualified-family admission
+family-name dispatch
+multi-family standard facade
+```
+
+multi-family public contract:
+
+```text
+applicability_result
++ root_entry
++ source_step
++ family_name
++ goal
+```
+
+Phase 107 で実装しなかったもの:
+
+```text
+automatic root/source/family selection
+automatic goal discovery
+theorem ranking
+execution CLI
+execution-result presentation integration
+third qualified family
+persistent cache / parallelization
+```
+
+focused:
+
+```text
+Phase 107-18:
+10 passed in 13.69s
+
+Phase 107-16:
+10 passed in 1.71s
 ```
 
 repository-wide:
 
 ```text
-8712 passed in 337.86s
+8783 passed in 290.63s
 ```
 
-監査内の warmed run:
-
-```text
-8712 passed in 220.35s
-```
-
-正式な closure 値には独立実行の `337.86s` を採用する。
-
-Phase 106 は完了。
+Phase 107 は完了。
 
 ---
 
@@ -526,11 +251,11 @@ Phase 106 は完了。
 
 `development_log.md` は索引として維持する。
 
-詳細な新規開発記録は、該当する archive file に追記するか、Phase 範囲に応じて新しい archive file を追加する。
+詳細な新規開発記録は archive file に追記するか、Phase 範囲に応じて新しい archive file を追加する。
 
 既存履歴は原則として削除せず、誤りが確定した場合のみ必要な訂正を行う。
 
-現在の capability を確認する目的では、この開発履歴よりも次を優先する。
+現在 capability の確認では次を優先する。
 
 ```text
 README.md
@@ -540,4 +265,4 @@ docs/code_reference.md
 docs/proof_records.md
 ```
 
-次の開始点は `Phase 107-1` の qualified-execution expansion pressure audit である。
+次 Phase は、Phase 107 で保留した項目を自動的に実装するのではなく、新しい実需要を監査して開始する。

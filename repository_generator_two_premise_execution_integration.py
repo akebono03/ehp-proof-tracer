@@ -1,13 +1,6 @@
 from dataclasses import dataclass
 
 from proof_repository import ProofRepository
-from repository_generator_applicability_execution_entry import (
-  build_first_qualified_production_execution_catalog,
-  build_second_qualified_production_execution_catalog,
-)
-from repository_generator_applicability_execution_seed import (
-  build_repository_generator_applicability_execution_seed_repository,
-)
 from repository_generator_applicability_handoff import (
   RepositoryGeneratorApplicabilityCandidateHandoff,
   RepositoryGeneratorApplicabilityHandoffExecutionResult,
@@ -18,9 +11,13 @@ from repository_generator_applicability_handoff import (
   execute_repository_generator_applicability_handoff_search_report,
   validate_repository_generator_applicability_handoff,
 )
-from repository_generator_two_premise_execution_integration import (
-  TwoPremiseProductionApplicationExecutionResult,
-  execute_two_premise_repository_generator_production_application_candidate,
+from repository_generator_production_application_execution_seed import (
+  build_repository_generator_production_application_execution_seed_repository,
+)
+from repository_generator_production_application_recovery import (
+  RepositoryGeneratorProductionApplicationRecovery,
+  RepositoryGeneratorProductionApplicationRecoveryStatus,
+  recover_repository_generator_production_application,
 )
 from repository_proof_scope_applicability import (
   RepositoryProofScopeApplicabilityCandidate,
@@ -29,9 +26,10 @@ from rule_catalog import InferenceRuleCatalog
 
 
 @dataclass(frozen=True)
-class FirstQualifiedProductionApplicabilityExecutionResult:
+class TwoPremiseProductionApplicationExecutionResult:
   candidate: RepositoryProofScopeApplicabilityCandidate
   goal: object
+  recovery: RepositoryGeneratorProductionApplicationRecovery
   seed_repository: ProofRepository
   execution_catalog: InferenceRuleCatalog
   handoff: RepositoryGeneratorApplicabilityCandidateHandoff
@@ -49,6 +47,54 @@ class FirstQualifiedProductionApplicabilityExecutionResult:
       raise TypeError(
         "candidate must be a "
         "RepositoryProofScopeApplicabilityCandidate"
+      )
+
+    if not isinstance(
+      self.recovery,
+      RepositoryGeneratorProductionApplicationRecovery,
+    ):
+      raise TypeError(
+        "recovery must be a "
+        "RepositoryGeneratorProductionApplicationRecovery"
+      )
+
+    if (
+      self.recovery.candidate
+      is not self.candidate
+    ):
+      raise ValueError(
+        "recovery candidate must preserve "
+        "candidate identity"
+      )
+
+    if (
+      self.recovery.goal
+      != self.goal
+    ):
+      raise ValueError(
+        "recovery goal must match result goal"
+      )
+
+    if (
+      self.recovery.status
+      is not RepositoryGeneratorProductionApplicationRecoveryStatus.UNIQUE
+    ):
+      raise ValueError(
+        "recovery must have UNIQUE status"
+      )
+
+    premise_tuple = (
+      self.recovery.premise_tuple
+    )
+
+    if (
+      premise_tuple is None
+      or len(
+        premise_tuple
+      ) != 2
+    ):
+      raise ValueError(
+        "recovery must contain exactly two premises"
       )
 
     if not isinstance(
@@ -116,12 +162,13 @@ class FirstQualifiedProductionApplicabilityExecutionResult:
       )
 
 
-def execute_first_qualified_production_applicability_candidate(
+def execute_two_premise_repository_generator_production_application_candidate(
   candidate,
   goal,
+  execution_catalog,
   max_depth=2,
   retry_policy=None,
-) -> FirstQualifiedProductionApplicabilityExecutionResult:
+) -> TwoPremiseProductionApplicationExecutionResult:
   if not isinstance(
     candidate,
     RepositoryProofScopeApplicabilityCandidate,
@@ -131,16 +178,46 @@ def execute_first_qualified_production_applicability_candidate(
       "RepositoryProofScopeApplicabilityCandidate"
     )
 
-  seed_repository = (
-    build_repository_generator_applicability_execution_seed_repository(
-      candidate
+  if not isinstance(
+    execution_catalog,
+    InferenceRuleCatalog,
+  ):
+    raise TypeError(
+      "execution_catalog must be an InferenceRuleCatalog"
+    )
+
+  recovery = (
+    recover_repository_generator_production_application(
+      candidate,
+      goal,
     )
   )
 
-  execution_catalog = (
-    build_first_qualified_production_execution_catalog(
-      candidate,
-      goal,
+  if (
+    recovery.status
+    is not RepositoryGeneratorProductionApplicationRecoveryStatus.UNIQUE
+  ):
+    raise ValueError(
+      "production application recovery must be UNIQUE"
+    )
+
+  premise_tuple = (
+    recovery.premise_tuple
+  )
+
+  if (
+    premise_tuple is None
+    or len(
+      premise_tuple
+    ) != 2
+  ):
+    raise ValueError(
+      "production application must have exactly two premises"
+    )
+
+  seed_repository = (
+    build_repository_generator_production_application_execution_seed_repository(
+      recovery
     )
   )
 
@@ -163,7 +240,7 @@ def execute_first_qualified_production_applicability_candidate(
     is not RepositoryGeneratorApplicabilityHandoffValidationStatus.READY
   ):
     raise ValueError(
-      "qualified production applicability handoff "
+      "two-premise production applicability handoff "
       "must validate as READY"
     )
 
@@ -184,46 +261,14 @@ def execute_first_qualified_production_applicability_candidate(
     )
   )
 
-  return FirstQualifiedProductionApplicabilityExecutionResult(
+  return TwoPremiseProductionApplicationExecutionResult(
     candidate=candidate,
     goal=goal,
+    recovery=recovery,
     seed_repository=seed_repository,
     execution_catalog=execution_catalog,
     handoff=handoff,
     validation=validation,
     search_report=search_report,
     execution=execution,
-  )
-
-
-def execute_second_qualified_production_applicability_candidate(
-  candidate,
-  goal,
-  max_depth=2,
-  retry_policy=None,
-) -> TwoPremiseProductionApplicationExecutionResult:
-  if not isinstance(
-    candidate,
-    RepositoryProofScopeApplicabilityCandidate,
-  ):
-    raise TypeError(
-      "candidate must be a "
-      "RepositoryProofScopeApplicabilityCandidate"
-    )
-
-  execution_catalog = (
-    build_second_qualified_production_execution_catalog(
-      candidate,
-      goal,
-    )
-  )
-
-  return (
-    execute_two_premise_repository_generator_production_application_candidate(
-      candidate,
-      goal,
-      execution_catalog,
-      max_depth=max_depth,
-      retry_policy=retry_policy,
-    )
   )

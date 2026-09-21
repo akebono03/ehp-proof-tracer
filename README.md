@@ -2,7 +2,7 @@
 
 EHP Proof Tracer is a Python project for representing, checking, searching, explaining, presenting, exploring, and safely executing theorem-backed Toda-style homotopy-group calculations.
 
-The project currently focuses on the 2-primary Toda groups, EHP exactness, explicit proof provenance, the calculation spine through stable stems $G_0$ to $G_7$, theorem-backed repository exploration, recursive proof-ancestry exploration, applicable theorem / lemma discovery, relevance classification, bounded candidate handoff, explicit production execution from standard applicability exploration to a derived `ProofStep`, and applicability-performance stabilization.
+The project currently focuses on the 2-primary Toda groups, EHP exactness, explicit proof provenance, the calculation spine through stable stems $G_0$ to $G_7$, theorem-backed repository exploration, recursive proof-ancestry exploration, applicable theorem / lemma discovery, relevance classification, bounded candidate handoff, multi-family qualified production execution, exact multi-premise production-application recovery, and applicability-performance stabilization.
 
 ## Current mathematical coverage
 
@@ -78,7 +78,12 @@ The proof infrastructure supports:
 - repository-nonmutating exploration and execution planning,
 - explicit-final-rule bounded search,
 - execution of a prebuilt bounded-search report without rebuilding the search,
-- end-to-end rule-identity provenance from applicability candidate to derived `ProofStep`.
+- end-to-end rule-identity provenance from applicability candidate to derived `ProofStep`,
+- qualified execution across more than one production rule family,
+- exact recovery of an existing production application from candidate / goal / source identity,
+- exact multi-premise seed reconstruction without cloning proof steps,
+- explicit family-name dispatch,
+- a multi-family standard execution facade.
 
 General unbounded proof search, theorem ranking, producer ranking, proof-cost optimization, and best-proof selection are intentionally not implemented.
 
@@ -116,47 +121,6 @@ python main.py n k
 
 Direct theorem-backed results take precedence over aggregate fallback results. Multiple valid results are preserved; the calculation layer does not silently rank or choose one result.
 
-## Calculation result structure
-
-A `TodaCalculationResult` contains zero or more `TodaCalculationCandidate` objects.
-
-Each candidate contains
-
-```text
-group_result
-explanation
-goal_source
-```
-
-Status semantics are
-
-```text
-0 candidates  -> NOT_FOUND
-1 candidate   -> FOUND
-2+ candidates -> MULTIPLE_RESULTS
-```
-
-## Group normalization
-
-`TodaGroupResult` provides
-
-```text
-target
-group_structure
-generators
-generator_orders
-source_entry
-proof_step
-```
-
-For the zero group
-
-```text
-group_structure = None
-generators = ()
-generator_orders = ()
-```
-
 ## EHP and exactness provenance
 
 For theorem-backed proofs containing actual EHP ancestry, the project can extract EHP exactness windows, a contiguous EHP sequence, exactness-use provenance, and known group information on EHP terms.
@@ -175,30 +139,6 @@ $$
 \pi_7^4.
 $$
 
-## Presentation and reporting
-
-The presentation architecture is one-way:
-
-```text
-proof / calculation truth
-↓
-structured presentation
-↓
-human-readable renderer
-```
-
-Presentation never changes proof truth.
-
-The unified renderer is
-
-```python
-render_toda_full_proof_report_markdown(
-  presentation,
-)
-```
-
-Unknown statement types remain explicit safe fallbacks rather than being guessed into mathematical prose.
-
 ## Standard production repository
 
 The production builder is
@@ -207,76 +147,26 @@ The production builder is
 build_standard_production_proof_repository()
 ```
 
-It assembles theorem-backed entries needed by supported production paths without reproducing Phase-specific bootstrap logic at each call site.
+It assembles theorem-backed entries needed by supported production paths without creating new theorem truth.
 
-Production repository assembly does not create new theorem truth.
+## Generator-centered exploration
 
-## Generator input resolution
-
-Generator-centered exploration accepts a small explicit input language.
-
-Supported aliases include
-
-```text
-η / eta
-ν / nu
-σ / sigma
-ι / iota
-```
-
-Indexed examples include
+Generator-centered exploration supports exact aliases such as
 
 ```text
 eta_2
 nu_5
 sigma_8
 iota_4
-```
-
-Decorated aliases include
-
-```text
-ν′
-ν'
-nu'
 nu_prime
-
-σ'
 sigma_prime
-σ''
 sigma_double_prime
-σ'''
 sigma_triple_prime
 ```
 
-Resolution produces an exact `GeneratorSymbol`. An unindexed family is not a wildcard.
+An unindexed family is not a wildcard.
 
-## Top-level repository exploration
-
-The repository-explicit entry point is
-
-```python
-explore_repository_generator(
-  repository,
-  generator,
-)
-```
-
-The standard production one-shot entry point is
-
-```python
-explore_standard_repository_generator_input(
-  generator_input,
-)
-```
-
-Different structural paths remain distinct occurrences even when they occur in the same repository entry.
-
-## Recursive proof-scope exploration
-
-Recursive proof-scope exploration searches actual `ProofStep.premises` ancestry below each registered production root.
-
-The standard production entry point is
+The standard recursive proof-scope entry point is
 
 ```python
 explore_standard_repository_generator_proof_scope_input(
@@ -284,17 +174,7 @@ explore_standard_repository_generator_proof_scope_input(
 )
 ```
 
-Each proof-scope node keeps
-
-```text
-root_entry
-proof_step
-shortest_depth
-```
-
-Traversal is breadth-first, cycle-safe, identity-preserving, deterministic, and read-only.
-
-Representative production results for `nu_prime` include
+Representative `nu_prime` results include
 
 $$
 \nu' \in \{\eta_3,2\iota_4,\eta_4\}_1
@@ -306,13 +186,11 @@ $$
 H(\nu')=\eta_5.
 $$
 
-The exploration layer only finds already represented and already proven statements. It does not evaluate $E$, $H$, or $\Delta$, and it does not solve Toda brackets.
+The exploration layer finds already represented proof facts. It does not evaluate $E$, $H$, or $\Delta$, and it does not solve Toda brackets.
 
 ## Applicable theorem / lemma discovery
 
-Read-only applicability discovery finds inference rules whose premise patterns are structurally compatible with statements in the production proof scope.
-
-The standard production entry point is
+Read-only applicability discovery is available through
 
 ```python
 explore_standard_repository_generator_applicability_input(
@@ -320,7 +198,7 @@ explore_standard_repository_generator_applicability_input(
 )
 ```
 
-The CLI entry points are
+and
 
 ```powershell
 python main.py explore-applicable nu_prime
@@ -340,25 +218,9 @@ GENERIC_RELATION
 UNCLASSIFIED
 ```
 
-The Phase 103 closure baseline was
-
-```text
-catalog entries = 1188
-families = 267
-classified families = 158
-unclassified families = 109
-
-STRUCTURAL = 201
-MAP_PROPERTY = 60
-THEOREM_SPECIFIC = 424
-GENERIC_RELATION = 63
-BRIDGE = 140
-UNCLASSIFIED = 300
-```
-
 ## Safe applicability-candidate handoff
 
-Phase 104 added a bounded, explicit consumption path for an already selected applicability candidate:
+Phase 104 established
 
 ```text
 selected applicability candidate
@@ -380,8 +242,6 @@ selected-path execution
 actual ProofStep provenance
 ```
 
-The execution adapter does not rerun final-rule selection, producer selection, retry, or bounded search.
-
 The central identity invariant is
 
 ```text
@@ -391,62 +251,17 @@ is search_result.final_rule
 is goal_step.inference_rule
 ```
 
-and the prebuilt report identity is preserved:
+## First-family standard execution
 
-```text
-execution_result.report
-is search_report.report
-```
+Phase 105 connected one qualified production family to standard applicability execution.
 
-## Production-qualified execution integration
-
-Phase 105 connected the Phase 104 handoff machinery to an actual standard-production applicability workflow without adding automatic ranking.
-
-The implemented path is
-
-```text
-standard applicability result
-↓
-qualified candidate filtering
-↓
-execution-family grouping
-↓
-explicit root-entry + source-step selection
-↓
-family representative
-↓
-production execution orchestration
-↓
-actual ProofStep
-```
-
-The first qualified production execution family is produced by
+The first qualified family is
 
 ```text
 toda_58_delta_iota9_nu4_nu_prime_inference_rule
 ```
 
-for the Toda Equation (5.8) $\Delta(\iota_9)$ relation.
-
-The standard `nu_prime` applicability exploration yields
-
-```text
-qualified raw candidates = 744
-execution-family groups = 248
-unique source-step identities = 124
-```
-
-For every qualified source, three structurally equivalent applicability-catalog clones are preserved as original candidates but grouped into one execution family.
-
-Every source step appears under two standard roots, so execution-family disambiguation requires the explicit pair
-
-```text
-root_entry identity
-+
-source_step identity
-```
-
-The production facade is
+The Phase 105 compatibility facade remains available:
 
 ```python
 execute_standard_repository_generator_applicability_result_by_root_and_source(
@@ -459,13 +274,11 @@ execute_standard_repository_generator_applicability_result_by_root_and_source(
 )
 ```
 
-The facade intentionally consumes an already-built applicability result so that root and source object identities remain from the same proof graph.
+It remains intentionally first-family-only.
 
 ## Applicability performance stabilization
 
-Phase 106 audited the post-Phase-105 execution path before expanding execution qualification.
-
-The main bottleneck was not bounded execution. It was full-scope applicability materialization followed by generator filtering:
+Phase 106 identified full-scope applicability materialization as the main bottleneck.
 
 ```text
 3889 proof-scope nodes
@@ -474,23 +287,7 @@ The main bottleneck was not bounded execution. It was full-scope applicability m
 → 176616 retained candidates
 ```
 
-A generator-relevant scope prefilter was validated on the same proof graph and then implemented in `repository_generator_applicability_facade.py`.
-
-The optimization preserves:
-
-```text
-candidate order
-scope-node identity
-root-entry identity
-source-step identity
-catalog-entry identity
-rule identity
-premise index
-premise pattern
-bindings
-```
-
-Measured `nu_prime` applicability exploration improved from approximately
+A generator-relevant scope prefilter reduced measured `nu_prime` applicability exploration from approximately
 
 ```text
 27.89 s / 274.10 MiB peak
@@ -502,16 +299,7 @@ to
 8.16 s / 62.42 MiB peak
 ```
 
-while preserving the production counts:
-
-```text
-raw candidates = 176616
-qualified candidates = 744
-execution-family groups = 248
-unique source-step identities = 124
-selected family size = 3
-execution = successful
-```
+while preserving candidate semantics and provenance identity.
 
 Repository-wide Phase 106 closure:
 
@@ -519,7 +307,95 @@ Repository-wide Phase 106 closure:
 8712 passed in 337.86s
 ```
 
-The additional warmed audit run completed in `220.35s`; the standalone `337.86s` run is retained as the formal closure reference.
+## Multi-family qualified execution
+
+Phase 107 expanded qualified production execution only where a concrete production need was demonstrated.
+
+The currently admitted qualified production execution families are
+
+```text
+toda_58_delta_iota9_nu4_nu_prime_inference_rule
+toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
+```
+
+The second family derives
+
+$$
+\pi_6^2=\mathbb Z/4\{\eta_2\nu'\}.
+$$
+
+Because the second family has two direct premises, a single applicability candidate is not enough to seed execution. Phase 107 therefore recovers the unique existing production application under the same root using
+
+```text
+same root_entry identity
+same inference_rule identity
+same explicit goal
+candidate premise index
+candidate source_step identity
+```
+
+A unique recovery contributes the exact original `premises` tuple. Those `ProofStep` objects are reused by identity and in original order; they are not cloned.
+
+The explicit multi-family selection contract is
+
+```text
+root_entry identity
++
+source_step identity
++
+family_name
++
+caller-supplied goal
+```
+
+The standard multi-family facade is
+
+```python
+execute_standard_repository_generator_applicability_result_by_root_source_and_family(
+  applicability_result,
+  root_entry,
+  source_step,
+  family_name,
+  goal,
+  max_depth=2,
+  retry_policy=None,
+)
+```
+
+The operational path is
+
+```text
+standard applicability result
+↓
+all-qualified candidate filtering
+↓
+execution-family grouping
+↓
+explicit root + source + family selection
+↓
+family representative
+↓
+family-name dispatch
+├─ first family
+│  → exact one-source seed
+│  → bounded execution
+└─ second family
+   → exact production-application recovery
+   → exact two-premise seed
+   → bounded execution
+↓
+actual ProofStep provenance
+```
+
+For `nu_prime` standard applicability exploration, the second family is visible through the premise containing `nu_prime`. The companion premise is recovered from the existing production application rather than discovered by an arbitrary cross-root search.
+
+Phase 107 deliberately does not add automatic root/source/family selection, automatic goal discovery, theorem ranking, a new execution CLI, execution-result presentation integration, or a third qualified family without new architectural pressure.
+
+Repository-wide Phase 107 closure:
+
+```text
+8783 passed in 290.63s
+```
 
 ## Command-line interface
 
@@ -533,7 +409,7 @@ python main.py explore-applicable nu_prime
 python main.py explore-applicable nu_prime --detailed
 ```
 
-Phase 106 adds no new CLI command.
+Phase 107 adds no new CLI command. Qualified execution remains a Python infrastructure capability because the current contract depends on proof-graph object identity and an explicit goal.
 
 ## Current boundaries
 
@@ -541,8 +417,7 @@ The following remain intentionally deferred:
 
 - automatic symbolic higher-range instantiation,
 - target-only unknown-right-hand-side proof search,
-- best-proof ranking or proof-cost optimization,
-- theorem ranking,
+- theorem ranking and proof-cost optimization,
 - producer ranking,
 - general unbounded backtracking,
 - persistent proof cache,
@@ -552,64 +427,41 @@ The following remain intentionally deferred:
 - wildcard family search,
 - general composition evaluation,
 - general Toda-bracket solving,
-- bracket-value computation,
-- general coset / indeterminacy computation,
+- bracket-value and coset / indeterminacy computation,
 - general $E/H/\Delta$ evaluation,
 - recursive theorem solving beyond already represented proof ancestry,
 - automatic enumeration of unstated mathematical consequences,
-- automatic production root/source selection,
-- general execution qualification across all production rule families,
+- automatic production root/source/family selection,
+- automatic execution-goal discovery,
+- execution qualification across all production rule families,
+- user-facing execution addressing / serialization,
 - user-facing execution CLI,
+- execution-result presentation integration,
 - Web UI,
 - odd-primary full integration,
 - an all-primary ordinary sphere-homotopy calculator.
 
 ## Current project state
 
-Calculation:
-
 ```text
-raw n,k
-→ CLI or direct Python call
-→ semantic validation
-→ standard production repository
-→ calculation
-→ provenance extraction
-→ structured presentation
-→ human-readable proof report
-```
+calculation
+→ theorem-backed result
+→ provenance
+→ report
 
-Generator exploration:
-
-```text
-generator string
-→ structural / recursive proof-scope exploration
+generator
+→ proof-scope exploration
 → applicability discovery
 → relevance-classified candidates
-```
 
-Safe candidate consumption:
-
-```text
-selected applicability candidate
-→ explicit handoff
-→ READY execution validation
-→ explicit-final-rule bounded search
-→ prebuilt search report
-→ selected-path execution
-→ actual ProofStep provenance
-```
-
-Standard production-qualified execution:
-
-```text
 standard applicability result
-→ qualified filtering
+→ all-qualified filtering
 → execution-family grouping
-→ explicit root + source selection
-→ family representative
-→ bounded production execution
-→ actual ProofStep
+→ explicit root + source + family selection
+→ family-name dispatch
+→ exact one- or multi-premise execution seed
+→ bounded execution
+→ actual ProofStep provenance
 ```
 
 Phase 100 closed the production calculation path.
@@ -620,41 +472,13 @@ Phase 102 closed recursive proof-scope exploration for already represented Toda 
 
 Phase 103 closed read-only applicable theorem / lemma discovery and the first production relevance-classification pass.
 
-Phase 104 closed safe applicability-candidate consumption through bounded search and actual execution while preserving rule identity and proof provenance.
+Phase 104 closed safe applicability-candidate consumption through bounded search and actual execution.
 
-Phase 105 closed the first explicit standard-production path from applicability discovery to actual execution.
+Phase 105 closed the first explicit standard-production applicability-to-execution path.
 
-Phase 106 identified and removed the dominant applicability-materialization bottleneck while preserving applicability semantics and provenance identity.
+Phase 106 removed the dominant applicability-materialization bottleneck while preserving semantics and provenance.
 
-Phase 107 starts from qualified-execution expansion pressure, not from further performance optimization.
-
-## Documentation
-
-```text
-README.md
-= concise current project status
-
-docs/design.md
-= current architecture, semantics, invariants, and performance boundary
-
-docs/roadmap.md
-= future-oriented plan and deferred capabilities
-
-docs/development_log.md
-= development-history index
-
-docs/development_log/
-= archived chronological development records
-
-docs/proof_records.md
-= mathematical and infrastructure proof-record index
-
-docs/proof_records/
-= mathematical and infrastructure proof records
-
-docs/code_reference.md
-= code navigation reference
-```
+Phase 107 closed the first multi-family qualified-production execution path, including exact multi-premise recovery, family dispatch, and a standard multi-family facade.
 
 ## Project principle
 
@@ -663,6 +487,6 @@ actual mathematical or proof-search need
 → smallest missing representation or orchestration
 → preserve existing semantics and provenance
 → add focused regression coverage
-→ measure performance before optimizing
+→ measure pressure before expanding or optimizing
 → do not pre-implement future phases
 ```
