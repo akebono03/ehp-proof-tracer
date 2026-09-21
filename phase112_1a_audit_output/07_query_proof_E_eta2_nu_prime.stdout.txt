@@ -1,0 +1,30 @@
+# Query fact
+
+$E\eta_{2}\nu' = 0$
+
+First provenance: Toda Proposition 5.8, Phase 68, depth 4
+
+## Proof
+
+1. Depth 0: $E\eta_{2}\nu' = 0$
+   Rule: Toda Lemma 4.5 n=3 suspension zero reflection
+2. Depth 1: $E^{2}\nu' \in 2\iota_{5}\circ \pi_{8}^{5}$
+   Rule: Toda Lemma 5.7 nu-prime hypothesis
+3. Depth 2: `TodaLemma54Statement`
+   Rule: Toda Lemma 5.4 integration
+4. Depth 3: $\nu_{4} \in \pi_{7}^{4}$
+   Rule: Toda Lemma 5.4 nu_4 membership
+5. Depth 3: $H\left(\nu_{4}\right) = \iota_{7}$
+   Rule: Toda Lemma 5.4 nu_4 Hopf correction
+6. Depth 3: $2E\nu_{4} = E^{2}\nu'$
+   Rule: Toda Lemma 5.4 nu_4 double suspension
+7. Depth 2: $\nu_{5} \text{ is the defined }\nu\text{-family element}$
+   Rule: given
+8. Depth 1: $E^{2}\eta_{2}\nu' = 0$
+   Rule: Toda Lemma 5.7 double suspension zero
+9. Depth 2: $E^{2}\eta_{2}\nu' = \eta_{4}E^{2}\nu'$
+   Rule: Toda Lemma 5.7 double suspension composition
+10. Depth 2: $2\eta_{4} = 0$
+   Rule: Toda Proposition 5.1 eta_4 order-two consequence
+11. Depth 3: `TodaProp51FiniteDimensionalStatement`
+   Rule: Toda Proposition 5.1 finite-dimensional integration

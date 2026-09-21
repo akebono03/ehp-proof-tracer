@@ -1,0 +1,21 @@
+# Known repository facts
+
+1. $\pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\}$
+   - First provenance: Toda Proposition 5.8, Phase 68, depth 1
+   - Provenance paths: 6
+
+2. $E\eta_{2}\nu' = 0$
+   - First provenance: Toda Proposition 5.8, Phase 68, depth 4
+   - Provenance paths: 6
+
+3. $E^{2}\eta_{2}\nu' = 0$
+   - First provenance: Toda Proposition 5.8, Phase 68, depth 5
+   - Provenance paths: 6
+
+4. $\Delta\left(\nu_{5}\right) = \pm \eta_{2}\nu'$
+   - First provenance: Toda Proposition 5.11, Phase 73, depth 5
+   - Provenance paths: 2
+
+5. $E^{2}\eta_{2}\nu' = \eta_{4}E^{2}\nu'$
+   - First provenance: Toda Proposition 5.8, Phase 68, depth 6
+   - Provenance paths: 6

@@ -1,0 +1,13 @@
+# Result
+
+$\Delta\left(\iota_{9}\right) = \pm \left(2\nu_{4} - E\nu'\right)$
+
+## Proof
+
+Premises:
+1. $\pi_{7}^{4} = \mathbb{Z}\{\nu_{4}\} \oplus \mathbb{Z}/4\{E\nu'\}$
+
+Rule: Toda Equation 5.8 Delta iota_9 nu-expression
+
+Conclusion:
+$\Delta\left(\iota_{9}\right) = \pm \left(2\nu_{4} - E\nu'\right)$

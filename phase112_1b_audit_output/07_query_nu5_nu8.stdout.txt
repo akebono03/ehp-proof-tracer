@@ -1,0 +1,5 @@
+# Known repository facts
+
+1. $\pi_{11}^{5} = \mathbb{Z}/2\{\nu_{5}\nu_{8}\}$
+   - First provenance: Toda Proposition 5.11, Phase 73, depth 2
+   - Provenance paths: 2

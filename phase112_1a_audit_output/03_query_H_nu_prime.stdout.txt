@@ -1,0 +1,9 @@
+# Known repository facts
+
+1. $H\left(\nu'\right) = \eta_{5}$
+   - First provenance: Toda Proposition 5.6, Phase 65, depth 3
+   - Provenance paths: 14
+
+2. $H\left(\nu'\right) = E^{2}\eta_{3}$
+   - First provenance: Toda Proposition 5.6, Phase 65, depth 4
+   - Provenance paths: 14

@@ -1,0 +1,34 @@
+# Generator
+
+$\nu_{5}$
+
+# Result
+
+$\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$
+
+## Proof
+
+1. Depth 0: $\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$
+   Rule: Toda Proposition 5.6 pi_8^5 finite cyclic
+2. Depth 1: $\operatorname{ord}\left(\nu_{5}\right) = 8$
+   Rule: Toda Proposition 5.6 nu_5 order eight
+3. Depth 2: $2\nu_{5} = E^{2}\nu'$
+   Rule: Toda Proposition 5.6 nu_5 double relation
+4. Depth 3: `Toda55NuFamilyFiniteDimensionalStatement`
+   Rule: Toda 5.5 nu-family finite-dimensional integration
+5. Depth 3: $\nu_{5} \text{ is the defined }\nu\text{-family element}$
+   Rule: given
+6. Depth 2: $\operatorname{ord}\left(E^{2}\nu'\right) = 4$
+   Rule: Toda Proposition 5.6 E^2 nu-prime order four
+7. Depth 3: $\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+   Rule: Toda Proposition 5.6 pi_6^3 finite cyclic
+8. Depth 3: `TodaIteratedSuspensionInjectiveStatement`
+   Rule: Toda Proposition 5.6 E^2 pi_6^3 injective
+9. Depth 1: `TodaProp56Pi8_5QuotientStatement`
+   Rule: Toda Proposition 5.6 pi_8^5 quotient by E^2 pi_6^3
+10. Depth 2: `Toda56Nu4DecompositionStatement`
+   Rule: Toda (5.6) nu_4 decomposition integration
+11. Depth 3: `Toda56Nu4DecompositionIsomorphismStatement`
+   Rule: Toda (5.6) nu_4 decomposition isomorphism semantics
+12. Depth 3: `TodaLemma54Statement`
+   Rule: Toda Lemma 5.4 integration

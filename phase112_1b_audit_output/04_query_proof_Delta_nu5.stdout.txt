@@ -1,0 +1,28 @@
+# Query fact
+
+$\Delta\left(\nu_{5}\right) = \pm \eta_{2}\nu'$
+
+First provenance: Toda Proposition 5.11, Phase 73, depth 5
+
+## Proof
+
+1. Depth 0: $\Delta\left(\nu_{5}\right) = \pm \eta_{2}\nu'$
+   Rule: Toda Lemma 5.7 Delta nu_5 generator
+2. Depth 1: $\Delta: \pi_{8}^{5} \to \pi_{6}^{2} \text{ is surjective}$
+   Rule: Toda Lemma 5.7 Delta surjective
+3. Depth 2: $E\eta_{2}\nu' = 0$
+   Rule: Toda Lemma 4.5 n=3 suspension zero reflection
+4. Depth 3: $E^{2}\nu' \in 2\iota_{5}\circ \pi_{8}^{5}$
+   Rule: Toda Lemma 5.7 nu-prime hypothesis
+5. Depth 3: $E^{2}\eta_{2}\nu' = 0$
+   Rule: Toda Lemma 5.7 double suspension zero
+6. Depth 2: $\pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\}$
+   Rule: Toda Lemma 5.7 pi_6^2 eta_2 nu-prime
+7. Depth 3: `TodaProp56FiniteDimensionalStatement`
+   Rule: Toda Proposition 5.6 finite-dimensional integration
+8. Depth 3: `Toda52CompositionIsomorphismStatement`
+   Rule: Toda 5.2 eta_2 composition isomorphism
+9. Depth 2: $\pi_{8}^{5} \xrightarrow{\Delta} \pi_{6}^{2} \xrightarrow{E} \pi_{7}^{3} \text{ is exact}$
+   Rule: Toda Lemma 5.7 concrete Delta-E exactness
+10. Depth 3: $\pi_{8}^{5} \xrightarrow{\Delta} \pi_{6}^{2} \xrightarrow{E} \pi_{7}^{3}$
+   Rule: given

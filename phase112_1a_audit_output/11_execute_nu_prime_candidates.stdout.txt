@@ -1,0 +1,14 @@
+# Generator
+
+$\nu'$
+
+# Known group
+
+$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+
+# Executable candidates
+
+1. $\pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\}$
+2. $\Delta\left(\iota_{9}\right) = \pm \left(2\nu_{4} - E\nu'\right)$
+
+Select a candidate number to execute.
