@@ -20,9 +20,6 @@ from repository_proof_scope_exploration import (
   find_repository_proof_scope_map_relation_occurrences,
   find_repository_proof_scope_toda_membership_occurrences,
 )
-from repository_symbolic_sigma_specialization import (
-  specialize_repository_proof_scope_for_generator,
-)
 from standard_production_repository import (
   build_standard_production_proof_repository,
 )
@@ -169,13 +166,6 @@ def explore_repository_generator_proof_scope(
 
   scope = build_repository_proof_scope(
     repository
-  )
-
-  scope = (
-    specialize_repository_proof_scope_for_generator(
-      scope,
-      generator,
-    )
   )
 
   occurrences = (

@@ -1,0 +1,262 @@
+from expression import (
+  GeneratorSymbol,
+  ScalarSum,
+  ScalarSymbol,
+)
+from homotopy_groups import (
+  FiniteCyclicGroup,
+  TodaPrimaryGroup,
+)
+from proof import (
+  ProofRule,
+  ProofStep,
+  Relation,
+  RelationType,
+)
+from repository_proof_scope import (
+  RepositoryProofScopeNode,
+  RepositoryProofScopeResult,
+)
+from toda_rules import (
+  TodaSigmaFamilyDefinitionStatement,
+  toda_sigma_family_definition_statement,
+)
+
+
+SIGMA_10 = GeneratorSymbol(
+  family="σ",
+  index=10,
+)
+
+
+def _is_symbolic_prop515_sigma_group_step(
+  step: ProofStep,
+) -> bool:
+  if not isinstance(
+    step,
+    ProofStep,
+  ):
+    return False
+
+  if (
+    step.rule
+    is not ProofRule.INFERENCE
+  ):
+    return False
+
+  conclusion = step.conclusion
+
+  if not isinstance(
+    conclusion,
+    Relation,
+  ):
+    return False
+
+  if (
+    conclusion.relation_type
+    is not RelationType.EQUALITY
+  ):
+    return False
+
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  if (
+    conclusion.lhs
+    != TodaPrimaryGroup(
+      group_dimension=ScalarSum(
+        left=n,
+        right=7,
+      ),
+      sphere_dimension=n,
+    )
+  ):
+    return False
+
+  if not isinstance(
+    conclusion.rhs,
+    FiniteCyclicGroup,
+  ):
+    return False
+
+  if (
+    conclusion.rhs.order
+    != 16
+  ):
+    return False
+
+  generator = getattr(
+    conclusion.rhs.generator,
+    "generator",
+    None,
+  )
+
+  return (
+    generator
+    == GeneratorSymbol(
+      family="σ",
+      index=n,
+    )
+  )
+
+
+def specialize_toda_prop515_sigma10_step(
+  symbolic_step: ProofStep,
+) -> ProofStep:
+  if not isinstance(
+    symbolic_step,
+    ProofStep,
+  ):
+    raise TypeError(
+      "symbolic_step must be a ProofStep"
+    )
+
+  if not _is_symbolic_prop515_sigma_group_step(
+    symbolic_step
+  ):
+    raise ValueError(
+      "symbolic_step must prove the symbolic "
+      "Toda Proposition 5.15 sigma-family group"
+    )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  sigma_family_steps = tuple(
+    premise
+    for premise in symbolic_step.premises
+    if (
+      isinstance(
+        premise,
+        ProofStep,
+      )
+      and isinstance(
+        premise.conclusion,
+        TodaSigmaFamilyDefinitionStatement,
+      )
+      and premise.conclusion.index
+      == n
+    )
+  )
+
+  if len(
+    sigma_family_steps
+  ) != 1:
+    raise ValueError(
+      "symbolic_step must have exactly one "
+      "symbolic sigma-family definition premise"
+    )
+
+  sigma_family_statement = (
+    sigma_family_steps[
+      0
+    ].conclusion
+  )
+
+  sigma10_definition = (
+    toda_sigma_family_definition_statement(
+      10,
+      sigma_family_statement
+      .sigma8_statement,
+    )
+  )
+
+  conclusion = Relation(
+    lhs=TodaPrimaryGroup(
+      group_dimension=17,
+      sphere_dimension=10,
+    ),
+    rhs=FiniteCyclicGroup(
+      order=16,
+      generator=(
+        sigma10_definition.element
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  return ProofStep(
+    conclusion=conclusion,
+    premises=(
+      symbolic_step,
+    ),
+    rule=ProofRule.INFERENCE,
+    note=(
+      "Phase 109-20 concrete specialization "
+      "of Toda Proposition 5.15 at n=10"
+    ),
+  )
+
+
+def specialize_repository_proof_scope_for_generator(
+  scope: RepositoryProofScopeResult,
+  generator: GeneratorSymbol,
+) -> RepositoryProofScopeResult:
+  if not isinstance(
+    scope,
+    RepositoryProofScopeResult,
+  ):
+    raise TypeError(
+      "scope must be a RepositoryProofScopeResult"
+    )
+
+  if not isinstance(
+    generator,
+    GeneratorSymbol,
+  ):
+    raise TypeError(
+      "generator must be a GeneratorSymbol"
+    )
+
+  if (
+    generator
+    != SIGMA_10
+  ):
+    return scope
+
+  specialized_nodes = []
+
+  for node in scope.nodes:
+    if not _is_symbolic_prop515_sigma_group_step(
+      node.proof_step
+    ):
+      continue
+
+    specialized_step = (
+      specialize_toda_prop515_sigma10_step(
+        node.proof_step
+      )
+    )
+
+    if any(
+      existing.proof_step.conclusion
+      == specialized_step.conclusion
+      for existing in specialized_nodes
+    ):
+      continue
+
+    specialized_nodes.append(
+      RepositoryProofScopeNode(
+        root_entry=node.root_entry,
+        proof_step=specialized_step,
+        shortest_depth=(
+          node.shortest_depth
+          + 1
+        ),
+      )
+    )
+
+  if not specialized_nodes:
+    return scope
+
+  return RepositoryProofScopeResult(
+    repository=scope.repository,
+    nodes=(
+      scope.nodes
+      + tuple(
+        specialized_nodes
+      )
+    ),
+  )

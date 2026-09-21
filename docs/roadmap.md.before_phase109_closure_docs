@@ -22,20 +22,9 @@ generator exploration:
 ```text
 generator
 → recursive proof scope
-→ generator-specific specialization
 → Toda membership / known map relation
 → applicability candidates
 → relevance-classified presentation
-```
-
-known-group proof replay:
-
-```text
-generator
-→ known-group identity
-→ existing ProofStep
-→ direct proof replay
-→ python main.py show-proof ...
 ```
 
 user-facing qualified execution:
@@ -54,11 +43,11 @@ generator input
 最新:
 
 ```text
-Phase 109 closure:
-8998 passed in 493.70s (0:08:13)
+Phase 108 closure:
+8850 passed in 380.25s
 ```
 
-Phase 109 は完了。
+Phase 108 は完了。
 
 ---
 
@@ -120,22 +109,6 @@ Windows UTF-8 CLI boundary
 end-to-end subprocess smoke
 ```
 
-Phase 109:
-
-```text
-known-group identity integration
-proof-derived ambient-group fallback
-decorated sigma / sigma_8 / sigma_9 known-group fallback
-generic concrete indexed sigma_n specialization
-proof-scope specialization integration
-qualified-execution semantic boundary audit
-known-group proof replay
-show-proof CLI
-narrow replay statement rendering coverage
-known-group-first ambiguous execute presentation
-candidate-order / theorem-ranking boundary closure
-```
-
 ---
 
 # 3. 現在の execution API
@@ -185,31 +158,9 @@ toda_58_delta_iota9_nu4_nu_prime_inference_rule
 toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
 ```
 
-Phase 109 では third qualified family を追加していない。
-
 ---
 
-# 4. 現在の known-group replay API
-
-```text
-build_standard_repository_generator_known_group_proof_replay_input(
-  generator_input,
-  max_depth=1,
-)
-```
-
-default replay depth:
-
-```text
-result
-+ direct premises
-```
-
-`show-proof` は既知 group の proof replay であり、qualified theorem application ではない。
-
----
-
-# 5. 現在の CLI
+# 4. 現在の CLI
 
 ```text
 python main.py n k
@@ -217,8 +168,6 @@ python main.py explore "nu'"
 python main.py explore-proof nu_prime
 python main.py explore-applicable nu_prime
 python main.py explore-applicable nu_prime --detailed
-python main.py show-proof nu_prime
-python main.py show-proof sigma_11
 python main.py execute nu_prime
 python main.py execute nu_prime --candidate 1
 ```
@@ -227,7 +176,7 @@ python main.py execute nu_prime --candidate 1
 
 ---
 
-# 6. 確定した user-facing 境界
+# 5. 確定した user-facing execution 境界
 
 ambiguity:
 
@@ -244,66 +193,49 @@ candidate number:
 != theorem ranking
 ```
 
-known-group replay:
+executed result:
 
 ```text
-show-proof
-!= execute
-```
-
-indexed sigma specialization:
-
-```text
-symbolic Proposition 5.15 theorem
-→ concrete specialization
-!= arbitrary AST rewrite
-!= third qualified execution family
+actual repository_inference_result.goal_step
+→ final ProofStep
 ```
 
 presentation:
 
 ```text
-known group / result
+final conclusion
 direct premises
-rule labels
+rule
+conclusion
 ```
 
 internal addressing は通常表示に出さない。
 
 ---
 
-# 7. Phase 110 第一候補：user-facing mathematical operation query audit
+# 6. Phase 109 候補：post-Phase-108 operational audit
 
-Phase 109 の次は、既存の relation / proof 表現を user-facing operation query に接続する必要性を監査する。
+次 Phase の第一候補は implementation ではなく operational audit。
 
-第一候補:
-
-```text
-composition result query
-E result query
-H result query
-Δ result query
-operation result + proof display
-```
-
-監査対象:
+確認対象:
 
 ```text
-既存 repository に表現済みの relation
-既存 map statement / relation renderer
-operation input の最小表現
-query と evaluator の境界
-known relation lookup と新規計算の境界
-proof replay の再利用可能性
+どの generator input が executable target を持つか
+NONE / UNIQUE / AMBIGUOUS の分布
+現在の2 family がどの production target をカバーするか
+実際に candidate list が有用な対象
+追加 family の具体的需要
+execution 時間 / applicability 時間の新しい性能圧力
+presentation 上の不足
 ```
 
-Phase 110 では、一般 evaluator を先に実装しない。
+この audit で追加実装の圧力を確認してから Phase 109 の scope を固定する。
 
 ---
 
-# 8. 保留：semantic automatic target selection
+# 7. 保留：semantic automatic target selection
 
-複数候補から数学的に「最善」を選ぶ機能は未実装。
+Phase 108 は user-facing addressing を実現したが、複数候補から数学的に「最善」を選ぶ機能は実装していない。
 
 保留:
 
@@ -319,7 +251,7 @@ automatic target preference
 
 ---
 
-# 9. 保留：additional qualified families
+# 8. 保留：additional qualified families
 
 third family 以降は coverage 拡張だけを目的に admission しない。
 
@@ -338,23 +270,7 @@ new architectural pressure
 
 ---
 
-# 10. 保留：proof replay 拡張
-
-Phase 109 の `show-proof` は default direct-premise depth 1。
-
-必要性が確認された場合のみ検討:
-
-```text
-CLI --depth
-recursive ancestry presentation
-dependency-first narrative
-shared dependency display
-rich proof visualization
-```
-
----
-
-# 11. 保留：数学的 evaluator / broader coverage
+# 9. 保留：数学的 evaluator / broader coverage
 
 ```text
 general Toda-bracket solver
@@ -368,7 +284,7 @@ all-primary ordinary sphere-homotopy calculation
 
 ---
 
-# 12. 保留：optimization / versioning
+# 10. 保留：optimization / versioning
 
 ```text
 general backtracking
@@ -385,9 +301,9 @@ Phase 106 の prefilter 以降、次の optimization は実測圧力を確認し
 
 ---
 
-# 13. 保留：UI 拡張
+# 11. 保留：UI 拡張
 
-現在 CLI で calculation / exploration / applicability / replay / execution が利用できる。
+CLI は Phase 108 で実装済み。
 
 未実装:
 
@@ -398,17 +314,20 @@ persistent execution history
 rich recursive proof visualization
 ```
 
+必要性を operational audit で確認する。
+
 ---
 
-# 14. 次 Phase の開始境界
+# 12. 次 Phase の開始境界
 
-Phase 109 の known-group / replay capability を機械的に拡張しない。
+Phase 108 の完了事項を機械的に拡張しない。
 
 次はまず:
 
 ```text
-Phase 110
-user-facing mathematical operation query audit
+Phase 109
+post-Phase-108 operational audit
+/ next execution scope diagnosis
 ```
 
-その監査結果から、既存 relation lookup、operation query、general evaluator のどこまでを次の実装範囲にするかを決める。
+その結果から、additional family、presentation、性能、数学 coverage のどこに実需要があるかを決める。

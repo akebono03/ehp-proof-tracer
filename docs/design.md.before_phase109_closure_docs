@@ -44,10 +44,6 @@ candidate number != mathematical priority
 presentation != proof object
 repository target goal equality != executed conclusion object identity
 CLI addressing != proof-graph internal addressing
-known-group identity lookup != qualified execution
-known-group proof replay != theorem application execution
-symbolic theorem specialization != arbitrary symbolic AST rewriting
-specialization provenance != production-rule re-execution
 ```
 
 ---
@@ -76,34 +72,11 @@ generator 文字列
 → GeneratorSymbol
 → standard production repository
 → recursive ProofStep ancestry
-→ generator-specific proof-scope specialization
 → occurrence
 → Toda membership / known map relation
 → premise-pattern compatibility
 → applicability candidates
 → relevance-classified presentation
-```
-
-known-group identity:
-
-```text
-generator
-→ explicit ambient-group fact
-   または proof-derived ambient-group fallback
-→ unique target group
-→ repository proof-scope node
-→ known-group identity
-```
-
-known-group proof replay:
-
-```text
-generator
-→ unique known-group identity node
-→ source ProofStep
-→ bounded direct ancestry selection
-→ replay presentation
-→ show-proof CLI
 ```
 
 qualified execution:
@@ -168,18 +141,6 @@ repository_generator_applicability_presentation.py
 repository_generator_applicability_renderer.py
 ```
 
-known-group / specialization / replay:
-
-```text
-repository_generator_known_group_identity_lookup.py
-repository_generator_known_group_identity_presentation.py
-repository_generator_known_group_identity_renderer.py
-repository_symbolic_sigma_specialization.py
-repository_generator_known_group_proof_replay.py
-repository_generator_known_group_proof_replay_presentation.py
-repository_generator_known_group_proof_replay_renderer.py
-```
-
 qualified execution:
 
 ```text
@@ -196,7 +157,7 @@ repository_generator_qualified_execution_dispatch.py
 repository_generator_standard_qualified_execution_facade.py
 ```
 
-user-facing execution:
+Phase 108 user-facing execution:
 
 ```text
 repository_generator_user_execution_resolver.py
@@ -226,13 +187,11 @@ ProofStep.inference_rule
 
 renderer、facade、CLI、resolver、探索、applicability 分類、execution selection は証明事実を追加しない。
 
-Phase 109 の specialization step も、既存 symbolic theorem step を premise として保持する `ProofStep` であり、新しい独立 theorem root を作らない。
-
 ---
 
 # 5. Repository 非破壊
 
-query / exploration / applicability / execution planning / known-group replay は元の repository を読み取り専用として扱う。
+query / exploration / applicability / execution planning は元の repository を読み取り専用として扱う。
 
 execution は新しい inference result を構成できるが、元 repository を変更しない。
 
@@ -342,7 +301,7 @@ candidate sequence / identity / provenance は保持された。
 
 # 10. User-facing executable-target resolver
 
-resolver は generator input から **実行可能な target** を列挙する。
+Phase 108 の resolver は generator input から **実行可能な target** を列挙する。
 
 概念的な照合:
 
@@ -393,13 +352,11 @@ candidate_number supplied
 
 `candidate_number` は表示順に対応する 1-based addressing であり、数学的優先度を意味しない。
 
-Phase 109 で candidate reranking は追加していない。
-
 ---
 
 # 12. Executed final ProofStep boundary
 
-user-facing execution は repository 側の original target step を presentation しない。
+Phase 108 は repository 側の original target step を presentation しない。
 
 実際に bounded execution が生成した
 
@@ -437,150 +394,9 @@ repository target goal とは object identity ではなく equality で対応す
 
 ---
 
-# 13. Known-group identity semantics
+# 13. Minimal Result + Proof presentation
 
-known-group identity lookup は、まず explicit ambient-group fact を利用する。
-
-explicit fact がない場合でも、限定された generator に対して既存 proof scope の group relation から ambient group を導出できる。
-
-Phase 109 で確認した proof-derived fallback の代表例:
-
-```text
-nu_5
-sigma'''
-sigma''
-sigma'
-sigma_8
-sigma_9
-generic concrete sigma_n specialization
-```
-
-target group が一意に定まる場合だけ known-group identity node を返す。
-
-```text
-known-group identity lookup
-!= theorem search
-!= qualified execution
-```
-
----
-
-# 14. Indexed sigma specialization boundary
-
-Toda Proposition 5.15 の symbolic higher step は
-
-$$
-\pi_{n+7}^{n}=\mathbb Z/16\{\sigma_n\},
-\qquad n\ge 9
-$$
-
-を表す。
-
-Phase 109 の concrete generic specialization は、indexed `GeneratorSymbol(family="σ", index=n)` の concrete integer $n\ge 10$ に限定する。
-
-specialization step は symbolic higher step を direct premise として保持する。
-
-```text
-concrete sigma_n group step
-→ premise: symbolic Proposition 5.15 higher step
-```
-
-specialization step に、実際には適用していない production inference rule を偽装して付けない。
-
-```text
-specialization inference_rule = None
-```
-
-既存 repository root は増やさない。
-
-任意の symbolic AST substitution engine は導入しない。
-
----
-
-# 15. Proof-scope specialization boundary
-
-generator proof-scope exploration は標準 repository の recursive scope を構築した後、generator に必要な theorem-specific specialization を加える。
-
-これにより `sigma_11`, `sigma_12` など concrete indexed generator は proof-scope occurrence と applicability source を持てる。
-
-ただし、
-
-```text
-proof-scope visibility
-!= executable target
-```
-
-である。
-
-concrete $\sigma_{11}$ group stepが applicability source になっても、それを producer rule の source として逆向きに execution してはならない。
-
----
-
-# 16. Known-group proof replay boundary
-
-known-group proof replay は、
-
-```text
-generator
-→ unique known-group node
-→ node.proof_step
-→ selected direct ancestry
-→ presentation
-```
-
-である。
-
-標準 API:
-
-```text
-build_standard_repository_generator_known_group_proof_replay_input(
-  generator_input,
-  max_depth=1,
-)
-```
-
-default `max_depth=1`。
-
-replay result は次を identity 保持する。
-
-```text
-generator
-source_node
-root_step
-selected ProofStep ancestry
-```
-
-`RepositoryGeneratorExecutedProofStepResult` を replay 用に流用しない。
-
-qualified execution target を偽造しない。
-
----
-
-# 17. show-proof と execute の分離
-
-```text
-show-proof
-→ 既知 group の proof を表示 / replay
-
-execute
-→ generator に関連する qualified theorem application を実行
-```
-
-したがって、
-
-```text
-show-proof != execute
-```
-
-`sigma_11` は `show-proof` 可能でも、qualified executable target を持たないため `execute sigma_11` は NONE のままでよい。
-
-`nu_prime` は known-group proof replay と executable target の両方を持つため、両操作を同じ fallback semantics に統合しない。
-
----
-
-# 18. Result + Proof presentation
-
-qualified execution の通常表示対象:
+通常表示の対象:
 
 ```text
 final conclusion
@@ -588,18 +404,6 @@ direct premises
 rule
 conclusion
 ```
-
-known-group replay の通常表示対象:
-
-```text
-generator
-known-group result
-root proof step
-direct premise proof steps
-rule labels
-```
-
-default proof depth は direct premises の 1 段。
 
 表示しない内部情報:
 
@@ -610,51 +414,17 @@ bindings
 internal family addressing
 ```
 
----
+default proof depth は direct premises の 1 段。
 
-# 19. Proof statement rendering
-
-proof replay では、既存 generic proof statement renderer を利用する。
-
-Phase 109 で `show-proof nu_prime` に必要だった以下の rendering coverage を追加した。
-
-```text
-HomotopyGroupMembershipStatement
-TodaSuspensionInjectiveStatement
-TodaHopfInvariantSurjectiveStatement
-```
-
-例:
-
-$$
-\nu'\in\pi_6^3,
-$$
-
-$$
-E:\pi_5^2\to\pi_6^3
-\quad\text{is injective},
-$$
-
-$$
-H:\pi_6^3\to\pi_6^5
-\quad\text{is surjective}.
-$$
-
-replay renderer 専用の型別特例は増やさない。
+再帰的 proof tree の完全表示は Phase 108 では行わない。
 
 ---
 
-# 20. Executable candidate-list presentation
+# 14. Executable candidate-list presentation
 
 `AMBIGUOUS` のとき:
 
 ```text
-# Generator
-<generator>
-
-# Known group
-<known group>
-
 # Executable candidates
 
 1. <mathematical target>
@@ -664,20 +434,13 @@ replay renderer 専用の型別特例は増やさない。
 Select a candidate number to execute.
 ```
 
-known group を candidate list より先に表示する。
+resolver の target 順をそのまま保持する。
 
-candidate presentation は resolver target order をそのまま保持する。
-
-```text
-candidate number
-!= theorem priority
-```
-
-Phase 109 で semantic reranking は導入しない。
+同じ数学的 conclusion が複数 target に現れる可能性があっても、Phase 108 は勝手に deduplicate / rank しない。
 
 ---
 
-# 21. User execution workflow facade
+# 15. User execution workflow facade
 
 entry point:
 
@@ -705,7 +468,7 @@ resolution
 
 ---
 
-# 22. CLI boundary
+# 16. CLI boundary
 
 現行:
 
@@ -715,8 +478,6 @@ python main.py explore "nu'"
 python main.py explore-proof nu_prime
 python main.py explore-applicable nu_prime
 python main.py explore-applicable nu_prime --detailed
-python main.py show-proof nu_prime
-python main.py show-proof sigma_11
 python main.py execute nu_prime
 python main.py execute nu_prime --candidate 1
 ```
@@ -728,7 +489,7 @@ NONE
 → message + exit 1
 
 AMBIGUOUS
-→ known group + candidate list + exit 0
+→ candidate list + exit 0
 
 EXECUTED
 → Result + Proof + exit 0
@@ -737,16 +498,9 @@ invalid generator / candidate
 → argparse error + exit 2
 ```
 
-`show-proof`:
-
-```text
-unique known-group proof
-→ Result + direct proof replay + exit 0
-```
-
 ---
 
-# 23. Windows UTF-8 CLI boundary
+# 17. Windows UTF-8 CLI boundary
 
 Windows の既定 CP932 では `η₂`、`ν₄` などの Unicode 数学文字を stdout に出力できない場合がある。
 
@@ -763,46 +517,37 @@ sys.stderr.reconfigure(encoding="utf-8")
 
 ---
 
-# 24. Phase 109 closure
+# 18. Phase 108 closure tests
 
-Phase 109 は post-Phase-108 operational audit から開始し、known-group identity、indexed $\sigma_n$ specialization、proof-scope integration、proof replay、user-facing rendering、ordering semantics を順に閉じた。
-
-重要な意味論:
+end-to-end subprocess smoke:
 
 ```text
-known-group lookup
-!= qualified execution
+python main.py execute nu_prime
+python main.py execute nu_prime --candidate 1
+python main.py execute nu_prime --candidate 2
 ```
 
+確認:
+
 ```text
-symbolic theorem specialization
-!= arbitrary AST rewrite
+3 passed in 21.55s
 ```
 
+Phase 108 focused regression:
+
 ```text
-concrete sigma_n specialization
-!= third qualified family
+64 passed in 67.18s
 ```
 
-```text
-show-proof
-!= execute
-```
+repository-wide:
 
 ```text
-candidate number
-!= theorem ranking
-```
-
-最終 repository-wide regression:
-
-```text
-8998 passed in 493.70s (0:08:13)
+8850 passed in 380.25s
 ```
 
 ---
 
-# 25. Deferred capabilities
+# 19. Deferred capabilities
 
 ```text
 semantic auto-selection among multiple executable targets
@@ -815,34 +560,30 @@ repository snapshot / versioning
 stale-search-report detection
 third qualified family without new production pressure
 general Toda-bracket solver
-general composition evaluator
-general E / H / Δ evaluator
+general composition / E / H / Δ evaluator
 coset / indeterminacy computation
 broader unstable stems
 odd-primary full integration
 all-primary ordinary sphere-homotopy calculation
-unrestricted symbolic AST substitution
-rich recursive proof visualization
 Web UI
 ```
 
 ---
 
-# 26. 次 Phase との境界
+# 20. 次 Phase との境界
 
-Phase 109 は完了。
+Phase 108 の user-facing execution path は完了。
 
-Phase 110 では Phase 109 の capability を機械的に拡張しない。
+次 Phase は automatic selection や additional family を自動的に実装しない。
 
-まず、次の user-facing mathematical operation に実需要があるかを監査する。
-
-候補:
+まず operational audit により
 
 ```text
-composition result query
-E / H / Δ result query
-operation result + proof display
-known represented relation と evaluator の境界
+どの generator が executable target を持つか
+どの family が実運用可能か
+NONE / AMBIGUOUS / EXECUTED の分布
+追加 family の実需要
+表示や性能の新しい圧力
 ```
 
-必要性と既存表現の再利用可能性を確認してから実装範囲を決める。
+を確認する。
