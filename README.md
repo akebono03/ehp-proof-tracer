@@ -2,7 +2,7 @@
 
 EHP Proof Tracer is a Python project for representing, checking, searching, explaining, presenting, exploring, replaying, and safely executing theorem-backed Toda-style homotopy-group calculations.
 
-The project currently focuses on the free part plus the 2-primary Toda groups, EHP exactness, explicit proof provenance, the calculation spine through stable stems \(G_0\) to \(G_7\), theorem-backed repository exploration, recursive proof-ancestry exploration, applicable theorem / lemma discovery, relevance classification, bounded candidate handoff, multi-family qualified production execution, proof-derived known-group identity lookup, indexed \(\sigma_n\) specialization, user-facing known-group proof replay, existing-operation-fact lookup, and operation-query proof replay.
+The project currently focuses on the free part plus the 2-primary Toda groups, EHP exactness, explicit proof provenance, the calculation spine through stable stems $G_0$ to $G_7$, theorem-backed repository exploration, recursive proof-ancestry exploration, applicable theorem / lemma discovery, relevance classification, bounded candidate handoff, multi-family qualified production execution, proof-derived known-group identity lookup, indexed $\sigma_n$ specialization, user-facing known-group proof replay, existing-operation-fact lookup, and operation-query proof replay.
 
 This is not an all-primary calculator for ordinary homotopy groups of spheres.
 
@@ -10,76 +10,76 @@ This is not an all-primary calculator for ordinary homotopy groups of spheres.
 
 Representative finite-dimensional results include
 
-\[
+$$
 \pi_5^2=\mathbb Z/2\{\eta_2^3\},
 \qquad
 \pi_6^3=\mathbb Z/4\{\nu'\},
-\]
+$$
 
-\[
+$$
 \pi_7^4=\mathbb Z\{\nu_4\}\oplus\mathbb Z/4\{E\nu'\},
-\]
+$$
 
-\[
+$$
 \pi_9^5=\mathbb Z/2\{\nu_5\eta_8\},
 \qquad
 \pi_{10}^4=\mathbb Z/8\{\nu_4^2\},
-\]
+$$
 
-\[
+$$
 \pi_{11}^5=\mathbb Z/2\{\nu_5^2\},
 \qquad
 \pi_9^2=0.
-\]
+$$
 
 Toda Proposition 5.15 coverage includes
 
-\[
+$$
 \pi_{12}^5=\mathbb Z/2\{\sigma'''\},
 \qquad
 \pi_{13}^6=\mathbb Z/4\{\sigma''\},
 \qquad
 \pi_{14}^7=\mathbb Z/8\{\sigma'\},
-\]
+$$
 
-\[
+$$
 \pi_{15}^8
 =
 \mathbb Z\{\sigma_8\}
 \oplus
 \mathbb Z/8\{E\sigma'\},
-\]
+$$
 
 and
 
-\[
+$$
 \pi_{n+7}^n=\mathbb Z/16\{\sigma_n\},
 \qquad n\ge 9.
-\]
+$$
 
 The consolidated stable 2-primary stem data is
 
-\[
+$$
 G_0=\mathbb Z\{\iota\},
 \quad
 (G_1;2)=\mathbb Z/2\{\eta\},
 \quad
 (G_2;2)=\mathbb Z/2\{\eta^2\},
-\]
+$$
 
-\[
+$$
 (G_3;2)=\mathbb Z/8\{\nu\},
 \quad
 (G_4;2)=0,
 \quad
 (G_5;2)=0,
-\]
+$$
 
-\[
+$$
 (G_6;2)=\mathbb Z/2\{\nu^2\},
 \quad
 (G_7;2)=\mathbb Z/16\{\sigma\}.
-\]
+$$
 
 ## Proof infrastructure
 
@@ -99,7 +99,7 @@ The proof infrastructure supports:
 - qualified execution across multiple admitted production rule families,
 - exact multi-premise production-application recovery,
 - proof-derived known-group identity lookup,
-- theorem-specific indexed \(\sigma_n\) specialization,
+- theorem-specific indexed $\sigma_n$ specialization,
 - user-facing known-group proof replay,
 - existing operation-fact lookup,
 - operation-query result deduplication without losing raw provenance,
@@ -121,9 +121,9 @@ build_toda_calculation_result(
 
 where `query` is a `TodaGroupQuery(n, k)` representing the project quantity
 
-\[
+$$
 \pi_{n+k}^n,
-\]
+$$
 
 meaning the free part plus the 2-primary component used by this project.
 
@@ -148,9 +148,9 @@ Direct theorem-backed results take precedence over aggregate fallback results. M
 
 For theorem-backed proofs containing actual EHP ancestry, the project can extract EHP exactness windows, a contiguous EHP sequence, exactness-use provenance, and known group information on EHP terms.
 
-A representative \(\pi_9^5\) proof yields
+A representative $\pi_9^5$ proof yields
 
-\[
+$$
 \pi_{10}^9
 \xrightarrow{\Delta}
 \pi_8^4
@@ -160,7 +160,7 @@ A representative \(\pi_9^5\) proof yields
 \pi_9^9
 \xrightarrow{\Delta}
 \pi_7^4.
-\]
+$$
 
 ## Standard production repository
 
@@ -172,7 +172,7 @@ build_standard_production_proof_repository()
 
 It assembles theorem-backed entries needed by supported production paths without creating new theorem truth.
 
-Concrete indexed \(\sigma_n\) specialization is derived from the existing Proposition 5.15 proof scope rather than registered as a new independent theorem root.
+Concrete indexed $\sigma_n$ specialization is derived from the existing Proposition 5.15 proof scope rather than registered as a new independent theorem root.
 
 ## Generator-centered exploration
 
@@ -202,23 +202,23 @@ explore_standard_repository_generator_proof_scope_input(
 
 Representative `nu_prime` results include
 
-\[
+$$
 \nu' \in \{\eta_3,2\iota_4,\eta_4\}_1
-\]
+$$
 
 and
 
-\[
+$$
 H(\nu')=\eta_5.
-\]
+$$
 
-For concrete indexed \(\sigma_n\) with \(n\ge 10\), proof-scope exploration can materialize the theorem-specific Proposition 5.15 specialization
+For concrete indexed $\sigma_n$ with $n\ge 10$, proof-scope exploration can materialize the theorem-specific Proposition 5.15 specialization
 
-\[
+$$
 \pi_{n+7}^n=\mathbb Z/16\{\sigma_n\}.
-\]
+$$
 
-The exploration layer finds or specializes already represented proof facts. It does not evaluate \(E\), \(H\), or \(\Delta\), and it does not solve Toda brackets.
+The exploration layer finds or specializes already represented proof facts. It does not evaluate $E$, $H$, or $\Delta$, and it does not solve Toda brackets.
 
 ## Applicable theorem / lemma discovery
 
@@ -261,9 +261,9 @@ toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
 
 The second family derives
 
-\[
+$$
 \pi_6^2=\mathbb Z/4\{\eta_2\nu'\}.
-\]
+$$
 
 For multi-premise rules, the engine does not search arbitrarily for companion premises. It recovers the unique existing production application under the same root and reuses the exact premise tuple by `ProofStep` identity and original order.
 
@@ -319,15 +319,15 @@ python main.py show-proof sigma_11
 
 For `nu_prime`, the replay begins with
 
-\[
+$$
 \pi_6^3=\mathbb Z/4\{\nu'\}.
-\]
+$$
 
 For `sigma_11`, the replay begins with
 
-\[
+$$
 \pi_{18}^{11}=\mathbb Z/16\{\sigma_{11}\}
-\]
+$$
 
 and preserves the symbolic Proposition 5.15 provenance.
 
@@ -355,23 +355,23 @@ Delta(<expression>)
 
 Representative results include
 
-\[
+$$
 H(\nu')=\eta_5,
-\]
+$$
 
-\[
+$$
 H(\nu')=E^2\eta_3,
-\]
+$$
 
-\[
+$$
 \Delta(\iota_9)
 =
 \pm(2\nu_4-E\nu'),
-\]
+$$
 
-\[
+$$
 E(\eta_2\nu')=0.
-\]
+$$
 
 The operation-query layer is intentionally a lookup over existing repository / proof-scope facts:
 
@@ -395,11 +395,11 @@ python main.py query "H(nu_prime)"
 
 presents two mathematical facts rather than every repeated proof-scope occurrence:
 
-\[
+$$
 H(\nu')=\eta_5,
 \qquad
 H(\nu')=E^2\eta_3.
-\]
+$$
 
 Presentation order is based on shallowest proof-scope depth and stable source order. This is not theorem ranking.
 
@@ -422,36 +422,36 @@ The replay root is the selected fact's own `ProofStep`, not the enclosing reposi
 
 For
 
-\[
+$$
 H(\nu')=\eta_5,
-\]
+$$
 
 the direct replay includes
 
-\[
+$$
 H(\nu')=E^2\eta_3,
 \qquad
 E^2\eta_3=\eta_5.
-\]
+$$
 
 The default operation-query replay depth is one direct premise level.
 
 Known special statement types are rendered mathematically, for example
 
-\[
+$$
 \nu'\in\{\eta_3,2\iota_4,\eta_4\}_1,
-\]
+$$
 
-\[
+$$
 E^2\nu'\in2\iota_5\circ\pi_8^5,
-\]
+$$
 
 and
 
-\[
+$$
 \Delta:\pi_8^5\to\pi_6^2
 \quad\text{is surjective}.
-\]
+$$
 
 Unsupported aggregate statements use a safe type-name fallback instead of leaking a Python dataclass representation.
 
@@ -504,7 +504,7 @@ selected query fact
 → query-proof CLI
 ```
 
-The phase deliberately did not introduce a general composition evaluator or a general \(E/H/\Delta\) evaluator.
+The phase deliberately did not introduce a general composition evaluator or a general $E/H/\Delta$ evaluator.
 
 Final repository-wide regression:
 
@@ -538,7 +538,7 @@ The following remain intentionally deferred:
 - general composition evaluation,
 - general Toda-bracket solving,
 - bracket-value and coset / indeterminacy computation,
-- general \(E/H/\Delta\) evaluation,
+- general $E/H/\Delta$ evaluation,
 - recursive theorem solving beyond already represented proof ancestry,
 - automatic enumeration of unstated mathematical consequences,
 - execution qualification across all production rule families,
@@ -606,7 +606,7 @@ Phase 107 closed the first multi-family qualified-production execution path.
 
 Phase 108 closed the first user-facing execution path.
 
-Phase 109 closed known-group identity fallback, indexed \(\sigma_n\) specialization, known-group proof replay, and the `show-proof` / `execute` boundary.
+Phase 109 closed known-group identity fallback, indexed $\sigma_n$ specialization, known-group proof replay, and the `show-proof` / `execute` boundary.
 
 Phase 110 closed existing operation-fact query, deduplicated presentation, provenance-preserving query output, selected-fact proof replay, and safe replay statement rendering.
 

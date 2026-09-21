@@ -1,6 +1,6 @@
 # EHP Proof Tracer ロードマップ
 
-この文書は**今後の capability dependency と Phase 順序**を記録する。
+この文書は**今後の 機能依存関係 と Phase 順序**を記録する。
 
 過去の実装履歴は `docs/development_log.md`、現在の設計は `docs/design.md`、代表的な証明記録は `docs/proof_records.md` を参照する。
 
@@ -11,64 +11,64 @@
 運用計算:
 
 ```text
-raw n,k
+生の n,k 入力
 → python main.py n k
-→ standard production repository
-→ proof report
+→ 標準運用リポジトリ
+→ 証明レポート
 ```
 
-generator exploration:
+生成元探索:
 
 ```text
-generator
-→ recursive proof scope
-→ generator-specific specialization
-→ Toda membership / known map relation
-→ applicability candidates
-→ relevance-classified presentation
+生成元
+→ 再帰的証明範囲
+→ 生成元-specific specialization
+→ Toda membership / 既知の写像関係
+→ 適用候補
+→ 関連度分類済み表示
 ```
 
-known-group proof replay:
+既知群の証明再生:
 
 ```text
-generator
-→ known-group identity
-→ existing ProofStep
-→ direct proof replay
+生成元
+→ 既知群同一性
+→ 既存 ProofStep
+→ 直接証明再生
 → python main.py show-proof ...
 ```
 
-user-facing qualified execution:
+利用者向け qualified execution:
 
 ```text
-generator input
-→ executable-target resolution
+生成元 input
+→ 実行可能対象の解決
 → NONE / AMBIGUOUS / executable target
-→ candidate list / one-based candidate selection
+→ 候補一覧 / 1-based 候補選択
 → qualified execution
-→ final executed ProofStep
-→ Result + Proof
+→ 最終実行済み ProofStep
+→ 結果 + 証明
 → python main.py execute ...
 ```
 
-operation query:
+演算問い合わせ:
 
 ```text
-operation query
-→ existing repository / proof-scope fact lookup
-→ deduplicated mathematical presentation
-→ preserved provenance
+演算問い合わせ
+→ 既存 repository / proof-scope 事実検索
+→ 重複除去済み数学表示
+→ 保持された provenance
 → python main.py query ...
 ```
 
-operation-query proof replay:
+演算問い合わせの証明再生:
 
 ```text
-selected query fact
-→ primary provenance
-→ fact's own ProofStep
-→ bounded direct replay
-→ safe mathematical rendering
+選択された問い合わせ事実
+→ 主要 provenance
+→ 事実自身の ProofStep
+→ 有界直接再生
+→ 安全な数式表示
 → python main.py query-proof ...
 ```
 
@@ -84,102 +84,102 @@ Phase 110 は完了。
 
 ---
 
-# 2. 完了済み capability
+# 2. 完了済み機能
 
 Phase 90–104:
 
 ```text
-query / normalization
-EHP / proof provenance
-calculation orchestration / report
-generator exploration
-recursive proof scope
-applicability discovery
-relevance classification
-safe candidate handoff
-bounded execution provenance
+問い合わせ / 正規化
+EHP / 証明 provenance
+計算オーケストレーション / レポート
+生成元探索
+再帰的証明範囲
+適用可能性探索
+関連度分類
+安全な候補引き渡し
+有界実行 provenance
 ```
 
 Phase 105:
 
 ```text
-first qualified family
-exact source seed
+第1 qualified family
+正確な source seed
 family grouping
-explicit root + source selection
-standard first-family facade
+明示的 root + source 選択
+標準 first-family facade
 ```
 
 Phase 106:
 
 ```text
-applicability performance audit
-generator-relevant scope prefilter
+適用可能性性能監査
+生成元-relevant scope prefilter
 ```
 
 Phase 107:
 
 ```text
-multi-premise recovery
-exact premise-tuple seed
-second qualified family
-explicit root + source + family selection
+複数前提 recovery
+正確な premise tuple seed
+第2 qualified family
+明示的 root + source + family 選択
 family dispatch
-multi-family standard facade
+multi-family 標準 facade
 ```
 
 Phase 108:
 
 ```text
-user-facing executable-target resolver
-ambiguity-safe workflow
-one-based candidate addressing
-final executed ProofStep extraction
-minimal Result + Proof presentation
-candidate-list presentation
+利用者向け実行可能対象 resolver
+曖昧性に安全な workflow
+1-based 候補指定
+最終実行済み ProofStep extraction
+minimal 結果 + 証明 presentation
+候補一覧表示
 execute CLI
-Windows UTF-8 CLI boundary
+Windows UTF-8 CLI 境界
 ```
 
 Phase 109:
 
 ```text
-known-group identity integration
-proof-derived ambient-group fallback
-generic concrete indexed sigma_n specialization
-proof-scope specialization integration
-known-group proof replay
+既知群同一性 integration
+証明由来の ambient group fallback
+一般的な concrete indexed sigma_n 具体化
+proof-scope 具体化統合
+既知群の証明再生
 show-proof CLI
-known-group-first ambiguous execute presentation
-candidate-order / theorem-ranking boundary closure
+既知群優先の曖昧 execute 表示
+候補順 / 定理 ranking 境界の確定
 ```
 
 Phase 110:
 
 ```text
-minimal operation-query parser
-existing H / E / Delta / composition fact lookup
+最小演算問い合わせ parser
+既存 H / E / Delta / 合成事実検索
 query CLI
-raw occurrence preservation
-equal-statement deduplicated presentation
-shallow-depth prioritization
-query fact selection
-fact-rooted proof replay
+生 occurrence の保持
+同一 statement の重複除去表示
+浅い depth を優先する表示順
+問い合わせ事実選択
+事実を root とする証明再生
 query-proof CLI
-narrow mathematical statement presentation
-safe aggregate type fallback
-completion regression
+限定的な数学 statement 表示
+安全な aggregate 型 fallback
+完了時 regression
 ```
 
 ---
 
-# 3. 現在の execution API
+# 3. 現在の実行 API
 
 Phase 107 multi-family:
 
 ```text
-execute_standard_repository_generator_applicability_result_by_root_source_and_family(
-  applicability_result,
+execute_standard_repository_生成元_適用可能性_result_by_root_source_and_family(
+  適用可能性_result,
   root_entry,
   source_step,
   family_name,
@@ -189,11 +189,11 @@ execute_standard_repository_generator_applicability_result_by_root_source_and_fa
 )
 ```
 
-Phase 108 user workflow:
+Phase 108 利用者 workflow:
 
 ```text
-run_standard_repository_generator_user_execution_workflow(
-  generator_input,
+run_standard_repository_生成元_user_execution_workflow(
+  生成元_input,
   candidate_number=None,
   max_depth=2,
   retry_policy=None,
@@ -207,17 +207,17 @@ toda_58_delta_iota9_nu4_nu_prime_inference_rule
 toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
 ```
 
-third qualified family はまだ追加していない。
+第3 qualified family はまだ追加していない。
 
 ---
 
-# 4. 現在の replay API
+# 4. 現在の再生 API
 
-known-group replay:
+既知群再生:
 
 ```text
-build_standard_repository_generator_known_group_proof_replay_input(
-  generator_input,
+build_standard_repository_生成元_known_group_proof_replay_input(
+  生成元_input,
   max_depth=1,
 )
 ```
@@ -236,10 +236,10 @@ build_repository_operation_query_proof_replay(
 
 ```text
 show-proof
-→ known-group identity proof replay
+→ 既知群同一性 proof replay
 
 query-proof
-→ selected operation fact proof replay
+→ selected 演算事実の証明再生
 ```
 
 ---
@@ -266,30 +266,30 @@ python main.py query-proof "E(eta_2 o nu_prime)"
 
 ---
 
-# 6. 確定した user-facing 境界
+# 6. 確定した利用者向け境界
 
-ambiguity:
+曖昧性:
 
 ```text
-multiple executable targets
+複数の実行可能対象
 → 自動選択しない
 ```
 
-candidate number:
+候補番号:
 
 ```text
 1-based addressing
-!= theorem ranking
+!= 定理順位付け
 ```
 
-known-group replay:
+既知群再生:
 
 ```text
 show-proof
 != execute
 ```
 
-operation query:
+演算問い合わせ:
 
 ```text
 lookup
@@ -297,60 +297,60 @@ lookup
 != evaluator
 ```
 
-deduplication:
+重複除去:
 
 ```text
 deduplicated presentation
-!= raw provenance deletion
+!= 生 provenance の削除
 ```
 
 query-proof:
 
 ```text
-selected fact's ProofStep
-!= enclosing repository theorem root
+選択事実自身の ProofStep
+!= 包含する repository 定理 root
 ```
 
-multiple query facts:
+複数の問い合わせ事実:
 
 ```text
 --fact omitted
-→ silent auto-selection しない
+→ 暗黙の自動選択 しない
 ```
 
-unknown replay statement:
+未知の再生 statement:
 
 ```text
-safe type-name fallback
-!= invented branch explanation
+安全な型名 fallback
+!= 推測した branch 説明
 ```
 
 ---
 
-# 7. Phase 111 第一候補：CLI capability / user pressure audit
+# 7. Phase 111 第一候補：CLI 機能 / 利用者ニーズ監査
 
-Phase 110 までで calculation、exploration、applicability、known-group replay、qualified execution、operation fact query、operation fact proof replay が CLI から利用可能になった。
+Phase 110 までで 計算、探索、適用可能性、既知群再生、qualified execution、演算事実問い合わせ、演算事実の証明再生 が CLI から利用可能になった。
 
-次は general evaluator を先に実装せず、利用者視点で現在の CLI capability を監査する。
+次は 一般 evaluator を先に実装せず、利用者視点で現在の CLI 機能 を監査する。
 
 監査候補:
 
 ```text
-どの操作が discoverable か
+どの操作が 発見しやすい か
 query / query-proof / show-proof / execute の役割分離
-operation query grammar の実際の不足
-proof replay depth 1 の十分性
-alternate provenance 選択の必要性
-composition query の見つけやすさ
-CLI help / command discoverability
-既存 full proof report の presentation 残課題
+演算問い合わせ grammar の実際の不足
+証明再生 depth 1 の十分性
+別 provenance 選択の必要性
+合成問い合わせ の見つけやすさ
+CLI help / コマンドの見つけやすさ
+既存 full 証明レポート の presentation 残課題
 ```
 
 実需要が確認された項目だけを次の実装 Phase にする。
 
 ---
 
-# 8. 保留：operation query grammar expansion
+# 8. 保留：演算問い合わせ grammar expansion
 
 現在の最小 grammar:
 
@@ -358,33 +358,33 @@ CLI help / command discoverability
 H(<operand>)
 E(<operand>)
 Delta(<operand>)
-<generator> o <generator>
+<生成元> o <生成元>
 ```
 
 保留:
 
 ```text
-nested composition
-3-term composition
+入れ子合成
+3項合成
 Unicode ∘
-LaTeX input
-implicit composition
-general expression parser
+LaTeX 入力
+暗黙の合成
+一般式 parser
 ```
 
 grammar 拡張だけを目的に先取りしない。
 
 ---
 
-# 9. 保留：operation evaluator
+# 9. 保留：演算 evaluator
 
 未実装:
 
 ```text
-general composition evaluator
-general E evaluator
-general H evaluator
-general Delta evaluator
+一般合成 evaluator
+一般 E evaluator
+一般 H evaluator
+一般 Delta evaluator
 repository に未表現の fact の自動導出
 ```
 
@@ -392,7 +392,7 @@ Phase 110 の `query` は lookup のまま維持する。
 
 ---
 
-# 10. 保留：proof replay 拡張
+# 10. 保留：証明再生拡張
 
 現在の `show-proof` / `query-proof` は default direct-premise depth 1。
 
@@ -400,32 +400,32 @@ Phase 110 の `query` は lookup のまま維持する。
 
 ```text
 CLI --depth
-recursive ancestry presentation
-dependency-first narrative
-shared dependency display
-alternate provenance selection
-rich proof visualization
+再帰 ancestry 表示
+依存関係優先 narrative
+共有依存関係表示
+別 provenance selection
+高度な証明可視化
 ```
 
 ---
 
-# 11. 保留：semantic automatic target selection
+# 11. 保留：意味論的な自動対象選択
 
 複数候補から数学的に「最善」を選ぶ機能は未実装。
 
 ```text
-theorem ranking
-shortest-proof ranking
-proof-cost optimization
-semantic goal priority
-automatic target preference
+定理順位付け
+最短証明 ranking
+証明コスト最適化
+意味論的 goal 優先度
+自動対象優先
 ```
 
 候補順を ranking と解釈しない。
 
 ---
 
-# 12. 保留：additional qualified families
+# 12. 保留：追加 qualified family
 
 third family 以降は coverage 拡張だけを目的に admission しない。
 
@@ -444,29 +444,29 @@ new architectural pressure
 
 ---
 
-# 13. 保留：数学的 broader coverage
+# 13. 保留：数学的 より広い数学的 coverage
 
 ```text
-general Toda-bracket solver
-indeterminacy / coset normalization
-broader unstable stems
-odd-primary integration
-all-primary ordinary sphere-homotopy calculation
+一般 Toda bracket solver
+不定性 / coset 正規化
+より広い unstable stem
+奇素数成分統合
+all-primary ordinary sphere-homotopy 計算
 ```
 
 ---
 
-# 14. 保留：optimization / versioning
+# 14. 保留：最適化 / versioning
 
 ```text
-general backtracking
+一般 backtracking
 producer ranking
-proof-cost optimization
-best-proof selection
-persistent cache
-parallelization
+証明コスト最適化
+best-proof 選択
+永続 cache
+並列化
 repository snapshot / versioning
-stale-search-report detection
+古い search report の検出
 ```
 
 Phase 106 の prefilter 以降、次の optimization は実測圧力を確認してから行う。
@@ -475,14 +475,14 @@ Phase 106 の prefilter 以降、次の optimization は実測圧力を確認し
 
 # 15. 保留：UI 拡張
 
-現在 CLI で calculation / exploration / applicability / replay / execution / operation query が利用できる。
+現在 CLI で 計算 / 探索 / 適用可能性 / replay / execution / 演算問い合わせ が利用できる。
 
 未実装:
 
 ```text
 Web UI
-interactive candidate selection
-persistent execution history
+対話的候補選択
+永続実行履歴
 rich recursive proof visualization
 ```
 
@@ -496,7 +496,7 @@ Phase 110 の operation-query capability を機械的に拡張しない。
 
 ```text
 Phase 111
-CLI capability / user pressure audit
+CLI 機能 / 利用者ニーズ監査
 ```
 
 その監査結果から、実際に不足している最小 capability を次の実装範囲にする。
