@@ -1,31 +1,43 @@
+from formatter import format_statement
+from repository_element_presentation import (
+  render_repository_conclusion_latex,
+)
 from repository_operation_query_proof_replay_presentation import (
   RepositoryOperationQueryProofReplayPresentation,
 )
-from repository_operation_query_proof_replay_statement_presentation import (
-  build_repository_operation_query_proof_replay_statement_presentation,
+from toda_proof_narrative_renderer import (
+  render_toda_proof_statement_latex,
 )
 
 
 def _render_operation_query_proof_replay_statement(
   statement,
 ) -> str:
-  presentation = (
-    build_repository_operation_query_proof_replay_statement_presentation(
+  latex = (
+    render_toda_proof_statement_latex(
       statement
     )
   )
 
-  if presentation.latex is not None:
-    return (
-      "$"
-      + presentation.latex
-      + "$"
-    )
+  if latex is None:
+    try:
+      latex = (
+        render_repository_conclusion_latex(
+          statement
+        )
+      )
+    except (
+      TypeError,
+      ValueError,
+    ):
+      return format_statement(
+        statement
+      )
 
   return (
-    "`"
-    + presentation.fallback_type_name
-    + "`"
+    "$"
+    + latex
+    + "$"
   )
 
 
