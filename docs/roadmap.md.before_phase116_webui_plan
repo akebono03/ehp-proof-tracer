@@ -76,8 +76,6 @@ Phase 115 closure:
 
 Phase 115 は完了。
 
-次の開発優先度として、数学機能の追加を連続させる前に、既存の結果と証明を TeX で読みやすく利用できる最小 Web UI を導入する。
-
 ---
 
 # 2. 完了済み機能
@@ -414,268 +412,7 @@ odd-primary integration
 
 ---
 
-# 8. Web UI 導入方針
-
-Web UI は新しい数学エンジンとして作らない。
-
-既存の calculation / query / proof replay の結果を利用し、表示層として接続する。
-
-目標構造:
-
-```text
-existing repository / calculation / query / proof layer
-→ Web-facing adapter / view model
-→ Web endpoint
-→ browser presentation
-→ TeX renderer
-```
-
-重要な境界:
-
-```text
-Web UI != new theorem source
-Web UI != general evaluator
-Web UI != alternate proof engine
-Web UI != CLI subprocess wrapper by default
-TeX rendering != mathematical normalization
-```
-
-Web UI のために、既存 CLI 文字列を再解析して数学を復元する設計は避ける。
-
-可能な限り既存の structured result / presentation object から Web 表示用データを作る。
-
-TeX renderer はブラウザ側の KaTeX または MathJax を候補とし、Phase 116 の監査で既存 LaTeX 出力との互換性を確認して選定する。
-
----
-
-# 9. Phase 116: Web UI readiness / presentation boundary audit
-
-Phase 116 は Web UI 本体を作る前の最小監査とする。
-
-確認対象:
-
-```text
-TodaGroupQuery result
-standard report
-operation-query presentation
-query-proof replay
-show-proof replay
-existing LaTeX renderers
-symbolic scalar LaTeX residual
-CLI-only assumptions
-UTF-8 boundary
-```
-
-主目的:
-
-```text
-1. Web UI が再利用すべき既存 API / facade を確定する
-2. CLI 出力文字列への依存を避ける
-3. Web-facing view model が本当に必要かを判定する
-4. TeX と通常テキストの境界を確認する
-5. KaTeX / MathJax の適合性を確認する
-6. 最小 Web framework の選定条件を確定する
-```
-
-Phase 116 では原則として数学機能を追加しない。
-
-表示上の既知残件
-
-```text
-E^{n + -1\,5}ν_5
-```
-
-については、Web UI の TeX 表示を阻害する場合に限り、既存 scalar LaTeX presentation の最小修正候補として扱う。
-
-数学的内容は
-
-$$
-E^{n-5}\nu_5=\nu_n.
-$$
-
-であり、proof correctness の問題ではない。
-
-Phase 116 完了条件:
-
-```text
-Web UI が呼ぶ既存 entry point が確定
-Web 表示用の最小データ境界が確定
-TeX renderer 選定方針が確定
-Web framework 選定方針が確定
-数学層を変更しない境界がテスト可能
-Phase 117 の最小画面仕様が確定
-```
-
----
-
-# 10. Phase 117: Minimal TeX Web UI
-
-Phase 117 は最初の Web UI 実装とする。
-
-最小対象:
-
-```text
-n 入力
-k 入力
-計算実行
-結果表示
-TeX 数式レンダリング
-明確な NOT_FOUND / validation 表示
-```
-
-代表例:
-
-```text
-n = 11
-k = 7
-```
-
-表示:
-
-$$
-\pi_{18}^{11}=\mathbb Z/16\{\sigma_{11}\}.
-$$
-
-Phase 117 では既存の
-
-```text
-TodaGroupQuery
-standard production repository
-calculation facade
-existing proof provenance
-```
-
-を再利用する。
-
-意図的に先取りしない:
-
-```text
-operation-query Web UI
-query-proof Web UI
-explore Web UI
-execute Web UI
-proof tree visualization
-general E/H/Delta evaluator
-Toda bracket solver
-coset / indeterminacy computation
-user authentication
-database persistence
-deployment automation
-rich SPA architecture
-```
-
-Phase 117 完了条件:
-
-```text
-ブラウザから n,k を入力できる
-既存計算経路と同じ結果が返る
-数学式が TeX として正常に表示される
-CLI と Web で数学的結果が一致する
-repository / proof semantics を変更しない
-focused Web UI tests が通る
-repository-wide regression が通る
-```
-
----
-
-# 11. Phase 118: operation query / query-proof Web UI
-
-Phase 117 の最小 UI が安定した後、既存 operation query を Web へ接続する。
-
-対象候補:
-
-```text
-H(nu_prime)
-Delta(iota_9)
-E(eta_2 o nu_prime)
-E(nu_5)
-E(sigma_11)
-eta_2 o nu_prime
-eta_2 o nu_prime o eta_6
-```
-
-Phase 118 では新しい query grammar や general evaluator を追加しない。
-
-既存 CLI と同じ lookup / limited handoff semantics をそのまま利用する。
-
-query-proof については、選択 fact と replay depth を Web から指定できる最小 UI を対象とする。
-
----
-
-# 12. Phase 119: proof replay presentation
-
-Phase 119 は証明表示の読みやすさを改善する。
-
-候補:
-
-```text
-proof depth 切替
-premise の階層表示
-theorem / phase provenance 表示
-数式部分の TeX rendering
-unsupported statement の安全な fallback
-```
-
-最初から graph visualization library を導入しない。
-
-まず既存 bounded ancestry を、HTML の階層構造として安全に表示できることを優先する。
-
-```text
-proof presentation != new proof search
-depth control != proof optimization
-```
-
----
-
-# 13. Phase 120: exploration / execution Web integration audit
-
-Phase 120 では、次のどこまでを Web UI に載せる価値があるか再監査する。
-
-```text
-explore
-explore-proof
-explore-applicable
-show-proof
-execute
-```
-
-`execute` は数学的 state transition ではないが、qualified execution の意味論が query / replay より複雑なので、Phase 117 で先取りしない。
-
-Phase 120 の監査結果に応じて、その後の UI Phase を決定する。
-
----
-
-# 14. Web UI 導入後に戻る数学的 pressure
-
-Web UI の導入は数学機能開発の終了を意味しない。
-
-Phase 118–120 の途中または終了後、必要性を再評価する対象:
-
-```text
-H(nu_5)
-H(sigma_11)
-Delta(sigma_11)
-E(nu_prime)
-Delta(nu_prime)
-E(nu_5 o eta_8)
-```
-
-Web UI 上で実利用した結果、どの問い合わせ miss が本当に重要かを観測できるようになる。
-
-したがって今後は、
-
-```text
-CLI / Web での実利用
-→ capability pressure の確認
-→ 最小数学機能の選定
-→ 実装
-```
-
-という循環を採用する。
-
----
-
-# 15. 長期保留機能
+# 8. 保留中の機能
 
 ```text
 operation-query grammar generalization
@@ -688,16 +425,79 @@ producer ranking
 unbounded backtracking
 persistent cache / parallelization
 repository snapshot / versioning
-rich graph proof visualization
+rich recursive proof visualization
+Web UI
 odd-primary integration
 all-primary ordinary sphere-homotopy calculation
 ```
 
-Web UI 自体は長期保留から外し、Phase 116–120 の近接ロードマップへ移す。
+operation-query の具体的残件:
+
+```text
+H(nu_5)
+H(sigma_11)
+Delta(sigma_11)
+E(nu_prime)
+Delta(nu_prime)
+E(nu_5 o eta_8)
+```
+
+これらは Phase 115 と同じ「既存 family definition の未接続」とは分類しない。
 
 ---
 
-# 16. 完了判断原則
+# 9. 表示上の既知残件
+
+Phase 114 の query-proof で symbolic bridge が
+
+```text
+E^{n + -1\,5}ν_5 = ν_n
+```
+
+の形で表示される場合がある。
+
+数学的内容は
+
+$$
+E^{n-5}\nu_5=\nu_n.
+$$
+
+これは inference handoff / proof correctness ではなく scalar LaTeX presentation の残件である。
+
+Phase 115 の機能追加とは分離して保留する。
+
+---
+
+# 10. 次 Phase の方針
+
+Phase 116 は、残存 operation miss のどれかを自動的に実装することから始めない。
+
+まず、
+
+```text
+remaining mathematical pressure
+presentation-only residual
+parser / execution boundary
+actual user workflow need
+```
+
+を比較し、次の最小対象を選定する。
+
+候補:
+
+```text
+symbolic scalar LaTeX presentation
+H(nu_5) の数学的 dependency audit
+H(sigma_11) の suspension / Hopf relation audit
+Delta(sigma_11) の dependency audit
+E(nu_prime) / Delta(nu_prime) semantics audit
+```
+
+優先度は audit 前に固定しない。
+
+---
+
+# 11. 完了判断原則
 
 Phase 116 以降も次を維持する。
 
@@ -708,8 +508,6 @@ direct fact を上書きしない
 provenance を失わない
 一般 evaluator を必要性なしに作らない
 parser を需要なしに一般化しない
-Web UI から数学 semantics を変更しない
-CLI と Web の結果を分岐させない
 focused regression で境界を固定する
 repository-wide regression で閉じる
 ```
