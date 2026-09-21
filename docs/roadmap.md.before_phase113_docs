@@ -1,0 +1,405 @@
+# EHP Proof Tracer ロードマップ
+
+この文書は**今後の機能依存関係と Phase 順序**を記録する。
+
+過去の実装履歴は `docs/development_log.md`、現在の設計は `docs/design.md`、代表的な証明記録は `docs/proof_records.md` を参照する。
+
+---
+
+# 1. 現在地
+
+運用計算:
+
+```text
+生の n,k 入力
+→ python main.py n k
+→ 標準運用 repository
+→ 証明レポート
+```
+
+生成元探索:
+
+```text
+生成元
+→ 再帰的 proof scope
+→ generator-specific specialization
+→ Toda membership / 既知の写像関係
+→ 適用候補
+→ 関連度分類済み表示
+```
+
+既知群の証明再生:
+
+```text
+生成元
+→ 既知群同一性
+→ 既存 ProofStep
+→ bounded replay
+→ python main.py show-proof ...
+```
+
+利用者向け qualified execution:
+
+```text
+生成元 input
+→ 実行可能対象の解決
+→ NONE / AMBIGUOUS / executable target
+→ 候補一覧 / 1-based 候補選択
+→ qualified execution
+→ 最終実行済み ProofStep
+→ 結果 + 証明
+→ python main.py execute ...
+```
+
+演算問い合わせ:
+
+```text
+operation query
+→ 既存 repository / proof-scope 事実検索
+→ 重複除去済み数学表示
+→ 保持された provenance
+→ python main.py query ...
+```
+
+演算問い合わせの証明再生:
+
+```text
+選択された問い合わせ事実
+→ primary provenance
+→ 事実自身の ProofStep
+→ bounded replay
+→ 安全な数式表示
+→ python main.py query-proof ...
+```
+
+最新:
+
+```text
+Phase 111 closure:
+9074 passed in 446.27s (0:07:26)
+git diff --check: clean
+```
+
+Phase 111 は完了。
+
+---
+
+# 2. 完了済み機能
+
+Phase 90–104:
+
+```text
+問い合わせ / 正規化
+EHP / 証明 provenance
+計算オーケストレーション / レポート
+生成元探索
+再帰的 proof scope
+適用可能性探索
+関連度分類
+安全な候補引き渡し
+有界実行 provenance
+```
+
+Phase 105–107:
+
+```text
+qualified family admission
+production application recovery
+複数前提 seed
+multi-family dispatch
+```
+
+Phase 108:
+
+```text
+利用者向け execution workflow
+曖昧性に安全な候補選択
+execute CLI
+Windows UTF-8 CLI 境界
+```
+
+Phase 109:
+
+```text
+既知群同一性
+ambient-group fallback
+concrete indexed sigma_n 具体化
+known-group proof replay
+show-proof CLI
+show-proof / execute 境界
+```
+
+Phase 110:
+
+```text
+operation-query lookup
+H / E / Delta / 二項 composition fact 検索
+query CLI
+statement grouping
+provenance preservation
+query-proof CLI
+safe replay statement rendering
+```
+
+Phase 111:
+
+```text
+CLI discoverability audit
+global help
+project quantity wording 修正
+symbolic dimension rendering 修正
+三項 top-level composition query
+show-proof / query-proof --depth
+deep show-proof safe type-name fallback
+final residual audit
+```
+
+---
+
+# 3. 現在の CLI
+
+```text
+python main.py n k
+python main.py explore "nu'"
+python main.py explore-proof nu_prime
+python main.py explore-applicable nu_prime
+python main.py explore-applicable nu_prime --detailed
+python main.py show-proof nu_prime
+python main.py show-proof sigma_11 --depth 2
+python main.py execute nu_prime
+python main.py execute nu_prime --candidate 1
+python main.py query "H(nu_prime)"
+python main.py query "Delta(iota_9)"
+python main.py query "E(eta_2 o nu_prime)"
+python main.py query "eta_2 o nu_prime"
+python main.py query "eta_2 o nu_prime o eta_6"
+python main.py query-proof "H(nu_prime)" --fact 1
+python main.py query-proof "H(nu_prime)" --fact 1 --depth 2
+```
+
+---
+
+# 4. 確定した利用者向け境界
+
+```text
+show-proof != execute
+
+query
+= existing fact lookup
+!= evaluator
+
+query-proof
+= selected fact replay
+!= enclosing theorem replay
+
+candidate number
+!= theorem ranking
+
+fact number
+!= theorem ranking
+
+--depth
+= replay visibility bound
+!= new proof search
+
+deduplicated presentation
+!= provenance deletion
+
+safe type-name fallback
+!= inferred mathematical explanation
+```
+
+---
+
+# 5. Phase 112 第一候補：operational capability / workflow pressure audit
+
+Phase 111 で CLI の発見性・grammar・depth・presentation の主要残課題を処理した。
+
+Phase 112 では、Phase 111 で defer した小粒な syntax 項目を順番に実装しない。
+
+まず現在の CLI を実際の数学的利用場面で使い、どこに次の capability pressure があるかを監査する。
+
+監査候補:
+
+```text
+既知の元から何を問い合わせたいか
+合成 fact lookup が実際の研究フローをどこまで満たすか
+E / H / Delta の既存 fact lookup だけで十分か
+proof replay depth 2+ の利用価値
+query → query-proof → execute の実運用接続
+既知群 → 関係式 → applicability → execution の流れ
+未記載 consequence の列挙需要
+coset / indeterminacy 計算への実需要
+Toda bracket membership から次に必要な操作
+写像の source / target / image / kernel 問い合わせ需要
+```
+
+結果に応じて次の最小実装を決める。
+
+---
+
+# 6. 保留：operation-query grammar expansion
+
+現在対応:
+
+```text
+二項 top-level composition
+三項 top-level composition
+E / H の generator operand
+E / H の二項 composition operand
+Delta の generator operand
+```
+
+保留:
+
+```text
+四項以上
+三項 map-operation operand
+Unicode ∘
+括弧付き nested composition
+LaTeX 入力
+暗黙合成
+一般 expression parser
+```
+
+明確な利用圧力が出るまで実装しない。
+
+---
+
+# 7. 保留：operation evaluator
+
+未実装:
+
+```text
+一般 composition evaluator
+一般 E evaluator
+一般 H evaluator
+一般 Delta evaluator
+repository に未表現の fact の自動導出
+```
+
+`query` は lookup のまま維持する。
+
+---
+
+# 8. 保留：proof replay 拡張
+
+現在:
+
+```text
+default max_depth = 1
+CLI --depth N 対応
+safe type-name fallback
+```
+
+保留:
+
+```text
+alternate provenance selection
+共有依存関係の rich 表示
+proof tree
+依存関係優先 narrative
+高度な証明可視化
+```
+
+---
+
+# 9. 保留：意味論的な自動対象選択
+
+未実装:
+
+```text
+定理順位付け
+最短証明 ranking
+証明コスト最適化
+意味論的 goal 優先度
+自動 target preference
+```
+
+候補順を ranking と解釈しない。
+
+---
+
+# 10. 保留：追加 qualified family
+
+third family 以降は coverage 拡張だけを目的に admission しない。
+
+必要条件:
+
+```text
+actual production source
+execution safety
+goal compatibility
+required seed context
+rule identity preservation
+producer-search behavior
+user-facing need
+new architectural pressure
+```
+
+---
+
+# 11. 保留：より広い数学的 coverage
+
+```text
+一般 Toda bracket solver
+不定性 / coset 正規化
+未記載 consequence の自動列挙
+より広い unstable stem
+奇素数成分統合
+all-primary ordinary sphere-homotopy 計算
+```
+
+---
+
+# 12. 保留：最適化 / versioning
+
+```text
+一般 backtracking
+producer ranking
+証明コスト最適化
+best-proof 選択
+永続 cache
+並列化
+repository snapshot / versioning
+古い search report の検出
+```
+
+次の optimization は実測圧力を確認してから行う。
+
+---
+
+# 13. 保留：UI 拡張
+
+未実装:
+
+```text
+Web UI
+対話的候補選択
+永続実行履歴
+rich recursive proof visualization
+```
+
+CLI で実運用 pressure を十分に確認してから UI 層を検討する。
+
+---
+
+# 14. 次 Phase の開始境界
+
+次は:
+
+```text
+Phase 112
+operational capability / mathematical workflow pressure audit
+```
+
+Phase 112 の目的は「未実装項目を埋めること」ではない。
+
+```text
+現行 capability
+→ 実際の数学的 workflow
+→ 観測された不足
+→ 最小 capability
+```
+
+の順で進める。

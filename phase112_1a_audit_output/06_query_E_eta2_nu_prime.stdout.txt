@@ -1,0 +1,5 @@
+# Known repository facts
+
+1. $E\eta_{2}\nu' = 0$
+   - First provenance: Toda Proposition 5.8, Phase 68, depth 4
+   - Provenance paths: 6

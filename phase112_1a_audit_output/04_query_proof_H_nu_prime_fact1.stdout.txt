@@ -1,0 +1,26 @@
+# Query fact
+
+$H\left(\nu'\right) = \eta_{5}$
+
+First provenance: Toda Proposition 5.6, Phase 65, depth 3
+
+## Proof
+
+1. Depth 0: $H\left(\nu'\right) = \eta_{5}$
+   Rule: equality transitivity
+2. Depth 1: $H\left(\nu'\right) = E^{2}\eta_{3}$
+   Rule: Toda 5.3 nu-prime Lemma 5.2 Hopf specialization
+3. Depth 2: $\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+   Rule: Toda 5.3 nu-prime Lemma 5.2 bracket specialization
+4. Depth 3: $\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+   Rule: given
+5. Depth 2: $2\eta_{3} = 0$
+   Rule: Toda 5.3 eta_3 twice zero
+6. Depth 3: $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+   Rule: Toda pi_4^3 eta_3 generator notation
+7. Depth 1: $E^{2}\eta_{3} = \eta_{5}$
+   Rule: Toda 5.3 eta_5 iterated suspension bridge
+8. Depth 2: `TodaEtaFamilyDefinitionStatement`
+   Rule: given
+9. Depth 2: `TodaEtaFamilyDefinitionStatement`
+   Rule: given

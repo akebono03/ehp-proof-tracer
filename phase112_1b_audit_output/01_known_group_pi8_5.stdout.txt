@@ -1,0 +1,476 @@
+# $\pi_{8}^{5}$
+
+## Result
+
+\[
+\pi_{8}^{5} \cong \mathbb{Z}/8\{\nu_{5}\}
+\]
+
+## Source
+
+- Phase: 65
+- Theorem: Toda Proposition 5.6
+- Branch: `pi8_5_group_relation`
+
+## Exactness
+
+No EHP exactness presentation is attached.
+
+## Proof flow
+
+1. **group structure** — `TodaPrimaryGroupZeroStatement`
+2. **EHP exactness** — `TodaProp42ExactnessStatement`
+3. **other** — `TodaHopfInvariantInjectiveStatement`
+4. **other** — `TodaSuspensionIsomorphismStatement`
+5. **other** — `TodaSuspensionInjectiveStatement`
+6. **EHP exactness** — `TodaProp42ExactnessStatement`
+7. **other** — `TodaDeltaZeroStatement`
+8. **EHP exactness** — `TodaProp42ExactnessStatement`
+9. **other** — `TodaHopfInvariantSurjectiveStatement`
+10. **other** — `TodaHopfInvariantIsomorphismStatement` — shared dependency, used 2 times
+11. **group structure** — `Relation` — shared dependency, used 2 times
+12. **other** — `TodaPi32Eta2DefinitionStatement` — shared dependency, used 2 times
+13. **group structure** — `Relation`
+14. **relation** — `Relation`
+15. **other** — `TodaDeltaMap`
+16. **map property** — `TodaDeltaImageUpToSignStatement` — shared dependency, used 2 times
+17. **other** — `WhiteheadProduct`
+18. **other** — `TodaProp27HopfInvariantUpToSignStatement`
+19. **other** — `TodaPi32Eta2DefinitionStatement`
+20. **relation** — `Relation`
+21. **other** — `TodaHopfInvariantInjectiveStatement`
+22. **other** — `TodaPi32WhiteheadSquareUpToSignStatement` — shared dependency, used 2 times
+23. **map property** — `TodaDeltaImageUpToSignStatement`
+24. **group structure** — `Relation`
+25. **group structure** — `Relation`
+26. **other** — `TodaDeltaImageFreeCyclicStatement`
+27. **EHP exactness** — `TodaProp42ExactnessStatement`
+28. **other** — `TodaSuspensionKernelFreeCyclicStatement`
+29. **group structure** — `TodaPrimaryGroupZeroStatement`
+30. **EHP exactness** — `TodaProp42ExactnessStatement`
+31. **map property** — `TodaSuspensionSurjectiveStatement`
+32. **group structure** — `Relation`
+33. **other** — `TodaEtaFamilyDefinitionStatement`
+34. **relation** — `Relation`
+35. **group structure** — `Relation`
+36. **other** — `ScalarGreaterEqualStatement`
+37. **other** — `ScalarGreaterEqualStatement`
+38. **other** — `TodaIteratedSuspensionMap`
+39. **other** — `Toda45IsomorphismStatement`
+40. **group structure** — `Relation`
+41. **other** — `TodaEtaFamilyDefinitionStatement`
+42. **other** — `TodaEtaFamilyDefinitionStatement`
+43. **relation** — `Relation`
+44. **relation** — `Relation`
+45. **group structure** — `Relation`
+46. **other** — `TodaProp51FiniteDimensionalStatement` — shared dependency, used 7 times
+47. **group structure** — `Relation`
+48. **group structure** — `Relation`
+49. **other** — `TodaDeltaMap`
+50. **map property** — `TodaDeltaImageUpToSignStatement`
+51. **other** — `WhiteheadProduct`
+52. **other** — `TodaProp27HopfInvariantUpToSignStatement`
+53. **other** — `TodaPi32Eta2DefinitionStatement`
+54. **relation** — `Relation`
+55. **other** — `TodaHopfInvariantInjectiveStatement`
+56. **other** — `TodaPi32WhiteheadSquareUpToSignStatement`
+57. **other** — `TodaDeltaImageFreeCyclicStatement`
+58. **EHP exactness** — `TodaProp42ExactnessStatement`
+59. **other** — `TodaSuspensionKernelFreeCyclicStatement`
+60. **group structure** — `TodaPrimaryGroupZeroStatement`
+61. **EHP exactness** — `TodaProp42ExactnessStatement`
+62. **map property** — `TodaSuspensionSurjectiveStatement`
+63. **group structure** — `Relation`
+64. **other** — `TodaEtaFamilyDefinitionStatement`
+65. **relation** — `Relation`
+66. **group structure** — `Relation` — shared dependency, used 2 times
+67. **relation** — `Relation`
+68. **relation** — `Relation`
+69. **other** — `Toda36Lemma54SpecializationStatement` — shared dependency, used 2 times
+70. **other** — `ScalarGreaterEqualStatement`
+71. **group structure** — `TodaPrimaryGroupZeroStatement`
+72. **group structure** — `TodaPrimaryGroupZeroStatement`
+73. **EHP exactness** — `TodaProp42ExactnessStatement`
+74. **other** — `TodaHopfInvariantInjectiveStatement`
+75. **other** — `TodaSuspensionIsomorphismStatement`
+76. **other** — `TodaSuspensionInjectiveStatement`
+77. **EHP exactness** — `TodaProp42ExactnessStatement`
+78. **other** — `TodaDeltaZeroStatement`
+79. **EHP exactness** — `TodaProp42ExactnessStatement`
+80. **other** — `TodaHopfInvariantSurjectiveStatement`
+81. **other** — `TodaHopfInvariantIsomorphismStatement`
+82. **group structure** — `Relation`
+83. **other** — `TodaPi32Eta2DefinitionStatement` — shared dependency, used 2 times
+84. **relation** — `Relation`
+85. **other** — `TodaProp44DecompositionMap`
+86. **other** — `TodaProp44IsomorphismStatement` — shared dependency, used 2 times
+87. **other** — `TodaProp44SecondSummandRestrictionStatement`
+88. **other** — `Toda52CompositionIsomorphismStatement` — shared dependency, used 2 times
+89. **group structure** — `Relation` — shared dependency, used 2 times
+90. **other** — `TodaBracketMembershipStatement`
+91. **other** — `Toda53NuPrimeBracketSpecializationStatement` — shared dependency, used 3 times
+92. **group structure** — `Relation`
+93. **group structure** — `Relation`
+94. **other** — `TodaDeltaMap`
+95. **map property** — `TodaDeltaImageUpToSignStatement`
+96. **other** — `WhiteheadProduct`
+97. **other** — `TodaProp27HopfInvariantUpToSignStatement`
+98. **other** — `TodaPi32Eta2DefinitionStatement`
+99. **relation** — `Relation`
+100. **other** — `TodaHopfInvariantInjectiveStatement`
+101. **other** — `TodaPi32WhiteheadSquareUpToSignStatement`
+102. **other** — `TodaDeltaImageFreeCyclicStatement`
+103. **EHP exactness** — `TodaProp42ExactnessStatement`
+104. **other** — `TodaSuspensionKernelFreeCyclicStatement`
+105. **group structure** — `TodaPrimaryGroupZeroStatement`
+106. **EHP exactness** — `TodaProp42ExactnessStatement`
+107. **map property** — `TodaSuspensionSurjectiveStatement`
+108. **group structure** — `Relation`
+109. **other** — `TodaEtaFamilyDefinitionStatement`
+110. **relation** — `Relation`
+111. **group structure** — `Relation`
+112. **relation** — `Relation` — shared dependency, used 3 times
+113. **relation** — `Relation`
+114. **other** — `TodaEtaFamilyDefinitionStatement` — shared dependency, used 2 times
+115. **other** — `TodaEtaFamilyDefinitionStatement`
+116. **relation** — `Relation`
+117. **relation** — `Relation` — shared dependency, used 4 times
+118. **other** — `TodaHopfInvariantSurjectiveStatement`
+119. **EHP exactness** — `TodaProp42ExactnessStatement`
+120. **other** — `TodaDeltaZeroStatement`
+121. **EHP exactness** — `TodaProp42ExactnessStatement`
+122. **other** — `TodaSuspensionInjectiveStatement`
+123. **map property** — `TodaDeltaInjectiveStatement`
+124. **EHP exactness** — `TodaProp42ExactnessStatement`
+125. **map property** — `TodaHopfInvariantZeroStatement`
+126. **EHP exactness** — `TodaProp42ExactnessStatement`
+127. **map property** — `TodaSuspensionSurjectiveStatement`
+128. **other** — `TodaSuspensionIsomorphismStatement`
+129. **other** — `TodaEtaFamilyDefinitionStatement`
+130. **other** — `TodaEtaFamilyDefinitionStatement`
+131. **relation** — `Relation`
+132. **group structure** — `Relation` — shared dependency, used 3 times
+133. **other** — `TodaPrimaryGroupMembershipStatement`
+134. **relation** — `Relation`
+135. **other** — `TodaProp44DecompositionMap` — shared dependency, used 2 times
+136. **other** — `TodaProp44IsomorphismStatement`
+137. **other** — `TodaSuspensionMap`
+138. **other** — `TodaProp44FirstSummandRestrictionStatement`
+139. **other** — `TodaProp44SuspensionInjectiveStatement`
+140. **other** — `TodaProp44SuspensionInjectiveStatement`
+141. **group structure** — `TodaPrimaryGroupZeroStatement`
+142. **EHP exactness** — `TodaProp42ExactnessStatement`
+143. **map property** — `TodaSuspensionSurjectiveStatement`
+144. **other** — `TodaSuspensionIsomorphismStatement`
+145. **other** — `TodaEtaFamilyDefinitionStatement`
+146. **other** — `TodaEtaFamilyDefinitionStatement`
+147. **relation** — `Relation`
+148. **group structure** — `Relation` — shared dependency, used 2 times
+149. **other** — `ScalarGreaterEqualStatement`
+150. **other** — `ScalarGreaterEqualStatement`
+151. **other** — `TodaIteratedSuspensionMap`
+152. **other** — `Toda45IsomorphismStatement`
+153. **other** — `ScalarGreaterEqualStatement` — shared dependency, used 3 times
+154. **group structure** — `Relation`
+155. **other** — `TodaEtaFamilyDefinitionStatement`
+156. **relation** — `Relation`
+157. **group structure** — `Relation`
+158. **other** — `TodaProp53FiniteDimensionalStatement` — shared dependency, used 2 times
+159. **other** — `ScalarGreaterEqualStatement` — shared dependency, used 2 times
+160. **other** — `ScalarGreaterEqualStatement`
+161. **other** — `Toda54IndeterminacyGeneratorStatement`
+162. **relation** — `Relation`
+163. **other** — `TodaEtaFamilyDefinitionStatement`
+164. **relation** — `Relation`
+165. **relation** — `Relation`
+166. **relation** — `Relation`
+167. **relation** — `Relation` — shared dependency, used 3 times
+168. **relation** — `Relation`
+169. **other** — `Toda54IndeterminacyGeneratorStatement`
+170. **other** — `TodaBracketMembershipStatement`
+171. **other** — `Toda53NuPrimeBracketSpecializationStatement`
+172. **other** — `ScalarGreaterEqualStatement`
+173. **other** — `ScalarGreaterEqualStatement`
+174. **other** — `ScalarGreaterEqualStatement`
+175. **other** — `TodaBracketMembershipStatement`
+176. **other** — `Toda54BracketUpToSignStatement`
+177. **other** — `Toda54BracketUpToSignStatement`
+178. **other** — `TodaLemma54DoubleSuspensionUpToSignStatement` — shared dependency, used 2 times
+179. **group structure** — `Relation`
+180. **other** — `TodaLemma54HopfOddMultipleStatement`
+181. **other** — `WhiteheadProduct`
+182. **other** — `TodaLemma54WhiteheadCorrectionDataStatement`
+183. **other** — `TodaLemma54Nu4ConstructionStatement` — shared dependency, used 3 times
+184. **other** — `HomotopyGroupMembershipStatement`
+185. **relation** — `Relation`
+186. **relation** — `Relation`
+187. **other** — `TodaLemma54Statement` — shared dependency, used 4 times
+188. **definition** — `TodaNuFamilyDefinitionStatement` — shared dependency, used 2 times
+189. **other** — `ScalarGreaterEqualStatement` — shared dependency, used 2 times
+190. **relation** — `Relation` — shared dependency, used 2 times
+191. **relation** — `Relation`
+192. **relation** — `Relation`
+193. **relation** — `Relation`
+194. **relation** — `Relation`
+195. **other** — `ScalarGreaterEqualStatement`
+196. **relation** — `Relation`
+197. **relation** — `Relation`
+198. **other** — `Toda55NuFamilyFiniteDimensionalStatement`
+199. **definition** — `TodaNuFamilyDefinitionStatement` — shared dependency, used 3 times
+200. **relation** — `Relation`
+201. **group structure** — `Relation` — shared dependency, used 2 times
+202. **other** — `TodaEtaFamilyDefinitionStatement`
+203. **other** — `TodaEtaFamilyDefinitionStatement`
+204. **relation** — `Relation`
+205. **other** — `TodaHopfInvariantSurjectiveStatement`
+206. **EHP exactness** — `TodaProp42ExactnessStatement`
+207. **other** — `TodaDeltaZeroStatement`
+208. **EHP exactness** — `TodaProp42ExactnessStatement`
+209. **other** — `TodaSuspensionInjectiveStatement` — shared dependency, used 2 times
+210. **order** — `Relation`
+211. **order** — `Relation`
+212. **other** — `HomotopyGroupMembershipStatement`
+213. **EHP exactness** — `TodaProp42ExactnessStatement`
+214. **other** — `TodaHopfInvariantSurjectiveStatement`
+215. **group structure** — `Relation`
+216. **group structure** — `Relation` — shared dependency, used 2 times
+217. **other** — `Toda56Nu4Prop44SpecializationStatement`
+218. **other** — `TodaProp44DecompositionMap`
+219. **other** — `TodaProp44IsomorphismStatement`
+220. **other** — `Toda56Nu4DecompositionIsomorphismStatement`
+221. **other** — `Toda56Nu4DecompositionStatement` — shared dependency, used 2 times
+222. **other** — `TodaIteratedSuspensionInjectiveStatement` — shared dependency, used 2 times
+223. **order** — `Relation`
+224. **order** — `Relation`
+225. **other** — `TodaProp56Pi8_5QuotientStatement`
+226. **group structure** — `Relation`
+
+## Readable proof narrative
+
+1. Use the input: $\pi_{2}^{1} = 0$.
+2. Use the input: $\pi_{2}^{1} \xrightarrow{E} \pi_{3}^{2} \xrightarrow{H} \pi_{3}^{3} \text{ is exact}$.
+3. From the preceding statements: `TodaHopfInvariantInjectiveStatement`.
+4. Use the input: `TodaSuspensionIsomorphismStatement`.
+5. From the preceding statements: $E: \pi_{1}^{1} \to \pi_{2}^{2} \text{ is injective}$.
+6. Use the input: $\pi_{3}^{3} \xrightarrow{\Delta} \pi_{1}^{1} \xrightarrow{E} \pi_{2}^{2} \text{ is exact}$.
+7. From the preceding statements: `TodaDeltaZeroStatement`.
+8. Use the input: $\pi_{3}^{2} \xrightarrow{H} \pi_{3}^{3} \xrightarrow{\Delta} \pi_{1}^{1} \text{ is exact}$.
+9. From the preceding statements: $H: \pi_{3}^{2} \to \pi_{3}^{3} \text{ is surjective}$.
+10. From the preceding statements: `TodaHopfInvariantIsomorphismStatement`. This statement is reused 2 times.
+11. Use the input: $\pi_{3}^{3} = \mathbb{Z}\{\iota_{3}\}$. This statement is reused 2 times.
+12. From the preceding statements: `TodaPi32Eta2DefinitionStatement`. This statement is reused 2 times.
+13. Therefore the group structure is: $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$.
+14. Using the preceding results: $H\left(\eta_{2}\right) = \iota_{3}$.
+15. Use the input: `TodaDeltaMap`.
+16. From the preceding statements: $\Delta\left(\iota_{5}\right) = \pm [\iota_{2}, \iota_{2}]$. This statement is reused 2 times.
+17. Use the input: `WhiteheadProduct`.
+18. From the preceding statements: `TodaProp27HopfInvariantUpToSignStatement`.
+19. Use the input: `TodaPi32Eta2DefinitionStatement`.
+20. Use the input: $H\left(\eta_{2}\right) = \iota_{3}$.
+21. Use the input: `TodaHopfInvariantInjectiveStatement`.
+22. From the preceding statements: `TodaPi32WhiteheadSquareUpToSignStatement`. This statement is reused 2 times.
+23. From the preceding statements: $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$.
+24. Use the input: $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$.
+25. Use the input: $\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
+26. From the preceding statements: `TodaDeltaImageFreeCyclicStatement`.
+27. Use the input: $\pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \text{ is exact}$.
+28. From the preceding statements: `TodaSuspensionKernelFreeCyclicStatement`.
+29. Use the input: $\pi_{4}^{5} = 0$.
+30. Use the input: $\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5} \text{ is exact}$.
+31. From the preceding statements: $E: \pi_{3}^{2} \to \pi_{4}^{3} \text{ is surjective}$.
+32. Therefore the group structure is: $\pi_{4}^{3} = \mathbb{Z}/2\{E\eta_{2}\}$.
+33. Use the input: `TodaEtaFamilyDefinitionStatement`.
+34. Using the preceding results: $\eta_{3} = E\eta_{2}$.
+35. Therefore the group structure is: $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$.
+36. Use the input: `ScalarGreaterEqualStatement`.
+37. Use the input: `ScalarGreaterEqualStatement`.
+38. Use the input: `TodaIteratedSuspensionMap`.
+39. From the preceding statements: `Toda45IsomorphismStatement`.
+40. Therefore the group structure is: $\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n + -1\,3}\eta_{3}\}$.
+41. Use the input: `TodaEtaFamilyDefinitionStatement`.
+42. Use the input: `TodaEtaFamilyDefinitionStatement`.
+43. Using the preceding results: $\eta_{3} = E\eta_{2}$.
+44. Using the preceding results: $E^{n + -1\,3}\eta_{3} = \eta_{n}$.
+45. Therefore the group structure is: $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$.
+46. From the preceding statements: `TodaProp51FiniteDimensionalStatement`. This statement is reused 7 times.
+47. Use the input: $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$.
+48. Use the input: $\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
+49. Use the input: `TodaDeltaMap`.
+50. From the preceding statements: $\Delta\left(\iota_{5}\right) = \pm [\iota_{2}, \iota_{2}]$.
+51. Use the input: `WhiteheadProduct`.
+52. From the preceding statements: `TodaProp27HopfInvariantUpToSignStatement`.
+53. Use the input: `TodaPi32Eta2DefinitionStatement`.
+54. Use the input: $H\left(\eta_{2}\right) = \iota_{3}$.
+55. Use the input: `TodaHopfInvariantInjectiveStatement`.
+56. From the preceding statements: `TodaPi32WhiteheadSquareUpToSignStatement`.
+57. From the preceding statements: `TodaDeltaImageFreeCyclicStatement`.
+58. Use the input: $\pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \text{ is exact}$.
+59. From the preceding statements: `TodaSuspensionKernelFreeCyclicStatement`.
+60. Use the input: $\pi_{4}^{5} = 0$.
+61. Use the input: $\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5} \text{ is exact}$.
+62. From the preceding statements: $E: \pi_{3}^{2} \to \pi_{4}^{3} \text{ is surjective}$.
+63. Therefore the group structure is: $\pi_{4}^{3} = \mathbb{Z}/2\{E\eta_{2}\}$.
+64. Use the input: `TodaEtaFamilyDefinitionStatement`.
+65. Using the preceding results: $\eta_{3} = E\eta_{2}$.
+66. Therefore the group structure is: $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$. This statement is reused 2 times.
+67. Using the preceding results: $2\eta_{3} = 0$.
+68. Using the preceding results: $2\eta_{6} = 0$.
+69. From the preceding statements: `Toda36Lemma54SpecializationStatement`. This statement is reused 2 times.
+70. Use the input: `ScalarGreaterEqualStatement`.
+71. Therefore the group structure is: $\pi_{i + -1}^{1} = 0$.
+72. Use the input: $\pi_{2}^{1} = 0$.
+73. Use the input: $\pi_{2}^{1} \xrightarrow{E} \pi_{3}^{2} \xrightarrow{H} \pi_{3}^{3} \text{ is exact}$.
+74. From the preceding statements: `TodaHopfInvariantInjectiveStatement`.
+75. Use the input: `TodaSuspensionIsomorphismStatement`.
+76. From the preceding statements: $E: \pi_{1}^{1} \to \pi_{2}^{2} \text{ is injective}$.
+77. Use the input: $\pi_{3}^{3} \xrightarrow{\Delta} \pi_{1}^{1} \xrightarrow{E} \pi_{2}^{2} \text{ is exact}$.
+78. From the preceding statements: `TodaDeltaZeroStatement`.
+79. Use the input: $\pi_{3}^{2} \xrightarrow{H} \pi_{3}^{3} \xrightarrow{\Delta} \pi_{1}^{1} \text{ is exact}$.
+80. From the preceding statements: $H: \pi_{3}^{2} \to \pi_{3}^{3} \text{ is surjective}$.
+81. From the preceding statements: `TodaHopfInvariantIsomorphismStatement`.
+82. Use the input: $\pi_{3}^{3} = \mathbb{Z}\{\iota_{3}\}$.
+83. From the preceding statements: `TodaPi32Eta2DefinitionStatement`. This statement is reused 2 times.
+84. Using the preceding results: $H\left(\eta_{2}\right) = \iota_{3}$.
+85. Use the input: `TodaProp44DecompositionMap`.
+86. From the preceding statements: `TodaProp44IsomorphismStatement`. This statement is reused 2 times.
+87. From the preceding statements: `TodaProp44SecondSummandRestrictionStatement`.
+88. From the preceding statements: `Toda52CompositionIsomorphismStatement`. This statement is reused 2 times.
+89. Therefore the group structure is: $\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$. This statement is reused 2 times.
+90. Use the input: `TodaBracketMembershipStatement`.
+91. From the preceding statements: `Toda53NuPrimeBracketSpecializationStatement`. This statement is reused 3 times.
+92. Use the input: $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$.
+93. Use the input: $\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
+94. Use the input: `TodaDeltaMap`.
+95. From the preceding statements: $\Delta\left(\iota_{5}\right) = \pm [\iota_{2}, \iota_{2}]$.
+96. Use the input: `WhiteheadProduct`.
+97. From the preceding statements: `TodaProp27HopfInvariantUpToSignStatement`.
+98. Use the input: `TodaPi32Eta2DefinitionStatement`.
+99. Use the input: $H\left(\eta_{2}\right) = \iota_{3}$.
+100. Use the input: `TodaHopfInvariantInjectiveStatement`.
+101. From the preceding statements: `TodaPi32WhiteheadSquareUpToSignStatement`.
+102. From the preceding statements: `TodaDeltaImageFreeCyclicStatement`.
+103. Use the input: $\pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \text{ is exact}$.
+104. From the preceding statements: `TodaSuspensionKernelFreeCyclicStatement`.
+105. Use the input: $\pi_{4}^{5} = 0$.
+106. Use the input: $\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5} \text{ is exact}$.
+107. From the preceding statements: $E: \pi_{3}^{2} \to \pi_{4}^{3} \text{ is surjective}$.
+108. Therefore the group structure is: $\pi_{4}^{3} = \mathbb{Z}/2\{E\eta_{2}\}$.
+109. Use the input: `TodaEtaFamilyDefinitionStatement`.
+110. Using the preceding results: $\eta_{3} = E\eta_{2}$.
+111. Therefore the group structure is: $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$.
+112. Using the preceding results: $2\eta_{3} = 0$. This statement is reused 3 times.
+113. Using the preceding results: $H\left(\nu'\right) = E^{2}\eta_{3}$.
+114. Use the input: `TodaEtaFamilyDefinitionStatement`. This statement is reused 2 times.
+115. Use the input: `TodaEtaFamilyDefinitionStatement`.
+116. Using the preceding results: $E^{2}\eta_{3} = \eta_{5}$.
+117. Using the preceding results: $H\left(\nu'\right) = \eta_{5}$. This statement is reused 4 times.
+118. From the preceding statements: $H: \pi_{6}^{3} \to \pi_{6}^{5} \text{ is surjective}$.
+119. Use the input: $\pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5} \xrightarrow{\Delta} \pi_{4}^{2} \text{ is exact}$.
+120. From the preceding statements: `TodaDeltaZeroStatement`.
+121. Use the input: $\pi_{6}^{5} \xrightarrow{\Delta} \pi_{4}^{2} \xrightarrow{E} \pi_{5}^{3} \text{ is exact}$.
+122. From the preceding statements: $E: \pi_{4}^{2} \to \pi_{5}^{3} \text{ is injective}$.
+123. From the preceding statements: $\Delta: \pi_{5}^{5} \to \pi_{3}^{2} \text{ is injective}$.
+124. Use the input: $\pi_{5}^{3} \xrightarrow{H} \pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \text{ is exact}$.
+125. From the preceding statements: $H: \pi_{5}^{3} \to \pi_{5}^{5} \text{ is the zero map}$.
+126. Use the input: $\pi_{4}^{2} \xrightarrow{E} \pi_{5}^{3} \xrightarrow{H} \pi_{5}^{5} \text{ is exact}$.
+127. From the preceding statements: $E: \pi_{4}^{2} \to \pi_{5}^{3} \text{ is surjective}$.
+128. From the preceding statements: `TodaSuspensionIsomorphismStatement`.
+129. Use the input: `TodaEtaFamilyDefinitionStatement`.
+130. Use the input: `TodaEtaFamilyDefinitionStatement`.
+131. Using the preceding results: $E\eta_{2}\eta_{3} = \eta_{3}\eta_{4}$.
+132. Therefore the group structure is: $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$. This statement is reused 3 times.
+133. Use the input: `TodaPrimaryGroupMembershipStatement`.
+134. Use the input: $H\left(α\right) = \iota_{2\,4 + -1}$.
+135. Use the input: `TodaProp44DecompositionMap`. This statement is reused 2 times.
+136. From the preceding statements: `TodaProp44IsomorphismStatement`.
+137. Use the input: `TodaSuspensionMap`.
+138. From the preceding statements: `TodaProp44FirstSummandRestrictionStatement`.
+139. From the preceding statements: `TodaProp44SuspensionInjectiveStatement`.
+140. From the preceding statements: `TodaProp44SuspensionInjectiveStatement`.
+141. Use the input: $\pi_{6}^{7} = 0$.
+142. Use the input: $\pi_{5}^{3} \xrightarrow{E} \pi_{6}^{4} \xrightarrow{H} \pi_{6}^{7} \text{ is exact}$.
+143. From the preceding statements: $E: \pi_{5}^{3} \to \pi_{6}^{4} \text{ is surjective}$.
+144. From the preceding statements: `TodaSuspensionIsomorphismStatement`.
+145. Use the input: `TodaEtaFamilyDefinitionStatement`.
+146. Use the input: `TodaEtaFamilyDefinitionStatement`.
+147. Using the preceding results: $E\eta_{3}\eta_{4} = \eta_{4}\eta_{5}$.
+148. Therefore the group structure is: $\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\}$. This statement is reused 2 times.
+149. Use the input: `ScalarGreaterEqualStatement`.
+150. Use the input: `ScalarGreaterEqualStatement`.
+151. Use the input: `TodaIteratedSuspensionMap`.
+152. From the preceding statements: `Toda45IsomorphismStatement`.
+153. Use the input: `ScalarGreaterEqualStatement`. This statement is reused 3 times.
+154. Therefore the group structure is: $\pi_{n + 2}^{n} = \mathbb{Z}/2\{E^{n + -1\,4}\eta_{4}\eta_{5}\}$.
+155. Use the input: `TodaEtaFamilyDefinitionStatement`.
+156. Using the preceding results: $E^{n + -1\,4}\eta_{4}\eta_{5} = \eta_{n}\eta_{n + 1}$.
+157. Therefore the group structure is: $\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$.
+158. From the preceding statements: `TodaProp53FiniteDimensionalStatement`. This statement is reused 2 times.
+159. Use the input: `ScalarGreaterEqualStatement`. This statement is reused 2 times.
+160. Use the input: `ScalarGreaterEqualStatement`.
+161. From the preceding statements: `Toda54IndeterminacyGeneratorStatement`.
+162. Using the preceding results: $2\nu' = \eta_{3}E\eta_{3}\eta_{5}$.
+163. Use the input: `TodaEtaFamilyDefinitionStatement`.
+164. Using the preceding results: $E\eta_{3} = \eta_{4}$.
+165. Using the preceding results: $E\eta_{3}\eta_{5} = \eta_{4}\eta_{5}$.
+166. Using the preceding results: $\eta_{3}E\eta_{3}\eta_{5} = \eta_{3}\eta_{4}\eta_{5}$.
+167. Using the preceding results: $2\nu' = \eta_{3}\eta_{4}\eta_{5}$. This statement is reused 3 times.
+168. Using the preceding results: $2E^{n + -1\,3}\nu' = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
+169. From the preceding statements: `Toda54IndeterminacyGeneratorStatement`.
+170. Use the input: `TodaBracketMembershipStatement`.
+171. From the preceding statements: `Toda53NuPrimeBracketSpecializationStatement`.
+172. Use the input: `ScalarGreaterEqualStatement`.
+173. Use the input: `ScalarGreaterEqualStatement`.
+174. Use the input: `ScalarGreaterEqualStatement`.
+175. From the preceding statements: `TodaBracketMembershipStatement`.
+176. From the preceding statements: `Toda54BracketUpToSignStatement`.
+177. From the preceding statements: `Toda54BracketUpToSignStatement`.
+178. From the preceding statements: `TodaLemma54DoubleSuspensionUpToSignStatement`. This statement is reused 2 times.
+179. Therefore the group structure is: $\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$.
+180. From the preceding statements: `TodaLemma54HopfOddMultipleStatement`.
+181. Use the input: `WhiteheadProduct`.
+182. From the preceding statements: `TodaLemma54WhiteheadCorrectionDataStatement`.
+183. From the preceding statements: `TodaLemma54Nu4ConstructionStatement`. This statement is reused 3 times.
+184. From the preceding statements: $\nu_{4} \in \pi_{7}^{4}$.
+185. Using the preceding results: $H\left(\nu_{4}\right) = \iota_{7}$.
+186. Using the preceding results: $2E\nu_{4} = E^{2}\nu'$.
+187. From the preceding statements: `TodaLemma54Statement`. This statement is reused 4 times.
+188. Definition: $\nu_{n} \text{ is the defined }\nu\text{-family element}$. This statement is reused 2 times.
+189. Use the input: `ScalarGreaterEqualStatement`. This statement is reused 2 times.
+190. Using the preceding results: $2\nu_{n} = E^{n + -1\,3}\nu'$. This statement is reused 2 times.
+191. Using the preceding results: $22\nu_{n} = 4\nu_{n}$.
+192. Using the preceding results: $4\nu_{n} = 22\nu_{n}$.
+193. Using the preceding results: $22\nu_{n} = 2E^{n + -1\,3}\nu'$.
+194. Using the preceding results: $4\nu_{n} = 2E^{n + -1\,3}\nu'$.
+195. Use the input: `ScalarGreaterEqualStatement`.
+196. Using the preceding results: $2E^{n + -1\,3}\nu' = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
+197. Using the preceding results: $4\nu_{n} = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
+198. From the preceding statements: `Toda55NuFamilyFiniteDimensionalStatement`.
+199. Definition: $\nu_{5} \text{ is the defined }\nu\text{-family element}$. This statement is reused 3 times.
+200. Using the preceding results: $2\nu_{5} = E^{2}\nu'$.
+201. Therefore the group structure is: $\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$. This statement is reused 2 times.
+202. Use the input: `TodaEtaFamilyDefinitionStatement`.
+203. Use the input: `TodaEtaFamilyDefinitionStatement`.
+204. Using the preceding results: $H\left(\nu'\eta_{6}\right) = \eta_{5}\eta_{6}$.
+205. From the preceding statements: $H: \pi_{7}^{3} \to \pi_{7}^{5} \text{ is surjective}$.
+206. Use the input: $\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \text{ is exact}$.
+207. From the preceding statements: `TodaDeltaZeroStatement`.
+208. Use the input: $\pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \text{ is exact}$.
+209. From the preceding statements: $E: \pi_{5}^{2} \to \pi_{6}^{3} \text{ is injective}$. This statement is reused 2 times.
+210. Hence: $\operatorname{ord}\left(\eta_{3}\eta_{4}\eta_{5}\right) = 2$.
+211. Hence: $\operatorname{ord}\left(\nu'\right) = 4$.
+212. From the preceding statements: $\nu' \in \pi_{6}^{3}$.
+213. Use the input: $\pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5} \text{ is exact}$.
+214. From the preceding statements: $H: \pi_{6}^{3} \to \pi_{6}^{5} \text{ is surjective}$.
+215. Therefore the group structure is: $\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$.
+216. Therefore the group structure is: $\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$. This statement is reused 2 times.
+217. From the preceding statements: `Toda56Nu4Prop44SpecializationStatement`.
+218. Use the input: `TodaProp44DecompositionMap`.
+219. From the preceding statements: `TodaProp44IsomorphismStatement`.
+220. From the preceding statements: `Toda56Nu4DecompositionIsomorphismStatement`.
+221. From the preceding statements: `Toda56Nu4DecompositionStatement`. This statement is reused 2 times.
+222. From the preceding statements: `TodaIteratedSuspensionInjectiveStatement`. This statement is reused 2 times.
+223. Hence: $\operatorname{ord}\left(E^{2}\nu'\right) = 4$.
+224. Hence: $\operatorname{ord}\left(\nu_{5}\right) = 8$.
+225. From the preceding statements: `TodaProp56Pi8_5QuotientStatement`.
+226. Therefore the group structure is: $\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$.
+

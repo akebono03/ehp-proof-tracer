@@ -1,0 +1,22 @@
+# Query fact
+
+$H\left(\nu'\right) = E^{2}\eta_{3}$
+
+First provenance: Toda Proposition 5.6, Phase 65, depth 4
+
+## Proof
+
+1. Depth 0: $H\left(\nu'\right) = E^{2}\eta_{3}$
+   Rule: Toda 5.3 nu-prime Lemma 5.2 Hopf specialization
+2. Depth 1: $\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+   Rule: Toda 5.3 nu-prime Lemma 5.2 bracket specialization
+3. Depth 2: $\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+   Rule: given
+4. Depth 1: $2\eta_{3} = 0$
+   Rule: Toda 5.3 eta_3 twice zero
+5. Depth 2: $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+   Rule: Toda pi_4^3 eta_3 generator notation
+6. Depth 3: $\pi_{4}^{3} = \mathbb{Z}/2\{E\eta_{2}\}$
+   Rule: Toda pi_4^3 finite cyclic quotient calculation
+7. Depth 3: $\eta_{3} = E\eta_{2}$
+   Rule: Toda eta_3 notation suspension bridge

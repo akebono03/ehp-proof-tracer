@@ -1,0 +1,5 @@
+# Known repository facts
+
+1. $\Delta\left(\nu_{5}\right) = \pm \eta_{2}\nu'$
+   - First provenance: Toda Proposition 5.11, Phase 73, depth 5
+   - Provenance paths: 2

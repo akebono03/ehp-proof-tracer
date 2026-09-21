@@ -1,0 +1,2 @@
+usage: main.py query [-h] query
+main.py query: error: composition query supports exactly two or three generators

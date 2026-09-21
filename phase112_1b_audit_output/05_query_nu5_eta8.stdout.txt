@@ -1,0 +1,13 @@
+# Known repository facts
+
+1. $\pi_{9}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\}$
+   - First provenance: Toda Proposition 5.8, Phase 68, depth 1
+   - Provenance paths: 6
+
+2. $E\nu_{4}\eta_{7} = \nu_{5}\eta_{8}$
+   - First provenance: Toda Proposition 5.8, Phase 68, depth 2
+   - Provenance paths: 8
+
+3. $\Delta\left(\iota_{11}\right) = \nu_{5}\eta_{8}$
+   - First provenance: Toda Proposition 5.15, Phase 75, depth 4
+   - Provenance paths: 2

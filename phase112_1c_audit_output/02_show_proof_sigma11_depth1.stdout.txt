@@ -1,0 +1,14 @@
+# Generator
+
+$\sigma_{11}$
+
+# Result
+
+$\pi_{18}^{11} = \mathbb{Z}/16\{\sigma_{11}\}$
+
+## Proof
+
+1. Depth 0: $\pi_{18}^{11} = \mathbb{Z}/16\{\sigma_{11}\}$
+   Rule: inference
+2. Depth 1: $\pi_{n + 7}^{n} = \mathbb{Z}/16\{\sigma_{n}\}$
+   Rule: Toda (4.5) sigma_9 finite cyclic transport

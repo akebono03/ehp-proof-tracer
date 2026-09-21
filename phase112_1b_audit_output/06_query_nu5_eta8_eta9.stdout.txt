@@ -1,0 +1,17 @@
+# Known repository facts
+
+1. $\pi_{10}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\eta_{9}\}$
+   - First provenance: Toda Proposition 5.11, Phase 73, depth 3
+   - Provenance paths: 2
+
+2. $E\nu_{4}\eta_{7}\eta_{8} = \nu_{5}\eta_{8}\eta_{9}$
+   - First provenance: Toda Proposition 5.11, Phase 73, depth 4
+   - Provenance paths: 2
+
+3. $E\nu_{5}\eta_{8}\eta_{9} = 0$
+   - First provenance: Toda Proposition 5.11, Phase 73, depth 5
+   - Provenance paths: 2
+
+4. $\Delta\left(\eta_{11}\right) = \nu_{5}\eta_{8}\eta_{9}$
+   - First provenance: Toda Proposition 5.11, Phase 73, depth 7
+   - Provenance paths: 2

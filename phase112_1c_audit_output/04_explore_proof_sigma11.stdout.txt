@@ -1,0 +1,5 @@
+# $\sigma_{11}$
+
+Proof-scope occurrences: 1
+Toda memberships: 0
+Map relations: 0

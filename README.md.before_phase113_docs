@@ -2,7 +2,7 @@
 
 EHP Proof Tracer is a Python project for representing, checking, searching, explaining, presenting, exploring, replaying, and safely executing theorem-backed Toda-style homotopy-group calculations.
 
-The project currently focuses on the free part plus the 2-primary Toda groups, EHP exactness, explicit proof provenance, the calculation spine through stable stems $G_0$ to $G_7$, theorem-backed repository exploration, recursive proof-ancestry exploration, applicable theorem / lemma discovery, bounded qualified execution, proof-derived known-group identity lookup, indexed $\sigma_n$ specialization, group-query specialization reuse, user-facing proof replay, existing-operation-fact lookup, and operation-query proof replay.
+The project currently focuses on the free part plus the 2-primary Toda groups, EHP exactness, explicit proof provenance, the calculation spine through stable stems $G_0$ to $G_7$, theorem-backed repository exploration, recursive proof-ancestry exploration, applicable theorem / lemma discovery, relevance classification, bounded candidate handoff, multi-family qualified production execution, proof-derived known-group identity lookup, indexed $\sigma_n$ specialization, user-facing known-group proof replay, existing-operation-fact lookup, and operation-query proof replay.
 
 This is not an all-primary calculator for ordinary homotopy groups of spheres.
 
@@ -54,8 +54,6 @@ $$
 \qquad n\ge 9.
 $$
 
-For concrete indexed $\sigma_n$ with $n\ge 10$, the existing symbolic Proposition 5.15 proof can be specialized without creating a new independent theorem root.
-
 The consolidated stable 2-primary stem data is
 
 $$
@@ -93,11 +91,12 @@ The proof infrastructure supports:
 - selected-path execution,
 - recursive proof ancestry,
 - repository-nonmutating exploration and execution planning,
+- explicit-final-rule bounded search,
+- end-to-end rule-identity provenance,
+- qualified execution across multiple admitted production rule families,
 - exact multi-premise production-application recovery,
-- qualified execution across admitted production rule families,
 - proof-derived known-group identity lookup,
 - theorem-specific indexed $\sigma_n$ specialization,
-- reuse of that specialization from the standard `TodaGroupQuery` path,
 - user-facing known-group proof replay,
 - existing operation-fact lookup,
 - operation-query result deduplication without losing raw provenance,
@@ -105,7 +104,7 @@ The proof infrastructure supports:
 - user-selected replay depth through `--depth`,
 - safe mathematical rendering with explicit type-name fallback for unsupported aggregate statements.
 
-General unbounded proof search, theorem ranking, producer ranking, proof-cost optimization, best-proof selection, and general $E/H/\Delta$ evaluation are intentionally not implemented.
+General unbounded proof search, theorem ranking, producer ranking, proof-cost optimization, best-proof selection, and semantic automatic target preference are intentionally not implemented.
 
 ## Toda group calculation API
 
@@ -141,31 +140,25 @@ and the minimal calculation CLI is
 python main.py n k
 ```
 
-Direct theorem-backed results take precedence over fallback recovery.
+Direct theorem-backed results take precedence over aggregate fallback results. Multiple valid results are preserved; the calculation layer does not silently rank or choose one result.
 
-For the stable $7$-stem, the standard group-query path can reuse the existing indexed $\sigma_n$ specialization. For example,
+## EHP and exactness provenance
 
-```powershell
-python main.py 11 7
-```
+For theorem-backed proofs containing actual EHP ancestry, the project can extract EHP exactness windows, a contiguous EHP sequence, exactness-use provenance, and known group information on EHP terms.
 
-returns the theorem-backed result
+A representative $\pi_9^5$ proof yields
 
 $$
-\pi_{18}^{11}=\mathbb Z/16\{\sigma_{11}\},
+\pi_{10}^9
+\xrightarrow{\Delta}
+\pi_8^4
+\xrightarrow{E}
+\pi_9^5
+\xrightarrow{H}
+\pi_9^9
+\xrightarrow{\Delta}
+\pi_7^4.
 $$
-
-with the existing Toda Proposition 5.15 symbolic proof retained as provenance.
-
-The same existing specialization path applies to concrete $n\ge 10$, for example
-
-$$
-\pi_{17}^{10}=\mathbb Z/16\{\sigma_{10}\},
-\qquad
-\pi_{19}^{12}=\mathbb Z/16\{\sigma_{12}\}.
-$$
-
-An explicitly supplied empty repository still returns `NOT_FOUND`; the calculation layer does not invent specialization facts independently of repository proof provenance.
 
 ## Standard production repository
 
@@ -217,13 +210,13 @@ $$
 H(\nu')=\eta_5.
 $$
 
-For concrete indexed $\sigma_n$ with $n\ge 10$, proof-scope exploration can materialize
+For concrete indexed $\sigma_n$ with $n\ge 10$, proof-scope exploration can materialize the theorem-specific Proposition 5.15 specialization
 
 $$
 \pi_{n+7}^n=\mathbb Z/16\{\sigma_n\}.
 $$
 
-The exploration layer finds or specializes already represented proof facts. It does not generally evaluate $E$, $H$, or $\Delta$, and it does not solve Toda brackets.
+The exploration layer finds or specializes already represented proof facts. It does not evaluate $E$, $H$, or $\Delta$, and it does not solve Toda brackets.
 
 ## Applicable theorem / lemma discovery
 
@@ -257,7 +250,7 @@ UNCLASSIFIED
 
 ## Qualified production execution
 
-The currently admitted qualified production execution families are
+The admitted qualified production execution families are
 
 ```text
 toda_58_delta_iota9_nu4_nu_prime_inference_rule
@@ -270,7 +263,18 @@ $$
 \pi_6^2=\mathbb Z/4\{\eta_2\nu'\}.
 $$
 
-For multi-premise rules, the engine recovers the unique existing production application under the same root and reuses the exact premise tuple by `ProofStep` identity and original order.
+For multi-premise rules, the engine does not search arbitrarily for companion premises. It recovers the unique existing production application under the same root and reuses the exact premise tuple by `ProofStep` identity and original order.
+
+The standard user-facing workflow is
+
+```python
+run_standard_repository_generator_user_execution_workflow(
+  generator_input,
+  candidate_number=None,
+  max_depth=2,
+  retry_policy=None,
+)
+```
 
 Candidate numbers are one-based addressing only:
 
@@ -295,6 +299,15 @@ generator
 show-proof != execute
 ```
 
+The standard replay API is
+
+```python
+build_standard_repository_generator_known_group_proof_replay_input(
+  generator_input,
+  max_depth=1,
+)
+```
+
 Examples:
 
 ```powershell
@@ -303,11 +316,13 @@ python main.py show-proof sigma_11
 python main.py show-proof sigma_11 --depth 2
 ```
 
-The default depth is one direct premise level. `--depth 0` shows only the replay root.
+The default depth remains one direct premise level. `--depth 0` shows only the replay root, and larger nonnegative depths expose deeper existing ancestry.
+
+Unsupported deep aggregate statements are rendered by safe type-name fallback instead of raw dataclass representations.
 
 ## Existing operation-fact query
 
-The operation-query path remains a read-only lookup over already represented repository / proof-scope facts.
+The operation-query path is a read-only lookup over already represented repository / proof-scope facts.
 
 Examples:
 
@@ -319,7 +334,7 @@ python main.py query "eta_2 o nu_prime"
 python main.py query "eta_2 o nu_prime o eta_6"
 ```
 
-The minimal query grammar currently supports
+The minimal query grammar currently supports:
 
 ```text
 H(<generator>)
@@ -331,7 +346,17 @@ Delta(<generator>)
 <generator> o <generator> o <generator>
 ```
 
-The flat three-term composition form is interpreted using the existing right-nested production structure.
+The flat three-term composition form is interpreted using the existing right-nested production structure. For example,
+
+```text
+eta_2 o nu_prime o eta_6
+```
+
+matches the represented composition
+
+$$
+\eta_2\circ(\nu'\circ\eta_6).
+$$
 
 Representative results include
 
@@ -361,9 +386,17 @@ The operation-query layer is intentionally a lookup:
 lookup != inference != evaluation
 ```
 
-A miss means that no matching represented repository fact was found. It does not prove mathematical nonexistence.
+No result means that no matching represented repository fact was found. It does not prove mathematical nonexistence.
 
-Phase 112 confirmed that some lookup misses, such as `E(nu_5)`, correspond to mathematics already represented elsewhere in symbolic inference infrastructure. That observation does not change the current `query` semantics.
+Three-term operands inside `E(...)`, `H(...)`, or `Delta(...)`, four-or-more-term composition, parentheses, Unicode `∘`, and a general expression parser remain intentionally unsupported.
+
+## Operation-query deduplication and provenance
+
+Raw proof-scope occurrences remain intact.
+
+User-facing presentation groups equal mathematical statements while preserving all contributing provenance matches.
+
+Presentation order is based on shallowest proof-scope depth and stable source order. This is not theorem ranking.
 
 ## Operation-query proof replay
 
@@ -382,9 +415,13 @@ If a query has exactly one presented fact, `--fact` is optional. If multiple fac
 
 The replay root is the selected fact's own `ProofStep`, not the enclosing repository theorem root.
 
+The default replay depth is one direct premise level; `--depth N` exposes deeper existing ancestry without changing proof-search semantics.
+
+Known special statement types are rendered mathematically where supported. Unsupported aggregate statements use a safe type-name fallback instead of leaking a Python dataclass representation.
+
 ## Command-line interface
 
-Current commands include
+Current commands are
 
 ```powershell
 python main.py n k
@@ -407,74 +444,64 @@ python main.py query-proof "H(nu_prime)" --fact 1 --depth 2
 python main.py query-proof "E(eta_2 o nu_prime)"
 ```
 
-`n,k` refers to the project quantity $\pi_{n+k}^n$, i.e. free part plus the 2-primary component.
+Global help lists the user-facing commands and describes `n,k` using the project quantity $\pi_{n+k}^n$, i.e. free part plus the 2-primary component.
 
-The CLI script boundary configures stdout and stderr as UTF-8 for Windows environments whose default console encoding may be CP932.
+The CLI script boundary configures stdout and stderr as UTF-8 so that mathematical Unicode is safe on Windows systems whose default console encoding is CP932.
 
-## Phase 112 closure
+## Phase 111 closure
 
-Phase 112 audited real mathematical workflow pressure rather than mechanically expanding the parser.
+Phase 111 audited the existing CLI from the user's point of view before adding further capability.
 
-Representative workflows used:
+Major outcomes:
 
 ```text
-nu_prime
-nu_5
-sigma_11
+CLI capability / discoverability audit
+→ global command help
+
+command-overlap audit
+→ preserve query / query-proof / show-proof / execute boundaries
+
+operation-query grammar pressure audit
+→ add only demonstrated flat three-term composition support
+
+proof-replay usability audit
+→ expose existing max_depth through --depth
+
+full-report / replay presentation audit
+→ fix symbolic-dimension rendering
+→ prevent raw dataclass repr leakage in deep show-proof
 ```
 
-The audit separated observed gaps into:
+The phase deliberately did not introduce:
+
+- a general expression parser,
+- arbitrary nested composition,
+- Unicode composition parsing,
+- general $E/H/\Delta$ evaluation,
+- alternate-provenance selection,
+- theorem ranking,
+- broader qualified execution families.
+
+Final repository-wide regression:
 
 ```text
-parser boundary
-repository lookup miss
-existing-inference / specialization handoff gap
-workflow orchestration gap
-possible genuinely new inference / evaluator need
+9074 passed in 446.27s (0:07:26)
 ```
 
-The highest-pressure minimal gap was:
+Final whitespace check:
 
 ```text
-show-proof sigma_11
-→ knows pi_18^11 = Z/16{sigma_11}
-
-python main.py 11 7
-→ previously failed to reuse the same existing specialization
-```
-
-This was classified as an orchestration gap, not as missing mathematics.
-
-Phase 112 deliberately did not introduce a general expression parser or a general $E/H/\Delta$ evaluator.
-
-## Phase 113 closure
-
-Phase 113 connected the existing theorem-specific indexed $\sigma_n$ specialization to the standard `TodaGroupQuery` workflow.
-
-The implementation is deliberately narrow:
-
-```text
-TodaGroupQuery(n, 7), n >= 10
-→ existing production repository
-→ existing recursive proof scope
-→ existing sigma_n specialization
-→ concrete group result
-→ existing report / provenance pipeline
-```
-
-It does not mutate the repository and does not synthesize a result from an empty repository.
-
-Focused Phase 113 and relevant regression tests passed, followed by the full repository regression:
-
-```text
-9081 passed in 434.58s (0:07:14)
+git diff --check
+clean
 ```
 
 ## Current boundaries
 
 The following remain intentionally deferred:
 
+- target-only unknown-right-hand-side proof search,
 - theorem ranking and proof-cost optimization,
+- semantic automatic target preference,
 - producer ranking,
 - general unbounded backtracking,
 - persistent proof cache,
@@ -490,7 +517,10 @@ The following remain intentionally deferred:
 - general Toda-bracket solving,
 - bracket-value and coset / indeterminacy computation,
 - general $E/H/\Delta$ evaluation,
+- recursive theorem solving beyond already represented proof ancestry,
 - automatic enumeration of unstated mathematical consequences,
+- execution qualification across all production rule families,
+- third and later qualified families without demonstrated production pressure,
 - unrestricted symbolic AST substitution,
 - alternate provenance selection,
 - rich recursive proof visualization,
@@ -504,12 +534,6 @@ The following remain intentionally deferred:
 calculation
 → theorem-backed result
 → provenance
-→ report
-
-TodaGroupQuery(n,7), n>=10
-→ existing symbolic Proposition 5.15 proof
-→ concrete sigma_n specialization
-→ group result
 → report
 
 generator
@@ -543,9 +567,29 @@ selected operation fact
 → query-proof
 ```
 
-Phase 112 classified actual workflow pressure and selected the highest-pressure minimal orchestration gap.
+Phase 100 closed the production calculation path.
 
-Phase 113 connected the existing indexed $\sigma_n$ specialization to `TodaGroupQuery`.
+Phase 101 closed the production top-level generator-exploration path.
+
+Phase 102 closed recursive proof-scope exploration for already represented Toda memberships and known map relations.
+
+Phase 103 closed read-only applicable theorem / lemma discovery and the first production relevance-classification pass.
+
+Phase 104 closed safe applicability-candidate consumption through bounded search and actual execution.
+
+Phase 105 closed the first explicit standard-production applicability-to-execution path.
+
+Phase 106 removed the dominant applicability-materialization bottleneck while preserving semantics and provenance.
+
+Phase 107 closed the first multi-family qualified-production execution path.
+
+Phase 108 closed the first user-facing execution path.
+
+Phase 109 closed known-group identity fallback, indexed $\sigma_n$ specialization, known-group proof replay, and the `show-proof` / `execute` boundary.
+
+Phase 110 closed existing operation-fact query, deduplicated presentation, provenance-preserving query output, selected-fact proof replay, and safe replay statement rendering.
+
+Phase 111 closed the CLI capability / user-pressure audit and the minimal usability fixes justified by that audit.
 
 ## Project principle
 

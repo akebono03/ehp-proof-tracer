@@ -1,0 +1,58 @@
+# Generator
+
+$\nu'$
+
+# Result
+
+$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+
+## Proof
+
+1. Depth 0: $\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+   Rule: Toda Proposition 5.6 pi_6^3 finite cyclic
+2. Depth 1: $\operatorname{ord}\left(\nu'\right) = 4$
+   Rule: Toda Proposition 5.6 nu-prime order four
+3. Depth 2: $\operatorname{ord}\left(\eta_{3}\eta_{4}\eta_{5}\right) = 2$
+   Rule: Toda Proposition 5.6 eta_3 cube order two
+4. Depth 3: $\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+   Rule: Toda Proposition 5.6 pi_5^2 eta_2 cube
+5. Depth 3: $E: \pi_{5}^{2} \to \pi_{6}^{3} \text{ is injective}$
+   Rule: Toda Proposition 5.6 pi_5^2 suspension injective
+6. Depth 2: $2\nu' = \eta_{3}\eta_{4}\eta_{5}$
+   Rule: equality transitivity
+7. Depth 3: $2\nu' = \eta_{3}E\eta_{3}\eta_{5}$
+   Rule: Toda 5.3 nu-prime Lemma 5.2 double specialization
+8. Depth 3: $\eta_{3}E\eta_{3}\eta_{5} = \eta_{3}\eta_{4}\eta_{5}$
+   Rule: equality preserved under left composition
+9. Depth 1: $\nu' \in \pi_{6}^{3}$
+   Rule: Toda 5.3 nu-prime Lemma 5.2 membership specialization
+10. Depth 2: `Toda53NuPrimeBracketSpecializationStatement`
+   Rule: Toda 5.3 nu-prime Lemma 5.2 bracket specialization
+11. Depth 3: $\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+   Rule: given
+12. Depth 2: $2\eta_{3} = 0$
+   Rule: Toda 5.3 eta_3 twice zero
+13. Depth 3: $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+   Rule: Toda pi_4^3 eta_3 generator notation
+14. Depth 1: $\pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5} \text{ is exact}$
+   Rule: given
+15. Depth 1: $H: \pi_{6}^{3} \to \pi_{6}^{5} \text{ is surjective}$
+   Rule: Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity
+16. Depth 2: $H\left(\nu'\right) = \eta_{5}$
+   Rule: equality transitivity
+17. Depth 3: $H\left(\nu'\right) = E^{2}\eta_{3}$
+   Rule: Toda 5.3 nu-prime Lemma 5.2 Hopf specialization
+18. Depth 3: $E^{2}\eta_{3} = \eta_{5}$
+   Rule: Toda 5.3 eta_5 iterated suspension bridge
+19. Depth 2: `TodaProp51FiniteDimensionalStatement`
+   Rule: Toda Proposition 5.1 finite-dimensional integration
+20. Depth 3: $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$
+   Rule: Toda pi_3^2 free cyclic generator transport
+21. Depth 3: $H\left(\eta_{2}\right) = \iota_{3}$
+   Rule: Toda pi_3^2 eta_2 Hopf relation
+22. Depth 3: $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$
+   Rule: Toda Delta iota_5 twice eta_2 up-to-sign bridge
+23. Depth 3: $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$
+   Rule: Toda higher eta-family finite-cyclic generator bridge
+24. Depth 1: $\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
+   Rule: Toda Lemma 5.4 pi_6^5 finite-cyclic specialization

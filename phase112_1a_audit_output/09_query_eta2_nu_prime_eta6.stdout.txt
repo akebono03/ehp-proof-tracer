@@ -1,0 +1,9 @@
+# Known repository facts
+
+1. $\pi_{7}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\}$
+   - First provenance: Toda Proposition 5.11, Phase 73, depth 3
+   - Provenance paths: 2
+
+2. $E\eta_{2}\nu'\eta_{6} = 0$
+   - First provenance: Toda Proposition 5.11, Phase 73, depth 5
+   - Provenance paths: 2
