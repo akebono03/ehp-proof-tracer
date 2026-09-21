@@ -18,15 +18,6 @@ from repository_generator_known_group_identity_presentation import (
 from repository_generator_known_group_identity_renderer import (
   render_repository_generator_known_group_identity_markdown,
 )
-from repository_generator_known_group_proof_replay import (
-  build_standard_repository_generator_known_group_proof_replay_input,
-)
-from repository_generator_known_group_proof_replay_presentation import (
-  build_repository_generator_known_group_proof_replay_presentation,
-)
-from repository_generator_known_group_proof_replay_renderer import (
-  render_repository_generator_known_group_proof_replay_markdown,
-)
 from repository_generator_user_execution_candidate_presentation import (
   build_repository_generator_user_execution_candidate_list_presentation,
 )
@@ -204,28 +195,6 @@ def build_explore_applicable_argument_parser(
   return parser
 
 
-def build_show_proof_argument_parser(
-) -> argparse.ArgumentParser:
-  parser = argparse.ArgumentParser(
-    prog="main.py show-proof",
-    description=(
-      "Show the known-group proof provenance "
-      "for one generator in the standard "
-      "production repository."
-    ),
-  )
-
-  parser.add_argument(
-    "generator",
-    help=(
-      "generator input such as "
-      "nu_prime, sigma_11, or nu_5"
-    ),
-  )
-
-  return parser
-
-
 def build_execute_argument_parser(
 ) -> argparse.ArgumentParser:
   parser = argparse.ArgumentParser(
@@ -355,48 +324,6 @@ def _run_explore_applicable_command(
   markdown = renderer(
     result
   )
-
-  print(
-    markdown,
-    end="",
-  )
-
-  return 0
-
-
-def _run_show_proof_command(
-  generator_input: str,
-) -> int:
-  try:
-    result = (
-      build_standard_repository_generator_known_group_proof_replay_input(
-        generator_input
-      )
-    )
-
-    presentation = (
-      build_repository_generator_known_group_proof_replay_presentation(
-        result
-      )
-    )
-
-    markdown = (
-      render_repository_generator_known_group_proof_replay_markdown(
-        presentation
-      )
-    )
-  except (
-    TypeError,
-    ValueError,
-  ) as error:
-    parser = (
-      build_show_proof_argument_parser()
-    )
-    parser.error(
-      str(
-        error
-      )
-    )
 
   print(
     markdown,
@@ -570,26 +497,6 @@ def main(
     return _run_explore_applicable_command(
       args.generator,
       detailed=args.detailed,
-    )
-
-  if (
-    raw_argv
-    and raw_argv[
-      0
-    ] == "show-proof"
-  ):
-    parser = (
-      build_show_proof_argument_parser()
-    )
-
-    args = parser.parse_args(
-      raw_argv[
-        1:
-      ]
-    )
-
-    return _run_show_proof_command(
-      args.generator
     )
 
   if (
