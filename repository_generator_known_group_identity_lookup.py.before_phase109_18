@@ -59,10 +59,6 @@ def _supports_proof_derived_ambient_group(
       family="σ",
       index=8,
     ),
-    GeneratorSymbol(
-      family="σ",
-      index=9,
-    ),
   )
 
 

@@ -257,45 +257,45 @@ def test_phase109_14_sigma_prime_does_not_select_pi15_8_suspended_occurrence():
   )
 
 
-def test_phase109_14_sigma10_symbolic_specialization_boundary_remains_unsupported():
-  sigma_10 = GeneratorSymbol(
+def test_phase109_14_sigma9_indexed_boundary_remains_unsupported():
+  sigma_9 = GeneratorSymbol(
     family="σ",
-    index=10,
+    index=9,
   )
 
   assert (
     GENERATOR_FACT_REPOSITORY
     .lookup_ambient_group(
-      sigma_10
+      sigma_9
     )
     is None
   )
 
   assert (
     find_standard_repository_generator_known_group_identity_nodes(
-      sigma_10
+      sigma_9
     )
     == ()
   )
 
 
-def test_phase109_14_sigma10_symbolic_specialization_boundary_remains_unsupported():
-  sigma_10 = GeneratorSymbol(
+def test_phase109_14_sigma9_indexed_finite_cyclic_boundary_remains_unsupported():
+  sigma_9 = GeneratorSymbol(
     family="σ",
-    index=10,
+    index=9,
   )
 
   assert (
     GENERATOR_FACT_REPOSITORY
     .lookup_ambient_group(
-      sigma_10
+      sigma_9
     )
     is None
   )
 
   assert (
     find_standard_repository_generator_known_group_identity_nodes(
-      sigma_10
+      sigma_9
     )
     == ()
   )

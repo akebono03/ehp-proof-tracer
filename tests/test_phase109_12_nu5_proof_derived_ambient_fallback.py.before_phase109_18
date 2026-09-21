@@ -152,23 +152,23 @@ def test_phase109_12_does_not_enable_unregistered_nu6():
   )
 
 
-def test_phase109_12_sigma10_remains_out_of_scope():
-  sigma_10 = GeneratorSymbol(
+def test_phase109_12_sigma9_remains_out_of_scope():
+  sigma_9 = GeneratorSymbol(
     family="σ",
-    index=10,
+    index=9,
   )
 
   assert (
     GENERATOR_FACT_REPOSITORY
     .lookup_ambient_group(
-      sigma_10
+      sigma_9
     )
     is None
   )
 
   assert (
     find_standard_repository_generator_known_group_identity_nodes(
-      sigma_10
+      sigma_9
     )
     == ()
   )
