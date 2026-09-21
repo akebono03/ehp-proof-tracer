@@ -104,7 +104,6 @@ The proof infrastructure supports:
 - existing operation-fact lookup,
 - operation-query result deduplication without losing raw provenance,
 - operation-query proof replay rooted at the selected fact's actual `ProofStep`,
-- user-selected replay depth through `--depth`,
 - safe mathematical rendering with explicit type-name fallback for unsupported aggregate statements.
 
 General unbounded proof search, theorem ranking, producer ranking, proof-cost optimization, best-proof selection, and semantic automatic target preference are intentionally not implemented.
@@ -294,7 +293,7 @@ Known-group proof replay is separate from qualified theorem execution.
 generator
 → unique known-group identity node
 → existing ProofStep
-→ bounded provenance replay
+→ direct provenance replay
 → show-proof
 ```
 
@@ -316,16 +315,25 @@ Examples:
 ```powershell
 python main.py show-proof nu_prime
 python main.py show-proof sigma_11
-python main.py show-proof sigma_11 --depth 2
 ```
 
-The default depth remains one direct premise level. `--depth 0` shows only the replay root, and larger nonnegative depths expose deeper existing ancestry.
+For `nu_prime`, the replay begins with
 
-Unsupported deep aggregate statements are rendered by safe type-name fallback instead of raw dataclass representations.
+$$
+\pi_6^3=\mathbb Z/4\{\nu'\}.
+$$
+
+For `sigma_11`, the replay begins with
+
+$$
+\pi_{18}^{11}=\mathbb Z/16\{\sigma_{11}\}
+$$
+
+and preserves the symbolic Proposition 5.15 provenance.
 
 ## Existing operation-fact query
 
-The operation-query path is a read-only lookup over already represented repository / proof-scope facts.
+Phase 110 added a read-only operation-query path for already represented proof facts.
 
 Examples:
 
@@ -334,37 +342,25 @@ python main.py query "H(nu_prime)"
 python main.py query "Delta(iota_9)"
 python main.py query "E(eta_2 o nu_prime)"
 python main.py query "eta_2 o nu_prime"
-python main.py query "eta_2 o nu_prime o eta_6"
 ```
 
 The minimal query grammar currently supports:
 
 ```text
-H(<generator>)
-H(<generator> o <generator>)
-E(<generator>)
-E(<generator> o <generator>)
-Delta(<generator>)
+H(<expression>)
+E(<expression>)
+Delta(<expression>)
 <generator> o <generator>
-<generator> o <generator> o <generator>
 ```
-
-The flat three-term composition form is interpreted using the existing right-nested production structure. For example,
-
-```text
-eta_2 o nu_prime o eta_6
-```
-
-matches the represented composition
-
-$$
-\eta_2\circ(\nu'\circ\eta_6).
-$$
 
 Representative results include
 
 $$
 H(\nu')=\eta_5,
+$$
+
+$$
+H(\nu')=E^2\eta_3,
 $$
 
 $$
@@ -374,16 +370,10 @@ $$
 $$
 
 $$
-E(\eta_2\nu')=0,
+E(\eta_2\nu')=0.
 $$
 
-and
-
-$$
-\pi_7^2=\mathbb Z/2\{\eta_2\nu'\eta_6\}.
-$$
-
-The operation-query layer is intentionally a lookup:
+The operation-query layer is intentionally a lookup over existing repository / proof-scope facts:
 
 ```text
 lookup != inference != evaluation
@@ -391,19 +381,31 @@ lookup != inference != evaluation
 
 No result means that no matching represented repository fact was found. It does not prove mathematical nonexistence.
 
-Three-term operands inside `E(...)`, `H(...)`, or `Delta(...)`, four-or-more-term composition, parentheses, Unicode `∘`, and a general expression parser remain intentionally unsupported.
-
 ## Operation-query deduplication and provenance
 
 Raw proof-scope occurrences remain intact.
 
 User-facing presentation groups equal mathematical statements while preserving all contributing provenance matches.
 
+For example,
+
+```powershell
+python main.py query "H(nu_prime)"
+```
+
+presents two mathematical facts rather than every repeated proof-scope occurrence:
+
+$$
+H(\nu')=\eta_5,
+\qquad
+H(\nu')=E^2\eta_3.
+$$
+
 Presentation order is based on shallowest proof-scope depth and stable source order. This is not theorem ranking.
 
 ## Operation-query proof replay
 
-Proof replay is available for a selected query fact.
+Phase 110 also added proof replay for a selected query fact.
 
 Examples:
 
@@ -411,16 +413,47 @@ Examples:
 python main.py query-proof "H(nu_prime)" --fact 1
 python main.py query-proof "H(nu_prime)" --fact 2
 python main.py query-proof "E(eta_2 o nu_prime)"
-python main.py query-proof "H(nu_prime)" --fact 1 --depth 2
+python main.py query-proof "eta_2 o nu_prime" --fact 4
 ```
 
 If a query has exactly one presented fact, `--fact` is optional. If multiple facts are available, no fact is selected automatically.
 
 The replay root is the selected fact's own `ProofStep`, not the enclosing repository theorem root.
 
-The default replay depth is one direct premise level; `--depth N` exposes deeper existing ancestry without changing proof-search semantics.
+For
 
-Known special statement types are rendered mathematically where supported. Unsupported aggregate statements use a safe type-name fallback instead of leaking a Python dataclass representation.
+$$
+H(\nu')=\eta_5,
+$$
+
+the direct replay includes
+
+$$
+H(\nu')=E^2\eta_3,
+\qquad
+E^2\eta_3=\eta_5.
+$$
+
+The default operation-query replay depth is one direct premise level.
+
+Known special statement types are rendered mathematically, for example
+
+$$
+\nu'\in\{\eta_3,2\iota_4,\eta_4\}_1,
+$$
+
+$$
+E^2\nu'\in2\iota_5\circ\pi_8^5,
+$$
+
+and
+
+$$
+\Delta:\pi_8^5\to\pi_6^2
+\quad\text{is surjective}.
+$$
+
+Unsupported aggregate statements use a safe type-name fallback instead of leaking a Python dataclass representation.
 
 ## Command-line interface
 
@@ -434,61 +467,49 @@ python main.py explore-applicable nu_prime
 python main.py explore-applicable nu_prime --detailed
 python main.py show-proof nu_prime
 python main.py show-proof sigma_11
-python main.py show-proof sigma_11 --depth 2
 python main.py execute nu_prime
 python main.py execute nu_prime --candidate 1
 python main.py query "H(nu_prime)"
 python main.py query "Delta(iota_9)"
 python main.py query "E(eta_2 o nu_prime)"
 python main.py query "eta_2 o nu_prime"
-python main.py query "eta_2 o nu_prime o eta_6"
 python main.py query-proof "H(nu_prime)" --fact 1
-python main.py query-proof "H(nu_prime)" --fact 1 --depth 2
 python main.py query-proof "E(eta_2 o nu_prime)"
 ```
 
-Global help lists the user-facing commands and describes `n,k` using the project quantity $\pi_{n+k}^n$, i.e. free part plus the 2-primary component.
-
 The CLI script boundary configures stdout and stderr as UTF-8 so that mathematical Unicode is safe on Windows systems whose default console encoding is CP932.
 
-## Phase 111 closure
+## Phase 110 closure
 
-Phase 111 audited the existing CLI from the user's point of view before adding further capability.
+Phase 110 closed the first user-facing existing-operation-fact lookup and proof-replay path.
 
 Major outcomes:
 
 ```text
-CLI capability / discoverability audit
-→ global command help
-
-command-overlap audit
-→ preserve query / query-proof / show-proof / execute boundaries
-
-operation-query grammar pressure audit
-→ add only demonstrated flat three-term composition support
-
-proof-replay usability audit
-→ expose existing max_depth through --depth
-
-full-report / replay presentation audit
-→ fix symbolic-dimension rendering
-→ prevent raw dataclass repr leakage in deep show-proof
+operation query input
+→ parsed query specification
+→ existing repository / proof-scope lookup
+→ raw occurrence preservation
+→ mathematical-statement deduplication
+→ prioritized presentation
+→ query CLI
 ```
 
-The phase deliberately did not introduce:
+```text
+selected query fact
+→ primary provenance
+→ fact's own ProofStep
+→ bounded direct proof replay
+→ safe mathematical statement rendering
+→ query-proof CLI
+```
 
-- a general expression parser,
-- arbitrary nested composition,
-- Unicode composition parsing,
-- general $E/H/\Delta$ evaluation,
-- alternate-provenance selection,
-- theorem ranking,
-- broader qualified execution families.
+The phase deliberately did not introduce a general composition evaluator or a general $E/H/\Delta$ evaluator.
 
 Final repository-wide regression:
 
 ```text
-9074 passed in 446.27s (0:07:26)
+9055 passed in 455.09s (0:07:35)
 ```
 
 Final whitespace check:
@@ -514,8 +535,6 @@ The following remain intentionally deferred:
 - wildcard family search,
 - arbitrary nested operation-query grammar,
 - Unicode-composition and LaTeX input parsing,
-- four-or-more-term operation-query composition,
-- three-term composition as a map-operation operand,
 - general composition evaluation,
 - general Toda-bracket solving,
 - bracket-value and coset / indeterminacy computation,
@@ -525,7 +544,6 @@ The following remain intentionally deferred:
 - execution qualification across all production rule families,
 - third and later qualified families without demonstrated production pressure,
 - unrestricted symbolic AST substitution,
-- alternate provenance selection,
 - rich recursive proof visualization,
 - Web UI,
 - odd-primary full integration,
@@ -546,7 +564,7 @@ generator
 
 generator
 → known-group identity
-→ bounded proof replay
+→ direct proof replay
 → show-proof
 
 generator
@@ -565,7 +583,7 @@ operation query
 
 selected operation fact
 → primary provenance
-→ bounded proof replay
+→ direct proof replay
 → safe mathematical rendering
 → query-proof
 ```
@@ -591,8 +609,6 @@ Phase 108 closed the first user-facing execution path.
 Phase 109 closed known-group identity fallback, indexed $\sigma_n$ specialization, known-group proof replay, and the `show-proof` / `execute` boundary.
 
 Phase 110 closed existing operation-fact query, deduplicated presentation, provenance-preserving query output, selected-fact proof replay, and safe replay statement rendering.
-
-Phase 111 closed the CLI capability / user-pressure audit and the minimal usability fixes justified by that audit.
 
 ## Project principle
 

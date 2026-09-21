@@ -278,12 +278,12 @@ target premises[candidate premise_index] is candidate.source_step
 
 Toda Proposition 5.15 の symbolic higher step:
 
-$$
+\[
 \pi_{n+7}^{n}=\mathbb Z/16\{\sigma_n\},
 \qquad n\ge 9.
-$$
+\]
 
-concrete indexed $\sigma_n$ の定理固有具体化は具体整数 $n\ge 10$ に限定する。
+concrete indexed \(\sigma_n\) の定理固有具体化は具体整数 \(n\ge 10\) に限定する。
 
 ```text
 concrete sigma_n group step
@@ -343,9 +343,9 @@ eta_2 o nu_prime o eta_6
 
 三項 top-level composition は既存 production AST の
 
-$$
+\[
 a\circ(b\circ c)
-$$
+\]
 
 に対応する right-nested 構造として照合する。
 
@@ -515,9 +515,9 @@ safe fallback は数学的内容を推測しない。
 
 例:
 
-$$
+\[
 \pi_{n+7}^{n}
-$$
+\]
 
 を
 
@@ -558,11 +558,11 @@ global help は主要コマンド一覧を提示する。
 
 `n,k` は project quantity
 
-$$
+\[
 \pi_{n+k}^n
-$$
+\]
 
-すなわち free part + 2-primary component を表す。通常の all-primary $\pi_{n+k}(S^n)$ と混同しない。
+すなわち free part + 2-primary component を表す。通常の all-primary \(\pi_{n+k}(S^n)\) と混同しない。
 
 ---
 

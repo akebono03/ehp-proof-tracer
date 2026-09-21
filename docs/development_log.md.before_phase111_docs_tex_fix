@@ -21,13 +21,13 @@
 
 `docs/development_log/phases_049_064.md`
 
-$\pi_3^2$、$\pi_4^3$、Toda Proposition 5.1、Lemma 5.2、$\nu'$、$\nu_4$、$\nu$-family、性能安定化まで。
+\(\pi_3^2\)、\(\pi_4^3\)、Toda Proposition 5.1、Lemma 5.2、\(\nu'\)、\(\nu_4\)、\(\nu\)-family、性能安定化まで。
 
 ## Phase 65–78
 
 `docs/development_log/phases_065_078.md`
 
-Toda Proposition 5.6 から Lemma 5.16、安定 $G_0$ から $G_7$ までの主要な数学的証明経路。
+Toda Proposition 5.6 から Lemma 5.16、安定 \(G_0\) から \(G_7\) までの主要な数学的証明経路。
 
 ## Phase 79–89
 
@@ -108,11 +108,11 @@ GeneratorSymbol
 
 代表結果:
 
-$$
+\[
 \nu' \in \{\eta_3,2\iota_4,\eta_4\}_1,
 \qquad
 H(\nu')=\eta_5.
-$$
+\]
 
 ```text
 8142 passed in 129.93s
@@ -254,12 +254,12 @@ Phase 108 後の運用監査から開始し、生成元問い合わせの利用�
 
 Toda Proposition 5.15:
 
-$$
+\[
 \pi_{n+7}^{n}=\mathbb Z/16\{\sigma_n\},
 \qquad n\ge 9.
-$$
+\]
 
-concrete indexed 具体化は $n\ge 10$ に限定し、symbolic higher step を直接 premise として保持する。
+concrete indexed 具体化は \(n\ge 10\) に限定し、symbolic higher step を直接 premise として保持する。
 
 ```text
 show-proof != execute
@@ -376,11 +376,11 @@ residual audit / repository-wide regression
 
 主要コマンドを global help から発見可能にした。
 
-`n,k` の説明を通常の all-primary $\pi_{n+k}(S^n)$ と誤認しないよう、project quantity
+`n,k` の説明を通常の all-primary \(\pi_{n+k}(S^n)\) と誤認しないよう、project quantity
 
-$$
+\[
 \pi_{n+k}^{n}
-$$
+\]
 
 すなわち free part + 2-primary component として明示した。
 
@@ -388,9 +388,9 @@ $$
 
 symbolic dimension の表示で `ScalarSum(...)` / `ScalarSymbol(...)` が漏れる問題を修正。
 
-$$
+\[
 \pi_{n+7}^{n}
-$$
+\]
 
 を既存 scalar LaTeX renderer で表示するよう統一した。
 
@@ -398,9 +398,9 @@ $$
 
 実際の production fact
 
-$$
+\[
 \eta_2\circ(\nu'\circ\eta_6)
-$$
+\]
 
 に対応する最小 query として、
 
@@ -412,15 +412,15 @@ eta_2 o nu_prime o eta_6
 
 CLI では
 
-$$
+\[
 \pi_7^2=\mathbb Z/2\{\eta_2\nu'\eta_6\}
-$$
+\]
 
 および
 
-$$
+\[
 E\eta_2\nu'\eta_6=0
-$$
+\]
 
 を既存 repository 事実として取得できることを確認した。
 
@@ -458,13 +458,13 @@ fallback を安全な type-name 表示へ変更した。
 
 既に数式表示可能な
 
-$$
+\[
 \pi_{18}^{11}=\mathbb Z/16\{\sigma_{11}\},
 \qquad
 \pi_{n+7}^{n}=\mathbb Z/16\{\sigma_n\},
 \qquad
 \pi_{16}^{9}=\mathbb Z/16\{\sigma_9\}
-$$
+\]
 
 はそのまま維持した。
 
