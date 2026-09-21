@@ -7,9 +7,6 @@ from repository_element_presentation import (
 from repository_generator_user_execution_presentation import (
   RepositoryGeneratorUserExecutionPresentation,
 )
-from toda_proof_narrative_renderer import (
-  render_toda_proof_statement_latex,
-)
 
 
 def _render_user_execution_statement(
@@ -25,16 +22,9 @@ def _render_user_execution_statement(
     TypeError,
     ValueError,
   ):
-    latex = (
-      render_toda_proof_statement_latex(
-        statement
-      )
+    return format_statement(
+      statement
     )
-
-    if latex is None:
-      return format_statement(
-        statement
-      )
 
   return (
     "$"
