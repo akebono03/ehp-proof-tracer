@@ -33,30 +33,19 @@ from toda_group_lookup import (
 )
 
 
-def _supports_proof_derived_finite_cyclic_ambient_group(
+def _is_phase109_12_nu5_generator(
   generator: GeneratorSymbol,
 ) -> bool:
-  return generator in (
-    GeneratorSymbol(
+  return (
+    generator
+    == GeneratorSymbol(
       family="ν",
       index=5,
-    ),
-    GeneratorSymbol(
-      family="σ",
-      decoration="'''",
-    ),
-    GeneratorSymbol(
-      family="σ",
-      decoration="''",
-    ),
-    GeneratorSymbol(
-      family="σ",
-      decoration="'",
-    ),
+    )
   )
 
 
-def _find_proof_derived_finite_cyclic_ambient_group_targets(
+def _find_phase109_12_proof_derived_ambient_group_targets(
   scope: RepositoryProofScopeResult,
   generator: GeneratorSymbol,
 ) -> tuple[
@@ -79,7 +68,7 @@ def _find_proof_derived_finite_cyclic_ambient_group_targets(
       "generator must be a GeneratorSymbol"
     )
 
-  if not _supports_proof_derived_finite_cyclic_ambient_group(
+  if not _is_phase109_12_nu5_generator(
     generator
   ):
     return ()
@@ -204,7 +193,7 @@ def find_repository_generator_known_group_identity_nodes(
     )
   else:
     targets = (
-      _find_proof_derived_finite_cyclic_ambient_group_targets(
+      _find_phase109_12_proof_derived_ambient_group_targets(
         scope,
         generator,
       )
