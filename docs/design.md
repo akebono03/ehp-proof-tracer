@@ -39,6 +39,11 @@ generic qualification != family-specific execution strategy
 family dispatch != theorem ranking
 production application recovery != arbitrary companion-premise search
 性能最適化 != 数学的意味論の変更
+user-facing target resolver != theorem ranking
+candidate number != mathematical priority
+presentation != proof object
+repository target goal equality != executed conclusion object identity
+CLI addressing != proof-graph internal addressing
 ```
 
 ---
@@ -74,14 +79,13 @@ generator 文字列
 → relevance-classified presentation
 ```
 
-multi-family qualified execution:
+qualified execution:
 
 ```text
 RepositoryGeneratorApplicabilityExplorationResult
 → all-qualified selection
 → execution-family grouping
-→ explicit root_entry + source_step + family_name selection
-→ representative
+→ root_entry + source_step + family_name selection
 → family-name dispatch
 ├─ 1-premise family
 │  → exact source seed
@@ -90,7 +94,21 @@ RepositoryGeneratorApplicabilityExplorationResult
    → exact production-application recovery
    → exact premise tuple seed
    → bounded execution
-→ actual ProofStep provenance
+→ actual executed ProofStep
+```
+
+user-facing execution:
+
+```text
+generator input
+→ executable-target resolver
+→ 0 / 1 / multiple target classification
+→ 1-based candidate selection
+→ qualified execution handoff
+→ final executed ProofStep extraction
+→ Result + Proof presentation
+→ Markdown
+→ execute CLI
 ```
 
 ---
@@ -119,6 +137,8 @@ repository_proof_scope_facade.py
 repository_proof_scope_applicability.py
 repository_generator_applicability_facade.py
 repository_generator_applicability_selection.py
+repository_generator_applicability_presentation.py
+repository_generator_applicability_renderer.py
 ```
 
 qualified execution:
@@ -135,6 +155,20 @@ repository_generator_qualified_execution_family.py
 repository_generator_qualified_execution_family_selection.py
 repository_generator_qualified_execution_dispatch.py
 repository_generator_standard_qualified_execution_facade.py
+```
+
+Phase 108 user-facing execution:
+
+```text
+repository_generator_user_execution_resolver.py
+repository_generator_user_execution_handoff.py
+repository_generator_user_execution_proof_step.py
+repository_generator_user_execution_presentation.py
+repository_generator_user_execution_renderer.py
+repository_generator_user_execution_facade.py
+repository_generator_user_execution_candidate_presentation.py
+repository_generator_user_execution_candidate_renderer.py
+main.py
 ```
 
 ---
@@ -165,7 +199,7 @@ execution は新しい inference result を構成できるが、元 repository �
 entries before == entries after
 ```
 
-必要な経路では `ProofStep` identity を保持する。
+必要な経路では既存 `ProofStep` identity を保持する。
 
 ---
 
@@ -212,61 +246,9 @@ READY 後に final rule を再選択しない。
 
 ---
 
-# 8. Phase 105 first-family boundary
+# 8. Phase 105–107 qualified-execution boundary
 
-最初の qualified family:
-
-```text
-toda_58_delta_iota9_nu4_nu_prime_inference_rule
-```
-
-clone candidate は raw catalog から除去せず execution layer で family grouping する。
-
-Phase 105 compatibility selection:
-
-```text
-root_entry identity
-+
-source_step identity
-```
-
-既存 first-family facade はそのまま維持する。
-
----
-
-# 9. Phase 106 performance boundary
-
-初期 `nu_prime` applicability:
-
-```text
-27.89 s / 274.10 MiB
-```
-
-full-scope candidates:
-
-```text
-797573
-```
-
-generator-relevant candidates:
-
-```text
-176616
-```
-
-generator-relevant scope prefilter 後:
-
-```text
-8.16 s / 62.42 MiB
-```
-
-candidate sequence / identity / provenance は保持された。
-
----
-
-# 10. Phase 107 generic qualification
-
-現在 admission 済み family:
+admission 済み family:
 
 ```text
 toda_58_delta_iota9_nu4_nu_prime_inference_rule
@@ -282,10 +264,6 @@ generic qualification
 
 既存 `first_qualified_*` API は Phase 105 compatibility path として残す。
 
----
-
-# 11. Exact production-application recovery
-
 multi-premise candidate から companion premise を任意探索しない。
 
 一致条件:
@@ -293,161 +271,204 @@ multi-premise candidate から companion premise を任意探索しない。
 ```text
 same root_entry identity
 same inference_rule identity
-target conclusion == caller-explicit goal
+target conclusion == explicit goal
 target premises[candidate premise_index] is candidate.source_step
 ```
 
-status:
+`UNIQUE` のときだけ exact `premises` tuple を利用する。
 
-```text
-NONE
-UNIQUE
-AMBIGUOUS
-```
-
-`UNIQUE` のときだけ target の exact `premises` tuple を利用する。
-
-first-match heuristic、cross-root companion search、goal 自動推定は禁止する。
+recovered premise tuple は同じ順序・同じ `ProofStep` identity のまま execution seed に使う。
 
 ---
 
-# 12. Exact multi-premise seed
+# 9. Phase 106 performance boundary
 
-recovered premise tuple を
+初期 `nu_prime` applicability:
 
 ```text
-同じ順序
-同じ ProofStep identity
+27.89 s / 274.10 MiB
 ```
 
-のまま temporary execution repository に登録する。
+generator-relevant scope prefilter 後:
 
-target step 自体は seed しない。
+```text
+8.16 s / 62.42 MiB
+```
 
-これにより、execution で導いた goal step は recovered premises を provenance として持つ。
+candidate sequence / identity / provenance は保持された。
 
 ---
 
-# 13. Family grouping / selection
+# 10. User-facing executable-target resolver
 
-grouping key は概念的に
+Phase 108 の resolver は generator input から **実行可能な target** を列挙する。
 
-```text
-scope_node identity
-source_step identity
-qualified family name
-premise_index
-bindings
-```
-
-multi-family selection contract:
+概念的な照合:
 
 ```text
 root_entry identity
 +
-source_step identity
+inference_rule identity
 +
-family_name
+candidate premise_index
++
+candidate source_step identity
+→ original target ProofStep
 ```
 
-proof object は identity (`is`) で照合し、family name は文字列値で照合する。
+一致 target が一意に定まる場合だけ user-facing executable target として採用する。
 
-unknown family は拒否する。
-
-automatic root/source/family ranking は行わない。
+resolver は theorem ranking を行わない。
 
 ---
 
-# 14. Family-name dispatch
+# 11. Ambiguity semantics
 
-dispatch key は premise 数ではなく semantic family identity とする。
+workflow status:
 
 ```text
-family 1
-→ execute_first_qualified_production_applicability_candidate()
-
-family 2
-→ execute_second_qualified_production_applicability_candidate()
-→ exact two-premise integration
+NONE
+AMBIGUOUS
+EXECUTED
 ```
 
-premise count で推測しない。
+規則:
 
-generic qualification に family が増えても dispatch strategy がなければ明示的に失敗させる。
+```text
+0 executable targets
+→ NONE
+
+1 executable target + candidate_number omitted
+→ automatic execution
+
+multiple executable targets + candidate_number omitted
+→ AMBIGUOUS
+
+candidate_number supplied
+→ select that one-based target
+```
+
+複数候補で「先頭を自動採用」はしない。
+
+`candidate_number` は表示順に対応する 1-based addressing であり、数学的優先度を意味しない。
 
 ---
 
-# 15. Standard multi-family facade
+# 12. Executed final ProofStep boundary
 
-Phase 105 compatibility facade:
+Phase 108 は repository 側の original target step を presentation しない。
+
+実際に bounded execution が生成した
 
 ```text
-execute_standard_repository_generator_applicability_result_by_root_and_source(
-  applicability_result,
-  root_entry,
-  source_step,
-  goal,
+repository_inference_result.goal_step
+```
+
+を final executed `ProofStep` として取り出す。
+
+重要:
+
+```text
+executed goal_step
+is not necessarily original repository target_step
+```
+
+ただし
+
+```text
+executed goal_step.conclusion == selected target goal
+```
+
+である。
+
+presentation は
+
+```text
+presentation.conclusion
+is executed proof_step.conclusion
+```
+
+を保持する。
+
+repository target goal とは object identity ではなく equality で対応する。
+
+---
+
+# 13. Minimal Result + Proof presentation
+
+通常表示の対象:
+
+```text
+final conclusion
+direct premises
+rule
+conclusion
+```
+
+表示しない内部情報:
+
+```text
+root key
+catalog key
+bindings
+internal family addressing
+```
+
+default proof depth は direct premises の 1 段。
+
+再帰的 proof tree の完全表示は Phase 108 では行わない。
+
+---
+
+# 14. Executable candidate-list presentation
+
+`AMBIGUOUS` のとき:
+
+```text
+# Executable candidates
+
+1. <mathematical target>
+2. <mathematical target>
+...
+
+Select a candidate number to execute.
+```
+
+resolver の target 順をそのまま保持する。
+
+同じ数学的 conclusion が複数 target に現れる可能性があっても、Phase 108 は勝手に deduplicate / rank しない。
+
+---
+
+# 15. User execution workflow facade
+
+entry point:
+
+```text
+run_standard_repository_generator_user_execution_workflow(
+  generator_input,
+  candidate_number=None,
   max_depth=2,
   retry_policy=None,
 )
 ```
 
-Phase 107 multi-family facade:
+identity chain:
 
 ```text
-execute_standard_repository_generator_applicability_result_by_root_source_and_family(
-  applicability_result,
-  root_entry,
-  source_step,
-  family_name,
-  goal,
-  max_depth=2,
-  retry_policy=None,
-)
+resolution
+→ selected target
+→ execution_result
+→ proof_result
+→ presentation
+→ markdown
 ```
 
-新 facade は
-
-```text
-select_all_qualified...
-→ group...
-→ root/source/family selection
-→ dispatch
-```
-
-を接続する。
-
-generator 文字列から proof graph を作り直さず、同じ applicability result graph の identity を使う。
+各 layer は同一 workflow 内で前段 object identity を保持する。
 
 ---
 
-# 16. Goal boundary
-
-Phase 107 closure 時点でも `goal` は caller-explicit。
-
-未実装:
-
-```text
-candidate から goal 自動推定
-unknown RHS target search
-複数 goal ranking
-```
-
-multi-family execution に不要だったため実装しない。
-
----
-
-# 17. `nu_prime` exploration visibility
-
-standard generator applicability は指定 generator occurrence を含む source node だけを candidate source とする。
-
-family 2 の companion premise が `nu_prime` を含まない場合、その premise 側 candidate は `nu_prime` exploration に現れない。
-
-companion premise は exact production-application recovery から得る。
-
----
-
-# 18. CLI boundary
+# 16. CLI boundary
 
 現行:
 
@@ -457,72 +478,112 @@ python main.py explore "nu'"
 python main.py explore-proof nu_prime
 python main.py explore-applicable nu_prime
 python main.py explore-applicable nu_prime --detailed
+python main.py execute nu_prime
+python main.py execute nu_prime --candidate 1
 ```
 
-Phase 107 は execution CLI を追加しない。
+`execute`:
 
-CLI 化には proof object identity の addressing / serialization 設計が必要であり、別問題である。
+```text
+NONE
+→ message + exit 1
+
+AMBIGUOUS
+→ candidate list + exit 0
+
+EXECUTED
+→ Result + Proof + exit 0
+
+invalid generator / candidate
+→ argparse error + exit 2
+```
+
+---
+
+# 17. Windows UTF-8 CLI boundary
+
+Windows の既定 CP932 では `η₂`、`ν₄` などの Unicode 数学文字を stdout に出力できない場合がある。
+
+実プロセス CLI のみ
+
+```text
+sys.stdout.reconfigure(encoding="utf-8")
+sys.stderr.reconfigure(encoding="utf-8")
+```
+
+相当の設定を行う。
+
+`main(...)` を直接呼ぶ既存 in-process pytest の capture stream は変更しない。
+
+---
+
+# 18. Phase 108 closure tests
+
+end-to-end subprocess smoke:
+
+```text
+python main.py execute nu_prime
+python main.py execute nu_prime --candidate 1
+python main.py execute nu_prime --candidate 2
+```
+
+確認:
+
+```text
+3 passed in 21.55s
+```
+
+Phase 108 focused regression:
+
+```text
+64 passed in 67.18s
+```
+
+repository-wide:
+
+```text
+8850 passed in 380.25s
+```
 
 ---
 
 # 19. Deferred capabilities
 
 ```text
-automatic root/source/family selection
-automatic goal discovery
-shortest-depth / theorem ranking
-producer ranking
+semantic auto-selection among multiple executable targets
+theorem ranking
 proof-cost optimization
-general backtracking
+producer ranking
+general unbounded backtracking
 persistent cache / parallelization
 repository snapshot / versioning
-execution addressing / serialization
-execution CLI
-execution-result presentation
-third family without new pressure
+stale-search-report detection
+third qualified family without new production pressure
 general Toda-bracket solver
 general composition / E / H / Δ evaluator
+coset / indeterminacy computation
+broader unstable stems
 odd-primary full integration
 all-primary ordinary sphere-homotopy calculation
+Web UI
 ```
 
 ---
 
-# 20. Closure baselines
+# 20. 次 Phase との境界
+
+Phase 108 の user-facing execution path は完了。
+
+次 Phase は automatic selection や additional family を自動的に実装しない。
+
+まず operational audit により
 
 ```text
-Phase 103:
-409 passed in 186.07s
-
-Phase 104:
-8644 passed in 374.63s
-
-Phase 105:
-8709 passed in 659.02s
-
-Phase 106:
-8712 passed in 337.86s
-
-Phase 107:
-8783 passed in 290.63s
+どの generator が executable target を持つか
+どの family が実運用可能か
+NONE / AMBIGUOUS / EXECUTED の分布
+追加 family の実需要
+表示や性能の新しい圧力
 ```
 
-Phase 107 focused confirmations:
-
-```text
-Phase 107-18:
-10 passed in 13.69s
-
-Phase 107-16 dispatch:
-10 passed in 1.71s
-```
-
-Phase 107 は完了。
-
----
-
-# 21. 次 Phase との境界
-
-Phase 107 で保留した機能を機械的に実装しない。
-
-次 Phase は、新しい数学的対象、additional qualified family、user-facing addressing、goal discovery、presentation のいずれに実需要があるかを pressure audit してから開始する。
+を確認する。
