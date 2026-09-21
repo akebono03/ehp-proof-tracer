@@ -40,26 +40,6 @@ from toda_calculation_result import (
 )
 
 
-def _configure_cli_utf8_streams(
-) -> None:
-  for stream in (
-    sys.stdout,
-    sys.stderr,
-  ):
-    reconfigure = getattr(
-      stream,
-      "reconfigure",
-      None,
-    )
-
-    if reconfigure is None:
-      continue
-
-    reconfigure(
-      encoding="utf-8",
-    )
-
-
 def _parse_positive_int(
   value: str,
 ) -> int:
@@ -533,8 +513,6 @@ def main(
 
 
 if __name__ == "__main__":
-  _configure_cli_utf8_streams()
-
   raise SystemExit(
     main()
   )
