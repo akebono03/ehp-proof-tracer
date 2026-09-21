@@ -10,6 +10,10 @@ from repository_operation_query_lookup import (
   RepositoryOperationQueryResult,
   query_repository_operation,
 )
+from repository_sigma11_suspension_specialization import (
+  is_sigma11_suspension_operation_query,
+  query_sigma11_suspension_handoff,
+)
 from standard_production_repository import (
   build_standard_production_proof_repository,
 )
@@ -31,15 +35,23 @@ def query_repository_operation_input(
   if direct_result.found:
     return direct_result
 
-  if not is_nu5_stable_bridge_operation_query(
+  if is_nu5_stable_bridge_operation_query(
     query
   ):
-    return direct_result
+    return query_nu5_stable_bridge_handoff(
+      repository,
+      query,
+    )
 
-  return query_nu5_stable_bridge_handoff(
-    repository,
-    query,
-  )
+  if is_sigma11_suspension_operation_query(
+    query
+  ):
+    return query_sigma11_suspension_handoff(
+      repository,
+      query,
+    )
+
+  return direct_result
 
 
 def query_standard_repository_operation_input(

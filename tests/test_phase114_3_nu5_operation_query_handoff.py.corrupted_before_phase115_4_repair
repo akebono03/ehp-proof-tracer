@@ -1,10 +1,7 @@
-from expression import (
+﻿from expression import (
   GeneratorSymbol,
   IteratedSuspension,
   Suspension,
-)
-from generator_input import (
-  resolve_generator_input,
 )
 from proof import (
   ProofRule,
@@ -87,16 +84,18 @@ def test_phase114_3_facade_handoff_derives_e_nu5_equals_nu6():
 
   assert all(
     match.statement.lhs.expression.generator
-    == resolve_generator_input(
-      "nu_5"
+    == GeneratorSymbol(
+      family="ﾎｽ",
+      index=5,
     )
     for match in result.matches
   )
 
   assert all(
     match.statement.rhs.generator
-    == resolve_generator_input(
-      "nu_6"
+    == GeneratorSymbol(
+      family="ﾎｽ",
+      index=6,
     )
     for match in result.matches
   )
@@ -142,8 +141,9 @@ def test_phase114_3_handoff_preserves_symbolic_bridge_as_provenance():
     symbolic_step.conclusion.lhs
     .expression
     .generator
-    == resolve_generator_input(
-      "nu_5"
+    == GeneratorSymbol(
+      family="ﾎｽ",
+      index=5,
     )
   )
 
@@ -353,3 +353,4 @@ def test_phase114_4_four_term_composition_parser_boundary_is_unchanged():
     raise AssertionError(
       "four-term composition must remain out of scope"
     )
+
