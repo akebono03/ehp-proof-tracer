@@ -1,14 +1,4 @@
-from expression import GeneratorSymbol
-from proof_repository import (
-  ProofRepository,
-  ProofRepositoryEntry,
-)
-from repository_proof_scope import (
-  build_repository_proof_scope,
-)
-from repository_symbolic_sigma_specialization import (
-  specialize_repository_proof_scope_for_generator,
-)
+from proof_repository import ProofRepository
 from toda_calculation_goal_discovery import (
   discover_concrete_toda_calculation_goal_candidates,
 )
@@ -24,79 +14,8 @@ from toda_explanation import (
 )
 from toda_group_lookup import (
   find_normalized_toda_group_results,
-  is_toda_group_result_for_target,
 )
 from toda_group_query import TodaGroupQuery
-from toda_group_result import (
-  normalize_toda_group_result,
-)
-
-
-def _find_specialized_sigma_toda_group_results(
-  repository: ProofRepository,
-  query: TodaGroupQuery,
-):
-  if query.k != 7:
-    return ()
-
-  if query.n < 10:
-    return ()
-
-  scope = build_repository_proof_scope(
-    repository
-  )
-
-  specialized_scope = (
-    specialize_repository_proof_scope_for_generator(
-      scope,
-      GeneratorSymbol(
-        family="σ",
-        index=query.n,
-      ),
-    )
-  )
-
-  if specialized_scope is scope:
-    return ()
-
-  added_nodes = (
-    specialized_scope.nodes[
-      len(
-        scope.nodes
-      ):
-    ]
-  )
-
-  results = []
-
-  for node in added_nodes:
-    if not is_toda_group_result_for_target(
-      node.proof_step.conclusion,
-      query.target,
-    ):
-      continue
-
-    source_entry = node.root_entry
-
-    specialized_entry = ProofRepositoryEntry(
-      key=(
-        f"{source_entry.key}::"
-        f"sigma_{query.n}_specialization"
-      ),
-      step=node.proof_step,
-      phase=source_entry.phase,
-      theorem=source_entry.theorem,
-    )
-
-    results.append(
-      normalize_toda_group_result(
-        specialized_entry
-      )
-    )
-
-  return tuple(
-    results
-  )
 
 
 def build_known_toda_calculation_result(
@@ -109,14 +28,6 @@ def build_known_toda_calculation_result(
       query,
     )
   )
-
-  if not group_results:
-    group_results = (
-      _find_specialized_sigma_toda_group_results(
-        repository,
-        query,
-      )
-    )
 
   candidates = tuple(
     TodaCalculationCandidate(
