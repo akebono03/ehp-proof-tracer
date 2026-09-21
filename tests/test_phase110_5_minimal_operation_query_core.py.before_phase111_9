@@ -134,6 +134,7 @@ def test_phase110_5_parses_composition_query():
     "h(nu_prime)",
     "Delta(iota_9",
     "H(H(nu_prime))",
+    "eta_2 o nu_prime o eta_6",
     "eta_2 ∘ nu_prime",
   ),
 )

@@ -320,8 +320,7 @@ def build_query_argument_parser(
     help=(
       "operation query such as H(nu_prime), "
       "Delta(iota_9), E(eta_2 o nu_prime), "
-      "eta_2 o nu_prime, or "
-      "eta_2 o nu_prime o eta_6"
+      "or eta_2 o nu_prime"
     ),
   )
 
@@ -343,8 +342,7 @@ def build_query_proof_argument_parser(
     help=(
       "operation query such as H(nu_prime), "
       "Delta(iota_9), E(eta_2 o nu_prime), "
-      "eta_2 o nu_prime, or "
-      "eta_2 o nu_prime o eta_6"
+      "or eta_2 o nu_prime"
     ),
   )
 

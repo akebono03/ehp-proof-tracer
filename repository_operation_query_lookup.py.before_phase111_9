@@ -27,7 +27,6 @@ from repository_operation_query import (
   RepositoryMapOperationQuery,
   RepositoryOperationOperand,
   RepositoryOperationQuery,
-  RepositoryThreeTermCompositionQuery,
 )
 from repository_proof_scope import (
   RepositoryProofScopeNode,
@@ -107,7 +106,6 @@ class RepositoryOperationQueryResult:
       (
         RepositoryMapOperationQuery,
         RepositoryCompositionQuery,
-        RepositoryThreeTermCompositionQuery,
       ),
     ):
       raise TypeError(
@@ -184,38 +182,6 @@ def _matches_composition_query(
     and _matches_generator_query(
       value.right,
       query.right,
-    )
-  )
-
-
-def _matches_three_term_composition_query(
-  value,
-  query: RepositoryThreeTermCompositionQuery,
-) -> bool:
-  if not isinstance(
-    value,
-    Composition,
-  ):
-    return False
-
-  if not isinstance(
-    value.right,
-    Composition,
-  ):
-    return False
-
-  return (
-    _matches_generator_query(
-      value.left,
-      query.first,
-    )
-    and _matches_generator_query(
-      value.right.left,
-      query.second,
-    )
-    and _matches_generator_query(
-      value.right.right,
-      query.third,
     )
   )
 
@@ -314,88 +280,6 @@ def _contains_composition_query(
 
     return any(
       _contains_composition_query(
-        getattr(
-          value,
-          field.name,
-        ),
-        query,
-        next_ancestor_ids,
-      )
-      for field in fields(
-        value
-      )
-    )
-
-  return False
-
-
-def _contains_three_term_composition_query(
-  value,
-  query: RepositoryThreeTermCompositionQuery,
-  ancestor_ids: frozenset[int] = frozenset(),
-) -> bool:
-  if _matches_three_term_composition_query(
-    value,
-    query,
-  ):
-    return True
-
-  if isinstance(
-    value,
-    tuple,
-  ):
-    value_id = id(
-      value
-    )
-
-    if value_id in ancestor_ids:
-      return False
-
-    next_ancestor_ids = (
-      ancestor_ids
-      | frozenset(
-        (
-          value_id,
-        )
-      )
-    )
-
-    return any(
-      _contains_three_term_composition_query(
-        item,
-        query,
-        next_ancestor_ids,
-      )
-      for item in value
-    )
-
-  if (
-    is_dataclass(
-      value
-    )
-    and not isinstance(
-      value,
-      type,
-    )
-  ):
-    value_id = id(
-      value
-    )
-
-    if value_id in ancestor_ids:
-      return False
-
-    next_ancestor_ids = (
-      ancestor_ids
-      | frozenset(
-        (
-          value_id,
-        )
-      )
-    )
-
-    return any(
-      _contains_three_term_composition_query(
         getattr(
           value,
           field.name,
@@ -621,42 +505,6 @@ def _find_composition_matches(
   )
 
 
-def _find_three_term_composition_matches(
-  scope,
-  query: RepositoryThreeTermCompositionQuery,
-) -> tuple[
-  RepositoryOperationQueryMatch,
-  ...,
-]:
-  results = []
-
-  for node in scope.nodes:
-    statement = (
-      node.proof_step.conclusion
-    )
-
-    if not _contains_three_term_composition_query(
-      statement,
-      query,
-    ):
-      continue
-
-    results.append(
-      RepositoryOperationQueryMatch(
-        scope_node=node,
-        statement=statement,
-        match_kind=(
-          RepositoryOperationQueryMatchKind
-          .COMPOSITION_CONTAINMENT
-        ),
-      )
-    )
-
-  return tuple(
-    results
-  )
-
-
 def query_repository_operation(
   repository: ProofRepository,
   query: RepositoryOperationQuery,
@@ -674,7 +522,6 @@ def query_repository_operation(
     (
       RepositoryMapOperationQuery,
       RepositoryCompositionQuery,
-      RepositoryThreeTermCompositionQuery,
     ),
   ):
     raise TypeError(
@@ -690,15 +537,6 @@ def query_repository_operation(
     RepositoryCompositionQuery,
   ):
     matches = _find_composition_matches(
-      scope,
-      query,
-    )
-
-  elif isinstance(
-    query,
-    RepositoryThreeTermCompositionQuery,
-  ):
-    matches = _find_three_term_composition_matches(
       scope,
       query,
     )
