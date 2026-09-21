@@ -506,6 +506,8 @@ docs/code_reference.md
 docs/proof_records.md
 ```
 
+次の Phase 112 は Phase 111 で defer した小粒な CLI grammar 項目を機械的に実装するのではなく、現在の CLI を実際の数学的問い合わせ・証明探索へ使った際の capability / workflow pressure を監査して開始する。
+
 ## Phase 112
 
 Phase 112 は、Phase 111 で defer した syntax 項目を機械的に実装せず、現在の CLI を実際の数学的 workflow で使った際の capability pressure を監査した。
@@ -685,7 +687,9 @@ python -m pytest -q
 
 Phase 113 は完了。
 
-### Phase 113 後の運用方針（当時）
+---
+
+# Phase 113 後の運用方針
 
 次候補 Phase 114 は、general evaluator を作るのではなく、
 
@@ -693,7 +697,7 @@ $$
 E(\nu_5)=\nu_6
 $$
 
-のような既存 inference capability を operation query へ最小 handoff できるかを扱う方針とした。
+のような既存 inference capability を operation query へ最小 handoff できるかを扱う。
 
 ```text
 direct lookup first
@@ -702,186 +706,4 @@ direct lookup first
 → provenance 保持
 ```
 
-## Phase 114
-
-Phase 114 は Phase 112 で確認した `E(nu_5)` の lookup miss を、general evaluator ではなく既存 symbolic inference への最小 handoff として解消した。
-
-### Phase 114-1: existing inference path audit
-
-Phase 65 の既存 production proof に
-
-$$
-E^{n-5}\nu_5=\nu_n
-$$
-
-が存在し、
-
-```text
-toda_prop56_higher_nu_family_bridge_inference_rule()
-```
-
-によって構築されていることを確認した。
-
-既存 bridge の provenance は
-
-```text
-nu_5 definition
-nu_n definition
-n >= 6
-```
-
-を保持している。
-
-したがって $n=6$ では
-
-$$
-E(\nu_5)=\nu_6
-$$
-
-を既存数学から得られることを確認した。
-
-新しい定理規則は不要と判定した。
-
-### Phase 114-2: minimal handoff design audit
-
-operation query の既存意味論を維持するため、
-
-```text
-query
-→ direct lookup
-→ hit なら従来結果
-→ miss
-→ exact E(nu_5) guard
-→ theorem-specific concrete specialization
-→ result + provenance
-```
-
-とする設計を採用した。
-
-一般 `repository_inference.py` を query miss 全般に接続しない。
-
-Phase 109 の $\sigma_n$ specialization と同様に、
-
-```text
-concrete ProofStep
-→ premise: existing symbolic ProofStep
-```
-
-という provenance-preserving specialization を用いる。
-
-### Phase 114-3: `E(nu_5)` minimal handoff implementation
-
-追加:
-
-```text
-repository_nu5_stable_bridge_specialization.py
-```
-
-変更:
-
-```text
-repository_operation_query_facade.py
-```
-
-direct lookup の結果がある場合は必ずそのまま返す。
-
-direct miss かつ exact `E(nu_5)` の場合のみ、
-
-$$
-E(\nu_5)=\nu_6
-$$
-
-の concrete `ProofStep` を生成する。
-
-concrete step の direct premise は既存 symbolic bridge である。
-
-`repository_operation_query_lookup.py`、`repository_operation_query_proof_replay.py`、`main.py` は変更しなかった。
-
-focused tests:
-
-```text
-9 passed
-```
-
-Phase 110 operation-query / proof replay regression:
-
-```text
-24 passed
-```
-
-CLI:
-
-```text
-python main.py query "E(nu_5)"
-→ Eν_5 = ν_6
-
-python main.py query-proof "E(nu_5)"
-→ concrete specialization
-→ symbolic Proposition 5.6 bridge
-
-python main.py query-proof "E(nu_5)" --depth 2
-→ ν_5 definition
-→ ν_n definition
-→ n >= 6
-```
-
-### Phase 114-4: minimal handoff regression / boundary audit
-
-production code は追加変更せず、境界テストを拡張した。
-
-固定した境界:
-
-```text
-direct E fact は優先
-direct H fact は優先
-direct Delta fact は優先
-H(nu_5) には拡張しない
-Delta(nu_5) には拡張しない
-E(nu_6) には拡張しない
-E(sigma_11) には拡張しない
-E(nu_5 o eta_8) には拡張しない
-三項 map-operation operand は parser boundary のまま
-四項 composition は parser boundary のまま
-repository は非変更
-```
-
-Phase 114 focused boundary tests:
-
-```text
-16 passed
-```
-
-Phase 110 / 111 / 114 関連回帰:
-
-```text
-60 passed
-```
-
-repository 全体 regression:
-
-```text
-python -m pytest -q
-9097 passed in 449.47s (0:07:29)
-```
-
-Phase 114 は完了。
-
-### Phase 114 後の残件
-
-symbolic bridge の表示が
-
-```text
-E^{n + -1\,5}ν_5 = ν_n
-```
-
-となる箇所がある。
-
-数学的内容は
-
-$$
-E^{n-5}\nu_5=\nu_n
-$$
-
-であり、これは Phase 114 の inference handoff ではなく scalar LaTeX presentation の残件として分離する。
-
-次 Phase は Phase 114 の handoff を機械的に一般化せず、残存する operation / workflow pressure を再監査して最小の次対象を選ぶ。
+を基本境界とする。

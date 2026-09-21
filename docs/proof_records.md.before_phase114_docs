@@ -442,7 +442,7 @@ $$
 E(\nu_5)=\nu_6.
 $$
 
-Phase 112 時点では `query` がその symbolic inference を起動せず lookup で停止していた。
+ただし現行 `query` はその symbolic inference を起動せず lookup で停止する。
 
 このため、
 
@@ -580,96 +580,6 @@ full regression:
 
 Phase 113 は完了。
 
-## Phase 114 `E(nu_5)` existing-inference handoff provenance
-
-Phase 114 は新しい独立 theorem root や general operation evaluator を追加していない。
-
-既存 Toda Proposition 5.6 の symbolic bridge:
-
-$$
-E^{n-5}\nu_5=\nu_n,
-\qquad n\ge 6
-$$
-
-を再利用する。
-
-$n=6$ に限定して、
-
-$$
-E(\nu_5)=\nu_6
-$$
-
-を concrete `ProofStep` として構成する。
-
-provenance:
-
-```text
-concrete E(nu_5) = nu_6 step
-→ symbolic E^(n-5)nu_5 = nu_n bridge
-→ nu_5 definition
-→ nu_n definition
-→ n >= 6
-```
-
-concrete step の rule は inference であり、direct premise は existing symbolic bridge である。
-
-したがって:
-
-```text
-concrete specialization
-!= new theorem root
-!= general E evaluator
-!= arbitrary symbolic substitution
-```
-
-operation-query handoff:
-
-```text
-query
-→ direct lookup
-→ direct hit なら既存結果
-→ miss
-→ exact E(nu_5) guard
-→ concrete specialization
-→ query / query-proof
-```
-
-重要な boundary:
-
-```text
-direct lookup has priority
-H(nu_5) は対象外
-Delta(nu_5) は対象外
-E(nu_6) は対象外
-E(sigma_11) は対象外
-E(nu_5 o eta_8) は対象外
-三項 map-operation operand は対象外
-四項 composition は対象外
-repository roots は変更しない
-```
-
-query-proof は concrete fact 自身の `ProofStep` を root とし、既存 symbolic bridge を ancestry として再生する。
-
-focused boundary tests:
-
-```text
-16 passed
-```
-
-Phase 110 / 111 / 114 関連回帰:
-
-```text
-60 passed
-```
-
-full regression:
-
-```text
-9097 passed in 449.47s (0:07:29)
-```
-
-Phase 114 は完了。
-
 ---
 
 # 記録原則
@@ -709,8 +619,6 @@ three-term query != composition evaluator
 safe type-name fallback != 推測した定理 branch
 LOOKUP_MISS != evaluator required
 TodaGroupQuery specialization reuse != new theorem
-limited operation handoff != general query inference
-theorem-specific concrete specialization != general evaluator
 ```
 
 既存記録は原則として削除せず、確定した意味論訂正がある場合のみ訂正する。
