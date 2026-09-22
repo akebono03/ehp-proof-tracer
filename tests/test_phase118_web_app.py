@@ -239,3 +239,212 @@ def test_phase118_2_existing_group_query_remains_available():
     rb"\mathbb{Z}/16\{\sigma_{11}\}"
     in response.data
   )
+
+
+def test_phase118_3_operation_results_have_explicit_proof_selection():
+  client = _build_test_client()
+
+  response = client.post(
+    "/",
+    data={
+      "form_kind": "operation",
+      "operation_query": (
+        "H(nu_prime)"
+      ),
+    },
+  )
+
+  assert response.status_code == 200
+
+  assert (
+    response.data.count(
+      b'value="operation_proof"'
+    )
+    == 2
+  )
+
+  assert (
+    b'name="fact_number"'
+    in response.data
+  )
+
+  assert (
+    b'value="1"'
+    in response.data
+  )
+
+  assert (
+    b'value="2"'
+    in response.data
+  )
+
+
+def test_phase118_3_selected_h_nu_prime_fact_two_shows_proof():
+  client = _build_test_client()
+
+  response = client.post(
+    "/",
+    data={
+      "form_kind": "operation_proof",
+      "operation_query": (
+        "H(nu_prime)"
+      ),
+      "fact_number": "2",
+    },
+  )
+
+  assert response.status_code == 200
+
+  assert (
+    b"Query proof"
+    in response.data
+  )
+
+  assert (
+    b'id="operation-proof-conclusion"'
+    in response.data
+  )
+
+  assert (
+    rb"H\left(\nu&#39;\right) = E^{2}\eta_{3}"
+    in response.data
+  )
+
+
+def test_phase118_3_selected_fact_displays_provenance():
+  client = _build_test_client()
+
+  response = client.post(
+    "/",
+    data={
+      "form_kind": "operation_proof",
+      "operation_query": (
+        "H(nu_prime)"
+      ),
+      "fact_number": "1",
+    },
+  )
+
+  assert response.status_code == 200
+
+  assert (
+    b"Toda Proposition 5.6"
+    in response.data
+  )
+
+  assert (
+    b"Phase"
+    in response.data
+  )
+
+  assert (
+    b"65"
+    in response.data
+  )
+
+  assert (
+    b"repository depth"
+    in response.data
+  )
+
+
+def test_phase118_3_selected_fact_displays_default_depth_proof_steps():
+  client = _build_test_client()
+
+  response = client.post(
+    "/",
+    data={
+      "form_kind": "operation_proof",
+      "operation_query": (
+        "E(nu_5)"
+      ),
+      "fact_number": "1",
+    },
+  )
+
+  assert response.status_code == 200
+
+  assert (
+    b'class="operation-proof-step"'
+    in response.data
+  )
+
+  assert (
+    b"Depth 0"
+    in response.data
+  )
+
+  assert (
+    b"Depth 1"
+    in response.data
+  )
+
+
+def test_phase118_3_e_sigma11_proof_uses_existing_latex():
+  client = _build_test_client()
+
+  response = client.post(
+    "/",
+    data={
+      "form_kind": "operation_proof",
+      "operation_query": (
+        "E(sigma_11)"
+      ),
+      "fact_number": "1",
+    },
+  )
+
+  assert response.status_code == 200
+
+  assert (
+    rb"\sigma_{11}"
+    in response.data
+  )
+
+  assert (
+    rb"\sigma_{12}"
+    in response.data
+  )
+
+
+def test_phase118_3_invalid_fact_number_is_safe_error():
+  client = _build_test_client()
+
+  response = client.post(
+    "/",
+    data={
+      "form_kind": "operation_proof",
+      "operation_query": (
+        "H(nu_prime)"
+      ),
+      "fact_number": "3",
+    },
+  )
+
+  assert response.status_code == 200
+
+  assert (
+    b"fact_number exceeds repository fact count"
+    in response.data
+  )
+
+
+def test_phase118_3_missing_fact_number_is_safe_error():
+  client = _build_test_client()
+
+  response = client.post(
+    "/",
+    data={
+      "form_kind": "operation_proof",
+      "operation_query": (
+        "H(nu_prime)"
+      ),
+    },
+  )
+
+  assert response.status_code == 200
+
+  assert (
+    b"fact_number is required"
+    in response.data
+  )

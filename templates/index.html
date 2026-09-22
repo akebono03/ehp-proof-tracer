@@ -174,10 +174,104 @@
                   Provenance entries:
                   {{ item.provenance_count }}
                 </p>
+
+                <form method="post">
+                  <input
+                    type="hidden"
+                    name="form_kind"
+                    value="operation_proof"
+                  >
+                  <input
+                    type="hidden"
+                    name="operation_query"
+                    value="{{ operation_query_view.query_input }}"
+                  >
+                  <input
+                    type="hidden"
+                    name="fact_number"
+                    value="{{ loop.index }}"
+                  >
+                  <button type="submit">
+                    Show proof
+                  </button>
+                </form>
               </li>
             {% endfor %}
           </ol>
         {% endif %}
+      </section>
+    {% endif %}
+
+    {% if operation_query_proof_view %}
+      <section
+        aria-labelledby="operation-proof-heading"
+      >
+        <h2 id="operation-proof-heading">
+          Query proof
+        </h2>
+
+        <h3>
+          Conclusion
+        </h3>
+
+        <div
+          id="operation-proof-conclusion"
+          data-latex="{{ operation_query_proof_view.conclusion_latex }}"
+        >{{ operation_query_proof_view.conclusion_latex }}</div>
+
+        <h3>
+          Provenance
+        </h3>
+
+        {% if operation_query_proof_view.provenance.theorem %}
+          <p>
+            {{ operation_query_proof_view.provenance.theorem }}
+            {% if operation_query_proof_view.provenance.phase %}
+              — Phase
+              {{ operation_query_proof_view.provenance.phase }}
+            {% endif %}
+            — repository depth
+            {{ operation_query_proof_view.provenance.depth }}
+          </p>
+        {% else %}
+          <p>
+            {{ operation_query_proof_view.provenance.key }}
+            — repository depth
+            {{ operation_query_proof_view.provenance.depth }}
+          </p>
+        {% endif %}
+
+        <h3>
+          Proof
+        </h3>
+
+        <ol>
+          {% for step in operation_query_proof_view.steps %}
+            <li class="operation-proof-step">
+              <p>
+                Depth {{ step.depth }}
+              </p>
+
+              {% if step.statement_latex %}
+                <div
+                  class="operation-proof-step-math"
+                  data-latex="{{ step.statement_latex }}"
+                >{{ step.statement_latex }}</div>
+              {% else %}
+                <p>
+                  <code>
+                    {{ step.fallback_type_name }}
+                  </code>
+                </p>
+              {% endif %}
+
+              <p>
+                Rule:
+                {{ step.rule_name }}
+              </p>
+            </li>
+          {% endfor %}
+        </ol>
       </section>
     {% endif %}
   </main>

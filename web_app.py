@@ -12,6 +12,10 @@ from web_operation_query import (
   WebOperationQueryView,
   build_standard_web_operation_query_view,
 )
+from web_operation_query_proof import (
+  WebOperationQueryProofView,
+  build_standard_web_operation_query_proof_view,
+)
 
 
 def _parse_integer_form_value(
@@ -73,6 +77,10 @@ def create_app(
       WebOperationQueryView
       | None
     ) = None
+    operation_query_proof_view: (
+      WebOperationQueryProofView
+      | None
+    ) = None
     error_message: str | None = None
 
     if request.method == "POST":
@@ -81,6 +89,22 @@ def create_app(
           operation_query_view = (
             build_standard_web_operation_query_view(
               operation_query_value
+            )
+          )
+        elif form_kind == "operation_proof":
+          fact_number = (
+            _parse_integer_form_value(
+              request.form.get(
+                "fact_number"
+              ),
+              "fact_number",
+            )
+          )
+
+          operation_query_proof_view = (
+            build_standard_web_operation_query_proof_view(
+              operation_query_value,
+              fact_number,
             )
           )
         else:
@@ -117,6 +141,9 @@ def create_app(
       view=view,
       operation_query_view=(
         operation_query_view
+      ),
+      operation_query_proof_view=(
+        operation_query_proof_view
       ),
       error_message=error_message,
     )
