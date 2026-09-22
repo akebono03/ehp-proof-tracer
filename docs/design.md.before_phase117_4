@@ -39,16 +39,13 @@ TodaGroupQuery specialization reuse != 新しい定理 root
 LOOKUP_MISS != evaluator 不足の確定
 expression occurrence != operation result
 related mathematics exists != reusable operation relation exists
-Web UI != 新しい数学エンジン
-TeX rendering != 数学的 normalization
-HTML validation != 数学的 domain validation
 ```
 
 ---
 
 # 2. 現在の主要経路
 
-## Toda group calculation
+計算:
 
 ```text
 ProofRepository
@@ -57,26 +54,10 @@ ProofRepository
 → 必要なら限定的 theorem-specific specialization
 → group result
 → proof / EHP provenance
-→ structured presentation
 → report
 ```
 
-## Web group query
-
-```text
-browser form
-→ Flask route
-→ Web group-query adapter
-→ build_standard_toda_report(n,k)
-→ structured group presentation
-→ render_toda_group_result_latex(...)
-→ Jinja template
-→ KaTeX
-```
-
-Web UI は CLI 出力文字列や Markdown を再解析しない。
-
-## 生成元探索
+生成元探索:
 
 ```text
 generator input
@@ -86,7 +67,7 @@ generator input
 → occurrence / applicability
 ```
 
-## known-group replay
+known-group replay:
 
 ```text
 generator
@@ -96,7 +77,7 @@ generator
 → show-proof
 ```
 
-## operation query
+operation query:
 
 ```text
 query string
@@ -108,7 +89,7 @@ query string
 → query
 ```
 
-基本意味論:
+現在の基本意味論:
 
 ```text
 direct lookup first
@@ -136,18 +117,6 @@ toda_group_result.py
 toda_calculation.py
 toda_calculation_facade.py
 toda_calculation_report.py
-toda_calculation_report_result.py
-toda_end_to_end_presentation.py
-toda_human_readable_renderer.py
-```
-
-Web group query:
-
-```text
-web_group_query.py
-web_app.py
-templates/index.html
-static/web_math.js
 ```
 
 proof scope / specialization:
@@ -168,7 +137,6 @@ repository_operation_query_lookup.py
 repository_operation_query_facade.py
 repository_operation_query_presentation.py
 repository_operation_query_proof_replay.py
-repository_operation_query_proof_replay_presentation.py
 ```
 
 qualified execution:
@@ -201,7 +169,7 @@ ProofStep.inference_rule
 
 `ProofRepositoryEntry.key / phase / theorem` は provenance metadata である。
 
-renderer、facade、CLI、Web adapter、Flask route、resolver、探索、表示 grouping は独立した定理事実を追加しない。
+renderer、facade、CLI、resolver、探索、表示 grouping は独立した定理事実を追加しない。
 
 theorem-specific specialization は新しい独立 theorem root を追加せず、既存 `ProofStep` を premise とする concrete `ProofStep` を生成する。
 
@@ -217,20 +185,18 @@ Phase 113 の TodaGroupQuery specialization、Phase 114 の `E(nu_5)` handoff、
 entries before == entries after
 ```
 
-Phase 117 の Web UI も repository を変更しない。
-
 ---
 
 # 6. Indexed sigma specialization
 
 Toda Proposition 5.15:
 
-\[
+$$
 \pi_{n+7}^{n}=\mathbb Z/16\{\sigma_n\},
 \qquad n\ge 9.
-\]
+$$
 
-concrete indexed \(\sigma_n\) の theorem-specific specialization は整数 \(n\ge 10\) に限定する。
+concrete indexed $\sigma_n$ の theorem-specific specialization は整数 $n\ge 10$ に限定する。
 
 ```text
 concrete sigma_n group step
@@ -241,7 +207,9 @@ concrete sigma_n group step
 
 ---
 
-# 7. TodaGroupQuery specialization reuse
+# 7. Phase 113: TodaGroupQuery specialization reuse
+
+Phase 113 では既存の specialization capability を `TodaGroupQuery` 経路から再利用する。
 
 対象:
 
@@ -280,10 +248,11 @@ n < 10 では使わない
 
 例:
 
-\[
-\pi_{18}^{11}=
-\mathbb Z/16\{\sigma_{11}\}.
-\]
+$$
+\pi_{18}^{11}=\mathbb Z/16\{\sigma_{11}\}.
+$$
+
+これは新しい数学的定理の追加ではない。
 
 ---
 
@@ -300,6 +269,8 @@ execute
 ```text
 show-proof != execute
 ```
+
+Phase 113–115 は `execute sigma_11` の意味論を変更しない。
 
 ---
 
@@ -322,29 +293,39 @@ E(nu_5)
 E(sigma_11)
 ```
 
-Phase 114:
+Phase 114 の既存 symbolic bridge:
 
-\[
-E^{n-5}\nu_5=\nu_n
-\]
+$$
+E^{n-5}\nu_5=\nu_n.
+$$
 
-から \(n=6\) に限定して
+$n=6$ への concrete specialization:
 
-\[
+$$
 E(\nu_5)=\nu_6.
-\]
+$$
 
-Phase 115:
+```text
+concrete E(nu_5) ProofStep
+→ premise: existing symbolic Proposition 5.6 bridge
+```
 
-\[
-\sigma_n=E^{n-8}\sigma_8
-\]
+Phase 115 の既存 $\sigma$-family definition:
 
-を利用して
+$$
+\sigma_n=E^{n-8}\sigma_8.
+$$
 
-\[
+concrete operation result:
+
+$$
 E(\sigma_{11})=\sigma_{12}.
-\]
+$$
+
+```text
+concrete E(sigma_11) ProofStep
+→ premise: existing symbolic TodaSigmaFamilyDefinitionStatement
+```
 
 したがって:
 
@@ -362,7 +343,85 @@ direct lookup は常に handoff より優先される。
 
 ---
 
-# 10. Operation-query parser の境界
+# 10. Exact handoff guards
+
+## `E(nu_5)`
+
+`repository_nu5_stable_bridge_specialization.py` は対象を exact に判定する。
+
+```text
+RepositoryMapOperationQuery
+operation == "E"
+operand == RepositoryGeneratorQuery(GeneratorSymbol("ν", index=5))
+direct lookup result is empty
+```
+
+## `E(sigma_11)`
+
+`repository_sigma11_suspension_specialization.py` も対象を exact に判定する。
+
+```text
+RepositoryMapOperationQuery
+operation == "E"
+operand == RepositoryGeneratorQuery(GeneratorSymbol("σ", index=11))
+direct lookup result is empty
+```
+
+対象外:
+
+```text
+E(sigma_10)
+E(sigma_12)
+E(sigma_100)
+H(sigma_11)
+Delta(sigma_11)
+E(sigma_11 o eta_18)
+```
+
+これらを同じ handoff が発火させない。
+
+---
+
+# 11. `E(sigma_11)` specialization semantics
+
+Phase 115 は group specialization そのものを operation result とみなさない。
+
+既存 `TodaSigmaFamilyDefinitionStatement` から、
+
+```text
+sigma_11 concrete definition
+sigma_12 concrete definition
+```
+
+を同じ `sigma8_statement` provenance で構成する。
+
+そのうえで、
+
+$$
+E(\sigma_{11})=\sigma_{12}
+$$
+
+という concrete `Relation` を生成する。
+
+重要:
+
+```text
+TodaSigmaFamilyDefinitionStatement
+!= operation-query Relation
+```
+
+Phase 115 の新規 concrete step は、この不足を theorem-specific definitional specialization として埋める。
+
+```text
+concrete operation step
+→ premise: symbolic sigma-family definition
+```
+
+これは新しい独立 theorem root ではない。
+
+---
+
+# 12. Operation-query parser の境界
 
 現在対応:
 
@@ -385,11 +444,11 @@ Unicode ∘
 一般再帰 parser
 ```
 
-Web UI の導入は parser grammar を変更しない。
+Phase 115 は parser grammar を変更しない。
 
 ---
 
-# 11. 証明再生
+# 13. 証明再生
 
 default:
 
@@ -402,15 +461,33 @@ CLI:
 ```text
 python main.py show-proof sigma_11 --depth 2
 python main.py query-proof "H(nu_prime)" --fact 1 --depth 2
+python main.py query-proof "E(nu_5)"
 python main.py query-proof "E(nu_5)" --depth 2
+python main.py query-proof "E(sigma_11)"
 python main.py query-proof "E(sigma_11)" --depth 2
 ```
 
 `--depth` は既存 ancestry の表示範囲であり、新しい proof search ではない。
 
+`E(nu_5)`:
+
+```text
+concrete E(nu_5) = nu_6
+→ symbolic Proposition 5.6 bridge
+```
+
+`E(sigma_11)`:
+
+```text
+concrete E(sigma_11) = sigma_12
+→ TodaSigmaFamilyDefinitionStatement
+→ TodaLemma514Sigma8Statement
+→ ScalarGreaterEqualStatement
+```
+
 ---
 
-# 12. 表示と provenance
+# 14. 表示と provenance
 
 同一数学 statement が複数 proof-scope path から得られる場合、表示 layer は grouping できる。
 
@@ -426,352 +503,223 @@ query-proof root
 != enclosing repository theorem root
 ```
 
-symbolic bridge の scalar 表示が
+`E(sigma_11)` の CLI 表示:
+
+$$
+E\sigma_{11}=\sigma_{12}.
+$$
+
+Phase 114 の symbolic bridge の scalar 表示が
 
 ```text
 E^{n + -1\,5}ν_5
 ```
 
-のように現れる場合がある。これは scalar LaTeX presentation の既存残件であり、proof correctness の問題ではない。
+のように現れる場合がある。これは scalar LaTeX presentation の既存残件であり、operation handoff 意味論とは分離する。
 
 ---
 
-# 13. Expression occurrence と operation result
+# 15. Expression occurrence と operation result
+
+Phase 115-5 で次を明示的に区別した。
 
 既存 proof 内に
 
-\[
+$$
 E\nu'
-\]
+$$
 
 や
 
-\[
+$$
 E^2\nu'
-\]
+$$
 
 が部分式として現れていても、
 
-\[
+$$
 E(\nu')=\alpha
-\]
+$$
 
 という `Relation` が存在することを意味しない。
+
+したがって:
 
 ```text
 expression occurrence
 != operation result relation
 ```
 
-同様に、関連する低次元数学が存在していても reusable family operation bridge が自動的に存在するとは限らない。
+同様に、$\sigma_8$ 周辺で
 
----
+$$
+H(\sigma_8)=\iota_{15}
+$$
 
-# 14. Web UI の設計境界
+に関連する数学が存在していても、現在の proof infrastructure に
 
-Phase 116 で Web readiness を監査し、Phase 117 で最小 Web UI を実装した。
+$$
+H(\sigma_{11})
+$$
 
-選定:
-
-```text
-Web framework
-→ Flask
-
-browser TeX renderer
-→ KaTeX
-```
-
-依存:
+を導く family bridge が自動的に存在することにはならない。
 
 ```text
-Flask==3.1.3
-KaTeX 0.18.7
-```
-
-KaTeX は browser-side CDN asset として利用する。
-
-Web group-query adapter:
-
-```text
-web_group_query.py
-```
-
-責務:
-
-```text
-n,k
-→ build_standard_toda_report(n,k)
-→ calculation status
-→ FOUND の場合だけ structured group presentation
-→ existing group LaTeX renderer
-→ WebGroupQueryView
-```
-
-adapter は次を行わない。
-
-```text
-新しい数学計算
-repository traversal の独自実装
-proof candidate の数学的選択
-Markdown / CLI parsing
-独自 normalization
+related mathematics exists
+!= reusable family operation bridge
 ```
 
 ---
 
-# 15. Web view model
+# 16. 残存 operation pressure
 
-Phase 117 の Web group query は小さな immutable view model を使う。
-
-概念:
-
-```text
-n
-k
-status
-result_latex
-```
-
-status は既存 `TodaCalculationStatus` を保持する。
-
-```text
-FOUND
-NOT_FOUND
-MULTIPLE_RESULTS
-```
-
-意味論:
-
-```text
-FOUND
-→ exactly one result
-→ result_latex を持つ
-
-NOT_FOUND
-→ result_latex is None
-
-MULTIPLE_RESULTS
-→ result_latex is None
-→ candidate 0 を自動選択しない
-```
-
-実際の zero group は `FOUND` のままであり、`NOT_FOUND` と混同しない。
-
----
-
-# 16. Web validation boundary
-
-Web syntax conversion と数学的 domain validation を分離する。
-
-```text
-form text
-→ Flask syntax conversion
-→ int
-→ existing TodaGroupQuery validation
-```
-
-Flask boundary が扱う例:
-
-```text
-空文字
-非整数文字列
-```
-
-TodaGroupQuery が保持する domain:
-
-```text
-n > 0
-k >= 0
-```
-
-HTML `<input>` の `min` は使わない。
-
-理由:
-
-```text
-browser min validation
-→ Flask / TodaGroupQuery より先に停止する
-→ Python 側の既存 domain semantics を利用者が確認できない
-```
-
-したがって:
-
-```text
-HTML syntax assistance
-!= mathematical domain authority
-```
-
-`required` は空欄に対する browser assistance として残してよい。
-
----
-
-# 17. TeX / HTML boundary
-
-Python renderer は LaTeX 文字列を返す。
-
-```text
-existing structured presentation
-→ render_toda_group_result_latex(...)
-→ plain LaTeX string
-```
-
-Python renderer の出力を HTML として扱わない。
-
-Jinja template が文字列を HTML へ渡し、browser JavaScript が
-
-```javascript
-katex.render(...)
-```
-
-を呼ぶ。
-
-Phase 117 の設定:
-
-```text
-displayMode = true
-throwOnError = false
-```
-
-Phase 117 では user-supplied TeX を受理しない。
-
----
-
-# 18. Phase 117 Web route
-
-現在の route は `/` のみ。
-
-```text
-GET /
-→ n,k form
-
-POST /
-→ form syntax conversion
-→ Web group-query adapter
-→ status / result
-→ template
-```
-
-起動:
-
-```text
-python -m flask --app web_app run --debug
-```
-
-代表例:
-
-```text
-n = 11
-k = 7
-```
-
-表示:
-
-\[
-\pi_{18}^{11}\cong
-\mathbb Z/16\{\sigma_{11}\}.
-\]
-
----
-
-# 19. Phase 117 regression boundary
-
-Phase 117 で固定した境界:
-
-```text
-Web result = existing CLI mathematical result
-NOT_FOUND は明示
-MULTIPLE_RESULTS は自動選択しない
-n <= 0 は既存 Python domain validation
-k < 0 は既存 Python domain validation
-Web adapter は既存 calculation facade を使う
-LaTeX renderer は既存 renderer を使う
-repository / proof semantics を変更しない
-```
-
-browser smoke で KaTeX による実 TeX 描画を確認済み。
-
----
-
-# 20. Web UI でまだ行わないこと
-
-Phase 117 では次を先取りしない。
-
-```text
-operation query Web UI
-query-proof Web UI
-show-proof Web UI
-explore Web UI
-execute Web UI
-proof tree visualization
-REST API
-generic Web service hierarchy
-database
-authentication
-deployment automation
-SPA framework
-general E/H/Delta evaluator
-general Toda bracket solver
-coset / indeterminacy computation
-```
-
----
-
-# 21. 残存 operation pressure
-
-既存の残存候補:
+Phase 115-5 の分類:
 
 ```text
 H(nu_5)
+→ new mathematical inference required
+
 H(sigma_11)
+→ related low-dimensional mathematics exists
+→ reusable family bridge is not currently present
+
 Delta(sigma_11)
+→ reusable concrete / family relation is not currently present
+
 E(nu_prime)
+→ expression occurrence exists
+→ operation-result relation is not present
+
 Delta(nu_prime)
+→ direct / reusable family inference is not currently present
+
 E(nu_5 o eta_8)
+→ composition-operation inference boundary
 ```
 
-これらを Web UI 実装と混ぜない。
+これらを Phase 115 の handoff mechanism へ機械的に追加しない。
 
 ---
 
-# 22. 次 Phase との境界
+# 17. CLI 境界
 
-Phase 118 は既存 operation query / query-proof capability を Web へ接続する。
+`n,k` は project quantity
 
-原則:
+$$
+\pi_{n+k}^n
+$$
 
-```text
-existing operation query
-→ existing structured presentation
-→ thin Web adapter
-→ HTML / KaTeX
-```
+すなわち free part + 2-primary component を表す。
 
-Phase 118 でも次を追加しない。
+stable 7-stem 例:
 
 ```text
-new query grammar
-general evaluator
-new theorem root
-arbitrary inference fallback
+python main.py 10 7
+python main.py 11 7
+python main.py 12 7
 ```
 
-Phase 119 は bounded proof replay presentation / depth control を扱う。
+operation-query 例:
 
-Phase 120 は explore / execute を Web に載せる価値と境界を再監査する。
+```text
+python main.py query "E(nu_5)"
+python main.py query-proof "E(nu_5)" --depth 2
+python main.py query "E(sigma_11)"
+python main.py query-proof "E(sigma_11)" --depth 2
+```
 
 ---
 
-# 23. 完了判断原則
+# 18. Phase 112–115 closure
+
+Phase 112:
 
 ```text
-既存数学を先に再利用する
-direct fact を上書きしない
-新しい定理 root を不要に作らない
-provenance を失わない
-一般 evaluator を必要性なしに作らない
-parser を需要なしに一般化しない
-Web UI から数学 semantics を変更しない
-CLI と Web の数学結果を分岐させない
-focused regression で境界を固定する
-repository-wide regression で Phase を閉じる
+real workflow pressure audit
+→ gap classification
+→ lookup vs inference vs evaluator boundary
+→ highest-pressure minimal capability selection
+```
+
+Phase 113:
+
+```text
+existing sigma_n specialization
+→ TodaGroupQuery integration
+```
+
+Phase 114:
+
+```text
+existing nu-family symbolic bridge
+→ exact E(nu_5) concrete specialization
+→ operation-query minimal handoff
+→ query-proof provenance
+```
+
+Phase 115:
+
+```text
+post-Phase 114 pressure audit
+→ existing mathematics reuse audit
+→ exact E(sigma_11) concrete specialization
+→ operation-query minimal handoff
+→ remaining pressure reclassification
+```
+
+Phase 115 focused:
+
+```text
+14 passed
+```
+
+Phase 114 compatibility:
+
+```text
+16 passed
+```
+
+関連回帰:
+
+```text
+97 passed in 19.14s
+```
+
+full regression:
+
+```text
+9111 passed in 432.54s (0:07:12)
+```
+
+---
+
+# 19. 次 Phase との境界
+
+Phase 116 は Phase 115 の handoff を一般化することから始めない。
+
+まず残存 pressure の優先度を再監査する。
+
+候補:
+
+```text
+symbolic scalar LaTeX presentation
+H(nu_5) dependency audit
+H(sigma_11) dependency audit
+Delta(sigma_11) dependency audit
+E(nu_prime) / Delta(nu_prime) semantics audit
+```
+
+先取りしない:
+
+```text
+general E evaluator
+general H evaluator
+general Delta evaluator
+general E(sigma_n) evaluator
+arbitrary query-to-inference fallback
+four-term composition
+three-term map-operation operand
+Unicode composition parser
+execute sigma_11 expansion
+第3 qualified execution family
 ```

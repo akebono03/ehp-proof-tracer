@@ -2,110 +2,83 @@
 
 EHP Proof Tracer is a Python project for representing, checking, searching, explaining, presenting, exploring, replaying, and safely executing theorem-backed Toda-style homotopy-group calculations.
 
-The project focuses on the free part plus the 2-primary component used by Toda-style calculations. It is not an all-primary calculator for the ordinary homotopy groups of spheres.
+The project currently focuses on the free part plus the 2-primary Toda groups, EHP exactness, explicit proof provenance, the calculation spine through stable stems $G_0$ to $G_7$, theorem-backed repository exploration, recursive proof-ancestry exploration, applicable theorem / lemma discovery, bounded qualified execution, proof-derived known-group identity lookup, indexed $\sigma_n$ specialization, group-query specialization reuse, user-facing proof replay, existing-operation-fact lookup, operation-query proof replay, and deliberately narrow theorem-specific operation-query handoffs for $E(\nu_5)=\nu_6$ and $E(\sigma_{11})=\sigma_{12}$.
 
-The current system provides:
+This is not an all-primary calculator for ordinary homotopy groups of spheres.
 
-- theorem-backed Toda group queries,
-- EHP and proof provenance,
-- recursive proof-scope exploration,
-- applicable theorem / lemma discovery,
-- bounded qualified execution,
-- known-group proof replay,
-- operation-fact lookup,
-- operation-query proof replay,
-- theorem-specific indexed \(\sigma_n\) specialization,
-- deliberately narrow existing-proof handoffs for \(E(\nu_5)=\nu_6\) and \(E(\sigma_{11})=\sigma_{12}\),
-- a minimal Flask Web UI for \(n,k\) group queries,
-- browser-side KaTeX rendering of existing LaTeX output.
-
-## Mathematical scope
-
-The project quantity
-
-\[
-\pi_{n+k}^n
-\]
-
-means the free part plus the 2-primary component represented by this project.
+## Current mathematical coverage
 
 Representative finite-dimensional results include
 
-\[
+$$
 \pi_5^2=\mathbb Z/2\{\eta_2^3\},
 \qquad
 \pi_6^3=\mathbb Z/4\{\nu'\},
-\]
+$$
 
-\[
-\pi_7^4=
-\mathbb Z\{\nu_4\}
-\oplus
-\mathbb Z/4\{E\nu'\},
-\]
+$$
+\pi_7^4=\mathbb Z\{\nu_4\}\oplus\mathbb Z/4\{E\nu'\},
+$$
 
-\[
+$$
 \pi_9^5=\mathbb Z/2\{\nu_5\eta_8\},
 \qquad
 \pi_{10}^4=\mathbb Z/8\{\nu_4^2\},
-\]
+$$
 
-\[
+$$
 \pi_{11}^5=\mathbb Z/2\{\nu_5^2\},
 \qquad
 \pi_9^2=0.
-\]
+$$
 
 Toda Proposition 5.15 coverage includes
 
-\[
+$$
 \pi_{12}^5=\mathbb Z/2\{\sigma'''\},
 \qquad
 \pi_{13}^6=\mathbb Z/4\{\sigma''\},
 \qquad
 \pi_{14}^7=\mathbb Z/8\{\sigma'\},
-\]
+$$
 
-\[
-\pi_{15}^8=
-\mathbb Z\{\sigma_8\}
-\oplus
-\mathbb Z/8\{E\sigma'\},
-\]
+$$
+\pi_{15}^8=\mathbb Z\{\sigma_8\}
+\oplus \mathbb Z/8\{E\sigma'\},
+$$
 
 and
 
-\[
-\pi_{n+7}^n=
-\mathbb Z/16\{\sigma_n\},
+$$
+\pi_{n+7}^n=\mathbb Z/16\{\sigma_n\},
 \qquad n\ge 9.
-\]
+$$
 
-For concrete indexed \(\sigma_n\) with \(n\ge 10\), the existing symbolic Proposition 5.15 proof can be specialized without creating a new independent theorem root.
+For concrete indexed $\sigma_n$ with $n\ge 10$, the existing symbolic Proposition 5.15 proof can be specialized without creating a new independent theorem root.
 
 The consolidated stable 2-primary stem data is
 
-\[
+$$
 G_0=\mathbb Z\{\iota\},
 \quad
 (G_1;2)=\mathbb Z/2\{\eta\},
 \quad
 (G_2;2)=\mathbb Z/2\{\eta^2\},
-\]
+$$
 
-\[
+$$
 (G_3;2)=\mathbb Z/8\{\nu\},
 \quad
 (G_4;2)=0,
 \quad
 (G_5;2)=0,
-\]
+$$
 
-\[
+$$
 (G_6;2)=\mathbb Z/2\{\nu^2\},
 \quad
 (G_7;2)=\mathbb Z/16\{\sigma\}.
-\]
+$$
 
 ## Proof infrastructure
 
@@ -123,7 +96,7 @@ The proof infrastructure supports:
 - exact multi-premise production-application recovery,
 - qualified execution across admitted production rule families,
 - proof-derived known-group identity lookup,
-- theorem-specific indexed \(\sigma_n\) specialization,
+- theorem-specific indexed $\sigma_n$ specialization,
 - reuse of that specialization from the standard `TodaGroupQuery` path,
 - user-facing known-group proof replay,
 - existing operation-fact lookup,
@@ -133,11 +106,11 @@ The proof infrastructure supports:
 - user-selected replay depth through `--depth`,
 - safe mathematical rendering with explicit type-name fallback for unsupported aggregate statements.
 
-General unbounded proof search, theorem ranking, producer ranking, proof-cost optimization, arbitrary operation-query inference fallback, and general \(E/H/\Delta\) evaluation are intentionally not implemented.
+General unbounded proof search, theorem ranking, producer ranking, proof-cost optimization, best-proof selection, arbitrary operation-query inference fallback, and general $E/H/\Delta$ evaluation are intentionally not implemented.
 
 ## Toda group calculation API
 
-The low-level calculation entry point is
+The calculation entry point is
 
 ```python
 build_toda_calculation_result(
@@ -146,7 +119,13 @@ build_toda_calculation_result(
 )
 ```
 
-where `query` is a `TodaGroupQuery(n, k)`.
+where `query` is a `TodaGroupQuery(n, k)` representing the project quantity
+
+$$
+\pi_{n+k}^n,
+$$
+
+meaning the free part plus the 2-primary component used by this project.
 
 The production one-shot entry point is
 
@@ -157,13 +136,15 @@ build_standard_toda_report(
 )
 ```
 
-and the calculation CLI is
+and the minimal calculation CLI is
 
 ```powershell
 python main.py n k
 ```
 
-For example,
+Direct theorem-backed results take precedence over fallback recovery.
+
+For the stable $7$-stem, the standard group-query path can reuse the existing indexed $\sigma_n$ specialization. For example,
 
 ```powershell
 python main.py 11 7
@@ -171,94 +152,21 @@ python main.py 11 7
 
 returns the theorem-backed result
 
-\[
-\pi_{18}^{11}\cong
-\mathbb Z/16\{\sigma_{11}\},
-\]
+$$
+\pi_{18}^{11}=\mathbb Z/16\{\sigma_{11}\},
+$$
 
-with the existing Toda Proposition 5.15 proof retained as provenance.
+with the existing Toda Proposition 5.15 symbolic proof retained as provenance.
 
-Direct theorem-backed results take precedence over fallback specialization. An explicitly supplied empty repository still returns `NOT_FOUND`.
+The same existing specialization path applies to concrete $n\ge 10$, for example
 
-## Minimal Web UI
+$$
+\pi_{17}^{10}=\mathbb Z/16\{\sigma_{10}\},
+\qquad
+\pi_{19}^{12}=\mathbb Z/16\{\sigma_{12}\}.
+$$
 
-Phase 117 introduced a minimal Web UI for the existing `n,k` calculation path.
-
-The Web stack is intentionally small:
-
-```text
-browser form
-→ Flask route
-→ thin Web group-query adapter
-→ build_standard_toda_report(n, k)
-→ structured presentation
-→ existing LaTeX renderer
-→ Jinja template
-→ KaTeX
-```
-
-The Web UI does not parse CLI output and does not implement a second mathematical engine.
-
-Current Web files are:
-
-```text
-web_app.py
-web_group_query.py
-templates/index.html
-static/web_math.js
-```
-
-The Python dependency is Flask 3.1.3. Browser-side mathematical rendering uses KaTeX 0.18.7.
-
-Install dependencies with
-
-```powershell
-python -m pip install -r requirements.txt
-```
-
-Run the local development server with
-
-```powershell
-python -m flask --app web_app run --debug
-```
-
-and open
-
-```text
-http://127.0.0.1:5000/
-```
-
-in a browser.
-
-A representative query is
-
-```text
-n = 11
-k = 7
-```
-
-which is rendered by KaTeX as
-
-\[
-\pi_{18}^{11}\cong
-\mathbb Z/16\{\sigma_{11}\}.
-\]
-
-The current Web UI preserves the calculation statuses:
-
-```text
-FOUND
-NOT_FOUND
-MULTIPLE_RESULTS
-```
-
-`MULTIPLE_RESULTS` is not silently collapsed to the first candidate.
-
-Web syntax conversion and mathematical domain validation remain separate. The Flask boundary converts form values to integers; `TodaGroupQuery` retains the domain constraints \(n>0\) and \(k\ge 0\).
-
-The HTML form intentionally does not use `min` to duplicate those domain rules. This allows the existing Python validation messages to remain the authoritative mathematical-domain feedback.
-
-The current Web UI intentionally does not yet expose operation queries, query-proof, show-proof, explore, or execute.
+An explicitly supplied empty repository still returns `NOT_FOUND`; the calculation layer does not invent specialization facts independently of repository proof provenance.
 
 ## Standard production repository
 
@@ -270,11 +178,11 @@ build_standard_production_proof_repository()
 
 It assembles theorem-backed entries needed by supported production paths without creating new theorem truth.
 
-Concrete indexed \(\sigma_n\) specialization is derived from the existing Proposition 5.15 proof scope rather than registered as a new independent theorem root.
+Concrete indexed $\sigma_n$ specialization is derived from the existing Proposition 5.15 proof scope rather than registered as a new independent theorem root.
 
-The Phase 114 \(\nu_5\) operation handoff is derived from an existing symbolic Proposition 5.6 bridge and does not add a new repository root.
+The Phase 114 $\nu_5$ operation handoff is derived from an existing symbolic Proposition 5.6 bridge and does not add a new repository root.
 
-The Phase 115 \(\sigma_{11}\) operation handoff is derived from the existing Toda Lemma 5.14 \(\sigma\)-family definition and likewise does not add a new repository root.
+The Phase 115 $\sigma_{11}$ operation handoff is derived from the existing Toda Lemma 5.14 $\sigma$-family definition and likewise does not add a new repository root.
 
 ## Generator-centered exploration
 
@@ -304,24 +212,23 @@ explore_standard_repository_generator_proof_scope_input(
 
 Representative `nu_prime` results include
 
-\[
+$$
 \nu' \in \{\eta_3,2\iota_4,\eta_4\}_1
-\]
+$$
 
 and
 
-\[
+$$
 H(\nu')=\eta_5.
-\]
+$$
 
-For concrete indexed \(\sigma_n\) with \(n\ge 10\), proof-scope exploration can materialize
+For concrete indexed $\sigma_n$ with $n\ge 10$, proof-scope exploration can materialize
 
-\[
-\pi_{n+7}^n=
-\mathbb Z/16\{\sigma_n\}.
-\]
+$$
+\pi_{n+7}^n=\mathbb Z/16\{\sigma_n\}.
+$$
 
-The exploration layer finds or theorem-specifically specializes already represented proof facts. It does not generally evaluate \(E\), \(H\), or \(\Delta\), and it does not solve Toda brackets.
+The exploration layer finds or theorem-specifically specializes already represented proof facts. It does not generally evaluate $E$, $H$, or $\Delta$, and it does not solve Toda brackets.
 
 ## Applicable theorem / lemma discovery
 
@@ -364,10 +271,9 @@ toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
 
 The second family derives
 
-\[
-\pi_6^2=
-\mathbb Z/4\{\eta_2\nu'\}.
-\]
+$$
+\pi_6^2=\mathbb Z/4\{\eta_2\nu'\}.
+$$
 
 For multi-premise rules, the engine recovers the unique existing production application under the same root and reuses the exact premise tuple by `ProofStep` identity and original order.
 
@@ -432,31 +338,37 @@ Delta(<generator>)
 <generator> o <generator> o <generator>
 ```
 
+The flat three-term composition form is interpreted using the existing right-nested production structure.
+
 Representative results include
 
-\[
+$$
 H(\nu')=\eta_5,
-\]
+$$
 
-\[
+$$
 \Delta(\iota_9)
 =
 \pm(2\nu_4-E\nu'),
-\]
+$$
 
-\[
+$$
 E(\eta_2\nu')=0,
-\]
+$$
 
-\[
+$$
 E(\nu_5)=\nu_6,
-\]
+$$
+
+$$
+E(\sigma_{11})=\sigma_{12},
+$$
 
 and
 
-\[
-E(\sigma_{11})=\sigma_{12}.
-\]
+$$
+\pi_7^2=\mathbb Z/2\{\eta_2\nu'\eta_6\}.
+$$
 
 The normal operation-query path remains direct repository / proof-scope lookup.
 
@@ -472,7 +384,40 @@ query
 → result + preserved provenance
 ```
 
+For $E(\nu_5)$, the symbolic source is the existing Toda Proposition 5.6 bridge
+
+$$
+E^{n-5}\nu_5=\nu_n.
+$$
+
+At $n=6$ this gives
+
+$$
+E(\nu_5)=\nu_6.
+$$
+
+For $E(\sigma_{11})$, the symbolic source is the Toda Lemma 5.14 family definition
+
+$$
+\sigma_n=E^{n-8}\sigma_8.
+$$
+
+The concrete Phase 115 handoff gives
+
+$$
+E(\sigma_{11})=\sigma_{12}.
+$$
+
 These handoffs do not turn `query` into a general inference engine or evaluator.
+
+```text
+direct lookup first
+limited theorem-specific handoff != general query inference
+query != general E/H/Delta evaluator
+LOOKUP_MISS != mathematical nonexistence
+```
+
+The supported handoffs do not imply support for `H(nu_5)`, `Delta(nu_5)`, `E(nu_6)`, `E(sigma_10)`, `E(sigma_12)`, `H(sigma_11)`, `Delta(sigma_11)`, or `E(nu_5 o eta_8)`.
 
 ## Operation-query proof replay
 
@@ -482,16 +427,22 @@ Examples:
 
 ```powershell
 python main.py query-proof "H(nu_prime)" --fact 1
-python main.py query-proof "H(nu_prime)" --fact 1 --depth 2
+python main.py query-proof "H(nu_prime)" --fact 2
+python main.py query-proof "E(eta_2 o nu_prime)"
 python main.py query-proof "E(nu_5)"
 python main.py query-proof "E(nu_5)" --depth 2
 python main.py query-proof "E(sigma_11)"
 python main.py query-proof "E(sigma_11)" --depth 2
+python main.py query-proof "H(nu_prime)" --fact 1 --depth 2
 ```
 
 If a query has exactly one presented fact, `--fact` is optional. If multiple facts are available, no fact is selected automatically.
 
 The replay root is the selected fact's own `ProofStep`, not the enclosing repository theorem root.
+
+For `E(nu_5)`, replay depth one shows the concrete specialization followed by the existing symbolic Proposition 5.6 bridge.
+
+For `E(sigma_11)`, replay follows the concrete operation relation into the existing symbolic $\sigma$-family definition and its provenance.
 
 ## Command-line interface
 
@@ -504,6 +455,7 @@ python main.py explore-proof nu_prime
 python main.py explore-applicable nu_prime
 python main.py explore-applicable nu_prime --detailed
 python main.py show-proof nu_prime
+python main.py show-proof sigma_11
 python main.py show-proof sigma_11 --depth 2
 python main.py execute nu_prime
 python main.py execute nu_prime --candidate 1
@@ -516,118 +468,134 @@ python main.py query "eta_2 o nu_prime"
 python main.py query "eta_2 o nu_prime o eta_6"
 python main.py query-proof "H(nu_prime)" --fact 1
 python main.py query-proof "H(nu_prime)" --fact 1 --depth 2
+python main.py query-proof "E(eta_2 o nu_prime)"
 python main.py query-proof "E(nu_5)"
 python main.py query-proof "E(nu_5)" --depth 2
 python main.py query-proof "E(sigma_11)"
 python main.py query-proof "E(sigma_11)" --depth 2
 ```
 
+`n,k` refers to the project quantity $\pi_{n+k}^n$, i.e. free part plus the 2-primary component.
+
 The CLI script boundary configures stdout and stderr as UTF-8 for Windows environments whose default console encoding may be CP932.
 
-## Phase 113–115 closure
+## Phase 112 closure
 
-Phase 113 connected the existing indexed \(\sigma_n\) specialization to `TodaGroupQuery`.
+Phase 112 audited real mathematical workflow pressure rather than mechanically expanding the parser.
 
-Phase 114 connected exactly one existing \(\nu\)-family bridge to operation query:
+Representative workflows used:
 
-\[
+```text
+nu_prime
+nu_5
+sigma_11
+```
+
+The audit separated observed gaps into:
+
+```text
+parser boundary
+repository lookup miss
+existing-inference / specialization handoff gap
+workflow orchestration gap
+possible genuinely new inference / evaluator need
+```
+
+It established the principle
+
+```text
+LOOKUP_MISS != evaluator required
+```
+
+and identified both the `sigma_11` group-query orchestration gap and the `E(nu_5)` operation-query handoff gap as cases where existing mathematics should be reused before adding a general evaluator.
+
+## Phase 113 closure
+
+Phase 113 connected the existing theorem-specific indexed $\sigma_n$ specialization to the standard `TodaGroupQuery` workflow.
+
+The implementation is deliberately narrow:
+
+```text
+TodaGroupQuery(n, 7), n >= 10
+→ existing production repository
+→ existing recursive proof scope
+→ existing sigma_n specialization
+→ concrete group result
+→ existing report / provenance pipeline
+```
+
+It does not mutate the repository and does not synthesize a result from an empty repository.
+
+Full repository regression:
+
+```text
+9081 passed in 434.58s (0:07:14)
+```
+
+## Phase 114 closure
+
+Phase 114 connected one existing symbolic inference result to operation query without creating a general evaluator.
+
+The supported handoff is exactly
+
+$$
 E(\nu_5)=\nu_6.
-\]
+$$
 
-Phase 115 connected exactly one existing \(\sigma\)-family definition to operation query:
+Full repository regression:
 
-\[
-E(\sigma_{11})=\sigma_{12}.
-\]
+```text
+9097 passed in 449.47s (0:07:29)
+```
 
-The Phase 115 full repository regression was
+## Phase 115 closure
+
+Phase 115 audited the remaining operation-query pressure after Phase 114, selected the smallest clearly reusable existing mathematical relation, and connected exactly
+
+$$
+E(\sigma_{11})=\sigma_{12}
+$$
+
+to operation query and proof replay.
+
+The concrete operation relation preserves the existing Toda Lemma 5.14 $\sigma$-family definition as proof provenance.
+
+The phase deliberately did not generalize this into an $E(\sigma_n)$ evaluator or a general $E$ evaluator.
+
+Full repository regression:
 
 ```text
 9111 passed in 432.54s (0:07:12)
 ```
 
-## Phase 116 closure
-
-Phase 116 audited the Web-facing boundary before implementation.
-
-It established:
-
-```text
-Web framework
-→ Flask
-
-browser TeX renderer
-→ KaTeX
-
-group calculation entry point
-→ build_standard_toda_report(n, k)
-
-Web data source
-→ structured presentation objects
-
-group LaTeX renderer
-→ render_toda_group_result_latex(...)
-
-CLI output parsing
-→ not used
-
-Markdown reparsing
-→ not used
-```
-
-The Web boundary is intentionally a thin adapter rather than a second orchestration layer.
-
-## Phase 117 status
-
-Phase 117 implemented the minimal TeX-capable Web UI.
-
-Completed focused work includes:
-
-```text
-Phase 117-1
-→ minimal Flask / KaTeX group-query UI
-
-Phase 117-2
-→ Web / CLI integration regression
-→ NOT_FOUND / MULTIPLE_RESULTS / validation boundaries
-
-Phase 117-3
-→ browser smoke audit
-→ Python domain-validation boundary
-→ live KaTeX rendering confirmed
-```
-
-Observed focused results include:
-
-```text
-Phase 117 Web app tests:
-10 passed
-
-Phase 117 Web group-query tests:
-4 passed
-
-Phase 113 group-query compatibility:
-7 passed
-```
-
-The final repository-wide Phase 117 regression is intentionally run only after the documentation update.
-
 ## Near-term roadmap
 
-The next planned capability after Phase 117 closure is Phase 118:
+The next development priority is a minimal Web UI with browser-side TeX rendering.
+
+The planned order is:
 
 ```text
+Phase 116
+→ Web UI readiness / presentation boundary audit
+
+Phase 117
+→ minimal n,k Web UI
+→ theorem-backed result
+→ TeX rendering
+
 Phase 118
 → existing operation query / query-proof Web integration
 
 Phase 119
-→ bounded proof replay Web presentation and depth control
+→ bounded proof replay presentation and depth control
 
 Phase 120
 → explore / execute Web integration audit
 ```
 
-The Web UI continues to reuse existing calculation, query, and proof infrastructure. It is not intended to become a second mathematical engine.
+The Web UI will reuse the existing calculation, query, and proof infrastructure. It is not intended to become a second mathematical engine.
+
+MathJax and KaTeX are candidates for browser-side rendering; the choice is intentionally deferred to the Phase 116 compatibility audit.
 
 ## Current boundaries
 
@@ -648,7 +616,7 @@ The following remain intentionally deferred:
 - general composition evaluation,
 - general Toda-bracket solving,
 - bracket-value and coset / indeterminacy computation,
-- general \(E/H/\Delta\) evaluation,
+- general $E/H/\Delta$ evaluation,
 - arbitrary operation-query inference fallback,
 - automatic enumeration of unstated mathematical consequences,
 - unrestricted symbolic AST substitution,
@@ -660,17 +628,15 @@ The following remain intentionally deferred:
 ## Current project state
 
 ```text
-Web group query
-→ Flask
-→ thin Web adapter
-→ existing standard calculation facade
-→ structured group presentation
-→ existing LaTeX renderer
-→ KaTeX
-
 calculation
 → theorem-backed result
 → provenance
+→ report
+
+TodaGroupQuery(n,7), n>=10
+→ existing symbolic Proposition 5.15 proof
+→ concrete sigma_n specialization
+→ group result
 → report
 
 generator
@@ -693,7 +659,8 @@ generator
 
 operation query
 → direct existing-fact lookup
-→ exact limited existing-proof handoff where admitted
+→ if direct hit: preserve existing result
+→ if exact E(nu_5) or E(sigma_11) miss: limited existing-proof handoff
 → deduplicated mathematical facts
 → preserved provenance
 → query
@@ -704,6 +671,14 @@ selected operation fact
 → safe mathematical rendering
 → query-proof
 ```
+
+Phase 113 connected the existing indexed $\sigma_n$ specialization to `TodaGroupQuery`.
+
+Phase 114 connected exactly one existing $\nu$-family bridge to operation query.
+
+Phase 115 connected exactly one existing $\sigma$-family definition to operation query.
+
+Phase 116–120 will prioritize making these existing capabilities usable through a TeX-capable Web UI without changing their mathematical semantics.
 
 ## Project principle
 

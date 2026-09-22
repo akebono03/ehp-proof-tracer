@@ -8,18 +8,37 @@
 
 # 1. 現在地
 
-運用計算:
+現在の標準計算経路:
 
 ```text
 生の n,k 入力
-→ python main.py n k
-→ 標準運用 repository
+→ standard production repository
+→ TodaGroupQuery
 → 既知群 lookup
 → 必要なら既存 theorem-specific specialization
-→ 証明レポート
+→ structured presentation
+→ report
 ```
 
-stable 7-stem の concrete indexed $\sigma_n$ については、
+CLI:
+
+```text
+python main.py n k
+```
+
+Web:
+
+```text
+browser
+→ Flask
+→ thin Web adapter
+→ existing calculation facade
+→ existing structured presentation
+→ existing LaTeX renderer
+→ KaTeX
+```
+
+stable 7-stem の concrete indexed \(\sigma_n\) では、
 
 ```text
 TodaGroupQuery(n,7), n >= 10
@@ -32,9 +51,10 @@ TodaGroupQuery(n,7), n >= 10
 
 例:
 
-$$
-\pi_{18}^{11}=\mathbb Z/16\{\sigma_{11}\}.
-$$
+\[
+\pi_{18}^{11}\cong
+\mathbb Z/16\{\sigma_{11}\}.
+\]
 
 演算問い合わせ:
 
@@ -43,40 +63,33 @@ operation query
 → direct repository / proof-scope lookup
 → direct hit はそのまま返す
 → direct miss のうち exact E(nu_5) / E(sigma_11) のみ限定 handoff
-→ 重複除去済み数学表示
-→ 保持された provenance
-→ python main.py query ...
+→ structured presentation
+→ query / query-proof
 ```
 
 現在利用できる限定 handoff:
 
-$$
+\[
 E(\nu_5)=\nu_6,
-$$
+\]
 
-$$
+\[
 E(\sigma_{11})=\sigma_{12}.
-$$
+\]
 
-現在の境界:
+現在の基本境界:
 
 ```text
 direct lookup first
 limited theorem-specific handoff != general query inference
 query != general evaluator
 LOOKUP_MISS != evaluator required
+Web UI != new mathematical engine
 ```
 
-最新:
+Phase 117 は minimal TeX Web UI の実装・integration・browser smoke まで完了している。
 
-```text
-Phase 115 closure:
-9111 passed in 432.54s (0:07:12)
-```
-
-Phase 115 は完了。
-
-次の開発優先度として、数学機能の追加を連続させる前に、既存の結果と証明を TeX で読みやすく利用できる最小 Web UI を導入する。
+最終 repository-wide regression はこのドキュメント更新後に1回だけ実行して closure を確定する。
 
 ---
 
@@ -124,38 +137,73 @@ Phase 113:
 ```text
 symbolic sigma_n specialization
 → TodaGroupQuery integration
-
-n=10,11,12 の 7-stem で確認
-空 repository では結果を生成しない
-Toda Proposition 5.15 provenance を保持
 ```
 
 Phase 114:
 
 ```text
 existing symbolic E^(n-5)nu_5 = nu_n bridge
-→ n=6 theorem-specific specialization
 → E(nu_5) = nu_6
 → operation-query minimal handoff
 → query-proof provenance
-
-direct lookup priority を維持
-general E/H/Delta evaluator は追加しない
 ```
 
 Phase 115:
 
 ```text
-post-Phase 114 operation / workflow pressure audit
-→ existing mathematics reuse audit
-→ exact E(sigma_11) を最小対象として選定
-→ Toda Lemma 5.14 sigma-family definition を再利用
+existing sigma-family definition
 → E(sigma_11) = sigma_12
 → operation-query / query-proof handoff
-→ post-implementation boundary audit
 ```
 
-Phase 115 でも general $E/H/\Delta$ evaluator は追加していない。
+Phase 116:
+
+```text
+Web UI readiness audit
+structured result / presentation boundary audit
+Flask selection
+KaTeX selection
+thin Web adapter boundary
+validation / TeX boundary audit
+Phase 117 file / test boundary determination
+```
+
+Phase 117-1:
+
+```text
+Flask minimal Web app
+Web group-query adapter
+n,k form
+KaTeX rendering
+FOUND / NOT_FOUND / MULTIPLE_RESULTS presentation
+focused Web tests
+```
+
+Phase 117-2:
+
+```text
+Web / CLI same-result regression
+negative-k validation
+missing-input boundary
+MULTIPLE_RESULTS no-auto-selection
+```
+
+Phase 117-3:
+
+```text
+browser smoke audit
+KaTeX live rendering confirmation
+HTML min removal
+Python domain-validation authority
+```
+
+Phase 117-4:
+
+```text
+current documentation update
+completion boundary audit
+final repository-wide regression remains
+```
 
 ---
 
@@ -186,341 +234,27 @@ python main.py query-proof "E(sigma_11)"
 python main.py query-proof "E(sigma_11)" --depth 2
 ```
 
-stable 7-stem concrete query 例:
-
-```text
-python main.py 10 7
-python main.py 11 7
-python main.py 12 7
-```
-
 ---
 
-# 4. Capability gap の現在分類
+# 4. 現在の Web UI
 
-Phase 112 以降、問い合わせ失敗を次のように区別する。
-
-```text
-parser boundary
-repository lookup miss
-existing inference capability but no query handoff
-existing specialization but no workflow handoff
-new inference required
-presentation-only issue
-execution boundary
-```
-
-Phase 113 で解消:
+起動:
 
 ```text
-python main.py 11 7
-→ existing sigma_n specialization を TodaGroupQuery が再利用
+python -m flask --app web_app run --debug
 ```
 
-Phase 114 で解消:
-
-```text
-query "E(nu_5)"
-→ direct lookup miss
-→ existing nu-family symbolic bridge
-→ exact concrete specialization
-→ E(nu_5) = nu_6
-```
-
-Phase 115 で解消:
-
-```text
-query "E(sigma_11)"
-→ direct lookup miss
-→ existing TodaSigmaFamilyDefinitionStatement
-→ sigma_11 / sigma_12 concrete definition
-→ E(sigma_11) = sigma_12
-```
-
-Phase 115-5 で残存 pressure を再分類した。
-
-```text
-H(nu_5)
-→ new mathematical inference required
-
-H(sigma_11)
-→ related low-dimensional mathematics exists
-→ reusable sigma-family H bridge is not currently present
-
-Delta(sigma_11)
-→ reusable concrete / family relation is not currently present
-
-E(nu_prime)
-→ E nu_prime appears inside existing expressions
-→ no operation-result relation E(nu_prime) = ... is present
-
-Delta(nu_prime)
-→ direct / reusable family inference is not currently present
-
-E(nu_5 o eta_8)
-→ composition-operation inference boundary
-
-E(a o b o c)
-→ parser boundary
-
-four-term composition
-→ parser boundary
-
-execute sigma_11
-→ execution coverage boundary
-```
-
-これらを general evaluator が必要と決めつけない。
-
----
-
-# 5. Phase 114 完了境界
-
-Phase 114 の対象は
-
-$$
-E(\nu_5)=\nu_6
-$$
-
-だけであった。
-
-source:
-
-$$
-E^{n-5}\nu_5=\nu_n.
-$$
-
-実装境界:
-
-```text
-query input
-→ existing direct lookup
-→ direct fact があれば従来どおり返す
-→ lookup miss
-→ exact E(nu_5) guard
-→ theorem-specific concrete specialization
-→ proof provenance
-→ query / query-proof
-```
-
-Phase 115 の追加後も Phase 114 の $\nu_5$-specific guard 自体は $\sigma$-family を受理しない。
-
----
-
-# 6. Phase 115 完了境界
-
-Phase 115 は Phase 114 の handoff pattern を機械的に一般化せず、まず残存 pressure を分類した。
-
-最小再利用対象として
-
-$$
-E(\sigma_{11})=\sigma_{12}
-$$
-
-を選定した。
-
-既存 Toda Lemma 5.14 の family definition:
-
-$$
-\sigma_n=E^{n-8}\sigma_8
-$$
-
-から concrete definition
-
-$$
-\sigma_{11}=E^3\sigma_8,
-\qquad
-\sigma_{12}=E^4\sigma_8
-$$
-
-を利用し、operation-query 用 concrete `Relation`
-
-$$
-E(\sigma_{11})=\sigma_{12}
-$$
-
-を構成する。
-
-provenance:
-
-```text
-concrete E(sigma_11) = sigma_12 step
-→ symbolic TodaSigmaFamilyDefinitionStatement
-→ TodaLemma514Sigma8Statement
-→ n >= 8
-```
-
-実装境界:
-
-```text
-query input
-→ existing direct lookup
-→ direct fact があれば従来どおり返す
-→ lookup miss
-→ exact E(sigma_11) guard
-→ theorem-specific definitional specialization
-→ proof provenance
-→ query / query-proof
-```
-
-変更:
-
-```text
-repository_sigma11_suspension_specialization.py
-repository_operation_query_facade.py
-tests/test_phase115_sigma11_operation_query_handoff.py
-```
-
-`repository_operation_query_lookup.py`、renderer、parser、repository root は変更していない。
-
-意図的な非拡張:
-
-```text
-E(sigma_10)
-E(sigma_12)
-E(sigma_100)
-H(sigma_11)
-Delta(sigma_11)
-E(sigma_11 o eta_18)
-```
-
-したがって:
-
-```text
-exact E(sigma_11) handoff
-!= general E(sigma_n) evaluator
-!= general E evaluator
-!= arbitrary symbolic substitution
-```
-
----
-
-# 7. Phase 115 で先取りしなかったもの
-
-```text
-general E evaluator
-general H evaluator
-general Delta evaluator
-general E(sigma_n) family handoff
-任意の operation-query inference fallback
-四項以上 composition
-三項 map-operation operand
-Unicode ∘
-一般 expression parser
-execute sigma_11
-第3 qualified execution family
-odd-primary integration
-```
-
----
-
-# 8. Web UI 導入方針
-
-Web UI は新しい数学エンジンとして作らない。
-
-既存の calculation / query / proof replay の結果を利用し、表示層として接続する。
-
-目標構造:
-
-```text
-existing repository / calculation / query / proof layer
-→ Web-facing adapter / view model
-→ Web endpoint
-→ browser presentation
-→ TeX renderer
-```
-
-重要な境界:
-
-```text
-Web UI != new theorem source
-Web UI != general evaluator
-Web UI != alternate proof engine
-Web UI != CLI subprocess wrapper by default
-TeX rendering != mathematical normalization
-```
-
-Web UI のために、既存 CLI 文字列を再解析して数学を復元する設計は避ける。
-
-可能な限り既存の structured result / presentation object から Web 表示用データを作る。
-
-TeX renderer はブラウザ側の KaTeX または MathJax を候補とし、Phase 116 の監査で既存 LaTeX 出力との互換性を確認して選定する。
-
----
-
-# 9. Phase 116: Web UI readiness / presentation boundary audit
-
-Phase 116 は Web UI 本体を作る前の最小監査とする。
-
-確認対象:
-
-```text
-TodaGroupQuery result
-standard report
-operation-query presentation
-query-proof replay
-show-proof replay
-existing LaTeX renderers
-symbolic scalar LaTeX residual
-CLI-only assumptions
-UTF-8 boundary
-```
-
-主目的:
-
-```text
-1. Web UI が再利用すべき既存 API / facade を確定する
-2. CLI 出力文字列への依存を避ける
-3. Web-facing view model が本当に必要かを判定する
-4. TeX と通常テキストの境界を確認する
-5. KaTeX / MathJax の適合性を確認する
-6. 最小 Web framework の選定条件を確定する
-```
-
-Phase 116 では原則として数学機能を追加しない。
-
-表示上の既知残件
-
-```text
-E^{n + -1\,5}ν_5
-```
-
-については、Web UI の TeX 表示を阻害する場合に限り、既存 scalar LaTeX presentation の最小修正候補として扱う。
-
-数学的内容は
-
-$$
-E^{n-5}\nu_5=\nu_n.
-$$
-
-であり、proof correctness の問題ではない。
-
-Phase 116 完了条件:
-
-```text
-Web UI が呼ぶ既存 entry point が確定
-Web 表示用の最小データ境界が確定
-TeX renderer 選定方針が確定
-Web framework 選定方針が確定
-数学層を変更しない境界がテスト可能
-Phase 117 の最小画面仕様が確定
-```
-
----
-
-# 10. Phase 117: Minimal TeX Web UI
-
-Phase 117 は最初の Web UI 実装とする。
-
-最小対象:
+現在の対象:
 
 ```text
 n 入力
 k 入力
-計算実行
-結果表示
-TeX 数式レンダリング
-明確な NOT_FOUND / validation 表示
+group calculation
+FOUND
+NOT_FOUND
+MULTIPLE_RESULTS
+Python domain validation
+KaTeX result rendering
 ```
 
 代表例:
@@ -530,59 +264,120 @@ n = 11
 k = 7
 ```
 
-表示:
+\[
+\pi_{18}^{11}\cong
+\mathbb Z/16\{\sigma_{11}\}.
+\]
 
-$$
-\pi_{18}^{11}=\mathbb Z/16\{\sigma_{11}\}.
-$$
+現在の Web UI は group query のみを扱う。
 
-Phase 117 では既存の
-
-```text
-TodaGroupQuery
-standard production repository
-calculation facade
-existing proof provenance
-```
-
-を再利用する。
-
-意図的に先取りしない:
+未接続:
 
 ```text
-operation-query Web UI
-query-proof Web UI
-explore Web UI
-execute Web UI
-proof tree visualization
-general E/H/Delta evaluator
-Toda bracket solver
-coset / indeterminacy computation
-user authentication
-database persistence
-deployment automation
-rich SPA architecture
-```
-
-Phase 117 完了条件:
-
-```text
-ブラウザから n,k を入力できる
-既存計算経路と同じ結果が返る
-数学式が TeX として正常に表示される
-CLI と Web で数学的結果が一致する
-repository / proof semantics を変更しない
-focused Web UI tests が通る
-repository-wide regression が通る
+operation query
+query-proof
+show-proof
+explore
+explore-proof
+explore-applicable
+execute
 ```
 
 ---
 
-# 11. Phase 118: operation query / query-proof Web UI
+# 5. Web 設計原則
 
-Phase 117 の最小 UI が安定した後、既存 operation query を Web へ接続する。
+```text
+existing repository / calculation / query / proof layer
+→ thin Web adapter
+→ Web endpoint
+→ browser presentation
+→ KaTeX
+```
 
-対象候補:
+重要:
+
+```text
+Web UI != new theorem source
+Web UI != general evaluator
+Web UI != alternate proof engine
+Web UI != CLI subprocess wrapper
+TeX rendering != mathematical normalization
+```
+
+CLI 文字列や Markdown を Web で再解析しない。
+
+structured result / presentation object を利用する。
+
+---
+
+# 6. Phase 117 完了境界
+
+Phase 117 の機能条件:
+
+```text
+ブラウザから n,k を入力できる
+既存計算経路と同じ結果を返す
+数学式を KaTeX で表示する
+CLI と Web の数学結果が一致する
+NOT_FOUND を明示する
+MULTIPLE_RESULTS を自動選択しない
+既存 Python domain validation を維持する
+repository / proof semantics を変更しない
+focused Web tests が通る
+browser smoke が通る
+```
+
+確認済み focused results:
+
+```text
+tests/test_phase117_web_app.py
+→ 10 passed
+
+tests/test_phase117_web_group_query.py
+→ 4 passed
+
+tests/test_phase113_sigma_group_query_integration.py
+→ 7 passed
+```
+
+browser smoke:
+
+```text
+n=11, k=7
+→ KaTeX rendering confirmed
+
+n=0, k=7
+→ n must be positive
+
+n=11, k=-1
+→ k must be nonnegative
+```
+
+残る closure 条件:
+
+```text
+repository-wide pytest
+```
+
+---
+
+# 7. Phase 118: operation query / query-proof Web integration
+
+Phase 118 は Phase 117 で確立した Web boundary を再利用する。
+
+対象:
+
+```text
+operation query input
+existing operation-query facade
+existing structured operation-query presentation
+query result Web rendering
+query-proof selection
+bounded replay depth
+```
+
+代表 query:
 
 ```text
 H(nu_prime)
@@ -594,31 +389,47 @@ eta_2 o nu_prime
 eta_2 o nu_prime o eta_6
 ```
 
+設計:
+
+```text
+browser query
+→ thin operation-query Web adapter
+→ existing operation-query facade
+→ existing structured presentation
+→ HTML / KaTeX
+```
+
+query-proof:
+
+```text
+selected fact
+→ existing proof replay
+→ existing replay presentation
+→ HTML / KaTeX
+```
+
 Phase 118 では新しい query grammar や general evaluator を追加しない。
 
-既存 CLI と同じ lookup / limited handoff semantics をそのまま利用する。
-
-query-proof については、選択 fact と replay depth を Web から指定できる最小 UI を対象とする。
+```text
+Web operation query
+!= query semantics expansion
+```
 
 ---
 
-# 12. Phase 119: proof replay presentation
-
-Phase 119 は証明表示の読みやすさを改善する。
+# 8. Phase 119: bounded proof replay Web presentation
 
 候補:
 
 ```text
 proof depth 切替
-premise の階層表示
-theorem / phase provenance 表示
-数式部分の TeX rendering
+premise 階層表示
+theorem / phase provenance
+数式 TeX rendering
 unsupported statement の安全な fallback
 ```
 
 最初から graph visualization library を導入しない。
-
-まず既存 bounded ancestry を、HTML の階層構造として安全に表示できることを優先する。
 
 ```text
 proof presentation != new proof search
@@ -627,9 +438,9 @@ depth control != proof optimization
 
 ---
 
-# 13. Phase 120: exploration / execution Web integration audit
+# 9. Phase 120: exploration / execution Web integration audit
 
-Phase 120 では、次のどこまでを Web UI に載せる価値があるか再監査する。
+再監査対象:
 
 ```text
 explore
@@ -639,17 +450,17 @@ show-proof
 execute
 ```
 
-`execute` は数学的 state transition ではないが、qualified execution の意味論が query / replay より複雑なので、Phase 117 で先取りしない。
+`execute` は query / replay より意味論が複雑なので Phase 117–119 で先取りしない。
 
-Phase 120 の監査結果に応じて、その後の UI Phase を決定する。
+Phase 120 の監査結果に応じて、その後の Web Phase を決める。
 
 ---
 
-# 14. Web UI 導入後に戻る数学的 pressure
+# 10. Web UI 導入後の数学的 pressure
 
 Web UI の導入は数学機能開発の終了を意味しない。
 
-Phase 118–120 の途中または終了後、必要性を再評価する対象:
+再評価候補:
 
 ```text
 H(nu_5)
@@ -660,22 +471,19 @@ Delta(nu_prime)
 E(nu_5 o eta_8)
 ```
 
-Web UI 上で実利用した結果、どの問い合わせ miss が本当に重要かを観測できるようになる。
-
-したがって今後は、
+今後の循環:
 
 ```text
 CLI / Web での実利用
 → capability pressure の確認
-→ 最小数学機能の選定
+→ 既存数学の再利用可否を監査
+→ 最小数学機能を選定
 → 実装
 ```
 
-という循環を採用する。
-
 ---
 
-# 15. 長期保留機能
+# 11. 長期保留機能
 
 ```text
 operation-query grammar generalization
@@ -691,15 +499,15 @@ repository snapshot / versioning
 rich graph proof visualization
 odd-primary integration
 all-primary ordinary sphere-homotopy calculation
+authentication
+database persistence
+deployment automation
+rich SPA architecture
 ```
-
-Web UI 自体は長期保留から外し、Phase 116–120 の近接ロードマップへ移す。
 
 ---
 
-# 16. 完了判断原則
-
-Phase 116 以降も次を維持する。
+# 12. 完了判断原則
 
 ```text
 既存数学を先に再利用する
@@ -711,21 +519,13 @@ parser を需要なしに一般化しない
 Web UI から数学 semantics を変更しない
 CLI と Web の結果を分岐させない
 focused regression で境界を固定する
-repository-wide regression で閉じる
+repository-wide regression で Phase を閉じる
 ```
 
-Phase 115 closure:
+Phase 115 の最新確定 full regression:
 
 ```text
-Phase 115 dedicated:
-14 passed
-
-Phase 114 compatibility:
-16 passed
-
-related regression:
-97 passed
-
-repository-wide:
 9111 passed in 432.54s (0:07:12)
 ```
+
+Phase 117 の final repository-wide regression は documentation update 後に実行する。
