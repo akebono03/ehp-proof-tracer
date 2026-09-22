@@ -1,29 +1,36 @@
 document.addEventListener(
   "DOMContentLoaded",
   function () {
-    const element = document.getElementById(
-      "result-math"
-    );
-
     if (
-      element === null
-      || typeof katex === "undefined"
+      typeof katex === "undefined"
     ) {
       return;
     }
 
-    const latex = element.dataset.latex;
+    const elements = (
+      document.querySelectorAll(
+        "[data-latex]"
+      )
+    );
 
-    if (!latex) {
-      return;
-    }
+    elements.forEach(
+      function (element) {
+        const latex = (
+          element.dataset.latex
+        );
 
-    katex.render(
-      latex,
-      element,
-      {
-        displayMode: true,
-        throwOnError: false,
+        if (!latex) {
+          return;
+        }
+
+        katex.render(
+          latex,
+          element,
+          {
+            displayMode: true,
+            throwOnError: false,
+          }
+        );
       }
     );
   }

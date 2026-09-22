@@ -8,6 +8,10 @@ from web_group_query import (
   WebGroupQueryView,
   build_standard_web_group_query_view,
 )
+from web_operation_query import (
+  WebOperationQueryView,
+  build_standard_web_operation_query_view,
+)
 
 
 def _parse_integer_form_value(
@@ -44,6 +48,11 @@ def create_app(
   )
   def index(
   ) -> str:
+    form_kind = request.form.get(
+      "form_kind",
+      "group",
+    )
+
     n_value = request.form.get(
       "n",
       "",
@@ -52,27 +61,44 @@ def create_app(
       "k",
       "",
     )
+    operation_query_value = (
+      request.form.get(
+        "operation_query",
+        "",
+      )
+    )
 
     view: WebGroupQueryView | None = None
+    operation_query_view: (
+      WebOperationQueryView
+      | None
+    ) = None
     error_message: str | None = None
 
     if request.method == "POST":
       try:
-        n = _parse_integer_form_value(
-          n_value,
-          "n",
-        )
-        k = _parse_integer_form_value(
-          k_value,
-          "k",
-        )
-
-        view = (
-          build_standard_web_group_query_view(
-            n=n,
-            k=k,
+        if form_kind == "operation":
+          operation_query_view = (
+            build_standard_web_operation_query_view(
+              operation_query_value
+            )
           )
-        )
+        else:
+          n = _parse_integer_form_value(
+            n_value,
+            "n",
+          )
+          k = _parse_integer_form_value(
+            k_value,
+            "k",
+          )
+
+          view = (
+            build_standard_web_group_query_view(
+              n=n,
+              k=k,
+            )
+          )
       except (
         TypeError,
         ValueError,
@@ -85,7 +111,13 @@ def create_app(
       "index.html",
       n_value=n_value,
       k_value=k_value,
+      operation_query_value=(
+        operation_query_value
+      ),
       view=view,
+      operation_query_view=(
+        operation_query_view
+      ),
       error_message=error_message,
     )
 
