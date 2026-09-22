@@ -1430,3 +1430,140 @@ repository-wide pytest passed
 ```
 
 repository-wide pytest は Phase 117 の最後に1回だけ実行する。
+
+## Phase 118
+
+Phase 118 は、Phase 117 で確立した group-query Web boundary を既存 operation query / query-proof capability へ拡張した。
+
+新しい数学的定理、query grammar、general evaluator は追加していない。
+
+### Phase 118-1: Web operation-query boundary audit
+
+既存 operation-query facade / presentation / replay を再監査し、
+
+```text
+Web
+→ existing operation-query facade
+→ existing structured presentation
+→ statement_latex
+→ KaTeX
+```
+
+および
+
+```text
+selected fact
+→ existing proof replay
+→ existing replay presentation
+→ Web
+```
+
+をそのまま利用する方針を確定した。
+
+### Phase 118-2: operation query Web UI
+
+追加:
+
+```text
+web_operation_query.py
+tests/test_phase118_web_operation_query.py
+tests/test_phase118_web_app.py
+```
+
+変更:
+
+```text
+web_app.py
+templates/index.html
+static/web_math.js
+```
+
+代表 query:
+
+```text
+H(nu_prime)
+Delta(iota_9)
+E(nu_5)
+E(sigma_11)
+```
+
+既存 `statement_latex` を直接利用し、複数 fact は全件表示して自動選択しない。
+
+focused regression:
+
+```text
+67 passed in 15.95s
+```
+
+### Phase 118-3: query-proof Web integration
+
+追加:
+
+```text
+web_operation_query_proof.py
+tests/test_phase118_web_operation_query_proof.py
+```
+
+各 fact を明示選択し、selected fact 自身の `ProofStep` を既存 proof replay の root とした。
+
+Web 表示:
+
+```text
+conclusion
+provenance
+repository depth
+proof steps
+rule name
+```
+
+focused regression:
+
+```text
+91 passed in 21.78s
+```
+
+### Phase 118-4: depth / browser usability audit
+
+Web では proof depth
+
+```text
+0
+1
+2
+```
+
+を選択可能にした。
+
+unsupported statement は既存 type-name fallback を利用し、raw dataclass repr を browser に漏らさない。
+
+`static/web_math.js` は全 `[data-latex]` 要素を KaTeX 描画する。
+
+Flask development server を実 browser で確認し、`POST /` は HTTP 200、`/static/web_math.js` も正常取得された。
+
+### Phase 118-5: documentation / completion
+
+Phase 118 の current architecture、Web capability、depth boundary、safe fallback、次 Phase の境界を
+
+```text
+README.md
+docs/design.md
+docs/roadmap.md
+docs/development_log.md
+```
+
+へ反映した。
+
+Phase 118 は新しい数学的 proof を追加していないため、`docs/proof_records.md` は変更しない。
+
+Phase 118 final repository-wide regression:
+
+```text
+python -m pytest -q
+9169 passed in 465.97s (0:07:45)
+```
+
+Phase 118 は完了。
+
+次の Phase 119 は、`show-proof`、`explore`、`explore-proof`、`explore-applicable`、`execute` のうち、次に Web 接続する価値が高い capability を再監査する。
+
+特に `execute` は qualified candidate selection を伴うため、read-only capability と同じ境界で機械的に公開しない。

@@ -25,23 +25,17 @@
 構造的等値 != 数学的等値
 探索計画 != 証明結果
 表示層 != 証明事実
-運用 repository の組み立て != 定理事実
 proof-scope 走査 != 定理探索
 既知関係の発見 != 写像評価
 適用可能候補 != 証明成功
 候補番号 != 数学的優先度
-既知群同一性検索 != qualified execution
-symbolic theorem の具体化 != 任意の symbolic AST 書き換え
-演算問い合わせ検索 != 演算 evaluator
-限定 theorem-specific handoff != general query inference
-CLI --depth != 新しい proof search
-TodaGroupQuery specialization reuse != 新しい定理 root
-LOOKUP_MISS != evaluator 不足の確定
-expression occurrence != operation result
-related mathematics exists != reusable operation relation exists
+operation query != general evaluator
+limited theorem-specific handoff != general query inference
 Web UI != 新しい数学エンジン
 TeX rendering != 数学的 normalization
 HTML validation != 数学的 domain validation
+proof depth control != 新しい proof search
+safe fallback != 推測した数学的説明
 ```
 
 ---
@@ -66,34 +60,12 @@ ProofRepository
 ```text
 browser form
 → Flask route
-→ Web group-query adapter
+→ web_group_query
 → build_standard_toda_report(n,k)
 → structured group presentation
-→ render_toda_group_result_latex(...)
-→ Jinja template
+→ existing LaTeX renderer
+→ Jinja
 → KaTeX
-```
-
-Web UI は CLI 出力文字列や Markdown を再解析しない。
-
-## 生成元探索
-
-```text
-generator input
-→ GeneratorSymbol
-→ recursive proof scope
-→ generator-specific specialization
-→ occurrence / applicability
-```
-
-## known-group replay
-
-```text
-generator
-→ known-group identity
-→ source ProofStep
-→ bounded ancestry
-→ show-proof
 ```
 
 ## operation query
@@ -104,16 +76,8 @@ query string
 → direct repository / proof-scope lookup
 → direct hit はそのまま返す
 → direct miss のうち許可された exact handoff のみ具体化
-→ presentation grouping
-→ query
-```
-
-基本意味論:
-
-```text
-direct lookup first
-query != general inference engine
-query != general evaluator
+→ structured presentation
+→ CLI / Web
 ```
 
 現在許可される exact handoff:
@@ -123,44 +87,48 @@ E(nu_5)
 E(sigma_11)
 ```
 
+## Web operation query
+
+```text
+browser query
+→ Flask route
+→ web_operation_query
+→ existing operation-query facade
+→ existing structured presentation
+→ statement_latex
+→ Jinja
+→ KaTeX
+```
+
+## query-proof
+
+```text
+selected fact
+→ primary existing provenance
+→ existing ProofStep
+→ bounded ancestry
+→ replay presentation
+→ CLI / Web
+```
+
+Web では fact を明示選択し、複数 fact の最初を自動選択しない。
+
 ---
 
 # 3. 主要モジュール
 
-Toda group calculation:
+Web:
 
 ```text
-toda_group_query.py
-toda_group_lookup.py
-toda_group_result.py
-toda_calculation.py
-toda_calculation_facade.py
-toda_calculation_report.py
-toda_calculation_report_result.py
-toda_end_to_end_presentation.py
-toda_human_readable_renderer.py
-```
-
-Web group query:
-
-```text
-web_group_query.py
 web_app.py
+web_group_query.py
+web_operation_query.py
+web_operation_query_proof.py
 templates/index.html
 static/web_math.js
 ```
 
-proof scope / specialization:
-
-```text
-repository_proof_scope.py
-repository_symbolic_sigma_specialization.py
-repository_generator_known_group_identity_lookup.py
-repository_nu5_stable_bridge_specialization.py
-repository_sigma11_suspension_specialization.py
-```
-
-operation query:
+operation query / replay:
 
 ```text
 repository_operation_query.py
@@ -169,16 +137,8 @@ repository_operation_query_facade.py
 repository_operation_query_presentation.py
 repository_operation_query_proof_replay.py
 repository_operation_query_proof_replay_presentation.py
-```
-
-qualified execution:
-
-```text
-repository_generator_production_application_recovery.py
-repository_generator_qualified_execution_selection.py
-repository_generator_qualified_execution_family.py
-repository_generator_qualified_execution_dispatch.py
-repository_generator_standard_qualified_execution_facade.py
+repository_operation_query_proof_replay_statement_presentation.py
+repository_operation_query_proof_replay_renderer.py
 ```
 
 CLI:
@@ -189,9 +149,9 @@ main.py
 
 ---
 
-# 4. 証明事実と metadata
+# 4. 証明事実と provenance
 
-証明事実の中心:
+証明事実の中心は
 
 ```text
 ProofStep.conclusion
@@ -199,111 +159,23 @@ ProofStep.premises
 ProofStep.inference_rule
 ```
 
+である。
+
 `ProofRepositoryEntry.key / phase / theorem` は provenance metadata である。
 
-renderer、facade、CLI、Web adapter、Flask route、resolver、探索、表示 grouping は独立した定理事実を追加しない。
-
-theorem-specific specialization は新しい独立 theorem root を追加せず、既存 `ProofStep` を premise とする concrete `ProofStep` を生成する。
+renderer、facade、CLI、Web adapter、Flask route、表示 grouping は独立した定理事実を追加しない。
 
 ---
 
 # 5. Repository 非破壊
 
-元 repository は読み取り専用として扱う。
-
 Phase 113 の TodaGroupQuery specialization、Phase 114 の `E(nu_5)` handoff、Phase 115 の `E(sigma_11)` handoff は元 repository に root を追加しない。
 
-```text
-entries before == entries after
-```
-
-Phase 117 の Web UI も repository を変更しない。
+Phase 117–118 の Web UI も repository を変更しない。
 
 ---
 
-# 6. Indexed sigma specialization
-
-Toda Proposition 5.15:
-
-\[
-\pi_{n+7}^{n}=\mathbb Z/16\{\sigma_n\},
-\qquad n\ge 9.
-\]
-
-concrete indexed \(\sigma_n\) の theorem-specific specialization は整数 \(n\ge 10\) に限定する。
-
-```text
-concrete sigma_n group step
-→ premise: symbolic Proposition 5.15 higher step
-```
-
-任意の symbolic AST substitution engine は導入しない。
-
----
-
-# 7. TodaGroupQuery specialization reuse
-
-対象:
-
-```text
-query.k == 7
-query.n >= 10
-```
-
-流れ:
-
-```text
-build_known_toda_calculation_result
-→ direct normalized group lookup
-→ direct result が無い場合のみ
-→ build_repository_proof_scope(repository)
-→ GeneratorSymbol(family="σ", index=query.n)
-→ specialize_repository_proof_scope_for_generator(...)
-→ added specialized node
-→ query.target と一致する concrete group relation
-→ TodaGroupResult
-→ existing report pipeline
-```
-
-不変条件:
-
-```text
-direct lookup first
-specialization is fallback only
-empty repository → NOT_FOUND
-specialized result premise = symbolic Proposition 5.15 step
-root phase / theorem provenance を保持
-repository root entries は変更しない
-k != 7 では使わない
-n < 10 では使わない
-```
-
-例:
-
-\[
-\pi_{18}^{11}=
-\mathbb Z/16\{\sigma_{11}\}.
-\]
-
----
-
-# 8. show-proof と execute の分離
-
-```text
-show-proof
-→ 既知群 proof を表示 / 再生
-
-execute
-→ qualified theorem application
-```
-
-```text
-show-proof != execute
-```
-
----
-
-# 9. 演算問い合わせの意味論
+# 6. operation query の意味論
 
 operation query は lookup-first である。
 
@@ -315,38 +187,15 @@ operation query
 → 許可された場合だけ theorem-specific specialization
 ```
 
-現在許可される handoff:
-
-```text
-E(nu_5)
-E(sigma_11)
-```
-
-Phase 114:
+現在の限定 handoff:
 
 \[
-E^{n-5}\nu_5=\nu_n
+E(\nu_5)=\nu_6,
 \]
-
-から \(n=6\) に限定して
-
-\[
-E(\nu_5)=\nu_6.
-\]
-
-Phase 115:
-
-\[
-\sigma_n=E^{n-8}\sigma_8
-\]
-
-を利用して
 
 \[
 E(\sigma_{11})=\sigma_{12}.
 \]
-
-したがって:
 
 ```text
 LOOKUP_MISS
@@ -354,15 +203,13 @@ LOOKUP_MISS
 != evaluator required
 
 limited handoff
-!= arbitrary query-to-inference fallback
+!= arbitrary inference fallback
 != general E evaluator
 ```
 
-direct lookup は常に handoff より優先される。
-
 ---
 
-# 10. Operation-query parser の境界
+# 7. Operation-query parser の境界
 
 現在対応:
 
@@ -385,11 +232,11 @@ Unicode ∘
 一般再帰 parser
 ```
 
-Web UI の導入は parser grammar を変更しない。
+Web UI は既存 parser を再利用し、別 grammar を持たない。
 
 ---
 
-# 11. 証明再生
+# 8. 証明再生
 
 default:
 
@@ -397,20 +244,27 @@ default:
 max_depth = 1
 ```
 
-CLI:
+Web は Phase 118 の usability boundary として
 
 ```text
-python main.py show-proof sigma_11 --depth 2
-python main.py query-proof "H(nu_prime)" --fact 1 --depth 2
-python main.py query-proof "E(nu_5)" --depth 2
-python main.py query-proof "E(sigma_11)" --depth 2
+0
+1
+2
 ```
 
-`--depth` は既存 ancestry の表示範囲であり、新しい proof search ではない。
+のみを選択可能にする。
+
+```text
+depth 0 → root のみ
+depth 1 → direct premise まで
+depth 2 → さらに1段 ancestry
+```
+
+depth は表示範囲であり、新しい proof search ではない。
 
 ---
 
-# 12. 表示と provenance
+# 9. 表示と deduplication
 
 同一数学 statement が複数 proof-scope path から得られる場合、表示 layer は grouping できる。
 
@@ -419,111 +273,62 @@ deduplicated presentation
 != provenance deletion
 ```
 
+複数 statement がある場合:
+
+```text
+全 fact を表示
+→ 自動選択しない
+→ 利用者が明示選択
+```
+
 proof replay の root は選択された query fact 自身の `ProofStep` である。
 
+---
+
+# 10. Safe statement presentation
+
+proof replay の statement が既存 renderer で数式化できる場合は LaTeX を使う。
+
+未対応 aggregate statement は type-name fallback へ落とす。
+
 ```text
-query-proof root
-!= enclosing repository theorem root
+safe fallback
+!= raw dataclass repr
+!= 推測した定理説明
 ```
-
-symbolic bridge の scalar 表示が
-
-```text
-E^{n + -1\,5}ν_5
-```
-
-のように現れる場合がある。これは scalar LaTeX presentation の既存残件であり、proof correctness の問題ではない。
 
 ---
 
-# 13. Expression occurrence と operation result
+# 11. Web UI の設計境界
 
-既存 proof 内に
-
-\[
-E\nu'
-\]
-
-や
-
-\[
-E^2\nu'
-\]
-
-が部分式として現れていても、
-
-\[
-E(\nu')=\alpha
-\]
-
-という `Relation` が存在することを意味しない。
+framework:
 
 ```text
-expression occurrence
-!= operation result relation
+Flask
 ```
 
-同様に、関連する低次元数学が存在していても reusable family operation bridge が自動的に存在するとは限らない。
-
----
-
-# 14. Web UI の設計境界
-
-Phase 116 で Web readiness を監査し、Phase 117 で最小 Web UI を実装した。
-
-選定:
+browser TeX renderer:
 
 ```text
-Web framework
-→ Flask
-
-browser TeX renderer
-→ KaTeX
-```
-
-依存:
-
-```text
-Flask==3.1.3
 KaTeX 0.18.7
 ```
 
-KaTeX は browser-side CDN asset として利用する。
-
-Web group-query adapter:
+Web は CLI output / Markdown を再解析しない。
 
 ```text
-web_group_query.py
+existing structured object
+→ thin Web adapter
+→ Jinja
+→ KaTeX
 ```
 
-責務:
-
-```text
-n,k
-→ build_standard_toda_report(n,k)
-→ calculation status
-→ FOUND の場合だけ structured group presentation
-→ existing group LaTeX renderer
-→ WebGroupQueryView
-```
-
-adapter は次を行わない。
-
-```text
-新しい数学計算
-repository traversal の独自実装
-proof candidate の数学的選択
-Markdown / CLI parsing
-独自 normalization
-```
+Phase 118 で operation query / query-proof まで接続されたが、新しい数学 engine は導入していない。
 
 ---
 
-# 15. Web view model
+# 12. Web view model
 
-Phase 117 の Web group query は小さな immutable view model を使う。
-
-概念:
+group query:
 
 ```text
 n
@@ -532,241 +337,118 @@ status
 result_latex
 ```
 
-status は既存 `TodaCalculationStatus` を保持する。
+operation query:
 
 ```text
-FOUND
-NOT_FOUND
-MULTIPLE_RESULTS
+query_input
+found
+items[]
+  statement_latex
+  provenance_count
 ```
 
-意味論:
+operation query proof:
 
 ```text
-FOUND
-→ exactly one result
-→ result_latex を持つ
-
-NOT_FOUND
-→ result_latex is None
-
-MULTIPLE_RESULTS
-→ result_latex is None
-→ candidate 0 を自動選択しない
+query_input
+fact_number
+conclusion_latex
+provenance
+steps[]
+max_depth
 ```
 
-実際の zero group は `FOUND` のままであり、`NOT_FOUND` と混同しない。
+Web view model は presentation 用であり、proof truth の保存場所ではない。
 
 ---
 
-# 16. Web validation boundary
+# 13. TeX / HTML boundary
 
-Web syntax conversion と数学的 domain validation を分離する。
+Python renderer は LaTeX string を返す。
 
-```text
-form text
-→ Flask syntax conversion
-→ int
-→ existing TodaGroupQuery validation
-```
+Jinja が `data-latex` へ渡し、`static/web_math.js` が全 `[data-latex]` 要素を取得して `katex.render(...)` を呼ぶ。
 
-Flask boundary が扱う例:
-
-```text
-空文字
-非整数文字列
-```
-
-TodaGroupQuery が保持する domain:
-
-```text
-n > 0
-k >= 0
-```
-
-HTML `<input>` の `min` は使わない。
-
-理由:
-
-```text
-browser min validation
-→ Flask / TodaGroupQuery より先に停止する
-→ Python 側の既存 domain semantics を利用者が確認できない
-```
-
-したがって:
-
-```text
-HTML syntax assistance
-!= mathematical domain authority
-```
-
-`required` は空欄に対する browser assistance として残してよい。
-
----
-
-# 17. TeX / HTML boundary
-
-Python renderer は LaTeX 文字列を返す。
-
-```text
-existing structured presentation
-→ render_toda_group_result_latex(...)
-→ plain LaTeX string
-```
-
-Python renderer の出力を HTML として扱わない。
-
-Jinja template が文字列を HTML へ渡し、browser JavaScript が
-
-```javascript
-katex.render(...)
-```
-
-を呼ぶ。
-
-Phase 117 の設定:
+設定:
 
 ```text
 displayMode = true
 throwOnError = false
 ```
 
-Phase 117 では user-supplied TeX を受理しない。
-
 ---
 
-# 18. Phase 117 Web route
+# 14. Phase 118 regression boundary
 
-現在の route は `/` のみ。
-
-```text
-GET /
-→ n,k form
-
-POST /
-→ form syntax conversion
-→ Web group-query adapter
-→ status / result
-→ template
-```
-
-起動:
+Phase 118 で固定した境界:
 
 ```text
-python -m flask --app web_app run --debug
-```
-
-代表例:
-
-```text
-n = 11
-k = 7
-```
-
-表示:
-
-\[
-\pi_{18}^{11}\cong
-\mathbb Z/16\{\sigma_{11}\}.
-\]
-
----
-
-# 19. Phase 117 regression boundary
-
-Phase 117 で固定した境界:
-
-```text
-Web result = existing CLI mathematical result
-NOT_FOUND は明示
-MULTIPLE_RESULTS は自動選択しない
-n <= 0 は既存 Python domain validation
-k < 0 は既存 Python domain validation
-Web adapter は既存 calculation facade を使う
-LaTeX renderer は既存 renderer を使う
+Web operation query = existing operation-query result
+existing statement_latex を再利用
+複数 fact は自動選択しない
+selected fact 自身を replay root にする
+provenance を保持
+depth 0 / 1 / 2 を Web から選択可能
+unsupported statement は safe type-name fallback
+raw Python repr を browser に漏らさない
+KaTeX は全 [data-latex] 要素を描画
+group-query path を壊さない
 repository / proof semantics を変更しない
 ```
 
-browser smoke で KaTeX による実 TeX 描画を確認済み。
+最終 repository-wide regression:
+
+```text
+9169 passed in 465.97s (0:07:45)
+```
 
 ---
 
-# 20. Web UI でまだ行わないこと
-
-Phase 117 では次を先取りしない。
+# 15. Phase 118 で行わなかったこと
 
 ```text
-operation query Web UI
-query-proof Web UI
-show-proof Web UI
-explore Web UI
-execute Web UI
-proof tree visualization
+new query grammar
+general E/H/Delta evaluator
+general Toda bracket solver
+coset / indeterminacy computation
+new theorem root
+arbitrary inference fallback
+show-proof Web integration
+explore Web integration
+execute Web integration
+proof graph visualization
 REST API
-generic Web service hierarchy
 database
 authentication
 deployment automation
 SPA framework
-general E/H/Delta evaluator
-general Toda bracket solver
-coset / indeterminacy computation
 ```
 
 ---
 
-# 21. 残存 operation pressure
+# 16. 次 Phase との境界
 
-既存の残存候補:
+Phase 119 は、次に Web 接続する価値が高い既存 capability を再監査する。
+
+候補:
 
 ```text
-H(nu_5)
-H(sigma_11)
-Delta(sigma_11)
-E(nu_prime)
-Delta(nu_prime)
-E(nu_5 o eta_8)
+show-proof
+explore
+explore-proof
+explore-applicable
+execute
 ```
 
-これらを Web UI 実装と混ぜない。
+特に `execute` は候補選択と実行 semantics を含むため、read-only capability と同じ感覚で Web に露出しない。
 
 ---
 
-# 22. 次 Phase との境界
-
-Phase 118 は既存 operation query / query-proof capability を Web へ接続する。
-
-原則:
-
-```text
-existing operation query
-→ existing structured presentation
-→ thin Web adapter
-→ HTML / KaTeX
-```
-
-Phase 118 でも次を追加しない。
-
-```text
-new query grammar
-general evaluator
-new theorem root
-arbitrary inference fallback
-```
-
-Phase 119 は bounded proof replay presentation / depth control を扱う。
-
-Phase 120 は explore / execute を Web に載せる価値と境界を再監査する。
-
----
-
-# 23. 完了判断原則
+# 17. 完了判断原則
 
 ```text
 既存数学を先に再利用する
 direct fact を上書きしない
-新しい定理 root を不要に作らない
+新しい theorem root を不要に作らない
 provenance を失わない
 一般 evaluator を必要性なしに作らない
 parser を需要なしに一般化しない

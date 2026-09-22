@@ -27,40 +27,97 @@
 <body>
   <main>
     <h1>EHP Proof Tracer</h1>
-    <p>
-      Query the project quantity pi_(n+k)^n
-      (free part plus 2-primary component).
-    </p>
 
-    <form method="post">
-      <p>
-        <label for="n">n</label>
-        <input
-          id="n"
-          name="n"
-          type="number"
-          step="1"
-          required
-          value="{{ n_value }}"
-        >
-      </p>
+    <section aria-labelledby="group-query-heading">
+      <h2 id="group-query-heading">
+        Group query
+      </h2>
 
       <p>
-        <label for="k">k</label>
-        <input
-          id="k"
-          name="k"
-          type="number"
-          step="1"
-          required
-          value="{{ k_value }}"
-        >
+        Query the project quantity pi_(n+k)^n
+        (free part plus 2-primary component).
       </p>
 
-      <button type="submit">
-        Calculate
-      </button>
-    </form>
+      <form method="post">
+        <input
+          type="hidden"
+          name="form_kind"
+          value="group"
+        >
+
+        <p>
+          <label for="n">n</label>
+          <input
+            id="n"
+            name="n"
+            type="number"
+            step="1"
+            required
+            value="{{ n_value }}"
+          >
+        </p>
+
+        <p>
+          <label for="k">k</label>
+          <input
+            id="k"
+            name="k"
+            type="number"
+            step="1"
+            required
+            value="{{ k_value }}"
+          >
+        </p>
+
+        <button type="submit">
+          Calculate
+        </button>
+      </form>
+    </section>
+
+    <section aria-labelledby="operation-query-heading">
+      <h2 id="operation-query-heading">
+        Operation query
+      </h2>
+
+      <p>
+        Query an existing proof-backed operation fact.
+      </p>
+
+      <form method="post">
+        <input
+          type="hidden"
+          name="form_kind"
+          value="operation"
+        >
+
+        <p>
+          <label for="operation-query">
+            Query
+          </label>
+          <input
+            id="operation-query"
+            name="operation_query"
+            type="text"
+            required
+            value="{{ operation_query_value }}"
+            placeholder="E(nu_5)"
+          >
+        </p>
+
+        <button type="submit">
+          Query
+        </button>
+      </form>
+
+      <p>
+        Examples:
+        H(nu_prime),
+        Delta(iota_9),
+        E(nu_5),
+        E(sigma_11)
+      </p>
+    </section>
 
     {% if error_message %}
       <p role="alert">
@@ -86,6 +143,151 @@
           Multiple proof-backed results were found.
         </p>
       {% endif %}
+    {% endif %}
+
+    {% if operation_query_view %}
+      <section
+        aria-labelledby="operation-result-heading"
+      >
+        <h2 id="operation-result-heading">
+          Operation query result
+        </h2>
+
+        {% if not operation_query_view.found %}
+          <p>
+            No proof-backed operation fact found for this query.
+          </p>
+        {% elif not operation_query_view.items %}
+          <p>
+            No directly renderable operation fact found for this query.
+          </p>
+        {% else %}
+          <ol>
+            {% for item in operation_query_view.items %}
+              <li>
+                <div
+                  class="operation-result-math"
+                  data-latex="{{ item.statement_latex }}"
+                >{{ item.statement_latex }}</div>
+
+                <p>
+                  Provenance entries:
+                  {{ item.provenance_count }}
+                </p>
+
+                <form method="post">
+                  <input
+                    type="hidden"
+                    name="form_kind"
+                    value="operation_proof"
+                  >
+                  <input
+                    type="hidden"
+                    name="operation_query"
+                    value="{{ operation_query_view.query_input }}"
+                  >
+                  <input
+                    type="hidden"
+                    name="fact_number"
+                    value="{{ loop.index }}"
+                  >
+
+                  <label>
+                    Proof depth
+                    <select name="proof_depth">
+                      <option value="0">0</option>
+                      <option value="1" selected>1</option>
+                      <option value="2">2</option>
+                    </select>
+                  </label>
+
+                  <button type="submit">
+                    Show proof
+                  </button>
+                </form>
+              </li>
+            {% endfor %}
+          </ol>
+        {% endif %}
+      </section>
+    {% endif %}
+
+    {% if operation_query_proof_view %}
+      <section
+        aria-labelledby="operation-proof-heading"
+      >
+        <h2 id="operation-proof-heading">
+          Query proof
+        </h2>
+
+        <p>
+          Selected depth:
+          {{ operation_query_proof_view.max_depth }}
+        </p>
+
+        <h3>
+          Conclusion
+        </h3>
+
+        <div
+          id="operation-proof-conclusion"
+          data-latex="{{ operation_query_proof_view.conclusion_latex }}"
+        >{{ operation_query_proof_view.conclusion_latex }}</div>
+
+        <h3>
+          Provenance
+        </h3>
+
+        {% if operation_query_proof_view.provenance.theorem %}
+          <p>
+            {{ operation_query_proof_view.provenance.theorem }}
+            {% if operation_query_proof_view.provenance.phase %}
+              — Phase
+              {{ operation_query_proof_view.provenance.phase }}
+            {% endif %}
+            — repository depth
+            {{ operation_query_proof_view.provenance.depth }}
+          </p>
+        {% else %}
+          <p>
+            {{ operation_query_proof_view.provenance.key }}
+            — repository depth
+            {{ operation_query_proof_view.provenance.depth }}
+          </p>
+        {% endif %}
+
+        <h3>
+          Proof
+        </h3>
+
+        <ol>
+          {% for step in operation_query_proof_view.steps %}
+            <li class="operation-proof-step">
+              <p>
+                Depth {{ step.depth }}
+              </p>
+
+              {% if step.statement_latex %}
+                <div
+                  class="operation-proof-step-math"
+                  data-latex="{{ step.statement_latex }}"
+                >{{ step.statement_latex }}</div>
+              {% else %}
+                <p>
+                  <code>
+                    {{ step.fallback_type_name }}
+                  </code>
+                </p>
+              {% endif %}
+
+              <p>
+                Rule:
+                {{ step.rule_name }}
+              </p>
+            </li>
+          {% endfor %}
+        </ol>
+      </section>
     {% endif %}
   </main>
 </body>

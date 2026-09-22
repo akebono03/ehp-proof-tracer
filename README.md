@@ -16,8 +16,11 @@ The current system provides:
 - operation-query proof replay,
 - theorem-specific indexed \(\sigma_n\) specialization,
 - deliberately narrow existing-proof handoffs for \(E(\nu_5)=\nu_6\) and \(E(\sigma_{11})=\sigma_{12}\),
-- a minimal Flask Web UI for \(n,k\) group queries,
-- browser-side KaTeX rendering of existing LaTeX output.
+- a Flask Web UI for group queries and operation queries,
+- explicit operation-fact selection for proof replay,
+- browser-side KaTeX rendering of existing LaTeX output,
+- Web proof replay with selectable depth 0, 1, or 2,
+- safe type-name fallback for unsupported proof statements.
 
 ## Mathematical scope
 
@@ -130,23 +133,12 @@ The proof infrastructure supports:
 - operation-query result deduplication without losing raw provenance,
 - operation-query proof replay rooted at the selected fact's actual `ProofStep`,
 - theorem-specific `E(nu_5)` and `E(sigma_11)` handoffs that preserve existing symbolic proof provenance,
-- user-selected replay depth through `--depth`,
+- user-selected replay depth,
 - safe mathematical rendering with explicit type-name fallback for unsupported aggregate statements.
 
 General unbounded proof search, theorem ranking, producer ranking, proof-cost optimization, arbitrary operation-query inference fallback, and general \(E/H/\Delta\) evaluation are intentionally not implemented.
 
 ## Toda group calculation API
-
-The low-level calculation entry point is
-
-```python
-build_toda_calculation_result(
-  repository,
-  query,
-)
-```
-
-where `query` is a `TodaGroupQuery(n, k)`.
 
 The production one-shot entry point is
 
@@ -169,22 +161,18 @@ For example,
 python main.py 11 7
 ```
 
-returns the theorem-backed result
+returns
 
 \[
 \pi_{18}^{11}\cong
-\mathbb Z/16\{\sigma_{11}\},
+\mathbb Z/16\{\sigma_{11}\}.
 \]
 
-with the existing Toda Proposition 5.15 proof retained as provenance.
+## Web UI
 
-Direct theorem-backed results take precedence over fallback specialization. An explicitly supplied empty repository still returns `NOT_FOUND`.
+The Web UI is intentionally a thin presentation layer over existing calculation, operation-query, and proof-replay infrastructure.
 
-## Minimal Web UI
-
-Phase 117 introduced a minimal Web UI for the existing `n,k` calculation path.
-
-The Web stack is intentionally small:
+The group-query path is
 
 ```text
 browser form
@@ -197,24 +185,45 @@ browser form
 → KaTeX
 ```
 
+The operation-query path is
+
+```text
+browser operation query
+→ Flask route
+→ thin Web operation-query adapter
+→ existing operation-query facade
+→ existing structured presentation
+→ statement_latex
+→ Jinja template
+→ KaTeX
+```
+
+The operation proof path is
+
+```text
+selected fact
+→ existing operation-query proof replay
+→ existing replay presentation
+→ statement presentation
+→ provenance + proof steps
+→ Jinja template
+→ KaTeX
+```
+
 The Web UI does not parse CLI output and does not implement a second mathematical engine.
 
-Current Web files are:
+Current Web files include
 
 ```text
 web_app.py
 web_group_query.py
+web_operation_query.py
+web_operation_query_proof.py
 templates/index.html
 static/web_math.js
 ```
 
 The Python dependency is Flask 3.1.3. Browser-side mathematical rendering uses KaTeX 0.18.7.
-
-Install dependencies with
-
-```powershell
-python -m pip install -r requirements.txt
-```
 
 Run the local development server with
 
@@ -228,7 +237,7 @@ and open
 http://127.0.0.1:5000/
 ```
 
-in a browser.
+### Group query
 
 A representative query is
 
@@ -237,200 +246,55 @@ n = 11
 k = 7
 ```
 
-which is rendered by KaTeX as
+which is rendered as
 
 \[
 \pi_{18}^{11}\cong
 \mathbb Z/16\{\sigma_{11}\}.
 \]
 
-The current Web UI preserves the calculation statuses:
+### Operation query
+
+Representative Web operation queries are
 
 ```text
-FOUND
-NOT_FOUND
-MULTIPLE_RESULTS
+H(nu_prime)
+Delta(iota_9)
+E(nu_5)
+E(sigma_11)
 ```
 
-`MULTIPLE_RESULTS` is not silently collapsed to the first candidate.
+Multiple mathematical facts are listed explicitly. A fact is not automatically selected for proof replay.
 
-Web syntax conversion and mathematical domain validation remain separate. The Flask boundary converts form values to integers; `TodaGroupQuery` retains the domain constraints \(n>0\) and \(k\ge 0\).
+### Web query-proof
 
-The HTML form intentionally does not use `min` to duplicate those domain rules. This allows the existing Python validation messages to remain the authoritative mathematical-domain feedback.
+Each presented operation fact has an explicit proof-selection action.
 
-The current Web UI intentionally does not yet expose operation queries, query-proof, show-proof, explore, or execute.
+The selected fact is replayed from its own existing `ProofStep`, and the Web result shows:
 
-## Standard production repository
+- the selected conclusion,
+- theorem / phase provenance when available,
+- repository depth,
+- bounded proof steps,
+- rule names,
+- KaTeX-renderable statements,
+- safe type-name fallback for unsupported aggregate statements.
 
-The production builder is
-
-```python
-build_standard_production_proof_repository()
-```
-
-It assembles theorem-backed entries needed by supported production paths without creating new theorem truth.
-
-Concrete indexed \(\sigma_n\) specialization is derived from the existing Proposition 5.15 proof scope rather than registered as a new independent theorem root.
-
-The Phase 114 \(\nu_5\) operation handoff is derived from an existing symbolic Proposition 5.6 bridge and does not add a new repository root.
-
-The Phase 115 \(\sigma_{11}\) operation handoff is derived from the existing Toda Lemma 5.14 \(\sigma\)-family definition and likewise does not add a new repository root.
-
-## Generator-centered exploration
-
-Generator-centered exploration supports exact aliases such as
+The browser exposes replay depth choices
 
 ```text
-eta_2
-nu_5
-sigma_8
-sigma_11
-iota_4
-nu_prime
-sigma_prime
-sigma_double_prime
-sigma_triple_prime
+0
+1
+2
 ```
 
-An unindexed family is not a wildcard.
+where depth 0 shows only the replay root.
 
-The standard recursive proof-scope entry point is
-
-```python
-explore_standard_repository_generator_proof_scope_input(
-  generator_input,
-)
-```
-
-Representative `nu_prime` results include
-
-\[
-\nu' \in \{\eta_3,2\iota_4,\eta_4\}_1
-\]
-
-and
-
-\[
-H(\nu')=\eta_5.
-\]
-
-For concrete indexed \(\sigma_n\) with \(n\ge 10\), proof-scope exploration can materialize
-
-\[
-\pi_{n+7}^n=
-\mathbb Z/16\{\sigma_n\}.
-\]
-
-The exploration layer finds or theorem-specifically specializes already represented proof facts. It does not generally evaluate \(E\), \(H\), or \(\Delta\), and it does not solve Toda brackets.
-
-## Applicable theorem / lemma discovery
-
-Read-only applicability discovery is available through
-
-```python
-explore_standard_repository_generator_applicability_input(
-  generator_input,
-)
-```
-
-and
-
-```powershell
-python main.py explore-applicable nu_prime
-python main.py explore-applicable nu_prime --detailed
-```
-
-Applicability discovery does not execute a rule and does not establish a theorem conclusion.
-
-Relevance categories are
-
-```text
-THEOREM_SPECIFIC
-MAP_PROPERTY
-STRUCTURAL
-BRIDGE
-GENERIC_RELATION
-UNCLASSIFIED
-```
-
-## Qualified production execution
-
-The currently admitted qualified production execution families are
-
-```text
-toda_58_delta_iota9_nu4_nu_prime_inference_rule
-toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
-```
-
-The second family derives
-
-\[
-\pi_6^2=
-\mathbb Z/4\{\eta_2\nu'\}.
-\]
-
-For multi-premise rules, the engine recovers the unique existing production application under the same root and reuses the exact premise tuple by `ProofStep` identity and original order.
-
-Candidate numbers are one-based addressing only:
-
-```text
-candidate number != theorem ranking
-candidate order != mathematical priority
-```
-
-## Known-group identity and proof replay
-
-Known-group proof replay is separate from qualified theorem execution.
-
-```text
-generator
-→ unique known-group identity node
-→ existing ProofStep
-→ bounded provenance replay
-→ show-proof
-```
-
-```text
-show-proof != execute
-```
-
-Examples:
-
-```powershell
-python main.py show-proof nu_prime
-python main.py show-proof sigma_11
-python main.py show-proof sigma_11 --depth 2
-```
-
-The default depth is one direct premise level. `--depth 0` shows only the replay root.
+Depth selection changes only the visible existing ancestry. It does not perform new proof search.
 
 ## Operation query
 
 Operation query is lookup-first.
-
-Examples:
-
-```powershell
-python main.py query "H(nu_prime)"
-python main.py query "Delta(iota_9)"
-python main.py query "E(eta_2 o nu_prime)"
-python main.py query "E(nu_5)"
-python main.py query "E(sigma_11)"
-python main.py query "eta_2 o nu_prime"
-python main.py query "eta_2 o nu_prime o eta_6"
-```
-
-The minimal query grammar currently supports
-
-```text
-H(<generator>)
-H(<generator> o <generator>)
-E(<generator>)
-E(<generator> o <generator>)
-Delta(<generator>)
-<generator> o <generator>
-<generator> o <generator> o <generator>
-```
 
 Representative results include
 
@@ -439,9 +303,7 @@ H(\nu')=\eta_5,
 \]
 
 \[
-\Delta(\iota_9)
-=
-\pm(2\nu_4-E\nu'),
+\Delta(\iota_9)=\pm(2\nu_4-E\nu'),
 \]
 
 \[
@@ -458,176 +320,57 @@ and
 E(\sigma_{11})=\sigma_{12}.
 \]
 
-The normal operation-query path remains direct repository / proof-scope lookup.
+The two narrow theorem-specific handoffs do not turn `query` into a general inference engine or evaluator.
 
-Two deliberately narrow theorem-specific exceptions currently exist:
+## Phase 118 closure
 
-```text
-query
-→ direct lookup
-→ direct hit: return unchanged
-→ direct miss
-→ exact E(nu_5) or exact E(sigma_11) guard
-→ theorem-specific concrete specialization
-→ result + preserved provenance
-```
-
-These handoffs do not turn `query` into a general inference engine or evaluator.
-
-## Operation-query proof replay
-
-Proof replay is available for a selected query fact.
-
-Examples:
-
-```powershell
-python main.py query-proof "H(nu_prime)" --fact 1
-python main.py query-proof "H(nu_prime)" --fact 1 --depth 2
-python main.py query-proof "E(nu_5)"
-python main.py query-proof "E(nu_5)" --depth 2
-python main.py query-proof "E(sigma_11)"
-python main.py query-proof "E(sigma_11)" --depth 2
-```
-
-If a query has exactly one presented fact, `--fact` is optional. If multiple facts are available, no fact is selected automatically.
-
-The replay root is the selected fact's own `ProofStep`, not the enclosing repository theorem root.
-
-## Command-line interface
-
-Current commands include
-
-```powershell
-python main.py n k
-python main.py explore "nu'"
-python main.py explore-proof nu_prime
-python main.py explore-applicable nu_prime
-python main.py explore-applicable nu_prime --detailed
-python main.py show-proof nu_prime
-python main.py show-proof sigma_11 --depth 2
-python main.py execute nu_prime
-python main.py execute nu_prime --candidate 1
-python main.py query "H(nu_prime)"
-python main.py query "Delta(iota_9)"
-python main.py query "E(eta_2 o nu_prime)"
-python main.py query "E(nu_5)"
-python main.py query "E(sigma_11)"
-python main.py query "eta_2 o nu_prime"
-python main.py query "eta_2 o nu_prime o eta_6"
-python main.py query-proof "H(nu_prime)" --fact 1
-python main.py query-proof "H(nu_prime)" --fact 1 --depth 2
-python main.py query-proof "E(nu_5)"
-python main.py query-proof "E(nu_5)" --depth 2
-python main.py query-proof "E(sigma_11)"
-python main.py query-proof "E(sigma_11)" --depth 2
-```
-
-The CLI script boundary configures stdout and stderr as UTF-8 for Windows environments whose default console encoding may be CP932.
-
-## Phase 113–115 closure
-
-Phase 113 connected the existing indexed \(\sigma_n\) specialization to `TodaGroupQuery`.
-
-Phase 114 connected exactly one existing \(\nu\)-family bridge to operation query:
-
-\[
-E(\nu_5)=\nu_6.
-\]
-
-Phase 115 connected exactly one existing \(\sigma\)-family definition to operation query:
-
-\[
-E(\sigma_{11})=\sigma_{12}.
-\]
-
-The Phase 115 full repository regression was
+Phase 118 connected the existing operation-query and query-proof capabilities to the Web UI without adding new mathematics.
 
 ```text
-9111 passed in 432.54s (0:07:12)
+Phase 118-1
+→ Web operation-query boundary audit
+→ existing structured presentation selected as Web boundary
+
+Phase 118-2
+→ operation-query Web UI
+→ existing statement_latex rendered through KaTeX
+→ multiple facts listed without auto-selection
+
+Phase 118-3
+→ explicit fact selection
+→ existing query-proof replay connected to Web
+→ conclusion / provenance / proof steps displayed
+
+Phase 118-4
+→ Web replay depth 0 / 1 / 2
+→ unsupported-statement safe fallback
+→ multiple-fact selection regression
+→ KaTeX browser smoke
 ```
 
-## Phase 116 closure
-
-Phase 116 audited the Web-facing boundary before implementation.
-
-It established:
+The final repository-wide Phase 118 regression was
 
 ```text
-Web framework
-→ Flask
-
-browser TeX renderer
-→ KaTeX
-
-group calculation entry point
-→ build_standard_toda_report(n, k)
-
-Web data source
-→ structured presentation objects
-
-group LaTeX renderer
-→ render_toda_group_result_latex(...)
-
-CLI output parsing
-→ not used
-
-Markdown reparsing
-→ not used
+9169 passed in 465.97s (0:07:45)
 ```
 
-The Web boundary is intentionally a thin adapter rather than a second orchestration layer.
-
-## Phase 117 status
-
-Phase 117 implemented the minimal TeX-capable Web UI.
-
-Completed focused work includes:
-
-```text
-Phase 117-1
-→ minimal Flask / KaTeX group-query UI
-
-Phase 117-2
-→ Web / CLI integration regression
-→ NOT_FOUND / MULTIPLE_RESULTS / validation boundaries
-
-Phase 117-3
-→ browser smoke audit
-→ Python domain-validation boundary
-→ live KaTeX rendering confirmed
-```
-
-Observed focused results include:
-
-```text
-Phase 117 Web app tests:
-10 passed
-
-Phase 117 Web group-query tests:
-4 passed
-
-Phase 113 group-query compatibility:
-7 passed
-```
-
-The final repository-wide Phase 117 regression is intentionally run only after the documentation update.
+No new theorem root, query grammar, general \(E/H/\Delta\) evaluator, or Toda-bracket solver was added in Phase 118.
 
 ## Near-term roadmap
 
-The next planned capability after Phase 117 closure is Phase 118:
+The next phase is Phase 119.
+
+Phase 119 will re-audit which existing user-facing capabilities should be connected to the Web next, especially:
 
 ```text
-Phase 118
-→ existing operation query / query-proof Web integration
-
-Phase 119
-→ bounded proof replay Web presentation and depth control
-
-Phase 120
-→ explore / execute Web integration audit
+show-proof
+explore
+explore-proof
+explore-applicable
+execute
 ```
 
-The Web UI continues to reuse existing calculation, query, and proof infrastructure. It is not intended to become a second mathematical engine.
+`execute` has more semantic and selection complexity than read-only query / replay, so it should not be exposed automatically without a dedicated boundary audit.
 
 ## Current boundaries
 
@@ -638,7 +381,6 @@ The following remain intentionally deferred:
 - general unbounded backtracking,
 - persistent proof cache,
 - repository snapshot/versioning,
-- stale-search-report detection,
 - free-form natural-language element search,
 - wildcard family search,
 - arbitrary nested operation-query grammar,
@@ -650,60 +392,10 @@ The following remain intentionally deferred:
 - bracket-value and coset / indeterminacy computation,
 - general \(E/H/\Delta\) evaluation,
 - arbitrary operation-query inference fallback,
-- automatic enumeration of unstated mathematical consequences,
 - unrestricted symbolic AST substitution,
-- alternate provenance selection,
 - rich graph proof visualization,
 - odd-primary full integration,
 - an all-primary ordinary sphere-homotopy calculator.
-
-## Current project state
-
-```text
-Web group query
-→ Flask
-→ thin Web adapter
-→ existing standard calculation facade
-→ structured group presentation
-→ existing LaTeX renderer
-→ KaTeX
-
-calculation
-→ theorem-backed result
-→ provenance
-→ report
-
-generator
-→ proof-scope exploration
-→ applicability discovery
-→ relevance-classified candidates
-
-generator
-→ known-group identity
-→ bounded proof replay
-→ show-proof
-
-generator
-→ executable-target resolution
-→ ambiguity-safe candidate selection
-→ qualified execution
-→ final ProofStep
-→ Result + Proof
-→ execute
-
-operation query
-→ direct existing-fact lookup
-→ exact limited existing-proof handoff where admitted
-→ deduplicated mathematical facts
-→ preserved provenance
-→ query
-
-selected operation fact
-→ primary provenance
-→ bounded proof replay
-→ safe mathematical rendering
-→ query-proof
-```
 
 ## Project principle
 
