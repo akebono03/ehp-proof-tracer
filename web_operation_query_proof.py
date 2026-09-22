@@ -289,6 +289,7 @@ def _operation_query_proof_rule_name(
 def build_standard_web_operation_query_proof_view(
   query_input: str,
   fact_number: int,
+  max_depth: int = 1,
 ) -> WebOperationQueryProofView:
   if not isinstance(
     query_input,
@@ -324,6 +325,25 @@ def build_standard_web_operation_query_proof_view(
       "fact_number must be positive"
     )
 
+  if (
+    isinstance(
+      max_depth,
+      bool,
+    )
+    or not isinstance(
+      max_depth,
+      int,
+    )
+  ):
+    raise TypeError(
+      "max_depth must be an int"
+    )
+
+  if max_depth < 0:
+    raise ValueError(
+      "max_depth must be nonnegative"
+    )
+
   result = (
     query_standard_repository_operation_input(
       query_input
@@ -340,6 +360,7 @@ def build_standard_web_operation_query_proof_view(
     build_repository_operation_query_proof_replay(
       query_presentation,
       fact_number=fact_number,
+      max_depth=max_depth,
     )
   )
 

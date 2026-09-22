@@ -71,6 +71,10 @@ def create_app(
         "",
       )
     )
+    proof_depth_value = request.form.get(
+      "proof_depth",
+      "1",
+    )
 
     view: WebGroupQueryView | None = None
     operation_query_view: (
@@ -100,11 +104,27 @@ def create_app(
               "fact_number",
             )
           )
+          proof_depth = (
+            _parse_integer_form_value(
+              proof_depth_value,
+              "proof_depth",
+            )
+          )
+
+          if proof_depth not in (
+            0,
+            1,
+            2,
+          ):
+            raise ValueError(
+              "proof_depth must be 0, 1, or 2"
+            )
 
           operation_query_proof_view = (
             build_standard_web_operation_query_proof_view(
               operation_query_value,
               fact_number,
+              max_depth=proof_depth,
             )
           )
         else:
@@ -137,6 +157,9 @@ def create_app(
       k_value=k_value,
       operation_query_value=(
         operation_query_value
+      ),
+      proof_depth_value=(
+        proof_depth_value
       ),
       view=view,
       operation_query_view=(

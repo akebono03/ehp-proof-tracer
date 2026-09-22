@@ -191,6 +191,16 @@
                     name="fact_number"
                     value="{{ loop.index }}"
                   >
+
+                  <label>
+                    Proof depth
+                    <select name="proof_depth">
+                      <option value="0">0</option>
+                      <option value="1" selected>1</option>
+                      <option value="2">2</option>
+                    </select>
+                  </label>
+
                   <button type="submit">
                     Show proof
                   </button>
@@ -209,6 +219,11 @@
         <h2 id="operation-proof-heading">
           Query proof
         </h2>
+
+        <p>
+          Selected depth:
+          {{ operation_query_proof_view.max_depth }}
+        </p>
 
         <h3>
           Conclusion
