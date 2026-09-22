@@ -36,8 +36,6 @@ TeX rendering != 数学的 normalization
 HTML validation != 数学的 domain validation
 proof depth control != 新しい proof search
 safe fallback != 推測した数学的説明
-generator proof Web adapter != 新しい proof engine
-show-proof != execute
 ```
 
 ---
@@ -115,19 +113,6 @@ selected fact
 
 Web では fact を明示選択し、複数 fact の最初を自動選択しない。
 
-## generator show-proof
-
-```text
-generator
-→ unique known-group identity
-→ existing ProofStep
-→ bounded ancestry
-→ replay presentation
-→ CLI / Web
-```
-
-Web では generator proof 用の thin adapter が既存 replay presentation を利用し、CLI Markdown を解析しない。
-
 ---
 
 # 3. 主要モジュール
@@ -139,17 +124,8 @@ web_app.py
 web_group_query.py
 web_operation_query.py
 web_operation_query_proof.py
-web_generator_proof.py
 templates/index.html
 static/web_math.js
-```
-
-known-group replay:
-
-```text
-repository_generator_known_group_proof_replay.py
-repository_generator_known_group_proof_replay_presentation.py
-repository_generator_known_group_proof_replay_renderer.py
 ```
 
 operation query / replay:
@@ -189,15 +165,13 @@ ProofStep.inference_rule
 
 renderer、facade、CLI、Web adapter、Flask route、表示 grouping は独立した定理事実を追加しない。
 
-Phase 120 の `web_generator_proof.py` も既存 known-group replay を presentation 用 view に変換するだけであり、新しい証明事実を作らない。
-
 ---
 
 # 5. Repository 非破壊
 
 Phase 113 の TodaGroupQuery specialization、Phase 114 の `E(nu_5)` handoff、Phase 115 の `E(sigma_11)` handoff は元 repository に root を追加しない。
 
-Phase 117–118 の Web UI、および Phase 120 の generator proof Web 接続も repository を変更しない。
+Phase 117–118 の Web UI も repository を変更しない。
 
 ---
 
@@ -270,7 +244,7 @@ default:
 max_depth = 1
 ```
 
-Web は現在
+Web は Phase 118 の usability boundary として
 
 ```text
 0
@@ -279,8 +253,6 @@ Web は現在
 ```
 
 のみを選択可能にする。
-
-この境界は operation query proof と generator proof の双方で共通である。
 
 ```text
 depth 0 → root のみ
@@ -309,9 +281,7 @@ deduplicated presentation
 → 利用者が明示選択
 ```
 
-operation query proof replay の root は選択された query fact 自身の `ProofStep` である。
-
-generator proof replay の root は一意に解決された known-group identity node の既存 `ProofStep` である。
+proof replay の root は選択された query fact 自身の `ProofStep` である。
 
 ---
 
@@ -325,17 +295,6 @@ proof replay の statement が既存 renderer で数式化できる場合は LaT
 safe fallback
 != raw dataclass repr
 != 推測した定理説明
-```
-
-Phase 120 の generator proof Web adapter も同じ安全境界を使用する。
-
-代表 fallback:
-
-```text
-Toda45IsomorphismStatement
-TodaSigmaFamilyDefinitionStatement
-Toda53NuPrimeBracketSpecializationStatement
-Toda52CompositionIsomorphismStatement
 ```
 
 ---
@@ -363,16 +322,7 @@ existing structured object
 → KaTeX
 ```
 
-Phase 120 までに、
-
-```text
-group query
-operation query
-operation query-proof
-generator show-proof
-```
-
-を接続したが、新しい数学 engine は導入していない。
+Phase 118 で operation query / query-proof まで接続されたが、新しい数学 engine は導入していない。
 
 ---
 
@@ -408,24 +358,6 @@ steps[]
 max_depth
 ```
 
-generator proof:
-
-```text
-generator_input
-generator_latex
-conclusion_latex
-steps[]
-max_depth
-```
-
-generator proof step:
-
-```text
-depth
-statement_latex | fallback_type_name
-rule_name
-```
-
 Web view model は presentation 用であり、proof truth の保存場所ではない。
 
 ---
@@ -443,64 +375,45 @@ displayMode = true
 throwOnError = false
 ```
 
-generator 本体、結論、proof step も同じ `[data-latex]` 境界を使う。
-
 ---
 
-# 14. Phase 120 regression boundary
+# 14. Phase 118 regression boundary
 
-Phase 120 で固定した境界:
+Phase 118 で固定した境界:
 
 ```text
-generator show-proof Web = existing known-group replay
-CLI Markdown は解析しない
-existing replay presentation を再利用
-generator / conclusion を既存 LaTeX renderer で表示
+Web operation query = existing operation-query result
+existing statement_latex を再利用
+複数 fact は自動選択しない
+selected fact 自身を replay root にする
+provenance を保持
 depth 0 / 1 / 2 を Web から選択可能
 unsupported statement は safe type-name fallback
 raw Python repr を browser に漏らさない
+KaTeX は全 [data-latex] 要素を描画
 group-query path を壊さない
-operation-query / query-proof path を壊さない
 repository / proof semantics を変更しない
-```
-
-focused + Phase 118 compatibility:
-
-```text
-44 passed in 19.29s
-```
-
-browser/manual integration:
-
-```text
-sigma_11 depth 0 / 1 / 2
-nu_prime depth 2
-group query n=11, k=7
-operation query-proof E(sigma_11)
-KaTeX rendering
 ```
 
 最終 repository-wide regression:
 
 ```text
-9184 passed in 453.04s (0:07:33)
+9169 passed in 465.97s (0:07:45)
 ```
 
 ---
 
-# 15. Phase 120 で行わなかったこと
+# 15. Phase 118 で行わなかったこと
 
 ```text
-new mathematical theorem
-new proof-search rule
-new qualified execution family
 new query grammar
 general E/H/Delta evaluator
 general Toda bracket solver
 coset / indeterminacy computation
+new theorem root
+arbitrary inference fallback
+show-proof Web integration
 explore Web integration
-explore-proof Web integration
-explore-applicable Web integration
 execute Web integration
 proof graph visualization
 REST API
@@ -514,19 +427,19 @@ SPA framework
 
 # 16. 次 Phase との境界
 
-Phase 119 の監査では `show-proof` を最初の対象として選び、Phase 120 で接続を完了した。
-
-次は remaining read-only capability を再監査する。
+Phase 119 は、次に Web 接続する価値が高い既存 capability を再監査する。
 
 候補:
 
 ```text
+show-proof
 explore
 explore-proof
 explore-applicable
+execute
 ```
 
-`execute` は候補選択・ambiguity・execution semantics を含むため、read-only capability と同じ境界では公開しない。
+特に `execute` は候補選択と実行 semantics を含むため、read-only capability と同じ感覚で Web に露出しない。
 
 ---
 
@@ -542,6 +455,5 @@ parser を需要なしに一般化しない
 Web UI から数学 semantics を変更しない
 CLI と Web の数学結果を分岐させない
 focused regression で境界を固定する
-browser/manual integration で表示境界を確認する
 repository-wide regression で Phase を閉じる
 ```
