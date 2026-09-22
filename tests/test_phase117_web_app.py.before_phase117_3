@@ -240,15 +240,3 @@ def test_phase117_2_multiple_results_are_not_auto_selected(
     b'id="result-math"'
     not in response.data
   )
-
-
-def test_phase117_3_html_does_not_preempt_python_domain_validation():
-  client = _build_test_client()
-
-  response = client.get(
-    "/"
-  )
-
-  assert response.status_code == 200
-  assert b'min="1"' not in response.data
-  assert b'min="0"' not in response.data

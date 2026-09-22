@@ -39,6 +39,7 @@
           id="n"
           name="n"
           type="number"
+          min="1"
           step="1"
           required
           value="{{ n_value }}"
@@ -51,6 +52,7 @@
           id="k"
           name="k"
           type="number"
+          min="0"
           step="1"
           required
           value="{{ k_value }}"
