@@ -4,10 +4,6 @@ from flask import (
   request,
 )
 
-from web_generator_proof import (
-  WebGeneratorProofView,
-  build_standard_web_generator_proof_view,
-)
 from web_group_query import (
   WebGroupQueryView,
   build_standard_web_group_query_view,
@@ -79,14 +75,6 @@ def create_app(
       "proof_depth",
       "1",
     )
-    generator_input_value = request.form.get(
-      "generator_input",
-      "",
-    )
-    generator_proof_depth_value = request.form.get(
-      "generator_proof_depth",
-      "1",
-    )
 
     view: WebGroupQueryView | None = None
     operation_query_view: (
@@ -95,10 +83,6 @@ def create_app(
     ) = None
     operation_query_proof_view: (
       WebOperationQueryProofView
-      | None
-    ) = None
-    generator_proof_view: (
-      WebGeneratorProofView
       | None
     ) = None
     error_message: str | None = None
@@ -143,29 +127,6 @@ def create_app(
               max_depth=proof_depth,
             )
           )
-        elif form_kind == "generator_proof":
-          generator_proof_depth = (
-            _parse_integer_form_value(
-              generator_proof_depth_value,
-              "generator_proof_depth",
-            )
-          )
-
-          if generator_proof_depth not in (
-            0,
-            1,
-            2,
-          ):
-            raise ValueError(
-              "generator_proof_depth must be 0, 1, or 2"
-            )
-
-          generator_proof_view = (
-            build_standard_web_generator_proof_view(
-              generator_input_value,
-              max_depth=generator_proof_depth,
-            )
-          )
         else:
           n = _parse_integer_form_value(
             n_value,
@@ -200,21 +161,12 @@ def create_app(
       proof_depth_value=(
         proof_depth_value
       ),
-      generator_input_value=(
-        generator_input_value
-      ),
-      generator_proof_depth_value=(
-        generator_proof_depth_value
-      ),
       view=view,
       operation_query_view=(
         operation_query_view
       ),
       operation_query_proof_view=(
         operation_query_proof_view
-      ),
-      generator_proof_view=(
-        generator_proof_view
       ),
       error_message=error_message,
     )

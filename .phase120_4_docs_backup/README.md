@@ -16,7 +16,7 @@ The current system provides:
 - operation-query proof replay,
 - theorem-specific indexed \(\sigma_n\) specialization,
 - deliberately narrow existing-proof handoffs for \(E(\nu_5)=\nu_6\) and \(E(\sigma_{11})=\sigma_{12}\),
-- a Flask Web UI for group queries, operation queries, operation proof replay, and generator known-group proof replay,
+- a Flask Web UI for group queries and operation queries,
 - explicit operation-fact selection for proof replay,
 - browser-side KaTeX rendering of existing LaTeX output,
 - Web proof replay with selectable depth 0, 1, or 2,
@@ -210,19 +210,6 @@ selected fact
 → KaTeX
 ```
 
-The generator proof path is
-
-```text
-generator input
-→ thin Web generator-proof adapter
-→ existing known-group proof replay
-→ existing replay presentation
-→ existing statement / generator LaTeX rendering
-→ proof steps + safe fallback
-→ Jinja template
-→ KaTeX
-```
-
 The Web UI does not parse CLI output and does not implement a second mathematical engine.
 
 Current Web files include
@@ -232,7 +219,6 @@ web_app.py
 web_group_query.py
 web_operation_query.py
 web_operation_query_proof.py
-web_generator_proof.py
 templates/index.html
 static/web_math.js
 ```
@@ -294,34 +280,6 @@ The selected fact is replayed from its own existing `ProofStep`, and the Web res
 - KaTeX-renderable statements,
 - safe type-name fallback for unsupported aggregate statements.
 
-### Web generator proof
-
-The browser can replay an existing known-group proof by generator input.
-
-Representative inputs are
-
-```text
-sigma_11
-nu_prime
-nu_5
-```
-
-For `sigma_11`, the result is
-
-\[
-\pi_{18}^{11}
-=
-\mathbb Z/16\{\sigma_{11}\}.
-\]
-
-For `nu_prime`, the result is
-
-\[
-\pi_6^3
-=
-\mathbb Z/4\{\nu'\}.
-\]
-
 The browser exposes replay depth choices
 
 ```text
@@ -330,9 +288,9 @@ The browser exposes replay depth choices
 2
 ```
 
-for both operation proof replay and generator proof replay.
+where depth 0 shows only the replay root.
 
-Depth 0 shows only the replay root. Depth selection changes only the visible existing ancestry. It does not perform new proof search.
+Depth selection changes only the visible existing ancestry. It does not perform new proof search.
 
 ## Operation query
 
@@ -364,58 +322,55 @@ E(\sigma_{11})=\sigma_{12}.
 
 The two narrow theorem-specific handoffs do not turn `query` into a general inference engine or evaluator.
 
-## Phase 120 closure
+## Phase 118 closure
 
-Phase 119 audited the next Web capability and selected read-only generator `show-proof` ahead of `explore` and `execute`.
-
-Phase 120 connected existing known-group proof replay to the Web UI without adding new mathematics.
+Phase 118 connected the existing operation-query and query-proof capabilities to the Web UI without adding new mathematics.
 
 ```text
-Phase 120-1
-→ generator show-proof Web integration audit
-→ existing known-group replay presentation confirmed as reusable boundary
+Phase 118-1
+→ Web operation-query boundary audit
+→ existing structured presentation selected as Web boundary
 
-Phase 120-2
-→ web_generator_proof.py
-→ generator input + depth 0 / 1 / 2
-→ existing known-group proof replay
-→ existing LaTeX rendering + safe type-name fallback
-→ focused and Phase 118 compatibility tests
+Phase 118-2
+→ operation-query Web UI
+→ existing statement_latex rendered through KaTeX
+→ multiple facts listed without auto-selection
 
-Phase 120-3
-→ browser/manual integration
-→ sigma_11 depth 0 / 1 / 2
-→ nu_prime replay
-→ group query coexistence
-→ operation query / query-proof coexistence
-→ KaTeX rendering confirmed
+Phase 118-3
+→ explicit fact selection
+→ existing query-proof replay connected to Web
+→ conclusion / provenance / proof steps displayed
 
-Phase 120-4
-→ documentation / completion audit
-→ repository-wide regression
+Phase 118-4
+→ Web replay depth 0 / 1 / 2
+→ unsupported-statement safe fallback
+→ multiple-fact selection regression
+→ KaTeX browser smoke
 ```
 
-The final repository-wide Phase 120 regression was
+The final repository-wide Phase 118 regression was
 
 ```text
-9184 passed in 453.04s (0:07:33)
+9169 passed in 465.97s (0:07:45)
 ```
 
-No new theorem root, proof-search rule, query grammar, general \(E/H/\Delta\) evaluator, Toda-bracket solver, or qualified execution family was added in Phase 120.
+No new theorem root, query grammar, general \(E/H/\Delta\) evaluator, or Toda-bracket solver was added in Phase 118.
 
 ## Near-term roadmap
 
-The next phase should re-audit the remaining read-only Web capabilities before exposing execution.
+The next phase is Phase 119.
 
-Primary candidates are
+Phase 119 will re-audit which existing user-facing capabilities should be connected to the Web next, especially:
 
 ```text
+show-proof
 explore
 explore-proof
 explore-applicable
+execute
 ```
 
-`execute` remains later because it includes candidate selection, ambiguity, and execution semantics rather than read-only inspection.
+`execute` has more semantic and selection complexity than read-only query / replay, so it should not be exposed automatically without a dedicated boundary audit.
 
 ## Current boundaries
 

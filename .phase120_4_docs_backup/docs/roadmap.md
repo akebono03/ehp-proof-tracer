@@ -53,17 +53,6 @@ selected fact
 → KaTeX / safe fallback
 ```
 
-Web generator proof:
-
-```text
-generator input
-→ thin Web generator-proof adapter
-→ existing known-group proof replay
-→ existing replay presentation
-→ generator / conclusion / proof-step rendering
-→ KaTeX / safe fallback
-```
-
 現在利用できる限定 handoff:
 
 \[
@@ -83,7 +72,6 @@ query != general evaluator
 LOOKUP_MISS != evaluator required
 Web UI != new mathematical engine
 depth control != new proof search
-show-proof != execute
 ```
 
 ---
@@ -130,37 +118,17 @@ browser smoke
 Phase 118:
 
 ```text
-operation-query Web boundary audit
-operation-query Web UI
-explicit fact selection + query-proof Web
-depth 0 / 1 / 2 + safe fallback + browser audit
+118-1 operation-query Web boundary audit
+118-2 operation-query Web UI
+118-3 explicit fact selection + query-proof Web
+118-4 depth 0 / 1 / 2 + safe fallback + browser audit
+118-5 documentation / completion
 ```
 
-Phase 119:
+Final regression:
 
 ```text
-next Web capability pressure audit
-show-proof / explore / explore-proof / explore-applicable / execute comparison
-show-proof selected as next minimal read-only Web capability
-```
-
-Phase 120:
-
-```text
-generator show-proof Web integration audit
-web_generator_proof thin adapter
-generator + conclusion + proof-step KaTeX
-depth 0 / 1 / 2
-safe unsupported-statement fallback
-browser/manual integration
-group / operation Web compatibility
-documentation / completion
-```
-
-Phase 120 final regression:
-
-```text
-9184 passed in 453.04s (0:07:33)
+9169 passed in 465.97s (0:07:45)
 ```
 
 ---
@@ -207,31 +175,10 @@ safe unsupported-statement fallback
 KaTeX
 ```
 
-generator proof:
-
-```text
-generator input
-known-group conclusion
-proof steps
-rule names
-depth 0 / 1 / 2
-safe unsupported-statement fallback
-KaTeX
-```
-
-代表例:
-
-```text
-sigma_11
-→ pi_18^11 = Z/16{sigma_11}
-
-nu_prime
-→ pi_6^3 = Z/4{nu_prime}
-```
-
 まだ Web に接続していない主要 capability:
 
 ```text
+show-proof
 explore
 explore-proof
 explore-applicable
@@ -240,106 +187,61 @@ execute
 
 ---
 
-# 4. Phase 120 完了境界
+# 4. Phase 118 完了境界
 
 完了条件:
 
 ```text
-generator を browser から入力できる
-existing known-group replay を使う
-existing replay presentation を使う
-CLI Markdown を解析しない
-generator / conclusion を LaTeX 表示する
+operation query を browser から入力できる
+existing structured presentation を使う
+statement_latex を KaTeX 表示する
+複数 fact を自動選択しない
+fact を明示選択して query-proof を replay できる
+selected fact の provenance を保持する
 proof depth 0 / 1 / 2 を browser から選べる
 unsupported statement を safe fallback できる
 raw Python repr を browser へ漏らさない
-sigma_11 / nu_prime の browser replay が通る
 group query を壊さない
-operation query / query-proof を壊さない
-browser KaTeX smoke が通る
+browser smoke が通る
 repository-wide pytest が通る
 ```
 
-Phase 120 は完了。
+Phase 118 は完了。
 
 ---
 
-# 5. 次 Phase: remaining read-only Web capability audit
+# 5. Phase 119: next Web capability pressure audit
 
-次 Phase は `show-proof` 完了後の Web capability を再監査する。
+Phase 119 は新機能を先に決め打ちせず、Phase 118 までの Web UI を実利用したうえで、次に Web 接続する価値が高い既存 capability を監査する。
 
-主候補:
+監査候補:
 
 ```text
+show-proof
 explore
 explore-proof
 explore-applicable
+execute
 ```
 
 優先して確認する観点:
 
 ```text
-既存 structured presentation の完成度
-generator 入力だけで成立するか
-Web で grouping / metadata をどう見せるか
-CLI-only Markdown に依存していないか
+read-only か execution か
+利用者が何を選択する必要があるか
+既存 structured presentation が十分か
+CLI-only formatting に依存していないか
+Web で ambiguity を安全に扱えるか
 proof / provenance semantics を変えずに接続できるか
-候補数や表示量が browser usability に与える影響
 ```
 
-Phase 119 の監査では `explore` が `show-proof` に次ぐ有力候補だった。
+`execute` は qualified candidate selection を伴うため、read-only exploration より慎重に扱う。
 
-一方、
-
-```text
-explore-proof
-```
-
-は dedicated presentation boundary が弱く、
-
-```text
-explore-applicable
-```
-
-は構造化 presentation はあるが候補量・UI 表示量が大きい。
-
-したがって次 Phase では `explore` を中心に再監査するが、実装対象は監査後に1つだけ決める。
+Phase 119 の終了時に、次の実装 Phase を1つだけ選ぶ。
 
 ---
 
-# 6. `execute` Web integration の境界
-
-`execute` は read-only capability と同列に扱わない。
-
-現在の user execution workflow は、
-
-```text
-generator
-→ executable target resolution
-→ NONE / AMBIGUOUS / EXECUTED
-→ candidate selection
-→ qualified execution
-→ proof result
-```
-
-を含む。
-
-Web 公開には少なくとも、
-
-```text
-candidate selection UI
-ambiguity handling
-execution status presentation
-既存 execution semantics の非変更
-```
-
-を専用に監査する必要がある。
-
-したがって `execute` は remaining read-only Web capability より後段とする。
-
----
-
-# 7. 数学的 capability pressure
+# 6. 数学的 capability pressure
 
 Web UI の発展とは別に、残存数学 pressure を保持する。
 
@@ -365,7 +267,7 @@ E(nu_5 o eta_8)
 
 ---
 
-# 8. 長期保留
+# 7. 長期保留
 
 ```text
 operation-query grammar generalization
@@ -389,7 +291,7 @@ rich SPA architecture
 
 ---
 
-# 9. 完了判断原則
+# 8. 完了判断原則
 
 ```text
 既存数学を先に再利用する
@@ -399,8 +301,7 @@ provenance を失わない
 一般 evaluator を必要性なしに作らない
 parser を需要なしに一般化しない
 Web UI から数学 semantics を変更しない
-CLI と Web の数学結果を分岐させない
+CLI と Web の結果を分岐させない
 focused regression で境界を固定する
-browser/manual integration で表示境界を確認する
 repository-wide regression で Phase を閉じる
 ```
