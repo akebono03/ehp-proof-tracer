@@ -498,32 +498,187 @@ Phase 131 完了。
 
 ---
 
-# 今後の proof narrative provenance boundary
+# Phase 132 deterministic proof presentation provenance
 
-Phase 132 では、既存 proof trace を人間向けの証明文章へ変換する可能性を監査する。
+Phase 132 は既存 proof trace を Trace / Outline / Narrative へ表示する presentation layer を実装した。
 
-想定:
+数学的 ground truth は引き続き `ProofStep` と実際の premise ancestry である。
+
+## common presentation core
+
+追加:
 
 ```text
-ProofStep / provenance
-→ deterministic narrative presentation
-→ readable mathematical proof prose
+TodaGroupProofPresentation
+```
+
+source:
+
+```text
+TodaGroupResultProofReplayResult
+```
+
+nodes:
+
+```text
+replay.steps
+```
+
+edges:
+
+```text
+existing recursive provenance edges
+→ replay で選択済み node のみに filter
+```
+
+重要:
+
+```text
+presentation edge
+!= flat depth から推測した edge
+```
+
+`ProofStep.premises` 由来の実 edge を使用する。
+
+## Trace provenance boundary
+
+Trace は Phase 131 replay の監査表示であり、Phase 132 でも ground truth presentation として維持する。
+
+```text
+Trace
+→ Depth / Role / Rule / statement
+```
+
+Phase 132 は Trace semantics を変更しない。
+
+## Outline provenance boundary
+
+Outline は presentation edge を hierarchy として表示する。
+
+同じ parent の premise は `premise_index` 順。
+
+```text
+Outline hierarchy
+→ actual premise edge
+
+Outline hierarchy
+!= shortest_depth の差分から推測
+```
+
+shared dependency は graph 上複数 parent から参照されるため、Outline に複数位置で現れても graph の重複ではない。
+
+## Narrative provenance boundary
+
+Narrative は固定テンプレートで presentation graph を文章化する。
+
+```text
+〜を用いる。
+これらから、〜を得る。
+したがって、〜を得る。
+```
+
+unsupported statement は安全な existing renderer / rule name / type name fallback を使う。
+
+```text
+Narrative
+!= new proof fact
+!= theorem inference
+!= guessed mathematical paraphrase
+!= free-form LLM proof
+```
+
+## sibling order / causal order boundary
+
+\(\pi_{16}^{9}\) の DAG では direct premise が別 premise の ancestry にも使われる。
+
+したがって:
+
+```text
+root premise_index order
+!= Narrative global first-occurrence order
+```
+
+Narrative は dependency-first でよい。
+
+## shared dependency dedup provenance boundary
+
+Phase 132-8 では `ProofStep` identity で Narrative subtree の再展開を抑制。
+
+```text
+first occurrence
+→ expand subtree
+
+later occurrence
+→ 既出の...を用いる。
 ```
 
 ただし:
 
 ```text
-narrative
-!= proof fact
-narrative
-!= new inference
-narrative
-!= new theorem root
-narrative
-!= provenance-free proof generation
+Narrative dedup
+!= ProofStep deletion
+!= proof edge deletion
+!= repository mutation
 ```
 
-Trace を ground truth とし、Narrative はその presentation とする。
+Trace / Outline は変更しない。
+
+## CLI presentation boundary
+
+```powershell
+python main.py group-proof 9 7 --mode trace
+python main.py group-proof 9 7 --mode outline
+python main.py group-proof 9 7 --mode narrative
+```
+
+default:
+
+```text
+trace
+```
+
+Phase 131 compatibility を維持。
+
+## Web presentation boundary
+
+Web group proof:
+
+```text
+Proof depth: 0 / 1 / 2
+Proof view: Trace / Outline / Narrative
+```
+
+Outline / Narrative は同じ renderer を再利用。
+
+Web adapter は mathematical fragment を `data-latex` へ分離するだけで、proof semantics を再実装しない。
+
+```text
+Web adapter
+!= second proof graph
+!= second narrative engine
+```
+
+## regression boundary
+
+focused / related:
+
+```text
+Phase 132-4: 10 passed / related 35 passed
+Phase 132-5: 8 passed / related 43 passed
+Phase 132-6: 9 passed / related 52 passed
+Phase 132-7: 9 passed / related 61 passed
+Phase 132-8: 8 passed / related 69 passed
+Phase 132-9: 15 passed / related 84 passed
+```
+
+repository-wide final:
+
+```text
+python -m pytest tests -q
+9392 passed in 587.98s (0:09:47)
+```
+
+Phase 132 完了。
 
 ---
 
@@ -562,6 +717,9 @@ executable relevance filtering != theorem ranking
 group-result replay != generator-first lookup
 group-result replay != new proof search
 proof narrative != new proof
+Outline hierarchy != inferred hierarchy
+Narrative deduplication != proof graph mutation
+Web proof presentation != proof truth
 ```
 
 既存記録は原則として削除せず、確定した意味論訂正がある場合のみ訂正する。

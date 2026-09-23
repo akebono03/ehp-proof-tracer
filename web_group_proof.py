@@ -14,6 +14,15 @@ from toda_group_query_semantics import (
   TodaGroupQueryDomainKind,
   classify_toda_group_query_domain,
 )
+from toda_group_proof_narrative_renderer import (
+  render_toda_group_proof_narrative_markdown,
+)
+from toda_group_proof_outline_renderer import (
+  render_toda_group_proof_outline_markdown,
+)
+from toda_group_proof_presentation import (
+  build_toda_group_proof_presentation,
+)
 from toda_group_result_proof_replay import (
   build_toda_group_result_proof_replay,
 )
@@ -120,6 +129,72 @@ class WebGroupProofStepView:
 
 
 @dataclass(frozen=True)
+class WebGroupProofRenderedLineView:
+  kind: str
+  indent_level: int
+  prefix: str
+  statement_latex: str | None
+  suffix: str
+
+  def __post_init__(
+    self,
+  ) -> None:
+    if self.kind not in (
+      "heading",
+      "text",
+    ):
+      raise ValueError(
+        "kind must be heading or text"
+      )
+
+    if (
+      isinstance(
+        self.indent_level,
+        bool,
+      )
+      or not isinstance(
+        self.indent_level,
+        int,
+      )
+    ):
+      raise TypeError(
+        "indent_level must be an int"
+      )
+
+    if self.indent_level < 0:
+      raise ValueError(
+        "indent_level must be nonnegative"
+      )
+
+    if not isinstance(
+      self.prefix,
+      str,
+    ):
+      raise TypeError(
+        "prefix must be a str"
+      )
+
+    if (
+      self.statement_latex is not None
+      and not isinstance(
+        self.statement_latex,
+        str,
+      )
+    ):
+      raise TypeError(
+        "statement_latex must be a str or None"
+      )
+
+    if not isinstance(
+      self.suffix,
+      str,
+    ):
+      raise TypeError(
+        "suffix must be a str"
+      )
+
+
+@dataclass(frozen=True)
 class WebGroupProofView:
   n: int
   k: int
@@ -132,6 +207,11 @@ class WebGroupProofView:
     ...,
   ]
   max_depth: int
+  mode: str = "trace"
+  rendered_lines: tuple[
+    WebGroupProofRenderedLineView,
+    ...,
+  ] = ()
 
   def __post_init__(
     self,
@@ -244,6 +324,50 @@ class WebGroupProofView:
         "max_depth must be nonnegative"
       )
 
+    if self.mode not in (
+      "trace",
+      "outline",
+      "narrative",
+    ):
+      raise ValueError(
+        "mode must be trace, outline, or narrative"
+      )
+
+    if not isinstance(
+      self.rendered_lines,
+      tuple,
+    ):
+      raise TypeError(
+        "rendered_lines must be a tuple"
+      )
+
+    for line in self.rendered_lines:
+      if not isinstance(
+        line,
+        WebGroupProofRenderedLineView,
+      ):
+        raise TypeError(
+          "rendered_lines must contain only "
+          "WebGroupProofRenderedLineView values"
+        )
+
+    if (
+      self.mode == "trace"
+      and self.rendered_lines
+    ):
+      raise ValueError(
+        "trace mode must not have rendered_lines"
+      )
+
+    if (
+      self.mode != "trace"
+      and not self.rendered_lines
+    ):
+      raise ValueError(
+        "outline and narrative modes require "
+        "rendered_lines"
+      )
+
 
 def _group_proof_rule_name(
   proof_step,
@@ -290,10 +414,134 @@ def _group_proof_statement_latex(
   )
 
 
+def _split_group_proof_rendered_line(
+  line: str,
+) -> tuple[
+  str,
+  str | None,
+  str,
+]:
+  first_math = line.find(
+    "$"
+  )
+
+  if first_math < 0:
+    return (
+      line,
+      None,
+      "",
+    )
+
+  second_math = line.find(
+    "$",
+    first_math + 1,
+  )
+
+  if second_math < 0:
+    return (
+      line,
+      None,
+      "",
+    )
+
+  return (
+    line[
+      :first_math
+    ],
+    line[
+      first_math + 1:
+      second_math
+    ],
+    line[
+      second_math + 1:
+    ],
+  )
+
+
+def _build_group_proof_rendered_lines(
+  markdown: str,
+) -> tuple[
+  WebGroupProofRenderedLineView,
+  ...,
+]:
+  if not isinstance(
+    markdown,
+    str,
+  ):
+    raise TypeError(
+      "markdown must be a str"
+    )
+
+  lines = []
+
+  for raw_line in markdown.splitlines():
+    if not raw_line:
+      continue
+
+    if raw_line.startswith(
+      "# "
+    ):
+      continue
+
+    stripped = raw_line.lstrip(
+      " "
+    )
+    leading_spaces = (
+      len(
+        raw_line
+      )
+      - len(
+        stripped
+      )
+    )
+    indent_level = (
+      leading_spaces // 2
+    )
+
+    if stripped.startswith(
+      "## "
+    ):
+      lines.append(
+        WebGroupProofRenderedLineView(
+          kind="heading",
+          indent_level=0,
+          prefix=stripped[
+            3:
+          ],
+          statement_latex=None,
+          suffix="",
+        )
+      )
+      continue
+
+    (
+      prefix,
+      statement_latex,
+      suffix,
+    ) = _split_group_proof_rendered_line(
+      stripped
+    )
+
+    lines.append(
+      WebGroupProofRenderedLineView(
+        kind="text",
+        indent_level=indent_level,
+        prefix=prefix,
+        statement_latex=statement_latex,
+        suffix=suffix,
+      )
+    )
+
+  return tuple(
+    lines
+  )
+
+
 def build_standard_web_group_proof_view(
   n: int,
   k: int,
   max_depth: int = 1,
+  mode: str = "trace",
 ) -> WebGroupProofView:
   query = TodaGroupQuery(
     n=n,
@@ -335,6 +583,15 @@ def build_standard_web_group_proof_view(
   if max_depth < 0:
     raise ValueError(
       "max_depth must be nonnegative"
+    )
+
+  if mode not in (
+    "trace",
+    "outline",
+    "narrative",
+  ):
+    raise ValueError(
+      "mode must be trace, outline, or narrative"
     )
 
   report = (
@@ -410,6 +667,34 @@ def build_standard_web_group_proof_view(
       )
     )
 
+  rendered_lines = ()
+
+  if mode != "trace":
+    presentation = (
+      build_toda_group_proof_presentation(
+        replay
+      )
+    )
+
+    if mode == "outline":
+      markdown = (
+        render_toda_group_proof_outline_markdown(
+          presentation
+        )
+      )
+    else:
+      markdown = (
+        render_toda_group_proof_narrative_markdown(
+          presentation
+        )
+      )
+
+    rendered_lines = (
+      _build_group_proof_rendered_lines(
+        markdown
+      )
+    )
+
   return WebGroupProofView(
     n=n,
     k=k,
@@ -421,4 +706,6 @@ def build_standard_web_group_proof_view(
       steps
     ),
     max_depth=replay.max_depth,
+    mode=mode,
+    rendered_lines=rendered_lines,
   )

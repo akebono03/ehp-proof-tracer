@@ -80,15 +80,6 @@ from toda_group_query_semantics import (
 from toda_group_result_proof_replay import (
   build_toda_group_result_proof_replay,
 )
-from toda_group_proof_narrative_renderer import (
-  render_toda_group_proof_narrative_markdown,
-)
-from toda_group_proof_outline_renderer import (
-  render_toda_group_proof_outline_markdown,
-)
-from toda_group_proof_presentation import (
-  build_toda_group_proof_presentation,
-)
 from toda_group_result_proof_replay_renderer import (
   render_toda_group_result_proof_replay_markdown,
 )
@@ -311,8 +302,8 @@ def build_group_proof_argument_parser(
   parser = argparse.ArgumentParser(
     prog="main.py group-proof",
     description=(
-      "Show trace, outline, or deterministic narrative "
-      "for one repository-backed Toda group result."
+      "Replay the proof provenance for one "
+      "repository-backed Toda group result."
     ),
   )
 
@@ -340,20 +331,6 @@ def build_group_proof_argument_parser(
     help=(
       "maximum proof replay depth; "
       "omit to use the default depth 1"
-    ),
-  )
-
-  parser.add_argument(
-    "--mode",
-    choices=(
-      "trace",
-      "outline",
-      "narrative",
-    ),
-    default="trace",
-    help=(
-      "proof presentation mode; "
-      "default: trace"
     ),
   )
 
@@ -617,17 +594,7 @@ def _run_group_proof_command(
   n: int,
   k: int,
   max_depth: int | None = None,
-  mode: str = "trace",
 ) -> int:
-  if mode not in (
-    "trace",
-    "outline",
-    "narrative",
-  ):
-    raise ValueError(
-      "mode must be trace, outline, or narrative"
-    )
-
   query = TodaGroupQuery(
     n=n,
     k=k,
@@ -700,31 +667,11 @@ def _run_group_proof_command(
       )
     )
 
-  if mode == "trace":
-    markdown = (
-      render_toda_group_result_proof_replay_markdown(
-        replay
-      )
+  markdown = (
+    render_toda_group_result_proof_replay_markdown(
+      replay
     )
-  else:
-    presentation = (
-      build_toda_group_proof_presentation(
-        replay
-      )
-    )
-
-    if mode == "outline":
-      markdown = (
-        render_toda_group_proof_outline_markdown(
-          presentation
-        )
-      )
-    else:
-      markdown = (
-        render_toda_group_proof_narrative_markdown(
-          presentation
-        )
-      )
+  )
 
   print(
     markdown,
@@ -1107,7 +1054,6 @@ def main(
       args.n,
       args.k,
       max_depth=args.depth,
-      mode=args.mode,
     )
 
   if (

@@ -15,6 +15,7 @@ The current system provides:
 - bounded qualified execution,
 - generator-first known-group proof replay,
 - group-result-first proof replay,
+- deterministic Trace / Outline / Narrative proof presentation,
 - operation-fact lookup,
 - operation-query proof replay,
 - theorem-specific indexed \(\sigma_n\) specialization,
@@ -23,8 +24,8 @@ The current system provides:
 - a Flask Web UI for group queries, group-result proof replay, operation queries, operation proof replay, generator proof replay, direct generator exploration, recursive generator proof-scope exploration, applicability exploration, and qualified generator execution,
 - explicit candidate selection when an execution request is ambiguous,
 - browser-side KaTeX rendering of existing LaTeX output,
-- Web proof replay with selectable depth 0, 1, or 2,
-- safe type-name fallback for unsupported proof statements,
+- Web group-proof display with selectable depth 0, 1, or 2 and Trace / Outline / Narrative modes,
+- safe type-name or rule-name fallback for unsupported proof statements,
 - workflow navigation that groups the single-page Web forms by calculation/query, proof/exploration, and applicability/execution.
 
 ## Mathematical scope
@@ -262,6 +263,10 @@ The proof infrastructure supports:
 - preservation of `TodaGroupResult.source_entry` theorem / phase / repository-key provenance,
 - zero-group proof replay without requiring a generator,
 - connectivity-zero proof replay when a repository-backed `TodaGroupResult` exists,
+- a thin `TodaGroupProofPresentation` over group-result replay,
+- deterministic Outline rendering from actual premise edges,
+- deterministic Narrative rendering from the same proof graph,
+- shared-dependency deduplication in Narrative presentation without deleting graph edges,
 - generator-centered repository occurrence exploration,
 - recursive generator proof-scope exploration,
 - applicable theorem / lemma discovery grouped by source statement and rule family,
@@ -271,11 +276,11 @@ The proof infrastructure supports:
 - theorem-specific `E(nu_5)`, `E(sigma_11)`, `E(nu_5 o eta_8)`, and `E(nu_prime)` handoffs that preserve existing proof provenance,
 - user-facing qualified execution with explicit `NONE`, `AMBIGUOUS`, and `EXECUTED` states,
 - user-selected replay depth,
-- safe mathematical rendering with explicit type-name fallback for unsupported aggregate statements.
+- safe mathematical rendering with explicit fallback for unsupported aggregate statements.
 
 General unbounded proof search, theorem ranking, producer ranking, proof-cost optimization, arbitrary operation-query inference fallback, general membership evaluation, and general \(E/H/\Delta\) evaluation are intentionally not implemented.
 
-## Group-result proof replay
+## Group-result proof replay and presentation
 
 Phase 131 connected a group query result directly to its existing proof provenance.
 
@@ -286,19 +291,45 @@ TodaGroupResult
 → source_entry / proof_step
 → existing recursive proof provenance
 → depth-limited replay
-→ CLI / Web presentation
 ```
 
-No generator lookup is required.
+Phase 132 adds presentation on top of that replay:
+
+```text
+TodaGroupResultProofReplayResult
+→ TodaGroupProofPresentation
+→ Trace / Outline / Narrative
+→ CLI / Web
+```
+
+`TodaGroupProofPresentation` does not perform a new proof search. Its nodes are the replay-selected `ProofStep` values and its edges are existing provenance edges filtered to those selected nodes.
+
+Trace remains the audit-oriented ground truth.
+
+Outline follows actual `ProofStep.premises` ancestry and `premise_index`; it does not infer parent-child relations from flat replay depth.
+
+Narrative uses fixed deterministic templates over the same graph. Unsupported statements use safe existing renderers or rule/type fallbacks instead of inventing mathematical prose.
+
+When one `ProofStep` is used by multiple parents, Narrative expands that shared dependency subtree once and later refers to it as already established. This is display deduplication only:
+
+```text
+narrative deduplication
+!= proof graph deletion
+!= provenance deletion
+```
 
 CLI examples:
 
 ```powershell
 python main.py group-proof 9 7
 python main.py group-proof 9 7 --depth 2
-python main.py group-proof 2 7
-python main.py group-proof 11 -1
+python main.py group-proof 9 7 --mode trace
+python main.py group-proof 9 7 --mode outline
+python main.py group-proof 9 7 --mode narrative
+python main.py group-proof 9 7 --depth 2 --mode narrative
 ```
+
+The default mode is `trace`, preserving Phase 131 behavior.
 
 Representative behavior:
 
@@ -330,7 +361,7 @@ By contrast, \(\pi_0\) boundary information and negative-dimensional out-of-doma
 
 The Web UI is intentionally a thin presentation layer over existing calculation, operation-query, proof-replay, exploration, applicability, and qualified-execution infrastructure.
 
-It does not parse CLI output or Markdown and does not implement a second mathematical engine.
+It does not implement a second mathematical engine.
 
 Current Web files include
 
@@ -349,7 +380,21 @@ templates/index.html
 static/web_math.js
 ```
 
-For a repository-backed group result, the Web UI exposes `Show proof` directly below the result. Proof depth can be selected as 0, 1, or 2.
+For a repository-backed group result, the Web UI exposes `Show proof` directly below the result.
+
+Proof depth can be selected as 0, 1, or 2.
+
+Proof view can be selected as:
+
+```text
+Trace
+Outline
+Narrative
+```
+
+Trace uses the existing structured replay view.
+
+Outline and Narrative reuse the Phase 132 renderers. The Web adapter separates mathematical fragments so existing `data-latex` / KaTeX rendering remains available rather than introducing a separate mathematical renderer.
 
 Run the local development server with
 
@@ -401,56 +446,47 @@ E\nu' \in \pi_7^4.
 
 The `E(nu_prime)` result is deliberately a membership result, not a synthetic equality \(E(\nu')=E\nu'\).
 
-## Phase 131 closure
+## Phase 132 closure
 
-Phase 131 changed proof access and presentation routing, not the underlying Toda mathematics.
+Phase 132 changed proof presentation, not the underlying Toda mathematics.
 
 The phase:
 
-- audited the group-result-to-proof path,
-- confirmed that normalized group results already preserve their exact `ProofStep`,
-- reused existing recursive proof provenance rather than introducing a new proof-search algorithm,
-- added a group-result proof replay core API,
-- added CLI `group-proof n k [--depth N]`,
-- added Web `Show proof` directly under repository-backed group results,
-- preserved theorem / phase / repository-key provenance,
-- supported zero-group replay without generator input,
-- supported foundational connectivity-zero replay,
-- kept \(\pi_0\) boundary and negative-dimensional domain information outside ordinary group proof replay,
-- preserved existing `show-proof <generator>` semantics,
-- preserved CLI / Web use of the same mathematical source objects.
+- audited the existing narrative renderer and group-result replay path,
+- established that actual `ProofStep.premises` edges are the source of proof structure,
+- added `TodaGroupProofPresentation` as a thin common presentation core,
+- added deterministic Outline rendering,
+- added deterministic Narrative rendering,
+- kept unsupported mathematical statements on safe LaTeX / rule-name / type-name fallback paths,
+- preserved source theorem, phase, repository key, `ProofStep` identity, and replay depth semantics,
+- added shared-dependency Narrative deduplication without changing the proof graph,
+- connected Trace / Outline / Narrative to CLI `group-proof`,
+- kept Trace as the default CLI mode,
+- connected Trace / Outline / Narrative to the Web group-proof flow,
+- preserved browser-side KaTeX rendering for mathematical fragments,
+- preserved Phase 131 group-result replay and all existing proof-search semantics.
 
-Final Phase 131 regression:
+Final Phase 132 regression:
 
 ```text
-9333 passed in 583.64s (0:09:43)
+9392 passed in 587.98s (0:09:47)
 ```
 
 ## Near-term roadmap
 
-Phase 131 is complete.
+Phase 132 is complete.
 
-The next planned audit is Phase 132: proof narrative generation.
-
-The intended direction is
+The next planned phase is a post-Phase-132 capability and workflow-pressure audit.
 
 ```text
-existing ProofStep / provenance
-→ deterministic narrative presentation
-→ human-readable proof prose
+Phase 133
+→ exercise current group query / proof presentation workflows
+→ identify the next concrete missing capability
+→ prefer reuse of existing theorem-backed proof data
+→ implement only the smallest justified extension
 ```
 
-The goal is not to generate a new proof. It is to render the existing machine-traceable proof in a more readable mathematical style while preserving provenance.
-
-Possible presentation modes include:
-
-```text
-Trace
-Outline
-Narrative
-```
-
-The existing trace remains the audit-oriented ground truth.
+No specific mathematical operation, higher stem, UI redesign, or evaluator generalization is pre-selected.
 
 ## Current boundaries
 
