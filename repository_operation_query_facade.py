@@ -7,6 +7,10 @@ from repository_nu5_stable_bridge_specialization import (
   is_nu5_stable_bridge_operation_query,
   query_nu5_stable_bridge_handoff,
 )
+from repository_nu_prime_suspension_membership_specialization import (
+  is_nu_prime_suspension_membership_operation_query,
+  query_nu_prime_suspension_membership_handoff,
+)
 from repository_operation_query import (
   parse_repository_operation_query,
 )
@@ -38,6 +42,14 @@ def query_repository_operation_input(
 
   if direct_result.found:
     return direct_result
+
+  if is_nu_prime_suspension_membership_operation_query(
+    query
+  ):
+    return query_nu_prime_suspension_membership_handoff(
+      repository,
+      query,
+    )
 
   if is_nu5_stable_bridge_operation_query(
     query

@@ -16,7 +16,7 @@ The current system provides:
 - operation-fact lookup,
 - operation-query proof replay,
 - theorem-specific indexed \(\sigma_n\) specialization,
-- deliberately narrow existing-proof handoffs for \(E(\nu_5)=\nu_6\), \(E(\sigma_{11})=\sigma_{12}\), and \(E(\nu_5\eta_8)=0\),
+- deliberately narrow existing-proof handoffs for \(E(\nu_5)=\nu_6\), \(E(\sigma_{11})=\sigma_{12}\), \(E(\nu_5\eta_8)=0\), and \(E\nu' \in \pi_7^4\),
 - a Flask Web UI for group queries, operation queries, operation proof replay, generator proof replay, direct generator exploration, recursive generator proof-scope exploration, applicability exploration, and qualified generator execution,
 - explicit candidate selection when an execution request is ambiguous,
 - browser-side KaTeX rendering of existing LaTeX output,
@@ -137,12 +137,12 @@ The proof infrastructure supports:
 - existing operation-fact lookup,
 - operation-query result deduplication without losing raw provenance,
 - operation-query proof replay rooted at the selected fact's actual `ProofStep`,
-- theorem-specific `E(nu_5)`, `E(sigma_11)`, and `E(nu_5 o eta_8)` handoffs that preserve existing proof provenance,
+- theorem-specific `E(nu_5)`, `E(sigma_11)`, `E(nu_5 o eta_8)`, and `E(nu_prime)` handoffs that preserve existing proof provenance,
 - user-facing qualified execution with explicit `NONE`, `AMBIGUOUS`, and `EXECUTED` states,
 - user-selected replay depth,
 - safe mathematical rendering with explicit type-name fallback for unsupported aggregate statements.
 
-General unbounded proof search, theorem ranking, producer ranking, proof-cost optimization, arbitrary operation-query inference fallback, and general \(E/H/\Delta\) evaluation are intentionally not implemented.
+General unbounded proof search, theorem ranking, producer ranking, proof-cost optimization, arbitrary operation-query inference fallback, general membership evaluation, and general \(E/H/\Delta\) evaluation are intentionally not implemented.
 
 ## Toda group calculation API
 
@@ -210,230 +210,6 @@ and open
 http://127.0.0.1:5000/
 ```
 
-### Web workflow
-
-The single-page UI is grouped as follows.
-
-```text
-Calculation and queries
-→ Group query
-→ Operation query
-
-Proof and exploration
-→ Generator proof
-→ Generator exploration
-→ Generator proof-scope exploration
-
-Applicability
-→ Applicable theorem / lemma candidates
-→ Execute theorem / lemma candidate
-```
-
-The navigation links are presentation-only anchors. Their order is not a theorem ranking.
-
-### Group query
-
-A representative query is
-
-```text
-n = 11
-k = 7
-```
-
-which is rendered as
-
-\[
-\pi_{18}^{11}\cong
-\mathbb Z/16\{\sigma_{11}\}.
-\]
-
-### Operation query and query-proof
-
-Representative Web operation queries are
-
-```text
-H(nu_prime)
-Delta(iota_9)
-E(nu_5)
-E(sigma_11)
-E(nu_5 o eta_8)
-```
-
-Multiple mathematical facts are listed explicitly. A fact is not automatically selected for proof replay.
-
-The selected fact is replayed from its own existing `ProofStep`. The Web result can show theorem / phase provenance, bounded proof steps, rule names, KaTeX-renderable statements, and safe type-name fallback.
-
-### Generator proof
-
-Representative inputs are
-
-```text
-sigma_11
-nu_prime
-nu_5
-```
-
-For `nu_prime`:
-
-\[
-\pi_6^3=\mathbb Z/4\{\nu'\}.
-\]
-
-The browser exposes replay depth choices `0`, `1`, and `2`. Depth selection changes only visible existing ancestry; it does not perform new proof search.
-
-### Generator exploration
-
-Representative inputs are
-
-```text
-nu_prime
-nu_5
-sigma_11
-eta_999
-```
-
-For `nu_prime`, the direct repository exploration returns six occurrences.
-
-Unknown indexed generators preserve zero-result semantics:
-
-```text
-eta_999
-→ Occurrences: 0
-```
-
-This is a normal result, not a not-found error.
-
-### Generator proof-scope exploration
-
-Representative inputs are
-
-```text
-nu_prime
-sigma_11
-eta_999
-```
-
-For `sigma_11`:
-
-```text
-direct exploration
-→ Occurrences: 0
-
-proof-scope exploration
-→ Proof-scope occurrences: 1
-```
-
-For `eta_999`:
-
-```text
-Proof-scope occurrences: 0
-Toda memberships: 0
-Map relations: 0
-```
-
-### Applicability exploration
-
-The browser can inspect read-only theorem / lemma applicability candidates.
-
-The presentation hierarchy is
-
-```text
-generator
-→ proof-scope occurrences
-→ applicability candidates
-→ source statements with candidates
-→ rule groups
-→ rule families
-```
-
-Representative `nu_prime` counts are
-
-```text
-Proof-scope occurrences: 626
-Applicability candidates: 176616
-Source statements with candidates: 542
-Rule groups: 123300
-Rule families: 29308
-```
-
-To keep browser output bounded while preserving the underlying result:
-
-```text
-at most 5 source statements are rendered per category
-at most 10 rule families are rendered per displayed source
-rule-family details use a collapsed <details> element
-full aggregate counts remain visible
-omitted counts are shown explicitly
-```
-
-### Generator execution
-
-Phase 125 connected the existing qualified user-execution workflow to the Web UI.
-
-The path is
-
-```text
-generator input
-→ thin Web execution adapter
-→ existing execution workflow facade
-→ executable target resolution
-→ NONE / AMBIGUOUS / EXECUTED
-→ candidate selection when required
-→ existing qualified execution
-→ existing executed ProofStep
-→ structured result + proof
-→ Jinja
-→ KaTeX
-```
-
-The Web adapter does not resolve candidates independently, rank targets, add a new execution family, or parse CLI Markdown.
-
-`NONE` is presented as a normal no-target result.
-
-```text
-eta_999
-→ No executable target found for this generator.
-```
-
-`AMBIGUOUS` presents existing candidates and requires explicit selection.
-
-For `nu_prime`, the browser exposes the same two executable targets as the CLI:
-
-\[
-\pi_6^2=\mathbb Z/4\{\eta_2\nu'\},
-\]
-
-and
-
-\[
-\Delta(\iota_9)=\pm(2\nu_4-E\nu').
-\]
-
-Selecting candidate 1 or 2 delegates the candidate number back to the existing execution facade.
-
-`EXECUTED` presents:
-
-```text
-Result
-Premises
-Rule
-Conclusion
-Provenance
-```
-
-Phase 126 corrected executable relevance so that `nu_5` no longer inherits the unrelated \(\pi_6^2\) target from another branch of the Proposition 5.6 aggregate. Current CLI and Web execution therefore preserve:
-
-```text
-nu_prime
-→ 2 executable targets
-
-nu_5
-→ NONE
-
-sigma_11
-→ NONE
-```
-
 ## Operation query
 
 Operation query remains lookup-first.
@@ -460,51 +236,19 @@ E(\nu_5)=\nu_6,
 E(\sigma_{11})=\sigma_{12},
 \]
 
-and
-
 \[
-E(\nu_5\eta_8)=0.
-\]
-
-The \(E(\nu_5\eta_8)=0\) handoff is deliberately theorem-specific. Direct lookup still runs first. On a direct miss for exactly `E(nu_5 o eta_8)`, the handoff reuses the existing Toda Proposition 5.8 proof scope:
-
-\[
-\pi_9^5=\mathbb Z/2\{\nu_5\eta_8\},
-\]
-
-\[
-E:\pi_9^5\to\pi_{10}^6
-\text{ is surjective},
+E(\nu_5\eta_8)=0,
 \]
 
 and
 
 \[
-\pi_{10}^6=0.
+E\nu' \in \pi_7^4.
 \]
 
-The specialized query fact is attached to the existing Proposition 5.8 provenance rather than registered as a new independent theorem root.
+The `E(nu_prime)` result is deliberately a membership result, not a synthetic equality \(E(\nu')=E\nu'\).
 
-The narrow theorem-specific handoffs do not turn `query` into a general inference engine or evaluator.
-
-## Phase 126–128 closure
-
-Phase 126 separated proof-scope relevance, applicability relevance, and executable relevance. The unrelated `nu_5 → pi_6^2` executable target was removed while the two `nu_prime` executable targets were preserved.
-
-Phase 127 audited post-Phase 126 capability pressure instead of immediately adding another general mechanism. The remaining operation-query pressures examined were:
-
-```text
-H(nu_5)
-H(sigma_11)
-Delta(sigma_11)
-E(nu_prime)
-Delta(nu_prime)
-E(nu_5 o eta_8)
-```
-
-The audit classified `H(nu_5)`, `H(sigma_11)`, `Delta(sigma_11)`, and `Delta(nu_prime)` as requiring additional mathematical proof support rather than a small existing-proof handoff.
-
-`E(nu_prime)` remains a viable future pressure, but its operation-result presentation semantics require a separate audit because \(E\nu'\) already appears as a generator inside
+Its theorem-specific handoff reuses the existing Toda Proposition 5.6 decomposition
 
 \[
 \pi_7^4=
@@ -513,46 +257,96 @@ The audit classified `H(nu_5)`, `H(sigma_11)`, `Delta(sigma_11)`, and `Delta(nu_
 \mathbb Z/4\{E\nu'\}.
 \]
 
-Phase 127 therefore selected `E(nu_5 o eta_8)` as the next minimum capability.
+The specialized membership `ProofStep` has that existing decomposition step as its direct premise, so `query-proof` preserves the actual Proposition 5.6 ancestry.
 
-Phase 128 implemented exactly that handoff:
+The handoff is exact and narrow:
 
 ```text
-query "E(nu_5 o eta_8)"
+query "E(nu_prime)"
 → direct lookup first
-→ theorem-specific handoff on direct miss
-→ Proposition 5.8 proof scope only
-→ E(nu_5 eta_8) = 0
-→ query-proof replay from existing provenance
+→ exact theorem-specific guard
+→ Proposition 5.6 decomposition match
+→ E nu' in pi_7^4
+→ query-proof replay
 ```
 
-The focused Phase 128 regression was:
+It does not recursively scan arbitrary group structures for suspensions and does not introduce a general membership evaluator or general \(E\) evaluator.
+
+The `GROUP_MEMBERSHIP` operation-query match kind classifies this user-facing result. It does not change direct lookup semantics or turn arbitrary containment into an operation result.
+
+## Phase 126–129 closure
+
+Phase 126 separated proof-scope relevance, applicability relevance, and executable relevance.
+
+Phase 127 audited remaining operation-query pressure.
+
+Phase 128 implemented the exact theorem-specific handoff
+
+\[
+E(\nu_5\eta_8)=0
+\]
+
+from existing Proposition 5.8 provenance.
+
+Phase 129 audited the remaining `E(nu_prime)` pressure before implementation. The repository already contained \(E\nu'\) as the order-four generator in the Proposition 5.6 decomposition of \(\pi_7^4\). The audit selected membership as the natural operation result:
+
+\[
+E\nu' \in \pi_7^4.
+\]
+
+Phase 129 then implemented a theorem-specific membership handoff without broadening direct lookup or containment semantics.
+
+Focused validation:
 
 ```text
-40 passed in 15.43s
+12 passed
+63 passed
 ```
 
-The final repository-wide Phase 128 regression was:
+Manual CLI validation:
 
 ```text
-9256 passed in 570.10s (0:09:30)
+python main.py query "E(nu_prime)"
+→ E nu' in pi_7^4
+
+python main.py query-proof "E(nu_prime)" --depth 1
+→ Depth 0: E nu' in pi_7^4
+→ Depth 1: pi_7^4 = Z{nu_4} ⊕ Z/4{E nu'}
 ```
 
-Phase 128 did not add a new theorem root, general target-zero rule, parser expansion, general \(E\) evaluator, new qualified execution family, ranking, or automatic target selection.
+Final repository-wide regression:
+
+```text
+9268 passed in 569.71s (0:09:29)
+```
+
+Phase 129 did not add a general \(E\) evaluator, general membership evaluator, recursive arbitrary containment lookup, parser expansion, new independent theorem root, new qualified execution family, theorem ranking, or automatic target selection.
 
 ## Near-term roadmap
 
-Phase 129 should audit the remaining `E(nu_prime)` pressure before implementation.
+Phase 129 is complete.
 
-The key question is not whether the expression \(E\nu'\) exists—it already appears in the Proposition 5.6 decomposition—but what an operation query should return as the theorem-backed result of `E(nu_prime)` without broadening containment into a general evaluator.
+The next phase should begin with a capability re-audit rather than pre-implementing a general evaluator.
 
-The Phase 129 order should remain:
+The remaining operation pressures include queries such as:
 
 ```text
-current repository representation
-→ operation-result semantics
-→ existing provenance reuse
-→ minimum missing capability
+H(nu_5)
+Delta(nu_prime)
+H(sigma_11)
+Delta(sigma_11)
+```
+
+These were previously classified as requiring additional mathematical proof support rather than a small existing-proof handoff.
+
+The next decision order remains:
+
+```text
+actual user pressure
+→ current repository/proof support
+→ result semantics
+→ provenance reuse
+→ smallest missing capability
 → scope freeze before implementation
 ```
 
@@ -574,6 +368,7 @@ The following remain intentionally deferred:
 - four-or-more-term operation-query composition,
 - three-term composition as a map-operation operand,
 - general composition evaluation,
+- general membership evaluation,
 - general Toda-bracket solving,
 - bracket-value and coset / indeterminacy computation,
 - general \(E/H/\Delta\) evaluation,
