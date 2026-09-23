@@ -25,6 +25,7 @@ The current system provides:
 - read-only direct Web exploration that preserves existing repository grouping and metadata,
 - read-only recursive proof-scope Web exploration that preserves existing root / depth / match semantics,
 - read-only compact applicability Web exploration that preserves existing source / rule-family presentation semantics while bounding browser output volume.
+- workflow navigation that groups the existing single-page Web forms by calculation/query, proof/exploration, and applicability without changing route or execution semantics.
 
 ## Mathematical scope
 
@@ -178,6 +179,8 @@ returns
 ## Web UI
 
 The Web UI is intentionally a thin presentation layer over existing calculation, operation-query, proof-replay, direct exploration, recursive proof-scope, and applicability infrastructure.
+
+Phase 124 adds a lightweight workflow navigation layer to the existing single-page UI. It groups the current forms by purpose and links to their existing sections. It does not add a new route, mathematical capability, candidate-selection action, or execution workflow.
 
 The group-query path is
 
@@ -547,81 +550,72 @@ E(\sigma_{11})=\sigma_{12}.
 
 The two narrow theorem-specific handoffs do not turn `query` into a general inference engine or evaluator.
 
-## Phase 123 closure
+## Phase 124 closure
 
-Phase 123 exposed the existing `explore-applicable` capability as a read-only compact Web surface.
+Phase 124 audited whether `execute` should be connected to the Web UI immediately or whether the existing single-page UI should first be made easier to navigate.
 
-```text
-Phase 123-1
-→ current applicability facade / presentation / compact and detailed renderer audit
-
-Phase 123-2
-→ read-only compact Web exposure selected
-→ candidate selection / execute / detailed toggle excluded
-
-Phase 123-3
-→ thin Web adapter boundary fixed
-→ existing applicability facade and presentation reused
-→ source classification and relevance ordering reused
-→ no CLI Markdown parsing
-
-Phase 123-4
-→ web_generator_applicability.py
-→ immutable Web applicability views
-→ full summary counts
-→ source statement / root / depth / type / raw-candidate metadata
-→ rule-family name / catalog-entry count / raw-candidate count
-→ normal zero-result handling
-→ focused tests: 13 passed
-
-Phase 123-5
-→ browser/manual audit
-→ nu_prime / sigma_11 / eta_999 verified
-→ very large nu_prime page identified as a browser-scale presentation problem
-
-Phase 123-5A
-→ compact browser-volume fix
-→ max 5 sources per category
-→ max 10 rule families per displayed source
-→ collapsed rule-family details
-→ omitted-count messages
-→ underlying applicability result unchanged
-→ focused regression: 17 passed
-
-Phase 123-5B
-→ browser/manual re-audit passed
-→ nu_prime full summary counts preserved
-→ sigma_11 compact display verified
-→ eta_999 zero-result semantics preserved
-
-Phase 123-final
-→ documentation update
-→ repository-wide regression
-```
-
-The final repository-wide Phase 123 regression was
+The audit selected the smaller UI-organization change first.
 
 ```text
-9229 passed in 509.16s (0:08:29)
+Phase 124-1
+→ current single-page Web UI audited
+→ existing execute workflow audited
+→ explore-applicable → execute boundary reviewed
+
+Phase 124-2
+→ Web UI organization selected before execute Web integration
+→ both were not implemented together
+
+Phase 124-3
+→ minimal navigation-only design
+→ existing Flask route retained
+→ existing forms retained
+→ no new Web adapter or mathematical semantics
+
+Phase 124-4
+→ workflow navigation added to templates/index.html
+→ existing six input sections received stable anchor targets
+→ no web_app.py change
+→ no execute form or candidate-selection control
+→ new focused tests: 5 passed in 3.83s
+→ focused Web regression: 38 passed in 44.51s
+
+Phase 124-5
+→ browser/manual integration audit
+→ workflow navigation verified
+→ nu_prime / nu_5 / sigma_11 applicability displays verified
+→ existing compact applicability volume limits preserved
+→ KaTeX rendering preserved
+
+Phase 124-final
+→ documentation updated
+→ repository-wide regression passed
 ```
 
-No new theorem root, proof-search rule, query grammar, general \(E/H/\Delta\) evaluator, Toda-bracket solver, qualified execution family, candidate-selection semantics, or new applicability semantics were added in Phase 123.
+The final repository-wide Phase 124 regression was
+
+```text
+9234 passed in 522.10s (0:08:42)
+```
+
+No new theorem root, proof-search rule, query grammar, general \(E/H/\Delta\) evaluator, Toda-bracket solver, qualified execution family, candidate-selection semantics, or execution semantics were added in Phase 124.
 
 ## Near-term roadmap
 
-Phase 123 completes the remaining read-only Web integration that had been prioritized before `execute`.
+Phase 125 is the next implementation phase.
 
-The next phase should audit the boundary between:
+Its target is the existing user execution workflow:
 
 ```text
-execute Web integration
-and
-Web UI usability / organization cleanup
+generator
+→ executable target resolution
+→ NONE / AMBIGUOUS / EXECUTED
+→ candidate selection when required
+→ qualified execution
+→ result + proof
 ```
 
-before implementing either broadly.
-
-`execute` remains a separate capability because it includes candidate selection, ambiguity handling, and execution semantics rather than read-only inspection.
+The Web integration should reuse the existing structured execution facade and presentation objects. It should not parse CLI Markdown, invent a second execution engine, rank candidates, or broaden the admitted qualified execution families.
 
 ## Current boundaries
 

@@ -42,6 +42,9 @@ generator proof-scope Web adapter != 新しい proof-scope semantics
 generator applicability Web adapter != 新しい applicability semantics
 Web grouping != 新しい occurrence classification
 Web 表示制限 != applicability result の切り捨て
+Workflow navigation != 新しい capability
+Workflow anchor != 新しい route
+UI organization != execution semantics
 show-proof != execute
 explore != explore-proof
 explore-proof != explore-applicable
@@ -620,6 +623,33 @@ generator explore-applicable
 
 を接続した。
 
+Phase 124 では capability を増やさず、同じ単一ページ UI の上部に workflow navigation を追加した。
+
+```text
+Calculation and queries
+→ Group query
+→ Operation query
+
+Proof and exploration
+→ Generator proof
+→ Generator exploration
+→ Generator proof-scope exploration
+
+Applicability
+→ Applicable theorem / lemma candidates
+```
+
+navigation は既存 section への anchor link だけを持つ。
+
+```text
+navigation
+!= new Flask route
+!= new Web adapter
+!= candidate selection
+!= qualified execution
+!= execute
+```
+
 新しい数学 engine は導入していない。
 
 ---
@@ -695,68 +725,72 @@ Phase 123 の applicability generator / source statement も同じ `[data-latex]
 
 ---
 
-# 17. Phase 123 regression boundary
+# 17. Phase 124 regression boundary
 
-Phase 123 で固定した境界:
+Phase 124 で固定した境界:
 
 ```text
-explore-applicable Web = existing applicability exploration + presentation
+current single-page Web UI を維持する
+既存 Flask route を維持する
+既存 six input forms を維持する
+上部 workflow navigation から既存 section へ anchor 移動する
+Calculation and queries / Proof and exploration / Applicability に整理する
+web_app.py は変更しない
+既存 Web adapter は変更しない
 CLI Markdown は解析しない
-source classification を Web で再実装しない
-relevance ordering を Web で再実装しない
 candidate selection を追加しない
 execute を追加しない
-detailed Web toggle を追加しない
-unknown indexed generator の zero result は正常結果
-full summary counts を保持する
-browser 描画 source は各 category 最大 5
-browser 描画 rule family は各 source 最大 10
-rule-family details は初期折りたたみ
-omitted counts を明示する
-表示制限は underlying result semantics を変更しない
-既存 group / operation / proof / explore / explore-proof Web path を壊さない
-repository / proof semantics を変更しない
+qualified execution semantics を変更しない
+applicability result semantics を変更しない
+compact source / rule-family display limits を維持する
+KaTeX path を維持する
 ```
 
-Phase 123-4 focused tests:
+Phase 124-4 focused tests:
 
 ```text
-13 passed in 61.24s
+5 passed in 3.83s
 ```
 
-Phase 123-5A focused regression:
+focused Web regression:
 
 ```text
-17 passed in 69.57s
+38 passed in 44.51s
 ```
 
 browser/manual integration:
 
 ```text
+workflow navigation
+→ existing six sections への導線を確認
+
 nu_prime
-→ full summary counts preserved
-→ category source limit verified
-→ rule-family limit / folding verified
+→ large applicability summary / compact display を確認
+
+nu_5
+→ 148 proof-scope occurrences
+→ 45846 applicability candidates
+→ 132 source statements
+→ 32010 rule groups
+→ 7674 rule families
 
 sigma_11
-→ 1 source
-→ pi_18^11 = Z/16{sigma_11}
-→ compact rule-family display verified
-
-eta_999
-→ 0 / 0 / 0 / 0 / 0
-→ normal result
+→ 1 proof-scope occurrence
+→ 686 applicability candidates
+→ 1 source statement
+→ 472 rule groups
+→ 112 rule families
 ```
 
 最終 repository-wide regression:
 
 ```text
-9229 passed in 509.16s (0:08:29)
+9234 passed in 522.10s (0:08:42)
 ```
 
 ---
 
-# 18. Phase 123 で行わなかったこと
+# 18. Phase 124 で行わなかったこと
 
 ```text
 new mathematical theorem
@@ -766,10 +800,12 @@ new query grammar
 general E/H/Delta evaluator
 general Toda bracket solver
 coset / indeterminacy computation
-candidate selection Web UI
 execute Web integration
-detailed applicability Web toggle
-candidate identity exposure as an action
+candidate-selection UI
+execution status presentation
+new Flask route
+new Web execution adapter
+candidate ranking
 proof graph visualization
 REST API
 database
@@ -782,18 +818,35 @@ SPA framework
 
 # 19. 次 Phase との境界
 
-Phase 123 で、優先していた read-only Web capability の接続は一通り完了した。
+Phase 124 で current single-page Web UI の最低限の organization を済ませた。
 
-次は `execute` を直ちに Web 化せず、Phase 124 で次を監査する。
+次の Phase 125 は既存 `execute` workflow の Web integration を対象とする。
+
+既存 workflow:
 
 ```text
-execute Web integration readiness
-candidate selection / ambiguity / status presentation
-現在の単一ページ Web UI の情報量
-Web UI organization / usability cleanup の優先度
+generator input
+→ executable target resolution
+→ NONE / AMBIGUOUS / EXECUTED
+→ candidate number selection
+→ qualified execution
+→ executed ProofStep
+→ result + proof presentation
 ```
 
-Phase 124 は監査を先に行い、必要なら次の1 capability または1 UI 整理だけを選ぶ。
+Phase 125 の設計原則:
+
+```text
+existing execution facade を再利用する
+existing candidate presentation を再利用する
+CLI Markdown を解析しない
+AMBIGUOUS を自動選択しない
+candidate number != theorem ranking
+NONE を正常な no-target state として扱う
+EXECUTED result の provenance を保持する
+新しい qualified family を追加しない
+数学 semantics を変更しない
+```
 
 ---
 
@@ -809,7 +862,8 @@ parser を需要なしに一般化しない
 Web UI から数学 semantics を変更しない
 CLI と Web の数学結果を分岐させない
 read-only exploration と execution を混同しない
-browser-scale result volume を実測する
+UI organization と capability addition を分離する
+candidate number を theorem priority と解釈しない
 focused regression で境界を固定する
 browser/manual integration で表示境界を確認する
 repository-wide regression で Phase を閉じる

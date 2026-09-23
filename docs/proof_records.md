@@ -431,6 +431,65 @@ Phase 123 final regression:
 
 Phase 123 は presentation / read-only exploration の Phase であり、proof truth は既存 repository と `ProofStep` provenance に残る。
 
+## Phase 124 Web workflow organization provenance boundary
+
+Phase 124 は新しい数学的 theorem root、`ProofStep`、proof-search rule、qualified execution family、operation-query grammar、candidate-selection semantics、execution semantics を追加していない。
+
+変更は Web presentation の navigation organization に限定される。
+
+```text
+Workflow navigation
+→ existing section anchor
+
+anchor link
+!= proof edge
+!= theorem application
+!= candidate selection
+!= qualified execution
+```
+
+Phase 124 で追加した grouping:
+
+```text
+Calculation and queries
+Proof and exploration
+Applicability
+```
+
+は UI 上の分類であり、数学的 statement、proof provenance、repository grouping、applicability relevance category を新しく定義するものではない。
+
+重要な境界:
+
+```text
+Workflow category
+!= mathematical category
+
+navigation order
+!= theorem ranking
+
+section anchor
+!= proof reference
+
+UI organization
+!= new capability
+```
+
+Phase 124 focused regression:
+
+```text
+5 passed in 3.83s
+38 passed in 44.51s
+```
+
+Phase 124 final regression:
+
+```text
+9234 passed in 522.10s (0:08:42)
+```
+
+Phase 124 の proof truth は従来どおり既存 repository と `ProofStep` provenance に残る。
+
+
 ---
 
 # 記録原則
@@ -477,6 +536,10 @@ related mathematics exists != reusable operation bridge
 Web applicability view != proof truth
 Web source truncation != source-result deletion
 Web rule-family truncation != candidate deletion
+Workflow navigation != proof structure
+navigation order != theorem ranking
+section anchor != proof reference
+UI organization != new capability
 explore-applicable != execute
 ```
 
