@@ -40,7 +40,7 @@ def _group_proof_narrative_statement_label(
     Toda36Lemma514SigmaDoublePrimeBridgeStatement,
   ):
     return (
-      "Theorem 3.6 と Lemma 5.14 を結ぶ σ″ の関係"
+      "Theorem 3.6 から Lemma 5.14 への σ″ bridge"
     )
 
   if isinstance(
@@ -123,7 +123,7 @@ def _group_proof_narrative_statement_label(
     statement,
     TodaLemma514SigmaPrimeStatement,
   ):
-    return "Toda Lemma 5.14 の σ′ に関する結果"
+    return "Toda Lemma 5.14 の σ′ branch"
 
   if isinstance(
     statement,

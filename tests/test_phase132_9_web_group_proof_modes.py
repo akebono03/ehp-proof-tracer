@@ -102,7 +102,7 @@ def test_phase132_9_narrative_web_adapter_preserves_math():
   )
 
   assert any(
-    "既出の"
+    "すでに得た"
     in line.prefix
     for line in view.rendered_lines
   )
@@ -202,7 +202,7 @@ def test_phase132_9_web_narrative_post_uses_structured_rendered_lines():
   assert response.status_code == 200
   assert b'data-proof-mode="narrative"' in response.data
   assert b"group-proof-rendered-math" in response.data
-  assert "既出の".encode(
+  assert "すでに得た".encode(
     "utf-8"
   ) in response.data
 

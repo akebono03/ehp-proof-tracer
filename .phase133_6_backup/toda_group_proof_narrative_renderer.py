@@ -9,25 +9,8 @@ from toda_proof_narrative_renderer import (
   render_toda_proof_statement_latex,
 )
 from toda_rules import (
-  Toda36Lemma514SigmaDoublePrimeBridgeStatement,
   Toda48Pi16_9OrderAndE4InjectiveStatement,
-  Toda52CompositionIsomorphismStatement,
-  Toda53NuPrimeBracketSpecializationStatement,
-  Toda55NuFamilyFiniteDimensionalStatement,
-  Toda56Nu4DecompositionIsomorphismStatement,
-  Toda56Nu4DecompositionStatement,
-  TodaDeltaZeroStatement,
-  TodaHopfInvariantInjectiveStatement,
-  TodaIteratedSuspensionInjectiveStatement,
-  TodaLemma513Statement,
   TodaLemma514Sigma8Statement,
-  TodaLemma514SigmaPrimeStatement,
-  TodaLemma54Statement,
-  TodaProp51FiniteDimensionalStatement,
-  TodaProp511FiniteDimensionalStatement,
-  TodaProp515Pi12_5HopfIsomorphismStatement,
-  TodaProp56FiniteDimensionalStatement,
-  TodaProp56Pi8_5QuotientStatement,
   TodaSigmaFamilyDefinitionStatement,
 )
 
@@ -35,14 +18,6 @@ from toda_rules import (
 def _group_proof_narrative_statement_label(
   statement,
 ) -> str | None:
-  if isinstance(
-    statement,
-    Toda36Lemma514SigmaDoublePrimeBridgeStatement,
-  ):
-    return (
-      "Theorem 3.6 と Lemma 5.14 を結ぶ σ″ の関係"
-    )
-
   if isinstance(
     statement,
     Toda48Pi16_9OrderAndE4InjectiveStatement,
@@ -53,122 +28,10 @@ def _group_proof_narrative_statement_label(
 
   if isinstance(
     statement,
-    Toda52CompositionIsomorphismStatement,
-  ):
-    return "Toda (5.2) の η₂ 合成同型"
-
-  if isinstance(
-    statement,
-    Toda53NuPrimeBracketSpecializationStatement,
-  ):
-    return (
-      "ν′ に対する Lemma 5.2 の Toda bracket 特殊化"
-    )
-
-  if isinstance(
-    statement,
-    Toda55NuFamilyFiniteDimensionalStatement,
-  ):
-    return (
-      "Toda (5.5) の ν-family 有限次元結果"
-    )
-
-  if isinstance(
-    statement,
-    Toda56Nu4DecompositionIsomorphismStatement,
-  ):
-    return "Toda (5.6) の ν₄ 分解同型"
-
-  if isinstance(
-    statement,
-    Toda56Nu4DecompositionStatement,
-  ):
-    return "Toda (5.6) の ν₄ 分解"
-
-  if isinstance(
-    statement,
-    TodaDeltaZeroStatement,
-  ):
-    return "Δ 写像が零写像であること"
-
-  if isinstance(
-    statement,
-    TodaHopfInvariantInjectiveStatement,
-  ):
-    return "Hopf 写像の単射性"
-
-  if isinstance(
-    statement,
-    TodaIteratedSuspensionInjectiveStatement,
-  ):
-    return "E²: π₆³ → π₈⁵ の単射性"
-
-  if isinstance(
-    statement,
-    TodaLemma513Statement,
-  ):
-    return (
-      "Toda Lemma 5.13 の σ‴ に関する結果"
-    )
-
-  if isinstance(
-    statement,
     TodaLemma514Sigma8Statement,
   ):
     return (
       "Toda Lemma 5.14 の σ₈ に関する結果"
-    )
-
-  if isinstance(
-    statement,
-    TodaLemma514SigmaPrimeStatement,
-  ):
-    return "Toda Lemma 5.14 の σ′ に関する結果"
-
-  if isinstance(
-    statement,
-    TodaLemma54Statement,
-  ):
-    return "Toda Lemma 5.4 の結果"
-
-  if isinstance(
-    statement,
-    TodaProp51FiniteDimensionalStatement,
-  ):
-    return (
-      "Toda Proposition 5.1 の有限次元結果"
-    )
-
-  if isinstance(
-    statement,
-    TodaProp511FiniteDimensionalStatement,
-  ):
-    return (
-      "Toda Proposition 5.11 の有限次元結果"
-    )
-
-  if isinstance(
-    statement,
-    TodaProp515Pi12_5HopfIsomorphismStatement,
-  ):
-    return (
-      "π₁₂⁵ の位数 2 の Hopf 像への同型"
-    )
-
-  if isinstance(
-    statement,
-    TodaProp56FiniteDimensionalStatement,
-  ):
-    return (
-      "Toda Proposition 5.6 の有限次元結果"
-    )
-
-  if isinstance(
-    statement,
-    TodaProp56Pi8_5QuotientStatement,
-  ):
-    return (
-      "π₈⁵ / E²π₆³ が位数 2 であること"
     )
 
   if isinstance(

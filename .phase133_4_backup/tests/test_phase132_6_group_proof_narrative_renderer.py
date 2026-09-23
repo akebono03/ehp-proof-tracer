@@ -183,10 +183,7 @@ def test_phase132_6_sigma9_narrative_uses_fixed_japanese_leads():
   assert "まず、" in rendered
   assert "また、" in rendered
   assert "さらに、" in rendered
-  assert "このことから、" in rendered
   assert "したがって、" in rendered
-  assert "まず、既出の" not in rendered
-  assert "まず、すでに得た" not in rendered
 
 
 def test_phase132_6_depth_zero_does_not_invent_premises():
@@ -249,23 +246,8 @@ def test_phase132_6_depth_two_uses_nested_edges_before_parent_fact():
     )
   )
 
-  parent_edges = tuple(
-    edge
-    for edge in presentation.edges
-    if edge.parent_step
-    is nested_edge.parent_step
-  )
-
-  derivation_lead = (
-    "このことから、"
-    if len(
-      parent_edges
-    ) == 1
-    else "これらから、"
-  )
-
   parent_sentence = (
-    derivation_lead
+    "これらから、"
     + parent_fact
     + "を得る。"
   )

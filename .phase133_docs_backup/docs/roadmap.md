@@ -33,7 +33,6 @@ TodaGroupResult
 → depth-limited replay
 → TodaGroupProofPresentation
 → Trace / Outline / Narrative
-→ human-readable Narrative labels
 → CLI / Web
 ```
 
@@ -68,7 +67,6 @@ group-result replay != generator lookup
 group-result replay != theorem search
 proof narrative != new proof
 Narrative deduplication != proof graph deletion
-Narrative label != theorem fact
 ```
 
 ---
@@ -221,49 +219,6 @@ final:
 
 Phase 132 完了。
 
-## Phase 133
-
-Phase 133 は post-Phase-132 workflow pressure から Narrative readability を選択した。
-
-完了内容:
-
-```text
-representative Narrative readability audit
-shared dependency 再参照文面の整理
-premise 1件 → このことから
-premise 2件以上 → これらから
-代表 aggregate statement の human-readable label
-低次元 / nu-family / Proposition 5.11 / Proposition 5.15 / sigma-family label
-sigma 系 bridge / branch 表現の最終日本語化
-representative five-group depth 1 / 2 final audit
-```
-
-代表監査:
-
-\[
-\pi_6^3,\quad
-\pi_8^5,\quad
-\pi_{10}^4,\quad
-\pi_{12}^5,\quad
-\pi_{16}^9
-\]
-
-```text
-Internal wording audit
-→ 0件
-
-Old / awkward Narrative wording
-→ 0件
-```
-
-final:
-
-```text
-9403 passed in 605.52s (0:10:05)
-```
-
-Phase 133 完了。
-
 ---
 
 # 3. standard-query coverage through stem 7
@@ -333,20 +288,19 @@ query
 
 ---
 
-# 5. Phase 134: 次 capability の再監査
+# 5. Phase 133: post-Phase-132 capability / workflow pressure audit
 
-Phase 133 は Narrative readability という具体的 pressure を解消した。
+Phase 133 では新機能を先に決めず、Phase 132 までの機能を実利用して次の不足を選ぶ。
 
-次 Phase では再び新機能を先に決めず、現在の workflow を実利用して次の不足を1つ選ぶ。
-
-監査候補:
+監査対象:
 
 ```text
-1. remaining operation-query pressure
-2. remaining proof-presentation pressure
-3. generator explore / applicability / execute の利用 pressure
-4. Web workflow の実利用上の不足
-5. stem 7 より先の standard-query demand
+1. standard group query の実利用
+2. Trace / Outline / Narrative の読みやすさと不足
+3. operation query / query-proof の残件
+4. generator explore / applicability / execute の利用 pressure
+5. Web workflow の実利用上の不足
+6. stem 7 より先の standard-query demand
 ```
 
 判断原則:
@@ -359,7 +313,7 @@ direct fact を上書きしない
 future Phase を先取りしない
 ```
 
-現時点で次のどれも自動的な実装対象とはしない。
+Phase 133 の時点では次のどれも自動的な実装対象とはしない。
 
 ```text
 k >= 8
@@ -367,8 +321,8 @@ H(nu_5)
 Delta(nu_prime)
 H(sigma_11)
 Delta(sigma_11)
+Narrative wording polish
 rich proof graph visualization
-general evaluator
 ```
 
 ---
@@ -397,15 +351,13 @@ Delta(sigma_11)
 
 # 7. proof presentation の今後の候補
 
-Phase 132–133 で以下は実装済み。
+Phase 132 で以下は実装済み。
 
 ```text
 Trace
 Outline
 Narrative
 shared-dependency Narrative dedup
-shared-dependency natural reuse wording
-human-readable aggregate statement labels
 CLI mode selection
 Web mode selection
 KaTeX rendering
@@ -414,9 +366,9 @@ KaTeX rendering
 今後の改善候補:
 
 ```text
+Narrative の局所的な冗長表現の圧縮
 role-specific deterministic templates
-未対応 statement の追加 safe label
-より広い representative group の Narrative audit
+unsupported aggregate statement の追加 safe rendering
 rich graph visualization
 ```
 
@@ -460,7 +412,7 @@ repo 内 backup に copied `test_*.py` を置かない。
 最新 full regression:
 
 ```text
-9403 passed in 605.52s (0:10:05)
+9392 passed in 587.98s (0:09:47)
 ```
 
 ---

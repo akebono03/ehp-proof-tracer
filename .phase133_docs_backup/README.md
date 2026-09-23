@@ -16,8 +16,6 @@ The current system provides:
 - generator-first known-group proof replay,
 - group-result-first proof replay,
 - deterministic Trace / Outline / Narrative proof presentation,
-- human-readable Narrative labels for representative aggregate proof statements,
-- deterministic shared-dependency Narrative reuse with natural Japanese references,
 - operation-fact lookup,
 - operation-query proof replay,
 - theorem-specific indexed \(\sigma_n\) specialization,
@@ -27,7 +25,7 @@ The current system provides:
 - explicit candidate selection when an execution request is ambiguous,
 - browser-side KaTeX rendering of existing LaTeX output,
 - Web group-proof display with selectable depth 0, 1, or 2 and Trace / Outline / Narrative modes,
-- safe rule-name or type-name fallback when no explicit mathematical or presentation label is available,
+- safe type-name or rule-name fallback for unsupported proof statements,
 - workflow navigation that groups the single-page Web forms by calculation/query, proof/exploration, and applicability/execution.
 
 ## Mathematical scope
@@ -269,7 +267,6 @@ The proof infrastructure supports:
 - deterministic Outline rendering from actual premise edges,
 - deterministic Narrative rendering from the same proof graph,
 - shared-dependency deduplication in Narrative presentation without deleting graph edges,
-- explicit human-readable Narrative labels for representative aggregate statements,
 - generator-centered repository occurrence exploration,
 - recursive generator proof-scope exploration,
 - applicable theorem / lemma discovery grouped by source statement and rule family,
@@ -296,7 +293,7 @@ TodaGroupResult
 → depth-limited replay
 ```
 
-Phase 132 added presentation on top of that replay:
+Phase 132 adds presentation on top of that replay:
 
 ```text
 TodaGroupResultProofReplayResult
@@ -313,15 +310,10 @@ Outline follows actual `ProofStep.premises` ancestry and `premise_index`; it doe
 
 Narrative uses fixed deterministic templates over the same graph. Unsupported statements use safe existing renderers or rule/type fallbacks instead of inventing mathematical prose.
 
-Phase 133 refined this presentation layer without changing proof semantics. Representative aggregate statement types now receive explicit human-readable labels before the renderer falls back to rule or type names. This keeps proof ancestry deterministic while reducing internal implementation vocabulary in ordinary Narrative output.
-
-When one `ProofStep` is used by multiple parents, Narrative expands that shared dependency subtree once and later refers to it as already established. Phase 133 also refined the connective wording so nested reuse is not redundantly repeated.
-
-This remains display-only behavior:
+When one `ProofStep` is used by multiple parents, Narrative expands that shared dependency subtree once and later refers to it as already established. This is display deduplication only:
 
 ```text
-narrative wording
-!= new proof fact
+narrative deduplication
 != proof graph deletion
 != provenance deletion
 ```
@@ -402,7 +394,7 @@ Narrative
 
 Trace uses the existing structured replay view.
 
-Outline and Narrative reuse the group-proof renderers. The Web adapter separates mathematical fragments so existing `data-latex` / KaTeX rendering remains available rather than introducing a separate mathematical renderer.
+Outline and Narrative reuse the Phase 132 renderers. The Web adapter separates mathematical fragments so existing `data-latex` / KaTeX rendering remains available rather than introducing a separate mathematical renderer.
 
 Run the local development server with
 
@@ -480,50 +472,21 @@ Final Phase 132 regression:
 9392 passed in 587.98s (0:09:47)
 ```
 
-## Phase 133 closure
-
-Phase 133 selected Narrative readability as the concrete post-Phase-132 workflow pressure and refined presentation only.
-
-The phase:
-
-- audited representative group proofs at depth 1 and 2,
-- kept Trace, Outline, proof graph, repository, theorem roots, and replay semantics unchanged,
-- changed shared-dependency wording from internal/repetitive phrasing to deterministic natural reuse such as `すでに得た...を用いる`,
-- used singular `このことから` and plural `これらから` according to the actual premise count,
-- added explicit human-readable labels for representative low-dimensional, \(\nu\)-family, Proposition 5.11, Proposition 5.15, and \(\sigma\)-family aggregate statements,
-- removed representative internal rule names such as `finite-dimensional integration`, `isomorphism semantics`, `bridge`, and `branch` from the final audited Narrative output,
-- kept safe rule/type fallback available for statement types that do not have an explicit label,
-- verified the representative groups
-  \(\pi_6^3\),
-  \(\pi_8^5\),
-  \(\pi_{10}^4\),
-  \(\pi_{12}^5\), and
-  \(\pi_{16}^9\)
-  at depth 1 and 2.
-
-Final Phase 133 regression:
-
-```text
-9403 passed in 605.52s (0:10:05)
-```
-
 ## Near-term roadmap
 
-Phase 133 is complete.
+Phase 132 is complete.
 
-The next phase is intentionally not pre-selected. It should begin with another capability/workflow-pressure audit and choose one concrete missing need from actual use.
-
-Possible audit areas include:
+The next planned phase is a post-Phase-132 capability and workflow-pressure audit.
 
 ```text
-remaining operation-query pressure
-remaining proof-presentation pressure
-generator exploration / applicability / execution pressure
-Web workflow pressure
-standard-query demand beyond stem 7
+Phase 133
+→ exercise current group query / proof presentation workflows
+→ identify the next concrete missing capability
+→ prefer reuse of existing theorem-backed proof data
+→ implement only the smallest justified extension
 ```
 
-No higher stem, general evaluator, UI redesign, or proof-search generalization is pre-selected.
+No specific mathematical operation, higher stem, UI redesign, or evaluator generalization is pre-selected.
 
 ## Current boundaries
 
@@ -565,12 +528,6 @@ python -m pytest tests -q
 so only the intended test tree is collected.
 
 Temporary backup directories containing copied `test_*.py` files must not be created inside the repository root because pytest may collect them and produce duplicate-module import mismatches. Backup artifacts should be stored outside the repository, for example under the user's Downloads directory.
-
-Latest repository-wide regression:
-
-```text
-9403 passed in 605.52s (0:10:05)
-```
 
 ## Project principle
 
