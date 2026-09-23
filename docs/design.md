@@ -33,13 +33,12 @@ operation query != general evaluator
 limited theorem-specific handoff != general query inference
 Web UI != 新しい数学エンジン
 TeX rendering != 数学的 normalization
-HTML validation != 数学的 domain validation
 proof depth control != 新しい proof search
 safe fallback != 推測した数学的説明
-generator proof Web adapter != 新しい proof engine
 generator exploration Web adapter != 新しい repository semantics
 generator proof-scope Web adapter != 新しい proof-scope semantics
 generator applicability Web adapter != 新しい applicability semantics
+generator execution Web adapter != 新しい execution semantics
 Web grouping != 新しい occurrence classification
 Web 表示制限 != applicability result の切り捨て
 Workflow navigation != 新しい capability
@@ -50,7 +49,8 @@ explore != explore-proof
 explore-proof != explore-applicable
 explore-applicable != candidate selection
 explore-applicable != execute
-explore != execute
+candidate selection != theorem ranking
+Web execution != second execution engine
 ```
 
 ---
@@ -68,19 +68,6 @@ ProofRepository
 → proof / EHP provenance
 → structured presentation
 → report
-```
-
-## Web group query
-
-```text
-browser form
-→ Flask route
-→ web_group_query
-→ build_standard_toda_report(n,k)
-→ structured group presentation
-→ existing LaTeX renderer
-→ Jinja
-→ KaTeX
 ```
 
 ## operation query
@@ -143,9 +130,8 @@ generator input
 
 ```text
 generator input
-→ explore_standard_repository_generator_applicability_input(...)
+→ existing applicability facade
 → RepositoryGeneratorApplicabilityExplorationResult
-→ build_repository_generator_applicability_presentation(...)
 → RepositoryGeneratorApplicabilityPresentation
 → thin Web applicability adapter
 → compact Web view
@@ -153,14 +139,31 @@ generator input
 → KaTeX
 ```
 
+## generator execute
+
+```text
+generator input
+→ thin Web execution adapter
+→ run_standard_repository_generator_user_execution_workflow(...)
+→ executable target resolution
+→ NONE / AMBIGUOUS / EXECUTED
+→ candidate number selection when required
+→ existing qualified execution
+→ executed ProofStep
+→ existing structured execution presentation
+→ Web view
+→ Jinja
+→ KaTeX
+```
+
 重要:
 
 ```text
-Web adapter は候補探索を行わない
+Web adapter は候補探索を再実装しない
 Web adapter は source classification を再実装しない
 Web adapter は relevance ordering を再実装しない
-Web adapter は candidate を選択しない
-Web adapter は execute しない
+Web adapter は qualified execution を再実装しない
+Web adapter は candidate number を theorem priority と解釈しない
 Web adapter は CLI Markdown を解析しない
 ```
 
@@ -179,6 +182,7 @@ web_generator_proof.py
 web_generator_exploration.py
 web_generator_proof_scope.py
 web_generator_applicability.py
+web_generator_execution.py
 templates/index.html
 static/web_math.js
 ```
@@ -194,26 +198,16 @@ standard_production_applicability_catalog.py
 web_generator_applicability.py
 ```
 
-generator exploration:
+generator execution:
 
 ```text
-repository_element_lookup.py
-repository_element_exploration.py
-repository_element_presentation.py
-repository_element_renderer.py
-repository_element_facade.py
-web_generator_exploration.py
-```
-
-generator proof-scope exploration:
-
-```text
-repository_proof_scope.py
-repository_proof_scope_exploration.py
-repository_proof_scope_facade.py
-repository_proof_scope_renderer.py
-repository_symbolic_sigma_specialization.py
-web_generator_proof_scope.py
+repository_generator_user_execution_resolver.py
+repository_generator_user_execution_candidate_presentation.py
+repository_generator_user_execution_handoff.py
+repository_generator_user_execution_proof_step.py
+repository_generator_user_execution_presentation.py
+repository_generator_user_execution_facade.py
+web_generator_execution.py
 ```
 
 known-group replay:
@@ -259,24 +253,30 @@ ProofStep.inference_rule
 
 `ProofRepositoryEntry.key / phase / theorem` は provenance metadata である。
 
-renderer、facade、CLI、Web adapter、Flask route、表示 grouping、表示件数制限は独立した定理事実を追加しない。
-
-Phase 123 の `web_generator_applicability.py` は既存 `RepositoryGeneratorApplicabilityPresentation` を Web 用 immutable view に射影するだけである。
+renderer、facade、CLI、Web adapter、Flask route、表示 grouping、表示件数制限、candidate selection form は独立した定理事実を追加しない。
 
 ```text
 applicability candidate
 != proof
 != selected theorem application
 != executed result
+
+execution candidate number
+!= theorem priority
+
+Web execution result
+= existing execution workflow が返した既存の executed ProofStep の presentation
 ```
 
 ---
 
 # 5. Repository 非破壊
 
-Phase 113 の TodaGroupQuery specialization、Phase 114 の `E(nu_5)` handoff、Phase 115 の `E(sigma_11)` handoff は元 repository に root を追加しない。
+Phase 113 の TodaGroupQuery specialization、Phase 114 の `E(nu_5)` handoff、Phase 115 の `E(sigma_11)` handoff は元 repository に独立 root を追加しない。
 
-Phase 117–123 の Web UI 接続も repository を変更しない。
+Phase 117–125 の Web UI 接続も repository を変更しない。
+
+read-only:
 
 ```text
 explore
@@ -284,7 +284,13 @@ explore-proof
 explore-applicable
 ```
 
-はいずれも read-only であり、Phase 123 の Web route も repository-nonmutating である。
+execution:
+
+```text
+execute
+```
+
+Phase 125 の Web execution は既存 qualified execution path を利用するが、Web adapter 自体が repository semantics を変更するわけではない。
 
 ---
 
@@ -375,22 +381,13 @@ depth 2 → さらに1段 ancestry
 
 depth は表示範囲であり、新しい proof search ではない。
 
-generator exploration、generator proof-scope exploration、generator applicability exploration は proof replay ではないため、Web 独自の proof depth selector を持たない。
-
-proof-scope の `shortest_depth` は既存探索結果の metadata である。
+generator exploration、generator proof-scope exploration、generator applicability exploration は proof replay ではない。
 
 ---
 
-# 9. 表示と deduplication / truncation
+# 9. Applicability の表示境界
 
-同一数学 statement が複数 proof-scope path から得られる場合、表示 layer は grouping できる。
-
-```text
-deduplicated presentation
-!= provenance deletion
-```
-
-Phase 123 では browser-scale result volume に対して、underlying applicability result を変更せず、HTML へ射影する件数だけを制限する。
+Phase 123 では underlying applicability result を変更せず、HTML へ射影する件数だけを制限する。
 
 ```text
 full summary counts
@@ -421,8 +418,6 @@ Web 表示件数
 
 である。
 
-表示制限は candidate identity、source grouping、relevance ordering、repository、proof provenance を変更しない。
-
 ---
 
 # 10. Generator exploration の意味論
@@ -442,13 +437,13 @@ sigma_11
 → 0 direct standard-repository occurrences
 ```
 
-`eta_999` の zero result は normal result であり not-found error ではない。
+zero result は normal result である。
 
 ---
 
 # 11. Generator proof-scope exploration の意味論
 
-`explore-proof` は standard production repository から recursive proof scope を構築し、その scope に対して既存の generator specialization を適用する。
+`explore-proof` は recursive proof scope を構築し、その scope に対して既存の generator specialization を適用する。
 
 代表例:
 
@@ -463,55 +458,13 @@ eta_999
 → map relations: 0
 ```
 
-zero result は normal result である。
-
 ---
 
 # 12. Generator applicability exploration の意味論
 
 `explore-applicable` は既存 proof-scope 内の source statement に対して、既存 applicability catalog から候補を列挙する read-only capability である。
 
-構造:
-
-```text
-RepositoryGeneratorApplicabilityExplorationResult
-  proof_scope_exploration
-  candidates
-
-RepositoryGeneratorApplicabilityPresentation
-  source_groups
-  toda_membership_source_groups
-  map_relation_source_groups
-  other_source_groups
-  rule_group_count
-  rule_family_count
-```
-
-source group:
-
-```text
-scope_node
-source_statement
-candidates
-rule_groups
-rule_families
-```
-
-rule family:
-
-```text
-name
-catalog entries
-raw candidate count
-```
-
-Web は既存 `source_group.rule_families` を利用するため、既存 relevance ordering を維持する。
-
-Web は Phase 123 で relevance category label 自体を新しい public field として公開しない。
-
 ### `nu_prime`
-
-Phase 123 browser result:
 
 ```text
 Proof-scope occurrences: 626
@@ -519,14 +472,6 @@ Applicability candidates: 176616
 Source statements with candidates: 542
 Rule groups: 123300
 Rule families: 29308
-```
-
-source categories:
-
-```text
-Toda memberships: 46
-Map relations: 44
-Other statements: 452
 ```
 
 ### `sigma_11`
@@ -539,14 +484,6 @@ Rule groups: 472
 Rule families: 112
 ```
 
-source statement:
-
-\[
-\pi_{18}^{11}
-=
-\mathbb Z/16\{\sigma_{11}\}.
-\]
-
 ### `eta_999`
 
 ```text
@@ -556,8 +493,6 @@ Source statements with candidates: 0
 Rule groups: 0
 Rule families: 0
 ```
-
-これは normal zero result である。
 
 重要な境界:
 
@@ -570,7 +505,126 @@ explore-applicable
 
 ---
 
-# 13. Safe statement presentation
+# 13. Generator execution の意味論
+
+Phase 125 は既存の利用者向け execution workflow を Web に接続した。
+
+既存 status:
+
+```text
+NONE
+AMBIGUOUS
+EXECUTED
+```
+
+`NONE`:
+
+```text
+executable target = 0
+→ 正常な no-target state
+→ Web はエラーではなく結果として表示
+```
+
+`AMBIGUOUS`:
+
+```text
+executable target > 1
+→ Web は既存 candidate list presentation から候補番号と conclusion を表示
+→ candidate を自動選択しない
+→ 利用者が 1-based candidate number を選択
+```
+
+`EXECUTED`:
+
+```text
+selected target
+→ existing qualified execution
+→ RepositoryGeneratorExecutedProofStepResult
+→ RepositoryGeneratorUserExecutionPresentation
+→ conclusion / premises / rule
+→ root_entry provenance
+→ Web 表示
+```
+
+Phase 125 の Web adapter は execution workflow の**利用者**であり execution engine ではない。
+
+```text
+web_generator_execution.py
+!= resolver
+!= ranking engine
+!= proof-search engine
+!= qualified execution engine
+```
+
+---
+
+# 14. Candidate selection の境界
+
+candidate number は既存 target tuple の 1-based selection である。
+
+```text
+candidate 1
+candidate 2
+...
+```
+
+は UI / workflow 上の addressing であり、
+
+```text
+candidate number
+!= theorem priority
+!= relevance score
+!= mathematical preference
+!= recommended result
+```
+
+である。
+
+`AMBIGUOUS` 時に Web は自動選択しない。
+
+1 target の場合は既存 facade が従来どおり自動実行する。
+
+---
+
+# 15. `nu_5` manual audit の扱い
+
+Phase 125 browser/manual audit では `nu_5` の Web execution が
+
+\[
+\pi_6^2=\mathbb Z/4\{\eta_2\nu'\}
+\]
+
+へ到達することを確認した。
+
+CLI の
+
+```text
+python main.py execute nu_5
+```
+
+も同じ結果を返した。
+
+したがって Phase 125 では、
+
+```text
+Web adapter mismatch
+```
+
+ではなく、
+
+```text
+existing generator → executable target resolution semantics
+```
+
+の結果として扱う。
+
+Phase 125 はこの意味論を変更しない。
+
+この挙動が利用者期待に合うかは次 Phase の監査対象である。
+
+---
+
+# 16. Safe statement presentation
 
 既存 renderer で数式化できる statement は LaTeX を使う。
 
@@ -582,11 +636,11 @@ safe fallback
 != 推測した定理説明
 ```
 
-Phase 123 の applicability source も `render_repository_conclusion_latex()` を利用し、`TypeError` / `ValueError` の場合だけ type-name fallback を使う。
+Phase 125 の executed premise 表示もこの境界を維持する。
 
 ---
 
-# 14. Web UI の設計境界
+# 17. Web UI の設計境界
 
 framework:
 
@@ -609,7 +663,7 @@ existing structured object
 → KaTeX
 ```
 
-Phase 123 までに、
+現在接続済み:
 
 ```text
 group query
@@ -619,11 +673,10 @@ generator show-proof
 generator explore
 generator explore-proof
 generator explore-applicable
+generator execute
 ```
 
-を接続した。
-
-Phase 124 では capability を増やさず、同じ単一ページ UI の上部に workflow navigation を追加した。
+navigation:
 
 ```text
 Calculation and queries
@@ -637,82 +690,58 @@ Proof and exploration
 
 Applicability
 → Applicable theorem / lemma candidates
+→ Execute theorem / lemma candidate
 ```
-
-navigation は既存 section への anchor link だけを持つ。
-
-```text
-navigation
-!= new Flask route
-!= new Web adapter
-!= candidate selection
-!= qualified execution
-!= execute
-```
-
-新しい数学 engine は導入していない。
 
 ---
 
-# 15. Web view model
+# 18. Web execution view model
 
-generator applicability rule family:
-
-```text
-name
-catalog_entry_count
-raw_candidate_count
-```
-
-generator applicability source:
-
-```text
-statement_latex | fallback_type_name
-root_key
-depth
-source_statement_type
-raw_candidate_count
-rule_family_count
-rule_families[]
-```
-
-generator applicability:
+概念上の最小 field:
 
 ```text
 generator_input
 generator_latex
-occurrence_count
-candidate_count
-source_count
-rule_group_count
-rule_family_count
-toda_memberships[]
-map_relations[]
-other_sources[]
+status
+candidates[]
+selected_candidate_number
+conclusion_latex
+premises[]
+rule_name
+provenance
 ```
 
-意図的に Web view へ含めないもの:
+candidate:
 
 ```text
-candidate identity
-candidate selector
-fixed_point_safe
-premise indexes
-bindings
-public relevance-category field
-qualified execution state
-execute action
+candidate_number
+conclusion_latex
+```
+
+premise:
+
+```text
+premise_number
+statement_latex | fallback_type_name
+```
+
+provenance:
+
+```text
+key
+theorem
+phase
 ```
 
 Web view model は presentation 用であり、proof truth の保存場所ではない。
 
 ---
 
-# 16. TeX / HTML boundary
+# 19. TeX / HTML boundary
 
 Python renderer は LaTeX string を返す。
 
-Jinja が `data-latex` へ渡し、`static/web_math.js` が全 `[data-latex]` 要素を取得して `katex.render(...)` を呼ぶ。
+Jinja が `data-latex` へ渡し、`static/web_math.js` が `[data-latex]` 要素を取得して `katex.render(...)` を呼ぶ。
 
 設定:
 
@@ -721,76 +750,66 @@ displayMode = true
 throwOnError = false
 ```
 
-Phase 123 の applicability generator / source statement も同じ `[data-latex]` 境界を使う。
+execution candidate / result / conclusion も同じ境界を使う。
 
 ---
 
-# 17. Phase 124 regression boundary
+# 20. Phase 125 regression boundary
 
-Phase 124 で固定した境界:
+Phase 125 で固定した境界:
 
 ```text
 current single-page Web UI を維持する
 既存 Flask route を維持する
-既存 six input forms を維持する
-上部 workflow navigation から既存 section へ anchor 移動する
-Calculation and queries / Proof and exploration / Applicability に整理する
-web_app.py は変更しない
-既存 Web adapter は変更しない
-CLI Markdown は解析しない
-candidate selection を追加しない
-execute を追加しない
-qualified execution semantics を変更しない
-applicability result semantics を変更しない
-compact source / rule-family display limits を維持する
+既存 execution facade を再利用する
+existing candidate / execution presentation を再利用する
+CLI Markdown を解析しない
+NONE を正常な no-target state とする
+AMBIGUOUS を自動選択しない
+candidate number を theorem ranking と解釈しない
+EXECUTED の result / proof / provenance を表示する
+new qualified family を追加しない
+new proof-search rule を追加しない
+generator-to-target resolution semantics を変更しない
 KaTeX path を維持する
 ```
 
-Phase 124-4 focused tests:
+Phase 125-4 focused tests:
 
 ```text
-5 passed in 3.83s
-```
-
-focused Web regression:
-
-```text
-38 passed in 44.51s
+14 passed in 29.80s
 ```
 
 browser/manual integration:
 
 ```text
-workflow navigation
-→ existing six sections への導線を確認
-
 nu_prime
-→ large applicability summary / compact display を確認
+→ 2 executable candidates
+→ candidate 1 / 2 の既存 CLI 対応を確認
+
+eta_999
+→ NONE
+→ No executable target found for this generator.
 
 nu_5
-→ 148 proof-scope occurrences
-→ 45846 applicability candidates
-→ 132 source statements
-→ 32010 rule groups
-→ 7674 rule families
+→ Web と CLI の execution result が一致
 
-sigma_11
-→ 1 proof-scope occurrence
-→ 686 applicability candidates
-→ 1 source statement
-→ 472 rule groups
-→ 112 rule families
+KaTeX
+→ candidate / result の数式表示を確認
+
+既存 Web capability
+→ 共存を確認
 ```
 
 最終 repository-wide regression:
 
 ```text
-9234 passed in 522.10s (0:08:42)
+9243 passed in 555.37s (0:09:15)
 ```
 
 ---
 
-# 18. Phase 124 で行わなかったこと
+# 21. Phase 125 で行わなかったこと
 
 ```text
 new mathematical theorem
@@ -800,12 +819,10 @@ new query grammar
 general E/H/Delta evaluator
 general Toda bracket solver
 coset / indeterminacy computation
-execute Web integration
-candidate-selection UI
-execution status presentation
-new Flask route
-new Web execution adapter
 candidate ranking
+semantic target ranking
+automatic best-target selection
+generator-to-target resolution semantics change
 proof graph visualization
 REST API
 database
@@ -816,41 +833,41 @@ SPA framework
 
 ---
 
-# 19. 次 Phase との境界
+# 22. 次 Phase との境界
 
-Phase 124 で current single-page Web UI の最低限の organization を済ませた。
+Phase 125 で existing execute workflow の Web integration は完了した。
 
-次の Phase 125 は既存 `execute` workflow の Web integration を対象とする。
+次 Phase 126 は、Phase 125 manual audit で可視化された executable-target resolution の意味論を監査する。
 
-既存 workflow:
+特に、
 
 ```text
 generator input
-→ executable target resolution
-→ NONE / AMBIGUOUS / EXECUTED
-→ candidate number selection
-→ qualified execution
-→ executed ProofStep
-→ result + proof presentation
+→ proof-scope / applicability relation
+→ executable target inclusion
+→ target ordering
+→ user-facing expectation
 ```
 
-Phase 125 の設計原則:
+を確認する。
+
+最初の監査対象:
 
 ```text
-existing execution facade を再利用する
-existing candidate presentation を再利用する
-CLI Markdown を解析しない
-AMBIGUOUS を自動選択しない
-candidate number != theorem ranking
-NONE を正常な no-target state として扱う
-EXECUTED result の provenance を保持する
-新しい qualified family を追加しない
-数学 semantics を変更しない
+nu_5
 ```
+
+重要:
+
+```text
+Phase 126 は audit first
+```
+
+であり、ranking、filtering、target-selection semantics の変更を先取りしない。
 
 ---
 
-# 20. 完了判断原則
+# 23. 完了判断原則
 
 ```text
 既存数学を先に再利用する
@@ -862,8 +879,8 @@ parser を需要なしに一般化しない
 Web UI から数学 semantics を変更しない
 CLI と Web の数学結果を分岐させない
 read-only exploration と execution を混同しない
-UI organization と capability addition を分離する
 candidate number を theorem priority と解釈しない
+execution target の違和感を Web 層で補正しない
 focused regression で境界を固定する
 browser/manual integration で表示境界を確認する
 repository-wide regression で Phase を閉じる

@@ -36,18 +36,21 @@ Proof and exploration
 
 Applicability
 → generator explore-applicable
+→ generator execute
 ```
 
 `query-proof` は operation query の selected fact から利用できる。
 
-generator explore-applicable:
+generator execute:
 
 ```text
 generator input
-→ thin Web generator-applicability adapter
-→ existing applicability facade
-→ existing RepositoryGeneratorApplicabilityPresentation
-→ compact source / rule-family Web view
+→ thin Web execution adapter
+→ existing execution facade
+→ NONE / AMBIGUOUS / EXECUTED
+→ candidate selection when required
+→ existing qualified execution
+→ Result + Proof
 → KaTeX
 ```
 
@@ -74,8 +77,8 @@ show-proof != execute
 explore != explore-proof
 explore-proof != explore-applicable
 explore-applicable != candidate selection
-explore-applicable != execute
-Web truncation != applicability-result truncation
+candidate selection != theorem ranking
+Web execution != second execution engine
 ```
 
 ---
@@ -126,25 +129,9 @@ Phase 123:
 ```text
 explore-applicable Web audit
 read-only compact Web exposure
-web_generator_applicability thin adapter
 existing applicability facade / presentation reuse
-source category + rule-family display
-normal zero-result handling
 browser-scale display-volume audit
 source / rule-family output limits
-browser/manual re-audit
-```
-
-Phase 123 focused implementation:
-
-```text
-13 passed in 61.24s
-```
-
-Phase 123 compact-volume focused regression:
-
-```text
-17 passed in 69.57s
 ```
 
 Phase 123 final regression:
@@ -156,27 +143,41 @@ Phase 123 final regression:
 Phase 124:
 
 ```text
-execute Web integration readiness vs Web UI usability audit
-Web UI organization を先に選定
-single-page structure を維持
-workflow navigation を追加
-既存 six form section へ anchor target を追加
-web_app.py は変更しない
-execute / candidate selection は追加しない
-browser/manual integration audit
-```
-
-Phase 124 focused:
-
-```text
-5 passed in 3.83s
-38 passed in 44.51s
+execute Web readiness vs UI organization audit
+single-page workflow navigation
+existing section anchors
+execute / candidate selection deferred
 ```
 
 Phase 124 final regression:
 
 ```text
 9234 passed in 522.10s (0:08:42)
+```
+
+Phase 125:
+
+```text
+existing execute workflow audit
+NONE / AMBIGUOUS / EXECUTED Web boundary
+thin Web execution adapter
+explicit candidate selection
+Result + Proof + provenance display
+KaTeX integration
+browser/manual audit
+CLI/Web consistency audit
+```
+
+Phase 125 focused regression:
+
+```text
+14 passed in 29.80s
+```
+
+Phase 125 final regression:
+
+```text
+9243 passed in 555.37s (0:09:15)
 ```
 
 ---
@@ -186,10 +187,10 @@ Phase 124 final regression:
 起動:
 
 ```text
-python -m flask --app web_app run --debug
+python -m flask --app web_app:create_app run
 ```
 
-read-only capability:
+capability:
 
 ```text
 group query
@@ -199,159 +200,121 @@ generator show-proof
 generator explore
 generator explore-proof
 generator explore-applicable
+generator execute
 ```
 
-`explore-applicable` Web summary:
+`explore-applicable` は read-only。
+
+`execute` は既存 qualified execution workflow を利用する。
+
+状態:
 
 ```text
-generator
-proof-scope occurrences
-applicability candidates
-source statements with candidates
-rule groups
-rule families
-```
+NONE
+→ no executable target
 
-source category:
+AMBIGUOUS
+→ candidate list
+→ explicit user selection
 
-```text
-Toda memberships
-Map relations
-Other statements
-```
-
-displayed source metadata:
-
-```text
-statement LaTeX or safe type fallback
-root
-depth
-source statement type
-raw candidates
-rule-family count
-```
-
-displayed rule-family metadata:
-
-```text
-rule name
-catalog-entry count
-raw-candidate count
-```
-
-browser-volume boundary:
-
-```text
-max 5 sources per category
-max 10 rule families per displayed source
-rule-family details collapsed by default
-full aggregate counts preserved
-omitted counts displayed
+EXECUTED
+→ Result + Proof
 ```
 
 代表例:
 
 ```text
 nu_prime
-→ 626 proof-scope occurrences
-→ 176616 applicability candidates
-→ 542 source statements
-→ 123300 rule groups
-→ 29308 rule families
-
-sigma_11
-→ 1 proof-scope occurrence
-→ 686 applicability candidates
-→ 1 source
-→ 472 rule groups
-→ 112 rule families
+→ 2 executable targets
 
 eta_999
-→ 0 / 0 / 0 / 0 / 0
+→ NONE
 ```
+
+Phase 125 browser/manual audit では `nu_5` の Web 実行結果が既存 CLI と一致することを確認した。
 
 ---
 
-# 4. Phase 124 完了境界
+# 4. Phase 125 完了境界
 
 ```text
-Phase 123 の read-only Web capability を維持する
-current single-page Web UI を維持する
-existing six forms を削除・統合しない
-上部 workflow navigation を追加する
-既存 section へ anchor link する
-route を増やさない
-web_app.py を変更しない
-Web adapter を増やさない
-candidate selection を追加しない
-execute を追加しない
-qualified execution semantics を変更しない
-applicability semantics を変更しない
-compact Web output limits を維持する
+existing execution facade を再利用する
+existing candidate presentation を再利用する
+existing execution presentation を再利用する
+CLI Markdown を解析しない
+NONE を normal no-target state とする
+AMBIGUOUS を自動選択しない
+candidate number は 1-based addressing
+candidate number != theorem priority
+EXECUTED では Result + Proof + provenance を表示する
+new qualified family を追加しない
+new proof-search semantics を追加しない
+generator-to-target resolution semantics を変更しない
+existing single-page Web UI を維持する
 KaTeX path を維持する
 focused regression が通る
 browser/manual integration audit が通る
 repository-wide pytest が通る
 ```
 
-Phase 124 は完了。
+Phase 125 は完了。
 
 ---
 
-# 5. Phase 125: execute Web integration
+# 5. Phase 126: executable-target resolution semantics audit
 
-Phase 124 で UI organization を先に済ませたため、Phase 125 では既存 `execute` workflow の Web 接続に進む。
+Phase 125 で Web execution が利用可能になったことで、既存 target-resolution semantics が利用者から直接見えるようになった。
 
-現在の user execution workflow:
-
-```text
-generator
-→ executable target resolution
-→ NONE / AMBIGUOUS / EXECUTED
-→ candidate selection
-→ qualified execution
-→ proof result
-→ result + proof presentation
-```
-
-Phase 125 で再利用する既存基盤:
+最初の pressure:
 
 ```text
-repository_generator_user_execution_facade.py
-repository_generator_user_execution_candidate_presentation.py
-repository_generator_user_execution_presentation.py
-repository_generator_user_execution_handoff.py
-repository_generator_user_execution_proof_step.py
+python main.py execute nu_5
 ```
 
-実装方針:
+と Web `nu_5` execution がともに、
+
+\[
+\pi_6^2=\mathbb Z/4\{\eta_2\nu'\}
+\]
+
+の既存 qualified execution path へ到達する。
+
+Phase 125 の Web adapter mismatch ではないことは確認済みである。
+
+Phase 126 はこの挙動を**変更する Phase ではなく、まず監査する Phase**とする。
+
+監査対象:
 
 ```text
-thin Web adapter を追加する
-existing execution facade を呼ぶ
-NONE を no executable target として表示する
-AMBIGUOUS は候補一覧を表示し利用者選択を待つ
-EXECUTED は result + proof を表示する
-candidate number を theorem ranking と解釈しない
-CLI Markdown を解析しない
-existing candidate / execution presentation を最大限再利用する
-new qualified family を追加しない
-new proof-search semantics を追加しない
+generator occurrence semantics
+proof-scope relation
+applicability relation
+qualified executable target inclusion
+target tuple ordering
+generator-specific user expectation
+CLI / Web consistency
 ```
 
-最初に監査する事項:
+確認したい問い:
 
 ```text
-Web view model に必要な最小 field
-candidate selection form の round-trip
-candidate number validation
-generator input の保持
-NONE / AMBIGUOUS / EXECUTED の表示境界
-result / proof の KaTeX rendering
-既存 Group / Query / Proof / Explore / Applicability との共存
+なぜ nu_5 がこの executable target に含まれるのか
+既存 resolver の intended semantics か
+generator relation の広さが user-facing execute に適切か
+target order は単なる deterministic order か
+candidate list に必要な説明 metadata はあるか
 ```
 
-Phase 125 では execute の Web 接続だけを扱い、UI 全体の追加 redesign は行わない。
+Phase 126 で先取りしないもの:
+
+```text
+semantic target ranking
+best-target selection
+automatic filtering
+new qualified family
+new proof-search rule
+general evaluator
+```
 
 ---
 
@@ -384,11 +347,13 @@ E(nu_5 o eta_8)
 # 7. 長期保留
 
 ```text
+semantic theorem ranking
+semantic executable-target ranking
+automatic best-target selection
 general operation-query grammar
 general E/H/Delta evaluator
 general Toda bracket solver
 coset / indeterminacy computation
-semantic theorem ranking
 proof-cost optimization
 producer ranking
 unbounded backtracking
@@ -417,7 +382,8 @@ parser を需要なしに一般化しない
 Web UI から数学 semantics を変更しない
 CLI と Web の数学結果を分岐させない
 read-only と execution の境界を明示する
-browser-scale result volume を実測する
+candidate number を theorem priority と解釈しない
+利用者違和感はまず resolver semantics を監査する
 focused regression で境界を固定する
 browser/manual integration で表示境界を確認する
 repository-wide regression で Phase を閉じる
