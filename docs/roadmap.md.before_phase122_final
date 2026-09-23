@@ -28,7 +28,6 @@ operation query
 query-proof
 generator show-proof
 generator explore
-generator explore-proof
 ```
 
 generator explore:
@@ -39,17 +38,6 @@ generator input
 → existing standard repository exploration
 → existing structured exploration presentation
 → grouping + metadata + LaTeX
-→ KaTeX
-```
-
-generator explore-proof:
-
-```text
-generator input
-→ thin Web generator-proof-scope adapter
-→ existing recursive proof-scope exploration
-→ existing RepositoryProofScopeExplorationResult
-→ counts + root / depth / match + LaTeX
 → KaTeX
 ```
 
@@ -74,7 +62,6 @@ Web UI != new mathematical engine
 depth control != new proof search
 show-proof != execute
 explore != explore-proof
-explore-proof != explore-applicable
 explore != execute
 ```
 
@@ -158,37 +145,6 @@ Phase 121 final regression:
 9197 passed in 455.68s (0:07:35)
 ```
 
-Phase 122:
-
-```text
-explore-proof / explore-applicable re-audit
-explore-proof selected
-web_generator_proof_scope thin adapter
-existing RepositoryProofScopeExplorationResult reuse
-root / depth / match metadata
-sigma_11 recursive specialization preserved
-zero-result semantics preserved
-browser/manual integration
-```
-
-Phase 122 focused regression:
-
-```text
-15 passed
-```
-
-Phase 122 focused Web regression:
-
-```text
-67 passed in 21.93s
-```
-
-Phase 122 final regression:
-
-```text
-9212 passed in 455.16s (0:07:35)
-```
-
 ---
 
 # 3. 現在の Web UI
@@ -217,104 +173,79 @@ theorem
 KaTeX
 ```
 
-generator proof-scope exploration:
-
-```text
-generator input
-generator LaTeX
-proof-scope occurrence count
-Toda membership count
-map relation count
-Toda membership LaTeX
-map relation LaTeX
-root key
-shortest depth
-match labels
-KaTeX
-```
-
 代表例:
 
 ```text
 nu_prime
 → 6 direct standard-repository occurrences
 
-sigma_11 direct explore
-→ 0 direct occurrences
+sigma_11
+→ 0 direct explore occurrences
 
-sigma_11 proof-scope
-→ 1 proof-scope occurrence
-
-eta_999 proof-scope
-→ 0 occurrences
-→ 0 Toda memberships
-→ 0 map relations
+eta_999
+→ 0 occurrences as a normal result
 ```
 
-重要:
+`sigma_11` の direct `explore` が 0 件でも、recursive proof-scope の `explore-proof sigma_11` では既存 specialization により occurrence を得られる。
 
 ```text
 explore
 != explore-proof
 ```
 
-Phase 122 では direct exploration と recursive proof-scope specialization の違いを Web 上でも維持した。
-
 ---
 
-# 4. Phase 122 完了境界
+# 4. Phase 121 完了境界
 
 ```text
-generator を browser から proof-scope exploration へ入力できる
-existing recursive proof-scope exploration を使う
-existing RepositoryProofScopeExplorationResult を使う
+generator を browser から入力できる
+existing standard repository exploration を使う
+existing structured exploration presentation を使う
 CLI Markdown を解析しない
-generator / membership / relation を LaTeX 表示する
-root / shortest depth / match を表示する
-unknown indexed generator の 0 result を正常結果として扱う
+generator / occurrence conclusion を LaTeX 表示する
+roles / phase / theorem を表示する
+grouped section が空でも正常に扱う
+unknown indexed generator の 0 occurrence を正常結果として扱う
 explore sigma_11 の direct 0 occurrence semantics を維持する
-explore-proof sigma_11 の recursive 1 occurrence semantics を維持する
-proof replay 用 depth selector を proof-scope exploration に流用しない
+explore-proof semantics を混入させない
 group query を壊さない
 operation query / query-proof を壊さない
 generator proof を壊さない
-generator direct explore を壊さない
 browser KaTeX smoke が通る
-focused Web regression が通る
 repository-wide pytest が通る
 ```
 
-Phase 122 は完了。
+Phase 121 は完了。
 
 ---
 
-# 5. 次 Phase 123: `explore-applicable` Web integration audit
+# 5. 次 Phase: remaining read-only Web capability audit
 
 remaining read-only capability:
 
 ```text
+explore-proof
 explore-applicable
 ```
 
 優先して確認する観点:
 
 ```text
-既存 RepositoryGeneratorApplicabilityPresentation の完成度
-source group の表示粒度
-rule family / rule group の階層
-candidate identity の保持
-raw candidate count と relevance category の扱い
+既存 structured presentation の完成度
+Web 専用 presentation boundary を追加する必要があるか
+generator 入力だけで成立するか
 結果量が browser usability に与える影響
-compact / detailed presentation のどちらを Web に公開するか
+recursive proof-scope の root / depth / provenance をどう表示するか
+applicability の source / rule family / candidate grouping をどう表示するか
 CLI-only Markdown に依存していないか
-candidate selection を混入させないか
-qualified execution を混入させないか
 proof / provenance semantics を変えずに接続できるか
 ```
 
-`explore-applicable` は rich structured presentation を既に持つ一方、候補量と UI 階層が大きく、`execute` workflow に近い。
+現時点では `explore-proof` は read-only で利用価値が高いが、`explore` より dedicated presentation boundary が弱い。
 
-したがって Phase 123 はまず監査から開始し、実装する場合も read-only applicability inspection のみに限定する。
+`explore-applicable` は structured presentation がある一方、候補量と UI 階層が大きく、次の候補選択 / execute workflow に近い。
+
+したがって次 Phase は両者を再監査し、実装する場合も1 capability に限定する。
 
 ---
 
@@ -346,7 +277,7 @@ execution status presentation
 
 を専用に監査する必要がある。
 
-したがって `execute` は `explore-applicable` の read-only Web audit より後段とする。
+したがって `execute` は remaining read-only Web capability より後段とする。
 
 ---
 
@@ -389,7 +320,6 @@ producer ranking
 unbounded backtracking
 persistent cache / parallelization
 repository snapshot / versioning
-proof-scope result paging / folding
 rich graph proof visualization
 odd-primary integration
 all-primary ordinary sphere-homotopy calculation
