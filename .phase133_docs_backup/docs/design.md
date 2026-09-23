@@ -53,8 +53,6 @@ group-result proof replay != new proof search
 proof narrative != new proof
 Outline != proof search
 Narrative deduplication != proof graph deletion
-Narrative label != proof fact
-human-readable label != semantic rewrite
 Web presentation adapter != proof semantics
 ```
 
@@ -537,38 +535,7 @@ root conclusion
 
 新しい数学的説明を自由生成しない。
 
-Phase 133 以降の statement 表示優先順は次のとおり。
-
-```text
-既存 LaTeX renderer
-→ 明示的 human-readable Narrative label
-→ inference rule name
-→ statement type name
-```
-
-明示的 Narrative label は、既存 statement type の表示名を人間向けにするだけである。
-
-```text
-human-readable Narrative label
-!= theorem inference
-!= statement semantic rewrite
-!= new theorem fact
-```
-
-代表例:
-
-```text
-Toda56Nu4DecompositionStatement
-→ Toda (5.6) の ν₄ 分解
-
-TodaProp511FiniteDimensionalStatement
-→ Toda Proposition 5.11 の有限次元結果
-
-Toda36Lemma514SigmaDoublePrimeBridgeStatement
-→ Theorem 3.6 と Lemma 5.14 を結ぶ σ″ の関係
-```
-
-未対応 statement では rule name / type name fallback を維持する。
+statement 表示の優先順は、安全に既存 renderer を利用し、未対応 statement では rule name / type name fallback を使う。
 
 ```text
 Narrative
@@ -579,7 +546,7 @@ Narrative
 
 ---
 
-# 15. Narrative shared-dependency deduplication / wording
+# 15. Narrative shared-dependency deduplication
 
 Phase 132-8 で Narrative 表示に `ProofStep` identity 単位の shared-dependency deduplication を追加した。
 
@@ -593,34 +560,16 @@ expanded_step_ids
 → Narrative で既に subtree を展開済みか
 ```
 
-Phase 133 では表示文面を整理した。
-
 最初の出現:
 
 ```text
 subtree を通常展開
 ```
 
-nested branch で既に展開済みの dependency:
+後続出現:
 
 ```text
-重複展開しない
-```
-
-root-level など、利用関係を表示すべき再参照:
-
-```text
-すでに得た ... を用いる。
-```
-
-導出の接続語:
-
-```text
-premise 1件
-→ このことから
-
-premise 2件以上
-→ これらから
+既出の ... を用いる。
 ```
 
 重要:
@@ -694,7 +643,7 @@ Trace / Outline / Narrative
 
 Trace は既存 structured replay view を使う。
 
-Outline / Narrative は同じ renderer の出力を Web 用の薄い adapter に変換する。
+Outline / Narrative は Phase 132 renderer の出力を Web 用の薄い adapter に変換する。
 
 Web adapter は数式 fragment を `data-latex` へ分離し、既存 KaTeX 表示経路を使う。
 
@@ -727,7 +676,7 @@ executable relevance
 
 を区別する。
 
-Phase 132–133 は execution semantics を変更していない。
+Phase 132 は execution semantics を変更していない。
 
 ---
 
@@ -773,12 +722,6 @@ python -m pytest tests -q
 repo 内 backup directory に copied `test_*.py` を置かない。
 
 backup は repo 外へ保存する。
-
-最新 repository-wide regression:
-
-```text
-9403 passed in 605.52s (0:10:05)
-```
 
 ---
 
@@ -858,82 +801,21 @@ Phase 132 は presentation layer の拡張であり、Toda の新しい数学定
 
 ---
 
-# 24. Phase 133 完了境界
+# 24. 次 Phase との境界
 
-Phase 133 は post-Phase-132 workflow pressure 監査から、Narrative の可読性改善を実装対象として選んだ。
+Phase 133 は post-Phase-132 capability / workflow pressure audit とする。
 
-変更範囲:
-
-```text
-Narrative presentation only
-```
-
-実装内容:
+最初に確認する:
 
 ```text
-shared dependency 再参照文面の整理
-単数 premise: このことから
-複数 premise: これらから
-代表 aggregate statement の human-readable label
-低次元 / nu-family / Proposition 5.11 / Proposition 5.15 / sigma-family label
-sigma 系 bridge / branch 表現の日本語化
+現在の group query
+Trace / Outline / Narrative の実利用
+operation query の残件
+standard query の次の不足
+Web workflow の実利用上の不足
 ```
 
-不変:
-
-```text
-ProofStep
-proof graph
-Trace
-Outline
-repository roots
-theorem facts
-replay depth semantics
-operation-query semantics
-execution semantics
-```
-
-最終監査対象:
-
-\[
-\pi_6^3,\quad
-\pi_8^5,\quad
-\pi_{10}^4,\quad
-\pi_{12}^5,\quad
-\pi_{16}^9
-\]
-
-について depth 1 / 2 を確認し、代表的な内部 rule 名と旧 Narrative 文面が残っていないことを確認した。
-
-focused regression:
-
-```text
-43 passed
-```
-
-repository-wide final:
-
-```text
-9403 passed in 605.52s (0:10:05)
-```
-
-Phase 133 完了。
-
----
-
-# 25. 次 Phase との境界
-
-次 Phase は機能を決め打ちしない。
-
-最初に再監査する候補:
-
-```text
-remaining operation-query pressure
-remaining proof-presentation pressure
-generator explore / applicability / execute pressure
-Web workflow pressure
-standard-query demand beyond stem 7
-```
+実装対象を先に決め打ちしない。
 
 先取りしないもの:
 
