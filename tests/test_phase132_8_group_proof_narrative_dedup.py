@@ -159,9 +159,23 @@ def test_phase132_8_shared_dependency_subtree_is_expanded_once():
     )
   )
 
+  parent_edges = tuple(
+    edge
+    for edge in presentation.edges
+    if edge.parent_step is shared_parent
+  )
+
+  derivation_lead = (
+    "このことから、"
+    if len(
+      parent_edges
+    ) == 1
+    else "これらから、"
+  )
+
   assert (
     rendered.count(
-      "これらから、"
+      derivation_lead
       + parent_fact
       + "を得る。"
     )
@@ -200,11 +214,11 @@ def test_phase132_8_repeated_shared_dependency_uses_existing_reference():
   )
 
   assert shared_steps
-  assert "既出の" in rendered
+  assert "すでに得た" in rendered
 
   assert any(
     (
-      "既出の"
+      "すでに得た"
       + _render_group_proof_narrative_fact(
         step
       )
@@ -262,9 +276,21 @@ def test_phase132_8_same_proof_step_is_not_reexpanded_from_each_parent():
       )
     )
 
+    premise_count = sum(
+      1
+      for edge in presentation.edges
+      if edge.parent_step is step
+    )
+
+    derivation_lead = (
+      "このことから、"
+      if premise_count == 1
+      else "これらから、"
+    )
+
     assert (
       rendered.count(
-        "これらから、"
+        derivation_lead
         + fact
         + "を得る。"
       )
@@ -307,7 +333,7 @@ def test_phase132_8_depth_one_also_references_shared_direct_dependency():
     "rendered"
   ]
 
-  assert "既出の" in rendered
+  assert "すでに得た" in rendered
   assert (
     r"$\pi_{12}^{5} = "
     r"\mathbb{Z}/2\{\sigma'''\}$"
@@ -335,10 +361,10 @@ def test_phase132_8_cli_narrative_uses_deduplicated_renderer(
   assert exit_code == 0
   assert captured.err == ""
   assert "# Group proof narrative" in captured.out
-  assert "既出の" in captured.out
+  assert "すでに得た" in captured.out
   assert (
     captured.out.count(
-      "これらから、"
+      "このことから、"
       "Toda Lemma 5.13 sigma triple-prime definition"
       "を得る。"
     )

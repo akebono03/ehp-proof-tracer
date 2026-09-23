@@ -143,6 +143,20 @@ def _premise_lead(
   return "また"
 
 
+def _derivation_lead(
+  premise_count: int,
+) -> str:
+  if premise_count <= 0:
+    raise ValueError(
+      "premise_count must be positive"
+    )
+
+  if premise_count == 1:
+    return "このことから"
+
+  return "これらから"
+
+
 def _append_narrative_for_step(
   lines: list[str],
   presentation: TodaGroupProofPresentation,
@@ -190,14 +204,15 @@ def _append_narrative_for_step(
     )
 
     if premise_id in expanded_step_ids:
-      lines.append(
-        (
-          lead
-          + "、既出の"
-          + premise_fact
-          + "を用いる。"
+      if parent_step is presentation.root_step:
+        lines.append(
+          (
+            lead
+            + "、すでに得た"
+            + premise_fact
+            + "を用いる。"
+          )
         )
-      )
       continue
 
     premise_edges = (
@@ -218,7 +233,12 @@ def _append_narrative_for_step(
 
       lines.append(
         (
-          "これらから、"
+          _derivation_lead(
+            len(
+              premise_edges
+            )
+          )
+          + "、"
           + premise_fact
           + "を得る。"
         )
