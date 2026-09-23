@@ -8,6 +8,10 @@ from web_generator_applicability import (
   WebGeneratorApplicabilityView,
   build_standard_web_generator_applicability_view,
 )
+from web_generator_execution import (
+  WebGeneratorExecutionView,
+  build_standard_web_generator_execution_view,
+)
 from web_generator_exploration import (
   WebGeneratorExplorationView,
   build_standard_web_generator_exploration_view,
@@ -111,6 +115,10 @@ def create_app(
       "applicability_generator_input",
       "",
     )
+    execution_generator_input_value = request.form.get(
+      "execution_generator_input",
+      "",
+    )
 
     view: WebGroupQueryView | None = None
     operation_query_view: (
@@ -123,6 +131,10 @@ def create_app(
     ) = None
     generator_proof_view: (
       WebGeneratorProofView
+      | None
+    ) = None
+    generator_execution_view: (
+      WebGeneratorExecutionView
       | None
     ) = None
     generator_exploration_view: (
@@ -202,6 +214,25 @@ def create_app(
               max_depth=generator_proof_depth,
             )
           )
+        elif form_kind == "generator_execution":
+          execution_candidate_value = request.form.get(
+            "execution_candidate",
+            "",
+          )
+          execution_candidate = (
+            _parse_integer_form_value(
+              execution_candidate_value,
+              "execution_candidate",
+            )
+            if execution_candidate_value.strip()
+            else None
+          )
+          generator_execution_view = (
+            build_standard_web_generator_execution_view(
+              execution_generator_input_value,
+              candidate_number=execution_candidate,
+            )
+          )
         elif form_kind == "generator_exploration":
           generator_exploration_view = (
             build_standard_web_generator_exploration_view(
@@ -269,6 +300,9 @@ def create_app(
       applicability_generator_input_value=(
         applicability_generator_input_value
       ),
+      execution_generator_input_value=(
+        execution_generator_input_value
+      ),
       view=view,
       operation_query_view=(
         operation_query_view
@@ -278,6 +312,9 @@ def create_app(
       ),
       generator_proof_view=(
         generator_proof_view
+      ),
+      generator_execution_view=(
+        generator_execution_view
       ),
       generator_exploration_view=(
         generator_exploration_view

@@ -93,7 +93,7 @@ def test_phase124_4_existing_form_actions_remain_available():
     assert expected_form_kind in response.data
 
 
-def test_phase124_4_execute_is_not_added_yet():
+def test_phase124_4_existing_workflow_navigation_remains_available_after_execute_extension():
   client = _build_test_client()
 
   response = client.get(
@@ -101,5 +101,5 @@ def test_phase124_4_execute_is_not_added_yet():
   )
 
   assert response.status_code == 200
-  assert b'value="generator_execution"' not in response.data
-  assert b'name="execution_candidate"' not in response.data
+  assert b'id="workflow-navigation-heading"' in response.data
+  assert b'href="#generator-applicability-query"' in response.data
