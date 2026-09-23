@@ -1,4 +1,8 @@
-from proof import ProofStep
+from proof import (
+  ProofStep,
+  Relation,
+  RelationType,
+)
 from repository_element_presentation import (
   render_repository_conclusion_latex,
 )
@@ -18,17 +22,20 @@ from toda_rules import (
   Toda56Nu4DecompositionStatement,
   TodaDeltaZeroStatement,
   TodaHopfInvariantInjectiveStatement,
+  TodaHopfInvariantSurjectiveStatement,
   TodaIteratedSuspensionInjectiveStatement,
   TodaLemma513Statement,
   TodaLemma514Sigma8Statement,
   TodaLemma514SigmaPrimeStatement,
   TodaLemma54Statement,
+  TodaProp42ExactnessStatement,
   TodaProp51FiniteDimensionalStatement,
   TodaProp511FiniteDimensionalStatement,
   TodaProp515Pi12_5HopfIsomorphismStatement,
   TodaProp56FiniteDimensionalStatement,
   TodaProp56Pi8_5QuotientStatement,
   TodaSigmaFamilyDefinitionStatement,
+  TodaSuspensionInjectiveStatement,
 )
 
 
@@ -180,9 +187,9 @@ def _group_proof_narrative_statement_label(
   return None
 
 
-def _render_group_proof_narrative_fact(
+def _render_group_proof_narrative_latex(
   proof_step: ProofStep,
-) -> str:
+) -> str | None:
   if not isinstance(
     proof_step,
     ProofStep,
@@ -203,11 +210,36 @@ def _render_group_proof_narrative_fact(
     TypeError,
     ValueError,
   ):
-    latex = (
-      render_toda_proof_statement_latex(
-        statement
-      )
+    latex = None
+
+  if latex is not None:
+    return latex
+
+  return (
+    render_toda_proof_statement_latex(
+      statement
     )
+  )
+
+
+def _render_group_proof_narrative_fact(
+  proof_step: ProofStep,
+) -> str:
+  if not isinstance(
+    proof_step,
+    ProofStep,
+  ):
+    raise TypeError(
+      "proof_step must be a ProofStep"
+    )
+
+  statement = proof_step.conclusion
+
+  latex = (
+    _render_group_proof_narrative_latex(
+      proof_step
+    )
+  )
 
   if latex is not None:
     return (
@@ -292,6 +324,428 @@ def _derivation_lead(
     return "このことから"
 
   return "これらから"
+
+
+def _is_phase134_3_pi6_3_presentation(
+  presentation: TodaGroupProofPresentation,
+) -> bool:
+  target = (
+    presentation
+    .source_replay
+    .group_result
+    .target
+  )
+
+  return (
+    target.group_dimension == 6
+    and target.sphere_dimension == 3
+    and presentation.source_entry.theorem
+    == "Toda Proposition 5.6"
+  )
+
+
+def _phase134_3_pi6_3_numbered_steps(
+  presentation: TodaGroupProofPresentation,
+) -> tuple[
+  ProofStep,
+  ...,
+]:
+  ordered_steps = []
+  visited_step_ids = set()
+  active_step_ids = set()
+
+  def visit(
+    proof_step: ProofStep,
+  ) -> None:
+    step_id = id(
+      proof_step
+    )
+
+    if step_id in visited_step_ids:
+      return
+
+    if step_id in active_step_ids:
+      return
+
+    active_step_ids.add(
+      step_id
+    )
+
+    for edge in (
+      _narrative_edges_for_parent(
+        presentation,
+        proof_step,
+      )
+    ):
+      visit(
+        edge.premise_step
+      )
+
+    active_step_ids.remove(
+      step_id
+    )
+
+    visited_step_ids.add(
+      step_id
+    )
+
+    ordered_steps.append(
+      proof_step
+    )
+
+  visit(
+    presentation.root_step
+  )
+
+  return tuple(
+    ordered_steps
+  )
+
+
+def _phase134_3_reference_text(
+  premise_numbers: tuple[
+    int,
+    ...,
+  ],
+) -> str:
+  return ", ".join(
+    (
+      "("
+      + str(
+        number
+      )
+      + ")"
+    )
+    for number in premise_numbers
+  )
+
+
+def _strip_phase134_3_latex_suffix(
+  latex: str | None,
+  suffix: str,
+) -> str | None:
+  if latex is None:
+    return None
+
+  if latex.endswith(
+    suffix
+  ):
+    return latex[
+      :-len(
+        suffix
+      )
+    ]
+
+  return latex
+
+
+def _append_phase134_3_pi6_3_fact(
+  lines: list[str],
+  presentation: TodaGroupProofPresentation,
+  proof_step: ProofStep,
+  number_by_step_id: dict[
+    int,
+    int,
+  ],
+) -> None:
+  number = number_by_step_id[
+    id(
+      proof_step
+    )
+  ]
+
+  edges = (
+    _narrative_edges_for_parent(
+      presentation,
+      proof_step,
+    )
+  )
+
+  premise_numbers = tuple(
+    number_by_step_id[
+      id(
+        edge.premise_step
+      )
+    ]
+    for edge in edges
+  )
+
+  reference_text = (
+    _phase134_3_reference_text(
+      premise_numbers
+    )
+  )
+
+  statement = proof_step.conclusion
+
+  if proof_step is presentation.root_step:
+    lines.append(
+      "以上から,"
+    )
+  elif reference_text:
+    lines.append(
+      reference_text
+      + " より,"
+    )
+
+  if isinstance(
+    statement,
+    TodaProp42ExactnessStatement,
+  ):
+    latex = (
+      _strip_phase134_3_latex_suffix(
+        render_toda_proof_statement_latex(
+          statement
+        ),
+        r" \text{ is exact}",
+      )
+    )
+
+    if latex is not None:
+      lines.extend(
+        (
+          "",
+          r"\[",
+          latex
+          + r"\tag{"
+          + str(
+            number
+          )
+          + "}",
+          r"\]",
+          "",
+          "は完全である.",
+          "",
+        )
+      )
+      return
+
+  if isinstance(
+    statement,
+    TodaSuspensionInjectiveStatement,
+  ):
+    latex = (
+      _strip_phase134_3_latex_suffix(
+        render_toda_proof_statement_latex(
+          statement
+        ),
+        r" \text{ is injective}",
+      )
+    )
+
+    if latex is not None:
+      lines.extend(
+        (
+          "",
+          r"\[",
+          latex
+          + r"\tag{"
+          + str(
+            number
+          )
+          + "}",
+          r"\]",
+          "",
+          "は単射である.",
+          "",
+        )
+      )
+      return
+
+  if isinstance(
+    statement,
+    TodaHopfInvariantSurjectiveStatement,
+  ):
+    latex = (
+      _strip_phase134_3_latex_suffix(
+        render_toda_proof_statement_latex(
+          statement
+        ),
+        r" \text{ is surjective}",
+      )
+    )
+
+    if latex is not None:
+      lines.extend(
+        (
+          "",
+          r"\[",
+          latex
+          + r"\tag{"
+          + str(
+            number
+          )
+          + "}",
+          r"\]",
+          "",
+          "は全射である.",
+          "",
+        )
+      )
+      return
+
+  latex = (
+    _render_group_proof_narrative_latex(
+      proof_step
+    )
+  )
+
+  if latex is not None:
+    lines.extend(
+      (
+        "",
+        r"\[",
+        latex
+        + r"\tag{"
+        + str(
+          number
+        )
+        + "}",
+        r"\]",
+        "",
+      )
+    )
+
+    if (
+      isinstance(
+        statement,
+        Relation,
+      )
+      and statement.relation_type
+      is RelationType.ORDER
+    ):
+      lines.extend(
+        (
+          "が成り立つ.",
+          "",
+        )
+      )
+      return
+
+    if proof_step is presentation.root_step:
+      lines.extend(
+        (
+          "を得る.",
+          "",
+        )
+      )
+      return
+
+    lines.extend(
+      (
+        "が成り立つ.",
+        "",
+      )
+    )
+    return
+
+  label = (
+    _group_proof_narrative_statement_label(
+      statement
+    )
+  )
+
+  if label is None:
+    label = (
+      _render_group_proof_narrative_fact(
+        proof_step
+      )
+    )
+
+  if reference_text:
+    lines.extend(
+      (
+        (
+          "**("
+          + str(
+            number
+          )
+          + ")** "
+          + label
+          + "を得る."
+        ),
+        "",
+      )
+    )
+    return
+
+  lines.extend(
+    (
+      (
+        "**("
+        + str(
+          number
+        )
+        + ")** "
+        + label
+        + "を用いる."
+      ),
+      "",
+    )
+  )
+
+
+def _render_phase134_3_pi6_3_narrative_markdown(
+  presentation: TodaGroupProofPresentation,
+) -> str:
+  numbered_steps = (
+    _phase134_3_pi6_3_numbered_steps(
+      presentation
+    )
+  )
+
+  number_by_step_id = {
+    id(
+      proof_step
+    ): number
+    for number, proof_step in enumerate(
+      numbered_steps,
+      start=1,
+    )
+  }
+
+  root_latex = (
+    _render_group_proof_narrative_latex(
+      presentation.root_step
+    )
+  )
+
+  lines = [
+    "# Group proof narrative",
+    "",
+    "## 参照",
+    "",
+    "**[R1] Toda Proposition 5.6.**",
+    "",
+    "本証明では, Proposition 5.6 のうち次の主張を示す.",
+    "",
+    r"\[",
+    root_latex,
+    r"\]",
+    "",
+    "## 証明",
+    "",
+    (
+      "[R1] の該当する主張を, "
+      "既存の ProofStep graph から再構成する."
+    ),
+    "",
+  ]
+
+  for proof_step in numbered_steps:
+    _append_phase134_3_pi6_3_fact(
+      lines,
+      presentation,
+      proof_step,
+      number_by_step_id,
+    )
+
+  return (
+    "\n".join(
+      lines
+    )
+    + "\n"
+  )
 
 
 def _append_narrative_for_step(
@@ -409,6 +863,17 @@ def render_toda_group_proof_narrative_markdown(
     raise TypeError(
       "presentation must be a "
       "TodaGroupProofPresentation"
+    )
+
+  if (
+    _is_phase134_3_pi6_3_presentation(
+      presentation
+    )
+  ):
+    return (
+      _render_phase134_3_pi6_3_narrative_markdown(
+        presentation
+      )
     )
 
   source_entry = presentation.source_entry
