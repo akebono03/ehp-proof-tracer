@@ -77,6 +77,12 @@ from toda_group_query_semantics import (
   classify_toda_group_query_domain,
   render_toda_group_query_domain_cli_message,
 )
+from toda_group_result_proof_replay import (
+  build_toda_group_result_proof_replay,
+)
+from toda_group_result_proof_replay_renderer import (
+  render_toda_group_result_proof_replay_markdown,
+)
 
 
 def _configure_cli_utf8_streams(
@@ -150,6 +156,8 @@ def build_argument_parser(
       "candidates\n"
       "  show-proof          replay the known-group proof "
       "for one generator\n"
+      "  group-proof         replay the proof for one group "
+      "query result\n"
       "  execute             execute one qualified theorem / "
       "lemma target\n"
       "  query               look up an existing operation "
@@ -274,6 +282,46 @@ def build_show_proof_argument_parser(
     help=(
       "generator input such as "
       "nu_prime, sigma_11, or nu_5"
+    ),
+  )
+
+  parser.add_argument(
+    "--depth",
+    type=_parse_nonnegative_int,
+    help=(
+      "maximum proof replay depth; "
+      "omit to use the default depth 1"
+    ),
+  )
+
+  return parser
+
+
+def build_group_proof_argument_parser(
+) -> argparse.ArgumentParser:
+  parser = argparse.ArgumentParser(
+    prog="main.py group-proof",
+    description=(
+      "Replay the proof provenance for one "
+      "repository-backed Toda group result."
+    ),
+  )
+
+  parser.add_argument(
+    "n",
+    type=_parse_positive_int,
+    help=(
+      "sphere dimension n for the project quantity "
+      "pi_{n+k}^n"
+    ),
+  )
+
+  parser.add_argument(
+    "k",
+    type=int,
+    help=(
+      "stem k for the project quantity pi_{n+k}^n "
+      "(free part plus 2-primary component)"
     ),
   )
 
@@ -533,6 +581,97 @@ def _run_show_proof_command(
         error
       )
     )
+
+  print(
+    markdown,
+    end="",
+  )
+
+  return 0
+
+
+def _run_group_proof_command(
+  n: int,
+  k: int,
+  max_depth: int | None = None,
+) -> int:
+  query = TodaGroupQuery(
+    n=n,
+    k=k,
+  )
+
+  domain = (
+    classify_toda_group_query_domain(
+      query
+    )
+  )
+
+  if (
+    domain.kind
+    is not (
+      TodaGroupQueryDomainKind
+      .POSITIVE_DIMENSION
+    )
+  ):
+    print(
+      "No repository-backed group proof is available for "
+      f"pi_{{{n + k}}}^{{{n}}}."
+    )
+    return 1
+
+  report = (
+    build_standard_toda_report(
+      n=n,
+      k=k,
+    )
+  )
+
+  if (
+    report.status
+    is TodaCalculationStatus.NOT_FOUND
+  ):
+    print(
+      "No proof-backed group result found for "
+      f"pi_{{{n + k}}}^{{{n}}}."
+    )
+    return 1
+
+  if (
+    report.status
+    is TodaCalculationStatus.MULTIPLE_RESULTS
+  ):
+    print(
+      "Multiple proof-backed group results found for "
+      f"pi_{{{n + k}}}^{{{n}}}; "
+      "group-proof requires exactly one result."
+    )
+    return 1
+
+  group_result = (
+    report.candidates[
+      0
+    ].source_candidate.group_result
+  )
+
+  if max_depth is None:
+    replay = (
+      build_toda_group_result_proof_replay(
+        group_result
+      )
+    )
+  else:
+    replay = (
+      build_toda_group_result_proof_replay(
+        group_result,
+        max_depth=max_depth,
+      )
+    )
+
+  markdown = (
+    render_toda_group_result_proof_replay_markdown(
+      replay
+    )
+  )
 
   print(
     markdown,
@@ -892,6 +1031,28 @@ def main(
 
     return _run_show_proof_command(
       args.generator,
+      max_depth=args.depth,
+    )
+
+  if (
+    raw_argv
+    and raw_argv[
+      0
+    ] == "group-proof"
+  ):
+    parser = (
+      build_group_proof_argument_parser()
+    )
+
+    args = parser.parse_args(
+      raw_argv[
+        1:
+      ]
+    )
+
+    return _run_group_proof_command(
+      args.n,
+      args.k,
       max_depth=args.depth,
     )
 
