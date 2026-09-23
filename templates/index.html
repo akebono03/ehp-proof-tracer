@@ -228,6 +228,50 @@
       </p>
     </section>
 
+
+    <section aria-labelledby="generator-proof-scope-query-heading">
+      <h2 id="generator-proof-scope-query-heading">
+        Generator proof-scope exploration
+      </h2>
+
+      <p>
+        Explore one generator across recursive proof ancestry.
+      </p>
+
+      <form method="post">
+        <input
+          type="hidden"
+          name="form_kind"
+          value="generator_proof_scope"
+        >
+
+        <p>
+          <label for="proof-scope-generator-input">
+            Generator
+          </label>
+          <input
+            id="proof-scope-generator-input"
+            name="proof_scope_generator_input"
+            type="text"
+            required
+            value="{{ proof_scope_generator_input_value }}"
+            placeholder="sigma_11"
+          >
+        </p>
+
+        <button type="submit">
+          Explore proof scope
+        </button>
+      </form>
+
+      <p>
+        Examples:
+        nu_prime,
+        sigma_11,
+        eta_999
+      </p>
+    </section>
+
     {% if error_message %}
       <p role="alert">
         {{ error_message }}
@@ -532,6 +576,99 @@
             </ol>
           {% endif %}
         {% endfor %}
+      </section>
+    {% endif %}
+
+    {% if generator_proof_scope_view %}
+      <section
+        aria-labelledby="generator-proof-scope-heading"
+      >
+        <h2 id="generator-proof-scope-heading">
+          Generator proof-scope exploration result
+        </h2>
+
+        <h3>
+          Generator
+        </h3>
+
+        <div
+          id="generator-proof-scope-generator"
+          data-latex="{{ generator_proof_scope_view.generator_latex }}"
+        >{{ generator_proof_scope_view.generator_latex }}</div>
+
+        <p>
+          Proof-scope occurrences:
+          {{ generator_proof_scope_view.occurrence_count }}
+        </p>
+
+        <p>
+          Toda memberships:
+          {{ generator_proof_scope_view.toda_membership_count }}
+        </p>
+
+        <p>
+          Map relations:
+          {{ generator_proof_scope_view.map_relation_count }}
+        </p>
+
+        {% if generator_proof_scope_view.toda_memberships %}
+          <h3>
+            Toda memberships
+          </h3>
+
+          <ol>
+            {% for membership in generator_proof_scope_view.toda_memberships %}
+              <li class="generator-proof-scope-item">
+                <div
+                  class="generator-proof-scope-math"
+                  data-latex="{{ membership.statement_latex }}"
+                >{{ membership.statement_latex }}</div>
+
+                <p>
+                  Root:
+                  {{ membership.root_key }}
+                </p>
+
+                <p>
+                  Depth:
+                  {{ membership.depth }}
+                </p>
+
+                <p>
+                  Match:
+                  {{ membership.match_labels | join(", ") }}
+                </p>
+              </li>
+            {% endfor %}
+          </ol>
+        {% endif %}
+
+        {% if generator_proof_scope_view.map_relations %}
+          <h3>
+            Map relations
+          </h3>
+
+          <ol>
+            {% for map_relation in generator_proof_scope_view.map_relations %}
+              <li class="generator-proof-scope-item">
+                <div
+                  class="generator-proof-scope-math"
+                  data-latex="{{ map_relation.statement_latex }}"
+                >{{ map_relation.statement_latex }}</div>
+
+                <p>
+                  Root:
+                  {{ map_relation.root_key }}
+                </p>
+
+                <p>
+                  Depth:
+                  {{ map_relation.depth }}
+                </p>
+              </li>
+            {% endfor %}
+          </ol>
+        {% endif %}
       </section>
     {% endif %}
   </main>

@@ -17,13 +17,12 @@ The current system provides:
 - operation-query proof replay,
 - theorem-specific indexed \(\sigma_n\) specialization,
 - deliberately narrow existing-proof handoffs for \(E(\nu_5)=\nu_6\) and \(E(\sigma_{11})=\sigma_{12}\),
-- a Flask Web UI for group queries, operation queries, operation proof replay, generator known-group proof replay, direct generator exploration, and recursive generator proof-scope exploration,
+- a Flask Web UI for group queries, operation queries, operation proof replay, generator known-group proof replay, and generator exploration,
 - explicit operation-fact selection for proof replay,
 - browser-side KaTeX rendering of existing LaTeX output,
 - Web proof replay with selectable depth 0, 1, or 2,
 - safe type-name fallback for unsupported proof statements,
-- read-only direct Web exploration that preserves existing repository grouping and metadata,
-- read-only recursive proof-scope Web exploration that preserves existing root / depth / match semantics.
+- read-only Web exploration that preserves existing repository grouping and metadata.
 
 ## Mathematical scope
 
@@ -133,7 +132,6 @@ The proof infrastructure supports:
 - reuse of that specialization from the standard `TodaGroupQuery` path,
 - user-facing known-group proof replay,
 - generator-centered repository occurrence exploration,
-- recursive generator proof-scope exploration,
 - existing operation-fact lookup,
 - operation-query result deduplication without losing raw provenance,
 - operation-query proof replay rooted at the selected fact's actual `ProofStep`,
@@ -175,7 +173,7 @@ returns
 
 ## Web UI
 
-The Web UI is intentionally a thin presentation layer over existing calculation, operation-query, proof-replay, direct exploration, and recursive proof-scope infrastructure.
+The Web UI is intentionally a thin presentation layer over existing calculation, operation-query, proof-replay, and exploration infrastructure.
 
 The group-query path is
 
@@ -228,7 +226,7 @@ generator input
 → KaTeX
 ```
 
-The direct generator exploration path is
+The generator exploration path is
 
 ```text
 generator input
@@ -237,20 +235,6 @@ generator input
 → existing RepositoryGeneratorExplorationPresentation
 → Web-only immutable view
 → grouped occurrence metadata + LaTeX
-→ Jinja template
-→ KaTeX
-```
-
-The recursive proof-scope exploration path is
-
-```text
-generator input
-→ thin Web generator-proof-scope adapter
-→ explore_standard_repository_generator_proof_scope_input(...)
-→ existing RepositoryProofScopeExplorationResult
-→ Web-only immutable view
-→ occurrence / Toda membership / map relation counts
-→ root / depth / match metadata
 → Jinja template
 → KaTeX
 ```
@@ -266,7 +250,6 @@ web_operation_query.py
 web_operation_query_proof.py
 web_generator_proof.py
 web_generator_exploration.py
-web_generator_proof_scope.py
 templates/index.html
 static/web_math.js
 ```
@@ -370,7 +353,7 @@ Depth 0 shows only the replay root. Depth selection changes only the visible exi
 
 ### Web generator exploration
 
-The browser can inspect where one generator occurs directly in the standard production repository.
+The browser can inspect where one generator occurs in the standard production repository.
 
 Representative inputs are
 
@@ -394,57 +377,7 @@ eta_999
 
 This is a normal exploration result, not a not-found error.
 
-`explore sigma_11` returns zero direct standard-repository occurrences.
-
-### Web generator proof-scope exploration
-
-The browser can inspect recursive proof ancestry for one generator without changing proof-scope semantics.
-
-Representative inputs are
-
-```text
-nu_prime
-sigma_11
-eta_999
-```
-
-The Web view exposes:
-
-```text
-generator
-proof-scope occurrence count
-Toda membership count
-map relation count
-Toda membership statement LaTeX
-map relation statement LaTeX
-root key
-shortest depth
-membership / bracket match labels
-```
-
-For `sigma_11`, the direct and recursive exploration semantics intentionally differ:
-
-```text
-generator explore sigma_11
-→ Occurrences: 0
-
-generator proof-scope exploration sigma_11
-→ Proof-scope occurrences: 1
-```
-
-This difference is expected because the proof-scope path uses the existing indexed-\(\sigma_n\) recursive specialization while direct `explore` does not.
-
-For `eta_999`:
-
-```text
-Proof-scope occurrences: 0
-Toda memberships: 0
-Map relations: 0
-```
-
-This is a normal result, not an error.
-
-For `nu_prime`, Phase 122 browser verification produced a large recursive result, including Toda memberships and map relations with root / depth / match metadata. Phase 122 intentionally does not add folding, deduplication, paging, or result limits to change that existing result semantics.
+`explore sigma_11` currently returns zero direct standard-repository occurrences. This is distinct from recursive proof-scope exploration: `explore-proof sigma_11` can obtain specialized recursive proof-scope occurrences through the existing indexed-\(\sigma_n\) specialization path. The Web `explore` feature intentionally preserves the direct `explore` semantics and does not silently upgrade to `explore-proof`.
 
 ## Operation query
 
@@ -476,75 +409,71 @@ E(\sigma_{11})=\sigma_{12}.
 
 The two narrow theorem-specific handoffs do not turn `query` into a general inference engine or evaluator.
 
-## Phase 122 closure
+## Phase 121 closure
 
-Phase 122 re-audited the remaining read-only Web capabilities and selected `explore-proof` ahead of `explore-applicable`.
+Phase 121 re-audited the remaining read-only Web capabilities and selected `explore` ahead of `explore-proof` and `explore-applicable`.
 
 ```text
-Phase 122-1
-→ explore-proof / explore-applicable audit
+Phase 121-1
+→ current explore / explore-proof / explore-applicable audit
 
-Phase 122-2
-→ explore-proof selected as the next read-only Web capability
+Phase 121-2
+→ explore selected as the next read-only Web capability
 
-Phase 122-3
+Phase 121-3
 → thin Web adapter boundary fixed
-→ existing RepositoryProofScopeExplorationResult reused
-→ no CLI Markdown parsing
-→ no new depth selector
-→ direct explore semantics kept separate
+→ existing structured exploration presentation reused
+→ no Markdown parsing
 
-Phase 122-4
-→ web_generator_proof_scope.py
-→ immutable proof-scope Web view
+Phase 121-4
+→ web_generator_exploration.py
+→ grouped immutable Web view
 → generator LaTeX
-→ occurrence / Toda membership / map relation counts
-→ root / depth / match metadata
-→ normal zero-result handling
-→ sigma_11 recursive specialization preserved
-→ focused tests: 15 passed
+→ conclusion LaTeX
+→ roles / phase / theorem metadata
+→ normal zero-occurrence handling
+→ focused tests: 13 passed
+→ Web compatibility tests: 40 passed
 
-Phase 122-5
+Phase 121-5
 → browser/manual integration
-→ group query verified
-→ operation query / query-proof verified
-→ generator proof verified
-→ nu_prime direct explore verified
-→ sigma_11 direct explore = 0
-→ sigma_11 proof-scope = 1
-→ eta_999 proof-scope = 0 / 0 / 0
-→ KaTeX rendering verified
-→ focused Web regression: 67 passed
+→ nu_prime: 6 direct occurrences
+→ sigma_11: 0 direct explore occurrences
+→ eta_999: 0 occurrences as a normal result
+→ group / operation / query-proof coexistence
+→ KaTeX rendering confirmed
 
-Phase 122-final
+Phase 121-final
 → documentation update
 → repository-wide regression
 ```
 
-The final repository-wide Phase 122 regression was
+The final repository-wide Phase 121 regression was
 
 ```text
-9212 passed in 455.16s (0:07:35)
+9197 passed in 455.68s (0:07:35)
 ```
 
-No new theorem root, proof-search rule, query grammar, general \(E/H/\Delta\) evaluator, Toda-bracket solver, qualified execution family, or new recursive proof-scope semantics were added in Phase 122.
+No new theorem root, proof-search rule, query grammar, general \(E/H/\Delta\) evaluator, Toda-bracket solver, qualified execution family, or recursive proof-scope semantics were added in Phase 121.
 
 ## Near-term roadmap
 
-The next read-only Web surface is
+The next planning target is the remaining read-only Web surface:
 
 ```text
+explore-proof
 explore-applicable
 ```
 
-Phase 123 should first audit browser-scale result volume, source / rule-family / candidate grouping, and whether the existing applicability presentation can be exposed without drifting into candidate selection or qualified execution.
-
 `execute` remains later because it includes candidate selection, ambiguity, and execution semantics rather than read-only inspection.
+
+The next phase should audit which of the remaining read-only capabilities has the clearest structured presentation boundary and strongest user-facing value before implementing anything.
 
 ## Current boundaries
 
 The following remain intentionally deferred:
 
+- `explore-proof` Web integration,
 - `explore-applicable` Web integration,
 - `execute` Web integration,
 - theorem ranking and proof-cost optimization,
