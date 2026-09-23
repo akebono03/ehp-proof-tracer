@@ -10,12 +10,7 @@ from toda_proof_narrative_renderer import (
 )
 from toda_rules import (
   Toda48Pi16_9OrderAndE4InjectiveStatement,
-  Toda56Nu4DecompositionStatement,
-  TodaIteratedSuspensionInjectiveStatement,
-  TodaLemma513Statement,
   TodaLemma514Sigma8Statement,
-  TodaProp515Pi12_5HopfIsomorphismStatement,
-  TodaProp56Pi8_5QuotientStatement,
   TodaSigmaFamilyDefinitionStatement,
 )
 
@@ -33,46 +28,10 @@ def _group_proof_narrative_statement_label(
 
   if isinstance(
     statement,
-    Toda56Nu4DecompositionStatement,
-  ):
-    return "Toda (5.6) の ν₄ 分解"
-
-  if isinstance(
-    statement,
-    TodaIteratedSuspensionInjectiveStatement,
-  ):
-    return "E²: π₆³ → π₈⁵ の単射性"
-
-  if isinstance(
-    statement,
-    TodaLemma513Statement,
-  ):
-    return (
-      "Toda Lemma 5.13 の σ‴ に関する結果"
-    )
-
-  if isinstance(
-    statement,
     TodaLemma514Sigma8Statement,
   ):
     return (
       "Toda Lemma 5.14 の σ₈ に関する結果"
-    )
-
-  if isinstance(
-    statement,
-    TodaProp515Pi12_5HopfIsomorphismStatement,
-  ):
-    return (
-      "π₁₂⁵ の位数 2 の Hopf 像への同型"
-    )
-
-  if isinstance(
-    statement,
-    TodaProp56Pi8_5QuotientStatement,
-  ):
-    return (
-      "π₈⁵ / E²π₆³ が位数 2 であること"
     )
 
   if isinstance(
