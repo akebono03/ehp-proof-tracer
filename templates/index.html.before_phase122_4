@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+  <title>EHP Proof Tracer</title>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.css"
+    integrity="sha384-JctiRyLzXCrSoOOzFlSoWLdyzQl7OrrRnhyeBmzB6ZWtcjccUyc8lCQJqIbs3uQX"
+    crossorigin="anonymous"
+  >
+  <script
+    defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.js"
+    integrity="sha384-+7Keh381hSkXmXqnjC0JBM/kzsN6TFj+wMKychSLjTvJ8/0ElMde2uKl8i6p6Buj"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    defer
+    src="{{ url_for('static', filename='web_math.js') }}"
+  ></script>
+</head>
+<body>
+  <main>
+    <h1>EHP Proof Tracer</h1>
+
+    <section aria-labelledby="group-query-heading">
+      <h2 id="group-query-heading">
+        Group query
+      </h2>
+
+      <p>
+        Query the project quantity pi_(n+k)^n
+        (free part plus 2-primary component).
+      </p>
+
+      <form method="post">
+        <input
+          type="hidden"
+          name="form_kind"
+          value="group"
+        >
+
+        <p>
+          <label for="n">n</label>
+          <input
+            id="n"
+            name="n"
+            type="number"
+            step="1"
+            required
+            value="{{ n_value }}"
+          >
+        </p>
+
+        <p>
+          <label for="k">k</label>
+          <input
+            id="k"
+            name="k"
+            type="number"
+            step="1"
+            required
+            value="{{ k_value }}"
+          >
+        </p>
+
+        <button type="submit">
+          Calculate
+        </button>
+      </form>
+    </section>
+
+    <section aria-labelledby="operation-query-heading">
+      <h2 id="operation-query-heading">
+        Operation query
+      </h2>
+
+      <p>
+        Query an existing proof-backed operation fact.
+      </p>
+
+      <form method="post">
+        <input
+          type="hidden"
+          name="form_kind"
+          value="operation"
+        >
+
+        <p>
+          <label for="operation-query">
+            Query
+          </label>
+          <input
+            id="operation-query"
+            name="operation_query"
+            type="text"
+            required
+            value="{{ operation_query_value }}"
+            placeholder="E(nu_5)"
+          >
+        </p>
+
+        <button type="submit">
+          Query
+        </button>
+      </form>
+
+      <p>
+        Examples:
+        H(nu_prime),
+        Delta(iota_9),
+        E(nu_5),
+        E(sigma_11)
+      </p>
+    </section>
+
+    <section aria-labelledby="generator-proof-query-heading">
+      <h2 id="generator-proof-query-heading">
+        Generator proof
+      </h2>
+
+      <p>
+        Replay the known-group proof for one generator.
+      </p>
+
+      <form method="post">
+        <input
+          type="hidden"
+          name="form_kind"
+          value="generator_proof"
+        >
+
+        <p>
+          <label for="generator-input">
+            Generator
+          </label>
+          <input
+            id="generator-input"
+            name="generator_input"
+            type="text"
+            required
+            value="{{ generator_input_value }}"
+            placeholder="sigma_11"
+          >
+        </p>
+
+        <p>
+          <label for="generator-proof-depth">
+            Proof depth
+          </label>
+          <select
+            id="generator-proof-depth"
+            name="generator_proof_depth"
+          >
+            <option
+              value="0"
+              {% if generator_proof_depth_value == "0" %}selected{% endif %}
+            >0</option>
+            <option
+              value="1"
+              {% if generator_proof_depth_value == "1" %}selected{% endif %}
+            >1</option>
+            <option
+              value="2"
+              {% if generator_proof_depth_value == "2" %}selected{% endif %}
+            >2</option>
+          </select>
+        </p>
+
+        <button type="submit">
+          Show proof
+        </button>
+      </form>
+
+      <p>
+        Examples:
+        sigma_11,
+        nu_prime,
+        nu_5
+      </p>
+    </section>
+
+    <section aria-labelledby="generator-exploration-query-heading">
+      <h2 id="generator-exploration-query-heading">
+        Generator exploration
+      </h2>
+
+      <p>
+        Explore where one generator appears in the existing repository.
+      </p>
+
+      <form method="post">
+        <input
+          type="hidden"
+          name="form_kind"
+          value="generator_exploration"
+        >
+
+        <p>
+          <label for="exploration-generator-input">
+            Generator
+          </label>
+          <input
+            id="exploration-generator-input"
+            name="exploration_generator_input"
+            type="text"
+            required
+            value="{{ exploration_generator_input_value }}"
+            placeholder="nu_prime"
+          >
+        </p>
+
+        <button type="submit">
+          Explore
+        </button>
+      </form>
+
+      <p>
+        Examples:
+        nu_prime,
+        nu_5,
+        sigma_11
+      </p>
+    </section>
+
+    {% if error_message %}
+      <p role="alert">
+        {{ error_message }}
+      </p>
+    {% endif %}
+
+    {% if view %}
+      {% if view.status.value == "found" %}
+        <section aria-labelledby="result-heading">
+          <h2 id="result-heading">Result</h2>
+          <div
+            id="result-math"
+            data-latex="{{ view.result_latex }}"
+          >{{ view.result_latex }}</div>
+        </section>
+      {% elif view.status.value == "not_found" %}
+        <p>
+          No proof-backed result found for this query.
+        </p>
+      {% elif view.status.value == "multiple_results" %}
+        <p>
+          Multiple proof-backed results were found.
+        </p>
+      {% endif %}
+    {% endif %}
+
+    {% if operation_query_view %}
+      <section
+        aria-labelledby="operation-result-heading"
+      >
+        <h2 id="operation-result-heading">
+          Operation query result
+        </h2>
+
+        {% if not operation_query_view.found %}
+          <p>
+            No proof-backed operation fact found for this query.
+          </p>
+        {% elif not operation_query_view.items %}
+          <p>
+            No directly renderable operation fact found for this query.
+          </p>
+        {% else %}
+          <ol>
+            {% for item in operation_query_view.items %}
+              <li>
+                <div
+                  class="operation-result-math"
+                  data-latex="{{ item.statement_latex }}"
+                >{{ item.statement_latex }}</div>
+
+                <p>
+                  Provenance entries:
+                  {{ item.provenance_count }}
+                </p>
+
+                <form method="post">
+                  <input
+                    type="hidden"
+                    name="form_kind"
+                    value="operation_proof"
+                  >
+                  <input
+                    type="hidden"
+                    name="operation_query"
+                    value="{{ operation_query_view.query_input }}"
+                  >
+                  <input
+                    type="hidden"
+                    name="fact_number"
+                    value="{{ loop.index }}"
+                  >
+
+                  <label>
+                    Proof depth
+                    <select name="proof_depth">
+                      <option value="0">0</option>
+                      <option value="1" selected>1</option>
+                      <option value="2">2</option>
+                    </select>
+                  </label>
+
+                  <button type="submit">
+                    Show proof
+                  </button>
+                </form>
+              </li>
+            {% endfor %}
+          </ol>
+        {% endif %}
+      </section>
+    {% endif %}
+
+    {% if operation_query_proof_view %}
+      <section
+        aria-labelledby="operation-proof-heading"
+      >
+        <h2 id="operation-proof-heading">
+          Query proof
+        </h2>
+
+        <p>
+          Selected depth:
+          {{ operation_query_proof_view.max_depth }}
+        </p>
+
+        <h3>
+          Conclusion
+        </h3>
+
+        <div
+          id="operation-proof-conclusion"
+          data-latex="{{ operation_query_proof_view.conclusion_latex }}"
+        >{{ operation_query_proof_view.conclusion_latex }}</div>
+
+        <h3>
+          Provenance
+        </h3>
+
+        {% if operation_query_proof_view.provenance.theorem %}
+          <p>
+            {{ operation_query_proof_view.provenance.theorem }}
+            {% if operation_query_proof_view.provenance.phase %}
+              — Phase
+              {{ operation_query_proof_view.provenance.phase }}
+            {% endif %}
+            — repository depth
+            {{ operation_query_proof_view.provenance.depth }}
+          </p>
+        {% else %}
+          <p>
+            {{ operation_query_proof_view.provenance.key }}
+            — repository depth
+            {{ operation_query_proof_view.provenance.depth }}
+          </p>
+        {% endif %}
+
+        <h3>
+          Proof
+        </h3>
+
+        <ol>
+          {% for step in operation_query_proof_view.steps %}
+            <li class="operation-proof-step">
+              <p>
+                Depth {{ step.depth }}
+              </p>
+
+              {% if step.statement_latex %}
+                <div
+                  class="operation-proof-step-math"
+                  data-latex="{{ step.statement_latex }}"
+                >{{ step.statement_latex }}</div>
+              {% else %}
+                <p>
+                  <code>
+                    {{ step.fallback_type_name }}
+                  </code>
+                </p>
+              {% endif %}
+
+              <p>
+                Rule:
+                {{ step.rule_name }}
+              </p>
+            </li>
+          {% endfor %}
+        </ol>
+      </section>
+    {% endif %}
+
+    {% if generator_proof_view %}
+      <section
+        aria-labelledby="generator-proof-heading"
+      >
+        <h2 id="generator-proof-heading">
+          Generator proof result
+        </h2>
+
+        <p>
+          Selected depth:
+          {{ generator_proof_view.max_depth }}
+        </p>
+
+        <h3>
+          Generator
+        </h3>
+
+        <div
+          id="generator-proof-generator"
+          data-latex="{{ generator_proof_view.generator_latex }}"
+        >{{ generator_proof_view.generator_latex }}</div>
+
+        <h3>
+          Conclusion
+        </h3>
+
+        <div
+          id="generator-proof-conclusion"
+          data-latex="{{ generator_proof_view.conclusion_latex }}"
+        >{{ generator_proof_view.conclusion_latex }}</div>
+
+        <h3>
+          Proof
+        </h3>
+
+        <ol>
+          {% for step in generator_proof_view.steps %}
+            <li class="generator-proof-step">
+              <p>
+                Depth {{ step.depth }}
+              </p>
+
+              {% if step.statement_latex %}
+                <div
+                  class="generator-proof-step-math"
+                  data-latex="{{ step.statement_latex }}"
+                >{{ step.statement_latex }}</div>
+              {% else %}
+                <p>
+                  <code>
+                    {{ step.fallback_type_name }}
+                  </code>
+                </p>
+              {% endif %}
+
+              <p>
+                Rule:
+                {{ step.rule_name }}
+              </p>
+            </li>
+          {% endfor %}
+        </ol>
+      </section>
+    {% endif %}
+
+    {% if generator_exploration_view %}
+      <section
+        aria-labelledby="generator-exploration-heading"
+      >
+        <h2 id="generator-exploration-heading">
+          Generator exploration result
+        </h2>
+
+        <h3>
+          Generator
+        </h3>
+
+        <div
+          id="generator-exploration-generator"
+          data-latex="{{ generator_exploration_view.generator_latex }}"
+        >{{ generator_exploration_view.generator_latex }}</div>
+
+        <p>
+          Occurrences:
+          {{ generator_exploration_view.occurrence_count }}
+        </p>
+
+        {% set exploration_sections = (
+          ("Toda brackets", generator_exploration_view.toda_bracket_occurrences),
+          ("Map inputs", generator_exploration_view.map_input_occurrences),
+          ("Group generators", generator_exploration_view.group_generator_occurrences),
+          ("Composition left", generator_exploration_view.composition_left_occurrences),
+          ("Composition right", generator_exploration_view.composition_right_occurrences),
+          ("Other occurrences", generator_exploration_view.other_occurrences)
+        ) %}
+
+        {% for section_title, occurrences in exploration_sections %}
+          {% if occurrences %}
+            <h3>
+              {{ section_title }}
+            </h3>
+
+            <ol>
+              {% for occurrence in occurrences %}
+                <li class="generator-exploration-occurrence">
+                  <div
+                    class="generator-exploration-math"
+                    data-latex="{{ occurrence.conclusion_latex }}"
+                  >{{ occurrence.conclusion_latex }}</div>
+
+                  <p>
+                    Roles:
+                    {% if occurrence.role_labels %}
+                      {{ occurrence.role_labels | join(", ") }}
+                    {% else %}
+                      none
+                    {% endif %}
+                  </p>
+
+                  <p>
+                    Phase:
+                    {{ occurrence.phase }}
+                  </p>
+
+                  <p>
+                    Theorem:
+                    {{ occurrence.theorem }}
+                  </p>
+                </li>
+              {% endfor %}
+            </ol>
+          {% endif %}
+        {% endfor %}
+      </section>
+    {% endif %}
+  </main>
+</body>
+</html>

@@ -12,6 +12,10 @@ from web_generator_proof import (
   WebGeneratorProofView,
   build_standard_web_generator_proof_view,
 )
+from web_generator_proof_scope import (
+  WebGeneratorProofScopeView,
+  build_standard_web_generator_proof_scope_view,
+)
 from web_group_query import (
   WebGroupQueryView,
   build_standard_web_group_query_view,
@@ -95,6 +99,10 @@ def create_app(
       "exploration_generator_input",
       "",
     )
+    proof_scope_generator_input_value = request.form.get(
+      "proof_scope_generator_input",
+      "",
+    )
 
     view: WebGroupQueryView | None = None
     operation_query_view: (
@@ -111,6 +119,10 @@ def create_app(
     ) = None
     generator_exploration_view: (
       WebGeneratorExplorationView
+      | None
+    ) = None
+    generator_proof_scope_view: (
+      WebGeneratorProofScopeView
       | None
     ) = None
     error_message: str | None = None
@@ -184,6 +196,12 @@ def create_app(
               exploration_generator_input_value
             )
           )
+        elif form_kind == "generator_proof_scope":
+          generator_proof_scope_view = (
+            build_standard_web_generator_proof_scope_view(
+              proof_scope_generator_input_value
+            )
+          )
         else:
           n = _parse_integer_form_value(
             n_value,
@@ -227,6 +245,9 @@ def create_app(
       exploration_generator_input_value=(
         exploration_generator_input_value
       ),
+      proof_scope_generator_input_value=(
+        proof_scope_generator_input_value
+      ),
       view=view,
       operation_query_view=(
         operation_query_view
@@ -239,6 +260,9 @@ def create_app(
       ),
       generator_exploration_view=(
         generator_exploration_view
+      ),
+      generator_proof_scope_view=(
+        generator_proof_scope_view
       ),
       error_message=error_message,
     )
