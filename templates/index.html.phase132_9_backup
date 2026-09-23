@@ -504,24 +504,6 @@
                 </select>
               </label>
 
-              <label>
-                Proof view
-                <select name="group_proof_mode">
-                  <option
-                    value="trace"
-                    {% if group_proof_mode_value == "trace" %}selected{% endif %}
-                  >Trace</option>
-                  <option
-                    value="outline"
-                    {% if group_proof_mode_value == "outline" %}selected{% endif %}
-                  >Outline</option>
-                  <option
-                    value="narrative"
-                    {% if group_proof_mode_value == "narrative" %}selected{% endif %}
-                  >Narrative</option>
-                </select>
-              </label>
-
               <button type="submit">
                 Show proof
               </button>
@@ -552,11 +534,6 @@
           {{ group_proof_view.max_depth }}
         </p>
 
-        <p>
-          Selected view:
-          {{ group_proof_view.mode }}
-        </p>
-
         <h3>
           Conclusion
         </h3>
@@ -585,73 +562,38 @@
           Proof
         </h3>
 
-        {% if group_proof_view.mode == "trace" %}
-          <ol>
-            {% for step in group_proof_view.steps %}
-              <li class="group-proof-step">
-                <p>
-                  Depth {{ step.depth }}
-                </p>
+        <ol>
+          {% for step in group_proof_view.steps %}
+            <li class="group-proof-step">
+              <p>
+                Depth {{ step.depth }}
+              </p>
 
-                {% if step.statement_latex %}
-                  <div
-                    class="group-proof-step-math"
-                    data-latex="{{ step.statement_latex }}"
-                  >{{ step.statement_latex }}</div>
-                {% else %}
-                  <p>
-                    <code>
-                      {{ step.fallback_type_name }}
-                    </code>
-                  </p>
-                {% endif %}
-
-                <p>
-                  Role:
-                  {{ step.role_name }}
-                </p>
-
-                <p>
-                  Rule:
-                  {{ step.rule_name }}
-                </p>
-              </li>
-            {% endfor %}
-          </ol>
-        {% else %}
-          <div
-            id="group-proof-rendered-lines"
-            data-proof-mode="{{ group_proof_view.mode }}"
-          >
-            {% for line in group_proof_view.rendered_lines %}
-              {% if line.kind == "heading" %}
-                <h4>
-                  {{ line.prefix }}
-                </h4>
-              {% else %}
+              {% if step.statement_latex %}
                 <div
-                  class="group-proof-rendered-line"
-                  style="margin-left: {{ line.indent_level * 2 }}em;"
-                >
-                  {% if line.prefix %}
-                    <span>{{ line.prefix }}</span>
-                  {% endif %}
-
-                  {% if line.statement_latex %}
-                    <div
-                      class="group-proof-rendered-math"
-                      data-latex="{{ line.statement_latex }}"
-                    >{{ line.statement_latex }}</div>
-                  {% endif %}
-
-                  {% if line.suffix %}
-                    <span>{{ line.suffix }}</span>
-                  {% endif %}
-                </div>
+                  class="group-proof-step-math"
+                  data-latex="{{ step.statement_latex }}"
+                >{{ step.statement_latex }}</div>
+              {% else %}
+                <p>
+                  <code>
+                    {{ step.fallback_type_name }}
+                  </code>
+                </p>
               {% endif %}
-            {% endfor %}
-          </div>
-        {% endif %}
+
+              <p>
+                Role:
+                {{ step.role_name }}
+              </p>
+
+              <p>
+                Rule:
+                {{ step.rule_name }}
+              </p>
+            </li>
+          {% endfor %}
+        </ol>
       </section>
     {% endif %}
 
