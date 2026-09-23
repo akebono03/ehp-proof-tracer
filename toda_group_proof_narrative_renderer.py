@@ -106,6 +106,7 @@ def _append_narrative_for_step(
   presentation: TodaGroupProofPresentation,
   parent_step: ProofStep,
   active_step_ids: set[int],
+  expanded_step_ids: set[int],
 ) -> None:
   parent_id = id(
     parent_step
@@ -129,6 +130,33 @@ def _append_narrative_for_step(
     edges
   ):
     premise_step = edge.premise_step
+    premise_id = id(
+      premise_step
+    )
+    premise_fact = (
+      _render_group_proof_narrative_fact(
+        premise_step
+      )
+    )
+    lead = (
+      _premise_lead(
+        index,
+        len(
+          edges
+        ),
+      )
+    )
+
+    if premise_id in expanded_step_ids:
+      lines.append(
+        (
+          lead
+          + "、既出の"
+          + premise_fact
+          + "を用いる。"
+        )
+      )
+      continue
 
     premise_edges = (
       _narrative_edges_for_parent(
@@ -143,33 +171,28 @@ def _append_narrative_for_step(
         presentation,
         premise_step,
         active_step_ids,
+        expanded_step_ids,
       )
 
       lines.append(
         (
           "これらから、"
-          + _render_group_proof_narrative_fact(
-            premise_step
-          )
+          + premise_fact
           + "を得る。"
         )
       )
-      continue
-
-    lines.append(
-      (
-        _premise_lead(
-          index,
-          len(
-            edges
-          ),
+    else:
+      lines.append(
+        (
+          lead
+          + "、"
+          + premise_fact
+          + "を用いる。"
         )
-        + "、"
-        + _render_group_proof_narrative_fact(
-          premise_step
-        )
-        + "を用いる。"
       )
+
+    expanded_step_ids.add(
+      premise_id
     )
 
   active_step_ids.remove(
@@ -216,6 +239,7 @@ def render_toda_group_proof_narrative_markdown(
       lines,
       presentation,
       presentation.root_step,
+      set(),
       set(),
     )
 
