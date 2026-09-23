@@ -17,13 +17,14 @@ The current system provides:
 - operation-query proof replay,
 - theorem-specific indexed \(\sigma_n\) specialization,
 - deliberately narrow existing-proof handoffs for \(E(\nu_5)=\nu_6\) and \(E(\sigma_{11})=\sigma_{12}\),
-- a Flask Web UI for group queries, operation queries, operation proof replay, generator known-group proof replay, direct generator exploration, and recursive generator proof-scope exploration,
+- a Flask Web UI for group queries, operation queries, operation proof replay, generator known-group proof replay, direct generator exploration, recursive generator proof-scope exploration, and read-only applicability exploration,
 - explicit operation-fact selection for proof replay,
 - browser-side KaTeX rendering of existing LaTeX output,
 - Web proof replay with selectable depth 0, 1, or 2,
 - safe type-name fallback for unsupported proof statements,
 - read-only direct Web exploration that preserves existing repository grouping and metadata,
-- read-only recursive proof-scope Web exploration that preserves existing root / depth / match semantics.
+- read-only recursive proof-scope Web exploration that preserves existing root / depth / match semantics,
+- read-only compact applicability Web exploration that preserves existing source / rule-family presentation semantics while bounding browser output volume.
 
 ## Mathematical scope
 
@@ -134,6 +135,7 @@ The proof infrastructure supports:
 - user-facing known-group proof replay,
 - generator-centered repository occurrence exploration,
 - recursive generator proof-scope exploration,
+- applicable theorem / lemma discovery grouped by source statement and rule family,
 - existing operation-fact lookup,
 - operation-query result deduplication without losing raw provenance,
 - operation-query proof replay rooted at the selected fact's actual `ProofStep`,
@@ -175,7 +177,7 @@ returns
 
 ## Web UI
 
-The Web UI is intentionally a thin presentation layer over existing calculation, operation-query, proof-replay, direct exploration, and recursive proof-scope infrastructure.
+The Web UI is intentionally a thin presentation layer over existing calculation, operation-query, proof-replay, direct exploration, recursive proof-scope, and applicability infrastructure.
 
 The group-query path is
 
@@ -255,6 +257,20 @@ generator input
 → KaTeX
 ```
 
+The applicability exploration path is
+
+```text
+generator input
+→ thin Web generator-applicability adapter
+→ explore_standard_repository_generator_applicability_input(...)
+→ existing RepositoryGeneratorApplicabilityExplorationResult
+→ existing RepositoryGeneratorApplicabilityPresentation
+→ compact Web-only immutable view
+→ source groups + rule families + counts
+→ Jinja template
+→ KaTeX
+```
+
 The Web UI does not parse CLI output or Markdown and does not implement a second mathematical engine.
 
 Current Web files include
@@ -267,6 +283,7 @@ web_operation_query_proof.py
 web_generator_proof.py
 web_generator_exploration.py
 web_generator_proof_scope.py
+web_generator_applicability.py
 templates/index.html
 static/web_math.js
 ```
@@ -383,8 +400,6 @@ eta_999
 
 For `nu_prime`, the Phase 121 browser check showed six direct repository occurrences. The Web view preserves existing grouping and displays conclusion LaTeX, roles, phase, and theorem metadata.
 
-A grouped section may legitimately be empty. Web exploration does not require every existing grouping category to contain an occurrence.
-
 Unknown indexed generators preserve the existing exploration semantics:
 
 ```text
@@ -408,20 +423,6 @@ sigma_11
 eta_999
 ```
 
-The Web view exposes:
-
-```text
-generator
-proof-scope occurrence count
-Toda membership count
-map relation count
-Toda membership statement LaTeX
-map relation statement LaTeX
-root key
-shortest depth
-membership / bracket match labels
-```
-
 For `sigma_11`, the direct and recursive exploration semantics intentionally differ:
 
 ```text
@@ -431,8 +432,6 @@ generator explore sigma_11
 generator proof-scope exploration sigma_11
 → Proof-scope occurrences: 1
 ```
-
-This difference is expected because the proof-scope path uses the existing indexed-\(\sigma_n\) recursive specialization while direct `explore` does not.
 
 For `eta_999`:
 
@@ -444,7 +443,79 @@ Map relations: 0
 
 This is a normal result, not an error.
 
-For `nu_prime`, Phase 122 browser verification produced a large recursive result, including Toda memberships and map relations with root / depth / match metadata. Phase 122 intentionally does not add folding, deduplication, paging, or result limits to change that existing result semantics.
+### Web applicability exploration
+
+The browser can inspect read-only applicable theorem / lemma candidates for one generator.
+
+The Web path preserves the existing applicability presentation hierarchy:
+
+```text
+generator
+→ proof-scope occurrences
+→ applicability candidates
+→ source statements with candidates
+→ rule groups
+→ rule families
+```
+
+The Web adapter does not select a candidate, execute a rule, expose candidate identity as an execution control, or parse CLI Markdown.
+
+Representative Phase 123 browser results:
+
+```text
+nu_prime
+Proof-scope occurrences: 626
+Applicability candidates: 176616
+Source statements with candidates: 542
+Rule groups: 123300
+Rule families: 29308
+```
+
+The `nu_prime` source categories were
+
+```text
+Toda memberships: 46
+Map relations: 44
+Other statements: 452
+```
+
+To keep the generated browser page bounded without changing the underlying result:
+
+```text
+at most 5 source statements are rendered per category
+at most 10 rule families are rendered per displayed source
+rule-family details use a collapsed <details> element
+full summary counts remain visible
+omitted source / rule-family counts are shown explicitly
+```
+
+For `sigma_11`:
+
+```text
+Proof-scope occurrences: 1
+Applicability candidates: 686
+Source statements with candidates: 1
+Rule groups: 472
+Rule families: 112
+```
+
+The source statement includes
+
+\[
+\pi_{18}^{11}=\mathbb Z/16\{\sigma_{11}\}.
+\]
+
+For `eta_999`:
+
+```text
+Proof-scope occurrences: 0
+Applicability candidates: 0
+Source statements with candidates: 0
+Rule groups: 0
+Rule families: 0
+```
+
+This is a normal result, not an error.
 
 ## Operation query
 
@@ -476,77 +547,88 @@ E(\sigma_{11})=\sigma_{12}.
 
 The two narrow theorem-specific handoffs do not turn `query` into a general inference engine or evaluator.
 
-## Phase 122 closure
+## Phase 123 closure
 
-Phase 122 re-audited the remaining read-only Web capabilities and selected `explore-proof` ahead of `explore-applicable`.
+Phase 123 exposed the existing `explore-applicable` capability as a read-only compact Web surface.
 
 ```text
-Phase 122-1
-→ explore-proof / explore-applicable audit
+Phase 123-1
+→ current applicability facade / presentation / compact and detailed renderer audit
 
-Phase 122-2
-→ explore-proof selected as the next read-only Web capability
+Phase 123-2
+→ read-only compact Web exposure selected
+→ candidate selection / execute / detailed toggle excluded
 
-Phase 122-3
+Phase 123-3
 → thin Web adapter boundary fixed
-→ existing RepositoryProofScopeExplorationResult reused
+→ existing applicability facade and presentation reused
+→ source classification and relevance ordering reused
 → no CLI Markdown parsing
-→ no new depth selector
-→ direct explore semantics kept separate
 
-Phase 122-4
-→ web_generator_proof_scope.py
-→ immutable proof-scope Web view
-→ generator LaTeX
-→ occurrence / Toda membership / map relation counts
-→ root / depth / match metadata
+Phase 123-4
+→ web_generator_applicability.py
+→ immutable Web applicability views
+→ full summary counts
+→ source statement / root / depth / type / raw-candidate metadata
+→ rule-family name / catalog-entry count / raw-candidate count
 → normal zero-result handling
-→ sigma_11 recursive specialization preserved
-→ focused tests: 15 passed
+→ focused tests: 13 passed
 
-Phase 122-5
-→ browser/manual integration
-→ group query verified
-→ operation query / query-proof verified
-→ generator proof verified
-→ nu_prime direct explore verified
-→ sigma_11 direct explore = 0
-→ sigma_11 proof-scope = 1
-→ eta_999 proof-scope = 0 / 0 / 0
-→ KaTeX rendering verified
-→ focused Web regression: 67 passed
+Phase 123-5
+→ browser/manual audit
+→ nu_prime / sigma_11 / eta_999 verified
+→ very large nu_prime page identified as a browser-scale presentation problem
 
-Phase 122-final
+Phase 123-5A
+→ compact browser-volume fix
+→ max 5 sources per category
+→ max 10 rule families per displayed source
+→ collapsed rule-family details
+→ omitted-count messages
+→ underlying applicability result unchanged
+→ focused regression: 17 passed
+
+Phase 123-5B
+→ browser/manual re-audit passed
+→ nu_prime full summary counts preserved
+→ sigma_11 compact display verified
+→ eta_999 zero-result semantics preserved
+
+Phase 123-final
 → documentation update
 → repository-wide regression
 ```
 
-The final repository-wide Phase 122 regression was
+The final repository-wide Phase 123 regression was
 
 ```text
-9212 passed in 455.16s (0:07:35)
+9229 passed in 509.16s (0:08:29)
 ```
 
-No new theorem root, proof-search rule, query grammar, general \(E/H/\Delta\) evaluator, Toda-bracket solver, qualified execution family, or new recursive proof-scope semantics were added in Phase 122.
+No new theorem root, proof-search rule, query grammar, general \(E/H/\Delta\) evaluator, Toda-bracket solver, qualified execution family, candidate-selection semantics, or new applicability semantics were added in Phase 123.
 
 ## Near-term roadmap
 
-The next read-only Web surface is
+Phase 123 completes the remaining read-only Web integration that had been prioritized before `execute`.
+
+The next phase should audit the boundary between:
 
 ```text
-explore-applicable
+execute Web integration
+and
+Web UI usability / organization cleanup
 ```
 
-Phase 123 should first audit browser-scale result volume, source / rule-family / candidate grouping, and whether the existing applicability presentation can be exposed without drifting into candidate selection or qualified execution.
+before implementing either broadly.
 
-`execute` remains later because it includes candidate selection, ambiguity, and execution semantics rather than read-only inspection.
+`execute` remains a separate capability because it includes candidate selection, ambiguity handling, and execution semantics rather than read-only inspection.
 
 ## Current boundaries
 
 The following remain intentionally deferred:
 
-- `explore-applicable` Web integration,
 - `execute` Web integration,
+- candidate-selection UI,
 - theorem ranking and proof-cost optimization,
 - producer ranking,
 - general unbounded backtracking,

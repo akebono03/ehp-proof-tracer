@@ -39,10 +39,14 @@ safe fallback != 推測した数学的説明
 generator proof Web adapter != 新しい proof engine
 generator exploration Web adapter != 新しい repository semantics
 generator proof-scope Web adapter != 新しい proof-scope semantics
+generator applicability Web adapter != 新しい applicability semantics
 Web grouping != 新しい occurrence classification
+Web 表示制限 != applicability result の切り捨て
 show-proof != execute
 explore != explore-proof
 explore-proof != explore-applicable
+explore-applicable != candidate selection
+explore-applicable != execute
 explore != execute
 ```
 
@@ -95,89 +99,66 @@ E(nu_5)
 E(sigma_11)
 ```
 
-## Web operation query
+## query-proof / generator show-proof
 
 ```text
-browser query
-→ Flask route
-→ web_operation_query
-→ existing operation-query facade
-→ existing structured presentation
-→ statement_latex
-→ Jinja
-→ KaTeX
-```
-
-## query-proof
-
-```text
-selected fact
-→ primary existing provenance
+selected existing fact / known-group identity
 → existing ProofStep
 → bounded ancestry
 → replay presentation
 → CLI / Web
 ```
 
-Web では fact を明示選択し、複数 fact の最初を自動選択しない。
-
-## generator show-proof
-
-```text
-generator
-→ unique known-group identity
-→ existing ProofStep
-→ bounded ancestry
-→ replay presentation
-→ CLI / Web
-```
-
-Web では generator proof 用の thin adapter が既存 replay presentation を利用し、CLI Markdown を解析しない。
+Web の depth 0 / 1 / 2 は表示範囲であり、新しい proof search ではない。
 
 ## generator explore
 
 ```text
 generator input
-→ resolve_generator_input(...)
 → standard production repository
-→ build_repository_generator_exploration(...)
+→ existing direct generator exploration
 → RepositoryGeneratorExplorationPresentation
-→ thin Web generator-exploration adapter
-→ WebGeneratorExplorationView
+→ thin Web adapter
 → Jinja
 → KaTeX
 ```
-
-Web `explore` は既存 direct repository exploration の意味論をそのまま公開する。
 
 ## generator explore-proof
 
 ```text
 generator input
-→ resolve_generator_input(...)
 → standard production repository
-→ build_repository_proof_scope(...)
-→ specialize_repository_proof_scope_for_generator(...)
+→ recursive proof scope
+→ existing generator specialization
 → RepositoryProofScopeExplorationResult
-→ thin Web generator-proof-scope adapter
-→ WebGeneratorProofScopeView
+→ thin Web adapter
 → Jinja
 → KaTeX
 ```
 
-Web `explore-proof` は既存 recursive proof-scope exploration の意味論をそのまま公開する。
+## generator explore-applicable
 
 ```text
-explore
-!= recursive proof-scope specialization
-!= explore-proof
-!= applicability discovery
-!= execute
+generator input
+→ explore_standard_repository_generator_applicability_input(...)
+→ RepositoryGeneratorApplicabilityExplorationResult
+→ build_repository_generator_applicability_presentation(...)
+→ RepositoryGeneratorApplicabilityPresentation
+→ thin Web applicability adapter
+→ compact Web view
+→ Jinja
+→ KaTeX
+```
 
-explore-proof
-!= applicability discovery
-!= proof replay
-!= execute
+重要:
+
+```text
+Web adapter は候補探索を行わない
+Web adapter は source classification を再実装しない
+Web adapter は relevance ordering を再実装しない
+Web adapter は candidate を選択しない
+Web adapter は execute しない
+Web adapter は CLI Markdown を解析しない
 ```
 
 ---
@@ -194,8 +175,20 @@ web_operation_query_proof.py
 web_generator_proof.py
 web_generator_exploration.py
 web_generator_proof_scope.py
+web_generator_applicability.py
 templates/index.html
 static/web_math.js
+```
+
+generator applicability:
+
+```text
+repository_generator_applicability_facade.py
+repository_generator_applicability_presentation.py
+repository_generator_applicability_renderer.py
+repository_proof_scope_applicability.py
+standard_production_applicability_catalog.py
+web_generator_applicability.py
 ```
 
 generator exploration:
@@ -263,13 +256,16 @@ ProofStep.inference_rule
 
 `ProofRepositoryEntry.key / phase / theorem` は provenance metadata である。
 
-renderer、facade、CLI、Web adapter、Flask route、表示 grouping は独立した定理事実を追加しない。
+renderer、facade、CLI、Web adapter、Flask route、表示 grouping、表示件数制限は独立した定理事実を追加しない。
 
-`web_generator_proof.py` は既存 known-group replay を presentation 用 view に変換するだけである。
+Phase 123 の `web_generator_applicability.py` は既存 `RepositoryGeneratorApplicabilityPresentation` を Web 用 immutable view に射影するだけである。
 
-`web_generator_exploration.py` は既存 `RepositoryGeneratorExplorationPresentation` を Web 用 immutable view に射影するだけであり、occurrence を新しく生成・推論しない。
-
-`web_generator_proof_scope.py` は既存 `RepositoryProofScopeExplorationResult` を Web 用 immutable view に射影するだけであり、proof-scope node、occurrence、Toda membership、map relation を新しく生成・推論しない。
+```text
+applicability candidate
+!= proof
+!= selected theorem application
+!= executed result
+```
 
 ---
 
@@ -277,9 +273,15 @@ renderer、facade、CLI、Web adapter、Flask route、表示 grouping は独立�
 
 Phase 113 の TodaGroupQuery specialization、Phase 114 の `E(nu_5)` handoff、Phase 115 の `E(sigma_11)` handoff は元 repository に root を追加しない。
 
-Phase 117–118 の Web UI、Phase 120 の generator proof Web 接続、Phase 121 の generator exploration Web 接続、Phase 122 の generator proof-scope Web 接続も repository を変更しない。
+Phase 117–123 の Web UI 接続も repository を変更しない。
 
-`explore` と `explore-proof` はともに repository-nonmutating である。
+```text
+explore
+explore-proof
+explore-applicable
+```
+
+はいずれも read-only であり、Phase 123 の Web route も repository-nonmutating である。
 
 ---
 
@@ -362,8 +364,6 @@ Web は現在
 
 のみを選択可能にする。
 
-この境界は operation query proof と generator proof の双方で共通である。
-
 ```text
 depth 0 → root のみ
 depth 1 → direct premise まで
@@ -372,13 +372,13 @@ depth 2 → さらに1段 ancestry
 
 depth は表示範囲であり、新しい proof search ではない。
 
-generator exploration と generator proof-scope exploration は proof replay ではないため、Web 独自の depth selector を持たない。
+generator exploration、generator proof-scope exploration、generator applicability exploration は proof replay ではないため、Web 独自の proof depth selector を持たない。
 
-proof-scope の `shortest_depth` は既存探索結果の metadata であり、proof replay の表示 depth control とは別物である。
+proof-scope の `shortest_depth` は既存探索結果の metadata である。
 
 ---
 
-# 9. 表示と deduplication
+# 9. 表示と deduplication / truncation
 
 同一数学 statement が複数 proof-scope path から得られる場合、表示 layer は grouping できる。
 
@@ -387,32 +387,38 @@ deduplicated presentation
 != provenance deletion
 ```
 
-複数 statement がある場合:
+Phase 123 では browser-scale result volume に対して、underlying applicability result を変更せず、HTML へ射影する件数だけを制限する。
 
 ```text
-全 fact を表示
-→ 自動選択しない
-→ 利用者が明示選択
+full summary counts
+→ 常に保持
+
+各 source category
+→ Web では先頭 5 source を描画
+
+各 displayed source
+→ Web では先頭 10 rule family を描画
+
+rule-family detail
+→ <details> で初期折りたたみ
+
+omitted count
+→ 明示表示
 ```
 
-operation query proof replay の root は選択された query fact 自身の `ProofStep` である。
-
-generator proof replay の root は一意に解決された known-group identity node の既存 `ProofStep` である。
-
-generator exploration の grouping は、既存 `RepositoryGeneratorExplorationPresentation` の group view を再利用する。
+したがって、
 
 ```text
-Toda brackets
-Map inputs
-Group generators
-Composition left
-Composition right
-Other occurrences
+Web 表示件数
+!= source_count
+!= candidate_count
+!= rule_group_count
+!= rule_family_count
 ```
 
-group は空でもよい。Web adapter は「すべての group が非空」という前提を置かない。
+である。
 
-Phase 122 の proof-scope Web view は既存 result の Toda membership / map relation をそのまま列挙する。結果量削減のための新しい deduplication、paging、folding は追加していない。
+表示制限は candidate identity、source grouping、relevance ordering、repository、proof provenance を変更しない。
 
 ---
 
@@ -420,95 +426,26 @@ Phase 122 の proof-scope Web view は既存 result の Toda membership / map re
 
 `explore` は standard production repository の direct occurrence を調べる。
 
-Web view は occurrence ごとに次を保持する。
-
-```text
-conclusion_latex
-role_labels
-phase
-theorem
-```
-
 代表例:
 
 ```text
 nu_prime
 → 6 direct occurrences
-```
 
-unknown indexed generator:
-
-```text
 eta_999
 → Occurrences: 0
-```
 
-これは normal result であり not-found error ではない。
-
-重要な境界:
-
-```text
-explore sigma_11
+sigma_11
 → 0 direct standard-repository occurrences
-
-explore-proof sigma_11
-→ recursive proof-scope specialization により 1 occurrence
 ```
 
-したがって、
-
-```text
-direct repository occurrence
-!= specialized recursive proof-scope occurrence
-```
-
-である。
+`eta_999` の zero result は normal result であり not-found error ではない。
 
 ---
 
 # 11. Generator proof-scope exploration の意味論
 
 `explore-proof` は standard production repository から recursive proof scope を構築し、その scope に対して既存の generator specialization を適用する。
-
-Web adapter は `RepositoryProofScopeExplorationResult` を直接受け取り、CLI Markdown を解析しない。
-
-Web top-level view:
-
-```text
-generator_input
-generator_latex
-occurrence_count
-toda_membership_count
-map_relation_count
-toda_memberships[]
-map_relations[]
-```
-
-Toda membership view:
-
-```text
-statement_latex
-root_key
-depth
-match_labels[]
-```
-
-map relation view:
-
-```text
-statement_latex
-root_key
-depth
-```
-
-`match_labels` は既存
-
-```text
-is_membership_element
-bracket_positions
-```
-
-の presentation 変換のみであり、新しい意味分類ではない。
 
 代表例:
 
@@ -523,15 +460,116 @@ eta_999
 → map relations: 0
 ```
 
-zero result は normal result であり error ではない。
-
-`nu_prime` のように結果量が大きい場合も、Phase 122 では既存 semantics を変える表示制限を追加しない。
+zero result は normal result である。
 
 ---
 
-# 12. Safe statement presentation
+# 12. Generator applicability exploration の意味論
 
-proof replay の statement が既存 renderer で数式化できる場合は LaTeX を使う。
+`explore-applicable` は既存 proof-scope 内の source statement に対して、既存 applicability catalog から候補を列挙する read-only capability である。
+
+構造:
+
+```text
+RepositoryGeneratorApplicabilityExplorationResult
+  proof_scope_exploration
+  candidates
+
+RepositoryGeneratorApplicabilityPresentation
+  source_groups
+  toda_membership_source_groups
+  map_relation_source_groups
+  other_source_groups
+  rule_group_count
+  rule_family_count
+```
+
+source group:
+
+```text
+scope_node
+source_statement
+candidates
+rule_groups
+rule_families
+```
+
+rule family:
+
+```text
+name
+catalog entries
+raw candidate count
+```
+
+Web は既存 `source_group.rule_families` を利用するため、既存 relevance ordering を維持する。
+
+Web は Phase 123 で relevance category label 自体を新しい public field として公開しない。
+
+### `nu_prime`
+
+Phase 123 browser result:
+
+```text
+Proof-scope occurrences: 626
+Applicability candidates: 176616
+Source statements with candidates: 542
+Rule groups: 123300
+Rule families: 29308
+```
+
+source categories:
+
+```text
+Toda memberships: 46
+Map relations: 44
+Other statements: 452
+```
+
+### `sigma_11`
+
+```text
+Proof-scope occurrences: 1
+Applicability candidates: 686
+Source statements with candidates: 1
+Rule groups: 472
+Rule families: 112
+```
+
+source statement:
+
+\[
+\pi_{18}^{11}
+=
+\mathbb Z/16\{\sigma_{11}\}.
+\]
+
+### `eta_999`
+
+```text
+Proof-scope occurrences: 0
+Applicability candidates: 0
+Source statements with candidates: 0
+Rule groups: 0
+Rule families: 0
+```
+
+これは normal zero result である。
+
+重要な境界:
+
+```text
+explore-applicable
+!= candidate selection
+!= qualified execution
+!= execute
+```
+
+---
+
+# 13. Safe statement presentation
+
+既存 renderer で数式化できる statement は LaTeX を使う。
 
 未対応 aggregate statement は type-name fallback へ落とす。
 
@@ -541,20 +579,11 @@ safe fallback
 != 推測した定理説明
 ```
 
-代表 fallback:
-
-```text
-Toda45IsomorphismStatement
-TodaSigmaFamilyDefinitionStatement
-Toda53NuPrimeBracketSpecializationStatement
-Toda52CompositionIsomorphismStatement
-```
-
-generator exploration と generator proof-scope exploration は既存 LaTeX renderer を利用し、Markdown を再解析しない。
+Phase 123 の applicability source も `render_repository_conclusion_latex()` を利用し、`TypeError` / `ValueError` の場合だけ type-name fallback を使う。
 
 ---
 
-# 13. Web UI の設計境界
+# 14. Web UI の設計境界
 
 framework:
 
@@ -577,7 +606,7 @@ existing structured object
 → KaTeX
 ```
 
-Phase 122 までに、
+Phase 123 までに、
 
 ```text
 group query
@@ -586,119 +615,70 @@ operation query-proof
 generator show-proof
 generator explore
 generator explore-proof
+generator explore-applicable
 ```
 
-を接続したが、新しい数学 engine は導入していない。
+を接続した。
+
+新しい数学 engine は導入していない。
 
 ---
 
-# 14. Web view model
+# 15. Web view model
 
-group query:
+generator applicability rule family:
 
 ```text
-n
-k
-status
-result_latex
+name
+catalog_entry_count
+raw_candidate_count
 ```
 
-operation query:
+generator applicability source:
 
 ```text
-query_input
-found
-items[]
-  statement_latex
-  provenance_count
-```
-
-operation query proof:
-
-```text
-query_input
-fact_number
-conclusion_latex
-provenance
-steps[]
-max_depth
-```
-
-generator proof:
-
-```text
-generator_input
-generator_latex
-conclusion_latex
-steps[]
-max_depth
-```
-
-generator proof step:
-
-```text
-depth
 statement_latex | fallback_type_name
-rule_name
+root_key
+depth
+source_statement_type
+raw_candidate_count
+rule_family_count
+rule_families[]
 ```
 
-generator exploration occurrence:
-
-```text
-conclusion_latex
-role_labels[]
-phase
-theorem
-```
-
-generator exploration:
+generator applicability:
 
 ```text
 generator_input
 generator_latex
 occurrence_count
-toda_bracket_occurrences[]
-map_input_occurrences[]
-group_generator_occurrences[]
-composition_left_occurrences[]
-composition_right_occurrences[]
-other_occurrences[]
-```
-
-generator proof-scope Toda membership:
-
-```text
-statement_latex
-root_key
-depth
-match_labels[]
-```
-
-generator proof-scope map relation:
-
-```text
-statement_latex
-root_key
-depth
-```
-
-generator proof-scope exploration:
-
-```text
-generator_input
-generator_latex
-occurrence_count
-toda_membership_count
-map_relation_count
+candidate_count
+source_count
+rule_group_count
+rule_family_count
 toda_memberships[]
 map_relations[]
+other_sources[]
+```
+
+意図的に Web view へ含めないもの:
+
+```text
+candidate identity
+candidate selector
+fixed_point_safe
+premise indexes
+bindings
+public relevance-category field
+qualified execution state
+execute action
 ```
 
 Web view model は presentation 用であり、proof truth の保存場所ではない。
 
 ---
 
-# 15. TeX / HTML boundary
+# 16. TeX / HTML boundary
 
 Python renderer は LaTeX string を返す。
 
@@ -711,67 +691,72 @@ displayMode = true
 throwOnError = false
 ```
 
-generator 本体、結論、proof step、direct exploration occurrence、proof-scope membership / relation も同じ `[data-latex]` 境界を使う。
+Phase 123 の applicability generator / source statement も同じ `[data-latex]` 境界を使う。
 
 ---
 
-# 16. Phase 122 regression boundary
+# 17. Phase 123 regression boundary
 
-Phase 122 で固定した境界:
+Phase 123 で固定した境界:
 
 ```text
-generator explore-proof Web = existing recursive proof-scope exploration
+explore-applicable Web = existing applicability exploration + presentation
 CLI Markdown は解析しない
-existing RepositoryProofScopeExplorationResult を再利用
-generator / membership / relation を既存 LaTeX renderer で表示
-root key / shortest depth / match metadata を保持
+source classification を Web で再実装しない
+relevance ordering を Web で再実装しない
+candidate selection を追加しない
+execute を追加しない
+detailed Web toggle を追加しない
 unknown indexed generator の zero result は正常結果
-explore sigma_11 = 0 occurrence をそのまま保持
-explore-proof sigma_11 = 1 occurrence
-explore と explore-proof を混同しない
-proof-scope 用の新しい depth selector を追加しない
-group-query path を壊さない
-operation-query / query-proof path を壊さない
-generator-proof path を壊さない
-generator-explore path を壊さない
+full summary counts を保持する
+browser 描画 source は各 category 最大 5
+browser 描画 rule family は各 source 最大 10
+rule-family details は初期折りたたみ
+omitted counts を明示する
+表示制限は underlying result semantics を変更しない
+既存 group / operation / proof / explore / explore-proof Web path を壊さない
 repository / proof semantics を変更しない
 ```
 
-Phase 122-4 focused tests:
+Phase 123-4 focused tests:
 
 ```text
-15 passed
+13 passed in 61.24s
 ```
 
-Phase 122-5 focused Web regression:
+Phase 123-5A focused regression:
 
 ```text
-67 passed in 21.93s
+17 passed in 69.57s
 ```
 
 browser/manual integration:
 
 ```text
-group query n=11, k=7
-operation query E(sigma_11)
-query-proof depth 1
-generator proof sigma_11 depth 2
-generator explore nu_prime
-generator explore sigma_11 → 0
-generator proof-scope sigma_11 → 1
-generator proof-scope eta_999 → 0 / 0 / 0
-KaTeX rendering
+nu_prime
+→ full summary counts preserved
+→ category source limit verified
+→ rule-family limit / folding verified
+
+sigma_11
+→ 1 source
+→ pi_18^11 = Z/16{sigma_11}
+→ compact rule-family display verified
+
+eta_999
+→ 0 / 0 / 0 / 0 / 0
+→ normal result
 ```
 
 最終 repository-wide regression:
 
 ```text
-9212 passed in 455.16s (0:07:35)
+9229 passed in 509.16s (0:08:29)
 ```
 
 ---
 
-# 17. Phase 122 で行わなかったこと
+# 18. Phase 123 で行わなかったこと
 
 ```text
 new mathematical theorem
@@ -781,10 +766,10 @@ new query grammar
 general E/H/Delta evaluator
 general Toda bracket solver
 coset / indeterminacy computation
-explore-applicable Web integration
+candidate selection Web UI
 execute Web integration
-proof-scope result deduplication
-proof-scope paging / folding / result limits
+detailed applicability Web toggle
+candidate identity exposure as an action
 proof graph visualization
 REST API
 database
@@ -795,23 +780,24 @@ SPA framework
 
 ---
 
-# 18. 次 Phase との境界
+# 19. 次 Phase との境界
 
-Phase 122 で `explore-proof` の Web 接続を完了した。
+Phase 123 で、優先していた read-only Web capability の接続は一通り完了した。
 
-remaining read-only capability:
+次は `execute` を直ちに Web 化せず、Phase 124 で次を監査する。
 
 ```text
-explore-applicable
+execute Web integration readiness
+candidate selection / ambiguity / status presentation
+現在の単一ページ Web UI の情報量
+Web UI organization / usability cleanup の優先度
 ```
 
-Phase 123 は既存 applicability presentation の source / rule-family / candidate 階層、結果量、browser usability を再監査し、candidate selection や execute semantics を混入させずに read-only Web 公開できるかを判断する。
-
-`execute` は候補選択・ambiguity・execution semantics を含むため、read-only capability と同じ境界では公開しない。
+Phase 124 は監査を先に行い、必要なら次の1 capability または1 UI 整理だけを選ぶ。
 
 ---
 
-# 19. 完了判断原則
+# 20. 完了判断原則
 
 ```text
 既存数学を先に再利用する
@@ -822,6 +808,8 @@ provenance を失わない
 parser を需要なしに一般化しない
 Web UI から数学 semantics を変更しない
 CLI と Web の数学結果を分岐させない
+read-only exploration と execution を混同しない
+browser-scale result volume を実測する
 focused regression で境界を固定する
 browser/manual integration で表示境界を確認する
 repository-wide regression で Phase を閉じる

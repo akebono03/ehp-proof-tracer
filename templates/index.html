@@ -272,6 +272,49 @@
       </p>
     </section>
 
+    <section aria-labelledby="generator-applicability-query-heading">
+      <h2 id="generator-applicability-query-heading">
+        Applicable theorem / lemma candidates
+      </h2>
+
+      <p>
+        Explore compact read-only applicability candidates for one generator.
+      </p>
+
+      <form method="post">
+        <input
+          type="hidden"
+          name="form_kind"
+          value="generator_applicability"
+        >
+
+        <p>
+          <label for="applicability-generator-input">
+            Generator
+          </label>
+          <input
+            id="applicability-generator-input"
+            name="applicability_generator_input"
+            type="text"
+            required
+            value="{{ applicability_generator_input_value }}"
+            placeholder="nu_prime"
+          >
+        </p>
+
+        <button type="submit">
+          Explore applicable
+        </button>
+      </form>
+
+      <p>
+        Examples:
+        nu_prime,
+        nu_5,
+        sigma_11
+      </p>
+    </section>
+
     {% if error_message %}
       <p role="alert">
         {{ error_message }}
@@ -671,6 +714,167 @@
         {% endif %}
       </section>
     {% endif %}
+    {% if generator_applicability_view %}
+      <section
+        aria-labelledby="generator-applicability-heading"
+      >
+        <h2 id="generator-applicability-heading">
+          Applicable theorem / lemma candidates result
+        </h2>
+
+        <h3>
+          Generator
+        </h3>
+
+        <div
+          id="generator-applicability-generator"
+          data-latex="{{ generator_applicability_view.generator_latex }}"
+        >{{ generator_applicability_view.generator_latex }}</div>
+
+        <p>
+          Proof-scope occurrences:
+          {{ generator_applicability_view.occurrence_count }}
+        </p>
+
+        <p>
+          Applicability candidates:
+          {{ generator_applicability_view.candidate_count }}
+        </p>
+
+        <p>
+          Source statements with candidates:
+          {{ generator_applicability_view.source_count }}
+        </p>
+
+        <p>
+          Rule groups:
+          {{ generator_applicability_view.rule_group_count }}
+        </p>
+
+        <p>
+          Rule families:
+          {{ generator_applicability_view.rule_family_count }}
+        </p>
+
+        {% set source_display_limit = 5 %}
+        {% set rule_family_display_limit = 10 %}
+
+        {% set applicability_sections = (
+          ("Toda memberships", generator_applicability_view.toda_memberships),
+          ("Map relations", generator_applicability_view.map_relations),
+          ("Other statements", generator_applicability_view.other_sources)
+        ) %}
+
+        {% for section_title, sources in applicability_sections %}
+          {% if sources %}
+            <h3>
+              {{ section_title }}
+            </h3>
+
+            <p class="generator-applicability-section-summary">
+              Sources:
+              {{ sources | length }}
+              {% if (sources | length) > source_display_limit %}
+                — showing first {{ source_display_limit }}
+              {% endif %}
+            </p>
+
+            <ol>
+              {% for source in sources[:source_display_limit] %}
+                <li class="generator-applicability-source">
+                  {% if source.statement_latex %}
+                    <div
+                      class="generator-applicability-math"
+                      data-latex="{{ source.statement_latex }}"
+                    >{{ source.statement_latex }}</div>
+                  {% else %}
+                    <p>
+                      <code>
+                        {{ source.fallback_type_name }}
+                      </code>
+                    </p>
+                  {% endif %}
+
+                  <p>
+                    Root:
+                    {{ source.root_key }}
+                  </p>
+
+                  <p>
+                    Depth:
+                    {{ source.depth }}
+                  </p>
+
+                  <p>
+                    Source statement type:
+                    {{ source.source_statement_type }}
+                  </p>
+
+                  <p>
+                    Raw candidates:
+                    {{ source.raw_candidate_count }}
+                  </p>
+
+                  <p>
+                    Rule families:
+                    {{ source.rule_family_count }}
+                  </p>
+
+                  {% if source.rule_families %}
+                    <details class="generator-applicability-rule-families">
+                      <summary>
+                        Show rule families
+                        {% if source.rule_family_count > rule_family_display_limit %}
+                          (first {{ rule_family_display_limit }} of {{ source.rule_family_count }})
+                        {% else %}
+                          ({{ source.rule_family_count }})
+                        {% endif %}
+                      </summary>
+
+                      <ul>
+                        {% for rule_family in source.rule_families[:rule_family_display_limit] %}
+                          <li class="generator-applicability-rule-family">
+                            <p>
+                              Rule:
+                              {{ rule_family.name }}
+                            </p>
+
+                            <p>
+                              Catalog entries:
+                              {{ rule_family.catalog_entry_count }}
+                            </p>
+
+                            <p>
+                              Raw candidates:
+                              {{ rule_family.raw_candidate_count }}
+                            </p>
+                          </li>
+                        {% endfor %}
+                      </ul>
+
+                      {% if source.rule_family_count > rule_family_display_limit %}
+                        <p class="generator-applicability-truncated">
+                          {{ source.rule_family_count - rule_family_display_limit }}
+                          additional rule families are omitted from this compact Web view.
+                        </p>
+                      {% endif %}
+                    </details>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ol>
+
+            {% if (sources | length) > source_display_limit %}
+              <p class="generator-applicability-truncated">
+                {{ (sources | length) - source_display_limit }}
+                additional source statements are omitted from this compact Web view.
+              </p>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </section>
+    {% endif %}
+
   </main>
 </body>
 </html>

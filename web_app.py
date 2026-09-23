@@ -4,6 +4,10 @@ from flask import (
   request,
 )
 
+from web_generator_applicability import (
+  WebGeneratorApplicabilityView,
+  build_standard_web_generator_applicability_view,
+)
 from web_generator_exploration import (
   WebGeneratorExplorationView,
   build_standard_web_generator_exploration_view,
@@ -103,6 +107,10 @@ def create_app(
       "proof_scope_generator_input",
       "",
     )
+    applicability_generator_input_value = request.form.get(
+      "applicability_generator_input",
+      "",
+    )
 
     view: WebGroupQueryView | None = None
     operation_query_view: (
@@ -123,6 +131,10 @@ def create_app(
     ) = None
     generator_proof_scope_view: (
       WebGeneratorProofScopeView
+      | None
+    ) = None
+    generator_applicability_view: (
+      WebGeneratorApplicabilityView
       | None
     ) = None
     error_message: str | None = None
@@ -202,6 +214,12 @@ def create_app(
               proof_scope_generator_input_value
             )
           )
+        elif form_kind == "generator_applicability":
+          generator_applicability_view = (
+            build_standard_web_generator_applicability_view(
+              applicability_generator_input_value
+            )
+          )
         else:
           n = _parse_integer_form_value(
             n_value,
@@ -248,6 +266,9 @@ def create_app(
       proof_scope_generator_input_value=(
         proof_scope_generator_input_value
       ),
+      applicability_generator_input_value=(
+        applicability_generator_input_value
+      ),
       view=view,
       operation_query_view=(
         operation_query_view
@@ -263,6 +284,9 @@ def create_app(
       ),
       generator_proof_scope_view=(
         generator_proof_scope_view
+      ),
+      generator_applicability_view=(
+        generator_applicability_view
       ),
       error_message=error_message,
     )
