@@ -26,6 +26,9 @@
 探索計画 != 証明結果
 表示層 != 証明事実
 proof-scope 走査 != 定理探索
+proof-scope relevance != executable relevance
+applicability relevance != executable relevance
+aggregate statement 内の別 branch occurrence != executable source relevance
 既知関係の発見 != 写像評価
 適用可能候補 != 証明成功
 候補番号 != 数学的優先度
@@ -51,6 +54,7 @@ explore-applicable != candidate selection
 explore-applicable != execute
 candidate selection != theorem ranking
 Web execution != second execution engine
+executable relevance filtering != theorem ranking
 ```
 
 ---
@@ -143,22 +147,24 @@ generator input
 
 ```text
 generator input
-→ thin Web execution adapter
-→ run_standard_repository_generator_user_execution_workflow(...)
+→ standard applicability exploration
+→ qualified-family grouping
+→ executable relevance guard
 → executable target resolution
 → NONE / AMBIGUOUS / EXECUTED
 → candidate number selection when required
 → existing qualified execution
 → executed ProofStep
 → existing structured execution presentation
-→ Web view
-→ Jinja
-→ KaTeX
+→ CLI / Web
 ```
 
 重要:
 
 ```text
+proof-scope relevance は broad のまま維持する
+applicability relevance は broad のまま維持する
+execute だけ executable relevance を追加で要求する
 Web adapter は候補探索を再実装しない
 Web adapter は source classification を再実装しない
 Web adapter は relevance ordering を再実装しない
@@ -264,6 +270,10 @@ applicability candidate
 execution candidate number
 != theorem priority
 
+executable relevance guard
+!= theorem ranking
+!= new theorem fact
+
 Web execution result
 = existing execution workflow が返した既存の executed ProofStep の presentation
 ```
@@ -275,6 +285,8 @@ Web execution result
 Phase 113 の TodaGroupQuery specialization、Phase 114 の `E(nu_5)` handoff、Phase 115 の `E(sigma_11)` handoff は元 repository に独立 root を追加しない。
 
 Phase 117–125 の Web UI 接続も repository を変更しない。
+
+Phase 126 の executable relevance 修正も repository の `ProofStep` や theorem root を変更せず、user-facing executable-target inclusion だけを狭める。
 
 read-only:
 
@@ -290,7 +302,9 @@ execution:
 execute
 ```
 
-Phase 125 の Web execution は既存 qualified execution path を利用するが、Web adapter 自体が repository semantics を変更するわけではない。
+Phase 125 の Web execution は既存 qualified execution path を利用する。
+
+Phase 126 では resolver の target inclusion semantics を修正したが、Web adapter、proof-scope exploration、applicability exploration、qualified family admission 自体は変更していない。
 
 ---
 
@@ -458,6 +472,18 @@ eta_999
 → map relations: 0
 ```
 
+proof-scope generator occurrence は `RepositoryProofScopeGeneratorOccurrence.path` を保持する。
+
+aggregate statement ではこの path により、
+
+```text
+pi6_3_group_relation
+pi7_4_group_relation
+pi8_5_group_relation
+```
+
+などの branch を区別できる。
+
 ---
 
 # 12. Generator applicability exploration の意味論
@@ -501,13 +527,17 @@ explore-applicable
 != candidate selection
 != qualified execution
 != execute
+
+generator が source ProofStep のどこかに出現
+!=
+その generator が qualified rule の実使用 component に対応
 ```
+
+Phase 126 でも applicability discovery 自体は変更していない。
 
 ---
 
 # 13. Generator execution の意味論
-
-Phase 125 は既存の利用者向け execution workflow を Web に接続した。
 
 既存 status:
 
@@ -543,17 +573,36 @@ selected target
 → RepositoryGeneratorUserExecutionPresentation
 → conclusion / premises / rule
 → root_entry provenance
-→ Web 表示
+→ CLI / Web 表示
 ```
 
-Phase 125 の Web adapter は execution workflow の**利用者**であり execution engine ではない。
+Phase 126 以降の executable target inclusion は次の3層を区別する。
 
 ```text
-web_generator_execution.py
-!= resolver
-!= ranking engine
-!= proof-search engine
-!= qualified execution engine
+1. proof-scope relevance
+   generator が ProofStep のどこかに出現する
+
+2. applicability relevance
+   その ProofStep が rule premise として適用可能である
+
+3. executable relevance
+   入力 generator occurrence が、
+   qualified rule が実際に利用する source component に対応する
+```
+
+1 と 2 は broad のまま維持する。
+
+3 だけを user-facing executable target resolution で追加要求する。
+
+```text
+proof-scope relevance
+!= executable relevance
+
+applicability relevance
+!= executable relevance
+
+same aggregate ProofStep
+!= same mathematical source component
 ```
 
 ---
@@ -584,43 +633,89 @@ candidate number
 
 1 target の場合は既存 facade が従来どおり自動実行する。
 
+Phase 126 は candidate ordering や ranking を変更していない。
+
 ---
 
-# 15. `nu_5` manual audit の扱い
+# 15. Phase 126 executable relevance semantics
 
-Phase 125 browser/manual audit では `nu_5` の Web execution が
+Phase 125 browser/manual audit では `nu_5` の Web / CLI execution が
 
 \[
 \pi_6^2=\mathbb Z/4\{\eta_2\nu'\}
 \]
 
-へ到達することを確認した。
+へ到達した。
 
-CLI の
+Phase 126-1 から 126-3 の監査で、原因は Web adapter ではなく resolver の broad source semantics にあることを確認した。
+
+Toda Proposition 5.6 aggregate は少なくとも、
+
+\[
+\pi_6^3=\mathbb Z/4\{\nu'\},
+\]
+
+\[
+\pi_7^4=\mathbb Z\{\nu_4\}\oplus\mathbb Z/4\{E\nu'\},
+\]
+
+\[
+\pi_8^5=\mathbb Z/8\{\nu_5\}
+\]
+
+を同じ `ProofStep` conclusion に保持する。
+
+旧 semantics では `nu_5` が `pi8_5_group_relation` に出現するだけで Prop. 5.6 全体が generator-relevant source となり、第2 qualified family
 
 ```text
-python main.py execute nu_5
+toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
 ```
 
-も同じ結果を返した。
+が同じ aggregate の別 branch `pi6_3_group_relation` を利用していても executable target に含まれた。
 
-したがって Phase 125 では、
+Phase 126-4 はこの第2 family に限り、
 
 ```text
-Web adapter mismatch
+入力 generator occurrence
+→ source_step identity 一致
+→ occurrence.path の先頭 branch が pi6_3_group_relation
 ```
 
-ではなく、
+を executable relevance guard として要求する。
+
+結果:
 
 ```text
-existing generator → executable target resolution semantics
+nu_prime
+→ pi6_3_group_relation に occurrence
+→ 第2 family を維持
+
+nu_5
+→ pi8_5_group_relation に occurrence
+→ 第2 family から除外
+
+sigma_11
+→ admitted qualified family なし
+→ NONE を維持
 ```
 
-の結果として扱う。
+第1 qualified family
 
-Phase 125 はこの意味論を変更しない。
+```text
+toda_58_delta_iota9_nu4_nu_prime_inference_rule
+```
 
-この挙動が利用者期待に合うかは次 Phase の監査対象である。
+は aggregate Prop. 5.6 ではなく既存の \(\pi_7^4\) relation を直接 source としているため、Phase 126-4 では追加 branch guard を入れていない。
+
+この修正は current admitted families に対する最小修正である。
+
+```text
+executable relevance guard
+!= general premise-component dependency engine
+!= theorem ranking
+!= target scoring
+!= automatic best-target selection
+```
 
 ---
 
@@ -636,7 +731,7 @@ safe fallback
 != 推測した定理説明
 ```
 
-Phase 125 の executed premise 表示もこの境界を維持する。
+executed premise 表示もこの境界を維持する。
 
 ---
 
@@ -692,6 +787,8 @@ Applicability
 → Applicable theorem / lemma candidates
 → Execute theorem / lemma candidate
 ```
+
+Phase 126 の resolver 修正は CLI / Web の共通 execution facade より下層にあるため、CLI と Web で別 semantics を持たない。
 
 ---
 
@@ -754,62 +851,66 @@ execution candidate / result / conclusion も同じ境界を使う。
 
 ---
 
-# 20. Phase 125 regression boundary
+# 20. Phase 126 regression boundary
 
-Phase 125 で固定した境界:
+Phase 126 focused regression:
 
 ```text
-current single-page Web UI を維持する
-既存 Flask route を維持する
-既存 execution facade を再利用する
-existing candidate / execution presentation を再利用する
-CLI Markdown を解析しない
-NONE を正常な no-target state とする
-AMBIGUOUS を自動選択しない
-candidate number を theorem ranking と解釈しない
-EXECUTED の result / proof / provenance を表示する
-new qualified family を追加しない
-new proof-search rule を追加しない
-generator-to-target resolution semantics を変更しない
-KaTeX path を維持する
+tests/test_phase108_5_minimal_user_facing_executable_target_resolver.py
+tests/test_phase126_executable_target_relevance.py
+
+13 passed in 14.86s
 ```
 
-Phase 125-4 focused tests:
+CLI manual audit:
 
 ```text
-14 passed in 29.80s
-```
-
-browser/manual integration:
-
-```text
-nu_prime
+python main.py execute nu_prime
 → 2 executable candidates
-→ candidate 1 / 2 の既存 CLI 対応を確認
 
-eta_999
-→ NONE
-→ No executable target found for this generator.
+python main.py execute nu_5
+→ No executable target found for nu_5.
 
-nu_5
-→ Web と CLI の execution result が一致
-
-KaTeX
-→ candidate / result の数式表示を確認
-
-既存 Web capability
-→ 共存を確認
+python main.py execute sigma_11
+→ No executable target found for sigma_11.
 ```
+
+`nu_prime` candidates:
+
+\[
+\pi_6^2=\mathbb Z/4\{\eta_2\nu'\},
+\]
+
+\[
+\Delta(\iota_9)=\pm(2\nu_4-E\nu').
+\]
 
 最終 repository-wide regression:
 
 ```text
-9243 passed in 555.37s (0:09:15)
+python -m pytest -q
+9246 passed in 556.62s (0:09:16)
+```
+
+Phase 126 完了境界:
+
+```text
+nu_prime の2 targetを維持
+nu_5 → pi6_2 target を除外
+sigma_11 → NONE を維持
+nu_5 の applicability discovery を維持
+proof-scope semantics を変更しない
+applicability semantics を変更しない
+qualified family admission を変更しない
+target ranking を追加しない
+candidate numbering semantics を変更しない
+automatic best-target selection を追加しない
+new theorem root を追加しない
 ```
 
 ---
 
-# 21. Phase 125 で行わなかったこと
+# 21. Phase 126 で行わなかったこと
 
 ```text
 new mathematical theorem
@@ -818,11 +919,11 @@ new qualified execution family
 new query grammar
 general E/H/Delta evaluator
 general Toda bracket solver
+general premise-component dependency engine
 coset / indeterminacy computation
 candidate ranking
 semantic target ranking
 automatic best-target selection
-generator-to-target resolution semantics change
 proof graph visualization
 REST API
 database
@@ -835,35 +936,26 @@ SPA framework
 
 # 22. 次 Phase との境界
 
-Phase 125 で existing execute workflow の Web integration は完了した。
+Phase 126 で、Web integration により可視化された executable-target resolution の不整合を最小修正した。
 
-次 Phase 126 は、Phase 125 manual audit で可視化された executable-target resolution の意味論を監査する。
+次 Phase は新機能を先取りせず、Phase 126 後の実利用 pressure を再監査する。
 
-特に、
-
-```text
-generator input
-→ proof-scope / applicability relation
-→ executable target inclusion
-→ target ordering
-→ user-facing expectation
-```
-
-を確認する。
-
-最初の監査対象:
+候補:
 
 ```text
-nu_5
+残る operation capability pressure
+Web / CLI の実利用フロー
+現在の qualified execution family 拡張需要
+executable relevance の別 aggregate statement への実需要
 ```
 
 重要:
 
 ```text
-Phase 126 は audit first
+Phase 127 は audit first
 ```
 
-であり、ranking、filtering、target-selection semantics の変更を先取りしない。
+とし、general premise-component dependency engine、ranking、best-target selection を需要なしに導入しない。
 
 ---
 
@@ -879,9 +971,11 @@ parser を需要なしに一般化しない
 Web UI から数学 semantics を変更しない
 CLI と Web の数学結果を分岐させない
 read-only exploration と execution を混同しない
+proof-scope relevance と executable relevance を混同しない
+aggregate statement の同居だけで executable source とみなさない
 candidate number を theorem priority と解釈しない
 execution target の違和感を Web 層で補正しない
 focused regression で境界を固定する
-browser/manual integration で表示境界を確認する
+CLI / browser manual integration で表示境界を確認する
 repository-wide regression で Phase を閉じる
 ```

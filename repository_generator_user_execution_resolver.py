@@ -18,6 +18,15 @@ from repository_generator_qualified_execution_selection import (
 )
 
 
+_SECOND_QUALIFIED_EXECUTION_FAMILY = (
+  "toda_lemma57_pi6_2_eta2_nu_prime_inference_rule"
+)
+
+_SECOND_QUALIFIED_EXECUTION_SOURCE_BRANCH = (
+  "pi6_3_group_relation"
+)
+
+
 @dataclass(frozen=True)
 class RepositoryGeneratorExecutableTarget:
   group: RepositoryGeneratorQualifiedExecutionFamilyGroup
@@ -316,6 +325,53 @@ def _matching_target_steps(
   )
 
 
+def _group_has_executable_generator_relevance(
+  applicability_result,
+  group,
+):
+  if not isinstance(
+    applicability_result,
+    RepositoryGeneratorApplicabilityExplorationResult,
+  ):
+    raise TypeError(
+      "applicability_result must be a "
+      "RepositoryGeneratorApplicabilityExplorationResult"
+    )
+
+  if not isinstance(
+    group,
+    RepositoryGeneratorQualifiedExecutionFamilyGroup,
+  ):
+    raise TypeError(
+      "group must be a "
+      "RepositoryGeneratorQualifiedExecutionFamilyGroup"
+    )
+
+  if (
+    group.family_name
+    != _SECOND_QUALIFIED_EXECUTION_FAMILY
+  ):
+    return True
+
+  return any(
+    occurrence.scope_node.proof_step
+    is group.source_step
+    and bool(
+      occurrence.path
+    )
+    and occurrence.path[
+      0
+    ]
+    == _SECOND_QUALIFIED_EXECUTION_SOURCE_BRANCH
+    for occurrence
+    in (
+      applicability_result
+      .proof_scope_exploration
+      .occurrences
+    )
+  )
+
+
 def resolve_standard_repository_generator_executable_targets_input(
   generator_input,
 ) -> StandardRepositoryGeneratorExecutableTargetResolution:
@@ -348,6 +404,12 @@ def resolve_standard_repository_generator_executable_targets_input(
   targets = []
 
   for group in family_grouping.groups:
+    if not _group_has_executable_generator_relevance(
+      applicability_result,
+      group,
+    ):
+      continue
+
     matching_target_steps = (
       _matching_target_steps(
         applicability_result,

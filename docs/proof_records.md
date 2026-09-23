@@ -387,7 +387,7 @@ Web result == CLI result
 
 を確認したため Phase 125 の接続境界としては PASS。
 
-利用者 expectation と resolver semantics の整合性は次 Phase の監査対象とする。
+利用者 expectation と resolver semantics の整合性は Phase 126 の監査対象とした。
 
 Phase 125 focused:
 
@@ -402,6 +402,137 @@ Phase 125 final regression:
 ```
 
 Phase 125 の proof truth は従来どおり既存 repository と実際の executed `ProofStep` provenance に残る。
+
+## Phase 126 executable relevance provenance boundary
+
+Phase 126 は新しい数学的 theorem root、`ProofStep`、proof-search rule、qualified execution family を追加していない。
+
+Phase 125 で観測した
+
+```text
+nu_5
+→ pi6_2
+```
+
+の executable path を監査した。
+
+原因は Toda Proposition 5.6 aggregate の broad source relevance だった。
+
+同一 aggregate には、
+
+\[
+\pi_6^3=\mathbb Z/4\{\nu'\},
+\]
+
+\[
+\pi_7^4=\mathbb Z\{\nu_4\}\oplus\mathbb Z/4\{E\nu'\},
+\]
+
+\[
+\pi_8^5=\mathbb Z/8\{\nu_5\}
+\]
+
+などが含まれる。
+
+旧 resolver では、
+
+```text
+nu_5 が pi8_5_group_relation に出現
+→ Prop.5.6 ProofStep 全体が generator relevant
+→ 第2 qualified family が同じ ProofStep の pi6_3_group_relation を利用
+→ pi6_2 executable target
+```
+
+となっていた。
+
+Phase 126 では次を区別した。
+
+```text
+proof-scope relevance
+!= applicability relevance
+!= executable relevance
+```
+
+executable relevance は、
+
+```text
+queried generator occurrence
+→ actual source component used by qualified family
+```
+
+の対応を要求する。
+
+現在の第2 qualified family
+
+```text
+toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
+```
+
+について、
+
+```text
+pi6_3_group_relation
+```
+
+内の occurrence だけを executable source relevance とする最小 guard を追加した。
+
+結果:
+
+### `nu_prime`
+
+\[
+\pi_6^2=\mathbb Z/4\{\eta_2\nu'\},
+\]
+
+\[
+\Delta(\iota_9)=\pm(2\nu_4-E\nu')
+\]
+
+の2 executable targets を維持。
+
+### `nu_5`
+
+```text
+No executable target found for nu_5.
+```
+
+`pi8_5_group_relation` に occurrence は存在するため proof-scope / applicability relevance 自体は維持されるが、第2 family の executable relevance は満たさない。
+
+### `sigma_11`
+
+```text
+No executable target found for sigma_11.
+```
+
+admitted qualified family がないため既存 `NONE` を維持。
+
+重要な境界:
+
+```text
+aggregate statement の同居
+!= executable source relevance
+
+executable relevance filtering
+!= theorem ranking
+
+executable target exclusion
+!= mathematical impossibility
+
+proof-scope applicability result
+!= executable target set
+```
+
+focused regression:
+
+```text
+13 passed in 14.86s
+```
+
+Phase 126 final regression:
+
+```text
+9246 passed in 556.62s (0:09:16)
+```
 
 ---
 
@@ -447,6 +578,10 @@ Web execution adapter != execution semantics
 Web execution result != new theorem
 candidate selection form != theorem ranking
 CLI/Web consistency != semantic correctness proof
+proof-scope relevance != executable relevance
+applicability relevance != executable relevance
+aggregate statement の同居 != executable source relevance
+executable relevance filtering != theorem ranking
 ```
 
 既存記録は原則として削除せず、確定した意味論訂正がある場合のみ訂正する。

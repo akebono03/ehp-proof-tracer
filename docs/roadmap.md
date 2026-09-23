@@ -45,13 +45,15 @@ generator execute:
 
 ```text
 generator input
-→ thin Web execution adapter
-→ existing execution facade
+→ existing applicability exploration
+→ qualified execution families
+→ executable relevance guard
+→ executable target resolution
 → NONE / AMBIGUOUS / EXECUTED
 → candidate selection when required
 → existing qualified execution
 → Result + Proof
-→ KaTeX
+→ CLI / Web
 ```
 
 現在利用できる限定 handoff:
@@ -77,7 +79,10 @@ show-proof != execute
 explore != explore-proof
 explore-proof != explore-applicable
 explore-applicable != candidate selection
+proof-scope relevance != executable relevance
+applicability relevance != executable relevance
 candidate selection != theorem ranking
+executable relevance filtering != theorem ranking
 Web execution != second execution engine
 ```
 
@@ -180,28 +185,34 @@ Phase 125 final regression:
 9243 passed in 555.37s (0:09:15)
 ```
 
+Phase 126:
+
+```text
+executable-target resolution audit
+proof-scope / applicability / executable relevance separation
+aggregate Prop.5.6 branch audit
+nu_prime / nu_5 / sigma_11 comparison
+minimal executable relevance guard
+nu_prime 2 targets preserved
+nu_5 unrelated pi6_2 target removed
+sigma_11 NONE preserved
+```
+
+Phase 126 focused regression:
+
+```text
+13 passed in 14.86s
+```
+
+Phase 126 final regression:
+
+```text
+9246 passed in 556.62s (0:09:16)
+```
+
 ---
 
-# 3. 現在の Web UI
-
-起動:
-
-```text
-python -m flask --app web_app:create_app run
-```
-
-capability:
-
-```text
-group query
-operation query
-query-proof
-generator show-proof
-generator explore
-generator explore-proof
-generator explore-applicable
-generator execute
-```
+# 3. 現在の Web / CLI execution semantics
 
 `explore-applicable` は read-only。
 
@@ -221,99 +232,111 @@ EXECUTED
 → Result + Proof
 ```
 
+現在の executable-target inclusion:
+
+```text
+generator occurrence
+→ proof-scope relevance
+
+source-step rule match
+→ applicability relevance
+
+qualified family が実際に利用する source component と
+generator occurrence が対応
+→ executable relevance
+```
+
 代表例:
 
 ```text
 nu_prime
 → 2 executable targets
 
+nu_5
+→ NONE
+
+sigma_11
+→ NONE
+
 eta_999
 → NONE
 ```
 
-Phase 125 browser/manual audit では `nu_5` の Web 実行結果が既存 CLI と一致することを確認した。
+`NONE` は現在 admitted された qualified execution path に executable target がないことを表し、数学的 impossibility を意味しない。
 
 ---
 
-# 4. Phase 125 完了境界
+# 4. Phase 126 完了境界
 
 ```text
-existing execution facade を再利用する
-existing candidate presentation を再利用する
-existing execution presentation を再利用する
-CLI Markdown を解析しない
-NONE を normal no-target state とする
-AMBIGUOUS を自動選択しない
-candidate number は 1-based addressing
-candidate number != theorem priority
-EXECUTED では Result + Proof + provenance を表示する
-new qualified family を追加しない
-new proof-search semantics を追加しない
-generator-to-target resolution semantics を変更しない
-existing single-page Web UI を維持する
-KaTeX path を維持する
-focused regression が通る
-browser/manual integration audit が通る
-repository-wide pytest が通る
+proof-scope exploration semantics を維持する
+applicability exploration semantics を維持する
+qualified execution family admission を維持する
+executable target inclusion だけを必要最小限に狭める
+
+nu_prime
+→ 2 executable targets を維持
+
+nu_5
+→ unrelated pi6_2 target を除外
+→ NONE
+
+sigma_11
+→ NONE を維持
+
+candidate number
+→ 1-based addressing
+→ theorem priority ではない
+
+target ranking
+→ 追加しない
+
+automatic best-target selection
+→ 追加しない
+
+general premise-component dependency engine
+→ 追加しない
 ```
 
-Phase 125 は完了。
+Phase 126 は完了。
 
 ---
 
-# 5. Phase 126: executable-target resolution semantics audit
+# 5. Phase 127: post-Phase 126 capability priority audit
 
-Phase 125 で Web execution が利用可能になったことで、既存 target-resolution semantics が利用者から直接見えるようになった。
+Phase 126 で user-facing execute の semantic leak を修正した。
 
-最初の pressure:
+次 Phase は新機能を直ちに追加せず、現在の実利用フローで次に不足する capability を再監査する。
+
+監査候補:
 
 ```text
-python main.py execute nu_5
+operation query / query-proof の残存 pressure
+generator execute の実利用 pressure
+Web / CLI workflow の不整合
+現在の2 qualified family で不足する具体例
+executable relevance guard を別 family / aggregate statement へ一般化する実需要
 ```
 
-と Web `nu_5` execution がともに、
-
-\[
-\pi_6^2=\mathbb Z/4\{\eta_2\nu'\}
-\]
-
-の既存 qualified execution path へ到達する。
-
-Phase 125 の Web adapter mismatch ではないことは確認済みである。
-
-Phase 126 はこの挙動を**変更する Phase ではなく、まず監査する Phase**とする。
-
-監査対象:
+判断順:
 
 ```text
-generator occurrence semantics
-proof-scope relation
-applicability relation
-qualified executable target inclusion
-target tuple ordering
-generator-specific user expectation
-CLI / Web consistency
+actual user workflow
+→ concrete pressure
+→ existing mathematics / infrastructure reuse audit
+→ minimum missing capability
+→ Phase scope freeze
 ```
 
-確認したい問い:
+Phase 127 で先取りしないもの:
 
 ```text
-なぜ nu_5 がこの executable target に含まれるのか
-既存 resolver の intended semantics か
-generator relation の広さが user-facing execute に適切か
-target order は単なる deterministic order か
-candidate list に必要な説明 metadata はあるか
-```
-
-Phase 126 で先取りしないもの:
-
-```text
-semantic target ranking
-best-target selection
-automatic filtering
-new qualified family
-new proof-search rule
+general premise-component dependency engine
+semantic theorem ranking
+semantic executable-target ranking
+automatic best-target selection
 general evaluator
+new qualified family without concrete pressure
 ```
 
 ---
@@ -350,6 +373,7 @@ E(nu_5 o eta_8)
 semantic theorem ranking
 semantic executable-target ranking
 automatic best-target selection
+general premise-component dependency engine
 general operation-query grammar
 general E/H/Delta evaluator
 general Toda bracket solver
@@ -382,9 +406,11 @@ parser を需要なしに一般化しない
 Web UI から数学 semantics を変更しない
 CLI と Web の数学結果を分岐させない
 read-only と execution の境界を明示する
+proof-scope relevance と executable relevance を混同しない
+aggregate statement の同居だけで executable source とみなさない
 candidate number を theorem priority と解釈しない
 利用者違和感はまず resolver semantics を監査する
 focused regression で境界を固定する
-browser/manual integration で表示境界を確認する
+CLI / browser manual integration で表示境界を確認する
 repository-wide regression で Phase を閉じる
 ```
