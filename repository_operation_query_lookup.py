@@ -48,6 +48,9 @@ class RepositoryOperationQueryMatchKind(
   SUSPENSION_RELATION = (
     "suspension_relation"
   )
+  GROUP_MEMBERSHIP = (
+    "group_membership"
+  )
   DELTA_UP_TO_SIGN = "delta_up_to_sign"
   COMPOSITION_CONTAINMENT = (
     "composition_containment"
