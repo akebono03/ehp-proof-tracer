@@ -760,3 +760,137 @@ current single-page Web UI organization / usability cleanup
 の優先度を判断する。
 
 `execute` は candidate selection・ambiguity・execution semantics を伴うため、read-only capability の延長として自動的に接続しない。
+
+## Phase 124
+
+Phase 124 は、`execute` を直ちに Web 化する前に current single-page Web UI と既存 user execution workflow を監査し、UI organization を先に行った。
+
+新しい数学的 theorem、proof-search rule、qualified execution family、operation-query grammar、candidate-selection semantics、execution semantics は追加していない。
+
+### Phase 124-1: execute Web integration readiness vs Web UI usability audit
+
+監査対象:
+
+```text
+web_app.py
+templates/index.html
+repository_generator_user_execution_facade.py
+repository_generator_user_execution_presentation.py
+repository_generator_user_execution_handoff.py
+Phase 108 execute tests
+Phase 121–123 Web tests
+```
+
+確認結果:
+
+```text
+existing execute workflow
+→ NONE / AMBIGUOUS / EXECUTED が既に構造化されている
+→ candidate number selection が既にある
+→ qualified execution / proof result / presentation が既にある
+
+current Web UI
+→ single page
+→ six independent input forms
+→ read-only capability は一通り接続済み
+```
+
+したがって、execute Web integration と UI cleanup を同時に行わず、UI organization を先に選定した。
+
+### Phase 124-2: implementation target selection
+
+選定:
+
+```text
+A. Web UI organization / usability cleanup
+```
+
+延期:
+
+```text
+B. execute Web integration
+→ Phase 125
+```
+
+### Phase 124-3: minimal design
+
+既存 single-page architecture を維持する。
+
+```text
+no new route
+no new Web adapter
+no web_app.py change
+no JavaScript state management
+no mathematical semantics change
+```
+
+### Phase 124-4: minimal implementation + focused tests
+
+変更:
+
+```text
+templates/index.html
+```
+
+追加:
+
+```text
+tests/test_phase124_4_web_workflow_navigation.py
+```
+
+focused test:
+
+```text
+5 passed in 3.83s
+```
+
+既存 Web focused regression:
+
+```text
+38 passed in 44.51s
+```
+
+### Phase 124-5: browser/manual integration audit
+
+代表確認:
+
+```text
+nu_prime
+→ 626 proof-scope occurrences
+→ 176616 applicability candidates
+→ 542 source statements
+→ 123300 rule groups
+→ 29308 rule families
+
+nu_5
+→ 148 proof-scope occurrences
+→ 45846 applicability candidates
+→ 132 source statements
+→ 32010 rule groups
+→ 7674 rule families
+
+sigma_11
+→ 1 proof-scope occurrence
+→ 686 applicability candidates
+→ 1 source statement
+→ 472 rule groups
+→ 112 rule families
+```
+
+KaTeX と compact display を維持。
+
+### Phase 124-final: documentation / completion
+
+repository-wide regression:
+
+```text
+python -m pytest -q
+9234 passed in 522.10s (0:08:42)
+```
+
+Phase 124 は完了。
+
+### Phase 124 後の境界
+
+次 Phase 125 は既存 `execute` workflow の Web integration を対象とする。
+

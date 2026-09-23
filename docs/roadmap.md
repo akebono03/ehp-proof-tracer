@@ -23,14 +23,22 @@ n,k
 現在の Web UI:
 
 ```text
-group query
-operation query
-query-proof
-generator show-proof
-generator explore
-generator explore-proof
-generator explore-applicable
+Workflow navigation
+
+Calculation and queries
+→ group query
+→ operation query
+
+Proof and exploration
+→ generator show-proof
+→ generator explore
+→ generator explore-proof
+
+Applicability
+→ generator explore-applicable
 ```
+
+`query-proof` は operation query の selected fact から利用できる。
 
 generator explore-applicable:
 
@@ -145,6 +153,32 @@ Phase 123 final regression:
 9229 passed in 509.16s (0:08:29)
 ```
 
+Phase 124:
+
+```text
+execute Web integration readiness vs Web UI usability audit
+Web UI organization を先に選定
+single-page structure を維持
+workflow navigation を追加
+既存 six form section へ anchor target を追加
+web_app.py は変更しない
+execute / candidate selection は追加しない
+browser/manual integration audit
+```
+
+Phase 124 focused:
+
+```text
+5 passed in 3.83s
+38 passed in 44.51s
+```
+
+Phase 124 final regression:
+
+```text
+9234 passed in 522.10s (0:08:42)
+```
+
 ---
 
 # 3. 現在の Web UI
@@ -238,48 +272,35 @@ eta_999
 
 ---
 
-# 4. Phase 123 完了境界
+# 4. Phase 124 完了境界
 
 ```text
-generator を browser から applicability exploration へ入力できる
-existing applicability facade / presentation を使う
-CLI Markdown を解析しない
-source grouping を Web で再実装しない
-rule-family relevance ordering を Web で再実装しない
+Phase 123 の read-only Web capability を維持する
+current single-page Web UI を維持する
+existing six forms を削除・統合しない
+上部 workflow navigation を追加する
+既存 section へ anchor link する
+route を増やさない
+web_app.py を変更しない
+Web adapter を増やさない
 candidate selection を追加しない
 execute を追加しない
-detailed toggle を追加しない
-unknown indexed generator の 0 result を正常結果として扱う
-full summary counts を保持する
-HTML 生成量を bounded にする
-group query を壊さない
-operation query / query-proof を壊さない
-generator proof を壊さない
-generator direct explore を壊さない
-generator proof-scope explore を壊さない
-browser KaTeX path を維持する
+qualified execution semantics を変更しない
+applicability semantics を変更しない
+compact Web output limits を維持する
+KaTeX path を維持する
 focused regression が通る
+browser/manual integration audit が通る
 repository-wide pytest が通る
 ```
 
-Phase 123 は完了。
+Phase 124 は完了。
 
 ---
 
-# 5. Phase 124: next-capability / Web usability audit
+# 5. Phase 125: execute Web integration
 
-Phase 123 で read-only Web capability の優先接続は一通り完了した。
-
-Phase 124 は、次に何を実装するかを先に監査する。
-
-候補:
-
-```text
-A. execute Web integration
-B. current single-page Web UI organization / usability cleanup
-```
-
-## A. execute Web integration の監査観点
+Phase 124 で UI organization を先に済ませたため、Phase 125 では既存 `execute` workflow の Web 接続に進む。
 
 現在の user execution workflow:
 
@@ -290,49 +311,47 @@ generator
 → candidate selection
 → qualified execution
 → proof result
+→ result + proof presentation
 ```
 
-Web 化には少なくとも、
+Phase 125 で再利用する既存基盤:
 
 ```text
-candidate selection UI
-ambiguity handling
-execution status presentation
-qualified target identity
-proof result presentation
-existing execution semantics の非変更
+repository_generator_user_execution_facade.py
+repository_generator_user_execution_candidate_presentation.py
+repository_generator_user_execution_presentation.py
+repository_generator_user_execution_handoff.py
+repository_generator_user_execution_proof_step.py
 ```
 
-が必要。
-
-したがって read-only `explore-applicable` の延長として自動的に接続しない。
-
-## B. Web UI cleanup の監査観点
-
-現在の単一ページには複数の独立フォームがある。
+実装方針:
 
 ```text
-group query
-operation query
-generator proof
-generator exploration
-generator proof-scope exploration
-generator applicability exploration
+thin Web adapter を追加する
+existing execution facade を呼ぶ
+NONE を no executable target として表示する
+AMBIGUOUS は候補一覧を表示し利用者選択を待つ
+EXECUTED は result + proof を表示する
+candidate number を theorem ranking と解釈しない
+CLI Markdown を解析しない
+existing candidate / execution presentation を最大限再利用する
+new qualified family を追加しない
+new proof-search semantics を追加しない
 ```
 
-Phase 124 では、
+最初に監査する事項:
 
 ```text
-navigation / section organization
-default visibility
-long result placement
-form discoverability
-read-only exploration と execution の視覚的分離
+Web view model に必要な最小 field
+candidate selection form の round-trip
+candidate number validation
+generator input の保持
+NONE / AMBIGUOUS / EXECUTED の表示境界
+result / proof の KaTeX rendering
+既存 Group / Query / Proof / Explore / Applicability との共存
 ```
 
-を監査し、UI cleanup が execute より先かを判断する。
-
-Phase 124 は監査を先に行い、将来 Phase の機能を先取りしない。
+Phase 125 では execute の Web 接続だけを扱い、UI 全体の追加 redesign は行わない。
 
 ---
 
