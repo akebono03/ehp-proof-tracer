@@ -310,9 +310,15 @@ def test_phase114_4_handoff_does_not_expand_to_delta_nu5():
   )
 
 
-def test_phase114_4_handoff_does_not_expand_to_e_nu5_eta8():
-  _assert_facade_preserves_direct_result(
+def test_phase114_4_nu5_stable_bridge_guard_still_excludes_e_nu5_eta8():
+  query = parse_repository_operation_query(
     "E(nu_5 o eta_8)"
+  )
+
+  assert not (
+    is_nu5_stable_bridge_operation_query(
+      query
+    )
   )
 
 

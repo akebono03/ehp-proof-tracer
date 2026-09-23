@@ -16,7 +16,7 @@ The current system provides:
 - operation-fact lookup,
 - operation-query proof replay,
 - theorem-specific indexed \(\sigma_n\) specialization,
-- deliberately narrow existing-proof handoffs for \(E(\nu_5)=\nu_6\) and \(E(\sigma_{11})=\sigma_{12}\),
+- deliberately narrow existing-proof handoffs for \(E(\nu_5)=\nu_6\), \(E(\sigma_{11})=\sigma_{12}\), and \(E(\nu_5\eta_8)=0\),
 - a Flask Web UI for group queries, operation queries, operation proof replay, generator proof replay, direct generator exploration, recursive generator proof-scope exploration, applicability exploration, and qualified generator execution,
 - explicit candidate selection when an execution request is ambiguous,
 - browser-side KaTeX rendering of existing LaTeX output,
@@ -137,7 +137,7 @@ The proof infrastructure supports:
 - existing operation-fact lookup,
 - operation-query result deduplication without losing raw provenance,
 - operation-query proof replay rooted at the selected fact's actual `ProofStep`,
-- theorem-specific `E(nu_5)` and `E(sigma_11)` handoffs that preserve existing symbolic proof provenance,
+- theorem-specific `E(nu_5)`, `E(sigma_11)`, and `E(nu_5 o eta_8)` handoffs that preserve existing proof provenance,
 - user-facing qualified execution with explicit `NONE`, `AMBIGUOUS`, and `EXECUTED` states,
 - user-selected replay depth,
 - safe mathematical rendering with explicit type-name fallback for unsupported aggregate statements.
@@ -256,6 +256,7 @@ H(nu_prime)
 Delta(iota_9)
 E(nu_5)
 E(sigma_11)
+E(nu_5 o eta_8)
 ```
 
 Multiple mathematical facts are listed explicitly. A fact is not automatically selected for proof replay.
@@ -367,7 +368,7 @@ omitted counts are shown explicitly
 
 ### Generator execution
 
-Phase 125 connects the existing qualified user-execution workflow to the Web UI.
+Phase 125 connected the existing qualified user-execution workflow to the Web UI.
 
 The path is
 
@@ -420,7 +421,18 @@ Conclusion
 Provenance
 ```
 
-The browser/manual audit also confirmed that the current `nu_5` execution result matches the existing CLI behavior. Phase 125 deliberately does not change generator-to-target resolution semantics.
+Phase 126 corrected executable relevance so that `nu_5` no longer inherits the unrelated \(\pi_6^2\) target from another branch of the Proposition 5.6 aggregate. Current CLI and Web execution therefore preserve:
+
+```text
+nu_prime
+→ 2 executable targets
+
+nu_5
+→ NONE
+
+sigma_11
+→ NONE
+```
 
 ## Operation query
 
@@ -444,76 +456,105 @@ E(\eta_2\nu')=0,
 E(\nu_5)=\nu_6,
 \]
 
+\[
+E(\sigma_{11})=\sigma_{12},
+\]
+
 and
 
 \[
-E(\sigma_{11})=\sigma_{12}.
+E(\nu_5\eta_8)=0.
 \]
+
+The \(E(\nu_5\eta_8)=0\) handoff is deliberately theorem-specific. Direct lookup still runs first. On a direct miss for exactly `E(nu_5 o eta_8)`, the handoff reuses the existing Toda Proposition 5.8 proof scope:
+
+\[
+\pi_9^5=\mathbb Z/2\{\nu_5\eta_8\},
+\]
+
+\[
+E:\pi_9^5\to\pi_{10}^6
+\text{ is surjective},
+\]
+
+and
+
+\[
+\pi_{10}^6=0.
+\]
+
+The specialized query fact is attached to the existing Proposition 5.8 provenance rather than registered as a new independent theorem root.
 
 The narrow theorem-specific handoffs do not turn `query` into a general inference engine or evaluator.
 
-## Phase 125 closure
+## Phase 126–128 closure
 
-Phase 125 connected the existing `execute` workflow to the single-page Web UI without changing mathematical or execution semantics.
+Phase 126 separated proof-scope relevance, applicability relevance, and executable relevance. The unrelated `nu_5 → pi_6^2` executable target was removed while the two `nu_prime` executable targets were preserved.
 
-```text
-Phase 125-1
-→ current execution workflow and Phase 108 tests audited
-→ NONE / AMBIGUOUS / EXECUTED structure confirmed
-→ candidate and execution presentations confirmed reusable
-
-Phase 125-2
-→ Web integration scope frozen
-→ generator → candidates → explicit selection → execution → Result + Proof
-→ no ranking, new qualified family, or general proof search
-
-Phase 125-3
-→ thin Web adapter design fixed
-→ structured facade/presentation reuse
-→ no CLI Markdown parsing
-
-Phase 125-4
-→ web_generator_execution.py added
-→ web_app.py and templates/index.html connected
-→ focused regression: 14 passed in 29.80s
-
-Phase 125-5
-→ browser/manual audit
-→ nu_prime candidate list and selection verified
-→ eta_999 NONE verified
-→ KaTeX verified
-→ existing Web capabilities coexist
-→ nu_5 Web result confirmed equal to existing CLI result
-
-Phase 125-final
-→ documentation updated
-→ repository-wide regression passed
-```
-
-The final repository-wide Phase 125 regression was
+Phase 127 audited post-Phase 126 capability pressure instead of immediately adding another general mechanism. The remaining operation-query pressures examined were:
 
 ```text
-9243 passed in 555.37s (0:09:15)
+H(nu_5)
+H(sigma_11)
+Delta(sigma_11)
+E(nu_prime)
+Delta(nu_prime)
+E(nu_5 o eta_8)
 ```
 
-No new theorem root, proof-search rule, query grammar, general \(E/H/\Delta\) evaluator, Toda-bracket solver, qualified execution family, theorem ranking, candidate ranking, or generator-to-target resolution semantics were added in Phase 125.
+The audit classified `H(nu_5)`, `H(sigma_11)`, `Delta(sigma_11)`, and `Delta(nu_prime)` as requiring additional mathematical proof support rather than a small existing-proof handoff.
+
+`E(nu_prime)` remains a viable future pressure, but its operation-result presentation semantics require a separate audit because \(E\nu'\) already appears as a generator inside
+
+\[
+\pi_7^4=
+\mathbb Z\{\nu_4\}
+\oplus
+\mathbb Z/4\{E\nu'\}.
+\]
+
+Phase 127 therefore selected `E(nu_5 o eta_8)` as the next minimum capability.
+
+Phase 128 implemented exactly that handoff:
+
+```text
+query "E(nu_5 o eta_8)"
+→ direct lookup first
+→ theorem-specific handoff on direct miss
+→ Proposition 5.8 proof scope only
+→ E(nu_5 eta_8) = 0
+→ query-proof replay from existing provenance
+```
+
+The focused Phase 128 regression was:
+
+```text
+40 passed in 15.43s
+```
+
+The final repository-wide Phase 128 regression was:
+
+```text
+9256 passed in 570.10s (0:09:30)
+```
+
+Phase 128 did not add a new theorem root, general target-zero rule, parser expansion, general \(E\) evaluator, new qualified execution family, ranking, or automatic target selection.
 
 ## Near-term roadmap
 
-The next phase should audit user-execution target resolution before adding more execution capability.
+Phase 129 should audit the remaining `E(nu_prime)` pressure before implementation.
 
-The main pressure observed during Phase 125 is that a generator input can participate in an executable proof whose conclusion is not the most obvious generator-centered result. For example, the current `nu_5` Web execution matches the CLI and resolves to the existing \(\pi_6^2\) qualified execution path.
+The key question is not whether the expression \(E\nu'\) exists—it already appears in the Proposition 5.6 decomposition—but what an operation query should return as the theorem-backed result of `E(nu_prime)` without broadening containment into a general evaluator.
 
-Phase 126 should therefore audit:
+The Phase 129 order should remain:
 
 ```text
-generator occurrence / relevance
-→ executable target resolution
-→ target ordering / inclusion semantics
-→ user expectation
+current repository representation
+→ operation-result semantics
+→ existing provenance reuse
+→ minimum missing capability
+→ scope freeze before implementation
 ```
-
-This is an audit first. It should not introduce ranking or new execution semantics unless an actual defect is demonstrated.
 
 ## Current boundaries
 

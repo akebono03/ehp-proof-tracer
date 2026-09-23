@@ -1,4 +1,8 @@
 from proof_repository import ProofRepository
+from repository_nu5_eta8_suspension_zero_specialization import (
+  is_nu5_eta8_suspension_zero_operation_query,
+  query_nu5_eta8_suspension_zero_handoff,
+)
 from repository_nu5_stable_bridge_specialization import (
   is_nu5_stable_bridge_operation_query,
   query_nu5_stable_bridge_handoff,
@@ -47,6 +51,14 @@ def query_repository_operation_input(
     query
   ):
     return query_sigma11_suspension_handoff(
+      repository,
+      query,
+    )
+
+  if is_nu5_eta8_suspension_zero_operation_query(
+    query
+  ):
+    return query_nu5_eta8_suspension_zero_handoff(
       repository,
       query,
     )

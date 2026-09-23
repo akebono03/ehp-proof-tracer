@@ -534,6 +534,234 @@ Phase 126 final regression:
 9246 passed in 556.62s (0:09:16)
 ```
 
+## Phase 127 capability pressure provenance audit
+
+Phase 127 は新しい数学的 theorem root、`ProofStep`、proof-search rule、query grammar を追加せず、既存 repository の provenance を監査した。
+
+監査対象:
+
+```text
+H(nu_5)
+H(sigma_11)
+Delta(sigma_11)
+E(nu_prime)
+Delta(nu_prime)
+E(nu_5 o eta_8)
+```
+
+### `H(nu_5)`
+
+Phase 68 の `TodaHopfInvariantZeroStatement` は \(\pi_9^5\) を source とする。
+
+したがってその provenance は \(\nu_5\eta_8\) 側の Hopf-zero machinery であり、`H(nu_5)` の element-level proof ではない。
+
+```text
+H(nu_5)
+→ existing element-level proof absent
+→ DEFER
+```
+
+### `E(nu_prime)`
+
+\[
+E\nu'
+\]
+
+は既存の
+
+\[
+\pi_7^4=
+\mathbb Z\{\nu_4\}
+\oplus
+\mathbb Z/4\{E\nu'\}
+\]
+
+の generator として存在し、Phase 66 の
+
+\[
+\Delta(\iota_9)=\pm(2\nu_4-E\nu')
+\]
+
+でも同じ suspension expression が再利用される。
+
+ただし `E(nu_prime)` の user-facing operation result の形は別途意味論監査が必要。
+
+```text
+E(nu_prime)
+→ provenance exists
+→ result semantics unresolved
+→ KEEP
+```
+
+### `Delta(nu_prime)`
+
+既存 Delta facts の値側に \(\nu'\) が現れることと、\(\nu'\) 自身を Delta 入力にすることは別である。
+
+```text
+Delta(nu_prime)
+→ element-level Delta proof absent
+→ DEFER
+```
+
+### `H(sigma_11)` / `Delta(sigma_11)`
+
+\(\sigma_8\) の Hopf relation および \(\sigma\)-chain の Delta machinery は存在するが、`sigma_11` を入力とする element-level relation はない。
+
+```text
+H(sigma_11)
+Delta(sigma_11)
+→ DEFER
+```
+
+### `E(nu_5 o eta_8)`
+
+既存 Proposition 5.8 provenance:
+
+\[
+\pi_9^5=\mathbb Z/2\{\nu_5\eta_8\},
+\]
+
+\[
+\pi_{10}^6=0.
+\]
+
+result semantics は
+
+\[
+E(\nu_5\eta_8)=0
+\]
+
+と明確。
+
+Phase 127-4 で Phase 128 の対象に選定。
+
+## Phase 128 `E(nu_5 o eta_8)=0` handoff provenance
+
+Phase 128 は新しい独立 theorem root を repository に登録していない。
+
+query:
+
+```text
+E(nu_5 o eta_8)
+```
+
+に対して direct lookup を先に実行する。
+
+direct miss の場合だけ exact handoff guard が作動する。
+
+specialized conclusion:
+
+\[
+E(\nu_5\eta_8)=0.
+\]
+
+コード上の relation shape:
+
+```text
+Relation
+lhs = Suspension(Composition(nu_5, eta_8))
+rhs = Zero()
+relation_type = ZERO
+```
+
+これは既存 `E(eta_2 o nu_prime)=0` と同じ operation-query zero-relation 表現を再利用する。
+
+### provenance root
+
+handoff は
+
+```text
+standard.toda.prop58
+```
+
+の proof-scope に限定する。
+
+これは同じ Prop.5.8 ancestry が後続 theorem root の proof-scope にも現れ、同一 specialized conclusion が重複生成されることを防ぐためである。
+
+```text
+root restriction
+!= theorem ranking
+```
+
+### specialized ProofStep ancestry
+
+Depth 0:
+
+\[
+E(\nu_5\eta_8)=0.
+\]
+
+Depth 1:
+
+\[
+\pi_{10}^6=0.
+\]
+
+Depth 2:
+
+\[
+\pi_9^5=\mathbb Z/2\{\nu_5\eta_8\},
+\]
+
+\[
+E:\pi_9^5\to\pi_{10}^6
+\text{ is surjective},
+\]
+
+\[
+\nu_6\eta_9=0.
+\]
+
+`pi_10^6=0` は `ProofRule.INFERENCE` であり、`pi_9^5` relation を直接 premise として持つことを handoff guard が確認する。
+
+したがって、
+
+```text
+target group is zero
+```
+
+という表面的条件だけで arbitrary element の suspension-zero fact を生成していない。
+
+### repository boundary
+
+handoff は query ごとに specialized `ProofStep` を組み立てる。
+
+```text
+before repository.entries()
+==
+after repository.entries()
+```
+
+を focused test で固定。
+
+```text
+theorem-specific specialized query fact
+!= repository mutation
+!= new independent theorem root
+```
+
+### regression
+
+focused:
+
+```text
+40 passed in 15.43s
+```
+
+manual query:
+
+\[
+E(\nu_5\eta_8)=0.
+\]
+
+manual query-proof で Toda Proposition 5.8, Phase 68 の provenance を確認。
+
+final:
+
+```text
+9256 passed in 570.10s (0:09:30)
+```
+
 ---
 
 # 記録原則
@@ -557,7 +785,7 @@ family dispatch != 定理順位付け
 known-group 証明再生 != theorem application execution
 show-proof != execute
 operation-query 検索 != evaluator
-operation-query 結果 != 新しい定理事実
+operation-query 結果 != 新しい独立 theorem root
 deduplicated 表示 != provenance deletion
 query-proof replay != enclosing theorem replay
 --depth != new proof search
@@ -566,6 +794,7 @@ LOOKUP_MISS != evaluator required
 TodaGroupQuery specialization reuse != new theorem
 limited operation handoff != general query inference
 theorem-specific concrete specialization != general evaluator
+target-zero theorem-specific specialization != general target-zero evaluator
 Web applicability view != proof truth
 Web source truncation != source-result deletion
 Web rule-family truncation != candidate deletion
