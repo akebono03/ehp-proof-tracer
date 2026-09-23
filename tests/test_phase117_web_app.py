@@ -151,7 +151,7 @@ def test_phase117_2_web_and_cli_share_sigma11_result(
   )
 
 
-def test_phase117_2_post_negative_k_shows_existing_validation_message():
+def test_phase117_2_post_negative_k_shows_connectivity_zero():
   client = _build_test_client()
 
   response = client.post(
@@ -164,12 +164,12 @@ def test_phase117_2_post_negative_k_shows_existing_validation_message():
 
   assert response.status_code == 200
   assert (
-    b"k must be nonnegative"
+    b'id="result-math"'
     in response.data
   )
   assert (
-    b'id="result-math"'
-    not in response.data
+    rb"\pi_{10}^{11} \cong 0"
+    in response.data
   )
 
 

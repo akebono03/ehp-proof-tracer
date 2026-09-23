@@ -58,12 +58,19 @@ def test_phase117_1_web_adapter_preserves_positive_n_validation():
     )
 
 
-def test_phase117_1_web_adapter_preserves_nonnegative_k_validation():
-  with pytest.raises(
-    ValueError,
-    match="k must be nonnegative",
-  ):
+def test_phase117_1_web_adapter_supports_negative_k():
+  view = (
     build_standard_web_group_query_view(
       n=11,
       k=-1,
     )
+  )
+
+  assert (
+    view.status
+    is TodaCalculationStatus.FOUND
+  )
+  assert (
+    view.result_latex
+    == r"\pi_{10}^{11} \cong 0"
+  )

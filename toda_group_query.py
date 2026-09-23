@@ -44,11 +44,6 @@ class TodaGroupQuery:
         "n must be positive"
       )
 
-    if self.k < 0:
-      raise ValueError(
-        "k must be nonnegative"
-      )
-
   @property
   def target(
     self,

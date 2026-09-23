@@ -10,6 +10,9 @@ from proof_repository import (
   ProofRepository,
   ProofRepositoryEntry,
 )
+from repository_foundational_group_specialization import (
+  find_foundational_toda_group_results,
+)
 from repository_proof_scope import (
   build_repository_proof_scope,
 )
@@ -39,6 +42,9 @@ from toda_group_lookup import (
 from toda_group_query import TodaGroupQuery
 from toda_group_result import (
   normalize_toda_group_result,
+)
+from toda_rules import (
+  TodaProp59FiniteDimensionalStatement,
 )
 
 
@@ -101,6 +107,21 @@ _STABLE_TODA_GROUP_SOURCES = {
     "nu",
     "65",
     "Toda Proposition 5.6",
+  ),
+  4: (
+    "four_stem_zero",
+    "68",
+    "Toda Proposition 5.8",
+  ),
+  5: (
+    "five_stem_zero",
+    "70",
+    "Toda Proposition 5.9",
+  ),
+  6: (
+    "nu_squared",
+    "73",
+    "Toda Proposition 5.11",
   ),
 }
 
@@ -301,6 +322,108 @@ def _find_low_dimensional_toda_group_results(
   return ()
 
 
+_PROP59_CONCRETE_BRANCHES = {
+  2: "pi7_2_group_relation",
+  3: "pi8_3_group_relation",
+  4: "pi9_4_group_relation",
+  5: "pi10_5_group_relation",
+  6: "pi11_6_group_relation",
+}
+
+
+def _find_prop59_concrete_toda_group_results(
+  repository: ProofRepository,
+  query: TodaGroupQuery,
+):
+  if query.k != 5:
+    return ()
+
+  branch_name = (
+    _PROP59_CONCRETE_BRANCHES.get(
+      query.n
+    )
+  )
+
+  if branch_name is None:
+    return ()
+
+  scope = build_repository_proof_scope(
+    repository
+  )
+
+  prop59_nodes = tuple(
+    node
+    for node in scope.nodes
+    if (
+      node.root_entry.key
+      == "standard.toda.prop511"
+      and isinstance(
+        node.proof_step.conclusion,
+        TodaProp59FiniteDimensionalStatement,
+      )
+    )
+  )
+
+  if len(
+    prop59_nodes
+  ) != 1:
+    return ()
+
+  prop59_statement = (
+    prop59_nodes[
+      0
+    ].proof_step.conclusion
+  )
+
+  target_conclusion = getattr(
+    prop59_statement,
+    branch_name,
+  )
+
+  matching_nodes = tuple(
+    node
+    for node in scope.nodes
+    if (
+      node.root_entry.key
+      == "standard.toda.prop511"
+      and node.proof_step.conclusion
+      == target_conclusion
+    )
+  )
+
+  if not matching_nodes:
+    return ()
+
+  source_step = min(
+    matching_nodes,
+    key=lambda node: (
+      node.shortest_depth
+    ),
+  ).proof_step
+
+  if not is_toda_group_result_for_target(
+    source_step.conclusion,
+    query.target,
+  ):
+    return ()
+
+  source_entry = ProofRepositoryEntry(
+    key=(
+      "standard.toda.prop59::"
+      f"{branch_name}"
+    ),
+    step=source_step,
+    phase="70",
+    theorem="Toda Proposition 5.9",
+  )
+
+  return (
+    normalize_toda_group_result(
+      source_entry
+    ),
+  )
+
+
 def _find_specialized_stable_toda_group_results(
   repository: ProofRepository,
   query: TodaGroupQuery,
@@ -446,7 +569,7 @@ def build_known_toda_calculation_result(
   query: TodaGroupQuery,
 ) -> TodaCalculationResult:
   group_results = (
-    find_normalized_toda_group_results(
+    find_foundational_toda_group_results(
       repository,
       query,
     )
@@ -454,7 +577,23 @@ def build_known_toda_calculation_result(
 
   if not group_results:
     group_results = (
+      find_normalized_toda_group_results(
+        repository,
+        query,
+      )
+    )
+
+  if not group_results:
+    group_results = (
       _find_low_dimensional_toda_group_results(
+        repository,
+        query,
+      )
+    )
+
+  if not group_results:
+    group_results = (
+      _find_prop59_concrete_toda_group_results(
         repository,
         query,
       )

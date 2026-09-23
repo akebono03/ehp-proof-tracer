@@ -71,12 +71,6 @@ from toda_calculation_facade import (
 from toda_calculation_result import (
   TodaCalculationStatus,
 )
-from toda_group_query import TodaGroupQuery
-from toda_group_query_semantics import (
-  TodaGroupQueryDomainKind,
-  classify_toda_group_query_domain,
-  render_toda_group_query_domain_cli_message,
-)
 
 
 def _configure_cli_utf8_streams(
@@ -173,7 +167,7 @@ def build_argument_parser(
 
   parser.add_argument(
     "k",
-    type=int,
+    type=_parse_nonnegative_int,
     help=(
       "stem k for the project quantity pi_{n+k}^n "
       "(free part plus 2-primary component)"
@@ -963,31 +957,6 @@ def main(
   args = parser.parse_args(
     raw_argv
   )
-
-  query = TodaGroupQuery(
-    n=args.n,
-    k=args.k,
-  )
-
-  domain = (
-    classify_toda_group_query_domain(
-      query
-    )
-  )
-
-  if (
-    domain.kind
-    is not (
-      TodaGroupQueryDomainKind
-      .POSITIVE_DIMENSION
-    )
-  ):
-    print(
-      render_toda_group_query_domain_cli_message(
-        domain
-      )
-    )
-    return 0
 
   result = (
     build_standard_toda_report(
