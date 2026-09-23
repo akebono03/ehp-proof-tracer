@@ -28,78 +28,7 @@
   <main>
     <h1>EHP Proof Tracer</h1>
 
-    <nav
-      aria-labelledby="workflow-navigation-heading"
-    >
-      <h2 id="workflow-navigation-heading">
-        Workflow
-      </h2>
-
-      <p>
-        Choose a task by purpose.
-      </p>
-
-      <ul>
-        <li>
-          <strong>
-            Calculation and queries
-          </strong>
-          <ul>
-            <li>
-              <a href="#group-query">
-                Group query
-              </a>
-            </li>
-            <li>
-              <a href="#operation-query">
-                Operation query
-              </a>
-            </li>
-          </ul>
-        </li>
-
-        <li>
-          <strong>
-            Proof and exploration
-          </strong>
-          <ul>
-            <li>
-              <a href="#generator-proof-query">
-                Generator proof
-              </a>
-            </li>
-            <li>
-              <a href="#generator-exploration-query">
-                Generator exploration
-              </a>
-            </li>
-            <li>
-              <a href="#generator-proof-scope-query">
-                Generator proof-scope exploration
-              </a>
-            </li>
-          </ul>
-        </li>
-
-        <li>
-          <strong>
-            Applicability
-          </strong>
-          <ul>
-            <li>
-              <a href="#generator-applicability-query">
-                Applicable theorem / lemma candidates
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-
-    <section
-      id="group-query"
-      aria-labelledby="group-query-heading"
-    >
+    <section aria-labelledby="group-query-heading">
       <h2 id="group-query-heading">
         Group query
       </h2>
@@ -146,10 +75,7 @@
       </form>
     </section>
 
-    <section
-      id="operation-query"
-      aria-labelledby="operation-query-heading"
-    >
+    <section aria-labelledby="operation-query-heading">
       <h2 id="operation-query-heading">
         Operation query
       </h2>
@@ -193,10 +119,7 @@
       </p>
     </section>
 
-    <section
-      id="generator-proof-query"
-      aria-labelledby="generator-proof-query-heading"
-    >
+    <section aria-labelledby="generator-proof-query-heading">
       <h2 id="generator-proof-query-heading">
         Generator proof
       </h2>
@@ -262,10 +185,7 @@
       </p>
     </section>
 
-    <section
-      id="generator-exploration-query"
-      aria-labelledby="generator-exploration-query-heading"
-    >
+    <section aria-labelledby="generator-exploration-query-heading">
       <h2 id="generator-exploration-query-heading">
         Generator exploration
       </h2>
@@ -309,10 +229,7 @@
     </section>
 
 
-    <section
-      id="generator-proof-scope-query"
-      aria-labelledby="generator-proof-scope-query-heading"
-    >
+    <section aria-labelledby="generator-proof-scope-query-heading">
       <h2 id="generator-proof-scope-query-heading">
         Generator proof-scope exploration
       </h2>
@@ -355,10 +272,7 @@
       </p>
     </section>
 
-    <section
-      id="generator-applicability-query"
-      aria-labelledby="generator-applicability-query-heading"
-    >
+    <section aria-labelledby="generator-applicability-query-heading">
       <h2 id="generator-applicability-query-heading">
         Applicable theorem / lemma candidates
       </h2>
