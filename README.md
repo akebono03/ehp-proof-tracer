@@ -8,6 +8,7 @@ The current system provides:
 
 - theorem-backed Toda group queries,
 - EHP and proof provenance,
+- generator-centered repository exploration,
 - recursive proof-scope exploration,
 - applicable theorem / lemma discovery,
 - bounded qualified execution,
@@ -16,11 +17,12 @@ The current system provides:
 - operation-query proof replay,
 - theorem-specific indexed \(\sigma_n\) specialization,
 - deliberately narrow existing-proof handoffs for \(E(\nu_5)=\nu_6\) and \(E(\sigma_{11})=\sigma_{12}\),
-- a Flask Web UI for group queries, operation queries, operation proof replay, and generator known-group proof replay,
+- a Flask Web UI for group queries, operation queries, operation proof replay, generator known-group proof replay, and generator exploration,
 - explicit operation-fact selection for proof replay,
 - browser-side KaTeX rendering of existing LaTeX output,
 - Web proof replay with selectable depth 0, 1, or 2,
-- safe type-name fallback for unsupported proof statements.
+- safe type-name fallback for unsupported proof statements,
+- read-only Web exploration that preserves existing repository grouping and metadata.
 
 ## Mathematical scope
 
@@ -129,6 +131,7 @@ The proof infrastructure supports:
 - theorem-specific indexed \(\sigma_n\) specialization,
 - reuse of that specialization from the standard `TodaGroupQuery` path,
 - user-facing known-group proof replay,
+- generator-centered repository occurrence exploration,
 - existing operation-fact lookup,
 - operation-query result deduplication without losing raw provenance,
 - operation-query proof replay rooted at the selected fact's actual `ProofStep`,
@@ -170,7 +173,7 @@ returns
 
 ## Web UI
 
-The Web UI is intentionally a thin presentation layer over existing calculation, operation-query, and proof-replay infrastructure.
+The Web UI is intentionally a thin presentation layer over existing calculation, operation-query, proof-replay, and exploration infrastructure.
 
 The group-query path is
 
@@ -223,7 +226,20 @@ generator input
 → KaTeX
 ```
 
-The Web UI does not parse CLI output and does not implement a second mathematical engine.
+The generator exploration path is
+
+```text
+generator input
+→ thin Web generator-exploration adapter
+→ explore_standard_repository_generator_input(...)
+→ existing RepositoryGeneratorExplorationPresentation
+→ Web-only immutable view
+→ grouped occurrence metadata + LaTeX
+→ Jinja template
+→ KaTeX
+```
+
+The Web UI does not parse CLI output or Markdown and does not implement a second mathematical engine.
 
 Current Web files include
 
@@ -233,6 +249,7 @@ web_group_query.py
 web_operation_query.py
 web_operation_query_proof.py
 web_generator_proof.py
+web_generator_exploration.py
 templates/index.html
 static/web_math.js
 ```
@@ -334,6 +351,34 @@ for both operation proof replay and generator proof replay.
 
 Depth 0 shows only the replay root. Depth selection changes only the visible existing ancestry. It does not perform new proof search.
 
+### Web generator exploration
+
+The browser can inspect where one generator occurs in the standard production repository.
+
+Representative inputs are
+
+```text
+nu_prime
+nu_5
+sigma_11
+eta_999
+```
+
+For `nu_prime`, the Phase 121 browser check showed six direct repository occurrences. The Web view preserves existing grouping and displays conclusion LaTeX, roles, phase, and theorem metadata.
+
+A grouped section may legitimately be empty. Web exploration does not require every existing grouping category to contain an occurrence.
+
+Unknown indexed generators preserve the existing exploration semantics:
+
+```text
+eta_999
+→ Occurrences: 0
+```
+
+This is a normal exploration result, not a not-found error.
+
+`explore sigma_11` currently returns zero direct standard-repository occurrences. This is distinct from recursive proof-scope exploration: `explore-proof sigma_11` can obtain specialized recursive proof-scope occurrences through the existing indexed-\(\sigma_n\) specialization path. The Web `explore` feature intentionally preserves the direct `explore` semantics and does not silently upgrade to `explore-proof`.
+
 ## Operation query
 
 Operation query is lookup-first.
@@ -364,63 +409,73 @@ E(\sigma_{11})=\sigma_{12}.
 
 The two narrow theorem-specific handoffs do not turn `query` into a general inference engine or evaluator.
 
-## Phase 120 closure
+## Phase 121 closure
 
-Phase 119 audited the next Web capability and selected read-only generator `show-proof` ahead of `explore` and `execute`.
-
-Phase 120 connected existing known-group proof replay to the Web UI without adding new mathematics.
+Phase 121 re-audited the remaining read-only Web capabilities and selected `explore` ahead of `explore-proof` and `explore-applicable`.
 
 ```text
-Phase 120-1
-→ generator show-proof Web integration audit
-→ existing known-group replay presentation confirmed as reusable boundary
+Phase 121-1
+→ current explore / explore-proof / explore-applicable audit
 
-Phase 120-2
-→ web_generator_proof.py
-→ generator input + depth 0 / 1 / 2
-→ existing known-group proof replay
-→ existing LaTeX rendering + safe type-name fallback
-→ focused and Phase 118 compatibility tests
+Phase 121-2
+→ explore selected as the next read-only Web capability
 
-Phase 120-3
+Phase 121-3
+→ thin Web adapter boundary fixed
+→ existing structured exploration presentation reused
+→ no Markdown parsing
+
+Phase 121-4
+→ web_generator_exploration.py
+→ grouped immutable Web view
+→ generator LaTeX
+→ conclusion LaTeX
+→ roles / phase / theorem metadata
+→ normal zero-occurrence handling
+→ focused tests: 13 passed
+→ Web compatibility tests: 40 passed
+
+Phase 121-5
 → browser/manual integration
-→ sigma_11 depth 0 / 1 / 2
-→ nu_prime replay
-→ group query coexistence
-→ operation query / query-proof coexistence
+→ nu_prime: 6 direct occurrences
+→ sigma_11: 0 direct explore occurrences
+→ eta_999: 0 occurrences as a normal result
+→ group / operation / query-proof coexistence
 → KaTeX rendering confirmed
 
-Phase 120-4
-→ documentation / completion audit
+Phase 121-final
+→ documentation update
 → repository-wide regression
 ```
 
-The final repository-wide Phase 120 regression was
+The final repository-wide Phase 121 regression was
 
 ```text
-9184 passed in 453.04s (0:07:33)
+9197 passed in 455.68s (0:07:35)
 ```
 
-No new theorem root, proof-search rule, query grammar, general \(E/H/\Delta\) evaluator, Toda-bracket solver, or qualified execution family was added in Phase 120.
+No new theorem root, proof-search rule, query grammar, general \(E/H/\Delta\) evaluator, Toda-bracket solver, qualified execution family, or recursive proof-scope semantics were added in Phase 121.
 
 ## Near-term roadmap
 
-The next phase should re-audit the remaining read-only Web capabilities before exposing execution.
-
-Primary candidates are
+The next planning target is the remaining read-only Web surface:
 
 ```text
-explore
 explore-proof
 explore-applicable
 ```
 
 `execute` remains later because it includes candidate selection, ambiguity, and execution semantics rather than read-only inspection.
 
+The next phase should audit which of the remaining read-only capabilities has the clearest structured presentation boundary and strongest user-facing value before implementing anything.
+
 ## Current boundaries
 
 The following remain intentionally deferred:
 
+- `explore-proof` Web integration,
+- `explore-applicable` Web integration,
+- `execute` Web integration,
 - theorem ranking and proof-cost optimization,
 - producer ranking,
 - general unbounded backtracking,

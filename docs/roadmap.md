@@ -20,48 +20,25 @@ n,k
 → report
 ```
 
-Web group query:
+現在の Web UI:
 
 ```text
-browser
-→ Flask
-→ thin Web group adapter
-→ existing calculation facade
-→ structured presentation
-→ existing LaTeX renderer
-→ KaTeX
+group query
+operation query
+query-proof
+generator show-proof
+generator explore
 ```
 
-Web operation query:
-
-```text
-browser query
-→ thin Web operation adapter
-→ existing operation-query facade
-→ existing structured presentation
-→ statement_latex
-→ KaTeX
-```
-
-Web query-proof:
-
-```text
-selected fact
-→ existing proof replay
-→ replay presentation
-→ provenance + proof steps
-→ KaTeX / safe fallback
-```
-
-Web generator proof:
+generator explore:
 
 ```text
 generator input
-→ thin Web generator-proof adapter
-→ existing known-group proof replay
-→ existing replay presentation
-→ generator / conclusion / proof-step rendering
-→ KaTeX / safe fallback
+→ thin Web generator-exploration adapter
+→ existing standard repository exploration
+→ existing structured exploration presentation
+→ grouping + metadata + LaTeX
+→ KaTeX
 ```
 
 現在利用できる限定 handoff:
@@ -84,6 +61,8 @@ LOOKUP_MISS != evaluator required
 Web UI != new mathematical engine
 depth control != new proof search
 show-proof != execute
+explore != explore-proof
+explore != execute
 ```
 
 ---
@@ -136,31 +115,34 @@ explicit fact selection + query-proof Web
 depth 0 / 1 / 2 + safe fallback + browser audit
 ```
 
-Phase 119:
+Phase 119–120:
 
 ```text
 next Web capability pressure audit
-show-proof / explore / explore-proof / explore-applicable / execute comparison
-show-proof selected as next minimal read-only Web capability
-```
-
-Phase 120:
-
-```text
-generator show-proof Web integration audit
-web_generator_proof thin adapter
-generator + conclusion + proof-step KaTeX
+show-proof selected
+generator show-proof Web integration
 depth 0 / 1 / 2
 safe unsupported-statement fallback
 browser/manual integration
-group / operation Web compatibility
-documentation / completion
 ```
 
-Phase 120 final regression:
+Phase 121:
 
 ```text
-9184 passed in 453.04s (0:07:33)
+remaining read-only Web capability audit
+explore selected ahead of explore-proof / explore-applicable
+web_generator_exploration thin adapter
+existing structured exploration presentation reuse
+grouped occurrence metadata
+KaTeX rendering
+zero-occurrence semantics preserved
+browser/manual integration
+```
+
+Phase 121 final regression:
+
+```text
+9197 passed in 455.68s (0:07:35)
 ```
 
 ---
@@ -173,105 +155,75 @@ Phase 120 final regression:
 python -m flask --app web_app run --debug
 ```
 
-group query:
-
-```text
-n
-k
-FOUND
-NOT_FOUND
-MULTIPLE_RESULTS
-KaTeX
-```
-
-operation query:
-
-```text
-H(nu_prime)
-Delta(iota_9)
-E(nu_5)
-E(sigma_11)
-```
-
-query-proof:
-
-```text
-explicit fact selection
-conclusion
-theorem / phase provenance
-repository depth
-proof steps
-rule names
-depth 0 / 1 / 2
-safe unsupported-statement fallback
-KaTeX
-```
-
-generator proof:
+generator exploration:
 
 ```text
 generator input
-known-group conclusion
-proof steps
-rule names
-depth 0 / 1 / 2
-safe unsupported-statement fallback
+generator LaTeX
+occurrence count
+Toda bracket grouping
+map-input grouping
+group-generator grouping
+composition-left grouping
+composition-right grouping
+other-occurrence grouping
+roles
+phase
+theorem
 KaTeX
 ```
 
 代表例:
 
 ```text
-sigma_11
-→ pi_18^11 = Z/16{sigma_11}
-
 nu_prime
-→ pi_6^3 = Z/4{nu_prime}
+→ 6 direct standard-repository occurrences
+
+sigma_11
+→ 0 direct explore occurrences
+
+eta_999
+→ 0 occurrences as a normal result
 ```
 
-まだ Web に接続していない主要 capability:
+`sigma_11` の direct `explore` が 0 件でも、recursive proof-scope の `explore-proof sigma_11` では既存 specialization により occurrence を得られる。
 
 ```text
 explore
-explore-proof
-explore-applicable
-execute
+!= explore-proof
 ```
 
 ---
 
-# 4. Phase 120 完了境界
-
-完了条件:
+# 4. Phase 121 完了境界
 
 ```text
 generator を browser から入力できる
-existing known-group replay を使う
-existing replay presentation を使う
+existing standard repository exploration を使う
+existing structured exploration presentation を使う
 CLI Markdown を解析しない
-generator / conclusion を LaTeX 表示する
-proof depth 0 / 1 / 2 を browser から選べる
-unsupported statement を safe fallback できる
-raw Python repr を browser へ漏らさない
-sigma_11 / nu_prime の browser replay が通る
+generator / occurrence conclusion を LaTeX 表示する
+roles / phase / theorem を表示する
+grouped section が空でも正常に扱う
+unknown indexed generator の 0 occurrence を正常結果として扱う
+explore sigma_11 の direct 0 occurrence semantics を維持する
+explore-proof semantics を混入させない
 group query を壊さない
 operation query / query-proof を壊さない
+generator proof を壊さない
 browser KaTeX smoke が通る
 repository-wide pytest が通る
 ```
 
-Phase 120 は完了。
+Phase 121 は完了。
 
 ---
 
 # 5. 次 Phase: remaining read-only Web capability audit
 
-次 Phase は `show-proof` 完了後の Web capability を再監査する。
-
-主候補:
+remaining read-only capability:
 
 ```text
-explore
 explore-proof
 explore-applicable
 ```
@@ -280,30 +232,20 @@ explore-applicable
 
 ```text
 既存 structured presentation の完成度
+Web 専用 presentation boundary を追加する必要があるか
 generator 入力だけで成立するか
-Web で grouping / metadata をどう見せるか
+結果量が browser usability に与える影響
+recursive proof-scope の root / depth / provenance をどう表示するか
+applicability の source / rule family / candidate grouping をどう表示するか
 CLI-only Markdown に依存していないか
 proof / provenance semantics を変えずに接続できるか
-候補数や表示量が browser usability に与える影響
 ```
 
-Phase 119 の監査では `explore` が `show-proof` に次ぐ有力候補だった。
+現時点では `explore-proof` は read-only で利用価値が高いが、`explore` より dedicated presentation boundary が弱い。
 
-一方、
+`explore-applicable` は structured presentation がある一方、候補量と UI 階層が大きく、次の候補選択 / execute workflow に近い。
 
-```text
-explore-proof
-```
-
-は dedicated presentation boundary が弱く、
-
-```text
-explore-applicable
-```
-
-は構造化 presentation はあるが候補量・UI 表示量が大きい。
-
-したがって次 Phase では `explore` を中心に再監査するが、実装対象は監査後に1つだけ決める。
+したがって次 Phase は両者を再監査し、実装する場合も1 capability に限定する。
 
 ---
 

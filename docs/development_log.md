@@ -157,11 +157,6 @@ toda_58_delta_iota9_nu4_nu_prime_inference_rule
 ```text
 797573 全 scope 候補
 → 176616 生成元関連候補
-```
-
-生成元関連 scope prefilter を実装。
-
-```text
 8.16 s / 62.42 MiB
 8712 passed in 337.86s
 ```
@@ -170,40 +165,15 @@ toda_58_delta_iota9_nu4_nu_prime_inference_rule
 
 `docs/development_log/phases_107.md`
 
-第1 family 限定実行を multi-family 実行へ拡張。
-
-第2 qualified family:
-
-```text
-toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
-```
-
-主要機能:
-
-```text
-正確な production application recovery
-NONE / UNIQUE / AMBIGUOUS recovery 状態
-正確な複数前提 seed
-2前提有界実行の統合
-明示的 root + source + family 選択
-一般 qualified-family admission
-family 名 dispatch
-multi-family 標準 facade
-```
-
-repository 全体:
+multi-family qualified execution へ拡張。
 
 ```text
 8783 passed in 290.63s
 ```
 
-Phase 107 は完了。
-
 ## Phase 108
 
-Phase 107 の内部 qualified execution を利用者向け workflow と CLI へ接続。
-
-主要機能:
+qualified execution を利用者向け workflow と CLI へ接続。
 
 ```text
 生成元入力
@@ -212,279 +182,47 @@ Phase 107 の内部 qualified execution を利用者向け workflow と CLI へ�
 → 候補一覧
 → 候補選択
 → qualified execution
-→ 最終実行済み ProofStep
 → 結果 + 証明表示
-→ CLI
 ```
-
-CLI:
-
-```text
-python main.py execute nu_prime
-python main.py execute nu_prime --candidate 1
-```
-
-Windows CP932 boundary を実 subprocess smoke で検出し、script entry point の stdout / stderr を UTF-8 化した。
-
-repository 全体:
 
 ```text
 8850 passed in 380.25s
 ```
 
-Phase 108 は完了。
-
 ## Phase 109
 
-Phase 108 後の運用監査から開始し、生成元問い合わせの利用者向け意味論と既知群の証明再生を閉じた。
-
-主要な流れ:
-
-```text
-既知群同一性
-→ 証明由来の ambient fallback
-→ indexed sigma 具体化
-→ proof-scope 統合
-→ qualified execution 境界監査
-→ 既知群の証明再生
-→ show-proof
-→ statement 表示 coverage
-→ 利用者向け表示順の確定
-```
-
-Toda Proposition 5.15:
+既知群同一性、indexed sigma 具体化、known-group proof replay、`show-proof` を統合。
 
 $$
 \pi_{n+7}^{n}=\mathbb Z/16\{\sigma_n\},
 \qquad n\ge 9.
 $$
 
-concrete indexed 具体化は $n\ge 10$ に限定し、symbolic higher step を直接 premise として保持する。
-
-```text
-show-proof != execute
-候補番号 != 定理順位付け
-concrete sigma_n specialization != 第3 qualified execution family
-```
-
-最終 repository 全体 regression:
-
 ```text
 8998 passed in 493.70s (0:08:13)
 ```
 
-Phase 109 は完了。
-
 ## Phase 110
 
-Phase 110 は利用者向け数学演算問い合わせの実需要監査から開始し、既存 repository / proof-scope にすでに表現されている数学的演算事実を直接検索・表示・証明再生できる経路を追加した。
-
-主要機能:
-
-```text
-最小 operation-query parser
-既存 H / E / Delta / 二項 composition 事実検索
-query CLI
-raw occurrence 保持
-同一 statement の表示 grouping
-浅い depth と安定 source 順による表示
-問い合わせ事実選択
-選択事実自身を root とする証明再生
-query-proof CLI
-限定的数学 statement 表示
-安全な aggregate type-name fallback
-```
-
-代表 CLI:
-
-```text
-python main.py query "H(nu_prime)"
-python main.py query "Delta(iota_9)"
-python main.py query "E(eta_2 o nu_prime)"
-python main.py query "eta_2 o nu_prime"
-
-python main.py query-proof "H(nu_prime)" --fact 1
-python main.py query-proof "H(nu_prime)" --fact 2
-python main.py query-proof "E(eta_2 o nu_prime)"
-```
-
-確定した境界:
+既存 repository / proof-scope の operation fact を query / query-proof から利用可能にした。
 
 ```text
 lookup != inference != evaluation
 deduplicated presentation != provenance deletion
 query-proof root = selected fact's own ProofStep
-fact number != theorem priority
 ```
-
-最終 repository 全体 regression:
 
 ```text
 9055 passed in 455.09s (0:07:35)
 ```
 
-Phase 110 は完了。
-
 ## Phase 111
 
-Phase 111 は新しい evaluator を先に作らず、Phase 110 までに揃った CLI capability を利用者視点で監査した。
-
-主要サブフェーズ:
+CLI capability audit、global help、symbolic dimension 表示、3-term top-level composition query、replay `--depth`、safe fallback を追加。
 
 ```text
-111-1:
-CLI inventory / discoverability audit
-
-111-2:
-command overlap / semantic boundary audit
-
-111-3:
-operation query grammar pressure audit
-
-111-4:
-proof replay usability audit
-
-111-5:
-full proof report presentation residual audit
-
-111-6:
-priority audit
-
-111-7:
-global CLI help / project-quantity wording minimal fix
-
-111-8:
-symbolic dimension presentation minimal fix
-
-111-9:
-3-term composition query minimal implementation
-
-111-10:
-proof replay --depth minimal exposure
-
-111-11:
-deep proof replay presentation residual audit
-
-111-12:
-deep show-proof safe fallback minimal fix
-
-final:
-residual audit / repository-wide regression
-```
-
-### 111-7: global CLI help
-
-主要コマンドを global help から発見可能にした。
-
-`n,k` の説明を通常の all-primary $\pi_{n+k}(S^n)$ と誤認しないよう、project quantity
-
-$$
-\pi_{n+k}^{n}
-$$
-
-すなわち free part + 2-primary component として明示した。
-
-### 111-8: symbolic dimension presentation
-
-symbolic dimension の表示で `ScalarSum(...)` / `ScalarSymbol(...)` が漏れる問題を修正。
-
-$$
-\pi_{n+7}^{n}
-$$
-
-を既存 scalar LaTeX renderer で表示するよう統一した。
-
-### 111-9: 3-term composition query
-
-実際の production fact
-
-$$
-\eta_2\circ(\nu'\circ\eta_6)
-$$
-
-に対応する最小 query として、
-
-```text
-eta_2 o nu_prime o eta_6
-```
-
-を追加した。
-
-CLI では
-
-$$
-\pi_7^2=\mathbb Z/2\{\eta_2\nu'\eta_6\}
-$$
-
-および
-
-$$
-E\eta_2\nu'\eta_6=0
-$$
-
-を既存 repository 事実として取得できることを確認した。
-
-一般 parser、四項以上、Unicode `∘`、三項 map-operation operand は追加していない。
-
-### 111-10: replay `--depth`
-
-既存 replay API の `max_depth` を CLI に最小公開。
-
-```text
-python main.py show-proof sigma_11 --depth 2
-python main.py query-proof "H(nu_prime)" --fact 1 --depth 2
-```
-
-default は従来どおり 1。
-
-```text
---depth 0
-→ root のみ
-
-negative depth
-→ argparse error
-```
-
-### 111-11 / 111-12: deep replay presentation
-
-`show-proof sigma_11 --depth 2` で unsupported aggregate statement の巨大な dataclass repr が露出する問題を確認。
-
-fallback を安全な type-name 表示へ変更した。
-
-```text
-`Toda45IsomorphismStatement`
-`TodaSigmaFamilyDefinitionStatement`
-```
-
-既に数式表示可能な
-
-$$
-\pi_{18}^{11}=\mathbb Z/16\{\sigma_{11}\},
-\qquad
-\pi_{n+7}^{n}=\mathbb Z/16\{\sigma_n\},
-\qquad
-\pi_{16}^{9}=\mathbb Z/16\{\sigma_9\}
-$$
-
-はそのまま維持した。
-
-### Phase 111 完了確認
-
-最終 repository 全体 regression:
-
-```text
-python -m pytest -q
 9074 passed in 446.27s (0:07:26)
 ```
-
-whitespace:
-
-```text
-git diff --check
-clean
-```
-
-Phase 111 は完了。
 
 ---
 
@@ -496,1053 +234,280 @@ Phase 111 は完了。
 
 既存履歴は原則として削除せず、誤りが確定した場合のみ必要な訂正を行う。
 
-現在機能の確認では次を優先する。
-
-```text
-README.md
-docs/design.md
-docs/roadmap.md
-docs/code_reference.md
-docs/proof_records.md
-```
-
 ## Phase 112
 
-Phase 112 は、Phase 111 で defer した syntax 項目を機械的に実装せず、現在の CLI を実際の数学的 workflow で使った際の capability pressure を監査した。
-
-代表元:
-
-```text
-nu_prime
-nu_5
-sigma_11
-```
-
-### Phase 112-1A: `nu_prime`
-
-通常経路は成功。
-
-pressure:
-
-```text
-E(nu_prime)       → LOOKUP_MISS
-Delta(nu_prime)   → LOOKUP_MISS
-E(3-term comp.)   → parser boundary
-```
-
-### Phase 112-1B: `nu_5`
-
-通常経路は成功。
-
-pressure:
-
-```text
-E(nu_5)                   → LOOKUP_MISS
-H(nu_5)                   → LOOKUP_MISS
-E(nu_5 o eta_8)           → LOOKUP_MISS
-E(3-term comp.)            → parser boundary
-four-term composition      → parser boundary
-```
-
-### Phase 112-1C: `sigma_11`
-
-```text
-show-proof sigma_11
-→ pi_18^11 = Z/16{sigma_11}
-```
-
-は成功した一方、
-
-```text
-python main.py 11 7
-```
-
-は当時 `NOT_FOUND`。
-
-これを
-
-```text
-generator-side specialization exists
-but TodaGroupQuery path does not reuse it
-```
-
-という orchestration gap と分類した。
-
-`execute sigma_11` は既存仕様どおり `NONE`。
-
-### Phase 112-2: operation / workflow capability gap classification
-
-観測結果を次に分類した。
-
-```text
-parser boundary
-repository lookup miss
-workflow / orchestration gap
-execution coverage boundary
-possible new inference / evaluator gap
-```
-
-最重要 gap は `sigma_11` group-query の orchestration 不一致。
-
-### Phase 112-3: lookup vs inference vs evaluator boundary
-
-重要な結論:
+実際の数学的 workflow で capability pressure を監査。
 
 ```text
 LOOKUP_MISS != evaluator required
 ```
 
-Phase 65 の既存 $\nu$-family stable transport には
-
-$$
-E^{n-5}\nu_5=\nu_n
-$$
-
-があり、$n=6$ では
-
-$$
-E(\nu_5)=\nu_6.
-$$
-
-したがって general evaluator を作る前に既存 inference / specialization への最小 handoff を検討すべきと確定した。
-
-### Phase 112-4: highest-pressure minimal capability selection
-
-最優先として、
-
-```text
-python main.py 11 7
-→ pi_18^11 = Z/16{sigma_11}
-```
-
-を既存 symbolic Proposition 5.15 specialization から再利用することを選定した。
-
-Phase 112 は audit / selection で閉じ、実装は Phase 113 に分離した。
-
-Phase 112 は完了。
+を重要境界として確認し、`sigma_11` group-query orchestration gap を Phase 113 の対象に選定。
 
 ## Phase 113
 
-Phase 113 は既存 indexed $\sigma_n$ specialization を `TodaGroupQuery` 経路へ最小接続した。
-
-既存 direct group lookup を優先し、見つからない場合のみ
+既存 indexed $\sigma_n$ specialization を `TodaGroupQuery` 経路へ最小接続。
 
 ```text
 query.k == 7
 query.n >= 10
 ```
 
-に限定して、既存 proof scope と
+で既存 proof scope specialization を再利用。
 
 ```text
-specialize_repository_proof_scope_for_generator(...)
-```
-
-を再利用する。
-
-例:
-
-$$
-\pi_{17}^{10}=\mathbb Z/16\{\sigma_{10}\},
-$$
-
-$$
-\pi_{18}^{11}=\mathbb Z/16\{\sigma_{11}\},
-$$
-
-$$
-\pi_{19}^{12}=\mathbb Z/16\{\sigma_{12}\}.
-$$
-
-重要な境界:
-
-```text
-empty repository → NOT_FOUND
-repository root を追加しない
-k != 7 には適用しない
-n < 10 には適用しない
-symbolic Proposition 5.15 provenance を保持
-operation-query semantics は変更しない
-execute sigma_11 semantics は変更しない
-```
-
-focused tests:
-
-```text
-Phase 113 new tests: 7 passed
-Phase 109-22: 26 passed
-Phase 109-24: 10 passed
-Phase 100-12c1: 5 passed
-Phase 100-12c2: 5 passed
-```
-
-full regression:
-
-```text
-python -m pytest -q
 9081 passed in 434.58s (0:07:14)
-```
-
-Phase 113 は完了。
-
-### Phase 113 後の運用方針（当時）
-
-次候補 Phase 114 は、general evaluator を作るのではなく、
-
-$$
-E(\nu_5)=\nu_6
-$$
-
-のような既存 inference capability を operation query へ最小 handoff できるかを扱う方針とした。
-
-```text
-direct lookup first
-→ lookup miss
-→ 許可された最小 existing inference handoff
-→ provenance 保持
 ```
 
 ## Phase 114
 
-Phase 114 は Phase 112 で確認した `E(nu_5)` の lookup miss を、general evaluator ではなく既存 symbolic inference への最小 handoff として解消した。
-
-### Phase 114-1: existing inference path audit
-
-Phase 65 の既存 production proof に
+既存 Toda Proposition 5.6 の
 
 $$
 E^{n-5}\nu_5=\nu_n
 $$
 
-が存在し、
-
-```text
-toda_prop56_higher_nu_family_bridge_inference_rule()
-```
-
-によって構築されていることを確認した。
-
-既存 bridge の provenance は
-
-```text
-nu_5 definition
-nu_n definition
-n >= 6
-```
-
-を保持している。
-
-したがって $n=6$ では
+を再利用し、
 
 $$
 E(\nu_5)=\nu_6
 $$
 
-を既存数学から得られることを確認した。
-
-新しい定理規則は不要と判定した。
-
-### Phase 114-2: minimal handoff design audit
-
-operation query の既存意味論を維持するため、
+を exact handoff として operation query へ接続。
 
 ```text
-query
-→ direct lookup
-→ hit なら従来結果
-→ miss
-→ exact E(nu_5) guard
-→ theorem-specific concrete specialization
-→ result + provenance
-```
-
-とする設計を採用した。
-
-一般 `repository_inference.py` を query miss 全般に接続しない。
-
-Phase 109 の $\sigma_n$ specialization と同様に、
-
-```text
-concrete ProofStep
-→ premise: existing symbolic ProofStep
-```
-
-という provenance-preserving specialization を用いる。
-
-### Phase 114-3: `E(nu_5)` minimal handoff implementation
-
-追加:
-
-```text
-repository_nu5_stable_bridge_specialization.py
-```
-
-変更:
-
-```text
-repository_operation_query_facade.py
-```
-
-direct lookup の結果がある場合は必ずそのまま返す。
-
-direct miss かつ exact `E(nu_5)` の場合のみ、
-
-$$
-E(\nu_5)=\nu_6
-$$
-
-の concrete `ProofStep` を生成する。
-
-concrete step の direct premise は既存 symbolic bridge である。
-
-`repository_operation_query_lookup.py`、`repository_operation_query_proof_replay.py`、`main.py` は変更しなかった。
-
-focused tests:
-
-```text
-9 passed
-```
-
-Phase 110 operation-query / proof replay regression:
-
-```text
-24 passed
-```
-
-CLI:
-
-```text
-python main.py query "E(nu_5)"
-→ Eν_5 = ν_6
-
-python main.py query-proof "E(nu_5)"
-→ concrete specialization
-→ symbolic Proposition 5.6 bridge
-
-python main.py query-proof "E(nu_5)" --depth 2
-→ ν_5 definition
-→ ν_n definition
-→ n >= 6
-```
-
-### Phase 114-4: minimal handoff regression / boundary audit
-
-production code は追加変更せず、境界テストを拡張した。
-
-固定した境界:
-
-```text
-direct E fact は優先
-direct H fact は優先
-direct Delta fact は優先
-H(nu_5) には拡張しない
-Delta(nu_5) には拡張しない
-E(nu_6) には拡張しない
-E(sigma_11) には拡張しない
-E(nu_5 o eta_8) には拡張しない
-三項 map-operation operand は parser boundary のまま
-四項 composition は parser boundary のまま
-repository は非変更
-```
-
-Phase 114 focused boundary tests:
-
-```text
-16 passed
-```
-
-Phase 110 / 111 / 114 関連回帰:
-
-```text
-60 passed
-```
-
-repository 全体 regression:
-
-```text
-python -m pytest -q
 9097 passed in 449.47s (0:07:29)
 ```
 
-Phase 114 は完了。
-
-### Phase 114 後の残件
-
-symbolic bridge の表示が
-
-```text
-E^{n + -1\,5}ν_5 = ν_n
-```
-
-となる箇所がある。
-
-数学的内容は
-
-$$
-E^{n-5}\nu_5=\nu_n
-$$
-
-であり、これは Phase 114 の inference handoff ではなく scalar LaTeX presentation の残件として分離する。
-
-次 Phase は Phase 114 の handoff を機械的に一般化せず、残存する operation / workflow pressure を再監査して最小の次対象を選ぶ。
-
 ## Phase 115
 
-Phase 115 は Phase 114 の成功を一般化することから始めず、残存する operation / workflow pressure を再監査した。
-
-### Phase 115-1: post-Phase 114 capability pressure audit
-
-代表候補:
-
-```text
-E(sigma_11)
-H(nu_5)
-H(sigma_11)
-Delta(sigma_11)
-E(nu_prime)
-Delta(nu_prime)
-```
-
-を、
-
-```text
-existing direct fact
-existing symbolic inference / specialization
-new inference required
-presentation-only issue
-parser boundary
-execution boundary
-```
-
-へ分類する方針を採用した。
-
-### Phase 115-2: existing mathematics reuse audit
-
-最も明確な reuse candidate は `E(sigma_11)` と判定した。
-
-既存 Toda Lemma 5.14 の $\sigma$-family definition:
-
-$$
-\sigma_n=E^{n-8}\sigma_8
-$$
-
-から、
-
-$$
-\sigma_{11}=E^3\sigma_8,
-\qquad
-\sigma_{12}=E^4\sigma_8
-$$
-
-を既存 infrastructure で具体化できる。
-
-一方で operation-query が直接検索できる
+既存 Toda Lemma 5.14 の $\sigma$-family definition を再利用し、
 
 $$
 E(\sigma_{11})=\sigma_{12}
 $$
 
-という `Relation` は repository root に存在していなかった。
-
-したがって、
+を exact handoff として接続。
 
 ```text
-new mathematics is not required
-but theorem-specific definitional handoff is required
-```
-
-と分類した。
-
-`E(nu_prime)` については既存 proof 内に $E\nu'$ や $E^2\nu'$ が部分式として現れるが、
-
-```text
-expression occurrence
-!= operation result relation
-```
-
-であり、同じ reuse pattern とは分類しなかった。
-
-### Phase 115-3: next minimal capability selection / design audit
-
-exact
-
-```text
-E(sigma_11)
-```
-
-のみを次の最小対象として選定した。
-
-設計:
-
-```text
-query
-→ direct lookup
-→ hit なら従来結果
-→ miss
-→ exact E(sigma_11) guard
-→ existing symbolic sigma-family definition
-→ sigma_11 / sigma_12 concrete definitions
-→ E(sigma_11) = sigma_12
-→ provenance
-```
-
-general `E(sigma_n)` evaluator は対象外とした。
-
-`repository_operation_query_lookup.py`、parser、renderer、repository root は変更しない方針とした。
-
-### Phase 115-4: `E(sigma_11)` minimal operation-query handoff implementation
-
-追加:
-
-```text
-repository_sigma11_suspension_specialization.py
-tests/test_phase115_sigma11_operation_query_handoff.py
-```
-
-変更:
-
-```text
-repository_operation_query_facade.py
-tests/test_phase114_3_nu5_operation_query_handoff.py
-```
-
-Phase 114 の $\nu_5$-specific guard 自体は `E(sigma_11)` を受理しないことを維持しつつ、facade に独立した exact $\sigma_{11}$ handoff を追加した。
-
-concrete result:
-
-$$
-E(\sigma_{11})=\sigma_{12}.
-$$
-
-provenance:
-
-```text
-E(sigma_11) = sigma_12
-→ TodaSigmaFamilyDefinitionStatement
-→ TodaLemma514Sigma8Statement
-→ ScalarGreaterEqualStatement
-```
-
-CLI:
-
-```text
-python main.py query "E(sigma_11)"
-→ E sigma_11 = sigma_12
-
-python main.py query-proof "E(sigma_11)" --depth 2
-→ concrete operation relation
-→ Toda Lemma 5.14 sigma-family definition
-→ sigma_8 branch / range premise
-```
-
-focused:
-
-```text
-Phase 115 dedicated:
-14 passed
-
-Phase 114 compatibility:
-16 passed
-```
-
-関連回帰:
-
-```text
-97 passed in 19.14s
-```
-
-実装途中で PowerShell の既定文字コードにより `ν` / `σ` を含むテストファイルが文字化けする問題が発生した。
-
-これは production semantics の問題ではなく編集手順上の encoding issue であり、Git HEAD / package から UTF-8 を復元し、以後の修正を Python UTF-8 I/O で行って解消した。
-
-### Phase 115-5: post-implementation boundary audit
-
-`E(sigma_11)` 解消後、残存 pressure を再分類した。
-
-```text
-H(nu_5)
-→ new mathematical inference required
-
-H(sigma_11)
-→ related low-dimensional mathematics exists
-→ reusable H family bridge is not currently present
-
-Delta(sigma_11)
-→ reusable concrete / family relation is not currently present
-
-E(nu_prime)
-→ E nu_prime occurs as an expression
-→ operation-result relation is not present
-
-Delta(nu_prime)
-→ direct / reusable family inference is not currently present
-
-E(nu_5 o eta_8)
-→ composition-operation inference boundary
-
-three-term map-operation operand
-→ parser boundary
-
-four-term composition
-→ parser boundary
-
-execute sigma_11
-→ execution coverage boundary
-```
-
-したがって Phase 115 では追加 capability を広げず、exact `E(sigma_11)` で停止することを確定した。
-
-### Phase 115-6: documentation / closure
-
-Phase 115 の current architecture、proof provenance、remaining boundary を文書へ反映した。
-
-repository 全体 regression:
-
-```text
-python -m pytest -q
 9111 passed in 432.54s (0:07:12)
 ```
 
-Phase 115 は完了。
-
-次 Phase は Phase 115 の handoff を自動的に一般化せず、残存する数学的 pressure、presentation-only residual、parser / execution boundary の優先度を再監査してから最小対象を選ぶ。
-
 ## Phase 116
 
-Phase 116 は Phase 115 の operation handoff を一般化せず、利用者から早期の TeX-capable Web UI が必要という要求を受け、既存 capability を Web へ安全に接続できるかを監査した。
-
-### Phase 116-1: calculation / renderer / report path audit
-
-既存の group query 経路を確認した。
+TeX-capable Web UI の readiness audit。
 
 ```text
-build_standard_toda_report(n,k)
-→ TodaCalculationReportResult
-→ TodaCalculationReportCandidate
-→ structured presentation
-→ existing human-readable renderer
+Flask
+KaTeX
+thin Web adapter
+structured presentation reuse
+CLI output / Markdown は再解析しない
 ```
 
-Web UI では CLI 出力や Markdown を再解析せず、structured presentation を直接利用する方針を確定した。
+## Phase 117
 
-group 表示では既存
+最小 group-query Web UI を実装し、KaTeX 表示を確認。
+
+## Phase 118
+
+operation query / query-proof を Web UI へ接続。
 
 ```text
-render_toda_group_result_latex(...)
+9169 passed in 465.97s (0:07:45)
 ```
 
-を再利用する。
+## Phase 119
 
-代表結果:
+次の Web capability を監査し、`show-proof` を選定。
 
-\[
-\pi_{18}^{11}\cong
-\mathbb Z/16\{\sigma_{11}\}.
-\]
+## Phase 120
 
-### Phase 116-2: Web framework / TeX renderer audit
-
-最小 Web framework として Flask を選定した。
-
-理由:
+known-group `show-proof` を Web UI へ接続。
 
 ```text
-form → Python facade → Jinja
-という最小経路に適する
-既存 Python architecture と直接接続しやすい
-REST API / SPA を先取りしない
+web_generator_proof.py
+depth 0 / 1 / 2
+safe fallback
 ```
 
-browser-side TeX renderer は KaTeX を選定した。
-
-既存 renderer が生成する
-
 ```text
-\mathbb
-\cong
-\oplus
-\xrightarrow
-\text
-Greek commands
+9184 passed in 453.04s (0:07:33)
 ```
 
-との互換性を確認した。
+## Phase 121
 
-### Phase 116-3: Web-facing adapter boundary audit
+Phase 121 は Phase 120 後に残った read-only Web capability を再監査し、`explore` を最小の次対象として Web UI へ接続した。
 
-Flask route に数学 orchestration を直接埋め込まず、group query 専用の thin adapter を置く設計を採用した。
+新しい数学的 theorem、proof-search rule、qualified execution family、operation-query grammar は追加していない。
+
+### Phase 121-1: remaining read-only Web capability audit
+
+対象:
 
 ```text
-Flask route
-→ thin Web group adapter
-→ build_standard_toda_report(n,k)
-→ structured presentation
-→ existing LaTeX renderer
-→ small Web view model
+explore
+explore-proof
+explore-applicable
+```
+
+監査結果:
+
+```text
+explore
+→ existing facade
+→ structured RepositoryGeneratorExplorationPresentation
+→ conclusion_latex
+→ grouped occurrence views
+→ Web 化の境界が最も小さい
+
+explore-proof
+→ read-only
+→ structured result はある
+→ dedicated Web presentation boundary は explore より弱い
+
+explore-applicable
+→ rich structured presentation はある
+→ source / rule family / candidate 階層と表示量が大きい
+→ execute workflow に近い
+```
+
+`execute` は candidate selection・ambiguity・execution semantics を伴うため対象外とした。
+
+### Phase 121-2: `explore` Web integration selection
+
+```text
+scope:
+read-only direct generator exploration only
+
+not included:
+explore-proof
+explore-applicable
+execute
+candidate selection
+qualified execution
+```
+
+### Phase 121-3: Web adapter boundary design
+
+```text
+browser
+→ Flask route
+→ web_generator_exploration.py
+→ explore_standard_repository_generator_input(...)
+→ RepositoryGeneratorExplorationReport
+→ RepositoryGeneratorExplorationPresentation
+→ Web-specific immutable view
 → Jinja
 → KaTeX
 ```
 
-generic Web service hierarchy、base adapter、protocol、DI framework は導入しない。
+CLI Markdown は解析しない。
 
-### Phase 116-4: scalar LaTeX / validation boundary audit
-
-既存 scalar renderer の
-
-```text
-E^{n + -1\,5}ν_5
-```
-
-は presentation-only residual であり、Phase 117 group query の blocker ではないと判定した。
-
-validation は
-
-```text
-Web syntax conversion
-!= mathematical validation
-```
-
-と分離する。
-
-`TodaGroupQuery` の domain:
-
-```text
-n > 0
-k >= 0
-```
-
-は既存 Python 層に保持する。
-
-### Phase 116-5: Phase 117 implementation boundary audit
-
-Phase 117 の最小構成を確定した。
-
-```text
-requirements.txt
-web_group_query.py
-web_app.py
-templates/index.html
-static/web_math.js
-tests/test_phase117_web_group_query.py
-tests/test_phase117_web_app.py
-```
-
-Phase 117 で operation query / proof replay / explore / execute を先取りしないことを確定した。
-
-Phase 116 は完了。
-
-## Phase 117
-
-Phase 117 は既存 `TodaGroupQuery` 計算を browser から利用できる最小 TeX Web UI を実装した。
-
-### Phase 117-1: Minimal TeX Web UI implementation
+### Phase 121-4: minimal implementation + focused tests
 
 追加:
 
 ```text
-web_group_query.py
-web_app.py
-templates/index.html
-static/web_math.js
-tests/test_phase117_web_group_query.py
-tests/test_phase117_web_app.py
+web_generator_exploration.py
+tests/test_phase121_4_web_generator_exploration.py
+tests/test_phase121_4_web_app_generator_exploration.py
 ```
 
 変更:
 
 ```text
-requirements.txt
-→ Flask==3.1.3
+web_app.py
+templates/index.html
 ```
 
-browser-side renderer:
+Web occurrence view:
 
 ```text
-KaTeX 0.18.7
+conclusion_latex
+role_labels
+phase
+theorem
 ```
 
-Web group adapter は、
+初回 focused test は `nu_prime` の Toda-bracket group が必ず非空という誤ったテスト前提により1件失敗した。
 
 ```text
-n,k
-→ build_standard_toda_report(n,k)
-→ TodaCalculationStatus
-→ FOUND の場合だけ structured group presentation
-→ render_toda_group_result_latex(...)
-→ WebGroupQueryView
+1 failed, 12 passed
 ```
 
-という thin boundary のみを持つ。
-
-`main.py`、Toda calculation semantics、repository、proof logic は変更していない。
-
-focused tests:
-
-```text
-tests/test_phase117_web_group_query.py
-4 passed
-
-tests/test_phase117_web_app.py
-5 passed
-
-tests/test_phase113_sigma_group_query_integration.py
-7 passed
-
-tests/test_phase96_human_readable_renderer.py
-14 passed
-```
-
-Flask development server の GET / POST と static JS 配信を browser で確認した。
-
-### Phase 117-2: Web UI integration / regression audit
-
-production code の追加変更は不要と判定した。
-
-Web / CLI の同一数学結果を直接 regression 固定した。
-
-代表:
-
-```text
-n = 11
-k = 7
-```
-
-Web と CLI の双方で
-
-\[
-\pi_{18}^{11}\cong
-\mathbb Z/16\{\sigma_{11}\}
-\]
-
-を確認する。
-
-追加で、
-
-```text
-negative k
-missing n
-MULTIPLE_RESULTS no-auto-selection
-```
-
-の境界を固定した。
-
-focused:
-
-```text
-tests/test_phase117_web_app.py
-9 passed
-
-tests/test_phase117_web_group_query.py
-4 passed
-
-tests/test_phase113_sigma_group_query_integration.py
-7 passed
-```
-
-### Phase 117-3: Web UI usability / browser smoke audit
-
-実 browser で Web UI を確認した。
-
-最初の HTML は
-
-```text
-n input: min="1"
-k input: min="0"
-```
-
-を持っていたため、domain-invalid input が Flask / `TodaGroupQuery` に到達する前に browser native validation で停止した。
-
-表示例:
-
-```text
-値は1以上にする必要があります。
-値は0以上にする必要があります。
-```
-
-Phase 116 で確定した
-
-```text
-Web syntax validation
-!= mathematical domain validation
-```
-
-を維持するため、`min` 属性だけを削除した。
-
-`required`、`type="number"`、`step="1"` は維持した。
-
-回帰テスト:
-
-```text
-HTML が min="1" / min="0" を持たない
-```
-
-を追加した。
+production code を再監査し、group は空でもよいことを確認。テストを「既存 presentation と Web view の grouping が一致する」不変条件へ修正した。
 
 修正後:
 
 ```text
-n=0, k=7
-→ n must be positive
+Phase 121 focused:
+13 passed in 7.05s
 
-n=11, k=-1
-→ k must be nonnegative
+existing Web compatibility:
+40 passed in 10.14s
 ```
 
-focused:
+### Phase 121-5: browser/manual integration check
+
+`nu_prime`:
 
 ```text
-tests/test_phase117_web_app.py
-10 passed
-
-tests/test_phase117_web_group_query.py
-4 passed
+Occurrences: 6
+Group generators
+Composition left
+Composition right
+Roles
+Phase
+Theorem
+KaTeX
 ```
 
-browser で
+`sigma_11`:
 
 ```text
-n=11
-k=7
+Occurrences: 0
 ```
 
-を入力し、KaTeX により
-
-\[
-\pi_{18}^{11}\cong
-\mathbb Z/16\{\sigma_{11}\}
-\]
-
-が生の TeX 文字列ではなく実際の数式として描画されることを確認した。
-
-### Phase 117-4: documentation / completion audit
-
-Phase 116–117 の Web architecture、validation boundary、current capability、Phase 118 以降の予定を `README.md`、`docs/design.md`、`docs/roadmap.md`、`docs/development_log.md` に反映する。
-
-Phase 117 は新しい数学的 proof を追加していないため `docs/proof_records.md` は変更しない。
-
-最終 closure 条件:
+これは Web adapter の不具合ではない。
 
 ```text
-documentation current
-focused Web regression passed
-browser KaTeX smoke passed
-repository-wide pytest passed
+explore sigma_11
+→ standard production repository の direct occurrence は 0
+
+explore-proof sigma_11
+→ specialized recursive proof-scope occurrence を得られる
 ```
 
-repository-wide pytest は Phase 117 の最後に1回だけ実行する。
-
-## Phase 118
-
-Phase 118 は、Phase 117 で確立した group-query Web boundary を既存 operation query / query-proof capability へ拡張した。
-
-新しい数学的定理、query grammar、general evaluator は追加していない。
-
-### Phase 118-1: Web operation-query boundary audit
-
-既存 operation-query facade / presentation / replay を再監査し、
+したがって、
 
 ```text
-Web
-→ existing operation-query facade
-→ existing structured presentation
-→ statement_latex
-→ KaTeX
+explore != explore-proof
+direct occurrence != specialized proof-scope occurrence
 ```
 
-および
+という既存境界を維持した。
+
+`eta_999`:
 
 ```text
-selected fact
-→ existing proof replay
-→ existing replay presentation
-→ Web
+Occurrences: 0
 ```
 
-をそのまま利用する方針を確定した。
+unknown indexed generator は正常な zero-occurrence result として表示した。
 
-### Phase 118-2: operation query Web UI
-
-追加:
+既存 Web capability も確認:
 
 ```text
-web_operation_query.py
-tests/test_phase118_web_operation_query.py
-tests/test_phase118_web_app.py
+group query n=11, k=7
+operation query / query-proof E(sigma_11)
+generator proof
+KaTeX
 ```
 
-変更:
+### Phase 121-final: documentation / completion
 
-```text
-web_app.py
-templates/index.html
-static/web_math.js
-```
-
-代表 query:
-
-```text
-H(nu_prime)
-Delta(iota_9)
-E(nu_5)
-E(sigma_11)
-```
-
-既存 `statement_latex` を直接利用し、複数 fact は全件表示して自動選択しない。
-
-focused regression:
-
-```text
-67 passed in 15.95s
-```
-
-### Phase 118-3: query-proof Web integration
-
-追加:
-
-```text
-web_operation_query_proof.py
-tests/test_phase118_web_operation_query_proof.py
-```
-
-各 fact を明示選択し、selected fact 自身の `ProofStep` を既存 proof replay の root とした。
-
-Web 表示:
-
-```text
-conclusion
-provenance
-repository depth
-proof steps
-rule name
-```
-
-focused regression:
-
-```text
-91 passed in 21.78s
-```
-
-### Phase 118-4: depth / browser usability audit
-
-Web では proof depth
-
-```text
-0
-1
-2
-```
-
-を選択可能にした。
-
-unsupported statement は既存 type-name fallback を利用し、raw dataclass repr を browser に漏らさない。
-
-`static/web_math.js` は全 `[data-latex]` 要素を KaTeX 描画する。
-
-Flask development server を実 browser で確認し、`POST /` は HTTP 200、`/static/web_math.js` も正常取得された。
-
-### Phase 118-5: documentation / completion
-
-Phase 118 の current architecture、Web capability、depth boundary、safe fallback、次 Phase の境界を
+更新対象:
 
 ```text
 README.md
@@ -1551,210 +516,26 @@ docs/roadmap.md
 docs/development_log.md
 ```
 
-へ反映した。
+Phase 121 は新しい数学的 proof / theorem root / ProofStep provenance を追加していないため、`docs/proof_records.md` は変更しない。
 
-Phase 118 は新しい数学的 proof を追加していないため、`docs/proof_records.md` は変更しない。
-
-Phase 118 final repository-wide regression:
+repository-wide regression:
 
 ```text
 python -m pytest -q
-9169 passed in 465.97s (0:07:45)
+9197 passed in 455.68s (0:07:35)
 ```
 
-Phase 118 は完了。
+Phase 121 は完了。
 
-次の Phase 119 は、`show-proof`、`explore`、`explore-proof`、`explore-applicable`、`execute` のうち、次に Web 接続する価値が高い capability を再監査する。
+### Phase 121 後の境界
 
-特に `execute` は qualified candidate selection を伴うため、read-only capability と同じ境界で機械的に公開しない。
-
-## Phase 119
-
-Phase 119 は Phase 118 までに Web 化された group query / operation query / query-proof の次に、どの既存 capability を Web へ接続する価値が高いかを監査した。
-
-候補:
+remaining read-only Web capability:
 
 ```text
-show-proof
-explore
-explore-proof
-explore-applicable
-execute
-```
-
-### Phase 119-1: Web capability boundary audit
-
-現行コードと関連テストを再監査した。
-
-`show-proof`:
-
-```text
-generator
-→ existing known-group proof replay
-→ structured replay presentation
-→ existing renderer
-```
-
-既存の `RepositoryGeneratorKnownGroupProofReplayPresentation` があり、read-only である。
-
-`explore`:
-
-```text
-generator
-→ repository element exploration
-→ structured exploration presentation
-→ conclusion_latex
-```
-
-既存 structured presentation があり、Web 化しやすい。
-
-`explore-proof` は専用 presentation boundary が `show-proof` / `explore` より弱く、`explore-applicable` は structured presentation があるものの候補量・grouping・表示量が大きい。
-
-`execute` は candidate selection と execution semantics を伴うため read-only capability より後段とした。
-
-### Phase 119-2: next minimal Web capability selection
-
-`show-proof` と `explore` を比較し、Phase 120 の対象として `show-proof` を選定した。
-
-理由:
-
-```text
-既存 structured replay presentation がある
-generator 1入力で成立する
-Phase 118 の proof depth UI を再利用できる
-operation query-proof と利用者向け意味論が揃う
-新しい数学 engine を必要としない
-read-only である
-```
-
-`explore` は次候補として保持した。
-
-Phase 119 は audit / selection で完了し、実装は Phase 120 に分離した。
-
-## Phase 120
-
-Phase 120 は CLI `show-proof` で利用していた既存 known-group proof replay を Web UI へ最小接続した。
-
-新しい数学的定理、proof-search rule、qualified execution family は追加していない。
-
-### Phase 120-1: generator show-proof Web integration audit
-
-既存経路:
-
-```text
-build_standard_repository_generator_known_group_proof_replay_input(...)
-→ RepositoryGeneratorKnownGroupProofReplayResult
-→ build_repository_generator_known_group_proof_replay_presentation(...)
-→ RepositoryGeneratorKnownGroupProofReplayPresentation
-```
-
-を確認した。
-
-既存 replay result は `generator`、`source_node`、`root_step`、`steps`、`max_depth` を保持し、Web 表示に必要な ancestry は既に存在した。
-
-### Phase 120-2: generator proof Web view adapter implementation
-
-追加:
-
-```text
-web_generator_proof.py
-tests/test_phase120_2_web_generator_proof.py
-tests/test_phase120_2_web_app_generator_proof.py
-```
-
-変更:
-
-```text
-web_app.py
-templates/index.html
-```
-
-generator proof view:
-
-```text
-generator_input
-generator_latex
-conclusion_latex
-steps
-max_depth
-```
-
-proof step:
-
-```text
-depth
-statement_latex | fallback_type_name
-rule_name
-```
-
-Web では proof depth `0 / 1 / 2` のみを公開した。
-
-既存 known-group replay、既存 renderer を再利用し、CLI Markdown は再解析しない。
-
-focused + Phase 118 compatibility regression:
-
-```text
-44 passed in 19.29s
-```
-
-### Phase 120-3: browser/manual integration check
-
-実 browser で `sigma_11` の depth 0 / 1 / 2、`nu_prime` の replay、既存 group query、既存 operation query / query-proof、KaTeX 表示を確認した。
-
-代表結果:
-
-\[
-\pi_{18}^{11}
-=
-\mathbb Z/16\{\sigma_{11}\},
-\]
-
-\[
-\pi_6^3
-=
-\mathbb Z/4\{\nu'\},
-\]
-
-\[
-E(\sigma_{11})
-=
-\sigma_{12}.
-\]
-
-depth 2 の unsupported aggregate statement は safe type-name fallback で表示され、raw Python repr は露出しなかった。
-
-### Phase 120-4: documentation / completion audit
-
-Phase 120 の current architecture、Web capability、depth / safe fallback boundary、次 Phase の境界を
-
-```text
-README.md
-docs/design.md
-docs/roadmap.md
-docs/development_log.md
-```
-
-へ反映した。
-
-Phase 120 は新しい数学的 proof / theorem root / ProofStep provenance を追加していないため、`docs/proof_records.md` は変更しない。
-
-Phase 120 final repository-wide regression:
-
-```text
-python -m pytest -q
-9184 passed in 453.04s (0:07:33)
-```
-
-Phase 120 は完了。
-
-次 Phase は `show-proof` 完了後の remaining read-only Web capability を再監査する。
-
-主候補:
-
-```text
-explore
 explore-proof
 explore-applicable
 ```
 
-`execute` は candidate selection・ambiguity・execution semantics を伴うため、read-only capability より後段とする。
+`execute` は引き続き read-only capability より後段とする。
+
+次 Phase は remaining read-only capability を再監査し、structured presentation boundary と browser 表示量を比較してから、必要なら1 capability だけを選ぶ。
