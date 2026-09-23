@@ -62,8 +62,8 @@ def test_phase133_9_pi16_9_depth_two_uses_final_sigma_labels(
   assert captured.err == ""
 
   expected_labels = (
-    "Theorem 3.6 と Lemma 5.14 を結ぶ σ″ の関係",
-    "Toda Lemma 5.14 の σ′ に関する結果",
+    "Theorem 3.6 から Lemma 5.14 への σ″ bridge",
+    "Toda Lemma 5.14 の σ′ branch",
     "Toda Lemma 5.14 の σ₈ に関する結果",
     "σ-family の定義",
   )
