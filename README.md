@@ -17,15 +17,12 @@ The current system provides:
 - operation-query proof replay,
 - theorem-specific indexed \(\sigma_n\) specialization,
 - deliberately narrow existing-proof handoffs for \(E(\nu_5)=\nu_6\) and \(E(\sigma_{11})=\sigma_{12}\),
-- a Flask Web UI for group queries, operation queries, operation proof replay, generator known-group proof replay, direct generator exploration, recursive generator proof-scope exploration, and read-only applicability exploration,
-- explicit operation-fact selection for proof replay,
+- a Flask Web UI for group queries, operation queries, operation proof replay, generator proof replay, direct generator exploration, recursive generator proof-scope exploration, applicability exploration, and qualified generator execution,
+- explicit candidate selection when an execution request is ambiguous,
 - browser-side KaTeX rendering of existing LaTeX output,
 - Web proof replay with selectable depth 0, 1, or 2,
 - safe type-name fallback for unsupported proof statements,
-- read-only direct Web exploration that preserves existing repository grouping and metadata,
-- read-only recursive proof-scope Web exploration that preserves existing root / depth / match semantics,
-- read-only compact applicability Web exploration that preserves existing source / rule-family presentation semantics while bounding browser output volume.
-- workflow navigation that groups the existing single-page Web forms by calculation/query, proof/exploration, and applicability without changing route or execution semantics.
+- workflow navigation that groups the single-page Web forms by calculation/query, proof/exploration, and applicability/execution.
 
 ## Mathematical scope
 
@@ -141,6 +138,7 @@ The proof infrastructure supports:
 - operation-query result deduplication without losing raw provenance,
 - operation-query proof replay rooted at the selected fact's actual `ProofStep`,
 - theorem-specific `E(nu_5)` and `E(sigma_11)` handoffs that preserve existing symbolic proof provenance,
+- user-facing qualified execution with explicit `NONE`, `AMBIGUOUS`, and `EXECUTED` states,
 - user-selected replay depth,
 - safe mathematical rendering with explicit type-name fallback for unsupported aggregate statements.
 
@@ -178,103 +176,9 @@ returns
 
 ## Web UI
 
-The Web UI is intentionally a thin presentation layer over existing calculation, operation-query, proof-replay, direct exploration, recursive proof-scope, and applicability infrastructure.
+The Web UI is intentionally a thin presentation layer over existing calculation, operation-query, proof-replay, exploration, applicability, and qualified-execution infrastructure.
 
-Phase 124 adds a lightweight workflow navigation layer to the existing single-page UI. It groups the current forms by purpose and links to their existing sections. It does not add a new route, mathematical capability, candidate-selection action, or execution workflow.
-
-The group-query path is
-
-```text
-browser form
-→ Flask route
-→ thin Web group-query adapter
-→ build_standard_toda_report(n, k)
-→ structured presentation
-→ existing LaTeX renderer
-→ Jinja template
-→ KaTeX
-```
-
-The operation-query path is
-
-```text
-browser operation query
-→ Flask route
-→ thin Web operation-query adapter
-→ existing operation-query facade
-→ existing structured presentation
-→ statement_latex
-→ Jinja template
-→ KaTeX
-```
-
-The operation proof path is
-
-```text
-selected fact
-→ existing operation-query proof replay
-→ existing replay presentation
-→ statement presentation
-→ provenance + proof steps
-→ Jinja template
-→ KaTeX
-```
-
-The generator proof path is
-
-```text
-generator input
-→ thin Web generator-proof adapter
-→ existing known-group proof replay
-→ existing replay presentation
-→ existing statement / generator LaTeX rendering
-→ proof steps + safe fallback
-→ Jinja template
-→ KaTeX
-```
-
-The direct generator exploration path is
-
-```text
-generator input
-→ thin Web generator-exploration adapter
-→ explore_standard_repository_generator_input(...)
-→ existing RepositoryGeneratorExplorationPresentation
-→ Web-only immutable view
-→ grouped occurrence metadata + LaTeX
-→ Jinja template
-→ KaTeX
-```
-
-The recursive proof-scope exploration path is
-
-```text
-generator input
-→ thin Web generator-proof-scope adapter
-→ explore_standard_repository_generator_proof_scope_input(...)
-→ existing RepositoryProofScopeExplorationResult
-→ Web-only immutable view
-→ occurrence / Toda membership / map relation counts
-→ root / depth / match metadata
-→ Jinja template
-→ KaTeX
-```
-
-The applicability exploration path is
-
-```text
-generator input
-→ thin Web generator-applicability adapter
-→ explore_standard_repository_generator_applicability_input(...)
-→ existing RepositoryGeneratorApplicabilityExplorationResult
-→ existing RepositoryGeneratorApplicabilityPresentation
-→ compact Web-only immutable view
-→ source groups + rule families + counts
-→ Jinja template
-→ KaTeX
-```
-
-The Web UI does not parse CLI output or Markdown and does not implement a second mathematical engine.
+It does not parse CLI output or Markdown and does not implement a second mathematical engine.
 
 Current Web files include
 
@@ -287,6 +191,7 @@ web_generator_proof.py
 web_generator_exploration.py
 web_generator_proof_scope.py
 web_generator_applicability.py
+web_generator_execution.py
 templates/index.html
 static/web_math.js
 ```
@@ -296,7 +201,7 @@ The Python dependency is Flask 3.1.3. Browser-side mathematical rendering uses K
 Run the local development server with
 
 ```powershell
-python -m flask --app web_app run --debug
+python -m flask --app web_app:create_app run
 ```
 
 and open
@@ -304,6 +209,27 @@ and open
 ```text
 http://127.0.0.1:5000/
 ```
+
+### Web workflow
+
+The single-page UI is grouped as follows.
+
+```text
+Calculation and queries
+→ Group query
+→ Operation query
+
+Proof and exploration
+→ Generator proof
+→ Generator exploration
+→ Generator proof-scope exploration
+
+Applicability
+→ Applicable theorem / lemma candidates
+→ Execute theorem / lemma candidate
+```
+
+The navigation links are presentation-only anchors. Their order is not a theorem ranking.
 
 ### Group query
 
@@ -321,7 +247,7 @@ which is rendered as
 \mathbb Z/16\{\sigma_{11}\}.
 \]
 
-### Operation query
+### Operation query and query-proof
 
 Representative Web operation queries are
 
@@ -334,23 +260,9 @@ E(sigma_11)
 
 Multiple mathematical facts are listed explicitly. A fact is not automatically selected for proof replay.
 
-### Web query-proof
+The selected fact is replayed from its own existing `ProofStep`. The Web result can show theorem / phase provenance, bounded proof steps, rule names, KaTeX-renderable statements, and safe type-name fallback.
 
-Each presented operation fact has an explicit proof-selection action.
-
-The selected fact is replayed from its own existing `ProofStep`, and the Web result shows:
-
-- the selected conclusion,
-- theorem / phase provenance when available,
-- repository depth,
-- bounded proof steps,
-- rule names,
-- KaTeX-renderable statements,
-- safe type-name fallback for unsupported aggregate statements.
-
-### Web generator proof
-
-The browser can replay an existing known-group proof by generator input.
+### Generator proof
 
 Representative inputs are
 
@@ -360,37 +272,15 @@ nu_prime
 nu_5
 ```
 
-For `sigma_11`, the result is
+For `nu_prime`:
 
 \[
-\pi_{18}^{11}
-=
-\mathbb Z/16\{\sigma_{11}\}.
+\pi_6^3=\mathbb Z/4\{\nu'\}.
 \]
 
-For `nu_prime`, the result is
+The browser exposes replay depth choices `0`, `1`, and `2`. Depth selection changes only visible existing ancestry; it does not perform new proof search.
 
-\[
-\pi_6^3
-=
-\mathbb Z/4\{\nu'\}.
-\]
-
-The browser exposes replay depth choices
-
-```text
-0
-1
-2
-```
-
-for both operation proof replay and generator proof replay.
-
-Depth 0 shows only the replay root. Depth selection changes only the visible existing ancestry. It does not perform new proof search.
-
-### Web generator exploration
-
-The browser can inspect where one generator occurs directly in the standard production repository.
+### Generator exploration
 
 Representative inputs are
 
@@ -401,22 +291,18 @@ sigma_11
 eta_999
 ```
 
-For `nu_prime`, the Phase 121 browser check showed six direct repository occurrences. The Web view preserves existing grouping and displays conclusion LaTeX, roles, phase, and theorem metadata.
+For `nu_prime`, the direct repository exploration returns six occurrences.
 
-Unknown indexed generators preserve the existing exploration semantics:
+Unknown indexed generators preserve zero-result semantics:
 
 ```text
 eta_999
 → Occurrences: 0
 ```
 
-This is a normal exploration result, not a not-found error.
+This is a normal result, not a not-found error.
 
-`explore sigma_11` returns zero direct standard-repository occurrences.
-
-### Web generator proof-scope exploration
-
-The browser can inspect recursive proof ancestry for one generator without changing proof-scope semantics.
+### Generator proof-scope exploration
 
 Representative inputs are
 
@@ -426,13 +312,13 @@ sigma_11
 eta_999
 ```
 
-For `sigma_11`, the direct and recursive exploration semantics intentionally differ:
+For `sigma_11`:
 
 ```text
-generator explore sigma_11
+direct exploration
 → Occurrences: 0
 
-generator proof-scope exploration sigma_11
+proof-scope exploration
 → Proof-scope occurrences: 1
 ```
 
@@ -444,13 +330,11 @@ Toda memberships: 0
 Map relations: 0
 ```
 
-This is a normal result, not an error.
+### Applicability exploration
 
-### Web applicability exploration
+The browser can inspect read-only theorem / lemma applicability candidates.
 
-The browser can inspect read-only applicable theorem / lemma candidates for one generator.
-
-The Web path preserves the existing applicability presentation hierarchy:
+The presentation hierarchy is
 
 ```text
 generator
@@ -461,12 +345,9 @@ generator
 → rule families
 ```
 
-The Web adapter does not select a candidate, execute a rule, expose candidate identity as an execution control, or parse CLI Markdown.
-
-Representative Phase 123 browser results:
+Representative `nu_prime` counts are
 
 ```text
-nu_prime
 Proof-scope occurrences: 626
 Applicability candidates: 176616
 Source statements with candidates: 542
@@ -474,55 +355,76 @@ Rule groups: 123300
 Rule families: 29308
 ```
 
-The `nu_prime` source categories were
-
-```text
-Toda memberships: 46
-Map relations: 44
-Other statements: 452
-```
-
-To keep the generated browser page bounded without changing the underlying result:
+To keep browser output bounded while preserving the underlying result:
 
 ```text
 at most 5 source statements are rendered per category
 at most 10 rule families are rendered per displayed source
 rule-family details use a collapsed <details> element
-full summary counts remain visible
-omitted source / rule-family counts are shown explicitly
+full aggregate counts remain visible
+omitted counts are shown explicitly
 ```
 
-For `sigma_11`:
+### Generator execution
+
+Phase 125 connects the existing qualified user-execution workflow to the Web UI.
+
+The path is
 
 ```text
-Proof-scope occurrences: 1
-Applicability candidates: 686
-Source statements with candidates: 1
-Rule groups: 472
-Rule families: 112
+generator input
+→ thin Web execution adapter
+→ existing execution workflow facade
+→ executable target resolution
+→ NONE / AMBIGUOUS / EXECUTED
+→ candidate selection when required
+→ existing qualified execution
+→ existing executed ProofStep
+→ structured result + proof
+→ Jinja
+→ KaTeX
 ```
 
-The source statement includes
+The Web adapter does not resolve candidates independently, rank targets, add a new execution family, or parse CLI Markdown.
+
+`NONE` is presented as a normal no-target result.
+
+```text
+eta_999
+→ No executable target found for this generator.
+```
+
+`AMBIGUOUS` presents existing candidates and requires explicit selection.
+
+For `nu_prime`, the browser exposes the same two executable targets as the CLI:
 
 \[
-\pi_{18}^{11}=\mathbb Z/16\{\sigma_{11}\}.
+\pi_6^2=\mathbb Z/4\{\eta_2\nu'\},
 \]
 
-For `eta_999`:
+and
+
+\[
+\Delta(\iota_9)=\pm(2\nu_4-E\nu').
+\]
+
+Selecting candidate 1 or 2 delegates the candidate number back to the existing execution facade.
+
+`EXECUTED` presents:
 
 ```text
-Proof-scope occurrences: 0
-Applicability candidates: 0
-Source statements with candidates: 0
-Rule groups: 0
-Rule families: 0
+Result
+Premises
+Rule
+Conclusion
+Provenance
 ```
 
-This is a normal result, not an error.
+The browser/manual audit also confirmed that the current `nu_5` execution result matches the existing CLI behavior. Phase 125 deliberately does not change generator-to-target resolution semantics.
 
 ## Operation query
 
-Operation query is lookup-first.
+Operation query remains lookup-first.
 
 Representative results include
 
@@ -548,81 +450,77 @@ and
 E(\sigma_{11})=\sigma_{12}.
 \]
 
-The two narrow theorem-specific handoffs do not turn `query` into a general inference engine or evaluator.
+The narrow theorem-specific handoffs do not turn `query` into a general inference engine or evaluator.
 
-## Phase 124 closure
+## Phase 125 closure
 
-Phase 124 audited whether `execute` should be connected to the Web UI immediately or whether the existing single-page UI should first be made easier to navigate.
-
-The audit selected the smaller UI-organization change first.
+Phase 125 connected the existing `execute` workflow to the single-page Web UI without changing mathematical or execution semantics.
 
 ```text
-Phase 124-1
-→ current single-page Web UI audited
-→ existing execute workflow audited
-→ explore-applicable → execute boundary reviewed
+Phase 125-1
+→ current execution workflow and Phase 108 tests audited
+→ NONE / AMBIGUOUS / EXECUTED structure confirmed
+→ candidate and execution presentations confirmed reusable
 
-Phase 124-2
-→ Web UI organization selected before execute Web integration
-→ both were not implemented together
+Phase 125-2
+→ Web integration scope frozen
+→ generator → candidates → explicit selection → execution → Result + Proof
+→ no ranking, new qualified family, or general proof search
 
-Phase 124-3
-→ minimal navigation-only design
-→ existing Flask route retained
-→ existing forms retained
-→ no new Web adapter or mathematical semantics
+Phase 125-3
+→ thin Web adapter design fixed
+→ structured facade/presentation reuse
+→ no CLI Markdown parsing
 
-Phase 124-4
-→ workflow navigation added to templates/index.html
-→ existing six input sections received stable anchor targets
-→ no web_app.py change
-→ no execute form or candidate-selection control
-→ new focused tests: 5 passed in 3.83s
-→ focused Web regression: 38 passed in 44.51s
+Phase 125-4
+→ web_generator_execution.py added
+→ web_app.py and templates/index.html connected
+→ focused regression: 14 passed in 29.80s
 
-Phase 124-5
-→ browser/manual integration audit
-→ workflow navigation verified
-→ nu_prime / nu_5 / sigma_11 applicability displays verified
-→ existing compact applicability volume limits preserved
-→ KaTeX rendering preserved
+Phase 125-5
+→ browser/manual audit
+→ nu_prime candidate list and selection verified
+→ eta_999 NONE verified
+→ KaTeX verified
+→ existing Web capabilities coexist
+→ nu_5 Web result confirmed equal to existing CLI result
 
-Phase 124-final
+Phase 125-final
 → documentation updated
 → repository-wide regression passed
 ```
 
-The final repository-wide Phase 124 regression was
+The final repository-wide Phase 125 regression was
 
 ```text
-9234 passed in 522.10s (0:08:42)
+9243 passed in 555.37s (0:09:15)
 ```
 
-No new theorem root, proof-search rule, query grammar, general \(E/H/\Delta\) evaluator, Toda-bracket solver, qualified execution family, candidate-selection semantics, or execution semantics were added in Phase 124.
+No new theorem root, proof-search rule, query grammar, general \(E/H/\Delta\) evaluator, Toda-bracket solver, qualified execution family, theorem ranking, candidate ranking, or generator-to-target resolution semantics were added in Phase 125.
 
 ## Near-term roadmap
 
-Phase 125 is the next implementation phase.
+The next phase should audit user-execution target resolution before adding more execution capability.
 
-Its target is the existing user execution workflow:
+The main pressure observed during Phase 125 is that a generator input can participate in an executable proof whose conclusion is not the most obvious generator-centered result. For example, the current `nu_5` Web execution matches the CLI and resolves to the existing \(\pi_6^2\) qualified execution path.
+
+Phase 126 should therefore audit:
 
 ```text
-generator
+generator occurrence / relevance
 → executable target resolution
-→ NONE / AMBIGUOUS / EXECUTED
-→ candidate selection when required
-→ qualified execution
-→ result + proof
+→ target ordering / inclusion semantics
+→ user expectation
 ```
 
-The Web integration should reuse the existing structured execution facade and presentation objects. It should not parse CLI Markdown, invent a second execution engine, rank candidates, or broaden the admitted qualified execution families.
+This is an audit first. It should not introduce ranking or new execution semantics unless an actual defect is demonstrated.
 
 ## Current boundaries
 
 The following remain intentionally deferred:
 
-- `execute` Web integration,
-- candidate-selection UI,
+- semantic executable-target ranking,
+- automatic "best target" selection,
 - theorem ranking and proof-cost optimization,
 - producer ranking,
 - general unbounded backtracking,

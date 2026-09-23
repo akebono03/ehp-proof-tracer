@@ -91,6 +91,11 @@
                 Applicable theorem / lemma candidates
               </a>
             </li>
+            <li>
+              <a href="#generator-execution-query">
+                Execute theorem / lemma candidate
+              </a>
+            </li>
           </ul>
         </li>
       </ul>
@@ -398,6 +403,53 @@
         nu_prime,
         nu_5,
         sigma_11
+      </p>
+    </section>
+
+
+    <section
+      id="generator-execution-query"
+      aria-labelledby="generator-execution-query-heading"
+    >
+      <h2 id="generator-execution-query-heading">
+        Execute theorem / lemma candidate
+      </h2>
+
+      <p>
+        Execute an existing qualified target for one generator.
+      </p>
+
+      <form method="post">
+        <input
+          type="hidden"
+          name="form_kind"
+          value="generator_execution"
+        >
+
+        <p>
+          <label for="execution-generator-input">
+            Generator
+          </label>
+          <input
+            id="execution-generator-input"
+            name="execution_generator_input"
+            type="text"
+            required
+            value="{{ execution_generator_input_value }}"
+            placeholder="nu_prime"
+          >
+        </p>
+
+        <button type="submit">
+          Execute
+        </button>
+      </form>
+
+      <p>
+        Examples:
+        nu_prime,
+        nu_5,
+        eta_999
       </p>
     </section>
 
@@ -958,6 +1010,143 @@
             {% endif %}
           {% endif %}
         {% endfor %}
+      </section>
+    {% endif %}
+
+    {% if generator_execution_view %}
+      <section
+        aria-labelledby="generator-execution-heading"
+      >
+        <h2 id="generator-execution-heading">
+          Generator execution
+        </h2>
+
+        <h3>
+          Generator
+        </h3>
+
+        <div
+          id="generator-execution-generator"
+          data-latex="{{ generator_execution_view.generator_latex }}"
+        >{{ generator_execution_view.generator_latex }}</div>
+
+        {% if generator_execution_view.status.value == "none" %}
+          <p>
+            No executable target found for this generator.
+          </p>
+        {% elif generator_execution_view.status.value == "ambiguous" %}
+          <h3>
+            Executable candidates
+          </h3>
+
+          <ol>
+            {% for candidate in generator_execution_view.candidates %}
+              <li class="generator-execution-candidate">
+                {% if candidate.statement_latex %}
+                  <div
+                    class="generator-execution-candidate-math"
+                    data-latex="{{ candidate.statement_latex }}"
+                  >{{ candidate.statement_latex }}</div>
+                {% else %}
+                  <p>
+                    <code>
+                      {{ candidate.fallback_type_name }}
+                    </code>
+                  </p>
+                {% endif %}
+
+                <form method="post">
+                  <input
+                    type="hidden"
+                    name="form_kind"
+                    value="generator_execution"
+                  >
+                  <input
+                    type="hidden"
+                    name="execution_generator_input"
+                    value="{{ generator_execution_view.generator_input }}"
+                  >
+                  <input
+                    type="hidden"
+                    name="execution_candidate"
+                    value="{{ candidate.candidate_number }}"
+                  >
+
+                  <button type="submit">
+                    Execute candidate {{ candidate.candidate_number }}
+                  </button>
+                </form>
+              </li>
+            {% endfor %}
+          </ol>
+        {% elif generator_execution_view.status.value == "executed" %}
+          <h3>
+            Execution result
+          </h3>
+
+          <div
+            id="generator-execution-conclusion"
+            data-latex="{{ generator_execution_view.conclusion_latex }}"
+          >{{ generator_execution_view.conclusion_latex }}</div>
+
+          <h3>
+            Proof
+          </h3>
+
+          <h4>
+            Premises
+          </h4>
+
+          {% if generator_execution_view.premises %}
+            <ol>
+              {% for premise in generator_execution_view.premises %}
+                <li class="generator-execution-premise">
+                  {% if premise.statement_latex %}
+                    <div
+                      class="generator-execution-premise-math"
+                      data-latex="{{ premise.statement_latex }}"
+                    >{{ premise.statement_latex }}</div>
+                  {% else %}
+                    <code>
+                      {{ premise.fallback_type_name }}
+                    </code>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ol>
+          {% else %}
+            <p>none</p>
+          {% endif %}
+
+          <h4>
+            Rule
+          </h4>
+          <p>
+            {{ generator_execution_view.rule_name }}
+          </p>
+
+          <h4>
+            Conclusion
+          </h4>
+          <div
+            class="generator-execution-conclusion-math"
+            data-latex="{{ generator_execution_view.conclusion_latex }}"
+          >{{ generator_execution_view.conclusion_latex }}</div>
+
+          <h4>
+            Provenance
+          </h4>
+          <p>
+            {% if generator_execution_view.provenance.theorem %}
+              {{ generator_execution_view.provenance.theorem }}
+              {% if generator_execution_view.provenance.phase %}
+                — Phase {{ generator_execution_view.provenance.phase }}
+              {% endif %}
+            {% else %}
+              {{ generator_execution_view.provenance.key }}
+            {% endif %}
+          </p>
+        {% endif %}
       </section>
     {% endif %}
 

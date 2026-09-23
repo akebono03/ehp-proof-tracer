@@ -22,7 +22,7 @@
 
 `docs/proof_records/toda_5_11_to_5_16.md`
 
-## 安定 stem $G_0$ から $G_7$
+## 安定 stem \(G_0\) から \(G_7\)
 
 `docs/proof_records/stable_stems_g0_g7.md`
 
@@ -46,11 +46,11 @@ Toda 群問い合わせ、群正規化、EHP / 証明 provenance、表示 / レ�
 
 代表結果:
 
-$$
+\[
 \nu' \in \{\eta_3,2\iota_4,\eta_4\}_1,
 \qquad
 H(\nu')=\eta_5.
-$$
+\]
 
 ## Phase 103
 
@@ -62,39 +62,9 @@ $$
 表示順 != 定理順位付け
 ```
 
-## Phase 104
+## Phase 104–108 qualified execution provenance
 
-選択候補を READY 検証、明示的 final rule による有界探索、事前構築済み report の実行へ接続。
-
-```text
-8644 passed in 374.63s
-```
-
-## Phase 105
-
-最初の標準 qualified family:
-
-```text
-toda_58_delta_iota9_nu4_nu_prime_inference_rule
-```
-
-```text
-8709 passed in 659.02s
-```
-
-## Phase 106
-
-`docs/proof_records/performance_applicability_106.md`
-
-```text
-797573 全 scope 候補
-→ 176616 生成元関連候補
-
-8.16 s / 62.42 MiB
-8712 passed in 337.86s
-```
-
-## Phase 107 multi-family qualified execution provenance
+Phase 104–108 は applicability candidate から安全な qualified execution と user-facing execute workflow までを構築した。
 
 admission 済み family:
 
@@ -105,23 +75,15 @@ toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
 
 第2 family は既存の
 
-$$
+\[
 \pi_6^2=\mathbb Z/4\{\eta_2\nu'\}
-$$
+\]
 
 を導く2前提 production rule である。
 
 複数前提候補から companion premise を任意探索せず、同じ root / rule / goal / source identity を満たす既存 production application を一意に recovery する。
 
-```text
-8783 passed in 290.63s
-```
-
-Phase 107 は完了。
-
-## Phase 108 利用者向け実行 provenance
-
-新しい数学的定理事実は追加していない。
+利用者向け workflow:
 
 ```text
 生成元入力
@@ -136,11 +98,11 @@ Phase 107 は完了。
 候補番号 != 定理順位付け
 ```
 
+Phase 108 final:
+
 ```text
 8850 passed in 380.25s
 ```
-
-Phase 108 は完了。
 
 ## Phase 109 既知群同一性 / 証明再生 provenance
 
@@ -148,25 +110,10 @@ Phase 108 は完了。
 
 Toda Proposition 5.15:
 
-$$
+\[
 \pi_{n+7}^{n}=\mathbb Z/16\{\sigma_n\},
 \qquad n\ge 9.
-$$
-
-具体 integer index $n\ge 10$ に対して定理固有の具体化を導入。
-
-例:
-
-$$
-\pi_{18}^{11}=\mathbb Z/16\{\sigma_{11}\},
-\qquad
-\pi_{19}^{12}=\mathbb Z/16\{\sigma_{12}\}.
-$$
-
-```text
-concrete specialization
-→ symbolic Proposition 5.15 higher step
-```
+\]
 
 known-group proof replay:
 
@@ -186,13 +133,9 @@ show-proof != execute
 8998 passed in 493.70s (0:08:13)
 ```
 
-Phase 109 は完了。
-
 ## Phase 110 operation query / 証明再生 provenance
 
 Phase 110 は新しい数学的定理事実を追加していない。
-
-既存 repository / proof-scope に存在する relation・map statement・composition を利用者向け query から検索し、既存 `ProofStep` provenance を保持したまま表示・replay する経路を追加した。
 
 ```text
 検索 != 推論 != evaluator
@@ -204,11 +147,7 @@ query-proof replay != enclosing theorem replay
 9055 passed in 455.09s (0:07:35)
 ```
 
-Phase 110 は完了。
-
 ## Phase 111 CLI capability / user pressure audit
-
-Phase 111 は新しい数学的定理事実を追加していない。
 
 ```text
 3-term query != new theorem
@@ -220,11 +159,7 @@ safe type-name fallback != 推測した定理 branch
 9074 passed in 446.27s (0:07:26)
 ```
 
-Phase 111 は完了。
-
 ## Phase 112 operation / workflow capability audit
-
-Phase 112 は新しい数学的定理事実を追加していない。
 
 ```text
 LOOKUP_MISS != evaluator required
@@ -232,41 +167,21 @@ LOOKUP_MISS != evaluator required
 
 既存 capability の未接続箇所を優先する方針を確定した。
 
-## Phase 113 TodaGroupQuery / $\sigma_n$ specialization provenance
+## Phase 113 TodaGroupQuery / \(\sigma_n\) specialization provenance
 
-Phase 113 は新しい数学的定理 root を追加していない。
-
-既存 symbolic Proposition 5.15:
-
-$$
-\pi_{n+7}^{n}
-=
-\mathbb Z/16\{\sigma_n\},
-\qquad n\ge 9
-$$
-
-から、既存 theorem-specific concrete specialization を `TodaGroupQuery` 経路で再利用する。
+既存 symbolic Proposition 5.15 の theorem-specific concrete specialization を `TodaGroupQuery` 経路で再利用。
 
 ```text
 9081 passed in 434.58s (0:07:14)
 ```
 
-Phase 113 は完了。
-
 ## Phase 114 `E(nu_5)` existing-inference handoff provenance
 
-既存 Toda Proposition 5.6:
+既存 Toda Proposition 5.6 を再利用して、
 
-$$
-E^{n-5}\nu_5=\nu_n,
-\qquad n\ge 6
-$$
-
-を再利用して、
-
-$$
+\[
 E(\nu_5)=\nu_6
-$$
+\]
 
 を exact handoff として接続した。
 
@@ -280,22 +195,13 @@ concrete specialization
 9097 passed in 449.47s (0:07:29)
 ```
 
-Phase 114 は完了。
-
 ## Phase 115 `E(sigma_11)` existing-mathematics handoff provenance
 
-既存 Toda Lemma 5.14:
+既存 Toda Lemma 5.14 を再利用して、
 
-$$
-\sigma_n=E^{n-8}\sigma_8,
-\qquad n\ge 8
-$$
-
-を再利用して、
-
-$$
+\[
 E(\sigma_{11})=\sigma_{12}
-$$
+\]
 
 を exact handoff として接続した。
 
@@ -310,8 +216,6 @@ concrete definitional specialization
 9111 passed in 432.54s (0:07:12)
 ```
 
-Phase 115 は完了。
-
 ## Phase 116–122 Web presentation / exploration provenance boundary
 
 Phase 116–122 は新しい数学的定理事実を追加していない。
@@ -325,7 +229,7 @@ direct Web explore != recursive proof-scope explore
 safe fallback != inferred theorem statement
 ```
 
-Phase 122 final regression:
+Phase 122 final:
 
 ```text
 9212 passed in 455.16s (0:07:35)
@@ -333,20 +237,9 @@ Phase 122 final regression:
 
 ## Phase 123 applicability Web presentation provenance boundary
 
-Phase 123 は新しい数学的 theorem root、`ProofStep`、proof-search rule、qualified execution family を追加していない。
+Phase 123 は新しい mathematical theorem root、`ProofStep`、proof-search rule、qualified execution family を追加していない。
 
-既存 applicability infrastructure:
-
-```text
-RepositoryGeneratorApplicabilityExplorationResult
-RepositoryGeneratorApplicabilityPresentation
-ApplicabilitySourceGroupPresentation
-ApplicabilityRuleFamilyPresentation
-```
-
-を read-only Web view に射影した。
-
-重要な境界:
+既存 applicability infrastructure を read-only Web view に射影した。
 
 ```text
 applicability candidate
@@ -361,12 +254,9 @@ Web source limit
 
 Web rule-family limit
 != applicability-candidate deletion
-
-collapsed details
-!= provenance removal
 ```
 
-`nu_prime` の underlying result:
+`nu_prime` underlying result:
 
 ```text
 626 proof-scope occurrences
@@ -376,66 +266,15 @@ collapsed details
 29308 rule families
 ```
 
-Web は summary counts を保持したまま、browser 描画量だけを
-
-```text
-source:
-各 category 最大 5
-
-rule family:
-各 displayed source 最大 10
-```
-
-へ制限する。
-
-`sigma_11`:
-
-```text
-1 proof-scope occurrence
-686 applicability candidates
-1 source statement
-472 rule groups
-112 rule families
-```
-
-既存 known-group statement
-
-$$
-\pi_{18}^{11}
-=
-\mathbb Z/16\{\sigma_{11}\}
-$$
-
-が source として表示されるが、Phase 123 がこの数学的 statement を新しく証明したわけではない。
-
-`eta_999`:
-
-```text
-0 / 0 / 0 / 0 / 0
-```
-
-は normal zero applicability result である。
-
-Phase 123 focused:
-
-```text
-13 passed in 61.24s
-17 passed in 69.57s
-```
-
-Phase 123 final regression:
+Phase 123 final:
 
 ```text
 9229 passed in 509.16s (0:08:29)
 ```
 
-Phase 123 は presentation / read-only exploration の Phase であり、proof truth は既存 repository と `ProofStep` provenance に残る。
-
 ## Phase 124 Web workflow organization provenance boundary
 
-Phase 124 は新しい数学的 theorem root、`ProofStep`、proof-search rule、qualified execution family、operation-query grammar、candidate-selection semantics、execution semantics を追加していない。
-
-変更は Web presentation の navigation organization に限定される。
+Phase 124 は新しい theorem root、`ProofStep`、proof-search rule、qualified execution family、candidate-selection semantics、execution semantics を追加していない。
 
 ```text
 Workflow navigation
@@ -448,47 +287,121 @@ anchor link
 != qualified execution
 ```
 
-Phase 124 で追加した grouping:
-
-```text
-Calculation and queries
-Proof and exploration
-Applicability
-```
-
-は UI 上の分類であり、数学的 statement、proof provenance、repository grouping、applicability relevance category を新しく定義するものではない。
-
-重要な境界:
-
-```text
-Workflow category
-!= mathematical category
-
-navigation order
-!= theorem ranking
-
-section anchor
-!= proof reference
-
-UI organization
-!= new capability
-```
-
-Phase 124 focused regression:
-
-```text
-5 passed in 3.83s
-38 passed in 44.51s
-```
-
-Phase 124 final regression:
+Phase 124 final:
 
 ```text
 9234 passed in 522.10s (0:08:42)
 ```
 
-Phase 124 の proof truth は従来どおり既存 repository と `ProofStep` provenance に残る。
+## Phase 125 Web qualified-execution presentation provenance boundary
 
+Phase 125 は新しい数学的 theorem root、`ProofStep`、proof-search rule、qualified execution family、operation-query grammar、candidate-ranking semantics を追加していない。
+
+既存 user execution workflow:
+
+```text
+generator input
+→ executable target resolution
+→ NONE / AMBIGUOUS / EXECUTED
+→ explicit candidate selection when required
+→ qualified execution
+→ executed goal_step
+→ RepositoryGeneratorUserExecutionPresentation
+```
+
+を Web UI へ接続した。
+
+重要な境界:
+
+```text
+Web execution adapter
+!= proof engine
+!= resolver
+!= qualified execution engine
+!= theorem ranking
+
+candidate number
+!= theorem priority
+
+AMBIGUOUS
+!= permission to auto-select
+
+NONE
+!= mathematical impossibility
+
+Web Result + Proof
+!= new proof
+```
+
+### `nu_prime`
+
+Web / CLI の executable candidates:
+
+\[
+\pi_6^2=\mathbb Z/4\{\eta_2\nu'\},
+\]
+
+\[
+\Delta(\iota_9)=\pm(2\nu_4-E\nu').
+\]
+
+candidate 1 / 2 は既存 workflow の 1-based addressing であり、数学的優先順位を意味しない。
+
+### `eta_999`
+
+```text
+No executable target found for this generator.
+```
+
+は `NONE` の正常表示であり、
+
+```text
+数学的に何も言えない
+```
+
+ことを意味しない。
+
+### `nu_5`
+
+Phase 125 manual audit では Web execution が
+
+\[
+\pi_6^2=\mathbb Z/4\{\eta_2\nu'\}
+\]
+
+を返した。
+
+CLI:
+
+```text
+python main.py execute nu_5
+```
+
+も同じ結果を返した。
+
+したがってこの挙動は Phase 125 Web adapter が新しく作った定理関係ではなく、既存 executable-target resolution の結果である。
+
+```text
+Web result == CLI result
+```
+
+を確認したため Phase 125 の接続境界としては PASS。
+
+利用者 expectation と resolver semantics の整合性は次 Phase の監査対象とする。
+
+Phase 125 focused:
+
+```text
+14 passed in 29.80s
+```
+
+Phase 125 final regression:
+
+```text
+9243 passed in 555.37s (0:09:15)
+```
+
+Phase 125 の proof truth は従来どおり既存 repository と実際の executed `ProofStep` provenance に残る。
 
 ---
 
@@ -505,34 +418,23 @@ proof-scope 走査 != 定理探索
 適用候補 != 成功した証明
 関連度カテゴリ != 定理事実
 candidate ordering != 定理順位付け
-引き渡し検証 != 定理事実
-有界探索 report != 実行済み証明
+候補番号 != theorem priority
 qualified 候補 != 一意な実行対象
 production-application recovery != 新しい定理事実
 family dispatch != 定理順位付け
 性能最適化 != 定理事実
-user-facing resolver != 定理順位付け
-候補番号 != theorem priority
-CLI 表示 != 新しい定理事実
-既知群同一性 lookup != qualified execution
-symbolic 具体化 != 任意の AST 書き換え
 known-group 証明再生 != theorem application execution
 show-proof != execute
 operation-query 検索 != evaluator
 operation-query 結果 != 新しい定理事実
 deduplicated 表示 != provenance deletion
-表示順 != 定理順位付け
-query-proof fact number != theorem priority
 query-proof replay != enclosing theorem replay
 --depth != new proof search
-three-term query != composition evaluator
 safe type-name fallback != 推測した定理 branch
 LOOKUP_MISS != evaluator required
 TodaGroupQuery specialization reuse != new theorem
 limited operation handoff != general query inference
 theorem-specific concrete specialization != general evaluator
-expression occurrence != operation result relation
-related mathematics exists != reusable operation bridge
 Web applicability view != proof truth
 Web source truncation != source-result deletion
 Web rule-family truncation != candidate deletion
@@ -541,6 +443,10 @@ navigation order != theorem ranking
 section anchor != proof reference
 UI organization != new capability
 explore-applicable != execute
+Web execution adapter != execution semantics
+Web execution result != new theorem
+candidate selection form != theorem ranking
+CLI/Web consistency != semantic correctness proof
 ```
 
 既存記録は原則として削除せず、確定した意味論訂正がある場合のみ訂正する。
