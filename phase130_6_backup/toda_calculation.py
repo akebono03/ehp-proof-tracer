@@ -16,9 +16,6 @@ from repository_proof_scope import (
 from repository_symbolic_sigma_specialization import (
   specialize_repository_proof_scope_for_generator,
 )
-from repository_symbolic_stable_group_specialization import (
-  specialize_repository_proof_scope_for_toda_group_query,
-)
 from toda_calculation_goal_discovery import (
   discover_concrete_toda_calculation_goal_candidates,
 )
@@ -74,33 +71,6 @@ _LOW_DIMENSIONAL_TODA_GROUP_SOURCES = {
     "pi5_3",
     "59",
     "Toda Proposition 5.3",
-  ),
-  (
-    4,
-    2,
-  ): (
-    "pi6_4",
-    "59",
-    "Toda Proposition 5.3",
-  ),
-}
-
-
-_STABLE_TODA_GROUP_SOURCES = {
-  1: (
-    "eta",
-    "55",
-    "Toda Proposition 5.1",
-  ),
-  2: (
-    "eta_squared",
-    "59",
-    "Toda Proposition 5.3",
-  ),
-  3: (
-    "nu",
-    "65",
-    "Toda Proposition 5.6",
   ),
 }
 
@@ -191,12 +161,17 @@ def _is_canonical_low_dimensional_group_result(
     )
 
   if (
-    query.k != 2
-    or query.n not in (
+    query.n,
+    query.k,
+  ) not in (
+    (
       2,
+      2,
+    ),
+    (
       3,
-      4,
-    )
+      2,
+    ),
   ):
     return False
 
@@ -214,8 +189,22 @@ def _is_canonical_low_dimensional_group_result(
     return False
 
   expected_indices = (
-    query.n,
-    query.n + 1,
+    (
+      2,
+      3,
+    )
+    if (
+      query.n,
+      query.k,
+    )
+    == (
+      2,
+      2,
+    )
+    else (
+      3,
+      4,
+    )
   )
 
   return (
@@ -301,79 +290,6 @@ def _find_low_dimensional_toda_group_results(
   return ()
 
 
-def _find_specialized_stable_toda_group_results(
-  repository: ProofRepository,
-  query: TodaGroupQuery,
-):
-  source_metadata = (
-    _STABLE_TODA_GROUP_SOURCES.get(
-      query.k
-    )
-  )
-
-  if source_metadata is None:
-    return ()
-
-  scope = build_repository_proof_scope(
-    repository
-  )
-
-  specialized_scope = (
-    specialize_repository_proof_scope_for_toda_group_query(
-      scope,
-      query,
-    )
-  )
-
-  if specialized_scope is scope:
-    return ()
-
-  added_nodes = (
-    specialized_scope.nodes[
-      len(
-        scope.nodes
-      ):
-    ]
-  )
-
-  (
-    key_suffix,
-    phase,
-    theorem,
-  ) = source_metadata
-
-  results = []
-
-  for node in added_nodes:
-    if not is_toda_group_result_for_target(
-      node.proof_step.conclusion,
-      query.target,
-    ):
-      continue
-
-    specialized_entry = (
-      ProofRepositoryEntry(
-        key=(
-          "standard.toda.stable::"
-          f"{key_suffix}_{query.n}_specialization"
-        ),
-        step=node.proof_step,
-        phase=phase,
-        theorem=theorem,
-      )
-    )
-
-    results.append(
-      normalize_toda_group_result(
-        specialized_entry
-      )
-    )
-
-  return tuple(
-    results
-  )
-
-
 def _find_specialized_sigma_toda_group_results(
   repository: ProofRepository,
   query: TodaGroupQuery,
@@ -455,14 +371,6 @@ def build_known_toda_calculation_result(
   if not group_results:
     group_results = (
       _find_low_dimensional_toda_group_results(
-        repository,
-        query,
-      )
-    )
-
-  if not group_results:
-    group_results = (
-      _find_specialized_stable_toda_group_results(
         repository,
         query,
       )
