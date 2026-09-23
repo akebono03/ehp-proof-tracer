@@ -272,6 +272,49 @@
       </p>
     </section>
 
+    <section aria-labelledby="generator-applicability-query-heading">
+      <h2 id="generator-applicability-query-heading">
+        Applicable theorem / lemma candidates
+      </h2>
+
+      <p>
+        Explore compact read-only applicability candidates for one generator.
+      </p>
+
+      <form method="post">
+        <input
+          type="hidden"
+          name="form_kind"
+          value="generator_applicability"
+        >
+
+        <p>
+          <label for="applicability-generator-input">
+            Generator
+          </label>
+          <input
+            id="applicability-generator-input"
+            name="applicability_generator_input"
+            type="text"
+            required
+            value="{{ applicability_generator_input_value }}"
+            placeholder="nu_prime"
+          >
+        </p>
+
+        <button type="submit">
+          Explore applicable
+        </button>
+      </form>
+
+      <p>
+        Examples:
+        nu_prime,
+        nu_5,
+        sigma_11
+      </p>
+    </section>
+
     {% if error_message %}
       <p role="alert">
         {{ error_message }}
@@ -671,6 +714,129 @@
         {% endif %}
       </section>
     {% endif %}
+    {% if generator_applicability_view %}
+      <section
+        aria-labelledby="generator-applicability-heading"
+      >
+        <h2 id="generator-applicability-heading">
+          Applicable theorem / lemma candidates result
+        </h2>
+
+        <h3>
+          Generator
+        </h3>
+
+        <div
+          id="generator-applicability-generator"
+          data-latex="{{ generator_applicability_view.generator_latex }}"
+        >{{ generator_applicability_view.generator_latex }}</div>
+
+        <p>
+          Proof-scope occurrences:
+          {{ generator_applicability_view.occurrence_count }}
+        </p>
+
+        <p>
+          Applicability candidates:
+          {{ generator_applicability_view.candidate_count }}
+        </p>
+
+        <p>
+          Source statements with candidates:
+          {{ generator_applicability_view.source_count }}
+        </p>
+
+        <p>
+          Rule groups:
+          {{ generator_applicability_view.rule_group_count }}
+        </p>
+
+        <p>
+          Rule families:
+          {{ generator_applicability_view.rule_family_count }}
+        </p>
+
+        {% set applicability_sections = (
+          ("Toda memberships", generator_applicability_view.toda_memberships),
+          ("Map relations", generator_applicability_view.map_relations),
+          ("Other statements", generator_applicability_view.other_sources)
+        ) %}
+
+        {% for section_title, sources in applicability_sections %}
+          {% if sources %}
+            <h3>
+              {{ section_title }}
+            </h3>
+
+            <ol>
+              {% for source in sources %}
+                <li class="generator-applicability-source">
+                  {% if source.statement_latex %}
+                    <div
+                      class="generator-applicability-math"
+                      data-latex="{{ source.statement_latex }}"
+                    >{{ source.statement_latex }}</div>
+                  {% else %}
+                    <p>
+                      <code>
+                        {{ source.fallback_type_name }}
+                      </code>
+                    </p>
+                  {% endif %}
+
+                  <p>
+                    Root:
+                    {{ source.root_key }}
+                  </p>
+
+                  <p>
+                    Depth:
+                    {{ source.depth }}
+                  </p>
+
+                  <p>
+                    Source statement type:
+                    {{ source.source_statement_type }}
+                  </p>
+
+                  <p>
+                    Raw candidates:
+                    {{ source.raw_candidate_count }}
+                  </p>
+
+                  <p>
+                    Rule families:
+                    {{ source.rule_family_count }}
+                  </p>
+
+                  <ul>
+                    {% for rule_family in source.rule_families %}
+                      <li class="generator-applicability-rule-family">
+                        <p>
+                          Rule:
+                          {{ rule_family.name }}
+                        </p>
+
+                        <p>
+                          Catalog entries:
+                          {{ rule_family.catalog_entry_count }}
+                        </p>
+
+                        <p>
+                          Raw candidates:
+                          {{ rule_family.raw_candidate_count }}
+                        </p>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% endfor %}
+            </ol>
+          {% endif %}
+        {% endfor %}
+      </section>
+    {% endif %}
+
   </main>
 </body>
 </html>
