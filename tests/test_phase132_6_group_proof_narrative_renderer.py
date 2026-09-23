@@ -264,7 +264,7 @@ def test_phase132_6_depth_two_uses_nested_edges_before_parent_fact():
   )
 
 
-def test_phase132_6_unsupported_statement_prefers_rule_name_to_type_name():
+def test_phase132_6_sigma_family_statements_use_readable_labels():
   data = (
     build_phase132_6_sigma9_narrative(
       max_depth=1,
@@ -284,33 +284,66 @@ def test_phase132_6_unsupported_statement_prefers_rule_name_to_type_name():
     if edge.parent_step is presentation.root_step
   )
 
-  unsupported_with_rule = tuple(
+  expected_labels = {
+    (
+      "Toda48Pi16_9OrderAndE4InjectiveStatement"
+    ): (
+      "π₁₆⁹ の位数 16 と E⁴ の単射性"
+    ),
+    (
+      "TodaLemma514Sigma8Statement"
+    ): (
+      "Toda Lemma 5.14 の σ₈ に関する結果"
+    ),
+    (
+      "TodaSigmaFamilyDefinitionStatement"
+    ): (
+      "σ-family の定義"
+    ),
+  }
+
+  labelled_steps = tuple(
     edge.premise_step
     for edge in root_edges
     if (
-      edge.premise_step.inference_rule
-      is not None
-      and type(
+      type(
         edge.premise_step.conclusion
       ).__name__
-      in (
-        "Toda48Pi16_9OrderAndE4InjectiveStatement",
-        "TodaLemma514Sigma8Statement",
-        "TodaSigmaFamilyDefinitionStatement",
-      )
+      in expected_labels
     )
   )
 
-  assert unsupported_with_rule
+  assert {
+    type(
+      step.conclusion
+    ).__name__
+    for step in labelled_steps
+  } == set(
+    expected_labels
+  )
 
-  for step in unsupported_with_rule:
-    assert step.inference_rule.name in rendered
+  for step in labelled_steps:
+    type_name = type(
+      step.conclusion
+    ).__name__
+
     assert (
-      type(
-        step.conclusion
-      ).__name__
+      expected_labels[
+        type_name
+      ]
+      in rendered
+    )
+
+    assert (
+      type_name
       not in rendered
     )
+
+    if step.inference_rule is not None:
+      assert (
+        step.inference_rule.name
+        not in rendered
+      )
 
 
 def test_phase132_6_narrative_is_deterministic_and_non_mutating():

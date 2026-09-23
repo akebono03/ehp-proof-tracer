@@ -8,6 +8,39 @@ from toda_group_proof_presentation import (
 from toda_proof_narrative_renderer import (
   render_toda_proof_statement_latex,
 )
+from toda_rules import (
+  Toda48Pi16_9OrderAndE4InjectiveStatement,
+  TodaLemma514Sigma8Statement,
+  TodaSigmaFamilyDefinitionStatement,
+)
+
+
+def _group_proof_narrative_statement_label(
+  statement,
+) -> str | None:
+  if isinstance(
+    statement,
+    Toda48Pi16_9OrderAndE4InjectiveStatement,
+  ):
+    return (
+      "π₁₆⁹ の位数 16 と E⁴ の単射性"
+    )
+
+  if isinstance(
+    statement,
+    TodaLemma514Sigma8Statement,
+  ):
+    return (
+      "Toda Lemma 5.14 の σ₈ に関する結果"
+    )
+
+  if isinstance(
+    statement,
+    TodaSigmaFamilyDefinitionStatement,
+  ):
+    return "σ-family の定義"
+
+  return None
 
 
 def _render_group_proof_narrative_fact(
@@ -45,6 +78,15 @@ def _render_group_proof_narrative_fact(
       + latex
       + "$"
     )
+
+  label = (
+    _group_proof_narrative_statement_label(
+      statement
+    )
+  )
+
+  if label is not None:
+    return label
 
   if proof_step.inference_rule is not None:
     return proof_step.inference_rule.name
