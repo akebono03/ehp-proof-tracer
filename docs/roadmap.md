@@ -20,40 +20,15 @@ n,k
 → report
 ```
 
-現在の Web UI:
+operation query:
 
 ```text
-Workflow navigation
-
-Calculation and queries
-→ group query
-→ operation query
-
-Proof and exploration
-→ generator show-proof
-→ generator explore
-→ generator explore-proof
-
-Applicability
-→ generator explore-applicable
-→ generator execute
-```
-
-`query-proof` は operation query の selected fact から利用できる。
-
-generator execute:
-
-```text
-generator input
-→ existing applicability exploration
-→ qualified execution families
-→ executable relevance guard
-→ executable target resolution
-→ NONE / AMBIGUOUS / EXECUTED
-→ candidate selection when required
-→ existing qualified execution
-→ Result + Proof
-→ CLI / Web
+query
+→ direct lookup
+→ direct miss
+→ exact theorem-specific handoff
+→ presentation
+→ query-proof
 ```
 
 現在利用できる限定 handoff:
@@ -67,7 +42,11 @@ E(\sigma_{11})=\sigma_{12},
 \]
 
 \[
-E(\nu_5\eta_8)=0.
+E(\nu_5\eta_8)=0,
+\]
+
+\[
+E\nu' \in \pi_7^4.
 \]
 
 基本境界:
@@ -76,19 +55,18 @@ E(\nu_5\eta_8)=0.
 direct lookup first
 limited theorem-specific handoff != general query inference
 query != general evaluator
+GROUP_MEMBERSHIP != general membership evaluator
+group containment != operation result
 LOOKUP_MISS != evaluator required
-target-zero theorem-specific handoff != general target-zero evaluator
 Web UI != new mathematical engine
 depth control != new proof search
 show-proof != execute
 explore != explore-proof
 explore-proof != explore-applicable
-explore-applicable != candidate selection
+explore-applicable != execute
 proof-scope relevance != executable relevance
 applicability relevance != executable relevance
 candidate selection != theorem ranking
-executable relevance filtering != theorem ranking
-Web execution != second execution engine
 ```
 
 ---
@@ -118,196 +96,86 @@ Phase 112–115:
 ```text
 real workflow pressure audit
 symbolic sigma_n → TodaGroupQuery integration
-E(nu_5)=nu_6 existing-proof handoff
-E(sigma_11)=sigma_12 existing-proof handoff
+E(nu_5)=nu_6 handoff
+E(sigma_11)=sigma_12 handoff
 ```
 
-Phase 116–122:
+Phase 116–125:
 
 ```text
-Web readiness audit
-Flask / KaTeX
+Flask / KaTeX Web UI
 group query
 operation query / query-proof
 generator show-proof
-generator direct explore
-generator recursive explore-proof
-```
-
-Phase 123:
-
-```text
-explore-applicable Web audit
-read-only compact Web exposure
-existing applicability facade / presentation reuse
-browser-scale display-volume audit
-source / rule-family output limits
-```
-
-Phase 123 final regression:
-
-```text
-9229 passed in 509.16s (0:08:29)
-```
-
-Phase 124:
-
-```text
-execute Web readiness vs UI organization audit
-single-page workflow navigation
-existing section anchors
-execute / candidate selection deferred
-```
-
-Phase 124 final regression:
-
-```text
-9234 passed in 522.10s (0:08:42)
-```
-
-Phase 125:
-
-```text
-existing execute workflow audit
-NONE / AMBIGUOUS / EXECUTED Web boundary
-thin Web execution adapter
-explicit candidate selection
-Result + Proof + provenance display
-KaTeX integration
-browser/manual audit
-CLI/Web consistency audit
-```
-
-Phase 125 focused regression:
-
-```text
-14 passed in 29.80s
-```
-
-Phase 125 final regression:
-
-```text
-9243 passed in 555.37s (0:09:15)
+generator explore
+generator explore-proof
+generator explore-applicable
+generator execute
+workflow navigation
 ```
 
 Phase 126:
 
 ```text
-executable-target resolution audit
 proof-scope / applicability / executable relevance separation
-aggregate Prop.5.6 branch audit
-nu_prime / nu_5 / sigma_11 comparison
-minimal executable relevance guard
-nu_prime 2 targets preserved
-nu_5 unrelated pi6_2 target removed
-sigma_11 NONE preserved
-```
-
-Phase 126 focused regression:
-
-```text
-13 passed in 14.86s
-```
-
-Phase 126 final regression:
-
-```text
-9246 passed in 556.62s (0:09:16)
+nu_prime 2 executable targets preserved
+nu_5 unrelated pi6_2 executable target removed
 ```
 
 Phase 127:
 
 ```text
-post-Phase 126 capability priority audit
-remaining operation-query pressure comparison
-H(nu_5) / H(sigma_11) / Delta(sigma_11) deferred
-Delta(nu_prime) deferred
-E(nu_prime) kept for semantics audit
-E(nu_5 o eta_8) selected as the next minimum capability
+operation-query capability pressure audit
+E(nu_prime) retained for semantics audit
+E(nu_5 o eta_8) selected for the next minimum capability
 ```
 
 Phase 128:
 
 ```text
-E(nu_5 o eta_8) theorem-specific handoff
-direct lookup first
-exact two-generator composition guard
-Toda Proposition 5.8 provenance reuse
-standard.toda.prop58 root restriction
-duplicate specialized match elimination
+E(nu_5 o eta_8)=0 theorem-specific handoff
+Proposition 5.8 provenance reuse
 query-proof replay
 repository non-mutation
 ```
 
-Phase 128 focused regression:
-
-```text
-40 passed in 15.43s
-```
-
-Phase 128 final regression:
+final:
 
 ```text
 9256 passed in 570.10s (0:09:30)
 ```
 
----
-
-# 3. 現在の Web / CLI execution semantics
-
-`explore-applicable` は read-only。
-
-`execute` は既存 qualified execution workflow を利用する。
-
-状態:
+Phase 129:
 
 ```text
-NONE
-→ no executable target
-
-AMBIGUOUS
-→ candidate list
-→ explicit user selection
-
-EXECUTED
-→ Result + Proof
+E(nu_prime) representation audit
+operation-result semantics decision
+membership result selected
+E nu' in pi_7^4 theorem-specific handoff
+Proposition 5.6 provenance reuse
+GROUP_MEMBERSHIP result classification
+direct lookup unchanged
+arbitrary containment not generalized
 ```
 
-現在の executable-target inclusion:
+focused:
 
 ```text
-generator occurrence
-→ proof-scope relevance
-
-source-step rule match
-→ applicability relevance
-
-qualified family が実際に利用する source component と
-generator occurrence が対応
-→ executable relevance
+12 passed in 6.28s
+63 passed in 12.54s
 ```
 
-代表例:
+final:
 
 ```text
-nu_prime
-→ 2 executable targets
-
-nu_5
-→ NONE
-
-sigma_11
-→ NONE
-
-eta_999
-→ NONE
+9268 passed in 569.71s (0:09:29)
 ```
 
-`NONE` は現在 admitted された qualified execution path に executable target がないことを表し、数学的 impossibility を意味しない。
+Phase 129 は完了。
 
 ---
 
-# 4. 現在の operation-query handoff semantics
+# 3. Phase 129 完了後の operation-query semantics
 
 lookup-first:
 
@@ -323,68 +191,18 @@ query
 ```text
 E(nu_5)
 → E(nu_5)=nu_6
-→ Toda Proposition 5.6 symbolic stable bridge
 
 E(sigma_11)
 → E(sigma_11)=sigma_12
-→ Toda sigma-family definition
 
 E(nu_5 o eta_8)
 → E(nu_5 eta_8)=0
-→ Toda Proposition 5.8 derived pi_10^6=0 provenance
+
+E(nu_prime)
+→ E nu' in pi_7^4
 ```
 
-Phase 128 の `E(nu_5 o eta_8)` は、
-
-```text
-query operand exactly nu_5 o eta_8
-root exactly standard.toda.prop58
-derived pi_10^6=0
-direct premise includes pi_9^5=Z/2{nu_5 eta_8}
-```
-
-を要求する。
-
-```text
-theorem-specific zero handoff
-!= general E evaluator
-!= general target-zero evaluator
-```
-
----
-
-# 5. Phase 128 完了境界
-
-```text
-direct lookup first を維持
-repository 非破壊
-Prop.5.8 provenance を維持
-query-proof replay を維持
-E(nu_5) / E(sigma_11) handoff を維持
-parser を変更しない
-Web に別 semantics を作らない
-general E evaluator を追加しない
-general target-zero rule を追加しない
-new theorem root を追加しない
-qualified family を追加しない
-ranking を追加しない
-```
-
-Phase 128 は完了。
-
----
-
-# 6. Phase 129: `E(nu_prime)` operation-result semantics audit
-
-Phase 127 で `E(nu_prime)` は implementation candidate として KEEP したが、Phase 128 より先には実装しなかった。
-
-既存 repository には
-
-\[
-E\nu'
-\]
-
-が
+`E(nu_prime)` は Proposition 5.6 の
 
 \[
 \pi_7^4=
@@ -393,95 +211,100 @@ E\nu'
 \mathbb Z/4\{E\nu'\}
 \]
 
-の generator として既に存在する。
-
-一方、現行 operation query が通常返すのは、
+から theorem-specific に membership を具体化する。
 
 ```text
-E(alpha)=beta
-E(alpha)=0
-```
-
-のような element-level `Relation` である。
-
-Phase 129 はまず次を監査する。
-
-```text
-1. E nu' の current proof-scope representation
-2. E(nu_prime) に対する user-facing result の自然な形
-3. membership / group decomposition を operation result とみなすべきか
-4. element-level Relation を作るなら既存 provenance だけで十分か
-5. containment semantics の一般化なしに exact handoff できるか
-```
-
-Phase 129 で先取りしないもの:
-
-```text
-general E evaluator
-arbitrary expression containment → operation result
-general membership evaluator
-general target-zero evaluator
-parser expansion
-new theorem root
-new qualified execution family
-ranking
-```
-
-Phase 129 の判断順:
-
-```text
-current representation
-→ desired result semantics
-→ provenance audit
-→ minimum missing capability
-→ implementation scope freeze or DEFER
+theorem-specific membership handoff
+!= general E evaluator
+!= general membership evaluator
+!= arbitrary containment rule
 ```
 
 ---
 
-# 7. 残存数学 pressure
+# 4. Phase 130: post-Phase 129 capability re-audit
 
-Phase 127 の監査結果を維持する。
+Phase 130 は general evaluator 実装から開始しない。
+
+まず次を再監査する。
+
+```text
+1. current CLI / Web capability
+2. remaining operation-query pressure
+3. proof support の有無
+4. user-facing result semantics
+5. smallest missing capability
+```
+
+既存の deferred pressure:
+
+```text
+H(nu_5)
+Delta(nu_prime)
+H(sigma_11)
+Delta(sigma_11)
+```
+
+Phase 127 時点では、これらは small handoff ではなく element-level proof support の不足として分類された。
+
+したがって Phase 130 では、その分類が現行 repository でも妥当かを再確認してから次の Phase を決める。
+
+候補選定順:
+
+```text
+actual usage pressure
+→ existing mathematics reuse audit
+→ result semantics
+→ provenance shape
+→ minimal capability
+→ scope freeze
+```
+
+---
+
+# 5. Phase 130 で先取りしないもの
+
+```text
+general E evaluator
+general H evaluator
+general Delta evaluator
+general membership evaluator
+arbitrary recursive containment → operation result
+general target-zero evaluator
+general operation-query grammar
+new theorem ranking
+automatic best-target selection
+general premise-component dependency engine
+unbounded proof search
+```
+
+---
+
+# 6. 残存数学 pressure
 
 ```text
 H(nu_5)
 → DEFER
-→ element-level H proof が不足
+→ element-level H proof support の再監査が必要
 
 Delta(nu_prime)
 → DEFER
-→ element-level Delta proof が不足
+→ element-level Delta proof support の再監査が必要
 
 H(sigma_11)
 → DEFER
-→ sigma_11 への Hopf transport が不足
+→ sigma_11 Hopf transport / proof support の再監査が必要
 
 Delta(sigma_11)
 → DEFER
-→ element-level Delta proof / concrete window が不足
-
-E(nu_prime)
-→ KEEP
-→ Phase 129 semantics audit
-
-E(nu_5 o eta_8)
-→ Phase 128 で完了
+→ concrete Delta proof / EHP window support の再監査が必要
 ```
 
-今後も
-
-```text
-実利用
-→ pressure
-→ existing mathematics reuse audit
-→ minimum missing capability
-```
-
-の順で扱う。
+`E(nu_prime)` と `E(nu_5 o eta_8)` は完了済み。
 
 ---
 
-# 8. 長期保留
+# 7. 長期保留
 
 ```text
 semantic theorem ranking
@@ -490,6 +313,7 @@ automatic best-target selection
 general premise-component dependency engine
 general operation-query grammar
 general E/H/Delta evaluator
+general membership evaluator
 general target-zero evaluator
 general Toda bracket solver
 coset / indeterminacy computation
@@ -509,7 +333,7 @@ rich SPA architecture
 
 ---
 
-# 9. 完了判断原則
+# 8. 完了判断原則
 
 ```text
 既存数学を先に再利用する
@@ -518,14 +342,9 @@ direct fact を上書きしない
 provenance を失わない
 一般 evaluator を必要性なしに作らない
 parser を需要なしに一般化しない
-Web UI から数学 semantics を変更しない
-CLI と Web の数学結果を分岐させない
-read-only と execution の境界を明示する
-proof-scope relevance と executable relevance を混同しない
-aggregate statement の同居だけで executable source とみなさない
-candidate number を theorem priority と解釈しない
+containment と operation result を混同しない
 theorem-specific handoff を general evaluator に拡張しない
 focused regression で境界を固定する
-CLI / browser manual integration で表示境界を確認する
+CLI / Web manual integration で表示境界を確認する
 repository-wide regression で Phase を閉じる
 ```

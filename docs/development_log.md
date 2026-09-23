@@ -869,3 +869,164 @@ ranking なし
 ```
 
 次 Phase 129 は `E(nu_prime)` の operation-result semantics を audit first で扱う。
+
+## Phase 129
+
+### Phase 129-1: representation / provenance 再監査
+
+`E(nu_prime)` の direct lookup は miss する一方、既存 Toda Proposition 5.6 には
+
+\[
+\pi_7^4=
+\mathbb Z\{\nu_4\}
+\oplus
+\mathbb Z/4\{E\nu'\}
+\]
+
+が保持されていることを確認した。
+
+`E\nu'` は独立した element-level equality としてではなく、第2 cyclic summand の generator として表現されている。
+
+### Phase 129-2: operation-result semantics 決定
+
+候補:
+
+```text
+E(nu') = E nu'
+E nu' in pi_7^4
+pi_7^4 decomposition
+```
+
+を比較し、user-facing result は
+
+\[
+E\nu' \in \pi_7^4
+\]
+
+と決定した。
+
+`E(\nu')=E\nu'` は表記上の自己同一視であり採用しない。
+
+また、group relation 内の arbitrary containment を operation result とする一般規則には広げない。
+
+### Phase 129-3: 最小 handoff 実装前監査
+
+実装境界:
+
+```text
+exact E(nu_prime) guard
+specific Proposition 5.6 decomposition shape
+membership ProofStep
+existing decomposition ProofStep as direct premise
+repository non-mutation
+```
+
+対象外:
+
+```text
+general E evaluator
+general membership evaluator
+recursive arbitrary containment
+parser expansion
+new theorem root
+new qualified execution family
+ranking
+```
+
+### Phase 129-4: 最小実装
+
+追加:
+
+```text
+repository_nu_prime_suspension_membership_specialization.py
+tests/test_phase129_nu_prime_operation_query_handoff.py
+```
+
+変更:
+
+```text
+repository_operation_query_facade.py
+repository_operation_query_lookup.py
+```
+
+`repository_operation_query_lookup.py` は direct lookup ロジックを変更せず、
+
+```text
+RepositoryOperationQueryMatchKind.GROUP_MEMBERSHIP
+```
+
+を追加した。
+
+specialized result:
+
+\[
+E\nu' \in \pi_7^4.
+\]
+
+直接 premise:
+
+\[
+\pi_7^4=
+\mathbb Z\{\nu_4\}
+\oplus
+\mathbb Z/4\{E\nu'\}.
+\]
+
+focused:
+
+```text
+12 passed in 6.28s
+```
+
+関連 regression:
+
+```text
+63 passed in 12.54s
+```
+
+manual:
+
+```text
+python main.py query "E(nu_prime)"
+→ E nu' in pi_7^4
+→ First provenance: Toda Proposition 5.6, Phase 65
+
+python main.py query-proof "E(nu_prime)" --depth 1
+→ Depth 0: E nu' in pi_7^4
+→ Depth 1: pi_7^4 = Z{nu_4} ⊕ Z/4{E nu'}
+```
+
+### Phase 129-5: documentation / completion audit
+
+旧文書に残っていた
+
+```text
+E(nu_prime) → future semantics audit
+```
+
+を完了状態へ更新した。
+
+確定境界:
+
+```text
+membership result
+theorem-specific handoff
+Proposition 5.6 provenance
+direct lookup unchanged
+repository non-mutation
+general E evaluator なし
+general membership evaluator なし
+arbitrary containment なし
+parser expansion なし
+```
+
+repository-wide regression:
+
+```text
+python -m pytest -q
+9268 passed in 569.71s (0:09:29)
+```
+
+Phase 129 は完了。
+
+次は Phase 130 で current capability pressure を再監査する。
