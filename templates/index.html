@@ -185,6 +185,49 @@
       </p>
     </section>
 
+    <section aria-labelledby="generator-exploration-query-heading">
+      <h2 id="generator-exploration-query-heading">
+        Generator exploration
+      </h2>
+
+      <p>
+        Explore where one generator appears in the existing repository.
+      </p>
+
+      <form method="post">
+        <input
+          type="hidden"
+          name="form_kind"
+          value="generator_exploration"
+        >
+
+        <p>
+          <label for="exploration-generator-input">
+            Generator
+          </label>
+          <input
+            id="exploration-generator-input"
+            name="exploration_generator_input"
+            type="text"
+            required
+            value="{{ exploration_generator_input_value }}"
+            placeholder="nu_prime"
+          >
+        </p>
+
+        <button type="submit">
+          Explore
+        </button>
+      </form>
+
+      <p>
+        Examples:
+        nu_prime,
+        nu_5,
+        sigma_11
+      </p>
+    </section>
+
     {% if error_message %}
       <p role="alert">
         {{ error_message }}
@@ -418,6 +461,77 @@
             </li>
           {% endfor %}
         </ol>
+      </section>
+    {% endif %}
+
+    {% if generator_exploration_view %}
+      <section
+        aria-labelledby="generator-exploration-heading"
+      >
+        <h2 id="generator-exploration-heading">
+          Generator exploration result
+        </h2>
+
+        <h3>
+          Generator
+        </h3>
+
+        <div
+          id="generator-exploration-generator"
+          data-latex="{{ generator_exploration_view.generator_latex }}"
+        >{{ generator_exploration_view.generator_latex }}</div>
+
+        <p>
+          Occurrences:
+          {{ generator_exploration_view.occurrence_count }}
+        </p>
+
+        {% set exploration_sections = (
+          ("Toda brackets", generator_exploration_view.toda_bracket_occurrences),
+          ("Map inputs", generator_exploration_view.map_input_occurrences),
+          ("Group generators", generator_exploration_view.group_generator_occurrences),
+          ("Composition left", generator_exploration_view.composition_left_occurrences),
+          ("Composition right", generator_exploration_view.composition_right_occurrences),
+          ("Other occurrences", generator_exploration_view.other_occurrences)
+        ) %}
+
+        {% for section_title, occurrences in exploration_sections %}
+          {% if occurrences %}
+            <h3>
+              {{ section_title }}
+            </h3>
+
+            <ol>
+              {% for occurrence in occurrences %}
+                <li class="generator-exploration-occurrence">
+                  <div
+                    class="generator-exploration-math"
+                    data-latex="{{ occurrence.conclusion_latex }}"
+                  >{{ occurrence.conclusion_latex }}</div>
+
+                  <p>
+                    Roles:
+                    {% if occurrence.role_labels %}
+                      {{ occurrence.role_labels | join(", ") }}
+                    {% else %}
+                      none
+                    {% endif %}
+                  </p>
+
+                  <p>
+                    Phase:
+                    {{ occurrence.phase }}
+                  </p>
+
+                  <p>
+                    Theorem:
+                    {{ occurrence.theorem }}
+                  </p>
+                </li>
+              {% endfor %}
+            </ol>
+          {% endif %}
+        {% endfor %}
       </section>
     {% endif %}
   </main>

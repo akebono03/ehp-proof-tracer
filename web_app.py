@@ -4,6 +4,10 @@ from flask import (
   request,
 )
 
+from web_generator_exploration import (
+  WebGeneratorExplorationView,
+  build_standard_web_generator_exploration_view,
+)
 from web_generator_proof import (
   WebGeneratorProofView,
   build_standard_web_generator_proof_view,
@@ -87,6 +91,10 @@ def create_app(
       "generator_proof_depth",
       "1",
     )
+    exploration_generator_input_value = request.form.get(
+      "exploration_generator_input",
+      "",
+    )
 
     view: WebGroupQueryView | None = None
     operation_query_view: (
@@ -99,6 +107,10 @@ def create_app(
     ) = None
     generator_proof_view: (
       WebGeneratorProofView
+      | None
+    ) = None
+    generator_exploration_view: (
+      WebGeneratorExplorationView
       | None
     ) = None
     error_message: str | None = None
@@ -166,6 +178,12 @@ def create_app(
               max_depth=generator_proof_depth,
             )
           )
+        elif form_kind == "generator_exploration":
+          generator_exploration_view = (
+            build_standard_web_generator_exploration_view(
+              exploration_generator_input_value
+            )
+          )
         else:
           n = _parse_integer_form_value(
             n_value,
@@ -206,6 +224,9 @@ def create_app(
       generator_proof_depth_value=(
         generator_proof_depth_value
       ),
+      exploration_generator_input_value=(
+        exploration_generator_input_value
+      ),
       view=view,
       operation_query_view=(
         operation_query_view
@@ -215,6 +236,9 @@ def create_app(
       ),
       generator_proof_view=(
         generator_proof_view
+      ),
+      generator_exploration_view=(
+        generator_exploration_view
       ),
       error_message=error_message,
     )
