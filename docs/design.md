@@ -34,6 +34,7 @@ aggregate statement 内の別 branch occurrence != executable source relevance
 候補番号 != 数学的優先度
 operation query != general evaluator
 limited theorem-specific handoff != general query inference
+target group zero specialization != general zero-target evaluator
 Web UI != 新しい数学エンジン
 TeX rendering != 数学的 normalization
 proof depth control != 新しい proof search
@@ -91,7 +92,24 @@ query string
 ```text
 E(nu_5)
 E(sigma_11)
+E(nu_5 o eta_8)
 ```
+
+それぞれ
+
+\[
+E(\nu_5)=\nu_6,
+\]
+
+\[
+E(\sigma_{11})=\sigma_{12},
+\]
+
+\[
+E(\nu_5\eta_8)=0
+\]
+
+を返す。
 
 ## query-proof / generator show-proof
 
@@ -235,6 +253,9 @@ repository_operation_query_proof_replay.py
 repository_operation_query_proof_replay_presentation.py
 repository_operation_query_proof_replay_statement_presentation.py
 repository_operation_query_proof_replay_renderer.py
+repository_nu5_stable_bridge_specialization.py
+repository_sigma11_suspension_specialization.py
+repository_nu5_eta8_suspension_zero_specialization.py
 ```
 
 CLI:
@@ -274,6 +295,9 @@ executable relevance guard
 != theorem ranking
 != new theorem fact
 
+theorem-specific operation handoff
+!= independent theorem root
+
 Web execution result
 = existing execution workflow が返した既存の executed ProofStep の presentation
 ```
@@ -282,11 +306,13 @@ Web execution result
 
 # 5. Repository 非破壊
 
-Phase 113 の TodaGroupQuery specialization、Phase 114 の `E(nu_5)` handoff、Phase 115 の `E(sigma_11)` handoff は元 repository に独立 root を追加しない。
+Phase 113 の TodaGroupQuery specialization、Phase 114 の `E(nu_5)` handoff、Phase 115 の `E(sigma_11)` handoff、Phase 128 の `E(nu_5 o eta_8)` handoff は元 repository に独立 root を追加しない。
 
 Phase 117–125 の Web UI 接続も repository を変更しない。
 
 Phase 126 の executable relevance 修正も repository の `ProofStep` や theorem root を変更せず、user-facing executable-target inclusion だけを狭める。
+
+Phase 128 の handoff も query ごとに一時的な specialized `ProofStep` を組み立てるだけで、`ProofRepository.entries()` を変更しない。
 
 read-only:
 
@@ -327,8 +353,45 @@ E(\nu_5)=\nu_6,
 \]
 
 \[
-E(\sigma_{11})=\sigma_{12}.
+E(\sigma_{11})=\sigma_{12},
 \]
+
+\[
+E(\nu_5\eta_8)=0.
+\]
+
+`E(nu_5 o eta_8)` handoff は、query operand が exactly `nu_5 o eta_8` であることを要求する。
+
+さらに、`standard.toda.prop58` の proof-scope 内で、
+
+\[
+\pi_{10}^6=0
+\]
+
+が `ProofRule.INFERENCE` として存在し、その直接 premise に
+
+\[
+\pi_9^5=\mathbb Z/2\{\nu_5\eta_8\}
+\]
+
+があることを要求する。
+
+これにより、
+
+```text
+E(nu_5 o eta_8)
+→ allowed
+
+E(nu_5 o eta_9)
+E(nu_6 o eta_8)
+H(nu_5 o eta_8)
+Delta(nu_5 o eta_8)
+→ handoff 対象外
+```
+
+を維持する。
+
+同じ Prop.5.8 proof ancestry が後続 root の proof-scope にも現れるため、Phase 128-2b では `standard.toda.prop58` root に限定し、同一 specialized conclusion を dedup する。
 
 ```text
 LOOKUP_MISS
@@ -338,6 +401,9 @@ LOOKUP_MISS
 limited handoff
 != arbitrary inference fallback
 != general E evaluator
+
+pi_10^6 = 0 を使う今回の specialization
+!= 任意の target-zero group から E(x)=0 を生成する一般規則
 ```
 
 ---
@@ -366,6 +432,8 @@ Unicode ∘
 ```
 
 Web UI は既存 parser を再利用し、別 grammar を持たない。
+
+Phase 128 は parser を変更していない。
 
 ---
 
@@ -396,6 +464,26 @@ depth 2 → さらに1段 ancestry
 depth は表示範囲であり、新しい proof search ではない。
 
 generator exploration、generator proof-scope exploration、generator applicability exploration は proof replay ではない。
+
+Phase 128 の
+
+```text
+query-proof "E(nu_5 o eta_8)" --depth 2
+```
+
+は、
+
+\[
+E(\nu_5\eta_8)=0
+\]
+
+から既存の
+
+\[
+\pi_{10}^6=0
+\]
+
+およびその直接 premise を再生する。
 
 ---
 
@@ -719,7 +807,143 @@ executable relevance guard
 
 ---
 
-# 16. Safe statement presentation
+# 16. Phase 127 capability priority audit
+
+Phase 127 は新機能を追加せず、Phase 126 後の実利用 pressure を監査した。
+
+監査した operation pressure:
+
+```text
+H(nu_5)
+H(sigma_11)
+Delta(sigma_11)
+E(nu_prime)
+Delta(nu_prime)
+E(nu_5 o eta_8)
+```
+
+分類:
+
+```text
+H(nu_5)
+→ element-level H proof 自体が不足
+→ DEFER
+
+H(sigma_11)
+→ sigma_8 の Hopf relation はあるが sigma_11 transport なし
+→ DEFER
+
+Delta(sigma_11)
+→ element-level Delta proof / concrete window が不足
+→ DEFER
+
+Delta(nu_prime)
+→ element-level Delta proof が不足
+→ DEFER
+
+E(nu_prime)
+→ E nu' expression / provenance は既存
+→ operation-result semantics の整理が必要
+→ KEEP
+
+E(nu_5 o eta_8)
+→ source generator と pi_10^6=0 provenance が既存
+→ result semantics は明確に zero
+→ KEEP
+```
+
+Phase 127-4 では、既存 semantics への適合と変更量の小ささから
+
+\[
+E(\nu_5\eta_8)=0
+\]
+
+を Phase 128 の1機能に選定した。
+
+---
+
+# 17. Phase 128 `E(nu_5 o eta_8)` theorem-specific handoff
+
+Phase 128 は、
+
+```text
+query "E(nu_5 o eta_8)"
+```
+
+の direct lookup が miss した場合だけ、
+
+\[
+E(\nu_5\eta_8)=0
+\]
+
+を返す限定 handoff を追加した。
+
+根拠は既存 Toda Proposition 5.8 proof-scope の
+
+\[
+\pi_9^5=\mathbb Z/2\{\nu_5\eta_8\},
+\]
+
+および derived
+
+\[
+\pi_{10}^6=0
+\]
+
+である。
+
+`pi_10^6=0` は `ProofRule.INFERENCE` であり、その直接 premise は既存の
+
+\[
+\pi_9^5=\mathbb Z/2\{\nu_5\eta_8\},
+\]
+
+suspension surjectivity、および
+
+\[
+\nu_6\eta_9=0
+\]
+
+を含む。
+
+specialized root:
+
+\[
+E(\nu_5\eta_8)=0
+\]
+
+は `ProofRule.INFERENCE` とし、直接 premise に既存 `pi_10^6=0` step を保持する。
+
+したがって depth 2 の query-proof は、
+
+```text
+Depth 0:
+E(nu_5 eta_8) = 0
+
+Depth 1:
+pi_10^6 = 0
+
+Depth 2:
+pi_9^5 = Z/2{nu_5 eta_8}
+E: pi_9^5 -> pi_10^6 is surjective
+nu_6 eta_9 = 0
+```
+
+を再生できる。
+
+複数 standard root から同じ Prop.5.8 ancestry が見えるため、handoff は
+
+```text
+root_entry.key == "standard.toda.prop58"
+```
+
+に限定し、同一 specialized conclusion を dedup する。
+
+これは theorem-specific provenance selection であり、theorem ranking ではない。
+
+---
+
+# 18. Safe statement presentation
 
 既存 renderer で数式化できる statement は LaTeX を使う。
 
@@ -735,7 +959,7 @@ executed premise 表示もこの境界を維持する。
 
 ---
 
-# 17. Web UI の設計境界
+# 19. Web UI の設計境界
 
 framework:
 
@@ -790,9 +1014,11 @@ Applicability
 
 Phase 126 の resolver 修正は CLI / Web の共通 execution facade より下層にあるため、CLI と Web で別 semantics を持たない。
 
+Phase 128 も既存 operation-query facade に handoff を追加しただけなので、CLI / Web は同じ結果を利用する。
+
 ---
 
-# 18. Web execution view model
+# 20. Web execution view model
 
 概念上の最小 field:
 
@@ -834,7 +1060,7 @@ Web view model は presentation 用であり、proof truth の保存場所では
 
 ---
 
-# 19. TeX / HTML boundary
+# 21. TeX / HTML boundary
 
 Python renderer は LaTeX string を返す。
 
@@ -851,73 +1077,68 @@ execution candidate / result / conclusion も同じ境界を使う。
 
 ---
 
-# 20. Phase 126 regression boundary
+# 22. Phase 128 regression boundary
 
-Phase 126 focused regression:
+Phase 128 focused regression:
 
 ```text
-tests/test_phase108_5_minimal_user_facing_executable_target_resolver.py
-tests/test_phase126_executable_target_relevance.py
+tests/test_phase128_nu5_eta8_operation_query_handoff.py
+tests/test_phase114_3_nu5_operation_query_handoff.py
+tests/test_phase115_sigma11_operation_query_handoff.py
 
-13 passed in 14.86s
+40 passed in 15.43s
 ```
 
 CLI manual audit:
 
 ```text
-python main.py execute nu_prime
-→ 2 executable candidates
+python main.py query "E(nu_5 o eta_8)"
+→ 1. E nu_5 eta_8 = 0
+→ First provenance: Toda Proposition 5.8, Phase 68
 
-python main.py execute nu_5
-→ No executable target found for nu_5.
-
-python main.py execute sigma_11
-→ No executable target found for sigma_11.
+python main.py query-proof "E(nu_5 o eta_8)" --depth 2
+→ specialized root + existing Prop.5.8 ancestry
 ```
-
-`nu_prime` candidates:
-
-\[
-\pi_6^2=\mathbb Z/4\{\eta_2\nu'\},
-\]
-
-\[
-\Delta(\iota_9)=\pm(2\nu_4-E\nu').
-\]
 
 最終 repository-wide regression:
 
 ```text
 python -m pytest -q
-9246 passed in 556.62s (0:09:16)
+9256 passed in 570.10s (0:09:30)
 ```
 
-Phase 126 完了境界:
+Phase 128 完了境界:
 
 ```text
-nu_prime の2 targetを維持
-nu_5 → pi6_2 target を除外
-sigma_11 → NONE を維持
-nu_5 の applicability discovery を維持
-proof-scope semantics を変更しない
-applicability semantics を変更しない
-qualified family admission を変更しない
-target ranking を追加しない
-candidate numbering semantics を変更しない
-automatic best-target selection を追加しない
+direct lookup first を維持
+exact query guard を維持
+standard.toda.prop58 provenance に限定
+repository 非破壊
+query-proof replay を維持
+E(nu_5) / E(sigma_11) handoff を維持
+parser を変更しない
+general E evaluator を追加しない
+general target-zero specialization を追加しない
 new theorem root を追加しない
+qualified execution family を追加しない
+ranking を追加しない
 ```
 
 ---
 
-# 21. Phase 126 で行わなかったこと
+# 23. Phase 128 で行わなかったこと
 
 ```text
-new mathematical theorem
+E(nu_prime) operation-result semantics の決定
+H(nu_5) の新規数学 proof
+H(sigma_11) の transport
+Delta(nu_prime) の新規数学 proof
+Delta(sigma_11) の新規数学 proof
 new proof-search rule
 new qualified execution family
 new query grammar
 general E/H/Delta evaluator
+general target-zero evaluator
 general Toda bracket solver
 general premise-component dependency engine
 coset / indeterminacy computation
@@ -934,32 +1155,63 @@ SPA framework
 
 ---
 
-# 22. 次 Phase との境界
+# 24. 次 Phase との境界
 
-Phase 126 で、Web integration により可視化された executable-target resolution の不整合を最小修正した。
+次 Phase 129 は `E(nu_prime)` の operation-result semantics を audit first で扱う。
 
-次 Phase は新機能を先取りせず、Phase 126 後の実利用 pressure を再監査する。
+既存 repository には
 
-候補:
+\[
+E\nu'
+\]
+
+が
+
+\[
+\pi_7^4=
+\mathbb Z\{\nu_4\}
+\oplus
+\mathbb Z/4\{E\nu'\}
+\]
+
+の generator として存在する。
+
+しかし、
 
 ```text
-残る operation capability pressure
-Web / CLI の実利用フロー
-現在の qualified execution family 拡張需要
-executable relevance の別 aggregate statement への実需要
+E(nu_prime)
 ```
 
-重要:
+に対して
 
 ```text
-Phase 127 は audit first
+E(nu_prime) = E nu'
 ```
 
-とし、general premise-component dependency engine、ranking、best-target selection を需要なしに導入しない。
+をそのまま operation fact とするのか、
+
+```text
+E nu' ∈ pi_7^4
+```
+
+の membership を示すのか、group decomposition まで提示するのかは別の意味論判断である。
+
+Phase 129 は実装前に、
+
+```text
+existing representation
+→ desired user-facing result
+→ provenance shape
+→ minimum handoff or no implementation
+```
+
+を確定する。
+
+一般 evaluator や containment-based arbitrary operation result へ広げない。
 
 ---
 
-# 23. 完了判断原則
+# 25. 完了判断原則
 
 ```text
 既存数学を先に再利用する
@@ -975,6 +1227,7 @@ proof-scope relevance と executable relevance を混同しない
 aggregate statement の同居だけで executable source とみなさない
 candidate number を theorem priority と解釈しない
 execution target の違和感を Web 層で補正しない
+theorem-specific handoff を一般 evaluator に拡張しない
 focused regression で境界を固定する
 CLI / browser manual integration で表示境界を確認する
 repository-wide regression で Phase を閉じる

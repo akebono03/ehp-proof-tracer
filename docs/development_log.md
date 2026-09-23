@@ -429,7 +429,7 @@ No executable target found for this generator.
 
 `nu_5`:
 
-Web result が一見 generator-centered でないため CLI と比較。
+Phase 125 時点では Web result が一見 generator-centered でないため CLI と比較した。
 
 ```text
 python main.py execute nu_5
@@ -441,9 +441,9 @@ python main.py execute nu_5
 \pi_6^2=\mathbb Z/4\{\eta_2\nu'\}
 \]
 
-を返すことを確認。
+を返したため、Phase 125 の Web adapter mismatch ではなく existing target-resolution semantics の結果として Phase 126 監査へ送った。
 
-したがって Phase 125 の Web adapter mismatch ではなく、existing target-resolution semantics の結果として Phase 126 監査へ送る。
+この挙動は Phase 126 で semantic leak と確認され、現在は修正済みである。
 
 KaTeX と既存 Group / Query / Proof / Explore / Applicability との共存も確認。
 
@@ -457,18 +457,6 @@ python -m pytest -q
 ```
 
 Phase 125 は完了。
-
-### Phase 125 後の境界
-
-次 Phase 126 は executable-target resolution semantics の audit を行う。
-
-最初の pressure:
-
-```text
-nu_5
-```
-
-Phase 126 は audit first とし、ranking / filtering / selection semantics の変更を先取りしない。
 
 ## Phase 126
 
@@ -630,3 +618,254 @@ nu_prime の2 targetを維持
 nu_5 → pi6_2 を除外
 sigma_11 → NONE を維持
 ```
+
+## Phase 127
+
+Phase 126 後にすぐ新機能を追加せず、post-Phase 126 capability priority audit を実施した。
+
+### Phase 127-1: current capability re-audit
+
+対象:
+
+```text
+n k
+query / query-proof
+show-proof
+explore
+explore-proof
+explore-applicable
+execute
+Web UI
+```
+
+既存利用経路は接続済みであり、次の具体的 pressure は operation query の残件と判断。
+
+### Phase 127-2: remaining mathematical pressure
+
+監査対象:
+
+```text
+H(nu_5)
+H(sigma_11)
+Delta(sigma_11)
+E(nu_prime)
+Delta(nu_prime)
+E(nu_5 o eta_8)
+```
+
+いずれも direct query では `No known repository fact found` だった。
+
+### Phase 127-3A: `H(nu_5)`
+
+Phase 68 の Hopf-zero machinery は \(\pi_9^5\) を source とするため、`H(nu_5)` ではなく \(\nu_5\eta_8\) 側の事実に対応することを確認。
+
+`H(nu_5)` の element-level proof は既存 repository にないため DEFER。
+
+### Phase 127-3B: `E(nu_5 o eta_8)`
+
+既存 provenance:
+
+\[
+\pi_9^5=\mathbb Z/2\{\nu_5\eta_8\},
+\]
+
+\[
+\pi_{10}^6=0.
+\]
+
+結果 semantics が
+
+\[
+E(\nu_5\eta_8)=0
+\]
+
+と明確で、parser も既に二項 composition operand に対応しているため KEEP。
+
+### Phase 127-3C: `E(nu_prime)` / `Delta(nu_prime)`
+
+`E\nu'` は既に
+
+\[
+\pi_7^4=
+\mathbb Z\{\nu_4\}
+\oplus
+\mathbb Z/4\{E\nu'\}
+\]
+
+の generator として存在する。
+
+ただし `E(nu_prime)` に何を operation result として返すかは意味論整理が必要なため KEEP。
+
+`Delta(nu_prime)` は element-level Delta proof が不足するため DEFER。
+
+### Phase 127-3D: `H(sigma_11)` / `Delta(sigma_11)`
+
+\(\sigma_8\) の Hopf relation や \(\sigma\)-chain の Delta machinery はあるが、`sigma_11` を入力とする element-level H / Delta proof はないため両方 DEFER。
+
+### Phase 127-4: 次の1機能の選定
+
+比較対象を
+
+```text
+E(nu_prime)
+E(nu_5 o eta_8)
+```
+
+に絞った。
+
+`E(nu_prime)` は user-facing result semantics の監査が必要。
+
+`E(nu_5 o eta_8)` は existing source / target-zero provenance と current `RelationType.ZERO` semantics がそのまま使える。
+
+そのため Phase 128 は
+
+\[
+E(\nu_5\eta_8)=0
+\]
+
+の theorem-specific handoff を1機能だけ実装することに決定。
+
+## Phase 128
+
+### Phase 128-1: 実装前監査
+
+変更範囲を次に固定。
+
+```text
+新規:
+repository_nu5_eta8_suspension_zero_specialization.py
+tests/test_phase128_nu5_eta8_operation_query_handoff.py
+
+変更:
+repository_operation_query_facade.py
+tests/test_phase114_3_nu5_operation_query_handoff.py
+```
+
+parser、direct lookup、presentation、proof replay、Web adapter は変更不要と確認。
+
+根拠 provenance は Toda Proposition 5.8 の
+
+\[
+\pi_9^5=\mathbb Z/2\{\nu_5\eta_8\},
+\]
+
+および derived
+
+\[
+\pi_{10}^6=0
+\]
+
+を再利用する方針に固定。
+
+### Phase 128-2: theorem-specific handoff 実装
+
+追加した handoff:
+
+```text
+E(nu_5 o eta_8)
+→ direct lookup miss
+→ exact query guard
+→ existing Prop.5.8 proof-scope
+→ specialized E(nu_5 eta_8)=0 ProofStep
+```
+
+specialized root:
+
+\[
+E(\nu_5\eta_8)=0.
+\]
+
+直接 premise:
+
+\[
+\pi_{10}^6=0.
+\]
+
+その下の既存 premise:
+
+\[
+\pi_9^5=\mathbb Z/2\{\nu_5\eta_8\},
+\]
+
+\[
+E:\pi_9^5\to\pi_{10}^6
+\text{ is surjective},
+\]
+
+\[
+\nu_6\eta_9=0.
+\]
+
+最初の focused test では、同じ Prop.5.8 proof ancestry が複数 repository root から見えるため同一 specialized match が複数生成されることを検出。
+
+Phase 128-2b で、
+
+```text
+root_entry.key == standard.toda.prop58
+```
+
+へ theorem-specific に限定し、同一 specialized conclusion を dedup。
+
+これは theorem ranking ではなく、今回の handoff が再利用する正規 provenance root の固定である。
+
+focused regression:
+
+```text
+40 passed in 15.43s
+```
+
+### Phase 128 manual audit
+
+```text
+python main.py query "E(nu_5 o eta_8)"
+```
+
+結果:
+
+\[
+E(\nu_5\eta_8)=0.
+\]
+
+first provenance:
+
+```text
+Toda Proposition 5.8
+Phase 68
+depth 3
+```
+
+```text
+python main.py query-proof "E(nu_5 o eta_8)" --depth 2
+```
+
+で specialized root と既存 Prop.5.8 ancestry を確認。
+
+### Phase 128-final: completion
+
+repository-wide regression:
+
+```text
+python -m pytest -q
+9256 passed in 570.10s (0:09:30)
+```
+
+Phase 128 は完了。
+
+確定境界:
+
+```text
+direct lookup first
+exact query guard
+standard.toda.prop58 provenance
+repository 非破壊
+query-proof replay
+existing E(nu_5) / E(sigma_11) handoff 維持
+parser 変更なし
+general E evaluator なし
+general target-zero evaluator なし
+new theorem root なし
+new qualified execution family なし
+ranking なし
+```
+
+次 Phase 129 は `E(nu_prime)` の operation-result semantics を audit first で扱う。

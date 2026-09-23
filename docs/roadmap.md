@@ -63,7 +63,11 @@ E(\nu_5)=\nu_6,
 \]
 
 \[
-E(\sigma_{11})=\sigma_{12}.
+E(\sigma_{11})=\sigma_{12},
+\]
+
+\[
+E(\nu_5\eta_8)=0.
 \]
 
 基本境界:
@@ -73,6 +77,7 @@ direct lookup first
 limited theorem-specific handoff != general query inference
 query != general evaluator
 LOOKUP_MISS != evaluator required
+target-zero theorem-specific handoff != general target-zero evaluator
 Web UI != new mathematical engine
 depth control != new proof search
 show-proof != execute
@@ -210,6 +215,42 @@ Phase 126 final regression:
 9246 passed in 556.62s (0:09:16)
 ```
 
+Phase 127:
+
+```text
+post-Phase 126 capability priority audit
+remaining operation-query pressure comparison
+H(nu_5) / H(sigma_11) / Delta(sigma_11) deferred
+Delta(nu_prime) deferred
+E(nu_prime) kept for semantics audit
+E(nu_5 o eta_8) selected as the next minimum capability
+```
+
+Phase 128:
+
+```text
+E(nu_5 o eta_8) theorem-specific handoff
+direct lookup first
+exact two-generator composition guard
+Toda Proposition 5.8 provenance reuse
+standard.toda.prop58 root restriction
+duplicate specialized match elimination
+query-proof replay
+repository non-mutation
+```
+
+Phase 128 focused regression:
+
+```text
+40 passed in 15.43s
+```
+
+Phase 128 final regression:
+
+```text
+9256 passed in 570.10s (0:09:30)
+```
+
 ---
 
 # 3. 現在の Web / CLI execution semantics
@@ -266,92 +307,165 @@ eta_999
 
 ---
 
-# 4. Phase 126 完了境界
+# 4. 現在の operation-query handoff semantics
+
+lookup-first:
 
 ```text
-proof-scope exploration semantics を維持する
-applicability exploration semantics を維持する
-qualified execution family admission を維持する
-executable target inclusion だけを必要最小限に狭める
-
-nu_prime
-→ 2 executable targets を維持
-
-nu_5
-→ unrelated pi6_2 target を除外
-→ NONE
-
-sigma_11
-→ NONE を維持
-
-candidate number
-→ 1-based addressing
-→ theorem priority ではない
-
-target ranking
-→ 追加しない
-
-automatic best-target selection
-→ 追加しない
-
-general premise-component dependency engine
-→ 追加しない
+query
+→ direct repository / proof-scope lookup
+→ direct hit はそのまま返す
+→ direct miss の場合だけ exact handoff guard
 ```
 
-Phase 126 は完了。
+限定 handoff:
+
+```text
+E(nu_5)
+→ E(nu_5)=nu_6
+→ Toda Proposition 5.6 symbolic stable bridge
+
+E(sigma_11)
+→ E(sigma_11)=sigma_12
+→ Toda sigma-family definition
+
+E(nu_5 o eta_8)
+→ E(nu_5 eta_8)=0
+→ Toda Proposition 5.8 derived pi_10^6=0 provenance
+```
+
+Phase 128 の `E(nu_5 o eta_8)` は、
+
+```text
+query operand exactly nu_5 o eta_8
+root exactly standard.toda.prop58
+derived pi_10^6=0
+direct premise includes pi_9^5=Z/2{nu_5 eta_8}
+```
+
+を要求する。
+
+```text
+theorem-specific zero handoff
+!= general E evaluator
+!= general target-zero evaluator
+```
 
 ---
 
-# 5. Phase 127: post-Phase 126 capability priority audit
-
-Phase 126 で user-facing execute の semantic leak を修正した。
-
-次 Phase は新機能を直ちに追加せず、現在の実利用フローで次に不足する capability を再監査する。
-
-監査候補:
+# 5. Phase 128 完了境界
 
 ```text
-operation query / query-proof の残存 pressure
-generator execute の実利用 pressure
-Web / CLI workflow の不整合
-現在の2 qualified family で不足する具体例
-executable relevance guard を別 family / aggregate statement へ一般化する実需要
+direct lookup first を維持
+repository 非破壊
+Prop.5.8 provenance を維持
+query-proof replay を維持
+E(nu_5) / E(sigma_11) handoff を維持
+parser を変更しない
+Web に別 semantics を作らない
+general E evaluator を追加しない
+general target-zero rule を追加しない
+new theorem root を追加しない
+qualified family を追加しない
+ranking を追加しない
 ```
 
-判断順:
+Phase 128 は完了。
+
+---
+
+# 6. Phase 129: `E(nu_prime)` operation-result semantics audit
+
+Phase 127 で `E(nu_prime)` は implementation candidate として KEEP したが、Phase 128 より先には実装しなかった。
+
+既存 repository には
+
+\[
+E\nu'
+\]
+
+が
+
+\[
+\pi_7^4=
+\mathbb Z\{\nu_4\}
+\oplus
+\mathbb Z/4\{E\nu'\}
+\]
+
+の generator として既に存在する。
+
+一方、現行 operation query が通常返すのは、
 
 ```text
-actual user workflow
-→ concrete pressure
-→ existing mathematics / infrastructure reuse audit
+E(alpha)=beta
+E(alpha)=0
+```
+
+のような element-level `Relation` である。
+
+Phase 129 はまず次を監査する。
+
+```text
+1. E nu' の current proof-scope representation
+2. E(nu_prime) に対する user-facing result の自然な形
+3. membership / group decomposition を operation result とみなすべきか
+4. element-level Relation を作るなら既存 provenance だけで十分か
+5. containment semantics の一般化なしに exact handoff できるか
+```
+
+Phase 129 で先取りしないもの:
+
+```text
+general E evaluator
+arbitrary expression containment → operation result
+general membership evaluator
+general target-zero evaluator
+parser expansion
+new theorem root
+new qualified execution family
+ranking
+```
+
+Phase 129 の判断順:
+
+```text
+current representation
+→ desired result semantics
+→ provenance audit
 → minimum missing capability
-→ Phase scope freeze
-```
-
-Phase 127 で先取りしないもの:
-
-```text
-general premise-component dependency engine
-semantic theorem ranking
-semantic executable-target ranking
-automatic best-target selection
-general evaluator
-new qualified family without concrete pressure
+→ implementation scope freeze or DEFER
 ```
 
 ---
 
-# 6. 数学的 capability pressure
+# 7. 残存数学 pressure
 
-Web UI の発展とは別に、残存数学 pressure を保持する。
+Phase 127 の監査結果を維持する。
 
 ```text
 H(nu_5)
-H(sigma_11)
-Delta(sigma_11)
-E(nu_prime)
+→ DEFER
+→ element-level H proof が不足
+
 Delta(nu_prime)
+→ DEFER
+→ element-level Delta proof が不足
+
+H(sigma_11)
+→ DEFER
+→ sigma_11 への Hopf transport が不足
+
+Delta(sigma_11)
+→ DEFER
+→ element-level Delta proof / concrete window が不足
+
+E(nu_prime)
+→ KEEP
+→ Phase 129 semantics audit
+
 E(nu_5 o eta_8)
+→ Phase 128 で完了
 ```
 
 今後も
@@ -367,7 +481,7 @@ E(nu_5 o eta_8)
 
 ---
 
-# 7. 長期保留
+# 8. 長期保留
 
 ```text
 semantic theorem ranking
@@ -376,6 +490,7 @@ automatic best-target selection
 general premise-component dependency engine
 general operation-query grammar
 general E/H/Delta evaluator
+general target-zero evaluator
 general Toda bracket solver
 coset / indeterminacy computation
 proof-cost optimization
@@ -394,7 +509,7 @@ rich SPA architecture
 
 ---
 
-# 8. 完了判断原則
+# 9. 完了判断原則
 
 ```text
 既存数学を先に再利用する
@@ -409,7 +524,7 @@ read-only と execution の境界を明示する
 proof-scope relevance と executable relevance を混同しない
 aggregate statement の同居だけで executable source とみなさない
 candidate number を theorem priority と解釈しない
-利用者違和感はまず resolver semantics を監査する
+theorem-specific handoff を general evaluator に拡張しない
 focused regression で境界を固定する
 CLI / browser manual integration で表示境界を確認する
 repository-wide regression で Phase を閉じる
