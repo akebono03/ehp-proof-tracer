@@ -19,8 +19,19 @@ n,k
 → direct known-group lookup
 → concrete proof recovery
 → 必要なら theorem-specific stable specialization
+→ TodaGroupResult
 → structured presentation
 → report
+```
+
+group-result proof replay:
+
+```text
+TodaGroupResult
+→ existing proof_step / source_entry
+→ recursive provenance
+→ depth-limited replay
+→ CLI group-proof / Web Show proof
 ```
 
 operation query:
@@ -50,6 +61,9 @@ pi_0 information != ordinary group result
 Web UI != new mathematical engine
 depth control != new proof search
 candidate selection != theorem ranking
+group-result replay != generator lookup
+group-result replay != theorem search
+proof narrative != new proof
 ```
 
 ---
@@ -146,9 +160,50 @@ final:
 
 Phase 130 は完了。
 
+## Phase 131
+
+Phase 131 は group result から existing proof replay への接続を整備した。
+
+完了内容:
+
+```text
+group-result → ProofStep path audit
+TodaGroupResultProofReplayStep
+TodaGroupResultProofReplayResult
+build_toda_group_result_proof_replay()
+existing recursive provenance reuse
+depth 0 / 1 / 2
+ProofStep identity preservation
+source_entry identity preservation
+zero-group replay
+connectivity-zero replay
+CLI group-proof n k
+CLI group-proof n k --depth N
+Web group result → Show proof
+Web proof depth 0 / 1 / 2
+pi_0 / negative-dimensional domain-only result exclusion
+existing generator show-proof semantics preservation
+```
+
+manual examples:
+
+```text
+pi_16^9 = Z/16{sigma_9}
+pi_9^2 = 0
+pi_10^11 = 0  (Sphere connectivity)
+```
+
+final:
+
+```text
+9333 passed in 583.64s (0:09:43)
+```
+
+Phase 131 は完了。
+
 ---
 
-# 3. Phase 130 後の standard-query coverage
+# 3. standard-query coverage through stem 7
 
 ```text
 k < 0
@@ -183,36 +238,94 @@ k = 7
 
 ---
 
-# 4. Phase 131: post-Phase 130 capability audit
+# 4. 現在の proof access
 
-Phase 131 は新機能実装から開始しない。
-
-最初に次を監査する。
+generator 起点:
 
 ```text
-1. current CLI / Web capability
-2. standard query で残る実利用 pressure
-3. operation query で残る実利用 pressure
-4. proof support の有無
-5. user-facing result semantics
-6. provenance reuse の可否
-7. smallest missing capability
+generator
+→ known-group identity
+→ show-proof
 ```
 
-候補選定順:
+group query 起点:
 
 ```text
-actual usage pressure
-→ existing mathematics reuse audit
-→ result semantics
-→ provenance shape
-→ minimal capability
-→ scope freeze
+n,k
+→ TodaGroupResult
+→ group-proof / Web Show proof
 ```
+
+operation fact 起点:
+
+```text
+query
+→ selected operation fact
+→ query-proof
+```
+
+これらは同じ `ProofStep` / provenance infrastructure を利用する。
 
 ---
 
-# 5. Phase 131 の候補
+# 5. Phase 132: proof narrative generation audit
+
+Phase 132 は「もっと証明の文章らしく表示する」ための監査から開始する。
+
+目的:
+
+```text
+machine-traceable proof
+→ human-readable proof narrative
+```
+
+ただし新しい証明を生成しない。
+
+最初に監査する:
+
+```text
+1. toda_proof_narrative_renderer.py の現行能力
+2. ProofStep conclusion の文章化可能性
+3. direct premise の自然文接続
+4. nested premise の段落構造
+5. role 別 narrative template
+6. theorem / phase provenance の文章内配置
+7. zero group の narrative
+8. EHP exactness / map relation の narrative
+9. unsupported statement の fallback
+10. Trace / Outline / Narrative の表示切替
+```
+
+想定 presentation:
+
+```text
+Trace
+→ Depth / Role / Rule / raw proof facts
+
+Outline
+→ この結論には A, B, C を用いる
+
+Narrative
+→ まず A。次に B。したがって C。
+```
+
+重要な境界:
+
+```text
+Narrative
+!= proof synthesis
+!= new theorem inference
+!= LLM free-form proof
+!= provenance omission
+```
+
+既存 Trace を ground truth とする。
+
+---
+
+# 6. Phase 132 後に再評価する候補
+
+proof narrative 監査後、次の実利用 pressure を再評価する。
 
 ```text
 k >= 8 の standard query pressure
@@ -220,31 +333,11 @@ H(nu_5)
 Delta(nu_prime)
 H(sigma_11)
 Delta(sigma_11)
-Web での foundational-domain 表示確認
-standard query と generator exploration の接続 gap
+Web proof presentation polish
+rich proof graph visualization
 ```
 
-これらを実装対象と決め打ちしない。
-
----
-
-# 6. 先取りしないもの
-
-```text
-general E evaluator
-general H evaluator
-general Delta evaluator
-general membership evaluator
-arbitrary recursive containment → operation result
-general target-zero evaluator
-general operation-query grammar
-general symbolic AST substitution
-arbitrary theorem mining from proof scope
-new theorem ranking
-automatic best-target selection
-general premise-component dependency engine
-unbounded proof search
-```
+これらを事前に実装対象と決め打ちしない。
 
 ---
 
@@ -270,7 +363,28 @@ Delta(sigma_11)
 
 ---
 
-# 8. test / backup 運用
+# 8. 先取りしないもの
+
+```text
+general E evaluator
+general H evaluator
+general Delta evaluator
+general membership evaluator
+arbitrary recursive containment → operation result
+general target-zero evaluator
+general operation-query grammar
+general symbolic AST substitution
+arbitrary theorem mining from proof scope
+new theorem ranking
+automatic best-target selection
+general premise-component dependency engine
+unbounded proof search
+free-form provenance-free proof generation
+```
+
+---
+
+# 9. test / backup 運用
 
 Phase 完了時:
 
@@ -282,9 +396,15 @@ backup は repository 外へ保存する。
 
 repo 内 backup に copied `test_*.py` を置かない。
 
+最新 full regression:
+
+```text
+9333 passed in 583.64s (0:09:43)
+```
+
 ---
 
-# 9. 長期保留
+# 10. 長期保留
 
 ```text
 semantic theorem ranking
@@ -313,7 +433,7 @@ rich SPA architecture
 
 ---
 
-# 10. 完了判断原則
+# 11. 完了判断原則
 
 ```text
 既存数学を先に再利用する

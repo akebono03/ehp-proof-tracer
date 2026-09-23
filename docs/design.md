@@ -48,6 +48,9 @@ safe fallback != 推測した数学的説明
 candidate selection != theorem ranking
 Web execution != second execution engine
 executable relevance filtering != theorem ranking
+group-result proof replay != generator lookup
+group-result proof replay != new proof search
+proof narrative != new proof
 ```
 
 ---
@@ -61,7 +64,7 @@ ProofRepository
 → direct known-group lookup
 → concrete proof-ancestry recovery
 → stable/theorem-specific specialization
-→ group result
+→ TodaGroupResult
 → proof / EHP provenance
 → structured presentation
 → report
@@ -100,6 +103,8 @@ k は任意の int
 
 として扱う。
 
+Phase 130 ではこの connectivity zero を repository-backed `TodaGroupResult` として具体化するため、Phase 131 の group-result proof replay 対象になる。
+
 ## \(m=0\)
 
 \[
@@ -109,6 +114,8 @@ k は任意の int
 は通常の group result に正規化しない。
 
 \(n>0\) の球面は path-connected なので、1つの path component を持つという boundary information を返す。
+
+したがって group-result proof replay の対象外である。
 
 ## \(m<0\)
 
@@ -161,6 +168,8 @@ n=1,\quad k\ge1
 \]
 
 では foundational sphere connectivity として zero result を返す。
+
+この結果は `ProofRepositoryEntry` と `ProofStep` を持つ。
 
 ---
 
@@ -347,6 +356,21 @@ ProofStep.inference_rule
 
 `ProofRepositoryEntry.key / phase / theorem` は provenance metadata。
 
+`TodaGroupResult` はさらに
+
+```text
+source_entry
+proof_step
+```
+
+を保持し、
+
+```text
+group_result.proof_step is group_result.source_entry.step
+```
+
+を不変条件とする。
+
 ```text
 theorem-specific operation handoff != independent theorem root
 theorem-specific membership step != general inference rule
@@ -355,7 +379,98 @@ GROUP_MEMBERSHIP match kind != membership evaluator
 
 ---
 
-# 12. Web / CLI 共通 semantics
+# 12. group-result proof replay
+
+Phase 131 では generator ではなく群結果そのものから proof replay する経路を追加した。
+
+```text
+TodaGroupResult
+→ proof_step
+→ extract_toda_recursive_proof_provenance()
+→ depth 制限
+→ TodaGroupResultProofReplayResult
+→ CLI / Web
+```
+
+重要な境界:
+
+```text
+group-result replay
+!= generator-first replay
+!= repository re-search
+!= theorem mining
+!= new proof search
+```
+
+`TodaGroupResult.source_entry` と `TodaGroupResult.proof_step` の identity を維持する。
+
+replay step は既存 recursive provenance の
+
+```text
+shortest_depth
+role
+ProofStep identity
+```
+
+を保持する。
+
+これにより generator を持たない zero group でも replay できる。
+
+例:
+
+\[
+\pi_9^2=0.
+\]
+
+また Phase 130 の foundational connectivity zero:
+
+\[
+\pi_{10}^{11}=0
+\]
+
+も repository-backed result のため replay できる。
+
+一方、
+
+```text
+pi_0 boundary information
+negative-dimensional out-of-domain information
+```
+
+は ordinary `TodaGroupResult` ではないため replay 対象外。
+
+---
+
+# 13. CLI proof replay
+
+generator-first:
+
+```powershell
+python main.py show-proof sigma_11
+```
+
+group-result-first:
+
+```powershell
+python main.py group-proof 9 7
+python main.py group-proof 9 7 --depth 2
+```
+
+両者は目的を分離する。
+
+```text
+show-proof
+→ generator から known-group identity を探す
+
+group-proof
+→ n,k query で得た group result から直接 replay
+```
+
+既存 `show-proof` semantics は変更しない。
+
+---
+
+# 14. Web / CLI 共通 semantics
 
 Web は CLI output / Markdown を再解析しない。
 
@@ -367,9 +482,13 @@ existing structured object
 
 CLI と Web で数学エンジンを分岐させない。
 
+Web group query は repository-backed result の場合のみ `proof_available=True` とし、result 直下に `Show proof` を表示する。
+
+proof depth は 0 / 1 / 2。
+
 ---
 
-# 13. Generator execution
+# 15. Generator execution
 
 既存 status:
 
@@ -389,11 +508,11 @@ executable relevance
 
 を区別する。
 
-Phase 130 は execution semantics を変更していない。
+Phase 131 は execution semantics を変更していない。
 
 ---
 
-# 14. parser 境界
+# 16. parser 境界
 
 operation query grammar の既存境界を維持する。
 
@@ -422,7 +541,50 @@ group-query CLI の `k` は Phase 130 で負値を許可したが、これは op
 
 ---
 
-# 15. regression / test collection
+# 17. proof narrative 境界
+
+Phase 131 の表示は machine-traceable proof replay である。
+
+現状:
+
+```text
+Depth
+statement
+Role
+Rule
+Provenance
+```
+
+今後の proof narrative はこの既存 trace を人間向け文章へ変換する presentation 層として設計する。
+
+```text
+ProofStep / provenance
+→ deterministic narrative renderer
+→ human-readable proof prose
+```
+
+次を禁止する。
+
+```text
+narrative renderer
+!= new theorem inference
+!= provenance-free free-form proof generation
+!= stored proof facts の上書き
+```
+
+候補 UI:
+
+```text
+Trace
+Outline
+Narrative
+```
+
+Trace を監査上の ground truth とする。
+
+---
+
+# 18. regression / test collection
 
 Phase 終了時の全体回帰は
 
@@ -438,7 +600,7 @@ backup は repo 外へ保存する。
 
 ---
 
-# 16. Phase 130 完了境界
+# 19. Phase 130 完了境界
 
 ```text
 low-dimensional standard query recovery
@@ -462,9 +624,45 @@ final regression:
 
 ---
 
-# 17. 次 Phase との境界
+# 20. Phase 131 完了境界
 
-Phase 131 は capability / usage-pressure audit から始める。
+```text
+group-result → ProofStep path audit
+group-result proof replay core API
+existing recursive provenance reuse
+depth 0 / 1 / 2 replay
+source_entry / proof_step identity preservation
+zero-group replay
+connectivity-zero replay
+CLI group-proof
+Web result → Show proof
+pi_0 / negative-dimensional domain-only boundary preservation
+existing show-proof semantics preservation
+```
+
+final regression:
+
+```text
+9333 passed in 583.64s (0:09:43)
+```
+
+---
+
+# 21. 次 Phase との境界
+
+Phase 132 は proof narrative generation audit から始める。
+
+最初に監査するもの:
+
+```text
+existing toda_proof_narrative_renderer.py
+current proof-step statement renderability
+Role ごとの narrative template feasibility
+direct premise → sentence conversion
+nested premise → paragraph structure
+zero group / exactness / map relation / literature statement
+Trace / Outline / Narrative presentation boundary
+```
 
 先取りしないもの:
 
@@ -479,4 +677,5 @@ arbitrary proof-scope theorem mining
 theorem ranking
 automatic best-target selection
 unbounded proof search
+free-form provenance-free proof generation
 ```
