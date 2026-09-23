@@ -51,6 +51,9 @@ executable relevance filtering != theorem ranking
 group-result proof replay != generator lookup
 group-result proof replay != new proof search
 proof narrative != new proof
+Outline != proof search
+Narrative deduplication != proof graph deletion
+Web presentation adapter != proof semantics
 ```
 
 ---
@@ -103,7 +106,7 @@ k は任意の int
 
 として扱う。
 
-Phase 130 ではこの connectivity zero を repository-backed `TodaGroupResult` として具体化するため、Phase 131 の group-result proof replay 対象になる。
+Phase 130 ではこの connectivity zero を repository-backed `TodaGroupResult` として具体化するため、Phase 131 以降の group-result proof replay 対象になる。
 
 ## \(m=0\)
 
@@ -389,7 +392,6 @@ TodaGroupResult
 → extract_toda_recursive_proof_provenance()
 → depth 制限
 → TodaGroupResultProofReplayResult
-→ CLI / Web
 ```
 
 重要な境界:
@@ -441,7 +443,149 @@ negative-dimensional out-of-domain information
 
 ---
 
-# 13. CLI proof replay
+# 13. Phase 132 group proof presentation core
+
+Phase 132 では replay 結果を Trace / Outline / Narrative へ共通接続するため、
+
+```text
+TodaGroupProofPresentation
+```
+
+を追加した。
+
+構造:
+
+```text
+TodaGroupResultProofReplayResult
+→ selected replay nodes
+→ existing recursive provenance edges を selected nodes へ filter
+→ TodaGroupProofPresentation
+```
+
+重要な不変条件:
+
+```text
+presentation.nodes is replay.steps
+presentation.root_step is replay.root_step
+presentation.source_entry is replay.source_entry
+presentation.max_depth == replay.max_depth
+```
+
+presentation は新しい traversal semantics を定義しない。
+
+```text
+TodaGroupProofPresentation
+!= new proof search
+!= second depth semantics
+!= inferred parent relation
+```
+
+proof edge は `ProofStep.premises` 由来の既存 recursive provenance を使用する。
+
+flat replay の `depth` や表示順から parent-child relation を推測してはならない。
+
+---
+
+# 14. Trace / Outline / Narrative
+
+## Trace
+
+Phase 131 の既存 replay 表示。
+
+```text
+Depth
+statement
+Role
+Rule
+Provenance
+```
+
+監査用 ground truth とする。
+
+## Outline
+
+Outline は同じ presentation graph を階層的に表示する。
+
+```text
+Conclusion
+→ Premise 1
+→ Premise 2
+→ nested premise
+```
+
+同じ親の premise は `premise_index` 順に表示する。
+
+```text
+premise_index order
+!= global causal order
+```
+
+shared dependency が別 branch から参照される場合、graph 構造を保持するため Outline では必要に応じて複数箇所に現れてよい。
+
+## Narrative
+
+Narrative は固定テンプレートで同じ graph を文章化する。
+
+```text
+source theorem
+premise fact
+nested consequence
+root conclusion
+```
+
+新しい数学的説明を自由生成しない。
+
+statement 表示の優先順は、安全に既存 renderer を利用し、未対応 statement では rule name / type name fallback を使う。
+
+```text
+Narrative
+!= theorem inference
+!= mathematical paraphrase guessing
+!= provenance-free LLM proof
+```
+
+---
+
+# 15. Narrative shared-dependency deduplication
+
+Phase 132-8 で Narrative 表示に `ProofStep` identity 単位の shared-dependency deduplication を追加した。
+
+cycle guard と dedup state は別物として扱う。
+
+```text
+active_step_ids
+→ 現在の再帰 stack 上の cycle guard
+
+expanded_step_ids
+→ Narrative で既に subtree を展開済みか
+```
+
+最初の出現:
+
+```text
+subtree を通常展開
+```
+
+後続出現:
+
+```text
+既出の ... を用いる。
+```
+
+重要:
+
+```text
+Narrative subtree dedup
+!= edge removal
+!= node removal
+!= provenance mutation
+```
+
+Trace / Outline / presentation graph は変更しない。
+
+---
+
+# 16. CLI proof presentation
 
 generator-first:
 
@@ -456,39 +600,63 @@ python main.py group-proof 9 7
 python main.py group-proof 9 7 --depth 2
 ```
 
-両者は目的を分離する。
+Phase 132 以降:
+
+```powershell
+python main.py group-proof 9 7 --mode trace
+python main.py group-proof 9 7 --mode outline
+python main.py group-proof 9 7 --mode narrative
+python main.py group-proof 9 7 --depth 2 --mode narrative
+```
+
+`--mode` 省略時は `trace`。
+
+既存 Phase 131 semantics を維持する。
 
 ```text
 show-proof
 → generator から known-group identity を探す
 
 group-proof
-→ n,k query で得た group result から直接 replay
+→ n,k query で得た group result から直接 replay / presentation
 ```
-
-既存 `show-proof` semantics は変更しない。
 
 ---
 
-# 14. Web / CLI 共通 semantics
-
-Web は CLI output / Markdown を再解析しない。
-
-```text
-existing structured object
-→ thin Web adapter
-→ presentation
-```
+# 17. Web / CLI 共通 semantics
 
 CLI と Web で数学エンジンを分岐させない。
 
 Web group query は repository-backed result の場合のみ `proof_available=True` とし、result 直下に `Show proof` を表示する。
 
-proof depth は 0 / 1 / 2。
+proof depth:
+
+```text
+0 / 1 / 2
+```
+
+proof view:
+
+```text
+Trace / Outline / Narrative
+```
+
+Trace は既存 structured replay view を使う。
+
+Outline / Narrative は Phase 132 renderer の出力を Web 用の薄い adapter に変換する。
+
+Web adapter は数式 fragment を `data-latex` へ分離し、既存 KaTeX 表示経路を使う。
+
+```text
+Web adapter
+!= proof graph builder
+!= Narrative rule engine
+!= second mathematical engine
+```
 
 ---
 
-# 15. Generator execution
+# 18. Generator execution
 
 既存 status:
 
@@ -508,11 +676,11 @@ executable relevance
 
 を区別する。
 
-Phase 131 は execution semantics を変更していない。
+Phase 132 は execution semantics を変更していない。
 
 ---
 
-# 16. parser 境界
+# 19. parser 境界
 
 operation query grammar の既存境界を維持する。
 
@@ -541,50 +709,7 @@ group-query CLI の `k` は Phase 130 で負値を許可したが、これは op
 
 ---
 
-# 17. proof narrative 境界
-
-Phase 131 の表示は machine-traceable proof replay である。
-
-現状:
-
-```text
-Depth
-statement
-Role
-Rule
-Provenance
-```
-
-今後の proof narrative はこの既存 trace を人間向け文章へ変換する presentation 層として設計する。
-
-```text
-ProofStep / provenance
-→ deterministic narrative renderer
-→ human-readable proof prose
-```
-
-次を禁止する。
-
-```text
-narrative renderer
-!= new theorem inference
-!= provenance-free free-form proof generation
-!= stored proof facts の上書き
-```
-
-候補 UI:
-
-```text
-Trace
-Outline
-Narrative
-```
-
-Trace を監査上の ground truth とする。
-
----
-
-# 18. regression / test collection
+# 20. regression / test collection
 
 Phase 終了時の全体回帰は
 
@@ -600,7 +725,7 @@ backup は repo 外へ保存する。
 
 ---
 
-# 19. Phase 130 完了境界
+# 21. Phase 130 完了境界
 
 ```text
 low-dimensional standard query recovery
@@ -624,7 +749,7 @@ final regression:
 
 ---
 
-# 20. Phase 131 完了境界
+# 22. Phase 131 完了境界
 
 ```text
 group-result → ProofStep path audit
@@ -648,21 +773,49 @@ final regression:
 
 ---
 
-# 21. 次 Phase との境界
-
-Phase 132 は proof narrative generation audit から始める。
-
-最初に監査するもの:
+# 23. Phase 132 完了境界
 
 ```text
-existing toda_proof_narrative_renderer.py
-current proof-step statement renderability
-Role ごとの narrative template feasibility
-direct premise → sentence conversion
-nested premise → paragraph structure
-zero group / exactness / map relation / literature statement
-Trace / Outline / Narrative presentation boundary
+existing proof narrative capability audit
+actual ProofStep.premises edge semantics confirmation
+TodaGroupProofPresentation
+deterministic Outline renderer
+deterministic Narrative renderer
+safe statement rendering / fallback
+shared dependency Narrative deduplication
+CLI --mode trace|outline|narrative
+Trace default compatibility
+Web Trace / Outline / Narrative selector
+Web KaTeX preservation
+existing replay depth semantics reuse
+proof graph / repository non-mutation
 ```
+
+final regression:
+
+```text
+9392 passed in 587.98s (0:09:47)
+```
+
+Phase 132 は presentation layer の拡張であり、Toda の新しい数学定理、operation evaluator、proof search algorithm は追加していない。
+
+---
+
+# 24. 次 Phase との境界
+
+Phase 133 は post-Phase-132 capability / workflow pressure audit とする。
+
+最初に確認する:
+
+```text
+現在の group query
+Trace / Outline / Narrative の実利用
+operation query の残件
+standard query の次の不足
+Web workflow の実利用上の不足
+```
+
+実装対象を先に決め打ちしない。
 
 先取りしないもの:
 

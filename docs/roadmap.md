@@ -24,14 +24,16 @@ n,k
 → report
 ```
 
-group-result proof replay:
+group-result proof:
 
 ```text
 TodaGroupResult
 → existing proof_step / source_entry
 → recursive provenance
 → depth-limited replay
-→ CLI group-proof / Web Show proof
+→ TodaGroupProofPresentation
+→ Trace / Outline / Narrative
+→ CLI / Web
 ```
 
 operation query:
@@ -64,6 +66,7 @@ candidate selection != theorem ranking
 group-result replay != generator lookup
 group-result replay != theorem search
 proof narrative != new proof
+Narrative deduplication != proof graph deletion
 ```
 
 ---
@@ -130,10 +133,6 @@ Phase 129 final:
 
 ## Phase 130
 
-Phase 130 は standard query の未接続・境界 semantics を整理した。
-
-完了内容:
-
 ```text
 low-dimensional query recovery
 stem 1 eta specialization
@@ -158,13 +157,9 @@ final:
 9308 passed in 577.02s (0:09:37)
 ```
 
-Phase 130 は完了。
+Phase 130 完了。
 
 ## Phase 131
-
-Phase 131 は group result から existing proof replay への接続を整備した。
-
-完了内容:
 
 ```text
 group-result → ProofStep path audit
@@ -185,21 +180,44 @@ pi_0 / negative-dimensional domain-only result exclusion
 existing generator show-proof semantics preservation
 ```
 
-manual examples:
-
-```text
-pi_16^9 = Z/16{sigma_9}
-pi_9^2 = 0
-pi_10^11 = 0  (Sphere connectivity)
-```
-
 final:
 
 ```text
 9333 passed in 583.64s (0:09:43)
 ```
 
-Phase 131 は完了。
+Phase 131 完了。
+
+## Phase 132
+
+Phase 132 は group-result proof replay の presentation layer を拡張した。
+
+完了内容:
+
+```text
+proof narrative capability audit
+ProofStep.premises edge semantics confirmation
+TodaGroupProofPresentation
+deterministic Outline
+deterministic Narrative
+safe statement / rule / type fallback
+shared dependency Narrative deduplication
+CLI group-proof --mode trace|outline|narrative
+Trace default preservation
+shared --depth semantics
+Web Trace / Outline / Narrative selector
+Web KaTeX preservation
+proof graph non-mutation
+repository non-mutation
+```
+
+final:
+
+```text
+9392 passed in 587.98s (0:09:47)
+```
+
+Phase 132 完了。
 
 ---
 
@@ -253,7 +271,9 @@ group query 起点:
 ```text
 n,k
 → TodaGroupResult
-→ group-proof / Web Show proof
+→ replay
+→ Trace / Outline / Narrative
+→ CLI / Web
 ```
 
 operation fact 起点:
@@ -268,80 +288,46 @@ query
 
 ---
 
-# 5. Phase 132: proof narrative generation audit
+# 5. Phase 133: post-Phase-132 capability / workflow pressure audit
 
-Phase 132 は「もっと証明の文章らしく表示する」ための監査から開始する。
+Phase 133 では新機能を先に決めず、Phase 132 までの機能を実利用して次の不足を選ぶ。
 
-目的:
+監査対象:
 
 ```text
-machine-traceable proof
-→ human-readable proof narrative
+1. standard group query の実利用
+2. Trace / Outline / Narrative の読みやすさと不足
+3. operation query / query-proof の残件
+4. generator explore / applicability / execute の利用 pressure
+5. Web workflow の実利用上の不足
+6. stem 7 より先の standard-query demand
 ```
 
-ただし新しい証明を生成しない。
-
-最初に監査する:
+判断原則:
 
 ```text
-1. toda_proof_narrative_renderer.py の現行能力
-2. ProofStep conclusion の文章化可能性
-3. direct premise の自然文接続
-4. nested premise の段落構造
-5. role 別 narrative template
-6. theorem / phase provenance の文章内配置
-7. zero group の narrative
-8. EHP exactness / map relation の narrative
-9. unsupported statement の fallback
-10. Trace / Outline / Narrative の表示切替
+既存 proof にある事実を先に再利用
+direct fact を上書きしない
+実利用上の不足を1つ選ぶ
+最小の representation / orchestration を追加
+future Phase を先取りしない
 ```
 
-想定 presentation:
+Phase 133 の時点では次のどれも自動的な実装対象とはしない。
 
 ```text
-Trace
-→ Depth / Role / Rule / raw proof facts
-
-Outline
-→ この結論には A, B, C を用いる
-
-Narrative
-→ まず A。次に B。したがって C。
-```
-
-重要な境界:
-
-```text
-Narrative
-!= proof synthesis
-!= new theorem inference
-!= LLM free-form proof
-!= provenance omission
-```
-
-既存 Trace を ground truth とする。
-
----
-
-# 6. Phase 132 後に再評価する候補
-
-proof narrative 監査後、次の実利用 pressure を再評価する。
-
-```text
-k >= 8 の standard query pressure
+k >= 8
 H(nu_5)
 Delta(nu_prime)
 H(sigma_11)
 Delta(sigma_11)
-Web proof presentation polish
+Narrative wording polish
 rich proof graph visualization
 ```
 
-これらを事前に実装対象と決め打ちしない。
-
 ---
 
-# 7. 残存数学 pressure
+# 6. 残存数学 pressure
 
 ```text
 H(nu_5)
@@ -360,6 +346,33 @@ Delta(sigma_11)
 → DEFER
 → concrete Delta proof / EHP window support の再監査が必要
 ```
+
+---
+
+# 7. proof presentation の今後の候補
+
+Phase 132 で以下は実装済み。
+
+```text
+Trace
+Outline
+Narrative
+shared-dependency Narrative dedup
+CLI mode selection
+Web mode selection
+KaTeX rendering
+```
+
+今後の改善候補:
+
+```text
+Narrative の局所的な冗長表現の圧縮
+role-specific deterministic templates
+unsupported aggregate statement の追加 safe rendering
+rich graph visualization
+```
+
+ただし実利用 pressure が確認されるまで実装しない。
 
 ---
 
@@ -399,7 +412,7 @@ repo 内 backup に copied `test_*.py` を置かない。
 最新 full regression:
 
 ```text
-9333 passed in 583.64s (0:09:43)
+9392 passed in 587.98s (0:09:47)
 ```
 
 ---

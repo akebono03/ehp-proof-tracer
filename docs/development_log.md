@@ -529,6 +529,226 @@ Phase 131 完了。
 
 ---
 
+# Phase 132 — deterministic proof presentation
+
+Phase 132 は、Phase 131 の machine-traceable group-result proof replay を人間が読みやすい表示へ拡張した。
+
+新しい数学定理、一般 proof search、operation evaluator は追加していない。
+
+## Phase 132-1〜3: narrative / graph semantics audit
+
+既存 `toda_proof_narrative_renderer.py` と \(\pi_{16}^{9}\) の Proposition 5.15 ancestry を監査。
+
+確定した重要事項:
+
+```text
+ProofStep.premises edge
+→ proof structure の ground truth
+
+flat replay depth/order
+→ parent-child relation の ground truth ではない
+```
+
+Trace / Outline / Narrative は同じ proof graph を使う方針とした。
+
+## Phase 132-4: `TodaGroupProofPresentation`
+
+追加:
+
+```text
+TodaGroupProofPresentation
+build_toda_group_proof_presentation()
+```
+
+Phase 131 replay の selected node をそのまま保持し、既存 recursive provenance edge を selected node に filter する薄い presentation core とした。
+
+```text
+presentation.nodes is replay.steps
+```
+
+新しい proof search / depth semantics は追加しない。
+
+focused:
+
+```text
+10 passed in 8.73s
+```
+
+関連:
+
+```text
+35 passed in 10.73s
+```
+
+## Phase 132-5: deterministic Outline renderer
+
+追加:
+
+```text
+toda_group_proof_outline_renderer.py
+render_toda_group_proof_outline_markdown()
+```
+
+\(\pi_{16}^{9}\) について actual premise edge と `premise_index` を使って階層表示。
+
+unsupported statement は既存 mathematical renderer、rule name、type name の安全な fallback を利用。
+
+focused:
+
+```text
+8 passed in 6.99s
+```
+
+関連:
+
+```text
+43 passed in 10.05s
+```
+
+## Phase 132-6: deterministic Narrative renderer
+
+追加:
+
+```text
+toda_group_proof_narrative_renderer.py
+render_toda_group_proof_narrative_markdown()
+```
+
+固定テンプレート:
+
+```text
+〜を用いる。
+これらから、〜を得る。
+したがって、〜を得る。
+```
+
+のみを使い、自由生成による数学的説明は行わない。
+
+sibling premise order と causal narrative order を同一視しないことをテストで確定。
+
+focused:
+
+```text
+9 passed in 11.62s
+```
+
+関連:
+
+```text
+52 passed in 12.71s
+```
+
+## Phase 132-7: CLI Trace / Outline / Narrative
+
+`group-proof` に追加:
+
+```powershell
+python main.py group-proof 9 7 --mode trace
+python main.py group-proof 9 7 --mode outline
+python main.py group-proof 9 7 --mode narrative
+```
+
+`--mode` 省略時は `trace`。
+
+`--depth` は3 mode で共通。
+
+focused:
+
+```text
+9 passed in 16.53s
+```
+
+関連:
+
+```text
+61 passed in 14.69s
+```
+
+## Phase 132-8: Narrative shared-dependency deduplication
+
+同じ `ProofStep` が複数 parent から利用される DAG で、Narrative が同じ subtree を何度も全文再展開しないようにした。
+
+```text
+first use
+→ subtree expand
+
+later use
+→ 既出の ... を用いる。
+```
+
+proof graph / Trace / Outline は変更しない。
+
+focused:
+
+```text
+8 passed in 25.48s
+```
+
+Narrative / CLI 関連:
+
+```text
+26 passed in 9.50s
+```
+
+Phase 131〜132-8 関連:
+
+```text
+69 passed in 16.96s
+```
+
+## Phase 132-9: Web Trace / Outline / Narrative
+
+Web group proof に
+
+```text
+Proof view:
+Trace
+Outline
+Narrative
+```
+
+を追加。
+
+既存 proof depth 0 / 1 / 2 を3 mode で共通利用。
+
+Outline / Narrative は既存 Phase 132 renderer を再利用し、Web adapter は数式 fragment を `data-latex` へ分離して KaTeX 経路を維持。
+
+focused:
+
+```text
+15 passed in 15.93s
+```
+
+Web 周辺:
+
+```text
+60 passed in 20.16s
+```
+
+Phase 131〜132-9 関連:
+
+```text
+84 passed in 21.58s
+```
+
+## Phase 132-10: completion regression / documentation
+
+repository-wide regression:
+
+```powershell
+python -m pytest tests -q
+```
+
+結果:
+
+```text
+9392 passed in 587.98s (0:09:47)
+```
+
+Phase 132 完了。
+
+---
+
 # 現在の運用方針
 
 `development_log.md` は索引 + 直近 Phase 記録として維持する。
@@ -549,6 +769,6 @@ backup:
 repository 外へ保存
 ```
 
-次 Phase 132 は proof narrative generation audit から開始する。
+次 Phase 133 は post-Phase-132 capability / workflow pressure audit とする。
 
-目的は既存 `ProofStep` / provenance を人間が読みやすい証明文へ変換することであり、新しい proof search や provenance-free proof generation は行わない。
+実装対象を先に決め打ちせず、現在の group query、Trace / Outline / Narrative、operation query、Web workflow を実際に使い、次の具体的な不足を選定する。
