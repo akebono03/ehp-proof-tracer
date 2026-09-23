@@ -10,17 +10,10 @@ from toda_proof_narrative_renderer import (
 )
 from toda_rules import (
   Toda48Pi16_9OrderAndE4InjectiveStatement,
-  Toda52CompositionIsomorphismStatement,
-  Toda53NuPrimeBracketSpecializationStatement,
-  Toda55NuFamilyFiniteDimensionalStatement,
   Toda56Nu4DecompositionStatement,
-  TodaDeltaZeroStatement,
-  TodaHopfInvariantInjectiveStatement,
   TodaIteratedSuspensionInjectiveStatement,
   TodaLemma513Statement,
   TodaLemma514Sigma8Statement,
-  TodaProp51FiniteDimensionalStatement,
-  TodaProp511FiniteDimensionalStatement,
   TodaProp515Pi12_5HopfIsomorphismStatement,
   TodaProp56Pi8_5QuotientStatement,
   TodaSigmaFamilyDefinitionStatement,
@@ -40,43 +33,9 @@ def _group_proof_narrative_statement_label(
 
   if isinstance(
     statement,
-    Toda52CompositionIsomorphismStatement,
-  ):
-    return "Toda (5.2) の η₂ 合成同型"
-
-  if isinstance(
-    statement,
-    Toda53NuPrimeBracketSpecializationStatement,
-  ):
-    return (
-      "ν′ に対する Lemma 5.2 の Toda bracket 特殊化"
-    )
-
-  if isinstance(
-    statement,
-    Toda55NuFamilyFiniteDimensionalStatement,
-  ):
-    return (
-      "Toda (5.5) の ν-family 有限次元結果"
-    )
-
-  if isinstance(
-    statement,
     Toda56Nu4DecompositionStatement,
   ):
     return "Toda (5.6) の ν₄ 分解"
-
-  if isinstance(
-    statement,
-    TodaDeltaZeroStatement,
-  ):
-    return "Δ 写像が零写像であること"
-
-  if isinstance(
-    statement,
-    TodaHopfInvariantInjectiveStatement,
-  ):
-    return "Hopf 写像の単射性"
 
   if isinstance(
     statement,
@@ -98,22 +57,6 @@ def _group_proof_narrative_statement_label(
   ):
     return (
       "Toda Lemma 5.14 の σ₈ に関する結果"
-    )
-
-  if isinstance(
-    statement,
-    TodaProp51FiniteDimensionalStatement,
-  ):
-    return (
-      "Toda Proposition 5.1 の有限次元結果"
-    )
-
-  if isinstance(
-    statement,
-    TodaProp511FiniteDimensionalStatement,
-  ):
-    return (
-      "Toda Proposition 5.11 の有限次元結果"
     )
 
   if isinstance(
