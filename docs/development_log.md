@@ -430,14 +430,6 @@ phase
 theorem
 ```
 
-初回 focused test は `nu_prime` の Toda-bracket group が必ず非空という誤ったテスト前提により1件失敗した。
-
-```text
-1 failed, 12 passed
-```
-
-production code を再監査し、group は空でもよいことを確認。テストを「既存 presentation と Web view の grouping が一致する」不変条件へ修正した。
-
 修正後:
 
 ```text
@@ -450,96 +442,29 @@ existing Web compatibility:
 
 ### Phase 121-5: browser/manual integration check
 
-`nu_prime`:
-
 ```text
-Occurrences: 6
-Group generators
-Composition left
-Composition right
-Roles
-Phase
-Theorem
-KaTeX
+nu_prime
+→ Occurrences: 6
+
+sigma_11
+→ Occurrences: 0
+
+eta_999
+→ Occurrences: 0
 ```
-
-`sigma_11`:
-
-```text
-Occurrences: 0
-```
-
-これは Web adapter の不具合ではない。
-
-```text
-explore sigma_11
-→ standard production repository の direct occurrence は 0
-
-explore-proof sigma_11
-→ specialized recursive proof-scope occurrence を得られる
-```
-
-したがって、
 
 ```text
 explore != explore-proof
 direct occurrence != specialized proof-scope occurrence
 ```
 
-という既存境界を維持した。
-
-`eta_999`:
-
-```text
-Occurrences: 0
-```
-
-unknown indexed generator は正常な zero-occurrence result として表示した。
-
-既存 Web capability も確認:
-
-```text
-group query n=11, k=7
-operation query / query-proof E(sigma_11)
-generator proof
-KaTeX
-```
-
 ### Phase 121-final: documentation / completion
 
-更新対象:
-
 ```text
-README.md
-docs/design.md
-docs/roadmap.md
-docs/development_log.md
-```
-
-Phase 121 は新しい数学的 proof / theorem root / ProofStep provenance を追加していないため、`docs/proof_records.md` は変更しない。
-
-repository-wide regression:
-
-```text
-python -m pytest -q
 9197 passed in 455.68s (0:07:35)
 ```
 
 Phase 121 は完了。
-
-### Phase 121 後の境界
-
-remaining read-only Web capability:
-
-```text
-explore-proof
-explore-applicable
-```
-
-`execute` は引き続き read-only capability より後段とする。
-
-次 Phase は remaining read-only capability を再監査し、structured presentation boundary と browser 表示量を比較してから、必要なら1 capability だけを選ぶ。
-
 
 ## Phase 122
 
@@ -549,97 +474,23 @@ Phase 122 は remaining read-only Web capability のうち `explore-proof` と `
 
 ### Phase 122-1: `explore-proof` / `explore-applicable` audit
 
-監査結果:
-
 ```text
 explore-proof
 → read-only
 → RepositoryProofScopeExplorationResult が既にある
-→ generator input だけで成立
-→ root / shortest depth / Toda membership / map relation を既存構造から取得可能
-→ dedicated Web adapter は必要だが数学層の変更は不要
 
 explore-applicable
 → read-only
 → rich RepositoryGeneratorApplicabilityPresentation が既にある
 → source / rule family / candidate の階層が大きい
 → result volume が大きい
-→ candidate selection / execute workflow に近い
 ```
 
-このため Phase 122 は `explore-proof` のみに限定した。
+### Phase 122-2 / 122-3
 
-### Phase 122-2: `explore-proof` Web integration selection
+`explore-proof` のみに限定し、既存 recursive proof-scope result を thin Web adapter から公開する設計を固定。
 
-```text
-scope:
-read-only recursive generator proof-scope exploration only
-
-not included:
-explore-applicable
-candidate selection
-qualified execution
-execute
-new proof search
-new proof-scope specialization
-```
-
-### Phase 122-3: Web adapter boundary design
-
-採用した経路:
-
-```text
-generator input
-→ resolve_generator_input(...)
-→ standard production repository
-→ build_repository_proof_scope(...)
-→ existing generator specialization
-→ RepositoryProofScopeExplorationResult
-→ web_generator_proof_scope.py
-→ immutable Web view
-→ Jinja
-→ KaTeX
-```
-
-CLI の Markdown renderer は解析しない。
-
-Web view は次だけを保持する。
-
-```text
-generator_input
-generator_latex
-occurrence_count
-toda_membership_count
-map_relation_count
-toda_memberships[]
-map_relations[]
-```
-
-Toda membership:
-
-```text
-statement_latex
-root_key
-depth
-match_labels
-```
-
-map relation:
-
-```text
-statement_latex
-root_key
-depth
-```
-
-proof replay 用の Web depth selector は追加しない。
-
-```text
-proof replay depth
-!= proof-scope shortest_depth metadata
-```
-
-### Phase 122-4: minimal implementation + focused tests
+### Phase 122-4
 
 追加:
 
@@ -647,6 +498,121 @@ proof replay depth
 web_generator_proof_scope.py
 tests/test_phase122_4_web_generator_proof_scope.py
 tests/test_phase122_4_web_app_generator_proof_scope.py
+```
+
+focused tests:
+
+```text
+15 passed
+```
+
+### Phase 122-5
+
+ブラウザで `nu_prime`、`sigma_11`、`eta_999` と既存 Web capability を確認。
+
+```text
+67 passed in 21.93s
+```
+
+### Phase 122-final
+
+repository-wide regression:
+
+```text
+9212 passed in 455.16s (0:07:35)
+```
+
+Phase 122 は完了。
+
+## Phase 123
+
+Phase 123 は残っていた read-only Web capability `explore-applicable` を監査し、既存 applicability semantics を変えずに compact Web surface として接続した。
+
+新しい数学的 theorem、proof-search rule、qualified execution family、query grammar、candidate-selection semantics は追加していない。
+
+### Phase 123-1: current applicability audit
+
+確認対象:
+
+```text
+RepositoryGeneratorApplicabilityExplorationResult
+RepositoryGeneratorApplicabilityPresentation
+ApplicabilitySourceGroupPresentation
+ApplicabilityRuleFamilyPresentation
+compact renderer
+detailed renderer
+CLI default compact behavior
+```
+
+既存 presentation が次をすでに保持することを確認した。
+
+```text
+source grouping
+rule group
+rule family
+candidate identity
+raw candidate count
+relevance ordering
+```
+
+### Phase 123-2: Web exposure decision
+
+Web は read-only compact 表示のみに限定。
+
+公開:
+
+```text
+generator
+proof-scope occurrence count
+applicability candidate count
+source count
+rule-group count
+rule-family count
+source category
+source statement
+root
+depth
+source type
+raw candidate count
+rule family name
+catalog-entry count
+rule-family raw candidate count
+```
+
+非公開:
+
+```text
+candidate identity
+candidate selection
+fixed_point_safe
+premise indexes
+bindings
+detailed toggle
+qualified execution
+execute action
+```
+
+### Phase 123-3: Web adapter boundary
+
+```text
+generator input
+→ existing standard applicability facade
+→ existing applicability presentation
+→ thin Web immutable view
+→ Jinja
+→ KaTeX
+```
+
+source classification と relevance ordering は既存 presentation を再利用し、Web で再実装しない。
+
+### Phase 123-4: minimal implementation + focused tests
+
+追加:
+
+```text
+web_generator_applicability.py
+tests/test_phase123_4_web_generator_applicability.py
+tests/test_phase123_4_web_app_generator_applicability.py
 ```
 
 変更:
@@ -659,94 +625,104 @@ templates/index.html
 focused tests:
 
 ```text
-15 passed in 22.14s
-15 passed in 10.37s
+13 passed in 61.24s
 ```
 
-主な固定境界:
+### Phase 123-5: browser/manual integration audit
+
+`nu_prime`:
 
 ```text
-nu_prime
-→ proof-scope result が structured Web view になる
-
-sigma_11
-→ direct explore は 0
-→ proof-scope は recursive specialization により > 0
-
-eta_999
-→ 0 / 0 / 0 を正常結果として扱う
-
-blank input
-→ safe error
-
-existing Web forms
-→ 維持
+Proof-scope occurrences: 626
+Applicability candidates: 176616
+Source statements with candidates: 542
+Rule groups: 123300
+Rule families: 29308
 ```
 
-### Phase 122-5: browser/manual integration audit
-
-ブラウザで確認:
+source categories:
 
 ```text
-group query:
-n=11, k=7
-→ pi_18^11 = Z/16{sigma_11}
-
-operation query:
-E(sigma_11)
-→ E sigma_11 = sigma_12
-
-query-proof:
-depth 1
-→ conclusion / provenance / proof replay
-
-generator proof:
-sigma_11, depth 2
-→ known-group proof replay
-
-generator explore:
-nu_prime
-→ 6 direct occurrences
-
-generator explore:
-sigma_11
-→ 0 direct occurrences
-
-generator proof-scope:
-sigma_11
-→ 1 proof-scope occurrence
-
-generator proof-scope:
-eta_999
-→ 0 occurrences
-→ 0 Toda memberships
-→ 0 map relations
+Toda memberships: 46
+Map relations: 44
+Other statements: 452
 ```
 
-すべてのブラウザ POST は HTTP 200、KaTeX 経路も正常。
+機能・数学データ・KaTeX・zero-result semantics は正常だったが、全 source / rule family を HTML に展開すると browser output が大きすぎることを確認した。
 
-focused Web regression:
+`sigma_11`:
 
 ```text
-67 passed in 21.93s
+1 occurrence
+686 candidates
+1 source
+472 rule groups
+112 rule families
 ```
 
-重要な既存境界を維持:
+`eta_999`:
 
 ```text
-explore sigma_11
-→ 0 direct occurrence
-
-explore-proof sigma_11
-→ 1 recursive proof-scope occurrence
-
-explore
-!= explore-proof
+0 / 0 / 0 / 0 / 0
 ```
 
-`nu_prime` の proof-scope result は大きいが、Phase 122 では semantics を変える paging / folding / deduplication / result limit は追加しなかった。
+### Phase 123-5A: compact Web display volume fix
 
-### Phase 122-final: documentation / completion
+underlying applicability result を変更せず、Jinja の描画量だけを制限した。
+
+```text
+source:
+各 category 先頭 5 件
+
+rule family:
+各 displayed source 先頭 10 件
+
+details:
+初期折りたたみ
+
+summary:
+全件数を維持
+
+omitted:
+省略件数を明示
+```
+
+focused regression:
+
+```text
+17 passed in 69.57s
+```
+
+### Phase 123-5B: browser/manual re-audit
+
+`nu_prime`:
+
+```text
+full summary counts preserved
+46 Toda memberships → first 5 rendered
+44 map relations → first 5 rendered
+452 other statements → first 5 rendered
+large rule-family groups → first 10 rendered
+omitted counts shown
+```
+
+`sigma_11`:
+
+```text
+compact display verified
+rule-family details collapsed
+```
+
+`eta_999`:
+
+```text
+zero result preserved
+no truncation message
+```
+
+Phase 123-5B は PASS。
+
+### Phase 123-final: documentation / completion
 
 更新対象:
 
@@ -755,41 +731,32 @@ README.md
 docs/design.md
 docs/roadmap.md
 docs/development_log.md
+docs/proof_records.md
 ```
 
-Phase 122 は新しい数学的 proof / theorem root / ProofStep provenance を追加していないため、`docs/proof_records.md` は変更しない。
+Phase 123 は新しい数学的 proof / theorem root を追加していない。`proof_records.md` には Web applicability presentation が proof truth ではないという境界のみ追記する。
 
 repository-wide regression:
 
 ```text
 python -m pytest -q
-9212 passed in 455.16s (0:07:35)
+9229 passed in 509.16s (0:08:29)
 ```
 
-Phase 122 は完了。
+Phase 123 は完了。
 
-### Phase 122 後の境界
+### Phase 123 後の境界
 
-remaining read-only Web capability:
+read-only Web capability の優先接続は一通り完了した。
+
+次 Phase 124 は実装前監査とし、
 
 ```text
-explore-applicable
+execute Web integration readiness
+vs
+current single-page Web UI organization / usability cleanup
 ```
 
-次の Phase 123 は `explore-applicable` の Web integration audit とする。
+の優先度を判断する。
 
-確認対象:
-
-```text
-source grouping
-rule family / rule group hierarchy
-candidate identity
-raw candidate count
-relevance category
-compact / detailed presentation
-browser result volume
-candidate selection との境界
-execute との境界
-```
-
-`execute` は candidate selection・ambiguity・execution semantics を伴うため、Phase 123 の read-only audit には含めない。
+`execute` は candidate selection・ambiguity・execution semantics を伴うため、read-only capability の延長として自動的に接続しない。

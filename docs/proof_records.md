@@ -194,52 +194,11 @@ Phase 110 は新しい数学的定理事実を追加していない。
 
 既存 repository / proof-scope に存在する relation・map statement・composition を利用者向け query から検索し、既存 `ProofStep` provenance を保持したまま表示・replay する経路を追加した。
 
-最小文法:
-
-```text
-H(<operand>)
-E(<operand>)
-Delta(<operand>)
-<generator> o <generator>
-```
-
-代表結果:
-
-$$
-H(\nu')=\eta_5,
-\qquad
-H(\nu')=E^2\eta_3,
-$$
-
-$$
-\Delta(\iota_9)
-=
-\pm(2\nu_4-E\nu'),
-$$
-
-$$
-E\eta_2\nu'=0.
-$$
-
 ```text
 検索 != 推論 != evaluator
+deduplicated 表示 != provenance deletion
+query-proof replay != enclosing theorem replay
 ```
-
-raw lookup occurrence は削除せず、表示 layer のみ同一 statement を grouping する。
-
-```text
-deduplicated 表示
-!= provenance deletion
-```
-
-`query-proof` は selected fact の `ProofStep` を replay root とする。
-
-```text
-operation-query 証明再生
-!= repository theorem replay
-```
-
-unknown aggregate statement は安全な type-name fallback を使う。
 
 ```text
 9055 passed in 455.09s (0:07:35)
@@ -251,124 +210,14 @@ Phase 110 は完了。
 
 Phase 111 は新しい数学的定理事実を追加していない。
 
-既存 CLI capability を利用者視点で監査し、実際に確認された usability pressure だけを最小実装した。
-
-### Global CLI discoverability
-
-主要コマンドを global help から発見可能にした。
-
-`n,k` は project quantity
-
-$$
-\pi_{n+k}^{n}
-$$
-
-すなわち free part + 2-primary component と明示し、通常の all-primary sphere homotopy group と混同しないようにした。
-
-### Symbolic dimension presentation
-
-Toda group の symbolic dimension で Python AST repr が露出する問題を修正。
-
-$$
-\pi_{n+7}^{n}
-$$
-
-のように表示する。
-
-これは数学的定理事実の追加ではなく presentation 修正である。
-
-### Three-term composition query
-
-実際に repository に存在する
-
-$$
-\eta_2\circ(\nu'\circ\eta_6)
-$$
-
-への問い合わせ需要に対して、
-
 ```text
-eta_2 o nu_prime o eta_6
+3-term query != new theorem
+--depth != new proof search
+safe type-name fallback != 推測した定理 branch
 ```
-
-を top-level query として追加した。
-
-代表既存 fact:
-
-$$
-\pi_7^2
-=
-\mathbb Z/2\{\eta_2\nu'\eta_6\},
-$$
-
-$$
-E\eta_2\nu'\eta_6=0.
-$$
-
-この対応は既存 proof fact lookup であり、新しい演算 evaluator ではない。
-
-```text
-3-term query
-!= new theorem
-!= composition evaluation
-```
-
-### Replay depth exposure
-
-既存 replay API の `max_depth` を CLI `--depth` として公開。
-
-```text
-show-proof --depth N
-query-proof --depth N
-```
-
-`--depth` は既存 ancestry の可視範囲を変えるだけであり、新しい proof search を行わない。
-
-### Deep replay safe fallback
-
-深い `show-proof` で unsupported aggregate statement の raw dataclass repr が漏れる問題を修正。
-
-例:
-
-```text
-`Toda45IsomorphismStatement`
-`TodaSigmaFamilyDefinitionStatement`
-```
-
-既に数式表示可能な
-
-$$
-\pi_{18}^{11}=\mathbb Z/16\{\sigma_{11}\},
-$$
-
-$$
-\pi_{n+7}^{n}=\mathbb Z/16\{\sigma_n\},
-$$
-
-$$
-\pi_{16}^{9}=\mathbb Z/16\{\sigma_9\}
-$$
-
-は維持した。
-
-```text
-safe fallback
-!= 推測した数学的説明
-```
-
-### Phase 111 完了
-
-repository 全体:
 
 ```text
 9074 passed in 446.27s (0:07:26)
-```
-
-whitespace:
-
-```text
-git diff --check
-clean
 ```
 
 Phase 111 は完了。
@@ -377,113 +226,11 @@ Phase 111 は完了。
 
 Phase 112 は新しい数学的定理事実を追加していない。
 
-代表元:
-
-```text
-nu_prime
-nu_5
-sigma_11
-```
-
-を用いて、次の end-to-end 経路を監査した。
-
-```text
-known group
-→ proof replay
-→ operation query
-→ query-proof
-→ applicable theorem exploration
-→ execute
-```
-
-重要な分類:
-
-```text
-parser boundary
-repository lookup miss
-existing inference / specialization handoff gap
-workflow orchestration gap
-possible new inference / evaluator gap
-```
-
-### `nu_prime`
-
-既存 fact:
-
-$$
-H(\nu')=\eta_5,
-$$
-
-$$
-E(\eta_2\nu')=0.
-$$
-
-`E(nu_prime)` と `Delta(nu_prime)` は lookup miss。
-
-### `nu_5`
-
-既存 fact:
-
-$$
-\Delta(\nu_5)=\pm(\eta_2\nu').
-$$
-
-また既存 proof infrastructure には $\nu$-family stable transport があり、
-
-$$
-E^{n-5}\nu_5=\nu_n
-$$
-
-を表現している。
-
-したがって $n=6$ では数学的に
-
-$$
-E(\nu_5)=\nu_6.
-$$
-
-Phase 112 時点では `query` がその symbolic inference を起動せず lookup で停止していた。
-
-このため、
-
 ```text
 LOOKUP_MISS != evaluator required
 ```
 
-という境界を確認した。
-
-### `sigma_11`
-
-known-group proof replay は
-
-$$
-\pi_{18}^{11}
-=
-\mathbb Z/16\{\sigma_{11}\}
-$$
-
-を再生できた。
-
-一方、Phase 112 時点の
-
-```text
-python main.py 11 7
-```
-
-は同じ既存 specialization を利用できなかった。
-
-これは新しい数学の不足ではなく、
-
-```text
-generator-side theorem-specific specialization
-→ TodaGroupQuery orchestration 未接続
-```
-
-という workflow gap と分類した。
-
-### Phase 112 結論
-
-一般 parser や一般 $E/H/\Delta$ evaluator を先に作らず、既存 capability の未接続箇所を優先する方針を確定した。
+既存 capability の未接続箇所を優先する方針を確定した。
 
 ## Phase 113 TodaGroupQuery / $\sigma_n$ specialization provenance
 
@@ -498,81 +245,7 @@ $$
 \qquad n\ge 9
 $$
 
-から、既存 theorem-specific concrete specialization を `TodaGroupQuery` 経路で再利用するようにした。
-
-対象:
-
-```text
-k = 7
-n >= 10
-```
-
-例:
-
-$$
-\pi_{17}^{10}
-=
-\mathbb Z/16\{\sigma_{10}\},
-$$
-
-$$
-\pi_{18}^{11}
-=
-\mathbb Z/16\{\sigma_{11}\},
-$$
-
-$$
-\pi_{19}^{12}
-=
-\mathbb Z/16\{\sigma_{12}\}.
-$$
-
-provenance:
-
-```text
-concrete TodaGroupQuery result
-→ specialized ProofStep
-→ symbolic Proposition 5.15 higher step
-→ existing Proposition 5.15 ancestry
-```
-
-重要:
-
-```text
-specialized result
-!= new independent theorem root
-
-TodaGroupQuery fallback
-!= arbitrary AST specialization
-
-empty repository
-→ NOT_FOUND
-
-repository roots
-→ unchanged
-```
-
-Phase 113 によって、
-
-```text
-python main.py show-proof sigma_11
-```
-
-と
-
-```text
-python main.py 11 7
-```
-
-の間にあった既存 theorem capability の不一致を解消した。
-
-focused tests:
-
-```text
-7 + 26 + 10 + 5 + 5 = 53 passed
-```
-
-full regression:
+から、既存 theorem-specific concrete specialization を `TodaGroupQuery` 経路で再利用する。
 
 ```text
 9081 passed in 434.58s (0:07:14)
@@ -582,87 +255,26 @@ Phase 113 は完了。
 
 ## Phase 114 `E(nu_5)` existing-inference handoff provenance
 
-Phase 114 は新しい独立 theorem root や general operation evaluator を追加していない。
-
-既存 Toda Proposition 5.6 の symbolic bridge:
+既存 Toda Proposition 5.6:
 
 $$
 E^{n-5}\nu_5=\nu_n,
 \qquad n\ge 6
 $$
 
-を再利用する。
-
-$n=6$ に限定して、
+を再利用して、
 
 $$
 E(\nu_5)=\nu_6
 $$
 
-を concrete `ProofStep` として構成する。
-
-provenance:
-
-```text
-concrete E(nu_5) = nu_6 step
-→ symbolic E^(n-5)nu_5 = nu_n bridge
-→ nu_5 definition
-→ nu_n definition
-→ n >= 6
-```
-
-concrete step の rule は inference であり、direct premise は existing symbolic bridge である。
-
-したがって:
+を exact handoff として接続した。
 
 ```text
 concrete specialization
 != new theorem root
 != general E evaluator
-!= arbitrary symbolic substitution
 ```
-
-operation-query handoff:
-
-```text
-query
-→ direct lookup
-→ direct hit なら既存結果
-→ miss
-→ exact E(nu_5) guard
-→ concrete specialization
-→ query / query-proof
-```
-
-重要な boundary:
-
-```text
-direct lookup has priority
-H(nu_5) は対象外
-Delta(nu_5) は対象外
-E(nu_6) は対象外
-E(sigma_11) は対象外
-E(nu_5 o eta_8) は対象外
-三項 map-operation operand は対象外
-四項 composition は対象外
-repository roots は変更しない
-```
-
-query-proof は concrete fact 自身の `ProofStep` を root とし、既存 symbolic bridge を ancestry として再生する。
-
-focused boundary tests:
-
-```text
-16 passed
-```
-
-Phase 110 / 111 / 114 関連回帰:
-
-```text
-60 passed
-```
-
-full regression:
 
 ```text
 9097 passed in 449.47s (0:07:29)
@@ -672,151 +284,152 @@ Phase 114 は完了。
 
 ## Phase 115 `E(sigma_11)` existing-mathematics handoff provenance
 
-Phase 115 は新しい独立 theorem root や general operation evaluator を追加していない。
-
-既存 Toda Lemma 5.14 の $\sigma$-family definition:
+既存 Toda Lemma 5.14:
 
 $$
 \sigma_n=E^{n-8}\sigma_8,
 \qquad n\ge 8
 $$
 
-を再利用する。
-
-具体的には、
-
-$$
-\sigma_{11}=E^3\sigma_8,
-\qquad
-\sigma_{12}=E^4\sigma_8
-$$
-
-を同じ `sigma8_statement` provenance から構成し、
+を再利用して、
 
 $$
 E(\sigma_{11})=\sigma_{12}
 $$
 
-を operation-query 用 concrete `Relation` として生成する。
-
-provenance:
-
-```text
-concrete E(sigma_11) = sigma_12 step
-→ symbolic TodaSigmaFamilyDefinitionStatement
-→ TodaLemma514Sigma8Statement
-→ ScalarGreaterEqualStatement
-```
-
-concrete step の rule は inference であり、direct premise は existing symbolic $\sigma$-family definition である。
-
-したがって:
+を exact handoff として接続した。
 
 ```text
 concrete definitional specialization
 != new theorem root
 != general E(sigma_n) evaluator
 != general E evaluator
-!= arbitrary symbolic substitution
 ```
-
-operation-query handoff:
-
-```text
-query
-→ direct lookup
-→ direct hit なら既存結果
-→ miss
-→ exact E(sigma_11) guard
-→ concrete specialization
-→ query / query-proof
-```
-
-CLI で確認した結果:
-
-$$
-E\sigma_{11}=\sigma_{12}.
-$$
-
-`query-proof "E(sigma_11)" --depth 2` は、
-
-```text
-Depth 0:
-E sigma_11 = sigma_12
-
-Depth 1:
-TodaSigmaFamilyDefinitionStatement
-
-Depth 2:
-TodaLemma514Sigma8Statement
-ScalarGreaterEqualStatement
-```
-
-を再生する。
-
-重要な boundary:
-
-```text
-direct lookup has priority
-E(sigma_10) は対象外
-E(sigma_12) は対象外
-E(sigma_100) は対象外
-H(sigma_11) は対象外
-Delta(sigma_11) は対象外
-E(sigma_11 o eta_18) は対象外
-repository roots は変更しない
-parser grammar は変更しない
-```
-
-Phase 115-5 では残存 pressure を次のように再分類した。
-
-```text
-H(nu_5)
-→ new mathematical inference required
-
-H(sigma_11)
-→ related low-dimensional mathematics exists
-→ reusable family operation bridge is not currently present
-
-Delta(sigma_11)
-→ reusable concrete / family relation is not currently present
-
-E(nu_prime)
-→ E nu_prime appears as a subexpression
-→ operation-result relation is not present
-
-Delta(nu_prime)
-→ direct / reusable family inference is not currently present
-
-E(nu_5 o eta_8)
-→ composition-operation inference boundary
-```
-
-したがって Phase 115 は exact `E(sigma_11)` handoff で停止した。
-
-focused:
-
-```text
-Phase 115 dedicated:
-14 passed
-
-Phase 114 compatibility:
-16 passed
-```
-
-関連回帰:
-
-```text
-97 passed in 19.14s
-```
-
-full regression:
 
 ```text
 9111 passed in 432.54s (0:07:12)
 ```
 
 Phase 115 は完了。
+
+## Phase 116–122 Web presentation / exploration provenance boundary
+
+Phase 116–122 は新しい数学的定理事実を追加していない。
+
+Web UI は既存 structured result / presentation / `ProofStep` ancestry を表示する layer である。
+
+```text
+Web UI != proof truth
+Web proof replay != new proof search
+direct Web explore != recursive proof-scope explore
+safe fallback != inferred theorem statement
+```
+
+Phase 122 final regression:
+
+```text
+9212 passed in 455.16s (0:07:35)
+```
+
+## Phase 123 applicability Web presentation provenance boundary
+
+Phase 123 は新しい数学的 theorem root、`ProofStep`、proof-search rule、qualified execution family を追加していない。
+
+既存 applicability infrastructure:
+
+```text
+RepositoryGeneratorApplicabilityExplorationResult
+RepositoryGeneratorApplicabilityPresentation
+ApplicabilitySourceGroupPresentation
+ApplicabilityRuleFamilyPresentation
+```
+
+を read-only Web view に射影した。
+
+重要な境界:
+
+```text
+applicability candidate
+!= proof
+!= theorem ranking
+!= selected theorem application
+!= qualified execution
+!= executed result
+
+Web source limit
+!= source-result deletion
+
+Web rule-family limit
+!= applicability-candidate deletion
+
+collapsed details
+!= provenance removal
+```
+
+`nu_prime` の underlying result:
+
+```text
+626 proof-scope occurrences
+176616 applicability candidates
+542 source statements with candidates
+123300 rule groups
+29308 rule families
+```
+
+Web は summary counts を保持したまま、browser 描画量だけを
+
+```text
+source:
+各 category 最大 5
+
+rule family:
+各 displayed source 最大 10
+```
+
+へ制限する。
+
+`sigma_11`:
+
+```text
+1 proof-scope occurrence
+686 applicability candidates
+1 source statement
+472 rule groups
+112 rule families
+```
+
+既存 known-group statement
+
+$$
+\pi_{18}^{11}
+=
+\mathbb Z/16\{\sigma_{11}\}
+$$
+
+が source として表示されるが、Phase 123 がこの数学的 statement を新しく証明したわけではない。
+
+`eta_999`:
+
+```text
+0 / 0 / 0 / 0 / 0
+```
+
+は normal zero applicability result である。
+
+Phase 123 focused:
+
+```text
+13 passed in 61.24s
+17 passed in 69.57s
+```
+
+Phase 123 final regression:
+
+```text
+9229 passed in 509.16s (0:08:29)
+```
+
+Phase 123 は presentation / read-only exploration の Phase であり、proof truth は既存 repository と `ProofStep` provenance に残る。
 
 ---
 
@@ -861,6 +474,10 @@ limited operation handoff != general query inference
 theorem-specific concrete specialization != general evaluator
 expression occurrence != operation result relation
 related mathematics exists != reusable operation bridge
+Web applicability view != proof truth
+Web source truncation != source-result deletion
+Web rule-family truncation != candidate deletion
+explore-applicable != execute
 ```
 
 既存記録は原則として削除せず、確定した意味論訂正がある場合のみ訂正する。
