@@ -6,6 +6,12 @@ from toda_calculation_facade import (
 from toda_calculation_result import (
   TodaCalculationStatus,
 )
+from toda_group_query import TodaGroupQuery
+from toda_group_query_semantics import (
+  TodaGroupQueryDomainKind,
+  classify_toda_group_query_domain,
+  render_toda_group_query_domain_latex,
+)
 from toda_human_readable_renderer import (
   render_toda_group_result_latex,
 )
@@ -86,6 +92,35 @@ def build_standard_web_group_query_view(
   n: int,
   k: int,
 ) -> WebGroupQueryView:
+  query = TodaGroupQuery(
+    n=n,
+    k=k,
+  )
+
+  domain = (
+    classify_toda_group_query_domain(
+      query
+    )
+  )
+
+  if (
+    domain.kind
+    is not (
+      TodaGroupQueryDomainKind
+      .POSITIVE_DIMENSION
+    )
+  ):
+    return WebGroupQueryView(
+      n=n,
+      k=k,
+      status=TodaCalculationStatus.FOUND,
+      result_latex=(
+        render_toda_group_query_domain_latex(
+          domain
+        )
+      ),
+    )
+
   report = build_standard_toda_report(
     n=n,
     k=k,

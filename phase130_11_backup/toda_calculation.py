@@ -497,88 +497,6 @@ def _find_specialized_stable_toda_group_results(
   )
 
 
-def _find_concrete_sigma9_toda_group_results(
-  repository: ProofRepository,
-  query: TodaGroupQuery,
-):
-  if (
-    query.n,
-    query.k,
-  ) != (
-    9,
-    7,
-  ):
-    return ()
-
-  scope = build_repository_proof_scope(
-    repository
-  )
-
-  matching_nodes = tuple(
-    node
-    for node in scope.nodes
-    if (
-      node.root_entry.key
-      == "standard.toda.prop515"
-      and is_toda_group_result_for_target(
-        node.proof_step.conclusion,
-        query.target,
-      )
-      and isinstance(
-        getattr(
-          node.proof_step.conclusion,
-          "rhs",
-          None,
-        ),
-        FiniteCyclicGroup,
-      )
-      and (
-        node.proof_step.conclusion.rhs.order
-        == 16
-      )
-      and (
-        _generator_family_and_index(
-          node.proof_step
-          .conclusion
-          .rhs
-          .generator
-        )
-        == (
-          "σ",
-          9,
-        )
-      )
-    )
-  )
-
-  if len(
-    matching_nodes
-  ) != 1:
-    return ()
-
-  source_step = (
-    matching_nodes[
-      0
-    ].proof_step
-  )
-
-  source_entry = ProofRepositoryEntry(
-    key=(
-      "standard.toda.prop515::"
-      "pi16_9"
-    ),
-    step=source_step,
-    phase="75",
-    theorem="Toda Proposition 5.15",
-  )
-
-  return (
-    normalize_toda_group_result(
-      source_entry
-    ),
-  )
-
-
 def _find_specialized_sigma_toda_group_results(
   repository: ProofRepository,
   query: TodaGroupQuery,
@@ -684,14 +602,6 @@ def build_known_toda_calculation_result(
   if not group_results:
     group_results = (
       _find_specialized_stable_toda_group_results(
-        repository,
-        query,
-      )
-    )
-
-  if not group_results:
-    group_results = (
-      _find_concrete_sigma9_toda_group_results(
         repository,
         query,
       )

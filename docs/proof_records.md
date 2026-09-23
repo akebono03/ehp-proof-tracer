@@ -66,68 +66,20 @@ H(\nu')=\eta_5.
 
 Phase 104–108 は applicability candidate から安全な qualified execution と user-facing execute workflow までを構築した。
 
-admission 済み family:
-
-```text
-toda_58_delta_iota9_nu4_nu_prime_inference_rule
-toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
-```
-
-利用者向け workflow:
-
-```text
-生成元入力
-→ 実行可能対象の解決
-→ 曖昧性に安全な候補選択
-→ qualified execution
-→ 実行済み goal_step
-→ 結果 + 証明
-```
-
 Phase 108 final:
 
 ```text
 8850 passed in 380.25s
 ```
 
-## Phase 109
+## Phase 109–113
 
-known-group identity / indexed \(\sigma_n\) / proof replay を整備。
-
-```text
-show-proof != execute
-```
-
-final:
+known-group identity、indexed \(\sigma_n\)、proof replay、operation query、CLI audit、symbolic specialization reuse を整備。
 
 ```text
-8998 passed in 493.70s
-```
-
-## Phase 110
-
-operation query / query-proof。
-
-```text
-検索 != 推論 != evaluator
-deduplicated 表示 != provenance deletion
-query-proof replay != enclosing theorem replay
-```
-
-final:
-
-```text
-9055 passed in 455.09s
-```
-
-## Phase 111–113
-
-CLI capability audit、operation/workflow pressure audit、symbolic \(\sigma_n\) specialization reuse。
-
-Phase 113 final:
-
-```text
-9081 passed in 434.58s
+Phase 109: 8998 passed in 493.70s
+Phase 110: 9055 passed in 455.09s
+Phase 113: 9081 passed in 434.58s
 ```
 
 ## Phase 114 `E(nu_5)` handoff provenance
@@ -142,12 +94,6 @@ concrete specialization
 != general E evaluator
 ```
 
-final:
-
-```text
-9097 passed in 449.47s
-```
-
 ## Phase 115 `E(sigma_11)` handoff provenance
 
 \[
@@ -157,31 +103,16 @@ E(\sigma_{11})=\sigma_{12}.
 ```text
 concrete definitional specialization
 != new theorem root
-!= general E(sigma_n) evaluator
 != general E evaluator
 ```
 
-final:
-
-```text
-9111 passed in 432.54s
-```
-
 ## Phase 116–125 Web provenance boundary
-
-Web UI は既存 structured result / presentation / `ProofStep` ancestry を表示する layer である。
 
 ```text
 Web UI != proof truth
 Web proof replay != new proof search
 Web execution adapter != execution semantics
 candidate selection form != theorem ranking
-```
-
-Phase 125 final:
-
-```text
-9243 passed in 555.37s
 ```
 
 ## Phase 126 executable relevance provenance boundary
@@ -192,48 +123,11 @@ proof-scope relevance
 != executable relevance
 ```
 
-aggregate Proposition 5.6 内の別 branch occurrence を executable source relevance とみなさないよう修正。
-
-結果:
-
-```text
-nu_prime → 2 executable targets
-nu_5 → NONE
-sigma_11 → NONE
-```
-
-final:
-
-```text
-9246 passed in 556.62s
-```
-
 ## Phase 127 capability pressure provenance audit
 
-監査対象:
-
-```text
-H(nu_5)
-H(sigma_11)
-Delta(sigma_11)
-E(nu_prime)
-Delta(nu_prime)
-E(nu_5 o eta_8)
-```
-
-`E(nu_prime)` は既存 Proposition 5.6 decomposition に \(E\nu'\) の provenance があるが、user-facing result semantics は未確定として KEEP。
-
-`E(nu_5 o eta_8)` は result semantics が明確なため Phase 128 へ送った。
+operation-query 残件を監査。
 
 ## Phase 128 `E(nu_5 o eta_8)=0` handoff provenance
-
-query:
-
-```text
-E(nu_5 o eta_8)
-```
-
-specialized conclusion:
 
 \[
 E(\nu_5\eta_8)=0.
@@ -245,40 +139,15 @@ E(\nu_5\eta_8)=0.
 \pi_{10}^6=0.
 \]
 
-その ancestry:
-
-\[
-\pi_9^5=\mathbb Z/2\{\nu_5\eta_8\},
-\]
-
-\[
-E:\pi_9^5\to\pi_{10}^6
-\text{ is surjective},
-\]
-
-\[
-\nu_6\eta_9=0.
-\]
-
 ```text
 theorem-specific specialized query fact
 != repository mutation
 != new independent theorem root
 ```
 
-final:
-
-```text
-9256 passed in 570.10s (0:09:30)
-```
-
 ## Phase 129 `E(nu_prime)` membership handoff provenance
 
-Phase 129 は新しい独立 theorem root を repository に登録していない。
-
-### source fact
-
-既存 Toda Proposition 5.6:
+source fact:
 
 \[
 \pi_7^4=
@@ -286,18 +155,6 @@ Phase 129 は新しい独立 theorem root を repository に登録していな�
 \oplus
 \mathbb Z/4\{E\nu'\}.
 \]
-
-この relation では \(E\nu'\) が order-four cyclic summand の generator として保持される。
-
-### semantics audit
-
-`E(nu_prime)` の候補を比較した。
-
-```text
-E(nu') = E nu'
-E nu' in pi_7^4
-pi_7^4 decomposition
-```
 
 採用:
 
@@ -305,134 +162,10 @@ pi_7^4 decomposition
 E\nu' \in \pi_7^4.
 \]
 
-理由:
-
-```text
-membership は既存 group decomposition から theorem-backed に言える
-自己同一的 equality を作らない
-decomposition 全体を query result に置き換えない
-```
-
-### specialized ProofStep
-
-Depth 0:
-
-\[
-E\nu' \in \pi_7^4.
-\]
-
-Depth 1:
-
-\[
-\pi_7^4=
-\mathbb Z\{\nu_4\}
-\oplus
-\mathbb Z/4\{E\nu'\}.
-\]
-
-specialized root は `ProofRule.INFERENCE`。
-
-直接 premise は既存 Proposition 5.6 decomposition `ProofStep`。
-
-したがって provenance は
-
 ```text
 membership specialized step
 → existing pi_7^4 decomposition
 → existing Proposition 5.6 ancestry
-```
-
-となる。
-
-### representation
-
-user-facing membership は既存
-
-```text
-HomotopyGroupMembershipStatement
-```
-
-を再利用する。
-
-```text
-element = Suspension(nu_prime)
-group_dimension = 7
-sphere_dimension = 4
-```
-
-### match kind
-
-Phase 129 で
-
-```text
-RepositoryOperationQueryMatchKind.GROUP_MEMBERSHIP
-```
-
-を追加。
-
-これは presentation / result classification であり、
-
-```text
-general membership evaluator
-arbitrary containment search
-general E evaluator
-```
-
-ではない。
-
-### direct lookup boundary
-
-`query_repository_operation()` の direct `E` lookup は従来どおり、
-
-```text
-Relation.lhs が MapApplication(E, ...)
-Relation.lhs が Suspension(...)
-```
-
-の direct operation relation のみを対象とする。
-
-Proposition 5.6 group structure 内部を recursive containment で operation result に昇格させる変更は行っていない。
-
-### repository boundary
-
-handoff は query ごとに specialized `ProofStep` を作る。
-
-```text
-before repository.entries()
-==
-after repository.entries()
-```
-
-を focused test で固定。
-
-### regression
-
-focused:
-
-```text
-12 passed in 6.28s
-```
-
-関連 regression:
-
-```text
-63 passed in 12.54s
-```
-
-manual query:
-
-\[
-E\nu' \in \pi_7^4.
-\]
-
-manual query-proof:
-
-```text
-Depth 0:
-E nu' in pi_7^4
-
-Depth 1:
-pi_7^4 = Z{nu_4} ⊕ Z/4{E nu'}
 ```
 
 final:
@@ -442,6 +175,154 @@ final:
 ```
 
 Phase 129 完了。
+
+---
+
+# Phase 130 standard-query provenance
+
+Phase 130 は新しい数学定理を増やすのではなく、既存証明を standard query から正しく利用できるようにする provenance orchestration を整備した。
+
+## low-dimensional recovery
+
+既存 proof ancestry から concrete group result を回収。
+
+代表:
+
+\[
+\pi_3^2,\quad
+\pi_4^3,\quad
+\pi_4^2,\quad
+\pi_5^3.
+\]
+
+```text
+existing ProofStep reuse
+!= new theorem fact
+```
+
+## stable family specialization
+
+\[
+\pi_{n+1}^n=\mathbb Z/2\{\eta_n\},
+\]
+
+\[
+\pi_{n+2}^n=\mathbb Z/2\{\eta_n\eta_{n+1}\},
+\]
+
+\[
+\pi_{n+3}^n=\mathbb Z/8\{\nu_n\},
+\]
+
+\[
+\pi_{n+4}^n=0,
+\]
+
+\[
+\pi_{n+5}^n=0,
+\]
+
+\[
+\pi_{n+6}^n=\mathbb Z/2\{\nu_n^2\}.
+\]
+
+generic specialization は theorem の range guard を維持し、低次元 concrete branch を上書きしない。
+
+## foundational query results
+
+### diagonal
+
+\[
+\pi_n^n\cong\mathbb Z\{\iota_n\}.
+\]
+
+### circle
+
+既存 Phase 56 symbolic result を再利用:
+
+\[
+\pi_{i-1}^1=0.
+\]
+
+### connectivity
+
+\[
+1\le n+k<n
+\Rightarrow
+\pi_{n+k}^n=0.
+\]
+
+### \(\pi_0\) boundary
+
+\[
+n+k=0
+\]
+
+は ordinary `TodaGroupResult` とせず、path component information として分離。
+
+### negative dimension
+
+\[
+n+k<0
+\]
+
+は classical unstable domain 外として分離。
+
+```text
+negative stem accepted
+!= negative homotopy group normalized to zero
+```
+
+## \(\pi_{16}^9\) concrete sigma provenance
+
+Toda Proposition 5.15 ancestry には既に
+
+\[
+\pi_{16}^{9}
+=
+\mathbb Z/16\{\sigma_9\}
+\]
+
+の concrete `ProofStep` が存在する。
+
+Phase 130-11 はこの node を standard query に接続した。
+
+```text
+n=9,k=7
+→ standard.toda.prop515 proof scope
+→ exact pi16_9 concrete node
+→ normalized group result
+```
+
+generic indexed sigma specialization の境界は \(n\ge10\) のまま。
+
+```text
+pi16_9 concrete recovery
+!= generic sigma specialization
+!= new theorem root
+```
+
+## repository boundary
+
+Phase 130 の specialization / concrete recovery は standard repository root を変更しない。
+
+```text
+standard.toda.prop56
+standard.toda.prop58
+standard.toda.prop511
+standard.toda.prop515
+```
+
+を維持。
+
+## regression boundary
+
+```text
+python -m pytest tests -q
+9308 passed in 577.02s (0:09:37)
+```
+
+Phase 130 完了。
 
 ---
 
@@ -468,6 +349,10 @@ theorem-specific concrete specialization != general evaluator
 target-zero theorem-specific specialization != general target-zero evaluator
 theorem-specific membership handoff != general membership evaluator
 GROUP_MEMBERSHIP != recursive containment semantics
+stable group specialization != unrestricted AST substitution
+concrete proof recovery != new theorem root
+negative stem acceptance != negative homotopy-group theorem
+pi_0 boundary information != ordinary group result
 Web execution adapter != execution semantics
 proof-scope relevance != executable relevance
 applicability relevance != executable relevance

@@ -219,18 +219,28 @@ def test_phase98_2_facade_reuses_query_n_validation():
     )
 
 
-def test_phase98_2_facade_reuses_query_k_validation():
+def test_phase98_2_facade_supports_negative_k_connectivity_result():
   repository = ProofRepository()
 
-  with pytest.raises(
-    ValueError,
-    match="k must be nonnegative",
-  ):
-    build_toda_report(
-      repository,
-      n=5,
-      k=-1,
-    )
+  result = build_toda_report(
+    repository,
+    n=5,
+    k=-1,
+  )
+
+  assert (
+    result.status
+    is TodaCalculationStatus.FOUND
+  )
+  assert (
+    result.calculation_result
+    .candidates[
+      0
+    ]
+    .group_result
+    .group_structure
+    is None
+  )
 
 
 def test_phase98_2_facade_reuses_query_type_validation():

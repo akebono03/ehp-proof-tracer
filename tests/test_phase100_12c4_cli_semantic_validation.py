@@ -20,13 +20,6 @@ import main as cli_main
       ],
       "must be positive",
     ),
-    (
-      [
-        "5",
-        "-1",
-      ],
-      "must be nonnegative",
-    ),
   ],
 )
 def test_phase100_12c4_semantically_invalid_cli_arguments_exit_two_without_facade_call(
@@ -138,5 +131,66 @@ def test_phase100_12c4_valid_boundary_values_reach_facade(
   ]
   assert captured.out == (
     "BOUNDARY REPORT\n"
+  )
+  assert captured.err == ""
+
+
+def test_phase130_12a_negative_k_is_valid_and_reaches_facade(
+  monkeypatch,
+  capsys,
+):
+  calls = []
+
+  class FakeResult:
+    reports = (
+      "NEGATIVE STEM REPORT",
+    )
+
+    from toda_calculation_result import (
+      TodaCalculationStatus,
+    )
+
+    status = (
+      TodaCalculationStatus.FOUND
+    )
+
+  def fake_build_standard_toda_report(
+    n: int,
+    k: int,
+  ):
+    calls.append(
+      (
+        n,
+        k,
+      )
+    )
+    return FakeResult()
+
+  monkeypatch.setattr(
+    cli_main,
+    "build_standard_toda_report",
+    fake_build_standard_toda_report,
+  )
+
+  exit_code = cli_main.main(
+    [
+      "5",
+      "-1",
+    ]
+  )
+
+  captured = (
+    capsys.readouterr()
+  )
+
+  assert exit_code == 0
+  assert calls == [
+    (
+      5,
+      -1,
+    )
+  ]
+  assert captured.out == (
+    "NEGATIVE STEM REPORT\n"
   )
   assert captured.err == ""

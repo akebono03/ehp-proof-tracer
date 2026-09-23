@@ -100,16 +100,19 @@ def test_phase90_2_query_requires_positive_n(
   "k",
   (
     -1,
-    -6,
+    -3,
   ),
 )
-def test_phase90_2_query_requires_nonnegative_k(
+def test_phase90_2_query_supports_negative_k(
   k,
 ):
-  with pytest.raises(
-    ValueError,
-  ):
-    TodaGroupQuery(
-      n=4,
-      k=k,
-    )
+  query = TodaGroupQuery(
+    n=4,
+    k=k,
+  )
+
+  assert query.k == k
+  assert (
+    query.target.group_dimension
+    == 4 + k
+  )
