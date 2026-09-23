@@ -9,24 +9,19 @@ from toda_proof_narrative_renderer import (
   render_toda_proof_statement_latex,
 )
 from toda_rules import (
-  Toda36Lemma514SigmaDoublePrimeBridgeStatement,
   Toda48Pi16_9OrderAndE4InjectiveStatement,
   Toda52CompositionIsomorphismStatement,
   Toda53NuPrimeBracketSpecializationStatement,
   Toda55NuFamilyFiniteDimensionalStatement,
-  Toda56Nu4DecompositionIsomorphismStatement,
   Toda56Nu4DecompositionStatement,
   TodaDeltaZeroStatement,
   TodaHopfInvariantInjectiveStatement,
   TodaIteratedSuspensionInjectiveStatement,
   TodaLemma513Statement,
   TodaLemma514Sigma8Statement,
-  TodaLemma514SigmaPrimeStatement,
-  TodaLemma54Statement,
   TodaProp51FiniteDimensionalStatement,
   TodaProp511FiniteDimensionalStatement,
   TodaProp515Pi12_5HopfIsomorphismStatement,
-  TodaProp56FiniteDimensionalStatement,
   TodaProp56Pi8_5QuotientStatement,
   TodaSigmaFamilyDefinitionStatement,
 )
@@ -35,14 +30,6 @@ from toda_rules import (
 def _group_proof_narrative_statement_label(
   statement,
 ) -> str | None:
-  if isinstance(
-    statement,
-    Toda36Lemma514SigmaDoublePrimeBridgeStatement,
-  ):
-    return (
-      "Theorem 3.6 から Lemma 5.14 への σ″ bridge"
-    )
-
   if isinstance(
     statement,
     Toda48Pi16_9OrderAndE4InjectiveStatement,
@@ -72,12 +59,6 @@ def _group_proof_narrative_statement_label(
     return (
       "Toda (5.5) の ν-family 有限次元結果"
     )
-
-  if isinstance(
-    statement,
-    Toda56Nu4DecompositionIsomorphismStatement,
-  ):
-    return "Toda (5.6) の ν₄ 分解同型"
 
   if isinstance(
     statement,
@@ -121,18 +102,6 @@ def _group_proof_narrative_statement_label(
 
   if isinstance(
     statement,
-    TodaLemma514SigmaPrimeStatement,
-  ):
-    return "Toda Lemma 5.14 の σ′ branch"
-
-  if isinstance(
-    statement,
-    TodaLemma54Statement,
-  ):
-    return "Toda Lemma 5.4 の結果"
-
-  if isinstance(
-    statement,
     TodaProp51FiniteDimensionalStatement,
   ):
     return (
@@ -153,14 +122,6 @@ def _group_proof_narrative_statement_label(
   ):
     return (
       "π₁₂⁵ の位数 2 の Hopf 像への同型"
-    )
-
-  if isinstance(
-    statement,
-    TodaProp56FiniteDimensionalStatement,
-  ):
-    return (
-      "Toda Proposition 5.6 の有限次元結果"
     )
 
   if isinstance(
