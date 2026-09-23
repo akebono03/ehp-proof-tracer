@@ -1,0 +1,19 @@
+Phase 131-4 installation
+
+1. Copy these files into the repository root:
+   toda_group_result_proof_replay_renderer.py
+   apply_phase131_4.py
+   tests/test_phase131_4_group_result_proof_replay_cli.py
+
+2. Run from repository root:
+   python apply_phase131_4.py
+
+3. Focused tests only:
+   python -m pytest -q tests/test_phase131_3_group_result_proof_replay.py tests/test_phase131_4_group_result_proof_replay_cli.py
+
+4. Manual checks:
+   python main.py group-proof 9 7
+   python main.py group-proof 9 7 --depth 2
+   python main.py group-proof 2 7
+
+Do not run the full test suite until the end of Phase 131.

@@ -23,6 +23,7 @@ class WebGroupQueryView:
   k: int
   status: TodaCalculationStatus
   result_latex: str | None
+  proof_available: bool = False
 
   def __post_init__(
     self,
@@ -74,6 +75,14 @@ class WebGroupQueryView:
         "result_latex must be a str or None"
       )
 
+    if not isinstance(
+      self.proof_available,
+      bool,
+    ):
+      raise TypeError(
+        "proof_available must be a bool"
+      )
+
     if (
       self.status
       is TodaCalculationStatus.FOUND
@@ -119,6 +128,7 @@ def build_standard_web_group_query_view(
           domain
         )
       ),
+      proof_available=False,
     )
 
   report = build_standard_toda_report(
@@ -145,4 +155,8 @@ def build_standard_web_group_query_view(
     k=k,
     status=report.status,
     result_latex=result_latex,
+    proof_available=(
+      report.status
+      is TodaCalculationStatus.FOUND
+    ),
   )

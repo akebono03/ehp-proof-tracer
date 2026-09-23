@@ -348,6 +348,187 @@ Phase 130 完了。
 
 ---
 
+# Phase 131 — group-result proof replay
+
+Phase 131 は、標準 group query の結果から既存証明へ直接進める user-facing path を整備した。
+
+新しい数学定理や一般 proof search は追加していない。
+
+## Phase 131-1: 現行経路監査
+
+既存データ経路:
+
+```text
+n,k
+→ TodaCalculationResult
+→ TodaCalculationCandidate
+→ TodaGroupResult
+→ ProofStep
+```
+
+を監査。
+
+`TodaGroupResult` が
+
+```text
+source_entry
+proof_step
+```
+
+を保持し、
+
+```text
+proof_step is source_entry.step
+```
+
+を維持していることを確認。
+
+また既存
+
+```text
+extract_toda_recursive_proof_provenance()
+```
+
+が root から再帰 ancestry を取得できるため、新しい探索アルゴリズムは不要と判断した。
+
+## Phase 131-2: 最小 API 設計
+
+採用方針:
+
+```text
+TodaGroupResult
+→ existing recursive provenance
+→ depth filter
+→ group-result proof replay
+```
+
+generator-first replay を無理に一般化せず、group-result 専用の薄い API とすることを決定。
+
+## Phase 131-3: core API
+
+追加:
+
+```text
+TodaGroupResultProofReplayStep
+TodaGroupResultProofReplayResult
+build_toda_group_result_proof_replay()
+```
+
+保持:
+
+```text
+group_result identity
+source_entry identity
+root ProofStep identity
+role
+shortest depth
+```
+
+focused:
+
+```text
+8 passed in 2.73s
+```
+
+## Phase 131-4: CLI 接続
+
+追加:
+
+```powershell
+python main.py group-proof n k
+python main.py group-proof n k --depth N
+```
+
+代表:
+
+```powershell
+python main.py group-proof 9 7
+python main.py group-proof 9 7 --depth 2
+python main.py group-proof 2 7
+python main.py group-proof 11 -1
+```
+
+結果例:
+
+\[
+\pi_{16}^{9}=\mathbb Z/16\{\sigma_9\},
+\]
+
+\[
+\pi_9^2=0,
+\]
+
+\[
+\pi_{10}^{11}=0.
+\]
+
+Phase 130 の connectivity zero が repository-backed result であるため、`Sphere connectivity / Phase 130` として replay 可能であることを再確認。
+
+focused:
+
+```text
+14 passed in 7.61s
+```
+
+## Phase 131-5: Web 接続
+
+group query result 直下へ
+
+```text
+Proof depth: 0 / 1 / 2
+Show proof
+```
+
+を追加。
+
+Web proof 表示:
+
+```text
+Conclusion
+Provenance
+Proof
+Depth
+Role
+Rule
+```
+
+repository-backed result のみ `proof_available=True` とする。
+
+したがって connectivity zero は replay 可能だが、
+
+```text
+pi_0 boundary information
+negative-dimensional out-of-domain information
+```
+
+には proof button を出さない。
+
+focused:
+
+```text
+39 passed in 17.21s
+```
+
+Web manual check で \(\pi_{16}^{9}\) の depth 2 replay を確認。
+
+## Phase 131-6: completion regression
+
+repository-wide regression:
+
+```powershell
+python -m pytest tests -q
+```
+
+結果:
+
+```text
+9333 passed in 583.64s (0:09:43)
+```
+
+Phase 131 完了。
+
+---
+
 # 現在の運用方針
 
 `development_log.md` は索引 + 直近 Phase 記録として維持する。
@@ -368,4 +549,6 @@ backup:
 repository 外へ保存
 ```
 
-次 Phase 131 は capability / usage-pressure audit から開始する。
+次 Phase 132 は proof narrative generation audit から開始する。
+
+目的は既存 `ProofStep` / provenance を人間が読みやすい証明文へ変換することであり、新しい proof search や provenance-free proof generation は行わない。

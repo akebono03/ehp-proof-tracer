@@ -13,13 +13,14 @@ The current system provides:
 - recursive proof-scope exploration,
 - applicable theorem / lemma discovery,
 - bounded qualified execution,
-- known-group proof replay,
+- generator-first known-group proof replay,
+- group-result-first proof replay,
 - operation-fact lookup,
 - operation-query proof replay,
 - theorem-specific indexed \(\sigma_n\) specialization,
 - theorem-specific standard-query recovery from existing proof ancestry,
 - deliberately narrow existing-proof handoffs for \(E(\nu_5)=\nu_6\), \(E(\sigma_{11})=\sigma_{12}\), \(E(\nu_5\eta_8)=0\), and \(E\nu' \in \pi_7^4\),
-- a Flask Web UI for group queries, operation queries, operation proof replay, generator proof replay, direct generator exploration, recursive generator proof-scope exploration, applicability exploration, and qualified generator execution,
+- a Flask Web UI for group queries, group-result proof replay, operation queries, operation proof replay, generator proof replay, direct generator exploration, recursive generator proof-scope exploration, applicability exploration, and qualified generator execution,
 - explicit candidate selection when an execution request is ambiguous,
 - browser-side KaTeX rendering of existing LaTeX output,
 - Web proof replay with selectable depth 0, 1, or 2,
@@ -198,7 +199,7 @@ python main.py 2 -3
 
 ## Standard-query coverage through stem 7
 
-Phase 130 connected or specialized existing theorem-backed results so that standard queries now cover the intended project semantics through \(k=7\), including low-dimensional boundary cases.
+Phase 130 connected or specialized existing theorem-backed results so that standard queries cover the intended project semantics through \(k=7\), including low-dimensional boundary cases.
 
 Representative stable/symbolic families include:
 
@@ -256,7 +257,11 @@ The proof infrastructure supports:
 - theorem-specific indexed \(\sigma_n\) specialization,
 - standard-query specialization for stable families,
 - theorem-specific recovery of existing concrete proof nodes,
-- user-facing known-group proof replay,
+- generator-first known-group proof replay,
+- group-result-first proof replay rooted at `TodaGroupResult.proof_step`,
+- preservation of `TodaGroupResult.source_entry` theorem / phase / repository-key provenance,
+- zero-group proof replay without requiring a generator,
+- connectivity-zero proof replay when a repository-backed `TodaGroupResult` exists,
 - generator-centered repository occurrence exploration,
 - recursive generator proof-scope exploration,
 - applicable theorem / lemma discovery grouped by source statement and rule family,
@@ -270,6 +275,57 @@ The proof infrastructure supports:
 
 General unbounded proof search, theorem ranking, producer ranking, proof-cost optimization, arbitrary operation-query inference fallback, general membership evaluation, and general \(E/H/\Delta\) evaluation are intentionally not implemented.
 
+## Group-result proof replay
+
+Phase 131 connected a group query result directly to its existing proof provenance.
+
+The core path is
+
+```text
+TodaGroupResult
+→ source_entry / proof_step
+→ existing recursive proof provenance
+→ depth-limited replay
+→ CLI / Web presentation
+```
+
+No generator lookup is required.
+
+CLI examples:
+
+```powershell
+python main.py group-proof 9 7
+python main.py group-proof 9 7 --depth 2
+python main.py group-proof 2 7
+python main.py group-proof 11 -1
+```
+
+Representative behavior:
+
+\[
+\pi_{16}^{9}\cong\mathbb Z/16\{\sigma_9\}
+\]
+
+replays from the existing Toda Proposition 5.15 `ProofStep`.
+
+The zero group
+
+\[
+\pi_9^2=0
+\]
+
+can also be replayed because replay begins from the group result rather than from a generator.
+
+The foundational connectivity result
+
+\[
+\pi_{10}^{11}=0
+\]
+
+is also replayable because Phase 130 represents it as a repository-backed `TodaGroupResult` with theorem metadata `Sphere connectivity`, Phase 130.
+
+By contrast, \(\pi_0\) boundary information and negative-dimensional out-of-domain information are not ordinary `TodaGroupResult` values and do not expose a proof-replay action.
+
 ## Web UI
 
 The Web UI is intentionally a thin presentation layer over existing calculation, operation-query, proof-replay, exploration, applicability, and qualified-execution infrastructure.
@@ -281,6 +337,7 @@ Current Web files include
 ```text
 web_app.py
 web_group_query.py
+web_group_proof.py
 web_operation_query.py
 web_operation_query_proof.py
 web_generator_proof.py
@@ -291,6 +348,8 @@ web_generator_execution.py
 templates/index.html
 static/web_math.js
 ```
+
+For a repository-backed group result, the Web UI exposes `Show proof` directly below the result. Proof depth can be selected as 0, 1, or 2.
 
 Run the local development server with
 
@@ -342,42 +401,56 @@ E\nu' \in \pi_7^4.
 
 The `E(nu_prime)` result is deliberately a membership result, not a synthetic equality \(E(\nu')=E\nu'\).
 
-## Phase 130 closure
+## Phase 131 closure
 
-Phase 130 changed standard-query orchestration, not the underlying Toda mathematics.
+Phase 131 changed proof access and presentation routing, not the underlying Toda mathematics.
 
 The phase:
 
-- recovered low-dimensional results already present in proof ancestry,
-- specialized stable families for stems \(1\) through \(6\),
-- connected foundational diagonal / below-diagonal / circle semantics,
-- admitted negative stem input while distinguishing positive target dimension, \(\pi_0\) boundary information, and negative dimensions,
-- connected the existing concrete \(\pi_{16}^9=\mathbb Z/16\{\sigma_9\}\) proof to the standard query,
-- preserved existing repository roots and proof provenance,
-- corrected stale regression tests whose old CLI contract rejected negative stems.
+- audited the group-result-to-proof path,
+- confirmed that normalized group results already preserve their exact `ProofStep`,
+- reused existing recursive proof provenance rather than introducing a new proof-search algorithm,
+- added a group-result proof replay core API,
+- added CLI `group-proof n k [--depth N]`,
+- added Web `Show proof` directly under repository-backed group results,
+- preserved theorem / phase / repository-key provenance,
+- supported zero-group replay without generator input,
+- supported foundational connectivity-zero replay,
+- kept \(\pi_0\) boundary and negative-dimensional domain information outside ordinary group proof replay,
+- preserved existing `show-proof <generator>` semantics,
+- preserved CLI / Web use of the same mathematical source objects.
 
-Final Phase 130 regression:
+Final Phase 131 regression:
 
 ```text
-9308 passed in 577.02s (0:09:37)
+9333 passed in 583.64s (0:09:43)
 ```
 
 ## Near-term roadmap
 
-Phase 130 is complete.
+Phase 131 is complete.
 
-Phase 131 should begin with a capability and usage-pressure audit. It should not assume that the next step is a general evaluator or a higher stem.
+The next planned audit is Phase 132: proof narrative generation.
 
-The decision order remains:
+The intended direction is
 
 ```text
-actual user pressure
-→ current repository/proof support
-→ result semantics
-→ provenance reuse
-→ smallest missing capability
-→ scope freeze before implementation
+existing ProofStep / provenance
+→ deterministic narrative presentation
+→ human-readable proof prose
 ```
+
+The goal is not to generate a new proof. It is to render the existing machine-traceable proof in a more readable mathematical style while preserving provenance.
+
+Possible presentation modes include:
+
+```text
+Trace
+Outline
+Narrative
+```
+
+The existing trace remains the audit-oriented ground truth.
 
 ## Current boundaries
 
@@ -404,6 +477,7 @@ The following remain intentionally deferred:
 - arbitrary operation-query inference fallback,
 - unrestricted symbolic AST substitution,
 - rich graph proof visualization,
+- free-form LLM proof generation detached from stored `ProofStep` provenance,
 - odd-primary full integration,
 - an all-primary ordinary sphere-homotopy calculator.
 

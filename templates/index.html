@@ -467,6 +467,48 @@
             id="result-math"
             data-latex="{{ view.result_latex }}"
           >{{ view.result_latex }}</div>
+
+          {% if view.proof_available %}
+            <form method="post">
+              <input
+                type="hidden"
+                name="form_kind"
+                value="group_proof"
+              >
+              <input
+                type="hidden"
+                name="n"
+                value="{{ view.n }}"
+              >
+              <input
+                type="hidden"
+                name="k"
+                value="{{ view.k }}"
+              >
+
+              <label>
+                Proof depth
+                <select name="group_proof_depth">
+                  <option
+                    value="0"
+                    {% if group_proof_depth_value == "0" %}selected{% endif %}
+                  >0</option>
+                  <option
+                    value="1"
+                    {% if group_proof_depth_value == "1" %}selected{% endif %}
+                  >1</option>
+                  <option
+                    value="2"
+                    {% if group_proof_depth_value == "2" %}selected{% endif %}
+                  >2</option>
+                </select>
+              </label>
+
+              <button type="submit">
+                Show proof
+              </button>
+            </form>
+          {% endif %}
         </section>
       {% elif view.status.value == "not_found" %}
         <p>
@@ -477,6 +519,82 @@
           Multiple proof-backed results were found.
         </p>
       {% endif %}
+    {% endif %}
+
+    {% if group_proof_view %}
+      <section
+        aria-labelledby="group-proof-heading"
+      >
+        <h2 id="group-proof-heading">
+          Group proof
+        </h2>
+
+        <p>
+          Selected depth:
+          {{ group_proof_view.max_depth }}
+        </p>
+
+        <h3>
+          Conclusion
+        </h3>
+
+        <div
+          id="group-proof-conclusion"
+          data-latex="{{ group_proof_view.conclusion_latex }}"
+        >{{ group_proof_view.conclusion_latex }}</div>
+
+        <h3>
+          Provenance
+        </h3>
+
+        <p>
+          {% if group_proof_view.theorem %}
+            {{ group_proof_view.theorem }}
+            {% if group_proof_view.phase %}
+              — Phase {{ group_proof_view.phase }}
+            {% endif %}
+          {% else %}
+            {{ group_proof_view.key }}
+          {% endif %}
+        </p>
+
+        <h3>
+          Proof
+        </h3>
+
+        <ol>
+          {% for step in group_proof_view.steps %}
+            <li class="group-proof-step">
+              <p>
+                Depth {{ step.depth }}
+              </p>
+
+              {% if step.statement_latex %}
+                <div
+                  class="group-proof-step-math"
+                  data-latex="{{ step.statement_latex }}"
+                >{{ step.statement_latex }}</div>
+              {% else %}
+                <p>
+                  <code>
+                    {{ step.fallback_type_name }}
+                  </code>
+                </p>
+              {% endif %}
+
+              <p>
+                Role:
+                {{ step.role_name }}
+              </p>
+
+              <p>
+                Rule:
+                {{ step.rule_name }}
+              </p>
+            </li>
+          {% endfor %}
+        </ol>
+      </section>
     {% endif %}
 
     {% if operation_query_view %}

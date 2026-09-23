@@ -252,6 +252,8 @@ generic specialization は theorem の range guard を維持し、低次元 conc
 \pi_{n+k}^n=0.
 \]
 
+この connectivity zero は repository-backed `TodaGroupResult` として `ProofStep` を保持する。
+
 ### \(\pi_0\) boundary
 
 \[
@@ -326,6 +328,205 @@ Phase 130 完了。
 
 ---
 
+# Phase 131 group-result proof replay provenance
+
+Phase 131 は新しい数学的証明を追加せず、既存の group result が保持している `ProofStep` を user-facing replay に接続した。
+
+## identity boundary
+
+`TodaGroupResult` は
+
+```text
+source_entry
+proof_step
+```
+
+を保持する。
+
+不変条件:
+
+```text
+group_result.proof_step is group_result.source_entry.step
+```
+
+Phase 131 replay はこの identity を維持する。
+
+```text
+group-result replay
+!= proof reconstruction
+!= theorem lookup by generator
+!= new theorem root
+```
+
+## recursive provenance reuse
+
+既存:
+
+```text
+extract_toda_recursive_proof_provenance(group_result)
+```
+
+を再利用。
+
+保持情報:
+
+```text
+root ProofStep
+shortest depth
+role
+proof edges
+ProofStep identity
+```
+
+Phase 131 core API はこの provenance を depth で切り出すだけであり、新しい graph traversal semantics を導入しない。
+
+## representative result
+
+\[
+\pi_{16}^{9}
+=
+\mathbb Z/16\{\sigma_9\}.
+\]
+
+root provenance:
+
+```text
+Theorem: Toda Proposition 5.15
+Phase: 75
+Repository key: standard.toda.prop515::pi16_9
+```
+
+depth 1 では既存 premise として Toda (4.8)、Lemma 5.14、\(\sigma\)-family definition、\(\pi_{12}^{5}\) 群結果などを辿る。
+
+depth 2 ではさらに \(\sigma''\)-bridge、\(\sigma'\) branch、\(\pi_{14}^{7}\)、Lemma 5.13 など既存 premise ancestry を辿る。
+
+```text
+displayed ancestry
+!= new proof synthesis
+```
+
+## zero-group replay
+
+\[
+\pi_9^2=0
+\]
+
+は generator を持たないが、`TodaGroupResult.proof_step` を直接 root にするため replay 可能。
+
+```text
+zero group
+!= no proof
+```
+
+## connectivity-zero replay
+
+Phase 130 foundational result:
+
+\[
+\pi_{10}^{11}=0
+\]
+
+は
+
+```text
+Theorem: Sphere connectivity
+Phase: 130
+```
+
+を持つ repository-backed group result なので replay 可能。
+
+premise を持たないため、現状では depth 0 のみとなる。
+
+## domain-only boundary
+
+\[
+\pi_0(S^n)
+\]
+
+の path-component information と、負次元 out-of-domain information は ordinary `TodaGroupResult` ではない。
+
+したがって:
+
+```text
+domain-only information
+!= group-result proof replay target
+```
+
+## CLI / Web presentation boundary
+
+CLI:
+
+```powershell
+python main.py group-proof 9 7
+python main.py group-proof 9 7 --depth 2
+```
+
+Web:
+
+```text
+Group query
+→ Result
+→ Proof depth 0 / 1 / 2
+→ Show proof
+```
+
+CLI / Web は同じ group-result proof replay core を利用する。
+
+```text
+CLI renderer != proof truth
+Web renderer != proof truth
+```
+
+## regression boundary
+
+focused:
+
+```text
+Phase 131-3: 8 passed in 2.73s
+Phase 131-4: 14 passed in 7.61s
+Phase 131-5: 39 passed in 17.21s
+```
+
+repository-wide final:
+
+```text
+python -m pytest tests -q
+9333 passed in 583.64s (0:09:43)
+```
+
+Phase 131 完了。
+
+---
+
+# 今後の proof narrative provenance boundary
+
+Phase 132 では、既存 proof trace を人間向けの証明文章へ変換する可能性を監査する。
+
+想定:
+
+```text
+ProofStep / provenance
+→ deterministic narrative presentation
+→ readable mathematical proof prose
+```
+
+ただし:
+
+```text
+narrative
+!= proof fact
+narrative
+!= new inference
+narrative
+!= new theorem root
+narrative
+!= provenance-free proof generation
+```
+
+Trace を ground truth とし、Narrative はその presentation とする。
+
+---
+
 # 記録原則
 
 数学的な根拠は `ProofStep` と、その実際の premise ancestry である。
@@ -358,6 +559,9 @@ proof-scope relevance != executable relevance
 applicability relevance != executable relevance
 aggregate statement の同居 != executable source relevance
 executable relevance filtering != theorem ranking
+group-result replay != generator-first lookup
+group-result replay != new proof search
+proof narrative != new proof
 ```
 
 既存記録は原則として削除せず、確定した意味論訂正がある場合のみ訂正する。

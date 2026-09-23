@@ -24,6 +24,10 @@ from web_generator_proof_scope import (
   WebGeneratorProofScopeView,
   build_standard_web_generator_proof_scope_view,
 )
+from web_group_proof import (
+  WebGroupProofView,
+  build_standard_web_group_proof_view,
+)
 from web_group_query import (
   WebGroupQueryView,
   build_standard_web_group_query_view,
@@ -95,6 +99,10 @@ def create_app(
       "proof_depth",
       "1",
     )
+    group_proof_depth_value = request.form.get(
+      "group_proof_depth",
+      "1",
+    )
     generator_input_value = request.form.get(
       "generator_input",
       "",
@@ -121,6 +129,10 @@ def create_app(
     )
 
     view: WebGroupQueryView | None = None
+    group_proof_view: (
+      WebGroupProofView
+      | None
+    ) = None
     operation_query_view: (
       WebOperationQueryView
       | None
@@ -153,7 +165,45 @@ def create_app(
 
     if request.method == "POST":
       try:
-        if form_kind == "operation":
+        if form_kind == "group_proof":
+          n = _parse_integer_form_value(
+            n_value,
+            "n",
+          )
+          k = _parse_integer_form_value(
+            k_value,
+            "k",
+          )
+          group_proof_depth = (
+            _parse_integer_form_value(
+              group_proof_depth_value,
+              "group_proof_depth",
+            )
+          )
+
+          if group_proof_depth not in (
+            0,
+            1,
+            2,
+          ):
+            raise ValueError(
+              "group_proof_depth must be 0, 1, or 2"
+            )
+
+          view = (
+            build_standard_web_group_query_view(
+              n=n,
+              k=k,
+            )
+          )
+          group_proof_view = (
+            build_standard_web_group_proof_view(
+              n,
+              k,
+              max_depth=group_proof_depth,
+            )
+          )
+        elif form_kind == "operation":
           operation_query_view = (
             build_standard_web_operation_query_view(
               operation_query_value
@@ -285,6 +335,9 @@ def create_app(
       proof_depth_value=(
         proof_depth_value
       ),
+      group_proof_depth_value=(
+        group_proof_depth_value
+      ),
       generator_input_value=(
         generator_input_value
       ),
@@ -304,6 +357,9 @@ def create_app(
         execution_generator_input_value
       ),
       view=view,
+      group_proof_view=(
+        group_proof_view
+      ),
       operation_query_view=(
         operation_query_view
       ),
