@@ -469,3 +469,164 @@ nu_5
 ```
 
 Phase 126 は audit first とし、ranking / filtering / selection semantics の変更を先取りしない。
+
+## Phase 126
+
+Phase 125 の `nu_5` 実行結果を起点に、executable-target resolution semantics を監査し、必要な最小修正を行った。
+
+### Phase 126-1: resolver tracing
+
+現行経路:
+
+```text
+generator input
+→ proof-scope occurrences
+→ applicability candidates
+→ qualified selection
+→ execution-family grouping
+→ matching target step
+→ executable target
+```
+
+を追跡。
+
+旧 resolver は generator occurrence が source `ProofStep` のどの component にあるかを executable target inclusion で確認していなかった。
+
+### Phase 126-2: semantics boundary
+
+次の3層を区別する方針を確定。
+
+```text
+proof-scope relevance
+→ generator が ProofStep のどこかに出現
+
+applicability relevance
+→ その ProofStep が rule premise として適用可能
+
+executable relevance
+→ generator occurrence が rule が実際に利用する source component に対応
+```
+
+`proof-scope relevance` と `applicability relevance` は broad のまま維持し、execute 境界だけを狭める方針とした。
+
+### Phase 126-3: representative comparison
+
+比較:
+
+```text
+nu_prime
+nu_5
+sigma_11
+```
+
+`nu_prime` は qualified rule が利用する component に対応する occurrence を持つ。
+
+`nu_5` は Toda Proposition 5.6 aggregate 内の
+
+```text
+pi8_5_group_relation
+```
+
+に occurrence を持つが、第2 qualified family が利用するのは
+
+```text
+pi6_3_group_relation
+```
+
+である。
+
+`sigma_11` は proof-scope / applicability があっても admitted qualified execution family がなく、既存どおり `NONE`。
+
+### Phase 126-4: minimal executable relevance guard
+
+変更:
+
+```text
+repository_generator_user_execution_resolver.py
+```
+
+追加:
+
+```text
+tests/test_phase126_executable_target_relevance.py
+```
+
+第2 qualified family
+
+```text
+toda_lemma57_pi6_2_eta2_nu_prime_inference_rule
+```
+
+に対してのみ、source-step identity と occurrence path の先頭 branch
+
+```text
+pi6_3_group_relation
+```
+
+を executable relevance guard として確認するようにした。
+
+第1 qualified family
+
+```text
+toda_58_delta_iota9_nu4_nu_prime_inference_rule
+```
+
+は aggregate Prop. 5.6 ではなく独立した \(\pi_7^4\) relation を直接 source とするため、追加 branch guard は入れていない。
+
+focused regression:
+
+```text
+13 passed in 14.86s
+```
+
+### Phase 126 CLI audit
+
+```text
+python main.py execute nu_prime
+```
+
+結果:
+
+```text
+2 executable candidates
+```
+
+\[
+\pi_6^2=\mathbb Z/4\{\eta_2\nu'\},
+\]
+
+\[
+\Delta(\iota_9)=\pm(2\nu_4-E\nu').
+\]
+
+```text
+python main.py execute nu_5
+→ No executable target found for nu_5.
+
+python main.py execute sigma_11
+→ No executable target found for sigma_11.
+```
+
+### Phase 126-final: completion
+
+repository-wide regression:
+
+```text
+python -m pytest -q
+9246 passed in 556.62s (0:09:16)
+```
+
+Phase 126 は完了。
+
+確定境界:
+
+```text
+proof-scope relevance != executable relevance
+applicability relevance != executable relevance
+aggregate statement の同居 != executable source relevance
+executable relevance filtering != theorem ranking
+candidate number != theorem priority
+nu_prime の2 targetを維持
+nu_5 → pi6_2 を除外
+sigma_11 → NONE を維持
+```
