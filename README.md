@@ -7,6 +7,7 @@ The project focuses on the free part plus the 2-primary component used by Toda-s
 The current system provides:
 
 - theorem-backed Toda group queries,
+- foundational query semantics for diagonal, below-diagonal, and circle cases,
 - EHP and proof provenance,
 - generator-centered repository exploration,
 - recursive proof-scope exploration,
@@ -16,6 +17,7 @@ The current system provides:
 - operation-fact lookup,
 - operation-query proof replay,
 - theorem-specific indexed \(\sigma_n\) specialization,
+- theorem-specific standard-query recovery from existing proof ancestry,
 - deliberately narrow existing-proof handoffs for \(E(\nu_5)=\nu_6\), \(E(\sigma_{11})=\sigma_{12}\), \(E(\nu_5\eta_8)=0\), and \(E\nu' \in \pi_7^4\),
 - a Flask Web UI for group queries, operation queries, operation proof replay, generator proof replay, direct generator exploration, recursive generator proof-scope exploration, applicability exploration, and qualified generator execution,
 - explicit candidate selection when an execution request is ambiguous,
@@ -78,6 +80,11 @@ Toda Proposition 5.15 coverage includes
 \mathbb Z/8\{E\sigma'\},
 \]
 
+\[
+\pi_{16}^9=
+\mathbb Z/16\{\sigma_9\},
+\]
+
 and
 
 \[
@@ -86,7 +93,7 @@ and
 \qquad n\ge 9.
 \]
 
-For concrete indexed \(\sigma_n\) with \(n\ge 10\), the existing symbolic Proposition 5.15 proof can be specialized without creating a new independent theorem root.
+For concrete indexed \(\sigma_n\) with \(n\ge 10\), the existing symbolic Proposition 5.15 proof is specialized without creating a new independent theorem root. The boundary case \(n=9\) reuses the existing concrete \(\pi_{16}^9\) proof from Proposition 5.15 ancestry.
 
 The consolidated stable 2-primary stem data is
 
@@ -112,6 +119,124 @@ G_0=\mathbb Z\{\iota\},
 (G_7;2)=\mathbb Z/16\{\sigma\}.
 \]
 
+## Standard group-query semantics
+
+The production one-shot entry point is
+
+```python
+build_standard_toda_report(
+  n,
+  k,
+)
+```
+
+and the calculation CLI is
+
+```powershell
+python main.py n k
+```
+
+The sphere dimension must satisfy
+
+```text
+n > 0
+```
+
+while the stem \(k\) may be negative.
+
+Phase 130 established the following foundational semantics:
+
+\[
+k=0
+\quad\Longrightarrow\quad
+\pi_n^n\cong\mathbb Z\{\iota_n\}.
+\]
+
+For the circle,
+
+\[
+n=1,\quad k\ge1
+\quad\Longrightarrow\quad
+\pi_{1+k}^1=0,
+\]
+
+using the existing symbolic Phase 56 result.
+
+For a positive target dimension strictly below the sphere dimension,
+
+\[
+1\le n+k<n
+\quad\Longrightarrow\quad
+\pi_{n+k}^n=0.
+\]
+
+When
+
+\[
+n+k=0,
+\]
+
+the CLI/Web path returns boundary information: \(S^n\) is path-connected and \(\pi_0(S^n)\) has one path component. This is not normalized as an ordinary group result.
+
+When
+
+\[
+n+k<0,
+\]
+
+the query is reported as outside the classical unstable homotopy-group domain handled by this project.
+
+Examples:
+
+```powershell
+python main.py 10 0
+python main.py 1 5
+python main.py 7 -5
+python main.py 3 -3
+python main.py 2 -3
+```
+
+## Standard-query coverage through stem 7
+
+Phase 130 connected or specialized existing theorem-backed results so that standard queries now cover the intended project semantics through \(k=7\), including low-dimensional boundary cases.
+
+Representative stable/symbolic families include:
+
+\[
+\pi_{n+1}^n=\mathbb Z/2\{\eta_n\},
+\]
+
+\[
+\pi_{n+2}^n=\mathbb Z/2\{\eta_n\eta_{n+1}\},
+\]
+
+\[
+\pi_{n+3}^n=\mathbb Z/8\{\nu_n\},
+\]
+
+\[
+\pi_{n+4}^n=0
+\qquad (n\ge6),
+\]
+
+\[
+\pi_{n+5}^n=0
+\qquad (n\ge7),
+\]
+
+\[
+\pi_{n+6}^n=\mathbb Z/2\{\nu_n^2\},
+\]
+
+and
+
+\[
+\pi_{n+7}^n=\mathbb Z/16\{\sigma_n\}
+\qquad (n\ge9).
+\]
+
+Concrete low-dimensional branches are preserved and preferred where the literature proof already supplies them.
+
 ## Proof infrastructure
 
 The proof infrastructure supports:
@@ -129,7 +254,8 @@ The proof infrastructure supports:
 - qualified execution across admitted production rule families,
 - proof-derived known-group identity lookup,
 - theorem-specific indexed \(\sigma_n\) specialization,
-- reuse of that specialization from the standard `TodaGroupQuery` path,
+- standard-query specialization for stable families,
+- theorem-specific recovery of existing concrete proof nodes,
 - user-facing known-group proof replay,
 - generator-centered repository occurrence exploration,
 - recursive generator proof-scope exploration,
@@ -143,36 +269,6 @@ The proof infrastructure supports:
 - safe mathematical rendering with explicit type-name fallback for unsupported aggregate statements.
 
 General unbounded proof search, theorem ranking, producer ranking, proof-cost optimization, arbitrary operation-query inference fallback, general membership evaluation, and general \(E/H/\Delta\) evaluation are intentionally not implemented.
-
-## Toda group calculation API
-
-The production one-shot entry point is
-
-```python
-build_standard_toda_report(
-  n,
-  k,
-)
-```
-
-and the calculation CLI is
-
-```powershell
-python main.py n k
-```
-
-For example,
-
-```powershell
-python main.py 11 7
-```
-
-returns
-
-\[
-\pi_{18}^{11}\cong
-\mathbb Z/16\{\sigma_{11}\}.
-\]
 
 ## Web UI
 
@@ -195,8 +291,6 @@ web_generator_execution.py
 templates/index.html
 static/web_math.js
 ```
-
-The Python dependency is Flask 3.1.3. Browser-side mathematical rendering uses KaTeX 0.18.7.
 
 Run the local development server with
 
@@ -248,98 +342,33 @@ E\nu' \in \pi_7^4.
 
 The `E(nu_prime)` result is deliberately a membership result, not a synthetic equality \(E(\nu')=E\nu'\).
 
-Its theorem-specific handoff reuses the existing Toda Proposition 5.6 decomposition
+## Phase 130 closure
 
-\[
-\pi_7^4=
-\mathbb Z\{\nu_4\}
-\oplus
-\mathbb Z/4\{E\nu'\}.
-\]
+Phase 130 changed standard-query orchestration, not the underlying Toda mathematics.
 
-The specialized membership `ProofStep` has that existing decomposition step as its direct premise, so `query-proof` preserves the actual Proposition 5.6 ancestry.
+The phase:
 
-The handoff is exact and narrow:
+- recovered low-dimensional results already present in proof ancestry,
+- specialized stable families for stems \(1\) through \(6\),
+- connected foundational diagonal / below-diagonal / circle semantics,
+- admitted negative stem input while distinguishing positive target dimension, \(\pi_0\) boundary information, and negative dimensions,
+- connected the existing concrete \(\pi_{16}^9=\mathbb Z/16\{\sigma_9\}\) proof to the standard query,
+- preserved existing repository roots and proof provenance,
+- corrected stale regression tests whose old CLI contract rejected negative stems.
 
-```text
-query "E(nu_prime)"
-→ direct lookup first
-→ exact theorem-specific guard
-→ Proposition 5.6 decomposition match
-→ E nu' in pi_7^4
-→ query-proof replay
-```
-
-It does not recursively scan arbitrary group structures for suspensions and does not introduce a general membership evaluator or general \(E\) evaluator.
-
-The `GROUP_MEMBERSHIP` operation-query match kind classifies this user-facing result. It does not change direct lookup semantics or turn arbitrary containment into an operation result.
-
-## Phase 126–129 closure
-
-Phase 126 separated proof-scope relevance, applicability relevance, and executable relevance.
-
-Phase 127 audited remaining operation-query pressure.
-
-Phase 128 implemented the exact theorem-specific handoff
-
-\[
-E(\nu_5\eta_8)=0
-\]
-
-from existing Proposition 5.8 provenance.
-
-Phase 129 audited the remaining `E(nu_prime)` pressure before implementation. The repository already contained \(E\nu'\) as the order-four generator in the Proposition 5.6 decomposition of \(\pi_7^4\). The audit selected membership as the natural operation result:
-
-\[
-E\nu' \in \pi_7^4.
-\]
-
-Phase 129 then implemented a theorem-specific membership handoff without broadening direct lookup or containment semantics.
-
-Focused validation:
+Final Phase 130 regression:
 
 ```text
-12 passed
-63 passed
+9308 passed in 577.02s (0:09:37)
 ```
-
-Manual CLI validation:
-
-```text
-python main.py query "E(nu_prime)"
-→ E nu' in pi_7^4
-
-python main.py query-proof "E(nu_prime)" --depth 1
-→ Depth 0: E nu' in pi_7^4
-→ Depth 1: pi_7^4 = Z{nu_4} ⊕ Z/4{E nu'}
-```
-
-Final repository-wide regression:
-
-```text
-9268 passed in 569.71s (0:09:29)
-```
-
-Phase 129 did not add a general \(E\) evaluator, general membership evaluator, recursive arbitrary containment lookup, parser expansion, new independent theorem root, new qualified execution family, theorem ranking, or automatic target selection.
 
 ## Near-term roadmap
 
-Phase 129 is complete.
+Phase 130 is complete.
 
-The next phase should begin with a capability re-audit rather than pre-implementing a general evaluator.
+Phase 131 should begin with a capability and usage-pressure audit. It should not assume that the next step is a general evaluator or a higher stem.
 
-The remaining operation pressures include queries such as:
-
-```text
-H(nu_5)
-Delta(nu_prime)
-H(sigma_11)
-Delta(sigma_11)
-```
-
-These were previously classified as requiring additional mathematical proof support rather than a small existing-proof handoff.
-
-The next decision order remains:
+The decision order remains:
 
 ```text
 actual user pressure
@@ -377,6 +406,18 @@ The following remain intentionally deferred:
 - rich graph proof visualization,
 - odd-primary full integration,
 - an all-primary ordinary sphere-homotopy calculator.
+
+## Test and backup hygiene
+
+Repository-wide regression should be run as
+
+```powershell
+python -m pytest tests -q
+```
+
+so only the intended test tree is collected.
+
+Temporary backup directories containing copied `test_*.py` files must not be created inside the repository root because pytest may collect them and produce duplicate-module import mismatches. Backup artifacts should be stored outside the repository, for example under the user's Downloads directory.
 
 ## Project principle
 

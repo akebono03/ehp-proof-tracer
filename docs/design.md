@@ -37,6 +37,10 @@ limited theorem-specific handoff != general query inference
 theorem-specific membership handoff != general membership evaluator
 group-generator containment != operation result
 target group zero specialization != general zero-target evaluator
+stable-family specialization != unrestricted symbolic substitution
+concrete proof recovery != new theorem root
+negative stem acceptance != negative homotopy group definition
+pi_0 boundary information != ordinary group result
 Web UI != 新しい数学エンジン
 TeX rendering != 数学的 normalization
 proof depth control != 新しい proof search
@@ -48,22 +52,251 @@ executable relevance filtering != theorem ranking
 
 ---
 
-# 2. 現在の主要経路
-
-## Toda group calculation
+# 2. Toda group query の主要経路
 
 ```text
 ProofRepository
 → TodaGroupQuery
-→ direct group lookup
-→ 必要なら限定的 theorem-specific specialization
+→ foundational specialization
+→ direct known-group lookup
+→ concrete proof-ancestry recovery
+→ stable/theorem-specific specialization
 → group result
 → proof / EHP provenance
 → structured presentation
 → report
 ```
 
-## operation query
+Phase 130 以降、`TodaGroupQuery` は `k >= 0` に限定されない。
+
+```text
+n > 0
+k は任意の int
+```
+
+ただし `n+k` の値に応じて意味論を分ける。
+
+---
+
+# 3. query domain semantics
+
+\(m=n+k\) とする。
+
+## \(m>0\)
+
+通常の project group query の対象。
+
+`k<0` かつ
+
+\[
+1\le m<n
+\]
+
+なら sphere connectivity により
+
+\[
+\pi_m(S^n)=0
+\]
+
+として扱う。
+
+## \(m=0\)
+
+\[
+\pi_0(S^n)
+\]
+
+は通常の group result に正規化しない。
+
+\(n>0\) の球面は path-connected なので、1つの path component を持つという boundary information を返す。
+
+## \(m<0\)
+
+classical unstable homotopy-group domain 外として扱う。
+
+負次数を zero group と推測しない。
+
+---
+
+# 4. foundational group specialization
+
+Phase 130 で foundational specialization を group-query orchestration の先頭へ追加した。
+
+## diagonal
+
+\[
+\pi_n^n\cong\mathbb Z\{\iota_n\}.
+\]
+
+これは `k=0` の query に対応する。
+
+## circle higher groups
+
+既存 Phase 56 の symbolic zero
+
+\[
+\pi_{i-1}^1=0
+\]
+
+を concrete query に specialize する。
+
+したがって
+
+\[
+n=1,\quad k\ge1
+\]
+
+では
+
+\[
+\pi_{1+k}^1=0.
+\]
+
+新しい独立 theorem root は追加しない。
+
+## connectivity zero
+
+\[
+1\le n+k<n
+\]
+
+では foundational sphere connectivity として zero result を返す。
+
+---
+
+# 5. stem 1–3 specialization
+
+Phase 130 では既存 symbolic theorem を standard query から具体化できるようにした。
+
+## stem 1
+
+\[
+\pi_{n+1}^n=\mathbb Z/2\{\eta_n\}.
+\]
+
+## stem 2
+
+\[
+\pi_{n+2}^n=\mathbb Z/2\{\eta_n\eta_{n+1}\}.
+\]
+
+## stem 3
+
+\[
+\pi_{n+3}^n=\mathbb Z/8\{\nu_n\}.
+\]
+
+低次元 concrete boundary が既存 proof にある場合は concrete proof を優先する。
+
+---
+
+# 6. stem 4–6 specialization
+
+## stem 4
+
+\[
+\pi_{n+4}^n=0,
+\qquad n\ge6.
+\]
+
+## stem 5
+
+低次元 concrete branch を proof ancestry から回収し、
+
+\[
+\pi_{n+5}^n=0,
+\qquad n\ge7
+\]
+
+を symbolic branch から specialize する。
+
+## stem 6
+
+\[
+\pi_{n+6}^n=\mathbb Z/2\{\nu_n^2\}.
+\]
+
+既存 concrete \(n=5,6,7,8\) を維持し、symbolic specialization はその境界より上で使う。
+
+---
+
+# 7. stem 7 / sigma family
+
+Toda Proposition 5.15 の既存証明には
+
+\[
+\pi_{16}^9=\mathbb Z/16\{\sigma_9\}
+\]
+
+という concrete proof が存在する。
+
+また symbolic higher branch として
+
+\[
+\pi_{n+7}^n=\mathbb Z/16\{\sigma_n\},
+\qquad n\ge9
+\]
+
+が存在する。
+
+現行設計は次のように分ける。
+
+```text
+n = 8
+→ Prop.5.15 aggregate の concrete branch
+
+n = 9
+→ existing concrete pi16_9 ProofStep を proof scope から回収
+
+n >= 10
+→ theorem-specific indexed sigma specialization
+```
+
+`n=9` を generic specialization の境界へ無理に混ぜない。
+
+---
+
+# 8. standard repository 非破壊
+
+Phase 130 の specialization / recovery は standard repository root を追加しない。
+
+期待する root:
+
+```text
+standard.toda.prop56
+standard.toda.prop58
+standard.toda.prop511
+standard.toda.prop515
+```
+
+query 実行の前後で repository entry 集合を維持する。
+
+---
+
+# 9. concrete proof recovery
+
+group query で aggregate の top-level branch に存在しない concrete result が proof ancestry に存在する場合、限定的に proof scope から回収する。
+
+Phase 130 の代表例:
+
+\[
+\pi_{16}^9=\mathbb Z/16\{\sigma_9\}.
+\]
+
+回収条件は theorem-specific かつ target-specific に狭くする。
+
+```text
+proof-scope recovery
+!= arbitrary recursive theorem mining
+!= theorem ranking
+!= automatic proof synthesis
+```
+
+---
+
+# 10. operation query
+
+operation query は lookup-first である。
 
 ```text
 query string
@@ -84,111 +317,23 @@ E(nu_5 o eta_8)
 E(nu_prime)
 ```
 
-対応する user-facing result:
+対応結果:
 
 \[
 E(\nu_5)=\nu_6,
-\]
-
-\[
+\qquad
 E(\sigma_{11})=\sigma_{12},
 \]
 
 \[
 E(\nu_5\eta_8)=0,
-\]
-
-\[
+\qquad
 E\nu' \in \pi_7^4.
 \]
 
-`E(nu_prime)` だけは equality ではなく membership を返す。これは既存 Proposition 5.6 decomposition から直接読み取れる theorem-backed result を user-facing に具体化するためである。
-
-## query-proof / generator show-proof
-
-```text
-selected existing fact / known-group identity
-→ existing or theorem-specific specialized ProofStep
-→ bounded ancestry
-→ replay presentation
-→ CLI / Web
-```
-
-depth は表示範囲であり、新しい proof search ではない。
-
-## generator explore
-
-```text
-generator input
-→ standard production repository
-→ existing direct generator exploration
-→ RepositoryGeneratorExplorationPresentation
-→ CLI / Web
-```
-
-## generator explore-proof
-
-```text
-generator input
-→ standard production repository
-→ recursive proof scope
-→ existing generator specialization
-→ RepositoryProofScopeExplorationResult
-→ CLI / Web
-```
-
-## generator explore-applicable
-
-```text
-generator input
-→ existing applicability facade
-→ RepositoryGeneratorApplicabilityExplorationResult
-→ presentation
-→ CLI / Web
-```
-
-## generator execute
-
-```text
-generator input
-→ standard applicability exploration
-→ qualified-family grouping
-→ executable relevance guard
-→ executable target resolution
-→ NONE / AMBIGUOUS / EXECUTED
-→ candidate number selection when required
-→ existing qualified execution
-→ executed ProofStep
-→ structured presentation
-→ CLI / Web
-```
-
 ---
 
-# 3. 主要 operation-query モジュール
-
-```text
-repository_operation_query.py
-repository_operation_query_lookup.py
-repository_operation_query_facade.py
-repository_operation_query_presentation.py
-repository_operation_query_proof_replay.py
-repository_operation_query_proof_replay_presentation.py
-repository_operation_query_proof_replay_statement_presentation.py
-repository_operation_query_proof_replay_renderer.py
-repository_nu5_stable_bridge_specialization.py
-repository_sigma11_suspension_specialization.py
-repository_nu5_eta8_suspension_zero_specialization.py
-repository_nu_prime_suspension_membership_specialization.py
-```
-
-Phase 129 で `RepositoryOperationQueryMatchKind.GROUP_MEMBERSHIP` を追加した。
-
-これは operation query の結果分類であり、direct lookup の探索範囲を広げるものではない。
-
----
-
-# 4. 証明事実と provenance
+# 11. provenance
 
 証明事実の中心は
 
@@ -200,197 +345,59 @@ ProofStep.inference_rule
 
 である。
 
-`ProofRepositoryEntry.key / phase / theorem` は provenance metadata である。
-
-renderer、facade、CLI、Web adapter、表示 grouping、candidate selection form は独立した定理事実を追加しない。
+`ProofRepositoryEntry.key / phase / theorem` は provenance metadata。
 
 ```text
-theorem-specific operation handoff
-!= independent theorem root
-
-theorem-specific membership step
-!= general inference rule
-
-GROUP_MEMBERSHIP match kind
-!= membership evaluator
+theorem-specific operation handoff != independent theorem root
+theorem-specific membership step != general inference rule
+GROUP_MEMBERSHIP match kind != membership evaluator
 ```
 
 ---
 
-# 5. Repository 非破壊
+# 12. Web / CLI 共通 semantics
 
-Phase 113 の TodaGroupQuery specialization、Phase 114 の `E(nu_5)` handoff、Phase 115 の `E(sigma_11)` handoff、Phase 128 の `E(nu_5 o eta_8)` handoff、Phase 129 の `E(nu_prime)` handoff は元 repository に独立 root を追加しない。
-
-Phase 129 の specialized membership step は query ごとに組み立てられる。
+Web は CLI output / Markdown を再解析しない。
 
 ```text
-before repository.entries()
-==
-after repository.entries()
+existing structured object
+→ thin Web adapter
+→ presentation
 ```
 
-を focused regression で固定する。
+CLI と Web で数学エンジンを分岐させない。
 
 ---
 
-# 6. operation query の意味論
+# 13. Generator execution
 
-operation query は lookup-first である。
+既存 status:
 
 ```text
-operation query
-→ direct existing-fact lookup
-→ hit ならそのまま返す
-→ miss なら exact handoff guard
-→ 許可された場合だけ theorem-specific specialization
+NONE
+AMBIGUOUS
+EXECUTED
 ```
 
-## `E(nu_5)`
+Phase 126 以降、
 
-\[
-E(\nu_5)=\nu_6.
-\]
+```text
+proof-scope relevance
+applicability relevance
+executable relevance
+```
 
-既存 Proposition 5.6 stable-family bridge を具体化する。
+を区別する。
 
-## `E(sigma_11)`
-
-\[
-E(\sigma_{11})=\sigma_{12}.
-\]
-
-既存 \(\sigma\)-family definition を具体化する。
-
-## `E(nu_5 o eta_8)`
-
-\[
-E(\nu_5\eta_8)=0.
-\]
-
-既存 Proposition 5.8 の \(\pi_{10}^6=0\) provenance を利用する。
-
-## `E(nu_prime)`
-
-Phase 129 で意味論を確定した。
-
-既存 repository では
-
-\[
-E\nu'
-\]
-
-は
-
-\[
-\pi_7^4=
-\mathbb Z\{\nu_4\}
-\oplus
-\mathbb Z/4\{E\nu'\}
-\]
-
-の第2 cyclic summand generator として保持されている。
-
-この情報から自然に言える user-facing result は
-
-\[
-E\nu' \in \pi_7^4
-\]
-
-である。
-
-次は採用しない。
-
-\[
-E(\nu')=E\nu'
-\]
-
-理由は、これは表記上の自己同一視であり、新しい theorem-backed operation information を表さないためである。
-
-また、group relation 内に `Suspension(nu_prime)` が含まれているというだけで任意の containment を operation result にする一般規則も採用しない。
-
-Phase 129 の handoff は exact query `E(nu_prime)` と Proposition 5.6 の特定 decomposition shape に限定する。
+Phase 130 は execution semantics を変更していない。
 
 ---
 
-# 7. `E(nu_prime)` provenance shape
+# 14. parser 境界
 
-specialized root:
+operation query grammar の既存境界を維持する。
 
-\[
-E\nu' \in \pi_7^4.
-\]
-
-表現:
-
-```text
-HomotopyGroupMembershipStatement(
-  element=Suspension(nu_prime),
-  group_dimension=7,
-  sphere_dimension=4,
-)
-```
-
-直接 premise:
-
-\[
-\pi_7^4=
-\mathbb Z\{\nu_4\}
-\oplus
-\mathbb Z/4\{E\nu'\}.
-\]
-
-この decomposition step 自体が Proposition 5.6 の既存 ancestry を保持する。
-
-したがって、
-
-```text
-Depth 0:
-E nu' in pi_7^4
-
-Depth 1:
-pi_7^4 = Z{nu_4} ⊕ Z/4{E nu'}
-```
-
-と再生できる。
-
----
-
-# 8. `GROUP_MEMBERSHIP` の境界
-
-Phase 129 では `RepositoryOperationQueryMatchKind` に
-
-```text
-GROUP_MEMBERSHIP
-```
-
-を追加した。
-
-目的:
-
-```text
-operation query が membership statement を返した
-```
-
-ことを型として明示する。
-
-これは次を意味しない。
-
-```text
-group relation 内部を一般再帰探索する
-arbitrary element containment を membership に昇格する
-任意の E(x) の target group を自動推定する
-general membership evaluator を追加する
-```
-
-direct lookup の `_find_e_matches()` は従来どおり direct `MapApplication` / `Suspension` relation のみを見る。
-
----
-
-# 9. parser の境界
-
-Phase 129 は parser を変更していない。
-
-現在の grammar boundary を維持する。
+対応:
 
 ```text
 二項 top-level composition
@@ -411,143 +418,65 @@ Unicode ∘
 一般再帰 parser
 ```
 
----
-
-# 10. Web / CLI の共通 semantics
-
-Web は CLI output / Markdown を再解析しない。
-
-```text
-existing structured object
-→ thin Web adapter
-→ presentation
-```
-
-Phase 129 の handoff は operation-query facade より下層にあるため、CLI と Web で別の数学 semantics を作らない。
+group-query CLI の `k` は Phase 130 で負値を許可したが、これは operation-query parser の一般化ではない。
 
 ---
 
-# 11. Generator execution の意味論
+# 15. regression / test collection
 
-既存 status:
+Phase 終了時の全体回帰は
 
-```text
-NONE
-AMBIGUOUS
-EXECUTED
+```powershell
+python -m pytest tests -q
 ```
 
-Phase 126 以降、
+を標準とする。
 
-```text
-proof-scope relevance
-applicability relevance
-executable relevance
-```
+repo 内 backup directory に copied `test_*.py` を置かない。
 
-を区別する。
-
-Phase 129 は execution semantics を変更していない。
+backup は repo 外へ保存する。
 
 ---
 
-# 12. Phase 129 regression boundary
-
-focused:
+# 16. Phase 130 完了境界
 
 ```text
-tests/test_phase129_nu_prime_operation_query_handoff.py
-12 passed in 6.28s
-```
-
-関連 regression:
-
-```text
-tests/test_phase110_5_minimal_operation_query_core.py
-tests/test_phase114_3_nu5_operation_query_handoff.py
-tests/test_phase115_sigma11_operation_query_handoff.py
-tests/test_phase118_web_operation_query.py
-tests/test_phase128_nu5_eta8_operation_query_handoff.py
-
-63 passed in 12.54s
-```
-
-manual CLI:
-
-```text
-python main.py query "E(nu_prime)"
-→ E nu' in pi_7^4
-
-python main.py query-proof "E(nu_prime)" --depth 1
-→ specialized membership root
-→ Proposition 5.6 pi_7^4 decomposition
-```
-
-repository-wide:
-
-```text
-python -m pytest -q
-9268 passed in 569.71s (0:09:29)
-```
-
----
-
-# 13. Phase 129 完了境界
-
-```text
-E(nu_prime) result semantics = membership
-exact theorem-specific guard
-Proposition 5.6 provenance reuse
+low-dimensional standard query recovery
+stem 1–6 stable/theorem-specific specialization
+k=0 diagonal semantics
+n=1 higher-group semantics
+negative stem input
+connectivity zero
+pi_0 boundary information
+negative dimension out-of-domain information
+pi16_9 concrete sigma9 standard-query connection
 repository non-mutation
-query-proof replay
-direct lookup first
-GROUP_MEMBERSHIP classification
-existing handoffs preserved
-parser unchanged
-general E evaluator absent
-general membership evaluator absent
-recursive arbitrary containment absent
-new independent theorem root absent
-new qualified execution family absent
-ranking absent
+stale negative-k CLI test correction
+```
+
+final regression:
+
+```text
+9308 passed in 577.02s (0:09:37)
 ```
 
 ---
 
-# 14. 次 Phase との境界
+# 17. 次 Phase との境界
 
-Phase 130 は新機能実装から始めず、current capability pressure の再監査から始める。
+Phase 131 は capability / usage-pressure audit から始める。
 
-既存の deferred pressure:
-
-```text
-H(nu_5)
-Delta(nu_prime)
-H(sigma_11)
-Delta(sigma_11)
-```
-
-これらは Phase 127 時点で element-level proof support が不足していると分類した。
-
-Phase 130 ではまず現行 repository / proof support を再確認し、実利用上もっと優先すべき capability があるかを比較する。
-
----
-
-# 15. 完了判断原則
+先取りしないもの:
 
 ```text
-既存数学を先に再利用する
-direct fact を上書きしない
-新しい theorem root を不要に作らない
-provenance を失わない
-一般 evaluator を必要性なしに作らない
-parser を需要なしに一般化しない
-containment を operation result と混同しない
-membership handoff を general membership evaluator に拡張しない
-CLI と Web の数学結果を分岐させない
-proof-scope relevance と executable relevance を混同しない
-candidate number を theorem priority と解釈しない
-focused regression で境界を固定する
-manual integration で表示境界を確認する
-repository-wide regression で Phase を閉じる
+general E evaluator
+general H evaluator
+general Delta evaluator
+general membership evaluator
+higher stem の無条件追加
+general symbolic AST substitution
+arbitrary proof-scope theorem mining
+theorem ranking
+automatic best-target selection
+unbounded proof search
 ```
