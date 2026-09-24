@@ -31,11 +31,33 @@ Toda Proposition 5.6 のうち,
 \pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}\qquad (n \ge 3).
 \]
 
+**[R3] Toda Proposition 5.3 の低次元 η² 結果.**
+
+次の低次元群構造を用いる.
+
+\[
+\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}^{2}\}.
+\]
+
+**[R4] Toda Lemma 5.2 の ν′ に対する特殊化.**
+
+ν′ に対する Toda bracket, 倍元, Hopf 像の特殊化を用いる.
+
+\[
+\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1},
+\qquad
+2\nu' = \eta_{3}E\eta_{3}\eta_{5},
+\qquad
+H\left(\nu'\right) = E^{2}\eta_{3}.
+\]
+
+これらの特殊化を用いる際には $2\eta_{3}=0$ を premise とする.
+
 ## 証明
 
 まず, $\nu'$ の位数を求める.
 
-Toda Proposition 5.3 より,
+[R3] より,
 
 \[
 \pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}^{2}\}.\tag{1}
@@ -47,7 +69,7 @@ Toda Proposition 5.3 より,
 \pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}^{3}\}.\tag{2}
 \]
 
-EHP 完全列と Toda Proposition 5.3 より,
+EHP 完全列と [R3] より,
 
 \[
 \Delta: \pi_{7}^{5} \to \pi_{5}^{2}\quad\text{は零写像である.}\tag{3}
@@ -71,6 +93,7 @@ E: \pi_{5}^{2} \to \pi_{6}^{3}\quad\text{は単射である.}\tag{5}
 \eta_{3}^{3}\text{ の位数は }2\text{ である.}\tag{6}
 \]
 
+[R4] の倍元公式と η-family の suspension relation より,
 
 \[
 2\nu' = \eta_{3}^{3}.\tag{7}
@@ -84,7 +107,7 @@ E: \pi_{5}^{2} \to \pi_{6}^{3}\quad\text{は単射である.}\tag{5}
 
 次に, $\nu' \in \pi_{6}^{3}$ であることを確認する.
 
-Toda Lemma 5.2 の ν′ に対する特殊化より,
+[R4] の Toda bracket 特殊化より,
 
 \[
 \nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}.\tag{9}
@@ -95,6 +118,8 @@ Toda Lemma 5.2 の ν′ に対する特殊化より,
 \[
 2\eta_{3} = 0.\tag{10}
 \]
+
+この関係は [R4] を ν′ に特殊化して membership, 倍元, Hopf 像を得るための premise である.
 
 (9), (10) より,
 
@@ -110,25 +135,25 @@ EHP 完全列より,
 \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5}\quad\text{は完全である.}\tag{12}
 \]
 
-Toda Proposition 5.3 より,
+[R4] の Hopf 像公式と η-family の suspension relation より,
 
 \[
 H\left(\nu'\right) = \eta_{5}.\tag{13}
 \]
 
-(13), [R2] より,
-
-\[
-H: \pi_{6}^{3} \to \pi_{6}^{5}\quad\text{は全射である.}\tag{14}
-\]
-
 [R2] より,
 
 \[
-\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}.\tag{15}
+\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}.\tag{14}
 \]
 
-したがって,
+(13), (14) より,
+
+\[
+H: \pi_{6}^{3} \to \pi_{6}^{5}\quad\text{は全射である.}\tag{15}
+\]
+
+以上により,
 
 \[
 \pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}\tag{16}
