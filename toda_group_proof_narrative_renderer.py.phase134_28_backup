@@ -1243,100 +1243,6 @@ def _phase134_26_narrative_start_lines(
   ]
 
 
-
-def _phase134_28_reference_section_lines(
-  reference_blocks: tuple[
-    tuple[
-      str,
-      tuple[
-        str,
-        ...,
-      ],
-    ],
-    ...,
-  ],
-) -> list[str]:
-  if not isinstance(
-    reference_blocks,
-    tuple,
-  ):
-    raise TypeError(
-      "reference_blocks must be a tuple"
-    )
-
-  if not reference_blocks:
-    return []
-
-  lines = (
-    _phase134_26_narrative_section_header_lines(
-      "使用する結果"
-    )
-  )
-
-  for index, reference_block in enumerate(
-    reference_blocks,
-    start=1,
-  ):
-    if not (
-      isinstance(
-        reference_block,
-        tuple,
-      )
-      and len(
-        reference_block
-      ) == 2
-    ):
-      raise TypeError(
-        "each reference block must be "
-        "a (title, statement_lines) tuple"
-      )
-
-    title, statement_lines = (
-      reference_block
-    )
-
-    if not isinstance(
-      title,
-      str,
-    ):
-      raise TypeError(
-        "reference title must be a str"
-      )
-
-    if not isinstance(
-      statement_lines,
-      tuple,
-    ):
-      raise TypeError(
-        "reference statement_lines must be a tuple"
-      )
-
-    lines.extend(
-      (
-        (
-          "**[R"
-          + str(
-            index
-          )
-          + "] "
-          + title
-          + ".**"
-        ),
-        "",
-      )
-    )
-
-    if statement_lines:
-      lines.extend(
-        statement_lines
-      )
-      lines.append(
-        ""
-      )
-
-  return lines
-
-
 def _render_phase134_3_pi6_3_narrative_markdown(
   presentation: TodaGroupProofPresentation,
 ) -> str:
@@ -1398,23 +1304,45 @@ def _render_phase134_3_pi6_3_narrative_markdown(
   )
 
   if reference_steps:
-    reference_blocks = tuple(
-      (
-        _phase134_5_reference_title(
-          proof_step
-        ),
-        _phase134_5_reference_statement_lines(
-          proof_step
-        ),
+    lines.extend(
+      _phase134_26_narrative_section_header_lines(
+        "使用する結果"
       )
-      for proof_step in reference_steps
     )
 
-    lines.extend(
-      _phase134_28_reference_section_lines(
-        reference_blocks
+    for proof_step in reference_steps:
+      reference_label = (
+        reference_by_step_id[
+          id(
+            proof_step
+          )
+        ]
       )
-    )
+
+      lines.extend(
+        (
+          (
+            "**["
+            + reference_label
+            + "] "
+            + _phase134_5_reference_title(
+              proof_step
+            )
+            + ".**"
+          ),
+          "",
+        )
+      )
+
+      lines.extend(
+        _phase134_5_reference_statement_lines(
+          proof_step
+        )
+      )
+
+      lines.append(
+        ""
+      )
 
   lines.extend(
     _phase134_26_narrative_section_header_lines(
@@ -2191,21 +2119,35 @@ def _render_phase134_9_pi8_5_narrative_markdown(
   )
 
   if reference_steps:
-    reference_blocks = tuple(
-      (
-        _phase134_9_reference_title(
-          proof_step
-        ),
-        (),
+    lines.extend(
+      _phase134_26_narrative_section_header_lines(
+        "使用する結果"
       )
-      for proof_step in reference_steps
     )
 
-    lines.extend(
-      _phase134_28_reference_section_lines(
-        reference_blocks
+    for proof_step in reference_steps:
+      reference_label = (
+        reference_by_step_id[
+          id(
+            proof_step
+          )
+        ]
       )
-    )
+
+      lines.extend(
+        (
+          (
+            "**["
+            + reference_label
+            + "] "
+            + _phase134_9_reference_title(
+              proof_step
+            )
+            + ".**"
+          ),
+          "",
+        )
+      )
 
   lines.extend(
     _phase134_26_narrative_section_header_lines(
@@ -2427,37 +2369,34 @@ def _phase134_24_render_pi15_8_narrative(
         "を示す.",
       ]
     ),
-    *_phase134_28_reference_section_lines(
-      (
-        (
-          "Toda Proposition 4.4 の分解同型",
-          (
-            "次の写像は同型である.",
-            "",
-            "\\[",
-            (
-              source_left_latex
-              + r" \oplus "
-              + source_right_latex
-              + r" \longrightarrow "
-              + target_latex
-            ),
-            "\\]",
-            "",
-            "\\[",
-            (
-              "("
-              + first_variable_latex
-              + ", "
-              + second_variable_latex
-              + r") \longmapsto "
-              + formula_latex
-            ),
-            "\\]",
-          ),
-        ),
-      )
+    *_phase134_26_narrative_section_header_lines(
+      "使用する結果"
     ),
+    "**[R1] Toda Proposition 4.4 の分解同型.**",
+    "",
+    "次の写像は同型である.",
+    "",
+    "\\[",
+    (
+      source_left_latex
+      + r" \oplus "
+      + source_right_latex
+      + r" \longrightarrow "
+      + target_latex
+    ),
+    "\\]",
+    "",
+    "\\[",
+    (
+      "("
+      + first_variable_latex
+      + ", "
+      + second_variable_latex
+      + r") \longmapsto "
+      + formula_latex
+    ),
+    "\\]",
+    "",
     *_phase134_26_narrative_section_header_lines(
       "証明"
     ),
