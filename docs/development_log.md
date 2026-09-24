@@ -962,6 +962,233 @@ Phase 133 完了。
 
 ---
 
+# Phase 134 — natural mathematical Narrative refinement
+
+Phase 134 は Phase 133 の human-readable label 改善をさらに進め、代表的な群の Narrative を「証明文として自然に読める」形へ整備した。
+
+新しい数学定理、proof search、Trace / Outline semantics、operation evaluator は追加していない。
+
+## Phase 134-3〜8: \(\pi_6^3\) Narrative
+
+Toda Proposition 5.6 の
+
+\[
+\pi_6^3=\mathbb Z/4\{\nu'\}
+\]
+
+を代表例として、単なる statement 列ではなく、
+
+```text
+まず, ν' の位数を求める.
+次に, ν' ∈ π_6^3 であることを確認する.
+最後に, EHP 完全列を用いて π_6^3 の群構造を決定する.
+```
+
+という数学的 block 構造を導入した。
+
+REFERENCE section では既存の Toda (5.2)、Proposition 5.1 を明示し、本文中の依存関係を `[R1]`, `[R2]` で参照する。
+
+## Phase 134-9〜16: \(\pi_8^5\) への拡張と semantic classification
+
+第2代表例として
+
+\[
+\pi_8^5=\mathbb Z/8\{\nu_5\}
+\]
+
+を追加。
+
+fact role:
+
+```text
+TARGET
+REFERENCE
+DEFINITION
+BOUNDARY
+DERIVED
+```
+
+block role:
+
+```text
+ORDER
+MEMBERSHIP
+GROUP_STRUCTURE
+OTHER
+```
+
+を導入し、presentation 層で proof fact の役割を分類した。
+
+この分類は表示専用であり、
+
+```text
+fact role
+!= new theorem fact
+!= new proof edge
+!= proof search
+```
+
+である。
+
+\(\pi_8^5\) では、
+
+```text
+2ν_5 = E^2ν'
+π_6^3 = Z/4{ν'}
+E^2 の単射性
+ν_5 の位数 8
+π_8^5 / E^2π_6^3 の位数 2
+```
+
+という既存事実を、読みやすい順序で Narrative 化した。
+
+## Phase 134-17〜24: \(\pi_{15}^8\) 2-generator Narrative
+
+第3代表例として Toda Proposition 5.15 の
+
+\[
+\pi_{15}^{8}
+=
+\mathbb Z\{\sigma_8\}
+\oplus
+\mathbb Z/8\{E\sigma'\}
+\]
+
+を採用。
+
+既存 Proposition 4.4 の分解同型
+
+\[
+\pi_{14}^{7}\oplus\pi_{15}^{15}
+\longrightarrow
+\pi_{15}^{8}
+\]
+
+を REFERENCE として利用し、
+
+\[
+\sigma'\longmapsto E\sigma',
+\qquad
+\iota_{15}\longmapsto\sigma_8
+\]
+
+という generator transport を明示した。
+
+transport 直後の順序
+
+\[
+\mathbb Z/8\{E\sigma'\}
+\oplus
+\mathbb Z\{\sigma_8\}
+\]
+
+から、標準表示
+
+\[
+\mathbb Z\{\sigma_8\}
+\oplus
+\mathbb Z/8\{E\sigma'\}
+\]
+
+への並べ替えも Narrative に保持した。
+
+この実装は Proposition 4.4 固有の theorem-specific renderer として維持し、generic multi-generator synthesis へ一般化していない。
+
+## Phase 134-25〜31: presentation-only 共通化
+
+3例を横断監査し、数学的本文ではなく presentation framing だけを共通化した。
+
+Phase 134-26:
+
+```text
+# Group proof narrative
+## 証明対象
+## 使用する結果
+## 証明
+```
+
+という外枠を共通化。
+
+Phase 134-28:
+
+```text
+[R1], [R2], ...
+**[Rn] <title>.**
+optional statement lines
+reference block spacing
+```
+
+という REFERENCE block assembler を共通化。
+
+Phase 134-30:
+
+```text
+display math
+completed boundary framing
+final conclusion framing
+```
+
+という proof-body presentation primitive を共通化。
+
+一方、以下は theorem-specific のまま維持した。
+
+```text
+block leads
+dependency selection
+proof ordering
+numbered-fact semantics
+pi_6^3 proof logic
+pi_8^5 proof logic
+Proposition 4.4 transport
+multi-generator theorem synthesis
+map-formula extraction
+```
+
+Phase 134-31 の hardcode 再監査では、Phase 134-26 / 28 / 30 で抽出した helper が root-specific / statement-specific ではないことを確認した。
+
+## Phase 134-32: completion audit
+
+最終監査対象:
+
+\[
+\pi_6^3,\qquad
+\pi_8^5,\qquad
+\pi_{15}^8.
+\]
+
+確認結果:
+
+```text
+renderer boundary: PASS
+semantic boundary: PASS
+three-example Narrative regression: PASS
+scope guard: PASS
+```
+
+追加しなかったもの:
+
+```text
+root_generators()
+generic multi-generator synthesis
+generic direct-sum proof synthesis
+```
+
+focused regression:
+
+```text
+40 passed in 5.78s
+```
+
+repository-wide regression:
+
+```text
+9495 passed in 282.46s (0:04:42)
+```
+
+Phase 134 完了。
+
+---
+
 # 現在の運用方針
 
 `development_log.md` は索引 + 直近 Phase 記録として維持する。
@@ -982,6 +1209,6 @@ backup:
 repository 外へ保存
 ```
 
-Phase 133 完了後の次 Phase は機能を決め打ちしない。
+Phase 134 完了後の次 Phase は機能を決め打ちしない。
 
 現在の group query、Trace / Outline / Narrative、operation query、generator explore / applicability / execute、Web workflow、stem 7 より先の demand を再監査し、次の具体的な不足を1つ選定する。

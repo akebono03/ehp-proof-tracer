@@ -1198,234 +1198,6 @@ def _phase134_7_block_lead(
 
   return None
 
-
-def _phase134_26_narrative_section_header_lines(
-  section_title: str,
-) -> list[str]:
-  if not isinstance(
-    section_title,
-    str,
-  ):
-    raise TypeError(
-      "section_title must be a str"
-    )
-
-  if not section_title:
-    raise ValueError(
-      "section_title must not be empty"
-    )
-
-  return [
-    "## " + section_title,
-    "",
-  ]
-
-
-def _phase134_26_narrative_start_lines(
-  target_lines: list[str],
-) -> list[str]:
-  if not isinstance(
-    target_lines,
-    list,
-  ):
-    raise TypeError(
-      "target_lines must be a list"
-    )
-
-  return [
-    "# Group proof narrative",
-    "",
-    *_phase134_26_narrative_section_header_lines(
-      "証明対象"
-    ),
-    *target_lines,
-    "",
-  ]
-
-
-
-def _phase134_28_reference_section_lines(
-  reference_blocks: tuple[
-    tuple[
-      str,
-      tuple[
-        str,
-        ...,
-      ],
-    ],
-    ...,
-  ],
-) -> list[str]:
-  if not isinstance(
-    reference_blocks,
-    tuple,
-  ):
-    raise TypeError(
-      "reference_blocks must be a tuple"
-    )
-
-  if not reference_blocks:
-    return []
-
-  lines = (
-    _phase134_26_narrative_section_header_lines(
-      "使用する結果"
-    )
-  )
-
-  for index, reference_block in enumerate(
-    reference_blocks,
-    start=1,
-  ):
-    if not (
-      isinstance(
-        reference_block,
-        tuple,
-      )
-      and len(
-        reference_block
-      ) == 2
-    ):
-      raise TypeError(
-        "each reference block must be "
-        "a (title, statement_lines) tuple"
-      )
-
-    title, statement_lines = (
-      reference_block
-    )
-
-    if not isinstance(
-      title,
-      str,
-    ):
-      raise TypeError(
-        "reference title must be a str"
-      )
-
-    if not isinstance(
-      statement_lines,
-      tuple,
-    ):
-      raise TypeError(
-        "reference statement_lines must be a tuple"
-      )
-
-    lines.extend(
-      (
-        (
-          "**[R"
-          + str(
-            index
-          )
-          + "] "
-          + title
-          + ".**"
-        ),
-        "",
-      )
-    )
-
-    if statement_lines:
-      lines.extend(
-        statement_lines
-      )
-      lines.append(
-        ""
-      )
-
-  return lines
-
-
-
-def _phase134_30_display_math_lines(
-  latex: str,
-  tag: int | None = None,
-) -> list[str]:
-  if not isinstance(
-    latex,
-    str,
-  ):
-    raise TypeError(
-      "latex must be a str"
-    )
-
-  if tag is not None and not isinstance(
-    tag,
-    int,
-  ):
-    raise TypeError(
-      "tag must be an int or None"
-    )
-
-  rendered_latex = latex
-
-  if tag is not None:
-    rendered_latex = (
-      rendered_latex
-      + r"\tag{"
-      + str(
-        tag
-      )
-      + "}"
-    )
-
-  return [
-    "",
-    r"\[",
-    rendered_latex,
-    r"\]",
-    "",
-  ]
-
-
-def _phase134_30_completed_boundary_lines(
-  latex: str,
-  tag: int | None = None,
-  closing_text: str | None = None,
-) -> list[str]:
-  if closing_text is not None and not isinstance(
-    closing_text,
-    str,
-  ):
-    raise TypeError(
-      "closing_text must be a str or None"
-    )
-
-  lines = [
-    "既に,",
-    *_phase134_30_display_math_lines(
-      latex,
-      tag,
-    ),
-  ]
-
-  if closing_text is not None:
-    lines.extend(
-      (
-        closing_text,
-        "",
-      )
-    )
-
-  return lines
-
-
-def _phase134_30_final_conclusion_lines(
-  latex: str,
-  tag: int | None = None,
-) -> list[str]:
-  return [
-    "したがって,",
-    *_phase134_30_display_math_lines(
-      latex,
-      tag,
-    ),
-    "を得る.",
-    "",
-  ]
-
-
 def _render_phase134_3_pi6_3_narrative_markdown(
   presentation: TodaGroupProofPresentation,
 ) -> str:
@@ -1472,42 +1244,67 @@ def _render_phase134_3_pi6_3_narrative_markdown(
     )
   )
 
-  lines = (
-    _phase134_26_narrative_start_lines(
-      [
-        "Toda Proposition 5.6 のうち,",
-        "",
-        r"\[",
-        root_latex,
-        r"\]",
-        "",
-        "を示す.",
-      ]
-    )
-  )
+  lines = [
+    "# Group proof narrative",
+    "",
+    "## 証明対象",
+    "",
+    "Toda Proposition 5.6 のうち,",
+    "",
+    r"\[",
+    root_latex,
+    r"\]",
+    "",
+    "を示す.",
+    "",
+  ]
 
   if reference_steps:
-    reference_blocks = tuple(
+    lines.extend(
       (
-        _phase134_5_reference_title(
-          proof_step
-        ),
+        "## 使用する結果",
+        "",
+      )
+    )
+
+    for proof_step in reference_steps:
+      reference_label = (
+        reference_by_step_id[
+          id(
+            proof_step
+          )
+        ]
+      )
+
+      lines.extend(
+        (
+          (
+            "**["
+            + reference_label
+            + "] "
+            + _phase134_5_reference_title(
+              proof_step
+            )
+            + ".**"
+          ),
+          "",
+        )
+      )
+
+      lines.extend(
         _phase134_5_reference_statement_lines(
           proof_step
-        ),
+        )
       )
-      for proof_step in reference_steps
-    )
 
-    lines.extend(
-      _phase134_28_reference_section_lines(
-        reference_blocks
+      lines.append(
+        ""
       )
-    )
 
   lines.extend(
-    _phase134_26_narrative_section_header_lines(
-      "証明"
+    (
+      "## 証明",
+      "",
     )
   )
 
@@ -2166,9 +1963,17 @@ def _append_phase134_11_pi8_5_fact(
 
   if latex is not None:
     lines.extend(
-      _phase134_30_display_math_lines(
-        latex,
-        number,
+      (
+        "",
+        r"\[",
+        latex
+        + r"\tag{"
+        + str(
+          number
+        )
+        + "}",
+        r"\]",
+        "",
       )
     )
 
@@ -2257,40 +2062,57 @@ def _render_phase134_9_pi8_5_narrative_markdown(
     )
   )
 
-  lines = (
-    _phase134_26_narrative_start_lines(
-      [
-        "Toda Proposition 5.6 のうち,",
-        "",
-        r"\[",
-        root_latex,
-        r"\]",
-        "",
-        "を示す.",
-      ]
-    )
-  )
+  lines = [
+    "# Group proof narrative",
+    "",
+    "## 証明対象",
+    "",
+    "Toda Proposition 5.6 のうち,",
+    "",
+    r"\[",
+    root_latex,
+    r"\]",
+    "",
+    "を示す.",
+    "",
+  ]
 
   if reference_steps:
-    reference_blocks = tuple(
+    lines.extend(
       (
-        _phase134_9_reference_title(
-          proof_step
-        ),
-        (),
+        "## 使用する結果",
+        "",
       )
-      for proof_step in reference_steps
     )
 
-    lines.extend(
-      _phase134_28_reference_section_lines(
-        reference_blocks
+    for proof_step in reference_steps:
+      reference_label = (
+        reference_by_step_id[
+          id(
+            proof_step
+          )
+        ]
       )
-    )
+
+      lines.extend(
+        (
+          (
+            "**["
+            + reference_label
+            + "] "
+            + _phase134_9_reference_title(
+              proof_step
+            )
+            + ".**"
+          ),
+          "",
+        )
+      )
 
   lines.extend(
-    _phase134_26_narrative_section_header_lines(
-      "証明"
+    (
+      "## 証明",
+      "",
     )
   )
 
@@ -2497,55 +2319,55 @@ def _phase134_24_render_pi15_8_narrative(
   )
 
   lines = [
-    *_phase134_26_narrative_start_lines(
-      [
-        "Toda Proposition 5.15 のうち,",
-        "",
-        "\\[",
-        final_relation_latex,
-        "\\]",
-        "",
-        "を示す.",
-      ]
+    "# Group proof narrative",
+    "",
+    "## 証明対象",
+    "",
+    "Toda Proposition 5.15 のうち,",
+    "",
+    "\\[",
+    final_relation_latex,
+    "\\]",
+    "",
+    "を示す.",
+    "",
+    "## 使用する結果",
+    "",
+    "**[R1] Toda Proposition 4.4 の分解同型.**",
+    "",
+    "次の写像は同型である.",
+    "",
+    "\\[",
+    (
+      source_left_latex
+      + r" \oplus "
+      + source_right_latex
+      + r" \longrightarrow "
+      + target_latex
     ),
-    *_phase134_28_reference_section_lines(
-      (
-        (
-          "Toda Proposition 4.4 の分解同型",
-          (
-            "次の写像は同型である.",
-            "",
-            "\\[",
-            (
-              source_left_latex
-              + r" \oplus "
-              + source_right_latex
-              + r" \longrightarrow "
-              + target_latex
-            ),
-            "\\]",
-            "",
-            "\\[",
-            (
-              "("
-              + first_variable_latex
-              + ", "
-              + second_variable_latex
-              + r") \longmapsto "
-              + formula_latex
-            ),
-            "\\]",
-          ),
-        ),
-      )
+    "\\]",
+    "",
+    "\\[",
+    (
+      "("
+      + first_variable_latex
+      + ", "
+      + second_variable_latex
+      + r") \longmapsto "
+      + formula_latex
     ),
-    *_phase134_26_narrative_section_header_lines(
-      "証明"
-    ),
-    *_phase134_30_completed_boundary_lines(
-      pi14_7_latex,
-      closing_text="である.",
-    ),
+    "\\]",
+    "",
+    "## 証明",
+    "",
+    "既に,",
+    "",
+    "\\[",
+    pi14_7_latex,
+    "\\]",
+    "",
+    "である.",
+    "",
     "また,",
     "",
     "\\[",
@@ -2573,13 +2395,18 @@ def _phase134_24_render_pi15_8_narrative(
     "",
     "と写る.",
     "",
-    *_phase134_30_final_conclusion_lines(
-      (
-        target_latex
-        + r" \cong "
-        + transported_group_latex
-      )
+    "したがって,",
+    "",
+    "\\[",
+    (
+      target_latex
+      + r" \cong "
+      + transported_group_latex
     ),
+    "\\]",
+    "",
+    "を得る.",
+    "",
     "summand の表示順を標準形に直すと,",
     "",
     "\\[",

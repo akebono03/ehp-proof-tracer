@@ -1337,95 +1337,6 @@ def _phase134_28_reference_section_lines(
   return lines
 
 
-
-def _phase134_30_display_math_lines(
-  latex: str,
-  tag: int | None = None,
-) -> list[str]:
-  if not isinstance(
-    latex,
-    str,
-  ):
-    raise TypeError(
-      "latex must be a str"
-    )
-
-  if tag is not None and not isinstance(
-    tag,
-    int,
-  ):
-    raise TypeError(
-      "tag must be an int or None"
-    )
-
-  rendered_latex = latex
-
-  if tag is not None:
-    rendered_latex = (
-      rendered_latex
-      + r"\tag{"
-      + str(
-        tag
-      )
-      + "}"
-    )
-
-  return [
-    "",
-    r"\[",
-    rendered_latex,
-    r"\]",
-    "",
-  ]
-
-
-def _phase134_30_completed_boundary_lines(
-  latex: str,
-  tag: int | None = None,
-  closing_text: str | None = None,
-) -> list[str]:
-  if closing_text is not None and not isinstance(
-    closing_text,
-    str,
-  ):
-    raise TypeError(
-      "closing_text must be a str or None"
-    )
-
-  lines = [
-    "既に,",
-    *_phase134_30_display_math_lines(
-      latex,
-      tag,
-    ),
-  ]
-
-  if closing_text is not None:
-    lines.extend(
-      (
-        closing_text,
-        "",
-      )
-    )
-
-  return lines
-
-
-def _phase134_30_final_conclusion_lines(
-  latex: str,
-  tag: int | None = None,
-) -> list[str]:
-  return [
-    "したがって,",
-    *_phase134_30_display_math_lines(
-      latex,
-      tag,
-    ),
-    "を得る.",
-    "",
-  ]
-
-
 def _render_phase134_3_pi6_3_narrative_markdown(
   presentation: TodaGroupProofPresentation,
 ) -> str:
@@ -2166,9 +2077,17 @@ def _append_phase134_11_pi8_5_fact(
 
   if latex is not None:
     lines.extend(
-      _phase134_30_display_math_lines(
-        latex,
-        number,
+      (
+        "",
+        r"\[",
+        latex
+        + r"\tag{"
+        + str(
+          number
+        )
+        + "}",
+        r"\]",
+        "",
       )
     )
 
@@ -2542,10 +2461,14 @@ def _phase134_24_render_pi15_8_narrative(
     *_phase134_26_narrative_section_header_lines(
       "証明"
     ),
-    *_phase134_30_completed_boundary_lines(
-      pi14_7_latex,
-      closing_text="である.",
-    ),
+    "既に,",
+    "",
+    "\\[",
+    pi14_7_latex,
+    "\\]",
+    "",
+    "である.",
+    "",
     "また,",
     "",
     "\\[",
@@ -2573,13 +2496,18 @@ def _phase134_24_render_pi15_8_narrative(
     "",
     "と写る.",
     "",
-    *_phase134_30_final_conclusion_lines(
-      (
-        target_latex
-        + r" \cong "
-        + transported_group_latex
-      )
+    "したがって,",
+    "",
+    "\\[",
+    (
+      target_latex
+      + r" \cong "
+      + transported_group_latex
     ),
+    "\\]",
+    "",
+    "を得る.",
+    "",
     "summand の表示順を標準形に直すと,",
     "",
     "\\[",

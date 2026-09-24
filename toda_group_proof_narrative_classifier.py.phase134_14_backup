@@ -1,0 +1,406 @@
+from dataclasses import dataclass
+from enum import Enum
+
+from barratt_hilton_rules import (
+  HomotopyGroupMembershipStatement,
+)
+from homotopy_groups import (
+  TodaPrimaryGroup,
+)
+from proof import (
+  ProofStep,
+  Relation,
+  RelationType,
+)
+from toda_group_proof_presentation import (
+  TodaGroupProofPresentation,
+)
+from toda_rules import (
+  Toda52CompositionIsomorphismStatement,
+  Toda53NuPrimeBracketSpecializationStatement,
+  Toda55NuFamilyFiniteDimensionalStatement,
+  Toda56Nu4DecompositionStatement,
+  TodaNuFamilyDefinitionStatement,
+  TodaProp42ExactnessStatement,
+  TodaProp51FiniteDimensionalStatement,
+)
+
+
+class TodaGroupProofNarrativeFactRole(
+  Enum
+):
+  TARGET = "target"
+  REFERENCE = "reference"
+  DEFINITION = "definition"
+  BOUNDARY = "boundary"
+  DERIVED = "derived"
+
+
+class TodaGroupProofNarrativeBlockRole(
+  Enum
+):
+  ORDER = "order"
+  MEMBERSHIP = "membership"
+  GROUP_STRUCTURE = "group_structure"
+  OTHER = "other"
+
+
+@dataclass(frozen=True)
+class TodaGroupProofNarrativeStepClassification:
+  fact_role: TodaGroupProofNarrativeFactRole
+  block_role: TodaGroupProofNarrativeBlockRole
+
+
+def _root_group(
+  presentation: TodaGroupProofPresentation,
+) -> TodaPrimaryGroup | None:
+  conclusion = (
+    presentation.root_step.conclusion
+  )
+
+  if not isinstance(
+    conclusion,
+    Relation,
+  ):
+    return None
+
+  if not isinstance(
+    conclusion.lhs,
+    TodaPrimaryGroup,
+  ):
+    return None
+
+  return conclusion.lhs
+
+
+def _root_key(
+  presentation: TodaGroupProofPresentation,
+) -> tuple[
+  int,
+  int,
+] | None:
+  root_group = _root_group(
+    presentation
+  )
+
+  if root_group is None:
+    return None
+
+  return (
+    root_group.group_dimension,
+    root_group.sphere_dimension,
+  )
+
+
+def supports_phase134_9_narrative_classifier(
+  presentation: TodaGroupProofPresentation,
+) -> bool:
+  return _root_key(
+    presentation
+  ) in (
+    (6, 3),
+    (8, 5),
+  )
+
+
+def _reference_types_for_root(
+  presentation: TodaGroupProofPresentation,
+) -> tuple[type, ...]:
+  key = _root_key(
+    presentation
+  )
+
+  if key == (6, 3):
+    return (
+      Toda52CompositionIsomorphismStatement,
+      TodaProp51FiniteDimensionalStatement,
+    )
+
+  if key == (8, 5):
+    return (
+      Toda55NuFamilyFiniteDimensionalStatement,
+      Toda56Nu4DecompositionStatement,
+    )
+
+  return ()
+
+
+def _visible_premise_steps(
+  presentation: TodaGroupProofPresentation,
+  proof_step: ProofStep,
+) -> tuple[ProofStep, ...]:
+  return tuple(
+    edge.premise_step
+    for edge in presentation.edges
+    if edge.parent_step is proof_step
+  )
+
+
+def _is_phase134_11_completed_group_boundary(
+  presentation: TodaGroupProofPresentation,
+  proof_step: ProofStep,
+) -> bool:
+  if _root_key(
+    presentation
+  ) != (8, 5):
+    return False
+
+  statement = proof_step.conclusion
+
+  if not isinstance(
+    statement,
+    Relation,
+  ):
+    return False
+
+  if not isinstance(
+    statement.lhs,
+    TodaPrimaryGroup,
+  ):
+    return False
+
+  return (
+    statement.lhs.group_dimension == 6
+    and statement.lhs.sphere_dimension == 3
+  )
+
+
+def _is_descendant_of(
+  presentation: TodaGroupProofPresentation,
+  candidate_step: ProofStep,
+  ancestor_step: ProofStep,
+) -> bool:
+  if candidate_step is ancestor_step:
+    return True
+
+  active_ids = set()
+  visited_ids = set()
+
+  def visit(
+    proof_step: ProofStep,
+  ) -> bool:
+    step_id = id(
+      proof_step
+    )
+
+    if step_id in visited_ids:
+      return False
+
+    if step_id in active_ids:
+      return False
+
+    active_ids.add(
+      step_id
+    )
+
+    for premise_step in (
+      _visible_premise_steps(
+        presentation,
+        proof_step,
+      )
+    ):
+      if premise_step is candidate_step:
+        active_ids.remove(
+          step_id
+        )
+        return True
+
+      if visit(
+        premise_step
+      ):
+        active_ids.remove(
+          step_id
+        )
+        return True
+
+    active_ids.remove(
+      step_id
+    )
+    visited_ids.add(
+      step_id
+    )
+    return False
+
+  return visit(
+    ancestor_step
+  )
+
+
+def _is_order_dependency(
+  presentation: TodaGroupProofPresentation,
+  proof_step: ProofStep,
+) -> bool:
+  for node in presentation.nodes:
+    candidate = (
+      node.proof_step.conclusion
+    )
+
+    if (
+      isinstance(
+        candidate,
+        Relation,
+      )
+      and candidate.relation_type
+      is RelationType.ORDER
+      and _is_descendant_of(
+        presentation,
+        proof_step,
+        node.proof_step,
+      )
+    ):
+      return True
+
+  return False
+
+
+def _block_role(
+  presentation: TodaGroupProofPresentation,
+  proof_step: ProofStep,
+) -> TodaGroupProofNarrativeBlockRole:
+  if proof_step is presentation.root_step:
+    return (
+      TodaGroupProofNarrativeBlockRole.GROUP_STRUCTURE
+    )
+
+  statement = proof_step.conclusion
+  root_group = _root_group(
+    presentation
+  )
+
+  if (
+    isinstance(
+      statement,
+      TodaProp42ExactnessStatement,
+    )
+    and root_group is not None
+    and statement.window.middle_term
+    == root_group
+  ):
+    return (
+      TodaGroupProofNarrativeBlockRole.GROUP_STRUCTURE
+    )
+
+  if isinstance(
+    statement,
+    (
+      Toda53NuPrimeBracketSpecializationStatement,
+      HomotopyGroupMembershipStatement,
+    ),
+  ):
+    if isinstance(
+      statement,
+      HomotopyGroupMembershipStatement,
+    ):
+      if root_group is None:
+        return (
+          TodaGroupProofNarrativeBlockRole.OTHER
+        )
+
+      statement_group = TodaPrimaryGroup(
+        group_dimension=(
+          statement.group_dimension
+        ),
+        sphere_dimension=(
+          statement.sphere_dimension
+        ),
+      )
+
+      if statement_group != root_group:
+        return (
+          TodaGroupProofNarrativeBlockRole.OTHER
+        )
+
+    return (
+      TodaGroupProofNarrativeBlockRole.MEMBERSHIP
+    )
+
+  if _is_order_dependency(
+    presentation,
+    proof_step,
+  ):
+    return (
+      TodaGroupProofNarrativeBlockRole.ORDER
+    )
+
+  return (
+    TodaGroupProofNarrativeBlockRole.OTHER
+  )
+
+
+def classify_toda_group_proof_narrative_step(
+  presentation: TodaGroupProofPresentation,
+  proof_step: ProofStep,
+) -> TodaGroupProofNarrativeStepClassification:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
+
+  if not isinstance(
+    proof_step,
+    ProofStep,
+  ):
+    raise TypeError(
+      "proof_step must be a ProofStep"
+    )
+
+  if not supports_phase134_9_narrative_classifier(
+    presentation
+  ):
+    raise ValueError(
+      "Phase 134-9 classifier supports "
+      "only pi_6^3 and pi_8^5"
+    )
+
+  if proof_step is presentation.root_step:
+    fact_role = (
+      TodaGroupProofNarrativeFactRole.TARGET
+    )
+  elif isinstance(
+    proof_step.conclusion,
+    _reference_types_for_root(
+      presentation
+    ),
+  ):
+    fact_role = (
+      TodaGroupProofNarrativeFactRole.REFERENCE
+    )
+  elif isinstance(
+    proof_step.conclusion,
+    TodaNuFamilyDefinitionStatement,
+  ):
+    fact_role = (
+      TodaGroupProofNarrativeFactRole.DEFINITION
+    )
+  elif _is_phase134_11_completed_group_boundary(
+    presentation,
+    proof_step,
+  ):
+    fact_role = (
+      TodaGroupProofNarrativeFactRole.BOUNDARY
+    )
+  elif _visible_premise_steps(
+    presentation,
+    proof_step,
+  ):
+    fact_role = (
+      TodaGroupProofNarrativeFactRole.DERIVED
+    )
+  else:
+    fact_role = (
+      TodaGroupProofNarrativeFactRole.BOUNDARY
+    )
+
+  return (
+    TodaGroupProofNarrativeStepClassification(
+      fact_role=fact_role,
+      block_role=_block_role(
+        presentation,
+        proof_step,
+      ),
+    )
+  )

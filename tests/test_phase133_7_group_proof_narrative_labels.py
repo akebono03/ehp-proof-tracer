@@ -21,15 +21,24 @@ def test_phase133_7_pi6_3_depth_two_uses_readable_labels(
   assert exit_code == 0
   assert captured.err == ""
 
-  expected_labels = (
+  expected_fragments = (
     "Toda (5.2) の η₂ 合成同型",
-    "Δ 写像が零写像であること",
-    "ν′ に対する Lemma 5.2 の Toda bracket 特殊化",
-    "Toda Proposition 5.1 の有限次元結果",
+    (
+      r"\Delta: \pi_{7}^{5} "
+      r"\to \pi_{5}^{2}"
+    ),
+    (
+      r"\nu' \in "
+      r"\{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}"
+    ),
+    (
+      "Toda Proposition 5.1 "
+      "の有限次元結果"
+    ),
   )
 
-  for label in expected_labels:
-    assert label in captured.out
+  for fragment in expected_fragments:
+    assert fragment in captured.out
 
   internal_names = (
     "Toda 5.2 eta_2 composition isomorphism",
