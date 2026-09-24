@@ -129,12 +129,49 @@ class WebGroupProofStepView:
 
 
 @dataclass(frozen=True)
+class WebGroupProofInlineSegmentView:
+  kind: str
+  value: str
+
+  def __post_init__(
+    self,
+  ) -> None:
+    if self.kind not in (
+      "text",
+      "strong",
+      "inline_math",
+      "display_math",
+    ):
+      raise ValueError(
+        "kind must be text, strong, "
+        "inline_math, or display_math"
+      )
+
+    if not isinstance(
+      self.value,
+      str,
+    ):
+      raise TypeError(
+        "value must be a str"
+      )
+
+    if not self.value:
+      raise ValueError(
+        "value must not be empty"
+      )
+
+
+@dataclass(frozen=True)
 class WebGroupProofRenderedLineView:
   kind: str
   indent_level: int
   prefix: str
   statement_latex: str | None
   suffix: str
+  segments: tuple[
+    WebGroupProofInlineSegmentView,
+    ...,
+  ] = ()
 
   def __post_init__(
     self,
@@ -192,6 +229,24 @@ class WebGroupProofRenderedLineView:
       raise TypeError(
         "suffix must be a str"
       )
+
+    if not isinstance(
+      self.segments,
+      tuple,
+    ):
+      raise TypeError(
+        "segments must be a tuple"
+      )
+
+    for segment in self.segments:
+      if not isinstance(
+        segment,
+        WebGroupProofInlineSegmentView,
+      ):
+        raise TypeError(
+          "segments must contain only "
+          "WebGroupProofInlineSegmentView values"
+        )
 
 
 @dataclass(frozen=True)
@@ -458,6 +513,169 @@ def _split_group_proof_rendered_line(
   )
 
 
+def _build_group_proof_inline_segments(
+  line: str,
+) -> tuple[
+  WebGroupProofInlineSegmentView,
+  ...,
+]:
+  if not isinstance(
+    line,
+    str,
+  ):
+    raise TypeError(
+      "line must be a str"
+    )
+
+  segments = []
+  cursor = 0
+
+  while cursor < len(
+    line
+  ):
+    next_math = line.find(
+      "$",
+      cursor,
+    )
+    next_strong = line.find(
+      "**",
+      cursor,
+    )
+
+    delimiter_positions = tuple(
+      (
+        position,
+        kind,
+      )
+      for position, kind in (
+        (
+          next_math,
+          "inline_math",
+        ),
+        (
+          next_strong,
+          "strong",
+        ),
+      )
+      if position >= 0
+    )
+
+    if not delimiter_positions:
+      segments.append(
+        WebGroupProofInlineSegmentView(
+          kind="text",
+          value=line[
+            cursor:
+          ],
+        )
+      )
+      break
+
+    delimiter_position, delimiter_kind = min(
+      delimiter_positions,
+      key=lambda item: item[
+        0
+      ],
+    )
+
+    if delimiter_position > cursor:
+      segments.append(
+        WebGroupProofInlineSegmentView(
+          kind="text",
+          value=line[
+            cursor:
+            delimiter_position
+          ],
+        )
+      )
+
+    if delimiter_kind == "inline_math":
+      closing_position = line.find(
+        "$",
+        delimiter_position + 1,
+      )
+
+      if closing_position < 0:
+        segments.append(
+          WebGroupProofInlineSegmentView(
+            kind="text",
+            value=line[
+              delimiter_position:
+            ],
+          )
+        )
+        break
+
+      math_value = line[
+        delimiter_position + 1:
+        closing_position
+      ]
+
+      if math_value:
+        segments.append(
+          WebGroupProofInlineSegmentView(
+            kind="inline_math",
+            value=math_value,
+          )
+        )
+      else:
+        segments.append(
+          WebGroupProofInlineSegmentView(
+            kind="text",
+            value="$$",
+          )
+        )
+
+      cursor = (
+        closing_position + 1
+      )
+      continue
+
+    closing_position = line.find(
+      "**",
+      delimiter_position + 2,
+    )
+
+    if closing_position < 0:
+      segments.append(
+        WebGroupProofInlineSegmentView(
+          kind="text",
+          value=line[
+            delimiter_position:
+          ],
+        )
+      )
+      break
+
+    strong_value = line[
+      delimiter_position + 2:
+      closing_position
+    ]
+
+    if strong_value:
+      segments.append(
+        WebGroupProofInlineSegmentView(
+          kind="strong",
+          value=strong_value,
+        )
+      )
+    else:
+      segments.append(
+        WebGroupProofInlineSegmentView(
+          kind="text",
+          value="****",
+        )
+      )
+
+    cursor = (
+      closing_position + 2
+    )
+
+  return tuple(
+    segments
+  )
+
+
 def _build_group_proof_rendered_lines(
   markdown: str,
 ) -> tuple[
@@ -494,6 +712,10 @@ def _build_group_proof_rendered_lines(
 
     if display_math_lines is not None:
       if stripped == r"\]":
+        statement_latex = "\n".join(
+          display_math_lines
+        )
+
         lines.append(
           WebGroupProofRenderedLineView(
             kind="text",
@@ -501,10 +723,14 @@ def _build_group_proof_rendered_lines(
               display_math_indent_level
             ),
             prefix="",
-            statement_latex="\n".join(
-              display_math_lines
-            ),
+            statement_latex=statement_latex,
             suffix="",
+            segments=(
+              WebGroupProofInlineSegmentView(
+                kind="display_math",
+                value=statement_latex,
+              ),
+            ),
           )
         )
         display_math_lines = None
@@ -564,6 +790,11 @@ def _build_group_proof_rendered_lines(
         prefix=prefix,
         statement_latex=statement_latex,
         suffix=suffix,
+        segments=(
+          _build_group_proof_inline_segments(
+            stripped
+          )
+        ),
       )
     )
 
