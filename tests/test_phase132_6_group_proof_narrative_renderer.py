@@ -431,3 +431,31 @@ def test_phase132_6_narrative_rejects_non_presentation():
     render_toda_group_proof_narrative_markdown(
       "not-a-presentation"
     )
+
+
+def test_phase138_4_sigma9_narrative_states_proof_purpose():
+  data = (
+    build_phase132_6_sigma9_narrative(
+      max_depth=2,
+    )
+  )
+
+  rendered = data[
+    "rendered"
+  ]
+
+  purpose = (
+    "$\\sigma_{9}$ の位数を確認し、"
+    "これが $\\pi_{16}^{9}$ を生成することを示す。"
+  )
+
+  assert purpose in rendered
+  assert "まず、" in rendered
+  assert (
+    rendered.index(
+      purpose
+    )
+    < rendered.index(
+      "まず、"
+    )
+  )
