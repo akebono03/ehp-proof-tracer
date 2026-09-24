@@ -8,7 +8,6 @@ from toda_rules import (
   Toda55NuFamilyFiniteDimensionalStatement,
   Toda56Nu4DecompositionStatement,
   TodaNuFamilyDefinitionStatement,
-  TodaProp44IsomorphismStatement,
   TodaProp51FiniteDimensionalStatement,
   TodaSigmaFamilyDefinitionStatement,
 )
@@ -29,7 +28,6 @@ def test_phase134_16_reference_candidate_catalog_contains_existing_types(
     TodaProp51FiniteDimensionalStatement,
     Toda55NuFamilyFiniteDimensionalStatement,
     Toda56Nu4DecompositionStatement,
-    TodaProp44IsomorphismStatement,
   )
 
 
