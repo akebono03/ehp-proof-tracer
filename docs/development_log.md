@@ -1189,6 +1189,176 @@ Phase 134 完了。
 
 ---
 
+# Phase 135–136 — Web Narrative / \(\pi_6^3\) Narrative refinement
+
+## Phase 135: Web Narrative math presentation
+
+Phase 135 は Phase 134 で自然化した Narrative を Web 上でも読みやすく表示するため、display math と inline math の presentation adapter を監査・調整した。
+
+主な境界:
+
+```text
+Web adapter
+!= proof semantics
+!= second Narrative renderer
+```
+
+実装済み:
+
+```text
+display math → data-latex → KaTeX display mode
+inline math → data-latex → KaTeX inline mode
+multiple inline math segments
+REFERENCE emphasis preservation
+Narrative reading-width / spacing adjustment
+```
+
+## Phase 136-1〜2: \(\pi_6^3\) Narrative の数学的順序監査
+
+代表対象:
+
+\[
+\pi_6^3=\mathbb Z/4\{\nu'\}.
+\]
+
+Phase 136-2 では証明の数学的依存関係に合わせて Narrative を再構成した。
+
+Toda Lemma 5.2 の適用前に
+
+\[
+2\eta_3=0
+\]
+
+を確認する。
+
+これにより
+
+\[
+\{\eta_3,2\iota_4,\eta_4\}_1
+\]
+
+が定義でき、その bracket のある元を \(\nu'\) と定める。
+
+その後 Lemma 5.2 から
+
+\[
+\nu'\in\pi_6^3,
+\qquad
+H(\nu')=\eta_5,
+\qquad
+2\nu'=\eta_3^3
+\]
+
+を得る。
+
+Toda Proposition 2.2 の右合成公式
+
+\[
+H(\alpha\circ E\beta)=H(\alpha)\circ E\beta
+\]
+
+を明示し、
+
+\[
+\eta_6=E\eta_5
+\]
+
+と合わせて
+
+\[
+H(\nu'\eta_6)
+=
+H(\nu'\circ E\eta_5)
+=
+H(\nu')\circ E\eta_5
+=
+\eta_5\eta_6
+=
+\eta_5^2
+\]
+
+を得る流れを本文に表示した。
+
+位数決定に用いる EHP 完全列:
+
+\[
+\pi_7^3
+\xrightarrow{H}
+\pi_7^5
+\xrightarrow{\Delta}
+\pi_5^2
+\xrightarrow{E}
+\pi_6^3
+\xrightarrow{H}
+\pi_6^5.
+\]
+
+\(H:\pi_7^3\to\pi_7^5\) の全射性から \(\Delta=0\) を得て、完全性から
+
+\[
+E:\pi_5^2\to\pi_6^3
+\]
+
+が単射であることを明示した。
+
+最後に
+
+\[
+0
+\longrightarrow
+\pi_5^2
+\xrightarrow{E}
+\pi_6^3
+\xrightarrow{H}
+\pi_6^5
+\longrightarrow
+0
+\]
+
+を表示し、\(\pi_6^3\) の位数が 4 であることと、\(\nu'\) が位数 4 の元であることから
+
+\[
+\pi_6^3=\mathbb Z/4\{\nu'\}
+\]
+
+を得る。
+
+Phase 133–135 の旧 Narrative 固定値テストは、Phase 136-2 の確定仕様へ更新した。
+
+focused regression:
+
+```text
+65 passed in 15.85s
+```
+
+repository-wide regression:
+
+```text
+9517 passed in 575.31s (0:09:35)
+```
+
+Phase 136-2 完了。
+
+## Phase 136-2 closure Web TeX audit
+
+Phase 136-2 完了後の Web manual check で、Narrative の数学式自体は KaTeX 経路で表示されることを確認した。
+
+一方、静的 template text に次の未整備を確認した。
+
+```text
+Group query description:
+pi_(n+k)^n
+→ plain text
+
+Provenance:
+窶・Phase
+→ encoding / mojibake
+```
+
+`H(nu_prime)`、`E(nu_5)`、`sigma_11` 等は入力 syntax の例なので plain text を維持する。
+
+次の Web presentation cleanup では、数学表示だけを KaTeX 化し、入力 syntax と区別する。
+
 # 現在の運用方針
 
 `development_log.md` は索引 + 直近 Phase 記録として維持する。
@@ -1209,6 +1379,8 @@ backup:
 repository 外へ保存
 ```
 
-Phase 134 完了後の次 Phase は機能を決め打ちしない。
+Phase 136-2 は完了。
 
-現在の group query、Trace / Outline / Narrative、operation query、generator explore / applicability / execute、Web workflow、stem 7 より先の demand を再監査し、次の具体的な不足を1つ選定する。
+次の具体的 pressure は Phase 136-2 closure audit で確認した Web static mathematical text の TeX 表示漏れと provenance 文字化けである。
+
+数学表示だけを KaTeX 経路へ接続し、operation / generator の入力 syntax 例は plain text のまま維持する。

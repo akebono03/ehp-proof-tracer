@@ -834,6 +834,245 @@ Phase 133 完了。
 
 ---
 
+# Phase 134–136 Narrative proof presentation record
+
+Phase 134–136 では proof graph / theorem fact を変更せず、代表証明を人間が読める数学的 Narrative として表示する経路を改善した。
+
+## \(\pi_6^3\) final Narrative structure
+
+対象:
+
+\[
+\pi_6^3=\mathbb Z/4\{\nu'\}.
+\]
+
+### Toda bracket の定義順序
+
+Toda Lemma 5.2 の適用では
+
+\[
+2\alpha=0
+\]
+
+が
+
+\[
+\{\eta_3,2\iota_4,E\alpha\}_1
+\]
+
+を定義するための条件になる。
+
+\(\alpha=\eta_3\) として、まず
+
+\[
+2\eta_3=0
+\]
+
+を確認する。
+
+その後
+
+\[
+\{\eta_3,2\iota_4,\eta_4\}_1
+\]
+
+が定義でき、この bracket のある元を \(\nu'\) と定める。
+
+\[
+\nu'\in\{\eta_3,2\iota_4,\eta_4\}_1.
+\]
+
+Lemma 5.2 より
+
+\[
+\nu'\in\pi_6^3,
+\qquad
+H(\nu')=\eta_5,
+\qquad
+2\nu'=\eta_3^3.
+\]
+
+### Toda Proposition 2.2
+
+右合成公式
+
+\[
+H(\alpha\circ E\beta)
+=
+H(\alpha)\circ E\beta
+\]
+
+を \(\alpha=\nu'\)、\(\beta=\eta_5\) に適用する。
+
+\[
+\eta_6=E\eta_5
+\]
+
+なので
+
+\[
+H(\nu'\eta_6)
+=
+H(\nu'\circ E\eta_5)
+=
+H(\nu')\circ E\eta_5
+=
+\eta_5\eta_6
+=
+\eta_5^2.
+\]
+
+### EHP exact sequence
+
+位数決定では
+
+\[
+\pi_7^3
+\xrightarrow{H}
+\pi_7^5
+\xrightarrow{\Delta}
+\pi_5^2
+\xrightarrow{E}
+\pi_6^3
+\xrightarrow{H}
+\pi_6^5
+\]
+
+を用いる。
+
+\[
+\pi_7^5=\mathbb Z/2\{\eta_5^2\}
+\]
+
+かつ \(H(\nu'\eta_6)=\eta_5^2\) なので
+
+\[
+H:\pi_7^3\to\pi_7^5
+\]
+
+は全射。
+
+完全性から
+
+\[
+\operatorname{Im}H
+=
+\ker\Delta
+=
+\pi_7^5
+\]
+
+となり、
+
+\[
+\Delta:\pi_7^5\to\pi_5^2
+\]
+
+は零写像。
+
+さらに
+
+\[
+\operatorname{Im}\Delta
+=
+\ker E
+=
+0
+\]
+
+なので
+
+\[
+E:\pi_5^2\to\pi_6^3
+\]
+
+は単射。
+
+### final short exact sequence
+
+\[
+H(\nu')=\eta_5,
+\qquad
+\pi_6^5=\mathbb Z/2\{\eta_5\}
+\]
+
+より
+
+\[
+H:\pi_6^3\to\pi_6^5
+\]
+
+は全射。
+
+したがって
+
+\[
+0
+\longrightarrow
+\pi_5^2
+\xrightarrow{E}
+\pi_6^3
+\xrightarrow{H}
+\pi_6^5
+\longrightarrow
+0.
+\]
+
+\[
+\pi_5^2=\mathbb Z/2\{\eta_2^3\},
+\qquad
+\pi_6^5=\mathbb Z/2\{\eta_5\}
+\]
+
+なので \(\pi_6^3\) の位数は 4。
+
+一方、
+
+\[
+2\nu'=\eta_3^3
+\]
+
+かつ \(\eta_3^3\) の位数が 2 なので \(\nu'\) の位数は 4。
+
+よって
+
+\[
+\pi_6^3=\mathbb Z/4\{\nu'\}.
+\]
+
+## presentation / provenance boundary
+
+```text
+Narrative ordering
+!= theorem fact change
+
+explicit Toda Proposition 2.2 formula
+!= new operation evaluator
+
+connected EHP sequence display
+!= new EHP semantics
+
+short exact sequence display
+!= new group engine
+
+Web KaTeX adapter
+!= proof truth
+```
+
+focused regression:
+
+```text
+65 passed in 15.85s
+```
+
+repository-wide final:
+
+```text
+9517 passed in 575.31s (0:09:35)
+```
+
+Phase 136-2 完了。
+
 # 記録原則
 
 数学的な根拠は `ProofStep` と、その実際の premise ancestry である。

@@ -507,23 +507,87 @@ Final Phase 133 regression:
 9403 passed in 605.52s (0:10:05)
 ```
 
-## Near-term roadmap
+## Phase 134–136 presentation refinement
 
-Phase 133 is complete.
+Phase 134 extended Narrative from readable labels to theorem-specific mathematical proof prose for representative groups and extracted only presentation-safe common helpers.
 
-The next phase is intentionally not pre-selected. It should begin with another capability/workflow-pressure audit and choose one concrete missing need from actual use.
+Phase 135 audited the Web Narrative path and preserved browser-side KaTeX for both display and inline mathematical fragments. Inline Narrative math uses inline KaTeX mode while display blocks use display mode.
 
-Possible audit areas include:
+Phase 136 refined the representative proof
+
+\[
+\pi_6^3=\mathbb Z/4\{\nu'\}.
+\]
+
+The final Narrative now presents the argument in mathematical order:
+
+\[
+2\eta_3=0
+\]
+
+is checked before defining the Toda bracket
+
+\[
+\{\eta_3,2\iota_4,\eta_4\}_1,
+\]
+
+and \(\nu'\) is explicitly chosen as an element of that bracket. Toda Lemma 5.2 then gives
+
+\[
+\nu'\in\pi_6^3,
+\qquad
+H(\nu')=\eta_5,
+\qquad
+2\nu'=\eta_3^3.
+\]
+
+Toda Proposition 2.2 is used explicitly in
+
+\[
+H(\nu'\eta_6)
+=
+H(\nu'\circ E\eta_5)
+=
+H(\nu')\circ E\eta_5
+=
+\eta_5^2.
+\]
+
+The EHP exact sequence is shown as
+
+\[
+\pi_7^3
+\xrightarrow{H}
+\pi_7^5
+\xrightarrow{\Delta}
+\pi_5^2
+\xrightarrow{E}
+\pi_6^3
+\xrightarrow{H}
+\pi_6^5,
+\]
+
+and the final group-structure step uses the short exact sequence
+
+\[
+0
+\longrightarrow
+\pi_5^2
+\xrightarrow{E}
+\pi_6^3
+\xrightarrow{H}
+\pi_6^5
+\longrightarrow
+0.
+\]
+
+The final Phase 136-2 repository-wide regression is:
 
 ```text
-remaining operation-query pressure
-remaining proof-presentation pressure
-generator exploration / applicability / execution pressure
-Web workflow pressure
-standard-query demand beyond stem 7
+9517 passed in 575.31s (0:09:35)
 ```
 
-No higher stem, general evaluator, UI redesign, or proof-search generalization is pre-selected.
+The next concrete presentation pressure found during the Phase 136-2 closure audit is Web static mathematical text that still bypasses KaTeX. In particular, the Group query description still contains the literal text `pi_(n+k)^n`. This should be handled as a Web presentation cleanup without changing mathematical semantics or the query syntax examples.
 
 ## Current boundaries
 
@@ -569,7 +633,7 @@ Temporary backup directories containing copied `test_*.py` files must not be cre
 Latest repository-wide regression:
 
 ```text
-9403 passed in 605.52s (0:10:05)
+9517 passed in 575.31s (0:09:35)
 ```
 
 ## Project principle

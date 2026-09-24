@@ -24,17 +24,14 @@ def test_phase133_7_pi6_3_depth_two_uses_readable_labels(
   expected_fragments = (
     "Toda (5.2) の η₂ 合成同型",
     (
-      r"\Delta: \pi_{7}^{5} "
-      r"\to \pi_{5}^{2}"
+      r"\Delta:\pi_{7}^{5}"
+      r"\to\pi_{5}^{2}"
     ),
     (
       r"\nu' \in "
-      r"\{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}"
+      r"\{\eta_{3},2\iota_{4},\eta_{4}\}_{1}"
     ),
-    (
-      "Toda Proposition 5.1 "
-      "の有限次元結果"
-    ),
+    "Toda Proposition 5.1.",
   )
 
   for fragment in expected_fragments:
@@ -49,7 +46,6 @@ def test_phase133_7_pi6_3_depth_two_uses_readable_labels(
 
   for internal_name in internal_names:
     assert internal_name not in captured.out
-
 
 def test_phase133_7_pi12_5_depth_two_uses_readable_labels(
   capsys,

@@ -35,7 +35,7 @@ def test_phase135_1_pi6_3_narrative_display_math_is_structured_for_web(
   )
 
   assert (
-    r"\nu' \in \pi_{6}^{3}\tag{2}"
+    r"\nu'\in\pi_{6}^{3}.\tag{3}"
     in latex_values
   )
 
@@ -46,7 +46,6 @@ def test_phase135_1_pi6_3_narrative_display_math_is_structured_for_web(
     )
     for line in view.rendered_lines
   )
-
 
 def test_phase135_1_pi6_3_web_html_uses_data_latex_for_narrative_display_math(
 ):
@@ -66,7 +65,7 @@ def test_phase135_1_pi6_3_web_html_uses_data_latex_for_narrative_display_math(
   assert response.status_code == 200
 
   assert (
-    b'class="group-proof-rendered-math"'
+    b"group-proof-rendered-math"
     in response.data
   )
 
@@ -79,7 +78,6 @@ def test_phase135_1_pi6_3_web_html_uses_data_latex_for_narrative_display_math(
     rb"\pi_{6}^{3}"
     in response.data
   )
-
 
 def test_phase135_1_existing_inline_math_adapter_is_preserved(
 ):
@@ -94,7 +92,6 @@ def test_phase135_1_existing_inline_math_adapter_is_preserved(
 
   assert any(
     line.statement_latex == r"\nu'"
-    and "まず," in line.prefix
-    and "の位数を求める." in line.suffix
+    and "の位数を決定するために," in line.suffix
     for line in view.rendered_lines
   )

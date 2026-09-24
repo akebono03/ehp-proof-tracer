@@ -777,7 +777,7 @@ backup は repo 外へ保存する。
 最新 repository-wide regression:
 
 ```text
-9403 passed in 605.52s (0:10:05)
+9517 passed in 575.31s (0:09:35)
 ```
 
 ---
@@ -921,32 +921,170 @@ Phase 133 完了。
 
 ---
 
-# 25. 次 Phase との境界
+# 25. Phase 134–136 完了境界
 
-次 Phase は機能を決め打ちしない。
+Phase 134–136 は proof semantics を変更せず、Narrative と Web presentation を段階的に改善した。
 
-最初に再監査する候補:
-
-```text
-remaining operation-query pressure
-remaining proof-presentation pressure
-generator explore / applicability / execute pressure
-Web workflow pressure
-standard-query demand beyond stem 7
-```
-
-先取りしないもの:
+Phase 134:
 
 ```text
-general E evaluator
-general H evaluator
-general Delta evaluator
-general membership evaluator
-higher stem の無条件追加
-general symbolic AST substitution
-arbitrary proof-scope theorem mining
-theorem ranking
-automatic best-target selection
-unbounded proof search
-free-form provenance-free proof generation
+代表 theorem-specific Narrative
+fact role / block role classification
+Narrative document shell
+REFERENCE block assembler
+display-math / boundary / conclusion presentation primitives
 ```
+
+Phase 135:
+
+```text
+Web Narrative display-math adapter
+Web Narrative inline-math segmentation
+inline KaTeX / display KaTeX mode separation
+readability-oriented Web spacing
+```
+
+Phase 136-2 の代表対象:
+
+\[
+\pi_6^3=\mathbb Z/4\{\nu'\}.
+\]
+
+最終 Narrative では、Toda Lemma 5.2 の適用順序を数学的依存関係に合わせる。
+
+まず
+
+\[
+2\eta_3=0
+\]
+
+を確認し、その後
+
+\[
+\{\eta_3,2\iota_4,\eta_4\}_1
+\]
+
+が定義できることを述べ、この bracket のある元を \(\nu'\) と定める。
+
+Lemma 5.2 から
+
+\[
+\nu'\in\pi_6^3,
+\qquad
+H(\nu')=\eta_5,
+\qquad
+2\nu'=\eta_3^3
+\]
+
+を得る。
+
+Toda Proposition 2.2 の右合成公式
+
+\[
+H(\alpha\circ E\beta)=H(\alpha)\circ E\beta
+\]
+
+を明示的に用い、
+
+\[
+H(\nu'\eta_6)
+=
+H(\nu'\circ E\eta_5)
+=
+H(\nu')\circ E\eta_5
+=
+\eta_5^2
+\]
+
+を表示する。
+
+位数決定では次の EHP 完全列を表示する。
+
+\[
+\pi_7^3
+\xrightarrow{H}
+\pi_7^5
+\xrightarrow{\Delta}
+\pi_5^2
+\xrightarrow{E}
+\pi_6^3
+\xrightarrow{H}
+\pi_6^5.
+\]
+
+群構造決定では
+
+\[
+0
+\longrightarrow
+\pi_5^2
+\xrightarrow{E}
+\pi_6^3
+\xrightarrow{H}
+\pi_6^5
+\longrightarrow
+0
+\]
+
+を明示する。
+
+重要な境界:
+
+```text
+Narrative ordering != new proof search
+Narrative prose != new theorem fact
+Toda Proposition 2.2 display != new inference semantics
+short exact sequence display != new group calculation engine
+Web KaTeX segmentation != mathematical normalization
+```
+
+Phase 136-2 focused regression:
+
+```text
+65 passed in 15.85s
+```
+
+repository-wide regression:
+
+```text
+9517 passed in 575.31s (0:09:35)
+```
+
+---
+
+# 26. Web TeX 表示監査境界
+
+Web Narrative の display / inline math は既存 `data-latex` → KaTeX 経路に接続済みである。
+
+```text
+display math
+→ group-proof-rendered-display-math
+→ displayMode=True
+
+inline math
+→ group-proof-rendered-inline-math
+→ displayMode=False
+```
+
+一方、静的 template text は自動的には TeX 化されない。
+
+Phase 136-2 完了時の監査で、少なくとも以下を確認した。
+
+```text
+Group query description:
+pi_(n+k)^n
+→ plain text のまま
+
+Provenance separator:
+窶・Phase
+→ TeX 問題ではなく文字化け
+```
+
+`H(nu_prime)`、`E(nu_5)`、`sigma_11` などは operation / generator の入力 syntax 例であり、数学表示ではなく入力例として plain text を維持する。
+
+```text
+static mathematical display
+!= query input syntax example
+```
+
+次の Web presentation cleanup ではこの境界を維持する。
