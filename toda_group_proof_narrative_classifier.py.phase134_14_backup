@@ -15,9 +15,6 @@ from proof import (
 from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
 )
-from toda_group_proof_narrative_helpers import (
-  is_completed_group_result_step,
-)
 from toda_rules import (
   Toda52CompositionIsomorphismStatement,
   Toda53NuPrimeBracketSpecializationStatement,
@@ -143,12 +140,30 @@ def _is_phase134_11_completed_group_boundary(
   presentation: TodaGroupProofPresentation,
   proof_step: ProofStep,
 ) -> bool:
-  if proof_step is presentation.root_step:
+  if _root_key(
+    presentation
+  ) != (8, 5):
     return False
 
-  return is_completed_group_result_step(
-    proof_step
+  statement = proof_step.conclusion
+
+  if not isinstance(
+    statement,
+    Relation,
+  ):
+    return False
+
+  if not isinstance(
+    statement.lhs,
+    TodaPrimaryGroup,
+  ):
+    return False
+
+  return (
+    statement.lhs.group_dimension == 6
+    and statement.lhs.sphere_dimension == 3
   )
+
 
 def _is_descendant_of(
   presentation: TodaGroupProofPresentation,
