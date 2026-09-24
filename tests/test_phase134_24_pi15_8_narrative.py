@@ -125,7 +125,7 @@ def test_phase134_24_pi15_8_narrative_preserves_transport_then_standard_order(
     )
   )
   assert (
-    "summand の表示順を標準形に直すと,"
+    "直和因子の順序を入れ替えると,"
     in rendered
   )
 
@@ -159,7 +159,7 @@ def test_phase134_24_depth_one_keeps_existing_renderer_path(
 
   assert "## 使用する結果" not in rendered
   assert (
-    "summand の表示順を標準形に直すと,"
+    "直和因子の順序を入れ替えると,"
     not in rendered
   )
 

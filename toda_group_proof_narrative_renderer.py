@@ -2940,6 +2940,24 @@ def _render_phase134_9_pi8_5_narrative_markdown(
         )
       )
 
+    if proof_step is presentation.root_step:
+      lines.extend(
+        (
+          (
+            "(3), (4), (7) より, "
+            "$E^{2}\\pi_{6}^{3}$ は位数 $4$ の部分群であり, "
+            "その商が位数 $2$ なので, "
+            "$\\pi_{8}^{5}$ の位数は $8$ である."
+          ),
+          "",
+          (
+            "(6) より $\\nu_{5}$ も位数 $8$ であるから, "
+            "$\\nu_{5}$ は $\\pi_{8}^{5}$ を生成する."
+          ),
+          "",
+        )
+      )
+
     _append_phase134_11_pi8_5_fact(
       lines,
       presentation,
@@ -3200,7 +3218,7 @@ def _phase134_24_render_pi15_8_narrative(
         + transported_group_latex
       )
     ),
-    "summand の表示順を標準形に直すと,",
+    "直和因子の順序を入れ替えると,",
     "",
     "\\[",
     final_relation_latex,
@@ -3280,6 +3298,27 @@ def render_toda_group_proof_narrative_markdown(
   )
 
   if root_edges:
+    target = (
+      presentation
+      .source_replay
+      .group_result
+      .target
+    )
+
+    if (
+      target.group_dimension == 16
+      and target.sphere_dimension == 9
+    ):
+      lines.extend(
+        (
+          (
+            "$\\sigma_{9}$ の位数を確認し、"
+            "これが $\\pi_{16}^{9}$ を生成することを示す。"
+          ),
+          "",
+        )
+      )
+
     _append_narrative_for_step(
       lines,
       presentation,
