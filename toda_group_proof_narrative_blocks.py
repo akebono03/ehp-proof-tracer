@@ -15,6 +15,11 @@ from proof import (
 from toda_group_proof_narrative_catalog import (
   DEFINITION_STATEMENT_TYPES,
 )
+from toda_group_proof_narrative_semantics import (
+  TodaGroupProofNarrativePremiseSemanticRole,
+  TodaGroupProofNarrativeSemanticSidecar,
+  TodaGroupProofNarrativeStepSemanticRole,
+)
 from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
 )
@@ -135,9 +140,114 @@ def _selected_step_ids(
   }
 
 
+def _validate_semantic_sidecar(
+  presentation: TodaGroupProofPresentation,
+  semantic_sidecar: (
+    TodaGroupProofNarrativeSemanticSidecar
+    | None
+  ),
+) -> None:
+  if semantic_sidecar is None:
+    return
+
+  if not isinstance(
+    semantic_sidecar,
+    TodaGroupProofNarrativeSemanticSidecar,
+  ):
+    raise TypeError(
+      "semantic_sidecar must be a "
+      "TodaGroupProofNarrativeSemanticSidecar "
+      "or None"
+    )
+
+  if (
+    semantic_sidecar.presentation
+    is not presentation
+  ):
+    raise ValueError(
+      "semantic_sidecar must belong to "
+      "presentation"
+    )
+
+
+def _semantic_block_role_for_step(
+  proof_step: ProofStep,
+  semantic_sidecar: (
+    TodaGroupProofNarrativeSemanticSidecar
+    | None
+  ),
+) -> (
+  TodaGroupProofNarrativeMathematicalBlockRole
+  | None
+):
+  if semantic_sidecar is None:
+    return None
+
+  roles = set()
+
+  for semantic in (
+    semantic_sidecar.step_semantics
+  ):
+    if (
+      semantic.proof_step
+      is not proof_step
+    ):
+      continue
+
+    if (
+      semantic.role
+      is TodaGroupProofNarrativeStepSemanticRole
+      .DEFINITION_INTRODUCTION
+    ):
+      roles.add(
+        TodaGroupProofNarrativeMathematicalBlockRole
+        .DEFINITION
+      )
+
+  for semantic in (
+    semantic_sidecar.premise_semantics
+  ):
+    if (
+      semantic.edge.premise_step
+      is not proof_step
+    ):
+      continue
+
+    if (
+      semantic.role
+      is TodaGroupProofNarrativePremiseSemanticRole
+      .PRECONDITION
+    ):
+      roles.add(
+        TodaGroupProofNarrativeMathematicalBlockRole
+        .PRECONDITION
+      )
+
+  if not roles:
+    return None
+
+  if len(
+    roles
+  ) != 1:
+    raise ValueError(
+      "conflicting narrative semantic roles "
+      "for proof_step"
+    )
+
+  return next(
+    iter(
+      roles
+    )
+  )
+
+
 def recognize_toda_group_proof_narrative_step_role(
   presentation: TodaGroupProofPresentation,
   proof_step: ProofStep,
+  semantic_sidecar: (
+    TodaGroupProofNarrativeSemanticSidecar
+    | None
+  ) = None,
 ) -> TodaGroupProofNarrativeMathematicalBlockRole:
   if not isinstance(
     presentation,
@@ -164,10 +274,25 @@ def recognize_toda_group_proof_narrative_step_role(
       "proof_step must appear in presentation nodes"
     )
 
+  _validate_semantic_sidecar(
+    presentation,
+    semantic_sidecar,
+  )
+
   if proof_step is presentation.root_step:
     return (
       TodaGroupProofNarrativeMathematicalBlockRole.TARGET
     )
+
+  semantic_role = (
+    _semantic_block_role_for_step(
+      proof_step,
+      semantic_sidecar,
+    )
+  )
+
+  if semantic_role is not None:
+    return semantic_role
 
   statement = proof_step.conclusion
 
@@ -239,6 +364,10 @@ def recognize_toda_group_proof_narrative_step_role(
 
 def build_toda_group_proof_narrative_blocks(
   presentation: TodaGroupProofPresentation,
+  semantic_sidecar: (
+    TodaGroupProofNarrativeSemanticSidecar
+    | None
+  ) = None,
 ) -> tuple[
   TodaGroupProofNarrativeBlock,
   ...,
@@ -251,6 +380,11 @@ def build_toda_group_proof_narrative_blocks(
       "presentation must be a TodaGroupProofPresentation"
     )
 
+  _validate_semantic_sidecar(
+    presentation,
+    semantic_sidecar,
+  )
+
   ordered_steps = tuple(
     node.proof_step
     for node in presentation.nodes
@@ -262,6 +396,7 @@ def build_toda_group_proof_narrative_blocks(
     ): recognize_toda_group_proof_narrative_step_role(
       presentation,
       proof_step,
+      semantic_sidecar=semantic_sidecar,
     )
     for proof_step in ordered_steps
   }
