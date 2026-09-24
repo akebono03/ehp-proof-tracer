@@ -128,22 +128,18 @@ def test_phase134_3_pi6_3_preserves_phase133_readable_labels(
   expected_fragments = (
     "Toda (5.2) の η₂ 合成同型",
     (
-      r"\Delta: \pi_{7}^{5} "
-      r"\to \pi_{5}^{2}"
+      r"\Delta:\pi_{7}^{5}"
+      r"\to\pi_{5}^{2}"
     ),
     (
       r"\nu' \in "
-      r"\{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}"
+      r"\{\eta_{3},2\iota_{4},\eta_{4}\}_{1}"
     ),
-    (
-      "Toda Proposition 5.1 "
-      "の有限次元結果"
-    ),
+    "Toda Proposition 5.1.",
   )
 
   for fragment in expected_fragments:
     assert fragment in rendered
-
 
 def test_phase134_3_pi6_3_does_not_expose_internal_rule_names(
   capsys,

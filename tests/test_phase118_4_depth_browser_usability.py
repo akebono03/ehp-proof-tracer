@@ -256,6 +256,6 @@ def test_phase118_4_katex_smoke_targets_all_data_latex_elements():
   )
 
   assert (
-    "displayMode: true"
+    "displayMode: displayMode"
     in script
   )

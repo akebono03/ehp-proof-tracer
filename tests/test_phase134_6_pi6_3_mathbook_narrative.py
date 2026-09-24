@@ -32,18 +32,16 @@ def test_phase134_6_delta_zero_remains_proof_fact(
   )
 
   assert (
-    r"\Delta: \pi_{7}^{5} "
-    r"\to \pi_{5}^{2}\tag{3}"
+    r"\Delta:\pi_{7}^{5}\to\pi_{5}^{2}"
+    r"\quad\text{は零写像である.}"
+    r"\tag{13}"
     in rendered
   )
-
-  assert "は零写像である." in rendered
 
   assert (
     "Δ 写像が零写像であることを用いる."
     not in rendered
   )
-
 
 def test_phase134_6_nu_prime_bracket_specialization_remains_fact(
   capsys,
@@ -54,16 +52,16 @@ def test_phase134_6_nu_prime_bracket_specialization_remains_fact(
 
   assert (
     r"\nu' \in "
-    r"\{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}"
+    r"\{\eta_{3},2\iota_{4},\eta_{4}\}_{1}."
+    r"\tag{2}"
     in rendered
   )
 
   assert (
-    "ν′ に対する Lemma 5.2 "
-    "の Toda bracket 特殊化を用いる."
-    not in rendered
+    "この bracket のある元を "
+    "$\\nu'$ と定める."
+    in rendered
   )
-
 
 def test_phase134_6_zero_relation_has_no_mechanical_suffix(
   capsys,
@@ -72,18 +70,14 @@ def test_phase134_6_zero_relation_has_no_mechanical_suffix(
     capsys
   )
 
-  assert (
-    r"2\eta_{3} = 0"
-    in rendered
+  zero_formula = (
+    r"2\eta_{3}=0.\tag{1}"
   )
 
-  assert (
-    r"2\eta_{3} = 0\tag{10}"
-    in rendered
-  )
+  assert zero_formula in rendered
 
   zero_start = rendered.index(
-    r"2\eta_{3} = 0\tag{10}"
+    zero_formula
   )
 
   zero_tail = rendered[
@@ -96,7 +90,6 @@ def test_phase134_6_zero_relation_has_no_mechanical_suffix(
     not in zero_tail
   )
 
-
 def test_phase134_6_membership_has_no_mechanical_suffix(
   capsys,
 ):
@@ -104,13 +97,14 @@ def test_phase134_6_membership_has_no_mechanical_suffix(
     capsys
   )
 
-  assert (
-    r"\nu' \in \pi_{6}^{3}\tag{11}"
-    in rendered
+  membership = (
+    r"\nu'\in\pi_{6}^{3}.\tag{3}"
   )
 
+  assert membership in rendered
+
   membership_start = rendered.index(
-    r"\nu' \in \pi_{6}^{3}\tag{11}"
+    membership
   )
 
   membership_tail = rendered[
@@ -122,7 +116,6 @@ def test_phase134_6_membership_has_no_mechanical_suffix(
     "が成り立つ."
     not in membership_tail
   )
-
 
 def test_phase134_6_reference_order_follows_first_use(
   capsys,
@@ -139,22 +132,25 @@ def test_phase134_6_reference_order_follows_first_use(
     "[R2]"
   )
 
+  r3 = rendered.index(
+    "[R3]"
+  )
+
   proof = rendered.index(
     "## 証明\n"
   )
 
-  assert r1 < r2 < proof
+  assert r1 < r2 < r3 < proof
 
   assert (
-    "(1), [R1] より,"
+    "(6), [R1] より,"
     in rendered
   )
 
   assert (
-    "(13), [R2] より,"
+    "[R2] の $n=5$ の場合より,"
     in rendered
   )
-
 
 def test_phase134_6_does_not_promote_derived_boundary_facts_to_references(
   capsys,
@@ -194,14 +190,16 @@ def test_phase134_6_keeps_target_and_final_conclusion(
     r"\pi_{6}^{3} = "
     r"\mathbb{Z}/4\{\nu'\}"
   )
+  final_target = (
+    r"\pi_{6}^{3}="
+    r"\mathbb{Z}/4\{\nu'\}"
+    r"\tag{20}"
+  )
 
-  assert rendered.count(
-    target
-  ) >= 2
-
-  assert "したがって," in rendered
+  assert target in rendered
+  assert final_target in rendered
+  assert "以上により," in rendered
   assert "を得る." in rendered
-
 
 def test_phase134_6_keeps_ascii_punctuation(
   capsys,

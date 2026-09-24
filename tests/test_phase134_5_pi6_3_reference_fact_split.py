@@ -35,13 +35,13 @@ def test_phase134_5_separates_target_and_references(
   assert "## 使用する結果" in rendered
   assert "## 証明" in rendered
   assert "Toda (5.2) の η₂ 合成同型" in rendered
-  assert "Toda Proposition 5.1 の有限次元結果" in rendered
+  assert "**[R2] Toda Proposition 5.1.**" in rendered
+  assert "**[R3] Toda Proposition 5.3.**" in rendered
 
   assert (
     "**[R1] Toda Proposition 5.6.**"
     not in rendered
   )
-
 
 def test_phase134_5_reference_statements_are_visible(
   capsys,
@@ -74,10 +74,19 @@ def test_phase134_5_order_relations_use_natural_sentences(
     capsys
   )
 
-  assert "の位数は $2$ である." in rendered
-  assert "の位数は $4$ である." in rendered
+  assert (
+    r"\eta_{3}^{3}"
+    r"\text{ の位数は }2"
+    r"\text{ である.}"
+    in rendered
+  )
+  assert (
+    r"\nu'"
+    r"\text{ の位数は }4"
+    r"\text{ である.}"
+    in rendered
+  )
   assert r"\operatorname{ord}" not in rendered
-
 
 def test_phase134_5_keeps_final_group_conclusion(
   capsys,
