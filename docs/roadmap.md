@@ -402,45 +402,60 @@ query
 
 ---
 
-# 5. Phase 135: 次 capability の再監査
+# 5. Phase 135–136 完了 / 次の presentation pressure
 
-Phase 134 は Narrative presentation の自然化と、その表示層だけの安全な共通化を完了した。
+Phase 135 は Web Narrative の display / inline math presentation を監査し、既存 KaTeX 経路を Narrative に適合させた。
 
-Phase 135 では新機能を先に決めず、現在の workflow を実利用して次の不足を1つ選ぶ。
+Phase 136-2 は
 
-監査候補:
+\[
+\pi_6^3=\mathbb Z/4\{\nu'\}
+\]
+
+の Narrative を数学的依存関係に合わせて再構成した。
+
+完了内容:
 
 ```text
-1. remaining operation-query pressure
-2. remaining proof-presentation pressure
-3. generator explore / applicability / execute の利用 pressure
-4. Web workflow の実利用上の不足
-5. stem 7 より先の standard-query demand
-6. Phase 番号付き generic presentation helper の rename-only cleanup
+2 eta_3 = 0 を Toda bracket より先に確認
+nu' を bracket のある元として明示定義
+Toda Lemma 5.2 の一般形と特殊化
+Toda Proposition 2.2 の右合成公式
+connected EHP exact sequence
+nu' eta_6 membership
+Delta = 0 の exactness 説明
+E injective の exactness 説明
+pi_6^3-centered short exact sequence
+final group conclusion
 ```
 
-判断原則:
+最終 repository-wide regression:
 
 ```text
-既存 proof にある事実を先に再利用
-direct fact を上書きしない
-実利用上の不足を1つ選ぶ
-最小の representation / orchestration を追加
-future Phase を先取りしない
+9517 passed in 575.31s (0:09:35)
 ```
 
-現時点で次のどれも自動的な実装対象とはしない。
+Phase 136-2 closure audit で、次の具体的 Web presentation pressure を確認した。
 
 ```text
-k >= 8
-H(nu_5)
-Delta(nu_prime)
-H(sigma_11)
-Delta(sigma_11)
-rich proof graph visualization
-general evaluator
-generic multi-generator Narrative synthesis
-generic direct-sum proof synthesis
+static mathematical text:
+pi_(n+k)^n
+→ KaTeX 未接続
+
+provenance separator:
+窶・Phase
+→ 文字化け
+```
+
+次の小さい Phase では、この2点を Web presentation のみで修正する。
+
+境界:
+
+```text
+static math display → KaTeX
+query / generator input syntax examples → plain text
+Web presentation cleanup != mathematical semantics change
+Web presentation cleanup != parser change
 ```
 
 ---
@@ -539,7 +554,7 @@ repo 内 backup に copied `test_*.py` を置かない。
 最新 full regression:
 
 ```text
-9495 passed in 282.46s (0:04:42)
+9517 passed in 575.31s (0:09:35)
 ```
 
 ---
