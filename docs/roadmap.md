@@ -34,6 +34,8 @@ TodaGroupResult
 → TodaGroupProofPresentation
 → Trace / Outline / Narrative
 → human-readable Narrative labels
+→ theorem-specific natural Narrative blocks
+→ shared presentation primitives
 → CLI / Web
 ```
 
@@ -69,6 +71,9 @@ group-result replay != theorem search
 proof narrative != new proof
 Narrative deduplication != proof graph deletion
 Narrative label != theorem fact
+Narrative semantic role != theorem fact
+presentation primitive != proof semantics
+theorem-specific Narrative != generic theorem synthesis
 ```
 
 ---
@@ -264,6 +269,70 @@ final:
 
 Phase 133 完了。
 
+## Phase 134
+
+Phase 134 は Narrative を代表的な数学的証明として自然に読める形へ改善し、その後 presentation-only 共通化を行った。
+
+代表3例:
+
+\[
+\pi_6^3=\mathbb Z/4\{\nu'\},
+\]
+
+\[
+\pi_8^5=\mathbb Z/8\{\nu_5\},
+\]
+
+\[
+\pi_{15}^{8}
+=
+\mathbb Z\{\sigma_8\}
+\oplus
+\mathbb Z/8\{E\sigma'\}.
+\]
+
+完了内容:
+
+```text
+pi_6^3: order / membership / group-structure Narrative
+pi_8^5: nu_5 order / boundary / quotient Narrative
+pi_15^8: Proposition 4.4 transport Narrative
+TARGET / REFERENCE / DEFINITION / BOUNDARY / DERIVED fact roles
+ORDER / MEMBERSHIP / GROUP_STRUCTURE / OTHER block roles
+Narrative document shell commonization
+REFERENCE block assembler
+display-math presentation primitive
+completed-boundary presentation primitive
+final-conclusion presentation primitive
+three-example cross audit
+Phase-specific helper / hardcode re-audit
+completion audit
+```
+
+維持した境界:
+
+```text
+presentation commonization only
+!= theorem logic generalization
+!= generic multi-generator proof synthesis
+!= generic direct-sum theorem synthesis
+!= new proof search
+```
+
+final focused regression:
+
+```text
+40 passed in 5.78s
+```
+
+final repository-wide regression:
+
+```text
+9495 passed in 282.46s (0:04:42)
+```
+
+Phase 134 完了。
+
 ---
 
 # 3. standard-query coverage through stem 7
@@ -333,11 +402,11 @@ query
 
 ---
 
-# 5. Phase 134: 次 capability の再監査
+# 5. Phase 135: 次 capability の再監査
 
-Phase 133 は Narrative readability という具体的 pressure を解消した。
+Phase 134 は Narrative presentation の自然化と、その表示層だけの安全な共通化を完了した。
 
-次 Phase では再び新機能を先に決めず、現在の workflow を実利用して次の不足を1つ選ぶ。
+Phase 135 では新機能を先に決めず、現在の workflow を実利用して次の不足を1つ選ぶ。
 
 監査候補:
 
@@ -347,6 +416,7 @@ Phase 133 は Narrative readability という具体的 pressure を解消した�
 3. generator explore / applicability / execute の利用 pressure
 4. Web workflow の実利用上の不足
 5. stem 7 より先の standard-query demand
+6. Phase 番号付き generic presentation helper の rename-only cleanup
 ```
 
 判断原則:
@@ -369,6 +439,8 @@ H(sigma_11)
 Delta(sigma_11)
 rich proof graph visualization
 general evaluator
+generic multi-generator Narrative synthesis
+generic direct-sum proof synthesis
 ```
 
 ---
@@ -397,7 +469,7 @@ Delta(sigma_11)
 
 # 7. proof presentation の今後の候補
 
-Phase 132–133 で以下は実装済み。
+Phase 132–134 で以下は実装済み。
 
 ```text
 Trace
@@ -406,6 +478,11 @@ Narrative
 shared-dependency Narrative dedup
 shared-dependency natural reuse wording
 human-readable aggregate statement labels
+natural theorem-specific Narrative blocks
+fact-role / block-role classification
+Narrative document shell
+REFERENCE block assembler
+display-math / boundary / conclusion presentation primitives
 CLI mode selection
 Web mode selection
 KaTeX rendering
@@ -414,9 +491,9 @@ KaTeX rendering
 今後の改善候補:
 
 ```text
-role-specific deterministic templates
-未対応 statement の追加 safe label
+未対応 theorem-specific Narrative の追加
 より広い representative group の Narrative audit
+Phase 番号付き generic helper の rename-only cleanup
 rich graph visualization
 ```
 
@@ -441,6 +518,8 @@ automatic best-target selection
 general premise-component dependency engine
 unbounded proof search
 free-form provenance-free proof generation
+generic multi-generator theorem synthesis
+generic direct-sum theorem synthesis
 ```
 
 ---
@@ -460,7 +539,7 @@ repo 内 backup に copied `test_*.py` を置かない。
 最新 full regression:
 
 ```text
-9403 passed in 605.52s (0:10:05)
+9495 passed in 282.46s (0:04:42)
 ```
 
 ---
