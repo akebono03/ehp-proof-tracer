@@ -323,14 +323,10 @@ def classify_toda_group_proof_narrative_step(
   if not supports_phase134_9_narrative_classifier(
     presentation
   ):
-    # Phase 134-20 audit exception for pi_15^8
-    if _root_key(
-      presentation
-    ) != (15, 8):
-      raise ValueError(
-        "Phase 134-9 classifier supports "
-        "only pi_6^3 and pi_8^5"
-      )
+    raise ValueError(
+      "Phase 134-9 classifier supports "
+      "only pi_6^3 and pi_8^5"
+    )
 
   if proof_step is presentation.root_step:
     fact_role = (
