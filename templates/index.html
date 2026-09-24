@@ -114,7 +114,11 @@
       </h2>
 
       <p>
-        Query the project quantity pi_(n+k)^n
+        Query the project quantity
+        <span
+          class="group-proof-rendered-inline-math"
+          data-latex="\pi_{n+k}^{n}"
+        >\pi_{n+k}^{n}</span>
         (free part plus 2-primary component).
       </p>
 
@@ -578,7 +582,7 @@
           {% if group_proof_view.theorem %}
             {{ group_proof_view.theorem }}
             {% if group_proof_view.phase %}
-              窶・Phase {{ group_proof_view.phase }}
+              — Phase {{ group_proof_view.phase }}
             {% endif %}
           {% else %}
             {{ group_proof_view.key }}
@@ -759,16 +763,16 @@
           <p>
             {{ operation_query_proof_view.provenance.theorem }}
             {% if operation_query_proof_view.provenance.phase %}
-              窶・Phase
+              — Phase
               {{ operation_query_proof_view.provenance.phase }}
             {% endif %}
-            窶・repository depth
+            — repository depth
             {{ operation_query_proof_view.provenance.depth }}
           </p>
         {% else %}
           <p>
             {{ operation_query_proof_view.provenance.key }}
-            窶・repository depth
+            — repository depth
             {{ operation_query_proof_view.provenance.depth }}
           </p>
         {% endif %}
@@ -1096,7 +1100,7 @@
               Sources:
               {{ sources | length }}
               {% if (sources | length) > source_display_limit %}
-                窶・showing first {{ source_display_limit }}
+                — showing first {{ source_display_limit }}
               {% endif %}
             </p>
 
@@ -1323,7 +1327,7 @@
             {% if generator_execution_view.provenance.theorem %}
               {{ generator_execution_view.provenance.theorem }}
               {% if generator_execution_view.provenance.phase %}
-                窶・Phase {{ generator_execution_view.provenance.phase }}
+                — Phase {{ generator_execution_view.provenance.phase }}
               {% endif %}
             {% else %}
               {{ generator_execution_view.provenance.key }}

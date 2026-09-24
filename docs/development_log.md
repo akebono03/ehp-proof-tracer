@@ -86,9 +86,9 @@ Phase 113 final:
 
 ## Phase 114
 
-\[
+$$
 E(\nu_5)=\nu_6
-\]
+$$
 
 を exact handoff として operation query へ接続。
 
@@ -98,9 +98,9 @@ E(\nu_5)=\nu_6
 
 ## Phase 115
 
-\[
+$$
 E(\sigma_{11})=\sigma_{12}
-\]
+$$
 
 を exact handoff として接続。
 
@@ -151,9 +151,9 @@ operation-query capability pressure を監査。
 
 ## Phase 128
 
-\[
+$$
 E(\nu_5\eta_8)=0
-\]
+$$
 
 を exact theorem-specific handoff として実装。
 
@@ -167,18 +167,18 @@ final:
 
 既存 Proposition 5.6:
 
-\[
+$$
 \pi_7^4=
 \mathbb Z\{\nu_4\}
 \oplus
 \mathbb Z/4\{E\nu'\}
-\]
+$$
 
 を再利用し、
 
-\[
+$$
 E\nu' \in \pi_7^4
-\]
+$$
 
 という membership result を実装。
 
@@ -202,12 +202,12 @@ standard query で未表示だった低次元群を proof ancestry から回収�
 
 対象例:
 
-\[
+$$
 \pi_3^2,\quad
 \pi_4^3,\quad
 \pi_4^2,\quad
 \pi_5^3.
-\]
+$$
 
 focused:
 
@@ -217,17 +217,17 @@ focused:
 
 ## Phase 130-5〜6: stem 1–3 stable specialization
 
-\[
+$$
 \pi_{n+1}^n=\mathbb Z/2\{\eta_n\},
-\]
+$$
 
-\[
+$$
 \pi_{n+2}^n=\mathbb Z/2\{\eta_n\eta_{n+1}\},
-\]
+$$
 
-\[
+$$
 \pi_{n+3}^n=\mathbb Z/8\{\nu_n\}.
-\]
+$$
 
 focused:
 
@@ -237,19 +237,19 @@ focused:
 
 ## Phase 130-7〜8: stem 4–6
 
-\[
+$$
 \pi_{n+4}^n=0
 \qquad (n\ge6),
-\]
+$$
 
-\[
+$$
 \pi_{n+5}^n=0
 \qquad (n\ge7),
-\]
+$$
 
-\[
+$$
 \pi_{n+6}^n=\mathbb Z/2\{\nu_n^2\}.
-\]
+$$
 
 focused:
 
@@ -261,23 +261,23 @@ focused:
 
 確定 semantics:
 
-\[
+$$
 k=0
 \Rightarrow
 \pi_n^n\cong\mathbb Z\{\iota_n\},
-\]
+$$
 
-\[
+$$
 n=1,\ k\ge1
 \Rightarrow
 \pi_{1+k}^1=0,
-\]
+$$
 
-\[
+$$
 1\le n+k<n
 \Rightarrow
 \pi_{n+k}^n=0.
-\]
+$$
 
 ```text
 n+k = 0
@@ -301,11 +301,11 @@ focused:
 
 既存 Proposition 5.15 ancestry の concrete proof
 
-\[
+$$
 \pi_{16}^{9}
 =
 \mathbb Z/16\{\sigma_9\}
-\]
+$$
 
 を standard query に接続。
 
@@ -450,17 +450,17 @@ python main.py group-proof 11 -1
 
 結果例:
 
-\[
+$$
 \pi_{16}^{9}=\mathbb Z/16\{\sigma_9\},
-\]
+$$
 
-\[
+$$
 \pi_9^2=0,
-\]
+$$
 
-\[
+$$
 \pi_{10}^{11}=0.
-\]
+$$
 
 Phase 130 の connectivity zero が repository-backed result であるため、`Sphere connectivity / Phase 130` として replay 可能であることを再確認。
 
@@ -804,13 +804,13 @@ focused:
 
 代表群
 
-\[
+$$
 \pi_6^3,\quad
 \pi_8^5,\quad
 \pi_{10}^4,\quad
 \pi_{12}^5,\quad
 \pi_{16}^9
-\]
+$$
 
 について depth 1 / 2 の Narrative を横断監査。
 
@@ -911,13 +911,13 @@ focused:
 
 代表5群:
 
-\[
+$$
 \pi_6^3,\quad
 \pi_8^5,\quad
 \pi_{10}^4,\quad
 \pi_{12}^5,\quad
 \pi_{16}^9
-\]
+$$
 
 について depth 1 / 2 を最終確認。
 
@@ -972,9 +972,9 @@ Phase 134 は Phase 133 の human-readable label 改善をさらに進め、代�
 
 Toda Proposition 5.6 の
 
-\[
+$$
 \pi_6^3=\mathbb Z/4\{\nu'\}
-\]
+$$
 
 を代表例として、単なる statement 列ではなく、
 
@@ -992,9 +992,9 @@ REFERENCE section では既存の Toda (5.2)、Proposition 5.1 を明示し、�
 
 第2代表例として
 
-\[
+$$
 \pi_8^5=\mathbb Z/8\{\nu_5\}
-\]
+$$
 
 を追加。
 
@@ -1046,49 +1046,49 @@ E^2 の単射性
 
 第3代表例として Toda Proposition 5.15 の
 
-\[
+$$
 \pi_{15}^{8}
 =
 \mathbb Z\{\sigma_8\}
 \oplus
 \mathbb Z/8\{E\sigma'\}
-\]
+$$
 
 を採用。
 
 既存 Proposition 4.4 の分解同型
 
-\[
+$$
 \pi_{14}^{7}\oplus\pi_{15}^{15}
 \longrightarrow
 \pi_{15}^{8}
-\]
+$$
 
 を REFERENCE として利用し、
 
-\[
+$$
 \sigma'\longmapsto E\sigma',
 \qquad
 \iota_{15}\longmapsto\sigma_8
-\]
+$$
 
 という generator transport を明示した。
 
 transport 直後の順序
 
-\[
+$$
 \mathbb Z/8\{E\sigma'\}
 \oplus
 \mathbb Z\{\sigma_8\}
-\]
+$$
 
 から、標準表示
 
-\[
+$$
 \mathbb Z\{\sigma_8\}
 \oplus
 \mathbb Z/8\{E\sigma'\}
-\]
+$$
 
 への並べ替えも Narrative に保持した。
 
@@ -1150,11 +1150,11 @@ Phase 134-31 の hardcode 再監査では、Phase 134-26 / 28 / 30 で抽出し�
 
 最終監査対象:
 
-\[
+$$
 \pi_6^3,\qquad
 \pi_8^5,\qquad
 \pi_{15}^8.
-\]
+$$
 
 確認結果:
 
@@ -1217,55 +1217,55 @@ Narrative reading-width / spacing adjustment
 
 代表対象:
 
-\[
+$$
 \pi_6^3=\mathbb Z/4\{\nu'\}.
-\]
+$$
 
 Phase 136-2 では証明の数学的依存関係に合わせて Narrative を再構成した。
 
 Toda Lemma 5.2 の適用前に
 
-\[
+$$
 2\eta_3=0
-\]
+$$
 
 を確認する。
 
 これにより
 
-\[
+$$
 \{\eta_3,2\iota_4,\eta_4\}_1
-\]
+$$
 
 が定義でき、その bracket のある元を \(\nu'\) と定める。
 
 その後 Lemma 5.2 から
 
-\[
+$$
 \nu'\in\pi_6^3,
 \qquad
 H(\nu')=\eta_5,
 \qquad
 2\nu'=\eta_3^3
-\]
+$$
 
 を得る。
 
 Toda Proposition 2.2 の右合成公式
 
-\[
+$$
 H(\alpha\circ E\beta)=H(\alpha)\circ E\beta
-\]
+$$
 
 を明示し、
 
-\[
+$$
 \eta_6=E\eta_5
-\]
+$$
 
 と合わせて
 
-\[
+$$
 H(\nu'\eta_6)
 =
 H(\nu'\circ E\eta_5)
@@ -1275,13 +1275,13 @@ H(\nu')\circ E\eta_5
 \eta_5\eta_6
 =
 \eta_5^2
-\]
+$$
 
 を得る流れを本文に表示した。
 
 位数決定に用いる EHP 完全列:
 
-\[
+$$
 \pi_7^3
 \xrightarrow{H}
 \pi_7^5
@@ -1291,19 +1291,19 @@ H(\nu')\circ E\eta_5
 \pi_6^3
 \xrightarrow{H}
 \pi_6^5.
-\]
+$$
 
 \(H:\pi_7^3\to\pi_7^5\) の全射性から \(\Delta=0\) を得て、完全性から
 
-\[
+$$
 E:\pi_5^2\to\pi_6^3
-\]
+$$
 
 が単射であることを明示した。
 
 最後に
 
-\[
+$$
 0
 \longrightarrow
 \pi_5^2
@@ -1313,13 +1313,13 @@ E:\pi_5^2\to\pi_6^3
 \pi_6^5
 \longrightarrow
 0
-\]
+$$
 
 を表示し、\(\pi_6^3\) の位数が 4 であることと、\(\nu'\) が位数 4 の元であることから
 
-\[
+$$
 \pi_6^3=\mathbb Z/4\{\nu'\}
-\]
+$$
 
 を得る。
 
@@ -1355,9 +1355,83 @@ Provenance:
 → encoding / mojibake
 ```
 
-`H(nu_prime)`、`E(nu_5)`、`sigma_11` 等は入力 syntax の例なので plain text を維持する。
+`H(nu_prime)`、`E(nu_5)`、`sigma_11` 等は入力 syntax の例なので plain text を維持する方針とした。
 
-次の Web presentation cleanup では、数学表示だけを KaTeX 化し、入力 syntax と区別する。
+---
+
+# Phase 137 — Web presentation cleanup
+
+Phase 137 は数学機能を増やさず、Phase 136-2 の Web manual audit で 確認した presentation-only pressure を処理する。
+
+## Phase 137-2: static math / mojibake cleanup
+
+`templates/index.html` の Group query 説明にある project quantity を
+
+$$
+\pi_{n+k}^{n}
+$$
+
+として既存 `data-latex` / KaTeX 経路へ接続した。
+
+同じ template 内の `窶・` は6か所すべて正常な em dash `—` へ復元した。
+
+対象:
+
+```text
+Group proof provenance
+Operation proof Phase
+Operation proof repository depth x2
+Applicability showing first
+Generator execution provenance
+```
+
+入力 syntax:
+
+```text
+H(nu_prime)
+E(nu_5)
+sigma_11
+```
+
+は plain text のまま維持した。
+
+focused:
+
+```text
+3 passed in 6.96s
+```
+
+## Phase 137-3: Web focused regression
+
+Phase 117 / 124 / 131 / 132 / 135 / 137 の関連 Web tests を実行。
+
+```text
+56 passed in 20.23s
+```
+
+## Phase 137-4: Web manual verification
+
+実画面で以下を確認した。
+
+```text
+\pi_{n+k}^{n} → KaTeX
+H(nu_prime), E(nu_5), sigma_11 → plain text
+— showing first → 正常表示
+Generator execution provenance → — Phase 68
+窶・ → visible output から消失
+```
+
+## Phase 137-5: documentation cleanup
+
+README / design / development log / roadmap / proof records を Phase 137 の現状へ更新する。
+
+あわせて GitHub Markdown 上の display math を `$$ ... $$` に統一し、legacy display-math delimiters が生の bracket のように見える presentation 問題を解消する。
+
+```text
+documentation math delimiter cleanup
+!= mathematical content change
+!= proof semantics change
+```
 
 # 現在の運用方針
 
@@ -1379,8 +1453,6 @@ backup:
 repository 外へ保存
 ```
 
-Phase 136-2 は完了。
+Phase 137 の repository-wide regression は Phase-final step でのみ実行する。
 
-次の具体的 pressure は Phase 136-2 closure audit で確認した Web static mathematical text の TeX 表示漏れと provenance 文字化けである。
-
-数学表示だけを KaTeX 経路へ接続し、operation / generator の入力 syntax 例は plain text のまま維持する。
+Phase 137 を閉じた後は Phase 138 capability audit を行い、Narrative の他群への拡張、Web workflow、operation query、stem 8 以降のどれを優先するかを実利用 pressure から選ぶ。

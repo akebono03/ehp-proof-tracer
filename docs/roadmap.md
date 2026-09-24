@@ -245,13 +245,13 @@ representative five-group depth 1 / 2 final audit
 
 代表監査:
 
-\[
+$$
 \pi_6^3,\quad
 \pi_8^5,\quad
 \pi_{10}^4,\quad
 \pi_{12}^5,\quad
 \pi_{16}^9
-\]
+$$
 
 ```text
 Internal wording audit
@@ -275,21 +275,21 @@ Phase 134 は Narrative を代表的な数学的証明として自然に読め�
 
 代表3例:
 
-\[
+$$
 \pi_6^3=\mathbb Z/4\{\nu'\},
-\]
+$$
 
-\[
+$$
 \pi_8^5=\mathbb Z/8\{\nu_5\},
-\]
+$$
 
-\[
+$$
 \pi_{15}^{8}
 =
 \mathbb Z\{\sigma_8\}
 \oplus
 \mathbb Z/8\{E\sigma'\}.
-\]
+$$
 
 完了内容:
 
@@ -402,52 +402,32 @@ query
 
 ---
 
-# 5. Phase 135–136 完了 / 次の presentation pressure
+# 5. Phase 135–137 presentation cleanup
 
 Phase 135 は Web Narrative の display / inline math presentation を監査し、既存 KaTeX 経路を Narrative に適合させた。
 
 Phase 136-2 は
 
-\[
+$$
 \pi_6^3=\mathbb Z/4\{\nu'\}
-\]
+$$
 
 の Narrative を数学的依存関係に合わせて再構成した。
+
+Phase 137 は Phase 136-2 closure audit で確認した Web presentation-only pressure を修正した。
 
 完了内容:
 
 ```text
-2 eta_3 = 0 を Toda bracket より先に確認
-nu' を bracket のある元として明示定義
-Toda Lemma 5.2 の一般形と特殊化
-Toda Proposition 2.2 の右合成公式
-connected EHP exact sequence
-nu' eta_6 membership
-Delta = 0 の exactness 説明
-E injective の exactness 説明
-pi_6^3-centered short exact sequence
-final group conclusion
+Group query の \pi_{n+k}^{n} を static KaTeX へ接続
+窶・ separator 6か所を em dash へ復元
+operation / generator input syntax examples は plain text 維持
+Phase 137-2 focused: 3 passed
+Phase 137-3 related Web regression: 56 passed
+Phase 137-4 manual Web verification
+Phase 137-5 documentation update
+main docs display math → GitHub-friendly $$ blocks
 ```
-
-最終 repository-wide regression:
-
-```text
-9517 passed in 575.31s (0:09:35)
-```
-
-Phase 136-2 closure audit で、次の具体的 Web presentation pressure を確認した。
-
-```text
-static mathematical text:
-pi_(n+k)^n
-→ KaTeX 未接続
-
-provenance separator:
-窶・Phase
-→ 文字化け
-```
-
-次の小さい Phase では、この2点を Web presentation のみで修正する。
 
 境界:
 
@@ -456,7 +436,23 @@ static math display → KaTeX
 query / generator input syntax examples → plain text
 Web presentation cleanup != mathematical semantics change
 Web presentation cleanup != parser change
+documentation delimiter cleanup != mathematical content change
 ```
+
+Phase 137 final の repository-wide regression は Phase-final step で実行する。
+
+Phase 137 完了後の次段階は Phase 138 capability audit とする。
+
+候補:
+
+```text
+未対応群への theorem-specific Narrative 拡張
+Web workflow の次の実利用 pressure
+operation query の残存 concrete pressure
+stem 8 以降の coverage
+```
+
+事前に優先順位を固定せず、現行 workflow の監査結果から選ぶ。
 
 ---
 

@@ -96,15 +96,15 @@ k は任意の int
 
 `k<0` かつ
 
-\[
+$$
 1\le m<n
-\]
+$$
 
 なら sphere connectivity により
 
-\[
+$$
 \pi_m(S^n)=0
-\]
+$$
 
 として扱う。
 
@@ -112,9 +112,9 @@ Phase 130 ではこの connectivity zero を repository-backed `TodaGroupResult`
 
 ## \(m=0\)
 
-\[
+$$
 \pi_0(S^n)
-\]
+$$
 
 は通常の group result に正規化しない。
 
@@ -136,9 +136,9 @@ Phase 130 で foundational specialization を group-query orchestration の先�
 
 ## diagonal
 
-\[
+$$
 \pi_n^n\cong\mathbb Z\{\iota_n\}.
-\]
+$$
 
 これは `k=0` の query に対応する。
 
@@ -146,31 +146,31 @@ Phase 130 で foundational specialization を group-query orchestration の先�
 
 既存 Phase 56 の symbolic zero
 
-\[
+$$
 \pi_{i-1}^1=0
-\]
+$$
 
 を concrete query に specialize する。
 
 したがって
 
-\[
+$$
 n=1,\quad k\ge1
-\]
+$$
 
 では
 
-\[
+$$
 \pi_{1+k}^1=0.
-\]
+$$
 
 新しい独立 theorem root は追加しない。
 
 ## connectivity zero
 
-\[
+$$
 1\le n+k<n
-\]
+$$
 
 では foundational sphere connectivity として zero result を返す。
 
@@ -184,21 +184,21 @@ Phase 130 では既存 symbolic theorem を standard query から具体化でき
 
 ## stem 1
 
-\[
+$$
 \pi_{n+1}^n=\mathbb Z/2\{\eta_n\}.
-\]
+$$
 
 ## stem 2
 
-\[
+$$
 \pi_{n+2}^n=\mathbb Z/2\{\eta_n\eta_{n+1}\}.
-\]
+$$
 
 ## stem 3
 
-\[
+$$
 \pi_{n+3}^n=\mathbb Z/8\{\nu_n\}.
-\]
+$$
 
 低次元 concrete boundary が既存 proof にある場合は concrete proof を優先する。
 
@@ -208,27 +208,27 @@ Phase 130 では既存 symbolic theorem を standard query から具体化でき
 
 ## stem 4
 
-\[
+$$
 \pi_{n+4}^n=0,
 \qquad n\ge6.
-\]
+$$
 
 ## stem 5
 
 低次元 concrete branch を proof ancestry から回収し、
 
-\[
+$$
 \pi_{n+5}^n=0,
 \qquad n\ge7
-\]
+$$
 
 を symbolic branch から specialize する。
 
 ## stem 6
 
-\[
+$$
 \pi_{n+6}^n=\mathbb Z/2\{\nu_n^2\}.
-\]
+$$
 
 既存 concrete \(n=5,6,7,8\) を維持し、symbolic specialization はその境界より上で使う。
 
@@ -238,18 +238,18 @@ Phase 130 では既存 symbolic theorem を standard query から具体化でき
 
 Toda Proposition 5.15 の既存証明には
 
-\[
+$$
 \pi_{16}^9=\mathbb Z/16\{\sigma_9\}
-\]
+$$
 
 という concrete proof が存在する。
 
 また symbolic higher branch として
 
-\[
+$$
 \pi_{n+7}^n=\mathbb Z/16\{\sigma_n\},
 \qquad n\ge9
-\]
+$$
 
 が存在する。
 
@@ -293,9 +293,9 @@ group query で aggregate の top-level branch に存在しない concrete resul
 
 Phase 130 の代表例:
 
-\[
+$$
 \pi_{16}^9=\mathbb Z/16\{\sigma_9\}.
-\]
+$$
 
 回収条件は theorem-specific かつ target-specific に狭くする。
 
@@ -333,17 +333,17 @@ E(nu_prime)
 
 対応結果:
 
-\[
+$$
 E(\nu_5)=\nu_6,
 \qquad
 E(\sigma_{11})=\sigma_{12},
-\]
+$$
 
-\[
+$$
 E(\nu_5\eta_8)=0,
 \qquad
 E\nu' \in \pi_7^4.
-\]
+$$
 
 ---
 
@@ -422,15 +422,15 @@ ProofStep identity
 
 例:
 
-\[
+$$
 \pi_9^2=0.
-\]
+$$
 
 また Phase 130 の foundational connectivity zero:
 
-\[
+$$
 \pi_{10}^{11}=0
-\]
+$$
 
 も repository-backed result のため replay できる。
 
@@ -895,13 +895,13 @@ execution semantics
 
 最終監査対象:
 
-\[
+$$
 \pi_6^3,\quad
 \pi_8^5,\quad
 \pi_{10}^4,\quad
 \pi_{12}^5,\quad
 \pi_{16}^9
-\]
+$$
 
 について depth 1 / 2 を確認し、代表的な内部 rule 名と旧 Narrative 文面が残っていないことを確認した。
 
@@ -946,47 +946,47 @@ readability-oriented Web spacing
 
 Phase 136-2 の代表対象:
 
-\[
+$$
 \pi_6^3=\mathbb Z/4\{\nu'\}.
-\]
+$$
 
 最終 Narrative では、Toda Lemma 5.2 の適用順序を数学的依存関係に合わせる。
 
 まず
 
-\[
+$$
 2\eta_3=0
-\]
+$$
 
 を確認し、その後
 
-\[
+$$
 \{\eta_3,2\iota_4,\eta_4\}_1
-\]
+$$
 
 が定義できることを述べ、この bracket のある元を \(\nu'\) と定める。
 
 Lemma 5.2 から
 
-\[
+$$
 \nu'\in\pi_6^3,
 \qquad
 H(\nu')=\eta_5,
 \qquad
 2\nu'=\eta_3^3
-\]
+$$
 
 を得る。
 
 Toda Proposition 2.2 の右合成公式
 
-\[
+$$
 H(\alpha\circ E\beta)=H(\alpha)\circ E\beta
-\]
+$$
 
 を明示的に用い、
 
-\[
+$$
 H(\nu'\eta_6)
 =
 H(\nu'\circ E\eta_5)
@@ -994,13 +994,13 @@ H(\nu'\circ E\eta_5)
 H(\nu')\circ E\eta_5
 =
 \eta_5^2
-\]
+$$
 
 を表示する。
 
 位数決定では次の EHP 完全列を表示する。
 
-\[
+$$
 \pi_7^3
 \xrightarrow{H}
 \pi_7^5
@@ -1010,11 +1010,11 @@ H(\nu')\circ E\eta_5
 \pi_6^3
 \xrightarrow{H}
 \pi_6^5.
-\]
+$$
 
 群構造決定では
 
-\[
+$$
 0
 \longrightarrow
 \pi_5^2
@@ -1024,7 +1024,7 @@ H(\nu')\circ E\eta_5
 \pi_6^5
 \longrightarrow
 0
-\]
+$$
 
 を明示する。
 
@@ -1052,39 +1052,93 @@ repository-wide regression:
 
 ---
 
-# 26. Web TeX 表示監査境界
+# 26. Phase 137 Web presentation cleanup 完了境界
 
-Web Narrative の display / inline math は既存 `data-latex` → KaTeX 経路に接続済みである。
-
-```text
-display math
-→ group-proof-rendered-display-math
-→ displayMode=True
-
-inline math
-→ group-proof-rendered-inline-math
-→ displayMode=False
-```
-
-一方、静的 template text は自動的には TeX 化されない。
-
-Phase 136-2 完了時の監査で、少なくとも以下を確認した。
+Phase 136-2 の Web audit で確認した presentation-only pressure:
 
 ```text
 Group query description:
 pi_(n+k)^n
-→ plain text のまま
+→ static mathematical text が KaTeX 未接続
 
-Provenance separator:
+Provenance / compact summary separator:
 窶・Phase
-→ TeX 問題ではなく文字化け
+窶・repository depth
+窶・showing first
+→ encoding / mojibake
 ```
 
-`H(nu_prime)`、`E(nu_5)`、`sigma_11` などは operation / generator の入力 syntax 例であり、数学表示ではなく入力例として plain text を維持する。
+Phase 137 では数学 semantics を変更せず、`templates/index.html` の presentation のみを修正した。
+
+Group query の project quantity は
+
+$$
+\pi_{n+k}^{n}
+$$
+
+を既存 `data-latex` → `static/web_math.js` → KaTeX の経路へ渡す。
+
+説明文中の数式なので既存 class
+
+```text
+group-proof-rendered-inline-math
+```
+
+を再利用し、`displayMode=False` とする。
+
+文字化け separator は、過去の正常な template と同じ em dash `—` に戻す。
+
+```text
+— Phase
+— repository depth
+— showing first
+```
+
+`H(nu_prime)`、`E(nu_5)`、`sigma_11` などは operation / generator の入力 syntax 例なので plain text を維持する。
 
 ```text
 static mathematical display
 != query input syntax example
+
+Web presentation cleanup
+!= mathematical semantics change
+!= parser change
+!= proof graph change
+!= provenance change
 ```
 
-次の Web presentation cleanup ではこの境界を維持する。
+focused regression:
+
+```text
+Phase 137-2: 3 passed in 6.96s
+Phase 137-3 Web related: 56 passed in 20.23s
+```
+
+Phase 137-4 の manual Web verification では、
+
+```text
+\pi_{n+k}^{n} → KaTeX 表示
+input syntax examples → plain text 維持
+provenance separator → em dash
+applicability compact summary → em dash
+窶・ → 画面上に残らない
+```
+
+ことを確認した。
+
+# 27. ドキュメント数式表示境界
+
+README / design / development log / roadmap / proof records の display math は、GitHub Markdown 上で確実に数式表示されるよう `$$ ... $$` を標準とする。
+
+inline math は既存どおり `\(...\)` を維持する。
+
+```text
+legacy display-math delimiter → $$ ... $$
+inline \(...\) → 維持
+
+documentation delimiter normalization
+!= mathematical statement change
+!= proof semantics change
+```
+
+Phase 137 final の repository-wide regression は、ドキュメント更新後の Phase-final step でのみ実行する。

@@ -46,11 +46,11 @@ Toda 群問い合わせ、群正規化、EHP / 証明 provenance、表示 / レ�
 
 代表結果:
 
-\[
+$$
 \nu' \in \{\eta_3,2\iota_4,\eta_4\}_1,
 \qquad
 H(\nu')=\eta_5.
-\]
+$$
 
 ## Phase 103
 
@@ -84,9 +84,9 @@ Phase 113: 9081 passed in 434.58s
 
 ## Phase 114 `E(nu_5)` handoff provenance
 
-\[
+$$
 E(\nu_5)=\nu_6.
-\]
+$$
 
 ```text
 concrete specialization
@@ -96,9 +96,9 @@ concrete specialization
 
 ## Phase 115 `E(sigma_11)` handoff provenance
 
-\[
+$$
 E(\sigma_{11})=\sigma_{12}.
-\]
+$$
 
 ```text
 concrete definitional specialization
@@ -129,15 +129,15 @@ operation-query 残件を監査。
 
 ## Phase 128 `E(nu_5 o eta_8)=0` handoff provenance
 
-\[
+$$
 E(\nu_5\eta_8)=0.
-\]
+$$
 
 直接 premise:
 
-\[
+$$
 \pi_{10}^6=0.
-\]
+$$
 
 ```text
 theorem-specific specialized query fact
@@ -149,18 +149,18 @@ theorem-specific specialized query fact
 
 source fact:
 
-\[
+$$
 \pi_7^4=
 \mathbb Z\{\nu_4\}
 \oplus
 \mathbb Z/4\{E\nu'\}.
-\]
+$$
 
 採用:
 
-\[
+$$
 E\nu' \in \pi_7^4.
-\]
+$$
 
 ```text
 membership specialized step
@@ -188,12 +188,12 @@ Phase 130 は新しい数学定理を増やすのではなく、既存証明を 
 
 代表:
 
-\[
+$$
 \pi_3^2,\quad
 \pi_4^3,\quad
 \pi_4^2,\quad
 \pi_5^3.
-\]
+$$
 
 ```text
 existing ProofStep reuse
@@ -202,29 +202,29 @@ existing ProofStep reuse
 
 ## stable family specialization
 
-\[
+$$
 \pi_{n+1}^n=\mathbb Z/2\{\eta_n\},
-\]
+$$
 
-\[
+$$
 \pi_{n+2}^n=\mathbb Z/2\{\eta_n\eta_{n+1}\},
-\]
+$$
 
-\[
+$$
 \pi_{n+3}^n=\mathbb Z/8\{\nu_n\},
-\]
+$$
 
-\[
+$$
 \pi_{n+4}^n=0,
-\]
+$$
 
-\[
+$$
 \pi_{n+5}^n=0,
-\]
+$$
 
-\[
+$$
 \pi_{n+6}^n=\mathbb Z/2\{\nu_n^2\}.
-\]
+$$
 
 generic specialization は theorem の range guard を維持し、低次元 concrete branch を上書きしない。
 
@@ -232,41 +232,41 @@ generic specialization は theorem の range guard を維持し、低次元 conc
 
 ### diagonal
 
-\[
+$$
 \pi_n^n\cong\mathbb Z\{\iota_n\}.
-\]
+$$
 
 ### circle
 
 既存 Phase 56 symbolic result を再利用:
 
-\[
+$$
 \pi_{i-1}^1=0.
-\]
+$$
 
 ### connectivity
 
-\[
+$$
 1\le n+k<n
 \Rightarrow
 \pi_{n+k}^n=0.
-\]
+$$
 
 この connectivity zero は repository-backed `TodaGroupResult` として `ProofStep` を保持する。
 
 ### \(\pi_0\) boundary
 
-\[
+$$
 n+k=0
-\]
+$$
 
 は ordinary `TodaGroupResult` とせず、path component information として分離。
 
 ### negative dimension
 
-\[
+$$
 n+k<0
-\]
+$$
 
 は classical unstable domain 外として分離。
 
@@ -279,11 +279,11 @@ negative stem accepted
 
 Toda Proposition 5.15 ancestry には既に
 
-\[
+$$
 \pi_{16}^{9}
 =
 \mathbb Z/16\{\sigma_9\}
-\]
+$$
 
 の concrete `ProofStep` が存在する。
 
@@ -382,11 +382,11 @@ Phase 131 core API はこの provenance を depth で切り出すだけであり
 
 ## representative result
 
-\[
+$$
 \pi_{16}^{9}
 =
 \mathbb Z/16\{\sigma_9\}.
-\]
+$$
 
 root provenance:
 
@@ -407,9 +407,9 @@ displayed ancestry
 
 ## zero-group replay
 
-\[
+$$
 \pi_9^2=0
-\]
+$$
 
 は generator を持たないが、`TodaGroupResult.proof_step` を直接 root にするため replay 可能。
 
@@ -422,9 +422,9 @@ zero group
 
 Phase 130 foundational result:
 
-\[
+$$
 \pi_{10}^{11}=0
-\]
+$$
 
 は
 
@@ -439,9 +439,9 @@ premise を持たないため、現状では depth 0 のみとなる。
 
 ## domain-only boundary
 
-\[
+$$
 \pi_0(S^n)
-\]
+$$
 
 の path-component information と、負次元 out-of-domain information は ordinary `TodaGroupResult` ではない。
 
@@ -786,13 +786,13 @@ Toda Lemma 5.14 の σ₈ に関する結果
 
 最終監査対象:
 
-\[
+$$
 \pi_6^3,\quad
 \pi_8^5,\quad
 \pi_{10}^4,\quad
 \pi_{12}^5,\quad
 \pi_{16}^9
-\]
+$$
 
 depth 1 / 2 の10ケースを確認。
 
@@ -842,75 +842,75 @@ Phase 134–136 では proof graph / theorem fact を変更せず、代表証明
 
 対象:
 
-\[
+$$
 \pi_6^3=\mathbb Z/4\{\nu'\}.
-\]
+$$
 
 ### Toda bracket の定義順序
 
 Toda Lemma 5.2 の適用では
 
-\[
+$$
 2\alpha=0
-\]
+$$
 
 が
 
-\[
+$$
 \{\eta_3,2\iota_4,E\alpha\}_1
-\]
+$$
 
 を定義するための条件になる。
 
 \(\alpha=\eta_3\) として、まず
 
-\[
+$$
 2\eta_3=0
-\]
+$$
 
 を確認する。
 
 その後
 
-\[
+$$
 \{\eta_3,2\iota_4,\eta_4\}_1
-\]
+$$
 
 が定義でき、この bracket のある元を \(\nu'\) と定める。
 
-\[
+$$
 \nu'\in\{\eta_3,2\iota_4,\eta_4\}_1.
-\]
+$$
 
 Lemma 5.2 より
 
-\[
+$$
 \nu'\in\pi_6^3,
 \qquad
 H(\nu')=\eta_5,
 \qquad
 2\nu'=\eta_3^3.
-\]
+$$
 
 ### Toda Proposition 2.2
 
 右合成公式
 
-\[
+$$
 H(\alpha\circ E\beta)
 =
 H(\alpha)\circ E\beta
-\]
+$$
 
 を \(\alpha=\nu'\)、\(\beta=\eta_5\) に適用する。
 
-\[
+$$
 \eta_6=E\eta_5
-\]
+$$
 
 なので
 
-\[
+$$
 H(\nu'\eta_6)
 =
 H(\nu'\circ E\eta_5)
@@ -920,13 +920,13 @@ H(\nu')\circ E\eta_5
 \eta_5\eta_6
 =
 \eta_5^2.
-\]
+$$
 
 ### EHP exact sequence
 
 位数決定では
 
-\[
+$$
 \pi_7^3
 \xrightarrow{H}
 \pi_7^5
@@ -936,77 +936,77 @@ H(\nu')\circ E\eta_5
 \pi_6^3
 \xrightarrow{H}
 \pi_6^5
-\]
+$$
 
 を用いる。
 
-\[
+$$
 \pi_7^5=\mathbb Z/2\{\eta_5^2\}
-\]
+$$
 
 かつ \(H(\nu'\eta_6)=\eta_5^2\) なので
 
-\[
+$$
 H:\pi_7^3\to\pi_7^5
-\]
+$$
 
 は全射。
 
 完全性から
 
-\[
+$$
 \operatorname{Im}H
 =
 \ker\Delta
 =
 \pi_7^5
-\]
+$$
 
 となり、
 
-\[
+$$
 \Delta:\pi_7^5\to\pi_5^2
-\]
+$$
 
 は零写像。
 
 さらに
 
-\[
+$$
 \operatorname{Im}\Delta
 =
 \ker E
 =
 0
-\]
+$$
 
 なので
 
-\[
+$$
 E:\pi_5^2\to\pi_6^3
-\]
+$$
 
 は単射。
 
 ### final short exact sequence
 
-\[
+$$
 H(\nu')=\eta_5,
 \qquad
 \pi_6^5=\mathbb Z/2\{\eta_5\}
-\]
+$$
 
 より
 
-\[
+$$
 H:\pi_6^3\to\pi_6^5
-\]
+$$
 
 は全射。
 
 したがって
 
-\[
+$$
 0
 \longrightarrow
 \pi_5^2
@@ -1016,29 +1016,29 @@ H:\pi_6^3\to\pi_6^5
 \pi_6^5
 \longrightarrow
 0.
-\]
+$$
 
-\[
+$$
 \pi_5^2=\mathbb Z/2\{\eta_2^3\},
 \qquad
 \pi_6^5=\mathbb Z/2\{\eta_5\}
-\]
+$$
 
 なので \(\pi_6^3\) の位数は 4。
 
 一方、
 
-\[
+$$
 2\nu'=\eta_3^3
-\]
+$$
 
 かつ \(\eta_3^3\) の位数が 2 なので \(\nu'\) の位数は 4。
 
 よって
 
-\[
+$$
 \pi_6^3=\mathbb Z/4\{\nu'\}.
-\]
+$$
 
 ## presentation / provenance boundary
 
@@ -1073,6 +1073,81 @@ repository-wide final:
 
 Phase 136-2 完了。
 
+# Phase 137 Web presentation / provenance record
+
+Phase 137 は proof fact、proof graph、theorem root、operation semantics を 変更せず、Web と文書の presentation のみを整理した。
+
+## static Group query math
+
+Web の Group query 説明にある project quantity
+
+$$
+\pi_{n+k}^{n}
+$$
+
+を既存 `data-latex` / KaTeX 経路へ接続した。
+
+```text
+static Web math rendering
+!= new group fact
+!= group-query normalization
+!= proof step
+```
+
+## provenance separator cleanup
+
+template に残っていた mojibake `窶・` は provenance data 自体ではなく、表示 separator の encoding 崩れだった。
+
+Phase 137 では過去の正常表示と同じ em dash `—` へ戻した。
+
+```text
+separator repair
+!= provenance metadata change
+!= theorem / phase value change
+!= repository key change
+```
+
+実画面では Generator execution の
+
+```text
+Toda Proposition 5.8 — Phase 68
+```
+
+などを確認した。
+
+## input syntax boundary
+
+```text
+H(nu_prime)
+E(nu_5)
+sigma_11
+```
+
+は parser / generator input の例であり、数学表示用 TeX ではない。
+
+したがって Phase 137 でも plain text を維持した。
+
+## documentation display-math boundary
+
+主要文書の display math delimiter は GitHub Markdown で確実に表示されるよう `$$ ... $$` へ統一した。
+
+```text
+documentation delimiter normalization
+!= proof normalization
+!= theorem statement rewrite
+!= mathematical semantics change
+```
+
+focused / related regression:
+
+```text
+Phase 137-2: 3 passed in 6.96s
+Phase 137-3: 56 passed in 20.23s
+```
+
+repository-wide final regression は Phase 137 final でのみ実行する。
+
+---
 # 記録原則
 
 数学的な根拠は `ProofStep` と、その実際の premise ancestry である。
