@@ -1,0 +1,23 @@
+#group-proof-rendered-lines {
+  max-width: 52rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#group-proof-rendered-lines .group-proof-rendered-line {
+  line-height: 1.75;
+}
+
+#group-proof-rendered-lines .group-proof-rendered-inline-math {
+  display: inline;
+}
+
+#group-proof-rendered-lines .group-proof-rendered-display-math {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+#group-proof-rendered-lines .katex-display {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
