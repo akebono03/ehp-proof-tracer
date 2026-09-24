@@ -855,51 +855,93 @@ def _phase136_2_pi6_3_reference_blocks() -> tuple[
 ]:
   return (
     (
-      "Toda Proposition 5.3 の低次元 η² 結果",
+      "Toda Proposition 5.3",
       (
-        "次の低次元群構造を用いる.",
+        r"\[",
+        (
+          r"\pi_{n + 2}^{n} = "
+          r"\mathbb{Z}/2\{\eta_{n}^{2}\}"
+          r"\qquad (n \ge 2)."
+        ),
+        r"\]",
         "",
         r"\[",
         (
           r"\pi_{5}^{3} = "
-          r"\mathbb{Z}/2\{\eta_{3}^{2}\}."
+          r"\mathbb{Z}/2\{\eta_{3}^{2}\},"
+          r"\qquad"
+          r"\pi_{7}^{5} = "
+          r"\mathbb{Z}/2\{\eta_{5}^{2}\}."
         ),
         r"\]",
       ),
     ),
     (
-      "Toda Lemma 5.2 の ν′ に対する特殊化",
+      "Toda Lemma 5.2",
       (
-        (
-          "ν′ に対する Toda bracket, 倍元, "
-          "Hopf 像の特殊化を用いる."
-        ),
+        "まず Lemma 5.2 の一般形を記す.",
+        "",
+        "$\\alpha\\in\\pi_i^3$, $2\\alpha=0$ であり,",
         "",
         r"\[",
-        (
-          r"\nu' \in "
-          r"\{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1},"
-        ),
+        r"\beta \in \{\eta_{3},2\iota_{4},E\alpha\}_{1}",
+        r"\]",
+        "",
+        "ならば,",
+        "",
+        r"\[",
+        r"\beta\in\pi_{i+2}^{3},",
         r"\qquad",
-        (
-          r"2\nu' = "
-          r"\eta_{3}E\eta_{3}\eta_{5},"
-        ),
+        r"H(\beta)=E^{2}\alpha,",
         r"\qquad",
-        (
-          r"H\left(\nu'\right) = "
-          r"E^{2}\eta_{3}."
-        ),
+        r"2\beta=\eta_{3}\circ E\alpha\circ\eta_{i+1},",
+        r"\qquad",
+        r"\Delta(E^{2}\alpha)=0.",
         r"\]",
         "",
         (
-          "これらの特殊化を用いる際には "
-          "$2\\eta_{3}=0$ を premise とする."
+          "この証明では $\\alpha=\\eta_{3}$, "
+          "$i=4$ とする. まず $2\\eta_{3}=0$ "
+          "を確認すると, Toda bracket"
         ),
+        "",
+        r"\[",
+        r"\{\eta_{3},2\iota_{4},\eta_{4}\}_{1}",
+        r"\]",
+        "",
+        (
+          "が定義できる. この bracket のある元を "
+          "$\\nu'$ と定める. すなわち,"
+        ),
+        "",
+        r"\[",
+        r"\nu' \in \{\eta_{3},2\iota_{4},\eta_{4}\}_{1}.",
+        r"\]",
+        "",
+        "すると Lemma 5.2 より,",
+        "",
+        r"\[",
+        r"\nu'\in\pi_{6}^{3},",
+        r"\qquad",
+        r"H(\nu')=E^{2}\eta_{3},",
+        r"\qquad",
+        r"2\nu'=\eta_{3}\circ E\eta_{3}\circ\eta_{5},",
+        r"\qquad",
+        r"\Delta(E^{2}\eta_{3})=0",
+        r"\]",
+        "",
+        "を得る.",
+      ),
+    ),
+    (
+      "Toda Proposition 2.2 の右合成公式",
+      (
+        r"\[",
+        r"H(\alpha\circ E\beta)=H(\alpha)\circ E\beta.",
+        r"\]",
       ),
     ),
   )
-
 
 def _phase136_2_is_pi6_5_group_step(
   proof_step: ProofStep,
@@ -1003,20 +1045,10 @@ def _phase136_pi6_3_reason_lead(
 
   reasons = {
     1: "[R3] より,",
-    3: "EHP 完全列と [R3] より,",
     4: "EHP 完全列より,",
-    7: (
-      "[R4] の倍元公式と η-family の "
-      "suspension relation より,"
-    ),
-    9: "[R4] の Toda bracket 特殊化より,",
-    10: "[R2] より,",
+    10: "[R2] の $n=3$ の場合より,",
     12: "EHP 完全列より,",
-    13: (
-      "[R4] の Hopf 像公式と η-family の "
-      "suspension relation より,"
-    ),
-    14: "[R2] より,",
+    14: "[R2] の $n=5$ の場合より,",
   }
 
   return reasons.get(
@@ -1053,6 +1085,9 @@ def _append_phase134_3_pi6_3_fact(
 
   statement = proof_step.conclusion
 
+  if number == 14:
+    dependency_text = "[R2] の $n=5$ の場合より,"
+
   if (
     isinstance(
       statement,
@@ -1066,11 +1101,116 @@ def _append_phase134_3_pi6_3_fact(
     lines.append(
       "以上により,"
     )
-  elif dependency_text:
-    lines.append(
-      dependency_text
-      + " より,"
+  elif number == 3:
+    lines.extend(
+      (
+        "まず, $\\Delta$ の直前を含む EHP 完全列",
+        "",
+        r"\[",
+        (
+          r"\pi_{7}^{3}\xrightarrow{H}"
+          r"\pi_{7}^{5}\xrightarrow{\Delta}"
+          r"\pi_{5}^{2}"
+          r"\quad\text{は完全である.}"
+        ),
+        r"\]",
+        "",
+        (
+          "[R4] の $\\nu'$ への適用から "
+          "$H(\\nu')=E^{2}\\eta_{3}$ を得て, "
+          "$E^{2}\\eta_{3}=\\eta_{5}$ だから"
+        ),
+        "",
+        r"\[",
+        r"H(\nu'\eta_{6})=\eta_{5}\eta_{6}=\eta_{5}^{2}.",
+        r"\]",
+        "",
+        (
+          "[R3] の $n=5$ の場合より "
+          "$\\pi_{7}^{5}=\\mathbb{Z}/2\\{\\eta_{5}^{2}\\}$ "
+          "なので, $H:\\pi_{7}^{3}\\to\\pi_{7}^{5}$ は全射である."
+        ),
+        (
+          "したがって完全性から "
+          "$\\ker\\Delta=\\pi_{7}^{5}$ となり,"
+        ),
+        "",
+      )
     )
+  elif number == 7:
+    lines.extend(
+      (
+        (
+          "Lemma 5.2 に $\\alpha=\\eta_{3}$, "
+          "$i=4$, $\\beta=\\nu'$ を代入すると,"
+        ),
+        "",
+        r"\[",
+        r"2\nu'=\eta_{3}\circ E\eta_{3}\circ\eta_{5}.",
+        r"\]",
+        "",
+        (
+          "ここで $E\\eta_{3}=\\eta_{4}$ なので, "
+          "$\\eta_{3}\\circ E\\eta_{3}\\circ\\eta_{5}$ "
+          "は $\\eta_{3}^{3}$ と書ける. よって,"
+        ),
+        "",
+      )
+    )
+  elif number == 9:
+    lines.extend(
+      (
+        (
+          "次に Lemma 5.2 を $\\alpha=\\eta_{3}$, "
+          "$i=4$, $\\beta=\\nu'$ として適用するための"
+          "仮定を確認する."
+        ),
+        (
+          "$E\\eta_{3}=\\eta_{4}$ であるから, "
+          "Toda bracket に関する仮定は"
+        ),
+        "",
+      )
+    )
+  elif number == 11:
+    lines.extend(
+      (
+        (
+          "(9), (10) により Lemma 5.2 の仮定が満たされる. "
+          "したがって Lemma 5.2 の結論 "
+          "$\\beta\\in\\pi_{i+2}^{3}$ に "
+          "$i=4$, $\\beta=\\nu'$ を代入して,"
+        ),
+        "",
+      )
+    )
+  elif number == 13:
+    lines.extend(
+      (
+        (
+          "同じ Lemma 5.2 の結論 "
+          "$H(\\beta)=E^{2}\\alpha$ に "
+          "$\\alpha=\\eta_{3}$, $\\beta=\\nu'$ を代入すると,"
+        ),
+        "",
+        r"\[",
+        r"H(\nu')=E^{2}\eta_{3}.",
+        r"\]",
+        "",
+        "さらに $E^{2}\\eta_{3}=\\eta_{5}$ なので,",
+        "",
+      )
+    )
+  elif dependency_text:
+    if number == 14:
+      lines.append(
+        dependency_text
+      )
+    else:
+      lines.append(
+        dependency_text
+        + " より,"
+      )
   else:
     reason_lead = (
       _phase136_pi6_3_reason_lead(
@@ -1291,9 +1431,10 @@ def _append_phase134_3_pi6_3_fact(
         lines.extend(
           (
             (
-              "この関係は [R4] を ν′ に特殊化して "
-              "membership, 倍元, Hopf 像を得るための "
-              "premise である."
+              "この $2\\eta_{3}=0$ は, "
+              "Lemma 5.2 を $\\alpha=\\eta_{3}$, "
+              "$i=4$, $\\beta=\\nu'$ として適用するために"
+              "必要な仮定である."
             ),
             "",
           )
@@ -1673,44 +1814,11 @@ def _phase134_30_final_conclusion_lines(
 def _render_phase134_3_pi6_3_narrative_markdown(
   presentation: TodaGroupProofPresentation,
 ) -> str:
-  numbered_steps = (
-    _phase136_2_pi6_3_ordered_numbered_steps(
-      _phase134_3_pi6_3_numbered_steps(
-        presentation
-      )
-    )
-  )
-
   reference_steps = (
     _phase134_5_pi6_3_reference_steps(
       presentation
     )
   )
-
-  number_by_step_id = {
-    id(
-      proof_step
-    ): number
-    for number, proof_step in enumerate(
-      numbered_steps,
-      start=1,
-    )
-  }
-
-  reference_by_step_id = {
-    id(
-      proof_step
-    ): (
-      "R"
-      + str(
-        number
-      )
-    )
-    for number, proof_step in enumerate(
-      reference_steps,
-      start=1,
-    )
-  }
 
   root_latex = (
     _render_group_proof_narrative_latex(
@@ -1734,11 +1842,33 @@ def _render_phase134_3_pi6_3_narrative_markdown(
 
   reference_blocks = tuple(
     (
-      _phase134_5_reference_title(
-        proof_step
+      (
+        "Toda Proposition 5.1"
+        if isinstance(
+          proof_step.conclusion,
+          TodaProp51FiniteDimensionalStatement,
+        )
+        else _phase134_5_reference_title(
+          proof_step
+        )
       ),
-      _phase134_5_reference_statement_lines(
-        proof_step
+      (
+        (
+          r"\[",
+          (
+            r"\pi_{n + 1}^{n} = "
+            r"\mathbb{Z}/2\{\eta_{n}\}"
+            r"\qquad (n \ge 3)."
+          ),
+          r"\]",
+        )
+        if isinstance(
+          proof_step.conclusion,
+          TodaProp51FiniteDimensionalStatement,
+        )
+        else _phase134_5_reference_statement_lines(
+          proof_step
+        )
       ),
     )
     for proof_step in reference_steps
@@ -1757,34 +1887,278 @@ def _render_phase134_3_pi6_3_narrative_markdown(
     )
   )
 
-  first_step = numbered_steps[
-    0
-  ]
-
-  for proof_step in numbered_steps:
-    lead = (
-      _phase134_7_block_lead(
-        presentation,
-        proof_step,
-        first_step,
-      )
+  lines.extend(
+    (
+      (
+        "まず, Lemma 5.2 を "
+        "$\\alpha=\\eta_{3}$, $i=4$, "
+        "$\\beta=\\nu'$ として適用するための仮定を確認する."
+      ),
+      "",
+      "[R2] の $n=3$ の場合より,",
+      "",
+      r"\[",
+      r"2\eta_{3}=0.\tag{1}",
+      r"\]",
+      "",
+      (
+        "したがって Toda bracket "
+        "$\\{\\eta_{3},2\\iota_{4},\\eta_{4}\\}_{1}$ "
+        "が定義できる. [R4] でこの bracket のある元を "
+        "$\\nu'$ と定めたので,"
+      ),
+      "",
+      r"\[",
+      (
+        r"\nu' \in "
+        r"\{\eta_{3},2\iota_{4},\eta_{4}\}_{1}."
+        r"\tag{2}"
+      ),
+      r"\]",
+      "",
+      (
+        "(1), (2) により Lemma 5.2 の仮定が満たされる. "
+        "したがって Lemma 5.2 の結論から,"
+      ),
+      "",
+      r"\[",
+      r"\nu'\in\pi_{6}^{3}.\tag{3}",
+      r"\]",
+      "",
+      (
+        "さらに $H(\\beta)=E^{2}\\alpha$ と "
+        "$E^{2}\\eta_{3}=\\eta_{5}$ から,"
+      ),
+      "",
+      r"\[",
+      r"H(\nu')=\eta_{5}.\tag{4}",
+      r"\]",
+      "",
+      (
+        "また $2\\beta="
+        "\\eta_{3}\\circ E\\alpha\\circ\\eta_{i+1}$ と "
+        "$E\\eta_{3}=\\eta_{4}$ から,"
+      ),
+      "",
+      r"\[",
+      (
+        r"2\nu'="
+        r"\eta_{3}\circ E\eta_{3}\circ\eta_{5}"
+        r"=\eta_{3}^{3}."
+        r"\tag{5}"
+      ),
+      r"\]",
+      "",
+      "[R3] の $n=3$ の場合より,",
+      "",
+      r"\[",
+      (
+        r"\pi_{5}^{3}="
+        r"\mathbb{Z}/2\{\eta_{3}^{2}\}."
+        r"\tag{6}"
+      ),
+      r"\]",
+      "",
+      "(6), [R1] より,",
+      "",
+      r"\[",
+      (
+        r"\pi_{5}^{2}="
+        r"\mathbb{Z}/2\{\eta_{2}^{3}\}."
+        r"\tag{7}"
+      ),
+      r"\]",
+      "",
+      (
+        "$\\nu'$ の位数を決定するために, "
+        "次の EHP 完全列を考える."
+      ),
+      "",
+      r"\[",
+      (
+        r"\pi_{7}^{3}"
+        r"\xrightarrow{H}"
+        r"\pi_{7}^{5}"
+        r"\xrightarrow{\Delta}"
+        r"\pi_{5}^{2}"
+        r"\xrightarrow{E}"
+        r"\pi_{6}^{3}"
+        r"\xrightarrow{H}"
+        r"\pi_{6}^{5}"
+        r"\quad\text{は完全である.}"
+        r"\tag{8}"
+      ),
+      r"\]",
+      "",
+      (
+        "[R2] の $n=6$ の場合より "
+        "$\\eta_{6}\\in\\pi_{7}^{6}$ であり, "
+        "(3) と合成して,"
+      ),
+      "",
+      r"\[",
+      r"\nu'\eta_{6}\in\pi_{7}^{3}.\tag{9}",
+      r"\]",
+      "",
+      (
+        "また η-family の suspension relation "
+        "$\\eta_{6}=E\\eta_{5}$ を用いる. "
+        "[R5] の Toda Proposition 2.2 に "
+        "$\\alpha=\\nu'$, $\\beta=\\eta_{5}$ "
+        "を代入すると,"
+      ),
+      "",
+      r"\[",
+      (
+        r"H(\nu'\eta_{6})"
+        r"=H(\nu'\circ E\eta_{5})"
+        r"=H(\nu')\circ E\eta_{5}"
+        r"=\eta_{5}\eta_{6}"
+        r"=\eta_{5}^{2}."
+        r"\tag{10}"
+      ),
+      r"\]",
+      "",
+      "[R3] の $n=5$ の場合より,",
+      "",
+      r"\[",
+      (
+        r"\pi_{7}^{5}="
+        r"\mathbb{Z}/2\{\eta_{5}^{2}\}."
+        r"\tag{11}"
+      ),
+      r"\]",
+      "",
+      (
+        "(9), (10), (11) より, "
+        "$H:\\pi_{7}^{3}\\to\\pi_{7}^{5}$ は"
+        "生成元 $\\eta_{5}^{2}$ を像に持つ. "
+        "したがって,"
+      ),
+      "",
+      r"\[",
+      (
+        r"H:\pi_{7}^{3}\to\pi_{7}^{5}"
+        r"\quad\text{は全射である.}"
+        r"\tag{12}"
+      ),
+      r"\]",
+      "",
+      (
+        "(8), (12) の完全性より "
+        "$\\operatorname{Im}H=\\ker\\Delta"
+        "=\\pi_{7}^{5}$ である. よって,"
+      ),
+      "",
+      r"\[",
+      (
+        r"\Delta:\pi_{7}^{5}\to\pi_{5}^{2}"
+        r"\quad\text{は零写像である.}"
+        r"\tag{13}"
+      ),
+      r"\]",
+      "",
+      (
+        "さらに (8), (13) より "
+        "$\\operatorname{Im}\\Delta=\\ker E=0$ "
+        "なので,"
+      ),
+      "",
+      r"\[",
+      (
+        r"E:\pi_{5}^{2}\to\pi_{6}^{3}"
+        r"\quad\text{は単射である.}"
+        r"\tag{14}"
+      ),
+      r"\]",
+      "",
+      (
+        "(7), (14) と η-family の suspension "
+        "relation $E(\\eta_{2}^{3})="
+        "\\eta_{3}^{3}$ より,"
+      ),
+      "",
+      r"\[",
+      (
+        r"\eta_{3}^{3}"
+        r"\text{ の位数は }2"
+        r"\text{ である.}"
+        r"\tag{15}"
+      ),
+      r"\]",
+      "",
+      "(5), (15) より,",
+      "",
+      r"\[",
+      (
+        r"\nu'"
+        r"\text{ の位数は }4"
+        r"\text{ である.}"
+        r"\tag{16}"
+      ),
+      r"\]",
+      "",
+      "最後に, $\\pi_{6}^{3}$ の群構造を決定する.",
+      "",
+      "[R2] の $n=5$ の場合より,",
+      "",
+      r"\[",
+      (
+        r"\pi_{6}^{5}="
+        r"\mathbb{Z}/2\{\eta_{5}\}."
+        r"\tag{17}"
+      ),
+      r"\]",
+      "",
+      "(4), (17) より,",
+      "",
+      r"\[",
+      (
+        r"H:\pi_{6}^{3}\to\pi_{6}^{5}"
+        r"\quad\text{は全射である.}"
+        r"\tag{18}"
+      ),
+      r"\]",
+      "",
+      (
+        "(8), (14), (18) より, "
+        "$E$ は単射, $H$ は全射なので, "
+        "次の短完全列を得る."
+      ),
+      "",
+      r"\[",
+      (
+        r"0\longrightarrow\pi_{5}^{2}"
+        r"\xrightarrow{E}"
+        r"\pi_{6}^{3}"
+        r"\xrightarrow{H}"
+        r"\pi_{6}^{5}"
+        r"\longrightarrow 0."
+        r"\tag{19}"
+      ),
+      r"\]",
+      "",
+      (
+        "(7), (17), (19) より $\\pi_{6}^{3}$ の位数は 4 "
+        "である. 一方, (3), (16) より "
+        "$\\nu'\\in\\pi_{6}^{3}$ は位数 4 の元なので, "
+        "$\\nu'$ が群全体を生成する."
+      ),
+      "",
+      "以上により,",
+      "",
+      r"\[",
+      (
+        r"\pi_{6}^{3}="
+        r"\mathbb{Z}/4\{\nu'\}"
+        r"\tag{20}"
+      ),
+      r"\]",
+      "",
+      "を得る.",
+      "",
     )
-
-    if lead is not None:
-      lines.extend(
-        (
-          lead,
-          "",
-        )
-      )
-
-    _append_phase134_3_pi6_3_fact(
-      lines,
-      presentation,
-      proof_step,
-      number_by_step_id,
-      reference_by_step_id,
-    )
+  )
 
   return (
     "\n".join(
