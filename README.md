@@ -26,6 +26,7 @@ The current system provides:
 - a Flask Web UI for group queries, group-result proof replay, operation queries, operation proof replay, generator proof replay, direct generator exploration, recursive generator proof-scope exploration, applicability exploration, and qualified generator execution,
 - explicit candidate selection when an execution request is ambiguous,
 - browser-side KaTeX rendering of existing LaTeX output,
+- KaTeX rendering for the static Group query quantity \(\pi_{n+k}^{n}\), with input syntax examples kept as plain text,
 - Web group-proof display with selectable depth 0, 1, or 2 and Trace / Outline / Narrative modes,
 - safe rule-name or type-name fallback when no explicit mathematical or presentation label is available,
 - workflow navigation that groups the single-page Web forms by calculation/query, proof/exploration, and applicability/execution.
@@ -34,94 +35,94 @@ The current system provides:
 
 The project quantity
 
-\[
+$$
 \pi_{n+k}^n
-\]
+$$
 
 means the free part plus the 2-primary component represented by this project.
 
 Representative finite-dimensional results include
 
-\[
+$$
 \pi_5^2=\mathbb Z/2\{\eta_2^3\},
 \qquad
 \pi_6^3=\mathbb Z/4\{\nu'\},
-\]
+$$
 
-\[
+$$
 \pi_7^4=
 \mathbb Z\{\nu_4\}
 \oplus
 \mathbb Z/4\{E\nu'\},
-\]
+$$
 
-\[
+$$
 \pi_9^5=\mathbb Z/2\{\nu_5\eta_8\},
 \qquad
 \pi_{10}^4=\mathbb Z/8\{\nu_4^2\},
-\]
+$$
 
-\[
+$$
 \pi_{11}^5=\mathbb Z/2\{\nu_5^2\},
 \qquad
 \pi_9^2=0.
-\]
+$$
 
 Toda Proposition 5.15 coverage includes
 
-\[
+$$
 \pi_{12}^5=\mathbb Z/2\{\sigma'''\},
 \qquad
 \pi_{13}^6=\mathbb Z/4\{\sigma''\},
 \qquad
 \pi_{14}^7=\mathbb Z/8\{\sigma'\},
-\]
+$$
 
-\[
+$$
 \pi_{15}^8=
 \mathbb Z\{\sigma_8\}
 \oplus
 \mathbb Z/8\{E\sigma'\},
-\]
+$$
 
-\[
+$$
 \pi_{16}^9=
 \mathbb Z/16\{\sigma_9\},
-\]
+$$
 
 and
 
-\[
+$$
 \pi_{n+7}^n=
 \mathbb Z/16\{\sigma_n\},
 \qquad n\ge 9.
-\]
+$$
 
 For concrete indexed \(\sigma_n\) with \(n\ge 10\), the existing symbolic Proposition 5.15 proof is specialized without creating a new independent theorem root. The boundary case \(n=9\) reuses the existing concrete \(\pi_{16}^9\) proof from Proposition 5.15 ancestry.
 
 The consolidated stable 2-primary stem data is
 
-\[
+$$
 G_0=\mathbb Z\{\iota\},
 \quad
 (G_1;2)=\mathbb Z/2\{\eta\},
 \quad
 (G_2;2)=\mathbb Z/2\{\eta^2\},
-\]
+$$
 
-\[
+$$
 (G_3;2)=\mathbb Z/8\{\nu\},
 \quad
 (G_4;2)=0,
 \quad
 (G_5;2)=0,
-\]
+$$
 
-\[
+$$
 (G_6;2)=\mathbb Z/2\{\nu^2\},
 \quad
 (G_7;2)=\mathbb Z/16\{\sigma\}.
-\]
+$$
 
 ## Standard group-query semantics
 
@@ -150,43 +151,43 @@ while the stem \(k\) may be negative.
 
 Phase 130 established the following foundational semantics:
 
-\[
+$$
 k=0
 \quad\Longrightarrow\quad
 \pi_n^n\cong\mathbb Z\{\iota_n\}.
-\]
+$$
 
 For the circle,
 
-\[
+$$
 n=1,\quad k\ge1
 \quad\Longrightarrow\quad
 \pi_{1+k}^1=0,
-\]
+$$
 
 using the existing symbolic Phase 56 result.
 
 For a positive target dimension strictly below the sphere dimension,
 
-\[
+$$
 1\le n+k<n
 \quad\Longrightarrow\quad
 \pi_{n+k}^n=0.
-\]
+$$
 
 When
 
-\[
+$$
 n+k=0,
-\]
+$$
 
 the CLI/Web path returns boundary information: \(S^n\) is path-connected and \(\pi_0(S^n)\) has one path component. This is not normalized as an ordinary group result.
 
 When
 
-\[
+$$
 n+k<0,
-\]
+$$
 
 the query is reported as outside the classical unstable homotopy-group domain handled by this project.
 
@@ -206,38 +207,38 @@ Phase 130 connected or specialized existing theorem-backed results so that stand
 
 Representative stable/symbolic families include:
 
-\[
+$$
 \pi_{n+1}^n=\mathbb Z/2\{\eta_n\},
-\]
+$$
 
-\[
+$$
 \pi_{n+2}^n=\mathbb Z/2\{\eta_n\eta_{n+1}\},
-\]
+$$
 
-\[
+$$
 \pi_{n+3}^n=\mathbb Z/8\{\nu_n\},
-\]
+$$
 
-\[
+$$
 \pi_{n+4}^n=0
 \qquad (n\ge6),
-\]
+$$
 
-\[
+$$
 \pi_{n+5}^n=0
 \qquad (n\ge7),
-\]
+$$
 
-\[
+$$
 \pi_{n+6}^n=\mathbb Z/2\{\nu_n^2\},
-\]
+$$
 
 and
 
-\[
+$$
 \pi_{n+7}^n=\mathbb Z/16\{\sigma_n\}
 \qquad (n\ge9).
-\]
+$$
 
 Concrete low-dimensional branches are preserved and preferred where the literature proof already supplies them.
 
@@ -341,25 +342,25 @@ The default mode is `trace`, preserving Phase 131 behavior.
 
 Representative behavior:
 
-\[
+$$
 \pi_{16}^{9}\cong\mathbb Z/16\{\sigma_9\}
-\]
+$$
 
 replays from the existing Toda Proposition 5.15 `ProofStep`.
 
 The zero group
 
-\[
+$$
 \pi_9^2=0
-\]
+$$
 
 can also be replayed because replay begins from the group result rather than from a generator.
 
 The foundational connectivity result
 
-\[
+$$
 \pi_{10}^{11}=0
-\]
+$$
 
 is also replayable because Phase 130 represents it as a repository-backed `TodaGroupResult` with theorem metadata `Sphere connectivity`, Phase 130.
 
@@ -422,35 +423,35 @@ Operation query remains lookup-first.
 
 Representative results include
 
-\[
+$$
 H(\nu')=\eta_5,
-\]
+$$
 
-\[
+$$
 \Delta(\iota_9)=\pm(2\nu_4-E\nu'),
-\]
+$$
 
-\[
+$$
 E(\eta_2\nu')=0,
-\]
+$$
 
-\[
+$$
 E(\nu_5)=\nu_6,
-\]
+$$
 
-\[
+$$
 E(\sigma_{11})=\sigma_{12},
-\]
+$$
 
-\[
+$$
 E(\nu_5\eta_8)=0,
-\]
+$$
 
 and
 
-\[
+$$
 E\nu' \in \pi_7^4.
-\]
+$$
 
 The `E(nu_prime)` result is deliberately a membership result, not a synthetic equality \(E(\nu')=E\nu'\).
 
@@ -515,35 +516,35 @@ Phase 135 audited the Web Narrative path and preserved browser-side KaTeX for bo
 
 Phase 136 refined the representative proof
 
-\[
+$$
 \pi_6^3=\mathbb Z/4\{\nu'\}.
-\]
+$$
 
 The final Narrative now presents the argument in mathematical order:
 
-\[
+$$
 2\eta_3=0
-\]
+$$
 
 is checked before defining the Toda bracket
 
-\[
+$$
 \{\eta_3,2\iota_4,\eta_4\}_1,
-\]
+$$
 
 and \(\nu'\) is explicitly chosen as an element of that bracket. Toda Lemma 5.2 then gives
 
-\[
+$$
 \nu'\in\pi_6^3,
 \qquad
 H(\nu')=\eta_5,
 \qquad
 2\nu'=\eta_3^3.
-\]
+$$
 
 Toda Proposition 2.2 is used explicitly in
 
-\[
+$$
 H(\nu'\eta_6)
 =
 H(\nu'\circ E\eta_5)
@@ -551,11 +552,11 @@ H(\nu'\circ E\eta_5)
 H(\nu')\circ E\eta_5
 =
 \eta_5^2.
-\]
+$$
 
 The EHP exact sequence is shown as
 
-\[
+$$
 \pi_7^3
 \xrightarrow{H}
 \pi_7^5
@@ -565,11 +566,11 @@ The EHP exact sequence is shown as
 \pi_6^3
 \xrightarrow{H}
 \pi_6^5,
-\]
+$$
 
 and the final group-structure step uses the short exact sequence
 
-\[
+$$
 0
 \longrightarrow
 \pi_5^2
@@ -579,7 +580,7 @@ and the final group-structure step uses the short exact sequence
 \pi_6^5
 \longrightarrow
 0.
-\]
+$$
 
 The final Phase 136-2 repository-wide regression is:
 
@@ -587,7 +588,34 @@ The final Phase 136-2 repository-wide regression is:
 9517 passed in 575.31s (0:09:35)
 ```
 
-The next concrete presentation pressure found during the Phase 136-2 closure audit is Web static mathematical text that still bypasses KaTeX. In particular, the Group query description still contains the literal text `pi_(n+k)^n`. This should be handled as a Web presentation cleanup without changing mathematical semantics or the query syntax examples.
+## Phase 137 Web presentation cleanup
+
+Phase 137 keeps mathematical semantics, proof provenance, query parsing, and execution behavior unchanged. It cleans up presentation-only issues found in the Phase 136-2 Web audit.
+
+The static Group query description now sends
+
+$$
+\pi_{n+k}^{n}
+$$
+
+through the existing `data-latex` / KaTeX path instead of showing the literal text `pi_(n+k)^n`.
+
+The phase also restores the intended em-dash separators in Web provenance and compact applicability summaries, removing the mojibake marker `窶・` from `templates/index.html`.
+
+Operation and generator examples such as `H(nu_prime)`, `E(nu_5)`, and `sigma_11` remain plain input syntax and are deliberately not converted to TeX.
+
+Phase 137 focused regression so far:
+
+```text
+Phase 137-2: 3 passed in 6.96s
+Phase 137-3 Web related regression: 56 passed in 20.23s
+```
+
+Phase 137-4 manual Web verification confirmed the KaTeX display, plain-text input syntax, restored separators, and the absence of visible `窶・` mojibake.
+
+Phase 137-5 also standardizes display-math delimiters in the main project documentation to GitHub-friendly `$$ ... $$` blocks. This is documentation presentation only; mathematical content is unchanged.
+
+The repository-wide Phase 137 final regression is intentionally left for the Phase-final step after documentation is updated.
 
 ## Current boundaries
 
