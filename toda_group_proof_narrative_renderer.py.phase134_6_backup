@@ -1,6 +1,3 @@
-from barratt_hilton_rules import (
-  HomotopyGroupMembershipStatement,
-)
 from proof import (
   ProofStep,
   Relation,
@@ -604,55 +601,6 @@ def _phase134_3_pi6_3_numbered_steps(
     )
   )
 
-def _phase134_6_boundary_fact_latex(
-  statement,
-) -> tuple[
-  str | None,
-  str | None,
-]:
-  if isinstance(
-    statement,
-    TodaDeltaZeroStatement,
-  ):
-    group_map = statement.map
-
-    latex = (
-      r"\Delta: "
-      + render_toda_primary_group_latex(
-        group_map.source_group
-      )
-      + r" \to "
-      + render_toda_primary_group_latex(
-        group_map.target_group
-      )
-    )
-
-    return (
-      latex,
-      "は零写像である.",
-    )
-
-  if isinstance(
-    statement,
-    Toda53NuPrimeBracketSpecializationStatement,
-  ):
-    latex = (
-      render_repository_conclusion_latex(
-        statement.bracket_membership
-      )
-    )
-
-    return (
-      latex,
-      None,
-    )
-
-  return (
-    None,
-    None,
-  )
-
-
 def _phase134_3_reference_text(
   premise_numbers: tuple[
     int,
@@ -722,45 +670,13 @@ def _append_phase134_3_pi6_3_fact(
 
   if proof_step is presentation.root_step:
     lines.append(
-      "したがって,"
+      "以上から,"
     )
   elif dependency_text:
     lines.append(
       dependency_text
       + " より,"
     )
-
-  boundary_latex, boundary_sentence = (
-    _phase134_6_boundary_fact_latex(
-      statement
-    )
-  )
-
-  if boundary_latex is not None:
-    lines.extend(
-      (
-        "",
-        r"\[",
-        boundary_latex
-        + r"\tag{"
-        + str(
-          number
-        )
-        + "}",
-        r"\]",
-        "",
-      )
-    )
-
-    if boundary_sentence is not None:
-      lines.extend(
-        (
-          boundary_sentence,
-          "",
-        )
-      )
-
-    return
 
   if isinstance(
     statement,
@@ -927,22 +843,13 @@ def _append_phase134_3_pi6_3_fact(
       )
       return
 
-    if isinstance(
-      statement,
-      HomotopyGroupMembershipStatement,
-    ):
-      return
-
     if (
       isinstance(
         statement,
         Relation,
       )
       and statement.relation_type
-      in (
-        RelationType.EQUALITY,
-        RelationType.ZERO,
-      )
+      is RelationType.EQUALITY
     ):
       return
 
@@ -998,51 +905,6 @@ def _append_phase134_3_pi6_3_fact(
       "",
     )
   )
-
-def _phase134_7_block_lead(
-  presentation: TodaGroupProofPresentation,
-  proof_step: ProofStep,
-  first_step: ProofStep,
-) -> str | None:
-  if proof_step is first_step:
-    return (
-      "まず, $\\nu'$ の位数を求める."
-    )
-
-  statement = proof_step.conclusion
-
-  if isinstance(
-    statement,
-    Toda53NuPrimeBracketSpecializationStatement,
-  ):
-    return (
-      "次に, $\\nu' \\in \\pi_{6}^{3}$ "
-      "であることを確認する."
-    )
-
-  if isinstance(
-    statement,
-    TodaProp42ExactnessStatement,
-  ):
-    root_statement = (
-      presentation.root_step.conclusion
-    )
-
-    if (
-      isinstance(
-        root_statement,
-        Relation,
-      )
-      and statement.window.middle_term
-      == root_statement.lhs
-    ):
-      return (
-        "最後に, EHP 完全列を用いて "
-        "$\\pi_{6}^{3}$ の群構造を決定する."
-      )
-
-  return None
-
 
 def _render_phase134_3_pi6_3_narrative_markdown(
   presentation: TodaGroupProofPresentation,
@@ -1154,27 +1016,7 @@ def _render_phase134_3_pi6_3_narrative_markdown(
     )
   )
 
-  first_step = numbered_steps[
-    0
-  ]
-
   for proof_step in numbered_steps:
-    lead = (
-      _phase134_7_block_lead(
-        presentation,
-        proof_step,
-        first_step,
-      )
-    )
-
-    if lead is not None:
-      lines.extend(
-        (
-          lead,
-          "",
-        )
-      )
-
     _append_phase134_3_pi6_3_fact(
       lines,
       presentation,

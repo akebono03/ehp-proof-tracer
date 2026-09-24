@@ -60,7 +60,7 @@ def test_phase134_3_pi6_3_uses_numbered_facts(
   assert r"\tag{" in rendered
   assert "## 証明" in rendered
   assert " より," in rendered
-  assert "したがって," in rendered
+  assert "以上から," in rendered
 
 
 def test_phase134_3_pi6_3_map_properties_use_japanese_prose(

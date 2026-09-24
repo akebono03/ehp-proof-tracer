@@ -722,7 +722,7 @@ def _append_phase134_3_pi6_3_fact(
 
   if proof_step is presentation.root_step:
     lines.append(
-      "したがって,"
+      "以上から,"
     )
   elif dependency_text:
     lines.append(
@@ -999,51 +999,6 @@ def _append_phase134_3_pi6_3_fact(
     )
   )
 
-def _phase134_7_block_lead(
-  presentation: TodaGroupProofPresentation,
-  proof_step: ProofStep,
-  first_step: ProofStep,
-) -> str | None:
-  if proof_step is first_step:
-    return (
-      "まず, $\\nu'$ の位数を求める."
-    )
-
-  statement = proof_step.conclusion
-
-  if isinstance(
-    statement,
-    Toda53NuPrimeBracketSpecializationStatement,
-  ):
-    return (
-      "次に, $\\nu' \\in \\pi_{6}^{3}$ "
-      "であることを確認する."
-    )
-
-  if isinstance(
-    statement,
-    TodaProp42ExactnessStatement,
-  ):
-    root_statement = (
-      presentation.root_step.conclusion
-    )
-
-    if (
-      isinstance(
-        root_statement,
-        Relation,
-      )
-      and statement.window.middle_term
-      == root_statement.lhs
-    ):
-      return (
-        "最後に, EHP 完全列を用いて "
-        "$\\pi_{6}^{3}$ の群構造を決定する."
-      )
-
-  return None
-
-
 def _render_phase134_3_pi6_3_narrative_markdown(
   presentation: TodaGroupProofPresentation,
 ) -> str:
@@ -1154,27 +1109,7 @@ def _render_phase134_3_pi6_3_narrative_markdown(
     )
   )
 
-  first_step = numbered_steps[
-    0
-  ]
-
   for proof_step in numbered_steps:
-    lead = (
-      _phase134_7_block_lead(
-        presentation,
-        proof_step,
-        first_step,
-      )
-    )
-
-    if lead is not None:
-      lines.extend(
-        (
-          lead,
-          "",
-        )
-      )
-
     _append_phase134_3_pi6_3_fact(
       lines,
       presentation,

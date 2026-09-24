@@ -86,7 +86,7 @@ def test_phase134_5_keeps_final_group_conclusion(
     capsys
   )
 
-  assert "したがって," in rendered
+  assert "以上から," in rendered
 
   assert (
     r"\pi_{6}^{3} = "

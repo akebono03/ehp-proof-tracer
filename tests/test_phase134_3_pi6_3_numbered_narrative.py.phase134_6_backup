@@ -60,7 +60,7 @@ def test_phase134_3_pi6_3_uses_numbered_facts(
   assert r"\tag{" in rendered
   assert "## 証明" in rendered
   assert " より," in rendered
-  assert "したがって," in rendered
+  assert "以上から," in rendered
 
 
 def test_phase134_3_pi6_3_map_properties_use_japanese_prose(
@@ -125,15 +125,12 @@ def test_phase134_3_pi6_3_preserves_phase133_readable_labels(
     )
   )
 
-  expected_fragments = (
+  expected_labels = (
     "Toda (5.2) の η₂ 合成同型",
+    "Δ 写像が零写像であること",
     (
-      r"\Delta: \pi_{7}^{5} "
-      r"\to \pi_{5}^{2}"
-    ),
-    (
-      r"\nu' \in "
-      r"\{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}"
+      "ν′ に対する Lemma 5.2 "
+      "の Toda bracket 特殊化"
     ),
     (
       "Toda Proposition 5.1 "
@@ -141,8 +138,8 @@ def test_phase134_3_pi6_3_preserves_phase133_readable_labels(
     ),
   )
 
-  for fragment in expected_fragments:
-    assert fragment in rendered
+  for label in expected_labels:
+    assert label in rendered
 
 
 def test_phase134_3_pi6_3_does_not_expose_internal_rule_names(
