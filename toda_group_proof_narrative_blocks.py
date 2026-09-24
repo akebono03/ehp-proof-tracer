@@ -6,6 +6,7 @@ from barratt_hilton_rules import (
 )
 from homotopy_groups import (
   TodaPrimaryGroup,
+  TodaPrimaryGroupZeroStatement,
 )
 from proof import (
   ProofStep,
@@ -14,6 +15,7 @@ from proof import (
 )
 from toda_group_proof_narrative_catalog import (
   DEFINITION_STATEMENT_TYPES,
+  REFERENCE_STATEMENT_TYPES,
 )
 from toda_group_proof_narrative_semantics import (
   TodaGroupProofNarrativePremiseSemanticRole,
@@ -24,6 +26,7 @@ from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
 )
 from toda_rules import (
+  TodaDeltaImageUpToSignStatement,
   TodaDeltaInjectiveStatement,
   TodaDeltaZeroStatement,
   TodaHopfInvariantInjectiveStatement,
@@ -295,6 +298,30 @@ def recognize_toda_group_proof_narrative_step_role(
     return semantic_role
 
   statement = proof_step.conclusion
+
+  if isinstance(
+    statement,
+    REFERENCE_STATEMENT_TYPES,
+  ):
+    return (
+      TodaGroupProofNarrativeMathematicalBlockRole.REFERENCE
+    )
+
+  if isinstance(
+    statement,
+    TodaPrimaryGroupZeroStatement,
+  ):
+    return (
+      TodaGroupProofNarrativeMathematicalBlockRole.GROUP_STRUCTURE
+    )
+
+  if isinstance(
+    statement,
+    TodaDeltaImageUpToSignStatement,
+  ):
+    return (
+      TodaGroupProofNarrativeMathematicalBlockRole.MAP_PROPERTY
+    )
 
   if isinstance(
     statement,

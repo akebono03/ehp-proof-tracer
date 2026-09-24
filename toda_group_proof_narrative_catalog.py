@@ -1,11 +1,13 @@
 from toda_rules import (
   Toda52CompositionIsomorphismStatement,
+  Toda53NuPrimeBracketSpecializationStatement,
   Toda55NuFamilyFiniteDimensionalStatement,
   Toda56Nu4DecompositionStatement,
   TodaNuFamilyDefinitionStatement,
+  TodaProp44IsomorphismStatement,
+  TodaProp44SecondSummandRestrictionStatement,
   TodaProp51FiniteDimensionalStatement,
   TodaSigmaFamilyDefinitionStatement,
-  TodaProp44IsomorphismStatement,
 )
 
 
@@ -17,10 +19,17 @@ DEFINITION_STATEMENT_TYPES = (
 
 REFERENCE_CANDIDATE_STATEMENT_TYPES = (
   Toda52CompositionIsomorphismStatement,
+  Toda53NuPrimeBracketSpecializationStatement,
+  TodaProp44IsomorphismStatement,
+  TodaProp44SecondSummandRestrictionStatement,
   TodaProp51FiniteDimensionalStatement,
   Toda55NuFamilyFiniteDimensionalStatement,
   Toda56Nu4DecompositionStatement,
-  TodaProp44IsomorphismStatement,
+)
+
+
+REFERENCE_STATEMENT_TYPES = (
+  REFERENCE_CANDIDATE_STATEMENT_TYPES
 )
 
 
