@@ -498,6 +498,7 @@ def _phase134_5_reference_statement_lines(
       + render_toda_primary_group_latex(
         statement.target_group
       )
+      + "."
     )
 
     return (
@@ -516,6 +517,7 @@ def _phase134_5_reference_statement_lines(
       render_repository_conclusion_latex(
         statement.higher_eta_group_relation
       )
+      + r"\qquad (n \ge 3)."
     )
 
     return (
@@ -529,7 +531,6 @@ def _phase134_5_reference_statement_lines(
   raise ValueError(
     "unsupported Phase 134-5 reference step"
   )
-
 
 def _phase134_5_dependency_text(
   presentation: TodaGroupProofPresentation,
@@ -804,6 +805,78 @@ def _strip_phase134_3_latex_suffix(
   return latex
 
 
+def _phase136_compact_eta_powers(
+  latex: str,
+) -> str:
+  if not isinstance(
+    latex,
+    str,
+  ):
+    raise TypeError(
+      "latex must be a str"
+    )
+
+  replacements = (
+    (
+      r"\eta_{2}\eta_{3}\eta_{4}",
+      r"\eta_{2}^{3}",
+    ),
+    (
+      r"\eta_{3}\eta_{4}\eta_{5}",
+      r"\eta_{3}^{3}",
+    ),
+    (
+      r"\eta_{2}\eta_{3}",
+      r"\eta_{2}^{2}",
+    ),
+    (
+      r"\eta_{3}\eta_{4}",
+      r"\eta_{3}^{2}",
+    ),
+  )
+
+  rendered = latex
+
+  for old, new in replacements:
+    rendered = rendered.replace(
+      old,
+      new,
+    )
+
+  return rendered
+
+
+def _phase136_pi6_3_reason_lead(
+  number: int,
+) -> str | None:
+  if not isinstance(
+    number,
+    int,
+  ):
+    raise TypeError(
+      "number must be an int"
+    )
+
+  reasons = {
+    1: "Toda Proposition 5.3 より,",
+    3: (
+      "EHP 完全列と Toda Proposition 5.3 より,"
+    ),
+    4: "EHP 完全列より,",
+    9: (
+      "Toda Lemma 5.2 の "
+      "ν′ に対する特殊化より,"
+    ),
+    10: "[R2] より,",
+    12: "EHP 完全列より,",
+    13: "Toda Proposition 5.3 より,",
+  }
+
+  return reasons.get(
+    number
+  )
+
+
 def _append_phase134_3_pi6_3_fact(
   lines: list[str],
   presentation: TodaGroupProofPresentation,
@@ -843,6 +916,17 @@ def _append_phase134_3_pi6_3_fact(
       dependency_text
       + " より,"
     )
+  else:
+    reason_lead = (
+      _phase136_pi6_3_reason_lead(
+        number
+      )
+    )
+
+    if reason_lead is not None:
+      lines.append(
+        reason_lead
+      )
 
   boundary_latex, boundary_sentence = (
     _phase134_6_boundary_fact_latex(
@@ -851,29 +935,31 @@ def _append_phase134_3_pi6_3_fact(
   )
 
   if boundary_latex is not None:
-    lines.extend(
-      (
-        "",
-        r"\[",
+    rendered_latex = (
+      _phase136_compact_eta_powers(
         boundary_latex
-        + r"\tag{"
-        + str(
-          number
-        )
-        + "}",
-        r"\]",
-        "",
       )
     )
 
     if boundary_sentence is not None:
-      lines.extend(
-        (
-          boundary_sentence,
-          "",
-        )
+      rendered_latex = (
+        rendered_latex
+        + r"\quad\text{"
+        + boundary_sentence
+        + "}"
+      )
+    else:
+      rendered_latex = (
+        rendered_latex
+        + "."
       )
 
+    lines.extend(
+      _phase134_30_display_math_lines(
+        rendered_latex,
+        number,
+      )
+    )
     return
 
   if isinstance(
@@ -891,19 +977,14 @@ def _append_phase134_3_pi6_3_fact(
 
     if latex is not None:
       lines.extend(
-        (
-          "",
-          r"\[",
-          latex
-          + r"\tag{"
-          + str(
-            number
-          )
-          + "}",
-          r"\]",
-          "",
-          "は完全である.",
-          "",
+        _phase134_30_display_math_lines(
+          (
+            _phase136_compact_eta_powers(
+              latex
+            )
+            + r"\quad\text{は完全である.}"
+          ),
+          number,
         )
       )
       return
@@ -923,19 +1004,14 @@ def _append_phase134_3_pi6_3_fact(
 
     if latex is not None:
       lines.extend(
-        (
-          "",
-          r"\[",
-          latex
-          + r"\tag{"
-          + str(
-            number
-          )
-          + "}",
-          r"\]",
-          "",
-          "は単射である.",
-          "",
+        _phase134_30_display_math_lines(
+          (
+            _phase136_compact_eta_powers(
+              latex
+            )
+            + r"\quad\text{は単射である.}"
+          ),
+          number,
         )
       )
       return
@@ -955,19 +1031,14 @@ def _append_phase134_3_pi6_3_fact(
 
     if latex is not None:
       lines.extend(
-        (
-          "",
-          r"\[",
-          latex
-          + r"\tag{"
-          + str(
-            number
-          )
-          + "}",
-          r"\]",
-          "",
-          "は全射である.",
-          "",
+        _phase134_30_display_math_lines(
+          (
+            _phase136_compact_eta_powers(
+              latex
+            )
+            + r"\quad\text{は全射である.}"
+          ),
+          number,
         )
       )
       return
@@ -981,31 +1052,24 @@ def _append_phase134_3_pi6_3_fact(
     is RelationType.ORDER
   ):
     lhs_latex = (
-      render_toda_expression_latex(
-        statement.lhs
+      _phase136_compact_eta_powers(
+        render_toda_expression_latex(
+          statement.lhs
+        )
       )
     )
 
     lines.extend(
-      (
+      _phase134_30_display_math_lines(
         (
-          "**("
-          + str(
-            number
-          )
-          + ")** "
-          + "$"
-          + lhs_latex
-          + "$"
-          + " の位数は "
-          + "$"
+          lhs_latex
+          + r"\text{ の位数は }"
           + str(
             statement.rhs
           )
-          + "$"
-          + " である."
+          + r"\text{ である.}"
         ),
-        "",
+        number,
       )
     )
     return
@@ -1017,22 +1081,19 @@ def _append_phase134_3_pi6_3_fact(
   )
 
   if latex is not None:
-    lines.extend(
-      (
-        "",
-        r"\[",
+    rendered_latex = (
+      _phase136_compact_eta_powers(
         latex
-        + r"\tag{"
-        + str(
-          number
-        )
-        + "}",
-        r"\]",
-        "",
       )
     )
 
     if proof_step is presentation.root_step:
+      lines.extend(
+        _phase134_30_display_math_lines(
+          rendered_latex,
+          number,
+        )
+      )
       lines.extend(
         (
           "を得る.",
@@ -1045,6 +1106,12 @@ def _append_phase134_3_pi6_3_fact(
       statement,
       HomotopyGroupMembershipStatement,
     ):
+      lines.extend(
+        _phase134_30_display_math_lines(
+          rendered_latex + ".",
+          number,
+        )
+      )
       return
 
     if (
@@ -1058,12 +1125,21 @@ def _append_phase134_3_pi6_3_fact(
         RelationType.ZERO,
       )
     ):
+      lines.extend(
+        _phase134_30_display_math_lines(
+          rendered_latex + ".",
+          number,
+        )
+      )
       return
 
     lines.extend(
-      (
-        "が成り立つ.",
-        "",
+      _phase134_30_display_math_lines(
+        (
+          rendered_latex
+          + r"\quad\text{が成り立つ.}"
+        ),
+        number,
       )
     )
     return

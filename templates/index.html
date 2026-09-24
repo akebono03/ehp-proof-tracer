@@ -19,6 +19,10 @@
     integrity="sha384-+7Keh381hSkXmXqnjC0JBM/kzsN6TFj+wMKychSLjTvJ8/0ElMde2uKl8i6p6Buj"
     crossorigin="anonymous"
   ></script>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='web_style.css') }}"
+  >
   <script
     defer
     src="{{ url_for('static', filename='web_math.js') }}"
@@ -574,7 +578,7 @@
           {% if group_proof_view.theorem %}
             {{ group_proof_view.theorem }}
             {% if group_proof_view.phase %}
-              — Phase {{ group_proof_view.phase }}
+              窶・Phase {{ group_proof_view.phase }}
             {% endif %}
           {% else %}
             {{ group_proof_view.key }}
@@ -633,20 +637,23 @@
                   class="group-proof-rendered-line"
                   style="margin-left: {{ line.indent_level * 2 }}em;"
                 >
-                  {% if line.prefix %}
-                    <span>{{ line.prefix }}</span>
-                  {% endif %}
-
-                  {% if line.statement_latex %}
-                    <div
-                      class="group-proof-rendered-math"
-                      data-latex="{{ line.statement_latex }}"
-                    >{{ line.statement_latex }}</div>
-                  {% endif %}
-
-                  {% if line.suffix %}
-                    <span>{{ line.suffix }}</span>
-                  {% endif %}
+                  {% for segment in line.segments %}
+                    {% if segment.kind == "text" %}
+                      <span>{{ segment.value }}</span>
+                    {% elif segment.kind == "strong" %}
+                      <strong>{{ segment.value }}</strong>
+                    {% elif segment.kind == "inline_math" %}
+                      <span
+                        class="group-proof-rendered-math group-proof-rendered-inline-math"
+                        data-latex="{{ segment.value }}"
+                      >{{ segment.value }}</span>
+                    {% elif segment.kind == "display_math" %}
+                      <div
+                        class="group-proof-rendered-math group-proof-rendered-display-math"
+                        data-latex="{{ segment.value }}"
+                      >{{ segment.value }}</div>
+                    {% endif %}
+                  {% endfor %}
                 </div>
               {% endif %}
             {% endfor %}
@@ -752,16 +759,16 @@
           <p>
             {{ operation_query_proof_view.provenance.theorem }}
             {% if operation_query_proof_view.provenance.phase %}
-              — Phase
+              窶・Phase
               {{ operation_query_proof_view.provenance.phase }}
             {% endif %}
-            — repository depth
+            窶・repository depth
             {{ operation_query_proof_view.provenance.depth }}
           </p>
         {% else %}
           <p>
             {{ operation_query_proof_view.provenance.key }}
-            — repository depth
+            窶・repository depth
             {{ operation_query_proof_view.provenance.depth }}
           </p>
         {% endif %}
@@ -1089,7 +1096,7 @@
               Sources:
               {{ sources | length }}
               {% if (sources | length) > source_display_limit %}
-                — showing first {{ source_display_limit }}
+                窶・showing first {{ source_display_limit }}
               {% endif %}
             </p>
 
@@ -1316,7 +1323,7 @@
             {% if generator_execution_view.provenance.theorem %}
               {{ generator_execution_view.provenance.theorem }}
               {% if generator_execution_view.provenance.phase %}
-                — Phase {{ generator_execution_view.provenance.phase }}
+                窶・Phase {{ generator_execution_view.provenance.phase }}
               {% endif %}
             {% else %}
               {{ generator_execution_view.provenance.key }}

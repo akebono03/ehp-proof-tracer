@@ -23,11 +23,17 @@ document.addEventListener(
           return;
         }
 
+        const displayMode = (
+          !element.classList.contains(
+            "group-proof-rendered-inline-math"
+          )
+        );
+
         katex.render(
           latex,
           element,
           {
-            displayMode: true,
+            displayMode: displayMode,
             throwOnError: false,
           }
         );
