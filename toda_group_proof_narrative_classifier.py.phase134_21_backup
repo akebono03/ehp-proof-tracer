@@ -26,9 +26,6 @@ from toda_rules import (
   Toda53NuPrimeBracketSpecializationStatement,
   TodaProp42ExactnessStatement,
 )
-from toda_rules import (
-  Toda515Sigma8TransportedDecompositionStatement,
-)
 
 
 class TodaGroupProofNarrativeFactRole(
@@ -374,26 +371,12 @@ def classify_toda_group_proof_narrative_step(
       TodaGroupProofNarrativeFactRole.BOUNDARY
     )
 
-  classification = (
-      TodaGroupProofNarrativeStepClassification(
-        fact_role=fact_role,
-        block_role=_block_role(
-          presentation,
-          proof_step,
-        ),
-      )
-    )
-
-  # Phase 134-21 v2 final classification override for pi_15^8 transported decomposition
-  if isinstance(
-    proof_step.conclusion,
-    Toda515Sigma8TransportedDecompositionStatement,
-  ):
-    return TodaGroupProofNarrativeStepClassification(
-      fact_role=classification.fact_role,
-      block_role=(
-        TodaGroupProofNarrativeBlockRole.GROUP_STRUCTURE
+  return (
+    TodaGroupProofNarrativeStepClassification(
+      fact_role=fact_role,
+      block_role=_block_role(
+        presentation,
+        proof_step,
       ),
     )
-
-  return classification
+  )

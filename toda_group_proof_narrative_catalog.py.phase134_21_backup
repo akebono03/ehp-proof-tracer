@@ -5,7 +5,6 @@ from toda_rules import (
   TodaNuFamilyDefinitionStatement,
   TodaProp51FiniteDimensionalStatement,
   TodaSigmaFamilyDefinitionStatement,
-  TodaProp44IsomorphismStatement,
 )
 
 
@@ -20,7 +19,6 @@ REFERENCE_CANDIDATE_STATEMENT_TYPES = (
   TodaProp51FiniteDimensionalStatement,
   Toda55NuFamilyFiniteDimensionalStatement,
   Toda56Nu4DecompositionStatement,
-  TodaProp44IsomorphismStatement,
 )
 
 
@@ -32,8 +30,5 @@ REFERENCE_STATEMENT_TYPES_BY_ROOT = {
   (8, 5): (
     Toda55NuFamilyFiniteDimensionalStatement,
     Toda56Nu4DecompositionStatement,
-  ),
-  (15, 8): (
-    TodaProp44IsomorphismStatement,
   ),
 }
