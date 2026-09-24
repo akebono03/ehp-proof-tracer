@@ -1198,51 +1198,6 @@ def _phase134_7_block_lead(
 
   return None
 
-
-def _phase134_26_narrative_section_header_lines(
-  section_title: str,
-) -> list[str]:
-  if not isinstance(
-    section_title,
-    str,
-  ):
-    raise TypeError(
-      "section_title must be a str"
-    )
-
-  if not section_title:
-    raise ValueError(
-      "section_title must not be empty"
-    )
-
-  return [
-    "## " + section_title,
-    "",
-  ]
-
-
-def _phase134_26_narrative_start_lines(
-  target_lines: list[str],
-) -> list[str]:
-  if not isinstance(
-    target_lines,
-    list,
-  ):
-    raise TypeError(
-      "target_lines must be a list"
-    )
-
-  return [
-    "# Group proof narrative",
-    "",
-    *_phase134_26_narrative_section_header_lines(
-      "証明対象"
-    ),
-    *target_lines,
-    "",
-  ]
-
-
 def _render_phase134_3_pi6_3_narrative_markdown(
   presentation: TodaGroupProofPresentation,
 ) -> str:
@@ -1289,24 +1244,26 @@ def _render_phase134_3_pi6_3_narrative_markdown(
     )
   )
 
-  lines = (
-    _phase134_26_narrative_start_lines(
-      [
-        "Toda Proposition 5.6 のうち,",
-        "",
-        r"\[",
-        root_latex,
-        r"\]",
-        "",
-        "を示す.",
-      ]
-    )
-  )
+  lines = [
+    "# Group proof narrative",
+    "",
+    "## 証明対象",
+    "",
+    "Toda Proposition 5.6 のうち,",
+    "",
+    r"\[",
+    root_latex,
+    r"\]",
+    "",
+    "を示す.",
+    "",
+  ]
 
   if reference_steps:
     lines.extend(
-      _phase134_26_narrative_section_header_lines(
-        "使用する結果"
+      (
+        "## 使用する結果",
+        "",
       )
     )
 
@@ -1345,8 +1302,9 @@ def _render_phase134_3_pi6_3_narrative_markdown(
       )
 
   lines.extend(
-    _phase134_26_narrative_section_header_lines(
-      "証明"
+    (
+      "## 証明",
+      "",
     )
   )
 
@@ -2104,24 +2062,26 @@ def _render_phase134_9_pi8_5_narrative_markdown(
     )
   )
 
-  lines = (
-    _phase134_26_narrative_start_lines(
-      [
-        "Toda Proposition 5.6 のうち,",
-        "",
-        r"\[",
-        root_latex,
-        r"\]",
-        "",
-        "を示す.",
-      ]
-    )
-  )
+  lines = [
+    "# Group proof narrative",
+    "",
+    "## 証明対象",
+    "",
+    "Toda Proposition 5.6 のうち,",
+    "",
+    r"\[",
+    root_latex,
+    r"\]",
+    "",
+    "を示す.",
+    "",
+  ]
 
   if reference_steps:
     lines.extend(
-      _phase134_26_narrative_section_header_lines(
-        "使用する結果"
+      (
+        "## 使用する結果",
+        "",
       )
     )
 
@@ -2150,8 +2110,9 @@ def _render_phase134_9_pi8_5_narrative_markdown(
       )
 
   lines.extend(
-    _phase134_26_narrative_section_header_lines(
-      "証明"
+    (
+      "## 証明",
+      "",
     )
   )
 
@@ -2358,20 +2319,20 @@ def _phase134_24_render_pi15_8_narrative(
   )
 
   lines = [
-    *_phase134_26_narrative_start_lines(
-      [
-        "Toda Proposition 5.15 のうち,",
-        "",
-        "\\[",
-        final_relation_latex,
-        "\\]",
-        "",
-        "を示す.",
-      ]
-    ),
-    *_phase134_26_narrative_section_header_lines(
-      "使用する結果"
-    ),
+    "# Group proof narrative",
+    "",
+    "## 証明対象",
+    "",
+    "Toda Proposition 5.15 のうち,",
+    "",
+    "\\[",
+    final_relation_latex,
+    "\\]",
+    "",
+    "を示す.",
+    "",
+    "## 使用する結果",
+    "",
     "**[R1] Toda Proposition 4.4 の分解同型.**",
     "",
     "次の写像は同型である.",
@@ -2397,9 +2358,8 @@ def _phase134_24_render_pi15_8_narrative(
     ),
     "\\]",
     "",
-    *_phase134_26_narrative_section_header_lines(
-      "証明"
-    ),
+    "## 証明",
+    "",
     "既に,",
     "",
     "\\[",
