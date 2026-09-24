@@ -846,6 +846,150 @@ def _phase136_compact_eta_powers(
   return rendered
 
 
+def _phase136_2_pi6_3_reference_blocks() -> tuple[
+  tuple[
+    str,
+    tuple[str, ...],
+  ],
+  ...,
+]:
+  return (
+    (
+      "Toda Proposition 5.3 の低次元 η² 結果",
+      (
+        "次の低次元群構造を用いる.",
+        "",
+        r"\[",
+        (
+          r"\pi_{5}^{3} = "
+          r"\mathbb{Z}/2\{\eta_{3}^{2}\}."
+        ),
+        r"\]",
+      ),
+    ),
+    (
+      "Toda Lemma 5.2 の ν′ に対する特殊化",
+      (
+        (
+          "ν′ に対する Toda bracket, 倍元, "
+          "Hopf 像の特殊化を用いる."
+        ),
+        "",
+        r"\[",
+        (
+          r"\nu' \in "
+          r"\{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1},"
+        ),
+        r"\qquad",
+        (
+          r"2\nu' = "
+          r"\eta_{3}E\eta_{3}\eta_{5},"
+        ),
+        r"\qquad",
+        (
+          r"H\left(\nu'\right) = "
+          r"E^{2}\eta_{3}."
+        ),
+        r"\]",
+        "",
+        (
+          "これらの特殊化を用いる際には "
+          "$2\\eta_{3}=0$ を premise とする."
+        ),
+      ),
+    ),
+  )
+
+
+def _phase136_2_is_pi6_5_group_step(
+  proof_step: ProofStep,
+) -> bool:
+  statement = proof_step.conclusion
+
+  if not isinstance(
+    statement,
+    Relation,
+  ):
+    return False
+
+  lhs = statement.lhs
+
+  return (
+    isinstance(
+      lhs,
+      TodaPrimaryGroup,
+    )
+    and lhs.group_dimension == 6
+    and lhs.sphere_dimension == 5
+    and statement.relation_type
+    is RelationType.EQUALITY
+  )
+
+
+def _phase136_2_pi6_3_ordered_numbered_steps(
+  numbered_steps: tuple[
+    ProofStep,
+    ...,
+  ],
+) -> tuple[
+  ProofStep,
+  ...,
+]:
+  hopf_surjective_step = next(
+    (
+      proof_step
+      for proof_step in numbered_steps
+      if isinstance(
+        proof_step.conclusion,
+        TodaHopfInvariantSurjectiveStatement,
+      )
+    ),
+    None,
+  )
+
+  pi6_5_step = next(
+    (
+      proof_step
+      for proof_step in numbered_steps
+      if _phase136_2_is_pi6_5_group_step(
+        proof_step
+      )
+    ),
+    None,
+  )
+
+  if (
+    hopf_surjective_step is None
+    or pi6_5_step is None
+  ):
+    return numbered_steps
+
+  hopf_index = numbered_steps.index(
+    hopf_surjective_step
+  )
+  pi6_5_index = numbered_steps.index(
+    pi6_5_step
+  )
+
+  if pi6_5_index < hopf_index:
+    return numbered_steps
+
+  reordered = list(
+    numbered_steps
+  )
+  reordered.pop(
+    pi6_5_index
+  )
+  reordered.insert(
+    hopf_index,
+    pi6_5_step,
+  )
+
+  return tuple(
+    reordered
+  )
+
+
 def _phase136_pi6_3_reason_lead(
   number: int,
 ) -> str | None:
@@ -858,24 +1002,26 @@ def _phase136_pi6_3_reason_lead(
     )
 
   reasons = {
-    1: "Toda Proposition 5.3 より,",
-    3: (
-      "EHP 完全列と Toda Proposition 5.3 より,"
-    ),
+    1: "[R3] より,",
+    3: "EHP 完全列と [R3] より,",
     4: "EHP 完全列より,",
-    9: (
-      "Toda Lemma 5.2 の "
-      "ν′ に対する特殊化より,"
+    7: (
+      "[R4] の倍元公式と η-family の "
+      "suspension relation より,"
     ),
+    9: "[R4] の Toda bracket 特殊化より,",
     10: "[R2] より,",
     12: "EHP 完全列より,",
-    13: "Toda Proposition 5.3 より,",
+    13: (
+      "[R4] の Hopf 像公式と η-family の "
+      "suspension relation より,"
+    ),
+    14: "[R2] より,",
   }
 
   return reasons.get(
     number
   )
-
 
 def _append_phase134_3_pi6_3_fact(
   lines: list[str],
@@ -907,9 +1053,18 @@ def _append_phase134_3_pi6_3_fact(
 
   statement = proof_step.conclusion
 
+  if (
+    isinstance(
+      statement,
+      TodaHopfInvariantSurjectiveStatement,
+    )
+    and number == 15
+  ):
+    dependency_text = "(13), (14)"
+
   if proof_step is presentation.root_step:
     lines.append(
-      "したがって,"
+      "以上により,"
     )
   elif dependency_text:
     lines.append(
@@ -1131,6 +1286,19 @@ def _append_phase134_3_pi6_3_fact(
           number,
         )
       )
+
+      if number == 10:
+        lines.extend(
+          (
+            (
+              "この関係は [R4] を ν′ に特殊化して "
+              "membership, 倍元, Hopf 像を得るための "
+              "premise である."
+            ),
+            "",
+          )
+        )
+
       return
 
     lines.extend(
@@ -1506,8 +1674,10 @@ def _render_phase134_3_pi6_3_narrative_markdown(
   presentation: TodaGroupProofPresentation,
 ) -> str:
   numbered_steps = (
-    _phase134_3_pi6_3_numbered_steps(
-      presentation
+    _phase136_2_pi6_3_ordered_numbered_steps(
+      _phase134_3_pi6_3_numbered_steps(
+        presentation
+      )
     )
   )
 
@@ -1562,19 +1732,19 @@ def _render_phase134_3_pi6_3_narrative_markdown(
     )
   )
 
-  if reference_steps:
-    reference_blocks = tuple(
-      (
-        _phase134_5_reference_title(
-          proof_step
-        ),
-        _phase134_5_reference_statement_lines(
-          proof_step
-        ),
-      )
-      for proof_step in reference_steps
+  reference_blocks = tuple(
+    (
+      _phase134_5_reference_title(
+        proof_step
+      ),
+      _phase134_5_reference_statement_lines(
+        proof_step
+      ),
     )
+    for proof_step in reference_steps
+  ) + _phase136_2_pi6_3_reference_blocks()
 
+  if reference_blocks:
     lines.extend(
       _phase134_28_reference_section_lines(
         reference_blocks

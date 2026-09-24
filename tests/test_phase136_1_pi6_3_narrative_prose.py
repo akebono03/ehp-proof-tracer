@@ -130,7 +130,7 @@ def test_phase136_1_pi6_3_map_properties_are_numbered_sentences(
   assert (
     r"H: \pi_{6}^{3} \to \pi_{6}^{5}"
     r"\quad\text{は全射である.}"
-    r"\tag{14}"
+    r"\tag{15}"
     in rendered
   )
 
@@ -145,7 +145,7 @@ def test_phase136_1_pi6_3_leaf_facts_show_reasons(
   )
 
   assert (
-    "Toda Proposition 5.3 より,"
+    "[R3] より,"
     in rendered
   )
   assert (
@@ -153,8 +153,7 @@ def test_phase136_1_pi6_3_leaf_facts_show_reasons(
     in rendered
   )
   assert (
-    "Toda Lemma 5.2 の "
-    "ν′ に対する特殊化より,"
+    "[R4] の Toda bracket 特殊化より,"
     in rendered
   )
   assert (
@@ -186,6 +185,6 @@ def test_phase136_1_pi6_3_formula_only_facts_end_with_period(
   )
   assert (
     r"\pi_{6}^{5} = "
-    r"\mathbb{Z}/2\{\eta_{5}\}.\tag{15}"
+    r"\mathbb{Z}/2\{\eta_{5}\}.\tag{14}"
     in rendered
   )
