@@ -18,13 +18,14 @@ from toda_group_proof_presentation import (
 from toda_group_proof_narrative_helpers import (
   is_completed_group_result_step,
 )
-from toda_group_proof_narrative_catalog import (
-  DEFINITION_STATEMENT_TYPES,
-  REFERENCE_STATEMENT_TYPES_BY_ROOT,
-)
 from toda_rules import (
+  Toda52CompositionIsomorphismStatement,
   Toda53NuPrimeBracketSpecializationStatement,
+  Toda55NuFamilyFiniteDimensionalStatement,
+  Toda56Nu4DecompositionStatement,
+  TodaNuFamilyDefinitionStatement,
   TodaProp42ExactnessStatement,
+  TodaProp51FiniteDimensionalStatement,
 )
 
 
@@ -108,12 +109,24 @@ def supports_phase134_9_narrative_classifier(
 def _reference_types_for_root(
   presentation: TodaGroupProofPresentation,
 ) -> tuple[type, ...]:
-  return REFERENCE_STATEMENT_TYPES_BY_ROOT.get(
-    _root_key(
-      presentation
-    ),
-    (),
+  key = _root_key(
+    presentation
   )
+
+  if key == (6, 3):
+    return (
+      Toda52CompositionIsomorphismStatement,
+      TodaProp51FiniteDimensionalStatement,
+    )
+
+  if key == (8, 5):
+    return (
+      Toda55NuFamilyFiniteDimensionalStatement,
+      Toda56Nu4DecompositionStatement,
+    )
+
+  return ()
+
 
 def _visible_premise_steps(
   presentation: TodaGroupProofPresentation,
@@ -343,7 +356,7 @@ def classify_toda_group_proof_narrative_step(
     )
   elif isinstance(
     proof_step.conclusion,
-    DEFINITION_STATEMENT_TYPES,
+    TodaNuFamilyDefinitionStatement,
   ):
     fact_role = (
       TodaGroupProofNarrativeFactRole.DEFINITION
