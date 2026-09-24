@@ -473,16 +473,10 @@ def _build_group_proof_rendered_lines(
     )
 
   lines = []
+  display_math_lines = None
+  display_math_indent_level = 0
 
   for raw_line in markdown.splitlines():
-    if not raw_line:
-      continue
-
-    if raw_line.startswith(
-      "# "
-    ):
-      continue
-
     stripped = raw_line.lstrip(
       " "
     )
@@ -498,6 +492,40 @@ def _build_group_proof_rendered_lines(
       leading_spaces // 2
     )
 
+    if display_math_lines is not None:
+      if stripped == r"\]":
+        lines.append(
+          WebGroupProofRenderedLineView(
+            kind="text",
+            indent_level=(
+              display_math_indent_level
+            ),
+            prefix="",
+            statement_latex="\n".join(
+              display_math_lines
+            ),
+            suffix="",
+          )
+        )
+        display_math_lines = None
+        display_math_indent_level = 0
+        continue
+
+      if stripped:
+        display_math_lines.append(
+          stripped
+        )
+
+      continue
+
+    if not raw_line:
+      continue
+
+    if raw_line.startswith(
+      "# "
+    ):
+      continue
+
     if stripped.startswith(
       "## "
     ):
@@ -511,6 +539,13 @@ def _build_group_proof_rendered_lines(
           statement_latex=None,
           suffix="",
         )
+      )
+      continue
+
+    if stripped == r"\[":
+      display_math_lines = []
+      display_math_indent_level = (
+        indent_level
       )
       continue
 
@@ -530,6 +565,12 @@ def _build_group_proof_rendered_lines(
         statement_latex=statement_latex,
         suffix=suffix,
       )
+    )
+
+  if display_math_lines is not None:
+    raise ValueError(
+      "unterminated display-math block "
+      "in rendered group proof"
     )
 
   return tuple(
