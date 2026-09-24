@@ -1792,6 +1792,40 @@ def _append_phase134_11_pi8_5_fact(
     )
     return
 
+  if (
+    classification.fact_role
+    is TodaGroupProofNarrativeFactRole.BOUNDARY
+    and isinstance(
+      statement,
+      Relation,
+    )
+    and isinstance(
+      statement.lhs,
+      TodaPrimaryGroup,
+    )
+  ):
+    latex = (
+      _render_group_proof_narrative_latex(
+        proof_step
+      )
+    )
+
+    lines.extend(
+      (
+        "",
+        r"\[",
+        latex
+        + r"\tag{"
+        + str(
+          number
+        )
+        + "}",
+        r"\]",
+        "",
+      )
+    )
+    return
+
   if isinstance(
     statement,
     TodaIteratedSuspensionInjectiveStatement,
@@ -1844,103 +1878,14 @@ def _append_phase134_11_pi8_5_fact(
     )
     return
 
-  if (
-    isinstance(
-      statement,
-      Relation,
-    )
-    and statement.relation_type
-    is RelationType.ORDER
-  ):
-    lhs_latex = (
-      render_toda_expression_latex(
-        statement.lhs
-      )
-    )
-
-    lines.extend(
-      (
-        (
-          "**("
-          + str(
-            number
-          )
-          + ")** "
-          + "$"
-          + lhs_latex
-          + "$"
-          + " の位数は "
-          + "$"
-          + str(
-            statement.rhs
-          )
-          + "$"
-          + " である."
-        ),
-        "",
-      )
-    )
-    return
-
-  latex = (
-    _render_group_proof_narrative_latex(
-      proof_step
-    )
+  _append_phase134_3_pi6_3_fact(
+    lines,
+    presentation,
+    proof_step,
+    number_by_step_id,
+    reference_by_step_id,
   )
 
-  if latex is not None:
-    lines.extend(
-      (
-        "",
-        r"\[",
-        latex
-        + r"\tag{"
-        + str(
-          number
-        )
-        + "}",
-        r"\]",
-        "",
-      )
-    )
-
-    if proof_step is presentation.root_step:
-      lines.extend(
-        (
-          "を得る.",
-          "",
-        )
-      )
-
-    return
-
-  label = (
-    _group_proof_narrative_statement_label(
-      statement
-    )
-  )
-
-  if label is None:
-    label = (
-      _render_group_proof_narrative_fact(
-        proof_step
-      )
-    )
-
-  lines.extend(
-    (
-      (
-        "**("
-        + str(
-          number
-        )
-        + ")** "
-        + label
-        + "."
-      ),
-      "",
-    )
-  )
 
 def _render_phase134_9_pi8_5_narrative_markdown(
   presentation: TodaGroupProofPresentation,

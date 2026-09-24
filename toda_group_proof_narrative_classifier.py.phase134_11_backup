@@ -20,7 +20,6 @@ from toda_rules import (
   Toda53NuPrimeBracketSpecializationStatement,
   Toda55NuFamilyFiniteDimensionalStatement,
   Toda56Nu4DecompositionStatement,
-  TodaNuFamilyDefinitionStatement,
   TodaProp42ExactnessStatement,
   TodaProp51FiniteDimensionalStatement,
 )
@@ -31,7 +30,6 @@ class TodaGroupProofNarrativeFactRole(
 ):
   TARGET = "target"
   REFERENCE = "reference"
-  DEFINITION = "definition"
   BOUNDARY = "boundary"
   DERIVED = "derived"
 
@@ -73,31 +71,22 @@ def _root_group(
   return conclusion.lhs
 
 
-def _root_key(
+def supports_phase134_9_narrative_classifier(
   presentation: TodaGroupProofPresentation,
-) -> tuple[
-  int,
-  int,
-] | None:
+) -> bool:
   root_group = _root_group(
     presentation
   )
 
   if root_group is None:
-    return None
+    return False
 
-  return (
+  key = (
     root_group.group_dimension,
     root_group.sphere_dimension,
   )
 
-
-def supports_phase134_9_narrative_classifier(
-  presentation: TodaGroupProofPresentation,
-) -> bool:
-  return _root_key(
-    presentation
-  ) in (
+  return key in (
     (6, 3),
     (8, 5),
   )
@@ -106,8 +95,16 @@ def supports_phase134_9_narrative_classifier(
 def _reference_types_for_root(
   presentation: TodaGroupProofPresentation,
 ) -> tuple[type, ...]:
-  key = _root_key(
+  root_group = _root_group(
     presentation
+  )
+
+  if root_group is None:
+    return ()
+
+  key = (
+    root_group.group_dimension,
+    root_group.sphere_dimension,
   )
 
   if key == (6, 3):
@@ -133,35 +130,6 @@ def _visible_premise_steps(
     edge.premise_step
     for edge in presentation.edges
     if edge.parent_step is proof_step
-  )
-
-
-def _is_phase134_11_completed_group_boundary(
-  presentation: TodaGroupProofPresentation,
-  proof_step: ProofStep,
-) -> bool:
-  if _root_key(
-    presentation
-  ) != (8, 5):
-    return False
-
-  statement = proof_step.conclusion
-
-  if not isinstance(
-    statement,
-    Relation,
-  ):
-    return False
-
-  if not isinstance(
-    statement.lhs,
-    TodaPrimaryGroup,
-  ):
-    return False
-
-  return (
-    statement.lhs.group_dimension == 6
-    and statement.lhs.sphere_dimension == 3
   )
 
 
@@ -368,20 +336,6 @@ def classify_toda_group_proof_narrative_step(
   ):
     fact_role = (
       TodaGroupProofNarrativeFactRole.REFERENCE
-    )
-  elif isinstance(
-    proof_step.conclusion,
-    TodaNuFamilyDefinitionStatement,
-  ):
-    fact_role = (
-      TodaGroupProofNarrativeFactRole.DEFINITION
-    )
-  elif _is_phase134_11_completed_group_boundary(
-    presentation,
-    proof_step,
-  ):
-    fact_role = (
-      TodaGroupProofNarrativeFactRole.BOUNDARY
     )
   elif _visible_premise_steps(
     presentation,
