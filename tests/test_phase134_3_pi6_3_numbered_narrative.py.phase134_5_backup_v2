@@ -33,11 +33,16 @@ def test_phase134_3_pi6_3_has_reference_section(
     )
   )
 
-  assert "## 証明対象" in rendered
-  assert "## 使用する結果" in rendered
+  assert "## 参照" in rendered
 
   assert (
-    "Toda Proposition 5.6 のうち,"
+    "**[R1] Toda Proposition 5.6.**"
+    in rendered
+  )
+
+  assert (
+    "本証明では, Proposition 5.6 "
+    "のうち次の主張を示す."
     in rendered
   )
 
@@ -72,20 +77,9 @@ def test_phase134_3_pi6_3_map_properties_use_japanese_prose(
     )
   )
 
-  assert (
-    "は単射である."
-    in rendered
-  )
-
-  assert (
-    "は全射である."
-    in rendered
-  )
-
-  assert (
-    "は完全である."
-    in rendered
-  )
+  assert "は単射である." in rendered
+  assert "は全射である." in rendered
+  assert "は完全である." in rendered
 
   assert (
     r"\text{ is injective}"
