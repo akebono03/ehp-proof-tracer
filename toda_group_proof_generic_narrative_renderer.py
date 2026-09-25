@@ -1,3 +1,7 @@
+from expression import (
+  Composition,
+  HomotopyElement,
+)
 from homotopy_groups import (
   TodaDeltaMap,
   TodaHopfInvariantMap,
@@ -19,6 +23,9 @@ from toda_group_proof_narrative_semantics import (
 )
 from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
+)
+from toda_human_readable_renderer import (
+  render_toda_expression_latex,
 )
 from toda_proof_narrative_renderer import (
   render_toda_primary_group_latex,
@@ -64,6 +71,138 @@ _BLOCK_ROLE_LABELS = {
 }
 
 
+def _generic_eta_composition_factors(
+  expression,
+) -> tuple[HomotopyElement, ...] | None:
+  if isinstance(expression, Composition):
+    left = _generic_eta_composition_factors(expression.left)
+    right = _generic_eta_composition_factors(expression.right)
+    if left is None or right is None:
+      return None
+    return left + right
+
+  if not isinstance(expression, HomotopyElement):
+    return None
+
+  generator = expression.generator
+  if (
+    generator is None
+    or generator.family != "η"
+    or not isinstance(generator.index, int)
+    or isinstance(generator.index, bool)
+    or generator.decoration is not None
+  ):
+    return None
+
+  return (expression,)
+
+
+def _render_generic_eta_composition_latex(
+  expression,
+) -> str | None:
+  factors = _generic_eta_composition_factors(expression)
+  if factors is None or len(factors) < 2:
+    return None
+
+  indices = tuple(
+    factor.generator.index
+    for factor in factors
+  )
+  start_index = indices[0]
+  if indices != tuple(
+    range(start_index, start_index + len(factors))
+  ):
+    return None
+
+  return (
+    r"\eta_{"
+    + str(start_index)
+    + r"}^{"
+    + str(len(factors))
+    + "}"
+  )
+
+
+def _render_generic_narrative_expression_latex(
+  expression,
+) -> str:
+  compact = _render_generic_eta_composition_latex(expression)
+  if compact is not None:
+    return compact
+
+  if isinstance(expression, Composition):
+    return (
+      _render_generic_narrative_expression_latex(expression.left)
+      + _render_generic_narrative_expression_latex(expression.right)
+    )
+
+  return render_toda_expression_latex(expression)
+
+
+def _try_render_generic_narrative_expression_latex(
+  expression,
+) -> str | None:
+  try:
+    return render_toda_expression_latex(
+      expression
+    )
+  except TypeError:
+    return None
+
+
+def _normalize_generic_narrative_step_latex(
+  proof_step: ProofStep,
+  latex: str,
+) -> str:
+  statement = proof_step.conclusion
+
+  if not hasattr(
+    statement,
+    "lhs",
+  ):
+    return latex
+
+  if not hasattr(
+    statement,
+    "rhs",
+  ):
+    return latex
+
+  normalized = latex
+
+  for expression in (
+    statement.lhs,
+    statement.rhs,
+  ):
+    rendered_expression = (
+      _try_render_generic_narrative_expression_latex(
+        expression
+      )
+    )
+
+    if rendered_expression is None:
+      continue
+
+    normalized_expression = (
+      _render_generic_narrative_expression_latex(
+        expression
+      )
+    )
+
+    if (
+      normalized_expression
+      == rendered_expression
+    ):
+      continue
+
+    normalized = normalized.replace(
+      rendered_expression,
+      normalized_expression,
+    )
+
+  return normalized
+
+
 def _render_generic_narrative_step(
   proof_step: ProofStep,
 ) -> str:
@@ -97,6 +236,10 @@ def _render_generic_narrative_step(
     )
 
   if latex is not None:
+    latex = _normalize_generic_narrative_step_latex(
+      proof_step,
+      latex,
+    )
     return (
       "$"
       + latex

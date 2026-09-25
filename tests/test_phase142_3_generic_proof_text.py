@@ -179,7 +179,7 @@ def test_phase142_3_generic_proof_contains_core_pi6_3_facts():
   assert r"2\eta_{3} = 0" in rendered
   assert r"\nu'" in rendered
   assert r"H\left(\nu'\right) = \eta_{5}" in rendered
-  assert r"2\nu' = \eta_{3}\eta_{4}\eta_{5}" in rendered
+  assert r"2\nu' = \eta_{3}^{3}" in rendered
   assert r"\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}" in rendered
 
 
