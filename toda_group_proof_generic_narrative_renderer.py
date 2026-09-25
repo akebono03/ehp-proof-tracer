@@ -1,3 +1,8 @@
+from homotopy_groups import (
+  TodaDeltaMap,
+  TodaHopfInvariantMap,
+  TodaSuspensionMap,
+)
 from proof import (
   ProofStep,
 )
@@ -16,7 +21,18 @@ from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
 )
 from toda_proof_narrative_renderer import (
+  render_toda_primary_group_latex,
   render_toda_proof_statement_latex,
+)
+from toda_rules import (
+  TodaDeltaInjectiveStatement,
+  TodaHopfInvariantInjectiveStatement,
+  TodaHopfInvariantSurjectiveStatement,
+  TodaIteratedSuspensionInjectiveStatement,
+  TodaProp42ExactnessStatement,
+  TodaProp44SuspensionInjectiveStatement,
+  TodaSuspensionInjectiveStatement,
+  TodaSuspensionSurjectiveStatement,
 )
 
 
@@ -381,6 +397,155 @@ def _generic_narrative_proof_order_indices(
   )
 
 
+_GENERIC_INJECTIVE_STATEMENT_TYPES = (
+  TodaDeltaInjectiveStatement,
+  TodaHopfInvariantInjectiveStatement,
+  TodaIteratedSuspensionInjectiveStatement,
+  TodaProp44SuspensionInjectiveStatement,
+  TodaSuspensionInjectiveStatement,
+)
+
+_GENERIC_SURJECTIVE_STATEMENT_TYPES = (
+  TodaHopfInvariantSurjectiveStatement,
+  TodaSuspensionSurjectiveStatement,
+)
+
+
+def _generic_group_map_name(
+  group_map,
+) -> str | None:
+  if isinstance(
+    group_map,
+    TodaSuspensionMap,
+  ):
+    return "E"
+
+  if isinstance(
+    group_map,
+    TodaHopfInvariantMap,
+  ):
+    return "H"
+
+  if isinstance(
+    group_map,
+    TodaDeltaMap,
+  ):
+    return r"\Delta"
+
+  return None
+
+
+def _generic_short_exact_sequence_latex(
+  presentation: TodaGroupProofPresentation,
+  exactness_step: ProofStep,
+) -> str | None:
+  statement = (
+    exactness_step.conclusion
+  )
+
+  if not isinstance(
+    statement,
+    TodaProp42ExactnessStatement,
+  ):
+    return None
+
+  window = statement.window
+  first_map_name = getattr(
+    window.first_map,
+    "name",
+    None,
+  )
+  second_map_name = getattr(
+    window.second_map,
+    "name",
+    None,
+  )
+
+  injective_step = next(
+    (
+      node.proof_step
+      for node in presentation.nodes
+      if (
+        isinstance(
+          node.proof_step.conclusion,
+          _GENERIC_INJECTIVE_STATEMENT_TYPES,
+        )
+        and (
+          node.proof_step.conclusion.map.source_group
+          == window.source_term
+        )
+        and (
+          node.proof_step.conclusion.map.target_group
+          == window.middle_term
+        )
+        and (
+          _generic_group_map_name(
+            node.proof_step.conclusion.map
+          )
+          == first_map_name
+        )
+      )
+    ),
+    None,
+  )
+
+  surjective_step = next(
+    (
+      node.proof_step
+      for node in presentation.nodes
+      if (
+        isinstance(
+          node.proof_step.conclusion,
+          _GENERIC_SURJECTIVE_STATEMENT_TYPES,
+        )
+        and (
+          node.proof_step.conclusion.map.source_group
+          == window.middle_term
+        )
+        and (
+          node.proof_step.conclusion.map.target_group
+          == window.target_term
+        )
+        and (
+          _generic_group_map_name(
+            node.proof_step.conclusion.map
+          )
+          == second_map_name
+        )
+      )
+    ),
+    None,
+  )
+
+  if (
+    injective_step is None
+    or surjective_step is None
+    or first_map_name is None
+    or second_map_name is None
+  ):
+    return None
+
+  return (
+    r"0\longrightarrow "
+    + render_toda_primary_group_latex(
+      window.source_term
+    )
+    + r"\xrightarrow{"
+    + first_map_name
+    + "} "
+    + render_toda_primary_group_latex(
+      window.middle_term
+    )
+    + r"\xrightarrow{"
+    + second_map_name
+    + "} "
+    + render_toda_primary_group_latex(
+      window.target_term
+    )
+    + r"\longrightarrow 0"
+  )
+
+
 def _generic_narrative_dependency_labels(
   presentation: TodaGroupProofPresentation,
   blocks: tuple[
@@ -513,6 +678,30 @@ def _render_generic_narrative_proof_block(
     lines.append(
       ""
     )
+
+    short_exact_sequence_latex = (
+      _generic_short_exact_sequence_latex(
+        presentation,
+        proof_step,
+      )
+    )
+
+    if short_exact_sequence_latex is not None:
+      lines.append(
+        "この完全性と両端の写像の性質より, "
+        "次の短完全列を得る."
+      )
+      lines.append(
+        ""
+      )
+      lines.append(
+        "$"
+        + short_exact_sequence_latex
+        + "$"
+      )
+      lines.append(
+        ""
+      )
 
   return tuple(
     lines
