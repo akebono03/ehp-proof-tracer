@@ -228,6 +228,95 @@ def _generic_narrative_dependency_indices(
   )
 
 
+def _generic_narrative_proof_order_indices(
+  presentation: TodaGroupProofPresentation,
+  blocks: tuple[
+    TodaGroupProofNarrativeBlock,
+    ...,
+  ],
+) -> tuple[
+  int,
+  ...,
+]:
+  _validate_generic_narrative_blocks(
+    presentation,
+    blocks,
+  )
+
+  ordered_indices = []
+  visited_indices = set()
+  active_indices = set()
+
+  def visit(
+    block_index: int,
+  ) -> None:
+    if block_index in visited_indices:
+      return
+
+    if block_index in active_indices:
+      return
+
+    active_indices.add(
+      block_index
+    )
+
+    for dependency_index in (
+      _generic_narrative_dependency_indices(
+        presentation,
+        blocks,
+        block_index,
+      )
+    ):
+      visit(
+        dependency_index
+      )
+
+    active_indices.remove(
+      block_index
+    )
+    visited_indices.add(
+      block_index
+    )
+    ordered_indices.append(
+      block_index
+    )
+
+  target_indices = tuple(
+    index
+    for index, block in enumerate(
+      blocks
+    )
+    if (
+      block.role
+      is TodaGroupProofNarrativeMathematicalBlockRole.TARGET
+    )
+  )
+  non_target_indices = tuple(
+    index
+    for index, block in enumerate(
+      blocks
+    )
+    if (
+      block.role
+      is not TodaGroupProofNarrativeMathematicalBlockRole.TARGET
+    )
+  )
+
+  for block_index in non_target_indices:
+    visit(
+      block_index
+    )
+
+  for block_index in target_indices:
+    visit(
+      block_index
+    )
+
+  return tuple(
+    ordered_indices
+  )
+
+
 def _generic_narrative_dependency_labels(
   presentation: TodaGroupProofPresentation,
   blocks: tuple[
@@ -468,9 +557,10 @@ def render_toda_group_proof_generic_proof_markdown(
     "",
   ]
 
-  for block_index in range(
-    len(
-      blocks
+  for block_index in (
+    _generic_narrative_proof_order_indices(
+      presentation,
+      blocks,
     )
   ):
     lines.extend(
