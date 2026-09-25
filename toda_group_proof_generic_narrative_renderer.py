@@ -8,6 +8,10 @@ from toda_group_proof_narrative_blocks import (
   TodaGroupProofNarrativeBlock,
   TodaGroupProofNarrativeMathematicalBlockRole,
 )
+from toda_group_proof_narrative_semantics import (
+  TodaGroupProofNarrativeSemanticSidecar,
+  build_toda_group_proof_narrative_semantic_sidecar,
+)
 from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
 )
@@ -173,10 +177,23 @@ def _generic_narrative_dependency_indices(
     ...,
   ],
   block_index: int,
+  semantic_sidecar: (
+    TodaGroupProofNarrativeSemanticSidecar
+    | None
+  ) = None,
 ) -> tuple[
   int,
   ...,
 ]:
+  if (
+    semantic_sidecar is not None
+    and semantic_sidecar.presentation
+    is not presentation
+  ):
+    raise ValueError(
+      "semantic_sidecar must belong to presentation"
+    )
+
   step_block_index = {
     id(
       proof_step
@@ -223,6 +240,33 @@ def _generic_narrative_dependency_indices(
       dependency_index
     )
 
+  if semantic_sidecar is not None:
+    for semantic in (
+      semantic_sidecar.dependency_semantics
+    ):
+      if id(
+        semantic.dependent_step
+      ) not in block_step_ids:
+        continue
+
+      dependency_index = (
+        step_block_index[
+          id(
+            semantic.prerequisite_step
+          )
+        ]
+      )
+
+      if dependency_index == block_index:
+        continue
+
+      if dependency_index in dependency_indices:
+        continue
+
+      dependency_indices.append(
+        dependency_index
+      )
+
   return tuple(
     dependency_indices
   )
@@ -234,6 +278,10 @@ def _generic_narrative_proof_order_indices(
     TodaGroupProofNarrativeBlock,
     ...,
   ],
+  semantic_sidecar: (
+    TodaGroupProofNarrativeSemanticSidecar
+    | None
+  ) = None,
 ) -> tuple[
   int,
   ...,
@@ -242,6 +290,21 @@ def _generic_narrative_proof_order_indices(
     presentation,
     blocks,
   )
+
+  if semantic_sidecar is None:
+    semantic_sidecar = (
+      build_toda_group_proof_narrative_semantic_sidecar(
+        presentation
+      )
+    )
+
+  if (
+    semantic_sidecar.presentation
+    is not presentation
+  ):
+    raise ValueError(
+      "semantic_sidecar must belong to presentation"
+    )
 
   ordered_indices = []
   visited_indices = set()
@@ -265,6 +328,7 @@ def _generic_narrative_proof_order_indices(
         presentation,
         blocks,
         block_index,
+        semantic_sidecar=semantic_sidecar,
       )
     ):
       visit(
