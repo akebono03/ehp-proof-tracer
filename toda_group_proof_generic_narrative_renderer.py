@@ -228,6 +228,144 @@ def _generic_narrative_dependency_indices(
   )
 
 
+def _generic_narrative_dependency_labels(
+  presentation: TodaGroupProofPresentation,
+  blocks: tuple[
+    TodaGroupProofNarrativeBlock,
+    ...,
+  ],
+  block_index: int,
+) -> tuple[
+  str,
+  ...,
+]:
+  return tuple(
+    "[B"
+    + f"{dependency_index + 1:02d}"
+    + "]"
+    for dependency_index
+    in _generic_narrative_dependency_indices(
+      presentation,
+      blocks,
+      block_index,
+    )
+  )
+
+
+def _generic_narrative_sentence_lead(
+  role: TodaGroupProofNarrativeMathematicalBlockRole,
+  dependency_labels: tuple[
+    str,
+    ...,
+  ],
+) -> str:
+  if not isinstance(
+    role,
+    TodaGroupProofNarrativeMathematicalBlockRole,
+  ):
+    raise TypeError(
+      "role must be a "
+      "TodaGroupProofNarrativeMathematicalBlockRole"
+    )
+
+  if not isinstance(
+    dependency_labels,
+    tuple,
+  ):
+    raise TypeError(
+      "dependency_labels must be a tuple"
+    )
+
+  if not dependency_labels:
+    if (
+      role
+      is TodaGroupProofNarrativeMathematicalBlockRole.EXACTNESS
+    ):
+      return "次の完全列を考える."
+
+    return ""
+
+  dependency_text = ", ".join(
+    dependency_labels
+  )
+
+  if (
+    role
+    is TodaGroupProofNarrativeMathematicalBlockRole.DEFINITION
+  ):
+    return (
+      dependency_text
+      + " の条件のもとで, 次の定義を用いる."
+    )
+
+  if (
+    role
+    is TodaGroupProofNarrativeMathematicalBlockRole.EXACTNESS
+  ):
+    return (
+      dependency_text
+      + " を用いて, 次の完全列を考える."
+    )
+
+  return (
+    dependency_text
+    + " より,"
+  )
+
+
+def _render_generic_narrative_proof_block(
+  presentation: TodaGroupProofPresentation,
+  blocks: tuple[
+    TodaGroupProofNarrativeBlock,
+    ...,
+  ],
+  block_index: int,
+) -> tuple[
+  str,
+  ...,
+]:
+  block = blocks[
+    block_index
+  ]
+  dependency_labels = (
+    _generic_narrative_dependency_labels(
+      presentation,
+      blocks,
+      block_index,
+    )
+  )
+  sentence_lead = (
+    _generic_narrative_sentence_lead(
+      block.role,
+      dependency_labels,
+    )
+  )
+
+  lines = []
+
+  if sentence_lead:
+    lines.append(
+      sentence_lead
+    )
+    lines.append(
+      ""
+    )
+
+  for proof_step in block.steps:
+    lines.append(
+      _render_generic_narrative_step(
+        proof_step
+      )
+    )
+    lines.append(
+      ""
+    )
+
+  return tuple(
+    lines
+  )
+
+
 def render_toda_group_proof_generic_narrative_markdown(
   presentation: TodaGroupProofPresentation,
   blocks: tuple[
@@ -303,6 +441,44 @@ def render_toda_group_proof_generic_narrative_markdown(
 
     lines.append(
       ""
+    )
+
+  return (
+    "\n".join(
+      lines
+    ).rstrip()
+    + "\n"
+  )
+
+
+def render_toda_group_proof_generic_proof_markdown(
+  presentation: TodaGroupProofPresentation,
+  blocks: tuple[
+    TodaGroupProofNarrativeBlock,
+    ...,
+  ],
+) -> str:
+  _validate_generic_narrative_blocks(
+    presentation,
+    blocks,
+  )
+
+  lines = [
+    "# Generic group proof",
+    "",
+  ]
+
+  for block_index in range(
+    len(
+      blocks
+    )
+  ):
+    lines.extend(
+      _render_generic_narrative_proof_block(
+        presentation,
+        blocks,
+        block_index,
+      )
     )
 
   return (
