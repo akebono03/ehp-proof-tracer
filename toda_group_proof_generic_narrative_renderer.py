@@ -1,3 +1,12 @@
+from expression import (
+  Composition,
+  HomotopyElement,
+)
+from homotopy_groups import (
+  TodaDeltaMap,
+  TodaHopfInvariantMap,
+  TodaSuspensionMap,
+)
 from proof import (
   ProofStep,
 )
@@ -8,11 +17,29 @@ from toda_group_proof_narrative_blocks import (
   TodaGroupProofNarrativeBlock,
   TodaGroupProofNarrativeMathematicalBlockRole,
 )
+from toda_group_proof_narrative_semantics import (
+  TodaGroupProofNarrativeSemanticSidecar,
+  build_toda_group_proof_narrative_semantic_sidecar,
+)
 from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
 )
+from toda_human_readable_renderer import (
+  render_toda_expression_latex,
+)
 from toda_proof_narrative_renderer import (
+  render_toda_primary_group_latex,
   render_toda_proof_statement_latex,
+)
+from toda_rules import (
+  TodaDeltaInjectiveStatement,
+  TodaHopfInvariantInjectiveStatement,
+  TodaHopfInvariantSurjectiveStatement,
+  TodaIteratedSuspensionInjectiveStatement,
+  TodaProp42ExactnessStatement,
+  TodaProp44SuspensionInjectiveStatement,
+  TodaSuspensionInjectiveStatement,
+  TodaSuspensionSurjectiveStatement,
 )
 
 
@@ -42,6 +69,138 @@ _BLOCK_ROLE_LABELS = {
   TodaGroupProofNarrativeMathematicalBlockRole.OTHER:
     "その他",
 }
+
+
+def _generic_eta_composition_factors(
+  expression,
+) -> tuple[HomotopyElement, ...] | None:
+  if isinstance(expression, Composition):
+    left = _generic_eta_composition_factors(expression.left)
+    right = _generic_eta_composition_factors(expression.right)
+    if left is None or right is None:
+      return None
+    return left + right
+
+  if not isinstance(expression, HomotopyElement):
+    return None
+
+  generator = expression.generator
+  if (
+    generator is None
+    or generator.family != "η"
+    or not isinstance(generator.index, int)
+    or isinstance(generator.index, bool)
+    or generator.decoration is not None
+  ):
+    return None
+
+  return (expression,)
+
+
+def _render_generic_eta_composition_latex(
+  expression,
+) -> str | None:
+  factors = _generic_eta_composition_factors(expression)
+  if factors is None or len(factors) < 2:
+    return None
+
+  indices = tuple(
+    factor.generator.index
+    for factor in factors
+  )
+  start_index = indices[0]
+  if indices != tuple(
+    range(start_index, start_index + len(factors))
+  ):
+    return None
+
+  return (
+    r"\eta_{"
+    + str(start_index)
+    + r"}^{"
+    + str(len(factors))
+    + "}"
+  )
+
+
+def _render_generic_narrative_expression_latex(
+  expression,
+) -> str:
+  compact = _render_generic_eta_composition_latex(expression)
+  if compact is not None:
+    return compact
+
+  if isinstance(expression, Composition):
+    return (
+      _render_generic_narrative_expression_latex(expression.left)
+      + _render_generic_narrative_expression_latex(expression.right)
+    )
+
+  return render_toda_expression_latex(expression)
+
+
+def _try_render_generic_narrative_expression_latex(
+  expression,
+) -> str | None:
+  try:
+    return render_toda_expression_latex(
+      expression
+    )
+  except TypeError:
+    return None
+
+
+def _normalize_generic_narrative_step_latex(
+  proof_step: ProofStep,
+  latex: str,
+) -> str:
+  statement = proof_step.conclusion
+
+  if not hasattr(
+    statement,
+    "lhs",
+  ):
+    return latex
+
+  if not hasattr(
+    statement,
+    "rhs",
+  ):
+    return latex
+
+  normalized = latex
+
+  for expression in (
+    statement.lhs,
+    statement.rhs,
+  ):
+    rendered_expression = (
+      _try_render_generic_narrative_expression_latex(
+        expression
+      )
+    )
+
+    if rendered_expression is None:
+      continue
+
+    normalized_expression = (
+      _render_generic_narrative_expression_latex(
+        expression
+      )
+    )
+
+    if (
+      normalized_expression
+      == rendered_expression
+    ):
+      continue
+
+    normalized = normalized.replace(
+      rendered_expression,
+      normalized_expression,
+    )
+
+  return normalized
 
 
 def _render_generic_narrative_step(
@@ -77,6 +236,10 @@ def _render_generic_narrative_step(
     )
 
   if latex is not None:
+    latex = _normalize_generic_narrative_step_latex(
+      proof_step,
+      latex,
+    )
     return (
       "$"
       + latex
@@ -173,10 +336,23 @@ def _generic_narrative_dependency_indices(
     ...,
   ],
   block_index: int,
+  semantic_sidecar: (
+    TodaGroupProofNarrativeSemanticSidecar
+    | None
+  ) = None,
 ) -> tuple[
   int,
   ...,
 ]:
+  if (
+    semantic_sidecar is not None
+    and semantic_sidecar.presentation
+    is not presentation
+  ):
+    raise ValueError(
+      "semantic_sidecar must belong to presentation"
+    )
+
   step_block_index = {
     id(
       proof_step
@@ -223,8 +399,455 @@ def _generic_narrative_dependency_indices(
       dependency_index
     )
 
+  if semantic_sidecar is not None:
+    for semantic in (
+      semantic_sidecar.dependency_semantics
+    ):
+      if id(
+        semantic.dependent_step
+      ) not in block_step_ids:
+        continue
+
+      dependency_index = (
+        step_block_index[
+          id(
+            semantic.prerequisite_step
+          )
+        ]
+      )
+
+      if dependency_index == block_index:
+        continue
+
+      if dependency_index in dependency_indices:
+        continue
+
+      dependency_indices.append(
+        dependency_index
+      )
+
   return tuple(
     dependency_indices
+  )
+
+
+def _generic_narrative_proof_order_indices(
+  presentation: TodaGroupProofPresentation,
+  blocks: tuple[
+    TodaGroupProofNarrativeBlock,
+    ...,
+  ],
+  semantic_sidecar: (
+    TodaGroupProofNarrativeSemanticSidecar
+    | None
+  ) = None,
+) -> tuple[
+  int,
+  ...,
+]:
+  _validate_generic_narrative_blocks(
+    presentation,
+    blocks,
+  )
+
+  if semantic_sidecar is None:
+    semantic_sidecar = (
+      build_toda_group_proof_narrative_semantic_sidecar(
+        presentation
+      )
+    )
+
+  if (
+    semantic_sidecar.presentation
+    is not presentation
+  ):
+    raise ValueError(
+      "semantic_sidecar must belong to presentation"
+    )
+
+  ordered_indices = []
+  visited_indices = set()
+  active_indices = set()
+
+  def visit(
+    block_index: int,
+  ) -> None:
+    if block_index in visited_indices:
+      return
+
+    if block_index in active_indices:
+      return
+
+    active_indices.add(
+      block_index
+    )
+
+    for dependency_index in (
+      _generic_narrative_dependency_indices(
+        presentation,
+        blocks,
+        block_index,
+        semantic_sidecar=semantic_sidecar,
+      )
+    ):
+      visit(
+        dependency_index
+      )
+
+    active_indices.remove(
+      block_index
+    )
+    visited_indices.add(
+      block_index
+    )
+    ordered_indices.append(
+      block_index
+    )
+
+  target_indices = tuple(
+    index
+    for index, block in enumerate(
+      blocks
+    )
+    if (
+      block.role
+      is TodaGroupProofNarrativeMathematicalBlockRole.TARGET
+    )
+  )
+  non_target_indices = tuple(
+    index
+    for index, block in enumerate(
+      blocks
+    )
+    if (
+      block.role
+      is not TodaGroupProofNarrativeMathematicalBlockRole.TARGET
+    )
+  )
+
+  for block_index in non_target_indices:
+    visit(
+      block_index
+    )
+
+  for block_index in target_indices:
+    visit(
+      block_index
+    )
+
+  return tuple(
+    ordered_indices
+  )
+
+
+_GENERIC_INJECTIVE_STATEMENT_TYPES = (
+  TodaDeltaInjectiveStatement,
+  TodaHopfInvariantInjectiveStatement,
+  TodaIteratedSuspensionInjectiveStatement,
+  TodaProp44SuspensionInjectiveStatement,
+  TodaSuspensionInjectiveStatement,
+)
+
+_GENERIC_SURJECTIVE_STATEMENT_TYPES = (
+  TodaHopfInvariantSurjectiveStatement,
+  TodaSuspensionSurjectiveStatement,
+)
+
+
+def _generic_group_map_name(
+  group_map,
+) -> str | None:
+  if isinstance(
+    group_map,
+    TodaSuspensionMap,
+  ):
+    return "E"
+
+  if isinstance(
+    group_map,
+    TodaHopfInvariantMap,
+  ):
+    return "H"
+
+  if isinstance(
+    group_map,
+    TodaDeltaMap,
+  ):
+    return r"\Delta"
+
+  return None
+
+
+def _generic_short_exact_sequence_latex(
+  presentation: TodaGroupProofPresentation,
+  exactness_step: ProofStep,
+) -> str | None:
+  statement = (
+    exactness_step.conclusion
+  )
+
+  if not isinstance(
+    statement,
+    TodaProp42ExactnessStatement,
+  ):
+    return None
+
+  window = statement.window
+  first_map_name = getattr(
+    window.first_map,
+    "name",
+    None,
+  )
+  second_map_name = getattr(
+    window.second_map,
+    "name",
+    None,
+  )
+
+  injective_step = next(
+    (
+      node.proof_step
+      for node in presentation.nodes
+      if (
+        isinstance(
+          node.proof_step.conclusion,
+          _GENERIC_INJECTIVE_STATEMENT_TYPES,
+        )
+        and (
+          node.proof_step.conclusion.map.source_group
+          == window.source_term
+        )
+        and (
+          node.proof_step.conclusion.map.target_group
+          == window.middle_term
+        )
+        and (
+          _generic_group_map_name(
+            node.proof_step.conclusion.map
+          )
+          == first_map_name
+        )
+      )
+    ),
+    None,
+  )
+
+  surjective_step = next(
+    (
+      node.proof_step
+      for node in presentation.nodes
+      if (
+        isinstance(
+          node.proof_step.conclusion,
+          _GENERIC_SURJECTIVE_STATEMENT_TYPES,
+        )
+        and (
+          node.proof_step.conclusion.map.source_group
+          == window.middle_term
+        )
+        and (
+          node.proof_step.conclusion.map.target_group
+          == window.target_term
+        )
+        and (
+          _generic_group_map_name(
+            node.proof_step.conclusion.map
+          )
+          == second_map_name
+        )
+      )
+    ),
+    None,
+  )
+
+  if (
+    injective_step is None
+    or surjective_step is None
+    or first_map_name is None
+    or second_map_name is None
+  ):
+    return None
+
+  return (
+    r"0\longrightarrow "
+    + render_toda_primary_group_latex(
+      window.source_term
+    )
+    + r"\xrightarrow{"
+    + first_map_name
+    + "} "
+    + render_toda_primary_group_latex(
+      window.middle_term
+    )
+    + r"\xrightarrow{"
+    + second_map_name
+    + "} "
+    + render_toda_primary_group_latex(
+      window.target_term
+    )
+    + r"\longrightarrow 0"
+  )
+
+
+def _generic_narrative_dependency_labels(
+  presentation: TodaGroupProofPresentation,
+  blocks: tuple[
+    TodaGroupProofNarrativeBlock,
+    ...,
+  ],
+  block_index: int,
+) -> tuple[
+  str,
+  ...,
+]:
+  return tuple(
+    "[B"
+    + f"{dependency_index + 1:02d}"
+    + "]"
+    for dependency_index
+    in _generic_narrative_dependency_indices(
+      presentation,
+      blocks,
+      block_index,
+    )
+  )
+
+
+def _generic_narrative_sentence_lead(
+  role: TodaGroupProofNarrativeMathematicalBlockRole,
+  dependency_labels: tuple[
+    str,
+    ...,
+  ],
+) -> str:
+  if not isinstance(
+    role,
+    TodaGroupProofNarrativeMathematicalBlockRole,
+  ):
+    raise TypeError(
+      "role must be a "
+      "TodaGroupProofNarrativeMathematicalBlockRole"
+    )
+
+  if not isinstance(
+    dependency_labels,
+    tuple,
+  ):
+    raise TypeError(
+      "dependency_labels must be a tuple"
+    )
+
+  if not dependency_labels:
+    if (
+      role
+      is TodaGroupProofNarrativeMathematicalBlockRole.EXACTNESS
+    ):
+      return "次の完全列を考える."
+
+    return ""
+
+  dependency_text = ", ".join(
+    dependency_labels
+  )
+
+  if (
+    role
+    is TodaGroupProofNarrativeMathematicalBlockRole.DEFINITION
+  ):
+    return (
+      dependency_text
+      + " の条件のもとで, 次の定義を用いる."
+    )
+
+  if (
+    role
+    is TodaGroupProofNarrativeMathematicalBlockRole.EXACTNESS
+  ):
+    return (
+      dependency_text
+      + " を用いて, 次の完全列を考える."
+    )
+
+  return (
+    dependency_text
+    + " より,"
+  )
+
+
+def _render_generic_narrative_proof_block(
+  presentation: TodaGroupProofPresentation,
+  blocks: tuple[
+    TodaGroupProofNarrativeBlock,
+    ...,
+  ],
+  block_index: int,
+) -> tuple[
+  str,
+  ...,
+]:
+  block = blocks[
+    block_index
+  ]
+  dependency_labels = (
+    _generic_narrative_dependency_labels(
+      presentation,
+      blocks,
+      block_index,
+    )
+  )
+  sentence_lead = (
+    _generic_narrative_sentence_lead(
+      block.role,
+      dependency_labels,
+    )
+  )
+
+  lines = []
+
+  if sentence_lead:
+    lines.append(
+      sentence_lead
+    )
+    lines.append(
+      ""
+    )
+
+  for proof_step in block.steps:
+    lines.append(
+      _render_generic_narrative_step(
+        proof_step
+      )
+    )
+    lines.append(
+      ""
+    )
+
+    short_exact_sequence_latex = (
+      _generic_short_exact_sequence_latex(
+        presentation,
+        proof_step,
+      )
+    )
+
+    if short_exact_sequence_latex is not None:
+      lines.append(
+        "この完全性と両端の写像の性質より, "
+        "次の短完全列を得る."
+      )
+      lines.append(
+        ""
+      )
+      lines.append(
+        "$"
+        + short_exact_sequence_latex
+        + "$"
+      )
+      lines.append(
+        ""
+      )
+
+  return tuple(
+    lines
   )
 
 
@@ -303,6 +926,45 @@ def render_toda_group_proof_generic_narrative_markdown(
 
     lines.append(
       ""
+    )
+
+  return (
+    "\n".join(
+      lines
+    ).rstrip()
+    + "\n"
+  )
+
+
+def render_toda_group_proof_generic_proof_markdown(
+  presentation: TodaGroupProofPresentation,
+  blocks: tuple[
+    TodaGroupProofNarrativeBlock,
+    ...,
+  ],
+) -> str:
+  _validate_generic_narrative_blocks(
+    presentation,
+    blocks,
+  )
+
+  lines = [
+    "# Generic group proof",
+    "",
+  ]
+
+  for block_index in (
+    _generic_narrative_proof_order_indices(
+      presentation,
+      blocks,
+    )
+  ):
+    lines.extend(
+      _render_generic_narrative_proof_block(
+        presentation,
+        blocks,
+        block_index,
+      )
     )
 
   return (

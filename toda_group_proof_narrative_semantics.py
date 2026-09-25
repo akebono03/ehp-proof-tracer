@@ -26,6 +26,14 @@ class TodaGroupProofNarrativeStepSemanticRole(
   )
 
 
+class TodaGroupProofNarrativeDependencySemanticRole(
+  Enum
+):
+  PRECONDITION_FOR_DEFINITION = (
+    "precondition_for_definition"
+  )
+
+
 @dataclass(frozen=True)
 class TodaGroupProofNarrativePremiseSemantic:
   edge: TodaProofEdge
@@ -83,6 +91,52 @@ class TodaGroupProofNarrativeStepSemantic:
 
 
 @dataclass(frozen=True)
+class TodaGroupProofNarrativeDependencySemantic:
+  prerequisite_step: ProofStep
+  dependent_step: ProofStep
+  role: (
+    TodaGroupProofNarrativeDependencySemanticRole
+  )
+
+  def __post_init__(
+    self,
+  ) -> None:
+    if not isinstance(
+      self.prerequisite_step,
+      ProofStep,
+    ):
+      raise TypeError(
+        "prerequisite_step must be a ProofStep"
+      )
+
+    if not isinstance(
+      self.dependent_step,
+      ProofStep,
+    ):
+      raise TypeError(
+        "dependent_step must be a ProofStep"
+      )
+
+    if not isinstance(
+      self.role,
+      TodaGroupProofNarrativeDependencySemanticRole,
+    ):
+      raise TypeError(
+        "role must be a "
+        "TodaGroupProofNarrativeDependencySemanticRole"
+      )
+
+    if (
+      self.prerequisite_step
+      is self.dependent_step
+    ):
+      raise ValueError(
+        "semantic dependency must connect "
+        "different proof steps"
+      )
+
+
+@dataclass(frozen=True)
 class TodaGroupProofNarrativeSemanticSidecar:
   presentation: TodaGroupProofPresentation
   premise_semantics: tuple[
@@ -93,6 +147,10 @@ class TodaGroupProofNarrativeSemanticSidecar:
     TodaGroupProofNarrativeStepSemantic,
     ...,
   ]
+  dependency_semantics: tuple[
+    TodaGroupProofNarrativeDependencySemantic,
+    ...,
+  ] = ()
 
   def __post_init__(
     self,
@@ -120,6 +178,14 @@ class TodaGroupProofNarrativeSemanticSidecar:
     ):
       raise TypeError(
         "step_semantics must be a tuple"
+      )
+
+    if not isinstance(
+      self.dependency_semantics,
+      tuple,
+    ):
+      raise TypeError(
+        "dependency_semantics must be a tuple"
       )
 
     allowed_step_ids = {
@@ -214,6 +280,51 @@ class TodaGroupProofNarrativeSemanticSidecar:
         step_id
       )
 
+    seen_dependency_keys = set()
+
+    for semantic in self.dependency_semantics:
+      if not isinstance(
+        semantic,
+        TodaGroupProofNarrativeDependencySemantic,
+      ):
+        raise TypeError(
+          "dependency_semantics must contain only "
+          "TodaGroupProofNarrativeDependencySemantic "
+          "objects"
+        )
+
+      prerequisite_step_id = id(
+        semantic.prerequisite_step
+      )
+      dependent_step_id = id(
+        semantic.dependent_step
+      )
+
+      if (
+        prerequisite_step_id not in allowed_step_ids
+        or dependent_step_id not in allowed_step_ids
+      ):
+        raise ValueError(
+          "semantic dependency proof steps must "
+          "appear in presentation nodes"
+        )
+
+      dependency_key = (
+        prerequisite_step_id,
+        dependent_step_id,
+        semantic.role,
+      )
+
+      if dependency_key in seen_dependency_keys:
+        raise ValueError(
+          "dependency_semantics must not contain "
+          "duplicate dependencies"
+        )
+
+      seen_dependency_keys.add(
+        dependency_key
+      )
+
 
 _PREMISE_ROLE_BY_RULE_NAME_AND_INDEX = {
   (
@@ -274,6 +385,84 @@ def _inference_rule_name(
     return None
 
   return inference_rule.name
+
+
+def _semantic_dependency_semantics(
+  presentation: TodaGroupProofPresentation,
+  premise_semantics: tuple[
+    TodaGroupProofNarrativePremiseSemantic,
+    ...,
+  ],
+  step_semantics: tuple[
+    TodaGroupProofNarrativeStepSemantic,
+    ...,
+  ],
+) -> tuple[
+  TodaGroupProofNarrativeDependencySemantic,
+  ...,
+]:
+  precondition_steps = []
+  seen_precondition_step_ids = set()
+
+  for semantic in premise_semantics:
+    if (
+      semantic.role
+      is not TodaGroupProofNarrativePremiseSemanticRole
+      .PRECONDITION
+    ):
+      continue
+
+    proof_step = (
+      semantic.edge.premise_step
+    )
+    proof_step_id = id(
+      proof_step
+    )
+
+    if proof_step_id in seen_precondition_step_ids:
+      continue
+
+    seen_precondition_step_ids.add(
+      proof_step_id
+    )
+    precondition_steps.append(
+      proof_step
+    )
+
+  definition_steps = tuple(
+    semantic.proof_step
+    for semantic in step_semantics
+    if (
+      semantic.role
+      is TodaGroupProofNarrativeStepSemanticRole
+      .DEFINITION_INTRODUCTION
+    )
+  )
+
+  if (
+    len(
+      precondition_steps
+    ) != 1
+    or len(
+      definition_steps
+    ) != 1
+  ):
+    return ()
+
+  return (
+    TodaGroupProofNarrativeDependencySemantic(
+      prerequisite_step=precondition_steps[
+        0
+      ],
+      dependent_step=definition_steps[
+        0
+      ],
+      role=(
+        TodaGroupProofNarrativeDependencySemanticRole
+        .PRECONDITION_FOR_DEFINITION
+      ),
+    ),
+  )
 
 
 def build_toda_group_proof_narrative_semantic_sidecar(
@@ -380,14 +569,24 @@ def build_toda_group_proof_narrative_semantic_sidecar(
       )
     )
 
+  premise_semantics_tuple = tuple(
+    premise_semantics
+  )
+  step_semantics_tuple = tuple(
+    ordered_step_semantics
+  )
+
   return (
     TodaGroupProofNarrativeSemanticSidecar(
       presentation=presentation,
-      premise_semantics=tuple(
-        premise_semantics
-      ),
-      step_semantics=tuple(
-        ordered_step_semantics
+      premise_semantics=premise_semantics_tuple,
+      step_semantics=step_semantics_tuple,
+      dependency_semantics=(
+        _semantic_dependency_semantics(
+          presentation,
+          premise_semantics_tuple,
+          step_semantics_tuple,
+        )
       ),
     )
   )
