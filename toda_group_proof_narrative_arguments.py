@@ -32,6 +32,10 @@ class TodaGroupProofNarrativeArgument:
     ...,
   ]
   conclusion_block: TodaGroupProofNarrativeBlock
+  child_argument_indices: tuple[
+    int,
+    ...,
+  ] = ()
 
   def __post_init__(
     self,
@@ -62,6 +66,43 @@ class TodaGroupProofNarrativeArgument:
           "supporting_blocks must contain only "
           "TodaGroupProofNarrativeBlock objects"
         )
+
+    if not isinstance(
+      self.child_argument_indices,
+      tuple,
+    ):
+      raise TypeError(
+        "child_argument_indices must be a tuple"
+      )
+
+    for argument_index in self.child_argument_indices:
+      if (
+        not isinstance(
+          argument_index,
+          int,
+        )
+        or isinstance(
+          argument_index,
+          bool,
+        )
+        or argument_index < 0
+      ):
+        raise TypeError(
+          "child_argument_indices must contain "
+          "non-negative integers"
+        )
+
+    if len(
+      set(
+        self.child_argument_indices
+      )
+    ) != len(
+      self.child_argument_indices
+    ):
+      raise ValueError(
+        "child_argument_indices must not "
+        "contain duplicates"
+      )
 
     if not isinstance(
       self.conclusion_block,
@@ -364,26 +405,56 @@ def build_toda_group_proof_narrative_arguments(
     )
   )
 
-  arguments = []
-
-  for conclusion_index, conclusion_block in enumerate(
-    blocks
-  ):
-    argument_role = (
+  argument_specs = tuple(
+    (
+      conclusion_index,
+      argument_role,
+    )
+    for conclusion_index, conclusion_block in enumerate(
+      blocks
+    )
+    for argument_role in (
       _ARGUMENT_ROLE_BY_CONCLUSION_BLOCK_ROLE.get(
         conclusion_block.role
-      )
+      ),
     )
+    if argument_role is not None
+  )
 
-    if argument_role is None:
-      continue
-
-    supporting_indices = (
-      _argument_dependency_closure_indices(
-        direct_dependencies,
-        conclusion_index,
-      )
+  argument_index_by_conclusion_block_index = {
+    conclusion_index: argument_index
+    for argument_index, (
+      conclusion_index,
+      _,
+    ) in enumerate(
+      argument_specs
     )
+  }
+
+  arguments = []
+
+  for conclusion_index, argument_role in argument_specs:
+    supporting_indices = []
+    child_argument_indices = []
+
+    for dependency_index in direct_dependencies[
+      conclusion_index
+    ]:
+      child_argument_index = (
+        argument_index_by_conclusion_block_index.get(
+          dependency_index
+        )
+      )
+
+      if child_argument_index is not None:
+        child_argument_indices.append(
+          child_argument_index
+        )
+        continue
+
+      supporting_indices.append(
+        dependency_index
+      )
 
     arguments.append(
       TodaGroupProofNarrativeArgument(
@@ -394,7 +465,12 @@ def build_toda_group_proof_narrative_arguments(
           ]
           for supporting_index in supporting_indices
         ),
-        conclusion_block=conclusion_block,
+        child_argument_indices=tuple(
+          child_argument_indices
+        ),
+        conclusion_block=blocks[
+          conclusion_index
+        ],
       )
     )
 

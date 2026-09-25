@@ -182,10 +182,20 @@ def test_phase143_7_target_argument_is_group_structure_argument():
     target_argument.conclusion_block.role
     is TodaGroupProofNarrativeMathematicalBlockRole.TARGET
   )
-  assert any(
-    block.role
-    is TodaGroupProofNarrativeMathematicalBlockRole.ORDER
-    for block in target_argument.supporting_blocks
+  order_argument_index = next(
+    argument_index
+    for argument_index, argument in enumerate(
+      arguments
+    )
+    if (
+      argument.role
+      is TodaGroupProofNarrativeArgumentRole.ESTABLISH_ORDER
+    )
+  )
+
+  assert (
+    order_argument_index
+    in target_argument.child_argument_indices
   )
 
 
