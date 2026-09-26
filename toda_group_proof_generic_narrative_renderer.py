@@ -36,6 +36,7 @@ from toda_rules import (
   TodaHopfInvariantInjectiveStatement,
   TodaHopfInvariantSurjectiveStatement,
   TodaIteratedSuspensionInjectiveStatement,
+  TodaNuFamilyDefinitionStatement,
   TodaProp42ExactnessStatement,
   TodaProp44SuspensionInjectiveStatement,
   TodaSuspensionInjectiveStatement,
@@ -203,6 +204,102 @@ def _normalize_generic_narrative_step_latex(
   return normalized
 
 
+def _render_generic_narrative_group_map_latex(
+  group_map,
+) -> str | None:
+  map_name = _generic_group_map_name(
+    group_map
+  )
+
+  if map_name is None:
+    return None
+
+  source_group = getattr(
+    group_map,
+    "source_group",
+    None,
+  )
+  target_group = getattr(
+    group_map,
+    "target_group",
+    None,
+  )
+
+  if (
+    source_group is None
+    or target_group is None
+  ):
+    return None
+
+  return (
+    map_name
+    + ": "
+    + render_toda_primary_group_latex(
+      source_group
+    )
+    + r" \to "
+    + render_toda_primary_group_latex(
+      target_group
+    )
+  )
+
+
+def _render_generic_narrative_statement_prose(
+  statement,
+) -> str | None:
+  if isinstance(
+    statement,
+    _GENERIC_INJECTIVE_STATEMENT_TYPES,
+  ):
+    map_latex = (
+      _render_generic_narrative_group_map_latex(
+        statement.map
+      )
+    )
+
+    if map_latex is None:
+      return None
+
+    return (
+      "$"
+      + map_latex
+      + "$ は単射である."
+    )
+
+  if isinstance(
+    statement,
+    _GENERIC_SURJECTIVE_STATEMENT_TYPES,
+  ):
+    map_latex = (
+      _render_generic_narrative_group_map_latex(
+        statement.map
+      )
+    )
+
+    if map_latex is None:
+      return None
+
+    return (
+      "$"
+      + map_latex
+      + "$ は全射である."
+    )
+
+  if isinstance(
+    statement,
+    TodaNuFamilyDefinitionStatement,
+  ):
+    return (
+      "$"
+      + render_toda_expression_latex(
+        statement.element
+      )
+      + r"$ を \(\nu\)-family の元として定める."
+    )
+
+  return None
+
+
 def _render_generic_narrative_step(
   proof_step: ProofStep,
 ) -> str:
@@ -215,6 +312,15 @@ def _render_generic_narrative_step(
     )
 
   statement = proof_step.conclusion
+
+  prose = (
+    _render_generic_narrative_statement_prose(
+      statement
+    )
+  )
+
+  if prose is not None:
+    return prose
 
   try:
     latex = (

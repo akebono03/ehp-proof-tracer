@@ -128,10 +128,28 @@ def _render_toda_group_proof_narrative_argument_exactness_body_block(
       is TodaGroupProofNarrativeExactnessDisplayContributionKind
       .EXACTNESS_WINDOW
     ):
+      exactness_latex = (
+        contribution.latex
+      )
+      english_suffix = (
+        r" \text{ is exact}"
+      )
+
+      if exactness_latex.endswith(
+        english_suffix
+      ):
+        exactness_latex = (
+          exactness_latex[
+            :-len(
+              english_suffix
+            )
+          ]
+        )
+
       lines.append(
         "$"
-        + contribution.latex
-        + "$"
+        + exactness_latex
+        + "$ は完全である."
       )
       lines.append(
         ""
