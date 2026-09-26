@@ -42,6 +42,7 @@ from toda_human_readable_renderer import (
 from toda_proof_narrative_renderer import (
   render_toda_primary_group_latex,
   render_toda_proof_statement_latex,
+  render_toda_raw_group_structure_latex,
 )
 from toda_rules import (
   Toda36Lemma514SigmaDoublePrimeBridgeStatement,
@@ -52,6 +53,9 @@ from toda_rules import (
   Toda55NuFamilyFiniteDimensionalStatement,
   Toda56Nu4DecompositionIsomorphismStatement,
   Toda56Nu4DecompositionStatement,
+  TodaDeltaImageFreeCyclicStatement,
+  TodaDeltaKernelFreeCyclicStatement,
+  TodaDeltaSurjectiveStatement,
   TodaDeltaZeroStatement,
   TodaEtaFamilyDefinitionStatement,
   TodaHopfInvariantInjectiveStatement,
@@ -73,6 +77,7 @@ from toda_rules import (
   TodaProp56Pi8_5QuotientStatement,
   TodaSigmaFamilyDefinitionStatement,
   TodaSuspensionInjectiveStatement,
+  TodaSuspensionKernelFreeCyclicStatement,
 )
 
 
@@ -419,6 +424,78 @@ def _render_group_proof_narrative_latex(
       + r" \to "
       + render_toda_primary_group_latex(
         statement.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaDeltaSurjectiveStatement,
+  ):
+    return (
+      r"\Delta: "
+      + render_toda_primary_group_latex(
+        statement.map.source_group
+      )
+      + r" \twoheadrightarrow "
+      + render_toda_primary_group_latex(
+        statement.map.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaSuspensionKernelFreeCyclicStatement,
+  ):
+    return (
+      r"\ker\left(E: "
+      + render_toda_primary_group_latex(
+        statement.map.source_group
+      )
+      + r" \to "
+      + render_toda_primary_group_latex(
+        statement.map.target_group
+      )
+      + r"\right) = "
+      + render_toda_raw_group_structure_latex(
+        statement.kernel_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaDeltaImageFreeCyclicStatement,
+  ):
+    return (
+      r"\operatorname{Im}\left(\Delta: "
+      + render_toda_primary_group_latex(
+        statement.map.source_group
+      )
+      + r" \to "
+      + render_toda_primary_group_latex(
+        statement.map.target_group
+      )
+      + r"\right) = "
+      + render_toda_raw_group_structure_latex(
+        statement.image_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaDeltaKernelFreeCyclicStatement,
+  ):
+    return (
+      r"\ker\left(\Delta: "
+      + render_toda_primary_group_latex(
+        statement.map.source_group
+      )
+      + r" \to "
+      + render_toda_primary_group_latex(
+        statement.map.target_group
+      )
+      + r"\right) = "
+      + render_toda_raw_group_structure_latex(
+        statement.kernel_group
       )
     )
 
