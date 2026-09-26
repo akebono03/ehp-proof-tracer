@@ -655,6 +655,12 @@ def render_toda_group_proof_narrative_argument_body_markdown(
     ]
     | None
   ) = None,
+  preserve_provenance_block_ids: (
+    frozenset[
+      int
+    ]
+    | None
+  ) = None,
 ) -> str:
   if not isinstance(
     presentation,
@@ -819,6 +825,37 @@ def render_toda_group_proof_narrative_argument_body_markdown(
           "context_hidden_step_ids must contain "
           "only integers"
         )
+  if (
+    preserve_provenance_block_ids is not None
+    and not isinstance(
+      preserve_provenance_block_ids,
+      frozenset,
+    )
+  ):
+    raise TypeError(
+      "preserve_provenance_block_ids must be "
+      "a frozenset or None"
+    )
+
+  if preserve_provenance_block_ids is None:
+    preserve_provenance_block_ids = frozenset()
+
+  for block_id in preserve_provenance_block_ids:
+    if (
+      not isinstance(
+        block_id,
+        int,
+      )
+      or isinstance(
+        block_id,
+        bool,
+      )
+    ):
+      raise TypeError(
+        "preserve_provenance_block_ids must "
+        "contain only integers"
+      )
+
   block_index_by_identity = {
     id(
       block
@@ -832,6 +869,15 @@ def render_toda_group_proof_narrative_argument_body_markdown(
       presentation,
       blocks,
     )
+  )
+  derivation_source_step_ids = frozenset(
+    id(
+      source_step
+    )
+    for source_steps in (
+      step_derivation_sources_by_target_id.values()
+    )
+    for source_step in source_steps
   )
 
   seen_local_block_ids = set()
@@ -951,6 +997,12 @@ def render_toda_group_proof_narrative_argument_body_markdown(
       ):
         continue
 
+      preserve_direct_derivation_premises = (
+        id(
+          block
+        ) in preserve_provenance_block_ids
+      )
+
       display_steps = tuple(
         proof_step
         for proof_step in block.steps
@@ -961,11 +1013,15 @@ def render_toda_group_proof_narrative_argument_body_markdown(
               proof_step
             ) not in context_hidden_step_ids
           )
-          and id(
-            proof_step
-          ) not in redundant_direct_premise_step_ids
           and (
-            id(
+            preserve_direct_derivation_premises
+            or id(
+              proof_step
+            ) not in redundant_direct_premise_step_ids
+          )
+          and (
+            preserve_direct_derivation_premises
+            or id(
               proof_step
             ) not in relocated_direct_premise_ids
             or (
@@ -1032,7 +1088,14 @@ def render_toda_group_proof_narrative_argument_body_markdown(
           render_blocks,
           block_index,
           show_dependency_labels=False,
-          suppress_provenance_only=True,
+          suppress_provenance_only=(
+            id(
+              block
+            ) not in preserve_provenance_block_ids
+          ),
+          preserve_provenance_step_ids=(
+            derivation_source_step_ids
+          ),
         )
       )
       block_lines = (

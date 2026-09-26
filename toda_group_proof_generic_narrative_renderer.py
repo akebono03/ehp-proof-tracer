@@ -1012,6 +1012,10 @@ def _render_generic_narrative_proof_block(
   block_index: int,
   show_dependency_labels: bool = True,
   suppress_provenance_only: bool = False,
+  preserve_provenance_step_ids: (
+    frozenset[int]
+    | None
+  ) = None,
 ) -> tuple[
   str,
   ...,
@@ -1031,6 +1035,37 @@ def _render_generic_narrative_proof_block(
     raise TypeError(
       "suppress_provenance_only must be a bool"
     )
+
+  if (
+    preserve_provenance_step_ids is not None
+    and not isinstance(
+      preserve_provenance_step_ids,
+      frozenset,
+    )
+  ):
+    raise TypeError(
+      "preserve_provenance_step_ids must be "
+      "a frozenset or None"
+    )
+
+  if preserve_provenance_step_ids is None:
+    preserve_provenance_step_ids = frozenset()
+
+  for step_id in preserve_provenance_step_ids:
+    if (
+      not isinstance(
+        step_id,
+        int,
+      )
+      or isinstance(
+        step_id,
+        bool,
+      )
+    ):
+      raise TypeError(
+        "preserve_provenance_step_ids must "
+        "contain only integers"
+      )
 
   block = blocks[
     block_index
@@ -1067,6 +1102,9 @@ def _render_generic_narrative_proof_block(
   for proof_step in block.steps:
     if (
       suppress_provenance_only
+      and id(
+        proof_step
+      ) not in preserve_provenance_step_ids
       and _is_generic_narrative_provenance_only_statement(
         proof_step.conclusion
       )

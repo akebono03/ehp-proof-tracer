@@ -619,12 +619,41 @@ def render_toda_proof_statement_latex(
       + r",\ ".join(conditions)
     )
 
-  if isinstance(statement, Toda515Sigma8TransportedDecompositionStatement):
-    return (
-      _render_phase143_75ao_homotopy_group(statement.prop44_isomorphism.map.target_group)
-      + r" = "
-      + render_toda_raw_group_structure_latex(statement.transported_group)
-    )
+  if isinstance(
+      statement,
+      Toda515Sigma8TransportedDecompositionStatement,
+    ):
+      transported_group = statement.transported_group
+
+      if not isinstance(
+        transported_group,
+        DirectSumGroup,
+      ):
+        raise TypeError(
+          "transported_group must be a DirectSumGroup"
+        )
+
+      if len(transported_group.summands) != 2:
+        raise ValueError(
+          "transported_group must have exactly two summands"
+        )
+
+      first_summand = transported_group.summands[0]
+      second_summand = transported_group.summands[1]
+
+      return (
+        _render_phase143_75ao_homotopy_group(
+          statement.prop44_isomorphism.map.target_group
+        )
+        + r" \cong "
+        + render_toda_raw_group_structure_latex(
+          second_summand
+        )
+        + r" \oplus "
+        + render_toda_raw_group_structure_latex(
+          first_summand
+        )
+      )
 
   if isinstance(statement, Toda515Sigma8Prop44SpecializationStatement):
     return (

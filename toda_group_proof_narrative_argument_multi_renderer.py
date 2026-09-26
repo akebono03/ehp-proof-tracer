@@ -55,6 +55,7 @@ from toda_group_proof_narrative_transition_renderer import (
   render_toda_group_proof_narrative_transition_connector,
 )
 from toda_group_proof_narrative_transitions import (
+  TodaGroupProofNarrativeTransitionRole,
   extract_toda_group_proof_narrative_transitions,
 )
 from toda_group_proof_presentation import (
@@ -252,6 +253,21 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
         transition
       )
     )
+    derivation_source_block_ids = (
+      frozenset()
+      if (
+        transition is None
+        or transition.role
+        is not TodaGroupProofNarrativeTransitionRole
+        .DERIVATION
+      )
+      else frozenset(
+        id(
+          source_block
+        )
+        for source_block in transition.source_blocks
+      )
+    )
     conclusion_step = (
       None
       if connector is None
@@ -293,6 +309,9 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
         conclusion_step=conclusion_step,
         direct_derivation_premises=direct_derivation_premises,
         context_hidden_step_ids=context_hidden_step_ids,
+        preserve_provenance_block_ids=(
+          derivation_source_block_ids
+        ),
       )
     )
 
