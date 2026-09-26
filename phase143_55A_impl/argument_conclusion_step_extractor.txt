@@ -1,0 +1,101 @@
+def extract_toda_group_proof_narrative_argument_conclusion_step(
+  argument: TodaGroupProofNarrativeArgument,
+) -> ProofStep | None:
+  if not isinstance(
+    argument,
+    TodaGroupProofNarrativeArgument,
+  ):
+    raise TypeError(
+      "argument must be a "
+      "TodaGroupProofNarrativeArgument"
+    )
+
+  purpose_subject = (
+    extract_toda_group_proof_narrative_argument_purpose_subject(
+      argument
+    )
+  )
+
+  if purpose_subject is None:
+    return None
+
+  candidates = []
+
+  for proof_step in argument.conclusion_block.steps:
+    statement = proof_step.conclusion
+
+    if (
+      argument.role
+      is TodaGroupProofNarrativeArgumentRole
+      .ESTABLISH_DEFINITION
+    ):
+      if not hasattr(
+        statement,
+        "element",
+      ):
+        continue
+      if statement.element != purpose_subject:
+        continue
+      candidates.append(
+        proof_step
+      )
+      continue
+
+    if (
+      argument.role
+      is TodaGroupProofNarrativeArgumentRole
+      .ESTABLISH_ORDER
+    ):
+      if not isinstance(
+        statement,
+        Relation,
+      ):
+        continue
+      if (
+        statement.relation_type
+        is not RelationType.ORDER
+      ):
+        continue
+      if statement.lhs != purpose_subject:
+        continue
+      candidates.append(
+        proof_step
+      )
+      continue
+
+    if (
+      argument.role
+      is TodaGroupProofNarrativeArgumentRole
+      .ESTABLISH_GROUP_STRUCTURE
+    ):
+      if not isinstance(
+        statement,
+        Relation,
+      ):
+        continue
+      if (
+        statement.relation_type
+        is not RelationType.EQUALITY
+      ):
+        continue
+      if not isinstance(
+        statement.lhs,
+        TodaPrimaryGroup,
+      ):
+        continue
+      if statement.lhs != purpose_subject:
+        continue
+      candidates.append(
+        proof_step
+      )
+
+  if len(
+    candidates
+  ) != 1:
+    return None
+
+  return candidates[
+    0
+  ]
+
+
