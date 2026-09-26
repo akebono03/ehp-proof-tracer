@@ -2,6 +2,9 @@ from toda_group_proof_narrative_argument_body_renderer import (
   _toda_group_proof_narrative_exactness_contribution_key,
   render_toda_group_proof_narrative_argument_body_markdown,
 )
+from toda_group_proof_narrative_argument_direct_premises import (
+  extract_toda_group_proof_narrative_argument_conclusion_direct_derivation_premises,
+)
 from toda_group_proof_narrative_argument_discourse import (
   TodaGroupProofNarrativeArgumentDiscourseRole,
   classify_toda_group_proof_narrative_argument_discourse_roles,
@@ -220,6 +223,16 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
         argument
       )
     )
+    direct_derivation_premises = (
+      ()
+      if conclusion_step is None
+      else (
+        extract_toda_group_proof_narrative_argument_conclusion_direct_derivation_premises(
+          argument,
+          arguments,
+        )
+      )
+    )
 
     body = (
       render_toda_group_proof_narrative_argument_body_markdown(
@@ -242,6 +255,7 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
         ),
         connector_text=connector,
         conclusion_step=conclusion_step,
+        direct_derivation_premises=direct_derivation_premises,
       )
     )
 

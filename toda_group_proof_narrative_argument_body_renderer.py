@@ -419,6 +419,114 @@ def _insert_toda_group_proof_narrative_step_derivation_connectors(
   )
 
 
+def _relocatable_toda_group_proof_narrative_direct_derivation_premises(
+  direct_derivation_premises: tuple[
+    ProofStep,
+    ...,
+  ],
+  sources_by_target_id: dict[
+    int,
+    tuple[
+      ProofStep,
+      ...,
+    ],
+  ],
+  conclusion_block: TodaGroupProofNarrativeBlock,
+) -> tuple[
+  ProofStep,
+  ...,
+]:
+  return tuple(
+    premise_step
+    for premise_step in direct_derivation_premises
+    if (
+      premise_step not in conclusion_block.steps
+      and not sources_by_target_id.get(
+        id(
+          premise_step
+        ),
+        (),
+      )
+    )
+  )
+
+
+def _insert_toda_group_proof_narrative_relocated_direct_premises(
+  block_lines: tuple[
+    str,
+    ...,
+  ],
+  block: TodaGroupProofNarrativeBlock,
+  conclusion_step: ProofStep,
+  direct_derivation_premises: tuple[
+    ProofStep,
+    ...,
+  ],
+  relocated_direct_premises: tuple[
+    ProofStep,
+    ...,
+  ],
+) -> tuple[
+  str,
+  ...,
+]:
+  if not relocated_direct_premises:
+    return block_lines
+
+  anchor_steps = tuple(
+    premise_step
+    for premise_step in direct_derivation_premises
+    if premise_step in block.steps
+  ) + (
+    conclusion_step,
+  )
+
+  anchor_lines = tuple(
+    _render_generic_narrative_step(
+      proof_step
+    )
+    for proof_step in anchor_steps
+  )
+
+  anchor_index = next(
+    (
+      index
+      for index, line in enumerate(
+        block_lines
+      )
+      if line in anchor_lines
+    ),
+    None,
+  )
+
+  if anchor_index is None:
+    return block_lines
+
+  relocated_lines = []
+
+  for premise_step in relocated_direct_premises:
+    relocated_lines.append(
+      _render_generic_narrative_step(
+        premise_step
+      )
+    )
+    relocated_lines.append(
+      ""
+    )
+
+  return (
+    block_lines[
+      :anchor_index
+    ]
+    + tuple(
+      relocated_lines
+    )
+    + block_lines[
+      anchor_index:
+    ]
+  )
+
+
 def _insert_toda_group_proof_narrative_connector_before_conclusion_step(
   block_lines: tuple[
     str,
@@ -502,6 +610,10 @@ def render_toda_group_proof_narrative_argument_body_markdown(
   connector_before_block_id: int | None = None,
   connector_text: str | None = None,
   conclusion_step: ProofStep | None = None,
+  direct_derivation_premises: tuple[
+    ProofStep,
+    ...,
+  ] = (),
 ) -> str:
   if not isinstance(
     presentation,
@@ -620,6 +732,24 @@ def render_toda_group_proof_narrative_argument_body_markdown(
       "conclusion_step requires connector placement"
     )
 
+  if not isinstance(
+    direct_derivation_premises,
+    tuple,
+  ):
+    raise TypeError(
+      "direct_derivation_premises must be a tuple"
+    )
+
+  for premise_step in direct_derivation_premises:
+    if not isinstance(
+      premise_step,
+      ProofStep,
+    ):
+      raise TypeError(
+        "direct_derivation_premises must contain only "
+        "ProofStep objects"
+      )
+
   block_index_by_identity = {
     id(
       block
@@ -689,6 +819,35 @@ def render_toda_group_proof_narrative_argument_body_markdown(
       )
     )
   )
+  relocated_direct_premises = (
+    ()
+    if conclusion_step is None
+    else (
+      tuple(
+        premise_step
+        for premise_step in (
+          _relocatable_toda_group_proof_narrative_direct_derivation_premises(
+            direct_derivation_premises,
+            step_derivation_sources_by_target_id,
+            next(
+              block
+              for block in blocks
+              if conclusion_step in block.steps
+            ),
+          )
+        )
+        if id(
+          premise_step
+        ) not in redundant_direct_premise_step_ids
+      )
+    )
+  )
+  relocated_direct_premise_ids = {
+    id(
+      premise_step
+    )
+    for premise_step in relocated_direct_premises
+  }
 
   lines = []
   connector_inserted = False
@@ -726,9 +885,20 @@ def render_toda_group_proof_narrative_argument_body_markdown(
       display_steps = tuple(
         proof_step
         for proof_step in block.steps
-        if id(
-          proof_step
-        ) not in redundant_direct_premise_step_ids
+        if (
+          id(
+            proof_step
+          ) not in redundant_direct_premise_step_ids
+          and (
+            id(
+              proof_step
+            ) not in relocated_direct_premise_ids
+            or (
+              conclusion_step is not None
+              and conclusion_step in block.steps
+            )
+          )
+        )
       )
 
       if not display_steps:
@@ -797,6 +967,20 @@ def render_toda_group_proof_narrative_argument_body_markdown(
           step_derivation_sources_by_target_id,
         )
       )
+
+      if (
+        conclusion_step is not None
+        and conclusion_step in reordered_block.steps
+      ):
+        block_lines = (
+          _insert_toda_group_proof_narrative_relocated_direct_premises(
+            block_lines,
+            reordered_block,
+            conclusion_step,
+            direct_derivation_premises,
+            relocated_direct_premises,
+          )
+        )
 
     if not block_lines:
       continue
