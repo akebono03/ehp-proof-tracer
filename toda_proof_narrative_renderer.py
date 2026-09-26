@@ -71,6 +71,12 @@ from toda_rules import (
   TodaLemma510OrdinarySuspensionImageInDoubleStatement,
   TodaLemma510OrdinarySuspensionImageTwoPrimaryZeroStatement,
   TodaLemma510Split115Statement,
+  Toda211OrdinaryEHPApplicabilityStatement,
+  Toda515Sigma8Prop44SpecializationStatement,
+  Toda515Sigma8TransportedDecompositionStatement,
+  TodaLemma510Nu6OrdinaryCompositionReductionStatement,
+  TodaLemma510Nu6OrdinaryCompositionZeroStatement,
+  TodaLemma510OrdinaryIndeterminacyDoubleStatement,
 )
 
 
@@ -573,6 +579,62 @@ def _render_phase143_75ao_ehp_window(window) -> str:
 def render_toda_proof_statement_latex(
   statement,
 ) -> str | None:
+  if isinstance(statement, TodaLemma510OrdinaryIndeterminacyDoubleStatement):
+    return (
+      r"\operatorname{Ind}\left("
+      + render_toda_expression_latex(statement.bracket)
+      + r"\right) \subseteq "
+      + str(statement.modulus)
+      + _render_phase143_75ao_homotopy_group(statement.ambient_group)
+    )
+
+  if isinstance(statement, TodaLemma510Nu6OrdinaryCompositionZeroStatement):
+    return (
+      render_toda_expression_latex(statement.left_element)
+      + r" \circ "
+      + _render_phase143_75ao_homotopy_group(statement.ordinary_right_group)
+      + r" = 0"
+    )
+
+  if isinstance(statement, TodaLemma510Nu6OrdinaryCompositionReductionStatement):
+    return (
+      render_toda_expression_latex(statement.left_element)
+      + r" \circ "
+      + _render_phase143_75ao_homotopy_group(statement.ordinary_right_group)
+      + r" = "
+      + render_toda_expression_latex(statement.left_element)
+      + r" \circ "
+      + _render_phase143_75ao_homotopy_group(statement.two_primary_right_group)
+    )
+
+  if isinstance(statement, Toda211OrdinaryEHPApplicabilityStatement):
+    conditions = []
+    if statement.m_is_odd:
+      conditions.append(r"m\text{ is odd}")
+    if statement.i_less_than_3m_minus_1:
+      conditions.append(r"i < 3m - 1")
+    return (
+      _render_phase143_75ao_ehp_window(statement.window)
+      + r",\qquad "
+      + r",\ ".join(conditions)
+    )
+
+  if isinstance(statement, Toda515Sigma8TransportedDecompositionStatement):
+    return (
+      _render_phase143_75ao_homotopy_group(statement.prop44_isomorphism.map.target_group)
+      + r" = "
+      + render_toda_raw_group_structure_latex(statement.transported_group)
+    )
+
+  if isinstance(statement, Toda515Sigma8Prop44SpecializationStatement):
+    return (
+      render_toda_expression_latex(statement.alpha)
+      + r" \in "
+      + _render_phase143_75ao_homotopy_group(statement.membership.group)
+      + r",\qquad "
+      + _render_relation_latex(statement.hopf_relation)
+    )
+
   if isinstance(statement, FiniteHomotopyGroupStatement):
     return _render_phase143_75ao_homotopy_group(statement.group) + r" \text{ is finite}"
 
