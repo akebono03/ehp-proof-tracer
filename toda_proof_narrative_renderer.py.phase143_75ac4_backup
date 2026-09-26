@@ -35,7 +35,6 @@ from toda_proof_presentation import (
   TodaProofStepPresentation,
 )
 from toda_rules import (
-  TodaLemma54HopfOddMultipleStatement,
   TodaLemma54Nu4ConstructionStatement,
   Toda54BracketUpToSignStatement,
   Toda58EquationStatement,
@@ -859,25 +858,6 @@ def render_toda_proof_statement_latex(
         statement.sign_parameter
       )
       + r"\text{ is the sign parameter}"
-    )
-
-  if isinstance(
-    statement,
-    TodaLemma54HopfOddMultipleStatement,
-  ):
-    return (
-      r"H\left("
-      + render_toda_expression_latex(
-        statement.alpha_star
-      )
-      + r"\right) = \left(2"
-      + _render_scalar_latex(
-        statement.parameter
-      )
-      + r" + 1\right)"
-      + render_toda_expression_latex(
-        statement.generator
-      )
     )
 
   if isinstance(
