@@ -1,4 +1,4 @@
-from toda_group_proof_narrative_argument_body_renderer import (
+﻿from toda_group_proof_narrative_argument_body_renderer import (
   _toda_group_proof_narrative_exactness_contribution_key,
   render_toda_group_proof_narrative_argument_body_markdown,
 )
@@ -23,6 +23,7 @@ from toda_group_proof_narrative_argument_single_renderer import (
 )
 from toda_group_proof_narrative_arguments import (
   TodaGroupProofNarrativeArgument,
+  TodaGroupProofNarrativeArgumentRole,
   extract_toda_group_proof_narrative_argument_conclusion_step,
 )
 from toda_group_proof_narrative_blocks import (
@@ -58,6 +59,9 @@ from toda_group_proof_narrative_transitions import (
 )
 from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
+)
+from toda_rules import (
+  TodaEtaFamilyDefinitionStatement,
 )
 
 
@@ -191,11 +195,43 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
       )
     )
 
+    context_hidden_step_ids = frozenset(
+      id(
+        proof_step
+      )
+      for block in local_body_blocks
+      for proof_step in block.steps
+      if (
+        argument.role
+        is not TodaGroupProofNarrativeArgumentRole
+        .ESTABLISH_DEFINITION
+        and isinstance(
+          proof_step.conclusion,
+          TodaEtaFamilyDefinitionStatement,
+        )
+      )
+    )
     header = (
       render_toda_group_proof_narrative_argument_header_method_section(
         argument,
         discourse_role,
         primary_component,
+      )
+    )
+    context_hidden_step_ids = frozenset(
+      id(
+        proof_step
+      )
+      for block in local_body_blocks
+      for proof_step in block.steps
+      if (
+        argument.role
+        is not TodaGroupProofNarrativeArgumentRole
+        .ESTABLISH_DEFINITION
+        and isinstance(
+          proof_step.conclusion,
+          TodaEtaFamilyDefinitionStatement,
+        )
       )
     )
     header = (
@@ -256,6 +292,7 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
         connector_text=connector,
         conclusion_step=conclusion_step,
         direct_derivation_premises=direct_derivation_premises,
+        context_hidden_step_ids=context_hidden_step_ids,
       )
     )
 
@@ -313,3 +350,5 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
   return "\n\n".join(
     rendered_arguments
   )
+
+

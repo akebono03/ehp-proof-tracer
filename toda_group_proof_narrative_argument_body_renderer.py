@@ -1,4 +1,4 @@
-from toda_group_proof_generic_narrative_renderer import (
+﻿from toda_group_proof_generic_narrative_renderer import (
   _generic_narrative_dependency_labels,
   _generic_narrative_sentence_lead,
   _render_generic_narrative_proof_block,
@@ -649,6 +649,12 @@ def render_toda_group_proof_narrative_argument_body_markdown(
     ProofStep,
     ...,
   ] = (),
+  context_hidden_step_ids: (
+    frozenset[
+      int
+    ]
+    | None
+  ) = None,
 ) -> str:
   if not isinstance(
     presentation,
@@ -785,6 +791,34 @@ def render_toda_group_proof_narrative_argument_body_markdown(
         "ProofStep objects"
       )
 
+  if (
+    context_hidden_step_ids is not None
+    and not isinstance(
+      context_hidden_step_ids,
+      frozenset,
+    )
+  ):
+    raise TypeError(
+      "context_hidden_step_ids must be "
+      "a frozenset or None"
+    )
+
+  if context_hidden_step_ids is not None:
+    for step_id in context_hidden_step_ids:
+      if (
+        not isinstance(
+          step_id,
+          int,
+        )
+        or isinstance(
+          step_id,
+          bool,
+        )
+      ):
+        raise TypeError(
+          "context_hidden_step_ids must contain "
+          "only integers"
+        )
   block_index_by_identity = {
     id(
       block
@@ -921,7 +955,13 @@ def render_toda_group_proof_narrative_argument_body_markdown(
         proof_step
         for proof_step in block.steps
         if (
-          id(
+          (
+            context_hidden_step_ids is None
+            or id(
+              proof_step
+            ) not in context_hidden_step_ids
+          )
+          and id(
             proof_step
           ) not in redundant_direct_premise_step_ids
           and (
@@ -1056,3 +1096,4 @@ def render_toda_group_proof_narrative_argument_body_markdown(
   return "\n".join(
     lines
   ).rstrip()
+
