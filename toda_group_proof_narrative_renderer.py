@@ -53,6 +53,7 @@ from toda_rules import (
   Toda55NuFamilyFiniteDimensionalStatement,
   Toda56Nu4DecompositionIsomorphismStatement,
   Toda56Nu4DecompositionStatement,
+  Toda58WhiteheadSquareUpToSignStatement,
   TodaDeltaImageFreeCyclicStatement,
   TodaDeltaKernelFreeCyclicStatement,
   TodaDeltaSurjectiveStatement,
@@ -67,6 +68,8 @@ from toda_rules import (
   TodaLemma514SigmaPrimeStatement,
   TodaLemma54Statement,
   TodaPi32Eta2DefinitionStatement,
+  TodaPi32WhiteheadSquareUpToSignStatement,
+  TodaProp27HopfInvariantUpToSignStatement,
   TodaProp42ExactnessStatement,
   TodaProp44IsomorphismStatement,
   TodaProp44SecondSummandRestrictionStatement,
@@ -312,6 +315,38 @@ def _render_group_proof_narrative_latex(
       + ") = "
       + render_toda_expression_latex(
         statement.image
+      )
+    )
+
+  if isinstance(
+    statement,
+    (
+      TodaPi32WhiteheadSquareUpToSignStatement,
+      Toda58WhiteheadSquareUpToSignStatement,
+    ),
+  ):
+    return (
+      render_toda_expression_latex(
+        statement.whitehead_square
+      )
+      + r" = \pm "
+      + render_toda_expression_latex(
+        statement.positive_value
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaProp27HopfInvariantUpToSignStatement,
+  ):
+    return (
+      "H("
+      + render_toda_expression_latex(
+        statement.argument
+      )
+      + r") = \pm "
+      + render_toda_expression_latex(
+        statement.positive_value
       )
     )
 
