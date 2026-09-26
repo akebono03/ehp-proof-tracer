@@ -55,7 +55,6 @@ from toda_rules import (
   TodaProp44FirstSummandRestrictionStatement,
   TodaLemma510BracketModuloStatement,
   TodaLemma57TwoIota5ImageMembershipStatement,
-  TodaProp59DeltaKernelStatement,
 )
 
 
@@ -504,22 +503,6 @@ def _render_toda_nu4_construction_branch_latex(
 def render_toda_proof_statement_latex(
   statement,
 ) -> str | None:
-  if isinstance(
-    statement,
-    TodaProp59DeltaKernelStatement,
-  ):
-    return (
-      r"\ker\left("
-      + _render_toda_group_map_latex(
-        statement.map
-      )
-      + r"\right)"
-      + " = "
-      + render_toda_raw_group_structure_latex(
-        statement.kernel_group
-      )
-    )
-
   if isinstance(
     statement,
     TodaLemma57TwoIota5ImageMembershipStatement,
