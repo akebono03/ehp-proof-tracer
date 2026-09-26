@@ -213,6 +213,27 @@ def _render_scalar_latex(
     value,
     ScalarSum,
   ):
+    if (
+      isinstance(
+        value.right,
+        int,
+      )
+      and not isinstance(
+        value.right,
+        bool,
+      )
+      and value.right < 0
+    ):
+      return (
+        _render_scalar_latex(
+          value.left
+        )
+        + " - "
+        + _render_scalar_latex(
+          -value.right
+        )
+      )
+
     return (
       _render_scalar_latex(
         value.left
