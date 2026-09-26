@@ -61,7 +61,6 @@ from toda_rules import (
   TodaLemma514SigmaDoublePrimeStatement,
   Toda514FirstShortExactStatement,
   Toda514SecondShortExactStatement,
-  Toda54IndeterminacyGeneratorStatement,
 )
 
 
@@ -543,22 +542,6 @@ def _render_toda_bracket_membership_latex(
 def render_toda_proof_statement_latex(
   statement,
 ) -> str | None:
-  if isinstance(
-    statement,
-    Toda54IndeterminacyGeneratorStatement,
-  ):
-    return (
-      r"\operatorname{Ind}\left("
-      + render_toda_expression_latex(
-        statement.bracket
-      )
-      + r"\right) = \left\langle "
-      + render_toda_expression_latex(
-        statement.generator
-      )
-      + r" \right\rangle"
-    )
-
   if isinstance(
     statement,
     Toda514SecondShortExactStatement,
