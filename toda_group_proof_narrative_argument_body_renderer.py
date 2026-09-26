@@ -2,6 +2,10 @@ from toda_group_proof_generic_narrative_renderer import (
   _generic_narrative_dependency_labels,
   _generic_narrative_sentence_lead,
   _render_generic_narrative_proof_block,
+  _render_generic_narrative_step,
+)
+from proof import (
+  ProofStep,
 )
 from toda_group_proof_narrative_blocks import (
   TodaGroupProofNarrativeBlock,
@@ -187,6 +191,80 @@ def _render_toda_group_proof_narrative_argument_exactness_body_block(
   )
 
 
+def _reorder_toda_group_proof_narrative_block_conclusion_step_last(
+  block: TodaGroupProofNarrativeBlock,
+  conclusion_step: ProofStep,
+) -> TodaGroupProofNarrativeBlock:
+  if conclusion_step not in block.steps:
+    return block
+
+  reordered_steps = tuple(
+    proof_step
+    for proof_step in block.steps
+    if proof_step is not conclusion_step
+  ) + (
+    conclusion_step,
+  )
+
+  if reordered_steps == block.steps:
+    return block
+
+  return TodaGroupProofNarrativeBlock(
+    role=block.role,
+    steps=reordered_steps,
+  )
+
+
+def _insert_toda_group_proof_narrative_connector_before_conclusion_step(
+  block_lines: tuple[
+    str,
+    ...,
+  ],
+  conclusion_step: ProofStep,
+  connector_text: str,
+) -> tuple[
+  str,
+  ...,
+]:
+  conclusion_line = (
+    _render_generic_narrative_step(
+      conclusion_step
+    )
+  )
+  conclusion_index = next(
+    (
+      index
+      for index in range(
+        len(
+          block_lines
+        ) - 1,
+        -1,
+        -1,
+      )
+      if block_lines[
+        index
+      ] == conclusion_line
+    ),
+    None,
+  )
+
+  if conclusion_index is None:
+    return block_lines
+
+  return (
+    block_lines[
+      :conclusion_index
+    ]
+    + (
+      connector_text,
+      "",
+    )
+    + block_lines[
+      conclusion_index:
+    ]
+  )
+
+
 def render_toda_group_proof_narrative_argument_body_markdown(
   presentation: TodaGroupProofPresentation,
   blocks: tuple[
@@ -219,6 +297,7 @@ def render_toda_group_proof_narrative_argument_body_markdown(
   ) = None,
   connector_before_block_id: int | None = None,
   connector_text: str | None = None,
+  conclusion_step: ProofStep | None = None,
 ) -> str:
   if not isinstance(
     presentation,
@@ -318,6 +397,25 @@ def render_toda_group_proof_narrative_argument_body_markdown(
       "must be provided together"
     )
 
+  if (
+    conclusion_step is not None
+    and not isinstance(
+      conclusion_step,
+      ProofStep,
+    )
+  ):
+    raise TypeError(
+      "conclusion_step must be a ProofStep or None"
+    )
+
+  if (
+    conclusion_step is not None
+    and connector_before_block_id is None
+  ):
+    raise ValueError(
+      "conclusion_step requires connector placement"
+    )
+
   block_index_by_identity = {
     id(
       block
@@ -405,10 +503,42 @@ def render_toda_group_proof_narrative_argument_body_markdown(
       ):
         continue
 
+      reordered_block = block
+
+      if (
+        conclusion_step is not None
+        and connector_before_block_id is not None
+        and id(
+          block
+        ) == connector_before_block_id
+        and conclusion_step in block.steps
+      ):
+        reordered_block = (
+          _reorder_toda_group_proof_narrative_block_conclusion_step_last(
+            block,
+            conclusion_step,
+          )
+        )
+
+      render_blocks = blocks
+
+      if reordered_block is not block:
+        render_blocks = (
+          blocks[
+            :block_index
+          ]
+          + (
+            reordered_block,
+          )
+          + blocks[
+            block_index + 1:
+          ]
+        )
+
       block_lines = tuple(
         _render_generic_narrative_proof_block(
           presentation,
-          blocks,
+          render_blocks,
           block_index,
           show_dependency_labels=False,
           suppress_provenance_only=True,
@@ -425,12 +555,26 @@ def render_toda_group_proof_narrative_argument_body_markdown(
         block
       ) == connector_before_block_id
     ):
-      lines.append(
-        connector_text
-      )
-      lines.append(
-        ""
-      )
+      if (
+        conclusion_step is not None
+        and conclusion_step in block.steps
+        and block.role
+        is not TodaGroupProofNarrativeMathematicalBlockRole
+        .EXACTNESS
+      ):
+        block_lines = (
+          _insert_toda_group_proof_narrative_connector_before_conclusion_step(
+            block_lines,
+            conclusion_step,
+            connector_text,
+          )
+        )
+      else:
+        block_lines = (
+          connector_text,
+          "",
+        ) + block_lines
+
       connector_inserted = True
 
     lines.extend(

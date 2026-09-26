@@ -1,0 +1,74 @@
+def _reorder_toda_group_proof_narrative_block_conclusion_step_last(
+  block: TodaGroupProofNarrativeBlock,
+  conclusion_step: ProofStep,
+) -> TodaGroupProofNarrativeBlock:
+  if conclusion_step not in block.steps:
+    return block
+
+  reordered_steps = tuple(
+    proof_step
+    for proof_step in block.steps
+    if proof_step is not conclusion_step
+  ) + (
+    conclusion_step,
+  )
+
+  if reordered_steps == block.steps:
+    return block
+
+  return TodaGroupProofNarrativeBlock(
+    role=block.role,
+    steps=reordered_steps,
+  )
+
+
+def _insert_toda_group_proof_narrative_connector_before_conclusion_step(
+  block_lines: tuple[
+    str,
+    ...,
+  ],
+  conclusion_step: ProofStep,
+  connector_text: str,
+) -> tuple[
+  str,
+  ...,
+]:
+  conclusion_line = (
+    _render_generic_narrative_step(
+      conclusion_step
+    )
+  )
+  conclusion_index = next(
+    (
+      index
+      for index in range(
+        len(
+          block_lines
+        ) - 1,
+        -1,
+        -1,
+      )
+      if block_lines[
+        index
+      ] == conclusion_line
+    ),
+    None,
+  )
+
+  if conclusion_index is None:
+    return block_lines
+
+  return (
+    block_lines[
+      :conclusion_index
+    ]
+    + (
+      connector_text,
+      "",
+    )
+    + block_lines[
+      conclusion_index:
+    ]
+  )
+
+

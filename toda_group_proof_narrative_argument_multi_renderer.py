@@ -20,6 +20,7 @@ from toda_group_proof_narrative_argument_single_renderer import (
 )
 from toda_group_proof_narrative_arguments import (
   TodaGroupProofNarrativeArgument,
+  extract_toda_group_proof_narrative_argument_conclusion_step,
 )
 from toda_group_proof_narrative_blocks import (
   TodaGroupProofNarrativeBlock,
@@ -212,6 +213,13 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
         transition
       )
     )
+    conclusion_step = (
+      None
+      if connector is None
+      else extract_toda_group_proof_narrative_argument_conclusion_step(
+        argument
+      )
+    )
 
     body = (
       render_toda_group_proof_narrative_argument_body_markdown(
@@ -233,6 +241,7 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
           )
         ),
         connector_text=connector,
+        conclusion_step=conclusion_step,
       )
     )
 
