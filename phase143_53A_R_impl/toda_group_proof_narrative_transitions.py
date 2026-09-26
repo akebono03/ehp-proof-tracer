@@ -307,27 +307,15 @@ def _argument_transition_role(
     TodaGroupProofNarrativeBlock,
     ...,
   ],
-  target_block: TodaGroupProofNarrativeBlock,
 ) -> TodaGroupProofNarrativeTransitionRole:
   if any(
-    block.role in _DERIVATION_SOURCE_ROLES
-    for block in source_blocks
-  ):
-    return (
-      TodaGroupProofNarrativeTransitionRole
-      .DERIVATION
-    )
-
-  if (
-    target_block.role
-    is not TodaGroupProofNarrativeMathematicalBlockRole
-    .DEFINITION
-    and any(
-      _block_contains_aggregate_statement(
+    (
+      block.role in _DERIVATION_SOURCE_ROLES
+      or _block_contains_aggregate_statement(
         block
       )
-      for block in source_blocks
     )
+    for block in source_blocks
   ):
     return (
       TodaGroupProofNarrativeTransitionRole
@@ -358,8 +346,7 @@ def _argument_transitions(
     transitions.append(
       TodaGroupProofNarrativeTransition(
         role=_argument_transition_role(
-          argument.supporting_blocks,
-          argument.conclusion_block,
+          argument.supporting_blocks
         ),
         source_blocks=argument.supporting_blocks,
         target_block=argument.conclusion_block,
