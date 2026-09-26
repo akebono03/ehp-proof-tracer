@@ -1,0 +1,122 @@
+====================================================================================================
+pi_15^8: n=8, k=7
+====================================================================================================
+
+LEGACY / CURRENT CLI-WEB RENDERER
+----------------------------------------------------------------------------------------------------
+# Group proof narrative
+
+## 証明対象
+
+Toda Proposition 5.15 のうち,
+
+\[
+\pi_{15}^{8} = \mathbb{Z}\{\sigma_{8}\} \oplus \mathbb{Z}/8\{E\sigma'\}
+\]
+
+を示す.
+
+## 使用する結果
+
+**[R1] Toda Proposition 4.4 の分解同型.**
+
+次の写像は同型である.
+
+\[
+\pi_{14}^{7} \oplus \pi_{15}^{15} \longrightarrow \pi_{15}^{8}
+\]
+
+\[
+(α, β) \longmapsto Eα + \sigma_{8}β
+\]
+
+## 証明
+
+既に,
+
+\[
+\pi_{14}^{7} = \mathbb{Z}/8\{\sigma'\}
+\]
+
+である.
+
+また,
+
+\[
+\pi_{15}^{15} = \mathbb{Z}\{\iota_{15}\}
+\]
+
+である.
+
+[R1] より, これらの生成元はそれぞれ
+
+\[
+\sigma' \longmapsto E\sigma',
+\qquad
+\iota_{15} \longmapsto \sigma_{8}
+\]
+
+と写る.
+
+したがって,
+
+\[
+\pi_{15}^{8} \cong \mathbb{Z}/8\{E\sigma'\} \oplus \mathbb{Z}\{\sigma_{8}\}
+\]
+
+を得る.
+
+直和因子の順序を入れ替えると,
+
+\[
+\pi_{15}^{8} = \mathbb{Z}\{\sigma_{8}\} \oplus \mathbb{Z}/8\{E\sigma'\}
+\]
+
+を得る.
+
+
+GENERIC MULTI-ARGUMENT RENDERER
+----------------------------------------------------------------------------------------------------
+$\pi_{15}^{8}$ の群構造を決定する.
+
+次の短完全列を得る.
+
+$0\longrightarrow \pi_{13}^{6}\xrightarrow{E} \pi_{14}^{7}\xrightarrow{H} \pi_{14}^{13}\longrightarrow 0$
+
+$\pi_{14}^{7} = \mathbb{Z}/8\{\sigma'\}$
+
+$\pi_{13}^{6} = \mathbb{Z}/4\{\sigma''\}$
+
+$\pi_{14}^{13} = \mathbb{Z}/2\{\eta_{13}\}$
+
+$\pi_{15}^{15} = \mathbb{Z}\{\iota_{15}\}$
+
+$\pi_{15}^{8} \cong \mathbb{Z}/8\{E\sigma'\} \oplus \mathbb{Z}\{\sigma_{8}\}$
+
+以上より、
+
+$\pi_{15}^{8} = \mathbb{Z}\{\sigma_{8}\} \oplus \mathbb{Z}/8\{E\sigma'\}$
+
+DISPLAY-MATH SUMMARY
+----------------------------------------------------------------------------------------------------
+legacy_display_math_count=8
+generic_display_math_count=7
+
+legacy display math:
+  1: \pi_{15}^{8} = \mathbb{Z}\{\sigma_{8}\} \oplus \mathbb{Z}/8\{E\sigma'\}
+  2: \pi_{14}^{7} \oplus \pi_{15}^{15} \longrightarrow \pi_{15}^{8}
+  3: (α, β) \longmapsto Eα + \sigma_{8}β
+  4: \pi_{14}^{7} = \mathbb{Z}/8\{\sigma'\}
+  5: \pi_{15}^{15} = \mathbb{Z}\{\iota_{15}\}
+  6: \sigma' \longmapsto E\sigma', \qquad \iota_{15} \longmapsto \sigma_{8}
+  7: \pi_{15}^{8} \cong \mathbb{Z}/8\{E\sigma'\} \oplus \mathbb{Z}\{\sigma_{8}\}
+  8: \pi_{15}^{8} = \mathbb{Z}\{\sigma_{8}\} \oplus \mathbb{Z}/8\{E\sigma'\}
+
+generic display math:
+  1: $0\longrightarrow \pi_{13}^{6}\xrightarrow{E} \pi_{14}^{7}\xrightarrow{H} \pi_{14}^{13}\longrightarrow 0$
+  2: $\pi_{14}^{7} = \mathbb{Z}/8\{\sigma'\}$
+  3: $\pi_{13}^{6} = \mathbb{Z}/4\{\sigma''\}$
+  4: $\pi_{14}^{13} = \mathbb{Z}/2\{\eta_{13}\}$
+  5: $\pi_{15}^{15} = \mathbb{Z}\{\iota_{15}\}$
+  6: $\pi_{15}^{8} \cong \mathbb{Z}/8\{E\sigma'\} \oplus \mathbb{Z}\{\sigma_{8}\}$
+  7: $\pi_{15}^{8} = \mathbb{Z}\{\sigma_{8}\} \oplus \mathbb{Z}/8\{E\sigma'\}$

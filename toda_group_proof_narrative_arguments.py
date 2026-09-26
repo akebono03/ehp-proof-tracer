@@ -23,6 +23,9 @@ from toda_group_proof_narrative_semantics import (
 from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
 )
+from toda_rules import (
+  TodaLemma513Statement,
+)
 
 
 class TodaGroupProofNarrativeArgumentRole(
@@ -381,6 +384,22 @@ def _argument_dependency_closure_indices(
   )
 
 
+def _definition_statement_subject(
+  statement,
+):
+  if isinstance(
+    statement,
+    TodaLemma513Statement,
+  ):
+    return statement.sigma_triple_prime
+
+  return getattr(
+    statement,
+    "element",
+    None,
+  )
+
+
 def extract_toda_group_proof_narrative_argument_purpose_subject(
   argument: TodaGroupProofNarrativeArgument,
 ):
@@ -401,9 +420,11 @@ def extract_toda_group_proof_narrative_argument_purpose_subject(
     subjects = []
     for proof_step in argument.conclusion_block.steps:
       statement = proof_step.conclusion
-      if not hasattr(statement, "element"):
+      subject = _definition_statement_subject(
+        statement
+      )
+      if subject is None:
         continue
-      subject = statement.element
       if subject not in subjects:
         subjects.append(subject)
     if len(subjects) != 1:
@@ -517,12 +538,14 @@ def extract_toda_group_proof_narrative_argument_conclusion_step(
       is TodaGroupProofNarrativeArgumentRole
       .ESTABLISH_DEFINITION
     ):
-      if not hasattr(
-        statement,
-        "element",
-      ):
+      statement_subject = (
+        _definition_statement_subject(
+          statement
+        )
+      )
+      if statement_subject is None:
         continue
-      if statement.element != purpose_subject:
+      if statement_subject != purpose_subject:
         continue
       candidates.append(
         proof_step
