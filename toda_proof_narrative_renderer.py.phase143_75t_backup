@@ -35,7 +35,6 @@ from toda_proof_presentation import (
   TodaProofStepPresentation,
 )
 from toda_rules import (
-  Toda58EquationStatement,
   Toda58WhiteheadSquareUpToSignStatement,
   TodaDeltaImageUpToSignStatement,
   TodaDeltaInjectiveStatement,
@@ -449,74 +448,6 @@ def render_toda_proof_statement_latex(
         statement.map
       )
       + r" \text{ is surjective}"
-    )
-
-  if isinstance(
-    statement,
-    Toda58EquationStatement,
-  ):
-    delta_nu_relation = (
-      statement.delta_nu_relation
-    )
-    whitehead_nu_relation = (
-      statement.whitehead_nu_relation
-    )
-    delta_whitehead_relation = (
-      statement.delta_whitehead_relation
-    )
-
-    if not (
-      isinstance(
-        delta_nu_relation,
-        TodaDeltaImageUpToSignStatement,
-      )
-      and isinstance(
-        whitehead_nu_relation,
-        Toda58WhiteheadSquareUpToSignStatement,
-      )
-      and isinstance(
-        delta_whitehead_relation,
-        TodaDeltaImageUpToSignStatement,
-      )
-      and delta_nu_relation.map
-      == delta_whitehead_relation.map
-      and delta_nu_relation.element
-      == delta_whitehead_relation.element
-      and delta_nu_relation.positive_value
-      == whitehead_nu_relation.positive_value
-      and delta_whitehead_relation.positive_value
-      == whitehead_nu_relation.whitehead_square
-    ):
-      return None
-
-    positive_value_latex = (
-      render_toda_expression_latex(
-        delta_nu_relation.positive_value
-      )
-    )
-
-    if isinstance(
-      delta_nu_relation.positive_value,
-      Sum,
-    ):
-      positive_value_latex = (
-        r"\left("
-        + positive_value_latex
-        + r"\right)"
-      )
-
-    return (
-      r"\Delta\left("
-      + render_toda_expression_latex(
-        delta_nu_relation.element
-      )
-      + r"\right)"
-      + r" = \pm "
-      + positive_value_latex
-      + r" = \pm "
-      + render_toda_expression_latex(
-        whitehead_nu_relation.whitehead_square
-      )
     )
 
   if isinstance(
