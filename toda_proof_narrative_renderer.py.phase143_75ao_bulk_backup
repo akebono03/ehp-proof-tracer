@@ -14,7 +14,6 @@ from homotopy_groups import (
   TodaPrimaryGroup,
   TodaPrimaryGroupZeroStatement,
   TodaSuspensionMap,
-  FiniteHomotopyGroupStatement,
 )
 from proof import (
   LiteratureStatement,
@@ -63,14 +62,6 @@ from toda_rules import (
   Toda514FirstShortExactStatement,
   Toda514SecondShortExactStatement,
   Toda54IndeterminacyGeneratorStatement,
-  Toda211OrdinaryEHPExactnessStatement,
-  TodaLemma510HopfBracketContainsStatement,
-  TodaLemma510IndexedHopfBracketContainsStatement,
-  TodaLemma510OrdinaryBracketPlusSuspensionImageStatement,
-  TodaLemma510OrdinarySuspensionImageFiniteStatement,
-  TodaLemma510OrdinarySuspensionImageInDoubleStatement,
-  TodaLemma510OrdinarySuspensionImageTwoPrimaryZeroStatement,
-  TodaLemma510Split115Statement,
 )
 
 
@@ -549,91 +540,9 @@ def _render_toda_bracket_membership_latex(
   )
 
 
-
-def _render_phase143_75ao_homotopy_group(group) -> str:
-  return (
-    r"\pi_{"
-    + str(group.group_dimension)
-    + r"}^{"
-    + str(group.sphere_dimension)
-    + "}"
-  )
-
-
-def _render_phase143_75ao_ehp_window(window) -> str:
-  return (
-    _render_phase143_75ao_homotopy_group(window.source_term)
-    + r" \xrightarrow{" + window.first_map.name + "} "
-    + _render_phase143_75ao_homotopy_group(window.middle_term)
-    + r" \xrightarrow{" + window.second_map.name + "} "
-    + _render_phase143_75ao_homotopy_group(window.target_term)
-  )
-
-
 def render_toda_proof_statement_latex(
   statement,
 ) -> str | None:
-  if isinstance(statement, FiniteHomotopyGroupStatement):
-    return _render_phase143_75ao_homotopy_group(statement.group) + r" \text{ is finite}"
-
-  if isinstance(statement, Toda211OrdinaryEHPExactnessStatement):
-    return _render_phase143_75ao_ehp_window(statement.window) + r" \quad\text{is exact}"
-
-  if isinstance(statement, (TodaLemma510HopfBracketContainsStatement, TodaLemma510IndexedHopfBracketContainsStatement)):
-    return render_toda_expression_latex(statement.value) + r" \in " + render_toda_expression_latex(statement.bracket)
-
-  if isinstance(statement, TodaLemma510Split115Statement):
-    return render_toda_expression_latex(statement.indexed_bracket) + r" = " + render_toda_expression_latex(statement.ordinary_bracket)
-
-  if isinstance(statement, TodaLemma510OrdinaryBracketPlusSuspensionImageStatement):
-    return (
-      render_toda_expression_latex(statement.element)
-      + r" \in "
-      + render_toda_expression_latex(statement.bracket)
-      + r" + \operatorname{Im}\left("
-      + statement.suspension_map.name
-      + r":"
-      + _render_phase143_75ao_homotopy_group(statement.source_group)
-      + r"\to"
-      + _render_phase143_75ao_homotopy_group(statement.target_group)
-      + r"\right)"
-    )
-
-  if isinstance(statement, TodaLemma510OrdinarySuspensionImageFiniteStatement):
-    return (
-      r"\operatorname{Im}\left("
-      + statement.suspension_map.name
-      + r":"
-      + _render_phase143_75ao_homotopy_group(statement.source_group)
-      + r"\to"
-      + _render_phase143_75ao_homotopy_group(statement.target_group)
-      + r"\right) \text{ is finite}"
-    )
-
-  if isinstance(statement, TodaLemma510OrdinarySuspensionImageTwoPrimaryZeroStatement):
-    return (
-      r"\operatorname{Im}\left("
-      + statement.suspension_map.name
-      + r":"
-      + _render_phase143_75ao_homotopy_group(statement.source_group)
-      + r"\to"
-      + _render_phase143_75ao_homotopy_group(statement.target_group)
-      + r"\right)_{(2)} = 0"
-    )
-
-  if isinstance(statement, TodaLemma510OrdinarySuspensionImageInDoubleStatement):
-    return (
-      r"\operatorname{Im}\left("
-      + statement.suspension_map.name
-      + r":"
-      + _render_phase143_75ao_homotopy_group(statement.source_group)
-      + r"\to"
-      + _render_phase143_75ao_homotopy_group(statement.target_group)
-      + r"\right) \subseteq "
-      + str(statement.modulus)
-      + _render_phase143_75ao_homotopy_group(statement.target_group)
-    )
-
   if isinstance(
     statement,
     Toda54IndeterminacyGeneratorStatement,
