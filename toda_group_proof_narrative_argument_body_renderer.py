@@ -24,11 +24,17 @@ from toda_group_proof_narrative_exactness_display_contributions import (
 from toda_group_proof_narrative_group_structure_semantics import (
   extract_toda_group_structure_narrative_redundant_direct_premise_step_ids,
 )
+from toda_group_proof_narrative_provenance_catalog import (
+  is_toda_group_proof_narrative_provenance_only_statement,
+)
 from toda_group_proof_narrative_step_transitions import (
   extract_toda_group_proof_narrative_step_transitions,
 )
 from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
+)
+from toda_rules import (
+  TodaProp42ExactnessStatement,
 )
 
 
@@ -447,6 +453,11 @@ def _relocatable_toda_group_proof_narrative_direct_derivation_premises(
         ),
         (),
       )
+      and not (
+        is_toda_group_proof_narrative_provenance_only_statement(
+          premise_step.conclusion
+        )
+      )
     )
   )
 
@@ -505,10 +516,34 @@ def _insert_toda_group_proof_narrative_relocated_direct_premises(
   relocated_lines = []
 
   for premise_step in relocated_direct_premises:
-    relocated_lines.append(
+    rendered_premise = (
       _render_generic_narrative_step(
         premise_step
       )
+    )
+
+    if isinstance(
+      premise_step.conclusion,
+      TodaProp42ExactnessStatement,
+    ):
+      english_suffix = (
+        r" \text{ is exact}$"
+      )
+
+      if rendered_premise.endswith(
+        english_suffix
+      ):
+        rendered_premise = (
+          rendered_premise[
+            :-len(
+              english_suffix
+            )
+          ]
+          + "$ は完全である."
+        )
+
+    relocated_lines.append(
+      rendered_premise
     )
     relocated_lines.append(
       ""
