@@ -1,4 +1,4 @@
-﻿from toda_group_proof_narrative_argument_body_renderer import (
+from toda_group_proof_narrative_argument_body_renderer import (
   _toda_group_proof_narrative_exactness_contribution_key,
   render_toda_group_proof_narrative_argument_body_markdown,
 )
@@ -32,6 +32,9 @@ from toda_group_proof_narrative_blocks import (
 )
 from toda_group_proof_narrative_exactness_components import (
   build_toda_group_proof_narrative_exactness_method_components,
+)
+from toda_group_proof_narrative_equation_numbering import (
+  number_toda_group_proof_narrative_equations,
 )
 from toda_group_proof_narrative_exactness_contribution_ownership import (
   filter_toda_group_proof_narrative_exactness_body_contributions,
@@ -366,8 +369,14 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
           )
         )
 
-  return "\n\n".join(
+  rendered = "\n\n".join(
     rendered_arguments
+  )
+
+  return (
+    number_toda_group_proof_narrative_equations(
+      rendered
+    )
   )
 
 
