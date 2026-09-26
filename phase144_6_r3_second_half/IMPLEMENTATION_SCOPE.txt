@@ -1,0 +1,19 @@
+Phase 144-6-R3 後半
+
+変更対象
+- toda_rules.py: 5つの既存 rule constructor
+- toda_group_proof_narrative_argument_multi_renderer.py:
+  import と render_toda_group_proof_narrative_multi_argument_markdown 全体
+- tests/test_phase144_6_r3_production_references.py: 新規
+
+実装
+ProofStep -> InferenceRule.literature_reference -> ReferenceEntry -> [R#]
+
+境界
+- rule-name parsing なし
+- n/k/pi6/nu_prime renderer 分岐なし
+- Proposition 4.4 は structured equality で dedup
+- graph にない Proposition 2.2 は表示しない
+- R4 supporting-fact filtering は未実装
+- R5 depth policy は未実装
+- full pytest は未実行

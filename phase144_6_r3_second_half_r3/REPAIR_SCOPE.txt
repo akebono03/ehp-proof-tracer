@@ -1,0 +1,15 @@
+Phase 144-6-R3 後半 R3
+
+変更対象:
+- toda_group_proof_narrative_argument_multi_renderer.py
+- render_toda_group_proof_narrative_multi_argument_markdown()
+
+原因:
+R3-R1 の AST 置換で Phase 144-5 の最終 equation-numbering 呼び出しを落とした。
+
+修正:
+Reference section と本文の結合後に
+number_toda_group_proof_narrative_equations(markdown, presentation, blocks)
+を適用して返す。
+
+R4/R5 は未実装。full pytest は実行しない。

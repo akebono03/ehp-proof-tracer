@@ -1,0 +1,15 @@
+Phase 144-6-R3 後半 R1
+
+原因:
+初版 apply script の multi renderer return anchor で
+バックスラッシュ escaping が1段多く、現行ソースと一致しなかった。
+
+修正:
+- R3 の設計・実装方針は変更しない。
+- toda_rules.py の structured reference は存在確認して不足分のみ追加。
+- multi renderer は脆い文字列 anchor ではなく AST で対象関数の唯一の return を特定して置換。
+- 初版で生成済みの production reference test をそのまま実行。
+- full pytest は実行しない。
+
+Phase 境界:
+R4 supporting-fact filtering と R5 depth policy は未実装。

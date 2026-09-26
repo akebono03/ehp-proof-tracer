@@ -1,3 +1,4 @@
+from proof import LiteratureReference
 from dataclasses import dataclass
 
 from barratt_hilton_rules import (
@@ -30037,6 +30038,13 @@ def toda_prop51_finite_dimensional_integration_inference_rule():
     ),
     conclusion_builder=build_conclusion,
     match_guard=guard,
+    literature_reference=LiteratureReference(
+      label="Toda Proposition 5.1",
+      author="H. Toda",
+      title="Composition Methods in Homotopy Groups of Spheres",
+      year=1962,
+      locator="Proposition 5.1",
+    ),
   )
 
 
@@ -33411,6 +33419,13 @@ def toda_52_eta2_composition_isomorphism_inference_rule():
     ),
     conclusion_builder=build_conclusion,
     match_guard=guard,
+    literature_reference=LiteratureReference(
+      label="Toda (5.2)",
+      author="H. Toda",
+      title="Composition Methods in Homotopy Groups of Spheres",
+      year=1962,
+      locator="(5.2)",
+    ),
   )
 
 
@@ -37370,6 +37385,13 @@ def toda_prop44_eta2_second_summand_restriction_inference_rule():
     ),
     conclusion_builder=build_conclusion,
     match_guard=guard,
+    literature_reference=LiteratureReference(
+      label="Toda Proposition 4.4",
+      author="H. Toda",
+      title="Composition Methods in Homotopy Groups of Spheres",
+      year=1962,
+      locator="Proposition 4.4",
+    ),
   )
 
 
@@ -38106,6 +38128,13 @@ def toda_prop44_eta2_n2_isomorphism_inference_rule():
     ),
     conclusion_builder=build_conclusion,
     match_guard=guard,
+    literature_reference=LiteratureReference(
+      label="Toda Proposition 4.4",
+      author="H. Toda",
+      title="Composition Methods in Homotopy Groups of Spheres",
+      year=1962,
+      locator="Proposition 4.4",
+    ),
   )
 
 
@@ -62834,6 +62863,13 @@ def toda_53_nu_prime_bracket_specialization_inference_rule():
     ),
     conclusion_builder=build_conclusion,
     match_guard=guard,
+    literature_reference=LiteratureReference(
+      label="Toda (5.3) / Lemma 5.2",
+      author="H. Toda",
+      title="Composition Methods in Homotopy Groups of Spheres",
+      year=1962,
+      locator="(5.3) / Lemma 5.2",
+    ),
   )
 
 
