@@ -781,20 +781,34 @@ def _render_generic_narrative_proof_block(
     ...,
   ],
   block_index: int,
+  show_dependency_labels: bool = True,
 ) -> tuple[
   str,
   ...,
 ]:
+  if not isinstance(
+    show_dependency_labels,
+    bool,
+  ):
+    raise TypeError(
+      "show_dependency_labels must be a bool"
+    )
+
   block = blocks[
     block_index
   ]
-  dependency_labels = (
-    _generic_narrative_dependency_labels(
-      presentation,
-      blocks,
-      block_index,
+
+  if show_dependency_labels:
+    dependency_labels = (
+      _generic_narrative_dependency_labels(
+        presentation,
+        blocks,
+        block_index,
+      )
     )
-  )
+  else:
+    dependency_labels = ()
+
   sentence_lead = (
     _generic_narrative_sentence_lead(
       block.role,

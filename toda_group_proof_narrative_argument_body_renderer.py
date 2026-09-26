@@ -107,17 +107,10 @@ def _render_toda_group_proof_narrative_argument_exactness_body_block(
   )
 
   if window_contributions:
-    dependency_labels = (
-      _generic_narrative_dependency_labels(
-        presentation,
-        blocks,
-        block_index,
-      )
-    )
     sentence_lead = (
       _generic_narrative_sentence_lead(
         block.role,
-        dependency_labels,
+        (),
       )
     )
 
@@ -358,6 +351,7 @@ def render_toda_group_proof_narrative_argument_body_markdown(
         presentation,
         blocks,
         block_index,
+        show_dependency_labels=False,
       )
     )
 
