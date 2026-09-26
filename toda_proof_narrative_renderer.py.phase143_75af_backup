@@ -52,7 +52,6 @@ from toda_rules import (
   Toda56Nu4Prop44SpecializationStatement,
   TodaLemma54WhiteheadCorrectionDataStatement,
   TodaSuspensionZeroStatement,
-  TodaProp44FirstSummandRestrictionStatement,
 )
 
 
@@ -608,34 +607,6 @@ def render_toda_proof_statement_latex(
         statement.window
       )
       + r" \text{ is exact}"
-    )
-
-  if isinstance(
-    statement,
-    TodaProp44FirstSummandRestrictionStatement,
-  ):
-    first_summand = (
-      statement.decomposition_map.source_group.summands[
-        0
-      ]
-    )
-
-    return (
-      r"\left."
-      + r"\left("
-      + render_toda_expression_latex(
-        statement.decomposition_map.formula
-      )
-      + r"\right)"
-      + r"\right|_{"
-      + render_toda_primary_group_latex(
-        first_summand
-      )
-      + r"}"
-      + r" = "
-      + _render_toda_group_map_latex(
-        statement.suspension_map
-      )
     )
 
   if isinstance(
