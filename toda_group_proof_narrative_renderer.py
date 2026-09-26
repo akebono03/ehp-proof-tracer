@@ -2,7 +2,11 @@ from barratt_hilton_rules import (
   HomotopyGroupMembershipStatement,
 )
 from homotopy_groups import (
+  TodaDeltaMap,
+  TodaIteratedSuspensionMap,
   TodaPrimaryGroup,
+  TodaProp44DecompositionMap,
+  TodaSuspensionMap,
 )
 from proof import (
   ProofStep,
@@ -229,6 +233,74 @@ def _render_group_proof_narrative_latex(
     )
 
   statement = proof_step.conclusion
+
+  if isinstance(
+    statement,
+    TodaSuspensionMap,
+  ):
+    return (
+      "E: "
+      + render_toda_primary_group_latex(
+        statement.source_group
+      )
+      + r" \to "
+      + render_toda_primary_group_latex(
+        statement.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaIteratedSuspensionMap,
+  ):
+    return (
+      r"E^{"
+      + _render_scalar_latex(
+        statement.exponent
+      )
+      + r"}: "
+      + render_toda_primary_group_latex(
+        statement.source_group
+      )
+      + r" \to "
+      + render_toda_primary_group_latex(
+        statement.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaDeltaMap,
+  ):
+    return (
+      r"\Delta: "
+      + render_toda_primary_group_latex(
+        statement.source_group
+      )
+      + r" \to "
+      + render_toda_primary_group_latex(
+        statement.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaProp44DecompositionMap,
+  ):
+    return (
+      r"("
+      + render_toda_expression_latex(
+        statement.beta
+      )
+      + r", "
+      + render_toda_expression_latex(
+        statement.gamma
+      )
+      + r") \mapsto "
+      + render_toda_expression_latex(
+        statement.formula
+      )
+    )
 
   if isinstance(
     statement,
