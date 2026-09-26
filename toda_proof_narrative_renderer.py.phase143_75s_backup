@@ -35,7 +35,6 @@ from toda_proof_presentation import (
   TodaProofStepPresentation,
 )
 from toda_rules import (
-  Toda58WhiteheadSquareUpToSignStatement,
   TodaDeltaImageUpToSignStatement,
   TodaDeltaInjectiveStatement,
   TodaHopfInvariantSurjectiveStatement,
@@ -448,34 +447,6 @@ def render_toda_proof_statement_latex(
         statement.map
       )
       + r" \text{ is surjective}"
-    )
-
-  if isinstance(
-    statement,
-    Toda58WhiteheadSquareUpToSignStatement,
-  ):
-    positive_value_latex = (
-      render_toda_expression_latex(
-        statement.positive_value
-      )
-    )
-
-    if isinstance(
-      statement.positive_value,
-      Sum,
-    ):
-      positive_value_latex = (
-        r"\left("
-        + positive_value_latex
-        + r"\right)"
-      )
-
-    return (
-      render_toda_expression_latex(
-        statement.whitehead_square
-      )
-      + r" = \pm "
-      + positive_value_latex
     )
 
   if isinstance(
