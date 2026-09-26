@@ -45,6 +45,7 @@ from toda_proof_narrative_renderer import (
 )
 from toda_rules import (
   Toda36Lemma514SigmaDoublePrimeBridgeStatement,
+  Toda45IsomorphismStatement,
   Toda48Pi16_9OrderAndE4InjectiveStatement,
   Toda52CompositionIsomorphismStatement,
   Toda53NuPrimeBracketSpecializationStatement,
@@ -54,6 +55,7 @@ from toda_rules import (
   TodaDeltaZeroStatement,
   TodaEtaFamilyDefinitionStatement,
   TodaHopfInvariantInjectiveStatement,
+  TodaHopfInvariantIsomorphismStatement,
   TodaHopfInvariantSurjectiveStatement,
   TodaIteratedSuspensionInjectiveStatement,
   TodaLemma513Statement,
@@ -63,6 +65,7 @@ from toda_rules import (
   TodaPi32Eta2DefinitionStatement,
   TodaProp42ExactnessStatement,
   TodaProp44IsomorphismStatement,
+  TodaProp44SecondSummandRestrictionStatement,
   TodaProp51FiniteDimensionalStatement,
   TodaProp511FiniteDimensionalStatement,
   TodaProp515Pi12_5HopfIsomorphismStatement,
@@ -353,6 +356,54 @@ def _render_group_proof_narrative_latex(
       + r" \xrightarrow{\cong} "
       + render_toda_primary_group_latex(
         statement.map.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    Toda45IsomorphismStatement,
+  ):
+    return (
+      r"E^{"
+      + _render_scalar_latex(
+        statement.map.exponent
+      )
+      + r"}: "
+      + render_toda_primary_group_latex(
+        statement.map.source_group
+      )
+      + r" \xrightarrow{\cong} "
+      + render_toda_primary_group_latex(
+        statement.map.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaHopfInvariantIsomorphismStatement,
+  ):
+    return (
+      r"H: "
+      + render_toda_primary_group_latex(
+        statement.map.source_group
+      )
+      + r" \xrightarrow{\cong} "
+      + render_toda_primary_group_latex(
+        statement.map.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaProp44SecondSummandRestrictionStatement,
+  ):
+    return (
+      render_toda_expression_latex(
+        statement.decomposition_map.gamma
+      )
+      + r" \mapsto "
+      + render_toda_expression_latex(
+        statement.composition
       )
     )
 
