@@ -9,6 +9,9 @@ from proof import (
   Relation,
   RelationType,
 )
+from scalar_rules import (
+  ScalarGreaterEqualStatement,
+)
 from repository_element_presentation import (
   render_repository_conclusion_latex,
 )
@@ -25,6 +28,7 @@ from toda_group_proof_narrative_classifier import (
   classify_toda_group_proof_narrative_step,
 )
 from toda_human_readable_renderer import (
+  _render_scalar_latex,
   render_toda_expression_latex,
 )
 from toda_proof_narrative_renderer import (
@@ -40,6 +44,7 @@ from toda_rules import (
   Toda56Nu4DecompositionIsomorphismStatement,
   Toda56Nu4DecompositionStatement,
   TodaDeltaZeroStatement,
+  TodaEtaFamilyDefinitionStatement,
   TodaHopfInvariantInjectiveStatement,
   TodaHopfInvariantSurjectiveStatement,
   TodaIteratedSuspensionInjectiveStatement,
@@ -199,6 +204,12 @@ def _group_proof_narrative_statement_label(
 
   if isinstance(
     statement,
+    TodaEtaFamilyDefinitionStatement,
+  ):
+    return "η-family の定義"
+
+  if isinstance(
+    statement,
     TodaSigmaFamilyDefinitionStatement,
   ):
     return "σ-family の定義"
@@ -218,6 +229,20 @@ def _render_group_proof_narrative_latex(
     )
 
   statement = proof_step.conclusion
+
+  if isinstance(
+    statement,
+    ScalarGreaterEqualStatement,
+  ):
+    return (
+      _render_scalar_latex(
+        statement.left
+      )
+      + r" \ge "
+      + _render_scalar_latex(
+        statement.right
+      )
+    )
 
   try:
     latex = (
