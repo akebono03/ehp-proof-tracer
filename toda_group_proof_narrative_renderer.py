@@ -2,10 +2,14 @@ from barratt_hilton_rules import (
   HomotopyGroupMembershipStatement,
 )
 from homotopy_groups import (
+  HomotopyEHPExactnessWindow,
+  HomotopyGroup,
   TodaDeltaMap,
   TodaIteratedSuspensionMap,
   TodaPrimaryGroup,
+  TodaPrimaryGroupMembershipStatement,
   TodaProp44DecompositionMap,
+  TodaSuspensionIsomorphismStatement,
   TodaSuspensionMap,
 )
 from proof import (
@@ -56,7 +60,9 @@ from toda_rules import (
   TodaLemma514Sigma8Statement,
   TodaLemma514SigmaPrimeStatement,
   TodaLemma54Statement,
+  TodaPi32Eta2DefinitionStatement,
   TodaProp42ExactnessStatement,
+  TodaProp44IsomorphismStatement,
   TodaProp51FiniteDimensionalStatement,
   TodaProp511FiniteDimensionalStatement,
   TodaProp515Pi12_5HopfIsomorphismStatement,
@@ -233,6 +239,122 @@ def _render_group_proof_narrative_latex(
     )
 
   statement = proof_step.conclusion
+
+  if isinstance(
+    statement,
+    HomotopyGroup,
+  ):
+    return (
+      r"\pi_{"
+      + _render_scalar_latex(
+        statement.group_dimension
+      )
+      + r"}^{"
+      + _render_scalar_latex(
+        statement.sphere_dimension
+      )
+      + "}"
+    )
+
+  if isinstance(
+    statement,
+    HomotopyEHPExactnessWindow,
+  ):
+    return (
+      r"\pi_{"
+      + _render_scalar_latex(
+        statement.source_term.group_dimension
+      )
+      + r"}^{"
+      + _render_scalar_latex(
+        statement.source_term.sphere_dimension
+      )
+      + r"} \xrightarrow{"
+      + statement.first_map.name
+      + r"} \pi_{"
+      + _render_scalar_latex(
+        statement.middle_term.group_dimension
+      )
+      + r"}^{"
+      + _render_scalar_latex(
+        statement.middle_term.sphere_dimension
+      )
+      + r"} \xrightarrow{"
+      + statement.second_map.name
+      + r"} \pi_{"
+      + _render_scalar_latex(
+        statement.target_term.group_dimension
+      )
+      + r"}^{"
+      + _render_scalar_latex(
+        statement.target_term.sphere_dimension
+      )
+      + "}"
+    )
+
+  if isinstance(
+    statement,
+    TodaPi32Eta2DefinitionStatement,
+  ):
+    return (
+      "H("
+      + render_toda_expression_latex(
+        statement.element
+      )
+      + ") = "
+      + render_toda_expression_latex(
+        statement.image
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaPrimaryGroupMembershipStatement,
+  ):
+    return (
+      render_toda_expression_latex(
+        statement.element
+      )
+      + r" \in "
+      + render_toda_primary_group_latex(
+        statement.group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaProp44IsomorphismStatement,
+  ):
+    return (
+      r"\left("
+      + render_toda_expression_latex(
+        statement.map.beta
+      )
+      + r", "
+      + render_toda_expression_latex(
+        statement.map.gamma
+      )
+      + r"\right) \mapsto "
+      + render_toda_expression_latex(
+        statement.map.formula
+      )
+      + r"\quad\text{は同型写像}"
+    )
+
+  if isinstance(
+    statement,
+    TodaSuspensionIsomorphismStatement,
+  ):
+    return (
+      r"E: "
+      + render_toda_primary_group_latex(
+        statement.map.source_group
+      )
+      + r" \xrightarrow{\cong} "
+      + render_toda_primary_group_latex(
+        statement.map.target_group
+      )
+    )
 
   if isinstance(
     statement,
