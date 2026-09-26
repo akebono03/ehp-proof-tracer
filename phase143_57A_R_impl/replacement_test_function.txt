@@ -1,0 +1,31 @@
+def test_phase143_57a_transition_validates_step_types():
+  (
+    presentation,
+    _blocks,
+    _sidecar,
+    _arguments,
+  ) = _method_evidence_data(
+    3,
+    3,
+  )
+  step = presentation.nodes[
+    0
+  ].proof_step
+
+  assert isinstance(
+    step,
+    ProofStep,
+  )
+
+  with pytest.raises(
+    TypeError,
+    match="target_step must be a ProofStep",
+  ):
+    TodaGroupProofNarrativeStepTransition(
+      role=(
+        TodaGroupProofNarrativeStepTransitionRole
+        .CALCULATION_CHAIN
+      ),
+      source_step=step,
+      target_step="target",
+    )
