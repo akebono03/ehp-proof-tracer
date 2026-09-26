@@ -59,7 +59,6 @@ from toda_rules import (
   Toda36Lemma54SpecializationStatement,
   TodaBracketMembershipStatement,
   TodaLemma514SigmaDoublePrimeStatement,
-  Toda514FirstShortExactStatement,
 )
 
 
@@ -541,32 +540,6 @@ def _render_toda_bracket_membership_latex(
 def render_toda_proof_statement_latex(
   statement,
 ) -> str | None:
-  if isinstance(
-    statement,
-    Toda514FirstShortExactStatement,
-  ):
-    return (
-      render_toda_primary_group_latex(
-        statement.source_group
-      )
-      + r" \xrightarrow{"
-      + _render_toda_map_name_latex(
-        statement.suspension_map
-      )
-      + "} "
-      + render_toda_primary_group_latex(
-        statement.middle_group
-      )
-      + r" \xrightarrow{"
-      + _render_toda_map_name_latex(
-        statement.hopf_map
-      )
-      + "} "
-      + render_toda_primary_group_latex(
-        statement.target_group
-      )
-    )
-
   if isinstance(
     statement,
     TodaLemma514SigmaDoublePrimeStatement,
