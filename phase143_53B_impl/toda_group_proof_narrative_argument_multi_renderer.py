@@ -87,6 +87,68 @@ def _toda_group_proof_narrative_argument_transition_by_conclusion_id(
   }
 
 
+def _insert_toda_group_proof_narrative_transition_connector(
+  body: str,
+  conclusion_block: TodaGroupProofNarrativeBlock,
+  connector: str | None,
+) -> str:
+  if not body or connector is None:
+    return body
+
+  conclusion_lines = tuple(
+    line
+    for line in body.splitlines()
+    if line
+  )
+
+  if not conclusion_lines:
+    return body
+
+  conclusion_step_ids = {
+    id(
+      proof_step
+    )
+    for proof_step in conclusion_block.steps
+  }
+
+  if not conclusion_step_ids:
+    return body
+
+  lines = body.splitlines()
+  last_nonempty_index = next(
+    (
+      index
+      for index in range(
+        len(
+          lines
+        ) - 1,
+        -1,
+        -1,
+      )
+      if lines[
+        index
+      ]
+    ),
+    None,
+  )
+
+  if last_nonempty_index is None:
+    return body
+
+  lines.insert(
+    last_nonempty_index,
+    connector,
+  )
+  lines.insert(
+    last_nonempty_index + 1,
+    "",
+  )
+
+  return "\n".join(
+    lines
+  )
+
+
 def render_toda_group_proof_narrative_multi_argument_markdown(
   presentation: TodaGroupProofPresentation,
   blocks: tuple[
@@ -200,19 +262,6 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
       )
     )
 
-    transition = transition_by_conclusion_id.get(
-      id(
-        argument.conclusion_block
-      )
-    )
-    connector = (
-      None
-      if transition is None
-      else render_toda_group_proof_narrative_transition_connector(
-        transition
-      )
-    )
-
     body = (
       render_toda_group_proof_narrative_argument_body_markdown(
         presentation,
@@ -225,14 +274,26 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
         excluded_exactness_contribution_keys=frozenset(
           seen_exactness_contribution_keys
         ),
-        connector_before_block_id=(
-          None
-          if connector is None
-          else id(
-            argument.conclusion_block
-          )
-        ),
-        connector_text=connector,
+      )
+    )
+
+    transition = transition_by_conclusion_id.get(
+      id(
+        argument.conclusion_block
+      )
+    )
+    connector = (
+      None
+      if transition is None
+      else render_toda_group_proof_narrative_transition_connector(
+        transition
+      )
+    )
+    body = (
+      _insert_toda_group_proof_narrative_transition_connector(
+        body,
+        argument.conclusion_block,
+        connector,
       )
     )
 
