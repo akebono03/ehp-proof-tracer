@@ -114,7 +114,7 @@ def test_phase143_51a_argument_narrative_suppresses_internal_decomposition_map()
   )
 
 
-def test_phase143_51a_keeps_unhandled_aggregate_fallback_for_phase143_51b():
+def test_phase143_51a_aggregate_fallback_is_replaced_after_phase143_51b():
   rendered = _render_multi_argument(
     5,
     3,
@@ -123,6 +123,11 @@ def test_phase143_51a_keeps_unhandled_aggregate_fallback_for_phase143_51b():
   assert (
     "Toda Proposition 5.6 "
     "pi_8^5 quotient by E^2 pi_6^3"
+    not in rendered
+  )
+  assert (
+    r"$\pi_{8}^{5}/E^{2}\left(\pi_{6}^{3}\right)"
+    r" \cong \mathbb{Z}/2$"
     in rendered
   )
 

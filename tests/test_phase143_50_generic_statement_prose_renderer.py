@@ -107,14 +107,18 @@ def test_phase143_50_pi15_8_group_conclusion_is_preserved():
   )
 
 
-def test_phase143_50_does_not_remove_internal_rule_fallback_yet():
+def test_phase143_50_structured_prose_remains_after_aggregate_rendering():
   rendered = _render_multi_argument(
     5,
     3,
   )
 
   assert (
-    "Toda Proposition 5.6 "
-    "pi_8^5 quotient by E^2 pi_6^3"
+    r"$E^{2}: \pi_{6}^{3} \to \pi_{8}^{5}$ は単射である."
+    in rendered
+  )
+  assert (
+    r"$\pi_{8}^{5}/E^{2}\left(\pi_{6}^{3}\right)"
+    r" \cong \mathbb{Z}/2$"
     in rendered
   )

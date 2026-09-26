@@ -14,6 +14,9 @@ from proof import (
 from repository_element_presentation import (
   render_repository_conclusion_latex,
 )
+from toda_group_proof_aggregate_statement_renderer import (
+  render_toda_group_proof_aggregate_statement_prose,
+)
 from toda_group_proof_narrative_blocks import (
   TodaGroupProofNarrativeBlock,
   TodaGroupProofNarrativeMathematicalBlockRole,
@@ -256,6 +259,15 @@ def _render_generic_narrative_group_map_latex(
 def _render_generic_narrative_statement_prose(
   statement,
 ) -> str | None:
+  aggregate_prose = (
+    render_toda_group_proof_aggregate_statement_prose(
+      statement
+    )
+  )
+
+  if aggregate_prose is not None:
+    return aggregate_prose
+
   if isinstance(
     statement,
     _GENERIC_INJECTIVE_STATEMENT_TYPES,

@@ -39,12 +39,16 @@ def test_phase143_51a_r_pi8_5_suppresses_provenance_only_fallbacks():
   for internal_name in (
     "Toda Lemma 5.4 integration",
     "Toda (5.6) nu_4 decomposition isomorphism semantics",
+    (
+      "Toda Proposition 5.6 "
+      "pi_8^5 quotient by E^2 pi_6^3"
+    ),
   ):
     assert internal_name not in rendered
 
   assert (
-    "Toda Proposition 5.6 "
-    "pi_8^5 quotient by E^2 pi_6^3"
+    r"$\pi_{8}^{5}/E^{2}\left(\pi_{6}^{3}\right)"
+    r" \cong \mathbb{Z}/2$"
     in rendered
   )
 
@@ -59,16 +63,25 @@ def test_phase143_51a_r_pi15_8_suppresses_provenance_only_fallbacks():
     "Toda Proposition 5.15 sigma_8 "
     "Proposition 4.4 specialization premises",
     "Toda Lemma 5.14 sigma-prime branch",
+    "Toda (5.14) second short exact sequence",
+    (
+      "Toda Proposition 5.15 "
+      "sigma_8 transported decomposition"
+    ),
   ):
     assert internal_name not in rendered
 
   assert (
-    "Toda (5.14) second short exact sequence"
+    r"$0\longrightarrow \pi_{13}^{6}"
+    r"\xrightarrow{E} \pi_{14}^{7}"
+    r"\xrightarrow{H} \pi_{14}^{13}"
+    r"\longrightarrow 0$"
     in rendered
   )
   assert (
-    "Toda Proposition 5.15 "
-    "sigma_8 transported decomposition"
+    r"$\pi_{15}^{8} \cong "
+    r"\mathbb{Z}/8\{E\sigma'\} "
+    r"\oplus \mathbb{Z}\{\sigma_{8}\}$"
     in rendered
   )
 
@@ -90,15 +103,24 @@ def test_phase143_51a_r_pi16_9_suppresses_provenance_only_fallbacks():
     "Toda Proposition 5.11 finite-dimensional integration",
     "Toda Proposition 5.8 finite-dimensional integration",
     "Toda Lemma 5.14 sigma double-prime branch",
+    "Toda (5.14) second short exact sequence",
+    "Toda (4.8) pi_16^9 order sixteen and E4 injective",
   ):
     assert internal_name not in rendered
 
   assert (
-    "Toda (5.14) second short exact sequence"
+    r"$0\longrightarrow \pi_{13}^{6}"
+    r"\xrightarrow{E} \pi_{14}^{7}"
+    r"\xrightarrow{H} \pi_{14}^{13}"
+    r"\longrightarrow 0$"
     in rendered
   )
   assert (
-    "Toda (4.8) pi_16^9 order sixteen and E4 injective"
+    r"$|\pi_{16}^{9}| = 16$"
+    in rendered
+  )
+  assert (
+    r"$E^{4}: \pi_{12}^{5} \to \pi_{16}^{9}$ は単射である."
     in rendered
   )
 
