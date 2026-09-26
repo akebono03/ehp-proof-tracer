@@ -375,7 +375,9 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
 
   return (
     number_toda_group_proof_narrative_equations(
-      rendered
+      rendered,
+      presentation,
+      blocks,
     )
   )
 
