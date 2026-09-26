@@ -322,30 +322,6 @@ def _render_finite_dimensional_aggregate_statement_latex(
   return latex
 
 
-
-
-def _render_prop44_suspension_injective_statement_latex(
-  statement,
-) -> str | None:
-  if (
-    type(statement).__name__
-    != "TodaProp44SuspensionInjectiveStatement"
-  ):
-    return None
-
-  suspension_map = statement.map
-
-  return (
-    "E: "
-    + render_toda_primary_group_latex(
-      suspension_map.source_group
-    )
-    + r" \hookrightarrow "
-    + render_toda_primary_group_latex(
-      suspension_map.target_group
-    )
-  )
-
 def _render_group_proof_narrative_latex(
   proof_step: ProofStep,
 ) -> str | None:
@@ -358,19 +334,6 @@ def _render_group_proof_narrative_latex(
     )
 
   statement = proof_step.conclusion
-
-
-  prop44_suspension_injective_latex = (
-    _render_prop44_suspension_injective_statement_latex(
-      statement
-    )
-  )
-
-  if (
-    prop44_suspension_injective_latex
-    is not None
-  ):
-    return prop44_suspension_injective_latex
 
 
   finite_dimensional_latex = (
