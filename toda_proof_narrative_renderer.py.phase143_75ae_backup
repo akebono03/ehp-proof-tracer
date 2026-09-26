@@ -51,7 +51,6 @@ from toda_rules import (
   TodaSuspensionSurjectiveStatement,
   Toda56Nu4Prop44SpecializationStatement,
   TodaLemma54WhiteheadCorrectionDataStatement,
-  TodaSuspensionZeroStatement,
 )
 
 
@@ -662,17 +661,6 @@ def render_toda_proof_statement_latex(
         statement.map
       )
       + r" \text{ is surjective}"
-    )
-
-  if isinstance(
-    statement,
-    TodaSuspensionZeroStatement,
-  ):
-    return (
-      _render_toda_group_map_latex(
-        statement.map
-      )
-      + r" \text{ is the zero map}"
     )
 
   if isinstance(
