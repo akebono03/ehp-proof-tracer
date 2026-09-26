@@ -48,7 +48,6 @@ from toda_rules import (
   TodaSuspensionInjectiveStatement,
   TodaSuspensionSurjectiveStatement,
   Toda56Nu4Prop44SpecializationStatement,
-  TodaLemma54WhiteheadCorrectionDataStatement,
 )
 
 
@@ -830,34 +829,6 @@ def render_toda_proof_statement_latex(
       + _render_relation_latex(
         statement.hopf_relation
       )
-    )
-
-  if isinstance(
-    statement,
-    TodaLemma54WhiteheadCorrectionDataStatement,
-  ):
-    whitehead_square_latex = (
-      render_toda_expression_latex(
-        statement.whitehead_square
-      )
-    )
-
-    return (
-      r"H\left("
-      + whitehead_square_latex
-      + r"\right) = "
-      + render_toda_expression_latex(
-        statement.hopf_positive_value
-      )
-      + r",\quad "
-      + _render_relation_latex(
-        statement.suspension_zero_relation
-      )
-      + r",\quad "
-      + _render_scalar_latex(
-        statement.sign_parameter
-      )
-      + r"\text{ is the sign parameter}"
     )
 
   if isinstance(

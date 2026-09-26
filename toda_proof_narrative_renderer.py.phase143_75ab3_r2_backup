@@ -854,7 +854,7 @@ def render_toda_proof_statement_latex(
         statement.suspension_zero_relation
       )
       + r",\quad "
-      + _render_scalar_latex(
+      + render_toda_expression_latex(
         statement.sign_parameter
       )
       + r"\text{ is the sign parameter}"
