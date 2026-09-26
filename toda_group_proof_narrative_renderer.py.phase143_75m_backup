@@ -238,90 +238,6 @@ def _group_proof_narrative_statement_label(
   return None
 
 
-def _render_finite_dimensional_aggregate_statement_latex(
-  statement,
-) -> str | None:
-  target_names = {
-    "TodaProp53FiniteDimensionalStatement",
-    "TodaProp58FiniteDimensionalStatement",
-    "TodaProp59FiniteDimensionalStatement",
-    "TodaProp511NuSquaredFiniteDimensionalStatement",
-  }
-
-  if type(statement).__name__ not in target_names:
-    return None
-
-  parts = []
-  range_latex = None
-
-  for field_name in statement.__dataclass_fields__:
-    value = getattr(
-      statement,
-      field_name,
-    )
-
-    if isinstance(
-      value,
-      Relation,
-    ):
-      if (
-        value.relation_type
-        != RelationType.EQUALITY
-      ):
-        return None
-
-      parts.append(
-        render_toda_primary_group_latex(
-          value.lhs
-        )
-        + " = "
-        + render_toda_raw_group_structure_latex(
-          value.rhs
-        )
-      )
-      continue
-
-    if (
-      type(value).__name__
-      == "TodaPrimaryGroupZeroStatement"
-    ):
-      parts.append(
-        render_toda_primary_group_latex(
-          value.group
-        )
-        + " = 0"
-      )
-      continue
-
-    if (
-      type(value).__name__
-      == "ScalarGreaterEqualStatement"
-    ):
-      range_latex = (
-        _render_scalar_latex(
-          value.left
-        )
-        + r" \ge "
-        + _render_scalar_latex(
-          value.right
-        )
-      )
-
-  if not parts:
-    return None
-
-  latex = r",\quad ".join(parts)
-
-  if range_latex is not None:
-    latex += (
-      r"\qquad ("
-      + range_latex
-      + ")"
-    )
-
-  return latex
-
-
 def _render_group_proof_narrative_latex(
   proof_step: ProofStep,
 ) -> str | None:
@@ -334,16 +250,6 @@ def _render_group_proof_narrative_latex(
     )
 
   statement = proof_step.conclusion
-
-
-  finite_dimensional_latex = (
-    _render_finite_dimensional_aggregate_statement_latex(
-      statement
-    )
-  )
-
-  if finite_dimensional_latex is not None:
-    return finite_dimensional_latex
 
   if isinstance(
     statement,
