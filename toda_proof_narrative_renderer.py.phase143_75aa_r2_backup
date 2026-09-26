@@ -47,7 +47,6 @@ from toda_rules import (
   TodaProp42ExactnessStatement,
   TodaSuspensionInjectiveStatement,
   TodaSuspensionSurjectiveStatement,
-  Toda56Nu4Prop44SpecializationStatement,
 )
 
 
@@ -796,39 +795,6 @@ def render_toda_proof_statement_latex(
       )
       + r" \text{ is the defined }"
       + r"\nu\text{-family element}"
-    )
-
-  if isinstance(
-    statement,
-    Toda56Nu4Prop44SpecializationStatement,
-  ):
-    membership = statement.membership
-
-    membership_latex = (
-      render_toda_expression_latex(
-        membership.element
-      )
-      + r" \in "
-      + render_toda_primary_group_latex(
-        membership.group
-      )
-    )
-
-    return (
-      "n = "
-      + _render_scalar_latex(
-        statement.n
-      )
-      + r",\quad \alpha = "
-      + render_toda_expression_latex(
-        statement.alpha
-      )
-      + r",\quad "
-      + membership_latex
-      + r",\quad "
-      + _render_relation_latex(
-        statement.hopf_relation
-      )
     )
 
   if isinstance(
