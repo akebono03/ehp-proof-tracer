@@ -86,7 +86,7 @@ def test_phase143_59b_pi15_8_finds_redundant_direct_premise():
   ) in redundant_ids
 
 
-def test_phase143_59b_pi15_8_suppresses_transported_duplicate():
+def test_phase143_59b_pi15_8_keeps_transported_semantic_decomposition():
   rendered = _render(
     8,
     7,
@@ -96,7 +96,7 @@ def test_phase143_59b_pi15_8_suppresses_transported_duplicate():
     r"$\pi_{15}^{8} \cong "
     r"\mathbb{Z}/8\{E\sigma'\} "
     r"\oplus \mathbb{Z}\{\sigma_{8}\}$"
-    not in rendered
+    in rendered
   )
 
 

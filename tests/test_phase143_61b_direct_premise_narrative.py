@@ -143,7 +143,7 @@ def test_phase143_61b_pi6_3_does_not_duplicate_order_premises():
   ) == 1
 
 
-def test_phase143_61b_pi15_8_final_group_remains_single():
+def test_phase143_61b_pi15_8_keeps_transported_and_final_group():
   rendered = _render(
     8,
     7,
@@ -153,7 +153,7 @@ def test_phase143_61b_pi15_8_final_group_remains_single():
     r"$\pi_{15}^{8} \cong "
     r"\mathbb{Z}/8\{E\sigma'\} "
     r"\oplus \mathbb{Z}\{\sigma_{8}\}$"
-    not in rendered
+    in rendered
   )
   assert rendered.count(
     r"$\pi_{15}^{8} = "

@@ -30,7 +30,7 @@ def _render(
   )
 
 
-def test_phase143_61b_r_semantic_duplicate_suppression_precedes_relocation():
+def test_phase143_61b_r_semantic_aggregate_survives_relocation():
   rendered = _render(
     8,
     7,
@@ -40,7 +40,7 @@ def test_phase143_61b_r_semantic_duplicate_suppression_precedes_relocation():
     r"$\pi_{15}^{8} \cong "
     r"\mathbb{Z}/8\{E\sigma'\} "
     r"\oplus \mathbb{Z}\{\sigma_{8}\}$"
-    not in rendered
+    in rendered
   )
 
 
