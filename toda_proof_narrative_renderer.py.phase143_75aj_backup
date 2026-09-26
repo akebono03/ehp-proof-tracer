@@ -56,8 +56,6 @@ from toda_rules import (
   TodaLemma510BracketModuloStatement,
   TodaLemma57TwoIota5ImageMembershipStatement,
   TodaProp59DeltaKernelStatement,
-  Toda36Lemma54SpecializationStatement,
-  TodaBracketMembershipStatement,
 )
 
 
@@ -503,56 +501,9 @@ def _render_toda_nu4_construction_branch_latex(
   )
 
 
-def _render_homotopy_group_membership_latex(
-  statement: HomotopyGroupMembershipStatement,
-) -> str:
-  return (
-    render_toda_expression_latex(
-      statement.element
-    )
-    + r" \in \pi_{"
-    + _render_scalar_latex(
-      statement.group_dimension
-    )
-    + "}^{"
-    + _render_scalar_latex(
-      statement.sphere_dimension
-    )
-    + "}"
-  )
-
-
-def _render_toda_bracket_membership_latex(
-  statement: TodaBracketMembershipStatement,
-) -> str:
-  return (
-    render_toda_expression_latex(
-      statement.element
-    )
-    + r" \in "
-    + render_toda_expression_latex(
-      statement.bracket
-    )
-  )
-
-
 def render_toda_proof_statement_latex(
   statement,
 ) -> str | None:
-  if isinstance(
-    statement,
-    Toda36Lemma54SpecializationStatement,
-  ):
-    return (
-      _render_homotopy_group_membership_latex(
-        statement.alpha_star_membership
-      )
-      + r", \qquad "
-      + _render_toda_bracket_membership_latex(
-        statement.negative_bracket_membership
-      )
-    )
-
   if isinstance(
     statement,
     TodaProp59DeltaKernelStatement,
