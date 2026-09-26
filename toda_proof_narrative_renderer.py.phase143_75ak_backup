@@ -58,7 +58,6 @@ from toda_rules import (
   TodaProp59DeltaKernelStatement,
   Toda36Lemma54SpecializationStatement,
   TodaBracketMembershipStatement,
-  TodaLemma514SigmaDoublePrimeStatement,
 )
 
 
@@ -540,24 +539,6 @@ def _render_toda_bracket_membership_latex(
 def render_toda_proof_statement_latex(
   statement,
 ) -> str | None:
-  if isinstance(
-    statement,
-    TodaLemma514SigmaDoublePrimeStatement,
-  ):
-    return (
-      _render_relation_latex(
-        statement.iterated_suspension_relation
-      )
-      + r", \qquad "
-      + _render_relation_latex(
-        statement.double_relation
-      )
-      + r", \qquad "
-      + _render_relation_latex(
-        statement.hopf_relation
-      )
-    )
-
   if isinstance(
     statement,
     Toda36Lemma54SpecializationStatement,
