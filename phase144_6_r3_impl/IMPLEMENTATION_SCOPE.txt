@@ -1,0 +1,21 @@
+Phase 144-6-R3 structured Reference foundation
+
+変更対象:
+- proof.py: InferenceRule 全体に optional literature_reference を追加
+- toda_group_proof_narrative_references.py: 新規
+- tests/test_phase144_6_r3_structured_references.py: 新規
+
+完了条件:
+- LiteratureReference を InferenceRule に first-class provenance として保持できる。
+- rule-name parsing なしで ProofStep から reference を抽出できる。
+- ReferenceEntry を dedup/番号付けする generic API が存在する。
+- Reference 表示は locator/label の構造データを使う。
+- focused tests が通る。
+
+今回まだ行わない:
+- 既存 Toda rule への reference 付与
+- production Narrative への Reference section 接続
+- Proposition 2.2 の proof graph 追加
+- supporting-fact filtering
+- Narrative depth 自動選択
+- full pytest

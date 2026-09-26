@@ -1,0 +1,15 @@
+Phase 144-6-R3 Reference mapping audit
+
+変更対象:
+- production files: なし
+- tests: なし
+- 追加: audit_phase144_6_r3_references.py
+- 追加: run_phase144_6_r3.ps1
+
+目的:
+generic depth=3 の REFERENCE block に含まれる5 stepについて、
+statement type / inference rule / generic render / consumer / premise を列挙し、
+旧 R1-R5 との対応を推測なしで確定する。
+
+この監査では Reference renderer をまだ実装しない。
+全体 pytest は実行しない。

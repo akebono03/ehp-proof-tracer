@@ -413,6 +413,7 @@ class InferenceRule:
   conclusion_builder: Any = None
   conclusion_pattern: Any = None
   match_guard: Any = None
+  literature_reference: LiteratureReference | None = None
 
 
 @dataclass(frozen=True)
