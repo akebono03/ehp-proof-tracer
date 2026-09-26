@@ -21,6 +21,9 @@ from toda_group_proof_narrative_exactness_display_contributions import (
   TodaGroupProofNarrativeExactnessDisplayContributionKind,
   extract_toda_group_proof_narrative_exactness_display_contributions,
 )
+from toda_group_proof_narrative_group_structure_semantics import (
+  extract_toda_group_structure_narrative_redundant_direct_premise_step_ids,
+)
 from toda_group_proof_narrative_step_transitions import (
   extract_toda_group_proof_narrative_step_transitions,
 )
@@ -677,6 +680,16 @@ def render_toda_group_proof_narrative_argument_body_markdown(
       "or None"
     )
 
+  redundant_direct_premise_step_ids = (
+    frozenset()
+    if conclusion_step is None
+    else (
+      extract_toda_group_structure_narrative_redundant_direct_premise_step_ids(
+        conclusion_step
+      )
+    )
+  )
+
   lines = []
   connector_inserted = False
 
@@ -710,9 +723,30 @@ def render_toda_group_proof_narrative_argument_body_markdown(
       ):
         continue
 
+      display_steps = tuple(
+        proof_step
+        for proof_step in block.steps
+        if id(
+          proof_step
+        ) not in redundant_direct_premise_step_ids
+      )
+
+      if not display_steps:
+        continue
+
+      display_block = block
+
+      if display_steps != block.steps:
+        display_block = (
+          TodaGroupProofNarrativeBlock(
+            role=block.role,
+            steps=display_steps,
+          )
+        )
+
       reordered_block = (
         _reorder_toda_group_proof_narrative_calculation_derivations(
-          block,
+          display_block,
           step_derivation_sources_by_target_id,
         )
       )
