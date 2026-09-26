@@ -5,6 +5,7 @@ from expression import (
 from homotopy_groups import (
   TodaDeltaMap,
   TodaHopfInvariantMap,
+  TodaIteratedSuspensionMap,
   TodaSuspensionMap,
 )
 from proof import (
@@ -16,6 +17,9 @@ from repository_element_presentation import (
 from toda_group_proof_narrative_blocks import (
   TodaGroupProofNarrativeBlock,
   TodaGroupProofNarrativeMathematicalBlockRole,
+)
+from toda_group_proof_narrative_provenance_catalog import (
+  is_toda_group_proof_narrative_provenance_only_statement,
 )
 from toda_group_proof_narrative_semantics import (
   TodaGroupProofNarrativeSemanticSidecar,
@@ -33,13 +37,18 @@ from toda_proof_narrative_renderer import (
 )
 from toda_rules import (
   TodaDeltaInjectiveStatement,
+  TodaDeltaZeroStatement,
   TodaHopfInvariantInjectiveStatement,
+  TodaHopfInvariantIsomorphismStatement,
   TodaHopfInvariantSurjectiveStatement,
+  TodaHopfInvariantZeroStatement,
   TodaIteratedSuspensionInjectiveStatement,
   TodaNuFamilyDefinitionStatement,
   TodaProp42ExactnessStatement,
   TodaProp44SuspensionInjectiveStatement,
+  TodaSigmaFamilyDefinitionStatement,
   TodaSuspensionInjectiveStatement,
+  TodaSuspensionIsomorphismStatement,
   TodaSuspensionSurjectiveStatement,
 )
 
@@ -287,6 +296,44 @@ def _render_generic_narrative_statement_prose(
 
   if isinstance(
     statement,
+    _GENERIC_ISOMORPHISM_STATEMENT_TYPES,
+  ):
+    map_latex = (
+      _render_generic_narrative_group_map_latex(
+        statement.map
+      )
+    )
+
+    if map_latex is None:
+      return None
+
+    return (
+      "$"
+      + map_latex
+      + "$ は同型写像である."
+    )
+
+  if isinstance(
+    statement,
+    _GENERIC_ZERO_MAP_STATEMENT_TYPES,
+  ):
+    map_latex = (
+      _render_generic_narrative_group_map_latex(
+        statement.map
+      )
+    )
+
+    if map_latex is None:
+      return None
+
+    return (
+      "$"
+      + map_latex
+      + "$ は零写像である."
+    )
+
+  if isinstance(
+    statement,
     TodaNuFamilyDefinitionStatement,
   ):
     return (
@@ -295,6 +342,18 @@ def _render_generic_narrative_statement_prose(
         statement.element
       )
       + r"$ を \(\nu\)-family の元として定める."
+    )
+
+  if isinstance(
+    statement,
+    TodaSigmaFamilyDefinitionStatement,
+  ):
+    return (
+      "$"
+      + render_toda_expression_latex(
+        statement.element
+      )
+      + r"$ を \(\sigma\)-family の元として定める."
     )
 
   return None
@@ -660,6 +719,28 @@ _GENERIC_SURJECTIVE_STATEMENT_TYPES = (
 )
 
 
+_GENERIC_ISOMORPHISM_STATEMENT_TYPES = (
+  TodaHopfInvariantIsomorphismStatement,
+  TodaSuspensionIsomorphismStatement,
+)
+
+
+_GENERIC_ZERO_MAP_STATEMENT_TYPES = (
+  TodaDeltaZeroStatement,
+  TodaHopfInvariantZeroStatement,
+)
+
+
+def _is_generic_narrative_provenance_only_statement(
+  statement,
+) -> bool:
+  return (
+    is_toda_group_proof_narrative_provenance_only_statement(
+      statement
+    )
+  )
+
+
 def _generic_group_map_name(
   group_map,
 ) -> str | None:
@@ -668,6 +749,36 @@ def _generic_group_map_name(
     TodaSuspensionMap,
   ):
     return "E"
+
+  if isinstance(
+    group_map,
+    TodaIteratedSuspensionMap,
+  ):
+    exponent = group_map.exponent
+
+    if (
+      not isinstance(
+        exponent,
+        int,
+      )
+      or isinstance(
+        exponent,
+        bool,
+      )
+      or exponent < 1
+    ):
+      return None
+
+    if exponent == 1:
+      return "E"
+
+    return (
+      r"E^{"
+      + str(
+        exponent
+      )
+      + "}"
+    )
 
   if isinstance(
     group_map,
@@ -888,6 +999,7 @@ def _render_generic_narrative_proof_block(
   ],
   block_index: int,
   show_dependency_labels: bool = True,
+  suppress_provenance_only: bool = False,
 ) -> tuple[
   str,
   ...,
@@ -898,6 +1010,14 @@ def _render_generic_narrative_proof_block(
   ):
     raise TypeError(
       "show_dependency_labels must be a bool"
+    )
+
+  if not isinstance(
+    suppress_provenance_only,
+    bool,
+  ):
+    raise TypeError(
+      "suppress_provenance_only must be a bool"
     )
 
   block = blocks[
@@ -933,6 +1053,14 @@ def _render_generic_narrative_proof_block(
     )
 
   for proof_step in block.steps:
+    if (
+      suppress_provenance_only
+      and _is_generic_narrative_provenance_only_statement(
+        proof_step.conclusion
+      )
+    ):
+      continue
+
     lines.append(
       _render_generic_narrative_step(
         proof_step

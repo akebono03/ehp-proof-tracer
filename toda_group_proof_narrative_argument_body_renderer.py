@@ -370,6 +370,7 @@ def render_toda_group_proof_narrative_argument_body_markdown(
         blocks,
         block_index,
         show_dependency_labels=False,
+        suppress_provenance_only=True,
       )
     )
 
