@@ -35,7 +35,6 @@ from toda_proof_presentation import (
   TodaProofStepPresentation,
 )
 from toda_rules import (
-  TodaLemma54DoubleSuspensionUpToSignStatement,
   TodaLemma54HopfOddMultipleStatement,
   TodaLemma54Nu4ConstructionStatement,
   Toda54BracketUpToSignStatement,
@@ -878,20 +877,6 @@ def render_toda_proof_statement_latex(
       + r" + 1\right)"
       + render_toda_expression_latex(
         statement.generator
-      )
-    )
-
-  if isinstance(
-    statement,
-    TodaLemma54DoubleSuspensionUpToSignStatement,
-  ):
-    return (
-      render_toda_expression_latex(
-        statement.left
-      )
-      + r" = \pm "
-      + render_toda_expression_latex(
-        statement.positive_value
       )
     )
 
