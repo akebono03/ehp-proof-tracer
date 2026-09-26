@@ -54,7 +54,6 @@ from toda_rules import (
   TodaSuspensionZeroStatement,
   TodaProp44FirstSummandRestrictionStatement,
   TodaLemma510BracketModuloStatement,
-  TodaLemma57TwoIota5ImageMembershipStatement,
 )
 
 
@@ -503,20 +502,6 @@ def _render_toda_nu4_construction_branch_latex(
 def render_toda_proof_statement_latex(
   statement,
 ) -> str | None:
-  if isinstance(
-    statement,
-    TodaLemma57TwoIota5ImageMembershipStatement,
-  ):
-    return (
-      render_toda_expression_latex(
-        statement.element
-      )
-      + r" \in 2\iota_{5}\circ "
-      + render_toda_primary_group_latex(
-        statement.source_group
-      )
-    )
-
   if isinstance(
     statement,
     TodaLemma510BracketModuloStatement,
