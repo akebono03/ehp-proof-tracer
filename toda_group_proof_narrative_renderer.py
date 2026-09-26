@@ -2,12 +2,23 @@ from barratt_hilton_rules import (
   HomotopyGroupMembershipStatement,
 )
 from homotopy_groups import (
+  HomotopyEHPExactnessWindow,
+  HomotopyGroup,
+  TodaDeltaMap,
+  TodaIteratedSuspensionMap,
   TodaPrimaryGroup,
+  TodaPrimaryGroupMembershipStatement,
+  TodaProp44DecompositionMap,
+  TodaSuspensionIsomorphismStatement,
+  TodaSuspensionMap,
 )
 from proof import (
   ProofStep,
   Relation,
   RelationType,
+)
+from scalar_rules import (
+  ScalarGreaterEqualStatement,
 )
 from repository_element_presentation import (
   render_repository_conclusion_latex,
@@ -25,29 +36,43 @@ from toda_group_proof_narrative_classifier import (
   classify_toda_group_proof_narrative_step,
 )
 from toda_human_readable_renderer import (
+  _render_scalar_latex,
   render_toda_expression_latex,
 )
 from toda_proof_narrative_renderer import (
   render_toda_primary_group_latex,
   render_toda_proof_statement_latex,
+  render_toda_raw_group_structure_latex,
 )
 from toda_rules import (
   Toda36Lemma514SigmaDoublePrimeBridgeStatement,
+  Toda45IsomorphismStatement,
   Toda48Pi16_9OrderAndE4InjectiveStatement,
   Toda52CompositionIsomorphismStatement,
   Toda53NuPrimeBracketSpecializationStatement,
   Toda55NuFamilyFiniteDimensionalStatement,
   Toda56Nu4DecompositionIsomorphismStatement,
   Toda56Nu4DecompositionStatement,
+  Toda58WhiteheadSquareUpToSignStatement,
+  TodaDeltaImageFreeCyclicStatement,
+  TodaDeltaKernelFreeCyclicStatement,
+  TodaDeltaSurjectiveStatement,
   TodaDeltaZeroStatement,
+  TodaEtaFamilyDefinitionStatement,
   TodaHopfInvariantInjectiveStatement,
+  TodaHopfInvariantIsomorphismStatement,
   TodaHopfInvariantSurjectiveStatement,
   TodaIteratedSuspensionInjectiveStatement,
   TodaLemma513Statement,
   TodaLemma514Sigma8Statement,
   TodaLemma514SigmaPrimeStatement,
   TodaLemma54Statement,
+  TodaPi32Eta2DefinitionStatement,
+  TodaPi32WhiteheadSquareUpToSignStatement,
+  TodaProp27HopfInvariantUpToSignStatement,
   TodaProp42ExactnessStatement,
+  TodaProp44IsomorphismStatement,
+  TodaProp44SecondSummandRestrictionStatement,
   TodaProp51FiniteDimensionalStatement,
   TodaProp511FiniteDimensionalStatement,
   TodaProp515Pi12_5HopfIsomorphismStatement,
@@ -55,6 +80,7 @@ from toda_rules import (
   TodaProp56Pi8_5QuotientStatement,
   TodaSigmaFamilyDefinitionStatement,
   TodaSuspensionInjectiveStatement,
+  TodaSuspensionKernelFreeCyclicStatement,
 )
 
 
@@ -199,12 +225,126 @@ def _group_proof_narrative_statement_label(
 
   if isinstance(
     statement,
+    TodaEtaFamilyDefinitionStatement,
+  ):
+    return "η-family の定義"
+
+  if isinstance(
+    statement,
     TodaSigmaFamilyDefinitionStatement,
   ):
     return "σ-family の定義"
 
   return None
 
+
+def _render_finite_dimensional_aggregate_statement_latex(
+  statement,
+) -> str | None:
+  target_names = {
+    "TodaProp53FiniteDimensionalStatement",
+    "TodaProp58FiniteDimensionalStatement",
+    "TodaProp59FiniteDimensionalStatement",
+    "TodaProp511NuSquaredFiniteDimensionalStatement",
+  }
+
+  if type(statement).__name__ not in target_names:
+    return None
+
+  parts = []
+  range_latex = None
+
+  for field_name in statement.__dataclass_fields__:
+    value = getattr(
+      statement,
+      field_name,
+    )
+
+    if isinstance(
+      value,
+      Relation,
+    ):
+      if (
+        value.relation_type
+        != RelationType.EQUALITY
+      ):
+        return None
+
+      parts.append(
+        render_toda_primary_group_latex(
+          value.lhs
+        )
+        + " = "
+        + render_toda_raw_group_structure_latex(
+          value.rhs
+        )
+      )
+      continue
+
+    if (
+      type(value).__name__
+      == "TodaPrimaryGroupZeroStatement"
+    ):
+      parts.append(
+        render_toda_primary_group_latex(
+          value.group
+        )
+        + " = 0"
+      )
+      continue
+
+    if (
+      type(value).__name__
+      == "ScalarGreaterEqualStatement"
+    ):
+      range_latex = (
+        _render_scalar_latex(
+          value.left
+        )
+        + r" \ge "
+        + _render_scalar_latex(
+          value.right
+        )
+      )
+
+  if not parts:
+    return None
+
+  latex = r",\quad ".join(parts)
+
+  if range_latex is not None:
+    latex += (
+      r"\qquad ("
+      + range_latex
+      + ")"
+    )
+
+  return latex
+
+
+
+
+def _render_prop44_suspension_injective_statement_latex(
+  statement,
+) -> str | None:
+  if (
+    type(statement).__name__
+    != "TodaProp44SuspensionInjectiveStatement"
+  ):
+    return None
+
+  suspension_map = statement.map
+
+  return (
+    "E: "
+    + render_toda_primary_group_latex(
+      suspension_map.source_group
+    )
+    + r" \hookrightarrow "
+    + render_toda_primary_group_latex(
+      suspension_map.target_group
+    )
+  )
 
 def _render_group_proof_narrative_latex(
   proof_step: ProofStep,
@@ -218,6 +358,379 @@ def _render_group_proof_narrative_latex(
     )
 
   statement = proof_step.conclusion
+
+
+  prop44_suspension_injective_latex = (
+    _render_prop44_suspension_injective_statement_latex(
+      statement
+    )
+  )
+
+  if (
+    prop44_suspension_injective_latex
+    is not None
+  ):
+    return prop44_suspension_injective_latex
+
+
+  finite_dimensional_latex = (
+    _render_finite_dimensional_aggregate_statement_latex(
+      statement
+    )
+  )
+
+  if finite_dimensional_latex is not None:
+    return finite_dimensional_latex
+
+  if isinstance(
+    statement,
+    HomotopyGroup,
+  ):
+    return (
+      r"\pi_{"
+      + _render_scalar_latex(
+        statement.group_dimension
+      )
+      + r"}^{"
+      + _render_scalar_latex(
+        statement.sphere_dimension
+      )
+      + "}"
+    )
+
+  if isinstance(
+    statement,
+    HomotopyEHPExactnessWindow,
+  ):
+    return (
+      r"\pi_{"
+      + _render_scalar_latex(
+        statement.source_term.group_dimension
+      )
+      + r"}^{"
+      + _render_scalar_latex(
+        statement.source_term.sphere_dimension
+      )
+      + r"} \xrightarrow{"
+      + statement.first_map.name
+      + r"} \pi_{"
+      + _render_scalar_latex(
+        statement.middle_term.group_dimension
+      )
+      + r"}^{"
+      + _render_scalar_latex(
+        statement.middle_term.sphere_dimension
+      )
+      + r"} \xrightarrow{"
+      + statement.second_map.name
+      + r"} \pi_{"
+      + _render_scalar_latex(
+        statement.target_term.group_dimension
+      )
+      + r"}^{"
+      + _render_scalar_latex(
+        statement.target_term.sphere_dimension
+      )
+      + "}"
+    )
+
+  if isinstance(
+    statement,
+    TodaPi32Eta2DefinitionStatement,
+  ):
+    return (
+      "H("
+      + render_toda_expression_latex(
+        statement.element
+      )
+      + ") = "
+      + render_toda_expression_latex(
+        statement.image
+      )
+    )
+
+  if isinstance(
+    statement,
+    (
+      TodaPi32WhiteheadSquareUpToSignStatement,
+      Toda58WhiteheadSquareUpToSignStatement,
+    ),
+  ):
+    return (
+      render_toda_expression_latex(
+        statement.whitehead_square
+      )
+      + r" = \pm "
+      + render_toda_expression_latex(
+        statement.positive_value
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaProp27HopfInvariantUpToSignStatement,
+  ):
+    return (
+      "H("
+      + render_toda_expression_latex(
+        statement.argument
+      )
+      + r") = \pm "
+      + render_toda_expression_latex(
+        statement.positive_value
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaPrimaryGroupMembershipStatement,
+  ):
+    return (
+      render_toda_expression_latex(
+        statement.element
+      )
+      + r" \in "
+      + render_toda_primary_group_latex(
+        statement.group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaProp44IsomorphismStatement,
+  ):
+    return (
+      r"\left("
+      + render_toda_expression_latex(
+        statement.map.beta
+      )
+      + r", "
+      + render_toda_expression_latex(
+        statement.map.gamma
+      )
+      + r"\right) \mapsto "
+      + render_toda_expression_latex(
+        statement.map.formula
+      )
+      + r"\quad\text{は同型写像}"
+    )
+
+  if isinstance(
+    statement,
+    TodaSuspensionIsomorphismStatement,
+  ):
+    return (
+      r"E: "
+      + render_toda_primary_group_latex(
+        statement.map.source_group
+      )
+      + r" \xrightarrow{\cong} "
+      + render_toda_primary_group_latex(
+        statement.map.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    Toda45IsomorphismStatement,
+  ):
+    return (
+      r"E^{"
+      + _render_scalar_latex(
+        statement.map.exponent
+      )
+      + r"}: "
+      + render_toda_primary_group_latex(
+        statement.map.source_group
+      )
+      + r" \xrightarrow{\cong} "
+      + render_toda_primary_group_latex(
+        statement.map.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaHopfInvariantIsomorphismStatement,
+  ):
+    return (
+      r"H: "
+      + render_toda_primary_group_latex(
+        statement.map.source_group
+      )
+      + r" \xrightarrow{\cong} "
+      + render_toda_primary_group_latex(
+        statement.map.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaProp44SecondSummandRestrictionStatement,
+  ):
+    return (
+      render_toda_expression_latex(
+        statement.decomposition_map.gamma
+      )
+      + r" \mapsto "
+      + render_toda_expression_latex(
+        statement.composition
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaSuspensionMap,
+  ):
+    return (
+      "E: "
+      + render_toda_primary_group_latex(
+        statement.source_group
+      )
+      + r" \to "
+      + render_toda_primary_group_latex(
+        statement.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaDeltaSurjectiveStatement,
+  ):
+    return (
+      r"\Delta: "
+      + render_toda_primary_group_latex(
+        statement.map.source_group
+      )
+      + r" \twoheadrightarrow "
+      + render_toda_primary_group_latex(
+        statement.map.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaSuspensionKernelFreeCyclicStatement,
+  ):
+    return (
+      r"\ker\left(E: "
+      + render_toda_primary_group_latex(
+        statement.map.source_group
+      )
+      + r" \to "
+      + render_toda_primary_group_latex(
+        statement.map.target_group
+      )
+      + r"\right) = "
+      + render_toda_raw_group_structure_latex(
+        statement.kernel_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaDeltaImageFreeCyclicStatement,
+  ):
+    return (
+      r"\operatorname{Im}\left(\Delta: "
+      + render_toda_primary_group_latex(
+        statement.map.source_group
+      )
+      + r" \to "
+      + render_toda_primary_group_latex(
+        statement.map.target_group
+      )
+      + r"\right) = "
+      + render_toda_raw_group_structure_latex(
+        statement.image_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaDeltaKernelFreeCyclicStatement,
+  ):
+    return (
+      r"\ker\left(\Delta: "
+      + render_toda_primary_group_latex(
+        statement.map.source_group
+      )
+      + r" \to "
+      + render_toda_primary_group_latex(
+        statement.map.target_group
+      )
+      + r"\right) = "
+      + render_toda_raw_group_structure_latex(
+        statement.kernel_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaIteratedSuspensionMap,
+  ):
+    return (
+      r"E^{"
+      + _render_scalar_latex(
+        statement.exponent
+      )
+      + r"}: "
+      + render_toda_primary_group_latex(
+        statement.source_group
+      )
+      + r" \to "
+      + render_toda_primary_group_latex(
+        statement.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaDeltaMap,
+  ):
+    return (
+      r"\Delta: "
+      + render_toda_primary_group_latex(
+        statement.source_group
+      )
+      + r" \to "
+      + render_toda_primary_group_latex(
+        statement.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaProp44DecompositionMap,
+  ):
+    return (
+      r"("
+      + render_toda_expression_latex(
+        statement.beta
+      )
+      + r", "
+      + render_toda_expression_latex(
+        statement.gamma
+      )
+      + r") \mapsto "
+      + render_toda_expression_latex(
+        statement.formula
+      )
+    )
+
+  if isinstance(
+    statement,
+    ScalarGreaterEqualStatement,
+  ):
+    return (
+      _render_scalar_latex(
+        statement.left
+      )
+      + r" \ge "
+      + _render_scalar_latex(
+        statement.right
+      )
+    )
 
   try:
     latex = (

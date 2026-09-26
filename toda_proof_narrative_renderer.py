@@ -14,6 +14,7 @@ from homotopy_groups import (
   TodaPrimaryGroup,
   TodaPrimaryGroupZeroStatement,
   TodaSuspensionMap,
+  FiniteHomotopyGroupStatement,
 )
 from proof import (
   LiteratureStatement,
@@ -35,6 +36,12 @@ from toda_proof_presentation import (
   TodaProofStepPresentation,
 )
 from toda_rules import (
+  TodaLemma54DoubleSuspensionUpToSignStatement,
+  TodaLemma54HopfOddMultipleStatement,
+  TodaLemma54Nu4ConstructionStatement,
+  Toda54BracketUpToSignStatement,
+  Toda58EquationStatement,
+  Toda58WhiteheadSquareUpToSignStatement,
   TodaDeltaImageUpToSignStatement,
   TodaDeltaInjectiveStatement,
   TodaHopfInvariantSurjectiveStatement,
@@ -43,6 +50,33 @@ from toda_rules import (
   TodaProp42ExactnessStatement,
   TodaSuspensionInjectiveStatement,
   TodaSuspensionSurjectiveStatement,
+  Toda56Nu4Prop44SpecializationStatement,
+  TodaLemma54WhiteheadCorrectionDataStatement,
+  TodaSuspensionZeroStatement,
+  TodaProp44FirstSummandRestrictionStatement,
+  TodaLemma510BracketModuloStatement,
+  TodaLemma57TwoIota5ImageMembershipStatement,
+  TodaProp59DeltaKernelStatement,
+  Toda36Lemma54SpecializationStatement,
+  TodaBracketMembershipStatement,
+  TodaLemma514SigmaDoublePrimeStatement,
+  Toda514FirstShortExactStatement,
+  Toda514SecondShortExactStatement,
+  Toda54IndeterminacyGeneratorStatement,
+  Toda211OrdinaryEHPExactnessStatement,
+  TodaLemma510HopfBracketContainsStatement,
+  TodaLemma510IndexedHopfBracketContainsStatement,
+  TodaLemma510OrdinaryBracketPlusSuspensionImageStatement,
+  TodaLemma510OrdinarySuspensionImageFiniteStatement,
+  TodaLemma510OrdinarySuspensionImageInDoubleStatement,
+  TodaLemma510OrdinarySuspensionImageTwoPrimaryZeroStatement,
+  TodaLemma510Split115Statement,
+  Toda211OrdinaryEHPApplicabilityStatement,
+  Toda515Sigma8Prop44SpecializationStatement,
+  Toda515Sigma8TransportedDecompositionStatement,
+  TodaLemma510Nu6OrdinaryCompositionReductionStatement,
+  TodaLemma510Nu6OrdinaryCompositionZeroStatement,
+  TodaLemma510OrdinaryIndeterminacyDoubleStatement,
 )
 
 
@@ -328,9 +362,575 @@ def _render_relation_latex(
   )
 
 
+def _render_toda_signed_expression_latex(
+  sign: int,
+  expression_latex: str,
+) -> str | None:
+  if sign == 1:
+    return expression_latex
+
+  if sign == -1:
+    return (
+      "-"
+      + expression_latex
+    )
+
+  return None
+
+
+def _render_toda_nu4_parameter_factor_latex(
+  parameter,
+  offset: int,
+) -> str | None:
+  if not isinstance(
+    offset,
+    int,
+  ) or isinstance(
+    offset,
+    bool,
+  ):
+    return None
+
+  parameter_latex = (
+    _render_scalar_latex(
+      parameter
+    )
+  )
+
+  if offset == 0:
+    return parameter_latex
+
+  if offset > 0:
+    return (
+      r"\left("
+      + parameter_latex
+      + " + "
+      + str(
+        offset
+      )
+      + r"\right)"
+    )
+
+  return (
+    r"\left("
+    + parameter_latex
+    + " - "
+    + str(
+      -offset
+    )
+    + r"\right)"
+  )
+
+
+def _render_toda_nu4_construction_branch_latex(
+  statement,
+  branch,
+) -> str | None:
+  alpha_latex = (
+    render_toda_expression_latex(
+      statement.alpha_star
+    )
+  )
+  nu4_latex = (
+    render_toda_expression_latex(
+      statement.nu4
+    )
+  )
+  whitehead_latex = (
+    render_toda_expression_latex(
+      statement.whitehead_data.whitehead_square
+    )
+  )
+  sign_parameter_latex = (
+    _render_scalar_latex(
+      statement.whitehead_data.sign_parameter
+    )
+  )
+  value_latex = (
+    render_toda_expression_latex(
+      statement.double_suspension_value
+    )
+  )
+
+  alpha_term = (
+    _render_toda_signed_expression_latex(
+      branch.alpha_star_sign,
+      alpha_latex,
+    )
+  )
+  value_term = (
+    _render_toda_signed_expression_latex(
+      branch.double_suspension_sign,
+      value_latex,
+    )
+  )
+  parameter_factor = (
+    _render_toda_nu4_parameter_factor_latex(
+      statement.parameter,
+      branch.parameter_offset,
+    )
+  )
+
+  if (
+    alpha_term is None
+    or value_term is None
+    or parameter_factor is None
+    or branch.whitehead_coefficient_sign
+    not in (
+      -1,
+      1,
+    )
+  ):
+    return None
+
+  whitehead_term = (
+    r"(-1)^{"
+    + sign_parameter_latex
+    + "}"
+    + parameter_factor
+    + whitehead_latex
+  )
+
+  if (
+    branch.whitehead_coefficient_sign
+    == 1
+  ):
+    correction = (
+      " + "
+      + whitehead_term
+    )
+  else:
+    correction = (
+      " - "
+      + whitehead_term
+    )
+
+  condition_latex = (
+    r"2E"
+    + alpha_latex
+    + " = "
+    + value_term
+  )
+
+  return (
+    nu4_latex
+    + " = "
+    + alpha_term
+    + correction
+    + r" & \text{if } "
+    + condition_latex
+  )
+
+
+def _render_homotopy_group_membership_latex(
+  statement: HomotopyGroupMembershipStatement,
+) -> str:
+  return (
+    render_toda_expression_latex(
+      statement.element
+    )
+    + r" \in \pi_{"
+    + _render_scalar_latex(
+      statement.group_dimension
+    )
+    + "}^{"
+    + _render_scalar_latex(
+      statement.sphere_dimension
+    )
+    + "}"
+  )
+
+
+def _render_toda_bracket_membership_latex(
+  statement: TodaBracketMembershipStatement,
+) -> str:
+  return (
+    render_toda_expression_latex(
+      statement.element
+    )
+    + r" \in "
+    + render_toda_expression_latex(
+      statement.bracket
+    )
+  )
+
+
+
+def _render_phase143_75ao_homotopy_group(group) -> str:
+  return (
+    r"\pi_{"
+    + str(group.group_dimension)
+    + r"}^{"
+    + str(group.sphere_dimension)
+    + "}"
+  )
+
+
+def _render_phase143_75ao_ehp_window(window) -> str:
+  return (
+    _render_phase143_75ao_homotopy_group(window.source_term)
+    + r" \xrightarrow{" + window.first_map.name + "} "
+    + _render_phase143_75ao_homotopy_group(window.middle_term)
+    + r" \xrightarrow{" + window.second_map.name + "} "
+    + _render_phase143_75ao_homotopy_group(window.target_term)
+  )
+
+
 def render_toda_proof_statement_latex(
   statement,
 ) -> str | None:
+  if isinstance(statement, TodaLemma510OrdinaryIndeterminacyDoubleStatement):
+    return (
+      r"\operatorname{Ind}\left("
+      + render_toda_expression_latex(statement.bracket)
+      + r"\right) \subseteq "
+      + str(statement.modulus)
+      + _render_phase143_75ao_homotopy_group(statement.ambient_group)
+    )
+
+  if isinstance(statement, TodaLemma510Nu6OrdinaryCompositionZeroStatement):
+    return (
+      render_toda_expression_latex(statement.left_element)
+      + r" \circ "
+      + _render_phase143_75ao_homotopy_group(statement.ordinary_right_group)
+      + r" = 0"
+    )
+
+  if isinstance(statement, TodaLemma510Nu6OrdinaryCompositionReductionStatement):
+    return (
+      render_toda_expression_latex(statement.left_element)
+      + r" \circ "
+      + _render_phase143_75ao_homotopy_group(statement.ordinary_right_group)
+      + r" = "
+      + render_toda_expression_latex(statement.left_element)
+      + r" \circ "
+      + _render_phase143_75ao_homotopy_group(statement.two_primary_right_group)
+    )
+
+  if isinstance(statement, Toda211OrdinaryEHPApplicabilityStatement):
+    conditions = []
+    if statement.m_is_odd:
+      conditions.append(r"m\text{ is odd}")
+    if statement.i_less_than_3m_minus_1:
+      conditions.append(r"i < 3m - 1")
+    return (
+      _render_phase143_75ao_ehp_window(statement.window)
+      + r",\qquad "
+      + r",\ ".join(conditions)
+    )
+
+  if isinstance(
+      statement,
+      Toda515Sigma8TransportedDecompositionStatement,
+    ):
+      transported_group = statement.transported_group
+
+      if not isinstance(
+        transported_group,
+        DirectSumGroup,
+      ):
+        raise TypeError(
+          "transported_group must be a DirectSumGroup"
+        )
+
+      if len(transported_group.summands) != 2:
+        raise ValueError(
+          "transported_group must have exactly two summands"
+        )
+
+      first_summand = transported_group.summands[0]
+      second_summand = transported_group.summands[1]
+
+      return (
+        _render_phase143_75ao_homotopy_group(
+          statement.prop44_isomorphism.map.target_group
+        )
+        + r" \cong "
+        + render_toda_raw_group_structure_latex(
+          second_summand
+        )
+        + r" \oplus "
+        + render_toda_raw_group_structure_latex(
+          first_summand
+        )
+      )
+
+  if isinstance(statement, Toda515Sigma8Prop44SpecializationStatement):
+    return (
+      render_toda_expression_latex(statement.alpha)
+      + r" \in "
+      + _render_phase143_75ao_homotopy_group(statement.membership.group)
+      + r",\qquad "
+      + _render_relation_latex(statement.hopf_relation)
+    )
+
+  if isinstance(statement, FiniteHomotopyGroupStatement):
+    return _render_phase143_75ao_homotopy_group(statement.group) + r" \text{ is finite}"
+
+  if isinstance(statement, Toda211OrdinaryEHPExactnessStatement):
+    return _render_phase143_75ao_ehp_window(statement.window) + r" \quad\text{is exact}"
+
+  if isinstance(statement, (TodaLemma510HopfBracketContainsStatement, TodaLemma510IndexedHopfBracketContainsStatement)):
+    return render_toda_expression_latex(statement.value) + r" \in " + render_toda_expression_latex(statement.bracket)
+
+  if isinstance(statement, TodaLemma510Split115Statement):
+    return render_toda_expression_latex(statement.indexed_bracket) + r" = " + render_toda_expression_latex(statement.ordinary_bracket)
+
+  if isinstance(statement, TodaLemma510OrdinaryBracketPlusSuspensionImageStatement):
+    return (
+      render_toda_expression_latex(statement.element)
+      + r" \in "
+      + render_toda_expression_latex(statement.bracket)
+      + r" + \operatorname{Im}\left("
+      + statement.suspension_map.name
+      + r":"
+      + _render_phase143_75ao_homotopy_group(statement.source_group)
+      + r"\to"
+      + _render_phase143_75ao_homotopy_group(statement.target_group)
+      + r"\right)"
+    )
+
+  if isinstance(statement, TodaLemma510OrdinarySuspensionImageFiniteStatement):
+    return (
+      r"\operatorname{Im}\left("
+      + statement.suspension_map.name
+      + r":"
+      + _render_phase143_75ao_homotopy_group(statement.source_group)
+      + r"\to"
+      + _render_phase143_75ao_homotopy_group(statement.target_group)
+      + r"\right) \text{ is finite}"
+    )
+
+  if isinstance(statement, TodaLemma510OrdinarySuspensionImageTwoPrimaryZeroStatement):
+    return (
+      r"\operatorname{Im}\left("
+      + statement.suspension_map.name
+      + r":"
+      + _render_phase143_75ao_homotopy_group(statement.source_group)
+      + r"\to"
+      + _render_phase143_75ao_homotopy_group(statement.target_group)
+      + r"\right)_{(2)} = 0"
+    )
+
+  if isinstance(statement, TodaLemma510OrdinarySuspensionImageInDoubleStatement):
+    return (
+      r"\operatorname{Im}\left("
+      + statement.suspension_map.name
+      + r":"
+      + _render_phase143_75ao_homotopy_group(statement.source_group)
+      + r"\to"
+      + _render_phase143_75ao_homotopy_group(statement.target_group)
+      + r"\right) \subseteq "
+      + str(statement.modulus)
+      + _render_phase143_75ao_homotopy_group(statement.target_group)
+    )
+
+  if isinstance(
+    statement,
+    Toda54IndeterminacyGeneratorStatement,
+  ):
+    return (
+      r"\operatorname{Ind}\left("
+      + render_toda_expression_latex(
+        statement.bracket
+      )
+      + r"\right) = \left\langle "
+      + render_toda_expression_latex(
+        statement.generator
+      )
+      + r" \right\rangle"
+    )
+
+  if isinstance(
+    statement,
+    Toda514SecondShortExactStatement,
+  ):
+    return (
+      render_toda_primary_group_latex(
+        statement.source_group
+      )
+      + r" \xrightarrow{"
+      + _render_toda_map_name_latex(
+        statement.suspension_map
+      )
+      + "} "
+      + render_toda_primary_group_latex(
+        statement.middle_group
+      )
+      + r" \xrightarrow{"
+      + _render_toda_map_name_latex(
+        statement.hopf_map
+      )
+      + "} "
+      + render_toda_primary_group_latex(
+        statement.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    Toda514FirstShortExactStatement,
+  ):
+    return (
+      render_toda_primary_group_latex(
+        statement.source_group
+      )
+      + r" \xrightarrow{"
+      + _render_toda_map_name_latex(
+        statement.suspension_map
+      )
+      + "} "
+      + render_toda_primary_group_latex(
+        statement.middle_group
+      )
+      + r" \xrightarrow{"
+      + _render_toda_map_name_latex(
+        statement.hopf_map
+      )
+      + "} "
+      + render_toda_primary_group_latex(
+        statement.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaLemma514SigmaDoublePrimeStatement,
+  ):
+    return (
+      _render_relation_latex(
+        statement.iterated_suspension_relation
+      )
+      + r", \qquad "
+      + _render_relation_latex(
+        statement.double_relation
+      )
+      + r", \qquad "
+      + _render_relation_latex(
+        statement.hopf_relation
+      )
+    )
+
+  if isinstance(
+    statement,
+    Toda36Lemma54SpecializationStatement,
+  ):
+    return (
+      _render_homotopy_group_membership_latex(
+        statement.alpha_star_membership
+      )
+      + r", \qquad "
+      + _render_toda_bracket_membership_latex(
+        statement.negative_bracket_membership
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaProp59DeltaKernelStatement,
+  ):
+    return (
+      r"\ker\left("
+      + _render_toda_group_map_latex(
+        statement.map
+      )
+      + r"\right)"
+      + " = "
+      + render_toda_raw_group_structure_latex(
+        statement.kernel_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaLemma57TwoIota5ImageMembershipStatement,
+  ):
+    return (
+      render_toda_expression_latex(
+        statement.element
+      )
+      + r" \in 2\iota_{5}\circ "
+      + render_toda_primary_group_latex(
+        statement.source_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaLemma510BracketModuloStatement,
+  ):
+    return (
+      render_toda_expression_latex(
+        statement.element
+      )
+      + r" \in "
+      + render_toda_expression_latex(
+        statement.bracket
+      )
+      + r" \pmod{"
+      + str(
+        statement.modulus
+      )
+      + (
+        r"\pi_{"
+        + str(
+          statement.ambient_group.group_dimension
+        )
+        + r"}^{"
+        + str(
+          statement.ambient_group.sphere_dimension
+        )
+        + r"}"
+      )
+      + r"}"
+    )
+
+  if isinstance(
+    statement,
+    TodaLemma54Nu4ConstructionStatement,
+  ):
+    positive_latex = (
+      _render_toda_nu4_construction_branch_latex(
+        statement,
+        statement.positive_branch,
+      )
+    )
+    negative_latex = (
+      _render_toda_nu4_construction_branch_latex(
+        statement,
+        statement.negative_branch,
+      )
+    )
+
+    if (
+      positive_latex is None
+      or negative_latex is None
+    ):
+      return None
+
+    return (
+      r"\begin{cases} "
+      + positive_latex
+      + r" \\ "
+      + negative_latex
+      + r" \end{cases}"
+    )
+
+  if isinstance(
+    statement,
+    Toda54BracketUpToSignStatement,
+  ):
+    return (
+      render_toda_expression_latex(
+        statement.bracket
+      )
+      + r" = \{\pm "
+      + render_toda_expression_latex(
+        statement.positive_value
+      )
+      + r"\}"
+    )
+
   if isinstance(
     statement,
     Relation,
@@ -396,6 +996,34 @@ def render_toda_proof_statement_latex(
 
   if isinstance(
     statement,
+    TodaProp44FirstSummandRestrictionStatement,
+  ):
+    first_summand = (
+      statement.decomposition_map.source_group.summands[
+        0
+      ]
+    )
+
+    return (
+      r"\left."
+      + r"\left("
+      + render_toda_expression_latex(
+        statement.decomposition_map.formula
+      )
+      + r"\right)"
+      + r"\right|_{"
+      + render_toda_primary_group_latex(
+        first_summand
+      )
+      + r"}"
+      + r" = "
+      + _render_toda_group_map_latex(
+        statement.suspension_map
+      )
+    )
+
+  if isinstance(
+    statement,
     TodaSuspensionInjectiveStatement,
   ):
     return (
@@ -451,6 +1079,113 @@ def render_toda_proof_statement_latex(
 
   if isinstance(
     statement,
+    TodaSuspensionZeroStatement,
+  ):
+    return (
+      _render_toda_group_map_latex(
+        statement.map
+      )
+      + r" \text{ is the zero map}"
+    )
+
+  if isinstance(
+    statement,
+    Toda58EquationStatement,
+  ):
+    delta_nu_relation = (
+      statement.delta_nu_relation
+    )
+    whitehead_nu_relation = (
+      statement.whitehead_nu_relation
+    )
+    delta_whitehead_relation = (
+      statement.delta_whitehead_relation
+    )
+
+    if not (
+      isinstance(
+        delta_nu_relation,
+        TodaDeltaImageUpToSignStatement,
+      )
+      and isinstance(
+        whitehead_nu_relation,
+        Toda58WhiteheadSquareUpToSignStatement,
+      )
+      and isinstance(
+        delta_whitehead_relation,
+        TodaDeltaImageUpToSignStatement,
+      )
+      and delta_nu_relation.map
+      == delta_whitehead_relation.map
+      and delta_nu_relation.element
+      == delta_whitehead_relation.element
+      and delta_nu_relation.positive_value
+      == whitehead_nu_relation.positive_value
+      and delta_whitehead_relation.positive_value
+      == whitehead_nu_relation.whitehead_square
+    ):
+      return None
+
+    positive_value_latex = (
+      render_toda_expression_latex(
+        delta_nu_relation.positive_value
+      )
+    )
+
+    if isinstance(
+      delta_nu_relation.positive_value,
+      Sum,
+    ):
+      positive_value_latex = (
+        r"\left("
+        + positive_value_latex
+        + r"\right)"
+      )
+
+    return (
+      r"\Delta\left("
+      + render_toda_expression_latex(
+        delta_nu_relation.element
+      )
+      + r"\right)"
+      + r" = \pm "
+      + positive_value_latex
+      + r" = \pm "
+      + render_toda_expression_latex(
+        whitehead_nu_relation.whitehead_square
+      )
+    )
+
+  if isinstance(
+    statement,
+    Toda58WhiteheadSquareUpToSignStatement,
+  ):
+    positive_value_latex = (
+      render_toda_expression_latex(
+        statement.positive_value
+      )
+    )
+
+    if isinstance(
+      statement.positive_value,
+      Sum,
+    ):
+      positive_value_latex = (
+        r"\left("
+        + positive_value_latex
+        + r"\right)"
+      )
+
+    return (
+      render_toda_expression_latex(
+        statement.whitehead_square
+      )
+      + r" = \pm "
+      + positive_value_latex
+    )
+
+  if isinstance(
+    statement,
     TodaDeltaImageUpToSignStatement,
   ):
     positive_value_latex = (
@@ -489,6 +1224,100 @@ def render_toda_proof_statement_latex(
       )
       + r" \text{ is the defined }"
       + r"\nu\text{-family element}"
+    )
+
+  if isinstance(
+    statement,
+    Toda56Nu4Prop44SpecializationStatement,
+  ):
+    membership = statement.membership
+
+    membership_latex = (
+      render_toda_expression_latex(
+        membership.element
+      )
+      + r" \in "
+      + render_toda_primary_group_latex(
+        membership.group
+      )
+    )
+
+    return (
+      "n = "
+      + _render_scalar_latex(
+        statement.n
+      )
+      + r",\quad \alpha = "
+      + render_toda_expression_latex(
+        statement.alpha
+      )
+      + r",\quad "
+      + membership_latex
+      + r",\quad "
+      + _render_relation_latex(
+        statement.hopf_relation
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaLemma54WhiteheadCorrectionDataStatement,
+  ):
+    whitehead_square_latex = (
+      render_toda_expression_latex(
+        statement.whitehead_square
+      )
+    )
+
+    return (
+      r"H\left("
+      + whitehead_square_latex
+      + r"\right) = "
+      + render_toda_expression_latex(
+        statement.hopf_positive_value
+      )
+      + r",\quad "
+      + _render_relation_latex(
+        statement.suspension_zero_relation
+      )
+      + r",\quad "
+      + _render_scalar_latex(
+        statement.sign_parameter
+      )
+      + r"\text{ is the sign parameter}"
+    )
+
+  if isinstance(
+    statement,
+    TodaLemma54HopfOddMultipleStatement,
+  ):
+    return (
+      r"H\left("
+      + render_toda_expression_latex(
+        statement.alpha_star
+      )
+      + r"\right) = \left(2"
+      + _render_scalar_latex(
+        statement.parameter
+      )
+      + r" + 1\right)"
+      + render_toda_expression_latex(
+        statement.generator
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaLemma54DoubleSuspensionUpToSignStatement,
+  ):
+    return (
+      render_toda_expression_latex(
+        statement.left
+      )
+      + r" = \pm "
+      + render_toda_expression_latex(
+        statement.positive_value
+      )
     )
 
   if isinstance(

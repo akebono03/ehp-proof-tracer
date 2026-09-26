@@ -1,4 +1,4 @@
-from expression import (
+﻿from expression import (
   Composition,
   GeneratorSymbol,
   HomotopyElement,
@@ -213,6 +213,44 @@ def _render_scalar_latex(
     value,
     ScalarSum,
   ):
+    if (
+      isinstance(
+        value.right,
+        int,
+      )
+      and not isinstance(
+        value.right,
+        bool,
+      )
+      and value.right < 0
+    ):
+      return (
+        _render_scalar_latex(
+          value.left
+        )
+        + " - "
+        + _render_scalar_latex(
+          -value.right
+        )
+      )
+
+    if (
+      isinstance(
+        value.right,
+        ScalarProduct,
+      )
+      and value.right.left == -1
+    ):
+      return (
+        _render_scalar_latex(
+          value.left
+        )
+        + " - "
+        + _render_scalar_latex(
+          value.right.right
+        )
+      )
+
     return (
       _render_scalar_latex(
         value.left

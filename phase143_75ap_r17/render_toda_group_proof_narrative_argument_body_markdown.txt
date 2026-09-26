@@ -1,0 +1,547 @@
+def render_toda_group_proof_narrative_argument_body_markdown(
+  presentation: TodaGroupProofPresentation,
+  blocks: tuple[
+    TodaGroupProofNarrativeBlock,
+    ...,
+  ],
+  local_body_blocks: tuple[
+    TodaGroupProofNarrativeBlock,
+    ...,
+  ],
+  primary_component: (
+    TodaGroupProofNarrativeExactnessMethodComponent
+    | None
+  ),
+  excluded_non_exact_block_ids: (
+    frozenset[
+      int
+    ]
+    | None
+  ) = None,
+  excluded_exactness_contribution_keys: (
+    frozenset[
+      tuple[
+        object,
+        int,
+        str,
+      ]
+    ]
+    | None
+  ) = None,
+  connector_before_block_id: int | None = None,
+  connector_text: str | None = None,
+  conclusion_step: ProofStep | None = None,
+  direct_derivation_premises: tuple[
+    ProofStep,
+    ...,
+  ] = (),
+  context_hidden_step_ids: (
+    frozenset[
+      int
+    ]
+    | None
+  ) = None,
+  preserve_provenance_block_ids: (
+    frozenset[
+      int
+    ]
+    | None
+  ) = None,
+) -> str:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
+
+  if not isinstance(
+    blocks,
+    tuple,
+  ):
+    raise TypeError(
+      "blocks must be a tuple"
+    )
+
+  for block in blocks:
+    if not isinstance(
+      block,
+      TodaGroupProofNarrativeBlock,
+    ):
+      raise TypeError(
+        "blocks must contain only "
+        "TodaGroupProofNarrativeBlock objects"
+      )
+
+  if not isinstance(
+    local_body_blocks,
+    tuple,
+  ):
+    raise TypeError(
+      "local_body_blocks must be a tuple"
+    )
+
+  if (
+    excluded_non_exact_block_ids is not None
+    and not isinstance(
+      excluded_non_exact_block_ids,
+      frozenset,
+    )
+  ):
+    raise TypeError(
+      "excluded_non_exact_block_ids must be "
+      "a frozenset or None"
+    )
+
+  if (
+    excluded_exactness_contribution_keys is not None
+    and not isinstance(
+      excluded_exactness_contribution_keys,
+      frozenset,
+    )
+  ):
+    raise TypeError(
+      "excluded_exactness_contribution_keys must be "
+      "a frozenset or None"
+    )
+
+  if (
+    connector_before_block_id is not None
+    and (
+      not isinstance(
+        connector_before_block_id,
+        int,
+      )
+      or isinstance(
+        connector_before_block_id,
+        bool,
+      )
+    )
+  ):
+    raise TypeError(
+      "connector_before_block_id must be "
+      "an int or None"
+    )
+
+  if (
+    connector_text is not None
+    and not isinstance(
+      connector_text,
+      str,
+    )
+  ):
+    raise TypeError(
+      "connector_text must be a str or None"
+    )
+
+  if (
+    connector_before_block_id is None
+  ) != (
+    connector_text is None
+  ):
+    raise ValueError(
+      "connector_before_block_id and connector_text "
+      "must be provided together"
+    )
+
+  if (
+    conclusion_step is not None
+    and not isinstance(
+      conclusion_step,
+      ProofStep,
+    )
+  ):
+    raise TypeError(
+      "conclusion_step must be a ProofStep or None"
+    )
+
+  if (
+    conclusion_step is not None
+    and connector_before_block_id is None
+  ):
+    raise ValueError(
+      "conclusion_step requires connector placement"
+    )
+
+  if not isinstance(
+    direct_derivation_premises,
+    tuple,
+  ):
+    raise TypeError(
+      "direct_derivation_premises must be a tuple"
+    )
+
+  for premise_step in direct_derivation_premises:
+    if not isinstance(
+      premise_step,
+      ProofStep,
+    ):
+      raise TypeError(
+        "direct_derivation_premises must contain only "
+        "ProofStep objects"
+      )
+
+  if (
+    context_hidden_step_ids is not None
+    and not isinstance(
+      context_hidden_step_ids,
+      frozenset,
+    )
+  ):
+    raise TypeError(
+      "context_hidden_step_ids must be "
+      "a frozenset or None"
+    )
+
+  if context_hidden_step_ids is not None:
+    for step_id in context_hidden_step_ids:
+      if (
+        not isinstance(
+          step_id,
+          int,
+        )
+        or isinstance(
+          step_id,
+          bool,
+        )
+      ):
+        raise TypeError(
+          "context_hidden_step_ids must contain "
+          "only integers"
+        )
+  if (
+    preserve_provenance_block_ids is not None
+    and not isinstance(
+      preserve_provenance_block_ids,
+      frozenset,
+    )
+  ):
+    raise TypeError(
+      "preserve_provenance_block_ids must be "
+      "a frozenset or None"
+    )
+
+  if preserve_provenance_block_ids is None:
+    preserve_provenance_block_ids = frozenset()
+
+  for block_id in preserve_provenance_block_ids:
+    if (
+      not isinstance(
+        block_id,
+        int,
+      )
+      or isinstance(
+        block_id,
+        bool,
+      )
+    ):
+      raise TypeError(
+        "preserve_provenance_block_ids must "
+        "contain only integers"
+      )
+
+  block_index_by_identity = {
+    id(
+      block
+    ): index
+    for index, block in enumerate(
+      blocks
+    )
+  }
+  step_derivation_sources_by_target_id = (
+    _step_derivation_sources_by_target_id(
+      presentation,
+      blocks,
+    )
+  )
+  derivation_source_step_ids = frozenset(
+    id(
+      source_step
+    )
+    for source_steps in (
+      step_derivation_sources_by_target_id.values()
+    )
+    for source_step in source_steps
+  )
+
+  seen_local_block_ids = set()
+
+  for block in local_body_blocks:
+    if not isinstance(
+      block,
+      TodaGroupProofNarrativeBlock,
+    ):
+      raise TypeError(
+        "local_body_blocks must contain only "
+        "blocks from blocks"
+      )
+
+    block_id = id(
+      block
+    )
+
+    if block_id not in block_index_by_identity:
+      raise ValueError(
+        "local_body_blocks must contain only "
+        "blocks from blocks"
+      )
+
+    if block_id in seen_local_block_ids:
+      raise ValueError(
+        "local_body_blocks must not contain "
+        "duplicate blocks"
+      )
+
+    seen_local_block_ids.add(
+      block_id
+    )
+
+  if (
+    primary_component is not None
+    and not isinstance(
+      primary_component,
+      TodaGroupProofNarrativeExactnessMethodComponent,
+    )
+  ):
+    raise TypeError(
+      "primary_component must be a "
+      "TodaGroupProofNarrativeExactnessMethodComponent "
+      "or None"
+    )
+
+  redundant_direct_premise_step_ids = (
+    frozenset()
+    if conclusion_step is None
+    else (
+      extract_toda_group_structure_narrative_redundant_direct_premise_step_ids(
+        conclusion_step
+      )
+    )
+  )
+  relocated_direct_premises = (
+    ()
+    if conclusion_step is None
+    else (
+      tuple(
+        premise_step
+        for premise_step in (
+          _relocatable_toda_group_proof_narrative_direct_derivation_premises(
+            direct_derivation_premises,
+            step_derivation_sources_by_target_id,
+            next(
+              block
+              for block in blocks
+              if conclusion_step in block.steps
+            ),
+          )
+        )
+        if id(
+          premise_step
+        ) not in redundant_direct_premise_step_ids
+      )
+    )
+  )
+  relocated_direct_premise_ids = {
+    id(
+      premise_step
+    )
+    for premise_step in relocated_direct_premises
+  }
+
+  lines = []
+  connector_inserted = False
+
+  for block in local_body_blocks:
+    block_index = block_index_by_identity[
+      id(
+        block
+      )
+    ]
+
+    if (
+      block.role
+      is TodaGroupProofNarrativeMathematicalBlockRole
+      .EXACTNESS
+    ):
+      block_lines = (
+        _render_toda_group_proof_narrative_argument_exactness_body_block(
+          presentation,
+          blocks,
+          block_index,
+          primary_component,
+          excluded_exactness_contribution_keys,
+        )
+      )
+    else:
+      if (
+        excluded_non_exact_block_ids is not None
+        and id(
+          block
+        ) in excluded_non_exact_block_ids
+      ):
+        continue
+
+      display_steps = tuple(
+        proof_step
+        for proof_step in block.steps
+        if (
+          (
+            context_hidden_step_ids is None
+            or id(
+              proof_step
+            ) not in context_hidden_step_ids
+          )
+          and (
+            (
+              id(
+                block
+              ) in preserve_provenance_block_ids
+              and id(
+                proof_step
+              ) in redundant_direct_premise_step_ids
+            )
+            or id(
+              proof_step
+            ) not in redundant_direct_premise_step_ids
+          )
+          and (
+            id(
+              proof_step
+            ) not in relocated_direct_premise_ids
+            or (
+              conclusion_step is not None
+              and conclusion_step in block.steps
+            )
+          )
+        )
+      )
+
+      if not display_steps:
+        continue
+
+      display_block = block
+
+      if display_steps != block.steps:
+        display_block = (
+          TodaGroupProofNarrativeBlock(
+            role=block.role,
+            steps=display_steps,
+          )
+        )
+
+      reordered_block = (
+        _reorder_toda_group_proof_narrative_calculation_derivations(
+          display_block,
+          step_derivation_sources_by_target_id,
+        )
+      )
+
+      if (
+        conclusion_step is not None
+        and connector_before_block_id is not None
+        and id(
+          block
+        ) == connector_before_block_id
+        and conclusion_step in reordered_block.steps
+      ):
+        reordered_block = (
+          _reorder_toda_group_proof_narrative_block_conclusion_step_last(
+            reordered_block,
+            conclusion_step,
+          )
+        )
+
+      render_blocks = blocks
+
+      if reordered_block is not block:
+        render_blocks = (
+          blocks[
+            :block_index
+          ]
+          + (
+            reordered_block,
+          )
+          + blocks[
+            block_index + 1:
+          ]
+        )
+
+      block_lines = tuple(
+        _render_generic_narrative_proof_block(
+          presentation,
+          render_blocks,
+          block_index,
+          show_dependency_labels=False,
+          suppress_provenance_only=(
+            id(
+              block
+            ) not in preserve_provenance_block_ids
+          ),
+          preserve_provenance_step_ids=(
+            derivation_source_step_ids
+          ),
+        )
+      )
+      block_lines = (
+        _insert_toda_group_proof_narrative_step_derivation_connectors(
+          block_lines,
+          reordered_block,
+          step_derivation_sources_by_target_id,
+        )
+      )
+
+      if (
+        conclusion_step is not None
+        and conclusion_step in reordered_block.steps
+      ):
+        block_lines = (
+          _insert_toda_group_proof_narrative_relocated_direct_premises(
+            block_lines,
+            reordered_block,
+            conclusion_step,
+            direct_derivation_premises,
+            relocated_direct_premises,
+          )
+        )
+
+    if not block_lines:
+      continue
+
+    if (
+      not connector_inserted
+      and connector_before_block_id is not None
+      and id(
+        block
+      ) == connector_before_block_id
+    ):
+      if (
+        conclusion_step is not None
+        and conclusion_step in block.steps
+        and block.role
+        is not TodaGroupProofNarrativeMathematicalBlockRole
+        .EXACTNESS
+      ):
+        block_lines = (
+          _insert_toda_group_proof_narrative_connector_before_conclusion_step(
+            block_lines,
+            conclusion_step,
+            connector_text,
+          )
+        )
+      else:
+        block_lines = (
+          connector_text,
+          "",
+        ) + block_lines
+
+      connector_inserted = True
+
+    lines.extend(
+      block_lines
+    )
+
+  return "\n".join(
+    lines
+  ).rstrip()
