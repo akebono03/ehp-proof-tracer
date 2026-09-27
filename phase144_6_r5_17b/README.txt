@@ -1,0 +1,2 @@
+Phase 144-6-R5-17B generic proof-chain type extraction audit.
+Production code is unchanged. The audit extracts chain types from pi_6^3 using only Argument role, claim block role, provider kind, and provider block/Argument role. Theorem names, statement classes, element names, node identities, and graph depth are excluded from chain type identity. The extracted vocabulary is intended to be applied unchanged in 17C.
