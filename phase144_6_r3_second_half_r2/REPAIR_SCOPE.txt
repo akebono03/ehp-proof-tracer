@@ -1,0 +1,18 @@
+Phase 144-6-R3 後半 R2
+
+原因:
+初版 second-half apply script は patch_multi_renderer で停止したため、
+後続 write_tests が実行されず production reference test が作成されなかった。
+R1 はそのテストが既に存在すると誤って仮定していた。
+
+今回:
+- production code は変更しない。
+- 欠落した tests/test_phase144_6_r3_production_references.py を配置する。
+- py_compile を実行する。
+- focused tests を実行する。
+- pi_6^3 depth=3 generic Narrative preview を表示する。
+
+未実施:
+- R4 supporting-fact filtering
+- R5 depth policy
+- full pytest

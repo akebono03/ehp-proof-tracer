@@ -1,0 +1,16 @@
+Phase 144-6-R3 後半 R4 test alignment
+
+変更対象:
+- tests/test_phase144_6_pi6_generic_production_route.py
+- test_phase144_6_cli_pi6_3_narrative_uses_generic_route()
+
+変更理由:
+R3 production reference 実装後も Phase 144-6 の旧テストが
+`**[R1] not in captured.out`
+を要求していた。R3仕様と矛盾するため、production code は変更せず、
+CLI に structured Reference section が存在することを確認する。
+
+未実装:
+- supporting-fact filtering
+- Narrative depth policy
+- full pytest

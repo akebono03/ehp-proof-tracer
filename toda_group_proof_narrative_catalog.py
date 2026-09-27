@@ -3,6 +3,7 @@ from toda_rules import (
   Toda53NuPrimeBracketSpecializationStatement,
   Toda55NuFamilyFiniteDimensionalStatement,
   Toda56Nu4DecompositionStatement,
+  TodaLemma513Statement,
   TodaNuFamilyDefinitionStatement,
   TodaProp44IsomorphismStatement,
   TodaProp44SecondSummandRestrictionStatement,
@@ -12,6 +13,7 @@ from toda_rules import (
 
 
 DEFINITION_STATEMENT_TYPES = (
+  TodaLemma513Statement,
   TodaNuFamilyDefinitionStatement,
   TodaSigmaFamilyDefinitionStatement,
 )

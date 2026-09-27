@@ -1,0 +1,17 @@
+Phase 144-6-R3 provenance/source recovery audit
+
+変更対象
+- production files: なし
+- tests: なし
+- audit_phase144_6_r3_provenance_source.py: 新規監査
+- run_phase144_6_r3_provenance_audit.ps1: 新規実行スクリプト
+
+監査目的
+1. generic REFERENCE step の Relation.source / LiteratureReference を確認する。
+2. ProofStep.note / InferenceRule.description に安定した文献名があるか確認する。
+3. presentation 全体に Toda Proposition 2.2 を表す ProofStep が存在するか確認する。
+4. 旧 renderer だけが持つ hand-authored reference を特定する。
+5. rule-name parsing や pi_6^3 固有条件なしで ReferenceEntry を作れるか判定する。
+
+この監査では production code を変更しない。
+全体 pytest は実行しない。

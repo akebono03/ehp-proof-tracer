@@ -1,0 +1,95 @@
+====================================================================================================
+pi_16^9: n=9, k=7
+====================================================================================================
+
+LEGACY / CURRENT CLI-WEB RENDERER
+----------------------------------------------------------------------------------------------------
+# Group proof narrative
+
+Toda Proposition 5.15を用いる。
+
+$\sigma_{9}$ の位数を確認し、これが $\pi_{16}^{9}$ を生成することを示す。
+
+まず、Hopf 写像の単射性を用いる。
+また、$\pi_{12}^{5} \xrightarrow{H} \pi_{12}^{9} \xrightarrow{\Delta} \pi_{10}^{4} \text{ is exact}$を用いる。
+また、$\pi_{12}^{9} = \mathbb{Z}/8\{\nu_{9}\}$を用いる。
+また、Toda Proposition 5.11 の有限次元結果を用いる。
+また、$\Delta\left(\nu_{9}\right) = \pm 2\nu_{4}\nu_{7}$を用いる。
+まず、Toda Lemma 5.4 の結果を用いる。
+このことから、Toda (5.5) の ν-family 有限次元結果を得る。
+これらから、π₁₂⁵ の位数 2 の Hopf 像への同型を得る。
+これらから、Toda Lemma 5.13 の σ‴ に関する結果を得る。
+これらから、$\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$を得る。
+このことから、π₁₆⁹ の位数 16 と E⁴ の単射性を得る。
+また、$\pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\},\quad \pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\},\quad \pi_{8}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\},\quad \pi_{9}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\},\quad \pi_{n + 4}^{n} = 0\qquad (n \ge 6)$を用いる。
+これらから、Theorem 3.6 と Lemma 5.14 を結ぶ σ″ の関係を得る。
+これらから、$E^{3}\sigma'' = 4\,xEα*, \qquad 2\sigma'' = E\sigma''', \qquad H\left(\sigma''\right) = \eta_{11}\eta_{12}$を得る。
+まず、$\pi_{14}^{13} = \mathbb{Z}/2\{\eta_{13}\}$を用いる。
+このことから、$\pi_{13}^{6} \xrightarrow{E} \pi_{14}^{7} \xrightarrow{H} \pi_{14}^{13}$を得る。
+これらから、$\pi_{13}^{6} = \mathbb{Z}/4\{\sigma''\}$を得る。
+これらから、Toda Lemma 5.14 の σ′ に関する結果を得る。
+これらから、$\pi_{14}^{7} = \mathbb{Z}/8\{\sigma'\}$を得る。
+これらから、Toda Lemma 5.14 の σ₈ に関する結果を得る。
+このことから、σ-family の定義を得る。
+さらに、すでに得た$\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$を用いる。
+
+したがって、$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$を得る。
+
+
+GENERIC MULTI-ARGUMENT RENDERER
+----------------------------------------------------------------------------------------------------
+まず、$\sigma'''$ を定める.
+
+$\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$
+
+$\pi_{14}^{7} = \mathbb{Z}/8\{\sigma'\}$
+
+$\pi_{13}^{6} = \mathbb{Z}/4\{\sigma''\}$
+
+$\pi_{14}^{13} = \mathbb{Z}/2\{\eta_{13}\}$
+
+$H: \pi_{12}^{5} \to \pi_{12}^{9}$ は単射である.
+
+次の完全列を考える.
+
+$\pi_{12}^{5} \xrightarrow{H} \pi_{12}^{9} \xrightarrow{\Delta} \pi_{10}^{4}$ は完全である.
+
+$\pi_{12}^{9} = \mathbb{Z}/8\{\nu_{9}\}$
+
+$\Delta\left(\nu_{9}\right) = \pm 2\nu_{4}\nu_{7}$
+
+次の短完全列を得る.
+
+$0\longrightarrow \pi_{13}^{6}\xrightarrow{E} \pi_{14}^{7}\xrightarrow{H} \pi_{14}^{13}\longrightarrow 0$
+
+次に、$\sigma_{9}$ を定める.
+
+$\sigma_{9}$ を \(\sigma\)-family の元として定める.
+
+最後に、$\pi_{16}^{9}$ の群構造を決定する.
+
+$|\pi_{16}^{9}| = 16$ であり, $E^{4}: \pi_{12}^{5} \to \pi_{16}^{9}$ は単射である.
+
+$\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$
+
+以上より、
+
+$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$
+
+DISPLAY-MATH SUMMARY
+----------------------------------------------------------------------------------------------------
+legacy_display_math_count=0
+generic_display_math_count=9
+
+legacy display math:
+
+generic display math:
+  1: $\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$
+  2: $\pi_{14}^{7} = \mathbb{Z}/8\{\sigma'\}$
+  3: $\pi_{13}^{6} = \mathbb{Z}/4\{\sigma''\}$
+  4: $\pi_{14}^{13} = \mathbb{Z}/2\{\eta_{13}\}$
+  5: $\pi_{12}^{9} = \mathbb{Z}/8\{\nu_{9}\}$
+  6: $\Delta\left(\nu_{9}\right) = \pm 2\nu_{4}\nu_{7}$
+  7: $0\longrightarrow \pi_{13}^{6}\xrightarrow{E} \pi_{14}^{7}\xrightarrow{H} \pi_{14}^{13}\longrightarrow 0$
+  8: $\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$
+  9: $\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$

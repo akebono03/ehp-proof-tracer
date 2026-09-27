@@ -26,6 +26,18 @@ from repository_element_presentation import (
 from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
 )
+from toda_group_proof_narrative_arguments import (
+  build_toda_group_proof_narrative_arguments,
+)
+from toda_group_proof_narrative_argument_multi_renderer import (
+  render_toda_group_proof_narrative_multi_argument_markdown,
+)
+from toda_group_proof_narrative_blocks import (
+  build_toda_group_proof_narrative_blocks,
+)
+from toda_group_proof_narrative_semantics import (
+  build_toda_group_proof_narrative_semantic_sidecar,
+)
 from toda_group_proof_narrative_helpers import (
   root_generator,
   root_target_group,
@@ -3773,9 +3785,31 @@ def render_toda_group_proof_narrative_markdown(
       presentation
     )
   ):
-    return (
-      _render_phase134_3_pi6_3_narrative_markdown(
+    semantic_sidecar = (
+      build_toda_group_proof_narrative_semantic_sidecar(
         presentation
+      )
+    )
+    blocks = (
+      build_toda_group_proof_narrative_blocks(
+        presentation,
+        semantic_sidecar=semantic_sidecar,
+      )
+    )
+    arguments = (
+      build_toda_group_proof_narrative_arguments(
+        presentation,
+        blocks,
+        semantic_sidecar=semantic_sidecar,
+      )
+    )
+
+    return (
+      render_toda_group_proof_narrative_multi_argument_markdown(
+        presentation,
+        blocks,
+        semantic_sidecar,
+        arguments,
       )
     )
 
