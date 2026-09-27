@@ -25,6 +25,9 @@ class TodaGroupProofNarrativeEvidenceContribution(
   ESTABLISH_ZERO = "establish_zero"
   ESTABLISH_ORDER = "establish_order"
   ESTABLISH_RELATION = "establish_relation"
+  ESTABLISH_EXACTNESS = "establish_exactness"
+  ESTABLISH_DEFINITION = "establish_definition"
+  ESTABLISH_MEMBERSHIP = "establish_membership"
   PROVIDE_REFERENCE = "provide_reference"
   PROVIDE_PRECONDITION = "provide_precondition"
   UNRESOLVED = "unresolved"
@@ -191,6 +194,36 @@ def _contribution_for_premise_block(
     return (
       TodaGroupProofNarrativeEvidenceContribution
       .ESTABLISH_GROUP
+    )
+
+  if (
+    role
+    is TodaGroupProofNarrativeMathematicalBlockRole
+    .EXACTNESS
+  ):
+    return (
+      TodaGroupProofNarrativeEvidenceContribution
+      .ESTABLISH_EXACTNESS
+    )
+
+  if (
+    role
+    is TodaGroupProofNarrativeMathematicalBlockRole
+    .DEFINITION
+  ):
+    return (
+      TodaGroupProofNarrativeEvidenceContribution
+      .ESTABLISH_DEFINITION
+    )
+
+  if (
+    role
+    is TodaGroupProofNarrativeMathematicalBlockRole
+    .MEMBERSHIP
+  ):
+    return (
+      TodaGroupProofNarrativeEvidenceContribution
+      .ESTABLISH_MEMBERSHIP
     )
 
   if (
