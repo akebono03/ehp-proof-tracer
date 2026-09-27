@@ -1,6 +1,10 @@
 from dataclasses import dataclass
 from enum import Enum
 
+from toda_group_proof_narrative_aggregate_semantics import (
+  TodaGroupProofNarrativeAggregateSemanticSidecar,
+)
+
 from proof import (
   Relation,
   RelationType,
@@ -287,12 +291,69 @@ def _contribution_for_premise_block(
   )
 
 
+def _aggregate_semantic_contribution_for_edge(
+  edge: TodaProofEdge,
+  block_by_step_id: dict[
+    int,
+    TodaGroupProofNarrativeBlock,
+  ],
+  aggregate_semantic_sidecar: (
+    TodaGroupProofNarrativeAggregateSemanticSidecar
+    | None
+  ),
+) -> (
+  TodaGroupProofNarrativeEvidenceContribution
+  | None
+):
+  if aggregate_semantic_sidecar is None:
+    return None
+
+  aggregate_kind_by_step_id = {
+    id(semantic.proof_step): semantic.kind
+    for semantic in aggregate_semantic_sidecar.step_semantics
+  }
+
+  if id(edge.premise_step) not in aggregate_kind_by_step_id:
+    return None
+
+  consumer_block = block_by_step_id.get(
+    id(edge.parent_step)
+  )
+
+  if consumer_block is None:
+    return None
+
+  if (
+    consumer_block.role
+    is TodaGroupProofNarrativeMathematicalBlockRole.TARGET
+  ):
+    return (
+      TodaGroupProofNarrativeEvidenceContribution
+      .ESTABLISH_GROUP
+    )
+
+  if (
+    consumer_block.role
+    is TodaGroupProofNarrativeMathematicalBlockRole.DEFINITION
+  ):
+    return (
+      TodaGroupProofNarrativeEvidenceContribution
+      .ESTABLISH_DEFINITION
+    )
+
+  return None
+
+
 def build_toda_group_proof_narrative_evidence_contribution_sidecar(
   presentation: TodaGroupProofPresentation,
   blocks: tuple[
     TodaGroupProofNarrativeBlock,
     ...,
   ],
+  aggregate_semantic_sidecar: (
+    TodaGroupProofNarrativeAggregateSemanticSidecar
+    | None
+  ) = None,
 ) -> TodaGroupProofNarrativeEvidenceContributionSidecar:
   if not isinstance(
     presentation,
@@ -311,6 +372,16 @@ def build_toda_group_proof_narrative_evidence_contribution_sidecar(
       "blocks must be a tuple"
     )
 
+  if (
+    aggregate_semantic_sidecar is not None
+    and aggregate_semantic_sidecar.presentation
+    is not presentation
+  ):
+    raise ValueError(
+      "aggregate_semantic_sidecar must belong "
+      "to presentation"
+    )
+
   block_by_step_id = (
     _block_by_step_id(
       blocks
@@ -318,43 +389,48 @@ def build_toda_group_proof_narrative_evidence_contribution_sidecar(
   )
 
   presentation_step_ids = {
-    id(
-      node.proof_step
-    )
+    id(node.proof_step)
     for node in presentation.nodes
   }
 
-  if (
-    set(
-      block_by_step_id
-    )
-    != presentation_step_ids
-  ):
+  if set(block_by_step_id) != presentation_step_ids:
     raise ValueError(
       "blocks must cover presentation nodes "
       "exactly once"
     )
 
-  edge_semantics = tuple(
-    TodaGroupProofNarrativeEvidenceContributionSemantic(
-      edge=edge,
-      contribution=(
+  edge_semantics = []
+
+  for edge in presentation.edges:
+    contribution = (
+      _aggregate_semantic_contribution_for_edge(
+        edge,
+        block_by_step_id,
+        aggregate_semantic_sidecar,
+      )
+    )
+
+    if contribution is None:
+      contribution = (
         _contribution_for_premise_block(
           block_by_step_id[
-            id(
-              edge.premise_step
-            )
+            id(edge.premise_step)
           ],
           edge,
         )
-      ),
+      )
+
+    edge_semantics.append(
+      TodaGroupProofNarrativeEvidenceContributionSemantic(
+        edge=edge,
+        contribution=contribution,
+      )
     )
-    for edge in presentation.edges
-  )
 
   return (
     TodaGroupProofNarrativeEvidenceContributionSidecar(
       presentation=presentation,
-      edge_semantics=edge_semantics,
+      edge_semantics=tuple(edge_semantics),
     )
   )
+
