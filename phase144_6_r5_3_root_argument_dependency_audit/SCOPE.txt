@@ -1,0 +1,22 @@
+Phase 144-6-R5-3 root-argument dependency completeness audit
+
+production code / tests / docs の変更なし。
+
+GitHub 現行コード確認対象:
+- toda_group_proof_narrative_arguments.py
+- toda_group_proof_narrative_argument_local_body.py
+- toda_group_proof_narrative_argument_ordering.py
+
+監査:
+1. root ESTABLISH_GROUP_STRUCTURE Argument を特定。
+2. 既存 child_argument_indices の direct/transitive reachability を算出。
+3. presentation edges + semantic dependencies から作られる block dependency closure 内の
+   Argument conclusion と比較。
+4. depth 0..6 で Argument graph signature の変化を表示。
+5. 代表6群を同じロジックで監査。
+
+目的:
+- child_argument_indices が root-required Argument graph を十分表すか確認する。
+- 不十分なら production 実装前に欠落経路を特定する。
+- fixed n/k/depth の特別扱いはしない。
+- full pytest は実行しない。
