@@ -12,6 +12,9 @@ from toda_group_proof_narrative_argument_discourse import (
 from toda_group_proof_narrative_argument_local_body import (
   extract_toda_group_proof_narrative_argument_local_body_blocks,
 )
+from toda_group_proof_narrative_step_transitions import (
+  extract_toda_group_proof_narrative_step_transitions,
+)
 from toda_group_proof_narrative_argument_ordering import (
   order_toda_group_proof_narrative_arguments,
 )
@@ -102,6 +105,114 @@ def _toda_group_proof_narrative_argument_transition_by_conclusion_id(
     for transition in transitions
   }
 
+
+
+def _toda_group_proof_narrative_argument_frontier_hidden_step_ids(
+  presentation: TodaGroupProofPresentation,
+  blocks: tuple[
+    TodaGroupProofNarrativeBlock,
+    ...,
+  ],
+  local_body_blocks: tuple[
+    TodaGroupProofNarrativeBlock,
+    ...,
+  ],
+  semantic_sidecar: TodaGroupProofNarrativeSemanticSidecar,
+  argument: TodaGroupProofNarrativeArgument,
+) -> frozenset[
+  int
+]:
+  conclusion_step = (
+    extract_toda_group_proof_narrative_argument_conclusion_step(
+      argument
+    )
+  )
+
+  if conclusion_step is None:
+    return frozenset()
+
+  direct_premise_steps = list(
+    conclusion_step.premises
+  )
+
+  if (
+    argument.role
+    is TodaGroupProofNarrativeArgumentRole
+    .ESTABLISH_DEFINITION
+  ):
+    direct_premise_steps.extend(
+      semantic.prerequisite_step
+      for semantic in semantic_sidecar.dependency_semantics
+      if (
+        semantic.dependent_step
+        is conclusion_step
+      )
+    )
+
+  direct_premise_ids = {
+    id(
+      premise_step
+    )
+    for premise_step in direct_premise_steps
+  }
+  transition_step_ids = {
+    id(
+      step
+    )
+    for transition in (
+      extract_toda_group_proof_narrative_step_transitions(
+        presentation,
+        blocks,
+      )
+    )
+    for step in (
+      transition.source_step,
+      transition.target_step,
+    )
+  }
+
+  protected_step_ids = (
+    direct_premise_ids
+    | transition_step_ids
+    | {
+      id(
+        conclusion_step
+      )
+    }
+  )
+
+  if (
+    argument.role
+    is TodaGroupProofNarrativeArgumentRole
+    .ESTABLISH_DEFINITION
+  ):
+    for proof_step in direct_premise_steps:
+      protected_step_ids.update(
+        id(
+          premise_step
+        )
+        for premise_step in proof_step.premises
+      )
+
+  return frozenset(
+    id(
+      proof_step
+    )
+    for block in local_body_blocks
+    for proof_step in block.steps
+    if (
+      id(
+        proof_step
+      ) not in protected_step_ids
+      and block.role
+      not in (
+        TodaGroupProofNarrativeMathematicalBlockRole
+        .EXACTNESS,
+        TodaGroupProofNarrativeMathematicalBlockRole
+        .REFERENCE,
+      )
+    )
+  )
 
 def render_toda_group_proof_narrative_multi_argument_markdown(
   presentation: TodaGroupProofPresentation,
@@ -219,27 +330,21 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
         )
       )
     )
+    context_hidden_step_ids = (
+      context_hidden_step_ids
+      | _toda_group_proof_narrative_argument_frontier_hidden_step_ids(
+        presentation,
+        blocks,
+        local_body_blocks,
+        semantic_sidecar,
+        argument,
+      )
+    )
     header = (
       render_toda_group_proof_narrative_argument_header_method_section(
         argument,
         discourse_role,
         primary_component,
-      )
-    )
-    context_hidden_step_ids = frozenset(
-      id(
-        proof_step
-      )
-      for block in local_body_blocks
-      for proof_step in block.steps
-      if (
-        argument.role
-        is not TodaGroupProofNarrativeArgumentRole
-        .ESTABLISH_DEFINITION
-        and isinstance(
-          proof_step.conclusion,
-          TodaEtaFamilyDefinitionStatement,
-        )
       )
     )
     header = (

@@ -1,0 +1,24 @@
+Phase 144-6-R4-R5
+
+監査で確認した二重挿入を修復する。
+
+変更対象:
+- toda_group_proof_narrative_argument_multi_renderer.py
+  - _toda_group_proof_narrative_argument_frontier_hidden_step_ids()
+  - render_toda_group_proof_narrative_multi_argument_markdown()
+
+変更:
+1. helper に complete blocks 引数を追加。
+2. 重複した frontier helper call の片方を削除。
+3. 重複した context_hidden_step_ids 初期化の片方を削除。
+4. 残る helper call に blocks を渡す。
+
+最終構造:
+- context_hidden_step_ids 初期化: 1回
+- frontier union: 1回
+- helper call: 1回
+- transition extraction: complete blocks
+- visibility対象: local_body_blocks
+
+frontier policy / test assertions / R5 depth policy は変更しない。
+full pytest は実行しない。
