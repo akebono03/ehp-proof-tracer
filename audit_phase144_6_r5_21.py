@@ -1,11 +1,11 @@
-from dataclasses import dataclass
+﻿from dataclasses import dataclass
 from enum import Enum
 
 from audit_phase144_6_r5_20 import (
   ParityStatus,
   build_parity_audit,
 )
-from tests.test_phase144_6_r5_18_production_generic_proof_chain_foundation import (
+from test_phase144_6_r5_18_production_generic_proof_chain_foundation import (
   _context,
 )
 from toda_group_proof_generic_narrative_renderer import (
@@ -354,3 +354,4 @@ def print_audit():
 
 if __name__ == "__main__":
   print_audit()
+
