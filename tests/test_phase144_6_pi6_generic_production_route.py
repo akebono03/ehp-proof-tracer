@@ -5,8 +5,8 @@ import toda_group_proof_narrative_renderer as narrative_renderer
 from tests.test_phase143_19_method_evidence import (
   _method_evidence_data,
 )
-from toda_group_proof_narrative_argument_multi_renderer import (
-  render_toda_group_proof_narrative_multi_argument_markdown,
+from toda_group_proof_narrative_contribution_renderer import (
+  render_toda_group_proof_narrative_multi_argument_with_contributions_markdown,
 )
 from toda_group_proof_narrative_renderer import (
   render_toda_group_proof_narrative_markdown,
@@ -29,7 +29,7 @@ def test_phase144_6_public_pi6_3_narrative_equals_generic_argument_renderer():
   ) = _pi6_3_presentation_data()
 
   expected = (
-    render_toda_group_proof_narrative_multi_argument_markdown(
+    render_toda_group_proof_narrative_multi_argument_with_contributions_markdown(
       presentation,
       blocks,
       sidecar,
@@ -110,7 +110,7 @@ def test_phase144_6_cli_pi6_3_narrative_uses_generic_route(
   assert captured.err == ""
   assert r"$\nu'$ を定める." in captured.out
   assert "(1) と (2) より、" in captured.out
-  assert "**[R1]" not in captured.out
+  assert "**[R1]" in captured.out
 
 
 def test_phase144_6_pi6_production_branch_contains_no_legacy_renderer_call():
@@ -134,6 +134,6 @@ def test_phase144_6_pi6_production_branch_contains_no_legacy_renderer_call():
     not in pi6_branch
   )
   assert (
-    "render_toda_group_proof_narrative_multi_argument_markdown"
+    "render_toda_group_proof_narrative_multi_argument_with_contributions_markdown"
     in pi6_branch
   )

@@ -1,4 +1,4 @@
-﻿from toda_group_proof_generic_narrative_renderer import (
+from toda_group_proof_generic_narrative_renderer import (
   _generic_narrative_dependency_labels,
   _generic_narrative_sentence_lead,
   _render_generic_narrative_proof_block,
@@ -632,6 +632,12 @@ def render_toda_group_proof_narrative_argument_body_markdown(
     ]
     | None
   ) = None,
+  excluded_non_exact_step_ids: (
+    frozenset[
+      int
+    ]
+    | None
+  ) = None,
   excluded_exactness_contribution_keys: (
     frozenset[
       tuple[
@@ -646,6 +652,10 @@ def render_toda_group_proof_narrative_argument_body_markdown(
   connector_text: str | None = None,
   conclusion_step: ProofStep | None = None,
   direct_derivation_premises: tuple[
+    ProofStep,
+    ...,
+  ] = (),
+  direct_derivation_support_steps: tuple[
     ProofStep,
     ...,
   ] = (),
@@ -708,6 +718,35 @@ def render_toda_group_proof_narrative_argument_body_markdown(
       "excluded_non_exact_block_ids must be "
       "a frozenset or None"
     )
+
+  if (
+    excluded_non_exact_step_ids is not None
+    and not isinstance(
+      excluded_non_exact_step_ids,
+      frozenset,
+    )
+  ):
+    raise TypeError(
+      "excluded_non_exact_step_ids must be "
+      "a frozenset or None"
+    )
+
+  if excluded_non_exact_step_ids is not None:
+    for step_id in excluded_non_exact_step_ids:
+      if (
+        not isinstance(
+          step_id,
+          int,
+        )
+        or isinstance(
+          step_id,
+          bool,
+        )
+      ):
+        raise TypeError(
+          "excluded_non_exact_step_ids must contain "
+          "only integers"
+        )
 
   if (
     excluded_exactness_contribution_keys is not None
@@ -794,6 +833,24 @@ def render_toda_group_proof_narrative_argument_body_markdown(
     ):
       raise TypeError(
         "direct_derivation_premises must contain only "
+        "ProofStep objects"
+      )
+
+  if not isinstance(
+    direct_derivation_support_steps,
+    tuple,
+  ):
+    raise TypeError(
+      "direct_derivation_support_steps must be a tuple"
+    )
+
+  for support_step in direct_derivation_support_steps:
+    if not isinstance(
+      support_step,
+      ProofStep,
+    ):
+      raise TypeError(
+        "direct_derivation_support_steps must contain only "
         "ProofStep objects"
       )
 
@@ -942,7 +999,10 @@ def render_toda_group_proof_narrative_argument_body_markdown(
         premise_step
         for premise_step in (
           _relocatable_toda_group_proof_narrative_direct_derivation_premises(
-            direct_derivation_premises,
+            (
+              direct_derivation_support_steps
+              + direct_derivation_premises
+            ),
             step_derivation_sources_by_target_id,
             next(
               block
@@ -951,9 +1011,17 @@ def render_toda_group_proof_narrative_argument_body_markdown(
             ),
           )
         )
-        if id(
-          premise_step
-        ) not in redundant_direct_premise_step_ids
+        if (
+          id(
+            premise_step
+          ) not in redundant_direct_premise_step_ids
+          and (
+            excluded_non_exact_step_ids is None
+            or id(
+              premise_step
+            ) not in excluded_non_exact_step_ids
+          )
+        )
       )
     )
   )
@@ -1002,6 +1070,12 @@ def render_toda_group_proof_narrative_argument_body_markdown(
         for proof_step in block.steps
         if (
           (
+            excluded_non_exact_step_ids is None
+            or id(
+              proof_step
+            ) not in excluded_non_exact_step_ids
+          )
+          and (
             context_hidden_step_ids is None
             or id(
               proof_step

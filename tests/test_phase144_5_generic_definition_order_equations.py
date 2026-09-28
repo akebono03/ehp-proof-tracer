@@ -38,29 +38,27 @@ def _render_multi_argument(
 
 
 def test_phase144_5_r2_numbers_only_calculation_chain_equations():
-  markdown = (
-    "$u=v$\n\n"
-    "$a=b$\n\n"
-    "$b=c$\n\n"
-    "これらより、\n\n"
-    "$a=c$\n\n"
-    "$x=y$"
+  rendered = _render_multi_argument(
+    3,
+    3,
   )
 
-  rendered = (
-    number_toda_group_proof_narrative_equations(
-      markdown
-    )
+  assert r"$2\nu' = \eta_{3}E\eta_{3}\eta_{5}\tag{1}$" in rendered
+  assert (
+    r"$\eta_{3}E\eta_{3}\eta_{5} = "
+    r"\eta_{3}^{3}\tag{2}$"
+    in rendered
   )
-
-  assert "$u=v$" in rendered
-  assert r"$a=b\tag{1}$" in rendered
-  assert r"$b=c\tag{2}$" in rendered
   assert "(1) と (2) より、" in rendered
-  assert r"$a=c\tag{3}$" in rendered
-  assert "$x=y$" in rendered
-  assert r"$u=v\tag{" not in rendered
-  assert r"$x=y\tag{" not in rendered
+  assert r"$2\nu' = \eta_{3}^{3}\tag{3}$" in rendered
+  assert (
+    r"$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}\tag{"
+    not in rendered
+  )
+  assert (
+    r"$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}\tag{"
+    not in rendered
+  )
 
 
 def test_phase144_5_r2_equation_reference_uses_parenthesized_number():
