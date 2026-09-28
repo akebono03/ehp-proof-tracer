@@ -97,22 +97,6 @@ def _argument_fallback_anchor_index(
   argument: TodaGroupProofNarrativeArgument,
   contributions,
 ) -> int | None:
-  purpose = (
-    render_toda_group_proof_narrative_argument_purpose_sentence(
-      argument
-    )
-  )
-
-  if purpose is None:
-    return None
-
-  purpose_index = markdown.find(
-    purpose
-  )
-
-  if purpose_index < 0:
-    return None
-
   provider_anchor_indices = tuple(
     anchor_index
     for contribution in contributions
@@ -130,6 +114,22 @@ def _argument_fallback_anchor_index(
     return max(
       provider_anchor_indices
     )
+
+  purpose = (
+    render_toda_group_proof_narrative_argument_purpose_sentence(
+      argument
+    )
+  )
+
+  if purpose is None:
+    return None
+
+  purpose_index = markdown.find(
+    purpose
+  )
+
+  if purpose_index < 0:
+    return None
 
   return (
     purpose_index
