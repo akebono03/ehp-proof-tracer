@@ -1,0 +1,10 @@
+Included: current generic Narrative production route, public cutover,
+supporting-fact filtering, final completion, recursive-repr/current-markdown
+regressions, depth=2 definition regressions, cross-phase boundary controls,
+and local R25-30-R3 pytest evidence when present.
+
+Excluded: R5-37..R5-41 fixed-count snapshots, R25-31+ investigation,
+Phase 145 result-reuse design/implementation, and repository-wide pytest.
+
+The previous broad run showed 9 failures only in historical fixed population
+counts: 353->355, 291->293, 194->196, 190->192, and pi6 contribution 5->6.

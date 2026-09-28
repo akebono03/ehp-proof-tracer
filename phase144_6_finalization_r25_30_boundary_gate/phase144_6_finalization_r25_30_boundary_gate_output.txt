@@ -1,0 +1,25 @@
+﻿**********************
+Windows PowerShell トランスクリプト開始
+開始時刻: 20260929080037
+ユーザー名: DESKTOP-LA5JCGV\user
+RunAs ユーザー: DESKTOP-LA5JCGV\user
+構成名: 
+コンピューター: DESKTOP-LA5JCGV (Microsoft Windows NT 10.0.22000.0)
+ホスト アプリケーション: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -File .\phase144_6_finalization_r25_30_boundary_gate\run_phase144_6_finalization_r25_30_boundary_gate.ps1
+プロセス ID: 11456
+PSVersion: 5.1.22000.2538
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.22000.2538
+BuildVersion: 10.0.22000.2538
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+
+A. Current R5-43-11D inventory
+
+**********************
+Windows PowerShell トランスクリプト終了
+終了時刻: 20260929080038
+**********************
