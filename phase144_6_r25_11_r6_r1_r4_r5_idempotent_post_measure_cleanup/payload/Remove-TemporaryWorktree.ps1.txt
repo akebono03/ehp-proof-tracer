@@ -1,0 +1,133 @@
+﻿function Remove-TemporaryWorktree {
+  if (-not (Test-Path $Worktree)) {
+    return
+  }
+
+  function Get-RegisteredAuditWorktreeState {
+    $oldErrorActionPreference = $ErrorActionPreference
+    $registeredLines = $null
+    $listExitCode = $null
+
+    try {
+      $ErrorActionPreference = "Continue"
+      $registeredLines = & git worktree list --porcelain 2>$null
+      $listExitCode = $LASTEXITCODE
+    }
+    finally {
+      $ErrorActionPreference = $oldErrorActionPreference
+    }
+
+    if ($listExitCode -ne 0) {
+      $message = "git worktree list exit code "
+      $message = $message + $listExitCode
+      throw $message
+    }
+
+    $normalizedTarget = [System.IO.Path]::GetFullPath($Worktree)
+
+    foreach ($registeredLine in $registeredLines) {
+      if ($registeredLine -like "worktree *") {
+        $registeredPath = $registeredLine.Substring(9)
+        $normalizedRegistered = [System.IO.Path]::GetFullPath($registeredPath)
+
+        if ($normalizedRegistered -eq $normalizedTarget) {
+          return $true
+        }
+      }
+    }
+
+    return $false
+  }
+
+  function Remove-StaleAuditWorktreePath {
+    if (-not (Test-Path $Worktree)) {
+      return
+    }
+
+    $normalizedTarget = [System.IO.Path]::GetFullPath($Worktree)
+    $expectedLeaf = ".phase144_6_r25_11_r6_r1_worktree"
+    $actualLeaf = Split-Path -Leaf $normalizedTarget
+
+    if ($actualLeaf -ne $expectedLeaf) {
+      $message = "refusing unregistered path cleanup outside audit worktree: "
+      $message = $message + $normalizedTarget
+      throw $message
+    }
+
+    Invoke-WithRetry `
+      -Description "stale unregistered audit worktree path cleanup" `
+      -Action {
+        Remove-Item `
+          -LiteralPath $normalizedTarget `
+          -Recurse `
+          -Force `
+          -ErrorAction Stop
+      }
+  }
+
+  $isRegistered = Get-RegisteredAuditWorktreeState
+
+  if ($isRegistered) {
+    $oldPrompt = $env:GIT_TERMINAL_PROMPT
+    $env:GIT_TERMINAL_PROMPT = "0"
+    $removeExitCode = $null
+
+    try {
+      $oldErrorActionPreference = $ErrorActionPreference
+
+      try {
+        $ErrorActionPreference = "Continue"
+        & git worktree remove --force $Worktree 1>$null 2>$null
+        $removeExitCode = $LASTEXITCODE
+      }
+      finally {
+        $ErrorActionPreference = $oldErrorActionPreference
+      }
+    }
+    finally {
+      if ($null -eq $oldPrompt) {
+        Remove-Item Env:GIT_TERMINAL_PROMPT -ErrorAction SilentlyContinue
+      }
+      else {
+        $env:GIT_TERMINAL_PROMPT = $oldPrompt
+      }
+    }
+
+    if ($removeExitCode -ne 0) {
+      $stillRegistered = Get-RegisteredAuditWorktreeState
+
+      if ($stillRegistered) {
+        $message = "git worktree remove exit code "
+        $message = $message + $removeExitCode
+        throw $message
+      }
+
+      Remove-StaleAuditWorktreePath
+    }
+  }
+  else {
+    Remove-StaleAuditWorktreePath
+  }
+
+  Invoke-WithRetry `
+    -Description "git worktree prune" `
+    -Action {
+      $oldErrorActionPreference = $ErrorActionPreference
+      $pruneExitCode = $null
+
+      try {
+        $ErrorActionPreference = "Continue"
+        & git worktree prune --expire now 1>$null 2>$null
+        $pruneExitCode = $LASTEXITCODE
+      }
+      finally {
+        $ErrorActionPreference = $oldErrorActionPreference
+      }
+
+      if ($pruneExitCode -ne 0) {
+        $message = "git worktree prune exit code "
+        $message = $message + $pruneExitCode
+        throw $message
+      }
+    }
+}

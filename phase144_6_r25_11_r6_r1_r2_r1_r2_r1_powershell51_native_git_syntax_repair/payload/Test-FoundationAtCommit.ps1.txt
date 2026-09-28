@@ -1,0 +1,50 @@
+﻿function Test-FoundationAtCommit {
+  param(
+    [Parameter(Mandatory=$true)]
+    [string]$Sha
+  )
+
+  $objectName = "${Sha}:$FoundationPath"
+  $stderrName = "ehp_r25_11_r6_r1_cat_file_" + $PID + ".stderr.txt"
+  $stderrPath = Join-Path $env:TEMP $stderrName
+  $oldErrorActionPreference = $ErrorActionPreference
+  $exitCode = $null
+
+  try {
+    $ErrorActionPreference = "Continue"
+    & git cat-file -e $objectName 2>$stderrPath
+    $exitCode = $LASTEXITCODE
+  }
+  finally {
+    $ErrorActionPreference = $oldErrorActionPreference
+  }
+
+  if ($exitCode -eq 0) {
+    if (Test-Path $stderrPath) {
+      Remove-Item $stderrPath -Force -ErrorAction SilentlyContinue
+    }
+
+    return $true
+  }
+
+  if ($exitCode -eq 1) {
+    if (Test-Path $stderrPath) {
+      Remove-Item $stderrPath -Force -ErrorAction SilentlyContinue
+    }
+
+    return $false
+  }
+
+  $stderrText = ""
+
+  if (Test-Path $stderrPath) {
+    $stderrLines = Get-Content -Path $stderrPath -Encoding UTF8
+    $stderrText = $stderrLines -join " "
+    Remove-Item $stderrPath -Force -ErrorAction SilentlyContinue
+  }
+
+  $message = "git cat-file failed for " + $Sha
+  $message = $message + " with exit code " + $exitCode
+  $message = $message + ": " + $stderrText
+  throw $message
+}

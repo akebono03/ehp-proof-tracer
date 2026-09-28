@@ -1,0 +1,84 @@
+﻿function Remove-TemporaryWorktree {
+  if (-not (Test-Path $Worktree)) {
+    $oldErrorActionPreference = $ErrorActionPreference
+    $pruneExitCode = $null
+
+    try {
+      $ErrorActionPreference = "Continue"
+      & git worktree prune --expire now 1>$null 2>$null
+      $pruneExitCode = $LASTEXITCODE
+    }
+    finally {
+      $ErrorActionPreference = $oldErrorActionPreference
+    }
+
+    if ($pruneExitCode -ne 0) {
+      throw (
+        "git worktree prune exit code "
+        + $pruneExitCode
+      )
+    }
+
+    return
+  }
+
+  $oldPrompt = $env:GIT_TERMINAL_PROMPT
+  $env:GIT_TERMINAL_PROMPT = "0"
+
+  try {
+    Invoke-WithRetry `
+      -Description "temporary worktree removal" `
+      -Action {
+        $oldErrorActionPreference = $ErrorActionPreference
+        $removeExitCode = $null
+
+        try {
+          $ErrorActionPreference = "Continue"
+          & git worktree remove --force $Worktree 1>$null 2>$null
+          $removeExitCode = $LASTEXITCODE
+        }
+        finally {
+          $ErrorActionPreference = $oldErrorActionPreference
+        }
+
+        if ($removeExitCode -ne 0) {
+          throw (
+            "git worktree remove exit code "
+            + $removeExitCode
+          )
+        }
+      }
+  }
+  finally {
+    if ($null -eq $oldPrompt) {
+      Remove-Item Env:GIT_TERMINAL_PROMPT `
+        -ErrorAction SilentlyContinue
+    }
+    else {
+      $env:GIT_TERMINAL_PROMPT = $oldPrompt
+    }
+  }
+
+  Invoke-WithRetry `
+    -Description "git worktree prune" `
+    -Action {
+      $oldErrorActionPreference = $ErrorActionPreference
+      $pruneExitCode = $null
+
+      try {
+        $ErrorActionPreference = "Continue"
+        & git worktree prune --expire now 1>$null 2>$null
+        $pruneExitCode = $LASTEXITCODE
+      }
+      finally {
+        $ErrorActionPreference = $oldErrorActionPreference
+      }
+
+      if ($pruneExitCode -ne 0) {
+        throw (
+          "git worktree prune exit code "
+          + $pruneExitCode
+        )
+      }
+    }
+}
