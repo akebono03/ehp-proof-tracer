@@ -121,7 +121,7 @@ def test_phase143_46_pi16_9_assembles_definition_then_group_structure():
   )
 
   definition = (
-    "まず、$\\sigma_{9}$ を定める."
+    "次に、$\\sigma_{9}$ を定める."
   )
   group = (
     "最後に、$\\pi_{16}^{9}$ の群構造を決定する."

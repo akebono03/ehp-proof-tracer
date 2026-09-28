@@ -120,7 +120,7 @@ def test_phase143_47_pi16_9_suppresses_shared_definition_evidence():
     in rendered
   )
   assert (
-    "まず、$\\sigma_{9}$ を定める."
+    "次に、$\\sigma_{9}$ を定める."
     in rendered
   )
   assert (

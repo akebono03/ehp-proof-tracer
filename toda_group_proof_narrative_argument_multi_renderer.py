@@ -1,3 +1,6 @@
+from toda_group_proof_aggregate_statement_catalog import (
+  is_toda_group_proof_aggregate_statement,
+)
 from toda_group_proof_narrative_argument_body_renderer import (
   _toda_group_proof_narrative_exactness_contribution_key,
   render_toda_group_proof_narrative_argument_body_markdown,
@@ -204,6 +207,9 @@ def _toda_group_proof_narrative_argument_frontier_hidden_step_ids(
       id(
         proof_step
       ) not in protected_step_ids
+      and not is_toda_group_proof_aggregate_statement(
+        proof_step.conclusion
+      )
       and block.role
       not in (
         TodaGroupProofNarrativeMathematicalBlockRole
@@ -226,6 +232,9 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
     ...,
   ],
 ) -> str:
+  if not arguments:
+    return ""
+
   ordered_arguments = (
     order_toda_group_proof_narrative_arguments(
       arguments
@@ -311,6 +320,30 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
         semantic_sidecar,
         arguments,
         argument_index,
+      )
+    )
+    local_body_block_ids = {
+      id(
+        block
+      )
+      for block in local_body_blocks
+    }
+    evidence_block_ids = {
+      id(
+        block
+      )
+      for block in evidence
+    }
+    local_body_blocks = tuple(
+      block
+      for block in blocks
+      if (
+        id(
+          block
+        ) in local_body_block_ids
+        or id(
+          block
+        ) in evidence_block_ids
       )
     )
 
