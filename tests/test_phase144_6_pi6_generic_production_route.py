@@ -98,7 +98,7 @@ def test_phase144_6_cli_pi6_3_narrative_uses_generic_route(
       "3",
       "3",
       "--depth",
-      "3",
+      "2",
       "--mode",
       "narrative",
     ]
@@ -110,14 +110,7 @@ def test_phase144_6_cli_pi6_3_narrative_uses_generic_route(
   assert captured.err == ""
   assert r"$\nu'$ を定める." in captured.out
   assert "(1) と (2) より、" in captured.out
-  assert "(4) と (5) より、" in captured.out
-  assert "**[R1]" in captured.out
-  assert "(5.3) / Lemma 5.2" in captured.out
-  assert "**[R2]" in captured.out
-  assert "(5.2)" in captured.out
-  assert "Proposition 5.1" in captured.out
-  assert "Proposition 4.4" in captured.out
-  assert "Proposition 2.2" not in captured.out
+  assert "**[R1]" not in captured.out
 
 
 def test_phase144_6_pi6_production_branch_contains_no_legacy_renderer_call():

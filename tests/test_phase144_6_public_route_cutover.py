@@ -1,17 +1,8 @@
 import inspect
-from pathlib import Path
-import sys
-
-TESTS_DIR = Path(__file__).resolve().parent
-if str(TESTS_DIR) not in sys.path:
-  sys.path.insert(
-    0,
-    str(TESTS_DIR),
-  )
 
 import main as cli_main
 import toda_group_proof_narrative_renderer as narrative_renderer
-from test_phase143_19_method_evidence import (
+from tests.test_phase143_19_method_evidence import (
   _method_evidence_data,
 )
 from toda_group_proof_narrative_contribution_renderer import (

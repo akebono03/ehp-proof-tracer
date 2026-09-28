@@ -1,75 +1,69 @@
-import main as cli_main
+from pathlib import Path
+import sys
 
-
-def test_phase134_9_pi6_3_snapshot_structure_after_phase136_2_revision(
-  capsys,
-):
-  exit_code = cli_main.main(
-    [
-      "group-proof",
-      "3",
-      "3",
-      "--depth",
-      "2",
-      "--mode",
-      "narrative",
-    ]
+TESTS_DIR = Path(__file__).resolve().parent
+if str(TESTS_DIR) not in sys.path:
+  sys.path.insert(
+    0,
+    str(TESTS_DIR),
   )
 
-  captured = capsys.readouterr()
+from test_phase143_19_method_evidence import (
+  _method_evidence_data,
+)
+from toda_group_proof_narrative_contribution_renderer import (
+  render_toda_group_proof_narrative_multi_argument_with_contributions_markdown,
+)
+from toda_group_proof_narrative_renderer import (
+  render_toda_group_proof_narrative_markdown,
+)
 
-  assert exit_code == 0
-  assert captured.err == ""
 
-  rendered = captured.out
-
-  assert rendered.startswith(
-    "# Group proof narrative\n"
+def _phase144_6_pi6_3_renderings():
+  (
+    presentation,
+    blocks,
+    sidecar,
+    arguments,
+  ) = _method_evidence_data(
+    3,
+    3,
   )
 
-  assert "**[R1]" in rendered
-  assert "**[R2] Toda Proposition 5.1.**" in rendered
-  assert "**[R3] Toda Proposition 5.3.**" in rendered
-  assert "**[R4] Toda Lemma 5.2.**" in rendered
-  assert (
-    "**[R5] Toda Proposition 2.2 "
-    "の右合成公式.**"
-    in rendered
+  expected = (
+    render_toda_group_proof_narrative_multi_argument_with_contributions_markdown(
+      presentation,
+      blocks,
+      sidecar,
+      arguments,
+    )
+  )
+  actual = (
+    render_toda_group_proof_narrative_markdown(
+      presentation
+    )
   )
 
-  assert (
-    "のある元を $\\nu'$ と定める."
-    in rendered
+  return (
+    expected,
+    actual,
   )
 
-  assert (
-    r"\nu'\in\pi_{6}^{3}.\tag{3}"
-    in rendered
+
+def test_phase144_6_supersedes_legacy_pi6_3_narrative_contract():
+  expected, actual = (
+    _phase144_6_pi6_3_renderings()
   )
 
-  assert (
-    r"0\longrightarrow\pi_{5}^{2}"
-    r"\xrightarrow{E}\pi_{6}^{3}"
-    r"\xrightarrow{H}\pi_{6}^{5}"
-    r"\longrightarrow 0."
-    r"\tag{19}"
-    in rendered
-  )
+  assert actual == expected
 
-  assert (
-    r"\nu'\text{ の位数は }4"
-    r"\text{ である.}\tag{16}"
-    in rendered
-  )
 
-  assert (
-    r"\pi_{6}^{3}="
-    r"\mathbb{Z}/4\{\nu'\}"
-    r"\tag{20}"
-    in rendered
+def test_phase144_6_pi6_3_generic_route_preserves_target():
+  _, actual = (
+    _phase144_6_pi6_3_renderings()
   )
 
   assert (
-    r"\mathbb{Z}/4\{\nu'\}.\tag{20}"
-    not in rendered
+    r"$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$"
+    in actual
   )

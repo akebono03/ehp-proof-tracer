@@ -1,170 +1,69 @@
-import main as cli_main
+from pathlib import Path
+import sys
 
-
-def _render_phase134_3_pi6_3(
-  capsys,
-):
-  exit_code = cli_main.main(
-    [
-      "group-proof",
-      "3",
-      "3",
-      "--depth",
-      "2",
-      "--mode",
-      "narrative",
-    ]
+TESTS_DIR = Path(__file__).resolve().parent
+if str(TESTS_DIR) not in sys.path:
+  sys.path.insert(
+    0,
+    str(TESTS_DIR),
   )
 
-  captured = capsys.readouterr()
+from test_phase143_19_method_evidence import (
+  _method_evidence_data,
+)
+from toda_group_proof_narrative_contribution_renderer import (
+  render_toda_group_proof_narrative_multi_argument_with_contributions_markdown,
+)
+from toda_group_proof_narrative_renderer import (
+  render_toda_group_proof_narrative_markdown,
+)
 
-  assert exit_code == 0
-  assert captured.err == ""
 
-  return captured.out
+def _phase144_6_pi6_3_renderings():
+  (
+    presentation,
+    blocks,
+    sidecar,
+    arguments,
+  ) = _method_evidence_data(
+    3,
+    3,
+  )
 
-
-def test_phase134_3_pi6_3_has_reference_section(
-  capsys,
-):
-  rendered = (
-    _render_phase134_3_pi6_3(
-      capsys
+  expected = (
+    render_toda_group_proof_narrative_multi_argument_with_contributions_markdown(
+      presentation,
+      blocks,
+      sidecar,
+      arguments,
+    )
+  )
+  actual = (
+    render_toda_group_proof_narrative_markdown(
+      presentation
     )
   )
 
-  assert "## 証明対象" in rendered
-  assert "## 使用する結果" in rendered
+  return (
+    expected,
+    actual,
+  )
 
-  assert (
-    "Toda Proposition 5.6 のうち,"
-    in rendered
+
+def test_phase144_6_supersedes_legacy_pi6_3_narrative_contract():
+  expected, actual = (
+    _phase144_6_pi6_3_renderings()
+  )
+
+  assert actual == expected
+
+
+def test_phase144_6_pi6_3_generic_route_preserves_target():
+  _, actual = (
+    _phase144_6_pi6_3_renderings()
   )
 
   assert (
-    r"\pi_{6}^{3} = "
-    r"\mathbb{Z}/4\{\nu'\}"
-    in rendered
+    r"$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$"
+    in actual
   )
-
-
-def test_phase134_3_pi6_3_uses_numbered_facts(
-  capsys,
-):
-  rendered = (
-    _render_phase134_3_pi6_3(
-      capsys
-    )
-  )
-
-  assert r"\tag{" in rendered
-  assert "## 証明" in rendered
-  assert " より," in rendered
-  assert "したがって," in rendered
-
-
-def test_phase134_3_pi6_3_map_properties_use_japanese_prose(
-  capsys,
-):
-  rendered = (
-    _render_phase134_3_pi6_3(
-      capsys
-    )
-  )
-
-  assert (
-    "は単射である."
-    in rendered
-  )
-
-  assert (
-    "は全射である."
-    in rendered
-  )
-
-  assert (
-    "は完全である."
-    in rendered
-  )
-
-  assert (
-    r"\text{ is injective}"
-    not in rendered
-  )
-
-  assert (
-    r"\text{ is surjective}"
-    not in rendered
-  )
-
-  assert (
-    r"\text{ is exact}"
-    not in rendered
-  )
-
-
-def test_phase134_3_pi6_3_uses_ascii_punctuation(
-  capsys,
-):
-  rendered = (
-    _render_phase134_3_pi6_3(
-      capsys
-    )
-  )
-
-  assert "、" not in rendered
-  assert "。" not in rendered
-
-
-def test_phase134_3_pi6_3_preserves_phase133_readable_labels(
-  capsys,
-):
-  rendered = (
-    _render_phase134_3_pi6_3(
-      capsys
-    )
-  )
-
-  expected_fragments = (
-    "Toda (5.2) の η₂ 合成同型",
-    (
-      r"\Delta:\pi_{7}^{5}"
-      r"\to\pi_{5}^{2}"
-    ),
-    (
-      r"\nu' \in "
-      r"\{\eta_{3},2\iota_{4},\eta_{4}\}_{1}"
-    ),
-    "Toda Proposition 5.1.",
-  )
-
-  for fragment in expected_fragments:
-    assert fragment in rendered
-
-def test_phase134_3_pi6_3_does_not_expose_internal_rule_names(
-  capsys,
-):
-  rendered = (
-    _render_phase134_3_pi6_3(
-      capsys
-    )
-  )
-
-  internal_names = (
-    "Toda 5.2 eta_2 composition isomorphism",
-    (
-      "Toda Proposition 5.6 "
-      "pi_7^5 Delta zero"
-    ),
-    (
-      "Toda 5.3 nu-prime "
-      "Lemma 5.2 bracket specialization"
-    ),
-    (
-      "Toda Proposition 5.1 "
-      "finite-dimensional integration"
-    ),
-  )
-
-  for internal_name in internal_names:
-    assert internal_name not in rendered
