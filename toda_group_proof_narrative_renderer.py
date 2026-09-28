@@ -39,6 +39,7 @@ from toda_group_proof_narrative_blocks import (
   build_toda_group_proof_narrative_blocks,
 )
 from toda_group_proof_narrative_semantics import (
+  build_toda_group_proof_narrative_semantic_closure_presentation,
   build_toda_group_proof_narrative_semantic_sidecar,
 )
 from toda_group_proof_narrative_helpers import (
@@ -3773,6 +3774,12 @@ def render_toda_group_proof_narrative_markdown(
       "presentation must be a "
       "TodaGroupProofPresentation"
     )
+
+  presentation = (
+    build_toda_group_proof_narrative_semantic_closure_presentation(
+      presentation
+    )
+  )
 
   phase134_24_pi15_8 = (
     _phase134_24_render_pi15_8_narrative(
