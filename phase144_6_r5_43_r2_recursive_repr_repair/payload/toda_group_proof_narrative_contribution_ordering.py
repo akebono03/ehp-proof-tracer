@@ -463,7 +463,6 @@ def _build_visibility_occurrences(
   semantic_sidecar: TodaGroupProofNarrativeSemanticSidecar,
   arguments: tuple[TodaGroupProofNarrativeArgument, ...],
   proof_chains: tuple[TodaGroupProofNarrativeProofChain, ...],
-  current_markdown: str | None = None,
 ) -> tuple[_ContributionOccurrence, ...]:
   if current_markdown is None:
     markdown = render_toda_group_proof_narrative_multi_argument_markdown(
@@ -554,11 +553,19 @@ def _build_visibility_occurrences(
 def _group_key(
   occurrence: _ContributionOccurrence,
 ) -> tuple:
+  rendered = _render_generic_narrative_step(
+    occurrence.proof_step
+  )
   return (
-    type(occurrence.proof_step.conclusion),
-    repr(occurrence.proof_step.conclusion),
+    type(
+      occurrence.proof_step.conclusion
+    ),
+    _normalized(
+      rendered
+    ),
     occurrence.provider_keys,
   )
+
 
 def _owner(
   occurrences: list[_ContributionOccurrence],
@@ -673,7 +680,6 @@ def build_toda_group_proof_narrative_ordered_contributions(
   semantic_sidecar: TodaGroupProofNarrativeSemanticSidecar,
   arguments: tuple[TodaGroupProofNarrativeArgument, ...],
   proof_chains: tuple[TodaGroupProofNarrativeProofChain, ...],
-  current_markdown: str | None = None,
 ) -> tuple[
   tuple[
     TodaGroupProofNarrativeOrderedContribution,
@@ -695,7 +701,6 @@ def build_toda_group_proof_narrative_ordered_contributions(
     semantic_sidecar,
     arguments,
     proof_chains,
-    current_markdown=current_markdown,
   )
   grouped = defaultdict(list)
   for occurrence in occurrences:
