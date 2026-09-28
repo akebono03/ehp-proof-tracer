@@ -76,6 +76,7 @@ def test_phase143_17_pi16_9_discourse_roles():
 
   assert roles == (
     TodaGroupProofNarrativeArgumentDiscourseRole.FIRST,
+    TodaGroupProofNarrativeArgumentDiscourseRole.MIDDLE,
     TodaGroupProofNarrativeArgumentDiscourseRole.FINAL,
   )
 

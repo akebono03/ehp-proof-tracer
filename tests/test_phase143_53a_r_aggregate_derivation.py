@@ -127,21 +127,19 @@ def test_phase143_53a_r_pi16_9_aggregate_definition_stays_support():
 
   assert len(
     definition_transitions
-  ) == 1
+  ) == 2
 
-  transition = definition_transitions[
-    0
-  ]
-
-  assert (
+  assert all(
     transition.role
     is TodaGroupProofNarrativeTransitionRole
     .SUPPORT
+    for transition in definition_transitions
   )
   assert any(
     is_toda_group_proof_aggregate_statement(
       proof_step.conclusion
     )
+    for transition in definition_transitions
     for block in transition.source_blocks
     for proof_step in block.steps
   )

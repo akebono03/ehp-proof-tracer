@@ -1,3 +1,6 @@
+from toda_group_proof_aggregate_statement_catalog import (
+  is_toda_group_proof_aggregate_statement,
+)
 from toda_group_proof_narrative_argument_body_renderer import (
   _toda_group_proof_narrative_exactness_contribution_key,
   render_toda_group_proof_narrative_argument_body_markdown,
@@ -204,6 +207,9 @@ def _toda_group_proof_narrative_argument_frontier_hidden_step_ids(
       id(
         proof_step
       ) not in protected_step_ids
+      and not is_toda_group_proof_aggregate_statement(
+        proof_step.conclusion
+      )
       and block.role
       not in (
         TodaGroupProofNarrativeMathematicalBlockRole
@@ -226,6 +232,9 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
     ...,
   ],
 ) -> str:
+  if not arguments:
+    return ""
+
   ordered_arguments = (
     order_toda_group_proof_narrative_arguments(
       arguments
@@ -255,6 +264,7 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
 
   rendered_arguments = []
   seen_non_exact_block_ids = set()
+  seen_non_exact_step_ids = set()
   seen_exactness_contribution_keys = set()
 
   for ordered_position, argument in enumerate(
@@ -311,6 +321,30 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
         semantic_sidecar,
         arguments,
         argument_index,
+      )
+    )
+    local_body_block_ids = {
+      id(
+        block
+      )
+      for block in local_body_blocks
+    }
+    evidence_block_ids = {
+      id(
+        block
+      )
+      for block in evidence
+    }
+    local_body_blocks = tuple(
+      block
+      for block in blocks
+      if (
+        id(
+          block
+        ) in local_body_block_ids
+        or id(
+          block
+        ) in evidence_block_ids
       )
     )
 
@@ -397,6 +431,15 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
         )
       )
     )
+    direct_derivation_support_steps = tuple(
+      support_step
+      for premise_step in direct_derivation_premises
+      for support_step in premise_step.premises
+      if all(
+        support_step is not existing_step
+        for existing_step in direct_derivation_premises
+      )
+    )
 
     body = (
       render_toda_group_proof_narrative_argument_body_markdown(
@@ -406,6 +449,9 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
         primary_component,
         excluded_non_exact_block_ids=frozenset(
           seen_non_exact_block_ids
+        ),
+        excluded_non_exact_step_ids=frozenset(
+          seen_non_exact_step_ids
         ),
         excluded_exactness_contribution_keys=frozenset(
           seen_exactness_contribution_keys
@@ -420,6 +466,7 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
         connector_text=connector,
         conclusion_step=conclusion_step,
         direct_derivation_premises=direct_derivation_premises,
+        direct_derivation_support_steps=direct_derivation_support_steps,
         context_hidden_step_ids=context_hidden_step_ids,
         preserve_provenance_block_ids=(
           derivation_source_block_ids
@@ -444,17 +491,45 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
         rendered
       )
 
+    seen_non_exact_step_ids.update(
+      id(
+        support_step
+      )
+      for support_step in direct_derivation_support_steps
+    )
+
     for block in local_body_blocks:
       if (
         block.role
         is not TodaGroupProofNarrativeMathematicalBlockRole
         .EXACTNESS
       ):
-        seen_non_exact_block_ids.add(
+        visible_step_ids = {
           id(
-            block
+            proof_step
           )
+          for proof_step in block.steps
+          if id(
+            proof_step
+          ) not in context_hidden_step_ids
+        }
+        seen_non_exact_step_ids.update(
+          visible_step_ids
         )
+
+        if (
+          len(
+            visible_step_ids
+          )
+          == len(
+            block.steps
+          )
+        ):
+          seen_non_exact_block_ids.add(
+            id(
+              block
+            )
+          )
         continue
 
       contributions = (

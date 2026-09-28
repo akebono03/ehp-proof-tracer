@@ -36,15 +36,15 @@ def test_phase143_57c_pi6_3_first_local_derivation_is_grouped():
     3,
   )
   source_one = (
-    r"$2\nu' = \eta_{3}E\eta_{3}\eta_{5}$"
+    r"$2\nu' = \eta_{3}E\eta_{3}\eta_{5}\tag{1}$"
   )
   source_two = (
-    r"$\eta_{3}E\eta_{3}\eta_{5} = \eta_{3}^{3}$"
+    r"$\eta_{3}E\eta_{3}\eta_{5} = \eta_{3}^{3}\tag{2}$"
   )
   target = (
-    r"$2\nu' = \eta_{3}^{3}$"
+    r"$2\nu' = \eta_{3}^{3}\tag{3}$"
   )
-  connector = "これらより、"
+  connector = "(1) と (2) より、"
 
   assert source_one in rendered
   assert source_two in rendered
@@ -74,15 +74,15 @@ def test_phase143_57c_pi6_3_second_local_derivation_is_grouped():
     3,
   )
   source_one = (
-    r"$H\left(\nu'\right) = E^{2}\eta_{3}$"
+    r"$H\left(\nu'\right) = E^{2}\eta_{3}\tag{4}$"
   )
   source_two = (
-    r"$E^{2}\eta_{3} = \eta_{5}$"
+    r"$E^{2}\eta_{3} = \eta_{5}\tag{5}$"
   )
   target = (
-    r"$H\left(\nu'\right) = \eta_{5}$"
+    r"$H\left(\nu'\right) = \eta_{5}\tag{6}$"
   )
-  connector = "これらより、"
+  connector = "(4) と (5) より、"
 
   assert source_one in rendered
   assert source_two in rendered
@@ -112,9 +112,8 @@ def test_phase143_57c_pi6_3_has_two_step_derivation_connectors():
     3,
   )
 
-  assert rendered.count(
-    "これらより、"
-  ) == 2
+  assert "(1) と (2) より、" in rendered
+  assert "(4) と (5) より、" in rendered
 
 
 def test_phase143_57c_argument_level_connector_remains_separate():

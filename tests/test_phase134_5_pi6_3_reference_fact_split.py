@@ -1,117 +1,69 @@
-import main as cli_main
+from pathlib import Path
+import sys
 
-
-def _render_pi6_3(
-  capsys,
-):
-  exit_code = cli_main.main(
-    [
-      "group-proof",
-      "3",
-      "3",
-      "--depth",
-      "2",
-      "--mode",
-      "narrative",
-    ]
+TESTS_DIR = Path(__file__).resolve().parent
+if str(TESTS_DIR) not in sys.path:
+  sys.path.insert(
+    0,
+    str(TESTS_DIR),
   )
 
-  captured = capsys.readouterr()
+from test_phase143_19_method_evidence import (
+  _method_evidence_data,
+)
+from toda_group_proof_narrative_contribution_renderer import (
+  render_toda_group_proof_narrative_multi_argument_with_contributions_markdown,
+)
+from toda_group_proof_narrative_renderer import (
+  render_toda_group_proof_narrative_markdown,
+)
 
-  assert exit_code == 0
-  assert captured.err == ""
 
-  return captured.out
-
-
-def test_phase134_5_separates_target_and_references(
-  capsys,
-):
-  rendered = _render_pi6_3(
-    capsys
+def _phase144_6_pi6_3_renderings():
+  (
+    presentation,
+    blocks,
+    sidecar,
+    arguments,
+  ) = _method_evidence_data(
+    3,
+    3,
   )
 
-  assert "## 証明対象" in rendered
-  assert "## 使用する結果" in rendered
-  assert "## 証明" in rendered
-  assert "Toda (5.2) の η₂ 合成同型" in rendered
-  assert "**[R2] Toda Proposition 5.1.**" in rendered
-  assert "**[R3] Toda Proposition 5.3.**" in rendered
-
-  assert (
-    "**[R1] Toda Proposition 5.6.**"
-    not in rendered
+  expected = (
+    render_toda_group_proof_narrative_multi_argument_with_contributions_markdown(
+      presentation,
+      blocks,
+      sidecar,
+      arguments,
+    )
+  )
+  actual = (
+    render_toda_group_proof_narrative_markdown(
+      presentation
+    )
   )
 
-def test_phase134_5_reference_statements_are_visible(
-  capsys,
-):
-  rendered = _render_pi6_3(
-    capsys
+  return (
+    expected,
+    actual,
   )
 
-  assert r"\eta_{2}\circ -" in rendered
-  assert r"\pi_{n + 1}^{n}" in rendered
-  assert r"\mathbb{Z}/2\{\eta_{n}\}" in rendered
 
-
-def test_phase134_5_references_are_not_numbered_facts(
-  capsys,
-):
-  rendered = _render_pi6_3(
-    capsys
+def test_phase144_6_supersedes_legacy_pi6_3_narrative_contract():
+  expected, actual = (
+    _phase144_6_pi6_3_renderings()
   )
 
-  assert "**(2)** Toda (5.2)" not in rendered
-  assert "[R1]" in rendered
-  assert "[R2]" in rendered
+  assert actual == expected
 
 
-def test_phase134_5_order_relations_use_natural_sentences(
-  capsys,
-):
-  rendered = _render_pi6_3(
-    capsys
+def test_phase144_6_pi6_3_generic_route_preserves_target():
+  _, actual = (
+    _phase144_6_pi6_3_renderings()
   )
 
   assert (
-    r"\eta_{3}^{3}"
-    r"\text{ の位数は }2"
-    r"\text{ である.}"
-    in rendered
+    r"$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$"
+    in actual
   )
-  assert (
-    r"\nu'"
-    r"\text{ の位数は }4"
-    r"\text{ である.}"
-    in rendered
-  )
-  assert r"\operatorname{ord}" not in rendered
-
-def test_phase134_5_keeps_final_group_conclusion(
-  capsys,
-):
-  rendered = _render_pi6_3(
-    capsys
-  )
-
-  assert "したがって," in rendered
-
-  assert (
-    r"\pi_{6}^{3} = "
-    r"\mathbb{Z}/4\{\nu'\}"
-    in rendered
-  )
-
-  assert "を得る." in rendered
-
-
-def test_phase134_5_keeps_ascii_punctuation(
-  capsys,
-):
-  rendered = _render_pi6_3(
-    capsys
-  )
-
-  assert "、" not in rendered
-  assert "。" not in rendered

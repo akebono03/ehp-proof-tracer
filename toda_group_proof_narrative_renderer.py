@@ -32,10 +32,14 @@ from toda_group_proof_narrative_arguments import (
 from toda_group_proof_narrative_argument_multi_renderer import (
   render_toda_group_proof_narrative_multi_argument_markdown,
 )
+from toda_group_proof_narrative_contribution_renderer import (
+  render_toda_group_proof_narrative_multi_argument_with_contributions_markdown,
+)
 from toda_group_proof_narrative_blocks import (
   build_toda_group_proof_narrative_blocks,
 )
 from toda_group_proof_narrative_semantics import (
+  build_toda_group_proof_narrative_semantic_closure_presentation,
   build_toda_group_proof_narrative_semantic_sidecar,
 )
 from toda_group_proof_narrative_helpers import (
@@ -3771,6 +3775,12 @@ def render_toda_group_proof_narrative_markdown(
       "TodaGroupProofPresentation"
     )
 
+  presentation = (
+    build_toda_group_proof_narrative_semantic_closure_presentation(
+      presentation
+    )
+  )
+
   phase134_24_pi15_8 = (
     _phase134_24_render_pi15_8_narrative(
       presentation
@@ -3805,7 +3815,7 @@ def render_toda_group_proof_narrative_markdown(
     )
 
     return (
-      render_toda_group_proof_narrative_multi_argument_markdown(
+      render_toda_group_proof_narrative_multi_argument_with_contributions_markdown(
         presentation,
         blocks,
         semantic_sidecar,

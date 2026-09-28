@@ -101,13 +101,13 @@ def test_phase143_61b_pi6_3_keeps_local_calculation_derivation():
   )
 
   source_one = (
-    r"$2\nu' = \eta_{3}E\eta_{3}\eta_{5}$"
+    r"$2\nu' = \eta_{3}E\eta_{3}\eta_{5}\tag{1}$"
   )
   source_two = (
-    r"$\eta_{3}E\eta_{3}\eta_{5} = \eta_{3}^{3}$"
+    r"$\eta_{3}E\eta_{3}\eta_{5} = \eta_{3}^{3}\tag{2}$"
   )
   target = (
-    r"$2\nu' = \eta_{3}^{3}$"
+    r"$2\nu' = \eta_{3}^{3}\tag{3}$"
   )
 
   assert (
@@ -118,7 +118,7 @@ def test_phase143_61b_pi6_3_keeps_local_calculation_derivation():
       source_two
     )
     < rendered.index(
-      "これらより、",
+      "(1) と (2) より、",
       rendered.index(
         source_two
       ),
@@ -136,7 +136,7 @@ def test_phase143_61b_pi6_3_does_not_duplicate_order_premises():
   )
 
   assert rendered.count(
-    r"$2\nu' = \eta_{3}^{3}$"
+    r"$2\nu' = \eta_{3}^{3}\tag{3}$"
   ) == 1
   assert rendered.count(
     r"$\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$"

@@ -83,7 +83,8 @@ def test_phase143_61b_r_keeps_pi6_3_local_connector():
     3,
   )
 
-  assert "これらより、" in rendered
+  assert "(1) と (2) より、" in rendered
+  assert "(4) と (5) より、" in rendered
   assert (
     "以上より、\n\n"
     r"$\operatorname{ord}\left(\nu'\right) = 4$"
