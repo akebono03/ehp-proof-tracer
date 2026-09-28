@@ -184,13 +184,18 @@ def _toda_group_proof_narrative_argument_frontier_hidden_step_ids(
     }
   )
 
-  for proof_step in direct_premise_steps:
-    protected_step_ids.update(
-      id(
-        premise_step
+  if (
+    argument.role
+    is TodaGroupProofNarrativeArgumentRole
+    .ESTABLISH_DEFINITION
+  ):
+    for proof_step in direct_premise_steps:
+      protected_step_ids.update(
+        id(
+          premise_step
+        )
+        for premise_step in proof_step.premises
       )
-      for premise_step in proof_step.premises
-    )
 
   return frozenset(
     id(

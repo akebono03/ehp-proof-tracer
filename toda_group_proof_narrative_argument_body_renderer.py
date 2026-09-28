@@ -1021,6 +1021,12 @@ def render_toda_group_proof_narrative_argument_body_markdown(
               premise_step
             ) not in excluded_non_exact_step_ids
           )
+          and (
+            context_hidden_step_ids is None
+            or id(
+              premise_step
+            ) not in context_hidden_step_ids
+          )
         )
       )
     )
