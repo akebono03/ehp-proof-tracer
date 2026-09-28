@@ -1,0 +1,328 @@
+import pytest
+
+from expression import (
+  GeneratorSymbol,
+)
+from generator_facts import (
+  GENERATOR_FACT_REPOSITORY,
+)
+from homotopy_groups import (
+  FiniteCyclicGroup,
+  TodaPrimaryGroup,
+)
+from proof import (
+  Relation,
+  RelationType,
+)
+from repository_generator_known_group_identity_lookup import (
+  find_standard_repository_generator_known_group_identity_input,
+  find_standard_repository_generator_known_group_identity_nodes,
+)
+
+
+SIGMA_TRIPLE_PRIME = GeneratorSymbol(
+  family="σ",
+  decoration="'''",
+)
+
+SIGMA_DOUBLE_PRIME = GeneratorSymbol(
+  family="σ",
+  decoration="''",
+)
+
+SIGMA_PRIME = GeneratorSymbol(
+  family="σ",
+  decoration="'",
+)
+
+
+@pytest.mark.parametrize(
+  "generator",
+  (
+    SIGMA_TRIPLE_PRIME,
+    SIGMA_DOUBLE_PRIME,
+    SIGMA_PRIME,
+  ),
+)
+def test_phase109_14_decorated_sigma_generators_still_have_no_explicit_ambient_fact(
+  generator,
+):
+  assert (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_ambient_group(
+      generator
+    )
+    is None
+  )
+
+
+@pytest.mark.parametrize(
+  (
+    "generator",
+    "group_dimension",
+    "sphere_dimension",
+    "order",
+  ),
+  (
+    (
+      SIGMA_TRIPLE_PRIME,
+      12,
+      5,
+      2,
+    ),
+    (
+      SIGMA_DOUBLE_PRIME,
+      13,
+      6,
+      4,
+    ),
+    (
+      SIGMA_PRIME,
+      14,
+      7,
+      8,
+    ),
+  ),
+)
+def test_phase109_14_decorated_sigma_known_groups_are_proof_derived_finite_cyclic(
+  generator,
+  group_dimension,
+  sphere_dimension,
+  order,
+):
+  nodes = (
+    find_standard_repository_generator_known_group_identity_nodes(
+      generator
+    )
+  )
+
+  assert len(
+    nodes
+  ) == 1
+
+  node = nodes[
+    0
+  ]
+
+  assert (
+    node.shortest_depth
+    > 0
+  )
+
+  conclusion = (
+    node
+    .proof_step
+    .conclusion
+  )
+
+  assert isinstance(
+    conclusion,
+    Relation,
+  )
+
+  assert (
+    conclusion.relation_type
+    is RelationType.EQUALITY
+  )
+
+  assert (
+    conclusion.lhs
+    == TodaPrimaryGroup(
+      group_dimension=group_dimension,
+      sphere_dimension=sphere_dimension,
+    )
+  )
+
+  assert isinstance(
+    conclusion.rhs,
+    FiniteCyclicGroup,
+  )
+
+  assert (
+    conclusion.rhs.order
+    == order
+  )
+
+  assert (
+    conclusion.rhs
+    .generator
+    .generator
+    == generator
+  )
+
+
+@pytest.mark.parametrize(
+  (
+    "generator_input",
+    "expected_generator",
+    "group_dimension",
+    "sphere_dimension",
+  ),
+  (
+    (
+      "sigma_triple_prime",
+      SIGMA_TRIPLE_PRIME,
+      12,
+      5,
+    ),
+    (
+      "sigma_double_prime",
+      SIGMA_DOUBLE_PRIME,
+      13,
+      6,
+    ),
+    (
+      "sigma_prime",
+      SIGMA_PRIME,
+      14,
+      7,
+    ),
+    (
+      "σ'''",
+      SIGMA_TRIPLE_PRIME,
+      12,
+      5,
+    ),
+    (
+      "σ''",
+      SIGMA_DOUBLE_PRIME,
+      13,
+      6,
+    ),
+    (
+      "σ'",
+      SIGMA_PRIME,
+      14,
+      7,
+    ),
+  ),
+)
+def test_phase109_14_decorated_sigma_input_aliases_use_same_fallback(
+  generator_input,
+  expected_generator,
+  group_dimension,
+  sphere_dimension,
+):
+  nodes = (
+    find_standard_repository_generator_known_group_identity_input(
+      generator_input
+    )
+  )
+
+  assert len(
+    nodes
+  ) == 1
+
+  conclusion = (
+    nodes[
+      0
+    ].proof_step.conclusion
+  )
+
+  assert (
+    conclusion.lhs
+    == TodaPrimaryGroup(
+      group_dimension=group_dimension,
+      sphere_dimension=sphere_dimension,
+    )
+  )
+
+  assert (
+    conclusion.rhs
+    .generator
+    .generator
+    == expected_generator
+  )
+
+
+def test_phase109_14_sigma_prime_does_not_select_pi15_8_suspended_occurrence():
+  nodes = (
+    find_standard_repository_generator_known_group_identity_nodes(
+      SIGMA_PRIME
+    )
+  )
+
+  assert len(
+    nodes
+  ) == 1
+
+  assert (
+    nodes[
+      0
+    ].proof_step.conclusion.lhs
+    == TodaPrimaryGroup(
+      group_dimension=14,
+      sphere_dimension=7,
+    )
+  )
+
+
+def test_phase109_14_sigma10_symbolic_specialization_boundary_remains_unsupported():
+  sigma_10 = GeneratorSymbol(
+    family="σ",
+    index=10,
+  )
+
+  assert (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_ambient_group(
+      sigma_10
+    )
+    is None
+  )
+
+  assert (
+    find_standard_repository_generator_known_group_identity_nodes(
+      sigma_10
+    )
+    == ()
+  )
+
+
+def test_phase109_14_sigma10_symbolic_specialization_boundary_remains_unsupported():
+  sigma_10 = GeneratorSymbol(
+    family="σ",
+    index=10,
+  )
+
+  assert (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_ambient_group(
+      sigma_10
+    )
+    is None
+  )
+
+  assert (
+    find_standard_repository_generator_known_group_identity_nodes(
+      sigma_10
+    )
+    == ()
+  )
+
+
+def test_phase109_14_nu5_phase109_12_fallback_still_works():
+  nu_5 = GeneratorSymbol(
+    family="ν",
+    index=5,
+  )
+
+  nodes = (
+    find_standard_repository_generator_known_group_identity_nodes(
+      nu_5
+    )
+  )
+
+  assert len(
+    nodes
+  ) == 1
+
+  assert (
+    nodes[
+      0
+    ].proof_step.conclusion.lhs
+    == TodaPrimaryGroup(
+      group_dimension=8,
+      sphere_dimension=5,
+    )
+  )

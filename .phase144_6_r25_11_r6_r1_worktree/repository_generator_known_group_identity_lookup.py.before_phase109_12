@@ -1,0 +1,170 @@
+from expression import GeneratorSymbol
+from generator_facts import (
+  GENERATOR_FACT_REPOSITORY,
+  GeneratorFactRepository,
+)
+from generator_input import (
+  resolve_generator_input,
+)
+from homotopy_groups import (
+  TodaPrimaryGroup,
+)
+from proof_repository import (
+  ProofRepository,
+)
+from repository_proof_scope import (
+  RepositoryProofScopeNode,
+  build_repository_proof_scope,
+)
+from standard_production_repository import (
+  build_standard_production_proof_repository,
+)
+from structural_containment import (
+  contains_generator_symbol,
+)
+from toda_group_lookup import (
+  is_toda_group_result_for_target,
+)
+
+
+def find_repository_generator_known_group_identity_nodes(
+  repository: ProofRepository,
+  generator: GeneratorSymbol,
+  generator_fact_repository: GeneratorFactRepository = (
+    GENERATOR_FACT_REPOSITORY
+  ),
+) -> tuple[
+  RepositoryProofScopeNode,
+  ...,
+]:
+  if not isinstance(
+    repository,
+    ProofRepository,
+  ):
+    raise TypeError(
+      "repository must be a ProofRepository"
+    )
+
+  if not isinstance(
+    generator,
+    GeneratorSymbol,
+  ):
+    raise TypeError(
+      "generator must be a GeneratorSymbol"
+    )
+
+  if not isinstance(
+    generator_fact_repository,
+    GeneratorFactRepository,
+  ):
+    raise TypeError(
+      "generator_fact_repository must be a "
+      "GeneratorFactRepository"
+    )
+
+  ambient_group_fact = (
+    generator_fact_repository
+    .lookup_ambient_group(
+      generator
+    )
+  )
+
+  if ambient_group_fact is None:
+    return ()
+
+  target = TodaPrimaryGroup(
+    group_dimension=(
+      ambient_group_fact
+      .group_dimension
+    ),
+    sphere_dimension=(
+      ambient_group_fact
+      .sphere_dimension
+    ),
+  )
+
+  scope = build_repository_proof_scope(
+    repository
+  )
+
+  results = []
+  seen_conclusions = []
+
+  for node in scope.nodes:
+    conclusion = (
+      node
+      .proof_step
+      .conclusion
+    )
+
+    if not is_toda_group_result_for_target(
+      conclusion,
+      target,
+    ):
+      continue
+
+    if not contains_generator_symbol(
+      conclusion,
+      generator,
+    ):
+      continue
+
+    if any(
+      conclusion == seen_conclusion
+      for seen_conclusion in seen_conclusions
+    ):
+      continue
+
+    seen_conclusions.append(
+      conclusion
+    )
+    results.append(
+      node
+    )
+
+  return tuple(
+    results
+  )
+
+
+def find_standard_repository_generator_known_group_identity_nodes(
+  generator: GeneratorSymbol,
+) -> tuple[
+  RepositoryProofScopeNode,
+  ...,
+]:
+  if not isinstance(
+    generator,
+    GeneratorSymbol,
+  ):
+    raise TypeError(
+      "generator must be a GeneratorSymbol"
+    )
+
+  repository = (
+    build_standard_production_proof_repository()
+  )
+
+  return (
+    find_repository_generator_known_group_identity_nodes(
+      repository,
+      generator,
+    )
+  )
+
+
+def find_standard_repository_generator_known_group_identity_input(
+  generator_input: str,
+) -> tuple[
+  RepositoryProofScopeNode,
+  ...,
+]:
+  generator = resolve_generator_input(
+    generator_input
+  )
+
+  return (
+    find_standard_repository_generator_known_group_identity_nodes(
+      generator
+    )
+  )

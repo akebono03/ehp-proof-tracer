@@ -1,0 +1,265 @@
+from functools import lru_cache
+
+import pytest
+
+from repository_generator_user_execution_resolver import (
+  RepositoryGeneratorExecutableTarget,
+  StandardRepositoryGeneratorExecutableTargetResolution,
+  resolve_standard_repository_generator_executable_targets_input,
+)
+
+
+_FIRST_FAMILY = (
+  "toda_58_delta_iota9_nu4_nu_prime_inference_rule"
+)
+
+_SECOND_FAMILY = (
+  "toda_lemma57_pi6_2_eta2_nu_prime_inference_rule"
+)
+
+
+@lru_cache(maxsize=1)
+def _phase108_5_resolution():
+  return (
+    resolve_standard_repository_generator_executable_targets_input(
+      "nu_prime"
+    )
+  )
+
+
+def test_phase108_5_resolves_standard_nu_prime_executable_targets():
+  result = (
+    _phase108_5_resolution()
+  )
+
+  assert isinstance(
+    result,
+    StandardRepositoryGeneratorExecutableTargetResolution,
+  )
+
+  assert result.targets
+
+  assert all(
+    isinstance(
+      target,
+      RepositoryGeneratorExecutableTarget,
+    )
+    for target in result.targets
+  )
+
+
+def test_phase108_5_preserves_existing_layer_identity():
+  result = (
+    _phase108_5_resolution()
+  )
+
+  assert (
+    result.qualified_selection.applicability_result
+    is result.applicability_result
+  )
+
+  assert (
+    result.family_grouping.selection
+    is result.qualified_selection
+  )
+
+
+def test_phase108_5_targets_preserve_original_group_order_and_identity():
+  result = (
+    _phase108_5_resolution()
+  )
+
+  group_positions = {
+    id(
+      group
+    ): index
+    for index, group
+    in enumerate(
+      result.family_grouping.groups
+    )
+  }
+
+  target_positions = [
+    group_positions[
+      id(
+        target.group
+      )
+    ]
+    for target in result.targets
+  ]
+
+  assert target_positions == sorted(
+    target_positions
+  )
+
+  assert len(
+    {
+      id(
+        target.group
+      )
+      for target in result.targets
+    }
+  ) == len(
+    result.targets
+  )
+
+
+def test_phase108_5_targets_preserve_original_root_source_and_target_step_identity():
+  result = (
+    _phase108_5_resolution()
+  )
+
+  scope_node_pairs = {
+    (
+      id(
+        node.root_entry
+      ),
+      id(
+        node.proof_step
+      ),
+    )
+    for node in result.applicability_result.scope.nodes
+  }
+
+  for target in result.targets:
+    assert (
+      target.root_entry
+      is target.group.root_entry
+    )
+
+    assert (
+      target.source_step
+      is target.group.source_step
+    )
+
+    assert (
+      target.representative
+      is target.group.representative
+    )
+
+    assert (
+      (
+        id(
+          target.root_entry
+        ),
+        id(
+          target.target_step
+        ),
+      )
+      in scope_node_pairs
+    )
+
+
+def test_phase108_5_goal_is_original_target_step_conclusion():
+  result = (
+    _phase108_5_resolution()
+  )
+
+  for target in result.targets:
+    assert (
+      target.goal
+      is target.target_step.conclusion
+    )
+
+
+def test_phase108_5_target_step_matches_representative_rule_and_source_premise():
+  result = (
+    _phase108_5_resolution()
+  )
+
+  for target in result.targets:
+    candidate = (
+      target.representative
+    )
+
+    premise_index = (
+      candidate
+      .candidate
+      .premise_index
+    )
+
+    assert (
+      target.target_step.inference_rule
+      is candidate.candidate.inference_rule
+    )
+
+    assert (
+      target.target_step.premises[
+        premise_index
+      ]
+      is target.source_step
+    )
+
+
+def test_phase108_5_exposes_both_current_qualified_execution_families():
+  result = (
+    _phase108_5_resolution()
+  )
+
+  family_names = {
+    target.family_name
+    for target in result.targets
+  }
+
+  assert _FIRST_FAMILY in family_names
+  assert _SECOND_FAMILY in family_names
+
+
+def test_phase108_5_every_resolved_target_has_exactly_one_matching_scope_target():
+  result = (
+    _phase108_5_resolution()
+  )
+
+  for target in result.targets:
+    candidate = (
+      target.representative
+    )
+
+    premise_index = (
+      candidate
+      .candidate
+      .premise_index
+    )
+
+    matching_target_steps = tuple(
+      node.proof_step
+      for node in result.applicability_result.scope.nodes
+      if (
+        node.root_entry
+        is target.root_entry
+        and node.proof_step.inference_rule
+        is candidate.candidate.inference_rule
+        and premise_index
+        < len(
+          node.proof_step.premises
+        )
+        and node.proof_step.premises[
+          premise_index
+        ]
+        is target.source_step
+      )
+    )
+
+    assert matching_target_steps == (
+      target.target_step,
+    )
+
+
+def test_phase108_5_rejects_non_string_generator_input():
+  with pytest.raises(
+    TypeError,
+    match="generator_input must be a str",
+  ):
+    resolve_standard_repository_generator_executable_targets_input(
+      object()
+    )
+
+
+def test_phase108_5_preserves_existing_invalid_generator_error():
+  with pytest.raises(
+    ValueError,
+    match="unsupported generator input",
+  ):
+    resolve_standard_repository_generator_executable_targets_input(
+      "phase108_unknown_generator"
+    )

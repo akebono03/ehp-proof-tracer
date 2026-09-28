@@ -1,0 +1,156 @@
+from pathlib import Path
+import subprocess
+import sys
+
+
+_REPO_ROOT = (
+  Path(
+    __file__
+  )
+  .resolve()
+  .parents[
+    1
+  ]
+)
+
+
+def _run_main(
+  *args: str,
+) -> subprocess.CompletedProcess:
+  return subprocess.run(
+    [
+      sys.executable,
+      "main.py",
+      *args,
+    ],
+    cwd=_REPO_ROOT,
+    capture_output=True,
+    text=True,
+    check=False,
+  )
+
+
+def test_phase108_12_execute_nu_prime_lists_executable_candidates_end_to_end():
+  result = (
+    _run_main(
+      "execute",
+      "nu_prime",
+    )
+  )
+
+  assert result.returncode == 0
+
+  assert (
+    "# Executable candidates"
+    in result.stdout
+  )
+
+  assert (
+    "1. "
+    in result.stdout
+  )
+
+  assert (
+    "Select a candidate number to execute."
+    in result.stdout
+  )
+
+  assert result.stderr == ""
+
+  assert (
+    "toda_58_delta_iota9_nu4_nu_prime_inference_rule"
+    not in result.stdout
+  )
+
+  assert (
+    "toda_lemma57_pi6_2_eta2_nu_prime_inference_rule"
+    not in result.stdout
+  )
+
+  assert (
+    "standard.toda."
+    not in result.stdout
+  )
+
+
+def test_phase108_12_execute_nu_prime_candidate_1_returns_result_and_proof_end_to_end():
+  result = (
+    _run_main(
+      "execute",
+      "nu_prime",
+      "--candidate",
+      "1",
+    )
+  )
+
+  assert result.returncode == 0
+
+  assert result.stdout.startswith(
+    "# Result\n"
+  )
+
+  assert (
+    "\n## Proof\n"
+    in result.stdout
+  )
+
+  assert (
+    "\nRule: "
+    in result.stdout
+  )
+
+  assert (
+    "\nConclusion:\n"
+    in result.stdout
+  )
+
+  assert result.stderr == ""
+
+  assert (
+    "# Executable candidates"
+    not in result.stdout
+  )
+
+
+def test_phase108_12_execute_nu_prime_candidate_2_returns_result_and_proof_end_to_end():
+  result = (
+    _run_main(
+      "execute",
+      "nu_prime",
+      "--candidate",
+      "2",
+    )
+  )
+
+  assert result.returncode == 0
+
+  assert result.stdout.startswith(
+    "# Result\n"
+  )
+
+  assert (
+    "\n## Proof\n"
+    in result.stdout
+  )
+
+  assert (
+    "\nPremises:\n"
+    in result.stdout
+  )
+
+  assert (
+    "\nRule: "
+    in result.stdout
+  )
+
+  assert (
+    "\nConclusion:\n"
+    in result.stdout
+  )
+
+  assert result.stderr == ""
+
+  assert (
+    "# Executable candidates"
+    not in result.stdout
+  )

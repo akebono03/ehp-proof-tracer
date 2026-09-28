@@ -1,0 +1,379 @@
+﻿import main as cli_main
+
+from expression import (
+  GeneratorSymbol,
+  ScalarSymbol,
+  Suspension,
+)
+from proof import (
+  ProofRule,
+  Relation,
+  RelationType,
+)
+from repository_operation_query import (
+  parse_repository_operation_query,
+)
+from repository_operation_query_facade import (
+  query_repository_operation_input,
+  query_standard_repository_operation_input,
+)
+from repository_operation_query_lookup import (
+  RepositoryOperationQueryMatchKind,
+  query_repository_operation,
+)
+from repository_operation_query_presentation import (
+  build_repository_operation_query_presentation,
+)
+from repository_operation_query_proof_replay import (
+  build_repository_operation_query_proof_replay,
+)
+from standard_production_repository import (
+  build_standard_production_proof_repository,
+)
+from toda_rules import (
+  TodaSigmaFamilyDefinitionStatement,
+)
+
+
+def test_phase115_4_direct_lookup_for_e_sigma11_still_misses():
+  repository = (
+    build_standard_production_proof_repository()
+  )
+
+  query = parse_repository_operation_query(
+    "E(sigma_11)"
+  )
+
+  result = query_repository_operation(
+    repository,
+    query,
+  )
+
+  assert not result.found
+  assert result.matches == ()
+
+
+def test_phase115_4_facade_handoff_derives_e_sigma11_equals_sigma12():
+  result = (
+    query_standard_repository_operation_input(
+      "E(sigma_11)"
+    )
+  )
+
+  assert result.found
+  assert len(result.matches) == 1
+
+  match = result.matches[
+    0
+  ]
+
+  assert isinstance(
+    match.statement,
+    Relation,
+  )
+
+  assert (
+    match.statement.relation_type
+    is RelationType.EQUALITY
+  )
+
+  assert isinstance(
+    match.statement.lhs,
+    Suspension,
+  )
+
+  assert (
+    match.statement.lhs
+    .expression
+    .generator
+    == GeneratorSymbol(
+      family="ﾏ・,
+      index=11,
+    )
+  )
+
+  assert (
+    match.statement.rhs.generator
+    == GeneratorSymbol(
+      family="ﾏ・,
+      index=12,
+    )
+  )
+
+  assert (
+    match.match_kind
+    is RepositoryOperationQueryMatchKind
+    .SUSPENSION_RELATION
+  )
+
+
+def test_phase115_4_handoff_preserves_symbolic_sigma_family_provenance():
+  result = (
+    query_standard_repository_operation_input(
+      "E(sigma_11)"
+    )
+  )
+
+  root_step = (
+    result.matches[
+      0
+    ].scope_node.proof_step
+  )
+
+  assert (
+    root_step.rule
+    is ProofRule.INFERENCE
+  )
+
+  assert len(
+    root_step.premises
+  ) == 1
+
+  symbolic_step = (
+    root_step.premises[
+      0
+    ]
+  )
+
+  assert isinstance(
+    symbolic_step.conclusion,
+    TodaSigmaFamilyDefinitionStatement,
+  )
+
+  assert (
+    symbolic_step.conclusion.index
+    == ScalarSymbol(
+      name="n",
+    )
+  )
+
+
+def test_phase115_4_query_proof_replays_specialized_root_and_symbolic_definition():
+  result = (
+    query_standard_repository_operation_input(
+      "E(sigma_11)"
+    )
+  )
+
+  presentation = (
+    build_repository_operation_query_presentation(
+      result
+    )
+  )
+
+  assert len(
+    presentation.items
+  ) == 1
+
+  replay = (
+    build_repository_operation_query_proof_replay(
+      presentation,
+      max_depth=1,
+    )
+  )
+
+  assert (
+    replay.root_step.rule
+    is ProofRule.INFERENCE
+  )
+
+  assert len(
+    replay.steps
+  ) == 2
+
+  assert (
+    replay.steps[
+      0
+    ].depth
+    == 0
+  )
+
+  assert (
+    replay.steps[
+      1
+    ].depth
+    == 1
+  )
+
+  assert (
+    replay.steps[
+      1
+    ].proof_step
+    is replay.root_step.premises[
+      0
+    ]
+  )
+
+
+def test_phase115_4_handoff_does_not_mutate_repository():
+  repository = (
+    build_standard_production_proof_repository()
+  )
+
+  before = repository.entries()
+
+  result = query_repository_operation_input(
+    repository,
+    "E(sigma_11)",
+  )
+
+  after = repository.entries()
+
+  assert result.found
+  assert after == before
+
+  assert all(
+    actual is expected
+    for actual, expected in zip(
+      after,
+      before,
+    )
+  )
+
+
+def test_phase115_4_handoff_is_deterministic():
+  first = (
+    query_standard_repository_operation_input(
+      "E(sigma_11)"
+    )
+  )
+
+  second = (
+    query_standard_repository_operation_input(
+      "E(sigma_11)"
+    )
+  )
+
+  assert tuple(
+    (
+      match.scope_node.root_entry.key,
+      match.scope_node.shortest_depth,
+      match.statement,
+      match.match_kind,
+    )
+    for match in first.matches
+  ) == tuple(
+    (
+      match.scope_node.root_entry.key,
+      match.scope_node.shortest_depth,
+      match.statement,
+      match.match_kind,
+    )
+    for match in second.matches
+  )
+
+
+def _assert_facade_preserves_direct_result(
+  query_input,
+):
+  repository = (
+    build_standard_production_proof_repository()
+  )
+
+  query = parse_repository_operation_query(
+    query_input
+  )
+
+  direct_result = query_repository_operation(
+    repository,
+    query,
+  )
+
+  facade_result = query_repository_operation_input(
+    repository,
+    query_input,
+  )
+
+  assert (
+    facade_result
+    == direct_result
+  )
+
+
+def test_phase115_4_handoff_does_not_expand_to_e_sigma10():
+  _assert_facade_preserves_direct_result(
+    "E(sigma_10)"
+  )
+
+
+def test_phase115_4_handoff_does_not_expand_to_e_sigma12():
+  _assert_facade_preserves_direct_result(
+    "E(sigma_12)"
+  )
+
+
+def test_phase115_4_handoff_does_not_expand_to_h_sigma11():
+  _assert_facade_preserves_direct_result(
+    "H(sigma_11)"
+  )
+
+
+def test_phase115_4_handoff_does_not_expand_to_delta_sigma11():
+  _assert_facade_preserves_direct_result(
+    "Delta(sigma_11)"
+  )
+
+
+def test_phase115_4_handoff_does_not_expand_to_e_sigma11_composition():
+  _assert_facade_preserves_direct_result(
+    "E(sigma_11 o eta_18)"
+  )
+
+
+def test_phase115_4_existing_direct_fact_still_has_priority():
+  _assert_facade_preserves_direct_result(
+    "H(nu_prime)"
+  )
+
+
+def test_phase115_4_existing_nu5_handoff_remains_available():
+  result = (
+    query_standard_repository_operation_input(
+      "E(nu_5)"
+    )
+  )
+
+  assert result.found
+
+  assert any(
+    (
+      isinstance(
+        match.statement,
+        Relation,
+      )
+      and isinstance(
+        match.statement.lhs,
+        Suspension,
+      )
+      and match.statement.lhs
+      .expression
+      .generator
+      == GeneratorSymbol(
+        family="ν",
+        index=5,
+      )
+      and match.statement.rhs.generator
+      == GeneratorSymbol(
+        family="ν",
+        index=6,
+      )
+    )
+    for match in result.matches
+  )
+def test_phase115_4_cli_query_e_sigma11(
+  capsys,
+):
+  exit_code = cli_main.main(
+    [
+      "query",
+      "E(sigma_11)",
+    ]
+  )
+
+  captured = capsys.readouterr()
+
+  assert exit_code == 0
+  assert captured.err == ""
+  assert r"\sigma_{11}" in captured.out
+  assert r"\sigma_{12}" in captured.out
+

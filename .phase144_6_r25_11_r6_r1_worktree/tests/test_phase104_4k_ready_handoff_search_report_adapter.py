@@ -1,0 +1,452 @@
+from dataclasses import dataclass
+
+import pytest
+
+from proof import (
+  InferenceRule,
+  PremisePattern,
+  ProofRule,
+  ProofStep,
+)
+from rule_applicability import (
+  InferenceRuleApplicabilityCandidate,
+)
+from proof_repository import (
+  ProofRepository,
+  ProofRepositoryEntry,
+)
+from repository_generator_applicability_handoff import (
+  RepositoryGeneratorApplicabilityCandidateHandoff,
+  RepositoryGeneratorApplicabilityHandoffSearchReport,
+  RepositoryGeneratorApplicabilityHandoffValidation,
+  RepositoryGeneratorApplicabilityHandoffValidationStatus,
+  build_repository_generator_applicability_handoff_search_report,
+  validate_repository_generator_applicability_handoff,
+)
+from repository_inference import (
+  BoundedProducerSearchReport,
+  BoundedProducerSearchStatus,
+)
+from repository_proof_scope import (
+  RepositoryProofScopeNode,
+)
+from repository_proof_scope_applicability import (
+  RepositoryProofScopeApplicabilityCandidate,
+)
+from rule_catalog import (
+  InferenceRuleCatalog,
+  InferenceRuleCatalogEntry,
+)
+
+
+@dataclass(frozen=True)
+class Phase1044KSeed:
+  value: str
+
+
+@dataclass(frozen=True)
+class Phase1044KGoal:
+  value: str
+
+
+def _build_fixture(
+  *,
+  goal_already_available=False,
+):
+  seed = Phase1044KSeed(
+    value="seed",
+  )
+
+  source_step = ProofStep(
+    conclusion=seed,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  root_entry = ProofRepositoryEntry(
+    key="phase104.4k.root",
+    step=source_step,
+  )
+
+  repository = ProofRepository()
+  repository.register(
+    root_entry
+  )
+
+  goal = Phase1044KGoal(
+    value="goal",
+  )
+
+  premise_pattern = PremisePattern(
+    statement_type=Phase1044KSeed,
+    statement_pattern=seed,
+  )
+
+  final_rule = InferenceRule(
+    name="phase104 4k validated final rule",
+    premise_patterns=(
+      premise_pattern,
+    ),
+    conclusion_builder=(
+      lambda premises:
+      Phase1044KGoal(
+        value="goal",
+      )
+    ),
+  )
+
+  discovery_entry = InferenceRuleCatalogEntry(
+    key="phase104.4k.discovery",
+    rule=final_rule,
+    conclusion_type=Phase1044KGoal,
+    fixed_point_safe=False,
+  )
+
+  scope_node = RepositoryProofScopeNode(
+    root_entry=root_entry,
+    proof_step=source_step,
+    shortest_depth=0,
+  )
+
+  raw_candidate = InferenceRuleApplicabilityCandidate(
+    catalog_entry=discovery_entry,
+    premise_index=0,
+    premise_pattern=premise_pattern,
+    source_step=source_step,
+    bindings=(),
+  )
+
+  candidate = (
+    RepositoryProofScopeApplicabilityCandidate(
+      scope_node=scope_node,
+      candidate=raw_candidate,
+    )
+  )
+
+  handoff = (
+    RepositoryGeneratorApplicabilityCandidateHandoff(
+      candidate=candidate,
+      goal=goal,
+    )
+  )
+
+  execution_catalog = InferenceRuleCatalog()
+
+  execution_entry = InferenceRuleCatalogEntry(
+    key="phase104.4k.execution",
+    rule=final_rule,
+    conclusion_type=Phase1044KGoal,
+    fixed_point_safe=True,
+    goal_compatibility=(
+      lambda candidate_goal:
+      candidate_goal == goal
+    ),
+  )
+  execution_catalog.register(
+    execution_entry
+  )
+
+  competing_rule = InferenceRule(
+    name="phase104 4k competing final rule",
+    premise_patterns=(
+      premise_pattern,
+    ),
+    conclusion_builder=(
+      lambda premises:
+      Phase1044KGoal(
+        value="goal",
+      )
+    ),
+  )
+
+  execution_catalog.register(
+    InferenceRuleCatalogEntry(
+      key="phase104.4k.competing",
+      rule=competing_rule,
+      conclusion_type=Phase1044KGoal,
+      fixed_point_safe=True,
+      goal_compatibility=(
+        lambda candidate_goal:
+        candidate_goal == goal
+      ),
+    )
+  )
+
+  validation = (
+    validate_repository_generator_applicability_handoff(
+      handoff,
+      execution_catalog,
+    )
+  )
+
+  if goal_already_available:
+    goal_step = ProofStep(
+      conclusion=goal,
+      premises=(),
+      rule=ProofRule.GIVEN,
+    )
+    repository.register(
+      ProofRepositoryEntry(
+        key="phase104.4k.goal",
+        step=goal_step,
+      )
+    )
+
+  return {
+    "repository": repository,
+    "goal": goal,
+    "final_rule": final_rule,
+    "competing_rule": competing_rule,
+    "handoff": handoff,
+    "execution_catalog": execution_catalog,
+    "execution_entry": execution_entry,
+    "validation": validation,
+  }
+
+
+def test_phase104_4k_ready_adapter_preserves_validation_identity():
+  data = _build_fixture()
+
+  result = (
+    build_repository_generator_applicability_handoff_search_report(
+      data[
+        "validation"
+      ],
+      data[
+        "repository"
+      ],
+      data[
+        "execution_catalog"
+      ],
+    )
+  )
+
+  assert result.validation is data[
+    "validation"
+  ]
+
+
+def test_phase104_4k_ready_adapter_uses_validated_final_rule_identity():
+  data = _build_fixture()
+
+  result = (
+    build_repository_generator_applicability_handoff_search_report(
+      data[
+        "validation"
+      ],
+      data[
+        "repository"
+      ],
+      data[
+        "execution_catalog"
+      ],
+    )
+  )
+
+  assert result.report.status is (
+    BoundedProducerSearchStatus.SUCCESS
+  )
+  assert result.report.search_result is not None
+  assert (
+    result.report.search_result.final_rule
+    is data[
+      "execution_entry"
+    ].rule
+  )
+
+
+def test_phase104_4k_ready_adapter_does_not_reselect_competing_final_rule():
+  data = _build_fixture()
+
+  result = (
+    build_repository_generator_applicability_handoff_search_report(
+      data[
+        "validation"
+      ],
+      data[
+        "repository"
+      ],
+      data[
+        "execution_catalog"
+      ],
+    )
+  )
+
+  assert result.report.search_result is not None
+  assert (
+    result.report.search_result.final_rule
+    is not data[
+      "competing_rule"
+    ]
+  )
+
+
+def test_phase104_4k_goal_already_available_preserves_validation_provenance():
+  data = _build_fixture(
+    goal_already_available=True,
+  )
+
+  result = (
+    build_repository_generator_applicability_handoff_search_report(
+      data[
+        "validation"
+      ],
+      data[
+        "repository"
+      ],
+      data[
+        "execution_catalog"
+      ],
+    )
+  )
+
+  assert result.validation is data[
+    "validation"
+  ]
+  assert result.report.status is (
+    BoundedProducerSearchStatus
+    .GOAL_ALREADY_AVAILABLE
+  )
+  assert result.report.search_result is None
+
+
+@pytest.mark.parametrize(
+  "status",
+  (
+    RepositoryGeneratorApplicabilityHandoffValidationStatus
+    .RULE_NOT_IN_EXECUTION_CATALOG,
+    RepositoryGeneratorApplicabilityHandoffValidationStatus
+    .RULE_NOT_FIXED_POINT_SAFE,
+    RepositoryGeneratorApplicabilityHandoffValidationStatus
+    .GOAL_INCOMPATIBLE,
+  ),
+)
+def test_phase104_4k_non_ready_validation_does_not_enter_search(
+  status,
+):
+  data = _build_fixture()
+
+  failed_validation = (
+    RepositoryGeneratorApplicabilityHandoffValidation(
+      handoff=data[
+        "handoff"
+      ],
+      status=status,
+    )
+  )
+
+  with pytest.raises(
+    ValueError,
+    match="validation must be READY",
+  ):
+    build_repository_generator_applicability_handoff_search_report(
+      failed_validation,
+      data[
+        "repository"
+      ],
+      data[
+        "execution_catalog"
+      ],
+    )
+
+
+def test_phase104_4k_wrapper_rejects_report_goal_mismatch():
+  data = _build_fixture()
+
+  report = BoundedProducerSearchReport(
+    status=(
+      BoundedProducerSearchStatus
+      .GOAL_ALREADY_AVAILABLE
+    ),
+    goal=Phase1044KGoal(
+      value="different",
+    ),
+  )
+
+  with pytest.raises(
+    ValueError,
+    match="report goal must match handoff goal",
+  ):
+    RepositoryGeneratorApplicabilityHandoffSearchReport(
+      validation=data[
+        "validation"
+      ],
+      report=report,
+    )
+
+
+def test_phase104_4k_wrapper_rejects_search_result_final_rule_drift():
+  data = _build_fixture()
+
+  drift_report = (
+    BoundedProducerSearchReport(
+      status=BoundedProducerSearchStatus.SUCCESS,
+      goal=data[
+        "goal"
+      ],
+      search_result=(
+        build_repository_generator_applicability_handoff_search_report(
+          RepositoryGeneratorApplicabilityHandoffValidation(
+            handoff=data[
+              "handoff"
+            ],
+            status=(
+              RepositoryGeneratorApplicabilityHandoffValidationStatus
+              .READY
+            ),
+            execution_entry=InferenceRuleCatalogEntry(
+              key="phase104.4k.drift-entry",
+              rule=data[
+                "competing_rule"
+              ],
+              conclusion_type=Phase1044KGoal,
+              fixed_point_safe=True,
+            ),
+          ),
+          data[
+            "repository"
+          ],
+          data[
+            "execution_catalog"
+          ],
+        )
+        .report
+        .search_result
+      ),
+    )
+  )
+
+  with pytest.raises(
+    ValueError,
+    match=(
+      "search result final_rule must be "
+      "validation execution_entry.rule"
+    ),
+  ):
+    RepositoryGeneratorApplicabilityHandoffSearchReport(
+      validation=data[
+        "validation"
+      ],
+      report=drift_report,
+    )
+
+
+def test_phase104_4k_rejects_non_validation_input():
+  data = _build_fixture()
+
+  with pytest.raises(
+    TypeError,
+    match=(
+      "validation must be a "
+      "RepositoryGeneratorApplicabilityHandoffValidation"
+    ),
+  ):
+    build_repository_generator_applicability_handoff_search_report(
+      object(),
+      data[
+        "repository"
+      ],
+      data[
+        "execution_catalog"
+      ],
+    )

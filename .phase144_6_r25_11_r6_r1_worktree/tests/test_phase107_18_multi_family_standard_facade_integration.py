@@ -1,0 +1,617 @@
+from functools import lru_cache
+
+import pytest
+
+from proof import (
+  ProofRule,
+  ProofStep,
+)
+from proof_repository import (
+  ProofRepositoryEntry,
+)
+from repository_generator_applicability_execution_entry import (
+  qualified_production_execution_family_name,
+)
+from repository_generator_applicability_execution_orchestration import (
+  FirstQualifiedProductionApplicabilityExecutionResult,
+)
+from repository_generator_applicability_facade import (
+  explore_standard_repository_generator_applicability_input,
+)
+from repository_generator_qualified_execution_dispatch import (
+  QualifiedProductionApplicabilityExecutionDispatchResult,
+)
+from repository_generator_qualified_execution_family import (
+  group_qualified_repository_generator_execution_families,
+)
+from repository_generator_qualified_execution_selection import (
+  select_all_qualified_repository_generator_applicability_candidates,
+)
+from repository_generator_standard_qualified_execution_facade import (
+  StandardRepositoryGeneratorMultiFamilyExecutionFacadeResult,
+  execute_standard_repository_generator_applicability_result_by_root_and_source,
+  execute_standard_repository_generator_applicability_result_by_root_source_and_family,
+)
+from repository_generator_two_premise_execution_integration import (
+  TwoPremiseProductionApplicationExecutionResult,
+)
+from repository_inference import (
+  BoundedProducerSearchStatus,
+)
+
+
+_FIRST_FAMILY = (
+  "toda_58_delta_iota9_nu4_nu_prime_inference_rule"
+)
+
+_SECOND_FAMILY = (
+  "toda_lemma57_pi6_2_eta2_nu_prime_inference_rule"
+)
+
+
+def _unique_matching_target(
+  applicability_result,
+  candidate,
+):
+  matching_targets = tuple(
+    node.proof_step
+    for node in applicability_result.scope.nodes
+    if (
+      node.root_entry
+      is candidate.root_entry
+      and node.proof_step.inference_rule
+      is candidate.candidate.inference_rule
+      and candidate.candidate.premise_index
+      < len(
+        node.proof_step.premises
+      )
+      and node.proof_step.premises[
+        candidate.candidate.premise_index
+      ]
+      is candidate.candidate.source_step
+    )
+  )
+
+  if len(
+    matching_targets
+  ) != 1:
+    return None
+
+  return matching_targets[
+    0
+  ]
+
+
+@lru_cache(maxsize=1)
+def _standard_phase107_18_fixture():
+  applicability_result = (
+    explore_standard_repository_generator_applicability_input(
+      "nu_prime"
+    )
+  )
+
+  qualified_selection = (
+    select_all_qualified_repository_generator_applicability_candidates(
+      applicability_result
+    )
+  )
+
+  family_grouping = (
+    group_qualified_repository_generator_execution_families(
+      qualified_selection
+    )
+  )
+
+  first_cases = []
+  second_cases = []
+
+  for group in family_grouping.groups:
+    candidate = (
+      group.representative
+    )
+
+    target_step = (
+      _unique_matching_target(
+        applicability_result,
+        candidate,
+      )
+    )
+
+    if target_step is None:
+      continue
+
+    case = {
+      "group": group,
+      "candidate": candidate,
+      "goal": target_step.conclusion,
+      "target_step": target_step,
+      "premise_index": (
+        candidate
+        .candidate
+        .premise_index
+      ),
+    }
+
+    if (
+      group.family_name
+      == _FIRST_FAMILY
+    ):
+      first_cases.append(
+        case
+      )
+
+    if (
+      group.family_name
+      == _SECOND_FAMILY
+    ):
+      second_cases.append(
+        case
+      )
+
+  assert first_cases
+  assert second_cases
+
+  second_premise_indexes = {
+    case[
+      "premise_index"
+    ]
+    for case in second_cases
+  }
+
+  assert second_premise_indexes == {
+    0,
+  }
+
+  return {
+    "applicability_result": applicability_result,
+    "qualified_selection": qualified_selection,
+    "family_grouping": family_grouping,
+    "first_case": first_cases[
+      0
+    ],
+    "second_case": second_cases[
+      0
+    ],
+  }
+
+
+def test_phase107_18_first_family_runs_through_multi_family_standard_facade():
+  data = (
+    _standard_phase107_18_fixture()
+  )
+
+  case = data[
+    "first_case"
+  ]
+
+  candidate = case[
+    "candidate"
+  ]
+
+  result = (
+    execute_standard_repository_generator_applicability_result_by_root_source_and_family(
+      data[
+        "applicability_result"
+      ],
+      candidate.root_entry,
+      candidate.candidate.source_step,
+      _FIRST_FAMILY,
+      case[
+        "goal"
+      ],
+    )
+  )
+
+  assert isinstance(
+    result,
+    StandardRepositoryGeneratorMultiFamilyExecutionFacadeResult,
+  )
+
+  assert result.executed is True
+
+  assert isinstance(
+    result.execution,
+    QualifiedProductionApplicabilityExecutionDispatchResult,
+  )
+
+  assert result.execution.family_name == _FIRST_FAMILY
+
+  assert isinstance(
+    result.execution.execution,
+    FirstQualifiedProductionApplicabilityExecutionResult,
+  )
+
+
+def test_phase107_18_second_family_runs_standard_visible_candidate_end_to_end():
+  data = (
+    _standard_phase107_18_fixture()
+  )
+
+  case = data[
+    "second_case"
+  ]
+
+  candidate = case[
+    "candidate"
+  ]
+
+  assert (
+    candidate
+    .candidate
+    .premise_index
+    == 0
+  )
+
+  result = (
+    execute_standard_repository_generator_applicability_result_by_root_source_and_family(
+      data[
+        "applicability_result"
+      ],
+      candidate.root_entry,
+      candidate.candidate.source_step,
+      _SECOND_FAMILY,
+      case[
+        "goal"
+      ],
+    )
+  )
+
+  assert isinstance(
+    result,
+    StandardRepositoryGeneratorMultiFamilyExecutionFacadeResult,
+  )
+
+  assert result.executed is True
+  assert result.selected_group is not None
+  assert result.selected_group.family_name == _SECOND_FAMILY
+
+  assert (
+    result.representative
+    is candidate
+  )
+
+  assert isinstance(
+    result.execution,
+    QualifiedProductionApplicabilityExecutionDispatchResult,
+  )
+
+  assert (
+    result.execution.candidate
+    is candidate
+  )
+
+  assert isinstance(
+    result.execution.execution,
+    TwoPremiseProductionApplicationExecutionResult,
+  )
+
+  underlying = (
+    result.execution.execution
+  )
+
+  assert (
+    underlying.search_report.report.status
+    is BoundedProducerSearchStatus.SUCCESS
+  )
+
+  search_result = (
+    underlying
+    .search_report
+    .report
+    .search_result
+  )
+
+  assert search_result is not None
+  assert search_result.producer_nodes == ()
+
+  repository_result = (
+    underlying
+    .execution
+    .execution_result
+    .repository_inference_result
+  )
+
+  assert repository_result is not None
+  assert repository_result.goal_step is not None
+
+  goal_step = (
+    repository_result.goal_step
+  )
+
+  assert (
+    goal_step
+    is not case[
+      "target_step"
+    ]
+  )
+
+  premise_tuple = (
+    underlying.recovery.premise_tuple
+  )
+
+  assert premise_tuple is not None
+  assert goal_step.premises == premise_tuple
+
+
+def test_phase107_18_second_family_standard_exploration_exposes_only_nu_prime_source_premise():
+  data = (
+    _standard_phase107_18_fixture()
+  )
+
+  second_candidates = tuple(
+    candidate
+    for candidate
+    in data[
+      "qualified_selection"
+    ].candidates
+    if (
+      qualified_production_execution_family_name(
+        candidate
+      )
+      == _SECOND_FAMILY
+    )
+  )
+
+  assert second_candidates
+
+  assert {
+    candidate
+    .candidate
+    .premise_index
+    for candidate
+    in second_candidates
+  } == {
+    0,
+  }
+
+
+def test_phase107_18_preserves_identity_across_multi_family_facade_layers():
+  data = (
+    _standard_phase107_18_fixture()
+  )
+
+  case = data[
+    "second_case"
+  ]
+
+  candidate = case[
+    "candidate"
+  ]
+
+  result = (
+    execute_standard_repository_generator_applicability_result_by_root_source_and_family(
+      data[
+        "applicability_result"
+      ],
+      candidate.root_entry,
+      candidate.candidate.source_step,
+      _SECOND_FAMILY,
+      case[
+        "goal"
+      ],
+    )
+  )
+
+  assert (
+    result.qualified_selection.applicability_result
+    is data[
+      "applicability_result"
+    ]
+  )
+
+  assert (
+    result.family_grouping.selection
+    is result.qualified_selection
+  )
+
+  assert (
+    result.family_selection.grouping
+    is result.family_grouping
+  )
+
+  assert (
+    result.execution.candidate
+    is result.representative
+  )
+
+  assert (
+    result.execution.family_name
+    == result.selected_group.family_name
+  )
+
+
+def test_phase107_18_multi_family_selection_contains_both_qualified_families():
+  data = (
+    _standard_phase107_18_fixture()
+  )
+
+  family_names = {
+    qualified_production_execution_family_name(
+      candidate
+    )
+    for candidate
+    in data[
+      "qualified_selection"
+    ].candidates
+  }
+
+  assert _FIRST_FAMILY in family_names
+  assert _SECOND_FAMILY in family_names
+
+
+def test_phase107_18_rejects_unknown_family_name():
+  data = (
+    _standard_phase107_18_fixture()
+  )
+
+  case = data[
+    "second_case"
+  ]
+
+  candidate = case[
+    "candidate"
+  ]
+
+  with pytest.raises(
+    ValueError,
+    match=(
+      "family_name must identify an original family "
+      "from grouping"
+    ),
+  ):
+    execute_standard_repository_generator_applicability_result_by_root_source_and_family(
+      data[
+        "applicability_result"
+      ],
+      candidate.root_entry,
+      candidate.candidate.source_step,
+      "phase107.18.unknown.family",
+      case[
+        "goal"
+      ],
+    )
+
+
+def test_phase107_18_rejects_foreign_root_identity():
+  data = (
+    _standard_phase107_18_fixture()
+  )
+
+  case = data[
+    "second_case"
+  ]
+
+  candidate = case[
+    "candidate"
+  ]
+
+  foreign_root = ProofRepositoryEntry(
+    key="phase107.18.foreign.root",
+    step=ProofStep(
+      conclusion="foreign root",
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+  )
+
+  with pytest.raises(
+    ValueError,
+    match=(
+      "root_entry must be an original root entry "
+      "from grouping"
+    ),
+  ):
+    execute_standard_repository_generator_applicability_result_by_root_source_and_family(
+      data[
+        "applicability_result"
+      ],
+      foreign_root,
+      candidate.candidate.source_step,
+      _SECOND_FAMILY,
+      case[
+        "goal"
+      ],
+    )
+
+
+def test_phase107_18_rejects_foreign_source_identity():
+  data = (
+    _standard_phase107_18_fixture()
+  )
+
+  case = data[
+    "second_case"
+  ]
+
+  candidate = case[
+    "candidate"
+  ]
+
+  foreign_source = ProofStep(
+    conclusion="foreign source",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  with pytest.raises(
+    ValueError,
+    match=(
+      "source_step must be an original source step "
+      "from grouping"
+    ),
+  ):
+    execute_standard_repository_generator_applicability_result_by_root_source_and_family(
+      data[
+        "applicability_result"
+      ],
+      candidate.root_entry,
+      foreign_source,
+      _SECOND_FAMILY,
+      case[
+        "goal"
+      ],
+    )
+
+
+def test_phase107_18_rejects_non_string_family_name():
+  data = (
+    _standard_phase107_18_fixture()
+  )
+
+  case = data[
+    "second_case"
+  ]
+
+  candidate = case[
+    "candidate"
+  ]
+
+  with pytest.raises(
+    TypeError,
+    match="family_name must be a str",
+  ):
+    execute_standard_repository_generator_applicability_result_by_root_source_and_family(
+      data[
+        "applicability_result"
+      ],
+      candidate.root_entry,
+      candidate.candidate.source_step,
+      object(),
+      case[
+        "goal"
+      ],
+    )
+
+
+def test_phase107_18_existing_phase105_standard_facade_still_runs():
+  data = (
+    _standard_phase107_18_fixture()
+  )
+
+  case = data[
+    "first_case"
+  ]
+
+  candidate = case[
+    "candidate"
+  ]
+
+  result = (
+    execute_standard_repository_generator_applicability_result_by_root_and_source(
+      data[
+        "applicability_result"
+      ],
+      candidate.root_entry,
+      candidate.candidate.source_step,
+      case[
+        "goal"
+      ],
+    )
+  )
+
+  assert result.executed is True
+
+  assert isinstance(
+    result.execution,
+    FirstQualifiedProductionApplicabilityExecutionResult,
+  )

@@ -1,0 +1,138 @@
+from formatter import format_statement
+from repository_element_presentation import (
+  render_repository_conclusion_latex,
+)
+from repository_operation_query_lookup import (
+  RepositoryOperationQueryMatchKind,
+  RepositoryOperationQueryResult,
+)
+from toda_proof_narrative_renderer import (
+  render_toda_proof_statement_latex,
+)
+
+
+_MATCH_LABELS = {
+  RepositoryOperationQueryMatchKind.MAP_RELATION: (
+    "map relation"
+  ),
+  RepositoryOperationQueryMatchKind.SUSPENSION_RELATION: (
+    "suspension relation"
+  ),
+  RepositoryOperationQueryMatchKind.DELTA_UP_TO_SIGN: (
+    "delta image up to sign"
+  ),
+  RepositoryOperationQueryMatchKind.COMPOSITION_CONTAINMENT: (
+    "composition occurrence"
+  ),
+}
+
+
+def _render_operation_query_statement(
+  statement,
+) -> str:
+  latex = (
+    render_toda_proof_statement_latex(
+      statement
+    )
+  )
+
+  if latex is None:
+    try:
+      latex = (
+        render_repository_conclusion_latex(
+          statement
+        )
+      )
+    except (
+      TypeError,
+      ValueError,
+    ):
+      return format_statement(
+        statement
+      )
+
+  return (
+    "$"
+    + latex
+    + "$"
+  )
+
+
+def render_repository_operation_query_markdown(
+  result: RepositoryOperationQueryResult,
+) -> str:
+  if not isinstance(
+    result,
+    RepositoryOperationQueryResult,
+  ):
+    raise TypeError(
+      "result must be a "
+      "RepositoryOperationQueryResult"
+    )
+
+  lines = [
+    "# Known repository facts",
+    "",
+  ]
+
+  for index, match in enumerate(
+    result.matches,
+    start=1,
+  ):
+    if index > 1:
+      lines.append(
+        ""
+      )
+
+    node = match.scope_node
+
+    lines.extend(
+      (
+        (
+          str(index)
+          + ". "
+          + _render_operation_query_statement(
+            match.statement
+          )
+        ),
+        (
+          "   - Match: "
+          + _MATCH_LABELS[
+            match.match_kind
+          ]
+        ),
+        (
+          "   - Root: "
+          + node.root_entry.key
+        ),
+        (
+          "   - Depth: "
+          + str(
+            node.shortest_depth
+          )
+        ),
+      )
+    )
+
+    if node.root_entry.phase is not None:
+      lines.append(
+        (
+          "   - Phase: "
+          + node.root_entry.phase
+        )
+      )
+
+    if node.root_entry.theorem is not None:
+      lines.append(
+        (
+          "   - Theorem: "
+          + node.root_entry.theorem
+        )
+      )
+
+  return (
+    "\n".join(
+      lines
+    )
+    + "\n"
+  )

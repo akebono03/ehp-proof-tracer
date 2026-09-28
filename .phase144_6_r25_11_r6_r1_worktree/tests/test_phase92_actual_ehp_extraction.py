@@ -1,0 +1,319 @@
+from functools import lru_cache
+
+from homotopy_groups import (
+  TodaEHPSequence,
+)
+from map_facts import (
+  EHP_DELTA_MAP,
+  EHP_E_MAP,
+  EHP_H_MAP,
+)
+from proof import ProofRule
+from proof_repository import (
+  ProofRepositoryEntry,
+)
+from test_phase68_pi9_5_nu5_eta8 import (
+  build_phase68_6_data,
+)
+from toda_ehp_extraction import (
+  extract_toda_ehp_sequence_result,
+)
+from toda_ehp_result import (
+  TodaEHPExactnessWindowResult,
+  TodaEHPSequenceResult,
+)
+from toda_group_result import (
+  TodaGroupResult,
+  normalize_toda_group_result,
+)
+
+
+@lru_cache(maxsize=1)
+def build_phase92_3_data():
+  phase68 = (
+    build_phase68_6_data()
+  )
+
+  entry = ProofRepositoryEntry(
+    key=(
+      "phase92.actual.pi9_5"
+    ),
+    step=phase68[
+      "final_step"
+    ],
+    phase="68",
+    theorem=(
+      "Toda Proposition 5.8 "
+      "pi_9^5"
+    ),
+  )
+
+  group_result = (
+    normalize_toda_group_result(
+      entry
+    )
+  )
+
+  ehp_result = (
+    extract_toda_ehp_sequence_result(
+      group_result
+    )
+  )
+
+  return {
+    "phase68": phase68,
+    "entry": entry,
+    "group_result": group_result,
+    "ehp_result": ehp_result,
+  }
+
+
+def test_phase92_3_uses_actual_theorem_backed_group_result():
+  data = build_phase92_3_data()
+
+  assert isinstance(
+    data[
+      "group_result"
+    ],
+    TodaGroupResult,
+  )
+
+  assert (
+    data[
+      "group_result"
+    ].proof_step
+    is data[
+      "phase68"
+    ][
+      "final_step"
+    ]
+  )
+
+
+def test_phase92_3_extracts_actual_ehp_sequence_result():
+  data = build_phase92_3_data()
+
+  assert isinstance(
+    data[
+      "ehp_result"
+    ],
+    TodaEHPSequenceResult,
+  )
+
+
+def test_phase92_3_preserves_actual_target():
+  data = build_phase92_3_data()
+
+  assert (
+    data[
+      "ehp_result"
+    ].target
+    is data[
+      "group_result"
+    ].target
+  )
+
+
+def test_phase92_3_extracts_all_exactness_reachable_from_final_proof():
+  data = build_phase92_3_data()
+
+  phase68 = data[
+    "phase68"
+  ]
+
+  extracted_windows = tuple(
+    result.window
+    for result in (
+      data[
+        "ehp_result"
+      ].windows
+    )
+  )
+
+  delta_e_window = (
+    phase68[
+      "delta_e_exactness_step"
+    ].conclusion.window
+  )
+
+  e_h_window = (
+    phase68[
+      "e_h_exactness_step"
+    ].conclusion.window
+  )
+
+  h_delta_window = (
+    phase68[
+      "h_delta_exactness_step"
+    ].conclusion.window
+  )
+
+  assert extracted_windows == (
+    delta_e_window,
+    e_h_window,
+    h_delta_window,
+  )
+
+
+def test_phase92_3_preserves_actual_window_identity():
+  data = build_phase92_3_data()
+
+  phase68 = data[
+    "phase68"
+  ]
+
+  assert (
+    data[
+      "ehp_result"
+    ].windows[
+      0
+    ].window
+    is phase68[
+      "delta_e_exactness_step"
+    ].conclusion.window
+  )
+
+  assert (
+    data[
+      "ehp_result"
+    ].windows[
+      1
+    ].window
+    is phase68[
+      "e_h_exactness_step"
+    ].conclusion.window
+  )
+
+  assert (
+    data[
+      "ehp_result"
+    ].windows[
+      2
+    ].window
+    is phase68[
+      "h_delta_exactness_step"
+    ].conclusion.window
+  )
+
+
+def test_phase92_3_window_results_use_phase92_2_representation():
+  data = build_phase92_3_data()
+
+  assert all(
+    isinstance(
+      result,
+      TodaEHPExactnessWindowResult,
+    )
+    for result in (
+      data[
+        "ehp_result"
+      ].windows
+    )
+  )
+
+
+def test_phase92_3_builds_actual_pi9_5_ehp_chain():
+  data = build_phase92_3_data()
+
+  sequence = (
+    data[
+      "ehp_result"
+    ].sequence
+  )
+
+  phase68 = data[
+    "phase68"
+  ]
+
+  delta_e_window = (
+    phase68[
+      "delta_e_exactness_step"
+    ].conclusion.window
+  )
+
+  e_h_window = (
+    phase68[
+      "e_h_exactness_step"
+    ].conclusion.window
+  )
+
+  h_delta_window = (
+    phase68[
+      "h_delta_exactness_step"
+    ].conclusion.window
+  )
+
+  assert isinstance(
+    sequence,
+    TodaEHPSequence,
+  )
+
+  assert sequence.terms == (
+    delta_e_window.source_term,
+    delta_e_window.middle_term,
+    delta_e_window.target_term,
+    e_h_window.target_term,
+    h_delta_window.target_term,
+  )
+
+  assert sequence.maps == (
+    EHP_DELTA_MAP,
+    EHP_E_MAP,
+    EHP_H_MAP,
+    EHP_DELTA_MAP,
+  )
+
+
+def test_phase92_3_target_occurs_in_extracted_sequence():
+  data = build_phase92_3_data()
+
+  assert (
+    data[
+      "group_result"
+    ].target
+    in data[
+      "ehp_result"
+    ].sequence.terms
+  )
+
+
+def test_phase92_3_extraction_does_not_replace_actual_proof_step():
+  data = build_phase92_3_data()
+
+  assert (
+    data[
+      "group_result"
+    ].proof_step
+    is data[
+      "entry"
+    ].step
+  )
+
+
+def test_phase92_3_actual_exactness_steps_remain_inference_steps():
+  data = build_phase92_3_data()
+
+  phase68 = data[
+    "phase68"
+  ]
+
+  assert (
+    phase68[
+      "delta_e_exactness_step"
+    ].rule
+    == ProofRule.INFERENCE
+  )
+
+  assert (
+    phase68[
+      "e_h_exactness_step"
+    ].rule
+    == ProofRule.INFERENCE
+  )
+
+  assert (
+    phase68[
+      "h_delta_exactness_step"
+    ].rule
+    == ProofRule.INFERENCE
+  )

@@ -1,0 +1,35 @@
+Phase 144-6-R5-2 Narrative frontier required-depth audit
+
+変更対象:
+- production code: なし
+- tests: なし
+- docs: なし
+
+監査対象:
+- toda_group_proof_narrative_argument_multi_renderer.py
+  - _toda_group_proof_narrative_argument_frontier_hidden_step_ids()
+- toda_group_proof_narrative_argument_local_body.py
+  - extract_toda_group_proof_narrative_argument_local_body_blocks()
+- toda_group_proof_narrative_arguments.py
+  - build_toda_group_proof_narrative_arguments()
+  - extract_toda_group_proof_narrative_argument_conclusion_step()
+- toda_group_result_proof_replay.py
+  - replay step depth
+
+代表群:
+- pi_6^3
+- pi_8^5
+- pi_10^4
+- pi_12^5
+- pi_15^8
+- pi_16^9
+
+目的:
+R4 の current frontier helper が visible と判定する ProofStep について、
+各 Argument が要求する replay depth と Narrative 全体の required depth を実測する。
+
+重要:
+- n/k による特別扱いなし。
+- pi_6^3 固有 statement 判定なし。
+- production code は変更しない。
+- full pytest は実行しない。

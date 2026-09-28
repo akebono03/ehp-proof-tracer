@@ -1,0 +1,249 @@
+from expression import (
+  GeneratorSymbol,
+)
+from generator_facts import (
+  GENERATOR_FACT_REPOSITORY,
+)
+from homotopy_groups import (
+  FiniteCyclicGroup,
+  TodaPrimaryGroup,
+)
+from proof import (
+  Relation,
+  RelationType,
+)
+from repository_generator_known_group_identity_lookup import (
+  find_standard_repository_generator_known_group_identity_input,
+  find_standard_repository_generator_known_group_identity_nodes,
+)
+
+
+SIGMA_9 = GeneratorSymbol(
+  family="σ",
+  index=9,
+)
+
+
+def test_phase109_18_sigma9_still_has_no_explicit_ambient_group_fact():
+  assert (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_ambient_group(
+      SIGMA_9
+    )
+    is None
+  )
+
+
+def test_phase109_18_sigma9_resolves_one_recursive_known_group_identity():
+  nodes = (
+    find_standard_repository_generator_known_group_identity_nodes(
+      SIGMA_9
+    )
+  )
+
+  assert len(
+    nodes
+  ) == 1
+
+  assert (
+    nodes[
+      0
+    ].shortest_depth
+    > 0
+  )
+
+
+def test_phase109_18_sigma9_known_group_is_pi16_9_z16_sigma9():
+  conclusion = (
+    find_standard_repository_generator_known_group_identity_nodes(
+      SIGMA_9
+    )[
+      0
+    ]
+    .proof_step
+    .conclusion
+  )
+
+  assert isinstance(
+    conclusion,
+    Relation,
+  )
+
+  assert (
+    conclusion.relation_type
+    is RelationType.EQUALITY
+  )
+
+  assert (
+    conclusion.lhs
+    == TodaPrimaryGroup(
+      group_dimension=16,
+      sphere_dimension=9,
+    )
+  )
+
+  assert isinstance(
+    conclusion.rhs,
+    FiniteCyclicGroup,
+  )
+
+  assert (
+    conclusion.rhs.order
+    == 16
+  )
+
+  assert (
+    conclusion.rhs
+    .generator
+    .generator
+    == SIGMA_9
+  )
+
+
+def test_phase109_18_sigma9_input_facade_uses_same_fallback():
+  nodes = (
+    find_standard_repository_generator_known_group_identity_input(
+      "sigma_9"
+    )
+  )
+
+  assert len(
+    nodes
+  ) == 1
+
+  assert (
+    nodes[
+      0
+    ].proof_step.conclusion.lhs
+    == TodaPrimaryGroup(
+      group_dimension=16,
+      sphere_dimension=9,
+    )
+  )
+
+
+def test_phase109_18_sigma10_remains_unsupported_without_symbolic_specialization():
+  sigma_10 = GeneratorSymbol(
+    family="σ",
+    index=10,
+  )
+
+  assert (
+    GENERATOR_FACT_REPOSITORY
+    .lookup_ambient_group(
+      sigma_10
+    )
+    is None
+  )
+
+  assert (
+    find_standard_repository_generator_known_group_identity_nodes(
+      sigma_10
+    )
+    == ()
+  )
+
+
+def test_phase109_18_sigma8_direct_sum_fallback_still_works():
+  sigma_8 = GeneratorSymbol(
+    family="σ",
+    index=8,
+  )
+
+  nodes = (
+    find_standard_repository_generator_known_group_identity_nodes(
+      sigma_8
+    )
+  )
+
+  assert len(
+    nodes
+  ) == 1
+
+  assert (
+    nodes[
+      0
+    ].proof_step.conclusion.lhs
+    == TodaPrimaryGroup(
+      group_dimension=15,
+      sphere_dimension=8,
+    )
+  )
+
+
+def test_phase109_18_decorated_sigma_fallback_still_works():
+  for generator, expected_group in (
+    (
+      GeneratorSymbol(
+        family="σ",
+        decoration="'''",
+      ),
+      TodaPrimaryGroup(
+        group_dimension=12,
+        sphere_dimension=5,
+      ),
+    ),
+    (
+      GeneratorSymbol(
+        family="σ",
+        decoration="''",
+      ),
+      TodaPrimaryGroup(
+        group_dimension=13,
+        sphere_dimension=6,
+      ),
+    ),
+    (
+      GeneratorSymbol(
+        family="σ",
+        decoration="'",
+      ),
+      TodaPrimaryGroup(
+        group_dimension=14,
+        sphere_dimension=7,
+      ),
+    ),
+  ):
+    nodes = (
+      find_standard_repository_generator_known_group_identity_nodes(
+        generator
+      )
+    )
+
+    assert len(
+      nodes
+    ) == 1
+
+    assert (
+      nodes[
+        0
+      ].proof_step.conclusion.lhs
+      == expected_group
+    )
+
+
+def test_phase109_18_nu5_fallback_still_works():
+  nu_5 = GeneratorSymbol(
+    family="ν",
+    index=5,
+  )
+
+  nodes = (
+    find_standard_repository_generator_known_group_identity_nodes(
+      nu_5
+    )
+  )
+
+  assert len(
+    nodes
+  ) == 1
+
+  assert (
+    nodes[
+      0
+    ].proof_step.conclusion.lhs
+    == TodaPrimaryGroup(
+      group_dimension=8,
+      sphere_dimension=5,
+    )
+  )

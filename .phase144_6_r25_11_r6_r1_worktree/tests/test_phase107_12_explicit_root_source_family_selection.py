@@ -1,0 +1,361 @@
+import pytest
+
+from proof import (
+  ProofRule,
+  ProofStep,
+)
+from proof_repository import (
+  ProofRepositoryEntry,
+)
+from repository_generator_qualified_execution_family import (
+  group_qualified_repository_generator_execution_families,
+)
+from repository_generator_qualified_execution_family_selection import (
+  RepositoryGeneratorQualifiedExecutionFamilySelection,
+  select_qualified_repository_generator_execution_family_by_root_source_and_family,
+)
+from test_phase105_14_qualified_execution_family_grouping import (
+  _build_phase105_14_fixture,
+)
+
+
+_FAMILY_NAME = (
+  "toda_58_delta_iota9_nu4_nu_prime_inference_rule"
+)
+
+
+def _build_phase107_12_grouping():
+  data = _build_phase105_14_fixture()
+
+  grouping = (
+    group_qualified_repository_generator_execution_families(
+      data[
+        "selection"
+      ]
+    )
+  )
+
+  assert len(
+    grouping.groups
+  ) == 2
+
+  return (
+    data,
+    grouping,
+  )
+
+
+def test_phase107_12_explicit_selection_returns_original_group_identity():
+  _, grouping = (
+    _build_phase107_12_grouping()
+  )
+
+  target_group = (
+    grouping.groups[
+      0
+    ]
+  )
+
+  selection = (
+    select_qualified_repository_generator_execution_family_by_root_source_and_family(
+      grouping,
+      target_group.root_entry,
+      target_group.source_step,
+      _FAMILY_NAME,
+    )
+  )
+
+  assert isinstance(
+    selection,
+    RepositoryGeneratorQualifiedExecutionFamilySelection,
+  )
+
+  assert selection.grouping is grouping
+  assert selection.groups == (
+    target_group,
+  )
+  assert (
+    selection.selected_group
+    is target_group
+  )
+  assert (
+    selection.representative
+    is target_group.representative
+  )
+
+
+def test_phase107_12_explicit_selection_uses_root_and_source_identity():
+  _, grouping = (
+    _build_phase107_12_grouping()
+  )
+
+  first_group = (
+    grouping.groups[
+      0
+    ]
+  )
+  second_group = (
+    grouping.groups[
+      1
+    ]
+  )
+
+  first_selection = (
+    select_qualified_repository_generator_execution_family_by_root_source_and_family(
+      grouping,
+      first_group.root_entry,
+      first_group.source_step,
+      _FAMILY_NAME,
+    )
+  )
+
+  second_selection = (
+    select_qualified_repository_generator_execution_family_by_root_source_and_family(
+      grouping,
+      second_group.root_entry,
+      second_group.source_step,
+      _FAMILY_NAME,
+    )
+  )
+
+  assert (
+    first_selection.selected_group
+    is first_group
+  )
+  assert (
+    second_selection.selected_group
+    is second_group
+  )
+
+
+def test_phase107_12_known_family_with_valid_other_source_selects_matching_group():
+  _, grouping = (
+    _build_phase107_12_grouping()
+  )
+
+  first_group = (
+    grouping.groups[
+      0
+    ]
+  )
+  second_group = (
+    grouping.groups[
+      1
+    ]
+  )
+
+  assert (
+    first_group.root_entry
+    is second_group.root_entry
+  )
+
+  selection = (
+    select_qualified_repository_generator_execution_family_by_root_source_and_family(
+      grouping,
+      first_group.root_entry,
+      second_group.source_step,
+      _FAMILY_NAME,
+    )
+  )
+
+  assert selection.groups == (
+    second_group,
+  )
+  assert (
+    selection.selected_group
+    is second_group
+  )
+  assert (
+    selection.representative
+    is second_group.representative
+  )
+
+
+def test_phase107_12_rejects_unknown_family_name():
+  _, grouping = (
+    _build_phase107_12_grouping()
+  )
+
+  target_group = (
+    grouping.groups[
+      0
+    ]
+  )
+
+  with pytest.raises(
+    ValueError,
+    match=(
+      "family_name must identify an original family "
+      "from grouping"
+    ),
+  ):
+    select_qualified_repository_generator_execution_family_by_root_source_and_family(
+      grouping,
+      target_group.root_entry,
+      target_group.source_step,
+      "phase107.12.unknown.family",
+    )
+
+
+def test_phase107_12_rejects_non_string_family_name():
+  _, grouping = (
+    _build_phase107_12_grouping()
+  )
+
+  target_group = (
+    grouping.groups[
+      0
+    ]
+  )
+
+  with pytest.raises(
+    TypeError,
+    match="family_name must be a str",
+  ):
+    select_qualified_repository_generator_execution_family_by_root_source_and_family(
+      grouping,
+      target_group.root_entry,
+      target_group.source_step,
+      object(),
+    )
+
+
+def test_phase107_12_rejects_foreign_root_identity():
+  _, grouping = (
+    _build_phase107_12_grouping()
+  )
+
+  target_group = (
+    grouping.groups[
+      0
+    ]
+  )
+
+  foreign_root = (
+    ProofRepositoryEntry(
+      key="phase107.12.foreign.root",
+      step=ProofStep(
+        conclusion="foreign root",
+        premises=(),
+        rule=ProofRule.GIVEN,
+      ),
+    )
+  )
+
+  with pytest.raises(
+    ValueError,
+    match=(
+      "root_entry must be an original root entry "
+      "from grouping"
+    ),
+  ):
+    select_qualified_repository_generator_execution_family_by_root_source_and_family(
+      grouping,
+      foreign_root,
+      target_group.source_step,
+      _FAMILY_NAME,
+    )
+
+
+def test_phase107_12_rejects_foreign_source_identity():
+  _, grouping = (
+    _build_phase107_12_grouping()
+  )
+
+  target_group = (
+    grouping.groups[
+      0
+    ]
+  )
+
+  foreign_source = ProofStep(
+    conclusion="foreign source",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  with pytest.raises(
+    ValueError,
+    match=(
+      "source_step must be an original source step "
+      "from grouping"
+    ),
+  ):
+    select_qualified_repository_generator_execution_family_by_root_source_and_family(
+      grouping,
+      target_group.root_entry,
+      foreign_source,
+      _FAMILY_NAME,
+    )
+
+
+def test_phase107_12_rejects_non_grouping():
+  _, grouping = (
+    _build_phase107_12_grouping()
+  )
+
+  target_group = (
+    grouping.groups[
+      0
+    ]
+  )
+
+  with pytest.raises(
+    TypeError,
+    match=(
+      "grouping must be a "
+      "RepositoryGeneratorQualifiedExecutionFamilyGrouping"
+    ),
+  ):
+    select_qualified_repository_generator_execution_family_by_root_source_and_family(
+      object(),
+      target_group.root_entry,
+      target_group.source_step,
+      _FAMILY_NAME,
+    )
+
+
+def test_phase107_12_rejects_non_root_entry():
+  _, grouping = (
+    _build_phase107_12_grouping()
+  )
+
+  target_group = (
+    grouping.groups[
+      0
+    ]
+  )
+
+  with pytest.raises(
+    TypeError,
+    match="root_entry must be a ProofRepositoryEntry",
+  ):
+    select_qualified_repository_generator_execution_family_by_root_source_and_family(
+      grouping,
+      object(),
+      target_group.source_step,
+      _FAMILY_NAME,
+    )
+
+
+def test_phase107_12_rejects_non_source_step():
+  _, grouping = (
+    _build_phase107_12_grouping()
+  )
+
+  target_group = (
+    grouping.groups[
+      0
+    ]
+  )
+
+  with pytest.raises(
+    TypeError,
+    match="source_step must be a ProofStep",
+  ):
+    select_qualified_repository_generator_execution_family_by_root_source_and_family(
+      grouping,
+      target_group.root_entry,
+      object(),
+      _FAMILY_NAME,
+    )

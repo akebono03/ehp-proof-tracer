@@ -1,0 +1,582 @@
+from typing import (
+  get_type_hints,
+)
+
+from barratt_hilton_rules import (
+  HomotopyGroupMembershipStatement,
+)
+from expression import (
+  HomotopyElement,
+  ScalarSum,
+  ScalarSymbol,
+  ScalarValue,
+)
+from homotopy_groups import (
+  PrimaryComponent,
+  TodaPrimaryGroup,
+)
+from probes.probe_phase40_capabilities import (
+  build_phase40_representative_groups,
+  toda_primary_group_text,
+)
+
+
+def test_phase40_1_primary_component_uses_existing_scalar_value_dimensions():
+  type_hints = get_type_hints(
+    PrimaryComponent
+  )
+
+  assert type_hints[
+    "group_dimension"
+  ] == ScalarValue
+
+  assert type_hints[
+    "sphere_dimension"
+  ] == ScalarValue
+
+
+def test_phase40_1_homotopy_group_membership_uses_same_scalar_value_dimensions():
+  type_hints = get_type_hints(
+    HomotopyGroupMembershipStatement
+  )
+
+  assert type_hints[
+    "group_dimension"
+  ] == ScalarValue
+
+  assert type_hints[
+    "sphere_dimension"
+  ] == ScalarValue
+
+
+def test_phase40_1_primary_component_and_homotopy_group_membership_share_concrete_dimensions():
+  component = PrimaryComponent(
+    group_dimension=8,
+    sphere_dimension=5,
+    prime=2,
+  )
+
+  membership = HomotopyGroupMembershipStatement(
+    element=HomotopyElement(
+      name="a",
+      dimension=3,
+    ),
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  assert component.group_dimension == (
+    membership.group_dimension
+  )
+
+  assert component.sphere_dimension == (
+    membership.sphere_dimension
+  )
+
+
+def test_phase40_1_primary_component_and_homotopy_group_membership_share_symbolic_dimensions():
+  i = ScalarSymbol(
+    name="i",
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  component = PrimaryComponent(
+    group_dimension=i,
+    sphere_dimension=n,
+    prime=2,
+  )
+
+  membership = HomotopyGroupMembershipStatement(
+    element=HomotopyElement(
+      name="a",
+      dimension=1,
+    ),
+    group_dimension=i,
+    sphere_dimension=n,
+  )
+
+  assert component.group_dimension is i
+  assert component.sphere_dimension is n
+
+  assert membership.group_dimension is i
+  assert membership.sphere_dimension is n
+
+
+def test_phase40_2_toda_primary_group_represents_concrete_group():
+  group = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  assert group.group_dimension == 8
+  assert group.sphere_dimension == 5
+
+
+def test_phase40_2_toda_primary_group_supports_symbolic_dimensions():
+  i = ScalarSymbol(
+    name="i",
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  group = TodaPrimaryGroup(
+    group_dimension=i,
+    sphere_dimension=n,
+  )
+
+  assert group.group_dimension is i
+  assert group.sphere_dimension is n
+
+
+def test_phase40_2_toda_primary_group_structural_equality_uses_both_dimensions():
+  first = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  same = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  different_group_dimension = TodaPrimaryGroup(
+    group_dimension=9,
+    sphere_dimension=5,
+  )
+
+  different_sphere_dimension = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=6,
+  )
+
+  assert first == same
+  assert first != different_group_dimension
+  assert first != different_sphere_dimension
+
+
+def test_phase40_3_toda_primary_group_is_distinct_from_primary_component():
+  toda_group = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  primary_component = PrimaryComponent(
+    group_dimension=8,
+    sphere_dimension=5,
+    prime=2,
+  )
+
+  assert not isinstance(
+    toda_group,
+    PrimaryComponent,
+  )
+
+  assert toda_group != primary_component
+
+
+def test_phase40_3_toda_primary_group_is_distinct_from_homotopy_group_membership():
+  toda_group = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  membership = HomotopyGroupMembershipStatement(
+    element=HomotopyElement(
+      name="a",
+      dimension=3,
+    ),
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  assert not isinstance(
+    toda_group,
+    HomotopyGroupMembershipStatement,
+  )
+
+  assert toda_group != membership
+
+
+def test_phase40_3_toda_primary_group_has_no_prime_field():
+  group = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  assert not hasattr(
+    group,
+    "prime",
+  )
+
+
+def test_phase40_3_toda_primary_group_has_no_membership_element():
+  group = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  assert not hasattr(
+    group,
+    "element",
+  )
+
+
+def test_phase40_4_toda_primary_group_uses_existing_scalar_value_dimension_types():
+  type_hints = get_type_hints(
+    TodaPrimaryGroup
+  )
+
+  assert type_hints[
+    "group_dimension"
+  ] == ScalarValue
+
+  assert type_hints[
+    "sphere_dimension"
+  ] == ScalarValue
+
+
+def test_phase40_4_toda_primary_group_matches_existing_concrete_dimension_representation():
+  toda_group = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  primary_component = PrimaryComponent(
+    group_dimension=8,
+    sphere_dimension=5,
+    prime=2,
+  )
+
+  membership = HomotopyGroupMembershipStatement(
+    element=HomotopyElement(
+      name="a",
+      dimension=3,
+    ),
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  assert toda_group.group_dimension == (
+    primary_component.group_dimension
+  )
+
+  assert toda_group.sphere_dimension == (
+    primary_component.sphere_dimension
+  )
+
+  assert toda_group.group_dimension == (
+    membership.group_dimension
+  )
+
+  assert toda_group.sphere_dimension == (
+    membership.sphere_dimension
+  )
+
+
+def test_phase40_4_toda_primary_group_matches_existing_symbolic_dimension_representation():
+  i = ScalarSymbol(
+    name="i",
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  toda_group = TodaPrimaryGroup(
+    group_dimension=i,
+    sphere_dimension=n,
+  )
+
+  primary_component = PrimaryComponent(
+    group_dimension=i,
+    sphere_dimension=n,
+    prime=2,
+  )
+
+  membership = HomotopyGroupMembershipStatement(
+    element=HomotopyElement(
+      name="a",
+      dimension=1,
+    ),
+    group_dimension=i,
+    sphere_dimension=n,
+  )
+
+  assert toda_group.group_dimension is i
+  assert toda_group.sphere_dimension is n
+
+  assert toda_group.group_dimension is (
+    primary_component.group_dimension
+  )
+
+  assert toda_group.sphere_dimension is (
+    primary_component.sphere_dimension
+  )
+
+  assert toda_group.group_dimension is (
+    membership.group_dimension
+  )
+
+  assert toda_group.sphere_dimension is (
+    membership.sphere_dimension
+  )
+
+
+def test_phase40_4_toda_primary_group_accepts_compound_symbolic_group_dimension():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  n_plus_one = ScalarSum(
+    left=n,
+    right=1,
+  )
+
+  group = TodaPrimaryGroup(
+    group_dimension=n_plus_one,
+    sphere_dimension=n,
+  )
+
+  assert group.group_dimension == ScalarSum(
+    left=n,
+    right=1,
+  )
+
+  assert group.sphere_dimension is n
+
+
+def test_phase40_4_toda_primary_group_accepts_compound_symbolic_sphere_dimension():
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  n_plus_one = ScalarSum(
+    left=n,
+    right=1,
+  )
+
+  group = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=n_plus_one,
+  )
+
+  assert group.group_dimension == 8
+
+  assert group.sphere_dimension == ScalarSum(
+    left=n,
+    right=1,
+  )
+
+
+def test_phase40_5_toda_primary_group_has_no_evaluated_definition():
+  group = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  assert not hasattr(
+    group,
+    "definition",
+  )
+
+  assert not hasattr(
+    group,
+    "evaluated_definition",
+  )
+
+
+def test_phase40_5_toda_primary_group_has_no_preimage_representation():
+  group = TodaPrimaryGroup(
+    group_dimension=9,
+    sphere_dimension=5,
+  )
+
+  assert not hasattr(
+    group,
+    "preimage",
+  )
+
+  assert not hasattr(
+    group,
+    "preimage_subgroup",
+  )
+
+
+def test_phase40_5_toda_primary_group_has_no_subgroup_representation():
+  group = TodaPrimaryGroup(
+    group_dimension=9,
+    sphere_dimension=5,
+  )
+
+  assert not hasattr(
+    group,
+    "subgroup",
+  )
+
+  assert not hasattr(
+    group,
+    "to_subgroup",
+  )
+
+
+def test_phase40_5_toda_primary_group_has_no_automatic_primary_component_conversion():
+  group = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  assert not hasattr(
+    group,
+    "primary_component",
+  )
+
+  assert not hasattr(
+    group,
+    "to_primary_component",
+  )
+
+
+def test_phase40_5_toda_primary_group_has_no_theorem_provenance():
+  group = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  assert not hasattr(
+    group,
+    "source",
+  )
+
+  assert not hasattr(
+    group,
+    "theorem",
+  )
+
+  assert not hasattr(
+    group,
+    "provenance",
+  )
+
+
+def test_phase40_6_representative_builder_constructs_expected_groups():
+  result = (
+    build_phase40_representative_groups()
+  )
+
+  assert result[
+    "concrete_group"
+  ] == TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+
+  assert result[
+    "symbolic_group"
+  ] == TodaPrimaryGroup(
+    group_dimension=ScalarSymbol(
+      name="i",
+    ),
+    sphere_dimension=ScalarSymbol(
+      name="n",
+    ),
+  )
+
+  assert result[
+    "critical_degree_group"
+  ] == TodaPrimaryGroup(
+    group_dimension=9,
+    sphere_dimension=5,
+  )
+
+  assert result[
+    "matching_primary_component"
+  ] == PrimaryComponent(
+    group_dimension=8,
+    sphere_dimension=5,
+    prime=2,
+  )
+
+
+def test_phase40_6_representative_builder_preserves_phase40_boundary():
+  result = (
+    build_phase40_representative_groups()
+  )
+
+  concrete_group = result[
+    "concrete_group"
+  ]
+
+  critical_group = result[
+    "critical_degree_group"
+  ]
+
+  primary_component = result[
+    "matching_primary_component"
+  ]
+
+  assert concrete_group != (
+    primary_component
+  )
+
+  assert not hasattr(
+    concrete_group,
+    "prime",
+  )
+
+  assert not hasattr(
+    concrete_group,
+    "element",
+  )
+
+  assert not hasattr(
+    critical_group,
+    "evaluated_definition",
+  )
+
+  assert not hasattr(
+    critical_group,
+    "preimage_subgroup",
+  )
+
+  assert not hasattr(
+    critical_group,
+    "to_primary_component",
+  )
+
+  assert not hasattr(
+    critical_group,
+    "provenance",
+  )
+
+
+def test_phase40_6_toda_primary_group_text_displays_representative_notation():
+  result = (
+    build_phase40_representative_groups()
+  )
+
+  assert toda_primary_group_text(
+    result[
+      "concrete_group"
+    ]
+  ) == "π_8^5"
+
+  assert toda_primary_group_text(
+    result[
+      "symbolic_group"
+    ]
+  ) == "π_i^n"
+
+  assert toda_primary_group_text(
+    result[
+      "critical_degree_group"
+    ]
+  ) == "π_9^5"
+
+
+
+
