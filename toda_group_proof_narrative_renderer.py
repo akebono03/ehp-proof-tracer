@@ -32,6 +32,9 @@ from toda_group_proof_narrative_arguments import (
 from toda_group_proof_narrative_argument_multi_renderer import (
   render_toda_group_proof_narrative_multi_argument_markdown,
 )
+from toda_group_proof_narrative_contribution_renderer import (
+  render_toda_group_proof_narrative_multi_argument_with_contributions_markdown,
+)
 from toda_group_proof_narrative_blocks import (
   build_toda_group_proof_narrative_blocks,
 )
@@ -3805,7 +3808,7 @@ def render_toda_group_proof_narrative_markdown(
     )
 
     return (
-      render_toda_group_proof_narrative_multi_argument_markdown(
+      render_toda_group_proof_narrative_multi_argument_with_contributions_markdown(
         presentation,
         blocks,
         semantic_sidecar,
