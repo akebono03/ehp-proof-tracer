@@ -1,0 +1,53 @@
+Phase 146-9 Historical Difference Root-Cause Classification
+
+Purpose
+-------
+Consolidate the 12 visible difference families identified after Phase 146-8
+into internal root-cause families.
+
+Inputs
+------
+- Current local code, including the locally applied Phase 146-7 change.
+- phase146_8_historical_narrative_structural_diff.md
+
+Production changes
+------------------
+None.
+
+Existing test changes
+---------------------
+None.
+
+Dynamic diagnostics
+-------------------
+For pi_6^3, the audit measures each NarrativeArgument:
+- method-evidence exactness blocks
+- exactness method components
+- primary exactness component selection
+- ordered contribution count
+- supporting block roles
+
+It also checks the renderer layering:
+- base multi-argument renderer
+- contribution-connected renderer
+- direct-dependency argument construction
+- post-render contribution insertion
+
+Output
+------
+phase146_9_historical_difference_root_causes.md
+
+The report proposes root-cause families and a dependency order. These are audit
+results, not production changes.
+
+Full suite
+----------
+Not run. Phase 146-9 is an audit only.
+
+R1 repair
+---------
+The initial audit harness guessed the selector module name incorrectly.
+Current develop imports
+select_toda_group_proof_narrative_primary_exactness_component
+from toda_group_proof_narrative_exactness_selection.
+R1 uses that exact current module. Audit logic is otherwise unchanged.
