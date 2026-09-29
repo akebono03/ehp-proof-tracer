@@ -36,9 +36,6 @@ from toda_group_proof_narrative_blocks import (
   TodaGroupProofNarrativeBlock,
   TodaGroupProofNarrativeMathematicalBlockRole,
 )
-from toda_group_proof_narrative_exactness_components import (
-  build_toda_group_proof_narrative_exactness_method_components,
-)
 from toda_group_proof_narrative_equation_numbering import (
   number_toda_group_proof_narrative_equations,
 )
@@ -49,13 +46,10 @@ from toda_group_proof_narrative_exactness_display_contributions import (
   extract_toda_group_proof_narrative_exactness_display_contributions,
 )
 from toda_group_proof_narrative_exactness_selection import (
-  select_toda_group_proof_narrative_primary_exactness_component,
+  select_toda_group_proof_narrative_argument_primary_exactness_component,
 )
 from toda_group_proof_narrative_method_evidence import (
   extract_toda_group_proof_narrative_argument_method_evidence,
-)
-from toda_group_proof_narrative_relevant_groups import (
-  extract_toda_group_proof_narrative_argument_relevant_groups,
 )
 from toda_group_proof_narrative_references import (
   build_toda_group_proof_narrative_reference_entries,
@@ -287,13 +281,6 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
       )
     ]
 
-    relevant_groups = (
-      extract_toda_group_proof_narrative_argument_relevant_groups(
-        presentation,
-        blocks,
-        argument,
-      )
-    )
     evidence = (
       extract_toda_group_proof_narrative_argument_method_evidence(
         presentation,
@@ -303,15 +290,13 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
         argument_index,
       )
     )
-    components = (
-      build_toda_group_proof_narrative_exactness_method_components(
-        evidence
-      )
-    )
     primary_component = (
-      select_toda_group_proof_narrative_primary_exactness_component(
-        relevant_groups,
-        components,
+      select_toda_group_proof_narrative_argument_primary_exactness_component(
+        presentation,
+        blocks,
+        semantic_sidecar,
+        arguments,
+        argument_index,
       )
     )
     local_body_blocks = (
