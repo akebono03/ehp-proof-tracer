@@ -2270,3 +2270,4 @@ final equation numbering / prose formatting
 ```
 
 したがって次は Phase 148 / RC2 `Recursive exactness evidence exposure` とする。
+
