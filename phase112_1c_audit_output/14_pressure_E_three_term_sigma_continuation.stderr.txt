@@ -1,2 +1,0 @@
-usage: main.py query [-h] query
-main.py query: error: map-operation composition operands support exactly two generators
