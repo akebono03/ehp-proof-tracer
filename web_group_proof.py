@@ -24,7 +24,6 @@ from toda_group_proof_presentation import (
   build_toda_group_proof_presentation,
 )
 from toda_group_result_proof_replay import (
-  build_complete_toda_group_result_proof_replay,
   build_toda_group_result_proof_replay,
 )
 from toda_proof_narrative_renderer import (
@@ -948,18 +947,9 @@ def build_standard_web_group_proof_view(
   rendered_lines = ()
 
   if mode != "trace":
-    presentation_replay = replay
-
-    if mode == "narrative":
-      presentation_replay = (
-        build_complete_toda_group_result_proof_replay(
-          group_result
-        )
-      )
-
     presentation = (
       build_toda_group_proof_presentation(
-        presentation_replay
+        replay
       )
     )
 
