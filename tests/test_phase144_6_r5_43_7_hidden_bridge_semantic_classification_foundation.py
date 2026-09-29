@@ -1,5 +1,7 @@
 from collections import Counter
 
+import pytest
+
 from audit_phase144_6_r5_43_6 import (
   build_hidden_bridge_inventory,
 )
@@ -73,13 +75,25 @@ def _semantic_by_signature():
   return result
 
 
-def test_phase144_6_r5_43_7_reproduces_all_r5_43_6_hidden_bridge_signatures():
-  audit_rows = (
-    build_hidden_bridge_inventory()
-  )
-  semantic_by_signature = (
-    _semantic_by_signature()
-  )
+@pytest.fixture(
+  scope="module",
+)
+def hidden_bridge_inventory():
+  return build_hidden_bridge_inventory()
+
+
+@pytest.fixture(
+  scope="module",
+)
+def semantic_by_signature():
+  return _semantic_by_signature()
+
+
+def test_phase144_6_r5_43_7_reproduces_all_r5_43_6_hidden_bridge_signatures(
+  hidden_bridge_inventory,
+  semantic_by_signature,
+):
+  audit_rows = hidden_bridge_inventory
 
   assert len(
     audit_rows
@@ -106,13 +120,11 @@ def test_phase144_6_r5_43_7_reproduces_all_r5_43_6_hidden_bridge_signatures():
     )
 
 
-def test_phase144_6_r5_43_7_r5_43_6_population_has_two_semantic_roles():
-  audit_rows = (
-    build_hidden_bridge_inventory()
-  )
-  semantic_by_signature = (
-    _semantic_by_signature()
-  )
+def test_phase144_6_r5_43_7_r5_43_6_population_has_two_semantic_roles(
+  hidden_bridge_inventory,
+  semantic_by_signature,
+):
+  audit_rows = hidden_bridge_inventory
   actual = Counter(
     semantic_by_signature[
       (

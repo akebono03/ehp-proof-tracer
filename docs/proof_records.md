@@ -1832,3 +1832,13 @@ pi_6^3 public route gate
 Phase 147 以降で root cause を修正する場合も、stored provenance から一般的に導ける
 presentation rule だけを追加し、historical $\pi_6^3$ の文字列を直接 special case として
 埋め込まない。
+
+## final verification record
+
+Test Performance Repair 1〜9 後の repository-wide final:
+
+```text
+10306 passed in 1304.31s (0:21:44)
+```
+
+この結果を Phase 146 の final regression boundary とする。

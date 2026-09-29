@@ -2047,3 +2047,13 @@ proof search
 Phase 146 では route gate を削除しない。
 
 Phase 147 以降は6 root causes を依存順に1件ずつ扱う。
+
+## Phase 146 final repository-wide regression
+
+Test Performance Repair 1〜9 後の repository-wide final:
+
+```text
+10306 passed in 1304.31s (0:21:44)
+```
+
+Phase 146 完了。

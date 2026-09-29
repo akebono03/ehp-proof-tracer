@@ -1,3 +1,5 @@
+import pytest
+
 from test_phase144_6_r5_18_production_generic_proof_chain_foundation import (
   _context,
 )
@@ -29,7 +31,9 @@ TARGETS = (
 )
 
 
-def _inventory():
+def _inventory_from_contexts(
+  contexts_by_target,
+):
   rows = []
 
   for n, k in TARGETS:
@@ -40,10 +44,12 @@ def _inventory():
       arguments,
       aggregate_semantic_sidecar,
       proof_chains,
-    ) = _context(
-      n,
-      k,
-    )
+    ) = contexts_by_target[
+      (
+        n,
+        k,
+      )
+    ]
     base = render_toda_group_proof_narrative_multi_argument_markdown(
       presentation,
       blocks,
@@ -113,15 +119,42 @@ def _inventory():
   )
 
 
-def test_phase144_6_r5_43_11c_r2_all_non_detached_contributions_are_insertable():
-  rows=_inventory()
+@pytest.fixture(
+  scope="module",
+)
+def contexts_by_target():
+  return {
+    (n, k): _context(
+      n,
+      k,
+    )
+    for n, k in TARGETS
+  }
+
+
+@pytest.fixture(
+  scope="module",
+)
+def inventory(
+  contexts_by_target,
+):
+  return _inventory_from_contexts(
+    contexts_by_target
+  )
+
+
+def test_phase144_6_r5_43_11c_r2_all_non_detached_contributions_are_insertable(
+  inventory,
+):
+  rows=inventory
   x=tuple(row for row in rows if row[0] is not TodaGroupProofNarrativeArgumentDiscourseRole.DETACHED)
   assert x
   assert sum(row[2] for row in x) == sum(row[1] for row in x)
 
-def test_phase144_6_r5_43_11c_r2_shared_provider_does_not_reactivate_detached_argument():
-  rows=_inventory()
+def test_phase144_6_r5_43_11c_r2_shared_provider_does_not_reactivate_detached_argument(
+  inventory,
+):
+  rows=inventory
   x=tuple(row for row in rows if row[0] is TodaGroupProofNarrativeArgumentDiscourseRole.DETACHED)
   assert x
   assert 0 <= sum(row[2] for row in x) <= sum(row[1] for row in x)
-

@@ -1,3 +1,5 @@
+import pytest
+
 from test_phase144_6_r5_18_production_generic_proof_chain_foundation import (
   TARGETS,
   _context,
@@ -28,9 +30,8 @@ _EXPECTED_CONNECTOR = (
 )
 
 
-def _data(
-  n,
-  k,
+def _data_from_context(
+  context,
 ):
   (
     presentation,
@@ -39,10 +40,7 @@ def _data(
     arguments,
     aggregate_semantic_sidecar,
     proof_chains,
-  ) = _context(
-    n,
-    k,
-  )
+  ) = context
   base = render_toda_group_proof_narrative_multi_argument_markdown(
     presentation,
     blocks,
@@ -73,17 +71,59 @@ def _data(
   )
 
 
-def test_phase144_6_r5_43_10_transport_semantics_have_reference_metadata():
-  for n, k in TARGETS:
-    presentation = _context(
+@pytest.fixture(
+  scope="module",
+)
+def contexts_by_target():
+  return {
+    (n, k): _context(
       n,
       k,
-    )[0]
-    semantics = (
-      build_toda_group_proof_narrative_hidden_bridge_semantics(
-        presentation
-      )
     )
+    for n, k in TARGETS
+  }
+
+
+@pytest.fixture(
+  scope="module",
+)
+def hidden_bridge_semantics_by_target(
+  contexts_by_target,
+):
+  return {
+    target: build_toda_group_proof_narrative_hidden_bridge_semantics(
+      context[
+        0
+      ]
+    )
+    for target, context in contexts_by_target.items()
+  }
+
+
+@pytest.fixture(
+  scope="module",
+)
+def data_by_target(
+  contexts_by_target,
+):
+  return {
+    target: _data_from_context(
+      context
+    )
+    for target, context in contexts_by_target.items()
+  }
+
+
+def test_phase144_6_r5_43_10_transport_semantics_have_reference_metadata(
+  hidden_bridge_semantics_by_target,
+):
+  for n, k in TARGETS:
+    semantics = hidden_bridge_semantics_by_target[
+      (
+        n,
+        k,
+      )
+    ]
     transports = tuple(
       semantic
       for semantic in semantics
@@ -103,17 +143,16 @@ def test_phase144_6_r5_43_10_transport_semantics_have_reference_metadata():
     }
 
 
-def test_phase144_6_r5_43_10_each_transport_triplet_has_one_suspension_stabilization():
+def test_phase144_6_r5_43_10_each_transport_triplet_has_one_suspension_stabilization(
+  hidden_bridge_semantics_by_target,
+):
   for n, k in TARGETS:
-    presentation = _context(
-      n,
-      k,
-    )[0]
-    semantics = (
-      build_toda_group_proof_narrative_hidden_bridge_semantics(
-        presentation
+    semantics = hidden_bridge_semantics_by_target[
+      (
+        n,
+        k,
       )
-    )
+    ]
     transports = tuple(
       semantic
       for semantic in semantics
@@ -140,11 +179,15 @@ def test_phase144_6_r5_43_10_each_transport_triplet_has_one_suspension_stabiliza
     ) // 3
 
 
-def test_phase144_6_r5_43_10_pi6_transport_connector_is_rendered_between_c2_and_c3():
-  presentation, ordered, connected = _data(
-    3,
-    3,
-  )
+def test_phase144_6_r5_43_10_pi6_transport_connector_is_rendered_between_c2_and_c3(
+  data_by_target,
+):
+  presentation, ordered, connected = data_by_target[
+    (
+      3,
+      3,
+    )
+  ]
   contributions = next(
     rows
     for rows in ordered
@@ -170,14 +213,18 @@ def test_phase144_6_r5_43_10_pi6_transport_connector_is_rendered_between_c2_and_
   ) in connected
 
 
-def test_phase144_6_r5_43_10_all_sixteen_uniform_chains_receive_compression_connector():
+def test_phase144_6_r5_43_10_all_sixteen_uniform_chains_receive_compression_connector(
+  data_by_target,
+):
   connector_count = 0
 
   for n, k in TARGETS:
-    presentation, ordered, connected = _data(
-      n,
-      k,
-    )
+    presentation, ordered, connected = data_by_target[
+      (
+        n,
+        k,
+      )
+    ]
     connectors = _contribution_connector_lines(
       presentation,
       ordered,
@@ -191,11 +238,15 @@ def test_phase144_6_r5_43_10_all_sixteen_uniform_chains_receive_compression_conn
   assert connector_count == 16
 
 
-def test_phase144_6_r5_43_10_preserves_direct_connector():
-  presentation, ordered, connected = _data(
-    3,
-    3,
-  )
+def test_phase144_6_r5_43_10_preserves_direct_connector(
+  data_by_target,
+):
+  presentation, ordered, connected = data_by_target[
+    (
+      3,
+      3,
+    )
+  ]
   contributions = next(
     rows
     for rows in ordered
