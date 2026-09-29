@@ -1,0 +1,430 @@
+Phase 145-2 Stage 2 - Relative Path Risk Refinement
+==============================================================================
+HEAD: 4737d71e339b704b787668f493201e4aebeeb991
+Stage 1 relative-path population: 408
+Stage 1 already-safe population: 145
+
+REFINED DISPOSITION COUNTS
+------------------------------------------------------------------------------
+MOVE_REQUIRES_PATH_UPDATE: 91
+MOVE_SAFE_AFTER_REFINEMENT: 317
+
+TOTAL SAFE IF COMBINED WITH STAGE 1: 462
+TOTAL REQUIRING PATH UPDATE: 91
+
+MOVE_REQUIRES_PATH_UPDATE
+------------------------------------------------------------------------------
+audit_phase112_1a.py :: root_file :: files=1 :: destination=archive/phases/_root_files/audit_phase112_1a.py :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+audit_phase112_1b.py :: root_file :: files=1 :: destination=archive/phases/_root_files/audit_phase112_1b.py :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+audit_phase112_1c.py :: root_file :: files=1 :: destination=archive/phases/_root_files/audit_phase112_1c.py :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+phase143_75aa :: directory :: files=3 :: destination=archive/phases/phase143_75aa/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_2_sigma_triple_prime_definition_impl :: directory :: files=6 :: destination=archive/phases/phase144_2_sigma_triple_prime_definition_impl/ :: reasons=UPWARD_NAVIGATION_FROM_ARTIFACT
+phase144_6_finalization :: directory :: files=4 :: destination=archive/phases/phase144_6_finalization/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r25_10_final_regression_ownership_audit :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_10_final_regression_ownership_audit/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r25_10_r1_import_path_repair :: directory :: files=3 :: destination=archive/phases/phase144_6_r25_10_r1_import_path_repair/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r25_11_r4_closure_origin_boundary_audit :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_11_r4_closure_origin_boundary_audit/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r25_11_r6_r1_r1_runner_repair :: directory :: files=6 :: destination=archive/phases/phase144_6_r25_11_r6_r1_r1_runner_repair/ :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+phase144_6_r25_11_r6_r1_r2_r1_powershell51_syntax_repair :: directory :: files=5 :: destination=archive/phases/phase144_6_r25_11_r6_r1_r2_r1_powershell51_syntax_repair/ :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+phase144_6_r25_11_r6_r1_r2_r1_r1_audit_test_compatibility_repair :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_11_r6_r1_r2_r1_r1_audit_test_compatibility_repair/ :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+phase144_6_r25_11_r6_r1_r2_r1_r2_native_git_error_handling_repair :: directory :: files=5 :: destination=archive/phases/phase144_6_r25_11_r6_r1_r2_r1_r2_native_git_error_handling_repair/ :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+phase144_6_r25_11_r6_r1_r2_r1_r2_r1_powershell51_native_git_syntax_repair :: directory :: files=5 :: destination=archive/phases/phase144_6_r25_11_r6_r1_r2_r1_r2_r1_powershell51_native_git_syntax_repair/ :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_git_object_path_distinction_repair :: directory :: files=5 :: destination=archive/phases/phase144_6_r25_11_r6_r1_r2_r1_r2_r2_git_object_path_distinction_repair/ :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r1_audit_test_compatibility_repair :: directory :: files=5 :: destination=archive/phases/phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r1_audit_test_compatibility_repair/ :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r2_r1_diagnostic_audit_test_repair :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r2_r1_diagnostic_audit_test_repair/ :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_native_command_scalar_exit_code_repair :: directory :: files=7 :: destination=archive/phases/phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_native_command_scalar_exit_code_repair/ :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r1_installer_syntax_repair :: directory :: files=7 :: destination=archive/phases/phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r1_installer_syntax_repair/ :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r2_cleanup_syntax_repair :: directory :: files=7 :: destination=archive/phases/phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r2_cleanup_syntax_repair/ :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r3_payload_powershell51_syntax_repair :: directory :: files=7 :: destination=archive/phases/phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r3_payload_powershell51_syntax_repair/ :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_measure_commit_whole_function_repair :: directory :: files=7 :: destination=archive/phases/phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_measure_commit_whole_function_repair/ :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_r1_focused_test_manifest_repair :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_r1_focused_test_manifest_repair/ :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_r2_read_population_cache_restoration :: directory :: files=5 :: destination=archive/phases/phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_r2_read_population_cache_restoration/ :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_r3_r1_prune_contract_restoration :: directory :: files=5 :: destination=archive/phases/phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_r3_r1_prune_contract_restoration/ :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_r3_stale_worktree_path_cleanup :: directory :: files=5 :: destination=archive/phases/phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_r3_stale_worktree_path_cleanup/ :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_r4_collector_native_error_handling :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_r4_collector_native_error_handling/ :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+phase144_6_r25_11_r6_r1_r2_windows_worktree_cache_robustness_repair :: directory :: files=5 :: destination=archive/phases/phase144_6_r25_11_r6_r1_r2_windows_worktree_cache_robustness_repair/ :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+phase144_6_r25_11_r6_r1_r4_r5_idempotent_post_measure_cleanup :: directory :: files=5 :: destination=archive/phases/phase144_6_r25_11_r6_r1_r4_r5_idempotent_post_measure_cleanup/ :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+phase144_6_r25_11_r6_r1_r4_r5_r1_registration_contract_compatibility :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_11_r6_r1_r4_r5_r1_registration_contract_compatibility/ :: reasons=ROOT_RELATIVE_PHASE_SIBLING_REFERENCE
+phase144_6_r25_22_cli_web_narrative_replay_parity :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_22_cli_web_narrative_replay_parity/ :: reasons=UPWARD_NAVIGATION_FROM_ARTIFACT
+phase144_6_r25_22_r2_web_numbered_equation_adapter :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_22_r2_web_numbered_equation_adapter/ :: reasons=UPWARD_NAVIGATION_FROM_ARTIFACT
+phase144_6_r25_22_r3_test_assertion_repair :: directory :: files=3 :: destination=archive/phases/phase144_6_r25_22_r3_test_assertion_repair/ :: reasons=UPWARD_NAVIGATION_FROM_ARTIFACT
+phase144_6_r25_23_r2_audit_harness_import_api_repair :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_23_r2_audit_harness_import_api_repair/ :: reasons=UPWARD_NAVIGATION_FROM_ARTIFACT
+phase144_6_r25_24_method_evidence_minimal_ownership_boundary :: directory :: files=6 :: destination=archive/phases/phase144_6_r25_24_method_evidence_minimal_ownership_boundary/ :: reasons=UPWARD_NAVIGATION_FROM_ARTIFACT
+phase144_6_r25_25_ownership_pipeline_diagnosis :: directory :: files=7 :: destination=archive/phases/phase144_6_r25_25_ownership_pipeline_diagnosis/ :: reasons=UPWARD_NAVIGATION_FROM_ARTIFACT
+phase144_6_r25_27_r2_boundary_harness_repair :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_27_r2_boundary_harness_repair/ :: reasons=UPWARD_NAVIGATION_FROM_ARTIFACT
+phase144_6_r25_27_r3_cycle_isolated_premise_audit :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_27_r3_cycle_isolated_premise_audit/ :: reasons=UPWARD_NAVIGATION_FROM_ARTIFACT
+phase144_6_r3_equation_regression_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r3_equation_regression_audit/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r3_impl :: directory :: files=3 :: destination=archive/phases/phase144_6_r3_impl/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r3_second_half :: directory :: files=4 :: destination=archive/phases/phase144_6_r3_second_half/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r3_second_half_r1 :: directory :: files=3 :: destination=archive/phases/phase144_6_r3_second_half_r1/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r3_second_half_r3 :: directory :: files=4 :: destination=archive/phases/phase144_6_r3_second_half_r3/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r3_second_half_r4_test_alignment :: directory :: files=4 :: destination=archive/phases/phase144_6_r3_second_half_r4_test_alignment/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r4_duplicate_call_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r4_duplicate_call_audit/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r4_frontier_filter_impl :: directory :: files=5 :: destination=archive/phases/phase144_6_r4_frontier_filter_impl/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r4_helper_source_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r4_helper_source_audit/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r4_r1_transition_scope_repair :: directory :: files=3 :: destination=archive/phases/phase144_6_r4_r1_transition_scope_repair/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r4_r2_blocks_parameter_repair :: directory :: files=3 :: destination=archive/phases/phase144_6_r4_r2_blocks_parameter_repair/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r4_r3_ast_repair :: directory :: files=3 :: destination=archive/phases/phase144_6_r4_r3_ast_repair/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r4_r4_literal_newline_repair :: directory :: files=3 :: destination=archive/phases/phase144_6_r4_r4_literal_newline_repair/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r4_r5_duplicate_cleanup :: directory :: files=3 :: destination=archive/phases/phase144_6_r4_r5_duplicate_cleanup/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r4_r6_definition_frontier :: directory :: files=3 :: destination=archive/phases/phase144_6_r4_r6_definition_frontier/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r4_r7_semantic_definition_frontier :: directory :: files=3 :: destination=archive/phases/phase144_6_r4_r7_semantic_definition_frontier/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_17a_r1 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_17a_r1/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_17a_r2 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_17a_r2/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_17a_r3 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_17a_r3/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_17b :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_17b/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_17c :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_17c/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_17d :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_17d/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_17d_r1 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_17d_r1/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_17e :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_17e/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_18 :: directory :: files=5 :: destination=archive/phases/phase144_6_r5_18/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_19 :: directory :: files=5 :: destination=archive/phases/phase144_6_r5_19/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_20 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_20/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_21 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_21/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_22 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_22/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_22_r1 :: directory :: files=2 :: destination=archive/phases/phase144_6_r5_22_r1/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_23 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_23/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_23_r1 :: directory :: files=2 :: destination=archive/phases/phase144_6_r5_23_r1/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_24 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_24/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_25 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_25/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_26 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_26/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_27 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_27/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_28 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_28/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_29 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_29/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_30 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_30/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_31 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_31/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_32 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_32/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_33 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_33/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_34 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_34/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_35 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_35/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_36 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_36/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_37 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_37/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_38 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_38/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_38_r2 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_38_r2/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_39 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_39/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_39_r2 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_39_r2/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_39_r3 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_39_r3/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_40 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_40/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+phase144_6_r5_41 :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_41/ :: reasons=PACKAGE_PARENT_ASSUMED_REPO_ROOT
+
+MOVE_SAFE_AFTER_REFINEMENT
+------------------------------------------------------------------------------
+apply_phase131_4.py :: root_file :: files=1 :: destination=archive/phases/_root_files/apply_phase131_4.py
+apply_phase132_7.py :: root_file :: files=1 :: destination=archive/phases/_root_files/apply_phase132_7.py
+apply_phase132_8.py :: root_file :: files=1 :: destination=archive/phases/_root_files/apply_phase132_8.py
+PHASE131_4_INSTRUCTIONS.txt :: root_file :: files=1 :: destination=archive/phases/_root_files/PHASE131_4_INSTRUCTIONS.txt
+PHASE131_5_README.txt :: root_file :: files=1 :: destination=archive/phases/_root_files/PHASE131_5_README.txt
+PHASE132_4_README.txt :: root_file :: files=1 :: destination=archive/phases/_root_files/PHASE132_4_README.txt
+PHASE142_2_README.md :: root_file :: files=1 :: destination=archive/phases/_root_files/PHASE142_2_README.md
+phase143_12_fix2b :: directory :: files=3 :: destination=archive/phases/phase143_12_fix2b/
+phase143_12_fix2c :: directory :: files=3 :: destination=archive/phases/phase143_12_fix2c/
+phase143_13 :: directory :: files=4 :: destination=archive/phases/phase143_13/
+phase143_15 :: directory :: files=4 :: destination=archive/phases/phase143_15/
+phase143_70_impl :: directory :: files=4 :: destination=archive/phases/phase143_70_impl/
+phase143_71a_impl :: directory :: files=3 :: destination=archive/phases/phase143_71a_impl/
+phase143_71a_r2_fix :: directory :: files=1 :: destination=archive/phases/phase143_71a_r2_fix/
+phase143_71a_r_fix :: directory :: files=3 :: destination=archive/phases/phase143_71a_r_fix/
+phase143_72a :: directory :: files=2 :: destination=archive/phases/phase143_72a/
+phase143_72a_narrative_audit :: directory :: files=2 :: destination=archive/phases/phase143_72a_narrative_audit/
+phase143_72a_r2 :: directory :: files=1 :: destination=archive/phases/phase143_72a_r2/
+phase143_72a_r3 :: directory :: files=1 :: destination=archive/phases/phase143_72a_r3/
+phase143_73a :: directory :: files=2 :: destination=archive/phases/phase143_73a/
+phase143_73a_narrative_audit :: directory :: files=2 :: destination=archive/phases/phase143_73a_narrative_audit/
+phase143_73a_r3 :: directory :: files=2 :: destination=archive/phases/phase143_73a_r3/
+phase143_73a_r4 :: directory :: files=2 :: destination=archive/phases/phase143_73a_r4/
+phase143_73a_r5 :: directory :: files=2 :: destination=archive/phases/phase143_73a_r5/
+phase143_74 :: directory :: files=2 :: destination=archive/phases/phase143_74/
+phase143_75aa_audit :: directory :: files=2 :: destination=archive/phases/phase143_75aa_audit/
+phase143_75aa_r2 :: directory :: files=2 :: destination=archive/phases/phase143_75aa_r2/
+phase143_75ab :: directory :: files=3 :: destination=archive/phases/phase143_75ab/
+phase143_75ab2 :: directory :: files=3 :: destination=archive/phases/phase143_75ab2/
+phase143_75ab3 :: directory :: files=3 :: destination=archive/phases/phase143_75ab3/
+phase143_75ab3_r2 :: directory :: files=3 :: destination=archive/phases/phase143_75ab3_r2/
+phase143_75ab3_r3 :: directory :: files=3 :: destination=archive/phases/phase143_75ab3_r3/
+phase143_75ab_completion_audit :: directory :: files=2 :: destination=archive/phases/phase143_75ab_completion_audit/
+phase143_75ac :: directory :: files=3 :: destination=archive/phases/phase143_75ac/
+phase143_75ac2 :: directory :: files=3 :: destination=archive/phases/phase143_75ac2/
+phase143_75ac3 :: directory :: files=3 :: destination=archive/phases/phase143_75ac3/
+phase143_75ac4 :: directory :: files=4 :: destination=archive/phases/phase143_75ac4/
+phase143_75ac_completion_audit :: directory :: files=2 :: destination=archive/phases/phase143_75ac_completion_audit/
+phase143_75ad :: directory :: files=3 :: destination=archive/phases/phase143_75ad/
+phase143_75ad_completion :: directory :: files=2 :: destination=archive/phases/phase143_75ad_completion/
+phase143_75ad_impl :: directory :: files=4 :: destination=archive/phases/phase143_75ad_impl/
+phase143_75ae :: directory :: files=3 :: destination=archive/phases/phase143_75ae/
+phase143_75ae_completion :: directory :: files=3 :: destination=archive/phases/phase143_75ae_completion/
+phase143_75ae_impl :: directory :: files=4 :: destination=archive/phases/phase143_75ae_impl/
+phase143_75ae_impl_r2 :: directory :: files=4 :: destination=archive/phases/phase143_75ae_impl_r2/
+phase143_75ae_impl_r3 :: directory :: files=4 :: destination=archive/phases/phase143_75ae_impl_r3/
+phase143_75af :: directory :: files=3 :: destination=archive/phases/phase143_75af/
+phase143_75af_completion :: directory :: files=3 :: destination=archive/phases/phase143_75af_completion/
+phase143_75af_impl :: directory :: files=4 :: destination=archive/phases/phase143_75af_impl/
+phase143_75af_impl_r2 :: directory :: files=3 :: destination=archive/phases/phase143_75af_impl_r2/
+phase143_75ag :: directory :: files=3 :: destination=archive/phases/phase143_75ag/
+phase143_75ag_impl :: directory :: files=4 :: destination=archive/phases/phase143_75ag_impl/
+phase143_75ag_impl_r2 :: directory :: files=4 :: destination=archive/phases/phase143_75ag_impl_r2/
+phase143_75ag_impl_r3 :: directory :: files=4 :: destination=archive/phases/phase143_75ag_impl_r3/
+phase143_75ag_impl_r4 :: directory :: files=4 :: destination=archive/phases/phase143_75ag_impl_r4/
+phase143_75ag_r5_completion :: directory :: files=4 :: destination=archive/phases/phase143_75ag_r5_completion/
+phase143_75ah :: directory :: files=3 :: destination=archive/phases/phase143_75ah/
+phase143_75ah_completion :: directory :: files=3 :: destination=archive/phases/phase143_75ah_completion/
+phase143_75ah_impl :: directory :: files=4 :: destination=archive/phases/phase143_75ah_impl/
+phase143_75ah_r2 :: directory :: files=3 :: destination=archive/phases/phase143_75ah_r2/
+phase143_75ai :: directory :: files=3 :: destination=archive/phases/phase143_75ai/
+phase143_75ai_completion :: directory :: files=3 :: destination=archive/phases/phase143_75ai_completion/
+phase143_75ai_impl :: directory :: files=4 :: destination=archive/phases/phase143_75ai_impl/
+phase143_75aj :: directory :: files=3 :: destination=archive/phases/phase143_75aj/
+phase143_75aj_completion :: directory :: files=3 :: destination=archive/phases/phase143_75aj_completion/
+phase143_75aj_impl :: directory :: files=4 :: destination=archive/phases/phase143_75aj_impl/
+phase143_75ak :: directory :: files=3 :: destination=archive/phases/phase143_75ak/
+phase143_75ak_completion :: directory :: files=3 :: destination=archive/phases/phase143_75ak_completion/
+phase143_75ak_impl :: directory :: files=4 :: destination=archive/phases/phase143_75ak_impl/
+phase143_75ak_r2 :: directory :: files=4 :: destination=archive/phases/phase143_75ak_r2/
+phase143_75al :: directory :: files=3 :: destination=archive/phases/phase143_75al/
+phase143_75al_completion :: directory :: files=3 :: destination=archive/phases/phase143_75al_completion/
+phase143_75al_impl :: directory :: files=4 :: destination=archive/phases/phase143_75al_impl/
+phase143_75am :: directory :: files=3 :: destination=archive/phases/phase143_75am/
+phase143_75am_completion :: directory :: files=3 :: destination=archive/phases/phase143_75am_completion/
+phase143_75am_impl :: directory :: files=4 :: destination=archive/phases/phase143_75am_impl/
+phase143_75an :: directory :: files=3 :: destination=archive/phases/phase143_75an/
+phase143_75an_completion :: directory :: files=3 :: destination=archive/phases/phase143_75an_completion/
+phase143_75an_impl :: directory :: files=4 :: destination=archive/phases/phase143_75an_impl/
+phase143_75an_r2 :: directory :: files=3 :: destination=archive/phases/phase143_75an_r2/
+phase143_75ao_bulk_audit :: directory :: files=3 :: destination=archive/phases/phase143_75ao_bulk_audit/
+phase143_75ao_bulk_impl :: directory :: files=4 :: destination=archive/phases/phase143_75ao_bulk_impl/
+phase143_75ao_bulk_r2 :: directory :: files=3 :: destination=archive/phases/phase143_75ao_bulk_r2/
+phase143_75ao_bulk_r3 :: directory :: files=4 :: destination=archive/phases/phase143_75ao_bulk_r3/
+phase143_75ao_completion :: directory :: files=3 :: destination=archive/phases/phase143_75ao_completion/
+phase143_75ap_completion_audit :: directory :: files=2 :: destination=archive/phases/phase143_75ap_completion_audit/
+phase143_75ap_final_bulk :: directory :: files=4 :: destination=archive/phases/phase143_75ap_final_bulk/
+phase143_75ap_r10 :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r10/
+phase143_75ap_r10_audit :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r10_audit/
+phase143_75ap_r10b_audit :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r10b_audit/
+phase143_75ap_r10c_audit :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r10c_audit/
+phase143_75ap_r10d_audit :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r10d_audit/
+phase143_75ap_r10e_audit :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r10e_audit/
+phase143_75ap_r11 :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r11/
+phase143_75ap_r11_import_audit :: directory :: files=2 :: destination=archive/phases/phase143_75ap_r11_import_audit/
+phase143_75ap_r11_r2 :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r11_r2/
+phase143_75ap_r11_r3 :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r11_r3/
+phase143_75ap_r11_r4 :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r11_r4/
+phase143_75ap_r11_r5 :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r11_r5/
+phase143_75ap_r12_trace_audit :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r12_trace_audit/
+phase143_75ap_r12b_selection_audit :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r12b_selection_audit/
+phase143_75ap_r12c_exclusion_audit :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r12c_exclusion_audit/
+phase143_75ap_r12d_step_filter_audit :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r12d_step_filter_audit/
+phase143_75ap_r13 :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r13/
+phase143_75ap_r14_completion_audit :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r14_completion_audit/
+phase143_75ap_r15_boundary_audit :: directory :: files=4 :: destination=archive/phases/phase143_75ap_r15_boundary_audit/
+phase143_75ap_r16 :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r16/
+phase143_75ap_r16_r2 :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r16_r2/
+phase143_75ap_r17 :: directory :: files=5 :: destination=archive/phases/phase143_75ap_r17/
+phase143_75ap_r17_completion_audit :: directory :: files=4 :: destination=archive/phases/phase143_75ap_r17_completion_audit/
+phase143_75ap_r17_completion_audit_r3 :: directory :: files=4 :: destination=archive/phases/phase143_75ap_r17_completion_audit_r3/
+phase143_75ap_r2 :: directory :: files=4 :: destination=archive/phases/phase143_75ap_r2/
+phase143_75ap_r3 :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r3/
+phase143_75ap_r4 :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r4/
+phase143_75ap_r5 :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r5/
+phase143_75ap_r6 :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r6/
+phase143_75ap_r7 :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r7/
+phase143_75ap_r8 :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r8/
+phase143_75ap_r9 :: directory :: files=3 :: destination=archive/phases/phase143_75ap_r9/
+phase143_75d :: directory :: files=2 :: destination=archive/phases/phase143_75d/
+phase143_75g :: directory :: files=2 :: destination=archive/phases/phase143_75g/
+phase143_75h :: directory :: files=3 :: destination=archive/phases/phase143_75h/
+phase143_75j :: directory :: files=2 :: destination=archive/phases/phase143_75j/
+phase143_75k :: directory :: files=3 :: destination=archive/phases/phase143_75k/
+phase143_75l :: directory :: files=3 :: destination=archive/phases/phase143_75l/
+phase143_75m :: directory :: files=5 :: destination=archive/phases/phase143_75m/
+phase143_75m_r2 :: directory :: files=5 :: destination=archive/phases/phase143_75m_r2/
+phase143_75m_r3 :: directory :: files=3 :: destination=archive/phases/phase143_75m_r3/
+phase143_75m_r4 :: directory :: files=3 :: destination=archive/phases/phase143_75m_r4/
+phase143_75n :: directory :: files=3 :: destination=archive/phases/phase143_75n/
+phase143_75o :: directory :: files=3 :: destination=archive/phases/phase143_75o/
+phase143_75p :: directory :: files=5 :: destination=archive/phases/phase143_75p/
+phase143_75q :: directory :: files=3 :: destination=archive/phases/phase143_75q/
+phase143_75r :: directory :: files=3 :: destination=archive/phases/phase143_75r/
+phase143_75s :: directory :: files=5 :: destination=archive/phases/phase143_75s/
+phase143_75s_r2 :: directory :: files=3 :: destination=archive/phases/phase143_75s_r2/
+phase143_75t :: directory :: files=6 :: destination=archive/phases/phase143_75t/
+phase143_75u :: directory :: files=3 :: destination=archive/phases/phase143_75u/
+phase143_75v :: directory :: files=3 :: destination=archive/phases/phase143_75v/
+phase143_75w :: directory :: files=6 :: destination=archive/phases/phase143_75w/
+phase143_75x :: directory :: files=3 :: destination=archive/phases/phase143_75x/
+phase143_75y :: directory :: files=6 :: destination=archive/phases/phase143_75y/
+phase143_75z :: directory :: files=3 :: destination=archive/phases/phase143_75z/
+PHASE143_7_README.txt :: root_file :: files=1 :: destination=archive/phases/_root_files/PHASE143_7_README.txt
+phase143_docs_completion :: directory :: files=8 :: destination=archive/phases/phase143_docs_completion/
+phase143_final_regression :: directory :: files=2 :: destination=archive/phases/phase143_final_regression/
+phase143_final_regression_r2 :: directory :: files=2 :: destination=archive/phases/phase143_final_regression_r2/
+phase144_1_representative_narrative_path_audit :: directory :: files=4 :: destination=archive/phases/phase144_1_representative_narrative_path_audit/
+phase144_2_definition_hierarchy_audit :: directory :: files=3 :: destination=archive/phases/phase144_2_definition_hierarchy_audit/
+phase144_2_definition_relevance_audit :: directory :: files=3 :: destination=archive/phases/phase144_2_definition_relevance_audit/
+phase144_2_definition_statement_shape_audit :: directory :: files=4 :: destination=archive/phases/phase144_2_definition_statement_shape_audit/
+phase144_2_other_block_semantic_audit :: directory :: files=4 :: destination=archive/phases/phase144_2_other_block_semantic_audit/
+phase144_2_other_block_semantic_audit_r2 :: directory :: files=4 :: destination=archive/phases/phase144_2_other_block_semantic_audit_r2/
+phase144_2_post_impl_audit_r2 :: directory :: files=3 :: destination=archive/phases/phase144_2_post_impl_audit_r2/
+phase144_2_sigma_definition_semantic_path_audit :: directory :: files=4 :: destination=archive/phases/phase144_2_sigma_definition_semantic_path_audit/
+phase144_4_pi6_3_legacy_generic_audit :: directory :: files=7 :: destination=archive/phases/phase144_4_pi6_3_legacy_generic_audit/
+phase144_5_generic_definition_order_equations :: directory :: files=6 :: destination=archive/phases/phase144_5_generic_definition_order_equations/
+phase144_5_r1_test_fix :: directory :: files=4 :: destination=archive/phases/phase144_5_r1_test_fix/
+phase144_5_r2_generic_equation_references :: directory :: files=6 :: destination=archive/phases/phase144_5_r2_generic_equation_references/
+phase144_5_r2_r1_transition_fix :: directory :: files=3 :: destination=archive/phases/phase144_5_r2_r1_transition_fix/
+phase144_5_r2_r2_api_fix :: directory :: files=5 :: destination=archive/phases/phase144_5_r2_r2_api_fix/
+phase144_6_final_completion_audit_and_full_pytest :: directory :: files=3 :: destination=archive/phases/phase144_6_final_completion_audit_and_full_pytest/
+phase144_6_final_completion_regression :: directory :: files=2 :: destination=archive/phases/phase144_6_final_completion_regression/
+phase144_6_final_full_suite :: directory :: files=2 :: destination=archive/phases/phase144_6_final_full_suite/
+phase144_6_final_full_suite_r2 :: directory :: files=2 :: destination=archive/phases/phase144_6_final_full_suite_r2/
+phase144_6_final_full_suite_r4 :: directory :: files=2 :: destination=archive/phases/phase144_6_final_full_suite_r4/
+phase144_6_final_regression_repair :: directory :: files=12 :: destination=archive/phases/phase144_6_final_regression_repair/
+phase144_6_final_regression_repair_r10 :: directory :: files=3 :: destination=archive/phases/phase144_6_final_regression_repair_r10/
+phase144_6_final_regression_repair_r11 :: directory :: files=3 :: destination=archive/phases/phase144_6_final_regression_repair_r11/
+phase144_6_final_regression_repair_r12 :: directory :: files=3 :: destination=archive/phases/phase144_6_final_regression_repair_r12/
+phase144_6_final_regression_repair_r15 :: directory :: files=3 :: destination=archive/phases/phase144_6_final_regression_repair_r15/
+phase144_6_final_regression_repair_r16 :: directory :: files=3 :: destination=archive/phases/phase144_6_final_regression_repair_r16/
+phase144_6_final_regression_repair_r17 :: directory :: files=3 :: destination=archive/phases/phase144_6_final_regression_repair_r17/
+phase144_6_final_regression_repair_r19 :: directory :: files=3 :: destination=archive/phases/phase144_6_final_regression_repair_r19/
+phase144_6_final_regression_repair_r2 :: directory :: files=2 :: destination=archive/phases/phase144_6_final_regression_repair_r2/
+phase144_6_final_regression_repair_r22 :: directory :: files=3 :: destination=archive/phases/phase144_6_final_regression_repair_r22/
+phase144_6_final_regression_repair_r23 :: directory :: files=3 :: destination=archive/phases/phase144_6_final_regression_repair_r23/
+phase144_6_final_regression_repair_r24 :: directory :: files=5 :: destination=archive/phases/phase144_6_final_regression_repair_r24/
+phase144_6_final_regression_repair_r5 :: directory :: files=3 :: destination=archive/phases/phase144_6_final_regression_repair_r5/
+phase144_6_finalization_focused_gate :: directory :: files=4 :: destination=archive/phases/phase144_6_finalization_focused_gate/
+phase144_6_finalization_r25_30_boundary_gate :: directory :: files=3 :: destination=archive/phases/phase144_6_finalization_r25_30_boundary_gate/
+phase144_6_finalization_r25_30_boundary_gate_r1 :: directory :: files=3 :: destination=archive/phases/phase144_6_finalization_r25_30_boundary_gate_r1/
+phase144_6_finalization_r25_30_boundary_gate_r2 :: directory :: files=3 :: destination=archive/phases/phase144_6_finalization_r25_30_boundary_gate_r2/
+phase144_6_pi6_generic_production_route :: directory :: files=5 :: destination=archive/phases/phase144_6_pi6_generic_production_route/
+phase144_6_public_route_cutover :: directory :: files=5 :: destination=archive/phases/phase144_6_public_route_cutover/
+phase144_6_public_route_cutover_r2 :: directory :: files=4 :: destination=archive/phases/phase144_6_public_route_cutover_r2/
+phase144_6_public_route_cutover_r3 :: directory :: files=4 :: destination=archive/phases/phase144_6_public_route_cutover_r3/
+phase144_6_r14_import_origin_preflight :: directory :: files=3 :: destination=archive/phases/phase144_6_r14_import_origin_preflight/
+phase144_6_r1_cli_depth_fix :: directory :: files=3 :: destination=archive/phases/phase144_6_r1_cli_depth_fix/
+phase144_6_r25_10_r2_audit_environment_repair :: directory :: files=2 :: destination=archive/phases/phase144_6_r25_10_r2_audit_environment_repair/
+phase144_6_r25_10_r3_contribution_import_repair :: directory :: files=3 :: destination=archive/phases/phase144_6_r25_10_r3_contribution_import_repair/
+phase144_6_r25_10_r4_utf8_audit_runner :: directory :: files=2 :: destination=archive/phases/phase144_6_r25_10_r4_utf8_audit_runner/
+phase144_6_r25_10_r5_argument_api_audit_repair :: directory :: files=3 :: destination=archive/phases/phase144_6_r25_10_r5_argument_api_audit_repair/
+phase144_6_r25_10_r6_utf8_and_argument_api_runner :: directory :: files=2 :: destination=archive/phases/phase144_6_r25_10_r6_utf8_and_argument_api_runner/
+phase144_6_r25_11_production_repair :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_11_production_repair/
+phase144_6_r25_11_r2_semantic_closure_ownership_repair :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_11_r2_semantic_closure_ownership_repair/
+phase144_6_r25_11_r5_full_depth_plus2_ownership_delta_audit :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_11_r5_full_depth_plus2_ownership_delta_audit/
+phase144_6_r25_11_r6_historical_190_192_exact_delta_audit :: directory :: files=6 :: destination=archive/phases/phase144_6_r25_11_r6_historical_190_192_exact_delta_audit/
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r2_worktree_creation_failure_diagnostic_audit :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r2_worktree_creation_failure_diagnostic_audit/
+phase144_6_r25_12_local_190_192_focused_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r25_12_local_190_192_focused_audit/
+phase144_6_r25_13_definition_scoped_evidence_repair :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_13_definition_scoped_evidence_repair/
+phase144_6_r25_15_final_ownership_repair :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_15_final_ownership_repair/
+phase144_6_r25_16_depth2_derivation_support_repair :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_16_depth2_derivation_support_repair/
+phase144_6_r25_17_restore_cli_narrative_completeness :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_17_restore_cli_narrative_completeness/
+phase144_6_r25_19_complete_replay_api :: directory :: files=5 :: destination=archive/phases/phase144_6_r25_19_complete_replay_api/
+phase144_6_r25_20_six_group_generic_production_narrative :: directory :: files=12 :: destination=archive/phases/phase144_6_r25_20_six_group_generic_production_narrative/
+phase144_6_r25_21_presentation_rules_audit :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_21_presentation_rules_audit/
+phase144_6_r25_21_r2_import_repair :: directory :: files=13 :: destination=archive/phases/phase144_6_r25_21_r2_import_repair/
+phase144_6_r25_23_evidence_selection_dependency_order_audit :: directory :: files=5 :: destination=archive/phases/phase144_6_r25_23_evidence_selection_dependency_order_audit/
+phase144_6_r25_26_dependency_source_closure_audit :: directory :: files=5 :: destination=archive/phases/phase144_6_r25_26_dependency_source_closure_audit/
+phase144_6_r25_27_proof_edge_ownership_boundary_audit :: directory :: files=5 :: destination=archive/phases/phase144_6_r25_27_proof_edge_ownership_boundary_audit/
+phase144_6_r25_28_proof_edge_fanout_block_aggregation_audit :: directory :: files=5 :: destination=archive/phases/phase144_6_r25_28_proof_edge_fanout_block_aggregation_audit/
+phase144_6_r25_29_entry_step_preserving_block_dependency_audit :: directory :: files=5 :: destination=archive/phases/phase144_6_r25_29_entry_step_preserving_block_dependency_audit/
+phase144_6_r25_30_group_structure_definition_entry_branch_ownership_audit :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_30_group_structure_definition_entry_branch_ownership_audit/
+phase144_6_r25_30_r2_cycle_consistent_entry_branch_audit :: directory :: files=5 :: destination=archive/phases/phase144_6_r25_30_r2_cycle_consistent_entry_branch_audit/
+phase144_6_r25_30_r3_argument_boundary_entry_classification_audit :: directory :: files=5 :: destination=archive/phases/phase144_6_r25_30_r3_argument_boundary_entry_classification_audit/
+phase144_6_r25_6_upstream_ownership_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r25_6_upstream_ownership_audit/
+phase144_6_r25_7_root_construction_exact_block_path_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r25_7_root_construction_exact_block_path_audit/
+phase144_6_r25_7r1_cycle_safe_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r25_7r1_cycle_safe_audit/
+phase144_6_r25_8_production_repair :: directory :: files=3 :: destination=archive/phases/phase144_6_r25_8_production_repair/
+phase144_6_r25_8r1_r1_semantic_route_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r25_8r1_r1_semantic_route_audit/
+phase144_6_r25_8r1_rollback_semantic_route_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r25_8r1_rollback_semantic_route_audit/
+phase144_6_r25_9a_pi5_suppression_isolated_repair :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_9a_pi5_suppression_isolated_repair/
+phase144_6_r25_9a_r1_r1_preflight_fix :: directory :: files=5 :: destination=archive/phases/phase144_6_r25_9a_r1_r1_preflight_fix/
+phase144_6_r25_9a_r1_r2_test_api_fix :: directory :: files=3 :: destination=archive/phases/phase144_6_r25_9a_r1_r2_test_api_fix/
+phase144_6_r25_9a_r1_relocation_hidden_repair :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_9a_r1_relocation_hidden_repair/
+phase144_6_r25_9b_nu_prime_definition_depth2_selection_repair :: directory :: files=4 :: destination=archive/phases/phase144_6_r25_9b_nu_prime_definition_depth2_selection_repair/
+phase144_6_r2_information_preservation_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r2_information_preservation_audit/
+phase144_6_r3_provenance_source_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r3_provenance_source_audit/
+phase144_6_r3_r1_syntax_repair :: directory :: files=3 :: destination=archive/phases/phase144_6_r3_r1_syntax_repair/
+phase144_6_r3_reference_mapping_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r3_reference_mapping_audit/
+phase144_6_r3_second_half_r2 :: directory :: files=4 :: destination=archive/phases/phase144_6_r3_second_half_r2/
+phase144_6_r4_definition_dependency_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r4_definition_dependency_audit/
+phase144_6_r4_dependency_distance_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r4_dependency_distance_audit/
+phase144_6_r4_frontier_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r4_frontier_audit/
+phase144_6_r4_supporting_fact_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r4_supporting_fact_audit/
+phase144_6_r5_10_claim_provider_classification_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_10_claim_provider_classification_audit/
+phase144_6_r5_11_structural_provider_semantics_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_11_structural_provider_semantics_audit/
+phase144_6_r5_12_typed_provider_semantics_prototype_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_12_typed_provider_semantics_prototype_audit/
+phase144_6_r5_13_atomic_transport_integration_provider_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_13_atomic_transport_integration_provider_audit/
+phase144_6_r5_14_provider_closure_required_depth_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_14_provider_closure_required_depth_audit/
+phase144_6_r5_15_semantic_provider_boundary_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_15_semantic_provider_boundary_audit/
+phase144_6_r5_15b_argument_local_semantic_boundary_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_15b_argument_local_semantic_boundary_audit/
+phase144_6_r5_15c_claim_provider_conclusion_depth_sufficiency_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_15c_claim_provider_conclusion_depth_sufficiency_audit/
+phase144_6_r5_15d_supporting_evidence_minimum_depth_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_15d_supporting_evidence_minimum_depth_audit/
+phase144_6_r5_15e_supporting_evidence_ownership_relevance_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_15e_supporting_evidence_ownership_relevance_audit/
+phase144_6_r5_15f_nested_evidence_semantic_promotion_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_15f_nested_evidence_semantic_promotion_audit/
+phase144_6_r5_15g_promotion_locality_ownership_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_15g_promotion_locality_ownership_audit/
+phase144_6_r5_15h_evidence_function_ownership_relation_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_15h_evidence_function_ownership_relation_audit/
+phase144_6_r5_15i_support_only_relation_decomposition_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_15i_support_only_relation_decomposition_audit/
+phase144_6_r5_15j_r1_import_fix :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_15j_r1_import_fix/
+phase144_6_r5_15j_typed_provider_residual_statement_shape_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_15j_typed_provider_residual_statement_shape_audit/
+phase144_6_r5_15k_consumer_purpose_evidence_contribution_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_15k_consumer_purpose_evidence_contribution_audit/
+phase144_6_r5_15l_explicit_evidence_contribution_metadata_design_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_15l_explicit_evidence_contribution_metadata_design_audit/
+phase144_6_r5_15m_r1_replay_depth_fix :: directory :: files=5 :: destination=archive/phases/phase144_6_r5_15m_r1_replay_depth_fix/
+phase144_6_r5_15m_r2_audit_replay_depth_fix :: directory :: files=5 :: destination=archive/phases/phase144_6_r5_15m_r2_audit_replay_depth_fix/
+phase144_6_r5_15m_typed_evidence_contribution_metadata_prototype :: directory :: files=5 :: destination=archive/phases/phase144_6_r5_15m_typed_evidence_contribution_metadata_prototype/
+phase144_6_r5_15n_r1_argument_builder_api_fix :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_15n_r1_argument_builder_api_fix/
+phase144_6_r5_15n_typed_contribution_narrative_relevance_coverage_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_15n_typed_contribution_narrative_relevance_coverage_audit/
+phase144_6_r5_15o_top3_unresolved_semantic_gap_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_15o_top3_unresolved_semantic_gap_audit/
+phase144_6_r5_15p_generic_evidence_contribution_vocabulary_extension :: directory :: files=5 :: destination=archive/phases/phase144_6_r5_15p_generic_evidence_contribution_vocabulary_extension/
+phase144_6_r5_15p_r1_mapper_shape_fix :: directory :: files=6 :: destination=archive/phases/phase144_6_r5_15p_r1_mapper_shape_fix/
+phase144_6_r5_15q_remaining_49_visible_unresolved_edge_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_15q_remaining_49_visible_unresolved_edge_audit/
+phase144_6_r5_15r_remaining_9_edge_semantic_structure_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_15r_remaining_9_edge_semantic_structure_audit/
+phase144_6_r5_15s_aggregate_semantic_metadata_design_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_15s_aggregate_semantic_metadata_design_audit/
+phase144_6_r5_15t_aggregate_semantic_metadata_prototype :: directory :: files=6 :: destination=archive/phases/phase144_6_r5_15t_aggregate_semantic_metadata_prototype/
+phase144_6_r5_15u_aggregate_semantic_evidence_integration :: directory :: files=5 :: destination=archive/phases/phase144_6_r5_15u_aggregate_semantic_evidence_integration/
+phase144_6_r5_15u_r1_safe_builder_replacement :: directory :: files=5 :: destination=archive/phases/phase144_6_r5_15u_r1_safe_builder_replacement/
+phase144_6_r5_16_narrative_evidence_relevance_policy_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_16_narrative_evidence_relevance_policy_audit/
+phase144_6_r5_17a_audit_package :: directory :: files=5 :: destination=archive/phases/phase144_6_r5_17a_audit_package/
+phase144_6_r5_2_frontier_required_depth_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_2_frontier_required_depth_audit/
+phase144_6_r5_3_root_argument_dependency_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_3_root_argument_dependency_audit/
+phase144_6_r5_42_generic_narrative_contribution_production_foundation :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_42_generic_narrative_contribution_production_foundation/
+phase144_6_r5_42_r1_occurrence_downstream_repair :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_42_r1_occurrence_downstream_repair/
+phase144_6_r5_42_r2_provider_key_semantics_repair :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_42_r2_provider_key_semantics_repair/
+phase144_6_r5_43_10_transport_chain_compression_production :: directory :: files=5 :: destination=archive/phases/phase144_6_r5_43_10_transport_chain_compression_production/
+phase144_6_r5_43_11_completion_cross_group_narrative_audit :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_43_11_completion_cross_group_narrative_audit/
+phase144_6_r5_43_11_r2_visibility_aware_completion_audit :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_43_11_r2_visibility_aware_completion_audit/
+phase144_6_r5_43_11a_insertion_failure_classification_audit :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_43_11a_insertion_failure_classification_audit/
+phase144_6_r5_43_11b_detached_argument_boundary_audit :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_43_11b_detached_argument_boundary_audit/
+phase144_6_r5_43_11c_non_detached_fallback_placement_repair :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_43_11c_non_detached_fallback_placement_repair/
+phase144_6_r5_43_11c_r2_argument_participation_guard :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_43_11c_r2_argument_participation_guard/
+phase144_6_r5_43_11d_final_completion_audit :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_43_11d_final_completion_audit/
+phase144_6_r5_43_1_pi6_connected_narrative_output_audit :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_43_1_pi6_connected_narrative_output_audit/
+phase144_6_r5_43_2_placement_aware_contribution_insertion :: directory :: files=6 :: destination=archive/phases/phase144_6_r5_43_2_placement_aware_contribution_insertion/
+phase144_6_r5_43_3_contribution_transition_prose_audit :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_43_3_contribution_transition_prose_audit/
+phase144_6_r5_43_4_dependency_aware_contribution_connector :: directory :: files=6 :: destination=archive/phases/phase144_6_r5_43_4_dependency_aware_contribution_connector/
+phase144_6_r5_43_5_r2_shortest_path_reconstruction_repair :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_43_5_r2_shortest_path_reconstruction_repair/
+phase144_6_r5_43_5_transitive_contribution_chain_audit :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_43_5_transitive_contribution_chain_audit/
+phase144_6_r5_43_6_hidden_bridge_classification_audit :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_43_6_hidden_bridge_classification_audit/
+phase144_6_r5_43_7_hidden_bridge_semantic_classification_foundation :: directory :: files=5 :: destination=archive/phases/phase144_6_r5_43_7_hidden_bridge_semantic_classification_foundation/
+phase144_6_r5_43_8_transport_chain_narrative_compression_audit :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_43_8_transport_chain_narrative_compression_audit/
+phase144_6_r5_43_9_r2_powershell_copy_item_repair :: directory :: files=5 :: destination=archive/phases/phase144_6_r5_43_9_r2_powershell_copy_item_repair/
+phase144_6_r5_43_9_transport_chain_compression_prose_design_audit :: directory :: files=4 :: destination=archive/phases/phase144_6_r5_43_9_transport_chain_compression_prose_design_audit/
+phase144_6_r5_43_generic_renderer_contribution_connection :: directory :: files=5 :: destination=archive/phases/phase144_6_r5_43_generic_renderer_contribution_connection/
+phase144_6_r5_43_r2_recursive_repr_repair :: directory :: files=6 :: destination=archive/phases/phase144_6_r5_43_r2_recursive_repr_repair/
+phase144_6_r5_43_r3_current_markdown_plumbing_repair :: directory :: files=6 :: destination=archive/phases/phase144_6_r5_43_r3_current_markdown_plumbing_repair/
+phase144_6_r5_4_argument_dependency_gap_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_4_argument_dependency_gap_audit/
+phase144_6_r5_4_r1_group_result_fix :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_4_r1_group_result_fix/
+phase144_6_r5_5_argument_boundary_compression_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_5_argument_boundary_compression_audit/
+phase144_6_r5_6_full_provenance_required_depth_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_6_full_provenance_required_depth_audit/
+phase144_6_r5_7_narrative_required_argument_selection_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_7_narrative_required_argument_selection_audit/
+phase144_6_r5_8_purpose_subject_consumption_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_8_purpose_subject_consumption_audit/
+phase144_6_r5_9_narrative_claim_consumer_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_9_narrative_claim_consumer_audit/
+phase144_6_r5_depth_policy_audit :: directory :: files=3 :: destination=archive/phases/phase144_6_r5_depth_policy_audit/
+phase144_documentation_closure :: directory :: files=13 :: destination=archive/phases/phase144_documentation_closure/
+phase144_final_historical_snapshot_repair_r3 :: directory :: files=3 :: destination=archive/phases/phase144_final_historical_snapshot_repair_r3/
+phase144_final_regression_repair_r1 :: directory :: files=6 :: destination=archive/phases/phase144_final_regression_repair_r1/
+phase144_final_regression_repair_r2 :: directory :: files=3 :: destination=archive/phases/phase144_final_regression_repair_r2/
+phase144_r2_final_repository_wide_pytest :: directory :: files=3 :: destination=archive/phases/phase144_r2_final_repository_wide_pytest/
+phase144_r2_final_repository_wide_pytest_r2 :: directory :: files=4 :: destination=archive/phases/phase144_r2_final_repository_wide_pytest_r2/
+phase144_repository_wide_pytest :: directory :: files=3 :: destination=archive/phases/phase144_repository_wide_pytest/
+phase144_repository_wide_pytest_r1 :: directory :: files=4 :: destination=archive/phases/phase144_repository_wide_pytest_r1/
+phase145_1_repository_cleanup :: directory :: files=3 :: destination=archive/phases/phase145_1_repository_cleanup/
+phase145_1_stage2_artifact_classification :: directory :: files=5 :: destination=archive/phases/phase145_1_stage2_artifact_classification/
+phase145_1_stage3_delete_safe_artifacts :: directory :: files=3 :: destination=archive/phases/phase145_1_stage3_delete_safe_artifacts/
+phase145_1_stage4_b_review_reclassification :: directory :: files=5 :: destination=archive/phases/phase145_1_stage4_b_review_reclassification/
+
+MOVE_SAFE_STAGE1_FALSE_POSITIVE
+------------------------------------------------------------------------------

@@ -101,11 +101,11 @@ def create_app(
     )
     group_proof_depth_value = request.form.get(
       "group_proof_depth",
-      "1",
+      "2",
     )
     group_proof_mode_value = request.form.get(
       "group_proof_mode",
-      "trace",
+      "narrative",
     )
     generator_input_value = request.form.get(
       "generator_input",

@@ -818,8 +818,8 @@ def _build_group_proof_rendered_lines(
 def build_standard_web_group_proof_view(
   n: int,
   k: int,
-  max_depth: int = 1,
-  mode: str = "trace",
+  max_depth: int = 2,
+  mode: str = "narrative",
 ) -> WebGroupProofView:
   query = TodaGroupQuery(
     n=n,

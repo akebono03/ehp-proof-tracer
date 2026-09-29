@@ -14,7 +14,7 @@ def _build_test_client():
   return app.test_client()
 
 
-def test_phase132_9_trace_remains_default_web_group_proof_mode():
+def test_phase132_9_narrative_is_default_web_group_proof_mode():
   view = (
     build_standard_web_group_proof_view(
       9,
@@ -22,8 +22,9 @@ def test_phase132_9_trace_remains_default_web_group_proof_mode():
     )
   )
 
-  assert view.mode == "trace"
-  assert view.rendered_lines == ()
+  assert view.mode == "narrative"
+  assert view.max_depth == 2
+  assert view.rendered_lines
   assert view.steps
 
 

@@ -338,9 +338,10 @@ def build_group_proof_argument_parser(
   parser.add_argument(
     "--depth",
     type=_parse_nonnegative_int,
+    default=2,
     help=(
       "maximum proof replay depth; "
-      "omit to use the default depth 1"
+      "default: 2"
     ),
   )
 
@@ -351,10 +352,10 @@ def build_group_proof_argument_parser(
       "outline",
       "narrative",
     ),
-    default="trace",
+    default="narrative",
     help=(
       "proof presentation mode; "
-      "default: trace"
+      "default: narrative"
     ),
   )
 
@@ -617,8 +618,8 @@ def _run_show_proof_command(
 def _run_group_proof_command(
   n: int,
   k: int,
-  max_depth: int | None = None,
-  mode: str = "trace",
+  max_depth: int | None = 2,
+  mode: str = "narrative",
 ) -> int:
   if mode not in (
     "trace",

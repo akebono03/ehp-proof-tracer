@@ -10,6 +10,10 @@ def test_phase131_4_group_proof_sigma9_renders_group_source_and_proof(
       "group-proof",
       "9",
       "7",
+      "--depth",
+      "1",
+      "--mode",
+      "trace",
     ]
   )
 
@@ -30,7 +34,6 @@ def test_phase131_4_group_proof_sigma9_renders_group_source_and_proof(
   )
 
 
-
 def test_phase131_4_group_proof_zero_depth_contains_only_root(
   capsys,
 ):
@@ -41,6 +44,8 @@ def test_phase131_4_group_proof_zero_depth_contains_only_root(
       "7",
       "--depth",
       "0",
+      "--mode",
+      "trace",
     ]
   )
 
@@ -51,7 +56,6 @@ def test_phase131_4_group_proof_zero_depth_contains_only_root(
   assert "Depth 1" not in captured.out
 
 
-
 def test_phase131_4_group_proof_zero_group_does_not_require_generator(
   capsys,
 ):
@@ -60,6 +64,10 @@ def test_phase131_4_group_proof_zero_group_does_not_require_generator(
       "group-proof",
       "2",
       "7",
+      "--depth",
+      "1",
+      "--mode",
+      "trace",
     ]
   )
 
@@ -70,7 +78,6 @@ def test_phase131_4_group_proof_zero_group_does_not_require_generator(
   assert r"$\pi_{9}^{2} = 0$" in captured.out
   assert "Toda Proposition 5.15" in captured.out
   assert "Depth 0" in captured.out
-
 
 
 def test_phase131_4_group_proof_not_found_is_explicit(
@@ -102,6 +109,10 @@ def test_phase131_4_group_proof_connectivity_zero_is_replayed(
       "group-proof",
       "11",
       "-1",
+      "--depth",
+      "1",
+      "--mode",
+      "trace",
     ]
   )
 
@@ -114,7 +125,6 @@ def test_phase131_4_group_proof_connectivity_zero_is_replayed(
   assert "- Phase: 130" in captured.out
   assert "Depth 0" in captured.out
   assert "Depth 1" not in captured.out
-
 
 
 def test_phase131_4_existing_group_query_semantics_remain_unchanged(
