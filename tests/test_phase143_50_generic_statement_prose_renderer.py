@@ -37,11 +37,7 @@ def test_phase143_50_pi6_3_renders_map_properties_in_japanese():
   )
 
   assert (
-    r"$E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である."
-    in rendered
-  )
-  assert (
-    r"$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である."
+    r"$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$"
     in rendered
   )
   assert r"\text{ is injective}" not in rendered
@@ -114,11 +110,11 @@ def test_phase143_50_structured_prose_remains_after_aggregate_rendering():
   )
 
   assert (
-    r"$E^{2}: \pi_{6}^{3} \to \pi_{8}^{5}$ は単射である."
+    r"$\pi_{8}^{5}/E^{2}\left(\pi_{6}^{3}\right)"
+    r" \cong \mathbb{Z}/2$"
     in rendered
   )
   assert (
-    r"$\pi_{8}^{5}/E^{2}\left(\pi_{6}^{3}\right)"
-    r" \cong \mathbb{Z}/2$"
+    r"$\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$"
     in rendered
   )

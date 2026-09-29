@@ -1,0 +1,15 @@
+Phase 144 final test boundary
+
+Included:
+- canonical tests/ suite
+- temporary import-environment compatibility only
+
+Excluded:
+- old phase*/payload/tests and audit-package test copies outside tests/
+- production changes
+- existing test changes
+- documentation changes
+- Phase 145 work
+
+Command under test:
+python -m pytest tests -q

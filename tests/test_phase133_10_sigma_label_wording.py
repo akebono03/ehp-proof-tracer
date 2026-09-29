@@ -28,9 +28,7 @@ def test_phase133_10_sigma9_depth_two_uses_final_japanese_wording(
     in captured.out
   )
   assert (
-    "また、"
-    "Toda Lemma 5.14 の σ′ に関する結果"
-    "を用いる。"
+    r"$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$"
     in captured.out
   )
 

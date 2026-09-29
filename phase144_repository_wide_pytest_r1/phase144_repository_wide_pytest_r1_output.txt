@@ -1,0 +1,46 @@
+﻿**********************
+Windows PowerShell トランスクリプト開始
+開始時刻: 20260929085451
+ユーザー名: oomae-pc11\oomae
+RunAs ユーザー: oomae-pc11\oomae
+構成名: 
+コンピューター: OOMAE-PC11 (Microsoft Windows NT 10.0.26100.0)
+ホスト アプリケーション: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -File .\phase144_repository_wide_pytest_r1\run_phase144_repository_wide_pytest_r1.ps1
+プロセス ID: 28468
+PSVersion: 5.1.26100.9444
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9444
+BuildVersion: 10.0.26100.9444
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+
+A. Repository / environment preflight
+--------------------------------------------------------------
+
+
+
+
+
+
+Temporary package marker created: tests/__init__.py
+
+B. Dual-import preflight
+--------------------------------------------------------------
+PYTHONPATH=C:\Users\oomae\Dropbox\Python\fitz\ehp_proof;C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests
+
+
+C. Phase 144 FINAL canonical repository-wide pytest
+--------------------------------------------------------------
+Command: python -m pytest tests -q
+
+
+PS>終了エラー(): "パイプラインが停止されています。"
+
+Temporary package marker removed: tests/__init__.py
+**********************
+Windows PowerShell トランスクリプト終了
+終了時刻: 20260929091347
+**********************

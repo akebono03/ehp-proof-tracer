@@ -711,6 +711,7 @@ def _run_group_proof_command(
     if (
       mode == "narrative"
       and max_depth is not None
+      and max_depth > 0
     ):
       narrative_replay = (
         build_complete_toda_group_result_proof_replay(
