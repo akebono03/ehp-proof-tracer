@@ -286,8 +286,11 @@ def test_phase148_rc2_4_repair_r4_web_response_uses_repaired_depth2_narrative():
 
   assert response.status_code == 200
   assert b"Selected depth:" in response.data
-  assert b"Depth 2" in response.data
-  assert b"\\\\tag{1}" in response.data
+  assert (
+    b"Selected depth:\n          2"
+    in response.data
+  )
+  assert b"\\tag{1}" in response.data
   assert (
     "は完全である".encode(
       "utf-8"

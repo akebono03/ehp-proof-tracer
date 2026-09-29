@@ -3,6 +3,8 @@ from enum import Enum
 
 from proof import (
   ProofStep,
+  Relation,
+  RelationType,
 )
 from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
@@ -419,6 +421,44 @@ def build_toda_group_proof_narrative_semantic_closure_presentation(
   original_step_ids = frozenset(
     selected_step_ids
   )
+
+  for edge in provenance.edges:
+    if (
+      id(
+        edge.parent_step
+      )
+      not in original_step_ids
+    ):
+      continue
+
+    parent_statement = (
+      edge.parent_step.conclusion
+    )
+    premise_statement = (
+      edge.premise_step.conclusion
+    )
+
+    if (
+      not isinstance(
+        parent_statement,
+        Relation,
+      )
+      or parent_statement.relation_type
+      is not RelationType.EQUALITY
+      or not isinstance(
+        premise_statement,
+        Relation,
+      )
+      or premise_statement.relation_type
+      is not RelationType.EQUALITY
+    ):
+      continue
+
+    selected_step_ids.add(
+      id(
+        edge.premise_step
+      )
+    )
 
   changed = True
 
