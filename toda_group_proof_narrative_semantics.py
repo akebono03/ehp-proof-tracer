@@ -407,6 +407,9 @@ def build_toda_group_proof_narrative_semantic_closure_presentation(
       "TodaGroupProofPresentation"
     )
 
+  if presentation.max_depth == 0:
+    return presentation
+
   provenance = (
     extract_toda_recursive_proof_provenance(
       presentation.source_replay.group_result
@@ -421,44 +424,85 @@ def build_toda_group_proof_narrative_semantic_closure_presentation(
   original_step_ids = frozenset(
     selected_step_ids
   )
+  edges_by_parent_step_id = {}
 
   for edge in provenance.edges:
-    if (
+    edges_by_parent_step_id.setdefault(
       id(
         edge.parent_step
-      )
-      not in original_step_ids
-    ):
-      continue
-
-    parent_statement = (
-      edge.parent_step.conclusion
+      ),
+      [],
+    ).append(
+      edge
     )
-    premise_statement = (
-      edge.premise_step.conclusion
+
+  order_calculation_step_ids = set()
+
+  for node in presentation.nodes:
+    order_statement = (
+      node.proof_step.conclusion
     )
 
     if (
       not isinstance(
-        parent_statement,
+        order_statement,
         Relation,
       )
-      or parent_statement.relation_type
-      is not RelationType.EQUALITY
-      or not isinstance(
-        premise_statement,
-        Relation,
-      )
-      or premise_statement.relation_type
-      is not RelationType.EQUALITY
+      or order_statement.relation_type
+      is not RelationType.ORDER
     ):
       continue
 
-    selected_step_ids.add(
+    for edge in edges_by_parent_step_id.get(
       id(
-        edge.premise_step
+        node.proof_step
+      ),
+      (),
+    ):
+      premise_statement = (
+        edge.premise_step.conclusion
       )
-    )
+
+      if (
+        isinstance(
+          premise_statement,
+          Relation,
+        )
+        and premise_statement.relation_type
+        is RelationType.EQUALITY
+      ):
+        order_calculation_step_ids.add(
+          id(
+            edge.premise_step
+          )
+        )
+
+  for calculation_step_id in (
+    order_calculation_step_ids
+  ):
+    for edge in edges_by_parent_step_id.get(
+      calculation_step_id,
+      (),
+    ):
+      premise_statement = (
+        edge.premise_step.conclusion
+      )
+
+      if (
+        not isinstance(
+          premise_statement,
+          Relation,
+        )
+        or premise_statement.relation_type
+        is not RelationType.EQUALITY
+      ):
+        continue
+
+      selected_step_ids.add(
+        id(
+          edge.premise_step
+        )
+      )
 
   changed = True
 
@@ -561,7 +605,6 @@ def build_toda_group_proof_narrative_semantic_closure_presentation(
   return build_toda_group_proof_presentation(
     closure_replay
   )
-
 
 def _semantic_dependency_semantics(
   presentation: TodaGroupProofPresentation,

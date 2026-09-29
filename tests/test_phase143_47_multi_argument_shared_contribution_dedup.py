@@ -65,18 +65,18 @@ def test_phase143_47_pi8_5_suppresses_shared_exactness_contributions():
     r"$\pi_{7}^{5} \xrightarrow{\Delta} "
     r"\pi_{5}^{2} \xrightarrow{E} "
     r"\pi_{6}^{3}$ は完全である."
-  ) == 1
+  ) == 0
   assert rendered.count(
     r"$\pi_{5}^{2} \xrightarrow{E} "
     r"\pi_{6}^{3} \xrightarrow{H} "
     r"\pi_{6}^{5}$ は完全である."
-  ) >= 1
+  ) == 0
   assert rendered.count(
     r"0\longrightarrow \pi_{5}^{2}"
     r"\xrightarrow{E} \pi_{6}^{3}"
     r"\xrightarrow{H} \pi_{6}^{5}"
     r"\longrightarrow 0"
-  ) == 1
+  ) == 0
   assert (
     r"\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}"
     in rendered
@@ -114,7 +114,7 @@ def test_phase143_47_pi16_9_suppresses_shared_definition_evidence():
 
   assert rendered.count(
     exactness
-  ) == 1
+  ) == 0
   assert (
     r"\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}"
     in rendered

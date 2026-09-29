@@ -57,7 +57,6 @@ def test_phase144_6_supersedes_legacy_pi6_3_narrative_contract():
 
   assert actual == expected
 
-
 def test_phase144_6_pi6_3_generic_route_preserves_target():
   _, actual = (
     _phase144_6_pi6_3_renderings()

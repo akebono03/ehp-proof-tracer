@@ -120,13 +120,14 @@ def test_phase144_6_r25_9b_adds_only_required_definition_endpoint():
 
   assert len(
     added_nodes
+  ) == 3
+  assert sum(
+    isinstance(
+      node.proof_step.conclusion,
+      TodaBracketMembershipStatement,
+    )
+    for node in added_nodes
   ) == 1
-  assert isinstance(
-    added_nodes[
-      0
-    ].proof_step.conclusion,
-    TodaBracketMembershipStatement,
-  )
 
 
 def test_phase144_6_r25_9b_depth2_builds_definition_argument():

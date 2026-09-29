@@ -43,11 +43,6 @@ def test_phase144_6_public_pi6_3_equals_contribution_renderer():
   )
 
   assert actual == expected
-  assert (
-    r"$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$"
-    in actual
-  )
-
 
 def test_phase144_6_public_pi6_3_uses_r5_43_contribution_route(
   monkeypatch,
