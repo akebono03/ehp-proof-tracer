@@ -1,0 +1,40 @@
+﻿**********************
+Windows PowerShell トランスクリプト開始
+開始時刻: 20260929095036
+ユーザー名: oomae-pc11\oomae
+RunAs ユーザー: oomae-pc11\oomae
+構成名: 
+コンピューター: OOMAE-PC11 (Microsoft Windows NT 10.0.26100.0)
+ホスト アプリケーション: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -File .\phase144_r2_final_repository_wide_pytest\run_phase144_r2_final_repository_wide_pytest.ps1
+プロセス ID: 25776
+PSVersion: 5.1.26100.9444
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9444
+BuildVersion: 10.0.26100.9444
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+==============================================================
+Phase 144 R2 Final Repository-Wide Pytest
+Canonical scope: tests/
+Production changes: none
+Existing test changes: none
+Documentation changes: none
+==============================================================
+
+A. Repository preflight...
+Repo: C:\Users\oomae\Dropbox\Python\fitz\ehp_proof
+
+
+
+
+
+git status before final suite:
+
+PS>終了エラー(git.exe): "ユーザー設定変数 "ErrorActionPreference" または共通パラメーターが Stop に設定されているため、実行中のコマンドが停止しました。error: pathspec 'tests/__init__.py' did not match any file(s) known to git"
+**********************
+Windows PowerShell トランスクリプト終了
+終了時刻: 20260929095037
+**********************

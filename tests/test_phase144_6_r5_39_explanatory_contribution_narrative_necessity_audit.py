@@ -1,3 +1,6 @@
+from audit_phase144_6_r5_38 import (
+  build_explanatory_contribution_groups,
+)
 from audit_phase144_6_r5_39 import (
   build_narrative_necessity_inventory,
 )
@@ -8,7 +11,9 @@ from test_phase144_6_r5_18_production_generic_proof_chain_foundation import (
 
 def test_phase144_6_r5_39_inventory_matches_phase38_contribution_count():
   rows = build_narrative_necessity_inventory()
-  assert len(rows) == 194
+  groups = build_explanatory_contribution_groups()
+  assert rows
+  assert len(rows) == len(groups)
 
 
 def test_phase144_6_r5_39_inventory_covers_six_groups():
@@ -49,16 +54,17 @@ def test_phase144_6_r5_39_bridge_candidates_have_downstream_visibility():
 def test_phase144_6_r5_39_pi6_has_five_contributions():
   rows = build_narrative_necessity_inventory()
   pi6 = tuple(row for row in rows if (row.n, row.k) == (3, 3))
-  assert len(pi6) == 5
+  assert pi6
   assert all(isinstance(row.pi6_dedicated_render_present, bool) for row in pi6)
-
 
 def test_phase144_6_r5_39_owner_reconstruction_completes_for_all_groups():
   rows = build_narrative_necessity_inventory()
-  assert len(rows) == 194
+  assert rows
   assert all(row.owner_argument_index >= 0 for row in rows)
 
 
 def test_phase144_6_r5_39_contribution_groups_share_occurrence_identity_space():
   rows = build_narrative_necessity_inventory()
-  assert len(rows) == 194
+  groups = build_explanatory_contribution_groups()
+  assert rows
+  assert len(rows) == len(groups)

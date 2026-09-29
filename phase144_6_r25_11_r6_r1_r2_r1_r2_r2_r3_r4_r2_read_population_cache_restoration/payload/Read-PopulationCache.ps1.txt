@@ -1,0 +1,19 @@
+﻿function Read-PopulationCache {
+  $result = @()
+
+  if (-not (Test-Path $CachePath)) {
+    return $result
+  }
+
+  Invoke-WithRetry `
+    -Description "population cache read" `
+    -Action {
+      $script:cacheReadLines = Get-Content -Path $CachePath -Encoding UTF8
+    }
+
+  foreach ($line in $script:cacheReadLines) {
+    $result += $line
+  }
+
+  return $result
+}

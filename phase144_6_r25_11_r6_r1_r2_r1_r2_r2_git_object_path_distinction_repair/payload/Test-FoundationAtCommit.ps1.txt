@@ -1,0 +1,68 @@
+﻿function Test-FoundationAtCommit {
+  param(
+    [Parameter(Mandatory=$true)]
+    [string]$Sha
+  )
+
+  $commitObjectName = $Sha + "^{commit}"
+  $commitStderrName = "ehp_r25_11_r6_r1_commit_" + $PID + ".stderr.txt"
+  $commitStderrPath = Join-Path $env:TEMP $commitStderrName
+  $oldErrorActionPreference = $ErrorActionPreference
+  $commitExitCode = $null
+
+  try {
+    $ErrorActionPreference = "Continue"
+    & git cat-file -e $commitObjectName 2>$commitStderrPath
+    $commitExitCode = $LASTEXITCODE
+  }
+  finally {
+    $ErrorActionPreference = $oldErrorActionPreference
+  }
+
+  if ($commitExitCode -ne 0) {
+    $commitStderrText = ""
+
+    if (Test-Path $commitStderrPath) {
+      $commitStderrLines = Get-Content -Path $commitStderrPath -Encoding UTF8
+      $commitStderrText = $commitStderrLines -join " "
+      Remove-Item $commitStderrPath -Force -ErrorAction SilentlyContinue
+    }
+
+    $message = "git commit-object check failed for " + $Sha
+    $message = $message + " with exit code " + $commitExitCode
+    $message = $message + ": " + $commitStderrText
+    throw $message
+  }
+
+  if (Test-Path $commitStderrPath) {
+    Remove-Item $commitStderrPath -Force -ErrorAction SilentlyContinue
+  }
+
+  $foundationObjectName = "${Sha}:$FoundationPath"
+  $foundationStderrName = "ehp_r25_11_r6_r1_foundation_" + $PID + ".stderr.txt"
+  $foundationStderrPath = Join-Path $env:TEMP $foundationStderrName
+  $foundationExitCode = $null
+
+  try {
+    $ErrorActionPreference = "Continue"
+    & git cat-file -e $foundationObjectName 2>$foundationStderrPath
+    $foundationExitCode = $LASTEXITCODE
+  }
+  finally {
+    $ErrorActionPreference = $oldErrorActionPreference
+  }
+
+  if ($foundationExitCode -eq 0) {
+    if (Test-Path $foundationStderrPath) {
+      Remove-Item $foundationStderrPath -Force -ErrorAction SilentlyContinue
+    }
+
+    return $true
+  }
+
+  if (Test-Path $foundationStderrPath) {
+    Remove-Item $foundationStderrPath -Force -ErrorAction SilentlyContinue
+  }
+
+  return $false
+}

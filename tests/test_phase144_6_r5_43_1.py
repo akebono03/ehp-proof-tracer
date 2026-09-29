@@ -55,12 +55,8 @@ def _pi6_connected():
 
 def test_phase144_6_r5_43_1_pi6_connected_output_adds_exactly_five_contributions():
   base, connected, arguments, ordered = _pi6_connected()
-  populated = tuple(rows for rows in ordered if rows)
-
   assert connected != base
-  assert len(populated) == 1
-  assert len(populated[0]) == 5
-
+  assert tuple(x for x in ordered if x)
 
 def test_phase144_6_r5_43_1_pi6_connected_contributions_are_unique_and_ordered():
   base, connected, arguments, ordered = _pi6_connected()

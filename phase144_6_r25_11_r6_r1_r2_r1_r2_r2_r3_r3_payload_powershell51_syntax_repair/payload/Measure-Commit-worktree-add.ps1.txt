@@ -1,0 +1,21 @@
+﻿    Invoke-WithRetry `
+      -Description "temporary worktree creation for $Sha" `
+      -Action {
+        $oldErrorActionPreference = $ErrorActionPreference
+        $addExitCode = $null
+
+        try {
+          $ErrorActionPreference = "Continue"
+          & git worktree add --detach $Worktree $Sha 1>$null 2>$null
+          $addExitCode = $LASTEXITCODE
+        }
+        finally {
+          $ErrorActionPreference = $oldErrorActionPreference
+        }
+
+        if ($addExitCode -ne 0) {
+          $message = "git worktree add exit code "
+          $message = $message + $addExitCode
+          throw $message
+        }
+      }

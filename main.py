@@ -78,6 +78,7 @@ from toda_group_query_semantics import (
   render_toda_group_query_domain_cli_message,
 )
 from toda_group_result_proof_replay import (
+  build_complete_toda_group_result_proof_replay,
   build_toda_group_result_proof_replay,
 )
 from toda_group_proof_narrative_renderer import (
@@ -707,11 +708,27 @@ def _run_group_proof_command(
       )
     )
   else:
-    presentation = (
-      build_toda_group_proof_presentation(
-        replay
+    if (
+      mode == "narrative"
+      and max_depth is not None
+      and max_depth > 0
+    ):
+      narrative_replay = (
+        build_complete_toda_group_result_proof_replay(
+          group_result
+        )
       )
-    )
+      presentation = (
+        build_toda_group_proof_presentation(
+          narrative_replay
+        )
+      )
+    else:
+      presentation = (
+        build_toda_group_proof_presentation(
+          replay
+        )
+      )
 
     if mode == "outline":
       markdown = (

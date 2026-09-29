@@ -1,0 +1,117 @@
+﻿**********************
+Windows PowerShell トランスクリプト開始
+開始時刻: 20260929070446
+ユーザー名: DESKTOP-LA5JCGV\user
+RunAs ユーザー: DESKTOP-LA5JCGV\user
+構成名: 
+コンピューター: DESKTOP-LA5JCGV (Microsoft Windows NT 10.0.22000.0)
+ホスト アプリケーション: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -File .\phase144_6_finalization\run_phase144_6_finalization.ps1
+プロセス ID: 7192
+PSVersion: 5.1.22000.2538
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.22000.2538
+BuildVersion: 10.0.22000.2538
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+==============================================================
+Phase 144-6 Finalization
+Production changes: none
+Documentation changes: none in this measurement pass
+Phase 145 result-reuse implementation: not included
+==============================================================
+
+==============================================================
+A. Git / environment preflight
+==============================================================
+
+
+
+
+
+
+
+--------------------------------------------------------------
+Phase 144-6 focused test inventory
+--------------------------------------------------------------
+Focused test files: 66
+  test_phase144_6_pi6_generic_production_route.py
+  test_phase144_6_public_route_cutover.py
+  test_phase144_6_r25_20_six_group_generic_production_narrative.py
+  test_phase144_6_r25_9a_pi5_suppression.py
+  test_phase144_6_r25_9a_r1_relocation_hidden.py
+  test_phase144_6_r25_9b_nu_prime_definition_depth2.py
+  test_phase144_6_r3_production_references.py
+  test_phase144_6_r3_structured_references.py
+  test_phase144_6_r4_supporting_fact_filtering.py
+  test_phase144_6_r5_15m_evidence_contributions.py
+  test_phase144_6_r5_15p_evidence_contribution_vocabulary.py
+  test_phase144_6_r5_15t_aggregate_semantics.py
+  test_phase144_6_r5_15u_evidence_integration.py
+  test_phase144_6_r5_15u_r1_evidence_integration.py
+  test_phase144_6_r5_17a_proof_chain_selection_audit.py
+  test_phase144_6_r5_17a_r2_argument_support_edge_integration.py
+  test_phase144_6_r5_17a_r3_support_edge_correspondence.py
+  test_phase144_6_r5_17b_generic_proof_chain_types.py
+  test_phase144_6_r5_17c_cross_group_generic_proof_chain.py
+  test_phase144_6_r5_17d_failure_novelty_classification.py
+  test_phase144_6_r5_17d_r1_other_semantic_role_resolution.py
+  test_phase144_6_r5_17e_proof_chain_architecture_decision.py
+  test_phase144_6_r5_18_production_generic_proof_chain_foundation.py
+  test_phase144_6_r5_19_proof_chain_narrative_integration.py
+  test_phase144_6_r5_20_pi6_3_proof_chain_generic_parity.py
+  test_phase144_6_r5_21_missing_7_facts_generic_provider_audit.py
+  test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py
+  test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py
+  test_phase144_6_r5_24_generic_visibility_policy_correction_design_audit.py
+  test_phase144_6_r5_25_multi_argument_suppression_selective_frontier_relevance_audit.py
+  test_phase144_6_r5_26_step_level_dedup_derivation_path_relevance_audit.py
+  test_phase144_6_r5_27_bounded_derivation_visibility_step_dedup_readiness_audit.py
+  test_phase144_6_r5_28_narrative_contribution_ownership_audit.py
+  test_phase144_6_r5_29_narrative_contribution_chain_ownership_audit.py
+  test_phase144_6_r5_30_upstream_calculation_attachment_audit.py
+  test_phase144_6_r5_31_upstream_calculation_attachment_semantic_audit.py
+  test_phase144_6_r5_32_visible_contribution_assembly_dedup_audit.py
+  test_phase144_6_r5_33_visible_step_rendered_markdown_survival_audit.py
+  test_phase144_6_r5_34_provider_anchored_visibility_gap_audit.py
+  test_phase144_6_r5_35_hidden_anchored_contribution_necessity_audit.py
+  test_phase144_6_r5_36_necessary_contribution_current_display_coverage_audit.py
+  test_phase144_6_r5_37_genuinely_missing_semantic_equivalence_and_rendering_audit.py
+  test_phase144_6_r5_38_visibility_gap_explanatory_contribution_dedup_ownership_audit.py
+  test_phase144_6_r5_39_explanatory_contribution_narrative_necessity_audit.py
+  test_phase144_6_r5_40_narrative_contribution_placement_order_audit.py
+  test_phase144_6_r5_41_contribution_topological_order_determinism_audit.py
+  test_phase144_6_r5_42_generic_narrative_contribution_production_foundation.py
+  test_phase144_6_r5_43_1.py
+  test_phase144_6_r5_43_10_transport_chain_compression_production.py
+  test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py
+  test_phase144_6_r5_43_11a_insertion_failure_classification_audit.py
+  test_phase144_6_r5_43_11b_detached_argument_boundary_audit.py
+  test_phase144_6_r5_43_11c_non_detached_fallback_placement_repair.py
+  test_phase144_6_r5_43_11c_r2_argument_participation_guard.py
+  test_phase144_6_r5_43_11d_final_completion_audit.py
+  test_phase144_6_r5_43_2_placement_aware_contribution_insertion.py
+  test_phase144_6_r5_43_3.py
+  test_phase144_6_r5_43_4_dependency_aware_contribution_connector.py
+  test_phase144_6_r5_43_5.py
+  test_phase144_6_r5_43_6.py
+  test_phase144_6_r5_43_7_hidden_bridge_semantic_classification_foundation.py
+  test_phase144_6_r5_43_8.py
+  test_phase144_6_r5_43_9.py
+  test_phase144_6_r5_43_generic_renderer_contribution_connection.py
+  test_phase144_6_r5_43_r2_recursive_repr_repair.py
+  test_phase144_6_r5_43_r3_current_markdown_plumbing_repair.py
+
+==============================================================
+B. Phase 144-6 focused / regression tests
+==============================================================
+
+PS>終了エラー(): "パイプラインが停止されています。"
+>> 終了エラー(): "パイプラインが停止されています。"
+>> 終了エラー(): "パイプラインが停止されています。"
+**********************
+Windows PowerShell トランスクリプト終了
+終了時刻: 20260929075340
+**********************

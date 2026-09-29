@@ -196,6 +196,33 @@ def _validate_max_depth(
     )
 
 
+def build_complete_toda_group_result_proof_replay(
+  group_result: TodaGroupResult,
+) -> TodaGroupResultProofReplayResult:
+  if not isinstance(
+    group_result,
+    TodaGroupResult,
+  ):
+    raise TypeError(
+      "group_result must be a TodaGroupResult"
+    )
+
+  provenance = (
+    extract_toda_recursive_proof_provenance(
+      group_result
+    )
+  )
+  max_depth = max(
+    node.shortest_depth
+    for node in provenance.nodes
+  )
+
+  return build_toda_group_result_proof_replay(
+    group_result,
+    max_depth=max_depth,
+  )
+
+
 def build_toda_group_result_proof_replay(
   group_result: TodaGroupResult,
   max_depth: int = 1,

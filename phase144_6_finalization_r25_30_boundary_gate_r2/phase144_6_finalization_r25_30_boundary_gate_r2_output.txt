@@ -1,0 +1,55 @@
+﻿**********************
+Windows PowerShell トランスクリプト開始
+開始時刻: 20260929084037
+ユーザー名: oomae-pc11\oomae
+RunAs ユーザー: oomae-pc11\oomae
+構成名: 
+コンピューター: OOMAE-PC11 (Microsoft Windows NT 10.0.26100.0)
+ホスト アプリケーション: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -File .\phase144_6_finalization_r25_30_boundary_gate_r2\run_phase144_6_finalization_r25_30_boundary_gate_r2.ps1
+プロセス ID: 23052
+PSVersion: 5.1.26100.9444
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9444
+BuildVersion: 10.0.26100.9444
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Temporary package marker created: tests/__init__.py
+
+A. Dual-import preflight
+--------------------------------------------------------------
+PYTHONPATH=C:\Users\oomae\Dropbox\Python\fitz\ehp_proof;C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests
+
+
+B. Current R5-43-11D inventory
+--------------------------------------------------------------
+
+
+C. Locate latest local R25-30-R3 boundary-classification test
+--------------------------------------------------------------
+Selected: C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase144_6_r25_30_r3_argument_boundary_entry_classification_audit\test_phase144_6_r25_30_r3.py
+Modified: 2026-09-28T21:52:18
+
+D. R25-30-R3 boundary-classification regression
+--------------------------------------------------------------
+
+
+E. Small production-route controls
+--------------------------------------------------------------
+
+
+==============================================================
+Phase 144-6 R25-30 boundary gate R2: PASS
+==============================================================
+R25-30-R3 ownership/boundary classification: PASS
+Production-route controls: PASS
+R5-43 historical fixed-count snapshot is not a current gate.
+Result-reuse subtree expansion remains Phase 145.
+
+Temporary package marker removed: tests/__init__.py
+**********************
+Windows PowerShell トランスクリプト終了
+終了時刻: 20260929084112
+**********************

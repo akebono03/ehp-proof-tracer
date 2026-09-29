@@ -64,8 +64,8 @@ def test_phase143_58a_pi6_3_narrative_normalizes_negative_scalar_sum():
     )
   )
 
+  assert "i + -1" not in rendered
   assert (
-    r"$\pi_{i - 1}^{1} = 0$"
+    r"$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$"
     in rendered
   )
-  assert "i + -1" not in rendered

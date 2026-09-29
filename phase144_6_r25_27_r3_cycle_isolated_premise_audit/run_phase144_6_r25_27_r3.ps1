@@ -1,0 +1,64 @@
+﻿$ErrorActionPreference = "Stop"
+
+$Here = Split-Path -Parent $MyInvocation.MyCommand.Path
+$Repo = Split-Path -Parent $Here
+$Output = Join-Path $Repo "phase144_6_r25_27_proof_edge_ownership_boundary_audit\r25_27_output.txt"
+
+Write-Host "=============================================================="
+Write-Host "Phase 144-6 R25-27-R3 Cycle-Isolated Premise Audit"
+Write-Host "Production changes: none"
+Write-Host "=============================================================="
+Write-Host ""
+
+Push-Location $Repo
+try {
+  $env:PYTHONPATH = (Get-Location).Path
+  $env:PYTHONIOENCODING = "utf-8"
+
+  Write-Host "A. Applying audit-harness-only repair..."
+  python ".\phase144_6_r25_27_r3_cycle_isolated_premise_audit\apply_phase144_6_r25_27_r3.py"
+  if ($LASTEXITCODE -ne 0) { throw "R25-27-R3 harness repair failed." }
+  Write-Host ""
+
+  Write-Host "B. Syntax preflight..."
+  python -m py_compile `
+    ".\phase144_6_r25_27_proof_edge_ownership_boundary_audit\audit_phase144_6_r25_27.py" `
+    ".\phase144_6_r25_27_proof_edge_ownership_boundary_audit\test_phase144_6_r25_27.py" `
+    ".\phase144_6_r25_27_r3_cycle_isolated_premise_audit\test_phase144_6_r25_27_r3.py"
+  if ($LASTEXITCODE -ne 0) { throw "R25-27-R3 syntax preflight failed." }
+  Write-Host ""
+
+  Write-Host "C. R25-27-R3 cycle-isolation tests..."
+  pytest -q ".\phase144_6_r25_27_r3_cycle_isolated_premise_audit\test_phase144_6_r25_27_r3.py"
+  if ($LASTEXITCODE -ne 0) { throw "R25-27-R3 tests failed." }
+  Write-Host ""
+
+  Write-Host "D. Original R25-27 audit-contract tests..."
+  pytest -q ".\phase144_6_r25_27_proof_edge_ownership_boundary_audit\test_phase144_6_r25_27.py"
+  if ($LASTEXITCODE -ne 0) { throw "R25-27 audit-contract tests failed." }
+  Write-Host ""
+
+  Write-Host "E. Existing argument-local-body regressions..."
+  pytest -q ".\tests\test_phase143_41_argument_local_body.py"
+  if ($LASTEXITCODE -ne 0) { throw "R25-27 local-body regressions failed." }
+  Write-Host ""
+
+  Write-Host "F. Six-group cycle-isolated direct-premise ownership audit..."
+  python ".\phase144_6_r25_27_proof_edge_ownership_boundary_audit\audit_phase144_6_r25_27.py" |
+    Tee-Object -FilePath $Output
+  if ($LASTEXITCODE -ne 0) { throw "R25-27 diagnosis failed." }
+  Write-Host ""
+
+  Write-Host "=============================================================="
+  Write-Host "R25-27-R3 completed."
+  Write-Host "Output:"
+  Write-Host "  $Output"
+  Write-Host "No production files were changed."
+  Write-Host "Repository-wide pytest was NOT run."
+  Write-Host "=============================================================="
+}
+finally {
+  Remove-Item Env:PYTHONPATH -ErrorAction SilentlyContinue
+  Remove-Item Env:PYTHONIOENCODING -ErrorAction SilentlyContinue
+  Pop-Location
+}

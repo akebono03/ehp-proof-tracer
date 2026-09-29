@@ -140,7 +140,7 @@ def test_phase143_59b_pi6_3_narrative_remains_available():
     r"$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$"
     in rendered
   )
-  assert "これらより、" in rendered
+  assert "(1) と (2) より、" in rendered
 
 
 def test_phase143_59b_pi8_5_narrative_remains_available():

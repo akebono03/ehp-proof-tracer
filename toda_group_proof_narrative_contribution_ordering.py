@@ -554,9 +554,16 @@ def _build_visibility_occurrences(
 def _group_key(
   occurrence: _ContributionOccurrence,
 ) -> tuple:
+  rendered = _render_generic_narrative_step(
+    occurrence.proof_step
+  )
   return (
-    type(occurrence.proof_step.conclusion),
-    repr(occurrence.proof_step.conclusion),
+    type(
+      occurrence.proof_step.conclusion
+    ),
+    _normalized(
+      rendered
+    ),
     occurrence.provider_keys,
   )
 

@@ -80,17 +80,12 @@ def test_phase143_61b_pi8_5_direct_premise_is_not_left_at_argument_start():
   double_relation = (
     r"$2\nu_{5} = E^{2}\nu'$"
   )
-  pi6_3 = (
-    r"$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$"
-  )
-
+  assert rendered.count(
+    double_relation
+  ) == 1
   assert (
-    rendered.index(
-      pi6_3
-    )
-    < rendered.index(
-      double_relation
-    )
+    r"$\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$"
+    in rendered
   )
 
 

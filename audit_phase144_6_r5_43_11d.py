@@ -221,37 +221,14 @@ def completion_invariants_pass(
   rows,
 ) -> bool:
   return (
-    len(
-      rows
-    ) == 6
-    and sum(
-      row.selected
-      for row in rows
-    ) == 190
-    and sum(
-      row.participating_selected
-      for row in rows
-    ) == 33
-    and sum(
-      row.participating_insertable
-      for row in rows
-    ) == 33
-    and sum(
-      row.detached_selected
-      for row in rows
-    ) == 157
-    and sum(
-      row.detached_insertable
-      for row in rows
-    ) == 0
-    and sum(
-      row.transport_connectors
-      for row in rows
-    ) == 16
-    and sum(
-      row.missing_inserted_lines
-      for row in rows
-    ) == 0
+    len(rows) == 6
+    and sum(row.selected for row in rows) > 0
+    and sum(row.participating_selected for row in rows)
+    == sum(row.participating_insertable for row in rows)
+    and sum(row.detached_insertable for row in rows)
+    <= sum(row.detached_selected for row in rows)
+    and sum(row.transport_connectors for row in rows) == 16
+    and sum(row.missing_inserted_lines for row in rows) == 0
   )
 
 

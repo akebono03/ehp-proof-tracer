@@ -1,0 +1,68 @@
+﻿**********************
+Windows PowerShell トランスクリプト開始
+開始時刻: 20260929095132
+ユーザー名: oomae-pc11\oomae
+RunAs ユーザー: oomae-pc11\oomae
+構成名: 
+コンピューター: OOMAE-PC11 (Microsoft Windows NT 10.0.26100.0)
+ホスト アプリケーション: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -File .\phase144_r2_final_repository_wide_pytest_r2\run_phase144_r2_final_repository_wide_pytest_r2.ps1
+プロセス ID: 12604
+PSVersion: 5.1.26100.9444
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9444
+BuildVersion: 10.0.26100.9444
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+==============================================================
+Phase 144 R2 Final Repository-Wide Pytest R2
+Runner-only repair: safe tests/__init__.py tracked detection
+Canonical scope: tests/
+Production changes: none
+Existing test changes: none
+Documentation changes: none
+==============================================================
+
+A. Repository preflight...
+Repo: C:\Users\oomae\Dropbox\Python\fitz\ehp_proof
+
+
+
+
+
+git status before final suite:
+
+
+tests/__init__.py existed before runner: False
+tests/__init__.py tracked by git: False
+Temporary tests/__init__.py created for package imports.
+
+PYTHONPATH=C:\Users\oomae\Dropbox\Python\fitz\ehp_proof;C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests
+
+B. Dual import preflight...
+
+
+C. Canonical collection preflight...
+tests/test_toda_rules.py::test_phase23_9_guarded_bridge_provenance_excludes_unrelated_fact
+tests/test_toda_rules.py::test_phase23_9_epsilon3_uses_narrow_bridge_not_canonical_indexed_guard
+tests/test_toda_rules.py::test_phase23_9_indexed_membership_does_not_collapse_to_unindexed_projection
+
+10298 tests collected in 8.03s
+
+D. Running the ONE final repository-wide suite...
+Command: python -m pytest tests -q
+Started: 2026-09-29 09:51:44
+
+
+
+Finished: 2026-09-29 10:30:33
+pytest exit code: 1
+
+FINAL SUITE: FAIL
+Do not rerun the whole suite. Use the failure summary for focused repair.
+**********************
+Windows PowerShell トランスクリプト終了
+終了時刻: 20260929103033
+**********************

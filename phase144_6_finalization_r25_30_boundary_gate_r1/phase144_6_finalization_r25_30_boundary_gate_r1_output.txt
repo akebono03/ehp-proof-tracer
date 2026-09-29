@@ -1,0 +1,44 @@
+﻿**********************
+Windows PowerShell トランスクリプト開始
+開始時刻: 20260929083743
+ユーザー名: oomae-pc11\oomae
+RunAs ユーザー: oomae-pc11\oomae
+構成名: 
+コンピューター: OOMAE-PC11 (Microsoft Windows NT 10.0.26100.0)
+ホスト アプリケーション: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -File .\phase144_6_finalization_r25_30_boundary_gate_r1\run_phase144_6_finalization_r25_30_boundary_gate_r1.ps1
+プロセス ID: 17624
+PSVersion: 5.1.26100.9444
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9444
+BuildVersion: 10.0.26100.9444
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+
+A. Import preflight
+--------------------------------------------------------------
+PYTHONPATH=C:\Users\oomae\Dropbox\Python\fitz\ehp_proof;C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests
+
+
+B. Current R5-43-11D inventory
+--------------------------------------------------------------
+
+
+C. Locate the latest local R25-30-R3 boundary-classification test
+--------------------------------------------------------------
+Selected: C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase144_6_r25_30_r3_argument_boundary_entry_classification_audit\test_phase144_6_r25_30_r3.py
+Modified: 2026-09-28T21:52:18
+
+D. Run only the latest R25-30-R3 boundary-classification test
+--------------------------------------------------------------
+
+
+E. Small production-route controls
+--------------------------------------------------------------
+
+**********************
+Windows PowerShell トランスクリプト終了
+終了時刻: 20260929083816
+**********************

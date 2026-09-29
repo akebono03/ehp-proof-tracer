@@ -1,0 +1,97 @@
+﻿function Remove-TemporaryWorktree {
+  if (-not (Test-Path $Worktree)) {
+    return
+  }
+
+  $oldErrorActionPreference = $ErrorActionPreference
+  $registeredLines = $null
+  $listExitCode = $null
+
+  try {
+    $ErrorActionPreference = "Continue"
+    $registeredLines = & git worktree list --porcelain 2>$null
+    $listExitCode = $LASTEXITCODE
+  }
+  finally {
+    $ErrorActionPreference = $oldErrorActionPreference
+  }
+
+  if ($listExitCode -ne 0) {
+    $message = "git worktree list exit code "
+    $message = $message + $listExitCode
+    throw $message
+  }
+
+  $normalizedTarget = [System.IO.Path]::GetFullPath($Worktree)
+  $isRegistered = $false
+
+  foreach ($registeredLine in $registeredLines) {
+    if ($registeredLine -like "worktree *") {
+      $registeredPath = $registeredLine.Substring(9)
+      $normalizedRegistered = [System.IO.Path]::GetFullPath($registeredPath)
+
+      if ($normalizedRegistered -eq $normalizedTarget) {
+        $isRegistered = $true
+        break
+      }
+    }
+  }
+
+  if ($isRegistered) {
+    $oldPrompt = $env:GIT_TERMINAL_PROMPT
+    $env:GIT_TERMINAL_PROMPT = "0"
+
+    try {
+      Invoke-WithRetry `
+        -Description "temporary worktree removal" `
+        -Action {
+          $oldErrorActionPreference = $ErrorActionPreference
+          $removeExitCode = $null
+
+          try {
+            $ErrorActionPreference = "Continue"
+            & git worktree remove --force $Worktree 1>$null 2>$null
+            $removeExitCode = $LASTEXITCODE
+          }
+          finally {
+            $ErrorActionPreference = $oldErrorActionPreference
+          }
+
+          if ($removeExitCode -ne 0) {
+            $message = "git worktree remove exit code "
+            $message = $message + $removeExitCode
+            throw $message
+          }
+        }
+    }
+    finally {
+      if ($null -eq $oldPrompt) {
+        Remove-Item Env:GIT_TERMINAL_PROMPT -ErrorAction SilentlyContinue
+      }
+      else {
+        $env:GIT_TERMINAL_PROMPT = $oldPrompt
+      }
+    }
+
+    return
+  }
+
+  $expectedLeaf = ".phase144_6_r25_11_r6_r1_worktree"
+  $actualLeaf = Split-Path -Leaf $normalizedTarget
+
+  if ($actualLeaf -ne $expectedLeaf) {
+    $message = "refusing unregistered path cleanup outside audit worktree: "
+    $message = $message + $normalizedTarget
+    throw $message
+  }
+
+  Invoke-WithRetry `
+    -Description "stale unregistered audit worktree path cleanup" `
+    -Action {
+      Remove-Item `
+        -LiteralPath $normalizedTarget `
+        -Recurse `
+        -Force `
+        -ErrorAction Stop
+    }
+}
