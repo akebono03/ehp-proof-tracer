@@ -1,0 +1,175 @@
+Phase 145-1 Stage 4 B_REVIEW Reason Reclassification
+============================================================================
+HEAD: 3bcb84fe687ace64f15859df1f9dcb5da7113266
+Artifacts analyzed: 549
+
+DISPOSITION COUNTS
+----------------------------------------------------------------------------
+A_CANDIDATE_CANONICAL_DUPLICATE: 1
+B_APPLY_OR_PAYLOAD: 160
+B_ARTIFACT_REFERENCE_CHAIN: 70
+B_CONSERVATIVE_OTHER: 18
+B_UNIQUE_AUDIT_OR_DOC_CONTENT: 158
+B_UNIQUE_TEST_MATERIAL: 60
+C_SAVE_CANONICAL_REFERENCE: 82
+
+REASON-COMBINATION COUNTS
+----------------------------------------------------------------------------
+  89  has_run+has_readme+has_audit_or_diagnose+unique_relevant_content
+  45  has_audit_or_diagnose+artifact_only_reference+unique_relevant_content
+  31  has_payload+has_test+has_run+has_readme+has_audit_or_diagnose+artifact_only_reference+canonical_reference+unique_relevant_content
+  26  unique_relevant_content
+  24  has_apply+has_test+has_audit_or_diagnose+unique_relevant_content
+  21  has_payload+has_test+has_run+has_readme+artifact_only_reference+unique_relevant_content
+  19  has_test+has_run+has_readme+has_audit_or_diagnose+unique_relevant_content
+  18  has_run+has_readme
+  17  has_apply+has_run+has_readme
+  16  has_run+has_readme+has_audit_or_diagnose+artifact_only_reference+unique_relevant_content
+  15  has_apply+has_test+has_audit_or_diagnose+artifact_only_reference+canonical_reference+unique_relevant_content
+  15  has_run+has_readme+unique_relevant_content
+  15  has_test+has_run+has_readme+unique_relevant_content
+  15  has_apply+has_run+has_readme+artifact_only_reference
+  13  has_test+has_run+has_readme+has_audit_or_diagnose+artifact_only_reference+unique_relevant_content
+  12  has_apply+has_test+has_run+has_readme+unique_relevant_content
+  11  has_audit_or_diagnose+unique_relevant_content
+  11  has_apply+has_test+has_audit_or_diagnose+canonical_reference+unique_relevant_content
+  10  has_test+has_run+has_readme+artifact_only_reference+unique_relevant_content
+   9  has_readme+has_audit_or_diagnose+unique_relevant_content
+   9  has_apply+has_run+unique_relevant_content
+   8  has_apply+has_payload+has_test+has_run+has_readme+artifact_only_reference+unique_relevant_content
+   7  has_apply+has_test+has_run+has_readme+has_audit_or_diagnose+unique_relevant_content
+   7  has_apply+has_test+has_run+has_readme+artifact_only_reference+unique_relevant_content
+   6  has_apply
+   6  has_run+has_readme+artifact_only_reference+unique_relevant_content
+   5  has_apply+artifact_only_reference
+   5  has_run+has_audit_or_diagnose+unique_relevant_content
+   3  has_readme+has_audit_or_diagnose+artifact_only_reference+canonical_reference+unique_relevant_content
+   3  has_run+has_readme+has_audit_or_diagnose+artifact_only_reference+canonical_reference+unique_relevant_content
+   3  has_apply+has_run+has_readme+unique_relevant_content
+   3  has_test+has_run+has_readme+has_audit_or_diagnose+canonical_reference+unique_relevant_content
+   3  has_run+has_readme+artifact_only_reference
+   3  has_payload+has_test+has_run+has_readme+has_audit_or_diagnose+unique_relevant_content
+   3  has_payload+has_test+has_run+has_readme+unique_relevant_content
+   3  has_payload+has_test+has_run+has_readme+has_audit_or_diagnose+artifact_only_reference+unique_relevant_content
+   2  has_apply+has_test+artifact_only_reference+canonical_reference+unique_relevant_content
+   2  has_apply+has_readme+artifact_only_reference+canonical_reference
+   2  has_apply+has_test+canonical_reference+all_relevant_content_canonical_duplicate
+   2  has_apply+has_run+has_readme+artifact_only_reference+canonical_reference
+   2  has_test+has_run+has_readme+has_audit_or_diagnose+artifact_only_reference+canonical_reference+unique_relevant_content
+   2  has_apply+has_test+has_run+has_readme+artifact_only_reference+all_relevant_content_canonical_duplicate
+   2  has_run+unique_relevant_content
+   1  has_apply+has_test+all_relevant_content_canonical_duplicate
+   1  has_audit_or_diagnose+artifact_only_reference+canonical_reference+unique_relevant_content
+   1  has_apply+has_test+unique_relevant_content
+   1  has_apply+has_test+has_audit_or_diagnose+artifact_only_reference+unique_relevant_content
+   1  has_apply+has_readme
+   1  has_apply+unique_relevant_content
+   1  has_apply+has_test+has_readme+has_audit_or_diagnose+unique_relevant_content
+   1  has_test+unique_relevant_content
+   1  has_apply+has_run
+   1  has_test+has_run+has_readme+canonical_reference+unique_relevant_content
+   1  has_apply+has_run+has_readme+artifact_only_reference+unique_relevant_content
+   1  has_apply+has_test+has_readme+has_audit_or_diagnose+artifact_only_reference+canonical_reference+unique_relevant_content
+   1  has_test+has_readme+unique_relevant_content
+   1  has_apply+has_test+has_run+has_readme+has_audit_or_diagnose+artifact_only_reference+canonical_reference+unique_relevant_content
+   1  has_test+has_audit_or_diagnose+canonical_reference+unique_relevant_content
+   1  has_apply+has_test+has_run+has_readme+all_relevant_content_canonical_duplicate
+   1  has_readme+unique_relevant_content
+   1  has_apply+has_run+has_readme+has_audit_or_diagnose+artifact_only_reference+unique_relevant_content
+   1  has_apply+has_test+has_run+unique_relevant_content
+   1  has_apply+has_test+has_run+has_readme+has_audit_or_diagnose+artifact_only_reference+unique_relevant_content
+   1  has_run+has_readme+all_relevant_content_canonical_duplicate
+   1  has_apply+has_run+artifact_only_reference+unique_relevant_content
+   1  has_test+has_run+unique_relevant_content
+   1  has_apply+has_test+has_run+artifact_only_reference+unique_relevant_content
+   1  has_apply+has_payload+has_test+has_run+has_readme+has_audit_or_diagnose+unique_relevant_content
+   1  has_payload+has_test+has_run+has_readme+has_audit_or_diagnose+canonical_reference+unique_relevant_content
+
+A-CANDIDATES FOR NEXT REVIEW
+----------------------------------------------------------------------------
+phase144_6_r3_r1_syntax_repair :: A_CANDIDATE_CANONICAL_DUPLICATE :: relevant=1, duplicates=1, artifact_refs=0
+
+C-SAVE CANONICAL REFERENCES
+----------------------------------------------------------------------------
+phase143_10 :: 2 canonical refs
+phase143_10_fix1 :: 1 canonical refs
+phase143_12 :: 7 canonical refs
+phase143_12_fix2 :: 3 canonical refs
+phase143_12_fix2b :: 1 canonical refs
+phase143_12_fix2c :: 1 canonical refs
+phase143_13 :: 1 canonical refs
+phase143_15 :: 1 canonical refs
+phase143_17 :: 1 canonical refs
+phase143_19 :: 50 canonical refs
+phase143_22 :: 1 canonical refs
+phase143_25 :: 1 canonical refs
+phase143_26 :: 1 canonical refs
+phase143_28 :: 1 canonical refs
+phase143_30 :: 1 canonical refs
+phase143_32 :: 1 canonical refs
+phase143_34 :: 1 canonical refs
+phase143_36 :: 1 canonical refs
+phase143_36a :: 1 canonical refs
+phase143_38 :: 1 canonical refs
+phase143_39 :: 1 canonical refs
+phase143_41 :: 1 canonical refs
+phase143_42 :: 1 canonical refs
+phase143_44 :: 1 canonical refs
+phase143_46 :: 1 canonical refs
+phase143_47 :: 1 canonical refs
+phase143_72a :: 1 canonical refs
+phase143_73a :: 1 canonical refs
+phase143_74 :: 2 canonical refs
+phase143_74a :: 1 canonical refs
+phase143_74b :: 1 canonical refs
+phase143_75 :: 14 canonical refs
+phase143_75a :: 5 canonical refs
+phase143_75aa :: 1 canonical refs
+phase143_75ab :: 1 canonical refs
+phase143_75ab3 :: 1 canonical refs
+phase143_75ac :: 1 canonical refs
+phase143_75ac4 :: 1 canonical refs
+phase143_75ad :: 1 canonical refs
+phase143_75c :: 1 canonical refs
+phase143_75f :: 1 canonical refs
+phase143_75i :: 1 canonical refs
+phase143_75m :: 1 canonical refs
+phase143_75p :: 1 canonical refs
+phase143_75s :: 1 canonical refs
+phase143_75t :: 1 canonical refs
+phase143_75w :: 1 canonical refs
+phase143_75y :: 1 canonical refs
+phase143_7_fix1 :: 1 canonical refs
+phase143_8_audit :: 1 canonical refs
+phase144_6_r5_17a_r1 :: 1 canonical refs
+phase144_6_r5_17a_r2 :: 1 canonical refs
+phase144_6_r5_17a_r3 :: 1 canonical refs
+phase144_6_r5_17b :: 1 canonical refs
+phase144_6_r5_17c :: 1 canonical refs
+phase144_6_r5_17d :: 2 canonical refs
+phase144_6_r5_17d_r1 :: 1 canonical refs
+phase144_6_r5_17e :: 1 canonical refs
+phase144_6_r5_18 :: 29 canonical refs
+phase144_6_r5_19 :: 1 canonical refs
+phase144_6_r5_20 :: 1 canonical refs
+phase144_6_r5_21 :: 1 canonical refs
+phase144_6_r5_22 :: 1 canonical refs
+phase144_6_r5_23 :: 1 canonical refs
+phase144_6_r5_24 :: 1 canonical refs
+phase144_6_r5_25 :: 1 canonical refs
+phase144_6_r5_26 :: 1 canonical refs
+phase144_6_r5_27 :: 1 canonical refs
+phase144_6_r5_28 :: 1 canonical refs
+phase144_6_r5_29 :: 1 canonical refs
+phase144_6_r5_30 :: 1 canonical refs
+phase144_6_r5_31 :: 1 canonical refs
+phase144_6_r5_32 :: 1 canonical refs
+phase144_6_r5_33 :: 1 canonical refs
+phase144_6_r5_34 :: 1 canonical refs
+phase144_6_r5_35 :: 1 canonical refs
+phase144_6_r5_36 :: 1 canonical refs
+phase144_6_r5_37 :: 2 canonical refs
+phase144_6_r5_38 :: 2 canonical refs
+phase144_6_r5_39 :: 1 canonical refs
+phase144_6_r5_40 :: 4 canonical refs
+phase144_6_r5_41 :: 2 canonical refs

@@ -1,0 +1,585 @@
+Phase 145-1 Stage 2 Phase Artifact Classification
+========================================================================
+HEAD: 3bcb84fe687ace64f15859df1f9dcb5da7113266
+Artifacts: 569
+A_SAFE_DELETE: 28
+B_REVIEW: 459
+C_SAVE: 82
+
+A_SAFE_DELETE
+------------------------------------------------------------------------
+phase112_1a_audit_output :: output-like artifact; no canonical reference; no apply/payload/test content
+phase112_1b_audit_output :: output-like artifact; no canonical reference; no apply/payload/test content
+phase112_1c_audit_output :: output-like artifact; no canonical reference; no apply/payload/test content
+phase133_5_audit_output :: output-like artifact; no canonical reference; no apply/payload/test content
+phase133_8_audit_output :: output-like artifact; no canonical reference; no apply/payload/test content
+phase133_final_audit_output :: output-like artifact; no canonical reference; no apply/payload/test content
+phase144_3_renderer_route_comparison_audit :: output-like artifact; no canonical reference; no apply/payload/test content
+phase144_6_final_regression_diagnosis_r6 :: output-like artifact; no canonical reference; no apply/payload/test content
+phase144_6_final_regression_diagnosis_r7 :: output-like artifact; no canonical reference; no apply/payload/test content
+phase144_6_final_regression_repair_r9 :: all relevant text/code payload is byte-identical to canonical files; no canonical reference
+phase144_6_pi16_9_detached_definition_diagnosis_r8 :: output-like artifact; no canonical reference; no apply/payload/test content
+phase144_6_r12_compact_argument_diagnosis :: output-like artifact; no canonical reference; no apply/payload/test content
+phase144_6_r12_compact_argument_diagnosis_r2 :: output-like artifact; no canonical reference; no apply/payload/test content
+phase144_6_r13_body_boundary_diagnosis :: output-like artifact; no canonical reference; no apply/payload/test content
+phase144_6_r13_body_boundary_diagnosis_r2 :: output-like artifact; no canonical reference; no apply/payload/test content
+phase144_6_r13_body_boundary_diagnosis_r3 :: output-like artifact; no canonical reference; no apply/payload/test content
+phase144_6_r18_duplicate_owner_diagnosis :: output-like artifact; no canonical reference; no apply/payload/test content
+phase144_6_r25_11_r3_two_contribution_diagnosis :: output-like artifact; no canonical reference; no apply/payload/test content
+phase144_6_r25_18_definition_selection_diagnosis :: output-like artifact; no canonical reference; no apply/payload/test content
+phase144_6_r25_9a_r1_r3_test_scope_fix :: all relevant text/code payload is byte-identical to canonical files; no canonical reference
+phase144_6_r25_9b_r1_test_scope_fix :: all relevant text/code payload is byte-identical to canonical files; no canonical reference
+phase144_6_r25_r2_rollback_owner_diagnosis :: output-like artifact; no canonical reference; no apply/payload/test content
+phase144_6_r25_r3_rollback_owner_diagnosis :: output-like artifact; no canonical reference; no apply/payload/test content
+phase144_6_r25_r4_git_restore_owner_diagnosis :: output-like artifact; no canonical reference; no apply/payload/test content
+phase144_6_r25_r5_owner_diagnosis :: output-like artifact; no canonical reference; no apply/payload/test content
+phase144_6_r25_rollback_owner_diagnosis :: output-like artifact; no canonical reference; no apply/payload/test content
+phase144_6_r5_43_10_r2_phase_boundary_test_update :: all relevant text/code payload is byte-identical to canonical files; no canonical reference
+phase144_6_r5_43_10_r3_direct_connector_regression_update :: all relevant text/code payload is byte-identical to canonical files; no canonical reference
+
+C_SAVE
+------------------------------------------------------------------------
+phase143_10 :: canonical production/test/docs directly reference this artifact name
+phase143_10_fix1 :: canonical production/test/docs directly reference this artifact name
+phase143_12 :: canonical production/test/docs directly reference this artifact name
+phase143_12_fix2 :: canonical production/test/docs directly reference this artifact name
+phase143_12_fix2b :: canonical production/test/docs directly reference this artifact name
+phase143_12_fix2c :: canonical production/test/docs directly reference this artifact name
+phase143_13 :: canonical production/test/docs directly reference this artifact name
+phase143_15 :: canonical production/test/docs directly reference this artifact name
+phase143_17 :: canonical production/test/docs directly reference this artifact name
+phase143_19 :: canonical production/test/docs directly reference this artifact name
+phase143_22 :: canonical production/test/docs directly reference this artifact name
+phase143_25 :: canonical production/test/docs directly reference this artifact name
+phase143_26 :: canonical production/test/docs directly reference this artifact name
+phase143_28 :: canonical production/test/docs directly reference this artifact name
+phase143_30 :: canonical production/test/docs directly reference this artifact name
+phase143_32 :: canonical production/test/docs directly reference this artifact name
+phase143_34 :: canonical production/test/docs directly reference this artifact name
+phase143_36 :: canonical production/test/docs directly reference this artifact name
+phase143_36a :: canonical production/test/docs directly reference this artifact name
+phase143_38 :: canonical production/test/docs directly reference this artifact name
+phase143_39 :: canonical production/test/docs directly reference this artifact name
+phase143_41 :: canonical production/test/docs directly reference this artifact name
+phase143_42 :: canonical production/test/docs directly reference this artifact name
+phase143_44 :: canonical production/test/docs directly reference this artifact name
+phase143_46 :: canonical production/test/docs directly reference this artifact name
+phase143_47 :: canonical production/test/docs directly reference this artifact name
+phase143_72a :: canonical production/test/docs directly reference this artifact name
+phase143_73a :: canonical production/test/docs directly reference this artifact name
+phase143_74 :: canonical production/test/docs directly reference this artifact name
+phase143_74a :: canonical production/test/docs directly reference this artifact name
+phase143_74b :: canonical production/test/docs directly reference this artifact name
+phase143_75 :: canonical production/test/docs directly reference this artifact name
+phase143_75a :: canonical production/test/docs directly reference this artifact name
+phase143_75aa :: canonical production/test/docs directly reference this artifact name
+phase143_75ab :: canonical production/test/docs directly reference this artifact name
+phase143_75ab3 :: canonical production/test/docs directly reference this artifact name
+phase143_75ac :: canonical production/test/docs directly reference this artifact name
+phase143_75ac4 :: canonical production/test/docs directly reference this artifact name
+phase143_75ad :: canonical production/test/docs directly reference this artifact name
+phase143_75c :: canonical production/test/docs directly reference this artifact name
+phase143_75f :: canonical production/test/docs directly reference this artifact name
+phase143_75i :: canonical production/test/docs directly reference this artifact name
+phase143_75m :: canonical production/test/docs directly reference this artifact name
+phase143_75p :: canonical production/test/docs directly reference this artifact name
+phase143_75s :: canonical production/test/docs directly reference this artifact name
+phase143_75t :: canonical production/test/docs directly reference this artifact name
+phase143_75w :: canonical production/test/docs directly reference this artifact name
+phase143_75y :: canonical production/test/docs directly reference this artifact name
+phase143_7_fix1 :: canonical production/test/docs directly reference this artifact name
+phase143_8_audit :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_17a_r1 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_17a_r2 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_17a_r3 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_17b :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_17c :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_17d :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_17d_r1 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_17e :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_18 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_19 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_20 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_21 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_22 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_23 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_24 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_25 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_26 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_27 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_28 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_29 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_30 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_31 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_32 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_33 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_34 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_35 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_36 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_37 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_38 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_39 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_40 :: canonical production/test/docs directly reference this artifact name
+phase144_6_r5_41 :: canonical production/test/docs directly reference this artifact name
+
+B_REVIEW
+------------------------------------------------------------------------
+apply_phase131_4.py :: contains apply script; referenced by another phase artifact
+apply_phase131_5.py :: contains apply script; referenced by another phase artifact
+apply_phase132_7.py :: contains apply script; referenced by another phase artifact
+apply_phase132_8.py :: contains apply script; referenced by another phase artifact
+apply_phase132_9.py :: contains apply script; referenced by another phase artifact
+audit_phase112_1a.py :: contains unique text/code content
+audit_phase112_1b.py :: contains unique text/code content
+audit_phase112_1c.py :: contains unique text/code content
+audit_phase141_6_blocks.py :: contains unique text/code content
+audit_phase141_8_roles.py :: contains unique text/code content
+audit_phase141_9_final.py :: contains unique text/code content
+audit_phase143_12_order_subject.py :: contains unique text/code content
+audit_phase144_6_r5_17a.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_17a_r2.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_17a_r3.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_17b.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_17c.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_17d.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_17d_r1.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_17e.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_18.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_19.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_20.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_21.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_22.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_23.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_24.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_25.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_26.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_27.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_28.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_29.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_30.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_31.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_32.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_33.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_34.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_35.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_36.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_37.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_38.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_39.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_40.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_41.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_43_1.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_43_11.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_43_11a.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_43_11b.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_43_11d.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_43_2.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_43_3.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_43_4.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_43_5.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_43_6.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_43_7.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_43_8.py :: referenced by another phase artifact; contains unique text/code content
+audit_phase144_6_r5_43_9.py :: referenced by another phase artifact; contains unique text/code content
+PHASE131_4_INSTRUCTIONS.txt :: contains unique text/code content
+PHASE131_5_README.txt :: contains unique text/code content
+PHASE132_4_README.txt :: contains unique text/code content
+PHASE132_5_README.txt :: contains unique text/code content
+PHASE132_6_README.txt :: contains unique text/code content
+PHASE132_7_README.txt :: contains unique text/code content
+PHASE132_8_README.txt :: contains unique text/code content
+PHASE132_9_README.txt :: contains unique text/code content
+PHASE142_2_README.md :: contains unique text/code content
+PHASE142_3_FIX1_README.md :: contains unique text/code content
+phase143_10_fix2 :: contains apply script
+phase143_12_fix1 :: contains apply script
+PHASE143_1_README.md :: contains unique text/code content
+phase143_32_fix :: contains apply script; contains test material
+phase143_3_fix2 :: contains apply script
+phase143_45 :: contains unique text/code content
+phase143_47_impl :: contains apply script; contains test material; contains unique text/code content
+phase143_48 :: contains unique text/code content
+phase143_49_impl :: contains apply script; contains test material; contains unique text/code content
+phase143_50_impl :: contains apply script; contains test material; contains unique text/code content
+phase143_50R :: contains apply script; contains test material; contains unique text/code content
+phase143_51_audit :: contains unique text/code content
+phase143_51A_impl :: contains apply script; contains test material; referenced by another phase artifact; contains unique text/code content
+phase143_51A_R_impl :: contains apply script; contains test material; contains unique text/code content
+phase143_51B_impl :: contains apply script; contains test material; contains unique text/code content
+phase143_51B_R_impl :: contains apply script
+phase143_53A_impl :: contains apply script; contains test material; contains unique text/code content
+phase143_53A_R_fix :: contains apply script; contains test material; contains unique text/code content
+phase143_53A_R_impl :: contains apply script; contains test material; contains unique text/code content
+phase143_53B_impl :: contains apply script; contains test material; contains unique text/code content
+phase143_53B_R_impl :: contains apply script; contains test material; contains unique text/code content
+phase143_55A_impl :: contains apply script; contains test material; contains unique text/code content
+phase143_55B_impl :: contains apply script; contains test material; contains unique text/code content
+phase143_57A_impl :: contains apply script; contains test material; contains unique text/code content
+phase143_57A_R_impl :: contains apply script; contains unique text/code content
+phase143_57C_impl :: contains apply script; contains test material; contains unique text/code content
+phase143_58A_impl :: contains apply script; contains test material; contains unique text/code content
+phase143_59A_impl :: contains apply script; contains test material; contains unique text/code content
+phase143_59B_impl :: contains apply script; contains test material; contains unique text/code content
+phase143_61A_impl :: contains apply script; contains test material; contains unique text/code content
+phase143_61B_impl :: contains apply script; contains test material; contains unique text/code content
+phase143_61B_R_impl :: contains apply script; contains test material; contains unique text/code content
+phase143_63A_impl :: contains apply script; contains test material; contains unique text/code content
+phase143_63A_R_impl :: contains apply script; contains test material; contains unique text/code content
+phase143_68 :: contains unique text/code content
+phase143_70_impl :: contains apply script; contains test material; contains unique text/code content
+phase143_71a_impl :: contains apply script; contains test material; contains unique text/code content
+phase143_71a_r2_fix :: contains unique text/code content
+phase143_71a_r_fix :: contains apply script; contains test material; contains unique text/code content
+phase143_72a_narrative_audit :: contains unique text/code content
+phase143_72a_r2 :: contains apply script
+phase143_72a_r3 :: contains apply script
+phase143_72a_r4 :: contains unique text/code content
+phase143_73a_narrative_audit :: contains unique text/code content
+phase143_73a_presence_scan :: contains unique text/code content
+phase143_73a_r2 :: contains apply script
+phase143_73a_r3 :: contains unique text/code content
+phase143_73a_r4 :: contains unique text/code content
+phase143_73a_r5 :: contains unique text/code content
+phase143_74a_r2 :: contains test material; contains unique text/code content
+phase143_75_r2 :: contains unique text/code content
+phase143_75aa_audit :: not proven safe by conservative rules
+phase143_75aa_r2 :: contains apply script
+phase143_75ab2 :: contains unique text/code content
+phase143_75ab3_r2 :: contains unique text/code content
+phase143_75ab3_r3 :: contains unique text/code content
+phase143_75ab_completion_audit :: not proven safe by conservative rules
+phase143_75ac2 :: contains unique text/code content
+phase143_75ac3 :: contains unique text/code content
+phase143_75ac_completion_audit :: not proven safe by conservative rules
+phase143_75ad_completion :: not proven safe by conservative rules
+phase143_75ad_impl :: contains test material; contains unique text/code content
+phase143_75ae :: referenced by another phase artifact; contains unique text/code content
+phase143_75ae_completion :: contains unique text/code content
+phase143_75ae_impl :: contains test material; referenced by another phase artifact; contains unique text/code content
+phase143_75ae_impl_r2 :: contains test material; contains unique text/code content
+phase143_75ae_impl_r3 :: contains test material; contains unique text/code content
+phase143_75af :: referenced by another phase artifact; contains unique text/code content
+phase143_75af_completion :: contains unique text/code content
+phase143_75af_impl :: contains test material; referenced by another phase artifact; contains unique text/code content
+phase143_75af_impl_r2 :: contains unique text/code content
+phase143_75ag :: referenced by another phase artifact; contains unique text/code content
+phase143_75ag_impl :: contains test material; referenced by another phase artifact; contains unique text/code content
+phase143_75ag_impl_r2 :: contains test material; contains unique text/code content
+phase143_75ag_impl_r3 :: contains test material; contains unique text/code content
+phase143_75ag_impl_r4 :: contains test material; contains unique text/code content
+phase143_75ag_r5_completion :: contains test material; contains unique text/code content
+phase143_75ah :: referenced by another phase artifact; contains unique text/code content
+phase143_75ah_completion :: contains unique text/code content
+phase143_75ah_impl :: contains test material; contains unique text/code content
+phase143_75ah_r2 :: contains test material; contains unique text/code content
+phase143_75ai :: referenced by another phase artifact; contains unique text/code content
+phase143_75ai_completion :: contains unique text/code content
+phase143_75ai_impl :: contains test material; contains unique text/code content
+phase143_75aj :: referenced by another phase artifact; contains unique text/code content
+phase143_75aj_completion :: contains unique text/code content
+phase143_75aj_impl :: contains test material; contains unique text/code content
+phase143_75ak :: referenced by another phase artifact; contains unique text/code content
+phase143_75ak_completion :: contains unique text/code content
+phase143_75ak_impl :: contains test material; contains unique text/code content
+phase143_75ak_r2 :: contains test material; contains unique text/code content
+phase143_75al :: referenced by another phase artifact; contains unique text/code content
+phase143_75al_completion :: contains unique text/code content
+phase143_75al_impl :: contains test material; contains unique text/code content
+phase143_75am :: referenced by another phase artifact; contains unique text/code content
+phase143_75am_completion :: contains unique text/code content
+phase143_75am_impl :: contains test material; contains unique text/code content
+phase143_75an :: referenced by another phase artifact; contains unique text/code content
+phase143_75an_completion :: contains unique text/code content
+phase143_75an_impl :: contains test material; referenced by another phase artifact; contains unique text/code content
+phase143_75an_r2 :: contains unique text/code content
+phase143_75ao_bulk_audit :: referenced by another phase artifact; contains unique text/code content
+phase143_75ao_bulk_impl :: contains test material; referenced by another phase artifact; contains unique text/code content
+phase143_75ao_bulk_r2 :: contains unique text/code content
+phase143_75ao_bulk_r3 :: contains apply script; contains test material; contains unique text/code content
+phase143_75ao_completion :: contains unique text/code content
+phase143_75ap_completion_audit :: not proven safe by conservative rules
+phase143_75ap_final_bulk :: contains apply script; contains test material; contains unique text/code content
+phase143_75ap_r10 :: contains apply script; referenced by another phase artifact
+phase143_75ap_r10_audit :: contains unique text/code content
+phase143_75ap_r10b_audit :: contains unique text/code content
+phase143_75ap_r10c_audit :: contains unique text/code content
+phase143_75ap_r10d_audit :: contains unique text/code content
+phase143_75ap_r10e_audit :: contains unique text/code content
+phase143_75ap_r11 :: contains apply script; referenced by another phase artifact
+phase143_75ap_r11_import_audit :: contains unique text/code content
+phase143_75ap_r11_r2 :: contains apply script
+phase143_75ap_r11_r3 :: contains apply script
+phase143_75ap_r11_r4 :: contains apply script
+phase143_75ap_r11_r5 :: contains apply script
+phase143_75ap_r12_trace_audit :: contains unique text/code content
+phase143_75ap_r12b_selection_audit :: contains unique text/code content
+phase143_75ap_r12c_exclusion_audit :: contains unique text/code content
+phase143_75ap_r12d_step_filter_audit :: contains unique text/code content
+phase143_75ap_r13 :: contains apply script
+phase143_75ap_r14_completion_audit :: contains unique text/code content
+phase143_75ap_r15_boundary_audit :: contains unique text/code content
+phase143_75ap_r16 :: contains apply script; referenced by another phase artifact
+phase143_75ap_r16_import_audit :: contains unique text/code content
+phase143_75ap_r16_r2 :: contains apply script
+phase143_75ap_r17 :: contains apply script; referenced by another phase artifact; contains unique text/code content
+phase143_75ap_r17_audit :: contains unique text/code content
+phase143_75ap_r17_completion_audit :: referenced by another phase artifact; contains unique text/code content
+phase143_75ap_r17_completion_audit_r2 :: contains unique text/code content
+phase143_75ap_r17_completion_audit_r3 :: contains unique text/code content
+phase143_75ap_r2 :: contains apply script; contains unique text/code content
+phase143_75ap_r3 :: contains apply script
+phase143_75ap_r4 :: contains apply script
+phase143_75ap_r5 :: contains apply script
+phase143_75ap_r6 :: contains apply script
+phase143_75ap_r7 :: contains apply script
+phase143_75ap_r8 :: contains apply script; referenced by another phase artifact
+phase143_75ap_r9 :: contains apply script
+phase143_75b :: contains unique text/code content
+phase143_75d :: not proven safe by conservative rules
+phase143_75e :: contains unique text/code content
+phase143_75g :: not proven safe by conservative rules
+phase143_75h :: contains unique text/code content
+phase143_75i_r2 :: contains test material; contains unique text/code content
+phase143_75j :: not proven safe by conservative rules
+phase143_75k :: contains unique text/code content
+phase143_75l :: contains unique text/code content
+phase143_75m_r2 :: contains test material; referenced by another phase artifact; contains unique text/code content
+phase143_75m_r3 :: contains unique text/code content
+phase143_75m_r4 :: contains unique text/code content
+phase143_75n :: contains unique text/code content
+phase143_75o :: contains unique text/code content
+phase143_75q :: contains unique text/code content
+phase143_75r :: contains unique text/code content
+phase143_75s_r2 :: contains unique text/code content
+phase143_75u :: referenced by another phase artifact; contains unique text/code content
+phase143_75v :: contains unique text/code content
+phase143_75x :: contains unique text/code content
+phase143_75z :: referenced by another phase artifact; contains unique text/code content
+PHASE143_7_README.txt :: contains unique text/code content
+phase143_docs_completion :: contains apply script; contains unique text/code content
+phase143_final_regression :: not proven safe by conservative rules
+phase143_final_regression_r2 :: not proven safe by conservative rules
+phase144_1_representative_narrative_path_audit :: contains unique text/code content
+phase144_2_definition_hierarchy_audit :: contains unique text/code content
+phase144_2_definition_relevance_audit :: contains unique text/code content
+phase144_2_definition_statement_shape_audit :: contains unique text/code content
+phase144_2_other_block_semantic_audit :: referenced by another phase artifact; contains unique text/code content
+phase144_2_other_block_semantic_audit_r2 :: contains unique text/code content
+phase144_2_post_impl_audit_r2 :: contains unique text/code content
+phase144_2_sigma_definition_semantic_path_audit :: contains unique text/code content
+phase144_2_sigma_triple_prime_definition_impl :: contains apply script; contains test material; contains unique text/code content
+phase144_4_pi6_3_legacy_generic_audit :: contains unique text/code content
+phase144_5_generic_definition_order_equations :: contains apply script; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_5_r1_test_fix :: contains apply script; contains test material; contains unique text/code content
+phase144_5_r2_generic_equation_references :: contains apply script; contains test material; contains unique text/code content
+phase144_5_r2_r1_transition_fix :: contains apply script
+phase144_5_r2_r2_api_fix :: contains apply script; contains test material
+phase144_6_abort_historical_audit_restore :: contains unique text/code content
+phase144_6_final_completion_audit_and_full_pytest :: contains unique text/code content
+phase144_6_final_completion_regression :: not proven safe by conservative rules
+phase144_6_final_full_suite :: referenced by another phase artifact
+phase144_6_final_full_suite_r2 :: not proven safe by conservative rules
+phase144_6_final_full_suite_r4 :: not proven safe by conservative rules
+phase144_6_final_regression_repair :: contains apply script; contains test material; referenced by another phase artifact
+phase144_6_final_regression_repair_r10 :: contains apply script; referenced by another phase artifact
+phase144_6_final_regression_repair_r11 :: contains apply script; referenced by another phase artifact
+phase144_6_final_regression_repair_r12 :: contains apply script; referenced by another phase artifact
+phase144_6_final_regression_repair_r15 :: contains apply script; referenced by another phase artifact
+phase144_6_final_regression_repair_r16 :: contains apply script; referenced by another phase artifact
+phase144_6_final_regression_repair_r17 :: contains apply script; referenced by another phase artifact
+phase144_6_final_regression_repair_r19 :: contains apply script; referenced by another phase artifact
+phase144_6_final_regression_repair_r2 :: referenced by another phase artifact
+phase144_6_final_regression_repair_r22 :: contains apply script; referenced by another phase artifact
+phase144_6_final_regression_repair_r23 :: contains apply script; referenced by another phase artifact
+phase144_6_final_regression_repair_r24 :: contains apply script; referenced by another phase artifact; contains unique text/code content
+phase144_6_final_regression_repair_r5 :: contains test material; contains unique text/code content
+phase144_6_finalization :: referenced by another phase artifact; contains unique text/code content
+phase144_6_finalization_focused_gate :: contains unique text/code content
+phase144_6_finalization_r25_30_boundary_gate :: referenced by another phase artifact; contains unique text/code content
+phase144_6_finalization_r25_30_boundary_gate_r1 :: contains unique text/code content
+phase144_6_finalization_r25_30_boundary_gate_r2 :: contains unique text/code content
+phase144_6_pi6_generic_production_route :: contains apply script; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_public_route_cutover :: contains apply script; contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_public_route_cutover_r2 :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_public_route_cutover_r3 :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r14_import_origin_preflight :: referenced by another phase artifact; contains unique text/code content
+phase144_6_r1_cli_depth_fix :: contains apply script; contains test material; contains unique text/code content
+phase144_6_r20_local_multi_context_capture :: referenced by another phase artifact; contains unique text/code content
+phase144_6_r21_local_body_context_capture :: referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_10_final_regression_ownership_audit :: referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_10_r1_import_path_repair :: contains apply script
+phase144_6_r25_10_r2_audit_environment_repair :: not proven safe by conservative rules
+phase144_6_r25_10_r3_contribution_import_repair :: contains apply script
+phase144_6_r25_10_r4_utf8_audit_runner :: not proven safe by conservative rules
+phase144_6_r25_10_r5_argument_api_audit_repair :: contains apply script; referenced by another phase artifact
+phase144_6_r25_10_r6_utf8_and_argument_api_runner :: not proven safe by conservative rules
+phase144_6_r25_11_production_repair :: contains apply script; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r2_semantic_closure_ownership_repair :: contains apply script; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r4_closure_origin_boundary_audit :: contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r5_full_depth_plus2_ownership_delta_audit :: contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r6_historical_190_192_exact_delta_audit :: contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r6_r1_r1_runner_repair :: contains apply script; contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r6_r1_r2_r1_powershell51_syntax_repair :: contains apply script; contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r6_r1_r2_r1_r1_audit_test_compatibility_repair :: contains apply script; contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r6_r1_r2_r1_r2_native_git_error_handling_repair :: contains apply script; contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r6_r1_r2_r1_r2_r1_powershell51_native_git_syntax_repair :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_git_object_path_distinction_repair :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r1_audit_test_compatibility_repair :: contains apply script; contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r2_r1_diagnostic_audit_test_repair :: contains apply script; contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r2_worktree_creation_failure_diagnostic_audit :: contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_native_command_scalar_exit_code_repair :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r1_installer_syntax_repair :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r2_cleanup_syntax_repair :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r3_payload_powershell51_syntax_repair :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_measure_commit_whole_function_repair :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_r1_focused_test_manifest_repair :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_r2_read_population_cache_restoration :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_r3_r1_prune_contract_restoration :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_r3_stale_worktree_path_cleanup :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_r4_collector_native_error_handling :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r6_r1_r2_windows_worktree_cache_robustness_repair :: contains apply script; contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r6_r1_r4_r5_idempotent_post_measure_cleanup :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_11_r6_r1_r4_r5_r1_registration_contract_compatibility :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_12_local_190_192_focused_audit :: contains unique text/code content
+phase144_6_r25_13_definition_scoped_evidence_repair :: contains apply script; contains test material; contains unique text/code content
+phase144_6_r25_15_final_ownership_repair :: contains apply script; contains test material; contains unique text/code content
+phase144_6_r25_16_depth2_derivation_support_repair :: contains apply script; contains test material; contains unique text/code content
+phase144_6_r25_17_restore_cli_narrative_completeness :: contains apply script; contains test material; contains unique text/code content
+phase144_6_r25_19_complete_replay_api :: contains apply script; contains test material; contains unique text/code content
+phase144_6_r25_20_six_group_generic_production_narrative :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_21_presentation_rules_audit :: contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_21_r2_import_repair :: contains test material; contains unique text/code content
+phase144_6_r25_22_cli_web_narrative_replay_parity :: contains apply script; contains test material; contains unique text/code content
+phase144_6_r25_22_r2_web_numbered_equation_adapter :: contains apply script; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_22_r3_test_assertion_repair :: contains unique text/code content
+phase144_6_r25_23_evidence_selection_dependency_order_audit :: contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_23_r2_audit_harness_import_api_repair :: contains unique text/code content
+phase144_6_r25_24_method_evidence_minimal_ownership_boundary :: contains apply script; contains test material; contains unique text/code content
+phase144_6_r25_25_ownership_pipeline_diagnosis :: contains test material; contains unique text/code content
+phase144_6_r25_26_dependency_source_closure_audit :: contains test material; contains unique text/code content
+phase144_6_r25_27_proof_edge_ownership_boundary_audit :: contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_27_r2_boundary_harness_repair :: contains apply script; contains test material; contains unique text/code content
+phase144_6_r25_27_r3_cycle_isolated_premise_audit :: contains apply script; contains test material; contains unique text/code content
+phase144_6_r25_28_proof_edge_fanout_block_aggregation_audit :: contains test material; contains unique text/code content
+phase144_6_r25_29_entry_step_preserving_block_dependency_audit :: contains test material; contains unique text/code content
+phase144_6_r25_30_group_structure_definition_entry_branch_ownership_audit :: contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_30_r2_cycle_consistent_entry_branch_audit :: contains test material; contains unique text/code content
+phase144_6_r25_30_r3_argument_boundary_entry_classification_audit :: contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_6_upstream_ownership_audit :: contains unique text/code content
+phase144_6_r25_7_root_construction_exact_block_path_audit :: contains unique text/code content
+phase144_6_r25_7r1_cycle_safe_audit :: contains unique text/code content
+phase144_6_r25_8_production_repair :: contains apply script; referenced by another phase artifact
+phase144_6_r25_8r1_r1_semantic_route_audit :: contains unique text/code content
+phase144_6_r25_8r1_rollback_semantic_route_audit :: contains unique text/code content
+phase144_6_r25_9a_pi5_suppression_isolated_repair :: contains apply script; contains test material; referenced by another phase artifact
+phase144_6_r25_9a_r1_r1_preflight_fix :: contains apply script; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_9a_r1_r2_test_api_fix :: contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_9a_r1_relocation_hidden_repair :: contains apply script; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r25_9b_nu_prime_definition_depth2_selection_repair :: contains apply script; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r2_information_preservation_audit :: contains unique text/code content
+phase144_6_r3_equation_regression_audit :: contains unique text/code content
+phase144_6_r3_impl :: contains apply script; contains unique text/code content
+phase144_6_r3_provenance_source_audit :: contains unique text/code content
+phase144_6_r3_r1_syntax_repair :: contains unique text/code content
+phase144_6_r3_reference_mapping_audit :: contains unique text/code content
+phase144_6_r3_second_half :: contains apply script; referenced by another phase artifact; contains unique text/code content
+phase144_6_r3_second_half_r1 :: contains unique text/code content
+phase144_6_r3_second_half_r2 :: contains test material; contains unique text/code content
+phase144_6_r3_second_half_r3 :: contains unique text/code content
+phase144_6_r3_second_half_r4_test_alignment :: contains apply script; contains unique text/code content
+phase144_6_r4_definition_dependency_audit :: contains unique text/code content
+phase144_6_r4_dependency_distance_audit :: contains unique text/code content
+phase144_6_r4_duplicate_call_audit :: contains unique text/code content
+phase144_6_r4_frontier_audit :: contains unique text/code content
+phase144_6_r4_frontier_filter_impl :: contains apply script; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r4_helper_source_audit :: contains unique text/code content
+phase144_6_r4_r1_transition_scope_repair :: contains apply script; contains unique text/code content
+phase144_6_r4_r2_blocks_parameter_repair :: contains apply script; contains unique text/code content
+phase144_6_r4_r3_ast_repair :: contains apply script; contains unique text/code content
+phase144_6_r4_r4_literal_newline_repair :: contains apply script; contains unique text/code content
+phase144_6_r4_r5_duplicate_cleanup :: contains apply script; contains unique text/code content
+phase144_6_r4_r6_definition_frontier :: contains apply script; contains unique text/code content
+phase144_6_r4_r7_semantic_definition_frontier :: contains apply script; contains unique text/code content
+phase144_6_r4_supporting_fact_audit :: contains unique text/code content
+phase144_6_r5_10_claim_provider_classification_audit :: contains unique text/code content
+phase144_6_r5_11_structural_provider_semantics_audit :: contains unique text/code content
+phase144_6_r5_12_typed_provider_semantics_prototype_audit :: contains unique text/code content
+phase144_6_r5_13_atomic_transport_integration_provider_audit :: contains unique text/code content
+phase144_6_r5_14_provider_closure_required_depth_audit :: contains unique text/code content
+phase144_6_r5_15_semantic_provider_boundary_audit :: contains unique text/code content
+phase144_6_r5_15b_argument_local_semantic_boundary_audit :: contains unique text/code content
+phase144_6_r5_15c_claim_provider_conclusion_depth_sufficiency_audit :: contains unique text/code content
+phase144_6_r5_15d_supporting_evidence_minimum_depth_audit :: contains unique text/code content
+phase144_6_r5_15e_supporting_evidence_ownership_relevance_audit :: contains unique text/code content
+phase144_6_r5_15f_nested_evidence_semantic_promotion_audit :: contains unique text/code content
+phase144_6_r5_15g_promotion_locality_ownership_audit :: contains unique text/code content
+phase144_6_r5_15h_evidence_function_ownership_relation_audit :: contains unique text/code content
+phase144_6_r5_15i_support_only_relation_decomposition_audit :: contains unique text/code content
+phase144_6_r5_15j_r1_import_fix :: contains unique text/code content
+phase144_6_r5_15j_typed_provider_residual_statement_shape_audit :: contains unique text/code content
+phase144_6_r5_15k_consumer_purpose_evidence_contribution_audit :: contains unique text/code content
+phase144_6_r5_15l_explicit_evidence_contribution_metadata_design_audit :: contains unique text/code content
+phase144_6_r5_15m_r1_replay_depth_fix :: contains test material; contains unique text/code content
+phase144_6_r5_15m_r2_audit_replay_depth_fix :: contains test material; contains unique text/code content
+phase144_6_r5_15m_typed_evidence_contribution_metadata_prototype :: contains test material; contains unique text/code content
+phase144_6_r5_15n_r1_argument_builder_api_fix :: contains unique text/code content
+phase144_6_r5_15n_typed_contribution_narrative_relevance_coverage_audit :: contains unique text/code content
+phase144_6_r5_15o_top3_unresolved_semantic_gap_audit :: contains unique text/code content
+phase144_6_r5_15p_generic_evidence_contribution_vocabulary_extension :: contains apply script; contains test material; contains unique text/code content
+phase144_6_r5_15p_r1_mapper_shape_fix :: contains apply script; contains test material; contains unique text/code content
+phase144_6_r5_15q_remaining_49_visible_unresolved_edge_audit :: contains unique text/code content
+phase144_6_r5_15r_remaining_9_edge_semantic_structure_audit :: contains unique text/code content
+phase144_6_r5_15s_aggregate_semantic_metadata_design_audit :: contains unique text/code content
+phase144_6_r5_15t_aggregate_semantic_metadata_prototype :: contains apply script; contains test material; contains unique text/code content
+phase144_6_r5_15u_aggregate_semantic_evidence_integration :: contains apply script; contains test material; contains unique text/code content
+phase144_6_r5_15u_r1_safe_builder_replacement :: contains apply script; contains test material; contains unique text/code content
+phase144_6_r5_16_narrative_evidence_relevance_policy_audit :: contains unique text/code content
+phase144_6_r5_17a_audit_package :: contains apply script; contains payload; contains test material; contains unique text/code content
+phase144_6_r5_22_r1 :: not proven safe by conservative rules
+phase144_6_r5_23_r1 :: not proven safe by conservative rules
+phase144_6_r5_2_frontier_required_depth_audit :: contains unique text/code content
+phase144_6_r5_38_r2 :: contains payload; contains test material; contains unique text/code content
+phase144_6_r5_39_r2 :: contains payload; contains test material; contains unique text/code content
+phase144_6_r5_39_r3 :: contains payload; contains test material; contains unique text/code content
+phase144_6_r5_3_root_argument_dependency_audit :: contains unique text/code content
+phase144_6_r5_42_generic_narrative_contribution_production_foundation :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r5_42_r1_occurrence_downstream_repair :: contains payload; contains test material; contains unique text/code content
+phase144_6_r5_42_r2_provider_key_semantics_repair :: contains payload; contains test material; contains unique text/code content
+phase144_6_r5_43_10_transport_chain_compression_production :: contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r5_43_11_completion_cross_group_narrative_audit :: contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r5_43_11_r2_visibility_aware_completion_audit :: contains test material; contains unique text/code content
+phase144_6_r5_43_11a_insertion_failure_classification_audit :: contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r5_43_11b_detached_argument_boundary_audit :: contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r5_43_11c_non_detached_fallback_placement_repair :: contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r5_43_11c_r2_argument_participation_guard :: contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r5_43_11d_final_completion_audit :: contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r5_43_1_pi6_connected_narrative_output_audit :: contains test material; contains unique text/code content
+phase144_6_r5_43_2_placement_aware_contribution_insertion :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r5_43_3_contribution_transition_prose_audit :: contains test material; contains unique text/code content
+phase144_6_r5_43_4_dependency_aware_contribution_connector :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r5_43_5_r2_shortest_path_reconstruction_repair :: contains test material; contains unique text/code content
+phase144_6_r5_43_5_transitive_contribution_chain_audit :: contains test material; contains unique text/code content
+phase144_6_r5_43_6_hidden_bridge_classification_audit :: contains test material; contains unique text/code content
+phase144_6_r5_43_7_hidden_bridge_semantic_classification_foundation :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r5_43_8_transport_chain_narrative_compression_audit :: contains test material; contains unique text/code content
+phase144_6_r5_43_9_r2_powershell_copy_item_repair :: contains test material; contains unique text/code content
+phase144_6_r5_43_9_transport_chain_compression_prose_design_audit :: contains test material; contains unique text/code content
+phase144_6_r5_43_generic_renderer_contribution_connection :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r5_43_r2_recursive_repr_repair :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r5_43_r3_current_markdown_plumbing_repair :: contains payload; contains test material; referenced by another phase artifact; contains unique text/code content
+phase144_6_r5_4_argument_dependency_gap_audit :: contains unique text/code content
+phase144_6_r5_4_r1_group_result_fix :: contains unique text/code content
+phase144_6_r5_5_argument_boundary_compression_audit :: contains unique text/code content
+phase144_6_r5_6_full_provenance_required_depth_audit :: contains unique text/code content
+phase144_6_r5_7_narrative_required_argument_selection_audit :: contains unique text/code content
+phase144_6_r5_8_purpose_subject_consumption_audit :: contains unique text/code content
+phase144_6_r5_9_narrative_claim_consumer_audit :: contains unique text/code content
+phase144_6_r5_depth_policy_audit :: contains unique text/code content
+phase144_documentation_closure :: contains apply script; contains unique text/code content
+phase144_final_historical_snapshot_repair_r3 :: contains apply script
+phase144_final_regression_repair_r1 :: contains payload; contains test material; contains unique text/code content
+phase144_final_regression_repair_r2 :: contains apply script
+phase144_r2_final_repository_wide_pytest :: referenced by another phase artifact
+phase144_r2_final_repository_wide_pytest_r2 :: contains unique text/code content
+phase144_repository_wide_pytest :: referenced by another phase artifact; contains unique text/code content
+phase144_repository_wide_pytest_r1 :: contains unique text/code content
