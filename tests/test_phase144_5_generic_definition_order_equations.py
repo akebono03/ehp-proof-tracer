@@ -77,7 +77,11 @@ def test_phase144_5_r2_pi6_3_keeps_definition_and_order_purposes():
   )
 
   assert r"$\nu'$ を定める." in rendered
-  assert r"$\nu'$ の位数を決定する." in rendered
+  assert (
+    r"$\nu'$ の位数を決定するために、"
+    r"次の完全列を考える."
+    in rendered
+  )
 
 
 def test_phase144_5_r2_pi6_3_uses_actual_equation_references():

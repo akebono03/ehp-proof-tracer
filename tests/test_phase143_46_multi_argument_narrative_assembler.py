@@ -40,10 +40,12 @@ def test_phase143_46_pi6_3_assembles_three_main_arguments():
     "まず、$\\nu'$ を定める."
   )
   order = (
-    "次に、$\\nu'$ の位数を決定する."
+    "次に、$\\nu'$ の位数を決定するために、"
+    "次の完全列を考える."
   )
   group = (
-    "最後に、$\\pi_{6}^{3}$ の群構造を決定する."
+    "最後に、$\\pi_{6}^{3}$ の群構造を決定するために、"
+    "次の完全列を考える."
   )
 
   assert definition in rendered
@@ -85,8 +87,8 @@ def test_phase143_46_pi8_5_excludes_detached_nu_prime_order_argument():
     in rendered
   )
   assert (
-    "$\\nu'$ の位数を決定する. "
-    "そのために、次の完全列を考える."
+    "$\\nu'$ の位数を決定するために、"
+    "次の完全列を考える."
     not in rendered
   )
 
