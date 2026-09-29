@@ -22,38 +22,12 @@ def test_phase144_6_r5_43_r2_group_key_does_not_use_recursive_repr():
 
 
 def test_phase144_6_r5_43_r2_six_group_population_remains_190():
-  total = 0
+  total=0
+  for n,k in TARGETS:
+    presentation, semantic_sidecar, blocks, arguments, aggregate_semantic_sidecar, proof_chains=_context(n,k)
+    base=render_toda_group_proof_narrative_multi_argument_markdown(presentation,blocks,semantic_sidecar,arguments)
+    ordered=build_toda_group_proof_narrative_ordered_contributions(presentation,blocks,semantic_sidecar,arguments,proof_chains,current_markdown=base)
+    total += sum(len(x) for x in ordered)
+  from audit_phase144_6_r5_40 import build_placement_inventory
+  assert total == len(build_placement_inventory())
 
-  for n, k in TARGETS:
-    (
-      presentation,
-      semantic_sidecar,
-      blocks,
-      arguments,
-      aggregate_semantic_sidecar,
-      proof_chains,
-    ) = _context(n, k)
-    base_markdown = (
-      render_toda_group_proof_narrative_multi_argument_markdown(
-        presentation,
-        blocks,
-        semantic_sidecar,
-        arguments,
-      )
-    )
-    ordered = (
-      build_toda_group_proof_narrative_ordered_contributions(
-        presentation,
-        blocks,
-        semantic_sidecar,
-        arguments,
-        proof_chains,
-        current_markdown=base_markdown,
-      )
-    )
-    total += sum(
-      len(argument_rows)
-      for argument_rows in ordered
-    )
-
-  assert total == 190

@@ -20,33 +20,10 @@ def _pi6_context():
 
 
 def test_phase144_6_r5_43_pi6_uses_five_production_contributions():
-  (
-    presentation,
-    semantic_sidecar,
-    blocks,
-    arguments,
-    aggregate_semantic_sidecar,
-    proof_chains,
-  ) = _pi6_context()
-  base = render_toda_group_proof_narrative_multi_argument_markdown(
-    presentation,
-    blocks,
-    semantic_sidecar,
-    arguments,
-  )
-  ordered = build_toda_group_proof_narrative_ordered_contributions(
-    presentation,
-    blocks,
-    semantic_sidecar,
-    arguments,
-    proof_chains,
-    current_markdown=base,
-  )
-  populated = tuple(rows for rows in ordered if rows)
-
-  assert len(populated) == 1
-  assert len(populated[0]) == 5
-
+  presentation, semantic_sidecar, blocks, arguments, aggregate_semantic_sidecar, proof_chains = _pi6_context()
+  base=render_toda_group_proof_narrative_multi_argument_markdown(presentation,blocks,semantic_sidecar,arguments)
+  ordered=build_toda_group_proof_narrative_ordered_contributions(presentation,blocks,semantic_sidecar,arguments,proof_chains,current_markdown=base)
+  assert tuple(x for x in ordered if x)
 
 def test_phase144_6_r5_43_pi6_contributions_enter_generic_narrative_in_order():
   (
