@@ -21,6 +21,9 @@ from toda_group_proof_narrative_exactness_display_contributions import (
   TodaGroupProofNarrativeExactnessDisplayContributionKind,
   extract_toda_group_proof_narrative_exactness_display_contributions,
 )
+from toda_group_proof_narrative_exactness_exposure import (
+  TodaGroupProofNarrativeExactnessExposureClass,
+)
 from toda_group_proof_narrative_group_structure_semantics import (
   extract_toda_group_structure_narrative_redundant_direct_premise_step_ids,
 )
@@ -65,6 +68,10 @@ def _render_toda_group_proof_narrative_argument_exactness_body_block(
     TodaGroupProofNarrativeExactnessMethodComponent
     | None
   ),
+  exposure_class: (
+    TodaGroupProofNarrativeExactnessExposureClass
+    | None
+  ),
   excluded_exactness_contribution_keys: (
     frozenset[
       tuple[
@@ -93,6 +100,7 @@ def _render_toda_group_proof_narrative_argument_exactness_body_block(
       block,
       contributions,
       primary_component,
+      exposure_class,
     )
   )
 
@@ -626,6 +634,13 @@ def render_toda_group_proof_narrative_argument_body_markdown(
     TodaGroupProofNarrativeExactnessMethodComponent
     | None
   ),
+  exactness_exposure_by_block_id: (
+    dict[
+      int,
+      TodaGroupProofNarrativeExactnessExposureClass,
+    ]
+    | None
+  ) = None,
   excluded_non_exact_block_ids: (
     frozenset[
       int
@@ -706,6 +721,33 @@ def render_toda_group_proof_narrative_argument_body_markdown(
     raise TypeError(
       "local_body_blocks must be a tuple"
     )
+
+  if (
+    exactness_exposure_by_block_id is not None
+    and not isinstance(
+      exactness_exposure_by_block_id,
+      dict,
+    )
+  ):
+    raise TypeError(
+      "exactness_exposure_by_block_id must be "
+      "a dict or None"
+    )
+
+  if exactness_exposure_by_block_id is not None:
+    for block_id, exposure_class in exactness_exposure_by_block_id.items():
+      if not isinstance(block_id, int) or isinstance(block_id, bool):
+        raise TypeError(
+          "exactness_exposure_by_block_id keys must be integers"
+        )
+      if not isinstance(
+        exposure_class,
+        TodaGroupProofNarrativeExactnessExposureClass,
+      ):
+        raise TypeError(
+          "exactness_exposure_by_block_id values must be "
+          "TodaGroupProofNarrativeExactnessExposureClass objects"
+        )
 
   if (
     excluded_non_exact_block_ids is not None
@@ -991,6 +1033,26 @@ def render_toda_group_proof_narrative_argument_body_markdown(
       )
     )
   )
+  unowned_recursive_exactness_step_ids = frozenset(
+    id(
+      proof_step
+    )
+    for block in blocks
+    if (
+      block.role
+      is TodaGroupProofNarrativeMathematicalBlockRole
+      .EXACTNESS
+      and exactness_exposure_by_block_id is not None
+      and exactness_exposure_by_block_id.get(
+        id(
+          block
+        )
+      )
+      is TodaGroupProofNarrativeExactnessExposureClass
+      .UNOWNED_RECURSIVE
+    )
+    for proof_step in block.steps
+  )
   relocated_direct_premises = (
     ()
     if conclusion_step is None
@@ -1015,6 +1077,9 @@ def render_toda_group_proof_narrative_argument_body_markdown(
           id(
             premise_step
           ) not in redundant_direct_premise_step_ids
+          and id(
+            premise_step
+          ) not in unowned_recursive_exactness_step_ids
           and (
             excluded_non_exact_step_ids is None
             or id(
@@ -1059,6 +1124,11 @@ def render_toda_group_proof_narrative_argument_body_markdown(
           blocks,
           block_index,
           primary_component,
+          (
+            None
+            if exactness_exposure_by_block_id is None
+            else exactness_exposure_by_block_id.get(id(block))
+          ),
           excluded_exactness_contribution_keys,
         )
       )

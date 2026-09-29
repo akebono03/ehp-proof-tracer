@@ -9,6 +9,9 @@ from toda_group_proof_narrative_exactness_display_contributions import (
   TodaGroupProofNarrativeExactnessDisplayContribution,
   TodaGroupProofNarrativeExactnessDisplayContributionKind,
 )
+from toda_group_proof_narrative_exactness_exposure import (
+  TodaGroupProofNarrativeExactnessExposureClass,
+)
 
 
 def filter_toda_group_proof_narrative_exactness_body_contributions(
@@ -21,6 +24,10 @@ def filter_toda_group_proof_narrative_exactness_body_contributions(
     TodaGroupProofNarrativeExactnessMethodComponent
     | None
   ),
+  exposure_class: (
+    TodaGroupProofNarrativeExactnessExposureClass
+    | None
+  ) = None,
 ) -> tuple[
   TodaGroupProofNarrativeExactnessDisplayContribution,
   ...,
@@ -89,6 +96,33 @@ def filter_toda_group_proof_narrative_exactness_body_contributions(
       "TodaGroupProofNarrativeExactnessMethodComponent "
       "or None"
     )
+
+  if (
+    exposure_class is not None
+    and not isinstance(
+      exposure_class,
+      TodaGroupProofNarrativeExactnessExposureClass,
+    )
+  ):
+    raise TypeError(
+      "exposure_class must be a "
+      "TodaGroupProofNarrativeExactnessExposureClass "
+      "or None"
+    )
+
+  if (
+    exposure_class
+    is TodaGroupProofNarrativeExactnessExposureClass
+    .UNOWNED_RECURSIVE
+  ):
+    return ()
+
+  if (
+    exposure_class
+    is TodaGroupProofNarrativeExactnessExposureClass
+    .AMBIGUOUS_RELEVANT
+  ):
+    return contributions
 
   if primary_component is None:
     return contributions

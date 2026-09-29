@@ -39,17 +39,27 @@ from toda_group_proof_narrative_blocks import (
 from toda_group_proof_narrative_equation_numbering import (
   number_toda_group_proof_narrative_equations,
 )
+from toda_group_proof_narrative_exactness_components import (
+  build_toda_group_proof_narrative_exactness_method_components,
+)
 from toda_group_proof_narrative_exactness_contribution_ownership import (
   filter_toda_group_proof_narrative_exactness_body_contributions,
 )
 from toda_group_proof_narrative_exactness_display_contributions import (
   extract_toda_group_proof_narrative_exactness_display_contributions,
 )
+from toda_group_proof_narrative_exactness_exposure import (
+  TodaGroupProofNarrativeExactnessExposureClass,
+  classify_toda_group_proof_narrative_exactness_component_exposure,
+)
 from toda_group_proof_narrative_exactness_selection import (
   select_toda_group_proof_narrative_argument_primary_exactness_component,
 )
 from toda_group_proof_narrative_method_evidence import (
   extract_toda_group_proof_narrative_argument_method_evidence,
+)
+from toda_group_proof_narrative_relevant_groups import (
+  extract_toda_group_proof_narrative_argument_relevant_groups,
 )
 from toda_group_proof_narrative_references import (
   build_toda_group_proof_narrative_reference_entries,
@@ -290,6 +300,18 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
         argument_index,
       )
     )
+    components = (
+      build_toda_group_proof_narrative_exactness_method_components(
+        evidence
+      )
+    )
+    relevant_groups = (
+      extract_toda_group_proof_narrative_argument_relevant_groups(
+        presentation,
+        blocks,
+        argument,
+      )
+    )
     primary_component = (
       select_toda_group_proof_narrative_argument_primary_exactness_component(
         presentation,
@@ -299,6 +321,32 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
         argument_index,
       )
     )
+    exactness_exposure_by_block_id = {}
+
+    for component in components:
+      exposure_class = (
+        classify_toda_group_proof_narrative_exactness_component_exposure(
+          relevant_groups,
+          components,
+          component,
+        )
+      )
+      for evidence_block in component.evidence_blocks:
+        evidence_block_id = id(evidence_block)
+        existing_exposure = exactness_exposure_by_block_id.get(
+          evidence_block_id
+        )
+        if (
+          existing_exposure is not None
+          and existing_exposure is not exposure_class
+        ):
+          exactness_exposure_by_block_id[evidence_block_id] = (
+            TodaGroupProofNarrativeExactnessExposureClass
+            .AMBIGUOUS_RELEVANT
+          )
+          continue
+        exactness_exposure_by_block_id[evidence_block_id] = exposure_class
+
     local_body_blocks = (
       extract_toda_group_proof_narrative_argument_local_body_blocks(
         presentation,
@@ -432,6 +480,7 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
         blocks,
         local_body_blocks,
         primary_component,
+        exactness_exposure_by_block_id=exactness_exposure_by_block_id,
         excluded_non_exact_block_ids=frozenset(
           seen_non_exact_block_ids
         ),
@@ -528,6 +577,7 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
           block,
           contributions,
           primary_component,
+          exactness_exposure_by_block_id.get(id(block)),
         )
       )
 
