@@ -1,0 +1,151 @@
+Phase 145-2 Stage 3 - Historical Executability Classification
+==============================================================================
+HEAD: 4737d71e339b704b787668f493201e4aebeeb991
+Stage 2 path-update population: 91
+
+CLASSIFICATION COUNTS
+------------------------------------------------------------------------------
+EXECUTABILITY_REQUIRED: 44
+DEPENDENCY_CHAIN_REVIEW: 41
+HISTORICAL_ONLY: 6
+
+EXECUTABILITY_REQUIRED
+------------------------------------------------------------------------------
+phase143_75aa :: directory :: files=3 :: reasons=HAS_APPLY_OR_INSTALLER | RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE
+phase144_2_sigma_triple_prime_definition_impl :: directory :: files=6 :: reasons=HAS_APPLY_OR_INSTALLER | RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_r1_focused_test_manifest_repair :: directory :: files=4 :: reasons=HAS_PAYLOAD
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_r2_read_population_cache_restoration :: directory :: files=5 :: reasons=HAS_APPLY_OR_INSTALLER | HAS_PAYLOAD
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_r3_r1_prune_contract_restoration :: directory :: files=5 :: reasons=HAS_APPLY_OR_INSTALLER | HAS_PAYLOAD
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_r3_stale_worktree_path_cleanup :: directory :: files=5 :: reasons=HAS_APPLY_OR_INSTALLER | HAS_PAYLOAD
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_r4_collector_native_error_handling :: directory :: files=4 :: reasons=HAS_APPLY_OR_INSTALLER | HAS_PAYLOAD
+phase144_6_r25_11_r6_r1_r4_r5_idempotent_post_measure_cleanup :: directory :: files=5 :: reasons=HAS_APPLY_OR_INSTALLER | HAS_PAYLOAD
+phase144_6_r25_11_r6_r1_r4_r5_r1_registration_contract_compatibility :: directory :: files=4 :: reasons=HAS_APPLY_OR_INSTALLER | HAS_PAYLOAD
+phase144_6_r5_17a_r1 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_17a_r2 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_17a_r3 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_17b :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_17c :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_17d :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_17d_r1 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_17e :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_18 :: directory :: files=5 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE
+phase144_6_r5_19 :: directory :: files=5 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE
+phase144_6_r5_20 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_21 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_22 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_23 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_24 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_25 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_26 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_27 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_28 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_29 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_30 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_31 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_32 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_33 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_34 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_35 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_36 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_37 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_38 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_38_r2 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_39 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_39_r2 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_39_r3 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_40 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_41 :: directory :: files=4 :: reasons=HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS
+
+DEPENDENCY_CHAIN_REVIEW
+------------------------------------------------------------------------------
+phase144_6_finalization :: directory :: files=4 :: reasons=FINAL_OR_FULL_SUITE_GATE | RUNS_OR_REFERENCES_CANONICAL_TESTS | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_finalization
+phase144_6_r25_10_r1_import_path_repair :: directory :: files=3 :: reasons=HAS_APPLY_OR_INSTALLER | RUNS_OR_REFERENCES_CANONICAL_TESTS | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r25_10_final_regression_ownership_audit
+phase144_6_r25_11_r4_closure_origin_boundary_audit :: directory :: files=4 :: reasons=REFERENCES_OTHER_PHASE_ARTIFACT | AUDIT_OR_DIAGNOSTIC_NAME
+  other_phase_refs=phase144_6_r25_11_r4_closure_origin_boundary_audit
+phase144_6_r25_11_r6_r1_r1_runner_repair :: directory :: files=6 :: reasons=HAS_APPLY_OR_INSTALLER | HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r25_11_r6_r1_historical_190_commit_localization_audit | phase144_6_r25_11_r6_r1_r1_runner_repair
+phase144_6_r25_11_r6_r1_r2_r1_powershell51_syntax_repair :: directory :: files=5 :: reasons=HAS_APPLY_OR_INSTALLER | HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r25_11_r6_r1_historical_190_commit_localization_audit | phase144_6_r25_11_r6_r1_r2_r1_powershell51_syntax_repair
+phase144_6_r25_11_r6_r1_r2_r1_r1_audit_test_compatibility_repair :: directory :: files=4 :: reasons=HAS_APPLY_OR_INSTALLER | HAS_PAYLOAD | REFERENCES_OTHER_PHASE_ARTIFACT | AUDIT_OR_DIAGNOSTIC_NAME
+  other_phase_refs=phase144_6_r25_11_r6_r1_historical_190_commit_localization_audit | phase144_6_r25_11_r6_r1_r2_r1_r1_audit_test_compatibility_repair
+phase144_6_r25_11_r6_r1_r2_r1_r2_native_git_error_handling_repair :: directory :: files=5 :: reasons=HAS_APPLY_OR_INSTALLER | HAS_PAYLOAD | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r25_11_r6_r1_historical_190_commit_localization_audit | phase144_6_r25_11_r6_r1_r2_r1_r2_native_git_error_handling_repair
+phase144_6_r25_11_r6_r1_r2_r1_r2_r1_powershell51_native_git_syntax_repair :: directory :: files=5 :: reasons=HAS_APPLY_OR_INSTALLER | HAS_PAYLOAD | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r25_11_r6_r1_historical_190_commit_localization_audit
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_git_object_path_distinction_repair :: directory :: files=5 :: reasons=HAS_APPLY_OR_INSTALLER | HAS_PAYLOAD | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r25_11_r6_r1_historical_190_commit_localization_audit
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r1_audit_test_compatibility_repair :: directory :: files=5 :: reasons=HAS_APPLY_OR_INSTALLER | HAS_PAYLOAD | REFERENCES_OTHER_PHASE_ARTIFACT | AUDIT_OR_DIAGNOSTIC_NAME
+  other_phase_refs=phase144_6_r25_11_r6_r1_historical_190_commit_localization_audit | phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r1_audit_test_compatibility_repair
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r2_r1_diagnostic_audit_test_repair :: directory :: files=4 :: reasons=HAS_APPLY_OR_INSTALLER | HAS_PAYLOAD | REFERENCES_OTHER_PHASE_ARTIFACT | AUDIT_OR_DIAGNOSTIC_NAME
+  other_phase_refs=phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r2_r1_diagnostic_audit_test_repair
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_native_command_scalar_exit_code_repair :: directory :: files=7 :: reasons=HAS_APPLY_OR_INSTALLER | HAS_PAYLOAD | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r25_11_r6_r1_historical_190_commit_localization_audit | phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r2
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r1_installer_syntax_repair :: directory :: files=7 :: reasons=HAS_APPLY_OR_INSTALLER | HAS_PAYLOAD | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r25_11_r6_r1_historical_190_commit_localization_audit | phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r2
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r2_cleanup_syntax_repair :: directory :: files=7 :: reasons=HAS_APPLY_OR_INSTALLER | HAS_PAYLOAD | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r25_11_r6_r1_historical_190_commit_localization_audit
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r3_payload_powershell51_syntax_repair :: directory :: files=7 :: reasons=HAS_APPLY_OR_INSTALLER | HAS_PAYLOAD | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r25_11_r6_r1_historical_190_commit_localization_audit
+phase144_6_r25_11_r6_r1_r2_r1_r2_r2_r3_r4_measure_commit_whole_function_repair :: directory :: files=7 :: reasons=HAS_APPLY_OR_INSTALLER | HAS_PAYLOAD | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r25_11_r6_r1_historical_190_commit_localization_audit
+phase144_6_r25_11_r6_r1_r2_windows_worktree_cache_robustness_repair :: directory :: files=5 :: reasons=HAS_APPLY_OR_INSTALLER | HAS_PAYLOAD | RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r25_11_r6_r1_historical_190_commit_localization_audit | phase144_6_r25_11_r6_r1_r2_windows_worktree_cache_robustness_repair
+phase144_6_r25_22_cli_web_narrative_replay_parity :: directory :: files=4 :: reasons=HAS_APPLY_OR_INSTALLER | RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r25_22_cli_web_narrative_replay_parity
+phase144_6_r25_22_r2_web_numbered_equation_adapter :: directory :: files=4 :: reasons=HAS_APPLY_OR_INSTALLER | RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r25_22_r2_web_numbered_equation_adapter
+phase144_6_r25_22_r3_test_assertion_repair :: directory :: files=3 :: reasons=RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r25_22_r2_web_numbered_equation_adapter | phase144_6_r25_22_r3_test_assertion_repair
+phase144_6_r25_23_r2_audit_harness_import_api_repair :: directory :: files=4 :: reasons=REFERENCES_OTHER_PHASE_ARTIFACT | AUDIT_OR_DIAGNOSTIC_NAME
+  other_phase_refs=phase144_6_r25_23_evidence_selection_dependency_order_audit | phase144_6_r25_23_r2_audit_harness_import_api_repair
+phase144_6_r25_24_method_evidence_minimal_ownership_boundary :: directory :: files=6 :: reasons=HAS_APPLY_OR_INSTALLER | RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r25_24_method_evidence_minimal_ownership_boundary
+phase144_6_r25_25_ownership_pipeline_diagnosis :: directory :: files=7 :: reasons=RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE | REFERENCES_OTHER_PHASE_ARTIFACT | AUDIT_OR_DIAGNOSTIC_NAME
+  other_phase_refs=phase144_6_r25_25_ownership_pipeline_diagnosis
+phase144_6_r25_27_r2_boundary_harness_repair :: directory :: files=4 :: reasons=HAS_APPLY_OR_INSTALLER | RUNS_OR_REFERENCES_CANONICAL_TESTS | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r25_27_proof_edge_ownership_boundary_audit | phase144_6_r25_27_r2_boundary_harness_repair
+phase144_6_r25_27_r3_cycle_isolated_premise_audit :: directory :: files=4 :: reasons=HAS_APPLY_OR_INSTALLER | RUNS_OR_REFERENCES_CANONICAL_TESTS | REFERENCES_OTHER_PHASE_ARTIFACT | AUDIT_OR_DIAGNOSTIC_NAME
+  other_phase_refs=phase144_6_r25_27_proof_edge_ownership_boundary_audit | phase144_6_r25_27_r3_cycle_isolated_premise_audit
+phase144_6_r3_equation_regression_audit :: directory :: files=3 :: reasons=RUNS_OR_REFERENCES_CANONICAL_CODE | REFERENCES_OTHER_PHASE_ARTIFACT | AUDIT_OR_DIAGNOSTIC_NAME
+  other_phase_refs=phase144_6_r3_equation_regression_audit
+phase144_6_r3_impl :: directory :: files=3 :: reasons=HAS_APPLY_OR_INSTALLER | RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r3_impl
+phase144_6_r3_second_half :: directory :: files=4 :: reasons=HAS_APPLY_OR_INSTALLER | RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r3_second_half
+phase144_6_r3_second_half_r1 :: directory :: files=3 :: reasons=RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r3_second_half | phase144_6_r3_second_half_r1
+phase144_6_r3_second_half_r3 :: directory :: files=4 :: reasons=RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r3_second_half_r3
+phase144_6_r3_second_half_r4_test_alignment :: directory :: files=4 :: reasons=HAS_APPLY_OR_INSTALLER | RUNS_OR_REFERENCES_CANONICAL_TESTS | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r3_second_half_r4_test_alignment
+phase144_6_r4_duplicate_call_audit :: directory :: files=3 :: reasons=RUNS_OR_REFERENCES_CANONICAL_CODE | REFERENCES_OTHER_PHASE_ARTIFACT | AUDIT_OR_DIAGNOSTIC_NAME
+  other_phase_refs=phase144_6_r4_duplicate_call_audit
+phase144_6_r4_frontier_filter_impl :: directory :: files=5 :: reasons=HAS_APPLY_OR_INSTALLER | RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r4_frontier_filter_impl
+phase144_6_r4_helper_source_audit :: directory :: files=3 :: reasons=RUNS_OR_REFERENCES_CANONICAL_CODE | REFERENCES_OTHER_PHASE_ARTIFACT | AUDIT_OR_DIAGNOSTIC_NAME
+  other_phase_refs=phase144_6_r4_helper_source_audit
+phase144_6_r4_r1_transition_scope_repair :: directory :: files=3 :: reasons=HAS_APPLY_OR_INSTALLER | RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r4_frontier_filter_impl | phase144_6_r4_r1_transition_scope_repair
+phase144_6_r4_r2_blocks_parameter_repair :: directory :: files=3 :: reasons=HAS_APPLY_OR_INSTALLER | RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r4_frontier_filter_impl | phase144_6_r4_r2_blocks_parameter_repair
+phase144_6_r4_r3_ast_repair :: directory :: files=3 :: reasons=HAS_APPLY_OR_INSTALLER | RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r4_frontier_filter_impl | phase144_6_r4_r3_ast_repair
+phase144_6_r4_r4_literal_newline_repair :: directory :: files=3 :: reasons=HAS_APPLY_OR_INSTALLER | RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r4_frontier_filter_impl | phase144_6_r4_r4_literal_newline_repair
+phase144_6_r4_r5_duplicate_cleanup :: directory :: files=3 :: reasons=HAS_APPLY_OR_INSTALLER | RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r4_frontier_filter_impl | phase144_6_r4_r5_duplicate_cleanup
+phase144_6_r4_r6_definition_frontier :: directory :: files=3 :: reasons=HAS_APPLY_OR_INSTALLER | RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r4_frontier_filter_impl | phase144_6_r4_r6_definition_frontier
+phase144_6_r4_r7_semantic_definition_frontier :: directory :: files=3 :: reasons=HAS_APPLY_OR_INSTALLER | RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE | REFERENCES_OTHER_PHASE_ARTIFACT
+  other_phase_refs=phase144_6_r4_frontier_filter_impl | phase144_6_r4_r7_semantic_definition_frontier
+
+HISTORICAL_ONLY
+------------------------------------------------------------------------------
+audit_phase112_1a.py :: root_file :: files=1 :: reasons=RUNS_OR_REFERENCES_CANONICAL_CODE | ROOT_LEVEL_HISTORICAL_TOOL | AUDIT_OR_DIAGNOSTIC_NAME
+audit_phase112_1b.py :: root_file :: files=1 :: reasons=RUNS_OR_REFERENCES_CANONICAL_CODE | ROOT_LEVEL_HISTORICAL_TOOL | AUDIT_OR_DIAGNOSTIC_NAME
+audit_phase112_1c.py :: root_file :: files=1 :: reasons=RUNS_OR_REFERENCES_CANONICAL_CODE | ROOT_LEVEL_HISTORICAL_TOOL | AUDIT_OR_DIAGNOSTIC_NAME
+phase144_6_r25_10_final_regression_ownership_audit :: directory :: files=4 :: reasons=RUNS_OR_REFERENCES_CANONICAL_TESTS | RUNS_OR_REFERENCES_CANONICAL_CODE | AUDIT_OR_DIAGNOSTIC_NAME
+phase144_6_r5_22_r1 :: directory :: files=2 :: reasons=RUNS_OR_REFERENCES_CANONICAL_TESTS
+phase144_6_r5_23_r1 :: directory :: files=2 :: reasons=RUNS_OR_REFERENCES_CANONICAL_TESTS

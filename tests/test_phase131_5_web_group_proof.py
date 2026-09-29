@@ -31,7 +31,8 @@ def test_phase131_5_sigma9_group_proof_view_uses_group_result_replay():
   )
   assert view.theorem == "Toda Proposition 5.15"
   assert view.phase == "75"
-  assert view.max_depth == 1
+  assert view.max_depth == 2
+  assert view.mode == "narrative"
   assert (
     view.steps[
       0
@@ -137,6 +138,7 @@ def test_phase131_5_group_proof_post_keeps_result_and_shows_proof():
       "n": "9",
       "k": "7",
       "group_proof_depth": "2",
+      "group_proof_mode": "trace",
     },
   )
 

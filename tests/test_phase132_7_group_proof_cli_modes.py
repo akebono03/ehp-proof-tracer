@@ -3,9 +3,20 @@ import pytest
 import main as cli_main
 
 
-def test_phase132_7_group_proof_default_mode_remains_trace(
+def test_phase132_7_group_proof_default_mode_is_narrative(
   capsys,
 ):
+  parser = cli_main.build_group_proof_argument_parser()
+  args = parser.parse_args(
+    [
+      "9",
+      "7",
+    ]
+  )
+
+  assert args.mode == "narrative"
+  assert args.depth == 2
+
   exit_code = cli_main.main(
     [
       "group-proof",
@@ -18,47 +29,33 @@ def test_phase132_7_group_proof_default_mode_remains_trace(
 
   assert exit_code == 0
   assert captured.err == ""
-  assert "# Group result" in captured.out
-  assert "## Proof" in captured.out
-  assert "Depth 0" in captured.out
-  assert "Depth 1" in captured.out
-  assert "# Group proof outline" not in captured.out
-  assert "# Group proof narrative" not in captured.out
+  assert "# Group proof narrative" in captured.out
+  assert "# Group result" not in captured.out
 
 
-def test_phase132_7_group_proof_explicit_trace_matches_default(
+def test_phase132_7_group_proof_explicit_trace_remains_available(
   capsys,
 ):
-  default_exit = cli_main.main(
+  exit_code = cli_main.main(
     [
       "group-proof",
       "9",
       "7",
-    ]
-  )
-  default_output = (
-    capsys.readouterr()
-  )
-
-  explicit_exit = cli_main.main(
-    [
-      "group-proof",
-      "9",
-      "7",
+      "--depth",
+      "1",
       "--mode",
       "trace",
     ]
   )
-  explicit_output = (
-    capsys.readouterr()
-  )
 
-  assert default_exit == 0
-  assert explicit_exit == 0
-  assert (
-    explicit_output.out
-    == default_output.out
-  )
+  captured = capsys.readouterr()
+
+  assert exit_code == 0
+  assert captured.err == ""
+  assert "# Group result" in captured.out
+  assert "Depth 0" in captured.out
+  assert "Depth 1" in captured.out
+  assert "# Group proof narrative" not in captured.out
 
 
 def test_phase132_7_group_proof_outline_mode_uses_outline_renderer(
