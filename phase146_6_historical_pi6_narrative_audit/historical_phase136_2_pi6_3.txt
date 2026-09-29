@@ -1,0 +1,222 @@
+﻿# Group proof narrative
+
+## 險ｼ譏主ｯｾ雎｡
+
+Toda Proposition 5.6 縺ｮ縺・■,
+
+\[
+\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}
+\]
+
+繧堤､ｺ縺・
+
+## 菴ｿ逕ｨ縺吶ｋ邨先棡
+
+**[R1] Toda (5.2) 縺ｮ ﾎｷ竄・蜷域・蜷悟梛.**
+
+谺｡縺ｮ蜷域・蜀吝ワ縺ｯ蜷悟梛縺ｧ縺ゅｋ.
+
+\[
+\eta_{2}\circ - : \pi_{i}^{3} \longrightarrow \pi_{i}^{2}.
+\]
+
+**[R2] Toda Proposition 5.1.**
+
+\[
+\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}\qquad (n \ge 3).
+\]
+
+**[R3] Toda Proposition 5.3.**
+
+\[
+\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}^{2}\}\qquad (n \ge 2).
+\]
+
+\[
+\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}^{2}\},\qquad\pi_{7}^{5} = \mathbb{Z}/2\{\eta_{5}^{2}\}.
+\]
+
+**[R4] Toda Lemma 5.2.**
+
+縺ｾ縺・Lemma 5.2 縺ｮ荳闊ｬ蠖｢繧定ｨ倥☆.
+
+$\alpha\in\pi_i^3$, $2\alpha=0$ 縺ｧ縺ゅｊ,
+
+\[
+\beta \in \{\eta_{3},2\iota_{4},E\alpha\}_{1}
+\]
+
+縺ｪ繧峨・,
+
+\[
+\beta\in\pi_{i+2}^{3},
+\qquad
+H(\beta)=E^{2}\alpha,
+\qquad
+2\beta=\eta_{3}\circ E\alpha\circ\eta_{i+1},
+\qquad
+\Delta(E^{2}\alpha)=0.
+\]
+
+縺薙・險ｼ譏弱〒縺ｯ $\alpha=\eta_{3}$, $i=4$ 縺ｨ縺吶ｋ. 縺ｾ縺・$2\eta_{3}=0$ 繧堤｢ｺ隱阪☆繧九→, Toda bracket
+
+\[
+\{\eta_{3},2\iota_{4},\eta_{4}\}_{1}
+\]
+
+縺悟ｮ夂ｾｩ縺ｧ縺阪ｋ. 縺薙・ bracket 縺ｮ縺ゅｋ蜈・ｒ $\nu'$ 縺ｨ螳壹ａ繧・ 縺吶↑繧上■,
+
+\[
+\nu' \in \{\eta_{3},2\iota_{4},\eta_{4}\}_{1}.
+\]
+
+縺吶ｋ縺ｨ Lemma 5.2 繧医ｊ,
+
+\[
+\nu'\in\pi_{6}^{3},
+\qquad
+H(\nu')=E^{2}\eta_{3},
+\qquad
+2\nu'=\eta_{3}\circ E\eta_{3}\circ\eta_{5},
+\qquad
+\Delta(E^{2}\eta_{3})=0
+\]
+
+繧貞ｾ励ｋ.
+
+**[R5] Toda Proposition 2.2 縺ｮ蜿ｳ蜷域・蜈ｬ蠑・**
+
+\[
+H(\alpha\circ E\beta)=H(\alpha)\circ E\beta.
+\]
+
+## 險ｼ譏・
+
+縺ｾ縺・ Lemma 5.2 繧・$\alpha=\eta_{3}$, $i=4$, $\beta=\nu'$ 縺ｨ縺励※驕ｩ逕ｨ縺吶ｋ縺溘ａ縺ｮ莉ｮ螳壹ｒ遒ｺ隱阪☆繧・
+
+[R2] 縺ｮ $n=3$ 縺ｮ蝣ｴ蜷医ｈ繧・
+
+\[
+2\eta_{3}=0.\tag{1}
+\]
+
+縺励◆縺後▲縺ｦ Toda bracket $\{\eta_{3},2\iota_{4},\eta_{4}\}_{1}$ 縺悟ｮ夂ｾｩ縺ｧ縺阪ｋ. [R4] 縺ｧ縺薙・ bracket 縺ｮ縺ゅｋ蜈・ｒ $\nu'$ 縺ｨ螳壹ａ縺溘・縺ｧ,
+
+\[
+\nu' \in \{\eta_{3},2\iota_{4},\eta_{4}\}_{1}.\tag{2}
+\]
+
+(1), (2) 縺ｫ繧医ｊ Lemma 5.2 縺ｮ莉ｮ螳壹′貅縺溘＆繧後ｋ. 縺励◆縺後▲縺ｦ Lemma 5.2 縺ｮ邨占ｫ悶°繧・
+
+\[
+\nu'\in\pi_{6}^{3}.\tag{3}
+\]
+
+縺輔ｉ縺ｫ $H(\beta)=E^{2}\alpha$ 縺ｨ $E^{2}\eta_{3}=\eta_{5}$ 縺九ｉ,
+
+\[
+H(\nu')=\eta_{5}.\tag{4}
+\]
+
+縺ｾ縺・$2\beta=\eta_{3}\circ E\alpha\circ\eta_{i+1}$ 縺ｨ $E\eta_{3}=\eta_{4}$ 縺九ｉ,
+
+\[
+2\nu'=\eta_{3}\circ E\eta_{3}\circ\eta_{5}=\eta_{3}^{3}.\tag{5}
+\]
+
+[R3] 縺ｮ $n=3$ 縺ｮ蝣ｴ蜷医ｈ繧・
+
+\[
+\pi_{5}^{3}=\mathbb{Z}/2\{\eta_{3}^{2}\}.\tag{6}
+\]
+
+(6), [R1] 繧医ｊ,
+
+\[
+\pi_{5}^{2}=\mathbb{Z}/2\{\eta_{2}^{3}\}.\tag{7}
+\]
+
+$\nu'$ 縺ｮ菴肴焚繧呈ｱｺ螳壹☆繧九◆繧√↓, 谺｡縺ｮ EHP 螳悟・蛻励ｒ閠・∴繧・
+
+\[
+\pi_{7}^{3}\xrightarrow{H}\pi_{7}^{5}\xrightarrow{\Delta}\pi_{5}^{2}\xrightarrow{E}\pi_{6}^{3}\xrightarrow{H}\pi_{6}^{5}\quad\text{縺ｯ螳悟・縺ｧ縺ゅｋ.}\tag{8}
+\]
+
+[R2] 縺ｮ $n=6$ 縺ｮ蝣ｴ蜷医ｈ繧・$\eta_{6}\in\pi_{7}^{6}$ 縺ｧ縺ゅｊ, (3) 縺ｨ蜷域・縺励※,
+
+\[
+\nu'\eta_{6}\in\pi_{7}^{3}.\tag{9}
+\]
+
+縺ｾ縺・ﾎｷ-family 縺ｮ suspension relation $\eta_{6}=E\eta_{5}$ 繧堤畑縺・ｋ. [R5] 縺ｮ Toda Proposition 2.2 縺ｫ $\alpha=\nu'$, $\beta=\eta_{5}$ 繧剃ｻ｣蜈･縺吶ｋ縺ｨ,
+
+\[
+H(\nu'\eta_{6})=H(\nu'\circ E\eta_{5})=H(\nu')\circ E\eta_{5}=\eta_{5}\eta_{6}=\eta_{5}^{2}.\tag{10}
+\]
+
+[R3] 縺ｮ $n=5$ 縺ｮ蝣ｴ蜷医ｈ繧・
+
+\[
+\pi_{7}^{5}=\mathbb{Z}/2\{\eta_{5}^{2}\}.\tag{11}
+\]
+
+(9), (10), (11) 繧医ｊ, $H:\pi_{7}^{3}\to\pi_{7}^{5}$ 縺ｯ逕滓・蜈・$\eta_{5}^{2}$ 繧貞ワ縺ｫ謖√▽. 縺励◆縺後▲縺ｦ,
+
+\[
+H:\pi_{7}^{3}\to\pi_{7}^{5}\quad\text{縺ｯ蜈ｨ蟆・〒縺ゅｋ.}\tag{12}
+\]
+
+(8), (12) 縺ｮ螳悟・諤ｧ繧医ｊ $\operatorname{Im}H=\ker\Delta=\pi_{7}^{5}$ 縺ｧ縺ゅｋ. 繧医▲縺ｦ,
+
+\[
+\Delta:\pi_{7}^{5}\to\pi_{5}^{2}\quad\text{縺ｯ髮ｶ蜀吝ワ縺ｧ縺ゅｋ.}\tag{13}
+\]
+
+縺輔ｉ縺ｫ (8), (13) 繧医ｊ $\operatorname{Im}\Delta=\ker E=0$ 縺ｪ縺ｮ縺ｧ,
+
+\[
+E:\pi_{5}^{2}\to\pi_{6}^{3}\quad\text{縺ｯ蜊伜ｰ・〒縺ゅｋ.}\tag{14}
+\]
+
+(7), (14) 縺ｨ ﾎｷ-family 縺ｮ suspension relation $E(\eta_{2}^{3})=\eta_{3}^{3}$ 繧医ｊ,
+
+\[
+\eta_{3}^{3}\text{ 縺ｮ菴肴焚縺ｯ }2\text{ 縺ｧ縺ゅｋ.}\tag{15}
+\]
+
+(5), (15) 繧医ｊ,
+
+\[
+\nu'\text{ 縺ｮ菴肴焚縺ｯ }4\text{ 縺ｧ縺ゅｋ.}\tag{16}
+\]
+
+譛蠕後↓, $\pi_{6}^{3}$ 縺ｮ鄒､讒矩繧呈ｱｺ螳壹☆繧・
+
+[R2] 縺ｮ $n=5$ 縺ｮ蝣ｴ蜷医ｈ繧・
+
+\[
+\pi_{6}^{5}=\mathbb{Z}/2\{\eta_{5}\}.\tag{17}
+\]
+
+(4), (17) 繧医ｊ,
+
+\[
+H:\pi_{6}^{3}\to\pi_{6}^{5}\quad\text{縺ｯ蜈ｨ蟆・〒縺ゅｋ.}\tag{18}
+\]
+
+(8), (14), (18) 繧医ｊ, $E$ 縺ｯ蜊伜ｰ・ $H$ 縺ｯ蜈ｨ蟆・↑縺ｮ縺ｧ, 谺｡縺ｮ遏ｭ螳悟・蛻励ｒ蠕励ｋ.
+
+\[
+0\longrightarrow\pi_{5}^{2}\xrightarrow{E}\pi_{6}^{3}\xrightarrow{H}\pi_{6}^{5}\longrightarrow 0.\tag{19}
+\]
+
+(7), (17), (19) 繧医ｊ $\pi_{6}^{3}$ 縺ｮ菴肴焚縺ｯ 4 縺ｧ縺ゅｋ. 荳譁ｹ, (3), (16) 繧医ｊ $\nu'\in\pi_{6}^{3}$ 縺ｯ菴肴焚 4 縺ｮ蜈・↑縺ｮ縺ｧ, $\nu'$ 縺檎ｾ､蜈ｨ菴薙ｒ逕滓・縺吶ｋ.
+
+莉･荳翫↓繧医ｊ,
+
+\[
+\pi_{6}^{3}=\mathbb{Z}/4\{\nu'\}\tag{20}
+\]
+
+繧貞ｾ励ｋ.
+

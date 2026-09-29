@@ -1,0 +1,170 @@
+﻿菴ｿ逕ｨ縺吶ｋ邨先棡繧貞・縺ｫ縺ｾ縺ｨ繧√ｋ.
+
+**[R1] (5.3) / Lemma 5.2.**
+**[R2] (5.2).**
+**[R3] Proposition 5.1.**
+**[R4] Proposition 4.4.**
+
+縺ｾ縺壹・\nu'$ 繧貞ｮ壹ａ繧・
+
+$2\eta_{3} = 0$
+
+$\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{E\eta_{2}\}$
+
+$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$
+
+Proposition 5.3 繧帝・ｬ｡驕ｩ逕ｨ縺励《uspension 縺ｫ繧医ｋ螳牙ｮ壼喧繧堤畑縺・ｋ縺ｨ縲・
+
+$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$
+
+$H: \pi_{7}^{3} \to \pi_{7}^{5}$ 縺ｯ蜈ｨ蟆・〒縺ゅｋ.
+
+縺薙ｌ繧医ｊ縲・
+
+$\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ 縺ｯ髮ｶ蜀吝ワ縺ｧ縺ゅｋ.
+
+$E: \pi_{5}^{2} \to \pi_{6}^{3}$ 縺ｯ蜊伜ｰ・〒縺ゅｋ.
+
+谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+
+$\pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+
+谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+
+$\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+
+谺｡縺ｫ縲・\nu'$ 縺ｮ菴肴焚繧呈ｱｺ螳壹☆繧・
+
+$2\nu' = \eta_{3}E\eta_{3}\eta_{5}\tag{1}$
+
+$\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+
+莉･荳翫ｈ繧翫・
+
+$\operatorname{ord}\left(\nu'\right) = 4$
+
+(4) 繧医ｊ縲・
+
+$\eta_{3}E\eta_{3}\eta_{5} = \eta_{3}^{3}\tag{2}$
+
+(1) 縺ｨ (2) 繧医ｊ縲・
+
+$2\nu' = \eta_{3}^{3}\tag{3}$
+
+(5) 繧医ｊ縲・
+
+$E\eta_{3}\eta_{5} = \eta_{4}^{2}\tag{4}$
+
+$E\eta_{3} = \eta_{4}\tag{5}$
+
+谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+
+$\pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+
+$H\left(\nu'\right) = E^{2}\eta_{3}\tag{6}$
+
+$E^{2}\eta_{3} = \eta_{5}\tag{7}$
+
+(6) 縺ｨ (7) 繧医ｊ縲・
+
+$H\left(\nu'\right) = \eta_{5}\tag{8}$
+
+(8) 繧医ｊ縲・
+
+$H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}\tag{9}$
+
+谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+
+$\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+
+$\eta_{3} = E\eta_{2}\tag{10}$
+
+(10) 繧医ｊ縲・
+
+$E^{n - 3}\eta_{3} = \eta_{n}\tag{11}$
+
+谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+
+$\pi_{6}^{5} \xrightarrow{\Delta} \pi_{4}^{2} \xrightarrow{E} \pi_{5}^{3}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+
+谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+
+$\pi_{4}^{2} \xrightarrow{E} \pi_{5}^{3} \xrightarrow{H} \pi_{5}^{5}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+
+谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+
+$\pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5} \xrightarrow{\Delta} \pi_{4}^{2}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+
+谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+
+$\pi_{5}^{3} \xrightarrow{H} \pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+
+谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+
+$\pi_{2}^{1} \xrightarrow{E} \pi_{3}^{2} \xrightarrow{H} \pi_{3}^{3}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+
+谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+
+$\pi_{3}^{2} \xrightarrow{H} \pi_{3}^{3} \xrightarrow{\Delta} \pi_{1}^{1}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+
+谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+
+$\pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+
+谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+
+$\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+
+谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+
+$\pi_{2}^{1} \xrightarrow{E} \pi_{3}^{2} \xrightarrow{H} \pi_{3}^{3}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+
+谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+
+$\pi_{3}^{2} \xrightarrow{H} \pi_{3}^{3} \xrightarrow{\Delta} \pi_{1}^{1}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+
+谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+
+$\pi_{3}^{3} \xrightarrow{\Delta} \pi_{1}^{1} \xrightarrow{E} \pi_{2}^{2}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+
+谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+
+$\pi_{3}^{3} \xrightarrow{\Delta} \pi_{1}^{1} \xrightarrow{E} \pi_{2}^{2}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+
+谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+
+$\pi_{5}^{3} \xrightarrow{E} \pi_{6}^{4} \xrightarrow{H} \pi_{6}^{7}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+
+谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+
+$\pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+
+谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+
+$\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+
+譛蠕後↓縲・\pi_{6}^{3}$ 縺ｮ鄒､讒矩繧呈ｱｺ螳壹☆繧・ 縺昴・縺溘ａ縺ｫ縲∵ｬ｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+
+$\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5} \xrightarrow{\Delta} \pi_{4}^{2} \xrightarrow{E} \pi_{5}^{3} \xrightarrow{H} \pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$
+
+$\pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+
+$\nu' \in \pi_{6}^{3}$
+
+$\pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+
+$H: \pi_{6}^{3} \to \pi_{6}^{5}$ 縺ｯ蜈ｨ蟆・〒縺ゅｋ.
+
+$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
+
+莉･荳翫ｈ繧翫・
+
+$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+
+縺薙・螳悟・諤ｧ縺ｨ荳｡遶ｯ縺ｮ蜀吝ワ縺ｮ諤ｧ雉ｪ繧医ｊ, 谺｡縺ｮ遏ｭ螳悟・蛻励ｒ蠕励ｋ.
+
+$0\longrightarrow \pi_{5}^{2}\xrightarrow{E} \pi_{6}^{3}\xrightarrow{H} \pi_{6}^{5}\longrightarrow 0$

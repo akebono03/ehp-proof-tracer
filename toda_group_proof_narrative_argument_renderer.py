@@ -161,33 +161,56 @@ def render_toda_group_proof_narrative_argument_header_method_section(
       argument
     )
   )
-
-  lines = []
-
-  if purpose is not None:
-    lines.append(
-      marker
-      + purpose
-    )
-
   transition = (
     render_toda_group_proof_narrative_exactness_method_transition(
       primary_component
     )
   )
 
-  if transition is not None:
-    if lines:
+  lines = []
+
+  if (
+    purpose is not None
+    and transition is not None
+    and purpose.endswith(
+      "する."
+    )
+    and transition.startswith(
+      "そのために、"
+    )
+  ):
+    lines.append(
+      marker
+      + purpose[
+        :-len(
+          "する."
+        )
+      ]
+      + "するために、"
+      + transition[
+        len(
+          "そのために、"
+        ):
+      ]
+    )
+  elif purpose is not None:
+    lines.append(
+      marker
+      + purpose
+    )
+
+    if transition is not None:
       lines[
         -1
       ] += (
         transition
       )
-    else:
-      lines.append(
-        transition
-      )
+  elif transition is not None:
+    lines.append(
+      transition
+    )
 
+  if transition is not None:
     lines.append(
       ""
     )

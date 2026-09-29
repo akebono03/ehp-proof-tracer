@@ -1,0 +1,321 @@
+--- historical_phase136_2_pi6_3.txt
++++ current_generic_pi6_3.txt
+@@ -1,222 +1,170 @@
+-﻿# Group proof narrative
++﻿菴ｿ逕ｨ縺吶ｋ邨先棡繧貞・縺ｫ縺ｾ縺ｨ繧√ｋ.
+ 
+-## 險ｼ譏主ｯｾ雎｡
++**[R1] (5.3) / Lemma 5.2.**
++**[R2] (5.2).**
++**[R3] Proposition 5.1.**
++**[R4] Proposition 4.4.**
+ 
+-Toda Proposition 5.6 縺ｮ縺・■,
++縺ｾ縺壹・\nu'$ 繧貞ｮ壹ａ繧・
+ 
+-\[
+-\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}
+-\]
++$2\eta_{3} = 0$
+ 
+-繧堤､ｺ縺・
++$\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+ 
+-## 菴ｿ逕ｨ縺吶ｋ邨先棡
++$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+ 
+-**[R1] Toda (5.2) 縺ｮ ﾎｷ竄・蜷域・蜷悟梛.**
++$\pi_{4}^{3} = \mathbb{Z}/2\{E\eta_{2}\}$
+ 
+-谺｡縺ｮ蜷域・蜀吝ワ縺ｯ蜷悟梛縺ｧ縺ゅｋ.
++$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$
+ 
+-\[
+-\eta_{2}\circ - : \pi_{i}^{3} \longrightarrow \pi_{i}^{2}.
+-\]
++Proposition 5.3 繧帝・ｬ｡驕ｩ逕ｨ縺励《uspension 縺ｫ繧医ｋ螳牙ｮ壼喧繧堤畑縺・ｋ縺ｨ縲・
+ 
+-**[R2] Toda Proposition 5.1.**
++$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$
+ 
+-\[
+-\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}\qquad (n \ge 3).
+-\]
++$H: \pi_{7}^{3} \to \pi_{7}^{5}$ 縺ｯ蜈ｨ蟆・〒縺ゅｋ.
+ 
+-**[R3] Toda Proposition 5.3.**
++縺薙ｌ繧医ｊ縲・
+ 
+-\[
+-\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}^{2}\}\qquad (n \ge 2).
+-\]
++$\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ 縺ｯ髮ｶ蜀吝ワ縺ｧ縺ゅｋ.
+ 
+-\[
+-\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}^{2}\},\qquad\pi_{7}^{5} = \mathbb{Z}/2\{\eta_{5}^{2}\}.
+-\]
++$E: \pi_{5}^{2} \to \pi_{6}^{3}$ 縺ｯ蜊伜ｰ・〒縺ゅｋ.
+ 
+-**[R4] Toda Lemma 5.2.**
++谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+ 
+-縺ｾ縺・Lemma 5.2 縺ｮ荳闊ｬ蠖｢繧定ｨ倥☆.
++$\pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+ 
+-$\alpha\in\pi_i^3$, $2\alpha=0$ 縺ｧ縺ゅｊ,
++谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+ 
+-\[
+-\beta \in \{\eta_{3},2\iota_{4},E\alpha\}_{1}
+-\]
++$\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+ 
+-縺ｪ繧峨・,
++谺｡縺ｫ縲・\nu'$ 縺ｮ菴肴焚繧呈ｱｺ螳壹☆繧・
+ 
+-\[
+-\beta\in\pi_{i+2}^{3},
+-\qquad
+-H(\beta)=E^{2}\alpha,
+-\qquad
+-2\beta=\eta_{3}\circ E\alpha\circ\eta_{i+1},
+-\qquad
+-\Delta(E^{2}\alpha)=0.
+-\]
++$2\nu' = \eta_{3}E\eta_{3}\eta_{5}\tag{1}$
+ 
+-縺薙・險ｼ譏弱〒縺ｯ $\alpha=\eta_{3}$, $i=4$ 縺ｨ縺吶ｋ. 縺ｾ縺・$2\eta_{3}=0$ 繧堤｢ｺ隱阪☆繧九→, Toda bracket
++$\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+ 
+-\[
+-\{\eta_{3},2\iota_{4},\eta_{4}\}_{1}
+-\]
++莉･荳翫ｈ繧翫・
+ 
+-縺悟ｮ夂ｾｩ縺ｧ縺阪ｋ. 縺薙・ bracket 縺ｮ縺ゅｋ蜈・ｒ $\nu'$ 縺ｨ螳壹ａ繧・ 縺吶↑繧上■,
++$\operatorname{ord}\left(\nu'\right) = 4$
+ 
+-\[
+-\nu' \in \{\eta_{3},2\iota_{4},\eta_{4}\}_{1}.
+-\]
++(4) 繧医ｊ縲・
+ 
+-縺吶ｋ縺ｨ Lemma 5.2 繧医ｊ,
++$\eta_{3}E\eta_{3}\eta_{5} = \eta_{3}^{3}\tag{2}$
+ 
+-\[
+-\nu'\in\pi_{6}^{3},
+-\qquad
+-H(\nu')=E^{2}\eta_{3},
+-\qquad
+-2\nu'=\eta_{3}\circ E\eta_{3}\circ\eta_{5},
+-\qquad
+-\Delta(E^{2}\eta_{3})=0
+-\]
++(1) 縺ｨ (2) 繧医ｊ縲・
+ 
+-繧貞ｾ励ｋ.
++$2\nu' = \eta_{3}^{3}\tag{3}$
+ 
+-**[R5] Toda Proposition 2.2 縺ｮ蜿ｳ蜷域・蜈ｬ蠑・**
++(5) 繧医ｊ縲・
+ 
+-\[
+-H(\alpha\circ E\beta)=H(\alpha)\circ E\beta.
+-\]
++$E\eta_{3}\eta_{5} = \eta_{4}^{2}\tag{4}$
+ 
+-## 險ｼ譏・
++$E\eta_{3} = \eta_{4}\tag{5}$
+ 
+-縺ｾ縺・ Lemma 5.2 繧・$\alpha=\eta_{3}$, $i=4$, $\beta=\nu'$ 縺ｨ縺励※驕ｩ逕ｨ縺吶ｋ縺溘ａ縺ｮ莉ｮ螳壹ｒ遒ｺ隱阪☆繧・
++谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+ 
+-[R2] 縺ｮ $n=3$ 縺ｮ蝣ｴ蜷医ｈ繧・
++$\pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+ 
+-\[
+-2\eta_{3}=0.\tag{1}
+-\]
++$H\left(\nu'\right) = E^{2}\eta_{3}\tag{6}$
+ 
+-縺励◆縺後▲縺ｦ Toda bracket $\{\eta_{3},2\iota_{4},\eta_{4}\}_{1}$ 縺悟ｮ夂ｾｩ縺ｧ縺阪ｋ. [R4] 縺ｧ縺薙・ bracket 縺ｮ縺ゅｋ蜈・ｒ $\nu'$ 縺ｨ螳壹ａ縺溘・縺ｧ,
++$E^{2}\eta_{3} = \eta_{5}\tag{7}$
+ 
+-\[
+-\nu' \in \{\eta_{3},2\iota_{4},\eta_{4}\}_{1}.\tag{2}
+-\]
++(6) 縺ｨ (7) 繧医ｊ縲・
+ 
+-(1), (2) 縺ｫ繧医ｊ Lemma 5.2 縺ｮ莉ｮ螳壹′貅縺溘＆繧後ｋ. 縺励◆縺後▲縺ｦ Lemma 5.2 縺ｮ邨占ｫ悶°繧・
++$H\left(\nu'\right) = \eta_{5}\tag{8}$
+ 
+-\[
+-\nu'\in\pi_{6}^{3}.\tag{3}
+-\]
++(8) 繧医ｊ縲・
+ 
+-縺輔ｉ縺ｫ $H(\beta)=E^{2}\alpha$ 縺ｨ $E^{2}\eta_{3}=\eta_{5}$ 縺九ｉ,
++$H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}\tag{9}$
+ 
+-\[
+-H(\nu')=\eta_{5}.\tag{4}
+-\]
++谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+ 
+-縺ｾ縺・$2\beta=\eta_{3}\circ E\alpha\circ\eta_{i+1}$ 縺ｨ $E\eta_{3}=\eta_{4}$ 縺九ｉ,
++$\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+ 
+-\[
+-2\nu'=\eta_{3}\circ E\eta_{3}\circ\eta_{5}=\eta_{3}^{3}.\tag{5}
+-\]
++$\eta_{3} = E\eta_{2}\tag{10}$
+ 
+-[R3] 縺ｮ $n=3$ 縺ｮ蝣ｴ蜷医ｈ繧・
++(10) 繧医ｊ縲・
+ 
+-\[
+-\pi_{5}^{3}=\mathbb{Z}/2\{\eta_{3}^{2}\}.\tag{6}
+-\]
++$E^{n - 3}\eta_{3} = \eta_{n}\tag{11}$
+ 
+-(6), [R1] 繧医ｊ,
++谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+ 
+-\[
+-\pi_{5}^{2}=\mathbb{Z}/2\{\eta_{2}^{3}\}.\tag{7}
+-\]
++$\pi_{6}^{5} \xrightarrow{\Delta} \pi_{4}^{2} \xrightarrow{E} \pi_{5}^{3}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+ 
+-$\nu'$ 縺ｮ菴肴焚繧呈ｱｺ螳壹☆繧九◆繧√↓, 谺｡縺ｮ EHP 螳悟・蛻励ｒ閠・∴繧・
++谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+ 
+-\[
+-\pi_{7}^{3}\xrightarrow{H}\pi_{7}^{5}\xrightarrow{\Delta}\pi_{5}^{2}\xrightarrow{E}\pi_{6}^{3}\xrightarrow{H}\pi_{6}^{5}\quad\text{縺ｯ螳悟・縺ｧ縺ゅｋ.}\tag{8}
+-\]
++$\pi_{4}^{2} \xrightarrow{E} \pi_{5}^{3} \xrightarrow{H} \pi_{5}^{5}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+ 
+-[R2] 縺ｮ $n=6$ 縺ｮ蝣ｴ蜷医ｈ繧・$\eta_{6}\in\pi_{7}^{6}$ 縺ｧ縺ゅｊ, (3) 縺ｨ蜷域・縺励※,
++谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+ 
+-\[
+-\nu'\eta_{6}\in\pi_{7}^{3}.\tag{9}
+-\]
++$\pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5} \xrightarrow{\Delta} \pi_{4}^{2}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+ 
+-縺ｾ縺・ﾎｷ-family 縺ｮ suspension relation $\eta_{6}=E\eta_{5}$ 繧堤畑縺・ｋ. [R5] 縺ｮ Toda Proposition 2.2 縺ｫ $\alpha=\nu'$, $\beta=\eta_{5}$ 繧剃ｻ｣蜈･縺吶ｋ縺ｨ,
++谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+ 
+-\[
+-H(\nu'\eta_{6})=H(\nu'\circ E\eta_{5})=H(\nu')\circ E\eta_{5}=\eta_{5}\eta_{6}=\eta_{5}^{2}.\tag{10}
+-\]
++$\pi_{5}^{3} \xrightarrow{H} \pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+ 
+-[R3] 縺ｮ $n=5$ 縺ｮ蝣ｴ蜷医ｈ繧・
++谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+ 
+-\[
+-\pi_{7}^{5}=\mathbb{Z}/2\{\eta_{5}^{2}\}.\tag{11}
+-\]
++$\pi_{2}^{1} \xrightarrow{E} \pi_{3}^{2} \xrightarrow{H} \pi_{3}^{3}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+ 
+-(9), (10), (11) 繧医ｊ, $H:\pi_{7}^{3}\to\pi_{7}^{5}$ 縺ｯ逕滓・蜈・$\eta_{5}^{2}$ 繧貞ワ縺ｫ謖√▽. 縺励◆縺後▲縺ｦ,
++谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+ 
+-\[
+-H:\pi_{7}^{3}\to\pi_{7}^{5}\quad\text{縺ｯ蜈ｨ蟆・〒縺ゅｋ.}\tag{12}
+-\]
++$\pi_{3}^{2} \xrightarrow{H} \pi_{3}^{3} \xrightarrow{\Delta} \pi_{1}^{1}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+ 
+-(8), (12) 縺ｮ螳悟・諤ｧ繧医ｊ $\operatorname{Im}H=\ker\Delta=\pi_{7}^{5}$ 縺ｧ縺ゅｋ. 繧医▲縺ｦ,
++谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+ 
+-\[
+-\Delta:\pi_{7}^{5}\to\pi_{5}^{2}\quad\text{縺ｯ髮ｶ蜀吝ワ縺ｧ縺ゅｋ.}\tag{13}
+-\]
++$\pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+ 
+-縺輔ｉ縺ｫ (8), (13) 繧医ｊ $\operatorname{Im}\Delta=\ker E=0$ 縺ｪ縺ｮ縺ｧ,
++谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+ 
+-\[
+-E:\pi_{5}^{2}\to\pi_{6}^{3}\quad\text{縺ｯ蜊伜ｰ・〒縺ゅｋ.}\tag{14}
+-\]
++$\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+ 
+-(7), (14) 縺ｨ ﾎｷ-family 縺ｮ suspension relation $E(\eta_{2}^{3})=\eta_{3}^{3}$ 繧医ｊ,
++谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+ 
+-\[
+-\eta_{3}^{3}\text{ 縺ｮ菴肴焚縺ｯ }2\text{ 縺ｧ縺ゅｋ.}\tag{15}
+-\]
++$\pi_{2}^{1} \xrightarrow{E} \pi_{3}^{2} \xrightarrow{H} \pi_{3}^{3}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+ 
+-(5), (15) 繧医ｊ,
++谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+ 
+-\[
+-\nu'\text{ 縺ｮ菴肴焚縺ｯ }4\text{ 縺ｧ縺ゅｋ.}\tag{16}
+-\]
++$\pi_{3}^{2} \xrightarrow{H} \pi_{3}^{3} \xrightarrow{\Delta} \pi_{1}^{1}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+ 
+-譛蠕後↓, $\pi_{6}^{3}$ 縺ｮ鄒､讒矩繧呈ｱｺ螳壹☆繧・
++谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+ 
+-[R2] 縺ｮ $n=5$ 縺ｮ蝣ｴ蜷医ｈ繧・
++$\pi_{3}^{3} \xrightarrow{\Delta} \pi_{1}^{1} \xrightarrow{E} \pi_{2}^{2}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+ 
+-\[
+-\pi_{6}^{5}=\mathbb{Z}/2\{\eta_{5}\}.\tag{17}
+-\]
++谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+ 
+-(4), (17) 繧医ｊ,
++$\pi_{3}^{3} \xrightarrow{\Delta} \pi_{1}^{1} \xrightarrow{E} \pi_{2}^{2}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+ 
+-\[
+-H:\pi_{6}^{3}\to\pi_{6}^{5}\quad\text{縺ｯ蜈ｨ蟆・〒縺ゅｋ.}\tag{18}
+-\]
++谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+ 
+-(8), (14), (18) 繧医ｊ, $E$ 縺ｯ蜊伜ｰ・ $H$ 縺ｯ蜈ｨ蟆・↑縺ｮ縺ｧ, 谺｡縺ｮ遏ｭ螳悟・蛻励ｒ蠕励ｋ.
++$\pi_{5}^{3} \xrightarrow{E} \pi_{6}^{4} \xrightarrow{H} \pi_{6}^{7}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+ 
+-\[
+-0\longrightarrow\pi_{5}^{2}\xrightarrow{E}\pi_{6}^{3}\xrightarrow{H}\pi_{6}^{5}\longrightarrow 0.\tag{19}
+-\]
++谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+ 
+-(7), (17), (19) 繧医ｊ $\pi_{6}^{3}$ 縺ｮ菴肴焚縺ｯ 4 縺ｧ縺ゅｋ. 荳譁ｹ, (3), (16) 繧医ｊ $\nu'\in\pi_{6}^{3}$ 縺ｯ菴肴焚 4 縺ｮ蜈・↑縺ｮ縺ｧ, $\nu'$ 縺檎ｾ､蜈ｨ菴薙ｒ逕滓・縺吶ｋ.
++$\pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+ 
+-莉･荳翫↓繧医ｊ,
++谺｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+ 
+-\[
+-\pi_{6}^{3}=\mathbb{Z}/4\{\nu'\}\tag{20}
+-\]
++$\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
+ 
+-繧貞ｾ励ｋ.
++譛蠕後↓縲・\pi_{6}^{3}$ 縺ｮ鄒､讒矩繧呈ｱｺ螳壹☆繧・ 縺昴・縺溘ａ縺ｫ縲∵ｬ｡縺ｮ螳悟・蛻励ｒ閠・∴繧・
+ 
++$\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5} \xrightarrow{\Delta} \pi_{4}^{2} \xrightarrow{E} \pi_{5}^{3} \xrightarrow{H} \pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$
++
++$\pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
++
++$\nu' \in \pi_{6}^{3}$
++
++$\pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5}$ 縺ｯ螳悟・縺ｧ縺ゅｋ.
++
++$H: \pi_{6}^{3} \to \pi_{6}^{5}$ 縺ｯ蜈ｨ蟆・〒縺ゅｋ.
++
++$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
++
++莉･荳翫ｈ繧翫・
++
++$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
++
++縺薙・螳悟・諤ｧ縺ｨ荳｡遶ｯ縺ｮ蜀吝ワ縺ｮ諤ｧ雉ｪ繧医ｊ, 谺｡縺ｮ遏ｭ螳悟・蛻励ｒ蠕励ｋ.
++
++$0\longrightarrow \pi_{5}^{2}\xrightarrow{E} \pi_{6}^{3}\xrightarrow{H} \pi_{6}^{5}\longrightarrow 0$

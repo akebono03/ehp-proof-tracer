@@ -152,8 +152,8 @@ def test_phase143_34_pi6_3_order_header_and_method_section():
     .ESTABLISH_ORDER
   )
   assert rendered == (
-    "次に、$\\nu'$ の位数を決定する."
-    "そのために、次の完全列を考える."
+    "次に、$\\nu'$ の位数を決定するために、"
+    "次の完全列を考える."
     "\n\n"
     "$\\pi_{7}^{3} \\xrightarrow{H} "
     "\\pi_{7}^{5} \\xrightarrow{\\Delta} "
@@ -178,8 +178,8 @@ def test_phase143_34_pi6_3_group_structure_header_and_method_section():
     .ESTABLISH_GROUP_STRUCTURE
   )
   assert rendered == (
-    "最後に、$\\pi_{6}^{3}$ の群構造を決定する."
-    "そのために、次の完全列を考える."
+    "最後に、$\\pi_{6}^{3}$ の群構造を決定するために、"
+    "次の完全列を考える."
     "\n\n"
     "$\\pi_{7}^{3} \\xrightarrow{H} "
     "\\pi_{7}^{5} \\xrightarrow{\\Delta} "
@@ -205,13 +205,14 @@ def test_phase143_34_pi8_5_detached_order_has_no_discourse_marker():
     .ESTABLISH_ORDER
   )
   assert rendered.startswith(
-    "$\\nu'$ の位数を決定する."
+    "$\\nu'$ の位数を決定するために、"
+    "次の完全列を考える."
   )
   assert "まず、" not in rendered
   assert "次に、" not in rendered
   assert "最後に、" not in rendered
   assert (
-    "そのために、次の完全列を考える."
+    "位数を決定するために、次の完全列を考える."
     in rendered
   )
 

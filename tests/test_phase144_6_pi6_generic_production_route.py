@@ -44,7 +44,11 @@ def test_phase144_6_public_pi6_3_narrative_equals_generic_argument_renderer():
 
   assert actual == expected
   assert r"$\nu'$ を定める." in actual
-  assert r"$\nu'$ の位数を決定する." in actual
+  assert (
+    r"$\nu'$ の位数を決定するために、"
+    r"次の完全列を考える."
+    in actual
+  )
   assert "(1) と (2) より、" in actual
   assert "(4) と (5) より、" in actual
   assert (

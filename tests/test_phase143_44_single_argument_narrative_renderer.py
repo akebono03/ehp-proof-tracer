@@ -120,8 +120,8 @@ def test_phase143_44_pi6_3_order_combines_header_method_and_body():
 
   assert primary_component is not None
   assert rendered.startswith(
-    "次に、$\\nu'$ の位数を決定する. "
-    "そのために、次の完全列を考える."
+    "次に、$\\nu'$ の位数を決定するために、"
+    "次の完全列を考える."
   )
   assert (
     r"\pi_{7}^{3} \xrightarrow{H} "
@@ -209,7 +209,8 @@ def test_phase143_44_pi8_5_detached_order_has_no_discourse_marker():
 
   assert primary_component is not None
   assert rendered.startswith(
-    "$\\nu'$ の位数を決定する."
+    "$\\nu'$ の位数を決定するために、"
+    "次の完全列を考える."
   )
   assert not rendered.startswith(
     "まず、"
