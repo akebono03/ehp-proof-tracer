@@ -1,4 +1,11 @@
-import inspect
+from pathlib import Path
+
+
+TEST_PATH = Path(
+  "tests/test_phase144_6_pi6_generic_production_route.py"
+)
+
+CONTENT = r"""import inspect
 
 import main as cli_main
 import toda_group_proof_narrative_renderer as narrative_renderer
@@ -20,7 +27,7 @@ def _pi6_3_presentation_data():
   )
 
 
-def test_phase144_6_public_pi6_3_equals_contribution_renderer():
+def test_phase144_6_public_pi6_3_narrative_equals_generic_argument_renderer():
   (
     presentation,
     blocks,
@@ -43,13 +50,8 @@ def test_phase144_6_public_pi6_3_equals_contribution_renderer():
   )
 
   assert actual == expected
-  assert (
-    r"$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$"
-    in actual
-  )
 
-
-def test_phase144_6_public_pi6_3_uses_r5_43_contribution_route(
+def test_phase144_6_public_pi6_3_does_not_call_legacy_special_renderer(
   monkeypatch,
 ):
   (
@@ -59,32 +61,17 @@ def test_phase144_6_public_pi6_3_uses_r5_43_contribution_route(
     _,
   ) = _pi6_3_presentation_data()
 
-  called = {
-    "value": False,
-  }
-  original = (
-    narrative_renderer
-    .render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
-  )
-
-  def recording_renderer(
-    presentation,
-    blocks,
-    semantic_sidecar,
-    arguments,
+  def fail_if_called(
+    _presentation,
   ):
-    called["value"] = True
-    return original(
-      presentation,
-      blocks,
-      semantic_sidecar,
-      arguments,
+    raise AssertionError(
+      "legacy pi6_3 renderer was called"
     )
 
   monkeypatch.setattr(
     narrative_renderer,
-    "render_toda_group_proof_narrative_multi_argument_with_contributions_markdown",
-    recording_renderer,
+    "_render_phase134_3_pi6_3_narrative_markdown",
+    fail_if_called,
   )
 
   rendered = (
@@ -94,14 +81,13 @@ def test_phase144_6_public_pi6_3_uses_r5_43_contribution_route(
     )
   )
 
-  assert called["value"]
   assert (
     r"$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$"
     in rendered
   )
 
 
-def test_phase144_6_cli_pi6_3_narrative_uses_public_cutover(
+def test_phase144_6_cli_pi6_3_narrative_uses_generic_route(
   capsys,
 ):
   exit_code = cli_main.main(
@@ -120,13 +106,12 @@ def test_phase144_6_cli_pi6_3_narrative_uses_public_cutover(
 
   assert exit_code == 0
   assert captured.err == ""
-  assert (
-    r"$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$"
-    in captured.out
-  )
+  assert r"$\nu'$ を定める." in captured.out
+  assert "(1) と (2) より、" in captured.out
+  assert "**[R1]" in captured.out
 
 
-def test_phase144_6_public_branch_calls_contribution_renderer():
+def test_phase144_6_pi6_production_branch_contains_no_legacy_renderer_call():
   source = inspect.getsource(
     render_toda_group_proof_narrative_markdown
   )
@@ -143,10 +128,35 @@ def test_phase144_6_public_branch_calls_contribution_renderer():
   ]
 
   assert (
+    "_render_phase134_3_pi6_3_narrative_markdown"
+    not in pi6_branch
+  )
+  assert (
     "render_toda_group_proof_narrative_multi_argument_with_contributions_markdown"
     in pi6_branch
   )
-  assert (
-    "render_toda_group_proof_narrative_multi_argument_markdown("
-    not in pi6_branch
+"""
+
+
+def main() -> int:
+  if not TEST_PATH.exists():
+    raise FileNotFoundError(
+      f"missing target test file: {TEST_PATH}"
+    )
+
+  TEST_PATH.write_text(
+    CONTENT,
+    encoding="utf-8",
   )
+
+  print(
+    "Restored Phase 144-6 generic production-route "
+    "contract test from current GitHub develop."
+  )
+  print(f"Changed only: {TEST_PATH}")
+  print("Production changes: none.")
+  return 0
+
+
+if __name__ == "__main__":
+  raise SystemExit(main())
