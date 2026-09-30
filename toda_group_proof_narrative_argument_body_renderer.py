@@ -1107,8 +1107,52 @@ def render_toda_group_proof_narrative_argument_body_markdown(
     for premise_step in relocated_direct_premises
   }
 
+  owned_primary_exactness_lines = []
+
+  for block in local_body_blocks:
+    if (
+      block.role
+      is not TodaGroupProofNarrativeMathematicalBlockRole
+      .EXACTNESS
+    ):
+      continue
+
+    exposure_class = (
+      None
+      if exactness_exposure_by_block_id is None
+      else exactness_exposure_by_block_id.get(
+        id(
+          block
+        )
+      )
+    )
+
+    if (
+      exposure_class
+      is not TodaGroupProofNarrativeExactnessExposureClass
+      .OWNED_PRIMARY
+    ):
+      continue
+
+    block_index = block_index_by_identity[
+      id(
+        block
+      )
+    ]
+    owned_primary_exactness_lines.extend(
+      _render_toda_group_proof_narrative_argument_exactness_body_block(
+        presentation,
+        blocks,
+        block_index,
+        primary_component,
+        exposure_class,
+        excluded_exactness_contribution_keys,
+      )
+    )
+
   lines = []
   connector_inserted = False
+  owned_primary_exactness_inserted = False
 
   for block in local_body_blocks:
     block_index = block_index_by_identity[
@@ -1122,20 +1166,28 @@ def render_toda_group_proof_narrative_argument_body_markdown(
       is TodaGroupProofNarrativeMathematicalBlockRole
       .EXACTNESS
     ):
+      exposure_class = (
+        None
+        if exactness_exposure_by_block_id is None
+        else exactness_exposure_by_block_id.get(id(block))
+      )
       block_lines = (
         _render_toda_group_proof_narrative_argument_exactness_body_block(
           presentation,
           blocks,
           block_index,
           primary_component,
-          (
-            None
-            if exactness_exposure_by_block_id is None
-            else exactness_exposure_by_block_id.get(id(block))
-          ),
+          exposure_class,
           excluded_exactness_contribution_keys,
         )
       )
+
+      if (
+        exposure_class
+        is TodaGroupProofNarrativeExactnessExposureClass
+        .OWNED_PRIMARY
+      ):
+        continue
     else:
       if (
         excluded_non_exact_block_ids is not None
@@ -1278,6 +1330,23 @@ def render_toda_group_proof_narrative_argument_body_markdown(
       continue
 
     if (
+      not owned_primary_exactness_inserted
+      and owned_primary_exactness_lines
+      and conclusion_step is not None
+      and conclusion_step in block.steps
+      and block.role
+      is not TodaGroupProofNarrativeMathematicalBlockRole
+      .EXACTNESS
+    ):
+      block_lines = (
+        tuple(
+          owned_primary_exactness_lines
+        )
+        + block_lines
+      )
+      owned_primary_exactness_inserted = True
+
+    if (
       not connector_inserted
       and connector_before_block_id is not None
       and id(
@@ -1308,6 +1377,14 @@ def render_toda_group_proof_narrative_argument_body_markdown(
 
     lines.extend(
       block_lines
+    )
+
+  if (
+    owned_primary_exactness_lines
+    and not owned_primary_exactness_inserted
+  ):
+    lines.extend(
+      owned_primary_exactness_lines
     )
 
   return "\n".join(
