@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import re
 
 from proof import (
   LiteratureReference,
@@ -30,14 +31,67 @@ class TodaGroupProofNarrativeReferenceEntry:
       raise TypeError("proof_steps must contain only ProofStep objects")
 
 
+def _infer_toda_group_proof_literature_reference_from_rule_name(
+  rule_name: str,
+) -> LiteratureReference | None:
+  if not isinstance(rule_name, str):
+    raise TypeError("rule_name must be a str")
+
+  named_match = re.match(
+    r"^Toda (Proposition|Lemma|Theorem|Equation) ([0-9]+(?:\.[0-9]+)*)\b",
+    rule_name,
+  )
+  if named_match is not None:
+    kind, number = named_match.groups()
+    locator = f"{kind} {number}"
+    return LiteratureReference(
+      label=f"Toda {locator}",
+      locator=locator,
+    )
+
+  parenthesized_match = re.match(
+    r"^Toda \(([0-9]+(?:\.[0-9]+)*)\)\b",
+    rule_name,
+  )
+  if parenthesized_match is not None:
+    number = parenthesized_match.group(1)
+    locator = f"({number})"
+    return LiteratureReference(
+      label=f"Toda {locator}",
+      locator=locator,
+    )
+
+  bare_equation_match = re.match(
+    r"^Toda ([0-9]+\.[0-9]+)\b",
+    rule_name,
+  )
+  if bare_equation_match is not None:
+    number = bare_equation_match.group(1)
+    locator = f"({number})"
+    return LiteratureReference(
+      label=f"Toda {locator}",
+      locator=locator,
+    )
+
+  return None
+
+
 def extract_toda_group_proof_step_literature_reference(
   proof_step: ProofStep,
 ) -> LiteratureReference | None:
   if not isinstance(proof_step, ProofStep):
     raise TypeError("proof_step must be a ProofStep")
-  if proof_step.inference_rule is None:
+
+  inference_rule = proof_step.inference_rule
+  if inference_rule is None:
     return None
-  return proof_step.inference_rule.literature_reference
+
+  if inference_rule.literature_reference is not None:
+    return inference_rule.literature_reference
+
+  return _infer_toda_group_proof_literature_reference_from_rule_name(
+    inference_rule.name
+  )
 
 
 def build_toda_group_proof_narrative_reference_entries(

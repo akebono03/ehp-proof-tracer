@@ -42,6 +42,10 @@ from toda_group_proof_narrative_semantics import (
   build_toda_group_proof_narrative_semantic_closure_presentation,
   build_toda_group_proof_narrative_semantic_sidecar,
 )
+from toda_group_proof_narrative_references import (
+  build_toda_group_proof_narrative_reference_entries,
+  render_toda_group_proof_narrative_reference_entries_markdown,
+)
 from toda_group_proof_narrative_helpers import (
   root_generator,
   root_target_group,
@@ -2702,6 +2706,7 @@ def _append_narrative_for_step(
   parent_step: ProofStep,
   active_step_ids: set[int],
   expanded_step_ids: set[int],
+  reference_marker_by_step_id: dict[int, str] | None = None,
 ) -> None:
   parent_id = id(
     parent_step
@@ -2731,6 +2736,13 @@ def _append_narrative_for_step(
     premise_fact = (
       _render_group_proof_narrative_fact(
         premise_step
+      )
+    )
+    premise_reference_marker = (
+      None
+      if reference_marker_by_step_id is None
+      else reference_marker_by_step_id.get(
+        premise_id
       )
     )
     lead = (
@@ -2768,6 +2780,7 @@ def _append_narrative_for_step(
         premise_step,
         active_step_ids,
         expanded_step_ids,
+        reference_marker_by_step_id,
       )
 
       lines.append(
@@ -2787,7 +2800,11 @@ def _append_narrative_for_step(
         (
           lead
           + "、"
-          + premise_fact
+          + (
+            premise_reference_marker
+            if premise_reference_marker is not None
+            else premise_fact
+          )
           + "を用いる。"
         )
       )
@@ -3840,12 +3857,42 @@ def render_toda_group_proof_narrative_markdown(
     else "出典不明の結果"
   )
 
+  reference_entries = (
+    build_toda_group_proof_narrative_reference_entries(
+      presentation
+    )
+    if presentation.max_depth >= 2
+    else ()
+  )
+  reference_section = (
+    render_toda_group_proof_narrative_reference_entries_markdown(
+      reference_entries
+    )
+  )
+  reference_marker_by_step_id = {
+    id(proof_step): f"[R{entry.number}]"
+    for entry in reference_entries
+    for proof_step in entry.proof_steps
+  }
+
   lines = [
     "# Group proof narrative",
     "",
     theorem + "を用いる。",
     "",
   ]
+
+  if reference_section:
+    lines.extend(
+      (
+        "## 使用する結果",
+        "",
+        reference_section,
+        "",
+        "## 証明",
+        "",
+      )
+    )
 
   root_edges = (
     _narrative_edges_for_parent(
@@ -3882,6 +3929,7 @@ def render_toda_group_proof_narrative_markdown(
       presentation.root_step,
       set(),
       set(),
+      reference_marker_by_step_id,
     )
 
     lines.extend(
