@@ -1,0 +1,47 @@
+==============================================================================
+pi_15^8
+==============================================================================
+blocks=8
+arguments=1
+
+ARGUMENT ORDERING RECORDS
+------------------------------------------------------------------------------
+argument_index=0
+role=establish_group_structure
+conclusion_block_index=0
+conclusion_position=8
+owned_primary_block_indices=()
+evidence_positions=()
+ordering_ok=True
+
+BODY
+したがって,
+
+$\pi_{15}^{8} = \mathbb{Z}\{\sigma_{8}\} \oplus \mathbb{Z}/8\{E\sigma'\}$
+
+$\pi_{14}^{7} = \mathbb{Z}/8\{\sigma'\}$
+
+$\pi_{13}^{6} = \mathbb{Z}/4\{\sigma''\}$
+
+$\pi_{14}^{13} = \mathbb{Z}/2\{\eta_{13}\}$
+
+$\pi_{15}^{15} = \mathbb{Z}\{\iota_{15}\}$
+
+次の短完全列を得る.
+
+$0\longrightarrow \pi_{13}^{6}\xrightarrow{E} \pi_{14}^{7}\xrightarrow{H} \pi_{14}^{13}\longrightarrow 0$
+
+==============================================================================
+FINAL NARRATIVE
+==============================================================================
+$\pi_{15}^{8}$ の群構造を決定する.
+
+以上より、
+
+$\pi_{15}^{8} = \mathbb{Z}\{\sigma_{8}\} \oplus \mathbb{Z}/8\{E\sigma'\}$
+
+$\pi_{15}^{8} \cong \mathbb{Z}/8\{E\sigma'\} \oplus \mathbb{Z}\{\sigma_{8}\}$
+
+次の短完全列を得る.
+
+$0\longrightarrow \pi_{13}^{6}\xrightarrow{E} \pi_{14}^{7}\xrightarrow{H} \pi_{14}^{13}\longrightarrow 0$

@@ -1,0 +1,9 @@
+pi_6^3: owned_primary_visible=1, ordering_ok=True
+pi_8^5: owned_primary_visible=1, ordering_ok=True
+pi_10^4: owned_primary_visible=0, ordering_ok=True
+pi_12^5: owned_primary_visible=0, ordering_ok=True
+pi_15^8: owned_primary_visible=0, ordering_ok=True
+pi_16^9: owned_primary_visible=0, ordering_ok=True
+
+failures=[]
+AUDIT_RESULT=PASS

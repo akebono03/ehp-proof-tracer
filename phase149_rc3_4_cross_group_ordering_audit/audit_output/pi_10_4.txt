@@ -1,0 +1,67 @@
+==============================================================================
+pi_10^4
+==============================================================================
+blocks=22
+arguments=1
+
+ARGUMENT ORDERING RECORDS
+------------------------------------------------------------------------------
+argument_index=0
+role=establish_group_structure
+conclusion_block_index=0
+conclusion_position=8
+owned_primary_block_indices=()
+evidence_positions=()
+ordering_ok=True
+
+BODY
+したがって,
+
+$\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}$
+
+$\pi_{9}^{3} = 0$
+
+$\pi_{10}^{7} = \mathbb{Z}/8\{\nu_{7}\}$
+
+$H: \pi_{9}^{3} \to \pi_{9}^{5}$ は単射である.
+
+$\Delta: \pi_{9}^{5} \to \pi_{7}^{2}$ は単射である.
+
+`ScalarGreaterEqualStatement`
+
+$E: \pi_{8}^{2} \to \pi_{9}^{3} \text{ is the zero map}$
+
+Toda Proposition 5.11 zero E implies Delta surjective
+
+$\pi_{9}^{3} \xrightarrow{H} \pi_{9}^{5} \xrightarrow{\Delta} \pi_{7}^{2}$
+
+$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+
+$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+
+$\pi_{7}^{4} = \mathbb{Z}\{\nu_{4}\} \oplus \mathbb{Z}/4\{E\nu'\}$
+
+$\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$
+
+$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$
+
+$\nu_{4} \in \pi_{7}^{4}$
+
+$H\left(\nu_{4}\right) = \iota_{7}$
+
+$2E\nu_{4} = E^{2}\nu'$
+
+==============================================================================
+FINAL NARRATIVE
+==============================================================================
+$\pi_{10}^{4}$ の群構造を決定する.
+
+$\pi_{9}^{3} = 0$
+
+$\pi_{10}^{7} = \mathbb{Z}/8\{\nu_{7}\}$
+
+以上より、
+
+$\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}$
+
+Toda (5.6) nu_4 decomposition integration

@@ -1,0 +1,194 @@
+==============================================================================
+pi_6^3
+==============================================================================
+blocks=25
+arguments=3
+
+ARGUMENT ORDERING RECORDS
+------------------------------------------------------------------------------
+argument_index=0
+role=establish_group_structure
+conclusion_block_index=0
+conclusion_position=141
+owned_primary_block_indices=(5,)
+evidence_positions=(('0\\longrightarrow \\pi_{5}^{2}\\xrightarrow{E} \\pi_{6}^{3}\\xrightarrow{H} \\pi_{6}^{5}\\longrightarrow 0', 31),)
+ordering_ok=True
+
+BODY
+この完全性と両端の写像の性質より, 次の短完全列を得る.
+
+$0\longrightarrow \pi_{5}^{2}\xrightarrow{E} \pi_{6}^{3}\xrightarrow{H} \pi_{6}^{5}\longrightarrow 0$
+
+したがって,
+
+$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+
+$\nu' \in \pi_{6}^{3}$
+
+$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+
+$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+
+$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$
+
+$E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.
+
+$\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.
+
+$H: \pi_{7}^{3} \to \pi_{7}^{5}$ は全射である.
+
+$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+
+$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
+
+$2\eta_{3} = 0$
+
+$H\left(\nu'\right) = E^{2}\eta_{3}$
+
+$E^{2}\eta_{3} = \eta_{5}$
+
+これらより、
+
+$H\left(\nu'\right) = \eta_{5}$
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+$E: \pi_{4}^{2} \to \pi_{5}^{3}$ は同型写像である.
+
+$E\eta_{2}\eta_{3} = \eta_{3}^{2}$
+
+$\pi_{i - 1}^{1} = 0$
+
+$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$
+
+$H\left(\eta_{2}\right) = \iota_{3}$
+
+$\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$
+
+$\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$
+
+------------------------------------------------------------------------------
+argument_index=1
+role=establish_order
+conclusion_block_index=1
+conclusion_position=59
+owned_primary_block_indices=()
+evidence_positions=()
+ordering_ok=True
+
+BODY
+$\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+
+したがって,
+
+$\operatorname{ord}\left(\nu'\right) = 4$
+
+$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+
+$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+
+$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$
+
+$E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.
+
+$\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.
+
+$H: \pi_{7}^{3} \to \pi_{7}^{5}$ は全射である.
+
+$2\nu' = \eta_{3}E\eta_{3}\eta_{5}$
+
+$\eta_{3}E\eta_{3}\eta_{5} = \eta_{3}^{3}$
+
+これらより、
+
+$2\nu' = \eta_{3}^{3}$
+
+$2\eta_{3} = 0$
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+$E: \pi_{4}^{2} \to \pi_{5}^{3}$ は同型写像である.
+
+$E\eta_{2}\eta_{3} = \eta_{3}^{2}$
+
+$\pi_{i - 1}^{1} = 0$
+
+------------------------------------------------------------------------------
+argument_index=2
+role=establish_definition
+conclusion_block_index=15
+conclusion_position=25
+owned_primary_block_indices=()
+evidence_positions=()
+ordering_ok=True
+
+BODY
+$2\eta_{3} = 0$
+
+したがって,
+
+$\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+==============================================================================
+FINAL NARRATIVE
+==============================================================================
+使用する結果を先にまとめる.
+
+**[R1] (5.3) / Lemma 5.2.**
+**[R2] (5.2).**
+**[R3] Proposition 5.1.**
+**[R4] Proposition 4.4.**
+
+まず、$\nu'$ を定める.
+
+$2\eta_{3} = 0$
+
+$\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+次に、$\nu'$ の位数を決定するために、次の完全列を考える.
+
+$\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$
+
+$2\nu' = \eta_{3}E\eta_{3}\eta_{5}\tag{1}$
+
+$\eta_{3}E\eta_{3}\eta_{5} = \eta_{3}^{3}\tag{2}$
+
+$\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+
+以上より、
+
+$\operatorname{ord}\left(\nu'\right) = 4$
+
+(1) と (2) より、
+
+$2\nu' = \eta_{3}^{3}\tag{3}$
+
+最後に、$\pi_{6}^{3}$ の群構造を決定するために、次の完全列を考える.
+
+$\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5}$
+
+この完全性と両端の写像の性質より, 次の短完全列を得る.
+
+$0\longrightarrow \pi_{5}^{2}\xrightarrow{E} \pi_{6}^{3}\xrightarrow{H} \pi_{6}^{5}\longrightarrow 0$
+
+$\nu' \in \pi_{6}^{3}$
+
+$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+
+$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
+
+以上より、
+
+$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+
+$H\left(\nu'\right) = E^{2}\eta_{3}\tag{4}$
+
+$E^{2}\eta_{3} = \eta_{5}\tag{5}$
+
+(4) と (5) より、
+
+$H\left(\nu'\right) = \eta_{5}\tag{6}$
