@@ -61,10 +61,6 @@ from toda_group_proof_narrative_method_evidence import (
 from toda_group_proof_narrative_relevant_groups import (
   extract_toda_group_proof_narrative_argument_relevant_groups,
 )
-from toda_group_proof_narrative_references import (
-  build_toda_group_proof_narrative_reference_entries,
-  render_toda_group_proof_narrative_reference_entries_markdown,
-)
 from toda_group_proof_narrative_semantics import (
   TodaGroupProofNarrativeSemanticSidecar,
 )
@@ -592,32 +588,8 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
     rendered_arguments
   )
 
-  reference_entries = (
-    build_toda_group_proof_narrative_reference_entries(
-      presentation
-    )
-  )
-  reference_section = (
-    render_toda_group_proof_narrative_reference_entries_markdown(
-      reference_entries
-    )
-  )
-
-  parts = tuple(
-    part
-    for part in (
-      reference_section,
-      "\n\n".join(
-        rendered_arguments
-      ),
-    )
-    if part
-  )
-
   return number_toda_group_proof_narrative_equations(
-    "\n\n".join(
-      parts
-    ),
+    rendered,
     presentation,
     blocks,
   )

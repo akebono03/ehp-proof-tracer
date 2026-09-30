@@ -2740,7 +2740,13 @@ def _append_narrative_for_step(
     )
     premise_reference_marker = (
       None
-      if reference_marker_by_step_id is None
+      if (
+        reference_marker_by_step_id is None
+        or isinstance(
+          premise_step.conclusion,
+          TodaProp42ExactnessStatement,
+        )
+      )
       else reference_marker_by_step_id.get(
         premise_id
       )

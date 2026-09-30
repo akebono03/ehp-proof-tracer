@@ -34,6 +34,10 @@ from toda_group_proof_narrative_reason_renderer import (
 from toda_group_proof_narrative_reasons import (
   build_toda_group_proof_narrative_reason_sidecar,
 )
+from toda_group_proof_narrative_references import (
+  build_toda_group_proof_narrative_reference_entries,
+  render_toda_group_proof_narrative_reference_entries_markdown,
+)
 from toda_group_proof_narrative_semantics import (
   TodaGroupProofNarrativeSemanticSidecar,
 )
@@ -719,7 +723,28 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
     )
   )
 
-  return insert_toda_group_proof_narrative_reason_prose(
-    contribution_markdown,
-    reason_sidecar,
+  rendered = (
+    insert_toda_group_proof_narrative_reason_prose(
+      contribution_markdown,
+      reason_sidecar,
+    )
+  )
+  reference_entries = (
+    build_toda_group_proof_narrative_reference_entries(
+      presentation
+    )
+  )
+  reference_section = (
+    render_toda_group_proof_narrative_reference_entries_markdown(
+      reference_entries
+    )
+  )
+
+  if not reference_section:
+    return rendered
+
+  return (
+    reference_section
+    + "\n\n"
+    + rendered
   )
