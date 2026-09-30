@@ -77,6 +77,29 @@ def render_toda_group_proof_narrative_reason_sentence(
       "したがって、"
     )
 
+  if (
+    reason.kind
+    is TodaGroupProofNarrativeReasonKind
+    .MULTIPLE_RELATION_TO_ORDER
+  ):
+    if len(reason.premise_steps) != 2:
+      return None
+
+    order_statement = reason.premise_steps[0].conclusion
+    equality_statement = reason.premise_steps[1].conclusion
+    ordered_latex = render_toda_expression_latex(order_statement.lhs)
+    target_latex = render_toda_expression_latex(
+      equality_statement.lhs.expression
+    )
+
+    return (
+      f"$\\operatorname{{ord}}({ordered_latex})=2$ "
+      f"かつ $2{target_latex}={ordered_latex}$ より、"
+      f"$4{target_latex}=0$ かつ "
+      f"$2{target_latex}\\neq0$ である.\n"
+      "したがって、"
+    )
+
   return None
 
 
