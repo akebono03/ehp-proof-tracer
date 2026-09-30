@@ -1,3 +1,6 @@
+from toda_human_readable_renderer import (
+  render_toda_expression_latex,
+)
 from toda_group_proof_generic_narrative_renderer import (
   _render_generic_narrative_step,
 )
@@ -25,9 +28,29 @@ def render_toda_group_proof_narrative_reason_sentence(
     is TodaGroupProofNarrativeReasonKind
     .DEFINITION_APPLICABILITY
   ):
+    application = reason.reference_application
+
+    if application is None or len(application.bindings) != 1:
+      return (
+        "この前提条件を満たすので、"
+        "次の定義を用いる."
+      )
+
+    binding = application.bindings[0]
+    reference_label = application.reference.label
+    formal_latex = render_toda_expression_latex(
+      binding.formal_variable
+    )
+    instantiated_latex = render_toda_expression_latex(
+      binding.instantiated_expression
+    )
+
     return (
       "この前提条件を満たすので、"
-      "次の定義を用いる."
+      f"{reference_label} を適用できる.\n"
+      f"{reference_label} の "
+      f"${formal_latex}$ を "
+      f"${instantiated_latex}$ と定めると、"
     )
 
   return None

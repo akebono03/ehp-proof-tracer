@@ -1,4 +1,4 @@
-﻿from expression import (
+from expression import (
   Composition,
   GeneratorSymbol,
   HomotopyElement,
@@ -35,6 +35,7 @@ from toda_proof_dependency import (
 
 
 _GREEK_LATEX = {
+  "β": r"\beta",
   "η": r"\eta",
   "ν": r"\nu",
   "σ": r"\sigma",

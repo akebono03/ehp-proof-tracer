@@ -6,6 +6,7 @@ from proof import (
 )
 from toda_group_proof_narrative_semantics import (
   TodaGroupProofNarrativeDependencySemanticRole,
+  TodaGroupProofNarrativeReferenceApplicationSemantic,
   TodaGroupProofNarrativeSemanticSidecar,
 )
 from toda_group_proof_presentation import (
@@ -30,6 +31,9 @@ class TodaGroupProofNarrativeReason:
   ]
   conclusion_step: ProofStep
   owner_argument_index: int | None = None
+  reference_application: (
+    TodaGroupProofNarrativeReferenceApplicationSemantic | None
+  ) = None
 
   def __post_init__(
     self,
@@ -96,6 +100,27 @@ class TodaGroupProofNarrativeReason:
       raise ValueError(
         "conclusion_step must not also be "
         "a premise step"
+      )
+
+    if (
+      self.reference_application is not None
+      and not isinstance(
+        self.reference_application,
+        TodaGroupProofNarrativeReferenceApplicationSemantic,
+      )
+    ):
+      raise TypeError(
+        "reference_application must be a "
+        "TodaGroupProofNarrativeReferenceApplicationSemantic or None"
+      )
+
+    if (
+      self.reference_application is not None
+      and self.reference_application.dependent_step
+      is not self.conclusion_step
+    ):
+      raise ValueError(
+        "reference_application must belong to conclusion_step"
       )
 
     if (
@@ -245,6 +270,13 @@ def build_toda_group_proof_narrative_reason_sidecar(
     )
 
   reasons = []
+  reference_applications_by_step_id = {}
+
+  for application in semantic_sidecar.reference_application_semantics:
+    reference_applications_by_step_id.setdefault(
+      id(application.dependent_step),
+      [],
+    ).append(application)
 
   for dependency in (
     semantic_sidecar.dependency_semantics
@@ -255,6 +287,16 @@ def build_toda_group_proof_narrative_reason_sidecar(
       .PRECONDITION_FOR_DEFINITION
     ):
       continue
+
+    matching_applications = reference_applications_by_step_id.get(
+      id(dependency.dependent_step),
+      (),
+    )
+    reference_application = (
+      matching_applications[0]
+      if len(matching_applications) == 1
+      else None
+    )
 
     reasons.append(
       TodaGroupProofNarrativeReason(
@@ -268,6 +310,7 @@ def build_toda_group_proof_narrative_reason_sidecar(
         conclusion_step=(
           dependency.dependent_step
         ),
+        reference_application=reference_application,
       )
     )
 

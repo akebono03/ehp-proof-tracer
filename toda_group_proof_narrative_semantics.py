@@ -1,6 +1,9 @@
 from dataclasses import dataclass
 from enum import Enum
 
+from expression import (
+  HomotopyElement,
+)
 from proof import (
   ProofStep,
   Relation,
@@ -17,6 +20,9 @@ from toda_group_result_proof_replay import (
 from toda_proof_dependency import (
   TodaProofEdge,
   extract_toda_recursive_proof_provenance,
+)
+from toda_rules import (
+  TodaBracketMembershipStatement,
 )
 
 
@@ -145,6 +151,67 @@ class TodaGroupProofNarrativeDependencySemantic:
 
 
 @dataclass(frozen=True)
+class TodaGroupProofNarrativeReferenceIdentity:
+  label: str
+
+  def __post_init__(self) -> None:
+    if not isinstance(self.label, str) or not self.label.strip():
+      raise TypeError("label must be a non-empty str")
+
+
+@dataclass(frozen=True)
+class TodaGroupProofNarrativeVariableBinding:
+  formal_variable: object
+  instantiated_expression: object
+
+  def __post_init__(self) -> None:
+    if isinstance(self.formal_variable, str):
+      raise TypeError(
+        "formal_variable must be a mathematical object, not a str"
+      )
+    if isinstance(self.instantiated_expression, str):
+      raise TypeError(
+        "instantiated_expression must be a mathematical object, not a str"
+      )
+
+
+@dataclass(frozen=True)
+class TodaGroupProofNarrativeReferenceApplicationSemantic:
+  dependent_step: ProofStep
+  reference: TodaGroupProofNarrativeReferenceIdentity
+  bindings: tuple[TodaGroupProofNarrativeVariableBinding, ...]
+
+  def __post_init__(self) -> None:
+    if not isinstance(self.dependent_step, ProofStep):
+      raise TypeError("dependent_step must be a ProofStep")
+    if not isinstance(
+      self.reference,
+      TodaGroupProofNarrativeReferenceIdentity,
+    ):
+      raise TypeError(
+        "reference must be a TodaGroupProofNarrativeReferenceIdentity"
+      )
+    if not isinstance(self.bindings, tuple):
+      raise TypeError("bindings must be a tuple")
+    if not self.bindings:
+      raise ValueError("bindings must not be empty")
+
+    seen_formal_variables = set()
+    for binding in self.bindings:
+      if not isinstance(binding, TodaGroupProofNarrativeVariableBinding):
+        raise TypeError(
+          "bindings must contain only "
+          "TodaGroupProofNarrativeVariableBinding objects"
+        )
+      key = repr(binding.formal_variable)
+      if key in seen_formal_variables:
+        raise ValueError(
+          "bindings must not contain duplicate formal variables"
+        )
+      seen_formal_variables.add(key)
+
+
+@dataclass(frozen=True)
 class TodaGroupProofNarrativeSemanticSidecar:
   presentation: TodaGroupProofPresentation
   premise_semantics: tuple[
@@ -157,6 +224,10 @@ class TodaGroupProofNarrativeSemanticSidecar:
   ]
   dependency_semantics: tuple[
     TodaGroupProofNarrativeDependencySemantic,
+    ...,
+  ] = ()
+  reference_application_semantics: tuple[
+    TodaGroupProofNarrativeReferenceApplicationSemantic,
     ...,
   ] = ()
 
@@ -194,6 +265,14 @@ class TodaGroupProofNarrativeSemanticSidecar:
     ):
       raise TypeError(
         "dependency_semantics must be a tuple"
+      )
+
+    if not isinstance(
+      self.reference_application_semantics,
+      tuple,
+    ):
+      raise TypeError(
+        "reference_application_semantics must be a tuple"
       )
 
     allowed_step_ids = {
@@ -332,6 +411,34 @@ class TodaGroupProofNarrativeSemanticSidecar:
       seen_dependency_keys.add(
         dependency_key
       )
+
+
+    seen_reference_application_keys = set()
+    for semantic in self.reference_application_semantics:
+      if not isinstance(
+        semantic,
+        TodaGroupProofNarrativeReferenceApplicationSemantic,
+      ):
+        raise TypeError(
+          "reference_application_semantics must contain only "
+          "TodaGroupProofNarrativeReferenceApplicationSemantic objects"
+        )
+      dependent_step_id = id(semantic.dependent_step)
+      if dependent_step_id not in allowed_step_ids:
+        raise ValueError(
+          "reference application dependent_step must appear "
+          "in presentation nodes"
+        )
+      application_key = (
+        dependent_step_id,
+        semantic.reference,
+      )
+      if application_key in seen_reference_application_keys:
+        raise ValueError(
+          "reference_application_semantics must not contain "
+          "duplicate applications"
+        )
+      seen_reference_application_keys.add(application_key)
 
 
 _PREMISE_ROLE_BY_RULE_NAME_AND_INDEX = {
@@ -684,6 +791,52 @@ def _semantic_dependency_semantics(
   )
 
 
+def _reference_application_semantics(
+  step_semantics: tuple[TodaGroupProofNarrativeStepSemantic, ...],
+) -> tuple[TodaGroupProofNarrativeReferenceApplicationSemantic, ...]:
+  applications = []
+
+  for semantic in step_semantics:
+    if (
+      semantic.role
+      is not TodaGroupProofNarrativeStepSemanticRole.DEFINITION_INTRODUCTION
+    ):
+      continue
+
+    conclusion = semantic.proof_step.conclusion
+    if not isinstance(conclusion, TodaBracketMembershipStatement):
+      continue
+
+    concrete_element = conclusion.element
+    if not isinstance(concrete_element, HomotopyElement):
+      continue
+
+    formal_beta = HomotopyElement(
+      name="β",
+      dimension=concrete_element.dimension,
+      source=concrete_element.source,
+      target=concrete_element.target,
+    )
+
+    applications.append(
+      TodaGroupProofNarrativeReferenceApplicationSemantic(
+        dependent_step=semantic.proof_step,
+        reference=TodaGroupProofNarrativeReferenceIdentity(
+          label="Lemma 5.2",
+        ),
+        bindings=(
+          TodaGroupProofNarrativeVariableBinding(
+            formal_variable=formal_beta,
+            instantiated_expression=concrete_element,
+          ),
+        ),
+      )
+    )
+
+  return tuple(applications)
+
+
+
 def build_toda_group_proof_narrative_semantic_sidecar(
   presentation: TodaGroupProofPresentation,
 ) -> TodaGroupProofNarrativeSemanticSidecar:
@@ -804,6 +957,11 @@ def build_toda_group_proof_narrative_semantic_sidecar(
         _semantic_dependency_semantics(
           presentation,
           premise_semantics_tuple,
+          step_semantics_tuple,
+        )
+      ),
+      reference_application_semantics=(
+        _reference_application_semantics(
           step_semantics_tuple,
         )
       ),

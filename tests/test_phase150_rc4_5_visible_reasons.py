@@ -104,10 +104,13 @@ def test_phase150_rc4_5_visible_reason_count_matches_typed_reason_count(
     if sentence is not None
   )
 
-  assert rendered.count(
-    "この前提条件を満たすので、"
-    "次の定義を用いる."
+  assert sum(
+    rendered.count(sentence)
+    for sentence in expected_sentences
   ) == len(expected_sentences)
+
+  for sentence in expected_sentences:
+    assert rendered.count(sentence) == 1
 
 
 def test_phase150_rc4_5_does_not_invent_untyped_reason_prose():
