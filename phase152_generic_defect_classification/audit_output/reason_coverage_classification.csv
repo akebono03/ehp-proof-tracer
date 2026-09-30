@@ -1,0 +1,8 @@
+﻿reason_kind,occurrences,coverage_class
+definition_applicability,1,intermediate_specific
+exactness_to_map_property,1,intermediate_specific
+final_group_structure,3,intermediate_specific
+final_result_derivation,137,final_result
+group_order_derivation,2,intermediate_specific
+map_structure_derivation,1,intermediate_specific
+multiple_relation_to_order,1,intermediate_specific
