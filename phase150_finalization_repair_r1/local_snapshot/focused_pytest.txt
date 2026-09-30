@@ -1,0 +1,641 @@
+.....F...F...F......FF.F.F......F....F....F.FFFFFF.F..F....F             [100%]
+================================== FAILURES ===================================
+_______ test_phase132_6_depth_two_uses_nested_edges_before_parent_fact ________
+
+    def test_phase132_6_depth_two_uses_nested_edges_before_parent_fact():
+      data = (
+        build_phase132_6_sigma9_narrative(
+          max_depth=2,
+        )
+      )
+    
+      presentation = data[
+        "presentation"
+      ]
+      rendered = data[
+        "rendered"
+      ]
+    
+      nested_edge = next(
+        edge
+        for edge in presentation.edges
+        if edge.parent_step
+        is not presentation.root_step
+      )
+    
+      parent_fact = (
+        _render_group_proof_narrative_fact(
+          nested_edge.parent_step
+        )
+      )
+    
+      child_fact = (
+        _render_group_proof_narrative_fact(
+          nested_edge.premise_step
+        )
+      )
+    
+      parent_edges = tuple(
+        edge
+        for edge in presentation.edges
+        if edge.parent_step
+        is nested_edge.parent_step
+      )
+    
+      derivation_lead = (
+        "このことから、"
+        if len(
+          parent_edges
+        ) == 1
+        else "これらから、"
+      )
+    
+      parent_sentence = (
+        derivation_lead
+        + parent_fact
+        + "を得る。"
+      )
+    
+      assert child_fact in rendered
+>     assert parent_sentence in rendered
+E     assert 'このことから、π₁₆⁹ の位数 16 と E⁴ の単射性を得る。' in "# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma 5.14.**\n**[R3] Th.../2\\{\\sigma'''\\}$\n\n以上より、\n\n以上で得た群構造、生成元、および写像に関する結果を合わせると、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$\n"
+
+tests\test_phase132_6_group_proof_narrative_renderer.py:274: AssertionError
+____________ test_phase138_4_sigma9_narrative_states_proof_purpose ____________
+
+    def test_phase138_4_sigma9_narrative_states_proof_purpose():
+      data = (
+        build_phase132_6_sigma9_narrative(
+          max_depth=2,
+        )
+      )
+    
+      rendered = data[
+        "rendered"
+      ]
+    
+      purpose = (
+        "$\\sigma_{9}$ の位数を確認し、"
+        "これが $\\pi_{16}^{9}$ を生成することを示す。"
+      )
+    
+>     assert purpose in rendered
+E     assert '$\\sigma_{9}$ の位数を確認し、これが $\\pi_{16}^{9}$ を生成することを示す。' in "# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma 5.14.**\n**[R3] Th.../2\\{\\sigma'''\\}$\n\n以上より、\n\n以上で得た群構造、生成元、および写像に関する結果を合わせると、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$\n"
+
+tests\test_phase132_6_group_proof_narrative_renderer.py:452: AssertionError
+_____ test_phase132_7_group_proof_narrative_mode_uses_narrative_renderer ______
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001EEFB824FA0>
+
+    def test_phase132_7_group_proof_narrative_mode_uses_narrative_renderer(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "9",
+          "7",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+      assert exit_code == 0
+      assert captured.err == ""
+      assert "# Group proof narrative" in captured.out
+>     assert (
+        "Toda Proposition 5.15を用いる。"
+        in captured.out
+      )
+E     assert 'Toda Proposition 5.15を用いる。' in "# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma 5.14.**\n**[R3] Th.../2\\{\\sigma'''\\}$\n\n以上より、\n\n以上で得た群構造、生成元、および写像に関する結果を合わせると、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$\n"
+E      +  where "# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma 5.14.**\n**[R3] Th.../2\\{\\sigma'''\\}$\n\n以上より、\n\n以上で得た群構造、生成元、および写像に関する結果を合わせると、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$\n" = CaptureResult(out="# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma ...gma'''\\}$\n\n以上より、\n\n以上で得た群構造、生成元、および写像に関する結果を合わせると、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$\n", err='').out
+
+tests\test_phase132_7_group_proof_cli_modes.py:107: AssertionError
+_________ test_phase132_8_shared_dependency_subtree_is_expanded_once __________
+
+    def test_phase132_8_shared_dependency_subtree_is_expanded_once():
+      data = (
+        build_phase132_8_sigma9_narrative(
+          max_depth=2,
+        )
+      )
+    
+      presentation = data[
+        "presentation"
+      ]
+      rendered = data[
+        "rendered"
+      ]
+    
+      counts = (
+        _incoming_use_count_by_step_id(
+          presentation
+        )
+      )
+    
+      shared_parent = next(
+        node.proof_step
+        for node in presentation.nodes
+        if (
+          counts[
+            id(
+              node.proof_step
+            )
+          ]
+          > 1
+          and any(
+            edge.parent_step
+            is node.proof_step
+            for edge in presentation.edges
+          )
+          and node.proof_step
+          is not presentation.root_step
+        )
+      )
+    
+      parent_fact = (
+        _render_group_proof_narrative_fact(
+          shared_parent
+        )
+      )
+    
+      parent_edges = tuple(
+        edge
+        for edge in presentation.edges
+        if edge.parent_step is shared_parent
+      )
+    
+      derivation_lead = (
+        "このことから、"
+        if len(
+          parent_edges
+        ) == 1
+        else "これらから、"
+      )
+    
+>     assert (
+        rendered.count(
+          derivation_lead
+          + parent_fact
+          + "を得る。"
+        )
+        == 1
+      )
+E     assert 0 == 1
+E      +  where 0 = <built-in method count of str object at 0x000001EEFD1711D0>((('これらから、' + 'Toda Lemma 5.14 の σ₈ に関する結果') + 'を得る。'))
+E      +    where <built-in method count of str object at 0x000001EEFD1711D0> = "# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma 5.14.**\n**[R3] Th.../2\\{\\sigma'''\\}$\n\n以上より、\n\n以上で得た群構造、生成元、および写像に関する結果を合わせると、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$\n".count
+
+tests\test_phase132_8_group_proof_narrative_dedup.py:176: AssertionError
+_____ test_phase132_8_repeated_shared_dependency_uses_existing_reference ______
+
+    def test_phase132_8_repeated_shared_dependency_uses_existing_reference():
+      data = (
+        build_phase132_8_sigma9_narrative(
+          max_depth=2,
+        )
+      )
+    
+      presentation = data[
+        "presentation"
+      ]
+      rendered = data[
+        "rendered"
+      ]
+    
+      counts = (
+        _incoming_use_count_by_step_id(
+          presentation
+        )
+      )
+    
+      shared_steps = tuple(
+        node.proof_step
+        for node in presentation.nodes
+        if counts[
+          id(
+            node.proof_step
+          )
+        ] > 1
+      )
+    
+      assert shared_steps
+>     assert "すでに得た" in rendered
+E     assert 'すでに得た' in "# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma 5.14.**\n**[R3] Th.../2\\{\\sigma'''\\}$\n\n以上より、\n\n以上で得た群構造、生成元、および写像に関する結果を合わせると、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$\n"
+
+tests\test_phase132_8_group_proof_narrative_dedup.py:217: AssertionError
+_________ test_phase132_8_root_conclusion_and_source_remain_unchanged _________
+
+    def test_phase132_8_root_conclusion_and_source_remain_unchanged():
+      data = (
+        build_phase132_8_sigma9_narrative(
+          max_depth=2,
+        )
+      )
+    
+      rendered = data[
+        "rendered"
+      ]
+    
+>     assert (
+        "Toda Proposition 5.15を用いる。"
+        in rendered
+      )
+E     assert 'Toda Proposition 5.15を用いる。' in "# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma 5.14.**\n**[R3] Th.../2\\{\\sigma'''\\}$\n\n以上より、\n\n以上で得た群構造、生成元、および写像に関する結果を合わせると、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$\n"
+
+tests\test_phase132_8_group_proof_narrative_dedup.py:312: AssertionError
+__________ test_phase132_8_cli_narrative_uses_deduplicated_renderer ___________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001EEFC1CE680>
+
+    def test_phase132_8_cli_narrative_uses_deduplicated_renderer(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "9",
+          "7",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+      assert exit_code == 0
+      assert captured.err == ""
+      assert "# Group proof narrative" in captured.out
+>     assert "すでに得た" in captured.out
+E     assert 'すでに得た' in "# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma 5.14.**\n**[R3] Th.../2\\{\\sigma'''\\}$\n\n以上より、\n\n以上で得た群構造、生成元、および写像に関する結果を合わせると、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$\n"
+E      +  where "# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma 5.14.**\n**[R3] Th.../2\\{\\sigma'''\\}$\n\n以上より、\n\n以上で得た群構造、生成元、および写像に関する結果を合わせると、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$\n" = CaptureResult(out="# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma ...gma'''\\}$\n\n以上より、\n\n以上で得た群構造、生成元、および写像に関する結果を合わせると、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$\n", err='').out
+
+tests\test_phase132_8_group_proof_narrative_dedup.py:364: AssertionError
+____________ test_phase132_9_narrative_web_adapter_preserves_math _____________
+
+    def test_phase132_9_narrative_web_adapter_preserves_math():
+      view = (
+        build_standard_web_group_proof_view(
+          9,
+          7,
+          max_depth=2,
+          mode="narrative",
+        )
+      )
+    
+      latex_values = tuple(
+        line.statement_latex
+        for line in view.rendered_lines
+        if line.statement_latex is not None
+      )
+    
+      assert (
+        r"\pi_{16}^{9} = "
+        r"\mathbb{Z}/16\{\sigma_{9}\}"
+        in latex_values
+      )
+    
+>     assert any(
+        "すでに得た"
+        in line.prefix
+        for line in view.rendered_lines
+      )
+E     assert False
+E      +  where False = any(<generator object test_phase132_9_narrative_web_adapter_preserves_math.<locals>.<genexpr> at 0x000001EEFC602FF0>)
+
+tests\test_phase132_9_web_group_proof_modes.py:105: AssertionError
+______ test_phase132_9_web_narrative_post_uses_structured_rendered_lines ______
+
+    def test_phase132_9_web_narrative_post_uses_structured_rendered_lines():
+      client = _build_test_client()
+    
+      response = client.post(
+        "/",
+        data={
+          "form_kind": "group_proof",
+          "n": "9",
+          "k": "7",
+          "group_proof_depth": "2",
+          "group_proof_mode": "narrative",
+        },
+      )
+    
+      assert response.status_code == 200
+      assert b'data-proof-mode="narrative"' in response.data
+      assert b"group-proof-rendered-math" in response.data
+>     assert "すでに得た".encode(
+        "utf-8"
+      ) in response.data
+E     assert b'\xe3\x81\x99\xe3\x81\xa7\xe3\x81\xab\xe5\xbe\x97\xe3\x81\x9f' in b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...n        \n      </section>\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>'
+E      +  where b'\xe3\x81\x99\xe3\x81\xa7\xe3\x81\xab\xe5\xbe\x97\xe3\x81\x9f' = <built-in method encode of str object at 0x000001EEFBD4C1B0>('utf-8')
+E      +    where <built-in method encode of str object at 0x000001EEFBD4C1B0> = 'すでに得た'.encode
+E      +  and   b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...n        \n      </section>\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>' = <WrapperTestResponse 21998 bytes [200 OK]>.data
+
+tests\test_phase132_9_web_group_proof_modes.py:206: AssertionError
+________ test_phase133_10_sigma9_depth_two_uses_final_japanese_wording ________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001EEFC70A3E0>
+
+    def test_phase133_10_sigma9_depth_two_uses_final_japanese_wording(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "9",
+          "7",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+      assert exit_code == 0
+      assert captured.err == ""
+    
+>     assert (
+        "これらから、"
+        "Theorem 3.6 と Lemma 5.14 を結ぶ σ″ の関係"
+        "を得る。"
+        in captured.out
+      )
+E     assert 'これらから、Theorem 3.6 と Lemma 5.14 を結ぶ σ″ の関係を得る。' in "# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma 5.14.**\n**[R3] Th.../2\\{\\sigma'''\\}$\n\n以上より、\n\n以上で得た群構造、生成元、および写像に関する結果を合わせると、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$\n"
+E      +  where "# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma 5.14.**\n**[R3] Th.../2\\{\\sigma'''\\}$\n\n以上より、\n\n以上で得た群構造、生成元、および写像に関する結果を合わせると、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$\n" = CaptureResult(out="# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma ...gma'''\\}$\n\n以上より、\n\n以上で得た群構造、生成元、および写像に関する結果を合わせると、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$\n", err='').out
+
+tests\test_phase133_10_sigma_label_wording.py:24: AssertionError
+________ test_phase133_6_pi10_4_uses_readable_nu4_decomposition_label _________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001EEFB697A00>
+
+    def test_phase133_6_pi10_4_uses_readable_nu4_decomposition_label(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "4",
+          "6",
+          "--depth",
+          "1",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+      assert exit_code == 0
+      assert captured.err == ""
+    
+>     assert (
+        "Toda (5.6) の ν₄ 分解"
+        in captured.out
+      )
+E     assert 'Toda (5.6) の ν₄ 分解' in '# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.11.**\n**[R2] Proposition 5.6.**\n**[R...{4}^{3}$ は完全である.\n\n次の完全列を考える.\n\n$\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$ は完全である.\n'
+E      +  where '# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.11.**\n**[R2] Proposition 5.6.**\n**[R...{4}^{3}$ は完全である.\n\n次の完全列を考える.\n\n$\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$ は完全である.\n' = CaptureResult(out="# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.11.**\n**[R2] Propos...は完全である.\n\n次の完全列を考える.\n\n$\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$ は完全である.\n", err='').out
+
+tests\test_phase133_6_group_proof_narrative_labels.py:65: AssertionError
+_______ test_phase133_6_pi12_5_uses_readable_sigma_triple_prime_labels ________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001EEFC66E9E0>
+
+    def test_phase133_6_pi12_5_uses_readable_sigma_triple_prime_labels(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "5",
+          "7",
+          "--depth",
+          "1",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+      assert exit_code == 0
+      assert captured.err == ""
+    
+>     assert (
+        "π₁₂⁵ の位数 2 の Hopf 像への同型"
+        in captured.out
+      )
+E     assert 'π₁₂⁵ の位数 2 の Hopf 像への同型' in "# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma 5.13.**\n**[R3] Pr...せると、\n\nこの完全性、既知の群構造、および写像の像に関する結果を合わせると、対象となる写像の像と核が決まる.\nしたがって、\n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$\n"
+E      +  where "# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma 5.13.**\n**[R3] Pr...せると、\n\nこの完全性、既知の群構造、および写像の像に関する結果を合わせると、対象となる写像の像と核が決まる.\nしたがって、\n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$\n" = CaptureResult(out="# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma ...の完全性、既知の群構造、および写像の像に関する結果を合わせると、対象となる写像の像と核が決まる.\nしたがって、\n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$\n", err='').out
+
+tests\test_phase133_6_group_proof_narrative_labels.py:95: AssertionError
+_____________ test_phase133_6_sigma9_depth_two_reuses_new_labels ______________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001EEFC81E8C0>
+
+    def test_phase133_6_sigma9_depth_two_reuses_new_labels(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "9",
+          "7",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+      assert exit_code == 0
+      assert captured.err == ""
+    
+>     assert (
+        "π₁₂⁵ の位数 2 の Hopf 像への同型"
+        in captured.out
+      )
+E     assert 'π₁₂⁵ の位数 2 の Hopf 像への同型' in "# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma 5.14.**\n**[R3] Th.../2\\{\\sigma'''\\}$\n\n以上より、\n\n以上で得た群構造、生成元、および写像に関する結果を合わせると、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$\n"
+E      +  where "# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma 5.14.**\n**[R3] Th.../2\\{\\sigma'''\\}$\n\n以上より、\n\n以上で得た群構造、生成元、および写像に関する結果を合わせると、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$\n" = CaptureResult(out="# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma ...gma'''\\}$\n\n以上より、\n\n以上で得た群構造、生成元、および写像に関する結果を合わせると、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$\n", err='').out
+
+tests\test_phase133_6_group_proof_narrative_labels.py:136: AssertionError
+_________ test_phase133_9_pi10_4_depth_two_uses_final_readable_labels _________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001EEFBC48B80>
+
+    def test_phase133_9_pi10_4_depth_two_uses_final_readable_labels(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "4",
+          "6",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+      assert exit_code == 0
+      assert captured.err == ""
+    
+      expected_labels = (
+        "Toda Proposition 5.6 の有限次元結果",
+        "Toda (5.6) の ν₄ 分解同型",
+        "Toda Lemma 5.4 の結果",
+        "Toda (5.6) の ν₄ 分解",
+      )
+    
+      for label in expected_labels:
+>       assert label in captured.out
+E       assert 'Toda Proposition 5.6 の有限次元結果' in '# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.11.**\n**[R2] Proposition 5.6.**\n**[R...{4}^{3}$ は完全である.\n\n次の完全列を考える.\n\n$\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$ は完全である.\n'
+E        +  where '# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.11.**\n**[R2] Proposition 5.6.**\n**[R...{4}^{3}$ は完全である.\n\n次の完全列を考える.\n\n$\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$ は完全である.\n' = CaptureResult(out="# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.11.**\n**[R2] Propos...は完全である.\n\n次の完全列を考える.\n\n$\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$ は完全である.\n", err='').out
+
+tests\test_phase133_9_group_proof_narrative_labels.py:32: AssertionError
+__________ test_phase133_9_pi16_9_depth_two_uses_final_sigma_labels ___________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001EEFBC9F220>
+
+    def test_phase133_9_pi16_9_depth_two_uses_final_sigma_labels(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "9",
+          "7",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+      assert exit_code == 0
+      assert captured.err == ""
+    
+      expected_labels = (
+        "Theorem 3.6 と Lemma 5.14 を結ぶ σ″ の関係",
+        "Toda Lemma 5.14 の σ′ に関する結果",
+        "Toda Lemma 5.14 の σ₈ に関する結果",
+        "σ-family の定義",
+      )
+    
+      for label in expected_labels:
+>       assert label in captured.out
+E       assert 'Theorem 3.6 と Lemma 5.14 を結ぶ σ″ の関係' in "# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma 5.14.**\n**[R3] Th.../2\\{\\sigma'''\\}$\n\n以上より、\n\n以上で得た群構造、生成元、および写像に関する結果を合わせると、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$\n"
+E        +  where "# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma 5.14.**\n**[R3] Th.../2\\{\\sigma'''\\}$\n\n以上より、\n\n以上で得た群構造、生成元、および写像に関する結果を合わせると、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$\n" = CaptureResult(out="# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma ...gma'''\\}$\n\n以上より、\n\n以上で得た群構造、生成元、および写像に関する結果を合わせると、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$\n", err='').out
+
+tests\test_phase133_9_group_proof_narrative_labels.py:72: AssertionError
+______________ test_phase133_9_previous_labels_remain_available _______________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001EEFC98C1C0>
+
+    def test_phase133_9_previous_labels_remain_available(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "5",
+          "7",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+      assert exit_code == 0
+      assert captured.err == ""
+    
+      expected_labels = (
+        "Hopf 写像の単射性",
+        "Toda Proposition 5.11 の有限次元結果",
+        "Toda (5.5) の ν-family 有限次元結果",
+        "π₁₂⁵ の位数 2 の Hopf 像への同型",
+        "Toda Lemma 5.13 の σ‴ に関する結果",
+      )
+    
+      for label in expected_labels:
+>       assert label in captured.out
+E       assert 'Hopf 写像の単射性' in "# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma 5.13.**\n**[R3] Pr...せると、\n\nこの完全性、既知の群構造、および写像の像に関する結果を合わせると、対象となる写像の像と核が決まる.\nしたがって、\n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$\n"
+E        +  where "# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma 5.13.**\n**[R3] Pr...せると、\n\nこの完全性、既知の群構造、および写像の像に関する結果を合わせると、対象となる写像の像と核が決まる.\nしたがって、\n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$\n" = CaptureResult(out="# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma ...の完全性、既知の群構造、および写像の像に関する結果を合わせると、対象となる写像の像と核が決まる.\nしたがって、\n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$\n", err='').out
+
+tests\test_phase133_9_group_proof_narrative_labels.py:112: AssertionError
+__ test_phase144_6_r3_pi6_3_generic_multi_argument_renders_reference_section __
+
+    def test_phase144_6_r3_pi6_3_generic_multi_argument_renders_reference_section():
+      presentation, sidecar, blocks, arguments = _phase144_6_r3_pi6_3_data()
+      rendered = render_toda_group_proof_narrative_multi_argument_markdown(
+        presentation,
+        blocks,
+        sidecar,
+        arguments,
+      )
+    
+>     assert "使用する結果を先にまとめる." in rendered
+E     assert '使用する結果を先にまとめる.' in "まず、$\\nu'$ を定める.\n\n$2\\eta_{3} = 0$\n\n$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$\n\n$\\pi_{4}^{3} = \...a_{3}\\tag{4}$\n\n$E^{2}\\eta_{3} = \\eta_{5}\\tag{5}$\n\n(4) と (5) より、\n\n$H\\left(\\nu'\\right) = \\eta_{5}\\tag{6}$"
+
+tests\test_phase144_6_r3_production_references.py:72: AssertionError
+__ test_phase144_6_r3_step_without_structured_reference_remains_unreferenced __
+
+    def test_phase144_6_r3_step_without_structured_reference_remains_unreferenced():
+      step = ProofStep(
+        conclusion="test conclusion",
+        premises=(),
+        rule=ProofRule.INFERENCE,
+        inference_rule=InferenceRule(
+          name="Toda Proposition 5.1 text only",
+        ),
+      )
+    
+>     assert extract_toda_group_proof_step_literature_reference(step) is None
+E     AssertionError: assert LiteratureReference(label='Toda Proposition 5.1', author=None, title=None, year=None, locator='Proposition 5.1') is None
+E      +  where LiteratureReference(label='Toda Proposition 5.1', author=None, title=None, year=None, locator='Proposition 5.1') = extract_toda_group_proof_step_literature_reference(ProofStep(conclusion='test conclusion', premises=(), rule=<ProofRule.INFERENCE: 'inference'>, note=None, inference_rul...e, premise_patterns=(), conclusion_builder=None, conclusion_pattern=None, match_guard=None, literature_reference=None)))
+
+tests\test_phase144_6_r3_structured_references.py:49: AssertionError
+__________ test_phase144_6_r4_preserves_structured_reference_section __________
+
+    def test_phase144_6_r4_preserves_structured_reference_section():
+      rendered = _render_phase144_6_r4_pi6_3()
+    
+>     assert "**[R1]" in rendered
+E     assert '**[R1]' in "まず、$\\nu'$ を定める.\n\n$2\\eta_{3} = 0$\n\n$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$\n\n$\\pi_{4}^{3} = \...a_{3}\\tag{4}$\n\n$E^{2}\\eta_{3} = \\eta_{5}\\tag{5}$\n\n(4) と (5) より、\n\n$H\\left(\\nu'\\right) = \\eta_{5}\\tag{6}$"
+
+tests\test_phase144_6_r4_supporting_fact_filtering.py:60: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_phase132_6_group_proof_narrative_renderer.py::test_phase132_6_depth_two_uses_nested_edges_before_parent_fact
+FAILED tests/test_phase132_6_group_proof_narrative_renderer.py::test_phase138_4_sigma9_narrative_states_proof_purpose
+FAILED tests/test_phase132_7_group_proof_cli_modes.py::test_phase132_7_group_proof_narrative_mode_uses_narrative_renderer
+FAILED tests/test_phase132_8_group_proof_narrative_dedup.py::test_phase132_8_shared_dependency_subtree_is_expanded_once
+FAILED tests/test_phase132_8_group_proof_narrative_dedup.py::test_phase132_8_repeated_shared_dependency_uses_existing_reference
+FAILED tests/test_phase132_8_group_proof_narrative_dedup.py::test_phase132_8_root_conclusion_and_source_remain_unchanged
+FAILED tests/test_phase132_8_group_proof_narrative_dedup.py::test_phase132_8_cli_narrative_uses_deduplicated_renderer
+FAILED tests/test_phase132_9_web_group_proof_modes.py::test_phase132_9_narrative_web_adapter_preserves_math
+FAILED tests/test_phase132_9_web_group_proof_modes.py::test_phase132_9_web_narrative_post_uses_structured_rendered_lines
+FAILED tests/test_phase133_10_sigma_label_wording.py::test_phase133_10_sigma9_depth_two_uses_final_japanese_wording
+FAILED tests/test_phase133_6_group_proof_narrative_labels.py::test_phase133_6_pi10_4_uses_readable_nu4_decomposition_label
+FAILED tests/test_phase133_6_group_proof_narrative_labels.py::test_phase133_6_pi12_5_uses_readable_sigma_triple_prime_labels
+FAILED tests/test_phase133_6_group_proof_narrative_labels.py::test_phase133_6_sigma9_depth_two_reuses_new_labels
+FAILED tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_pi10_4_depth_two_uses_final_readable_labels
+FAILED tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_pi16_9_depth_two_uses_final_sigma_labels
+FAILED tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_previous_labels_remain_available
+FAILED tests/test_phase144_6_r3_production_references.py::test_phase144_6_r3_pi6_3_generic_multi_argument_renders_reference_section
+FAILED tests/test_phase144_6_r3_structured_references.py::test_phase144_6_r3_step_without_structured_reference_remains_unreferenced
+FAILED tests/test_phase144_6_r4_supporting_fact_filtering.py::test_phase144_6_r4_preserves_structured_reference_section
+19 failed, 41 passed in 47.70s

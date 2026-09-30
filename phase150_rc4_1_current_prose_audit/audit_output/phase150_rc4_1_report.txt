@@ -1,0 +1,156 @@
+==============================================================================
+Phase 150 / RC4-1 Current prose audit
+Historical baseline commit: 908e24db89669750949fa9ad149f5e306ac05546
+Production changes: none
+Existing test changes: none
+Repository-wide tests: not run
+==============================================================================
+
+CURRENT pi_6^3 NARRATIVE
+------------------------------------------------------------------------------
+使用する結果を先にまとめる.
+
+**[R1] (5.3) / Lemma 5.2.**
+**[R2] (5.2).**
+**[R3] Proposition 5.1.**
+**[R4] Proposition 4.4.**
+
+まず、$\nu'$ を定める.
+
+$2\eta_{3} = 0$
+
+$\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+次に、$\nu'$ の位数を決定するために、次の完全列を考える.
+
+$\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$
+
+$2\nu' = \eta_{3}E\eta_{3}\eta_{5}\tag{1}$
+
+$\eta_{3}E\eta_{3}\eta_{5} = \eta_{3}^{3}\tag{2}$
+
+$\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+
+以上より、
+
+
+
+$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+
+$E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.
+
+$\operatorname{ord}\left(\nu'\right) = 4$
+
+(1) と (2) より、
+
+$2\nu' = \eta_{3}^{3}\tag{3}$
+
+最後に、$\pi_{6}^{3}$ の群構造を決定するために、次の完全列を考える.
+
+$\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5}$
+
+この完全性と両端の写像の性質より, 次の短完全列を得る.
+
+$0\longrightarrow \pi_{5}^{2}\xrightarrow{E} \pi_{6}^{3}\xrightarrow{H} \pi_{6}^{5}\longrightarrow 0$
+
+$\nu' \in \pi_{6}^{3}$
+
+$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+
+$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
+
+以上より、
+
+
+
+$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+
+$\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.
+
+$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+
+$H\left(\nu'\right) = E^{2}\eta_{3}\tag{4}$
+
+$E^{2}\eta_{3} = \eta_{5}\tag{5}$
+
+(4) と (5) より、
+
+$H\left(\nu'\right) = \eta_{5}\tag{6}$
+
+REASON-PROSE AUDIT
+------------------------------------------------------------------------------
+[1] definition_precondition_to_bracket
+classification: PRECONDITION + DEFINITION -> applicability reason
+historical_reason_evidence: True
+current_required_facts_present: True
+rc4_candidate: True
+note: Explain why the displayed precondition and bracket membership permit the lemma to be applied.
+
+[2] hopf_image_derivation
+classification: CALCULATION dependency chain -> derived equality reason
+historical_reason_evidence: False
+current_required_facts_present: True
+rc4_candidate: True
+note: The facts are present; the prose should state that the final equality follows from the preceding two equalities.
+
+[3] surjectivity_to_delta_zero
+classification: EXACTNESS + MAP_PROPERTY -> zero-map reason
+historical_reason_evidence: True
+current_required_facts_present: False
+rc4_candidate: True
+note: Explain ker(Delta)=Im(H) and why surjectivity of H makes Delta zero.
+
+[4] delta_zero_to_suspension_injective
+classification: EXACTNESS + zero map -> injectivity reason
+historical_reason_evidence: False
+current_required_facts_present: True
+rc4_candidate: True
+note: Explain ker(E)=Im(Delta)=0, hence E is injective.
+
+[5] injectivity_to_eta3_cube_order
+classification: GROUP_STRUCTURE + MAP_PROPERTY + transport -> order reason
+historical_reason_evidence: False
+current_required_facts_present: True
+rc4_candidate: True
+note: Explain why injectivity preserves the nonzero order-two generator under suspension.
+
+[6] double_relation_to_nu_prime_order
+classification: CALCULATION + ORDER -> element-order reason
+historical_reason_evidence: True
+current_required_facts_present: True
+rc4_candidate: True
+note: Explain why 2 nu' has order two, forcing nu' to have order four.
+
+[7] short_exact_sequence_derivation
+classification: EXACTNESS + injective + surjective -> short-exact reason
+historical_reason_evidence: True
+current_required_facts_present: True
+rc4_candidate: True
+note: Explain why exactness together with endpoint map properties yields the short exact sequence.
+
+[8] short_exact_to_group_structure
+classification: SHORT_EXACT + endpoint structures -> middle-group order reason
+historical_reason_evidence: True
+current_required_facts_present: True
+rc4_candidate: True
+note: Explain why the short exact sequence gives order four for the middle group.
+
+[9] order_four_member_to_generator
+classification: MEMBERSHIP + ORDER + GROUP_ORDER -> generator reason
+historical_reason_evidence: True
+current_required_facts_present: True
+rc4_candidate: True
+note: Explain why an element of order four generates a group of order four.
+
+BOUNDARY
+------------------------------------------------------------------------------
+RC4 owns explanatory reason/provenance prose.
+RC4 does not redesign RC3 contribution placement.
+RC4 does not introduce RC5 EHP semantic naming.
+RC4 does not perform RC6 equation-numbering cleanup.
+The position of (1),(2) => 2nu'=eta_3^3 is recorded only as a reason-prose candidate when its dependency explanation is missing; its placement is not changed here.
+
+reason_prose_candidates=8
+AUDIT_RESULT=PASS

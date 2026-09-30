@@ -1,0 +1,26 @@
+Phase 150 Performance Diagnostic R1
+===================================
+
+Production changes: none
+Existing test changes: none
+Documentation changes: none
+Full regression: NOT run
+
+Collected tests: 10478
+Observed interrupted progress: 32%
+Approximate center index: 3352
+Measured window: [3232, 3473)
+Measured node IDs: 241
+Window elapsed seconds: 512.51
+Focused pytest exit code: 0
+
+Files:
+- C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase150_performance_diagnostic\collected_tests.txt
+- C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase150_performance_diagnostic\window_nodeids.txt
+- C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase150_performance_diagnostic\window_timing.txt
+
+Interpretation:
+This diagnostic maps the interrupted 32% point to pytest collection order,
+then executes only a bounded window around that point with verbose node IDs
+and pytest duration reporting. It does not alter production behavior and
+does not replace the final Phase 150 full regression.

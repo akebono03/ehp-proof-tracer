@@ -1,0 +1,34 @@
+@pytest.mark.parametrize("_label,n,k", CASES)
+def test_phase150_rc4_5_visible_reason_count_matches_typed_reason_count(
+  _label,
+  n,
+  k,
+):
+  (
+    presentation,
+    semantic_sidecar,
+    reason_sidecar,
+    rendered,
+  ) = _render_case(n, k)
+
+  expected_sentences = tuple(
+    sentence
+    for reason in reason_sidecar.reasons
+    for sentence in (
+      render_toda_group_proof_narrative_reason_sentence(reason),
+    )
+    if sentence is not None
+  )
+  distinct_expected_sentences = tuple(
+    dict.fromkeys(
+      expected_sentences
+    )
+  )
+
+  assert sum(
+    rendered.count(sentence)
+    for sentence in distinct_expected_sentences
+  ) == len(distinct_expected_sentences)
+
+  for sentence in distinct_expected_sentences:
+    assert rendered.count(sentence) == 1

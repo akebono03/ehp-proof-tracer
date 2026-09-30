@@ -1,0 +1,107 @@
+Phase 150 Finalization Repair R1 local snapshot
+
+Production changes: none
+Existing test changes: none
+Full regression: not run
+
+Copied files:
+- toda_group_proof_narrative_renderer.py
+- toda_group_proof_narrative_references.py
+- toda_group_proof_narrative_argument_multi_renderer.py
+- toda_group_proof_narrative_contribution_renderer.py
+- tests/test_phase132_6_group_proof_narrative_renderer.py
+- tests/test_phase132_7_group_proof_cli_modes.py
+- tests/test_phase132_8_group_proof_narrative_dedup.py
+- tests/test_phase132_9_web_group_proof_modes.py
+- tests/test_phase133_10_sigma_label_wording.py
+- tests/test_phase133_6_group_proof_narrative_labels.py
+- tests/test_phase133_9_group_proof_narrative_labels.py
+- tests/test_phase144_6_r3_production_references.py
+- tests/test_phase144_6_r3_structured_references.py
+- tests/test_phase144_6_r4_supporting_fact_filtering.py
+
+Focused pytest exit code: 1
+Focused pytest command:
+  C:\Users\oomae\AppData\Local\Programs\Python\Python310\python.exe -m pytest tests/test_phase132_6_group_proof_narrative_renderer.py tests/test_phase132_7_group_proof_cli_modes.py tests/test_phase132_8_group_proof_narrative_dedup.py tests/test_phase132_9_web_group_proof_modes.py tests/test_phase133_10_sigma_label_wording.py tests/test_phase133_6_group_proof_narrative_labels.py tests/test_phase133_9_group_proof_narrative_labels.py tests/test_phase144_6_r3_production_references.py tests/test_phase144_6_r3_structured_references.py tests/test_phase144_6_r4_supporting_fact_filtering.py -q
+
+Focused pytest tail:
+    
+      assert exit_code == 0
+      assert captured.err == ""
+    
+      expected_labels = (
+        "Hopf 写像の単射性",
+        "Toda Proposition 5.11 の有限次元結果",
+        "Toda (5.5) の ν-family 有限次元結果",
+        "π₁₂⁵ の位数 2 の Hopf 像への同型",
+        "Toda Lemma 5.13 の σ‴ に関する結果",
+      )
+    
+      for label in expected_labels:
+>       assert label in captured.out
+E       assert 'Hopf 写像の単射性' in "# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma 5.13.**\n**[R3] Pr...せると、\n\nこの完全性、既知の群構造、および写像の像に関する結果を合わせると、対象となる写像の像と核が決まる.\nしたがって、\n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$\n"
+E        +  where "# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma 5.13.**\n**[R3] Pr...せると、\n\nこの完全性、既知の群構造、および写像の像に関する結果を合わせると、対象となる写像の像と核が決まる.\nしたがって、\n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$\n" = CaptureResult(out="# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n**[R2] Lemma ...の完全性、既知の群構造、および写像の像に関する結果を合わせると、対象となる写像の像と核が決まる.\nしたがって、\n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$\n", err='').out
+
+tests\test_phase133_9_group_proof_narrative_labels.py:112: AssertionError
+__ test_phase144_6_r3_pi6_3_generic_multi_argument_renders_reference_section __
+
+    def test_phase144_6_r3_pi6_3_generic_multi_argument_renders_reference_section():
+      presentation, sidecar, blocks, arguments = _phase144_6_r3_pi6_3_data()
+      rendered = render_toda_group_proof_narrative_multi_argument_markdown(
+        presentation,
+        blocks,
+        sidecar,
+        arguments,
+      )
+    
+>     assert "使用する結果を先にまとめる." in rendered
+E     assert '使用する結果を先にまとめる.' in "まず、$\\nu'$ を定める.\n\n$2\\eta_{3} = 0$\n\n$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$\n\n$\\pi_{4}^{3} = \...a_{3}\\tag{4}$\n\n$E^{2}\\eta_{3} = \\eta_{5}\\tag{5}$\n\n(4) と (5) より、\n\n$H\\left(\\nu'\\right) = \\eta_{5}\\tag{6}$"
+
+tests\test_phase144_6_r3_production_references.py:72: AssertionError
+__ test_phase144_6_r3_step_without_structured_reference_remains_unreferenced __
+
+    def test_phase144_6_r3_step_without_structured_reference_remains_unreferenced():
+      step = ProofStep(
+        conclusion="test conclusion",
+        premises=(),
+        rule=ProofRule.INFERENCE,
+        inference_rule=InferenceRule(
+          name="Toda Proposition 5.1 text only",
+        ),
+      )
+    
+>     assert extract_toda_group_proof_step_literature_reference(step) is None
+E     AssertionError: assert LiteratureReference(label='Toda Proposition 5.1', author=None, title=None, year=None, locator='Proposition 5.1') is None
+E      +  where LiteratureReference(label='Toda Proposition 5.1', author=None, title=None, year=None, locator='Proposition 5.1') = extract_toda_group_proof_step_literature_reference(ProofStep(conclusion='test conclusion', premises=(), rule=<ProofRule.INFERENCE: 'inference'>, note=None, inference_rul...e, premise_patterns=(), conclusion_builder=None, conclusion_pattern=None, match_guard=None, literature_reference=None)))
+
+tests\test_phase144_6_r3_structured_references.py:49: AssertionError
+__________ test_phase144_6_r4_preserves_structured_reference_section __________
+
+    def test_phase144_6_r4_preserves_structured_reference_section():
+      rendered = _render_phase144_6_r4_pi6_3()
+    
+>     assert "**[R1]" in rendered
+E     assert '**[R1]' in "まず、$\\nu'$ を定める.\n\n$2\\eta_{3} = 0$\n\n$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$\n\n$\\pi_{4}^{3} = \...a_{3}\\tag{4}$\n\n$E^{2}\\eta_{3} = \\eta_{5}\\tag{5}$\n\n(4) と (5) より、\n\n$H\\left(\\nu'\\right) = \\eta_{5}\\tag{6}$"
+
+tests\test_phase144_6_r4_supporting_fact_filtering.py:60: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_phase132_6_group_proof_narrative_renderer.py::test_phase132_6_depth_two_uses_nested_edges_before_parent_fact
+FAILED tests/test_phase132_6_group_proof_narrative_renderer.py::test_phase138_4_sigma9_narrative_states_proof_purpose
+FAILED tests/test_phase132_7_group_proof_cli_modes.py::test_phase132_7_group_proof_narrative_mode_uses_narrative_renderer
+FAILED tests/test_phase132_8_group_proof_narrative_dedup.py::test_phase132_8_shared_dependency_subtree_is_expanded_once
+FAILED tests/test_phase132_8_group_proof_narrative_dedup.py::test_phase132_8_repeated_shared_dependency_uses_existing_reference
+FAILED tests/test_phase132_8_group_proof_narrative_dedup.py::test_phase132_8_root_conclusion_and_source_remain_unchanged
+FAILED tests/test_phase132_8_group_proof_narrative_dedup.py::test_phase132_8_cli_narrative_uses_deduplicated_renderer
+FAILED tests/test_phase132_9_web_group_proof_modes.py::test_phase132_9_narrative_web_adapter_preserves_math
+FAILED tests/test_phase132_9_web_group_proof_modes.py::test_phase132_9_web_narrative_post_uses_structured_rendered_lines
+FAILED tests/test_phase133_10_sigma_label_wording.py::test_phase133_10_sigma9_depth_two_uses_final_japanese_wording
+FAILED tests/test_phase133_6_group_proof_narrative_labels.py::test_phase133_6_pi10_4_uses_readable_nu4_decomposition_label
+FAILED tests/test_phase133_6_group_proof_narrative_labels.py::test_phase133_6_pi12_5_uses_readable_sigma_triple_prime_labels
+FAILED tests/test_phase133_6_group_proof_narrative_labels.py::test_phase133_6_sigma9_depth_two_reuses_new_labels
+FAILED tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_pi10_4_depth_two_uses_final_readable_labels
+FAILED tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_pi16_9_depth_two_uses_final_sigma_labels
+FAILED tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_previous_labels_remain_available
+FAILED tests/test_phase144_6_r3_production_references.py::test_phase144_6_r3_pi6_3_generic_multi_argument_renders_reference_section
+FAILED tests/test_phase144_6_r3_structured_references.py::test_phase144_6_r3_step_without_structured_reference_remains_unreferenced
+FAILED tests/test_phase144_6_r4_supporting_fact_filtering.py::test_phase144_6_r4_preserves_structured_reference_section
+19 failed, 41 passed in 47.70s

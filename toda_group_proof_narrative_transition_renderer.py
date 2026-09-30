@@ -1,3 +1,6 @@
+from toda_group_proof_narrative_blocks import (
+  TodaGroupProofNarrativeMathematicalBlockRole,
+)
 from toda_group_proof_narrative_transitions import (
   TodaGroupProofNarrativeTransition,
   TodaGroupProofNarrativeTransitionRole,
@@ -20,6 +23,16 @@ def render_toda_group_proof_narrative_transition_connector(
     transition.role
     is TodaGroupProofNarrativeTransitionRole
     .DERIVATION
+  ):
+    return "以上より、"
+
+  if (
+    transition.role
+    is TodaGroupProofNarrativeTransitionRole
+    .SUPPORT
+    and transition.target_block.role
+    is TodaGroupProofNarrativeMathematicalBlockRole
+    .TARGET
   ):
     return "以上より、"
 

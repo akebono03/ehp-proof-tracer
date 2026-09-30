@@ -1,0 +1,62 @@
+Phase 150 Performance Diagnostic R3
+==============================================================================
+Production changes: none
+Existing test changes: none
+Documentation changes: none
+Full regression: NOT run
+Collected tests: 10478
+Target progress: 32.0%
+Center index: 3353
+Window: [3333, 3374)
+Measured node IDs: 41
+Per-test timeout: 60.0s
+
+Per-test results
+------------------------------------------------------------------------------
+03333	PASS	4.64s	tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py::test_phase144_6_r5_19_pi6_3_is_available_through_proof_chain_entrypoint
+03334	PASS	40.19s	tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py::test_phase144_6_r5_19_all_six_groups_are_available_through_entrypoint
+03335	PASS	3.83s	tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py::test_phase144_6_r5_19_rejects_missing_proof_chain
+03336	PASS	4.42s	tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py::test_phase144_6_r5_19_rejects_duplicate_argument_index
+03337	PASS	4.05s	tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py::test_phase144_6_r5_19_rejects_foreign_proof_chain_argument
+03338	PASS	3.93s	tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py::test_phase144_6_r5_19_rejects_foreign_semantic_sidecar
+03339	PASS	4.29s	tests/test_phase144_6_r5_20_pi6_3_proof_chain_generic_parity.py::test_phase144_6_r5_20_freezes_dedicated_parity_requirements
+03340	PASS	2.80s	tests/test_phase144_6_r5_20_pi6_3_proof_chain_generic_parity.py::test_phase144_6_r5_20_covers_all_required_parity_kinds
+03341	PASS	4.51s	tests/test_phase144_6_r5_20_pi6_3_proof_chain_generic_parity.py::test_phase144_6_r5_20_final_group_is_present_in_generic
+03342	PASS	4.45s	tests/test_phase144_6_r5_20_pi6_3_proof_chain_generic_parity.py::test_phase144_6_r5_20_definition_is_present_in_generic
+03343	PASS	4.32s	tests/test_phase144_6_r5_20_pi6_3_proof_chain_generic_parity.py::test_phase144_6_r5_20_short_exact_sequence_is_present_in_generic
+03344	PASS	4.47s	tests/test_phase144_6_r5_20_pi6_3_proof_chain_generic_parity.py::test_phase144_6_r5_20_reports_missing_items_instead_of_forcing_parity
+03345	PASS	6.39s	tests/test_phase144_6_r5_21_missing_7_facts_generic_provider_audit.py::test_phase144_6_r5_21_traces_exactly_phase20_missing_seven
+03346	PASS	5.57s	tests/test_phase144_6_r5_21_missing_7_facts_generic_provider_audit.py::test_phase144_6_r5_21_classifies_every_missing_fact_at_one_loss_stage
+03347	PASS	6.46s	tests/test_phase144_6_r5_21_missing_7_facts_generic_provider_audit.py::test_phase144_6_r5_21_reports_presentation_step_counts
+03348	PASS	5.27s	tests/test_phase144_6_r5_21_missing_7_facts_generic_provider_audit.py::test_phase144_6_r5_21_reports_proof_chain_provider_hits
+03349	PASS	4.67s	tests/test_phase144_6_r5_21_missing_7_facts_generic_provider_audit.py::test_phase144_6_r5_21_reports_local_body_membership
+03350	PASS	4.23s	tests/test_phase144_6_r5_21_missing_7_facts_generic_provider_audit.py::test_phase144_6_r5_21_does_not_assume_all_missing_facts_have_same_cause
+03351	PASS	5.56s	tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py::test_phase144_6_r5_22_traces_exactly_phase21_not_found_four
+03352	PASS	5.34s	tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py::test_phase144_6_r5_22_classifies_each_fact_by_statement_structure
+03353	PASS	5.83s	tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py::test_phase144_6_r5_22_reports_exact_conclusion_hits
+03354	PASS	5.50s	tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py::test_phase144_6_r5_22_reports_embedded_conclusion_hits
+03355	PASS	7.28s	tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py::test_phase144_6_r5_22_reports_recursive_premise_hits
+03356	PASS	5.97s	tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py::test_phase144_6_r5_22_nu_eta6_is_a_structural_object_not_a_fake_membership_step
+03357	PASS	6.26s	tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py::test_phase144_6_r5_22_does_not_require_any_specific_location_in_advance
+03358	PASS	5.65s	tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_traces_all_phase20_missing_seven
+03359	PASS	5.43s	tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_classifies_every_fact_by_visibility_path
+03360	PASS	5.52s	tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_uses_canonical_structure_not_rendered_needles
+03361	PASS	5.04s	tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_reports_provider_paths
+03362	PASS	4.90s	tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_reports_local_body_and_frontier_paths
+03363	PASS	5.21s	tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_tracks_nu_eta6_through_equation57_parent
+03364	PASS	4.90s	tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_preserves_phase21_frontier_hidden_diagnosis
+03365	PASS	4.99s	tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_does_not_require_a_fix_in_advance
+03366	PASS	13.32s	tests/test_phase144_6_r5_24_generic_visibility_policy_correction_design_audit.py::test_phase144_6_r5_24_audits_all_six_representative_groups
+03367	PASS	11.46s	tests/test_phase144_6_r5_24_generic_visibility_policy_correction_design_audit.py::test_phase144_6_r5_24_reports_hypothetical_provider_release_counts
+03368	PASS	12.13s	tests/test_phase144_6_r5_24_generic_visibility_policy_correction_design_audit.py::test_phase144_6_r5_24_pi6_has_provider_steps_currently_hidden
+03369	PASS	5.05s	tests/test_phase144_6_r5_24_generic_visibility_policy_correction_design_audit.py::test_phase144_6_r5_24_traces_both_phase23_local_body_visible_hopf_facts
+03370	PASS	5.28s	tests/test_phase144_6_r5_24_generic_visibility_policy_correction_design_audit.py::test_phase144_6_r5_24_visible_hopf_facts_are_not_frontier_losses
+03371	PASS	5.22s	tests/test_phase144_6_r5_24_generic_visibility_policy_correction_design_audit.py::test_phase144_6_r5_24_classifies_post_frontier_loss_stage
+03372	PASS	5.36s	tests/test_phase144_6_r5_25_multi_argument_suppression_selective_frontier_relevance_audit.py::test_phase144_6_r5_25_traces_both_visible_hopf_facts
+03373	PASS	6.66s	tests/test_phase144_6_r5_25_multi_argument_suppression_selective_frontier_relevance_audit.py::test_phase144_6_r5_25_classifies_multi_argument_suppression
+
+Summary
+------------------------------------------------------------------------------
+Failures: 0
+Timeouts: 0
+TIMEOUT is a concrete 32% stall candidate; slow PASS rows are remaining hotspots.

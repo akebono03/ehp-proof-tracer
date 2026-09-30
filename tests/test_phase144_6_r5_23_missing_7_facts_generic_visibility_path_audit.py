@@ -1,8 +1,16 @@
+from functools import lru_cache
 from audit_phase144_6_r5_23 import (
   FACT_KEYS,
   VisibilityPath,
   build_visibility_path_traces,
 )
+
+
+_uncached_build_visibility_path_traces = build_visibility_path_traces
+
+@lru_cache(maxsize=1)
+def build_visibility_path_traces():
+  return _uncached_build_visibility_path_traces()
 
 
 def test_phase144_6_r5_23_traces_all_phase20_missing_seven():

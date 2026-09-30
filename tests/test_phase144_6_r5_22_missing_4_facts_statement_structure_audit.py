@@ -1,8 +1,16 @@
+from functools import lru_cache
 from audit_phase144_6_r5_22 import (
   MISSING_KEYS,
   StructureLocation,
   build_statement_structure_traces,
 )
+
+
+_uncached_build_statement_structure_traces = build_statement_structure_traces
+
+@lru_cache(maxsize=1)
+def build_statement_structure_traces():
+  return _uncached_build_statement_structure_traces()
 
 
 def test_phase144_6_r5_22_traces_exactly_phase21_not_found_four():

@@ -1,9 +1,17 @@
+from functools import lru_cache
 from audit_phase144_6_r5_20 import (
   ParityKind,
   ParityStatus,
   build_parity_audit,
   parity_requirements,
 )
+
+
+_uncached_build_parity_audit = build_parity_audit
+
+@lru_cache(maxsize=1)
+def build_parity_audit():
+  return _uncached_build_parity_audit()
 
 
 def test_phase144_6_r5_20_freezes_dedicated_parity_requirements():

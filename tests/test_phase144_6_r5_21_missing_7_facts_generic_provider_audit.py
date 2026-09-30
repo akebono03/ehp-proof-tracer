@@ -1,8 +1,16 @@
+from functools import lru_cache
 from audit_phase144_6_r5_21 import (
   MISSING_KEYS,
   LossStage,
   build_missing_fact_traces,
 )
+
+
+_uncached_build_missing_fact_traces = build_missing_fact_traces
+
+@lru_cache(maxsize=1)
+def build_missing_fact_traces():
+  return _uncached_build_missing_fact_traces()
 
 
 def test_phase144_6_r5_21_traces_exactly_phase20_missing_seven():

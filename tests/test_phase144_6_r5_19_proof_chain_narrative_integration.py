@@ -1,4 +1,5 @@
 import pytest
+from functools import lru_cache
 
 from tests.test_phase144_6_r5_18_production_generic_proof_chain_foundation import (
   TARGETS,
@@ -12,7 +13,13 @@ from toda_group_proof_narrative_argument_multi_renderer import (
 )
 
 
-def _render_pair(n, k):
+_uncached_context = _context
+
+@lru_cache(maxsize=None)
+def _context(n, k):
+  return _uncached_context(n, k)
+
+def _uncached_render_pair(n, k):
   (
     presentation,
     semantic_sidecar,
@@ -46,6 +53,10 @@ def _render_pair(n, k):
     proof_chains,
   )
 
+
+@lru_cache(maxsize=None)
+def _render_pair(n, k):
+  return _uncached_render_pair(n, k)
 
 def test_phase144_6_r5_19_proof_chain_integration_preserves_generic_output():
   for n, k in TARGETS:
