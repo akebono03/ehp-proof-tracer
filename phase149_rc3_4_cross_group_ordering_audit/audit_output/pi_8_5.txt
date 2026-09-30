@@ -1,0 +1,173 @@
+==============================================================================
+pi_8^5
+==============================================================================
+blocks=23
+arguments=4
+
+ARGUMENT ORDERING RECORDS
+------------------------------------------------------------------------------
+argument_index=0
+role=establish_group_structure
+conclusion_block_index=0
+conclusion_position=8
+owned_primary_block_indices=()
+evidence_positions=()
+ordering_ok=True
+
+BODY
+したがって,
+
+$\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$
+
+$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+
+$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+
+$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
+
+$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+
+$E^{2}: \pi_{6}^{3} \to \pi_{8}^{5}$ は単射である.
+
+$\pi_{8}^{5}/E^{2}\left(\pi_{6}^{3}\right) \cong \mathbb{Z}/2$
+
+$\nu' \in \pi_{6}^{3}$
+
+$E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.
+
+$\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.
+
+$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+
+$2\eta_{3} = 0$
+
+$H\left(\nu'\right) = \eta_{5}$
+
+------------------------------------------------------------------------------
+argument_index=1
+role=establish_order
+conclusion_block_index=1
+conclusion_position=56
+owned_primary_block_indices=()
+evidence_positions=()
+ordering_ok=True
+
+BODY
+$\operatorname{ord}\left(E^{2}\nu'\right) = 4$
+
+したがって,
+
+$\operatorname{ord}\left(\nu_{5}\right) = 8$
+
+$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+
+$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+
+$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
+
+$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+
+$E^{2}: \pi_{6}^{3} \to \pi_{8}^{5}$ は単射である.
+
+$2\nu_{5} = E^{2}\nu'$
+
+$\nu' \in \pi_{6}^{3}$
+
+$E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.
+
+$\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.
+
+$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+
+$2\eta_{3} = 0$
+
+$H\left(\nu'\right) = \eta_{5}$
+
+------------------------------------------------------------------------------
+argument_index=2
+role=establish_definition
+conclusion_block_index=2
+conclusion_position=8
+owned_primary_block_indices=()
+evidence_positions=()
+ordering_ok=True
+
+BODY
+したがって,
+
+$\nu_{5}$ を \(\nu\)-family の元として定める.
+
+------------------------------------------------------------------------------
+argument_index=3
+role=establish_order
+conclusion_block_index=7
+conclusion_position=380
+owned_primary_block_indices=(10,)
+evidence_positions=(('0\\longrightarrow \\pi_{5}^{2}\\xrightarrow{E} \\pi_{6}^{3}\\xrightarrow{H} \\pi_{6}^{5}\\longrightarrow 0', 219),)
+ordering_ok=True
+
+BODY
+$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+
+$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+
+$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
+
+$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+
+この完全性と両端の写像の性質より, 次の短完全列を得る.
+
+$0\longrightarrow \pi_{5}^{2}\xrightarrow{E} \pi_{6}^{3}\xrightarrow{H} \pi_{6}^{5}\longrightarrow 0$
+
+$\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+
+したがって,
+
+$\operatorname{ord}\left(\nu'\right) = 4$
+
+$\nu' \in \pi_{6}^{3}$
+
+$E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.
+
+$\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.
+
+$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+
+$2\nu' = \eta_{3}^{3}$
+
+$2\eta_{3} = 0$
+
+$H\left(\nu'\right) = \eta_{5}$
+
+==============================================================================
+FINAL NARRATIVE
+==============================================================================
+使用する結果を先にまとめる.
+
+**[R1] (5.3) / Lemma 5.2.**
+**[R2] (5.2).**
+**[R3] Proposition 5.1.**
+
+まず、$\nu_{5}$ を定める.
+
+$\nu_{5}$ を \(\nu\)-family の元として定める.
+
+次に、$\nu_{5}$ の位数を決定する.
+
+$2\nu_{5} = E^{2}\nu'$
+
+$\operatorname{ord}\left(E^{2}\nu'\right) = 4$
+
+以上より、
+
+$\operatorname{ord}\left(\nu_{5}\right) = 8$
+
+最後に、$\pi_{8}^{5}$ の群構造を決定する.
+
+$\operatorname{ord}\left(\nu'\right) = 4$
+
+$\pi_{8}^{5}/E^{2}\left(\pi_{6}^{3}\right) \cong \mathbb{Z}/2$
+
+以上より、
+
+$\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$
