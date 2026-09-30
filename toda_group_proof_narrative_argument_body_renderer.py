@@ -1,6 +1,7 @@
 from toda_group_proof_generic_narrative_renderer import (
   _generic_narrative_dependency_labels,
   _generic_narrative_sentence_lead,
+  _generic_short_exact_sequence_reason_prose,
   _render_generic_narrative_proof_block,
   _render_generic_narrative_step,
 )
@@ -185,9 +186,21 @@ def _render_toda_group_proof_narrative_argument_exactness_body_block(
       is TodaGroupProofNarrativeExactnessDisplayContributionKind
       .DERIVED_SHORT_EXACT_SEQUENCE
     ):
+      reason_prose = (
+        _generic_short_exact_sequence_reason_prose(
+          presentation,
+          contribution.proof_step,
+        )
+      )
+
+      if reason_prose is None:
+        raise ValueError(
+          "derived short exact sequence must have "
+          "typed reason prose"
+        )
+
       lines.append(
-        "この完全性と両端の写像の性質より, "
-        "次の短完全列を得る."
+        reason_prose
       )
       lines.append(
         ""

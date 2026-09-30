@@ -918,6 +918,27 @@ def _generic_short_exact_sequence_latex(
   )
 
 
+def _generic_short_exact_sequence_reason_prose(
+  presentation: TodaGroupProofPresentation,
+  exactness_step: ProofStep,
+) -> str | None:
+  short_exact_sequence_latex = (
+    _generic_short_exact_sequence_latex(
+      presentation,
+      exactness_step,
+    )
+  )
+
+  if short_exact_sequence_latex is None:
+    return None
+
+  return (
+    "この完全性と、左の写像が単射、"
+    "右の写像が全射であることより、"
+    "次の短完全列を得る."
+  )
+
+
 def _generic_narrative_dependency_labels(
   presentation: TodaGroupProofPresentation,
   blocks: tuple[
@@ -1128,9 +1149,21 @@ def _render_generic_narrative_proof_block(
     )
 
     if short_exact_sequence_latex is not None:
+      reason_prose = (
+        _generic_short_exact_sequence_reason_prose(
+          presentation,
+          proof_step,
+        )
+      )
+
+      if reason_prose is None:
+        raise ValueError(
+          "short exact sequence reason prose "
+          "must exist when the sequence exists"
+        )
+
       lines.append(
-        "この完全性と両端の写像の性質より, "
-        "次の短完全列を得る."
+        reason_prose
       )
       lines.append(
         ""

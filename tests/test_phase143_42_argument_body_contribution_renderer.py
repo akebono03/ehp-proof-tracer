@@ -171,7 +171,8 @@ def test_phase143_42_pi6_3_group_keeps_derived_short_exact_sequence():
   )
 
   assert (
-    "この完全性と両端の写像の性質より, "
+    "この完全性と、左の写像が単射、"
+    "右の写像が全射であることより、"
     "次の短完全列を得る."
     in rendered
   )
