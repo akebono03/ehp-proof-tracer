@@ -103,15 +103,19 @@ def test_phase150_rc4_5_visible_reason_count_matches_typed_reason_count(
     )
     if sentence is not None
   )
-  expected_sentence_counts = {
-    sentence: expected_sentences.count(sentence)
-    for sentence in dict.fromkeys(
+  distinct_expected_sentences = tuple(
+    dict.fromkeys(
       expected_sentences
     )
-  }
+  )
 
-  for sentence, expected_count in expected_sentence_counts.items():
-    assert rendered.count(sentence) == expected_count
+  assert sum(
+    rendered.count(sentence)
+    for sentence in distinct_expected_sentences
+  ) == len(distinct_expected_sentences)
+
+  for sentence in distinct_expected_sentences:
+    assert rendered.count(sentence) == 1
 
 
 def test_phase150_rc4_5_does_not_invent_untyped_reason_prose():

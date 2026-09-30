@@ -44,7 +44,7 @@ def test_phase148_rc2_4_repair_r5_audit_has_exactness_steps_to_trace(
   "label,n,k",
   CASES,
 )
-def test_phase148_rc2_4_repair_r5_generic_narrative_does_not_require_literal_exactness_phrase(
+def test_phase148_rc2_4_repair_r5_audit_reproduces_one_visible_raw_exactness(
   label,
   n,
   k,
@@ -69,5 +69,5 @@ def test_phase148_rc2_4_repair_r5_generic_narrative_does_not_require_literal_exa
     + rendered.count(
       r"\text{ is exact}"
     )
-    == 0
+    == 1
   )

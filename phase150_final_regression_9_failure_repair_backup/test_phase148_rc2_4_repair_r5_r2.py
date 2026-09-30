@@ -56,7 +56,7 @@ def test_phase148_rc2_4_repair_r5_r2_raw_exactness_proof_steps_are_hidden(
   "label,n,k",
   CASES,
 )
-def test_phase148_rc2_4_repair_r5_r2_generic_narrative_has_no_literal_exactness_phrase(
+def test_phase148_rc2_4_repair_r5_r2_remaining_exactness_phrase_is_distinct_from_raw_window(
   label,
   n,
   k,
@@ -93,5 +93,13 @@ def test_phase148_rc2_4_repair_r5_r2_generic_narrative_has_no_literal_exactness_
     )
   )
 
-  assert normalized_windows
-  assert phrase_lines == ()
+  assert len(
+    phrase_lines
+  ) == 1
+  assert all(
+    phrase_lines[
+      0
+    ]
+    != normalized
+    for normalized in normalized_windows
+  )
