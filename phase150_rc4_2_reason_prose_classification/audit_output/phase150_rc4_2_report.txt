@@ -1,0 +1,320 @@
+==============================================================================
+Phase 150 / RC4-2 Reason-prose classification
+Production changes: none
+Existing test changes: none
+Repository-wide tests: not run
+==============================================================================
+
+RC4-1 FALSE DIAGNOSIS
+------------------------------------------------------------------------------
+[3] current_required_facts_present=False was a prose-regex limitation: the current Narrative does not print the upstream H:pi_7^3->pi_7^5 surjectivity fact, while the proof structure still contains exactness and typed MAP_PROPERTY blocks.
+pi6_exactness_block_indices=[5, 12, 20]
+pi6_map_property_statement_types=[(4, ('TodaSuspensionInjectiveStatement', 'TodaDeltaZeroStatement', 'TodaHopfInvariantSurjectiveStatement')), (6, ('TodaHopfInvariantSurjectiveStatement',)), (17, ('TodaSuspensionIsomorphismStatement',)), (23, ('TodaDeltaImageUpToSignStatement',))]
+
+PROPOSED GENERIC REASON RELATIONS
+------------------------------------------------------------------------------
+[1] DEFINITION_APPLICABILITY
+shape: PRECONDITION + semantic dependency PRECONDITION_FOR_DEFINITION -> DEFINITION
+semantic source: already typed
+classification: generic
+
+[2] DERIVED_EQUALITY
+shape: CALCULATION -> CALCULATION dependency chain
+semantic source: graph edges + Relation(EQUALITY)
+classification: generic
+
+[3] EXACTNESS_TO_MAP_PROPERTY
+shape: EXACTNESS + MAP_PROPERTY premise(s) -> MAP_PROPERTY
+semantic source: block roles + graph/exactness ownership
+classification: generic; inspect concrete map-property statement type for wording
+
+[4] TRANSPORTED_ORDER
+shape: GROUP_STRUCTURE/ORDER + MAP_PROPERTY + transport -> ORDER
+semantic source: block roles + hidden transport semantics
+classification: generic
+
+[5] MULTIPLE_RELATION_TO_ORDER
+shape: CALCULATION + ORDER -> ORDER
+semantic source: graph edges + relation shape
+classification: generic
+
+[6] SHORT_EXACT_DERIVATION
+shape: EXACTNESS + endpoint MAP_PROPERTY -> exactness display contribution
+semantic source: exactness component/exposure + map-property evidence
+classification: generic
+
+[7] SHORT_EXACT_TO_GROUP_ORDER
+shape: EXACTNESS + endpoint GROUP_STRUCTURE -> GROUP_STRUCTURE
+semantic source: argument method evidence + graph dependencies
+classification: generic
+
+[8] MEMBER_OF_FULL_ORDER_GENERATES
+shape: MEMBERSHIP + ORDER + GROUP_STRUCTURE -> GROUP_STRUCTURE
+semantic source: block roles + relation subjects
+classification: generic
+
+DESIGN CONCLUSION
+------------------------------------------------------------------------------
+Do not key reason prose by pi_6^3, nu', proposition number, or rendered text.
+Reason classification should be derived before prose rendering.
+Preferred pipeline:
+ProofStep / block role / dependency / exactness ownership / hidden transport
+  -> generic reason relation
+  -> generic prose renderer
+
+RC4-3 should introduce only the minimal typed reason-relation model needed
+for relations that are actually supported by current semantics.
+
+CROSS-GROUP EDGE ROLE POPULATION
+------------------------------------------------------------------------------
+calculation -> group_structure: 1
+calculation -> map_property: 2
+calculation -> order: 3
+calculation -> other: 2
+calculation -> reference: 3
+definition -> calculation: 2
+definition -> group_structure: 1
+definition -> order: 1
+definition -> other: 1
+definition -> reference: 2
+definition -> target: 3
+exactness -> group_structure: 2
+exactness -> map_property: 5
+exactness -> other: 2
+exactness -> target: 1
+group_structure -> map_property: 3
+group_structure -> order: 3
+group_structure -> other: 22
+group_structure -> precondition: 1
+group_structure -> reference: 3
+group_structure -> target: 6
+map_property -> group_structure: 5
+map_property -> order: 3
+map_property -> other: 4
+map_property -> reference: 1
+map_property -> target: 3
+membership -> group_structure: 1
+membership -> other: 1
+membership -> target: 1
+order -> group_structure: 1
+order -> target: 2
+other -> calculation: 2
+other -> definition: 3
+other -> exactness: 2
+other -> group_structure: 9
+other -> map_property: 5
+other -> reference: 10
+other -> target: 5
+precondition -> calculation: 2
+precondition -> membership: 2
+reference -> calculation: 3
+reference -> definition: 2
+reference -> group_structure: 5
+reference -> map_property: 3
+reference -> membership: 2
+reference -> other: 5
+reference -> target: 1
+
+AUDIT_RESULT=PASS
+
+==============================================================================
+pi_6^3
+blocks=25 arguments=3 edges=44
+block_roles=('target', 'order', 'membership', 'group_structure', 'map_property', 'exactness', 'map_property', 'group_structure', 'calculation', 'reference', 'precondition', 'reference', 'exactness', 'calculation', 'reference', 'definition', 'group_structure', 'map_property', 'calculation', 'group_structure', 'exactness', 'group_structure', 'calculation', 'map_property', 'group_structure')
+edge_role_pairs:
+  order -> target
+  membership -> target
+  group_structure -> target
+  map_property -> target
+  exactness -> target
+  map_property -> target
+  group_structure -> target
+  calculation -> order
+  reference -> membership
+  precondition -> membership
+  reference -> group_structure
+  exactness -> map_property
+  calculation -> map_property
+  reference -> map_property
+  reference -> group_structure
+  group_structure -> order
+  map_property -> order
+  definition -> reference
+  group_structure -> precondition
+  map_property -> group_structure
+  calculation -> group_structure
+  group_structure -> reference
+  exactness -> map_property
+  group_structure -> reference
+  calculation -> reference
+  map_property -> reference
+  group_structure -> reference
+  reference -> calculation
+  precondition -> calculation
+  reference -> group_structure
+  reference -> calculation
+  precondition -> calculation
+semantic_dependency_pairs:
+  precondition_for_definition: precondition -> definition
+hidden_bridge_semantics=(('transport', 'Proposition 5.3', None),)
+
+==============================================================================
+pi_8^5
+blocks=23 arguments=4 edges=37
+block_roles=('target', 'order', 'definition', 'group_structure', 'map_property', 'other', 'calculation', 'order', 'membership', 'map_property', 'exactness', 'map_property', 'reference', 'reference', 'calculation', 'reference', 'precondition', 'reference', 'exactness', 'calculation', 'reference', 'other', 'other')
+edge_role_pairs:
+  order -> target
+  definition -> target
+  group_structure -> target
+  map_property -> target
+  other -> target
+  calculation -> order
+  definition -> order
+  order -> group_structure
+  membership -> group_structure
+  map_property -> group_structure
+  exactness -> group_structure
+  map_property -> group_structure
+  reference -> map_property
+  reference -> other
+  reference -> calculation
+  definition -> calculation
+  group_structure -> order
+  map_property -> order
+  calculation -> order
+  reference -> membership
+  precondition -> membership
+  reference -> group_structure
+  exactness -> map_property
+  calculation -> map_property
+  reference -> map_property
+  reference -> group_structure
+  other -> reference
+  other -> reference
+  other -> reference
+  group_structure -> order
+  map_property -> order
+semantic_dependency_pairs:
+hidden_bridge_semantics=(('transport', 'Proposition 5.3', None),)
+
+==============================================================================
+pi_10^4
+blocks=22 arguments=1 edges=29
+block_roles=('target', 'group_structure', 'group_structure', 'reference', 'map_property', 'map_property', 'exactness', 'other', 'other', 'other', 'other', 'exactness', 'other', 'other', 'other', 'other', 'group_structure', 'group_structure', 'reference', 'membership', 'calculation', 'calculation')
+edge_role_pairs:
+  group_structure -> target
+  group_structure -> target
+  reference -> target
+  map_property -> group_structure
+  map_property -> group_structure
+  exactness -> group_structure
+  other -> group_structure
+  other -> reference
+  other -> reference
+  other -> map_property
+  exactness -> map_property
+  other -> map_property
+  other -> map_property
+  other -> map_property
+  other -> exactness
+  group_structure -> other
+  group_structure -> other
+  group_structure -> other
+  group_structure -> other
+  group_structure -> other
+  reference -> other
+  membership -> other
+  calculation -> other
+  calculation -> other
+  other -> group_structure
+semantic_dependency_pairs:
+hidden_bridge_semantics=()
+
+==============================================================================
+pi_12^5
+blocks=20 arguments=3 edges=30
+block_roles=('target', 'other', 'definition', 'map_property', 'exactness', 'group_structure', 'map_property', 'reference', 'group_structure', 'exactness', 'other', 'other', 'group_structure', 'group_structure', 'other', 'other', 'definition', 'other', 'calculation', 'calculation')
+edge_role_pairs:
+  other -> target
+  definition -> target
+  map_property -> other
+  exactness -> other
+  group_structure -> other
+  map_property -> other
+  reference -> other
+  other -> definition
+  reference -> definition
+  group_structure -> map_property
+  exactness -> map_property
+  other -> exactness
+  other -> group_structure
+  group_structure -> other
+  group_structure -> other
+  group_structure -> other
+  other -> map_property
+  group_structure -> map_property
+  group_structure -> map_property
+  other -> reference
+  definition -> reference
+  other -> reference
+  calculation -> reference
+  calculation -> reference
+  other -> calculation
+  definition -> calculation
+  other -> calculation
+semantic_dependency_pairs:
+hidden_bridge_semantics=()
+
+==============================================================================
+pi_15^8
+blocks=8 arguments=1 edges=14
+block_roles=('target', 'other', 'reference', 'group_structure', 'group_structure', 'other', 'other', 'other')
+edge_role_pairs:
+  other -> target
+  reference -> other
+  group_structure -> other
+  group_structure -> other
+  other -> reference
+  other -> reference
+  other -> group_structure
+  other -> group_structure
+  group_structure -> other
+  group_structure -> other
+  group_structure -> other
+semantic_dependency_pairs:
+hidden_bridge_semantics=()
+
+==============================================================================
+pi_16^9
+blocks=11 arguments=3 edges=38
+block_roles=('target', 'other', 'other', 'definition', 'group_structure', 'definition', 'map_property', 'exactness', 'group_structure', 'map_property', 'reference')
+edge_role_pairs:
+  other -> target
+  other -> target
+  definition -> target
+  group_structure -> target
+  group_structure -> other
+  group_structure -> other
+  other -> definition
+  other -> group_structure
+  definition -> group_structure
+  definition -> other
+  group_structure -> other
+  group_structure -> other
+  group_structure -> other
+  other -> group_structure
+  other -> group_structure
+  map_property -> other
+  exactness -> other
+  group_structure -> other
+  map_property -> other
+  reference -> other
+  other -> definition
+  reference -> definition
+  group_structure -> other
+  group_structure -> other
+  other -> group_structure
+  other -> reference
+semantic_dependency_pairs:
+hidden_bridge_semantics=()
+
