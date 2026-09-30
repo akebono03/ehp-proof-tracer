@@ -1,0 +1,714 @@
+﻿n,k,stem,group,node_index,block_index,block_role,statement_type,inference_rule_name,fallback_kind,is_other,is_fallback,other_and_fallback
+2,0,0,pi_2^2,0,0,target,Relation,,,False,False,False
+2,1,1,pi_3^2,0,0,target,Relation,Toda pi_3^2 free cyclic generator transport,,False,False,False
+2,1,1,pi_3^2,1,1,map_property,TodaHopfInvariantIsomorphismStatement,Toda Hopf invariant injective and surjective implies isomorphism,,False,False,False
+2,1,1,pi_3^2,2,2,group_structure,Relation,,,False,False,False
+2,1,1,pi_3^2,3,3,other,TodaPi32Eta2DefinitionStatement,Toda pi_3^2 define eta_2 as unique Hopf preimage,rule_name,True,True,True
+2,1,1,pi_3^2,4,1,map_property,TodaHopfInvariantInjectiveStatement,Toda EHP exactness zero-left Hopf injectivity,,False,False,False
+2,1,1,pi_3^2,5,1,map_property,TodaHopfInvariantSurjectiveStatement,Toda EHP exactness zero-Delta Hopf surjectivity,,False,False,False
+2,2,2,pi_4^2,0,0,target,Relation,Toda 5.2 pi_4^2 finite-cyclic transport,,False,False,False
+2,2,2,pi_4^2,1,1,group_structure,Relation,Toda pi_4^3 eta_3 generator notation,,False,False,False
+2,2,2,pi_4^2,2,2,reference,Toda52CompositionIsomorphismStatement,Toda 5.2 eta_2 composition isomorphism,rule_name,False,True,False
+2,2,2,pi_4^2,3,1,group_structure,Relation,Toda pi_4^3 finite cyclic quotient calculation,,False,False,False
+2,2,2,pi_4^2,4,3,calculation,Relation,Toda eta_3 notation suspension bridge,,False,False,False
+2,2,2,pi_4^2,5,4,group_structure,TodaPrimaryGroupZeroStatement,Toda pi_(i-1)^1 zero for i at least 3,,False,False,False
+2,2,2,pi_4^2,6,2,reference,TodaProp44IsomorphismStatement,Toda Proposition 4.4 eta_2 n=2 specialization,rule_name,False,True,False
+2,2,2,pi_4^2,7,2,reference,TodaProp44SecondSummandRestrictionStatement,Toda Proposition 4.4 eta_2 second-summand restriction,rule_name,False,True,False
+2,3,3,pi_5^2,0,0,target,Relation,Toda Proposition 5.6 pi_5^2 eta_2 cube,,False,False,False
+2,3,3,pi_5^2,1,1,group_structure,Relation,Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport,,False,False,False
+2,3,3,pi_5^2,2,2,reference,Toda52CompositionIsomorphismStatement,Toda 5.2 eta_2 composition isomorphism,rule_name,False,True,False
+2,3,3,pi_5^2,3,1,group_structure,Relation,Toda 5.2 pi_4^2 finite-cyclic transport,,False,False,False
+2,3,3,pi_5^2,4,3,map_property,TodaSuspensionIsomorphismStatement,Toda Proposition 5.3 n=3 suspension isomorphism,,False,False,False
+2,3,3,pi_5^2,5,4,calculation,Relation,Toda Proposition 5.3 n=3 eta-square suspension bridge,,False,False,False
+2,3,3,pi_5^2,6,5,group_structure,TodaPrimaryGroupZeroStatement,Toda pi_(i-1)^1 zero for i at least 3,,False,False,False
+2,3,3,pi_5^2,7,2,reference,TodaProp44IsomorphismStatement,Toda Proposition 4.4 eta_2 n=2 specialization,rule_name,False,True,False
+2,3,3,pi_5^2,8,2,reference,TodaProp44SecondSummandRestrictionStatement,Toda Proposition 4.4 eta_2 second-summand restriction,rule_name,False,True,False
+2,4,4,pi_6^2,0,0,target,Relation,Toda Lemma 5.7 pi_6^2 eta_2 nu-prime,,False,False,False
+2,4,4,pi_6^2,1,1,other,TodaProp56FiniteDimensionalStatement,Toda Proposition 5.6 finite-dimensional integration,rule_name,True,True,True
+2,4,4,pi_6^2,2,2,reference,Toda52CompositionIsomorphismStatement,Toda 5.2 eta_2 composition isomorphism,rule_name,False,True,False
+2,4,4,pi_6^2,3,3,group_structure,Relation,Toda Proposition 5.6 pi_5^2 eta_2 cube,,False,False,False
+2,4,4,pi_6^2,4,3,group_structure,Relation,Toda Proposition 5.6 pi_6^3 finite cyclic,,False,False,False
+2,4,4,pi_6^2,5,3,group_structure,Relation,Toda Proposition 5.6 pi_7^4 decomposition,,False,False,False
+2,4,4,pi_6^2,6,3,group_structure,Relation,Toda Proposition 5.6 pi_8^5 finite cyclic,,False,False,False
+2,4,4,pi_6^2,7,4,group_structure,Relation,Toda Proposition 5.6 higher nu finite-cyclic generator bridge,,False,False,False
+2,4,4,pi_6^2,8,1,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+2,4,4,pi_6^2,9,5,group_structure,TodaPrimaryGroupZeroStatement,Toda pi_(i-1)^1 zero for i at least 3,,False,False,False
+2,4,4,pi_6^2,10,2,reference,TodaProp44IsomorphismStatement,Toda Proposition 4.4 eta_2 n=2 specialization,rule_name,False,True,False
+2,4,4,pi_6^2,11,2,reference,TodaProp44SecondSummandRestrictionStatement,Toda Proposition 4.4 eta_2 second-summand restriction,rule_name,False,True,False
+2,5,5,pi_7^2,0,0,target,Relation,Toda Proposition 5.9 pi_7^2 eta_2 nu-prime eta_6,,False,False,False
+2,5,5,pi_7^2,1,1,group_structure,Relation,Toda Proposition 5.8 pi_7^3 finite cyclic,,False,False,False
+2,5,5,pi_7^2,2,2,reference,Toda52CompositionIsomorphismStatement,Toda 5.2 eta_2 composition isomorphism,rule_name,False,True,False
+2,5,5,pi_7^2,3,3,map_property,TodaHopfInvariantIsomorphismStatement,Toda Hopf invariant injective and surjective implies isomorphism,,False,False,False
+2,5,5,pi_7^2,4,4,calculation,Relation,Toda Equation 5.7 nu-prime eta_6 Hopf value,,False,False,False
+2,5,5,pi_7^2,5,5,other,TodaProp53FiniteDimensionalStatement,Toda Proposition 5.3 finite-dimensional integration,rule_name,True,True,True
+2,5,5,pi_7^2,6,6,group_structure,TodaPrimaryGroupZeroStatement,Toda pi_(i-1)^1 zero for i at least 3,,False,False,False
+2,5,5,pi_7^2,7,2,reference,TodaProp44IsomorphismStatement,Toda Proposition 4.4 eta_2 n=2 specialization,rule_name,False,True,False
+2,5,5,pi_7^2,8,2,reference,TodaProp44SecondSummandRestrictionStatement,Toda Proposition 4.4 eta_2 second-summand restriction,rule_name,False,True,False
+2,6,6,pi_8^2,0,0,target,Relation,Toda Proposition 5.11 pi_8^2 from Proposition 5.9 and Toda (5.2),,False,False,False
+2,6,6,pi_8^2,1,1,other,TodaProp59FiniteDimensionalStatement,Toda Proposition 5.9 finite-dimensional integration,rule_name,True,True,True
+2,6,6,pi_8^2,2,2,reference,Toda52CompositionIsomorphismStatement,Toda 5.2 eta_2 composition isomorphism,rule_name,False,True,False
+2,6,6,pi_8^2,3,3,group_structure,Relation,Toda Proposition 5.9 pi_7^2 eta_2 nu-prime eta_6,,False,False,False
+2,6,6,pi_8^2,4,4,group_structure,Relation,Toda Proposition 5.9 pi_8^3 finite cyclic,,False,False,False
+2,6,6,pi_8^2,5,4,group_structure,Relation,Toda Proposition 5.9 pi_9^4 decomposition,,False,False,False
+2,6,6,pi_8^2,6,4,group_structure,Relation,Toda Proposition 5.9 pi_10^5 finite cyclic,,False,False,False
+2,6,6,pi_8^2,7,5,group_structure,Relation,Toda Proposition 5.9 pi_11^6 free cyclic,,False,False,False
+2,6,6,pi_8^2,8,6,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.9 higher five-stem zero transport,,False,False,False
+2,6,6,pi_8^2,9,1,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+2,6,6,pi_8^2,10,7,group_structure,TodaPrimaryGroupZeroStatement,Toda pi_(i-1)^1 zero for i at least 3,,False,False,False
+2,6,6,pi_8^2,11,2,reference,TodaProp44IsomorphismStatement,Toda Proposition 4.4 eta_2 n=2 specialization,rule_name,False,True,False
+2,6,6,pi_8^2,12,2,reference,TodaProp44SecondSummandRestrictionStatement,Toda Proposition 4.4 eta_2 second-summand restriction,rule_name,False,True,False
+2,7,7,pi_9^2,0,0,target,TodaPrimaryGroupZeroStatement,Toda Proposition 5.15 pi_9^2 zero from Toda (5.2),,False,False,False
+2,7,7,pi_9^2,1,1,other,TodaProp511FiniteDimensionalStatement,Toda Proposition 5.11 finite-dimensional integration,rule_name,True,True,True
+2,7,7,pi_9^2,2,2,reference,Toda52CompositionIsomorphismStatement,Toda 5.2 eta_2 composition isomorphism,rule_name,False,True,False
+2,7,7,pi_9^2,3,3,group_structure,Relation,Toda Proposition 5.11 pi_8^2 from Proposition 5.9 and Toda (5.2),,False,False,False
+2,7,7,pi_9^2,4,4,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.11 pi_9^3 zero,,False,False,False
+2,7,7,pi_9^2,5,4,group_structure,Relation,Toda Proposition 5.11 pi_10^4 generated by nu_4 squared,,False,False,False
+2,7,7,pi_9^2,6,1,other,TodaProp511NuSquaredFiniteDimensionalStatement,Toda Proposition 5.11 nu-squared finite-dimensional integration,rule_name,True,True,True
+2,7,7,pi_9^2,7,5,group_structure,TodaPrimaryGroupZeroStatement,Toda pi_(i-1)^1 zero for i at least 3,,False,False,False
+2,7,7,pi_9^2,8,2,reference,TodaProp44IsomorphismStatement,Toda Proposition 4.4 eta_2 n=2 specialization,rule_name,False,True,False
+2,7,7,pi_9^2,9,2,reference,TodaProp44SecondSummandRestrictionStatement,Toda Proposition 4.4 eta_2 second-summand restriction,rule_name,False,True,False
+3,0,0,pi_3^3,0,0,target,Relation,,,False,False,False
+3,1,1,pi_4^3,0,0,target,Relation,Toda pi_4^3 eta_3 generator notation,,False,False,False
+3,1,1,pi_4^3,1,1,group_structure,Relation,Toda pi_4^3 finite cyclic quotient calculation,,False,False,False
+3,1,1,pi_4^3,2,2,calculation,Relation,Toda eta_3 notation suspension bridge,,False,False,False
+3,1,1,pi_4^3,3,1,group_structure,Relation,,,False,False,False
+3,1,1,pi_4^3,4,3,other,TodaSuspensionKernelFreeCyclicStatement,Toda pi_4^3 exactness Delta image equals E kernel,rule_name,True,True,True
+3,1,1,pi_4^3,5,4,map_property,TodaSuspensionSurjectiveStatement,Toda pi_4^3 E-H exactness zero-right suspension surjectivity,,False,False,False
+3,1,1,pi_4^3,6,5,other,TodaEtaFamilyDefinitionStatement,,type_name,True,True,True
+3,2,2,pi_5^3,0,0,target,Relation,Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport,,False,False,False
+3,2,2,pi_5^3,1,1,group_structure,Relation,Toda 5.2 pi_4^2 finite-cyclic transport,,False,False,False
+3,2,2,pi_5^3,2,2,map_property,TodaSuspensionIsomorphismStatement,Toda Proposition 5.3 n=3 suspension isomorphism,,False,False,False
+3,2,2,pi_5^3,3,3,calculation,Relation,Toda Proposition 5.3 n=3 eta-square suspension bridge,,False,False,False
+3,2,2,pi_5^3,4,1,group_structure,Relation,Toda pi_4^3 eta_3 generator notation,,False,False,False
+3,2,2,pi_5^3,5,4,reference,Toda52CompositionIsomorphismStatement,Toda 5.2 eta_2 composition isomorphism,rule_name,False,True,False
+3,2,2,pi_5^3,6,2,map_property,TodaSuspensionInjectiveStatement,Toda Proposition 5.3 n=3 Delta zero implies suspension injective,,False,False,False
+3,2,2,pi_5^3,7,2,map_property,TodaSuspensionSurjectiveStatement,Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective,,False,False,False
+3,2,2,pi_5^3,8,5,other,TodaEtaFamilyDefinitionStatement,,type_name,True,True,True
+3,2,2,pi_5^3,9,6,other,TodaEtaFamilyDefinitionStatement,,type_name,True,True,True
+3,3,3,pi_6^3,0,0,target,Relation,Toda Proposition 5.6 pi_6^3 finite cyclic,,False,False,False
+3,3,3,pi_6^3,1,1,order,Relation,Toda Proposition 5.6 nu-prime order four,,False,False,False
+3,3,3,pi_6^3,2,2,membership,HomotopyGroupMembershipStatement,Toda 5.3 nu-prime Lemma 5.2 membership specialization,,False,False,False
+3,3,3,pi_6^3,3,3,group_structure,Relation,Toda Proposition 5.6 pi_5^2 eta_2 cube,,False,False,False
+3,3,3,pi_6^3,4,4,map_property,TodaSuspensionInjectiveStatement,Toda Proposition 5.6 pi_5^2 suspension injective,,False,False,False
+3,3,3,pi_6^3,5,5,exactness,TodaProp42ExactnessStatement,,,False,False,False
+3,3,3,pi_6^3,6,6,map_property,TodaHopfInvariantSurjectiveStatement,Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity,,False,False,False
+3,3,3,pi_6^3,7,7,group_structure,Relation,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,,False,False,False
+3,3,3,pi_6^3,8,1,order,Relation,Toda Proposition 5.6 eta_3 cube order two,,False,False,False
+3,3,3,pi_6^3,9,8,calculation,Relation,equality transitivity,,False,False,False
+3,3,3,pi_6^3,10,9,reference,Toda53NuPrimeBracketSpecializationStatement,Toda 5.3 nu-prime Lemma 5.2 bracket specialization,rule_name,False,True,False
+3,3,3,pi_6^3,11,10,precondition,Relation,Toda 5.3 eta_3 twice zero,,False,False,False
+3,3,3,pi_6^3,12,3,group_structure,Relation,Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport,,False,False,False
+3,3,3,pi_6^3,13,11,reference,Toda52CompositionIsomorphismStatement,Toda 5.2 eta_2 composition isomorphism,rule_name,False,True,False
+3,3,3,pi_6^3,14,4,map_property,TodaDeltaZeroStatement,Toda Proposition 5.6 pi_7^5 Delta zero,,False,False,False
+3,3,3,pi_6^3,15,12,exactness,TodaProp42ExactnessStatement,,,False,False,False
+3,3,3,pi_6^3,16,13,calculation,Relation,equality transitivity,,False,False,False
+3,3,3,pi_6^3,17,14,reference,TodaProp51FiniteDimensionalStatement,Toda Proposition 5.1 finite-dimensional integration,rule_name,False,True,False
+3,3,3,pi_6^3,18,8,calculation,Relation,Toda 5.3 nu-prime Lemma 5.2 double specialization,,False,False,False
+3,3,3,pi_6^3,19,8,calculation,Relation,equality preserved under left composition,,False,False,False
+3,3,3,pi_6^3,20,15,definition,TodaBracketMembershipStatement,,,False,False,False
+3,4,4,pi_7^3,0,0,target,Relation,Toda Proposition 5.8 pi_7^3 finite cyclic,,False,False,False
+3,4,4,pi_7^3,1,1,map_property,TodaHopfInvariantIsomorphismStatement,Toda Hopf invariant injective and surjective implies isomorphism,,False,False,False
+3,4,4,pi_7^3,2,2,calculation,Relation,Toda Equation 5.7 nu-prime eta_6 Hopf value,,False,False,False
+3,4,4,pi_7^3,3,3,other,TodaProp53FiniteDimensionalStatement,Toda Proposition 5.3 finite-dimensional integration,rule_name,True,True,True
+3,4,4,pi_7^3,4,1,map_property,TodaHopfInvariantInjectiveStatement,Toda Proposition 5.8 pi_7^3 Hopf injective,,False,False,False
+3,4,4,pi_7^3,5,1,map_property,TodaHopfInvariantSurjectiveStatement,Toda Proposition 5.6 pi_7^3 Hopf surjective,,False,False,False
+3,4,4,pi_7^3,6,2,calculation,Relation,equality transitivity,,False,False,False
+3,4,4,pi_7^3,7,4,other,TodaEtaFamilyDefinitionStatement,,type_name,True,True,True
+3,4,4,pi_7^3,8,5,other,TodaEtaFamilyDefinitionStatement,,type_name,True,True,True
+3,4,4,pi_7^3,9,6,group_structure,Relation,Toda 5.2 pi_4^2 finite-cyclic transport,,False,False,False
+3,4,4,pi_7^3,10,6,group_structure,Relation,Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport,,False,False,False
+3,4,4,pi_7^3,11,6,group_structure,Relation,Toda Proposition 5.3 n=4 pi_6^4 finite-cyclic transport,,False,False,False
+3,4,4,pi_7^3,12,7,group_structure,Relation,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge,,False,False,False
+3,4,4,pi_7^3,13,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+3,5,5,pi_8^3,0,0,target,Relation,Toda Proposition 5.9 pi_8^3 finite cyclic,,False,False,False
+3,5,5,pi_8^3,1,1,map_property,TodaHopfInvariantInjectiveStatement,Toda Proposition 5.9 pi_8^3 Hopf injective,,False,False,False
+3,5,5,pi_8^3,2,2,exactness,TodaProp42ExactnessStatement,Toda Proposition 5.9 concrete H-Delta exactness,,False,False,False
+3,5,5,pi_8^3,3,3,other,TodaProp59DeltaKernelStatement,Toda Proposition 5.9 Delta nu_5 kernel,,True,False,False
+3,5,5,pi_8^3,4,4,calculation,Relation,Toda Proposition 5.9 nu-prime eta_6 squared Hopf value,,False,False,False
+3,5,5,pi_8^3,5,5,calculation,Relation,Toda Proposition 5.9 pi_7^2 suspension zero,,False,False,False
+3,5,5,pi_8^3,6,6,group_structure,Relation,Toda Proposition 5.9 pi_7^2 eta_2 nu-prime eta_6,,False,False,False
+3,5,5,pi_8^3,7,7,exactness,TodaProp42ExactnessStatement,Toda Proposition 5.9 concrete E-H exactness,,False,False,False
+3,5,5,pi_8^3,8,8,other,TodaEHPExactnessWindow,,,True,False,False
+3,5,5,pi_8^3,9,9,map_property,TodaDeltaImageUpToSignStatement,Toda Lemma 5.7 Delta nu_5 generator,,False,False,False
+3,5,5,pi_8^3,10,10,group_structure,Relation,Toda Proposition 5.6 pi_8^5 finite cyclic,,False,False,False
+3,5,5,pi_8^3,11,11,group_structure,Relation,Toda Lemma 5.7 pi_6^2 eta_2 nu-prime,,False,False,False
+3,5,5,pi_8^3,12,4,calculation,Relation,Toda Equation 5.7 nu-prime eta_6 Hopf value,,False,False,False
+3,5,5,pi_8^3,13,12,reference,Toda55NuFamilyFiniteDimensionalStatement,Toda 5.5 nu-family finite-dimensional integration,rule_name,False,True,False
+3,5,5,pi_8^3,14,13,other,TodaEtaFamilyDefinitionStatement,,type_name,True,True,True
+3,6,6,pi_9^3,0,0,target,TodaPrimaryGroupZeroStatement,Toda Proposition 5.11 pi_9^3 zero,,False,False,False
+3,6,6,pi_9^3,1,1,map_property,TodaHopfInvariantInjectiveStatement,Toda Proposition 5.11 zero E implies H injective,,False,False,False
+3,6,6,pi_9^3,2,2,map_property,TodaDeltaInjectiveStatement,Toda Proposition 5.11 pi_9^5 to pi_7^2 Delta injective,,False,False,False
+3,6,6,pi_9^3,3,3,exactness,TodaProp42ExactnessStatement,Toda Proposition 5.11 pi_9^3 concrete EHP exactness,,False,False,False
+3,6,6,pi_9^3,4,4,other,TodaSuspensionZeroStatement,Toda Proposition 5.11 E pi_8^2 zero,,True,False,False
+3,6,6,pi_9^3,5,5,exactness,TodaProp42ExactnessStatement,Toda Proposition 5.11 pi_9^3 concrete EHP exactness,,False,False,False
+3,6,6,pi_9^3,6,6,other,TodaDeltaSurjectiveStatement,Toda Proposition 5.11 zero E implies Delta surjective,rule_name,True,True,True
+3,6,6,pi_9^3,7,7,other,TodaProp58FiniteDimensionalStatement,Toda Proposition 5.8 finite-dimensional integration,rule_name,True,True,True
+3,6,6,pi_9^3,8,8,other,TodaProp59FiniteDimensionalStatement,Toda Proposition 5.9 finite-dimensional integration,rule_name,True,True,True
+3,6,6,pi_9^3,9,9,other,TodaEHPExactnessWindow,,,True,False,False
+3,7,7,pi_10^3,0,0,target,TodaPrimaryGroupZeroStatement,Toda Proposition 5.15 pi_10^3 zero,,False,False,False
+3,7,7,pi_10^3,1,1,map_property,TodaHopfInvariantInjectiveStatement,Toda EHP exactness zero-left Hopf injectivity,,False,False,False
+3,7,7,pi_10^3,2,2,map_property,TodaDeltaInjectiveStatement,Toda Proposition 5.15 pi_10^5 to pi_8^2 Delta injective,,False,False,False
+3,7,7,pi_10^3,3,3,exactness,TodaProp42ExactnessStatement,Toda Proposition 5.15 pi_10^3 concrete EHP exactness,,False,False,False
+3,7,7,pi_10^3,4,4,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.15 pi_9^2 zero from Toda (5.2),,False,False,False
+3,7,7,pi_10^3,5,5,exactness,TodaProp42ExactnessStatement,Toda Proposition 5.15 pi_10^3 concrete EHP exactness,,False,False,False
+3,7,7,pi_10^3,6,6,other,TodaDeltaSurjectiveStatement,Toda Proposition 5.15 pi_10^5 to pi_8^2 Delta surjective,rule_name,True,True,True
+3,7,7,pi_10^3,7,7,other,TodaProp59FiniteDimensionalStatement,Toda Proposition 5.9 finite-dimensional integration,rule_name,True,True,True
+3,7,7,pi_10^3,8,6,other,TodaProp511FiniteDimensionalStatement,Toda Proposition 5.11 finite-dimensional integration,rule_name,True,True,True
+3,7,7,pi_10^3,9,8,other,TodaEHPExactnessWindow,,,True,False,False
+4,0,0,pi_4^4,0,0,target,Relation,,,False,False,False
+4,1,1,pi_5^4,0,0,target,Relation,,,False,False,False
+4,1,1,pi_5^4,1,1,group_structure,Relation,Toda higher eta-family finite-cyclic generator bridge,,False,False,False
+4,1,1,pi_5^4,2,1,group_structure,Relation,Toda 4.5 pi_4^3 finite-cyclic transport,,False,False,False
+4,1,1,pi_5^4,3,2,calculation,Relation,Toda higher eta-family iterated suspension bridge,,False,False,False
+4,2,2,pi_6^4,0,0,target,Relation,Toda Proposition 5.3 n=4 pi_6^4 finite-cyclic transport,,False,False,False
+4,2,2,pi_6^4,1,1,group_structure,Relation,Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport,,False,False,False
+4,2,2,pi_6^4,2,2,map_property,TodaSuspensionIsomorphismStatement,Toda Proposition 5.3 n=4 suspension isomorphism,,False,False,False
+4,2,2,pi_6^4,3,3,calculation,Relation,Toda Proposition 5.3 n=4 eta-square suspension bridge,,False,False,False
+4,2,2,pi_6^4,4,1,group_structure,Relation,Toda 5.2 pi_4^2 finite-cyclic transport,,False,False,False
+4,2,2,pi_6^4,5,4,map_property,TodaSuspensionIsomorphismStatement,Toda Proposition 5.3 n=3 suspension isomorphism,,False,False,False
+4,2,2,pi_6^4,6,5,calculation,Relation,Toda Proposition 5.3 n=3 eta-square suspension bridge,,False,False,False
+4,2,2,pi_6^4,7,2,map_property,TodaProp44SuspensionInjectiveStatement,Toda Proposition 5.3 n=4 Phase 48 injectivity bridge,,False,False,False
+4,2,2,pi_6^4,8,2,map_property,TodaSuspensionSurjectiveStatement,Toda Proposition 5.3 n=4 zero-right suspension surjectivity,,False,False,False
+4,2,2,pi_6^4,9,6,other,TodaEtaFamilyDefinitionStatement,,type_name,True,True,True
+4,2,2,pi_6^4,10,7,other,TodaEtaFamilyDefinitionStatement,,type_name,True,True,True
+4,3,3,pi_7^4,0,0,target,Relation,Toda Proposition 5.6 pi_7^4 decomposition,,False,False,False
+4,3,3,pi_7^4,1,1,reference,Toda56Nu4DecompositionStatement,Toda (5.6) nu_4 decomposition integration,rule_name,False,True,False
+4,3,3,pi_7^4,2,2,group_structure,Relation,Toda Proposition 5.6 pi_6^3 finite cyclic,,False,False,False
+4,3,3,pi_7^4,3,3,group_structure,Relation,,,False,False,False
+4,3,3,pi_7^4,4,4,other,Toda56Nu4DecompositionIsomorphismStatement,Toda (5.6) nu_4 decomposition isomorphism semantics,rule_name,True,True,True
+4,3,3,pi_7^4,5,5,other,TodaLemma54Statement,Toda Lemma 5.4 integration,rule_name,True,True,True
+4,3,3,pi_7^4,6,6,order,Relation,Toda Proposition 5.6 nu-prime order four,,False,False,False
+4,3,3,pi_7^4,7,7,membership,HomotopyGroupMembershipStatement,Toda 5.3 nu-prime Lemma 5.2 membership specialization,,False,False,False
+4,3,3,pi_7^4,8,2,group_structure,Relation,Toda Proposition 5.6 pi_5^2 eta_2 cube,,False,False,False
+4,3,3,pi_7^4,9,8,map_property,TodaSuspensionInjectiveStatement,Toda Proposition 5.6 pi_5^2 suspension injective,,False,False,False
+4,3,3,pi_7^4,10,9,exactness,TodaProp42ExactnessStatement,,,False,False,False
+4,3,3,pi_7^4,11,10,map_property,TodaHopfInvariantSurjectiveStatement,Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity,,False,False,False
+4,3,3,pi_7^4,12,2,group_structure,Relation,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,,False,False,False
+4,3,3,pi_7^4,13,11,calculation,Relation,Toda 5.3 nu-prime Lemma 5.2 double specialization,,False,False,False
+4,3,3,pi_7^4,14,12,calculation,Relation,equality preserved under left composition,,False,False,False
+4,4,4,pi_8^4,0,0,target,Relation,Toda Proposition 5.8 pi_8^4 decomposition,,False,False,False
+4,4,4,pi_8^4,1,1,reference,Toda56Nu4DecompositionStatement,Toda (5.6) nu_4 decomposition integration,rule_name,False,True,False
+4,4,4,pi_8^4,2,2,group_structure,Relation,Toda Proposition 5.8 pi_7^3 finite cyclic,,False,False,False
+4,4,4,pi_8^4,3,3,reference,TodaProp51FiniteDimensionalStatement,Toda Proposition 5.1 finite-dimensional integration,rule_name,False,True,False
+4,4,4,pi_8^4,4,4,calculation,Relation,Toda Proposition 5.8 E nu-prime eta_6 bridge,,False,False,False
+4,4,4,pi_8^4,5,5,other,Toda56Nu4DecompositionIsomorphismStatement,Toda (5.6) nu_4 decomposition isomorphism semantics,rule_name,True,True,True
+4,4,4,pi_8^4,6,6,other,TodaLemma54Statement,Toda Lemma 5.4 integration,rule_name,True,True,True
+4,4,4,pi_8^4,7,7,map_property,TodaHopfInvariantIsomorphismStatement,Toda Hopf invariant injective and surjective implies isomorphism,,False,False,False
+4,4,4,pi_8^4,8,8,calculation,Relation,Toda Equation 5.7 nu-prime eta_6 Hopf value,,False,False,False
+4,4,4,pi_8^4,9,9,other,TodaProp53FiniteDimensionalStatement,Toda Proposition 5.3 finite-dimensional integration,rule_name,True,True,True
+4,4,4,pi_8^4,10,10,group_structure,Relation,Toda pi_3^2 free cyclic generator transport,,False,False,False
+4,4,4,pi_8^4,11,11,calculation,Relation,Toda pi_3^2 eta_2 Hopf relation,,False,False,False
+4,4,4,pi_8^4,12,12,map_property,TodaDeltaImageUpToSignStatement,Toda Delta iota_5 twice eta_2 up-to-sign bridge,,False,False,False
+4,4,4,pi_8^4,13,13,group_structure,Relation,Toda higher eta-family finite-cyclic generator bridge,,False,False,False
+4,5,5,pi_9^4,0,0,target,Relation,Toda Proposition 5.9 pi_9^4 decomposition,,False,False,False
+4,5,5,pi_9^4,1,1,reference,Toda56Nu4DecompositionStatement,Toda (5.6) nu_4 decomposition integration,rule_name,False,True,False
+4,5,5,pi_9^4,2,2,group_structure,Relation,Toda Proposition 5.9 pi_8^3 finite cyclic,,False,False,False
+4,5,5,pi_9^4,3,3,other,TodaProp53FiniteDimensionalStatement,Toda Proposition 5.3 finite-dimensional integration,rule_name,True,True,True
+4,5,5,pi_9^4,4,4,calculation,Relation,Toda Proposition 5.9 E nu-prime eta_6 squared bridge,,False,False,False
+4,5,5,pi_9^4,5,5,other,Toda56Nu4DecompositionIsomorphismStatement,Toda (5.6) nu_4 decomposition isomorphism semantics,rule_name,True,True,True
+4,5,5,pi_9^4,6,6,other,TodaLemma54Statement,Toda Lemma 5.4 integration,rule_name,True,True,True
+4,5,5,pi_9^4,7,7,map_property,TodaHopfInvariantInjectiveStatement,Toda Proposition 5.9 pi_8^3 Hopf injective,,False,False,False
+4,5,5,pi_9^4,8,8,exactness,TodaProp42ExactnessStatement,Toda Proposition 5.9 concrete H-Delta exactness,,False,False,False
+4,5,5,pi_9^4,9,9,other,TodaProp59DeltaKernelStatement,Toda Proposition 5.9 Delta nu_5 kernel,,True,False,False
+4,5,5,pi_9^4,10,10,calculation,Relation,Toda Proposition 5.9 nu-prime eta_6 squared Hopf value,,False,False,False
+4,5,5,pi_9^4,11,11,group_structure,Relation,Toda 5.2 pi_4^2 finite-cyclic transport,,False,False,False
+4,5,5,pi_9^4,12,11,group_structure,Relation,Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport,,False,False,False
+4,5,5,pi_9^4,13,11,group_structure,Relation,Toda Proposition 5.3 n=4 pi_6^4 finite-cyclic transport,,False,False,False
+4,5,5,pi_9^4,14,12,group_structure,Relation,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge,,False,False,False
+4,5,5,pi_9^4,15,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+4,6,6,pi_10^4,0,0,target,Relation,Toda Proposition 5.11 pi_10^4 generated by nu_4 squared,,False,False,False
+4,6,6,pi_10^4,1,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.11 pi_9^3 zero,,False,False,False
+4,6,6,pi_10^4,2,2,group_structure,Relation,Toda Proposition 5.11 pi_10^7 nu_7 specialization,,False,False,False
+4,6,6,pi_10^4,3,3,reference,Toda56Nu4DecompositionStatement,Toda (5.6) nu_4 decomposition integration,rule_name,False,True,False
+4,6,6,pi_10^4,4,4,map_property,TodaHopfInvariantInjectiveStatement,Toda Proposition 5.11 zero E implies H injective,,False,False,False
+4,6,6,pi_10^4,5,5,map_property,TodaDeltaInjectiveStatement,Toda Proposition 5.11 pi_9^5 to pi_7^2 Delta injective,,False,False,False
+4,6,6,pi_10^4,6,6,exactness,TodaProp42ExactnessStatement,Toda Proposition 5.11 pi_9^3 concrete EHP exactness,,False,False,False
+4,6,6,pi_10^4,7,7,other,TodaProp56FiniteDimensionalStatement,Toda Proposition 5.6 finite-dimensional integration,rule_name,True,True,True
+4,6,6,pi_10^4,8,8,other,Toda56Nu4DecompositionIsomorphismStatement,Toda (5.6) nu_4 decomposition isomorphism semantics,rule_name,True,True,True
+4,6,6,pi_10^4,9,9,other,TodaLemma54Statement,Toda Lemma 5.4 integration,rule_name,True,True,True
+4,7,7,pi_11^4,0,0,target,TodaPrimaryGroupZeroStatement,Toda Proposition 5.15 pi_11^4 zero,,False,False,False
+4,7,7,pi_11^4,1,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.15 pi_10^3 zero,,False,False,False
+4,7,7,pi_11^4,2,2,other,TodaProp58FiniteDimensionalStatement,Toda Proposition 5.8 finite-dimensional integration,rule_name,True,True,True
+4,7,7,pi_11^4,3,3,other,Toda56Nu4DecompositionIsomorphismStatement,Toda (5.6) nu_4 decomposition isomorphism semantics,rule_name,True,True,True
+4,7,7,pi_11^4,4,4,map_property,TodaHopfInvariantInjectiveStatement,Toda EHP exactness zero-left Hopf injectivity,,False,False,False
+4,7,7,pi_11^4,5,5,map_property,TodaDeltaInjectiveStatement,Toda Proposition 5.15 pi_10^5 to pi_8^2 Delta injective,,False,False,False
+4,7,7,pi_11^4,6,6,exactness,TodaProp42ExactnessStatement,Toda Proposition 5.15 pi_10^3 concrete EHP exactness,,False,False,False
+4,7,7,pi_11^4,7,7,group_structure,Relation,Toda Lemma 5.7 pi_6^2 eta_2 nu-prime,,False,False,False
+4,7,7,pi_11^4,8,8,group_structure,Relation,Toda Proposition 5.8 pi_7^3 finite cyclic,,False,False,False
+4,7,7,pi_11^4,9,8,group_structure,Relation,Toda Proposition 5.8 pi_8^4 decomposition,,False,False,False
+4,7,7,pi_11^4,10,8,group_structure,Relation,Toda Proposition 5.8 pi_9^5 finite cyclic,,False,False,False
+4,7,7,pi_11^4,11,9,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.8 higher four-stem zero transport,,False,False,False
+4,7,7,pi_11^4,12,2,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+4,7,7,pi_11^4,13,10,reference,TodaProp44IsomorphismStatement,Toda Proposition 4.4 nu_4 n=4 decomposition specialization,rule_name,False,True,False
+5,0,0,pi_5^5,0,0,target,Relation,,,False,False,False
+5,1,1,pi_6^5,0,0,target,Relation,,,False,False,False
+5,1,1,pi_6^5,1,1,group_structure,Relation,Toda higher eta-family finite-cyclic generator bridge,,False,False,False
+5,1,1,pi_6^5,2,1,group_structure,Relation,Toda 4.5 pi_4^3 finite-cyclic transport,,False,False,False
+5,1,1,pi_6^5,3,2,calculation,Relation,Toda higher eta-family iterated suspension bridge,,False,False,False
+5,2,2,pi_7^5,0,0,target,Relation,,,False,False,False
+5,2,2,pi_7^5,1,1,group_structure,Relation,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge,,False,False,False
+5,2,2,pi_7^5,2,1,group_structure,Relation,Toda Proposition 5.3 eta_4 squared stable transport,,False,False,False
+5,2,2,pi_7^5,3,2,calculation,Relation,Toda Proposition 5.3 higher eta-squared bridge,,False,False,False
+5,3,3,pi_8^5,0,0,target,Relation,Toda Proposition 5.6 pi_8^5 finite cyclic,,False,False,False
+5,3,3,pi_8^5,1,1,order,Relation,Toda Proposition 5.6 nu_5 order eight,,False,False,False
+5,3,3,pi_8^5,2,2,definition,TodaNuFamilyDefinitionStatement,,,False,False,False
+5,3,3,pi_8^5,3,3,group_structure,Relation,Toda Proposition 5.6 pi_6^3 finite cyclic,,False,False,False
+5,3,3,pi_8^5,4,4,map_property,TodaIteratedSuspensionInjectiveStatement,Toda Proposition 5.6 E^2 pi_6^3 injective,,False,False,False
+5,3,3,pi_8^5,5,5,other,TodaProp56Pi8_5QuotientStatement,Toda Proposition 5.6 pi_8^5 quotient by E^2 pi_6^3,,True,False,False
+5,3,3,pi_8^5,6,6,calculation,Relation,Toda Proposition 5.6 nu_5 double relation,,False,False,False
+5,3,3,pi_8^5,7,1,order,Relation,Toda Proposition 5.6 E^2 nu-prime order four,,False,False,False
+5,3,3,pi_8^5,8,7,order,Relation,Toda Proposition 5.6 nu-prime order four,,False,False,False
+5,3,3,pi_8^5,9,8,membership,HomotopyGroupMembershipStatement,Toda 5.3 nu-prime Lemma 5.2 membership specialization,,False,False,False
+5,3,3,pi_8^5,10,3,group_structure,Relation,Toda Proposition 5.6 pi_5^2 eta_2 cube,,False,False,False
+5,3,3,pi_8^5,11,9,map_property,TodaSuspensionInjectiveStatement,Toda Proposition 5.6 pi_5^2 suspension injective,,False,False,False
+5,3,3,pi_8^5,12,10,exactness,TodaProp42ExactnessStatement,,,False,False,False
+5,3,3,pi_8^5,13,11,map_property,TodaHopfInvariantSurjectiveStatement,Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity,,False,False,False
+5,3,3,pi_8^5,14,3,group_structure,Relation,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,,False,False,False
+5,3,3,pi_8^5,15,12,reference,Toda56Nu4DecompositionStatement,Toda (5.6) nu_4 decomposition integration,rule_name,False,True,False
+5,3,3,pi_8^5,16,13,calculation,Relation,Toda 5.3 nu-prime Lemma 5.2 double specialization,,False,False,False
+5,3,3,pi_8^5,17,14,calculation,Relation,equality preserved under left composition,,False,False,False
+5,4,4,pi_9^5,0,0,target,Relation,Toda Proposition 5.8 pi_9^5 finite cyclic,,False,False,False
+5,4,4,pi_9^5,1,1,group_structure,Relation,Toda Proposition 5.8 pi_8^4 decomposition,,False,False,False
+5,4,4,pi_9^5,2,2,calculation,Relation,Toda Proposition 5.8 Delta eta_9 value,,False,False,False
+5,4,4,pi_9^5,3,3,reference,TodaProp51FiniteDimensionalStatement,Toda Proposition 5.1 finite-dimensional integration,rule_name,False,True,False
+5,4,4,pi_9^5,4,4,exactness,TodaProp42ExactnessStatement,Toda Proposition 5.8 pi_9^5 concrete exactness,,False,False,False
+5,4,4,pi_9^5,5,5,map_property,TodaSuspensionSurjectiveStatement,Toda Proposition 5.8 pi_9^5 suspension surjective,,False,False,False
+5,4,4,pi_9^5,6,6,calculation,Relation,Toda Proposition 5.8 E nu_4 eta_7 bridge,,False,False,False
+5,4,4,pi_9^5,7,7,reference,Toda56Nu4DecompositionStatement,Toda (5.6) nu_4 decomposition integration,rule_name,False,True,False
+5,4,4,pi_9^5,8,1,group_structure,Relation,Toda Proposition 5.8 pi_7^3 finite cyclic,,False,False,False
+5,4,4,pi_9^5,9,8,calculation,Relation,Toda Proposition 5.8 E nu-prime eta_6 bridge,,False,False,False
+5,4,4,pi_9^5,10,9,map_property,TodaDeltaImageUpToSignStatement,Toda Proposition 2.5 Delta eta_9 composition,,False,False,False
+5,4,4,pi_9^5,11,10,group_structure,Relation,Toda pi_3^2 free cyclic generator transport,,False,False,False
+5,4,4,pi_9^5,12,11,calculation,Relation,Toda pi_3^2 eta_2 Hopf relation,,False,False,False
+5,4,4,pi_9^5,13,12,map_property,TodaDeltaImageUpToSignStatement,Toda Delta iota_5 twice eta_2 up-to-sign bridge,,False,False,False
+5,4,4,pi_9^5,14,13,group_structure,Relation,Toda higher eta-family finite-cyclic generator bridge,,False,False,False
+5,4,4,pi_9^5,15,14,other,TodaEHPExactnessWindow,,,True,False,False
+5,4,4,pi_9^5,16,5,map_property,TodaHopfInvariantZeroStatement,Toda Proposition 5.8 pi_9^5 Hopf zero,,False,False,False
+5,4,4,pi_9^5,17,15,exactness,TodaProp42ExactnessStatement,Toda Proposition 5.8 pi_9^5 concrete exactness,,False,False,False
+5,4,4,pi_9^5,18,16,definition,TodaNuFamilyDefinitionStatement,,,False,False,False
+5,5,5,pi_10^5,0,0,target,Relation,Toda Proposition 5.9 pi_10^5 finite cyclic,,False,False,False
+5,5,5,pi_10^5,1,1,group_structure,Relation,Toda Proposition 5.9 pi_9^4 decomposition,,False,False,False
+5,5,5,pi_10^5,2,2,calculation,Relation,Toda Proposition 5.9 Delta eta_9 squared,,False,False,False
+5,5,5,pi_10^5,3,3,other,TodaProp53FiniteDimensionalStatement,Toda Proposition 5.3 finite-dimensional integration,rule_name,True,True,True
+5,5,5,pi_10^5,4,4,exactness,TodaProp42ExactnessStatement,Toda Proposition 5.9 pi_10^5 Delta-E exactness,,False,False,False
+5,5,5,pi_10^5,5,5,map_property,TodaSuspensionSurjectiveStatement,Toda Proposition 5.9 pi_10^5 suspension surjective,,False,False,False
+5,5,5,pi_10^5,6,6,calculation,Relation,Toda Proposition 5.9 E nu_4 eta_7 squared bridge,,False,False,False
+5,5,5,pi_10^5,7,7,reference,Toda56Nu4DecompositionStatement,Toda (5.6) nu_4 decomposition integration,rule_name,False,True,False
+5,5,5,pi_10^5,8,1,group_structure,Relation,Toda Proposition 5.9 pi_8^3 finite cyclic,,False,False,False
+5,5,5,pi_10^5,9,8,calculation,Relation,Toda Proposition 5.9 E nu-prime eta_6 squared bridge,,False,False,False
+5,5,5,pi_10^5,10,2,calculation,Relation,Toda Proposition 5.8 Delta eta_9 value,,False,False,False
+5,5,5,pi_10^5,11,9,group_structure,Relation,Toda 5.2 pi_4^2 finite-cyclic transport,,False,False,False
+5,5,5,pi_10^5,12,9,group_structure,Relation,Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport,,False,False,False
+5,5,5,pi_10^5,13,9,group_structure,Relation,Toda Proposition 5.3 n=4 pi_6^4 finite-cyclic transport,,False,False,False
+5,5,5,pi_10^5,14,10,group_structure,Relation,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge,,False,False,False
+5,5,5,pi_10^5,15,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+5,5,5,pi_10^5,16,11,other,TodaEHPExactnessWindow,,,True,False,False
+5,5,5,pi_10^5,17,5,map_property,TodaHopfInvariantZeroStatement,Toda Proposition 5.9 pi_10^5 Hopf zero,,False,False,False
+5,5,5,pi_10^5,18,12,exactness,TodaProp42ExactnessStatement,Toda Proposition 5.9 pi_10^5 concrete exactness,,False,False,False
+5,5,5,pi_10^5,19,6,calculation,Relation,Toda Proposition 5.8 E nu_4 eta_7 bridge,,False,False,False
+5,6,6,pi_11^5,0,0,target,Relation,Toda Proposition 5.11 pi_11^5 nu_5 squared,,False,False,False
+5,6,6,pi_11^5,1,1,group_structure,Relation,Toda Proposition 5.11 pi_12^9 nu_9 specialization,,False,False,False
+5,6,6,pi_11^5,2,2,group_structure,Relation,Toda Proposition 5.11 pi_10^4 generated by nu_4 squared,,False,False,False
+5,6,6,pi_11^5,3,3,map_property,TodaDeltaImageUpToSignStatement,Toda Equation 5.13 Delta nu_9,,False,False,False
+5,6,6,pi_11^5,4,4,exactness,TodaProp42ExactnessStatement,Toda Proposition 5.11 pi_11^5 concrete exactness,,False,False,False
+5,6,6,pi_11^5,5,5,map_property,TodaSuspensionSurjectiveStatement,Toda Proposition 5.11 pi_11^5 suspension surjective,,False,False,False
+5,6,6,pi_11^5,6,6,other,TodaProp56FiniteDimensionalStatement,Toda Proposition 5.6 finite-dimensional integration,rule_name,True,True,True
+5,6,6,pi_11^5,7,2,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.11 pi_9^3 zero,,False,False,False
+5,6,6,pi_11^5,8,2,group_structure,Relation,Toda Proposition 5.11 pi_10^7 nu_7 specialization,,False,False,False
+5,6,6,pi_11^5,9,7,reference,Toda56Nu4DecompositionStatement,Toda (5.6) nu_4 decomposition integration,rule_name,False,True,False
+5,6,6,pi_11^5,10,8,other,Toda58EquationStatement,Toda Equation 5.8 integration,,True,False,False
+5,6,6,pi_11^5,11,9,other,TodaEHPExactnessWindow,,,True,False,False
+5,6,6,pi_11^5,12,5,map_property,TodaHopfInvariantZeroStatement,Toda Proposition 5.11 pi_11^5 Hopf zero,,False,False,False
+5,6,6,pi_11^5,13,10,exactness,TodaProp42ExactnessStatement,Toda Proposition 5.11 pi_11^5 concrete exactness,,False,False,False
+5,7,7,pi_12^5,0,0,target,Relation,Toda Proposition 5.15 pi_12^5 finite cyclic,,False,False,False
+5,7,7,pi_12^5,1,1,other,TodaProp515Pi12_5HopfIsomorphismStatement,Toda Proposition 5.15 pi_12^5 Hopf isomorphism,rule_name,True,True,True
+5,7,7,pi_12^5,2,2,definition,TodaLemma513Statement,Toda Lemma 5.13 sigma triple-prime definition,rule_name,False,True,False
+5,7,7,pi_12^5,3,3,map_property,TodaHopfInvariantInjectiveStatement,Toda EHP exactness zero-left Hopf injectivity,,False,False,False
+5,7,7,pi_12^5,4,4,exactness,TodaProp42ExactnessStatement,Toda Proposition 5.15 pi_12^5 concrete EHP exactness,,False,False,False
+5,7,7,pi_12^5,5,5,group_structure,Relation,Toda Proposition 5.11 pi_12^9 nu_9 specialization,,False,False,False
+5,7,7,pi_12^5,6,1,other,TodaProp511FiniteDimensionalStatement,Toda Proposition 5.11 finite-dimensional integration,rule_name,True,True,True
+5,7,7,pi_12^5,7,6,map_property,TodaDeltaImageUpToSignStatement,Toda Equation 5.13 Delta nu_9,,False,False,False
+5,7,7,pi_12^5,8,7,reference,Toda55NuFamilyFiniteDimensionalStatement,Toda 5.5 nu-family finite-dimensional integration,rule_name,False,True,False
+6,0,0,pi_6^6,0,0,target,Relation,,,False,False,False
+6,1,1,pi_7^6,0,0,target,Relation,,,False,False,False
+6,1,1,pi_7^6,1,1,group_structure,Relation,Toda higher eta-family finite-cyclic generator bridge,,False,False,False
+6,1,1,pi_7^6,2,1,group_structure,Relation,Toda 4.5 pi_4^3 finite-cyclic transport,,False,False,False
+6,1,1,pi_7^6,3,2,calculation,Relation,Toda higher eta-family iterated suspension bridge,,False,False,False
+6,2,2,pi_8^6,0,0,target,Relation,,,False,False,False
+6,2,2,pi_8^6,1,1,group_structure,Relation,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge,,False,False,False
+6,2,2,pi_8^6,2,1,group_structure,Relation,Toda Proposition 5.3 eta_4 squared stable transport,,False,False,False
+6,2,2,pi_8^6,3,2,calculation,Relation,Toda Proposition 5.3 higher eta-squared bridge,,False,False,False
+6,3,3,pi_9^6,0,0,target,Relation,,,False,False,False
+6,3,3,pi_9^6,1,1,group_structure,Relation,Toda Proposition 5.6 higher nu finite-cyclic generator bridge,,False,False,False
+6,3,3,pi_9^6,2,1,group_structure,Relation,Toda Proposition 5.6 nu_5 stable transport,,False,False,False
+6,3,3,pi_9^6,3,2,calculation,Relation,Toda Proposition 5.6 higher nu-family bridge,,False,False,False
+6,3,3,pi_9^6,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+6,4,4,pi_10^6,0,0,target,TodaPrimaryGroupZeroStatement,,,False,False,False
+6,4,4,pi_10^6,1,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.8 higher four-stem zero transport,,False,False,False
+6,4,4,pi_10^6,2,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.8 pi_10^6 zero,,False,False,False
+6,4,4,pi_10^6,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+6,4,4,pi_10^6,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+6,5,5,pi_11^6,0,0,target,Relation,Toda Proposition 5.9 pi_11^6 free cyclic,,False,False,False
+6,5,5,pi_11^6,1,1,map_property,TodaHopfInvariantInjectiveStatement,Toda Proposition 5.9 pi_11^6 Hopf injective,,False,False,False
+6,5,5,pi_11^6,2,2,exactness,TodaProp42ExactnessStatement,Toda Proposition 5.9 pi_11^6 concrete exactness,,False,False,False
+6,5,5,pi_11^6,3,3,other,TodaDeltaKernelFreeCyclicStatement,Toda Proposition 5.9 pi_11^11 Delta kernel,rule_name,True,True,True
+6,5,5,pi_11^6,4,4,other,TodaProp27HopfInvariantUpToSignStatement,Toda Proposition 5.9 Delta iota_13 Hopf value,rule_name,True,True,True
+6,5,5,pi_11^6,5,5,calculation,Relation,Toda Proposition 5.9 E nu_5 eta_8 squared zero,,False,False,False
+6,5,5,pi_11^6,6,6,group_structure,Relation,Toda Proposition 5.9 pi_10^5 finite cyclic,,False,False,False
+6,5,5,pi_11^6,7,7,exactness,TodaProp42ExactnessStatement,Toda Proposition 5.9 pi_11^6 concrete exactness,,False,False,False
+6,5,5,pi_11^6,8,8,other,TodaEHPExactnessWindow,,,True,False,False
+6,5,5,pi_11^6,9,9,group_structure,Relation,,,False,False,False
+6,5,5,pi_11^6,10,10,group_structure,Relation,Toda Proposition 5.8 pi_9^5 finite cyclic,,False,False,False
+6,5,5,pi_11^6,11,11,calculation,Relation,Toda Equation (5.10) Delta iota_11,,False,False,False
+6,5,5,pi_11^6,12,12,group_structure,Relation,,,False,False,False
+6,6,6,pi_12^6,0,0,target,Relation,Toda Proposition 5.11 pi_12^6 nu_6 squared,,False,False,False
+6,6,6,pi_12^6,1,1,group_structure,Relation,Toda Proposition 5.11 pi_11^5 nu_5 squared,,False,False,False
+6,6,6,pi_12^6,2,2,map_property,TodaSuspensionIsomorphismStatement,Toda Proposition 5.11 pi_12^6 suspension isomorphism,,False,False,False
+6,6,6,pi_12^6,3,1,group_structure,Relation,Toda Proposition 5.11 pi_12^9 nu_9 specialization,,False,False,False
+6,6,6,pi_12^6,4,1,group_structure,Relation,Toda Proposition 5.11 pi_10^4 generated by nu_4 squared,,False,False,False
+6,6,6,pi_12^6,5,3,map_property,TodaDeltaImageUpToSignStatement,Toda Equation 5.13 Delta nu_9,,False,False,False
+6,6,6,pi_12^6,6,4,exactness,TodaProp42ExactnessStatement,Toda Proposition 5.11 pi_11^5 concrete exactness,,False,False,False
+6,6,6,pi_12^6,7,5,map_property,TodaSuspensionSurjectiveStatement,Toda Proposition 5.11 pi_11^5 suspension surjective,,False,False,False
+6,6,6,pi_12^6,8,2,map_property,TodaSuspensionInjectiveStatement,Toda Proposition 5.11 pi_12^6 suspension injective,,False,False,False
+6,6,6,pi_12^6,9,2,map_property,TodaSuspensionSurjectiveStatement,Toda Proposition 5.11 pi_12^6 suspension surjective,,False,False,False
+6,7,7,pi_13^6,0,0,target,Relation,Toda Proposition 5.15 pi_13^6 finite cyclic,,False,False,False
+6,7,7,pi_13^6,1,1,other,TodaLemma514SigmaDoublePrimeStatement,Toda Lemma 5.14 sigma double-prime branch,,True,False,False
+6,7,7,pi_13^6,2,1,other,Toda514FirstShortExactStatement,Toda (5.14) first short exact sequence,,True,False,False
+6,7,7,pi_13^6,3,2,group_structure,Relation,Toda Proposition 5.15 pi_12^5 finite cyclic,,False,False,False
+6,7,7,pi_13^6,4,3,group_structure,Relation,Toda Proposition 5.11 pi_13^11 eta_11 squared,,False,False,False
+6,7,7,pi_13^6,5,1,other,Toda36Lemma514SigmaDoublePrimeBridgeStatement,Toda Theorem 3.6 Lemma 5.14 sigma double-prime bridge,rule_name,True,True,True
+6,7,7,pi_13^6,6,4,calculation,Relation,Toda (5.14) Delta nu_11 zero,,False,False,False
+6,7,7,pi_13^6,7,5,calculation,Relation,Toda Equation 5.13 Delta eta_11 squared zero,,False,False,False
+6,7,7,pi_13^6,8,1,other,TodaProp56FiniteDimensionalStatement,Toda Proposition 5.6 finite-dimensional integration,rule_name,True,True,True
+6,7,7,pi_13^6,9,6,exactness,TodaProp42ExactnessStatement,Toda (5.14) first short exact concrete EHP exactness,,False,False,False
+6,7,7,pi_13^6,10,7,exactness,TodaProp42ExactnessStatement,Toda (5.14) first short exact concrete EHP exactness,,False,False,False
+6,7,7,pi_13^6,11,8,exactness,TodaProp42ExactnessStatement,Toda (5.14) first short exact concrete EHP exactness,,False,False,False
+6,7,7,pi_13^6,12,9,other,TodaProp515Pi12_5HopfIsomorphismStatement,Toda Proposition 5.15 pi_12^5 Hopf isomorphism,rule_name,True,True,True
+6,7,7,pi_13^6,13,10,definition,TodaLemma513Statement,Toda Lemma 5.13 sigma triple-prime definition,rule_name,False,True,False
+6,7,7,pi_13^6,14,11,other,TodaProp53FiniteDimensionalStatement,Toda Proposition 5.3 finite-dimensional integration,rule_name,True,True,True
+7,0,0,pi_7^7,0,0,target,Relation,,,False,False,False
+7,1,1,pi_8^7,0,0,target,Relation,,,False,False,False
+7,1,1,pi_8^7,1,1,group_structure,Relation,Toda higher eta-family finite-cyclic generator bridge,,False,False,False
+7,1,1,pi_8^7,2,1,group_structure,Relation,Toda 4.5 pi_4^3 finite-cyclic transport,,False,False,False
+7,1,1,pi_8^7,3,2,calculation,Relation,Toda higher eta-family iterated suspension bridge,,False,False,False
+7,2,2,pi_9^7,0,0,target,Relation,,,False,False,False
+7,2,2,pi_9^7,1,1,group_structure,Relation,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge,,False,False,False
+7,2,2,pi_9^7,2,1,group_structure,Relation,Toda Proposition 5.3 eta_4 squared stable transport,,False,False,False
+7,2,2,pi_9^7,3,2,calculation,Relation,Toda Proposition 5.3 higher eta-squared bridge,,False,False,False
+7,3,3,pi_10^7,0,0,target,Relation,,,False,False,False
+7,3,3,pi_10^7,1,1,group_structure,Relation,Toda Proposition 5.6 higher nu finite-cyclic generator bridge,,False,False,False
+7,3,3,pi_10^7,2,1,group_structure,Relation,Toda Proposition 5.6 nu_5 stable transport,,False,False,False
+7,3,3,pi_10^7,3,2,calculation,Relation,Toda Proposition 5.6 higher nu-family bridge,,False,False,False
+7,3,3,pi_10^7,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+7,4,4,pi_11^7,0,0,target,TodaPrimaryGroupZeroStatement,,,False,False,False
+7,4,4,pi_11^7,1,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.8 higher four-stem zero transport,,False,False,False
+7,4,4,pi_11^7,2,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.8 pi_10^6 zero,,False,False,False
+7,4,4,pi_11^7,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+7,4,4,pi_11^7,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+7,5,5,pi_12^7,0,0,target,TodaPrimaryGroupZeroStatement,,,False,False,False
+7,5,5,pi_12^7,1,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.9 higher five-stem zero transport,,False,False,False
+7,5,5,pi_12^7,2,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.9 pi_12^7 zero,,False,False,False
+7,5,5,pi_12^7,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+7,5,5,pi_12^7,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+7,6,6,pi_13^7,0,0,target,Relation,Toda Proposition 5.11 pi_13^7 nu_7 squared,,False,False,False
+7,6,6,pi_13^7,1,1,group_structure,Relation,Toda Proposition 5.11 pi_12^6 nu_6 squared,,False,False,False
+7,6,6,pi_13^7,2,2,map_property,TodaSuspensionIsomorphismStatement,Toda Proposition 5.11 pi_13^7 suspension isomorphism,,False,False,False
+7,6,6,pi_13^7,3,1,group_structure,Relation,Toda Proposition 5.11 pi_11^5 nu_5 squared,,False,False,False
+7,6,6,pi_13^7,4,3,map_property,TodaSuspensionIsomorphismStatement,Toda Proposition 5.11 pi_12^6 suspension isomorphism,,False,False,False
+7,6,6,pi_13^7,5,2,map_property,TodaSuspensionInjectiveStatement,Toda Proposition 5.11 pi_13^7 suspension injective,,False,False,False
+7,6,6,pi_13^7,6,2,map_property,TodaSuspensionSurjectiveStatement,Toda Proposition 5.11 pi_13^7 suspension surjective,,False,False,False
+7,7,7,pi_14^7,0,0,target,Relation,Toda Proposition 5.15 pi_14^7 finite cyclic,,False,False,False
+7,7,7,pi_14^7,1,1,other,TodaLemma514SigmaPrimeStatement,Toda Lemma 5.14 sigma-prime branch,rule_name,True,True,True
+7,7,7,pi_14^7,2,1,other,Toda514SecondShortExactStatement,Toda (5.14) second short exact sequence,,True,False,False
+7,7,7,pi_14^7,3,2,group_structure,Relation,Toda Proposition 5.15 pi_13^6 finite cyclic,,False,False,False
+7,7,7,pi_14^7,4,3,group_structure,Relation,Toda Proposition 5.11 pi_14^13 eta_13,,False,False,False
+7,7,7,pi_14^7,5,1,other,TodaLemma514SigmaDoublePrimeStatement,Toda Lemma 5.14 sigma double-prime branch,,True,False,False
+7,7,7,pi_14^7,6,4,calculation,Relation,Toda (5.14) Delta eta_13 squared zero,,False,False,False
+7,7,7,pi_14^7,7,4,calculation,Relation,Toda Equation 5.13 Delta eta_13 zero,,False,False,False
+7,7,7,pi_14^7,8,1,other,TodaProp53FiniteDimensionalStatement,Toda Proposition 5.3 finite-dimensional integration,rule_name,True,True,True
+7,7,7,pi_14^7,9,5,exactness,TodaProp42ExactnessStatement,Toda (5.14) second short exact concrete EHP exactness,,False,False,False
+7,7,7,pi_14^7,10,6,exactness,TodaProp42ExactnessStatement,Toda (5.14) second short exact concrete EHP exactness,,False,False,False
+7,7,7,pi_14^7,11,7,exactness,TodaProp42ExactnessStatement,Toda (5.14) second short exact concrete EHP exactness,,False,False,False
+7,7,7,pi_14^7,12,1,other,Toda514FirstShortExactStatement,Toda (5.14) first short exact sequence,,True,False,False
+7,7,7,pi_14^7,13,2,group_structure,Relation,Toda Proposition 5.15 pi_12^5 finite cyclic,,False,False,False
+7,7,7,pi_14^7,14,2,group_structure,Relation,Toda Proposition 5.11 pi_13^11 eta_11 squared,,False,False,False
+7,7,7,pi_14^7,15,8,reference,TodaProp51FiniteDimensionalStatement,Toda Proposition 5.1 finite-dimensional integration,rule_name,False,True,False
+8,0,0,pi_8^8,0,0,target,Relation,,,False,False,False
+8,1,1,pi_9^8,0,0,target,Relation,,,False,False,False
+8,1,1,pi_9^8,1,1,group_structure,Relation,Toda higher eta-family finite-cyclic generator bridge,,False,False,False
+8,1,1,pi_9^8,2,1,group_structure,Relation,Toda 4.5 pi_4^3 finite-cyclic transport,,False,False,False
+8,1,1,pi_9^8,3,2,calculation,Relation,Toda higher eta-family iterated suspension bridge,,False,False,False
+8,2,2,pi_10^8,0,0,target,Relation,,,False,False,False
+8,2,2,pi_10^8,1,1,group_structure,Relation,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge,,False,False,False
+8,2,2,pi_10^8,2,1,group_structure,Relation,Toda Proposition 5.3 eta_4 squared stable transport,,False,False,False
+8,2,2,pi_10^8,3,2,calculation,Relation,Toda Proposition 5.3 higher eta-squared bridge,,False,False,False
+8,3,3,pi_11^8,0,0,target,Relation,,,False,False,False
+8,3,3,pi_11^8,1,1,group_structure,Relation,Toda Proposition 5.6 higher nu finite-cyclic generator bridge,,False,False,False
+8,3,3,pi_11^8,2,1,group_structure,Relation,Toda Proposition 5.6 nu_5 stable transport,,False,False,False
+8,3,3,pi_11^8,3,2,calculation,Relation,Toda Proposition 5.6 higher nu-family bridge,,False,False,False
+8,3,3,pi_11^8,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+8,4,4,pi_12^8,0,0,target,TodaPrimaryGroupZeroStatement,,,False,False,False
+8,4,4,pi_12^8,1,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.8 higher four-stem zero transport,,False,False,False
+8,4,4,pi_12^8,2,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.8 pi_10^6 zero,,False,False,False
+8,4,4,pi_12^8,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+8,4,4,pi_12^8,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+8,5,5,pi_13^8,0,0,target,TodaPrimaryGroupZeroStatement,,,False,False,False
+8,5,5,pi_13^8,1,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.9 higher five-stem zero transport,,False,False,False
+8,5,5,pi_13^8,2,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.9 pi_12^7 zero,,False,False,False
+8,5,5,pi_13^8,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+8,5,5,pi_13^8,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+8,6,6,pi_14^8,0,0,target,Relation,Toda Proposition 5.11 pi_14^8 nu_8 squared,,False,False,False
+8,6,6,pi_14^8,1,1,group_structure,Relation,Toda Proposition 5.11 pi_13^7 nu_7 squared,,False,False,False
+8,6,6,pi_14^8,2,2,map_property,TodaSuspensionIsomorphismStatement,Toda Proposition 5.11 pi_14^8 Proposition 4.4 zero-second-summand suspension isomorphism,,False,False,False
+8,6,6,pi_14^8,3,1,group_structure,Relation,Toda Proposition 5.11 pi_12^6 nu_6 squared,,False,False,False
+8,6,6,pi_14^8,4,3,map_property,TodaSuspensionIsomorphismStatement,Toda Proposition 5.11 pi_13^7 suspension isomorphism,,False,False,False
+8,6,6,pi_14^8,5,4,reference,TodaProp44IsomorphismStatement,,type_name,False,True,False
+8,6,6,pi_14^8,6,5,group_structure,TodaPrimaryGroupZeroStatement,,,False,False,False
+8,7,7,pi_15^8,0,0,target,Relation,Toda Proposition 5.15 pi_15^8 final decomposition,,False,False,False
+8,7,7,pi_15^8,1,1,other,Toda515Sigma8TransportedDecompositionStatement,Toda Proposition 5.15 sigma_8 transported decomposition,,True,False,False
+8,7,7,pi_15^8,2,2,reference,TodaProp44IsomorphismStatement,Toda Proposition 5.15 sigma_8 n=8 Proposition 4.4 decomposition specialization,rule_name,False,True,False
+8,7,7,pi_15^8,3,3,group_structure,Relation,Toda Proposition 5.15 pi_14^7 finite cyclic,,False,False,False
+8,7,7,pi_15^8,4,4,group_structure,Relation,,,False,False,False
+9,0,0,pi_9^9,0,0,target,Relation,,,False,False,False
+9,1,1,pi_10^9,0,0,target,Relation,,,False,False,False
+9,1,1,pi_10^9,1,1,group_structure,Relation,Toda higher eta-family finite-cyclic generator bridge,,False,False,False
+9,1,1,pi_10^9,2,1,group_structure,Relation,Toda 4.5 pi_4^3 finite-cyclic transport,,False,False,False
+9,1,1,pi_10^9,3,2,calculation,Relation,Toda higher eta-family iterated suspension bridge,,False,False,False
+9,2,2,pi_11^9,0,0,target,Relation,,,False,False,False
+9,2,2,pi_11^9,1,1,group_structure,Relation,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge,,False,False,False
+9,2,2,pi_11^9,2,1,group_structure,Relation,Toda Proposition 5.3 eta_4 squared stable transport,,False,False,False
+9,2,2,pi_11^9,3,2,calculation,Relation,Toda Proposition 5.3 higher eta-squared bridge,,False,False,False
+9,3,3,pi_12^9,0,0,target,Relation,,,False,False,False
+9,3,3,pi_12^9,1,1,group_structure,Relation,Toda Proposition 5.6 higher nu finite-cyclic generator bridge,,False,False,False
+9,3,3,pi_12^9,2,1,group_structure,Relation,Toda Proposition 5.6 nu_5 stable transport,,False,False,False
+9,3,3,pi_12^9,3,2,calculation,Relation,Toda Proposition 5.6 higher nu-family bridge,,False,False,False
+9,3,3,pi_12^9,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+9,4,4,pi_13^9,0,0,target,TodaPrimaryGroupZeroStatement,,,False,False,False
+9,4,4,pi_13^9,1,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.8 higher four-stem zero transport,,False,False,False
+9,4,4,pi_13^9,2,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.8 pi_10^6 zero,,False,False,False
+9,4,4,pi_13^9,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+9,4,4,pi_13^9,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+9,5,5,pi_14^9,0,0,target,TodaPrimaryGroupZeroStatement,,,False,False,False
+9,5,5,pi_14^9,1,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.9 higher five-stem zero transport,,False,False,False
+9,5,5,pi_14^9,2,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.9 pi_12^7 zero,,False,False,False
+9,5,5,pi_14^9,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+9,5,5,pi_14^9,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+9,6,6,pi_15^9,0,0,target,Relation,,,False,False,False
+9,6,6,pi_15^9,1,1,group_structure,Relation,Toda Proposition 5.11 higher six-stem nu squared transport,,False,False,False
+9,6,6,pi_15^9,2,1,group_structure,Relation,Toda Proposition 5.11 pi_14^8 nu_8 squared,,False,False,False
+9,6,6,pi_15^9,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+9,6,6,pi_15^9,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+9,7,7,pi_16^9,0,0,target,Relation,Toda Proposition 5.15 pi_16^9 generated by sigma_9,,False,False,False
+9,7,7,pi_16^9,1,1,other,Toda48Pi16_9OrderAndE4InjectiveStatement,Toda (4.8) pi_16^9 order sixteen and E4 injective,,True,False,False
+9,7,7,pi_16^9,2,2,other,TodaLemma514Sigma8Statement,Toda Lemma 5.14 sigma_8 branch,rule_name,True,True,True
+9,7,7,pi_16^9,3,3,definition,TodaSigmaFamilyDefinitionStatement,,,False,False,False
+9,7,7,pi_16^9,4,4,group_structure,Relation,Toda Proposition 5.15 pi_12^5 finite cyclic,,False,False,False
+9,7,7,pi_16^9,5,2,other,Toda36Lemma514SigmaDoublePrimeBridgeStatement,Toda Theorem 3.6 Lemma 5.14 sigma double-prime bridge,rule_name,True,True,True
+9,7,7,pi_16^9,6,2,other,TodaLemma514SigmaPrimeStatement,Toda Lemma 5.14 sigma-prime branch,rule_name,True,True,True
+9,7,7,pi_16^9,7,5,group_structure,Relation,Toda Proposition 5.15 pi_14^7 finite cyclic,,False,False,False
+9,7,7,pi_16^9,8,6,other,TodaProp515Pi12_5HopfIsomorphismStatement,Toda Proposition 5.15 pi_12^5 Hopf isomorphism,rule_name,True,True,True
+9,7,7,pi_16^9,9,7,definition,TodaLemma513Statement,Toda Lemma 5.13 sigma triple-prime definition,rule_name,False,True,False
+10,0,0,pi_10^10,0,0,target,Relation,,,False,False,False
+10,1,1,pi_11^10,0,0,target,Relation,,,False,False,False
+10,1,1,pi_11^10,1,1,group_structure,Relation,Toda higher eta-family finite-cyclic generator bridge,,False,False,False
+10,1,1,pi_11^10,2,1,group_structure,Relation,Toda 4.5 pi_4^3 finite-cyclic transport,,False,False,False
+10,1,1,pi_11^10,3,2,calculation,Relation,Toda higher eta-family iterated suspension bridge,,False,False,False
+10,2,2,pi_12^10,0,0,target,Relation,,,False,False,False
+10,2,2,pi_12^10,1,1,group_structure,Relation,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge,,False,False,False
+10,2,2,pi_12^10,2,1,group_structure,Relation,Toda Proposition 5.3 eta_4 squared stable transport,,False,False,False
+10,2,2,pi_12^10,3,2,calculation,Relation,Toda Proposition 5.3 higher eta-squared bridge,,False,False,False
+10,3,3,pi_13^10,0,0,target,Relation,,,False,False,False
+10,3,3,pi_13^10,1,1,group_structure,Relation,Toda Proposition 5.6 higher nu finite-cyclic generator bridge,,False,False,False
+10,3,3,pi_13^10,2,1,group_structure,Relation,Toda Proposition 5.6 nu_5 stable transport,,False,False,False
+10,3,3,pi_13^10,3,2,calculation,Relation,Toda Proposition 5.6 higher nu-family bridge,,False,False,False
+10,3,3,pi_13^10,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+10,4,4,pi_14^10,0,0,target,TodaPrimaryGroupZeroStatement,,,False,False,False
+10,4,4,pi_14^10,1,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.8 higher four-stem zero transport,,False,False,False
+10,4,4,pi_14^10,2,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.8 pi_10^6 zero,,False,False,False
+10,4,4,pi_14^10,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+10,4,4,pi_14^10,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+10,5,5,pi_15^10,0,0,target,TodaPrimaryGroupZeroStatement,,,False,False,False
+10,5,5,pi_15^10,1,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.9 higher five-stem zero transport,,False,False,False
+10,5,5,pi_15^10,2,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.9 pi_12^7 zero,,False,False,False
+10,5,5,pi_15^10,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+10,5,5,pi_15^10,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+10,6,6,pi_16^10,0,0,target,Relation,,,False,False,False
+10,6,6,pi_16^10,1,1,group_structure,Relation,Toda Proposition 5.11 higher six-stem nu squared transport,,False,False,False
+10,6,6,pi_16^10,2,1,group_structure,Relation,Toda Proposition 5.11 pi_14^8 nu_8 squared,,False,False,False
+10,6,6,pi_16^10,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+10,6,6,pi_16^10,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+10,7,7,pi_17^10,0,0,target,Relation,,,False,False,False
+10,7,7,pi_17^10,1,1,group_structure,Relation,Toda (4.5) sigma_9 finite cyclic transport,,False,False,False
+10,7,7,pi_17^10,2,1,group_structure,Relation,Toda Proposition 5.15 pi_16^9 generated by sigma_9,,False,False,False
+10,7,7,pi_17^10,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+10,7,7,pi_17^10,4,3,definition,TodaSigmaFamilyDefinitionStatement,Toda Lemma 5.14 sigma-family definition,,False,False,False
+11,0,0,pi_11^11,0,0,target,Relation,,,False,False,False
+11,1,1,pi_12^11,0,0,target,Relation,,,False,False,False
+11,1,1,pi_12^11,1,1,group_structure,Relation,Toda higher eta-family finite-cyclic generator bridge,,False,False,False
+11,1,1,pi_12^11,2,1,group_structure,Relation,Toda 4.5 pi_4^3 finite-cyclic transport,,False,False,False
+11,1,1,pi_12^11,3,2,calculation,Relation,Toda higher eta-family iterated suspension bridge,,False,False,False
+11,2,2,pi_13^11,0,0,target,Relation,,,False,False,False
+11,2,2,pi_13^11,1,1,group_structure,Relation,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge,,False,False,False
+11,2,2,pi_13^11,2,1,group_structure,Relation,Toda Proposition 5.3 eta_4 squared stable transport,,False,False,False
+11,2,2,pi_13^11,3,2,calculation,Relation,Toda Proposition 5.3 higher eta-squared bridge,,False,False,False
+11,3,3,pi_14^11,0,0,target,Relation,,,False,False,False
+11,3,3,pi_14^11,1,1,group_structure,Relation,Toda Proposition 5.6 higher nu finite-cyclic generator bridge,,False,False,False
+11,3,3,pi_14^11,2,1,group_structure,Relation,Toda Proposition 5.6 nu_5 stable transport,,False,False,False
+11,3,3,pi_14^11,3,2,calculation,Relation,Toda Proposition 5.6 higher nu-family bridge,,False,False,False
+11,3,3,pi_14^11,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+11,4,4,pi_15^11,0,0,target,TodaPrimaryGroupZeroStatement,,,False,False,False
+11,4,4,pi_15^11,1,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.8 higher four-stem zero transport,,False,False,False
+11,4,4,pi_15^11,2,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.8 pi_10^6 zero,,False,False,False
+11,4,4,pi_15^11,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+11,4,4,pi_15^11,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+11,5,5,pi_16^11,0,0,target,TodaPrimaryGroupZeroStatement,,,False,False,False
+11,5,5,pi_16^11,1,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.9 higher five-stem zero transport,,False,False,False
+11,5,5,pi_16^11,2,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.9 pi_12^7 zero,,False,False,False
+11,5,5,pi_16^11,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+11,5,5,pi_16^11,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+11,6,6,pi_17^11,0,0,target,Relation,,,False,False,False
+11,6,6,pi_17^11,1,1,group_structure,Relation,Toda Proposition 5.11 higher six-stem nu squared transport,,False,False,False
+11,6,6,pi_17^11,2,1,group_structure,Relation,Toda Proposition 5.11 pi_14^8 nu_8 squared,,False,False,False
+11,6,6,pi_17^11,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+11,6,6,pi_17^11,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+11,7,7,pi_18^11,0,0,target,Relation,,,False,False,False
+11,7,7,pi_18^11,1,1,group_structure,Relation,Toda (4.5) sigma_9 finite cyclic transport,,False,False,False
+11,7,7,pi_18^11,2,1,group_structure,Relation,Toda Proposition 5.15 pi_16^9 generated by sigma_9,,False,False,False
+11,7,7,pi_18^11,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+11,7,7,pi_18^11,4,3,definition,TodaSigmaFamilyDefinitionStatement,Toda Lemma 5.14 sigma-family definition,,False,False,False
+12,0,0,pi_12^12,0,0,target,Relation,,,False,False,False
+12,1,1,pi_13^12,0,0,target,Relation,,,False,False,False
+12,1,1,pi_13^12,1,1,group_structure,Relation,Toda higher eta-family finite-cyclic generator bridge,,False,False,False
+12,1,1,pi_13^12,2,1,group_structure,Relation,Toda 4.5 pi_4^3 finite-cyclic transport,,False,False,False
+12,1,1,pi_13^12,3,2,calculation,Relation,Toda higher eta-family iterated suspension bridge,,False,False,False
+12,2,2,pi_14^12,0,0,target,Relation,,,False,False,False
+12,2,2,pi_14^12,1,1,group_structure,Relation,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge,,False,False,False
+12,2,2,pi_14^12,2,1,group_structure,Relation,Toda Proposition 5.3 eta_4 squared stable transport,,False,False,False
+12,2,2,pi_14^12,3,2,calculation,Relation,Toda Proposition 5.3 higher eta-squared bridge,,False,False,False
+12,3,3,pi_15^12,0,0,target,Relation,,,False,False,False
+12,3,3,pi_15^12,1,1,group_structure,Relation,Toda Proposition 5.6 higher nu finite-cyclic generator bridge,,False,False,False
+12,3,3,pi_15^12,2,1,group_structure,Relation,Toda Proposition 5.6 nu_5 stable transport,,False,False,False
+12,3,3,pi_15^12,3,2,calculation,Relation,Toda Proposition 5.6 higher nu-family bridge,,False,False,False
+12,3,3,pi_15^12,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+12,4,4,pi_16^12,0,0,target,TodaPrimaryGroupZeroStatement,,,False,False,False
+12,4,4,pi_16^12,1,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.8 higher four-stem zero transport,,False,False,False
+12,4,4,pi_16^12,2,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.8 pi_10^6 zero,,False,False,False
+12,4,4,pi_16^12,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+12,4,4,pi_16^12,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+12,5,5,pi_17^12,0,0,target,TodaPrimaryGroupZeroStatement,,,False,False,False
+12,5,5,pi_17^12,1,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.9 higher five-stem zero transport,,False,False,False
+12,5,5,pi_17^12,2,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.9 pi_12^7 zero,,False,False,False
+12,5,5,pi_17^12,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+12,5,5,pi_17^12,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+12,6,6,pi_18^12,0,0,target,Relation,,,False,False,False
+12,6,6,pi_18^12,1,1,group_structure,Relation,Toda Proposition 5.11 higher six-stem nu squared transport,,False,False,False
+12,6,6,pi_18^12,2,1,group_structure,Relation,Toda Proposition 5.11 pi_14^8 nu_8 squared,,False,False,False
+12,6,6,pi_18^12,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+12,6,6,pi_18^12,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+12,7,7,pi_19^12,0,0,target,Relation,,,False,False,False
+12,7,7,pi_19^12,1,1,group_structure,Relation,Toda (4.5) sigma_9 finite cyclic transport,,False,False,False
+12,7,7,pi_19^12,2,1,group_structure,Relation,Toda Proposition 5.15 pi_16^9 generated by sigma_9,,False,False,False
+12,7,7,pi_19^12,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+12,7,7,pi_19^12,4,3,definition,TodaSigmaFamilyDefinitionStatement,Toda Lemma 5.14 sigma-family definition,,False,False,False
+13,0,0,pi_13^13,0,0,target,Relation,,,False,False,False
+13,1,1,pi_14^13,0,0,target,Relation,,,False,False,False
+13,1,1,pi_14^13,1,1,group_structure,Relation,Toda higher eta-family finite-cyclic generator bridge,,False,False,False
+13,1,1,pi_14^13,2,1,group_structure,Relation,Toda 4.5 pi_4^3 finite-cyclic transport,,False,False,False
+13,1,1,pi_14^13,3,2,calculation,Relation,Toda higher eta-family iterated suspension bridge,,False,False,False
+13,2,2,pi_15^13,0,0,target,Relation,,,False,False,False
+13,2,2,pi_15^13,1,1,group_structure,Relation,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge,,False,False,False
+13,2,2,pi_15^13,2,1,group_structure,Relation,Toda Proposition 5.3 eta_4 squared stable transport,,False,False,False
+13,2,2,pi_15^13,3,2,calculation,Relation,Toda Proposition 5.3 higher eta-squared bridge,,False,False,False
+13,3,3,pi_16^13,0,0,target,Relation,,,False,False,False
+13,3,3,pi_16^13,1,1,group_structure,Relation,Toda Proposition 5.6 higher nu finite-cyclic generator bridge,,False,False,False
+13,3,3,pi_16^13,2,1,group_structure,Relation,Toda Proposition 5.6 nu_5 stable transport,,False,False,False
+13,3,3,pi_16^13,3,2,calculation,Relation,Toda Proposition 5.6 higher nu-family bridge,,False,False,False
+13,3,3,pi_16^13,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+13,4,4,pi_17^13,0,0,target,TodaPrimaryGroupZeroStatement,,,False,False,False
+13,4,4,pi_17^13,1,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.8 higher four-stem zero transport,,False,False,False
+13,4,4,pi_17^13,2,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.8 pi_10^6 zero,,False,False,False
+13,4,4,pi_17^13,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+13,4,4,pi_17^13,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+13,5,5,pi_18^13,0,0,target,TodaPrimaryGroupZeroStatement,,,False,False,False
+13,5,5,pi_18^13,1,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.9 higher five-stem zero transport,,False,False,False
+13,5,5,pi_18^13,2,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.9 pi_12^7 zero,,False,False,False
+13,5,5,pi_18^13,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+13,5,5,pi_18^13,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+13,6,6,pi_19^13,0,0,target,Relation,,,False,False,False
+13,6,6,pi_19^13,1,1,group_structure,Relation,Toda Proposition 5.11 higher six-stem nu squared transport,,False,False,False
+13,6,6,pi_19^13,2,1,group_structure,Relation,Toda Proposition 5.11 pi_14^8 nu_8 squared,,False,False,False
+13,6,6,pi_19^13,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+13,6,6,pi_19^13,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+13,7,7,pi_20^13,0,0,target,Relation,,,False,False,False
+13,7,7,pi_20^13,1,1,group_structure,Relation,Toda (4.5) sigma_9 finite cyclic transport,,False,False,False
+13,7,7,pi_20^13,2,1,group_structure,Relation,Toda Proposition 5.15 pi_16^9 generated by sigma_9,,False,False,False
+13,7,7,pi_20^13,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+13,7,7,pi_20^13,4,3,definition,TodaSigmaFamilyDefinitionStatement,Toda Lemma 5.14 sigma-family definition,,False,False,False
+14,0,0,pi_14^14,0,0,target,Relation,,,False,False,False
+14,1,1,pi_15^14,0,0,target,Relation,,,False,False,False
+14,1,1,pi_15^14,1,1,group_structure,Relation,Toda higher eta-family finite-cyclic generator bridge,,False,False,False
+14,1,1,pi_15^14,2,1,group_structure,Relation,Toda 4.5 pi_4^3 finite-cyclic transport,,False,False,False
+14,1,1,pi_15^14,3,2,calculation,Relation,Toda higher eta-family iterated suspension bridge,,False,False,False
+14,2,2,pi_16^14,0,0,target,Relation,,,False,False,False
+14,2,2,pi_16^14,1,1,group_structure,Relation,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge,,False,False,False
+14,2,2,pi_16^14,2,1,group_structure,Relation,Toda Proposition 5.3 eta_4 squared stable transport,,False,False,False
+14,2,2,pi_16^14,3,2,calculation,Relation,Toda Proposition 5.3 higher eta-squared bridge,,False,False,False
+14,3,3,pi_17^14,0,0,target,Relation,,,False,False,False
+14,3,3,pi_17^14,1,1,group_structure,Relation,Toda Proposition 5.6 higher nu finite-cyclic generator bridge,,False,False,False
+14,3,3,pi_17^14,2,1,group_structure,Relation,Toda Proposition 5.6 nu_5 stable transport,,False,False,False
+14,3,3,pi_17^14,3,2,calculation,Relation,Toda Proposition 5.6 higher nu-family bridge,,False,False,False
+14,3,3,pi_17^14,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+14,4,4,pi_18^14,0,0,target,TodaPrimaryGroupZeroStatement,,,False,False,False
+14,4,4,pi_18^14,1,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.8 higher four-stem zero transport,,False,False,False
+14,4,4,pi_18^14,2,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.8 pi_10^6 zero,,False,False,False
+14,4,4,pi_18^14,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+14,4,4,pi_18^14,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+14,5,5,pi_19^14,0,0,target,TodaPrimaryGroupZeroStatement,,,False,False,False
+14,5,5,pi_19^14,1,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.9 higher five-stem zero transport,,False,False,False
+14,5,5,pi_19^14,2,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.9 pi_12^7 zero,,False,False,False
+14,5,5,pi_19^14,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+14,5,5,pi_19^14,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+14,6,6,pi_20^14,0,0,target,Relation,,,False,False,False
+14,6,6,pi_20^14,1,1,group_structure,Relation,Toda Proposition 5.11 higher six-stem nu squared transport,,False,False,False
+14,6,6,pi_20^14,2,1,group_structure,Relation,Toda Proposition 5.11 pi_14^8 nu_8 squared,,False,False,False
+14,6,6,pi_20^14,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+14,6,6,pi_20^14,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+14,7,7,pi_21^14,0,0,target,Relation,,,False,False,False
+14,7,7,pi_21^14,1,1,group_structure,Relation,Toda (4.5) sigma_9 finite cyclic transport,,False,False,False
+14,7,7,pi_21^14,2,1,group_structure,Relation,Toda Proposition 5.15 pi_16^9 generated by sigma_9,,False,False,False
+14,7,7,pi_21^14,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+14,7,7,pi_21^14,4,3,definition,TodaSigmaFamilyDefinitionStatement,Toda Lemma 5.14 sigma-family definition,,False,False,False
+15,0,0,pi_15^15,0,0,target,Relation,,,False,False,False
+15,1,1,pi_16^15,0,0,target,Relation,,,False,False,False
+15,1,1,pi_16^15,1,1,group_structure,Relation,Toda higher eta-family finite-cyclic generator bridge,,False,False,False
+15,1,1,pi_16^15,2,1,group_structure,Relation,Toda 4.5 pi_4^3 finite-cyclic transport,,False,False,False
+15,1,1,pi_16^15,3,2,calculation,Relation,Toda higher eta-family iterated suspension bridge,,False,False,False
+15,2,2,pi_17^15,0,0,target,Relation,,,False,False,False
+15,2,2,pi_17^15,1,1,group_structure,Relation,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge,,False,False,False
+15,2,2,pi_17^15,2,1,group_structure,Relation,Toda Proposition 5.3 eta_4 squared stable transport,,False,False,False
+15,2,2,pi_17^15,3,2,calculation,Relation,Toda Proposition 5.3 higher eta-squared bridge,,False,False,False
+15,3,3,pi_18^15,0,0,target,Relation,,,False,False,False
+15,3,3,pi_18^15,1,1,group_structure,Relation,Toda Proposition 5.6 higher nu finite-cyclic generator bridge,,False,False,False
+15,3,3,pi_18^15,2,1,group_structure,Relation,Toda Proposition 5.6 nu_5 stable transport,,False,False,False
+15,3,3,pi_18^15,3,2,calculation,Relation,Toda Proposition 5.6 higher nu-family bridge,,False,False,False
+15,3,3,pi_18^15,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+15,4,4,pi_19^15,0,0,target,TodaPrimaryGroupZeroStatement,,,False,False,False
+15,4,4,pi_19^15,1,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.8 higher four-stem zero transport,,False,False,False
+15,4,4,pi_19^15,2,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.8 pi_10^6 zero,,False,False,False
+15,4,4,pi_19^15,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+15,4,4,pi_19^15,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+15,5,5,pi_20^15,0,0,target,TodaPrimaryGroupZeroStatement,,,False,False,False
+15,5,5,pi_20^15,1,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.9 higher five-stem zero transport,,False,False,False
+15,5,5,pi_20^15,2,1,group_structure,TodaPrimaryGroupZeroStatement,Toda Proposition 5.9 pi_12^7 zero,,False,False,False
+15,5,5,pi_20^15,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+15,5,5,pi_20^15,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+15,6,6,pi_21^15,0,0,target,Relation,,,False,False,False
+15,6,6,pi_21^15,1,1,group_structure,Relation,Toda Proposition 5.11 higher six-stem nu squared transport,,False,False,False
+15,6,6,pi_21^15,2,1,group_structure,Relation,Toda Proposition 5.11 pi_14^8 nu_8 squared,,False,False,False
+15,6,6,pi_21^15,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+15,6,6,pi_21^15,4,3,other,ScalarGreaterEqualStatement,,type_name,True,True,True
+15,7,7,pi_22^15,0,0,target,Relation,,,False,False,False
+15,7,7,pi_22^15,1,1,group_structure,Relation,Toda (4.5) sigma_9 finite cyclic transport,,False,False,False
+15,7,7,pi_22^15,2,1,group_structure,Relation,Toda Proposition 5.15 pi_16^9 generated by sigma_9,,False,False,False
+15,7,7,pi_22^15,3,2,other,Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,rule_name,True,True,True
+15,7,7,pi_22^15,4,3,definition,TodaSigmaFamilyDefinitionStatement,Toda Lemma 5.14 sigma-family definition,,False,False,False

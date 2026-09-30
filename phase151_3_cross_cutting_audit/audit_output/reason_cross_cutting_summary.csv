@@ -1,0 +1,9 @@
+﻿reason_kind,conclusion_type,occurrences
+definition_applicability,TodaBracketMembershipStatement,1
+exactness_to_map_property,TodaSuspensionInjectiveStatement,1
+final_group_structure,Relation,3
+final_result_derivation,Relation,137
+group_order_derivation,Toda48Pi16_9OrderAndE4InjectiveStatement,1
+group_order_derivation,TodaProp56Pi8_5QuotientStatement,1
+map_structure_derivation,TodaProp515Pi12_5HopfIsomorphismStatement,1
+multiple_relation_to_order,Relation,1

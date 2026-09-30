@@ -1,0 +1,30 @@
+﻿statement_type,inference_rule_name,occurrences
+Toda45IsomorphismStatement,Toda 4.5 stable-range iterated suspension isomorphism,32
+Toda52CompositionIsomorphismStatement,Toda 5.2 eta_2 composition isomorphism,8
+Toda56Nu4DecompositionStatement,Toda (5.6) nu_4 decomposition integration,8
+TodaProp53FiniteDimensionalStatement,Toda Proposition 5.3 finite-dimensional integration,7
+TodaProp44IsomorphismStatement,Toda Proposition 4.4 eta_2 n=2 specialization,6
+TodaProp44SecondSummandRestrictionStatement,Toda Proposition 4.4 eta_2 second-summand restriction,6
+Toda56Nu4DecompositionIsomorphismStatement,Toda (5.6) nu_4 decomposition isomorphism semantics,5
+TodaProp56FiniteDimensionalStatement,Toda Proposition 5.6 finite-dimensional integration,4
+TodaProp51FiniteDimensionalStatement,Toda Proposition 5.1 finite-dimensional integration,4
+TodaLemma54Statement,Toda Lemma 5.4 integration,4
+TodaProp59FiniteDimensionalStatement,Toda Proposition 5.9 finite-dimensional integration,3
+TodaProp511FiniteDimensionalStatement,Toda Proposition 5.11 finite-dimensional integration,3
+TodaProp515Pi12_5HopfIsomorphismStatement,Toda Proposition 5.15 pi_12^5 Hopf isomorphism,3
+TodaLemma513Statement,Toda Lemma 5.13 sigma triple-prime definition,3
+Toda55NuFamilyFiniteDimensionalStatement,Toda 5.5 nu-family finite-dimensional integration,2
+TodaProp58FiniteDimensionalStatement,Toda Proposition 5.8 finite-dimensional integration,2
+Toda36Lemma514SigmaDoublePrimeBridgeStatement,Toda Theorem 3.6 Lemma 5.14 sigma double-prime bridge,2
+TodaLemma514SigmaPrimeStatement,Toda Lemma 5.14 sigma-prime branch,2
+TodaPi32Eta2DefinitionStatement,Toda pi_3^2 define eta_2 as unique Hopf preimage,1
+TodaProp511NuSquaredFiniteDimensionalStatement,Toda Proposition 5.11 nu-squared finite-dimensional integration,1
+TodaSuspensionKernelFreeCyclicStatement,Toda pi_4^3 exactness Delta image equals E kernel,1
+Toda53NuPrimeBracketSpecializationStatement,Toda 5.3 nu-prime Lemma 5.2 bracket specialization,1
+TodaDeltaSurjectiveStatement,Toda Proposition 5.11 zero E implies Delta surjective,1
+TodaDeltaSurjectiveStatement,Toda Proposition 5.15 pi_10^5 to pi_8^2 Delta surjective,1
+TodaProp44IsomorphismStatement,Toda Proposition 4.4 nu_4 n=4 decomposition specialization,1
+TodaDeltaKernelFreeCyclicStatement,Toda Proposition 5.9 pi_11^11 Delta kernel,1
+TodaProp27HopfInvariantUpToSignStatement,Toda Proposition 5.9 Delta iota_13 Hopf value,1
+TodaProp44IsomorphismStatement,Toda Proposition 5.15 sigma_8 n=8 Proposition 4.4 decomposition specialization,1
+TodaLemma514Sigma8Statement,Toda Lemma 5.14 sigma_8 branch,1

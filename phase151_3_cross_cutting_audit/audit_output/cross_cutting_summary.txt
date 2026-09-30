@@ -1,0 +1,65 @@
+==============================================================================
+Phase 151-3 — Cross-cutting Audit
+==============================================================================
+groups: 112
+exceptions: 0
+presentation nodes: 713
+blocks: 559
+arguments: 129
+OTHER blocks: 126
+OTHER steps: 144
+fallback steps: 166
+  rule-name: 115
+  type-name: 51
+  raw: 0
+OTHER ∩ fallback steps: 125
+fallback outside OTHER: 41
+OTHER without fallback: 19
+typed reasons: 146
+
+Typed reason kinds:
+  definition_applicability: 1
+  exactness_to_map_property: 1
+  final_group_structure: 3
+  final_result_derivation: 137
+  group_order_derivation: 2
+  map_structure_derivation: 1
+  multiple_relation_to_order: 1
+
+Top cross-cutting statement types:
+  ScalarGreaterEqualStatement: fallback=42, OTHER=42, overlap=42, groups=42
+  Toda45IsomorphismStatement: fallback=32, OTHER=32, overlap=32, groups=32
+  TodaProp44IsomorphismStatement: fallback=9, OTHER=0, overlap=0, groups=9
+  TodaEtaFamilyDefinitionStatement: fallback=8, OTHER=8, overlap=8, groups=5
+  Toda52CompositionIsomorphismStatement: fallback=8, OTHER=0, overlap=0, groups=8
+  Toda56Nu4DecompositionStatement: fallback=8, OTHER=0, overlap=0, groups=8
+  TodaProp53FiniteDimensionalStatement: fallback=7, OTHER=7, overlap=7, groups=7
+  TodaProp44SecondSummandRestrictionStatement: fallback=6, OTHER=0, overlap=0, groups=6
+  Toda56Nu4DecompositionIsomorphismStatement: fallback=5, OTHER=5, overlap=5, groups=5
+  TodaLemma54Statement: fallback=4, OTHER=4, overlap=4, groups=4
+  TodaProp56FiniteDimensionalStatement: fallback=4, OTHER=4, overlap=4, groups=4
+  TodaProp51FiniteDimensionalStatement: fallback=4, OTHER=0, overlap=0, groups=4
+  TodaProp511FiniteDimensionalStatement: fallback=3, OTHER=3, overlap=3, groups=3
+  TodaProp515Pi12_5HopfIsomorphismStatement: fallback=3, OTHER=3, overlap=3, groups=3
+  TodaProp59FiniteDimensionalStatement: fallback=3, OTHER=3, overlap=3, groups=3
+  TodaLemma513Statement: fallback=3, OTHER=0, overlap=0, groups=3
+  Toda36Lemma514SigmaDoublePrimeBridgeStatement: fallback=2, OTHER=2, overlap=2, groups=2
+  TodaDeltaSurjectiveStatement: fallback=2, OTHER=2, overlap=2, groups=2
+  TodaLemma514SigmaPrimeStatement: fallback=2, OTHER=2, overlap=2, groups=2
+  TodaProp58FiniteDimensionalStatement: fallback=2, OTHER=2, overlap=2, groups=2
+
+Interpretation boundary:
+  This phase classifies concentration and overlap only.
+  It does not change semantic roles, renderers, reasons, or public routes.
+
+Output files:
+  step_cross_cutting_inventory.csv
+  statement_type_summary.csv
+  rule_name_summary.csv
+  block_role_fallback_summary.csv
+  stem_summary.csv
+  group_summary.csv
+  reason_cross_cutting_summary.csv
+  exception_inventory.csv
+  cross_cutting_summary.txt
+==============================================================================
