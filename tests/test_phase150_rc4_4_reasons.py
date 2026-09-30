@@ -71,14 +71,24 @@ def test_phase150_rc4_4_pi6_definition_applicability_comes_from_typed_dependency
   assert len(
     dependencies
   ) == 1
+
+  definition_reasons = tuple(
+    reason
+    for reason in reason_sidecar.reasons
+    if (
+      reason.kind
+      is TodaGroupProofNarrativeReasonKind
+      .DEFINITION_APPLICABILITY
+    )
+  )
   assert len(
-    reason_sidecar.reasons
+    definition_reasons
   ) == 1
 
   dependency = dependencies[
     0
   ]
-  reason = reason_sidecar.reasons[
+  reason = definition_reasons[
     0
   ]
 
@@ -135,15 +145,19 @@ def test_phase150_rc4_4_other_representative_groups_do_not_invent_reasons(
     )
   )
 
-  assert len(
-    reason_sidecar.reasons
-  ) == expected_count
-  assert all(
-    reason.kind
-    is TodaGroupProofNarrativeReasonKind
-    .DEFINITION_APPLICABILITY
+  definition_reasons = tuple(
+    reason
     for reason in reason_sidecar.reasons
+    if (
+      reason.kind
+      is TodaGroupProofNarrativeReasonKind
+      .DEFINITION_APPLICABILITY
+    )
   )
+
+  assert len(
+    definition_reasons
+  ) == expected_count
 
 
 def test_phase150_rc4_4_reason_sidecar_rejects_foreign_semantic_sidecar():

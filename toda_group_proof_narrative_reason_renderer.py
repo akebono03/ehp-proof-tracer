@@ -53,6 +53,30 @@ def render_toda_group_proof_narrative_reason_sentence(
       f"${instantiated_latex}$ と定めると、"
     )
 
+  if (
+    reason.kind
+    is TodaGroupProofNarrativeReasonKind
+    .EXACTNESS_TO_MAP_PROPERTY
+  ):
+    if len(reason.premise_steps) != 2:
+      return None
+
+    exactness_statement = (
+      reason.premise_steps[1].conclusion
+    )
+    window = exactness_statement.window
+    first_map_name = window.first_map.name
+    second_map_name = window.second_map.name
+
+    return (
+      "この完全性と "
+      f"${first_map_name}=0$ より、"
+      f"$\\ker {second_map_name}"
+      f"=\\operatorname{{Im}}{first_map_name}=0$ "
+      "である.\n"
+      "したがって、"
+    )
+
   return None
 
 

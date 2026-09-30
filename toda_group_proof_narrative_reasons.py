@@ -4,6 +4,11 @@ from enum import Enum
 from proof import (
   ProofStep,
 )
+from toda_rules import (
+  TodaDeltaZeroStatement,
+  TodaProp42ExactnessStatement,
+  TodaSuspensionInjectiveStatement,
+)
 from toda_group_proof_narrative_semantics import (
   TodaGroupProofNarrativeDependencySemanticRole,
   TodaGroupProofNarrativeReferenceApplicationSemantic,
@@ -19,6 +24,9 @@ class TodaGroupProofNarrativeReasonKind(
 ):
   DEFINITION_APPLICABILITY = (
     "definition_applicability"
+  )
+  EXACTNESS_TO_MAP_PROPERTY = (
+    "exactness_to_map_property"
   )
 
 
@@ -238,6 +246,95 @@ class TodaGroupProofNarrativeReasonSidecar:
       )
 
 
+def _exactness_to_map_property_reason(
+  proof_step: ProofStep,
+) -> TodaGroupProofNarrativeReason | None:
+  conclusion = proof_step.conclusion
+
+  if not isinstance(
+    conclusion,
+    TodaSuspensionInjectiveStatement,
+  ):
+    return None
+
+  zero_premises = tuple(
+    premise
+    for premise in proof_step.premises
+    if isinstance(
+      premise.conclusion,
+      TodaDeltaZeroStatement,
+    )
+  )
+  exactness_premises = tuple(
+    premise
+    for premise in proof_step.premises
+    if isinstance(
+      premise.conclusion,
+      TodaProp42ExactnessStatement,
+    )
+  )
+
+  compatible_pairs = []
+
+  for zero_premise in zero_premises:
+    zero_map = zero_premise.conclusion.map
+
+    for exactness_premise in exactness_premises:
+      window = exactness_premise.conclusion.window
+
+      if (
+        zero_map.source_group
+        != window.source_term
+        or zero_map.target_group
+        != window.middle_term
+        or window.middle_term
+        != conclusion.map.source_group
+        or window.target_term
+        != conclusion.map.target_group
+        or getattr(
+          window.first_map,
+          "name",
+          None,
+        )
+        != "Δ"
+        or getattr(
+          window.second_map,
+          "name",
+          None,
+        )
+        != "E"
+      ):
+        continue
+
+      compatible_pairs.append(
+        (
+          zero_premise,
+          exactness_premise,
+        )
+      )
+
+  if len(
+    compatible_pairs
+  ) != 1:
+    return None
+
+  zero_premise, exactness_premise = (
+    compatible_pairs[0]
+  )
+
+  return TodaGroupProofNarrativeReason(
+    kind=(
+      TodaGroupProofNarrativeReasonKind
+      .EXACTNESS_TO_MAP_PROPERTY
+    ),
+    premise_steps=(
+      zero_premise,
+      exactness_premise,
+    ),
+    conclusion_step=proof_step,
+  )
+
+
 def build_toda_group_proof_narrative_reason_sidecar(
   presentation: TodaGroupProofPresentation,
   semantic_sidecar: TodaGroupProofNarrativeSemanticSidecar,
@@ -313,6 +410,18 @@ def build_toda_group_proof_narrative_reason_sidecar(
         reference_application=reference_application,
       )
     )
+
+  for node in presentation.nodes:
+    reason = (
+      _exactness_to_map_property_reason(
+        node.proof_step
+      )
+    )
+
+    if reason is not None:
+      reasons.append(
+        reason
+      )
 
   return (
     TodaGroupProofNarrativeReasonSidecar(
