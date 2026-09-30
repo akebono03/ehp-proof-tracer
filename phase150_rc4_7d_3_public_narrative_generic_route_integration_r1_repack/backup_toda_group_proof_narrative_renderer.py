@@ -3786,77 +3786,6 @@ def _phase134_24_render_pi15_8_narrative(
     + "\n"
   )
 
-def _wrap_phase150_rc4_generic_public_narrative(
-  rendered: str,
-) -> str:
-  if not isinstance(rendered, str):
-    raise TypeError("rendered must be a str")
-
-  lines = rendered.splitlines()
-  reference_line_indices = [
-    index
-    for index, line in enumerate(lines)
-    if line.startswith("**[R")
-  ]
-
-  if not reference_line_indices:
-    return rendered
-
-  last_reference_index = reference_line_indices[-1]
-  reference_lines = lines[
-    :last_reference_index + 1
-  ]
-  proof_lines = lines[
-    last_reference_index + 1:
-  ]
-
-  while proof_lines and not proof_lines[0]:
-    proof_lines.pop(0)
-
-  wrapped_lines = [
-    "# Group proof narrative",
-    "",
-    "## 使用する結果",
-    "",
-    *reference_lines,
-    "",
-    "## 証明",
-    "",
-    *proof_lines,
-  ]
-
-  return "\n".join(wrapped_lines).rstrip() + "\n"
-
-
-def _is_phase150_rc4_generic_route_target(
-  presentation: TodaGroupProofPresentation,
-) -> bool:
-  if presentation.max_depth < 2:
-    return False
-
-  target = (
-    presentation
-    .source_replay
-    .group_result
-    .target
-  )
-
-  return (
-    (
-      target.group_dimension == 10
-      and target.sphere_dimension == 4
-    )
-    or (
-      target.group_dimension == 12
-      and target.sphere_dimension == 5
-    )
-    or (
-      target.group_dimension == 16
-      and target.sphere_dimension == 9
-    )
-  )
-
-
 def render_toda_group_proof_narrative_markdown(
   presentation: TodaGroupProofPresentation,
 ) -> str:
@@ -3888,9 +3817,6 @@ def render_toda_group_proof_narrative_markdown(
     _is_phase134_3_pi6_3_presentation(
       presentation
     )
-    or _is_phase150_rc4_generic_route_target(
-      presentation
-    )
   ):
     semantic_sidecar = (
       build_toda_group_proof_narrative_semantic_sidecar(
@@ -3911,7 +3837,7 @@ def render_toda_group_proof_narrative_markdown(
       )
     )
 
-    rendered = (
+    return (
       render_toda_group_proof_narrative_multi_argument_with_contributions_markdown(
         presentation,
         blocks,
@@ -3919,15 +3845,6 @@ def render_toda_group_proof_narrative_markdown(
         arguments,
       )
     )
-
-    if _is_phase150_rc4_generic_route_target(
-      presentation
-    ):
-      return _wrap_phase150_rc4_generic_public_narrative(
-        rendered
-      )
-
-    return rendered
 
   if _is_phase134_9_pi8_5_presentation(
     presentation
