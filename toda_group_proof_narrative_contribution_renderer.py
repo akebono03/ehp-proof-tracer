@@ -28,6 +28,12 @@ from toda_group_proof_narrative_hidden_bridge_semantics import (
 from toda_group_proof_narrative_proof_chains import (
   build_toda_group_proof_narrative_proof_chains,
 )
+from toda_group_proof_narrative_reason_renderer import (
+  insert_toda_group_proof_narrative_reason_prose,
+)
+from toda_group_proof_narrative_reasons import (
+  build_toda_group_proof_narrative_reason_sidecar,
+)
 from toda_group_proof_narrative_semantics import (
   TodaGroupProofNarrativeSemanticSidecar,
 )
@@ -697,11 +703,23 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       current_markdown=base_markdown,
     )
   )
+  contribution_markdown = (
+    _insert_toda_group_proof_narrative_argument_contributions(
+      presentation,
+      base_markdown,
+      blocks,
+      arguments,
+      ordered_contributions,
+    )
+  )
+  reason_sidecar = (
+    build_toda_group_proof_narrative_reason_sidecar(
+      presentation,
+      semantic_sidecar,
+    )
+  )
 
-  return _insert_toda_group_proof_narrative_argument_contributions(
-    presentation,
-    base_markdown,
-    blocks,
-    arguments,
-    ordered_contributions,
+  return insert_toda_group_proof_narrative_reason_prose(
+    contribution_markdown,
+    reason_sidecar,
   )
