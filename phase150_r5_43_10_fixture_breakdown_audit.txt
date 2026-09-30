@@ -1,0 +1,90 @@
+Phase 150 R5-43-10 Fixture Breakdown Audit
+Production changes: none
+Existing test changes: none
+Full regression: NOT run
+====================================================================================================
+====================================================================================================
+TARGET n=3 k=3 pi_6^3
+START pi_6^3 context
+END   pi_6^3 context elapsed=2.71s
+START pi_6^3 base
+END   pi_6^3 base elapsed=0.07s
+INFO  pi_6^3 base_chars=2824
+START pi_6^3 ordered
+END   pi_6^3 ordered elapsed=0.09s
+INFO  pi_6^3 ordered_arguments=3 contributions=6
+START pi_6^3 connected
+END   pi_6^3 connected elapsed=0.17s
+INFO  pi_6^3 connected_chars=4204
+====================================================================================================
+TARGET n=5 k=3 pi_8^5
+START pi_8^5 context
+END   pi_8^5 context elapsed=0.13s
+START pi_8^5 base
+END   pi_8^5 base elapsed=0.08s
+INFO  pi_8^5 base_chars=2174
+START pi_8^5 ordered
+END   pi_8^5 ordered elapsed=0.14s
+INFO  pi_8^5 ordered_arguments=7 contributions=10
+START pi_8^5 connected
+END   pi_8^5 connected elapsed=0.24s
+INFO  pi_8^5 connected_chars=3848
+====================================================================================================
+TARGET n=4 k=6 pi_10^4
+START pi_10^4 context
+END   pi_10^4 context elapsed=0.56s
+START pi_10^4 base
+END   pi_10^4 base elapsed=0.80s
+INFO  pi_10^4 base_chars=13227
+START pi_10^4 ordered
+END   pi_10^4 ordered elapsed=0.71s
+INFO  pi_10^4 ordered_arguments=32 contributions=22
+START pi_10^4 connected
+END   pi_10^4 connected elapsed=1.85s
+INFO  pi_10^4 connected_chars=15173
+====================================================================================================
+TARGET n=5 k=7 pi_12^5
+START pi_12^5 context
+END   pi_12^5 context elapsed=1.25s
+START pi_12^5 base
+END   pi_12^5 base elapsed=3.24s
+INFO  pi_12^5 base_chars=24221
+START pi_12^5 ordered
+END   pi_12^5 ordered elapsed=2.62s
+INFO  pi_12^5 ordered_arguments=56 contributions=46
+START pi_12^5 connected
+END   pi_12^5 connected elapsed=6.09s
+INFO  pi_12^5 connected_chars=27598
+====================================================================================================
+TARGET n=8 k=7 pi_15^8
+START pi_15^8 context
+END   pi_15^8 context elapsed=1.34s
+START pi_15^8 base
+END   pi_15^8 base elapsed=3.23s
+INFO  pi_15^8 base_chars=24338
+START pi_15^8 ordered
+END   pi_15^8 ordered elapsed=2.88s
+INFO  pi_15^8 ordered_arguments=56 contributions=54
+START pi_15^8 connected
+END   pi_15^8 connected elapsed=6.92s
+INFO  pi_15^8 connected_chars=28643
+====================================================================================================
+TARGET n=9 k=7 pi_16^9
+START pi_16^9 context
+END   pi_16^9 context elapsed=1.27s
+START pi_16^9 base
+END   pi_16^9 base elapsed=4.27s
+INFO  pi_16^9 base_chars=24419
+START pi_16^9 ordered
+END   pi_16^9 ordered elapsed=4.09s
+INFO  pi_16^9 ordered_arguments=57 contributions=55
+START pi_16^9 connected
+END   pi_16^9 connected elapsed=9.19s
+INFO  pi_16^9 connected_chars=28949
+====================================================================================================
+TOTALS
+context=7.26s
+base=11.68s
+ordered=10.53s
+connected=24.46s
+all=53.92s

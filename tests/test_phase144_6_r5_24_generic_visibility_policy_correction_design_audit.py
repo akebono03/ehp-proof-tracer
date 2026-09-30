@@ -1,3 +1,4 @@
+from functools import lru_cache
 from audit_phase144_6_r5_24 import (
   BodyLossStage,
   build_group_protection_impacts,
@@ -6,6 +7,20 @@ from audit_phase144_6_r5_24 import (
 from test_phase144_6_r5_18_production_generic_proof_chain_foundation import (
   TARGETS,
 )
+
+
+_uncached_build_group_protection_impacts = build_group_protection_impacts
+
+@lru_cache(maxsize=1)
+def build_group_protection_impacts():
+  return _uncached_build_group_protection_impacts()
+
+
+_uncached_build_visible_fact_body_traces = build_visible_fact_body_traces
+
+@lru_cache(maxsize=1)
+def build_visible_fact_body_traces():
+  return _uncached_build_visible_fact_body_traces()
 
 
 def test_phase144_6_r5_24_audits_all_six_representative_groups():

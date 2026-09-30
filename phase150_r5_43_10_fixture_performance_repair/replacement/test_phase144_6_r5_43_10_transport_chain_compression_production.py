@@ -234,25 +234,13 @@ def test_phase144_6_r5_43_10_pi6_transport_connector_is_rendered_between_c2_and_
     ].proof_step
   )
 
-  c2_index = pi6_connected.find(
+  assert (
     c2
-  )
-  connector_index = pi6_connected.find(
-    _EXPECTED_CONNECTOR,
-    c2_index + len(
-      c2
-    ),
-  )
-  c3_index = pi6_connected.find(
-    c3,
-    connector_index + len(
-      _EXPECTED_CONNECTOR
-    ),
-  )
-
-  assert c2_index >= 0
-  assert connector_index > c2_index
-  assert c3_index > connector_index
+    + "\n\n"
+    + _EXPECTED_CONNECTOR
+    + "\n\n"
+    + c3
+  ) in pi6_connected
 
 
 def test_phase144_6_r5_43_10_all_sixteen_uniform_chains_receive_compression_connector(
@@ -306,25 +294,11 @@ def test_phase144_6_r5_43_10_preserves_direct_connector(
     ].proof_step
   )
 
-  c4_index = pi6_connected.find(
+  assert (
     c4
-  )
-  connector_index = pi6_connected.find(
-    "これより、",
-    c4_index + len(
-      c4
-    ),
-  )
-  c5_index = pi6_connected.find(
-    c5,
-    connector_index + len(
-      "これより、"
-    ),
-  )
-
-  assert c4_index >= 0
-  assert connector_index > c4_index
-  assert c5_index > connector_index
+    + "\n\nこれより、\n\n"
+    + c5
+  ) in pi6_connected
 
 
 def test_phase144_6_r5_43_10_renderer_does_not_read_inference_rule_names():

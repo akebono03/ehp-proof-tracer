@@ -1,9 +1,24 @@
+from functools import lru_cache
 from audit_phase144_6_r5_25 import (
   FRONTIER_REQUIRED_KEYS,
   SuppressionCause,
   build_frontier_candidate_signatures,
   build_multi_suppression_traces,
 )
+
+
+_uncached_build_multi_suppression_traces = build_multi_suppression_traces
+
+@lru_cache(maxsize=1)
+def build_multi_suppression_traces():
+  return _uncached_build_multi_suppression_traces()
+
+
+_uncached_build_frontier_candidate_signatures = build_frontier_candidate_signatures
+
+@lru_cache(maxsize=1)
+def build_frontier_candidate_signatures():
+  return _uncached_build_frontier_candidate_signatures()
 
 
 def test_phase144_6_r5_25_traces_both_visible_hopf_facts():

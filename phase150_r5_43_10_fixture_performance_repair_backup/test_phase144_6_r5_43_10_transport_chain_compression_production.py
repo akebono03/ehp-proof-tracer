@@ -30,7 +30,7 @@ _EXPECTED_CONNECTOR = (
 )
 
 
-def _ordered_from_context(
+def _data_from_context(
   context,
 ):
   (
@@ -55,32 +55,19 @@ def _ordered_from_context(
     proof_chains,
     current_markdown=base,
   )
-
-  return (
-    presentation,
-    ordered,
-  )
-
-
-def _connected_from_context(
-  context,
-):
-  (
-    presentation,
-    semantic_sidecar,
-    blocks,
-    arguments,
-    aggregate_semantic_sidecar,
-    proof_chains,
-  ) = context
-
-  return (
+  connected = (
     render_toda_group_proof_narrative_multi_argument_with_contributions_markdown(
       presentation,
       blocks,
       semantic_sidecar,
       arguments,
     )
+  )
+
+  return (
+    presentation,
+    ordered,
+    connected,
   )
 
 
@@ -116,31 +103,15 @@ def hidden_bridge_semantics_by_target(
 @pytest.fixture(
   scope="module",
 )
-def ordered_by_target(
+def data_by_target(
   contexts_by_target,
 ):
   return {
-    target: _ordered_from_context(
+    target: _data_from_context(
       context
     )
     for target, context in contexts_by_target.items()
   }
-
-
-@pytest.fixture(
-  scope="module",
-)
-def pi6_connected(
-  contexts_by_target,
-):
-  return _connected_from_context(
-    contexts_by_target[
-      (
-        3,
-        3,
-      )
-    ]
-  )
 
 
 def test_phase144_6_r5_43_10_transport_semantics_have_reference_metadata(
@@ -209,10 +180,9 @@ def test_phase144_6_r5_43_10_each_transport_triplet_has_one_suspension_stabiliza
 
 
 def test_phase144_6_r5_43_10_pi6_transport_connector_is_rendered_between_c2_and_c3(
-  ordered_by_target,
-  pi6_connected,
+  data_by_target,
 ):
-  presentation, ordered = ordered_by_target[
+  presentation, ordered, connected = data_by_target[
     (
       3,
       3,
@@ -234,34 +204,22 @@ def test_phase144_6_r5_43_10_pi6_transport_connector_is_rendered_between_c2_and_
     ].proof_step
   )
 
-  c2_index = pi6_connected.find(
+  assert (
     c2
-  )
-  connector_index = pi6_connected.find(
-    _EXPECTED_CONNECTOR,
-    c2_index + len(
-      c2
-    ),
-  )
-  c3_index = pi6_connected.find(
-    c3,
-    connector_index + len(
-      _EXPECTED_CONNECTOR
-    ),
-  )
-
-  assert c2_index >= 0
-  assert connector_index > c2_index
-  assert c3_index > connector_index
+    + "\n\n"
+    + _EXPECTED_CONNECTOR
+    + "\n\n"
+    + c3
+  ) in connected
 
 
 def test_phase144_6_r5_43_10_all_sixteen_uniform_chains_receive_compression_connector(
-  ordered_by_target,
+  data_by_target,
 ):
   connector_count = 0
 
   for n, k in TARGETS:
-    presentation, ordered = ordered_by_target[
+    presentation, ordered, connected = data_by_target[
       (
         n,
         k,
@@ -281,10 +239,9 @@ def test_phase144_6_r5_43_10_all_sixteen_uniform_chains_receive_compression_conn
 
 
 def test_phase144_6_r5_43_10_preserves_direct_connector(
-  ordered_by_target,
-  pi6_connected,
+  data_by_target,
 ):
-  presentation, ordered = ordered_by_target[
+  presentation, ordered, connected = data_by_target[
     (
       3,
       3,
@@ -306,25 +263,11 @@ def test_phase144_6_r5_43_10_preserves_direct_connector(
     ].proof_step
   )
 
-  c4_index = pi6_connected.find(
+  assert (
     c4
-  )
-  connector_index = pi6_connected.find(
-    "これより、",
-    c4_index + len(
-      c4
-    ),
-  )
-  c5_index = pi6_connected.find(
-    c5,
-    connector_index + len(
-      "これより、"
-    ),
-  )
-
-  assert c4_index >= 0
-  assert connector_index > c4_index
-  assert c5_index > connector_index
+    + "\n\nこれより、\n\n"
+    + c5
+  ) in connected
 
 
 def test_phase144_6_r5_43_10_renderer_does_not_read_inference_rule_names():

@@ -1,0 +1,533 @@
+==============================================================================
+INDEX: 3333
+STATUS: PASS
+ELAPSED: 4.64s
+NODEID: tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py::test_phase144_6_r5_19_pi6_3_is_available_through_proof_chain_entrypoint
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+1.33s call     tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py::test_phase144_6_r5_19_pi6_3_is_available_through_proof_chain_entrypoint
+1 passed in 3.31s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3334
+STATUS: PASS
+ELAPSED: 40.19s
+NODEID: tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py::test_phase144_6_r5_19_all_six_groups_are_available_through_entrypoint
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+37.36s call     tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py::test_phase144_6_r5_19_all_six_groups_are_available_through_entrypoint
+1 passed in 39.07s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3335
+STATUS: PASS
+ELAPSED: 3.83s
+NODEID: tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py::test_phase144_6_r5_19_rejects_missing_proof_chain
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+1.09s call     tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py::test_phase144_6_r5_19_rejects_missing_proof_chain
+1 passed in 2.58s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3336
+STATUS: PASS
+ELAPSED: 4.42s
+NODEID: tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py::test_phase144_6_r5_19_rejects_duplicate_argument_index
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+1.35s call     tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py::test_phase144_6_r5_19_rejects_duplicate_argument_index
+1 passed in 3.13s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3337
+STATUS: PASS
+ELAPSED: 4.05s
+NODEID: tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py::test_phase144_6_r5_19_rejects_foreign_proof_chain_argument
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+1.22s call     tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py::test_phase144_6_r5_19_rejects_foreign_proof_chain_argument
+1 passed in 2.90s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3338
+STATUS: PASS
+ELAPSED: 3.93s
+NODEID: tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py::test_phase144_6_r5_19_rejects_foreign_semantic_sidecar
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+1.24s call     tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py::test_phase144_6_r5_19_rejects_foreign_semantic_sidecar
+1 passed in 2.79s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3339
+STATUS: PASS
+ELAPSED: 4.29s
+NODEID: tests/test_phase144_6_r5_20_pi6_3_proof_chain_generic_parity.py::test_phase144_6_r5_20_freezes_dedicated_parity_requirements
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+1.53s call     tests/test_phase144_6_r5_20_pi6_3_proof_chain_generic_parity.py::test_phase144_6_r5_20_freezes_dedicated_parity_requirements
+1 passed in 3.14s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3340
+STATUS: PASS
+ELAPSED: 2.80s
+NODEID: tests/test_phase144_6_r5_20_pi6_3_proof_chain_generic_parity.py::test_phase144_6_r5_20_covers_all_required_parity_kinds
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+0.00s setup    tests/test_phase144_6_r5_20_pi6_3_proof_chain_generic_parity.py::test_phase144_6_r5_20_covers_all_required_parity_kinds
+1 passed in 1.71s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3341
+STATUS: PASS
+ELAPSED: 4.51s
+NODEID: tests/test_phase144_6_r5_20_pi6_3_proof_chain_generic_parity.py::test_phase144_6_r5_20_final_group_is_present_in_generic
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+1.55s call     tests/test_phase144_6_r5_20_pi6_3_proof_chain_generic_parity.py::test_phase144_6_r5_20_final_group_is_present_in_generic
+1 passed in 3.16s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3342
+STATUS: PASS
+ELAPSED: 4.45s
+NODEID: tests/test_phase144_6_r5_20_pi6_3_proof_chain_generic_parity.py::test_phase144_6_r5_20_definition_is_present_in_generic
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+1.69s call     tests/test_phase144_6_r5_20_pi6_3_proof_chain_generic_parity.py::test_phase144_6_r5_20_definition_is_present_in_generic
+1 passed in 3.30s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3343
+STATUS: PASS
+ELAPSED: 4.32s
+NODEID: tests/test_phase144_6_r5_20_pi6_3_proof_chain_generic_parity.py::test_phase144_6_r5_20_short_exact_sequence_is_present_in_generic
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+1.59s call     tests/test_phase144_6_r5_20_pi6_3_proof_chain_generic_parity.py::test_phase144_6_r5_20_short_exact_sequence_is_present_in_generic
+1 passed in 3.19s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3344
+STATUS: PASS
+ELAPSED: 4.47s
+NODEID: tests/test_phase144_6_r5_20_pi6_3_proof_chain_generic_parity.py::test_phase144_6_r5_20_reports_missing_items_instead_of_forcing_parity
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+1.66s call     tests/test_phase144_6_r5_20_pi6_3_proof_chain_generic_parity.py::test_phase144_6_r5_20_reports_missing_items_instead_of_forcing_parity
+1 passed in 3.28s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3345
+STATUS: PASS
+ELAPSED: 6.39s
+NODEID: tests/test_phase144_6_r5_21_missing_7_facts_generic_provider_audit.py::test_phase144_6_r5_21_traces_exactly_phase20_missing_seven
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+2.43s call     tests/test_phase144_6_r5_21_missing_7_facts_generic_provider_audit.py::test_phase144_6_r5_21_traces_exactly_phase20_missing_seven
+1 passed in 4.94s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3346
+STATUS: PASS
+ELAPSED: 5.57s
+NODEID: tests/test_phase144_6_r5_21_missing_7_facts_generic_provider_audit.py::test_phase144_6_r5_21_classifies_every_missing_fact_at_one_loss_stage
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+2.41s call     tests/test_phase144_6_r5_21_missing_7_facts_generic_provider_audit.py::test_phase144_6_r5_21_classifies_every_missing_fact_at_one_loss_stage
+1 passed in 4.07s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3347
+STATUS: PASS
+ELAPSED: 6.46s
+NODEID: tests/test_phase144_6_r5_21_missing_7_facts_generic_provider_audit.py::test_phase144_6_r5_21_reports_presentation_step_counts
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+1.98s call     tests/test_phase144_6_r5_21_missing_7_facts_generic_provider_audit.py::test_phase144_6_r5_21_reports_presentation_step_counts
+1 passed in 3.93s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3348
+STATUS: PASS
+ELAPSED: 5.27s
+NODEID: tests/test_phase144_6_r5_21_missing_7_facts_generic_provider_audit.py::test_phase144_6_r5_21_reports_proof_chain_provider_hits
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+2.04s call     tests/test_phase144_6_r5_21_missing_7_facts_generic_provider_audit.py::test_phase144_6_r5_21_reports_proof_chain_provider_hits
+1 passed in 3.99s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3349
+STATUS: PASS
+ELAPSED: 4.67s
+NODEID: tests/test_phase144_6_r5_21_missing_7_facts_generic_provider_audit.py::test_phase144_6_r5_21_reports_local_body_membership
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+1.95s call     tests/test_phase144_6_r5_21_missing_7_facts_generic_provider_audit.py::test_phase144_6_r5_21_reports_local_body_membership
+1 passed in 3.51s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3350
+STATUS: PASS
+ELAPSED: 4.23s
+NODEID: tests/test_phase144_6_r5_21_missing_7_facts_generic_provider_audit.py::test_phase144_6_r5_21_does_not_assume_all_missing_facts_have_same_cause
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+1.59s call     tests/test_phase144_6_r5_21_missing_7_facts_generic_provider_audit.py::test_phase144_6_r5_21_does_not_assume_all_missing_facts_have_same_cause
+1 passed in 3.18s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3351
+STATUS: PASS
+ELAPSED: 5.56s
+NODEID: tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py::test_phase144_6_r5_22_traces_exactly_phase21_not_found_four
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+2.70s call     tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py::test_phase144_6_r5_22_traces_exactly_phase21_not_found_four
+1 passed in 4.35s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3352
+STATUS: PASS
+ELAPSED: 5.34s
+NODEID: tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py::test_phase144_6_r5_22_classifies_each_fact_by_statement_structure
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+2.58s call     tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py::test_phase144_6_r5_22_classifies_each_fact_by_statement_structure
+1 passed in 4.11s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3353
+STATUS: PASS
+ELAPSED: 5.83s
+NODEID: tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py::test_phase144_6_r5_22_reports_exact_conclusion_hits
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+2.85s call     tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py::test_phase144_6_r5_22_reports_exact_conclusion_hits
+1 passed in 4.59s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3354
+STATUS: PASS
+ELAPSED: 5.50s
+NODEID: tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py::test_phase144_6_r5_22_reports_embedded_conclusion_hits
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+2.81s call     tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py::test_phase144_6_r5_22_reports_embedded_conclusion_hits
+1 passed in 4.32s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3355
+STATUS: PASS
+ELAPSED: 7.28s
+NODEID: tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py::test_phase144_6_r5_22_reports_recursive_premise_hits
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+4.54s call     tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py::test_phase144_6_r5_22_reports_recursive_premise_hits
+1 passed in 6.06s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3356
+STATUS: PASS
+ELAPSED: 5.97s
+NODEID: tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py::test_phase144_6_r5_22_nu_eta6_is_a_structural_object_not_a_fake_membership_step
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+2.60s call     tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py::test_phase144_6_r5_22_nu_eta6_is_a_structural_object_not_a_fake_membership_step
+1 passed in 4.58s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3357
+STATUS: PASS
+ELAPSED: 6.26s
+NODEID: tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py::test_phase144_6_r5_22_does_not_require_any_specific_location_in_advance
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+3.09s call     tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py::test_phase144_6_r5_22_does_not_require_any_specific_location_in_advance
+1 passed in 4.91s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3358
+STATUS: PASS
+ELAPSED: 5.65s
+NODEID: tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_traces_all_phase20_missing_seven
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+2.46s call     tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_traces_all_phase20_missing_seven
+1 passed in 4.19s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3359
+STATUS: PASS
+ELAPSED: 5.43s
+NODEID: tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_classifies_every_fact_by_visibility_path
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+2.48s call     tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_classifies_every_fact_by_visibility_path
+1 passed in 4.22s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3360
+STATUS: PASS
+ELAPSED: 5.52s
+NODEID: tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_uses_canonical_structure_not_rendered_needles
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+2.17s call     tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_uses_canonical_structure_not_rendered_needles
+1 passed in 4.31s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3361
+STATUS: PASS
+ELAPSED: 5.04s
+NODEID: tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_reports_provider_paths
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+2.14s call     tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_reports_provider_paths
+1 passed in 3.83s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3362
+STATUS: PASS
+ELAPSED: 4.90s
+NODEID: tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_reports_local_body_and_frontier_paths
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+2.07s call     tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_reports_local_body_and_frontier_paths
+1 passed in 3.61s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3363
+STATUS: PASS
+ELAPSED: 5.21s
+NODEID: tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_tracks_nu_eta6_through_equation57_parent
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+2.29s call     tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_tracks_nu_eta6_through_equation57_parent
+1 passed in 3.95s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3364
+STATUS: PASS
+ELAPSED: 4.90s
+NODEID: tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_preserves_phase21_frontier_hidden_diagnosis
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+2.10s call     tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_preserves_phase21_frontier_hidden_diagnosis
+1 passed in 3.71s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3365
+STATUS: PASS
+ELAPSED: 4.99s
+NODEID: tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_does_not_require_a_fix_in_advance
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+2.03s call     tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py::test_phase144_6_r5_23_does_not_require_a_fix_in_advance
+1 passed in 3.76s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3366
+STATUS: PASS
+ELAPSED: 13.32s
+NODEID: tests/test_phase144_6_r5_24_generic_visibility_policy_correction_design_audit.py::test_phase144_6_r5_24_audits_all_six_representative_groups
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+10.26s call     tests/test_phase144_6_r5_24_generic_visibility_policy_correction_design_audit.py::test_phase144_6_r5_24_audits_all_six_representative_groups
+1 passed in 12.00s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3367
+STATUS: PASS
+ELAPSED: 11.46s
+NODEID: tests/test_phase144_6_r5_24_generic_visibility_policy_correction_design_audit.py::test_phase144_6_r5_24_reports_hypothetical_provider_release_counts
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+8.75s call     tests/test_phase144_6_r5_24_generic_visibility_policy_correction_design_audit.py::test_phase144_6_r5_24_reports_hypothetical_provider_release_counts
+1 passed in 10.39s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3368
+STATUS: PASS
+ELAPSED: 12.13s
+NODEID: tests/test_phase144_6_r5_24_generic_visibility_policy_correction_design_audit.py::test_phase144_6_r5_24_pi6_has_provider_steps_currently_hidden
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+9.34s call     tests/test_phase144_6_r5_24_generic_visibility_policy_correction_design_audit.py::test_phase144_6_r5_24_pi6_has_provider_steps_currently_hidden
+1 passed in 11.02s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3369
+STATUS: PASS
+ELAPSED: 5.05s
+NODEID: tests/test_phase144_6_r5_24_generic_visibility_policy_correction_design_audit.py::test_phase144_6_r5_24_traces_both_phase23_local_body_visible_hopf_facts
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+2.09s call     tests/test_phase144_6_r5_24_generic_visibility_policy_correction_design_audit.py::test_phase144_6_r5_24_traces_both_phase23_local_body_visible_hopf_facts
+1 passed in 3.65s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3370
+STATUS: PASS
+ELAPSED: 5.28s
+NODEID: tests/test_phase144_6_r5_24_generic_visibility_policy_correction_design_audit.py::test_phase144_6_r5_24_visible_hopf_facts_are_not_frontier_losses
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+2.10s call     tests/test_phase144_6_r5_24_generic_visibility_policy_correction_design_audit.py::test_phase144_6_r5_24_visible_hopf_facts_are_not_frontier_losses
+1 passed in 3.97s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3371
+STATUS: PASS
+ELAPSED: 5.22s
+NODEID: tests/test_phase144_6_r5_24_generic_visibility_policy_correction_design_audit.py::test_phase144_6_r5_24_classifies_post_frontier_loss_stage
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+2.29s call     tests/test_phase144_6_r5_24_generic_visibility_policy_correction_design_audit.py::test_phase144_6_r5_24_classifies_post_frontier_loss_stage
+1 passed in 3.87s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3372
+STATUS: PASS
+ELAPSED: 5.36s
+NODEID: tests/test_phase144_6_r5_25_multi_argument_suppression_selective_frontier_relevance_audit.py::test_phase144_6_r5_25_traces_both_visible_hopf_facts
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+2.37s call     tests/test_phase144_6_r5_25_multi_argument_suppression_selective_frontier_relevance_audit.py::test_phase144_6_r5_25_traces_both_visible_hopf_facts
+1 passed in 3.97s
+--- stderr ---
+
+
+==============================================================================
+INDEX: 3373
+STATUS: PASS
+ELAPSED: 6.66s
+NODEID: tests/test_phase144_6_r5_25_multi_argument_suppression_selective_frontier_relevance_audit.py::test_phase144_6_r5_25_classifies_multi_argument_suppression
+--- stdout ---
+.                                                                        [100%]
+============================= slowest 1 durations =============================
+3.94s call     tests/test_phase144_6_r5_25_multi_argument_suppression_selective_frontier_relevance_audit.py::test_phase144_6_r5_25_classifies_multi_argument_suppression
+1 passed in 5.50s
+--- stderr ---
+
+
