@@ -606,17 +606,31 @@ def build_toda_group_proof_narrative_reason_sidecar(
       "TodaGroupProofNarrativeSemanticSidecar"
     )
 
-  if (
-    semantic_sidecar.presentation
-    is not presentation
-  ):
+  if semantic_sidecar.presentation is not presentation:
     raise ValueError(
-      "semantic_sidecar must belong to "
-      "presentation"
+      "semantic_sidecar must belong to presentation"
     )
 
   reasons = []
   reference_applications_by_step_id = {}
+  visible_step_ids = {
+    id(node.proof_step)
+    for node in presentation.nodes
+  }
+
+  def append_if_visible(
+    reason: TodaGroupProofNarrativeReason,
+  ) -> None:
+    reason_steps = (
+      reason.premise_steps
+      + (reason.conclusion_step,)
+    )
+    if not all(
+      id(proof_step) in visible_step_ids
+      for proof_step in reason_steps
+    ):
+      return
+    reasons.append(reason)
 
   for application in semantic_sidecar.reference_application_semantics:
     reference_applications_by_step_id.setdefault(
@@ -624,9 +638,7 @@ def build_toda_group_proof_narrative_reason_sidecar(
       [],
     ).append(application)
 
-  for dependency in (
-    semantic_sidecar.dependency_semantics
-  ):
+  for dependency in semantic_sidecar.dependency_semantics:
     if (
       dependency.role
       is not TodaGroupProofNarrativeDependencySemanticRole
@@ -644,57 +656,38 @@ def build_toda_group_proof_narrative_reason_sidecar(
       else None
     )
 
-    reasons.append(
+    append_if_visible(
       TodaGroupProofNarrativeReason(
         kind=(
           TodaGroupProofNarrativeReasonKind
           .DEFINITION_APPLICABILITY
         ),
-        premise_steps=(
-          dependency.prerequisite_step,
-        ),
-        conclusion_step=(
-          dependency.dependent_step
-        ),
+        premise_steps=(dependency.prerequisite_step,),
+        conclusion_step=dependency.dependent_step,
         reference_application=reference_application,
       )
     )
 
   for node in presentation.nodes:
-    exactness_reason = (
-      _exactness_to_map_property_reason(
-        node.proof_step
-      )
+    exactness_reason = _exactness_to_map_property_reason(
+      node.proof_step
     )
-
     if exactness_reason is not None:
-      reasons.append(exactness_reason)
+      append_if_visible(exactness_reason)
 
-    multiple_order_reason = (
-      _multiple_relation_to_order_reason(
-        node.proof_step
-      )
+    multiple_order_reason = _multiple_relation_to_order_reason(
+      node.proof_step
     )
-
     if multiple_order_reason is not None:
-      reasons.append(multiple_order_reason)
+      append_if_visible(multiple_order_reason)
 
-    final_group_structure_reason = (
-      _final_group_structure_reason(
-        node.proof_step
-      )
+    final_group_structure_reason = _final_group_structure_reason(
+      node.proof_step
     )
-
     if final_group_structure_reason is not None:
-      reasons.append(
-        final_group_structure_reason
-      )
+      append_if_visible(final_group_structure_reason)
 
-  return (
-    TodaGroupProofNarrativeReasonSidecar(
-      presentation=presentation,
-      reasons=tuple(
-        reasons
-      ),
-    )
+  return TodaGroupProofNarrativeReasonSidecar(
+    presentation=presentation,
+    reasons=tuple(reasons),
   )
