@@ -149,63 +149,6 @@ def render_toda_group_proof_narrative_reason_sentence(
   return None
 
 
-def _toda_group_proof_narrative_reason_insertion_index(
-  markdown: str,
-  reason: TodaGroupProofNarrativeReason,
-  reason_sidecar: TodaGroupProofNarrativeReasonSidecar,
-) -> int | None:
-  conclusion_line = _render_generic_narrative_step(
-    reason.conclusion_step
-  )
-  if conclusion_line:
-    conclusion_index = markdown.find(conclusion_line)
-    if conclusion_index >= 0:
-      return conclusion_index
-
-  children_by_step_id = {}
-  for edge in reason_sidecar.presentation.edges:
-    children_by_step_id.setdefault(
-      id(edge.premise_step),
-      [],
-    ).append(edge.parent_step)
-
-  queue = list(
-    children_by_step_id.get(
-      id(reason.conclusion_step),
-      (),
-    )
-  )
-  visited_step_ids = {
-    id(reason.conclusion_step),
-  }
-
-  while queue:
-    next_queue = []
-    for proof_step in queue:
-      proof_step_id = id(proof_step)
-      if proof_step_id in visited_step_ids:
-        continue
-      visited_step_ids.add(proof_step_id)
-
-      rendered_line = _render_generic_narrative_step(
-        proof_step
-      )
-      if rendered_line:
-        rendered_index = markdown.find(rendered_line)
-        if rendered_index >= 0:
-          return rendered_index
-
-      next_queue.extend(
-        children_by_step_id.get(
-          proof_step_id,
-          (),
-        )
-      )
-    queue = next_queue
-
-  return None
-
-
 def insert_toda_group_proof_narrative_reason_prose(
   markdown: str,
   reason_sidecar: TodaGroupProofNarrativeReasonSidecar,
@@ -230,27 +173,27 @@ def insert_toda_group_proof_narrative_reason_prose(
     if sentence is None:
       continue
 
-    insertion_index = (
-      _toda_group_proof_narrative_reason_insertion_index(
-        rendered,
-        reason,
-        reason_sidecar,
-      )
+    conclusion_line = _render_generic_narrative_step(
+      reason.conclusion_step
     )
-    if insertion_index is None:
+    if not conclusion_line:
+      continue
+
+    conclusion_index = rendered.find(conclusion_line)
+    if conclusion_index < 0:
       continue
 
     prefix = sentence + "\n\n"
     if rendered[
-      max(0, insertion_index - len(prefix)):
-      insertion_index
+      max(0, conclusion_index - len(prefix)):
+      conclusion_index
     ] == prefix:
       continue
 
     rendered = (
-      rendered[:insertion_index]
+      rendered[:conclusion_index]
       + prefix
-      + rendered[insertion_index:]
+      + rendered[conclusion_index:]
     )
 
   return rendered

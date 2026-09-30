@@ -21,10 +21,6 @@ from toda_rules import (
   TodaProp42ExactnessStatement,
   TodaSuspensionInjectiveStatement,
 )
-from toda_group_proof_narrative_aggregate_semantics import (
-  TodaGroupProofNarrativeAggregateSemanticKind,
-  build_toda_group_proof_narrative_aggregate_semantic_sidecar,
-)
 from toda_group_proof_narrative_semantics import (
   TodaGroupProofNarrativeDependencySemanticRole,
   TodaGroupProofNarrativeReferenceApplicationSemantic,
@@ -49,15 +45,6 @@ class TodaGroupProofNarrativeReasonKind(
   )
   FINAL_GROUP_STRUCTURE = (
     "final_group_structure"
-  )
-  MAP_STRUCTURE_DERIVATION = (
-    "map_structure_derivation"
-  )
-  GROUP_ORDER_DERIVATION = (
-    "group_order_derivation"
-  )
-  FINAL_RESULT_DERIVATION = (
-    "final_result_derivation"
   )
 
 
@@ -597,43 +584,6 @@ def _final_group_structure_reason(
   )
 
 
-def _aggregate_derivation_reason(
-  proof_step: ProofStep,
-  aggregate_kind: TodaGroupProofNarrativeAggregateSemanticKind | None,
-) -> TodaGroupProofNarrativeReason | None:
-  if aggregate_kind is TodaGroupProofNarrativeAggregateSemanticKind.MAP_TRANSPORT:
-    kind = TodaGroupProofNarrativeReasonKind.MAP_STRUCTURE_DERIVATION
-  elif aggregate_kind is TodaGroupProofNarrativeAggregateSemanticKind.GROUP_ORDER_TRANSPORT:
-    kind = TodaGroupProofNarrativeReasonKind.GROUP_ORDER_DERIVATION
-  else:
-    return None
-  if not proof_step.premises:
-    return None
-  return TodaGroupProofNarrativeReason(
-    kind=kind,
-    premise_steps=tuple(proof_step.premises),
-    conclusion_step=proof_step,
-  )
-
-
-def _final_result_derivation_reason(
-  proof_step: ProofStep,
-) -> TodaGroupProofNarrativeReason | None:
-  conclusion = proof_step.conclusion
-  if (
-    not isinstance(conclusion, Relation)
-    or conclusion.relation_type is not RelationType.EQUALITY
-    or not isinstance(conclusion.rhs, FiniteCyclicGroup)
-    or not proof_step.premises
-  ):
-    return None
-  return TodaGroupProofNarrativeReason(
-    kind=TodaGroupProofNarrativeReasonKind.FINAL_RESULT_DERIVATION,
-    premise_steps=tuple(proof_step.premises),
-    conclusion_step=proof_step,
-  )
-
-
 def build_toda_group_proof_narrative_reason_sidecar(
   presentation: TodaGroupProofPresentation,
   semantic_sidecar: TodaGroupProofNarrativeSemanticSidecar,
@@ -663,13 +613,6 @@ def build_toda_group_proof_narrative_reason_sidecar(
 
   reasons = []
   reference_applications_by_step_id = {}
-  aggregate_sidecar = build_toda_group_proof_narrative_aggregate_semantic_sidecar(
-    presentation
-  )
-  aggregate_kind_by_step_id = {
-    id(semantic.proof_step): semantic.kind
-    for semantic in aggregate_sidecar.step_semantics
-  }
   visible_step_ids = {
     id(node.proof_step)
     for node in presentation.nodes
@@ -743,18 +686,6 @@ def build_toda_group_proof_narrative_reason_sidecar(
     )
     if final_group_structure_reason is not None:
       append_if_visible(final_group_structure_reason)
-
-    aggregate_reason = _aggregate_derivation_reason(
-      node.proof_step,
-      aggregate_kind_by_step_id.get(id(node.proof_step)),
-    )
-    if aggregate_reason is not None:
-      append_if_visible(aggregate_reason)
-
-    if final_group_structure_reason is None:
-      final_reason = _final_result_derivation_reason(node.proof_step)
-      if final_reason is not None:
-        append_if_visible(final_reason)
 
   return TodaGroupProofNarrativeReasonSidecar(
     presentation=presentation,
