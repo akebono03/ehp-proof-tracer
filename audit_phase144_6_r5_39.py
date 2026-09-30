@@ -112,7 +112,16 @@ def build_narrative_necessity_inventory():
   for row in occurrences:
     occurrences_by_group[_group_key_from_occurrence(row)].append(row)
 
-  pi6_presentation = _context(3, 3)[0]
+  presentations = {
+    (n, k): _context(n, k)[0]
+    for n, k in TARGETS
+  }
+  children_by_group = {
+    key: _argument_edges(presentation)
+    for key, presentation in presentations.items()
+  }
+
+  pi6_presentation = presentations[(3, 3)]
   pi6_dedicated = render_toda_group_proof_narrative_markdown(
     pi6_presentation
   )
@@ -145,8 +154,7 @@ def build_narrative_necessity_inventory():
         "Phase 39 owner reconstruction must match Phase 38 ownership"
       )
 
-    presentation = _context(group.n, group.k)[0]
-    children = _argument_edges(presentation)
+    children = children_by_group[(group.n, group.k)]
     same_argument_ids = {
       row.step_id
       for row in occurrences
@@ -194,7 +202,6 @@ def build_narrative_necessity_inventory():
       )
     )
   return tuple(records)
-
 
 def print_audit():
   rows = build_narrative_necessity_inventory()

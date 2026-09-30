@@ -1,0 +1,41 @@
+Phase 150 Performance Diagnostic R2 Repair
+========================================================================
+Production changes: none
+Existing test changes: none
+Documentation changes: none
+Full regression: NOT run
+Repository root: C:\Users\oomae\Dropbox\Python\fitz\ehp_proof
+Tests import path: C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests
+
+A. First sequential pass
+------------------------------------------------------------------------
+r5_37: 11.354s size=356
+r5_38_occurrences: 10.525s size=294
+r5_38_groups: 10.485s size=197
+r5_39: 99.646s size=197
+r5_40: 12.292s size=193
+r5_41: 12.180s size=2
+
+B. Immediate second pass in the same Python process
+------------------------------------------------------------------------
+r5_37: 9.276s size=356
+r5_38_occurrences: 10.392s size=294
+r5_38_groups: 10.270s size=197
+r5_39: 108.764s size=197
+r5_40: 12.979s size=193
+r5_41: 12.774s size=2
+
+C. Repeated-builder ratios
+------------------------------------------------------------------------
+r5_37: pass1=11.354s pass2=9.276s pass2/pass1=0.817
+r5_38_occurrences: pass1=10.525s pass2=10.392s pass2/pass1=0.987
+r5_38_groups: pass1=10.485s pass2=10.270s pass2/pass1=0.979
+r5_39: pass1=99.646s pass2=108.764s pass2/pass1=1.092
+r5_40: pass1=12.292s pass2=12.979s pass2/pass1=1.056
+r5_41: pass1=12.180s pass2=12.774s pass2/pass1=1.049
+
+D. Structural findings from current source
+------------------------------------------------------------------------
+r5_37 tests call build_semantic_equivalence_and_rendering_inventory() independently in each test; there is no module-scoped fixture in that test file.
+r5_38-r5_41 use module-scoped pytest fixtures, but their audit builders form a dependency chain that independently rebuilds visibility occurrences and/or six-group _context() data.
+This diagnostic intentionally does not cache or patch any builder. It measures the current behavior only.
