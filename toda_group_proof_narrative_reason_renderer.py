@@ -100,6 +100,37 @@ def render_toda_group_proof_narrative_reason_sentence(
       "したがって、"
     )
 
+  if (
+    reason.kind
+    is TodaGroupProofNarrativeReasonKind
+    .FINAL_GROUP_STRUCTURE
+  ):
+    if len(reason.premise_steps) != 7:
+      return None
+
+    left_group_statement = reason.premise_steps[0].conclusion
+    right_group_statement = reason.premise_steps[4].conclusion
+    order_statement = reason.premise_steps[5].conclusion
+    membership_statement = reason.premise_steps[6].conclusion
+
+    left_order = left_group_statement.rhs.order
+    right_order = right_group_statement.rhs.order
+    middle_order = left_order * right_order
+    generator_latex = render_toda_expression_latex(
+      membership_statement.element
+    )
+
+    return (
+      "この短完全列と両端の群の位数より、"
+      f"中央の群の位数は ${left_order}\cdot"
+      f"{right_order}={middle_order}$ である.\n"
+      f"また、${generator_latex}$ は中央の群に属し、"
+      f"$\operatorname{{ord}}({generator_latex})"
+      f"={order_statement.rhs}={middle_order}$ であるから、"
+      f"${generator_latex}$ は中央の群を生成する.\n"
+      "したがって、"
+    )
+
   return None
 
 

@@ -1,8 +1,14 @@
 from dataclasses import dataclass
 from enum import Enum
 
+from barratt_hilton_rules import (
+  HomotopyGroupMembershipStatement,
+)
 from expression import (
   Multiple,
+)
+from homotopy_groups import (
+  FiniteCyclicGroup,
 )
 from proof import (
   ProofStep,
@@ -11,6 +17,7 @@ from proof import (
 )
 from toda_rules import (
   TodaDeltaZeroStatement,
+  TodaHopfInvariantSurjectiveStatement,
   TodaProp42ExactnessStatement,
   TodaSuspensionInjectiveStatement,
 )
@@ -35,6 +42,9 @@ class TodaGroupProofNarrativeReasonKind(
   )
   MULTIPLE_RELATION_TO_ORDER = (
     "multiple_relation_to_order"
+  )
+  FINAL_GROUP_STRUCTURE = (
+    "final_group_structure"
   )
 
 
@@ -407,6 +417,173 @@ def _multiple_relation_to_order_reason(
   )
 
 
+def _final_group_structure_reason(
+  proof_step: ProofStep,
+) -> TodaGroupProofNarrativeReason | None:
+  conclusion = proof_step.conclusion
+
+  if (
+    not isinstance(conclusion, Relation)
+    or conclusion.relation_type is not RelationType.EQUALITY
+    or not isinstance(conclusion.rhs, FiniteCyclicGroup)
+  ):
+    return None
+
+  middle_group = conclusion.lhs
+  target_group = conclusion.rhs
+  target_order = target_group.order
+  target_generator = target_group.generator
+
+  order_premises = tuple(
+    premise
+    for premise in proof_step.premises
+    if (
+      isinstance(premise.conclusion, Relation)
+      and premise.conclusion.relation_type is RelationType.ORDER
+      and premise.conclusion.lhs == target_generator
+      and premise.conclusion.rhs == target_order
+    )
+  )
+  membership_premises = tuple(
+    premise
+    for premise in proof_step.premises
+    if (
+      isinstance(
+        premise.conclusion,
+        HomotopyGroupMembershipStatement,
+      )
+      and premise.conclusion.element == target_generator
+      and premise.conclusion.group_dimension
+      == getattr(middle_group, "group_dimension", None)
+      and premise.conclusion.sphere_dimension
+      == getattr(middle_group, "sphere_dimension", None)
+    )
+  )
+  exactness_premises = tuple(
+    premise
+    for premise in proof_step.premises
+    if (
+      isinstance(
+        premise.conclusion,
+        TodaProp42ExactnessStatement,
+      )
+      and premise.conclusion.window.middle_term == middle_group
+    )
+  )
+
+  compatible_structural_chains = []
+
+  for exactness_premise in exactness_premises:
+    window = exactness_premise.conclusion.window
+
+    left_group_premises = tuple(
+      premise
+      for premise in proof_step.premises
+      if (
+        isinstance(premise.conclusion, Relation)
+        and premise.conclusion.relation_type is RelationType.EQUALITY
+        and premise.conclusion.lhs == window.source_term
+        and isinstance(
+          premise.conclusion.rhs,
+          FiniteCyclicGroup,
+        )
+      )
+    )
+    right_group_premises = tuple(
+      premise
+      for premise in proof_step.premises
+      if (
+        isinstance(premise.conclusion, Relation)
+        and premise.conclusion.relation_type is RelationType.EQUALITY
+        and premise.conclusion.lhs == window.target_term
+        and isinstance(
+          premise.conclusion.rhs,
+          FiniteCyclicGroup,
+        )
+      )
+    )
+    injective_premises = tuple(
+      premise
+      for premise in proof_step.premises
+      if (
+        isinstance(
+          premise.conclusion,
+          TodaSuspensionInjectiveStatement,
+        )
+        and premise.conclusion.map.source_group
+        == window.source_term
+        and premise.conclusion.map.target_group
+        == window.middle_term
+      )
+    )
+    surjective_premises = tuple(
+      premise
+      for premise in proof_step.premises
+      if (
+        isinstance(
+          premise.conclusion,
+          TodaHopfInvariantSurjectiveStatement,
+        )
+        and premise.conclusion.map.source_group
+        == window.middle_term
+        and premise.conclusion.map.target_group
+        == window.target_term
+      )
+    )
+
+    if (
+      len(left_group_premises) != 1
+      or len(right_group_premises) != 1
+      or len(injective_premises) != 1
+      or len(surjective_premises) != 1
+    ):
+      continue
+
+    left_group_premise = left_group_premises[0]
+    right_group_premise = right_group_premises[0]
+
+    if (
+      left_group_premise.conclusion.rhs.order
+      * right_group_premise.conclusion.rhs.order
+      != target_order
+    ):
+      continue
+
+    compatible_structural_chains.append(
+      (
+        left_group_premise,
+        injective_premises[0],
+        exactness_premise,
+        surjective_premises[0],
+        right_group_premise,
+      )
+    )
+
+  if (
+    len(order_premises) != 1
+    or len(membership_premises) != 1
+    or len(compatible_structural_chains) != 1
+  ):
+    return None
+
+  structural_chain = compatible_structural_chains[0]
+
+  return TodaGroupProofNarrativeReason(
+    kind=(
+      TodaGroupProofNarrativeReasonKind
+      .FINAL_GROUP_STRUCTURE
+    ),
+    premise_steps=(
+      structural_chain
+      + (
+        order_premises[0],
+        membership_premises[0],
+      )
+    ),
+    conclusion_step=proof_step,
+  )
+
+
 def build_toda_group_proof_narrative_reason_sidecar(
   presentation: TodaGroupProofPresentation,
   semantic_sidecar: TodaGroupProofNarrativeSemanticSidecar,
@@ -501,6 +678,17 @@ def build_toda_group_proof_narrative_reason_sidecar(
 
     if multiple_order_reason is not None:
       reasons.append(multiple_order_reason)
+
+    final_group_structure_reason = (
+      _final_group_structure_reason(
+        node.proof_step
+      )
+    )
+
+    if final_group_structure_reason is not None:
+      reasons.append(
+        final_group_structure_reason
+      )
 
   return (
     TodaGroupProofNarrativeReasonSidecar(
