@@ -1,0 +1,138 @@
+==============================================================================
+Phase 150 / RC4-3 General rule design
+Production changes: none
+Existing test changes: none
+Repository-wide tests: not run
+==============================================================================
+
+PROPOSED PRODUCTION MODEL
+------------------------------------------------------------------------------
+New module for RC4-4:
+  toda_group_proof_narrative_reasons.py
+
+Minimal production types:
+  TodaGroupProofNarrativeReasonKind(Enum)
+  TodaGroupProofNarrativeReason(dataclass)
+  TodaGroupProofNarrativeReasonSidecar(dataclass)
+  build_toda_group_proof_narrative_reason_sidecar(...)
+
+Reason record fields:
+  kind: TodaGroupProofNarrativeReasonKind
+  premise_steps: tuple[ProofStep, ...]
+  conclusion_step: ProofStep
+  owner_argument_index: int | None
+
+Important separation:
+  OrderedContribution = what/where to display (RC3)
+  Reason = why a conclusion follows (RC4)
+  Renderer = how to say that reason in prose (RC4)
+
+PROPOSED RULES
+------------------------------------------------------------------------------
+[1] definition_applicability
+premise_roles=('precondition',)
+conclusion_role=definition
+requires_typed_dependency=True
+requires_statement_shape=False
+requires_exactness_context=False
+requires_transport_semantic=False
+rc4_4_status=implement
+
+[2] derived_equality
+premise_roles=('calculation',)
+conclusion_role=calculation
+requires_typed_dependency=False
+requires_statement_shape=True
+requires_exactness_context=False
+requires_transport_semantic=False
+rc4_4_status=implement
+
+[3] exactness_to_map_property
+premise_roles=('exactness', 'map_property')
+conclusion_role=map_property
+requires_typed_dependency=False
+requires_statement_shape=True
+requires_exactness_context=True
+requires_transport_semantic=False
+rc4_4_status=implement
+
+[4] transported_order
+premise_roles=('group_structure', 'map_property')
+conclusion_role=order
+requires_typed_dependency=False
+requires_statement_shape=True
+requires_exactness_context=False
+requires_transport_semantic=True
+rc4_4_status=defer-unless-existing-transport-identifies-chain
+
+[5] multiple_relation_to_order
+premise_roles=('calculation', 'order')
+conclusion_role=order
+requires_typed_dependency=False
+requires_statement_shape=True
+requires_exactness_context=False
+requires_transport_semantic=False
+rc4_4_status=implement
+
+[6] short_exact_derivation
+premise_roles=('exactness', 'map_property')
+conclusion_role=exactness
+requires_typed_dependency=False
+requires_statement_shape=False
+requires_exactness_context=True
+requires_transport_semantic=False
+rc4_4_status=implement-at-exactness-contribution-boundary
+
+[7] short_exact_to_group_order
+premise_roles=('exactness', 'group_structure')
+conclusion_role=group_structure
+requires_typed_dependency=False
+requires_statement_shape=True
+requires_exactness_context=True
+requires_transport_semantic=False
+rc4_4_status=implement
+
+[8] member_of_full_order_generates
+premise_roles=('membership', 'order', 'group_structure')
+conclusion_role=group_structure
+requires_typed_dependency=False
+requires_statement_shape=True
+requires_exactness_context=False
+requires_transport_semantic=False
+rc4_4_status=implement
+
+SAFETY / GENERALITY GUARDS
+------------------------------------------------------------------------------
+1. Never classify by n, k, pi_6^3, nu', proposition number, or rendered text.
+2. Never classify a raw role pair alone when multiple mathematical meanings are possible.
+3. Require statement shape for equality/order/generator deductions.
+4. Require exactness ownership/context for exactness-derived reasons.
+5. Do not generate a reason from OTHER blocks.
+6. Do not invent EHP map names or semantic labels; RC5 owns naming.
+7. Reason generation must not change contribution placement/order.
+8. Unsupported/ambiguous relations produce no reason, not fallback prose.
+
+RC4-4 MINIMAL IMPLEMENTATION BOUNDARY
+------------------------------------------------------------------------------
+Implement the typed reason sidecar and only rules whose current semantic inputs
+are sufficient. Keep transported_order guarded by existing typed transport
+semantics; otherwise omit it rather than infer from names.
+
+Renderer integration should be additive: existing Narrative remains valid when
+no reason is classified. RC3 OrderedContribution APIs remain unchanged.
+
+PI_6^3 CURRENT ROLE POPULATION
+------------------------------------------------------------------------------
+target=1
+reference=3
+precondition=1
+definition=1
+membership=1
+calculation=4
+exactness=3
+map_property=4
+order=1
+group_structure=6
+
+DESIGN_RESULT=PASS
+NEXT=RC4-4 Minimal implementation
