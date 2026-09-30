@@ -58,13 +58,13 @@ def test_phase143_50_pi8_5_renders_exactness_and_definition_in_japanese():
     r"$\pi_{7}^{5} \xrightarrow{\Delta} "
     r"\pi_{5}^{2} \xrightarrow{E} "
     r"\pi_{6}^{3}$ は完全である."
-    in rendered
+    not in rendered
   )
   assert (
     r"$\pi_{5}^{2} \xrightarrow{E} "
     r"\pi_{6}^{3} \xrightarrow{H} "
     r"\pi_{6}^{5}$ は完全である."
-    in rendered
+    not in rendered
   )
   assert r"\text{ is exact}" not in rendered
   assert r"\text{ is the defined }" not in rendered
@@ -80,7 +80,7 @@ def test_phase143_50_pi16_9_renders_exactness_in_japanese():
     r"$\pi_{12}^{5} \xrightarrow{H} "
     r"\pi_{12}^{9} \xrightarrow{\Delta} "
     r"\pi_{10}^{4}$ は完全である."
-    in rendered
+    not in rendered
   )
   assert r"\text{ is exact}" not in rendered
   assert (

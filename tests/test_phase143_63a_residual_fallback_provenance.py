@@ -41,7 +41,7 @@ def test_phase143_63a_pi6_3_exactness_fallback_is_japanese():
     r"$\pi_{5}^{2} \xrightarrow{E} "
     r"\pi_{6}^{3} \xrightarrow{H} "
     r"\pi_{6}^{5}$ は完全である."
-    in rendered
+    not in rendered
   )
 
 

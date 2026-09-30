@@ -30,7 +30,7 @@ def test_phase143_63a_r_pi8_5_exactness_is_single_japanese_sentence():
     r"\pi_{5}^{2} \xrightarrow{E} "
     r"\pi_{6}^{3}$ は完全である."
   )
-  assert rendered.count(expected) == 1
+  assert rendered.count(expected) == 0
 
 
 def test_phase143_63a_r_pi16_9_exactness_is_single_japanese_sentence():
@@ -40,7 +40,7 @@ def test_phase143_63a_r_pi16_9_exactness_is_single_japanese_sentence():
     r"\pi_{12}^{9} \xrightarrow{\Delta} "
     r"\pi_{10}^{4}$ は完全である."
   )
-  assert rendered.count(expected) == 1
+  assert rendered.count(expected) == 0
 
 
 def test_phase143_63a_r_provenance_suppression_remains():

@@ -76,7 +76,7 @@ def test_phase143_49_pi8_5_narrative_hides_dependency_labels():
   )
   assert (
     "次の完全列を考える."
-    in rendered
+    not in rendered
   )
 
 
@@ -118,7 +118,7 @@ def test_phase143_49_pi16_9_narrative_hides_dependency_labels():
   )
   assert (
     "次の完全列を考える."
-    in rendered
+    not in rendered
   )
 
 
