@@ -243,20 +243,20 @@ def render_toda_group_proof_narrative_argument_discourse_marker(
     is TodaGroupProofNarrativeArgumentDiscourseRole
     .FIRST
   ):
-    return "まず、"
+    return "まず, "
 
   if (
     role
     is TodaGroupProofNarrativeArgumentDiscourseRole
     .MIDDLE
   ):
-    return "次に、"
+    return "次に, "
 
   if (
     role
     is TodaGroupProofNarrativeArgumentDiscourseRole
     .FINAL
   ):
-    return "最後に、"
+    return "最後に, "
 
   return ""

@@ -186,7 +186,7 @@ def number_toda_group_proof_narrative_equations(
           -1,
           -1,
         )
-        if lines[index] == "これらより、"
+        if lines[index] == "これらより, "
       ),
       None,
     )
@@ -213,7 +213,7 @@ def number_toda_group_proof_narrative_equations(
       )
 
     lines[connector_index] = (
-      reference_text + " より、"
+      reference_text + " より, "
     )
 
   return "\n".join(lines)

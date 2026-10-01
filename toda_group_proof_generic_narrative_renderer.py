@@ -51,6 +51,8 @@ from toda_rules import (
   Toda52CompositionIsomorphismStatement,
   Toda53NuPrimeBracketSpecializationStatement,
   Toda55NuFamilyFiniteDimensionalStatement,
+  Toda56Nu4DecompositionIsomorphismStatement,
+  Toda56Nu4DecompositionStatement,
   TodaDeltaInjectiveStatement,
   TodaDeltaKernelFreeCyclicStatement,
   TodaDeltaSurjectiveStatement,
@@ -872,6 +874,47 @@ def _render_generic_narrative_statement_prose(
 
   if isinstance(
     statement,
+    Toda56Nu4DecompositionStatement,
+  ):
+    return (
+      r"$\nu_{4}$ の分解を用いる."
+    )
+
+  if isinstance(
+    statement,
+    Toda56Nu4DecompositionIsomorphismStatement,
+  ):
+    return (
+      r"$\nu_{4}$ の分解写像は同型写像である."
+    )
+
+  if isinstance(
+    statement,
+    TodaProp42ExactnessStatement,
+  ):
+    window = statement.window
+    return (
+      "$"
+      + render_toda_primary_group_latex(
+        window.source_term
+      )
+      + r" \xrightarrow{"
+      + window.first_map.name
+      + r"} "
+      + render_toda_primary_group_latex(
+        window.middle_term
+      )
+      + r" \xrightarrow{"
+      + window.second_map.name
+      + r"} "
+      + render_toda_primary_group_latex(
+        window.target_term
+      )
+      + "$ は完全である."
+    )
+
+  if isinstance(
+    statement,
     _GENERIC_INJECTIVE_STATEMENT_TYPES,
   ):
     map_latex = (
@@ -972,6 +1015,56 @@ def _render_generic_narrative_statement_prose(
 
   return None
 
+def _normalize_toda_group_proof_narrative_sentence_endings(
+  prose: str,
+) -> str:
+  if not isinstance(
+    prose,
+    str,
+  ):
+    raise TypeError(
+      "prose must be a str"
+    )
+
+  normalized_lines = []
+
+  for line in prose.splitlines():
+    stripped = line.rstrip()
+    trailing = line[
+      len(
+        stripped
+      ):
+    ]
+    has_japanese = any(
+      (
+        "\u3040" <= character <= "\u30ff"
+        or "\u3400" <= character <= "\u9fff"
+      )
+      for character in stripped
+    )
+
+    if (
+      has_japanese
+      and stripped.endswith(
+        "。"
+      )
+    ):
+      stripped = (
+        stripped[
+          :-1
+        ]
+        + "."
+      )
+
+    normalized_lines.append(
+      stripped
+      + trailing
+    )
+
+  return "\n".join(
+    normalized_lines
+  )
+
 
 def _render_generic_narrative_step(
   proof_step: ProofStep,
@@ -993,7 +1086,11 @@ def _render_generic_narrative_step(
   )
 
   if prose is not None:
-    return prose
+    return (
+      _normalize_toda_group_proof_narrative_sentence_endings(
+        prose
+      )
+    )
 
   try:
     latex = (
@@ -1548,8 +1645,8 @@ def _generic_short_exact_sequence_reason_prose(
     return None
 
   return (
-    "この完全性と、左の写像が単射、"
-    "右の写像が全射であることより、"
+    "この完全性と, 左の写像が単射, "
+    "右の写像が全射であることより, "
     "次の短完全列を得る."
   )
 

@@ -25,7 +25,7 @@ def render_toda_group_proof_narrative_exactness_method_transition(
       "or None"
     )
 
-  return "そのために、次の完全列を考える."
+  return "そのために, 次の完全列を考える."
 
 
 def _render_toda_group_proof_narrative_exactness_map_symbol_latex(

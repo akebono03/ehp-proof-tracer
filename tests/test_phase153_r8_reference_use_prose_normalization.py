@@ -50,9 +50,9 @@ def _pi6_2_body():
 def test_phase153_r8_normalizes_replaced_reference_derivation_to_use_sentence():
   statement = r"$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$"
   body = (
-    "このことから、"
+    "このことから, "
     + statement
-    + "を得る。"
+    + "を得る."
   )
 
   rendered = (
@@ -66,15 +66,15 @@ def test_phase153_r8_normalizes_replaced_reference_derivation_to_use_sentence():
     )
   )
 
-  assert rendered == "[R2]を用いる。"
+  assert rendered == "[R2]を用いる."
 
 
 def test_phase153_r8_normalizes_existing_reference_marker_to_use_sentence():
   statement = r"$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$"
   body = (
-    "まず、[R2] により、"
+    "まず, [R2] により, "
     + statement
-    + "を得る。"
+    + "を得る."
   )
 
   rendered = (
@@ -88,11 +88,11 @@ def test_phase153_r8_normalizes_existing_reference_marker_to_use_sentence():
     )
   )
 
-  assert rendered == "[R2]を用いる。"
+  assert rendered == "[R2]を用いる."
 
 
 def test_phase153_r8_does_not_change_non_reference_derivation_sentence():
-  body = r"このことから、$γ \mapsto \eta_{2}γ$を得る。"
+  body = r"このことから, $γ \mapsto \eta_{2}γ$を得る."
 
   rendered = (
     suppress_toda_group_proof_narrative_reference_body_duplicates(
@@ -111,9 +111,9 @@ def test_phase153_r8_does_not_change_non_reference_derivation_sentence():
 def test_phase153_r8_pi6_2_reference_use_is_not_written_as_obtained():
   body = _pi6_2_body()
 
-  assert "[R2]を用いる。" in body
-  assert "[R2]を得る。" not in body
-  assert "このことから、[R2]を得る。" not in body
+  assert "[R2]を用いる." in body
+  assert "[R2]を得る." not in body
+  assert "このことから, [R2]を得る." not in body
 
 
 def test_phase153_r8_pi6_2_keeps_final_conclusion():

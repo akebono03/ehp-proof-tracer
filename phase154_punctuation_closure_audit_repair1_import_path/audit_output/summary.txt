@@ -1,0 +1,30 @@
+==============================================================================
+Phase 154 — Punctuation Closure Audit
+==============================================================================
+Production changes: none
+Existing test changes: none
+Range: n=2..15, k=0..7 (112 groups)
+Replay depth: 2
+Route: public Narrative renderer
+Policy: prose comma=', ' / prose period='.'
+TeX display and inline math: excluded from punctuation violations
+
+Summary
+------------------------------------------------------------------------------
+scanned groups: 112
+rendered groups: 112
+exceptions: 0
+japanese comma violations: 0
+japanese period violations: 0
+affected groups: 0
+ascii comma prose lines: 484
+groups with ascii comma prose: 112
+ascii period prose endings: 587
+groups with ascii period prose: 112
+
+Output files
+------------------------------------------------------------------------------
+audit_output/summary.txt
+audit_output/violations.csv
+audit_output/exceptions.csv
+==============================================================================

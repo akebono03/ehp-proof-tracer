@@ -39,8 +39,8 @@ def _normalize_toda_group_proof_narrative_argument_header_spacing(
     )
 
   return header.replace(
-    ".そのために、",
-    ". そのために、",
+    ".そのために, ",
+    ". そのために, ",
   )
 
 

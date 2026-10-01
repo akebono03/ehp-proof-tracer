@@ -169,4 +169,4 @@ def test_phase149_rc3_3_pi6_3_calculation_chain_remains_numbered():
   assert r"\tag{1}" in rendered
   assert r"\tag{2}" in rendered
   assert r"\tag{3}" in rendered
-  assert "(1) と (2) より、" in rendered
+  assert "(1) と (2) より, " in rendered

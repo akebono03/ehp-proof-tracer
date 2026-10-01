@@ -431,7 +431,7 @@ def _insert_toda_group_proof_narrative_step_derivation_connectors(
   for line in block_lines:
     if line in target_lines:
       lines.append(
-        "これらより、"
+        "これらより, "
       )
       lines.append(
         ""

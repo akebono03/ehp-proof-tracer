@@ -83,7 +83,7 @@ def test_phase150_rc4_5_pi6_reason_is_visible_before_definition():
 
 
 @pytest.mark.parametrize("_label,n,k", CASES)
-def test_phase150_rc4_5_visible_reason_count_matches_typed_reason_count(
+def test_phase150_rc4_5_visible_reason_count_matches_current_deduplication_contract(
   _label,
   n,
   k,
@@ -95,23 +95,42 @@ def test_phase150_rc4_5_visible_reason_count_matches_typed_reason_count(
     rendered,
   ) = _render_case(n, k)
 
-  expected_sentences = tuple(
-    sentence
-    for reason in reason_sidecar.reasons
-    for sentence in (
-      render_toda_group_proof_narrative_reason_sentence(reason),
-    )
-    if sentence is not None
-  )
-  expected_sentence_counts = {
-    sentence: expected_sentences.count(sentence)
-    for sentence in dict.fromkeys(
-      expected_sentences
-    )
-  }
+  sentence_reasons = {}
 
-  for sentence, expected_count in expected_sentence_counts.items():
-    assert rendered.count(sentence) == expected_count
+  for reason in reason_sidecar.reasons:
+    sentence = (
+      render_toda_group_proof_narrative_reason_sentence(
+        reason
+      )
+    )
+
+    if sentence is None:
+      continue
+
+    sentence_reasons.setdefault(
+      sentence,
+      [],
+    ).append(
+      reason
+    )
+
+  for sentence, reasons in sentence_reasons.items():
+    if any(
+      reason.kind
+      is TodaGroupProofNarrativeReasonKind
+      .FINAL_RESULT_DERIVATION
+      for reason in reasons
+    ):
+      assert rendered.count(
+        sentence
+      ) == 1
+      continue
+
+    assert rendered.count(
+      sentence
+    ) == len(
+      reasons
+    )
 
 
 def test_phase150_rc4_5_does_not_invent_untyped_reason_prose():

@@ -90,15 +90,15 @@ def test_phase143_17_pi16_9_discourse_roles():
     ),
     (
       TodaGroupProofNarrativeArgumentDiscourseRole.FIRST,
-      "まず、",
+      "まず, ",
     ),
     (
       TodaGroupProofNarrativeArgumentDiscourseRole.MIDDLE,
-      "次に、",
+      "次に, ",
     ),
     (
       TodaGroupProofNarrativeArgumentDiscourseRole.FINAL,
-      "最後に、",
+      "最後に, ",
     ),
     (
       TodaGroupProofNarrativeArgumentDiscourseRole.DETACHED,
