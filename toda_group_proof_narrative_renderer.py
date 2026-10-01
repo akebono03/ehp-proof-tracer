@@ -2807,7 +2807,7 @@ def _append_narrative_for_step(
         lines.append(
           (
             lead
-            + "、すでに得た"
+            + ", すでに得た"
             + premise_fact
             + "を用いる."
           )
@@ -2828,7 +2828,7 @@ def _append_narrative_for_step(
       lines.append(
         (
           lead
-          + "、"
+          + ", "
           + premise_reference_reuse_marker
           + "を用いる."
         )
@@ -2860,7 +2860,7 @@ def _append_narrative_for_step(
                 premise_edges
               )
             )
-            + "、"
+            + ", "
             + generic_premise_fact
           )
         )
@@ -2872,7 +2872,7 @@ def _append_narrative_for_step(
                 premise_edges
               )
             )
-            + "、"
+            + ", "
             + premise_fact
             + "を得る."
           )
@@ -2924,9 +2924,9 @@ def _append_narrative_for_step(
           lines.append(
             (
               lead
-              + "、"
+              + ", "
               + premise_reference_marker
-              + " により、"
+              + " により, "
               + generic_premise_fact
               + "を得る."
             )
@@ -2935,9 +2935,9 @@ def _append_narrative_for_step(
           lines.append(
             (
               lead
-              + "、"
+              + ", "
               + premise_reference_marker
-              + " により、"
+              + " により, "
               + generic_premise_fact
             )
           )
@@ -2951,7 +2951,7 @@ def _append_narrative_for_step(
         lines.append(
           (
             lead
-            + "、"
+            + ", "
             + generic_premise_fact
           )
         )
@@ -2959,7 +2959,7 @@ def _append_narrative_for_step(
         lines.append(
           (
             lead
-            + "、"
+            + ", "
             + (
               premise_reference_marker
               if premise_reference_marker is not None
@@ -4350,7 +4350,7 @@ def render_toda_group_proof_narrative_markdown(
       lines.extend(
         (
           (
-            "$\\sigma_{9}$ の位数を確認し、"
+            "$\\sigma_{9}$ の位数を確認し, "
             "これが $\\pi_{16}^{9}$ を生成することを示す。"
           ),
           "",
@@ -4371,7 +4371,7 @@ def render_toda_group_proof_narrative_markdown(
       (
         "",
         (
-          "したがって、"
+          "したがって, "
           + _render_group_proof_narrative_fact(
             presentation.root_step
           )
@@ -4382,7 +4382,7 @@ def render_toda_group_proof_narrative_markdown(
   else:
     lines.append(
       (
-        "したがって、"
+        "したがって, "
         + _render_group_proof_narrative_fact(
           presentation.root_step
         )

@@ -49,7 +49,7 @@ def test_phase154_r2_fix3_completes_bare_reference_marker_after_replacement():
     r"\to \pi_{i}^{4}$ は同型写像である."
   )
   body = (
-    "まず、"
+    "まず, "
     + statement
   )
 
@@ -64,15 +64,15 @@ def test_phase154_r2_fix3_completes_bare_reference_marker_after_replacement():
     )
   )
 
-  assert rendered == "まず、[R2]を用いる."
+  assert rendered == "まず, [R2]を用いる."
 
 
 def test_phase154_r2_fix3_keeps_reference_marker_with_following_prose():
   statement = "$E: A \\xrightarrow{\\cong} B$"
   body = (
-    "まず、"
+    "まず, "
     + statement
-    + "を確認し、次の計算へ進む。"
+    + "を確認し, 次の計算へ進む."
   )
 
   rendered = (
@@ -87,7 +87,7 @@ def test_phase154_r2_fix3_keeps_reference_marker_with_following_prose():
   )
 
   assert rendered == (
-    "まず、[R2]を確認し、次の計算へ進む。"
+    "まず, [R2]を確認し, 次の計算へ進む."
   )
 
 
@@ -98,12 +98,12 @@ def test_phase154_r2_fix3_pi11_4_has_complete_reference_use_sentence():
   )
 
   assert (
-    r"[R2]より、$\nu_{4}$ の分解写像は同型写像である."
+    r"[R2]より, $\nu_{4}$ の分解写像は同型写像である."
     in rendered
   )
-  assert "まず、[R2]を用いる." not in rendered
+  assert "まず, [R2]を用いる." not in rendered
   assert (
-    r"このことから、$\nu_{4}$ の分解写像は同型写像である."
+    r"このことから, $\nu_{4}$ の分解写像は同型写像である."
     not in rendered
   )
   assert r"\pi_{11}^{4} = 0" in rendered
@@ -129,10 +129,10 @@ def test_phase154_r2_fix3_keeps_previous_r2_repairs():
   )
 
   forbidden = (
-    "Toda Proposition 5.15を用いる。",
+    "Toda Proposition 5.15を用いる.",
     r"\text{ is injective}",
     r"\text{ is exact}",
-    "である.を用いる。",
+    "である.を用いる.",
     "Toda (5.6) の ν₄ 分解同型",
   )
 

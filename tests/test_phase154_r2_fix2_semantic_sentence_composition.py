@@ -45,19 +45,19 @@ def test_phase154_r2_fix2_pi11_4_semantic_sentences_are_not_double_wrapped():
     7,
   )
 
-  assert "である.を用いる。" not in rendered
+  assert "である.を用いる." not in rendered
   assert (
-    r"まず、$H: \pi_{10}^{3} \to \pi_{10}^{5}$ "
+    r"まず, $H: \pi_{10}^{3} \to \pi_{10}^{5}$ "
     r"は単射である."
     in rendered
   )
   assert (
-    r"また、$\Delta: \pi_{10}^{5} \to \pi_{8}^{2}$ "
+    r"また, $\Delta: \pi_{10}^{5} \to \pi_{8}^{2}$ "
     r"は単射である."
     in rendered
   )
   assert (
-    r"さらに、$\pi_{10}^{3} \xrightarrow{H} "
+    r"さらに, $\pi_{10}^{3} \xrightarrow{H} "
     r"\pi_{10}^{5} \xrightarrow{Δ} \pi_{8}^{2}$ "
     r"は完全である."
     in rendered
@@ -71,7 +71,7 @@ def test_phase154_r2_fix2_pi11_4_does_not_expose_root_source_metadata():
   )
 
   assert (
-    "Toda Proposition 5.15を用いる。"
+    "Toda Proposition 5.15を用いる."
     not in rendered
   )
   assert "# Group proof narrative" in rendered

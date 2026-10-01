@@ -53,8 +53,8 @@ def test_phase150_rc4_5e_2_builds_short_exact_reason_from_typed_contract():
   )
 
   expected = (
-    "この完全性と、左の写像が単射、"
-    "右の写像が全射であることより、"
+    "この完全性と, 左の写像が単射, "
+    "右の写像が全射であることより, "
     "次の短完全列を得る."
   )
 
@@ -80,8 +80,8 @@ def test_phase150_rc4_5e_2_reason_is_visible_before_short_exact_sequence():
   )
 
   reason = (
-    "この完全性と、左の写像が単射、"
-    "右の写像が全射であることより、"
+    "この完全性と, 左の写像が単射, "
+    "右の写像が全射であることより, "
     "次の短完全列を得る."
   )
   sequence = (

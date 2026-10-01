@@ -63,12 +63,12 @@ def test_phase154_r5_fix1_pi11_4_links_prop44_reference_to_visible_consumer():
   )
 
   assert (
-    r"[R2]より、$\nu_{4}$ の分解写像は同型写像である."
+    r"[R2]より, $\nu_{4}$ の分解写像は同型写像である."
     in rendered
   )
-  assert "まず、[R2]を用いる." not in rendered
+  assert "まず, [R2]を用いる." not in rendered
   assert (
-    r"このことから、$\nu_{4}$ の分解写像は同型写像である."
+    r"このことから, $\nu_{4}$ の分解写像は同型写像である."
     not in rendered
   )
   assert r"\pi_{11}^{4} = 0" in rendered
@@ -81,7 +81,7 @@ def test_phase154_r5_fix1_pi11_4_keeps_root_only_reference_neutral():
   )
 
   assert "[R1]を用いる." in rendered
-  assert r"[R1]より、$\pi_{11}^{4} = 0" not in rendered
+  assert r"[R1]より, $\pi_{11}^{4} = 0" not in rendered
 
 
 def test_phase154_r5_fix1_does_not_duplicate_linked_consumer_fact():
@@ -114,7 +114,7 @@ def test_phase154_r5_fix1_linkage_helper_keeps_ambiguous_or_missing_marker_body(
     )
   )
   body = (
-    "参照記号を含まない本文。\n"
+    "参照記号を含まない本文.\n"
     r"$\nu_{4}$ の分解写像は同型写像である."
   )
 
@@ -144,4 +144,4 @@ def test_phase154_r5_fix1_keeps_r2_internal_fallback_repairs():
   )
   assert r"\text{ is injective}" not in pi11_4
   assert r"\text{ is exact}" not in pi11_4
-  assert "である.を用いる。" not in pi11_4
+  assert "である.を用いる." not in pi11_4

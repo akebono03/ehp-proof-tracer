@@ -44,7 +44,7 @@ def test_phase143_57c_pi6_3_first_local_derivation_is_grouped():
   target = (
     r"$2\nu' = \eta_{3}^{3}\tag{3}$"
   )
-  connector = "(1) と (2) より、"
+  connector = "(1) と (2) より, "
 
   assert source_one in rendered
   assert source_two in rendered
@@ -82,7 +82,7 @@ def test_phase143_57c_pi6_3_second_local_derivation_is_grouped():
   target = (
     r"$H\left(\nu'\right) = \eta_{5}\tag{6}$"
   )
-  connector = "(4) と (5) より、"
+  connector = "(4) と (5) より, "
 
   assert source_one in rendered
   assert source_two in rendered
@@ -112,8 +112,8 @@ def test_phase143_57c_pi6_3_has_two_step_derivation_connectors():
     3,
   )
 
-  assert "(1) と (2) より、" in rendered
-  assert "(4) と (5) より、" in rendered
+  assert "(1) と (2) より, " in rendered
+  assert "(4) と (5) より, " in rendered
 
 
 def test_phase143_57c_argument_level_connector_remains_separate():
@@ -123,12 +123,12 @@ def test_phase143_57c_argument_level_connector_remains_separate():
   )
 
   assert (
-    "以上より、\n\n"
+    "以上より, \n\n"
     r"$\operatorname{ord}\left(\nu'\right) = 4$"
     in rendered
   )
   assert (
-    "以上より、\n\n"
+    "以上より, \n\n"
     r"$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$"
     in rendered
   )
@@ -140,9 +140,9 @@ def test_phase143_57c_pi8_5_does_not_gain_step_connector():
     3,
   )
 
-  assert "これらより、" not in rendered
+  assert "これらより, " not in rendered
   assert (
-    "以上より、\n\n"
+    "以上より, \n\n"
     r"$\operatorname{ord}\left(\nu_{5}\right) = 8$"
     in rendered
   )
@@ -154,7 +154,7 @@ def test_phase143_57c_pi15_8_does_not_gain_step_connector():
     7,
   )
 
-  assert "これらより、" not in rendered
+  assert "これらより, " not in rendered
 
 
 def test_phase143_57c_pi16_9_does_not_gain_step_connector():
@@ -163,4 +163,4 @@ def test_phase143_57c_pi16_9_does_not_gain_step_connector():
     7,
   )
 
-  assert "これらより、" not in rendered
+  assert "これらより, " not in rendered

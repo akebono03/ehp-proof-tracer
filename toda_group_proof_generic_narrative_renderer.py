@@ -1645,8 +1645,8 @@ def _generic_short_exact_sequence_reason_prose(
     return None
 
   return (
-    "この完全性と、左の写像が単射、"
-    "右の写像が全射であることより、"
+    "この完全性と, 左の写像が単射, "
+    "右の写像が全射であることより, "
     "次の短完全列を得る."
   )
 

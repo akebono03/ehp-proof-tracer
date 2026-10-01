@@ -64,8 +64,8 @@ def test_phase150_rc4_5b_3_renderer_uses_typed_reference_and_binding():
     reason_sidecar.reasons[0]
   )
   assert sentence == (
-    "この前提条件を満たすので、Lemma 5.2 を適用できる.\n"
-    "Lemma 5.2 の $\\beta$ を $\\nu'$ と定めると、"
+    "この前提条件を満たすので, Lemma 5.2 を適用できる.\n"
+    "Lemma 5.2 の $\\beta$ を $\\nu'$ と定めると, "
   )
 
 

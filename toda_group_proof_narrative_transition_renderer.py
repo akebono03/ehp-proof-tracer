@@ -24,7 +24,7 @@ def render_toda_group_proof_narrative_transition_connector(
     is TodaGroupProofNarrativeTransitionRole
     .DERIVATION
   ):
-    return "以上より、"
+    return "以上より, "
 
   if (
     transition.role
@@ -34,7 +34,7 @@ def render_toda_group_proof_narrative_transition_connector(
     is TodaGroupProofNarrativeMathematicalBlockRole
     .TARGET
   ):
-    return "以上より、"
+    return "以上より, "
 
   if (
     transition.role

@@ -523,8 +523,8 @@ def _transport_chain_connector(
     return None
 
   return (
-    "Proposition 5.3 を順次適用し、"
-    "suspension による安定化を用いると、"
+    "Proposition 5.3 を順次適用し, "
+    "suspension による安定化を用いると, "
   )
 
 
@@ -562,7 +562,7 @@ def _contribution_connector_lines(
       if pair in direct_pairs:
         connector_by_target_step_id[
           id(target.proof_step)
-        ] = "これより、"
+        ] = "これより, "
         continue
 
       transport_connector = (
@@ -1677,7 +1677,7 @@ def link_toda_group_proof_narrative_reference_body_consumers(
       marker_index
     ] = (
       marker
-      + "より、"
+      + "より, "
       + consumer_line
     )
     del lines[

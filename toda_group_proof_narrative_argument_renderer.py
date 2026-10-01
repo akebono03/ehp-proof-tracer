@@ -176,7 +176,7 @@ def render_toda_group_proof_narrative_argument_header_method_section(
       "する."
     )
     and transition.startswith(
-      "そのために、"
+      "そのために, "
     )
   ):
     lines.append(
@@ -186,10 +186,10 @@ def render_toda_group_proof_narrative_argument_header_method_section(
           "する."
         )
       ]
-      + "するために、"
+      + "するために, "
       + transition[
         len(
-          "そのために、"
+          "そのために, "
         ):
       ]
     )

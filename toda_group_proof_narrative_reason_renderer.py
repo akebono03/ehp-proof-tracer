@@ -32,7 +32,7 @@ def render_toda_group_proof_narrative_reason_sentence(
 
     if application is None or len(application.bindings) != 1:
       return (
-        "この前提条件を満たすので、"
+        "この前提条件を満たすので, "
         "次の定義を用いる."
       )
 
@@ -46,11 +46,11 @@ def render_toda_group_proof_narrative_reason_sentence(
     )
 
     return (
-      "この前提条件を満たすので、"
+      "この前提条件を満たすので, "
       f"{reference_label} を適用できる.\n"
       f"{reference_label} の "
       f"${formal_latex}$ を "
-      f"${instantiated_latex}$ と定めると、"
+      f"${instantiated_latex}$ と定めると, "
     )
 
   if (
@@ -70,11 +70,11 @@ def render_toda_group_proof_narrative_reason_sentence(
 
     return (
       "この完全性と "
-      f"${first_map_name}=0$ より、"
+      f"${first_map_name}=0$ より, "
       f"$\\ker {second_map_name}"
       f"=\\operatorname{{Im}}{first_map_name}=0$ "
       "である.\n"
-      "したがって、"
+      "したがって, "
     )
 
   if (
@@ -94,10 +94,10 @@ def render_toda_group_proof_narrative_reason_sentence(
 
     return (
       f"$\\operatorname{{ord}}({ordered_latex})=2$ "
-      f"かつ $2{target_latex}={ordered_latex}$ より、"
+      f"かつ $2{target_latex}={ordered_latex}$ より, "
       f"$4{target_latex}=0$ かつ "
       f"$2{target_latex}\\neq0$ である.\n"
-      "したがって、"
+      "したがって, "
     )
 
   if (
@@ -121,30 +121,30 @@ def render_toda_group_proof_narrative_reason_sentence(
     )
 
     return (
-      "この短完全列と両端の群の位数より、"
+      "この短完全列と両端の群の位数より, "
       f"中央の群の位数は ${left_order}\cdot"
       f"{right_order}={middle_order}$ である.\n"
-      f"また、${generator_latex}$ は中央の群に属し、"
+      f"また, ${generator_latex}$ は中央の群に属し, "
       f"$\operatorname{{ord}}({generator_latex})"
-      f"={order_statement.rhs}={middle_order}$ であるから、"
+      f"={order_statement.rhs}={middle_order}$ であるから, "
       f"${generator_latex}$ は中央の群を生成する.\n"
-      "したがって、"
+      "したがって, "
     )
 
   if reason.kind is TodaGroupProofNarrativeReasonKind.MAP_STRUCTURE_DERIVATION:
     return (
-      "この完全性、既知の群構造、および写像の像に関する結果を合わせると、"
-      "対象となる写像の像と核が決まる.\nしたがって、"
+      "この完全性, 既知の群構造, および写像の像に関する結果を合わせると, "
+      "対象となる写像の像と核が決まる.\nしたがって, "
     )
 
   if reason.kind is TodaGroupProofNarrativeReasonKind.GROUP_ORDER_DERIVATION:
     return (
-      "この群構造と写像による移送の結果を合わせると、"
-      "対象の群の位数と写像の単射性が決まる.\nしたがって、"
+      "この群構造と写像による移送の結果を合わせると, "
+      "対象の群の位数と写像の単射性が決まる.\nしたがって, "
     )
 
   if reason.kind is TodaGroupProofNarrativeReasonKind.FINAL_RESULT_DERIVATION:
-    return "以上で得た群構造、生成元、および写像に関する結果を合わせると、"
+    return "以上で得た群構造, 生成元, および写像に関する結果を合わせると, "
 
   return None
 
