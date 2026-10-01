@@ -1,0 +1,223 @@
+﻿n,k,group,reference_number,reference_label,reference_locator,reference_title,proof_step_count,statement_candidate_count,unresolved_step_count,classification,body_duplicate_classification,statement_types
+2,2,pi_4^2,1,Toda (5.2),(5.2),(5.2),1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+2,2,pi_4^2,2,Toda (5.2),(5.2),(5.2),1,0,1,unresolved_rendering,no_exact_body_duplicate,Toda52CompositionIsomorphismStatement
+2,2,pi_4^2,3,Toda Proposition 4.4,Proposition 4.4,Proposition 4.4,2,2,0,reference_plus_statement,statement_duplicates_body,TodaProp44IsomorphismStatement | TodaProp44SecondSummandRestrictionStatement
+2,3,pi_5^2,1,Toda Proposition 5.6,Proposition 5.6,Proposition 5.6,1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+2,3,pi_5^2,2,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | TodaSuspensionIsomorphismStatement | Relation
+2,3,pi_5^2,3,Toda (5.2),(5.2),(5.2),1,0,1,unresolved_rendering,no_exact_body_duplicate,Toda52CompositionIsomorphismStatement
+2,3,pi_5^2,4,Toda (5.2),(5.2),(5.2),1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+2,3,pi_5^2,5,Toda Proposition 4.4,Proposition 4.4,Proposition 4.4,2,2,0,reference_plus_statement,statement_duplicates_body,TodaProp44IsomorphismStatement | TodaProp44SecondSummandRestrictionStatement
+2,4,pi_6^2,1,Toda Lemma 5.7,Lemma 5.7,Lemma 5.7,1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+2,4,pi_6^2,2,Toda Proposition 5.6,Proposition 5.6,Proposition 5.6,6,5,1,reference_plus_statement,statement_duplicates_body,TodaProp56FiniteDimensionalStatement | Relation | Relation | Relation | Relation | Relation
+2,4,pi_6^2,3,Toda (5.2),(5.2),(5.2),1,0,1,unresolved_rendering,no_exact_body_duplicate,Toda52CompositionIsomorphismStatement
+2,4,pi_6^2,4,Toda Proposition 4.4,Proposition 4.4,Proposition 4.4,2,2,0,reference_plus_statement,statement_duplicates_body,TodaProp44IsomorphismStatement | TodaProp44SecondSummandRestrictionStatement
+2,5,pi_7^2,1,Toda Proposition 5.9,Proposition 5.9,Proposition 5.9,1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+2,5,pi_7^2,2,Toda Proposition 5.8,Proposition 5.8,Proposition 5.8,1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+2,5,pi_7^2,3,Toda (5.2),(5.2),(5.2),1,0,1,unresolved_rendering,no_exact_body_duplicate,Toda52CompositionIsomorphismStatement
+2,5,pi_7^2,4,Toda Equation 5.7,Equation 5.7,Equation 5.7,1,1,0,reference_plus_statement,no_exact_body_duplicate,Relation
+2,5,pi_7^2,5,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,1,1,0,reference_plus_statement,no_exact_body_duplicate,TodaProp53FiniteDimensionalStatement
+2,5,pi_7^2,6,Toda Proposition 4.4,Proposition 4.4,Proposition 4.4,2,2,0,reference_plus_statement,statement_duplicates_body,TodaProp44IsomorphismStatement | TodaProp44SecondSummandRestrictionStatement
+2,6,pi_8^2,1,Toda Proposition 5.11,Proposition 5.11,Proposition 5.11,1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+2,6,pi_8^2,2,Toda Proposition 5.9,Proposition 5.9,Proposition 5.9,7,7,0,reference_plus_statement,statement_duplicates_body,TodaProp59FiniteDimensionalStatement | Relation | Relation | Relation | Relation | Relation | TodaPrimaryGroupZeroStatement
+2,6,pi_8^2,3,Toda (5.2),(5.2),(5.2),1,0,1,unresolved_rendering,no_exact_body_duplicate,Toda52CompositionIsomorphismStatement
+2,6,pi_8^2,4,Toda Proposition 4.4,Proposition 4.4,Proposition 4.4,2,2,0,reference_plus_statement,statement_duplicates_body,TodaProp44IsomorphismStatement | TodaProp44SecondSummandRestrictionStatement
+2,7,pi_9^2,1,Toda Proposition 5.15,Proposition 5.15,Proposition 5.15,1,1,0,reference_plus_statement,statement_duplicates_body,TodaPrimaryGroupZeroStatement
+2,7,pi_9^2,2,Toda Proposition 5.11,Proposition 5.11,Proposition 5.11,5,4,1,reference_plus_statement,statement_duplicates_body,TodaProp511FiniteDimensionalStatement | Relation | TodaPrimaryGroupZeroStatement | Relation | TodaProp511NuSquaredFiniteDimensionalStatement
+2,7,pi_9^2,3,Toda (5.2),(5.2),(5.2),1,0,1,unresolved_rendering,no_exact_body_duplicate,Toda52CompositionIsomorphismStatement
+2,7,pi_9^2,4,Toda Proposition 4.4,Proposition 4.4,Proposition 4.4,2,2,0,reference_plus_statement,statement_duplicates_body,TodaProp44IsomorphismStatement | TodaProp44SecondSummandRestrictionStatement
+3,2,pi_5^3,1,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,5,5,0,reference_plus_statement,statement_duplicates_body,Relation | TodaSuspensionIsomorphismStatement | Relation | TodaSuspensionInjectiveStatement | TodaSuspensionSurjectiveStatement
+3,2,pi_5^3,2,Toda (5.2),(5.2),(5.2),1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+3,2,pi_5^3,3,Toda (5.2),(5.2),(5.2),1,0,1,unresolved_rendering,no_exact_body_duplicate,Toda52CompositionIsomorphismStatement
+3,3,pi_6^3,1,Toda Proposition 5.6,Proposition 5.6,Proposition 5.6,6,6,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation | TodaSuspensionInjectiveStatement | Relation | TodaDeltaZeroStatement
+3,3,pi_6^3,2,Toda (5.3),(5.3),(5.3),3,3,0,reference_plus_statement,statement_duplicates_body,HomotopyGroupMembershipStatement | Relation | Relation
+3,3,pi_6^3,3,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,2,2,0,reference_plus_statement,no_exact_body_duplicate,TodaHopfInvariantSurjectiveStatement | Relation
+3,3,pi_6^3,4,Toda Lemma 5.4,Lemma 5.4,Lemma 5.4,1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+3,3,pi_6^3,5,Toda (5.3) / Lemma 5.2,(5.3) / Lemma 5.2,(5.3) / Lemma 5.2,1,0,1,unresolved_rendering,no_exact_body_duplicate,Toda53NuPrimeBracketSpecializationStatement
+3,3,pi_6^3,6,Toda (5.2),(5.2),(5.2),1,0,1,unresolved_rendering,no_exact_body_duplicate,Toda52CompositionIsomorphismStatement
+3,3,pi_6^3,7,Toda Proposition 5.1,Proposition 5.1,Proposition 5.1,1,0,1,unresolved_rendering,no_exact_body_duplicate,TodaProp51FiniteDimensionalStatement
+3,4,pi_7^3,1,Toda Proposition 5.8,Proposition 5.8,Proposition 5.8,2,2,0,reference_plus_statement,statement_duplicates_body,Relation | TodaHopfInvariantInjectiveStatement
+3,4,pi_7^3,2,Toda Equation 5.7,Equation 5.7,Equation 5.7,1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+3,4,pi_7^3,3,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,4,4,0,reference_plus_statement,statement_duplicates_body,TodaProp53FiniteDimensionalStatement | Relation | Relation | Relation
+3,4,pi_7^3,4,Toda Proposition 5.6,Proposition 5.6,Proposition 5.6,1,1,0,reference_plus_statement,statement_duplicates_body,TodaHopfInvariantSurjectiveStatement
+3,4,pi_7^3,5,Toda (5.2),(5.2),(5.2),1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+3,5,pi_8^3,1,Toda Proposition 5.9,Proposition 5.9,Proposition 5.9,8,8,0,reference_plus_statement,statement_duplicates_body,Relation | TodaHopfInvariantInjectiveStatement | TodaProp42ExactnessStatement | TodaProp59DeltaKernelStatement | Relation | Relation | Relation | TodaProp42ExactnessStatement
+3,5,pi_8^3,2,Toda Lemma 5.7,Lemma 5.7,Lemma 5.7,2,2,0,reference_plus_statement,statement_duplicates_body,TodaDeltaImageUpToSignStatement | Relation
+3,5,pi_8^3,3,Toda Proposition 5.6,Proposition 5.6,Proposition 5.6,1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+3,5,pi_8^3,4,Toda Equation 5.7,Equation 5.7,Equation 5.7,1,1,0,reference_plus_statement,no_exact_body_duplicate,Relation
+3,5,pi_8^3,5,Toda (5.5),(5.5),(5.5),1,0,1,unresolved_rendering,no_exact_body_duplicate,Toda55NuFamilyFiniteDimensionalStatement
+3,6,pi_9^3,1,Toda Proposition 5.11,Proposition 5.11,Proposition 5.11,7,7,0,reference_plus_statement,statement_duplicates_body,TodaPrimaryGroupZeroStatement | TodaHopfInvariantInjectiveStatement | TodaDeltaInjectiveStatement | TodaProp42ExactnessStatement | TodaSuspensionZeroStatement | TodaProp42ExactnessStatement | TodaDeltaSurjectiveStatement
+3,6,pi_9^3,2,Toda Proposition 5.8,Proposition 5.8,Proposition 5.8,1,1,0,reference_plus_statement,no_exact_body_duplicate,TodaProp58FiniteDimensionalStatement
+3,6,pi_9^3,3,Toda Proposition 5.9,Proposition 5.9,Proposition 5.9,1,1,0,reference_plus_statement,no_exact_body_duplicate,TodaProp59FiniteDimensionalStatement
+3,7,pi_10^3,1,Toda Proposition 5.15,Proposition 5.15,Proposition 5.15,6,6,0,reference_plus_statement,statement_duplicates_body,TodaPrimaryGroupZeroStatement | TodaDeltaInjectiveStatement | TodaProp42ExactnessStatement | TodaPrimaryGroupZeroStatement | TodaProp42ExactnessStatement | TodaDeltaSurjectiveStatement
+3,7,pi_10^3,2,Toda Proposition 5.9,Proposition 5.9,Proposition 5.9,1,1,0,reference_plus_statement,no_exact_body_duplicate,TodaProp59FiniteDimensionalStatement
+3,7,pi_10^3,3,Toda Proposition 5.11,Proposition 5.11,Proposition 5.11,1,0,1,unresolved_rendering,no_exact_body_duplicate,TodaProp511FiniteDimensionalStatement
+4,1,pi_5^4,1,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+4,2,pi_6^4,1,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,8,8,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | TodaSuspensionIsomorphismStatement | Relation | TodaSuspensionIsomorphismStatement | Relation | TodaProp44SuspensionInjectiveStatement | TodaSuspensionSurjectiveStatement
+4,2,pi_6^4,2,Toda (5.2),(5.2),(5.2),1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+4,3,pi_7^4,1,Toda Proposition 5.6,Proposition 5.6,Proposition 5.6,5,5,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation | Relation | TodaSuspensionInjectiveStatement
+4,3,pi_7^4,2,Toda Lemma 5.4,Lemma 5.4,Lemma 5.4,2,1,1,reference_plus_statement,statement_duplicates_body,TodaLemma54Statement | Relation
+4,3,pi_7^4,3,Toda (5.3),(5.3),(5.3),2,2,0,reference_plus_statement,statement_duplicates_body,HomotopyGroupMembershipStatement | Relation
+4,3,pi_7^4,4,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,1,1,0,reference_plus_statement,no_exact_body_duplicate,TodaHopfInvariantSurjectiveStatement
+4,4,pi_8^4,1,Toda Proposition 5.8,Proposition 5.8,Proposition 5.8,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation
+4,4,pi_8^4,2,Toda Proposition 5.1,Proposition 5.1,Proposition 5.1,1,0,1,unresolved_rendering,no_exact_body_duplicate,TodaProp51FiniteDimensionalStatement
+4,4,pi_8^4,3,Toda Lemma 5.4,Lemma 5.4,Lemma 5.4,1,0,1,unresolved_rendering,no_exact_body_duplicate,TodaLemma54Statement
+4,4,pi_8^4,4,Toda Equation 5.7,Equation 5.7,Equation 5.7,1,1,0,reference_plus_statement,no_exact_body_duplicate,Relation
+4,4,pi_8^4,5,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,1,1,0,reference_plus_statement,no_exact_body_duplicate,TodaProp53FiniteDimensionalStatement
+4,5,pi_9^4,1,Toda Proposition 5.9,Proposition 5.9,Proposition 5.9,7,7,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation | TodaHopfInvariantInjectiveStatement | TodaProp42ExactnessStatement | TodaProp59DeltaKernelStatement | Relation
+4,5,pi_9^4,2,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,4,4,0,reference_plus_statement,statement_duplicates_body,TodaProp53FiniteDimensionalStatement | Relation | Relation | Relation
+4,5,pi_9^4,3,Toda Lemma 5.4,Lemma 5.4,Lemma 5.4,1,0,1,unresolved_rendering,no_exact_body_duplicate,TodaLemma54Statement
+4,5,pi_9^4,4,Toda (5.2),(5.2),(5.2),1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+4,6,pi_10^4,1,Toda Proposition 5.11,Proposition 5.11,Proposition 5.11,6,6,0,reference_plus_statement,statement_duplicates_body,Relation | TodaPrimaryGroupZeroStatement | Relation | TodaHopfInvariantInjectiveStatement | TodaDeltaInjectiveStatement | TodaProp42ExactnessStatement
+4,6,pi_10^4,2,Toda Proposition 5.6,Proposition 5.6,Proposition 5.6,1,0,1,unresolved_rendering,no_exact_body_duplicate,TodaProp56FiniteDimensionalStatement
+4,6,pi_10^4,3,Toda Lemma 5.4,Lemma 5.4,Lemma 5.4,1,0,1,unresolved_rendering,no_exact_body_duplicate,TodaLemma54Statement
+4,7,pi_11^4,1,Toda Proposition 5.15,Proposition 5.15,Proposition 5.15,4,4,0,reference_plus_statement,statement_duplicates_body,TodaPrimaryGroupZeroStatement | TodaPrimaryGroupZeroStatement | TodaDeltaInjectiveStatement | TodaProp42ExactnessStatement
+4,7,pi_11^4,2,Toda Proposition 5.8,Proposition 5.8,Proposition 5.8,5,5,0,reference_plus_statement,statement_duplicates_body,TodaProp58FiniteDimensionalStatement | Relation | Relation | Relation | TodaPrimaryGroupZeroStatement
+4,7,pi_11^4,3,Toda Lemma 5.7,Lemma 5.7,Lemma 5.7,1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+4,7,pi_11^4,4,Toda Proposition 4.4,Proposition 4.4,Proposition 4.4,1,1,0,reference_plus_statement,no_exact_body_duplicate,TodaProp44IsomorphismStatement
+5,1,pi_6^5,1,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+5,2,pi_7^5,1,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation
+5,3,pi_8^5,1,Toda Proposition 5.6,Proposition 5.6,Proposition 5.6,10,10,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation | TodaIteratedSuspensionInjectiveStatement | TodaProp56Pi8_5QuotientStatement | Relation | Relation | Relation | Relation | TodaSuspensionInjectiveStatement
+5,3,pi_8^5,2,Toda (5.3),(5.3),(5.3),2,2,0,reference_plus_statement,no_exact_body_duplicate,HomotopyGroupMembershipStatement | Relation
+5,3,pi_8^5,3,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,1,1,0,reference_plus_statement,no_exact_body_duplicate,TodaHopfInvariantSurjectiveStatement
+5,3,pi_8^5,4,Toda Lemma 5.4,Lemma 5.4,Lemma 5.4,1,1,0,reference_plus_statement,no_exact_body_duplicate,Relation
+5,4,pi_9^5,1,Toda Proposition 5.8,Proposition 5.8,Proposition 5.8,10,10,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation | TodaProp42ExactnessStatement | TodaSuspensionSurjectiveStatement | Relation | Relation | Relation | TodaHopfInvariantZeroStatement | TodaProp42ExactnessStatement
+5,4,pi_9^5,2,Toda Proposition 5.1,Proposition 5.1,Proposition 5.1,1,0,1,unresolved_rendering,no_exact_body_duplicate,TodaProp51FiniteDimensionalStatement
+5,4,pi_9^5,3,Toda Proposition 2.5,Proposition 2.5,Proposition 2.5,1,1,0,reference_plus_statement,statement_duplicates_body,TodaDeltaImageUpToSignStatement
+5,5,pi_10^5,1,Toda Proposition 5.9,Proposition 5.9,Proposition 5.9,10,10,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation | TodaProp42ExactnessStatement | TodaSuspensionSurjectiveStatement | Relation | Relation | Relation | TodaHopfInvariantZeroStatement | TodaProp42ExactnessStatement
+5,5,pi_10^5,2,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,4,4,0,reference_plus_statement,statement_duplicates_body,TodaProp53FiniteDimensionalStatement | Relation | Relation | Relation
+5,5,pi_10^5,3,Toda Proposition 5.8,Proposition 5.8,Proposition 5.8,2,2,0,reference_plus_statement,statement_duplicates_body,Relation | Relation
+5,5,pi_10^5,4,Toda (5.2),(5.2),(5.2),1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+5,6,pi_11^5,1,Toda Proposition 5.11,Proposition 5.11,Proposition 5.11,9,9,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation | TodaProp42ExactnessStatement | TodaSuspensionSurjectiveStatement | TodaPrimaryGroupZeroStatement | Relation | TodaHopfInvariantZeroStatement | TodaProp42ExactnessStatement
+5,6,pi_11^5,2,Toda Equation 5.13,Equation 5.13,Equation 5.13,1,1,0,reference_plus_statement,statement_duplicates_body,TodaDeltaImageUpToSignStatement
+5,6,pi_11^5,3,Toda Proposition 5.6,Proposition 5.6,Proposition 5.6,1,0,1,unresolved_rendering,no_exact_body_duplicate,TodaProp56FiniteDimensionalStatement
+5,6,pi_11^5,4,Toda Equation 5.8,Equation 5.8,Equation 5.8,1,1,0,reference_plus_statement,statement_duplicates_body,Toda58EquationStatement
+5,7,pi_12^5,1,Toda Proposition 5.15,Proposition 5.15,Proposition 5.15,3,2,1,reference_plus_statement,statement_duplicates_body,Relation | TodaProp515Pi12_5HopfIsomorphismStatement | TodaProp42ExactnessStatement
+5,7,pi_12^5,2,Toda Lemma 5.13,Lemma 5.13,Lemma 5.13,1,0,1,unresolved_rendering,no_exact_body_duplicate,TodaLemma513Statement
+5,7,pi_12^5,3,Toda Proposition 5.11,Proposition 5.11,Proposition 5.11,2,1,1,reference_plus_statement,statement_duplicates_body,Relation | TodaProp511FiniteDimensionalStatement
+5,7,pi_12^5,4,Toda Equation 5.13,Equation 5.13,Equation 5.13,1,1,0,reference_plus_statement,statement_duplicates_body,TodaDeltaImageUpToSignStatement
+5,7,pi_12^5,5,Toda (5.5),(5.5),(5.5),1,0,1,unresolved_rendering,no_exact_body_duplicate,Toda55NuFamilyFiniteDimensionalStatement
+6,1,pi_7^6,1,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+6,2,pi_8^6,1,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation
+6,3,pi_9^6,1,Toda Proposition 5.6,Proposition 5.6,Proposition 5.6,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation
+6,4,pi_10^6,1,Toda Proposition 5.8,Proposition 5.8,Proposition 5.8,2,2,0,reference_plus_statement,statement_duplicates_body,TodaPrimaryGroupZeroStatement | TodaPrimaryGroupZeroStatement
+6,4,pi_10^6,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+6,5,pi_11^6,1,Toda Proposition 5.9,Proposition 5.9,Proposition 5.9,8,8,0,reference_plus_statement,statement_duplicates_body,Relation | TodaHopfInvariantInjectiveStatement | TodaProp42ExactnessStatement | TodaDeltaKernelFreeCyclicStatement | TodaProp27HopfInvariantUpToSignStatement | Relation | Relation | TodaProp42ExactnessStatement
+6,5,pi_11^6,2,Toda Proposition 5.8,Proposition 5.8,Proposition 5.8,1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+6,6,pi_12^6,1,Toda Proposition 5.11,Proposition 5.11,Proposition 5.11,9,9,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | TodaSuspensionIsomorphismStatement | Relation | Relation | TodaProp42ExactnessStatement | TodaSuspensionSurjectiveStatement | TodaSuspensionInjectiveStatement | TodaSuspensionSurjectiveStatement
+6,6,pi_12^6,2,Toda Equation 5.13,Equation 5.13,Equation 5.13,1,1,0,reference_plus_statement,statement_duplicates_body,TodaDeltaImageUpToSignStatement
+6,7,pi_13^6,1,Toda Proposition 5.15,Proposition 5.15,Proposition 5.15,3,2,1,reference_plus_statement,statement_duplicates_body,Relation | Relation | TodaProp515Pi12_5HopfIsomorphismStatement
+6,7,pi_13^6,2,Toda Lemma 5.14,Lemma 5.14,Lemma 5.14,1,1,0,reference_plus_statement,statement_duplicates_body,TodaLemma514SigmaDoublePrimeStatement
+6,7,pi_13^6,3,Toda Proposition 5.11,Proposition 5.11,Proposition 5.11,1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+6,7,pi_13^6,4,Toda Theorem 3.6,Theorem 3.6,Theorem 3.6,1,0,1,unresolved_rendering,no_exact_body_duplicate,Toda36Lemma514SigmaDoublePrimeBridgeStatement
+6,7,pi_13^6,5,Toda Equation 5.13,Equation 5.13,Equation 5.13,1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+6,7,pi_13^6,6,Toda Proposition 5.6,Proposition 5.6,Proposition 5.6,1,0,1,unresolved_rendering,no_exact_body_duplicate,TodaProp56FiniteDimensionalStatement
+6,7,pi_13^6,7,Toda Lemma 5.13,Lemma 5.13,Lemma 5.13,1,0,1,unresolved_rendering,no_exact_body_duplicate,TodaLemma513Statement
+6,7,pi_13^6,8,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,1,1,0,reference_plus_statement,no_exact_body_duplicate,TodaProp53FiniteDimensionalStatement
+7,1,pi_8^7,1,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+7,2,pi_9^7,1,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation
+7,3,pi_10^7,1,Toda Proposition 5.6,Proposition 5.6,Proposition 5.6,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation
+7,4,pi_11^7,1,Toda Proposition 5.8,Proposition 5.8,Proposition 5.8,2,2,0,reference_plus_statement,statement_duplicates_body,TodaPrimaryGroupZeroStatement | TodaPrimaryGroupZeroStatement
+7,4,pi_11^7,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+7,5,pi_12^7,1,Toda Proposition 5.9,Proposition 5.9,Proposition 5.9,2,2,0,reference_plus_statement,statement_duplicates_body,TodaPrimaryGroupZeroStatement | TodaPrimaryGroupZeroStatement
+7,5,pi_12^7,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+7,6,pi_13^7,1,Toda Proposition 5.11,Proposition 5.11,Proposition 5.11,7,7,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | TodaSuspensionIsomorphismStatement | Relation | TodaSuspensionIsomorphismStatement | TodaSuspensionInjectiveStatement | TodaSuspensionSurjectiveStatement
+7,7,pi_14^7,1,Toda Proposition 5.15,Proposition 5.15,Proposition 5.15,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation
+7,7,pi_14^7,2,Toda Lemma 5.14,Lemma 5.14,Lemma 5.14,2,1,1,reference_plus_statement,statement_duplicates_body,TodaLemma514SigmaPrimeStatement | TodaLemma514SigmaDoublePrimeStatement
+7,7,pi_14^7,3,Toda Proposition 5.11,Proposition 5.11,Proposition 5.11,2,2,0,reference_plus_statement,statement_duplicates_body,Relation | Relation
+7,7,pi_14^7,4,Toda Equation 5.13,Equation 5.13,Equation 5.13,1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+7,7,pi_14^7,5,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,1,1,0,reference_plus_statement,no_exact_body_duplicate,TodaProp53FiniteDimensionalStatement
+7,7,pi_14^7,6,Toda Proposition 5.1,Proposition 5.1,Proposition 5.1,1,0,1,unresolved_rendering,no_exact_body_duplicate,TodaProp51FiniteDimensionalStatement
+8,1,pi_9^8,1,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+8,2,pi_10^8,1,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation
+8,3,pi_11^8,1,Toda Proposition 5.6,Proposition 5.6,Proposition 5.6,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation
+8,4,pi_12^8,1,Toda Proposition 5.8,Proposition 5.8,Proposition 5.8,2,2,0,reference_plus_statement,statement_duplicates_body,TodaPrimaryGroupZeroStatement | TodaPrimaryGroupZeroStatement
+8,4,pi_12^8,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+8,5,pi_13^8,1,Toda Proposition 5.9,Proposition 5.9,Proposition 5.9,2,2,0,reference_plus_statement,statement_duplicates_body,TodaPrimaryGroupZeroStatement | TodaPrimaryGroupZeroStatement
+8,5,pi_13^8,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+8,6,pi_14^8,1,Toda Proposition 5.11,Proposition 5.11,Proposition 5.11,5,5,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | TodaSuspensionIsomorphismStatement | Relation | TodaSuspensionIsomorphismStatement
+8,7,pi_15^8,1,Toda Proposition 5.15,Proposition 5.15,Proposition 5.15,4,4,0,reference_plus_statement,statement_duplicates_body,Relation | Toda515Sigma8TransportedDecompositionStatement | TodaProp44IsomorphismStatement | Relation
+9,1,pi_10^9,1,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+9,2,pi_11^9,1,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation
+9,3,pi_12^9,1,Toda Proposition 5.6,Proposition 5.6,Proposition 5.6,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation
+9,4,pi_13^9,1,Toda Proposition 5.8,Proposition 5.8,Proposition 5.8,2,2,0,reference_plus_statement,statement_duplicates_body,TodaPrimaryGroupZeroStatement | TodaPrimaryGroupZeroStatement
+9,4,pi_13^9,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+9,5,pi_14^9,1,Toda Proposition 5.9,Proposition 5.9,Proposition 5.9,2,2,0,reference_plus_statement,statement_duplicates_body,TodaPrimaryGroupZeroStatement | TodaPrimaryGroupZeroStatement
+9,5,pi_14^9,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+9,6,pi_15^9,1,Toda Proposition 5.11,Proposition 5.11,Proposition 5.11,2,2,0,reference_plus_statement,statement_duplicates_body,Relation | Relation
+9,6,pi_15^9,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+9,7,pi_16^9,1,Toda Proposition 5.15,Proposition 5.15,Proposition 5.15,4,3,1,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation | TodaProp515Pi12_5HopfIsomorphismStatement
+9,7,pi_16^9,2,Toda Lemma 5.14,Lemma 5.14,Lemma 5.14,2,0,2,unresolved_rendering,no_exact_body_duplicate,TodaLemma514Sigma8Statement | TodaLemma514SigmaPrimeStatement
+9,7,pi_16^9,3,Toda Theorem 3.6,Theorem 3.6,Theorem 3.6,1,0,1,unresolved_rendering,no_exact_body_duplicate,Toda36Lemma514SigmaDoublePrimeBridgeStatement
+9,7,pi_16^9,4,Toda Lemma 5.13,Lemma 5.13,Lemma 5.13,1,0,1,unresolved_rendering,no_exact_body_duplicate,TodaLemma513Statement
+10,1,pi_11^10,1,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+10,2,pi_12^10,1,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation
+10,3,pi_13^10,1,Toda Proposition 5.6,Proposition 5.6,Proposition 5.6,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation
+10,4,pi_14^10,1,Toda Proposition 5.8,Proposition 5.8,Proposition 5.8,2,2,0,reference_plus_statement,statement_duplicates_body,TodaPrimaryGroupZeroStatement | TodaPrimaryGroupZeroStatement
+10,4,pi_14^10,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+10,5,pi_15^10,1,Toda Proposition 5.9,Proposition 5.9,Proposition 5.9,2,2,0,reference_plus_statement,statement_duplicates_body,TodaPrimaryGroupZeroStatement | TodaPrimaryGroupZeroStatement
+10,5,pi_15^10,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+10,6,pi_16^10,1,Toda Proposition 5.11,Proposition 5.11,Proposition 5.11,2,2,0,reference_plus_statement,statement_duplicates_body,Relation | Relation
+10,6,pi_16^10,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+10,7,pi_17^10,1,Toda Proposition 5.15,Proposition 5.15,Proposition 5.15,1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+10,7,pi_17^10,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+10,7,pi_17^10,3,Toda Lemma 5.14,Lemma 5.14,Lemma 5.14,1,1,0,reference_plus_statement,statement_duplicates_body,TodaSigmaFamilyDefinitionStatement
+11,1,pi_12^11,1,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+11,2,pi_13^11,1,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation
+11,3,pi_14^11,1,Toda Proposition 5.6,Proposition 5.6,Proposition 5.6,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation
+11,4,pi_15^11,1,Toda Proposition 5.8,Proposition 5.8,Proposition 5.8,2,2,0,reference_plus_statement,statement_duplicates_body,TodaPrimaryGroupZeroStatement | TodaPrimaryGroupZeroStatement
+11,4,pi_15^11,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+11,5,pi_16^11,1,Toda Proposition 5.9,Proposition 5.9,Proposition 5.9,2,2,0,reference_plus_statement,statement_duplicates_body,TodaPrimaryGroupZeroStatement | TodaPrimaryGroupZeroStatement
+11,5,pi_16^11,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+11,6,pi_17^11,1,Toda Proposition 5.11,Proposition 5.11,Proposition 5.11,2,2,0,reference_plus_statement,statement_duplicates_body,Relation | Relation
+11,6,pi_17^11,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+11,7,pi_18^11,1,Toda Proposition 5.15,Proposition 5.15,Proposition 5.15,1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+11,7,pi_18^11,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+11,7,pi_18^11,3,Toda Lemma 5.14,Lemma 5.14,Lemma 5.14,1,1,0,reference_plus_statement,statement_duplicates_body,TodaSigmaFamilyDefinitionStatement
+12,1,pi_13^12,1,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+12,2,pi_14^12,1,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation
+12,3,pi_15^12,1,Toda Proposition 5.6,Proposition 5.6,Proposition 5.6,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation
+12,4,pi_16^12,1,Toda Proposition 5.8,Proposition 5.8,Proposition 5.8,2,2,0,reference_plus_statement,statement_duplicates_body,TodaPrimaryGroupZeroStatement | TodaPrimaryGroupZeroStatement
+12,4,pi_16^12,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+12,5,pi_17^12,1,Toda Proposition 5.9,Proposition 5.9,Proposition 5.9,2,2,0,reference_plus_statement,statement_duplicates_body,TodaPrimaryGroupZeroStatement | TodaPrimaryGroupZeroStatement
+12,5,pi_17^12,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+12,6,pi_18^12,1,Toda Proposition 5.11,Proposition 5.11,Proposition 5.11,2,2,0,reference_plus_statement,statement_duplicates_body,Relation | Relation
+12,6,pi_18^12,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+12,7,pi_19^12,1,Toda Proposition 5.15,Proposition 5.15,Proposition 5.15,1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+12,7,pi_19^12,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+12,7,pi_19^12,3,Toda Lemma 5.14,Lemma 5.14,Lemma 5.14,1,1,0,reference_plus_statement,statement_duplicates_body,TodaSigmaFamilyDefinitionStatement
+13,1,pi_14^13,1,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+13,2,pi_15^13,1,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation
+13,3,pi_16^13,1,Toda Proposition 5.6,Proposition 5.6,Proposition 5.6,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation
+13,4,pi_17^13,1,Toda Proposition 5.8,Proposition 5.8,Proposition 5.8,2,2,0,reference_plus_statement,statement_duplicates_body,TodaPrimaryGroupZeroStatement | TodaPrimaryGroupZeroStatement
+13,4,pi_17^13,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+13,5,pi_18^13,1,Toda Proposition 5.9,Proposition 5.9,Proposition 5.9,2,2,0,reference_plus_statement,statement_duplicates_body,TodaPrimaryGroupZeroStatement | TodaPrimaryGroupZeroStatement
+13,5,pi_18^13,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+13,6,pi_19^13,1,Toda Proposition 5.11,Proposition 5.11,Proposition 5.11,2,2,0,reference_plus_statement,statement_duplicates_body,Relation | Relation
+13,6,pi_19^13,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+13,7,pi_20^13,1,Toda Proposition 5.15,Proposition 5.15,Proposition 5.15,1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+13,7,pi_20^13,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+13,7,pi_20^13,3,Toda Lemma 5.14,Lemma 5.14,Lemma 5.14,1,1,0,reference_plus_statement,statement_duplicates_body,TodaSigmaFamilyDefinitionStatement
+14,1,pi_15^14,1,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+14,2,pi_16^14,1,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation
+14,3,pi_17^14,1,Toda Proposition 5.6,Proposition 5.6,Proposition 5.6,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation
+14,4,pi_18^14,1,Toda Proposition 5.8,Proposition 5.8,Proposition 5.8,2,2,0,reference_plus_statement,statement_duplicates_body,TodaPrimaryGroupZeroStatement | TodaPrimaryGroupZeroStatement
+14,4,pi_18^14,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+14,5,pi_19^14,1,Toda Proposition 5.9,Proposition 5.9,Proposition 5.9,2,2,0,reference_plus_statement,statement_duplicates_body,TodaPrimaryGroupZeroStatement | TodaPrimaryGroupZeroStatement
+14,5,pi_19^14,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+14,6,pi_20^14,1,Toda Proposition 5.11,Proposition 5.11,Proposition 5.11,2,2,0,reference_plus_statement,statement_duplicates_body,Relation | Relation
+14,6,pi_20^14,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+14,7,pi_21^14,1,Toda Proposition 5.15,Proposition 5.15,Proposition 5.15,1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+14,7,pi_21^14,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+14,7,pi_21^14,3,Toda Lemma 5.14,Lemma 5.14,Lemma 5.14,1,1,0,reference_plus_statement,statement_duplicates_body,TodaSigmaFamilyDefinitionStatement
+15,1,pi_16^15,1,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+15,2,pi_17^15,1,Toda Proposition 5.3,Proposition 5.3,Proposition 5.3,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation
+15,3,pi_18^15,1,Toda Proposition 5.6,Proposition 5.6,Proposition 5.6,3,3,0,reference_plus_statement,statement_duplicates_body,Relation | Relation | Relation
+15,4,pi_19^15,1,Toda Proposition 5.8,Proposition 5.8,Proposition 5.8,2,2,0,reference_plus_statement,statement_duplicates_body,TodaPrimaryGroupZeroStatement | TodaPrimaryGroupZeroStatement
+15,4,pi_19^15,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+15,5,pi_20^15,1,Toda Proposition 5.9,Proposition 5.9,Proposition 5.9,2,2,0,reference_plus_statement,statement_duplicates_body,TodaPrimaryGroupZeroStatement | TodaPrimaryGroupZeroStatement
+15,5,pi_20^15,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+15,6,pi_21^15,1,Toda Proposition 5.11,Proposition 5.11,Proposition 5.11,2,2,0,reference_plus_statement,statement_duplicates_body,Relation | Relation
+15,6,pi_21^15,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+15,7,pi_22^15,1,Toda Proposition 5.15,Proposition 5.15,Proposition 5.15,1,1,0,reference_plus_statement,statement_duplicates_body,Relation
+15,7,pi_22^15,2,Toda (4.5),(4.5),(4.5),1,1,0,reference_plus_statement,no_exact_body_duplicate,Toda45IsomorphismStatement
+15,7,pi_22^15,3,Toda Lemma 5.14,Lemma 5.14,Lemma 5.14,1,1,0,reference_plus_statement,statement_duplicates_body,TodaSigmaFamilyDefinitionStatement

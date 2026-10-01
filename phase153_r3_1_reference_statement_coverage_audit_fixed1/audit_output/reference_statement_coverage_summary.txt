@@ -1,0 +1,39 @@
+==============================================================================
+Phase 153-R3-1 — 112 Groups Reference Statement Coverage Audit
+==============================================================================
+scope: n=2..15, k=0..7, depth=2, semantic closure
+production changes: none
+
+groups: 112
+exceptions: 0
+presentation nodes: 713
+reference entries: 222
+
+Reference entry classification:
+  reference_only: entries=0, affected_groups=0
+  reference_plus_statement: entries=194, affected_groups=96
+  unresolved_rendering: entries=28, affected_groups=19
+
+Statement candidates:
+  total: 428
+  duplicates_body: 327
+  no_exact_body_duplicate: 101
+
+Reference entries with body duplication:
+  statement_duplicates_body: 146
+  no_exact_body_duplicate: 76
+
+Decision rule:
+  at least one renderable mathematical candidate -> reference_plus_statement
+  no candidate + unresolved renderer fallback -> unresolved_rendering
+  no candidate and no unresolved fallback -> reference_only
+  candidate normalized as an exact substring of current narrative -> statement_duplicates_body
+
+Output files:
+  reference_entry_coverage.csv
+  reference_statement_candidates.csv
+  reference_entry_category_summary.csv
+  reference_statement_type_summary.csv
+  exception_inventory.csv
+  reference_statement_coverage_summary.txt
+==============================================================================

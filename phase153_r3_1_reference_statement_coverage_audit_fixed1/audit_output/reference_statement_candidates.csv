@@ -1,0 +1,429 @@
+﻿n,k,group,reference_number,reference_title,statement_type,render_source,duplicates_body,candidate_statement,inference_rule_name
+2,2,pi_4^2,1,(5.2),Relation,narrative_latex,True,$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$,Toda 5.2 pi_4^2 finite-cyclic transport
+2,2,pi_4^2,3,Proposition 4.4,TodaProp44IsomorphismStatement,narrative_latex,False,"$\left(\beta, γ\right) \mapsto E\beta + \eta_{2}γ\quad\text{は同型写像}$",Toda Proposition 4.4 eta_2 n=2 specialization
+2,2,pi_4^2,3,Proposition 4.4,TodaProp44SecondSummandRestrictionStatement,narrative_latex,True,$γ \mapsto \eta_{2}γ$,Toda Proposition 4.4 eta_2 second-summand restriction
+2,3,pi_5^2,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$,Toda Proposition 5.6 pi_5^2 eta_2 cube
+2,3,pi_5^2,2,Proposition 5.3,Relation,narrative_latex,True,$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$,Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport
+2,3,pi_5^2,2,Proposition 5.3,TodaSuspensionIsomorphismStatement,narrative_latex,False,$E: \pi_{4}^{2} \xrightarrow{\cong} \pi_{5}^{3}$,Toda Proposition 5.3 n=3 suspension isomorphism
+2,3,pi_5^2,2,Proposition 5.3,Relation,narrative_latex,False,$E\eta_{2}\eta_{3} = \eta_{3}\eta_{4}$,Toda Proposition 5.3 n=3 eta-square suspension bridge
+2,3,pi_5^2,4,(5.2),Relation,narrative_latex,True,$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$,Toda 5.2 pi_4^2 finite-cyclic transport
+2,3,pi_5^2,5,Proposition 4.4,TodaProp44IsomorphismStatement,narrative_latex,False,"$\left(\beta, γ\right) \mapsto E\beta + \eta_{2}γ\quad\text{は同型写像}$",Toda Proposition 4.4 eta_2 n=2 specialization
+2,3,pi_5^2,5,Proposition 4.4,TodaProp44SecondSummandRestrictionStatement,narrative_latex,True,$γ \mapsto \eta_{2}γ$,Toda Proposition 4.4 eta_2 second-summand restriction
+2,4,pi_6^2,1,Lemma 5.7,Relation,narrative_latex,True,$\pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\}$,Toda Lemma 5.7 pi_6^2 eta_2 nu-prime
+2,4,pi_6^2,2,Proposition 5.6,Relation,narrative_latex,True,$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$,Toda Proposition 5.6 pi_5^2 eta_2 cube
+2,4,pi_6^2,2,Proposition 5.6,Relation,narrative_latex,True,$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$,Toda Proposition 5.6 pi_6^3 finite cyclic
+2,4,pi_6^2,2,Proposition 5.6,Relation,narrative_latex,True,$\pi_{7}^{4} = \mathbb{Z}\{\nu_{4}\} \oplus \mathbb{Z}/4\{E\nu'\}$,Toda Proposition 5.6 pi_7^4 decomposition
+2,4,pi_6^2,2,Proposition 5.6,Relation,narrative_latex,True,$\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$,Toda Proposition 5.6 pi_8^5 finite cyclic
+2,4,pi_6^2,2,Proposition 5.6,Relation,narrative_latex,True,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$,Toda Proposition 5.6 higher nu finite-cyclic generator bridge
+2,4,pi_6^2,4,Proposition 4.4,TodaProp44IsomorphismStatement,narrative_latex,False,"$\left(\beta, γ\right) \mapsto E\beta + \eta_{2}γ\quad\text{は同型写像}$",Toda Proposition 4.4 eta_2 n=2 specialization
+2,4,pi_6^2,4,Proposition 4.4,TodaProp44SecondSummandRestrictionStatement,narrative_latex,True,$γ \mapsto \eta_{2}γ$,Toda Proposition 4.4 eta_2 second-summand restriction
+2,5,pi_7^2,1,Proposition 5.9,Relation,narrative_latex,True,$\pi_{7}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\}$,Toda Proposition 5.9 pi_7^2 eta_2 nu-prime eta_6
+2,5,pi_7^2,2,Proposition 5.8,Relation,narrative_latex,True,$\pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}$,Toda Proposition 5.8 pi_7^3 finite cyclic
+2,5,pi_7^2,4,Equation 5.7,Relation,narrative_latex,False,$H\left(\nu'\eta_{6}\right) = \eta_{5}\eta_{6}$,Toda Equation 5.7 nu-prime eta_6 Hopf value
+2,5,pi_7^2,5,Proposition 5.3,TodaProp53FiniteDimensionalStatement,narrative_latex,False,"$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\},\quad \pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\},\quad \pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\},\quad \pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}\qquad (n \ge 5)$",Toda Proposition 5.3 finite-dimensional integration
+2,5,pi_7^2,6,Proposition 4.4,TodaProp44IsomorphismStatement,narrative_latex,False,"$\left(\beta, γ\right) \mapsto E\beta + \eta_{2}γ\quad\text{は同型写像}$",Toda Proposition 4.4 eta_2 n=2 specialization
+2,5,pi_7^2,6,Proposition 4.4,TodaProp44SecondSummandRestrictionStatement,narrative_latex,True,$γ \mapsto \eta_{2}γ$,Toda Proposition 4.4 eta_2 second-summand restriction
+2,6,pi_8^2,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{8}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\eta_{7}\}$,Toda Proposition 5.11 pi_8^2 from Proposition 5.9 and Toda (5.2)
+2,6,pi_8^2,2,Proposition 5.9,TodaProp59FiniteDimensionalStatement,narrative_latex,True,"$\pi_{7}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\},\quad \pi_{8}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\eta_{7}\},\quad \pi_{9}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\eta_{8}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\eta_{8}\},\quad \pi_{10}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\eta_{9}\},\quad \pi_{11}^{6} = \mathbb{Z}\{\Delta\left(\iota_{13}\right)\},\quad \pi_{n + 5}^{n} = 0\qquad (n \ge 7)$",Toda Proposition 5.9 finite-dimensional integration
+2,6,pi_8^2,2,Proposition 5.9,Relation,narrative_latex,True,$\pi_{7}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\}$,Toda Proposition 5.9 pi_7^2 eta_2 nu-prime eta_6
+2,6,pi_8^2,2,Proposition 5.9,Relation,narrative_latex,True,$\pi_{8}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\eta_{7}\}$,Toda Proposition 5.9 pi_8^3 finite cyclic
+2,6,pi_8^2,2,Proposition 5.9,Relation,narrative_latex,True,$\pi_{9}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\eta_{8}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\eta_{8}\}$,Toda Proposition 5.9 pi_9^4 decomposition
+2,6,pi_8^2,2,Proposition 5.9,Relation,narrative_latex,True,$\pi_{10}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\eta_{9}\}$,Toda Proposition 5.9 pi_10^5 finite cyclic
+2,6,pi_8^2,2,Proposition 5.9,Relation,narrative_latex,True,$\pi_{11}^{6} = \mathbb{Z}\{\Delta\left(\iota_{13}\right)\}$,Toda Proposition 5.9 pi_11^6 free cyclic
+2,6,pi_8^2,2,Proposition 5.9,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{n + 5}^{n} = 0$,Toda Proposition 5.9 higher five-stem zero transport
+2,6,pi_8^2,4,Proposition 4.4,TodaProp44IsomorphismStatement,narrative_latex,False,"$\left(\beta, γ\right) \mapsto E\beta + \eta_{2}γ\quad\text{は同型写像}$",Toda Proposition 4.4 eta_2 n=2 specialization
+2,6,pi_8^2,4,Proposition 4.4,TodaProp44SecondSummandRestrictionStatement,narrative_latex,True,$γ \mapsto \eta_{2}γ$,Toda Proposition 4.4 eta_2 second-summand restriction
+2,7,pi_9^2,1,Proposition 5.15,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{9}^{2} = 0$,Toda Proposition 5.15 pi_9^2 zero from Toda (5.2)
+2,7,pi_9^2,2,Proposition 5.11,Relation,narrative_latex,True,$\pi_{8}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\eta_{7}\}$,Toda Proposition 5.11 pi_8^2 from Proposition 5.9 and Toda (5.2)
+2,7,pi_9^2,2,Proposition 5.11,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{9}^{3} = 0$,Toda Proposition 5.11 pi_9^3 zero
+2,7,pi_9^2,2,Proposition 5.11,Relation,narrative_latex,True,$\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}$,Toda Proposition 5.11 pi_10^4 generated by nu_4 squared
+2,7,pi_9^2,2,Proposition 5.11,TodaProp511NuSquaredFiniteDimensionalStatement,narrative_latex,False,"$\pi_{11}^{5} = \mathbb{Z}/2\{\nu_{5}\nu_{8}\},\quad \pi_{12}^{6} = \mathbb{Z}/2\{\nu_{6}\nu_{9}\},\quad \pi_{13}^{7} = \mathbb{Z}/2\{\nu_{7}\nu_{10}\},\quad \pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\},\quad \pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}\qquad (n \ge 9)$",Toda Proposition 5.11 nu-squared finite-dimensional integration
+2,7,pi_9^2,4,Proposition 4.4,TodaProp44IsomorphismStatement,narrative_latex,False,"$\left(\beta, γ\right) \mapsto E\beta + \eta_{2}γ\quad\text{は同型写像}$",Toda Proposition 4.4 eta_2 n=2 specialization
+2,7,pi_9^2,4,Proposition 4.4,TodaProp44SecondSummandRestrictionStatement,narrative_latex,True,$γ \mapsto \eta_{2}γ$,Toda Proposition 4.4 eta_2 second-summand restriction
+3,2,pi_5^3,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$,Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport
+3,2,pi_5^3,1,Proposition 5.3,TodaSuspensionIsomorphismStatement,narrative_latex,True,$E: \pi_{4}^{2} \xrightarrow{\cong} \pi_{5}^{3}$,Toda Proposition 5.3 n=3 suspension isomorphism
+3,2,pi_5^3,1,Proposition 5.3,Relation,narrative_latex,True,$E\eta_{2}\eta_{3} = \eta_{3}\eta_{4}$,Toda Proposition 5.3 n=3 eta-square suspension bridge
+3,2,pi_5^3,1,Proposition 5.3,TodaSuspensionInjectiveStatement,narrative_latex,False,$E: \pi_{4}^{2} \to \pi_{5}^{3} \text{ is injective}$,Toda Proposition 5.3 n=3 Delta zero implies suspension injective
+3,2,pi_5^3,1,Proposition 5.3,TodaSuspensionSurjectiveStatement,narrative_latex,False,$E: \pi_{4}^{2} \to \pi_{5}^{3} \text{ is surjective}$,Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective
+3,2,pi_5^3,2,(5.2),Relation,narrative_latex,True,$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$,Toda 5.2 pi_4^2 finite-cyclic transport
+3,3,pi_6^3,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$,Toda Proposition 5.6 pi_6^3 finite cyclic
+3,3,pi_6^3,1,Proposition 5.6,Relation,narrative_latex,True,$\operatorname{ord}\left(\nu'\right) = 4$,Toda Proposition 5.6 nu-prime order four
+3,3,pi_6^3,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$,Toda Proposition 5.6 pi_5^2 eta_2 cube
+3,3,pi_6^3,1,Proposition 5.6,TodaSuspensionInjectiveStatement,narrative_latex,False,$E: \pi_{5}^{2} \to \pi_{6}^{3} \text{ is injective}$,Toda Proposition 5.6 pi_5^2 suspension injective
+3,3,pi_6^3,1,Proposition 5.6,Relation,narrative_latex,False,$\operatorname{ord}\left(\eta_{3}\eta_{4}\eta_{5}\right) = 2$,Toda Proposition 5.6 eta_3 cube order two
+3,3,pi_6^3,1,Proposition 5.6,TodaDeltaZeroStatement,generic_semantic,False,$\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.,Toda Proposition 5.6 pi_7^5 Delta zero
+3,3,pi_6^3,2,(5.3),HomotopyGroupMembershipStatement,narrative_latex,True,$\nu' \in \pi_{6}^{3}$,Toda 5.3 nu-prime Lemma 5.2 membership specialization
+3,3,pi_6^3,2,(5.3),Relation,narrative_latex,True,$2\eta_{3} = 0$,Toda 5.3 eta_3 twice zero
+3,3,pi_6^3,2,(5.3),Relation,narrative_latex,False,$2\nu' = \eta_{3}E\eta_{3}\eta_{5}$,Toda 5.3 nu-prime Lemma 5.2 double specialization
+3,3,pi_6^3,3,Proposition 5.3,TodaHopfInvariantSurjectiveStatement,narrative_latex,False,$H: \pi_{6}^{3} \to \pi_{6}^{5} \text{ is surjective}$,Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity
+3,3,pi_6^3,3,Proposition 5.3,Relation,narrative_latex,False,$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$,Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport
+3,3,pi_6^3,4,Lemma 5.4,Relation,narrative_latex,True,$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization
+3,4,pi_7^3,1,Proposition 5.8,Relation,narrative_latex,True,$\pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}$,Toda Proposition 5.8 pi_7^3 finite cyclic
+3,4,pi_7^3,1,Proposition 5.8,TodaHopfInvariantInjectiveStatement,generic_semantic,True,$H: \pi_{7}^{3} \to \pi_{7}^{5}$ は単射である.,Toda Proposition 5.8 pi_7^3 Hopf injective
+3,4,pi_7^3,2,Equation 5.7,Relation,narrative_latex,True,$H\left(\nu'\eta_{6}\right) = \eta_{5}\eta_{6}$,Toda Equation 5.7 nu-prime eta_6 Hopf value
+3,4,pi_7^3,3,Proposition 5.3,TodaProp53FiniteDimensionalStatement,narrative_latex,True,"$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\},\quad \pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\},\quad \pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\},\quad \pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}\qquad (n \ge 5)$",Toda Proposition 5.3 finite-dimensional integration
+3,4,pi_7^3,3,Proposition 5.3,Relation,narrative_latex,True,$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$,Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport
+3,4,pi_7^3,3,Proposition 5.3,Relation,narrative_latex,True,$\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\}$,Toda Proposition 5.3 n=4 pi_6^4 finite-cyclic transport
+3,4,pi_7^3,3,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge
+3,4,pi_7^3,4,Proposition 5.6,TodaHopfInvariantSurjectiveStatement,narrative_latex,True,$H: \pi_{7}^{3} \to \pi_{7}^{5} \text{ is surjective}$,Toda Proposition 5.6 pi_7^3 Hopf surjective
+3,4,pi_7^3,5,(5.2),Relation,narrative_latex,True,$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$,Toda 5.2 pi_4^2 finite-cyclic transport
+3,5,pi_8^3,1,Proposition 5.9,Relation,narrative_latex,True,$\pi_{8}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\eta_{7}\}$,Toda Proposition 5.9 pi_8^3 finite cyclic
+3,5,pi_8^3,1,Proposition 5.9,TodaHopfInvariantInjectiveStatement,generic_semantic,False,$H: \pi_{8}^{3} \to \pi_{8}^{5}$ は単射である.,Toda Proposition 5.9 pi_8^3 Hopf injective
+3,5,pi_8^3,1,Proposition 5.9,TodaProp42ExactnessStatement,narrative_latex,True,$\pi_{8}^{3} \xrightarrow{H} \pi_{8}^{5} \xrightarrow{\Delta} \pi_{6}^{2} \text{ is exact}$,Toda Proposition 5.9 concrete H-Delta exactness
+3,5,pi_8^3,1,Proposition 5.9,TodaProp59DeltaKernelStatement,narrative_latex,True,$\ker\left(\Delta: \pi_{8}^{5} \to \pi_{6}^{2}\right) = \mathbb{Z}/2\{4\nu_{5}\}$,Toda Proposition 5.9 Delta nu_5 kernel
+3,5,pi_8^3,1,Proposition 5.9,Relation,narrative_latex,True,$H\left(\nu'\eta_{6}\eta_{7}\right) = 4\nu_{5}$,Toda Proposition 5.9 nu-prime eta_6 squared Hopf value
+3,5,pi_8^3,1,Proposition 5.9,Relation,narrative_latex,True,$E\eta_{2}\nu'\eta_{6} = 0$,Toda Proposition 5.9 pi_7^2 suspension zero
+3,5,pi_8^3,1,Proposition 5.9,Relation,narrative_latex,True,$\pi_{7}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\}$,Toda Proposition 5.9 pi_7^2 eta_2 nu-prime eta_6
+3,5,pi_8^3,1,Proposition 5.9,TodaProp42ExactnessStatement,narrative_latex,True,$\pi_{7}^{2} \xrightarrow{E} \pi_{8}^{3} \xrightarrow{H} \pi_{8}^{5} \text{ is exact}$,Toda Proposition 5.9 concrete E-H exactness
+3,5,pi_8^3,2,Lemma 5.7,TodaDeltaImageUpToSignStatement,narrative_latex,True,$\Delta\left(\nu_{5}\right) = \pm \eta_{2}\nu'$,Toda Lemma 5.7 Delta nu_5 generator
+3,5,pi_8^3,2,Lemma 5.7,Relation,narrative_latex,True,$\pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\}$,Toda Lemma 5.7 pi_6^2 eta_2 nu-prime
+3,5,pi_8^3,3,Proposition 5.6,Relation,narrative_latex,True,$\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$,Toda Proposition 5.6 pi_8^5 finite cyclic
+3,5,pi_8^3,4,Equation 5.7,Relation,narrative_latex,False,$H\left(\nu'\eta_{6}\right) = \eta_{5}\eta_{6}$,Toda Equation 5.7 nu-prime eta_6 Hopf value
+3,6,pi_9^3,1,Proposition 5.11,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{9}^{3} = 0$,Toda Proposition 5.11 pi_9^3 zero
+3,6,pi_9^3,1,Proposition 5.11,TodaHopfInvariantInjectiveStatement,generic_semantic,False,$H: \pi_{9}^{3} \to \pi_{9}^{5}$ は単射である.,Toda Proposition 5.11 zero E implies H injective
+3,6,pi_9^3,1,Proposition 5.11,TodaDeltaInjectiveStatement,narrative_latex,True,$\Delta: \pi_{9}^{5} \to \pi_{7}^{2} \text{ is injective}$,Toda Proposition 5.11 pi_9^5 to pi_7^2 Delta injective
+3,6,pi_9^3,1,Proposition 5.11,TodaProp42ExactnessStatement,narrative_latex,True,$\pi_{9}^{3} \xrightarrow{H} \pi_{9}^{5} \xrightarrow{\Delta} \pi_{7}^{2} \text{ is exact}$,Toda Proposition 5.11 pi_9^3 concrete EHP exactness
+3,6,pi_9^3,1,Proposition 5.11,TodaSuspensionZeroStatement,narrative_latex,True,$E: \pi_{8}^{2} \to \pi_{9}^{3} \text{ is the zero map}$,Toda Proposition 5.11 E pi_8^2 zero
+3,6,pi_9^3,1,Proposition 5.11,TodaProp42ExactnessStatement,narrative_latex,True,$\pi_{8}^{2} \xrightarrow{E} \pi_{9}^{3} \xrightarrow{H} \pi_{9}^{5} \text{ is exact}$,Toda Proposition 5.11 pi_9^3 concrete EHP exactness
+3,6,pi_9^3,1,Proposition 5.11,TodaDeltaSurjectiveStatement,narrative_latex,False,$\Delta: \pi_{9}^{5} \twoheadrightarrow \pi_{7}^{2}$,Toda Proposition 5.11 zero E implies Delta surjective
+3,6,pi_9^3,2,Proposition 5.8,TodaProp58FiniteDimensionalStatement,narrative_latex,False,"$\pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\},\quad \pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\},\quad \pi_{8}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\},\quad \pi_{9}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\},\quad \pi_{n + 4}^{n} = 0\qquad (n \ge 6)$",Toda Proposition 5.8 finite-dimensional integration
+3,6,pi_9^3,3,Proposition 5.9,TodaProp59FiniteDimensionalStatement,narrative_latex,False,"$\pi_{7}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\},\quad \pi_{8}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\eta_{7}\},\quad \pi_{9}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\eta_{8}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\eta_{8}\},\quad \pi_{10}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\eta_{9}\},\quad \pi_{11}^{6} = \mathbb{Z}\{\Delta\left(\iota_{13}\right)\},\quad \pi_{n + 5}^{n} = 0\qquad (n \ge 7)$",Toda Proposition 5.9 finite-dimensional integration
+3,7,pi_10^3,1,Proposition 5.15,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{10}^{3} = 0$,Toda Proposition 5.15 pi_10^3 zero
+3,7,pi_10^3,1,Proposition 5.15,TodaDeltaInjectiveStatement,narrative_latex,True,$\Delta: \pi_{10}^{5} \to \pi_{8}^{2} \text{ is injective}$,Toda Proposition 5.15 pi_10^5 to pi_8^2 Delta injective
+3,7,pi_10^3,1,Proposition 5.15,TodaProp42ExactnessStatement,narrative_latex,True,$\pi_{10}^{3} \xrightarrow{H} \pi_{10}^{5} \xrightarrow{\Delta} \pi_{8}^{2} \text{ is exact}$,Toda Proposition 5.15 pi_10^3 concrete EHP exactness
+3,7,pi_10^3,1,Proposition 5.15,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{9}^{2} = 0$,Toda Proposition 5.15 pi_9^2 zero from Toda (5.2)
+3,7,pi_10^3,1,Proposition 5.15,TodaProp42ExactnessStatement,narrative_latex,True,$\pi_{9}^{2} \xrightarrow{E} \pi_{10}^{3} \xrightarrow{H} \pi_{10}^{5} \text{ is exact}$,Toda Proposition 5.15 pi_10^3 concrete EHP exactness
+3,7,pi_10^3,1,Proposition 5.15,TodaDeltaSurjectiveStatement,narrative_latex,True,$\Delta: \pi_{10}^{5} \twoheadrightarrow \pi_{8}^{2}$,Toda Proposition 5.15 pi_10^5 to pi_8^2 Delta surjective
+3,7,pi_10^3,2,Proposition 5.9,TodaProp59FiniteDimensionalStatement,narrative_latex,False,"$\pi_{7}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\},\quad \pi_{8}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\eta_{7}\},\quad \pi_{9}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\eta_{8}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\eta_{8}\},\quad \pi_{10}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\eta_{9}\},\quad \pi_{11}^{6} = \mathbb{Z}\{\Delta\left(\iota_{13}\right)\},\quad \pi_{n + 5}^{n} = 0\qquad (n \ge 7)$",Toda Proposition 5.9 finite-dimensional integration
+4,1,pi_5^4,1,(4.5),Relation,narrative_latex,True,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,Toda 4.5 pi_4^3 finite-cyclic transport
+4,2,pi_6^4,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\}$,Toda Proposition 5.3 n=4 pi_6^4 finite-cyclic transport
+4,2,pi_6^4,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$,Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport
+4,2,pi_6^4,1,Proposition 5.3,TodaSuspensionIsomorphismStatement,narrative_latex,True,$E: \pi_{5}^{3} \xrightarrow{\cong} \pi_{6}^{4}$,Toda Proposition 5.3 n=4 suspension isomorphism
+4,2,pi_6^4,1,Proposition 5.3,Relation,narrative_latex,True,$E\eta_{3}\eta_{4} = \eta_{4}\eta_{5}$,Toda Proposition 5.3 n=4 eta-square suspension bridge
+4,2,pi_6^4,1,Proposition 5.3,TodaSuspensionIsomorphismStatement,narrative_latex,False,$E: \pi_{4}^{2} \xrightarrow{\cong} \pi_{5}^{3}$,Toda Proposition 5.3 n=3 suspension isomorphism
+4,2,pi_6^4,1,Proposition 5.3,Relation,narrative_latex,False,$E\eta_{2}\eta_{3} = \eta_{3}\eta_{4}$,Toda Proposition 5.3 n=3 eta-square suspension bridge
+4,2,pi_6^4,1,Proposition 5.3,TodaProp44SuspensionInjectiveStatement,narrative_latex,False,$E: \pi_{5}^{3} \hookrightarrow \pi_{6}^{4}$,Toda Proposition 5.3 n=4 Phase 48 injectivity bridge
+4,2,pi_6^4,1,Proposition 5.3,TodaSuspensionSurjectiveStatement,narrative_latex,False,$E: \pi_{5}^{3} \to \pi_{6}^{4} \text{ is surjective}$,Toda Proposition 5.3 n=4 zero-right suspension surjectivity
+4,2,pi_6^4,2,(5.2),Relation,narrative_latex,True,$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$,Toda 5.2 pi_4^2 finite-cyclic transport
+4,3,pi_7^4,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{7}^{4} = \mathbb{Z}\{\nu_{4}\} \oplus \mathbb{Z}/4\{E\nu'\}$,Toda Proposition 5.6 pi_7^4 decomposition
+4,3,pi_7^4,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$,Toda Proposition 5.6 pi_6^3 finite cyclic
+4,3,pi_7^4,1,Proposition 5.6,Relation,narrative_latex,True,$\operatorname{ord}\left(\nu'\right) = 4$,Toda Proposition 5.6 nu-prime order four
+4,3,pi_7^4,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$,Toda Proposition 5.6 pi_5^2 eta_2 cube
+4,3,pi_7^4,1,Proposition 5.6,TodaSuspensionInjectiveStatement,narrative_latex,False,$E: \pi_{5}^{2} \to \pi_{6}^{3} \text{ is injective}$,Toda Proposition 5.6 pi_5^2 suspension injective
+4,3,pi_7^4,2,Lemma 5.4,Relation,narrative_latex,True,$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization
+4,3,pi_7^4,3,(5.3),HomotopyGroupMembershipStatement,narrative_latex,True,$\nu' \in \pi_{6}^{3}$,Toda 5.3 nu-prime Lemma 5.2 membership specialization
+4,3,pi_7^4,3,(5.3),Relation,narrative_latex,False,$2\nu' = \eta_{3}E\eta_{3}\eta_{5}$,Toda 5.3 nu-prime Lemma 5.2 double specialization
+4,3,pi_7^4,4,Proposition 5.3,TodaHopfInvariantSurjectiveStatement,narrative_latex,False,$H: \pi_{6}^{3} \to \pi_{6}^{5} \text{ is surjective}$,Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity
+4,4,pi_8^4,1,Proposition 5.8,Relation,narrative_latex,True,$\pi_{8}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\}$,Toda Proposition 5.8 pi_8^4 decomposition
+4,4,pi_8^4,1,Proposition 5.8,Relation,narrative_latex,True,$\pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}$,Toda Proposition 5.8 pi_7^3 finite cyclic
+4,4,pi_8^4,1,Proposition 5.8,Relation,narrative_latex,True,$E\nu'\eta_{6} = E\nu'\eta_{7}$,Toda Proposition 5.8 E nu-prime eta_6 bridge
+4,4,pi_8^4,4,Equation 5.7,Relation,narrative_latex,False,$H\left(\nu'\eta_{6}\right) = \eta_{5}\eta_{6}$,Toda Equation 5.7 nu-prime eta_6 Hopf value
+4,4,pi_8^4,5,Proposition 5.3,TodaProp53FiniteDimensionalStatement,narrative_latex,False,"$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\},\quad \pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\},\quad \pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\},\quad \pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}\qquad (n \ge 5)$",Toda Proposition 5.3 finite-dimensional integration
+4,5,pi_9^4,1,Proposition 5.9,Relation,narrative_latex,True,$\pi_{9}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\eta_{8}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\eta_{8}\}$,Toda Proposition 5.9 pi_9^4 decomposition
+4,5,pi_9^4,1,Proposition 5.9,Relation,narrative_latex,True,$\pi_{8}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\eta_{7}\}$,Toda Proposition 5.9 pi_8^3 finite cyclic
+4,5,pi_9^4,1,Proposition 5.9,Relation,narrative_latex,True,$E\nu'\eta_{6}\eta_{7} = E\nu'\eta_{7}\eta_{8}$,Toda Proposition 5.9 E nu-prime eta_6 squared bridge
+4,5,pi_9^4,1,Proposition 5.9,TodaHopfInvariantInjectiveStatement,generic_semantic,True,$H: \pi_{8}^{3} \to \pi_{8}^{5}$ は単射である.,Toda Proposition 5.9 pi_8^3 Hopf injective
+4,5,pi_9^4,1,Proposition 5.9,TodaProp42ExactnessStatement,narrative_latex,True,$\pi_{8}^{3} \xrightarrow{H} \pi_{8}^{5} \xrightarrow{\Delta} \pi_{6}^{2} \text{ is exact}$,Toda Proposition 5.9 concrete H-Delta exactness
+4,5,pi_9^4,1,Proposition 5.9,TodaProp59DeltaKernelStatement,narrative_latex,True,$\ker\left(\Delta: \pi_{8}^{5} \to \pi_{6}^{2}\right) = \mathbb{Z}/2\{4\nu_{5}\}$,Toda Proposition 5.9 Delta nu_5 kernel
+4,5,pi_9^4,1,Proposition 5.9,Relation,narrative_latex,True,$H\left(\nu'\eta_{6}\eta_{7}\right) = 4\nu_{5}$,Toda Proposition 5.9 nu-prime eta_6 squared Hopf value
+4,5,pi_9^4,2,Proposition 5.3,TodaProp53FiniteDimensionalStatement,narrative_latex,True,"$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\},\quad \pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\},\quad \pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\},\quad \pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}\qquad (n \ge 5)$",Toda Proposition 5.3 finite-dimensional integration
+4,5,pi_9^4,2,Proposition 5.3,Relation,narrative_latex,True,$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$,Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport
+4,5,pi_9^4,2,Proposition 5.3,Relation,narrative_latex,True,$\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\}$,Toda Proposition 5.3 n=4 pi_6^4 finite-cyclic transport
+4,5,pi_9^4,2,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge
+4,5,pi_9^4,4,(5.2),Relation,narrative_latex,True,$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$,Toda 5.2 pi_4^2 finite-cyclic transport
+4,6,pi_10^4,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}$,Toda Proposition 5.11 pi_10^4 generated by nu_4 squared
+4,6,pi_10^4,1,Proposition 5.11,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{9}^{3} = 0$,Toda Proposition 5.11 pi_9^3 zero
+4,6,pi_10^4,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{10}^{7} = \mathbb{Z}/8\{\nu_{7}\}$,Toda Proposition 5.11 pi_10^7 nu_7 specialization
+4,6,pi_10^4,1,Proposition 5.11,TodaHopfInvariantInjectiveStatement,generic_semantic,False,$H: \pi_{9}^{3} \to \pi_{9}^{5}$ は単射である.,Toda Proposition 5.11 zero E implies H injective
+4,6,pi_10^4,1,Proposition 5.11,TodaDeltaInjectiveStatement,narrative_latex,False,$\Delta: \pi_{9}^{5} \to \pi_{7}^{2} \text{ is injective}$,Toda Proposition 5.11 pi_9^5 to pi_7^2 Delta injective
+4,6,pi_10^4,1,Proposition 5.11,TodaProp42ExactnessStatement,narrative_latex,False,$\pi_{9}^{3} \xrightarrow{H} \pi_{9}^{5} \xrightarrow{\Delta} \pi_{7}^{2} \text{ is exact}$,Toda Proposition 5.11 pi_9^3 concrete EHP exactness
+4,7,pi_11^4,1,Proposition 5.15,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{11}^{4} = 0$,Toda Proposition 5.15 pi_11^4 zero
+4,7,pi_11^4,1,Proposition 5.15,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{10}^{3} = 0$,Toda Proposition 5.15 pi_10^3 zero
+4,7,pi_11^4,1,Proposition 5.15,TodaDeltaInjectiveStatement,narrative_latex,False,$\Delta: \pi_{10}^{5} \to \pi_{8}^{2} \text{ is injective}$,Toda Proposition 5.15 pi_10^5 to pi_8^2 Delta injective
+4,7,pi_11^4,1,Proposition 5.15,TodaProp42ExactnessStatement,narrative_latex,True,$\pi_{10}^{3} \xrightarrow{H} \pi_{10}^{5} \xrightarrow{\Delta} \pi_{8}^{2} \text{ is exact}$,Toda Proposition 5.15 pi_10^3 concrete EHP exactness
+4,7,pi_11^4,2,Proposition 5.8,TodaProp58FiniteDimensionalStatement,narrative_latex,True,"$\pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\},\quad \pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\},\quad \pi_{8}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\},\quad \pi_{9}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\},\quad \pi_{n + 4}^{n} = 0\qquad (n \ge 6)$",Toda Proposition 5.8 finite-dimensional integration
+4,7,pi_11^4,2,Proposition 5.8,Relation,narrative_latex,True,$\pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}$,Toda Proposition 5.8 pi_7^3 finite cyclic
+4,7,pi_11^4,2,Proposition 5.8,Relation,narrative_latex,True,$\pi_{8}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\}$,Toda Proposition 5.8 pi_8^4 decomposition
+4,7,pi_11^4,2,Proposition 5.8,Relation,narrative_latex,True,$\pi_{9}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\}$,Toda Proposition 5.8 pi_9^5 finite cyclic
+4,7,pi_11^4,2,Proposition 5.8,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{n + 4}^{n} = 0$,Toda Proposition 5.8 higher four-stem zero transport
+4,7,pi_11^4,3,Lemma 5.7,Relation,narrative_latex,True,$\pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\}$,Toda Lemma 5.7 pi_6^2 eta_2 nu-prime
+4,7,pi_11^4,4,Proposition 4.4,TodaProp44IsomorphismStatement,narrative_latex,False,"$\left(α, \beta\right) \mapsto Eα + \nu_{4}\beta\quad\text{は同型写像}$",Toda Proposition 4.4 nu_4 n=4 decomposition specialization
+5,1,pi_6^5,1,(4.5),Relation,narrative_latex,True,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,Toda 4.5 pi_4^3 finite-cyclic transport
+5,2,pi_7^5,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge
+5,2,pi_7^5,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{E^{n - 4}\eta_{4}\eta_{5}\}$,Toda Proposition 5.3 eta_4 squared stable transport
+5,2,pi_7^5,1,Proposition 5.3,Relation,narrative_latex,True,$E^{n - 4}\eta_{4}\eta_{5} = \eta_{n}\eta_{n + 1}$,Toda Proposition 5.3 higher eta-squared bridge
+5,3,pi_8^5,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$,Toda Proposition 5.6 pi_8^5 finite cyclic
+5,3,pi_8^5,1,Proposition 5.6,Relation,narrative_latex,False,$\operatorname{ord}\left(\nu_{5}\right) = 8$,Toda Proposition 5.6 nu_5 order eight
+5,3,pi_8^5,1,Proposition 5.6,Relation,narrative_latex,False,$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$,Toda Proposition 5.6 pi_6^3 finite cyclic
+5,3,pi_8^5,1,Proposition 5.6,TodaIteratedSuspensionInjectiveStatement,generic_semantic,False,$E^{2}: \pi_{6}^{3} \to \pi_{8}^{5}$ は単射である.,Toda Proposition 5.6 E^2 pi_6^3 injective
+5,3,pi_8^5,1,Proposition 5.6,TodaProp56Pi8_5QuotientStatement,generic_semantic,False,$\pi_{8}^{5}/E^{2}\left(\pi_{6}^{3}\right) \cong \mathbb{Z}/2$,Toda Proposition 5.6 pi_8^5 quotient by E^2 pi_6^3
+5,3,pi_8^5,1,Proposition 5.6,Relation,narrative_latex,False,$2\nu_{5} = E^{2}\nu'$,Toda Proposition 5.6 nu_5 double relation
+5,3,pi_8^5,1,Proposition 5.6,Relation,narrative_latex,False,$\operatorname{ord}\left(E^{2}\nu'\right) = 4$,Toda Proposition 5.6 E^2 nu-prime order four
+5,3,pi_8^5,1,Proposition 5.6,Relation,narrative_latex,False,$\operatorname{ord}\left(\nu'\right) = 4$,Toda Proposition 5.6 nu-prime order four
+5,3,pi_8^5,1,Proposition 5.6,Relation,narrative_latex,False,$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$,Toda Proposition 5.6 pi_5^2 eta_2 cube
+5,3,pi_8^5,1,Proposition 5.6,TodaSuspensionInjectiveStatement,narrative_latex,False,$E: \pi_{5}^{2} \to \pi_{6}^{3} \text{ is injective}$,Toda Proposition 5.6 pi_5^2 suspension injective
+5,3,pi_8^5,2,(5.3),HomotopyGroupMembershipStatement,narrative_latex,False,$\nu' \in \pi_{6}^{3}$,Toda 5.3 nu-prime Lemma 5.2 membership specialization
+5,3,pi_8^5,2,(5.3),Relation,narrative_latex,False,$2\nu' = \eta_{3}E\eta_{3}\eta_{5}$,Toda 5.3 nu-prime Lemma 5.2 double specialization
+5,3,pi_8^5,3,Proposition 5.3,TodaHopfInvariantSurjectiveStatement,narrative_latex,False,$H: \pi_{6}^{3} \to \pi_{6}^{5} \text{ is surjective}$,Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity
+5,3,pi_8^5,4,Lemma 5.4,Relation,narrative_latex,False,$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization
+5,4,pi_9^5,1,Proposition 5.8,Relation,narrative_latex,True,$\pi_{9}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\}$,Toda Proposition 5.8 pi_9^5 finite cyclic
+5,4,pi_9^5,1,Proposition 5.8,Relation,narrative_latex,True,$\pi_{8}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\}$,Toda Proposition 5.8 pi_8^4 decomposition
+5,4,pi_9^5,1,Proposition 5.8,Relation,narrative_latex,True,$\Delta\left(\eta_{9}\right) = E\nu'\eta_{7}$,Toda Proposition 5.8 Delta eta_9 value
+5,4,pi_9^5,1,Proposition 5.8,TodaProp42ExactnessStatement,narrative_latex,True,$\pi_{10}^{9} \xrightarrow{\Delta} \pi_{8}^{4} \xrightarrow{E} \pi_{9}^{5} \text{ is exact}$,Toda Proposition 5.8 pi_9^5 concrete exactness
+5,4,pi_9^5,1,Proposition 5.8,TodaSuspensionSurjectiveStatement,narrative_latex,True,$E: \pi_{8}^{4} \to \pi_{9}^{5} \text{ is surjective}$,Toda Proposition 5.8 pi_9^5 suspension surjective
+5,4,pi_9^5,1,Proposition 5.8,Relation,narrative_latex,True,$E\nu_{4}\eta_{7} = \nu_{5}\eta_{8}$,Toda Proposition 5.8 E nu_4 eta_7 bridge
+5,4,pi_9^5,1,Proposition 5.8,Relation,narrative_latex,True,$\pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}$,Toda Proposition 5.8 pi_7^3 finite cyclic
+5,4,pi_9^5,1,Proposition 5.8,Relation,narrative_latex,True,$E\nu'\eta_{6} = E\nu'\eta_{7}$,Toda Proposition 5.8 E nu-prime eta_6 bridge
+5,4,pi_9^5,1,Proposition 5.8,TodaHopfInvariantZeroStatement,narrative_latex,False,$H: \pi_{9}^{5} \to \pi_{9}^{9} \text{ is the zero map}$,Toda Proposition 5.8 pi_9^5 Hopf zero
+5,4,pi_9^5,1,Proposition 5.8,TodaProp42ExactnessStatement,narrative_latex,True,$\pi_{8}^{4} \xrightarrow{E} \pi_{9}^{5} \xrightarrow{H} \pi_{9}^{9} \text{ is exact}$,Toda Proposition 5.8 pi_9^5 concrete exactness
+5,4,pi_9^5,3,Proposition 2.5,TodaDeltaImageUpToSignStatement,narrative_latex,True,$\Delta\left(\eta_{9}\right) = \pm 2\nu_{4} - E\nu'\eta_{7}$,Toda Proposition 2.5 Delta eta_9 composition
+5,5,pi_10^5,1,Proposition 5.9,Relation,narrative_latex,True,$\pi_{10}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\eta_{9}\}$,Toda Proposition 5.9 pi_10^5 finite cyclic
+5,5,pi_10^5,1,Proposition 5.9,Relation,narrative_latex,True,$\pi_{9}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\eta_{8}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\eta_{8}\}$,Toda Proposition 5.9 pi_9^4 decomposition
+5,5,pi_10^5,1,Proposition 5.9,Relation,narrative_latex,True,$\Delta\left(\eta_{9}\eta_{10}\right) = E\nu'\eta_{7}\eta_{8}$,Toda Proposition 5.9 Delta eta_9 squared
+5,5,pi_10^5,1,Proposition 5.9,TodaProp42ExactnessStatement,narrative_latex,True,$\pi_{11}^{9} \xrightarrow{\Delta} \pi_{9}^{4} \xrightarrow{E} \pi_{10}^{5} \text{ is exact}$,Toda Proposition 5.9 pi_10^5 Delta-E exactness
+5,5,pi_10^5,1,Proposition 5.9,TodaSuspensionSurjectiveStatement,narrative_latex,True,$E: \pi_{9}^{4} \to \pi_{10}^{5} \text{ is surjective}$,Toda Proposition 5.9 pi_10^5 suspension surjective
+5,5,pi_10^5,1,Proposition 5.9,Relation,narrative_latex,True,$E\nu_{4}\eta_{7}\eta_{8} = \nu_{5}\eta_{8}\eta_{9}$,Toda Proposition 5.9 E nu_4 eta_7 squared bridge
+5,5,pi_10^5,1,Proposition 5.9,Relation,narrative_latex,True,$\pi_{8}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\eta_{7}\}$,Toda Proposition 5.9 pi_8^3 finite cyclic
+5,5,pi_10^5,1,Proposition 5.9,Relation,narrative_latex,True,$E\nu'\eta_{6}\eta_{7} = E\nu'\eta_{7}\eta_{8}$,Toda Proposition 5.9 E nu-prime eta_6 squared bridge
+5,5,pi_10^5,1,Proposition 5.9,TodaHopfInvariantZeroStatement,narrative_latex,False,$H: \pi_{10}^{5} \to \pi_{10}^{9} \text{ is the zero map}$,Toda Proposition 5.9 pi_10^5 Hopf zero
+5,5,pi_10^5,1,Proposition 5.9,TodaProp42ExactnessStatement,narrative_latex,True,$\pi_{9}^{4} \xrightarrow{E} \pi_{10}^{5} \xrightarrow{H} \pi_{10}^{9} \text{ is exact}$,Toda Proposition 5.9 pi_10^5 concrete exactness
+5,5,pi_10^5,2,Proposition 5.3,TodaProp53FiniteDimensionalStatement,narrative_latex,True,"$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\},\quad \pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\},\quad \pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\},\quad \pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}\qquad (n \ge 5)$",Toda Proposition 5.3 finite-dimensional integration
+5,5,pi_10^5,2,Proposition 5.3,Relation,narrative_latex,True,$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$,Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport
+5,5,pi_10^5,2,Proposition 5.3,Relation,narrative_latex,True,$\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\}$,Toda Proposition 5.3 n=4 pi_6^4 finite-cyclic transport
+5,5,pi_10^5,2,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge
+5,5,pi_10^5,3,Proposition 5.8,Relation,narrative_latex,True,$\Delta\left(\eta_{9}\right) = E\nu'\eta_{7}$,Toda Proposition 5.8 Delta eta_9 value
+5,5,pi_10^5,3,Proposition 5.8,Relation,narrative_latex,True,$E\nu_{4}\eta_{7} = \nu_{5}\eta_{8}$,Toda Proposition 5.8 E nu_4 eta_7 bridge
+5,5,pi_10^5,4,(5.2),Relation,narrative_latex,True,$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$,Toda 5.2 pi_4^2 finite-cyclic transport
+5,6,pi_11^5,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{11}^{5} = \mathbb{Z}/2\{\nu_{5}\nu_{8}\}$,Toda Proposition 5.11 pi_11^5 nu_5 squared
+5,6,pi_11^5,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{12}^{9} = \mathbb{Z}/8\{\nu_{9}\}$,Toda Proposition 5.11 pi_12^9 nu_9 specialization
+5,6,pi_11^5,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}$,Toda Proposition 5.11 pi_10^4 generated by nu_4 squared
+5,6,pi_11^5,1,Proposition 5.11,TodaProp42ExactnessStatement,narrative_latex,True,$\pi_{12}^{9} \xrightarrow{\Delta} \pi_{10}^{4} \xrightarrow{E} \pi_{11}^{5} \text{ is exact}$,Toda Proposition 5.11 pi_11^5 concrete exactness
+5,6,pi_11^5,1,Proposition 5.11,TodaSuspensionSurjectiveStatement,narrative_latex,True,$E: \pi_{10}^{4} \to \pi_{11}^{5} \text{ is surjective}$,Toda Proposition 5.11 pi_11^5 suspension surjective
+5,6,pi_11^5,1,Proposition 5.11,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{9}^{3} = 0$,Toda Proposition 5.11 pi_9^3 zero
+5,6,pi_11^5,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{10}^{7} = \mathbb{Z}/8\{\nu_{7}\}$,Toda Proposition 5.11 pi_10^7 nu_7 specialization
+5,6,pi_11^5,1,Proposition 5.11,TodaHopfInvariantZeroStatement,narrative_latex,False,$H: \pi_{11}^{5} \to \pi_{11}^{9} \text{ is the zero map}$,Toda Proposition 5.11 pi_11^5 Hopf zero
+5,6,pi_11^5,1,Proposition 5.11,TodaProp42ExactnessStatement,narrative_latex,True,$\pi_{10}^{4} \xrightarrow{E} \pi_{11}^{5} \xrightarrow{H} \pi_{11}^{9} \text{ is exact}$,Toda Proposition 5.11 pi_11^5 concrete exactness
+5,6,pi_11^5,2,Equation 5.13,TodaDeltaImageUpToSignStatement,narrative_latex,True,$\Delta\left(\nu_{9}\right) = \pm 2\nu_{4}\nu_{7}$,Toda Equation 5.13 Delta nu_9
+5,6,pi_11^5,4,Equation 5.8,Toda58EquationStatement,narrative_latex,True,"$\Delta\left(\iota_{9}\right) = \pm \left(2\nu_{4} - E\nu'\right) = \pm [\iota_{4}, \iota_{4}]$",Toda Equation 5.8 integration
+5,7,pi_12^5,1,Proposition 5.15,Relation,narrative_latex,True,$\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$,Toda Proposition 5.15 pi_12^5 finite cyclic
+5,7,pi_12^5,1,Proposition 5.15,TodaProp42ExactnessStatement,narrative_latex,False,$\pi_{12}^{5} \xrightarrow{H} \pi_{12}^{9} \xrightarrow{\Delta} \pi_{10}^{4} \text{ is exact}$,Toda Proposition 5.15 pi_12^5 concrete EHP exactness
+5,7,pi_12^5,3,Proposition 5.11,Relation,narrative_latex,True,$\pi_{12}^{9} = \mathbb{Z}/8\{\nu_{9}\}$,Toda Proposition 5.11 pi_12^9 nu_9 specialization
+5,7,pi_12^5,4,Equation 5.13,TodaDeltaImageUpToSignStatement,narrative_latex,True,$\Delta\left(\nu_{9}\right) = \pm 2\nu_{4}\nu_{7}$,Toda Equation 5.13 Delta nu_9
+6,1,pi_7^6,1,(4.5),Relation,narrative_latex,True,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,Toda 4.5 pi_4^3 finite-cyclic transport
+6,2,pi_8^6,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge
+6,2,pi_8^6,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{E^{n - 4}\eta_{4}\eta_{5}\}$,Toda Proposition 5.3 eta_4 squared stable transport
+6,2,pi_8^6,1,Proposition 5.3,Relation,narrative_latex,True,$E^{n - 4}\eta_{4}\eta_{5} = \eta_{n}\eta_{n + 1}$,Toda Proposition 5.3 higher eta-squared bridge
+6,3,pi_9^6,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$,Toda Proposition 5.6 higher nu finite-cyclic generator bridge
+6,3,pi_9^6,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$,Toda Proposition 5.6 nu_5 stable transport
+6,3,pi_9^6,1,Proposition 5.6,Relation,narrative_latex,True,$E^{n - 5}\nu_{5} = \nu_{n}$,Toda Proposition 5.6 higher nu-family bridge
+6,4,pi_10^6,1,Proposition 5.8,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{n + 4}^{n} = 0$,Toda Proposition 5.8 higher four-stem zero transport
+6,4,pi_10^6,1,Proposition 5.8,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{10}^{6} = 0$,Toda Proposition 5.8 pi_10^6 zero
+6,4,pi_10^6,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 6}: \pi_{6 + 4}^{6} \xrightarrow{\cong} \pi_{n + 4}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+6,5,pi_11^6,1,Proposition 5.9,Relation,narrative_latex,True,$\pi_{11}^{6} = \mathbb{Z}\{\Delta\left(\iota_{13}\right)\}$,Toda Proposition 5.9 pi_11^6 free cyclic
+6,5,pi_11^6,1,Proposition 5.9,TodaHopfInvariantInjectiveStatement,generic_semantic,False,$H: \pi_{11}^{6} \to \pi_{11}^{11}$ は単射である.,Toda Proposition 5.9 pi_11^6 Hopf injective
+6,5,pi_11^6,1,Proposition 5.9,TodaProp42ExactnessStatement,narrative_latex,True,$\pi_{11}^{6} \xrightarrow{H} \pi_{11}^{11} \xrightarrow{\Delta} \pi_{9}^{5} \text{ is exact}$,Toda Proposition 5.9 pi_11^6 concrete exactness
+6,5,pi_11^6,1,Proposition 5.9,TodaDeltaKernelFreeCyclicStatement,narrative_latex,True,$\ker\left(\Delta: \pi_{11}^{11} \to \pi_{9}^{5}\right) = \mathbb{Z}\{2\iota_{11}\}$,Toda Proposition 5.9 pi_11^11 Delta kernel
+6,5,pi_11^6,1,Proposition 5.9,TodaProp27HopfInvariantUpToSignStatement,narrative_latex,True,$H(\Delta\left(\iota_{13}\right)) = \pm 2\iota_{11}$,Toda Proposition 5.9 Delta iota_13 Hopf value
+6,5,pi_11^6,1,Proposition 5.9,Relation,narrative_latex,True,$E\nu_{5}\eta_{8}\eta_{9} = 0$,Toda Proposition 5.9 E nu_5 eta_8 squared zero
+6,5,pi_11^6,1,Proposition 5.9,Relation,narrative_latex,True,$\pi_{10}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\eta_{9}\}$,Toda Proposition 5.9 pi_10^5 finite cyclic
+6,5,pi_11^6,1,Proposition 5.9,TodaProp42ExactnessStatement,narrative_latex,True,$\pi_{10}^{5} \xrightarrow{E} \pi_{11}^{6} \xrightarrow{H} \pi_{11}^{11} \text{ is exact}$,Toda Proposition 5.9 pi_11^6 concrete exactness
+6,5,pi_11^6,2,Proposition 5.8,Relation,narrative_latex,True,$\pi_{9}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\}$,Toda Proposition 5.8 pi_9^5 finite cyclic
+6,6,pi_12^6,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{12}^{6} = \mathbb{Z}/2\{\nu_{6}\nu_{9}\}$,Toda Proposition 5.11 pi_12^6 nu_6 squared
+6,6,pi_12^6,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{11}^{5} = \mathbb{Z}/2\{\nu_{5}\nu_{8}\}$,Toda Proposition 5.11 pi_11^5 nu_5 squared
+6,6,pi_12^6,1,Proposition 5.11,TodaSuspensionIsomorphismStatement,narrative_latex,True,$E: \pi_{11}^{5} \xrightarrow{\cong} \pi_{12}^{6}$,Toda Proposition 5.11 pi_12^6 suspension isomorphism
+6,6,pi_12^6,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{12}^{9} = \mathbb{Z}/8\{\nu_{9}\}$,Toda Proposition 5.11 pi_12^9 nu_9 specialization
+6,6,pi_12^6,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}$,Toda Proposition 5.11 pi_10^4 generated by nu_4 squared
+6,6,pi_12^6,1,Proposition 5.11,TodaProp42ExactnessStatement,narrative_latex,True,$\pi_{12}^{9} \xrightarrow{\Delta} \pi_{10}^{4} \xrightarrow{E} \pi_{11}^{5} \text{ is exact}$,Toda Proposition 5.11 pi_11^5 concrete exactness
+6,6,pi_12^6,1,Proposition 5.11,TodaSuspensionSurjectiveStatement,narrative_latex,False,$E: \pi_{10}^{4} \to \pi_{11}^{5} \text{ is surjective}$,Toda Proposition 5.11 pi_11^5 suspension surjective
+6,6,pi_12^6,1,Proposition 5.11,TodaSuspensionInjectiveStatement,narrative_latex,False,$E: \pi_{11}^{5} \to \pi_{12}^{6} \text{ is injective}$,Toda Proposition 5.11 pi_12^6 suspension injective
+6,6,pi_12^6,1,Proposition 5.11,TodaSuspensionSurjectiveStatement,narrative_latex,False,$E: \pi_{11}^{5} \to \pi_{12}^{6} \text{ is surjective}$,Toda Proposition 5.11 pi_12^6 suspension surjective
+6,6,pi_12^6,2,Equation 5.13,TodaDeltaImageUpToSignStatement,narrative_latex,True,$\Delta\left(\nu_{9}\right) = \pm 2\nu_{4}\nu_{7}$,Toda Equation 5.13 Delta nu_9
+6,7,pi_13^6,1,Proposition 5.15,Relation,narrative_latex,True,$\pi_{13}^{6} = \mathbb{Z}/4\{\sigma''\}$,Toda Proposition 5.15 pi_13^6 finite cyclic
+6,7,pi_13^6,1,Proposition 5.15,Relation,narrative_latex,True,$\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$,Toda Proposition 5.15 pi_12^5 finite cyclic
+6,7,pi_13^6,2,Lemma 5.14,TodaLemma514SigmaDoublePrimeStatement,narrative_latex,True,"$E^{3}\sigma'' = 4\,xEα*, \qquad 2\sigma'' = E\sigma''', \qquad H\left(\sigma''\right) = \eta_{11}\eta_{12}$",Toda Lemma 5.14 sigma double-prime branch
+6,7,pi_13^6,3,Proposition 5.11,Relation,narrative_latex,True,$\pi_{13}^{11} = \mathbb{Z}/2\{\eta_{11}\eta_{12}\}$,Toda Proposition 5.11 pi_13^11 eta_11 squared
+6,7,pi_13^6,5,Equation 5.13,Relation,narrative_latex,True,$\Delta\left(\eta_{11}\eta_{12}\right) = 0$,Toda Equation 5.13 Delta eta_11 squared zero
+6,7,pi_13^6,8,Proposition 5.3,TodaProp53FiniteDimensionalStatement,narrative_latex,False,"$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\},\quad \pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\},\quad \pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\},\quad \pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}\qquad (n \ge 5)$",Toda Proposition 5.3 finite-dimensional integration
+7,1,pi_8^7,1,(4.5),Relation,narrative_latex,True,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,Toda 4.5 pi_4^3 finite-cyclic transport
+7,2,pi_9^7,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge
+7,2,pi_9^7,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{E^{n - 4}\eta_{4}\eta_{5}\}$,Toda Proposition 5.3 eta_4 squared stable transport
+7,2,pi_9^7,1,Proposition 5.3,Relation,narrative_latex,True,$E^{n - 4}\eta_{4}\eta_{5} = \eta_{n}\eta_{n + 1}$,Toda Proposition 5.3 higher eta-squared bridge
+7,3,pi_10^7,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$,Toda Proposition 5.6 higher nu finite-cyclic generator bridge
+7,3,pi_10^7,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$,Toda Proposition 5.6 nu_5 stable transport
+7,3,pi_10^7,1,Proposition 5.6,Relation,narrative_latex,True,$E^{n - 5}\nu_{5} = \nu_{n}$,Toda Proposition 5.6 higher nu-family bridge
+7,4,pi_11^7,1,Proposition 5.8,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{n + 4}^{n} = 0$,Toda Proposition 5.8 higher four-stem zero transport
+7,4,pi_11^7,1,Proposition 5.8,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{10}^{6} = 0$,Toda Proposition 5.8 pi_10^6 zero
+7,4,pi_11^7,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 6}: \pi_{6 + 4}^{6} \xrightarrow{\cong} \pi_{n + 4}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+7,5,pi_12^7,1,Proposition 5.9,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{n + 5}^{n} = 0$,Toda Proposition 5.9 higher five-stem zero transport
+7,5,pi_12^7,1,Proposition 5.9,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{12}^{7} = 0$,Toda Proposition 5.9 pi_12^7 zero
+7,5,pi_12^7,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 7}: \pi_{7 + 5}^{7} \xrightarrow{\cong} \pi_{n + 5}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+7,6,pi_13^7,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{13}^{7} = \mathbb{Z}/2\{\nu_{7}\nu_{10}\}$,Toda Proposition 5.11 pi_13^7 nu_7 squared
+7,6,pi_13^7,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{12}^{6} = \mathbb{Z}/2\{\nu_{6}\nu_{9}\}$,Toda Proposition 5.11 pi_12^6 nu_6 squared
+7,6,pi_13^7,1,Proposition 5.11,TodaSuspensionIsomorphismStatement,narrative_latex,True,$E: \pi_{12}^{6} \xrightarrow{\cong} \pi_{13}^{7}$,Toda Proposition 5.11 pi_13^7 suspension isomorphism
+7,6,pi_13^7,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{11}^{5} = \mathbb{Z}/2\{\nu_{5}\nu_{8}\}$,Toda Proposition 5.11 pi_11^5 nu_5 squared
+7,6,pi_13^7,1,Proposition 5.11,TodaSuspensionIsomorphismStatement,narrative_latex,False,$E: \pi_{11}^{5} \xrightarrow{\cong} \pi_{12}^{6}$,Toda Proposition 5.11 pi_12^6 suspension isomorphism
+7,6,pi_13^7,1,Proposition 5.11,TodaSuspensionInjectiveStatement,narrative_latex,False,$E: \pi_{12}^{6} \to \pi_{13}^{7} \text{ is injective}$,Toda Proposition 5.11 pi_13^7 suspension injective
+7,6,pi_13^7,1,Proposition 5.11,TodaSuspensionSurjectiveStatement,narrative_latex,False,$E: \pi_{12}^{6} \to \pi_{13}^{7} \text{ is surjective}$,Toda Proposition 5.11 pi_13^7 suspension surjective
+7,7,pi_14^7,1,Proposition 5.15,Relation,narrative_latex,True,$\pi_{14}^{7} = \mathbb{Z}/8\{\sigma'\}$,Toda Proposition 5.15 pi_14^7 finite cyclic
+7,7,pi_14^7,1,Proposition 5.15,Relation,narrative_latex,True,$\pi_{13}^{6} = \mathbb{Z}/4\{\sigma''\}$,Toda Proposition 5.15 pi_13^6 finite cyclic
+7,7,pi_14^7,1,Proposition 5.15,Relation,narrative_latex,True,$\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$,Toda Proposition 5.15 pi_12^5 finite cyclic
+7,7,pi_14^7,2,Lemma 5.14,TodaLemma514SigmaDoublePrimeStatement,narrative_latex,True,"$E^{3}\sigma'' = 4\,xEα*, \qquad 2\sigma'' = E\sigma''', \qquad H\left(\sigma''\right) = \eta_{11}\eta_{12}$",Toda Lemma 5.14 sigma double-prime branch
+7,7,pi_14^7,3,Proposition 5.11,Relation,narrative_latex,True,$\pi_{14}^{13} = \mathbb{Z}/2\{\eta_{13}\}$,Toda Proposition 5.11 pi_14^13 eta_13
+7,7,pi_14^7,3,Proposition 5.11,Relation,narrative_latex,True,$\pi_{13}^{11} = \mathbb{Z}/2\{\eta_{11}\eta_{12}\}$,Toda Proposition 5.11 pi_13^11 eta_11 squared
+7,7,pi_14^7,4,Equation 5.13,Relation,narrative_latex,True,$\Delta\left(\eta_{13}\right) = 0$,Toda Equation 5.13 Delta eta_13 zero
+7,7,pi_14^7,5,Proposition 5.3,TodaProp53FiniteDimensionalStatement,narrative_latex,False,"$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\},\quad \pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\},\quad \pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\},\quad \pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}\qquad (n \ge 5)$",Toda Proposition 5.3 finite-dimensional integration
+8,1,pi_9^8,1,(4.5),Relation,narrative_latex,True,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,Toda 4.5 pi_4^3 finite-cyclic transport
+8,2,pi_10^8,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge
+8,2,pi_10^8,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{E^{n - 4}\eta_{4}\eta_{5}\}$,Toda Proposition 5.3 eta_4 squared stable transport
+8,2,pi_10^8,1,Proposition 5.3,Relation,narrative_latex,True,$E^{n - 4}\eta_{4}\eta_{5} = \eta_{n}\eta_{n + 1}$,Toda Proposition 5.3 higher eta-squared bridge
+8,3,pi_11^8,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$,Toda Proposition 5.6 higher nu finite-cyclic generator bridge
+8,3,pi_11^8,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$,Toda Proposition 5.6 nu_5 stable transport
+8,3,pi_11^8,1,Proposition 5.6,Relation,narrative_latex,True,$E^{n - 5}\nu_{5} = \nu_{n}$,Toda Proposition 5.6 higher nu-family bridge
+8,4,pi_12^8,1,Proposition 5.8,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{n + 4}^{n} = 0$,Toda Proposition 5.8 higher four-stem zero transport
+8,4,pi_12^8,1,Proposition 5.8,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{10}^{6} = 0$,Toda Proposition 5.8 pi_10^6 zero
+8,4,pi_12^8,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 6}: \pi_{6 + 4}^{6} \xrightarrow{\cong} \pi_{n + 4}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+8,5,pi_13^8,1,Proposition 5.9,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{n + 5}^{n} = 0$,Toda Proposition 5.9 higher five-stem zero transport
+8,5,pi_13^8,1,Proposition 5.9,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{12}^{7} = 0$,Toda Proposition 5.9 pi_12^7 zero
+8,5,pi_13^8,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 7}: \pi_{7 + 5}^{7} \xrightarrow{\cong} \pi_{n + 5}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+8,6,pi_14^8,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$,Toda Proposition 5.11 pi_14^8 nu_8 squared
+8,6,pi_14^8,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{13}^{7} = \mathbb{Z}/2\{\nu_{7}\nu_{10}\}$,Toda Proposition 5.11 pi_13^7 nu_7 squared
+8,6,pi_14^8,1,Proposition 5.11,TodaSuspensionIsomorphismStatement,narrative_latex,True,$E: \pi_{13}^{7} \xrightarrow{\cong} \pi_{14}^{8}$,Toda Proposition 5.11 pi_14^8 Proposition 4.4 zero-second-summand suspension isomorphism
+8,6,pi_14^8,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{12}^{6} = \mathbb{Z}/2\{\nu_{6}\nu_{9}\}$,Toda Proposition 5.11 pi_12^6 nu_6 squared
+8,6,pi_14^8,1,Proposition 5.11,TodaSuspensionIsomorphismStatement,narrative_latex,False,$E: \pi_{12}^{6} \xrightarrow{\cong} \pi_{13}^{7}$,Toda Proposition 5.11 pi_13^7 suspension isomorphism
+8,7,pi_15^8,1,Proposition 5.15,Relation,narrative_latex,True,$\pi_{15}^{8} = \mathbb{Z}\{\sigma_{8}\} \oplus \mathbb{Z}/8\{E\sigma'\}$,Toda Proposition 5.15 pi_15^8 final decomposition
+8,7,pi_15^8,1,Proposition 5.15,Toda515Sigma8TransportedDecompositionStatement,narrative_latex,False,$\pi_{15}^{8} \cong \mathbb{Z}\{\sigma_{8}\} \oplus \mathbb{Z}/8\{E\sigma'\}$,Toda Proposition 5.15 sigma_8 transported decomposition
+8,7,pi_15^8,1,Proposition 5.15,TodaProp44IsomorphismStatement,narrative_latex,False,"$\left(α, \beta\right) \mapsto Eα + \sigma_{8}\beta\quad\text{は同型写像}$",Toda Proposition 5.15 sigma_8 n=8 Proposition 4.4 decomposition specialization
+8,7,pi_15^8,1,Proposition 5.15,Relation,narrative_latex,True,$\pi_{14}^{7} = \mathbb{Z}/8\{\sigma'\}$,Toda Proposition 5.15 pi_14^7 finite cyclic
+9,1,pi_10^9,1,(4.5),Relation,narrative_latex,True,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,Toda 4.5 pi_4^3 finite-cyclic transport
+9,2,pi_11^9,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge
+9,2,pi_11^9,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{E^{n - 4}\eta_{4}\eta_{5}\}$,Toda Proposition 5.3 eta_4 squared stable transport
+9,2,pi_11^9,1,Proposition 5.3,Relation,narrative_latex,True,$E^{n - 4}\eta_{4}\eta_{5} = \eta_{n}\eta_{n + 1}$,Toda Proposition 5.3 higher eta-squared bridge
+9,3,pi_12^9,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$,Toda Proposition 5.6 higher nu finite-cyclic generator bridge
+9,3,pi_12^9,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$,Toda Proposition 5.6 nu_5 stable transport
+9,3,pi_12^9,1,Proposition 5.6,Relation,narrative_latex,True,$E^{n - 5}\nu_{5} = \nu_{n}$,Toda Proposition 5.6 higher nu-family bridge
+9,4,pi_13^9,1,Proposition 5.8,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{n + 4}^{n} = 0$,Toda Proposition 5.8 higher four-stem zero transport
+9,4,pi_13^9,1,Proposition 5.8,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{10}^{6} = 0$,Toda Proposition 5.8 pi_10^6 zero
+9,4,pi_13^9,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 6}: \pi_{6 + 4}^{6} \xrightarrow{\cong} \pi_{n + 4}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+9,5,pi_14^9,1,Proposition 5.9,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{n + 5}^{n} = 0$,Toda Proposition 5.9 higher five-stem zero transport
+9,5,pi_14^9,1,Proposition 5.9,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{12}^{7} = 0$,Toda Proposition 5.9 pi_12^7 zero
+9,5,pi_14^9,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 7}: \pi_{7 + 5}^{7} \xrightarrow{\cong} \pi_{n + 5}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+9,6,pi_15^9,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$,Toda Proposition 5.11 higher six-stem nu squared transport
+9,6,pi_15^9,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$,Toda Proposition 5.11 pi_14^8 nu_8 squared
+9,6,pi_15^9,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 8}: \pi_{8 + 6}^{8} \xrightarrow{\cong} \pi_{n + 6}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+9,7,pi_16^9,1,Proposition 5.15,Relation,narrative_latex,True,$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$,Toda Proposition 5.15 pi_16^9 generated by sigma_9
+9,7,pi_16^9,1,Proposition 5.15,Relation,narrative_latex,True,$\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$,Toda Proposition 5.15 pi_12^5 finite cyclic
+9,7,pi_16^9,1,Proposition 5.15,Relation,narrative_latex,True,$\pi_{14}^{7} = \mathbb{Z}/8\{\sigma'\}$,Toda Proposition 5.15 pi_14^7 finite cyclic
+10,1,pi_11^10,1,(4.5),Relation,narrative_latex,True,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,Toda 4.5 pi_4^3 finite-cyclic transport
+10,2,pi_12^10,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge
+10,2,pi_12^10,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{E^{n - 4}\eta_{4}\eta_{5}\}$,Toda Proposition 5.3 eta_4 squared stable transport
+10,2,pi_12^10,1,Proposition 5.3,Relation,narrative_latex,True,$E^{n - 4}\eta_{4}\eta_{5} = \eta_{n}\eta_{n + 1}$,Toda Proposition 5.3 higher eta-squared bridge
+10,3,pi_13^10,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$,Toda Proposition 5.6 higher nu finite-cyclic generator bridge
+10,3,pi_13^10,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$,Toda Proposition 5.6 nu_5 stable transport
+10,3,pi_13^10,1,Proposition 5.6,Relation,narrative_latex,True,$E^{n - 5}\nu_{5} = \nu_{n}$,Toda Proposition 5.6 higher nu-family bridge
+10,4,pi_14^10,1,Proposition 5.8,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{n + 4}^{n} = 0$,Toda Proposition 5.8 higher four-stem zero transport
+10,4,pi_14^10,1,Proposition 5.8,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{10}^{6} = 0$,Toda Proposition 5.8 pi_10^6 zero
+10,4,pi_14^10,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 6}: \pi_{6 + 4}^{6} \xrightarrow{\cong} \pi_{n + 4}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+10,5,pi_15^10,1,Proposition 5.9,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{n + 5}^{n} = 0$,Toda Proposition 5.9 higher five-stem zero transport
+10,5,pi_15^10,1,Proposition 5.9,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{12}^{7} = 0$,Toda Proposition 5.9 pi_12^7 zero
+10,5,pi_15^10,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 7}: \pi_{7 + 5}^{7} \xrightarrow{\cong} \pi_{n + 5}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+10,6,pi_16^10,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$,Toda Proposition 5.11 higher six-stem nu squared transport
+10,6,pi_16^10,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$,Toda Proposition 5.11 pi_14^8 nu_8 squared
+10,6,pi_16^10,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 8}: \pi_{8 + 6}^{8} \xrightarrow{\cong} \pi_{n + 6}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+10,7,pi_17^10,1,Proposition 5.15,Relation,narrative_latex,True,$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$,Toda Proposition 5.15 pi_16^9 generated by sigma_9
+10,7,pi_17^10,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 9}: \pi_{9 + 7}^{9} \xrightarrow{\cong} \pi_{n + 7}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+10,7,pi_17^10,3,Lemma 5.14,TodaSigmaFamilyDefinitionStatement,generic_semantic,True,$\sigma_{n}$ を \(\sigma\)-family の元として定める.,Toda Lemma 5.14 sigma-family definition
+11,1,pi_12^11,1,(4.5),Relation,narrative_latex,True,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,Toda 4.5 pi_4^3 finite-cyclic transport
+11,2,pi_13^11,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge
+11,2,pi_13^11,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{E^{n - 4}\eta_{4}\eta_{5}\}$,Toda Proposition 5.3 eta_4 squared stable transport
+11,2,pi_13^11,1,Proposition 5.3,Relation,narrative_latex,True,$E^{n - 4}\eta_{4}\eta_{5} = \eta_{n}\eta_{n + 1}$,Toda Proposition 5.3 higher eta-squared bridge
+11,3,pi_14^11,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$,Toda Proposition 5.6 higher nu finite-cyclic generator bridge
+11,3,pi_14^11,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$,Toda Proposition 5.6 nu_5 stable transport
+11,3,pi_14^11,1,Proposition 5.6,Relation,narrative_latex,True,$E^{n - 5}\nu_{5} = \nu_{n}$,Toda Proposition 5.6 higher nu-family bridge
+11,4,pi_15^11,1,Proposition 5.8,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{n + 4}^{n} = 0$,Toda Proposition 5.8 higher four-stem zero transport
+11,4,pi_15^11,1,Proposition 5.8,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{10}^{6} = 0$,Toda Proposition 5.8 pi_10^6 zero
+11,4,pi_15^11,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 6}: \pi_{6 + 4}^{6} \xrightarrow{\cong} \pi_{n + 4}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+11,5,pi_16^11,1,Proposition 5.9,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{n + 5}^{n} = 0$,Toda Proposition 5.9 higher five-stem zero transport
+11,5,pi_16^11,1,Proposition 5.9,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{12}^{7} = 0$,Toda Proposition 5.9 pi_12^7 zero
+11,5,pi_16^11,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 7}: \pi_{7 + 5}^{7} \xrightarrow{\cong} \pi_{n + 5}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+11,6,pi_17^11,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$,Toda Proposition 5.11 higher six-stem nu squared transport
+11,6,pi_17^11,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$,Toda Proposition 5.11 pi_14^8 nu_8 squared
+11,6,pi_17^11,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 8}: \pi_{8 + 6}^{8} \xrightarrow{\cong} \pi_{n + 6}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+11,7,pi_18^11,1,Proposition 5.15,Relation,narrative_latex,True,$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$,Toda Proposition 5.15 pi_16^9 generated by sigma_9
+11,7,pi_18^11,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 9}: \pi_{9 + 7}^{9} \xrightarrow{\cong} \pi_{n + 7}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+11,7,pi_18^11,3,Lemma 5.14,TodaSigmaFamilyDefinitionStatement,generic_semantic,True,$\sigma_{n}$ を \(\sigma\)-family の元として定める.,Toda Lemma 5.14 sigma-family definition
+12,1,pi_13^12,1,(4.5),Relation,narrative_latex,True,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,Toda 4.5 pi_4^3 finite-cyclic transport
+12,2,pi_14^12,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge
+12,2,pi_14^12,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{E^{n - 4}\eta_{4}\eta_{5}\}$,Toda Proposition 5.3 eta_4 squared stable transport
+12,2,pi_14^12,1,Proposition 5.3,Relation,narrative_latex,True,$E^{n - 4}\eta_{4}\eta_{5} = \eta_{n}\eta_{n + 1}$,Toda Proposition 5.3 higher eta-squared bridge
+12,3,pi_15^12,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$,Toda Proposition 5.6 higher nu finite-cyclic generator bridge
+12,3,pi_15^12,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$,Toda Proposition 5.6 nu_5 stable transport
+12,3,pi_15^12,1,Proposition 5.6,Relation,narrative_latex,True,$E^{n - 5}\nu_{5} = \nu_{n}$,Toda Proposition 5.6 higher nu-family bridge
+12,4,pi_16^12,1,Proposition 5.8,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{n + 4}^{n} = 0$,Toda Proposition 5.8 higher four-stem zero transport
+12,4,pi_16^12,1,Proposition 5.8,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{10}^{6} = 0$,Toda Proposition 5.8 pi_10^6 zero
+12,4,pi_16^12,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 6}: \pi_{6 + 4}^{6} \xrightarrow{\cong} \pi_{n + 4}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+12,5,pi_17^12,1,Proposition 5.9,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{n + 5}^{n} = 0$,Toda Proposition 5.9 higher five-stem zero transport
+12,5,pi_17^12,1,Proposition 5.9,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{12}^{7} = 0$,Toda Proposition 5.9 pi_12^7 zero
+12,5,pi_17^12,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 7}: \pi_{7 + 5}^{7} \xrightarrow{\cong} \pi_{n + 5}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+12,6,pi_18^12,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$,Toda Proposition 5.11 higher six-stem nu squared transport
+12,6,pi_18^12,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$,Toda Proposition 5.11 pi_14^8 nu_8 squared
+12,6,pi_18^12,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 8}: \pi_{8 + 6}^{8} \xrightarrow{\cong} \pi_{n + 6}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+12,7,pi_19^12,1,Proposition 5.15,Relation,narrative_latex,True,$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$,Toda Proposition 5.15 pi_16^9 generated by sigma_9
+12,7,pi_19^12,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 9}: \pi_{9 + 7}^{9} \xrightarrow{\cong} \pi_{n + 7}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+12,7,pi_19^12,3,Lemma 5.14,TodaSigmaFamilyDefinitionStatement,generic_semantic,True,$\sigma_{n}$ を \(\sigma\)-family の元として定める.,Toda Lemma 5.14 sigma-family definition
+13,1,pi_14^13,1,(4.5),Relation,narrative_latex,True,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,Toda 4.5 pi_4^3 finite-cyclic transport
+13,2,pi_15^13,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge
+13,2,pi_15^13,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{E^{n - 4}\eta_{4}\eta_{5}\}$,Toda Proposition 5.3 eta_4 squared stable transport
+13,2,pi_15^13,1,Proposition 5.3,Relation,narrative_latex,True,$E^{n - 4}\eta_{4}\eta_{5} = \eta_{n}\eta_{n + 1}$,Toda Proposition 5.3 higher eta-squared bridge
+13,3,pi_16^13,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$,Toda Proposition 5.6 higher nu finite-cyclic generator bridge
+13,3,pi_16^13,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$,Toda Proposition 5.6 nu_5 stable transport
+13,3,pi_16^13,1,Proposition 5.6,Relation,narrative_latex,True,$E^{n - 5}\nu_{5} = \nu_{n}$,Toda Proposition 5.6 higher nu-family bridge
+13,4,pi_17^13,1,Proposition 5.8,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{n + 4}^{n} = 0$,Toda Proposition 5.8 higher four-stem zero transport
+13,4,pi_17^13,1,Proposition 5.8,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{10}^{6} = 0$,Toda Proposition 5.8 pi_10^6 zero
+13,4,pi_17^13,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 6}: \pi_{6 + 4}^{6} \xrightarrow{\cong} \pi_{n + 4}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+13,5,pi_18^13,1,Proposition 5.9,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{n + 5}^{n} = 0$,Toda Proposition 5.9 higher five-stem zero transport
+13,5,pi_18^13,1,Proposition 5.9,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{12}^{7} = 0$,Toda Proposition 5.9 pi_12^7 zero
+13,5,pi_18^13,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 7}: \pi_{7 + 5}^{7} \xrightarrow{\cong} \pi_{n + 5}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+13,6,pi_19^13,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$,Toda Proposition 5.11 higher six-stem nu squared transport
+13,6,pi_19^13,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$,Toda Proposition 5.11 pi_14^8 nu_8 squared
+13,6,pi_19^13,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 8}: \pi_{8 + 6}^{8} \xrightarrow{\cong} \pi_{n + 6}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+13,7,pi_20^13,1,Proposition 5.15,Relation,narrative_latex,True,$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$,Toda Proposition 5.15 pi_16^9 generated by sigma_9
+13,7,pi_20^13,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 9}: \pi_{9 + 7}^{9} \xrightarrow{\cong} \pi_{n + 7}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+13,7,pi_20^13,3,Lemma 5.14,TodaSigmaFamilyDefinitionStatement,generic_semantic,True,$\sigma_{n}$ を \(\sigma\)-family の元として定める.,Toda Lemma 5.14 sigma-family definition
+14,1,pi_15^14,1,(4.5),Relation,narrative_latex,True,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,Toda 4.5 pi_4^3 finite-cyclic transport
+14,2,pi_16^14,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge
+14,2,pi_16^14,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{E^{n - 4}\eta_{4}\eta_{5}\}$,Toda Proposition 5.3 eta_4 squared stable transport
+14,2,pi_16^14,1,Proposition 5.3,Relation,narrative_latex,True,$E^{n - 4}\eta_{4}\eta_{5} = \eta_{n}\eta_{n + 1}$,Toda Proposition 5.3 higher eta-squared bridge
+14,3,pi_17^14,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$,Toda Proposition 5.6 higher nu finite-cyclic generator bridge
+14,3,pi_17^14,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$,Toda Proposition 5.6 nu_5 stable transport
+14,3,pi_17^14,1,Proposition 5.6,Relation,narrative_latex,True,$E^{n - 5}\nu_{5} = \nu_{n}$,Toda Proposition 5.6 higher nu-family bridge
+14,4,pi_18^14,1,Proposition 5.8,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{n + 4}^{n} = 0$,Toda Proposition 5.8 higher four-stem zero transport
+14,4,pi_18^14,1,Proposition 5.8,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{10}^{6} = 0$,Toda Proposition 5.8 pi_10^6 zero
+14,4,pi_18^14,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 6}: \pi_{6 + 4}^{6} \xrightarrow{\cong} \pi_{n + 4}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+14,5,pi_19^14,1,Proposition 5.9,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{n + 5}^{n} = 0$,Toda Proposition 5.9 higher five-stem zero transport
+14,5,pi_19^14,1,Proposition 5.9,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{12}^{7} = 0$,Toda Proposition 5.9 pi_12^7 zero
+14,5,pi_19^14,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 7}: \pi_{7 + 5}^{7} \xrightarrow{\cong} \pi_{n + 5}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+14,6,pi_20^14,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$,Toda Proposition 5.11 higher six-stem nu squared transport
+14,6,pi_20^14,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$,Toda Proposition 5.11 pi_14^8 nu_8 squared
+14,6,pi_20^14,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 8}: \pi_{8 + 6}^{8} \xrightarrow{\cong} \pi_{n + 6}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+14,7,pi_21^14,1,Proposition 5.15,Relation,narrative_latex,True,$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$,Toda Proposition 5.15 pi_16^9 generated by sigma_9
+14,7,pi_21^14,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 9}: \pi_{9 + 7}^{9} \xrightarrow{\cong} \pi_{n + 7}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+14,7,pi_21^14,3,Lemma 5.14,TodaSigmaFamilyDefinitionStatement,generic_semantic,True,$\sigma_{n}$ を \(\sigma\)-family の元として定める.,Toda Lemma 5.14 sigma-family definition
+15,1,pi_16^15,1,(4.5),Relation,narrative_latex,True,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,Toda 4.5 pi_4^3 finite-cyclic transport
+15,2,pi_17^15,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge
+15,2,pi_17^15,1,Proposition 5.3,Relation,narrative_latex,True,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{E^{n - 4}\eta_{4}\eta_{5}\}$,Toda Proposition 5.3 eta_4 squared stable transport
+15,2,pi_17^15,1,Proposition 5.3,Relation,narrative_latex,True,$E^{n - 4}\eta_{4}\eta_{5} = \eta_{n}\eta_{n + 1}$,Toda Proposition 5.3 higher eta-squared bridge
+15,3,pi_18^15,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$,Toda Proposition 5.6 higher nu finite-cyclic generator bridge
+15,3,pi_18^15,1,Proposition 5.6,Relation,narrative_latex,True,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$,Toda Proposition 5.6 nu_5 stable transport
+15,3,pi_18^15,1,Proposition 5.6,Relation,narrative_latex,True,$E^{n - 5}\nu_{5} = \nu_{n}$,Toda Proposition 5.6 higher nu-family bridge
+15,4,pi_19^15,1,Proposition 5.8,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{n + 4}^{n} = 0$,Toda Proposition 5.8 higher four-stem zero transport
+15,4,pi_19^15,1,Proposition 5.8,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{10}^{6} = 0$,Toda Proposition 5.8 pi_10^6 zero
+15,4,pi_19^15,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 6}: \pi_{6 + 4}^{6} \xrightarrow{\cong} \pi_{n + 4}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+15,5,pi_20^15,1,Proposition 5.9,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{n + 5}^{n} = 0$,Toda Proposition 5.9 higher five-stem zero transport
+15,5,pi_20^15,1,Proposition 5.9,TodaPrimaryGroupZeroStatement,narrative_latex,True,$\pi_{12}^{7} = 0$,Toda Proposition 5.9 pi_12^7 zero
+15,5,pi_20^15,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 7}: \pi_{7 + 5}^{7} \xrightarrow{\cong} \pi_{n + 5}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+15,6,pi_21^15,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$,Toda Proposition 5.11 higher six-stem nu squared transport
+15,6,pi_21^15,1,Proposition 5.11,Relation,narrative_latex,True,$\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$,Toda Proposition 5.11 pi_14^8 nu_8 squared
+15,6,pi_21^15,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 8}: \pi_{8 + 6}^{8} \xrightarrow{\cong} \pi_{n + 6}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+15,7,pi_22^15,1,Proposition 5.15,Relation,narrative_latex,True,$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$,Toda Proposition 5.15 pi_16^9 generated by sigma_9
+15,7,pi_22^15,2,(4.5),Toda45IsomorphismStatement,narrative_latex,False,$E^{n - 9}: \pi_{9 + 7}^{9} \xrightarrow{\cong} \pi_{n + 7}^{n}$,Toda 4.5 stable-range iterated suspension isomorphism
+15,7,pi_22^15,3,Lemma 5.14,TodaSigmaFamilyDefinitionStatement,generic_semantic,True,$\sigma_{n}$ を \(\sigma\)-family の元として定める.,Toda Lemma 5.14 sigma-family definition
