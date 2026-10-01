@@ -139,6 +139,7 @@ def select_toda_group_proof_narrative_reference_statement_steps(
   entry: TodaGroupProofNarrativeReferenceEntry,
   candidate_steps: tuple[ProofStep, ...],
   proof_edges: tuple[TodaProofEdge, ...],
+  root_step: ProofStep | None = None,
 ) -> tuple[ProofStep, ...]:
   if not isinstance(
     entry,
@@ -167,6 +168,17 @@ def select_toda_group_proof_narrative_reference_statement_steps(
     raise TypeError(
       "candidate_steps must contain only "
       "ProofStep objects"
+    )
+
+  if (
+    root_step is not None
+    and not isinstance(
+      root_step,
+      ProofStep,
+    )
+  ):
+    raise TypeError(
+      "root_step must be a ProofStep or None"
     )
 
   entry_step_ids = {
@@ -218,7 +230,13 @@ def select_toda_group_proof_narrative_reference_statement_steps(
       "TodaProofEdge objects"
     )
 
-  if not candidate_steps:
+  eligible_candidates = tuple(
+    step
+    for step in candidate_steps
+    if step is not root_step
+  )
+
+  if not eligible_candidates:
     return ()
 
   proof_used_step_ids = {
@@ -230,7 +248,7 @@ def select_toda_group_proof_narrative_reference_statement_steps(
 
   proof_used_candidates = tuple(
     step
-    for step in candidate_steps
+    for step in eligible_candidates
     if id(
       step
     ) in proof_used_step_ids
@@ -240,7 +258,7 @@ def select_toda_group_proof_narrative_reference_statement_steps(
     return proof_used_candidates
 
   return (
-    candidate_steps[0],
+    eligible_candidates[0],
   )
 
 

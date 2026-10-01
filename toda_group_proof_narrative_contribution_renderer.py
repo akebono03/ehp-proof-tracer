@@ -763,6 +763,7 @@ def _toda_group_proof_narrative_reference_statement_lines_by_number(
           candidate_steps
         ),
         presentation.edges,
+        root_step=presentation.root_step,
       )
     )
 
