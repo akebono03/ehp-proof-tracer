@@ -99,15 +99,15 @@ def test_phase153_r9_selected_toda52_step_is_reference_reuse_boundary():
   ] == "[R3]"
 
 
-def test_phase153_r9_pi6_2_reuses_selected_references_without_rederiving_ancestry():
+def test_phase153_r9_pi6_2_reuses_r3_without_rederiving_its_ancestry():
   body = _pi6_2_body()
 
-  assert "[R1]を用いる。" in body
   assert "[R2]を用いる。" in body
+  assert "[R3]を用いる。" in body
 
   for forbidden in (
     r"\pi_{i - 1}^{1} = 0",
-    "Proposition 4.4",
+    "[R4]を用いる。",
     r"γ \mapsto \eta_{2}γ",
     "Toda (5.2) の η₂ 合成同型を得る。",
   ):

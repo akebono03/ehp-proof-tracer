@@ -51,7 +51,6 @@ from toda_group_proof_narrative_semantics import (
 )
 from toda_group_proof_narrative_references import (
   build_toda_group_proof_narrative_reference_entries,
-  filter_toda_group_proof_narrative_reference_entries_by_body_usage,
   render_toda_group_proof_narrative_reference_entries_markdown,
 )
 from toda_group_proof_narrative_provenance_catalog import (
@@ -4345,47 +4344,10 @@ def render_toda_group_proof_narrative_markdown(
           statement_lines_by_reference_number,
         )
       )
-      (
-        filtered_reference_entries,
-        filtered_statement_lines,
-        suppressed_body,
-      ) = (
-        filter_toda_group_proof_narrative_reference_entries_by_body_usage(
-          reference_entries,
-          statement_lines_by_reference_number,
-          suppressed_body,
-        )
-      )
-      filtered_reference_section = (
-        render_toda_group_proof_narrative_reference_entries_markdown(
-          filtered_reference_entries,
-          filtered_statement_lines,
-        )
-      )
-      prefix_lines = [
-        "# Group proof narrative",
-        "",
-        theorem + "を用いる。",
-        "",
-      ]
-
-      if filtered_reference_section:
-        prefix_lines.extend(
-          (
-            "## 使用する結果",
-            "",
-            filtered_reference_section,
-            "",
-            "## 証明",
-            "",
-          )
-        )
-
       rendered = (
-        "\n".join(
-          prefix_lines
-        )
-        + "\n"
+        rendered[
+          :body_start
+        ]
         + suppressed_body
         + "\n"
       )

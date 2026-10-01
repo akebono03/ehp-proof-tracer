@@ -52,7 +52,6 @@ from toda_group_proof_narrative_reasons import (
 from toda_group_proof_narrative_references import (
   build_toda_group_proof_narrative_reference_entries,
   extract_toda_group_proof_step_literature_reference,
-  filter_toda_group_proof_narrative_reference_entries_by_body_usage,
   render_toda_group_proof_narrative_reference_entries_markdown,
   select_toda_group_proof_narrative_reference_statement_steps,
 )
@@ -1575,17 +1574,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
     suppress_toda_group_proof_narrative_reference_body_duplicates(
       rendered,
       statement_lines_by_reference_number,
-    )
-  )
-  (
-    reference_entries,
-    statement_lines_by_reference_number,
-    rendered,
-  ) = (
-    filter_toda_group_proof_narrative_reference_entries_by_body_usage(
-      reference_entries,
-      statement_lines_by_reference_number,
-      rendered,
     )
   )
   reference_section = (

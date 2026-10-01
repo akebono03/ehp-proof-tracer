@@ -358,32 +358,17 @@ def filter_toda_group_proof_narrative_reference_entries_by_body_usage(
       "body_markdown must be a str"
     )
 
-  body_reference_numbers = tuple(
-    int(
-      match.group(
-        1
-      )
-    )
-    for match in re.finditer(
-      r"\[R([0-9]+)\]",
-      body_markdown,
-    )
-  )
-
-  if not body_reference_numbers:
-    return (
-      entries,
-      statement_lines_by_reference_number,
-      body_markdown,
-    )
-
-  used_reference_numbers = set(
-    body_reference_numbers
-  )
   used_entries = tuple(
     entry
     for entry in entries
-    if entry.number in used_reference_numbers
+    if (
+      "[R"
+      + str(
+        entry.number
+      )
+      + "]"
+    )
+    in body_markdown
   )
 
   number_map = {

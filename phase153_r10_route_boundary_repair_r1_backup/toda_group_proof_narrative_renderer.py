@@ -4385,7 +4385,6 @@ def render_toda_group_proof_narrative_markdown(
         "\n".join(
           prefix_lines
         )
-        + "\n"
         + suppressed_body
         + "\n"
       )
