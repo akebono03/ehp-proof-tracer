@@ -11,6 +11,9 @@ from homotopy_groups import (
 from proof import (
   ProofStep,
 )
+from scalar_rules import (
+  ScalarGreaterEqualStatement,
+)
 from repository_element_presentation import (
   render_repository_conclusion_latex,
 )
@@ -38,9 +41,14 @@ from toda_human_readable_renderer import (
 from toda_proof_narrative_renderer import (
   render_toda_primary_group_latex,
   render_toda_proof_statement_latex,
+  render_toda_raw_group_structure_latex,
 )
 from toda_rules import (
+  Toda36Lemma514SigmaDoublePrimeBridgeStatement,
   Toda45IsomorphismStatement,
+  Toda52CompositionIsomorphismStatement,
+  Toda53NuPrimeBracketSpecializationStatement,
+  Toda55NuFamilyFiniteDimensionalStatement,
   TodaDeltaInjectiveStatement,
   TodaDeltaZeroStatement,
   TodaHopfInvariantInjectiveStatement,
@@ -48,9 +56,17 @@ from toda_rules import (
   TodaHopfInvariantSurjectiveStatement,
   TodaHopfInvariantZeroStatement,
   TodaIteratedSuspensionInjectiveStatement,
+  TodaLemma513Statement,
+  TodaLemma514Sigma8Statement,
+  TodaLemma514SigmaPrimeStatement,
+  TodaLemma54Statement,
   TodaNuFamilyDefinitionStatement,
   TodaProp42ExactnessStatement,
   TodaProp44SuspensionInjectiveStatement,
+  TodaProp51FiniteDimensionalStatement,
+  TodaProp511FiniteDimensionalStatement,
+  TodaProp515Pi12_5HopfIsomorphismStatement,
+  TodaProp56FiniteDimensionalStatement,
   TodaSigmaFamilyDefinitionStatement,
   TodaSuspensionInjectiveStatement,
   TodaSuspensionIsomorphismStatement,
@@ -258,9 +274,367 @@ def _render_generic_narrative_group_map_latex(
   )
 
 
+def _render_phase153_r3_6_component_latex(
+  component,
+) -> str | None:
+  if isinstance(
+    component,
+    ScalarGreaterEqualStatement,
+  ):
+    return (
+      _render_scalar_latex(
+        component.left
+      )
+      + r" \ge "
+      + _render_scalar_latex(
+        component.right
+      )
+    )
+
+  try:
+    latex = (
+      render_repository_conclusion_latex(
+        component
+      )
+    )
+  except (
+    TypeError,
+    ValueError,
+  ):
+    latex = None
+
+  if latex is not None:
+    return latex
+
+  try:
+    return (
+      render_toda_proof_statement_latex(
+        component
+      )
+    )
+  except (
+    TypeError,
+    ValueError,
+  ):
+    return None
+
+
+def _render_phase153_r3_6_component_list_prose(
+  components: tuple[
+    object,
+    ...,
+  ],
+) -> str | None:
+  rendered = tuple(
+    latex
+    for latex in (
+      _render_phase153_r3_6_component_latex(
+        component
+      )
+      for component in components
+    )
+    if latex is not None
+  )
+
+  if not rendered:
+    return None
+
+  return (
+    ", ".join(
+      "$"
+      + latex
+      + "$"
+      for latex in rendered
+    )
+    + " が成り立つ."
+  )
+
+
+def _render_phase153_r3_6_reference_statement_prose(
+  statement,
+) -> str | None:
+  if isinstance(
+    statement,
+    Toda52CompositionIsomorphismStatement,
+  ):
+    return (
+      "$"
+      + render_toda_expression_latex(
+        statement.composition.left
+      )
+      + r"\circ -: "
+      + render_toda_primary_group_latex(
+        statement.source_group
+      )
+      + r" \to "
+      + render_toda_primary_group_latex(
+        statement.target_group
+      )
+      + "$ は同型写像である."
+    )
+
+  if isinstance(
+    statement,
+    Toda53NuPrimeBracketSpecializationStatement,
+  ):
+    return (
+      "$"
+      + render_toda_expression_latex(
+        statement.nu_prime
+      )
+      + r" \in "
+      + render_toda_expression_latex(
+        statement
+        .bracket_membership
+        .bracket
+      )
+      + "$ が成り立つ."
+    )
+
+  if isinstance(
+    statement,
+    TodaLemma54Statement,
+  ):
+    membership = (
+      statement.membership
+    )
+    membership_latex = (
+      render_toda_expression_latex(
+        membership.element
+      )
+      + r" \in \pi_{"
+      + _render_scalar_latex(
+        membership.group_dimension
+      )
+      + r"}^{"
+      + _render_scalar_latex(
+        membership.sphere_dimension
+      )
+      + "}"
+    )
+    relations = (
+      _render_phase153_r3_6_component_list_prose(
+        (
+          statement.hopf_relation,
+          statement.double_suspension_relation,
+        )
+      )
+    )
+
+    if relations is None:
+      return (
+        "$"
+        + membership_latex
+        + "$."
+      )
+
+    return (
+      "$"
+      + membership_latex
+      + "$, "
+      + relations
+    )
+
+  if isinstance(
+    statement,
+    TodaProp51FiniteDimensionalStatement,
+  ):
+    return (
+      _render_phase153_r3_6_component_list_prose(
+        (
+          statement.pi3_2_group_relation,
+          statement.eta2_hopf_relation,
+          statement.delta_iota5_relation,
+          statement.higher_eta_group_relation,
+        )
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaProp56FiniteDimensionalStatement,
+  ):
+    return (
+      _render_phase153_r3_6_component_list_prose(
+        (
+          statement.pi5_2_group_relation,
+          statement.pi6_3_group_relation,
+          statement.pi7_4_group_relation,
+          statement.pi8_5_group_relation,
+          statement.higher_nu_group_relation,
+          statement.higher_range,
+        )
+      )
+    )
+
+  if isinstance(
+    statement,
+    Toda55NuFamilyFiniteDimensionalStatement,
+  ):
+    definition = (
+      statement.nu_family_definition
+    )
+    definition_latex = (
+      render_toda_expression_latex(
+        definition.element
+      )
+      + " = "
+      + render_toda_expression_latex(
+        definition.iterated_suspension
+      )
+    )
+    relations = (
+      _render_phase153_r3_6_component_list_prose(
+        (
+          statement.n_range,
+          statement.double_nu_relation,
+          statement.quadruple_nu_relation,
+        )
+      )
+    )
+
+    if relations is None:
+      return (
+        "$"
+        + definition_latex
+        + "$."
+      )
+
+    return (
+      "$"
+      + definition_latex
+      + "$, "
+      + relations
+    )
+
+  if isinstance(
+    statement,
+    TodaProp511FiniteDimensionalStatement,
+  ):
+    six_stem = (
+      statement.nu_squared_finite_dimensional
+    )
+
+    return (
+      _render_phase153_r3_6_component_list_prose(
+        (
+          statement.pi8_2_group_relation,
+          statement.pi9_3_zero,
+          statement.pi10_4_group_relation,
+          six_stem.pi11_5_group_relation,
+          six_stem.pi12_6_group_relation,
+          six_stem.pi13_7_group_relation,
+          six_stem.pi14_8_group_relation,
+          six_stem.higher_six_stem_group_relation,
+          six_stem.higher_range,
+        )
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaProp515Pi12_5HopfIsomorphismStatement,
+  ):
+    return (
+      "$H: "
+      + render_toda_primary_group_latex(
+        statement.map.source_group
+      )
+      + r" \xrightarrow{\cong} "
+      + render_toda_raw_group_structure_latex(
+        statement.image_group
+      )
+      + "$, $H("
+      + render_toda_expression_latex(
+        statement.source_generator
+      )
+      + ") = "
+      + render_toda_expression_latex(
+        statement.image_generator
+      )
+      + "$ が成り立つ."
+    )
+
+  if isinstance(
+    statement,
+    TodaLemma513Statement,
+  ):
+    return (
+      "$"
+      + render_toda_expression_latex(
+        statement.sigma_triple_prime
+      )
+      + r" \in "
+      + render_toda_expression_latex(
+        statement.bracket
+      )
+      + "$, $H("
+      + render_toda_expression_latex(
+        statement.sigma_triple_prime
+      )
+      + ") = "
+      + render_toda_expression_latex(
+        statement.hopf_image
+      )
+      + "$ が成り立つ."
+    )
+
+  if isinstance(
+    statement,
+    Toda36Lemma514SigmaDoublePrimeBridgeStatement,
+  ):
+    return (
+      _render_phase153_r3_6_component_list_prose(
+        (
+          statement.odd_parameter_statement,
+          statement.bridge_relation,
+        )
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaLemma514SigmaPrimeStatement,
+  ):
+    return (
+      _render_phase153_r3_6_component_list_prose(
+        (
+          statement.double_relation,
+          statement.hopf_relation,
+        )
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaLemma514Sigma8Statement,
+  ):
+    return (
+      _render_phase153_r3_6_component_list_prose(
+        (
+          statement.definition_relation,
+          statement.hopf_relation,
+          statement.suspension_relation,
+          statement.double_suspension_relation,
+        )
+      )
+    )
+
+  return None
+
+
 def _render_generic_narrative_statement_prose(
   statement,
 ) -> str | None:
+  reference_prose = (
+    _render_phase153_r3_6_reference_statement_prose(
+      statement
+    )
+  )
+
+  if reference_prose is not None:
+    return reference_prose
+
   aggregate_prose = (
     render_toda_group_proof_aggregate_statement_prose(
       statement
