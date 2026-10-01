@@ -1,0 +1,2898 @@
+# EHP Proof Tracer 開発記録
+
+この文書は開発履歴の索引である。
+
+現在の仕様・設計は `README.md` と `docs/design.md` を優先する。
+今後の計画は `docs/roadmap.md`、代表的な数学的証明・証明基盤の記録は `docs/proof_records.md` を参照する。
+
+過去の詳細な開発記録は、内容を削除せず `docs/development_log/` 以下へ分割して保存する。
+
+---
+
+# 開発履歴アーカイブ
+
+## Phase 1–48
+
+`docs/development_log/phases_001_048.md`
+
+可換群計算、汎用推論、EHP、Toda の基礎表現から Proposition 4.4 周辺まで。
+
+## Phase 49–64
+
+`docs/development_log/phases_049_064.md`
+
+\(\pi_3^2\)、\(\pi_4^3\)、Toda Proposition 5.1、Lemma 5.2、\(\nu'\)、\(\nu_4\)、\(\nu\)-family、性能安定化まで。
+
+## Phase 65–78
+
+`docs/development_log/phases_065_078.md`
+
+Toda Proposition 5.6 から Lemma 5.16、安定 \(G_0\) から \(G_7\) までの主要な数学的証明経路。
+
+## Phase 79–89
+
+`docs/development_log/phases_079_089.md`
+
+証明 Repository、repository 支援推論、自動規則選択、有界 producer 探索、診断、depth パラメータ化、有限 retry、具体的定理 instance 適合性まで。
+
+## Phase 90–95
+
+`docs/development_log/phases_090_095.md`
+
+Toda 群問い合わせ、正規化済み群結果、EHP provenance、flat / recursive 証明 provenance、計算オーケストレーションの記録。
+
+## Phase 96–111
+
+```text
+Phase 96: 構造化表示 / 読みやすい完全証明レポート
+Phase 97: 計算からレポートまでのオーケストレーション
+Phase 98: 生の n,k 入力用簡易 facade
+Phase 99: 生成元中心 repository 探索
+Phase 100: 標準運用 repository / build_standard_toda_report / main.py n k
+Phase 101: 標準 repository と generator explore
+Phase 102: 再帰的 proof-scope 探索
+Phase 103: 適用可能定理 / 補題探索と関連度分類
+Phase 104: 候補 → READY → bounded search → execution
+Phase 105: 第1 qualified production family
+Phase 106: applicability performance audit
+Phase 107: multi-family qualified execution
+Phase 108: user-facing execute workflow / CLI
+Phase 109: known-group identity / indexed sigma / show-proof
+Phase 110: operation query / query-proof
+Phase 111: CLI audit / 3-term query / --depth / safe fallback
+```
+
+代表 regression:
+
+```text
+Phase 108: 8850 passed in 380.25s
+Phase 109: 8998 passed in 493.70s
+Phase 110: 9055 passed in 455.09s
+Phase 111: 9074 passed in 446.27s
+```
+
+---
+
+# Phase 112–129
+
+## Phase 112–113
+
+実際の workflow pressure を監査し、symbolic \(\sigma_n\) specialization を `TodaGroupQuery` へ接続。
+
+```text
+Phase 113 final:
+9081 passed in 434.58s
+```
+
+## Phase 114
+
+$$
+E(\nu_5)=\nu_6
+$$
+
+を exact handoff として operation query へ接続。
+
+```text
+9097 passed in 449.47s
+```
+
+## Phase 115
+
+$$
+E(\sigma_{11})=\sigma_{12}
+$$
+
+を exact handoff として接続。
+
+```text
+9111 passed in 432.54s
+```
+
+## Phase 116–125
+
+Flask + KaTeX Web UI を段階的に構築。
+
+```text
+Phase 117: group query
+Phase 118: operation query / query-proof
+Phase 120: show-proof
+Phase 121: explore
+Phase 122: explore-proof
+Phase 123: explore-applicable
+Phase 124: workflow navigation
+Phase 125: execute
+```
+
+Phase 125 final:
+
+```text
+9243 passed in 555.37s
+```
+
+## Phase 126
+
+proof-scope relevance、applicability relevance、executable relevance を分離。
+
+```text
+nu_prime → 2 executable targets
+nu_5 → NONE
+sigma_11 → NONE
+```
+
+final:
+
+```text
+9246 passed in 556.62s
+```
+
+## Phase 127
+
+operation-query capability pressure を監査。
+
+## Phase 128
+
+$$
+E(\nu_5\eta_8)=0
+$$
+
+を exact theorem-specific handoff として実装。
+
+final:
+
+```text
+9256 passed in 570.10s (0:09:30)
+```
+
+## Phase 129
+
+既存 Proposition 5.6:
+
+$$
+\pi_7^4=
+\mathbb Z\{\nu_4\}
+\oplus
+\mathbb Z/4\{E\nu'\}
+$$
+
+を再利用し、
+
+$$
+E\nu' \in \pi_7^4
+$$
+
+という membership result を実装。
+
+final:
+
+```text
+9268 passed in 569.71s (0:09:29)
+```
+
+Phase 129 完了。
+
+---
+
+# Phase 130 — standard query coverage / boundary semantics
+
+Phase 130 は operation evaluator の一般化ではなく、既存 theorem-backed group result を standard query から利用できるようにすることを目的とした。
+
+## Phase 130-1〜4: low-dimensional query recovery
+
+standard query で未表示だった低次元群を proof ancestry から回収。
+
+対象例:
+
+$$
+\pi_3^2,\quad
+\pi_4^3,\quad
+\pi_4^2,\quad
+\pi_5^3.
+$$
+
+focused:
+
+```text
+6 passed in 5.30s
+```
+
+## Phase 130-5〜6: stem 1–3 stable specialization
+
+$$
+\pi_{n+1}^n=\mathbb Z/2\{\eta_n\},
+$$
+
+$$
+\pi_{n+2}^n=\mathbb Z/2\{\eta_n\eta_{n+1}\},
+$$
+
+$$
+\pi_{n+3}^n=\mathbb Z/8\{\nu_n\}.
+$$
+
+focused:
+
+```text
+14 passed in 3.47s
+```
+
+## Phase 130-7〜8: stem 4–6
+
+$$
+\pi_{n+4}^n=0
+\qquad (n\ge6),
+$$
+
+$$
+\pi_{n+5}^n=0
+\qquad (n\ge7),
+$$
+
+$$
+\pi_{n+6}^n=\mathbb Z/2\{\nu_n^2\}.
+$$
+
+focused:
+
+```text
+24 passed in 9.23s
+```
+
+## Phase 130-9: foundational semantics audit
+
+確定 semantics:
+
+$$
+k=0
+\Rightarrow
+\pi_n^n\cong\mathbb Z\{\iota_n\},
+$$
+
+$$
+n=1,\ k\ge1
+\Rightarrow
+\pi_{1+k}^1=0,
+$$
+
+$$
+1\le n+k<n
+\Rightarrow
+\pi_{n+k}^n=0.
+$$
+
+```text
+n+k = 0
+→ pi_0 boundary information
+
+n+k < 0
+→ classical unstable homotopy-group domain 外
+```
+
+## Phase 130-10: foundational query implementation
+
+negative `k` を許可し、CLI / Web で domain semantics を分離。
+
+focused:
+
+```text
+44 passed in 12.27s
+```
+
+## Phase 130-11: \(\pi_{16}^9\) standard-query connection
+
+既存 Proposition 5.15 ancestry の concrete proof
+
+$$
+\pi_{16}^{9}
+=
+\mathbb Z/16\{\sigma_9\}
+$$
+
+を standard query に接続。
+
+generic indexed \(\sigma_n\) specialization は \(n\ge10\) を維持。
+
+focused:
+
+```text
+26 passed in 7.14s
+```
+
+## Phase 130-12: completion regression
+
+repo 内 backup directory の copied `test_*.py` が pytest collection conflict を起こすことを確認。
+
+運用を
+
+```text
+backup は repo 外
+full regression は python -m pytest tests -q
+```
+
+へ修正。
+
+旧 Phase 100 test の negative-k rejection expectation も新仕様へ更新。
+
+focused:
+
+```text
+4 passed in 3.17s
+```
+
+最終 repository-wide regression:
+
+```text
+9308 passed in 577.02s (0:09:37)
+```
+
+Phase 130 完了。
+
+---
+
+# Phase 131 — group-result proof replay
+
+Phase 131 は、標準 group query の結果から既存証明へ直接進める user-facing path を整備した。
+
+新しい数学定理や一般 proof search は追加していない。
+
+## Phase 131-1: 現行経路監査
+
+既存データ経路:
+
+```text
+n,k
+→ TodaCalculationResult
+→ TodaCalculationCandidate
+→ TodaGroupResult
+→ ProofStep
+```
+
+を監査。
+
+`TodaGroupResult` が
+
+```text
+source_entry
+proof_step
+```
+
+を保持し、
+
+```text
+proof_step is source_entry.step
+```
+
+を維持していることを確認。
+
+また既存
+
+```text
+extract_toda_recursive_proof_provenance()
+```
+
+が root から再帰 ancestry を取得できるため、新しい探索アルゴリズムは不要と判断した。
+
+## Phase 131-2: 最小 API 設計
+
+採用方針:
+
+```text
+TodaGroupResult
+→ existing recursive provenance
+→ depth filter
+→ group-result proof replay
+```
+
+generator-first replay を無理に一般化せず、group-result 専用の薄い API とすることを決定。
+
+## Phase 131-3: core API
+
+追加:
+
+```text
+TodaGroupResultProofReplayStep
+TodaGroupResultProofReplayResult
+build_toda_group_result_proof_replay()
+```
+
+保持:
+
+```text
+group_result identity
+source_entry identity
+root ProofStep identity
+role
+shortest depth
+```
+
+focused:
+
+```text
+8 passed in 2.73s
+```
+
+## Phase 131-4: CLI 接続
+
+追加:
+
+```powershell
+python main.py group-proof n k
+python main.py group-proof n k --depth N
+```
+
+代表:
+
+```powershell
+python main.py group-proof 9 7
+python main.py group-proof 9 7 --depth 2
+python main.py group-proof 2 7
+python main.py group-proof 11 -1
+```
+
+結果例:
+
+$$
+\pi_{16}^{9}=\mathbb Z/16\{\sigma_9\},
+$$
+
+$$
+\pi_9^2=0,
+$$
+
+$$
+\pi_{10}^{11}=0.
+$$
+
+Phase 130 の connectivity zero が repository-backed result であるため、`Sphere connectivity / Phase 130` として replay 可能であることを再確認。
+
+focused:
+
+```text
+14 passed in 7.61s
+```
+
+## Phase 131-5: Web 接続
+
+group query result 直下へ
+
+```text
+Proof depth: 0 / 1 / 2
+Show proof
+```
+
+を追加。
+
+Web proof 表示:
+
+```text
+Conclusion
+Provenance
+Proof
+Depth
+Role
+Rule
+```
+
+repository-backed result のみ `proof_available=True` とする。
+
+したがって connectivity zero は replay 可能だが、
+
+```text
+pi_0 boundary information
+negative-dimensional out-of-domain information
+```
+
+には proof button を出さない。
+
+focused:
+
+```text
+39 passed in 17.21s
+```
+
+Web manual check で \(\pi_{16}^{9}\) の depth 2 replay を確認。
+
+## Phase 131-6: completion regression
+
+repository-wide regression:
+
+```powershell
+python -m pytest tests -q
+```
+
+結果:
+
+```text
+9333 passed in 583.64s (0:09:43)
+```
+
+Phase 131 完了。
+
+---
+
+# Phase 132 — deterministic proof presentation
+
+Phase 132 は、Phase 131 の machine-traceable group-result proof replay を人間が読みやすい表示へ拡張した。
+
+新しい数学定理、一般 proof search、operation evaluator は追加していない。
+
+## Phase 132-1〜3: narrative / graph semantics audit
+
+既存 `toda_proof_narrative_renderer.py` と \(\pi_{16}^{9}\) の Proposition 5.15 ancestry を監査。
+
+確定した重要事項:
+
+```text
+ProofStep.premises edge
+→ proof structure の ground truth
+
+flat replay depth/order
+→ parent-child relation の ground truth ではない
+```
+
+Trace / Outline / Narrative は同じ proof graph を使う方針とした。
+
+## Phase 132-4: `TodaGroupProofPresentation`
+
+追加:
+
+```text
+TodaGroupProofPresentation
+build_toda_group_proof_presentation()
+```
+
+Phase 131 replay の selected node をそのまま保持し、既存 recursive provenance edge を selected node に filter する薄い presentation core とした。
+
+```text
+presentation.nodes is replay.steps
+```
+
+新しい proof search / depth semantics は追加しない。
+
+focused:
+
+```text
+10 passed in 8.73s
+```
+
+関連:
+
+```text
+35 passed in 10.73s
+```
+
+## Phase 132-5: deterministic Outline renderer
+
+追加:
+
+```text
+toda_group_proof_outline_renderer.py
+render_toda_group_proof_outline_markdown()
+```
+
+\(\pi_{16}^{9}\) について actual premise edge と `premise_index` を使って階層表示。
+
+unsupported statement は既存 mathematical renderer、rule name、type name の安全な fallback を利用。
+
+focused:
+
+```text
+8 passed in 6.99s
+```
+
+関連:
+
+```text
+43 passed in 10.05s
+```
+
+## Phase 132-6: deterministic Narrative renderer
+
+追加:
+
+```text
+toda_group_proof_narrative_renderer.py
+render_toda_group_proof_narrative_markdown()
+```
+
+固定テンプレート:
+
+```text
+〜を用いる。
+これらから、〜を得る。
+したがって、〜を得る。
+```
+
+のみを使い、自由生成による数学的説明は行わない。
+
+sibling premise order と causal narrative order を同一視しないことをテストで確定。
+
+focused:
+
+```text
+9 passed in 11.62s
+```
+
+関連:
+
+```text
+52 passed in 12.71s
+```
+
+## Phase 132-7: CLI Trace / Outline / Narrative
+
+`group-proof` に追加:
+
+```powershell
+python main.py group-proof 9 7 --mode trace
+python main.py group-proof 9 7 --mode outline
+python main.py group-proof 9 7 --mode narrative
+```
+
+`--mode` 省略時は `trace`。
+
+`--depth` は3 mode で共通。
+
+focused:
+
+```text
+9 passed in 16.53s
+```
+
+関連:
+
+```text
+61 passed in 14.69s
+```
+
+## Phase 132-8: Narrative shared-dependency deduplication
+
+同じ `ProofStep` が複数 parent から利用される DAG で、Narrative が同じ subtree を何度も全文再展開しないようにした。
+
+```text
+first use
+→ subtree expand
+
+later use
+→ 既出の ... を用いる。
+```
+
+proof graph / Trace / Outline は変更しない。
+
+focused:
+
+```text
+8 passed in 25.48s
+```
+
+Narrative / CLI 関連:
+
+```text
+26 passed in 9.50s
+```
+
+Phase 131〜132-8 関連:
+
+```text
+69 passed in 16.96s
+```
+
+## Phase 132-9: Web Trace / Outline / Narrative
+
+Web group proof に
+
+```text
+Proof view:
+Trace
+Outline
+Narrative
+```
+
+を追加。
+
+既存 proof depth 0 / 1 / 2 を3 mode で共通利用。
+
+Outline / Narrative は既存 Phase 132 renderer を再利用し、Web adapter は数式 fragment を `data-latex` へ分離して KaTeX 経路を維持。
+
+focused:
+
+```text
+15 passed in 15.93s
+```
+
+Web 周辺:
+
+```text
+60 passed in 20.16s
+```
+
+Phase 131〜132-9 関連:
+
+```text
+84 passed in 21.58s
+```
+
+## Phase 132-10: completion regression / documentation
+
+repository-wide regression:
+
+```powershell
+python -m pytest tests -q
+```
+
+結果:
+
+```text
+9392 passed in 587.98s (0:09:47)
+```
+
+Phase 132 完了。
+
+---
+
+# Phase 133 — Narrative readability refinement
+
+Phase 133 は post-Phase-132 capability / workflow pressure audit として開始し、実利用上の具体的 pressure として **Narrative の可読性**を選んだ。
+
+新しい数学定理、proof search、Trace / Outline semantics、operation evaluator は追加していない。
+
+## Phase 133-3: representative statement labels
+
+\(\pi_{16}^{9}\) の Narrative で内部 class / rule 名が見えていた代表 statement に明示的 label を追加。
+
+代表:
+
+```text
+Toda48Pi16_9OrderAndE4InjectiveStatement
+→ π₁₆⁹ の位数 16 と E⁴ の単射性
+
+TodaLemma514Sigma8Statement
+→ Toda Lemma 5.14 の σ₈ に関する結果
+
+TodaSigmaFamilyDefinitionStatement
+→ σ-family の定義
+```
+
+## Phase 133-4: connectives / shared dependency reuse
+
+表示上の接続語を premise 数に合わせて整理。
+
+```text
+1 premise
+→ このことから
+
+2 premises 以上
+→ これらから
+```
+
+shared dependency については nested immediate reuse を抑制し、root-level など必要な再参照では
+
+```text
+すでに得た ... を用いる。
+```
+
+と表示するようにした。
+
+proof graph / provenance は変更していない。
+
+focused:
+
+```text
+32 passed in 12.42s
+```
+
+## Phase 133-5: representative five-group audit
+
+代表群
+
+$$
+\pi_6^3,\quad
+\pi_8^5,\quad
+\pi_{10}^4,\quad
+\pi_{12}^5,\quad
+\pi_{16}^9
+$$
+
+について depth 1 / 2 の Narrative を横断監査。
+
+低次元、\(\nu\)-family、\(\sigma\)-familyに残る内部 rule 名を抽出した。
+
+## Phase 133-6: low-dimensional / nu-family / sigma-triple-prime labels
+
+追加した代表 label:
+
+```text
+E²: π₆³ → π₈⁵ の単射性
+π₈⁵ / E²π₆³ が位数 2 であること
+Toda (5.6) の ν₄ 分解
+π₁₂⁵ の位数 2 の Hopf 像への同型
+Toda Lemma 5.13 の σ‴ に関する結果
+```
+
+focused:
+
+```text
+36 passed
+```
+
+## Phase 133-7: remaining depth-2 internal labels
+
+追加した代表 label:
+
+```text
+Toda (5.2) の η₂ 合成同型
+ν′ に対する Lemma 5.2 の Toda bracket 特殊化
+Toda (5.5) の ν-family 有限次元結果
+Δ 写像が零写像であること
+Hopf 写像の単射性
+Toda Proposition 5.1 の有限次元結果
+Toda Proposition 5.11 の有限次元結果
+```
+
+focused:
+
+```text
+39 passed
+```
+
+## Phase 133-8: five-group cross audit
+
+代表5群の depth 1 / 2 を再監査。
+
+残存内部 rule 名を5件に限定した。
+
+対象:
+
+```text
+Toda Proposition 5.6 finite-dimensional integration
+Toda (5.6) nu_4 decomposition isomorphism semantics
+Toda Lemma 5.4 integration
+Toda Theorem 3.6 Lemma 5.14 sigma double-prime bridge
+Toda Lemma 5.14 sigma-prime branch
+```
+
+## Phase 133-9: final five statement labels
+
+追加:
+
+```text
+Toda Proposition 5.6 の有限次元結果
+Toda (5.6) の ν₄ 分解同型
+Toda Lemma 5.4 の結果
+Theorem 3.6 から Lemma 5.14 への σ″ bridge
+Toda Lemma 5.14 の σ′ branch
+```
+
+focused:
+
+```text
+42 passed
+```
+
+## Phase 133-10: sigma wording finalization
+
+最後の2ラベルを Narrative 本文として自然な文面へ調整。
+
+最終:
+
+```text
+Theorem 3.6 と Lemma 5.14 を結ぶ σ″ の関係
+Toda Lemma 5.14 の σ′ に関する結果
+```
+
+Phase 133-9 の旧期待値テストも新文面へ更新。
+
+focused:
+
+```text
+43 passed in 15.79s
+```
+
+## Phase 133-final: representative audit / full regression
+
+代表5群:
+
+$$
+\pi_6^3,\quad
+\pi_8^5,\quad
+\pi_{10}^4,\quad
+\pi_{12}^5,\quad
+\pi_{16}^9
+$$
+
+について depth 1 / 2 を最終確認。
+
+監査結果:
+
+```text
+Internal wording audit
+→ 0件
+
+Old / awkward Narrative wording
+→ 0件
+```
+
+\(\pi_{16}^{9}\) depth 2 の最終 σ 系表示:
+
+```text
+Theorem 3.6 と Lemma 5.14 を結ぶ σ″ の関係
+Toda Lemma 5.14 の σ′ に関する結果
+Toda Lemma 5.14 の σ₈ に関する結果
+σ-family の定義
+```
+
+focused regression:
+
+```text
+43 passed in 14.16s
+```
+
+repository-wide regression:
+
+```powershell
+python -m pytest tests -q
+```
+
+結果:
+
+```text
+9403 passed in 605.52s (0:10:05)
+```
+
+Phase 133 完了。
+
+---
+
+# Phase 134 — natural mathematical Narrative refinement
+
+Phase 134 は Phase 133 の human-readable label 改善をさらに進め、代表的な群の Narrative を「証明文として自然に読める」形へ整備した。
+
+新しい数学定理、proof search、Trace / Outline semantics、operation evaluator は追加していない。
+
+## Phase 134-3〜8: \(\pi_6^3\) Narrative
+
+Toda Proposition 5.6 の
+
+$$
+\pi_6^3=\mathbb Z/4\{\nu'\}
+$$
+
+を代表例として、単なる statement 列ではなく、
+
+```text
+まず, ν' の位数を求める.
+次に, ν' ∈ π_6^3 であることを確認する.
+最後に, EHP 完全列を用いて π_6^3 の群構造を決定する.
+```
+
+という数学的 block 構造を導入した。
+
+REFERENCE section では既存の Toda (5.2)、Proposition 5.1 を明示し、本文中の依存関係を `[R1]`, `[R2]` で参照する。
+
+## Phase 134-9〜16: \(\pi_8^5\) への拡張と semantic classification
+
+第2代表例として
+
+$$
+\pi_8^5=\mathbb Z/8\{\nu_5\}
+$$
+
+を追加。
+
+fact role:
+
+```text
+TARGET
+REFERENCE
+DEFINITION
+BOUNDARY
+DERIVED
+```
+
+block role:
+
+```text
+ORDER
+MEMBERSHIP
+GROUP_STRUCTURE
+OTHER
+```
+
+を導入し、presentation 層で proof fact の役割を分類した。
+
+この分類は表示専用であり、
+
+```text
+fact role
+!= new theorem fact
+!= new proof edge
+!= proof search
+```
+
+である。
+
+\(\pi_8^5\) では、
+
+```text
+2ν_5 = E^2ν'
+π_6^3 = Z/4{ν'}
+E^2 の単射性
+ν_5 の位数 8
+π_8^5 / E^2π_6^3 の位数 2
+```
+
+という既存事実を、読みやすい順序で Narrative 化した。
+
+## Phase 134-17〜24: \(\pi_{15}^8\) 2-generator Narrative
+
+第3代表例として Toda Proposition 5.15 の
+
+$$
+\pi_{15}^{8}
+=
+\mathbb Z\{\sigma_8\}
+\oplus
+\mathbb Z/8\{E\sigma'\}
+$$
+
+を採用。
+
+既存 Proposition 4.4 の分解同型
+
+$$
+\pi_{14}^{7}\oplus\pi_{15}^{15}
+\longrightarrow
+\pi_{15}^{8}
+$$
+
+を REFERENCE として利用し、
+
+$$
+\sigma'\longmapsto E\sigma',
+\qquad
+\iota_{15}\longmapsto\sigma_8
+$$
+
+という generator transport を明示した。
+
+transport 直後の順序
+
+$$
+\mathbb Z/8\{E\sigma'\}
+\oplus
+\mathbb Z\{\sigma_8\}
+$$
+
+から、標準表示
+
+$$
+\mathbb Z\{\sigma_8\}
+\oplus
+\mathbb Z/8\{E\sigma'\}
+$$
+
+への並べ替えも Narrative に保持した。
+
+この実装は Proposition 4.4 固有の theorem-specific renderer として維持し、generic multi-generator synthesis へ一般化していない。
+
+## Phase 134-25〜31: presentation-only 共通化
+
+3例を横断監査し、数学的本文ではなく presentation framing だけを共通化した。
+
+Phase 134-26:
+
+```text
+# Group proof narrative
+## 証明対象
+## 使用する結果
+## 証明
+```
+
+という外枠を共通化。
+
+Phase 134-28:
+
+```text
+[R1], [R2], ...
+**[Rn] <title>.**
+optional statement lines
+reference block spacing
+```
+
+という REFERENCE block assembler を共通化。
+
+Phase 134-30:
+
+```text
+display math
+completed boundary framing
+final conclusion framing
+```
+
+という proof-body presentation primitive を共通化。
+
+一方、以下は theorem-specific のまま維持した。
+
+```text
+block leads
+dependency selection
+proof ordering
+numbered-fact semantics
+pi_6^3 proof logic
+pi_8^5 proof logic
+Proposition 4.4 transport
+multi-generator theorem synthesis
+map-formula extraction
+```
+
+Phase 134-31 の hardcode 再監査では、Phase 134-26 / 28 / 30 で抽出した helper が root-specific / statement-specific ではないことを確認した。
+
+## Phase 134-32: completion audit
+
+最終監査対象:
+
+$$
+\pi_6^3,\qquad
+\pi_8^5,\qquad
+\pi_{15}^8.
+$$
+
+確認結果:
+
+```text
+renderer boundary: PASS
+semantic boundary: PASS
+three-example Narrative regression: PASS
+scope guard: PASS
+```
+
+追加しなかったもの:
+
+```text
+root_generators()
+generic multi-generator synthesis
+generic direct-sum proof synthesis
+```
+
+focused regression:
+
+```text
+40 passed in 5.78s
+```
+
+repository-wide regression:
+
+```text
+9495 passed in 282.46s (0:04:42)
+```
+
+Phase 134 完了。
+
+---
+
+# Phase 135–136 — Web Narrative / \(\pi_6^3\) Narrative refinement
+
+## Phase 135: Web Narrative math presentation
+
+Phase 135 は Phase 134 で自然化した Narrative を Web 上でも読みやすく表示するため、display math と inline math の presentation adapter を監査・調整した。
+
+主な境界:
+
+```text
+Web adapter
+!= proof semantics
+!= second Narrative renderer
+```
+
+実装済み:
+
+```text
+display math → data-latex → KaTeX display mode
+inline math → data-latex → KaTeX inline mode
+multiple inline math segments
+REFERENCE emphasis preservation
+Narrative reading-width / spacing adjustment
+```
+
+## Phase 136-1〜2: \(\pi_6^3\) Narrative の数学的順序監査
+
+代表対象:
+
+$$
+\pi_6^3=\mathbb Z/4\{\nu'\}.
+$$
+
+Phase 136-2 では証明の数学的依存関係に合わせて Narrative を再構成した。
+
+Toda Lemma 5.2 の適用前に
+
+$$
+2\eta_3=0
+$$
+
+を確認する。
+
+これにより
+
+$$
+\{\eta_3,2\iota_4,\eta_4\}_1
+$$
+
+が定義でき、その bracket のある元を \(\nu'\) と定める。
+
+その後 Lemma 5.2 から
+
+$$
+\nu'\in\pi_6^3,
+\qquad
+H(\nu')=\eta_5,
+\qquad
+2\nu'=\eta_3^3
+$$
+
+を得る。
+
+Toda Proposition 2.2 の右合成公式
+
+$$
+H(\alpha\circ E\beta)=H(\alpha)\circ E\beta
+$$
+
+を明示し、
+
+$$
+\eta_6=E\eta_5
+$$
+
+と合わせて
+
+$$
+H(\nu'\eta_6)
+=
+H(\nu'\circ E\eta_5)
+=
+H(\nu')\circ E\eta_5
+=
+\eta_5\eta_6
+=
+\eta_5^2
+$$
+
+を得る流れを本文に表示した。
+
+位数決定に用いる EHP 完全列:
+
+$$
+\pi_7^3
+\xrightarrow{H}
+\pi_7^5
+\xrightarrow{\Delta}
+\pi_5^2
+\xrightarrow{E}
+\pi_6^3
+\xrightarrow{H}
+\pi_6^5.
+$$
+
+\(H:\pi_7^3\to\pi_7^5\) の全射性から \(\Delta=0\) を得て、完全性から
+
+$$
+E:\pi_5^2\to\pi_6^3
+$$
+
+が単射であることを明示した。
+
+最後に
+
+$$
+0
+\longrightarrow
+\pi_5^2
+\xrightarrow{E}
+\pi_6^3
+\xrightarrow{H}
+\pi_6^5
+\longrightarrow
+0
+$$
+
+を表示し、\(\pi_6^3\) の位数が 4 であることと、\(\nu'\) が位数 4 の元であることから
+
+$$
+\pi_6^3=\mathbb Z/4\{\nu'\}
+$$
+
+を得る。
+
+Phase 133–135 の旧 Narrative 固定値テストは、Phase 136-2 の確定仕様へ更新した。
+
+focused regression:
+
+```text
+65 passed in 15.85s
+```
+
+repository-wide regression:
+
+```text
+9517 passed in 575.31s (0:09:35)
+```
+
+Phase 136-2 完了。
+
+## Phase 136-2 closure Web TeX audit
+
+Phase 136-2 完了後の Web manual check で、Narrative の数学式自体は KaTeX 経路で表示されることを確認した。
+
+一方、静的 template text に次の未整備を確認した。
+
+```text
+Group query description:
+pi_(n+k)^n
+→ plain text
+
+Provenance:
+窶・Phase
+→ encoding / mojibake
+```
+
+`H(nu_prime)`、`E(nu_5)`、`sigma_11` 等は入力 syntax の例なので plain text を維持する方針とした。
+
+---
+
+# Phase 137 — Web presentation cleanup
+
+Phase 137 は数学機能を増やさず、Phase 136-2 の Web manual audit で 確認した presentation-only pressure を処理する。
+
+## Phase 137-2: static math / mojibake cleanup
+
+`templates/index.html` の Group query 説明にある project quantity を
+
+$$
+\pi_{n+k}^{n}
+$$
+
+として既存 `data-latex` / KaTeX 経路へ接続した。
+
+同じ template 内の `窶・` は6か所すべて正常な em dash `—` へ復元した。
+
+対象:
+
+```text
+Group proof provenance
+Operation proof Phase
+Operation proof repository depth x2
+Applicability showing first
+Generator execution provenance
+```
+
+入力 syntax:
+
+```text
+H(nu_prime)
+E(nu_5)
+sigma_11
+```
+
+は plain text のまま維持した。
+
+focused:
+
+```text
+3 passed in 6.96s
+```
+
+## Phase 137-3: Web focused regression
+
+Phase 117 / 124 / 131 / 132 / 135 / 137 の関連 Web tests を実行。
+
+```text
+56 passed in 20.23s
+```
+
+## Phase 137-4: Web manual verification
+
+実画面で以下を確認した。
+
+```text
+\pi_{n+k}^{n} → KaTeX
+H(nu_prime), E(nu_5), sigma_11 → plain text
+— showing first → 正常表示
+Generator execution provenance → — Phase 68
+窶・ → visible output から消失
+```
+
+## Phase 137-5: documentation cleanup
+
+README / design / development log / roadmap / proof records を Phase 137 の現状へ更新する。
+
+あわせて GitHub Markdown 上の display math を `$$ ... $$` に統一し、legacy display-math delimiters が生の bracket のように見える presentation 問題を解消する。
+
+```text
+documentation math delimiter cleanup
+!= mathematical content change
+!= proof semantics change
+```
+
+# 現在の運用方針
+
+`development_log.md` は索引 + 直近 Phase 記録として維持する。
+
+詳細な古い記録は archive file に保存する。
+
+既存履歴は原則として削除せず、誤りが確定した場合のみ訂正する。
+
+全体回帰:
+
+```powershell
+python -m pytest tests -q
+```
+
+backup:
+
+```text
+repository 外へ保存
+```
+
+Phase 137 の repository-wide regression は Phase-final step でのみ実行する。
+
+Phase 137 を閉じた後は Phase 138 capability audit を行い、Narrative の他群への拡張、Web workflow、operation query、stem 8 以降のどれを優先するかを実利用 pressure から選ぶ。
+
+# Phase 143 完了記録
+
+Phase 143 は、Phase 139 以降に進めてきた「専用 Narrative ではなく、一般的な semantic structure から数学的証明文を生成する」方向を、横断的な statement inventory 監査まで進めた Phase である。
+
+主目的:
+
+```text
+internal rule-name fallback
+→ semantic statement structure
+→ mathematical Narrative rendering
+```
+
+Phase 前半では既存 Narrative の statement / block / argument 構造を監査し、後半では fallback に残っていた statement type を順次 semantic renderer へ接続した。
+
+代表的な対象には次が含まれる。
+
+```text
+Toda56Nu4Prop44SpecializationStatement
+TodaLemma54WhiteheadCorrectionDataStatement
+TodaLemma54HopfOddMultipleStatement
+TodaLemma54DoubleSuspensionUpToSignStatement
+TodaSuspensionZeroStatement
+TodaProp44FirstSummandRestrictionStatement
+TodaLemma510BracketModuloStatement
+TodaLemma57TwoIota5ImageMembershipStatement
+TodaProp59DeltaKernelStatement
+Toda36Lemma54SpecializationStatement
+TodaLemma514SigmaDoublePrimeStatement
+Toda514FirstShortExactStatement
+Toda514SecondShortExactStatement
+Toda54IndeterminacyGeneratorStatement
+FiniteHomotopyGroupStatement
+Toda211OrdinaryEHPExactnessStatement
+TodaLemma510HopfBracketContainsStatement
+TodaLemma510IndexedHopfBracketContainsStatement
+TodaLemma510Split115Statement
+TodaLemma510OrdinaryBracketPlusSuspensionImageStatement
+TodaLemma510OrdinarySuspensionImageFiniteStatement
+TodaLemma510OrdinarySuspensionImageTwoPrimaryZeroStatement
+TodaLemma510OrdinarySuspensionImageInDoubleStatement
+TodaLemma510OrdinaryIndeterminacyDoubleStatement
+TodaLemma510Nu6OrdinaryCompositionZeroStatement
+Toda211OrdinaryEHPApplicabilityStatement
+TodaLemma510Nu6OrdinaryCompositionReductionStatement
+Toda515Sigma8TransportedDecompositionStatement
+Toda515Sigma8Prop44SpecializationStatement
+```
+
+終盤では、semantic statement を表示可能にしたことで既存の duplicate suppression / direct-premise relocation と競合する箇所を監査した。
+
+特に $\pi_{15}^{8}$ では transported decomposition
+
+$$
+\pi_{15}^{8}
+\cong
+\mathbb Z/8\{E\sigma'\}
+\oplus
+\mathbb Z\{\sigma_8\}
+$$
+
+と final standard-order conclusion
+
+$$
+\pi_{15}^{8}
+=
+\mathbb Z\{\sigma_8\}
+\oplus
+\mathbb Z/8\{E\sigma'\}
+$$
+
+を両方保持する必要があることを確認した。
+
+一方 $\pi_8^5$ の
+
+$$
+2\nu_5=E^2\nu'
+$$
+
+は relocatable direct premise として既存の適切な位置へ移動し、一度だけ表示する必要がある。
+
+最終修正では群名や statement type の専用分岐を追加せず、
+
+```text
+preserved DERIVATION source block
+AND
+redundant direct premise
+```
+
+という既存の構造分類を利用して semantic premise の保持範囲を限定した。`relocated_direct_premise_ids` の suppression は維持した。
+
+focused regression:
+
+```text
+33 passed in 20.96s
+```
+
+現行 Narrative entrypoint completion audit:
+
+```text
+scanned groups: 128
+scanned presentation nodes: 1663
+rule-name fallback occurrences: 0
+distinct fallback rule names: 0
+render errors: 0
+```
+
+Phase 143 最終 repository-wide regression:
+
+```text
+9980 passed in 807.31s (0:13:27)
+```
+
+結果:
+
+```text
+Phase 143 完了
+```
+
+Phase 143 では proof graph、Toda theorem fact、group-query semantics、operation-query semantics、proof search semantics は変更していない。
+
+次 Phase では、この semantic Narrative 基盤を前提として、証明文章全体の一般性・自然さ・依存関係の見せ方を改めて監査する。Phase 143 で解消した rule-name fallback を再導入してはならない。
+
+---
+
+# Phase 144 — generic Narrative / ownership-boundary audit closure
+
+Phase 144 は、Phase 143 の semantic Narrative を「statement 単体」ではなく
+「証明全体」として一般化できるかを監査した。
+
+## renderer route comparison
+
+代表群
+
+$$
+\pi_6^3,\quad
+\pi_8^5,\quad
+\pi_{10}^4,\quad
+\pi_{12}^5,\quad
+\pi_{15}^8,\quad
+\pi_{16}^9
+$$
+
+について legacy / generic route を比較した。
+
+初期比較では、$\pi_6^3$ は専用 Narrative の情報量が多い一方、他群では generic
+renderer が semantic statement を多く表示するケースがあり、単純な文字数比較では
+一般化の完成度を判定できないことを確認した。
+
+## semantic / argument generalization
+
+Phase 144-6 では次を段階的に監査した。
+
+```text
+definition relevance
+argument ownership
+direct-premise frontier
+semantic closure
+complete replay
+contribution ordering
+topological determinism
+Narrative participation
+detached argument boundary
+entry classification
+```
+
+complete replay API により、explicit positive depth の Narrative で bounded replay 外の
+semantic dependency を参照できる基盤を確認した。
+
+一方、depth 0 まで complete replay に切り替わる regression が最終確認で見つかり、
+`main.py` の complete-replay 条件を `max_depth > 0` に限定して depth 0 semantics を復元した。
+
+## R25-30-R3 cutoff
+
+R25-30-R3 を Phase 144-6 の技術調査 endpoint とした。
+
+current six-group inventory:
+
+```text
+pi_6^3:  selected=6 participating=6/6 detached=0/0 transport=1 missing=0
+pi_8^5:  selected=10 participating=7/7 detached=3/3 transport=1 missing=0
+pi_10^4: selected=22 participating=0/0 detached=22/0 transport=2 missing=0
+pi_12^5: selected=46 participating=2/2 detached=44/0 transport=4 missing=0
+pi_15^8: selected=54 participating=10/10 detached=44/0 transport=4 missing=0
+pi_16^9: selected=54 participating=10/10 detached=44/0 transport=4 missing=0
+
+TOTAL selected=192
+TOTAL participating=35
+TOTAL detached=157
+TOTAL detached_insertable=3
+TOTAL missing=0
+```
+
+R25-30-R3 focused:
+
+```text
+10 passed
+```
+
+production-route controls:
+
+```text
+13 passed
+```
+
+boundary classification と existing child Argument pair は対象3ケースですべて一致した。
+
+ここで、$\pi_{15}^8$ / $\pi_{16}^9$ の巨大な group-structure / definition Narrative は
+ownership-boundary leak ではなく、owned entry の proof subtree を再展開する
+result-reuse problem と分類した。この問題は Phase 144 では解かず、Phase 146 以降の
+具体的課題へ送った。
+
+## final regression repair
+
+有効な canonical whole-suite runner は
+
+```powershell
+python -m pytest tests -q
+```
+
+を `PYTHONPATH=<repo>;<repo>/tests` と package import を成立させた環境で実行した。
+
+final repository-wide result:
+
+```text
+10298 collected
+10273 passed
+25 failed
+2321.20s (0:38:41)
+```
+
+25 failures は R5-39〜R5-43 の historical completion / fixed-count snapshot に集中した。
+代表的な drift は
+
+```text
+190 → 192 selected
+33 → 35 participating
+pi_6^3 contribution count 5 → 6
+detached_insertable 0 → 3
+```
+
+だった。
+
+これらを current gate として production を旧状態へ戻すことはせず、historical snapshot
+tests を structural invariant へ maintenance した。新しい `192` 等を固定 snapshot として
+埋め込むこともしなかった。
+
+R3 focused regression:
+
+```text
+66 passed in 1308.82s (0:21:48)
+```
+
+production renderer changes:
+
+```text
+none
+```
+
+R3 後は whole repository suite を再実行していない。Phase の全体テストは Phase 最後に
+一度だけという運用を維持し、closure evidence は上記 final suite と R3 focused regression
+の組として記録する。
+
+## Phase 144 completion boundary
+
+完了条件:
+
+```text
+generic Narrative route の現状を監査済み
+complete replay API の必要境界を確認済み
+depth 0 semantics を維持
+argument ownership / boundary classification を確認済み
+R25-30-R3 を調査 endpoint として確定
+historical R5 snapshot を current semantic gate から分離
+result-reuse problem を次 Phase 群へ明示的に分離
+final whole-suite failures を focused maintenance で解消
+```
+
+Phase 144 完了。
+
+次の Phase 145 は Narrative + depth 2 の default 化だけを扱う。
+
+---
+
+# Phase 145 — Narrative + depth 2 default / repository closure
+
+Phase 145 は Phase 144 後の表示 default を確定するための狭い Phase とした。
+
+機能上の目的:
+
+```text
+group-proof default mode
+trace → narrative
+
+group-proof default depth
+→ 2
+```
+
+新しい theorem fact、proof search、Narrative generalization は追加していない。
+
+## default presentation
+
+CLI parser と group-proof execution path の default を
+
+```text
+mode = narrative
+depth = 2
+```
+
+へ変更した。
+
+Web group-proof form / adapter も同じ default に変更した。
+
+既存の explicit selection:
+
+```text
+trace / outline / narrative
+depth 0 / 1 / 2
+```
+
+は維持した。
+
+legacy test が Trace 自体を検証する箇所では `--mode trace` または
+`group_proof_mode=trace` を明示し、default 変更と Trace semantics の検証を分離した。
+
+focused regression:
+
+```text
+46 passed in 15.62s
+```
+
+## repository cleanup
+
+historical Phase artifact を `archive/phases/` 以下へ整理した。
+
+cleanup 後の whole-suite collection では canonical test が archived helper / historical
+test helper に依存していた箇所が表面化したため、必要な canonical dependency を復元した。
+
+その後、canonical tests 自体に2種類の import style が共存していることを確認した。
+
+R7 inventory:
+
+```text
+canonical test files: 774
+tests.test_* package imports: 43
+bare test_* imports: 547
+unique bare test_* modules: 184
+bare modules without canonical target: 0
+```
+
+547箇所の既存 import を書き換えず、test infrastructure のみで互換性を維持した。
+
+追加:
+
+```text
+tests/__init__.py
+tests/conftest.py
+```
+
+`tests/conftest.py` は `tests/` directory を test execution 時の import path に追加する。
+production code は変更しない。
+
+R8 canonical collection:
+
+```text
+10303 tests collected
+```
+
+R8 focused regression:
+
+```text
+46 passed in 15.62s
+```
+
+## final repository-wide regression
+
+Phase 最後にのみ実行:
+
+```powershell
+python -m pytest tests -q
+```
+
+結果:
+
+```text
+10303 passed in 2375.31s (0:39:35)
+```
+
+fail / collection error は0件。
+
+## Phase 145 completion boundary
+
+```text
+Narrative default
+depth 2 default
+explicit mode/depth compatibility preserved
+historical Phase artifact archive cleanup
+canonical test import compatibility restored
+production proof semantics unchanged
+10303 repository-wide tests PASS
+```
+
+Phase 145 完了。
+
+Phase 146 以降は一般化不足を一括処理せず、
+
+```text
+1 Phase
+→ 1 concrete issue
+→ minimum general rule
+→ focused regression
+```
+
+の順で進める。
+
+---
+
+# Phase 146 — historical Narrative difference audit / root-cause classification
+
+Phase 146 は、$\pi_6^3$ の current generic Narrative と historical Phase 136-2 Narrative の
+差を監査し、今後の一般化課題を concrete root cause 単位へ分解する Phase とした。
+
+## Phase 146-1〜146-5: current generic route audit
+
+current public $\pi_6^3$ route を追跡し、public route 内部が semantic sidecar、blocks、
+arguments、generic contribution renderer を使用していることを確認した。
+
+Phase 146-5 では current public output と current generic contribution renderer output が
+exact parity であることを確認した。
+
+この結果から、問題を「current public vs current generic」ではなく
+「current generic vs historical Phase 136-2 quality」として再定義した。
+
+## Phase 146-6: historical baseline
+
+historical comparison baseline:
+
+```text
+Phase 136-2
+commit 908e24db89669750949fa9ad149f5e306ac05546
+```
+
+historical proof が持っていた主要 semantic contract を比較し、core mathematics は current
+にも存在する一方、
+
+```text
+$\nu'$ の位数を決定するために, 次の EHP 完全列を考える.
+```
+
+という proof-strategy prose が current では失われていることを確認した。
+
+## Phase 146-7: generic argument-purpose prose fusion
+
+変更対象:
+
+```text
+toda_group_proof_narrative_argument_renderer.py
+render_toda_group_proof_narrative_argument_header_method_section()
+```
+
+target-specific 文面を追加せず、argument purpose と primary exactness transition を
+一般規則で一文に融合した。
+
+focused:
+
+```text
+11 passed
+```
+
+existing pi_6^3 public-route regression:
+
+```text
+4 passed
+```
+
+全体 suite はこの時点では実行していない。
+
+## Phase 146-8: Historical Narrative Full Structural Diff Audit
+
+production changes:
+
+```text
+none
+```
+
+historical/current structural inventory:
+
+```text
+historical units: 17
+current units: 82
+PRESERVED: 0
+LOST: 17
+ADDED: 47
+DUPLICATED: 35
+
+sequence-related:
+historical 4
+current 44
+
+[R#]:
+historical 8
+current 1
+```
+
+unit granularity が異なるため raw PRESERVED / LOST 件数を semantic loss 件数とは解釈しない。
+
+一方、次の pressure は実在することを確認した。
+
+```text
+Reference richness / reason prose
+definition reasoning
+order-method ownership
+EHP naming
+exact-sequence window selection
+auxiliary exactness leakage
+contribution duplication
+dependency ordering
+map-property chain placement
+short exact sequence placement
+equation numbering / formatting
+```
+
+## Phase 146-9: Historical Difference Root-Cause Classification
+
+production changes:
+
+```text
+none
+```
+
+audit harness の初版〜R2 では current production API signature 追従不足があり、
+R3 で current `develop` の実呼び出し経路に合わせた。
+
+R3 successful diagnostics:
+
+```text
+arg 0 establish_group_structure:
+method_evidence=3 components=1 primary=True primary_windows=3 contributions=2
+
+arg 1 establish_order:
+method_evidence=2 components=1 primary=True primary_windows=2 contributions=2
+
+arg 2 establish_definition:
+method_evidence=0 components=0 primary=False primary_windows=0 contributions=0
+```
+
+ここで、order argument に primary component が存在することを確認した。
+したがって Phase 146-7 後の不足を「order primary が無い」と説明するのは誤りである。
+
+12 visible difference families を6 root causes に集約した。
+
+```text
+RC1 Argument-method ownership
+RC2 Recursive exactness evidence exposure
+RC3 Contribution ownership / insertion ordering
+RC4 Generic provenance / reason prose
+RC5 EHP semantic naming
+RC6 Final equation numbering / prose formatting
+```
+
+dependency order:
+
+```text
+RC1 → RC2 → RC3 → RC4 → RC5 → RC6
+```
+
+Phase 146-9 report は UTF-8 strict decode PASS。
+
+## Phase 146 完了境界
+
+Phase 146 の production change は Phase 146-7 の generic prose fusion のみ。
+
+Phase 146-8 / 146-9 は audit only。
+
+未変更:
+
+```text
+pi_6^3 public route gate
+exactness ownership
+contribution selection
+provenance rendering
+EHP naming
+equation numbering
+proof graph
+theorem facts
+proof search
+```
+
+Phase 146 では route gate を削除しない。
+
+Phase 147 以降は6 root causes を依存順に1件ずつ扱う。
+
+## Phase 146 final repository-wide regression
+
+Test Performance Repair 1〜9 後の repository-wide final:
+
+```text
+10306 passed in 1304.31s (0:21:44)
+```
+
+Phase 146 完了。
+
+---
+
+# Phase 147 — RC1 Argument-method ownership 完了
+
+Phase 147 は Phase 146 で分類した6 root causes のうち、RC1
+`Argument-method ownership` のみを扱った。
+
+対象は、Narrative argument が「何を示すために、どの exactness method を主要な証明手段として
+使うか」という ownership（所有関係）である。
+
+Phase 147 では RC2 以降の evidence exposure、contribution ordering、provenance prose、
+EHP naming、equation numbering を先取りしていない。
+
+## RC1-1 — ownership boundary audit
+
+現行 generic Narrative の method selection 経路を監査した。
+
+確認した既存構造:
+
+```text
+NarrativeArgument
+→ relevant groups
+→ method evidence
+→ exactness method components
+→ primary exactness selection
+→ renderer
+```
+
+重要な確認:
+
+```text
+Argument.supporting_blocks
+!= Argument method ownership
+```
+
+`supporting_blocks` に `EXACTNESS` block がなくても、
+`extract_toda_group_proof_narrative_argument_method_evidence()` は recursive provenance から
+method evidence を取得できる。
+
+したがって RC1 の問題は method discovery failure ではなく、renderer に入る前の
+`Argument → primary exactness method` 関係が独立した semantic API として表現されていないこと
+だった。
+
+## RC1-2 — minimal ownership API design
+
+`TodaGroupProofNarrativeArgument` 自体には method field を追加しない方針を採用した。
+
+既存の低水準 selection API:
+
+```text
+relevant groups
++
+exactness components
+→ primary exactness component
+```
+
+を維持し、その上に argument 単位の ownership API を置く設計とした。
+
+```text
+presentation
+blocks
+semantic sidecar
+arguments
+argument index
+→ argument-owned primary exactness component | None
+```
+
+RC1 では新しい ownership dataclass を追加せず、既存 semantic data から導出できる関係として扱う。
+
+## RC1-3 — minimal ownership API implementation
+
+`select_toda_group_proof_narrative_argument_primary_exactness_component()`
+を追加し、既存処理を組み合わせて argument-owned primary method を取得できるようにした。
+
+既存 primitive API は維持した。
+
+multi-argument renderer の primary-method selection は、新 ownership API を使用する経路へ変更した。
+
+一方、body / evidence handling が引き続き必要とする method evidence extraction は残した。
+
+```text
+primary-method ownership selection
+→ RC1 API
+
+body / evidence handling
+→ existing method evidence
+
+RC1 ownership
+!= RC2 evidence exposure
+```
+
+RC1-3 Repair R1 後:
+
+```text
+Phase 147 ownership tests:
+8 passed in 7.07s
+
+focused existing regression:
+46 passed in 15.96s
+```
+
+## RC1-4 — ownership integration audit
+
+6代表群を横断して ownership integration を監査した。
+
+対象:
+
+$$
+\pi_6^3,\quad
+\pi_8^5,\quad
+\pi_{10}^4,\quad
+\pi_{12}^5,\quad
+\pi_{15}^8,\quad
+\pi_{16}^9.
+$$
+
+確認結果:
+
+```text
+multi renderer:
+  ownership API call present
+  old inline primary selector absent
+  method evidence extraction preserved
+```
+
+$\pi_6^3$ では、
+
+```text
+establish_order
+→ primary exactness method owned
+
+establish_group_structure
+→ a different primary exactness method owned
+```
+
+となることを確認した。
+
+generic header は次の proof-purpose / method relation を生成する。
+
+```text
+次に、$\nu'$ の位数を決定するために、次の完全列を考える.
+```
+
+および
+
+```text
+最後に、$\pi_{6}^{3}$ の群構造を決定するために、次の完全列を考える.
+```
+
+RC1-4 regression:
+
+```text
+15 passed in 4.28s
+```
+
+## RC1-5 — Phase 147 final regression
+
+Phase 147 の最後にのみ repository-wide regression を実行した。
+
+focused:
+
+```text
+RC1 ownership:
+54 passed in 17.54s
+
+Generic Narrative:
+24 passed in 6.66s
+
+Web group-proof Narrative:
+20 passed in 10.72s
+```
+
+boundary verification:
+
+```text
+Argument -> primary exactness ownership API: present
+Multi renderer old inline primary selection: absent
+Method evidence for body handling: preserved
+RC2 evidence exposure behavior: intentionally unchanged
+RC3 contribution ordering behavior: intentionally unchanged
+```
+
+repository-wide final:
+
+```text
+10314 passed in 2942.66s (0:49:02)
+```
+
+Phase 147 完了。
+
+## Phase 147 完了境界
+
+Phase 147 で解決したもの:
+
+```text
+Narrative Argument
+→ owned primary exactness method
+```
+
+Phase 147 で意図的に解決していないもの:
+
+```text
+recursive auxiliary exactness evidence の過剰表示
+exactness contribution duplication の RC2 部分
+contribution insertion ordering
+short exact sequence と final conclusion の配置順
+generic Reference / reason prose
+EHP semantic naming
+final equation numbering / prose formatting
+```
+
+したがって次は Phase 148 / RC2 `Recursive exactness evidence exposure` とする。
+
+---
+
+# Phase 148 完了 — RC2 Recursive exactness evidence exposure
+
+Phase 146 で分類した root cause のうち RC2
+`Recursive exactness evidence exposure` を実装・監査した。
+
+## 実施内容
+
+1. recursive exactness evidence の現行経路を監査。
+2. exposure class を
+   `OWNED_PRIMARY` / `UNOWNED_RECURSIVE` / `AMBIGUOUS_RELEVANT`
+   に整理。
+3. `UNOWNED_RECURSIVE` の body contribution を自動展開しない一般規則を追加。
+4. relocated direct premise 経路から raw exactness が再挿入される bypass を抑制。
+5. `OWNED_PRIMARY` でも raw exactness window 自体は本文へ再挿入しないよう統一。
+6. Web Narrative が complete replay を常用していた経路を bounded replay へ戻した。
+7. bounded depth で必要な計算式を失わないため semantic closure を監査。
+8. broad equality closure を撤回し、
+   `ORDER → direct EQUALITY → equality premises`
+   に限定した graph-level closure へ修正。
+9. depth 0 は semantic closure identity とした。
+10. 6代表群
+    $\pi_6^3,\pi_8^5,\pi_{10}^4,\pi_{12}^5,\pi_{15}^8,\pi_{16}^9$
+    を横断監査した。
+
+## 代表監査結果
+
+RC2-4 最終6群監査では、
+
+```text
+all bounded below complete = True
+all closure-added exactness = 0
+all visible raw exactness = 0
+all ambiguous exposure = 0
+```
+
+を確認した。
+
+$\pi_6^3$ depth 2 では broad closure の +7 nodes を監査し、
+必要な order calculation equality 2件と definition endpoint だけを残す方向へ限定した。
+
+## 最終修正
+
+Phase 148 RC2-5 の途中で過去 test contract を広い文字列置換で誤変更したため、
+stale expectation を個別に復元した。
+
+最終 focused regression:
+
+```text
+92 passed in 36.15s
+```
+
+canonical repository regression:
+
+```text
+pytest -q tests
+
+10398 passed
+3 failed
+1316.54s (0:21:56)
+```
+
+3 failures はすべて
+
+```text
+tests/test_phase144_6_pi6_generic_production_route.py
+```
+
+の誤変更された Phase 144-6 contract に限定された。
+
+GitHub `develop` の現行 contract へ復元後:
+
+```text
+4 passed in 1.71s
+```
+
+全体 suite は Phase-final 方針に従い再実行していない。
+したがって `10401 passed` のような推定値は記録せず、
+whole-suite 実測と focused restoration 実測を分けて保存する。
+
+## Phase 148 完了条件
+
+```text
+RC2 exposure general rule
+→ 完了
+
+raw recursive exactness overexposure
+→ 解消
+
+Web selected-depth bounded replay
+→ 復元
+
+depth-0 no-premise boundary
+→ 復元
+
+order calculation semantic closure scope
+→ 最小化
+
+proof provenance
+→ 不変
+
+RC3 ordering
+→ 未着手
+```
+
+次は Phase 149 / RC3 `Narrative ordering`。
+
+---
+
+<!-- PHASE149_RC3_CLOSURE -->
+# Phase 149 — RC3 Narrative contribution ordering
+
+## RC3-1 Ordering audit
+
+$\pi_6^3$ の current Narrative を監査した。
+
+RC2 の exposure / ownership は正しく、問題は short exact sequence が final group conclusion より後に表示される placement に限定された。
+
+既存 hidden contribution ordering には provider anchor / dependent contribution / argument conclusion という一般 placement model が存在する一方、RC2 の derived short exact sequence は local exactness block 位置で直接 render されていた。
+
+## RC3-2 General ordering rule design
+
+一般的な Narrative 順序を
+
+```text
+method
+→ evidence
+→ derivation
+→ conclusion
+```
+
+とした。
+
+$\pi_6^3$、dimension、$\nu'$、short exact sequence type に依存する special case は採用しない。
+
+RC2 の display-derived contribution を無理に `ProofStep` contribution 型へ変換せず、既存 RC2 display path 上で owner conclusion より前へ配置する最小方針とした。
+
+## RC3-3 Minimal implementation
+
+変更対象:
+
+```text
+toda_group_proof_narrative_argument_body_renderer.py
+render_toda_group_proof_narrative_argument_body_markdown()
+```
+
+初回実装では exactness block に到達後に contribution を defer したが、multi-Argument renderer が local body と method evidence を global block order へ再構成するため、$\pi_6^3$ の conclusion が先に処理され、末尾 fallback へ流れた。
+
+初回 focused result:
+
+```text
+49 passed
+1 failed
+```
+
+Repair R1 では `OWNED_PRIMARY` exactness contribution を loop 前に precollect し、owner conclusion 直前へ挿入する方式へ修正した。
+
+Repair R1 focused result:
+
+```text
+50 passed in 10.84s
+```
+
+## RC3-4 Cross-group ordering audit
+
+対象:
+
+$$
+\pi_6^3,\quad
+\pi_8^5,\quad
+\pi_10^4,\quad
+\pi_12^5,\quad
+\pi_15^8,\quad
+\pi_16^9.
+$$
+
+結果:
+
+```text
+pi_6^3: owned_primary_visible=1, ordering_ok=True
+pi_8^5: owned_primary_visible=1, ordering_ok=True
+pi_10^4: owned_primary_visible=0, ordering_ok=True
+pi_12^5: owned_primary_visible=0, ordering_ok=True
+pi_15^8: owned_primary_visible=0, ordering_ok=True
+pi_16^9: owned_primary_visible=0, ordering_ok=True
+
+failures=[]
+AUDIT_RESULT=PASS
+```
+
+focused regression:
+
+```text
+57 passed in 10.85s
+```
+
+production change は RC3-3 の1関数のみで、RC3-4 は audit/test のみ。
+
+## RC3-5 Final regression / documentation closure
+
+Phase 149 の最終 repository-wide regression:
+
+```text
+﻿10416 passed in 1315.93s (0:21:55)
+```
+
+Phase 149 完了。
+
+完了境界:
+
+```text
+visible OWNED_PRIMARY exactness evidence
+→ owner Argument conclusion より前へ配置
+
+RC2 exposure classification
+→ unchanged
+
+ProofStep / proof graph / theorem facts
+→ unchanged
+```
+
+$\pi_6^3$ の order Argument 内の derived calculation `(3)` の位置は、RC3 exactness placement とは別の改善候補として残す。
+
+次は Phase 150 / RC4 `Generic provenance / reason prose`。
+---
+
+<!-- PHASE150_CLOSURE -->
+# Phase 150 — RC4 Generic provenance / reason prose 完了
+
+Phase 150 は Phase 146 で整理した6課題のうち RC4
+`Generic provenance / reason prose` を対象とした。
+
+## 実施内容
+
+既存 `ProofStep` provenance と semantic sidecar から、Narrative の結論を支える理由を
+typed reason として扱う経路を整備した。
+
+6代表群:
+
+$$
+\pi_6^3,\quad
+\pi_8^5,\quad
+\pi_{10}^4,\quad
+\pi_{12}^5,\quad
+\pi_{15}^8,\quad
+\pi_{16}^9
+$$
+
+を横断して、reason prose の存在、未型付け理由文の混入、表示位置、多重度を監査した。
+
+## final regression 9-failure repair
+
+Phase 150 final regression の途中で、
+
+```text
+10469 passed
+9 failed
+```
+
+まで到達した。
+
+9件の内訳は、production semantics の欠落ではなく historical display/test contract の
+不一致として切り分けた。
+
+Phase 148 関連4件は、semantic exactness evidence が proof provenance に残っている一方で、
+generic Narrative が旧 literal exactness phrase を必須としなくなったことに test contract を
+合わせた。
+
+RC4-5 関連5件は visible reason multiplicity audit を行った。
+
+共通 reason sentence の multiplicity:
+
+```text
+pi_6^3:  typed=3, rendered=3
+pi_8^5:  typed=3, rendered=3
+pi_10^4: typed=2, rendered=2
+pi_12^5: typed=2, rendered=2
+pi_15^8: typed=1, rendered=1
+pi_16^9: typed=3, rendered=3
+```
+
+同一 sentence の複数出現は renderer duplication ではなく、異なる typed reason instance が
+同一の汎用 prose を生成した結果だった。
+
+Repair R2 では production code を変更せず、sentence ごとの typed reason instance 数と
+rendered occurrence 数を比較する test contract へ修正した。
+
+focused verification:
+
+```text
+RC4-5 focused regression:
+9 passed in 5.65s
+
+original nine-failure focused regression:
+17 passed in 9.03s
+```
+
+## performance / full regression
+
+Phase 150 では historical full suite が長時間化していることも確認した。
+途中の performance repair は数学的 coverage を削らず、重複 setup / recomputation を対象とした。
+
+Phase 150 最終 full regression:
+
+```text
+Python 3.10.3
+pytest 9.1.1
+branch: develop
+
+10478 passed in 2505.44s (0:41:45)
+pytest exit code: 0
+wall-clock elapsed: 00:41:56.919
+```
+
+これにより Phase 150 の canonical closure baseline は全 test PASS で確定した。
+
+## architectural conclusion
+
+段階的な generic route 移行を進めた結果、複数 renderer の共存そのものが群間の表示差を生み、
+代表群ごとの修正では一般化の評価が難しいことを確認した。
+
+したがって、これ以上 group-by-group に public route を移行する方法は採らない。
+
+次の Phase 151 では、public behavior を変えずに対象群全体を同一 generic renderer へ通し、
+whole-population baseline を先に取得する。
+
+## test operation change
+
+Phase 150 の約42分の full regression を、今後の全 Phase で機械的に繰り返さない。
+
+今後の標準:
+
+```text
+実装中:
+focused tests
+
+Phase closure:
+focused tests + canonical regression
+
+大きな統合点 / release:
+complete historical regression
+```
+
+historical tests は直ちに削除しない。
+後続で Test Suite Consolidation を行い、現在の保証を重複している test、
+audit-only test、旧仕様 snapshot を分類し、canonical regression set を明示する。
+
+## Phase 150 完了条件
+
+```text
+RC4 typed reason / prose contract established
+six representative groups audited
+nine final-regression failures repaired
+focused repair regression PASS
+10478 / 10478 full regression PASS
+production proof semantics preserved
+Phase 151 boundary documented
+```
+
+Phase 150 完了。
+
+次は Phase 151 `All-Group Generic Baseline`。
+
+---
+
+<!-- PHASE153_CLOSURE -->
+# Phase 153 — Reference selection / granularity 完了
+
+Phase 153 は Phase 152 の defect classification 後、Narrative の Reference selection
+（参照選択）と granularity（粒度）を一般規則として整理した。
+
+新しい Toda theorem fact、proof search、proof graph mutation は追加していない。
+
+## R1 — Scalar order semantic classification
+
+`ScalarGreaterEqualStatement` を Narrative semantic classification 上の `ORDER` として扱う
+経路を整備した。
+
+## R2–R3 — concrete proof-scope recovery
+
+stable specialization より既存 concrete proof を優先すべき対象について、既存 proof scope から
+concrete proof を回収する一般経路を監査・実装した。
+
+7群で concrete proof を優先し、$\pi_{10}^{6}$ で確認した self-reference と不要な `(4.5)`
+Reference を解消した。
+
+focused:
+
+```text
+17 passed
+```
+
+## R4–R5 — n=2 six-group Reference ancestry audit
+
+対象:
+
+$$
+\pi_4^2,\quad
+\pi_5^2,\quad
+\pi_6^2,\quad
+\pi_7^2,\quad
+\pi_8^2,\quad
+\pi_9^2.
+$$
+
+`presentation.root_step` 自身を external Reference candidate から外し、実際に利用する
+premise / ancestry を優先する selection rule へ整理した。
+
+focused repair:
+
+```text
+10 passed
+```
+
+## R6 — Reference granularity
+
+同じ literature Reference に複数 candidate がある場合、consumer へ入る boundary crossing を
+優先した。
+
+aggregate conclusion では、consumer の generator が構造的に現れる一意の group-relation
+component を選択できる場合、その component を Reference statement として使用する。
+
+focused:
+
+```text
+15 passed
+```
+
+## R7 — proof-body relevance / aggregate suppression
+
+generic / legacy 共通の final body boundary で、本文に不要な aggregate ancestry を抑制する
+一般 postprocessing を追加した。
+
+proof graph は変更していない。
+
+focused:
+
+```text
+24 passed
+```
+
+## R8 — Reference-use prose normalization
+
+Reference duplicate suppression により本文が単純な Reference 利用へ縮約される場合、
+
+```text
+[Rk]を得る。
+```
+
+ではなく
+
+```text
+[Rk]を用いる。
+```
+
+へ正規化した。
+
+focused:
+
+```text
+29 passed
+```
+
+## R9 — Reference reuse / derivation suppression
+
+exact step が Reference statement として表示済みの場合、その Reference を reusable proof
+boundary として利用し、同じ derivation の recursive expansion を抑制した。
+
+title-only Reference は boundary としない。
+
+focused:
+
+```text
+32 passed
+```
+
+## R10 — used Reference filtering
+
+marker-bearing body では実際に使われた `[Rk]` のみを残し、Reference 番号を連続化して本文も
+remap する一般処理を追加した。
+
+generic no-marker route には marker filtering を適用せず、既存 structured Reference を保持した。
+
+focused:
+
+```text
+35 passed
+```
+
+## R11 — generic-route Reference attribution
+
+generic body に `[Rk]` が無い場合、実際に表示へ参加した argument / local-body /
+contribution step identity を用いて Reference 使用を帰属する rule を追加した。
+
+$\pi_6^3$ depth 2 では root Proposition 5.6 を外部 Reference から除外し、実利用の
+Reference のみを保持することを確認した。
+
+## R12 — root Reference exclusion across routes
+
+current `presentation.root_step` の `LiteratureReference` を、legacy / generic / specialized の
+route に依存せず external Reference section へ出さない display-boundary rule とした。
+
+focused repair:
+
+```text
+17 passed in 5.57s
+```
+
+## R13 — closure repair
+
+112-group closure audit で残った4違反:
+
+```text
+pi_4^2: root_reference_in_reference_section
+pi_8^5: root_reference_in_reference_section
+pi_8^5: marker_route_unused_reference
+pi_15^8: root_reference_in_reference_section
+```
+
+を一般規則で修復した。
+
+主な修正:
+
+```text
+literature Reference identity
+→ locator-first comparison
+
+specialized public Reference section
+→ body-use filtering
+→ root exclusion
+→ marker mapping preservation
+```
+
+R13 package 生成時の一度の syntax error は packaging script の問題であり、renderer を
+backup から復元後に同じ設計を安全に再適用した。
+
+syntax repair:
+
+```text
+2 passed
+smoke audit: PASS
+```
+
+closure verification:
+
+```text
+30 passed in 7.97s
+
+scanned groups: 112
+render errors: 0
+groups with Reference section: 93
+marker-bearing groups: 90
+generic/reference-only groups: 3
+Reference headers: 147
+body Reference markers: 146
+maximum References in one group: 6
+groups at maximum: pi_6^3
+violations: 0
+
+PASS
+```
+
+## final full pytest の扱い
+
+Phase 153 の production closure 後、canonical `tests/` を対象に final full pytest を開始した。
+
+```text
+collected: 10554
+```
+
+途中で過去 Phase の stale presentation expectation が複数検出された。
+
+最初に確認した Phase 132 Narrative expectation は、現行 generic Reference route と
+矛盾する historical display contract であり、production regression ではなかった。
+
+test-only repair 後:
+
+```text
+22 passed in 6.28s
+```
+
+その後も旧 CLI heading expectation など historical test maintenance pressure が確認された。
+全体 suite の整理自体に大きな時間を要するため、今回は Phase 153 の completion gate として
+full historical regression を完走しない判断とした。
+
+したがって Phase 153 は次の実測で閉じる。
+
+```text
+focused/reference regression: PASS
+112-group Reference invariant audit: PASS
+render errors: 0
+violations: 0
+repository-wide all-pass result: not claimed
+```
+
+## Phase 153 完了境界
+
+解決:
+
+```text
+Reference selection
+Reference granularity
+root self-reference exclusion
+Reference reuse
+unused Reference filtering
+generic-route Reference attribution
+specialized-route closure consistency
+```
+
+未解決・次 Phase:
+
+```text
+proof prose connective duplication
+repeated "まず" / "以上より" / "したがって"
+internal rule-name leakage
+English statement prose
+duplicate scalar rendering such as ord(nu')=4=4
+punctuation normalization to "," and "."
+```
+
+これらを Phase 154 の proof-prose generation 改善として扱う。
+
+Test Suite Consolidation は別の maintenance backlog とし、当面は機能・Narrative 開発を
+優先する。
