@@ -51,8 +51,6 @@ from toda_rules import (
   Toda52CompositionIsomorphismStatement,
   Toda53NuPrimeBracketSpecializationStatement,
   Toda55NuFamilyFiniteDimensionalStatement,
-  Toda56Nu4DecompositionIsomorphismStatement,
-  Toda56Nu4DecompositionStatement,
   TodaDeltaInjectiveStatement,
   TodaDeltaKernelFreeCyclicStatement,
   TodaDeltaSurjectiveStatement,
@@ -874,47 +872,6 @@ def _render_generic_narrative_statement_prose(
 
   if isinstance(
     statement,
-    Toda56Nu4DecompositionStatement,
-  ):
-    return (
-      r"$\nu_{4}$ の分解を用いる."
-    )
-
-  if isinstance(
-    statement,
-    Toda56Nu4DecompositionIsomorphismStatement,
-  ):
-    return (
-      r"$\nu_{4}$ の分解写像は同型写像である."
-    )
-
-  if isinstance(
-    statement,
-    TodaProp42ExactnessStatement,
-  ):
-    window = statement.window
-    return (
-      "$"
-      + render_toda_primary_group_latex(
-        window.source_term
-      )
-      + r" \xrightarrow{"
-      + window.first_map.name
-      + r"} "
-      + render_toda_primary_group_latex(
-        window.middle_term
-      )
-      + r" \xrightarrow{"
-      + window.second_map.name
-      + r"} "
-      + render_toda_primary_group_latex(
-        window.target_term
-      )
-      + "$ は完全である."
-    )
-
-  if isinstance(
-    statement,
     _GENERIC_INJECTIVE_STATEMENT_TYPES,
   ):
     map_latex = (
@@ -1014,6 +971,7 @@ def _render_generic_narrative_statement_prose(
     )
 
   return None
+
 
 def _render_generic_narrative_step(
   proof_step: ProofStep,

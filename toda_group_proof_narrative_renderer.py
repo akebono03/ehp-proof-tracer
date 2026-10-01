@@ -799,6 +799,32 @@ def _render_group_proof_narrative_fact(
 
   statement = proof_step.conclusion
 
+  generic_fact = (
+    _render_generic_narrative_step(
+      proof_step
+    )
+  )
+  internal_fallbacks = {
+    (
+      proof_step.inference_rule.name
+      if proof_step.inference_rule is not None
+      else None
+    ),
+    (
+      "`"
+      + type(
+        statement
+      ).__name__
+      + "`"
+    ),
+  }
+
+  if (
+    generic_fact
+    and generic_fact not in internal_fallbacks
+  ):
+    return generic_fact
+
   latex = (
     _render_group_proof_narrative_latex(
       proof_step
@@ -821,17 +847,7 @@ def _render_group_proof_narrative_fact(
   if label is not None:
     return label
 
-  if proof_step.inference_rule is not None:
-    return proof_step.inference_rule.name
-
-  return (
-    "`"
-    + type(
-      statement
-    ).__name__
-    + "`"
-  )
-
+  return "補助結果"
 
 def _narrative_edges_for_parent(
   presentation: TodaGroupProofPresentation,
@@ -2828,18 +2844,39 @@ def _append_narrative_for_step(
         reference_reuse_marker_by_step_id,
       )
 
-      lines.append(
-        (
-          _derivation_lead(
-            len(
-              premise_edges
-            )
-          )
-          + "、"
-          + premise_fact
-          + "を得る。"
+      generic_premise_fact = (
+        _render_generic_narrative_step(
+          premise_step
         )
       )
+      if (
+        generic_premise_fact.endswith(".")
+        or generic_premise_fact.endswith("。")
+      ):
+        lines.append(
+          (
+            _derivation_lead(
+              len(
+                premise_edges
+              )
+            )
+            + "、"
+            + generic_premise_fact
+          )
+        )
+      else:
+        lines.append(
+          (
+            _derivation_lead(
+              len(
+                premise_edges
+              )
+            )
+            + "、"
+            + premise_fact
+            + "を得る。"
+          )
+        )
     else:
       generic_premise_fact = (
         _render_generic_narrative_step(
@@ -2904,6 +2941,20 @@ def _append_narrative_for_step(
               + generic_premise_fact
             )
           )
+      elif (
+        not generic_fact_is_fallback
+        and (
+          generic_premise_fact.endswith(".")
+          or generic_premise_fact.endswith("。")
+        )
+      ):
+        lines.append(
+          (
+            lead
+            + "、"
+            + generic_premise_fact
+          )
+        )
       else:
         lines.append(
           (
@@ -2925,7 +2976,6 @@ def _append_narrative_for_step(
   active_step_ids.remove(
     parent_id
   )
-
 
 def _is_phase134_9_pi8_5_presentation(
   presentation: TodaGroupProofPresentation,
@@ -4218,14 +4268,6 @@ def render_toda_group_proof_narrative_markdown(
       )
     )
 
-  source_entry = presentation.source_entry
-
-  theorem = (
-    source_entry.theorem
-    if source_entry.theorem is not None
-    else "出典不明の結果"
-  )
-
   reference_entries = (
     build_toda_group_proof_narrative_reference_entries(
       presentation
@@ -4271,8 +4313,6 @@ def render_toda_group_proof_narrative_markdown(
 
   lines = [
     "# Group proof narrative",
-    "",
-    theorem + "を用いる。",
     "",
   ]
 
@@ -4406,8 +4446,6 @@ def render_toda_group_proof_narrative_markdown(
       prefix_lines = [
         "# Group proof narrative",
         "",
-        theorem + "を用いる。",
-        "",
       ]
 
       if filtered_reference_section:
@@ -4432,3 +4470,4 @@ def render_toda_group_proof_narrative_markdown(
       )
 
   return rendered
+

@@ -51,8 +51,6 @@ from toda_rules import (
   Toda52CompositionIsomorphismStatement,
   Toda53NuPrimeBracketSpecializationStatement,
   Toda55NuFamilyFiniteDimensionalStatement,
-  Toda56Nu4DecompositionIsomorphismStatement,
-  Toda56Nu4DecompositionStatement,
   TodaDeltaInjectiveStatement,
   TodaDeltaKernelFreeCyclicStatement,
   TodaDeltaSurjectiveStatement,
@@ -871,22 +869,6 @@ def _render_generic_narrative_statement_prose(
 
   if aggregate_prose is not None:
     return aggregate_prose
-
-  if isinstance(
-    statement,
-    Toda56Nu4DecompositionStatement,
-  ):
-    return (
-      r"$\nu_{4}$ の分解を用いる."
-    )
-
-  if isinstance(
-    statement,
-    Toda56Nu4DecompositionIsomorphismStatement,
-  ):
-    return (
-      r"$\nu_{4}$ の分解写像は同型写像である."
-    )
 
   if isinstance(
     statement,

@@ -625,6 +625,13 @@ def _insert_toda_group_proof_narrative_argument_contributions(
       )
       if not contribution_line:
         continue
+      if not (
+        _is_toda_group_proof_narrative_reference_statement_candidate(
+          contribution.proof_step,
+          contribution_line,
+        )
+      ):
+        continue
       if contribution_line in markdown:
         continue
 
@@ -698,7 +705,6 @@ def _insert_toda_group_proof_narrative_argument_contributions(
     )
 
   return rendered
-
 
 def _is_toda_group_proof_narrative_reference_statement_candidate(
   proof_step,
