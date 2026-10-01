@@ -1,0 +1,15 @@
+﻿n,k,reference_number,reference,proof_steps,renderable_candidates,unresolved_steps,unresolved_types,reason
+2,2,3,Proposition 4.4,2,0,2,TodaProp44IsomorphismStatement;TodaProp44SecondSummandRestrictionStatement,unresolved_only_or_unrenderable
+2,3,5,Proposition 4.4,2,0,2,TodaProp44IsomorphismStatement;TodaProp44SecondSummandRestrictionStatement,unresolved_only_or_unrenderable
+2,4,4,Proposition 4.4,2,0,2,TodaProp44IsomorphismStatement;TodaProp44SecondSummandRestrictionStatement,unresolved_only_or_unrenderable
+2,5,5,Proposition 5.3,1,0,1,TodaProp53FiniteDimensionalStatement,unresolved_only_or_unrenderable
+2,5,6,Proposition 4.4,2,0,2,TodaProp44IsomorphismStatement;TodaProp44SecondSummandRestrictionStatement,unresolved_only_or_unrenderable
+2,6,4,Proposition 4.4,2,0,2,TodaProp44IsomorphismStatement;TodaProp44SecondSummandRestrictionStatement,unresolved_only_or_unrenderable
+2,7,4,Proposition 4.4,2,0,2,TodaProp44IsomorphismStatement;TodaProp44SecondSummandRestrictionStatement,unresolved_only_or_unrenderable
+3,6,2,Proposition 5.8,1,0,1,TodaProp58FiniteDimensionalStatement,unresolved_only_or_unrenderable
+3,6,3,Proposition 5.9,1,0,1,TodaProp59FiniteDimensionalStatement,unresolved_only_or_unrenderable
+3,7,2,Proposition 5.9,1,0,1,TodaProp59FiniteDimensionalStatement,unresolved_only_or_unrenderable
+4,4,5,Proposition 5.3,1,0,1,TodaProp53FiniteDimensionalStatement,unresolved_only_or_unrenderable
+4,7,4,Proposition 4.4,1,0,1,TodaProp44IsomorphismStatement,unresolved_only_or_unrenderable
+6,7,8,Proposition 5.3,1,0,1,TodaProp53FiniteDimensionalStatement,unresolved_only_or_unrenderable
+7,7,5,Proposition 5.3,1,0,1,TodaProp53FiniteDimensionalStatement,unresolved_only_or_unrenderable

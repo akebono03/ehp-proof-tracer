@@ -1,0 +1,18 @@
+﻿n,k,route_shape,reference_number,reference,marker_present,has_proof_header,statement
+4,6,standard_reference_plus_proof,3,Lemma 5.4,True,True,"$\nu_{4} \in \pi_{7}^{4}$, $H\left(\nu_{4}\right) = \iota_{7}$, $2E\nu_{4} = E^{2}\nu'$ が成り立つ."
+5,3,legacy_custom_reference_plus_proof,1,Proposition 5.6,True,True,$\operatorname{ord}\left(\nu_{5}\right) = 8$
+5,3,legacy_custom_reference_plus_proof,1,Proposition 5.6,True,True,$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+5,3,legacy_custom_reference_plus_proof,1,Proposition 5.6,True,True,$E^{2}: \pi_{6}^{3} \to \pi_{8}^{5}$ は単射である.
+5,3,legacy_custom_reference_plus_proof,1,Proposition 5.6,True,True,$\pi_{8}^{5}/E^{2}\left(\pi_{6}^{3}\right) \cong \mathbb{Z}/2$
+5,3,legacy_custom_reference_plus_proof,1,Proposition 5.6,True,True,$2\nu_{5} = E^{2}\nu'$
+5,3,legacy_custom_reference_plus_proof,1,Proposition 5.6,True,True,$\operatorname{ord}\left(E^{2}\nu'\right) = 4$
+5,3,legacy_custom_reference_plus_proof,1,Proposition 5.6,True,True,$\operatorname{ord}\left(\nu'\right) = 4$
+5,3,legacy_custom_reference_plus_proof,1,Proposition 5.6,True,True,$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+5,3,legacy_custom_reference_plus_proof,1,Proposition 5.6,True,True,$E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.
+5,3,legacy_custom_reference_plus_proof,2,(5.3),True,True,$\nu' \in \pi_{6}^{3}$
+5,3,legacy_custom_reference_plus_proof,3,Proposition 5.3,False,True,$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+5,3,legacy_custom_reference_plus_proof,4,Lemma 5.4,False,True,$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
+5,7,standard_reference_plus_proof,5,(5.5),True,True,"$\nu_{n} = E^{n - 4}\nu_{4}$, $n \ge 5$, $2\nu_{n} = E^{n - 3}\nu'$, $4\nu_{n} = \eta_{n}\eta_{n + 1}\eta_{n + 2}$ が成り立つ."
+8,7,legacy_custom_reference_plus_proof,1,Proposition 5.15,True,True,$\pi_{15}^{8} \cong \mathbb{Z}/8\{E\sigma'\} \oplus \mathbb{Z}\{\sigma_{8}\}$
+8,7,legacy_custom_reference_plus_proof,1,Proposition 5.15,True,True,$\pi_{14}^{7} = \mathbb{Z}/8\{\sigma'\}$
+9,7,standard_reference_plus_proof,4,Lemma 5.13,True,True,"$\sigma''' \in \{\nu_{5}, 8\iota_{8}, \nu_{8}\}_{3}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ."
