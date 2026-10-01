@@ -1487,15 +1487,6 @@ def suppress_toda_group_proof_narrative_reference_body_duplicates(
           )
           continue
 
-        if replaced_line.rstrip().endswith(
-          marker
-        ):
-          updated_lines.append(
-            replaced_line.rstrip()
-            + "を用いる。"
-          )
-          continue
-
         updated_lines.append(
           replaced_line
         )
@@ -1519,6 +1510,7 @@ def suppress_toda_group_proof_narrative_reference_body_duplicates(
   return "\n".join(
     compacted_lines
   ).strip()
+
 
 def build_toda_group_proof_narrative_generic_used_step_ids(
   presentation: TodaGroupProofPresentation,
