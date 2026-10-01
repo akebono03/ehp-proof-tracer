@@ -18,18 +18,8 @@ from toda_group_proof_generic_narrative_renderer import (
 from toda_human_readable_renderer import (
   _render_scalar_latex,
 )
-from toda_group_proof_narrative_argument_discourse import (
-  TodaGroupProofNarrativeArgumentDiscourseRole,
-  classify_toda_group_proof_narrative_argument_discourse_roles,
-)
-from toda_group_proof_narrative_argument_local_body import (
-  extract_toda_group_proof_narrative_argument_local_body_blocks,
-)
 from toda_group_proof_narrative_argument_multi_renderer import (
   render_toda_group_proof_narrative_multi_argument_markdown,
-)
-from toda_group_proof_narrative_argument_ordering import (
-  order_toda_group_proof_narrative_arguments,
 )
 from toda_group_proof_narrative_argument_renderer import (
   render_toda_group_proof_narrative_argument_purpose_sentence,
@@ -63,7 +53,6 @@ from toda_group_proof_narrative_references import (
   build_toda_group_proof_narrative_reference_entries,
   extract_toda_group_proof_step_literature_reference,
   filter_toda_group_proof_narrative_reference_entries_by_body_usage,
-  filter_toda_group_proof_narrative_reference_entries_by_step_usage,
   render_toda_group_proof_narrative_reference_entries_markdown,
   select_toda_group_proof_narrative_reference_statement_steps,
 )
@@ -1505,96 +1494,6 @@ def suppress_toda_group_proof_narrative_reference_body_duplicates(
   ).strip()
 
 
-def build_toda_group_proof_narrative_generic_used_step_ids(
-  presentation: TodaGroupProofPresentation,
-  blocks: tuple[
-    TodaGroupProofNarrativeBlock,
-    ...,
-  ],
-  semantic_sidecar: TodaGroupProofNarrativeSemanticSidecar,
-  arguments: tuple[
-    TodaGroupProofNarrativeArgument,
-    ...,
-  ],
-  ordered_contributions,
-) -> frozenset[
-  int
-]:
-  if not isinstance(
-    presentation,
-    TodaGroupProofPresentation,
-  ):
-    raise TypeError(
-      "presentation must be a TodaGroupProofPresentation"
-    )
-
-  ordered_arguments = (
-    order_toda_group_proof_narrative_arguments(
-      arguments
-    )
-  )
-  discourse_roles = (
-    classify_toda_group_proof_narrative_argument_discourse_roles(
-      arguments
-    )
-  )
-  source_index_by_identity = {
-    id(
-      argument
-    ): index
-    for index, argument in enumerate(
-      arguments
-    )
-  }
-  used_step_ids = set()
-
-  for ordered_position, argument in enumerate(
-    ordered_arguments
-  ):
-    if (
-      discourse_roles[
-        ordered_position
-      ]
-      is TodaGroupProofNarrativeArgumentDiscourseRole.DETACHED
-    ):
-      continue
-
-    argument_index = source_index_by_identity[
-      id(
-        argument
-      )
-    ]
-    local_body_blocks = (
-      extract_toda_group_proof_narrative_argument_local_body_blocks(
-        presentation,
-        blocks,
-        semantic_sidecar,
-        arguments,
-        argument_index,
-      )
-    )
-
-    used_step_ids.update(
-      id(
-        proof_step
-      )
-      for block in local_body_blocks
-      for proof_step in block.steps
-    )
-
-  used_step_ids.update(
-    id(
-      contribution.proof_step
-    )
-    for contributions in ordered_contributions
-    for contribution in contributions
-  )
-
-  return frozenset(
-    used_step_ids
-  )
-
-
 def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown(
   presentation: TodaGroupProofPresentation,
   blocks: tuple[
@@ -1678,40 +1577,17 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       statement_lines_by_reference_number,
     )
   )
-  if "[R" in rendered:
-    (
+  (
+    reference_entries,
+    statement_lines_by_reference_number,
+    rendered,
+  ) = (
+    filter_toda_group_proof_narrative_reference_entries_by_body_usage(
       reference_entries,
       statement_lines_by_reference_number,
       rendered,
-    ) = (
-      filter_toda_group_proof_narrative_reference_entries_by_body_usage(
-        reference_entries,
-        statement_lines_by_reference_number,
-        rendered,
-      )
     )
-  else:
-    generic_used_step_ids = (
-      build_toda_group_proof_narrative_generic_used_step_ids(
-        presentation,
-        blocks,
-        semantic_sidecar,
-        arguments,
-        ordered_contributions,
-      )
-    )
-    (
-      reference_entries,
-      statement_lines_by_reference_number,
-    ) = (
-      filter_toda_group_proof_narrative_reference_entries_by_step_usage(
-        reference_entries,
-        statement_lines_by_reference_number,
-        generic_used_step_ids,
-        presentation.root_step,
-      )
-    )
-
+  )
   reference_section = (
     render_toda_group_proof_narrative_reference_entries_markdown(
       reference_entries,
