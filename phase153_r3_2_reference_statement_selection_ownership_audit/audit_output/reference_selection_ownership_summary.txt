@@ -1,0 +1,63 @@
+==============================================================================
+Phase 153-R3-2 — Reference Statement Selection / Ownership Audit
+==============================================================================
+scope: n=2..15, k=0..7, depth=2, semantic closure
+production changes: none
+
+groups: 112
+exceptions: 0
+presentation nodes: 713
+reference entries: 222
+statement candidates: 428
+unresolved steps: 37
+
+Selection complexity:
+  single_candidate: entries=98, affected_groups=70
+  single_candidate_with_unresolved: entries=3, affected_groups=3
+  multiple_candidates: entries=88, affected_groups=75
+  multiple_candidates_with_unresolved: entries=5, affected_groups=5
+  unresolved_only: entries=28, affected_groups=19
+
+Current display ownership evidence:
+  reference_only_display_candidate: entries=48, affected_groups=43
+  all_candidates_already_in_body: entries=118, affected_groups=90
+  mixed_reference_body_ownership: entries=28, affected_groups=24
+  no_renderable_candidate: entries=56, affected_groups=19
+
+Proof-graph usage evidence:
+  all_candidates_proof_used: entries=161, affected_groups=91
+  mixed_proof_usage: entries=27, affected_groups=25
+  no_candidate_proof_dependents: entries=6, affected_groups=6
+  no_renderable_candidate: entries=56, affected_groups=19
+
+Unresolved statement types:
+  Toda52CompositionIsomorphismStatement: occurrences=8, affected_groups=8
+  TodaLemma54Statement: occurrences=4, affected_groups=4
+  TodaProp51FiniteDimensionalStatement: occurrences=4, affected_groups=4
+  TodaProp56FiniteDimensionalStatement: occurrences=4, affected_groups=4
+  TodaLemma513Statement: occurrences=3, affected_groups=3
+  TodaProp511FiniteDimensionalStatement: occurrences=3, affected_groups=3
+  TodaProp515Pi12_5HopfIsomorphismStatement: occurrences=3, affected_groups=3
+  Toda36Lemma514SigmaDoublePrimeBridgeStatement: occurrences=2, affected_groups=2
+  Toda55NuFamilyFiniteDimensionalStatement: occurrences=2, affected_groups=2
+  TodaLemma514SigmaPrimeStatement: occurrences=2, affected_groups=2
+  Toda53NuPrimeBracketSpecializationStatement: occurrences=1, affected_groups=1
+  TodaLemma514Sigma8Statement: occurrences=1, affected_groups=1
+
+Audit interpretation:
+  selection_class measures whether one reference entry has one or several renderable statement candidates.
+  ownership_class records whether the same rendered statement is already present in the current narrative body.
+  dependency_class records whether candidate steps are actually consumed by later proof steps in the proof graph.
+  These are audit facts only; R3-2 does not yet choose or suppress any statement.
+
+Output files:
+  reference_entry_selection_ownership.csv
+  reference_candidate_inventory.csv
+  unresolved_reference_steps.csv
+  selection_class_summary.csv
+  ownership_class_summary.csv
+  dependency_class_summary.csv
+  unresolved_statement_type_summary.csv
+  exception_inventory.csv
+  reference_selection_ownership_summary.txt
+==============================================================================
