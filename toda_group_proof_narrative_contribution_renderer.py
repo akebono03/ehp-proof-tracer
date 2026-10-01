@@ -871,21 +871,24 @@ def suppress_toda_group_proof_narrative_reference_body_duplicates(
         if line.strip() == statement_line:
           continue
 
-        if marker not in line:
+        if marker in line:
+          prefix = line.split(
+            marker,
+            1,
+          )[0]
+
           updated_lines.append(
-            line
+            prefix
+            + marker
+            + "を用いる。"
           )
           continue
 
-        prefix = line.split(
-          marker,
-          1,
-        )[0]
-
         updated_lines.append(
-          prefix
-          + marker
-          + "を用いる。"
+          line.replace(
+            statement_line,
+            marker,
+          )
         )
 
       lines = updated_lines
