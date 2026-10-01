@@ -12,6 +12,9 @@ from proof import (
   Relation,
   RelationType,
 )
+from scalar_rules import (
+  ScalarGreaterEqualStatement,
+)
 from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
 )
@@ -201,6 +204,25 @@ def _is_descendant_of(
   )
 
 
+def _is_order_statement(
+  statement,
+) -> bool:
+  if isinstance(
+    statement,
+    ScalarGreaterEqualStatement,
+  ):
+    return True
+
+  return (
+    isinstance(
+      statement,
+      Relation,
+    )
+    and statement.relation_type
+    is RelationType.ORDER
+  )
+
+
 def _is_order_dependency(
   presentation: TodaGroupProofPresentation,
   proof_step: ProofStep,
@@ -241,6 +263,13 @@ def _block_role(
   root_group = _root_group(
     presentation
   )
+
+  if _is_order_statement(
+    statement,
+  ):
+    return (
+      TodaGroupProofNarrativeBlockRole.ORDER
+    )
 
   if (
     isinstance(
