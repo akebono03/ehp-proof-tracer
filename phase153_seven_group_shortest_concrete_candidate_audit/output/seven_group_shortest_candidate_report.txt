@@ -1,0 +1,170 @@
+==============================================================================
+7-Group Shortest Concrete Candidate Audit
+==============================================================================
+targets: pi_6^5, pi_10^6, pi_10^7, pi_12^7, pi_12^9, pi_13^11, pi_14^13
+production changes: none
+tests changes: none
+
+pi_6^5
+  current selected:
+    source=standard.toda.stable::eta_5_specialization
+    rule=ProofRule.INFERENCE
+    reference=(none)
+    premises=1 same-conclusion-in-ancestry=False
+      S1: Relation | Toda higher eta-family finite-cyclic generator bridge | ref=(none)
+  shortest concrete:
+    root=standard.toda.prop56 depth=2
+    rule=Toda Lemma 5.4 pi_6^5 finite-cyclic specialization
+    reference=Lemma 5.4
+    premises=1 same-conclusion-in-ancestry=False
+      C1: TodaProp51FiniteDimensionalStatement | Toda Proposition 5.1 finite-dimensional integration | ref=Proposition 5.1
+  all concrete candidates:
+    #1 standard.toda.prop56@depth2 | Toda Lemma 5.4 pi_6^5 finite-cyclic specialization | premises=1 | self-ancestry=False
+    #2 standard.toda.prop58@depth4 | Toda Lemma 5.4 pi_6^5 finite-cyclic specialization | premises=1 | self-ancestry=False
+    #3 standard.toda.prop511@depth5 | Toda Lemma 5.4 pi_6^5 finite-cyclic specialization | premises=1 | self-ancestry=False
+    #4 standard.toda.prop515@depth5 | Toda Lemma 5.4 pi_6^5 finite-cyclic specialization | premises=1 | self-ancestry=False
+    #5 standard.toda.prop515@depth6 | Toda Lemma 5.4 pi_6^5 finite-cyclic specialization | premises=1 | self-ancestry=False
+    #6 standard.toda.prop511@depth7 | Toda Lemma 5.4 pi_6^5 finite-cyclic specialization | premises=1 | self-ancestry=False
+    #7 standard.toda.prop511@depth7 | Toda Lemma 5.4 pi_6^5 finite-cyclic specialization | premises=1 | self-ancestry=False
+    #8 standard.toda.prop515@depth7 | Toda Lemma 5.4 pi_6^5 finite-cyclic specialization | premises=1 | self-ancestry=False
+    #9 standard.toda.prop56@depth7 | Toda Lemma 5.4 pi_6^5 finite-cyclic specialization | premises=1 | self-ancestry=False
+    #10 standard.toda.prop58@depth7 | Toda Lemma 5.4 pi_6^5 finite-cyclic specialization | premises=1 | self-ancestry=False
+    #11 standard.toda.prop515@depth8 | Toda Lemma 5.4 pi_6^5 finite-cyclic specialization | premises=1 | self-ancestry=False
+    #12 standard.toda.prop515@depth9 | Toda Lemma 5.4 pi_6^5 finite-cyclic specialization | premises=1 | self-ancestry=False
+    #13 standard.toda.prop515@depth9 | Toda Lemma 5.4 pi_6^5 finite-cyclic specialization | premises=1 | self-ancestry=False
+    #14 standard.toda.prop515@depth9 | Toda Lemma 5.4 pi_6^5 finite-cyclic specialization | premises=1 | self-ancestry=False
+    #15 standard.toda.prop58@depth9 | Toda Lemma 5.4 pi_6^5 finite-cyclic specialization | premises=1 | self-ancestry=False
+    #16 standard.toda.prop511@depth10 | Toda Lemma 5.4 pi_6^5 finite-cyclic specialization | premises=1 | self-ancestry=False
+    #17 standard.toda.prop511@depth10 | Toda Lemma 5.4 pi_6^5 finite-cyclic specialization | premises=1 | self-ancestry=False
+    #18 standard.toda.prop515@depth11 | Toda Lemma 5.4 pi_6^5 finite-cyclic specialization | premises=1 | self-ancestry=False
+    #19 standard.toda.prop511@depth12 | Toda Lemma 5.4 pi_6^5 finite-cyclic specialization | premises=1 | self-ancestry=False
+    #20 standard.toda.prop515@depth12 | Toda Lemma 5.4 pi_6^5 finite-cyclic specialization | premises=1 | self-ancestry=False
+    #21 standard.toda.prop515@depth12 | Toda Lemma 5.4 pi_6^5 finite-cyclic specialization | premises=1 | self-ancestry=False
+    #22 standard.toda.prop515@depth14 | Toda Lemma 5.4 pi_6^5 finite-cyclic specialization | premises=1 | self-ancestry=False
+
+pi_10^6
+  current selected:
+    source=standard.toda.stable::four_stem_zero_6_specialization
+    rule=ProofRule.INFERENCE
+    reference=(none)
+    premises=1 same-conclusion-in-ancestry=True
+      S1: TodaPrimaryGroupZeroStatement | Toda Proposition 5.8 higher four-stem zero transport | ref=Proposition 5.8
+  shortest concrete:
+    root=standard.toda.prop58 depth=2
+    rule=Toda Proposition 5.8 pi_10^6 zero
+    reference=Proposition 5.8
+    premises=3 same-conclusion-in-ancestry=False
+      C1: Relation | Toda Proposition 5.8 pi_9^5 finite cyclic | ref=Proposition 5.8
+      C2: TodaSuspensionSurjectiveStatement | Toda Proposition 5.8 pi_10^6 suspension surjective | ref=Proposition 5.8
+      C3: Relation | Toda Proposition 3.1 nu_6 eta_9 zero consequence | ref=Proposition 3.1
+  all concrete candidates:
+    #1 standard.toda.prop58@depth2 | Toda Proposition 5.8 pi_10^6 zero | premises=3 | self-ancestry=False
+    #2 standard.toda.prop515@depth4 | Toda Proposition 5.8 pi_10^6 zero | premises=3 | self-ancestry=False
+    #3 standard.toda.prop511@depth5 | Toda Proposition 5.8 pi_10^6 zero | premises=3 | self-ancestry=False
+    #4 standard.toda.prop515@depth6 | Toda Proposition 5.8 pi_10^6 zero | premises=3 | self-ancestry=False
+    #5 standard.toda.prop511@depth7 | Toda Proposition 5.8 pi_10^6 zero | premises=3 | self-ancestry=False
+    #6 standard.toda.prop515@depth7 | Toda Proposition 5.8 pi_10^6 zero | premises=3 | self-ancestry=False
+
+pi_10^7
+  current selected:
+    source=standard.toda.stable::nu_7_specialization
+    rule=ProofRule.INFERENCE
+    reference=(none)
+    premises=1 same-conclusion-in-ancestry=False
+      S1: Relation | Toda Proposition 5.6 higher nu finite-cyclic generator bridge | ref=Proposition 5.6
+  shortest concrete:
+    root=standard.toda.prop511 depth=2
+    rule=Toda Proposition 5.11 pi_10^7 nu_7 specialization
+    reference=Proposition 5.11
+    premises=1 same-conclusion-in-ancestry=False
+      C1: TodaProp56FiniteDimensionalStatement | Toda Proposition 5.6 finite-dimensional integration | ref=Proposition 5.6
+  all concrete candidates:
+    #1 standard.toda.prop511@depth2 | Toda Proposition 5.11 pi_10^7 nu_7 specialization | premises=1 | self-ancestry=False
+    #2 standard.toda.prop515@depth4 | Toda Proposition 5.11 pi_10^7 nu_7 specialization | premises=1 | self-ancestry=False
+
+pi_12^7
+  current selected:
+    source=standard.toda.stable::five_stem_zero_7_specialization
+    rule=ProofRule.INFERENCE
+    reference=(none)
+    premises=1 same-conclusion-in-ancestry=True
+      S1: TodaPrimaryGroupZeroStatement | Toda Proposition 5.9 higher five-stem zero transport | ref=Proposition 5.9
+  shortest concrete:
+    root=standard.toda.prop511 depth=4
+    rule=Toda Proposition 5.9 pi_12^7 zero
+    reference=Proposition 5.9
+    premises=3 same-conclusion-in-ancestry=False
+      C1: TodaDeltaSurjectiveStatement | Toda Proposition 5.9 pi_13^13 Delta surjective | ref=Proposition 5.9
+      C2: TodaProp42ExactnessStatement | Toda Proposition 5.9 pi_12^7 concrete exactness | ref=Proposition 5.9
+      C3: TodaSuspensionSurjectiveStatement | Toda Proposition 5.9 pi_12^7 suspension surjective | ref=Proposition 5.9
+  all concrete candidates:
+    #1 standard.toda.prop511@depth4 | Toda Proposition 5.9 pi_12^7 zero | premises=3 | self-ancestry=False
+    #2 standard.toda.prop515@depth5 | Toda Proposition 5.9 pi_12^7 zero | premises=3 | self-ancestry=False
+
+pi_12^9
+  current selected:
+    source=standard.toda.stable::nu_9_specialization
+    rule=ProofRule.INFERENCE
+    reference=(none)
+    premises=1 same-conclusion-in-ancestry=False
+      S1: Relation | Toda Proposition 5.6 higher nu finite-cyclic generator bridge | ref=Proposition 5.6
+  shortest concrete:
+    root=standard.toda.prop511 depth=3
+    rule=Toda Proposition 5.11 pi_12^9 nu_9 specialization
+    reference=Proposition 5.11
+    premises=1 same-conclusion-in-ancestry=False
+      C1: TodaProp56FiniteDimensionalStatement | Toda Proposition 5.6 finite-dimensional integration | ref=Proposition 5.6
+  all concrete candidates:
+    #1 standard.toda.prop511@depth3 | Toda Proposition 5.11 pi_12^9 nu_9 specialization | premises=1 | self-ancestry=False
+    #2 standard.toda.prop515@depth3 | Toda Proposition 5.11 pi_12^9 nu_9 specialization | premises=1 | self-ancestry=False
+    #3 standard.toda.prop515@depth5 | Toda Proposition 5.11 pi_12^9 nu_9 specialization | premises=1 | self-ancestry=False
+
+pi_13^11
+  current selected:
+    source=standard.toda.stable::eta_squared_11_specialization
+    rule=ProofRule.INFERENCE
+    reference=(none)
+    premises=1 same-conclusion-in-ancestry=False
+      S1: Relation | Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge | ref=Proposition 5.3
+  shortest concrete:
+    root=standard.toda.prop515 depth=2
+    rule=Toda Proposition 5.11 pi_13^11 eta_11 squared
+    reference=Proposition 5.11
+    premises=1 same-conclusion-in-ancestry=False
+      C1: TodaProp53FiniteDimensionalStatement | Toda Proposition 5.3 finite-dimensional integration | ref=Proposition 5.3
+  all concrete candidates:
+    #1 standard.toda.prop515@depth2 | Toda Proposition 5.11 pi_13^11 eta_11 squared | premises=1 | self-ancestry=False
+    #2 standard.toda.prop511@depth5 | Toda Proposition 5.11 pi_13^11 eta_11 squared | premises=1 | self-ancestry=False
+    #3 standard.toda.prop515@depth7 | Toda Proposition 5.11 pi_13^11 eta_11 squared | premises=1 | self-ancestry=False
+
+pi_14^13
+  current selected:
+    source=standard.toda.stable::eta_13_specialization
+    rule=ProofRule.INFERENCE
+    reference=(none)
+    premises=1 same-conclusion-in-ancestry=False
+      S1: Relation | Toda higher eta-family finite-cyclic generator bridge | ref=(none)
+  shortest concrete:
+    root=standard.toda.prop515 depth=2
+    rule=Toda Proposition 5.11 pi_14^13 eta_13
+    reference=Proposition 5.11
+    premises=1 same-conclusion-in-ancestry=False
+      C1: TodaProp51FiniteDimensionalStatement | Toda Proposition 5.1 finite-dimensional integration | ref=Proposition 5.1
+  all concrete candidates:
+    #1 standard.toda.prop515@depth2 | Toda Proposition 5.11 pi_14^13 eta_13 | premises=1 | self-ancestry=False
+    #2 standard.toda.prop511@depth5 | Toda Proposition 5.11 pi_14^13 eta_13 | premises=1 | self-ancestry=False
+    #3 standard.toda.prop515@depth7 | Toda Proposition 5.11 pi_14^13 eta_13 | premises=1 | self-ancestry=False
+
+==============================================================================
+Interpretation
+==============================================================================
+A shortest concrete candidate is structurally safer than the selected stable specialization when it has real premises, carries the theorem/lemma-specific inference rule, and does not contain its own conclusion in its ancestry.
+This audit does not yet change selection priority. It identifies whether shortest-depth is a safe generic representative rule for all seven affected groups.
+
+Output files:
+  seven_group_shortest_candidate_report.txt
+  seven_group_summary.csv
+  shortest_candidate_premises.csv
+  all_concrete_candidates.csv
+  exception_inventory.csv
+==============================================================================
