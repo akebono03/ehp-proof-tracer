@@ -1,0 +1,9 @@
+﻿n,k,source_theorem,reference_number,reference,classification,selected_statement_type,selected_statement,root_statement_type,root_statement,selected_is_root_identity,same_source_theorem
+2,2,Toda Proposition 5.3,1,(5.2),selected_root_step_identity,Relation,$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$,Relation,$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$,True,False
+2,3,Toda Proposition 5.6,1,Proposition 5.6,selected_root_step_identity,Relation,$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$,Relation,$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$,True,True
+2,4,Toda Proposition 5.8,1,Lemma 5.7,selected_root_step_identity,Relation,$\pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\}$,Relation,$\pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\}$,True,False
+2,5,Toda Proposition 5.9,1,Proposition 5.9,selected_root_step_identity,Relation,$\pi_{7}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\}$,Relation,$\pi_{7}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\}$,True,True
+2,6,Toda Proposition 5.11,1,Proposition 5.11,selected_root_step_identity,Relation,$\pi_{8}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\eta_{7}\}$,Relation,$\pi_{8}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\eta_{7}\}$,True,True
+2,7,Toda Proposition 5.15,1,Proposition 5.15,selected_root_step_identity,TodaPrimaryGroupZeroStatement,$\pi_{9}^{2} = 0$,TodaPrimaryGroupZeroStatement,$\pi_{9}^{2} = 0$,True,True
+6,4,Toda Proposition 5.8,1,Proposition 5.8,selected_root_conclusion_equal,TodaPrimaryGroupZeroStatement,$\pi_{10}^{6} = 0$,TodaPrimaryGroupZeroStatement,$\pi_{10}^{6} = 0$,False,True
+7,5,Toda Proposition 5.9,1,Proposition 5.9,selected_root_conclusion_equal,TodaPrimaryGroupZeroStatement,$\pi_{12}^{7} = 0$,TodaPrimaryGroupZeroStatement,$\pi_{12}^{7} = 0$,False,True

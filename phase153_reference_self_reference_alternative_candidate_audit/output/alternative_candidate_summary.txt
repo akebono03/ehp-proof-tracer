@@ -1,0 +1,37 @@
+==============================================================================
+Reference Self-Reference Alternative Candidate Audit
+==============================================================================
+scope: n=2..15, k=0..7, depth=2, semantic closure
+production changes: none
+tests changes: none
+
+groups: 112
+exceptions: 0
+affected groups: 8
+confirmed self-reference selected steps: 8
+defect entries with alternative selected candidate: 2
+defect entries without alternative selected candidate: 6
+
+Affected groups:
+  pi_4^2  Toda Proposition 5.3  self=1  alternative-entry=0  empty-entry=1
+  pi_5^2  Toda Proposition 5.6  self=1  alternative-entry=0  empty-entry=1
+  pi_6^2  Toda Proposition 5.8  self=1  alternative-entry=0  empty-entry=1
+  pi_7^2  Toda Proposition 5.9  self=1  alternative-entry=0  empty-entry=1
+  pi_8^2  Toda Proposition 5.11  self=1  alternative-entry=0  empty-entry=1
+  pi_9^2  Toda Proposition 5.15  self=1  alternative-entry=0  empty-entry=1
+  pi_10^6  Toda Proposition 5.8  self=1  alternative-entry=1  empty-entry=0
+  pi_12^7  Toda Proposition 5.9  self=1  alternative-entry=1  empty-entry=0
+
+Output files:
+  alternative_candidate_summary.txt
+  affected_groups.csv
+  defect_reference_entries.csv
+  candidate_inventory.csv
+  direct_root_premises.csv
+  exception_inventory.csv
+
+Interpretation:
+  candidate_inventory.csv shows what remains in the same Reference entry after self-reference exclusion.
+  direct_root_premises.csv shows the actual immediate proof dependencies of each affected target.
+  This audit does not decide whether same-theorem alternatives are mathematically appropriate.
+==============================================================================
