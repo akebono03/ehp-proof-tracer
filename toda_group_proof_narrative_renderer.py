@@ -36,6 +36,7 @@ from toda_group_proof_narrative_argument_multi_renderer import (
   render_toda_group_proof_narrative_multi_argument_markdown,
 )
 from toda_group_proof_narrative_contribution_renderer import (
+  _toda_group_proof_narrative_reference_statement_lines_by_number,
   render_toda_group_proof_narrative_multi_argument_with_contributions_markdown,
 )
 from toda_group_proof_narrative_blocks import (
@@ -4031,9 +4032,18 @@ def render_toda_group_proof_narrative_markdown(
     if presentation.max_depth >= 2
     else ()
   )
+  statement_lines_by_reference_number = (
+    _toda_group_proof_narrative_reference_statement_lines_by_number(
+      presentation,
+      reference_entries,
+    )
+    if reference_entries
+    else {}
+  )
   reference_section = (
     render_toda_group_proof_narrative_reference_entries_markdown(
-      reference_entries
+      reference_entries,
+      statement_lines_by_reference_number,
     )
   )
   reference_marker_by_step_id = {

@@ -246,9 +246,72 @@ def select_toda_group_proof_narrative_reference_statement_steps(
 
 def render_toda_group_proof_narrative_reference_entries_markdown(
   entries: tuple[TodaGroupProofNarrativeReferenceEntry, ...],
+  statement_lines_by_reference_number: (
+    dict[
+      int,
+      tuple[
+        str,
+        ...,
+      ],
+    ]
+    | None
+  ) = None,
 ) -> str:
   if not isinstance(entries, tuple):
     raise TypeError("entries must be a tuple")
+
+  if (
+    statement_lines_by_reference_number is not None
+    and not isinstance(
+      statement_lines_by_reference_number,
+      dict,
+    )
+  ):
+    raise TypeError(
+      "statement_lines_by_reference_number must be "
+      "a dict or None"
+    )
+
+  if statement_lines_by_reference_number is not None:
+    for reference_number, statement_lines in (
+      statement_lines_by_reference_number.items()
+    ):
+      if (
+        isinstance(
+          reference_number,
+          bool,
+        )
+        or not isinstance(
+          reference_number,
+          int,
+        )
+      ):
+        raise TypeError(
+          "statement_lines_by_reference_number keys "
+          "must be integers"
+        )
+
+      if not isinstance(
+        statement_lines,
+        tuple,
+      ):
+        raise TypeError(
+          "statement_lines_by_reference_number values "
+          "must be tuples"
+        )
+
+      if not all(
+        isinstance(
+          line,
+          str,
+        )
+        for line in statement_lines
+      ):
+        raise TypeError(
+          "statement_lines_by_reference_number values "
+          "must contain only strings"
+        )
+
   if not entries:
     return ""
 
@@ -260,7 +323,22 @@ def render_toda_group_proof_narrative_reference_entries_markdown(
         "entries must contain only "
         "TodaGroupProofNarrativeReferenceEntry objects"
       )
+
     title = entry.reference.locator or entry.reference.label
     lines.append(f"**[R{entry.number}] {title}.**")
+
+    statement_lines = (
+      ()
+      if statement_lines_by_reference_number is None
+      else statement_lines_by_reference_number.get(
+        entry.number,
+        (),
+      )
+    )
+
+    for statement_line in statement_lines:
+      lines.append(
+        statement_line
+      )
 
   return "\n".join(lines)

@@ -37,6 +37,7 @@ from toda_group_proof_narrative_reasons import (
 from toda_group_proof_narrative_references import (
   build_toda_group_proof_narrative_reference_entries,
   render_toda_group_proof_narrative_reference_entries_markdown,
+  select_toda_group_proof_narrative_reference_statement_steps,
 )
 from toda_group_proof_narrative_semantics import (
   TodaGroupProofNarrativeSemanticSidecar,
@@ -670,6 +671,118 @@ def _insert_toda_group_proof_narrative_argument_contributions(
   return rendered
 
 
+def _is_toda_group_proof_narrative_reference_statement_candidate(
+  proof_step,
+  rendered_statement: str,
+) -> bool:
+  if not rendered_statement:
+    return False
+
+  inference_rule = proof_step.inference_rule
+
+  if (
+    inference_rule is not None
+    and rendered_statement == inference_rule.name
+  ):
+    return False
+
+  if (
+    rendered_statement
+    == "`"
+    + type(
+      proof_step.conclusion
+    ).__name__
+    + "`"
+  ):
+    return False
+
+  if rendered_statement == repr(
+    proof_step.conclusion
+  ):
+    return False
+
+  if rendered_statement == str(
+    proof_step.conclusion
+  ):
+    return False
+
+  return True
+
+
+def _toda_group_proof_narrative_reference_statement_lines_by_number(
+  presentation: TodaGroupProofPresentation,
+  reference_entries,
+) -> dict[
+  int,
+  tuple[
+    str,
+    ...,
+  ],
+]:
+  statement_lines_by_reference_number = {}
+
+  for entry in reference_entries:
+    candidate_steps = []
+    rendered_by_step_id = {}
+    seen_rendered_statements = set()
+
+    for proof_step in entry.proof_steps:
+      rendered_statement = (
+        _render_generic_narrative_step(
+          proof_step
+        )
+      )
+
+      if not (
+        _is_toda_group_proof_narrative_reference_statement_candidate(
+          proof_step,
+          rendered_statement,
+        )
+      ):
+        continue
+
+      if rendered_statement in seen_rendered_statements:
+        continue
+
+      seen_rendered_statements.add(
+        rendered_statement
+      )
+      candidate_steps.append(
+        proof_step
+      )
+      rendered_by_step_id[
+        id(
+          proof_step
+        )
+      ] = rendered_statement
+
+    selected_steps = (
+      select_toda_group_proof_narrative_reference_statement_steps(
+        entry,
+        tuple(
+          candidate_steps
+        ),
+        presentation.edges,
+      )
+    )
+
+    statement_lines = tuple(
+      rendered_by_step_id[
+        id(
+          proof_step
+        )
+      ]
+      for proof_step in selected_steps
+    )
+
+    if statement_lines:
+      statement_lines_by_reference_number[
+        entry.number
+      ] = statement_lines
+
+  return statement_lines_by_reference_number
+
+
 def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown(
   presentation: TodaGroupProofPresentation,
   blocks: tuple[
@@ -734,9 +847,16 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       presentation
     )
   )
+  statement_lines_by_reference_number = (
+    _toda_group_proof_narrative_reference_statement_lines_by_number(
+      presentation,
+      reference_entries,
+    )
+  )
   reference_section = (
     render_toda_group_proof_narrative_reference_entries_markdown(
-      reference_entries
+      reference_entries,
+      statement_lines_by_reference_number,
     )
   )
 
