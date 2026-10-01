@@ -3866,46 +3866,180 @@ def _phase134_24_render_pi15_8_narrative(
     + "\n"
   )
 
-def _wrap_phase150_rc4_generic_public_narrative(
+def _phase153_r3_10_connect_public_reference_section(
+  presentation: TodaGroupProofPresentation,
   rendered: str,
 ) -> str:
-  if not isinstance(rendered, str):
-    raise TypeError("rendered must be a str")
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
 
-  lines = rendered.splitlines()
-  reference_line_indices = [
-    index
-    for index, line in enumerate(lines)
-    if line.startswith("**[R")
-  ]
+  if not isinstance(
+    rendered,
+    str,
+  ):
+    raise TypeError(
+      "rendered must be a str"
+    )
 
-  if not reference_line_indices:
+  if presentation.max_depth < 2:
     return rendered
 
-  last_reference_index = reference_line_indices[-1]
-  reference_lines = lines[
-    :last_reference_index + 1
+  reference_entries = (
+    build_toda_group_proof_narrative_reference_entries(
+      presentation
+    )
+  )
+
+  if not reference_entries:
+    return rendered
+
+  statement_lines_by_reference_number = (
+    _toda_group_proof_narrative_reference_statement_lines_by_number(
+      presentation,
+      reference_entries,
+    )
+  )
+  reference_section = (
+    render_toda_group_proof_narrative_reference_entries_markdown(
+      reference_entries,
+      statement_lines_by_reference_number,
+    )
+  )
+
+  if not reference_section:
+    return rendered
+
+  lines = rendered.splitlines()
+  reference_header = "## 使用する結果"
+  proof_header = "## 証明"
+
+  try:
+    reference_index = lines.index(
+      reference_header
+    )
+    proof_index = lines.index(
+      proof_header
+    )
+  except ValueError:
+    return rendered
+
+  if reference_index >= proof_index:
+    return rendered
+
+  prefix_lines = lines[
+    :reference_index
   ]
   proof_lines = lines[
-    last_reference_index + 1:
+    proof_index:
   ]
 
-  while proof_lines and not proof_lines[0]:
-    proof_lines.pop(0)
+  while (
+    prefix_lines
+    and not prefix_lines[
+      -1
+    ].strip()
+  ):
+    prefix_lines.pop()
 
-  wrapped_lines = [
-    "# Group proof narrative",
-    "",
-    "## 使用する結果",
-    "",
-    *reference_lines,
-    "",
-    "## 証明",
-    "",
-    *proof_lines,
-  ]
+  while (
+    proof_lines
+    and not proof_lines[
+      0
+    ].strip()
+  ):
+    proof_lines.pop(
+      0
+    )
 
-  return "\n".join(wrapped_lines).rstrip() + "\n"
+  return (
+    "\n".join(
+      (
+        *prefix_lines,
+        "",
+        reference_header,
+        "",
+        reference_section,
+        "",
+        *proof_lines,
+      )
+    ).rstrip()
+    + "\n"
+  )
+
+
+def _wrap_phase150_rc4_generic_public_narrative(
+  presentation: TodaGroupProofPresentation,
+  rendered: str,
+) -> str:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
+
+  if not isinstance(
+    rendered,
+    str,
+  ):
+    raise TypeError(
+      "rendered must be a str"
+    )
+
+  reference_entries = (
+    build_toda_group_proof_narrative_reference_entries(
+      presentation
+    )
+  )
+  statement_lines_by_reference_number = (
+    _toda_group_proof_narrative_reference_statement_lines_by_number(
+      presentation,
+      reference_entries,
+    )
+  )
+  reference_section = (
+    render_toda_group_proof_narrative_reference_entries_markdown(
+      reference_entries,
+      statement_lines_by_reference_number,
+    )
+  )
+
+  if not reference_section:
+    return rendered
+
+  reference_prefix = (
+    reference_section
+    + "\n\n"
+  )
+
+  if not rendered.startswith(
+    reference_prefix
+  ):
+    return rendered
+
+  proof = rendered[
+    len(
+      reference_prefix
+    ):
+  ].lstrip()
+
+  return (
+    "# Group proof narrative\n\n"
+    "## 使用する結果\n\n"
+    + reference_section
+    + "\n\n"
+    "## 証明\n\n"
+    + proof.rstrip()
+    + "\n"
+  )
 
 
 def _is_phase150_rc4_generic_route_target(
@@ -3962,7 +4096,12 @@ def render_toda_group_proof_narrative_markdown(
   )
 
   if phase134_24_pi15_8 is not None:
-    return phase134_24_pi15_8
+    return (
+      _phase153_r3_10_connect_public_reference_section(
+        presentation,
+        phase134_24_pi15_8,
+      )
+    )
 
   if (
     _is_phase134_3_pi6_3_presentation(
@@ -4004,7 +4143,8 @@ def render_toda_group_proof_narrative_markdown(
       presentation
     ):
       return _wrap_phase150_rc4_generic_public_narrative(
-        rendered
+        presentation,
+        rendered,
       )
 
     return rendered
@@ -4012,9 +4152,16 @@ def render_toda_group_proof_narrative_markdown(
   if _is_phase134_9_pi8_5_presentation(
     presentation
   ):
-    return (
+    rendered = (
       _render_phase134_9_pi8_5_narrative_markdown(
         presentation
+      )
+    )
+
+    return (
+      _phase153_r3_10_connect_public_reference_section(
+        presentation,
+        rendered,
       )
     )
 
