@@ -26,6 +26,9 @@ from repository_element_presentation import (
 from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
 )
+from toda_group_proof_generic_narrative_renderer import (
+  _render_generic_narrative_step,
+)
 from toda_group_proof_narrative_arguments import (
   build_toda_group_proof_narrative_arguments,
 )
@@ -45,6 +48,9 @@ from toda_group_proof_narrative_semantics import (
 from toda_group_proof_narrative_references import (
   build_toda_group_proof_narrative_reference_entries,
   render_toda_group_proof_narrative_reference_entries_markdown,
+)
+from toda_group_proof_narrative_provenance_catalog import (
+  is_toda_group_proof_narrative_provenance_only_statement,
 )
 from toda_group_proof_narrative_helpers import (
   root_generator,
@@ -2802,18 +2808,90 @@ def _append_narrative_for_step(
         )
       )
     else:
-      lines.append(
-        (
-          lead
-          + "、"
-          + (
-            premise_reference_marker
-            if premise_reference_marker is not None
-            else premise_fact
-          )
-          + "を用いる。"
+      generic_premise_fact = (
+        _render_generic_narrative_step(
+          premise_step
         )
       )
+      inference_rule = (
+        premise_step.inference_rule
+      )
+      generic_fact_is_fallback = (
+        (
+          inference_rule is not None
+          and generic_premise_fact
+          == inference_rule.name
+        )
+        or generic_premise_fact
+        == (
+          "`"
+          + type(
+            premise_step.conclusion
+          ).__name__
+          + "`"
+        )
+        or generic_premise_fact
+        == repr(
+          premise_step.conclusion
+        )
+        or generic_premise_fact
+        == str(
+          premise_step.conclusion
+        )
+      )
+      reference_plus_semantic_fact = (
+        premise_reference_marker
+        is not None
+        and not (
+          is_toda_group_proof_narrative_provenance_only_statement(
+            premise_step.conclusion
+          )
+        )
+        and not generic_fact_is_fallback
+      )
+
+      if reference_plus_semantic_fact:
+        if (
+          generic_premise_fact.startswith(
+            "$"
+          )
+          and generic_premise_fact.endswith(
+            "$"
+          )
+        ):
+          lines.append(
+            (
+              lead
+              + "、"
+              + premise_reference_marker
+              + " により、"
+              + generic_premise_fact
+              + "を得る。"
+            )
+          )
+        else:
+          lines.append(
+            (
+              lead
+              + "、"
+              + premise_reference_marker
+              + " により、"
+              + generic_premise_fact
+            )
+          )
+      else:
+        lines.append(
+          (
+            lead
+            + "、"
+            + (
+              premise_reference_marker
+              if premise_reference_marker is not None
+              else premise_fact
+            )
+            + "を用いる。"
+          )
+        )
 
     expanded_step_ids.add(
       premise_id
