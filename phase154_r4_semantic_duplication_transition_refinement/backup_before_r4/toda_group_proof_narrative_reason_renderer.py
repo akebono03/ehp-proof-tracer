@@ -222,7 +222,6 @@ def insert_toda_group_proof_narrative_reason_prose(
     )
 
   rendered = markdown
-  emitted_final_result_sentences = set()
 
   for reason in reason_sidecar.reasons:
     sentence = render_toda_group_proof_narrative_reason_sentence(
@@ -230,18 +229,6 @@ def insert_toda_group_proof_narrative_reason_prose(
     )
     if sentence is None:
       continue
-
-    if (
-      reason.kind
-      is TodaGroupProofNarrativeReasonKind
-      .FINAL_RESULT_DERIVATION
-    ):
-      if sentence in emitted_final_result_sentences:
-        continue
-
-      emitted_final_result_sentences.add(
-        sentence
-      )
 
     insertion_index = (
       _toda_group_proof_narrative_reason_insertion_index(
@@ -267,4 +254,3 @@ def insert_toda_group_proof_narrative_reason_prose(
     )
 
   return rendered
-
