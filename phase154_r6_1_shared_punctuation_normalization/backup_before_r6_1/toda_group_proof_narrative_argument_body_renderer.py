@@ -174,7 +174,7 @@ def _render_toda_group_proof_narrative_argument_exactness_body_block(
       lines.append(
         "$"
         + exactness_latex
-        + "$ は完全である。"
+        + "$ は完全である."
       )
       lines.append(
         ""
@@ -560,7 +560,7 @@ def _insert_toda_group_proof_narrative_relocated_direct_premises(
               english_suffix
             )
           ]
-          + "$ は完全である。"
+          + "$ は完全である."
         )
 
     relocated_lines.append(

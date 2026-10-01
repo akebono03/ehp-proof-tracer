@@ -96,7 +96,7 @@ def render_toda_group_proof_narrative_reason_sentence(
       f"$\\operatorname{{ord}}({ordered_latex})=2$ "
       f"かつ $2{target_latex}={ordered_latex}$ より、"
       f"$4{target_latex}=0$ かつ "
-      f"$2{target_latex}\\neq0$ である。\n"
+      f"$2{target_latex}\\neq0$ である.\n"
       "したがって、"
     )
 
@@ -123,7 +123,7 @@ def render_toda_group_proof_narrative_reason_sentence(
     return (
       "この短完全列と両端の群の位数より、"
       f"中央の群の位数は ${left_order}\cdot"
-      f"{right_order}={middle_order}$ である。\n"
+      f"{right_order}={middle_order}$ である.\n"
       f"また、${generator_latex}$ は中央の群に属し、"
       f"$\operatorname{{ord}}({generator_latex})"
       f"={order_statement.rhs}={middle_order}$ であるから、"

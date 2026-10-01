@@ -48,18 +48,18 @@ def test_phase154_r2_fix2_pi11_4_semantic_sentences_are_not_double_wrapped():
   assert "である.を用いる。" not in rendered
   assert (
     r"まず、$H: \pi_{10}^{3} \to \pi_{10}^{5}$ "
-    r"は単射である。"
+    r"は単射である."
     in rendered
   )
   assert (
     r"また、$\Delta: \pi_{10}^{5} \to \pi_{8}^{2}$ "
-    r"は単射である。"
+    r"は単射である."
     in rendered
   )
   assert (
     r"さらに、$\pi_{10}^{3} \xrightarrow{H} "
     r"\pi_{10}^{5} \xrightarrow{Δ} \pi_{8}^{2}$ "
-    r"は完全である。"
+    r"は完全である."
     in rendered
   )
 

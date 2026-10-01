@@ -50,7 +50,7 @@ def test_phase154_r2_fixed1_pi10_4_replaces_raw_nu4_rule_name_with_semantic_pros
     not in rendered
   )
   assert (
-    r"$\nu_{4}$ の分解を用いる."
+    r"$\nu_{4}$ の分解を用いる。"
     in rendered
   )
   assert (
@@ -67,6 +67,6 @@ def test_phase154_r2_fixed1_pi11_4_keeps_previous_r2_semantic_repairs():
 
   assert r"\text{ is injective}" not in rendered
   assert r"\text{ is exact}" not in rendered
-  assert "は単射である." in rendered
-  assert "は完全である." in rendered
+  assert "は単射である。" in rendered
+  assert "は完全である。" in rendered
   assert r"\pi_{11}^{4} = 0" in rendered

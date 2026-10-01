@@ -803,7 +803,7 @@ def render_toda_group_proof_narrative_reference_entries_markdown(
   if not entries:
     return ""
 
-  lines = ["使用する結果を先にまとめる.", ""]
+  lines = ["使用する結果を先にまとめる。", ""]
 
   for entry in entries:
     if not isinstance(entry, TodaGroupProofNarrativeReferenceEntry):

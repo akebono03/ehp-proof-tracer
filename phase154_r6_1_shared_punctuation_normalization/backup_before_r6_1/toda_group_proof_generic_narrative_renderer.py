@@ -1015,57 +1015,6 @@ def _render_generic_narrative_statement_prose(
 
   return None
 
-def _normalize_toda_group_proof_narrative_sentence_endings(
-  prose: str,
-) -> str:
-  if not isinstance(
-    prose,
-    str,
-  ):
-    raise TypeError(
-      "prose must be a str"
-    )
-
-  normalized_lines = []
-
-  for line in prose.splitlines():
-    stripped = line.rstrip()
-    trailing = line[
-      len(
-        stripped
-      ):
-    ]
-    has_japanese = any(
-      (
-        "\u3040" <= character <= "\u30ff"
-        or "\u3400" <= character <= "\u9fff"
-      )
-      for character in stripped
-    )
-
-    if (
-      has_japanese
-      and stripped.endswith(
-        "."
-      )
-    ):
-      stripped = (
-        stripped[
-          :-1
-        ]
-        + "。"
-      )
-
-    normalized_lines.append(
-      stripped
-      + trailing
-    )
-
-  return "\n".join(
-    normalized_lines
-  )
-
-
 def _render_generic_narrative_step(
   proof_step: ProofStep,
 ) -> str:
@@ -1086,11 +1035,7 @@ def _render_generic_narrative_step(
   )
 
   if prose is not None:
-    return (
-      _normalize_toda_group_proof_narrative_sentence_endings(
-        prose
-      )
-    )
+    return prose
 
   try:
     latex = (
@@ -1647,7 +1592,7 @@ def _generic_short_exact_sequence_reason_prose(
   return (
     "この完全性と、左の写像が単射、"
     "右の写像が全射であることより、"
-    "次の短完全列を得る。"
+    "次の短完全列を得る."
   )
 
 
@@ -1704,7 +1649,7 @@ def _generic_narrative_sentence_lead(
       role
       is TodaGroupProofNarrativeMathematicalBlockRole.EXACTNESS
     ):
-      return "次の完全列を考える。"
+      return "次の完全列を考える."
 
     return ""
 
@@ -1718,7 +1663,7 @@ def _generic_narrative_sentence_lead(
   ):
     return (
       dependency_text
-      + " の条件のもとで, 次の定義を用いる。"
+      + " の条件のもとで, 次の定義を用いる."
     )
 
   if (
@@ -1727,7 +1672,7 @@ def _generic_narrative_sentence_lead(
   ):
     return (
       dependency_text
-      + " を用いて, 次の完全列を考える。"
+      + " を用いて, 次の完全列を考える."
     )
 
   return (
