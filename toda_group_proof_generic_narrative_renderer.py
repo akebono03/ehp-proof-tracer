@@ -32,6 +32,7 @@ from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
 )
 from toda_human_readable_renderer import (
+  _render_scalar_latex,
   render_toda_expression_latex,
 )
 from toda_proof_narrative_renderer import (
@@ -39,6 +40,7 @@ from toda_proof_narrative_renderer import (
   render_toda_proof_statement_latex,
 )
 from toda_rules import (
+  Toda45IsomorphismStatement,
   TodaDeltaInjectiveStatement,
   TodaDeltaZeroStatement,
   TodaHopfInvariantInjectiveStatement,
@@ -732,6 +734,7 @@ _GENERIC_SURJECTIVE_STATEMENT_TYPES = (
 
 
 _GENERIC_ISOMORPHISM_STATEMENT_TYPES = (
+  Toda45IsomorphismStatement,
   TodaHopfInvariantIsomorphismStatement,
   TodaSuspensionIsomorphismStatement,
 )
@@ -768,27 +771,38 @@ def _generic_group_map_name(
   ):
     exponent = group_map.exponent
 
-    if (
-      not isinstance(
-        exponent,
-        int,
-      )
-      or isinstance(
-        exponent,
-        bool,
-      )
-      or exponent < 1
+    if isinstance(
+      exponent,
+      bool,
     ):
       return None
 
-    if exponent == 1:
-      return "E"
+    if isinstance(
+      exponent,
+      int,
+    ):
+      if exponent < 1:
+        return None
+
+      if exponent == 1:
+        return "E"
+
+      exponent_latex = str(
+        exponent
+      )
+    else:
+      try:
+        exponent_latex = (
+          _render_scalar_latex(
+            exponent
+          )
+        )
+      except TypeError:
+        return None
 
     return (
       r"E^{"
-      + str(
-        exponent
-      )
+      + exponent_latex
       + "}"
     )
 
