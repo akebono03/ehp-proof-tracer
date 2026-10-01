@@ -1623,7 +1623,7 @@ def link_toda_group_proof_narrative_reference_body_consumers(
         marker in line
         and line.rstrip().endswith(
           marker
-          + "を用いる."
+          + "を用いる。"
         )
       )
     )
@@ -1793,7 +1793,7 @@ def suppress_toda_group_proof_narrative_reference_body_duplicates(
         if marker in line:
           updated_lines.append(
             marker
-            + "を用いる."
+            + "を用いる。"
           )
           continue
 
@@ -1807,7 +1807,7 @@ def suppress_toda_group_proof_narrative_reference_body_duplicates(
           and (
             replaced_line.rstrip().endswith(
               marker
-              + "を得る."
+              + "を得る。"
             )
             or replaced_line.rstrip().endswith(
               marker
@@ -1817,7 +1817,7 @@ def suppress_toda_group_proof_narrative_reference_body_duplicates(
         ):
           updated_lines.append(
             marker
-            + "を用いる."
+            + "を用いる。"
           )
           continue
 
@@ -1826,7 +1826,7 @@ def suppress_toda_group_proof_narrative_reference_body_duplicates(
         ):
           updated_lines.append(
             replaced_line.rstrip()
-            + "を用いる."
+            + "を用いる。"
           )
           continue
 

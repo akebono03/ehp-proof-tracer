@@ -2809,7 +2809,7 @@ def _append_narrative_for_step(
             lead
             + "、すでに得た"
             + premise_fact
-            + "を用いる."
+            + "を用いる。"
           )
         )
       continue
@@ -2830,7 +2830,7 @@ def _append_narrative_for_step(
           lead
           + "、"
           + premise_reference_reuse_marker
-          + "を用いる."
+          + "を用いる。"
         )
       )
     elif premise_edges:
@@ -2874,7 +2874,7 @@ def _append_narrative_for_step(
             )
             + "、"
             + premise_fact
-            + "を得る."
+            + "を得る。"
           )
         )
     else:
@@ -2928,7 +2928,7 @@ def _append_narrative_for_step(
               + premise_reference_marker
               + " により、"
               + generic_premise_fact
-              + "を得る."
+              + "を得る。"
             )
           )
         else:
@@ -2965,7 +2965,7 @@ def _append_narrative_for_step(
               if premise_reference_marker is not None
               else premise_fact
             )
-            + "を用いる."
+            + "を用いる。"
           )
         )
 
@@ -4375,7 +4375,7 @@ def render_toda_group_proof_narrative_markdown(
           + _render_group_proof_narrative_fact(
             presentation.root_step
           )
-          + "を得る."
+          + "を得る。"
         ),
       )
     )
@@ -4386,7 +4386,7 @@ def render_toda_group_proof_narrative_markdown(
         + _render_group_proof_narrative_fact(
           presentation.root_step
         )
-        + "である."
+        + "である。"
       )
     )
 

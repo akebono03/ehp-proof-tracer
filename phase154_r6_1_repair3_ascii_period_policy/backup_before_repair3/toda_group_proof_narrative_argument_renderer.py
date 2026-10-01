@@ -88,7 +88,7 @@ def render_toda_group_proof_narrative_argument_purpose_sentence(
     .ESTABLISH_DEFINITION
   ):
     return (
-      f"${subject_latex}$ を定める."
+      f"${subject_latex}$ を定める。"
     )
 
   if (
@@ -97,7 +97,7 @@ def render_toda_group_proof_narrative_argument_purpose_sentence(
     .ESTABLISH_ORDER
   ):
     return (
-      f"${subject_latex}$ の位数を決定する."
+      f"${subject_latex}$ の位数を決定する。"
     )
 
   if (
@@ -106,7 +106,7 @@ def render_toda_group_proof_narrative_argument_purpose_sentence(
     .ESTABLISH_GROUP_STRUCTURE
   ):
     return (
-      f"${subject_latex}$ の群構造を決定する."
+      f"${subject_latex}$ の群構造を決定する。"
     )
 
   return None
@@ -173,7 +173,7 @@ def render_toda_group_proof_narrative_argument_header_method_section(
     purpose is not None
     and transition is not None
     and purpose.endswith(
-      "する."
+      "する。"
     )
     and transition.startswith(
       "そのために、"
@@ -183,7 +183,7 @@ def render_toda_group_proof_narrative_argument_header_method_section(
       marker
       + purpose[
         :-len(
-          "する."
+          "する。"
         )
       ]
       + "するために、"

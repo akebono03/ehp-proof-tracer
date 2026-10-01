@@ -39,7 +39,7 @@ def _render_group(
   )
 
 
-def test_phase154_r2_pi10_4_suppresses_raw_contribution_rule_name():
+def test_phase154_r2_fixed1_pi10_4_replaces_raw_nu4_rule_name_with_semantic_prose():
   rendered = _render_group(
     4,
     6,
@@ -50,57 +50,23 @@ def test_phase154_r2_pi10_4_suppresses_raw_contribution_rule_name():
     not in rendered
   )
   assert (
+    r"$\nu_{4}$ の分解を用いる。"
+    in rendered
+  )
+  assert (
     r"\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}"
     in rendered
   )
 
 
-def test_phase154_r2_pi11_4_renders_injective_fact_in_japanese():
+def test_phase154_r2_fixed1_pi11_4_keeps_previous_r2_semantic_repairs():
   rendered = _render_group(
     4,
     7,
   )
 
   assert r"\text{ is injective}" not in rendered
-  assert "は単射である."in rendered
-  assert (
-    r"\pi_{11}^{4} = 0"
-    in rendered
-  )
-
-
-def test_phase154_r2_pi11_4_renders_exactness_fact_in_japanese():
-  rendered = _render_group(
-    4,
-    7,
-  )
-
   assert r"\text{ is exact}" not in rendered
-  assert "は完全である."in rendered
-  assert (
-    r"\pi_{11}^{4} = 0"
-    in rendered
-  )
-
-
-def test_phase154_r2_representative_public_narratives_have_no_known_raw_fallbacks():
-  forbidden = (
-    "Toda (5.6) nu_4 decomposition integration",
-    r"\text{ is injective}",
-    r"\text{ is exact}",
-  )
-
-  for n, k in (
-    (3, 3),
-    (4, 6),
-    (4, 7),
-    (5, 7),
-    (9, 7),
-  ):
-    rendered = _render_group(
-      n,
-      k,
-    )
-
-    for fragment in forbidden:
-      assert fragment not in rendered
+  assert "は単射である。" in rendered
+  assert "は完全である。" in rendered
+  assert r"\pi_{11}^{4} = 0" in rendered

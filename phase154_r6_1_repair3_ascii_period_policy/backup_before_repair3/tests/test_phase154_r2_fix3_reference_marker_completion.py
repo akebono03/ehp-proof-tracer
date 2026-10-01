@@ -64,7 +64,7 @@ def test_phase154_r2_fix3_completes_bare_reference_marker_after_replacement():
     )
   )
 
-  assert rendered == "まず、[R2]を用いる."
+  assert rendered == "まず、[R2]を用いる。"
 
 
 def test_phase154_r2_fix3_keeps_reference_marker_with_following_prose():
@@ -98,12 +98,12 @@ def test_phase154_r2_fix3_pi11_4_has_complete_reference_use_sentence():
   )
 
   assert (
-    r"[R2]より、$\nu_{4}$ の分解写像は同型写像である."
+    r"[R2]より、$\nu_{4}$ の分解写像は同型写像である。"
     in rendered
   )
-  assert "まず、[R2]を用いる." not in rendered
+  assert "まず、[R2]を用いる。" not in rendered
   assert (
-    r"このことから、$\nu_{4}$ の分解写像は同型写像である."
+    r"このことから、$\nu_{4}$ の分解写像は同型写像である。"
     not in rendered
   )
   assert r"\pi_{11}^{4} = 0" in rendered
@@ -124,7 +124,7 @@ def test_phase154_r2_fix3_keeps_previous_r2_repairs():
     not in pi10_4
   )
   assert (
-    r"$\nu_{4}$ の分解を用いる."
+    r"$\nu_{4}$ の分解を用いる。"
     in pi10_4
   )
 

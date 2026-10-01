@@ -62,7 +62,7 @@ def test_phase154_r2_pi11_4_renders_injective_fact_in_japanese():
   )
 
   assert r"\text{ is injective}" not in rendered
-  assert "は単射である."in rendered
+  assert "は単射である。"in rendered
   assert (
     r"\pi_{11}^{4} = 0"
     in rendered
@@ -76,7 +76,7 @@ def test_phase154_r2_pi11_4_renders_exactness_fact_in_japanese():
   )
 
   assert r"\text{ is exact}" not in rendered
-  assert "は完全である."in rendered
+  assert "は完全である。"in rendered
   assert (
     r"\pi_{11}^{4} = 0"
     in rendered

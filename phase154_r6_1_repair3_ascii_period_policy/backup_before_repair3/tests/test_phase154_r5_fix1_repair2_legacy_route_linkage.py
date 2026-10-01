@@ -46,12 +46,12 @@ def test_phase154_r5_fix1_repair2_pi11_4_links_reference_after_marker_generation
   )
 
   assert (
-    r"[R2]より、$\nu_{4}$ の分解写像は同型写像である."
+    r"[R2]より、$\nu_{4}$ の分解写像は同型写像である。"
     in rendered
   )
-  assert "まず、[R2]を用いる." not in rendered
+  assert "まず、[R2]を用いる。" not in rendered
   assert (
-    r"このことから、$\nu_{4}$ の分解写像は同型写像である."
+    r"このことから、$\nu_{4}$ の分解写像は同型写像である。"
     not in rendered
   )
 
@@ -74,7 +74,7 @@ def test_phase154_r5_fix1_repair2_keeps_root_only_reference_neutral():
     7,
   )
 
-  assert "[R1]を用いる." in rendered
+  assert "[R1]を用いる。" in rendered
   assert r"[R1]より、$\pi_{11}^{4} = 0" not in rendered
 
 
@@ -86,7 +86,7 @@ def test_phase154_r5_fix1_repair2_keeps_consumer_once_and_final_conclusion():
 
   assert (
     rendered.count(
-      r"$\nu_{4}$ の分解写像は同型写像である."
+      r"$\nu_{4}$ の分解写像は同型写像である。"
     )
     == 1
   )
