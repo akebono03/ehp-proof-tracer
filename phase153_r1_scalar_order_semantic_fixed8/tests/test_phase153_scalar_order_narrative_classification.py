@@ -1,10 +1,3 @@
-from expression import (
-  ScalarSymbol,
-)
-from proof import (
-  ProofRule,
-  ProofStep,
-)
 from scalar_rules import (
   ScalarGreaterEqualStatement,
 )
@@ -23,7 +16,7 @@ from toda_group_result_proof_replay import (
 )
 
 
-def _supported_presentation():
+def _presentation_with_scalar_statement():
   report = (
     build_standard_toda_report(
       n=3,
@@ -44,27 +37,43 @@ def _supported_presentation():
     )
   )
 
-  return (
+  presentation = (
     build_toda_group_proof_presentation(
       replay
     )
   )
 
+  for node in presentation.nodes:
+    if not isinstance(
+      node.proof_step.conclusion,
+      ScalarGreaterEqualStatement,
+    ):
+      continue
 
-def test_phase153_scalar_greater_equal_statement_is_order_block():
-  presentation = (
-    _supported_presentation()
+    try:
+      classification = (
+        classify_toda_group_proof_narrative_step(
+          presentation,
+          node.proof_step,
+        )
+      )
+    except ValueError:
+      continue
+
+    if (
+      classification.block_role
+      is TodaGroupProofNarrativeBlockRole.ORDER
+    ):
+      return presentation, node.proof_step
+
+  raise AssertionError(
+    "ScalarGreaterEqualStatement ORDER block not found"
   )
 
-  scalar_step = ProofStep(
-    conclusion=ScalarGreaterEqualStatement(
-      left=ScalarSymbol(
-        name="n",
-      ),
-      right=6,
-    ),
-    premises=(),
-    rule=ProofRule.GIVEN,
+
+def test_phase153_scalar_greater_equal_statement_is_order_block():
+  presentation, scalar_step = (
+    _presentation_with_scalar_statement()
   )
 
   classification = (

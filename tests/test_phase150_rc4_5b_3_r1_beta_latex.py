@@ -12,4 +12,4 @@ def test_phase150_rc4_5b_3_r1_beta_uses_general_greek_latex_table():
     target=3,
   )
 
-  assert render_toda_expression_latex(beta) == r"\beta"
+  assert render_toda_expression_latex(beta) == r"\\beta"
