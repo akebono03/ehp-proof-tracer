@@ -37,7 +37,6 @@ from toda_group_proof_narrative_argument_multi_renderer import (
 )
 from toda_group_proof_narrative_contribution_renderer import (
   _toda_group_proof_narrative_reference_statement_lines_by_number,
-  build_toda_group_proof_narrative_reference_reuse_marker_by_step_id,
   render_toda_group_proof_narrative_multi_argument_with_contributions_markdown,
   suppress_toda_group_proof_narrative_irrelevant_aggregate_ancestry,
   suppress_toda_group_proof_narrative_reference_body_duplicates,
@@ -2717,7 +2716,6 @@ def _append_narrative_for_step(
   active_step_ids: set[int],
   expanded_step_ids: set[int],
   reference_marker_by_step_id: dict[int, str] | None = None,
-  reference_reuse_marker_by_step_id: dict[int, str] | None = None,
 ) -> None:
   parent_id = id(
     parent_step
@@ -2762,19 +2760,6 @@ def _append_narrative_for_step(
         premise_id
       )
     )
-    premise_reference_reuse_marker = (
-      None
-      if (
-        reference_reuse_marker_by_step_id is None
-        or isinstance(
-          premise_step.conclusion,
-          TodaProp42ExactnessStatement,
-        )
-      )
-      else reference_reuse_marker_by_step_id.get(
-        premise_id
-      )
-    )
     lead = (
       _premise_lead(
         index,
@@ -2803,19 +2788,7 @@ def _append_narrative_for_step(
       )
     )
 
-    if (
-      premise_edges
-      and premise_reference_reuse_marker is not None
-    ):
-      lines.append(
-        (
-          lead
-          + "、"
-          + premise_reference_reuse_marker
-          + "を用いる。"
-        )
-      )
-    elif premise_edges:
+    if premise_edges:
       _append_narrative_for_step(
         lines,
         presentation,
@@ -2823,7 +2796,6 @@ def _append_narrative_for_step(
         active_step_ids,
         expanded_step_ids,
         reference_marker_by_step_id,
-        reference_reuse_marker_by_step_id,
       )
 
       lines.append(
@@ -2850,7 +2822,8 @@ def _append_narrative_for_step(
       generic_fact_is_fallback = (
         (
           inference_rule is not None
-          and generic_premise_fact == inference_rule.name
+          and generic_premise_fact
+          == inference_rule.name
         )
         or generic_premise_fact
         == (
@@ -2860,15 +2833,18 @@ def _append_narrative_for_step(
           ).__name__
           + "`"
         )
-        or generic_premise_fact == repr(
+        or generic_premise_fact
+        == repr(
           premise_step.conclusion
         )
-        or generic_premise_fact == str(
+        or generic_premise_fact
+        == str(
           premise_step.conclusion
         )
       )
       reference_plus_semantic_fact = (
-        premise_reference_marker is not None
+        premise_reference_marker
+        is not None
         and not (
           is_toda_group_proof_narrative_provenance_only_statement(
             premise_step.conclusion
@@ -2879,8 +2855,12 @@ def _append_narrative_for_step(
 
       if reference_plus_semantic_fact:
         if (
-          generic_premise_fact.startswith("$")
-          and generic_premise_fact.endswith("$")
+          generic_premise_fact.startswith(
+            "$"
+          )
+          and generic_premise_fact.endswith(
+            "$"
+          )
         ):
           lines.append(
             (
@@ -4220,12 +4200,6 @@ def render_toda_group_proof_narrative_markdown(
     for entry in reference_entries
     for proof_step in entry.proof_steps
   }
-  reference_reuse_marker_by_step_id = (
-    build_toda_group_proof_narrative_reference_reuse_marker_by_step_id(
-      presentation,
-      reference_entries,
-    )
-  )
 
   lines = [
     "# Group proof narrative",
@@ -4282,7 +4256,6 @@ def render_toda_group_proof_narrative_markdown(
       set(),
       set(),
       reference_marker_by_step_id,
-      reference_reuse_marker_by_step_id,
     )
 
     lines.extend(

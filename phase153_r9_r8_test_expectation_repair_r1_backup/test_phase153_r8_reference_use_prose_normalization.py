@@ -116,9 +116,13 @@ def test_phase153_r8_pi6_2_reference_use_is_not_written_as_obtained():
   assert "このことから、[R2]を得る。" not in body
 
 
-def test_phase153_r8_pi6_2_keeps_final_conclusion():
+def test_phase153_r8_pi6_2_keeps_non_reference_derivation_and_conclusion():
   body = _pi6_2_body()
 
+  assert (
+    r"このことから、$γ \mapsto \eta_{2}γ$を得る。"
+    in body
+  )
   assert (
     r"\pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\}"
     in body
