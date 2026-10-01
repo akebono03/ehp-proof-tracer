@@ -9,14 +9,8 @@ from proof import (
   Relation,
   RelationType,
 )
-from scalar_rules import (
-  ScalarGreaterEqualStatement,
-)
 from toda_group_proof_generic_narrative_renderer import (
   _render_generic_narrative_step,
-)
-from toda_human_readable_renderer import (
-  _render_scalar_latex,
 )
 from toda_group_proof_narrative_argument_multi_renderer import (
   render_toda_group_proof_narrative_multi_argument_markdown,
@@ -1049,29 +1043,15 @@ def _toda_group_proof_narrative_reference_statement_lines_by_number(
   return statement_lines_by_reference_number
 
 
-def _phase153_r7_reaches_root_without_steps(
+def _phase153_r7_reaches_root_without_step(
   presentation: TodaGroupProofPresentation,
   source_step: ProofStep,
-  excluded_steps: tuple[
-    ProofStep,
-    ...,
-  ],
+  excluded_step: ProofStep,
 ) -> bool:
-  excluded_step_ids = {
-    id(
-      proof_step
-    )
-    for proof_step in excluded_steps
-  }
   children_by_step_id = {}
 
   for edge in presentation.edges:
-    if (
-      id(
-        edge.parent_step
-      )
-      in excluded_step_ids
-    ):
+    if edge.parent_step is excluded_step:
       continue
 
     children_by_step_id.setdefault(
@@ -1108,16 +1088,9 @@ def _phase153_r7_reaches_root_without_steps(
       return True
 
     stack.extend(
-      child_step
-      for child_step in children_by_step_id.get(
+      children_by_step_id.get(
         current_id,
         (),
-      )
-      if (
-        id(
-          child_step
-        )
-        not in excluded_step_ids
       )
     )
 
@@ -1176,52 +1149,24 @@ def suppress_toda_group_proof_narrative_irrelevant_aggregate_ancestry(
         entry.reference.label
       )
 
-      unselected_premises = tuple(
-        premise_step
-        for premise_step in aggregate_step.premises
-        if premise_step is not retained_premises[0]
-      )
-
-      for premise_step in unselected_premises:
-        blocked_sibling_steps = tuple(
-          sibling_step
-          for sibling_step in unselected_premises
-          if sibling_step is not premise_step
-        )
+      for premise_step in aggregate_step.premises:
+        if premise_step is retained_premises[0]:
+          continue
 
         if (
-          _phase153_r7_reaches_root_without_steps(
+          _phase153_r7_reaches_root_without_step(
             presentation,
             premise_step,
-            (
-              aggregate_step,
-              *blocked_sibling_steps,
-            ),
+            aggregate_step,
           )
         ):
           continue
 
-        if isinstance(
-          premise_step.conclusion,
-          ScalarGreaterEqualStatement,
-        ):
-          rendered = (
-            "$"
-            + _render_scalar_latex(
-              premise_step.conclusion.left
-            )
-            + r" \ge "
-            + _render_scalar_latex(
-              premise_step.conclusion.right
-            )
-            + "$"
+        rendered = (
+          _render_generic_narrative_step(
+            premise_step
           )
-        else:
-          rendered = (
-            _render_generic_narrative_step(
-              premise_step
-            )
-          )
+        )
 
         if rendered:
           suppressed_fragments.add(

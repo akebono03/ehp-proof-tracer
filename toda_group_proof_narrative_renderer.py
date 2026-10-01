@@ -38,6 +38,7 @@ from toda_group_proof_narrative_argument_multi_renderer import (
 from toda_group_proof_narrative_contribution_renderer import (
   _toda_group_proof_narrative_reference_statement_lines_by_number,
   render_toda_group_proof_narrative_multi_argument_with_contributions_markdown,
+  suppress_toda_group_proof_narrative_irrelevant_aggregate_ancestry,
   suppress_toda_group_proof_narrative_reference_body_duplicates,
 )
 from toda_group_proof_narrative_blocks import (
@@ -4304,8 +4305,15 @@ def render_toda_group_proof_narrative_markdown(
         body_start:
       ]
       suppressed_body = (
-        suppress_toda_group_proof_narrative_reference_body_duplicates(
+        suppress_toda_group_proof_narrative_irrelevant_aggregate_ancestry(
+          presentation,
           body,
+          reference_entries,
+        )
+      )
+      suppressed_body = (
+        suppress_toda_group_proof_narrative_reference_body_duplicates(
+          suppressed_body,
           statement_lines_by_reference_number,
         )
       )

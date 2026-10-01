@@ -9,14 +9,8 @@ from proof import (
   Relation,
   RelationType,
 )
-from scalar_rules import (
-  ScalarGreaterEqualStatement,
-)
 from toda_group_proof_generic_narrative_renderer import (
   _render_generic_narrative_step,
-)
-from toda_human_readable_renderer import (
-  _render_scalar_latex,
 )
 from toda_group_proof_narrative_argument_multi_renderer import (
   render_toda_group_proof_narrative_multi_argument_markdown,
@@ -1201,27 +1195,11 @@ def suppress_toda_group_proof_narrative_irrelevant_aggregate_ancestry(
         ):
           continue
 
-        if isinstance(
-          premise_step.conclusion,
-          ScalarGreaterEqualStatement,
-        ):
-          rendered = (
-            "$"
-            + _render_scalar_latex(
-              premise_step.conclusion.left
-            )
-            + r" \ge "
-            + _render_scalar_latex(
-              premise_step.conclusion.right
-            )
-            + "$"
+        rendered = (
+          _render_generic_narrative_step(
+            premise_step
           )
-        else:
-          rendered = (
-            _render_generic_narrative_step(
-              premise_step
-            )
-          )
+        )
 
         if rendered:
           suppressed_fragments.add(
