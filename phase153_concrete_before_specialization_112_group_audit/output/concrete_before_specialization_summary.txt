@@ -1,0 +1,35 @@
+==============================================================================
+112-Group Concrete-Before-Specialization Audit
+==============================================================================
+scope: n=2..15, k=0..7
+production changes: none
+tests changes: none
+
+groups: 112
+exceptions: 0
+groups with selected candidate: 112
+stable specialization selected: 59
+groups with pre-specialization concrete target match: 46
+stable specialization selected AND concrete proof already exists: 7
+stable specialization selected with NO prior concrete match: 52
+
+Confirmed concrete-before-specialization cases:
+  pi_6^5  selected=standard.toda.stable::eta_5_specialization  concrete_matches=22  shortest=standard.toda.prop56@depth2  rule=Toda Lemma 5.4 pi_6^5 finite-cyclic specialization
+  pi_10^6  selected=standard.toda.stable::four_stem_zero_6_specialization  concrete_matches=6  shortest=standard.toda.prop58@depth2  rule=Toda Proposition 5.8 pi_10^6 zero
+  pi_10^7  selected=standard.toda.stable::nu_7_specialization  concrete_matches=2  shortest=standard.toda.prop511@depth2  rule=Toda Proposition 5.11 pi_10^7 nu_7 specialization
+  pi_12^7  selected=standard.toda.stable::five_stem_zero_7_specialization  concrete_matches=2  shortest=standard.toda.prop511@depth4  rule=Toda Proposition 5.9 pi_12^7 zero
+  pi_12^9  selected=standard.toda.stable::nu_9_specialization  concrete_matches=3  shortest=standard.toda.prop511@depth3  rule=Toda Proposition 5.11 pi_12^9 nu_9 specialization
+  pi_13^11  selected=standard.toda.stable::eta_squared_11_specialization  concrete_matches=3  shortest=standard.toda.prop515@depth2  rule=Toda Proposition 5.11 pi_13^11 eta_11 squared
+  pi_14^13  selected=standard.toda.stable::eta_13_specialization  concrete_matches=3  shortest=standard.toda.prop515@depth2  rule=Toda Proposition 5.11 pi_14^13 eta_13
+
+Interpretation:
+  A confirmed case means the current group query selects a standard.toda.stable specialization even though the unspecialized repository proof scope already contains a concrete proof whose conclusion matches the query target.
+  This audit does not yet decide the general selection rule; it only measures the affected population and inventories the existing concrete candidates.
+
+Output files:
+  concrete_before_specialization_summary.txt
+  defect_groups.csv
+  concrete_candidate_inventory.csv
+  all_112_group_inventory.csv
+  exception_inventory.csv
+==============================================================================
