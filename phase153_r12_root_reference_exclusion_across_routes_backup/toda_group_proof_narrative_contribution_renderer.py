@@ -61,7 +61,6 @@ from toda_group_proof_narrative_reasons import (
 )
 from toda_group_proof_narrative_references import (
   build_toda_group_proof_narrative_reference_entries,
-  exclude_toda_group_proof_narrative_root_reference,
   extract_toda_group_proof_step_literature_reference,
   filter_toda_group_proof_narrative_reference_entries_by_body_usage,
   filter_toda_group_proof_narrative_reference_entries_by_step_usage,
@@ -1664,16 +1663,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
     _toda_group_proof_narrative_reference_statement_lines_by_number(
       presentation,
       reference_entries,
-    )
-  )
-  (
-    reference_entries,
-    statement_lines_by_reference_number,
-  ) = (
-    exclude_toda_group_proof_narrative_root_reference(
-      reference_entries,
-      statement_lines_by_reference_number,
-      presentation.root_step,
     )
   )
   rendered = (

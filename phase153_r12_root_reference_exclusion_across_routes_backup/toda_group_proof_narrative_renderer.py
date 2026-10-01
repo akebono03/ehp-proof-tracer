@@ -51,7 +51,6 @@ from toda_group_proof_narrative_semantics import (
 )
 from toda_group_proof_narrative_references import (
   build_toda_group_proof_narrative_reference_entries,
-  exclude_toda_group_proof_narrative_root_reference,
   filter_toda_group_proof_narrative_reference_entries_by_body_usage,
   render_toda_group_proof_narrative_reference_entries_markdown,
 )
@@ -4210,16 +4209,6 @@ def render_toda_group_proof_narrative_markdown(
     )
     if reference_entries
     else {}
-  )
-  (
-    reference_entries,
-    statement_lines_by_reference_number,
-  ) = (
-    exclude_toda_group_proof_narrative_root_reference(
-      reference_entries,
-      statement_lines_by_reference_number,
-      presentation.root_step,
-    )
   )
   reference_section = (
     render_toda_group_proof_narrative_reference_entries_markdown(
