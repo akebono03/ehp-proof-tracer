@@ -1368,7 +1368,7 @@ def suppress_toda_group_proof_narrative_irrelevant_aggregate_ancestry(
   ).strip()
 
 
-def _phase154_r5_reference_source_steps_by_number(
+def _phase154_r5_selected_reference_steps_by_number(
   presentation: TodaGroupProofPresentation,
   reference_entries,
 ) -> dict[
@@ -1378,7 +1378,7 @@ def _phase154_r5_reference_source_steps_by_number(
     ...,
   ],
 ]:
-  source_steps_by_number = {}
+  selected_by_number = {}
 
   for entry in reference_entries:
     candidate_steps = []
@@ -1391,7 +1391,12 @@ def _phase154_r5_reference_source_steps_by_number(
         )
       )
 
-      if not rendered_statement:
+      if not (
+        _is_toda_group_proof_narrative_reference_statement_candidate(
+          proof_step,
+          rendered_statement,
+        )
+      ):
         continue
 
       if rendered_statement in seen_rendered_statements:
@@ -1415,35 +1420,12 @@ def _phase154_r5_reference_source_steps_by_number(
       )
     )
 
-    ordered_source_steps = []
-    seen_step_ids = set()
-
-    for proof_step in (
-      *selected_steps,
-      *entry.proof_steps,
-    ):
-      proof_step_id = id(
-        proof_step
-      )
-
-      if proof_step_id in seen_step_ids:
-        continue
-
-      seen_step_ids.add(
-        proof_step_id
-      )
-      ordered_source_steps.append(
-        proof_step
-      )
-
-    if ordered_source_steps:
-      source_steps_by_number[
+    if selected_steps:
+      selected_by_number[
         entry.number
-      ] = tuple(
-        ordered_source_steps
-      )
+      ] = selected_steps
 
-  return source_steps_by_number
+  return selected_by_number
 
 
 def _phase154_r5_unique_visible_non_root_consumer_line(
@@ -1457,12 +1439,6 @@ def _phase154_r5_unique_visible_non_root_consumer_line(
   if not source_steps:
     return None
 
-  source_step_ids = {
-    id(
-      source_step
-    )
-    for source_step in source_steps
-  }
   children_by_step_id = {}
 
   for edge in presentation.edges:
@@ -1482,45 +1458,34 @@ def _phase154_r5_unique_visible_non_root_consumer_line(
     )
     for source_step in source_steps
   )
-  visited_distance_by_step_id = {}
+  visited_step_ids = {
+    id(
+      source_step
+    )
+    for source_step in source_steps
+  }
   visible_by_distance = {}
 
   while queue:
     current_step, distance = queue.popleft()
-    current_step_id = id(
-      current_step
-    )
-    known_distance = visited_distance_by_step_id.get(
-      current_step_id
-    )
-
-    if (
-      known_distance is not None
-      and known_distance <= distance
-    ):
-      continue
-
-    visited_distance_by_step_id[
-      current_step_id
-    ] = distance
 
     for child_step in children_by_step_id.get(
-      current_step_id,
+      id(
+        current_step
+      ),
       (),
     ):
       child_step_id = id(
         child_step
       )
-      child_distance = distance + 1
 
-      if child_step_id in source_step_ids:
-        queue.append(
-          (
-            child_step,
-            child_distance,
-          )
-        )
+      if child_step_id in visited_step_ids:
         continue
+
+      visited_step_ids.add(
+        child_step_id
+      )
+      child_distance = distance + 1
 
       if child_step is presentation.root_step:
         continue
@@ -1595,16 +1560,16 @@ def link_toda_group_proof_narrative_reference_body_consumers(
       "body_markdown must be a str"
     )
 
-  source_steps_by_number = (
-    _phase154_r5_reference_source_steps_by_number(
+  selected_by_number = (
+    _phase154_r5_selected_reference_steps_by_number(
       presentation,
       reference_entries,
     )
   )
   lines = body_markdown.splitlines()
 
-  for reference_number, source_steps in (
-    source_steps_by_number.items()
+  for reference_number, selected_steps in (
+    selected_by_number.items()
   ):
     marker = (
       "[R"
@@ -1639,7 +1604,7 @@ def link_toda_group_proof_narrative_reference_body_consumers(
     consumer_line = (
       _phase154_r5_unique_visible_non_root_consumer_line(
         presentation,
-        source_steps,
+        selected_steps,
         current_body,
       )
     )

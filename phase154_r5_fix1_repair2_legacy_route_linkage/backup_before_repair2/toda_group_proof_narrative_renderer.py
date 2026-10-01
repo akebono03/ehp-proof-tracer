@@ -38,7 +38,6 @@ from toda_group_proof_narrative_argument_multi_renderer import (
 from toda_group_proof_narrative_contribution_renderer import (
   _toda_group_proof_narrative_reference_statement_lines_by_number,
   build_toda_group_proof_narrative_reference_reuse_marker_by_step_id,
-  link_toda_group_proof_narrative_reference_body_consumers,
   render_toda_group_proof_narrative_multi_argument_with_contributions_markdown,
   suppress_toda_group_proof_narrative_irrelevant_aggregate_ancestry,
   suppress_toda_group_proof_narrative_reference_body_duplicates,
@@ -115,6 +114,7 @@ from toda_rules import (
   TodaSuspensionInjectiveStatement,
   TodaSuspensionKernelFreeCyclicStatement,
 )
+
 
 def _group_proof_narrative_statement_label(
   statement,
@@ -4426,13 +4426,6 @@ def render_toda_group_proof_narrative_markdown(
           statement_lines_by_reference_number,
         )
       )
-      suppressed_body = (
-        link_toda_group_proof_narrative_reference_body_consumers(
-          presentation,
-          suppressed_body,
-          reference_entries,
-        )
-      )
       (
         filtered_reference_entries,
         filtered_statement_lines,
@@ -4477,3 +4470,4 @@ def render_toda_group_proof_narrative_markdown(
       )
 
   return rendered
+
