@@ -1283,65 +1283,108 @@ legacy / generic / specialized route で同じ root-exclusion boundary
 
 ## Phase 154 — Proof prose generation refinement
 
-次 Phase は test-suite 整理ではなく、現在の Narrative 本文の不自然さを一般規則で改善する。
+Phase 154 の implementation / closure audit は完了し、documentation closure まで到達した。
 
-最初の作業:
+対象:
 
 ```text
-Phase 154-R1
-Representative proof prose defect audit
+internal fallback leakage
+English statement prose
+transition repetition
+semantic duplication
+Reference-to-proof-body linkage
+sentence composition
+punctuation normalization
 ```
 
-代表群:
-
-$$
-\pi_6^3,\quad
-\pi_{10}^4,\quad
-\pi_{11}^4,
-$$
-
-必要に応じて
-
-$$
-\pi_{12}^5,\quad
-\pi_{16}^9
-$$
-
-を追加する。
-
-主対象:
+一般規則による改善結果:
 
 ```text
-connector duplication
-repeated "まず"
-repeated "以上より"
-repeated "したがって"
-internal rule-name leakage
-English statement rendering
-duplicate scalar prose such as ord(nu')=4=4
-argument / contribution connection
-punctuation normalization to "," and "."
+Phase 154 focused regression:
+44 passed
+
+ordering / reason regression boundary:
+57 passed
+
+112-group public Narrative closure:
+scanned groups: 112
+rendered groups: 112
+exceptions: 0
+violations: 0
+```
+
+category 別:
+
+```text
+transition_repetition: 0
+semantic_duplication: 0
+internal_fallback_leakage: 0
+english_prose: 0
+reference_linkage: 0
+ordering: 0
+punctuation: 0
+```
+
+punctuation policy:
+
+```text
+prose comma  = ", "
+prose period = "."
+```
+
+112群すべてで ASCII comma prose / ASCII period prose を確認した。
+
+Phase 154 は $\pi_6^3$ 専用 prose hardcoding ではなく shared source / graph-backed rule を優先した。
+
+documentation closure 時点では repository-wide final full regression はまだ実行していない。
+
+```text
+Phase 154 implementation closure
+→ documentation closure
+→ final full regression
+→ Phase 154 formal completion
+```
+
+### Phase 155 — Reference statement relevance / minimal display
+
+Phase 155 では Reference selection 自体を作り直さず、Reference section に表示する
+statement の必要性と粒度を監査する。
+
+主な問い:
+
+```text
+Reference title は必要
+↓
+statement lines は proof body が実際に必要とするものだけか
+
+group-result statement は本当に本文の論証で使われているか
+aggregate statement の余分な component が表示されていないか
+同じ Reference 内で statement を過剰表示していないか
 ```
 
 方針:
 
 ```text
-one visible prose defect category
-→ root cause audit
-→ minimum general rule
-→ focused regression
-→ cross-group audit
+Proof graph / consumer usage
+→ necessary Reference statement set
+→ minimal display
 ```
 
-$\pi_6^3$ 専用 renderer や群別 special case で修正しない。
+群別 special case や theorem fact の削除ではなく、presentation relevance（表示上の必要性）の
+一般規則として扱う。
 
-長期目標は引き続き、
+先取りしないもの:
 
 ```text
-一般規則のみで pi_6^3 と同等品質の証明文を生成する
+Reference selection の全面再設計
+new theorem facts
+proof search
+theorem ranking
+automatic best proof selection
+dedicated renderer retirement
 ```
 
-ことである。
+Phase 155 の正式な implementation scope は開始時の all-group audit で確定する。
 
 ## Test Suite Consolidation — 保留
 
