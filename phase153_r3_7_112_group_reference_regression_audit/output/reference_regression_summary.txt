@@ -1,0 +1,41 @@
+==============================================================================
+Phase 153-R3-7 - 112-group Reference Regression Audit
+==============================================================================
+scope: n=2..15, k=0..7, depth=2, semantic closure
+production changes: none
+
+groups: 112
+exceptions: 0
+presentation nodes: 713
+reference entries: 222
+entries with selected statement: 208
+entries without selected statement: 14
+selected statements: 407
+unresolved steps: 31
+
+Public Reference rendering:
+  selected statement missing from Reference section: 17
+  exact selected statement duplicated in proof body: 149
+  rule-name/type-name fallback exposures in Reference section: 0
+
+Public route shape:
+  narratives with ## 証明: 95
+  narratives without ## 証明: 17
+
+Audit interpretation:
+  entries_without_selected_statement / unresolved_steps measure structured Reference pipeline coverage.
+  public_reference_statement_missing measures whether the selected statement is actually visible before ## 証明 in the public Narrative.
+  body_exact_duplicates measures only exact rendered-string duplicates after R3-5; semantic-equivalent paraphrases are not counted.
+  fallback exposures measure internal inference-rule/type labels that leak into the public Reference section.
+
+Output files:
+  group_reference_regression.csv
+  reference_entry_regression.csv
+  selected_reference_statements.csv
+  unresolved_reference_steps.csv
+  public_reference_missing.csv
+  body_exact_duplicates.csv
+  public_reference_fallback_exposures.csv
+  exception_inventory.csv
+  reference_regression_summary.txt
+==============================================================================

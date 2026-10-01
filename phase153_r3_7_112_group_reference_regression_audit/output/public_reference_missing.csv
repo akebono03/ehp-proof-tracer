@@ -1,0 +1,18 @@
+﻿n,k,reference_number,reference,statement,marker_present
+4,6,3,Lemma 5.4,"$\nu_{4} \in \pi_{7}^{4}$, $H\left(\nu_{4}\right) = \iota_{7}$, $2E\nu_{4} = E^{2}\nu'$ が成り立つ.",True
+5,3,1,Proposition 5.6,$\operatorname{ord}\left(\nu_{5}\right) = 8$,True
+5,3,1,Proposition 5.6,$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$,True
+5,3,1,Proposition 5.6,$E^{2}: \pi_{6}^{3} \to \pi_{8}^{5}$ は単射である.,True
+5,3,1,Proposition 5.6,$\pi_{8}^{5}/E^{2}\left(\pi_{6}^{3}\right) \cong \mathbb{Z}/2$,True
+5,3,1,Proposition 5.6,$2\nu_{5} = E^{2}\nu'$,True
+5,3,1,Proposition 5.6,$\operatorname{ord}\left(E^{2}\nu'\right) = 4$,True
+5,3,1,Proposition 5.6,$\operatorname{ord}\left(\nu'\right) = 4$,True
+5,3,1,Proposition 5.6,$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$,True
+5,3,1,Proposition 5.6,$E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.,True
+5,3,2,(5.3),$\nu' \in \pi_{6}^{3}$,True
+5,3,3,Proposition 5.3,$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.,False
+5,3,4,Lemma 5.4,$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$,False
+5,7,5,(5.5),"$\nu_{n} = E^{n - 4}\nu_{4}$, $n \ge 5$, $2\nu_{n} = E^{n - 3}\nu'$, $4\nu_{n} = \eta_{n}\eta_{n + 1}\eta_{n + 2}$ が成り立つ.",True
+8,7,1,Proposition 5.15,$\pi_{15}^{8} \cong \mathbb{Z}/8\{E\sigma'\} \oplus \mathbb{Z}\{\sigma_{8}\}$,True
+8,7,1,Proposition 5.15,$\pi_{14}^{7} = \mathbb{Z}/8\{\sigma'\}$,True
+9,7,4,Lemma 5.13,"$\sigma''' \in \{\nu_{5}, 8\iota_{8}, \nu_{8}\}_{3}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ.",True

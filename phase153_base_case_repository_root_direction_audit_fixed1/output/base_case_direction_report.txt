@@ -1,0 +1,88 @@
+==============================================================================
+Base-Case / Repository Root Direction Audit
+==============================================================================
+targets: pi_10^6, pi_12^7
+production changes: none
+tests changes: none
+
+pi_10^6
+  Repository root:
+    $\pi_{10}^{6} = 0$
+    rule=ProofRule.INFERENCE
+    reference=(none)
+  Canonical base-case step:
+    $\pi_{10}^{6} = 0$
+    rule=Toda Proposition 5.8 pi_10^6 zero
+    premises=3
+      B1: $\pi_{9}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\}$
+         rule=Toda Proposition 5.8 pi_9^5 finite cyclic  reference=Proposition 5.8
+      B2: $E: \pi_{9}^{5} \to \pi_{10}^{6}$ は全射である.
+         rule=Toda Proposition 5.8 pi_10^6 suspension surjective  reference=Proposition 5.8
+      B3: $\nu_{6}\eta_{9} = 0$
+         rule=Toda Proposition 3.1 nu_6 eta_9 zero consequence  reference=Proposition 3.1
+  Canonical general transport step:
+    $\pi_{n + 4}^{n} = 0$
+    rule=Toda Proposition 5.8 higher four-stem zero transport
+    premises=3
+      G1: $\pi_{10}^{6} = 0$
+         rule=Toda Proposition 5.8 pi_10^6 zero  reference=Proposition 5.8
+      G2: $E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n}$ は同型写像である.
+         rule=Toda 4.5 stable-range iterated suspension isomorphism  reference=(4.5)
+      G3: `ScalarGreaterEqualStatement`
+         rule=ProofRule.GIVEN  reference=(none)
+  Direction checks:
+    repository conclusion == base conclusion: True
+    repository root is canonical base identity: False
+    general transport contains canonical base: True
+    canonical base contains Toda (4.5): False
+    canonical base contains range condition: False
+    general transport contains Toda (4.5): True
+    general transport contains range condition: True
+
+pi_12^7
+  Repository root:
+    $\pi_{12}^{7} = 0$
+    rule=ProofRule.INFERENCE
+    reference=(none)
+  Canonical base-case step:
+    $\pi_{12}^{7} = 0$
+    rule=Toda Proposition 5.9 pi_12^7 zero
+    premises=3
+      B1: $\Delta: \pi_{13}^{13} \to \pi_{11}^{6}$ は全射である.
+         rule=Toda Proposition 5.9 pi_13^13 Delta surjective  reference=Proposition 5.9
+      B2: $\pi_{13}^{13} \xrightarrow{\Delta} \pi_{11}^{6} \xrightarrow{E} \pi_{12}^{7} \text{ is exact}$
+         rule=Toda Proposition 5.9 pi_12^7 concrete exactness  reference=Proposition 5.9
+      B3: $E: \pi_{11}^{6} \to \pi_{12}^{7}$ は全射である.
+         rule=Toda Proposition 5.9 pi_12^7 suspension surjective  reference=Proposition 5.9
+  Canonical general transport step:
+    $\pi_{n + 5}^{n} = 0$
+    rule=Toda Proposition 5.9 higher five-stem zero transport
+    premises=3
+      G1: $\pi_{12}^{7} = 0$
+         rule=Toda Proposition 5.9 pi_12^7 zero  reference=Proposition 5.9
+      G2: $E^{n - 7}: \pi_{7 + 5}^{7} \to \pi_{n + 5}^{n}$ は同型写像である.
+         rule=Toda 4.5 stable-range iterated suspension isomorphism  reference=(4.5)
+      G3: `ScalarGreaterEqualStatement`
+         rule=ProofRule.GIVEN  reference=(none)
+  Direction checks:
+    repository conclusion == base conclusion: True
+    repository root is canonical base identity: False
+    general transport contains canonical base: True
+    canonical base contains Toda (4.5): False
+    canonical base contains range condition: False
+    general transport contains Toda (4.5): True
+    general transport contains range condition: True
+
+==============================================================================
+Interpretation rule
+==============================================================================
+A correct base-case direction has base_contains_stable_45=False and base_contains_range_condition=False.
+The general transport should instead contain the base-case step, Toda (4.5), and the range condition.
+If the repository root has the base conclusion but is not the canonical base step and reaches the general transport first, the repository proof root is directionally miswired.
+
+Output files:
+  base_case_direction_report.txt
+  comparison.csv
+  ancestry_inventory.csv
+  exception_inventory.csv
+==============================================================================

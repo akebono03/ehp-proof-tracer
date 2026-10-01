@@ -1,0 +1,219 @@
+==============================================================================
+Eight-Group Direct Root Premise Audit
+==============================================================================
+targets: pi_4^2, pi_5^2, pi_6^2, pi_7^2, pi_8^2, pi_9^2, pi_10^6, pi_12^7
+depth: 2
+production changes: none
+tests changes: none
+
+pi_4^2  Toda Proposition 5.3
+  root: $\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$
+  root rule: Toda 5.2 pi_4^2 finite-cyclic transport
+  direct premises: 2
+    P1: $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+       class=derived_without_literature_reference  depth=1
+       rule=Toda pi_4^3 eta_3 generator notation
+       reference=(none)
+         -> P1.1: $\pi_{4}^{3} = \mathbb{Z}/2\{E\eta_{2}\}$
+            rule=Toda pi_4^3 finite cyclic quotient calculation  reference=(none)
+         -> P1.2: $\eta_{3} = E\eta_{2}$
+            rule=Toda eta_3 notation suspension bridge  reference=(none)
+    P2: $\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+       class=literature_backed  depth=1
+       rule=Toda 5.2 eta_2 composition isomorphism
+       reference=(5.2)
+         -> P2.1: $\pi_{i - 1}^{1} = 0$
+            rule=Toda pi_(i-1)^1 zero for i at least 3  reference=(none)
+         -> P2.2: $(\beta, γ) \mapsto E\beta + \eta_{2}γ: \pi_{i - 1}^{1} \oplus \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+            rule=Toda Proposition 4.4 eta_2 n=2 specialization  reference=Proposition 4.4
+         -> P2.3: 分解写像の第二成分は $\eta_{2}γ$ で与えられる.
+            rule=Toda Proposition 4.4 eta_2 second-summand restriction  reference=Proposition 4.4
+
+pi_5^2  Toda Proposition 5.6
+  root: $\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+  root rule: Toda Proposition 5.6 pi_5^2 eta_2 cube
+  direct premises: 2
+    P1: $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+       class=literature_backed  depth=1
+       rule=Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport
+       reference=Proposition 5.3
+         -> P1.1: $\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$
+            rule=Toda 5.2 pi_4^2 finite-cyclic transport  reference=(5.2)
+         -> P1.2: $E: \pi_{4}^{2} \to \pi_{5}^{3}$ は同型写像である.
+            rule=Toda Proposition 5.3 n=3 suspension isomorphism  reference=Proposition 5.3
+         -> P1.3: $E\eta_{2}\eta_{3} = \eta_{3}^{2}$
+            rule=Toda Proposition 5.3 n=3 eta-square suspension bridge  reference=Proposition 5.3
+    P2: $\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+       class=literature_backed  depth=1
+       rule=Toda 5.2 eta_2 composition isomorphism
+       reference=(5.2)
+         -> P2.1: $\pi_{i - 1}^{1} = 0$
+            rule=Toda pi_(i-1)^1 zero for i at least 3  reference=(none)
+         -> P2.2: $(\beta, γ) \mapsto E\beta + \eta_{2}γ: \pi_{i - 1}^{1} \oplus \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+            rule=Toda Proposition 4.4 eta_2 n=2 specialization  reference=Proposition 4.4
+         -> P2.3: 分解写像の第二成分は $\eta_{2}γ$ で与えられる.
+            rule=Toda Proposition 4.4 eta_2 second-summand restriction  reference=Proposition 4.4
+
+pi_6^2  Toda Proposition 5.8
+  root: $\pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\}$
+  root rule: Toda Lemma 5.7 pi_6^2 eta_2 nu-prime
+  direct premises: 2
+    P1: $\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$, $\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$, $\pi_{7}^{4} = \mathbb{Z}\{\nu_{4}\} \oplus \mathbb{Z}/4\{E\nu'\}$, $\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$, $\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$, $n \ge 6$ が成り立つ.
+       class=literature_backed  depth=1
+       rule=Toda Proposition 5.6 finite-dimensional integration
+       reference=Proposition 5.6
+         -> P1.1: $\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+            rule=Toda Proposition 5.6 pi_5^2 eta_2 cube  reference=Proposition 5.6
+         -> P1.2: $\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+            rule=Toda Proposition 5.6 pi_6^3 finite cyclic  reference=Proposition 5.6
+         -> P1.3: $\pi_{7}^{4} = \mathbb{Z}\{\nu_{4}\} \oplus \mathbb{Z}/4\{E\nu'\}$
+            rule=Toda Proposition 5.6 pi_7^4 decomposition  reference=Proposition 5.6
+         -> P1.4: $\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$
+            rule=Toda Proposition 5.6 pi_8^5 finite cyclic  reference=Proposition 5.6
+         -> P1.5: $\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$
+            rule=Toda Proposition 5.6 higher nu finite-cyclic generator bridge  reference=Proposition 5.6
+         -> P1.6: `ScalarGreaterEqualStatement`
+            rule=ProofRule.GIVEN  reference=(none)
+    P2: $\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+       class=literature_backed  depth=1
+       rule=Toda 5.2 eta_2 composition isomorphism
+       reference=(5.2)
+         -> P2.1: $\pi_{i - 1}^{1} = 0$
+            rule=Toda pi_(i-1)^1 zero for i at least 3  reference=(none)
+         -> P2.2: $(\beta, γ) \mapsto E\beta + \eta_{2}γ: \pi_{i - 1}^{1} \oplus \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+            rule=Toda Proposition 4.4 eta_2 n=2 specialization  reference=Proposition 4.4
+         -> P2.3: 分解写像の第二成分は $\eta_{2}γ$ で与えられる.
+            rule=Toda Proposition 4.4 eta_2 second-summand restriction  reference=Proposition 4.4
+
+pi_7^2  Toda Proposition 5.9
+  root: $\pi_{7}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\}$
+  root rule: Toda Proposition 5.9 pi_7^2 eta_2 nu-prime eta_6
+  direct premises: 2
+    P1: $\pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}$
+       class=literature_backed  depth=1
+       rule=Toda Proposition 5.8 pi_7^3 finite cyclic
+       reference=Proposition 5.8
+         -> P1.1: $H: \pi_{7}^{3} \to \pi_{7}^{5}$ は同型写像である.
+            rule=Toda Hopf invariant injective and surjective implies isomorphism  reference=(none)
+         -> P1.2: $H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}$
+            rule=Toda Equation 5.7 nu-prime eta_6 Hopf value  reference=Equation 5.7
+         -> P1.3: $\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$, $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$, $\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\}$, $\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$, $n \ge 5$ が成り立つ.
+            rule=Toda Proposition 5.3 finite-dimensional integration  reference=Proposition 5.3
+    P2: $\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+       class=literature_backed  depth=1
+       rule=Toda 5.2 eta_2 composition isomorphism
+       reference=(5.2)
+         -> P2.1: $\pi_{i - 1}^{1} = 0$
+            rule=Toda pi_(i-1)^1 zero for i at least 3  reference=(none)
+         -> P2.2: $(\beta, γ) \mapsto E\beta + \eta_{2}γ: \pi_{i - 1}^{1} \oplus \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+            rule=Toda Proposition 4.4 eta_2 n=2 specialization  reference=Proposition 4.4
+         -> P2.3: 分解写像の第二成分は $\eta_{2}γ$ で与えられる.
+            rule=Toda Proposition 4.4 eta_2 second-summand restriction  reference=Proposition 4.4
+
+pi_8^2  Toda Proposition 5.11
+  root: $\pi_{8}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\eta_{7}\}$
+  root rule: Toda Proposition 5.11 pi_8^2 from Proposition 5.9 and Toda (5.2)
+  direct premises: 2
+    P1: $\pi_{7}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\}$, $\pi_{8}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\eta_{7}\}$, $\pi_{9}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\eta_{8}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\eta_{8}\}$, $\pi_{10}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\eta_{9}\}$, $\pi_{11}^{6} = \mathbb{Z}\{\Delta\left(\iota_{13}\right)\}$, $\pi_{n + 5}^{n} = 0$, $n \ge 7$ が成り立つ.
+       class=literature_backed  depth=1
+       rule=Toda Proposition 5.9 finite-dimensional integration
+       reference=Proposition 5.9
+         -> P1.1: $\pi_{7}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\}$
+            rule=Toda Proposition 5.9 pi_7^2 eta_2 nu-prime eta_6  reference=Proposition 5.9
+         -> P1.2: $\pi_{8}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\eta_{7}\}$
+            rule=Toda Proposition 5.9 pi_8^3 finite cyclic  reference=Proposition 5.9
+         -> P1.3: $\pi_{9}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\eta_{8}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\eta_{8}\}$
+            rule=Toda Proposition 5.9 pi_9^4 decomposition  reference=Proposition 5.9
+         -> P1.4: $\pi_{10}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\eta_{9}\}$
+            rule=Toda Proposition 5.9 pi_10^5 finite cyclic  reference=Proposition 5.9
+         -> P1.5: $\pi_{11}^{6} = \mathbb{Z}\{\Delta\left(\iota_{13}\right)\}$
+            rule=Toda Proposition 5.9 pi_11^6 free cyclic  reference=Proposition 5.9
+         -> P1.6: $\pi_{n + 5}^{n} = 0$
+            rule=Toda Proposition 5.9 higher five-stem zero transport  reference=Proposition 5.9
+         -> P1.7: `ScalarGreaterEqualStatement`
+            rule=ProofRule.GIVEN  reference=(none)
+    P2: $\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+       class=literature_backed  depth=1
+       rule=Toda 5.2 eta_2 composition isomorphism
+       reference=(5.2)
+         -> P2.1: $\pi_{i - 1}^{1} = 0$
+            rule=Toda pi_(i-1)^1 zero for i at least 3  reference=(none)
+         -> P2.2: $(\beta, γ) \mapsto E\beta + \eta_{2}γ: \pi_{i - 1}^{1} \oplus \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+            rule=Toda Proposition 4.4 eta_2 n=2 specialization  reference=Proposition 4.4
+         -> P2.3: 分解写像の第二成分は $\eta_{2}γ$ で与えられる.
+            rule=Toda Proposition 4.4 eta_2 second-summand restriction  reference=Proposition 4.4
+
+pi_9^2  Toda Proposition 5.15
+  root: $\pi_{9}^{2} = 0$
+  root rule: Toda Proposition 5.15 pi_9^2 zero from Toda (5.2)
+  direct premises: 2
+    P1: $\pi_{8}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\eta_{7}\}$, $\pi_{9}^{3} = 0$, $\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}$, $\pi_{11}^{5} = \mathbb{Z}/2\{\nu_{5}\nu_{8}\}$, $\pi_{12}^{6} = \mathbb{Z}/2\{\nu_{6}\nu_{9}\}$, $\pi_{13}^{7} = \mathbb{Z}/2\{\nu_{7}\nu_{10}\}$, $\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$, $\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$, $n \ge 9$ が成り立つ.
+       class=literature_backed  depth=1
+       rule=Toda Proposition 5.11 finite-dimensional integration
+       reference=Proposition 5.11
+         -> P1.1: $\pi_{8}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\eta_{7}\}$
+            rule=Toda Proposition 5.11 pi_8^2 from Proposition 5.9 and Toda (5.2)  reference=Proposition 5.11
+         -> P1.2: $\pi_{9}^{3} = 0$
+            rule=Toda Proposition 5.11 pi_9^3 zero  reference=Proposition 5.11
+         -> P1.3: $\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}$
+            rule=Toda Proposition 5.11 pi_10^4 generated by nu_4 squared  reference=Proposition 5.11
+         -> P1.4: $\pi_{11}^{5} = \mathbb{Z}/2\{\nu_{5}\nu_{8}\}$, $\pi_{12}^{6} = \mathbb{Z}/2\{\nu_{6}\nu_{9}\}$, $\pi_{13}^{7} = \mathbb{Z}/2\{\nu_{7}\nu_{10}\}$, $\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$, $\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$, $n \ge 9$ が成り立つ.
+            rule=Toda Proposition 5.11 nu-squared finite-dimensional integration  reference=Proposition 5.11
+    P2: $\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+       class=literature_backed  depth=1
+       rule=Toda 5.2 eta_2 composition isomorphism
+       reference=(5.2)
+         -> P2.1: $\pi_{i - 1}^{1} = 0$
+            rule=Toda pi_(i-1)^1 zero for i at least 3  reference=(none)
+         -> P2.2: $(\beta, γ) \mapsto E\beta + \eta_{2}γ: \pi_{i - 1}^{1} \oplus \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+            rule=Toda Proposition 4.4 eta_2 n=2 specialization  reference=Proposition 4.4
+         -> P2.3: 分解写像の第二成分は $\eta_{2}γ$ で与えられる.
+            rule=Toda Proposition 4.4 eta_2 second-summand restriction  reference=Proposition 4.4
+
+pi_10^6  Toda Proposition 5.8
+  root: $\pi_{10}^{6} = 0$
+  root rule: ProofRule.INFERENCE
+  direct premises: 1
+    P1: $\pi_{n + 4}^{n} = 0$
+       class=literature_backed  depth=1
+       rule=Toda Proposition 5.8 higher four-stem zero transport
+       reference=Proposition 5.8
+         -> P1.1: $\pi_{10}^{6} = 0$
+            rule=Toda Proposition 5.8 pi_10^6 zero  reference=Proposition 5.8
+         -> P1.2: $E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n}$ は同型写像である.
+            rule=Toda 4.5 stable-range iterated suspension isomorphism  reference=(4.5)
+         -> P1.3: `ScalarGreaterEqualStatement`
+            rule=ProofRule.GIVEN  reference=(none)
+
+pi_12^7  Toda Proposition 5.9
+  root: $\pi_{12}^{7} = 0$
+  root rule: ProofRule.INFERENCE
+  direct premises: 1
+    P1: $\pi_{n + 5}^{n} = 0$
+       class=literature_backed  depth=1
+       rule=Toda Proposition 5.9 higher five-stem zero transport
+       reference=Proposition 5.9
+         -> P1.1: $\pi_{12}^{7} = 0$
+            rule=Toda Proposition 5.9 pi_12^7 zero  reference=Proposition 5.9
+         -> P1.2: $E^{n - 7}: \pi_{7 + 5}^{7} \to \pi_{n + 5}^{n}$ は同型写像である.
+            rule=Toda 4.5 stable-range iterated suspension isomorphism  reference=(4.5)
+         -> P1.3: `ScalarGreaterEqualStatement`
+            rule=ProofRule.GIVEN  reference=(none)
+
+==============================================================================
+Summary
+==============================================================================
+target groups: 8
+exceptions: 0
+direct root premises: 14
+direct premises with literature reference: 13
+direct premises without literature reference: 1
+second-level premises: 49
+
+Output files:
+  direct_root_premise_report.txt
+  roots.csv
+  direct_root_premises_detailed.csv
+  second_level_premises.csv
+  exception_inventory.csv
+==============================================================================

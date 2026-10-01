@@ -26,6 +26,9 @@ from repository_element_presentation import (
 from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
 )
+from toda_group_proof_generic_narrative_renderer import (
+  _render_generic_narrative_step,
+)
 from toda_group_proof_narrative_arguments import (
   build_toda_group_proof_narrative_arguments,
 )
@@ -33,7 +36,11 @@ from toda_group_proof_narrative_argument_multi_renderer import (
   render_toda_group_proof_narrative_multi_argument_markdown,
 )
 from toda_group_proof_narrative_contribution_renderer import (
+  _toda_group_proof_narrative_reference_statement_lines_by_number,
+  build_toda_group_proof_narrative_reference_reuse_marker_by_step_id,
   render_toda_group_proof_narrative_multi_argument_with_contributions_markdown,
+  suppress_toda_group_proof_narrative_irrelevant_aggregate_ancestry,
+  suppress_toda_group_proof_narrative_reference_body_duplicates,
 )
 from toda_group_proof_narrative_blocks import (
   build_toda_group_proof_narrative_blocks,
@@ -44,7 +51,12 @@ from toda_group_proof_narrative_semantics import (
 )
 from toda_group_proof_narrative_references import (
   build_toda_group_proof_narrative_reference_entries,
+  exclude_toda_group_proof_narrative_root_reference,
+  filter_toda_group_proof_narrative_reference_entries_by_body_usage,
   render_toda_group_proof_narrative_reference_entries_markdown,
+)
+from toda_group_proof_narrative_provenance_catalog import (
+  is_toda_group_proof_narrative_provenance_only_statement,
 )
 from toda_group_proof_narrative_helpers import (
   root_generator,
@@ -2707,6 +2719,7 @@ def _append_narrative_for_step(
   active_step_ids: set[int],
   expanded_step_ids: set[int],
   reference_marker_by_step_id: dict[int, str] | None = None,
+  reference_reuse_marker_by_step_id: dict[int, str] | None = None,
 ) -> None:
   parent_id = id(
     parent_step
@@ -2751,6 +2764,19 @@ def _append_narrative_for_step(
         premise_id
       )
     )
+    premise_reference_reuse_marker = (
+      None
+      if (
+        reference_reuse_marker_by_step_id is None
+        or isinstance(
+          premise_step.conclusion,
+          TodaProp42ExactnessStatement,
+        )
+      )
+      else reference_reuse_marker_by_step_id.get(
+        premise_id
+      )
+    )
     lead = (
       _premise_lead(
         index,
@@ -2779,7 +2805,19 @@ def _append_narrative_for_step(
       )
     )
 
-    if premise_edges:
+    if (
+      premise_edges
+      and premise_reference_reuse_marker is not None
+    ):
+      lines.append(
+        (
+          lead
+          + "、"
+          + premise_reference_reuse_marker
+          + "を用いる。"
+        )
+      )
+    elif premise_edges:
       _append_narrative_for_step(
         lines,
         presentation,
@@ -2787,6 +2825,7 @@ def _append_narrative_for_step(
         active_step_ids,
         expanded_step_ids,
         reference_marker_by_step_id,
+        reference_reuse_marker_by_step_id,
       )
 
       lines.append(
@@ -2802,18 +2841,82 @@ def _append_narrative_for_step(
         )
       )
     else:
-      lines.append(
-        (
-          lead
-          + "、"
-          + (
-            premise_reference_marker
-            if premise_reference_marker is not None
-            else premise_fact
-          )
-          + "を用いる。"
+      generic_premise_fact = (
+        _render_generic_narrative_step(
+          premise_step
         )
       )
+      inference_rule = (
+        premise_step.inference_rule
+      )
+      generic_fact_is_fallback = (
+        (
+          inference_rule is not None
+          and generic_premise_fact == inference_rule.name
+        )
+        or generic_premise_fact
+        == (
+          "`"
+          + type(
+            premise_step.conclusion
+          ).__name__
+          + "`"
+        )
+        or generic_premise_fact == repr(
+          premise_step.conclusion
+        )
+        or generic_premise_fact == str(
+          premise_step.conclusion
+        )
+      )
+      reference_plus_semantic_fact = (
+        premise_reference_marker is not None
+        and not (
+          is_toda_group_proof_narrative_provenance_only_statement(
+            premise_step.conclusion
+          )
+        )
+        and not generic_fact_is_fallback
+      )
+
+      if reference_plus_semantic_fact:
+        if (
+          generic_premise_fact.startswith("$")
+          and generic_premise_fact.endswith("$")
+        ):
+          lines.append(
+            (
+              lead
+              + "、"
+              + premise_reference_marker
+              + " により、"
+              + generic_premise_fact
+              + "を得る。"
+            )
+          )
+        else:
+          lines.append(
+            (
+              lead
+              + "、"
+              + premise_reference_marker
+              + " により、"
+              + generic_premise_fact
+            )
+          )
+      else:
+        lines.append(
+          (
+            lead
+            + "、"
+            + (
+              premise_reference_marker
+              if premise_reference_marker is not None
+              else premise_fact
+            )
+            + "を用いる。"
+          )
+        )
 
     expanded_step_ids.add(
       premise_id
@@ -3786,46 +3889,210 @@ def _phase134_24_render_pi15_8_narrative(
     + "\n"
   )
 
-def _wrap_phase150_rc4_generic_public_narrative(
+def _phase153_r3_10_connect_public_reference_section(
+  presentation: TodaGroupProofPresentation,
   rendered: str,
 ) -> str:
-  if not isinstance(rendered, str):
-    raise TypeError("rendered must be a str")
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
 
-  lines = rendered.splitlines()
-  reference_line_indices = [
-    index
-    for index, line in enumerate(lines)
-    if line.startswith("**[R")
-  ]
+  if not isinstance(
+    rendered,
+    str,
+  ):
+    raise TypeError(
+      "rendered must be a str"
+    )
 
-  if not reference_line_indices:
+  if presentation.max_depth < 2:
     return rendered
 
-  last_reference_index = reference_line_indices[-1]
-  reference_lines = lines[
-    :last_reference_index + 1
-  ]
-  proof_lines = lines[
-    last_reference_index + 1:
+  lines = rendered.splitlines()
+  reference_header = "## 使用する結果"
+  proof_header = "## 証明"
+
+  try:
+    reference_index = lines.index(
+      reference_header
+    )
+    proof_index = lines.index(
+      proof_header
+    )
+  except ValueError:
+    return rendered
+
+  if reference_index >= proof_index:
+    return rendered
+
+  reference_entries = (
+    build_toda_group_proof_narrative_reference_entries(
+      presentation
+    )
+  )
+
+  if not reference_entries:
+    return rendered
+
+  statement_lines_by_reference_number = (
+    _toda_group_proof_narrative_reference_statement_lines_by_number(
+      presentation,
+      reference_entries,
+    )
+  )
+
+  proof_body = "\n".join(
+    lines[
+      proof_index
+      + 1:
+    ]
+  ).lstrip()
+
+  (
+    used_reference_entries,
+    used_statement_lines,
+    filtered_proof_body,
+  ) = (
+    filter_toda_group_proof_narrative_reference_entries_by_body_usage(
+      reference_entries,
+      statement_lines_by_reference_number,
+      proof_body,
+    )
+  )
+
+  (
+    filtered_reference_entries,
+    filtered_statement_lines,
+  ) = (
+    exclude_toda_group_proof_narrative_root_reference(
+      used_reference_entries,
+      used_statement_lines,
+      presentation.root_step,
+    )
+  )
+
+  if (
+    len(
+      filtered_reference_entries
+    )
+    != len(
+      used_reference_entries
+    )
+  ):
+    return rendered
+
+  reference_section = (
+    render_toda_group_proof_narrative_reference_entries_markdown(
+      filtered_reference_entries,
+      filtered_statement_lines,
+    )
+  )
+
+  if not reference_section:
+    return rendered
+
+  prefix_lines = lines[
+    :reference_index
   ]
 
-  while proof_lines and not proof_lines[0]:
-    proof_lines.pop(0)
+  while (
+    prefix_lines
+    and not prefix_lines[
+      -1
+    ].strip()
+  ):
+    prefix_lines.pop()
 
-  wrapped_lines = [
-    "# Group proof narrative",
-    "",
-    "## 使用する結果",
-    "",
-    *reference_lines,
-    "",
-    "## 証明",
-    "",
-    *proof_lines,
-  ]
+  return (
+    "\n".join(
+      (
+        *prefix_lines,
+        "",
+        reference_header,
+        "",
+        reference_section,
+        "",
+        proof_header,
+        "",
+        filtered_proof_body,
+      )
+    ).rstrip()
+    + "\n"
+  )
 
-  return "\n".join(wrapped_lines).rstrip() + "\n"
+
+def _wrap_phase150_rc4_generic_public_narrative(
+  presentation: TodaGroupProofPresentation,
+  rendered: str,
+) -> str:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
+
+  if not isinstance(
+    rendered,
+    str,
+  ):
+    raise TypeError(
+      "rendered must be a str"
+    )
+
+  reference_entries = (
+    build_toda_group_proof_narrative_reference_entries(
+      presentation
+    )
+  )
+  statement_lines_by_reference_number = (
+    _toda_group_proof_narrative_reference_statement_lines_by_number(
+      presentation,
+      reference_entries,
+    )
+  )
+  reference_section = (
+    render_toda_group_proof_narrative_reference_entries_markdown(
+      reference_entries,
+      statement_lines_by_reference_number,
+    )
+  )
+
+  if not reference_section:
+    return rendered
+
+  reference_prefix = (
+    reference_section
+    + "\n\n"
+  )
+
+  if not rendered.startswith(
+    reference_prefix
+  ):
+    return rendered
+
+  proof = rendered[
+    len(
+      reference_prefix
+    ):
+  ].lstrip()
+
+  return (
+    "# Group proof narrative\n\n"
+    "## 使用する結果\n\n"
+    + reference_section
+    + "\n\n"
+    "## 証明\n\n"
+    + proof.rstrip()
+    + "\n"
+  )
 
 
 def _is_phase150_rc4_generic_route_target(
@@ -3882,7 +4149,12 @@ def render_toda_group_proof_narrative_markdown(
   )
 
   if phase134_24_pi15_8 is not None:
-    return phase134_24_pi15_8
+    return (
+      _phase153_r3_10_connect_public_reference_section(
+        presentation,
+        phase134_24_pi15_8,
+      )
+    )
 
   if (
     _is_phase134_3_pi6_3_presentation(
@@ -3924,7 +4196,8 @@ def render_toda_group_proof_narrative_markdown(
       presentation
     ):
       return _wrap_phase150_rc4_generic_public_narrative(
-        rendered
+        presentation,
+        rendered,
       )
 
     return rendered
@@ -3932,9 +4205,16 @@ def render_toda_group_proof_narrative_markdown(
   if _is_phase134_9_pi8_5_presentation(
     presentation
   ):
-    return (
+    rendered = (
       _render_phase134_9_pi8_5_narrative_markdown(
         presentation
+      )
+    )
+
+    return (
+      _phase153_r3_10_connect_public_reference_section(
+        presentation,
+        rendered,
       )
     )
 
@@ -3953,9 +4233,28 @@ def render_toda_group_proof_narrative_markdown(
     if presentation.max_depth >= 2
     else ()
   )
+  statement_lines_by_reference_number = (
+    _toda_group_proof_narrative_reference_statement_lines_by_number(
+      presentation,
+      reference_entries,
+    )
+    if reference_entries
+    else {}
+  )
+  (
+    reference_entries,
+    statement_lines_by_reference_number,
+  ) = (
+    exclude_toda_group_proof_narrative_root_reference(
+      reference_entries,
+      statement_lines_by_reference_number,
+      presentation.root_step,
+    )
+  )
   reference_section = (
     render_toda_group_proof_narrative_reference_entries_markdown(
-      reference_entries
+      reference_entries,
+      statement_lines_by_reference_number,
     )
   )
   reference_marker_by_step_id = {
@@ -3963,6 +4262,12 @@ def render_toda_group_proof_narrative_markdown(
     for entry in reference_entries
     for proof_step in entry.proof_steps
   }
+  reference_reuse_marker_by_step_id = (
+    build_toda_group_proof_narrative_reference_reuse_marker_by_step_id(
+      presentation,
+      reference_entries,
+    )
+  )
 
   lines = [
     "# Group proof narrative",
@@ -4019,6 +4324,7 @@ def render_toda_group_proof_narrative_markdown(
       set(),
       set(),
       reference_marker_by_step_id,
+      reference_reuse_marker_by_step_id,
     )
 
     lines.extend(
@@ -4044,9 +4350,85 @@ def render_toda_group_proof_narrative_markdown(
       )
     )
 
-  return (
+  rendered = (
     "\n".join(
       lines
     )
     + "\n"
   )
+
+  if reference_section:
+    proof_section_marker = "## 証明\n\n"
+    proof_section_index = rendered.find(
+      proof_section_marker
+    )
+
+    if proof_section_index >= 0:
+      body_start = (
+        proof_section_index
+        + len(
+          proof_section_marker
+        )
+      )
+      body = rendered[
+        body_start:
+      ]
+      suppressed_body = (
+        suppress_toda_group_proof_narrative_irrelevant_aggregate_ancestry(
+          presentation,
+          body,
+          reference_entries,
+        )
+      )
+      suppressed_body = (
+        suppress_toda_group_proof_narrative_reference_body_duplicates(
+          suppressed_body,
+          statement_lines_by_reference_number,
+        )
+      )
+      (
+        filtered_reference_entries,
+        filtered_statement_lines,
+        suppressed_body,
+      ) = (
+        filter_toda_group_proof_narrative_reference_entries_by_body_usage(
+          reference_entries,
+          statement_lines_by_reference_number,
+          suppressed_body,
+        )
+      )
+      filtered_reference_section = (
+        render_toda_group_proof_narrative_reference_entries_markdown(
+          filtered_reference_entries,
+          filtered_statement_lines,
+        )
+      )
+      prefix_lines = [
+        "# Group proof narrative",
+        "",
+        theorem + "を用いる。",
+        "",
+      ]
+
+      if filtered_reference_section:
+        prefix_lines.extend(
+          (
+            "## 使用する結果",
+            "",
+            filtered_reference_section,
+            "",
+            "## 証明",
+            "",
+          )
+        )
+
+      rendered = (
+        "\n".join(
+          prefix_lines
+        )
+        + "\n"
+        + suppressed_body
+        + "\n"
+      )
+
+  return rendered

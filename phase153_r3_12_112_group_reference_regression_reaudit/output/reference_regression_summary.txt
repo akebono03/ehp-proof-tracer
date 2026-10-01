@@ -1,0 +1,40 @@
+==============================================================================
+Phase 153-R3-12 - 112-group Reference Regression Re-Audit
+==============================================================================
+scope: n=2..15, k=0..7, depth=2, semantic closure
+production changes: none
+tests changes: none
+
+groups: 112
+exceptions: 0
+presentation nodes: 713
+reference entries: 222
+selected statements: 438
+
+Closure metrics:
+  exceptions: 0
+  entries without selected statement: 0
+  unresolved reference steps: 0
+  public selected statement missing: 0
+  public Reference marker missing: 0
+  exact selected statement duplicated in proof body: 0
+  rule-name/type-name fallback exposure in Reference: 0
+
+Public route shapes:
+  canonical_prefix_without_proof_heading: 1
+  explicit_proof_heading: 95
+  no_reference_entries: 16
+
+R3 CLOSURE: PASS
+
+Output files:
+  reference_regression_summary.txt
+  route_inventory.csv
+  entries_without_selected_statement.csv
+  unresolved_reference_steps.csv
+  public_selected_statement_missing.csv
+  public_reference_marker_missing.csv
+  exact_body_duplicates.csv
+  reference_fallback_exposures.csv
+  exception_inventory.csv
+==============================================================================

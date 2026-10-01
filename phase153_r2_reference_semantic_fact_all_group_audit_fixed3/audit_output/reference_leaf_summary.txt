@@ -1,0 +1,63 @@
+==============================================================================
+Phase 153-R2 follow-up — Reference / Semantic Fact All-Group Audit
+==============================================================================
+scope: n=2..15, k=0..7, depth=2, semantic closure
+production changes: none
+
+groups: 112
+exceptions: 0
+presentation nodes: 713
+reference-bearing leaf premises: 233
+
+Classification:
+  reference_only: occurrences=33, statement_types=12, affected_groups=22
+  reference_plus_semantic_fact: occurrences=198, statement_types=19, affected_groups=84
+  unresolved_rendering: occurrences=2, statement_types=2, affected_groups=2
+
+Decision rule:
+  provenance-only statement -> reference_only
+  non-provenance-only + meaningful generic rendering -> reference_plus_semantic_fact
+  non-provenance-only + generic fallback -> unresolved_rendering
+
+By statement type:
+  reference_only | TodaProp44IsomorphismStatement: occurrences=8, affected_groups=8
+  reference_only | TodaLemma54Statement: occurrences=4, affected_groups=4
+  reference_only | TodaProp53FiniteDimensionalStatement: occurrences=4, affected_groups=4
+  reference_only | TodaProp56FiniteDimensionalStatement: occurrences=3, affected_groups=3
+  reference_only | Toda52CompositionIsomorphismStatement: occurrences=2, affected_groups=2
+  reference_only | Toda55NuFamilyFiniteDimensionalStatement: occurrences=2, affected_groups=2
+  reference_only | TodaProp511FiniteDimensionalStatement: occurrences=2, affected_groups=2
+  reference_only | TodaProp515Pi12_5HopfIsomorphismStatement: occurrences=2, affected_groups=2
+  reference_only | TodaProp51FiniteDimensionalStatement: occurrences=2, affected_groups=2
+  reference_only | TodaProp59FiniteDimensionalStatement: occurrences=2, affected_groups=2
+  reference_only | TodaLemma514SigmaPrimeStatement: occurrences=1, affected_groups=1
+  reference_only | TodaProp58FiniteDimensionalStatement: occurrences=1, affected_groups=1
+  reference_plus_semantic_fact | Relation: occurrences=94, affected_groups=60
+  reference_plus_semantic_fact | Toda45IsomorphismStatement: occurrences=32, affected_groups=32
+  reference_plus_semantic_fact | TodaPrimaryGroupZeroStatement: occurrences=21, affected_groups=21
+  reference_plus_semantic_fact | TodaProp42ExactnessStatement: occurrences=12, affected_groups=12
+  reference_plus_semantic_fact | TodaSigmaFamilyDefinitionStatement: occurrences=6, affected_groups=6
+  reference_plus_semantic_fact | TodaSuspensionInjectiveStatement: occurrences=5, affected_groups=5
+  reference_plus_semantic_fact | TodaSuspensionSurjectiveStatement: occurrences=5, affected_groups=4
+  reference_plus_semantic_fact | TodaSuspensionIsomorphismStatement: occurrences=4, affected_groups=4
+  reference_plus_semantic_fact | TodaHopfInvariantInjectiveStatement: occurrences=3, affected_groups=3
+  reference_plus_semantic_fact | TodaHopfInvariantZeroStatement: occurrences=3, affected_groups=3
+  reference_plus_semantic_fact | HomotopyGroupMembershipStatement: occurrences=2, affected_groups=2
+  reference_plus_semantic_fact | TodaDeltaImageUpToSignStatement: occurrences=2, affected_groups=2
+  reference_plus_semantic_fact | TodaDeltaInjectiveStatement: occurrences=2, affected_groups=2
+  reference_plus_semantic_fact | TodaHopfInvariantSurjectiveStatement: occurrences=2, affected_groups=2
+  reference_plus_semantic_fact | Toda58EquationStatement: occurrences=1, affected_groups=1
+  reference_plus_semantic_fact | TodaDeltaZeroStatement: occurrences=1, affected_groups=1
+  reference_plus_semantic_fact | TodaProp44SuspensionInjectiveStatement: occurrences=1, affected_groups=1
+  reference_plus_semantic_fact | TodaProp59DeltaKernelStatement: occurrences=1, affected_groups=1
+  reference_plus_semantic_fact | TodaSuspensionZeroStatement: occurrences=1, affected_groups=1
+  unresolved_rendering | TodaDeltaSurjectiveStatement: occurrences=1, affected_groups=1
+  unresolved_rendering | TodaProp511NuSquaredFiniteDimensionalStatement: occurrences=1, affected_groups=1
+
+Output files:
+  reference_leaf_occurrences.csv
+  reference_leaf_category_summary.csv
+  reference_leaf_by_statement_type.csv
+  exception_inventory.csv
+  reference_leaf_summary.txt
+==============================================================================

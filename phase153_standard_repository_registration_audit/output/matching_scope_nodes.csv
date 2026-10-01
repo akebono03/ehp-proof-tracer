@@ -1,0 +1,9 @@
+﻿target,root_entry_key,root_entry_phase,root_entry_theorem,shortest_depth,step_rule,is_canonical_base_identity,conclusion_equals_canonical_base,premise_count
+pi_10^6,standard.toda.prop58,68,Toda Proposition 5.8,2,Toda Proposition 5.8 pi_10^6 zero,False,True,3
+pi_10^6,standard.toda.prop511,73,Toda Proposition 5.11,5,Toda Proposition 5.8 pi_10^6 zero,False,True,3
+pi_10^6,standard.toda.prop511,73,Toda Proposition 5.11,7,Toda Proposition 5.8 pi_10^6 zero,False,True,3
+pi_10^6,standard.toda.prop515,75,Toda Proposition 5.15,4,Toda Proposition 5.8 pi_10^6 zero,False,True,3
+pi_10^6,standard.toda.prop515,75,Toda Proposition 5.15,6,Toda Proposition 5.8 pi_10^6 zero,False,True,3
+pi_10^6,standard.toda.prop515,75,Toda Proposition 5.15,7,Toda Proposition 5.8 pi_10^6 zero,False,True,3
+pi_12^7,standard.toda.prop511,73,Toda Proposition 5.11,4,Toda Proposition 5.9 pi_12^7 zero,False,True,3
+pi_12^7,standard.toda.prop515,75,Toda Proposition 5.15,5,Toda Proposition 5.9 pi_12^7 zero,False,True,3

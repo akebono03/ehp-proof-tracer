@@ -1,0 +1,408 @@
+﻿n,k,reference_number,reference,statement_index,statement,marker_in_public,statement_in_reference,statement_in_proof
+2,2,1,(5.2),1,$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$,True,True,True
+2,2,2,(5.2),1,$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.,True,True,False
+2,3,1,Proposition 5.6,1,$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$,True,True,True
+2,3,2,Proposition 5.3,1,$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$,True,True,True
+2,3,2,Proposition 5.3,2,$E: \pi_{4}^{2} \to \pi_{5}^{3}$ は同型写像である.,True,True,False
+2,3,2,Proposition 5.3,3,$E\eta_{2}\eta_{3} = \eta_{3}^{2}$,True,True,False
+2,3,3,(5.2),1,$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.,True,True,False
+2,3,4,(5.2),1,$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$,True,True,True
+2,4,1,Lemma 5.7,1,$\pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\}$,True,True,True
+2,4,2,Proposition 5.6,1,"$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$, $\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$, $\pi_{7}^{4} = \mathbb{Z}\{\nu_{4}\} \oplus \mathbb{Z}/4\{E\nu'\}$, $\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$, $\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$, $n \ge 6$ が成り立つ.",True,True,False
+2,4,2,Proposition 5.6,2,$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$,True,True,False
+2,4,2,Proposition 5.6,3,$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$,True,True,True
+2,4,2,Proposition 5.6,4,$\pi_{7}^{4} = \mathbb{Z}\{\nu_{4}\} \oplus \mathbb{Z}/4\{E\nu'\}$,True,True,True
+2,4,2,Proposition 5.6,5,$\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$,True,True,True
+2,4,2,Proposition 5.6,6,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$,True,True,True
+2,4,3,(5.2),1,$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.,True,True,False
+2,5,1,Proposition 5.9,1,$\pi_{7}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\}$,True,True,True
+2,5,2,Proposition 5.8,1,$\pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}$,True,True,True
+2,5,3,(5.2),1,$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.,True,True,False
+2,5,4,Equation 5.7,1,$H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}$,True,True,False
+2,6,1,Proposition 5.11,1,$\pi_{8}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\eta_{7}\}$,True,True,True
+2,6,2,Proposition 5.9,1,$\pi_{7}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\}$,True,True,True
+2,6,2,Proposition 5.9,2,$\pi_{8}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\eta_{7}\}$,True,True,False
+2,6,2,Proposition 5.9,3,$\pi_{9}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\eta_{8}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\eta_{8}\}$,True,True,True
+2,6,2,Proposition 5.9,4,$\pi_{10}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\eta_{9}\}$,True,True,True
+2,6,2,Proposition 5.9,5,$\pi_{11}^{6} = \mathbb{Z}\{\Delta\left(\iota_{13}\right)\}$,True,True,False
+2,6,2,Proposition 5.9,6,$\pi_{n + 5}^{n} = 0$,True,True,True
+2,6,3,(5.2),1,$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.,True,True,False
+2,7,1,Proposition 5.15,1,$\pi_{9}^{2} = 0$,True,True,True
+2,7,2,Proposition 5.11,1,"$\pi_{8}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\eta_{7}\}$, $\pi_{9}^{3} = 0$, $\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}$, $\pi_{11}^{5} = \mathbb{Z}/2\{\nu_{5}\nu_{8}\}$, $\pi_{12}^{6} = \mathbb{Z}/2\{\nu_{6}\nu_{9}\}$, $\pi_{13}^{7} = \mathbb{Z}/2\{\nu_{7}\nu_{10}\}$, $\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$, $\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$, $n \ge 9$ が成り立つ.",True,True,False
+2,7,2,Proposition 5.11,2,$\pi_{8}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\eta_{7}\}$,True,True,False
+2,7,2,Proposition 5.11,3,$\pi_{9}^{3} = 0$,True,True,False
+2,7,2,Proposition 5.11,4,$\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}$,True,True,True
+2,7,3,(5.2),1,$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.,True,True,False
+3,2,1,Proposition 5.3,1,$E: \pi_{4}^{2} \to \pi_{5}^{3}$ は同型写像である.,True,True,False
+3,2,1,Proposition 5.3,2,$E\eta_{2}\eta_{3} = \eta_{3}^{2}$,True,True,False
+3,2,1,Proposition 5.3,3,$E: \pi_{4}^{2} \to \pi_{5}^{3}$ は単射である.,True,True,False
+3,2,1,Proposition 5.3,4,$E: \pi_{4}^{2} \to \pi_{5}^{3}$ は全射である.,True,True,False
+3,2,2,(5.2),1,$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$,True,True,True
+3,2,3,(5.2),1,$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.,True,True,False
+3,3,1,Proposition 5.6,1,$\operatorname{ord}\left(\nu'\right) = 4$,True,True,False
+3,3,1,Proposition 5.6,2,$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$,True,True,False
+3,3,1,Proposition 5.6,3,$E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.,True,True,False
+3,3,1,Proposition 5.6,4,$\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$,True,True,False
+3,3,1,Proposition 5.6,5,$\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.,True,True,False
+3,3,2,(5.3),1,$\nu' \in \pi_{6}^{3}$,True,True,False
+3,3,2,(5.3),2,$2\eta_{3} = 0$,True,True,False
+3,3,2,(5.3),3,$2\nu' = \eta_{3}E\eta_{3}\eta_{5}$,True,True,False
+3,3,3,Proposition 5.3,1,$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.,True,True,False
+3,3,3,Proposition 5.3,2,$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$,True,True,False
+3,3,4,Lemma 5.4,1,$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$,True,True,False
+3,3,5,(5.3) / Lemma 5.2,1,"$\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$ が成り立つ.",True,True,False
+3,3,6,(5.2),1,$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.,True,True,False
+3,3,7,Proposition 5.1,1,"$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$, $H\left(\eta_{2}\right) = \iota_{3}$, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$, $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$ が成り立つ.",True,True,False
+3,4,1,Proposition 5.8,1,$H: \pi_{7}^{3} \to \pi_{7}^{5}$ は単射である.,True,True,False
+3,4,2,Equation 5.7,1,$H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}$,True,True,False
+3,4,3,Proposition 5.3,1,$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$,True,True,True
+3,4,3,Proposition 5.3,2,$\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\}$,True,True,True
+3,4,3,Proposition 5.3,3,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,True,True,False
+3,4,4,Proposition 5.6,1,$H: \pi_{7}^{3} \to \pi_{7}^{5}$ は全射である.,True,True,False
+3,4,5,(5.2),1,$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$,True,True,False
+3,5,1,Proposition 5.9,1,$H: \pi_{8}^{3} \to \pi_{8}^{5}$ は単射である.,True,True,False
+3,5,1,Proposition 5.9,2,$\pi_{8}^{3} \xrightarrow{H} \pi_{8}^{5} \xrightarrow{\Delta} \pi_{6}^{2} \text{ is exact}$,True,True,True
+3,5,1,Proposition 5.9,3,$\ker\left(\Delta: \pi_{8}^{5} \to \pi_{6}^{2}\right) = \mathbb{Z}/2\{4\nu_{5}\}$,True,True,True
+3,5,1,Proposition 5.9,4,$H\left(\nu'\eta_{6}\eta_{7}\right) = 4\nu_{5}$,True,True,True
+3,5,1,Proposition 5.9,5,$E\eta_{2}\nu'\eta_{6} = 0$,True,True,True
+3,5,1,Proposition 5.9,6,$\pi_{7}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\}$,True,True,False
+3,5,1,Proposition 5.9,7,$\pi_{7}^{2} \xrightarrow{E} \pi_{8}^{3} \xrightarrow{H} \pi_{8}^{5} \text{ is exact}$,True,True,True
+3,5,2,Lemma 5.7,1,$\Delta\left(\nu_{5}\right) = \pm \eta_{2}\nu'$,True,True,True
+3,5,2,Lemma 5.7,2,$\pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\}$,True,True,False
+3,5,3,Proposition 5.6,1,$\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$,True,True,False
+3,5,4,Equation 5.7,1,$H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}$,True,True,False
+3,5,5,(5.5),1,"$\nu_{n} = E^{n - 4}\nu_{4}$, $n \ge 5$, $2\nu_{n} = E^{n - 3}\nu'$, $4\nu_{n} = \eta_{n}\eta_{n + 1}\eta_{n + 2}$ が成り立つ.",True,True,False
+3,6,1,Proposition 5.11,1,$H: \pi_{9}^{3} \to \pi_{9}^{5}$ は単射である.,True,True,False
+3,6,1,Proposition 5.11,2,$\Delta: \pi_{9}^{5} \to \pi_{7}^{2}$ は単射である.,True,True,False
+3,6,1,Proposition 5.11,3,$\pi_{9}^{3} \xrightarrow{H} \pi_{9}^{5} \xrightarrow{\Delta} \pi_{7}^{2} \text{ is exact}$,True,True,True
+3,6,1,Proposition 5.11,4,$E: \pi_{8}^{2} \to \pi_{9}^{3} \text{ is the zero map}$,True,True,False
+3,6,1,Proposition 5.11,5,$\pi_{8}^{2} \xrightarrow{E} \pi_{9}^{3} \xrightarrow{H} \pi_{9}^{5} \text{ is exact}$,True,True,True
+3,7,1,Proposition 5.15,1,$\Delta: \pi_{10}^{5} \to \pi_{8}^{2}$ は単射である.,True,True,False
+3,7,1,Proposition 5.15,2,$\pi_{10}^{3} \xrightarrow{H} \pi_{10}^{5} \xrightarrow{\Delta} \pi_{8}^{2} \text{ is exact}$,True,True,True
+3,7,1,Proposition 5.15,3,$\pi_{9}^{2} = 0$,True,True,True
+3,7,1,Proposition 5.15,4,$\pi_{9}^{2} \xrightarrow{E} \pi_{10}^{3} \xrightarrow{H} \pi_{10}^{5} \text{ is exact}$,True,True,True
+3,7,3,Proposition 5.11,1,"$\pi_{8}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\eta_{7}\}$, $\pi_{9}^{3} = 0$, $\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}$, $\pi_{11}^{5} = \mathbb{Z}/2\{\nu_{5}\nu_{8}\}$, $\pi_{12}^{6} = \mathbb{Z}/2\{\nu_{6}\nu_{9}\}$, $\pi_{13}^{7} = \mathbb{Z}/2\{\nu_{7}\nu_{10}\}$, $\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$, $\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$, $n \ge 9$ が成り立つ.",True,True,False
+4,1,1,(4.5),1,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,True,True,False
+4,2,1,Proposition 5.3,1,$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$,True,True,True
+4,2,1,Proposition 5.3,2,$E: \pi_{5}^{3} \to \pi_{6}^{4}$ は同型写像である.,True,True,False
+4,2,1,Proposition 5.3,3,$E\eta_{3}\eta_{4} = \eta_{4}^{2}$,True,True,False
+4,2,1,Proposition 5.3,4,$E: \pi_{4}^{2} \to \pi_{5}^{3}$ は同型写像である.,True,True,False
+4,2,1,Proposition 5.3,5,$E\eta_{2}\eta_{3} = \eta_{3}^{2}$,True,True,False
+4,2,1,Proposition 5.3,6,$E: \pi_{5}^{3} \to \pi_{6}^{4}$ は単射である.,True,True,False
+4,2,1,Proposition 5.3,7,$E: \pi_{5}^{3} \to \pi_{6}^{4}$ は全射である.,True,True,False
+4,2,2,(5.2),1,$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$,True,True,False
+4,3,1,Proposition 5.6,1,$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$,True,True,True
+4,3,1,Proposition 5.6,2,$\operatorname{ord}\left(\nu'\right) = 4$,True,True,False
+4,3,1,Proposition 5.6,3,$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$,True,True,False
+4,3,1,Proposition 5.6,4,$E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.,True,True,False
+4,3,2,Lemma 5.4,1,"$\nu_{4} \in \pi_{7}^{4}$, $H\left(\nu_{4}\right) = \iota_{7}$, $2E\nu_{4} = E^{2}\nu'$ が成り立つ.",True,True,False
+4,3,2,Lemma 5.4,2,$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$,True,True,False
+4,3,3,(5.3),1,$\nu' \in \pi_{6}^{3}$,True,True,False
+4,3,4,Proposition 5.3,1,$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.,True,True,False
+4,4,1,Proposition 5.8,1,$\pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}$,True,True,True
+4,4,1,Proposition 5.8,2,$E\nu'\eta_{6} = E\nu'\eta_{7}$,True,True,True
+4,4,2,Proposition 5.1,1,"$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$, $H\left(\eta_{2}\right) = \iota_{3}$, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$, $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$ が成り立つ.",True,True,False
+4,4,3,Lemma 5.4,1,"$\nu_{4} \in \pi_{7}^{4}$, $H\left(\nu_{4}\right) = \iota_{7}$, $2E\nu_{4} = E^{2}\nu'$ が成り立つ.",True,True,False
+4,4,4,Equation 5.7,1,$H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}$,True,True,False
+4,5,1,Proposition 5.9,1,$\pi_{8}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\eta_{7}\}$,True,True,True
+4,5,1,Proposition 5.9,2,$E\nu'\eta_{6}\eta_{7} = E\nu'\eta_{7}^{2}$,True,True,False
+4,5,1,Proposition 5.9,3,$H: \pi_{8}^{3} \to \pi_{8}^{5}$ は単射である.,True,True,False
+4,5,1,Proposition 5.9,4,$\pi_{8}^{3} \xrightarrow{H} \pi_{8}^{5} \xrightarrow{\Delta} \pi_{6}^{2} \text{ is exact}$,True,True,True
+4,5,1,Proposition 5.9,5,$\ker\left(\Delta: \pi_{8}^{5} \to \pi_{6}^{2}\right) = \mathbb{Z}/2\{4\nu_{5}\}$,True,True,False
+4,5,1,Proposition 5.9,6,$H\left(\nu'\eta_{6}\eta_{7}\right) = 4\nu_{5}$,True,True,False
+4,5,2,Proposition 5.3,1,$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$,True,True,True
+4,5,2,Proposition 5.3,2,$\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\}$,True,True,True
+4,5,2,Proposition 5.3,3,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,True,True,False
+4,5,3,Lemma 5.4,1,"$\nu_{4} \in \pi_{7}^{4}$, $H\left(\nu_{4}\right) = \iota_{7}$, $2E\nu_{4} = E^{2}\nu'$ が成り立つ.",True,True,False
+4,5,4,(5.2),1,$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$,True,True,False
+4,6,1,Proposition 5.11,1,$\pi_{9}^{3} = 0$,True,True,False
+4,6,1,Proposition 5.11,2,$\pi_{10}^{7} = \mathbb{Z}/8\{\nu_{7}\}$,True,True,False
+4,6,1,Proposition 5.11,3,$H: \pi_{9}^{3} \to \pi_{9}^{5}$ は単射である.,True,True,False
+4,6,1,Proposition 5.11,4,$\Delta: \pi_{9}^{5} \to \pi_{7}^{2}$ は単射である.,True,True,False
+4,6,1,Proposition 5.11,5,$\pi_{9}^{3} \xrightarrow{H} \pi_{9}^{5} \xrightarrow{\Delta} \pi_{7}^{2} \text{ is exact}$,True,True,False
+4,6,2,Proposition 5.6,1,"$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$, $\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$, $\pi_{7}^{4} = \mathbb{Z}\{\nu_{4}\} \oplus \mathbb{Z}/4\{E\nu'\}$, $\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$, $\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$, $n \ge 6$ が成り立つ.",True,True,False
+4,6,3,Lemma 5.4,1,"$\nu_{4} \in \pi_{7}^{4}$, $H\left(\nu_{4}\right) = \iota_{7}$, $2E\nu_{4} = E^{2}\nu'$ が成り立つ.",True,False,True
+4,7,1,Proposition 5.15,1,$\pi_{10}^{3} = 0$,True,True,True
+4,7,1,Proposition 5.15,2,$\Delta: \pi_{10}^{5} \to \pi_{8}^{2}$ は単射である.,True,True,False
+4,7,1,Proposition 5.15,3,$\pi_{10}^{3} \xrightarrow{H} \pi_{10}^{5} \xrightarrow{\Delta} \pi_{8}^{2} \text{ is exact}$,True,True,True
+4,7,2,Proposition 5.8,1,$\pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}$,True,True,False
+4,7,2,Proposition 5.8,2,$\pi_{8}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\}$,True,True,True
+4,7,2,Proposition 5.8,3,$\pi_{9}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\}$,True,True,True
+4,7,2,Proposition 5.8,4,$\pi_{n + 4}^{n} = 0$,True,True,True
+4,7,3,Lemma 5.7,1,$\pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\}$,True,True,False
+5,1,1,(4.5),1,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,True,True,False
+5,2,1,Proposition 5.3,1,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,True,True,True
+5,2,1,Proposition 5.3,2,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{E^{n - 4}\eta_{4}\eta_{5}\}$,True,True,False
+5,2,1,Proposition 5.3,3,$E^{n - 4}\eta_{4}\eta_{5} = \eta_{n}\eta_{n + 1}$,True,True,False
+5,3,1,Proposition 5.6,1,$\operatorname{ord}\left(\nu_{5}\right) = 8$,True,False,False
+5,3,1,Proposition 5.6,2,$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$,True,False,False
+5,3,1,Proposition 5.6,3,$E^{2}: \pi_{6}^{3} \to \pi_{8}^{5}$ は単射である.,True,False,False
+5,3,1,Proposition 5.6,4,$\pi_{8}^{5}/E^{2}\left(\pi_{6}^{3}\right) \cong \mathbb{Z}/2$,True,False,False
+5,3,1,Proposition 5.6,5,$2\nu_{5} = E^{2}\nu'$,True,False,False
+5,3,1,Proposition 5.6,6,$\operatorname{ord}\left(E^{2}\nu'\right) = 4$,True,False,False
+5,3,1,Proposition 5.6,7,$\operatorname{ord}\left(\nu'\right) = 4$,True,False,False
+5,3,1,Proposition 5.6,8,$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$,True,False,False
+5,3,1,Proposition 5.6,9,$E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.,True,False,False
+5,3,2,(5.3),1,$\nu' \in \pi_{6}^{3}$,True,False,False
+5,3,3,Proposition 5.3,1,$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.,False,False,False
+5,3,4,Lemma 5.4,1,$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$,False,False,False
+5,4,1,Proposition 5.8,1,$\pi_{8}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\}$,True,True,True
+5,4,1,Proposition 5.8,2,$\Delta\left(\eta_{9}\right) = E\nu'\eta_{7}$,True,True,True
+5,4,1,Proposition 5.8,3,$\pi_{10}^{9} \xrightarrow{\Delta} \pi_{8}^{4} \xrightarrow{E} \pi_{9}^{5} \text{ is exact}$,True,True,True
+5,4,1,Proposition 5.8,4,$E: \pi_{8}^{4} \to \pi_{9}^{5}$ は全射である.,True,True,False
+5,4,1,Proposition 5.8,5,$E\nu_{4}\eta_{7} = \nu_{5}\eta_{8}$,True,True,True
+5,4,1,Proposition 5.8,6,$\pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}$,True,True,False
+5,4,1,Proposition 5.8,7,$E\nu'\eta_{6} = E\nu'\eta_{7}$,True,True,True
+5,4,1,Proposition 5.8,8,$H: \pi_{9}^{5} \to \pi_{9}^{9}$ は零写像である.,True,True,False
+5,4,1,Proposition 5.8,9,$\pi_{8}^{4} \xrightarrow{E} \pi_{9}^{5} \xrightarrow{H} \pi_{9}^{9} \text{ is exact}$,True,True,True
+5,4,2,Proposition 5.1,1,"$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$, $H\left(\eta_{2}\right) = \iota_{3}$, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$, $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$ が成り立つ.",True,True,False
+5,4,3,Proposition 2.5,1,$\Delta\left(\eta_{9}\right) = \pm 2\nu_{4} - E\nu'\eta_{7}$,True,True,False
+5,5,1,Proposition 5.9,1,$\pi_{9}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\eta_{8}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\eta_{8}\}$,True,True,True
+5,5,1,Proposition 5.9,2,$\Delta\left(\eta_{9}\eta_{10}\right) = E\nu'\eta_{7}^{2}$,True,True,False
+5,5,1,Proposition 5.9,3,$\pi_{11}^{9} \xrightarrow{\Delta} \pi_{9}^{4} \xrightarrow{E} \pi_{10}^{5} \text{ is exact}$,True,True,True
+5,5,1,Proposition 5.9,4,$E: \pi_{9}^{4} \to \pi_{10}^{5}$ は全射である.,True,True,False
+5,5,1,Proposition 5.9,5,$E\nu_{4}\eta_{7}\eta_{8} = \nu_{5}\eta_{8}^{2}$,True,True,False
+5,5,1,Proposition 5.9,6,$\pi_{8}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\eta_{7}\}$,True,True,False
+5,5,1,Proposition 5.9,7,$E\nu'\eta_{6}\eta_{7} = E\nu'\eta_{7}^{2}$,True,True,False
+5,5,1,Proposition 5.9,8,$H: \pi_{10}^{5} \to \pi_{10}^{9}$ は零写像である.,True,True,False
+5,5,1,Proposition 5.9,9,$\pi_{9}^{4} \xrightarrow{E} \pi_{10}^{5} \xrightarrow{H} \pi_{10}^{9} \text{ is exact}$,True,True,True
+5,5,2,Proposition 5.3,1,$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$,True,True,True
+5,5,2,Proposition 5.3,2,$\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\}$,True,True,True
+5,5,2,Proposition 5.3,3,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,True,True,False
+5,5,3,Proposition 5.8,1,$\Delta\left(\eta_{9}\right) = E\nu'\eta_{7}$,True,True,False
+5,5,3,Proposition 5.8,2,$E\nu_{4}\eta_{7} = \nu_{5}\eta_{8}$,True,True,False
+5,5,4,(5.2),1,$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$,True,True,False
+5,6,1,Proposition 5.11,1,$\pi_{12}^{9} = \mathbb{Z}/8\{\nu_{9}\}$,True,True,True
+5,6,1,Proposition 5.11,2,$\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}$,True,True,True
+5,6,1,Proposition 5.11,3,$\pi_{12}^{9} \xrightarrow{\Delta} \pi_{10}^{4} \xrightarrow{E} \pi_{11}^{5} \text{ is exact}$,True,True,True
+5,6,1,Proposition 5.11,4,$E: \pi_{10}^{4} \to \pi_{11}^{5}$ は全射である.,True,True,False
+5,6,1,Proposition 5.11,5,$\pi_{9}^{3} = 0$,True,True,False
+5,6,1,Proposition 5.11,6,$\pi_{10}^{7} = \mathbb{Z}/8\{\nu_{7}\}$,True,True,True
+5,6,1,Proposition 5.11,7,$H: \pi_{11}^{5} \to \pi_{11}^{9}$ は零写像である.,True,True,False
+5,6,1,Proposition 5.11,8,$\pi_{10}^{4} \xrightarrow{E} \pi_{11}^{5} \xrightarrow{H} \pi_{11}^{9} \text{ is exact}$,True,True,True
+5,6,2,Equation 5.13,1,$\Delta\left(\nu_{9}\right) = \pm 2\nu_{4}\nu_{7}$,True,True,True
+5,6,3,Proposition 5.6,1,"$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$, $\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$, $\pi_{7}^{4} = \mathbb{Z}\{\nu_{4}\} \oplus \mathbb{Z}/4\{E\nu'\}$, $\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$, $\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$, $n \ge 6$ が成り立つ.",True,True,False
+5,6,4,Equation 5.8,1,"$\Delta\left(\iota_{9}\right) = \pm \left(2\nu_{4} - E\nu'\right) = \pm [\iota_{4}, \iota_{4}]$",True,True,False
+5,7,1,Proposition 5.15,1,"$H: \pi_{12}^{5} \xrightarrow{\cong} \mathbb{Z}/2\{4\nu_{9}\}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ.",True,True,False
+5,7,1,Proposition 5.15,2,$\pi_{12}^{5} \xrightarrow{H} \pi_{12}^{9} \xrightarrow{\Delta} \pi_{10}^{4} \text{ is exact}$,True,True,False
+5,7,2,Lemma 5.13,1,"$\sigma''' \in \{\nu_{5}, 8\iota_{8}, \nu_{8}\}_{3}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ.",True,True,False
+5,7,3,Proposition 5.11,1,$\pi_{12}^{9} = \mathbb{Z}/8\{\nu_{9}\}$,True,True,False
+5,7,3,Proposition 5.11,2,"$\pi_{8}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\eta_{7}\}$, $\pi_{9}^{3} = 0$, $\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}$, $\pi_{11}^{5} = \mathbb{Z}/2\{\nu_{5}\nu_{8}\}$, $\pi_{12}^{6} = \mathbb{Z}/2\{\nu_{6}\nu_{9}\}$, $\pi_{13}^{7} = \mathbb{Z}/2\{\nu_{7}\nu_{10}\}$, $\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$, $\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$, $n \ge 9$ が成り立つ.",True,True,False
+5,7,4,Equation 5.13,1,$\Delta\left(\nu_{9}\right) = \pm 2\nu_{4}\nu_{7}$,True,True,False
+5,7,5,(5.5),1,"$\nu_{n} = E^{n - 4}\nu_{4}$, $n \ge 5$, $2\nu_{n} = E^{n - 3}\nu'$, $4\nu_{n} = \eta_{n}\eta_{n + 1}\eta_{n + 2}$ が成り立つ.",True,False,True
+6,1,1,(4.5),1,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,True,True,False
+6,2,1,Proposition 5.3,1,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,True,True,True
+6,2,1,Proposition 5.3,2,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{E^{n - 4}\eta_{4}\eta_{5}\}$,True,True,False
+6,2,1,Proposition 5.3,3,$E^{n - 4}\eta_{4}\eta_{5} = \eta_{n}\eta_{n + 1}$,True,True,False
+6,3,1,Proposition 5.6,1,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$,True,True,True
+6,3,1,Proposition 5.6,2,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$,True,True,True
+6,3,1,Proposition 5.6,3,$E^{n - 5}\nu_{5} = \nu_{n}$,True,True,True
+6,4,1,Proposition 5.8,1,$\pi_{n + 4}^{n} = 0$,True,True,True
+6,4,1,Proposition 5.8,2,$\pi_{10}^{6} = 0$,True,True,True
+6,4,2,(4.5),1,$E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n}$ は同型写像である.,True,True,False
+6,5,1,Proposition 5.9,1,$H: \pi_{11}^{6} \to \pi_{11}^{11}$ は単射である.,True,True,False
+6,5,1,Proposition 5.9,2,$\pi_{11}^{6} \xrightarrow{H} \pi_{11}^{11} \xrightarrow{\Delta} \pi_{9}^{5} \text{ is exact}$,True,True,True
+6,5,1,Proposition 5.9,3,$E\nu_{5}\eta_{8}\eta_{9} = 0$,True,True,True
+6,5,1,Proposition 5.9,4,$\pi_{10}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\eta_{9}\}$,True,True,False
+6,5,1,Proposition 5.9,5,$\pi_{10}^{5} \xrightarrow{E} \pi_{11}^{6} \xrightarrow{H} \pi_{11}^{11} \text{ is exact}$,True,True,True
+6,5,2,Proposition 5.8,1,$\pi_{9}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\}$,True,True,False
+6,6,1,Proposition 5.11,1,$\pi_{11}^{5} = \mathbb{Z}/2\{\nu_{5}\nu_{8}\}$,True,True,True
+6,6,1,Proposition 5.11,2,$E: \pi_{11}^{5} \to \pi_{12}^{6}$ は同型写像である.,True,True,False
+6,6,1,Proposition 5.11,3,$\pi_{12}^{9} = \mathbb{Z}/8\{\nu_{9}\}$,True,True,False
+6,6,1,Proposition 5.11,4,$\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}$,True,True,False
+6,6,1,Proposition 5.11,5,$\pi_{12}^{9} \xrightarrow{\Delta} \pi_{10}^{4} \xrightarrow{E} \pi_{11}^{5} \text{ is exact}$,True,True,True
+6,6,1,Proposition 5.11,6,$E: \pi_{10}^{4} \to \pi_{11}^{5}$ は全射である.,True,True,False
+6,6,1,Proposition 5.11,7,$E: \pi_{11}^{5} \to \pi_{12}^{6}$ は単射である.,True,True,False
+6,6,1,Proposition 5.11,8,$E: \pi_{11}^{5} \to \pi_{12}^{6}$ は全射である.,True,True,False
+6,6,2,Equation 5.13,1,$\Delta\left(\nu_{9}\right) = \pm 2\nu_{4}\nu_{7}$,True,True,True
+6,7,1,Proposition 5.15,1,$\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$,True,True,True
+6,7,1,Proposition 5.15,2,"$H: \pi_{12}^{5} \xrightarrow{\cong} \mathbb{Z}/2\{4\nu_{9}\}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ.",True,True,False
+6,7,2,Lemma 5.14,1,"$E^{3}\sigma'' = 4\,xEα*, \qquad 2\sigma'' = E\sigma''', \qquad H\left(\sigma''\right) = \eta_{11}\eta_{12}$",True,True,True
+6,7,3,Proposition 5.11,1,$\pi_{13}^{11} = \mathbb{Z}/2\{\eta_{11}\eta_{12}\}$,True,True,True
+6,7,4,Theorem 3.6,1,"$8\,xEα* = E^{4}\sigma'''$ が成り立つ.",True,True,False
+6,7,5,Equation 5.13,1,$\Delta\left(\eta_{11}\eta_{12}\right) = 0$,True,True,False
+6,7,6,Proposition 5.6,1,"$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$, $\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$, $\pi_{7}^{4} = \mathbb{Z}\{\nu_{4}\} \oplus \mathbb{Z}/4\{E\nu'\}$, $\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$, $\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$, $n \ge 6$ が成り立つ.",True,True,False
+6,7,7,Lemma 5.13,1,"$\sigma''' \in \{\nu_{5}, 8\iota_{8}, \nu_{8}\}_{3}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ.",True,True,False
+7,1,1,(4.5),1,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,True,True,False
+7,2,1,Proposition 5.3,1,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,True,True,True
+7,2,1,Proposition 5.3,2,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{E^{n - 4}\eta_{4}\eta_{5}\}$,True,True,False
+7,2,1,Proposition 5.3,3,$E^{n - 4}\eta_{4}\eta_{5} = \eta_{n}\eta_{n + 1}$,True,True,False
+7,3,1,Proposition 5.6,1,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$,True,True,True
+7,3,1,Proposition 5.6,2,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$,True,True,True
+7,3,1,Proposition 5.6,3,$E^{n - 5}\nu_{5} = \nu_{n}$,True,True,True
+7,4,1,Proposition 5.8,1,$\pi_{n + 4}^{n} = 0$,True,True,True
+7,4,1,Proposition 5.8,2,$\pi_{10}^{6} = 0$,True,True,False
+7,4,2,(4.5),1,$E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n}$ は同型写像である.,True,True,False
+7,5,1,Proposition 5.9,1,$\pi_{n + 5}^{n} = 0$,True,True,True
+7,5,1,Proposition 5.9,2,$\pi_{12}^{7} = 0$,True,True,True
+7,5,2,(4.5),1,$E^{n - 7}: \pi_{7 + 5}^{7} \to \pi_{n + 5}^{n}$ は同型写像である.,True,True,False
+7,6,1,Proposition 5.11,1,$\pi_{12}^{6} = \mathbb{Z}/2\{\nu_{6}\nu_{9}\}$,True,True,True
+7,6,1,Proposition 5.11,2,$E: \pi_{12}^{6} \to \pi_{13}^{7}$ は同型写像である.,True,True,False
+7,6,1,Proposition 5.11,3,$\pi_{11}^{5} = \mathbb{Z}/2\{\nu_{5}\nu_{8}\}$,True,True,False
+7,6,1,Proposition 5.11,4,$E: \pi_{11}^{5} \to \pi_{12}^{6}$ は同型写像である.,True,True,False
+7,6,1,Proposition 5.11,5,$E: \pi_{12}^{6} \to \pi_{13}^{7}$ は単射である.,True,True,False
+7,6,1,Proposition 5.11,6,$E: \pi_{12}^{6} \to \pi_{13}^{7}$ は全射である.,True,True,False
+7,7,1,Proposition 5.15,1,$\pi_{13}^{6} = \mathbb{Z}/4\{\sigma''\}$,True,True,True
+7,7,1,Proposition 5.15,2,$\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$,True,True,False
+7,7,2,Lemma 5.14,1,"$2\sigma' = E\sigma''$, $H\left(\sigma'\right) = \eta_{13}$ が成り立つ.",True,True,False
+7,7,2,Lemma 5.14,2,"$E^{3}\sigma'' = 4\,xEα*, \qquad 2\sigma'' = E\sigma''', \qquad H\left(\sigma''\right) = \eta_{11}\eta_{12}$",True,True,True
+7,7,3,Proposition 5.11,1,$\pi_{14}^{13} = \mathbb{Z}/2\{\eta_{13}\}$,True,True,True
+7,7,3,Proposition 5.11,2,$\pi_{13}^{11} = \mathbb{Z}/2\{\eta_{11}\eta_{12}\}$,True,True,True
+7,7,4,Equation 5.13,1,$\Delta\left(\eta_{13}\right) = 0$,True,True,False
+7,7,6,Proposition 5.1,1,"$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$, $H\left(\eta_{2}\right) = \iota_{3}$, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$, $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$ が成り立つ.",True,True,False
+8,1,1,(4.5),1,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,True,True,False
+8,2,1,Proposition 5.3,1,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,True,True,True
+8,2,1,Proposition 5.3,2,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{E^{n - 4}\eta_{4}\eta_{5}\}$,True,True,False
+8,2,1,Proposition 5.3,3,$E^{n - 4}\eta_{4}\eta_{5} = \eta_{n}\eta_{n + 1}$,True,True,False
+8,3,1,Proposition 5.6,1,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$,True,True,True
+8,3,1,Proposition 5.6,2,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$,True,True,True
+8,3,1,Proposition 5.6,3,$E^{n - 5}\nu_{5} = \nu_{n}$,True,True,True
+8,4,1,Proposition 5.8,1,$\pi_{n + 4}^{n} = 0$,True,True,True
+8,4,1,Proposition 5.8,2,$\pi_{10}^{6} = 0$,True,True,False
+8,4,2,(4.5),1,$E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n}$ は同型写像である.,True,True,False
+8,5,1,Proposition 5.9,1,$\pi_{n + 5}^{n} = 0$,True,True,True
+8,5,1,Proposition 5.9,2,$\pi_{12}^{7} = 0$,True,True,False
+8,5,2,(4.5),1,$E^{n - 7}: \pi_{7 + 5}^{7} \to \pi_{n + 5}^{n}$ は同型写像である.,True,True,False
+8,6,1,Proposition 5.11,1,$\pi_{13}^{7} = \mathbb{Z}/2\{\nu_{7}\nu_{10}\}$,True,True,True
+8,6,1,Proposition 5.11,2,$E: \pi_{13}^{7} \to \pi_{14}^{8}$ は同型写像である.,True,True,False
+8,6,1,Proposition 5.11,3,$\pi_{12}^{6} = \mathbb{Z}/2\{\nu_{6}\nu_{9}\}$,True,True,False
+8,6,1,Proposition 5.11,4,$E: \pi_{12}^{6} \to \pi_{13}^{7}$ は同型写像である.,True,True,False
+8,7,1,Proposition 5.15,1,$\pi_{15}^{8} \cong \mathbb{Z}/8\{E\sigma'\} \oplus \mathbb{Z}\{\sigma_{8}\}$,True,False,False
+8,7,1,Proposition 5.15,2,$\pi_{14}^{7} = \mathbb{Z}/8\{\sigma'\}$,True,False,False
+9,1,1,(4.5),1,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,True,True,False
+9,2,1,Proposition 5.3,1,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,True,True,True
+9,2,1,Proposition 5.3,2,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{E^{n - 4}\eta_{4}\eta_{5}\}$,True,True,False
+9,2,1,Proposition 5.3,3,$E^{n - 4}\eta_{4}\eta_{5} = \eta_{n}\eta_{n + 1}$,True,True,False
+9,3,1,Proposition 5.6,1,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$,True,True,True
+9,3,1,Proposition 5.6,2,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$,True,True,True
+9,3,1,Proposition 5.6,3,$E^{n - 5}\nu_{5} = \nu_{n}$,True,True,True
+9,4,1,Proposition 5.8,1,$\pi_{n + 4}^{n} = 0$,True,True,True
+9,4,1,Proposition 5.8,2,$\pi_{10}^{6} = 0$,True,True,False
+9,4,2,(4.5),1,$E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n}$ は同型写像である.,True,True,False
+9,5,1,Proposition 5.9,1,$\pi_{n + 5}^{n} = 0$,True,True,True
+9,5,1,Proposition 5.9,2,$\pi_{12}^{7} = 0$,True,True,False
+9,5,2,(4.5),1,$E^{n - 7}: \pi_{7 + 5}^{7} \to \pi_{n + 5}^{n}$ は同型写像である.,True,True,False
+9,6,1,Proposition 5.11,1,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$,True,True,True
+9,6,1,Proposition 5.11,2,$\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$,True,True,False
+9,6,2,(4.5),1,$E^{n - 8}: \pi_{8 + 6}^{8} \to \pi_{n + 6}^{n}$ は同型写像である.,True,True,False
+9,7,1,Proposition 5.15,1,$\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$,True,True,False
+9,7,1,Proposition 5.15,2,$\pi_{14}^{7} = \mathbb{Z}/8\{\sigma'\}$,True,True,False
+9,7,1,Proposition 5.15,3,"$H: \pi_{12}^{5} \xrightarrow{\cong} \mathbb{Z}/2\{4\nu_{9}\}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ.",True,True,False
+9,7,2,Lemma 5.14,1,"$\sigma_{8} = xα* + -1\,y\Delta\left(\iota_{17}\right)$, $H\left(\sigma_{8}\right) = \iota_{15}$, $E\sigma_{8} = xEα*$, $2E\sigma_{8} = E^{2}\sigma'$ が成り立つ.",True,True,False
+9,7,2,Lemma 5.14,2,"$2\sigma' = E\sigma''$, $H\left(\sigma'\right) = \eta_{13}$ が成り立つ.",True,True,False
+9,7,3,Theorem 3.6,1,"$8\,xEα* = E^{4}\sigma'''$ が成り立つ.",True,True,False
+9,7,4,Lemma 5.13,1,"$\sigma''' \in \{\nu_{5}, 8\iota_{8}, \nu_{8}\}_{3}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ.",True,False,True
+10,1,1,(4.5),1,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,True,True,False
+10,2,1,Proposition 5.3,1,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,True,True,True
+10,2,1,Proposition 5.3,2,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{E^{n - 4}\eta_{4}\eta_{5}\}$,True,True,False
+10,2,1,Proposition 5.3,3,$E^{n - 4}\eta_{4}\eta_{5} = \eta_{n}\eta_{n + 1}$,True,True,False
+10,3,1,Proposition 5.6,1,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$,True,True,True
+10,3,1,Proposition 5.6,2,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$,True,True,True
+10,3,1,Proposition 5.6,3,$E^{n - 5}\nu_{5} = \nu_{n}$,True,True,True
+10,4,1,Proposition 5.8,1,$\pi_{n + 4}^{n} = 0$,True,True,True
+10,4,1,Proposition 5.8,2,$\pi_{10}^{6} = 0$,True,True,False
+10,4,2,(4.5),1,$E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n}$ は同型写像である.,True,True,False
+10,5,1,Proposition 5.9,1,$\pi_{n + 5}^{n} = 0$,True,True,True
+10,5,1,Proposition 5.9,2,$\pi_{12}^{7} = 0$,True,True,False
+10,5,2,(4.5),1,$E^{n - 7}: \pi_{7 + 5}^{7} \to \pi_{n + 5}^{n}$ は同型写像である.,True,True,False
+10,6,1,Proposition 5.11,1,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$,True,True,True
+10,6,1,Proposition 5.11,2,$\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$,True,True,False
+10,6,2,(4.5),1,$E^{n - 8}: \pi_{8 + 6}^{8} \to \pi_{n + 6}^{n}$ は同型写像である.,True,True,False
+10,7,1,Proposition 5.15,1,$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$,True,True,False
+10,7,2,(4.5),1,$E^{n - 9}: \pi_{9 + 7}^{9} \to \pi_{n + 7}^{n}$ は同型写像である.,True,True,False
+10,7,3,Lemma 5.14,1,$\sigma_{n}$ を \(\sigma\)-family の元として定める.,True,True,False
+11,1,1,(4.5),1,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,True,True,False
+11,2,1,Proposition 5.3,1,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,True,True,True
+11,2,1,Proposition 5.3,2,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{E^{n - 4}\eta_{4}\eta_{5}\}$,True,True,False
+11,2,1,Proposition 5.3,3,$E^{n - 4}\eta_{4}\eta_{5} = \eta_{n}\eta_{n + 1}$,True,True,False
+11,3,1,Proposition 5.6,1,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$,True,True,True
+11,3,1,Proposition 5.6,2,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$,True,True,True
+11,3,1,Proposition 5.6,3,$E^{n - 5}\nu_{5} = \nu_{n}$,True,True,True
+11,4,1,Proposition 5.8,1,$\pi_{n + 4}^{n} = 0$,True,True,True
+11,4,1,Proposition 5.8,2,$\pi_{10}^{6} = 0$,True,True,False
+11,4,2,(4.5),1,$E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n}$ は同型写像である.,True,True,False
+11,5,1,Proposition 5.9,1,$\pi_{n + 5}^{n} = 0$,True,True,True
+11,5,1,Proposition 5.9,2,$\pi_{12}^{7} = 0$,True,True,False
+11,5,2,(4.5),1,$E^{n - 7}: \pi_{7 + 5}^{7} \to \pi_{n + 5}^{n}$ は同型写像である.,True,True,False
+11,6,1,Proposition 5.11,1,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$,True,True,True
+11,6,1,Proposition 5.11,2,$\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$,True,True,False
+11,6,2,(4.5),1,$E^{n - 8}: \pi_{8 + 6}^{8} \to \pi_{n + 6}^{n}$ は同型写像である.,True,True,False
+11,7,1,Proposition 5.15,1,$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$,True,True,False
+11,7,2,(4.5),1,$E^{n - 9}: \pi_{9 + 7}^{9} \to \pi_{n + 7}^{n}$ は同型写像である.,True,True,False
+11,7,3,Lemma 5.14,1,$\sigma_{n}$ を \(\sigma\)-family の元として定める.,True,True,False
+12,1,1,(4.5),1,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,True,True,False
+12,2,1,Proposition 5.3,1,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,True,True,True
+12,2,1,Proposition 5.3,2,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{E^{n - 4}\eta_{4}\eta_{5}\}$,True,True,False
+12,2,1,Proposition 5.3,3,$E^{n - 4}\eta_{4}\eta_{5} = \eta_{n}\eta_{n + 1}$,True,True,False
+12,3,1,Proposition 5.6,1,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$,True,True,True
+12,3,1,Proposition 5.6,2,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$,True,True,True
+12,3,1,Proposition 5.6,3,$E^{n - 5}\nu_{5} = \nu_{n}$,True,True,True
+12,4,1,Proposition 5.8,1,$\pi_{n + 4}^{n} = 0$,True,True,True
+12,4,1,Proposition 5.8,2,$\pi_{10}^{6} = 0$,True,True,False
+12,4,2,(4.5),1,$E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n}$ は同型写像である.,True,True,False
+12,5,1,Proposition 5.9,1,$\pi_{n + 5}^{n} = 0$,True,True,True
+12,5,1,Proposition 5.9,2,$\pi_{12}^{7} = 0$,True,True,False
+12,5,2,(4.5),1,$E^{n - 7}: \pi_{7 + 5}^{7} \to \pi_{n + 5}^{n}$ は同型写像である.,True,True,False
+12,6,1,Proposition 5.11,1,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$,True,True,True
+12,6,1,Proposition 5.11,2,$\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$,True,True,False
+12,6,2,(4.5),1,$E^{n - 8}: \pi_{8 + 6}^{8} \to \pi_{n + 6}^{n}$ は同型写像である.,True,True,False
+12,7,1,Proposition 5.15,1,$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$,True,True,False
+12,7,2,(4.5),1,$E^{n - 9}: \pi_{9 + 7}^{9} \to \pi_{n + 7}^{n}$ は同型写像である.,True,True,False
+12,7,3,Lemma 5.14,1,$\sigma_{n}$ を \(\sigma\)-family の元として定める.,True,True,False
+13,1,1,(4.5),1,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,True,True,False
+13,2,1,Proposition 5.3,1,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,True,True,True
+13,2,1,Proposition 5.3,2,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{E^{n - 4}\eta_{4}\eta_{5}\}$,True,True,False
+13,2,1,Proposition 5.3,3,$E^{n - 4}\eta_{4}\eta_{5} = \eta_{n}\eta_{n + 1}$,True,True,False
+13,3,1,Proposition 5.6,1,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$,True,True,True
+13,3,1,Proposition 5.6,2,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$,True,True,True
+13,3,1,Proposition 5.6,3,$E^{n - 5}\nu_{5} = \nu_{n}$,True,True,True
+13,4,1,Proposition 5.8,1,$\pi_{n + 4}^{n} = 0$,True,True,True
+13,4,1,Proposition 5.8,2,$\pi_{10}^{6} = 0$,True,True,False
+13,4,2,(4.5),1,$E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n}$ は同型写像である.,True,True,False
+13,5,1,Proposition 5.9,1,$\pi_{n + 5}^{n} = 0$,True,True,True
+13,5,1,Proposition 5.9,2,$\pi_{12}^{7} = 0$,True,True,False
+13,5,2,(4.5),1,$E^{n - 7}: \pi_{7 + 5}^{7} \to \pi_{n + 5}^{n}$ は同型写像である.,True,True,False
+13,6,1,Proposition 5.11,1,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$,True,True,True
+13,6,1,Proposition 5.11,2,$\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$,True,True,False
+13,6,2,(4.5),1,$E^{n - 8}: \pi_{8 + 6}^{8} \to \pi_{n + 6}^{n}$ は同型写像である.,True,True,False
+13,7,1,Proposition 5.15,1,$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$,True,True,False
+13,7,2,(4.5),1,$E^{n - 9}: \pi_{9 + 7}^{9} \to \pi_{n + 7}^{n}$ は同型写像である.,True,True,False
+13,7,3,Lemma 5.14,1,$\sigma_{n}$ を \(\sigma\)-family の元として定める.,True,True,False
+14,1,1,(4.5),1,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,True,True,False
+14,2,1,Proposition 5.3,1,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,True,True,True
+14,2,1,Proposition 5.3,2,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{E^{n - 4}\eta_{4}\eta_{5}\}$,True,True,False
+14,2,1,Proposition 5.3,3,$E^{n - 4}\eta_{4}\eta_{5} = \eta_{n}\eta_{n + 1}$,True,True,False
+14,3,1,Proposition 5.6,1,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$,True,True,True
+14,3,1,Proposition 5.6,2,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$,True,True,True
+14,3,1,Proposition 5.6,3,$E^{n - 5}\nu_{5} = \nu_{n}$,True,True,True
+14,4,1,Proposition 5.8,1,$\pi_{n + 4}^{n} = 0$,True,True,True
+14,4,1,Proposition 5.8,2,$\pi_{10}^{6} = 0$,True,True,False
+14,4,2,(4.5),1,$E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n}$ は同型写像である.,True,True,False
+14,5,1,Proposition 5.9,1,$\pi_{n + 5}^{n} = 0$,True,True,True
+14,5,1,Proposition 5.9,2,$\pi_{12}^{7} = 0$,True,True,False
+14,5,2,(4.5),1,$E^{n - 7}: \pi_{7 + 5}^{7} \to \pi_{n + 5}^{n}$ は同型写像である.,True,True,False
+14,6,1,Proposition 5.11,1,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$,True,True,True
+14,6,1,Proposition 5.11,2,$\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$,True,True,False
+14,6,2,(4.5),1,$E^{n - 8}: \pi_{8 + 6}^{8} \to \pi_{n + 6}^{n}$ は同型写像である.,True,True,False
+14,7,1,Proposition 5.15,1,$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$,True,True,False
+14,7,2,(4.5),1,$E^{n - 9}: \pi_{9 + 7}^{9} \to \pi_{n + 7}^{n}$ は同型写像である.,True,True,False
+14,7,3,Lemma 5.14,1,$\sigma_{n}$ を \(\sigma\)-family の元として定める.,True,True,False
+15,1,1,(4.5),1,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$,True,True,False
+15,2,1,Proposition 5.3,1,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$,True,True,True
+15,2,1,Proposition 5.3,2,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{E^{n - 4}\eta_{4}\eta_{5}\}$,True,True,False
+15,2,1,Proposition 5.3,3,$E^{n - 4}\eta_{4}\eta_{5} = \eta_{n}\eta_{n + 1}$,True,True,False
+15,3,1,Proposition 5.6,1,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$,True,True,True
+15,3,1,Proposition 5.6,2,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$,True,True,True
+15,3,1,Proposition 5.6,3,$E^{n - 5}\nu_{5} = \nu_{n}$,True,True,True
+15,4,1,Proposition 5.8,1,$\pi_{n + 4}^{n} = 0$,True,True,True
+15,4,1,Proposition 5.8,2,$\pi_{10}^{6} = 0$,True,True,False
+15,4,2,(4.5),1,$E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n}$ は同型写像である.,True,True,False
+15,5,1,Proposition 5.9,1,$\pi_{n + 5}^{n} = 0$,True,True,True
+15,5,1,Proposition 5.9,2,$\pi_{12}^{7} = 0$,True,True,False
+15,5,2,(4.5),1,$E^{n - 7}: \pi_{7 + 5}^{7} \to \pi_{n + 5}^{n}$ は同型写像である.,True,True,False
+15,6,1,Proposition 5.11,1,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$,True,True,True
+15,6,1,Proposition 5.11,2,$\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$,True,True,False
+15,6,2,(4.5),1,$E^{n - 8}: \pi_{8 + 6}^{8} \to \pi_{n + 6}^{n}$ は同型写像である.,True,True,False
+15,7,1,Proposition 5.15,1,$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$,True,True,False
+15,7,2,(4.5),1,$E^{n - 9}: \pi_{9 + 7}^{9} \to \pi_{n + 7}^{n}$ は同型写像である.,True,True,False
+15,7,3,Lemma 5.14,1,$\sigma_{n}$ を \(\sigma\)-family の元として定める.,True,True,False

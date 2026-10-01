@@ -1,0 +1,48 @@
+==============================================================================
+Phase 151-2 — All-Group Generic Baseline Measurement
+==============================================================================
+groups: 112
+successes: 112
+exceptions: 0
+presentation nodes: 713
+blocks: 559
+arguments: 129
+typed reasons: 146
+OTHER blocks: 126
+raw fallbacks: 0
+rule-name fallbacks: 115
+type fallbacks: 51
+
+Block roles:
+  calculation: 67
+  definition: 13
+  exactness: 29
+  group_structure: 134
+  map_property: 44
+  membership: 3
+  order: 4
+  other: 126
+  precondition: 1
+  reference: 26
+  target: 112
+
+Typed reason kinds:
+  definition_applicability: 1
+  exactness_to_map_property: 1
+  final_group_structure: 3
+  final_result_derivation: 137
+  group_order_derivation: 2
+  map_structure_derivation: 1
+  multiple_relation_to_order: 1
+
+Fallback kinds:
+  rule_name: 115
+  type_name: 51
+
+Output files:
+  all_group_baseline.csv
+  fallback_inventory.csv
+  typed_reason_inventory.csv
+  exception_inventory.csv
+  baseline_summary.txt
+==============================================================================

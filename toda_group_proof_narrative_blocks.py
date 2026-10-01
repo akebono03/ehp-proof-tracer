@@ -26,6 +26,7 @@ from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
 )
 from toda_rules import (
+  Toda45IsomorphismStatement,
   TodaDeltaImageUpToSignStatement,
   TodaDeltaInjectiveStatement,
   TodaDeltaZeroStatement,
@@ -118,6 +119,7 @@ class TodaGroupProofNarrativeBlock:
 
 
 MAP_PROPERTY_STATEMENT_TYPES = (
+  Toda45IsomorphismStatement,
   TodaDeltaInjectiveStatement,
   TodaDeltaZeroStatement,
   TodaHopfInvariantInjectiveStatement,

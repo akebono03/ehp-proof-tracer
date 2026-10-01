@@ -1,0 +1,223 @@
+﻿n,k,group,reference_number,reference_title,proof_step_count,candidate_count,unresolved_count,selection_class,ownership_class,dependency_class,duplicate_candidate_count,proof_used_candidate_count
+2,2,pi_4^2,1,(5.2),1,1,0,single_candidate,all_candidates_already_in_body,no_candidate_proof_dependents,1,0
+2,2,pi_4^2,2,(5.2),1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+2,2,pi_4^2,3,Proposition 4.4,2,2,0,multiple_candidates,mixed_reference_body_ownership,all_candidates_proof_used,1,2
+2,3,pi_5^2,1,Proposition 5.6,1,1,0,single_candidate,all_candidates_already_in_body,no_candidate_proof_dependents,1,0
+2,3,pi_5^2,2,Proposition 5.3,3,3,0,multiple_candidates,mixed_reference_body_ownership,all_candidates_proof_used,1,3
+2,3,pi_5^2,3,(5.2),1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+2,3,pi_5^2,4,(5.2),1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+2,3,pi_5^2,5,Proposition 4.4,2,2,0,multiple_candidates,mixed_reference_body_ownership,all_candidates_proof_used,1,2
+2,4,pi_6^2,1,Lemma 5.7,1,1,0,single_candidate,all_candidates_already_in_body,no_candidate_proof_dependents,1,0
+2,4,pi_6^2,2,Proposition 5.6,6,5,1,multiple_candidates_with_unresolved,all_candidates_already_in_body,all_candidates_proof_used,5,5
+2,4,pi_6^2,3,(5.2),1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+2,4,pi_6^2,4,Proposition 4.4,2,2,0,multiple_candidates,mixed_reference_body_ownership,all_candidates_proof_used,1,2
+2,5,pi_7^2,1,Proposition 5.9,1,1,0,single_candidate,all_candidates_already_in_body,no_candidate_proof_dependents,1,0
+2,5,pi_7^2,2,Proposition 5.8,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+2,5,pi_7^2,3,(5.2),1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+2,5,pi_7^2,4,Equation 5.7,1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+2,5,pi_7^2,5,Proposition 5.3,1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+2,5,pi_7^2,6,Proposition 4.4,2,2,0,multiple_candidates,mixed_reference_body_ownership,all_candidates_proof_used,1,2
+2,6,pi_8^2,1,Proposition 5.11,1,1,0,single_candidate,all_candidates_already_in_body,no_candidate_proof_dependents,1,0
+2,6,pi_8^2,2,Proposition 5.9,7,7,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,7,7
+2,6,pi_8^2,3,(5.2),1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+2,6,pi_8^2,4,Proposition 4.4,2,2,0,multiple_candidates,mixed_reference_body_ownership,all_candidates_proof_used,1,2
+2,7,pi_9^2,1,Proposition 5.15,1,1,0,single_candidate,all_candidates_already_in_body,no_candidate_proof_dependents,1,0
+2,7,pi_9^2,2,Proposition 5.11,5,4,1,multiple_candidates_with_unresolved,mixed_reference_body_ownership,all_candidates_proof_used,3,4
+2,7,pi_9^2,3,(5.2),1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+2,7,pi_9^2,4,Proposition 4.4,2,2,0,multiple_candidates,mixed_reference_body_ownership,all_candidates_proof_used,1,2
+3,2,pi_5^3,1,Proposition 5.3,5,5,0,multiple_candidates,mixed_reference_body_ownership,mixed_proof_usage,3,4
+3,2,pi_5^3,2,(5.2),1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+3,2,pi_5^3,3,(5.2),1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+3,3,pi_6^3,1,Proposition 5.6,6,6,0,multiple_candidates,mixed_reference_body_ownership,mixed_proof_usage,3,5
+3,3,pi_6^3,2,(5.3),3,3,0,multiple_candidates,mixed_reference_body_ownership,all_candidates_proof_used,2,3
+3,3,pi_6^3,3,Proposition 5.3,2,2,0,multiple_candidates,reference_only_display_candidate,all_candidates_proof_used,0,2
+3,3,pi_6^3,4,Lemma 5.4,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+3,3,pi_6^3,5,(5.3) / Lemma 5.2,1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+3,3,pi_6^3,6,(5.2),1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+3,3,pi_6^3,7,Proposition 5.1,1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+3,4,pi_7^3,1,Proposition 5.8,2,2,0,multiple_candidates,all_candidates_already_in_body,mixed_proof_usage,2,1
+3,4,pi_7^3,2,Equation 5.7,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+3,4,pi_7^3,3,Proposition 5.3,4,4,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,4,4
+3,4,pi_7^3,4,Proposition 5.6,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+3,4,pi_7^3,5,(5.2),1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+3,5,pi_8^3,1,Proposition 5.9,8,8,0,multiple_candidates,mixed_reference_body_ownership,mixed_proof_usage,7,7
+3,5,pi_8^3,2,Lemma 5.7,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+3,5,pi_8^3,3,Proposition 5.6,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+3,5,pi_8^3,4,Equation 5.7,1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+3,5,pi_8^3,5,(5.5),1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+3,6,pi_9^3,1,Proposition 5.11,7,7,0,multiple_candidates,mixed_reference_body_ownership,mixed_proof_usage,5,6
+3,6,pi_9^3,2,Proposition 5.8,1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+3,6,pi_9^3,3,Proposition 5.9,1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+3,7,pi_10^3,1,Proposition 5.15,6,6,0,multiple_candidates,all_candidates_already_in_body,mixed_proof_usage,6,5
+3,7,pi_10^3,2,Proposition 5.9,1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+3,7,pi_10^3,3,Proposition 5.11,1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+4,1,pi_5^4,1,(4.5),1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+4,2,pi_6^4,1,Proposition 5.3,8,8,0,multiple_candidates,mixed_reference_body_ownership,mixed_proof_usage,4,7
+4,2,pi_6^4,2,(5.2),1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+4,3,pi_7^4,1,Proposition 5.6,5,5,0,multiple_candidates,mixed_reference_body_ownership,mixed_proof_usage,4,4
+4,3,pi_7^4,2,Lemma 5.4,2,1,1,single_candidate_with_unresolved,all_candidates_already_in_body,all_candidates_proof_used,1,1
+4,3,pi_7^4,3,(5.3),2,2,0,multiple_candidates,mixed_reference_body_ownership,mixed_proof_usage,1,1
+4,3,pi_7^4,4,Proposition 5.3,1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+4,4,pi_8^4,1,Proposition 5.8,3,3,0,multiple_candidates,all_candidates_already_in_body,mixed_proof_usage,3,2
+4,4,pi_8^4,2,Proposition 5.1,1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+4,4,pi_8^4,3,Lemma 5.4,1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+4,4,pi_8^4,4,Equation 5.7,1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+4,4,pi_8^4,5,Proposition 5.3,1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+4,5,pi_9^4,1,Proposition 5.9,7,7,0,multiple_candidates,all_candidates_already_in_body,mixed_proof_usage,7,6
+4,5,pi_9^4,2,Proposition 5.3,4,4,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,4,4
+4,5,pi_9^4,3,Lemma 5.4,1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+4,5,pi_9^4,4,(5.2),1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+4,6,pi_10^4,1,Proposition 5.11,6,6,0,multiple_candidates,mixed_reference_body_ownership,mixed_proof_usage,3,5
+4,6,pi_10^4,2,Proposition 5.6,1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+4,6,pi_10^4,3,Lemma 5.4,1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+4,7,pi_11^4,1,Proposition 5.15,4,4,0,multiple_candidates,mixed_reference_body_ownership,mixed_proof_usage,3,3
+4,7,pi_11^4,2,Proposition 5.8,5,5,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,5,5
+4,7,pi_11^4,3,Lemma 5.7,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+4,7,pi_11^4,4,Proposition 4.4,1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+5,1,pi_6^5,1,(4.5),1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+5,2,pi_7^5,1,Proposition 5.3,3,3,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,3,3
+5,3,pi_8^5,1,Proposition 5.6,10,10,0,multiple_candidates,mixed_reference_body_ownership,mixed_proof_usage,1,9
+5,3,pi_8^5,2,(5.3),2,2,0,multiple_candidates,reference_only_display_candidate,mixed_proof_usage,0,1
+5,3,pi_8^5,3,Proposition 5.3,1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+5,3,pi_8^5,4,Lemma 5.4,1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+5,4,pi_9^5,1,Proposition 5.8,10,10,0,multiple_candidates,mixed_reference_body_ownership,mixed_proof_usage,9,9
+5,4,pi_9^5,2,Proposition 5.1,1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+5,4,pi_9^5,3,Proposition 2.5,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+5,5,pi_10^5,1,Proposition 5.9,10,10,0,multiple_candidates,mixed_reference_body_ownership,mixed_proof_usage,9,9
+5,5,pi_10^5,2,Proposition 5.3,4,4,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,4,4
+5,5,pi_10^5,3,Proposition 5.8,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+5,5,pi_10^5,4,(5.2),1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+5,6,pi_11^5,1,Proposition 5.11,9,9,0,multiple_candidates,mixed_reference_body_ownership,mixed_proof_usage,8,8
+5,6,pi_11^5,2,Equation 5.13,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+5,6,pi_11^5,3,Proposition 5.6,1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+5,6,pi_11^5,4,Equation 5.8,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+5,7,pi_12^5,1,Proposition 5.15,3,2,1,multiple_candidates_with_unresolved,mixed_reference_body_ownership,mixed_proof_usage,1,1
+5,7,pi_12^5,2,Lemma 5.13,1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+5,7,pi_12^5,3,Proposition 5.11,2,1,1,single_candidate_with_unresolved,all_candidates_already_in_body,all_candidates_proof_used,1,1
+5,7,pi_12^5,4,Equation 5.13,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+5,7,pi_12^5,5,(5.5),1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+6,1,pi_7^6,1,(4.5),1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+6,2,pi_8^6,1,Proposition 5.3,3,3,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,3,3
+6,3,pi_9^6,1,Proposition 5.6,3,3,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,3,3
+6,4,pi_10^6,1,Proposition 5.8,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+6,4,pi_10^6,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+6,5,pi_11^6,1,Proposition 5.9,8,8,0,multiple_candidates,mixed_reference_body_ownership,mixed_proof_usage,7,7
+6,5,pi_11^6,2,Proposition 5.8,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+6,6,pi_12^6,1,Proposition 5.11,9,9,0,multiple_candidates,mixed_reference_body_ownership,mixed_proof_usage,6,8
+6,6,pi_12^6,2,Equation 5.13,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+6,7,pi_13^6,1,Proposition 5.15,3,2,1,multiple_candidates_with_unresolved,all_candidates_already_in_body,mixed_proof_usage,2,1
+6,7,pi_13^6,2,Lemma 5.14,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+6,7,pi_13^6,3,Proposition 5.11,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+6,7,pi_13^6,4,Theorem 3.6,1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+6,7,pi_13^6,5,Equation 5.13,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+6,7,pi_13^6,6,Proposition 5.6,1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+6,7,pi_13^6,7,Lemma 5.13,1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+6,7,pi_13^6,8,Proposition 5.3,1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+7,1,pi_8^7,1,(4.5),1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+7,2,pi_9^7,1,Proposition 5.3,3,3,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,3,3
+7,3,pi_10^7,1,Proposition 5.6,3,3,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,3,3
+7,4,pi_11^7,1,Proposition 5.8,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+7,4,pi_11^7,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+7,5,pi_12^7,1,Proposition 5.9,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+7,5,pi_12^7,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+7,6,pi_13^7,1,Proposition 5.11,7,7,0,multiple_candidates,mixed_reference_body_ownership,mixed_proof_usage,4,6
+7,7,pi_14^7,1,Proposition 5.15,3,3,0,multiple_candidates,all_candidates_already_in_body,mixed_proof_usage,3,2
+7,7,pi_14^7,2,Lemma 5.14,2,1,1,single_candidate_with_unresolved,all_candidates_already_in_body,all_candidates_proof_used,1,1
+7,7,pi_14^7,3,Proposition 5.11,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+7,7,pi_14^7,4,Equation 5.13,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+7,7,pi_14^7,5,Proposition 5.3,1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+7,7,pi_14^7,6,Proposition 5.1,1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+8,1,pi_9^8,1,(4.5),1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+8,2,pi_10^8,1,Proposition 5.3,3,3,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,3,3
+8,3,pi_11^8,1,Proposition 5.6,3,3,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,3,3
+8,4,pi_12^8,1,Proposition 5.8,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+8,4,pi_12^8,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+8,5,pi_13^8,1,Proposition 5.9,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+8,5,pi_13^8,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+8,6,pi_14^8,1,Proposition 5.11,5,5,0,multiple_candidates,mixed_reference_body_ownership,mixed_proof_usage,4,4
+8,7,pi_15^8,1,Proposition 5.15,4,4,0,multiple_candidates,mixed_reference_body_ownership,mixed_proof_usage,2,3
+9,1,pi_10^9,1,(4.5),1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+9,2,pi_11^9,1,Proposition 5.3,3,3,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,3,3
+9,3,pi_12^9,1,Proposition 5.6,3,3,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,3,3
+9,4,pi_13^9,1,Proposition 5.8,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+9,4,pi_13^9,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+9,5,pi_14^9,1,Proposition 5.9,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+9,5,pi_14^9,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+9,6,pi_15^9,1,Proposition 5.11,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+9,6,pi_15^9,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+9,7,pi_16^9,1,Proposition 5.15,4,3,1,multiple_candidates_with_unresolved,all_candidates_already_in_body,mixed_proof_usage,3,2
+9,7,pi_16^9,2,Lemma 5.14,2,0,2,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+9,7,pi_16^9,3,Theorem 3.6,1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+9,7,pi_16^9,4,Lemma 5.13,1,0,1,unresolved_only,no_renderable_candidate,no_renderable_candidate,0,0
+10,1,pi_11^10,1,(4.5),1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+10,2,pi_12^10,1,Proposition 5.3,3,3,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,3,3
+10,3,pi_13^10,1,Proposition 5.6,3,3,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,3,3
+10,4,pi_14^10,1,Proposition 5.8,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+10,4,pi_14^10,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+10,5,pi_15^10,1,Proposition 5.9,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+10,5,pi_15^10,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+10,6,pi_16^10,1,Proposition 5.11,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+10,6,pi_16^10,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+10,7,pi_17^10,1,Proposition 5.15,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+10,7,pi_17^10,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+10,7,pi_17^10,3,Lemma 5.14,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+11,1,pi_12^11,1,(4.5),1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+11,2,pi_13^11,1,Proposition 5.3,3,3,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,3,3
+11,3,pi_14^11,1,Proposition 5.6,3,3,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,3,3
+11,4,pi_15^11,1,Proposition 5.8,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+11,4,pi_15^11,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+11,5,pi_16^11,1,Proposition 5.9,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+11,5,pi_16^11,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+11,6,pi_17^11,1,Proposition 5.11,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+11,6,pi_17^11,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+11,7,pi_18^11,1,Proposition 5.15,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+11,7,pi_18^11,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+11,7,pi_18^11,3,Lemma 5.14,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+12,1,pi_13^12,1,(4.5),1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+12,2,pi_14^12,1,Proposition 5.3,3,3,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,3,3
+12,3,pi_15^12,1,Proposition 5.6,3,3,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,3,3
+12,4,pi_16^12,1,Proposition 5.8,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+12,4,pi_16^12,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+12,5,pi_17^12,1,Proposition 5.9,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+12,5,pi_17^12,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+12,6,pi_18^12,1,Proposition 5.11,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+12,6,pi_18^12,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+12,7,pi_19^12,1,Proposition 5.15,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+12,7,pi_19^12,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+12,7,pi_19^12,3,Lemma 5.14,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+13,1,pi_14^13,1,(4.5),1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+13,2,pi_15^13,1,Proposition 5.3,3,3,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,3,3
+13,3,pi_16^13,1,Proposition 5.6,3,3,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,3,3
+13,4,pi_17^13,1,Proposition 5.8,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+13,4,pi_17^13,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+13,5,pi_18^13,1,Proposition 5.9,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+13,5,pi_18^13,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+13,6,pi_19^13,1,Proposition 5.11,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+13,6,pi_19^13,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+13,7,pi_20^13,1,Proposition 5.15,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+13,7,pi_20^13,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+13,7,pi_20^13,3,Lemma 5.14,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+14,1,pi_15^14,1,(4.5),1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+14,2,pi_16^14,1,Proposition 5.3,3,3,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,3,3
+14,3,pi_17^14,1,Proposition 5.6,3,3,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,3,3
+14,4,pi_18^14,1,Proposition 5.8,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+14,4,pi_18^14,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+14,5,pi_19^14,1,Proposition 5.9,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+14,5,pi_19^14,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+14,6,pi_20^14,1,Proposition 5.11,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+14,6,pi_20^14,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+14,7,pi_21^14,1,Proposition 5.15,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+14,7,pi_21^14,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+14,7,pi_21^14,3,Lemma 5.14,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+15,1,pi_16^15,1,(4.5),1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+15,2,pi_17^15,1,Proposition 5.3,3,3,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,3,3
+15,3,pi_18^15,1,Proposition 5.6,3,3,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,3,3
+15,4,pi_19^15,1,Proposition 5.8,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+15,4,pi_19^15,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+15,5,pi_20^15,1,Proposition 5.9,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+15,5,pi_20^15,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+15,6,pi_21^15,1,Proposition 5.11,2,2,0,multiple_candidates,all_candidates_already_in_body,all_candidates_proof_used,2,2
+15,6,pi_21^15,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+15,7,pi_22^15,1,Proposition 5.15,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1
+15,7,pi_22^15,2,(4.5),1,1,0,single_candidate,reference_only_display_candidate,all_candidates_proof_used,0,1
+15,7,pi_22^15,3,Lemma 5.14,1,1,0,single_candidate,all_candidates_already_in_body,all_candidates_proof_used,1,1

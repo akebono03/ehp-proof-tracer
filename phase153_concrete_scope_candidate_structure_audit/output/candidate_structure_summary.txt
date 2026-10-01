@@ -1,0 +1,79 @@
+==============================================================================
+Concrete Proof-Scope Candidate Structure Audit
+==============================================================================
+targets: pi_10^6, pi_12^7
+production changes: none
+tests changes: none
+
+pi_10^6
+  target-matching nodes: 6
+  canonical base rule: Toda Proposition 5.8 pi_10^6 zero
+  canonical premise count: 3
+    C1: depth=2 root=standard.toda.prop58
+       rule=Toda Proposition 5.8 pi_10^6 zero
+       premises=3 same_rule=True same_premise_conclusions=True structural_base_match=True
+         P1: Relation | Toda Proposition 5.8 pi_9^5 finite cyclic
+         P2: TodaSuspensionSurjectiveStatement | Toda Proposition 5.8 pi_10^6 suspension surjective
+         P3: Relation | Toda Proposition 3.1 nu_6 eta_9 zero consequence
+    C2: depth=5 root=standard.toda.prop511
+       rule=Toda Proposition 5.8 pi_10^6 zero
+       premises=3 same_rule=True same_premise_conclusions=True structural_base_match=True
+         P1: Relation | Toda Proposition 5.8 pi_9^5 finite cyclic
+         P2: TodaSuspensionSurjectiveStatement | Toda Proposition 5.8 pi_10^6 suspension surjective
+         P3: Relation | Toda Proposition 3.1 nu_6 eta_9 zero consequence
+    C3: depth=7 root=standard.toda.prop511
+       rule=Toda Proposition 5.8 pi_10^6 zero
+       premises=3 same_rule=True same_premise_conclusions=True structural_base_match=True
+         P1: Relation | Toda Proposition 5.8 pi_9^5 finite cyclic
+         P2: TodaSuspensionSurjectiveStatement | Toda Proposition 5.8 pi_10^6 suspension surjective
+         P3: Relation | Toda Proposition 3.1 nu_6 eta_9 zero consequence
+    C4: depth=4 root=standard.toda.prop515
+       rule=Toda Proposition 5.8 pi_10^6 zero
+       premises=3 same_rule=True same_premise_conclusions=True structural_base_match=True
+         P1: Relation | Toda Proposition 5.8 pi_9^5 finite cyclic
+         P2: TodaSuspensionSurjectiveStatement | Toda Proposition 5.8 pi_10^6 suspension surjective
+         P3: Relation | Toda Proposition 3.1 nu_6 eta_9 zero consequence
+    C5: depth=6 root=standard.toda.prop515
+       rule=Toda Proposition 5.8 pi_10^6 zero
+       premises=3 same_rule=True same_premise_conclusions=True structural_base_match=True
+         P1: Relation | Toda Proposition 5.8 pi_9^5 finite cyclic
+         P2: TodaSuspensionSurjectiveStatement | Toda Proposition 5.8 pi_10^6 suspension surjective
+         P3: Relation | Toda Proposition 3.1 nu_6 eta_9 zero consequence
+    C6: depth=7 root=standard.toda.prop515
+       rule=Toda Proposition 5.8 pi_10^6 zero
+       premises=3 same_rule=True same_premise_conclusions=True structural_base_match=True
+         P1: Relation | Toda Proposition 5.8 pi_9^5 finite cyclic
+         P2: TodaSuspensionSurjectiveStatement | Toda Proposition 5.8 pi_10^6 suspension surjective
+         P3: Relation | Toda Proposition 3.1 nu_6 eta_9 zero consequence
+  structural base matches: 6
+
+pi_12^7
+  target-matching nodes: 2
+  canonical base rule: Toda Proposition 5.9 pi_12^7 zero
+  canonical premise count: 3
+    C1: depth=4 root=standard.toda.prop511
+       rule=Toda Proposition 5.9 pi_12^7 zero
+       premises=3 same_rule=True same_premise_conclusions=True structural_base_match=True
+         P1: TodaDeltaSurjectiveStatement | Toda Proposition 5.9 pi_13^13 Delta surjective
+         P2: TodaProp42ExactnessStatement | Toda Proposition 5.9 pi_12^7 concrete exactness
+         P3: TodaSuspensionSurjectiveStatement | Toda Proposition 5.9 pi_12^7 suspension surjective
+    C2: depth=5 root=standard.toda.prop515
+       rule=Toda Proposition 5.9 pi_12^7 zero
+       premises=3 same_rule=True same_premise_conclusions=True structural_base_match=True
+         P1: TodaDeltaSurjectiveStatement | Toda Proposition 5.9 pi_13^13 Delta surjective
+         P2: TodaProp42ExactnessStatement | Toda Proposition 5.9 pi_12^7 concrete exactness
+         P3: TodaSuspensionSurjectiveStatement | Toda Proposition 5.9 pi_12^7 suspension surjective
+  structural base matches: 2
+
+==============================================================================
+Interpretation
+==============================================================================
+structural_base_match requires the same inference-rule name and the same ordered premise conclusions as the canonical Phase68/Phase70 base-case proof.
+If each target has exactly one structural_base_match, the existing production proof scope already contains a unique canonical concrete proof candidate.
+
+Output files:
+  candidate_structure_summary.txt
+  candidate_structure_summary.csv
+  candidate_inventory.csv
+  exception_inventory.csv
+==============================================================================

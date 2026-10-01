@@ -1,0 +1,8 @@
+﻿n,k,group,selected_source_key,selected_source_phase,selected_source_theorem,selected_rule,pre_specialization_concrete_match_count,shortest_concrete_depth,shortest_concrete_root_key,shortest_concrete_root_phase,shortest_concrete_root_theorem,shortest_concrete_rule,selected_conclusion_equals_shortest_concrete
+5,1,pi_6^5,standard.toda.stable::eta_5_specialization,55,Toda Proposition 5.1,ProofRule.INFERENCE,22,2,standard.toda.prop56,65,Toda Proposition 5.6,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,False
+6,4,pi_10^6,standard.toda.stable::four_stem_zero_6_specialization,68,Toda Proposition 5.8,ProofRule.INFERENCE,6,2,standard.toda.prop58,68,Toda Proposition 5.8,Toda Proposition 5.8 pi_10^6 zero,True
+7,3,pi_10^7,standard.toda.stable::nu_7_specialization,65,Toda Proposition 5.6,ProofRule.INFERENCE,2,2,standard.toda.prop511,73,Toda Proposition 5.11,Toda Proposition 5.11 pi_10^7 nu_7 specialization,True
+7,5,pi_12^7,standard.toda.stable::five_stem_zero_7_specialization,70,Toda Proposition 5.9,ProofRule.INFERENCE,2,4,standard.toda.prop511,73,Toda Proposition 5.11,Toda Proposition 5.9 pi_12^7 zero,True
+9,3,pi_12^9,standard.toda.stable::nu_9_specialization,65,Toda Proposition 5.6,ProofRule.INFERENCE,3,3,standard.toda.prop511,73,Toda Proposition 5.11,Toda Proposition 5.11 pi_12^9 nu_9 specialization,True
+11,2,pi_13^11,standard.toda.stable::eta_squared_11_specialization,59,Toda Proposition 5.3,ProofRule.INFERENCE,3,2,standard.toda.prop515,75,Toda Proposition 5.15,Toda Proposition 5.11 pi_13^11 eta_11 squared,True
+13,1,pi_14^13,standard.toda.stable::eta_13_specialization,55,Toda Proposition 5.1,ProofRule.INFERENCE,3,2,standard.toda.prop515,75,Toda Proposition 5.15,Toda Proposition 5.11 pi_14^13 eta_13,True

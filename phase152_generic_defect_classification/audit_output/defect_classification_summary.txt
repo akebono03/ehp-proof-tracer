@@ -1,0 +1,55 @@
+==============================================================================
+Phase 152 — Generic Defect Classification
+==============================================================================
+groups: 112
+exceptions: 0
+presentation nodes: 713
+blocks: 559
+arguments: 129
+OTHER blocks: 126
+OTHER steps: 144
+fallback steps: 166
+  rule-name: 115
+  type-name: 51
+  raw: 0
+OTHER ∩ fallback: 125
+typed reasons: 146
+
+Confirmed step-level defect categories:
+  semantic_classification_and_statement_rendering: occurrences=125, statement_types=20, affected_groups=66
+  statement_rendering: occurrences=41, statement_types=8, affected_groups=24
+  semantic_classification: occurrences=19, statement_types=10, affected_groups=13
+
+Reason coverage:
+  final_result_derivation: 137
+  intermediate-specific typed reasons: 9
+
+Candidate categories not yet proven by Phase 151 data:
+  selection
+  ownership
+  ordering
+  formatting
+  result_reuse
+
+Classification rule:
+  OTHER + fallback -> semantic_classification_and_statement_rendering
+  OTHER only -> semantic_classification
+  fallback only -> statement_rendering
+  reason concentration -> reason_coverage (cross-cutting gap, not a step-level fallback category)
+
+Interpretation boundary:
+  No production behavior is changed.
+  No semantic role is reassigned.
+  No statement renderer is added.
+  No reason kind is added.
+  Selection/ownership/ordering/formatting/result_reuse are not inferred without dedicated evidence.
+
+Output files:
+  confirmed_step_defect_categories.csv
+  defect_by_statement_type.csv
+  step_classification_inventory.csv
+  reason_coverage_classification.csv
+  unresolved_candidate_categories.csv
+  exception_inventory.csv
+  defect_classification_summary.txt
+==============================================================================

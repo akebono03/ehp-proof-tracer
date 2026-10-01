@@ -1,0 +1,42 @@
+﻿n,k,group,candidate_index,root_entry_key,root_entry_phase,root_entry_theorem,shortest_depth,step_rule,premise_count,same_conclusion_as_selected
+5,1,pi_6^5,1,standard.toda.prop56,65,Toda Proposition 5.6,2,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,1,False
+5,1,pi_6^5,2,standard.toda.prop58,68,Toda Proposition 5.8,4,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,1,False
+5,1,pi_6^5,3,standard.toda.prop511,73,Toda Proposition 5.11,5,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,1,False
+5,1,pi_6^5,4,standard.toda.prop515,75,Toda Proposition 5.15,5,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,1,False
+5,1,pi_6^5,5,standard.toda.prop515,75,Toda Proposition 5.15,6,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,1,False
+5,1,pi_6^5,6,standard.toda.prop511,73,Toda Proposition 5.11,7,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,1,False
+5,1,pi_6^5,7,standard.toda.prop511,73,Toda Proposition 5.11,7,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,1,False
+5,1,pi_6^5,8,standard.toda.prop515,75,Toda Proposition 5.15,7,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,1,False
+5,1,pi_6^5,9,standard.toda.prop56,65,Toda Proposition 5.6,7,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,1,False
+5,1,pi_6^5,10,standard.toda.prop58,68,Toda Proposition 5.8,7,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,1,False
+5,1,pi_6^5,11,standard.toda.prop515,75,Toda Proposition 5.15,8,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,1,False
+5,1,pi_6^5,12,standard.toda.prop515,75,Toda Proposition 5.15,9,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,1,False
+5,1,pi_6^5,13,standard.toda.prop515,75,Toda Proposition 5.15,9,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,1,False
+5,1,pi_6^5,14,standard.toda.prop515,75,Toda Proposition 5.15,9,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,1,False
+5,1,pi_6^5,15,standard.toda.prop58,68,Toda Proposition 5.8,9,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,1,False
+5,1,pi_6^5,16,standard.toda.prop511,73,Toda Proposition 5.11,10,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,1,False
+5,1,pi_6^5,17,standard.toda.prop511,73,Toda Proposition 5.11,10,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,1,False
+5,1,pi_6^5,18,standard.toda.prop515,75,Toda Proposition 5.15,11,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,1,False
+5,1,pi_6^5,19,standard.toda.prop511,73,Toda Proposition 5.11,12,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,1,False
+5,1,pi_6^5,20,standard.toda.prop515,75,Toda Proposition 5.15,12,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,1,False
+5,1,pi_6^5,21,standard.toda.prop515,75,Toda Proposition 5.15,12,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,1,False
+5,1,pi_6^5,22,standard.toda.prop515,75,Toda Proposition 5.15,14,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,1,False
+6,4,pi_10^6,1,standard.toda.prop58,68,Toda Proposition 5.8,2,Toda Proposition 5.8 pi_10^6 zero,3,True
+6,4,pi_10^6,2,standard.toda.prop515,75,Toda Proposition 5.15,4,Toda Proposition 5.8 pi_10^6 zero,3,True
+6,4,pi_10^6,3,standard.toda.prop511,73,Toda Proposition 5.11,5,Toda Proposition 5.8 pi_10^6 zero,3,True
+6,4,pi_10^6,4,standard.toda.prop515,75,Toda Proposition 5.15,6,Toda Proposition 5.8 pi_10^6 zero,3,True
+6,4,pi_10^6,5,standard.toda.prop511,73,Toda Proposition 5.11,7,Toda Proposition 5.8 pi_10^6 zero,3,True
+6,4,pi_10^6,6,standard.toda.prop515,75,Toda Proposition 5.15,7,Toda Proposition 5.8 pi_10^6 zero,3,True
+7,3,pi_10^7,1,standard.toda.prop511,73,Toda Proposition 5.11,2,Toda Proposition 5.11 pi_10^7 nu_7 specialization,1,True
+7,3,pi_10^7,2,standard.toda.prop515,75,Toda Proposition 5.15,4,Toda Proposition 5.11 pi_10^7 nu_7 specialization,1,True
+7,5,pi_12^7,1,standard.toda.prop511,73,Toda Proposition 5.11,4,Toda Proposition 5.9 pi_12^7 zero,3,True
+7,5,pi_12^7,2,standard.toda.prop515,75,Toda Proposition 5.15,5,Toda Proposition 5.9 pi_12^7 zero,3,True
+9,3,pi_12^9,1,standard.toda.prop511,73,Toda Proposition 5.11,3,Toda Proposition 5.11 pi_12^9 nu_9 specialization,1,True
+9,3,pi_12^9,2,standard.toda.prop515,75,Toda Proposition 5.15,3,Toda Proposition 5.11 pi_12^9 nu_9 specialization,1,True
+9,3,pi_12^9,3,standard.toda.prop515,75,Toda Proposition 5.15,5,Toda Proposition 5.11 pi_12^9 nu_9 specialization,1,True
+11,2,pi_13^11,1,standard.toda.prop515,75,Toda Proposition 5.15,2,Toda Proposition 5.11 pi_13^11 eta_11 squared,1,True
+11,2,pi_13^11,2,standard.toda.prop511,73,Toda Proposition 5.11,5,Toda Proposition 5.11 pi_13^11 eta_11 squared,1,True
+11,2,pi_13^11,3,standard.toda.prop515,75,Toda Proposition 5.15,7,Toda Proposition 5.11 pi_13^11 eta_11 squared,1,True
+13,1,pi_14^13,1,standard.toda.prop515,75,Toda Proposition 5.15,2,Toda Proposition 5.11 pi_14^13 eta_13,1,True
+13,1,pi_14^13,2,standard.toda.prop511,73,Toda Proposition 5.11,5,Toda Proposition 5.11 pi_14^13 eta_13,1,True
+13,1,pi_14^13,3,standard.toda.prop515,75,Toda Proposition 5.15,7,Toda Proposition 5.11 pi_14^13 eta_13,1,True

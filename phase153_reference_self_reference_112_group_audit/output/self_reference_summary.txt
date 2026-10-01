@@ -1,0 +1,39 @@
+==============================================================================
+Reference Self-Reference Audit - 112 Groups
+==============================================================================
+scope: n=2..15, k=0..7, depth=2, semantic closure
+production changes: none
+tests changes: none
+
+groups: 112
+exceptions: 0
+reference entries: 222
+selected reference steps: 438
+
+Self-reference defects:
+  exact self-reference: 8
+    selected root step identity: 6
+    selected root conclusion equal: 2
+  aggregate contains root conclusion: 0
+  total self-reference selected steps: 8
+  affected groups: 8
+
+Same-source-theorem but not proven self-reference: 246
+
+All selected-step classifications:
+  not_self_reference: 184
+  same_source_theorem_only: 246
+  selected_root_conclusion_equal: 2
+  selected_root_step_identity: 6
+
+Interpretation:
+  exact/aggregate categories are confirmed self-reference defects.
+  same_source_theorem_only is suspicious but is NOT counted as a confirmed defect.
+
+Output files:
+  self_reference_summary.txt
+  self_reference_defects.csv
+  selected_reference_steps.csv
+  group_inventory.csv
+  exception_inventory.csv
+==============================================================================

@@ -1,0 +1,38 @@
+﻿n,k,group,reference_number,reference_title,statement_type,fallback_kind,dependent_count,inference_rule_name
+2,2,pi_4^2,2,(5.2),Toda52CompositionIsomorphismStatement,rule_name,1,Toda 5.2 eta_2 composition isomorphism
+2,3,pi_5^2,3,(5.2),Toda52CompositionIsomorphismStatement,rule_name,2,Toda 5.2 eta_2 composition isomorphism
+2,4,pi_6^2,2,Proposition 5.6,TodaProp56FiniteDimensionalStatement,rule_name,1,Toda Proposition 5.6 finite-dimensional integration
+2,4,pi_6^2,3,(5.2),Toda52CompositionIsomorphismStatement,rule_name,1,Toda 5.2 eta_2 composition isomorphism
+2,5,pi_7^2,3,(5.2),Toda52CompositionIsomorphismStatement,rule_name,1,Toda 5.2 eta_2 composition isomorphism
+2,6,pi_8^2,3,(5.2),Toda52CompositionIsomorphismStatement,rule_name,2,Toda 5.2 eta_2 composition isomorphism
+2,7,pi_9^2,2,Proposition 5.11,TodaProp511FiniteDimensionalStatement,rule_name,1,Toda Proposition 5.11 finite-dimensional integration
+2,7,pi_9^2,3,(5.2),Toda52CompositionIsomorphismStatement,rule_name,1,Toda 5.2 eta_2 composition isomorphism
+3,2,pi_5^3,3,(5.2),Toda52CompositionIsomorphismStatement,rule_name,1,Toda 5.2 eta_2 composition isomorphism
+3,3,pi_6^3,5,(5.3) / Lemma 5.2,Toda53NuPrimeBracketSpecializationStatement,rule_name,2,Toda 5.3 nu-prime Lemma 5.2 bracket specialization
+3,3,pi_6^3,6,(5.2),Toda52CompositionIsomorphismStatement,rule_name,1,Toda 5.2 eta_2 composition isomorphism
+3,3,pi_6^3,7,Proposition 5.1,TodaProp51FiniteDimensionalStatement,rule_name,2,Toda Proposition 5.1 finite-dimensional integration
+3,5,pi_8^3,5,(5.5),Toda55NuFamilyFiniteDimensionalStatement,rule_name,1,Toda 5.5 nu-family finite-dimensional integration
+3,7,pi_10^3,3,Proposition 5.11,TodaProp511FiniteDimensionalStatement,rule_name,3,Toda Proposition 5.11 finite-dimensional integration
+4,3,pi_7^4,2,Lemma 5.4,TodaLemma54Statement,rule_name,1,Toda Lemma 5.4 integration
+4,4,pi_8^4,2,Proposition 5.1,TodaProp51FiniteDimensionalStatement,rule_name,2,Toda Proposition 5.1 finite-dimensional integration
+4,4,pi_8^4,3,Lemma 5.4,TodaLemma54Statement,rule_name,1,Toda Lemma 5.4 integration
+4,5,pi_9^4,3,Lemma 5.4,TodaLemma54Statement,rule_name,1,Toda Lemma 5.4 integration
+4,6,pi_10^4,2,Proposition 5.6,TodaProp56FiniteDimensionalStatement,rule_name,1,Toda Proposition 5.6 finite-dimensional integration
+4,6,pi_10^4,3,Lemma 5.4,TodaLemma54Statement,rule_name,1,Toda Lemma 5.4 integration
+5,4,pi_9^5,2,Proposition 5.1,TodaProp51FiniteDimensionalStatement,rule_name,4,Toda Proposition 5.1 finite-dimensional integration
+5,6,pi_11^5,3,Proposition 5.6,TodaProp56FiniteDimensionalStatement,rule_name,2,Toda Proposition 5.6 finite-dimensional integration
+5,7,pi_12^5,1,Proposition 5.15,TodaProp515Pi12_5HopfIsomorphismStatement,rule_name,2,Toda Proposition 5.15 pi_12^5 Hopf isomorphism
+5,7,pi_12^5,2,Lemma 5.13,TodaLemma513Statement,rule_name,1,Toda Lemma 5.13 sigma triple-prime definition
+5,7,pi_12^5,3,Proposition 5.11,TodaProp511FiniteDimensionalStatement,rule_name,1,Toda Proposition 5.11 finite-dimensional integration
+5,7,pi_12^5,5,(5.5),Toda55NuFamilyFiniteDimensionalStatement,rule_name,2,Toda 5.5 nu-family finite-dimensional integration
+6,7,pi_13^6,1,Proposition 5.15,TodaProp515Pi12_5HopfIsomorphismStatement,rule_name,2,Toda Proposition 5.15 pi_12^5 Hopf isomorphism
+6,7,pi_13^6,4,Theorem 3.6,Toda36Lemma514SigmaDoublePrimeBridgeStatement,rule_name,1,Toda Theorem 3.6 Lemma 5.14 sigma double-prime bridge
+6,7,pi_13^6,6,Proposition 5.6,TodaProp56FiniteDimensionalStatement,rule_name,2,Toda Proposition 5.6 finite-dimensional integration
+6,7,pi_13^6,7,Lemma 5.13,TodaLemma513Statement,rule_name,2,Toda Lemma 5.13 sigma triple-prime definition
+7,7,pi_14^7,2,Lemma 5.14,TodaLemma514SigmaPrimeStatement,rule_name,1,Toda Lemma 5.14 sigma-prime branch
+7,7,pi_14^7,6,Proposition 5.1,TodaProp51FiniteDimensionalStatement,rule_name,1,Toda Proposition 5.1 finite-dimensional integration
+9,7,pi_16^9,1,Proposition 5.15,TodaProp515Pi12_5HopfIsomorphismStatement,rule_name,2,Toda Proposition 5.15 pi_12^5 Hopf isomorphism
+9,7,pi_16^9,2,Lemma 5.14,TodaLemma514Sigma8Statement,rule_name,2,Toda Lemma 5.14 sigma_8 branch
+9,7,pi_16^9,2,Lemma 5.14,TodaLemma514SigmaPrimeStatement,rule_name,2,Toda Lemma 5.14 sigma-prime branch
+9,7,pi_16^9,3,Theorem 3.6,Toda36Lemma514SigmaDoublePrimeBridgeStatement,rule_name,1,Toda Theorem 3.6 Lemma 5.14 sigma double-prime bridge
+9,7,pi_16^9,4,Lemma 5.13,TodaLemma513Statement,rule_name,2,Toda Lemma 5.13 sigma triple-prime definition

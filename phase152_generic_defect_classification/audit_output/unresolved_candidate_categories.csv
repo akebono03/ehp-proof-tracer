@@ -1,0 +1,7 @@
+﻿candidate_category,status,evidence,phase152_action,future_boundary
+reason_coverage,observed_cross_cutting_gap,typed reasons=146; final_result_derivation=137; intermediate_specific=9,classify_only,A later phase may generalize intermediate mathematical reason kinds; Phase 152 does not add them.
+selection,not_determined_by_phase151_baseline,"Phase 151 measured selected generic presentation output, not counterfactual selection quality.",do_not_classify_as_confirmed_defect,Requires a dedicated selection invariant audit.
+ownership,not_determined_by_phase151_baseline,"Phase 151 measured rendered steps and blocks, not whether each contribution belongs to the mathematically correct argument.",do_not_classify_as_confirmed_defect,Requires a dedicated ownership invariant audit.
+ordering,not_determined_by_phase151_baseline,Phase 151 counted outputs but did not compare contribution order against dependency constraints.,do_not_classify_as_confirmed_defect,Requires a dedicated ordering invariant audit.
+formatting,not_determined_by_phase151_baseline,"Fallback/OTHER counts do not establish punctuation, TeX, numbering, or layout defects.",do_not_classify_as_confirmed_defect,Requires rendered-text formatting checks.
+result_reuse,not_determined_by_phase151_baseline,Phase 151 did not measure duplicate derivation or reusable result identity across arguments.,do_not_classify_as_confirmed_defect,Requires a dedicated reuse/deduplication audit.

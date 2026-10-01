@@ -1,0 +1,122 @@
+==============================================================================
+7-Group Concrete Source-Metadata Audit
+==============================================================================
+production changes: none
+tests changes: none
+
+Reference -> canonical metadata table:
+  Lemma 5.4 -> phase=60 theorem=Toda Lemma 5.4
+  Proposition 5.8 -> phase=68 theorem=Toda Proposition 5.8
+  Proposition 5.9 -> phase=70 theorem=Toda Proposition 5.9
+  Proposition 5.11 -> phase=73 theorem=Toda Proposition 5.11
+
+pi_6^5
+  shortest concrete:
+    root=standard.toda.prop56 depth=2
+    root phase=65
+    root theorem=Toda Proposition 5.6
+    step rule=Toda Lemma 5.4 pi_6^5 finite-cyclic specialization
+    step reference=Lemma 5.4
+  resolved metadata:
+    phase=60
+    theorem=Toda Lemma 5.4
+  root metadata matches step reference: False
+  recover metadata from step reference: True
+
+pi_10^6
+  shortest concrete:
+    root=standard.toda.prop58 depth=2
+    root phase=68
+    root theorem=Toda Proposition 5.8
+    step rule=Toda Proposition 5.8 pi_10^6 zero
+    step reference=Proposition 5.8
+  resolved metadata:
+    phase=68
+    theorem=Toda Proposition 5.8
+  root metadata matches step reference: True
+  recover metadata from step reference: False
+
+pi_10^7
+  shortest concrete:
+    root=standard.toda.prop511 depth=2
+    root phase=73
+    root theorem=Toda Proposition 5.11
+    step rule=Toda Proposition 5.11 pi_10^7 nu_7 specialization
+    step reference=Proposition 5.11
+  resolved metadata:
+    phase=73
+    theorem=Toda Proposition 5.11
+  root metadata matches step reference: True
+  recover metadata from step reference: False
+
+pi_12^7
+  shortest concrete:
+    root=standard.toda.prop511 depth=4
+    root phase=73
+    root theorem=Toda Proposition 5.11
+    step rule=Toda Proposition 5.9 pi_12^7 zero
+    step reference=Proposition 5.9
+  resolved metadata:
+    phase=70
+    theorem=Toda Proposition 5.9
+  root metadata matches step reference: False
+  recover metadata from step reference: True
+
+pi_12^9
+  shortest concrete:
+    root=standard.toda.prop511 depth=3
+    root phase=73
+    root theorem=Toda Proposition 5.11
+    step rule=Toda Proposition 5.11 pi_12^9 nu_9 specialization
+    step reference=Proposition 5.11
+  resolved metadata:
+    phase=73
+    theorem=Toda Proposition 5.11
+  root metadata matches step reference: True
+  recover metadata from step reference: False
+
+pi_13^11
+  shortest concrete:
+    root=standard.toda.prop515 depth=2
+    root phase=75
+    root theorem=Toda Proposition 5.15
+    step rule=Toda Proposition 5.11 pi_13^11 eta_11 squared
+    step reference=Proposition 5.11
+  resolved metadata:
+    phase=73
+    theorem=Toda Proposition 5.11
+  root metadata matches step reference: False
+  recover metadata from step reference: True
+
+pi_14^13
+  shortest concrete:
+    root=standard.toda.prop515 depth=2
+    root phase=75
+    root theorem=Toda Proposition 5.15
+    step rule=Toda Proposition 5.11 pi_14^13 eta_13
+    step reference=Proposition 5.11
+  resolved metadata:
+    phase=73
+    theorem=Toda Proposition 5.11
+  root metadata matches step reference: False
+  recover metadata from step reference: True
+
+==============================================================================
+Summary
+==============================================================================
+groups audited: 7
+exceptions: 0
+metadata resolved from step reference: 7
+root metadata already correct: 3
+root metadata differs and must be recovered: 4
+
+Interpretation:
+  The root_entry identifies the repository tree that contains the proof step; it does not necessarily identify the theorem that originally proves that step.
+  For generic concrete recovery, theorem/phase metadata should come from the selected proof step's literature reference when that reference has canonical project metadata.
+  The generic key should identify the recovered concrete query result and should not reuse an unrelated root-entry key.
+
+Output files:
+  source_metadata_report.txt
+  source_metadata_audit.csv
+  exception_inventory.csv
+==============================================================================

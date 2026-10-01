@@ -1,10 +1,35 @@
 from collections import deque
+from dataclasses import (
+  fields,
+  is_dataclass,
+)
 
+from proof import (
+  ProofStep,
+  Relation,
+  RelationType,
+)
+from scalar_rules import (
+  ScalarGreaterEqualStatement,
+)
 from toda_group_proof_generic_narrative_renderer import (
   _render_generic_narrative_step,
 )
+from toda_human_readable_renderer import (
+  _render_scalar_latex,
+)
+from toda_group_proof_narrative_argument_discourse import (
+  TodaGroupProofNarrativeArgumentDiscourseRole,
+  classify_toda_group_proof_narrative_argument_discourse_roles,
+)
+from toda_group_proof_narrative_argument_local_body import (
+  extract_toda_group_proof_narrative_argument_local_body_blocks,
+)
 from toda_group_proof_narrative_argument_multi_renderer import (
   render_toda_group_proof_narrative_multi_argument_markdown,
+)
+from toda_group_proof_narrative_argument_ordering import (
+  order_toda_group_proof_narrative_arguments,
 )
 from toda_group_proof_narrative_argument_renderer import (
   render_toda_group_proof_narrative_argument_purpose_sentence,
@@ -36,7 +61,12 @@ from toda_group_proof_narrative_reasons import (
 )
 from toda_group_proof_narrative_references import (
   build_toda_group_proof_narrative_reference_entries,
+  exclude_toda_group_proof_narrative_root_reference,
+  extract_toda_group_proof_step_literature_reference,
+  filter_toda_group_proof_narrative_reference_entries_by_body_usage,
+  filter_toda_group_proof_narrative_reference_entries_by_step_usage,
   render_toda_group_proof_narrative_reference_entries_markdown,
+  select_toda_group_proof_narrative_reference_statement_steps,
 )
 from toda_group_proof_narrative_semantics import (
   TodaGroupProofNarrativeSemanticSidecar,
@@ -670,6 +700,902 @@ def _insert_toda_group_proof_narrative_argument_contributions(
   return rendered
 
 
+def _is_toda_group_proof_narrative_reference_statement_candidate(
+  proof_step,
+  rendered_statement: str,
+) -> bool:
+  if not rendered_statement:
+    return False
+
+  inference_rule = proof_step.inference_rule
+
+  if (
+    inference_rule is not None
+    and rendered_statement == inference_rule.name
+  ):
+    return False
+
+  if (
+    rendered_statement
+    == "`"
+    + type(
+      proof_step.conclusion
+    ).__name__
+    + "`"
+  ):
+    return False
+
+  if rendered_statement == repr(
+    proof_step.conclusion
+  ):
+    return False
+
+  if rendered_statement == str(
+    proof_step.conclusion
+  ):
+    return False
+
+  return True
+
+
+def _phase153_r6_nested_value_contains(
+  container,
+  needle,
+) -> bool:
+  if container is needle:
+    return True
+
+  if isinstance(
+    container,
+    (
+      str,
+      bytes,
+      int,
+      float,
+      bool,
+      type(None),
+    ),
+  ):
+    return False
+
+  if isinstance(
+    container,
+    tuple,
+  ):
+    return any(
+      _phase153_r6_nested_value_contains(
+        value,
+        needle,
+      )
+      for value in container
+    )
+
+  if isinstance(
+    container,
+    list,
+  ):
+    return any(
+      _phase153_r6_nested_value_contains(
+        value,
+        needle,
+      )
+      for value in container
+    )
+
+  if isinstance(
+    container,
+    dict,
+  ):
+    return any(
+      _phase153_r6_nested_value_contains(
+        value,
+        needle,
+      )
+      for value in container.values()
+    )
+
+  if not is_dataclass(
+    container
+  ):
+    return False
+
+  return any(
+    _phase153_r6_nested_value_contains(
+      getattr(
+        container,
+        field.name,
+      ),
+      needle,
+    )
+    for field in fields(
+      container
+    )
+  )
+
+
+def _phase153_r6_group_relation_generators(
+  statement,
+) -> tuple:
+  if not isinstance(
+    statement,
+    Relation,
+  ):
+    return ()
+
+  if (
+    statement.relation_type
+    is not RelationType.EQUALITY
+  ):
+    return ()
+
+  rhs = statement.rhs
+  generator = getattr(
+    rhs,
+    "generator",
+    None,
+  )
+
+  if generator is not None:
+    return (
+      generator,
+    )
+
+  summands = getattr(
+    rhs,
+    "summands",
+    None,
+  )
+
+  if not isinstance(
+    summands,
+    tuple,
+  ):
+    return ()
+
+  return tuple(
+    generator
+    for summand in summands
+    for generator in (
+      getattr(
+        summand,
+        "generator",
+        None,
+      ),
+    )
+    if generator is not None
+  )
+
+
+def _phase153_r6_reference_aggregate_component(
+  presentation: TodaGroupProofPresentation,
+  entry,
+  proof_step: ProofStep,
+):
+  statement = proof_step.conclusion
+
+  if not is_dataclass(
+    statement
+  ):
+    return None
+
+  relation_components = tuple(
+    value
+    for field in fields(
+      statement
+    )
+    for value in (
+      getattr(
+        statement,
+        field.name,
+      ),
+    )
+    if (
+      isinstance(
+        value,
+        Relation,
+      )
+      and _phase153_r6_group_relation_generators(
+        value
+      )
+    )
+  )
+
+  if len(
+    relation_components
+  ) <= 1:
+    return None
+
+  external_consumers = tuple(
+    edge.parent_step
+    for edge in presentation.edges
+    if (
+      edge.premise_step
+      is proof_step
+      and extract_toda_group_proof_step_literature_reference(
+        edge.parent_step
+      )
+      != entry.reference
+    )
+  )
+
+  if not external_consumers:
+    return None
+
+  matching_components = []
+
+  for component in relation_components:
+    generators = (
+      _phase153_r6_group_relation_generators(
+        component
+      )
+    )
+
+    if any(
+      _phase153_r6_nested_value_contains(
+        consumer.conclusion,
+        generator,
+      )
+      for consumer in external_consumers
+      for generator in generators
+    ):
+      matching_components.append(
+        component
+      )
+
+  if len(
+    matching_components
+  ) != 1:
+    return None
+
+  return matching_components[
+    0
+  ]
+
+
+def _phase153_r6_render_reference_statement(
+  presentation: TodaGroupProofPresentation,
+  entry,
+  proof_step: ProofStep,
+  rendered_statement: str,
+) -> str:
+  component = (
+    _phase153_r6_reference_aggregate_component(
+      presentation,
+      entry,
+      proof_step,
+    )
+  )
+
+  if component is None:
+    return rendered_statement
+
+  component_step = ProofStep(
+    conclusion=component,
+    premises=(),
+    rule=proof_step.rule,
+    note=proof_step.note,
+    inference_rule=proof_step.inference_rule,
+  )
+
+  return _render_generic_narrative_step(
+    component_step
+  )
+
+
+def build_toda_group_proof_narrative_reference_reuse_marker_by_step_id(
+  presentation: TodaGroupProofPresentation,
+  reference_entries,
+) -> dict[
+  int,
+  str,
+]:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a TodaGroupProofPresentation"
+    )
+
+  marker_by_step_id = {}
+
+  for entry in reference_entries:
+    candidate_steps = []
+    seen_rendered_statements = set()
+
+    for proof_step in entry.proof_steps:
+      rendered_statement = (
+        _render_generic_narrative_step(
+          proof_step
+        )
+      )
+
+      if not (
+        _is_toda_group_proof_narrative_reference_statement_candidate(
+          proof_step,
+          rendered_statement,
+        )
+      ):
+        continue
+
+      if rendered_statement in seen_rendered_statements:
+        continue
+
+      seen_rendered_statements.add(
+        rendered_statement
+      )
+      candidate_steps.append(
+        proof_step
+      )
+
+    selected_steps = (
+      select_toda_group_proof_narrative_reference_statement_steps(
+        entry,
+        tuple(
+          candidate_steps
+        ),
+        presentation.edges,
+        root_step=presentation.root_step,
+      )
+    )
+    marker = (
+      "[R"
+      + str(
+        entry.number
+      )
+      + "]"
+    )
+
+    for proof_step in selected_steps:
+      marker_by_step_id[
+        id(
+          proof_step
+        )
+      ] = marker
+
+  return marker_by_step_id
+
+
+def _toda_group_proof_narrative_reference_statement_lines_by_number(
+  presentation: TodaGroupProofPresentation,
+  reference_entries,
+) -> dict[
+  int,
+  tuple[
+    str,
+    ...,
+  ],
+]:
+  statement_lines_by_reference_number = {}
+
+  for entry in reference_entries:
+    candidate_steps = []
+    rendered_by_step_id = {}
+    seen_rendered_statements = set()
+
+    for proof_step in entry.proof_steps:
+      rendered_statement = (
+        _render_generic_narrative_step(
+          proof_step
+        )
+      )
+
+      if not (
+        _is_toda_group_proof_narrative_reference_statement_candidate(
+          proof_step,
+          rendered_statement,
+        )
+      ):
+        continue
+
+      if rendered_statement in seen_rendered_statements:
+        continue
+
+      seen_rendered_statements.add(
+        rendered_statement
+      )
+      candidate_steps.append(
+        proof_step
+      )
+      rendered_by_step_id[
+        id(
+          proof_step
+        )
+      ] = rendered_statement
+
+    selected_steps = (
+      select_toda_group_proof_narrative_reference_statement_steps(
+        entry,
+        tuple(
+          candidate_steps
+        ),
+        presentation.edges,
+        root_step=presentation.root_step,
+      )
+    )
+
+    statement_lines = tuple(
+      _phase153_r6_render_reference_statement(
+        presentation,
+        entry,
+        proof_step,
+        rendered_by_step_id[
+          id(
+            proof_step
+          )
+        ],
+      )
+      for proof_step in selected_steps
+    )
+
+    if statement_lines:
+      statement_lines_by_reference_number[
+        entry.number
+      ] = statement_lines
+
+  return statement_lines_by_reference_number
+
+
+def _phase153_r7_reaches_root_without_steps(
+  presentation: TodaGroupProofPresentation,
+  source_step: ProofStep,
+  excluded_steps: tuple[
+    ProofStep,
+    ...,
+  ],
+) -> bool:
+  excluded_step_ids = {
+    id(
+      proof_step
+    )
+    for proof_step in excluded_steps
+  }
+  children_by_step_id = {}
+
+  for edge in presentation.edges:
+    if (
+      id(
+        edge.parent_step
+      )
+      in excluded_step_ids
+    ):
+      continue
+
+    children_by_step_id.setdefault(
+      id(
+        edge.premise_step
+      ),
+      [],
+    ).append(
+      edge.parent_step
+    )
+
+  target_id = id(
+    presentation.root_step
+  )
+  stack = [
+    source_step,
+  ]
+  visited = set()
+
+  while stack:
+    current = stack.pop()
+    current_id = id(
+      current
+    )
+
+    if current_id in visited:
+      continue
+
+    visited.add(
+      current_id
+    )
+
+    if current_id == target_id:
+      return True
+
+    stack.extend(
+      child_step
+      for child_step in children_by_step_id.get(
+        current_id,
+        (),
+      )
+      if (
+        id(
+          child_step
+        )
+        not in excluded_step_ids
+      )
+    )
+
+  return False
+
+
+def suppress_toda_group_proof_narrative_irrelevant_aggregate_ancestry(
+  presentation: TodaGroupProofPresentation,
+  body_markdown: str,
+  reference_entries,
+) -> str:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a TodaGroupProofPresentation"
+    )
+
+  if not isinstance(
+    body_markdown,
+    str,
+  ):
+    raise TypeError(
+      "body_markdown must be a str"
+    )
+
+  suppressed_fragments = set()
+  aggregate_reference_labels = set()
+
+  for entry in reference_entries:
+    for aggregate_step in entry.proof_steps:
+      component = (
+        _phase153_r6_reference_aggregate_component(
+          presentation,
+          entry,
+          aggregate_step,
+        )
+      )
+
+      if component is None:
+        continue
+
+      retained_premises = tuple(
+        premise_step
+        for premise_step in aggregate_step.premises
+        if premise_step.conclusion == component
+      )
+
+      if len(
+        retained_premises
+      ) != 1:
+        continue
+
+      aggregate_reference_labels.add(
+        entry.reference.label
+      )
+
+      unselected_premises = tuple(
+        premise_step
+        for premise_step in aggregate_step.premises
+        if premise_step is not retained_premises[0]
+      )
+
+      for premise_step in unselected_premises:
+        blocked_sibling_steps = tuple(
+          sibling_step
+          for sibling_step in unselected_premises
+          if sibling_step is not premise_step
+        )
+
+        if (
+          _phase153_r7_reaches_root_without_steps(
+            presentation,
+            premise_step,
+            (
+              aggregate_step,
+              *blocked_sibling_steps,
+            ),
+          )
+        ):
+          continue
+
+        if isinstance(
+          premise_step.conclusion,
+          ScalarGreaterEqualStatement,
+        ):
+          rendered = (
+            "$"
+            + _render_scalar_latex(
+              premise_step.conclusion.left
+            )
+            + r" \ge "
+            + _render_scalar_latex(
+              premise_step.conclusion.right
+            )
+            + "$"
+          )
+        else:
+          rendered = (
+            _render_generic_narrative_step(
+              premise_step
+            )
+          )
+
+        if rendered:
+          suppressed_fragments.add(
+            rendered
+          )
+
+  if not suppressed_fragments and not aggregate_reference_labels:
+    return body_markdown
+
+  lines = []
+
+  for line in body_markdown.splitlines():
+    if any(
+      fragment in line
+      for fragment in suppressed_fragments
+    ):
+      continue
+
+    if (
+      any(
+        reference_label in line
+        for reference_label in aggregate_reference_labels
+      )
+      and (
+        "有限次元結果を得る" in line
+        or "有限次元結果を示す" in line
+      )
+    ):
+      continue
+
+    lines.append(
+      line
+    )
+
+  compacted_lines = []
+  previous_blank = False
+
+  for line in lines:
+    is_blank = not line.strip()
+
+    if is_blank and previous_blank:
+      continue
+
+    compacted_lines.append(
+      line
+    )
+    previous_blank = is_blank
+
+  return "\n".join(
+    compacted_lines
+  ).strip()
+
+
+def suppress_toda_group_proof_narrative_reference_body_duplicates(
+  body_markdown: str,
+  statement_lines_by_reference_number: dict[
+    int,
+    tuple[
+      str,
+      ...,
+    ],
+  ],
+) -> str:
+  if not isinstance(
+    body_markdown,
+    str,
+  ):
+    raise TypeError(
+      "body_markdown must be a str"
+    )
+
+  if not isinstance(
+    statement_lines_by_reference_number,
+    dict,
+  ):
+    raise TypeError(
+      "statement_lines_by_reference_number must be a dict"
+    )
+
+  lines = body_markdown.splitlines()
+
+  for reference_number, statement_lines in (
+    statement_lines_by_reference_number.items()
+  ):
+    if (
+      isinstance(
+        reference_number,
+        bool,
+      )
+      or not isinstance(
+        reference_number,
+        int,
+      )
+    ):
+      raise TypeError(
+        "statement_lines_by_reference_number keys "
+        "must be integers"
+      )
+
+    if not isinstance(
+      statement_lines,
+      tuple,
+    ):
+      raise TypeError(
+        "statement_lines_by_reference_number values "
+        "must be tuples"
+      )
+
+    marker = (
+      "[R"
+      + str(
+        reference_number
+      )
+      + "]"
+    )
+
+    for statement_line in statement_lines:
+      if not isinstance(
+        statement_line,
+        str,
+      ):
+        raise TypeError(
+          "statement_lines_by_reference_number values "
+          "must contain only strings"
+        )
+
+      if not statement_line:
+        continue
+
+      updated_lines = []
+
+      for line in lines:
+        if statement_line not in line:
+          updated_lines.append(
+            line
+          )
+          continue
+
+        if line.strip() == statement_line:
+          continue
+
+        if marker in line:
+          updated_lines.append(
+            marker
+            + "を用いる。"
+          )
+          continue
+
+        replaced_line = line.replace(
+          statement_line,
+          marker,
+        )
+
+        if (
+          marker in replaced_line
+          and (
+            replaced_line.rstrip().endswith(
+              marker
+              + "を得る。"
+            )
+            or replaced_line.rstrip().endswith(
+              marker
+              + "を得る."
+            )
+          )
+        ):
+          updated_lines.append(
+            marker
+            + "を用いる。"
+          )
+          continue
+
+        updated_lines.append(
+          replaced_line
+        )
+
+      lines = updated_lines
+
+  compacted_lines = []
+  previous_blank = False
+
+  for line in lines:
+    is_blank = not line.strip()
+
+    if is_blank and previous_blank:
+      continue
+
+    compacted_lines.append(
+      line
+    )
+    previous_blank = is_blank
+
+  return "\n".join(
+    compacted_lines
+  ).strip()
+
+
+def build_toda_group_proof_narrative_generic_used_step_ids(
+  presentation: TodaGroupProofPresentation,
+  blocks: tuple[
+    TodaGroupProofNarrativeBlock,
+    ...,
+  ],
+  semantic_sidecar: TodaGroupProofNarrativeSemanticSidecar,
+  arguments: tuple[
+    TodaGroupProofNarrativeArgument,
+    ...,
+  ],
+  ordered_contributions,
+) -> frozenset[
+  int
+]:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a TodaGroupProofPresentation"
+    )
+
+  ordered_arguments = (
+    order_toda_group_proof_narrative_arguments(
+      arguments
+    )
+  )
+  discourse_roles = (
+    classify_toda_group_proof_narrative_argument_discourse_roles(
+      arguments
+    )
+  )
+  source_index_by_identity = {
+    id(
+      argument
+    ): index
+    for index, argument in enumerate(
+      arguments
+    )
+  }
+  used_step_ids = set()
+
+  for ordered_position, argument in enumerate(
+    ordered_arguments
+  ):
+    if (
+      discourse_roles[
+        ordered_position
+      ]
+      is TodaGroupProofNarrativeArgumentDiscourseRole.DETACHED
+    ):
+      continue
+
+    argument_index = source_index_by_identity[
+      id(
+        argument
+      )
+    ]
+    local_body_blocks = (
+      extract_toda_group_proof_narrative_argument_local_body_blocks(
+        presentation,
+        blocks,
+        semantic_sidecar,
+        arguments,
+        argument_index,
+      )
+    )
+
+    used_step_ids.update(
+      id(
+        proof_step
+      )
+      for block in local_body_blocks
+      for proof_step in block.steps
+    )
+
+  used_step_ids.update(
+    id(
+      contribution.proof_step
+    )
+    for contributions in ordered_contributions
+    for contribution in contributions
+  )
+
+  return frozenset(
+    used_step_ids
+  )
+
+
 def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown(
   presentation: TodaGroupProofPresentation,
   blocks: tuple[
@@ -734,9 +1660,73 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       presentation
     )
   )
+  statement_lines_by_reference_number = (
+    _toda_group_proof_narrative_reference_statement_lines_by_number(
+      presentation,
+      reference_entries,
+    )
+  )
+  (
+    reference_entries,
+    statement_lines_by_reference_number,
+  ) = (
+    exclude_toda_group_proof_narrative_root_reference(
+      reference_entries,
+      statement_lines_by_reference_number,
+      presentation.root_step,
+    )
+  )
+  rendered = (
+    suppress_toda_group_proof_narrative_irrelevant_aggregate_ancestry(
+      presentation,
+      rendered,
+      reference_entries,
+    )
+  )
+  rendered = (
+    suppress_toda_group_proof_narrative_reference_body_duplicates(
+      rendered,
+      statement_lines_by_reference_number,
+    )
+  )
+  if "[R" in rendered:
+    (
+      reference_entries,
+      statement_lines_by_reference_number,
+      rendered,
+    ) = (
+      filter_toda_group_proof_narrative_reference_entries_by_body_usage(
+        reference_entries,
+        statement_lines_by_reference_number,
+        rendered,
+      )
+    )
+  else:
+    generic_used_step_ids = (
+      build_toda_group_proof_narrative_generic_used_step_ids(
+        presentation,
+        blocks,
+        semantic_sidecar,
+        arguments,
+        ordered_contributions,
+      )
+    )
+    (
+      reference_entries,
+      statement_lines_by_reference_number,
+    ) = (
+      filter_toda_group_proof_narrative_reference_entries_by_step_usage(
+        reference_entries,
+        statement_lines_by_reference_number,
+        generic_used_step_ids,
+        presentation.root_step,
+      )
+    )
+
   reference_section = (
     render_toda_group_proof_narrative_reference_entries_markdown(
-      reference_entries
+      reference_entries,
+      statement_lines_by_reference_number,
     )
   )
 

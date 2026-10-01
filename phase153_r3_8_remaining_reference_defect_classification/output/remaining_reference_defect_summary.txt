@@ -1,0 +1,74 @@
+==============================================================================
+Phase 153-R3-8 - Remaining Reference Defect Classification
+==============================================================================
+scope: n=2..15, k=0..7, depth=2, semantic closure
+production changes: none
+
+groups: 112
+exceptions: 0
+
+A. Unresolved reference steps by statement type
+  TodaProp44IsomorphismStatement: occurrences=8, groups=8
+  TodaProp53FiniteDimensionalStatement: occurrences=7, groups=7
+  TodaProp44SecondSummandRestrictionStatement: occurrences=6, groups=6
+  TodaProp59FiniteDimensionalStatement: occurrences=3, groups=3
+  TodaDeltaSurjectiveStatement: occurrences=2, groups=2
+  TodaProp58FiniteDimensionalStatement: occurrences=2, groups=2
+  TodaProp511NuSquaredFiniteDimensionalStatement: occurrences=1, groups=1
+  TodaDeltaKernelFreeCyclicStatement: occurrences=1, groups=1
+  TodaProp27HopfInvariantUpToSignStatement: occurrences=1, groups=1
+
+B. Reference entries without selected statement
+  unresolved_only_or_unrenderable: entries=14, groups=12
+
+C. Public Reference statement missing by route shape
+  legacy_custom_reference_plus_proof: 14
+  standard_reference_plus_proof: 3
+  marker status:
+    marker_present: 15
+    marker_missing: 2
+
+D. Exact body duplicates by duplicate shape
+  embedded_without_reference_marker: 146
+  standalone_line: 3
+  by route shape:
+    standard_reference_plus_proof: 149
+
+E. Top affected groups by exact duplicate count
+  (n=3, k=5): 6
+  (n=5, k=4): 6
+  (n=5, k=6): 6
+  (n=2, k=4): 5
+  (n=2, k=6): 5
+  (n=4, k=7): 5
+  (n=5, k=5): 5
+  (n=4, k=5): 4
+  (n=7, k=7): 4
+  (n=2, k=3): 3
+  (n=3, k=7): 3
+  (n=6, k=3): 3
+  (n=6, k=5): 3
+  (n=6, k=6): 3
+  (n=6, k=7): 3
+  (n=7, k=3): 3
+  (n=8, k=3): 3
+  (n=9, k=3): 3
+  (n=10, k=3): 3
+  (n=11, k=3): 3
+
+Classification guide:
+  unresolved_only_or_unrenderable -> renderer coverage defect
+  selection_returned_empty -> representative-selection defect
+  public missing concentrated in custom/no-proof routes -> public route connection defect
+  standalone/reference-marker duplicates in standard route -> suppression timing/coverage defect
+  embedded_without_reference_marker -> body-generation ownership defect
+
+Output files:
+  unresolved_by_occurrence.csv
+  entries_without_selected_statement.csv
+  public_missing_classification.csv
+  body_duplicate_classification.csv
+  route_inventory.csv
+  exception_inventory.csv
+  remaining_reference_defect_summary.txt
+==============================================================================
