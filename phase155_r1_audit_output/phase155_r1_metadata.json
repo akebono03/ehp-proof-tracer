@@ -1,0 +1,14 @@
+{
+  "git_head": "8301520a7434f3836b1dbc7e8fa08a60c024225a",
+  "test_files": 843,
+  "test_functions": 10292,
+  "duplicate_groups": 93,
+  "categories": {
+    "current_contract": 8674,
+    "audit_only": 920,
+    "performance_heavy_integration": 110,
+    "duplicate_coverage": 268,
+    "historical_compatibility": 319,
+    "superseded_snapshot": 1
+  }
+}
