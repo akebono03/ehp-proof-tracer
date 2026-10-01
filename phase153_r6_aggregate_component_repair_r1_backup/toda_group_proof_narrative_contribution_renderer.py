@@ -1,14 +1,5 @@
 from collections import deque
-from dataclasses import (
-  fields,
-  is_dataclass,
-)
 
-from proof import (
-  ProofStep,
-  Relation,
-  RelationType,
-)
 from toda_group_proof_generic_narrative_renderer import (
   _render_generic_narrative_step,
 )
@@ -45,7 +36,6 @@ from toda_group_proof_narrative_reasons import (
 )
 from toda_group_proof_narrative_references import (
   build_toda_group_proof_narrative_reference_entries,
-  extract_toda_group_proof_step_literature_reference,
   render_toda_group_proof_narrative_reference_entries_markdown,
   select_toda_group_proof_narrative_reference_statement_steps,
 )
@@ -719,250 +709,6 @@ def _is_toda_group_proof_narrative_reference_statement_candidate(
   return True
 
 
-def _phase153_r6_nested_value_contains(
-  container,
-  needle,
-) -> bool:
-  if container is needle:
-    return True
-
-  if isinstance(
-    container,
-    (
-      str,
-      bytes,
-      int,
-      float,
-      bool,
-      type(None),
-    ),
-  ):
-    return False
-
-  if isinstance(
-    container,
-    tuple,
-  ):
-    return any(
-      _phase153_r6_nested_value_contains(
-        value,
-        needle,
-      )
-      for value in container
-    )
-
-  if isinstance(
-    container,
-    list,
-  ):
-    return any(
-      _phase153_r6_nested_value_contains(
-        value,
-        needle,
-      )
-      for value in container
-    )
-
-  if isinstance(
-    container,
-    dict,
-  ):
-    return any(
-      _phase153_r6_nested_value_contains(
-        value,
-        needle,
-      )
-      for value in container.values()
-    )
-
-  if not is_dataclass(
-    container
-  ):
-    return False
-
-  return any(
-    _phase153_r6_nested_value_contains(
-      getattr(
-        container,
-        field.name,
-      ),
-      needle,
-    )
-    for field in fields(
-      container
-    )
-  )
-
-
-def _phase153_r6_group_relation_generators(
-  statement,
-) -> tuple:
-  if not isinstance(
-    statement,
-    Relation,
-  ):
-    return ()
-
-  if (
-    statement.relation_type
-    is not RelationType.EQUALITY
-  ):
-    return ()
-
-  rhs = statement.rhs
-  generator = getattr(
-    rhs,
-    "generator",
-    None,
-  )
-
-  if generator is not None:
-    return (
-      generator,
-    )
-
-  summands = getattr(
-    rhs,
-    "summands",
-    None,
-  )
-
-  if not isinstance(
-    summands,
-    tuple,
-  ):
-    return ()
-
-  return tuple(
-    generator
-    for summand in summands
-    for generator in (
-      getattr(
-        summand,
-        "generator",
-        None,
-      ),
-    )
-    if generator is not None
-  )
-
-
-def _phase153_r6_reference_aggregate_component(
-  presentation: TodaGroupProofPresentation,
-  entry,
-  proof_step: ProofStep,
-):
-  statement = proof_step.conclusion
-
-  if not is_dataclass(
-    statement
-  ):
-    return None
-
-  relation_components = tuple(
-    value
-    for field in fields(
-      statement
-    )
-    for value in (
-      getattr(
-        statement,
-        field.name,
-      ),
-    )
-    if (
-      isinstance(
-        value,
-        Relation,
-      )
-      and _phase153_r6_group_relation_generators(
-        value
-      )
-    )
-  )
-
-  if len(
-    relation_components
-  ) <= 1:
-    return None
-
-  external_consumers = tuple(
-    edge.parent_step
-    for edge in presentation.edges
-    if (
-      edge.premise_step
-      is proof_step
-      and extract_toda_group_proof_step_literature_reference(
-        edge.parent_step
-      )
-      != entry.reference
-    )
-  )
-
-  if not external_consumers:
-    return None
-
-  matching_components = []
-
-  for component in relation_components:
-    generators = (
-      _phase153_r6_group_relation_generators(
-        component
-      )
-    )
-
-    if any(
-      _phase153_r6_nested_value_contains(
-        consumer.conclusion,
-        generator,
-      )
-      for consumer in external_consumers
-      for generator in generators
-    ):
-      matching_components.append(
-        component
-      )
-
-  if len(
-    matching_components
-  ) != 1:
-    return None
-
-  return matching_components[
-    0
-  ]
-
-
-def _phase153_r6_render_reference_statement(
-  presentation: TodaGroupProofPresentation,
-  entry,
-  proof_step: ProofStep,
-  rendered_statement: str,
-) -> str:
-  component = (
-    _phase153_r6_reference_aggregate_component(
-      presentation,
-      entry,
-      proof_step,
-    )
-  )
-
-  if component is None:
-    return rendered_statement
-
-  component_step = ProofStep(
-    conclusion=component,
-    premises=(),
-    rule=proof_step.rule,
-    note=proof_step.note,
-    inference_rule=proof_step.inference_rule,
-  )
-
-  return _render_generic_narrative_step(
-    component_step
-  )
-
-
 def _toda_group_proof_narrative_reference_statement_lines_by_number(
   presentation: TodaGroupProofPresentation,
   reference_entries,
@@ -1022,16 +768,11 @@ def _toda_group_proof_narrative_reference_statement_lines_by_number(
     )
 
     statement_lines = tuple(
-      _phase153_r6_render_reference_statement(
-        presentation,
-        entry,
-        proof_step,
-        rendered_by_step_id[
-          id(
-            proof_step
-          )
-        ],
-      )
+      rendered_by_step_id[
+        id(
+          proof_step
+        )
+      ]
       for proof_step in selected_steps
     )
 

@@ -239,36 +239,6 @@ def select_toda_group_proof_narrative_reference_statement_steps(
   if not eligible_candidates:
     return ()
 
-  boundary_used_step_ids = {
-    id(
-      edge.premise_step
-    )
-    for edge in proof_edges
-    if (
-      edge.premise_step
-      is not root_step
-      and extract_toda_group_proof_step_literature_reference(
-        edge.premise_step
-      )
-      == entry.reference
-      and extract_toda_group_proof_step_literature_reference(
-        edge.parent_step
-      )
-      != entry.reference
-    )
-  }
-
-  boundary_used_candidates = tuple(
-    step
-    for step in eligible_candidates
-    if id(
-      step
-    ) in boundary_used_step_ids
-  )
-
-  if boundary_used_candidates:
-    return boundary_used_candidates
-
   proof_used_step_ids = {
     id(
       edge.premise_step
