@@ -1,0 +1,107 @@
+﻿target,ancestry_kind,depth,path,statement_type,statement,rule,reference,premise_count,is_canonical_base_identity,is_canonical_general_identity,is_stable_45_identity,is_range_identity
+pi_10^6,repository_root,0,,TodaPrimaryGroupZeroStatement,$\pi_{10}^{6} = 0$,ProofRule.INFERENCE,,1,False,False,False,False
+pi_10^6,repository_root,1,1,TodaPrimaryGroupZeroStatement,$\pi_{n + 4}^{n} = 0$,Toda Proposition 5.8 higher four-stem zero transport,Proposition 5.8,3,False,False,False,False
+pi_10^6,repository_root,2,1.1,TodaPrimaryGroupZeroStatement,$\pi_{10}^{6} = 0$,Toda Proposition 5.8 pi_10^6 zero,Proposition 5.8,3,False,False,False,False
+pi_10^6,repository_root,2,1.2,Toda45IsomorphismStatement,$E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n}$ は同型写像である.,Toda 4.5 stable-range iterated suspension isomorphism,(4.5),3,False,False,False,False
+pi_10^6,repository_root,2,1.3,ScalarGreaterEqualStatement,`ScalarGreaterEqualStatement`,ProofRule.GIVEN,,0,False,False,False,False
+pi_10^6,repository_root,3,1.1.1,Relation,$\pi_{9}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\}$,Toda Proposition 5.8 pi_9^5 finite cyclic,Proposition 5.8,6,False,False,False,False
+pi_10^6,repository_root,3,1.1.2,TodaSuspensionSurjectiveStatement,$E: \pi_{9}^{5} \to \pi_{10}^{6}$ は全射である.,Toda Proposition 5.8 pi_10^6 suspension surjective,Proposition 5.8,2,False,False,False,False
+pi_10^6,repository_root,3,1.1.3,Relation,$\nu_{6}\eta_{9} = 0$,Toda Proposition 3.1 nu_6 eta_9 zero consequence,Proposition 3.1,3,False,False,False,False
+pi_10^6,repository_root,3,1.2.1,ScalarGreaterEqualStatement,`ScalarGreaterEqualStatement`,ProofRule.GIVEN,,0,False,False,False,False
+pi_10^6,repository_root,3,1.2.2,ScalarGreaterEqualStatement,`ScalarGreaterEqualStatement`,ProofRule.GIVEN,,0,False,False,False,False
+pi_10^6,repository_root,3,1.2.3,TodaIteratedSuspensionMap,`TodaIteratedSuspensionMap`,ProofRule.GIVEN,,0,False,False,False,False
+pi_10^6,canonical_base,0,,TodaPrimaryGroupZeroStatement,$\pi_{10}^{6} = 0$,Toda Proposition 5.8 pi_10^6 zero,Proposition 5.8,3,True,False,False,False
+pi_10^6,canonical_base,1,1,Relation,$\pi_{9}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\}$,Toda Proposition 5.8 pi_9^5 finite cyclic,Proposition 5.8,6,False,False,False,False
+pi_10^6,canonical_base,1,2,TodaSuspensionSurjectiveStatement,$E: \pi_{9}^{5} \to \pi_{10}^{6}$ は全射である.,Toda Proposition 5.8 pi_10^6 suspension surjective,Proposition 5.8,2,False,False,False,False
+pi_10^6,canonical_base,1,3,Relation,$\nu_{6}\eta_{9} = 0$,Toda Proposition 3.1 nu_6 eta_9 zero consequence,Proposition 3.1,3,False,False,False,False
+pi_10^6,canonical_base,2,1.1,Relation,$\pi_{8}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\}$,Toda Proposition 5.8 pi_8^4 decomposition,Proposition 5.8,4,False,False,False,False
+pi_10^6,canonical_base,2,1.2,Relation,$\Delta\left(\eta_{9}\right) = E\nu'\eta_{7}$,Toda Proposition 5.8 Delta eta_9 value,Proposition 5.8,2,False,False,False,False
+pi_10^6,canonical_base,2,1.3,TodaProp51FiniteDimensionalStatement,"$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$, $H\left(\eta_{2}\right) = \iota_{3}$, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$, $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$ が成り立つ.",Toda Proposition 5.1 finite-dimensional integration,Proposition 5.1,4,False,False,False,False
+pi_10^6,canonical_base,2,1.4,TodaProp42ExactnessStatement,$\pi_{10}^{9} \xrightarrow{\Delta} \pi_{8}^{4} \xrightarrow{E} \pi_{9}^{5} \text{ is exact}$,Toda Proposition 5.8 pi_9^5 concrete exactness,Proposition 5.8,1,False,False,False,False
+pi_10^6,canonical_base,2,1.5,TodaSuspensionSurjectiveStatement,$E: \pi_{8}^{4} \to \pi_{9}^{5}$ は全射である.,Toda Proposition 5.8 pi_9^5 suspension surjective,Proposition 5.8,2,False,False,False,False
+pi_10^6,canonical_base,2,1.6,Relation,$E\nu_{4}\eta_{7} = \nu_{5}\eta_{8}$,Toda Proposition 5.8 E nu_4 eta_7 bridge,Proposition 5.8,3,False,False,False,False
+pi_10^6,canonical_base,2,2.1,TodaPrimaryGroupZeroStatement,$\pi_{10}^{11} = 0$,ProofRule.GIVEN,,0,False,False,False,False
+pi_10^6,canonical_base,2,2.2,TodaProp42ExactnessStatement,$\pi_{9}^{5} \xrightarrow{E} \pi_{10}^{6} \xrightarrow{H} \pi_{10}^{11} \text{ is exact}$,Toda Proposition 5.8 pi_10^6 concrete exactness,Proposition 5.8,1,False,False,False,False
+pi_10^6,canonical_base,2,3.1,Relation,$\eta_{6}\nu_{7} = 0$,Toda Proposition 5.8 eta_6 nu_7 zero specialization,Proposition 5.8,4,False,False,False,False
+pi_10^6,canonical_base,2,3.2,Relation,"$\eta_{2} \wedge \nu_{4} = {-1}^{3\,3}E^{4}\eta_{2}E^{3}\nu_{4}$",Toda Prop.3.1 Barratt-Hilton first formula,,2,False,False,False,False
+pi_10^6,canonical_base,2,3.3,Relation,"$\eta_{2} \wedge \nu_{4} = {-1}^{2\,3}E^{2}\nu_{4}E^{7}\eta_{2}$",Toda Prop.3.1 Barratt-Hilton second formula,,2,False,False,False,False
+pi_10^6,canonical_base,3,1.1.1,Toda56Nu4DecompositionStatement,Toda (5.6) nu_4 decomposition integration,Toda (5.6) nu_4 decomposition integration,,2,False,False,False,False
+pi_10^6,canonical_base,3,1.1.2,Relation,$\pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}$,Toda Proposition 5.8 pi_7^3 finite cyclic,Proposition 5.8,3,False,False,False,False
+pi_10^6,canonical_base,3,1.1.4,Relation,$E\nu'\eta_{6} = E\nu'\eta_{7}$,Toda Proposition 5.8 E nu-prime eta_6 bridge,Proposition 5.8,2,False,False,False,False
+pi_10^6,canonical_base,3,1.2.1,TodaDeltaImageUpToSignStatement,$\Delta\left(\eta_{9}\right) = \pm 2\nu_{4} - E\nu'\eta_{7}$,Toda Proposition 2.5 Delta eta_9 composition,Proposition 2.5,1,False,False,False,False
+pi_10^6,canonical_base,3,1.3.1,Relation,$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$,Toda pi_3^2 free cyclic generator transport,,3,False,False,False,False
+pi_10^6,canonical_base,3,1.3.2,Relation,$H\left(\eta_{2}\right) = \iota_{3}$,Toda pi_3^2 eta_2 Hopf relation,,1,False,False,False,False
+pi_10^6,canonical_base,3,1.3.3,TodaDeltaImageUpToSignStatement,$\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$,Toda Delta iota_5 twice eta_2 up-to-sign bridge,,2,False,False,False,False
+pi_10^6,canonical_base,3,1.3.4,Relation,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$,Toda higher eta-family finite-cyclic generator bridge,,2,False,False,False,False
+pi_10^6,canonical_base,3,1.4.1,TodaEHPExactnessWindow,$\pi_{10}^{9} \xrightarrow{\Delta} \pi_{8}^{4} \xrightarrow{E} \pi_{9}^{5}$,ProofRule.GIVEN,,0,False,False,False,False
+pi_10^6,canonical_base,3,1.5.1,TodaHopfInvariantZeroStatement,$H: \pi_{9}^{5} \to \pi_{9}^{9}$ は零写像である.,Toda Proposition 5.8 pi_9^5 Hopf zero,Proposition 5.8,2,False,False,False,False
+pi_10^6,canonical_base,3,1.5.2,TodaProp42ExactnessStatement,$\pi_{8}^{4} \xrightarrow{E} \pi_{9}^{5} \xrightarrow{H} \pi_{9}^{9} \text{ is exact}$,Toda Proposition 5.8 pi_9^5 concrete exactness,Proposition 5.8,1,False,False,False,False
+pi_10^6,canonical_base,3,1.6.3,TodaNuFamilyDefinitionStatement,$\nu_{5}$ を \(\nu\)-family の元として定める.,ProofRule.GIVEN,,0,False,False,False,False
+pi_10^6,canonical_base,3,2.2.1,TodaEHPExactnessWindow,$\pi_{9}^{5} \xrightarrow{E} \pi_{10}^{6} \xrightarrow{H} \pi_{10}^{11}$,ProofRule.GIVEN,,0,False,False,False,False
+pi_10^6,canonical_base,3,3.1.1,Relation,$\eta_{n}\nu_{n + 1} = 0$,Toda Proposition 5.8 higher eta nu zero,Proposition 5.8,3,False,False,False,False
+pi_10^6,canonical_base,3,3.1.2,Toda55NuFamilyFiniteDimensionalStatement,"$\nu_{n} = E^{n - 4}\nu_{4}$, $n \ge 5$, $2\nu_{n} = E^{n - 3}\nu'$, $4\nu_{n} = \eta_{n}\eta_{n + 1}\eta_{n + 2}$ が成り立つ.",Toda 5.5 nu-family finite-dimensional integration,(5.5),5,False,False,False,False
+pi_10^6,canonical_base,3,3.1.3,TodaEtaFamilyDefinitionStatement,`TodaEtaFamilyDefinitionStatement`,ProofRule.GIVEN,,0,False,False,False,False
+pi_10^6,canonical_base,3,3.1.4,TodaNuFamilyDefinitionStatement,$\nu_{7}$ を \(\nu\)-family の元として定める.,ProofRule.GIVEN,,0,False,False,False,False
+pi_10^6,canonical_base,3,3.2.1,HomotopyGroupMembershipStatement,$\eta_{2} \in \pi_{3}^{2}$,ProofRule.GIVEN,,0,False,False,False,False
+pi_10^6,canonical_base,3,3.2.2,HomotopyGroupMembershipStatement,$\nu_{4} \in \pi_{7}^{4}$,ProofRule.GIVEN,,0,False,False,False,False
+pi_10^6,canonical_general,0,,TodaPrimaryGroupZeroStatement,$\pi_{n + 4}^{n} = 0$,Toda Proposition 5.8 higher four-stem zero transport,Proposition 5.8,3,False,True,False,False
+pi_10^6,canonical_general,1,1,TodaPrimaryGroupZeroStatement,$\pi_{10}^{6} = 0$,Toda Proposition 5.8 pi_10^6 zero,Proposition 5.8,3,True,False,False,False
+pi_10^6,canonical_general,1,2,Toda45IsomorphismStatement,$E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n}$ は同型写像である.,Toda 4.5 stable-range iterated suspension isomorphism,(4.5),3,False,False,True,False
+pi_10^6,canonical_general,1,3,ScalarGreaterEqualStatement,`ScalarGreaterEqualStatement`,ProofRule.GIVEN,,0,False,False,False,True
+pi_10^6,canonical_general,2,1.1,Relation,$\pi_{9}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\}$,Toda Proposition 5.8 pi_9^5 finite cyclic,Proposition 5.8,6,False,False,False,False
+pi_10^6,canonical_general,2,1.2,TodaSuspensionSurjectiveStatement,$E: \pi_{9}^{5} \to \pi_{10}^{6}$ は全射である.,Toda Proposition 5.8 pi_10^6 suspension surjective,Proposition 5.8,2,False,False,False,False
+pi_10^6,canonical_general,2,1.3,Relation,$\nu_{6}\eta_{9} = 0$,Toda Proposition 3.1 nu_6 eta_9 zero consequence,Proposition 3.1,3,False,False,False,False
+pi_10^6,canonical_general,2,2.1,ScalarGreaterEqualStatement,`ScalarGreaterEqualStatement`,ProofRule.GIVEN,,0,False,False,False,False
+pi_10^6,canonical_general,2,2.2,ScalarGreaterEqualStatement,`ScalarGreaterEqualStatement`,ProofRule.GIVEN,,0,False,False,False,False
+pi_10^6,canonical_general,2,2.3,TodaIteratedSuspensionMap,`TodaIteratedSuspensionMap`,ProofRule.GIVEN,,0,False,False,False,False
+pi_10^6,canonical_general,3,1.1.1,Relation,$\pi_{8}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\}$,Toda Proposition 5.8 pi_8^4 decomposition,Proposition 5.8,4,False,False,False,False
+pi_10^6,canonical_general,3,1.1.2,Relation,$\Delta\left(\eta_{9}\right) = E\nu'\eta_{7}$,Toda Proposition 5.8 Delta eta_9 value,Proposition 5.8,2,False,False,False,False
+pi_10^6,canonical_general,3,1.1.3,TodaProp51FiniteDimensionalStatement,"$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$, $H\left(\eta_{2}\right) = \iota_{3}$, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$, $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$ が成り立つ.",Toda Proposition 5.1 finite-dimensional integration,Proposition 5.1,4,False,False,False,False
+pi_10^6,canonical_general,3,1.1.4,TodaProp42ExactnessStatement,$\pi_{10}^{9} \xrightarrow{\Delta} \pi_{8}^{4} \xrightarrow{E} \pi_{9}^{5} \text{ is exact}$,Toda Proposition 5.8 pi_9^5 concrete exactness,Proposition 5.8,1,False,False,False,False
+pi_10^6,canonical_general,3,1.1.5,TodaSuspensionSurjectiveStatement,$E: \pi_{8}^{4} \to \pi_{9}^{5}$ は全射である.,Toda Proposition 5.8 pi_9^5 suspension surjective,Proposition 5.8,2,False,False,False,False
+pi_10^6,canonical_general,3,1.1.6,Relation,$E\nu_{4}\eta_{7} = \nu_{5}\eta_{8}$,Toda Proposition 5.8 E nu_4 eta_7 bridge,Proposition 5.8,3,False,False,False,False
+pi_10^6,canonical_general,3,1.2.1,TodaPrimaryGroupZeroStatement,$\pi_{10}^{11} = 0$,ProofRule.GIVEN,,0,False,False,False,False
+pi_10^6,canonical_general,3,1.2.2,TodaProp42ExactnessStatement,$\pi_{9}^{5} \xrightarrow{E} \pi_{10}^{6} \xrightarrow{H} \pi_{10}^{11} \text{ is exact}$,Toda Proposition 5.8 pi_10^6 concrete exactness,Proposition 5.8,1,False,False,False,False
+pi_10^6,canonical_general,3,1.3.1,Relation,$\eta_{6}\nu_{7} = 0$,Toda Proposition 5.8 eta_6 nu_7 zero specialization,Proposition 5.8,4,False,False,False,False
+pi_10^6,canonical_general,3,1.3.2,Relation,"$\eta_{2} \wedge \nu_{4} = {-1}^{3\,3}E^{4}\eta_{2}E^{3}\nu_{4}$",Toda Prop.3.1 Barratt-Hilton first formula,,2,False,False,False,False
+pi_10^6,canonical_general,3,1.3.3,Relation,"$\eta_{2} \wedge \nu_{4} = {-1}^{2\,3}E^{2}\nu_{4}E^{7}\eta_{2}$",Toda Prop.3.1 Barratt-Hilton second formula,,2,False,False,False,False
+pi_12^7,repository_root,0,,TodaPrimaryGroupZeroStatement,$\pi_{12}^{7} = 0$,ProofRule.INFERENCE,,1,False,False,False,False
+pi_12^7,repository_root,1,1,TodaPrimaryGroupZeroStatement,$\pi_{n + 5}^{n} = 0$,Toda Proposition 5.9 higher five-stem zero transport,Proposition 5.9,3,False,False,False,False
+pi_12^7,repository_root,2,1.1,TodaPrimaryGroupZeroStatement,$\pi_{12}^{7} = 0$,Toda Proposition 5.9 pi_12^7 zero,Proposition 5.9,3,False,False,False,False
+pi_12^7,repository_root,2,1.2,Toda45IsomorphismStatement,$E^{n - 7}: \pi_{7 + 5}^{7} \to \pi_{n + 5}^{n}$ は同型写像である.,Toda 4.5 stable-range iterated suspension isomorphism,(4.5),3,False,False,False,False
+pi_12^7,repository_root,2,1.3,ScalarGreaterEqualStatement,`ScalarGreaterEqualStatement`,ProofRule.GIVEN,,0,False,False,False,False
+pi_12^7,repository_root,3,1.1.1,TodaDeltaSurjectiveStatement,$\Delta: \pi_{13}^{13} \to \pi_{11}^{6}$ は全射である.,Toda Proposition 5.9 pi_13^13 Delta surjective,Proposition 5.9,2,False,False,False,False
+pi_12^7,repository_root,3,1.1.2,TodaProp42ExactnessStatement,$\pi_{13}^{13} \xrightarrow{\Delta} \pi_{11}^{6} \xrightarrow{E} \pi_{12}^{7} \text{ is exact}$,Toda Proposition 5.9 pi_12^7 concrete exactness,Proposition 5.9,1,False,False,False,False
+pi_12^7,repository_root,3,1.1.3,TodaSuspensionSurjectiveStatement,$E: \pi_{11}^{6} \to \pi_{12}^{7}$ は全射である.,Toda Proposition 5.9 pi_12^7 suspension surjective,Proposition 5.9,2,False,False,False,False
+pi_12^7,repository_root,3,1.2.1,ScalarGreaterEqualStatement,`ScalarGreaterEqualStatement`,ProofRule.GIVEN,,0,False,False,False,False
+pi_12^7,repository_root,3,1.2.2,ScalarGreaterEqualStatement,`ScalarGreaterEqualStatement`,ProofRule.GIVEN,,0,False,False,False,False
+pi_12^7,repository_root,3,1.2.3,TodaIteratedSuspensionMap,`TodaIteratedSuspensionMap`,ProofRule.GIVEN,,0,False,False,False,False
+pi_12^7,canonical_base,0,,TodaPrimaryGroupZeroStatement,$\pi_{12}^{7} = 0$,Toda Proposition 5.9 pi_12^7 zero,Proposition 5.9,3,True,False,False,False
+pi_12^7,canonical_base,1,1,TodaDeltaSurjectiveStatement,$\Delta: \pi_{13}^{13} \to \pi_{11}^{6}$ は全射である.,Toda Proposition 5.9 pi_13^13 Delta surjective,Proposition 5.9,2,False,False,False,False
+pi_12^7,canonical_base,1,2,TodaProp42ExactnessStatement,$\pi_{13}^{13} \xrightarrow{\Delta} \pi_{11}^{6} \xrightarrow{E} \pi_{12}^{7} \text{ is exact}$,Toda Proposition 5.9 pi_12^7 concrete exactness,Proposition 5.9,1,False,False,False,False
+pi_12^7,canonical_base,1,3,TodaSuspensionSurjectiveStatement,$E: \pi_{11}^{6} \to \pi_{12}^{7}$ は全射である.,Toda Proposition 5.9 pi_12^7 suspension surjective,Proposition 5.9,2,False,False,False,False
+pi_12^7,canonical_base,2,1.1,Relation,$\pi_{13}^{13} = \mathbb{Z}\{\iota_{13}\}$,ProofRule.GIVEN,,0,False,False,False,False
+pi_12^7,canonical_base,2,1.2,Relation,$\pi_{11}^{6} = \mathbb{Z}\{\Delta\left(\iota_{13}\right)\}$,Toda Proposition 5.9 pi_11^6 free cyclic,Proposition 5.9,4,False,False,False,False
+pi_12^7,canonical_base,2,2.1,TodaEHPExactnessWindow,$\pi_{13}^{13} \xrightarrow{\Delta} \pi_{11}^{6} \xrightarrow{E} \pi_{12}^{7}$,ProofRule.GIVEN,,0,False,False,False,False
+pi_12^7,canonical_base,2,3.1,TodaPrimaryGroupZeroStatement,$\pi_{12}^{13} = 0$,ProofRule.GIVEN,,0,False,False,False,False
+pi_12^7,canonical_base,2,3.2,TodaProp42ExactnessStatement,$\pi_{11}^{6} \xrightarrow{E} \pi_{12}^{7} \xrightarrow{H} \pi_{12}^{13} \text{ is exact}$,Toda Proposition 5.9 pi_12^7 concrete exactness,Proposition 5.9,1,False,False,False,False
+pi_12^7,canonical_base,3,1.2.1,TodaHopfInvariantInjectiveStatement,$H: \pi_{11}^{6} \to \pi_{11}^{11}$ は単射である.,Toda Proposition 5.9 pi_11^6 Hopf injective,Proposition 5.9,3,False,False,False,False
+pi_12^7,canonical_base,3,1.2.2,TodaProp42ExactnessStatement,$\pi_{11}^{6} \xrightarrow{H} \pi_{11}^{11} \xrightarrow{\Delta} \pi_{9}^{5} \text{ is exact}$,Toda Proposition 5.9 pi_11^6 concrete exactness,Proposition 5.9,1,False,False,False,False
+pi_12^7,canonical_base,3,1.2.3,TodaDeltaKernelFreeCyclicStatement,$\ker\Delta = \mathbb{Z}\{2\iota_{11}\}$ が成り立つ.,Toda Proposition 5.9 pi_11^11 Delta kernel,Proposition 5.9,3,False,False,False,False
+pi_12^7,canonical_base,3,1.2.4,TodaProp27HopfInvariantUpToSignStatement,$H(\Delta\left(\iota_{13}\right)) = \pm 2\iota_{11}$ が成り立つ.,Toda Proposition 5.9 Delta iota_13 Hopf value,Proposition 5.9,1,False,False,False,False
+pi_12^7,canonical_base,3,3.2.1,TodaEHPExactnessWindow,$\pi_{11}^{6} \xrightarrow{E} \pi_{12}^{7} \xrightarrow{H} \pi_{12}^{13}$,ProofRule.GIVEN,,0,False,False,False,False
+pi_12^7,canonical_general,0,,TodaPrimaryGroupZeroStatement,$\pi_{n + 5}^{n} = 0$,Toda Proposition 5.9 higher five-stem zero transport,Proposition 5.9,3,False,True,False,False
+pi_12^7,canonical_general,1,1,TodaPrimaryGroupZeroStatement,$\pi_{12}^{7} = 0$,Toda Proposition 5.9 pi_12^7 zero,Proposition 5.9,3,True,False,False,False
+pi_12^7,canonical_general,1,2,Toda45IsomorphismStatement,$E^{n - 7}: \pi_{7 + 5}^{7} \to \pi_{n + 5}^{n}$ は同型写像である.,Toda 4.5 stable-range iterated suspension isomorphism,(4.5),3,False,False,True,False
+pi_12^7,canonical_general,1,3,ScalarGreaterEqualStatement,`ScalarGreaterEqualStatement`,ProofRule.GIVEN,,0,False,False,False,True
+pi_12^7,canonical_general,2,1.1,TodaDeltaSurjectiveStatement,$\Delta: \pi_{13}^{13} \to \pi_{11}^{6}$ は全射である.,Toda Proposition 5.9 pi_13^13 Delta surjective,Proposition 5.9,2,False,False,False,False
+pi_12^7,canonical_general,2,1.2,TodaProp42ExactnessStatement,$\pi_{13}^{13} \xrightarrow{\Delta} \pi_{11}^{6} \xrightarrow{E} \pi_{12}^{7} \text{ is exact}$,Toda Proposition 5.9 pi_12^7 concrete exactness,Proposition 5.9,1,False,False,False,False
+pi_12^7,canonical_general,2,1.3,TodaSuspensionSurjectiveStatement,$E: \pi_{11}^{6} \to \pi_{12}^{7}$ は全射である.,Toda Proposition 5.9 pi_12^7 suspension surjective,Proposition 5.9,2,False,False,False,False
+pi_12^7,canonical_general,2,2.1,ScalarGreaterEqualStatement,`ScalarGreaterEqualStatement`,ProofRule.GIVEN,,0,False,False,False,False
+pi_12^7,canonical_general,2,2.2,ScalarGreaterEqualStatement,`ScalarGreaterEqualStatement`,ProofRule.GIVEN,,0,False,False,False,False
+pi_12^7,canonical_general,2,2.3,TodaIteratedSuspensionMap,`TodaIteratedSuspensionMap`,ProofRule.GIVEN,,0,False,False,False,False
+pi_12^7,canonical_general,3,1.1.1,Relation,$\pi_{13}^{13} = \mathbb{Z}\{\iota_{13}\}$,ProofRule.GIVEN,,0,False,False,False,False
+pi_12^7,canonical_general,3,1.1.2,Relation,$\pi_{11}^{6} = \mathbb{Z}\{\Delta\left(\iota_{13}\right)\}$,Toda Proposition 5.9 pi_11^6 free cyclic,Proposition 5.9,4,False,False,False,False
+pi_12^7,canonical_general,3,1.2.1,TodaEHPExactnessWindow,$\pi_{13}^{13} \xrightarrow{\Delta} \pi_{11}^{6} \xrightarrow{E} \pi_{12}^{7}$,ProofRule.GIVEN,,0,False,False,False,False
+pi_12^7,canonical_general,3,1.3.1,TodaPrimaryGroupZeroStatement,$\pi_{12}^{13} = 0$,ProofRule.GIVEN,,0,False,False,False,False
+pi_12^7,canonical_general,3,1.3.2,TodaProp42ExactnessStatement,$\pi_{11}^{6} \xrightarrow{E} \pi_{12}^{7} \xrightarrow{H} \pi_{12}^{13} \text{ is exact}$,Toda Proposition 5.9 pi_12^7 concrete exactness,Proposition 5.9,1,False,False,False,False
