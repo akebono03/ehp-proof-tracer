@@ -3,9 +3,11 @@ from expression import (
   HomotopyElement,
 )
 from homotopy_groups import (
+  DirectSumGroup,
   TodaDeltaMap,
   TodaHopfInvariantMap,
   TodaIteratedSuspensionMap,
+  TodaPrimaryGroup,
   TodaSuspensionMap,
 )
 from proof import (
@@ -50,6 +52,8 @@ from toda_rules import (
   Toda53NuPrimeBracketSpecializationStatement,
   Toda55NuFamilyFiniteDimensionalStatement,
   TodaDeltaInjectiveStatement,
+  TodaDeltaKernelFreeCyclicStatement,
+  TodaDeltaSurjectiveStatement,
   TodaDeltaZeroStatement,
   TodaHopfInvariantInjectiveStatement,
   TodaHopfInvariantIsomorphismStatement,
@@ -61,10 +65,17 @@ from toda_rules import (
   TodaLemma514SigmaPrimeStatement,
   TodaLemma54Statement,
   TodaNuFamilyDefinitionStatement,
+  TodaProp27HopfInvariantUpToSignStatement,
   TodaProp42ExactnessStatement,
+  TodaProp44IsomorphismStatement,
+  TodaProp44SecondSummandRestrictionStatement,
   TodaProp44SuspensionInjectiveStatement,
   TodaProp51FiniteDimensionalStatement,
+  TodaProp53FiniteDimensionalStatement,
+  TodaProp58FiniteDimensionalStatement,
+  TodaProp59FiniteDimensionalStatement,
   TodaProp511FiniteDimensionalStatement,
+  TodaProp511NuSquaredFiniteDimensionalStatement,
   TodaProp515Pi12_5HopfIsomorphismStatement,
   TodaProp56FiniteDimensionalStatement,
   TodaSigmaFamilyDefinitionStatement,
@@ -350,6 +361,212 @@ def _render_phase153_r3_6_component_list_prose(
   )
 
 
+def _render_phase153_r3_9_group_term_latex(
+  group,
+) -> str | None:
+  if isinstance(
+    group,
+    TodaPrimaryGroup,
+  ):
+    return (
+      render_toda_primary_group_latex(
+        group
+      )
+    )
+
+  if isinstance(
+    group,
+    DirectSumGroup,
+  ):
+    rendered_summands = tuple(
+      _render_phase153_r3_9_group_term_latex(
+        summand
+      )
+      for summand in group.summands
+    )
+
+    if any(
+      rendered is None
+      for rendered in rendered_summands
+    ):
+      return None
+
+    return r" \oplus ".join(
+      rendered
+      for rendered in rendered_summands
+      if rendered is not None
+    )
+
+  return None
+
+
+def _render_phase153_r3_9_reference_statement_prose(
+  statement,
+) -> str | None:
+  if isinstance(
+    statement,
+    TodaProp44IsomorphismStatement,
+  ):
+    decomposition_map = (
+      statement.map
+    )
+    source_latex = (
+      _render_phase153_r3_9_group_term_latex(
+        decomposition_map.source_group
+      )
+    )
+    target_latex = (
+      _render_phase153_r3_9_group_term_latex(
+        decomposition_map.target_group
+      )
+    )
+
+    if (
+      source_latex is None
+      or target_latex is None
+    ):
+      return None
+
+    return (
+      "$("
+      + render_toda_expression_latex(
+        decomposition_map.beta
+      )
+      + ", "
+      + render_toda_expression_latex(
+        decomposition_map.gamma
+      )
+      + r") \mapsto "
+      + render_toda_expression_latex(
+        decomposition_map.formula
+      )
+      + ": "
+      + source_latex
+      + r" \to "
+      + target_latex
+      + "$ は同型写像である."
+    )
+
+  if isinstance(
+    statement,
+    TodaProp44SecondSummandRestrictionStatement,
+  ):
+    return (
+      "分解写像の第二成分は $"
+      + render_toda_expression_latex(
+        statement.composition
+      )
+      + "$ で与えられる."
+    )
+
+  if isinstance(
+    statement,
+    TodaProp53FiniteDimensionalStatement,
+  ):
+    return (
+      _render_phase153_r3_6_component_list_prose(
+        (
+          statement.pi4_2_group_relation,
+          statement.pi5_3_group_relation,
+          statement.pi6_4_group_relation,
+          statement.higher_eta_squared_group_relation,
+          statement.higher_range,
+        )
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaProp58FiniteDimensionalStatement,
+  ):
+    return (
+      _render_phase153_r3_6_component_list_prose(
+        (
+          statement.pi6_2_group_relation,
+          statement.pi7_3_group_relation,
+          statement.pi8_4_group_relation,
+          statement.pi9_5_group_relation,
+          statement.higher_four_stem_zero,
+          statement.higher_range,
+        )
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaProp59FiniteDimensionalStatement,
+  ):
+    return (
+      _render_phase153_r3_6_component_list_prose(
+        (
+          statement.pi7_2_group_relation,
+          statement.pi8_3_group_relation,
+          statement.pi9_4_group_relation,
+          statement.pi10_5_group_relation,
+          statement.pi11_6_group_relation,
+          statement.higher_five_stem_zero,
+          statement.higher_range,
+        )
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaProp511NuSquaredFiniteDimensionalStatement,
+  ):
+    return (
+      _render_phase153_r3_6_component_list_prose(
+        (
+          statement.pi11_5_group_relation,
+          statement.pi12_6_group_relation,
+          statement.pi13_7_group_relation,
+          statement.pi14_8_group_relation,
+          statement.higher_six_stem_group_relation,
+          statement.higher_range,
+        )
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaDeltaKernelFreeCyclicStatement,
+  ):
+    map_latex = (
+      _render_generic_narrative_group_map_latex(
+        statement.map
+      )
+    )
+
+    if map_latex is None:
+      return None
+
+    return (
+      r"$\ker\Delta = "
+      + render_toda_raw_group_structure_latex(
+        statement.kernel_group
+      )
+      + "$ が成り立つ."
+    )
+
+  if isinstance(
+    statement,
+    TodaProp27HopfInvariantUpToSignStatement,
+  ):
+    return (
+      "$H("
+      + render_toda_expression_latex(
+        statement.argument
+      )
+      + r") = \pm "
+      + render_toda_expression_latex(
+        statement.positive_value
+      )
+      + "$ が成り立つ."
+    )
+
+  return None
+
+
 def _render_phase153_r3_6_reference_statement_prose(
   statement,
 ) -> str | None:
@@ -626,6 +843,15 @@ def _render_phase153_r3_6_reference_statement_prose(
 def _render_generic_narrative_statement_prose(
   statement,
 ) -> str | None:
+  reference_prose = (
+    _render_phase153_r3_9_reference_statement_prose(
+      statement
+    )
+  )
+
+  if reference_prose is not None:
+    return reference_prose
+
   reference_prose = (
     _render_phase153_r3_6_reference_statement_prose(
       statement
@@ -1102,6 +1328,7 @@ _GENERIC_INJECTIVE_STATEMENT_TYPES = (
 )
 
 _GENERIC_SURJECTIVE_STATEMENT_TYPES = (
+  TodaDeltaSurjectiveStatement,
   TodaHopfInvariantSurjectiveStatement,
   TodaSuspensionSurjectiveStatement,
 )
