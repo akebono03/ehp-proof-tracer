@@ -154,8 +154,8 @@ def test_phase153_r3_4_public_pi10_6_reference_section_contains_r2_statement():
   title_index = rendered.index(
     reference_title
   )
-  body_reference_index = rendered.index(
-    "[R2] により、"
+  proof_section_index = rendered.index(
+    "## 証明"
   )
 
   between = rendered[
@@ -163,7 +163,7 @@ def test_phase153_r3_4_public_pi10_6_reference_section_contains_r2_statement():
     + len(
       reference_title
     ):
-    body_reference_index
+    proof_section_index
   ]
 
   assert "同型" in between or r"\cong" in between
@@ -176,7 +176,7 @@ def test_phase153_r3_4_does_not_render_internal_fallback_name_in_reference_secti
     )
   )
   reference_section = rendered.split(
-    "[R2] により、",
+    "## 証明",
     1,
   )[0]
 

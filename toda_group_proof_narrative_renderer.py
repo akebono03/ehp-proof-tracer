@@ -38,6 +38,7 @@ from toda_group_proof_narrative_argument_multi_renderer import (
 from toda_group_proof_narrative_contribution_renderer import (
   _toda_group_proof_narrative_reference_statement_lines_by_number,
   render_toda_group_proof_narrative_multi_argument_with_contributions_markdown,
+  suppress_toda_group_proof_narrative_reference_body_duplicates,
 )
 from toda_group_proof_narrative_blocks import (
   build_toda_group_proof_narrative_blocks,
@@ -4132,9 +4133,41 @@ def render_toda_group_proof_narrative_markdown(
       )
     )
 
-  return (
+  rendered = (
     "\n".join(
       lines
     )
     + "\n"
   )
+
+  if reference_section:
+    proof_section_marker = "## 証明\n\n"
+    proof_section_index = rendered.find(
+      proof_section_marker
+    )
+
+    if proof_section_index >= 0:
+      body_start = (
+        proof_section_index
+        + len(
+          proof_section_marker
+        )
+      )
+      body = rendered[
+        body_start:
+      ]
+      suppressed_body = (
+        suppress_toda_group_proof_narrative_reference_body_duplicates(
+          body,
+          statement_lines_by_reference_number,
+        )
+      )
+      rendered = (
+        rendered[
+          :body_start
+        ]
+        + suppressed_body
+        + "\n"
+      )
+
+  return rendered

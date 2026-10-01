@@ -38,19 +38,17 @@ def _phase153_r2_public_pi10_6_narrative() -> str:
   )
 
 
-def test_phase153_r2_public_pi10_6_keeps_reference_and_shows_toda45_fact():
+def test_phase153_r2_public_pi10_6_keeps_reference_and_uses_toda45_fact_without_body_duplication():
   rendered = (
     _phase153_r2_public_pi10_6_narrative()
   )
 
   assert "**[R2] (4.5).**" in rendered
-  assert "[R2] により、" in rendered
-  assert "は同型写像である." in rendered
+  assert "[R2]を用いる。" in rendered
   assert (
     "Toda 4.5 stable-range iterated suspension isomorphism"
     not in rendered
   )
-  assert "[R2]を用いる。" not in rendered
 
 
 def test_phase153_r2_public_pi10_6_keeps_provenance_only_reference_compact():

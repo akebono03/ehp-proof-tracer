@@ -783,6 +783,132 @@ def _toda_group_proof_narrative_reference_statement_lines_by_number(
   return statement_lines_by_reference_number
 
 
+def suppress_toda_group_proof_narrative_reference_body_duplicates(
+  body_markdown: str,
+  statement_lines_by_reference_number: dict[
+    int,
+    tuple[
+      str,
+      ...,
+    ],
+  ],
+) -> str:
+  if not isinstance(
+    body_markdown,
+    str,
+  ):
+    raise TypeError(
+      "body_markdown must be a str"
+    )
+
+  if not isinstance(
+    statement_lines_by_reference_number,
+    dict,
+  ):
+    raise TypeError(
+      "statement_lines_by_reference_number must be a dict"
+    )
+
+  lines = body_markdown.splitlines()
+
+  for reference_number, statement_lines in (
+    statement_lines_by_reference_number.items()
+  ):
+    if (
+      isinstance(
+        reference_number,
+        bool,
+      )
+      or not isinstance(
+        reference_number,
+        int,
+      )
+    ):
+      raise TypeError(
+        "statement_lines_by_reference_number keys "
+        "must be integers"
+      )
+
+    if not isinstance(
+      statement_lines,
+      tuple,
+    ):
+      raise TypeError(
+        "statement_lines_by_reference_number values "
+        "must be tuples"
+      )
+
+    marker = (
+      "[R"
+      + str(
+        reference_number
+      )
+      + "]"
+    )
+
+    for statement_line in statement_lines:
+      if not isinstance(
+        statement_line,
+        str,
+      ):
+        raise TypeError(
+          "statement_lines_by_reference_number values "
+          "must contain only strings"
+        )
+
+      if not statement_line:
+        continue
+
+      updated_lines = []
+
+      for line in lines:
+        if statement_line not in line:
+          updated_lines.append(
+            line
+          )
+          continue
+
+        if line.strip() == statement_line:
+          continue
+
+        if marker not in line:
+          updated_lines.append(
+            line
+          )
+          continue
+
+        prefix = line.split(
+          marker,
+          1,
+        )[0]
+
+        updated_lines.append(
+          prefix
+          + marker
+          + "を用いる。"
+        )
+
+      lines = updated_lines
+
+  compacted_lines = []
+  previous_blank = False
+
+  for line in lines:
+    is_blank = not line.strip()
+
+    if is_blank and previous_blank:
+      continue
+
+    compacted_lines.append(
+      line
+    )
+    previous_blank = is_blank
+
+  return "\n".join(
+    compacted_lines
+  ).strip()
+
+
 def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown(
   presentation: TodaGroupProofPresentation,
   blocks: tuple[
@@ -851,6 +977,12 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
     _toda_group_proof_narrative_reference_statement_lines_by_number(
       presentation,
       reference_entries,
+    )
+  )
+  rendered = (
+    suppress_toda_group_proof_narrative_reference_body_duplicates(
+      rendered,
+      statement_lines_by_reference_number,
     )
   )
   reference_section = (
