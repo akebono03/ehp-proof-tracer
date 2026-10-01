@@ -1,0 +1,8 @@
+﻿n,k,group,shortest_root_key,shortest_depth,root_phase,root_theorem,step_rule,step_reference_locator,step_reference_label,metadata_resolved_from_reference,resolved_phase,resolved_theorem,root_metadata_matches_reference,should_recover_from_step_reference,suggested_generic_key
+5,1,pi_6^5,standard.toda.prop56,2,65,Toda Proposition 5.6,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,Lemma 5.4,Toda Lemma 5.4,True,60,Toda Lemma 5.4,False,True,standard.toda.concrete::pi_6^5
+6,4,pi_10^6,standard.toda.prop58,2,68,Toda Proposition 5.8,Toda Proposition 5.8 pi_10^6 zero,Proposition 5.8,Toda Proposition 5.8,True,68,Toda Proposition 5.8,True,False,standard.toda.concrete::pi_10^6
+7,3,pi_10^7,standard.toda.prop511,2,73,Toda Proposition 5.11,Toda Proposition 5.11 pi_10^7 nu_7 specialization,Proposition 5.11,Toda Proposition 5.11,True,73,Toda Proposition 5.11,True,False,standard.toda.concrete::pi_10^7
+7,5,pi_12^7,standard.toda.prop511,4,73,Toda Proposition 5.11,Toda Proposition 5.9 pi_12^7 zero,Proposition 5.9,Toda Proposition 5.9,True,70,Toda Proposition 5.9,False,True,standard.toda.concrete::pi_12^7
+9,3,pi_12^9,standard.toda.prop511,3,73,Toda Proposition 5.11,Toda Proposition 5.11 pi_12^9 nu_9 specialization,Proposition 5.11,Toda Proposition 5.11,True,73,Toda Proposition 5.11,True,False,standard.toda.concrete::pi_12^9
+11,2,pi_13^11,standard.toda.prop515,2,75,Toda Proposition 5.15,Toda Proposition 5.11 pi_13^11 eta_11 squared,Proposition 5.11,Toda Proposition 5.11,True,73,Toda Proposition 5.11,False,True,standard.toda.concrete::pi_13^11
+13,1,pi_14^13,standard.toda.prop515,2,75,Toda Proposition 5.15,Toda Proposition 5.11 pi_14^13 eta_13,Proposition 5.11,Toda Proposition 5.11,True,73,Toda Proposition 5.11,False,True,standard.toda.concrete::pi_14^13
