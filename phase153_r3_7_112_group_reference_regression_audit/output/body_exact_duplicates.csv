@@ -1,0 +1,150 @@
+﻿n,k,reference_number,reference,statement
+2,2,1,(5.2),$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$
+2,3,1,Proposition 5.6,$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+2,3,2,Proposition 5.3,$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+2,3,4,(5.2),$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$
+2,4,1,Lemma 5.7,$\pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\}$
+2,4,2,Proposition 5.6,$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+2,4,2,Proposition 5.6,$\pi_{7}^{4} = \mathbb{Z}\{\nu_{4}\} \oplus \mathbb{Z}/4\{E\nu'\}$
+2,4,2,Proposition 5.6,$\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$
+2,4,2,Proposition 5.6,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$
+2,5,1,Proposition 5.9,$\pi_{7}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\}$
+2,5,2,Proposition 5.8,$\pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}$
+2,6,1,Proposition 5.11,$\pi_{8}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\eta_{7}\}$
+2,6,2,Proposition 5.9,$\pi_{7}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\}$
+2,6,2,Proposition 5.9,$\pi_{9}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\eta_{8}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\eta_{8}\}$
+2,6,2,Proposition 5.9,$\pi_{10}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\eta_{9}\}$
+2,6,2,Proposition 5.9,$\pi_{n + 5}^{n} = 0$
+2,7,1,Proposition 5.15,$\pi_{9}^{2} = 0$
+2,7,2,Proposition 5.11,$\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}$
+3,2,2,(5.2),$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$
+3,4,3,Proposition 5.3,$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+3,4,3,Proposition 5.3,$\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\}$
+3,5,1,Proposition 5.9,$\pi_{8}^{3} \xrightarrow{H} \pi_{8}^{5} \xrightarrow{\Delta} \pi_{6}^{2} \text{ is exact}$
+3,5,1,Proposition 5.9,$\ker\left(\Delta: \pi_{8}^{5} \to \pi_{6}^{2}\right) = \mathbb{Z}/2\{4\nu_{5}\}$
+3,5,1,Proposition 5.9,$H\left(\nu'\eta_{6}\eta_{7}\right) = 4\nu_{5}$
+3,5,1,Proposition 5.9,$E\eta_{2}\nu'\eta_{6} = 0$
+3,5,1,Proposition 5.9,$\pi_{7}^{2} \xrightarrow{E} \pi_{8}^{3} \xrightarrow{H} \pi_{8}^{5} \text{ is exact}$
+3,5,2,Lemma 5.7,$\Delta\left(\nu_{5}\right) = \pm \eta_{2}\nu'$
+3,6,1,Proposition 5.11,$\pi_{9}^{3} \xrightarrow{H} \pi_{9}^{5} \xrightarrow{\Delta} \pi_{7}^{2} \text{ is exact}$
+3,6,1,Proposition 5.11,$\pi_{8}^{2} \xrightarrow{E} \pi_{9}^{3} \xrightarrow{H} \pi_{9}^{5} \text{ is exact}$
+3,7,1,Proposition 5.15,$\pi_{10}^{3} \xrightarrow{H} \pi_{10}^{5} \xrightarrow{\Delta} \pi_{8}^{2} \text{ is exact}$
+3,7,1,Proposition 5.15,$\pi_{9}^{2} = 0$
+3,7,1,Proposition 5.15,$\pi_{9}^{2} \xrightarrow{E} \pi_{10}^{3} \xrightarrow{H} \pi_{10}^{5} \text{ is exact}$
+4,2,1,Proposition 5.3,$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+4,3,1,Proposition 5.6,$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+4,4,1,Proposition 5.8,$\pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}$
+4,4,1,Proposition 5.8,$E\nu'\eta_{6} = E\nu'\eta_{7}$
+4,5,1,Proposition 5.9,$\pi_{8}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\eta_{7}\}$
+4,5,1,Proposition 5.9,$\pi_{8}^{3} \xrightarrow{H} \pi_{8}^{5} \xrightarrow{\Delta} \pi_{6}^{2} \text{ is exact}$
+4,5,2,Proposition 5.3,$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+4,5,2,Proposition 5.3,$\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\}$
+4,6,3,Lemma 5.4,"$\nu_{4} \in \pi_{7}^{4}$, $H\left(\nu_{4}\right) = \iota_{7}$, $2E\nu_{4} = E^{2}\nu'$ が成り立つ."
+4,7,1,Proposition 5.15,$\pi_{10}^{3} = 0$
+4,7,1,Proposition 5.15,$\pi_{10}^{3} \xrightarrow{H} \pi_{10}^{5} \xrightarrow{\Delta} \pi_{8}^{2} \text{ is exact}$
+4,7,2,Proposition 5.8,$\pi_{8}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\}$
+4,7,2,Proposition 5.8,$\pi_{9}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\}$
+4,7,2,Proposition 5.8,$\pi_{n + 4}^{n} = 0$
+5,2,1,Proposition 5.3,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$
+5,4,1,Proposition 5.8,$\pi_{8}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\}$
+5,4,1,Proposition 5.8,$\Delta\left(\eta_{9}\right) = E\nu'\eta_{7}$
+5,4,1,Proposition 5.8,$\pi_{10}^{9} \xrightarrow{\Delta} \pi_{8}^{4} \xrightarrow{E} \pi_{9}^{5} \text{ is exact}$
+5,4,1,Proposition 5.8,$E\nu_{4}\eta_{7} = \nu_{5}\eta_{8}$
+5,4,1,Proposition 5.8,$E\nu'\eta_{6} = E\nu'\eta_{7}$
+5,4,1,Proposition 5.8,$\pi_{8}^{4} \xrightarrow{E} \pi_{9}^{5} \xrightarrow{H} \pi_{9}^{9} \text{ is exact}$
+5,5,1,Proposition 5.9,$\pi_{9}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\eta_{8}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\eta_{8}\}$
+5,5,1,Proposition 5.9,$\pi_{11}^{9} \xrightarrow{\Delta} \pi_{9}^{4} \xrightarrow{E} \pi_{10}^{5} \text{ is exact}$
+5,5,1,Proposition 5.9,$\pi_{9}^{4} \xrightarrow{E} \pi_{10}^{5} \xrightarrow{H} \pi_{10}^{9} \text{ is exact}$
+5,5,2,Proposition 5.3,$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+5,5,2,Proposition 5.3,$\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\}$
+5,6,1,Proposition 5.11,$\pi_{12}^{9} = \mathbb{Z}/8\{\nu_{9}\}$
+5,6,1,Proposition 5.11,$\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}$
+5,6,1,Proposition 5.11,$\pi_{12}^{9} \xrightarrow{\Delta} \pi_{10}^{4} \xrightarrow{E} \pi_{11}^{5} \text{ is exact}$
+5,6,1,Proposition 5.11,$\pi_{10}^{7} = \mathbb{Z}/8\{\nu_{7}\}$
+5,6,1,Proposition 5.11,$\pi_{10}^{4} \xrightarrow{E} \pi_{11}^{5} \xrightarrow{H} \pi_{11}^{9} \text{ is exact}$
+5,6,2,Equation 5.13,$\Delta\left(\nu_{9}\right) = \pm 2\nu_{4}\nu_{7}$
+5,7,5,(5.5),"$\nu_{n} = E^{n - 4}\nu_{4}$, $n \ge 5$, $2\nu_{n} = E^{n - 3}\nu'$, $4\nu_{n} = \eta_{n}\eta_{n + 1}\eta_{n + 2}$ が成り立つ."
+6,2,1,Proposition 5.3,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$
+6,3,1,Proposition 5.6,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$
+6,3,1,Proposition 5.6,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$
+6,3,1,Proposition 5.6,$E^{n - 5}\nu_{5} = \nu_{n}$
+6,4,1,Proposition 5.8,$\pi_{n + 4}^{n} = 0$
+6,4,1,Proposition 5.8,$\pi_{10}^{6} = 0$
+6,5,1,Proposition 5.9,$\pi_{11}^{6} \xrightarrow{H} \pi_{11}^{11} \xrightarrow{\Delta} \pi_{9}^{5} \text{ is exact}$
+6,5,1,Proposition 5.9,$E\nu_{5}\eta_{8}\eta_{9} = 0$
+6,5,1,Proposition 5.9,$\pi_{10}^{5} \xrightarrow{E} \pi_{11}^{6} \xrightarrow{H} \pi_{11}^{11} \text{ is exact}$
+6,6,1,Proposition 5.11,$\pi_{11}^{5} = \mathbb{Z}/2\{\nu_{5}\nu_{8}\}$
+6,6,1,Proposition 5.11,$\pi_{12}^{9} \xrightarrow{\Delta} \pi_{10}^{4} \xrightarrow{E} \pi_{11}^{5} \text{ is exact}$
+6,6,2,Equation 5.13,$\Delta\left(\nu_{9}\right) = \pm 2\nu_{4}\nu_{7}$
+6,7,1,Proposition 5.15,$\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$
+6,7,2,Lemma 5.14,"$E^{3}\sigma'' = 4\,xEα*, \qquad 2\sigma'' = E\sigma''', \qquad H\left(\sigma''\right) = \eta_{11}\eta_{12}$"
+6,7,3,Proposition 5.11,$\pi_{13}^{11} = \mathbb{Z}/2\{\eta_{11}\eta_{12}\}$
+7,2,1,Proposition 5.3,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$
+7,3,1,Proposition 5.6,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$
+7,3,1,Proposition 5.6,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$
+7,3,1,Proposition 5.6,$E^{n - 5}\nu_{5} = \nu_{n}$
+7,4,1,Proposition 5.8,$\pi_{n + 4}^{n} = 0$
+7,5,1,Proposition 5.9,$\pi_{n + 5}^{n} = 0$
+7,5,1,Proposition 5.9,$\pi_{12}^{7} = 0$
+7,6,1,Proposition 5.11,$\pi_{12}^{6} = \mathbb{Z}/2\{\nu_{6}\nu_{9}\}$
+7,7,1,Proposition 5.15,$\pi_{13}^{6} = \mathbb{Z}/4\{\sigma''\}$
+7,7,2,Lemma 5.14,"$E^{3}\sigma'' = 4\,xEα*, \qquad 2\sigma'' = E\sigma''', \qquad H\left(\sigma''\right) = \eta_{11}\eta_{12}$"
+7,7,3,Proposition 5.11,$\pi_{14}^{13} = \mathbb{Z}/2\{\eta_{13}\}$
+7,7,3,Proposition 5.11,$\pi_{13}^{11} = \mathbb{Z}/2\{\eta_{11}\eta_{12}\}$
+8,2,1,Proposition 5.3,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$
+8,3,1,Proposition 5.6,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$
+8,3,1,Proposition 5.6,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$
+8,3,1,Proposition 5.6,$E^{n - 5}\nu_{5} = \nu_{n}$
+8,4,1,Proposition 5.8,$\pi_{n + 4}^{n} = 0$
+8,5,1,Proposition 5.9,$\pi_{n + 5}^{n} = 0$
+8,6,1,Proposition 5.11,$\pi_{13}^{7} = \mathbb{Z}/2\{\nu_{7}\nu_{10}\}$
+9,2,1,Proposition 5.3,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$
+9,3,1,Proposition 5.6,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$
+9,3,1,Proposition 5.6,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$
+9,3,1,Proposition 5.6,$E^{n - 5}\nu_{5} = \nu_{n}$
+9,4,1,Proposition 5.8,$\pi_{n + 4}^{n} = 0$
+9,5,1,Proposition 5.9,$\pi_{n + 5}^{n} = 0$
+9,6,1,Proposition 5.11,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$
+9,7,4,Lemma 5.13,"$\sigma''' \in \{\nu_{5}, 8\iota_{8}, \nu_{8}\}_{3}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ."
+10,2,1,Proposition 5.3,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$
+10,3,1,Proposition 5.6,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$
+10,3,1,Proposition 5.6,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$
+10,3,1,Proposition 5.6,$E^{n - 5}\nu_{5} = \nu_{n}$
+10,4,1,Proposition 5.8,$\pi_{n + 4}^{n} = 0$
+10,5,1,Proposition 5.9,$\pi_{n + 5}^{n} = 0$
+10,6,1,Proposition 5.11,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$
+11,2,1,Proposition 5.3,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$
+11,3,1,Proposition 5.6,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$
+11,3,1,Proposition 5.6,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$
+11,3,1,Proposition 5.6,$E^{n - 5}\nu_{5} = \nu_{n}$
+11,4,1,Proposition 5.8,$\pi_{n + 4}^{n} = 0$
+11,5,1,Proposition 5.9,$\pi_{n + 5}^{n} = 0$
+11,6,1,Proposition 5.11,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$
+12,2,1,Proposition 5.3,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$
+12,3,1,Proposition 5.6,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$
+12,3,1,Proposition 5.6,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$
+12,3,1,Proposition 5.6,$E^{n - 5}\nu_{5} = \nu_{n}$
+12,4,1,Proposition 5.8,$\pi_{n + 4}^{n} = 0$
+12,5,1,Proposition 5.9,$\pi_{n + 5}^{n} = 0$
+12,6,1,Proposition 5.11,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$
+13,2,1,Proposition 5.3,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$
+13,3,1,Proposition 5.6,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$
+13,3,1,Proposition 5.6,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$
+13,3,1,Proposition 5.6,$E^{n - 5}\nu_{5} = \nu_{n}$
+13,4,1,Proposition 5.8,$\pi_{n + 4}^{n} = 0$
+13,5,1,Proposition 5.9,$\pi_{n + 5}^{n} = 0$
+13,6,1,Proposition 5.11,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$
+14,2,1,Proposition 5.3,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$
+14,3,1,Proposition 5.6,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$
+14,3,1,Proposition 5.6,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$
+14,3,1,Proposition 5.6,$E^{n - 5}\nu_{5} = \nu_{n}$
+14,4,1,Proposition 5.8,$\pi_{n + 4}^{n} = 0$
+14,5,1,Proposition 5.9,$\pi_{n + 5}^{n} = 0$
+14,6,1,Proposition 5.11,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$
+15,2,1,Proposition 5.3,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$
+15,3,1,Proposition 5.6,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$
+15,3,1,Proposition 5.6,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{E^{n - 5}\nu_{5}\}$
+15,3,1,Proposition 5.6,$E^{n - 5}\nu_{5} = \nu_{n}$
+15,4,1,Proposition 5.8,$\pi_{n + 4}^{n} = 0$
+15,5,1,Proposition 5.9,$\pi_{n + 5}^{n} = 0$
+15,6,1,Proposition 5.11,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$

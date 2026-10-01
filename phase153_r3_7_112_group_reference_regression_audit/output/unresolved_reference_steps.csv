@@ -1,0 +1,32 @@
+﻿n,k,reference_number,reference,statement_type,rendered,rule_name
+2,2,3,Proposition 4.4,TodaProp44IsomorphismStatement,Toda Proposition 4.4 eta_2 n=2 specialization,Toda Proposition 4.4 eta_2 n=2 specialization
+2,2,3,Proposition 4.4,TodaProp44SecondSummandRestrictionStatement,Toda Proposition 4.4 eta_2 second-summand restriction,Toda Proposition 4.4 eta_2 second-summand restriction
+2,3,5,Proposition 4.4,TodaProp44IsomorphismStatement,Toda Proposition 4.4 eta_2 n=2 specialization,Toda Proposition 4.4 eta_2 n=2 specialization
+2,3,5,Proposition 4.4,TodaProp44SecondSummandRestrictionStatement,Toda Proposition 4.4 eta_2 second-summand restriction,Toda Proposition 4.4 eta_2 second-summand restriction
+2,4,4,Proposition 4.4,TodaProp44IsomorphismStatement,Toda Proposition 4.4 eta_2 n=2 specialization,Toda Proposition 4.4 eta_2 n=2 specialization
+2,4,4,Proposition 4.4,TodaProp44SecondSummandRestrictionStatement,Toda Proposition 4.4 eta_2 second-summand restriction,Toda Proposition 4.4 eta_2 second-summand restriction
+2,5,5,Proposition 5.3,TodaProp53FiniteDimensionalStatement,Toda Proposition 5.3 finite-dimensional integration,Toda Proposition 5.3 finite-dimensional integration
+2,5,6,Proposition 4.4,TodaProp44IsomorphismStatement,Toda Proposition 4.4 eta_2 n=2 specialization,Toda Proposition 4.4 eta_2 n=2 specialization
+2,5,6,Proposition 4.4,TodaProp44SecondSummandRestrictionStatement,Toda Proposition 4.4 eta_2 second-summand restriction,Toda Proposition 4.4 eta_2 second-summand restriction
+2,6,2,Proposition 5.9,TodaProp59FiniteDimensionalStatement,Toda Proposition 5.9 finite-dimensional integration,Toda Proposition 5.9 finite-dimensional integration
+2,6,4,Proposition 4.4,TodaProp44IsomorphismStatement,Toda Proposition 4.4 eta_2 n=2 specialization,Toda Proposition 4.4 eta_2 n=2 specialization
+2,6,4,Proposition 4.4,TodaProp44SecondSummandRestrictionStatement,Toda Proposition 4.4 eta_2 second-summand restriction,Toda Proposition 4.4 eta_2 second-summand restriction
+2,7,2,Proposition 5.11,TodaProp511NuSquaredFiniteDimensionalStatement,Toda Proposition 5.11 nu-squared finite-dimensional integration,Toda Proposition 5.11 nu-squared finite-dimensional integration
+2,7,4,Proposition 4.4,TodaProp44IsomorphismStatement,Toda Proposition 4.4 eta_2 n=2 specialization,Toda Proposition 4.4 eta_2 n=2 specialization
+2,7,4,Proposition 4.4,TodaProp44SecondSummandRestrictionStatement,Toda Proposition 4.4 eta_2 second-summand restriction,Toda Proposition 4.4 eta_2 second-summand restriction
+3,4,3,Proposition 5.3,TodaProp53FiniteDimensionalStatement,Toda Proposition 5.3 finite-dimensional integration,Toda Proposition 5.3 finite-dimensional integration
+3,6,1,Proposition 5.11,TodaDeltaSurjectiveStatement,Toda Proposition 5.11 zero E implies Delta surjective,Toda Proposition 5.11 zero E implies Delta surjective
+3,6,2,Proposition 5.8,TodaProp58FiniteDimensionalStatement,Toda Proposition 5.8 finite-dimensional integration,Toda Proposition 5.8 finite-dimensional integration
+3,6,3,Proposition 5.9,TodaProp59FiniteDimensionalStatement,Toda Proposition 5.9 finite-dimensional integration,Toda Proposition 5.9 finite-dimensional integration
+3,7,1,Proposition 5.15,TodaDeltaSurjectiveStatement,Toda Proposition 5.15 pi_10^5 to pi_8^2 Delta surjective,Toda Proposition 5.15 pi_10^5 to pi_8^2 Delta surjective
+3,7,2,Proposition 5.9,TodaProp59FiniteDimensionalStatement,Toda Proposition 5.9 finite-dimensional integration,Toda Proposition 5.9 finite-dimensional integration
+4,4,5,Proposition 5.3,TodaProp53FiniteDimensionalStatement,Toda Proposition 5.3 finite-dimensional integration,Toda Proposition 5.3 finite-dimensional integration
+4,5,2,Proposition 5.3,TodaProp53FiniteDimensionalStatement,Toda Proposition 5.3 finite-dimensional integration,Toda Proposition 5.3 finite-dimensional integration
+4,7,2,Proposition 5.8,TodaProp58FiniteDimensionalStatement,Toda Proposition 5.8 finite-dimensional integration,Toda Proposition 5.8 finite-dimensional integration
+4,7,4,Proposition 4.4,TodaProp44IsomorphismStatement,Toda Proposition 4.4 nu_4 n=4 decomposition specialization,Toda Proposition 4.4 nu_4 n=4 decomposition specialization
+5,5,2,Proposition 5.3,TodaProp53FiniteDimensionalStatement,Toda Proposition 5.3 finite-dimensional integration,Toda Proposition 5.3 finite-dimensional integration
+6,5,1,Proposition 5.9,TodaDeltaKernelFreeCyclicStatement,Toda Proposition 5.9 pi_11^11 Delta kernel,Toda Proposition 5.9 pi_11^11 Delta kernel
+6,5,1,Proposition 5.9,TodaProp27HopfInvariantUpToSignStatement,Toda Proposition 5.9 Delta iota_13 Hopf value,Toda Proposition 5.9 Delta iota_13 Hopf value
+6,7,8,Proposition 5.3,TodaProp53FiniteDimensionalStatement,Toda Proposition 5.3 finite-dimensional integration,Toda Proposition 5.3 finite-dimensional integration
+7,7,5,Proposition 5.3,TodaProp53FiniteDimensionalStatement,Toda Proposition 5.3 finite-dimensional integration,Toda Proposition 5.3 finite-dimensional integration
+8,7,1,Proposition 5.15,TodaProp44IsomorphismStatement,Toda Proposition 5.15 sigma_8 n=8 Proposition 4.4 decomposition specialization,Toda Proposition 5.15 sigma_8 n=8 Proposition 4.4 decomposition specialization
