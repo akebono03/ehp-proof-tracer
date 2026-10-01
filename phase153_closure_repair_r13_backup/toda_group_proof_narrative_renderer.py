@@ -3913,6 +3913,31 @@ def _phase153_r3_10_connect_public_reference_section(
   if presentation.max_depth < 2:
     return rendered
 
+  reference_entries = (
+    build_toda_group_proof_narrative_reference_entries(
+      presentation
+    )
+  )
+
+  if not reference_entries:
+    return rendered
+
+  statement_lines_by_reference_number = (
+    _toda_group_proof_narrative_reference_statement_lines_by_number(
+      presentation,
+      reference_entries,
+    )
+  )
+  reference_section = (
+    render_toda_group_proof_narrative_reference_entries_markdown(
+      reference_entries,
+      statement_lines_by_reference_number,
+    )
+  )
+
+  if not reference_section:
+    return rendered
+
   lines = rendered.splitlines()
   reference_header = "## 使用する結果"
   proof_header = "## 証明"
@@ -3930,74 +3955,11 @@ def _phase153_r3_10_connect_public_reference_section(
   if reference_index >= proof_index:
     return rendered
 
-  reference_entries = (
-    build_toda_group_proof_narrative_reference_entries(
-      presentation
-    )
-  )
-
-  if not reference_entries:
-    return rendered
-
-  statement_lines_by_reference_number = (
-    _toda_group_proof_narrative_reference_statement_lines_by_number(
-      presentation,
-      reference_entries,
-    )
-  )
-
-  proof_body = "\n".join(
-    lines[
-      proof_index
-      + 1:
-    ]
-  ).lstrip()
-
-  (
-    used_reference_entries,
-    used_statement_lines,
-    filtered_proof_body,
-  ) = (
-    filter_toda_group_proof_narrative_reference_entries_by_body_usage(
-      reference_entries,
-      statement_lines_by_reference_number,
-      proof_body,
-    )
-  )
-
-  (
-    filtered_reference_entries,
-    filtered_statement_lines,
-  ) = (
-    exclude_toda_group_proof_narrative_root_reference(
-      used_reference_entries,
-      used_statement_lines,
-      presentation.root_step,
-    )
-  )
-
-  if (
-    len(
-      filtered_reference_entries
-    )
-    != len(
-      used_reference_entries
-    )
-  ):
-    return rendered
-
-  reference_section = (
-    render_toda_group_proof_narrative_reference_entries_markdown(
-      filtered_reference_entries,
-      filtered_statement_lines,
-    )
-  )
-
-  if not reference_section:
-    return rendered
-
   prefix_lines = lines[
     :reference_index
+  ]
+  proof_lines = lines[
+    proof_index:
   ]
 
   while (
@@ -4008,6 +3970,16 @@ def _phase153_r3_10_connect_public_reference_section(
   ):
     prefix_lines.pop()
 
+  while (
+    proof_lines
+    and not proof_lines[
+      0
+    ].strip()
+  ):
+    proof_lines.pop(
+      0
+    )
+
   return (
     "\n".join(
       (
@@ -4017,9 +3989,7 @@ def _phase153_r3_10_connect_public_reference_section(
         "",
         reference_section,
         "",
-        proof_header,
-        "",
-        filtered_proof_body,
+        *proof_lines,
       )
     ).rstrip()
     + "\n"

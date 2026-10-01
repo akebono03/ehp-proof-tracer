@@ -100,22 +100,6 @@ def extract_toda_group_proof_step_literature_reference(
   )
 
 
-def _same_toda_group_proof_literature_reference(
-  left: LiteratureReference | None,
-  right: LiteratureReference | None,
-) -> bool:
-  if left is None or right is None:
-    return left is right
-
-  if (
-    left.locator is not None
-    and right.locator is not None
-  ):
-    return left.locator == right.locator
-
-  return left == right
-
-
 def build_toda_group_proof_narrative_reference_entries(
   presentation: TodaGroupProofPresentation,
 ) -> tuple[TodaGroupProofNarrativeReferenceEntry, ...]:
@@ -226,10 +210,7 @@ def exclude_toda_group_proof_narrative_root_reference(
   retained_entries = tuple(
     entry
     for entry in entries
-    if not _same_toda_group_proof_literature_reference(
-      entry.reference,
-      root_reference,
-    )
+    if entry.reference != root_reference
   )
 
   if len(retained_entries) == len(entries):
@@ -527,10 +508,8 @@ def filter_toda_group_proof_narrative_reference_entries_by_step_usage(
     entry
     for entry in entries
     if (
-      not _same_toda_group_proof_literature_reference(
-        entry.reference,
-        root_reference,
-      )
+      entry.reference
+      != root_reference
       and any(
         id(
           proof_step
