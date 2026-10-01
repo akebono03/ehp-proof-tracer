@@ -1,0 +1,50 @@
+==============================================================================
+Standard Repository Registration Audit
+==============================================================================
+targets: pi_10^6, pi_12^7
+production changes: none
+tests changes: none
+
+Registered repository entries:
+  standard.toda.prop56 | 65 | Toda Proposition 5.6
+  standard.toda.prop58 | 68 | Toda Proposition 5.8
+  standard.toda.prop511 | 73 | Toda Proposition 5.11
+  standard.toda.prop515 | 75 | Toda Proposition 5.15
+
+pi_10^6
+  direct repository normalized results: 0
+  proof-scope target matches: 6
+  canonical base identity in scope: False
+  equal-conclusion nodes in scope: 6
+  canonical general identity in scope: False
+  added specialization matches: 1
+  selected source key: standard.toda.stable::four_stem_zero_6_specialization
+  selected step rule: ProofRule.INFERENCE
+  selected is canonical base identity: False
+  selected conclusion == canonical base conclusion: True
+
+pi_12^7
+  direct repository normalized results: 0
+  proof-scope target matches: 2
+  canonical base identity in scope: False
+  equal-conclusion nodes in scope: 2
+  canonical general identity in scope: False
+  added specialization matches: 1
+  selected source key: standard.toda.stable::five_stem_zero_7_specialization
+  selected step rule: ProofRule.INFERENCE
+  selected is canonical base identity: False
+  selected conclusion == canonical base conclusion: True
+
+==============================================================================
+Interpretation
+==============================================================================
+If canonical_base_identity_in_scope=True but direct repository normalized results=0, the base proof exists inside repository proof scope but is not registered as a direct group-result source.
+If the selected source key begins with standard.toda.stable:: and its proof step has the symbolic general zero as its sole premise, selection is coming from stable specialization rather than the existing concrete base-case proof.
+
+Output files:
+  registration_summary.txt
+  registration_comparison.csv
+  matching_scope_nodes.csv
+  specialization_nodes.csv
+  exception_inventory.csv
+==============================================================================

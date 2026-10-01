@@ -1,0 +1,3 @@
+﻿target,source_root_entry_key,source_root_entry_phase,source_root_entry_theorem,specialized_shortest_depth,specialized_step_rule,specialized_premise_count,specialized_premise_rule,premise_is_canonical_general_identity,premise_conclusion_equals_canonical_general
+pi_10^6,standard.toda.prop58,68,Toda Proposition 5.8,2,ProofRule.INFERENCE,1,Toda Proposition 5.8 higher four-stem zero transport,False,True
+pi_12^7,standard.toda.prop511,73,Toda Proposition 5.11,4,ProofRule.INFERENCE,1,Toda Proposition 5.9 higher five-stem zero transport,False,True

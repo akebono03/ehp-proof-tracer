@@ -1,0 +1,9 @@
+﻿target,candidate_index,root_entry_key,root_entry_phase,root_entry_theorem,shortest_depth,step_rule,premise_count,same_rule_as_canonical,same_premise_conclusions_as_canonical,same_full_premise_signature_as_canonical,structural_base_match
+pi_10^6,1,standard.toda.prop58,68,Toda Proposition 5.8,2,Toda Proposition 5.8 pi_10^6 zero,3,True,True,True,True
+pi_10^6,2,standard.toda.prop511,73,Toda Proposition 5.11,5,Toda Proposition 5.8 pi_10^6 zero,3,True,True,True,True
+pi_10^6,3,standard.toda.prop511,73,Toda Proposition 5.11,7,Toda Proposition 5.8 pi_10^6 zero,3,True,True,True,True
+pi_10^6,4,standard.toda.prop515,75,Toda Proposition 5.15,4,Toda Proposition 5.8 pi_10^6 zero,3,True,True,True,True
+pi_10^6,5,standard.toda.prop515,75,Toda Proposition 5.15,6,Toda Proposition 5.8 pi_10^6 zero,3,True,True,True,True
+pi_10^6,6,standard.toda.prop515,75,Toda Proposition 5.15,7,Toda Proposition 5.8 pi_10^6 zero,3,True,True,True,True
+pi_12^7,1,standard.toda.prop511,73,Toda Proposition 5.11,4,Toda Proposition 5.9 pi_12^7 zero,3,True,True,True,True
+pi_12^7,2,standard.toda.prop515,75,Toda Proposition 5.15,5,Toda Proposition 5.9 pi_12^7 zero,3,True,True,True,True
