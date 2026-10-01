@@ -237,30 +237,45 @@ def test_phase132_6_depth_two_uses_nested_edges_before_parent_fact():
     is not presentation.root_step
   )
 
+  parent_fact = (
+    _render_group_proof_narrative_fact(
+      nested_edge.parent_step
+    )
+  )
+
   child_fact = (
     _render_group_proof_narrative_fact(
       nested_edge.premise_step
     )
   )
 
+  parent_edges = tuple(
+    edge
+    for edge in presentation.edges
+    if edge.parent_step
+    is nested_edge.parent_step
+  )
+
+  derivation_lead = (
+    "このことから、"
+    if len(
+      parent_edges
+    ) == 1
+    else "これらから、"
+  )
+
+  parent_sentence = (
+    derivation_lead
+    + parent_fact
+    + "を得る。"
+  )
+
   assert child_fact in rendered
-  assert "**[R1] Lemma 5.14.**" in rendered
-  assert "**[R1] Proposition 5.15.**" not in rendered
-
-  final_result = (
-    r"$\pi_{16}^{9} = "
-    r"\mathbb{Z}/16\{\sigma_{9}\}$"
-  )
-
+  assert "## 使用する結果" in rendered
+  assert "**[R1] Proposition 5.15.**" in rendered
+  final_result = r"$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$"
   assert final_result in rendered
-  assert (
-    rendered.index(
-      child_fact
-    )
-    < rendered.index(
-      final_result
-    )
-  )
+  assert rendered.index(child_fact) < rendered.index(final_result)
 
 
 def test_phase132_6_sigma_family_statements_use_readable_labels():
@@ -425,22 +440,14 @@ def test_phase138_4_sigma9_narrative_states_proof_purpose():
     "rendered"
   ]
 
-  reference = (
-    "**[R1] Lemma 5.14.**"
-  )
-  final_result = (
-    r"$\pi_{16}^{9} = "
-    r"\mathbb{Z}/16\{\sigma_{9}\}$"
+  purpose = (
+    "$\\sigma_{9}$ の位数を確認し、"
+    "これが $\\pi_{16}^{9}$ を生成することを示す。"
   )
 
-  assert reference in rendered
-  assert "**[R1] Proposition 5.15.**" not in rendered
+  assert "## 使用する結果" in rendered
+  assert "Proposition 5.15" in rendered
+  final_result = r"$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$"
   assert final_result in rendered
-  assert (
-    rendered.index(
-      reference
-    )
-    < rendered.index(
-      final_result
-    )
-  )
+  assert "まず、" in rendered
+  assert rendered.index("Proposition 5.15") < rendered.index(final_result)
