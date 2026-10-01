@@ -1,0 +1,16 @@
+{
+  "git_head": "0a3e5f5ffb1cd04469f5ee131b2b2fd202fcc886",
+  "r2_high_findings": 83,
+  "unique_focused_tests": 61,
+  "pytest_exit_code": 1,
+  "collection_errors": 0,
+  "verification_class_counts": {
+    "current_contract": 13,
+    "confirmed_stale": 65,
+    "false_positive": 5
+  },
+  "elapsed_seconds": 398.835,
+  "repository_wide_pytest_executed": false,
+  "existing_tests_modified": false,
+  "production_code_modified": false
+}

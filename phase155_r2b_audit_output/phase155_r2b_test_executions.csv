@@ -1,0 +1,170 @@
+﻿test_id,outcome,duration_seconds,longrepr
+tests/test_phase110_12_operation_query_proof_replay_statement_presentation.py::test_phase110_12_aggregate_uses_safe_type_fallback,passed,0.5990511998534203,
+tests/test_phase110_12_operation_query_proof_replay_statement_presentation.py::test_phase110_12_replay_renderer_removes_python_dataclass_repr_leakage,passed,0.1699164998717606,
+tests/test_phase111_12_deep_show_proof_safe_fallback.py::test_phase111_12_depth_two_show_proof_uses_safe_type_name_fallback,passed,0.022184000117704272,
+tests/test_phase132_6_group_proof_narrative_renderer.py::test_phase132_6_sigma9_narrative_has_source_and_conclusion,failed,0.07699289987795055,"tests\test_phase132_6_group_proof_narrative_renderer.py:94: in test_phase132_6_sigma9_narrative_has_source_and_conclusion
+    assert (
+E   assert 'Toda Proposition 5.15を用いる。' in ""# Group proof narrative\n\n$\\sigma_{9}$ の位数を確認し, これが $\\pi_{16}^{9}$ を生成することを示す。\n\nまず, $\\pi_{12}^{5} = \\mathbb{Z}...$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$を用いる.\n\nしたがって, $\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$を得る.\n"""
+tests/test_phase132_6_group_proof_narrative_renderer.py::test_phase132_6_sigma9_narrative_uses_fixed_japanese_leads,failed,0.09037290001288056,"tests\test_phase132_6_group_proof_narrative_renderer.py:183: in test_phase132_6_sigma9_narrative_uses_fixed_japanese_leads
+    assert ""まず、"" in rendered
+E   assert 'まず、' in ""# Group proof narrative\n\n$\\sigma_{9}$ の位数を確認し, これが $\\pi_{16}^{9}$ を生成することを示す。\n\nまず, $\\pi_{12}^{5} = \\mathbb{Z}...$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$を用いる.\n\nしたがって, $\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$を得る.\n"""
+tests/test_phase132_6_group_proof_narrative_renderer.py::test_phase132_6_depth_zero_does_not_invent_premises,failed,0.05714099993929267,"tests\test_phase132_6_group_proof_narrative_renderer.py:203: in test_phase132_6_depth_zero_does_not_invent_premises
+    assert (
+E   AssertionError: assert 'Toda Proposition 5.15を用いる。' in '# Group proof narrative\n\nしたがって, $\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$である.\n'"
+tests/test_phase143_42_argument_body_contribution_renderer.py::test_phase143_42_pi6_3_group_keeps_derived_short_exact_sequence,failed,0.05952899996191263,"tests\test_phase143_42_argument_body_contribution_renderer.py:173: in test_phase143_42_pi6_3_group_keeps_derived_short_exact_sequence
+    assert (
+E   assert 'この完全性と、左の写像が単射、右の写像が全射であることより、次の短完全列を得る.' in ""$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$\n\n$2\\eta_{3} = 0$\n\n$\\nu' \\in \\pi_{6}^{3}$\n\n$\\pi_{i - 1}^{1} =...to \\pi_{6}^{5}$ は全射である.\n\n$\\pi_{6}^{5} = \\mathbb{Z}/2\\{\\eta_{5}\\}$\n\n$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$"""
+tests/test_phase143_46_multi_argument_narrative_assembler.py::test_phase143_46_pi8_5_excludes_detached_nu_prime_order_argument,failed,0.042316999984905124,"tests\test_phase143_46_multi_argument_narrative_assembler.py:77: in test_phase143_46_pi8_5_excludes_detached_nu_prime_order_argument
+    assert (
+E   assert 'まず、$\\nu_{5}$ を定める.' in ""まず, $\\nu_{5}$ を定める.\n\n$\\nu_{5}$ を \\(\\nu\\)-family の元として定める.\n\n次に, $\\nu_{5}$ の位数を決定する.\n\n$2\\nu_{5} = E^{2}\\n...}^{5}/E^{2}\\left(\\pi_{6}^{3}\\right) \\cong \\mathbb{Z}/2$\n\n以上より, \n\n$\\pi_{8}^{5} = \\mathbb{Z}/8\\{\\nu_{5}\\}$"""
+tests/test_phase143_47_multi_argument_shared_contribution_dedup.py::test_phase143_47_pi16_9_suppresses_shared_definition_evidence,failed,0.13304889993742108,"tests\test_phase143_47_multi_argument_shared_contribution_dedup.py:122: in test_phase143_47_pi16_9_suppresses_shared_definition_evidence
+    assert (
+E   assert '次に、$\\sigma_{9}$ を定める.' in ""まず, $\\sigma'''$ を定める.\n\n次の短完全列を得る.\n\n$0\\longrightarrow \\pi_{13}^{6}\\xrightarrow{E} \\pi_{14}^{7}\\xrightarrow{H...である.\n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$\n\n以上より, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"""
+tests/test_phase143_53b_r_conclusion_aware_connector.py::test_phase143_53b_r_pi6_3_connector_precedes_order_conclusion,failed,0.04243670008145273,"tests\test_phase143_53b_r_conclusion_aware_connector.py:39: in test_phase143_53b_r_pi6_3_connector_precedes_order_conclusion
+    assert (
+E   assert ""以上より、\n\n$\\operatorname{ord}\\left(\\nu'\\right) = 4$"" in ""まず, $\\nu'$ を定める.\n\n$2\\eta_{3} = 0$\n\n$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$\n\n$\\pi_{4}^{3} = ..._{3}\\tag{4}$\n\n$E^{2}\\eta_{3} = \\eta_{5}\\tag{5}$\n\n(4) と (5) より, \n\n$H\\left(\\nu'\\right) = \\eta_{5}\\tag{6}$"""
+tests/test_phase143_53b_r_conclusion_aware_connector.py::test_phase143_53b_r_pi8_5_connector_precedes_order_conclusion,failed,0.04295010003261268,"tests\test_phase143_53b_r_conclusion_aware_connector.py:58: in test_phase143_53b_r_pi8_5_connector_precedes_order_conclusion
+    assert (
+E   assert '以上より、\n\n$\\operatorname{ord}\\left(\\nu_{5}\\right) = 8$' in ""まず, $\\nu_{5}$ を定める.\n\n$\\nu_{5}$ を \\(\\nu\\)-family の元として定める.\n\n次に, $\\nu_{5}$ の位数を決定する.\n\n$2\\nu_{5} = E^{2}\\n...}^{5}/E^{2}\\left(\\pi_{6}^{3}\\right) \\cong \\mathbb{Z}/2$\n\n以上より, \n\n$\\pi_{8}^{5} = \\mathbb{Z}/8\\{\\nu_{5}\\}$"""
+tests/test_phase143_53b_r_conclusion_aware_connector.py::test_phase143_53b_r_pi15_8_connector_still_precedes_target,failed,0.11762510007247329,"tests\test_phase143_53b_r_conclusion_aware_connector.py:77: in test_phase143_53b_r_pi15_8_connector_still_precedes_target
+    assert (
+E   assert ""以上より、\n\n$\\pi_{15}^{8} = \\mathbb{Z}\\{\\sigma_{8}\\} \\oplus \\mathbb{Z}/8\\{E\\sigma'\\}$"" in ""$\\pi_{15}^{8}$ の群構造を決定する.\n\n以上より, \n\n$\\pi_{15}^{8} = \\mathbb{Z}\\{\\sigma_{8}\\} \\oplus \\mathbb{Z}/8\\{E\\sigm...る.\n\n$0\\longrightarrow \\pi_{13}^{6}\\xrightarrow{E} \\pi_{14}^{7}\\xrightarrow{H} \\pi_{14}^{13}\\longrightarrow 0$"""
+tests/test_phase143_53b_r_conclusion_aware_connector.py::test_phase143_53b_r_pi16_9_connector_still_precedes_target,failed,0.14377749990671873,"tests\test_phase143_53b_r_conclusion_aware_connector.py:105: in test_phase143_53b_r_pi16_9_connector_still_precedes_target
+    assert (
+E   assert '以上より、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$' in ""まず, $\\sigma'''$ を定める.\n\n次の短完全列を得る.\n\n$0\\longrightarrow \\pi_{13}^{6}\\xrightarrow{E} \\pi_{14}^{7}\\xrightarrow{H...である.\n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$\n\n以上より, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"""
+tests/test_phase143_53b_transition_connectors.py::test_phase143_53b_pi6_3_derivation_connects_order_and_target,failed,0.04382239980623126,"tests\test_phase143_53b_transition_connectors.py:39: in test_phase143_53b_pi6_3_derivation_connects_order_and_target
+    assert (
+E   assert ""以上より、\n\n$\\operatorname{ord}\\left(\\nu'\\right) = 4$"" in ""まず, $\\nu'$ を定める.\n\n$2\\eta_{3} = 0$\n\n$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$\n\n$\\pi_{4}^{3} = ..._{3}\\tag{4}$\n\n$E^{2}\\eta_{3} = \\eta_{5}\\tag{5}$\n\n(4) と (5) より, \n\n$H\\left(\\nu'\\right) = \\eta_{5}\\tag{6}$"""
+tests/test_phase143_53b_transition_connectors.py::test_phase143_53b_pi15_8_aggregate_derivation_connects_target,failed,0.12182589992880821,"tests\test_phase143_53b_transition_connectors.py:70: in test_phase143_53b_pi15_8_aggregate_derivation_connects_target
+    assert (
+E   assert ""以上より、\n\n$\\pi_{15}^{8} = \\mathbb{Z}\\{\\sigma_{8}\\} \\oplus \\mathbb{Z}/8\\{E\\sigma'\\}$"" in ""$\\pi_{15}^{8}$ の群構造を決定する.\n\n以上より, \n\n$\\pi_{15}^{8} = \\mathbb{Z}\\{\\sigma_{8}\\} \\oplus \\mathbb{Z}/8\\{E\\sigm...る.\n\n$0\\longrightarrow \\pi_{13}^{6}\\xrightarrow{E} \\pi_{14}^{7}\\xrightarrow{H} \\pi_{14}^{13}\\longrightarrow 0$"""
+tests/test_phase143_53b_transition_connectors.py::test_phase143_53b_pi16_9_derivation_connects_target,failed,0.1117807999253273,"tests\test_phase143_53b_transition_connectors.py:98: in test_phase143_53b_pi16_9_derivation_connects_target
+    assert (
+E   assert '以上より、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$' in ""まず, $\\sigma'''$ を定める.\n\n次の短完全列を得る.\n\n$0\\longrightarrow \\pi_{13}^{6}\\xrightarrow{E} \\pi_{14}^{7}\\xrightarrow{H...である.\n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$\n\n以上より, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"""
+tests/test_phase143_55b_conclusion_step_ordering.py::test_phase143_55b_pi6_3_connector_immediately_precedes_main_order,failed,0.06624610000289977,"tests\test_phase143_55b_conclusion_step_ordering.py:71: in test_phase143_55b_pi6_3_connector_immediately_precedes_main_order
+    assert (
+E   assert ""以上より、\n\n$\\operatorname{ord}\\left(\\nu'\\right) = 4$"" in ""まず, $\\nu'$ を定める.\n\n$2\\eta_{3} = 0$\n\n$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$\n\n$\\pi_{4}^{3} = ..._{3}\\tag{4}$\n\n$E^{2}\\eta_{3} = \\eta_{5}\\tag{5}$\n\n(4) と (5) より, \n\n$H\\left(\\nu'\\right) = \\eta_{5}\\tag{6}$"""
+tests/test_phase143_55b_conclusion_step_ordering.py::test_phase143_55b_pi8_5_connector_immediately_precedes_main_order,failed,0.04701859992928803,"tests\test_phase143_55b_conclusion_step_ordering.py:115: in test_phase143_55b_pi8_5_connector_immediately_precedes_main_order
+    assert (
+E   assert '以上より、\n\n$\\operatorname{ord}\\left(\\nu_{5}\\right) = 8$' in ""まず, $\\nu_{5}$ を定める.\n\n$\\nu_{5}$ を \\(\\nu\\)-family の元として定める.\n\n次に, $\\nu_{5}$ の位数を決定する.\n\n$2\\nu_{5} = E^{2}\\n...}^{5}/E^{2}\\left(\\pi_{6}^{3}\\right) \\cong \\mathbb{Z}/2$\n\n以上より, \n\n$\\pi_{8}^{5} = \\mathbb{Z}/8\\{\\nu_{5}\\}$"""
+tests/test_phase143_55b_conclusion_step_ordering.py::test_phase143_55b_pi15_8_target_connector_remains_correct,failed,0.0973583001177758,"tests\test_phase143_55b_conclusion_step_ordering.py:128: in test_phase143_55b_pi15_8_target_connector_remains_correct
+    assert (
+E   assert ""以上より、\n\n$\\pi_{15}^{8} = \\mathbb{Z}\\{\\sigma_{8}\\} \\oplus \\mathbb{Z}/8\\{E\\sigma'\\}$"" in ""$\\pi_{15}^{8}$ の群構造を決定する.\n\n以上より, \n\n$\\pi_{15}^{8} = \\mathbb{Z}\\{\\sigma_{8}\\} \\oplus \\mathbb{Z}/8\\{E\\sigm...る.\n\n$0\\longrightarrow \\pi_{13}^{6}\\xrightarrow{E} \\pi_{14}^{7}\\xrightarrow{H} \\pi_{14}^{13}\\longrightarrow 0$"""
+tests/test_phase143_55b_conclusion_step_ordering.py::test_phase143_55b_pi16_9_target_connector_remains_correct,failed,0.13252620003186166,"tests\test_phase143_55b_conclusion_step_ordering.py:143: in test_phase143_55b_pi16_9_target_connector_remains_correct
+    assert (
+E   assert '以上より、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$' in ""まず, $\\sigma'''$ を定める.\n\n次の短完全列を得る.\n\n$0\\longrightarrow \\pi_{13}^{6}\\xrightarrow{E} \\pi_{14}^{7}\\xrightarrow{H...である.\n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$\n\n以上より, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"""
+tests/test_phase143_59b_group_structure_duplicate_suppression.py::test_phase143_59b_pi15_8_keeps_final_group_conclusion,failed,0.12059679999947548,"tests\test_phase143_59b_group_structure_duplicate_suppression.py:109: in test_phase143_59b_pi15_8_keeps_final_group_conclusion
+    assert (
+E   assert ""以上より、\n\n$\\pi_{15}^{8} = \\mathbb{Z}\\{\\sigma_{8}\\} \\oplus \\mathbb{Z}/8\\{E\\sigma'\\}$"" in ""$\\pi_{15}^{8}$ の群構造を決定する.\n\n以上より, \n\n$\\pi_{15}^{8} = \\mathbb{Z}\\{\\sigma_{8}\\} \\oplus \\mathbb{Z}/8\\{E\\sigm...る.\n\n$0\\longrightarrow \\pi_{13}^{6}\\xrightarrow{E} \\pi_{14}^{7}\\xrightarrow{H} \\pi_{14}^{13}\\longrightarrow 0$"""
+tests/test_phase143_59b_group_structure_duplicate_suppression.py::test_phase143_59b_pi6_3_narrative_remains_available,failed,0.04082160000689328,"tests\test_phase143_59b_group_structure_duplicate_suppression.py:143: in test_phase143_59b_pi6_3_narrative_remains_available
+    assert ""(1) と (2) より、"" in rendered
+E   assert '(1) と (2) より、' in ""まず, $\\nu'$ を定める.\n\n$2\\eta_{3} = 0$\n\n$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$\n\n$\\pi_{4}^{3} = ..._{3}\\tag{4}$\n\n$E^{2}\\eta_{3} = \\eta_{5}\\tag{5}$\n\n(4) と (5) より, \n\n$H\\left(\\nu'\\right) = \\eta_{5}\\tag{6}$"""
+tests/test_phase143_61b_direct_premise_narrative.py::test_phase143_61b_pi16_9_final_conclusion_remains,failed,0.12898040004074574,"tests\test_phase143_61b_direct_premise_narrative.py:166: in test_phase143_61b_pi16_9_final_conclusion_remains
+    assert (
+E   assert '以上より、\n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$' in ""まず, $\\sigma'''$ を定める.\n\n次の短完全列を得る.\n\n$0\\longrightarrow \\pi_{13}^{6}\\xrightarrow{E} \\pi_{14}^{7}\\xrightarrow{H...である.\n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$\n\n以上より, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"""
+tests/test_phase143_61b_r_semantic_suppression_priority.py::test_phase143_61b_r_keeps_pi15_8_final_conclusion,failed,0.13461890001781285,"tests\test_phase143_61b_r_semantic_suppression_priority.py:53: in test_phase143_61b_r_keeps_pi15_8_final_conclusion
+    assert (
+E   assert ""以上より、\n\n$\\pi_{15}^{8} = \\mathbb{Z}\\{\\sigma_{8}\\} \\oplus \\mathbb{Z}/8\\{E\\sigma'\\}$"" in ""$\\pi_{15}^{8}$ の群構造を決定する.\n\n以上より, \n\n$\\pi_{15}^{8} = \\mathbb{Z}\\{\\sigma_{8}\\} \\oplus \\mathbb{Z}/8\\{E\\sigm...る.\n\n$0\\longrightarrow \\pi_{13}^{6}\\xrightarrow{E} \\pi_{14}^{7}\\xrightarrow{H} \\pi_{14}^{13}\\longrightarrow 0$"""
+tests/test_phase143_61b_r_semantic_suppression_priority.py::test_phase143_61b_r_keeps_pi8_5_relocated_direct_premise,failed,0.04252219991758466,"tests\test_phase143_61b_r_semantic_suppression_priority.py:68: in test_phase143_61b_r_keeps_pi8_5_relocated_direct_premise
+    assert (
+E   assert ""$2\\nu_{5} = E^{2}\\nu'$\n\n$\\operatorname{ord}\\left(E^{2}\\nu'\\right) = 4$\n\n以上より、\n\n$\\operatorname{ord}\\left(\\nu_{5}\\right) = 8$"" in ""まず, $\\nu_{5}$ を定める.\n\n$\\nu_{5}$ を \\(\\nu\\)-family の元として定める.\n\n次に, $\\nu_{5}$ の位数を決定する.\n\n$2\\nu_{5} = E^{2}\\n...}^{5}/E^{2}\\left(\\pi_{6}^{3}\\right) \\cong \\mathbb{Z}/2$\n\n以上より, \n\n$\\pi_{8}^{5} = \\mathbb{Z}/8\\{\\nu_{5}\\}$"""
+tests/test_phase143_61b_r_semantic_suppression_priority.py::test_phase143_61b_r_keeps_pi6_3_local_connector,failed,0.042632200056687,"tests\test_phase143_61b_r_semantic_suppression_priority.py:86: in test_phase143_61b_r_keeps_pi6_3_local_connector
+    assert ""(1) と (2) より、"" in rendered
+E   assert '(1) と (2) より、' in ""まず, $\\nu'$ を定める.\n\n$2\\eta_{3} = 0$\n\n$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$\n\n$\\pi_{4}^{3} = ..._{3}\\tag{4}$\n\n$E^{2}\\eta_{3} = \\eta_{5}\\tag{5}$\n\n(4) と (5) より, \n\n$H\\left(\\nu'\\right) = \\eta_{5}\\tag{6}$"""
+tests/test_phase143_63a_r_exactness_repair.py::test_phase143_63a_r_pi8_5_direct_premise_placement_remains,failed,0.04500270006246865,"tests\test_phase143_63a_r_exactness_repair.py:54: in test_phase143_63a_r_pi8_5_direct_premise_placement_remains
+    assert (
+E   assert ""$2\\nu_{5} = E^{2}\\nu'$\n\n$\\operatorname{ord}\\left(E^{2}\\nu'\\right) = 4$\n\n以上より、\n\n$\\operatorname{ord}\\left(\\nu_{5}\\right) = 8$"" in ""まず, $\\nu_{5}$ を定める.\n\n$\\nu_{5}$ を \\(\\nu\\)-family の元として定める.\n\n次に, $\\nu_{5}$ の位数を決定する.\n\n$2\\nu_{5} = E^{2}\\n...}^{5}/E^{2}\\left(\\pi_{6}^{3}\\right) \\cong \\mathbb{Z}/2$\n\n以上より, \n\n$\\pi_{8}^{5} = \\mathbb{Z}/8\\{\\nu_{5}\\}$"""
+tests/test_phase143_63a_residual_fallback_provenance.py::test_phase143_63a_pi8_5_direct_premise_placement_remains,failed,0.06131640006788075,"tests\test_phase143_63a_residual_fallback_provenance.py:74: in test_phase143_63a_pi8_5_direct_premise_placement_remains
+    assert (
+E   assert ""$2\\nu_{5} = E^{2}\\nu'$\n\n$\\operatorname{ord}\\left(E^{2}\\nu'\\right) = 4$\n\n以上より、\n\n$\\operatorname{ord}\\left(\\nu_{5}\\right) = 8$"" in ""まず, $\\nu_{5}$ を定める.\n\n$\\nu_{5}$ を \\(\\nu\\)-family の元として定める.\n\n次に, $\\nu_{5}$ の位数を決定する.\n\n$2\\nu_{5} = E^{2}\\n...}^{5}/E^{2}\\left(\\pi_{6}^{3}\\right) \\cong \\mathbb{Z}/2$\n\n以上より, \n\n$\\pi_{8}^{5} = \\mathbb{Z}/8\\{\\nu_{5}\\}$"""
+tests/test_phase144_5_generic_definition_order_equations.py::test_phase144_5_r2_numbers_only_calculation_chain_equations,failed,0.039423099951818585,"tests\test_phase144_5_generic_definition_order_equations.py:52: in test_phase144_5_r2_numbers_only_calculation_chain_equations
+    assert ""(1) と (2) より、"" in rendered
+E   assert '(1) と (2) より、' in ""まず, $\\nu'$ を定める.\n\n$2\\eta_{3} = 0$\n\n$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$\n\n$\\pi_{4}^{3} = ..._{3}\\tag{4}$\n\n$E^{2}\\eta_{3} = \\eta_{5}\\tag{5}$\n\n(4) と (5) より, \n\n$H\\left(\\nu'\\right) = \\eta_{5}\\tag{6}$"""
+tests/test_phase144_5_generic_definition_order_equations.py::test_phase144_5_r2_pi6_3_keeps_definition_and_order_purposes,failed,0.04255430004559457,"tests\test_phase144_5_generic_definition_order_equations.py:80: in test_phase144_5_r2_pi6_3_keeps_definition_and_order_purposes
+    assert (
+E   assert ""$\\nu'$ の位数を決定するために、次の完全列を考える."" in ""まず, $\\nu'$ を定める.\n\n$2\\eta_{3} = 0$\n\n$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$\n\n$\\pi_{4}^{3} = ..._{3}\\tag{4}$\n\n$E^{2}\\eta_{3} = \\eta_{5}\\tag{5}$\n\n(4) と (5) より, \n\n$H\\left(\\nu'\\right) = \\eta_{5}\\tag{6}$"""
+tests/test_phase144_5_generic_definition_order_equations.py::test_phase144_5_r2_pi6_3_uses_actual_equation_references,failed,0.04203590005636215,"tests\test_phase144_5_generic_definition_order_equations.py:93: in test_phase144_5_r2_pi6_3_uses_actual_equation_references
+    assert ""(1) と (2) より、"" in rendered
+E   assert '(1) と (2) より、' in ""まず, $\\nu'$ を定める.\n\n$2\\eta_{3} = 0$\n\n$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$\n\n$\\pi_{4}^{3} = ..._{3}\\tag{4}$\n\n$E^{2}\\eta_{3} = \\eta_{5}\\tag{5}$\n\n(4) と (5) より, \n\n$H\\left(\\nu'\\right) = \\eta_{5}\\tag{6}$"""
+tests/test_phase144_6_pi6_generic_production_route.py::test_phase144_6_public_pi6_3_narrative_equals_generic_argument_renderer,failed,0.07914149994030595,"tests\test_phase144_6_pi6_generic_production_route.py:45: in test_phase144_6_public_pi6_3_narrative_equals_generic_argument_renderer
+    assert actual == expected
+E   assert '使用する結果を先にまとめ..._{5}\\tag{6}$' == ""まず, $\\nu'$ ..._{5}\\tag{6}$""
+E     
+E     [0m[92m+ 使用する結果を先にまとめる.[39;49;00m[90m[39;49;00m
+E     [92m+ [39;49;00m[90m[39;49;00m
+E     [92m+ **[R1] (5.3).**[39;49;00m[90m[39;49;00m
+E     [92m+ $\nu' \in \pi_{6}^{3}$[39;49;00m[90m[39;49;00m
+E     [92m+ $2\nu' = \eta_{3}E\eta_{3}\eta_{5}$[39;49;00m[90m[39;49;00m
+E     [92m+ $H\left(\nu'\right) = E^{2}\eta_{3}$[39;49;00m[90m[39;49;00m...
+E     
+E     ...Full output truncated (91 lines hidden), use '-vv' to show"
+tests/test_phase144_6_pi6_generic_production_route.py::test_phase144_6_cli_pi6_3_narrative_uses_generic_route,failed,0.11034860019572079,"tests\test_phase144_6_pi6_generic_production_route.py:112: in test_phase144_6_cli_pi6_3_narrative_uses_generic_route
+    assert ""(1) と (2) より、"" in captured.out
+E   assert '(1) と (2) より、' in ""使用する結果を先にまとめる.\n\n**[R1] Proposition 5.3.**\n$H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ は全射である.\n$\\pi_{5}^{3} = \\mathbb{Z}...であるから, $\\nu'$ は中央の群を生成する.\nしたがって, \n\n以上で得た群構造, 生成元, および写像に関する結果を合わせると, \n\n$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$""
+E    +  where ""使用する結果を先にまとめる.\n\n**[R1] Proposition 5.3.**\n$H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ は全射である.\n$\\pi_{5}^{3} = \\mathbb{Z}...であるから, $\\nu'$ は中央の群を生成する.\nしたがって, \n\n以上で得た群構造, 生成元, および写像に関する結果を合わせると, \n\n$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$"" = CaptureResult(out=""使用する結果を先にまとめる.\n\n**[R1] Proposition 5.3.**\n$H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ は全射である.\n$\\pi_{5}...\nu'$ は中央の群を生成する.\nしたがって, \n\n以上で得た群構造, 生成元, および写像に関する結果を合わせると, \n\n$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$"", err='').out"
+tests/test_phase144_6_r25_9a_pi5_suppression.py::test_phase144_6_r25_9a_pi5_3_is_hidden_without_losing_transitions,failed,0.059475200017914176,"tests\test_phase144_6_r25_9a_pi5_suppression.py:179: in test_phase144_6_r25_9a_pi5_3_is_hidden_without_losing_transitions
+    assert ""(1) と (2) より、"" in rendered
+E   assert '(1) と (2) より、' in ""まず, $\\nu'$ を定める.\n\n$2\\eta_{3} = 0$\n\n$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$\n\n$\\pi_{4}^{3} = ..._{3}\\tag{4}$\n\n$E^{2}\\eta_{3} = \\eta_{5}\\tag{5}$\n\n(4) と (5) より, \n\n$H\\left(\\nu'\\right) = \\eta_{5}\\tag{6}$"""
+tests/test_phase144_6_r25_9a_r1_relocation_hidden.py::test_phase144_6_r25_9a_r1_hidden_support_is_not_reintroduced,failed,0.04334260011091828,"tests\test_phase144_6_r25_9a_r1_relocation_hidden.py:38: in test_phase144_6_r25_9a_r1_hidden_support_is_not_reintroduced
+    assert ""(1) と (2) より、"" in rendered
+E   assert '(1) と (2) より、' in ""まず, $\\nu'$ を定める.\n\n$2\\eta_{3} = 0$\n\n$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$\n\n$\\pi_{4}^{3} = ..._{3}\\tag{4}$\n\n$E^{2}\\eta_{3} = \\eta_{5}\\tag{5}$\n\n(4) と (5) より, \n\n$H\\left(\\nu'\\right) = \\eta_{5}\\tag{6}$"""
+tests/test_phase144_6_r4_supporting_fact_filtering.py::test_phase144_6_r4_preserves_argument_frontier_and_transition_chains,failed,0.06410369998775423,"tests\test_phase144_6_r4_supporting_fact_filtering.py:54: in test_phase144_6_r4_preserves_argument_frontier_and_transition_chains
+    assert ""(1) と (2) より、"" in rendered
+E   assert '(1) と (2) より、' in ""まず, $\\nu'$ を定める.\n\n$2\\eta_{3} = 0$\n\n$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$\n\n$\\pi_{4}^{3} = ..._{3}\\tag{4}$\n\n$E^{2}\\eta_{3} = \\eta_{5}\\tag{5}$\n\n(4) と (5) より, \n\n$H\\left(\\nu'\\right) = \\eta_{5}\\tag{6}$"""
+tests/test_phase146_7_generic_argument_purpose_prose.py::test_phase146_7_order_exactness_combines_purpose_and_method,failed,0.039746399968862534,"tests\test_phase146_7_generic_argument_purpose_prose.py:32: in test_phase146_7_order_exactness_combines_purpose_and_method
+    assert (
+E   assert ""$\\nu'$ の位数を決定するために、次の完全列を考える."" in ""まず, $\\nu'$ を定める.\n\n$2\\eta_{3} = 0$\n\n$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$\n\n$\\pi_{4}^{3} = ..._{3}\\tag{4}$\n\n$E^{2}\\eta_{3} = \\eta_{5}\\tag{5}$\n\n(4) と (5) より, \n\n$H\\left(\\nu'\\right) = \\eta_{5}\\tag{6}$"""
+tests/test_phase148_rc2_4_post_repair_six_group.py::test_phase148_rc2_4_post_repair_pi6_3_retains_numbered_calculation_chain,failed,0.0845261998474598,"tests\test_phase148_rc2_4_post_repair_six_group.py:136: in test_phase148_rc2_4_post_repair_pi6_3_retains_numbered_calculation_chain
+    assert ""(1) と (2) より、"" in rendered
+E   assert '(1) と (2) より、' in ""使用する結果を先にまとめる.\n[R1] (5.3).\n$\\nu' \\in \\pi_{6}^{3}$\n$2\\nu' = \\eta_{3}E\\eta_{3}\\eta_{5}$\n[R2] Proposition 5.3...に属し, $\\operatorname{ord}(\\nu')=4=4$ であるから, $\\nu'$ は中央の群を生成する.\nしたがって, \n$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$\n"""
+tests/test_phase148_rc2_4_repair_r4_2_calculation_premise_semantic_closure.py::test_phase148_rc2_4_repair_r4_2_depth2_public_renderer_restores_numbered_chain,failed,0.06667369999922812,"tests\test_phase148_rc2_4_repair_r4_2_calculation_premise_semantic_closure.py:259: in test_phase148_rc2_4_repair_r4_2_depth2_public_renderer_restores_numbered_chain
+    assert (
+E   assert '(1) と (2) より、' in ""使用する結果を先にまとめる.\n\n**[R1] (5.3).**\n$\\nu' \\in \\pi_{6}^{3}$\n$2\\nu' = \\eta_{3}E\\eta_{3}\\eta_{5}$\n**[R2] Proposi...に属し, $\\operatorname{ord}(\\nu')=4=4$ であるから, $\\nu'$ は中央の群を生成する.\nしたがって, \n\n$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$"""
+tests/test_phase148_rc2_4_repair_r4_2_calculation_premise_semantic_closure.py::test_phase148_rc2_4_repair_r4_2_web_depth2_restores_numbered_chain_without_raw_exactness,failed,0.055707399966195226,"tests\test_phase148_rc2_4_repair_r4_2_calculation_premise_semantic_closure.py:287: in test_phase148_rc2_4_repair_r4_2_web_depth2_restores_numbered_chain_without_raw_exactness
+    assert ""(1) と (2) より、"" in rendered
+E   assert '(1) と (2) より、' in ""使用する結果を先にまとめる.\n[R1] (5.3).\n$\\nu' \\in \\pi_{6}^{3}$\n$2\\nu' = \\eta_{3}E\\eta_{3}\\eta_{5}$\n[R2] Proposition 5.3...に属し, $\\operatorname{ord}(\\nu')=4=4$ であるから, $\\nu'$ は中央の群を生成する.\nしたがって, \n$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$\n"""
+tests/test_phase150_rc4_7b_production_repair.py::test_phase150_rc4_7b_target_support_gets_conclusion_connector,failed,368.16749619995244,"tests\test_phase150_rc4_7b_production_repair.py:47: in test_phase150_rc4_7b_target_support_gets_conclusion_connector
+    assert (
+E   AssertionError: assert '以上より, ' == '以上より、'
+E     
+E     [0m[91m- 以上より、[39;49;00m[90m[39;49;00m
+E     [92m+ 以上より, [39;49;00m[90m[39;49;00m"
+tests/test_phase150_rc4_7d_reason_hidden_conclusion_anchor.py::test_phase150_rc4_7d_hidden_map_reason_uses_visible_downstream_anchor,failed,0.23629709985107183,"tests\test_phase150_rc4_7d_reason_hidden_conclusion_anchor.py:54: in test_phase150_rc4_7d_hidden_map_reason_uses_visible_downstream_anchor
+    assert (
+E   assert 'この完全性、既知の群構造、および写像の像に関する結果を合わせると' in ""使用する結果を先にまとめる.\n\n**[R1] Lemma 5.13.**\n$\\sigma''' \\in \\{\\nu_{5}, 8\\iota_{8}, \\nu_{8}\\}_{3}$, $H(\\sigma''') =..., \n\nこの完全性, 既知の群構造, および写像の像に関する結果を合わせると, 対象となる写像の像と核が決まる.\nしたがって, \n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$"""
+tests/test_phase150_rc4_7d_reason_hidden_conclusion_anchor.py::test_phase150_rc4_7d_visible_final_reason_is_preserved,failed,0.25129920011386275,"tests\test_phase150_rc4_7d_reason_hidden_conclusion_anchor.py:74: in test_phase150_rc4_7d_visible_final_reason_is_preserved
+    assert (
+E   assert '以上で得た群構造、生成元、および写像に関する結果を合わせると、' in ""使用する結果を先にまとめる.\n\n**[R1] Lemma 5.14.**\n$\\sigma_{8} = xα* + -1\\,y\\Delta\\left(\\iota_{17}\\right)$, $H\\left(\\sig...\\{\\sigma'''\\}$\n\n以上より, \n\n以上で得た群構造, 生成元, および写像に関する結果を合わせると, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"""
+tests/test_phase153_r10_used_reference_filtering.py::test_phase153_r10_filters_unused_entries_and_renumbers_markers,passed,0.0004710000939667225,
+tests/test_phase153_r10_used_reference_filtering.py::test_phase153_r10_pi6_2_body_uses_renumbered_references,failed,0.04566189995966852,"tests\test_phase153_r10_used_reference_filtering.py:175: in test_phase153_r10_pi6_2_body_uses_renumbered_references
+    assert ""[R1]を用いる。"" in body
+E   assert '[R1]を用いる。' in ""まず, [R1]を用いる.\nさらに, [R2]を用いる.\n\nしたがって, $\\pi_{6}^{2} = \\mathbb{Z}/4\\{\\eta_{2}\\nu'\\}$を得る.\n"""
+tests/test_phase153_r12_root_reference_exclusion.py::test_phase153_r12_pi11_4_body_uses_renumbered_external_references,failed,0.13564460002817214,"tests\test_phase153_r12_root_reference_exclusion.py:86: in test_phase153_r12_pi11_4_body_uses_renumbered_external_references
+    assert ""[R1]を用いる。"" in body
+E   AssertionError: assert '[R1]を用いる。' in 'まず, $H: \\pi_{10}^{3} \\to \\pi_{10}^{5}$ は単射である.\nまた, $\\Delta: \\pi_{10}^{5} \\to \\pi_{8}^{2}$ は単射である.\nさらに, $\\pi...\nこれらから, $\\pi_{10}^{3} = 0$を得る.\nまた, [R1]を用いる.\n[R2]より, $\\nu_{4}$ の分解写像は同型写像である.\n\nしたがって, $\\pi_{11}^{4} = 0$を得る.\n'"
+tests/test_phase153_r2_public_reference_semantic_fact.py::test_phase153_r2_public_pi10_6_keeps_provenance_only_reference_compact,failed,0.06545770005322993,"tests\test_phase153_r2_public_reference_semantic_fact.py:60: in test_phase153_r2_public_pi10_6_keeps_provenance_only_reference_compact
+    assert ""**[R1] Proposition 5.8.**"" in rendered
+E   AssertionError: assert '**[R1] Proposition 5.8.**' in '# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 3.1.**\n$\\nu_{6}\\eta_{9} = 0$\n**[R2] ...{11}$ は完全である.\nこれらから, $E: \\pi_{9}^{5} \\to \\pi_{10}^{6}$ は全射である.\nさらに, [R1]を用いる.\n\nしたがって, $\\pi_{10}^{6} = 0$を得る.\n'"
+tests/test_phase153_r3_11_reference_body_ownership_repair.py::test_phase153_r3_11_replaces_embedded_unmarked_selected_statement_with_reference_marker,passed,0.00026510003954172134,
+tests/test_phase153_r3_11_reference_body_ownership_repair.py::test_phase153_r3_11_preserves_surrounding_prose_when_replacing_embedded_statement,passed,0.00018850015476346016,
+tests/test_phase153_r3_5_reference_body_duplicate_suppression.py::test_phase153_r3_5_suppresses_exact_standalone_statement_line,passed,0.00019059982150793076,
+tests/test_phase153_r3_5_reference_body_duplicate_suppression.py::test_phase153_r3_5_compacts_reference_marker_sentence,failed,0.0010409001260995865,"tests\test_phase153_r3_5_reference_body_duplicate_suppression.py:86: in test_phase153_r3_5_compacts_reference_marker_sentence
+    assert suppressed == ""また、[R2]を用いる。""
+E   AssertionError: assert '[R2]を用いる.' == 'また、[R2]を用いる。'
+E     
+E     [0m[91m- また、[R2]を用いる。[39;49;00m[90m[39;49;00m
+E     ? ---        ^[90m[39;49;00m
+E     [92m+ [R2]を用いる.[39;49;00m[90m[39;49;00m
+E     ?         ^[90m[39;49;00m"
+tests/test_phase153_r9_reference_reuse_derivation_suppression.py::test_phase153_r9_pi6_2_reuses_selected_references_without_rederiving_ancestry,failed,0.07029650011099875,"tests\test_phase153_r9_reference_reuse_derivation_suppression.py:105: in test_phase153_r9_pi6_2_reuses_selected_references_without_rederiving_ancestry
+    assert ""[R1]を用いる。"" in body
+E   assert '[R1]を用いる。' in ""まず, [R1]を用いる.\nさらに, [R2]を用いる.\n\nしたがって, $\\pi_{6}^{2} = \\mathbb{Z}/4\\{\\eta_{2}\\nu'\\}$を得る.\n"""
+tests/test_phase71_probe.py::test_phase71_probe_output_contains_aggregate_type,passed,1.0915640001185238,
+tests/test_phase73_probe.py::test_phase73_probe_output_contains_aggregate_type,passed,0.014194699935615063,
+tests/test_phase74_probe.py::test_phase74_probe_output_contains_final_result,passed,0.1489861998707056,
+tests/test_phase75_probe.py::test_phase75_probe_output_contains_aggregate_integration,passed,0.061139200115576386,
+tests/test_phase78_stable_two_primary_identification.py::test_phase78_5_statement_is_distinct_from_finite_stage_toda45,passed,0.00024690013378858566,
+tests/test_phase96_final_proof_report_audit.py::test_phase96_12_unknown_statement_fallback_is_explicit_and_safe,passed,0.2699730000458658,
+tests/test_phase96_full_proof_report_renderer.py::test_phase96_11_actual_pi9_5_unknown_statements_remain_safe_fallbacks,passed,0.026143700117245317,
+tests/test_phase96_proof_step_mathematical_narrative.py::test_phase96_10_unknown_aggregate_statement_keeps_safe_type_fallback,passed,0.018044899916276336,
+tests/test_phase96_proof_step_mathematical_narrative.py::test_phase96_10_narrative_keeps_unknown_statements_without_inventing_math,passed,0.03006940009072423,
