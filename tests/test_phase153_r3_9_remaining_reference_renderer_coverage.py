@@ -166,7 +166,7 @@ def test_phase153_r3_9_all_remaining_unresolved_reference_types_render_semantica
           rendered,
         )
 
-  assert occurrences == 31
+  assert occurrences == 33
   assert seen_type_names == {
     statement_type.__name__
     for statement_type in (

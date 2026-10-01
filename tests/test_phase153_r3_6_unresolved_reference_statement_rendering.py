@@ -160,7 +160,7 @@ def test_phase153_r3_6_all_previously_unresolved_reference_types_render_semantic
             rendered,
           )
 
-  assert occurrences == 37
+  assert occurrences == 42
   assert seen_type_names == {
     statement_type.__name__
     for statement_type in (

@@ -108,7 +108,7 @@ def test_phase153_r3_4_reference_renderer_accepts_statement_lines_without_breaki
   )
 
 
-def test_phase153_r3_4_pi10_6_builds_selected_reference_statement_lines():
+def test_phase153_r3_4_pi10_6_builds_selected_reference_statement_lines_without_obsolete_45():
   presentation = (
     _phase153_r3_4_pi10_6_presentation()
   )
@@ -124,50 +124,38 @@ def test_phase153_r3_4_pi10_6_builds_selected_reference_statement_lines():
     )
   )
 
-  r2 = next(
-    entry
+  locators = tuple(
+    entry.reference.locator
     for entry in entries
-    if entry.reference.locator == "(4.5)"
+  )
+  entry_numbers = {
+    entry.number
+    for entry in entries
+  }
+
+  assert "Proposition 5.8" in locators
+  assert "(4.5)" not in locators
+  assert set(
+    statement_lines
+  ).issubset(
+    entry_numbers
   )
 
-  assert r2.number in statement_lines
-  assert statement_lines[
-    r2.number
-  ]
-  assert any(
-    "同型" in line
-    or r"\cong" in line
-    for line in statement_lines[
-      r2.number
-    ]
-  )
-
-
-def test_phase153_r3_4_public_pi10_6_reference_section_contains_r2_statement():
+def test_phase153_r3_4_public_pi10_6_reference_section_excludes_obsolete_45():
   rendered = (
     render_toda_group_proof_narrative_markdown(
       _phase153_r3_4_pi10_6_presentation()
     )
   )
 
-  reference_title = "**[R2] (4.5).**"
-  title_index = rendered.index(
-    reference_title
-  )
-  proof_section_index = rendered.index(
-    "## 証明"
-  )
+  reference_section = rendered.split(
+    "## 証明",
+    1,
+  )[0]
 
-  between = rendered[
-    title_index
-    + len(
-      reference_title
-    ):
-    proof_section_index
-  ]
-
-  assert "同型" in between or r"\cong" in between
-
+  assert "**[R1] Proposition 5.8.**" in reference_section
+  assert "(4.5)" not in reference_section
+  assert "$\pi_{10}^{6} = 0$" in rendered
 
 def test_phase153_r3_4_does_not_render_internal_fallback_name_in_reference_section():
   rendered = (

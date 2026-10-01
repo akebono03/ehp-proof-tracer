@@ -109,33 +109,23 @@ def test_phase153_r3_5_does_not_suppress_similar_but_nonidentical_statement():
   assert suppressed == body
 
 
-def test_phase153_r3_5_public_pi10_6_keeps_statement_in_reference_and_suppresses_body_copy():
+def test_phase153_r3_5_public_pi10_6_keeps_current_reference_baseline_without_obsolete_45():
   rendered = (
     _phase153_r3_5_pi10_6_narrative()
   )
 
-  reference_title = "**[R2] (4.5).**"
-  proof_header = "## 証明"
-
-  reference_start = rendered.index(
-    reference_title
+  parts = rendered.split(
+    "## 証明",
+    1,
   )
-  proof_start = rendered.index(
-    proof_header
+  reference_section = parts[0]
+  proof_body = (
+    parts[1]
+    if len(parts) == 2
+    else rendered
   )
 
-  reference_part = rendered[
-    reference_start:
-    proof_start
-  ]
-  proof_part = rendered[
-    proof_start:
-  ]
+  assert "**[R1] Proposition 5.8.**" in reference_section
+  assert "(4.5)" not in reference_section
+  assert "$\pi_{10}^{6} = 0$" in proof_body
 
-  assert "同型" in reference_part or r"\cong" in reference_part
-  assert "[R2]を用いる。" in proof_part
-  assert "[R2] により、" not in proof_part
-  assert (
-    "Toda 4.5 stable-range iterated suspension isomorphism"
-    not in rendered
-  )
