@@ -1,0 +1,14 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_________ test_phase144_6_r5_43_11d_final_completion_invariants_pass __________
+tests\test_phase144_6_r5_43_11d_final_completion_audit.py:13: in test_phase144_6_r5_43_11d_final_completion_invariants_pass
+    assert completion_invariants_pass(
+E   assert False
+E    +  where False = completion_invariants_pass((CompletionRow(n=3, k=3, selected=7, participating_selected=7, participating_insertable=7, detached_selected=0, detach..., detached_insertable=0, transport_connectors=0, direct_connectors=0, missing_inserted_lines=6, connected_chars=28602)))
+============================ slowest 10 durations =============================
+54.81s call     tests/test_phase144_6_r5_43_11d_final_completion_audit.py::test_phase144_6_r5_43_11d_final_completion_invariants_pass
+
+(2 durations < 0.005s hidden.  Use -vv to show these durations.)
+=========================== short test summary info ===========================
+FAILED tests/test_phase144_6_r5_43_11d_final_completion_audit.py::test_phase144_6_r5_43_11d_final_completion_invariants_pass
+1 failed in 57.08s

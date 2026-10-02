@@ -1,0 +1,20 @@
+{
+  "current_collected_tests": 10384,
+  "routine_test_count": 10382,
+  "audit_only_count": 2,
+  "audits": {
+    "1": {
+      "nodeid": "tests/test_phase153_r3_10_public_reference_connection_repair.py::test_phase153_r3_10_all_group_reference_population_invariants",
+      "status": "PASS",
+      "elapsed_seconds": 18.61
+    },
+    "2": {
+      "nodeid": "tests/test_phase97_actual_representative_targets_top_level_api.py::test_phase97_5_representative_goal_source_provenance_survives_cross_layer_api",
+      "status": "PASS",
+      "elapsed_seconds": 7.06
+    }
+  },
+  "all_audit_only_pass": true,
+  "phase156_deferred_duplicate_pressure": 117,
+  "monolithic_repository_pytest_run": false
+}

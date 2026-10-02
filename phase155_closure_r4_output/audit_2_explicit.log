@@ -1,0 +1,22 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_____________ test_phase144_6_r5_43_11d_renderer_remains_generic ______________
+tests\test_phase144_6_r5_43_11d_final_completion_audit.py:31: in test_phase144_6_r5_43_11d_renderer_remains_generic
+    assert "inference_rule" not in source
+E   AssertionError: assert 'inference_rule' not in 'from collec...dered\n  )\n'
+E     
+E     'inference_rule' is contained here:
+E        False
+E       
+E         inference_rule = proof_step.inference_rule
+E     ?   ++++++++++++++
+E       ...
+E     
+E     ...Full output truncated (1378 lines hidden), use '-vv' to show
+============================ slowest 10 durations =============================
+0.02s call     tests/test_phase144_6_r5_43_11d_final_completion_audit.py::test_phase144_6_r5_43_11d_renderer_remains_generic
+
+(2 durations < 0.005s hidden.  Use -vv to show these durations.)
+=========================== short test summary info ===========================
+FAILED tests/test_phase144_6_r5_43_11d_final_completion_audit.py::test_phase144_6_r5_43_11d_renderer_remains_generic
+1 failed in 2.66s

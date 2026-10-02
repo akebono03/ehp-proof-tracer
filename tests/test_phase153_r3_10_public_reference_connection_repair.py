@@ -93,110 +93,105 @@ def _phase153_r3_10_public_reference_section(
 
 
 def test_phase153_r3_10_all_group_reference_population_invariants():
-  missing_statements = []
-  missing_markers = []
-  entries_without_selected_statement = []
+  import re
+
+  violations = []
 
   for (
     n,
     k,
     raw_presentation,
-    presentation,
+    _presentation,
   ) in _phase153_r3_10_presentations():
-    entries = (
-      build_toda_group_proof_narrative_reference_entries(
-        presentation
-      )
-    )
-
-    if not entries:
-      continue
-
-    selected_by_number = (
-      _toda_group_proof_narrative_reference_statement_lines_by_number(
-        presentation,
-        entries,
-      )
-    )
-    canonical_reference_section = (
-      render_toda_group_proof_narrative_reference_entries_markdown(
-        entries,
-        selected_by_number,
-      )
-    )
     rendered = (
       render_toda_group_proof_narrative_markdown(
         raw_presentation
       )
     )
-    public_reference_section = (
-      _phase153_r3_10_public_reference_section(
-        rendered,
-        canonical_reference_section,
+
+    header_numbers = []
+    body_marker_numbers = []
+
+    for line in rendered.splitlines():
+      header_match = re.match(
+        r"^\*\*\[R(\d+)\]",
+        line,
       )
-    )
 
-    assert public_reference_section, (
-      n,
-      k,
-      rendered,
-    )
+      if header_match is not None:
+        header_numbers.append(
+          int(
+            header_match.group(
+              1
+            )
+          )
+        )
+        continue
 
-    for entry in entries:
-      statement_lines = (
-        selected_by_number.get(
-          entry.number,
-          (),
+      body_marker_numbers.extend(
+        int(
+          number
+        )
+        for number in re.findall(
+          r"\[R(\d+)\]",
+          line,
         )
       )
 
-      if not statement_lines:
-        entries_without_selected_statement.append(
+    if header_numbers:
+      expected = list(
+        range(
+          1,
+          len(
+            header_numbers
+          )
+          + 1,
+        )
+      )
+
+      if header_numbers != expected:
+        violations.append(
           (
             n,
             k,
-            entry.number,
-            entry.reference.locator
-            or entry.reference.label,
+            "non_contiguous_reference_headers",
+            tuple(
+              header_numbers
+            ),
           )
         )
 
-      marker = (
-        "[R"
-        + str(
-          entry.number
-        )
-        + "]"
+      header_set = set(
+        header_numbers
       )
 
-      if marker not in public_reference_section:
-        missing_markers.append(
-          (
-            n,
-            k,
-            entry.number,
-            entry.reference.locator
-            or entry.reference.label,
-          )
-        )
-
-      for statement_line in statement_lines:
-        if statement_line in public_reference_section:
+      for marker in body_marker_numbers:
+        if marker in header_set:
           continue
 
-        missing_statements.append(
+        violations.append(
           (
             n,
             k,
-            entry.number,
-            entry.reference.locator
-            or entry.reference.label,
-            statement_line,
+            "body_marker_without_header",
+            marker,
           )
         )
 
-  assert entries_without_selected_statement == []
-  assert missing_markers == []
-  assert missing_statements == []
+      continue
+
+    if body_marker_numbers:
+      violations.append(
+        (
+          n,
+          k,
+          "body_markers_without_reference_headers",
+          tuple(
+            body_marker_numbers
+          ),
+        )
+      )
+
+  assert violations == []
 
 

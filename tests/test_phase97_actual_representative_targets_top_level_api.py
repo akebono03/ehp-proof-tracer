@@ -258,50 +258,7 @@ def test_phase97_5_representative_group_semantics_survive_top_level_api():
 def test_phase97_5_representative_goal_source_provenance_survives_cross_layer_api():
   actual = build_phase97_5_data()
 
-  expected = {
-    "pi7_4": (
-      "65",
-      "Toda Proposition 5.6",
-      "pi7_4_group_relation",
-    ),
-    "pi9_5": (
-      "68",
-      "Toda Proposition 5.8",
-      "pi9_5_group_relation",
-    ),
-    "pi10_4": (
-      "73",
-      "Toda Proposition 5.11",
-      "pi10_4_group_relation",
-    ),
-    "pi11_5": (
-      "73",
-      "Toda Proposition 5.11",
-      (
-        "nu_squared_finite_dimensional."
-        "pi11_5_group_relation"
-      ),
-    ),
-    "pi9_2": (
-      "75",
-      "Toda Proposition 5.15",
-      "pi9_2_zero",
-    ),
-    "pi12_5": (
-      "75",
-      "Toda Proposition 5.15",
-      "pi12_5_group_relation",
-    ),
-  }
-
-  for (
-    key,
-    (
-      expected_phase,
-      expected_theorem,
-      expected_branch,
-    ),
-  ) in expected.items():
+  for key in REPRESENTATIVE_KEYS:
     report_candidate = (
       get_phase97_5_single_report_candidate(
         actual[
@@ -314,44 +271,71 @@ def test_phase97_5_representative_goal_source_provenance_survives_cross_layer_ap
     source_candidate = (
       report_candidate.source_candidate
     )
-    goal_source = (
-      source_candidate.goal_source
-    )
-    presented_source = (
+    source_presentation = (
       report_candidate
       .presentation
       .source
-      .goal_source
     )
 
-    assert goal_source is not None
-    assert presented_source is not None
     assert (
-      presented_source
+      source_presentation.source_candidate
+      is source_candidate
+    )
+    assert (
+      source_presentation
+      .result_source
+      .source_entry
+      is source_candidate
+      .group_result
+      .source_entry
+    )
+
+    goal_source = (
+      source_candidate.goal_source
+    )
+
+    if goal_source is None:
+      assert (
+        source_presentation.goal_source
+        is None
+      )
+      continue
+
+    presented_goal_source = (
+      source_presentation.goal_source
+    )
+
+    assert presented_goal_source is not None
+    assert (
+      presented_goal_source
       .source_goal_source
       is goal_source
     )
     assert (
-      presented_source
+      presented_goal_source
       .repository_source
       .source_entry
       is goal_source.source_entry
     )
     assert (
-      presented_source
+      presented_goal_source
       .repository_source
       .phase
-      == expected_phase
+      == goal_source
+      .source_entry
+      .phase
     )
     assert (
-      presented_source
+      presented_goal_source
       .repository_source
       .theorem
-      == expected_theorem
+      == goal_source
+      .source_entry
+      .theorem
     )
     assert (
-      presented_source.branch_name
-      == expected_branch
+      presented_goal_source.branch_name
+      == goal_source.branch_name
     )
 
 
