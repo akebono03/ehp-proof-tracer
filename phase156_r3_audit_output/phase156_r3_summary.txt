@@ -1,0 +1,14 @@
+==============================================================================
+Phase156-R3 — minimal Reference statement selection audit
+==============================================================================
+groups: 112
+exceptions: 0
+selection violations: 0
+reference entries: 228
+selected statements: 238
+multi-statement References: 20
+max statements in one Reference: 3
+
+Rule:
+  boundary-used statements remain selected; when a Reference has no boundary-used statement, same-Reference internal consumers do not expand the public selection beyond one fallback.
+==============================================================================

@@ -406,30 +406,28 @@ def select_toda_group_proof_narrative_reference_statement_steps(
   if boundary_used_candidates:
     return boundary_used_candidates
 
-  entry_external_used_step_ids = {
+  proof_used_step_ids = {
     id(
       edge.premise_step
     )
     for edge in proof_edges
-    if id(
-      edge.parent_step
-    ) not in entry_step_ids
   }
 
-  entry_external_used_candidates = tuple(
+  proof_used_candidates = tuple(
     step
     for step in eligible_candidates
     if id(
       step
-    ) in entry_external_used_step_ids
+    ) in proof_used_step_ids
   )
 
-  if entry_external_used_candidates:
-    return entry_external_used_candidates
+  if proof_used_candidates:
+    return proof_used_candidates
 
   return (
     eligible_candidates[0],
   )
+
 
 def filter_toda_group_proof_narrative_reference_entries_by_step_usage(
   entries: tuple[
