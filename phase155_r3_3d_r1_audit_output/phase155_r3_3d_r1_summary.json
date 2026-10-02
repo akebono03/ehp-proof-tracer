@@ -1,0 +1,11 @@
+{
+  "unresolved_removable_pairs": 2,
+  "source_level_duplicate_name_groups": 8,
+  "exact_duplicate_name_groups": 0,
+  "divergent_duplicate_name_groups": 8,
+  "unresolved_pair_endpoints_overlapping_duplicate_names": 0,
+  "production_code_modified": false,
+  "existing_tests_modified": false,
+  "tests_deleted": 0,
+  "repository_wide_pytest_executed": false
+}

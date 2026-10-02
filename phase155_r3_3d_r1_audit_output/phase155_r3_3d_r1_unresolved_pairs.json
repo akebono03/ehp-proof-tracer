@@ -1,0 +1,16 @@
+[
+  {
+    "candidate_id": "R3-00138",
+    "older_test_id": "tests/test_phase41_preimage_subgroup.py::test_phase41_2_preimage_subgroup_uses_map_symbol",
+    "newer_test_id": "tests/test_phase41_preimage_subgroup.py::test_phase41_4_preimage_subgroup_map_type_remains_map_symbol",
+    "older_overlap_source_duplicate": false,
+    "newer_overlap_source_duplicate": false
+  },
+  {
+    "candidate_id": "R3-00139",
+    "older_test_id": "tests/test_phase41_preimage_subgroup.py::test_phase41_2_preimage_subgroup_uses_primary_component_target",
+    "newer_test_id": "tests/test_phase41_preimage_subgroup.py::test_phase41_4_preimage_subgroup_target_type_remains_primary_component",
+    "older_overlap_source_duplicate": false,
+    "newer_overlap_source_duplicate": false
+  }
+]
