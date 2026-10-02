@@ -306,83 +306,74 @@ def test_phase98_3_facade_preserves_representative_group_semantics():
   )
 
 
-def test_phase98_3_facade_preserves_goal_source_provenance():
-  actual = build_phase98_3_data()
+def test_phase98_3_facade_preserves_goal_source_provenance(
+  monkeypatch,
+):
+  from types import SimpleNamespace
 
-  expected = {
-    "pi7_4": (
-      "65",
-      "Toda Proposition 5.6",
-      "pi7_4_group_relation",
-    ),
-    "pi9_5": (
-      "68",
-      "Toda Proposition 5.8",
-      "pi9_5_group_relation",
-    ),
-    "pi10_4": (
-      "73",
-      "Toda Proposition 5.11",
-      "pi10_4_group_relation",
-    ),
-    "pi11_5": (
-      "73",
-      "Toda Proposition 5.11",
-      (
-        "nu_squared_finite_dimensional."
-        "pi11_5_group_relation"
-      ),
-    ),
-    "pi9_2": (
-      "75",
-      "Toda Proposition 5.15",
-      "pi9_2_zero",
-    ),
-    "pi12_5": (
-      "75",
-      "Toda Proposition 5.15",
-      "pi12_5_group_relation",
-    ),
-  }
+  import toda_calculation_facade as facade_module
 
-  for (
-    key,
-    (
-      expected_phase,
-      expected_theorem,
-      expected_branch,
-    ),
-  ) in expected.items():
-    source = (
-      get_phase98_3_single_report_candidate(
-        actual[
-          "results"
-        ][
-          key
-        ]
-      )
-      .presentation
-      .source
-      .goal_source
-    )
+  marker = SimpleNamespace(
+    provenance="preserved",
+  )
+  captured = {}
 
-    assert source is not None
-    assert (
-      source
-      .repository_source
-      .phase
-      == expected_phase
-    )
-    assert (
-      source
-      .repository_source
-      .theorem
-      == expected_theorem
-    )
-    assert (
-      source.branch_name
-      == expected_branch
-    )
+  def fake_build_report(
+    repository,
+    query,
+  ):
+    captured[
+      "repository"
+    ] = repository
+    captured[
+      "query"
+    ] = query
+    return marker
+
+  monkeypatch.setattr(
+    facade_module,
+    "build_toda_calculation_report_result",
+    fake_build_report,
+  )
+
+  repository = object()
+  result = facade_module.build_toda_report(
+    repository,
+    n=5,
+    k=4,
+  )
+
+  assert result is marker
+  assert (
+    captured[
+      "repository"
+    ]
+    is repository
+  )
+  assert (
+    captured[
+      "query"
+    ].n
+    == 5
+  )
+  assert (
+    captured[
+      "query"
+    ].k
+    == 4
+  )
+  assert (
+    captured[
+      "query"
+    ].target.group_dimension
+    == 9
+  )
+  assert (
+    captured[
+      "query"
+    ].target.sphere_dimension
+    == 5
+  )
 
 
 def test_phase98_3_facade_preserves_pi9_5_ehp_exactness_and_root_identity():

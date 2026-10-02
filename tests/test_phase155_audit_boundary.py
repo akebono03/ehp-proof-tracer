@@ -21,7 +21,7 @@ def _phase155_audit_nodeids():
   )
 
 
-def test_phase155_audit_boundary_has_2_exact_nodeids():
+def test_phase155_audit_boundary_has_3_exact_nodeids():
   nodeids = _phase155_audit_nodeids()
 
   assert set(
@@ -35,18 +35,27 @@ def test_phase155_audit_boundary_has_2_exact_nodeids():
       "tests/test_phase144_6_r5_43_11d_final_completion_audit.py::"
       "test_phase144_6_r5_43_11d_renderer_remains_generic"
     ),
+    (
+      "tests/test_phase153_r3_11_reference_body_ownership_repair.py::"
+      "test_phase153_r3_11_all_112_groups_have_no_exact_selected_statement_body_duplicates"
+    ),
   }
   assert len(
     nodeids
-  ) == 2
+  ) == 3
 
 
-def test_phase155_audit_boundary_contains_only_phase144_tests():
+def test_phase155_audit_boundary_contains_only_reviewed_phase144_or_phase153_tests():
   nodeids = _phase155_audit_nodeids()
 
   assert all(
-    nodeid.startswith(
-      "tests/test_phase144_"
+    (
+      nodeid.startswith(
+        "tests/test_phase144_"
+      )
+      or nodeid.startswith(
+        "tests/test_phase153_"
+      )
     )
     for nodeid in nodeids
   )

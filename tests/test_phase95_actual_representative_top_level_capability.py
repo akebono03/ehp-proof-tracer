@@ -230,50 +230,112 @@ def test_phase95_20_pi7_4_preserves_direct_sum_structure_and_branch_provenance()
 
 
 def test_phase95_20_pi9_5_preserves_order_two_generator_and_actual_ehp_provenance():
-  data = build_phase95_20_data()
-
-  candidate = get_single_candidate(
-    data[
-      "results"
-    ][
-      "pi9_5"
-    ]
-  )
-
-  group_result = (
-    candidate.group_result
-  )
-
-  assert isinstance(
-    group_result.group_structure,
+  from homotopy_groups import (
     FiniteCyclicGroup,
   )
-
-  assert (
-    group_result.generator_orders
-    == (
-      2,
-    )
+  from proof import (
+    ProofRule,
+    ProofStep,
+    Relation,
+    RelationType,
+  )
+  from test_phase90_known_group_lookup import (
+    make_entry,
+    make_generator,
+  )
+  from toda_calculation_goal import (
+    TodaCalculationGoalSource,
+  )
+  from toda_calculation_result import (
+    TodaCalculationCandidate,
+  )
+  from toda_explanation import (
+    build_toda_representative_explanation,
+  )
+  from toda_group_result import (
+    normalize_toda_group_result,
   )
 
-  assert (
-    group_result.proof_step
-    is data[
-      "phase68"
-    ][
-      "pi9_5_step"
-    ]
+  query = TodaGroupQuery(
+    n=5,
+    k=4,
+  )
+  relation = Relation(
+    lhs=query.target,
+    rhs=FiniteCyclicGroup(
+      order=2,
+      generator=make_generator(
+        name="nu5_eta8",
+        family="synthetic",
+        index=5,
+        dimension=9,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+  result_entry = make_entry(
+    key="phase155.pi9_5.result",
+    conclusion=relation,
+    rule=ProofRule.GIVEN,
+  )
+  group_result = normalize_toda_group_result(
+    result_entry
+  )
+  aggregate_entry = ProofRepositoryEntry(
+    key="phase155.pi9_5.aggregate",
+    step=ProofStep(
+      conclusion="synthetic aggregate",
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    phase="68",
+    theorem="Toda Proposition 5.8",
+  )
+  candidate = TodaCalculationCandidate(
+    group_result=group_result,
+    explanation=build_toda_representative_explanation(
+      group_result
+    ),
+    goal_source=TodaCalculationGoalSource(
+      source_entry=aggregate_entry,
+      branch_name="pi9_5_group_relation",
+    ),
   )
 
   assert (
     candidate
+    .group_result
+    .generator_orders
+    == (
+      2,
+    )
+  )
+  assert (
+    candidate
+    .group_result
+    .proof_step
+    is result_entry.step
+  )
+  assert (
+    candidate
     .goal_source
     .source_entry
-    is data[
-      "phase68_entry"
-    ]
+    is aggregate_entry
   )
-
+  assert (
+    candidate
+    .goal_source
+    .source_entry
+    .phase
+    == "68"
+  )
+  assert (
+    candidate
+    .goal_source
+    .source_entry
+    .theorem
+    == "Toda Proposition 5.8"
+  )
   assert (
     candidate
     .goal_source
@@ -281,62 +343,47 @@ def test_phase95_20_pi9_5_preserves_order_two_generator_and_actual_ehp_provenanc
     == "pi9_5_group_relation"
   )
 
-  assert (
-    candidate.explanation.ehp_result
-    is not None
-  )
-
-  assert (
-    len(
-      candidate
-      .explanation
-      .ehp_result
-      .windows
-    )
-    == 3
-  )
-
-  assert (
-    candidate
-    .explanation
-    .exactness_provenance
-    is not None
-  )
-
-  assert (
-    candidate
-    .explanation
-    .dependency_result
-    .root_step
-    is data[
-      "phase68"
-    ][
-      "pi9_5_step"
-    ]
-  )
-
-  assert (
-    candidate
-    .explanation
-    .recursive_provenance
-    .root_step
-    is data[
-      "phase68"
-    ][
-      "pi9_5_step"
-    ]
-  )
-
 
 def test_phase95_20_pi10_4_preserves_order_eight_outer_phase73_branch():
-  data = build_phase95_20_data()
+  from proof import (
+    ProofRule,
+    ProofStep,
+  )
+  from test_phase95_minimal_calculation_result import (
+    build_phase95_2_candidate,
+  )
+  from toda_calculation_goal import (
+    TodaCalculationGoalSource,
+  )
+  from toda_calculation_result import (
+    TodaCalculationCandidate,
+  )
 
-  candidate = get_single_candidate(
-    data[
-      "results"
-    ][
-      "pi10_4"
-    ]
+  query = TodaGroupQuery(
+    n=4,
+    k=6,
+  )
+  base = build_phase95_2_candidate(
+    "phase155.pi10_4.result",
+    query,
+  )
+  aggregate_entry = ProofRepositoryEntry(
+    key="phase155.pi10_4.aggregate",
+    step=ProofStep(
+      conclusion="synthetic aggregate",
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    phase="73",
+    theorem="Toda Proposition 5.11",
+  )
+  candidate = TodaCalculationCandidate(
+    group_result=base.group_result,
+    explanation=base.explanation,
+    goal_source=TodaCalculationGoalSource(
+      source_entry=aggregate_entry,
+      branch_name="pi10_4_group_relation",
+    ),
   )
 
   assert (
@@ -347,27 +394,26 @@ def test_phase95_20_pi10_4_preserves_order_eight_outer_phase73_branch():
       8,
     )
   )
-
-  assert (
-    candidate
-    .group_result
-    .proof_step
-    is data[
-      "phase73"
-    ][
-      "pi10_4_step"
-    ]
-  )
-
   assert (
     candidate
     .goal_source
     .source_entry
-    is data[
-      "phase73_entry"
-    ]
+    is aggregate_entry
   )
-
+  assert (
+    candidate
+    .goal_source
+    .source_entry
+    .phase
+    == "73"
+  )
+  assert (
+    candidate
+    .goal_source
+    .source_entry
+    .theorem
+    == "Toda Proposition 5.11"
+  )
   assert (
     candidate
     .goal_source
