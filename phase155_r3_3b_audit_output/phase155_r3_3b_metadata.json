@@ -1,0 +1,15 @@
+{
+  "phase": "155-R3-3B",
+  "git_head": "41d7811065a52eff216c333031cc1c02c3a35457",
+  "deletion_candidate_functions": 161,
+  "candidate_files": 71,
+  "safe_function_deletions": 161,
+  "blocked_or_unresolved_functions": 0,
+  "safe_whole_file_deletions": 5,
+  "function_only_files": 66,
+  "unresolved_files": 0,
+  "production_code_modified": false,
+  "existing_tests_modified": false,
+  "tests_deleted": 0,
+  "repository_wide_pytest_executed": false
+}
