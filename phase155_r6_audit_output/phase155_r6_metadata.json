@@ -1,0 +1,157 @@
+{
+  "source_test_ids_by_lane": {
+    "canonical_routine": 9069,
+    "historical_compatibility": 65,
+    "audit_only": 293,
+    "performance_heavy_integration": 31,
+    "residual_retained": 664
+  },
+  "collection": {
+    "files": 837,
+    "batches": 21,
+    "batches_executed_this_run": 0,
+    "batches_reused_from_checkpoint": 21,
+    "failed_batches": [],
+    "elapsed_seconds_sum": 379.9343208989594,
+    "total_collected_cases": 10421,
+    "lane_collected_cases": {
+      "canonical_routine": 8972,
+      "historical_compatibility": 65,
+      "audit_only": 288,
+      "performance_heavy_integration": 29,
+      "residual_retained": 664
+    }
+  },
+  "runtime": {
+    "selected_probes": 12,
+    "probes_executed_this_run": 2,
+    "probes_reused_from_checkpoint": 10,
+    "timeout_seconds": 60.0,
+    "by_lane": {
+      "canonical_routine": {
+        "probes": 3,
+        "pass": 3,
+        "fail": 0,
+        "timeout": 0,
+        "pass_elapsed_seconds_sum": 4.95285960030742,
+        "pass_elapsed_seconds_max": 1.85430150013417
+      },
+      "historical_compatibility": {
+        "probes": 2,
+        "pass": 2,
+        "fail": 0,
+        "timeout": 0,
+        "pass_elapsed_seconds_sum": 4.20446510007605,
+        "pass_elapsed_seconds_max": 2.645129500189796
+      },
+      "audit_only": {
+        "probes": 2,
+        "pass": 2,
+        "fail": 0,
+        "timeout": 0,
+        "pass_elapsed_seconds_sum": 7.539620599942282,
+        "pass_elapsed_seconds_max": 4.399073299951851
+      },
+      "performance_heavy_integration": {
+        "probes": 3,
+        "pass": 3,
+        "fail": 0,
+        "timeout": 0,
+        "pass_elapsed_seconds_sum": 37.82618219987489,
+        "pass_elapsed_seconds_max": 26.551327700028196
+      },
+      "residual_retained": {
+        "probes": 2,
+        "pass": 2,
+        "fail": 0,
+        "timeout": 0,
+        "pass_elapsed_seconds_sum": 2.6048731999471784,
+        "pass_elapsed_seconds_max": 1.3736409000121057
+      }
+    },
+    "slowest_probes": [
+      {
+        "lane": "performance_heavy_integration",
+        "nodeid": "tests/test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py::test_phase144_6_r5_43_11_all_selected_contributions_are_insertable_and_rendered",
+        "status": "PASS",
+        "elapsed_seconds": 26.551327700028196
+      },
+      {
+        "lane": "performance_heavy_integration",
+        "nodeid": "tests/test_phase150_rc4_7a_cross_group_reference_normalization.py::test_phase150_rc4_7a_pi16_9_numbers_normalized_references",
+        "status": "PASS",
+        "elapsed_seconds": 7.513759599998593
+      },
+      {
+        "lane": "audit_only",
+        "nodeid": "tests/test_phase108_12_end_to_end_cli_smoke_closure_audit.py::test_phase108_12_execute_nu_prime_candidate_1_returns_result_and_proof_end_to_end",
+        "status": "PASS",
+        "elapsed_seconds": 4.399073299951851
+      },
+      {
+        "lane": "performance_heavy_integration",
+        "nodeid": "tests/test_phase144_6_r5_17c_cross_group_generic_proof_chain.py::test_phase144_6_r5_17c_applies_unchanged_extractor_to_all_five_groups",
+        "status": "PASS",
+        "elapsed_seconds": 3.7610948998481035
+      },
+      {
+        "lane": "audit_only",
+        "nodeid": "tests/test_phase96_final_proof_report_audit.py::test_phase96_12_unknown_statement_fallback_is_explicit_and_safe",
+        "status": "PASS",
+        "elapsed_seconds": 3.1405472999904305
+      },
+      {
+        "lane": "historical_compatibility",
+        "nodeid": "tests/test_phase72_probe.py::test_phase72_probe_output_marks_hand_authored_presentation",
+        "status": "PASS",
+        "elapsed_seconds": 2.645129500189796
+      },
+      {
+        "lane": "canonical_routine",
+        "nodeid": "tests/test_toda_rules.py::test_toda_statements_are_outside_generic_equality_scope",
+        "status": "PASS",
+        "elapsed_seconds": 1.85430150013417
+      },
+      {
+        "lane": "canonical_routine",
+        "nodeid": "tests/test_algebra.py::test_abelian_group_structure_z",
+        "status": "PASS",
+        "elapsed_seconds": 1.7106326001230627
+      },
+      {
+        "lane": "historical_compatibility",
+        "nodeid": "tests/test_phase100_12c2_minimal_cli_integration.py::test_phase100_12c2_cli_not_found_is_explicit_and_nonzero",
+        "status": "PASS",
+        "elapsed_seconds": 1.5593355998862535
+      },
+      {
+        "lane": "canonical_routine",
+        "nodeid": "tests/test_phase57_lemma45_two_iota3.py::test_phase57_2_lemma45_rule_matches_alpha_in_pi_i_s3",
+        "status": "PASS",
+        "elapsed_seconds": 1.387925500050187
+      },
+      {
+        "lane": "residual_retained",
+        "nodeid": "tests/test_phase100_12b_standard_repository_integration.py::test_phase100_12b_standard_integration_module_has_no_test_or_probe_imports",
+        "status": "PASS",
+        "elapsed_seconds": 1.3736409000121057
+      },
+      {
+        "lane": "residual_retained",
+        "nodeid": "tests/test_phase87_probe.py::test_phase87_probe_preserves_selected_path_provenance",
+        "status": "PASS",
+        "elapsed_seconds": 1.2312322999350727
+      }
+    ]
+  },
+  "completion": {
+    "collection_batches_have_no_failures": true,
+    "runtime_probes_have_no_failures": true,
+    "canonical_regression_not_run": true,
+    "repository_wide_pytest_not_run": true,
+    "checkpoint_resume_enabled": true
+  },
+  "validated": true,
+  "canonical_regression_executed": false,
+  "repository_wide_pytest_executed": false
+}

@@ -1,0 +1,9 @@
+{
+  "lane": "historical_compatibility",
+  "nodeid": "tests/test_phase72_probe.py::test_phase72_probe_output_marks_hand_authored_presentation",
+  "status": "PASS",
+  "elapsed_seconds": 2.645129500189796,
+  "returncode": 0,
+  "stdout": ".                                                                        [100%]\n============================ slowest 10 durations =============================\n1.02s call     tests/test_phase72_probe.py::test_phase72_probe_output_marks_hand_authored_presentation\n0.00s setup    tests/test_phase72_probe.py::test_phase72_probe_output_marks_hand_authored_presentation\n0.00s teardown tests/test_phase72_probe.py::test_phase72_probe_output_marks_hand_authored_presentation\n1 passed in 1.96s\n",
+  "stderr": ""
+}

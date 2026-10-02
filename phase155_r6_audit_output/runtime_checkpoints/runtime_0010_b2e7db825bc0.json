@@ -1,0 +1,9 @@
+{
+  "lane": "performance_heavy_integration",
+  "nodeid": "tests/test_phase150_rc4_7a_cross_group_reference_normalization.py::test_phase150_rc4_7a_pi16_9_numbers_normalized_references",
+  "status": "PASS",
+  "elapsed_seconds": 7.513759599998593,
+  "returncode": 0,
+  "stdout": ".                                                                        [100%]\n============================ slowest 10 durations =============================\n5.94s call     tests/test_phase150_rc4_7a_cross_group_reference_normalization.py::test_phase150_rc4_7a_pi16_9_numbers_normalized_references\n0.00s setup    tests/test_phase150_rc4_7a_cross_group_reference_normalization.py::test_phase150_rc4_7a_pi16_9_numbers_normalized_references\n0.00s teardown tests/test_phase150_rc4_7a_cross_group_reference_normalization.py::test_phase150_rc4_7a_pi16_9_numbers_normalized_references\n1 passed in 6.88s\n",
+  "stderr": ""
+}

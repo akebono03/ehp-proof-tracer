@@ -1,0 +1,9 @@
+{
+  "lane": "canonical_routine",
+  "nodeid": "tests/test_algebra.py::test_abelian_group_structure_z",
+  "status": "PASS",
+  "elapsed_seconds": 1.7106326001230627,
+  "returncode": 0,
+  "stdout": ".                                                                        [100%]\n============================ slowest 10 durations =============================\n0.00s setup    tests/test_algebra.py::test_abelian_group_structure_z\n0.00s call     tests/test_algebra.py::test_abelian_group_structure_z\n0.00s teardown tests/test_algebra.py::test_abelian_group_structure_z\n1 passed in 1.12s\n",
+  "stderr": ""
+}

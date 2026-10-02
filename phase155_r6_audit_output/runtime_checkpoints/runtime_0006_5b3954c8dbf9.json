@@ -1,0 +1,9 @@
+{
+  "lane": "audit_only",
+  "nodeid": "tests/test_phase108_12_end_to_end_cli_smoke_closure_audit.py::test_phase108_12_execute_nu_prime_candidate_1_returns_result_and_proof_end_to_end",
+  "status": "PASS",
+  "elapsed_seconds": 4.399073299951851,
+  "returncode": 0,
+  "stdout": ".                                                                        [100%]\n============================ slowest 10 durations =============================\n3.21s call     tests/test_phase108_12_end_to_end_cli_smoke_closure_audit.py::test_phase108_12_execute_nu_prime_candidate_1_returns_result_and_proof_end_to_end\n0.00s setup    tests/test_phase108_12_end_to_end_cli_smoke_closure_audit.py::test_phase108_12_execute_nu_prime_candidate_1_returns_result_and_proof_end_to_end\n0.00s teardown tests/test_phase108_12_end_to_end_cli_smoke_closure_audit.py::test_phase108_12_execute_nu_prime_candidate_1_returns_result_and_proof_end_to_end\n1 passed in 3.88s\n",
+  "stderr": ""
+}

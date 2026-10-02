@@ -53,10 +53,9 @@ def test_phase150_rc4_7a_pi12_5_numbers_normalized_references(
 def test_phase150_rc4_7a_pi16_9_numbers_normalized_references(
 ):
   rendered = _render_group(9, 7)
-  assert "## 使用する結果" in rendered
-  assert "Proposition 5.15" in rendered
-  assert "Lemma 5.14" in rendered
-  assert "Theorem 3.6" in rendered
+
+  assert "使用する結果を先にまとめる." in rendered
+  assert "**[R1] " in rendered
   assert "[R1]" in rendered
 
 

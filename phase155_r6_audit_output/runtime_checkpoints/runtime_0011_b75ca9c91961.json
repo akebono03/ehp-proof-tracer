@@ -1,0 +1,9 @@
+{
+  "lane": "residual_retained",
+  "nodeid": "tests/test_phase100_12b_standard_repository_integration.py::test_phase100_12b_standard_integration_module_has_no_test_or_probe_imports",
+  "status": "PASS",
+  "elapsed_seconds": 1.3736409000121057,
+  "returncode": 0,
+  "stdout": ".                                                                        [100%]\n============================ slowest 10 durations =============================\n0.00s call     tests/test_phase100_12b_standard_repository_integration.py::test_phase100_12b_standard_integration_module_has_no_test_or_probe_imports\n0.00s setup    tests/test_phase100_12b_standard_repository_integration.py::test_phase100_12b_standard_integration_module_has_no_test_or_probe_imports\n0.00s teardown tests/test_phase100_12b_standard_repository_integration.py::test_phase100_12b_standard_integration_module_has_no_test_or_probe_imports\n1 passed in 0.81s\n",
+  "stderr": ""
+}

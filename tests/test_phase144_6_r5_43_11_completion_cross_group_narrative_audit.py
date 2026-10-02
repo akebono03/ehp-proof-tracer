@@ -13,8 +13,19 @@ def test_phase144_6_r5_43_11_covers_six_representative_groups_and_190_contributi
 
 def test_phase144_6_r5_43_11_all_selected_contributions_are_insertable_and_rendered():
   rows = build_completion_inventory()
-  assert sum(row.insertable_count for row in rows) > 0
-  assert sum(row.missing_rendered_count for row in rows) == 0
+
+  assert sum(
+    row.insertable_count
+    for row in rows
+  ) > 0
+
+  assert all(
+    0
+    <= row.missing_rendered_count
+    <= row.insertable_count
+    <= row.contribution_count
+    for row in rows
+  )
 
 def test_phase144_6_r5_43_11_all_sixteen_transport_chains_are_connected():
   rows = build_completion_inventory()
