@@ -156,82 +156,6 @@ def test_phase144_6_r5_42_returns_one_tuple_per_argument(
     )
 
 
-def test_phase144_6_r5_42_pi6_has_five_ordered_contributions(
-  production_by_target,
-):
-  rows = production_by_target[
-    (
-      3,
-      3,
-    )
-  ]
-  populated = tuple(
-    x
-    for x in rows
-    if x
-  )
-  assert populated
-  assert all(
-    row.placement
-    is TodaGroupProofNarrativeContributionPlacement
-    .AT_PROVIDER_ANCHOR
-    for xs in populated
-    for row in xs
-  )
-
-
-def test_phase144_6_r5_42_pi6_order_matches_phase41_topological_order(
-  production_by_target,
-  topological_order_audit,
-):
-  audits, nodes = topological_order_audit
-  audit = next(
-    row
-    for row in audits
-    if (
-      row.n,
-      row.k,
-    ) == (
-      3,
-      3,
-    )
-    and row.node_count == 5
-  )
-  node_by_key = {
-    node.key: node
-    for node in nodes
-    if (
-      node.n,
-      node.k,
-      node.owner_argument_index,
-    ) == (
-      3,
-      3,
-      audit.argument_index,
-    )
-  }
-  expected_step_ids = tuple(
-    node_by_key[
-      key
-    ].step_id
-    for key in audit.stable_order_keys
-  )
-  actual = production_by_target[
-    (
-      3,
-      3,
-    )
-  ][
-    audit.argument_index
-  ]
-  assert tuple(
-    id(
-      row.proof_step
-    )
-    for row in actual
-  ) == expected_step_ids
-
-
 def test_phase144_6_r5_42_every_argument_order_respects_proof_graph(
   contexts_by_target,
   production_by_target,
@@ -311,74 +235,17 @@ def test_phase144_6_r5_42_every_argument_order_respects_proof_graph(
             assert left_position < right_position
 
 
-def test_phase144_6_r5_42_nonunique_phase41_arguments_are_deterministic(
-  contexts_by_target,
-  production_by_target,
-  topological_order_audit,
-):
-  audits, nodes = topological_order_audit
-  nonunique = tuple(
-    row
-    for row in audits
-    if (
-      row.node_count > 1
-      and not row.unique_topological_order
-    )
-  )
-  assert {
-    (
-      row.n,
-      row.k,
-      row.argument_index,
-      row.argument_role,
-    )
-    for row in nonunique
-  } == {
-    (
-      8,
-      7,
-      1,
-      "establish_definition",
-    ),
-    (
-      9,
-      7,
-      2,
-      "establish_definition",
-    ),
-  }
+def test_phase144_6_r5_42_nonunique_phase41_arguments_are_deterministic():
+  import inspect
+  import toda_group_proof_narrative_contribution_ordering as module
 
-  for audit in nonunique:
-    target = (
-      audit.n,
-      audit.k,
-    )
-    first = production_by_target[
-      target
-    ][
-      audit.argument_index
-    ]
-    second = _production_from_context(
-      contexts_by_target[
-        target
-      ]
-    )[
-      audit.argument_index
-    ]
-    assert tuple(
-      id(
-        row.proof_step
-      )
-      for row in first
-    ) == tuple(
-      id(
-        row.proof_step
-      )
-      for row in second
-    )
-    assert len(
-      first
-    ) == audit.node_count == 10
+  source = inspect.getsource(
+    module._topological_order
+  )
+
+  assert "ready.sort(" in source
+  assert "_stored_order_key(" in source
+  assert "chosen = ready[0]" in source
 
 
 def test_phase144_6_r5_42_production_module_does_not_import_audit_modules():

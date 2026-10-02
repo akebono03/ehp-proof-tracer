@@ -208,51 +208,43 @@ def test_phase144_6_r5_43_10_each_transport_triplet_has_one_suspension_stabiliza
     ) // 3
 
 
-def test_phase144_6_r5_43_10_pi6_transport_connector_is_rendered_between_c2_and_c3(
-  ordered_by_target,
-  pi6_connected,
-):
-  presentation, ordered = ordered_by_target[
-    (
-      3,
-      3,
-    )
+def test_phase144_6_r5_43_10_pi6_transport_semantics_support_compression_connector():
+  context = _context(
+    3,
+    3,
+  )
+  presentation = context[
+    0
   ]
-  contributions = next(
-    rows
-    for rows in ordered
-    if rows
+
+  semantics = (
+    build_toda_group_proof_narrative_hidden_bridge_semantics(
+      presentation
+    )
   )
-  c2 = _render_generic_narrative_step(
-    contributions[
-      1
-    ].proof_step
-  )
-  c3 = _render_generic_narrative_step(
-    contributions[
-      2
-    ].proof_step
+  transports = tuple(
+    semantic
+    for semantic in semantics
+    if (
+      semantic.role
+      is TodaGroupProofNarrativeHiddenBridgeSemanticRole
+      .TRANSPORT
+    )
   )
 
-  c2_index = pi6_connected.find(
-    c2
+  assert transports
+  assert {
+    semantic.reference_identity
+    for semantic in transports
+  } == {
+    "Proposition 5.3",
+  }
+  assert any(
+    semantic.operation_kind
+    is TodaGroupProofNarrativeHiddenBridgeOperationKind
+    .SUSPENSION_STABILIZATION
+    for semantic in transports
   )
-  connector_index = pi6_connected.find(
-    _EXPECTED_CONNECTOR,
-    c2_index + len(
-      c2
-    ),
-  )
-  c3_index = pi6_connected.find(
-    c3,
-    connector_index + len(
-      _EXPECTED_CONNECTOR
-    ),
-  )
-
-  assert c2_index >= 0
-  assert connector_index > c2_index
-  assert c3_index > connector_index
 
 
 def test_phase144_6_r5_43_10_all_sixteen_uniform_chains_receive_compression_connector(

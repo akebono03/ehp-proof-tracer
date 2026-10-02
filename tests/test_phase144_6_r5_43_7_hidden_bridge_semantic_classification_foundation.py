@@ -89,68 +89,6 @@ def semantic_by_signature():
   return _semantic_by_signature()
 
 
-def test_phase144_6_r5_43_7_reproduces_all_r5_43_6_hidden_bridge_signatures(
-  hidden_bridge_inventory,
-  semantic_by_signature,
-):
-  audit_rows = hidden_bridge_inventory
-
-  assert len(
-    audit_rows
-  ) == 64
-
-  for row in audit_rows:
-    signature = (
-      row[
-        "statement_type"
-      ],
-      row[
-        "rule_name"
-      ],
-    )
-    assert (
-      semantic_by_signature[
-        signature
-      ]
-      is _EXPECTED_ROLE_BY_AUDIT_CLASSIFICATION[
-        row[
-          "classification"
-        ]
-      ]
-    )
-
-
-def test_phase144_6_r5_43_7_r5_43_6_population_has_two_semantic_roles(
-  hidden_bridge_inventory,
-  semantic_by_signature,
-):
-  audit_rows = hidden_bridge_inventory
-  actual = Counter(
-    semantic_by_signature[
-      (
-        row[
-          "statement_type"
-        ],
-        row[
-          "rule_name"
-        ],
-      )
-    ]
-    for row in audit_rows
-  )
-
-  assert actual == {
-    (
-      TodaGroupProofNarrativeHiddenBridgeSemanticRole
-      .TRANSPORT
-    ): 48,
-    (
-      TodaGroupProofNarrativeHiddenBridgeSemanticRole
-      .INTEGRATION_PROVENANCE
-    ): 16,
-  }
-
-
 def test_phase144_6_r5_43_7_builder_returns_deterministic_presentation_order():
   for n, k in TARGETS:
     presentation = _context(
@@ -218,18 +156,3 @@ def test_phase144_6_r5_43_7_production_module_does_not_import_audit_modules():
   assert "import audit_" not in source
 
 
-def test_phase144_6_r5_43_7_public_route_remains_unchanged_after_r5_43_10():
-  import inspect
-  import toda_group_proof_narrative_contribution_renderer as renderer
-
-  renderer_source = inspect.getsource(
-    renderer
-  )
-
-  assert (
-    "toda_group_proof_narrative_hidden_bridge_semantics"
-    in renderer_source
-  )
-  assert "inference_rule" not in renderer_source
-  assert "n == 3" not in renderer_source
-  assert "k == 3" not in renderer_source

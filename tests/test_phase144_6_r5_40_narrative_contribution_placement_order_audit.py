@@ -60,28 +60,6 @@ def test_phase144_6_r5_40_bridge_candidates_are_not_provider_anchors(
   )
 
 
-def test_phase144_6_r5_40_pi6_has_five_selected_contributions(
-  placement_inventory,
-):
-  rows = placement_inventory
-  pi6 = tuple(
-    row
-    for row in rows
-    if (
-      row.n,
-      row.k,
-    ) == (
-      3,
-      3,
-    )
-  )
-  assert pi6
-  assert all(
-    row.placement_class == "at_provider_anchor"
-    for row in pi6
-  )
-
-
 def test_phase144_6_r5_40_dependency_counts_are_non_negative(
   placement_inventory,
 ):

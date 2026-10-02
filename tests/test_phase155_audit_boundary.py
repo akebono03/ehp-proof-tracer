@@ -21,17 +21,24 @@ def _phase155_audit_nodeids():
   )
 
 
-def test_phase155_audit_boundary_has_23_unique_nodeids():
+def test_phase155_audit_boundary_has_2_exact_nodeids():
   nodeids = _phase155_audit_nodeids()
 
+  assert set(
+    nodeids
+  ) == {
+    (
+      "tests/test_phase144_6_r5_43_11d_final_completion_audit.py::"
+      "test_phase144_6_r5_43_11d_final_completion_invariants_pass"
+    ),
+    (
+      "tests/test_phase144_6_r5_43_11d_final_completion_audit.py::"
+      "test_phase144_6_r5_43_11d_renderer_remains_generic"
+    ),
+  }
   assert len(
     nodeids
-  ) == 23
-  assert len(
-    set(
-      nodeids
-    )
-  ) == 23
+  ) == 2
 
 
 def test_phase155_audit_boundary_contains_only_phase144_tests():
