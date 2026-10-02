@@ -1,0 +1,36 @@
+{
+  "file_path": "tests/test_phase148_rc2_4_repair_r4_1_r1.py",
+  "rows": [
+    {
+      "test_id": "tests/test_phase148_rc2_4_repair_r4_1_r1.py::test_phase148_rc2_4_repair_r4_1_r1_argument_locations_use_current_argument_api",
+      "file_path": "tests/test_phase148_rc2_4_repair_r4_1_r1.py",
+      "function_name": "test_phase148_rc2_4_repair_r4_1_r1_argument_locations_use_current_argument_api",
+      "phase": "148",
+      "category": "review_required",
+      "confidence": "40",
+      "reason": "no decisive canonical/historical/audit/heavy signal",
+      "focused_regression_file": "False",
+      "core_non_phase": "False",
+      "audit_name_signal": "False",
+      "heavy_name_signal": "False",
+      "public_modules_used": "",
+      "proposed_category": "review_required",
+      "proposal_reason": "no new direct public-surface evidence",
+      "current_production_modules_used": "",
+      "tests_helper_names_used": "",
+      "r4_3_category": "review_required",
+      "r4_3_reason": "no current production ownership or tests.* lineage evidence",
+      "module_global_production_modules": "",
+      "r4_4_category": "residual_validation_lane",
+      "r4_4_reason": "no direct/helper/module-global current production ownership; retain outside routine canonical pending R5/R6",
+      "r5_lane": "residual_retained",
+      "r5_reason": "no strong historical/audit/heavy evidence; retain without routine execution",
+      "r5_historical_strong": false,
+      "r5_audit_import": false,
+      "r5_audit_name": false,
+      "r5_heavy_name": false,
+      "r5_broad_iteration": true,
+      "r5_heavy_strong": false
+    }
+  ]
+}
