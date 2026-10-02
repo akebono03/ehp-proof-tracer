@@ -1,0 +1,16 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_ test_phase153_r3_11_all_112_groups_have_no_exact_selected_statement_body_duplicates _
+tests\test_phase153_r3_11_reference_body_ownership_repair.py:228: in test_phase153_r3_11_all_112_groups_have_no_exact_selected_statement_body_duplicates
+    assert duplicates == []
+E   assert [(2, 2, 2, '$...) = 4$"), ...] == []
+E     
+E     Left contains 117 more items, first extra item: (2, 2, 2, '$\\eta_{2}\\circ -: \\pi_{i}^{3} \\to \\pi_{i}^{2}$ ‚Í“¯Œ^ŽÊ‘œ‚Å‚ ‚é.')
+E     Use -v to get more diff
+============================ slowest 10 durations =============================
+15.91s call     tests/test_phase153_r3_11_reference_body_ownership_repair.py::test_phase153_r3_11_all_112_groups_have_no_exact_selected_statement_body_duplicates
+
+(2 durations < 0.005s hidden.  Use -vv to show these durations.)
+=========================== short test summary info ===========================
+FAILED tests/test_phase153_r3_11_reference_body_ownership_repair.py::test_phase153_r3_11_all_112_groups_have_no_exact_selected_statement_body_duplicates
+1 failed in 17.53s

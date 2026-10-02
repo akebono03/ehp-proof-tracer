@@ -171,18 +171,13 @@ def test_phase143_42_pi6_3_group_keeps_derived_short_exact_sequence():
   )
 
   assert (
-    "この完全性と、左の写像が単射、"
-    "右の写像が全射であることより、"
-    "次の短完全列を得る."
-    in rendered
-  )
-  assert (
     r"0\longrightarrow \pi_{5}^{2}"
     r"\xrightarrow{E} \pi_{6}^{3}"
     r"\xrightarrow{H} \pi_{6}^{5}"
     r"\longrightarrow 0"
     in rendered
   )
+
 
 
 def test_phase143_42_pi6_3_primary_short_exact_has_no_orphan_exactness_lead():

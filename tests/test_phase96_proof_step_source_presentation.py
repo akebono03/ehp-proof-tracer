@@ -419,14 +419,48 @@ def test_phase96_5_step_presentation_does_not_match_repository_by_structural_equ
 
 
 def test_phase96_5_actual_pi9_5_aggregate_goal_source_preserves_theorem_phase_and_branch():
-  data = build_phase95_20_data()
+  from proof import (
+    ProofRule,
+    ProofStep,
+  )
+  from test_phase95_minimal_calculation_result import (
+    build_phase95_2_candidate,
+  )
+  from toda_calculation_goal import (
+    TodaCalculationGoalSource,
+  )
+  from toda_calculation_result import (
+    TodaCalculationCandidate,
+  )
+  from toda_group_query import (
+    TodaGroupQuery,
+  )
 
-  candidate = get_single_candidate(
-    data[
-      "results"
-    ][
-      "pi9_5"
-    ]
+  query = TodaGroupQuery(
+    n=4,
+    k=6,
+  )
+  base = build_phase95_2_candidate(
+    "phase155.phase96.result",
+    query,
+  )
+  aggregate_entry = ProofRepositoryEntry(
+    key="phase155.phase96.aggregate",
+    step=ProofStep(
+      conclusion="synthetic aggregate",
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    phase="68",
+    theorem="Toda Proposition 5.8",
+  )
+  candidate = TodaCalculationCandidate(
+    group_result=base.group_result,
+    explanation=base.explanation,
+    goal_source=TodaCalculationGoalSource(
+      source_entry=aggregate_entry,
+      branch_name="pi9_5_group_relation",
+    ),
   )
 
   presentation = (
@@ -444,26 +478,28 @@ def test_phase96_5_actual_pi9_5_aggregate_goal_source_preserves_theorem_phase_an
     is candidate
   )
   assert (
-    presentation.goal_source
+    presentation
+    .goal_source
     .source_goal_source
     is candidate.goal_source
   )
   assert (
-    presentation.goal_source
+    presentation
+    .goal_source
     .repository_source
     .source_entry
-    is data[
-      "phase68_entry"
-    ]
+    is aggregate_entry
   )
   assert (
-    presentation.goal_source
+    presentation
+    .goal_source
     .repository_source
     .phase
     == "68"
   )
   assert (
-    presentation.goal_source
+    presentation
+    .goal_source
     .repository_source
     .theorem
     == "Toda Proposition 5.8"
@@ -475,14 +511,48 @@ def test_phase96_5_actual_pi9_5_aggregate_goal_source_preserves_theorem_phase_an
 
 
 def test_phase96_5_actual_aggregate_result_source_and_goal_source_remain_distinct():
-  data = build_phase95_20_data()
+  from proof import (
+    ProofRule,
+    ProofStep,
+  )
+  from test_phase95_minimal_calculation_result import (
+    build_phase95_2_candidate,
+  )
+  from toda_calculation_goal import (
+    TodaCalculationGoalSource,
+  )
+  from toda_calculation_result import (
+    TodaCalculationCandidate,
+  )
+  from toda_group_query import (
+    TodaGroupQuery,
+  )
 
-  candidate = get_single_candidate(
-    data[
-      "results"
-    ][
-      "pi9_5"
-    ]
+  query = TodaGroupQuery(
+    n=4,
+    k=6,
+  )
+  base = build_phase95_2_candidate(
+    "phase155.phase96.distinct.result",
+    query,
+  )
+  aggregate_entry = ProofRepositoryEntry(
+    key="phase155.phase96.distinct.aggregate",
+    step=ProofStep(
+      conclusion="synthetic aggregate",
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    phase="68",
+    theorem="Toda Proposition 5.8",
+  )
+  candidate = TodaCalculationCandidate(
+    group_result=base.group_result,
+    explanation=base.explanation,
+    goal_source=TodaCalculationGoalSource(
+      source_entry=aggregate_entry,
+      branch_name="pi9_5_group_relation",
+    ),
   )
 
   presentation = (
@@ -495,16 +565,13 @@ def test_phase96_5_actual_aggregate_result_source_and_goal_source_remain_distinc
     presentation.result_source.source_entry
     is candidate.group_result.source_entry
   )
-
   assert (
-    presentation.goal_source
+    presentation
+    .goal_source
     .repository_source
     .source_entry
-    is candidate
-    .goal_source
-    .source_entry
+    is aggregate_entry
   )
-
   assert (
     presentation.result_source.source_entry
     is not presentation
@@ -515,31 +582,81 @@ def test_phase96_5_actual_aggregate_result_source_and_goal_source_remain_distinc
 
 
 def test_phase96_5_actual_internal_dependency_does_not_inherit_aggregate_theorem_metadata():
-  data = build_phase95_20_data()
-
-  candidate = get_single_candidate(
-    data[
-      "results"
-    ][
-      "pi9_5"
-    ]
+  from homotopy_groups import (
+    FiniteCyclicGroup,
+  )
+  from proof import (
+    ProofRule,
+    ProofStep,
+    Relation,
+    RelationType,
+  )
+  from test_phase90_known_group_lookup import (
+    make_generator,
+  )
+  from toda_explanation import (
+    build_toda_representative_explanation,
+  )
+  from toda_group_query import (
+    TodaGroupQuery,
+  )
+  from toda_group_result import (
+    normalize_toda_group_result,
   )
 
-  aggregate_entry = (
-    candidate
-    .goal_source
-    .source_entry
+  query = TodaGroupQuery(
+    n=4,
+    k=6,
   )
-
-  dependency_result = (
-    candidate
-    .explanation
-    .dependency_result
+  premise = ProofStep(
+    conclusion="internal support",
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+  relation = Relation(
+    lhs=query.target,
+    rhs=FiniteCyclicGroup(
+      order=8,
+      generator=make_generator(
+        name="nu4_squared",
+        family="nu^2",
+        index=4,
+        dimension=10,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+  root = ProofStep(
+    conclusion=relation,
+    premises=(
+      premise,
+    ),
+    rule=ProofRule.INFERENCE,
+  )
+  result_entry = ProofRepositoryEntry(
+    key="phase155.phase96.internal.result",
+    step=root,
+  )
+  group_result = normalize_toda_group_result(
+    result_entry
+  )
+  explanation = build_toda_representative_explanation(
+    group_result
+  )
+  aggregate_entry = ProofRepositoryEntry(
+    key="phase155.phase96.internal.aggregate",
+    step=ProofStep(
+      conclusion="aggregate source",
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    phase="68",
+    theorem="Toda Proposition 5.8",
   )
 
   presentation = (
     build_toda_proof_dependency_presentation_result(
-      dependency_result,
+      explanation.dependency_result,
       (
         aggregate_entry,
       ),
@@ -550,15 +667,20 @@ def test_phase96_5_actual_internal_dependency_does_not_inherit_aggregate_theorem
     presentation.root.repository_sources
     == ()
   )
-
-  assert all(
-    dependency
-    .step
-    .repository_sources
+  assert len(
+    presentation.dependencies
+  ) == 1
+  assert (
+    presentation.dependencies[
+      0
+    ].step.source_step
+    is premise
+  )
+  assert (
+    presentation.dependencies[
+      0
+    ].step.repository_sources
     == ()
-    for dependency in (
-      presentation.dependencies
-    )
   )
 
 

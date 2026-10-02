@@ -1,0 +1,15 @@
+{
+  "phase": "155-R2C-r2",
+  "production_code_modified": false,
+  "existing_tests_modified": true,
+  "changed_files": {
+    "tests/test_phase132_6_group_proof_narrative_renderer.py": [
+      "test_phase132_6_sigma9_narrative_uses_fixed_japanese_leads"
+    ],
+    "tests/test_phase153_r12_root_reference_exclusion.py": [
+      "test_phase153_r12_pi11_4_body_uses_renumbered_external_references"
+    ]
+  },
+  "changed_test_functions": 2,
+  "repository_wide_pytest_executed": false
+}

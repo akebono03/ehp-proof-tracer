@@ -1,0 +1,127 @@
+{
+  "changed_files": [
+    "tests/test_phase41_preimage_subgroup.py",
+    "tests/test_set_rules.py"
+  ],
+  "changed_file_count": 2,
+  "duplicate_group_count": 8,
+  "hidden_tests_renamed_and_activated": 6,
+  "cleanup_ready_shadowed_definitions_removed": 2,
+  "unresolved_pair_older_tests_removed": 2,
+  "older_test_ids": [
+    "tests/test_phase41_preimage_subgroup.py::test_phase41_2_preimage_subgroup_uses_map_symbol",
+    "tests/test_phase41_preimage_subgroup.py::test_phase41_2_preimage_subgroup_uses_primary_component_target"
+  ],
+  "newer_test_ids": [
+    "tests/test_phase41_preimage_subgroup.py::test_phase41_4_preimage_subgroup_map_type_remains_map_symbol",
+    "tests/test_phase41_preimage_subgroup.py::test_phase41_4_preimage_subgroup_target_type_remains_primary_component"
+  ],
+  "renamed_test_ids": [
+    "tests/test_set_rules.py::test_image_membership_statement_phase155_hidden_coverage_1",
+    "tests/test_set_rules.py::test_image_membership_statement_uses_existing_image_subgroup_phase155_hidden_coverage_1",
+    "tests/test_set_rules.py::test_kernel_membership_statement_phase155_hidden_coverage_1",
+    "tests/test_set_rules.py::test_kernel_membership_statement_uses_existing_kernel_subgroup_phase155_hidden_coverage_1",
+    "tests/test_set_rules.py::test_mapped_zero_implies_kernel_membership_phase155_hidden_coverage_1",
+    "tests/test_set_rules.py::test_mapped_zero_implies_kernel_membership_uses_explicit_group_map_phase155_hidden_coverage_1"
+  ],
+  "backup_root": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof_phase155_r3_3d_r4_backup_20261002_133432",
+  "entries": [
+    {
+      "file_path": "tests/test_phase41_preimage_subgroup.py",
+      "renamed_hidden_tests": [],
+      "removed_pair_functions": [
+        "test_phase41_2_preimage_subgroup_uses_map_symbol",
+        "test_phase41_2_preimage_subgroup_uses_primary_component_target"
+      ],
+      "duplicate_groups": []
+    },
+    {
+      "file_path": "tests/test_set_rules.py",
+      "renamed_hidden_tests": [
+        {
+          "original_name": "test_image_membership_statement",
+          "new_name": "test_image_membership_statement_phase155_hidden_coverage_1",
+          "line": 1095
+        },
+        {
+          "original_name": "test_image_membership_statement_uses_existing_image_subgroup",
+          "new_name": "test_image_membership_statement_uses_existing_image_subgroup_phase155_hidden_coverage_1",
+          "line": 1128
+        },
+        {
+          "original_name": "test_kernel_membership_statement",
+          "new_name": "test_kernel_membership_statement_phase155_hidden_coverage_1",
+          "line": 974
+        },
+        {
+          "original_name": "test_kernel_membership_statement_uses_existing_kernel_subgroup",
+          "new_name": "test_kernel_membership_statement_uses_existing_kernel_subgroup_phase155_hidden_coverage_1",
+          "line": 1007
+        },
+        {
+          "original_name": "test_mapped_zero_implies_kernel_membership",
+          "new_name": "test_mapped_zero_implies_kernel_membership_phase155_hidden_coverage_1",
+          "line": 1469
+        },
+        {
+          "original_name": "test_mapped_zero_implies_kernel_membership_uses_explicit_group_map",
+          "new_name": "test_mapped_zero_implies_kernel_membership_uses_explicit_group_map_phase155_hidden_coverage_1",
+          "line": 1590
+        }
+      ],
+      "removed_pair_functions": [],
+      "duplicate_groups": [
+        {
+          "file_path": "tests/test_set_rules.py",
+          "function_name": "test_image_membership_statement",
+          "definition_count": 2,
+          "recommendation": "preserve_hidden_coverage_before_cleanup"
+        },
+        {
+          "file_path": "tests/test_set_rules.py",
+          "function_name": "test_image_membership_statement_distinguishes_image",
+          "definition_count": 2,
+          "recommendation": "shadowed_definition_cleanup_ready"
+        },
+        {
+          "file_path": "tests/test_set_rules.py",
+          "function_name": "test_image_membership_statement_uses_existing_image_subgroup",
+          "definition_count": 2,
+          "recommendation": "preserve_hidden_coverage_before_cleanup"
+        },
+        {
+          "file_path": "tests/test_set_rules.py",
+          "function_name": "test_kernel_membership_statement",
+          "definition_count": 2,
+          "recommendation": "preserve_hidden_coverage_before_cleanup"
+        },
+        {
+          "file_path": "tests/test_set_rules.py",
+          "function_name": "test_kernel_membership_statement_distinguishes_kernel",
+          "definition_count": 2,
+          "recommendation": "shadowed_definition_cleanup_ready"
+        },
+        {
+          "file_path": "tests/test_set_rules.py",
+          "function_name": "test_kernel_membership_statement_uses_existing_kernel_subgroup",
+          "definition_count": 2,
+          "recommendation": "preserve_hidden_coverage_before_cleanup"
+        },
+        {
+          "file_path": "tests/test_set_rules.py",
+          "function_name": "test_mapped_zero_implies_kernel_membership",
+          "definition_count": 2,
+          "recommendation": "preserve_hidden_coverage_before_cleanup"
+        },
+        {
+          "file_path": "tests/test_set_rules.py",
+          "function_name": "test_mapped_zero_implies_kernel_membership_uses_explicit_group_map",
+          "definition_count": 2,
+          "recommendation": "preserve_hidden_coverage_before_cleanup"
+        }
+      ]
+    }
+  ],
+  "production_changes": false,
+  "import_changes": false
+}

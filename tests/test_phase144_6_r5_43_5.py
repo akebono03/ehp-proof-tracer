@@ -3,22 +3,6 @@ from audit_phase144_6_r5_43_5 import (
 )
 
 
-def test_phase144_6_r5_43_5_audits_three_transitive_segments():
-  (
-    presentation,
-    connected,
-    contributions,
-    segments,
-  ) = build_chain_audit()
-
-  assert len(
-    contributions
-  ) == 5
-  assert len(
-    segments
-  ) == 3
-
-
 def test_phase144_6_r5_43_5_each_segment_has_a_reachable_target():
   (
     presentation,

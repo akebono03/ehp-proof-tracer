@@ -1,0 +1,6 @@
+.........                                                                [100%]
+============================ slowest 10 durations =============================
+1.02s call     tests/test_phase143_44_single_argument_narrative_renderer.py::test_phase143_44_pi6_3_order_combines_header_method_and_body
+
+(9 durations < 1s hidden.)
+9 passed in 5.60s

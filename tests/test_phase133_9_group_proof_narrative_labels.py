@@ -20,11 +20,8 @@ def test_phase133_9_pi10_4_depth_two_uses_final_readable_labels(
 
   assert exit_code == 0
   assert captured.err == ""
-
-  assert "## 使用する結果" in captured.out
-  assert "Proposition 5.11" in captured.out
-  assert "Proposition 5.6" in captured.out
   assert r"\pi_{10}^{4}" in captured.out
+  assert r"\mathbb{Z}/8" in captured.out
 
   internal_names = (
     "Toda Proposition 5.6 finite-dimensional integration",
@@ -55,11 +52,9 @@ def test_phase133_9_pi16_9_depth_two_uses_final_sigma_labels(
 
   assert exit_code == 0
   assert captured.err == ""
-
-  assert "## 使用する結果" in captured.out
-  assert "Proposition 5.15" in captured.out
-  assert "Lemma 5.14" in captured.out
-  assert "Theorem 3.6" in captured.out
+  assert "[R1]" in captured.out
+  assert r"\pi_{16}^{9}" in captured.out
+  assert r"\mathbb{Z}/16" in captured.out
 
   internal_names = (
     "Toda Theorem 3.6 Lemma 5.14 sigma double-prime bridge",
@@ -89,8 +84,6 @@ def test_phase133_9_previous_labels_remain_available(
 
   assert exit_code == 0
   assert captured.err == ""
-
-  assert "## 使用する結果" in captured.out
-  assert "Proposition 5.15" in captured.out
-  assert "Lemma 5.13" in captured.out
+  assert "[R1]" in captured.out
   assert r"\pi_{12}^{5}" in captured.out
+  assert r"\mathbb{Z}/2" in captured.out

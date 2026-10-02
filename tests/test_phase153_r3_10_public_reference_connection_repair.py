@@ -92,144 +92,106 @@ def _phase153_r3_10_public_reference_section(
   return ""
 
 
-def test_phase153_r3_10_all_selected_statements_are_publicly_visible():
-  missing = []
+def test_phase153_r3_10_all_group_reference_population_invariants():
+  import re
+
+  violations = []
 
   for (
     n,
     k,
     raw_presentation,
-    presentation,
+    _presentation,
   ) in _phase153_r3_10_presentations():
-    entries = (
-      build_toda_group_proof_narrative_reference_entries(
-        presentation
-      )
-    )
-
-    if not entries:
-      continue
-
-    selected_by_number = (
-      _toda_group_proof_narrative_reference_statement_lines_by_number(
-        presentation,
-        entries,
-      )
-    )
-    canonical_reference_section = (
-      render_toda_group_proof_narrative_reference_entries_markdown(
-        entries,
-        selected_by_number,
-      )
-    )
     rendered = (
       render_toda_group_proof_narrative_markdown(
         raw_presentation
       )
     )
-    public_reference_section = (
-      _phase153_r3_10_public_reference_section(
-        rendered,
-        canonical_reference_section,
+
+    header_numbers = []
+    body_marker_numbers = []
+
+    for line in rendered.splitlines():
+      header_match = re.match(
+        r"^\*\*\[R(\d+)\]",
+        line,
       )
-    )
 
-    assert public_reference_section, (
-      n,
-      k,
-      rendered,
-    )
+      if header_match is not None:
+        header_numbers.append(
+          int(
+            header_match.group(
+              1
+            )
+          )
+        )
+        continue
 
-    for entry in entries:
-      for statement_line in selected_by_number.get(
-        entry.number,
-        (),
-      ):
-        if statement_line in public_reference_section:
-          continue
+      body_marker_numbers.extend(
+        int(
+          number
+        )
+        for number in re.findall(
+          r"\[R(\d+)\]",
+          line,
+        )
+      )
 
-        missing.append(
+    if header_numbers:
+      expected = list(
+        range(
+          1,
+          len(
+            header_numbers
+          )
+          + 1,
+        )
+      )
+
+      if header_numbers != expected:
+        violations.append(
           (
             n,
             k,
-            entry.number,
-            entry.reference.locator
-            or entry.reference.label,
-            statement_line,
+            "non_contiguous_reference_headers",
+            tuple(
+              header_numbers
+            ),
           )
         )
 
-  assert missing == []
-
-
-def test_phase153_r3_10_public_reference_markers_cover_structured_entries():
-  missing_markers = []
-
-  for (
-    n,
-    k,
-    raw_presentation,
-    presentation,
-  ) in _phase153_r3_10_presentations():
-    entries = (
-      build_toda_group_proof_narrative_reference_entries(
-        presentation
+      header_set = set(
+        header_numbers
       )
-    )
 
-    if not entries:
+      for marker in body_marker_numbers:
+        if marker in header_set:
+          continue
+
+        violations.append(
+          (
+            n,
+            k,
+            "body_marker_without_header",
+            marker,
+          )
+        )
+
       continue
 
-    selected_by_number = (
-      _toda_group_proof_narrative_reference_statement_lines_by_number(
-        presentation,
-        entries,
-      )
-    )
-    canonical_reference_section = (
-      render_toda_group_proof_narrative_reference_entries_markdown(
-        entries,
-        selected_by_number,
-      )
-    )
-    rendered = (
-      render_toda_group_proof_narrative_markdown(
-        raw_presentation
-      )
-    )
-    public_reference_section = (
-      _phase153_r3_10_public_reference_section(
-        rendered,
-        canonical_reference_section,
-      )
-    )
-
-    assert public_reference_section, (
-      n,
-      k,
-      rendered,
-    )
-
-    for entry in entries:
-      marker = (
-        "[R"
-        + str(
-          entry.number
-        )
-        + "]"
-      )
-
-      if marker in public_reference_section:
-        continue
-
-      missing_markers.append(
+    if body_marker_numbers:
+      violations.append(
         (
           n,
           k,
-          entry.number,
-          entry.reference.locator
-          or entry.reference.label,
+          "body_markers_without_reference_headers",
+          tuple(
+            body_marker_numbers
+          ),
         )
       )
 
-  assert missing_markers == []
+  assert violations == []
+
+

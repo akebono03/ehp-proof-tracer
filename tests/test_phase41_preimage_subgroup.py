@@ -142,24 +142,8 @@ def test_phase41_2_preimage_subgroup_represents_critical_degree_preimage():
   assert preimage.subgroup is subgroup
 
 
-def test_phase41_2_preimage_subgroup_uses_map_symbol():
-  type_hints = get_type_hints(
-    PreimageSubgroup
-  )
-
-  assert type_hints[
-    "map"
-  ] is MapSymbol
 
 
-def test_phase41_2_preimage_subgroup_uses_primary_component_target():
-  type_hints = get_type_hints(
-    PreimageSubgroup
-  )
-
-  assert type_hints[
-    "subgroup"
-  ] is PrimaryComponent
 
 
 def test_phase41_2_preimage_subgroup_structural_equality_uses_map_and_subgroup():
@@ -768,4 +752,21 @@ def test_phase41_6_representative_builder_preserves_phase41_boundary():
   )
 
 
+def test_phase41_2_preimage_subgroup_uses_map_symbol():
+  type_hints = get_type_hints(
+    PreimageSubgroup
+  )
 
+  assert type_hints[
+    "map"
+  ] is MapSymbol
+
+
+def test_phase41_2_preimage_subgroup_uses_primary_component_target():
+  type_hints = get_type_hints(
+    PreimageSubgroup
+  )
+
+  assert type_hints[
+    "subgroup"
+  ] is PrimaryComponent

@@ -1,0 +1,14 @@
+{
+  "batch": "batch_04_phase150",
+  "status": "PASS",
+  "returncode": 0,
+  "elapsed_seconds": 17.963493900024332,
+  "nodeids": [
+    "tests/test_phase150_rc4_5b_3_r1_beta_latex.py::test_phase150_rc4_5b_3_r1_beta_uses_general_greek_latex_table",
+    "tests/test_phase150_rc4_7a_cross_group_reference_normalization.py::test_phase150_rc4_7a_pi10_4_numbers_normalized_references",
+    "tests/test_phase150_rc4_7a_cross_group_reference_normalization.py::test_phase150_rc4_7a_pi12_5_numbers_normalized_references",
+    "tests/test_phase150_rc4_7d_3_public_narrative_generic_route.py::test_phase150_rc4_7d_3_pi10_public_and_web_use_generic_reason_route",
+    "tests/test_phase150_rc4_7d_3_public_narrative_generic_route.py::test_phase150_rc4_7d_3_pi12_public_and_web_use_generic_reason_route"
+  ],
+  "log": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase155_closure_r2a_output\\logs\\batch_04_phase150.log"
+}

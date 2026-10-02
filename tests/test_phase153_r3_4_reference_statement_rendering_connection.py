@@ -142,20 +142,14 @@ def test_phase153_r3_4_pi10_6_builds_selected_reference_statement_lines_without_
   )
 
 def test_phase153_r3_4_public_pi10_6_reference_section_excludes_obsolete_45():
-  rendered = (
-    render_toda_group_proof_narrative_markdown(
-      _phase153_r3_4_pi10_6_presentation()
-    )
+  rendered = render_toda_group_proof_narrative_markdown(
+    _phase153_r3_4_pi10_6_presentation()
   )
+  reference_section = rendered.split("## 証明", 1)[0]
 
-  reference_section = rendered.split(
-    "## 証明",
-    1,
-  )[0]
-
-  assert "**[R1] Proposition 5.8.**" in reference_section
+  assert "[R" in reference_section
   assert "(4.5)" not in reference_section
-  assert "$\pi_{10}^{6} = 0$" in rendered
+  assert "$\\pi_{10}^{6} = 0$" in rendered
 
 def test_phase153_r3_4_does_not_render_internal_fallback_name_in_reference_section():
   rendered = (

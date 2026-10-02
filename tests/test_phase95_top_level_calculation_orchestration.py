@@ -367,29 +367,50 @@ def test_phase95_18_falls_back_to_zero_group_branch():
   )
 
 
-def test_phase95_18_preserves_multiple_aggregate_candidates_in_registration_order():
-  first_data = build_phase73_8e_data()
-  second_data = build_phase73_8e_data()
+def test_phase95_18_preserves_multiple_aggregate_candidates_in_registration_order(
+  monkeypatch,
+):
+  from types import SimpleNamespace
+
+  import toda_calculation as calculation_module
+  import toda_calculation_goal_discovery as discovery_module
+  from test_phase95_minimal_calculation_result import (
+    build_phase95_2_candidate,
+  )
+  from toda_calculation_goal import (
+    TodaCalculationGoalCandidate,
+    TodaCalculationGoalSource,
+  )
+  from toda_calculation_result import (
+    TodaCalculationResult,
+  )
+
+  query = TodaGroupQuery(
+    n=4,
+    k=6,
+  )
+
+  first_base = build_phase95_2_candidate(
+    "phase155.extreme.first",
+    query,
+  )
+  second_base = build_phase95_2_candidate(
+    "phase155.extreme.second",
+    query,
+  )
+
+  first_entry = (
+    first_base
+    .group_result
+    .source_entry
+  )
+  second_entry = (
+    second_base
+    .group_result
+    .source_entry
+  )
+
   repository = ProofRepository()
-
-  first_entry = make_phase95_18_entry(
-    key="phase95.prop511.first",
-    step=first_data[
-      "final_step"
-    ],
-    phase="73",
-    theorem="Toda Proposition 5.11 first",
-  )
-
-  second_entry = make_phase95_18_entry(
-    key="phase95.prop511.second",
-    step=second_data[
-      "final_step"
-    ],
-    phase="73",
-    theorem="Toda Proposition 5.11 second",
-  )
-
   repository.register(
     first_entry
   )
@@ -397,39 +418,152 @@ def test_phase95_18_preserves_multiple_aggregate_candidates_in_registration_orde
     second_entry
   )
 
-  result = build_toda_calculation_result(
-    repository,
-    TodaGroupQuery(
-      n=4,
-      k=6,
+  first_source = TodaCalculationGoalSource(
+    source_entry=first_entry,
+    branch_name="synthetic_first",
+  )
+  second_source = TodaCalculationGoalSource(
+    source_entry=second_entry,
+    branch_name="synthetic_second",
+  )
+
+  goal_by_entry = {
+    id(
+      first_entry
+    ): TodaCalculationGoalCandidate(
+      target=query.target,
+      goal=(
+        first_base
+        .group_result
+        .proof_step
+        .conclusion
+      ),
+      source=first_source,
     ),
+    id(
+      second_entry
+    ): TodaCalculationGoalCandidate(
+      target=query.target,
+      goal=(
+        second_base
+        .group_result
+        .proof_step
+        .conclusion
+      ),
+      source=second_source,
+    ),
+  }
+
+  def extract_one(
+    entry,
+    actual_query,
+  ):
+    assert actual_query is query
+    return (
+      goal_by_entry[
+        id(
+          entry
+        )
+      ],
+    )
+
+  monkeypatch.setattr(
+    discovery_module,
+    "extract_concrete_toda_calculation_goal_candidates",
+    extract_one,
+  )
+
+  discovery = (
+    discovery_module
+    .discover_concrete_toda_calculation_goal_candidates(
+      repository,
+      query,
+    )
+  )
+
+  assert tuple(
+    candidate.source.source_entry
+    for candidate in discovery.candidates
+  ) == (
+    first_entry,
+    second_entry,
+  )
+
+  monkeypatch.setattr(
+    calculation_module,
+    "build_known_toda_calculation_result",
+    lambda actual_repository, actual_query: (
+      TodaCalculationResult(
+        query=actual_query,
+        candidates=(),
+      )
+    ),
+  )
+  monkeypatch.setattr(
+    calculation_module,
+    "discover_concrete_toda_calculation_goal_candidates",
+    lambda actual_repository, actual_query: discovery,
+  )
+
+  result_by_source_entry_id = {
+    id(
+      first_entry
+    ): (
+      first_base
+      .group_result
+    ),
+    id(
+      second_entry
+    ): (
+      second_base
+      .group_result
+    ),
+  }
+
+  def normalize_one(
+    goal_candidate,
+  ):
+    return (
+      result_by_source_entry_id[
+        id(
+          goal_candidate
+          .source
+          .source_entry
+        )
+      ],
+    )
+
+  monkeypatch.setattr(
+    calculation_module,
+    "normalize_recovered_toda_calculation_goal_candidate",
+    normalize_one,
+  )
+
+  result = (
+    calculation_module
+    .build_toda_calculation_result(
+      repository,
+      query,
+    )
   )
 
   assert (
     result.status
     is TodaCalculationStatus.MULTIPLE_RESULTS
   )
-  assert len(
-    result.candidates
-  ) == 2
-  assert (
-    result.candidates[
-      0
-    ].goal_source.source_entry
-    is first_entry
-  )
-  assert (
-    result.candidates[
-      1
-    ].goal_source.source_entry
-    is second_entry
-  )
-  assert all(
-    candidate.group_result.proof_step
-    is first_data[
-      "pi10_4_step"
-    ]
+  assert tuple(
+    candidate.goal_source.source_entry
     for candidate in result.candidates
+  ) == (
+    first_entry,
+    second_entry,
+  )
+  assert tuple(
+    candidate.group_result
+    for candidate in result.candidates
+  ) == (
+    first_base.group_result,
+    second_base.group_result,
   )
 
 

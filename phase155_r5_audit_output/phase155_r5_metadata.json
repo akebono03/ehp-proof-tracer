@@ -1,0 +1,24 @@
+{
+  "source_test_functions": 10122,
+  "files": 837,
+  "files_analyzed_this_run": 837,
+  "files_reused_from_checkpoint": 0,
+  "lane_counts": {
+    "canonical_routine": 9069,
+    "residual_retained": 664,
+    "historical_compatibility": 65,
+    "audit_only": 293,
+    "performance_heavy_integration": 31
+  },
+  "nonroutine_tests": 1053,
+  "completion": {
+    "all_source_rows_classified": true,
+    "canonical_preserved": true,
+    "no_test_execution": true,
+    "checkpoint_resume_enabled": true
+  },
+  "validated": true,
+  "test_bodies_executed": false,
+  "canonical_regression_executed": false,
+  "repository_wide_pytest_executed": false
+}

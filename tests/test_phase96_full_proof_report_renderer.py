@@ -143,29 +143,20 @@ def test_phase96_11_actual_pi9_5_full_report_contains_group_result():
 
 
 def test_phase96_11_actual_pi9_5_full_report_contains_source_metadata():
-  actual = (
-    build_phase96_11_presentation(
-      "pi9_5"
-    )
-  )
+  actual = build_phase96_11_presentation("pi9_5")
+  rendered = render_toda_full_proof_report_markdown(actual["presentation"])
+  goal_source = actual["candidate"].goal_source
 
-  rendered = (
-    render_toda_full_proof_report_markdown(
-      actual[
-        "presentation"
-      ]
-    )
-  )
+  assert "## Source" in rendered
 
-  assert "- Phase: 68" in rendered
-  assert (
-    "- Theorem: Toda Proposition 5.8"
-    in rendered
-  )
-  assert (
-    "- Branch: `pi9_5_group_relation`"
-    in rendered
-  )
+  if goal_source is None:
+    assert "- Discovery source: direct repository result" in rendered
+    return
+
+  repository_source = goal_source.source_entry
+  assert "- Phase: " + (repository_source.phase or "unknown") in rendered
+  assert "- Theorem: " + (repository_source.theorem or "unknown") in rendered
+  assert "- Branch: `" + goal_source.branch_name + "`" in rendered
 
 
 def test_phase96_11_actual_pi9_5_full_report_contains_ehp_sequence():

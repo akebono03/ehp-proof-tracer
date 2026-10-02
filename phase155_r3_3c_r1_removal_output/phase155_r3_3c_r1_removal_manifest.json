@@ -1,0 +1,21 @@
+{
+  "phase": "155-R3-3C-r1",
+  "restored_failed_backup": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof_phase155_r3_3c_backup_20261002_103328",
+  "new_backup_root": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof_phase155_r3_3c_r1_backup_20261002_103707",
+  "safe_test_ids_removed": 161,
+  "affected_files": 71,
+  "whole_files_deleted": 5,
+  "function_only_files_modified": 66,
+  "duplicate_definition_targets": [
+    {
+      "test_id": "tests/test_phase109_14_decorated_sigma_finite_cyclic_fallback.py::test_phase109_14_sigma7_stable_specialization_boundary_remains_unsupported",
+      "source_definition_count": 2
+    }
+  ],
+  "duplicate_definition_target_count": 1,
+  "definition_count_distribution": {
+    "1": 134,
+    "2": 1
+  },
+  "production_code_modified": false
+}

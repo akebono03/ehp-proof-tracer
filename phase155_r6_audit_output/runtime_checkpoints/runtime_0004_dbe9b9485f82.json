@@ -1,0 +1,9 @@
+{
+  "lane": "historical_compatibility",
+  "nodeid": "tests/test_phase100_12c2_minimal_cli_integration.py::test_phase100_12c2_cli_not_found_is_explicit_and_nonzero",
+  "status": "PASS",
+  "elapsed_seconds": 1.5593355998862535,
+  "returncode": 0,
+  "stdout": ".                                                                        [100%]\n============================ slowest 10 durations =============================\n0.00s call     tests/test_phase100_12c2_minimal_cli_integration.py::test_phase100_12c2_cli_not_found_is_explicit_and_nonzero\n0.00s setup    tests/test_phase100_12c2_minimal_cli_integration.py::test_phase100_12c2_cli_not_found_is_explicit_and_nonzero\n0.00s teardown tests/test_phase100_12c2_minimal_cli_integration.py::test_phase100_12c2_cli_not_found_is_explicit_and_nonzero\n1 passed in 1.01s\n",
+  "stderr": ""
+}

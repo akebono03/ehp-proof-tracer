@@ -1,0 +1,18 @@
+{
+  "phase": "155-R3-2",
+  "git_head": "9e985588f66f8f5ec80eb49aecd8177e61afd66a",
+  "candidate_pairs": 332,
+  "unique_candidate_tests": 440,
+  "focused_pytest_exit_code": 1,
+  "collection_errors": 0,
+  "decision_counts": {
+    "removable_duplicate": 159,
+    "retain_independent": 123,
+    "historical_keep": 43,
+    "needs_review": 7
+  },
+  "production_code_modified": false,
+  "existing_tests_modified": false,
+  "tests_deleted": 0,
+  "repository_wide_pytest_executed": false
+}

@@ -1,0 +1,18 @@
+{
+  "git_head": "bd2dd02767b5f63736926fd092833b1214b38315",
+  "r1_inventory": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase155_r1_audit_output\\phase155_r1_test_inventory.csv",
+  "test_files": 842,
+  "expectation_findings": 413,
+  "status_counts": {
+    "contract_sensitive_review": 286,
+    "current_compatible": 43,
+    "stale_candidate_high": 83,
+    "stale_candidate_medium": 1
+  },
+  "contract_counts": {
+    "fixed_snapshot_risk": 286,
+    "no_internal_fallback_leakage": 35,
+    "ascii_prose_punctuation": 91,
+    "reference_relevance_and_root_exclusion": 1
+  }
+}

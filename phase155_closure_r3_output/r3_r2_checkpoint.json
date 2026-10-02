@@ -1,0 +1,43 @@
+{
+  "jobs": {
+    "1": {
+      "status": "PASS",
+      "verification": "Previous job1: 58 passed / 3 stale failures; R3-R3 focused verification passed all three repaired contracts."
+    },
+    "2": {
+      "status": "PASS",
+      "elapsed_seconds": 202.61,
+      "log": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase155_closure_r3_output\\r3_r2_job_02.log"
+    },
+    "3": {
+      "status": "PASS",
+      "elapsed_seconds": 557.34,
+      "log": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase155_closure_r3_output\\r3_r2_job_03.log"
+    },
+    "4": {
+      "status": "PASS",
+      "elapsed_seconds": 268.24,
+      "log": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase155_closure_r3_output\\r3_r2_job_04.log"
+    },
+    "5": {
+      "status": "PASS",
+      "elapsed_seconds": 130.36,
+      "log": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase155_closure_r3_output\\r3_r2_job_05.log"
+    },
+    "6": {
+      "status": "PASS",
+      "elapsed_seconds": 185.5,
+      "log": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase155_closure_r3_output\\r3_r2_job_06.log"
+    },
+    "7": {
+      "status": "PASS",
+      "elapsed_seconds": 306.59,
+      "log": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase155_closure_r3_output\\r3_r2_job_07.log"
+    },
+    "8": {
+      "status": "PASS",
+      "elapsed_seconds": 35.36,
+      "log": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase155_closure_r3_output\\r3_r2_job_08.log"
+    }
+  }
+}

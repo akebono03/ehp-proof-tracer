@@ -1,0 +1,24 @@
+........................................................................ [ 69%]
+...............................                                          [100%]
+============================ slowest 20 durations =============================
+29.01s call     tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py::test_phase144_6_r5_19_proof_chain_integration_preserves_generic_output
+6.52s call     tests/test_phase144_6_r5_15u_r1_evidence_integration.py::test_phase144_6_r5_15u_r1_resolves_all_edge_local_visible_contributions
+5.64s call     tests/test_phase144_6_r5_17e_proof_chain_architecture_decision.py::test_phase144_6_r5_17e_confirms_child_argument_composition_exists
+5.61s call     tests/test_phase144_6_r5_17e_proof_chain_architecture_decision.py::test_phase144_6_r5_17e_accepts_argument_first_for_every_decision_criterion
+5.57s call     tests/test_phase144_6_r5_17e_proof_chain_architecture_decision.py::test_phase144_6_r5_17e_selects_argument_first_architecture
+5.56s call     tests/test_phase144_6_r5_17e_proof_chain_architecture_decision.py::test_phase144_6_r5_17e_confirms_argument_local_body_boundaries
+5.47s call     tests/test_phase144_6_r5_15m_evidence_contributions.py::test_phase144_6_r5_15m_covers_every_presentation_edge_once
+5.43s call     tests/test_phase144_6_r5_17e_proof_chain_architecture_decision.py::test_phase144_6_r5_17e_confirms_other_is_fully_explained
+5.36s call     tests/test_phase144_6_r5_17e_proof_chain_architecture_decision.py::test_phase144_6_r5_17e_confirms_semantic_only_support_exists
+5.35s call     tests/test_phase144_6_r5_17e_proof_chain_architecture_decision.py::test_phase144_6_r5_17e_rejects_evidence_first_for_every_decision_criterion
+5.24s call     tests/test_phase144_6_r5_17e_proof_chain_architecture_decision.py::test_phase144_6_r5_17e_audits_six_representative_groups
+4.74s call     tests/test_phase144_6_r5_18_production_generic_proof_chain_foundation.py::test_phase144_6_r5_18_preserves_direct_argument_provider_counts
+4.66s call     tests/test_phase144_6_r5_17d_r1_other_semantic_role_resolution.py::test_phase144_6_r5_17d_r1_identifies_known_aggregate_statement_types
+4.49s call     tests/test_phase144_6_r5_15p_evidence_contribution_vocabulary.py::test_phase144_6_r5_15p_maps_generic_roles_to_typed_contributions
+4.46s call     tests/test_phase144_6_r5_17d_failure_novelty_classification.py::test_phase144_6_r5_17d_separates_all_three_novelty_classes
+4.33s call     tests/test_phase144_6_r5_15m_evidence_contributions.py::test_phase144_6_r5_15m_uses_typed_contributions
+4.33s call     tests/test_phase144_6_r5_15m_evidence_contributions.py::test_phase144_6_r5_15m_resolves_multiple_generic_contribution_kinds
+4.33s call     tests/test_phase144_6_r5_17c_cross_group_generic_proof_chain.py::test_phase144_6_r5_17c_represents_every_argument_support_with_frozen_schema
+4.31s call     tests/test_phase144_6_r5_17c_cross_group_generic_proof_chain.py::test_phase144_6_r5_17c_applies_unchanged_extractor_to_all_five_groups
+4.30s call     tests/test_phase144_6_r5_15m_evidence_contributions.py::test_phase144_6_r5_15m_keeps_unresolved_edges_explicit
+103 passed, 10285 deselected in 200.30s (0:03:20)

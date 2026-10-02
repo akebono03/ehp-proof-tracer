@@ -1108,66 +1108,6 @@ def test_phase32_4_left_composition_formula_preserves_provenance():
   )
 
 
-def test_phase32_4_left_composition_law_rejects_missing_c():
-  a = HomotopyElement(
-    name="a",
-    dimension=1,
-  )
-
-  beta = HomotopyElement(
-    name="β",
-    dimension=1,
-  )
-
-  hopf_step = hopf_invariant_proof_step(
-    HopfInvariantStatement(
-      expression=a,
-      value=beta,
-    )
-  )
-
-  rule = (
-    hopf_left_composition_law_inference_rule()
-  )
-
-  match = find_inference_match(
-    rule,
-    hopf_step,
-  )
-
-  assert match is None
-
-
-def test_phase32_4_left_formula_rejects_plain_hopf_statement():
-  a = HomotopyElement(
-    name="a",
-    dimension=1,
-  )
-
-  beta = HomotopyElement(
-    name="β",
-    dimension=1,
-  )
-
-  hopf_step = hopf_invariant_proof_step(
-    HopfInvariantStatement(
-      expression=a,
-      value=beta,
-    )
-  )
-
-  rule = (
-    hopf_left_composition_formula_inference_rule()
-  )
-
-  match = find_inference_match(
-    rule,
-    hopf_step,
-  )
-
-  assert match is None
-
-
 def test_phase32_5_base_hopf_statement_bridges_to_actual_h_equality():
   a = HomotopyElement(
     name="a",

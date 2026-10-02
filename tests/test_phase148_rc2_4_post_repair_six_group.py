@@ -133,7 +133,7 @@ def test_phase148_rc2_4_post_repair_pi6_3_retains_numbered_calculation_chain():
   assert r"\tag{1}" in rendered
   assert r"\tag{2}" in rendered
   assert r"\tag{3}" in rendered
-  assert "(1) と (2) より、" in rendered
+  assert "(1) と (2) より, " in rendered
 
 
 def test_phase148_rc2_4_post_repair_pi6_3_retains_group_result_and_short_exact_sequence():

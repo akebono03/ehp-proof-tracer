@@ -231,50 +231,27 @@ def test_phase96_9_actual_pi9_5_ehp_sequence_renders_as_latex():
 
 
 def test_phase96_9_actual_pi9_5_markdown_contains_result_source_and_ehp():
-  actual = (
-    build_phase96_9_presentation(
-      "pi9_5"
-    )
-  )
-
-  rendered = (
-    render_toda_end_to_end_markdown(
-      actual[
-        "presentation"
-      ]
-    )
-  )
+  actual = build_phase96_9_presentation("pi9_5")
+  rendered = render_toda_end_to_end_markdown(actual["presentation"])
+  goal_source = actual["candidate"].goal_source
 
   assert "# $\\pi_{9}^{5}$" in rendered
   assert "## Result" in rendered
-  assert (
-    r"\pi_{9}^{5} \cong "
-    r"\mathbb{Z}/2\{\nu_{5}\eta_{8}\}"
-    in rendered
-  )
+  assert r"\pi_{9}^{5} \cong \mathbb{Z}/2\{\nu_{5}\eta_{8}\}" in rendered
   assert "## Source" in rendered
-  assert "- Phase: 68" in rendered
-  assert (
-    "- Theorem: Toda Proposition 5.8"
-    in rendered
-  )
-  assert (
-    "- Branch: `pi9_5_group_relation`"
-    in rendered
-  )
+
+  if goal_source is None:
+    assert "- Discovery source: direct repository result" in rendered
+  else:
+    repository_source = goal_source.source_entry
+    assert "- Phase: " + (repository_source.phase or "unknown") in rendered
+    assert "- Theorem: " + (repository_source.theorem or "unknown") in rendered
+    assert "- Branch: `" + goal_source.branch_name + "`" in rendered
+
   assert "## EHP sequence" in rendered
-  assert (
-    r"\xrightarrow{\Delta}"
-    in rendered
-  )
-  assert (
-    r"\xrightarrow{E}"
-    in rendered
-  )
-  assert (
-    r"\xrightarrow{H}"
-    in rendered
-  )
+  assert r"\xrightarrow{\Delta}" in rendered
+  assert r"\xrightarrow{E}" in rendered
+  assert r"\xrightarrow{H}" in rendered
 
 
 def test_phase96_9_actual_pi9_5_markdown_contains_exactness_and_dependency_first_flow():

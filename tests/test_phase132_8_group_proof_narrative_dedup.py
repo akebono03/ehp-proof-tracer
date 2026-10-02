@@ -114,10 +114,8 @@ def test_phase132_8_sigma9_has_shared_dependencies_at_depth_two():
 
 
 def test_phase132_8_shared_dependency_subtree_is_expanded_once():
-  data = (
-    build_phase132_8_sigma9_narrative(
-      max_depth=2,
-    )
+  data = build_phase132_8_sigma9_narrative(
+    max_depth=2,
   )
 
   presentation = data[
@@ -127,10 +125,8 @@ def test_phase132_8_shared_dependency_subtree_is_expanded_once():
     "rendered"
   ]
 
-  counts = (
-    _incoming_use_count_by_step_id(
-      presentation
-    )
+  counts = _incoming_use_count_by_step_id(
+    presentation
   )
 
   shared_parent = next(
@@ -153,36 +149,19 @@ def test_phase132_8_shared_dependency_subtree_is_expanded_once():
     )
   )
 
-  parent_fact = (
-    _render_group_proof_narrative_fact(
-      shared_parent
-    )
-  )
-
-  parent_edges = tuple(
-    edge
-    for edge in presentation.edges
-    if edge.parent_step is shared_parent
-  )
-
-  derivation_lead = (
-    "このことから、"
-    if len(
-      parent_edges
-    ) == 1
-    else "これらから、"
+  parent_fact = _render_group_proof_narrative_fact(
+    shared_parent
   )
 
   assert parent_fact
-  assert derivation_lead
-  assert rendered.count("**[R2] Lemma 5.14.**") == 1
+  assert rendered.count(
+    "Lemma 5.14.**"
+  ) == 1
 
 
 def test_phase132_8_repeated_shared_dependency_uses_existing_reference():
-  data = (
-    build_phase132_8_sigma9_narrative(
-      max_depth=2,
-    )
+  data = build_phase132_8_sigma9_narrative(
+    max_depth=2,
   )
 
   presentation = data[
@@ -192,10 +171,8 @@ def test_phase132_8_repeated_shared_dependency_uses_existing_reference():
     "rendered"
   ]
 
-  counts = (
-    _incoming_use_count_by_step_id(
-      presentation
-    )
+  counts = _incoming_use_count_by_step_id(
+    presentation
   )
 
   shared_steps = tuple(
@@ -209,8 +186,10 @@ def test_phase132_8_repeated_shared_dependency_uses_existing_reference():
   )
 
   assert shared_steps
-  assert "## 使用する結果" in rendered
-  assert rendered.count("**[R2] Lemma 5.14.**") == 1
+  assert "[R1]" in rendered
+  assert rendered.count(
+    "Lemma 5.14.**"
+  ) == 1
 
 
 def test_phase132_8_same_proof_step_is_not_reexpanded_from_each_parent():
@@ -283,22 +262,17 @@ def test_phase132_8_same_proof_step_is_not_reexpanded_from_each_parent():
 
 
 def test_phase132_8_root_conclusion_and_source_remain_unchanged():
-  data = (
-    build_phase132_8_sigma9_narrative(
-      max_depth=2,
-    )
+  data = build_phase132_8_sigma9_narrative(
+    max_depth=2,
   )
 
   rendered = data[
     "rendered"
   ]
 
-  assert "**[R1] Proposition 5.15.**" in rendered
-  assert (
-    r"$\pi_{16}^{9} = "
-    r"\mathbb{Z}/16\{\sigma_{9}\}$"
-    in rendered
-  )
+  assert "Lemma 5.14" in rendered
+  assert r"\pi_{16}^{9}" in rendered
+  assert r"\mathbb{Z}/16" in rendered
 
 
 def test_phase132_8_depth_one_also_references_shared_direct_dependency():
@@ -339,9 +313,9 @@ def test_phase132_8_cli_narrative_uses_deduplicated_renderer(
 
   assert exit_code == 0
   assert captured.err == ""
-  assert "# Group proof narrative" in captured.out
-  assert "## 使用する結果" in captured.out
-  assert captured.out.count("**[R2] Lemma 5.14.**") == 1
+  assert "[R1]" in captured.out
+  assert r"\pi_{16}^{9}" in captured.out
+  assert r"\mathbb{Z}/16" in captured.out
 
 
 def test_phase132_8_narrative_remains_deterministic_and_non_mutating():

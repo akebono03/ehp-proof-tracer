@@ -1,0 +1,27 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+________ test_phase153_r3_10_all_group_reference_population_invariants ________
+tests\test_phase153_r3_10_public_reference_connection_repair.py:139: in test_phase153_r3_10_all_group_reference_population_invariants
+    assert public_reference_section, (
+E   AssertionError: (3, 3, "g—p‚·‚éŒ‹‰Ê‚ğæ‚É‚Ü‚Æ‚ß‚é.
+E     
+E     **[R1] (5.3).**
+E     $\
+E     u' \\in \\pi_{6}^{3}$
+E     $2\
+E     u' = \\eta_{3}E\\eta_{3}\\eta_{5}$
+E     **[R2] ...‘®‚µ, $\\operatorname{ord}(\
+E     u')=4=4$ ‚Å‚ ‚é‚©‚ç, $\
+E     u'$ ‚Í’†‰›‚ÌŒQ‚ğ¶¬‚·‚é.
+E     ‚µ‚½‚ª‚Á‚Ä, 
+E     
+E     $\\pi_{6}^{3} = \\mathbb{Z}/4\\{\
+E     u'\\}$")
+E   assert ''
+============================ slowest 10 durations =============================
+2.41s call     tests/test_phase153_r3_10_public_reference_connection_repair.py::test_phase153_r3_10_all_group_reference_population_invariants
+
+(2 durations < 0.005s hidden.  Use -vv to show these durations.)
+=========================== short test summary info ===========================
+FAILED tests/test_phase153_r3_10_public_reference_connection_repair.py::test_phase153_r3_10_all_group_reference_population_invariants
+1 failed in 4.20s

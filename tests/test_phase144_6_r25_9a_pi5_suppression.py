@@ -176,9 +176,9 @@ def test_phase144_6_r25_9a_pi5_3_is_hidden_without_losing_transitions():
   )
   assert r"$\nu'$ を定める." in rendered
   assert r"2\nu' = \eta_{3}^{3}" in rendered
-  assert "(1) と (2) より、" in rendered
+  assert "(1) と (2) より, " in rendered
   assert r"H\left(\nu'\right) = \eta_{5}" in rendered
-  assert "(4) と (5) より、" in rendered
+  assert "(4) と (5) より, " in rendered
   assert (
     r"\pi_{6}^{3} = "
     r"\mathbb{Z}/4\{\nu'\}"

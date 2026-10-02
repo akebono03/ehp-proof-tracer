@@ -1,0 +1,9 @@
+{
+  "lane": "performance_heavy_integration",
+  "nodeid": "tests/test_phase144_6_r5_17c_cross_group_generic_proof_chain.py::test_phase144_6_r5_17c_applies_unchanged_extractor_to_all_five_groups",
+  "status": "PASS",
+  "elapsed_seconds": 3.7610948998481035,
+  "returncode": 0,
+  "stdout": ".                                                                        [100%]\n============================ slowest 10 durations =============================\n2.29s call     tests/test_phase144_6_r5_17c_cross_group_generic_proof_chain.py::test_phase144_6_r5_17c_applies_unchanged_extractor_to_all_five_groups\n0.00s setup    tests/test_phase144_6_r5_17c_cross_group_generic_proof_chain.py::test_phase144_6_r5_17c_applies_unchanged_extractor_to_all_five_groups\n0.00s teardown tests/test_phase144_6_r5_17c_cross_group_generic_proof_chain.py::test_phase144_6_r5_17c_applies_unchanged_extractor_to_all_five_groups\n1 passed in 3.17s\n",
+  "stderr": ""
+}

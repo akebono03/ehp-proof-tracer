@@ -152,28 +152,6 @@ def test_phase109_12_does_not_enable_unregistered_nu6():
   )
 
 
-def test_phase109_12_sigma7_remains_out_of_stable_sigma_specialization_scope():
-  sigma_7 = GeneratorSymbol(
-    family="σ",
-    index=7,
-  )
-
-  assert (
-    GENERATOR_FACT_REPOSITORY
-    .lookup_ambient_group(
-      sigma_7
-    )
-    is None
-  )
-
-  assert (
-    find_standard_repository_generator_known_group_identity_nodes(
-      sigma_7
-    )
-    == ()
-  )
-
-
 def test_phase109_12_existing_nu_prime_explicit_fact_path_still_works():
   nu_prime = GeneratorSymbol(
     family="ν",

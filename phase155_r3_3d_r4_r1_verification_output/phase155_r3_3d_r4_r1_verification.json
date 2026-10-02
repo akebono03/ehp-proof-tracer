@@ -1,0 +1,34 @@
+{
+  "completion": {
+    "stale_hidden_tests_absent": true,
+    "historical_keep_ids_present": true,
+    "original_safe_deletion_ids_absent": true,
+    "source_level_duplicate_names_zero": true,
+    "unresolved_nonhistorical_removable_pairs_zero": true,
+    "focused_pytest_exit_zero": true
+  },
+  "closure_satisfied": true,
+  "stale_hidden_tests_still_present": [],
+  "missing_historical_keep_ids": [],
+  "safe_deletion_ids_still_present": [],
+  "source_level_duplicate_groups": [],
+  "unresolved_nonhistorical_removable_pairs": [],
+  "historical_precedence_overrides": [
+    "R3-00138",
+    "R3-00139"
+  ],
+  "focused_test_ids": [
+    "tests/test_set_rules.py::test_image_membership_statement",
+    "tests/test_set_rules.py::test_image_membership_statement_distinguishes_image",
+    "tests/test_set_rules.py::test_image_membership_statement_uses_existing_image_subgroup",
+    "tests/test_set_rules.py::test_kernel_membership_statement",
+    "tests/test_set_rules.py::test_kernel_membership_statement_distinguishes_kernel",
+    "tests/test_set_rules.py::test_kernel_membership_statement_uses_existing_kernel_subgroup",
+    "tests/test_set_rules.py::test_mapped_zero_implies_kernel_membership",
+    "tests/test_set_rules.py::test_mapped_zero_implies_kernel_membership_uses_explicit_group_map",
+    "tests/test_phase41_preimage_subgroup.py::test_phase41_2_preimage_subgroup_uses_map_symbol",
+    "tests/test_phase41_preimage_subgroup.py::test_phase41_2_preimage_subgroup_uses_primary_component_target"
+  ],
+  "focused_pytest_exit_code": 0,
+  "repository_wide_pytest_executed": false
+}

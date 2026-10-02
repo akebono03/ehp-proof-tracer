@@ -1,0 +1,118 @@
+[
+  {
+    "candidate_id": "R3-00138",
+    "older_test_id": "tests/test_phase41_preimage_subgroup.py::test_phase41_2_preimage_subgroup_uses_map_symbol",
+    "newer_test_id": "tests/test_phase41_preimage_subgroup.py::test_phase41_4_preimage_subgroup_map_type_remains_map_symbol",
+    "older_overlap_source_duplicate": false,
+    "newer_overlap_source_duplicate": false,
+    "classification": "graph_has_no_deletion_candidate_endpoint",
+    "endpoints": [
+      {
+        "role": "older",
+        "test_id": "tests/test_phase41_preimage_subgroup.py::test_phase41_2_preimage_subgroup_uses_map_symbol",
+        "graph_rows": [
+          {
+            "component_id": "C058",
+            "test_id": "tests/test_phase41_preimage_subgroup.py::test_phase41_2_preimage_subgroup_uses_map_symbol",
+            "incoming_removable_edges": "0",
+            "outgoing_removable_edges": "1",
+            "historical_protected": "True",
+            "natural_sink": "False",
+            "canonical_survivor": "False",
+            "deletion_candidate": "False",
+            "phase_number": "41",
+            "reason": "historical_keep protection"
+          }
+        ],
+        "graph_deletion_candidate_values": [
+          "False"
+        ],
+        "graph_marks_deletion_candidate": false,
+        "candidate_safety_rows": [],
+        "has_safe_function_deletion_row": false
+      },
+      {
+        "role": "newer",
+        "test_id": "tests/test_phase41_preimage_subgroup.py::test_phase41_4_preimage_subgroup_map_type_remains_map_symbol",
+        "graph_rows": [
+          {
+            "component_id": "C058",
+            "test_id": "tests/test_phase41_preimage_subgroup.py::test_phase41_4_preimage_subgroup_map_type_remains_map_symbol",
+            "incoming_removable_edges": "1",
+            "outgoing_removable_edges": "0",
+            "historical_protected": "True",
+            "natural_sink": "True",
+            "canonical_survivor": "True",
+            "deletion_candidate": "False",
+            "phase_number": "41",
+            "reason": "historical_keep protection"
+          }
+        ],
+        "graph_deletion_candidate_values": [
+          "False"
+        ],
+        "graph_marks_deletion_candidate": false,
+        "candidate_safety_rows": [],
+        "has_safe_function_deletion_row": false
+      }
+    ]
+  },
+  {
+    "candidate_id": "R3-00139",
+    "older_test_id": "tests/test_phase41_preimage_subgroup.py::test_phase41_2_preimage_subgroup_uses_primary_component_target",
+    "newer_test_id": "tests/test_phase41_preimage_subgroup.py::test_phase41_4_preimage_subgroup_target_type_remains_primary_component",
+    "older_overlap_source_duplicate": false,
+    "newer_overlap_source_duplicate": false,
+    "classification": "graph_has_no_deletion_candidate_endpoint",
+    "endpoints": [
+      {
+        "role": "older",
+        "test_id": "tests/test_phase41_preimage_subgroup.py::test_phase41_2_preimage_subgroup_uses_primary_component_target",
+        "graph_rows": [
+          {
+            "component_id": "C059",
+            "test_id": "tests/test_phase41_preimage_subgroup.py::test_phase41_2_preimage_subgroup_uses_primary_component_target",
+            "incoming_removable_edges": "0",
+            "outgoing_removable_edges": "1",
+            "historical_protected": "True",
+            "natural_sink": "False",
+            "canonical_survivor": "False",
+            "deletion_candidate": "False",
+            "phase_number": "41",
+            "reason": "historical_keep protection"
+          }
+        ],
+        "graph_deletion_candidate_values": [
+          "False"
+        ],
+        "graph_marks_deletion_candidate": false,
+        "candidate_safety_rows": [],
+        "has_safe_function_deletion_row": false
+      },
+      {
+        "role": "newer",
+        "test_id": "tests/test_phase41_preimage_subgroup.py::test_phase41_4_preimage_subgroup_target_type_remains_primary_component",
+        "graph_rows": [
+          {
+            "component_id": "C059",
+            "test_id": "tests/test_phase41_preimage_subgroup.py::test_phase41_4_preimage_subgroup_target_type_remains_primary_component",
+            "incoming_removable_edges": "1",
+            "outgoing_removable_edges": "0",
+            "historical_protected": "True",
+            "natural_sink": "True",
+            "canonical_survivor": "True",
+            "deletion_candidate": "False",
+            "phase_number": "41",
+            "reason": "historical_keep protection"
+          }
+        ],
+        "graph_deletion_candidate_values": [
+          "False"
+        ],
+        "graph_marks_deletion_candidate": false,
+        "candidate_safety_rows": [],
+        "has_safe_function_deletion_row": false
+      }
+    ]
+  }
+]

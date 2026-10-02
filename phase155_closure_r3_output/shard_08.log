@@ -1,0 +1,63 @@
+........................................................................ [  3%]
+........................................................................ [  7%]
+........................................................................ [ 10%]
+........................................................................ [ 14%]
+........................................................................ [ 17%]
+........................................................................ [ 21%]
+........................................................................ [ 24%]
+........................................................................ [ 28%]
+........................................................................ [ 32%]
+........................................................................ [ 35%]
+........................................................................ [ 39%]
+........................................................................ [ 42%]
+........................................................................ [ 46%]
+........................................................................ [ 49%]
+........................................................................ [ 53%]
+........................................................................ [ 56%]
+........................................................................ [ 60%]
+........................................................................ [ 64%]
+...F................F................................................... [ 67%]
+........................................................................ [ 71%]
+........................................................................ [ 74%]
+........................................................................ [ 78%]
+........................................................................ [ 81%]
+........................................................................ [ 85%]
+........................................................................ [ 89%]
+........................................................................ [ 92%]
+........................................................................ [ 96%]
+........................................................................ [ 99%]
+......                                                                   [100%]
+================================== FAILURES ===================================
+______ test_phase96_11_actual_pi9_5_full_report_contains_source_metadata ______
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase96_full_proof_report_renderer.py:160: in test_phase96_11_actual_pi9_5_full_report_contains_source_metadata
+    ???
+E   AssertionError: assert '- Phase: 68' in '# $\\pi_{9}^{5}$\n\n## Result\n\n\\[\n\\pi_{9}^{5} \\cong \\mathbb{Z}/2\\{\\nu_{5}\\eta_{8}\\}\n\\]\n\n## Source\n\n-...= \\nu_{5}\\eta_{8}$.\n990. Therefore the group structure is: $\\pi_{9}^{5} = \\mathbb{Z}/2\\{\\nu_{5}\\eta_{8}\\}$.\n'
+_____ test_phase96_9_actual_pi9_5_markdown_contains_result_source_and_ehp _____
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase96_human_readable_renderer.py:256: in test_phase96_9_actual_pi9_5_markdown_contains_result_source_and_ehp
+    ???
+E   AssertionError: assert '- Phase: 68' in '# $\\\\pi_{9}^{5}$\\n\\n## Result\\n\\n\\\\[\\n\\\\pi_{9}^{5} \\\\cong \\\\mathbb{Z}/2\\\\{\\\\nu_{5}\\\\eta_{8}\\\\}\\n\\\\]\\n\\n## Source\\n\\n-...inition** \u2014 `TodaNuFamilyDefinitionStatement`\\n989. **relation** \u2014 `Relation`\\n990. **group structure** \u2014 `Relation`\\n'
+============================ slowest 20 durations =============================
+2.39s call     tests/test_phase77_applicability_provenance.py::test_phase77_6_final_statement_is_derived
+0.93s call     tests/test_phase98_actual_use_facade_validation.py::test_phase98_3_all_representative_targets_run_through_raw_n_k_facade
+0.93s call     tests/test_phase98_representative_convenience_validation.py::test_phase98_6_representative_targets_use_shortest_user_facing_path
+0.75s call     tests/test_phase97_actual_representative_targets_top_level_api.py::test_phase97_5_all_representative_targets_run_through_top_level_api
+0.54s call     tests/test_phase96_final_proof_report_audit.py::test_phase96_12_representative_report_rendering_is_deterministic_and_non_mutating
+0.48s call     tests/test_phase95_actual_representative_top_level_capability.py::test_phase95_20_all_representative_queries_are_found_from_aggregate_entries_only
+0.42s call     tests/test_phase98_minimal_facade_api.py::test_phase98_2_facade_does_not_mutate_repository
+0.39s call     tests/test_phase96_representative_targets_end_to_end_presentation.py::test_phase96_8_all_representative_presentations_preserve_candidate_identity
+0.38s call     tests/test_phase96_representative_targets_end_to_end_presentation.py::test_phase96_8_ehp_and_exactness_presence_matches_each_source_explanation
+0.37s call     tests/test_phase96_representative_targets_end_to_end_presentation.py::test_phase96_8_pi12_5_preserves_order_two_sigma_branch
+0.36s call     tests/test_phase96_representative_targets_end_to_end_presentation.py::test_phase96_8_pi10_4_preserves_order_eight_finite_cyclic_group
+0.33s call     tests/test_phase97_not_found_multiple_results_top_level_handling.py::test_phase97_4_found_returns_one_report_candidate
+0.32s call     tests/test_phase96_actual_pi9_5_end_to_end_presentation.py::test_phase96_7_actual_pi9_5_builds_end_to_end_presentation
+0.27s call     tests/test_phase96_full_proof_report_renderer.py::test_phase96_11_all_representative_targets_render_with_one_unified_entry_point
+0.26s call     tests/test_phase96_full_proof_report_renderer.py::test_phase96_11_full_report_renderer_is_deterministic_and_repository_non_mutating
+0.24s call     tests/test_phase96_final_proof_report_audit.py::test_phase96_12_all_representative_targets_render_without_python_object_repr
+0.24s call     tests/test_phase96_proof_step_mathematical_narrative.py::test_phase96_10_proof_step_markdown_uses_mathematical_statement_when_supported
+0.23s call     tests/test_phase96_actual_pi9_5_end_to_end_presentation.py::test_phase96_7_actual_pi9_5_integrates_flat_dependency_presentation
+0.21s call     tests/test_phase95_top_level_calculation_orchestration.py::test_phase95_18_preserves_multiple_direct_results_without_fallback
+0.21s call     tests/test_phase96_representative_targets_end_to_end_presentation.py::test_phase96_8_pi9_2_preserves_zero_group_semantics
+=========================== short test summary info ===========================
+FAILED tests/test_phase96_full_proof_report_renderer.py::test_phase96_11_actual_pi9_5_full_report_contains_source_metadata
+FAILED tests/test_phase96_human_readable_renderer.py::test_phase96_9_actual_pi9_5_markdown_contains_result_source_and_ehp
+2 failed, 2020 passed, 8375 deselected in 33.41s

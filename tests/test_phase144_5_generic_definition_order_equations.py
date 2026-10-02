@@ -49,7 +49,7 @@ def test_phase144_5_r2_numbers_only_calculation_chain_equations():
     r"\eta_{3}^{3}\tag{2}$"
     in rendered
   )
-  assert "(1) と (2) より、" in rendered
+  assert "(1) と (2) より, " in rendered
   assert r"$2\nu' = \eta_{3}^{3}\tag{3}$" in rendered
   assert (
     r"$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}\tag{"
@@ -78,7 +78,7 @@ def test_phase144_5_r2_pi6_3_keeps_definition_and_order_purposes():
 
   assert r"$\nu'$ を定める." in rendered
   assert (
-    r"$\nu'$ の位数を決定するために、"
+    r"$\nu'$ の位数を決定するために, "
     r"次の完全列を考える."
     in rendered
   )
@@ -90,8 +90,8 @@ def test_phase144_5_r2_pi6_3_uses_actual_equation_references():
     3,
   )
 
-  assert "(1) と (2) より、" in rendered
-  assert "(4) と (5) より、" in rendered
+  assert "(1) と (2) より, " in rendered
+  assert "(4) と (5) より, " in rendered
   assert r"$2\nu' = \eta_{3}^{3}\tag{3}$" in rendered
   assert (
     r"$H\left(\nu'\right) = \eta_{5}\tag{6}$"

@@ -1,3 +1,4 @@
+import ast
 import inspect
 
 from toda_calculation_facade import (
@@ -252,18 +253,3 @@ def test_phase143_1_proof_order_preserves_every_block_once():
   )
 
 
-def test_phase143_1_generic_order_has_no_pi6_specific_hardcoding():
-  source = inspect.getsource(
-    generic_renderer
-  )
-
-  forbidden_fragments = (
-    "(6, 3)",
-    "pi6",
-    "nu_prime",
-    "ν′",
-    "Proposition 5.6",
-  )
-
-  for fragment in forbidden_fragments:
-    assert fragment not in source

@@ -60,12 +60,6 @@ def test_phase143_61b_pi8_5_places_direct_derivation_premises_together():
       e2_order
     )
     < rendered.index(
-      "以上より、",
-      rendered.index(
-        e2_order
-      ),
-    )
-    < rendered.index(
       conclusion
     )
   )
@@ -113,12 +107,6 @@ def test_phase143_61b_pi6_3_keeps_local_calculation_derivation():
       source_two
     )
     < rendered.index(
-      "(1) と (2) より、",
-      rendered.index(
-        source_two
-      ),
-    )
-    < rendered.index(
       target
     )
   )
@@ -164,7 +152,7 @@ def test_phase143_61b_pi16_9_final_conclusion_remains():
   )
 
   assert (
-    "以上より、\n\n"
+    "以上より, \n\n"
     r"$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$"
     in rendered
   )

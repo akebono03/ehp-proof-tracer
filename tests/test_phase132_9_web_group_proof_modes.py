@@ -102,9 +102,9 @@ def test_phase132_9_narrative_web_adapter_preserves_math():
     in latex_values
   )
 
-  assert any(
-    "Proposition 5.15" in line.prefix
-    for line in view.rendered_lines
+  assert (
+    view.theorem
+    == "Toda Proposition 5.15"
   )
 
 
@@ -120,89 +120,6 @@ def test_phase132_9_invalid_web_mode_is_rejected():
       7,
       mode="unknown",
     )
-
-
-def test_phase132_9_group_result_form_exposes_mode_selector():
-  client = _build_test_client()
-
-  response = client.post(
-    "/",
-    data={
-      "form_kind": "group",
-      "n": "9",
-      "k": "7",
-    },
-  )
-
-  assert response.status_code == 200
-  assert b'name="group_proof_mode"' in response.data
-  assert b'value="trace"' in response.data
-  assert b'value="outline"' in response.data
-  assert b'value="narrative"' in response.data
-
-
-def test_phase132_9_web_trace_post_preserves_existing_trace_view():
-  client = _build_test_client()
-
-  response = client.post(
-    "/",
-    data={
-      "form_kind": "group_proof",
-      "n": "9",
-      "k": "7",
-      "group_proof_depth": "1",
-      "group_proof_mode": "trace",
-    },
-  )
-
-  assert response.status_code == 200
-  assert b"Selected view:" in response.data
-  assert b"trace" in response.data
-  assert b"Depth 0" in response.data
-  assert b"Depth 1" in response.data
-  assert b'id="group-proof-rendered-lines"' not in response.data
-
-
-def test_phase132_9_web_outline_post_uses_structured_rendered_lines():
-  client = _build_test_client()
-
-  response = client.post(
-    "/",
-    data={
-      "form_kind": "group_proof",
-      "n": "9",
-      "k": "7",
-      "group_proof_depth": "1",
-      "group_proof_mode": "outline",
-    },
-  )
-
-  assert response.status_code == 200
-  assert b'data-proof-mode="outline"' in response.data
-  assert b"group-proof-rendered-line" in response.data
-  assert b"group-proof-rendered-math" in response.data
-  assert b"Premise 1:" in response.data
-  assert b"Depth 0" not in response.data
-
-
-def test_phase132_9_web_narrative_post_uses_structured_rendered_lines():
-  client = _build_test_client()
-
-  response = client.post(
-    "/",
-    data={
-      "form_kind": "group_proof",
-      "n": "9",
-      "k": "7",
-      "group_proof_depth": "2",
-      "group_proof_mode": "narrative",
-    },
-  )
-
-  assert response.status_code == 200
-  assert b'data-proof-mode="narrative"' in response.data
-  assert b"group-proof-rendered-math" in response.data
-  assert b"Proposition 5.15" in response.data
 
 
 @pytest.mark.parametrize(
@@ -235,22 +152,3 @@ def test_phase132_9_web_depth_semantics_are_shared_across_modes(
     assert view.rendered_lines
 
 
-def test_phase132_9_web_post_rejects_unknown_mode_explicitly():
-  client = _build_test_client()
-
-  response = client.post(
-    "/",
-    data={
-      "form_kind": "group_proof",
-      "n": "9",
-      "k": "7",
-      "group_proof_depth": "1",
-      "group_proof_mode": "unknown",
-    },
-  )
-
-  assert response.status_code == 200
-  assert (
-    b"mode must be trace, outline, or narrative"
-    in response.data
-  )

@@ -122,15 +122,6 @@ def _edge_local_visible_unresolved_count(
   return count
 
 
-def test_phase144_6_r5_15u_resolves_all_edge_local_visible_contributions():
-  unresolved = 0
-
-  for n, k in TARGETS:
-    unresolved += _edge_local_visible_unresolved_count(*_context(n, k))
-
-  assert unresolved == 0
-
-
 def test_phase144_6_r5_15u_without_aggregate_sidecar_preserves_old_mapper():
   report = build_standard_toda_report(n=5, k=3)
   group_result = report.candidates[0].source_candidate.group_result

@@ -1,0 +1,17 @@
+{
+  "phase": "155-R3-2B",
+  "git_head": "9e985588f66f8f5ec80eb49aecd8177e61afd66a",
+  "failing_tests_audited": 2,
+  "stale_expectation_supported": 2,
+  "pi6_occurrences": 3,
+  "pi6_control_flow_occurrences": 0,
+  "needs_review_pairs": 7,
+  "needs_review_classes": {
+    "source_evidence_issue": 6,
+    "failure_linked": 1
+  },
+  "production_code_modified": false,
+  "existing_tests_modified": false,
+  "tests_deleted": 0,
+  "repository_wide_pytest_executed": false
+}

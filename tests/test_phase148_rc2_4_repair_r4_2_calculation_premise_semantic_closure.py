@@ -257,7 +257,7 @@ def test_phase148_rc2_4_repair_r4_2_depth2_public_renderer_restores_numbered_cha
     in rendered
   )
   assert (
-    "(1) と (2) より、"
+    "(1) と (2) より, "
     in rendered
   )
   assert (
@@ -284,7 +284,7 @@ def test_phase148_rc2_4_repair_r4_2_web_depth2_restores_numbered_chain_without_r
   assert r"\tag{1}" in rendered
   assert r"\tag{2}" in rendered
   assert r"\tag{3}" in rendered
-  assert "(1) と (2) より、" in rendered
+  assert "(1) と (2) より, " in rendered
   assert (
     "は完全である"
     not in rendered

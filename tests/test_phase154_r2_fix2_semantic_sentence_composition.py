@@ -96,21 +96,3 @@ def test_phase154_r2_fix2_pi11_4_renders_nu4_decomposition_isomorphism_semantica
   assert r"\pi_{11}^{4} = 0" in rendered
 
 
-def test_phase154_r2_fix2_keeps_pi10_4_fixed1_result():
-  rendered = _render_group(
-    4,
-    6,
-  )
-
-  assert (
-    "Toda (5.6) nu_4 decomposition integration"
-    not in rendered
-  )
-  assert (
-    r"$\nu_{4}$ の分解を用いる."
-    in rendered
-  )
-  assert (
-    r"\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}"
-    in rendered
-  )

@@ -1,0 +1,36 @@
+{
+  "file_path": "tests/test_phase150_rc4_5b_3_r1_beta_latex.py",
+  "rows": [
+    {
+      "test_id": "tests/test_phase150_rc4_5b_3_r1_beta_latex.py::test_phase150_rc4_5b_3_r1_beta_uses_general_greek_latex_table",
+      "file_path": "tests/test_phase150_rc4_5b_3_r1_beta_latex.py",
+      "function_name": "test_phase150_rc4_5b_3_r1_beta_uses_general_greek_latex_table",
+      "phase": "150",
+      "category": "canonical_candidate",
+      "confidence": "60",
+      "reason": "recent current-contract phase test; requires R4 validation",
+      "focused_regression_file": "False",
+      "core_non_phase": "False",
+      "audit_name_signal": "False",
+      "heavy_name_signal": "False",
+      "public_modules_used": "",
+      "proposed_category": "canonical_candidate",
+      "proposal_reason": "already canonical_candidate in R4-1",
+      "current_production_modules_used": "expression;toda_human_readable_renderer",
+      "tests_helper_names_used": "",
+      "r4_3_category": "canonical_candidate",
+      "r4_3_reason": "R4-2 lane preserved",
+      "module_global_production_modules": "",
+      "r4_4_category": "canonical_candidate",
+      "r4_4_reason": "R4-3 classification retained",
+      "r5_lane": "canonical_routine",
+      "r5_reason": "R4-4 category preserved",
+      "r5_historical_strong": false,
+      "r5_audit_import": false,
+      "r5_audit_name": false,
+      "r5_heavy_name": false,
+      "r5_broad_iteration": false,
+      "r5_heavy_strong": false
+    }
+  ]
+}

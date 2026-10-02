@@ -1,0 +1,58 @@
+...................................F.............FF..........            [100%]
+================================== FAILURES ===================================
+___ test_phase144_6_pi6_production_branch_contains_no_legacy_renderer_call ____
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_pi6_generic_production_route.py:138: in test_phase144_6_pi6_production_branch_contains_no_legacy_renderer_call
+    ???
+E   AssertionError: assert 'render_toda_group_proof_narrative_multi_argument_markdown' in '_is_phase134_3_pi6_3_presentation(\n      presentation\n    )\n    or _is_phase150_rc4_generic_route_target(\n      p...se150_rc4_generic_public_narrative(\n        presentation,\n        rendered,\n      )\n\n    return rendered\n\n  if '
+____ test_phase144_6_r25_9b_depth2_narrative_has_definition_without_pi5_3 _____
+tests\test_phase144_6_r25_9b_nu_prime_definition_depth2.py:186: in test_phase144_6_r25_9b_depth2_narrative_has_definition_without_pi5_3
+    assert PI5_3_TEXT not in rendered
+E   assert '\\pi_{5}^{3...\\eta_{4}\\}' not in "使用する結果を先にまと...\\{\\nu'\\}$"
+E     
+E     '\\pi_{5}^{3} = \\m...eta_{3}\\eta_{4}\\}' is contained here:
+E        は全射である.
+E       $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+E       **[R3] Lemma 5.4.**
+E       $\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
+E       **[R4] (5.3) / Lemma 5.2.**...
+E     
+E     ...Full output truncated (60 lines hidden), use '-vv' to show
+_________ test_phase144_6_r25_9b_cli_depth2_narrative_has_definition __________
+tests\test_phase144_6_r25_9b_nu_prime_definition_depth2.py:208: in test_phase144_6_r25_9b_cli_depth2_narrative_has_definition
+    assert PI5_3_TEXT not in output
+E   assert '\\pi_{5}^{3...\\eta_{4}\\}' not in "使用する結果を先にまと...\\{\\nu'\\}$"
+E     
+E     '\\pi_{5}^{3} = \\m...eta_{3}\\eta_{4}\\}' is contained here:
+E        は全射である.
+E       $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+E       $\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$, $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$, $\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\}$, $\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$, $n \ge 5$ が成り立つ.
+E       **[R2] (5.2).**
+E       $\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$...
+E     
+E     ...Full output truncated (160 lines hidden), use '-vv' to show
+============================ slowest 20 durations =============================
+25.73s call     tests/test_phase144_6_r25_20_six_group_generic_production_narrative.py::test_phase144_6_r25_20_six_groups_use_complete_replay_for_depth2_narrative
+16.05s call     tests/test_phase143_75s_toda58_whitehead_square_semantic_rendering.py::test_phase143_75s_all_aggregate_components_render_semantically
+1.51s call     tests/test_phase143_75t_toda58_equation_aggregate_semantic_rendering.py::test_phase143_75t_equation58_aggregate_renders_semantically
+0.89s call     tests/test_phase143_8_argument_audit.py::test_phase143_8_audit_targets_are_constructible
+0.72s call     tests/test_phase143_8_argument_audit.py::test_phase143_8_arguments_never_include_their_conclusion_as_support
+0.64s call     tests/test_phase143_7_narrative_arguments.py::test_phase143_7_other_group_proofs_build_without_target_specific_rules
+0.44s call     tests/test_phase144_2_sigma_triple_prime_definition.py::test_phase144_2_existing_definition_subjects_remain_supported
+0.38s call     tests/test_phase144_6_pi6_generic_production_route.py::test_phase144_6_cli_pi6_3_narrative_uses_generic_route
+0.37s call     tests/test_phase144_2_sigma_triple_prime_definition.py::test_phase144_2_pi12_5_lemma513_is_definition_block
+0.26s call     tests/test_phase144_6_r25_9b_nu_prime_definition_depth2.py::test_phase144_6_r25_9b_keeps_source_replay_depth2_unchanged
+0.25s call     tests/test_phase144_6_r3_production_references.py::test_phase144_6_r3_reference_section_does_not_parse_internal_rule_names
+0.23s call     tests/test_phase144_6_public_route_cutover.py::test_phase144_6_cli_pi6_3_narrative_uses_public_cutover
+0.22s call     tests/test_phase144_6_r25_9b_nu_prime_definition_depth2.py::test_phase144_6_r25_9b_cli_depth2_narrative_has_definition
+0.17s call     tests/test_phase144_2_sigma_triple_prime_definition.py::test_phase144_2_pi12_5_sigma_triple_prime_is_definition_subject
+0.12s call     tests/test_phase144_6_public_route_cutover.py::test_phase144_6_public_pi6_3_equals_contribution_renderer
+0.11s call     tests/test_phase144_6_public_route_cutover.py::test_phase144_6_public_pi6_3_uses_r5_43_contribution_route
+0.11s call     tests/test_phase144_6_pi6_generic_production_route.py::test_phase144_6_public_pi6_3_narrative_equals_generic_argument_renderer
+0.10s call     tests/test_phase144_6_pi6_generic_production_route.py::test_phase144_6_public_pi6_3_does_not_call_legacy_special_renderer
+0.10s call     tests/test_phase144_6_r3_production_references.py::test_phase144_6_r3_pi6_3_generic_multi_argument_renders_reference_section
+0.09s call     tests/test_phase144_6_r4_supporting_fact_filtering.py::test_phase144_6_r4_preserves_structured_reference_section
+=========================== short test summary info ===========================
+FAILED tests/test_phase144_6_pi6_generic_production_route.py::test_phase144_6_pi6_production_branch_contains_no_legacy_renderer_call
+FAILED tests/test_phase144_6_r25_9b_nu_prime_definition_depth2.py::test_phase144_6_r25_9b_depth2_narrative_has_definition_without_pi5_3
+FAILED tests/test_phase144_6_r25_9b_nu_prime_definition_depth2.py::test_phase144_6_r25_9b_cli_depth2_narrative_has_definition
+3 failed, 58 passed, 10327 deselected in 65.83s (0:01:05)

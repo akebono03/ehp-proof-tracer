@@ -1,0 +1,9 @@
+{
+  "lane": "audit_only",
+  "nodeid": "tests/test_phase96_final_proof_report_audit.py::test_phase96_12_unknown_statement_fallback_is_explicit_and_safe",
+  "status": "PASS",
+  "elapsed_seconds": 3.1405472999904305,
+  "returncode": 0,
+  "stdout": ".                                                                        [100%]\n============================ slowest 10 durations =============================\n1.31s call     tests/test_phase96_final_proof_report_audit.py::test_phase96_12_unknown_statement_fallback_is_explicit_and_safe\n0.00s setup    tests/test_phase96_final_proof_report_audit.py::test_phase96_12_unknown_statement_fallback_is_explicit_and_safe\n0.00s teardown tests/test_phase96_final_proof_report_audit.py::test_phase96_12_unknown_statement_fallback_is_explicit_and_safe\n1 passed in 2.36s\n",
+  "stderr": ""
+}

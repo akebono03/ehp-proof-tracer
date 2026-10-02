@@ -1,0 +1,13 @@
+..........                                                               [100%]
+============================ slowest 20 durations =============================
+55.35s call     tests/test_phase144_6_r5_43_11d_final_completion_audit.py::test_phase144_6_r5_43_11d_preserves_190_selected_contributions
+27.65s setup    tests/test_phase144_6_r5_43_11c_r2_argument_participation_guard.py::test_phase144_6_r5_43_11c_r2_all_non_detached_contributions_are_insertable
+25.64s call     tests/test_phase144_6_r5_43_11c_non_detached_fallback_placement_repair.py::test_phase144_6_r5_43_11c_definition_groups_gain_connected_output_without_public_route_change
+5.45s setup    tests/test_phase144_6_r5_43_11c_non_detached_fallback_placement_repair.py::test_phase144_6_r5_43_11c_definition_groups_gain_connected_output_without_public_route_change
+0.39s call     tests/test_phase144_6_r5_43_2_placement_aware_contribution_insertion.py::test_phase144_6_r5_43_2_base_renderer_remains_unchanged
+0.31s call     tests/test_phase144_6_r5_43_3.py::test_phase144_6_r5_43_3_inventory_preserves_two_placement_anchors
+0.29s call     tests/test_phase144_6_r5_43_3.py::test_phase144_6_r5_43_3_inventory_records_graph_targets_without_prose_changes
+0.29s call     tests/test_phase144_6_r5_43_3.py::test_phase144_6_r5_43_3_inventory_covers_five_pi6_contributions
+
+(12 durations < 0.005s hidden.  Use -vv to show these durations.)
+10 passed, 10378 deselected in 127.68s (0:02:07)

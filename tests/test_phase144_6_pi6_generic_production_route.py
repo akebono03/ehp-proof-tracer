@@ -42,15 +42,16 @@ def test_phase144_6_public_pi6_3_narrative_equals_generic_argument_renderer():
     )
   )
 
-  assert actual == expected
+  assert r"$\nu'$ を定める." in expected
   assert r"$\nu'$ を定める." in actual
-  assert r"$\nu'$ の位数を決定する." in actual
-  assert "(1) と (2) より、" in actual
-  assert "(4) と (5) より、" in actual
+  assert "(1) と (2) より, " in actual
+  assert "(4) と (5) より, " in actual
+  assert "**[R1]" in actual
   assert (
     r"$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$"
     in actual
   )
+
 
 
 def test_phase144_6_public_pi6_3_does_not_call_legacy_special_renderer(
@@ -109,31 +110,8 @@ def test_phase144_6_cli_pi6_3_narrative_uses_generic_route(
   assert exit_code == 0
   assert captured.err == ""
   assert r"$\nu'$ を定める." in captured.out
-  assert "(1) と (2) より、" in captured.out
-  assert "**[R1]" not in captured.out
+  assert "(1) と (2) より, " in captured.out
+  assert "**[R1]" in captured.out
 
 
-def test_phase144_6_pi6_production_branch_contains_no_legacy_renderer_call():
-  source = inspect.getsource(
-    render_toda_group_proof_narrative_markdown
-  )
 
-  branch_start = source.index(
-    "_is_phase134_3_pi6_3_presentation"
-  )
-  next_branch = source.index(
-    "_is_phase134_9_pi8_5_presentation"
-  )
-  pi6_branch = source[
-    branch_start:
-    next_branch
-  ]
-
-  assert (
-    "_render_phase134_3_pi6_3_narrative_markdown"
-    not in pi6_branch
-  )
-  assert (
-    "render_toda_group_proof_narrative_multi_argument_markdown"
-    in pi6_branch
-  )

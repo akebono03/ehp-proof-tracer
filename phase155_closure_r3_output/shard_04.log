@@ -1,0 +1,90 @@
+............FFF...............FFF....FF..F..........                     [100%]
+================================== FAILURES ===================================
+_ test_phase144_6_r5_43_10_all_sixteen_uniform_chains_receive_compression_connector _
+tests\test_phase144_6_r5_43_10_transport_chain_compression_production.py:272: in test_phase144_6_r5_43_10_all_sixteen_uniform_chains_receive_compression_connector
+    assert connector_count == 16
+E   assert 0 == 16
+_____________ test_phase144_6_r5_43_10_preserves_direct_connector _____________
+tests\test_phase144_6_r5_43_10_transport_chain_compression_production.py:318: in test_phase144_6_r5_43_10_preserves_direct_connector
+    assert connector_index > c4_index
+E   assert -1 > 132
+____ test_phase144_6_r5_43_10_renderer_does_not_read_inference_rule_names _____
+tests\test_phase144_6_r5_43_10_transport_chain_compression_production.py:330: in test_phase144_6_r5_43_10_renderer_does_not_read_inference_rule_names
+    assert "inference_rule" not in source
+E   AssertionError: assert 'inference_rule' not in 'from collec...dered\n  )\n'
+E     
+E     'inference_rule' is contained here:
+E        False
+E       
+E         inference_rule = proof_step.inference_rule
+E     ?   ++++++++++++++
+E       ...
+E     
+E     ...Full output truncated (1378 lines hidden), use '-vv' to show
+__________ test_phase144_6_r5_43_2_pi6_uses_provider_anchor_indices ___________
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_2_placement_aware_contribution_insertion.py:71: in test_phase144_6_r5_43_2_pi6_uses_provider_anchor_indices
+    ???
+E   AssertionError: assert 6 == 5
+E    +  where 6 = len((TodaGroupProofNarrativeOrderedContribution(proof_step=ProofStep(conclusion=Relation(lhs=TodaPrimaryGroup(group_dimens...>, provider_anchor=True, distance_to_conclusion=2, provider_keys=(('block', 1558281720048), ('block', 1558281731904)))))
+_ test_phase144_6_r5_43_2_pi6_contributions_are_not_dumped_after_final_connector _
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_2_placement_aware_contribution_insertion.py:103: in test_phase144_6_r5_43_2_pi6_contributions_are_not_dumped_after_final_connector
+    ???
+E   assert -1 >= 0
+_ test_phase144_6_r5_43_2_pi6_contributions_remain_unique_and_topologically_ordered _
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_2_placement_aware_contribution_insertion.py:122: in test_phase144_6_r5_43_2_pi6_contributions_remain_unique_and_topologically_ordered
+    ???
+E   assert (621, 132, 28...32, 987, 1037) == (132, 132, 28...21, 987, 1037)
+E     
+E     At index 0 diff: 621 != 132
+E     Use -v to get more diff
+_ test_phase144_6_r5_43_4_only_direct_contribution_dependency_gets_direct_connector _
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_4_dependency_aware_contribution_connector.py:96: in test_phase144_6_r5_43_4_only_direct_contribution_dependency_gets_direct_connector
+    ???
+E   assert set() == {1558033937792}
+E     
+E     Extra items in the right set:
+E     1558033937792
+E     Use -v to get more diff
+_______________ test_phase144_6_r5_43_4_c4_to_c5_has_connector ________________
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_4_dependency_aware_contribution_connector.py:125: in test_phase144_6_r5_43_4_c4_to_c5_has_connector
+    ???
+E   assert '$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\eta_{4}\\}$, $\\pi... \\mathbb{Z}/2\\{\\eta_{n}\\eta_{n + 1}\\}$, $n \\ge 5$ が成り立つ.\n\nこれより、\n\n$H: \\pi_{7}^{3} \\to \\pi_{7}^{5}$ は全射である.' in "使用する結果を先にまとめる.\n\n**[R1] Proposition 5.3.**\n$H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ は全射である.\n$\\pi_{5}^{3} = \\mathbb{Z}...であるから, $\\nu'$ は中央の群を生成する.\nしたがって, \n\n以上で得た群構造, 生成元, および写像に関する結果を合わせると, \n\n$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$"
+_____ test_phase144_6_r5_43_4_preserves_r5_43_2_placement_and_uniqueness ______
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_4_dependency_aware_contribution_connector.py:219: in test_phase144_6_r5_43_4_preserves_r5_43_2_placement_and_uniqueness
+    ???
+E   assert (621, 132, 28...32, 987, 1037) == (132, 132, 28...21, 987, 1037)
+E     
+E     At index 0 diff: 621 != 132
+E     Use -v to get more diff
+============================ slowest 20 durations =============================
+59.72s setup    tests/test_phase144_6_r5_42_generic_narrative_contribution_production_foundation.py::test_phase144_6_r5_42_reproduces_phase40_selected_population
+56.76s call     tests/test_phase144_6_r5_43_8.py::test_phase144_6_r5_43_8_every_hidden_step_uses_production_transport_role
+55.43s call     tests/test_phase144_6_r5_43_6.py::test_phase144_6_r5_43_6_hidden_bridge_rows_have_classification_inputs
+54.86s call     tests/test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py::test_phase144_6_r5_43_11_covers_six_representative_groups_and_190_contributions
+54.72s call     tests/test_phase144_6_r5_43_11d_final_completion_audit.py::test_phase144_6_r5_43_11d_preserves_190_selected_contributions
+53.88s call     tests/test_phase144_6_r5_43_6.py::test_phase144_6_r5_43_6_inventory_covers_only_representative_groups
+28.77s call     tests/test_phase144_6_r5_43_11b_detached_argument_boundary_audit.py::test_phase144_6_r5_43_11b_classifies_every_non_insertable_populated_argument_by_discourse_role
+28.60s setup    tests/test_phase144_6_r5_43_11c_r2_argument_participation_guard.py::test_phase144_6_r5_43_11c_r2_all_non_detached_contributions_are_insertable
+27.50s call     tests/test_phase144_6_r5_43_11b_detached_argument_boundary_audit.py::test_phase144_6_r5_43_11b_reproduces_190_selected_and_13_insertable
+27.24s call     tests/test_phase144_6_r5_43_11a_insertion_failure_classification_audit.py::test_phase144_6_r5_43_11a_every_populated_argument_has_a_classification
+27.20s call     tests/test_phase144_6_r5_43_11a_insertion_failure_classification_audit.py::test_phase144_6_r5_43_11a_reproduces_13_insertable_and_177_non_insertable
+26.67s call     tests/test_phase144_6_r5_43_11a_insertion_failure_classification_audit.py::test_phase144_6_r5_43_11a_classifies_all_190_selected_contributions
+25.10s call     tests/test_phase144_6_r5_43_11c_non_detached_fallback_placement_repair.py::test_phase144_6_r5_43_11c_definition_groups_gain_connected_output_without_public_route_change
+24.11s setup    tests/test_phase144_6_r5_43_10_transport_chain_compression_production.py::test_phase144_6_r5_43_10_all_sixteen_uniform_chains_receive_compression_connector
+4.73s setup    tests/test_phase144_6_r5_43_10_transport_chain_compression_production.py::test_phase144_6_r5_43_10_transport_semantics_have_reference_metadata
+4.56s setup    tests/test_phase144_6_r5_43_11c_non_detached_fallback_placement_repair.py::test_phase144_6_r5_43_11c_definition_groups_gain_connected_output_without_public_route_change
+4.08s call     tests/test_phase144_6_r5_43_7_hidden_bridge_semantic_classification_foundation.py::test_phase144_6_r5_43_7_builder_returns_deterministic_presentation_order
+0.44s call     tests/test_phase144_6_r5_43_3.py::test_phase144_6_r5_43_3_inventory_covers_five_pi6_contributions
+0.43s call     tests/test_phase144_6_r5_43_2_placement_aware_contribution_insertion.py::test_phase144_6_r5_43_2_pi6_uses_provider_anchor_indices
+0.42s setup    tests/test_phase144_6_r5_43_10_transport_chain_compression_production.py::test_phase144_6_r5_43_10_preserves_direct_connector
+=========================== short test summary info ===========================
+FAILED tests/test_phase144_6_r5_43_10_transport_chain_compression_production.py::test_phase144_6_r5_43_10_all_sixteen_uniform_chains_receive_compression_connector
+FAILED tests/test_phase144_6_r5_43_10_transport_chain_compression_production.py::test_phase144_6_r5_43_10_preserves_direct_connector
+FAILED tests/test_phase144_6_r5_43_10_transport_chain_compression_production.py::test_phase144_6_r5_43_10_renderer_does_not_read_inference_rule_names
+FAILED tests/test_phase144_6_r5_43_2_placement_aware_contribution_insertion.py::test_phase144_6_r5_43_2_pi6_uses_provider_anchor_indices
+FAILED tests/test_phase144_6_r5_43_2_placement_aware_contribution_insertion.py::test_phase144_6_r5_43_2_pi6_contributions_are_not_dumped_after_final_connector
+FAILED tests/test_phase144_6_r5_43_2_placement_aware_contribution_insertion.py::test_phase144_6_r5_43_2_pi6_contributions_remain_unique_and_topologically_ordered
+FAILED tests/test_phase144_6_r5_43_4_dependency_aware_contribution_connector.py::test_phase144_6_r5_43_4_only_direct_contribution_dependency_gets_direct_connector
+FAILED tests/test_phase144_6_r5_43_4_dependency_aware_contribution_connector.py::test_phase144_6_r5_43_4_c4_to_c5_has_connector
+FAILED tests/test_phase144_6_r5_43_4_dependency_aware_contribution_connector.py::test_phase144_6_r5_43_4_preserves_r5_43_2_placement_and_uniqueness
+9 failed, 43 passed, 10345 deselected in 582.24s (0:09:42)

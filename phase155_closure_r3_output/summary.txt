@@ -1,0 +1,14 @@
+Phase 155 Closure-R3 sharded regression
+
+Shard 1: PASS (143.47s)
+Shard 2: PASS (532.81s)
+Shard 3: TIMEOUT (600.06s)
+Shard 4: FAIL (584.64s)
+Shard 5: FAIL (311.14s)
+Shard 6: PASS (46.88s)
+Shard 7: PASS (22.41s)
+Shard 8: FAIL (36.58s)
+
+Audit-only tests executed: 0
+Repository-wide monolithic pytest: NOT run
+Closure-R3 result: INCOMPLETE

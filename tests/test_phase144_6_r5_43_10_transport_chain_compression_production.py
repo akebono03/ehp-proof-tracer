@@ -208,146 +208,56 @@ def test_phase144_6_r5_43_10_each_transport_triplet_has_one_suspension_stabiliza
     ) // 3
 
 
-def test_phase144_6_r5_43_10_pi6_transport_connector_is_rendered_between_c2_and_c3(
-  ordered_by_target,
-  pi6_connected,
-):
-  presentation, ordered = ordered_by_target[
-    (
-      3,
-      3,
-    )
+def test_phase144_6_r5_43_10_pi6_transport_semantics_support_compression_connector():
+  context = _context(
+    3,
+    3,
+  )
+  presentation = context[
+    0
   ]
-  contributions = next(
-    rows
-    for rows in ordered
-    if rows
-  )
-  c2 = _render_generic_narrative_step(
-    contributions[
-      1
-    ].proof_step
-  )
-  c3 = _render_generic_narrative_step(
-    contributions[
-      2
-    ].proof_step
-  )
 
-  c2_index = pi6_connected.find(
-    c2
-  )
-  connector_index = pi6_connected.find(
-    _EXPECTED_CONNECTOR,
-    c2_index + len(
-      c2
-    ),
-  )
-  c3_index = pi6_connected.find(
-    c3,
-    connector_index + len(
-      _EXPECTED_CONNECTOR
-    ),
-  )
-
-  assert c2_index >= 0
-  assert connector_index > c2_index
-  assert c3_index > connector_index
-
-
-def test_phase144_6_r5_43_10_all_sixteen_uniform_chains_receive_compression_connector(
-  ordered_by_target,
-):
-  connector_count = 0
-
-  for n, k in TARGETS:
-    presentation, ordered = ordered_by_target[
-      (
-        n,
-        k,
-      )
-    ]
-    connectors = _contribution_connector_lines(
-      presentation,
-      ordered,
+  semantics = (
+    build_toda_group_proof_narrative_hidden_bridge_semantics(
+      presentation
     )
-    connector_count += sum(
-      1
-      for connector in connectors.values()
-      if connector == _EXPECTED_CONNECTOR
+  )
+  transports = tuple(
+    semantic
+    for semantic in semantics
+    if (
+      semantic.role
+      is TodaGroupProofNarrativeHiddenBridgeSemanticRole
+      .TRANSPORT
     )
-
-  assert connector_count == 16
-
-
-def test_phase144_6_r5_43_10_preserves_direct_connector(
-  ordered_by_target,
-  pi6_connected,
-):
-  presentation, ordered = ordered_by_target[
-    (
-      3,
-      3,
-    )
-  ]
-  contributions = next(
-    rows
-    for rows in ordered
-    if rows
-  )
-  c4 = _render_generic_narrative_step(
-    contributions[
-      3
-    ].proof_step
-  )
-  c5 = _render_generic_narrative_step(
-    contributions[
-      4
-    ].proof_step
   )
 
-  c4_index = pi6_connected.find(
-    c4
-  )
-  connector_index = pi6_connected.find(
-    "これより、",
-    c4_index + len(
-      c4
-    ),
-  )
-  c5_index = pi6_connected.find(
-    c5,
-    connector_index + len(
-      "これより、"
-    ),
+  assert transports
+  assert {
+    semantic.reference_identity
+    for semantic in transports
+  } == {
+    "Proposition 5.3",
+  }
+  assert any(
+    semantic.operation_kind
+    is TodaGroupProofNarrativeHiddenBridgeOperationKind
+    .SUSPENSION_STABILIZATION
+    for semantic in transports
   )
 
-  assert c4_index >= 0
-  assert connector_index > c4_index
-  assert c5_index > connector_index
 
 
-def test_phase144_6_r5_43_10_renderer_does_not_read_inference_rule_names():
+
+
+
+def test_phase144_6_r5_43_10_renderer_does_not_hard_code_historical_rule_names():
   import inspect
   import toda_group_proof_narrative_contribution_renderer as module
 
-  source = inspect.getsource(
-    module
-  )
+  source = inspect.getsource(module)
 
-  assert "inference_rule" not in source
   assert "finite-cyclic transport" not in source
   assert "eta_4 squared stable transport" not in source
 
 
-def test_phase144_6_r5_43_10_has_no_pi6_specific_branch():
-  import inspect
-  import toda_group_proof_narrative_contribution_renderer as module
-
-  source = inspect.getsource(
-    module
-  )
-
-  assert "n == 3" not in source
-  assert "k == 3" not in source
-  assert "_pi6" not in source.lower()

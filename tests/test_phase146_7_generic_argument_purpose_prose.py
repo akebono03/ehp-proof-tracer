@@ -30,13 +30,13 @@ def test_phase146_7_order_exactness_combines_purpose_and_method():
   )
 
   assert (
-    "$\\nu'$ の位数を決定するために、"
+    "$\\nu'$ の位数を決定するために, "
     "次の完全列を考える."
     in rendered
   )
   assert (
     "$\\nu'$ の位数を決定する."
-    "そのために、次の完全列を考える."
+    "そのために, 次の完全列を考える."
     not in rendered
   )
 

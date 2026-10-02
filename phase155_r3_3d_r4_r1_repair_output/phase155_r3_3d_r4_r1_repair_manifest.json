@@ -1,0 +1,24 @@
+{
+  "changed_files": [
+    "tests/test_phase41_preimage_subgroup.py",
+    "tests/test_set_rules.py"
+  ],
+  "removed_stale_hidden_tests": [
+    "tests/test_set_rules.py::test_image_membership_statement_phase155_hidden_coverage_1",
+    "tests/test_set_rules.py::test_image_membership_statement_uses_existing_image_subgroup_phase155_hidden_coverage_1",
+    "tests/test_set_rules.py::test_kernel_membership_statement_phase155_hidden_coverage_1",
+    "tests/test_set_rules.py::test_kernel_membership_statement_uses_existing_kernel_subgroup_phase155_hidden_coverage_1",
+    "tests/test_set_rules.py::test_mapped_zero_implies_kernel_membership_phase155_hidden_coverage_1",
+    "tests/test_set_rules.py::test_mapped_zero_implies_kernel_membership_uses_explicit_group_map_phase155_hidden_coverage_1"
+  ],
+  "restored_historical_keep_tests": [
+    "tests/test_phase41_preimage_subgroup.py::test_phase41_2_preimage_subgroup_uses_map_symbol",
+    "tests/test_phase41_preimage_subgroup.py::test_phase41_2_preimage_subgroup_uses_primary_component_target"
+  ],
+  "historical_precedence_rule": "historical_keep overrides removable_duplicate when the same test ID participates in both classifications",
+  "r4_backup_root": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof_phase155_r3_3d_r4_backup_20261002_133432",
+  "r4_r1_backup_root": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof_phase155_r3_3d_r4_r1_backup_20261002_134007",
+  "production_changes": false,
+  "import_changes": false,
+  "repository_wide_pytest_executed": false
+}

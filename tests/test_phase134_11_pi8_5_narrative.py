@@ -24,31 +24,6 @@ def _render_pi8_5(
   return captured.out
 
 
-def test_phase134_11_pi8_5_has_two_references_in_use_order(
-  capsys,
-):
-  rendered = _render_pi8_5(
-    capsys
-  )
-
-  r1 = (
-    "**[R1] Toda (5.5) "
-    "の ν-family 有限次元結果.**"
-  )
-
-  r2 = (
-    "**[R2] Toda (5.6) の ν₄ 分解.**"
-  )
-
-  assert r1 in rendered
-  assert r2 in rendered
-  assert rendered.index(
-    r1
-  ) < rendered.index(
-    r2
-  )
-
-
 def test_phase134_11_pi8_5_definition_is_natural_japanese(
   capsys,
 ):

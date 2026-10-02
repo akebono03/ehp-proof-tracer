@@ -226,27 +226,6 @@ def test_phase103_6d10_second_wave_families_remain_consistently_classified():
   ) == 267
 
 
-def test_phase103_6d10_catalog_size_and_fixed_point_safety_are_unchanged():
-  catalog = (
-    build_standard_production_applicability_catalog()
-  )
-
-  entries = (
-    catalog.entries()
-  )
-
-  assert len(
-    entries
-  ) == 1188
-
-  assert all(
-    entry.fixed_point_safe
-    is False
-    for entry in entries
-  )
-
-
-
 def test_phase103_6d10_factory_provenance_uses_function_qualname():
   from standard_production_applicability_catalog import (
     _inference_rule_factory_name,

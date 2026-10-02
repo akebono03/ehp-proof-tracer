@@ -1,0 +1,75 @@
+﻿test_id,outcome,duration_seconds,longrepr
+tests/test_phase110_12_operation_query_proof_replay_statement_presentation.py::test_phase110_12_aggregate_uses_safe_type_fallback,passed,0.7301690999884158,
+tests/test_phase110_12_operation_query_proof_replay_statement_presentation.py::test_phase110_12_replay_renderer_removes_python_dataclass_repr_leakage,passed,0.1819889999460429,
+tests/test_phase111_12_deep_show_proof_safe_fallback.py::test_phase111_12_depth_two_show_proof_uses_safe_type_name_fallback,passed,0.03139950009062886,
+tests/test_phase132_6_group_proof_narrative_renderer.py::test_phase132_6_sigma9_narrative_has_source_and_conclusion,passed,0.12138579995371401,
+tests/test_phase132_6_group_proof_narrative_renderer.py::test_phase132_6_sigma9_narrative_uses_fixed_japanese_leads,failed,0.07907400000840425,"tests\test_phase132_6_group_proof_narrative_renderer.py:186: in test_phase132_6_sigma9_narrative_uses_fixed_japanese_leads
+    assert ""。"" not in rendered
+E   AssertionError: assert '。' not in '# Group pro...9}\\}$を得る.\n'
+E     
+E     '。' is contained here:
+E       を生成することを示す。
+E     ?           +
+E       
+E       まず, $\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$を用いる.
+E       このことから, $|\pi_{16}^{9}| = 16$ であり, $E^{4}: \pi_{12}^{5} \to \pi_{16}^{9}$ は単射である....
+E     
+E     ...Full output truncated (5 lines hidden), use '-vv' to show"
+tests/test_phase132_6_group_proof_narrative_renderer.py::test_phase132_6_depth_zero_does_not_invent_premises,passed,0.09244249993935227,
+tests/test_phase143_42_argument_body_contribution_renderer.py::test_phase143_42_pi6_3_group_keeps_derived_short_exact_sequence,passed,0.048311399994418025,
+tests/test_phase143_46_multi_argument_narrative_assembler.py::test_phase143_46_pi8_5_excludes_detached_nu_prime_order_argument,passed,0.061130500165745616,
+tests/test_phase143_47_multi_argument_shared_contribution_dedup.py::test_phase143_47_pi16_9_suppresses_shared_definition_evidence,passed,0.18545389990322292,
+tests/test_phase143_53b_r_conclusion_aware_connector.py::test_phase143_53b_r_pi6_3_connector_precedes_order_conclusion,passed,0.047970599960535765,
+tests/test_phase143_53b_r_conclusion_aware_connector.py::test_phase143_53b_r_pi8_5_connector_precedes_order_conclusion,passed,0.07240020018070936,
+tests/test_phase143_53b_r_conclusion_aware_connector.py::test_phase143_53b_r_pi15_8_connector_still_precedes_target,passed,0.11318690003827214,
+tests/test_phase143_53b_r_conclusion_aware_connector.py::test_phase143_53b_r_pi16_9_connector_still_precedes_target,passed,0.14686650014482439,
+tests/test_phase143_53b_transition_connectors.py::test_phase143_53b_pi6_3_derivation_connects_order_and_target,passed,0.04577219998463988,
+tests/test_phase143_53b_transition_connectors.py::test_phase143_53b_pi15_8_aggregate_derivation_connects_target,passed,0.12508280016481876,
+tests/test_phase143_53b_transition_connectors.py::test_phase143_53b_pi16_9_derivation_connects_target,passed,0.13986120000481606,
+tests/test_phase143_55b_conclusion_step_ordering.py::test_phase143_55b_pi6_3_connector_immediately_precedes_main_order,passed,0.05021120002493262,
+tests/test_phase143_55b_conclusion_step_ordering.py::test_phase143_55b_pi8_5_connector_immediately_precedes_main_order,passed,0.046744100051000714,
+tests/test_phase143_55b_conclusion_step_ordering.py::test_phase143_55b_pi15_8_target_connector_remains_correct,passed,0.1269169000443071,
+tests/test_phase143_55b_conclusion_step_ordering.py::test_phase143_55b_pi16_9_target_connector_remains_correct,passed,0.16029329993762076,
+tests/test_phase143_59b_group_structure_duplicate_suppression.py::test_phase143_59b_pi15_8_keeps_final_group_conclusion,passed,0.09925400000065565,
+tests/test_phase143_59b_group_structure_duplicate_suppression.py::test_phase143_59b_pi6_3_narrative_remains_available,passed,0.05863160011358559,
+tests/test_phase143_61b_direct_premise_narrative.py::test_phase143_61b_pi16_9_final_conclusion_remains,passed,0.10905859991908073,
+tests/test_phase143_61b_r_semantic_suppression_priority.py::test_phase143_61b_r_keeps_pi15_8_final_conclusion,passed,0.11251999996602535,
+tests/test_phase143_61b_r_semantic_suppression_priority.py::test_phase143_61b_r_keeps_pi8_5_relocated_direct_premise,passed,0.04247150011360645,
+tests/test_phase143_61b_r_semantic_suppression_priority.py::test_phase143_61b_r_keeps_pi6_3_local_connector,passed,0.06593290017917752,
+tests/test_phase143_63a_r_exactness_repair.py::test_phase143_63a_r_pi8_5_direct_premise_placement_remains,passed,0.040394100127741694,
+tests/test_phase143_63a_residual_fallback_provenance.py::test_phase143_63a_pi8_5_direct_premise_placement_remains,passed,0.041228200076147914,
+tests/test_phase144_5_generic_definition_order_equations.py::test_phase144_5_r2_numbers_only_calculation_chain_equations,passed,0.042064900044351816,
+tests/test_phase144_5_generic_definition_order_equations.py::test_phase144_5_r2_pi6_3_keeps_definition_and_order_purposes,passed,0.06176399998366833,
+tests/test_phase144_5_generic_definition_order_equations.py::test_phase144_5_r2_pi6_3_uses_actual_equation_references,passed,0.04071880015544593,
+tests/test_phase144_6_pi6_generic_production_route.py::test_phase144_6_public_pi6_3_narrative_equals_generic_argument_renderer,passed,0.054601999931037426,
+tests/test_phase144_6_pi6_generic_production_route.py::test_phase144_6_cli_pi6_3_narrative_uses_generic_route,passed,0.11246109986677766,
+tests/test_phase144_6_r25_9a_pi5_suppression.py::test_phase144_6_r25_9a_pi5_3_is_hidden_without_losing_transitions,passed,0.07116489997133613,
+tests/test_phase144_6_r25_9a_r1_relocation_hidden.py::test_phase144_6_r25_9a_r1_hidden_support_is_not_reintroduced,passed,0.04327479982748628,
+tests/test_phase144_6_r4_supporting_fact_filtering.py::test_phase144_6_r4_preserves_argument_frontier_and_transition_chains,passed,0.048151999944821,
+tests/test_phase146_7_generic_argument_purpose_prose.py::test_phase146_7_order_exactness_combines_purpose_and_method,passed,0.047156100161373615,
+tests/test_phase148_rc2_4_post_repair_six_group.py::test_phase148_rc2_4_post_repair_pi6_3_retains_numbered_calculation_chain,passed,0.10198360006324947,
+tests/test_phase148_rc2_4_repair_r4_2_calculation_premise_semantic_closure.py::test_phase148_rc2_4_repair_r4_2_depth2_public_renderer_restores_numbered_chain,passed,0.04620039998553693,
+tests/test_phase148_rc2_4_repair_r4_2_calculation_premise_semantic_closure.py::test_phase148_rc2_4_repair_r4_2_web_depth2_restores_numbered_chain_without_raw_exactness,passed,0.04743149993009865,
+tests/test_phase150_rc4_7b_production_repair.py::test_phase150_rc4_7b_target_support_gets_conclusion_connector,passed,0.11170799983665347,
+tests/test_phase150_rc4_7d_reason_hidden_conclusion_anchor.py::test_phase150_rc4_7d_hidden_map_reason_uses_visible_downstream_anchor,passed,0.1290305000729859,
+tests/test_phase150_rc4_7d_reason_hidden_conclusion_anchor.py::test_phase150_rc4_7d_visible_final_reason_is_preserved,passed,0.12216040003113449,
+tests/test_phase153_r10_used_reference_filtering.py::test_phase153_r10_filters_unused_entries_and_renumbers_markers,passed,0.00023459992371499538,
+tests/test_phase153_r10_used_reference_filtering.py::test_phase153_r10_pi6_2_body_uses_renumbered_references,passed,0.06502320012077689,
+tests/test_phase153_r12_root_reference_exclusion.py::test_phase153_r12_pi11_4_body_uses_renumbered_external_references,failed,0.10114479996263981,"tests\test_phase153_r12_root_reference_exclusion.py:87: in test_phase153_r12_pi11_4_body_uses_renumbered_external_references
+    assert ""[R2]を用いる."" in body
+E   AssertionError: assert '[R2]を用いる.' in 'まず, $H: \\pi_{10}^{3} \\to \\pi_{10}^{5}$ は単射である.\nまた, $\\Delta: \\pi_{10}^{5} \\to \\pi_{8}^{2}$ は単射である.\nさらに, $\\pi...\nこれらから, $\\pi_{10}^{3} = 0$を得る.\nまた, [R1]を用いる.\n[R2]より, $\\nu_{4}$ の分解写像は同型写像である.\n\nしたがって, $\\pi_{11}^{4} = 0$を得る.\n'"
+tests/test_phase153_r2_public_reference_semantic_fact.py::test_phase153_r2_public_pi10_6_keeps_provenance_only_reference_compact,passed,0.0745314999949187,
+tests/test_phase153_r3_11_reference_body_ownership_repair.py::test_phase153_r3_11_replaces_embedded_unmarked_selected_statement_with_reference_marker,passed,0.00017399992793798447,
+tests/test_phase153_r3_11_reference_body_ownership_repair.py::test_phase153_r3_11_preserves_surrounding_prose_when_replacing_embedded_statement,passed,0.00016740011051297188,
+tests/test_phase153_r3_5_reference_body_duplicate_suppression.py::test_phase153_r3_5_suppresses_exact_standalone_statement_line,passed,0.00016410020180046558,
+tests/test_phase153_r3_5_reference_body_duplicate_suppression.py::test_phase153_r3_5_compacts_reference_marker_sentence,passed,0.0001620999537408352,
+tests/test_phase153_r9_reference_reuse_derivation_suppression.py::test_phase153_r9_pi6_2_reuses_selected_references_without_rederiving_ancestry,passed,0.05017940001562238,
+tests/test_phase71_probe.py::test_phase71_probe_output_contains_aggregate_type,passed,1.0274424999952316,
+tests/test_phase73_probe.py::test_phase73_probe_output_contains_aggregate_type,passed,0.010216199792921543,
+tests/test_phase74_probe.py::test_phase74_probe_output_contains_final_result,passed,0.11529909982345998,
+tests/test_phase75_probe.py::test_phase75_probe_output_contains_aggregate_integration,passed,0.06502400012686849,
+tests/test_phase78_stable_two_primary_identification.py::test_phase78_5_statement_is_distinct_from_finite_stage_toda45,passed,0.00018669990822672844,
+tests/test_phase96_final_proof_report_audit.py::test_phase96_12_unknown_statement_fallback_is_explicit_and_safe,passed,0.23724200017750263,
+tests/test_phase96_full_proof_report_renderer.py::test_phase96_11_actual_pi9_5_unknown_statements_remain_safe_fallbacks,passed,0.023825100157409906,
+tests/test_phase96_proof_step_mathematical_narrative.py::test_phase96_10_unknown_aggregate_statement_keeps_safe_type_fallback,passed,0.07086630002595484,
+tests/test_phase96_proof_step_mathematical_narrative.py::test_phase96_10_narrative_keeps_unknown_statements_without_inventing_math,passed,0.022538900142535567,

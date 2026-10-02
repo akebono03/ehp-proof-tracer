@@ -1,0 +1,21 @@
+{
+  "test_files": 838,
+  "source_test_functions": 10122,
+  "category_counts": {
+    "canonical_candidate": 1620,
+    "review_required": 8199,
+    "historical_compatibility": 52,
+    "audit_only_candidate": 222,
+    "performance_heavy_integration_candidate": 29
+  },
+  "canonical_candidate_files": 72,
+  "historical_files": 34,
+  "audit_only_candidate_files": 41,
+  "heavy_candidate_files": 5,
+  "review_required_files": 712,
+  "focused_regression_files_found": 27,
+  "canonical_collect_only_exit_code": 0,
+  "production_changes": false,
+  "existing_test_changes": false,
+  "repository_wide_pytest_executed": false
+}

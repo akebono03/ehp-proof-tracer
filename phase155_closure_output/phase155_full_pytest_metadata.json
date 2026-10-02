@@ -1,0 +1,18 @@
+{
+  "command": [
+    "C:\\Users\\oomae\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
+    "-m",
+    "pytest",
+    "tests",
+    "-q",
+    "--tb=line",
+    "--durations=50",
+    "--durations-min=1.0",
+    "-p",
+    "phase155_closure_progress_plugin"
+  ],
+  "returncode": 1,
+  "elapsed_seconds": 2391.0718749000225,
+  "full_repository_pytest_executed": true,
+  "log_path": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase155_closure_output\\phase155_full_pytest.log"
+}

@@ -1,0 +1,82 @@
+[
+  {
+    "file_path": "tests/test_set_rules.py",
+    "function_name": "test_image_membership_statement",
+    "definition_count": 2,
+    "exact_same_ast": false,
+    "normalized_hashes": [
+      "df1b6fb9876c34f31cd1ae4f45ccbbdf195dbec41d51ca7ce199c26536b5287c",
+      "123e1fd911e6d46bad4330f8b10d20302e1127cfc1fb65b9e60823a4dc0e5125"
+    ]
+  },
+  {
+    "file_path": "tests/test_set_rules.py",
+    "function_name": "test_image_membership_statement_distinguishes_image",
+    "definition_count": 2,
+    "exact_same_ast": false,
+    "normalized_hashes": [
+      "281ad0856187344e67c31a3683f41b04939e1b18262d763a95eed128932040a1",
+      "50b3923dbdbccc0e022336a56d31069f9369782843d4089665c3192f25c8960d"
+    ]
+  },
+  {
+    "file_path": "tests/test_set_rules.py",
+    "function_name": "test_image_membership_statement_uses_existing_image_subgroup",
+    "definition_count": 2,
+    "exact_same_ast": false,
+    "normalized_hashes": [
+      "879d44898378d9a0ffcbf101800f72523caf2f1a4012d6df6269f345cf24336c",
+      "59d2f0bbddcbe9ca3ee19fba0480ba1c8fba6c6529285f4bcff89d4ae1e110a1"
+    ]
+  },
+  {
+    "file_path": "tests/test_set_rules.py",
+    "function_name": "test_kernel_membership_statement",
+    "definition_count": 2,
+    "exact_same_ast": false,
+    "normalized_hashes": [
+      "a2b3929198a7ae3b802ebf6ff7923749ed066b752f87b623cfffc8c9ef3813eb",
+      "aaa6159989084976a16d71253617cb4527f6d630c22fab7e31a1b1ac6da34689"
+    ]
+  },
+  {
+    "file_path": "tests/test_set_rules.py",
+    "function_name": "test_kernel_membership_statement_distinguishes_kernel",
+    "definition_count": 2,
+    "exact_same_ast": false,
+    "normalized_hashes": [
+      "e849f62b05e18271fc5cc2826d9151635cab5a2de4e3c05b8bbf7f82fa9843a1",
+      "6da7a4b079bdae99e787f6fb2151e48081ca1211f8e9d3e7d8092051aebd6051"
+    ]
+  },
+  {
+    "file_path": "tests/test_set_rules.py",
+    "function_name": "test_kernel_membership_statement_uses_existing_kernel_subgroup",
+    "definition_count": 2,
+    "exact_same_ast": false,
+    "normalized_hashes": [
+      "00d9be14638823ce380b050b609a703a1a377e84e22d6ea33b052cdf99682052",
+      "cfc947066b56c065bceb801ab035d4ba40fbd5f63eeaf9d78538b4d29b3dfbd4"
+    ]
+  },
+  {
+    "file_path": "tests/test_set_rules.py",
+    "function_name": "test_mapped_zero_implies_kernel_membership",
+    "definition_count": 2,
+    "exact_same_ast": false,
+    "normalized_hashes": [
+      "586cfdd0c513c44996fd66f84e01d6f4e9cd4d3b32889930599d5a07fc8a837d",
+      "92c2b6e29993cd33b95cd3f5e550bcd96c77ce4537f9a95fba06affdd853a0d4"
+    ]
+  },
+  {
+    "file_path": "tests/test_set_rules.py",
+    "function_name": "test_mapped_zero_implies_kernel_membership_uses_explicit_group_map",
+    "definition_count": 2,
+    "exact_same_ast": false,
+    "normalized_hashes": [
+      "44f1d0675c86f0d38c943bdf6de21508e2727ff4956b12413da139cabb3f9bb0",
+      "c340ee0f51265336c96cc18238938006e02015768a6333718e10db5cc77f25d5"
+    ]
+  }
+]

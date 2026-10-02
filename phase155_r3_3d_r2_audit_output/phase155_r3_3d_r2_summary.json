@@ -1,0 +1,14 @@
+{
+  "duplicate_name_groups": 8,
+  "runtime_last_definition_confirmed": true,
+  "shadowed_groups_with_unique_assertions": 6,
+  "shadowed_groups_without_unique_assertions": 2,
+  "unresolved_pairs": 2,
+  "unresolved_pair_classifications": {
+    "graph_has_no_deletion_candidate_endpoint": 2
+  },
+  "production_code_modified": false,
+  "existing_tests_modified": false,
+  "tests_deleted": 0,
+  "repository_wide_pytest_executed": false
+}

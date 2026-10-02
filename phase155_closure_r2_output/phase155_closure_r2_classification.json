@@ -1,0 +1,953 @@
+{
+  "source_log": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase155_closure_output\\phase155_full_pytest.log",
+  "failure_count": 98,
+  "counts": {
+    "SAFE_STALE": 38,
+    "HISTORICAL_HEAVY": 36,
+    "CONTRACT_SENSITIVE": 24,
+    "UNKNOWN": 0
+  },
+  "records": [
+    {
+      "nodeid": "tests/test_phase132_6_group_proof_narrative_renderer.py::test_phase132_6_sigma_family_statements_use_readable_labels",
+      "file": "tests/test_phase132_6_group_proof_narrative_renderer.py",
+      "phase_family": "phase132",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase132_8_group_proof_narrative_dedup.py::test_phase132_8_shared_dependency_subtree_is_expanded_once",
+      "file": "tests/test_phase132_8_group_proof_narrative_dedup.py",
+      "phase_family": "phase132",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase132_8_group_proof_narrative_dedup.py::test_phase132_8_repeated_shared_dependency_uses_existing_reference",
+      "file": "tests/test_phase132_8_group_proof_narrative_dedup.py",
+      "phase_family": "phase132",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase132_8_group_proof_narrative_dedup.py::test_phase132_8_root_conclusion_and_source_remain_unchanged",
+      "file": "tests/test_phase132_8_group_proof_narrative_dedup.py",
+      "phase_family": "phase132",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase132_8_group_proof_narrative_dedup.py::test_phase132_8_cli_narrative_uses_deduplicated_renderer",
+      "file": "tests/test_phase132_8_group_proof_narrative_dedup.py",
+      "phase_family": "phase132",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase133_10_sigma_label_wording.py::test_phase133_10_sigma9_depth_two_uses_final_japanese_wording",
+      "file": "tests/test_phase133_10_sigma_label_wording.py",
+      "phase_family": "phase133",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase133_6_group_proof_narrative_labels.py::test_phase133_6_pi10_4_uses_readable_nu4_decomposition_label",
+      "file": "tests/test_phase133_6_group_proof_narrative_labels.py",
+      "phase_family": "phase133",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase133_6_group_proof_narrative_labels.py::test_phase133_6_pi12_5_uses_readable_sigma_triple_prime_labels",
+      "file": "tests/test_phase133_6_group_proof_narrative_labels.py",
+      "phase_family": "phase133",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase133_6_group_proof_narrative_labels.py::test_phase133_6_sigma9_depth_two_reuses_new_labels",
+      "file": "tests/test_phase133_6_group_proof_narrative_labels.py",
+      "phase_family": "phase133",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_pi10_4_depth_two_uses_final_readable_labels",
+      "file": "tests/test_phase133_9_group_proof_narrative_labels.py",
+      "phase_family": "phase133",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_pi16_9_depth_two_uses_final_sigma_labels",
+      "file": "tests/test_phase133_9_group_proof_narrative_labels.py",
+      "phase_family": "phase133",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_previous_labels_remain_available",
+      "file": "tests/test_phase133_9_group_proof_narrative_labels.py",
+      "phase_family": "phase133",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase143_44_single_argument_narrative_renderer.py::test_phase143_44_pi6_3_order_combines_header_method_and_body",
+      "file": "tests/test_phase143_44_single_argument_narrative_renderer.py",
+      "phase_family": "phase143",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase143_44_single_argument_narrative_renderer.py::test_phase143_44_pi6_3_definition_without_primary_has_no_method_transition",
+      "file": "tests/test_phase143_44_single_argument_narrative_renderer.py",
+      "phase_family": "phase143",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase143_44_single_argument_narrative_renderer.py::test_phase143_44_pi8_5_detached_order_has_no_discourse_marker",
+      "file": "tests/test_phase143_44_single_argument_narrative_renderer.py",
+      "phase_family": "phase143",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase143_46_multi_argument_narrative_assembler.py::test_phase143_46_pi6_3_assembles_three_main_arguments",
+      "file": "tests/test_phase143_46_multi_argument_narrative_assembler.py",
+      "phase_family": "phase143",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase143_46_multi_argument_narrative_assembler.py::test_phase143_46_pi16_9_assembles_definition_then_group_structure",
+      "file": "tests/test_phase143_46_multi_argument_narrative_assembler.py",
+      "phase_family": "phase143",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase143_61b_direct_premise_narrative.py::test_phase143_61b_pi8_5_places_direct_derivation_premises_together",
+      "file": "tests/test_phase143_61b_direct_premise_narrative.py",
+      "phase_family": "phase143",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase143_61b_direct_premise_narrative.py::test_phase143_61b_pi6_3_keeps_local_calculation_derivation",
+      "file": "tests/test_phase143_61b_direct_premise_narrative.py",
+      "phase_family": "phase143",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase143_74b_remaining_internal_narrative.py::test_phase143_74b_prop44_isomorphism_renders_decomposition_semantics",
+      "file": "tests/test_phase143_74b_remaining_internal_narrative.py",
+      "phase_family": "phase143",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase143_74b_remaining_internal_narrative.py::test_phase143_74b_suspension_isomorphism_renders_semantic_map",
+      "file": "tests/test_phase143_74b_remaining_internal_narrative.py",
+      "phase_family": "phase143",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase143_75c_generic_semantic_rendering.py::test_phase143_75c_renders_toda45_isomorphism_semantically",
+      "file": "tests/test_phase143_75c_generic_semantic_rendering.py",
+      "phase_family": "phase143",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase143_75c_generic_semantic_rendering.py::test_phase143_75c_renders_hopf_isomorphism_semantically",
+      "file": "tests/test_phase143_75c_generic_semantic_rendering.py",
+      "phase_family": "phase143",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase143_75c_generic_semantic_rendering.py::test_phase143_75c_renders_prop44_second_summand_semantically",
+      "file": "tests/test_phase143_75c_generic_semantic_rendering.py",
+      "phase_family": "phase143",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase143_75f_ehp_semantic_rendering.py::test_phase143_75f_renders_delta_surjective_semantically",
+      "file": "tests/test_phase143_75f_ehp_semantic_rendering.py",
+      "phase_family": "phase143",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase143_75f_ehp_semantic_rendering.py::test_phase143_75f_renders_delta_kernel_semantically",
+      "file": "tests/test_phase143_75f_ehp_semantic_rendering.py",
+      "phase_family": "phase143",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase143_75i_whitehead_hopf_semantic_rendering.py::test_phase143_75i_renders_prop27_whitehead_argument_semantically",
+      "file": "tests/test_phase143_75i_whitehead_hopf_semantic_rendering.py",
+      "phase_family": "phase143",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase143_75i_whitehead_hopf_semantic_rendering.py::test_phase143_75i_renders_prop27_map_application_semantically",
+      "file": "tests/test_phase143_75i_whitehead_hopf_semantic_rendering.py",
+      "phase_family": "phase143",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase143_75i_whitehead_hopf_semantic_rendering.py::test_phase143_75i_renders_58_whitehead_square_semantically",
+      "file": "tests/test_phase143_75i_whitehead_hopf_semantic_rendering.py",
+      "phase_family": "phase143",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase143_75p_prop44_suspension_injective_semantic_rendering.py::test_phase143_75p_all_target_occurrences_render_semantically",
+      "file": "tests/test_phase143_75p_prop44_suspension_injective_semantic_rendering.py",
+      "phase_family": "phase143",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase143_75p_prop44_suspension_injective_semantic_rendering.py::test_phase143_75p_both_rule_families_use_same_semantic_renderer",
+      "file": "tests/test_phase143_75p_prop44_suspension_injective_semantic_rendering.py",
+      "phase_family": "phase143",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase143_75p_prop44_suspension_injective_semantic_rendering.py::test_phase143_75p_concrete_map_uses_source_and_target_groups",
+      "file": "tests/test_phase143_75p_prop44_suspension_injective_semantic_rendering.py",
+      "phase_family": "phase143",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase143_75s_toda58_whitehead_square_semantic_rendering.py::test_phase143_75s_all_aggregate_components_render_semantically",
+      "file": "tests/test_phase143_75s_toda58_whitehead_square_semantic_rendering.py",
+      "phase_family": "phase143",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_pi6_generic_production_route.py::test_phase144_6_pi6_production_branch_contains_no_legacy_renderer_call",
+      "file": "tests/test_phase144_6_pi6_generic_production_route.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r25_9b_nu_prime_definition_depth2.py::test_phase144_6_r25_9b_depth2_narrative_has_definition_without_pi5_3",
+      "file": "tests/test_phase144_6_r25_9b_nu_prime_definition_depth2.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r25_9b_nu_prime_definition_depth2.py::test_phase144_6_r25_9b_cli_depth2_narrative_has_definition",
+      "file": "tests/test_phase144_6_r25_9b_nu_prime_definition_depth2.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_40_narrative_contribution_placement_order_audit.py::test_phase144_6_r5_40_pi6_has_five_selected_contributions",
+      "file": "tests/test_phase144_6_r5_40_narrative_contribution_placement_order_audit.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_42_generic_narrative_contribution_production_foundation.py::test_phase144_6_r5_42_pi6_has_five_ordered_contributions",
+      "file": "tests/test_phase144_6_r5_42_generic_narrative_contribution_production_foundation.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_42_generic_narrative_contribution_production_foundation.py::test_phase144_6_r5_42_pi6_order_matches_phase41_topological_order",
+      "file": "tests/test_phase144_6_r5_42_generic_narrative_contribution_production_foundation.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_42_generic_narrative_contribution_production_foundation.py::test_phase144_6_r5_42_nonunique_phase41_arguments_are_deterministic",
+      "file": "tests/test_phase144_6_r5_42_generic_narrative_contribution_production_foundation.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_1.py::test_phase144_6_r5_43_1_pi6_connected_contributions_are_unique_and_ordered",
+      "file": "tests/test_phase144_6_r5_43_1.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_10_transport_chain_compression_production.py::test_phase144_6_r5_43_10_pi6_transport_connector_is_rendered_between_c2_and_c3",
+      "file": "tests/test_phase144_6_r5_43_10_transport_chain_compression_production.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_10_transport_chain_compression_production.py::test_phase144_6_r5_43_10_all_sixteen_uniform_chains_receive_compression_connector",
+      "file": "tests/test_phase144_6_r5_43_10_transport_chain_compression_production.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_10_transport_chain_compression_production.py::test_phase144_6_r5_43_10_preserves_direct_connector",
+      "file": "tests/test_phase144_6_r5_43_10_transport_chain_compression_production.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_10_transport_chain_compression_production.py::test_phase144_6_r5_43_10_renderer_does_not_read_inference_rule_names",
+      "file": "tests/test_phase144_6_r5_43_10_transport_chain_compression_production.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py::test_phase144_6_r5_43_11_all_sixteen_transport_chains_are_connected",
+      "file": "tests/test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py::test_phase144_6_r5_43_11_has_no_contribution_duplicates_or_order_violations",
+      "file": "tests/test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py::test_phase144_6_r5_43_11_renderer_has_no_rule_name_or_pi6_specific_branch",
+      "file": "tests/test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_11d_final_completion_audit.py::test_phase144_6_r5_43_11d_final_completion_invariants_pass",
+      "file": "tests/test_phase144_6_r5_43_11d_final_completion_audit.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_11d_final_completion_audit.py::test_phase144_6_r5_43_11d_connects_all_33_narrative_participating_contributions",
+      "file": "tests/test_phase144_6_r5_43_11d_final_completion_audit.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_11d_final_completion_audit.py::test_phase144_6_r5_43_11d_preserves_all_sixteen_transport_connectors",
+      "file": "tests/test_phase144_6_r5_43_11d_final_completion_audit.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_11d_final_completion_audit.py::test_phase144_6_r5_43_11d_renderer_remains_generic",
+      "file": "tests/test_phase144_6_r5_43_11d_final_completion_audit.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_2_placement_aware_contribution_insertion.py::test_phase144_6_r5_43_2_pi6_uses_provider_anchor_indices",
+      "file": "tests/test_phase144_6_r5_43_2_placement_aware_contribution_insertion.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_2_placement_aware_contribution_insertion.py::test_phase144_6_r5_43_2_pi6_contributions_are_not_dumped_after_final_connector",
+      "file": "tests/test_phase144_6_r5_43_2_placement_aware_contribution_insertion.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_2_placement_aware_contribution_insertion.py::test_phase144_6_r5_43_2_pi6_contributions_remain_unique_and_topologically_ordered",
+      "file": "tests/test_phase144_6_r5_43_2_placement_aware_contribution_insertion.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_4_dependency_aware_contribution_connector.py::test_phase144_6_r5_43_4_only_direct_contribution_dependency_gets_direct_connector",
+      "file": "tests/test_phase144_6_r5_43_4_dependency_aware_contribution_connector.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_4_dependency_aware_contribution_connector.py::test_phase144_6_r5_43_4_c4_to_c5_has_connector",
+      "file": "tests/test_phase144_6_r5_43_4_dependency_aware_contribution_connector.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_4_dependency_aware_contribution_connector.py::test_phase144_6_r5_43_4_preserves_r5_43_2_placement_and_uniqueness",
+      "file": "tests/test_phase144_6_r5_43_4_dependency_aware_contribution_connector.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_5.py::test_phase144_6_r5_43_5_audits_three_transitive_segments",
+      "file": "tests/test_phase144_6_r5_43_5.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_6.py::test_phase144_6_r5_43_6_pi6_contains_expected_transport_and_integration_candidates",
+      "file": "tests/test_phase144_6_r5_43_6.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_7_hidden_bridge_semantic_classification_foundation.py::test_phase144_6_r5_43_7_reproduces_all_r5_43_6_hidden_bridge_signatures",
+      "file": "tests/test_phase144_6_r5_43_7_hidden_bridge_semantic_classification_foundation.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_7_hidden_bridge_semantic_classification_foundation.py::test_phase144_6_r5_43_7_r5_43_6_population_has_two_semantic_roles",
+      "file": "tests/test_phase144_6_r5_43_7_hidden_bridge_semantic_classification_foundation.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_7_hidden_bridge_semantic_classification_foundation.py::test_phase144_6_r5_43_7_public_route_remains_unchanged_after_r5_43_10",
+      "file": "tests/test_phase144_6_r5_43_7_hidden_bridge_semantic_classification_foundation.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_8.py::test_phase144_6_r5_43_8_finds_sixteen_three_step_transport_chains",
+      "file": "tests/test_phase144_6_r5_43_8.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_8.py::test_phase144_6_r5_43_8_has_one_hidden_signature_sequence",
+      "file": "tests/test_phase144_6_r5_43_8.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_8.py::test_phase144_6_r5_43_8_reports_all_forty_eight_transport_occurrences",
+      "file": "tests/test_phase144_6_r5_43_8.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_9.py::test_phase144_6_r5_43_9_all_chains_observe_same_operation_kind",
+      "file": "tests/test_phase144_6_r5_43_9.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_9.py::test_phase144_6_r5_43_9_all_three_candidate_prose_levels_are_supported_by_observed_data",
+      "file": "tests/test_phase144_6_r5_43_9.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_generic_renderer_contribution_connection.py::test_phase144_6_r5_43_pi6_contributions_enter_generic_narrative_in_order",
+      "file": "tests/test_phase144_6_r5_43_generic_renderer_contribution_connection.py",
+      "phase_family": "phase144",
+      "category": "HISTORICAL_HEAVY",
+      "reason": "Historical cross-group/contribution audit with fixed population or renderer-internal assumptions; requires redundancy/heavy-test review before change."
+    },
+    {
+      "nodeid": "tests/test_phase150_rc4_5b_3_r1_beta_latex.py::test_phase150_rc4_5b_3_r1_beta_uses_general_greek_latex_table",
+      "file": "tests/test_phase150_rc4_5b_3_r1_beta_latex.py",
+      "phase_family": "phase150",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase150_rc4_7a_cross_group_reference_normalization.py::test_phase150_rc4_7a_pi10_4_numbers_normalized_references",
+      "file": "tests/test_phase150_rc4_7a_cross_group_reference_normalization.py",
+      "phase_family": "phase150",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase150_rc4_7a_cross_group_reference_normalization.py::test_phase150_rc4_7a_pi12_5_numbers_normalized_references",
+      "file": "tests/test_phase150_rc4_7a_cross_group_reference_normalization.py",
+      "phase_family": "phase150",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase150_rc4_7d_3_public_narrative_generic_route.py::test_phase150_rc4_7d_3_pi10_public_and_web_use_generic_reason_route",
+      "file": "tests/test_phase150_rc4_7d_3_public_narrative_generic_route.py",
+      "phase_family": "phase150",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase150_rc4_7d_3_public_narrative_generic_route.py::test_phase150_rc4_7d_3_pi12_public_and_web_use_generic_reason_route",
+      "file": "tests/test_phase150_rc4_7d_3_public_narrative_generic_route.py",
+      "phase_family": "phase150",
+      "category": "SAFE_STALE",
+      "reason": "Historical presentation/rendering/reference expectation predates the current generic route."
+    },
+    {
+      "nodeid": "tests/test_phase153_r2_public_reference_semantic_fact.py::test_phase153_r2_public_pi10_6_excludes_obsolete_45_reference",
+      "file": "tests/test_phase153_r2_public_reference_semantic_fact.py",
+      "phase_family": "phase153",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    },
+    {
+      "nodeid": "tests/test_phase153_r3_10_public_reference_connection_repair.py::test_phase153_r3_10_all_selected_statements_are_publicly_visible",
+      "file": "tests/test_phase153_r3_10_public_reference_connection_repair.py",
+      "phase_family": "phase153",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    },
+    {
+      "nodeid": "tests/test_phase153_r3_10_public_reference_connection_repair.py::test_phase153_r3_10_public_reference_markers_cover_structured_entries",
+      "file": "tests/test_phase153_r3_10_public_reference_connection_repair.py",
+      "phase_family": "phase153",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    },
+    {
+      "nodeid": "tests/test_phase153_r3_11_reference_body_ownership_repair.py::test_phase153_r3_11_all_112_groups_have_no_exact_selected_statement_body_duplicates",
+      "file": "tests/test_phase153_r3_11_reference_body_ownership_repair.py",
+      "phase_family": "phase153",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    },
+    {
+      "nodeid": "tests/test_phase153_r3_4_reference_statement_rendering_connection.py::test_phase153_r3_4_public_pi10_6_reference_section_excludes_obsolete_45",
+      "file": "tests/test_phase153_r3_4_reference_statement_rendering_connection.py",
+      "phase_family": "phase153",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    },
+    {
+      "nodeid": "tests/test_phase153_r3_5_reference_body_duplicate_suppression.py::test_phase153_r3_5_public_pi10_6_keeps_current_reference_baseline_without_obsolete_45",
+      "file": "tests/test_phase153_r3_5_reference_body_duplicate_suppression.py",
+      "phase_family": "phase153",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    },
+    {
+      "nodeid": "tests/test_phase153_r3_9_remaining_reference_renderer_coverage.py::test_phase153_r3_9_all_reference_entries_have_selected_statement",
+      "file": "tests/test_phase153_r3_9_remaining_reference_renderer_coverage.py",
+      "phase_family": "phase153",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    },
+    {
+      "nodeid": "tests/test_phase95_actual_representative_top_level_capability.py::test_phase95_20_pi9_5_preserves_order_two_generator_and_actual_ehp_provenance",
+      "file": "tests/test_phase95_actual_representative_top_level_capability.py",
+      "phase_family": "phase95",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    },
+    {
+      "nodeid": "tests/test_phase95_actual_representative_top_level_capability.py::test_phase95_20_pi10_4_preserves_order_eight_outer_phase73_branch",
+      "file": "tests/test_phase95_actual_representative_top_level_capability.py",
+      "phase_family": "phase95",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    },
+    {
+      "nodeid": "tests/test_phase95_top_level_calculation_orchestration.py::test_phase95_18_preserves_multiple_aggregate_candidates_in_registration_order",
+      "file": "tests/test_phase95_top_level_calculation_orchestration.py",
+      "phase_family": "phase95",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    },
+    {
+      "nodeid": "tests/test_phase96_actual_pi9_5_end_to_end_presentation.py::test_phase96_7_actual_pi9_5_integrates_calculation_source_metadata",
+      "file": "tests/test_phase96_actual_pi9_5_end_to_end_presentation.py",
+      "phase_family": "phase96",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    },
+    {
+      "nodeid": "tests/test_phase96_actual_pi9_5_end_to_end_presentation.py::test_phase96_7_actual_pi9_5_result_source_and_goal_source_remain_distinct",
+      "file": "tests/test_phase96_actual_pi9_5_end_to_end_presentation.py",
+      "phase_family": "phase96",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    },
+    {
+      "nodeid": "tests/test_phase96_full_proof_report_renderer.py::test_phase96_11_actual_pi9_5_full_report_contains_source_metadata",
+      "file": "tests/test_phase96_full_proof_report_renderer.py",
+      "phase_family": "phase96",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    },
+    {
+      "nodeid": "tests/test_phase96_human_readable_renderer.py::test_phase96_9_actual_pi9_5_markdown_contains_result_source_and_ehp",
+      "file": "tests/test_phase96_human_readable_renderer.py",
+      "phase_family": "phase96",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    },
+    {
+      "nodeid": "tests/test_phase96_proof_step_source_presentation.py::test_phase96_5_actual_pi9_5_aggregate_goal_source_preserves_theorem_phase_and_branch",
+      "file": "tests/test_phase96_proof_step_source_presentation.py",
+      "phase_family": "phase96",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    },
+    {
+      "nodeid": "tests/test_phase96_proof_step_source_presentation.py::test_phase96_5_actual_aggregate_result_source_and_goal_source_remain_distinct",
+      "file": "tests/test_phase96_proof_step_source_presentation.py",
+      "phase_family": "phase96",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    },
+    {
+      "nodeid": "tests/test_phase96_proof_step_source_presentation.py::test_phase96_5_actual_internal_dependency_does_not_inherit_aggregate_theorem_metadata",
+      "file": "tests/test_phase96_proof_step_source_presentation.py",
+      "phase_family": "phase96",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    },
+    {
+      "nodeid": "tests/test_phase96_representative_targets_end_to_end_presentation.py::test_phase96_8_representative_goal_sources_preserve_theorem_phase_and_branch",
+      "file": "tests/test_phase96_representative_targets_end_to_end_presentation.py",
+      "phase_family": "phase96",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    },
+    {
+      "nodeid": "tests/test_phase96_representative_targets_end_to_end_presentation.py::test_phase96_8_all_representative_results_keep_result_and_goal_sources_distinct",
+      "file": "tests/test_phase96_representative_targets_end_to_end_presentation.py",
+      "phase_family": "phase96",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    },
+    {
+      "nodeid": "tests/test_phase97_actual_representative_targets_top_level_api.py::test_phase97_5_representative_goal_source_provenance_survives_top_level_api",
+      "file": "tests/test_phase97_actual_representative_targets_top_level_api.py",
+      "phase_family": "phase97",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    },
+    {
+      "nodeid": "tests/test_phase97_not_found_multiple_results_top_level_handling.py::test_phase97_4_multiple_aggregate_results_preserve_goal_source_order",
+      "file": "tests/test_phase97_not_found_multiple_results_top_level_handling.py",
+      "phase_family": "phase97",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    },
+    {
+      "nodeid": "tests/test_phase97_single_found_calculation_to_report_api.py::test_phase97_3_aggregate_found_preserves_goal_source_provenance",
+      "file": "tests/test_phase97_single_found_calculation_to_report_api.py",
+      "phase_family": "phase97",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    },
+    {
+      "nodeid": "tests/test_phase98_actual_use_facade_validation.py::test_phase98_3_facade_preserves_goal_source_provenance",
+      "file": "tests/test_phase98_actual_use_facade_validation.py",
+      "phase_family": "phase98",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    },
+    {
+      "nodeid": "tests/test_phase98_representative_convenience_validation.py::test_phase98_6_shortest_path_preserves_goal_source_provenance",
+      "file": "tests/test_phase98_representative_convenience_validation.py",
+      "phase_family": "phase98",
+      "category": "CONTRACT_SENSITIVE",
+      "reason": "Touches Reference ownership, provenance, source metadata, or aggregate-result semantics; do not auto-repair."
+    }
+  ],
+  "slow_rows": [
+    {
+      "seconds": 508.3,
+      "phase": "call",
+      "nodeid": "tests/test_phase97_single_found_calculation_to_report_api.py::test_phase97_3_aggregate_found_preserves_goal_source_provenance"
+    },
+    {
+      "seconds": 281.49,
+      "phase": "call",
+      "nodeid": "tests/test_phase95_top_level_calculation_orchestration.py::test_phase95_18_preserves_multiple_aggregate_candidates_in_registration_order"
+    },
+    {
+      "seconds": 276.88,
+      "phase": "call",
+      "nodeid": "tests/test_phase97_not_found_multiple_results_top_level_handling.py::test_phase97_4_multiple_aggregate_results_preserve_goal_source_order"
+    },
+    {
+      "seconds": 27.64,
+      "phase": "setup",
+      "nodeid": "tests/test_phase144_6_r5_43_7_hidden_bridge_semantic_classification_foundation.py::test_phase144_6_r5_43_7_reproduces_all_r5_43_6_hidden_bridge_signatures"
+    },
+    {
+      "seconds": 26.89,
+      "phase": "setup",
+      "nodeid": "tests/test_phase144_6_r5_41_contribution_topological_order_determinism_audit.py::test_phase144_6_r5_41_selected_population_matches_phase40"
+    },
+    {
+      "seconds": 26.74,
+      "phase": "setup",
+      "nodeid": "tests/test_phase144_6_r5_42_generic_narrative_contribution_production_foundation.py::test_phase144_6_r5_42_reproduces_phase40_selected_population"
+    },
+    {
+      "seconds": 26.72,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_43_r2_recursive_repr_repair.py::test_phase144_6_r5_43_r2_six_group_population_remains_190"
+    },
+    {
+      "seconds": 25.97,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py::test_phase144_6_r5_43_11_covers_six_representative_groups_and_190_contributions"
+    },
+    {
+      "seconds": 25.96,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_43_6.py::test_phase144_6_r5_43_6_hidden_bridge_rows_have_classification_inputs"
+    },
+    {
+      "seconds": 25.7,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_43_9.py::test_phase144_6_r5_43_9_covers_all_sixteen_transport_chains"
+    },
+    {
+      "seconds": 25.59,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_43_9.py::test_phase144_6_r5_43_9_all_chains_observe_same_operation_kind"
+    },
+    {
+      "seconds": 25.53,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_43_8.py::test_phase144_6_r5_43_8_finds_sixteen_three_step_transport_chains"
+    },
+    {
+      "seconds": 25.41,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_43_8.py::test_phase144_6_r5_43_8_has_one_hidden_signature_sequence"
+    },
+    {
+      "seconds": 25.21,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_43_6.py::test_phase144_6_r5_43_6_inventory_covers_only_representative_groups"
+    },
+    {
+      "seconds": 24.87,
+      "phase": "setup",
+      "nodeid": "tests/test_phase144_6_r5_39_explanatory_contribution_narrative_necessity_audit.py::test_phase144_6_r5_39_inventory_matches_phase38_contribution_count"
+    },
+    {
+      "seconds": 24.74,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_43_11d_final_completion_audit.py::test_phase144_6_r5_43_11d_final_completion_invariants_pass"
+    },
+    {
+      "seconds": 24.57,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_43_9.py::test_phase144_6_r5_43_9_all_three_candidate_prose_levels_are_supported_by_observed_data"
+    },
+    {
+      "seconds": 24.52,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_43_8.py::test_phase144_6_r5_43_8_reports_all_forty_eight_transport_occurrences"
+    },
+    {
+      "seconds": 24.26,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_43_8.py::test_phase144_6_r5_43_8_every_hidden_step_uses_production_transport_role"
+    },
+    {
+      "seconds": 24.18,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_43_9.py::test_phase144_6_r5_43_9_all_chains_observe_same_reference_identity"
+    },
+    {
+      "seconds": 24.1,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_43_6.py::test_phase144_6_r5_43_6_pi6_contains_expected_transport_and_integration_candidates"
+    },
+    {
+      "seconds": 20.47,
+      "phase": "setup",
+      "nodeid": "tests/test_phase144_6_r5_38_visibility_gap_explanatory_contribution_dedup_ownership_audit.py::test_phase144_6_r5_38_visibility_population_matches_phase37"
+    },
+    {
+      "seconds": 14.52,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py::test_phase144_6_r5_19_proof_chain_integration_preserves_generic_output"
+    },
+    {
+      "seconds": 13.32,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_43_11b_detached_argument_boundary_audit.py::test_phase144_6_r5_43_11b_classifies_every_non_insertable_populated_argument_by_discourse_role"
+    },
+    {
+      "seconds": 13.21,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_43_11a_insertion_failure_classification_audit.py::test_phase144_6_r5_43_11a_reproduces_13_insertable_and_177_non_insertable"
+    },
+    {
+      "seconds": 13.07,
+      "phase": "setup",
+      "nodeid": "tests/test_phase144_6_r5_42_generic_narrative_contribution_production_foundation.py::test_phase144_6_r5_42_pi6_order_matches_phase41_topological_order"
+    },
+    {
+      "seconds": 12.65,
+      "phase": "setup",
+      "nodeid": "tests/test_phase144_6_r5_40_narrative_contribution_placement_order_audit.py::test_phase144_6_r5_40_selected_population_matches_phase39"
+    },
+    {
+      "seconds": 12.36,
+      "phase": "setup",
+      "nodeid": "tests/test_phase144_6_r5_43_10_transport_chain_compression_production.py::test_phase144_6_r5_43_10_pi6_transport_connector_is_rendered_between_c2_and_c3"
+    },
+    {
+      "seconds": 12.07,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_43_11a_insertion_failure_classification_audit.py::test_phase144_6_r5_43_11a_classifies_all_190_selected_contributions"
+    },
+    {
+      "seconds": 11.77,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_43_11a_insertion_failure_classification_audit.py::test_phase144_6_r5_43_11a_every_populated_argument_has_a_classification"
+    },
+    {
+      "seconds": 11.77,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_43_11b_detached_argument_boundary_audit.py::test_phase144_6_r5_43_11b_reproduces_190_selected_and_13_insertable"
+    },
+    {
+      "seconds": 11.55,
+      "phase": "setup",
+      "nodeid": "tests/test_phase144_6_r5_43_11c_r2_argument_participation_guard.py::test_phase144_6_r5_43_11c_r2_all_non_detached_contributions_are_insertable"
+    },
+    {
+      "seconds": 10.89,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r25_20_six_group_generic_production_narrative.py::test_phase144_6_r25_20_six_groups_use_complete_replay_for_depth2_narrative"
+    },
+    {
+      "seconds": 10.88,
+      "phase": "setup",
+      "nodeid": "tests/test_phase144_6_r5_38_visibility_gap_explanatory_contribution_dedup_ownership_audit.py::test_phase144_6_r5_38_groups_do_not_exceed_occurrences"
+    },
+    {
+      "seconds": 10.57,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_43_11c_non_detached_fallback_placement_repair.py::test_phase144_6_r5_43_11c_definition_groups_gain_connected_output_without_public_route_change"
+    },
+    {
+      "seconds": 9.84,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_36_necessary_contribution_current_display_coverage_audit.py::test_phase144_6_r5_36_exact_presence_implies_normalized_presence"
+    },
+    {
+      "seconds": 9.81,
+      "phase": "setup",
+      "nodeid": "tests/test_phase144_6_r5_37_genuinely_missing_semantic_equivalence_and_rendering_audit.py::test_phase144_6_r5_37_inventory_covers_six_groups"
+    },
+    {
+      "seconds": 8.42,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_36_necessary_contribution_current_display_coverage_audit.py::test_phase144_6_r5_36_inventory_covers_six_groups"
+    },
+    {
+      "seconds": 8.25,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_36_necessary_contribution_current_display_coverage_audit.py::test_phase144_6_r5_36_coverage_flags_are_boolean"
+    },
+    {
+      "seconds": 8.11,
+      "phase": "call",
+      "nodeid": "tests/test_phase144_6_r5_36_necessary_contribution_current_display_coverage_audit.py::test_phase144_6_r5_36_inventory_contains_only_necessary_hidden_rows"
+    },
+    {
+      "seconds": 7.67,
+      "phase": "call",
+      "nodeid": "tests/test_phase153_r3_11_reference_body_ownership_repair.py::test_phase153_r3_11_all_112_groups_have_no_exact_selected_statement_body_duplicates"
+    },
+    {
+      "seconds": 7.08,
+      "phase": "call",
+      "nodeid": "tests/test_phase143_75p_prop44_suspension_injective_semantic_rendering.py::test_phase143_75p_all_target_occurrences_render_semantically"
+    },
+    {
+      "seconds": 7.06,
+      "phase": "call",
+      "nodeid": "tests/test_phase153_r3_6_unresolved_reference_statement_rendering.py::test_phase153_r3_6_all_previously_unresolved_reference_types_render_semantically"
+    },
+    {
+      "seconds": 6.96,
+      "phase": "call",
+      "nodeid": "tests/test_phase153_r3_9_remaining_reference_renderer_coverage.py::test_phase153_r3_9_all_reference_entries_have_selected_statement"
+    },
+    {
+      "seconds": 6.94,
+      "phase": "call",
+      "nodeid": "tests/test_phase153_r3_9_remaining_reference_renderer_coverage.py::test_phase153_r3_9_all_remaining_unresolved_reference_types_render_semantically"
+    },
+    {
+      "seconds": 6.82,
+      "phase": "call",
+      "nodeid": "tests/test_phase133_10_sigma_label_wording.py::test_phase133_10_sigma9_depth_two_uses_final_japanese_wording"
+    },
+    {
+      "seconds": 6.79,
+      "phase": "call",
+      "nodeid": "tests/test_phase143_75p_prop44_suspension_injective_semantic_rendering.py::test_phase143_75p_both_rule_families_use_same_semantic_renderer"
+    },
+    {
+      "seconds": 6.71,
+      "phase": "call",
+      "nodeid": "tests/test_phase143_75p_prop44_suspension_injective_semantic_rendering.py::test_phase143_75p_concrete_map_uses_source_and_target_groups"
+    },
+    {
+      "seconds": 6.68,
+      "phase": "call",
+      "nodeid": "tests/test_phase143_75s_toda58_whitehead_square_semantic_rendering.py::test_phase143_75s_all_aggregate_components_render_semantically"
+    },
+    {
+      "seconds": 5.63,
+      "phase": "call",
+      "nodeid": "tests/test_algebra.py::test_finite_presentation_crosscheck"
+    }
+  ],
+  "closure_r2_validated": true,
+  "repository_tests_executed": false,
+  "production_changes": false
+}

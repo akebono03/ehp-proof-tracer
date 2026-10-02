@@ -331,22 +331,3 @@ def test_phase109_29_show_proof_does_not_change_execute_sigma11_semantics(
   )
 
 
-def test_phase109_29_show_proof_also_works_for_existing_nu_prime_identity(
-  capsys,
-):
-  exit_code = cli_main.main(
-    [
-      "show-proof",
-      "nu_prime",
-    ]
-  )
-
-  captured = capsys.readouterr()
-
-  assert exit_code == 0
-  assert captured.err == ""
-
-  assert (
-    r"$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$"
-    in captured.out
-  )

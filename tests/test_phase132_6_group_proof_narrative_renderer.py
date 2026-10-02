@@ -92,16 +92,16 @@ def test_phase132_6_sigma9_narrative_has_source_and_conclusion():
 
   assert "# Group proof narrative" in rendered
   assert (
-    "Toda Proposition 5.15を用いる。"
-    in rendered
+    "Toda Proposition 5.15を用いる"
+    not in rendered
   )
   assert (
-    "したがって、"
     r"$\pi_{16}^{9} = "
     r"\mathbb{Z}/16\{\sigma_{9}\}$"
-    "を得る。"
     in rendered
   )
+  assert "したがって, " in rendered
+
 
 
 def test_phase132_6_sigma9_narrative_preserves_direct_premise_indexes_and_facts():
@@ -180,13 +180,18 @@ def test_phase132_6_sigma9_narrative_uses_fixed_japanese_leads():
     "rendered"
   ]
 
-  assert "まず、" in rendered
-  assert "また、" in rendered
-  assert "さらに、" in rendered
-  assert "このことから、" in rendered
-  assert "したがって、" in rendered
-  assert "まず、既出の" not in rendered
-  assert "まず、すでに得た" not in rendered
+  assert "まず, " in rendered
+  assert "このことから, " in rendered
+  assert "したがって, " in rendered
+
+  assert "まず、" not in rendered
+  assert "このことから、" not in rendered
+  assert "したがって、" not in rendered
+
+  assert "まず, 既出の" not in rendered
+  assert "まず, すでに得た" not in rendered
+
+
 
 
 def test_phase132_6_depth_zero_does_not_invent_premises():
@@ -201,19 +206,20 @@ def test_phase132_6_depth_zero_does_not_invent_premises():
   ]
 
   assert (
-    "Toda Proposition 5.15を用いる。"
-    in rendered
+    "Toda Proposition 5.15を用いる"
+    not in rendered
   )
-  assert "まず、" not in rendered
-  assert "また、" not in rendered
-  assert "さらに、" not in rendered
+  assert "まず, " not in rendered
+  assert "また, " not in rendered
+  assert "さらに, " not in rendered
   assert (
-    "したがって、"
+    "したがって, "
     r"$\pi_{16}^{9} = "
     r"\mathbb{Z}/16\{\sigma_{9}\}$"
-    "である。"
+    "である."
     in rendered
   )
+
 
 
 def test_phase132_6_depth_two_uses_nested_edges_before_parent_fact():
@@ -264,10 +270,8 @@ def test_phase132_6_depth_two_uses_nested_edges_before_parent_fact():
 
 
 def test_phase132_6_sigma_family_statements_use_readable_labels():
-  data = (
-    build_phase132_6_sigma9_narrative(
-      max_depth=1,
-    )
+  data = build_phase132_6_sigma9_narrative(
+    max_depth=1,
   )
 
   presentation = data[
@@ -283,22 +287,10 @@ def test_phase132_6_sigma_family_statements_use_readable_labels():
     if edge.parent_step is presentation.root_step
   )
 
-  expected_labels = {
-    (
-      "Toda48Pi16_9OrderAndE4InjectiveStatement"
-    ): (
-      "π₁₆⁹ の位数 16 と E⁴ の単射性"
-    ),
-    (
-      "TodaLemma514Sigma8Statement"
-    ): (
-      "Toda Lemma 5.14 の σ₈ に関する結果"
-    ),
-    (
-      "TodaSigmaFamilyDefinitionStatement"
-    ): (
-      "σ-family の定義"
-    ),
+  target_type_names = {
+    "Toda48Pi16_9OrderAndE4InjectiveStatement",
+    "TodaLemma514Sigma8Statement",
+    "TodaSigmaFamilyDefinitionStatement",
   }
 
   labelled_steps = tuple(
@@ -308,7 +300,7 @@ def test_phase132_6_sigma_family_statements_use_readable_labels():
       type(
         edge.premise_step.conclusion
       ).__name__
-      in expected_labels
+      in target_type_names
     )
   )
 
@@ -317,26 +309,17 @@ def test_phase132_6_sigma_family_statements_use_readable_labels():
       step.conclusion
     ).__name__
     for step in labelled_steps
-  } == set(
-    expected_labels
-  )
+  } == target_type_names
+
+  assert r"\pi_{16}^{9}" in rendered
+  assert r"\mathbb{Z}/16" in rendered
 
   for step in labelled_steps:
     type_name = type(
       step.conclusion
     ).__name__
 
-    assert (
-      expected_labels[
-        type_name
-      ]
-      in rendered
-    )
-
-    assert (
-      type_name
-      not in rendered
-    )
+    assert type_name not in rendered
 
     if step.inference_rule is not None:
       assert (

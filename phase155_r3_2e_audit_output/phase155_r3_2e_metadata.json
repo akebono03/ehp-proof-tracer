@@ -1,0 +1,18 @@
+{
+  "phase": "155-R3-2E",
+  "git_head": "3917df4a7df8633f84754584913b43d4b2f0e41a",
+  "unique_base_tests": 11,
+  "fresh_pytest_exit_code": 0,
+  "fresh_call_instances": 62,
+  "fresh_passed_calls": 62,
+  "fresh_failed_calls": 0,
+  "root_cause_counts": {
+    "all_parameterized_instances_pass": 11
+  },
+  "false_r3_2d_failure_count": 11,
+  "blocking_base_test_count": 0,
+  "production_code_modified": false,
+  "existing_tests_modified": false,
+  "tests_deleted": 0,
+  "repository_wide_pytest_executed": false
+}

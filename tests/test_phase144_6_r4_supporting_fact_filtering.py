@@ -51,9 +51,9 @@ def test_phase144_6_r4_preserves_argument_frontier_and_transition_chains():
 
   assert r"\operatorname{ord}\left(\nu'\right) = 4" in rendered
   assert r"2\nu' = \eta_{3}^{3}" in rendered
-  assert "(1) と (2) より、" in rendered
+  assert "(1) と (2) より, " in rendered
   assert r"H\left(\nu'\right) = \eta_{5}" in rendered
-  assert "(4) と (5) より、" in rendered
+  assert "(4) と (5) より, " in rendered
   assert r"\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}" in rendered
 
 

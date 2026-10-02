@@ -1,0 +1,9 @@
+{
+  "lane": "residual_retained",
+  "nodeid": "tests/test_phase87_probe.py::test_phase87_probe_preserves_selected_path_provenance",
+  "status": "PASS",
+  "elapsed_seconds": 1.2312322999350727,
+  "returncode": 0,
+  "stdout": ".                                                                        [100%]\n============================ slowest 10 durations =============================\n0.00s call     tests/test_phase87_probe.py::test_phase87_probe_preserves_selected_path_provenance\n0.00s setup    tests/test_phase87_probe.py::test_phase87_probe_preserves_selected_path_provenance\n0.00s teardown tests/test_phase87_probe.py::test_phase87_probe_preserves_selected_path_provenance\n1 passed in 0.66s\n",
+  "stderr": ""
+}

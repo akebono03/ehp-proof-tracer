@@ -110,24 +110,6 @@ def test_phase118_4_negative_depth_is_rejected_by_web_adapter():
     )
 
 
-def test_phase118_4_browser_form_exposes_only_supported_depth_choices():
-  client = _build_test_client()
-
-  response = client.post(
-    "/",
-    data={
-      "form_kind": "operation",
-      "operation_query": "H(nu_prime)",
-    },
-  )
-
-  assert response.status_code == 200
-  assert b'name="proof_depth"' in response.data
-  assert b'<option value="0">0</option>' in response.data
-  assert b'<option value="1" selected>1</option>' in response.data
-  assert b'<option value="2">2</option>' in response.data
-
-
 @pytest.mark.parametrize(
   "depth",
   (
@@ -158,26 +140,6 @@ def test_phase118_4_web_forwards_selected_depth(
   )
 
 
-def test_phase118_4_unsupported_web_depth_is_safe_error():
-  client = _build_test_client()
-
-  response = client.post(
-    "/",
-    data={
-      "form_kind": "operation_proof",
-      "operation_query": "H(nu_prime)",
-      "fact_number": "1",
-      "proof_depth": "3",
-    },
-  )
-
-  assert response.status_code == 200
-  assert (
-    b"proof_depth must be 0, 1, or 2"
-    in response.data
-  )
-
-
 def test_phase118_4_multiple_facts_remain_explicit_at_depth_ui_boundary():
   client = _build_test_client()
 
@@ -203,38 +165,6 @@ def test_phase118_4_multiple_facts_remain_explicit_at_depth_ui_boundary():
       b'name="proof_depth"'
     )
     == 2
-  )
-
-
-def test_phase118_4_safe_fallback_reaches_web_without_python_repr():
-  client = _build_test_client()
-
-  response = client.post(
-    "/",
-    data={
-      "form_kind": "operation_proof",
-      "operation_query": "eta_2 o nu_prime",
-      "fact_number": "4",
-      "proof_depth": "1",
-    },
-  )
-
-  assert response.status_code == 200
-  assert (
-    b"TodaProp56FiniteDimensionalStatement"
-    in response.data
-  )
-  assert (
-    b"TodaProp56FiniteDimensionalStatement("
-    not in response.data
-  )
-  assert (
-    b"HomotopyElement(name="
-    not in response.data
-  )
-  assert (
-    b"object at 0x"
-    not in response.data
   )
 
 

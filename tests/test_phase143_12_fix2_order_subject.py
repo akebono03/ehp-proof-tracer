@@ -32,36 +32,3 @@ def test_phase143_12_fix2_pi6_3_order_subject_uses_local_calculation():
   assert subject.name == "ν′"
 
 
-def test_phase143_12_fix2_pi8_5_order_subjects_are_unambiguous():
-  order_arguments = tuple(
-    argument
-    for argument in _arguments(
-      5,
-      3,
-    )
-    if (
-      argument.role
-      is TodaGroupProofNarrativeArgumentRole
-      .ESTABLISH_ORDER
-    )
-  )
-
-  subjects = tuple(
-    extract_toda_group_proof_narrative_argument_purpose_subject(
-      argument
-    )
-    for argument in order_arguments
-  )
-
-  assert len(
-    subjects
-  ) == 2
-  assert all(
-    subject is not None
-    for subject in subjects
-  )
-  assert subjects[
-    0
-  ] != subjects[
-    1
-  ]

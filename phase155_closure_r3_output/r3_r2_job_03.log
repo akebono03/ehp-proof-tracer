@@ -1,0 +1,24 @@
+........................................................................ [ 66%]
+.....................................                                    [100%]
+============================ slowest 20 durations =============================
+62.64s setup    tests/test_phase144_6_r5_41_contribution_topological_order_determinism_audit.py::test_phase144_6_r5_41_selected_population_matches_phase40
+57.23s setup    tests/test_phase144_6_r5_39_explanatory_contribution_narrative_necessity_audit.py::test_phase144_6_r5_39_inventory_matches_phase38_contribution_count
+49.38s setup    tests/test_phase144_6_r5_38_visibility_gap_explanatory_contribution_dedup_ownership_audit.py::test_phase144_6_r5_38_visibility_population_matches_phase37
+31.43s setup    tests/test_phase144_6_r5_40_narrative_contribution_placement_order_audit.py::test_phase144_6_r5_40_selected_population_matches_phase39
+25.32s setup    tests/test_phase144_6_r5_38_visibility_gap_explanatory_contribution_dedup_ownership_audit.py::test_phase144_6_r5_38_groups_do_not_exceed_occurrences
+22.58s setup    tests/test_phase144_6_r5_37_genuinely_missing_semantic_equivalence_and_rendering_audit.py::test_phase144_6_r5_37_inventory_covers_six_groups
+20.65s call     tests/test_phase144_6_r5_36_necessary_contribution_current_display_coverage_audit.py::test_phase144_6_r5_36_exact_presence_implies_normalized_presence
+19.66s call     tests/test_phase144_6_r5_36_necessary_contribution_current_display_coverage_audit.py::test_phase144_6_r5_36_inventory_contains_only_necessary_hidden_rows
+19.54s call     tests/test_phase144_6_r5_36_necessary_contribution_current_display_coverage_audit.py::test_phase144_6_r5_36_coverage_flags_are_boolean
+19.53s call     tests/test_phase144_6_r5_36_necessary_contribution_current_display_coverage_audit.py::test_phase144_6_r5_36_inventory_covers_six_groups
+7.50s call     tests/test_phase144_6_r5_35_hidden_anchored_contribution_necessity_audit.py::test_phase144_6_r5_35_necessity_is_boolean_classified
+7.46s call     tests/test_phase144_6_r5_31_upstream_calculation_attachment_semantic_audit.py::test_phase144_6_r5_31_all_attachments_are_calculation_statements_with_types
+7.44s call     tests/test_phase144_6_r5_35_hidden_anchored_contribution_necessity_audit.py::test_phase144_6_r5_35_inventory_covers_six_groups
+7.26s call     tests/test_phase144_6_r5_24_generic_visibility_policy_correction_design_audit.py::test_phase144_6_r5_24_audits_all_six_representative_groups
+7.25s call     tests/test_phase144_6_r5_31_upstream_calculation_attachment_semantic_audit.py::test_phase144_6_r5_31_records_target_role_for_every_attachment
+7.25s call     tests/test_phase144_6_r5_34_provider_anchored_visibility_gap_audit.py::test_phase144_6_r5_34_inventory_contains_only_hidden_chain_steps
+7.24s call     tests/test_phase144_6_r5_35_hidden_anchored_contribution_necessity_audit.py::test_phase144_6_r5_35_necessary_count_never_exceeds_reachable_anchor_count
+7.19s call     tests/test_phase144_6_r5_35_hidden_anchored_contribution_necessity_audit.py::test_phase144_6_r5_35_direct_anchor_is_not_self_counted_as_necessary
+6.98s call     tests/test_phase144_6_r5_34_provider_anchored_visibility_gap_audit.py::test_phase144_6_r5_34_inventory_covers_six_groups
+6.96s call     tests/test_phase144_6_r5_32_visible_contribution_assembly_dedup_audit.py::test_phase144_6_r5_32_step_dedup_cannot_keep_fewer_visible_occurrences_than_block_dedup
+109 passed, 10279 deselected in 554.80s (0:09:14)

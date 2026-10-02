@@ -22,74 +22,6 @@ from test_phase99_actual_repository_element_lookup_validation import (
   ),
   (
     (
-      "η",
-      GeneratorSymbol(
-        family="η",
-      ),
-    ),
-    (
-      "eta",
-      GeneratorSymbol(
-        family="η",
-      ),
-    ),
-    (
-      "ν",
-      GeneratorSymbol(
-        family="ν",
-      ),
-    ),
-    (
-      "nu",
-      GeneratorSymbol(
-        family="ν",
-      ),
-    ),
-    (
-      "σ",
-      GeneratorSymbol(
-        family="σ",
-      ),
-    ),
-    (
-      "sigma",
-      GeneratorSymbol(
-        family="σ",
-      ),
-    ),
-    (
-      "ι",
-      GeneratorSymbol(
-        family="ι",
-      ),
-    ),
-    (
-      "iota",
-      GeneratorSymbol(
-        family="ι",
-      ),
-    ),
-  ),
-)
-def test_phase100_3_resolves_plain_family_aliases(
-  value,
-  expected,
-):
-  assert (
-    resolve_generator_input(
-      value
-    )
-    == expected
-  )
-
-
-@pytest.mark.parametrize(
-  (
-    "value",
-    "expected",
-  ),
-  (
-    (
       "η_2",
       GeneratorSymbol(
         family="η",
@@ -306,28 +238,6 @@ def test_phase100_3_rejects_non_string_input(
   ),
 )
 def test_phase100_3_rejects_unsupported_free_form_input(
-  value,
-):
-  with pytest.raises(
-    ValueError,
-  ):
-    resolve_generator_input(
-      value
-    )
-
-
-@pytest.mark.parametrize(
-  "value",
-  (
-    "eta_",
-    "eta_x",
-    "eta_-1",
-    "nu__5",
-    "eta_2_3",
-    "eta_ 2",
-  ),
-)
-def test_phase100_3_rejects_invalid_index_syntax(
   value,
 ):
   with pytest.raises(

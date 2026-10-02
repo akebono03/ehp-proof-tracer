@@ -83,10 +83,14 @@ def test_phase153_r12_pi11_4_body_uses_renumbered_external_references():
     1,
   )[1]
 
-  assert "[R1]を用いる。" in body
-  assert "[R2]を用いる。" in body
+  assert "[R1]を用いる." in body
+  assert (
+    r"[R2]より, $\nu_{4}$ の分解写像は同型写像である."
+    in body
+  )
   assert "[R3]" not in body
   assert "Proposition 5.15" not in body
+
 
 
 def test_phase153_r12_pi6_2_r10_reference_filtering_remains_stable():

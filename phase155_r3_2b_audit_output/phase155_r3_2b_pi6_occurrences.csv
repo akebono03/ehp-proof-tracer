@@ -1,0 +1,4 @@
+﻿line,column,node_type,classification,text,in_control_flow
+473,10,Attribute,attribute_field,pi6_4_group_relation,False
+487,10,Attribute,attribute_field,pi6_2_group_relation,False
+680,10,Attribute,attribute_field,pi6_3_group_relation,False

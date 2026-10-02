@@ -114,11 +114,3 @@ def test_phase144_6_r5_39_owner_reconstruction_completes_for_all_groups(
   )
 
 
-def test_phase144_6_r5_39_contribution_groups_share_occurrence_identity_space(
-  narrative_necessity_rows,
-  explanatory_contribution_groups,
-):
-  rows = narrative_necessity_rows
-  groups = explanatory_contribution_groups
-  assert rows
-  assert len(rows) == len(groups)

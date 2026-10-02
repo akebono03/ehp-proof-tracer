@@ -48,7 +48,7 @@ def test_phase150_rc4_7b_target_support_gets_conclusion_connector():
     render_toda_group_proof_narrative_transition_connector(
       target_support
     )
-    == "以上より、"
+    == "以上より, "
   )
 
 

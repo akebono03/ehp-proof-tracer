@@ -1,0 +1,31 @@
+{
+  "source_test_functions": 10122,
+  "original_review_required": 8199,
+  "public_surface_promotions": 207,
+  "remaining_review_required": 7992,
+  "validated_canonical_tests": 1827,
+  "validated_canonical_files": 126,
+  "category_counts": {
+    "canonical_candidate": 1620,
+    "review_required": 7992,
+    "canonical_public_surface_candidate": 207,
+    "historical_compatibility": 52,
+    "audit_only_candidate": 222,
+    "performance_heavy_integration_candidate": 29
+  },
+  "public_surface_count": 11,
+  "uncovered_public_surfaces": [],
+  "collect_only_exit_code": 0,
+  "completion": {
+    "all_public_surfaces_have_canonical_direct_tests": true,
+    "canonical_collect_only_exit_zero": true,
+    "review_population_not_increased": true,
+    "historical_lane_preserved": true,
+    "audit_lane_preserved": true,
+    "heavy_lane_preserved": true
+  },
+  "boundary_validated": true,
+  "production_changes": false,
+  "existing_test_changes": false,
+  "repository_wide_pytest_executed": false
+}

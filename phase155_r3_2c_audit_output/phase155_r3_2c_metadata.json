@@ -1,0 +1,13 @@
+{
+  "phase": "155-R3-2C",
+  "git_head": "1aa897425cd6aa005ac6d4c241b04c9888d3f27b",
+  "other_needs_review_pairs": 0,
+  "root_cause_counts": {},
+  "blocking_pair_count": 0,
+  "stale_failure_linked_pair_count": 0,
+  "conservative_retain_pair_count": 0,
+  "production_code_modified": false,
+  "existing_tests_modified": false,
+  "tests_deleted": 0,
+  "repository_wide_pytest_executed": false
+}

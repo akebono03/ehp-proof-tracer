@@ -1,0 +1,15 @@
+{
+  "phase": "155-R3-2D",
+  "git_head": "d1d57b3478feeb29fcb32c27670bfaf0dc537f57",
+  "missing_test_references": 12,
+  "root_cause_counts": {
+    "parameterized_nodeid_has_failure": 12
+  },
+  "recorder_fix_needed_count": 12,
+  "test_fix_needed_count": 12,
+  "blocking_record_count": 12,
+  "production_code_modified": false,
+  "existing_tests_modified": false,
+  "tests_deleted": 0,
+  "repository_wide_pytest_executed": false
+}

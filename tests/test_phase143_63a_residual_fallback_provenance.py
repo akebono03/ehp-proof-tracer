@@ -76,7 +76,7 @@ def test_phase143_63a_pi8_5_direct_premise_placement_remains():
     "\n\n"
     r"$\operatorname{ord}\left(E^{2}\nu'\right) = 4$"
     "\n\n"
-    "以上より、"
+    "以上より, "
     "\n\n"
     r"$\operatorname{ord}\left(\nu_{5}\right) = 8$"
     in rendered

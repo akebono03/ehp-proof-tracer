@@ -1,0 +1,39 @@
+........................................................................ [  6%]
+........................................................................ [ 12%]
+........................................................................ [ 18%]
+........................................................................ [ 24%]
+........................................................................ [ 30%]
+........................................................................ [ 36%]
+........................................................................ [ 42%]
+........................................................................ [ 48%]
+........................................................................ [ 54%]
+........................................................................ [ 60%]
+........................................................................ [ 66%]
+........................................................................ [ 72%]
+........................................................................ [ 78%]
+........................................................................ [ 84%]
+........................................................................ [ 90%]
+........................................................................ [ 96%]
+.........................................                                [100%]
+============================ slowest 20 durations =============================
+12.87s call     tests/test_phase143_75p_prop44_suspension_injective_semantic_rendering.py::test_phase143_75p_concrete_map_uses_source_and_target_groups
+12.76s call     tests/test_phase143_75p_prop44_suspension_injective_semantic_rendering.py::test_phase143_75p_both_rule_families_use_same_semantic_renderer
+12.73s call     tests/test_phase143_75p_prop44_suspension_injective_semantic_rendering.py::test_phase143_75p_all_target_occurrences_render_semantically
+12.69s call     tests/test_phase123_4_web_generator_applicability.py::test_phase123_4_counts_match_existing_applicability_presentation
+12.63s call     tests/test_phase132_7_group_proof_cli_modes.py::test_phase132_7_group_proof_narrative_mode_uses_narrative_renderer
+12.31s call     tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_pi16_9_depth_two_uses_final_sigma_labels
+12.23s call     tests/test_phase132_8_group_proof_narrative_dedup.py::test_phase132_8_cli_narrative_uses_deduplicated_renderer
+11.99s call     tests/test_phase133_6_group_proof_narrative_labels.py::test_phase133_6_sigma9_depth_two_reuses_new_labels
+11.56s call     tests/test_phase132_7_group_proof_cli_modes.py::test_phase132_7_group_proof_default_mode_is_narrative
+11.40s call     tests/test_phase133_10_sigma_label_wording.py::test_phase133_10_sigma9_depth_two_uses_final_japanese_wording
+9.31s call     tests/test_phase109_7_user_facing_target_dedup_delta_rendering.py::test_phase109_7_candidate_two_still_executes_after_dedup
+9.02s call     tests/test_phase134_9_pi8_5_narrative.py::test_phase134_9_pi8_5_does_not_change_other_group_dispatch
+8.99s call     tests/test_phase109_5_execute_known_group_identity_integration.py::test_phase109_5_execute_nu_prime_preserves_existing_candidate_numbering
+8.96s call     tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_previous_labels_remain_available
+8.54s call     tests/test_phase133_6_group_proof_narrative_labels.py::test_phase133_6_pi12_5_uses_readable_sigma_triple_prime_labels
+7.98s call     tests/test_phase123_4_web_generator_applicability.py::test_phase123_4_source_grouping_matches_existing_presentation
+6.37s call     tests/test_phase108_12_end_to_end_cli_smoke_closure_audit.py::test_phase108_12_execute_nu_prime_lists_executable_candidates_end_to_end
+6.32s call     tests/test_phase123_4_web_generator_applicability.py::test_phase123_4_compact_source_preserves_display_fields
+6.23s call     tests/test_phase109_8_delta_sign_normalization_executed_rendering.py::test_phase109_8_candidate_one_execution_remains_available
+6.02s call     tests/test_phase125_4_web_generator_execution.py::test_phase125_4_nu_prime_candidate_2_executes_with_premises
+1193 passed, 9204 deselected in 520.99s (0:08:40)

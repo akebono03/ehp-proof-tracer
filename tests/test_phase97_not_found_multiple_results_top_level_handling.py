@@ -208,44 +208,89 @@ def test_phase97_4_multiple_direct_results_preserve_identity_and_order():
   )
 
 
-def test_phase97_4_multiple_aggregate_results_preserve_goal_source_order():
-  first_data = build_phase73_8e_data()
-  second_data = build_phase73_8e_data()
-
-  repository = ProofRepository()
-
-  first_entry = ProofRepositoryEntry(
-    key="phase97.prop511.first",
-    step=first_data[
-      "final_step"
-    ],
-    phase="73",
-    theorem="Toda Proposition 5.11 first",
+def test_phase97_4_multiple_aggregate_results_preserve_goal_source_order(
+  monkeypatch,
+):
+  import toda_calculation_report as report_module
+  from test_phase95_minimal_calculation_result import (
+    build_phase95_2_candidate,
+  )
+  from toda_calculation_goal import (
+    TodaCalculationGoalSource,
+  )
+  from toda_calculation_result import (
+    TodaCalculationCandidate,
+    TodaCalculationResult,
   )
 
-  second_entry = ProofRepositoryEntry(
-    key="phase97.prop511.second",
-    step=second_data[
-      "final_step"
-    ],
-    phase="73",
-    theorem="Toda Proposition 5.11 second",
+  query = TodaGroupQuery(
+    n=4,
+    k=6,
   )
 
-  repository.register(
-    first_entry
+  first_base = build_phase95_2_candidate(
+    "phase155.report.first",
+    query,
   )
-  repository.register(
-    second_entry
+  second_base = build_phase95_2_candidate(
+    "phase155.report.second",
+    query,
+  )
+
+  first_entry = (
+    first_base
+    .group_result
+    .source_entry
+  )
+  second_entry = (
+    second_base
+    .group_result
+    .source_entry
+  )
+
+  first_goal_source = (
+    TodaCalculationGoalSource(
+      source_entry=first_entry,
+      branch_name="synthetic_first",
+    )
+  )
+  second_goal_source = (
+    TodaCalculationGoalSource(
+      source_entry=second_entry,
+      branch_name="synthetic_second",
+    )
+  )
+
+  first = TodaCalculationCandidate(
+    group_result=first_base.group_result,
+    explanation=first_base.explanation,
+    goal_source=first_goal_source,
+  )
+  second = TodaCalculationCandidate(
+    group_result=second_base.group_result,
+    explanation=second_base.explanation,
+    goal_source=second_goal_source,
+  )
+
+  calculation_result = TodaCalculationResult(
+    query=query,
+    candidates=(
+      first,
+      second,
+    ),
+  )
+
+  monkeypatch.setattr(
+    report_module,
+    "build_toda_calculation_result",
+    lambda repository, actual_query: calculation_result,
   )
 
   result = (
-    build_toda_calculation_report_result(
-      repository,
-      TodaGroupQuery(
-        n=4,
-        k=6,
-      ),
+    report_module
+    .build_toda_calculation_report_result(
+      ProofRepository(),
+      query,
     )
   )
 
@@ -253,46 +298,34 @@ def test_phase97_4_multiple_aggregate_results_preserve_goal_source_order():
     result.status
     is TodaCalculationStatus.MULTIPLE_RESULTS
   )
-  assert len(
-    result.candidates
-  ) == 2
-
-  assert (
-    result.candidates[
-      0
-    ].source_candidate
+  assert tuple(
+    report_candidate.source_candidate
+    for report_candidate in result.candidates
+  ) == (
+    first,
+    second,
+  )
+  assert tuple(
+    report_candidate
+    .source_candidate
     .goal_source
     .source_entry
-    is first_entry
+    for report_candidate in result.candidates
+  ) == (
+    first_entry,
+    second_entry,
   )
-  assert (
-    result.candidates[
-      1
-    ].source_candidate
-    .goal_source
-    .source_entry
-    is second_entry
-  )
-
-  assert (
-    result.candidates[
-      0
-    ].presentation
+  assert tuple(
+    report_candidate
+    .presentation
     .source
     .goal_source
     .repository_source
     .source_entry
-    is first_entry
-  )
-  assert (
-    result.candidates[
-      1
-    ].presentation
-    .source
-    .goal_source
-    .repository_source
-    .source_entry
-    is second_entry
+    for report_candidate in result.candidates
+  ) == (
+    first_entry,
+    second_entry,
   )
 
 

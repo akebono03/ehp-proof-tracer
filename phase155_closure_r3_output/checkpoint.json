@@ -1,0 +1,44 @@
+{
+  "shards": {
+    "1": {
+      "status": "PASS",
+      "elapsed_seconds": 143.47,
+      "log": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase155_closure_r3_output\\shard_01.log"
+    },
+    "2": {
+      "status": "PASS",
+      "elapsed_seconds": 532.81,
+      "log": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase155_closure_r3_output\\shard_02.log"
+    },
+    "3": {
+      "status": "TIMEOUT",
+      "elapsed_seconds": 600.06,
+      "log": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase155_closure_r3_output\\shard_03.log"
+    },
+    "4": {
+      "status": "FAIL",
+      "elapsed_seconds": 584.64,
+      "log": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase155_closure_r3_output\\shard_04.log"
+    },
+    "5": {
+      "status": "FAIL",
+      "elapsed_seconds": 311.14,
+      "log": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase155_closure_r3_output\\shard_05.log"
+    },
+    "6": {
+      "status": "PASS",
+      "elapsed_seconds": 46.88,
+      "log": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase155_closure_r3_output\\shard_06.log"
+    },
+    "7": {
+      "status": "PASS",
+      "elapsed_seconds": 22.41,
+      "log": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase155_closure_r3_output\\shard_07.log"
+    },
+    "8": {
+      "status": "FAIL",
+      "elapsed_seconds": 36.58,
+      "log": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase155_closure_r3_output\\shard_08.log"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "phase": "155-R3-3D",
+  "git_head": "fd24a67483fecc0b044f1ae9265abd8219d739e9",
+  "test_files": 838,
+  "test_function_definitions": 10130,
+  "safe_deletion_ids": 161,
+  "safe_deletion_ids_still_present": 0,
+  "whole_file_targets": 5,
+  "whole_file_targets_still_present": 0,
+  "graph_survivors": 66,
+  "missing_graph_survivors": 0,
+  "historical_keep_ids": 52,
+  "missing_historical_keep_ids": 0,
+  "unresolved_removable_pairs": 2,
+  "source_level_duplicate_test_names": 8,
+  "affected_collect_only_exit_code": 0,
+  "closure_satisfied": false,
+  "repository_wide_pytest_executed": false
+}

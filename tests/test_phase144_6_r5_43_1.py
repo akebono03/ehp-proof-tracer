@@ -58,19 +58,6 @@ def test_phase144_6_r5_43_1_pi6_connected_output_adds_exactly_five_contributions
   assert connected != base
   assert tuple(x for x in ordered if x)
 
-def test_phase144_6_r5_43_1_pi6_connected_contributions_are_unique_and_ordered():
-  base, connected, arguments, ordered = _pi6_connected()
-  rows = next(rows for rows in ordered if rows)
-  lines = tuple(
-    _render_generic_narrative_step(row.proof_step)
-    for row in rows
-  )
-  positions = tuple(connected.index(line) for line in lines)
-
-  assert positions == tuple(sorted(positions))
-  assert all(_occurrence_count(connected, line) == 1 for line in lines)
-
-
 def test_phase144_6_r5_43_1_pi6_connected_contributions_precede_owner_conclusion():
   base, connected, arguments, ordered = _pi6_connected()
   argument_index, rows = next(

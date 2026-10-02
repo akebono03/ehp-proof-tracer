@@ -498,38 +498,6 @@ def test_phase72_probe_output_contains_corrected_provenance(
   )
 
 
-def test_phase72_probe_output_contains_retirement_audit(
-  capsys,
-):
-  main()
-
-  output = (
-    capsys
-    .readouterr()
-    .out
-  )
-
-  assert (
-    "legacy Phase 72 core step absent = True"
-    in output
-  )
-
-  assert (
-    "legacy Phase 72 indeterminacy step absent = True"
-    in output
-  )
-
-  assert (
-    "legacy Phase 72 image step absent = True"
-    in output
-  )
-
-  assert (
-    "Phase 71 n=6 Delta injectivity absent = True"
-    in output
-  )
-
-
 def test_phase72_probe_output_contains_boundary(
   capsys,
 ):

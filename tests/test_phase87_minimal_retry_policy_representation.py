@@ -307,38 +307,6 @@ def test_phase87_2_second_candidate_is_applicable():
   )
 
 
-def test_phase87_2_current_search_still_stops_at_ambiguity():
-  data = build_phase87_2_data()
-
-  report = build_depth_two_producer_search_report(
-    data[
-      "repository"
-    ],
-    data[
-      "catalog"
-    ],
-    data[
-      "goal"
-    ],
-  )
-
-  assert report.status is (
-    BoundedProducerSearchStatus
-    .AMBIGUOUS_PRODUCER
-  )
-  assert report.search_result is None
-  assert report.diagnostic is not None
-
-  assert report.diagnostic.producer_candidates == (
-    data[
-      "first_producer_rule"
-    ],
-    data[
-      "second_producer_rule"
-    ],
-  )
-
-
 def test_phase87_2_fixture_and_search_do_not_mutate_repository():
   data = build_phase87_2_data()
 

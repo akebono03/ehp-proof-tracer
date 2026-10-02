@@ -58,8 +58,3 @@ def test_phase153_r7_repair_suppresses_prop56_siblings_without_independent_root_
     assert forbidden not in body
 
 
-def test_phase153_r7_repair_keeps_reference_use_and_final_group():
-  body = _pi6_2_body()
-
-  assert "[R2]" in body
-  assert r"\pi_{6}^{2}" in body

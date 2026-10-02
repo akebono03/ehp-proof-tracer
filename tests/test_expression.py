@@ -92,19 +92,6 @@ def test_phase22_2_generator_symbol_same_family_and_index_are_equal():
   assert left == right
 
 
-def test_phase22_2_generator_symbol_different_family_is_not_equal():
-  eta_3 = GeneratorSymbol(
-    family="η",
-    index=3,
-  )
-  mu_3 = GeneratorSymbol(
-    family="μ",
-    index=3,
-  )
-
-  assert eta_3 != mu_3
-
-
 def test_phase22_2_generator_symbol_different_index_is_not_equal():
   eta_3 = GeneratorSymbol(
     family="η",
@@ -3021,30 +3008,6 @@ def test_phase31_2_smash_product_is_distinct_from_sum():
   )
 
   assert smash != sum_expression
-
-
-def test_phase31_2_smash_product_is_distinct_from_composition():
-  a = HomotopyElement(
-    name="a",
-    dimension=3,
-  )
-
-  b = HomotopyElement(
-    name="b",
-    dimension=4,
-  )
-
-  smash = SmashProduct(
-    left=a,
-    right=b,
-  )
-
-  composition = Composition(
-    left=a,
-    right=b,
-  )
-
-  assert smash != composition
 
 
 def test_phase31_3_smash_product_can_be_suspended():

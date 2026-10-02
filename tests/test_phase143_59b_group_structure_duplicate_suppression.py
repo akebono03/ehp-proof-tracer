@@ -86,35 +86,6 @@ def test_phase143_59b_pi15_8_finds_redundant_direct_premise():
   ) in redundant_ids
 
 
-def test_phase143_59b_pi15_8_keeps_transported_semantic_decomposition():
-  rendered = _render(
-    8,
-    7,
-  )
-
-  assert (
-    r"$\pi_{15}^{8} \cong "
-    r"\mathbb{Z}/8\{E\sigma'\} "
-    r"\oplus \mathbb{Z}\{\sigma_{8}\}$"
-    in rendered
-  )
-
-
-def test_phase143_59b_pi15_8_keeps_final_group_conclusion():
-  rendered = _render(
-    8,
-    7,
-  )
-
-  assert (
-    "以上より、\n\n"
-    r"$\pi_{15}^{8} = "
-    r"\mathbb{Z}\{\sigma_{8}\} "
-    r"\oplus \mathbb{Z}/8\{E\sigma'\}$"
-    in rendered
-  )
-
-
 def test_phase143_59b_pi15_8_keeps_supporting_short_exact_sequence():
   rendered = _render(
     8,
@@ -140,7 +111,7 @@ def test_phase143_59b_pi6_3_narrative_remains_available():
     r"$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$"
     in rendered
   )
-  assert "(1) と (2) より、" in rendered
+  assert "(1) と (2) より, " in rendered
 
 
 def test_phase143_59b_pi8_5_narrative_remains_available():

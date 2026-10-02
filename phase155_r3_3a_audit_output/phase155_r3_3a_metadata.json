@@ -1,0 +1,15 @@
+{
+  "phase": "155-R3-3A",
+  "git_head": "a0c16da9163df6a6f2be25e3de01fa7d88e191ae",
+  "verified_candidate_pairs": 332,
+  "removable_pairs": 164,
+  "connected_components": 64,
+  "unique_graph_tests": 227,
+  "unique_deletion_candidates": 161,
+  "cycle_components": 0,
+  "manual_review_components": 0,
+  "production_code_modified": false,
+  "existing_tests_modified": false,
+  "tests_deleted": 0,
+  "repository_wide_pytest_executed": false
+}

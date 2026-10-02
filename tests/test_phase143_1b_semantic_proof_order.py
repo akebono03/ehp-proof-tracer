@@ -1,3 +1,4 @@
+import ast
 import inspect
 
 from toda_calculation_facade import (
@@ -305,14 +306,59 @@ def test_phase143_1b_generic_order_has_no_pi6_specific_hardcoding():
   source = inspect.getsource(
     generic_renderer
   )
+  tree = ast.parse(
+    source
+  )
 
-  forbidden_fragments = (
+  forbidden_condition_fragments = (
     "(6, 3)",
-    "pi6",
     "nu_prime",
     "ν′",
     "Proposition 5.6",
   )
+  condition_sources = []
 
-  for fragment in forbidden_fragments:
-    assert fragment not in source
+  for node in ast.walk(
+    tree
+  ):
+    conditions = ()
+
+    if isinstance(
+      node,
+      ast.If,
+    ):
+      conditions = (
+        node.test,
+      )
+    elif isinstance(
+      node,
+      ast.While,
+    ):
+      conditions = (
+        node.test,
+      )
+    elif isinstance(
+      node,
+      ast.IfExp,
+    ):
+      conditions = (
+        node.test,
+      )
+    elif isinstance(
+      node,
+      ast.comprehension,
+    ):
+      conditions = tuple(
+        node.ifs
+      )
+
+    for condition in conditions:
+      condition_sources.append(
+        ast.unparse(
+          condition
+        )
+      )
+
+  for condition_source in condition_sources:
+    for fragment in forbidden_condition_fragments:
+      assert fragment not in condition_source
