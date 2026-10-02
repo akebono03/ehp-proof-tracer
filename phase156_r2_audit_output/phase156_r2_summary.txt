@@ -1,0 +1,35 @@
+==============================================================================
+Phase156-R2 — consumer usage relevance audit
+==============================================================================
+production changes: none
+scope: n=2..15, k=0..7, depth=2
+
+groups: 112
+exceptions: 0
+R1 duplicate population reproduced: 117
+R1 reference_side_overfull population: 103
+
+Consumer usage classification:
+  boundary_direct_consumer: occurrences=18, affected_groups=7
+  internal_consumer_only: occurrences=85, affected_groups=16
+  no_consumer: occurrences=0, affected_groups=0
+  aggregate_component_only: occurrences=0, affected_groups=0
+
+Interpretation:
+  boundary_direct_consumer: the statement directly crosses the Reference boundary and is structurally relevant.
+  internal_consumer_only: the statement is used only inside the same Reference ancestry; R3 must decide whether it belongs in the public Reference summary.
+  no_consumer: the statement has no outgoing proof edge and is a strong candidate for Reference-side suppression.
+  aggregate_component_only: only one component of an aggregate Reference source is consumed; keep the component rather than the whole aggregate statement.
+
+R2 boundary:
+  No Reference selection/rendering/suppression behavior is changed in R2.
+  R3 is the first step allowed to turn these observations into a minimal-display rule.
+
+Output files:
+  phase156_r2_consumer_usage_classification.csv
+  phase156_r2_group_summary.csv
+  phase156_r2_classification_summary.csv
+  phase156_r2_exceptions.csv
+  phase156_r2_result.json
+  phase156_r2_summary.txt
+==============================================================================

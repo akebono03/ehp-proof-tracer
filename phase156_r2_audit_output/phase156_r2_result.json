@@ -1,0 +1,29 @@
+{
+  "phase": "Phase156-R2",
+  "scope": {
+    "n": "2..15",
+    "k": "0..7",
+    "depth": 2,
+    "expected_groups": 112
+  },
+  "production_changes": false,
+  "groups_seen": 112,
+  "exceptions": 0,
+  "duplicate_population": 117,
+  "expected_duplicate_population": 117,
+  "r1_overfull_population": 103,
+  "expected_r1_overfull_population": 103,
+  "classification_counts": {
+    "internal_consumer_only": 85,
+    "boundary_direct_consumer": 18
+  },
+  "classification_affected_groups": {
+    "boundary_direct_consumer": 7,
+    "internal_consumer_only": 16,
+    "no_consumer": 0,
+    "aggregate_component_only": 0
+  },
+  "classification_partition_complete": true,
+  "r2_boundary": "R2 audits consumer usage only. It does not change Reference statement selection, rendering, body suppression, or proof data.",
+  "phase156_r3_boundary": "R3 may convert the observed consumer classes into the minimal Reference statement selection rule."
+}
