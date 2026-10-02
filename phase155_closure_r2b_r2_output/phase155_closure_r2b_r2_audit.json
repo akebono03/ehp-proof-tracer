@@ -1,0 +1,116 @@
+{
+  "reviewed_nodeids": 9,
+  "repository_tests_executed": 0,
+  "repository_files_changed": 0,
+  "deletions_performed": 0,
+  "classification_counts": {
+    "FULLY_COVERED": 6,
+    "UNIQUE_CURRENT_INVARIANT": 1,
+    "OBSOLETE_HISTORICAL": 2
+  },
+  "next_action_counts": {
+    "DELETE_CANDIDATE": 8,
+    "KEEP_OR_LIGHTWEIGHT_REPLACE": 1
+  },
+  "rows": [
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py::test_phase144_6_r5_43_11_all_sixteen_transport_chains_are_connected",
+      "file": "tests/test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py",
+      "function": "test_phase144_6_r5_43_11_all_sixteen_transport_chains_are_connected",
+      "classification": "FULLY_COVERED",
+      "current_coverage": [
+        "test_phase144_6_r5_43_11d_preserves_all_sixteen_transport_connectors"
+      ],
+      "rationale": "The final completion audit directly checks sixteen transport connectors. Source assert count: 1.",
+      "next_action": "DELETE_CANDIDATE"
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py::test_phase144_6_r5_43_11_has_no_contribution_duplicates_or_order_violations",
+      "file": "tests/test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py",
+      "function": "test_phase144_6_r5_43_11_has_no_contribution_duplicates_or_order_violations",
+      "classification": "UNIQUE_CURRENT_INVARIANT",
+      "current_coverage": [],
+      "rationale": "audit_phase144_6_r5_43_11d.completion_invariants_pass does not check duplicate_violations or order_violations. This assertion protects current narrative ordering/uniqueness behavior not present in the final completion invariant. Source assert count: 1.",
+      "next_action": "KEEP_OR_LIGHTWEIGHT_REPLACE"
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py::test_phase144_6_r5_43_11_renderer_has_no_rule_name_or_pi6_specific_branch",
+      "file": "tests/test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py",
+      "function": "test_phase144_6_r5_43_11_renderer_has_no_rule_name_or_pi6_specific_branch",
+      "classification": "FULLY_COVERED",
+      "current_coverage": [
+        "test_phase144_6_r5_43_11d_renderer_remains_generic",
+        "test_phase144_6_r5_43_10_renderer_does_not_read_inference_rule_names",
+        "test_phase144_6_r5_43_10_has_no_pi6_specific_branch"
+      ],
+      "rationale": "The final genericity test plus the production transport tests cover the rule-name and target-specific branch prohibitions. Source assert count: 6.",
+      "next_action": "DELETE_CANDIDATE"
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_6.py::test_phase144_6_r5_43_6_pi6_contains_expected_transport_and_integration_candidates",
+      "file": "tests/test_phase144_6_r5_43_6.py",
+      "function": "test_phase144_6_r5_43_6_pi6_contains_expected_transport_and_integration_candidates",
+      "classification": "FULLY_COVERED",
+      "current_coverage": [
+        "test_phase144_6_r5_43_7_r5_43_6_population_has_two_semantic_roles",
+        "test_phase144_6_r5_43_10_transport_semantics_have_reference_metadata"
+      ],
+      "rationale": "The later semantic-role foundation proves the population has transport/integration roles, and production transport tests consume the transport semantics. The earlier candidate-classification count is no longer the current contract. Source assert count: 1.",
+      "next_action": "DELETE_CANDIDATE"
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_8.py::test_phase144_6_r5_43_8_finds_sixteen_three_step_transport_chains",
+      "file": "tests/test_phase144_6_r5_43_8.py",
+      "function": "test_phase144_6_r5_43_8_finds_sixteen_three_step_transport_chains",
+      "classification": "FULLY_COVERED",
+      "current_coverage": [
+        "test_phase144_6_r5_43_7_r5_43_6_population_has_two_semantic_roles",
+        "test_phase144_6_r5_43_10_each_transport_triplet_has_one_suspension_stabilization",
+        "test_phase144_6_r5_43_10_all_sixteen_uniform_chains_receive_compression_connector",
+        "test_phase144_6_r5_43_11d_preserves_all_sixteen_transport_connectors"
+      ],
+      "rationale": "The later tests establish 48 transport semantics, group them as triplets, and verify sixteen production/final transport connectors. Source assert count: 2.",
+      "next_action": "DELETE_CANDIDATE"
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_8.py::test_phase144_6_r5_43_8_has_one_hidden_signature_sequence",
+      "file": "tests/test_phase144_6_r5_43_8.py",
+      "function": "test_phase144_6_r5_43_8_has_one_hidden_signature_sequence",
+      "classification": "OBSOLETE_HISTORICAL",
+      "current_coverage": [],
+      "rationale": "A single historical rule/signature sequence was an implementation observation used while designing compression. Current production contracts are semantic-role and connector based, not rule-signature identity based. Source assert count: 2.",
+      "next_action": "DELETE_CANDIDATE"
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_8.py::test_phase144_6_r5_43_8_reports_all_forty_eight_transport_occurrences",
+      "file": "tests/test_phase144_6_r5_43_8.py",
+      "function": "test_phase144_6_r5_43_8_reports_all_forty_eight_transport_occurrences",
+      "classification": "FULLY_COVERED",
+      "current_coverage": [
+        "test_phase144_6_r5_43_7_r5_43_6_population_has_two_semantic_roles"
+      ],
+      "rationale": "The later semantic population test explicitly checks 48 TRANSPORT and 16 INTEGRATION_PROVENANCE occurrences. Source assert count: 1.",
+      "next_action": "DELETE_CANDIDATE"
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_9.py::test_phase144_6_r5_43_9_all_chains_observe_same_operation_kind",
+      "file": "tests/test_phase144_6_r5_43_9.py",
+      "function": "test_phase144_6_r5_43_9_all_chains_observe_same_operation_kind",
+      "classification": "FULLY_COVERED",
+      "current_coverage": [
+        "test_phase144_6_r5_43_10_each_transport_triplet_has_one_suspension_stabilization"
+      ],
+      "rationale": "The selected production compression contract checks suspension stabilization at the semantic layer. Source assert count: 1.",
+      "next_action": "DELETE_CANDIDATE"
+    },
+    {
+      "nodeid": "tests/test_phase144_6_r5_43_9.py::test_phase144_6_r5_43_9_all_three_candidate_prose_levels_are_supported_by_observed_data",
+      "file": "tests/test_phase144_6_r5_43_9.py",
+      "function": "test_phase144_6_r5_43_9_all_three_candidate_prose_levels_are_supported_by_observed_data",
+      "classification": "OBSOLETE_HISTORICAL",
+      "current_coverage": [],
+      "rationale": "This compares three design candidates from an exploration phase. Production later selected one connector contract, so candidate-prose support is historical design evidence, not current behavior. Source assert count: 1.",
+      "next_action": "DELETE_CANDIDATE"
+    }
+  ]
+}
