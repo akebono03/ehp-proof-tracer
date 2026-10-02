@@ -1,0 +1,2 @@
+﻿file,in_r1,in_r2,on_disk,explanation
+tests/test_phase50_pi4_3_dependency_compatibility.py,False,False,True,Present on disk but absent from the R1 inventory; inspect R1 collection logic.

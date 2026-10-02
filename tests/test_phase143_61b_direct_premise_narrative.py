@@ -164,7 +164,7 @@ def test_phase143_61b_pi16_9_final_conclusion_remains():
   )
 
   assert (
-    "以上より、\n\n"
+    "以上より, \n\n"
     r"$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$"
     in rendered
   )

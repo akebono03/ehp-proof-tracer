@@ -51,7 +51,7 @@ def test_phase143_61b_r_keeps_pi15_8_final_conclusion():
   )
 
   assert (
-    "以上より、\n\n"
+    "以上より, \n\n"
     r"$\pi_{15}^{8} = "
     r"\mathbb{Z}\{\sigma_{8}\} "
     r"\oplus \mathbb{Z}/8\{E\sigma'\}$"
@@ -70,7 +70,7 @@ def test_phase143_61b_r_keeps_pi8_5_relocated_direct_premise():
     "\n\n"
     r"$\operatorname{ord}\left(E^{2}\nu'\right) = 4$"
     "\n\n"
-    "以上より、"
+    "以上より, "
     "\n\n"
     r"$\operatorname{ord}\left(\nu_{5}\right) = 8$"
     in rendered
@@ -83,10 +83,10 @@ def test_phase143_61b_r_keeps_pi6_3_local_connector():
     3,
   )
 
-  assert "(1) と (2) より、" in rendered
-  assert "(4) と (5) より、" in rendered
+  assert "(1) と (2) より, " in rendered
+  assert "(4) と (5) より, " in rendered
   assert (
-    "以上より、\n\n"
+    "以上より, \n\n"
     r"$\operatorname{ord}\left(\nu'\right) = 4$"
     in rendered
   )

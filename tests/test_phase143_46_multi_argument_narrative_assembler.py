@@ -75,19 +75,19 @@ def test_phase143_46_pi8_5_excludes_detached_nu_prime_order_argument():
   )
 
   assert (
-    "まず、$\\nu_{5}$ を定める."
+    "まず, $\\nu_{5}$ を定める."
     in rendered
   )
   assert (
-    "次に、$\\nu_{5}$ の位数を決定する."
+    "次に, $\\nu_{5}$ の位数を決定する."
     in rendered
   )
   assert (
-    "最後に、$\\pi_{8}^{5}$ の群構造を決定する."
+    "最後に, $\\pi_{8}^{5}$ の群構造を決定する."
     in rendered
   )
   assert (
-    "$\\nu'$ の位数を決定するために、"
+    "$\\nu'$ の位数を決定するために, "
     "次の完全列を考える."
     not in rendered
   )

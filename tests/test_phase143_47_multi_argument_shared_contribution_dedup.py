@@ -120,11 +120,11 @@ def test_phase143_47_pi16_9_suppresses_shared_definition_evidence():
     in rendered
   )
   assert (
-    "次に、$\\sigma_{9}$ を定める."
+    "次に, $\\sigma_{9}$ を定める."
     in rendered
   )
   assert (
-    "最後に、$\\pi_{16}^{9}$ の群構造を決定する."
+    "最後に, $\\pi_{16}^{9}$ の群構造を決定する."
     in rendered
   )
 

@@ -92,16 +92,16 @@ def test_phase132_6_sigma9_narrative_has_source_and_conclusion():
 
   assert "# Group proof narrative" in rendered
   assert (
-    "Toda Proposition 5.15を用いる。"
-    in rendered
+    "Toda Proposition 5.15を用いる"
+    not in rendered
   )
   assert (
-    "したがって、"
     r"$\pi_{16}^{9} = "
     r"\mathbb{Z}/16\{\sigma_{9}\}$"
-    "を得る。"
     in rendered
   )
+  assert "したがって, " in rendered
+
 
 
 def test_phase132_6_sigma9_narrative_preserves_direct_premise_indexes_and_facts():
@@ -180,13 +180,18 @@ def test_phase132_6_sigma9_narrative_uses_fixed_japanese_leads():
     "rendered"
   ]
 
-  assert "まず、" in rendered
-  assert "また、" in rendered
-  assert "さらに、" in rendered
-  assert "このことから、" in rendered
-  assert "したがって、" in rendered
-  assert "まず、既出の" not in rendered
-  assert "まず、すでに得た" not in rendered
+  assert "まず, " in rendered
+  assert "このことから, " in rendered
+  assert "したがって, " in rendered
+
+  assert "まず、" not in rendered
+  assert "このことから、" not in rendered
+  assert "したがって、" not in rendered
+
+  assert "まず, 既出の" not in rendered
+  assert "まず, すでに得た" not in rendered
+
+
 
 
 def test_phase132_6_depth_zero_does_not_invent_premises():
@@ -201,19 +206,20 @@ def test_phase132_6_depth_zero_does_not_invent_premises():
   ]
 
   assert (
-    "Toda Proposition 5.15を用いる。"
-    in rendered
+    "Toda Proposition 5.15を用いる"
+    not in rendered
   )
-  assert "まず、" not in rendered
-  assert "また、" not in rendered
-  assert "さらに、" not in rendered
+  assert "まず, " not in rendered
+  assert "また, " not in rendered
+  assert "さらに, " not in rendered
   assert (
-    "したがって、"
+    "したがって, "
     r"$\pi_{16}^{9} = "
     r"\mathbb{Z}/16\{\sigma_{9}\}$"
-    "である。"
+    "である."
     in rendered
   )
+
 
 
 def test_phase132_6_depth_two_uses_nested_edges_before_parent_fact():

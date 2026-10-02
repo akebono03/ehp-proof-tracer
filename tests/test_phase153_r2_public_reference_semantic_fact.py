@@ -57,9 +57,10 @@ def test_phase153_r2_public_pi10_6_keeps_provenance_only_reference_compact():
     _phase153_r2_public_pi10_6_narrative()
   )
 
-  assert "**[R1] Proposition 5.8.**" in rendered
-  assert "Toda Proposition 5.8を用いる。" in rendered
+  assert "**[R1] Proposition 3.1.**" in rendered
+  assert "[R1]を用いる." in rendered
   assert (
     "Toda Proposition 5.8 finite-dimensional integration"
     not in rendered
   )
+

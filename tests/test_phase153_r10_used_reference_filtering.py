@@ -172,8 +172,8 @@ def test_phase153_r10_pi6_2_body_uses_renumbered_references():
     1,
   )[1]
 
-  assert "[R1]を用いる。" in body
-  assert "[R2]を用いる。" in body
+  assert "[R1]を用いる." in body
+  assert "[R2]を用いる." in body
   assert "[R3]" not in body
   assert "[R4]" not in body
 

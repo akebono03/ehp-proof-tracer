@@ -52,7 +52,7 @@ def test_phase150_rc4_7d_hidden_map_reason_uses_visible_downstream_anchor():
     is not None
   )
   assert (
-    "この完全性、既知の群構造、および写像の像に関する"
+    "この完全性, 既知の群構造, および写像の像に関する"
     "結果を合わせると"
     in markdown
   )
@@ -72,7 +72,7 @@ def test_phase150_rc4_7d_visible_final_reason_is_preserved():
   assert conclusion_line
   assert conclusion_line in markdown
   assert (
-    "以上で得た群構造、生成元、および写像に関する結果を"
-    "合わせると、"
+    "以上で得た群構造, 生成元, および写像に関する結果を"
+    "合わせると, "
     in markdown
   )

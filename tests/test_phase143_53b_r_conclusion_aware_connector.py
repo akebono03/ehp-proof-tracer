@@ -37,13 +37,13 @@ def test_phase143_53b_r_pi6_3_connector_precedes_order_conclusion():
   )
 
   assert (
-    "以上より、\n\n"
+    "以上より, \n\n"
     r"$\operatorname{ord}\left(\nu'\right) = 4$"
     in rendered
   )
   assert (
     r"$\operatorname{ord}\left(\nu'\right) = 4$"
-    "\n\n以上より、\n\n"
+    "\n\n以上より, \n\n"
     r"$\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$"
     not in rendered
   )
@@ -56,13 +56,13 @@ def test_phase143_53b_r_pi8_5_connector_precedes_order_conclusion():
   )
 
   assert (
-    "以上より、\n\n"
+    "以上より, \n\n"
     r"$\operatorname{ord}\left(\nu_{5}\right) = 8$"
     in rendered
   )
   assert (
     r"$\operatorname{ord}\left(\nu_{5}\right) = 8$"
-    "\n\n以上より、\n\n"
+    "\n\n以上より, \n\n"
     r"$\operatorname{ord}\left(E^{2}\nu'\right) = 4$"
     not in rendered
   )
@@ -75,7 +75,7 @@ def test_phase143_53b_r_pi15_8_connector_still_precedes_target():
   )
 
   assert (
-    "以上より、\n\n"
+    "以上より, \n\n"
     r"$\pi_{15}^{8} = "
     r"\mathbb{Z}\{\sigma_{8}\} "
     r"\oplus \mathbb{Z}/8\{E\sigma'\}$"
@@ -103,7 +103,7 @@ def test_phase143_53b_r_pi16_9_connector_still_precedes_target():
   )
 
   assert (
-    "以上より、\n\n"
+    "以上より, \n\n"
     r"$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$"
     in rendered
   )

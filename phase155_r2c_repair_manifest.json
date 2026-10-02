@@ -1,0 +1,109 @@
+{
+  "phase": "155-R2C",
+  "production_code_modified": false,
+  "existing_tests_modified": true,
+  "target_confirmed_stale_tests": 45,
+  "special_replacements": 8,
+  "punctuation_only_repairs": 37,
+  "changed_files": {
+    "tests/test_phase132_6_group_proof_narrative_renderer.py": [
+      "test_phase132_6_sigma9_narrative_has_source_and_conclusion",
+      "test_phase132_6_sigma9_narrative_uses_fixed_japanese_leads",
+      "test_phase132_6_depth_zero_does_not_invent_premises"
+    ],
+    "tests/test_phase143_42_argument_body_contribution_renderer.py": [
+      "test_phase143_42_pi6_3_group_keeps_derived_short_exact_sequence"
+    ],
+    "tests/test_phase143_46_multi_argument_narrative_assembler.py": [
+      "test_phase143_46_pi8_5_excludes_detached_nu_prime_order_argument"
+    ],
+    "tests/test_phase143_47_multi_argument_shared_contribution_dedup.py": [
+      "test_phase143_47_pi16_9_suppresses_shared_definition_evidence"
+    ],
+    "tests/test_phase143_53b_r_conclusion_aware_connector.py": [
+      "test_phase143_53b_r_pi6_3_connector_precedes_order_conclusion",
+      "test_phase143_53b_r_pi8_5_connector_precedes_order_conclusion",
+      "test_phase143_53b_r_pi15_8_connector_still_precedes_target",
+      "test_phase143_53b_r_pi16_9_connector_still_precedes_target"
+    ],
+    "tests/test_phase143_53b_transition_connectors.py": [
+      "test_phase143_53b_pi6_3_derivation_connects_order_and_target",
+      "test_phase143_53b_pi15_8_aggregate_derivation_connects_target",
+      "test_phase143_53b_pi16_9_derivation_connects_target"
+    ],
+    "tests/test_phase143_55b_conclusion_step_ordering.py": [
+      "test_phase143_55b_pi6_3_connector_immediately_precedes_main_order",
+      "test_phase143_55b_pi8_5_connector_immediately_precedes_main_order",
+      "test_phase143_55b_pi15_8_target_connector_remains_correct",
+      "test_phase143_55b_pi16_9_target_connector_remains_correct"
+    ],
+    "tests/test_phase143_59b_group_structure_duplicate_suppression.py": [
+      "test_phase143_59b_pi15_8_keeps_final_group_conclusion",
+      "test_phase143_59b_pi6_3_narrative_remains_available"
+    ],
+    "tests/test_phase143_61b_direct_premise_narrative.py": [
+      "test_phase143_61b_pi16_9_final_conclusion_remains"
+    ],
+    "tests/test_phase143_61b_r_semantic_suppression_priority.py": [
+      "test_phase143_61b_r_keeps_pi15_8_final_conclusion",
+      "test_phase143_61b_r_keeps_pi8_5_relocated_direct_premise",
+      "test_phase143_61b_r_keeps_pi6_3_local_connector"
+    ],
+    "tests/test_phase143_63a_r_exactness_repair.py": [
+      "test_phase143_63a_r_pi8_5_direct_premise_placement_remains"
+    ],
+    "tests/test_phase143_63a_residual_fallback_provenance.py": [
+      "test_phase143_63a_pi8_5_direct_premise_placement_remains"
+    ],
+    "tests/test_phase144_5_generic_definition_order_equations.py": [
+      "test_phase144_5_r2_numbers_only_calculation_chain_equations",
+      "test_phase144_5_r2_pi6_3_keeps_definition_and_order_purposes",
+      "test_phase144_5_r2_pi6_3_uses_actual_equation_references"
+    ],
+    "tests/test_phase144_6_pi6_generic_production_route.py": [
+      "test_phase144_6_public_pi6_3_narrative_equals_generic_argument_renderer",
+      "test_phase144_6_cli_pi6_3_narrative_uses_generic_route"
+    ],
+    "tests/test_phase144_6_r25_9a_pi5_suppression.py": [
+      "test_phase144_6_r25_9a_pi5_3_is_hidden_without_losing_transitions"
+    ],
+    "tests/test_phase144_6_r25_9a_r1_relocation_hidden.py": [
+      "test_phase144_6_r25_9a_r1_hidden_support_is_not_reintroduced"
+    ],
+    "tests/test_phase144_6_r4_supporting_fact_filtering.py": [
+      "test_phase144_6_r4_preserves_argument_frontier_and_transition_chains"
+    ],
+    "tests/test_phase146_7_generic_argument_purpose_prose.py": [
+      "test_phase146_7_order_exactness_combines_purpose_and_method"
+    ],
+    "tests/test_phase148_rc2_4_post_repair_six_group.py": [
+      "test_phase148_rc2_4_post_repair_pi6_3_retains_numbered_calculation_chain"
+    ],
+    "tests/test_phase148_rc2_4_repair_r4_2_calculation_premise_semantic_closure.py": [
+      "test_phase148_rc2_4_repair_r4_2_depth2_public_renderer_restores_numbered_chain",
+      "test_phase148_rc2_4_repair_r4_2_web_depth2_restores_numbered_chain_without_raw_exactness"
+    ],
+    "tests/test_phase150_rc4_7b_production_repair.py": [
+      "test_phase150_rc4_7b_target_support_gets_conclusion_connector"
+    ],
+    "tests/test_phase150_rc4_7d_reason_hidden_conclusion_anchor.py": [
+      "test_phase150_rc4_7d_hidden_map_reason_uses_visible_downstream_anchor",
+      "test_phase150_rc4_7d_visible_final_reason_is_preserved"
+    ],
+    "tests/test_phase153_r10_used_reference_filtering.py": [
+      "test_phase153_r10_pi6_2_body_uses_renumbered_references"
+    ],
+    "tests/test_phase153_r12_root_reference_exclusion.py": [
+      "test_phase153_r12_pi11_4_body_uses_renumbered_external_references"
+    ],
+    "tests/test_phase153_r2_public_reference_semantic_fact.py": [
+      "test_phase153_r2_public_pi10_6_keeps_provenance_only_reference_compact"
+    ],
+    "tests/test_phase153_r3_5_reference_body_duplicate_suppression.py": [
+      "test_phase153_r3_5_compacts_reference_marker_sentence"
+    ],
+    "tests/test_phase153_r9_reference_reuse_derivation_suppression.py": [
+      "test_phase153_r9_pi6_2_reuses_selected_references_without_rederiving_ancestry"
+    ]
+  }
+}

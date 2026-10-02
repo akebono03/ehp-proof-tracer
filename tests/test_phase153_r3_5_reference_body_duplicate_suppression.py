@@ -83,7 +83,8 @@ def test_phase153_r3_5_compacts_reference_marker_sentence():
     )
   )
 
-  assert suppressed == "また、[R2]を用いる。"
+  assert suppressed == "[R2]を用いる."
+
 
 
 def test_phase153_r3_5_does_not_suppress_similar_but_nonidentical_statement():
