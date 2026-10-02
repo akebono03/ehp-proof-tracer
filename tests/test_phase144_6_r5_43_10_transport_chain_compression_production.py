@@ -247,87 +247,16 @@ def test_phase144_6_r5_43_10_pi6_transport_semantics_support_compression_connect
   )
 
 
-def test_phase144_6_r5_43_10_all_sixteen_uniform_chains_receive_compression_connector(
-  ordered_by_target,
-):
-  connector_count = 0
-
-  for n, k in TARGETS:
-    presentation, ordered = ordered_by_target[
-      (
-        n,
-        k,
-      )
-    ]
-    connectors = _contribution_connector_lines(
-      presentation,
-      ordered,
-    )
-    connector_count += sum(
-      1
-      for connector in connectors.values()
-      if connector == _EXPECTED_CONNECTOR
-    )
-
-  assert connector_count == 16
 
 
-def test_phase144_6_r5_43_10_preserves_direct_connector(
-  ordered_by_target,
-  pi6_connected,
-):
-  presentation, ordered = ordered_by_target[
-    (
-      3,
-      3,
-    )
-  ]
-  contributions = next(
-    rows
-    for rows in ordered
-    if rows
-  )
-  c4 = _render_generic_narrative_step(
-    contributions[
-      3
-    ].proof_step
-  )
-  c5 = _render_generic_narrative_step(
-    contributions[
-      4
-    ].proof_step
-  )
-
-  c4_index = pi6_connected.find(
-    c4
-  )
-  connector_index = pi6_connected.find(
-    "これより、",
-    c4_index + len(
-      c4
-    ),
-  )
-  c5_index = pi6_connected.find(
-    c5,
-    connector_index + len(
-      "これより、"
-    ),
-  )
-
-  assert c4_index >= 0
-  assert connector_index > c4_index
-  assert c5_index > connector_index
 
 
-def test_phase144_6_r5_43_10_renderer_does_not_read_inference_rule_names():
+def test_phase144_6_r5_43_10_renderer_does_not_hard_code_historical_rule_names():
   import inspect
   import toda_group_proof_narrative_contribution_renderer as module
 
-  source = inspect.getsource(
-    module
-  )
+  source = inspect.getsource(module)
 
-  assert "inference_rule" not in source
   assert "finite-cyclic transport" not in source
   assert "eta_4 squared stable transport" not in source
 

@@ -1,0 +1,49 @@
+....F................................................................... [  8%]
+........................................................................ [ 16%]
+........................................................................ [ 25%]
+.......F................................................................ [ 33%]
+........................................................................ [ 41%]
+........................................................................ [ 50%]
+........................................................................ [ 58%]
+........................................................................ [ 66%]
+........................................................................ [ 75%]
+........................................................................ [ 83%]
+........................................................................ [ 91%]
+........................................................................ [100%]
+================================== FAILURES ===================================
+__ test_phase144_6_r5_43_pi6_contributions_enter_generic_narrative_in_order ___
+tests\test_phase144_6_r5_43_generic_renderer_contribution_connection.py:70: in test_phase144_6_r5_43_pi6_contributions_enter_generic_narrative_in_order
+    assert positions == tuple(sorted(positions))
+E   assert (621, 132, 28...32, 987, 1037) == (132, 132, 28...21, 987, 1037)
+E     
+E     At index 0 diff: 621 != 132
+E     Use -v to get more diff
+___ test_phase153_r3_4_public_pi10_6_reference_section_excludes_obsolete_45 ___
+tests\test_phase153_r3_4_reference_statement_rendering_connection.py:156: in test_phase153_r3_4_public_pi10_6_reference_section_excludes_obsolete_45
+    assert "**[R1] Proposition 5.8.**" in reference_section
+E   AssertionError: assert '**[R1] Proposition 5.8.**' in '# Group proof narrative\n\n## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 3.1.**\n$\\nu_{6}\\eta_{9} = 0$\n**[R2] ...}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ が成り立つ.\n\n'
+============================ slowest 20 durations =============================
+57.01s call     tests/test_phase144_6_r5_43_9.py::test_phase144_6_r5_43_9_covers_all_sixteen_transport_chains
+56.25s call     tests/test_phase144_6_r5_43_r2_recursive_repr_repair.py::test_phase144_6_r5_43_r2_six_group_population_remains_190
+55.36s call     tests/test_phase144_6_r5_43_9.py::test_phase144_6_r5_43_9_all_chains_observe_same_reference_identity
+15.99s call     tests/test_phase153_r3_9_remaining_reference_renderer_coverage.py::test_phase153_r3_9_all_remaining_unresolved_reference_types_render_semantically
+15.73s call     tests/test_phase153_r3_6_unresolved_reference_statement_rendering.py::test_phase153_r3_6_all_previously_unresolved_reference_types_render_semantically
+11.52s call     tests/test_phase150_rc4_7a_cross_group_reference_normalization.py::test_phase150_rc4_7a_pi16_9_numbers_normalized_references
+8.70s call     tests/test_phase150_rc4_7a_cross_group_reference_normalization.py::test_phase150_rc4_7a_pi12_5_numbers_normalized_references
+3.24s call     tests/test_phase150_rc4_7a_cross_group_reference_normalization.py::test_phase150_rc4_7a_pi10_4_numbers_normalized_references
+1.61s call     tests/test_phase148_rc2_4_cross_group_audit.py::test_phase148_rc2_4_no_sample_has_ambiguous_relevant_component
+1.30s call     tests/test_phase150_rc4_5_visible_reasons.py::test_phase150_rc4_5_does_not_invent_untyped_reason_prose
+1.25s call     tests/test_phase154_r2_internal_prose_fallback_leakage.py::test_phase154_r2_representative_public_narratives_have_no_known_raw_fallbacks
+1.22s call     tests/test_phase154_r6_2_ascii_comma_normalization.py::test_phase154_r6_2_representative_narratives_have_no_japanese_comma_prose
+1.20s call     tests/test_phase154_r6_1_repair3_ascii_period_policy.py::test_phase154_r6_1_repair3_representative_narratives_have_no_japanese_full_stop_endings
+1.18s call     tests/test_phase154_r6_2_repair2_equation_numbering.py::test_phase154_r6_2_repair2_representatives_have_no_japanese_punctuation
+1.12s call     tests/test_phase150_rc4_5b_3_reference_binding.py::test_phase150_rc4_5b_3_other_groups_do_not_invent_reference_application
+1.10s call     tests/test_phase148_rc2_4_post_repair_six_group.py::test_phase148_rc2_4_post_repair_closure_does_not_restore_complete_replay[pi_15^8-8-7]
+0.87s call     tests/test_phase148_rc2_4_post_repair_six_group.py::test_phase148_rc2_4_post_repair_closure_does_not_restore_complete_replay[pi_16^9-9-7]
+0.85s call     tests/test_phase148_rc2_4_post_repair_six_group.py::test_phase148_rc2_4_post_repair_calculation_closure_adds_no_exactness_steps[pi_16^9-9-7]
+0.84s call     tests/test_phase150_rc4_7a_cross_group_reference_normalization.py::test_phase150_rc4_7a_pi15_8_special_renderer_is_unchanged
+0.83s call     tests/test_phase150_rc4_7d_3_public_narrative_generic_route.py::test_phase150_rc4_7d_3_pi16_public_and_web_use_generic_reason_route
+=========================== short test summary info ===========================
+FAILED tests/test_phase144_6_r5_43_generic_renderer_contribution_connection.py::test_phase144_6_r5_43_pi6_contributions_enter_generic_narrative_in_order
+FAILED tests/test_phase153_r3_4_reference_statement_rendering_connection.py::test_phase153_r3_4_public_pi10_6_reference_section_excludes_obsolete_45
+2 failed, 862 passed, 9533 deselected in 308.59s (0:05:08)

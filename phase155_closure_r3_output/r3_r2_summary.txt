@@ -1,0 +1,15 @@
+Phase 155 Closure-R3-R2
+
+Original PASS shards preserved: 1, 2, 6, 7
+Repair job 1: FAIL (70.02s)
+Repair job 2: PASS (202.61s)
+Repair job 3: PASS (557.34s)
+Repair job 4: PASS (268.24s)
+Repair job 5: PASS (130.36s)
+Repair job 6: PASS (185.5s)
+Repair job 7: PASS (306.59s)
+Repair job 8: PASS (35.36s)
+
+Audit-only tests executed: 0
+Monolithic repository-wide pytest: NOT run
+Closure-R3 routine result: INCOMPLETE

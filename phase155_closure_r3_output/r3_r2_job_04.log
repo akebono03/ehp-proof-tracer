@@ -1,0 +1,19 @@
+......................                                                   [100%]
+============================ slowest 20 durations =============================
+57.64s setup    tests/test_phase144_6_r5_42_generic_narrative_contribution_production_foundation.py::test_phase144_6_r5_42_reproduces_phase40_selected_population
+54.27s call     tests/test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py::test_phase144_6_r5_43_11_covers_six_representative_groups_and_190_contributions
+27.88s call     tests/test_phase144_6_r5_43_11a_insertion_failure_classification_audit.py::test_phase144_6_r5_43_11a_classifies_all_190_selected_contributions
+27.18s call     tests/test_phase144_6_r5_43_11b_detached_argument_boundary_audit.py::test_phase144_6_r5_43_11b_reproduces_190_selected_and_13_insertable
+27.15s call     tests/test_phase144_6_r5_43_11a_insertion_failure_classification_audit.py::test_phase144_6_r5_43_11a_every_populated_argument_has_a_classification
+27.10s call     tests/test_phase144_6_r5_43_11a_insertion_failure_classification_audit.py::test_phase144_6_r5_43_11a_reproduces_13_insertable_and_177_non_insertable
+26.59s call     tests/test_phase144_6_r5_43_11b_detached_argument_boundary_audit.py::test_phase144_6_r5_43_11b_classifies_every_non_insertable_populated_argument_by_discourse_role
+4.42s setup    tests/test_phase144_6_r5_43_10_transport_chain_compression_production.py::test_phase144_6_r5_43_10_transport_semantics_have_reference_metadata
+0.30s call     tests/test_phase144_6_r5_43_1.py::test_phase144_6_r5_43_1_pi6_connected_output_adds_exactly_five_contributions
+0.29s call     tests/test_phase144_6_r5_43_1.py::test_phase144_6_r5_43_1_pi6_connected_contributions_precede_owner_conclusion
+0.17s call     tests/test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py::test_phase144_6_r5_43_11_has_no_contribution_duplicates_or_order_violations
+0.09s call     tests/test_phase144_6_r5_43_10_transport_chain_compression_production.py::test_phase144_6_r5_43_10_pi6_transport_semantics_support_compression_connector
+0.06s call     tests/test_phase144_6_r5_42_generic_narrative_contribution_production_foundation.py::test_phase144_6_r5_42_every_argument_order_respects_proof_graph
+0.01s call     tests/test_phase144_6_r5_42_generic_narrative_contribution_production_foundation.py::test_phase144_6_r5_42_nonunique_phase41_arguments_are_deterministic
+
+(6 durations < 0.005s hidden.  Use -vv to show these durations.)
+22 passed, 10366 deselected in 265.11s (0:04:25)

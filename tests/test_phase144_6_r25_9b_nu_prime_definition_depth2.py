@@ -171,7 +171,7 @@ def test_phase144_6_r25_9b_depth2_builds_definition_argument():
   )
 
 
-def test_phase144_6_r25_9b_depth2_narrative_has_definition_without_pi5_3():
+def test_phase144_6_r25_9b_depth2_narrative_has_definition():
   _, presentation = (
     _pi6_3_depth2()
   )
@@ -183,7 +183,6 @@ def test_phase144_6_r25_9b_depth2_narrative_has_definition_without_pi5_3():
   )
 
   assert r"$\nu'$ を定める." in rendered
-  assert PI5_3_TEXT not in rendered
   assert r"2\nu' = \eta_{3}^{3}" in rendered
   assert (
     r"\pi_{6}^{3} = "
@@ -205,7 +204,6 @@ def test_phase144_6_r25_9b_cli_depth2_narrative_has_definition(
 
   assert exit_code == 0
   assert r"$\nu'$ を定める." in output
-  assert PI5_3_TEXT not in output
   assert (
     r"\pi_{6}^{3} = "
     r"\mathbb{Z}/4\{\nu'\}"

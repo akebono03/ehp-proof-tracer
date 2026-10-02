@@ -1,0 +1,12 @@
+............                                                             [100%]
+============================ slowest 20 durations =============================
+56.05s call     tests/test_phase144_6_r5_43_6.py::test_phase144_6_r5_43_6_inventory_covers_only_representative_groups
+55.01s call     tests/test_phase144_6_r5_43_6.py::test_phase144_6_r5_43_6_hidden_bridge_rows_have_classification_inputs
+53.83s call     tests/test_phase144_6_r5_43_8.py::test_phase144_6_r5_43_8_every_hidden_step_uses_production_transport_role
+4.61s call     tests/test_phase144_6_r5_43_7_hidden_bridge_semantic_classification_foundation.py::test_phase144_6_r5_43_7_builder_returns_deterministic_presentation_order
+1.21s setup    tests/test_phase144_6_r5_43_4_dependency_aware_contribution_connector.py::test_phase144_6_r5_43_4_transitive_c1_c2_c3_do_not_get_false_direct_connectors
+0.39s call     tests/test_phase144_6_r5_43_5.py::test_phase144_6_r5_43_5_each_segment_has_a_reachable_target
+0.33s call     tests/test_phase144_6_r5_43_5.py::test_phase144_6_r5_43_5_records_all_shortest_path_steps
+
+(13 durations < 0.005s hidden.  Use -vv to show these durations.)
+12 passed, 10376 deselected in 183.22s (0:03:03)

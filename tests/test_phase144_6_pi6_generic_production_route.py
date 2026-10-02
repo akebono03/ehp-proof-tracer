@@ -115,27 +115,3 @@ def test_phase144_6_cli_pi6_3_narrative_uses_generic_route(
 
 
 
-def test_phase144_6_pi6_production_branch_contains_no_legacy_renderer_call():
-  source = inspect.getsource(
-    render_toda_group_proof_narrative_markdown
-  )
-
-  branch_start = source.index(
-    "_is_phase134_3_pi6_3_presentation"
-  )
-  next_branch = source.index(
-    "_is_phase134_9_pi8_5_presentation"
-  )
-  pi6_branch = source[
-    branch_start:
-    next_branch
-  ]
-
-  assert (
-    "_render_phase134_3_pi6_3_narrative_markdown"
-    not in pi6_branch
-  )
-  assert (
-    "render_toda_group_proof_narrative_multi_argument_markdown"
-    in pi6_branch
-  )

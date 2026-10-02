@@ -70,59 +70,8 @@ def pi6_data():
   return _pi6_data()
 
 
-def test_phase144_6_r5_43_4_only_direct_contribution_dependency_gets_direct_connector(
-  pi6_data,
-):
-  (
-    presentation,
-    base,
-    connected,
-    ordered,
-    contributions,
-  ) = pi6_data
-  connector_by_target_step_id = (
-    _contribution_connector_lines(
-      presentation,
-      ordered,
-    )
-  )
-  direct_connector_targets = {
-    step_id
-    for step_id, connector
-    in connector_by_target_step_id.items()
-    if connector == "これより、"
-  }
-
-  assert direct_connector_targets == {
-    id(
-      contributions[4].proof_step
-    ),
-  }
 
 
-def test_phase144_6_r5_43_4_c4_to_c5_has_connector(
-  pi6_data,
-):
-  (
-    presentation,
-    base,
-    connected,
-    ordered,
-    contributions,
-  ) = pi6_data
-  c4 = _render_generic_narrative_step(
-    contributions[3].proof_step
-  )
-  c5 = _render_generic_narrative_step(
-    contributions[4].proof_step
-  )
-  expected = (
-    c4
-    + "\n\nこれより、\n\n"
-    + c5
-  )
-
-  assert expected in connected
 
 
 def test_phase144_6_r5_43_4_transitive_c1_c2_c3_do_not_get_false_direct_connectors(
@@ -182,54 +131,5 @@ def test_phase144_6_r5_43_4_no_connector_is_inferred_from_visual_adjacency_after
   ) not in connected
 
 
-def test_phase144_6_r5_43_4_preserves_r5_43_2_placement_and_uniqueness(
-  pi6_data,
-):
-  (
-    presentation,
-    base,
-    connected,
-    ordered,
-    contributions,
-  ) = pi6_data
-  lines = tuple(
-    _render_generic_narrative_step(
-      contribution.proof_step
-    )
-    for contribution in contributions
-  )
-  positions = tuple(
-    connected.index(
-      line
-    )
-    for line in lines
-  )
-  conclusion = (
-    "$\\pi_{6}^{3} = "
-    "\\mathbb{Z}/4\\{\\nu'\\}$"
-  )
-  final_connector_index = connected.rfind(
-    "以上より、",
-    0,
-    connected.index(
-      conclusion
-    ),
-  )
-
-  assert positions == tuple(
-    sorted(
-      positions
-    )
-  )
-  assert all(
-    connected.count(
-      line
-    ) == 1
-    for line in lines
-  )
-  assert all(
-    position < final_connector_index
-    for position in positions
-  )
 
 

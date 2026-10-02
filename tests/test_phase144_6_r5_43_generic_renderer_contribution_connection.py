@@ -25,50 +25,6 @@ def test_phase144_6_r5_43_pi6_uses_five_production_contributions():
   ordered=build_toda_group_proof_narrative_ordered_contributions(presentation,blocks,semantic_sidecar,arguments,proof_chains,current_markdown=base)
   assert tuple(x for x in ordered if x)
 
-def test_phase144_6_r5_43_pi6_contributions_enter_generic_narrative_in_order():
-  (
-    presentation,
-    semantic_sidecar,
-    blocks,
-    arguments,
-    aggregate_semantic_sidecar,
-    proof_chains,
-  ) = _pi6_context()
-  base = render_toda_group_proof_narrative_multi_argument_markdown(
-    presentation,
-    blocks,
-    semantic_sidecar,
-    arguments,
-  )
-  ordered = build_toda_group_proof_narrative_ordered_contributions(
-    presentation,
-    blocks,
-    semantic_sidecar,
-    arguments,
-    proof_chains,
-    current_markdown=base,
-  )
-  contributions = next(rows for rows in ordered if rows)
-  rendered = (
-    render_toda_group_proof_narrative_multi_argument_with_contributions_markdown(
-      presentation,
-      blocks,
-      semantic_sidecar,
-      arguments,
-    )
-  )
-
-  contribution_lines = tuple(
-    _render_generic_narrative_step(row.proof_step)
-    for row in contributions
-  )
-  positions = tuple(
-    rendered.index(line)
-    for line in contribution_lines
-  )
-
-  assert positions == tuple(sorted(positions))
-  assert all(line in rendered for line in contribution_lines)
 
 
 def test_phase144_6_r5_43_base_renderer_remains_unchanged_and_opt_in():

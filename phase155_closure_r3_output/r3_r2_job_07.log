@@ -1,0 +1,34 @@
+........................................................................ [  8%]
+........................................................................ [ 16%]
+........................................................................ [ 25%]
+........................................................................ [ 33%]
+........................................................................ [ 41%]
+........................................................................ [ 50%]
+........................................................................ [ 58%]
+........................................................................ [ 66%]
+........................................................................ [ 75%]
+........................................................................ [ 83%]
+........................................................................ [ 91%]
+.......................................................................  [100%]
+============================ slowest 20 durations =============================
+57.50s call     tests/test_phase144_6_r5_43_r2_recursive_repr_repair.py::test_phase144_6_r5_43_r2_six_group_population_remains_190
+55.98s call     tests/test_phase144_6_r5_43_9.py::test_phase144_6_r5_43_9_all_chains_observe_same_reference_identity
+55.38s call     tests/test_phase144_6_r5_43_9.py::test_phase144_6_r5_43_9_covers_all_sixteen_transport_chains
+15.47s call     tests/test_phase153_r3_9_remaining_reference_renderer_coverage.py::test_phase153_r3_9_all_remaining_unresolved_reference_types_render_semantically
+15.11s call     tests/test_phase153_r3_6_unresolved_reference_statement_rendering.py::test_phase153_r3_6_all_previously_unresolved_reference_types_render_semantically
+11.21s call     tests/test_phase150_rc4_7a_cross_group_reference_normalization.py::test_phase150_rc4_7a_pi16_9_numbers_normalized_references
+8.19s call     tests/test_phase150_rc4_7a_cross_group_reference_normalization.py::test_phase150_rc4_7a_pi12_5_numbers_normalized_references
+2.91s call     tests/test_phase150_rc4_7a_cross_group_reference_normalization.py::test_phase150_rc4_7a_pi10_4_numbers_normalized_references
+1.47s call     tests/test_phase148_rc2_4_cross_group_audit.py::test_phase148_rc2_4_no_sample_has_ambiguous_relevant_component
+1.35s call     tests/test_phase154_r6_2_repair2_equation_numbering.py::test_phase154_r6_2_repair2_representatives_have_no_japanese_punctuation
+1.33s call     tests/test_phase154_r2_internal_prose_fallback_leakage.py::test_phase154_r2_representative_public_narratives_have_no_known_raw_fallbacks
+1.26s call     tests/test_phase150_rc4_5_visible_reasons.py::test_phase150_rc4_5_does_not_invent_untyped_reason_prose
+1.21s call     tests/test_phase150_rc4_5b_3_reference_binding.py::test_phase150_rc4_5b_3_other_groups_do_not_invent_reference_application
+1.21s call     tests/test_phase154_r6_1_repair3_ascii_period_policy.py::test_phase154_r6_1_repair3_representative_narratives_have_no_japanese_full_stop_endings
+1.18s call     tests/test_phase154_r6_2_ascii_comma_normalization.py::test_phase154_r6_2_representative_narratives_have_no_japanese_comma_prose
+0.99s call     tests/test_phase148_rc2_4_post_repair_six_group.py::test_phase148_rc2_4_post_repair_calculation_closure_adds_no_exactness_steps[pi_12^5-5-7]
+0.86s call     tests/test_phase150_rc4_7a_cross_group_reference_normalization.py::test_phase150_rc4_7a_pi15_8_special_renderer_is_unchanged
+0.82s call     tests/test_phase148_rc2_4_post_repair_six_group.py::test_phase148_rc2_4_post_repair_web_narrative_has_no_visible_raw_exactness_proof_steps[pi_16^9-9-7]
+0.82s call     tests/test_phase148_rc2_4_post_repair_six_group.py::test_phase148_rc2_4_post_repair_has_no_ambiguous_relevant_exposure[pi_16^9-9-7]
+0.79s call     tests/test_phase150_rc4_7d_3_public_narrative_generic_route.py::test_phase150_rc4_7d_3_pi16_public_and_web_use_generic_reason_route
+863 passed, 9525 deselected in 304.02s (0:05:04)
