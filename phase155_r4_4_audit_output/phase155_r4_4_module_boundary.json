@@ -1,0 +1,19 @@
+{
+  "root_production_modules": 200,
+  "direct_or_global_owned_modules": 191,
+  "indirect_only_modules": 4,
+  "unowned_after_transitive": 5,
+  "indirect_only_module_names": [
+    "repository_foundational_group_specialization",
+    "repository_sigma11_suspension_specialization",
+    "toda_group_proof_aggregate_statement_renderer",
+    "toda_group_result_proof_replay_renderer"
+  ],
+  "unowned_after_transitive_names": [
+    "algebra_phase2",
+    "find_mixed_groups",
+    "fix_phase94_2_line_endings",
+    "repair_phase115_4_encoding",
+    "repair_phase115_4_tests_ascii"
+  ]
+}

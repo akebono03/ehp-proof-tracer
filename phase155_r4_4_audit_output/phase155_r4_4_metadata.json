@@ -1,0 +1,42 @@
+{
+  "source_test_functions": 10122,
+  "module_global_promotions": 1,
+  "residual_validation_lane": 750,
+  "canonical_source_test_ids": 9069,
+  "canonical_files": 768,
+  "category_counts": {
+    "canonical_candidate": 1620,
+    "residual_validation_lane": 750,
+    "canonical_internal_contract_candidate": 7241,
+    "canonical_public_surface_candidate": 207,
+    "historical_compatibility": 52,
+    "audit_only_candidate": 222,
+    "performance_heavy_integration_candidate": 29,
+    "canonical_module_global_contract_candidate": 1
+  },
+  "module_boundary": {
+    "root_production_modules": 200,
+    "direct_or_global_owned_modules": 191,
+    "indirect_only_modules": 4,
+    "unowned_after_transitive": 5,
+    "indirect_only_module_names": [
+      "repository_foundational_group_specialization",
+      "repository_sigma11_suspension_specialization",
+      "toda_group_proof_aggregate_statement_renderer",
+      "toda_group_result_proof_replay_renderer"
+    ],
+    "unowned_after_transitive_names": [
+      "algebra_phase2",
+      "find_mixed_groups",
+      "fix_phase94_2_line_endings",
+      "repair_phase115_4_encoding",
+      "repair_phase115_4_tests_ascii"
+    ]
+  },
+  "canonical_command": "powershell -ExecutionPolicy Bypass -File .\\phase155_r4_4_audit_output\\run_phase155_canonical_regression.ps1",
+  "canonical_collect_only_command": "python .\\phase155_r4_4_audit_output\\run_phase155_canonical_regression.py --collect-only",
+  "production_changes": false,
+  "existing_test_changes": false,
+  "repository_wide_pytest_executed": false,
+  "canonical_regression_executed": false
+}
